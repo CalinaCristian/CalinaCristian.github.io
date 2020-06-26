@@ -1,0 +1,50 @@
+@font-face {
+    font-family: 'RalewayExtraLight';
+    src: url('public/fonts/Raleway-ExtraLight.ttf') format('ttf'),
+    url('public/fonts/Raleway-ExtraLight.ttf') format('truetype');
+}
+body {
+    font-family: 'RalewayExtraLight', 'Helvetica Neue', 'Arial', sans-serif;
+    text-align: center;
+    margin: 20px;
+}
+#nav {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+}
+#chapter {
+    display: flex;
+    flex-direction: column;
+    margin: 25px;
+    align-items: center;
+}
+#content {
+    text-align: left;
+    margin-top: 25px;
+    line-height: 1.5em;
+}
+#references {
+    margin-top: 25px;
+    color: dodgerblue;
+}
+#back {
+    margin-top: 25px;
+    cursor: pointer;
+}
+#nav > div {
+    cursor: pointer;
+}
+
+#nav.hide {
+    display: none;
+}
+
+#chapter.hide {
+    display: none;
+}
+
+.hide {
+    display: none;
+}

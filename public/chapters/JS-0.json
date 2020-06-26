@@ -1,0 +1,37 @@
+{
+    "title": "Part 1 -> Intro",
+    "description": "About JavaScript and where to place it in HTML",
+    "content": [
+      "JavaScript este un limbaj interpretat, dynamically typed (nu este specificat tipul variabilelor).\n",
+      "Codul de javascript este pus in general in fisierul de HTML, intre tag-urile <script> si </script>.",
+      "Acestea pot fi plasate in tag-ul de <head> sau in tag-ul de <body> al HTML-ului. ",
+      "Acest script poate fi un fisier extern, caz in care trebuie sa specifici src-ul in tag-ul",
+      "de script, sau direct cod js intre cele 2 tag-uri <script> si </script>.\n",
+      "!! Cand DOM-ul este construit prin parsarea fisierului de HTML, orice tag de script va bloca",
+      "!! parsarea HTML-ului pana la executarea script-ului (una din justificarile acestui comportament",
+      "!! ar fi faptul ca in JS poti manipula documentul).",
+      "!! Daca este un script extern, va astepta inclusiv descarcarea acestuia.\n",
+      "Daca tag-ul de <script> se pune in HEAD, acesta va fi incarcat inainte ca pagina sa fie afisata",
+      " (va bloca parsarea HTML-ului pentru constructia DOM-ului). Daca se pune la sfarsitul <body>-ului,",
+      "acesta se va incarca in timp ce se afiseaza pagina, iar DOM-ul fiind deja construit, nu va mai fi ",
+      "blocata afisarea paginii.\n",
+      "Cel mai recomandat este ca aceste tag-uri de script sa se puna in <head> pentru a incepe",
+      "descarcarea lor cat mai curand, si acestora sa li se ataseze proprietatea de async sau defer.\n",
+      "async -> nu blocheaza browser-ul in timpul descarcarii si este executat imediat ce este descarcat.",
+      "Fiind async, mai multe script-uri amplasate unul dupa celalalt se pot executa unul inaintea celuilalt",
+      "intr-o ordine aleatoare.",
+      "Browser-ul va randa continut in timp ce script-ul se descarca si executa. Parsarea HTML-ului",
+      "va fi blocata doar dupa ce descarcarea a fost finalizata, pentru a putea executa script-ul.\n",
+      "defer -> daca se da aceasta proprietate, script-urile sunt executate in ordinea in care sunt puse,",
+      "fara a bloca browser-ul din a randa continutul. Acestea sunt executate dupa ce s-a incarcat tot",
+      "continutul HTML-ului. Descarcarea, la fel ca la async, se face fara blocarea parsarii.\n",
+      "Inainte de aceste 2 proprietati pe care le puteai atasa tag-urilor de <script>, best practice-ul",
+      "era sa se puna tag-urile la sfarsitul <body>-ului pentru a avea tot document-ul incarcat inainte",
+      "de a se descarca script-urile (astfel incat sa nu fie blocat browser-ul pana se descarcau acestea).",
+      "Din pacate, aceasta solutie este un pic mai lenta, asteptand ca tot DOM-ul sa fie incarcat pentru",
+      "a incepe descarcarea script-urilor."
+    ],
+    "references": {
+      "AsyncAndDefer": "https://bitsofco.de/async-vs-defer/"
+    }
+}

@@ -1,0 +1,267 @@
+@font-face {
+    font-family: 'RalewayExtraLight';
+    src: url('public/fonts/Raleway-ExtraLight.ttf') format('ttf'),
+        url('public/fonts/Raleway-ExtraLight.ttf') format('truetype');
+}
+
+html {
+    height: 100%;
+    width: 100%;
+    padding: env(safe-area-inset);
+}
+
+body {
+    font-family: 'RalewayExtraLight', 'Helvetica Neue', 'Arial', sans-serif;
+    background: url("./public/background.jpg");
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: env(safe-area-inset);
+    box-sizing: border-box;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    max-width: 1000px;
+    border-radius: 25px;
+    background-color: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    transition: transform 0.7s ease-out;
+}
+
+.scale-hide {
+    transform: scale(0);
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    padding: 0 20px;
+}
+
+.section.social {
+    margin-bottom: 0;
+}
+
+.section.title {
+    margin-top: 30vmin;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar {
+    border-radius: 100%;
+    transition: transform 0.7s ease-out, width 0.7s ease-out, top 0.7s ease-out;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    object-fit: contain;
+    width: 60vmin;
+    max-width: 400px;
+    z-index: 1;
+}
+
+.avatar img {
+    display: block;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+    border-radius: 100%;
+    width: 100%;
+}
+
+.avatar.selected {
+    width: 30vmin;
+    top: 15vmin;
+}
+
+.social-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    z-index: 1;
+}
+
+.social-links a {
+    margin-right: 25px;
+}
+
+.social-links a img {
+    transition: transform 0.7s ease-out;
+    display: block;
+    width: 20px;
+}
+
+.social-links a img.medium {
+    border-radius: 10px;
+}
+
+.cv-viewer {
+    margin: 10px 0 0 10px;
+}
+
+.cv-viewer img {
+    transition: transform 0.7s ease-out;
+    display: block;
+    width: 20px;
+}
+
+.social-links a img:hover,
+.cv-viewer img:hover {
+    transform: scale(1.3);
+}
+
+.footer {
+    color: white;
+    opacity: 1;
+    width: 100%;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    transition: opacity 0.7s;
+}
+
+.footer h4 {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+@keyframes fadeIn {
+    0% {
+        transform: scale(1.0);
+    }
+
+    100% {
+        transform: scale(1.1);
+    }
+}
+
+.footer .info {
+    font-size: 0.8rem;
+    animation: fadeIn 1s infinite alternate;
+    transition: transform 0.7s;
+}
+
+.opacity-hide {
+    opacity: 0 !important;
+}
+
+.mt-10 {
+    margin: 10px 0 0 0;
+}
+
+.no-transition {
+    transition: none !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .content {
+        border-radius: 0;
+        font-size: 0.75rem;
+        height: 100%;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .content {
+        font-size: 0.8rem;
+        width: 90%;
+        height: 85%;
+    }
+
+    .avatar {
+        width: 50vmin;
+    }
+
+    .avatar.selected {
+        width: 20vmin;
+        top: 15vmin;
+    }
+
+    .section.title {
+        margin-top: 15vmin;
+    }
+
+    .social-links a img {
+        width: 32px;
+    }
+
+    .cv-viewer img {
+        width: 24px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .content {
+        width: 85%;
+        font-size: 0.85rem;
+    }
+
+    .avatar {
+        width: 40vmin;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .avatar:hover {
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    .content {
+        font-size: 0.9rem;
+        width: 65%;
+    }
+
+    .avatar {
+        width: 30vmin;
+    }
+
+    .avatar.selected {
+        width: 17vmin;
+        top: 9vmin;
+    }
+
+    .section.title {
+        margin-top: 8vmin;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .content {
+        font-size: 1rem;
+        width: 70%;
+    }
+
+    .social-links a img {
+        width: 40px;
+    }
+
+    .cv-viewer img {
+        width: 32px;
+    }
+
+    .avatar.selected {
+        width: 17vmin;
+        top: 9vmin;
+    }
+
+    .section.title {
+        margin-top: 9vmin;
+    }
+}

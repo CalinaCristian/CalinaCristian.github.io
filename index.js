@@ -2,6 +2,9 @@ window.__LAST_CLICKED_ON_AVATAR__ = null;
 window.__LAST_SCROLL_DIRECTION__ = 'up';
 
 window.addEventListener("wheel", (event) => {
+    if (document.querySelector('.content').scrollTop > 0) {
+        return;
+    }
     if (event.wheelDelta > 0 && window.__LAST_SCROLL_DIRECTION__ !== 'up') {
         handleImageClick();
     } else if (event.wheelDelta < 0 && window.__LAST_SCROLL_DIRECTION__ !== 'down') {

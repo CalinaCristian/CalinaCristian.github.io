@@ -896,8 +896,8 @@ export async function buildWorld(city, renderer) {
     const pois = [];
     const poiGroup = new THREE.Group(); poiGroup.name = 'pois'; group.add(poiGroup);
     const drivable = (e) => e.drivable && !/motorway|trunk_link/.test(e.type) && !e.tunnel && e.type !== 'service';
-    const kerbPoint = (x, z, re) => {
-        let ne = re ? nearestEdge(x, z, (e) => drivable(e) && re.test(e.name), 350) : null;
+    const kerbPoint = (x, z, re, radius = 350) => {
+        let ne = re ? nearestEdge(x, z, (e) => drivable(e) && re.test(e.name), radius) : null;
         if (!ne) ne = nearestEdge(x, z, drivable, 90);
         if (!ne) ne = nearestEdge(x, z, (e) => e.drivable && !e.virtual && !/motorway/.test(e.type) && !e.tunnel); // campus / access service roads
         const e = ne.edge;
@@ -929,7 +929,7 @@ export async function buildWorld(city, renderer) {
         if (!b && kind !== 'airport' && !inLandmark) { let bd = 45; bGrid.each(q.x - 45, q.z - 45, q.x + 45, q.z + 45, (o) => { if (o.skip || o.area < 150) return; const d = Math.hypot(o.c[0] - q.x, o.c[1] - q.z); if (d < bd) { bd = d; b = o; } }); }
         if (kind === 'airport' && !b && !inLandmark) { let bd = 160; bGrid.each(q.x - 160, q.z - 160, q.x + 160, q.z + 160, (o) => { if (o.skip || o.area < 2000) return; const d = Math.hypot(o.c[0] - q.x, o.c[1] - q.z); if (d < bd) { bd = d; b = o; } }); }
         const anchor = b ? { x: b.c[0], z: b.c[1] } : { x: q.x, z: q.z };
-        const door = kerbPoint(kind === 'airport' ? anchor.x : (anchor.x + q.x) / 2, kind === 'airport' ? anchor.z : (anchor.z + q.z) / 2, p.road);
+        const door = kerbPoint(kind === 'airport' ? anchor.x : (anchor.x + q.x) / 2, kind === 'airport' ? anchor.z : (anchor.z + q.z) / 2, p.road, p.roadRadius || 350);
         const stop = STOPS.find(s => s.poi === p.id);
         if (stop && !p.color) p.color = stop.color;
         const poi = { id: p.id, kind, label: p.label, brand: '', address: p.address || '', x: anchor.x, z: anchor.z, doorX: door.x, doorZ: door.z, color: p.color || null, icon: p.icon || null, visited: false, h: 20, w: 26, d: 22, cv: true, interactive: true };

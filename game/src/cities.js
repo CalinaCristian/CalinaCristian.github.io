@@ -44,7 +44,7 @@ export const ROAD_TYPES = {
 // CV stops (ids are referenced by data.js STOPS). `road` (optional) restricts the kerb snap to a street name.
 const BUC_POIS = [
     { id: 'rosetti', lat: 44.4565, lon: 26.1055, label: 'Liceul C.A. Rosetti', kind: 'school', address: 'Str. Giuseppe Garibaldi 11' },
-    { id: 'upb', lat: 44.4385, lon: 26.0505, label: 'Politehnica (UPB)', kind: 'school', address: 'Splaiul Independenței 313', road: /Splaiul Independenței/, size: [60, 22, 40] },
+    { id: 'upb', lat: 44.4366, lon: 26.0526, label: 'Politehnica (UPB)', kind: 'school', address: 'Splaiul Independenței 313 (Bd. Doina Cornea gate)', road: /Doina Cornea|Splaiul Independenței|Paul Teodorescu/, roadRadius: 250, size: [60, 22, 40] },
     { id: 'gts', lat: 44.4302, lon: 26.1178, label: 'GTS Global Intelligence', kind: 'office', address: 'Calea Călărașilor 101, lângă Hala Traian', road: /Călărașilor/, junction: [/Călărașilor/, /Traian/], size: [20, 18, 20] },
     { id: 'luxoft', lat: 44.4855, lon: 26.1165, label: 'Luxoft — Hermes Business Campus', kind: 'office', address: 'Bd. Dimitrie Pompeiu 5-7', road: /Pompeiu/, size: [36, 42, 26] },
     { id: 'db', lat: 44.4760, lon: 26.1030, label: 'Deutsche Bank — Floreasca Park', kind: 'office', address: 'Calea Floreasca 169A', road: /Floreasca/, size: [40, 48, 30] },
@@ -101,10 +101,10 @@ export const SEATTLE = {
     treeStreets: /Bellevue Way|NE 8th|Boylston|Lake Washington Boulevard/,
     traffic: { density: 0.35, chaos: 0.1, parkedChance: 0, trams: false, lightCycle: 14 },
     env: {
-        skyTop: '#4b5f7a', skyBottom: '#aeb9c6', sun: [-0.3, 0.5, 0.6], sunColor: '#cfd8e3', sunIntensity: 1.1,
-        hemiSky: '#9fb0c4', hemiGround: '#4f5a4a', fog: '#a9b5c2', fogNear: 150, fogFar: 1500,
+        skyTop: '#4b5f7a', skyBottom: '#aeb9c6', sun: [-0.3, 0.5, 0.6], sunColor: '#dde4ec', sunIntensity: 1.6,
+        hemiSky: '#b7c4d2', hemiGround: '#5c665a', fog: '#b3bec9', fogNear: 180, fogFar: 1600,
         ground: '#5b6b4e', asphalt: '#2f3136', sidewalk: '#8e918e', grass: '#4f7a3f', water: '#3b5f78',
-        rain: true, exposure: 0.95, clouds: 1.0,
+        rain: true, exposure: 1.12, clouds: 1.0,
     },
     bounds: { pad: 400 },
 };

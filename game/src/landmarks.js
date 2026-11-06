@@ -28,6 +28,9 @@ import * as THREE from '../vendor/three.module.min.js';
 //    footprints simplified with Douglas-Peucker and stored in P below, in model-frame metres).
 //  - Geometry is merged into one BufferGeometry per material (vertex colours), so every
 //    landmark costs 1-4 draw calls.
+//  - Facade detail comes from cheap Builder helpers (windows = 1 quad per window, cornice, pilasters,
+//    text = 5x7 block letters, fence) and storeys() for classical blocks; each builder cites its sources
+//    ("Src:" line + numbers in its comment). Dev viewer: game/dev/landmarks.html?id=<id>&view=street|top.
 // ============================================================================
 
 export const SEA_SCALE = 0.5;
@@ -295,6 +298,104 @@ class Builder {
         this.geo(new THREE.TubeGeometry(curve, o.seg || 16, r, o.radial || 6, !!o.closed), col, null, o.mat);
     }
 
+    // ---- facade detail helpers (all cheap: 2 tris per window / 6 per pilaster) ----
+    /**
+     * Window grid on every edge of polygon p (holes: o.inward). One quad per window, floors of height fh from
+     * y0 (+o.start) to y1, bays of ~o.bay metres. o.wf / o.hf = window width / height as a fraction of the bay
+     * / floor; o.minL skips short edges; o.skip(edge, bay, floor, nBays) -> true hides a window; o.arch adds a
+     * round-head triangle; o.edges limits to a list of edge indices.
+     */
+    windows(p, y0, y1, fh, col, o = {}) {
+        const s = (signedArea(p) > 0 ? 1 : -1) * (o.inward ? -1 : 1), mat = o.mat || 'm', off = o.off ?? 0.07;
+        const bay = o.bay ?? 3.6, wf = o.wf ?? 0.5, hf = o.hf ?? 0.55, start = o.start ?? fh * 0.25, nF = Math.max(0, Math.floor((y1 - y0 - start - fh * hf) / fh + 1 + 1e-6));
+        let n = 0;
+        for (let i = 0; i < p.length; i++) {
+            if (o.edges && !o.edges.includes(i)) continue;
+            const [ax, az] = p[i], [bx, bz] = p[(i + 1) % p.length], L = Math.hypot(bx - ax, bz - az);
+            if (L < (o.minL ?? bay * 0.9)) continue;
+            const k = Math.max(1, Math.round(L / bay)), dx = (bx - ax) / L, dz = (bz - az) / L, nx = s * dz, nz = -s * dx, hw = L / k * wf / 2;
+            const hint = [nx, 0, nz];
+            for (let j = 0; j < k; j++) {
+                const t = (j + 0.5) / k * L, cx = ax + dx * t + nx * off, cz = az + dz * t + nz * off;
+                const x0 = cx - dx * hw, z0 = cz - dz * hw, x1 = cx + dx * hw, z1 = cz + dz * hw;
+                for (let f = 0; f < nF; f++) {
+                    if (o.skip && o.skip(i, j, f, k)) continue;
+                    const ya = y0 + start + f * fh, yb = ya + fh * hf;
+                    this.quad([x0, ya, z0], [x1, ya, z1], [x1, yb, z1], [x0, yb, z0], col, mat, hint); n++;
+                    if (o.arch) {  // round head approximated by a trapezoid cap
+                        const ys = yb + hw * 0.72, k2 = 0.38;
+                        this.quad([x0, yb, z0], [x1, yb, z1], [x1 - dx * hw * k2, ys, z1 - dz * hw * k2], [x0 + dx * hw * k2, ys, z0 + dz * hw * k2], col, mat, hint);
+                    }
+                }
+            }
+        }
+        return n;
+    }
+    /** projecting cornice / string course: offset ring with top and bottom caps */
+    cornice(p, y, h, out, col, o = {}) {
+        const q = offset(p, out), holes = (o.holes || []).map(x => offset(x, -out));
+        this.ring(q, y, y + h, col); for (const hq of holes) this.ring(hq, y, y + h, col, { inward: true });
+        if (o.solid) { this.cap(q, y + h, o.topCol || col, holes, 1); this.cap(q, y, col, holes, -1); return; }
+        // thin lips only (cheap): top ring between the wall and the cornice edge
+        this.lip(p, q, y + h, o.topCol || col, 1); this.lip(p, q, y, col, -1);
+        for (let k = 0; k < holes.length; k++) { this.lip(o.holes[k], holes[k], y + h, o.topCol || col, 1); this.lip(o.holes[k], holes[k], y, col, -1); }
+    }
+    /** horizontal strip between two parallel rings (same vertex count) */
+    lip(a, b, y, col, up = 1) { for (let i = 0; i < a.length; i++) { const j = (i + 1) % a.length; this.quad([a[i][0], y, a[i][1]], [a[j][0], y, a[j][1]], [b[j][0], y, b[j][1]], [b[i][0], y, b[i][1]], col, 'm', [0, up, 0]); } }
+    /** pilasters (3-faced, 6 tris) at bay boundaries along each edge; o.every = keep every n-th, o.ends = corners only */
+    pilasters(p, y0, y1, pitch, w, d, col, o = {}) {
+        const s = (signedArea(p) > 0 ? 1 : -1) * (o.inward ? -1 : 1);
+        for (let i = 0; i < p.length; i++) {
+            if (o.edges && !o.edges.includes(i)) continue;
+            const [ax, az] = p[i], [bx, bz] = p[(i + 1) % p.length], L = Math.hypot(bx - ax, bz - az);
+            if (L < pitch * 0.9) continue;
+            const k = Math.max(1, Math.round(L / pitch)), dx = (bx - ax) / L, dz = (bz - az) / L, nx = s * dz, nz = -s * dx, ev = o.every || 1;
+            for (let j = o.ends ? 0 : (o.inner ? 1 : 0); j <= (o.inner ? k - 1 : k); j += (o.ends ? k : ev)) {
+                const t = Math.min(L - w / 2, Math.max(w / 2, j / k * L)), cx = ax + dx * t, cz = az + dz * t;
+                const A = [cx - dx * w / 2, cz - dz * w / 2], B = [cx + dx * w / 2, cz + dz * w / 2], A2 = [A[0] + nx * d, A[1] + nz * d], B2 = [B[0] + nx * d, B[1] + nz * d];
+                this.quad([A2[0], y0, A2[1]], [B2[0], y0, B2[1]], [B2[0], y1, B2[1]], [A2[0], y1, A2[1]], col, 'm', [nx, 0, nz]);
+                this.quad([A[0], y0, A[1]], [A2[0], y0, A2[1]], [A2[0], y1, A2[1]], [A[0], y1, A[1]], col, 'm', [-dx, 0, -dz]);
+                this.quad([B2[0], y0, B2[1]], [B[0], y0, B[1]], [B[0], y1, B[1]], [B2[0], y1, B2[1]], col, 'm', [dx, 0, dz]);
+            }
+        }
+    }
+    /**
+     * Block letters (5x7 pixel font, horizontal runs merged) on a vertical plane: text centred at (x, y..y+h, z),
+     * reading along local +x rotated by ry, facing local +z rotated by ry (i.e. a reader standing at +z).
+     */
+    text(str, x, y, z, ry, h, col, o = {}) {
+        const px = h / 7, adv = 6 * px, chars = [...str.toUpperCase().normalize('NFD').replace(/[̀-ͯ]/g, '')];
+        const W = chars.length * adv - px, c = Math.cos(ry), sn = Math.sin(ry), d = o.d ?? 0.08, mat = o.mat || 'm';
+        // o.flat: lay the text on a horizontal plane at height y (letters' up = local -z, readable from above / +z side)
+        const T = o.flat ? (lx, ly) => [x + lx * c - ly * sn, y + d, z - lx * sn - ly * c] : (lx, ly) => [x + lx * c + d * sn, y + ly, z - lx * sn + d * c];
+        const hint = o.flat ? [0, 1, 0] : [sn, 0, c];
+        chars.forEach((ch, ci) => {
+            const g = FONT[ch]; if (!g) return;
+            for (let r = 0; r < 7; r++) {
+                const row = g[r]; let k = 0;
+                while (k < 5) {
+                    if (row[k] !== '1') { k++; continue; }
+                    let e = k; while (e < 5 && row[e] === '1') e++;
+                    const lx0 = -W / 2 + ci * adv + k * px, lx1 = -W / 2 + ci * adv + e * px, ly1 = h - r * px - (o.flat ? h / 2 : 0), ly0 = ly1 - px;
+                    this.quad(T(lx0, ly0), T(lx1, ly0), T(lx1, ly1), T(lx0, ly1), col, mat, hint);
+                    k = e;
+                }
+            }
+        });
+        return W;
+    }
+    /** fence / railing along a polyline: posts every `pitch` m plus top and bottom rails */
+    fence(line, h, pitch, col, o = {}) {
+        for (let i = 0; i + 1 < line.length; i++) {
+            const [ax, az] = line[i], [bx, bz] = line[i + 1], L = Math.hypot(bx - ax, bz - az), ang = -Math.atan2(bz - az, bx - ax);
+            const n = Math.max(1, Math.round(L / pitch));
+            for (let j = 0; j <= n; j++) { const t = j / n; this.box(ax + (bx - ax) * t, 0, az + (bz - az) * t, o.post || 0.5, j % (o.big || 1e9) === 0 ? h * 1.15 : h, o.post || 0.5, o.postCol || col); }
+            this.box((ax + bx) / 2, h - 0.25, (az + bz) / 2, L, 0.12, 0.12, col, { ry: ang });
+            if (o.base) this.box((ax + bx) / 2, 0, (az + bz) / 2, L, o.base, 0.45, o.baseCol || col, { ry: ang });
+            if (o.bars) { const nb = Math.round(L / o.bars); for (let j = 1; j < nb; j++) { if (j % Math.round(pitch / o.bars) === 0) continue; const t = j / nb; this.quad([ax + (bx - ax) * t - 0.03, 0.4, az + (bz - az) * t], [ax + (bx - ax) * t + 0.03, 0.4, az + (bz - az) * t], [ax + (bx - ax) * t + 0.03, h - 0.2, az + (bz - az) * t], [ax + (bx - ax) * t - 0.03, h - 0.2, az + (bz - az) * t], col, 'm', [Math.sin(ang), 0, Math.cos(ang)]); } }
+        }
+    }
+
     // ---- collision (model frame, unscaled metres) ----
     col(x, z, hw, hd, angle = 0) { this.cols.push({ x, z, hw, hd, angle }); }
     colSeg(x0, z0, x1, z1, hw) { const dx = x1 - x0, dz = z1 - z0, L = Math.hypot(dx, dz); this.cols.push({ x: (x0 + x1) / 2, z: (z0 + z1) / 2, hw: L / 2, hd: hw, angle: -Math.atan2(dz, dx) }); }
@@ -347,6 +448,28 @@ class Builder {
 }
 const G = { box: new THREE.BoxGeometry(1, 1, 1) };
 
+// 5x7 pixel font for signage / inscriptions (Builder.text). Diacritics are folded to the base letter.
+const FONT = (() => {
+    const src = {
+        A: '01110 10001 10001 11111 10001 10001 10001', B: '11110 10001 10001 11110 10001 10001 11110', C: '01110 10001 10000 10000 10000 10001 01110',
+        D: '11100 10010 10001 10001 10001 10010 11100', E: '11111 10000 10000 11110 10000 10000 11111', F: '11111 10000 10000 11110 10000 10000 10000',
+        G: '01110 10001 10000 10111 10001 10001 01111', H: '10001 10001 10001 11111 10001 10001 10001', I: '01110 00100 00100 00100 00100 00100 01110',
+        J: '00111 00010 00010 00010 00010 10010 01100', K: '10001 10010 10100 11000 10100 10010 10001', L: '10000 10000 10000 10000 10000 10000 11111',
+        M: '10001 11011 10101 10101 10001 10001 10001', N: '10001 10001 11001 10101 10011 10001 10001', O: '01110 10001 10001 10001 10001 10001 01110',
+        P: '11110 10001 10001 11110 10000 10000 10000', Q: '01110 10001 10001 10001 10101 10010 01101', R: '11110 10001 10001 11110 10100 10010 10001',
+        S: '01111 10000 10000 01110 00001 00001 11110', T: '11111 00100 00100 00100 00100 00100 00100', U: '10001 10001 10001 10001 10001 10001 01110',
+        V: '10001 10001 10001 10001 10001 01010 00100', W: '10001 10001 10001 10101 10101 10101 01010', X: '10001 10001 01010 00100 01010 10001 10001',
+        Y: '10001 10001 01010 00100 00100 00100 00100', Z: '11111 00001 00010 00100 01000 10000 11111',
+        0: '01110 10001 10011 10101 11001 10001 01110', 1: '00100 01100 00100 00100 00100 00100 01110', 2: '01110 10001 00001 00010 00100 01000 11111',
+        3: '11111 00010 00100 00010 00001 10001 01110', 4: '00010 00110 01010 10010 11111 00010 00010', 5: '11111 10000 11110 00001 00001 10001 01110',
+        6: '00110 01000 10000 11110 10001 10001 01110', 7: '11111 00001 00010 00100 01000 01000 01000', 8: '01110 10001 10001 01110 10001 10001 01110',
+        9: '01110 10001 10001 01111 00001 00010 01100', '.': '00000 00000 00000 00000 00000 01100 01100', '-': '00000 00000 00000 01110 00000 00000 00000',
+        '&': '01100 10010 10100 01000 10101 10010 01101', "'": '00100 00100 01000 00000 00000 00000 00000', ' ': '00000 00000 00000 00000 00000 00000 00000',
+    };
+    const f = {}; for (const [k, v] of Object.entries(src)) f[k] = v.split(' '); return f;
+})();
+
+
 // ---------------------------------------------------------------------------
 //  Reusable pieces
 // ---------------------------------------------------------------------------
@@ -398,204 +521,444 @@ const C = {
 //  BUCHAREST (1:1)
 // ===========================================================================
 
-// Palatul Parlamentului — 270 m N-S x 240 m E-W, 86 m high, 12 storeys above ground (+8 below),
-// stepped tiers, central square crown, colonnaded north (Bd. Unirii) front, cream stone.
-// Footprint: OSM relation 2230391 (outer way 14325732 incl. corner wings, courtyards 167231786/178309073).
+/** Romanian tricolour (vertical blue-yellow-red) hanging from a mast top at (x, y, z), flag length L */
+function flag(b, x, y, z, L) { const h = L * 0.66, w = L / 3; ['#002b7f', '#fcd116', '#ce1126'].forEach((c, i) => b.box(x + w * (i + 0.5), y - h, z, w, h, 0.05, c)); }
+
+/**
+ * Classical block: walls of polygon p from y0 with a list of storeys [height, winWidthFrac, winHeightFrac, arched?],
+ * window grid per storey (outer edges only, holes get plain walls), optional string course every storey, a
+ * cornice on top and an optional balustrade/attic parapet. Returns the top height.
+ */
+function storeys(b, p, y0, spec, o = {}) {
+    const wall = o.wall || C.cream, win = o.win || C.winWarm, bay = o.bay || 4.2, holes = o.holes || [];
+    let y = y0;
+    const H = spec.reduce((a, s) => a + s[0], 0);
+    b.prism(p, y0, y0 + H, wall, { holes, topCol: o.roofCol || '#cbc5b8' });
+    spec.forEach(([h, wf, hf, arch], i) => {
+        if (wf > 0) b.windows(p, y, y + h, h, win, { bay, wf, hf, start: h * (1 - hf) * (o.sillFrac ?? 0.45), arch, minL: o.minL ?? bay * 1.5, skip: o.skip ? (e, j, f, k) => o.skip(e, j, i, k) : null, mat: o.winMat });
+        y += h;
+        if (o.courses && i < spec.length - 1 && (o.courses === true || o.courses.includes(i))) b.cornice(p, y - 0.25, 0.35, 0.22, o.trim || wall);
+    });
+    if (o.pilasters) b.pilasters(p, y0 + (o.pilasterFrom ?? 0), y, bay * (o.pilasterEvery || 1), o.pilasterW || 0.9, 0.35, o.trim || wall, { inner: false });
+    if (o.cornice !== false) b.cornice(p, y, o.corniceH || 1.1, o.corniceOut || 0.9, o.trim || wall, { holes });
+    if (o.parapet) { const q = offset(p, -0.3); b.ring(q, y + 1.1, y + 1.1 + o.parapet, o.trim || wall); y += o.parapet; }
+    return y + (o.corniceH || 1.1);
+}
+
+// Palatul Parlamentului (Anca Petrescu, 1984-97) — 240 m E-W x 270 m N-S, 84 m high (en.wikipedia
+// "Palace of the Parliament" infobox; skyscrapercenter.com/building/wd/10216), 12 storeys above ground.
+// Footprint OSM rel 2230391 (outer 14325732, courtyards 167231786/178309073); tier ring from OSM part 283976783
+// (58 m, x -82..82 / z -94..106, mirrored — the extract maps only half of it). Massing / facade read from the
+// Commons photos "Bucarest - Palau del Parlament.png" (north front) and "Bucharest - Palace of the Parliament (2024)":
+// 4-storey arcaded base with corner pavilions, 4-storey arched tier ring, 12-storey central block (≈72 x 104 m)
+// with flat roof + flag, north portico (4 pairs of giant columns, balcony), terraced lawns, forecourt wall (OSM 178305226).
+// Src: https://en.wikipedia.org/wiki/Palace_of_the_Parliament ; https://www.skyscrapercenter.com/building/wd/10216 ; OSM rel 2230391
 function bParliament(b) {
-    b.wall = C.cream;
+    const W = '#f1eadb', TR = '#e8dfcb', WIN = '#56606a', DK = '#3d454d';
+    b.wall = W;
     const [outer, cyN, cyS] = P.parliament.map(pts);
-    const holes = [cyN, cyS];
-    b.prism(offset(outer, 2.5), 0, 2.2, C.stoneDk);                       // terrace plinth
-    b.prism(outer, 2.2, 21, C.cream, { holes, topCol: C.stone });
-    b.bands(outer, 2.2, 21, 4.6, C.winWarm, { holes, frac: 0.5 });
-    const tiers = [[-83, -101, 85, 109, 21, 45, 4.8], [-74, -93, 76, 101, 45, 55, 5], [-63, -82, 65, 90, 55, 63, 4]];
-    for (const [x0, z0, x1, z1, y0, y1, fh] of tiers) {
+    const Y0 = 1.6;   // courtyards cyN / cyS sit inside the tier ring + central block, so they stay roofed over
+    void cyN; void cyS;
+    // terrace: stepped platform with balustrade around the building
+    b.prism(offset(outer, 7), 0, Y0, '#cfc6b3', { topCol: '#d8d0bf' });
+    b.ring(offset(outer, 6.6), Y0, Y0 + 1, TR);                                  // terrace balustrade
+    // base (ground arcade + 2 arched storeys + mezzanine + attic) ~ 27 m
+    const top0 = storeys(b, outer, Y0, [[7.5, 0.5, 0.72, true], [6.2, 0.45, 0.62, true], [5.2, 0.42, 0.55, false], [4.2, 0.34, 0.45, false]],
+        { wall: W, win: WIN, bay: 6.9, courses: [0, 2], trim: TR, pilasters: true, pilasterEvery: 2, pilasterW: 0.9, corniceOut: 1.2, parapet: 1.3 });
+    // corner pavilions of the base rise one storey more, with round-headed attic windows
+    const pav = [[-115, -137.5, -86, -106], [86, -137.5, 115, -106], [-115, 106, -84, 137.5], [86, 108, 115, 137.5]];
+    for (const [x0, z0, x1, z1] of pav) {
         const r = rect(x0, z0, x1, z1);
-        b.prism(r, y0, y1, C.cream, { holes, topCol: C.stone });
-        b.bands(r, y0, y1, fh, C.winWarm, { holes, frac: 0.5 });
-        b.box(0.5 * (x0 + x1), y1 - 0.2, 0.5 * (z0 + z1) - (z1 - z0) / 2 - 0.4, x1 - x0, 1.2, 1.6, C.stone); // cornice (front)
+        storeys(b, r, top0 - 0.8, [[5.5, 0.42, 0.6, true]], { wall: W, win: WIN, bay: 5.8, trim: TR, corniceOut: 0.8, parapet: 1.1, minL: 6 });
     }
-    // central block between the courtyards + crown
-    const cen = rect(-30, -22, 32, 23);
-    b.prism(cen, 63, 74, C.cream, { topCol: C.stone }); b.bands(cen, 63, 74, 3.8, C.winWarm, { frac: 0.5 });
-    const crown = rect(-21, -15, 23, 16);
-    b.prism(offset(crown, -3), 74, 80.5, C.cream2);
-    for (const [ax, az, bx, bz, n] of [[-21, -15, 23, -15, 10], [-21, 16, 23, 16, 10], [-21, -15, -21, 16, 7], [23, -15, 23, 16, 7]]) b.colonnade(ax, az, bx, bz, 74, 6.5, n, 0.7, C.white);
-    b.prism(offset(crown, 1), 80.5, 82, C.stone);
-    b.hip(1, 82, 0.5, 40, 28, 4, '#9a9488');
-    // north portico (main entrance on Piata Constitutiei) + balcony colonnade
-    b.box(0, 2.2, -106, 92, 1.2, 12, C.stone);
-    b.colonnade(-42, -110, 42, -110, 3.4, 16, 16, 1.15, C.white, { capital: C.stone });
-    b.box(0, 19.4, -105, 92, 2.4, 11, C.cream2);
-    b.colonnade(-32, -94.5, 32, -94.5, 45, 8.5, 12, 0.7, C.white);
-    b.colonnade(-24, -83.5, 24, -83.5, 55, 6.5, 10, 0.55, C.white);
-    // corner pavilions get low hipped roofs
-    for (const [x, z] of [[-99, 122], [100, 123], [100, -124], [-100, -121]]) b.hip(x, 21, z, 28, 28, 4, C.roof);
+    // tier ring (x ±82, z -94..106) around the courtyards — 4 storeys of arched windows
+    const ring = rect(-82, -94, 82, 106);
+    const top1 = storeys(b, ring, top0 - 1, [[4.8, 0.44, 0.62, true], [4.3, 0.42, 0.55, false], [4.6, 0.42, 0.62, true]],
+        { wall: W, win: WIN, bay: 5.6, courses: true, trim: TR, corniceOut: 1, parapet: 1.2 });
+    // four towers on the tier ring (front ones are the tall square pavilions seen from Piața Constituției)
+    for (const [cx, cz] of [[-70, -82], [70, -82], [-70, 94], [70, 94]]) {
+        const r = rect(cx - 12, cz - 12, cx + 12, cz + 12);
+        storeys(b, r, top1 - 1, [[4.4, 0.44, 0.6, false], [4.4, 0.44, 0.6, false], [5, 0.44, 0.65, true]], { wall: W, win: WIN, bay: 6, trim: TR, corniceOut: 0.8, parapet: 1.2, minL: 6 });
+    }
+    // central 12-storey block (72 x 104 m) — flat roof at 84 m, top storeys arched
+    const cen = rect(-36, -52, 36, 52);
+    const cs = [[4.2, 0.44, 0.55, false], [4.2, 0.44, 0.55, false], [4.4, 0.46, 0.66, true], [4.1, 0.44, 0.55, false], [4.1, 0.44, 0.55, false], [4.1, 0.44, 0.55, false], [4.4, 0.46, 0.66, true], [4.1, 0.4, 0.5, false], [4.6, 0.46, 0.66, true]];
+    const ct = storeys(b, cen, top1 - 1, cs, { wall: W, win: WIN, bay: 6.4, holes: [rect(-20, -38, 20, 38)], courses: true, trim: TR, pilasters: true, pilasterEvery: 2, pilasterW: 1.1, corniceOut: 1.3, parapet: 1.4, roofCol: '#cfc7b6' });
+    for (const [x0, z0, x1, z1] of [[-36, -52, -26, -42], [26, -52, 36, -42], [-36, 42, -26, 52], [26, 42, 36, 52]]) b.prism(offset(rect(x0, z0, x1, z1), 0.6), top1 - 1, ct - 1, TR, { top: false });  // corner piers
+    b.box(0, ct, 0, 10, 2.2, 8, TR);                                              // roof house
+    b.cyl(0, ct + 2.2, 0, 0.12, 0.18, 12, '#d8d8d8', 6);
+    flag(b, 0, ct + 14, 0, 3.2);
+    // north portico (Piața Constituției): 4 pairs of giant columns on a podium, entablature + balustraded balcony
+    const zn = -102;
+    b.box(0, Y0, zn - 6, 48, 1.2, 12, TR);
+    for (let i = 0; i < 4; i++) for (const s of [-1, 1]) { const x = s * (5 + i * 6.2); b.colonnade(x - 1, zn - 10.5, x + 1, zn - 10.5, Y0 + 1.2, 13.5, 2, 0.75, '#f3eee4', { capital: TR, seg: 6 }); }
+    b.box(0, Y0 + 14.7, zn - 6, 50, 2, 12.5, TR);                                    // entablature
+    b.fence([[-24, zn - 12], [24, zn - 12]], 1.2, 3.2, TR, { post: 0.45 });         // balcony balustrade (on top)
+    b.box(0, Y0 + 16.7, zn - 12, 48, 0.2, 0.25, TR);
+    b.archWall(48, 14, 0.6, [-18, -6, 6, 18].map(x => ({ x, w: 5.5, h: 11 })), '#e6ddca', M(0, Y0 + 1.2, zn - 0.6));   // arcade behind the columns
+    // arcaded loggias on the front wings and the Izvor (west) / Libertății (east) fronts
+    for (const s of [-1, 1]) b.archWall(36, 8.2, 0.8, [-14, -7, 0, 7, 14].map(x => ({ x, w: 4.4, h: 7.2 })), '#efe8d8', M(s * 44, Y0, zn - 0.45));
+    for (const s of [-1, 1]) {
+        const xw = s < 0 ? -112.5 : 86.5;
+        b.box(xw + s * 4, Y0, -1, 8, 1, 34, TR);
+        b.colonnade(xw + s * 7, -14, xw + s * 7, 12, Y0 + 1, 11, 6, 0.65, '#f3eee4', { capital: TR, seg: 6 });
+        b.box(xw + s * 4.5, Y0 + 12, -1, 8, 1.6, 34, TR);
+    }
+    // stepped lawn terraces on the north slope + forecourt retaining wall with stone pillars and iron railing
+    for (const s of [-1, 1]) for (const [k, h] of [[0, 0.5], [9, 1.1]]) b.prism(rect(s > 0 ? 27 : -82, -134 + k, s > 0 ? 82 : -27, -105), 0, h, '#7f9d5e', { topCol: '#86a663' });
+    const fl = [[-80.1, -266.3], [-78.7, -179.8], [-81.1, -179.6], [-83.9, -177.1], [-82.8, -161.3], [-78, -156.5], [-34.9, -157.4], [88.3, -159.8], [95.9, -164.8], [96.2, -171.9], [89.8, -182], [88.7, -267.5]];
+    b.fence(fl, 1.9, 18, '#d9cfbb', { post: 1, base: 0.9, baseCol: '#d6ccb8', bars: 2.4, postCol: '#e1d8c6' });
+    for (let i = 0; i + 1 < fl.length; i++) if (Math.hypot(fl[i + 1][0] - fl[i][0], fl[i + 1][1] - fl[i][1]) > 20) b.colSeg(fl[i][0], fl[i][1], fl[i + 1][0], fl[i + 1][1], 0.6);
     b.colPoly([outer], 22);
 }
 
-// Catedrala Mântuirii Neamului (People's Salvation Cathedral) — 126.1 m x 67.7 m, 127 m to lantern
-// top / 135 m to the cross, outer dome Ø 29.4 m, 6 towers + west bell tower (steeple +75.5 m,
-// secondary towers +62 m), stone facade, gilded domes. OSM way 232332568 (height 52 = nave).
+// Catedrala Mântuirii Neamului (Vanel Exim / A. Ion, 2010-25) — 126.1 m x 67.7 m cross plan, 127 m to the
+// lantern, cross top ≈ 130-135 m; masonry levels (ro.wikipedia "Catedrala Mântuirii Neamului", building log):
+// nave +45 m, four secondary towers +62 m, west bell tower +75.5 m, Pantocrator tower +106 m (then dome + cross).
+// Neo-Brâncovenesc: light stone walls with a band of "ocnițe" (blind arched niches), tall arched windows,
+// gilded roofs and onion domes, open west porch (pridvor). Footprint OSM way 232332568.
+// Src: https://ro.wikipedia.org/wiki/Catedrala_Mântuirii_Neamului ; OSM way 232332568
 function bCathedral(b) {
-    b.wall = C.cream;
-    const [outer] = P.cathedral.map(pts);
-    b.prism(outer, 0, 34, C.cream, { topCol: C.stone });
-    b.bands(outer, 0, 34, 12, '#756a5a', { frac: 0.42, start: 5, pitch: 5, pierW: 0.55 });
-    b.roof(outer, 34, 4, '#a18c58', 2.5);
-    const cross = (x, y, z, h) => { b.box(x, y, z, 0.5, h, 0.5, C.gold); b.box(x, y + h * 0.62, z, 0.5, 0.45, h * 0.5, C.gold); };
-    // main crossing: square base, tall drum, gilded dome, lantern, cross
-    const mx = 13;
-    b.box(mx, 34, 0, 34, 16, 34, C.cream);
-    b.cyl(mx, 50, 0, 15, 15.5, 42, C.cream, 24);
-    for (let i = 0; i < 16; i++) { const a = i / 16 * Math.PI * 2; b.box(mx + Math.cos(a) * 15.1, 70, Math.sin(a) * 15.1, 0.4, 15, 3.4, '#6a604f', { ry: -a }); } // drum windows
-    b.cyl(mx, 91.5, 0, 15.8, 15.8, 1.2, C.stone, 24);
-    b.dome(mx, 92, 0, 15.2, 25, C.gold, 24, { mat: 'g' });
-    b.cyl(mx, 116, 0, 3.2, 3.6, 6, C.gold, 10, { mat: 'g' });
-    b.dome(mx, 122, 0, 3.3, 4, C.gold, 10, { mat: 'g' });
-    cross(mx, 125.5, 0, 9.5);
-    // four towers around the crossing (~62 m)
-    for (const [x, z] of [[mx - 22, -21], [mx + 22, -21], [mx - 22, 21], [mx + 22, 21]]) {
-        b.box(x, 34, z, 9, 16, 9, C.cream);
-        b.cyl(x, 50, z, 4.2, 4.4, 6, C.cream, 12);
-        b.dome(x, 56, z, 4.4, 5.5, C.gold, 12, { mat: 'g' });
-        cross(x, 61, z, 3.5);
+    const S = '#f4f0e7', TR = '#e3dccb', NI = '#c9bfa8', WIN = '#4a535d', GOLD = '#d2a645', GOLDR = '#b88d3a';
+    b.wall = S;
+    const [outer] = P.cathedral.map(pts), onionLater = [];
+    b.prism(offset(outer, 2.5), 0, 1.4, '#cfc6b4', { topCol: '#d9d1c1' });                      // stylobate
+    b.prism(outer, 1.4, 36, S, { topCol: TR });
+    b.windows(outer, 1.4, 9, 7.6, '#6d6a62', { bay: 4.4, wf: 0.5, hf: 0.7, start: 1.2, arch: true, minL: 7 });     // ground-floor arcade
+    b.windows(outer, 9, 31, 7.3, WIN, { bay: 4.6, wf: 0.36, hf: 0.42, start: 1.6, arch: true, minL: 9 });           // rows of small arched windows
+    b.cornice(outer, 9, 0.6, 0.5, GOLDR); b.cornice(outer, 35.4, 1, 0.9, TR);
+    // round corner turrets with gilded domes at the ends of the arms
+    for (const [x, z] of [[-58.5, -13.5], [-58.5, 13.5], [6.5, -31], [21.5, -31], [6.5, 31], [21.5, 31], [-31, -24], [-31, 24]]) {
+        b.cyl(x, 1.4, z, 3.4, 3.6, 40.6, S, 10);
+        b.cyl(x, 42, z, 3.9, 3.9, 0.8, TR, 8); onionLater.push([x, 42.8, z, 3.6, 5.6, 8]);
     }
-    // west front: bell tower (75.5 m) flanked by two smaller towers
-    b.box(-49, 0, 0, 20, 54, 22, C.cream); b.bands(rect(-59, -11, -39, 11), 10, 54, 11, '#6a5f50', { frac: 0.35 });
-    b.cyl(-49, 54, 0, 7, 7.4, 10, C.cream, 16);
-    b.dome(-49, 64, 0, 7.2, 10, C.gold, 16, { mat: 'g' });
-    cross(-49, 73.5, 0, 6.5);
-    for (const z of [-24, 24]) { b.box(-42, 0, z, 9, 42, 9, C.cream); b.cyl(-42, 42, z, 3.6, 3.8, 4, C.cream, 10); b.dome(-42, 46, z, 3.8, 4.5, C.gold, 10, { mat: 'g' }); cross(-42, 50, z, 3); }
-    // west portal arcade
-    b.colonnade(-61.5, -9, -61.5, 9, 0, 12, 6, 0.8, C.white);
-    b.colPoly([outer], 20);
+    b.roof(outer, 36, 5, GOLDR, 3, { topCol: GOLDR });
+    const cross = (x, y, z, h) => { b.box(x, y, z, 0.6, h, 0.6, GOLD, { mat: 'g' }); b.box(x, y + h * 0.62, z, 0.6, 0.55, h * 0.52, GOLD, { mat: 'g' }); };
+    const onion = (x, y, z, r, h, seg) => {                                                   // bulbous gilded dome
+        const pr = [[0.001, 0], [1, 0], [1.08, 0.24], [0.92, 0.56], [0.46, 0.85], [0.08, 1]].map(([a, c]) => new THREE.Vector2(a * r, c * h));
+        b.geo(new THREE.LatheGeometry(pr, seg), GOLD, M(x, y, z), 'g');
+    };
+    const drum = (x, z, y0, y1, r, seg, winH) => {                                            // polygonal drum, arched windows + colonnettes
+        const ring = ellipse(x, z, r, r, seg, Math.PI / seg);
+        b.prism(ring, y0, y1, S, { top: false });
+        b.windows(ring, y0, y1 - 1, y1 - y0 - 1, WIN, { bay: 2 * r * Math.sin(Math.PI / seg), wf: 0.42, hf: winH, start: (y1 - y0) * 0.16, arch: true, minL: 0.5 });
+        b.cornice(ring, y1 - 1.2, 1.2, 0.6, TR); b.cornice(ring, y0, 0.8, 0.5, TR);
+    };
+    // Pantocrator tower over the crossing: square base, 16-sided drum to +106 m, onion dome, lantern, cross
+    const mx = 13.5;
+    b.prism(rect(mx - 17, -17, mx + 17, 17), 36, 52, S, { topCol: GOLDR }); b.windows(rect(mx - 17, -17, mx + 17, 17), 36, 52, 16, NI, { bay: 2.6, wf: 0.6, hf: 0.6, start: 4, arch: true });
+    b.cornice(rect(mx - 17, -17, mx + 17, 17), 51, 1, 0.8, TR);
+    b.cyl(mx, 52, 0, 15.5, 16.5, 4, GOLDR, 16);
+    drum(mx, 0, 56, 100, 14.2, 16, 0.55);
+    b.cyl(mx, 100, 0, 14.6, 14.8, 6, S, 16);
+    onion(mx, 106, 0, 13.6, 18, 20);
+    b.cyl(mx, 123, 0, 1.8, 2.1, 4, GOLD, 8, { mat: 'g' }); onion(mx, 127, 0, 2.1, 3, 8);
+    cross(mx, 129.5, 0, 6);
+    // four secondary towers at the corners of the crossing (+62 m)
+    for (const [x, z] of [[mx - 21.5, -21], [mx + 21.5, -21], [mx - 21.5, 21], [mx + 21.5, 21]]) {
+        b.prism(rect(x - 5, z - 5, x + 5, z + 5), 36, 42, S, { topCol: GOLDR });
+        drum(x, z, 42, 58, 4.4, 8, 0.6);
+        onion(x, 58, z, 4.6, 6.5, 12);
+        cross(x, 64.2, z, 3.2);
+    }
+    // west bell tower (+75.5 m) over the narthex, flanked by two smaller towers
+    const bx = -48;
+    b.prism(rect(bx - 10, -10, bx + 10, 10), 36, 56, S, { topCol: GOLDR });
+    b.windows(rect(bx - 10, -10, bx + 10, 10), 36, 56, 20, WIN, { bay: 5, wf: 0.4, hf: 0.6, start: 4, arch: true });
+    b.cornice(rect(bx - 10, -10, bx + 10, 10), 55, 1, 0.8, TR);
+    drum(bx, 0, 56, 75.5, 7.6, 12, 0.6);
+    onion(bx, 75.5, 0, 7.8, 10.5, 14);
+    cross(bx, 85.5, 0, 4.5);
+    for (const [x, y, z, r, h, sg] of onionLater) { onion(x, y, z, r, h, sg); cross(x, y + h - 0.3, z, 2.4); }
+    // west gable: semicircular pediment with a rose window above the porch
+    b.geo(new THREE.CylinderGeometry(9, 9, 1.2, 16, 1, false, 0, Math.PI), S, M(-60.6, 36, 0, 0, 1, 1, 1, Math.PI / 2, Math.PI / 2));
+    b.cyl(-61.4, 28, 0, 3, 3, 0.4, '#6b7480', 14, { rz: Math.PI / 2 }); b.geo(new THREE.TorusGeometry(3.2, 0.35, 4, 14), TR, M(-61.5, 28, 0, Math.PI / 2));
+    // open west porch (pridvor): arcade of stone columns under a gilded roof
+    const px = -60.5;
+    b.box(px - 6, 0, 0, 13, 1.4, 34, '#cfc6b4');
+    b.colonnade(px - 11.5, -15, px - 11.5, 15, 1.4, 11, 7, 0.7, '#f4f0e6', { capital: TR, seg: 8 });
+    b.archWall(32, 5, 0.8, [-11.25, -3.75, 3.75, 11.25].map(x => ({ x, w: 5.4, h: 3.6 })), S, M(px - 11.5, 10, 0, Math.PI / 2));
+    b.box(px - 6, 15, 0, 13.5, 1, 34.5, TR);
+    b.hip(px - 6, 16, 0, 34.5, 13.5, 3.5, GOLDR, { ry: Math.PI / 2 });
+    b.colPoly([outer], 20); b.col(px - 6, 0, 6.5, 17);
 }
 
-// Arcul de Triumf — 27 m high, 25 m x 11.5 m base (OSM way 217851530: 25 x 9.3 m), single central
-// arch (~9.5 m wide), paired engaged columns, attic with inscriptions, granite/Deva stone.
+// Arcul de Triumf (Petre Antonescu, 1936 stone version) — 27 m high, single opening (ro.wikipedia "Arcul de
+// Triumf din București"); base 25 x 9.3 m (OSM way 217851530). Proportions measured on Commons photos
+// "Arco de Triunfo, Bucarest, 2016-05-30, DD 24" / "Arcul de Triumf (24396923048)": opening ≈ 8.8 m wide x 15.7 m,
+// recessed frame 14.4 m, inscription band 18.4-20.8 m, cornice 23.2-24.6 m (overhang to ≈ 27 m), attic to 27 m.
+// No columns: plain Rușchița-marble piers with corner strips, Jalea/Baraschi medallions, winged-Victory reliefs
+// flanking the inscription, royal crown/arms; north (+z) and south (-z) inscriptions abridged to their bold lines.
+// Src: https://ro.wikipedia.org/wiki/Arcul_de_Triumf_din_București ; OSM way 217851530
 function bArcul(b) {
-    const W = 25, D = 9.6, S = '#d8d2c4';
-    b.box(0, 0, 0, W + 1.6, 1.2, D + 1.6, '#b8b1a3');
-    b.archWall(W, 19, D, [{ x: 0, w: 9.6, h: 15.5 }], S, M(0, 1.2, 0));
-    // transverse passage through the piers (small arches on the short faces)
-    b.archWall(D + 0.2, 8, 3.2, [{ x: 0, w: 3.4, h: 6.5 }], S, M(-W / 2 + 2.6, 1.2, 0, Math.PI / 2));
-    b.archWall(D + 0.2, 8, 3.2, [{ x: 0, w: 3.4, h: 6.5 }], S, M(W / 2 - 2.6, 1.2, 0, Math.PI / 2));
-    for (const z of [-D / 2 - 0.55, D / 2 + 0.55]) {
-        b.colonnade(-10.6, z, -7.2, z, 2.2, 14.2, 2, 0.55, '#e4dfd3', { capital: S });
-        b.colonnade(7.2, z, 10.6, z, 2.2, 14.2, 2, 0.55, '#e4dfd3', { capital: S });
-        b.box(0, 3.5, z, 3.2, 0.3, 0.25, '#9a9384');                       // keystone shadow line
-        b.box(-8.9, 8.5, z * 1.02, 2.2, 3.2, 0.3, '#b9b2a2'); b.box(8.9, 8.5, z * 1.02, 2.2, 3.2, 0.3, '#b9b2a2'); // reliefs
+    const W = 25, D = 9.6, S = '#e3d6bd', S2 = '#d8c9ad', TR = '#ece2cf', RL = '#c4b293', TX = '#7d6d55';
+    b.box(0, 0, 0, W + 1.4, 1.3, D + 1.4, '#bfb3a0');                                     // granite plinth
+    b.archWall(W, 17.1, D, [{ x: 0, w: 8.8, h: 15.7 }], S, M(0, 1.3, 0));                     // piers + vault
+    b.archWall(D + 0.1, 4.4, 2.2, [{ x: 0, w: 1.8, h: 3.2 }], S, M(-W / 2 + 1.1, 1.3, 0, Math.PI / 2));   // small side doors
+    b.archWall(D + 0.1, 4.4, 2.2, [{ x: 0, w: 1.8, h: 3.2 }], S, M(W / 2 - 1.1, 1.3, 0, Math.PI / 2));
+    for (const s of [-1, 1]) {
+        const z = s * (D / 2), zo = s * 0.12;
+        b.archWall(14.4, 17.1 - 1.3, 0.25, [{ x: 0, w: 9.6, h: 16.1 }], S2, M(0, 1.3, z - zo));       // recessed arch frame (shadow rim)
+        for (const x of [-W / 2 + 0.5, -7.6, 7.6, W / 2 - 0.5]) b.box(x, 1.3, z + zo, 1, 17.1, 0.24, TR); // vertical strips
+        for (const x of [-9.9, 9.9]) {
+            b.cyl(x, 12.4, z + s * 0.25, 1.25, 1.25, 0.35, '#efe7d7', 16, { rx: Math.PI / 2 });     // medallion (Bărbăția / Credința)
+            b.cyl(x, 12.4, z + s * 0.45, 0.9, 0.9, 0.2, RL, 12, { rx: Math.PI / 2 });
+            b.box(x, 14.4, z + s * 0.2, 1.1, 1, 0.3, RL);                                            // crown above
+            b.box(x, 4.4, z + s * 0.12, 2.6, 1.1, 0.2, RL);                                          // lower panel
+        }
+        b.box(0, 15.8, z + s * 0.18, 1.4, 1.6, 0.4, TR);                                            // keystone
+        // entablature: inscription band with winged Victories either side
+        b.box(0, 18.4, 0, W, 2.4, D, S);
+        b.box(0, 18.45, z + s * 0.1, 15.2, 2.3, 0.2, '#e3d6bd');
+        for (const x of [-10.2, 10.2]) { b.box(x, 18.5, z + s * 0.15, 3.8, 2.2, 0.3, RL); b.box(x - 0.6, 18.9, z + s * 0.35, 1.2, 1.5, 0.3, '#b5a283'); b.box(x + 0.7, 19.6, z + s * 0.35, 1.8, 0.5, 0.3, '#b5a283', { rz: -0.4 }); }
     }
-    b.box(0, 20.2, 0, W + 1.4, 1.6, D + 1.2, '#e6e1d6');                  // entablature
-    b.box(0, 21.8, 0, W - 1, 5.2, D - 0.6, S);                            // attic
-    for (const z of [-(D - 0.6) / 2 - 0.05, (D - 0.6) / 2 + 0.05]) b.box(0, 23.2, z, 14, 1.6, 0.2, '#7d7566'); // inscription band
-    b.box(0, 27, 0, W - 0.4, 0.6, D, '#e6e1d6');
-    b.col(0, 0, W / 2 + 0.8, D / 2 + 0.8);
+    // inscriptions (bold lines of the 1936 texts)
+    const n = D / 2 + 0.18;
+    b.text('FERDINAND I', 0, 19.95, n, 0, 0.62, TX); b.text('DOMN SI REGE AL ROMANILOR', 0, 18.85, n, 0, 0.62, TX);
+    b.text('SE INDEPLINI DREPTATEA', 0, 19.95, -n, Math.PI, 0.62, TX); b.text('SI PENTRU POPORUL ROMAN', 0, 18.85, -n, Math.PI, 0.62, TX);
+    b.text('GLORIE CELOR CE', W / 2 + 0.1, 19.2, 0, Math.PI / 2, 0.5, TX); b.text('GLORIE CELOR CE', -W / 2 - 0.1, 19.2, 0, -Math.PI / 2, 0.5, TX);
+    // royal arms in the passage + coffered vault ribs
+    for (const s of [-1, 1]) b.box(s * 4.3, 8, 0, 0.3, 2.6, 2.2, RL);
+    // cornice, attic with acroteria, flag
+    b.box(0, 20.8, 0, W + 0.6, 0.6, D + 0.6, TR);
+    b.box(0, 22.6, 0, W + 1.2, 0.6, D + 1.2, TR);
+    b.box(0, 23.2, 0, W + 2.2, 1.4, D + 2.2, '#e9dfcb');
+    b.box(0, 21.4, 0, W - 0.2, 1.2, D - 0.2, S2);
+    b.box(0, 24.6, 0, W - 1.2, 2.4, D - 1.2, S);
+    for (const s of [-1, 1]) for (let i = 0; i < 6; i++) b.box(-9.4 + i * 3.76, 27, s * (D / 2 - 0.8), 0.9, 0.8, 0.9, TR);
+    b.cyl(-6, 27, 0, 0.07, 0.1, 7, '#dddddd', 5);
+    flag(b, -6, 33.8, 0, 1.8);
+    // bollards + chain ring around the monument
+    for (let i = 0; i < 20; i++) { const a = i / 20 * Math.PI * 2; b.box(Math.cos(a) * 19, 0, Math.sin(a) * 13, 0.35, 0.9, 0.35, '#e2dccf'); }
+    b.col(-W / 2 + 4.1, 0, 4.1, D / 2 + 0.7); b.col(W / 2 - 4.1, 0, 4.1, D / 2 + 0.7);
 }
 
-// Casa Presei Libere (ex-Casa Scînteii, 1952-57, Horia Maicu) — 91.6 m roof + 12.4 m antenna = 104 m,
-// Stalinist "wedding cake" tower; central body 14 floors, lateral bodies 11 floors, ~23,000 m² footprint.
-// OSM relation 15922160 (outer 1177639752, three courtyards).
+// Casa Presei Libere (ex-Casa Scînteii, Horia Maicu, 1952-57) — 91.6 m + 12.4 m antenna = 104 m (ro.wikipedia
+// "Casa Presei Libere"). Massing from the OSM building:parts of rel 15922160: wings A1-A4 4 levels / 24 m,
+// B/C wings 5-6 levels / 24 m with corner turrets 25-30 m, central body D 13 levels / 50 m (x 60..92, z ±45),
+// tower 67..85 x ±17 from 50 to 70 m, then stepped crown to 91.6 m. Front (+x) faces Piața Presei Libere
+// (fountain OSM 1173487799). Stalinist "wedding cake": ochre stone, vertical pilaster strips, pinnacles.
+// Src: https://ro.wikipedia.org/wiki/Casa_Presei_Libere ; OSM rel 15922160 (+ building:parts)
 function bCasaPresei(b) {
-    b.wall = '#d9c9a6';
+    const S = '#e3d7bd', TR = '#ece2cb', W = '#5b5448', R = '#cdbf9f';
+    b.wall = S;
     const [outer, c1, c2, c3] = P.casapresei.map(pts);
-    const S = '#d9c9a6', W = '#6b6050';
-    b.prism(outer, 0, 26, S, { holes: [c1, c2, c3], topCol: '#cbbb98' });
-    b.bands(outer, 0, 26, 3.7, W, { holes: [c1, c2, c3], frac: 0.48 });
-    b.box(0, 26, -71.6 + 1, 230, 1, 2, '#c5b48f'); b.box(0, 26, 71.6 - 1, 230, 1, 2, '#c5b48f');
-    // central body (14 floors) — its small light courts are filled in
-    const cen = [[0, -57], [92, -57], [92, 57], [0, 57]];
-    b.prism(cen, 26, 48, S, { topCol: '#cbbb98' });
-    b.bands(cen, 26, 48, 3.7, W, { frac: 0.48 });
-    // stepped tower on the front (+x)
-    const tiers = [[50, -22, 92, 22, 48, 62], [56, -16.5, 88, 16.5, 62, 73], [62, -11.5, 84, 11.5, 73, 82], [67, -7, 80, 7, 82, 88.5]];
-    for (const [x0, z0, x1, z1, y0, y1] of tiers) {
-        const r = rect(x0, z0, x1, z1); b.prism(r, y0, y1, S, { topCol: '#c6b591' }); b.bands(r, y0, y1, 3.7, W, { frac: 0.45 });
-        for (const [x, z] of [[x0, z0], [x1, z0], [x1, z1], [x0, z1]]) b.hip(x, y1, z, 3, 3, 3.2, '#c6b591');
+    const st = (n, h = 4.2, wf = 0.38) => Array.from({ length: n }, () => [h, wf, 0.62, false]);
+    storeys(b, outer, 0, [[5.2, 0.5, 0.62, true], ...st(3, 4.3, 0.52), [4.3, 0.52, 0.5, false]], { wall: S, win: W, trim: TR, bay: 7, holes: [c1, c2, c3], pilasters: false, pilasterW: 0.7, corniceOut: 0.8, parapet: 1.2, minL: 12, roofCol: '#bfb197' });
+    // corner pavilions of the front wings with little Stalinist turrets (OSM parts 25 m + 30 m)
+    for (const [x, z] of [[24, -130], [121, -130], [24, 130], [121, 130], [-118, -62], [-118, 62]]) {
+        b.prism(rect(x - 9, z - 9, x + 9, z + 9), 23, 26.5, TR, { topCol: R });
+        b.prism(rect(x - 5, z - 5, x + 5, z + 5), 26.5, 31, S, { topCol: R }); b.windows(rect(x - 5, z - 5, x + 5, z + 5), 26.5, 31, 4.5, W, { bay: 2.5, wf: 0.4, hf: 0.6, arch: true, minL: 3 });
+        b.hip(x, 31, z, 10, 10, 4, R); b.cyl(x, 35, z, 0.15, 0.5, 4, TR, 6);
+        for (const sx of [-1, 1]) for (const sz of [-1, 1]) b.cone(x + sx * 8, 26.5, z + sz * 8, 0.8, 3.5, TR, 6);
     }
-    b.box(91.5, 8, 0, 2, 40, 18, '#cdbd99');                                 // central risalit
-    b.cone(73.5, 88.5, 0, 4.6, 3.1, '#c6b591', 8);
-    b.cyl(73.5, 91.6, 0, 0.5, 1.1, 12.4, '#9aa0a5', 6);                   // TV antenna
-    // corner pinnacles of the lateral bodies
-    for (const [x, z] of [[-128, -72], [-128, 72], [128, -138], [128, 138], [24, -138], [22, 138]]) b.hip(x, 26, z, 6, 6, 5, '#c6b591');
+    // central body D (13 levels, 50 m) with a tall arched entrance risalit on the front
+    const D = rect(56, -45, 92, 45);
+    storeys(b, D, 0, [[6, 0.5, 0.65, true], ...st(10, 3.8), [4.6, 0.42, 0.6, true]], { wall: S, win: W, trim: TR, bay: 4, pilasters: true, pilasterEvery: 2, pilasterW: 0.8, corniceOut: 1, parapet: 1.4, roofCol: R });
+    b.box(93.2, 0, 0, 2.4, 44, 22, TR); b.windows(rect(92, -11, 94.4, 11), 6, 43, 3.8, W, { bay: 2.8, wf: 0.36, hf: 0.62, edges: [1], minL: 3 });
+    b.archWall(16, 12, 1.2, [{ x: 0, w: 8, h: 10.5 }], TR, M(94.8, 0, 0, Math.PI / 2));
+    // corner risalits of D rise ≈ 2 storeys higher, each with a small lantern (Commons "House of Free Press.jpg")
+    for (const zc of [-40, 40]) {
+        const r = rect(56, zc - 5.5, 92.5, zc + 5.5);
+        b.prism(r, 49, 57, S, { topCol: R }); b.windows(r, 49, 57, 4, W, { bay: 3.6, wf: 0.4, hf: 0.55, minL: 4 }); b.cornice(r, 56.5, 0.7, 0.6, TR);
+        b.prism(rect(84, zc - 3.5, 91, zc + 3.5), 57.2, 62, TR, { topCol: R }); b.hip(87.5, 62, zc, 7, 7, 2.5, R); b.cyl(87.5, 64.5, zc, 0.12, 0.12, 3, '#bbb', 4);
+    }
+    // tower: 18 m block on D (OSM part 1177639748, 50 -> 70 m) with corner pinnacles, a lantern stage and the
+    // tapering spire (≈ 78 -> 92 m) carrying the TV antenna to 104 m
+    const t1 = rect(67, -17, 85, 17);
+    b.prism(t1, 51.5, 70, S, { topCol: R }); b.windows(t1, 51.5, 69, 3.6, W, { bay: 2.8, wf: 0.4, hf: 0.6, minL: 4 });
+    b.pilasters(t1, 51.5, 70, 5.6, 0.6, 0.3, TR, {}); b.cornice(t1, 69.4, 0.8, 0.6, TR);
+    for (const [x, z] of [[67, -17], [85, -17], [85, 17], [67, 17]]) { b.box(x, 70, z, 1.6, 3, 1.6, TR); b.cone(x, 73, z, 0.9, 3.4, TR, 6); }
+    const t2 = rect(72.5, -4.5, 79.5, 4.5);
+    b.prism(t2, 70, 79, S, { topCol: R }); b.windows(t2, 70, 78, 4, W, { bay: 2.3, wf: 0.45, hf: 0.65, arch: true, minL: 3 }); b.cornice(t2, 78.5, 0.6, 0.5, TR);
+    for (const [x, z] of [[72.5, -4.5], [79.5, -4.5], [79.5, 4.5], [72.5, 4.5]]) b.cone(x, 79, z, 0.6, 2.6, TR, 6);
+    b.cyl(76, 79, 0, 2.6, 3.4, 4, TR, 8);
+    b.cyl(76, 83, 0, 0.7, 2.6, 9.5, '#cdbd9a', 8);                                         // spire
+    b.cyl(76, 92.5, 0, 0.25, 0.55, 11.5, '#9aa0a5', 6);                                    // TV antenna to 104 m
+    for (const y of [94, 97, 100]) b.box(76, y, 0, 2.2, 0.15, 0.15, '#9aa0a5');
+    // fountain + forecourt in front
+    b.prism(ellipse(116, 1, 7.5, 12.5, 16), 0, 0.6, '#cfc6b3'); b.prism(ellipse(116, 1, 6.8, 11.8, 16), 0, 0.45, C.water, { mat: 'w' });
     b.colPoly([outer], 24);
 }
 
-// Grand Hotel Bucharest (ex-InterContinental, 1971) — 87 m, 22-24 floors, Piața Universității.
-// White concrete tower with continuous balconies; OSM way 1111645542 (height 87).
+// Grand Hotel Bucharest (ex-InterContinental, 1971, D. Hariton / G. Nădrag / I. Moscu / R. Ionescu) — 24 levels,
+// 87-90 m (OSM way 1111645542 height 87, tower part 23781503 height 90). Tower plan from that part (simplified):
+// concave curved faces lined with a continuous balcony per floor (white parapets, room fins every ≈ 4 m),
+// 4-level podium (OSM parts 1019802601/602, 15 m commercial part 937332760) with a glazed ground floor.
+const GH_TOWER = [-22.2, 6.0, -21.9, -3.7, -18.9, -3.0, -18.2, -4.7, -21.1, -7.3, -13.6, -12.9, -9.1, -8.7, -0.9, -5.8, 6.5, -6.6, 9.8, -8.0, 14.9, -12.3, 21.9, -5.9, 19.1, -2.9, 19.7, -1.6, 22.8, -2.5, 22.7, 7.3, 19.7, 8.5, 14.6, 12.5, 10.8, 18.8, 9.8, 25.4, 11.0, 31.1, 2.7, 31.3, 2.1, 28.5, -0.2, 28.5, -1.6, 31.3, -11.4, 30.7, -9.9, 22.1, -11.6, 15.6, -15.9, 9.8];
+// Src: https://en.wikipedia.org/wiki/InterContinental_Bucharest ; OSM ways 1111645542 / 23781503
 function bGrandHotel(b) {
-    b.wall = '#ecebe6';
-    const [p] = P.grandhotel.map(pts);
-    b.prism(p, 0, 11, '#cfcac0'); b.bands(p, 0, 11, 5.5, C.glassDk, { frac: 0.55, mat: 'g' });
-    const t = offset(p, -4.5);
-    b.prism(t, 11, 81, '#ecebe6');
-    b.bands(t, 11, 81, 3.15, '#3b4652', { frac: 0.5, off: 0.12 });
-    b.bands(t, 11, 81, 3.15, '#f6f5f1', { frac: 0.12, off: 0.9, start: 2.9, wall: false });  // balcony slabs
-    const top = offset(t, -5);
-    b.prism(top, 81, 86, '#d6d3cb'); b.bands(top, 81, 86, 5, '#3b4652', { frac: 0.5 });
-    b.cyl(0, 86, 4, 0.3, 0.5, 9, '#b0b4b8', 6);
+    const WH = '#f1f0eb', GL = '#33414d', CON = '#d9d6ce';
+    b.wall = WH;
+    const [p] = P.grandhotel.map(pts), t = pts(GH_TOWER);
+    // podium: glazed shop/lobby floor + 3 levels of ribbon windows
+    b.prism(p, 0, 16, CON, { topCol: '#bdb8ae' });
+    b.prism(offset(p, 0.1), 0.3, 5.2, GL, { mat: 'g', top: false });
+    b.windows(p, 5.2, 15.5, 3.4, '#46525c', { bay: 3.2, wf: 0.8, hf: 0.55, minL: 3 });
+    b.cornice(p, 15.4, 0.8, 0.5, WH);
+    b.prism(rect(-11, -31, 13, -20), 0, 10, CON, { topCol: '#9fb5c0' });                    // north entrance pavilion (roof 5-10 m)
+    // tower: dark glazing set back behind a balcony slab + parapet per floor, room fins
+    const TOP = 84, fh = 3.05;
+    b.prism(t, 16, TOP, GL, { mat: 'g', topCol: CON });
+    const bo = offset(t, 1.5);
+    for (let y = 16 + fh; y < TOP - 1; y += fh) {
+        b.ring(bo, y - 0.2, y + 0.95, WH);                                                     // balcony parapet
+        b.lip(t, bo, y - 0.2, '#cfccc4', -1); b.lip(t, bo, y + 0.95, WH, 1);
+    }
+    b.pilasters(t, 16, TOP, 4.1, 0.28, 1.5, WH, { inner: true });                              // fins between rooms
+    b.pilasters(t, 16, TOP, 30, 0.9, 1.6, WH, { ends: true });                                 // corner piers
+    // crown: plant floor + sign
+    const cr = offset(t, -2);
+    b.prism(cr, TOP, TOP + 4.5, WH, { topCol: CON }); b.windows(cr, TOP, TOP + 4.5, 4.5, GL, { bay: 2.5, wf: 0.7, hf: 0.5, minL: 3 });
+    b.prism(rect(-8, 2, 8, 16), TOP + 4.5, TOP + 6.5, CON);
+    b.text('GRAND HOTEL', 0, TOP + 1.2, 29.6, 0, 2.2, '#c9a64a');
+    b.text('GRAND HOTEL', 0, TOP + 1.2, -4.2, Math.PI, 2.2, '#c9a64a');
     b.colPoly([p], 12);
 }
 
-// Palatul Universității (University of Bucharest, 1857-69, Alexandru Orăscu) — neoclassical,
-// ~4 storeys, ~200 m along Bd. Regina Elisabeta; OSM building parts (levels 4).
+// Palatul Universității (Alexandru Orăscu, 1857-69, enlarged 1912-26) — 200 x 64 m block (OSM way 129316956:
+// 4 levels, colour #CABC91, roof "quadruple_saltbox" = grey zinc mansards). Commons "Bucharest (8273345546).jpg":
+// 4 storeys of tall windows, zinc mansards with dormers, higher pavilion roofs with arched gables, rounded
+// corner with a small dome on Piața Universității (-x/-z). Statues square in front of the south (-z) front,
+// positions from OSM nodes 2466907140-43: Mihai Viteazul (equestrian, Carrier-Belleuse 1874), Heliade Rădulescu,
+// Gheorghe Lazăr, Spiru Haret.
+// Src: https://en.wikipedia.org/wiki/University_of_Bucharest ; OSM way 129316956, statue nodes 2466907140-43
 function bUniv(b) {
-    b.wall = C.cream;
-    const ps = P.univ.map(pts);
-    for (const p of ps) {
-        b.prism(p, 0, 19, C.cream, { topCol: C.stone });
-        b.bands(p, 0, 19, 4.8, C.winWarm, { frac: 0.45 });
-        b.roof(p, 19, 3.5, C.slate, 1.5);
+    const S = '#d9cba3', TR = '#e6dbbd', WIN = '#4f4b43', Z = '#8e9aa2', ZD = '#76838c';
+    b.wall = S;
+    const ps = P.univ.map(pts), outer = ps[3];
+    storeys(b, outer, 0, [[5.6, 0.44, 0.68, true], [4.8, 0.4, 0.62, false], [4.5, 0.4, 0.6, false], [3.8, 0.36, 0.5, false]],
+        { wall: S, win: WIN, trim: TR, bay: 5, courses: [0], pilasters: true, pilasterEvery: 3, pilasterW: 0.7, corniceOut: 1, minL: 8, roofCol: ZD });
+    // zinc mansard + dormers
+    b.roof(outer, 19.8, 5.2, Z, 2.6, { topCol: ZD });
+    const din = offset(outer, -1.3);
+    b.windows(din, 19.8, 24, 4.2, '#e8e1cc', { bay: 6.5, wf: 0.25, hf: 0.55, start: 0.6, minL: 12, off: 0.5 });
+    // pavilions: higher mansard domes with arched gables (ends, centre of the front, rear corners)
+    const pav = [[-100, -40, -78, -10], [78, -40, 100, -2], [-14, -40, 14, -12], [-100, 10, -78, 40], [78, 10, 100, 40]];
+    for (const [x0, z0_, x1, z1_] of pav) {
+        const zr = zAt([outer], (x0 + x1) / 2), z0 = Math.max(z0_, zr[0]), z1 = Math.min(z1_, zr[1]);
+        const cx = (x0 + x1) / 2, cz = (z0 + z1) / 2, w = x1 - x0, d = z1 - z0;
+        b.hip(cx, 19.8, cz, w - 1, d - 1, 9, Z, { ridge: Math.max(0, (w - d) / 2 - 2) });
+        b.archWall(Math.min(9, w - 6), 4.2, 0.6, [{ x: 0, w: 2.6, h: 2.8 }], TR, M(cx, 20.4, z0 + 0.2));
+        b.dome(cx, 24.4, z0 + 0.2, 4.4, 1.6, TR, 8);
     }
-    const zf = zAt(ps, 0)?.[0] ?? -20;                                     // south (front) facade
-    b.box(0, 0, zf - 4, 30, 1, 8, C.stone);
-    b.colonnade(-12, zf - 6.5, 12, zf - 6.5, 1, 14, 6, 0.75, C.white, { capital: C.stone });
-    b.box(0, 15, zf - 4.5, 30, 1.6, 9, C.cream2); b.pediment(0, 16.6, zf - 4.5, 30, 4.5, 9, C.cream2);
-    // the four statues (Michael the Brave, Heliade Rădulescu, Lazăr, Spiru Haret) on plinths in front
-    for (const x of [-60, -45, 45, 60]) { b.box(x, 0, zf - 12, 3, 3, 3, '#c9c2b3'); b.box(x, 3, zf - 12, 1.2, 3.2, 1.2, C.bronze); }
-    b.colPoly(ps, 20);
+    // rounded corner on Piața Universității with a small dome + lantern
+    b.cyl(-97, 0, -29, 5.5, 5.5, 19.8, S, 12); b.cyl(-97, 19.8, -29, 5.9, 5.9, 1, TR, 12);
+    b.dome(-97, 20.8, -29, 5.2, 6, Z, 12); b.cyl(-97, 26.6, -29, 0.9, 1.1, 2.2, TR, 8); b.cone(-97, 28.8, -29, 1, 2, ZD, 8);
+    // central portico on the south front: 6 columns over the ground floor, balcony, arched gable
+    const zf = zAt([outer], 0)[0];
+    b.box(0, 0, zf - 3, 30, 1, 6, '#c9bfa8');
+    b.colonnade(-12, zf - 4.5, 12, zf - 4.5, 1, 9.4, 6, 0.75, '#efe8d6', { capital: TR, seg: 8 });
+    b.box(0, 10.4, zf - 3, 30, 1.2, 6.5, TR);
+    b.fence([[-14.5, zf - 6], [14.5, zf - 6]], 1.1, 2.4, TR, { post: 0.4 });
+    b.colonnade(-10, zf - 1, 10, zf - 1, 11.6, 8, 6, 0.55, '#efe8d6', { seg: 6 });
+    b.text('UNIVERSITATEA DIN BUCURESTI', 0, 20.15, zf - 1.15, Math.PI, 0.75, '#6f6450');
+    // the statues square: plinths + bronze figures (OSM nodes, model frame)
+    const BR = '#4f4a3c', PL = '#bdb5a6';
+    b.box(-4.2, 0, -61.5, 5.5, 1, 8.5, PL); b.box(-4.2, 1, -61.5, 3.6, 4.2, 6.2, '#c9c1b2');
+    b.box(-4.2, 5.2, -61.5, 1.3, 2.2, 4.4, BR); b.box(-4.2, 6.6, -63.6, 0.9, 1.4, 1, BR, { rx: -0.5 });   // horse
+    for (const [dz] of [[-1.4], [1.4]]) for (const dx of [-0.4, 0.4]) b.box(-4.2 + dx, 5.2 - 2, -61.5 + dz, 0.25, 2, 0.25, BR);
+    b.box(-4.2, 7.4, -61.2, 0.8, 1.8, 0.8, BR); b.box(-4.2, 9.2, -61.2, 0.5, 0.5, 0.5, BR); b.box(-4.2, 8.4, -62.4, 0.15, 0.15, 2.8, BR, { rx: -0.6 }); // rider + raised axe
+    for (const [x, z] of [[-38.8, -65], [29.9, -58.3], [61.7, -56.6]]) {
+        b.box(x, 0, z, 3.4, 1, 3.4, PL); b.box(x, 1, z, 2.2, 3.4, 2.2, '#c9c1b2');
+        b.cyl(x, 4.4, z, 0.45, 0.6, 2.2, BR, 6); b.sphere(x, 6.85, z, 0.32, BR, { detail: 0 });
+    }
+    b.colPoly([outer], 20);
+    b.col(-4.2, -61.5, 2.8, 4.3); for (const [x, z] of [[-38.8, -65], [29.9, -58.3], [61.7, -56.6]]) b.col(x, z, 1.7, 1.7);
 }
 
-// Teatrul Național București (1967-73, rebuilt facade 2010-15) — ~24 m (OSM way 41542957),
-// arcaded light facade, fly tower over the main hall.
+// Teatrul Național București (Horia Maicu / Romeo Belea / Nicolae Cucu 1967-73; 2010-15 refurbishment that
+// removed Cezar Lăzărescu's 1983 facades and restored Belea's reinforced-concrete "pălărie" (terracotta-red
+// flared roof edge, white stage-tower cubes above — Commons "Bucharest - New National Theater (19237949514)") — ro.wikipedia
+// "Teatrul Național Ion Luca Caragiale din București"). Footprint + 24 m from OSM way 41542957; glazed body
+// under the flared white "hat" roof, fly tower of the Sala Mare above; Ioan Bolborea's bronze group
+// "Căruța cu paiațe" (7 m, 2010) and the Caragiale statue (3.5 m) in front from OSM ways 1435346473/74.
+// Src: https://ro.wikipedia.org/wiki/Teatrul_Național_„Ion_Luca_Caragiale”_din_București ; OSM way 41542957
 function bTNB(b) {
-    const [p] = P.tnb.map(pts);
-    b.prism(p, 0, 22, '#e6dcc7', { topCol: C.stone });
-    b.bands(p, 0, 22, 5.2, '#4b4f55', { frac: 0.5, mat: 'g' });
-    b.roof(p, 22, 2.5, '#9b968c', 2);
-    b.box(45, 24.5, 22, 42, 12, 34, '#cfc6b5');                             // fly tower over the hall
-    const zf = zAt([p], -45)?.[1] ?? 0;                                    // west front (+z)
-    b.colonnade(-86, zf + 2.5, -6, zf + 2.5, 0, 10, 14, 0.8, C.white);
-    b.box(-46, 10, zf + 2, 84, 1.5, 6, C.stone);
-    b.colPoly([p], 24);
+    const [p] = P.tnb.map(pts), WH = '#f2f1ec', HAT = '#9c3b2c', GL = '#2f3d48', BR = '#5a4a36';
+    // glazed body with mullions
+    b.prism(p, 0, 16.5, GL, { mat: 'g', topCol: '#bfbab0' });
+    b.pilasters(p, 0, 16.5, 3, 0.18, 0.25, '#c9ccc9', {});
+    for (const y of [5.5, 11]) b.cornice(p, y, 0.35, 0.3, '#c9ccc9');
+    b.prism(offset(p, 0.4), 0, 0.6, '#bdb6a8');
+    // the "hat": sloped white soffit flaring out, fascia, flat top
+    const a = offset(p, 0.3), c = offset(p, 5.5);
+    const sgn = signedArea(p) > 0 ? 1 : -1;
+    for (let i = 0; i < p.length; i++) {
+        const j = (i + 1) % p.length;
+        b.quad([a[i][0], 16.5, a[i][1]], [a[j][0], 16.5, a[j][1]], [c[j][0], 20.5, c[j][1]], [c[i][0], 20.5, c[i][1]], HAT, 'm', [sgn * (a[j][1] - a[i][1]), -1, -sgn * (a[j][0] - a[i][0])]);
+    }
+    b.prism(c, 20.5, 23.8, HAT, { topCol: '#8a3427' });
+    b.cornice(c, 23.8, 0.5, 0.15, '#b04a38');
+    // fly tower + secondary stage volume
+    b.prism(rect(22, -20, 66, 30), 23.8, 34, '#e8e6e0', { topCol: '#cfccc4' });
+    b.windows(rect(22, -20, 66, 30), 24, 33, 9, '#a8b0b5', { bay: 2.2, wf: 0.18, hf: 0.9, start: 0.3, minL: 10 });
+    b.prism(rect(-62, -30, -20, 20), 23.8, 29, '#e8e6e0', { topCol: '#cfccc4' });
+    // sign on the front (+z)
+    b.text('TEATRUL NATIONAL', 45, 21.2, 60.7, 0, 1.7, '#f2efe6');
+    // forecourt: "Căruța cu paiațe" bronze group (cart, figures) + Caragiale statue
+    b.box(39.4, 0, 98.6, 13, 0.6, 14, '#c8c1b4');
+    b.box(39.4, 0.6, 98.6, 5, 2.4, 9, BR); for (const s of [-1, 1]) b.cyl(39.4 + s * 2.8, 1.6, 98.6 + 2.5, 1.6, 1.6, 0.4, BR, 10, { rz: Math.PI / 2 });
+    for (let i = 0; i < 6; i++) { const x = 37 + (i % 3) * 2.3, z = 95 + Math.floor(i / 3) * 6; b.cyl(x, 3, z, 0.35, 0.5, 2.6 + hash(i) * 1.4, BR, 6); b.sphere(x, 6 + hash(i) * 1.4, z, 0.35, BR, { detail: 0 }); }
+    b.box(24.8, 0, 86.4, 3, 0.5, 3, '#c8c1b4'); b.cyl(24.8, 0.5, 86.4, 0.4, 0.55, 2.6, BR, 6); b.sphere(24.8, 3.4, 86.4, 0.33, BR, { detail: 0 });
+    b.colPoly([p], 24); b.col(39.4, 98.6, 6.5, 7);
 }
 
-// Ateneul Român (1886-88, Albert Galleron) — 41 m to the dome (OSM way 16291602), circular concert
-// hall Ø ~41 m under a ribbed dome, Ionic hexastyle portico facing Calea Victoriei / Piața Enescu.
+// Ateneul Român (Albert Galleron, 1886-88) — 41 m to the top of the dome (OSM way 16291602), concert-hall
+// rotunda under a ribbed dome; Ionic hexastyle portico with pediment (Commons "Ateneo Rumano, Bucarest,
+// 2016-05-29, DD 73"): drum ring of oculi (round windows) between paired pilasters, dark grey-green dome with
+// dormers and gilded ribs, lantern; lower two-storey wings left and right of the portico.
+// Src: https://en.wikipedia.org/wiki/Romanian_Athenaeum ; OSM way 16291602
 function bAteneu(b) {
-    b.wall = '#efe6d2';
-    const S = '#efe6d2', D = '#6f7d72';
-    b.box(-22, 0, 0, 22, 13, 36, S);                                       // rear block
-    b.bands(rect(-33, -18, -11, 18), 0, 13, 4.5, '#6a645a', { frac: 0.4 });
-    b.cyl(-4, 0, 0, 20.5, 21, 19, S, 32);                                  // rotunda
-    for (let i = 0; i < 20; i++) { const a = i / 20 * Math.PI * 2; b.box(-4 + Math.cos(a) * 20.9, 6, Math.sin(a) * 20.9, 0.4, 7, 2.6, '#6a645a', { ry: -a }); } // arched windows
-    b.cyl(-4, 19, 0, 21.6, 21.6, 1.4, '#e3d8c2', 32);                       // cornice
-    b.cyl(-4, 20.4, 0, 17, 18, 4.2, S, 32);                                  // drum
-    b.dome(-4, 24.6, 0, 17, 15, D, 32);
-    for (let i = 0; i < 16; i++) { const a = i / 16 * Math.PI * 2; b.box(-4 + Math.cos(a) * 14.2, 28, Math.sin(a) * 14.2, 1, 6, 1, '#d8c27a', { ry: -a }); } // gilded ribs
-    b.cyl(-4, 39.4, 0, 1.6, 2, 2.2, '#d8c27a', 10); b.sphere(-4, 42.2, 0, 0.8, '#d8c27a');
-    // portico (+x)
-    b.box(18, 0, 0, 16, 2, 34, '#d8cdb6');                                 // steps
-    b.box(14, 2, 0, 9, 14, 30, S);
-    b.colonnade(26, -12.5, 26, 12.5, 2, 13.2, 6, 0.85, '#f6f1e6', { capital: '#e3d8c2' });
-    b.box(19.5, 15.2, 0, 15, 1.8, 31, '#e3d8c2');
-    b.pediment(19.5, 17, 0, 31, 5.2, 15, S, Math.PI / 2);
+    const S = '#f1ead9', TR = '#e5dbc6', D = '#5d6964', GOLD = '#d4b46a', WIN = '#56524a';
+    b.wall = S;
+    const cx = -4;
+    // rear block + side wings
+    const rear = rect(-33, -19, -12, 19); b.prism(rear, 0, 14, S, { topCol: '#cfc6b3' });
+    b.windows(rear, 0, 13, 6.2, WIN, { bay: 4, wf: 0.4, hf: 0.6, arch: true, minL: 6 }); b.cornice(rear, 13.4, 0.8, 0.6, TR);
+    for (const s of [-1, 1]) {
+        const w = rect(4, s > 0 ? 13 : -24.5, 24.5, s > 0 ? 24.5 : -13);
+        b.prism(w, 0, 13, S, { topCol: '#cfc6b3' }); b.windows(w, 0, 12.5, 6, WIN, { bay: 3.6, wf: 0.42, hf: 0.6, arch: true, minL: 5 });
+        b.cornice(w, 12.4, 0.8, 0.6, TR); b.colonnade(24.8, s * 14.5, 24.8, s * 23.5, 1.5, 10.5, 3, 0.45, '#f6f1e6', { seg: 6 });
+    }
+    // rotunda: lower wall with arched windows, cornice, drum with oculi + paired pilasters
+    b.cyl(cx, 0, 0, 20.5, 21, 19, S, 28);
+    b.windows(ellipse(cx, 0, 21.2, 21.2, 14, Math.PI / 14), 1, 18, 8.5, WIN, { bay: 9.4, wf: 0.3, hf: 0.66, arch: true, minL: 4 });
+    b.cyl(cx, 19, 0, 21.8, 21.8, 1.4, TR, 28);
+    const drum = ellipse(cx, 0, 18, 18, 24, Math.PI / 24);
+    b.prism(drum, 20.4, 26.5, S, { top: false });
+    for (let i = 0; i < 12; i++) {
+        const a = (i + 0.5) / 12 * Math.PI * 2;
+        b.geo(new THREE.TorusGeometry(1.15, 0.28, 4, 10), TR, M(cx + Math.cos(a) * 18.15, 23.4, Math.sin(a) * 18.15, -a + Math.PI / 2));
+        b.cyl(cx + Math.cos(a) * 18.05, 23.4, Math.sin(a) * 18.05, 1.05, 1.05, 0.2, '#4b5560', 10, { rx: Math.PI / 2, ry: -a + Math.PI / 2 });
+        const a2 = i / 12 * Math.PI * 2;
+        for (const d of [-0.035, 0.035]) b.box(cx + Math.cos(a2 + d) * 18.25, 20.4, Math.sin(a2 + d) * 18.25, 0.5, 6.1, 0.5, TR);
+    }
+    b.cyl(cx, 26.5, 0, 19, 19, 1.2, TR, 24);
+    // ribbed dome with dormers, lantern
+    const pr = [[18.2, 0], [17.5, 3.5], [15.6, 7], [12.4, 10], [8.2, 12.3], [3.6, 13.4], [0.01, 13.6]].map(([a, c]) => new THREE.Vector2(a, c));
+    b.geo(new THREE.LatheGeometry(pr, 24), D, M(cx, 27.7, 0));
+    for (let i = 0; i < 12; i++) {
+        const a = i / 12 * Math.PI * 2;
+        b.tube([[cx + Math.cos(a) * 18.3, 27.8, Math.sin(a) * 18.3], [cx + Math.cos(a) * 15.8, 34.6, Math.sin(a) * 15.8], [cx + Math.cos(a) * 8.4, 40, Math.sin(a) * 8.4], [cx + Math.cos(a) * 2.6, 41.2, Math.sin(a) * 2.6]], 0.3, GOLD, { seg: 4, radial: 3 });
+        const a3 = a + Math.PI / 12; b.box(cx + Math.cos(a3) * 16.5, 29.5, Math.sin(a3) * 16.5, 1.4, 2.2, 1.6, '#e8e1d0', { ry: -a3 });
+    }
+    b.cyl(cx, 41, 0, 2.2, 2.6, 2.6, '#e8e1d0', 10); b.dome(cx, 43.6, 0, 2.3, 1.8, D, 10); b.cyl(cx, 45.2, 0, 0.12, 0.25, 2.2, GOLD, 6);
+    // portico (+x): steps, Ionic hexastyle, entablature, pediment
+    for (let i = 0; i < 4; i++) b.box(29 - i * 0.6, i * 0.5, 0, 12 - i * 1.2, 0.5, 30 - i * 0.4, '#ddd3bf');
+    b.box(14, 2, 0, 10, 13.2, 28, S);
+    b.windows(rect(9, -14, 19, 14), 2, 14, 11, '#6b5d45', { bay: 5, wf: 0.5, hf: 0.65, edges: [1], minL: 3 });
+    b.colonnade(26.2, -12, 26.2, 12, 2, 12, 6, 0.75, '#f8f4ea', { capital: '#e9dfca', seg: 10 });
+    b.box(21, 14, 0, 12, 1.9, 29, TR);
+    b.text('ATENEUL ROMAN', 27.06, 14.35, 0, Math.PI / 2, 0.9, '#8b7a5a');
+    b.pediment(21, 15.9, 0, 29, 5.4, 12, S, Math.PI / 2);
+    b.box(21, 15.9, 0, 12.3, 0.4, 29.6, TR);
     b.col(-4, 0, 30, 24);
 }
 
 // Palatul Regal (Royal Palace, now MNAR, 1937 rebuild) — 4 levels (~20 m), long neoclassical
 // front on Calea Victoriei with central columned body; OSM way 232472401.
+// Src: https://en.wikipedia.org/wiki/Royal_Palace,_Bucharest ; OSM way 232472401
 function bRegal(b) {
     b.wall = '#e9e1cd';
     const [p] = P.regal.map(pts);
@@ -610,88 +973,128 @@ function bRegal(b) {
     b.colPoly([p], 22);
 }
 
-// Palatul Victoria (Government, 1937-52, Duiliu Marcu) — rationalist-neoclassical, ~22 m, 4 floors,
-// facing Piața Victoriei (+z = west); OSM way 23554419.
+// Palatul Victoria (Government, Duiliu Marcu, 1937-52) — OSM way 23554419 + parts 1516914665 (20 m),
+// 1516952164 (23 m), 1516952165 (30 m core, green-copper roof #8fbc8f). Stripped-classical travertine block:
+// regular grid of tall windows, high ground floor, full-width giant order of square pillars + entrance
+// portico to Piața Victoriei (+z),
+// attic storey set back, flag mast.
+// Src: https://en.wikipedia.org/wiki/Victoria_Palace ; OSM way 23554419 + parts 1516914665/1516952164/1516952165
 function bVictoria(b) {
-    b.wall = '#e2dccd';
+    const S = '#e9e1cd', TR = '#ddd4bf', WIN = '#4c5157';
+    b.wall = S;
     const [p] = P.victoria.map(pts);
-    b.prism(p, 0, 21, '#e2dccd', { topCol: C.stone });
-    b.bands(p, 0, 21, 4.6, '#4f5257', { frac: 0.48 });
-    b.prism(offset(p, -0.8), 21, 23.5, '#d8d1c0');
-    b.colonnade(-7, 34.2, 5, 34.2, 3.5, 17, 4, 0.75, '#f1ede4', { square: true });
-    b.box(-1, 20.5, 33.5, 16, 2, 2, '#d8d1c0');
-    b.box(-1, 23.5, 27, 6, 3, 2, '#d8d1c0'); b.cyl(-1, 26.5, 27, 0.15, 0.15, 7, '#ddd', 6); b.box(-1, 31, 27.6, 0.05, 1.6, 2.6, '#1b4ea3'); // flag
+    storeys(b, p, 0, [[6, 0.42, 0.7, false], [4.2, 0.4, 0.62, false], [4.2, 0.4, 0.62, false], [4.2, 0.4, 0.58, false]], { wall: S, win: WIN, trim: TR, bay: 3.9, courses: [0], corniceOut: 0.6, minL: 5 });
+    const core = rect(-43, -33, 43, 15);
+    storeys(b, offset(core, -1), 19.6, [[3.4, 0.36, 0.55, false]], { wall: S, win: WIN, trim: TR, bay: 3.9, corniceOut: 0.4, minL: 5 });
+    b.hip(0, 23.6, -9, 84, 46, 6.4, '#87b28c');                                                  // green-copper roof
+    // full-width giant order on Piața Victoriei (Commons "Bucharest Victoria Palace-2.jpg"): square pillars
+    // from the plinth storey to the attic cornice, projecting entrance bay in the middle
+    b.colonnade(-44, 22.6, 44, 22.6, 6, 13.6, 20, 0.6, '#f1ede4', { square: true });
+    b.box(0, 19.6, 22.4, 92, 0.9, 1.6, TR);
+    b.box(-1.2, 0, 34.5, 24, 1, 6, '#cfc6b3');
+    b.colonnade(-10, 36.4, 7.6, 36.4, 1, 15.5, 6, 0.7, '#f1ede4', { square: true });
+    b.box(-1.2, 16.5, 35.5, 22, 2.2, 3.2, TR);
+    b.cyl(-1.2, 30, -9, 0.12, 0.16, 9, '#dddddd', 6); flag(b, -1.2, 38.8, -9, 3);
     b.colPoly([p], 20);
 }
 
-// Palatul CEC (1897-1900, Paul Gottereau) — eclectic, glass-and-metal central dome, domed entrance
-// pavilion on Calea Victoriei (+x) and four corner cupolas; OSM way 973712798.
+// Palatul CEC (Paul Gottereau, 1897-1900) — eclectic, ≈ 58 x 60 m (OSM way 973712798); glass-and-iron dome
+// over the banking hall (top ≈ 40 m), monumental arched porch with paired columns and a ribbed dome on the
+// Calea Victoriei corner (+x), four corner cupolas; white stone with rusticated ground floor.
+// Src: https://en.wikipedia.org/wiki/CEC_Palace ; OSM way 973712798
 function bCEC(b) {
-    b.wall = '#e5dccb';
-    const [p] = P.cec.map(pts), S = '#e5dccb', MT = '#7c868a';
-    b.prism(p, 0, 18, S, { topCol: C.stone }); b.bands(p, 0, 18, 5.6, '#544e45', { frac: 0.45 });
-    b.cyl(0, 18, 0, 11, 11.5, 5, S, 20);
-    b.dome(0, 23, 0, 11, 13, '#9fb2b7', 20, { mat: 'g' });
-    b.cyl(0, 35.6, 0, 1.6, 1.8, 2.6, MT, 8); b.cone(0, 38.2, 0, 1.6, 2.4, MT, 8);
-    const xf = xAt([p], 0)?.[1] ?? 22;                                      // entrance front
-    b.box(xf - 4, 0, 0, 8, 22, 16, S);
-    b.archWall(16.2, 14, 1.2, [{ x: 0, w: 7, h: 12 }], '#d9cfbd', M(xf + 0.2, 0, 0, Math.PI / 2));
-    b.cyl(xf - 4, 22, 0, 5, 5.2, 2.5, S, 16); b.dome(xf - 4, 24.5, 0, 5, 6.5, MT, 16);
-    b.cone(xf - 4, 31, 0, 0.8, 3, MT, 6);
+    const S = '#ece5d5', TR = '#e1d8c4', MT = '#6f7b80', WIN = '#4f4a43';
+    b.wall = S;
+    const [p] = P.cec.map(pts);
+    storeys(b, p, 0, [[6.5, 0.45, 0.68, true], [5.4, 0.4, 0.62, true], [4.6, 0.38, 0.55, false]], { wall: S, win: WIN, trim: TR, bay: 4.4, courses: [0, 1], pilasters: true, pilasterEvery: 1, pilasterW: 0.8, corniceOut: 0.9, parapet: 1, minL: 5 });
+    // central glass dome on a drum
+    b.cyl(0, 17.6, 0, 11, 11.5, 4.5, S, 20); b.windows(ellipse(0, 0, 11.3, 11.3, 10), 17.6, 22, 4.4, WIN, { bay: 7, wf: 0.35, hf: 0.6, arch: true, minL: 3 });
+    b.geo(new THREE.LatheGeometry([[11, 0], [10.4, 4], [8.4, 8.2], [5.2, 11.4], [1.6, 12.8], [0.01, 13]].map(([a, c]) => new THREE.Vector2(a, c)), 20), '#9db3ba', M(0, 22.1, 0), 'g');
+    for (let i = 0; i < 10; i++) { const a = i / 10 * Math.PI * 2; b.tube([[Math.cos(a) * 11.1, 22.1, Math.sin(a) * 11.1], [Math.cos(a) * 8.6, 30.2, Math.sin(a) * 8.6], [Math.cos(a) * 1.7, 34.9, Math.sin(a) * 1.7]], 0.22, MT, { seg: 3, radial: 3 }); }
+    b.cyl(0, 35, 0, 1.6, 1.8, 2.6, MT, 8); b.cone(0, 37.6, 0, 1.6, 2.6, MT, 8);
+    // entrance pavilion (+x): big arch with paired columns, dome on a drum
+    const xf = xAt([p], 0)?.[1] ?? 22;
+    b.box(xf - 4, 0, 0, 9, 21, 18, S);
+    b.archWall(18.2, 17.5, 1.6, [{ x: 0, w: 8, h: 13.5 }], TR, M(xf + 0.6, 0, 0, Math.PI / 2));
+    for (const z of [-6.8, -5.3, 5.3, 6.8]) b.cyl(xf + 1.9, 1.2, z, 0.5, 0.55, 12, '#f4efe4', 8);
+    b.box(xf + 1.9, 0, 0, 1.6, 1.2, 16, '#cfc6b3'); b.box(xf + 1.4, 13.2, 0, 2.4, 1.4, 18.4, TR);
+    b.text('CEC', xf + 1.65, 15.1, 0, Math.PI / 2, 1.5, '#7a6b52');
+    b.cyl(xf - 4, 21, 0, 5.4, 5.6, 3.5, S, 16); b.dome(xf - 4, 24.5, 0, 5.4, 7, MT, 16);
+    b.cyl(xf - 4, 31.3, 0, 0.9, 1, 1.6, S, 8); b.cone(xf - 4, 32.9, 0, 0.9, 3, MT, 8);
     const bb = bbox([p]);
-    for (const [x, z] of [[bb.x0 + 3, bb.z0 + 3], [bb.x1 - 3, bb.z0 + 3], [bb.x0 + 3, bb.z1 - 3], [bb.x1 - 3, bb.z1 - 3]]) { b.cyl(x, 18, z, 3, 3.2, 3, S, 12); b.dome(x, 21, z, 3, 4, MT, 12); }
+    for (const [x, z] of [[bb.x0 + 3, bb.z0 + 3], [bb.x1 - 3, bb.z0 + 3], [bb.x0 + 3, bb.z1 - 3], [bb.x1 - 3, bb.z1 - 3]]) { b.cyl(x, 18.6, z, 3, 3.2, 3, S, 12); b.dome(x, 21.6, z, 3, 4.2, MT, 12); b.cone(x, 25.6, z, 0.5, 2.2, MT, 6); }
     b.colPoly([p], 15);
 }
 
-// Muzeul Național de Istorie a României (Palatul Poștelor, 1894-1900, Alexandru Săvulescu) —
-// neoclassical, ~22 m, monumental Doric colonnade on Calea Victoriei (-x); OSM rel 19919941.
+// Muzeul Național de Istorie a României (Palatul Poștelor, Alexandru Săvulescu, 1894-1900) — ≈ 22 m,
+// neoclassical; portico of 14 Doric columns ("loggia") between end pavilions on Calea Victoriei (-x),
+// mansard roof; OSM rel 19919941 (+ courtyard). Trajan's Column replica stands in the inner courtyard.
+// Src: https://en.wikipedia.org/wiki/National_Museum_of_Romanian_History ; OSM rel 19919941
 function bMNIR(b) {
-    b.wall = '#e4dccb';
-    const [p, hole] = P.mnir.map(pts), S = '#e4dccb';
-    b.prism(p, 0, 21, S, { holes: [hole], topCol: C.stone }); b.bands(p, 0, 21, 5, C.winWarm, { frac: 0.45, holes: [hole] });
-    b.roof(p, 21, 3.5, '#a6a196', 2, { holes: [hole] });
+    const S = '#e8e0cf', TR = '#ddd3bf', WIN = '#4f4a43';
+    b.wall = S;
+    const [p, hole] = P.mnir.map(pts);
+    storeys(b, p, 0, [[6.5, 0.44, 0.66, true], [5.6, 0.4, 0.62, false], [5, 0.38, 0.55, false]], { wall: S, win: WIN, trim: TR, bay: 4.4, holes: [hole], courses: [0], pilasters: true, pilasterEvery: 2, corniceOut: 0.9, parapet: 1.1, minL: 6 });
+    b.roof(p, 19.2, 4, '#8f9599', 2.2, { holes: [hole], topCol: '#7f868a' });
     const xf = xAt([p], 0)?.[0] ?? -52;
-    b.box(xf - 4, 0, 0, 9, 3, 60, C.stoneDk);
-    b.colonnade(xf - 6.5, -27, xf - 6.5, 27, 3, 14, 14, 0.95, C.white, { capital: C.stone });
-    b.box(xf - 4.5, 17, 0, 9, 2.4, 60, '#ded4c0');
-    b.box(xf + 4, 0, -36, 8, 26, 14, S); b.box(xf + 4, 0, 36, 8, 26, 14, S);   // end pavilions
+    b.box(xf - 5, 0, 0, 10, 3, 62, '#cfc6b3');
+    for (let i = 0; i < 4; i++) b.box(xf - 10.5 + i * 0.6, i * 0.75, 0, 1.2, 0.75, 44, '#d8cfbd');
+    b.colonnade(xf - 8.2, -26, xf - 8.2, 26, 3, 13.2, 14, 1, '#f3eee3', { capital: TR, seg: 10 });
+    b.box(xf - 5, 16.2, 0, 10.6, 2.6, 62, TR); b.box(xf - 5, 18.8, 0, 9.6, 1.5, 60, S);
+    b.text('MUZEUL NATIONAL DE ISTORIE A ROMANIEI', xf - 10.32, 16.75, 0, -Math.PI / 2, 0.85, '#7a6b52');
+    for (const z of [-36, 36]) { b.box(xf + 3, 0, z, 10, 24.5, 14, S); b.windows(rect(xf - 2, z - 7, xf + 8, z + 7), 0, 23, 6.5, WIN, { bay: 4.6, wf: 0.4, hf: 0.6, arch: true, minL: 4 }); b.hip(xf + 3, 24.5, z, 10, 14, 4, '#8f9599'); }
+    // Trajan's Column replica (cast, 1967) in the courtyard
+    const [hx, hz] = centroid(hole); b.cyl(hx, 0, hz, 2, 2, 3, '#d9d1c1', 8); b.cyl(hx, 3, hz, 1.6, 1.8, 24, '#d6cdb9', 10); b.box(hx, 27, hz, 2.4, 1.2, 2.4, '#d9d1c1');
     b.colPoly([p], 20);
 }
 
-// JW Marriott Bucharest Grand Hotel (ex-Casa Republicii, 1980s) — 9 levels, 40 m (OSM way 26314111),
-// cream stone "Casa Poporului"-style building next to the Parliament.
+// JW Marriott Bucharest Grand Hotel (ex-Casa Republicii annex, 1980s, opened 2000) — 9 levels / 40 m
+// (OSM way 26314111) with 13-16 m inner wings (parts 1190458135-38). Same cream stone language as the
+// Parliament: arcaded ground floor, regular grid, arched top storey, set-back attic, porte-cochère + sign.
+// Src: https://en.wikipedia.org/wiki/JW_Marriott_Bucharest_Grand_Hotel ; OSM way 26314111
 function bMarriott(b) {
-    b.wall = C.cream;
+    const S = '#ece4d1', TR = '#e2d8c2', WIN = '#56606a';
+    b.wall = S;
     const [p] = P.marriott.map(pts);
-    b.prism(p, 0, 32, C.cream, { topCol: C.stone }); b.bands(p, 0, 32, 3.6, C.winWarm, { frac: 0.5 });
-    const t = offset(p, -5); b.prism(t, 32, 40, C.cream2); b.bands(t, 32, 40, 3.6, C.winWarm, { frac: 0.5 });
+    storeys(b, p, 0, [[5.6, 0.5, 0.7, true], [3.6, 0.4, 0.55, false], [3.6, 0.4, 0.55, false], [3.6, 0.4, 0.55, false], [3.6, 0.4, 0.55, false], [3.6, 0.4, 0.55, false], [3.6, 0.4, 0.55, false], [4, 0.44, 0.64, true]],
+        { wall: S, win: WIN, trim: TR, bay: 4.4, courses: [0, 6], pilasters: true, pilasterEvery: 2, corniceOut: 0.9, parapet: 1, minL: 6 });
+    const t = offset(p, -5); b.prism(t, 32.5, 39, S, { topCol: '#cbc5b8' }); b.windows(t, 32.5, 39, 3.6, WIN, { bay: 4.4, wf: 0.4, hf: 0.55, minL: 8 });
+    const xf = xAt([p], 0)?.[1] ?? 40;
+    b.box(xf + 6, 6, 0, 12, 1, 22, TR); b.colonnade(xf + 11, -9, xf + 11, 9, 0, 6, 4, 0.5, '#f3eee4', { seg: 6 });
+    b.text('JW MARRIOTT', xf + 12.05, 6.15, 0, Math.PI / 2, 0.7, '#2c2c2c');
     b.colPoly([p], 20);
 }
 
-// Unirea Shopping Center (1976-89, refurbished) — 6 levels (OSM way 23492027), Piața Unirii (front -x).
+// Unirea Shopping Center (1976, enlarged 1989, refurbished 2000s) — 4 floors + roof levels, 6 levels in OSM
+// (way 23492027), 43,760 m² (en.wikipedia). Long curved glass front on Piața Unirii (-x side) with the red
+// "UNIREA" lettering, beige stone end walls; multi-storey car park block behind (OSM 184169515, not modelled).
+// Src: https://en.wikipedia.org/wiki/Unirea_Shopping_Center (43,760 m², 4 floors) ; OSM way 23492027
 function bUnirea(b) {
     const [p] = P.unirea.map(pts);
-    b.prism(p, 0, 26, '#d8d3c8', { topCol: '#b7b3aa' });
-    b.bands(p, 0, 26, 4.3, C.glass, { frac: 0.55, mat: 'g' });
-    const xf = xAt([p], 0)?.[0] ?? -100;
-    b.box(xf - 0.6, 20, 0, 0.8, 4.5, 36, '#c8102e');                       // "UNIREA" sign panel
-    b.box(xf - 1.1, 21, 0, 0.3, 2.5, 30, '#ffffff');
-    b.box(xf + 30, 26, 0, 30, 4, 30, '#c9c4b9');
+    b.prism(p, 0, 24, '#d6d1c6', { topCol: '#b3afa6' });
+    b.windows(p, 0, 24, 4.6, '#3f5d74', { bay: 3, wf: 0.9, hf: 0.78, start: 0.5, mat: 'g', minL: 4 });
+    b.cornice(p, 4.8, 0.6, 0.8, '#ece9e2'); b.cornice(p, 23.4, 1.2, 0.8, '#ece9e2');
+    b.prism(offset(p, -12), 24, 28.5, '#c9c4b9', { topCol: '#aaa69e' });
+    const zf = zAt([p], 0)?.[1] ?? 52;                                                    // west front on Piața Unirii = +z
+    b.box(0, 13.6, zf + 1.3, 48, 8, 1, '#ffffff');
+    b.text('UNIREA', 0, 14.6, zf + 1.85, 0, 6, '#c8102e');
+    b.text('SHOPPING CENTER', 0, 10.4, zf + 1.3, 0, 2.2, '#c8102e');
     b.colPoly([p], 24);
 }
 
 // Fântânile din Piața Unirii & Bd. Unirii — basins from OSM natural=water ways (round Ø ~14 m and
 // oval ~28 m basins alternating along the boulevard median, central plaza fountains).
 const FOUNTAINS = [[-770, -48, 14], [-722, -44, 14], [-686, -42, 7], [-650, -39, 14], [-614, -37, 7], [-578, -35, 14], [-543, -32, 7], [-507, -30, 14], [-471, -28, 7], [-435, -25, 14], [-398, -23, 7], [-361, -21, 14], [-326, -19, 7], [-289, -16, 14], [-253, -14, 7], [-216, -11, 14], [-181, -9, 7], [-95, 20, 22], [-92, -27, 23], [-91, -3, 14], [-75, 24, 9], [-71, -31, 9], [-59, -1, 7], [-59, 30, 19], [-54, -32, 19], [-33, 50, 33], [-26, -51, 31], [-8, 59, 15], [0, -58, 14], [19, 54, 33], [26, -47, 32], [47, 36, 18], [51, -25, 19], [51, 6, 7], [64, 33, 8], [67, -22, 9], [82, 8, 14], [83, 32, 21], [84, -15, 20], [155, 12, 7], [199, 15, 14], [244, 18, 7], [292, 21, 14], [338, 24, 7], [383, 27, 14], [429, 30, 7], [474, 32, 14], [522, 35, 7], [569, 38, 14]];
+// Src: https://en.wikipedia.org/wiki/Piața_Unirii ; OSM natural=water / amenity=fountain ways
 function bFountains(b) {
     for (const [x, z, L] of FOUNTAINS) {
         const plaza = Math.abs(x) < 100, oval = !plaza && L >= 12;
         const rx = plaza ? L * 0.8 : (oval ? 13 : 6.5), rz = plaza ? L * 0.55 : (oval ? 5.5 : 6.5);
         const ang = plaza ? Math.atan2(z, x) + Math.PI / 2 : Math.atan2(4, 60);
         const rot = (q) => q.map(([a, c]) => [x + a * Math.cos(ang) - c * Math.sin(ang), z + a * Math.sin(ang) + c * Math.cos(ang)]);
-        const outer = rot(ellipse(0, 0, rx, rz, 12)), inner = rot(ellipse(0, 0, rx - 0.7, rz - 0.7, 12));
-        b.prism(outer, 0, 0.6, '#cfc8ba', { holes: [inner] });
-        b.prism(inner, 0, 0.35, C.water, { mat: 'w' });
+        const ns = plaza ? 12 : 8, outer = rot(ellipse(0, 0, rx, rz, ns)), inner = rot(ellipse(0, 0, rx - 0.7, rz - 0.7, ns));
+        b.ring(outer, 0, 0.6, '#cfc8ba'); b.ring(inner, 0.35, 0.6, '#cfc8ba', { inward: true }); b.lip(inner, outer, 0.6, '#d8d2c6', 1);   // kerb
+        b.cap(inner, 0.35, C.water, [], 1, 'w');
         const jets = oval ? [-7, 0, 7] : plaza ? [-rx * 0.4, rx * 0.4] : [0];
         for (const j of jets) {
             const jx = x + j * Math.cos(ang), jz = z + j * Math.sin(ang), h = oval && j === 0 ? 9 : 5.5;
@@ -701,47 +1104,81 @@ function bFountains(b) {
     }
 }
 
-// Sky Tower (Floreasca City Center, 2012) — 137 m, 37 floors, elliptical glass tower (OSM way 219622660).
+// Sky Tower (Floreasca City Center, 2012) — 137 m, 37 floors, tallest building in Romania (OSM way 219622660:
+// height 137, levels 37, colour #3960DA). Lens/ellipse plan, blue glass with white floor-slab lines, the glass
+// skin runs past the roof as a crown cut on a slant (≈ 125 -> 137 m), 3-level lobby podium.
+// Src: https://en.wikipedia.org/wiki/Sky_Tower_(Bucharest) (137 m, 37 floors) ; OSM way 219622660
 function bSkyTower(b) {
-    const [p] = P.skytower.map(pts);
-    b.prism(p, 0, 120, '#6b8fa9', { mat: 'g', topCol: '#9fb3c2' });
-    b.bands(p, 0, 120, 3.6, '#c4d0d8', { frac: 0.14, off: 0.12 });
-    const t1 = offset(p, -3.5), t2 = offset(p, -8);
-    b.prism(t1, 120, 127, '#6b8fa9', { mat: 'g' }); b.prism(t2, 127, 131.5, '#8aa3b5', { mat: 'g' });
-    b.cyl(0, 131.5, 0, 0.5, 0.9, 5.5, '#c9ccce', 6);
+    const [p] = P.skytower.map(pts), GL = '#4d74b5', LN = '#c8d4e2';
+    b.prism(offset(p, 3), 0, 9, '#2f3d4a', { mat: 'g', topCol: '#9aa6b0' });
+    b.prism(p, 9, 125, GL, { mat: 'g', topCol: '#9fb3c2' });
+    for (let y = 9 + 6.8; y < 124; y += 6.8) b.cornice(p, y, 0.3, 0.08, LN);          // every 2nd slab (budget)
+    b.pilasters(p, 9, 125, 7, 0.25, 0.15, LN, {});
+    // slanted crown: skin height varies linearly along x from 129 (west) to 137 (east)
+    const bb = bbox([p]), top = (x) => 129 + 8 * (x - bb.x0) / (bb.x1 - bb.x0), s = signedArea(p) > 0 ? 1 : -1;
+    for (let i = 0; i < p.length; i++) {
+        const [ax, az] = p[i], [bx, bz] = p[(i + 1) % p.length];
+        b.quad([ax, 125, az], [bx, 125, bz], [bx, top(bx), bz], [ax, top(ax), az], '#6c8fc6', 'g', [s * (bz - az), 0, -s * (bx - ax)]);
+        b.quad([bx, 125, bz], [ax, 125, az], [ax, top(ax), az], [bx, top(bx), bz], '#8ea9cf', 'g', [-s * (bz - az), 0, s * (bx - ax)]);   // inner face
+    }
+    b.cyl(5, 125, 0, 3, 3, 6, '#cfd5da', 8);
     b.colPoly([p], 15);
 }
 
-// Promenada Mall (2013) — 3 levels, 18 m (OSM way 240694437), white/glass with a planted roof.
+// Promenada Mall (2013, Floreasca) — 3 levels / 18 m (OSM way 240694437), glass + white fins, large planted
+// roof terrace with pavilions, red "PROMENADA" lettering on the Calea Floreasca front.
+// Src: https://en.wikipedia.org/wiki/Promenada_Mall ; OSM way 240694437
 function bPromenada(b) {
     const [p] = P.promenada.map(pts);
-    b.prism(p, 0, 18, '#e9ebec', { topCol: '#7da35b' });
-    b.bands(p, 0, 18, 6, '#5d7f97', { frac: 0.5, mat: 'g' });
-    b.prism(offset(p, -12), 18, 20, '#8db267'); b.prism(offset(p, -30), 20, 22, '#7da35b');
+    b.prism(p, 0, 18, '#eef0f0', { topCol: '#7da35b' });
+    b.windows(p, 0.4, 17, 5.6, '#4f7088', { bay: 3.2, wf: 0.8, hf: 0.8, start: 0.4, mat: 'g', minL: 6 });
+    b.cornice(p, 17.4, 0.9, 1.2, '#f6f7f7');
+    b.prism(offset(p, -14), 18, 19.2, '#8db267'); b.prism(offset(p, -32), 19.2, 20.4, '#7da35b');
+    for (const x of [-40, 0, 40]) b.prism(rect(x - 6, -6, x + 6, 6), 20.4, 24, '#e3e6e8', { topCol: '#c5ccd1' });
+    const zf = zAt([p], 0)?.[1] ?? 50;
+    b.text('PROMENADA', 0, 12.6, zf + 0.4, 0, 3.4, '#d8232a');
     b.colPoly([p], 25);
 }
 
-// Băneasa Shopping City (2008) — 3 levels, 22 m (OSM way 241256765).
+// Băneasa Shopping City (2008) — 3 levels / 22 m (OSM way 241256765); white-grey box with glass entrance
+// pavilions, long skylight spine, "BĂNEASA SHOPPING CITY" signage on the DN1 front.
+// Src: https://en.wikipedia.org/wiki/Băneasa_Shopping_City ; OSM way 241256765
 function bBaneasaSC(b) {
     const [p] = P.baneasasc.map(pts);
-    b.prism(p, 0, 22, '#dad6ce', { topCol: '#b9b5ad' });
-    b.bands(p, 0, 22, 7, '#56758c', { frac: 0.4, mat: 'g', start: 4 });
-    b.box(0, 22, 0, 30, 3, 120, '#cfd6db', { mat: 'g' });                    // skylight ridge
+    b.prism(p, 0, 20, '#dedad3', { topCol: '#bdb9b1' });
+    b.windows(p, 0, 20, 6.6, '#56758c', { bay: 6, wf: 0.75, hf: 0.42, start: 0.5, mat: 'g', minL: 14, skip: (e, j, f) => f > 0 && j % 3 !== 1 });
+    b.cornice(p, 19.4, 1.2, 0.6, '#ecebe7');
+    b.box(0, 20, 0, 26, 3.2, 160, '#cfd6db', { mat: 'g' }); b.box(0, 23.2, 0, 10, 1.2, 160, '#dfe4e7', { mat: 'g' });
+    const xf = xAt([p], 0)?.[1] ?? 60;
+    b.box(xf + 2, 0, 0, 4, 22, 34, '#3e5f78', { mat: 'g' });
+    b.text('BANEASA SHOPPING CITY', xf + 4.1, 15.5, 0, Math.PI / 2, 1.8, '#ffffff');
     b.colPoly([p], 25);
 }
 
-// Romexpo Central Pavilion (1962) — 34 m high steel-lattice dome (OSM way 23554160, Ø ~125 m outline).
+// Romexpo — Pavilionul Central (1962, Ascanio Damian et al.) — steel-lattice dome on a circular glazed ring,
+// ≈ 93 m span / 34 m high (OSM way 23554160 outline Ø ≈ 125 m incl. the ring gallery). Ribs + lantern.
+// Src: https://en.wikipedia.org/wiki/Romexpo ; OSM way 23554160
 function bRomexpo(b) {
     const [p] = P.romexpo.map(pts);
-    b.prism(p, 0, 8, '#dcd8ce'); b.bands(p, 0, 8, 8, '#4f6b80', { frac: 0.5, mat: 'g', start: 2 });
-    const a = 59, H = 25, R = (a * a + H * H) / (2 * H), th = Math.asin(a / R);
-    b.geo(new THREE.SphereGeometry(R, 36, 7, 0, Math.PI * 2, 0, th), '#c3c7c8', M(0, 8 + H - R, 0), 'g');
-    b.cyl(0, 8 + H - 0.5, 0, 7, 8, 1.8, '#a7acad', 16);
+    b.prism(p, 0, 9, '#dcd8ce', { topCol: '#c9c6bd' });
+    b.windows(p, 0, 9, 9, '#4f6b80', { bay: 4, wf: 0.85, hf: 0.7, start: 1, mat: 'g', minL: 3 });
+    b.cornice(p, 8.6, 0.8, 0.9, '#eceae4');
+    const a = 50, H = 25, R = (a * a + H * H) / (2 * H), th = Math.asin(a / R);
+    b.cyl(0, 9, 0, a + 0.5, a + 1, 1.2, '#e7e5df', 32);
+    b.geo(new THREE.SphereGeometry(R, 36, 7, 0, Math.PI * 2, 0, th), '#b8c0c4', M(0, 10.2 + H - R, 0), 'g');
+    for (let i = 0; i < 24; i++) {
+        const ang = i / 24 * Math.PI * 2, pts3 = [];
+        for (let k = 0; k <= 5; k++) { const t = th * (1 - k / 5), r = R * Math.sin(t) + 0.25; pts3.push([Math.cos(ang) * r, 10.2 + H - R + R * Math.cos(t) + 0.2, Math.sin(ang) * r]); }
+        b.tube(pts3, 0.35, '#e8eaea', { seg: 6, radial: 3 });
+    }
+    b.cyl(0, 10.2 + H - 0.6, 0, 6, 7, 2.2, '#9aa3a6', 16, { mat: 'g' });
+    b.text('ROMEXPO', 0, 3.4, 63.2, 0, 2.6, '#ffffff');
     b.col(0, 0, 45, 45);
 }
 
 // Monumentul Eroilor Aerului (1935, Lidia Kotzebue & Iosif Fekete) — ~20 m granite obelisk-pylon
 // topped by bronze winged aviators, Piața Aviatorilor (OSM node 559876471).
+// Src: https://ro.wikipedia.org/wiki/Monumentul_Eroilor_Aerului ; OSM node 559876471
 function bAviatorilor(b) {
     b.box(0, 0, 0, 11, 1.2, 11, '#a39d92'); b.box(0, 1.2, 0, 7.5, 2.4, 7.5, '#b9b3a7');
     b.cyl(0, 3.6, 0, 1.2, 2.1, 14, '#c8c2b6', 4, { ry: Math.PI / 4 });
@@ -751,21 +1188,44 @@ function bAviatorilor(b) {
     b.col(0, 0, 5.5, 5.5);
 }
 
-// Gara de Nord (1868-72, rebuilt) — main station building & concourse, OSM rel 18184857 parts.
+// Gara de Nord (1868-72, rebuilt 1930s-40s and 1990s) — OSM rel 18184857 parts: west head building 5 levels /
+// 20 m (way 620595693), central hall 10 m (620595692) with skylight (620563443), north block 18 m over 14 m
+// (620563447 / 8543), transverse concourse along the platform heads with a 10 m roof (570330518). Classical
+// stucco fronts with tall arched windows, clock + "GARA DE NORD" on the head building, platform canopies
+// over peroanele 1-13 (OSM railway=platform, shortened to 160 m).
+// Src: https://en.wikipedia.org/wiki/București_Nord_railway_station ; OSM rel 18184857 parts
 function bGara(b) {
-    b.wall = '#e6d9bd';
-    const ps = P.gara.map(pts), H = [16, 11, 13, 20, 4, 14];
-    ps.forEach((p, i) => {
-        if (i === 4) return;
-        b.prism(p, 0, H[i], i === 1 ? '#d6cbb5' : '#e6d9bd', { topCol: '#a9a39a' });
-        b.bands(p, 0, H[i], 5, '#5b5348', { frac: 0.45 });
-    });
-    b.roof(ps[0], 16, 3, '#8a8580', 1.5); b.roof(ps[3], 20, 3, '#8a8580', 1.5);
-    b.colPoly(ps, 20);
+    const S = '#e8dcc2', TR = '#ddd0b3', WIN = '#4f4a41';
+    b.wall = S;
+    const ps = P.gara.map(pts);
+    // central hall + concourse
+    b.prism(ps[1], 0, 11, S, { topCol: '#a9a39a' }); b.windows(ps[1], 0, 10.5, 10.5, WIN, { bay: 5.5, wf: 0.45, hf: 0.7, arch: true, minL: 8 });
+    b.cornice(ps[1], 10.6, 0.7, 0.6, TR);
+    b.prism(ps[2], 11, 13.5, '#9fb6c3', { mat: 'g' });                                          // skylight ridge
+    b.prism(ps[0], 0, 10, S, { topCol: '#8d8a84' }); b.windows(ps[0], 0, 9.5, 9.5, WIN, { bay: 5, wf: 0.6, hf: 0.75, arch: true, minL: 6 });
+    b.roof(ps[0], 10, 2.8, '#7d7a75', 1);
+    // west head building: 4 storeys + attic, clock and sign
+    storeys(b, ps[3], 0, [[6.2, 0.46, 0.7, true], [4.4, 0.42, 0.6, false], [4.2, 0.42, 0.58, false], [3.8, 0.4, 0.55, false]], { wall: S, win: WIN, trim: TR, bay: 4.2, courses: [0], pilasters: true, pilasterEvery: 2, corniceOut: 0.8, parapet: 1, minL: 5 });
+    b.roof(ps[3], 19.6, 3, '#86827c', 1.6);
+    // north block (18 m over the 14 m wing)
+    storeys(b, ps[5], 0, [[5.5, 0.45, 0.66, true], [4.2, 0.42, 0.58, false], [4.2, 0.42, 0.58, false]], { wall: S, win: WIN, trim: TR, bay: 4.2, corniceOut: 0.7, minL: 5 });
+    const nb = rect(29, -64, 81, -42); storeys(b, nb, 10, [[4, 0.42, 0.58, false], [4, 0.42, 0.58, false]], { wall: S, win: WIN, trim: TR, bay: 4.2, corniceOut: 0.7, minL: 5 });
+    // main front on Piața Gării de Nord (north end, -z): arcaded porch, clock, lettering
+    b.archWall(44, 9, 1.2, [-16, -8, 0, 8, 16].map(x => ({ x, w: 5.6, h: 7.4 })), TR, M(55, 0, -78.2));
+    b.box(55, 9, -78.2, 44.6, 1, 1.6, S);
+    b.cyl(55, 19.5, -78.7, 1.6, 1.6, 0.3, '#f4f1ea', 16, { rx: Math.PI / 2 }); b.cyl(55, 19.5, -78.9, 1.9, 1.9, 0.2, '#3a3a3a', 16, { rx: Math.PI / 2 });
+    b.text('GARA DE NORD', 55, 15.2, -78.95, Math.PI, 1.8, '#2d3a4a');
+    // platform canopies (thin roofs on posts) over the platforms north of the concourse
+    for (const x of [10, 25, 40, 54.5, 68.5, 84, 96.5]) {
+        b.box(x, 4.6, 165, 7.5, 0.3, 176, '#8a9196');
+        for (let z = 85; z <= 245; z += 16) b.box(x, 0, z, 0.3, 4.6, 0.3, '#5d6468');
+    }
+    b.colPoly([ps[0], ps[1], ps[3], ps[5]], 20);
 }
 
 // Opera Națională București (1953, Octav Doicescu) — classicising, ~22 m with fly tower, columned
 // portico towards Bd. Kogălniceanu (+z); OSM way 23556393.
+// Src: https://en.wikipedia.org/wiki/Romanian_National_Opera,_Bucharest ; OSM way 23556393
 function bOpera(b) {
     b.wall = '#e0cfb2';
     const [p] = P.opera.map(pts), S = '#e0cfb2';
@@ -778,34 +1238,45 @@ function bOpera(b) {
     b.colPoly([p], 22);
 }
 
-// Rectoratul Universității Politehnica (Splaiul Independenței 313, 1970s) — 5-storey square block
-// with a slender rectorate tower (height not documented in OSM; ~60 m estimated).
+// Rectoratul Universității Politehnica (Splaiul Independenței 313, 1970s) — OSM way 28240552: 5 levels,
+// square ≈ 48 x 48 m; roof part 1217715300: dome, building:levels 7 (≈ 42 m Ø). No tower is mapped and no
+// published height was found, so the height follows OSM: 5 storeys (≈ 20 m) + shallow dome to ≈ 28 m.
+// Concrete frame with continuous ribbon windows and vertical fins; aula under the copper-grey dome.
+// Src: OSM way 28240552 (building:levels 5) + roof part 1217715300 (dome, levels 7)
 function bPolitehnica(b) {
-    b.wall = '#d3cec3';
-    const [p] = P.politehnica.map(pts);
-    b.prism(p, 0, 19, '#d3cec3', { topCol: '#b9b4aa' }); b.bands(p, 0, 19, 3.8, '#47505a', { frac: 0.5 });
-    const t = rect(-8, -8, 8, 8);
-    b.prism(t, 19, 56, '#e7e5df'); b.bands(t, 19, 56, 3.6, '#47505a', { frac: 0.45 });
-    b.prism(rect(-9, -9, 9, 9), 56, 60, '#3d4a57', { mat: 'g' });
-    b.cyl(0, 60, 0, 0.3, 0.6, 7, '#b7bbbe', 6);
+    const [p] = P.politehnica.map(pts), CON = '#d7d3ca', GL = '#3d4b57';
+    b.prism(p, 0, 20, CON, { topCol: '#b9b4aa' });
+    b.prism(offset(p, -0.6), 0, 4.6, GL, { mat: 'g', top: false });                          // recessed glazed ground floor
+    for (let y = 4.6; y < 19; y += 3.85) b.prism(offset(p, 0.05), y + 1.1, y + 3.2, GL, { mat: 'g', top: false });   // ribbon windows
+    b.pilasters(p, 4.6, 20, 3.2, 0.35, 0.45, '#e6e3dc', {});
+    b.cornice(p, 19.4, 1, 0.8, '#e6e3dc');
+    b.cyl(1, 20.4, 1, 20.5, 21, 1.6, CON, 24);
+    b.dome(1, 22, 1, 20.2, 6.2, '#7f8b8c', 24);
+    b.cyl(1, 28, 1, 2.2, 2.2, 1.6, '#c9ccc8', 10);
     b.colPoly([p], 16);
 }
 
-// Hermes Business Campus (Pipera, 2009) — three glass office buildings, 6-10 floors (OSM ways
-// 533147567, 231123137, 458259608).
+// Hermes Business Campus (Pipera, 2009) — OSM: Clădirea A 9 levels (way 533147567), B+C with a courtyard
+// (458259608) and the smaller building 231123137 (levels unmapped: 7 assumed). Blue-green curtain walls with
+// white spandrel lines and aluminium fins, recessed glazed ground floors, rooftop plant boxes, "HERMES" sign.
+// Src: https://www.openstreetmap.org/way/533147567 (Clădirea A, 9 levels)
 function bHermes(b) {
-    const ps = P.hermes.map(pts);
-    const H = [36, 26, 32];
+    const ps = P.hermes.map(pts), H = [35, 27.5, 31.5];
     for (let i = 0; i < 3; i++) {
         const holes = i === 2 ? [ps[3]] : [];
-        b.prism(ps[i], 0, H[i], '#3f6585', { mat: 'g', holes, topCol: '#9aa4ab' });
-        b.bands(ps[i], 0, H[i], 3.6, '#e8ecef', { frac: 0.16, holes, off: 0.12 });
+        b.prism(ps[i], 0, H[i], '#466e8c', { mat: 'g', holes, topCol: '#9aa4ab' });
+        for (let y = 4.4; y < H[i] - 0.5; y += 3.6) b.cornice(ps[i], y, 0.7, 0.08, '#e8ecef');
+        b.pilasters(ps[i], 0, H[i], 4.5, 0.25, 0.35, '#c9d0d5', {});
+        b.cornice(ps[i], H[i], 1.1, 0.25, '#e8ecef');
+        b.prism(offset(ps[i], -6), H[i], H[i] + 3, '#b5bcc1');
     }
+    b.text('HERMES', 35, 31, 57.9, 0, 2.4, '#ffffff');
     b.colPoly(ps.slice(0, 3), 20);
 }
 
 // Aeroportul Băneasa "Aurel Vlaicu" — 1952 terminal (Art-Deco / socialist classicism): three wings
 // around a central rotunda with control tower; OSM way 28246549.
+// Src: https://en.wikipedia.org/wiki/Aurel_Vlaicu_International_Airport ; OSM way 28246549
 function bBaneasaTerm(b) {
     b.wall = '#ece2cc';
     const [p] = P.baneasaterm.map(pts), S = '#ece2cc';
@@ -819,18 +1290,40 @@ function bBaneasaTerm(b) {
     b.colPoly([p], 18);
 }
 
-// Aeroportul Henri Coandă (OTP) — Plecări / Sosiri terminals + Terminalul Vioara pier with gates
-// (OSM ways 771096082/771096081/771096083), tower near the observation tower (OSM way 794617342),
-// three parked narrow-bodies (TAROM, Wizz Air, Blue Air colours).
+// Aeroportul Henri Coandă (OTP) — ro.wikipedia "Aeroportul Internațional Henri Coandă": 1970 terminal (now
+// Sosiri / arrivals, OSM way 771096081 year_of_construction 1970), Phase I departures + finger (1994-98),
+// finger "Vioara" extended 2011 (OSM 771096083, 20 m part 1321861231), new Plecări hall opened 6 Nov 2012
+// (OSM 771096082). Control cab: OSM way 794617342 aeroway=tower, 20-25 m (no official height published;
+// a 1969 "Tehnica" article describes a 7-level tower on the terminal). Note the world squashes this model 0.35 N-S.
+// Src: https://ro.wikipedia.org/wiki/Aeroportul_Internațional_Henri_Coandă ; OSM ways 771096081/82/83, 794617342
 function bOTP(b) {
-    const [dep, arr, pier] = P.otp.map(pts);
-    b.prism(dep, 0, 19, '#dfe3e6', { topCol: '#c6cbcf' }); b.bands(dep, 0, 19, 6, '#577b94', { frac: 0.6, mat: 'g', start: 1 });
-    b.prism(offset(dep, 3), 19, 20.2, '#eef0f1');
-    b.prism(arr, 0, 14, '#dfe3e6', { topCol: '#c6cbcf' }); b.bands(arr, 0, 14, 6, '#577b94', { frac: 0.6, mat: 'g', start: 1 });
-    b.prism(pier, 0, 11, '#6f91a8', { mat: 'g', topCol: '#e3e6e8' });
-    b.prism(offset(pier, -1.5), 11, 12.5, '#e9ecee');
-    atcTower(b, 56.5, 166.6, 44);
+    const [dep, arr, pier] = P.otp.map(pts), GL = '#4f7690', WH = '#eef0f1', CON = '#d9d6cf';
+    // 2012 departures hall: tall glass box under a thin overhanging roof, landside canopy + signage (+z front)
+    b.prism(dep, 0, 19, GL, { mat: 'g', topCol: '#c6cbcf' });
+    b.pilasters(dep, 0, 19, 6, 0.3, 0.4, '#d0d6da', {});
+    for (const y of [6.5, 12.8]) b.cornice(dep, y, 0.4, 0.3, '#d0d6da');
+    b.prism(offset(dep, 4), 19, 21, WH, { topCol: '#dfe2e4', bottom: true });
+    b.box(-106, 13.4, 200.5, 190, 0.6, 9, WH);                                              // cantilevered canopy over the upper-level kerb
+    b.text('HENRI COANDA', -106, 14.5, 196.6, 0, 2.6, '#ffffff', { mat: 'g' });
+    b.text('PLECARI  DEPARTURES', -106, 10.2, 196.6, 0, 1.6, '#ffd84a', { mat: 'g' });
+    // 1970 "T1" (Sosiri): two concrete levels, deep horizontal fascia, glazed ground floor
+    b.prism(arr, 0, 14, CON, { topCol: '#c6cbcf' });
+    b.prism(offset(arr, 0.05), 0.4, 5, '#3f5b6e', { mat: 'g', top: false });
+    b.prism(offset(arr, 0.05), 7, 11, '#5d7e93', { mat: 'g', top: false });
+    b.cornice(arr, 11.6, 2.4, 0.9, '#e7e5df'); b.cornice(arr, 5.2, 0.9, 1.6, '#e7e5df');
+    b.text('SOSIRI  ARRIVALS', 158.5, 12.2, 195.6, 0, 1.6, '#2f3e4b');
+    // link between departures and arrivals with the apron control cab on top (OSM 794617342: 20-25 m)
+    b.prism(rect(-9, 150, 115, 175), 0, 12, '#c9ced2', { topCol: '#b8bdc1' }); b.windows(rect(-9, 150, 115, 175), 0, 12, 6, GL, { bay: 6, wf: 0.8, hf: 0.6, mat: 'g', minL: 10 });
+    b.cyl(63, 12, 162, 3.2, 3.6, 8, CON, 10);
+    b.cyl(63, 20, 162, 7.4, 6.2, 4.4, '#33505f', 10, { mat: 'g' }); b.cyl(63, 24.4, 162, 7.8, 7.8, 0.8, WH, 10);
+    b.cyl(63, 25.2, 162, 0.2, 0.2, 5, '#d33', 6);
+    // "Vioara" pier: curved glazed finger with a white roof shell + jet bridges
+    b.prism(pier, 0, 13, '#6f91a8', { mat: 'g', topCol: '#e3e6e8' });
+    b.pilasters(pier, 0, 13, 8, 0.25, 0.3, '#d6dde2', {});
+    b.prism(offset(pier, 1.2), 13, 14.6, WH, { topCol: '#f2f3f4', bottom: true });
+    b.prism(rect(-2, -180, 34, -14), 14.6, 20, '#e6e9ea', { topCol: '#d2d6d8' });         // 20 m spine (OSM 1321861231)
     const bb = bbox([pier]), px = bb.x1 + 30;
+    for (const z of [-170, -150, -110, -90, -45, -25]) { b.box(bb.x1 + 9, 4, z, 18, 3, 3, '#c9ced2'); b.box(bb.x1 + 18.5, 0, z, 1, 4, 1, '#7a8187'); }
     airliner(b, px, -150, Math.PI, { tail: '#1d3f8f', stripe: '#1d3f8f' });        // TAROM
     airliner(b, px, -45, Math.PI, { tail: '#c6007e', belly: '#2b0f5c' });           // Wizz Air
     airliner(b, bb.x0 - 26, -120, 0, { tail: '#0b4ea2', stripe: '#0b4ea2' });       // Blue Air
@@ -839,6 +1332,7 @@ function bOTP(b) {
 
 // ASE — Clădirea Ion N. Angelescu (Palatul ASE, 1916-26), Piața Romană: neoclassical with domed
 // corner (OSM relation 2274298).
+// Src: https://en.wikipedia.org/wiki/Bucharest_Academy_of_Economic_Studies ; OSM rel 2274298
 function bASE(b) {
     b.wall = '#e5dbc4';
     const ps = P.ase.map(pts), [outer, ...holes] = ps, S = '#e5dbc4';
@@ -852,6 +1346,7 @@ function bASE(b) {
 }
 
 // Hotel Ambasador (1937-39, Arghir Culina) — interwar modernist stepped hotel on Bd. Magheru (~13 floors).
+// Src: https://en.wikipedia.org/wiki/Hotel_Ambasador_(Bucharest)
 function bAmbasador(b) {
     b.wall = '#e9e3d4';
     const [p] = P.ambasador.map(pts), S = '#e9e3d4', bb = bbox([p]), cx = (bb.x0 + bb.x1) / 2, cz = (bb.z0 + bb.z1) / 2;
@@ -866,6 +1361,7 @@ function bAmbasador(b) {
 
 // Blocul ARO / Patria (1931, Horia Creangă) — modernist, 10 levels (OSM way 163622261), ribbon
 // windows, corner tower with the PATRIA cinema sign on Bd. Magheru.
+// Src: https://ro.wikipedia.org/wiki/Blocul_ARO ; OSM way 163622261
 function bARO(b) {
     b.wall = '#eeeae1';
     const [p] = P.aro.map(pts), S = '#eeeae1', bb = bbox([p]);
@@ -887,6 +1383,7 @@ function bARO(b) {
 // Space Needle (1962) — 184 m (605 ft), three pairs of curved legs pinched at the waist, top house
 // Ø ~42 m: restaurant level 152 m, observation 156 m, roof/halo ~158-161 m, spire to 184 m.
 // OSM way 12903132 + building:parts 394254329..37 (heights above).
+// Src: https://en.wikipedia.org/wiki/Space_Needle (605 ft / 184 m; observation 520 ft; top house Ø 138 ft) ; OSM way 12903132
 function bSpaceNeedle(b) {
     const W = '#f3f3ef', prof = [[18, 0], [12.5, 28], [8, 70], [6.2, 108], [7.2, 132], [10.5, 147]];
     for (let k = 0; k < 3; k++) {
@@ -914,79 +1411,127 @@ function bSpaceNeedle(b) {
     b.col(0, 0, 14, 14);
 }
 
-// Columbia Center (1985) — 286 m / 76 floors, black glass, three stepped concave-sided towers.
-// Footprints & heights straight from OSM rel 4648083 (parts 160 / 223 / 226 / 280 / 286 m).
+// Columbia Center (Chester Lindsey, 1985) — 937 ft / 286 m, 76 floors (en.wikipedia "Columbia Center"),
+// black granite base and dark glass in three stepped, concave-sided towers. Footprints & heights straight from
+// OSM rel 4648083 (parts 160 / 223 / 226 / 280 / 286 m); vertical mullion fins + floor lines every 4 floors,
+// Sky View Observatory level (73) as a lighter band.
+// Src: https://en.wikipedia.org/wiki/Columbia_Center ; OSM rel 4648083
 function bColumbia(b) {
     const ps = P.columbia.map(pts), H = [16, 280, 286, 223, 226, 160];
     ps.forEach((p, i) => {
-        b.prism(p, 0, H[i], '#262b31', { mat: 'g', topCol: '#3a4047' });
-        if (i) b.bands(p, 20, H[i], 14.8, '#3e464e', { frac: 0.12, off: 0.15, mat: 'g' });
+        b.prism(p, 0, H[i], i ? '#262b31' : '#2c2a2a', { mat: 'g', topCol: '#3a4047' });
+        if (!i) return;
+        b.bands(p, 20, H[i] - 2, 14.8, '#3e464e', { frac: 0.12, off: 0.15, mat: 'g', wall: false });
+        b.pilasters(p, 16, H[i] - 0.5, 4.5, 0.25, 0.25, '#3a4148', {});
+        b.cornice(p, H[i] - 1.5, 1.5, 0.3, '#4a525a');
     });
+    b.cornice(ps[2], 270, 3, 0.2, '#6f7a84');                                                  // observatory glazing
     b.colPoly([ps[0]], 25);
 }
-
-// Smith Tower (1914) — 148 m (484 ft), 38 floors; white terra-cotta 21-storey base (OSM way
-// 52781661, height 75), slender tower shaft and pyramidal cap with a glass globe.
+// Smith Tower (1914, Gaggin & Gaggin) — 484 ft / 148 m to the tip, 38 floors (en.wikipedia "Smith Tower").
+// White glazed terra-cotta 21-storey base (OSM way 52781661, height 75) with a window grid in paired bays,
+// tower shaft to the Chinese Room (35th floor) with an arcaded balcony, pyramidal cap with dormers and the
+// glass globe (lit blue/white at night).
 function bSmith(b) {
-    b.wall = '#efeadd';
-    const [p] = P.smith.map(pts), W = '#efeadd';
-    b.prism(p, 0, 75, W, { topCol: '#d8d2c4' }); b.bands(p, 0, 75, 3.5, '#4f555c', { frac: 0.45 });
+    const W = '#efeadd', TR = '#e2dbc9', WIN = '#4f555c';
+    b.wall = W;
+    const [p] = P.smith.map(pts);
+    b.prism(p, 0, 75, W, { topCol: '#d8d2c4' });
+    b.windows(p, 0, 75, 3.55, WIN, { bay: 2.3, wf: 0.5, hf: 0.6, start: 4.5, minL: 3 });
+    b.pilasters(p, 0, 75, 6.9, 0.5, 0.25, TR, {}); b.cornice(p, 4, 0.8, 0.5, TR); b.cornice(p, 74, 1.2, 0.8, TR);
     const t = rect(-9, -9, 9, 9);
-    b.prism(t, 75, 128, W); b.bands(t, 75, 128, 3.5, '#4f555c', { frac: 0.45 });
+    b.prism(t, 75, 124, W); b.windows(t, 75, 122, 3.5, WIN, { bay: 2.25, wf: 0.5, hf: 0.6, start: 0.8, minL: 3 });
+    b.pilasters(t, 75, 124, 4.5, 0.5, 0.25, TR, { ends: true });
+    b.cornice(t, 117.5, 0.6, 1.2, TR); b.box(0, 124, 0, 19.4, 3.5, 19.4, TR);               // balcony + Chinese Room cornice
     b.box(0, 127.5, 0, 20, 1.2, 20, '#e4dece');
     b.hip(0, 128.7, 0, 19, 19, 17.5, '#ece6d8');
+    for (const [x, z, ry] of [[0, 6.2, 0], [0, -6.2, Math.PI], [6.2, 0, Math.PI / 2], [-6.2, 0, -Math.PI / 2]]) b.box(x, 131, z, 3, 2.6, 1.2, '#dcd5c3', { ry });   // dormers
     b.sphere(0, 146.8, 0, 1.2, '#cfe2ea', { mat: 'g' });
     b.colPoly([p], 15);
 }
 
-// Lumen Field (2002) — 68,740 seats, open north end, two sideline roof canopies (≈70% of seats
-// covered) carried by huge arched trusses. OSM rel 5838734 geometry missing in the extract —
-// sized from the field (N-S axis) and the ~280 x 220 m site, anchor from Wikipedia (47.5952 N, 122.3316 W).
+// Lumen Field (2002, Ellerbe Becket / LMN; structure MKA) — 68,740 seats. MKA project page: roof carried by
+// dual steel tied arches spanning 720 ft (219.5 m) on four towers with friction-pendulum dampers; roof covers
+// ≈ 70% of seats, open north end. Field from OSM pitch way 163840038 (52.6 x 112.7 m, centre -2, +4.5).
+// Commons "Aerial CenturyLink Field November 2011": navy roof membranes with white lettering, white arches,
+// red-brick base. Roof lettering per lumenfield.com signage release: "LUMEN" 305 ft (93 m) and "FIELD" 131 ft (40 m) long.
+// Bowl extents fitted inside the surrounding OSM streets (Occidental Ave S on the west).
+// Src: https://www.mka.com/projects/lumen-field/ ; https://en.wikipedia.org/wiki/Lumen_Field ; OSM pitch 163840038
 function bLumen(b) {
-    const CON = '#bdbbb5', SEAT = '#2f5a78';
-    b.prism(rect(-36, -60, 36, 60), 0, 0.25, '#3f8a3a');
-    const t1o = roundRect(0, 0, 140, 200, 30), t1i = roundRect(0, 0, 80, 132, 8);
-    b.prism(t1o, 0, 11, CON, { holes: [t1i], topCol: SEAT });
-    const t2o = roundRect(0, 4, 178, 232, 40), t2i = roundRect(0, 0, 136, 196, 28);
+    const CON = '#c9c6bf', BRK = '#8a4c3c', SEAT = '#2f5a78', FX = -2, FZ = 4.5, SPAN = 219.5;
+    b.prism(rect(FX - 30, FZ - 60, FX + 30, FZ + 60), 0, 0.25, '#3f8a3a');
+    b.box(FX, 0.25, FZ, 1, 0.05, 110, '#e8e8e8');
+    const t1o = roundRect(FX, FZ, 136, 196, 30), t1i = roundRect(FX, FZ, 76, 128, 8);
+    b.prism(t1o, 0, 11, BRK, { holes: [t1i], topCol: SEAT });
+    const t2o = roundRect(FX, FZ + 4, 178, 232, 40), t2i = roundRect(FX, FZ, 134, 194, 28);
+    b.prism(t2o, 0, 11, BRK, { holes: [t2i], top: false });
     b.prism(t2o, 11, 22, CON, { holes: [t2i], topCol: SEAT });
-    b.bands(t2o, 11, 22, 5.5, '#2b3036', { frac: 0.4 });
+    b.bands(t2o, 0, 22, 5.5, '#3a3f45', { frac: 0.32, wall: false });                     // open concourse levels
+    b.pilasters(t2o, 0, 22, 9, 1.2, 0.5, '#cfcdc7', {});
     for (const s of [-1, 1]) {                                              // upper sideline decks
-        const o = rect(s * 70, -100, s * 106, 100);
-        b.prism(o, 22, 36, CON, { topCol: SEAT });
-        // canopy + arch truss
-        b.box(s * 82, 44, 0, 52, 1.4, 220, '#e3e4e2', { rz: s * 0.12 });
-        const arch = []; for (let i = 0; i <= 10; i++) { const t = i / 10, zz = -118 + t * 236; arch.push([s * 104, 40 + 30 * Math.sin(Math.PI * t), zz]); }
-        b.tube(arch, 1.4, '#f0f0ee', { seg: 24, radial: 6 });
-        for (let i = 1; i < 10; i++) { const t = i / 10, zz = -118 + t * 236; b.tube([[s * 104, 40 + 30 * Math.sin(Math.PI * t), zz], [s * 70, 45, zz]], 0.35, '#e6e6e3', { seg: 2, radial: 4 }); }
-        b.box(s * 104, 0, -118, 4, 40, 4, CON); b.box(s * 104, 0, 118, 4, 40, 4, CON);
+        const o = rect(FX + s * 68, FZ - 100, FX + s * 104, FZ + 100);
+        b.prism(o, 22, 38, CON, { topCol: SEAT });
+        b.bands(o, 22, 38, 5.3, '#3a3f45', { frac: 0.3, wall: false });
+        // roof canopy, tied arch (span 219.5 m) on two towers, hangers
+        b.box(FX + s * 82, 44, FZ, 54, 1.4, 222, '#203352', { rz: s * 0.06 });                    // navy roof membrane
+        const arch = []; for (let i = 0; i <= 12; i++) { const t = i / 12, zz = FZ - SPAN / 2 + t * SPAN; arch.push([FX + s * 106, 44 + 22 * Math.sin(Math.PI * t), zz]); }
+        b.tube(arch, 1.5, '#f0f0ee', { seg: 24, radial: 6 });
+        b.box(FX + s * 106, 44.6, FZ, 2, 1.6, SPAN, '#e6e6e3');                // tie
+        for (let i = 1; i < 12; i++) { const t = i / 12, zz = FZ - SPAN / 2 + t * SPAN; b.tube([[FX + s * 106, 44 + 22 * Math.sin(Math.PI * t), zz], [FX + s * 72, 45.5, zz]], 0.35, '#e6e6e3', { seg: 2, radial: 4 }); }
+        for (const e of [-1, 1]) { b.box(FX + s * 106, 0, FZ + e * SPAN / 2, 5, 44, 5, CON); b.box(FX + s * 106, 44, FZ + e * SPAN / 2, 6.5, 2.4, 6.5, '#9aa0a5'); }
     }
-    b.box(0, 22, 108, 60, 18, 3, '#1e2227');                                // south scoreboard
-    b.col(0, 0, 106, 120);
+    // roof lettering (white on the canopies, readable from the air)
+    b.text('LUMEN', FX - 82, 46.7, FZ, Math.PI / 2, 22.4, '#ffffff', { flat: true, d: 0.1 });
+    b.text('FIELD', FX + 82, 46.7, FZ, -Math.PI / 2, 9.6, '#ffffff', { flat: true, d: 0.1 });
+    // south end: video board above the end-zone deck; north end open "Hawks Nest" bleachers
+    b.prism(rect(FX - 60, FZ + 100, FX + 60, FZ + 118), 22, 32, CON, { topCol: SEAT });
+    b.box(FX, 34, FZ + 108, 64, 16, 3, '#1e2227'); b.box(FX, 35, FZ + 106.4, 58, 13, 0.2, '#2d5d88');
+    b.prism(rect(FX - 50, FZ - 114, FX + 50, FZ - 98), 0, 14, CON, { topCol: SEAT });
+    b.col(FX, FZ, 106, 120);
 }
 
-// T-Mobile Park (1999) — retractable three-panel roof that parks over the east side, field with
-// home plate at the SW (OSM rel 18550612 outer way 226281211, 238 x 203 m).
+// T-Mobile Park (1999, NBBJ) — retractable three-panel roof that parks over the east side. All massing from
+// the OSM building:parts of the ballpark: grandstand ring 38 m (way 1451834523), lower-bowl stands 20 m with
+// skillion rakes (1451834513-20), north upper deck 15-32 m (1451834512), parked roof 46-66 m with a round top
+// (1451834522) on runway trusses at 46 m (1451834510/11); infield from OSM 158755976. Brick base + green steel.
+const TMB_RING = [-43.5, -83.5, -53, -94, -60.5, -87.5, -65, -92.5, -73.5, -85.5, -72, -83.5, -77, -81, -94, -39.5, -101, -10.5, -105, 24, -104, 42, -101, 53, -92.5, 66.5, -83.5, 75.5, -70, 85.5, -60, 90.5, -45.5, 95, 14, 95.5, 50, 86, 71.5, 78.5, 85.5, 67, 101, -12.5, 86.5, -14.5, 76.5, 37.5, 71, 54.5, 56, 69, 13.5, 80, -36, 81, -64, 73, -74.5, 63.5, -83.5, 51, -87, 40.5, -87.5, 30.5, -83, -5, -78, -28.5, -61, -68.5];
+const TMB_FIELD = [86.5, -14.5, 76.5, 37.5, 71, 54.5, 56, 69, 13.5, 80, -36, 81, -64, 73, -74.5, 63.5, -83.5, 51, -87, 40.5, -87.5, 30.5, -83, -5, -78, -28.5, -61, -68.5, -43.5, -83.5, 52, -83.5, 63, -39, 74, -13.5];
+const TMB_DIRT = [-30.5, 28.5, -32.5, 31.5, -36.5, 32.5, -40.5, 30, -41, 27, -40, 24, -36, 22, -34, -10.5, -27.5, -13, -20, -13.5, -9.5, -11, -3, -7.5, 4, 1, 7.5, 11, 6.5, 22, 2, 32];
+// Src: https://en.wikipedia.org/wiki/T-Mobile_Park ; OSM rel 18550612 + parts 1451834508-23
 function bTMobile(b) {
-    const [p] = P.tmobile.map(pts), CON = '#c3bfb6', SEAT = '#1c4a63';
-    b.prism(offset(p, -60), 0, 0.25, '#3f8a3a');
-    b.dome(-40, 0.05, 45, 30, 0.3, '#b48a5a', 16);                          // infield dirt
-    b.prism(p, 0, 16, CON, { holes: [offset(p, -38)], topCol: SEAT });
-    b.bands(p, 0, 16, 5, '#7a3b2e', { frac: 0.35 });                          // brick-red base
-    b.prism(offset(p, -6), 16, 30, CON, { holes: [offset(p, -30)], topCol: SEAT });
-    // roof runway girders along the north & south edges + stacked roof panels (open position, east)
-    for (const z of [-108, 108]) { b.box(15, 50, z, 250, 5, 5, '#7f8f92'); for (const x of [-105, -30, 45, 120]) b.box(x, 0, z, 4, 50, 4, '#7f8f92'); }
-    [[40, 66], [72, 63.5], [104, 61]].forEach(([x, top], i) => {
-        const r = 140, yc = top - r, n = 8, half = 0.88;
+    const ring = pts(TMB_RING), field = pts(TMB_FIELD), dirt = pts(TMB_DIRT), BR = '#86463a', ST = '#3f6863', SEAT = '#1c4a63';
+    b.prism(field, 0, 0.2, '#3f8a3a', { topCol: '#3f8a3a' });
+    b.prism(dirt, 0.2, 0.3, '#b48a5a');
+    b.prism(rect(-20, 4, -12, 12), 0.3, 0.35, '#5a9a4a');                              // infield grass square
+    // grandstand: brick base with arched openings, green steel above, seating on top
+    b.prism(ring, 0, 22, BR, { topCol: SEAT });
+    b.windows(ring, 0, 9, 9, '#3a2a25', { bay: 7, wf: 0.55, hf: 0.7, start: 0.5, arch: true, minL: 10, edges: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20] });
+    b.prism(ring, 22, 38, ST, { topCol: SEAT });
+    b.bands(ring, 9, 38, 6.5, '#2f3a3d', { frac: 0.35, wall: false });
+    b.cornice(ring, 9, 0.8, 0.4, '#d8d3c8');
+    // lower-bowl rakes (OSM skillion parts, simplified to stepped blocks)
+    for (const pz of [[-33, -48, -62.5, -65.5, -78, -28.5, -46, -18], [-46, -18, -48, -5, -51.5, -5.5, -56, 21.5, -86, 17, -78, -28.5], [-56, 21.5, -51, 23, -51, 32, -48.5, 38, -77, 60, -83.5, 51, -87, 40.5, -86, 17], [-35, 44.5, -36, 81, -64, 73, -77, 60, -48.5, 38, -41, 43.5], [-5, 48.5, -5, 45, 7.5, 45.5, 13.5, 80, -36, 81, -35, 48.5], [39.5, 37.5, 64, 61, 56, 69, 13.5, 80, 7.5, 45.5], [63.5, 41, 74, -13.5, 86, -11.5, 74, 45.5]]) {
+        const q = pts(pz); b.prism(q, 0, 4, '#c3bfb6', { topCol: SEAT }); b.prism(offset(q, -4), 4, 9, '#c3bfb6', { topCol: SEAT });
+    }
+    // north upper deck (15-32 m) + scoreboard
+    b.prism(rect(-39, -101, 52, -83.5), 15, 32, ST, { topCol: SEAT }); b.box(6, 32, -97, 40, 12, 2, '#1e2227');
+    // roof runways (46 m) on columns + the three parked panels (round top to 66 m) over the east side
+    for (const z of [-98, 103]) { b.box(116, 42, z, 112, 4.5, 5, '#7f8f92'); for (const x of [62, 100, 136, 170]) b.box(x, 0, z, 3.5, 42, 3.5, '#7f8f92'); }
+    [[78, 66], [106, 64], [134, 62]].forEach(([x, top], i) => {
+        const r = 160, yc = top - r, n = 8, half = Math.asin(104 / r);
         for (let k = 0; k < n; k++) {
             const f0 = -half + k / n * 2 * half, f1 = f0 + 2 * half / n, fm = (f0 + f1) / 2, seg = 2 * r * Math.sin(half / n) + 0.5;
-            b.box(x, yc + r * Math.cos(fm) - 0.75, r * Math.sin(fm), 72, 1.5, seg, i % 2 ? '#d6d8d5' : '#cbcfcc', { rx: fm });
+            b.box(x, yc + r * Math.cos(fm) - 0.75, 2 + r * Math.sin(fm), 30, 1.5, seg, i % 2 ? '#d6d8d5' : '#c8cdca', { rx: fm });
         }
+        b.box(x, 42, 2, 30, 4, 4, '#7f8f92');
     });
-    b.colPoly([p], 30);
+    b.text('T-MOBILE PARK', -78, 13, 93.6, 0.32, 2.4, '#e20074');
+    b.colPoly([ring], 24); b.col(116, -98, 56, 3); b.col(116, 103, 56, 3);
 }
 
 // Seattle Great Wheel (2012) — 53 m tall, 42 gondolas, end of Pier 57 (OSM ticket booth way
 // 429553385). Built at true size in its own plane (not squashed) so it stays a circle.
+// Src: https://en.wikipedia.org/wiki/Seattle_Great_Wheel (53 m, 42 gondolas)
 function bGreatWheel(b) {
     const hs = b.hs; b.hs = 1;                                             // keep the wheel round (true size)
     const R = 25, Y = 28.5;
@@ -1002,6 +1547,7 @@ function bGreatWheel(b) {
 
 // Amazon Spheres (2018) — three glass spheres (pentagonal hexecontahedra), 24-29 m tall,
 // largest Ø ~40 m (OSM way 868099742).
+// Src: https://en.wikipedia.org/wiki/The_Spheres ; OSM way 868099742
 function bSpheres(b) {
     // A squashed sphere reads as an egg, so the spheres are kept round: built unsquashed at half
     // size (footprint matches the 0.5 world, heights become ~12-15 m instead of 24-29 m).
@@ -1015,6 +1561,7 @@ function bSpheres(b) {
 // Mount Baker Ridge Tunnel (I-90) — east portals at Lake Washington: two 1940 Art-Deco bores and
 // the 1989 bore (Ø 19.2 m, the world's largest soft-earth tunnel then). Facade only: the road
 // passes through the openings (keep them clear of collision). OSM way 481496634 (tunnel lid).
+// Src: https://en.wikipedia.org/wiki/Mount_Baker_Tunnel (1989 bore Ø 63 ft / 19.2 m) ; OSM way 481496634
 function bMtBaker(b) {
     const CON = '#cfcabe';
     b.archWall(78, 23, 3, [{ x: -24, w: 11, h: 10.5 }, { x: -9, w: 11, h: 10.5 }, { x: 16, w: 19.5, h: 19 }], CON, M(0, 0, 0, Math.PI / 2));
@@ -1026,16 +1573,44 @@ function bMtBaker(b) {
     for (const [z0, z1] of [[-40, -25.8], [-6.2, 3.5], [14.5, 18.5], [29.5, 40]]) b.col(0, (z0 + z1) / 2, 2, (z1 - z0) / 2);   // piers between the bores (openings: world z +18.5..29.5, +3.5..14.5, -25.8..-6.2)
 }
 
-// Seattle-Tacoma International Airport — main terminal & concourses (OSM way 23772634),
-// control tower (71 m, OSM way 1199936807) modelled separately; three parked airliners.
+// Seattle-Tacoma International Airport — main terminal & concourses A-D (OSM way 23772634, 2 levels), the
+// South Satellite (OSM 23772637, 2 levels) and the International Arrivals Facility (opened 2022, OSM 734002404)
+// with its aerial walkway (OSM 869951038: 25.9 -> 33.5 m, i.e. 85 ft over the taxiway, ≈ 240 m / 780 ft long)
+// linking the IAF to the South Satellite. Control tower (71 m, OSM 1199936807) is modelled separately.
+const SEA_IAF = [398, -216.5, 319.5, -230, 319, -227.5, 300, -222.5, 291.5, -234, 247.5, -202.5, 251.5, -197, 148, -123, 152, -117.5, 124, -96.5, 122, -99.5, 116.5, -96, 114, -98.5, 119.5, -102.5, 104.5, -121.5, 248, -262, 263, -274.5, 282.5, -282.5, 310.5, -284.5, 400, -269, 397, -253, 404.5, -252, 405.5, -259, 415.5, -257.5, 412, -234.5, 401.5, -236];
+const SEA_SSAT = [349, 113, 349, 110, 333, 111.5, 331.5, 87, 347.5, 85.5, 345, 57.5, 397.5, 54, 408.5, 209, 356.5, 213];
+// Src: https://en.wikipedia.org/wiki/Seattle–Tacoma_International_Airport ; OSM 23772634 / 23772637 / 734002404 / 869951038
 function bSeaTac(b) {
-    const [p] = P.seatac.map(pts);
+    const [p] = P.seatac.map(pts), iaf = pts(SEA_IAF), ss = pts(SEA_SSAT), GL = '#5b7d92', WH = '#e9ebec';
+    // main terminal + concourses: glass bands under a white roof edge
     b.prism(p, 0, 17, '#d7dadb', { topCol: '#c4c8ca' });
-    b.bands(p, 0, 17, 8, '#5b7d92', { frac: 0.5, mat: 'g', start: 3 });
-    b.prism(offset(p, -6), 17, 19.5, '#e9ebec');
+    b.windows(p, 0, 17, 8.5, GL, { bay: 12, wf: 0.92, hf: 0.55, start: 2.5, mat: 'g', minL: 14 });
+    b.cornice(p, 16.4, 1.2, 1.2, WH);
+    b.prism(offset(p, -6), 17, 19.5, WH);
+    b.text('SEATTLE-TACOMA INTERNATIONAL AIRPORT', -120, 11, zAt([p], -120)[0] - 1.25, Math.PI, 3.2, '#1f3550');
+    // South Satellite (1973, rebuilt)
+    b.prism(ss, 0, 14, '#d7dadb', { topCol: '#c4c8ca' }); b.windows(ss, 0, 14, 7, GL, { bay: 6, wf: 0.85, hf: 0.55, start: 2, mat: 'g', minL: 10 });
+    b.cornice(ss, 13.6, 1, 1, WH);
+    // International Arrivals Facility: tall glazed hall with a deep white roof plate
+    b.prism(iaf, 0, 34, '#7f9db1', { mat: 'g', topCol: '#d9dcde' });
+    b.pilasters(iaf, 0, 34, 9, 0.4, 0.5, '#f0f2f3', {});
+    for (const y of [9, 18, 26]) b.cornice(iaf, y, 0.5, 0.35, '#f0f2f3');
+    b.prism(offset(iaf, 3), 34, 36.5, WH, { topCol: '#e3e6e8', bottom: true });
+    // aerial walkway: glazed tube on a white truss, piers clear of the taxiway
+    const wx = 386, z0 = -186, z1 = 55, L = z1 - z0, zc = (z0 + z1) / 2;
+    b.box(wx, 25.9, zc, 15, 1.4, L, '#f2f3f4');
+    b.box(wx, 27.3, zc, 14, 5.3, L, '#8fb0c4', { mat: 'g' });
+    b.box(wx, 32.6, zc, 15.6, 0.9, L + 1, '#f2f3f4');
+    for (let k = 0; k <= 16; k++) { const z = z0 + k / 16 * L; b.box(wx, 22.4, z, 15.2, 3.5, 0.35, '#e6e8ea'); b.box(wx, 22.4 + 1.6, z + L / 32, 15.2, 0.35, L / 16 * 1.1, '#e6e8ea', { rx: k % 2 ? 0.3 : -0.3 }); }
+    b.box(wx, 22, zc, 15.4, 0.5, L, '#e6e8ea');
+    for (const z of [-150, 22]) for (const e of [-1, 1]) for (const sx of [-5, 5]) b.box(wx + sx, 0, z + e * 5.5, 2, 23.5, 2, '#eef0f1', { rx: e * 0.45 });   // V-struts (Commons "IAF Pedestrian Walkway.jpg")
+    b.text('WELCOME TO SEATTLE', wx - 7.65, 28.6, zc, -Math.PI / 2, 2.2, '#ffffff');
     for (const [t, lv] of SEATAC_PLANES) parkAt(b, p, t, lv, 28, 40);
-    b.colPoly([p], 40);
+    airliner(b, 300, 160, -Math.PI / 2, { tail: '#01426a', stripe: '#00a3ad' }, 40);
+    b.colPoly([p], 40); b.colPoly([iaf], 30); b.colPoly([ss], 30);
+    for (const z of [-150, 22]) b.col(wx, z, 7, 1.6);
 }
+
 const SEATAC_PLANES = [
     [0.12, { tail: '#01426a', stripe: '#00a3ad' }],   // Alaska
     [0.40, { tail: '#c01933', stripe: '#003366' }],   // Delta
@@ -1043,6 +1618,7 @@ const SEATAC_PLANES = [
 ];
 
 // SeaTac Air Traffic Control Tower (2004) — 71 m (233 ft), OSM way 1199936807.
+// Src: https://en.wikipedia.org/wiki/Seattle–Tacoma_International_Airport (tower 233 ft) ; OSM way 1199936807
 function bSeaTower(b) {
     b.box(0, 0, 0, 30, 9, 22, '#cfcdc6'); b.bands(rect(-15, -11, 15, 11), 0, 9, 4.5, '#4c5964', { frac: 0.5 });
     atcTower(b, 0, 0, 71, { r: 3.6, col: '#dedcd5' });
@@ -1050,20 +1626,27 @@ function bSeaTower(b) {
 }
 
 // Lincoln Square (Bellevue) — Lincoln Square North 126 m, Lincoln Square South 137 m, One Lincoln
-// Tower 137 m (OSM parts 604028609 / 1326151866 / 604028611) on 3-level podiums.
+// Tower 137 m (OSM parts 604028609 / 1326151866 / 604028611) on 3-level podiums. Checked against
+// skyscrapercenter.com: 400 Lincoln Square 139.4 m / 32 fl., One Lincoln Tower 137.2 m / 42 fl.; glass crowns.
+// Src: https://www.skyscrapercenter.com/building/400-lincoln-square/22497 ; OSM parts 604028609/1326151866/604028611
 function bLincoln(b) {
     const [n, s, one, podS, podN] = P.lincoln.map(pts);
     b.prism(podN, 0, 14, '#cbc3b5', { topCol: '#a9a399' }); b.bands(podN, 0, 14, 4.6, '#4e6470', { frac: 0.5, mat: 'g' });
     b.prism(podS, 0, 14, '#cbc3b5', { topCol: '#a9a399' }); b.bands(podS, 0, 14, 4.6, '#4e6470', { frac: 0.5, mat: 'g' });
-    for (const [p, h, c] of [[n, 126, '#5f8c94'], [s, 137, '#6890a0'], [one, 137, '#4f7c8c']]) {
-        b.prism(p, 14, h, c, { mat: 'g', topCol: '#c9d1d3' });
-        b.bands(p, 14, h, 12, '#d8dcd7', { frac: 0.1, off: 0.12 });
+    for (const [p, h, c, y0] of [[n, 126, '#5f8c94', 14], [s, 137, '#6890a0', 14], [one, 137, '#4f7c8c', 0]]) {   // One Lincoln Tower stands on its own
+        b.prism(p, y0, h, c, { mat: 'g', topCol: '#c9d1d3' });
+        b.bands(p, y0, h, 12, '#d8dcd7', { frac: 0.1, off: 0.12 });
         b.prism(offset(p, -3), h, h + 4, '#d0d5d6');
+        b.pilasters(p, y0, h, 6, 0.3, 0.3, '#c5ced0', {});                                     // mullion fins
+        b.ring(p, h, h + 6, '#7fa3b0', { mat: 'g' });                                           // glass screen crown
     }
+    b.text('LINCOLN SQUARE', -150, 9, 46.6, 0, 2.2, '#2e3b46');
     b.colPoly([podN], 25); b.colPoly([podS], 25);
 }
 
-// Bellevue Towers (2008) — twin residential towers, 43 & 42 floors (137 m / 131 m) on a 5-level podium.
+// Bellevue Towers (2008) — twin residential towers, 43 & 42 floors (137 m / 131 m) on a 5-level podium
+// (skyscrapercenter.com complex 2787: 450 ft / 430 ft); glass parapet crowns, mullion fins.
+// Src: https://www.skyscrapercenter.com/complex/2787
 function bBellevueTowers(b) {
     const [n, s, pod] = P.bellevuetowers.map(pts);
     b.prism(pod, 0, 18, '#d1ccc2', { topCol: '#7f9e6b' }); b.bands(pod, 0, 18, 3.6, '#4f6573', { frac: 0.5 });
@@ -1071,22 +1654,31 @@ function bBellevueTowers(b) {
         b.prism(p, 18, h, '#7398b0', { mat: 'g', topCol: '#c7d0d6' });
         b.bands(p, 18, h, 3.1, '#d9e0e4', { frac: 0.12, off: 0.1 });
         b.prism(offset(p, -2.5), h, h + 5, '#cfd6da');
+        b.ring(p, h, h + 7, '#9db7c6', { mat: 'g' });                                           // glass parapet crown
+        b.pilasters(p, 18, h, 8, 0.35, 0.35, '#dfe6ea', {});
     }
     b.colPoly([pod], 25);
 }
 
-// Bellevue Square (1946 / 1980s) — 3-level regional mall (OSM way 29234887).
+// Bellevue Square (1946, rebuilt as an enclosed mall 1981) — 3-level regional mall (OSM way 29234887),
+// skylit malls, main glazed entrance + lettering on Bellevue Way NE (east, model -z).
+// Src: https://en.wikipedia.org/wiki/Bellevue_Square ; OSM way 29234887
 function bBellevueSq(b) {
     const [p] = P.bellevuesq.map(pts);
     b.prism(p, 0, 15, '#e3dccf', { topCol: '#cbc4b7' }); b.bands(p, 0, 15, 5, '#5a7486', { frac: 0.35, mat: 'g', start: 2 });
     b.box(0, 15, 0, 300, 2.5, 14, '#cbd6dc', { mat: 'g' });                 // skylit mall spine
     b.box(-20, 15, 0, 14, 2.5, 200, '#cbd6dc', { mat: 'g' });
+    // main entrance on Bellevue Way NE (model -z = east): glazed pavilion + lettering
+    const ze = zAt([p], 0)?.[0] ?? -126;
+    b.box(0, 0, ze - 4, 30, 13, 8, '#6f8ea2', { mat: 'g' }); b.box(0, 13, ze - 4.5, 34, 1.4, 10, '#efe9df');
+    b.text('BELLEVUE SQUARE', 0, 15.6, ze - 0.2, Math.PI, 3, '#2e3b46');
     b.colPoly([p], 40);
 }
 
 // Mount Rainier — 4,392 m stratovolcano, summit 46.8529 N 121.7604 W (~90 km SE of downtown).
 // Real-size cone (base Ø ~32 km, squashed 0.5 on x/z like the rest of the city); `backdrop: true`
 // means the world may move it closer and pass ctx.backdropScale = distance / realDistance.
+// Src: https://en.wikipedia.org/wiki/Mount_Rainier (4,392 m, 46.8529 N 121.7604 W)
 function bRainier(b) {
     const NA = 56, NR = 16, Rb = 16500, H = 4392, rings = [];
     for (let j = 0; j <= NR; j++) {
@@ -1110,6 +1702,7 @@ function bRainier(b) {
 
 // Olympic Mountains — silhouette ridge west of Puget Sound (The Brothers 2,092 m, Mt Constance
 // 2,371 m, Mt Olympus 2,432 m further west). ~80 km long backdrop band, same backdrop rules.
+// Src: https://en.wikipedia.org/wiki/Olympic_Mountains (Olympus 2,432 m, Constance 2,371 m, The Brothers 2,092 m)
 function bOlympics(b) {
     const NX = 72, NZ = 6, L = 80000, Wd = 16000, grid = [];
     for (let i = 0; i <= NX; i++) {

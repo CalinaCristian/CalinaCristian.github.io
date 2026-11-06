@@ -490,7 +490,7 @@ export class Harness {
                 }
             }
             // overlap with the player
-            if (dP < 8) { const pen = obbPen(vObb(v), P); if (pen > 0.35) this.issue('vehicle-overlaps-player', 'medium', `${v.kind} ${v.id} overlaps the player by ${r2(pen)} m`, { x: v.x, z: v.z, pen: r2(pen) }, { shot: true }); }
+            if (dP < 8 && Math.abs((v.y ?? 0.24) - (P.y ?? 0.24)) < 2.5) { const pen = obbPen(vObb(v), P); if (pen > 0.35) this.issue('vehicle-overlaps-player', 'medium', `${v.kind} ${v.id} overlaps the player by ${r2(pen)} m`, { x: v.x, z: v.z, pen: r2(pen) }, { shot: true }); }
         }
         // vehicle ↔ vehicle overlaps (near the player every frame, everywhere every 10th frame)
         const seen = m._seenPairs || (m._seenPairs = new Set()); seen.clear();

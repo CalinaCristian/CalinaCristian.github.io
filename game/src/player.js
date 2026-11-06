@@ -362,7 +362,8 @@ export class Player {
         const dx = this.x - v.x, dz = this.z - v.z;
         const lim = (this.length + v.length) * 0.5 + 1; if (Math.abs(dx) > lim || Math.abs(dz) > lim) return null;
         const fx = this.fx, fz = this.fz, rx = -fz, rz = fx;
-        const vfx = v.fx, vfz = v.fz, vrx = v.rx ?? -vfz, vrz = v.rz ?? vfx;
+        // the NPC box as drawn (mesh heading; it lags the lane direction through turns)
+        const vfx = Number.isFinite(v.heading) ? -Math.sin(v.heading) : v.fx, vfz = Number.isFinite(v.heading) ? -Math.cos(v.heading) : v.fz, vrx = -vfz, vrz = vfx;
         const pl = this.length / 2, pw = this.width / 2, vl = v.length / 2, vw = v.width / 2;
         let best = Infinity, bx = 0, bz = 0;
         for (const [ux, uz] of [[fx, fz], [rx, rz], [vfx, vfz], [vrx, vrz]]) {

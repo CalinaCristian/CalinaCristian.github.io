@@ -1,5 +1,6 @@
 import * as THREE from '../vendor/three.module.min.js';
-import { signTexture } from './util.js';
+import { makeCanvasTexture } from './util.js';
+import { drawFitText } from './canvasText.js';
 
 // ============================================================================
 //  VEHICLES — low-poly but shaped cars built from extruded side profiles.
@@ -389,8 +390,8 @@ function cockpitMaterial(off = new THREE.Vector3()) {
             .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
                 if (uGlow > 0.0) {
                     vec3 base = max(diffuseColor.rgb, vec3(0.035));
-                    float gc = exp(-length((vCab - vec3(-0.3, 1.0, -1.1)) * vec3(1.0, 1.4, 1.0)) * 3.2);  // gauge cluster
-                    float gs = exp(-length(vCab - vec3(0.25, 1.0, -1.12)) * 3.6);                        // centre screen
+                    float gc = exp(-length((vCab - vec3(-0.3, 1.09, -1.15)) * vec3(1.0, 1.4, 1.0)) * 3.2); // gauge cluster
+                    float gs = exp(-length(vCab - vec3(0.07, 1.04, -1.15)) * 3.6);                       // centre screen
                     float fill = 0.55 + 0.45 * smoothstep(0.5, 1.8, vCab.y);                              // city glow through the glass
                     vec3 glow = vec3(1.0, 0.72, 0.5) * gc * 0.7 + vec3(0.45, 0.65, 1.0) * gs * 0.5 + vec3(0.30, 0.36, 0.5) * 0.12 * fill;
                     totalEmissiveRadiance += (base * glow + diffuseColor.rgb * vMat.x * 2.5) * uGlow;
@@ -416,7 +417,12 @@ export function setVehicleEnvMap(tex, intensity = 1) {
 let taxiSign = null;
 function getTaxiSign() {
     if (taxiSign) return taxiSign;
-    const tex = signTexture('TAXI', { bg: '#111', fg: '#ffd400', accent: '#ffd400', w: 256, h: 96 });
+    const tex = makeCanvasTexture(256, 96, (ctx, w, h) => {
+        ctx.fillStyle = '#111'; ctx.fillRect(0, 0, w, h);
+        ctx.fillStyle = '#ffd400'; ctx.fillRect(0, h - 8, w, 8);
+        ctx.textAlign = 'center';
+        drawFitText(ctx, 'TAXI', w / 2, (h - 8) / 2, w - 24, { maxSize: 72, minSize: 20, maxHeight: h - 16, lineHeight: 1, font: (s) => `bold ${s}px "Helvetica Neue", Arial, sans-serif`, label: 'taxi sign' });
+    });
     const dark = new THREE.MeshBasicMaterial({ color: '#111' });
     const face = new THREE.MeshBasicMaterial({ map: tex, color: new THREE.Color(1.6, 1.6, 1.6) });
     taxiSign = { geo: new THREE.BoxGeometry(0.8, 0.24, 0.26), mats: [dark, dark, dark, dark, face, face] };
@@ -463,28 +469,32 @@ export function vehicleTriangles(kind) { const g = vehicleGeometry(kind); return
 // ============================================================================
 //  COCKPIT
 // ============================================================================
+const GAUGE_W = 512, GAUGE_H = 200;
 function gaugeCanvas() {
-    const c = document.createElement('canvas'); c.width = 512; c.height = 200;
+    const c = document.createElement('canvas'); c.width = GAUGE_W; c.height = GAUGE_H;
     return c;
 }
+const gFont = (w) => (s) => `${w} ${s}px system-ui, "Helvetica Neue", Arial, sans-serif`;
+const GF6 = gFont('600'), GF5 = gFont('500'), GF7 = gFont('700');
 function drawGauges(ctx, speedMs, rpm01, fuel01, mph) {
-    const W = 512, H = 200;
+    const W = GAUGE_W, H = GAUGE_H;
     ctx.clearRect(0, 0, W, H);
     const bg = ctx.createLinearGradient(0, 0, 0, H); bg.addColorStop(0, '#07090c'); bg.addColorStop(1, '#101419');
     ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     const dial = (cx, cy, r, max, step, label, value, redFrom) => {
         const a0 = Math.PI * 0.75, a1 = Math.PI * 2.25;
         ctx.lineWidth = 3; ctx.strokeStyle = '#2b3440'; ctx.beginPath(); ctx.arc(cx, cy, r, a0, a1); ctx.stroke();
         if (redFrom != null) { ctx.strokeStyle = '#c0262d'; ctx.lineWidth = 5; ctx.beginPath(); ctx.arc(cx, cy, r - 3, a0 + (a1 - a0) * redFrom / max, a1); ctx.stroke(); }
-        ctx.fillStyle = '#cfd8e3'; ctx.font = '600 15px system-ui,sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#cfd8e3';
         for (let v = 0; v <= max + 1e-6; v += step / 2) {
             const a = a0 + (a1 - a0) * v / max, major = Math.abs(v / step - Math.round(v / step)) < 1e-6;
             ctx.strokeStyle = major ? '#e6edf5' : '#6b7787'; ctx.lineWidth = major ? 2.5 : 1.5;
             const r0 = r - (major ? 14 : 8);
             ctx.beginPath(); ctx.moveTo(cx + Math.cos(a) * r0, cy + Math.sin(a) * r0); ctx.lineTo(cx + Math.cos(a) * (r - 2), cy + Math.sin(a) * (r - 2)); ctx.stroke();
-            if (major) ctx.fillText(String(Math.round(v)), cx + Math.cos(a) * (r - 28), cy + Math.sin(a) * (r - 28));
+            if (major) drawFitText(ctx, String(Math.round(v)), cx + Math.cos(a) * (r - 30), cy + Math.sin(a) * (r - 30), 30, { maxSize: 16, minSize: 9, font: GF6, label: 'gauge tick' });
         }
-        ctx.fillStyle = '#7d8a99'; ctx.font = '500 12px system-ui,sans-serif'; ctx.fillText(label, cx, cy + r * 0.45);
+        ctx.fillStyle = '#7d8a99'; drawFitText(ctx, label, cx, cy + r * 0.47, r * 0.95, { maxSize: 13, minSize: 8, font: GF5, label: 'gauge label' });
         const a = a0 + (a1 - a0) * Math.min(value, max * 1.02) / max;
         ctx.strokeStyle = '#ff5a2a'; ctx.lineWidth = 4; ctx.shadowColor = '#ff5a2a'; ctx.shadowBlur = 8;
         ctx.beginPath(); ctx.moveTo(cx - Math.cos(a) * 10, cy - Math.sin(a) * 10); ctx.lineTo(cx + Math.cos(a) * (r - 10), cy + Math.sin(a) * (r - 10)); ctx.stroke();
@@ -493,70 +503,176 @@ function drawGauges(ctx, speedMs, rpm01, fuel01, mph) {
     const spd = Math.abs(speedMs) * (mph ? 2.23694 : 3.6);
     dial(110, 104, 88, mph ? 140 : 220, mph ? 20 : 40, mph ? 'MPH' : 'km/h', spd, null);
     dial(402, 104, 88, 8, 1, '×1000 rpm', rpm01 * 8, 6.5);
-    // centre: digital speed + fuel
-    ctx.textAlign = 'center'; ctx.fillStyle = '#f2f6fa'; ctx.font = '700 44px system-ui,sans-serif'; ctx.fillText(String(Math.round(spd)), 256, 84);
-    ctx.fillStyle = '#7d8a99'; ctx.font = '500 13px system-ui,sans-serif'; ctx.fillText(mph ? 'mph' : 'km/h', 256, 116);
-    ctx.strokeStyle = '#2b3440'; ctx.lineWidth = 8; ctx.beginPath(); ctx.moveTo(216, 160); ctx.lineTo(296, 160); ctx.stroke();
-    ctx.strokeStyle = fuel01 < 0.15 ? '#ff8a1c' : '#5fd38d'; ctx.beginPath(); ctx.moveTo(216, 160); ctx.lineTo(216 + 80 * Math.max(0, Math.min(1, fuel01)), 160); ctx.stroke();
-    ctx.fillStyle = '#7d8a99'; ctx.font = '500 11px system-ui,sans-serif'; ctx.fillText('FUEL', 256, 178);
+    // centre: digital speed + unit + fuel bar (each text fitted to the 112 px column between the dials)
+    ctx.fillStyle = '#f2f6fa'; drawFitText(ctx, String(Math.round(spd)), 256, 82, 104, { maxSize: 46, minSize: 20, font: GF7, label: 'gauge speed' });
+    ctx.fillStyle = '#7d8a99'; drawFitText(ctx, mph ? 'mph' : 'km/h', 256, 116, 90, { maxSize: 14, minSize: 9, font: GF5, label: 'gauge unit' });
+    ctx.strokeStyle = '#2b3440'; ctx.lineWidth = 8; ctx.beginPath(); ctx.moveTo(216, 158); ctx.lineTo(296, 158); ctx.stroke();
+    ctx.strokeStyle = fuel01 < 0.15 ? '#ff8a1c' : '#5fd38d'; ctx.beginPath(); ctx.moveTo(216, 158); ctx.lineTo(216 + 80 * Math.max(0, Math.min(1, fuel01)), 158); ctx.stroke();
+    ctx.fillStyle = '#7d8a99'; drawFitText(ctx, 'FUEL', 256, 178, 80, { maxSize: 12, minSize: 8, font: GF5, label: 'gauge fuel' });
 }
+
+// Driver eye in cockpit space (= player.js camHolder rest position). The dashboard parts are laid out by viewing
+// angle from here so the cluster, the nav screen and the wheel never overlap at any FOV (72–86°) or aspect.
+const EYE = new THREE.Vector3(-0.3, 1.36, -0.45);
+const D2R = Math.PI / 180;
+/** point at azimuth az (° right of straight ahead), elevation el (° below the horizon), distance dist from the eye */
+const fromEye = (az, el, dist) => new THREE.Vector3(
+    EYE.x + dist * Math.cos(el * D2R) * Math.sin(az * D2R), EYE.y - dist * Math.sin(el * D2R), EYE.z - dist * Math.cos(el * D2R) * Math.cos(az * D2R));
+/** Euler (YXZ) that turns a +z-facing plane at p to face the eye */
+const faceEyeEuler = (p) => { const n = EYE.clone().sub(p).normalize(); return new THREE.Euler(-Math.asin(n.y), Math.atan2(n.x, n.z), 0, 'YXZ'); };
+// layout (degrees from the eye). FOV 72 puts the bottom of the view 36° below the horizon; the HUD's speedometer
+// block starts ~41° right of centre at 16:9. Wheel rim top 27.5° (hub 44°, below the view), cluster above the
+// rim, screen right of the rim and left of the HUD, everything below the windshield's bottom edge (rain overlay).
+const CLUSTER = { az: 0, el: 20.6, dist: 0.75, w: 0.33, h: 0.33 * GAUGE_H / GAUGE_W };
+const SCREEN = { az: 27, el: 20.5, dist: 0.86, w: 0.34, h: 0.2125 };
+const WHEEL = { pos: new THREE.Vector3(-0.3, 0.89, -0.945), tilt: -0.42, r: 0.178, tube: 0.02 };
+const MIRROR = { pos: new THREE.Vector3(0.0, 1.655, -1.125), w: 0.27, h: 0.09 };
 
 /** The cockpit the player sits in. Coordinates in the car rig space (driver eye at (-0.3, 1.36, -0.45), forward -z). */
 export function makeCockpit() {
     const g = new THREE.Group();
     g.userData.shared = true;
     const interior = new Batch();
-    const DASH = '#16181b', DASH2 = '#1e2024', TRIM = '#303338', SOFT = '#202226', HEAD = '#2f2e2c';
+    const DASH = '#16181b', DASH2 = '#1e2024', TRIM = '#303338', SOFT = '#202226', HEAD = '#2f2e2c', GLOSS = '#0b0c0e';
     const DR = { r: 0.85 }, DR2 = { r: 0.7 };
     // ---- windshield frame geometry (shared with wipers + rain shader) ----
     const cowl = new THREE.Vector3(0, 1.05, -1.78), header = new THREE.Vector3(0, 1.76, -1.06);
     const sAxis = new THREE.Vector3().subVectors(header, cowl); const wsLen = sAxis.length(); sAxis.normalize();
     const halfW0 = 0.76, halfW1 = 0.69;
-    // ---- dashboard (extruded profile) ----
-    interior.add(extrude([[-1.8, 1.0], [-1.8, 1.045], [-1.45, 1.06], [-1.27, 1.04], [-1.22, 0.98], [-1.24, 0.62], [-1.5, 0.5], [-1.8, 0.5]], -0.8, 0.8), IDENT, DASH, DR);
-    interior.add(BOX, M(0, 1.063, -1.5, 1.56, 0.01, 0.5), '#15171a', { r: 0.95 }); // matte dash top pad
-    interior.add(BOX, M(0, 0.9, -1.215, 1.58, 0.06, 0.03), TRIM, { r: 0.4, m: 0.3 }); // trim strip across dash
-    // cluster binnacle (hood over gauges) + air vents
-    interior.add(extrude([[-1.25, 0.88], [-1.25, 1.1], [-1.12, 1.1], [-1.12, 0.88]], -0.53, -0.07), IDENT, DASH2, DR);
-    interior.add(extrude([[-1.22, 1.095], [-1.22, 1.135], [-1.04, 1.125], [-1.04, 1.105]], -0.55, -0.05), IDENT, DASH2, DR); // binnacle hood
-    for (const x of [-0.68, 0.07, 0.43, 0.68]) interior.add(BOX, M(x, 0.97, -1.225, 0.13, 0.06, 0.02), '#0d0e10', { r: 0.6 });
-    // centre stack + console
-    interior.add(BOX, M(0.25, 0.72, -1.17, 0.34, 0.4, 0.16), DASH2, DR2);
-    for (let i = 0; i < 3; i++) interior.add(BOX, M(0.17 + i * 0.08, 0.66, -1.085, 0.05, 0.05, 0.02), '#4a4e55', { r: 0.4, m: 0.4 }); // knobs
-    interior.add(BOX, M(0.25, 0.48, -0.5, 0.26, 0.22, 1.2), DASH2, DR2);
-    // A-pillars, header, headliner, visors
+    // ---- dashboard (extruded profile): top just under the glass, rounded lip, driver-facing front ----
+    const dashProfile = [[-1.86, 0.5], [-1.86, 1.0], [-1.8, 1.036], [-1.6, 1.04], [-1.38, 1.03], [-1.27, 1.012], [-1.215, 0.985], [-1.2, 0.95],
+        [-1.2, 0.86], [-1.215, 0.66], [-1.32, 0.56], [-1.5, 0.5]];
+    interior.add(extrude(dashProfile, -0.8, 0.8), IDENT, DASH, DR);
+    interior.add(BOX, M(0, 0.905, -1.197, 1.58, 0.05, 0.012), TRIM, { r: 0.4, m: 0.3 }); // trim strip across the dash face
+    interior.add(BOX, M(0.5, 0.79, -1.207, 0.5, 0.004, 0.012), '#0d0e10', { r: 0.6 });   // glovebox seam
+    interior.add(BOX, M(0.5, 0.74, -1.205, 0.08, 0.018, 0.016), '#3a3d42', { r: 0.4, m: 0.4 }); // glovebox latch
+    // outboard air vents (dark grille + two slats)
+    for (const x of [-0.66, 0.66]) {
+        interior.add(BOX, M(x, 0.958, -1.2, 0.15, 0.06, 0.014), '#0d0e10', { r: 0.6 });
+        for (const dy of [-0.012, 0.012]) interior.add(BOX, M(x, 0.958 + dy, -1.192, 0.14, 0.006, 0.006), '#3a3d42', { r: 0.4, m: 0.4 });
+    }
+    interior.add(BOX, M(-0.68, 0.8, -1.205, 0.1, 0.05, 0.016), '#24272b', DR2); // light switch panel
+    // firewall / footwell front (closes the gap under the dash) + floor
+    interior.add(BOX, M(0, 0.56, -1.79, 1.56, 0.26, 0.1), '#141518', { r: 0.95 });
+
+    // ---- instrument cluster pod: a binnacle on the dash top, seen over the steering-wheel rim ----
+    const cPos = fromEye(CLUSTER.az, CLUSTER.el, CLUSTER.dist), cRot = faceEyeEuler(cPos);
+    {
+        // profile along the cluster face (tilted toward the eye), 8 mm behind it, with a short visor on top
+        const up = new THREE.Vector3(0, 1, 0).applyEuler(cRot), nrm = new THREE.Vector3(0, 0, 1).applyEuler(cRot);
+        const top = cPos.clone().addScaledVector(up, CLUSTER.h / 2).addScaledVector(nrm, -0.008);
+        const bot = cPos.clone().addScaledVector(up, -CLUSTER.h / 2).addScaledVector(nrm, -0.008);
+        const tip = top.clone().addScaledVector(up, 0.012).addScaledVector(nrm, 0.02);
+        const pod = [[bot.z + 0.004, 0.94], [bot.z + 0.004, bot.y - 0.004], [bot.z, bot.y], [top.z, top.y], [tip.z, tip.y], [tip.z - 0.02, tip.y + 0.012],
+            [-1.3, tip.y + 0.01], [-1.44, 1.06], [-1.44, 0.94]];
+        const hw = CLUSTER.w / 2 + 0.012;
+        interior.add(extrude(pod, cPos.x - hw, cPos.x + hw), IDENT, DASH2, DR);
+    }
+    const gc = gaugeCanvas(), gctx = gc.getContext('2d');
+    const gtex = new THREE.CanvasTexture(gc); gtex.colorSpace = THREE.SRGBColorSpace; gtex.anisotropy = 4;
+    drawGauges(gctx, 0, 0.1, 0.72, false);
+    const cluster = new THREE.Mesh(new THREE.PlaneGeometry(CLUSTER.w, CLUSTER.h), new THREE.MeshBasicMaterial({ map: gtex, toneMapped: false }));
+    cluster.name = 'cluster';
+    cluster.position.copy(cPos); cluster.rotation.copy(cRot);
+    g.add(cluster);
+    g.userData.cluster = cluster;
+
+    // ---- centre screen in its housing on top of the centre stack, turned and tilted to face the driver ----
+    const sPos = fromEye(SCREEN.az, SCREEN.el, SCREEN.dist), sRot = faceEyeEuler(sPos);
+    {
+        // centre stack under the screen, aligned with the screen's yaw (front face just behind the bezel's bottom edge)
+        const yawM = new THREE.Matrix4().makeRotationY(sRot.y), at = (x, y, z) => new THREE.Vector3(x, y, z).applyMatrix4(yawM).add(sPos);
+        const down = new THREE.Vector3(0, -1, 0).applyEuler(new THREE.Euler(sRot.x, 0, 0)); // screen "down" in the yaw frame
+        const bz = down.z * (SCREEN.h / 2 + 0.014), by = down.y * (SCREEN.h / 2 + 0.014);  // bezel bottom edge (yaw frame)
+        const stackTop = by - 0.004, stackFront = bz - 0.03, stackBottom = 0.6 - sPos.y;
+        const sc = at(0, (stackTop + stackBottom) / 2, stackFront - 0.07);
+        const SM = (x, y, z, sx, sy, sz) => M(at(x, y, z).x, at(x, y, z).y, at(x, y, z).z, sx, sy, sz, 0, sRot.y, 0);
+        interior.add(BOX, M(sc.x, sc.y, sc.z, 0.3, stackTop - stackBottom, 0.14, 0, sRot.y, 0), DASH2, DR2);
+        // stack face: two centre vents, climate strip with knobs, hazard button
+        for (const x of [-0.075, 0.075]) {
+            interior.add(BOX, SM(x, stackTop - 0.045, stackFront + 0.002, 0.11, 0.05, 0.01), '#0d0e10', { r: 0.6 });
+            for (const dy of [-0.01, 0.01]) interior.add(BOX, SM(x, stackTop - 0.045 + dy, stackFront + 0.008, 0.1, 0.005, 0.006), '#3a3d42', { r: 0.4, m: 0.4 });
+        }
+        interior.add(BOX, SM(0, stackTop - 0.1, stackFront + 0.004, 0.06, 0.03, 0.012), '#7a1d1f', { r: 0.4 }); // hazard
+        interior.add(BOX, SM(0, stackTop - 0.165, stackFront + 0.002, 0.26, 0.07, 0.01), '#111214', { r: 0.25, m: 0.2 }); // climate panel
+        for (const x of [-0.09, 0.09]) interior.add(new THREE.CylinderGeometry(0.022, 0.024, 0.024, 12), M(at(x, stackTop - 0.165, stackFront + 0.014).x, at(x, stackTop - 0.165, stackFront + 0.014).y, at(x, stackTop - 0.165, stackFront + 0.014).z, 1, 1, 1, Math.PI / 2, sRot.y, 0), '#4a4e55', { r: 0.35, m: 0.6 });
+        for (let i = -1; i <= 1; i++) interior.add(BOX, SM(i * 0.035, stackTop - 0.165, stackFront + 0.008, 0.024, 0.014, 0.004), '#5d6670', { e: 0.6, r: 0.4 });
+    }
+    // test pattern until another module assigns the navigation map
+    const scv = document.createElement('canvas'); scv.width = 64; scv.height = 40;
+    const sctx = scv.getContext('2d'); const sg = sctx.createLinearGradient(0, 0, 0, 40); sg.addColorStop(0, '#0d1520'); sg.addColorStop(1, '#05080c');
+    sctx.fillStyle = sg; sctx.fillRect(0, 0, 64, 40);
+    const stex = new THREE.CanvasTexture(scv); stex.colorSpace = THREE.SRGBColorSpace;
+    const screen = new THREE.Mesh(new THREE.PlaneGeometry(SCREEN.w, SCREEN.h), new THREE.MeshBasicMaterial({ map: stex, color: '#ffffff', toneMapped: false }));
+    screen.name = 'screen';
+    screen.position.copy(sPos); screen.rotation.copy(sRot);
+    // housing: glossy bezel just behind the glass + a deeper back shell (children: they follow the screen)
+    const housingMat = new THREE.MeshStandardMaterial({ color: GLOSS, roughness: 0.3, metalness: 0.25 });
+    const bezel = new THREE.Mesh(new THREE.BoxGeometry(SCREEN.w + 0.028, SCREEN.h + 0.028, 0.026), housingMat);
+    bezel.position.z = -0.0135; bezel.name = 'screen-bezel'; screen.add(bezel);
+    const shell = new THREE.Mesh(new THREE.BoxGeometry(SCREEN.w - 0.03, SCREEN.h - 0.03, 0.05), new THREE.MeshStandardMaterial({ color: '#16181b', roughness: 0.8 }));
+    shell.position.z = -0.045; shell.name = 'screen-shell'; screen.add(shell);
+    g.add(screen);
+    g.userData.screen = screen;
+
+    // ---- centre console between the seats ----
+    interior.add(BOX, M(0.03, 0.5, -0.62, 0.26, 0.2, 1.1), DASH2, DR2);
+    interior.add(BOX, M(0.03, 0.605, -0.86, 0.2, 0.012, 0.3), '#111214', { r: 0.3, m: 0.2 }); // gear selector bezel
+    interior.add(BOX, M(0.03, 0.66, -0.84, 0.035, 0.1, 0.05), '#26292d', { r: 0.5 });       // selector
+    interior.add(BOX, M(0.03, 0.62, 0.1, 0.22, 0.08, 0.36), DASH2, DR2);                     // armrest
+    // ---- A-pillars (slim), header, headliner, visors ----
     for (const s of [-1, 1]) {
         const a = new THREE.Vector3(s * (halfW0 + 0.03), 1.04, -1.79), b = new THREE.Vector3(s * (halfW1 + 0.03), 1.77, -1.05);
-        interior.add(BOX, beamM(a, b, 0.06, 0.045), HEAD, { r: 0.9 });
+        interior.add(BOX, beamM(a, b, 0.05, 0.034), HEAD, { r: 0.9 });
     }
     interior.add(BOX, M(0, 1.79, -0.94, 1.56, 0.06, 0.24), HEAD, { r: 0.95 }); // header
     interior.add(BOX, M(0, 1.83, -0.1, 1.6, 0.04, 1.5), HEAD, { r: 0.95 }); // headliner
     interior.add(BOX, M(-0.33, 1.752, -0.93, 0.4, 0.018, 0.17), '#3f3d39', { r: 0.95 }); // driver visor (stowed)
     interior.add(BOX, M(0.33, 1.752, -0.93, 0.4, 0.018, 0.17), '#3f3d39', { r: 0.95 });
-    interior.add(BOX, beamM(new THREE.Vector3(0.04, 1.8, -1.44), new THREE.Vector3(0.04, 1.72, -1.5), 0.025, 0.025), '#1a1b1e'); // stalk to the rear-view mirror (mirror plane lives in player.js)
-    // doors (left = driver, right = passenger): panel, belt line trim, armrest, handle, window frame
+    // rear-view mirror mount: foot glued to the glass, stalk, housing behind the mirror glass (glass = player.js)
+    {
+        const tWs = (1.738 - cowl.y) / (header.y - cowl.y), foot = cowl.clone().addScaledVector(sAxis, tWs * wsLen).add(new THREE.Vector3(MIRROR.pos.x, 0, 0.012));
+        interior.add(BOX, M(foot.x, foot.y, foot.z, 0.04, 0.024, 0.02, -0.75), '#1a1b1e', { r: 0.6 });
+        const back = MIRROR.pos.clone().add(new THREE.Vector3(0, 0.03, -0.03));
+        interior.add(BOX, beamM(foot, back, 0.016, 0.016), '#1a1b1e', { r: 0.6 });
+    }
+    // ---- doors (left = driver, right = passenger): panel, belt line trim, armrest, handle, window frame ----
     for (const s of [-1, 1]) {
         const x = s * 0.8;
-        interior.add(extrude([[-1.75, 0.45], [-1.75, 1.0], [-1.6, 1.07], [0.4, 1.07], [0.4, 0.45]], x - 0.03, x + 0.03), IDENT, SOFT, DR);
+        interior.add(extrude([[-1.75, 0.43], [-1.75, 1.0], [-1.6, 1.07], [0.4, 1.07], [0.4, 0.43]], x - 0.03, x + 0.03), IDENT, SOFT, DR);
         interior.add(BOX, M(x - s * 0.035, 1.075, -0.65, 0.05, 0.03, 2.1), TRIM, { r: 0.5, m: 0.2 });
         interior.add(BOX, M(x - s * 0.08, 0.82, -0.35, 0.1, 0.06, 0.6), DASH2, DR2);
         interior.add(BOX, M(x - s * 0.04, 0.95, -0.95, 0.02, 0.04, 0.12), '#8d939a', { r: 0.3, m: 0.8 });
+        interior.add(BOX, M(x - s * 0.035, 0.6, -0.9, 0.012, 0.16, 0.5), '#1a1b1e', { r: 0.9 }); // door pocket
         // window frame top rail (follows roof line)
         interior.add(BOX, beamM(new THREE.Vector3(s * 0.73, 1.78, -1.05), new THREE.Vector3(s * 0.76, 1.8, 0.4), 0.05, 0.05), HEAD, { r: 0.95 });
-        // exterior side mirror (painted housing, mirror glass facing back)
-        interior.add(BOX, M(s * 1.0, 1.12, -1.6, 0.17, 0.1, 0.09), '#8f1f24', { r: 0.3, m: 0.3 });
-        interior.add(BOX, M(s * 1.0, 1.12, -1.553, 0.145, 0.078, 0.006), '#5d6f80', { r: 0.02, m: 1 });
+        // door skin behind the trim: what you see when the camera's near plane (0.4 m) cuts the driver's door
+        // panel at the edge of a very wide view (21:9) — keeps the outside from showing through below the belt line
+        // (driver side further out: the eye is only 0.47 m from that panel)
+        if (s < 0) interior.add(BOX, M(-0.985, 0.71, -0.2, 0.03, 0.58, 3.4), '#141518', { r: 0.95 });
+        else interior.add(BOX, M(0.93, 0.75, -0.2, 0.03, 0.66, 3.4), '#141518', { r: 0.95 });
+        // exterior side mirror (painted housing, mirror glass facing back, arm to the door)
+        interior.add(BOX, M(s * 1.0, 1.12, -1.6, 0.18, 0.11, 0.1), '#a3242a', { r: 0.3, m: 0.3 });
+        interior.add(BOX, M(s * 1.0, 1.12, -1.548, 0.155, 0.085, 0.006), '#5d6f80', { r: 0.02, m: 1 });
         interior.add(BOX, M(s * 0.88, 1.09, -1.62, 0.1, 0.035, 0.05), '#1a1b1e');
+    }
+    // roof skin above the headliner + roof rails above the side windows (same reason as the door skin, when
+    // looking up: the headliner/rails can be cut by the near plane, and nothing may show sky above the windows)
+    interior.add(BOX, M(0, 2.12, 0.1, 1.72, 0.03, 2.1), '#141518', { r: 0.95 });
+    interior.add(BOX, M(0, 1.845, -0.99, 1.66, 0.03, 0.2), HEAD, { r: 0.95 });   // over the windshield header
+    for (const s of [-1, 1]) {
+        interior.add(BOX, M(s * 0.81, 1.85, 0.08, 0.06, 0.1, 2.36), HEAD, { r: 0.95 });
+        interior.add(BOX, M(s * 0.86, 1.99, 0.0, 0.03, 0.3, 2.1), '#141518', { r: 0.95 }); // roof edge skin
     }
     // cowl panel (between windshield and hood)
     interior.add(BOX, M(0, 1.0, -1.88, 1.7, 0.03, 0.2), '#121315', { r: 0.8 });
     // night ambient strips (emit only with the cabin glow): along the dash trim + door belt lines
-    interior.add(BOX, M(0, 0.872, -1.232, 1.5, 0.006, 0.006), '#6fa8ff', { e: 1, r: 0.5 });
-    for (const s of [-1, 1]) interior.add(BOX, M(s * 0.762, 1.052, -0.75, 0.004, 0.006, 1.7), '#6fa8ff', { e: 0.7, r: 0.5 });
+    interior.add(BOX, M(0, 0.877, -1.196, 1.5, 0.006, 0.006), '#2c4766', { e: 2.6, r: 0.5 });
+    for (const s of [-1, 1]) interior.add(BOX, M(s * 0.762, 1.052, -0.75, 0.004, 0.006, 1.7), '#2c4766', { e: 1.8, r: 0.5 });
     // floor, front seats (passenger complete; driver cushion + lower back; the driver's upper back + headrest is a
     // separate mesh hidden while looking back, as if the head turned past it)
     const SEAT = '#26272b', SEAT2 = '#1c1d20', CARPET = '#141518', FAB = { r: 0.95 };
-    interior.add(BOX, M(0, 0.43, -0.35, 1.56, 0.03, 2.6), CARPET, FAB);
+    interior.add(BOX, M(0, 0.43, -0.4, 1.56, 0.03, 2.7), CARPET, FAB);
     const driverBack = new Batch();
     for (const x of [-0.3, 0.36]) {
         interior.add(BOX, M(x, 0.56, -0.3, 0.5, 0.13, 0.52), SEAT, FAB);                       // cushion
@@ -567,16 +683,14 @@ export function makeCockpit() {
         tgt.add(BOX, M(x, 1.37, 0.15, 0.26, 0.18, 0.09, -0.12), SEAT2, FAB);                   // headrest
         for (const dx of [-0.07, 0.07]) tgt.add(BOX, M(x + dx, 1.27, 0.14, 0.012, 0.08, 0.012), '#8d939a', { r: 0.3, m: 0.8 });
     }
-    interior.add(BOX, M(0.25, 0.62, 0.14, 0.2, 0.08, 0.26), DASH2, DR2); // console armrest
     const interiorMat = cockpitMaterial();
     const interiorMesh = new THREE.Mesh(interior.build(), interiorMat);
-    interiorMesh.receiveShadow = true; g.add(interiorMesh);
+    interiorMesh.name = 'interior'; interiorMesh.receiveShadow = true; g.add(interiorMesh);
     const driverBackMesh = new THREE.Mesh(driverBack.build(), interiorMat);
-    driverBackMesh.receiveShadow = true; g.add(driverBackMesh);
+    driverBackMesh.name = 'driver-seat-back'; driverBackMesh.receiveShadow = true; g.add(driverBackMesh);
     g.userData.driverSeatBack = driverBackMesh;
 
-    // ---- rear cabin (seen when looking back / around). Layer 1 only: the main camera renders it, the rear-view
-    //      mirror camera (layer 0) does not, so it never blocks the mirror's view through the rear window. ----
+    // ---- rear cabin (seen when looking back / around) ----
     const rear = new Batch();
     // rear bench: cushion, back, outer headrests, centre armrest seam
     rear.add(BOX, M(0, 0.57, 0.92, 1.42, 0.14, 0.52), SEAT, FAB);
@@ -598,16 +712,16 @@ export function makeCockpit() {
         rear.add(BOX, beamM(new THREE.Vector3(s * 0.77, 1.06, 0.47), new THREE.Vector3(s * 0.74, 1.81, 0.43), 0.06, 0.15), HEAD, { r: 0.9 });
         rear.add(BOX, M(s * 0.735, 1.62, 0.44, 0.012, 0.05, 0.04), '#3a3b3e', { r: 0.6 }); // belt anchor
         // C-pillar trim panel between the rear door window and the rear glass
-        rear.add(extrude([[0.98, 1.79], [rwTop[0], rwTop[1]], [rwBot[0], rwBot[1]], [1.74, 1.07], [1.22, 1.07]], s > 0 ? 0.70 : -0.78, s > 0 ? 0.78 : -0.70), IDENT, HEAD, { r: 0.92 });
+        rear.add(extrude([[0.98, 1.79], [rwTop[0], rwTop[1]], [rwBot[0], rwBot[1]], [1.74, 1.07], [1.22, 1.07]], s > 0 ? 0.70 : -0.85, s > 0 ? 0.85 : -0.70), IDENT, HEAD, { r: 0.92 });
         // rear door: panel, belt trim, armrest, handle, window frame (open, like the front windows)
-        rear.add(extrude([[0.42, 0.45], [0.42, 1.07], [1.3, 1.07], [1.3, 0.45]], s * 0.8 - 0.03, s * 0.8 + 0.03), IDENT, SOFT, DR);
+        rear.add(extrude([[0.42, 0.43], [0.42, 1.07], [1.3, 1.07], [1.3, 0.43]], s * 0.8 - 0.03, s * 0.8 + 0.03), IDENT, SOFT, DR);
         rear.add(BOX, M(s * 0.765, 1.075, 0.86, 0.05, 0.03, 0.86), TRIM, { r: 0.5, m: 0.2 });
         rear.add(BOX, M(s * 0.72, 0.8, 0.95, 0.1, 0.06, 0.5), DASH2, DR2);
         rear.add(BOX, M(s * 0.76, 0.95, 0.6, 0.02, 0.04, 0.1), '#8d939a', { r: 0.3, m: 0.8 });
         rear.add(BOX, beamM(new THREE.Vector3(s * 0.76, 1.8, 0.4), new THREE.Vector3(s * 0.74, 1.79, 1.0), 0.05, 0.05), HEAD, { r: 0.95 });
         rear.add(BOX, beamM(new THREE.Vector3(s * 0.775, 1.07, 1.22), new THREE.Vector3(s * 0.755, 1.79, 0.98), 0.045, 0.04), HEAD, { r: 0.95 });
         // rear quarter panel beside the bench, wheel-arch hump
-        rear.add(extrude([[1.3, 0.45], [1.3, 1.07], [1.74, 1.07], [1.86, 0.9], [1.86, 0.45]], s * 0.79 - 0.03, s * 0.79 + 0.03), IDENT, SOFT, DR);
+        rear.add(extrude([[1.3, 0.43], [1.3, 1.07], [1.74, 1.07], [1.86, 0.9], [1.86, 0.43]], s * 0.79 - 0.03, s * 0.79 + 0.03), IDENT, SOFT, DR);
         rear.add(BOX, M(s * 0.7, 0.62, 1.3, 0.14, 0.2, 0.5), SOFT, DR);
     }
     // roof headliner over the rear cabin + dome light
@@ -616,19 +730,19 @@ export function makeCockpit() {
     rear.add(BOX, M(0, 0.43, 0.95, 1.56, 0.03, 1.1), CARPET, FAB); // rear floor
     rear.add(BOX, M(0, 0.5, 0.35, 0.3, 0.12, 0.5), DASH2, DR2);       // tunnel / rear console end
     const rearMesh = new THREE.Mesh(rear.build(), interiorMat);
-    rearMesh.layers.set(1); rearMesh.receiveShadow = true; g.add(rearMesh);
+    rearMesh.name = 'rear-cabin'; rearMesh.receiveShadow = true; g.add(rearMesh);
     g.userData.rearCabin = rearMesh;
 
     // ---- hood (painted, tapered toward the nose) ----
     const hoodGeo = extrude([[-1.86, 1.0], [-3.3, 0.88], [-3.42, 0.8], [-3.4, 0.6], [-1.86, 0.6]], -0.87, 0.87, (x, y, z) => 1 - 0.12 * THREE.MathUtils.clamp((-z - 1.86) / 1.5, 0, 1));
     const hood = new THREE.Mesh(hoodGeo, track(new THREE.MeshStandardMaterial({ color: '#b3262b', roughness: 0.34, metalness: 0.3 })));
-    hood.material.userData.envScale = 0.55; hood.receiveShadow = true; g.add(hood);
+    hood.material.userData.envScale = 0.55; hood.receiveShadow = true; hood.name = 'hood'; g.add(hood);
     g.userData.hood = hood;
-    // trunk lid behind the rear window (main camera only, like the rear cabin)
+    // trunk lid behind the rear window
     const trunk = new THREE.Mesh(extrude([[1.74, 1.12], [2.25, 1.04], [2.36, 0.92], [2.36, 0.6], [1.74, 0.6]], -0.82, 0.82), hood.material);
-    trunk.layers.set(1); trunk.receiveShadow = true; g.add(trunk);
+    trunk.receiveShadow = true; trunk.name = 'trunk'; g.add(trunk);
 
-    // ---- shadow proxy (lower body + roof + pillars): casts the car's shadow, never drawn ----
+    // ---- shadow proxy (lower body + roof + pillars): casts the car's shadow, never drawn (stays on layer 0) ----
     const proxyB = new Batch();
     proxyB.add(BOX, M(0, 0.62, -0.2, 1.78, 0.66, 4.4));
     proxyB.add(BOX, M(0, 1.8, 0.05, 1.5, 0.06, 2.4)); // roof incl. the rear cabin
@@ -636,33 +750,27 @@ export function makeCockpit() {
     for (const s of [-1, 1]) proxyB.add(BOX, M(s * 0.78, 1.4, 0.45, 0.06, 0.75, 0.15));  // B-pillars
     for (const s of [-1, 1]) proxyB.add(BOX, M(s * 0.76, 1.4, 1.35, 0.06, 0.72, 0.5));   // C-pillars
     const proxy = new THREE.Mesh(proxyB.build(false), new THREE.MeshBasicMaterial({ colorWrite: false, depthWrite: false }));
-    proxy.castShadow = true; proxy.renderOrder = -10; g.add(proxy);
+    proxy.castShadow = true; proxy.renderOrder = -10; proxy.name = 'shadow-proxy'; g.add(proxy);
 
-    // ---- steering wheel ----
-    const wb = new Batch();
-    wb.add(new THREE.TorusGeometry(0.185, 0.019, 7, 26), IDENT, '#151619', { r: 0.65 });
+    // ---- steering wheel (low enough that the cluster reads over the rim) ----
+    const wb = new Batch(), WR = WHEEL.r;
+    wb.add(new THREE.TorusGeometry(WR, WHEEL.tube, 7, 28), IDENT, '#151619', { r: 0.65 });
     wb.add(new THREE.CylinderGeometry(0.06, 0.07, 0.05, 12), M(0, 0, 0.012, 1, 1, 1, Math.PI / 2), '#1d1f22', { r: 0.7 });
     wb.add(BOX, M(0, -0.005, 0.04, 0.09, 0.07, 0.012), '#25282c', { r: 0.6 }); // airbag pad (logo-less)
     for (const a of [0, Math.PI, -Math.PI / 2]) {
-        const r = 0.12, l = 0.13;
-        wb.add(BOX, M(Math.cos(a) * r, Math.sin(a) * r * (a === -Math.PI / 2 ? 0.95 : 1) - (a === -Math.PI / 2 ? 0 : 0.02), 0.01, a === -Math.PI / 2 ? 0.05 : l, a === -Math.PI / 2 ? l : 0.05, 0.02), '#1d1f22', { r: 0.6 });
+        const r = WR * 0.65, l = WR * 0.7, vert = a === -Math.PI / 2;
+        wb.add(BOX, M(Math.cos(a) * r, Math.sin(a) * r * (vert ? 0.95 : 1) - (vert ? 0 : 0.02), 0.01, vert ? 0.05 : l, vert ? l : 0.05, 0.02), '#1d1f22', { r: 0.6 });
     }
-    wb.add(new THREE.CylinderGeometry(0.035, 0.045, 0.32, 8), M(0, 0, -0.17, 1, 1, 1, Math.PI / 2), '#141517', { r: 0.8 }); // column
+    wb.add(new THREE.CylinderGeometry(0.035, 0.045, 0.34, 8), M(0, 0, -0.18, 1, 1, 1, Math.PI / 2), '#141517', { r: 0.8 }); // column
     const wheel = new THREE.Group();
-    const wheelMat = cockpitMaterial(new THREE.Vector3(-0.3, 0.99, -0.9));
+    const wheelMat = cockpitMaterial(WHEEL.pos);
     const wheelMesh = new THREE.Mesh(wb.build(), wheelMat);
+    wheelMesh.name = 'steering-wheel';
     wheel.add(wheelMesh);
-    wheel.position.set(-0.3, 0.99, -0.9); wheel.rotation.x = -0.42;
+    wheel.position.copy(WHEEL.pos); wheel.rotation.x = WHEEL.tilt;
     g.add(wheel);
     g.userData.wheel = wheel;
 
-    // ---- instrument cluster (canvas texture) ----
-    const gc = gaugeCanvas(), gctx = gc.getContext('2d');
-    const gtex = new THREE.CanvasTexture(gc); gtex.colorSpace = THREE.SRGBColorSpace; gtex.anisotropy = 4;
-    drawGauges(gctx, 0, 0.1, 0.72, false);
-    const cluster = new THREE.Mesh(new THREE.PlaneGeometry(0.44, 0.172), new THREE.MeshBasicMaterial({ map: gtex, toneMapped: false }));
-    cluster.position.set(-0.3, 0.995, -1.113);
-    g.add(cluster);
     let last = { s: -1, r: -1, f: -1, u: null }, lastT = 0;
     g.userData.updateGauges = (speedMs, rpm01 = 0.1, fuel01 = 0.7, mph = false) => {
         const now = performance.now();
@@ -673,17 +781,16 @@ export function makeCockpit() {
         drawGauges(gctx, speedMs, rpm01, fuel01, mph); gtex.needsUpdate = true;
     };
 
-    // ---- centre console screen (navigation map is assigned by another module) ----
-    const sc = document.createElement('canvas'); sc.width = 64; sc.height = 40;
-    const sctx = sc.getContext('2d'); const sg = sctx.createLinearGradient(0, 0, 0, 40); sg.addColorStop(0, '#0d1520'); sg.addColorStop(1, '#05080c');
-    sctx.fillStyle = sg; sctx.fillRect(0, 0, 64, 40);
-    const stex = new THREE.CanvasTexture(sc); stex.colorSpace = THREE.SRGBColorSpace;
-    const screen = new THREE.Mesh(new THREE.PlaneGeometry(0.42, 0.26), new THREE.MeshBasicMaterial({ map: stex, color: '#ffffff', toneMapped: false }));
-    screen.position.set(0.25, 1.0, -1.15); screen.rotation.set(-0.24, -0.32, 0, 'YXZ');
-    const bezel = new THREE.Mesh(new THREE.BoxGeometry(0.45, 0.29, 0.02), new THREE.MeshStandardMaterial({ color: '#0b0c0e', roughness: 0.25, metalness: 0.2 }));
-    bezel.position.z = -0.012; screen.add(bezel);
-    g.add(screen);
-    g.userData.screen = screen;
+    // ---- rear-view mirror placement (the mirror glass + its camera live in player.js) ----
+    {
+        const q = new THREE.Quaternion().setFromEuler(faceEyeEuler(MIRROR.pos));
+        g.userData.mirrorMount = {
+            position: MIRROR.pos.clone(), quaternion: q, width: MIRROR.w, height: MIRROR.h,
+            // camera: centred, under the roof, looking straight back through the rear window; nothing of the car is
+            // drawn for it (every cockpit mesh is on layer 1, the mirror camera renders layer 0 only)
+            camPosition: new THREE.Vector3(0, 1.52, 0.9), camRotation: new THREE.Euler(-0.04, Math.PI, 0, 'YXZ'), camFov: 30,
+        };
+    }
 
     // ---- wipers (in the windshield plane) ----
     // plane basis: u = +x, s = up the glass, n = cross(u, s) (points into the cabin)
@@ -749,5 +856,9 @@ export function makeCockpit() {
         },
     };
     g.userData.windshield = { origin: cowl.clone(), u: new THREE.Vector3(1, 0, 0), s: sAxis.clone(), len: wsLen, halfW0, halfW1, wipers: wiperDefs };
+    // Every visible cockpit mesh lives on layer 1: the main camera renders layers 0 + 1 (render.js), the rear-view
+    // mirror camera only layer 0, so no part of the car can ever show up in the mirror. The invisible shadow proxy
+    // stays on layer 0 (shadow casting). Raycasts against the cockpit need raycaster.layers.enable(1).
+    g.traverse((o) => { if ((o.isMesh || o.isLine || o.isPoints) && o !== proxy) o.layers.set(1); });
     return g;
 }

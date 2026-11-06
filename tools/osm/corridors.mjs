@@ -114,7 +114,7 @@ export function buildCorridor(roads, pos, P, cfg, log = () => { }) {
         const list = closed ? wps.concat([wps[0]]) : wps;
         for (let i = 0; i < list.length - 1; i++) routeLeg(list[i], list[i + 1], list[i + 1].r ?? list[i].legR ?? rRoute, `${tag}: ${list[i].name || i} → ${list[i + 1].name || i + 1}`);
     };
-    chain(cfg.route, false, 'route');
+    chain(cfg.route || [], false, "route");
     for (const [k, lp] of (cfg.loops || []).entries()) chain(lp.points, !!lp.closed, lp.name || 'loop' + k);
     const circles = [];
     for (const c of cfg.circles || []) { const [x, z] = P(c.lat, c.lon); circles.push({ x, z, r: c.r ?? rStop, name: c.name }); }
@@ -150,6 +150,23 @@ export function buildCorridor(roads, pos, P, cfg, log = () => { }) {
     // ---------------- raster margin field (chamfer distance transform with additive initial values)
     const CELL = 10, PAD = cfg.fieldPad ?? 2600;
     let x0 = Infinity, z0 = Infinity, x1 = -Infinity, z1 = -Infinity;
+    // area polygons (district mode): everything inside them is kept (margin = signed distance to the polygon)
+    const polys = (cfg.polys || []).map(pl => pl.map(([lat, lon]) => P(lat, lon)));
+    for (const pl of polys) for (const [x, z] of pl) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); }
+    const polyMargin = (x, z) => {
+        let m = Infinity;
+        for (const pl of polys) {
+            let d = Infinity, inside = false;
+            for (let i = 0, j = pl.length - 1; i < pl.length; j = i++) {
+                const a = pl[j], b = pl[i];
+                d = Math.min(d, distPointSeg(x, z, a[0], a[1], b[0], b[1]).d);
+                if ((b[1] > z) !== (a[1] > z) && x < (a[0] - b[0]) * (z - b[1]) / (a[1] - b[1]) + b[0]) inside = !inside;
+            }
+            m = Math.min(m, inside ? -d : d);
+        }
+        return m;
+    };
+    if (polys.length) for (const n of adj.keys()) { const p = pos.get(n); if (p && polyMargin(p[0], p[1]) <= 0) routeNodes.add(n); }
     for (const p of pieces) for (const [x, z] of p.pts) { x0 = Math.min(x0, x - p.r); x1 = Math.max(x1, x + p.r); z0 = Math.min(z0, z - p.r); z1 = Math.max(z1, z + p.r); }
     for (const c of circles) { x0 = Math.min(x0, c.x - c.r); x1 = Math.max(x1, c.x + c.r); z0 = Math.min(z0, c.z - c.r); z1 = Math.max(z1, c.z + c.r); }
     x0 -= PAD; z0 -= PAD; x1 += PAD; z1 += PAD;
@@ -184,16 +201,19 @@ export function buildCorridor(roads, pos, P, cfg, log = () => { }) {
         }
     }
     /** signed margin (m): < 0 inside the corridor */
-    const margin = (x, z) => {
+    const fieldMargin = (x, z) => {
         const fi = (x - x0) / CELL, fj = (z - z0) / CELL;
         const i = Math.floor(fi), j = Math.floor(fj);
         if (i < 0 || j < 0 || i >= W - 1 || j >= H - 1) return 1e6;
         const tx = fi - i, tz = fj - j, k = j * W + i;
         return (F[k] * (1 - tx) + F[k + 1] * tx) * (1 - tz) + (F[k + W] * (1 - tx) + F[k + W + 1] * tx) * tz;
     };
-    let inside = 0; for (let k = 0; k < F.length; k++) if (F[k] <= 0) inside++;
+    const margin = polys.length ? (x, z) => Math.min(fieldMargin(x, z), polyMargin(x, z)) : fieldMargin;
+    let inside = 0;
+    if (polys.length) { for (let j = 0; j < H; j++) for (let i = 0; i < W; i++) if (Math.min(F[j * W + i], polyMargin(x0 + i * CELL, z0 + j * CELL)) <= 0) inside++; }
+    else for (let k = 0; k < F.length; k++) if (F[k] <= 0) inside++;
     const areaKm2 = inside * CELL * CELL / 1e6;
     log(`corridor: ${legs.length} legs, ${pieces.length} pieces, ${circles.length} circles, area ${areaKm2.toFixed(1)} km² (game)`);
     for (const l of legs) log(`   ${l.label}  ${l.km} km${l.directed === false ? ' (undirected!)' : ''}  ${l.via || ''}`);
-    return { margin, pieces, circles, legs, routeNodes, areaKm2, field: { x0, z0, W, H, CELL } };
+    return { margin, pieces, circles, legs, routeNodes, areaKm2, polys, field: { x0, z0, W, H, CELL } };
 }

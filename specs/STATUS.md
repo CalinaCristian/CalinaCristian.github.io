@@ -4,15 +4,15 @@ Update your own rows when you start/finish (status, `updated` as `YYYY-MM-DD HH:
 
 | ID | Item | Spec | Role | Status | Updated | Notes |
 |---|---|---|---|---|---|---|
-| R10.1–3 | District data at 1:1, ~1 km², boundaries + end-of-map | 10 | world | in progress | 2026-11-06 22:30 | redirected from corridors; geometry work carries over |
-| R10.4 | `CHAPTERS` + starts (1.5–2.5 km routes) | 10 | world | in progress | 2026-11-06 22:30 | |
+| R10.1–3 | District data at 1:1, ~1 km², boundaries + end-of-map | 10 | world | review | 2026-11-06 23:10 | redirected from corridors; geometry work carries over |
+| R10.4 | `CHAPTERS` + starts (1.5–2.5 km routes) | 10 | world | in progress | 2026-11-06 23:10 | |
 | R10.5–7 | Chapter flow, montage, chapter select, progress UI | 10 | gameplay | in progress | 2026-11-06 22:05 UTC | feature-detects CHAPTERS / districts |
-| R10.8 | Congestion hotspot data per district | 10/13 | world | in progress | 2026-11-06 22:30 | from research `traffic` |
+| R10.8 | Congestion hotspot data per district | 10/13 | world | review | 2026-11-06 23:10 | from research `traffic` |
 | R11.1–2 | Continuous ribbons, junction pads, no coplanar overlaps, layering | 11 | world | in progress | 2026-11-06 21:20 | |
 | R11.3 | Country-specific markings, turn arrows, no markings across pads | 11 | world | in progress | | |
 | R11.4–5 | Vertical profile + walls (no stacked ribbons, no barriers in lanes) | 11 | world | in progress | | Orhideelor barrier; Seattle interchanges |
 | R11.6–8 | Nothing on roads; sidewalks; GTS door; Lukoil | 11 | world | in progress | | |
-| R12.1–5 | Buildings/businesses/rooftop signs/furniture/trees from research | 12 | world | todo | | waits on research |
+| R12.1–5 | Buildings/businesses/rooftop signs/furniture/trees from research | 12 | world | in progress | 2026-11-06 23:10 | waits on research |
 | R12.6 | Landmark fidelity pass from research | 12 | landmarks | todo | | agent to spawn after research |
 | R13.2 | Standstill traffic in hotspots | 13 | gameplay | todo | | queued |
 | R13.3 | Transit liveries (STB trams/trolleys, KCM) | 13 | gameplay | todo | | |
@@ -25,8 +25,8 @@ Update your own rows when you start/finish (status, `updated` as `YYYY-MM-DD HH:
 | R18.5 | Time/weather/season per district + spot | 18 | render | todo | | |
 | R19.1–5 | Visual QA harness + human-style review | 19 | qa | in progress | 2026-11-06 21:32 | building `game/dev/harness/visual/` (survey, sheets, detectors); CHAPTERS-driven when present, legacy spawn→stops routes otherwise |
 | R20.* | Research: Bucharest districts | 20 | research-buc-districts | in progress | 2026-11-06 21:33 UTC | order: romana, unirii, floreasca, grozavesti, pipera, otopeni; output game/research/bucharest-<d>.json/.md + refs/ |
-| R20.* | Research: Seattle districts | 20 | research-sea-districts | in progress | 2026-11-06 22:45 | bellevue first, then seatac |
-| R20.* | Research: Bucharest top-10 spots | 20 | research-buc-spots | review | 2026-11-06 22:15 | top-10 confirmed with evidence; `game/research/bucharest-spots.{json,md}` (10 scene specs + dialogue) + `refs/buc-spots/` (~100 CC images, LICENSES.md); Patriarchal Cathedral → People's Salvation Cathedral |
+| R20.* | Research: Seattle districts | 20 | research-sea-districts | review | 2026-11-06 22:18 | bellevue + seatac JSON/MD/refs in game/research/; bellevue route A = 14.4 km (> spec-10 12 km) — world to decide; Lincoln Square + Plaza Center landmarks done; seatac photos pending (Wikimedia 429) |
+| R20.* | Research: Bucharest top-10 spots | 20 | research-buc-spots | review | 2026-11-06 22:15 | top-10 confirmed with evidence; `game/research/bucharest-spots.{json,md}` (10 scene specs + dialogue) + `refs/buc-spots/` (95 CC images, LICENSES.md); Patriarchal Cathedral → People's Salvation Cathedral |
 | R20.* | Research: Seattle top-10 spots | 20 | research-sea-spots | in progress | 2026-11-06 21:33 | ranking top-10 with sources, then per-spot scene specs + refs + OSM |
 | R22.* | Code cleanup after district migration (remove corridor era, split world.js, dead code) | 22 | all + code-health | todo | | starts after spec 10 is done |
 | R21 | Telemetry for chapters/on-foot/photo/spots | 21 | orchestrator | todo | | after features land |

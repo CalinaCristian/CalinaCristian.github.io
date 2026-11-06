@@ -222,9 +222,27 @@ function fetchRelationFull(id) {
 }
 
 // ===========================================================================
-function buildCity(cityId) {
-    const C = CITIES[cityId];
-    const files = fs.readdirSync(TILES).filter(f => f.endsWith('.xml') && C.prefixes.some(p => f.startsWith(p))).sort().map(f => path.join(TILES, f));
+// district mode: a compact area (+ optional corridor) at REAL 1:1 scale, projection anchored at the district centre
+function districtSetup(cityId, did) {
+    const gc = GAME_CITIES[cityId], d = gc.districts && gc.districts[did];
+    if (!d) throw new Error(`unknown district ${cityId}:${did}`);
+    const C = { ...CITIES[cityId], lat0: d.center.lat, lon0: d.center.lon, scale: 1, compress: null, shape: () => [1, 1], heightMap: (h) => h };
+    const bb = d.bbox;
+    const polys = d.poly ? [d.poly] : d.route ? [] : [[[bb[0], bb[1]], [bb[0], bb[3]], [bb[2], bb[3]], [bb[2], bb[1]]]];
+    const cfg = { rRoute: d.rRoute ?? 300, rStop: 300, maxSpur: 0, route: d.route || [], loops: [], circles: d.circles || [], spurs: [], polys, fieldPad: 1800 };
+    return { C, cfg, district: d };
+}
+
+function buildCity(cityId, did = null) {
+    const ds = did ? districtSetup(cityId, did) : null;
+    const C = ds ? ds.C : CITIES[cityId];
+    const near = (f) => { // district mode: only the tiles around the district (+ ~2 km for the backdrop)
+        if (!ds) return true;
+        const m = f.match(/_(-?[\d.]+)_(-?[\d.]+)_(-?[\d.]+)_(-?[\d.]+)\.xml$/); if (!m) return true;
+        const [la0, lo0, la1, lo1] = m.slice(1).map(Number), bb = ds.district.bbox, k = 0.02;
+        return !(la1 < bb[0] - k || la0 > bb[2] + k || lo1 < bb[1] - k * 1.4 || lo0 > bb[3] + k * 1.4);
+    };
+    const files = fs.readdirSync(TILES).filter(f => f.endsWith('.xml') && C.prefixes.some(p => f.startsWith(p)) && near(f)).sort().map(f => path.join(TILES, f));
     log(cityId, files.length, 'tiles');
     const osm = parseFiles(files);
     const { nodes: N, ntags, ways: W, rels: R } = osm;
@@ -257,6 +275,8 @@ function buildCity(cityId) {
         const t = w.tags; const cls = t.highway;
         if (!ROAD_CLASSES.includes(cls)) continue;
         if (t.area === 'yes' || t.oneway === 'reversible' || t.access === 'no' || t.motor_vehicle === 'no' || t.motorcar === 'no') continue;
+        // HOV / transit-only ramps (every lane hov=designated + bus designated, e.g. the I-405 NE 6th St direct-access ramp)
+        if (/_link$/.test(cls) && (t.hov === 'designated' || /^designated(\|designated)*$/.test(t['hov:lanes'] || '')) && (t.bus === 'designated' || t.psv === 'designated' || t.hov === 'designated')) continue;
         // service roads only as connectors (pruned below unless they link the network); never parking aisles / private
         if (cls === 'service' && (/parking_aisle|drive-through|emergency_access/.test(t.service || '') || /private|no|delivery/.test(t.access || '') || t.motor_vehicle === 'private')) continue;
         if (w.nodes.some(n => !N.has(n)) || w.nodes.length < 2) continue;
@@ -331,16 +351,30 @@ function buildCity(cityId) {
     for (const r of roads) for (const n of r.nodes) if (!pos.has(n)) pos.set(n, pt(n));
 
     // ---- corridors: keep only what the story drives (+ buffers); see corridors.mjs
-    const cor = buildCorridor(roads, pos, (lat, lon) => P(lat, lon), corridorConfig(cityId), log);
+    const cor = buildCorridor(roads, pos, (lat, lon) => P(lat, lon), ds ? ds.cfg : corridorConfig(cityId), log);
     const M = (x, z) => cor.margin(x, z);
     const stat = { roadsBefore: roads.length };
+    const cutIds = new Map(); let cutNext = -2e9;
     {
         const out = [];
         for (const r of roads) {
             const mg = r.nodes.map(n => M(...pos.get(n)));
             let run = [];
             const flush = () => { if (run.length >= 2) out.push({ ...r, nodes: run }); run = []; };
+            // district mode: cut exactly at the boundary (a new node where the way crosses it → a clean road end)
+            const cut = (ia, ib) => {
+                let p = pos.get(r.nodes[ia]), q = pos.get(r.nodes[ib]); // p inside, q outside
+                for (let k = 0; k < 18; k++) { const m = [(p[0] + q[0]) / 2, (p[1] + q[1]) / 2]; if (M(m[0], m[1]) <= 0) p = m; else q = m; }
+                const key = Math.min(r.nodes[ia], r.nodes[ib]) + ':' + Math.max(r.nodes[ia], r.nodes[ib]);
+                let id = cutIds.get(key); if (id === undefined) { id = cutNext--; cutIds.set(key, id); pos.set(id, p); }
+                return id;
+            };
             for (let i = 0; i < r.nodes.length; i++) {
+                if (ds) {
+                    if (mg[i] <= 0) { if (!run.length && i > 0) run.push(cut(i, i - 1)); run.push(r.nodes[i]); }
+                    else { if (run.length) run.push(cut(i - 1, i)); flush(); }
+                    continue;
+                }
                 if (mg[i] <= 0) { if (!run.length && i > 0 && mg[i - 1] <= 120) run.push(r.nodes[i - 1]); run.push(r.nodes[i]); }
                 else { if (run.length && mg[i] <= 120) run.push(r.nodes[i]); flush(); }
             }
@@ -351,6 +385,10 @@ function buildCity(cityId) {
         for (const r of out) for (const n of r.nodes) if (!par.has(n)) par.set(n, n);
         for (const r of out) for (let i = 1; i < r.nodes.length; i++) { const a = f(r.nodes[0]), b = f(r.nodes[i]); if (a !== b) par.set(a, b); }
         const good = new Set(); for (const n of cor.routeNodes) if (par.has(n)) good.add(f(n));
+        if (ds) { // district: the main network + sizeable pieces (no isolated parking-lot fragments)
+            const size = new Map(); for (const r of out) { const k = f(r.nodes[0]); size.set(k, (size.get(k) || 0) + r.nodes.length); }
+            const big = Math.max(...size.values()); for (const k of [...good]) if (size.get(k) < Math.max(12, big * 0.04)) good.delete(k);
+        }
         roads.length = 0;
         for (const r of out) if (good.has(f(r.nodes[0]))) roads.push(r);
         log(`corridor roads: ${stat.roadsBefore} ways → ${out.length} clipped pieces → ${roads.length} connected`);
@@ -736,6 +774,39 @@ function buildCity(cityId) {
     const RE_ECLECTIC = /Calea Victoriei|Regina Elisabeta|Carol I|Mihail Kogălniceanu|Lipscani|Calea Moșilor|Bulevardul Schitu Măgureanu|Strada Academiei|Calea Dorobanților|Bulevardul Lascăr|Calea Griviței/;
     const RE_BIGROAD = /^(trunk|primary|secondary)$/;
 
+    const researchBrands = {};
+    // ---- field research (game/research/<city>-<district>.json, spec 20): fill missing height / levels / facade and roof
+    //      colours / roof shape on the OSM tags of the researched buildings (OSM tags win where present)
+    if (ds) {
+        const rf = path.join(REPO, 'game', 'research', `${cityId}-${did}.json`);
+        let applied = 0;
+        if (fs.existsSync(rf)) {
+            let rj = null; try { rj = JSON.parse(fs.readFileSync(rf, 'utf8')); } catch (e) { log('research: cannot parse', rf, e.message); }
+            for (const b of rj?.buildings || []) {
+                const id = parseInt(String(b.osm).replace(/^[wr]/, ''), 10); const w = W.get(id); if (!w) continue;
+                const t = w.tags = { ...w.tags }, ot = b.osmTags || {};
+                const set = (k, v) => { if (v == null || v === '' || t[k] != null) return false; t[k] = String(v); return true; };
+                let ch = false;
+                ch = set('height', b.heightM ?? b.height ?? ot.height) || ch;
+                ch = set('building:levels', b.levels ?? b.building_levels ?? ot['building:levels']) || ch;
+                if (t.height == null && t['building:levels'] == null) ch = set('height', b.heightEstM ?? b.height_est_m) || ch;
+                if (t['building:levels'] == null && t.height == null) ch = set('building:levels', b.levelsEst) || ch;
+                const fc = b.facade_hex || b.facade_hex_est || b.building_colour || (b.facade && (b.facade.colour || b.facade.wall || b.facade.glass));
+                ch = set('building:colour', fc) || ch;
+                ch = set('roof:shape', b.roof_shape ?? b.roofShape) || ch;
+                ch = set('roof:colour', b.roof_colour ?? b.roofColour) || ch;
+                ch = set('min_height', b.min_height) || ch;
+                if (ch) applied++;
+            }
+            log(`research: ${rf} → ${applied} buildings enriched`);
+            // shop-sign colours per brand (bg, fg, accent) for the facade signs
+            for (const b of rj?.businesses || []) {
+                const sg = b.sign || {}; const key = (b.brand || b.brand_key || '').toLowerCase().trim();
+                if (!key || !/^#[0-9a-f]{6}$/i.test(sg.bg || '') || !/^#[0-9a-f]{6}$/i.test(sg.fg || '')) continue;
+                researchBrands[key] = [sg.bg, sg.fg, /^#[0-9a-f]{6}$/i.test(sg.accent || '') ? sg.accent : sg.fg];
+            }
+        }
+    }
     const buildings = [];
     const bGrid = new Grid(60);
     const rawBuildings = [];
@@ -750,7 +821,11 @@ function buildCity(cityId) {
         for (const ring of assembleRings(outers).rings) addRaw(ring, t, true);
     }
     for (const [id, w] of W) {
-        const t = w.tags; if (!t.building || t.building === 'no' || t['building:part']) continue;
+        const t = w.tags;
+        // district mode: tall building:parts (towers rising out of a podium, e.g. Lincoln Square North) are kept as buildings
+        const tallPart = ds && t['building:part'] && t['building:part'] !== 'no' && (num(t.height) >= 20 || num(t['building:levels']) >= 6);
+        if (tallPart && !t.building) t.building = 'yes';
+        if (!t.building || t.building === 'no' || (t['building:part'] && !tallPart)) continue;
         if (w.nodes.length < 4 || w.nodes[0] !== w.nodes[w.nodes.length - 1]) continue;
         if (bRelWays.has(id) && !t.name && Object.keys(t).length <= 1) continue;
         addRaw(w.nodes, t, false);
@@ -1079,9 +1154,25 @@ function buildCity(cityId) {
         trees: outTrees, furniture: outFurn, backdrop,
         corridor: { areaKm2: +cor.areaKm2.toFixed(2), legs: cor.legs.map(l => [l.label, l.km]) },
     };
+    if (Object.keys(researchBrands).length) doc.brands = researchBrands;
+    if (ds) { // district boundary (game metres): the polygons and the corridor field are the same margin() → sample its outline
+        doc.district = { id: did, name: ds.district.name, bbox: ds.district.bbox, areaKm2: +cor.areaKm2.toFixed(2),
+            polys: cor.polys.map(pl => pl.map(([x, z]) => [Math.round(x * 10) / 10, Math.round(z * 10) / 10])),
+            ends: [...cutIds.values()].filter(id => keptIndex.has(id)).map(id => keptIndex.get(id)) };
+        // where the player may drive: cells within 25 m of the cut (road ends get their barrier first), RLE rows
+        const cell = 20, gx0 = Math.floor((minX / 10 - 150) / cell) * cell, gz0 = Math.floor((minZ / 10 - 150) / cell) * cell;
+        const w = Math.ceil((maxX / 10 + 150 - gx0) / cell), h = Math.ceil((maxZ / 10 + 150 - gz0) / cell);
+        const rle = []; let cur = 0, run = 0;
+        for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) {
+            const v = M(gx0 + (i + 0.5) * cell, gz0 + (j + 0.5) * cell) <= 25 ? 1 : 0;
+            if (v === cur) run++; else { rle.push(run); cur = v; run = 1; }
+        }
+        rle.push(run);
+        doc.district.mask = { x0: gx0, z0: gz0, cell, w, h, rle };
+    }
     const outDir = path.join(REPO, 'game', 'data');
     fs.mkdirSync(outDir, { recursive: true });
-    const file = path.join(outDir, `${cityId}.json`);
+    const file = path.join(outDir, did ? `${cityId}-${did}.json` : `${cityId}.json`);
     const json = JSON.stringify(doc);
     fs.writeFileSync(file, json);
     log(`wrote ${file}  ${(json.length / 1e6).toFixed(2)} MB  roads=${outRoads.length} segments=${segCount} buildings=${outB.length} pois=${outP.length} areas=${outA.length} lamps=${lamps.length / 3} trees=${outTrees.length / 3} furniture=${outFurn.length / 3} backdrop=${backdrop.length / 6}`);
@@ -1089,5 +1180,9 @@ function buildCity(cityId) {
 
 function ROOF_FOR_HOUSE(area, nverts) { return nverts <= 6 && area < 400 ? 2 : area < 300 ? 1 : 0; }
 
+// node build-data.mjs --tiles DIR [--city bucharest|seattle]               the old corridor maps (game/data/<city>.json)
+// node build-data.mjs --tiles DIR --districts [--city c] [--district id]    the 1:1 chapter districts (game/data/<city>-<id>.json)
 const which = args.city ? [args.city] : Object.keys(CITIES);
-for (const c of which) buildCity(c);
+if (args.districts || args.district) {
+    for (const c of which) for (const d of Object.keys(GAME_CITIES[c].districts || {})) if (!args.district || args.district === true || args.district.split(',').includes(d)) buildCity(c, d);
+} else for (const c of which) buildCity(c);

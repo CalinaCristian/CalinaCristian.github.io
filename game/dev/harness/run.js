@@ -5,6 +5,8 @@
 //  See README.md in this folder.
 // ============================================================================
 'use strict';
+// --visual: the visual QA survey (game/dev/harness/visual/run.js) takes over with the same argv
+if (process.argv.includes('--visual')) { require('./visual/run.js'); return; }
 const fs = require('fs');
 const path = require('path');
 const http = require('http');

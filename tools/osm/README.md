@@ -17,6 +17,19 @@ node --max-old-space-size=8000 tools/osm/build-data.mjs --tiles /some/dir/tiles
 node --max-old-space-size=8000 tools/osm/build-data.mjs --tiles /some/dir/tiles --city seattle
 ```
 
+Chapter districts (real 1:1 scale, `game/data/<city>-<district>.json`, a few seconds each):
+
+```bash
+node --max-old-space-size=8000 tools/osm/build-data.mjs --tiles /some/dir/tiles --districts                 # all 8
+node --max-old-space-size=8000 tools/osm/build-data.mjs --tiles /some/dir/tiles --districts --district romana,bellevue
+```
+
+District mode (`districtSetup` in `build-data.mjs`) takes the district from `game/src/cities.js`: projection anchored at its
+`center`, scale 1, no compression; `bbox` / `poly` areas keep every road, building, POI inside; `route` + `circles` districts
+(otopeni, seatac, bellevue) keep a buffered drive (`corridors.mjs`, now also with `polys`). Roads are cut exactly at the
+boundary (a new end node, listed in `district.ends`), only tiles near the district are parsed, tall `building:part`s are kept,
+and `game/research/<city>-<district>.json` (if present) enriches building tags and brand sign colours.
+
 Regions (bounding boxes) are listed in `fetch-tiles.mjs` (`REGIONS`). Tile files are named
 `<region>_<minlat>_<minlon>_<maxlat>_<maxlon>.xml`; `build-data.mjs` picks the tiles of a city by
 filename prefix (`buc_`, `dn1_`, `bucx_` for Bucharest, `sea_` for Seattle). Overlapping tiles are

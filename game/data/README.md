@@ -1,6 +1,14 @@
 # game/data
 
-`bucharest.json` and `seattle.json` are generated from OpenStreetMap by
+**Chapter districts (real 1:1 scale)**: `<city>-<district>.json` — `bucharest-{floreasca,grozavesti,unirii,pipera,romana,otopeni}.json`,
+`seattle-{seatac,bellevue}.json` — built by `node tools/osm/build-data.mjs --tiles DIR --districts` from the districts in
+`game/src/cities.js` (`CITIES[city].districts`) and loaded by `buildWorld(city, renderer, { district })`. Same schema as below
+plus `district: {id, name, bbox, areaKm2, polys, ends: [node index of every road cut at the boundary], mask: {x0, z0, cell, w, h,
+rle}}` (inside-mask, 20 m cells, run lengths alternating outside/inside starting with outside) and optional `brands`
+(`{brand: [bg, fg, accent]}` sign colours from `game/research/`). The field research (`game/research/<city>-<district>.json`)
+fills missing building heights / levels / facade and roof colours / roof shapes at build time.
+
+**Legacy corridor maps**: `bucharest.json` and `seattle.json` are generated from OpenStreetMap by
 `tools/osm/build-data.mjs` (see `tools/osm/README.md`) and loaded at runtime by
 `game/src/world.js`. Do not edit by hand. Data © OpenStreetMap contributors (ODbL).
 

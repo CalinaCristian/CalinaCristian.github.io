@@ -113,6 +113,13 @@ export class Player {
         this.followSurface(ox, oz);
         this.collide(dt);
         this.collidePeds(dt);
+        // wedged (a corner of two walls, a car and a wall): the pushes cancel the move but neither impact killed
+        // the speed -> the speedo would read 6 km/h at a standstill. Keep only what was actually travelled.
+        if (this.contactAge === 0 && dt > 0 && Math.abs(this.speed) > 0.3) {
+            const real = ((this.x - ox) * this.fx + (this.z - oz) * this.fz) / dt;
+            if (Math.sign(real) !== Math.sign(this.speed)) this.speed = 0;
+            else if (Math.abs(real) < Math.abs(this.speed) * 0.5) this.speed = real;
+        }
         // bounds (soft wall)
         if (this.bounds) {
             const b = this.bounds, m = 40;

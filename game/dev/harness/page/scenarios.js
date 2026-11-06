@@ -86,12 +86,16 @@ function checkPose(H, label, edge = null) {
     // the edge the car should be on: the one we placed it on, else the nearest one at the car's level
     let e = edge;
     if (!e) {
+        // the road whose carriageway holds the car (a driveway / service stub that joins a wide road reaches
+        // into its lanes, so "nearest centreline" would wrongly pick the driveway), service roads last
         const y = P.surfY ?? 0.24; let bd = Infinity;
         for (const c of g.nav.index.near(P.x, P.z, 40, [])) {
+            if (c.virtual) continue;
             const ya = yAlong(c, P.x, P.z); if (ya !== null && Math.abs(0.24 + ya - y) > 1.5) continue;
             const L = edgeLocal(c, P.x, P.z), s = Math.max(0, Math.min(c.len, L.s));
             const d = Math.hypot(P.x - (c.a.x + c.dirx * s), P.z - (c.a.z + c.dirz * s));
-            if (d < bd) { bd = d; e = c; }
+            const out = Math.max(0, d - sideW(c, L.lat >= 0 ? 1 : -1)) + (c.type === 'service' ? 0.5 : 0) + d * 0.01;
+            if (out < bd) { bd = out; e = c; }
         }
     }
     if (!e) probs.push('no road within 40 m at the car\'s level');
@@ -140,6 +144,17 @@ async function fast(H, x, z, label, station = false) {
     H.mon.skipH = 3; H.mon.prevRH = undefined;
     return ok;
 }
+function roadAt(g, x, z) {
+    let best = null, bd = Infinity;
+    for (const c of g.nav.index.near(x, z, 30, [])) {
+        if (c.virtual) continue;
+        const L = edgeLocal(c, x, z), s = Math.max(0, Math.min(c.len, L.s));
+        const d = Math.hypot(x - (c.a.x + c.dirx * s), z - (c.a.z + c.dirz * s));
+        const out = Math.max(0, d - sideW(c, L.lat >= 0 ? 1 : -1)) + (c.type === 'service' ? 0.5 : 0) + d * 0.01;
+        if (out < bd) { bd = out; best = c; }
+    }
+    return best;
+}
 async function driveStreet(H, st, len = 400) {
     const g = H.g;
     const seg = findStreet(H, st.re, len, { ll: st.ll, bearing: st.bearing });
@@ -148,7 +163,9 @@ async function driveStreet(H, st, len = 400) {
     checkPose(H, `start of ${st.name}`, seg.edge);
     await H.run(0.5);
     const r = await H.driveTo(seg.end.x, seg.end.z, { label: st.name, arriveR: 15, timeout: 85, stop: false });
-    const names = new Set(); for (const [x, z] of H.mon.pathXZ) { const ne = g.nav.index.nearest(x, z, 30); if (ne) names.add(roadName(ne.edge)); }
+    // the road whose carriageway holds each path point (not the nearest centreline: a driveway stub joining the street
+    // would be listed as "(service)" although the car never left the street)
+    const names = new Set(); for (const [x, z] of H.mon.pathXZ) { const e = roadAt(g, x, z); if (e) names.add(roadName(e)); }
     if (!r.ok) H.issue('drive-failed', r.reason === 'no route' ? 'high' : 'medium', `could not drive ${st.name} (${Math.round(seg.length)} m): ${r.reason}, ${r.remaining} m left after ${r.t} s`, {}, { shot: true, key: 'drive:' + st.id });
     const oir = H.auditAroundPath(30);
     return { ...r, street: st.name, segLength: Math.round(seg.length), start: H.where(pose?.x ?? 0, pose?.z ?? 0), via: [...names].slice(0, 8), objectsInRoad: oir };
@@ -163,8 +180,13 @@ export const SCENARIOS = [
             await prep(H);
             g.placeSpawn ? g.placeSpawn(g.city, W) : null;
             g.traffic.setPlayer(g.player); H.mon.skipH = 3;
+            // spawn sanity is about a fresh arrival: this city's stops unvisited (scenario f may already have
+            // finished the story in Seattle); progress is restored at the end
+            const wasVisited = (g.stops || []).filter(s => g.visited?.has(s.id)).map(s => s.id);
+            for (const id of wasVisited) { g.visited.delete(id); const st = g.stops.find(s => s.id === id); if (st?.poiRef) st.poiRef.visited = false; }
             g.updateObjective?.();
             const res = { spawn: H.where(g.player.x, g.player.z) };
+            if (wasVisited.length) res.resetVisited = wasVisited;
             res.problems = checkPose(H, 'spawn');
             await H.run(1.0);
             if (g.objective && !g.nav.route) H.issue('route-failure', 'high', `no nav route from the spawn to the objective ${g.objectivePlain}`, {}, { key: 'spawn-route' });
@@ -185,6 +207,8 @@ export const SCENARIOS = [
                 if (!res.drive.ok) H.issue('drive-failed', 'medium', `could not drive the first 150 m from the spawn: ${res.drive.reason}`, {}, { shot: true, key: 'spawn-drive' });
             }
             res.objectsInRoad = H.auditAroundPath(60);
+            for (const id of wasVisited) { g.visited.add(id); const st = g.stops.find(s => s.id === id); if (st?.poiRef) st.poiRef.visited = true; }
+            if (wasVisited.length) g.updateObjective?.();
             return res;
         },
     },
@@ -459,6 +483,52 @@ export const SCENARIOS = [
             if (behind.size === 0) H.note('no traffic came up behind the stopped player in 60 s (sparse traffic at this spot)');
             res.objectsInRoad = H.auditAroundPath(40);
             return res;
+        },
+    },
+    {
+        id: 'ch', title: 'Chapter run: every chapter in its district (start pose, route, fast travel, last mile, office / boarding / waypoint, card → next)', city: 'bucharest',
+        async run(H) {
+            const g = H.g;
+            if (!g.chapters || typeof g.goToChapter !== 'function') { H.note('no CHAPTERS: skipped'); return { skipped: true }; }
+            const chm = await import('../../../src/chapters.js');
+            const out = []; const N = g.chapters.length;
+            const waitDrive = async (idx, ms = 240000) => { const t = performance.now(); while (!(g.state === 'drive' && g.chapterIdx === idx) && performance.now() - t < ms) { if (g.state === 'drive' || g.state === 'office') await H.run(0.2); else await sleep(100); } return g.state === 'drive' && g.chapterIdx === idx; };
+            const waitCard = async (ms = 6000) => { const t = performance.now(); while (!chm.chapterCardOpen() && performance.now() - t < ms) { if (g.state === 'drive' || g.state === 'office') await H.run(0.1); else await sleep(60); } return chm.chapterCardOpen(); };
+            g.goToChapter(0);
+            for (let i = 0; i < N; i++) {
+                const ch = g.chapters[i]; const res = { id: ch.id, district: ch.district };
+                if (!await waitDrive(i)) { H.issue('chapter-load-failed', 'high', `chapter ${ch.id} (${ch.district}) did not start (state ${g.state}, chapter ${g.chapter})`, { x: 0, z: 0 }, { key: 'chl:' + ch.id }); out.push(res); break; }
+                H.mon.skipH = 3; H.mon.prevRH = undefined; H.mon.pathXZ = []; H.refuelInstant(); H.setControls(0, 0, true);
+                await H.run(0.5);
+                res.world = g.world.district?.id || '(legacy map)';
+                res.start = H.where(g.player.x, g.player.z);
+                res.problems = checkPose(H, `chapter ${ch.id} start`);
+                res.route = g.nav.route ? Math.round(g.nav.route.total) : null;
+                const maxLen = ch.district === 'bellevue' ? 12000 : 2500;
+                if (!g.objective) H.issue('chapter-no-objective', 'high', `chapter ${ch.id}: no objective at the start`, {}, { key: 'cho:' + ch.id });
+                else if (!g.nav.route) H.issue('route-failure', 'high', `chapter ${ch.id}: no route from the start to ${g.objectivePlain}`, {}, { key: 'chr:' + ch.id });
+                else if (res.route < 1500 || res.route > maxLen) H.issue('chapter-route-length', 'low', `chapter ${ch.id}: route ${res.route} m from the start (spec 1.5–${maxLen / 1000} km)`, { route: res.route }, { key: 'chlen:' + ch.id });
+                if (g.nav.route) res.via = [...new Set(g.nav.route.legs.map(l => roadName(l.e)))].slice(0, 6);
+                if (g.nav.route?.legs.some(l => l.e.type === 'service' && l !== g.nav.route.legs[g.nav.route.legs.length - 1])) H.issue('chapter-route-service', 'low', `chapter ${ch.id}: the route uses a service road`, {}, { key: 'chsv:' + ch.id });
+                // drive the first 150 m of the route (traffic, lanes, walls at the start)
+                if (g.nav.route) { const r = g.nav.route; let k = 0; while (k < r.points.length - 1 && r.cum[k] < 150) k++; res.first = await H.driveTo(r.points[k][0], r.points[k][1], { label: `chapter ${ch.id} first 150 m`, timeout: 40, stop: false, arriveR: 15 }); g.navManual = false; g.autoRoute(true); }
+                const o = g.objective;
+                if (o) {
+                    const ox = o.doorX ?? o.x, oz = o.doorZ ?? o.z;
+                    if (Math.hypot(g.player.x - ox, g.player.z - oz) > 150) { res.fast = await fast(H, ox, oz, g.objectivePlain || ch.id); g.navManual = false; g.autoRoute(true); }
+                    const stop = (g.stops || []).find(s => s.id === ch.stop && s.poiRef);
+                    if (o.waypoint) res.drive = await H.driveTo(ox, oz, { label: ch.id, arriveR: 20, timeout: 60, stop: false });
+                    else if (stop) { res.drive = await H.driveTo(ox, oz, { label: ch.id, arriveR: 7, timeout: 50, stop: true }); res.office = await enterOfficeAndRead(H, stop); }
+                    else { res.drive = await H.driveTo(ox, oz, { label: ch.id, arriveR: 40, timeout: 50, stop: true }); H.setControls(0, 0, true); await H.run(1, () => Math.abs(g.player.speed) < 0.5); H.press('KeyE'); await H.run(0.3); }
+                }
+                res.card = await waitCard();
+                if (i === N - 1) { res.finale = await (async () => { const t = performance.now(); while (!g.hud.panelOpen && performance.now() - t < 5000) await sleep(100); return g.hud.panelOpen; })(); if (!res.finale) H.issue('finale-missing', 'high', 'no finale panel after the last chapter', {}, { key: 'chfin' }); g.hud.closePanel?.(); }
+                else if (!res.card) { H.issue('chapter-not-completed', 'high', `chapter ${ch.id}: reaching the goal did not complete the chapter (no card)`, {}, { shot: true, key: 'chc:' + ch.id }); out.push(res); g.goToChapter(i + 1); continue; }
+                else chm.closeChapterCard('next');
+                res.done = g.progress?.done?.has(ch.id);
+                out.push(res);
+            }
+            return { chapters: out, done: [...(g.progress?.done || [])] };
         },
     },
 ];

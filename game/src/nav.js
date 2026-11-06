@@ -95,7 +95,10 @@ class Heap {
     }
 }
 
-const TYPE_COST = { living_street: 1.8, service: 2.2, residential: 1.15, small: 1.15, track: 3 };
+const TYPE_COST = { living_street: 1.8, service: 4, residential: 1.15, small: 1.15, track: 3 };
+// entering a service road (parking aisle, driveway, private access) from a real street: a big fixed cost, so a
+// route only uses one to reach a door that is on it, never as a shortcut
+const SERVICE_ENTRY = 25;
 
 /** signed turn angle from direction (ax,az) to (bx,bz). positive = right turn (x east, z south). */
 export function turnAngle(ax, az, bx, bz) { return Math.atan2(-bx * az + bz * ax, ax * bx + az * bz); }
@@ -149,6 +152,12 @@ export class Navigator {
         if (nMain === 0) for (const e of this.graph.edges) e.main = true; // degenerate graph: don't filter
     }
 
+    /** a snap onto a service road → the nearest real street instead when it is at most `slack` m further away */
+    preferStreet(x, z, hit, filter, slack) {
+        if (!hit || hit.edge.type !== 'service') return hit;
+        const alt = this.index.nearest(x, z, hit.d + slack + 1, (e) => e.type !== 'service' && filter(e));
+        return alt && alt.d <= hit.d + slack ? alt : hit;
+    }
     /** A* on travel time. heading (optional) penalises starting against the player's heading. */
     compute(fx, fz, tx, tz, heading = null, fy = null) {
         const main = (e) => e.main !== false;
@@ -157,7 +166,8 @@ export class Navigator {
         // (callers that do not pass the height but start at the player's position get the player's level)
         const P = this.player; if (fy == null && P && Math.hypot(P.x - fx, P.z - fz) < 1.5) fy = P.surfY ?? P.y ?? null;
         const level = (e) => main(e) && (fy == null || Math.abs(yAt(e) - fy) < 2);
-        const s = (fy != null && this.index.nearest(fx, fz, 60, level)) || this.index.nearest(fx, fz, 400, main) || this.index.nearest(fx, fz), g = this.index.nearest(tx, tz, 600, main) || this.index.nearest(tx, tz);
+        const s = this.preferStreet(fx, fz, (fy != null && this.index.nearest(fx, fz, 60, level)) || this.index.nearest(fx, fz, 400, main) || this.index.nearest(fx, fz), (e) => level(e), 3);
+        const g = this.preferStreet(tx, tz, this.index.nearest(tx, tz, 600, main) || this.index.nearest(tx, tz), main, 3);
         if (!s || !g) return null;
         const N = this.nodes.length, GOAL = N;
         const dist = new Float64Array(N + 1).fill(Infinity);
@@ -210,7 +220,8 @@ export class Navigator {
                 const vi = this.nid.get(other); if (vi === undefined) continue;
                 const pe = prevE[u];
                 const turnPen = !pe ? 0 : pe.e === e ? 40 : (node.edges.length >= 3 && (pe.e.name || '') !== (e.name || '')) ? 7 : 0;
-                const c = du + e.len / edgeSpeed(e) * (TYPE_COST[e.type] || 1) + turnPen;
+                const svc = e.type === 'service' && pe && pe.e.type !== 'service' ? SERVICE_ENTRY : 0;
+                const c = du + e.len / edgeSpeed(e) * (TYPE_COST[e.type] || 1) + turnPen + svc;
                 if (c < dist[vi]) { dist[vi] = c; prevN[vi] = u; prevE[vi] = { e, dir }; heap.push(c + h(other), vi); }
             }
         }
@@ -309,7 +320,7 @@ export class Navigator {
         const rr = this.route; if (!rr) return null;
         const remaining = Math.max(0, rr.total - this.progress);
         const next = rr.steps.find(s => s.at > this.progress + 3) || rr.steps[rr.steps.length - 1];
-        return { remaining, next, distToNext: Math.max(0, next.at - this.progress), arrived: remaining < 22 && best < 30, rerouted };
+        return { remaining, next, distToNext: Math.max(0, next.at - this.progress), arrived: remaining < 14 && best < 30, rerouted };
     }
 }
 

@@ -340,6 +340,9 @@ export class Harness {
             if (obs.gap < 9) { ap.waitT += dt; ap.stallT = 0; }
             else { ap.stallT += dt; }
         } else { ap.waitT = Math.max(0, ap.waitT - dt * 2); ap.stallT = Math.max(0, ap.stallT - dt); }
+        // pinned (pushing into something that throws the car back: the speedo never reads 0): no displacement for 3 s
+        if (!ap.anchor || Math.hypot(P.x - ap.anchor.x, P.z - ap.anchor.z) > 1.5 || !wantsGo || obs.gap < 9) ap.anchor = { x: P.x, z: P.z, t: this.scT };
+        else if (this.scT - ap.anchor.t > 3) { ap.stallT = Math.max(ap.stallT, 2.3); ap.anchor = { x: P.x, z: P.z, t: this.scT }; }
         if (ap.waitT > 8 && ap.laneBias === 0 && lanesDir(leg.e, leg.dir) > 1) { ap.laneBias = 1; ap.path = this.buildPath(ap.route, ap.laneBias + ap.o.lane); this.note('blocked: switching lane'); ap.waitT = 6; }
         if (ap.waitT > 6 && this.scT - ap.honkT > 4) { ap.honkT = this.scT; this.press('KeyH'); }
         if (ap.waitT > 8 && obs.what === 'pedestrian' && !ap.ignorePeds) {

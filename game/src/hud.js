@@ -26,7 +26,10 @@ export class HUD {
     setSpeed(ms) { this.el.speed.textContent = this.units === 'mph' ? Math.round(Math.abs(ms) * 2.237) : Math.round(Math.abs(ms) * 3.6); }
     setStreet(name, district) { if (this.el.street.textContent !== name) this.el.street.textContent = name || ''; this.el.district.textContent = district || ''; }
     setObjective(text) { this.el.objective.innerHTML = text; }
-    setProgress(done, total) { this.el.progress.textContent = `${done}/${total}`; }
+    setProgress(done, total, label = null) {
+        this.el.progress.textContent = `${done}/${total}`;
+        if (label) { const l = document.getElementById('progress-label'); if (l && l.textContent !== label) l.textContent = label; }
+    }
     setYear(y) { this.el.year.textContent = y; }
     setChapter(t) { this.el.chapter.textContent = t; }
     setHint(t) { this.el.hint.textContent = t; }

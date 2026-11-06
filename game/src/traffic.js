@@ -774,7 +774,7 @@ export class Traffic {
         if (leader === P && P && Math.abs(P.speed) < 1.2 && gap < 14) v.blockT += dt; else v.blockT = Math.max(0, v.blockT - dt * 2);
 
         // ---------------- path constraints: lights, stops, zebras, turns ----------------
-        let stopD = Infinity, vCap = Infinity, waitingRed = false;
+        let stopD = Infinity, vCap = Infinity, waitingRed = false, stopWhy = null;
         let curE = e, curDir = v.dir, D = L - v.s - half;
         const maxLook = Math.max(70, v.speed * v.speed / 4 + 30);
         for (let k = -1; k < v.route.length && D < maxLook; k++) {
@@ -784,30 +784,30 @@ export class Traffic {
             if (node.hasLight && !v.isPolice) {
                 const st = this.lightState(node, curE);
                 const d = D - rad - 1.6;
-                if (d > -0.5 && (st === 'red' || (st === 'yellow' && d > v.speed * 1.1))) { stopD = Math.min(stopD, d); if (d < 10) waitingRed = true; break; }
+                if (d > -0.5 && (st === 'red' || (st === 'yellow' && d > v.speed * 1.1))) { if (d < stopD) { stopD = d; stopWhy = 'light'; } if (d < 10) waitingRed = true; break; }
             }
             if (node.stop && v.stopDone !== node) {
                 const d = D - rad - 1;
                 if (d < 1.5 && v.speed < 0.6) { v.stopTimer += dt; if (v.stopTimer > 1.0) { v.stopDone = node; v.stopTimer = 0; } }
-                if (v.stopDone !== node) { stopD = Math.min(stopD, d); break; }
+                if (v.stopDone !== node) { if (d < stopD) { stopD = d; stopWhy = 'stop'; } break; }
             }
             if ((node.crossing || node.hasLight) && this.peds.crossingAt(node)) {
-                const d = D - rad - 3.5; if (d > -1) { stopD = Math.min(stopD, d); break; }
+                const d = D - rad - 3.5; if (d > -1) { if (d < stopD) { stopD = d; stopWhy = 'zebra'; } break; }
             }
-            if (nxt && nxt.e.roundabout && !curE.roundabout && this.roundaboutBusy(node, v)) { stopD = Math.min(stopD, D - rad - 1); break; }
+            if (nxt && nxt.e.roundabout && !curE.roundabout && this.roundaboutBusy(node, v)) { if (D - rad - 1 < stopD) { stopD = D - rad - 1; stopWhy = 'rbt'; } break; }
             // don't block the box: if the queue beyond the junction leaves no room for us, wait at the line
             if (k === -1 && isJunction(node) && D - rad > 0.5 && leader && leader !== 'ped' && !leaderCross && leaderSpeed < 2) {
                 const entry = D - rad;
-                if (gap > entry - 0.5 && gap < entry + 2 * rad + v.length + 1.5) stopD = Math.min(stopD, entry - 0.5);
+                if (gap > entry - 0.5 && gap < entry + 2 * rad + v.length + 1.5) { const _d = entry - 0.5; if (_d < stopD) { stopD = _d; stopWhy = 'box-full'; } }
             }
-            if (v.bus) { const bs = this.busStopAhead(v, curE, curDir, D, k === -1); if (bs < stopD) { stopD = bs; } }
+            if (v.bus) { const bs = this.busStopAhead(v, curE, curDir, D, k === -1); if (bs < stopD) { stopD = bs; stopWhy = 'busstop'; } }
             // junction box reservation: a car about to enter the box claims its path across the pad (entry lane point →
             // exit lane point); a car whose path would cross / merge with a claimed one waits at the line
             if (k === -1 && nxt && isJunction(node) && !inJunction && !nxt.uturn) {
                 const reach = Math.max(9, v.speed * v.speed / 9 + 3);
                 if (D - rad < reach) {
                     const res = this.boxCheck(v, curE, curDir, nxt, node, rad);
-                    if (res === 'wait') stopD = Math.min(stopD, D - rad - 0.8);
+                    if (res === 'wait') { const _d = D - rad - 0.8; if (_d < stopD) { stopD = _d; stopWhy = 'claim'; } }
                     else if (D - rad < Math.max(4, v.speed * 0.6 + 2)) this.boxClaim(v, node, res);
                 }
             }
@@ -817,9 +817,11 @@ export class Traffic {
                 const nl = Math.max(1, lanesDir(nxt.e, nxt.dir));
                 if (v.lane > nl - 1 && D < 60) {
                     if (this.laneFree(v, v.lane - 1)) { v.lane--; v.laneChangeCd = 2; }
-                    else stopD = Math.min(stopD, D - rad - 1.5);
+                    // wait for a gap before the line; already at / past it (or waited long): merge on the move,
+                    // car-following and the junction claim keep it off the others (a stop inside the box locks the junction)
+                    else if (D - rad - 1.5 > -0.5 && v.stuck < 6) { const _d = D - rad - 1.5; if (_d < stopD) { stopD = _d; stopWhy = 'lanedrop'; } }
                 } else if (v.lane > nl - 1) { /* far: handled when closer */ }
-                else if (v.laneCur > nl - 1 + 0.25 && D - rad < 6) stopD = Math.min(stopD, D - rad - 1.5); // still sliding over
+                else if (v.laneCur > nl - 1 + 0.25 && D - rad < 6) { const _d = D - rad - 1.5; if (_d < stopD) { stopD = _d; stopWhy = 'lanedrop2'; } } // still sliding over
             }
             if (!nxt) break;
             const ang = Math.abs(nxt.uturn ? Math.PI : turnAngle(curE.dirx * curDir, curE.dirz * curDir, nxt.e.dirx * nxt.dir, nxt.e.dirz * nxt.dir));
@@ -850,7 +852,7 @@ export class Traffic {
         if (target > v.speed) v.speed = Math.min(target, v.speed + accel * dt);
         else v.speed = Math.max(target, v.speed - (leader === P && gap < 3 ? 14 : 8.5) * dt);
         if (v.speed < 0.05) v.speed = 0;
-        v.gap = gap; v.leader = leader; v.leaderCross = leaderCross;
+        v.gap = gap; v.leader = leader; v.leaderCross = leaderCross; v.stopD = stopD; v.stopWhy = stopWhy;
 
         // ---------------- stuck / honking ----------------
         // waiting in a red-light queue is not "stuck"
@@ -999,11 +1001,25 @@ export class Traffic {
             this.grid.query(v.x, v.z, vl + 9, (o) => {
                 if (o === v || o.inactive || Math.abs(o.y - v.y) > 2) return;
                 const p = vvPen(v, o); if (p <= 0.05) return;
-                if (stepped && v.ghost <= 0 && o.ghost <= 0 && p > vvPen(v, o, v._x0, v._z0, v._h0) + 0.002) worse = true;
+                if (stepped && v.ghost <= 0 && o.ghost <= 0) {
+                    const p0 = vvPen(v, o, v._x0, v._z0, v._h0);
+                    // (two cars already inside each other separate by moving apart: a step that takes the centres
+                    // apart is allowed even if the box overlap grows a hair while turning — else both freeze forever)
+                    const apart = p0 > 0.05 && p < p0 + 0.04 && Math.hypot(v.x - o.x, v.z - o.z) > Math.hypot(v._x0 - o.x, v._z0 - o.z) + 0.005;
+                    if (p > p0 + 0.002 && !apart) worse = true;
+                }
                 if (p > hp) { hp = p; hit = o; }
             });
             // 1) this frame's step made it worse: take it back
-            if (worse && this.revert(v)) { v.speed = 0; this.stats.guard = (this.stats.guard || 0) + 1; continue; }
+            if (worse && this.revert(v)) {
+                v.speed = 0; this.stats.guard = (this.stats.guard || 0) + 1;
+                // held back every frame for 1.5 s (two cars converging on a merge, a car squeezed between two others):
+                // nobody's car-following sees the other as a leader, so nobody yields -> let this one through
+                v.revT = (v.revT || 0) + dt;
+                if (v.revT > 1.5) { v.revT = 0; v.ghost = 1.5; this.stats.revGhost = (this.stats.revGhost || 0) + 1; }
+                continue;
+            }
+            if (v.revT) v.revT = Math.max(0, v.revT - dt * 0.5);
             if (!hit) { v.ovT = 0; continue; }
             // 2) already overlapping: the follower (the one with the other ahead of it) backs off along its path
             const k = v.id < hit.id ? v.id + ':' + hit.id : hit.id + ':' + v.id; if (seen.has(k)) continue; seen.add(k);
@@ -1115,14 +1131,20 @@ export class Traffic {
             while (h.leader && typeof h.leader === 'object' && h.leader !== P && !h.leader.parked && !h.leader.inactive && h.leader.still > 2 && !seen.has(h.leader)) { h = h.leader; seen.add(h); }
             let inView = false;
             if (P) { const dx = h.x - P.x, dz = h.z - P.z, d = Math.hypot(dx, dz); inView = d < 170 && (dx * P.fx + dz * P.fz) > 0.2 * d; }
-            if (inView && v.still < 40) {
-                if (h.leader && typeof h.leader === 'object' && h.leader !== P) h.ghost = 2.5; // let it squeeze through
+            // in the player's view: let the head (and whatever holds it) squeeze through first; only when that did
+            // not clear the queue after a few tries is the head recycled anyway (a car vanishing beats a dead street)
+            if (h.dlTries && h.odo - (h.dlOdo ?? h.odo) > 15) h.dlTries = 0; // it got going since the last try
+            if (inView && (h.dlTries || 0) < 3 && h.leader !== P) {
+                h.dlOdo = h.odo;
+                h.ghost = 2.5; // (its own scan / the overlap guard / a stale claim were holding it)
+                if (h.leader && typeof h.leader === 'object' && h.leader !== P) h.leader.ghost = 2.5;
+                h.dlTries = (h.dlTries || 0) + 1; this.stats.deadlockGhosts = (this.stats.deadlockGhosts || 0) + 1;
                 for (const s of seen) s.still = Math.min(s.still, 12);
                 continue;
             }
-            if (h.inactive) continue;
+            if (h.inactive || (inView && h.leader === P)) { for (const s of seen) s.still = Math.min(s.still, 12); continue; }
             if (!(this.large && this.relocate(h, 300, this.bubble, true))) this.respawn(h);
-            h.still = 0; this.stats.deadlocks = (this.stats.deadlocks || 0) + 1;
+            h.still = 0; h.dlTries = 0; this.stats.deadlocks = (this.stats.deadlocks || 0) + 1;
             for (const s of seen) s.still = Math.min(s.still, 10);
         }
     }
@@ -1477,7 +1499,13 @@ class Pedestrians {
                 if (leg.cross && !leg.started) {
                     p.state = 'wait'; p.waitT += dt;
                     if (this.safeToCross(leg, p.waitT, p)) { leg.started = true; leg.sx = p.x; leg.sz = p.z; leg.len = Math.hypot(leg.x - p.x, leg.z - p.z); p.state = 'legs'; p.waitT = 0; p.crossT = 0; }
-                    else { p.heading = Math.atan2(-(leg.x - p.x), -(leg.z - p.z)); this.avoidVehicles(p, ox, oz, false); continue; }
+                    else {
+                        p.heading = Math.atan2(-(leg.x - p.x), -(leg.z - p.z));
+                        // waiting at the kerb: never in a carriageway (a push by a car, a corner inside another road)
+                        if ((p.i + this._fr) % 30 === 0) this.kerbClamp(p);
+                        this.avoidVehicles(p, ox, oz, false); // (last: nobody ends the frame inside a car)
+                        continue;
+                    }
                 }
                 const dx = leg.x - p.x, dz = leg.z - p.z; const d = Math.hypot(dx, dz);
                 const sp = p.speed * (leg.cross ? 1.25 : 1);
@@ -1541,6 +1569,9 @@ class Pedestrians {
             const useA = Math.hypot(A.x - fromPt.x, A.z - fromPt.z) <= Math.hypot(B.x - fromPt.x, B.z - fromPt.z);
             const P2 = useA ? A : B;
             legs.push({ x: P2.x, z: P2.z });
+            // every kerb point of the plan (corner, crossing ends, next sidewalk) outside all carriageways: at
+            // tight / skewed junctions a sidewalk-line point can fall inside another road
+            for (const L of legs) { const q = { x: L.x, z: L.z }; if (this.kerbClamp(q)) { L.x = q.x; L.z = q.z; } }
             p.legs = legs; p.state = 'legs'; p.next = { e: g, dir: og, side: useA ? 1 : -1, s: P2.s };
         };
         const crossLeg = (X, legs, from) => {

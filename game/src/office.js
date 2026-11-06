@@ -1,5 +1,56 @@
 import * as THREE from '../vendor/three.module.min.js';
 import { makeCanvasTexture, clamp, damp, angleLerp } from './util.js';
+import { drawFitText } from './canvasText.js';
+
+const SANS = (w) => (px) => `${w} ${px}px "Helvetica Neue", Helvetica, Arial, sans-serif`;
+const BOLD = SANS('bold'), REG = SANS('normal');
+
+/** lobby sign (1024×256): company (≤ 2 lines) + "role · period" (≤ 2 lines), both fitted */
+export function drawLobbySign(ctx, s, accent) {
+    const hex = '#' + new THREE.Color(accent).getHexString();
+    ctx.fillStyle = '#0f1115'; ctx.fillRect(0, 0, 1024, 256); ctx.fillStyle = hex; ctx.fillRect(0, 236, 1024, 20);
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#fff';
+    const a = drawFitText(ctx, s.company, 512, 78, 940, { maxSize: 84, minSize: 30, maxLines: 2, maxHeight: 128, lineHeight: 1.05, font: BOLD, label: `lobby sign ${s.id} company` });
+    ctx.fillStyle = '#cbd5e1';
+    const top = 78 + a.height / 2 + 8, bottom = 226;
+    const b = drawFitText(ctx, `${s.role} · ${s.period}`, 512, (top + bottom) / 2, 940, { maxSize: 44, minSize: 20, maxLines: 2, maxHeight: bottom - top, lineHeight: 1.12, font: REG, label: `lobby sign ${s.id} subtitle` });
+    return [a, b];
+}
+/** station screen (512×320): title (≤ 3 lines) + hint */
+export function drawStationScreen(ctx, st, accent, stop = {}) {
+    const hex = '#' + new THREE.Color(accent).getHexString();
+    ctx.fillStyle = '#0b1220'; ctx.fillRect(0, 0, 512, 320);
+    ctx.fillStyle = hex; ctx.fillRect(0, 0, 512, 12);
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#fff';
+    const a = drawFitText(ctx, st.title, 256, 132, 456, { maxSize: 44, minSize: 20, maxLines: 3, maxHeight: 200, lineHeight: 1.15, font: BOLD, label: `station ${stop.id || ''} "${st.title}"` });
+    ctx.fillStyle = '#93c5fd';
+    const b = drawFitText(ctx, 'Press E to read', 256, 272, 440, { maxSize: 26, minSize: 14, font: REG, label: 'station hint' });
+    return [a, b];
+}
+export function drawExitMat(ctx) {
+    ctx.fillStyle = '#334155'; ctx.fillRect(0, 0, 256, 128); ctx.fillStyle = '#fff'; ctx.textAlign = 'center';
+    return [drawFitText(ctx, 'EXIT ▸', 128, 64, 220, { maxSize: 44, minSize: 16, maxHeight: 100, font: BOLD, label: 'exit mat' })];
+}
+/**
+ * Draw every office canvas text for the given stops off-screen and report what needed shrinking/wrapping.
+ * Returns [{ stop, what, text, size, lines, fits }]; logs the ones that needed > 2 lines or did not fit.
+ */
+export function auditOfficeTexts(stops) {
+    const c = document.createElement('canvas'), ctx = c.getContext('2d'), out = [];
+    const add = (stop, what, res, text) => out.push({ stop: stop.id, what, text, size: res.size, lines: res.lines.length, fits: res.fits });
+    for (const s of stops) {
+        c.width = 1024; c.height = 256;
+        const [a, b] = drawLobbySign(ctx, s, s.color || '#f97316');
+        add(s, 'sign company', a, s.company); add(s, 'sign subtitle', b, `${s.role} · ${s.period}`);
+        c.width = 512; c.height = 320;
+        for (const st of s.stations || []) add(s, 'station title', drawStationScreen(ctx, st, s.color || '#f97316', s)[0], st.title);
+    }
+    const bad = out.filter((r) => r.lines > 2 || !r.fits);
+    if (bad.length) console.info('[office] texts needing > 2 lines / not fitting:', bad);
+    return out;
+}
 
 /**
  * Walkable office interior. First person: mouse look (pointer lock) or touch drag, W/S walk, A/D strafe (turn without
@@ -49,22 +100,8 @@ export class Office {
         // windows on side walls (emissive panes = daylight)
         const paneMat = new THREE.MeshBasicMaterial({ color: s.city === 'seattle' ? '#aeb9c6' : '#f6c177' });
         for (let z = -12; z <= 12; z += 6) { const p = new THREE.Mesh(new THREE.PlaneGeometry(4, 2), paneMat); p.position.set(-W / 2 + 0.2, 2.4, z); p.rotation.y = Math.PI / 2; this.scene.add(p); const p2 = p.clone(); p2.position.x = W / 2 - 0.2; p2.rotation.y = -Math.PI / 2; this.scene.add(p2); }
-        // lobby sign on back wall
-        const sign = new THREE.Mesh(new THREE.PlaneGeometry(12, 3), new THREE.MeshBasicMaterial({ map: makeCanvasTexture(1024, 256, (ctx) => {
-            ctx.fillStyle = '#0f1115'; ctx.fillRect(0, 0, 1024, 256); ctx.fillStyle = '#' + accent.getHexString(); ctx.fillRect(0, 236, 1024, 20);
-            ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; let f = 84; ctx.font = `bold ${f}px Helvetica, Arial`; while (ctx.measureText(s.company).width > 960 && f > 30) { f -= 4; ctx.font = `bold ${f}px Helvetica, Arial`; }
-            ctx.fillText(s.company, 512, 95);
-            // subtitle: shrink to fit, then wrap onto two lines if it still doesn't fit
-            const sub = `${s.role} · ${s.period}`; let sf = 44; ctx.font = `${sf}px Helvetica, Arial`; ctx.fillStyle = '#cbd5e1';
-            while (ctx.measureText(sub).width > 940 && sf > 30) { sf -= 2; ctx.font = `${sf}px Helvetica, Arial`; }
-            if (ctx.measureText(sub).width <= 940) ctx.fillText(sub, 512, 180);
-            else {
-                const words = sub.split(' '); let l1 = '';
-                for (const w of words) { if (ctx.measureText((l1 + ' ' + w).trim()).width > 940) break; l1 = (l1 + ' ' + w).trim(); }
-                const l2 = sub.slice(l1.length).trim();
-                ctx.fillText(l1, 512, 162); ctx.fillText(l2, 512, 205);
-            }
-        }) }));
+        // lobby sign on back wall (all canvas text is fitted: shrinks, then wraps, never overflows)
+        const sign = new THREE.Mesh(new THREE.PlaneGeometry(12, 3), new THREE.MeshBasicMaterial({ map: makeCanvasTexture(1024, 256, (ctx) => drawLobbySign(ctx, s, accent)) }));
         sign.position.set(0, 2.55, -D / 2 + 0.2); this.scene.add(sign);
         // accent stripe
         mk(W, 0.08, 0.1, 0, 1.1, -D / 2 + 0.2, new THREE.MeshBasicMaterial({ color: accent }));
@@ -86,15 +123,7 @@ export class Office {
             const x = side * 3.6;
             const g = new THREE.Group();
             const pedestal = new THREE.Mesh(new THREE.BoxGeometry(1.4, 1.0, 0.5), lam('#20242c')); pedestal.position.y = 0.5; g.add(pedestal);
-            const tex = makeCanvasTexture(512, 320, (ctx) => {
-                ctx.fillStyle = '#0b1220'; ctx.fillRect(0, 0, 512, 320);
-                ctx.fillStyle = '#' + accent.getHexString(); ctx.fillRect(0, 0, 512, 12);
-                ctx.fillStyle = '#fff'; ctx.font = 'bold 40px Helvetica, Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-                const words = st.title.split(' '); let line = '', lines = [];
-                for (const w of words) { if (ctx.measureText(line + ' ' + w).width > 460) { lines.push(line); line = w; } else line = (line + ' ' + w).trim(); } lines.push(line);
-                lines.forEach((l, k) => ctx.fillText(l, 256, 130 + (k - (lines.length - 1) / 2) * 48));
-                ctx.font = '26px Helvetica, Arial'; ctx.fillStyle = '#93c5fd'; ctx.fillText('Press E to read', 256, 270);
-            });
+            const tex = makeCanvasTexture(512, 320, (ctx) => drawStationScreen(ctx, st, accent, s));
             const screen = new THREE.Mesh(new THREE.PlaneGeometry(2.2, 1.4), new THREE.MeshBasicMaterial({ map: tex }));
             screen.position.set(0, 1.9, 0.26); g.add(screen);
             const frame = new THREE.Mesh(new THREE.BoxGeometry(2.4, 1.6, 0.1), lam('#0f1115')); frame.position.set(0, 1.9, 0.2); g.add(frame);
@@ -104,7 +133,7 @@ export class Office {
             this.stations.push({ data: st, x, z, mesh: g, glow, screen, index: i });
         });
         // exit mat
-        const exit = new THREE.Mesh(new THREE.PlaneGeometry(4, 2.5), new THREE.MeshBasicMaterial({ map: makeCanvasTexture(256, 128, (ctx) => { ctx.fillStyle = '#334155'; ctx.fillRect(0, 0, 256, 128); ctx.fillStyle = '#fff'; ctx.font = 'bold 40px Helvetica'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('EXIT ▸', 128, 64); }) }));
+        const exit = new THREE.Mesh(new THREE.PlaneGeometry(4, 2.5), new THREE.MeshBasicMaterial({ map: makeCanvasTexture(256, 128, (ctx) => drawExitMat(ctx)) }));
         exit.rotation.x = -Math.PI / 2; exit.position.set(0, 0.02, D / 2 - 1.6); this.scene.add(exit);
         this.exitZ = D / 2 - 1.6;
         // lights

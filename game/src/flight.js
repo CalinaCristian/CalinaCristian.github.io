@@ -1,3 +1,5 @@
+import { drawFitText } from './canvasText.js';
+
 /**
  * Flight cutscene: a stylised world map (canvas 2D) with a plane flying the great-circle-ish arc
  * between Bucharest (OTP) and Seattle (SEA). Resolves when finished or skipped.
@@ -57,7 +59,9 @@ export function playFlight({ from = 'bucharest', hud, audio, texts }) {
             ctx.beginPath(); for (let i = 0; i <= 60; i++) { const p = arc(i / 60); i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y); } ctx.stroke(); ctx.setLineDash([]);
             ctx.strokeStyle = '#fbbf24'; ctx.lineWidth = 3 * devicePixelRatio; ctx.beginPath(); for (let i = 0; i <= 60; i++) { const p = arc(i / 60 * e); i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y); } ctx.stroke();
             // endpoints
-            for (const c of [A, B]) { const [x, y] = P(c.lon, c.lat); ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(x, y, 6 * devicePixelRatio, 0, 7); ctx.fill(); ctx.fillStyle = '#fbbf24'; ctx.beginPath(); ctx.arc(x, y, 3 * devicePixelRatio, 0, 7); ctx.fill(); ctx.font = `bold ${15 * devicePixelRatio}px Helvetica, Arial`; ctx.fillStyle = '#fff'; ctx.textAlign = c === A ? 'left' : 'right'; ctx.fillText(c.name, x + (c === A ? 12 : -12) * devicePixelRatio, y - 12 * devicePixelRatio); }
+            for (const c of [A, B]) { const [x, y] = P(c.lon, c.lat); ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(x, y, 6 * devicePixelRatio, 0, 7); ctx.fill(); ctx.fillStyle = '#fbbf24'; ctx.beginPath(); ctx.arc(x, y, 3 * devicePixelRatio, 0, 7); ctx.fill(); ctx.fillStyle = '#fff'; ctx.textAlign = c.lon > -40 ? 'right' : 'left'; // label points inland, toward the centre of the map
+                const dpr = devicePixelRatio, lx = x + (c.lon > -40 ? -12 : 12) * dpr, room = c.lon > -40 ? lx - 8 * dpr : W - lx - 8 * dpr;
+                drawFitText(ctx, c.name, lx, Math.max(14 * dpr, y - 18 * dpr), room, { maxSize: Math.round(15 * dpr), minSize: Math.round(9 * dpr), font: (s) => `bold ${s}px Helvetica, Arial, sans-serif`, label: 'flight airport label' }); }
             // plane
             const p = arc(e);
             ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.ang); ctx.scale(devicePixelRatio, devicePixelRatio);

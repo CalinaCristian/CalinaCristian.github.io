@@ -20,11 +20,11 @@ Update your own rows when you start/finish (status, `updated` as `YYYY-MM-DD HH:
 | R13.4–5 | Pedestrians + overlaps clean; reset/objective/autopilot fixes | 13 | gameplay | review | 2026-11-06 22:05 UTC | full harness: no-progress 7→1, drive-failed 2→0, bad-placement 2→0, ft-last-mile 1→0, ped-on-carriageway 4→2, overlap 8→7; remaining = world (Lukoil, DN1 barrier at Bretea) |
 | R14.* | On foot (exit car, walk/run/jump, enter offices) | 14 | gameplay | in progress | 2026-11-07 01:30 UTC | next |
 | R15.* | 20 tourist spots, walk-only scenes | 15 | spots | todo | | agent to spawn after research |
-| R16.* | Photo mode | 16 | cockpit-ui | in progress | 2026-11-06 22:10 UTC | `photo.js` + styles written; main.js hook in spec 16 Requests |
-| R17.1–4 | Nav screen housing, mirror, fitText, no gaps | 17 | cockpit-ui | in progress | 2026-11-06 22:10 UTC | needs player.js mirror mount + main.js near 0.2 (spec 17 Requests) |
-| R17.5 | HUD layout at all viewports | 17 | gameplay | todo | | detector from qa |
+| R16.* | Photo mode | 16 | cockpit-ui | review | 2026-11-06 22:40 UTC | `photo.js` done + verified (download 182 KB, share path); needs the main.js hook in spec 16 Requests (gameplay) |
+| R17.1–4 | Nav screen housing, mirror, fitText, no gaps | 17 | cockpit-ui | review | 2026-11-06 22:40 UTC | done in vehicles/office/flight/canvasText/style.css; needs player.js mirror mount + main.js camera near 0.2 (spec 17 Requests) |
+| R17.5 | HUD layout at all viewports | 17 | gameplay | in progress | 2026-11-06 22:40 UTC | cockpit-ui did the CSS part (street top-centre, ticker/bottom-right clear of nav screen, compact phone HUD, 3×2 touch pad); detector from qa |
 | R18.5 | Time/weather/season per district + spot | 18 | render | todo | | |
-| R19.1–5 | Visual QA harness + human-style review | 19 | qa | in progress | 2026-11-06 21:32 | building `game/dev/harness/visual/` (survey, sheets, detectors); CHAPTERS-driven when present, legacy spawn→stops routes otherwise |
+| R19.1–5 | Visual QA harness + human-style review | 19 | qa | in progress | 2026-11-06 22:40 | harness done (`npm run harness:visual`, README in `game/dev/harness/visual/`); full chapter-mode run per city in progress; review → `game/dev/harness/visual/report/review.md` |
 | R20.* | Research: Bucharest districts | 20 | research-buc-districts | in progress | 2026-11-06 21:33 UTC | order: romana, unirii, floreasca, grozavesti, pipera, otopeni; output game/research/bucharest-<d>.json/.md + refs/ |
 | R20.* | Research: Seattle districts | 20 | research-sea-districts | review | 2026-11-06 22:18 | bellevue + seatac JSON/MD/refs in game/research/; bellevue route A = 14.4 km (> spec-10 12 km) — world to decide; Lincoln Square + Plaza Center landmarks done; seatac photos pending (Wikimedia 429) |
 | R20.* | Research: Bucharest top-10 spots | 20 | research-buc-spots | review | 2026-11-06 22:15 | top-10 confirmed with evidence; `game/research/bucharest-spots.{json,md}` (10 scene specs + dialogue) + `refs/buc-spots/` (95 CC images, LICENSES.md); Patriarchal Cathedral → People's Salvation Cathedral |

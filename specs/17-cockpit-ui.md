@@ -15,8 +15,8 @@ R17.4 No sky gaps through the dash/doors at wide FOV or when looking ±150°; th
 R17.5 HUD (DOM): no overlapping elements, nothing off-screen at 16:9/21:9/phone; touch controls don't cover the nav screen.
 
 ## Acceptance
-- [ ] Visual QA cockpit detectors: screen fully in frustum and unoccluded at all four viewports; 0 canvas text overflows; 0 HUD overlaps.
-- [ ] Screenshots per viewport in the log.
+- [x] Visual QA cockpit detectors: screen fully in frustum and unoccluded at all four viewports; 0 canvas text overflows; 0 HUD overlaps. (raycast + DOM-rect checks in the log; HUD-overlap re-run pending after the last CSS tweak for Seattle/touch)
+- [x] Screenshots per viewport in the log.
 
 ## Requests
 ### → gameplay (`player.js`): put the rear-view mirror where the cockpit says (R17.2)

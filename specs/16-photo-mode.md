@@ -17,4 +17,18 @@ R16.6 Telemetry `photo_taken {city, place, filter}`.
 - [ ] Viewfinder layout correct at 16:9, 21:9, phone landscape/portrait.
 
 ## Requests
+### → gameplay (`main.js`): construct the photo mode (≈8 lines). Nothing per-frame is needed: PhotoMode listens to `P` itself (when `canOpen()`), owns the keyboard while active (the car brakes to a stop via `input.touch.brake`), owns `camera.fov` while active, and grabs the frame in the animation frame after the game rendered it.
+```js
+import { PhotoMode } from './photo.js';
+// constructor, once hud / input / audio / renderer / camera exist:
+this.photo = new PhotoMode({
+    renderer: this.renderer, getScene: () => (this.state === 'office' ? this.office?.scene : this.scene), getCamera: () => this.camera,
+    hud: this.hud, audio: this.audio, input: this.input,
+    canOpen: () => (this.state === 'drive' || this.state === 'office') && !this.mapOpen && !this.hud.panelOpen,
+    getInfo: () => ({ place: this.state === 'office' ? this.office?.stop.company : document.getElementById('street')?.textContent, city: this.city?.id, timeZone: this.clock.timeZone, night: !!this.r3d.nightLights }),
+    onPhoto: (meta) => this.hud.toast('📸 Saved', `${meta.place || 'Photo'} · ${meta.filter}`),
+});
+// wherever the state changes away from drive/office (enterOffice, leaveOffice, fly, fastTravel, finale, on-foot enter/exit): this.photo.close();
+```
+Tourist spots / on-foot: pass `onPhoto(meta)` to mark postcard challenges; `getInfo` may return `{ place, sub }` (sub = a second caption line).
 ## Progress log

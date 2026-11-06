@@ -35,3 +35,10 @@ OSM tags (building:levels, building:colour, roof:*, building:material, shop/amen
 - [ ] Tourist top-10 lists justified with sources.
 
 ## Progress log
+
+### 2026-11-06 22:15 UTC — research-buc-spots: Bucharest top-10 tourist spots
+- **Ranking** justified in `game/research/bucharest-spots.md` §1 from Wikivoyage See lists, Visit Bucharest search studies 2022 + 2024, Trip.com 2025, Tripadvisor 2015 mentions, visitor numbers (Palace ~152k 2023; Village Museum ~800k 2017). Tripadvisor / Lonely Planet / Trip.com / bucharest.ro not reachable from this environment (403/DNS) — positions from search snippets (caveat logged).
+- **Scene specs**: `game/research/bucharest-spots.json` (1.8 MB, compact) — `spots[10]`, each with footprint polygon (~300-440 m), structures (dims, materials, colours hex, ornament, signage, OSM polygons for key buildings), ground surfaces, vegetation, furniture, lighting, backdrop, crowd, sounds, 4-6 sourced plaques, interaction, postcard photo angle, seasonal notes, measured colour samples, and a full OSM extract per footprint (buildings + parts, paths with surface, areas, trees with species, lamps, furniture, artworks, named businesses). Coverage: 10/10 spots; OSM trees with species: palace 333/355, cathedral 172/174, Stavropoleos 106/108; parks (Herăstrău, Cișmigiu, Village Museum) have almost no OSM trees → described from photos.
+- **Dialogue (R15.6)**: 15-persona library + 62 spot personas (14-25 lines each, ~1,060 lines; RO/EN/DE/IT/FR/BG with English translations) + general pedestrian set (honked_at, near_miss, sidewalk_parking, idle, small_talk) + 14 sourced culture notes.
+- **Refs**: ~100 Commons images (CC BY / CC BY-SA / CC0 / PD, ≤400 KB) in `game/research/refs/buc-spots/<spot>/` with per-spot `LICENSES.md` + index; facade-texture candidates marked; no-FoP copyright notes (Palace, Arch, Cathedral, Carusel interior, Royal Palace 1937 façade, Memorial of Rebirth) → reference only.
+- Verified by: OSM tile parse (scripts in scratchpad), Wikipedia en/ro extracts, photo inspection + pixel sampling for colours. Gaps listed in the dossier §4.

@@ -20,3 +20,17 @@ R15.5 Each spot loads in < 3 s; ≤ 1 M triangles; 60 fps at auto.
 
 ## Requests
 ## Progress log
+
+### 2026-11-06 22:15 UTC — research-buc-spots: Bucharest top-10 confirmed (R15.1 input)
+Evidence-ranked list (details, sources and scene specs in `game/research/bucharest-spots.md` / `.json`):
+1. `palace-parliament` — Palace of the Parliament + Piața Constituției (Trip.com #1; VB 2024 #4 search; ~152k visitors 2023, >260k 2018; Christmas Market held in the square).
+2. `old-town-lipscani` — Lipscani + **Cărturești Carusel** (enterable) + Hanul lui Manuc + Curtea Veche (VB 2022 #1 search, 2024 #3).
+3. `stavropoleos-cec` — Stavropoleos church + Caru' cu Bere + CEC Palace + History Museum/Trajan statue (Caru' cu Bere = #1 searched restaurant 2022 & 2024).
+4. `athenaeum-revolution` — Romanian Athenaeum + Piața Revoluției (Memorial of Rebirth, Royal Palace/MNAR, BCU, CC balcony) (VB 2022 #4; #1 guided tour 2024).
+5. `arcul-de-triumf` — Arch of Triumph (Trip.com top-5).
+6. `village-museum` — Dimitrie Gusti National Village Museum (~800,000 visitors in 2017, 68% foreign; VB 2024 #2 museum).
+7. `herastrau-park` — King Michael I (Herăstrău) Park: busts alley, Japanese Garden, lake tip (VB 2022 #1 park; Trip.com #2).
+8. `spring-palace` — Spring Palace / Ceaușescu Mansion (VB #1 searched museum in 2022 and 2024).
+9. `cismigiu` — Cișmigiu Gardens (Wikivoyage first park; VB 2022 #3 park).
+10. `peoples-salvation-cathedral` — People's Salvation (National) Cathedral (VB 2022 #5 attraction; world's tallest Orthodox church, opened 26 Oct 2025).
+Changes vs the initial candidate list: Calea Victoriei + CEC merged into #3 with Stavropoleos; Herăstrău and the Village Museum split into two spots; **Patriarchal Cathedral hill replaced by the People's Salvation Cathedral**; National Museum of Art covered inside #4; Therme excluded (indoor water park 10 km outside the city). Not selected: Unirii Fountain Show (VB #2 search — belongs to the Unirii driving district), Botanical Garden (swap-in #11), Antipa Museum, Peasant Museum. Dialogue for R15.6 included per spot (`spots[].dialogue`) plus a general Bucharest pedestrian set.

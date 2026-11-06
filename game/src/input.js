@@ -117,6 +117,7 @@ export class Input {
         bind('[data-btn=act]', () => this.actions.add('KeyE'), () => { });
         bind('[data-btn=map]', () => this.actions.add('KeyM'), () => { });
         bind('[data-btn=jump]', () => this.actions.add('Space'), () => { });
+        bind('[data-btn=foot]', () => this.actions.add('Enter'), () => { }); // get out of / back into the car (spec 14)
         bind('[data-btn=run]', () => { this.touch.run = !this.touch.run; }, () => { });
     }
 }

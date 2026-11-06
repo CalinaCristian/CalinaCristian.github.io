@@ -15,6 +15,8 @@ import { Navigator, CarScreen, canTravel, edgeSpeed, isMotorway, roadName, fmtDi
 import { isTouch, clamp, angleDiff, signTexture } from './util.js';
 import { Renderer3D } from './render.js';
 import { PhotoMode } from './photo.js';
+import { OnFootController } from './onfoot.js';
+import { makeVehicle } from './vehicles.js';
 
 const $ = (s) => document.querySelector(s);
 const { CITIES } = CITY_MOD;
@@ -251,6 +253,7 @@ class Game {
         const city = CITIES[id];
         this.city = city;
         this.chapter = null; this.ch = null; this.chapterIdx = -1; this.chapterDone = false; this.district = district;
+        this.endFoot();
         this.clock.timeZone = city.timeZone || TIME_ZONES[id] || 'UTC';
         if (this.scene) { this.scene.traverse(o => { if (o.geometry && !o.userData.shared) o.geometry.dispose?.(); }); }
         const scene = this.scene = new THREE.Scene();
@@ -469,6 +472,7 @@ class Game {
         const dt = Math.min(0.1, this.frameClock.getDelta());
         if (this.state === 'drive') this.updateDrive(dt);
         else if (this.state === 'office') this.updateOffice(dt);
+        else if (this.state === 'foot') this.updateFoot(dt);
         else if (this.state === 'card' && this.scene) this.drawFrame();
         else if (this.state === 'menu') { /* idle */ }
     }
@@ -511,6 +515,7 @@ class Game {
             else hud.toast('🛟 Slow down first', 'Reset to the road works below ~20 km/h.', 'warn');
         }
         if (input.take('KeyF')) { this.fastTravelToObjective(); if (this.state !== 'drive') return; }
+        if (input.take('Enter') || input.take('NumpadEnter')) { if (this.exitCar()) return; }
         hud.update(dt, this.camera, city.id);
         this.audio.engine(empty ? player.speed * 0.3 : player.speed, empty ? 0 : input.throttle, dt);
         this.stats.time += dt;
@@ -750,7 +755,7 @@ class Game {
         ctx.lineCap = 'round'; ctx.lineJoin = 'round';
         ctx.beginPath();
         const s0 = this.nav.segIdx || 0;
-        ctx.moveTo(this.player.x, this.player.z);
+        { const me = this.foot?.active ? this.foot : this.player; ctx.moveTo(me.x, me.z); }
         for (let i = s0 + 1; i < r.points.length; i++) ctx.lineTo(r.points[i][0], r.points[i][1]);
         ctx.strokeStyle = 'rgba(29,78,216,0.85)'; ctx.lineWidth = Math.max(4 / scale, 5); ctx.stroke();
         ctx.strokeStyle = '#60a5fa'; ctx.lineWidth = Math.max(2 / scale, 2.5); ctx.stroke();
@@ -1082,6 +1087,107 @@ class Game {
     }
 
 
+
+    // ---------------------------------------------------------------------------------- on foot (spec 14)
+    /** Enter (touch: 🚶): get out on the driver's side; the car stays (hazards on) and is an obstacle for traffic */
+    exitCar() {
+        const P = this.player;
+        if (this.state !== 'drive' || this.refuel) return false;
+        if (Math.abs(P.speed) > 1.5) { this.hud.toast('🚶 Stop first', 'Get out when the car is (almost) stopped.', 'warn'); return false; }
+        this.photo?.close?.();
+        P.speed = 0; P.steer = 0;
+        if (!this.carBody) { this.carBody = makeVehicle('hatch', '#1e3a8a'); this.carBody.traverse(o => { if (o.isMesh) o.castShadow = true; }); }
+        this.carBody.position.set(P.x, P.surfY ?? 0.24, P.z); this.carBody.rotation.set(0, P.heading, 0);
+        this.scene.add(this.carBody); P.rig.visible = false;
+        const len = this.carBody.userData.length || 4.2, wid = this.carBody.userData.width || 1.8;
+        this.carBox = { x: P.x, z: P.z, fx: P.fx, fz: P.fz, length: len, width: wid };
+        if (!this.foot) this.foot = new OnFootController({ scene: this.scene, camera: this.camera, input: this.input, audio: this.audio });
+        Object.assign(this.foot, { scene: this.scene, colliders: this.world.buildings, world: this.world, traffic: this.traffic, obstacles: () => (this.carBox ? [this.carBox] : []) });
+        // driver's door: left side (left-hand drive), a bit ahead of the centre
+        const lx = P.fz, lz = -P.fx;
+        this.foot.enter(P.x + lx * (wid / 2 + 0.55) + P.fx * 0.4, P.z + lz * (wid / 2 + 0.55) + P.fz * 0.4, P.heading, (P.surfY ?? 0.24) - 0.24);
+        this.traffic.walker = this.foot;
+        this.state = 'foot'; document.body.classList.add('on-foot');
+        if (!document.getElementById('onfoot-css')) { const st = document.createElement('style'); st.id = 'onfoot-css'; st.textContent = 'body.on-foot .pad button.office-only{display:inline-block}body.on-foot .pad button.drive-only{display:none}'; document.head.appendChild(st); }
+        this.audio.stopEngine?.(); this.audio.blip(300, 0.06, 0.08);
+        this.hud.setLimit(null, this.city.units === 'mph', false); this.hud.setSpeed(0);
+        if (!this.flags.footToast) { this.flags.footToast = true; this.hud.toast('🚶 On foot', 'WASD walk · Shift run · Space jump · mouse look · Enter at the driver\'s door to get back in · E enters offices.', 'intro'); }
+        this.input.flush();
+        return true;
+    }
+    /** driver's door position of the parked car */
+    carDoor() { const P = this.player, w = this.carBox?.width || 1.8; return { x: P.x + P.fz * (w / 2 + 0.4) + P.fx * 0.4, z: P.z - P.fx * (w / 2 + 0.4) + P.fz * 0.4 }; }
+    enterCar() {
+        this.endFoot();
+        this.state = 'drive'; this.input.flush(); this.frameClock.getDelta();
+        this.audio.blip(420, 0.06, 0.08);
+    }
+    /** leave on-foot mode (silently): the car becomes the camera again */
+    endFoot() {
+        if (this.foot?.active) this.foot.exit();
+        if (this.carBody?.parent) this.carBody.parent.remove(this.carBody);
+        this.carBox = null; if (this.player) this.player.rig.visible = true;
+        if (this.traffic) this.traffic.walker = null;
+        document.body.classList.remove('on-foot');
+        if (this.player && this.camera.parent !== this.player.camHolder && this.state !== 'office') { this.player.camHolder.add(this.camera); this.camera.position.set(0, 0, 0); this.camera.rotation.set(0, 0, 0); }
+        if (this.officeFromFoot) this.officeFromFoot = false;
+    }
+    updateFoot(dt) {
+        const { traffic, hud, input, city, world } = this, F = this.foot, P = this.player;
+        if (input.take('KeyM')) this.toggleMap(!this.mapOpen);
+        if (this.mapOpen && input.take('Escape')) this.toggleMap(false);
+        if (this.mapOpen || hud.panelOpen) { input.lookAllowed = false; input.releaseLock(); input.flush(); this.drawFrame(); return; }
+        input.lookAllowed = true;
+        if (input.take('KeyN')) { this.opts.minimap = !this.opts.minimap; this.saveOpt('minimap', this.opts.minimap); this.applyOpts(); }
+        this.frame++;
+        this.updateClock(dt);
+        if (this.frame % 30 === 0) this.pollWeather();
+        traffic.setHour(this.trafficHours());
+        traffic.update(dt);
+        F.update(dt);
+        if (F.bumped && F.t - F.bumped < 0.1 && !this._bumpToast) { this._bumpToast = true; hud.toast('😬 Watch out', 'Cars don\'t stop for jaywalkers here.', 'warn'); setTimeout(() => { this._bumpToast = false; }, 6000); }
+        // hazard lights on the parked car
+        if (this.carBody) this.carBody.userData.setLights?.(((this.clock.date?.getTime?.() ?? performance.now()) / 400 | 0) % 2 === 0);
+        // R: back to the nearest sidewalk
+        if (input.take('KeyR')) { const ne = this.nav.index.nearest(F.x, F.z, 200); if (ne) { const e = ne.edge, sd = (F.x - ne.cx) * e.nx + (F.z - ne.cz) * e.nz >= 0 ? 1 : -1, off = (e.halfW ?? 4) + 1.5; F.teleport(ne.cx + e.nx * sd * off, ne.cz + e.nz * sd * off); } }
+        hud.update(dt, this.camera, city.id);
+        this.stats.time += dt;
+        // street + navigation from the walker's position
+        const pos = { x: F.x, z: F.z, heading: F.heading, surfY: F.y + 0.24, speed: F.vel };
+        const ne = this.nav.index.nearest(F.x, F.z, 200);
+        const onRoad = ne && ne.d < (ne.edge.halfW ?? 6) + (ne.edge.sidewalk ?? 2) + 6;
+        let district = '', bd = Infinity;
+        for (const d of this.minimap.districts || []) { const dd = Math.hypot(d.x - F.x, d.z - F.z); if (dd < bd) { bd = dd; district = d.name; } }
+        hud.setStreet(onRoad ? roadName(ne.edge) : (world.isPark?.(F.x, F.z) ? 'Park' : 'On foot'), district);
+        hud.setSpeed(F.vel); hud.setLimit(null, city.units === 'mph', false);
+        const nv = this.navInfo = this.nav.update(pos, dt);
+        if (this.objective || this.nav.dest) {
+            const label = this.navManual ? `🧭 ${this.nav.dest.label}` : this.objectiveLabel;
+            if (nv) { hud.setObjective(`${label} · ${fmtDist(nv.remaining, city.units)} 🚶`); hud.setNavLine(`<b>${stepArrow(nv.next)}</b>${stepText(nv.next, nv.distToNext, city.units)}`); }
+            else hud.setObjective(label);
+        } else { hud.setObjective(this.objectiveLabel); hud.setNavLine(''); }
+        if (this.ch?.waypoint && !this.chapterDone && this.objective?.waypoint && Math.hypot(this.objective.x - F.x, this.objective.z - F.z) < 30) this.completeChapter();
+        if (this.frame % 15 === 0) this.checkPassing(F);
+        // prompts: get in > office door
+        let prompt = null;
+        const door = this.carDoor();
+        if (Math.hypot(door.x - F.x, door.z - F.z) < 3) { prompt = '<kbd>Enter</kbd> Get in'; if (input.take('Enter') || input.take('NumpadEnter') || input.take('KeyE')) { this.enterCar(); hud.prompt(null); return; } }
+        if (!prompt) for (const { stop, poi } of this.stopPois) {
+            const d = Math.hypot((poi.doorX ?? poi.x) - F.x, (poi.doorZ ?? poi.z) - F.z);
+            if (d < 7) { prompt = `<kbd>E</kbd> Walk into <b>${stop.company}</b> ${this.visited.has(stop.id) ? '✓' : ''}`; if (input.take('KeyE')) { hud.prompt(null); this.enterOffice(stop); return; } }
+        }
+        if (!prompt && Math.hypot(P.x - F.x, P.z - F.z) > 25) prompt = null;
+        input.take('Enter'); input.take('KeyE');
+        hud.prompt(prompt);
+        const lookTxt = input.lookMode === 'lock' ? (input.locked ? 'mouse look (Esc frees)' : 'click to look') : input.lookMode === 'hold' ? 'right-drag look' : 'A/D turn';
+        hud.setHint(this.touch ? '' : `On foot · WASD walk · Shift run · Space jump · ${lookTxt} · Enter at the car: get in · E office · R sidewalk · M map`);
+        if (this.opts.minimap && this.frame % 2 === 0) {
+            this.minimap.draw({ cx: F.x, cz: F.z, scale: 0.3, heading: F.heading, player: { x: F.x, z: F.z, heading: F.heading, fx: F.fx, fz: F.fz }, pois: world.pois, objective: this.objective });
+            this.drawRouteOverlay(this.minimap.ctx, $('#minimap'), { cx: F.x, cz: F.z, scale: 0.3, heading: F.heading });
+        }
+        this.drawFrame();
+    }
+
     // ---------------------------------------------------------------------------------- district edges (R10.9)
     /** closures where roads leave the district (world.closures) + a roadworks crew at the Bucharest ones */
     setupClosures(city, world) {
@@ -1203,6 +1309,7 @@ class Game {
         // world.spawn is the chapter start when the world built this district for it; otherwise place it here
         const builtFor = !same && this.world.district?.id === ch.district;
         if (!builtFor) { const p = this.chapterPose(ch); if (p) this.player.place(p.x, p.z, p.heading, p.edge); }
+        this.endFoot();
         this.player.speed = 0; this.player.steer = 0; this.player.contactAge = 9; this.player.resetLook?.();
         this.traffic.setPlayer(this.player); this.traffic.clearAround(this.player.x, this.player.z, 14);
         this.stuckT = 0; this.prevEdgeInfo = null; this.navManual = false;
@@ -1252,7 +1359,7 @@ class Game {
         const act = await chapterCard({ done: ch, next, index: idx, total: this.chapters.length, nextDistrictName: nd?.name });
         this._completing = false;
         if (act === 'next') { await this.goToChapter(idx + 1); return; }
-        this.state = 'drive'; this.input.flush(); this.frameClock.getDelta();
+        this.state = this.foot?.active ? 'foot' : 'drive'; this.input.flush(); this.frameClock.getDelta();
         this.hud.toast('🚗 Free drive', `Explore ${this.world.district?.name || 'the district'}. Continue the story any time: M → Next chapter.`, 'intro');
     }
     /** montage (same city) or the flight cutscene (other city), then the chapter */
@@ -1449,6 +1556,7 @@ class Game {
     // ----------------------------------------------------------------------------------
     enterOffice(stop) {
         this.photo?.close?.();
+        if (this.state === 'foot') { this.officeFromFoot = true; this.foot.exit(); }
         this.state = 'office';
         this.audio.stopEngine(); this.audio.blip(520, 0.15, 0.1);
         $('#hud').classList.add('in-office');
@@ -1474,6 +1582,13 @@ class Game {
         this.player.camHolder.add(this.camera); this.camera.position.set(0, 0, 0); this.camera.rotation.set(0, 0, 0);
         this.player.resetLook();
         this.state = 'drive';
+        if (this.officeFromFoot) { // walked in: walk out of the door
+            this.officeFromFoot = false;
+            const p = stop.poiRef, dx = p.doorX ?? p.x, dz = p.doorZ ?? p.z, ne = this.nav.index.nearest(dx, dz, 60);
+            const hd = ne ? Math.atan2(-(ne.cx - dx), -(ne.cz - dz)) : this.foot.heading;
+            this.foot.enter(dx + (ne ? (ne.cx - dx) * 0.15 : 0), dz + (ne ? (ne.cz - dz) * 0.15 : 0), hd);
+            this.state = 'foot';
+        }
         if (this.ch) { // chapters: reading a screen of this chapter's office completes it
             if (o.read.size > 0 && !this.visited.has(stop.id)) { this.visited.add(stop.id); stop.poiRef.visited = true; this.audio.chime(); }
             if (o.read.size > 0 && this.ch.stop === stop.id && !this.chapterDone) { const id = this.chapter; queueMicrotask(() => this.completeChapter(id)); }

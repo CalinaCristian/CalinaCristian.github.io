@@ -14,7 +14,8 @@ Update your own rows when you start/finish (status, `updated` as `YYYY-MM-DD HH:
 | R11.4–5 | Vertical profile + walls (no stacked ribbons, no barriers in lanes) | 11 | world | in progress | | Orhideelor barrier; Seattle interchanges |
 | R11.6–8 | Nothing on roads; sidewalks; GTS door; Lukoil | 11 | world | in progress | | |
 | R12.1–5 | Buildings/businesses/rooftop signs/furniture/trees from research | 12 | world | in progress | 2026-11-06 23:10 | waits on research |
-| R12.6 | Landmark fidelity pass from research | 12 | landmarks | todo | | agent to spawn after research |
+| R12.6 | Landmark fidelity pass from research | 12 | landmarks | in progress | 2026-11-06 22:47 UTC | claimed by landmarks |
+| R12.6b | Lincoln Square hero landmark (UiPath Bellevue stop) | 12 | landmarks | in progress | 2026-11-06 22:47 UTC | claimed by landmarks |
 | R13.2 | Standstill traffic in hotspots | 13 | gameplay | review | 2026-11-07 01:30 UTC | `traffic.setCongestion` (+`?hour=8`, `?jam=1`): romana 08:30 → Piața Victoriei avg 1.08 m/s, outside 9.1 m/s, off-peak 6.9; harness scenario `jam` |
 | R13.3 | Transit liveries (STB trams/trolleys, KCM) | 13 | gameplay | todo | | |
 | R13.4–5 | Pedestrians + overlaps clean; reset/objective/autopilot fixes | 13 | gameplay | review | 2026-11-06 22:05 UTC | full harness: no-progress 7→1, drive-failed 2→0, bad-placement 2→0, ft-last-mile 1→0, ped-on-carriageway 4→2, overlap 8→7; remaining = world (Lukoil, DN1 barrier at Bretea) |

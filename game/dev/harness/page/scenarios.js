@@ -157,6 +157,21 @@ function roadAt(g, x, z) {
     }
     return best;
 }
+/** on foot: walk to (x, z) (straight line, sidestep when blocked) → true when within r */
+async function walkTo(H, x, z, { r = 2.5, timeout = 90, run = true } = {}) {
+    const F = H.g.foot; if (!F?.active) return false;
+    let best = Infinity, lastT = H.scT; F.auto = { fwd: 1, run, side: 0 };
+    await H.run(timeout, () => {
+        if (!F.active) return true;
+        const dx = x - F.x, dz = z - F.z, d = Math.hypot(dx, dz);
+        F.auto.heading = Math.atan2(-dx, -dz);
+        if (d < best - 0.5) { best = d; lastT = H.scT; F.auto.side = 0; }
+        else if (H.scT - lastT > 3) { F.auto.side = F.auto.side ? -F.auto.side : 1; F.auto.jump = true; lastT = H.scT; }
+        return d < r;
+    });
+    F.auto = null;
+    return Math.hypot(x - F.x, z - F.z) < r;
+}
 async function driveStreet(H, st, len = 400) {
     const g = H.g;
     const seg = findStreet(H, st.re, len, { ll: st.ll, bearing: st.bearing });
@@ -557,13 +572,74 @@ export const SCENARIOS = [
             const res = { hotspot: hs.note, level: r2(hs.L), vehicles: T.counts, avgIn: avg(inS), avgOut: avg(outS), updateMs: r2(T.stats.updateMs) };
             if (!(res.avgIn < 2)) H.issue('jam-too-fluid', 'medium', `rush hour: average speed in the ${hs.note} hotspot ${res.avgIn} m/s (spec < 2)`, { x: hs.x, z: hs.z }, { key: 'jam-in' });
             if (!(res.avgOut > 6)) H.issue('jam-everywhere', 'medium', `rush hour: average speed outside the hotspots ${res.avgOut} m/s (spec > 6)`, {}, { key: 'jam-out' });
-            // the player crosses it: from 300 m south to 250 m north of the hotspot centre
+            // the player gets in: from ~300 m away to the hotspot centre through the queues
             g.navManual = false;
             const t0 = H.scT;
-            res.cross = await H.driveTo(hs.x, hs.z - 250, { label: 'through ' + hs.note, arriveR: 20, timeout: 240, stop: false });
+            res.cross = await H.driveTo(hs.x, hs.z, { label: 'into ' + hs.note, arriveR: 25, timeout: 240, stop: false });
             res.crossSec = r1(H.scT - t0);
             if (!res.cross.ok) H.issue('jam-impassable', 'high', `rush hour: the player could not get through ${hs.note} in 4 min (${res.cross.reason})`, {}, { shot: true, key: 'jam-cross' });
             g.clock.trafficHour = prevHour ?? false; T.setHour(g.trafficHours ? g.trafficHours() : 13, true);
+            return res;
+        },
+    },
+    {
+        id: 'foot', title: 'On foot: get out, walk ~120 m on the sidewalk to an office, walk in, read, walk out, back to the car, drive away', city: 'bucharest',
+        async run(H) {
+            const g = H.g; if (typeof g.exitCar !== 'function') { H.note('no on-foot mode: skipped'); return { skipped: true }; }
+            await prep(H);
+            const stop = (g.stops || []).find(s => s.poiRef); if (!stop) return { skipped: 'no stop' };
+            const door = { x: stop.poiRef.doorX ?? stop.poiRef.x, z: stop.poiRef.doorZ ?? stop.poiRef.z };
+            const P = g.player; const res = { stop: stop.id };
+            // park ~120 m before the door along the driving route
+            const r0 = g.nav.compute(door.x + 300, door.z + 300, door.x, door.z);
+            const route = g.nav.compute(P.x, P.z, door.x, door.z) || r0;
+            if (route && route.total > 140 && g.poseAlongRoute) { const p = g.poseAlongRoute(route, route.total - 120); P.place(p.x, p.z, p.heading, p.edge); g.traffic.setPlayer(P); g.traffic.clearAround(p.x, p.z, 15); }
+            else H.placeOnRoad(door.x + 60, door.z);
+            H.setControls(0, 0, true); await H.run(1);
+            H.press('Enter'); await H.run(0.3);
+            res.exited = g.state === 'foot' && !!g.foot?.active;
+            if (!res.exited) { H.issue('foot-exit-failed', 'high', `Enter at a standstill did not get the player out of the car (state ${g.state})`, {}, { shot: true, key: 'foot-exit' }); return res; }
+            const F = g.foot; const car = { x: P.x, z: P.z };
+            res.exitDist = r2(Math.hypot(F.x - P.x, F.z - P.z));
+            res.shotOut = await H.shot(`${H.city}-foot-out`);
+            // walk along the route, on the sidewalk to the right
+            const wr = g.nav.compute(F.x, F.z, door.x, door.z);
+            const pts = [];
+            if (wr) for (let i = 1; i < wr.points.length; i++) { const leg = wr.legs[Math.min(i - 1, wr.legs.length - 1)], e = leg.e, off = (e.halfW ?? 4) + 1.6; pts.push([wr.points[i][0] + e.nx * leg.dir * off, wr.points[i][1] + e.nz * leg.dir * off]); }
+            pts.push([door.x, door.z]);
+            const t0 = H.scT; let inside = 0;
+            for (const [x, z] of pts) {
+                const ok = await walkTo(H, x, z, { r: 3, timeout: 40 });
+                g.world.buildings.query(F.x, F.z, 2, (c) => { if (c.poly && !c.prop && pip(F.x, F.z, c.poly) && (c.h ?? 10) > 1) inside++; });
+                if (!ok && Math.hypot(F.x - door.x, F.z - door.z) > 7) { H.issue('foot-walk-blocked', 'medium', `on foot: could not walk to (${r1(x)}, ${r1(z)}) toward ${stop.id}`, { x, z }, { shot: true, key: 'foot-walk' }); break; }
+            }
+            res.walkSec = r1(H.scT - t0); res.walked = r1(Math.hypot(F.x - car.x, F.z - car.z));
+            if (inside) H.issue('foot-inside-building', 'high', `on foot: the walker ended up inside a building footprint ${inside}×`, {}, { shot: true, key: 'foot-inside' });
+            res.doorDist = r1(Math.hypot(F.x - door.x, F.z - door.z));
+            if (res.doorDist < 7) {
+                H.press('KeyE'); await H.run(0.3, () => g.state === 'office');
+                res.office = g.state === 'office';
+                if (res.office) {
+                    const o = g.office, st = o.stations?.[0];
+                    if (st) { o.x = st.x * 0.45; o.z = st.z; await H.run(0.2); H.press('KeyE'); await H.run(0.2); g.hud.closePanel(); await H.run(0.3); }
+                    o.x = 0; o.z = o.exitZ ?? 14; await H.run(0.2); H.press('KeyE'); await H.run(0.6, () => g.state !== 'office');
+                    await sleep(0); if (g.state === 'card') { const chm = await import('../../../src/chapters.js'); chm.closeChapterCard('free'); await sleep(50); }
+                    res.leftOnFoot = g.state === 'foot';
+                    if (!res.leftOnFoot) H.issue('foot-office-exit', 'high', `walked into ${stop.id} but left it in state ${g.state} (expected on foot)`, {}, { key: 'foot-office' });
+                } else H.issue('foot-office-enter', 'high', `on foot at ${res.doorDist} m from the ${stop.id} door, E did not open the office`, {}, { shot: true, key: 'foot-office-in' });
+            } else H.issue('foot-door-unreached', 'medium', `on foot: ended ${res.doorDist} m from the ${stop.id} door`, {}, { key: 'foot-door' });
+            // back to the car and drive away
+            if (g.state === 'foot') {
+                const d0 = g.carDoor();
+                const back = await walkTo(H, d0.x, d0.z, { r: 2.2, timeout: 120 });
+                H.press('Enter'); await H.run(0.3);
+                res.backIn = g.state === 'drive';
+                if (!res.backIn) H.issue('foot-enter-failed', 'high', `could not get back into the car (walked back: ${back}, state ${g.state})`, {}, { shot: true, key: 'foot-in' });
+                else {
+                    const ahead = g.lanePose(P.x + P.fx * 100, P.z + P.fz * 100, P.heading);
+                    if (ahead) res.drive = await H.driveTo(ahead.x, ahead.z, { label: 'drive away after walking', arriveR: 15, timeout: 40, stop: false });
+                }
+            }
             return res;
         },
     },

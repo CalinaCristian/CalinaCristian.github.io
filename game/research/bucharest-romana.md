@@ -1,6 +1,6 @@
 # Bucharest — Romană & Victoriei (`romana`): field research dossier
 
-Role: research-buc-districts · generated 2026-11-06 22:18 UTC · machine-readable twin: `bucharest-romana.json` · images: `refs/romana/` (see LICENSES.md).
+Role: research-buc-districts · generated 2026-11-06 22:46 UTC · machine-readable twin: `bucharest-romana.json` · images: `refs/romana/` (see LICENSES.md).
 
 Every OSM-derived fact is keyed by OSM id (w = way, n = node, r = relation) and comes from the OSM API 0.6 snapshot of 2026-11-06 [osm]. Bracketed keys like [wp_lascar] point to the **Sources** table at the end. Confidence: *high* = OSM/official/encyclopedic; *medium* = consistent across photos/common knowledge, verify on refs; *low* = estimate.
 
@@ -8,53 +8,54 @@ Every OSM-derived fact is keyed by OSM id (w = way, n = node, r = relation) and 
 
 | metric | value |
 |---|---|
-| route_streets | Bulevardul Dacia, Bulevardul General Gheorghe Magheru, Bulevardul Lascăr Catargiu, Piața Romană, Piața Victoriei, Strada Clopotarii Vechi, Strada Grigore Alexandrescu, Strada Vasile Alecsandri |
-| route_streets_researched | Bulevardul Dacia, Bulevardul General Gheorghe Magheru, Bulevardul Lascăr Catargiu, Piața Romană, Piața Victoriei, Strada Clopotarii Vechi, Strada Grigore Alexandrescu, Strada Vasile Alecsandri |
-| fronting_route_buildings | 105 |
-| fronting_route_with_height | 36.2 |
-| fronting_route_with_colour | 2.9 |
-| fronting_route_researched | 1.0 |
+| route_streets | Bulevardul General Gheorghe Magheru, Bulevardul Iancu de Hunedoara, Bulevardul Lascăr Catargiu, Piața Romană, Piața Victoriei, Strada Clopotarii Vechi, Strada Grigore Alexandrescu, Strada Vasile Alecsandri, Șoseaua Pavel Dimitrievici Kiseleff |
+| route_streets_researched | Bulevardul General Gheorghe Magheru, Bulevardul Iancu de Hunedoara, Bulevardul Lascăr Catargiu, Piața Romană, Piața Victoriei, Strada Clopotarii Vechi, Strada Grigore Alexandrescu, Strada Vasile Alecsandri, Șoseaua Pavel Dimitrievici Kiseleff |
+| fronting_route_buildings | 109 |
+| fronting_route_with_height | 41.3 |
+| fronting_route_with_colour | 12.8 |
+| fronting_route_researched | 0.9 |
 | fronting_route_with_street_frontage_rule | 100.0 |
-| fronting_route_with_storeys_any_source | 36.2 |
-| fronting_route_with_facade_hex_any | 21.9 |
-| fronting_main_buildings | 410 |
-| fronting_main_with_height | 53.7 |
-| buildings_total | 1395 |
-| buildings_with_height | 34.9 |
-| businesses_total | 409 |
-| businesses_on_route | 54 |
-| businesses_branded | 59 |
-| trees_osm | 80 |
-| lamps_osm | 0 |
-| crossings | 145 |
-| signal_nodes | 52 |
-| transit_stops | 46 |
+| fronting_route_with_storeys_any_source | 100.0 |
+| fronting_route_with_facade_hex_any | 100.0 |
+| fronting_main_buildings | 541 |
+| fronting_main_with_height | 57.3 |
+| buildings_total | 2910 |
+| buildings_with_height | 32.8 |
+| businesses_total | 1046 |
+| businesses_on_route | 74 |
+| businesses_branded | 144 |
+| trees_osm | 102 |
+| lamps_osm | 6 |
+| crossings | 304 |
+| signal_nodes | 68 |
+| transit_stops | 64 |
 | metro_entrances | 6 |
 
 ## Proposed boundary (~1 km²)
 
-- Polygon (lat, lon): `[[44.445, 26.0838], [44.4542, 26.0838], [44.4542, 26.0995], [44.445, 26.0995]]` → bbox `[44.445, 26.0838, 44.4542, 26.0995]`, area **1.276 km²**.
-- Why: 1.0 km (N-S) x 1.25 km (E-W). West edge just past Piața Victoriei (Antipa museum, Kiseleff start), north edge = Bd. Iancu de Hunedoara + one block (Str. Washington quiet), east edge = Calea Dorobanților / Str. Mihai Eminescu, south edge = Str. Biserica Amzei / Piața Amzei (quiet) so all of Piața Romană, Lascăr Catargiu, Piața Victoriei and Vasile Alecsandri are inside.
+- Polygon (lat, lon): `[[44.4395, 26.0825], [44.457, 26.0825], [44.457, 26.1], [44.4395, 26.1]]` → bbox `[44.4395, 26.0825, 44.457, 26.1]`, area **2.705 km²**.
+- Why: Extraction area = world agent bbox from cities.js BUC_DISTRICTS (so every street the world builds is covered). 1.0 km (N-S) x 1.25 km (E-W). West edge just past Piața Victoriei (Antipa museum, Kiseleff start), north edge = Bd. Iancu de Hunedoara + one block (Str. Washington quiet), east edge = Calea Dorobanților / Str. Mihai Eminescu, south edge = Str. Biserica Amzei / Piața Amzei (quiet) so all of Piața Romană, Lascăr Catargiu, Piața Victoriei and Vasile Alecsandri are inside.
+- Research-proposed compact ~1 km² polygon (optional tighter cut): `[[44.445, 26.0838], [44.4542, 26.0838], [44.4542, 26.0995], [44.445, 26.0995]]`
 
 ## Chapter routes
 
 ### arnia · 2019 — Arnia Software — Europe House
 
-- **Start**: Bd. Magheru northbound at Str. Biserica Amzei / Piața Amzei — `44.44513, 26.09775`, heading 340° on Bulevardul General Gheorghe Magheru.
+- **Start**: WORLD START: Bd. Magheru northbound (cities.js CHAPTERS arnia) — `44.441885, 26.099288`, heading 341° on Bulevardul General Gheorghe Magheru.
 - **End**: Europe House, Bd. Lascăr Catargiu 47-53 (SE-bound kerb) — `44.451507, 26.087592`.
-- **Length**: 1713 m (computed on the OSM drivable graph respecting one-ways; routable: True).
+- **Length**: 2094 m (computed on the OSM drivable graph respecting one-ways; routable: True).
 - **Why this route**: Bd. Magheru (Romană side) → around Piața Romană (ASE dome) → full length of Lascăr Catargiu → lap of Piața Victoriei (Palatul Victoria, Antipa, rooftop ads) → back to Europe House.
-- **Sequence**: Bulevardul General Gheorghe Magheru (195 m) → Piața Romană (67 m) → Bulevardul Lascăr Catargiu (904 m) → Piața Victoriei (437 m) → Bulevardul Lascăr Catargiu (109 m)
-- Waypoints for `CHAPTERS`/autopilot: `[{"lat": 44.4452, "lon": 26.0978, "road": "Magheru", "bearing": 0}, {"lat": 44.4492, "lon": 26.0912, "road": "Lascăr Catargiu", "bearing": 315}, {"lat": 44.4532, "lon": 26.0866, "road": "Piața Victoriei"}, {"lat": 44.4511, "lon": 26.0878, "road": "Lascăr Catargiu", "bearing": 135}]`
+- **Sequence**: Bulevardul General Gheorghe Magheru (576 m) → Piața Romană (67 m) → Bulevardul Lascăr Catargiu (904 m) → Piața Victoriei (437 m) → Bulevardul Lascăr Catargiu (109 m)
+- Waypoints for `CHAPTERS`/autopilot: `[{"lat": 44.4418, "lon": 26.0988, "road": "Magheru|Bălcescu", "bearing": 0}, {"lat": 44.4492, "lon": 26.0912, "road": "Lascăr Catargiu", "bearing": 315}, {"lat": 44.4532, "lon": 26.0866, "road": "Piața Victoriei"}, {"lat": 44.4511, "lon": 26.0878, "road": "Lascăr Catargiu", "bearing": 135}]`
 
 ### uipath-buc · 2020 — UiPath HQ — The Landmark, Vasile Alecsandri 4
 
-- **Start**: Europe House (leaving Arnia), SE-bound — `44.451507, 26.087592`, heading 126° on Bulevardul Lascăr Catargiu.
+- **Start**: WORLD START: Șos. Kiseleff southbound into Piața Victoriei (cities.js CHAPTERS uipath-buc) — `44.455966, 26.08374`, heading 157° on Șoseaua Pavel Dimitrievici Kiseleff.
 - **End**: The Landmark, Str. Vasile Alecsandri 4 — `44.44995, 26.094298`.
-- **Length**: 2144 m (computed on the OSM drivable graph respecting one-ways; routable: True).
-- **Why this route**: Leave Europe House SE down the whole of Lascăr Catargiu (trolleybus wires, 3+3 lanes) → lap of Piața Romană (ASE dome, metro M2) → back NW on the other carriageway → right into Str. Clopotarii Vechi → right on one-way Str. Grigore Alexandrescu → right into one-way Str. Vasile Alecsandri south to The Landmark (UiPath, Building A).
-- **Sequence**: Bulevardul Lascăr Catargiu (828 m) → Piața Romană (74 m) → Bulevardul Dacia (15 m) → Piața Romană (67 m) → Bulevardul Lascăr Catargiu (484 m) → Strada Clopotarii Vechi (176 m) → Strada Grigore Alexandrescu (313 m) → Strada Vasile Alecsandri (186 m)
-- Waypoints for `CHAPTERS`/autopilot: `[{"lat": 44.4511, "lon": 26.0878, "road": "Lascăr Catargiu", "bearing": 135}, {"lat": 44.4469, "lon": 26.0968, "road": "Piața Romană"}, {"lat": 44.4488, "lon": 26.092, "road": "Lascăr Catargiu", "bearing": 315}, {"lat": 44.4499, "lon": 26.0943, "road": "Vasile Alecsandri", "bearing": 180}]`
+- **Length**: 1464 m (computed on the OSM drivable graph respecting one-ways; routable: True).
+- **Why this route**: World start on Șos. Kiseleff southbound (Antipa museum on the right) → into Piața Victoriei → east on Bd. Iancu de Hunedoara behind Palatul Victoria (tram reservation) → right into one-way Str. Clopotarii Vechi → left on one-way Str. Grigore Alexandrescu (children's hospital) → right into one-way Str. Vasile Alecsandri south to The Landmark (UiPath).
+- **Sequence**: Șoseaua Pavel Dimitrievici Kiseleff (352 m) → Piața Victoriei (214 m) → Bulevardul Iancu de Hunedoara (267 m) → Strada Clopotarii Vechi (132 m) → Strada Grigore Alexandrescu (313 m) → Strada Vasile Alecsandri (186 m)
+- Waypoints for `CHAPTERS`/autopilot: `[{"lat": 44.456, "lon": 26.0842, "road": "Kiseleff", "bearing": 160}, {"lat": 44.4527, "lon": 26.0898, "road": "Iancu de Hunedoara", "bearing": 90}, {"lat": 44.4499, "lon": 26.0943, "road": "Vasile Alecsandri", "bearing": 180}]`
 
 ## CV stops (verified)
 
@@ -84,6 +85,17 @@ Every OSM-derived fact is keyed by OSM id (w = way, n = node, r = relation) and 
 
 Per-segment OSM data (lanes, turn:lanes, bus lanes, parking, trolley wires, speed, surface) is in the JSON `streets[].segments[]`. Below: research cross-sections + OSM summary.
 
+### Bulevardul Iancu de Hunedoara (chapter route)
+
+- OSM: 15 ways, 1950 m in district, classes primary; lanes values ['2', '3']; one-way segments 15/15; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: central reservation, shared carriageway (rails in road).
+- Transit lines (OSM route relations): bus 1929, tram 1, tram 10, tram 46.
+- OSM trees within 25 m: 3 (species —, genus —).
+- OSM furniture: {'gate': 2}.
+- Fronting buildings: 54; businesses: 16.
+- **cross_section**: Dual carriageway 2 lanes each way (3 near junctions) either side of a central tram reservation (lines 1, 10, 46) with poles carrying the tram overhead; diagonal/kerb parking in short stretches on the S side (parking:right=street_side diagonal); 50 km/h; DJ200B
+- **frontage**: 9-storey 1960s–70s blocks (Bl. H4–H6 S side, Bl. I1–I3, Bl. 2, 3 N side), Bloc Volga (37, 7 lv/30 m), Capital Plaza Hotel (54) near Dorobanți; Palatul Victoria rear at the W end
+- confidence: high (OSM) [osm]
+
 ### Bulevardul Lascăr Catargiu (chapter route)
 
 - OSM: 23 ways, 1841 m in district, classes primary; lanes values ['3', '4']; one-way segments 23/23; maxspeed ['60']; surface ['asphalt']; trolley_wire ['yes']; turn lanes tagged: True; bus/psv lanes tagged: False; tram: —.
@@ -107,15 +119,16 @@ Per-segment OSM data (lanes, turn:lanes, bus lanes, parking, trolley wires, spee
 - **history**: part of the old Strada Colței; named Ana Ipătescu under communism
 - confidence: lanes/speed/wires high (OSM); trees/paving/lamps medium [osm] [wp_lascar]
 
-### Bulevardul Dacia (chapter route)
+### Bulevardul General Gheorghe Magheru (chapter route)
 
-- OSM: 20 ways, 1232 m in district, classes primary, residential, secondary; lanes values ['1', '2', '3', '4']; one-way segments 13/20; maxspeed ['30', '50', 'RO:urban']; surface ['asphalt']; trolley_wire ['yes']; turn lanes tagged: True; bus/psv lanes tagged: False; tram: —.
-- Transit lines (OSM route relations): bus 168, bus 226, bus 301, bus 331, bus 361, bus 368, bus 331B, trolleybus 79, trolleybus 86, trolleybus 97.
-- OSM trees within 25 m: 8 (species —, genus —).
-- OSM furniture: {'gate': 1, 'lift_gate': 1, 'drinking_water': 1}.
-- Fronting buildings: 30; businesses: 30.
-- **cross_section**: two-way 2+2 (4 lanes) through Piața Romană, trolleybus 79/86/97 and many buses; ASE Mihai Eminescu building (41), Sheraton (5-7), Academy Library (125) further west
-- confidence: high (OSM) [osm]
+- OSM: 12 ways, 1407 m in district, classes primary; lanes values ['3', '4']; one-way segments 12/12; maxspeed ['60']; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: —.
+- Transit lines (OSM route relations): bus 100, bus 168, bus 226, bus 301, bus 331, bus 361, bus 368, bus 381, bus 331B.
+- OSM trees within 25 m: 6 (species —, genus —).
+- OSM furniture: {'bench': 7, 'waste_basket': 4, 'bicycle_rental': 1}.
+- Fronting buildings: 14; businesses: 70.
+- **cross_section**: Wide boulevard, one-way pairs at Romană: N-bound 4 lanes (through×3 + through;right), S-bound 3 lanes; 60 km/h; metro M2 beneath; wide sidewalks (6–8 m) with grey pavers; continuous interwar modernist blocks (8–12 storeys, Magheru is THE interwar modernist boulevard) with ground-floor shops and cinemas further south
+- **ads**: whole-facade mesh banners on several blocks (pressone_ads)
+- confidence: lanes high; facades medium [osm] [pressone_ads]
 
 ### Piața Victoriei (chapter route)
 
@@ -140,15 +153,13 @@ Per-segment OSM data (lanes, turn:lanes, bus lanes, parking, trolley wires, spee
 - **speed_limit_kmh**: 30 (hospital stretch) / 50
 - confidence: high (OSM) / medium [osm]
 
-### Bulevardul General Gheorghe Magheru (chapter route)
+### Șoseaua Pavel Dimitrievici Kiseleff (chapter route)
 
-- OSM: 6 ways, 494 m in district, classes primary; lanes values ['3', '4']; one-way segments 6/6; maxspeed ['60']; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: —.
-- Transit lines (OSM route relations): bus 100, bus 168, bus 226, bus 301, bus 331, bus 361, bus 368, bus 381, bus 331B.
-- OSM furniture: {'bicycle_rental': 1, 'waste_basket': 1}.
-- Fronting buildings: 5; businesses: 29.
-- **cross_section**: Wide boulevard, one-way pairs at Romană: N-bound 4 lanes (through×3 + through;right), S-bound 3 lanes; 60 km/h; metro M2 beneath; wide sidewalks (6–8 m) with grey pavers; continuous interwar modernist blocks (8–12 storeys, Magheru is THE interwar modernist boulevard) with ground-floor shops and cinemas further south
-- **ads**: whole-facade mesh banners on several blocks (pressone_ads)
-- confidence: lanes high; facades medium [osm] [pressone_ads]
+- OSM: 1 ways, 578 m in district, classes primary; lanes values ['4']; one-way segments 1/1; maxspeed ['60']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
+- Transit lines (OSM route relations): bus 100, bus 203, bus 361.
+- Fronting buildings: 0; businesses: 2.
+- **cross_section**: grand tree-lined avenue entering Piața Victoriei from the north (world start for uipath-buc): wide dual carriageway with broad lawn/tree verges and park-like sidewalks under mature chestnuts/lindens and planes; primary, 50 km/h (verify signs); Grigore Antipa museum and the Museum of the Romanian Peasant at its southern end on the W side
+- confidence: medium (OSM class; photos pending) [osm] [wp_victoriei]
 
 ### Piața Romană (chapter route)
 
@@ -179,42 +190,54 @@ Per-segment OSM data (lanes, turn:lanes, bus lanes, parking, trolley wires, spee
 - **speed_limit_kmh**: 50
 - confidence: medium [osm]
 
-### Bulevardul Iancu de Hunedoara
-
-- OSM: 15 ways, 1950 m in district, classes primary; lanes values ['2', '3']; one-way segments 15/15; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: central reservation, shared carriageway (rails in road).
-- Transit lines (OSM route relations): bus 1929, tram 1, tram 10, tram 46.
-- OSM trees within 25 m: 3 (species —, genus —).
-- OSM furniture: {'gate': 2}.
-- Fronting buildings: 54; businesses: 16.
-- **cross_section**: Dual carriageway 2 lanes each way (3 near junctions) either side of a central tram reservation (lines 1, 10, 46) with poles carrying the tram overhead; diagonal/kerb parking in short stretches on the S side (parking:right=street_side diagonal); 50 km/h; DJ200B
-- **frontage**: 9-storey 1960s–70s blocks (Bl. H4–H6 S side, Bl. I1–I3, Bl. 2, 3 N side), Bloc Volga (37, 7 lv/30 m), Capital Plaza Hotel (54) near Dorobanți; Palatul Victoria rear at the W end
-- confidence: high (OSM) [osm]
-
-### Pasajul Victoria
-
-- OSM: 9 ways, 1092 m in district, classes primary; lanes values ['2']; one-way segments 9/9; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: central reservation.
-- Transit lines (OSM route relations): bus 1929, tram 1, tram 10, tram 46.
-- Fronting buildings: 0; businesses: 3.
-
 ### Calea Victoriei
 
-- OSM: 2 ways, 917 m in district, classes secondary; lanes values ['2']; one-way segments 2/2; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
-- Transit lines (OSM route relations): bus 361.
-- OSM trees within 25 m: 18 (species —, genus —).
-- OSM furniture: {'drinking_water': 1, 'bicycle_rental': 1, 'waste_basket': 7}.
-- Fronting buildings: 37; businesses: 28.
+- OSM: 7 ways, 1642 m in district, classes secondary; lanes values ['2', '3', '4']; one-way segments 7/7; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: —.
+- Transit lines (OSM route relations): bus 122, bus 137, bus 168, bus 226, bus 311, bus 361, bus 368.
+- OSM trees within 25 m: 32 (species —, genus —).
+- OSM furniture: {'gate': 2, 'drinking_water': 1, 'bicycle_rental': 1, 'waste_basket': 7}.
+- Fronting buildings: 113; businesses: 89.
 - **cross_section**: northern end: 1–2 lanes each way, 50 km/h; listed houses (Casa Vernescu 133 — casino/restaurant, Casa Nenciu, Casa cu cariatide 202, Palatul Cantacuzino 141 — George Enescu Museum) and 1990s towers at Piața Victoriei
 - **lamps**: black ornamental cast-iron style lanterns along Calea Victoriei (city rule "historic")
 - confidence: medium [osm]
 
+### Pasajul Victoria
+
+- OSM: 9 ways, 1411 m in district, classes primary; lanes values ['2']; one-way segments 9/9; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: central reservation.
+- Transit lines (OSM route relations): bus 1929, tram 1, tram 10, tram 46.
+- Fronting buildings: 0; businesses: 3.
+
+### Bulevardul Dacia
+
+- OSM: 21 ways, 1336 m in district, classes primary, residential, secondary; lanes values ['1', '2', '3', '4']; one-way segments 13/21; maxspeed ['30', '50', 'RO:urban']; surface ['asphalt']; trolley_wire ['yes']; turn lanes tagged: True; bus/psv lanes tagged: False; tram: —.
+- Transit lines (OSM route relations): bus 168, bus 226, bus 301, bus 331, bus 361, bus 368, bus 331B, trolleybus 79, trolleybus 86, trolleybus 97.
+- OSM trees within 25 m: 8 (species —, genus —).
+- OSM furniture: {'gate': 1, 'lift_gate': 1, 'taxi': 1, 'drinking_water': 1}.
+- Fronting buildings: 34; businesses: 31.
+- **cross_section**: two-way 2+2 (4 lanes) through Piața Romană, trolleybus 79/86/97 and many buses; ASE Mihai Eminescu building (41), Sheraton (5-7), Academy Library (125) further west
+- confidence: high (OSM) [osm]
+
 ### Calea Dorobanților
 
-- OSM: 7 ways, 896 m in district, classes primary, secondary, tertiary; lanes values ['4', '6']; one-way segments 4/7; maxspeed ['60', 'RO:urban']; surface ['asphalt']; trolley_wire ['yes']; turn lanes tagged: True; bus/psv lanes tagged: True; tram: —.
+- OSM: 13 ways, 1255 m in district, classes primary, secondary, tertiary; lanes values ['4', '6']; one-way segments 4/13; maxspeed ['60', 'RO:urban']; surface ['asphalt']; trolley_wire ['yes']; turn lanes tagged: True; bus/psv lanes tagged: True; tram: —.
 - Transit lines (OSM route relations): bus 301, bus 331, bus 335, bus 461, bus 331B, trolleybus 79, trolleybus 86, trolleybus 97.
 - OSM furniture: {'post_box': 1, 'lift_gate': 1, 'gate': 2, 'drinking_water': 1}.
-- Fronting buildings: 22; businesses: 25.
+- Fronting buildings: 38; businesses: 72.
 - **cross_section**: between Piața Romană and Iancu de Hunedoara: one-way SOUTHBOUND for cars (4 lanes) with a CONTRAFLOW northbound bus/trolleybus lane (busway=opposite_lane); trolleybus 79, 86, 97
 - confidence: high (OSM) [osm]
+
+### Bulevardul Aviatorilor
+
+- OSM: 16 ways, 1060 m in district, classes primary, residential; lanes values ['1', '6']; one-way segments 5/16; maxspeed ['60', 'RO:urban']; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: —.
+- Transit lines (OSM route relations): bus 100, bus 203, bus 361.
+- Fronting buildings: 6; businesses: 6.
+
+### Strada Buzești
+
+- OSM: 11 ways, 986 m in district, classes primary; lanes values ['2', '3']; one-way segments 8/11; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: —.
+- Transit lines (OSM route relations): bus 205.
+- OSM furniture: {'surveillance': 1, 'gate': 1, 'lift_gate': 1, 'recycling': 1}.
+- Fronting buildings: 106; businesses: 25.
 
 ### Strada Căderea Bastiliei
 
@@ -236,47 +259,40 @@ Per-segment OSM data (lanes, turn:lanes, bus lanes, parking, trolley wires, spee
 - OSM furniture: {'waste_basket': 1}.
 - Fronting buildings: 24; businesses: 4.
 
-### Strada Buzești
+### Bulevardul Ion Mihalache
 
-- OSM: 6 ways, 462 m in district, classes primary; lanes values ['2', '3']; one-way segments 5/6; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: —.
-- Transit lines (OSM route relations): bus 205.
-- OSM furniture: {'surveillance': 1}.
-- Fronting buildings: 93; businesses: 12.
+- OSM: 6 ways, 473 m in district, classes primary; lanes values ['2']; one-way segments 6/6; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
+- Transit lines (OSM route relations): bus 205, bus 381.
+- OSM furniture: {'gate': 1, 'lift_gate': 1}.
+- Fronting buildings: 6; businesses: 3.
+
+### Șoseaua Nicolae Titulescu
+
+- OSM: 5 ways, 399 m in district, classes primary; lanes values ['2']; one-way segments 5/5; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
+- Transit lines (OSM route relations): bus 381.
+- OSM furniture: {'bicycle_parking': 2, 'lift_gate': 2}.
+- Fronting buildings: 7; businesses: 11.
 
 ### Strada Constantin Daniel
 
 - OSM: 2 ways, 273 m in district, classes residential; lanes values ['1']; one-way segments 2/2; maxspeed ['RO:urban']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
 - Fronting buildings: 17; businesses: 2.
 
-### Șoseaua Nicolae Titulescu
+### Strada Mihai Eminescu
 
-- OSM: 3 ways, 272 m in district, classes primary; lanes values ['2']; one-way segments 3/3; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
-- Transit lines (OSM route relations): bus 381.
-- Fronting buildings: 0; businesses: 2.
-
-### Bulevardul Ion Mihalache
-
-- OSM: 3 ways, 188 m in district, classes primary; lanes values ['2']; one-way segments 3/3; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
-- Transit lines (OSM route relations): bus 205, bus 381.
-- Fronting buildings: 0; businesses: 1.
-
-### Bulevardul Aviatorilor
-
-- OSM: 3 ways, 179 m in district, classes primary, residential; lanes values ['1', '6']; one-way segments 1/3; maxspeed ['60', 'RO:urban']; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: —.
-- Transit lines (OSM route relations): bus 100, bus 203, bus 361.
+- OSM: 1 ways, 253 m in district, classes secondary; lanes values ['2']; one-way segments 1/1; maxspeed ['RO:urban']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
 - Fronting buildings: 2; businesses: 3.
 
 ### Șoseaua Ștefan cel Mare
 
-- OSM: 3 ways, 167 m in district, classes primary; lanes values ['3', '4']; one-way segments 3/3; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: central reservation.
+- OSM: 3 ways, 230 m in district, classes primary; lanes values ['3', '4']; one-way segments 3/3; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: central reservation.
 - Transit lines (OSM route relations): bus 335, bus 461, bus 1929, tram 1, tram 46.
-- Fronting buildings: 0; businesses: 4.
+- Fronting buildings: 0; businesses: 9.
 
-### Șoseaua Pavel Dimitrievici Kiseleff
+### Intrarea Buzești
 
-- OSM: 1 ways, 147 m in district, classes primary; lanes values ['4']; one-way segments 1/1; maxspeed ['60']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
-- Transit lines (OSM route relations): bus 100, bus 203, bus 361.
-- Fronting buildings: 0; businesses: 0.
+- OSM: 1 ways, 82 m in district, classes residential; lanes values []; one-way segments 0/1; maxspeed ['RO:urban']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
+- Fronting buildings: 7; businesses: 0.
 
 ### Intrarea Grigore Alexandrescu
 
@@ -302,24 +318,22 @@ Signalised / main junctions on the chapter routes (OSM):
 
 | node | streets | signals | roundabout | crossings ≤40 m |
 |---|---|---|---|---|
+| n6498351591 | Bulevardul General Gheorghe Magheru × Strada Jules Michelet | yes |  | 7 |
+| n1340445073 | Bulevardul General Gheorghe Magheru × Strada Pictor Arthur Verona |  |  | 1 |
 | n257680252 | Bulevardul Lascăr Catargiu × Strada Povernei |  |  | 2 |
 | n257680249 | Bulevardul Lascăr Catargiu × Strada Viișoarei |  |  | 0 |
 | n31402063 | Calea Victoriei × Piața Victoriei | yes |  | 5 |
 | n31402056 | Bulevardul Iancu de Hunedoara × Piața Victoriei | yes |  | 3 |
 | n255721965 | Piața Victoriei × Strada Duiliu Zamfirescu | yes |  | 2 |
-| n256017667 | Bulevardul Lascăr Catargiu × Strada Amiral Vasile Urseanu |  |  | 2 |
-| n1006024117 | Bulevardul Lascăr Catargiu × Strada Gina Patrichi |  |  | 0 |
+| n255895639 | Strada Monetăriei × Șoseaua Pavel Dimitrievici Kiseleff | yes |  | 2 |
 | n1006024745 | Bulevardul Lascăr Catargiu × Strada Clopotarii Vechi | yes |  | 5 |
 | n33390176 | Bulevardul Lascăr Catargiu × Strada General Gheorghe Manu | yes |  | 8 |
-| n4191398561 | Bulevardul Lascăr Catargiu × Strada Henri Coandă | yes |  | 8 |
 | n1397123589 | Bulevardul Aviatorilor × Piața Victoriei × Strada Duiliu Zamfirescu | yes |  | 4 |
 | n257714748 | Bulevardul Lascăr Catargiu × Piața Victoriei | yes |  | 5 |
 | n2404275892 | Bulevardul Iancu de Hunedoara × Bulevardul Lascăr Catargiu × Piața Victoriei | yes |  | 2 |
 | n31402059 | Piața Victoriei × Șoseaua Pavel Dimitrievici Kiseleff |  |  | 0 |
-| n2648513777 | Bulevardul Lascăr Catargiu × Strada Grigore Alexandrescu | yes |  | 7 |
-| n1006015320 | Bulevardul Lascăr Catargiu × Strada Puțul de Piatră | yes |  | 6 |
-| n117334964 | Bulevardul Lascăr Catargiu × Strada Visarion |  |  | 2 |
-| n2405784164 | Bulevardul Dacia × Piața Romană | yes |  | 7 |
+| n256192514 | Bulevardul Iancu de Hunedoara × Strada Clopotarii Vechi |  |  | 1 |
+| n296039801 | Bulevardul Iancu de Hunedoara × Pasajul Victoria | yes |  | 3 |
 | n134971067 | Bulevardul Dacia × Bulevardul General Gheorghe Magheru × Piața Romană | yes |  | 8 |
 | n125431052 | Bulevardul Lascăr Catargiu × Piața Romană | yes |  | 6 |
 | n3262378104 | Bulevardul Dacia × Bulevardul General Gheorghe Magheru | yes |  | 8 |
@@ -345,160 +359,182 @@ Signalised / main junctions on the chapter routes (OSM):
 
 | OSM | street | side | addr | type | levels | height | year | condition | style (est.) | facade | shops |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| w283091435 | Bulevardul General Gheorghe Magheru | E |  | apartments | 6 |  |  |  | unknown (use district rule) |  | 2 |
+| w241932504 | Bulevardul General Gheorghe Magheru | E | 8 | yes · Garajul Ciclop | 7 |  | 1923 |  | interwar (art deco / modernist) apartment block | #E2D3B5 est | 0 |
+| w442813528 | Bulevardul General Gheorghe Magheru | E | 8-10 | yes · Hotel Ambasador | 2 est |  |  |  | unknown (use district rule) | #C9B79C est | 3 |
+| w162494339 | Bulevardul General Gheorghe Magheru | E | 18 | apartments | 8 |  |  |  | communist-era block (likely) | #C7C1B5 est | 3 |
+| w162494314 | Bulevardul General Gheorghe Magheru | E | 20 | apartments | 7 |  |  |  | unknown (use district rule) | #E2D3B5 est | 5 |
+| w241932500 | Bulevardul General Gheorghe Magheru | E |  | apartments | 7.0 est |  |  |  | unknown (use district rule) | #E8E1D3 est | 3 |
+| w283091403 | Bulevardul General Gheorghe Magheru | E |  | apartments | 10 |  |  |  | communist-era block (likely) | #BDB5A6 est | 3 |
+| w283091435 | Bulevardul General Gheorghe Magheru | E |  | apartments | 6 |  |  |  | unknown (use district rule) | #E8E1D3 est | 2 |
 | w317347462 | Bulevardul General Gheorghe Magheru | E |  | apartments | 9 |  |  |  | communist-era block (likely) | #A9A49B est | 12 |
-| w1418159688 | Bulevardul Lascăr Catargiu | SW | 7 | apartments | 5 | 17.5 | 1935 | Urgency Category 1 | interwar (art deco / modernist) apartment block | #BFB8A8 est | 0 |
-| w1441705293 | Bulevardul Lascăr Catargiu | NE |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w171045145 | Bulevardul Lascăr Catargiu | NE |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w296527631 | Bulevardul Lascăr Catargiu | SW | 11A | apartments | 7 | 16 | 1939 | Seismic Risk Class I | interwar (art deco / modernist) apartment block | #D9D2C3 est | 0 |
-| w583614925 | Bulevardul Lascăr Catargiu | NE |  | detached |  |  |  |  | low house/villa (19th-early 20th c. likely) | #E9E0CF est | 0 |
+| w559450992 | Bulevardul Iancu de Hunedoara | S |  | house | 2 |  |  |  | low house/villa (19th-early 20th c. likely) | #D8C3A5 est | 0 |
+| w1517168168 | Bulevardul Iancu de Hunedoara | S |  | yes |  | 4 |  |  | unknown (use district rule) | #fff8dc | 0 |
+| w1517168167 | Bulevardul Iancu de Hunedoara | S |  | yes |  | 30 |  |  | unknown (use district rule) | #fff8dc | 0 |
+| w236091148 | Bulevardul Iancu de Hunedoara | S |  | apartments · Bl. H6 | 11.0 est |  |  |  | unknown (use district rule) | #BFB8A8 est | 0 |
+| w1517168170 | Bulevardul Iancu de Hunedoara | S |  | yes |  | 36 |  |  | unknown (use district rule) | #fff8dc | 0 |
+| w1517168169 | Bulevardul Iancu de Hunedoara | S |  | yes |  | 33 |  |  | unknown (use district rule) | #fff8dc | 0 |
+| w1517060715 | Bulevardul Iancu de Hunedoara | S |  | yes |  | 30 |  |  | unknown (use district rule) | #fff8dc | 0 |
+| w1517060714 | Bulevardul Iancu de Hunedoara | S |  | yes |  | 30 |  |  | unknown (use district rule) | #fff8dc | 0 |
+| w236091150 | Bulevardul Iancu de Hunedoara | S |  | apartments · Bl. H5 | 9 |  |  |  | communist-era block (likely) | #BDB5A6 est | 0 |
+| w1517060713 | Bulevardul Iancu de Hunedoara | S |  | yes |  | 27 |  |  | unknown (use district rule) | #fff8dc | 0 |
+| w1517060712 | Bulevardul Iancu de Hunedoara | S |  | yes |  | 30 |  |  | unknown (use district rule) | #fff8dc | 0 |
+| w1517060710 | Bulevardul Iancu de Hunedoara | S |  | yes |  | 27 |  |  | unknown (use district rule) | #fff8dc | 0 |
+| w45514712 | Bulevardul Iancu de Hunedoara | S |  | apartments · Bl. H4 | 3.0 est |  |  |  | unknown (use district rule) | #CFC8B8 est | 1 |
+| w1517060716 | Bulevardul Iancu de Hunedoara | S |  | yes |  | 24 |  |  | unknown (use district rule) | #fff8dc | 0 |
+| w1517060711 | Bulevardul Iancu de Hunedoara | S |  | yes |  | 24 |  |  | unknown (use district rule) | #fff8dc | 0 |
+| w1520984127 | Bulevardul Iancu de Hunedoara | S |  | yes | 5.0 est |  |  |  | unknown (use district rule) | #D8C3A5 est | 0 |
+| w1441705293 | Bulevardul Lascăr Catargiu | NE |  | yes | 2.0 est |  |  |  | unknown (use district rule) | #C9B79C est | 0 |
+| w171045145 | Bulevardul Lascăr Catargiu | NE |  | yes | 2.0 est |  |  |  | unknown (use district rule) | #E9E0CF est | 0 |
+| w583614925 | Bulevardul Lascăr Catargiu | NE |  | detached | 2 est |  |  |  | low house/villa (19th-early 20th c. likely) | #E9E0CF est | 0 |
 | w571479979 | Bulevardul Lascăr Catargiu | NE | 7a | yes | 2 |  |  |  | low house/villa (19th-early 20th c. likely) | #E7D8C9 est | 0 |
-| w1418769474 | Bulevardul Lascăr Catargiu | SW |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w324094052 | Bulevardul Lascăr Catargiu | SW | 15A | apartments | 7 | 13 | 1934 | Retrofitted | interwar (art deco / modernist) apartment block | #CFC8B8 est | 0 |
 | w323875142 | Bulevardul Lascăr Catargiu | NE | 14 | apartments · Fischer International | 4 |  | 1938 | Seismic Risk Class III | interwar (art deco / modernist) apartment block | #CFC8B8 est | 1 |
 | w324094050 | Bulevardul Lascăr Catargiu | NE | 16 | apartments | 4 | 14 | 1929 | Seismic Risk Class III | interwar (art deco / modernist) apartment block | #E8E1D3 est | 0 |
-| w583614940 | Bulevardul Lascăr Catargiu | NE |  | apartments | 4 |  |  |  | unknown (use district rule) |  | 0 |
-| w1418173745 | Bulevardul Lascăr Catargiu | SW | 27 | apartments | 6 | 21 | 1930 | Urgency Category 3 | interwar (art deco / modernist) apartment block | #E8E1D3 est | 0 |
-| w171045066 | Bulevardul Lascăr Catargiu | NE |  | yes · Secția 1 |  |  |  |  | unknown (use district rule) |  | 1 |
-| w171045123 | Bulevardul Lascăr Catargiu | NE |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w319776846 | Bulevardul Lascăr Catargiu | SW |  | yes | 3 |  |  |  | unknown (use district rule) |  | 0 |
-| w363436427 | Bulevardul Lascăr Catargiu | SW |  | yes | 3 |  |  |  | unknown (use district rule) |  | 0 |
+| w583614940 | Bulevardul Lascăr Catargiu | NE |  | apartments | 4 |  |  |  | unknown (use district rule) | #E8E1D3 est | 0 |
+| w171045066 | Bulevardul Lascăr Catargiu | NE |  | yes · Secția 1 | 2 est |  |  |  | unknown (use district rule) | #E6D3B3 est | 1 |
+| w171045123 | Bulevardul Lascăr Catargiu | NE |  | yes | 2 est |  |  |  | unknown (use district rule) | #C9B79C est | 0 |
 | w180556783 | Bulevardul Lascăr Catargiu | NE | 28 | apartments | 5 | 17.5 | 1935 | Urgency Category 2 | interwar (art deco / modernist) apartment block | #BFB8A8 est | 0 |
-| w245083672 | Bulevardul Lascăr Catargiu | NE |  | yes | 3 |  |  |  | unknown (use district rule) |  | 0 |
-| w245083609 | Bulevardul Lascăr Catargiu | NE |  | yes | 3 |  |  |  | unknown (use district rule) |  | 0 |
-| w245083664 | Bulevardul Lascăr Catargiu | NE |  | retail | 3 |  |  |  | unknown (use district rule) |  | 0 |
-| w245083655 | Bulevardul Lascăr Catargiu | NE |  | yes | 3 |  |  |  | unknown (use district rule) |  | 0 |
-| w245083616 | Bulevardul Lascăr Catargiu | NE |  | yes | 3 |  |  |  | unknown (use district rule) |  | 0 |
-| w309265221 | Bulevardul Lascăr Catargiu | SW | 41 | apartments | 4 | 17.5 | 1939 | Urgency Category 2 | interwar (art deco / modernist) apartment block | #D9D2C3 est | 0 |
-| w309265224 | Bulevardul Lascăr Catargiu | SW | 43 | apartments |  |  |  |  | unknown (use district rule) |  | 0 |
+| w245083672 | Bulevardul Lascăr Catargiu | NE |  | yes | 3 |  |  |  | unknown (use district rule) | #D8C3A5 est | 0 |
+| w245083609 | Bulevardul Lascăr Catargiu | NE |  | yes | 3 |  |  |  | unknown (use district rule) | #E7D8C9 est | 0 |
+| w245083664 | Bulevardul Lascăr Catargiu | NE |  | retail | 3 |  |  |  | unknown (use district rule) | #E2D3B5 est | 0 |
+| w245083655 | Bulevardul Lascăr Catargiu | NE |  | yes | 3 |  |  |  | unknown (use district rule) | #E9E0CF est | 0 |
+| w245083616 | Bulevardul Lascăr Catargiu | NE |  | yes | 3 |  |  |  | unknown (use district rule) | #E6D3B3 est | 0 |
 | w231445034 | Bulevardul Lascăr Catargiu | NE | 44 | semidetached_house | 3 | 13 | 1910 | Seismic Risk Class I | pre-1919 eclectic / neo-romanian house or villa | #E7D8C9 est | 0 |
-| w324179820 | Bulevardul Lascăr Catargiu | NE |  | commercial |  |  |  |  | unknown (use district rule) |  | 0 |
+| w324179820 | Bulevardul Lascăr Catargiu | NE |  | commercial | 5.0 est |  |  |  | unknown (use district rule) | #E8E1D3 est | 0 |
 | w1418176530 | Bulevardul Lascăr Catargiu | NE | 48 | apartments | 3 | 13 | 1880 | Retrofitted | pre-1919 eclectic / neo-romanian house or villa | #E9E0CF est | 0 |
-| w405553978 | Bulevardul Lascăr Catargiu | NE | 54 | civic |  |  |  |  | unknown (use district rule) |  | 1 |
-| w231445037 | Bulevardul Lascăr Catargiu | NE |  | apartments | 3 |  |  |  | unknown (use district rule) |  | 1 |
+| w405553978 | Bulevardul Lascăr Catargiu | NE | 54 | civic | 2.0 est |  |  |  | unknown (use district rule) | #BFB8A8 est | 1 |
+| w231445037 | Bulevardul Lascăr Catargiu | NE |  | apartments | 3 |  |  |  | unknown (use district rule) | #CFC8B8 est | 1 |
 | w923421208 | Bulevardul Lascăr Catargiu | SW |  | apartments | 11 | 39.25 |  |  | unknown (use district rule) | #E5E5CF | 0 |
 | w923520626 | Bulevardul Lascăr Catargiu | SW |  | yes |  | 39.25 |  |  | unknown (use district rule) | #E5E5CF | 0 |
 | w559463171 | Bulevardul Lascăr Catargiu | NE | 58 | house | 3 |  |  |  | low house/villa (19th-early 20th c. likely) | #E6D3B3 est | 0 |
-| w1516933653 | Strada Grigore Alexandrescu | S |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1516933654 | Strada Grigore Alexandrescu | S |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1516933652 | Strada Grigore Alexandrescu | S |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w231445015 | Strada Grigore Alexandrescu | S |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w231445041 | Strada Grigore Alexandrescu | S |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w180556816 | Strada Grigore Alexandrescu | S |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310934 | Strada Grigore Alexandrescu | S |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310935 | Strada Grigore Alexandrescu | S |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310932 | Strada Grigore Alexandrescu | S |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310933 | Strada Grigore Alexandrescu | S |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310948 | Strada Grigore Alexandrescu | S |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w231445047 | Strada Grigore Alexandrescu | S |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w231445063 | Strada Grigore Alexandrescu | S |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
+| w1516933653 | Strada Grigore Alexandrescu | S |  | yes | 2.0 est |  |  |  | unknown (use district rule) | #C9B79C est | 0 |
+| w1516933654 | Strada Grigore Alexandrescu | S |  | yes | 2.0 est |  |  |  | unknown (use district rule) | #E7D8C9 est | 0 |
+| w1516933652 | Strada Grigore Alexandrescu | S |  | yes | 2 est |  |  |  | unknown (use district rule) | #D8C3A5 est | 0 |
+| w231445015 | Strada Grigore Alexandrescu | S |  | yes | 2 est |  |  |  | unknown (use district rule) | #E9E0CF est | 0 |
+| w231445041 | Strada Grigore Alexandrescu | S |  | yes | 2 est |  |  |  | unknown (use district rule) | #E6D3B3 est | 0 |
+| w180556816 | Strada Grigore Alexandrescu | S |  | yes | 2 est |  |  |  | unknown (use district rule) | #E6D3B3 est | 0 |
+| w1449310934 | Strada Grigore Alexandrescu | S |  | yes | 3.0 est |  |  |  | unknown (use district rule) | #E7D8C9 est | 0 |
+| w1449310935 | Strada Grigore Alexandrescu | S |  | yes | 3.0 est |  |  |  | unknown (use district rule) | #E9E0CF est | 0 |
+| w1449310932 | Strada Grigore Alexandrescu | S |  | yes | 2 est |  |  |  | unknown (use district rule) | #D8C3A5 est | 0 |
+| w1449310933 | Strada Grigore Alexandrescu | S |  | yes | 2 est |  |  |  | unknown (use district rule) | #C9B79C est | 0 |
+| w1449310948 | Strada Grigore Alexandrescu | S |  | yes | 3.0 est |  |  |  | unknown (use district rule) | #C9B79C est | 0 |
+| w231445047 | Strada Grigore Alexandrescu | S |  | yes | 3.0 est |  |  |  | unknown (use district rule) | #D8C3A5 est | 0 |
+| w231445063 | Strada Grigore Alexandrescu | S |  | yes | 3.0 est |  |  |  | unknown (use district rule) | #C9B79C est | 0 |
 | w206360989 | Strada Grigore Alexandrescu | S | 56 | yes · Zen Sushi | 1 |  |  |  | low house/villa (19th-early 20th c. likely) | #E7D8C9 est | 1 |
-| w559463172 | Strada Grigore Alexandrescu | N |  | residential · Casa Ronald McDonald | 3 |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310947 | Strada Grigore Alexandrescu | S |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310946 | Strada Grigore Alexandrescu | S |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w559463173 | Strada Grigore Alexandrescu | N |  | hospital · Clinică de Arsuri și Chirurgie Plastică | 3 |  |  |  | unknown (use district rule) |  | 0 |
-| w206360981 | Strada Grigore Alexandrescu | S |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310914 | Strada Grigore Alexandrescu | S |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310936 | Strada Grigore Alexandrescu | N |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310915 | Strada Grigore Alexandrescu | S |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
+| w559463172 | Strada Grigore Alexandrescu | N |  | residential · Casa Ronald McDonald | 3 |  |  |  | unknown (use district rule) | #CFC8B8 est | 0 |
+| w1449310947 | Strada Grigore Alexandrescu | S |  | yes | 3.0 est |  |  |  | unknown (use district rule) | #D8C3A5 est | 0 |
+| w1449310946 | Strada Grigore Alexandrescu | S |  | yes | 3.0 est |  |  |  | unknown (use district rule) | #E6D3B3 est | 0 |
+| w559463173 | Strada Grigore Alexandrescu | N |  | hospital · Clinică de Arsuri și Chirurgie Plastică | 3 |  |  |  | unknown (use district rule) | #BFB8A8 est | 0 |
+| w206360981 | Strada Grigore Alexandrescu | S |  | yes | 3.0 est |  |  |  | unknown (use district rule) | #E6D3B3 est | 0 |
+| w1449310914 | Strada Grigore Alexandrescu | S |  | yes | 3.0 est |  |  |  | unknown (use district rule) | #E7D8C9 est | 0 |
+| w1449310936 | Strada Grigore Alexandrescu | N |  | yes | 2 est |  |  |  | unknown (use district rule) | #E6D3B3 est | 0 |
+| w1449310915 | Strada Grigore Alexandrescu | S |  | yes | 3.0 est |  |  |  | unknown (use district rule) | #E9E0CF est | 0 |
 | w369058096 | Strada Grigore Alexandrescu | N |  | hospital · Ambulator | 1 |  |  |  | low house/villa (19th-early 20th c. likely) | #E6D3B3 est | 0 |
-| w1449310922 | Strada Grigore Alexandrescu | S |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310938 | Strada Grigore Alexandrescu | N |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310937 | Strada Grigore Alexandrescu | N |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310931 | Strada Grigore Alexandrescu | N |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310939 | Strada Grigore Alexandrescu | N |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310940 | Strada Grigore Alexandrescu | N |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310941 | Strada Grigore Alexandrescu | N |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310942 | Strada Grigore Alexandrescu | N |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310943 | Strada Grigore Alexandrescu | N |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310944 | Strada Grigore Alexandrescu | N |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310945 | Strada Grigore Alexandrescu | N |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310928 | Strada Grigore Alexandrescu | N |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310930 | Strada Grigore Alexandrescu | N |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310929 | Strada Grigore Alexandrescu | N |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310927 | Strada Grigore Alexandrescu | N |  | yes |  |  |  |  | unknown (use district rule) |  | 1 |
-| w1449310923 | Strada Grigore Alexandrescu | N |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w171045139 | Strada Grigore Alexandrescu | N |  | commercial · HQ Victoriei | 5 |  |  |  | unknown (use district rule) |  | 0 |
-| w182933471 | Strada Vasile Alecsandri | E |  | apartments | 3 |  |  |  | unknown (use district rule) |  | 0 |
-| w23647615 | Strada Vasile Alecsandri | W |  | school · Școala Națională de Studii Politice și Administrative |  |  |  |  | unknown (use district rule) |  | 0 |
+| w1449310922 | Strada Grigore Alexandrescu | S |  | yes | 3.0 est |  |  |  | unknown (use district rule) | #D8C3A5 est | 0 |
+| w1449310938 | Strada Grigore Alexandrescu | N |  | yes | 2 est |  |  |  | unknown (use district rule) | #C9B79C est | 0 |
+| w1449310937 | Strada Grigore Alexandrescu | N |  | yes | 2 est |  |  |  | unknown (use district rule) | #D8C3A5 est | 0 |
+| w1449310931 | Strada Grigore Alexandrescu | N |  | yes | 2 est |  |  |  | unknown (use district rule) | #E6D3B3 est | 0 |
+| w1449310939 | Strada Grigore Alexandrescu | N |  | yes | 2 est |  |  |  | unknown (use district rule) | #E7D8C9 est | 0 |
+| w1449310940 | Strada Grigore Alexandrescu | N |  | yes | 2 est |  |  |  | unknown (use district rule) | #E9E0CF est | 0 |
+| w1449310941 | Strada Grigore Alexandrescu | N |  | yes | 2 est |  |  |  | unknown (use district rule) | #E6D3B3 est | 0 |
+| w1449310942 | Strada Grigore Alexandrescu | N |  | yes | 2 est |  |  |  | unknown (use district rule) | #D8C3A5 est | 0 |
+| w1449310943 | Strada Grigore Alexandrescu | N |  | yes | 2 est |  |  |  | unknown (use district rule) | #C9B79C est | 0 |
+| w1449310944 | Strada Grigore Alexandrescu | N |  | yes | 3.0 est |  |  |  | unknown (use district rule) | #E7D8C9 est | 0 |
+| w1449310945 | Strada Grigore Alexandrescu | N |  | yes | 3.0 est |  |  |  | unknown (use district rule) | #E9E0CF est | 0 |
+| w1449310928 | Strada Grigore Alexandrescu | N |  | yes | 3.0 est |  |  |  | unknown (use district rule) | #C9B79C est | 0 |
+| w1449310930 | Strada Grigore Alexandrescu | N |  | yes | 3.0 est |  |  |  | unknown (use district rule) | #E9E0CF est | 0 |
+| w1449310929 | Strada Grigore Alexandrescu | N |  | yes | 3.0 est |  |  |  | unknown (use district rule) | #E7D8C9 est | 0 |
+| w1449310927 | Strada Grigore Alexandrescu | N |  | yes | 3.0 est |  |  |  | unknown (use district rule) | #D8C3A5 est | 1 |
+| w1449310923 | Strada Grigore Alexandrescu | N |  | yes | 3.0 est |  |  |  | unknown (use district rule) | #C9B79C est | 0 |
+| w171045139 | Strada Grigore Alexandrescu | N |  | commercial · HQ Victoriei | 5 |  |  |  | unknown (use district rule) | #5E7F8C est | 0 |
+| w182933471 | Strada Vasile Alecsandri | E |  | apartments | 3 |  |  |  | unknown (use district rule) | #D9D2C3 est | 0 |
+| w23647615 | Strada Vasile Alecsandri | W |  | school · Școala Națională de Studii Politice și Administrative | 7.0 est |  |  |  | unknown (use district rule) | #E8E1D3 est | 0 |
 | w546500235 | Strada Vasile Alecsandri | E |  | office · The Landmark Corp B | 7 |  |  |  | modern office/glass curtain wall | #D8D3C8 | 3 |
-| w1449310958 | Strada Vasile Alecsandri | W |  | yes |  |  |  |  | unknown (use district rule) |  | 1 |
-| w546500248 | Strada Vasile Alecsandri | E |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310957 | Strada Vasile Alecsandri | W |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w546500247 | Strada Vasile Alecsandri | E |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310956 | Strada Vasile Alecsandri | W |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w206360983 | Strada Vasile Alecsandri | E |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310955 | Strada Vasile Alecsandri | W |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w206360984 | Strada Vasile Alecsandri | E |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310954 | Strada Vasile Alecsandri | W |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w546500238 | Strada Vasile Alecsandri | E |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w245083610 | Strada Vasile Alecsandri | W |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w546500256 | Strada Vasile Alecsandri | E |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w546500250 | Strada Vasile Alecsandri | E |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310919 | Strada Vasile Alecsandri | E |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w583614934 | Strada Vasile Alecsandri | E |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w1449310921 | Strada Vasile Alecsandri | W |  | yes |  |  |  |  | unknown (use district rule) |  | 1 |
-| w245083674 | Strada Clopotarii Vechi | E |  | yes | 2 |  |  |  | low house/villa (19th-early 20th c. likely) | #E7D8C9 est | 0 |
-| w678558194 | Strada Clopotarii Vechi | W |  | commercial | 3 |  |  |  | unknown (use district rule) |  | 1 |
-| w171045122 | Strada Clopotarii Vechi | E |  | yes | 2 |  |  |  | low house/villa (19th-early 20th c. likely) | #D8C3A5 est | 0 |
-| w231445061 | Strada Clopotarii Vechi | SW | 40 | apartments | 2 |  |  |  | low house/villa (19th-early 20th c. likely) | #E6D3B3 est | 0 |
-| w546500264 | Strada Clopotarii Vechi | SW |  | yes | 2 |  |  |  | low house/villa (19th-early 20th c. likely) | #E7D8C9 est | 0 |
-| w245083650 | Strada Clopotarii Vechi | NE |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w171045144 | Strada Clopotarii Vechi | NE |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w245083692 | Strada Clopotarii Vechi | NE |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w180556824 | Strada Clopotarii Vechi | NE |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w171045071 | Strada Clopotarii Vechi | W | 16-20 | office | 5 |  |  |  | unknown (use district rule) |  | 2 |
-| w180556781 | Strada Clopotarii Vechi | NE |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
-| w171045061 | Strada Clopotarii Vechi | E |  | yes |  |  |  |  | unknown (use district rule) |  | 0 |
+| w1449310958 | Strada Vasile Alecsandri | W |  | yes | 2 est |  |  |  | unknown (use district rule) | #C9B79C est | 1 |
+| w546500248 | Strada Vasile Alecsandri | E |  | yes | 2 est |  |  |  | unknown (use district rule) | #C9B79C est | 0 |
+| w1449310957 | Strada Vasile Alecsandri | W |  | yes | 2 est |  |  |  | unknown (use district rule) | #D8C3A5 est | 0 |
+| w546500247 | Strada Vasile Alecsandri | E |  | yes | 2 est |  |  |  | unknown (use district rule) | #D8C3A5 est | 0 |
+| w1449310956 | Strada Vasile Alecsandri | W |  | yes | 2 est |  |  |  | unknown (use district rule) | #E6D3B3 est | 0 |
+| w206360983 | Strada Vasile Alecsandri | E |  | yes | 2 est |  |  |  | unknown (use district rule) | #C9B79C est | 0 |
+| w1449310955 | Strada Vasile Alecsandri | W |  | yes | 2 est |  |  |  | unknown (use district rule) | #E9E0CF est | 0 |
+| w206360984 | Strada Vasile Alecsandri | E |  | yes | 2 est |  |  |  | unknown (use district rule) | #E7D8C9 est | 0 |
+| w1449310954 | Strada Vasile Alecsandri | W |  | yes | 3.0 est |  |  |  | unknown (use district rule) | #E7D8C9 est | 0 |
+| w546500238 | Strada Vasile Alecsandri | E |  | yes | 2 est |  |  |  | unknown (use district rule) | #C9B79C est | 0 |
+| w245083610 | Strada Vasile Alecsandri | W |  | yes | 3.0 est |  |  |  | unknown (use district rule) | #E9E0CF est | 0 |
+| w546500256 | Strada Vasile Alecsandri | E |  | yes | 2 est |  |  |  | unknown (use district rule) | #E6D3B3 est | 0 |
+| w546500250 | Strada Vasile Alecsandri | E |  | yes | 3.0 est |  |  |  | unknown (use district rule) | #E9E0CF est | 0 |
+| w1449310919 | Strada Vasile Alecsandri | E |  | yes | 3.0 est |  |  |  | unknown (use district rule) | #E7D8C9 est | 0 |
+| w583614934 | Strada Vasile Alecsandri | E |  | yes | 3.0 est |  |  |  | unknown (use district rule) | #E7D8C9 est | 0 |
+| w1449310921 | Strada Vasile Alecsandri | W |  | yes | 3.0 est |  |  |  | unknown (use district rule) | #E6D3B3 est | 1 |
+| w180563617 | Strada Clopotarii Vechi | W | 9 | yes · Electrica | 5 |  |  |  | unknown (use district rule) | #CFC8B8 est | 0 |
+| w813353254 | Strada Clopotarii Vechi | E |  | hospital | 2 |  |  |  | low house/villa (19th-early 20th c. likely) | #E7D8C9 est | 0 |
+| w303383746 | Strada Clopotarii Vechi | W |  | office | 10 |  |  |  | modern office/glass curtain wall | #5E7F8C est | 1 |
 
 ## Ground-floor businesses on the chapter routes
 
 | OSM | name | brand / sign colours | kind | street | side | addr |
 |---|---|---|---|---|---|---|
+| n2546324265 |  |  | disused:shop=kiosk | Bulevardul General Gheorghe Magheru | E |  |
+| n2980319633 |  |  | disused:shop=kiosk | Bulevardul General Gheorghe Magheru | E |  |
+| n4549374247 |  |  | disused:shop=yes | Bulevardul General Gheorghe Magheru | E |  |
+| n6513758411 |  |  | disused:shop=coffee | Bulevardul General Gheorghe Magheru | E |  |
+| n9001427429 |  |  | disused:shop=coffee | Bulevardul General Gheorghe Magheru | E |  |
+| n11261959885 |  |  | disused:shop=newsagent | Bulevardul General Gheorghe Magheru | E |  |
+| n11261959886 |  |  | disused:shop=florist | Bulevardul General Gheorghe Magheru | E |  |
 | n6464523585 | 5 to go | 5 to go bg #FFD100 fg #1D1D1B | amenity=cafe | Bulevardul General Gheorghe Magheru | E |  |
 | n9789836226 | ANSPDCP |  | office=government | Bulevardul General Gheorghe Magheru | E | 28-30 |
+| n5519214706 | Basarabia |  | shop=deli | Bulevardul General Gheorghe Magheru | E |  |
 | n11172363189 | Calzedonia | Calzedonia bg #FFFFFF fg #000000 | shop=clothes | Bulevardul General Gheorghe Magheru | E |  |
+| n6513747170 | Carte |  | amenity=cafe | Bulevardul General Gheorghe Magheru | E |  |
 | n11513855675 | Casandra |  | shop=confectionery | Bulevardul General Gheorghe Magheru | E |  |
+| n11581824569 | Crăpelniță |  | amenity=fast_food | Bulevardul General Gheorghe Magheru | E |  |
 | n11513871803 | Depot 96 |  | shop=clothes | Bulevardul General Gheorghe Magheru | E |  |
 | n11513886232 | DiKa |  | shop=clothes | Bulevardul General Gheorghe Magheru | E |  |
+| n4549374505 | Emre Baklava |  | shop=bakery | Bulevardul General Gheorghe Magheru | E |  |
 | n2637716251 | Farmacia Dona | Farmacia Dona bg #E30613 fg #FFFFFF | amenity=pharmacy | Bulevardul General Gheorghe Magheru | E |  |
+| n12318228499 | FormART |  | tourism=gallery | Bulevardul General Gheorghe Magheru | E |  |
+| n12318285854 | Galeria SIMEZA |  | tourism=gallery | Bulevardul General Gheorghe Magheru | E |  |
+| n6513779013 | Help Net | Help Net bg #E30613 fg #FFFFFF | amenity=pharmacy | Bulevardul General Gheorghe Magheru | E |  |
 | n11172363183 | Help Net | Help Net bg #E30613 fg #FFFFFF | amenity=pharmacy | Bulevardul General Gheorghe Magheru | E |  |
 | n11172363186 | Hobby Mobile Accessories |  | shop=mobile_phone_accessories | Bulevardul General Gheorghe Magheru | E |  |
+| w442813528 | Hotel Ambasador |  | tourism=hotel | Bulevardul General Gheorghe Magheru | E | 8-10 |
 | n11172363184 | Innovative Romana |  | shop=copyshop | Bulevardul General Gheorghe Magheru | E |  |
+| n328610358 | KFC | KFC bg #E4002B fg #FFFFFF | amenity=fast_food | Bulevardul General Gheorghe Magheru | E | 28-30 |
 | n11513884483 | Lashez |  | shop=clothes | Bulevardul General Gheorghe Magheru | E |  |
+| n11198089510 | Mayari |  | shop=clothes | Bulevardul General Gheorghe Magheru | E |  |
+| n453472519 | McDonald's | McDonald's bg #DA291C fg #FFC72C | amenity=fast_food | Bulevardul General Gheorghe Magheru | E | 24 |
+| n4549351693 | Mesopotamia | Mesopotamia bg #B31B1B fg #FFD200 | amenity=fast_food | Bulevardul General Gheorghe Magheru | E | 26 |
 | n11178795303 | Miniso |  | shop=variety_store | Bulevardul General Gheorghe Magheru | E |  |
+| n11618363305 | My Private Sex Shop |  | shop=erotic | Bulevardul General Gheorghe Magheru | E |  |
+| n2994807532 | Noodle Pack |  | amenity=fast_food | Bulevardul General Gheorghe Magheru | E | 26 |
+| n2872402339 | OB'ART |  | tourism=gallery | Bulevardul General Gheorghe Magheru | E |  |
 | n11172363185 | Pan Caldi |  | shop=bakery | Bulevardul General Gheorghe Magheru | E |  |
 | n2394766461 | Patiseria Tineretului |  | amenity=fast_food | Bulevardul General Gheorghe Magheru | E | 32-36 |
+| n849372213 | Patria | Patria Bank bg #1C3F94 fg #FFFFFF | amenity=cinema | Bulevardul General Gheorghe Magheru | E |  |
 | n11513853602 | Prego |  | shop=shoes | Bulevardul General Gheorghe Magheru | E |  |
 | n11263095690 | STB |  | shop=ticket | Bulevardul General Gheorghe Magheru | E |  |
+| n12318285863 | Super Gold |  | shop=jewelry | Bulevardul General Gheorghe Magheru | E |  |
 | n11513879453 | T!naR |  | shop=clothes | Bulevardul General Gheorghe Magheru | E |  |
 | n11172363187 | Tabakos |  | shop=tobacco | Bulevardul General Gheorghe Magheru | E |  |
+| n328622616 | Teatrul Nottara |  | amenity=theatre | Bulevardul General Gheorghe Magheru | E |  |
+| n11648912069 | The Kimchi |  | amenity=fast_food | Bulevardul General Gheorghe Magheru | E |  |
+| n4549374246 | Toan's |  | amenity=fast_food | Bulevardul General Gheorghe Magheru | E |  |
 | n11172363188 | Treevi Pizza Al Taglio |  | amenity=restaurant | Bulevardul General Gheorghe Magheru | E | 9 |
+| n9001379102 | Târgul Cărții  |  | amenity=library | Bulevardul General Gheorghe Magheru | E |  |
+| n12318280957 | Uniunea Juriștilor din România |  | office=lawyer | Bulevardul General Gheorghe Magheru | E |  |
 | n11513872026 | sadhana |  | shop=clothes | Bulevardul General Gheorghe Magheru | E |  |
+| n3757940564 | CEC Bank | CEC Bank bg #004C97 fg #FFFFFF | amenity=bank | Bulevardul Iancu de Hunedoara | S | 8 |
+| n3707528309 | F.M. Medident - Piața Victoriei |  | amenity=dentist | Bulevardul Iancu de Hunedoara | S | 6 |
+| w813353255 | Farmacia Santia |  | amenity=pharmacy | Bulevardul Iancu de Hunedoara | S | 30-32 |
 | n11222737061 |  |  | disused:shop=florist | Bulevardul Lascăr Catargiu | SW |  |
-| n7293870987 |  |  | disused:shop=yes | Bulevardul Lascăr Catargiu | SW | 1 |
 | w874893780 | ADP Sector 1 |  | amenity=parking | Bulevardul Lascăr Catargiu | S |  |
 | n2457790509 | Aeroclubul României |  | office=association | Bulevardul Lascăr Catargiu | NE |  |
 | n8572234851 | BRD | BRD bg #000000 fg #FFFFFF | amenity=bank | Bulevardul Lascăr Catargiu | SW | 224 |
-| n9913919523 | BSS Integrated Property & Facility Management |  | office=company | Bulevardul Lascăr Catargiu | SW |  |
-| n2734668732 | Cafeneaua Nației |  | amenity=cafe | Bulevardul Lascăr Catargiu | SW | 7 |
-| n3145953243 | Clinica Audionova |  | amenity=clinic | Bulevardul Lascăr Catargiu | SW | 41 |
-| w246115249 | Europe House |  | office=company | Bulevardul Lascăr Catargiu | SW | 51 - 53 |
 | w323875142 | Fischer International |  | amenity=library | Bulevardul Lascăr Catargiu | NE | 14 |
 | n12906263752 | Grand Boulevard Apartment at Piata Romana |  | tourism=apartment | Bulevardul Lascăr Catargiu | NE |  |
-| n7038667102 | Lithuanian consulate |  | office=diplomatic | Bulevardul Lascăr Catargiu | SW |  |
-| n9913922525 | Metropolitan Life |  | office=insurance | Bulevardul Lascăr Catargiu | SW |  |
-| n3357667293 | Orange | Orange bg #000000 fg #FFFFFF | shop=mobile_phone | Bulevardul Lascăr Catargiu | SW | 47-53 |
-| n3357667193 | Orange Romania Europe House | Orange bg #000000 fg #FFFFFF | office=company | Bulevardul Lascăr Catargiu | SW | 47-53 |
-| n2617494293 | Restaurant Nan Jing |  | amenity=restaurant | Bulevardul Lascăr Catargiu | SW |  |
-| n11215891117 | Sara Green |  | amenity=cafe | Bulevardul Lascăr Catargiu | SW | 43A |
 | w171045066 | Secția 1 |  | amenity=police | Bulevardul Lascăr Catargiu | NE |  |
 | n1493026199 | Trattoria Buongiorno |  | amenity=restaurant | Bulevardul Lascăr Catargiu | NE | 56 |
-| n9414639015 | Tremend |  | office=it | Bulevardul Lascăr Catargiu | SW | 51-53 |
 | n5602930826 | Viggo |  | shop=clothes | Bulevardul Lascăr Catargiu | NE |  |
-| n9913919522 | arnia software |  | office=research | Bulevardul Lascăr Catargiu | SW |  |
-| n3261827650 | Medicover |  | amenity=clinic | Strada Clopotarii Vechi | W | 16-20 |
-| n2457793817 | Omniasig |  | office=insurance | Strada Clopotarii Vechi | W |  |
+| w180563617 | Electrica |  | office=energy_supplier | Strada Clopotarii Vechi | W | 9 |
 | n14090099867 | Baba Market |  | shop=convenience | Strada Grigore Alexandrescu | N |  |
 | n8255184625 | Centrul Medical Recumed |  | amenity=hospital | Strada Grigore Alexandrescu | N | 33 |
 | n14090085282 | THAI temple SPA |  | shop=massage | Strada Grigore Alexandrescu | S |  |
@@ -509,13 +545,15 @@ Signalised / main junctions on the chapter routes (OSM):
 | n13572917435 | TED'S Coffee | Ted's Coffee Co. bg #1F1F1F fg #FFFFFF | amenity=cafe | Strada Vasile Alecsandri | E |  |
 | n13572917436 | Xtime |  | shop=tobacco | Strada Vasile Alecsandri | E |  |
 | w23647615 | Școala Națională de Studii Politice și Administrative |  | amenity=university | Strada Vasile Alecsandri | W |  |
+| w1264549614 |  |  | amenity=parking | Șoseaua Pavel Dimitrievici Kiseleff | W |  |
+| w23611106 | Școala Generală nr. 11 "Ion Heliade Rădulescu" |  | amenity=school | Șoseaua Pavel Dimitrievici Kiseleff | SW | 2 |
 
-Other branded businesses in the district (off-route): Alpha Bank (Bulevardul Dacia, n2504757652); Fornetti (Bulevardul Dacia, n8513025042); Libra Bank (Bulevardul Dacia, n11261905154); Luca (Bulevardul Dacia, n3756982645); Pizza Hut (Bulevardul Dacia, n328607517); Shop&Go (Bulevardul Dacia, n3907600553); Starbucks (Bulevardul Dacia, n3499962407); BRD (Bulevardul General Gheorghe Magheru, n3734652403); Orange (Bulevardul General Gheorghe Magheru, n7293870988); CEC Bank (Bulevardul Iancu de Hunedoara, n3757940564); Domino's (Bulevardul Iancu de Hunedoara, n3759186612); Mega Image (Bulevardul Iancu de Hunedoara, n1762277750); Dr. Max (Calea Dorobanților, n4564413803); Help Net (Calea Dorobanților, n1768903148); Luca (Calea Dorobanților, n13427923360); Orange (Calea Dorobanților, n2432213825); Pepco (Calea Dorobanților, n13429496906); Raiffeisen Bank (Calea Dorobanților, n13427923361); Shop&Go (Calea Dorobanților, n3200340961); BCR (Calea Victoriei, n1563503947); Carrefour Express (Calea Victoriei, n9913921972); Exim Banca Românească (Calea Victoriei, n4353553453); Froo (Calea Victoriei, n13686920006); La Doi Pași (Calea Victoriei, n2546327480); Leonidas (Calea Victoriei, n4353556019); Starbucks (Calea Victoriei, n4350720097); Ted's Coffee Co. (Calea Victoriei, n8572234820); 5 to go (Strada Biserica Amzei, n13592808737); Annabella (Strada Buzești, n9913945479); Dr. Max (Strada Buzești, n8709661327); Euronet (Strada Buzești, n7056388009); Luca (Strada Buzești, n9726046117); Starbucks (Strada Buzești, n6696629629); 5 to go (Strada Căderea Bastiliei, n14090031824); Ted's Coffee Co. (Strada Căderea Bastiliei, n13634135886); BCR (Strada Dimitri Ivanovici Mendeleev, n5602922763); Maxbet (Strada Dimitri Ivanovici Mendeleev, n11825001199); dm (Strada Dimitri Ivanovici Mendeleev, n7293845639); Raiffeisen Bank (Strada Grigore Alexandrescu, n1312175595); dm (Strada Hatmanul Arbore, n4564405596); Regina Maria (Strada Louis Blanc, n12964827742); Carrefour Market (Strada Maior Giurescu Dimitrie, n1768896770); BRD (Strada Mihail Moxa, n4690003478); Euronet (Strada Mihail Moxa, n7056393674); Shop&Go (Strada Mihail Moxa, n11991603619); Catena (Strada Sevastopol, n12315963238); Inmedio (Strada Sevastopol, n2621106559); Mega Image (, n2613331337); dm (, n7932109194); Berezka (Șoseaua Ștefan cel Mare, n11608041705); UniCredit (Șoseaua Ștefan cel Mare, n3759186613).
+Other branded businesses in the district (off-route): Alpha Bank (Bulevardul Dacia, n2504757652); Fornetti (Bulevardul Dacia, n8513025042); Libra Bank (Bulevardul Dacia, n11261905154); Luca (Bulevardul Dacia, n3756982645); Pizza Hut (Bulevardul Dacia, n328607517); Shop&Go (Bulevardul Dacia, n3907600553); Starbucks (Bulevardul Dacia, n3499962407); BRD (Bulevardul General Gheorghe Magheru, n3734652403); Euronet (Bulevardul General Gheorghe Magheru, n7056486518); Libra Bank (Bulevardul General Gheorghe Magheru, n4549374248); Orange (Bulevardul General Gheorghe Magheru, n7293870988); Samsonite (Bulevardul General Gheorghe Magheru, n10996915893); Superbet (Bulevardul General Gheorghe Magheru, n8628417865); Vodafone (Bulevardul General Gheorghe Magheru, n2446512554); Domino's (Bulevardul Iancu de Hunedoara, n3759186612); Mega Image (Bulevardul Iancu de Hunedoara, n1762277750); BRD (Bulevardul Ion Mihalache, n928470206); Orange (Bulevardul Lascăr Catargiu, n3357667293); Orange (Bulevardul Lascăr Catargiu, n3357667193); BCR (Bulevardul Nicolae Bălcescu, n5519217930); Euronet (Bulevardul Nicolae Bălcescu, n7056420367); Sephora (Bulevardul Nicolae Bălcescu, n5602931594); Shop&Go (Bulevardul Nicolae Bălcescu, n2446520566); 5 to go (Calea Dorobanților, n13547226676); BRD (Calea Dorobanților, n328585677); Dr. Max (Calea Dorobanților, n4564413803); Garanti (Calea Dorobanților, n4657735590); Help Net (Calea Dorobanților, n1768903148); ING (Calea Dorobanților, n2394901656); Libra Bank (Calea Dorobanților, n7056384863); Luca (Calea Dorobanților, n13427923360); OTP Bank (Calea Dorobanților, n7038716407); Orange (Calea Dorobanților, n2432213825); Pepco (Calea Dorobanților, n13429496906); Raiffeisen Bank (Calea Dorobanților, n13427923361); Shop&Go (Calea Dorobanților, n3200340961); Shop&Go (Calea Dorobanților, n13132808504); Superbet (Calea Dorobanților, n13429496917); Ted's Coffee Co. (Calea Dorobanților, n7312238328); Profi (Calea Griviței, n5050770522); Superbet (Calea Griviței, n8628418145); BCR (Calea Victoriei, n1563503947); CEC Bank (Calea Victoriei, n2582107010); Carrefour Express (Calea Victoriei, n9913921972); Euronet (Calea Victoriei, n7027278278); Euronet (Calea Victoriei, n7056447103); Exim Banca Românească (Calea Victoriei, n4353553453); Froo (Calea Victoriei, n13686920006); La Doi Pași (Calea Victoriei, n2546327480); Leonidas (Calea Victoriei, n4353556019); Starbucks (Calea Victoriei, n4350720097); Ted's Coffee Co. (Calea Victoriei, n8572234820); UniCredit (Calea Victoriei, n7080689122); 5 to go (Piața General Gheorghe Angelescu, n14299990815); UniCredit (Strada Anastase Simu, n4549374245); First Bank (Strada Arthur Verona, n4549374244); Banca Transilvania (Strada Axinte Uricariul, n3707543170); Carrefour Express (Strada Axinte Uricariul, n5068656516); Libra Bank (Strada Axinte Uricariul, n1768905825); Opticris (Strada Axinte Uricariul, n13427923367); Regina Maria (Strada Axinte Uricariul, n4766207560); Ted's Coffee Co. (Strada Axinte Uricariul, n13427923366); 5 to go (Strada Biserica Amzei, n13592808737); Libra Bank (Strada Biserica Amzei, n14205359901); Annabella (Strada Buzești, n9913945479); DHL (Strada Buzești, n3756813282); Dr. Max (Strada Buzești, n2637716538); Dr. Max (Strada Buzești, n8709661327); Euronet (Strada Buzești, n7056388009); ING (Strada Buzești, n2394831465); Luca (Strada Buzești, n9726046117); OTP Bank (Strada Buzești, n3767754712); Regina Maria (Strada Buzești, n9913743863); Starbucks (Strada Buzești, n6696629629); UniCredit (Strada C. A. Rosetti, n2723374088); 5 to go (Strada Constantin D. Stahi, n6420082185); 5 to go (Strada Căderea Bastiliei, n14090031824); Ted's Coffee Co. (Strada Căderea Bastiliei, n13634135886); BCR (Strada Dimitri Ivanovici Mendeleev, n5602922763); Catena (Strada Dimitri Ivanovici Mendeleev, n2637716141); Euronet (Strada Dimitri Ivanovici Mendeleev, n7055438633); Maxbet (Strada Dimitri Ivanovici Mendeleev, n11825001199); Mega Image (Strada Dimitri Ivanovici Mendeleev, n4048726666); dm (Strada Dimitri Ivanovici Mendeleev, n7293845639); Catena (Strada Doctor Vasile Sion, n2637716156); Euronet (Strada Episcopiei, n7056368460); Berezka (Strada General Christian Tell, n11361439323); CEC Bank (Strada General Christian Tell, n4637225118); Exim Banca Românească (Strada General Christian Tell, n4637225119); Fortuna (Strada General Christian Tell, n11361405951); Stanleybet (Strada General Christian Tell, n11361411581); Superbet (Strada General Christian Tell, n8628417678); Domino's (Strada General Constantin Budișteanu, n10310765209); 5 to go (Strada George Enescu, n11261883854); 5 to go (Strada George Enescu, n13483547259); Mega Image (Strada George Enescu, n328617948); Mega Image (Strada George Enescu, n3038087033); Regina Maria (Strada George Enescu, n10012619118); UniCredit (Strada George Enescu, n3118870194); Raiffeisen Bank (Strada Grigore Alexandrescu, n1312175595); dm (Strada Hatmanul Arbore, n4564405596); Help Net (Strada Hristache Pitarul, n1768906184); Regina Maria (Strada Louis Blanc, n12964827742); 5 to go (Strada Luterană, n11131305331); Euronet (Strada Luterană, n7057665442); Carrefour Market (Strada Maior Giurescu Dimitrie, n1768896770); BRD (Strada Mihail Moxa, n4690003478); Euronet (Strada Mihail Moxa, n7056393674); Shop&Go (Strada Mihail Moxa, n11991603619); Garanti (Strada Paris, n13286822065); Garanti (Strada Paris, n13877761337); 5 to go (Strada Piața Amzei, n13544497924); Banca Transilvania (Strada Piața Amzei, n1393093204); Dr. Max (Strada Piața Amzei, n7293870994); Dr. Max (Strada Piața Amzei, n11361456713); Help Net (Strada Piața Amzei, n7293870989); Mega Image (Strada Piața Amzei, n1393093079); Mega Image (Strada Piața Amzei, n7293870990); Raiffeisen Bank (Strada Piața Amzei, n1563503900); Cărturești (Strada Pictor Arthur Verona, n328616370); Catena (Strada Sevastopol, n12315963238); Inmedio (Strada Sevastopol, n2621106559); BCR (, n2379990970); Mega Image (, n2613331337); dm (, n7932109194); BRD (Șoseaua Nicolae Titulescu, w405520011); Starbucks (Șoseaua Nicolae Titulescu, n1296347641); UniCredit (Șoseaua Nicolae Titulescu, n7106709740); Inmedio (Șoseaua Nicolae Titulescu, n10951615124); Berezka (Șoseaua Ștefan cel Mare, n11608041705); UniCredit (Șoseaua Ștefan cel Mare, n3759186613); Vodafone (Șoseaua Ștefan cel Mare, n3759186615).
 
 ## Transit
 
-- Lines with OSM route relations touching the district: bus 100, bus 168, bus 203, bus 205, bus 226, bus 301, bus 331, bus 335, bus 361, bus 368, bus 381, bus 461, bus 1929, bus 331B, tram 1, tram 10, tram 46, trolleybus 79, trolleybus 86, trolleybus 97.
-- Stops: A.S.E. (bus); Calea Dorobanților (bus); Calea Dorobanților (tram); Calea Victoriei (bus); Gheorghe Manu (bus); Orlando (platform); Pasaj Victoria (bus); Perla (bus); Piata Victoriei (bus); Piața Romană (bus); Piața Romană (bus/trolleybus); Piața Romană (platform); Piața Romană (trolleybus); Piața Victoriei (bus); Piața Victoriei (tram); Povernei (platform); Roma (bus); Roma (tram); Sfintii Voievozi (bus); Spitalul Grigore Alexandrescu (tram); Șoseaua Ștefan cel Mare (bus).
+- Lines with OSM route relations touching the district: bus 100, bus 122, bus 137, bus 168, bus 178, bus 203, bus 205, bus 226, bus 301, bus 311, bus 331, bus 335, bus 361, bus 368, bus 381, bus 461, bus 1929, bus 331B, tram 1, tram 10, tram 46, trolleybus 79, trolleybus 86, trolleybus 97.
+- Stops: A.S.E. (bus); Arthur Verona (bus); Bd. Dacia (bus); Bd. Nicolae Bălcescu (bus); Biblioteca Academiei Române (bus); Calea Dorobanților (bus); Calea Dorobanților (tram); Calea Griviței (bus); Calea Victoriei (bus); Cișmigiu (bus); Constantin Cristescu (bus); Gheorghe Manu (bus); Luterană (bus); Muzeul Țăranului Român (bus); Nicolae Golescu (bus); Orlando (platform); Pasaj Victoria (bus); Perla (bus); Piata Victoriei (bus); Piața Alexandru Lahovari (bus); Piața Buzești (tram); Piața Buzești (trolleybus); Piața Romană (bus); Piața Romană (bus/trolleybus); Piața Romană (platform); Piața Romană (trolleybus); Piața Victoriei (bus); Piața Victoriei (tram); Popa Tatu (bus/trolleybus); Povernei (platform); Roma (bus); Roma (tram); Sala Palatului (bus); Sfintii Voievozi (bus); Spitalul Clinic Filantropia (bus); Spitalul Grigore Alexandrescu (tram); Șoseaua Ștefan cel Mare (bus); Știrbei Vodă (bus).
 - Metro entrances: Piața Victoriei - M1 M2 A (44.45161, 26.08712); Piața Victoriei B (44.45171, 26.08762); Piața Victoriei - M1 M2 C (44.45371, 26.08624); Piața Victoriei - Ascensor  (44.45174, 26.08672); Piața Romană  (44.44583, 26.09757); Piața Romană  (44.44506, 26.09796).
 - Liveries:
   - **tram_imperio**: Astra Vagoane Arad Imperio Metropolitan (100 ordered 2021, in service since Dec 2022; 3-section, 100% low floor); body #F4C300 accent #C8102E; yellow STB body with darker front mask; verify accent colours on refs (medium) [imperio] [imperio2] [wp_transport]
@@ -525,6 +563,55 @@ Other branded businesses in the district (off-route): Alpha Bank (Bulevardul Dac
   - **bus**: Mercedes-Benz Citaro (1,000 delivered 2006–2009), Citaro Hybrid (2020+), Otokar Kent C 12/18 m, Mercedes eCitaro / BYD electric; body #F4C300 accent #C8102E; STB yellow; Citaro hybrids yellow with STB logo; many carry ad wraps (medium) [stb]
   - **taxi**: ; body #F7D417 accent ; Bucharest licensed taxis are yellow with chequer/stripe and company name/phone on doors (Dacia Logan, Toyota Corolla/Prius, Škoda Octavia) (high)
   - **ride_hail**: ; body  accent ; Uber/Bolt cars are unmarked (any colour), very common (high)
+
+## Dialogue (district pedestrians)
+
+Each line {text (original language), en (English)}; persona.lang = language of text; `base` refers to bucharest-spots.json dialogue_general.persona_library; categories greeting / bumped / photographed / idle / district (place-specific facts, all consistent with this dossier). Shared: bucharest-spots.json → dialogue_general.pedestrian_general (honked_at, near_miss, sidewalk_parking, idle, small_talk) applies to every district pedestrian. Total district lines: 67.
+
+### Ioana (ASE student) (`ase_student`, local, lang ro, 19-23) — 17 lines
+Economics student with a tote bag and iced coffee, rushing between the ASE building and the metro.
+
+- *greeting*: „Salut!” (Hi!) · „Neața! Știi cumva unde-i sala 0101?” (Morning! Do you know where room 0101 is?) · „Hei, ești și tu la ASE?” (Hey, are you at ASE too?)
+- *bumped*: „Au! Am cursul în două minute!” (Ow! My lecture starts in two minutes!) · „Atenție, că-mi varși cafeaua!” (Careful, you'll spill my coffee!) · „Scuze, eram pe telefon.” (Sorry, I was on my phone.)
+- *photographed*: „Stai, să-mi aranjez părul!” (Wait, let me fix my hair!) · „Fă una cu cupola ASE în spate!” (Take one with the ASE dome behind!) · „O pui pe Insta? Dă-mi tag!” (Posting it on Insta? Tag me!)
+- *idle*: „Am sesiune și n-am deschis cartea.” (Exams are on and I haven't opened the book.) · „Metroul de la Romană e plin ochi.” (The metro at Romană is packed.) · „Mergem la un 5 to go după curs?” (Shall we grab a 5 to go after class?)
+- *district*: „Piața Romană la opt dimineața e un haos.” (Piața Romană at eight in the morning is chaos.) · „Clădirea mare cu cupolă e ASE-ul, din 1913 facultatea.” (The big domed building is ASE, the school dates from 1913.) · „Pe Magheru e tot timpul aglomerat.” (Magheru is always jammed.) · „Trolebuzul 79 nu mai vine odată!” (Trolleybus 79 is never coming!) · „Aici era lupoaica, au mutat-o pe Brătianu.” (The Capitoline Wolf used to stand here, they moved it to Brătianu.)
+
+### Radu (developer, Lascăr Catargiu) (`office_worker`, local, lang ro, 25-40) — 17 lines
+Software engineer with a lanyard and laptop backpack, walking between Europe House and The Landmark.
+
+- *greeting*: „Salut, bună!” (Hi there!) · „Bună ziua, căutați recepția?” (Good day, looking for reception?) · „Hey, good morning!”
+- *bumped*: „Hopa! Ai grijă, am laptopul în rucsac.” (Whoa! Careful, my laptop's in the bag.) · „Nicio problemă, se întâmplă.” (No problem, it happens.) · „Ușor, că am stand-up în cinci minute.” (Easy, I have stand-up in five minutes.)
+- *photographed*: „Pentru LinkedIn? Stai să zâmbesc.” (For LinkedIn? Let me smile.) · „Prinde și Europe House în cadru.” (Get Europe House in the frame.) · „Gata, am ieșit cu ochii închiși, mai una.” (I blinked, one more.)
+- *idle*: „Iar e deploy vineri seara...” (Another Friday-evening deploy...) · „Luăm un Ted's de pe Vasile Alecsandri?” (Grab a Ted's on Vasile Alecsandri?) · „Am ședință cu clientul din State la 17.” (Call with the US client at 5 pm.)
+- *district*: „Pe Lascăr Catargiu faci un sfert de oră de la Romană la Victoriei.” (On Lascăr Catargiu it takes a quarter of an hour from Romană to Victoriei.) · „Vasile Alecsandri e cu sens unic, intri din Grigore Alexandrescu.” (Vasile Alecsandri is one-way, enter from Grigore Alexandrescu.) · „La Landmark e UiPath, la etajele cinci și șase.” (UiPath is in The Landmark, floors five and six.) · „Europe House a fost printre primele clădiri de sticlă din București.” (Europe House was one of Bucharest's first glass office buildings.) · „Statuia lui Lascăr Catargiu au repus-o în 2011.” (They put the Lascăr Catargiu statue back in 2011.)
+
+### Jandarm at Palatul Victoria (`gendarme`, staff, lang ro, 25-45) — 17 lines
+Gendarme on duty by the barriers in front of the Government building; polite, brief, firm.
+
+- *greeting*: „Bună ziua.” (Good day.) · „Bună ziua, vă pot ajuta?” (Good day, can I help you?) · „Circulați, vă rog.” (Move along, please.)
+- *bumped*: „Atenție, domnule!” (Careful, sir!) · „Păstrați distanța de gard, vă rog.” (Please keep away from the fence.) · „Mai ușor, vă rog.” (Easy, please.)
+- *photographed*: „Fără poze cu mine, vă rog.” (No photos of me, please.) · „Fotografiați clădirea, nu personalul.” (Photograph the building, not the staff.) · „E în regulă, dar nu blocați trecerea.” (That's fine, but don't block the way.)
+- *idle*: „Liniște azi în piață.” (Quiet in the square today.) · „Schimbul vine la opt.” (The shift changes at eight.) · „Iar plouă...” (Raining again...)
+- *district*: „Aici e sediul Guvernului.” (This is the seat of the Government.) · „Intrarea publicului e pe partea laterală.” (Public entrance is at the side.) · „Nu parcați pe trotuar în fața Palatului.” (No parking on the sidewalk in front of the Palace.) · „Trecerea de pietoni e la semafor.” (The crossing is at the lights.) · „Muzeul Antipa e vizavi, peste Kiseleff.” (The Antipa museum is across Kiseleff.)
+
+### Doamna Mariana (florist kiosk) (`flower_vendor`, vendor, lang ro, 45-65) — 16 lines
+Runs a small flower kiosk near Piața Romană; friendly, calls everyone "dragă".
+
+- *greeting*: „Bună ziua, dragă! Flori proaspete!” (Good day, dear! Fresh flowers!) · „Trandafiri, lalele, ce doriți?” (Roses, tulips, what would you like?) · „Bună seara, mai am buchete gata făcute.” (Good evening, I still have ready-made bouquets.)
+- *bumped*: „Vai, florile mele!” (Oh, my flowers!) · „Ai grijă la găleți, dragă!” (Mind the buckets, dear!) · „Nu-i nimic, nu s-a rupt nimic.” (It's nothing, nothing broke.)
+- *photographed*: „Fă-le poză la flori, nu mie!” (Take a picture of the flowers, not me!) · „Stai să pun bujorii în față.” (Let me put the peonies in front.) · „Frumoasă poză, să mai veniți!” (Nice picture, come again!)
+- *idle*: „Azi s-au vândut lalelele repede.” (The tulips sold fast today.) · „De 8 Martie nu mai am loc de clienți.” (On 8 March I can't fit the customers.) · „Florile de la Piața Amzei sunt mai scumpe.” (Flowers at Piața Amzei are pricier.)
+- *district*: „Studenții de la ASE iau câte un trandafir la examene.” (ASE students buy a single rose before exams.) · „Mașinile claxonează toată ziua aici.” (Cars honk here all day.) · „Metroul e chiar la colț, pe Magheru.” (The metro is right on the corner, on Magheru.) · „Iarna vând și mărțișoare.” (In late winter I sell mărțișor charms too.)
+
+Culture notes:
+
+- **Register** — "Bună ziua" with strangers, "Salut/Neața" among young people; "dumneavoastră" (formal you) to older people; "Mersi" is as common as "Mulțumesc". (https://en.wikivoyage.org/wiki/Romanian_phrasebook)
+- **Traffic temper** — Bucharest drivers honk readily and often do not stop at zebras; pedestrians answer with sarcasm rather than aggression — keep lines teasing, not violent. (https://en.wikivoyage.org/wiki/Bucharest#Stay_safe)
+- **Sidewalk parking** — Cars parked on sidewalks are a constant pedestrian complaint; a natural topic for bumped/idle lines in side streets. (https://en.wikivoyage.org/wiki/Bucharest#Get_around)
+- **Taxis at the airport** — At OTP passengers order licensed taxis from touch-screen kiosks in Arrivals; unsolicited offers are a known nuisance — staff lines should point to the kiosks. (https://www.inyourpocket.com/bucharest/The-Definitive-Guide-to-Finding-a-Taxi-at-Bucharest-Airport_74243f)
+- **No stereotypes** — Personas are defined by role/place (student, vendor, commuter), never by ethnicity; Roma, Moldovan or diaspora characters are not caricatured; humour targets traffic, weather, parking and the metro. (spec 20 (game/research) requirement)
+- **Shared library** — Generic personas (local_elder, tour_guide …) and the pedestrian_general set (honked_at, near_miss, sidewalk_parking) live in bucharest-spots.json → dialogue_general; district personas below add place-specific lines. (game/research/bucharest-spots.json)
 
 ## Traffic / congestion (feeds `congestion`, spec 13)
 

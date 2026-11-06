@@ -285,3 +285,8 @@ body.photo-mode .photo-open { display: none; }
     .pv-meta { left: 34px; bottom: 9px; } .pv-place { font-size: 12px; } .pv-time { font-size: 10px; } .pv-filter { right: 34px; bottom: 9px; font-size: 10px; }
     .pv-print { bottom: 66px; width: min(220px, 34vw); }
 }
+@media (max-width: 520px) {
+    .pv-read { font-size: 9px; right: 30px; top: 10px; } .pv-rec { left: 30px; top: 10px; font-size: 10px; } .pv-c { width: 18px; height: 18px; border-width: 2px; }
+    .pv-meta { left: 30px; bottom: 9px; } .pv-filter { right: 30px; bottom: 9px; font-size: 10px; } .pv-zoom { width: 80px; }
+    .pv-print { right: 50%; transform: translate(50%, 140%) rotate(6deg); width: 70vw; } .pv-print.show { transform: translate(50%, 0) rotate(-3deg); }
+}

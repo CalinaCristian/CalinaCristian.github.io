@@ -244,6 +244,12 @@ export class Traffic {
         this.jamMax = mx;
         this.jamExtra = Math.round(Math.min(extra, (this.buc ? 140 : 60)));
     }
+    /** the player's car is within `d` m behind v in (about) its lane */
+    playerBehind(v, d) {
+        const P = this.player; if (!P || this.walker?.active) return false;
+        const dx = P.x - v.x, dz = P.z - v.z, f = dx * v.fx + dz * v.fz, l = dx * v.rx + dz * v.rz;
+        return f < 0 && f > -d && Math.abs(l) < 3.5;
+    }
     /** congestion level 0..1 at (x, z) (1 = standstill core of an active hotspot) */
     jamAt(x, z) {
         let j = 0;
@@ -805,7 +811,7 @@ export class Traffic {
         if (jam > 0.05 && !v.tram && !v.isPolice) {
             desired *= 1 - 0.9 * jam;
             if (v.jamHold > 0) v.jamHold -= dt;
-            else if (jam > 0.25 && v.speed > 0.5 && this.rng() < jam * 0.35 * dt) v.jamHold = this.rng.range(2, 6) * jam;
+            else if (jam > 0.25 && v.speed > 0.5 && this.rng() < jam * 0.35 * dt && !this.playerBehind(v, 30)) v.jamHold = this.rng.range(2, 6) * jam; // (never right in front of the player: they can creep through)
         } else v.jamHold = 0;
         const P = this.player;
         // ---------------- obstacles (cone scan via grid) ----------------
@@ -855,6 +861,19 @@ export class Traffic {
                 if (f > 0 && f < look + 8 && Math.abs(l) < v.width * 0.5 + playerExtent(P, rx, rz) + 0.35) {
                     const g = f - half - playerExtent(P, fx, fz);
                     if (g < gap) { gap = g; leader = P; leaderSpeed = Math.max(0, P.speed * (P.fx * fx + P.fz * fz)); leaderCross = false; }
+                }
+            }
+        }
+        // the player on foot (spec 14): a pedestrian cars stop for (and honk at, in Bucharest)
+        const W = this.walker;
+        if (W && W.active && Math.abs(W.y - (v.y - 0.24)) < 2) {
+            const dx = W.x - v.x, dz = W.z - v.z;
+            if (Math.abs(dx) < 70 && Math.abs(dz) < 70) {
+                const f = dx * fx + dz * fz, l = dx * rx + dz * rz;
+                if (f > 0 && f < look && Math.abs(l) < v.width * 0.5 + 0.9) {
+                    const g = f - half - 0.8;
+                    if (g < gap) { gap = g; leader = 'ped'; leaderSpeed = 0; leaderCross = false; }
+                    if (this.buc && g < 8 && v.speed < 1 && v.honkCd <= 0 && this.rng() < 0.02) { v.honkCd = 6; this.honk(v, 'honkedAt'); }
                 }
             }
         }

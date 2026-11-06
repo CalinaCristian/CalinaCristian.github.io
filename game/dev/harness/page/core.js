@@ -48,6 +48,7 @@ export class Harness {
             if (H.owned) return;
             if (g.state === 'drive') g.updateDrive(dt);
             else if (g.state === 'office') g.updateOffice(dt);
+            else if (g.state === 'foot' && g.updateFoot) g.updateFoot(dt);
         };
         // rendering is by far the most expensive part in software GL: render only on request
         const df = g.drawFrame.bind(g);
@@ -159,6 +160,9 @@ export class Harness {
             const t2 = performance.now();
             this.checkDrive(dt);
             pf.ap += t1 - t0; pf.game += t2 - t1; pf.check += performance.now() - t2; pf.n++;
+        } else if (g.state === 'foot' && g.updateFoot) {
+            if (this.walkAp) this.walkAp(dt);
+            g.updateFoot(dt);
         } else if (g.state === 'office' && g.office) {
             if (!g.office._hPatched) { const r = g.office.render.bind(g.office); g.office.render = () => { if (this._renderNow) r(); }; g.office._hPatched = true; }
             g.updateOffice(dt);

@@ -2399,7 +2399,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             for (let j = 0; j <= segs; j += Math.max(1, Math.floor(segs / 3))) { const [x, z] = at(0, (j / segs - 0.5) * half * 2); post(c, x, z, y, US ? 1.35 : 1.2); }
             // cones / drums tapering across the lanes in front of it
             const nT = kind === 'small' ? 4 : 7;
-            for (let j = 0; j < nT; j++) { const f = j / (nT - 1), [x, z] = at(3 + f * (kind === 'small' ? 5 : 14), (f - 0.5) * half * 1.6); c.solid.geo(US && kind !== 'small' ? drumG : coneG, x, y, z, 0, 1, 1, 1, [255, 255, 255]); addPropColl(x, z, US ? 0.35 : 0.22, 'cone'); }
+            for (let j = 0; j < nT; j++) { const f = j / (nT - 1), [x, z] = at(3 + f * (kind === 'small' ? 5 : 14), (f - 0.5) * half * 1.6); c.solid.geo(US && kind !== 'small' ? drumG : coneG, x, y, z, 0, 1, 1, 1, [255, 255, 255]); addPropColl(x, z, US ? 0.35 : 0.22, 'closure'); }
             if (kind !== 'small') { // jersey barriers + an arrow board on boulevards / highways
                 for (let j = -1; j <= 1; j++) { const [x, z] = at(1.0, j * 2.05 - half * 0.35); c.solid.geo(jerseyG, x, y, z, ang, 1, 1, 1, [255, 255, 255]); }
                 const [bx, bz] = at(-0.6, half * 0.5); c.solid.box(bx, y, bz, 0.1, 1.2, 0.1, 0, postCol); c.solid.box(bx, y + 1.25, bz, 2.2, 1.1, 0.12, ang + Math.PI / 2, dark);
@@ -2423,13 +2423,13 @@ export async function buildWorld(city, renderer, opts = {}) {
                 c.solid.box(ex, y, ez + 0.01, 0.6, 0.15, 6, ang + Math.PI / 2, rgb('#5a4a3a')); // dug-up strip
             } else if (!US && kind !== 'small' && pick === 1) { // Poliția Rutieră car parked across the lane before the barrier
                 const [qx, qz] = at(6, half * 0.45); c.solid.geo(carProps('sedan', '#e8e8e8'), qx, y - 0.12, qz, ang, 1, 1, 1, [255, 255, 255]);
-                c.solid.box(qx, y + 1.5, qz, 0.9, 0.12, 0.25, ang, rgb('#1e5bff')); addPropColl(qx, qz, 1.9, 'car');
+                c.solid.box(qx, y + 1.5, qz, 0.9, 0.12, 0.25, ang, rgb('#1e5bff')); addPropColl(qx, qz, 1.9, 'closure');
             } else if (US && pick !== 2) { // flagger with a STOP paddle
                 const [fx, fz] = at(7, half - 1.2), vest = rgb('#d7ff1f');
                 c.solid.box(fx, y, fz, 0.35, 0.85, 0.25, ang, rgb('#2b3442')); c.solid.box(fx, y + 0.85, fz, 0.45, 0.65, 0.3, ang, vest); c.solid.box(fx, y + 1.5, fz, 0.22, 0.25, 0.22, ang, rgb('#b98a6a'));
                 c.solid.box(fx, y + 1.78, fz, 0.32, 0.12, 0.32, ang, rgb('#f2f2f2')); post(c, fx + px * 0.35, fz + pz * 0.35, y + 0.6, 1.0);
                 const st = signs.get('STOP', '#c62828', '#ffffff', null, true); if (st) addSignQuad(c, fx + px * 0.35, fz + pz * 0.35, face, 1, 0.5, 0.5, y + 1.85, st, 0.05);
-                addPropColl(fx, fz, 0.35, 'person');
+                addPropColl(fx, fz, 0.35, 'closure');
             }
             // which district this road heads toward (a later chapter's district → "opens in Chapter n")
             let leadsTo = null, best = Math.cos(45 * Math.PI / 180);
@@ -2856,6 +2856,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                     const rb = polyOnRibbon(b.poly);
                     if (rb) out.buildings.push({ x: R(b.x), z: R(b.z), road: rb.e ? rb.e.name : 'junction', poi: b.poi?.id });
                 } else {
+                    if (b.kind === 'closure') continue; // district-edge roadworks: on the road on purpose
                     const rb = b.hw === b.r ? onRibbon(b.x, b.z, b.r) : polyOnRibbon(obbPoly(b), b.yMax !== undefined ? (r) => r.y < b.yMax - 0.5 : null);
                     if (rb) out.props.push({ kind: b.kind || 'prop', x: R(b.x), z: R(b.z), r: R(b.r), road: rb.e ? rb.e.name : 'junction' });
                 }

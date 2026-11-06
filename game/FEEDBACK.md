@@ -17,3 +17,21 @@ Owner's feedback after driving the private preview:
 Done: NPCs yield to / steer around the player and never push into it; no spawns in front of the player; double-parkers only on wide streets away from junctions; non-sticky collisions; `R` reset-to-road; deadlock resolver; Bucharest scaled 0.7; fast travel (`F` / map buttons) with montage; tree/lamp/pole/shelter collisions; broken roads fixed (0 ribbons into buildings, one-way traps removed, service roads kept as connectors, only the main strongly-connected network is routable); facade detail (bands, cornices, balconies, colonnades, shop fronts, roofs); rendering integrated (real-time sun from local time, dawn/day/sunset/night, stars/moon, bloom/AA/vignette, adaptive quality, street-lamp lighting, headlights `L`, wipers/rain, better car models, cockpit gauges + nav screen).
 
 Known gaps: Politehnica's door is at the Bd. Doina Cornea gate (~230 m from the Rectorat tower; campus roads are private); Bridges, overpasses and tunnels now have a vertical profile with ramps (car and traffic follow it); UiPath HQ door is on Str. Vasile Alecsandri; OTP terminal squashed to the compressed DN1 strip. I-90 floating bridges are tagged layer 1 in OSM so they sit on piers 6 m above the lake. Seattle overcast lighting was brightened (exposure 1.12).
+
+# Play-test round 2 (2026-11-06 evening, build 8b861ec) — 60 fps at auto(high) on the owner's machine
+
+1. Lights flicker while driving at night (street-lamp light pool swapping).
+2. Steering wheel turns the wrong way.
+3. Look around left/right (mouse look; touch drag on mobile).
+4. Walking in offices: mouse look + Shift to run + Space to jump.
+5. Trees planted in the middle of the street.
+6. Pedestrians walk through cars.
+7. Traffic density should depend on the hour (rush hours), ideally from real data.
+8. Objects generated in the middle of the street, even at the spawn (big slab across Splaiul at Grozăvești).
+9. Car can jump up onto / drop off bridges; no collision with objects on the road.
+10. Build an automated harness that plays the whole game and finds/fixes issues, with a fast iteration loop.
+11. Reverse should steer like a real car (inverted with the wheel).
+12./15. Map should be much smaller but more accurate (keep realism).
+13. Seattle spawn: road looks broken, invisible collisions, lamp posts in the middle of the street.
+14. Look-behind shows half a car (no rear interior).
+16. Main buildings should be more realistic, based on real information.

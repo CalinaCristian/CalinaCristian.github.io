@@ -284,6 +284,7 @@ body.photo-mode .photo-open { display: none; }
     .pv-c { width: 20px; height: 20px; } .pv-rec { left: 34px; top: 10px; } .pv-read { right: 34px; top: 9px; font-size: 10px; }
     .pv-meta { left: 34px; bottom: 9px; } .pv-place { font-size: 12px; } .pv-time { font-size: 10px; } .pv-filter { right: 34px; bottom: 9px; font-size: 10px; }
     .pv-print { bottom: 66px; width: min(220px, 34vw); }
+    .photo-open { top: 64px; right: 10px; transform: none; width: 40px; height: 40px; font-size: 18px; } /* under the rage bar, clear of the speedo */
 }
 @media (max-width: 520px) {
     .pv-read { font-size: 9px; right: 30px; top: 10px; } .pv-rec { left: 30px; top: 10px; font-size: 10px; } .pv-c { width: 18px; height: 18px; border-width: 2px; }

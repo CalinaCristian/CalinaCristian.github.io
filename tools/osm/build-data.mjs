@@ -587,6 +587,7 @@ function buildCity(cityId, did = null) {
         return i;
     };
     const outRoads = [];
+    const turnLanes = []; // [roadIndex, forward 'left|through;right|…' string, backward string, …] (OSM turn:lanes → painted arrows)
     let segCount = 0;
     for (const r of roads) {
         const pts = r.nodes.map(n => pos.get(n));
@@ -599,6 +600,8 @@ function buildCity(cityId, did = null) {
         r.median = r.oneway ? -(r.lf * r.laneW) : r.median;
         segCount += ids.length - 1;
         r.keptIds = ids;
+        { const t = r.tags || {}; const fw = t['turn:lanes:forward'] || (r.oneway ? t['turn:lanes'] : '') || '', bw = r.oneway ? '' : (t['turn:lanes:backward'] || '');
+          if (/left|right|through/.test(fw + bw)) turnLanes.push(outRoads.length, S(fw), S(bw)); }
         outRoads.push([S(r.name), ROAD_CLASSES.indexOf(r.cls), r.lf, r.oneway ? 0 : r.lb, Math.round(r.median * 10), Math.round(r.laneW * 10), Math.round(r.sidewalk * 10), r.maxspeed, r.flags, r.layer, ...ids.map(idxOf)]);
     }
     log('graph nodes', outNodes.length / 2, 'segments', segCount);
@@ -1155,6 +1158,7 @@ function buildCity(cityId, did = null) {
         corridor: { areaKm2: +cor.areaKm2.toFixed(2), legs: cor.legs.map(l => [l.label, l.km]) },
     };
     if (Object.keys(researchBrands).length) doc.brands = researchBrands;
+    if (turnLanes.length) doc.turnLanes = turnLanes;
     if (ds) { // district boundary (game metres): the polygons and the corridor field are the same margin() → sample its outline
         doc.district = { id: did, name: ds.district.name, bbox: ds.district.bbox, areaKm2: +cor.areaKm2.toFixed(2),
             polys: cor.polys.map(pl => pl.map(([x, z]) => [Math.round(x * 10) / 10, Math.round(z * 10) / 10])),

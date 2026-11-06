@@ -165,6 +165,29 @@ export const FACTS = {
     ],
 };
 
+// Roadworks crew at the district-edge closures (spec R10.9). Bucharest lines draw on the research notes about the
+// Planșeul Unirii consolidation (works since 2023, last stage 2025–26, traffic restricted around Piața Unirii) and the
+// city's habit of digging the same street twice; {text, en}.
+export const ROADWORKS = {
+    bucharest: [
+        { text: 'Închis, șefu\'. Lucrăm.', en: 'Closed, boss. We\'re working.' },
+        { text: 'Mai avem puțin… de doi ani.', en: 'Almost done… for two years now.' },
+        { text: 'Ocolire pe la stânga, vezi săgeata.', en: 'Detour to the left, see the arrow.' },
+        { text: 'Am terminat asfaltul ieri. Azi îl spargem pentru țeava de apă.', en: 'We finished the asphalt yesterday. Today we dig it up for the water main.' },
+        { text: 'Planșeul Unirii? Ultima etapă. Tot ultima.', en: 'The Unirii slab? Last stage. Still the last one.' },
+        { text: 'Nu claxona, că nu trece mai repede.', en: 'Don\'t honk, it won\'t go any faster.' },
+        { text: 'Termen de finalizare: când se termină.', en: 'Completion date: when it\'s finished.' },
+        { text: 'Pauză de cafea. A treia.', en: 'Coffee break. The third one.' },
+        { text: 'Strada asta o reabilităm din 2019.', en: 'We\'ve been rehabilitating this street since 2019.' },
+        { text: 'Mai încolo e drumul în capitolul următor.', en: 'That way is the road for the next chapter.' },
+    ],
+    seattle: [
+        { text: 'Road\'s closed, buddy. Detour\'s signed.', en: '' },
+        { text: 'Bridge maintenance. Should be done by spring. Which spring, they didn\'t say.', en: '' },
+        { text: 'Local traffic only past this point.', en: '' },
+        { text: 'Turn around — that way\'s for another chapter.', en: '' },
+    ],
+};
 export const PHRASES = {
     bucharest: {
         honkedAt: ['Hai, mișcă!', 'Ce faci, dormi?!', 'Claxonezi la mine?!', 'Băi, nene!', 'Mută căruța!', 'Dă-te, că întârzii!', 'Ia-ți permisul de la Dedeman!', 'Ai luat carnetul la tombolă?', 'Hai, că nu e Formula 1!'],

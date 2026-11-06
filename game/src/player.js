@@ -36,6 +36,12 @@ export class Player {
         const frame = new THREE.Mesh(new THREE.BoxGeometry(0.36, 0.14, 0.02), new THREE.MeshBasicMaterial({ color: '#15171a' }));
         frame.position.z = -0.011; this.mirror.add(frame);
         this.rig.add(this.mirror);
+        // the cockpit's mirror mount (R17.2): glass on the stalk inside the windshield, camera centred
+        const mm = this.cockpit?.userData?.mirrorMount;
+        if (mm) {
+            this.mirror.position.copy(mm.position); this.mirror.quaternion.copy(mm.quaternion); this.mirror.scale.set(mm.width / 0.33, mm.height / 0.11, 1);
+            this.mirrorCam.position.copy(mm.camPosition); this.mirrorCam.rotation.copy(mm.camRotation); this.mirrorCam.fov = mm.camFov; this.mirrorCam.updateProjectionMatrix();
+        }
         this.mirrorEnabled = true;
         scene.add(this.rig);
         this.length = 4.4; this.width = 1.8; this.radius = 1.1;
@@ -261,6 +267,9 @@ export class Player {
         d.count++;
     }
 
+    /** within 25 m of a district-edge closure (main sets `softZones` = world.closures): its cones, boards and
+     *  barriers stop the car softly, without damage or fines (spec R10.9) */
+    nearClosure() { const zs = this.softZones; if (!zs || !zs.length) return false; for (const z of zs) if (Math.abs(z.x - this.x) < 25 && Math.abs(z.z - this.z) < 25) return true; return false; }
     collide(dt) {
         // Penetration is resolved fully (minimum translation), speed is damped by the impact angle instead of
         // being killed, and moving away from an obstacle is never damped -> you can always reverse / steer out.
@@ -292,7 +301,8 @@ export class Player {
                         const info = hit.__wall ? { type: 'wall', id: hit.id ?? null, x: +hit.ax.toFixed(1), z: +hit.az.toFixed(1), x2: +hit.bx.toFixed(1), z2: +hit.bz.toFixed(1) } : this.describe(hit);
                         this.noteCollider(info); Object.defineProperty(info, 'ref', { value: hit, enumerable: false });
                     }
-                    this.impact(sx / pl, sz / pl, 0, 'building', null, 0.75);
+                    if (hit.soft || hit.kind === 'closure' || this.nearClosure()) { this.closureHit = hit; this.closureAt = performance.now(); this.impact(sx / pl, sz / pl, 0, 'closure', null, 0.95); } // district-edge closure: soft stop, no damage
+                    else this.impact(sx / pl, sz / pl, 0, 'building', null, 0.75);
                 }
                 if (!any) break;
             }
@@ -388,10 +398,11 @@ export class Player {
         const vn = this.speed * cos - otherVn;            // relative normal velocity (<0 = closing)
         if (vn >= -0.05) return;                            // separating: never hold the car back
         const strength = -vn;
-        if (this.collisionCd <= 0 && strength > 1.5) this.hit(strength, what, v);
+        if (this.collisionCd <= 0 && strength > 1.5 && what !== 'closure') this.hit(strength, what, v);
         // remove (most of) the closing normal component; tangential sliding is kept
         const k = Math.abs(cos);
         if (k > 0.85 && strength > 5 && what === 'building') this.speed = -this.speed * 0.15; // small bounce off walls
+        else if (what === 'closure') this.speed *= 1 - damp; // (soft: a stop, not a crash)
         else this.speed *= 1 - damp * k;
         if (Math.abs(this.speed) < 0.05) this.speed = 0;
     }

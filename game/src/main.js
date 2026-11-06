@@ -1,7 +1,7 @@
 import * as THREE from '../vendor/three.module.min.js';
 import * as CITY_MOD from './cities.js';
 import { chapterCard, chapterMontage, chapterSelectHtml, loadProgress, saveProgress, chapterCardOpen } from './chapters.js';
-import { STOPS, AIRPORTS, FACTS, PROFILE } from './data.js';
+import { STOPS, AIRPORTS, FACTS, PROFILE, ROADWORKS } from './data.js';
 import { buildWorld, collideBuildings } from './world.js';
 import { Traffic, laneOffset } from './traffic.js';
 import { Player } from './player.js';
@@ -14,6 +14,7 @@ import { playFlight } from './flight.js';
 import { Navigator, CarScreen, canTravel, edgeSpeed, isMotorway, roadName, fmtDist, stepText, stepArrow, lanesDir } from './nav.js';
 import { isTouch, clamp, angleDiff, signTexture } from './util.js';
 import { Renderer3D } from './render.js';
+import { PhotoMode } from './photo.js';
 
 const $ = (s) => document.querySelector(s);
 const { CITIES } = CITY_MOD;
@@ -109,7 +110,7 @@ class Game {
         // Renderer3D owns the WebGLRenderer, lighting, sky, weather, post-processing and adaptive quality
         this.r3d = this.renderer3d = new Renderer3D(this.canvas, { quality: 'auto' });
         this.renderer = this.r3d.renderer; // still used directly for the mirror pass and the office scene
-        this.camera = new THREE.PerspectiveCamera(72, 1, 0.4, 5000);
+        this.camera = new THREE.PerspectiveCamera(72, 1, 0.2, 5000); // near 0.2: the door trim is 0.47 m from the eye (R17.4)
         this.input = new Input();
         this.audio = new Audio();
         this.hud = new HUD();
@@ -143,6 +144,17 @@ class Game {
         this.debug = { dev: DEV, overlay: false, lastCollider: null, hits: [], setOverlay: (on) => this.setDebugOverlay(on) };
         this.bindMenu();
         this.applyOpts();
+        $('#prompt')?.addEventListener('click', (e) => { if (e.target.closest('[data-act=uturn]')) this.uTurn(); });
+        // photo mode (spec 16): listens to P itself while drive / office / on foot
+        try {
+            this.photo = new PhotoMode({
+                renderer: this.renderer, getScene: () => (this.state === 'office' ? this.office?.scene : this.scene), getCamera: () => this.camera,
+                hud: this.hud, audio: this.audio, input: this.input,
+                canOpen: () => (this.state === 'drive' || this.state === 'office' || this.state === 'foot') && !this.mapOpen && !this.hud.panelOpen,
+                getInfo: () => ({ place: this.state === 'office' ? this.office?.stop.company : document.getElementById('street')?.textContent, city: this.city?.id, timeZone: this.clock.timeZone, night: !!this.r3d.nightLights }),
+                onPhoto: (meta) => this.hud.toast('📸 Saved', `${meta.place || 'Photo'} · ${meta.filter}`),
+            });
+        } catch (e) { console.warn('[photo]', e); this.photo = null; }
         this.loop = this.loop.bind(this);
         requestAnimationFrame(this.loop);
     }
@@ -260,7 +272,10 @@ class Game {
             onHonk: (v, reason) => this.vehicleHonk(v, reason),
             onBand: (band, prev) => this.onTrafficBand(band, prev),
         });
-        this.traffic.setHour(this.cityHours(), true);
+        // standstill hotspots of this district (spec 13): from the loaded world, else the city's district config
+        { const cong = world.district?.congestion || (district && city.districts?.[district]?.congestion) || null; if (cong?.length && this.traffic.setCongestion) this.traffic.setCongestion(cong, city.proj); }
+        { const q = new URLSearchParams(location.search); if (q.has('jam')) this.traffic.jamOverride = clamp(+q.get('jam') || 0, 0, 1); }
+        this.traffic.setHour(this.trafficHours(), true);
         this.traffic.setNightLights(this.nightLights);
         // player
         if (!this.player) {
@@ -304,6 +319,7 @@ class Game {
         this.leftAirport = false;
         this.prevEdgeInfo = null;
         this.navManual = false; this.navInfo = null;
+        this.setupClosures(city, world);
         this.updateObjective();
     }
 
@@ -485,7 +501,7 @@ class Game {
         const prevSpeed = player.speed;
         if (this.refuel) player.update(dt, { throttle: 0, brake: true, steer: 0 }, { maxSpeed: 38 });
         else player.update(dt, input, { maxSpeed: empty ? 2 : 38, grip: this.wxGrip });
-        traffic.setHour(this.clock.hours);
+        traffic.setHour(this.trafficHours());
         traffic.update(dt);
         this.updateUnstick(dt);
         this.debug.lastCollider = player.debug.lastCollider; this.debug.hits = player.debug.hits;
@@ -561,7 +577,7 @@ class Game {
         // ---- "you are passing …" captions (e.g. Plaza Center, UiPath Bellevue 2022–2025, on the way to Lincoln Square) ----
         if (this.frame % 15 === 0) this.checkPassing(player);
         // ---- chapter waypoint (e.g. drive out of SeaTac to the I-5 junction) ----
-        if (this.ch?.waypoint && !this.chapterDone && this.objective?.waypoint && Math.hypot(this.objective.x - player.x, this.objective.z - player.z) < 30) this.completeChapter();
+        if (this.ch?.waypoint && !this.chapterDone && this.objective?.waypoint && (Math.hypot(this.objective.x - player.x, this.objective.z - player.z) < 30 || (this.navInfo && !this.navManual && this.navInfo.remaining < 25))) this.completeChapter();
         // ---- interactions (office > airport > refuel > tow) ----
         let prompt = null;
         for (const { stop, poi } of this.stopPois) {
@@ -585,6 +601,7 @@ class Game {
                 if (input.take('KeyE')) this.fly();
             }
         }
+        if (!prompt) prompt = this.updateClosures(dt);
         if (!prompt) prompt = this.updateFuelStops(dt, v);
         if (!prompt && this.stuckT > 2) prompt = '<kbd>R</kbd> Stuck? Reset to the road <small>(nearest lane, facing the traffic flow)</small>';
         hud.prompt(prompt);
@@ -675,6 +692,11 @@ class Game {
         this.hud.toast(`${SEASON_ICON[name] || '🗓️'} ${text} in ${where}`, this.weatherText() || '');
     }
     /** local hour of the current city (or the menu override) */
+    /** the hour the traffic follows: `?hour=8` / clock.trafficHour (tests, rush-hour demos), else the city clock */
+    trafficHours() {
+        if (this.clock.trafficHour == null) { const q = new URLSearchParams(location.search).get('hour'); this.clock.trafficHour = q != null && q !== '' && Number.isFinite(+q) ? +q : false; }
+        return this.clock.trafficHour !== false ? this.clock.trafficHour : (this.clock.hours ?? this.cityHours());
+    }
     cityHours() { const c = this.clock; return c.override ? OVERRIDE_HOURS[c.override] : localHours(new Date(), c.timeZone); }
     onTrafficBand(band, prev) {
         const t = BAND_TEXT[band]; if (!t) return;
@@ -719,6 +741,7 @@ class Game {
 
     /** draws the route + waypoint on a MiniMap canvas using the same transform it was drawn with */
     drawRouteOverlay(ctx, canvas, { cx, cz, scale, heading = null }) {
+        this.drawOutside(ctx, canvas, { cx, cz, scale, heading });
         const r = this.nav?.route; if (!r) return;
         ctx.save();
         ctx.translate(canvas.width / 2, canvas.height / 2);
@@ -861,6 +884,7 @@ class Game {
     vehicleHonk(v) {
         const p = this.player; const dx = v.x - p.x, dz = v.z - p.z; const d = Math.hypot(dx, dz);
         if (d > 120) return;
+        { const now = performance.now(); if (now - (this._honkAt || 0) < 160) return; this._honkAt = now; } // (a jam's honk storm: ≤ 6 horns a second)
         const pan = clamp((dx * -p.fz + dz * p.fx) / (d || 1), -1, 1) * -1;
         this.audio.horn(pan, d, 0.8 + ((v.x * 13) % 7) / 10, 0.3 + Math.random() * 0.4);
         if (d < 40) this.hud.addRage(2);
@@ -1057,6 +1081,100 @@ class Game {
         for (const l of this._passList) if (!seen.has(l.key) && Math.hypot(l.x - P.x, l.z - P.z) < l.r) { seen.add(l.key); this.hud.toast(l.title, l.caption, 'intro'); }
     }
 
+
+    // ---------------------------------------------------------------------------------- district edges (R10.9)
+    /** closures where roads leave the district (world.closures) + a roadworks crew at the Bucharest ones */
+    setupClosures(city, world) {
+        this.closures = (world.closures || []).map(c => ({ ...c, toastT: -1e9 }));
+        this.closureStopT = 0; this._outside = null;
+        if (this.player) this.player.softZones = this.closures;
+        this.workers = [];
+        if (city.id !== 'bucharest' || !this.closures.length) return;
+        const lam = (c) => new THREE.MeshLambertMaterial({ color: c });
+        const vest = lam('#f97316'), stripe = new THREE.MeshBasicMaterial({ color: '#f1f5f9' }), skin = lam('#e0ac85'), helmet = lam('#facc15'), pants = lam('#1f2937');
+        const gBody = new THREE.CapsuleGeometry(0.24, 0.55, 3, 8), gLeg = new THREE.CapsuleGeometry(0.1, 0.62, 2, 6), gHead = new THREE.SphereGeometry(0.13, 10, 8);
+        const gHelm = new THREE.SphereGeometry(0.16, 10, 6, 0, Math.PI * 2, 0, Math.PI / 2), gStripe = new THREE.CylinderGeometry(0.255, 0.255, 0.06, 12, 1, true);
+        for (const c of this.closures) {
+            const e = c.edge; if (!e) continue;
+            const ix = Math.sin(c.heading), iz = Math.cos(c.heading), px = -iz, pz = ix; // into the map / across the road
+            const side = Math.max(e.wR ?? 3, e.wL ?? 3) + 1.6;
+            const g = new THREE.Group();
+            const body = new THREE.Mesh(gBody, vest); body.position.y = 1.15; g.add(body);
+            for (const y of [1.0, 1.3]) { const st = new THREE.Mesh(gStripe, stripe); st.position.y = y; g.add(st); }
+            for (const lx of [-0.11, 0.11]) { const l = new THREE.Mesh(gLeg, pants); l.position.set(lx, 0.42, 0); g.add(l); }
+            const head = new THREE.Mesh(gHead, skin); head.position.y = 1.72; g.add(head);
+            const hm = new THREE.Mesh(gHelm, helmet); hm.position.y = 1.76; g.add(hm);
+            const x = c.x + ix * 3 + px * side, z = c.z + iz * 3 + pz * side, y = (c.node?.y ?? 0) + 0.2;
+            g.position.set(x, y, z); g.rotation.y = Math.atan2(ix, iz) + Math.PI; // facing the traffic coming from inside
+            g.traverse(o => { if (o.isMesh) o.castShadow = true; });
+            this.scene.add(g);
+            this.workers.push({ x, z, mesh: g, nextT: 0 });
+        }
+    }
+    closureText(c) {
+        const name = c.leadsTo ? (this.city.districts?.[c.leadsTo]?.name || c.leadsTo) : null;
+        const idx = c.leadsTo && this.chapters ? this.chapters.findIndex(ch => ch.city === this.city.id && ch.district === c.leadsTo) : -1;
+        if (idx < 0) return ['🚧 Road closed', 'Outside the story. Turn around (U).'];
+        const ch = this.chapters[idx];
+        if (this.progress.reached.has(ch.id) && ch.district !== this.district) return [`🚧 ${name}`, 'Open it from the chapter map (M → Chapters).'];
+        if (ch.district === this.district) return ['🚧 Road closed', 'Outside the story. Turn around (U).'];
+        return ['🚧 Road closed', `${name} opens in Chapter ${idx + 1} (${ch.year}).`];
+    }
+    /** approach toast, soft stop → "Turn around" prompt (U / tap), roadworks chatter; returns a prompt or null */
+    updateClosures(dt) {
+        if (!this.closures?.length) return null;
+        const P = this.player, now = performance.now(); let prompt = null;
+        for (const c of this.closures) {
+            const dx = c.x - P.x, dz = c.z - P.z, d = Math.hypot(dx, dz);
+            if (d < 40 && d > 0.5 && (dx * P.fx + dz * P.fz) / d > 0.6 && now - c.toastT > 30000 && now - (this._closureToastT || 0) > 8000) { c.toastT = now; this._closureToastT = now; const [t, b] = this.closureText(c); this.hud.toast(t, b, 'warn'); }
+        }
+        if (P.closureHit && now - (P.closureAt || 0) < 500) this.closureStopT += dt; else this.closureStopT = Math.max(0, this.closureStopT - dt * 0.5);
+        if (this.closureStopT > 2 && Math.abs(P.speed) < 2) {
+            prompt = '<kbd>U</kbd> Turn around <button class="btn small" data-act="uturn" style="pointer-events:auto">↩︎ Turn around</button>';
+            if (this.input.take('KeyU')) { this.uTurn(); prompt = null; }
+        }
+        for (const w of this.workers || []) {
+            if (now < w.nextT) continue;
+            const d = Math.hypot(w.x - P.x, w.z - P.z);
+            if (d < 35) { const L = ROADWORKS[this.city.id] || ROADWORKS.bucharest; const l = L[Math.floor(Math.random() * L.length)]; this.hud.say(w, l.text, l.en); w.nextT = now + 9000 + Math.random() * 7000; }
+        }
+        return prompt;
+    }
+    /** auto U-turn at a closure: the right-most lane of the same road, the other way */
+    uTurn() {
+        const P = this.player;
+        const pose = this.lanePose(P.x - P.fx * 3, P.z - P.fz * 3, P.heading + Math.PI, P.surfY ?? null);
+        if (!pose) return false;
+        P.place(pose.x, pose.z, pose.heading, pose.edge); P.speed = 0; P.steer = 0; P.contactAge = 9; P.closureHit = null;
+        this.closureStopT = 0; this.traffic.clearAround(pose.x, pose.z, 10); this.nav.reroute(P);
+        this.audio.blip(640, 0.06, 0.07);
+        return true;
+    }
+    /** hatched area outside the district (minimap / big map), from world.district.inside() sampled once per world */
+    drawOutside(ctx, canvas, { cx, cz, scale, heading = null }) {
+        const W = this.world, inside = W?.district?.inside, b = W?.bounds; if (!inside || !b) return;
+        if (!this._outside || this._outside.world !== W) {
+            const cell = 10, pad = 300, x0 = b.minX - pad, z0 = b.minZ - pad, w = Math.ceil((b.maxX - b.minX + 2 * pad) / cell), h = Math.ceil((b.maxZ - b.minZ + 2 * pad) / cell);
+            const cv = document.createElement('canvas'); cv.width = w; cv.height = h; const g = cv.getContext('2d');
+            const img = g.createImageData(w, h);
+            for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) {
+                if (inside(x0 + (i + 0.5) * cell, z0 + (j + 0.5) * cell)) continue;
+                const k = (j * w + i) * 4, hatch = ((i + j) % 6) < 2;
+                img.data[k] = hatch ? 148 : 15; img.data[k + 1] = hatch ? 163 : 23; img.data[k + 2] = hatch ? 184 : 42; img.data[k + 3] = hatch ? 150 : 110;
+            }
+            g.putImageData(img, 0, 0);
+            this._outside = { world: W, cv, x0, z0, w: w * cell, h: h * cell };
+        }
+        const o = this._outside;
+        ctx.save();
+        ctx.translate(canvas.width / 2, canvas.height / 2);
+        if (heading !== null) ctx.rotate(heading);
+        ctx.scale(scale, scale); ctx.translate(-cx, -cz);
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(o.cv, o.x0, o.z0, o.w, o.h);
+        ctx.restore();
+    }
+
     // ---------------------------------------------------------------------------------- chapters (spec 10)
     renderMenuChapters() {
         if (!this.chapters) return;
@@ -1109,8 +1227,9 @@ class Game {
             const next = this.chapters[this.chapterIdx + 1];
             this.objectiveLabel = next ? `🚗 Free drive · M → next chapter (${next.year} · ${next.title})` : '🏁 Story complete — free drive';
         } else if (ch.waypoint) {
-            const q = this.city.proj(ch.waypoint.lat, ch.waypoint.lon);
-            this.objective = { x: q.x, z: q.z, waypoint: true, label: ch.waypoint.label };
+            // the waypoint on the road (lat/lon may sit in the junction's grass): reached = within 30 m of that point
+            const q = this.city.proj(ch.waypoint.lat, ch.waypoint.lon), ne = this.nav.index.nearest(q.x, q.z, 300, (e) => e.main !== false);
+            this.objective = { x: ne ? ne.cx : q.x, z: ne ? ne.cz : q.z, waypoint: true, label: ch.waypoint.label };
             this.objectiveLabel = `📍 ${ch.waypoint.label} <small>(${ch.year})</small>`; this.objectivePlain = ch.waypoint.label;
         } else if (stop?.poiRef) {
             this.objective = stop.poiRef; this.objectiveLabel = `${stop.icon} ${stop.short} <small>(${ch.year})</small>`; this.objectivePlain = stop.short;
@@ -1128,7 +1247,7 @@ class Game {
         this.audio.chime(); this.updateObjective(); this.hud.setObjective(this.objectiveLabel); this.hud.setNavLine('');
         if (!next) { this._completing = false; setTimeout(() => this.finale(), 900); return; }
         this.player.speed = 0; this.input.releaseLock(); this.input.lookAllowed = false; this.hud.prompt(null);
-        this.state = 'card';
+        this.photo?.close?.(); this.state = 'card';
         const nd = CITIES[next.city]?.districts?.[next.district];
         const act = await chapterCard({ done: ch, next, index: idx, total: this.chapters.length, nextDistrictName: nd?.name });
         this._completing = false;
@@ -1142,7 +1261,7 @@ class Game {
         this._transit = true;
         try {
             const prev = this.ch;
-            this.state = 'montage'; this.input.lookAllowed = false; this.input.releaseLock(); this.hud.prompt(null); this.hud.setNavLine('');
+            this.photo?.close?.(); this.state = 'montage'; this.input.lookAllowed = false; this.input.releaseLock(); this.hud.prompt(null); this.hud.setNavLine('');
             this.audio.stopEngine?.();
             if (prev && prev.city !== ch.city) await this.flightCutscene(prev.city);
             else await chapterMontage({ cityName: this.city?.name, districts: CITIES[ch.city].districts || {}, from: prev?.district, to: ch.district, year0: prev?.year, year1: ch.year, title: ch.title, caption: ch.intro, duration: prev ? 5000 : 4200 });
@@ -1270,7 +1389,7 @@ class Game {
         }
         if (!pose) pose = this.poseAlongRoute(route, Math.max(0, route.total - 60));
         const names = []; for (const leg of route.legs) { const n = leg.e.name || leg.e.ref; if (n && names[names.length - 1] !== n && !names.includes(n)) names.push(n); }
-        this.state = 'montage';
+        this.photo?.close?.(); this.state = 'montage';
         this.input.lookAllowed = false; this.input.releaseLock();
         hud.prompt(null); hud.setNavLine('');
         this.audio.blip(520, 0.08, 0.08);
@@ -1329,6 +1448,7 @@ class Game {
 
     // ----------------------------------------------------------------------------------
     enterOffice(stop) {
+        this.photo?.close?.();
         this.state = 'office';
         this.audio.stopEngine(); this.audio.blip(520, 0.15, 0.1);
         $('#hud').classList.add('in-office');
@@ -1347,6 +1467,7 @@ class Game {
         if (o.done) this.leaveOffice();
     }
     leaveOffice() {
+        this.photo?.close?.();
         const o = this.office; const stop = o.stop;
         o.dispose(); this.office = null;
         $('#hud').classList.remove('in-office');
@@ -1370,6 +1491,7 @@ class Game {
     }
 
     async fly() {
+        this.photo?.close?.();
         const from = this.city.id;
         this.state = 'flight';
         this.input.lookAllowed = false; this.input.releaseLock();
@@ -1391,6 +1513,7 @@ class Game {
     }
 
     finale() {
+        this.photo?.close?.();
         this.input.releaseLock();
         this.hud.achievement('all');
         const s = this.stats;

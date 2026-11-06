@@ -102,6 +102,16 @@ export class HUD {
         this.bubbles.push({ v, el, until: performance.now() + 2600 + Math.random() * 1200 });
         if (this.bubbles.length > 14) { const b = this.bubbles.shift(); b.el.remove(); }
     }
+    /** a chat bubble with a given line over anything with {x, z} (roadworks crew, pedestrians); `sub` = translation */
+    say(target, text, sub = '', cls = '') {
+        const el = document.createElement('div');
+        el.className = 'bubble ' + cls;
+        el.textContent = text;
+        if (sub) { const s = document.createElement('small'); s.textContent = sub; s.style.cssText = 'display:block;opacity:.75;font-size:.85em;margin-top:2px'; el.appendChild(s); }
+        this.el.bubbles.appendChild(el);
+        this.bubbles.push({ v: target, el, until: performance.now() + 4200 });
+        if (this.bubbles.length > 14) { const b = this.bubbles.shift(); b.el.remove(); }
+    }
     toast(title, body, cls = '') {
         const el = document.createElement('div');
         el.className = 'toast ' + cls;

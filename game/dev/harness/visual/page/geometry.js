@@ -207,12 +207,14 @@ export function geometryDetectors(G, opts) {
         }
     }
     // ---------------------------------------------------------------- the driven lane must be covered by a surface
+    const ends = []; try { for (const n of Object.values(W.graph?.nodes || {})) if (n.mapEnd) ends.push(n); for (const e of W.allEdges || []) for (const n of [e.a, e.b]) if (n.mapEnd && !ends.includes(n)) ends.push(n); } catch { /* ignore */ }
+    const nearEnd = (x, z) => ends.some(n => Math.hypot(n.x - x, n.z - z) < 30);
     for (const path of opts.paths || []) {
         let last = -1e9;
         for (let i = 0; i < path.length; i++) {
             const [x, z, y] = path[i];
             let hit = false; model.at(x, z, (it) => { if (!hit && Math.abs(it.h(x, z) - (y ?? it.h(x, z))) < 1.0) hit = true; });
-            if (!hit && i - last > 10) { last = i; add('road-hole', 'high', `the driven lane is not covered by any carriageway or junction pad here (hole in the road: ground / sky shows through)`, { x, z, y: y != null ? r2(y) : null }); }
+            if (!hit && i - last > 10) { last = i; const me = nearEnd(x, z); add('road-hole', me ? 'low' : 'high', me ? `the surveyed lane runs past the district's map end here (route planned through the end-of-map barrier)` : `the driven lane is not covered by any carriageway or junction pad here (hole in the road: ground / sky shows through)`, { x, z, y: y != null ? r2(y) : null, mapEnd: me }); }
         }
     }
     // ---------------------------------------------------------------- ground / marks meshes of the corridor

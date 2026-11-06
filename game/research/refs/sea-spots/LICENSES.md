@@ -4,17 +4,17 @@ Wikimedia Commons, free licences only (CC BY / CC BY-SA / CC0 / Public domain). 
 
 | Spot | Images |
 |---|---|
-| [fremont-troll](fremont-troll/LICENSES.md) | 6 |
-| [pike-place](pike-place/LICENSES.md) | 20 |
-| [space-needle](space-needle/LICENSES.md) | 9 |
-| [chihuly](chihuly/LICENSES.md) | 6 |
-| [mopop](mopop/LICENSES.md) | 6 |
-| [kerry-park](kerry-park/LICENSES.md) | 6 |
-| [waterfront](waterfront/LICENSES.md) | 7 |
-| [pioneer-square](pioneer-square/LICENSES.md) | 3 |
-| [ballard-locks](ballard-locks/LICENSES.md) | 0 |
-| [gas-works](gas-works/LICENSES.md) | 0 |
-| [bel-lincoln-square](bel-lincoln-square/LICENSES.md) | 0 |
-| [bel-downtown-park](bel-downtown-park/LICENSES.md) | 0 |
-| [bel-botanical-garden](bel-botanical-garden/LICENSES.md) | 0 |
-| [bel-meydenbauer](bel-meydenbauer/LICENSES.md) | 0 |
+| [fremont-troll](fremont-troll/LICENSES.md) | 6 downloaded, 0 vetted candidates |
+| [pike-place](pike-place/LICENSES.md) | 20 downloaded, 0 vetted candidates |
+| [space-needle](space-needle/LICENSES.md) | 9 downloaded, 0 vetted candidates |
+| [chihuly](chihuly/LICENSES.md) | 6 downloaded, 0 vetted candidates |
+| [mopop](mopop/LICENSES.md) | 6 downloaded, 0 vetted candidates |
+| [kerry-park](kerry-park/LICENSES.md) | 6 downloaded, 0 vetted candidates |
+| [waterfront](waterfront/LICENSES.md) | 7 downloaded, 0 vetted candidates |
+| [pioneer-square](pioneer-square/LICENSES.md) | 3 downloaded, 4 vetted candidates |
+| [ballard-locks](ballard-locks/LICENSES.md) | 0 downloaded, 7 vetted candidates |
+| [gas-works](gas-works/LICENSES.md) | 0 downloaded, 6 vetted candidates |
+| [bel-lincoln-square](bel-lincoln-square/LICENSES.md) | 0 downloaded, 7 vetted candidates |
+| [bel-downtown-park](bel-downtown-park/LICENSES.md) | 0 downloaded, 6 vetted candidates |
+| [bel-botanical-garden](bel-botanical-garden/LICENSES.md) | 0 downloaded, 5 vetted candidates |
+| [bel-meydenbauer](bel-meydenbauer/LICENSES.md) | 0 downloaded, 5 vetted candidates |

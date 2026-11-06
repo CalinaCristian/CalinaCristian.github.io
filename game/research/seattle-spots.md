@@ -97,7 +97,7 @@ Seattle's 1907 public market under the red "PUBLIC MARKET CENTER" neon sign: fly
   - The Gum Wall is DOWN in Post Alley under the market (stairs from Pike St), both walls, densest at 0.5–2.4 m
   - Original Starbucks is a narrow storefront with a queue, on the EAST side of Pike Place at 1912
   - Elliott Bay and the Great Wheel are visible from the MarketFront/west edge — the market sits on a bluff
-- **Coverage:** 8 structures, 6 plaques, 20 reference images, 29 dialogue lines (greeting 2, bumped 2, photographed 2, idle 1, spot 21, rain 1), OSM extract `osm/sea-spots/pike-place.json`.
+- **Coverage:** 8 structures, 6 plaques, 20 reference images (+0 vetted candidates listed), 29 dialogue lines (greeting 2, bumped 2, photographed 2, idle 1, spot 21, rain 1), OSM extract `osm/sea-spots/pike-place.json`.
 
 ### 2. Chihuly Garden and Glass — `chihuly` (seattle)
 
@@ -123,7 +123,7 @@ Dale Chihuly's glass art museum at the foot of the Space Needle: a 40-ft glass-a
   - The big sculpture is red/orange/yellow/amber only — no blues inside the Glasshouse
   - Garden glass is integrated in dense planting, not on plinths
   - It is fenced and ticketed; the Needle base is a few steps east
-- **Coverage:** 3 structures, 3 plaques, 0 reference images, 20 dialogue lines (greeting 1, bumped 1, photographed 2, idle 2, spot 13, rain 1), OSM extract `osm/sea-spots/chihuly.json`.
+- **Coverage:** 3 structures, 3 plaques, 6 reference images (+0 vetted candidates listed), 20 dialogue lines (greeting 1, bumped 1, photographed 2, idle 2, spot 13, rain 1), OSM extract `osm/sea-spots/chihuly.json`.
 
 ### 3. Space Needle & Seattle Center — `space-needle` (seattle)
 
@@ -152,7 +152,7 @@ The 605-ft (184 m) 1962 World's Fair tower with its flying-saucer top, glass "Lo
   - Today's roof is white/light; Galaxy Gold orange only in 1962, 2012 and 2022–23
   - Exterior glass elevators on the core
   - Monorail beam runs along 5th Ave N and into MoPOP, not past the Needle base
-- **Coverage:** 4 structures, 5 plaques, 9 reference images, 21 dialogue lines (greeting 1, bumped 1, photographed 2, idle 3, spot 13, rain 1), OSM extract `osm/sea-spots/space-needle.json`.
+- **Coverage:** 4 structures, 5 plaques, 9 reference images (+0 vetted candidates listed), 21 dialogue lines (greeting 1, bumped 1, photographed 2, idle 3, spot 13, rain 1), OSM extract `osm/sea-spots/space-needle.json`.
 
 ### 4. Fremont Troll (the Troll under the Bridge) — `fremont-troll` (seattle)
 
@@ -182,7 +182,7 @@ An 18-ft (5.5 m) concrete troll crouching under the north end of the Aurora Brid
   - One hubcap eye; the other hidden under hair
   - Concrete stairs on the right side up to the head; boulders around; people climbing
   - Troll Ave N slopes down to the south toward N 34th St and the ship canal
-- **Coverage:** 4 structures, 5 plaques, 6 reference images, 22 dialogue lines (greeting 1, bumped 1, photographed 2, idle 2, spot 15, rain 1), OSM extract `osm/sea-spots/fremont-troll.json`.
+- **Coverage:** 4 structures, 5 plaques, 6 reference images (+0 vetted candidates listed), 22 dialogue lines (greeting 1, bumped 1, photographed 2, idle 2, spot 15, rain 1), OSM extract `osm/sea-spots/fremont-troll.json`.
 
 ### 5. Kerry Park viewpoint — `kerry-park` (seattle)
 
@@ -207,7 +207,7 @@ A small terrace on Queen Anne Hill with Seattle's postcard view: the Space Needl
   - The park is a narrow terrace on a steep slope, not a big lawn
   - Changing Form is black with a circular hole — people frame the skyline through it
   - Highland Dr mansions behind you
-- **Coverage:** 3 structures, 3 plaques, 0 reference images, 20 dialogue lines (greeting 2, bumped 1, photographed 2, idle 2, spot 12, rain 1), OSM extract `osm/sea-spots/kerry-park.json`.
+- **Coverage:** 3 structures, 3 plaques, 6 reference images (+0 vetted candidates listed), 20 dialogue lines (greeting 2, bumped 1, photographed 2, idle 2, spot 12, rain 1), OSM extract `osm/sea-spots/kerry-park.json`.
 
 ### 6. Museum of Pop Culture (MoPOP) — `mopop` (seattle)
 
@@ -235,7 +235,7 @@ Frank Gehry's "smashed guitar" of 21,000 stainless-steel and painted-aluminium s
   - Monorail passes THROUGH the building
   - Distinct masses: matte silver, sky-blue, and an iridescent gold→magenta→purple mass, plus deep red — with a crumpled steel ribbon on top
   - Shingle skin shifts colour with angle — flat colours look wrong
-- **Coverage:** 5 structures, 4 plaques, 0 reference images, 20 dialogue lines (greeting 1, bumped 1, photographed 1, idle 3, spot 13, rain 1), OSM extract `osm/sea-spots/mopop.json`.
+- **Coverage:** 5 structures, 4 plaques, 6 reference images (+0 vetted candidates listed), 20 dialogue lines (greeting 1, bumped 1, photographed 1, idle 3, spot 13, rain 1), OSM extract `osm/sea-spots/mopop.json`.
 
 ### 7. Waterfront: Great Wheel, Pier 57, Aquarium & Overlook Walk — `waterfront` (seattle)
 
@@ -262,7 +262,7 @@ The rebuilt Elliott Bay waterfront: the 175-ft Seattle Great Wheel over the wate
   - The viaduct is GONE (removed 2019): open promenade, new plantings, Overlook Walk bridge
   - Great Wheel is white and overhangs the water at the end of Pier 57
   - Green-and-white WSF ferries, cranes of Harbor Island, Olympics across the bay
-- **Coverage:** 5 structures, 4 plaques, 0 reference images, 21 dialogue lines (greeting 1, bumped 1, photographed 2, idle 3, spot 13, rain 1), OSM extract `osm/sea-spots/waterfront.json`.
+- **Coverage:** 5 structures, 4 plaques, 7 reference images (+0 vetted candidates listed), 21 dialogue lines (greeting 1, bumped 1, photographed 2, idle 3, spot 13, rain 1), OSM extract `osm/sea-spots/waterfront.json`.
 
 ### 8. Pioneer Square & Smith Tower — `pioneer-square` (seattle)
 
@@ -294,7 +294,7 @@ Seattle's 1890s birthplace: the cast-iron 1909 pergola, the Tlingit-style totem 
   - Purple vault-light glass squares in the sidewalks
   - Smith Tower's white terracotta pyramid top up Yesler Way
   - Occidental Square: brick paving under big plane trees
-- **Coverage:** 7 structures, 5 plaques, 0 reference images, 21 dialogue lines (greeting 1, bumped 1, photographed 1, idle 1, spot 16, rain 1), OSM extract `osm/sea-spots/pioneer-square.json`.
+- **Coverage:** 7 structures, 5 plaques, 3 reference images (+4 vetted candidates listed), 21 dialogue lines (greeting 1, bumped 1, photographed 1, idle 1, spot 16, rain 1), OSM extract `osm/sea-spots/pioneer-square.json`.
 
 ### 9. Ballard Locks (Hiram M. Chittenden Locks) & fish ladder — `ballard-locks` (seattle)
 
@@ -323,7 +323,7 @@ Boats from kayaks to fishing trawlers rise and fall 26 ft between Puget Sound an
   - Fish ladder and viewing room are on the SOUTH bank
   - Historic buildings with red tile roofs and a large garden on the north
   - Water level difference visible: lake side higher
-- **Coverage:** 6 structures, 4 plaques, 0 reference images, 20 dialogue lines (greeting 2, bumped 1, photographed 1, idle 1, spot 14, rain 1), OSM extract `osm/sea-spots/ballard-locks.json`.
+- **Coverage:** 6 structures, 4 plaques, 0 reference images (+7 vetted candidates listed), 20 dialogue lines (greeting 2, bumped 1, photographed 1, idle 1, spot 14, rain 1), OSM extract `osm/sea-spots/ballard-locks.json`.
 
 ### 10. Gas Works Park — `gas-works` (seattle)
 
@@ -347,7 +347,7 @@ The rusted towers of the last US coal-gasification plant on a lawn promontory in
   - Rusty black-orange towers are fenced (not climbable)
   - Kite Hill is a grassy mound with a mosaic sundial on top
   - Downtown + Space Needle across Lake Union to the SSW, seaplanes landing
-- **Coverage:** 3 structures, 3 plaques, 0 reference images, 20 dialogue lines (greeting 1, bumped 1, photographed 2, idle 3, spot 12, rain 1), OSM extract `osm/sea-spots/gas-works.json`.
+- **Coverage:** 3 structures, 3 plaques, 0 reference images (+6 vetted candidates listed), 20 dialogue lines (greeting 1, bumped 1, photographed 2, idle 3, spot 12, rain 1), OSM extract `osm/sea-spots/gas-works.json`.
 
 ### 1. Lincoln Square, Bellevue Square & the skybridges (UiPath Bellevue) — `bel-lincoln-square` (bellevue)
 
@@ -380,7 +380,7 @@ Downtown Bellevue's core at NE 8th St × Bellevue Way: Kemper Freeman's Bellevue
   - Nordstrom anchors the NE 8th end of Bellevue Square
   - Very little honking; pedestrians wait for the walk signal
   - Snowflake Lane drummers/"snow" in December
-- **Coverage:** 9 structures, 4 plaques, 0 reference images, 24 dialogue lines (greeting 2, bumped 2, photographed 1, idle 4, spot 14, rain 1), OSM extract `osm/sea-spots/bel-lincoln-square.json`.
+- **Coverage:** 9 structures, 4 plaques, 0 reference images (+7 vetted candidates listed, +2 shared in refs/bellevue/), 24 dialogue lines (greeting 2, bumped 2, photographed 1, idle 4, spot 14, rain 1), OSM extract `osm/sea-spots/bel-lincoln-square.json`.
 
 ### 2. Bellevue Downtown Park — `bel-downtown-park` (bellevue)
 
@@ -407,7 +407,7 @@ A 20-acre circle of lawn ringed by a half-mile promenade and a stepped canal end
   - The canal is a full ring around the lawn (complete since 2017)
   - Waterfall is wide (240 ft) and low, in the SW
   - Bellevue Square directly north, skyline over the trees
-- **Coverage:** 5 structures, 4 plaques, 0 reference images, 20 dialogue lines (greeting 1, bumped 1, photographed 1, idle 4, spot 12, rain 1), OSM extract `osm/sea-spots/bel-downtown-park.json`.
+- **Coverage:** 5 structures, 4 plaques, 0 reference images (+6 vetted candidates listed, +1 shared in refs/bellevue/), 20 dialogue lines (greeting 1, bumped 1, photographed 1, idle 4, spot 12, rain 1), OSM extract `osm/sea-spots/bel-downtown-park.json`.
 
 ### 3. Bellevue Botanical Garden — `bel-botanical-garden` (bellevue)
 
@@ -432,7 +432,7 @@ A 20-acre circle of lawn ringed by a half-mile promenade and a stepped canal end
 - **What a local would notice if wrong:**
   - It is hilly forest with garden rooms, not a flat formal garden
   - Suspension bridge over a ravine; Yao Japanese garden
-- **Coverage:** 4 structures, 4 plaques, 0 reference images, 19 dialogue lines (greeting 1, bumped 1, photographed 1, idle 3, spot 12, rain 1), OSM extract `osm/sea-spots/bel-botanical-garden.json`.
+- **Coverage:** 4 structures, 4 plaques, 0 reference images (+5 vetted candidates listed), 19 dialogue lines (greeting 1, bumped 1, photographed 1, idle 3, spot 12, rain 1), OSM extract `osm/sea-spots/bel-botanical-garden.json`.
 
 ### 4. Meydenbauer Bay Park — `bel-meydenbauer` (bellevue)
 
@@ -455,7 +455,7 @@ Bellevue's lakefront: a sandy beach and a floating 420-ft crescent pier on Lake 
 - **What a local would notice if wrong:**
   - Crescent-shaped floating pier, sandy beach, steep wooded ravine behind
   - Seattle skyline is far (≈9 km) and small on the horizon
-- **Coverage:** 3 structures, 3 plaques, 0 reference images, 19 dialogue lines (greeting 2, bumped 1, photographed 1, idle 3, spot 11, rain 1), OSM extract `osm/sea-spots/bel-meydenbauer.json`.
+- **Coverage:** 3 structures, 3 plaques, 0 reference images (+5 vetted candidates listed, +1 shared in refs/bellevue/), 19 dialogue lines (greeting 2, bumped 1, photographed 1, idle 3, spot 11, rain 1), OSM extract `osm/sea-spots/bel-meydenbauer.json`.
 
 ## 4. Crowds, dialogue and tone
 
@@ -473,9 +473,10 @@ General pedestrian set (`dialogue_general.lines`, 49 lines) works in the Seattle
 ## 5. Gaps / to verify
 
 - UiPath's second floor, lobby and signage in Lincoln Square North (Suite 2000 confirmed; owner to describe the rest).
-- Exact paint colours of the Aurora Bridge steel, Pioneer Square pergola iron, Ballard Locks roofs — check against refs/ (MoPOP, Troll and Pike Place sign already checked).
+- Ballard Locks roof tiles and Smith Tower crown colours — check against refs/ (MoPOP, Troll + Aurora arches, Pike Place sign, pergola already checked).
 - Gum Wall current height after periodic cleanings (2024 figure used).
 - Garden d'Lights LED count and Snowflake Lane dates (annual).
 - Bellevue Downtown Park waterfall drop height; Kerry Park railing details; Meydenbauer pier width — estimates.
+- Reference photos for Ballard Locks, Gas Works, part of Pioneer Square and the 4 Bellevue spots are vetted (licence + URL in each LICENSES.md and `refs_candidates[]`) but not downloaded: upload.wikimedia.org returned HTTP 429 with a 10-minute Retry-After that kept renewing (shared egress). Lincoln Square photos exist in refs/bellevue/ (sibling).
 - No Commons photos of Rachel the pig, the Chihuly Glasshouse interior (copyright) or the UiPath office; Troll has one full photo.
 - Tripadvisor live ranking not fetchable (403); Stacker's 2024 copy used. Lonely Planet fetched via curl.

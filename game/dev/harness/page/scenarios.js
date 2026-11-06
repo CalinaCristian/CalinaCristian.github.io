@@ -129,8 +129,10 @@ async function enterOfficeAndRead(H, stop) {
         g.hud.closePanel(); await H.run(0.3);
     }
     o.x = 0; o.z = o.exitZ ?? 14; await H.run(0.2);
-    H.press('KeyE'); await H.run(0.5, () => g.state === 'drive');
-    if (g.state !== 'drive') { H.issue('office-leave-failed', 'high', `could not leave the ${stop.id} office with E at the exit`, {}, { key: 'leave:' + stop.id }); o.done = true; await H.run(0.3); }
+    H.press('KeyE'); await H.run(0.5, () => g.state === 'drive' || g.state === 'card');
+    await sleep(0);
+    // ('card': the chapter-complete card opened on leaving)
+    if (g.state !== 'drive' && g.state !== 'card') { H.issue('office-leave-failed', 'high', `could not leave the ${stop.id} office with E at the exit`, {}, { key: 'leave:' + stop.id }); o.done = true; await H.run(0.3); }
     res.visited = g.visited?.has(stop.id); res.ok = !!res.visited;
     if (!res.visited) H.issue('office-not-unlocked', 'high', `left the ${stop.id} office after reading a screen but the stop is not marked visited`, {}, { key: 'unlock:' + stop.id });
     return res;
@@ -529,6 +531,40 @@ export const SCENARIOS = [
                 out.push(res);
             }
             return { chapters: out, done: [...(g.progress?.done || [])] };
+        },
+    },
+    {
+        id: 'jam', title: 'Rush hour in romana (08:30): Piața Victoriei hotspot crawls (< 2 m/s), outside flows (> 6 m/s), the player gets through (< 4 min)', city: 'bucharest',
+        async run(H) {
+            const g = H.g;
+            const CITIES = (await import('../../../src/cities.js')).CITIES;
+            if (!CITIES.bucharest?.districts?.romana) { H.note('no romana district: skipped'); return { skipped: true }; }
+            const prevHour = g.clock.trafficHour;
+            g.clock.trafficHour = 8.5;
+            if (g.district !== 'romana' || g.city?.id !== 'bucharest') { g.state = 'loading'; await g.loadCity('bucharest', { district: 'romana' }); g.player.camHolder.add(g.camera); g.state = 'drive'; g.fuel = 45; }
+            const T = g.traffic; T.setHour(8.5, true);
+            const hs = T.hot?.[0]; if (!hs) { H.issue('jam-no-hotspots', 'high', 'romana has no congestion hotspots in traffic', {}, { key: 'jam-none' }); return {}; }
+            H.setControls(0, 0, true);
+            // the player waits 300 m south of the hotspot while the jam builds
+            const P = g.player; const ang = Math.PI * 0.5; const sx = hs.x + Math.sin(ang) * 0, sz = hs.z + 300;
+            H.placeOnRoad(sx, sz); await H.run(1);
+            const inS = [], outS = [];
+            for (let k = 0; k < 8; k++) {
+                await H.run(5);
+                for (const v of T.vehicles) { if (v.parked || v.tram) continue; const d = Math.hypot(v.x - hs.x, v.z - hs.z); if (d < hs.r * 0.8) inS.push(v.speed); else if (T.jamAt(v.x, v.z) < 0.05) outS.push(v.speed); }
+            }
+            const avg = (a) => a.length ? r2(a.reduce((x, y) => x + y, 0) / a.length) : null;
+            const res = { hotspot: hs.note, level: r2(hs.L), vehicles: T.counts, avgIn: avg(inS), avgOut: avg(outS), updateMs: r2(T.stats.updateMs) };
+            if (!(res.avgIn < 2)) H.issue('jam-too-fluid', 'medium', `rush hour: average speed in the ${hs.note} hotspot ${res.avgIn} m/s (spec < 2)`, { x: hs.x, z: hs.z }, { key: 'jam-in' });
+            if (!(res.avgOut > 6)) H.issue('jam-everywhere', 'medium', `rush hour: average speed outside the hotspots ${res.avgOut} m/s (spec > 6)`, {}, { key: 'jam-out' });
+            // the player crosses it: from 300 m south to 250 m north of the hotspot centre
+            g.navManual = false;
+            const t0 = H.scT;
+            res.cross = await H.driveTo(hs.x, hs.z - 250, { label: 'through ' + hs.note, arriveR: 20, timeout: 240, stop: false });
+            res.crossSec = r1(H.scT - t0);
+            if (!res.cross.ok) H.issue('jam-impassable', 'high', `rush hour: the player could not get through ${hs.note} in 4 min (${res.cross.reason})`, {}, { shot: true, key: 'jam-cross' });
+            g.clock.trafficHour = prevHour ?? false; T.setHour(g.trafficHours ? g.trafficHours() : 13, true);
+            return res;
         },
     },
 ];

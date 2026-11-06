@@ -43,6 +43,8 @@ export function laneOffset(edge, lane, dir = 1) { return medianOf(edge) / 2 + (e
 const tramOffset = (e) => Math.max(1.45, medianOf(e) / 4); // two 2.4 m trams side by side never touch
 const layerOf = (e) => (e.bridge ? 1 : 0) + (e.tunnel ? -1 : 0) + (e.layer | 0);
 const isJunction = (n) => n.edges.length >= 3 || n.hasLight;
+/** a road cut at the district boundary (closure at its map-end node, spec R10.9): never routed into, never spawned on */
+const closedEdge = (e) => !!(e.a.mapEnd || e.b.mapEnd);
 /** distance (m) from position s (a→b frame) on edge e to the nearest junction along the road, both ways (capped at `cap`) */
 export function junctionDist(e, s, cap = 60) {
     const walk = (edge, node, d) => {
@@ -191,8 +193,9 @@ export class Traffic {
         if (!instant && prev.hour != null && Math.abs(h - prev.hour) < 1 / 120) return;
         const pr = this.profile = this.profileAt(h);
         const peak = this.buc ? 1.6 : 1.35;
+        this.updateHot(h);
         this.target = {
-            moving: Math.round(this.base.moving * clamp(pr.density / peak, 0.08, 1)),
+            moving: Math.round(this.base.moving * clamp(pr.density / peak, 0.08, 1)) + (this.jamExtra || 0),
             parked: Math.round(this.base.parked * clamp(pr.parked, 0, 1)),
         };
         this.chaos = clamp(this.baseChaos * pr.aggression, 0, 1);
@@ -201,6 +204,72 @@ export class Traffic {
         const jump = prev.hour != null && Math.min(Math.abs(h - prev.hour), 24 - Math.abs(h - prev.hour)) > 1;
         if (instant || jump) this.rebalance(1e9);
         if (prev.band !== pr.band) this.onBand(pr.band, prev.hour == null ? null : prev.band, pr);
+    }
+    // ------------------------------------------------------------------ congestion hotspots (spec 13, R13.2)
+    /**
+     * Real standstill hotspots: [{lat, lon, radius, hours:[[h0,h1],…], level 0..1, note}] (cities.js districts) or
+     * [{x, z, …}]. At those local hours: extra cars packed into the hotspot, crawl speed, stop-and-go, honk storms.
+     */
+    setCongestion(list, proj = null) {
+        this.hot = [];
+        for (const c of list || []) {
+            const q = c.x !== undefined ? { x: c.x, z: c.z } : proj ? proj(c.lat, c.lon) : null; if (!q) continue;
+            const r = c.radius ?? 150;
+            const edges = this.index.near(q.x, q.z, r, []).filter(e => e.len >= 8 && !closedEdge(e) && !e.tramOnly && e.main !== false && !isMotorway(e) && e.type !== 'service' && Math.hypot((e.a.x + e.b.x) / 2 - q.x, (e.a.z + e.b.z) / 2 - q.z) < r);
+            let laneM = 0; for (const e of edges) laneM += e.len * (lanesDir(e, 1) + lanesDir(e, -1));
+            this.hot.push({ x: q.x, z: q.z, r, hours: c.hours || [], level: clamp(c.level ?? 0.6, 0, 1), note: c.note || '', edges, laneM, L: 0 });
+        }
+        if (this.profile.hour != null) this.setHour(this.profile.hour, false);
+    }
+    /** activity 0..1 of an hours list at local hour h (ramps over 40 min on both sides: jams build and dissolve) */
+    static hotActivity(hours, h) {
+        let a = 0; const ramp = 0.67;
+        for (const [h0, h1] of hours) {
+            const d = (x) => ((x % 24) + 24) % 24;
+            const inside = h0 <= h1 ? h >= h0 && h <= h1 : (h >= h0 || h <= h1);
+            if (inside) { a = 1; break; }
+            const before = d(h0 - h), after = d(h - h1);
+            a = Math.max(a, 1 - Math.min(before, after) / ramp);
+        }
+        return clamp(a, 0, 1);
+    }
+    updateHot(h) {
+        if (!this.hot?.length) { this.jamExtra = 0; this.jamMax = 0; return; }
+        let extra = 0, mx = 0;
+        for (const s of this.hot) {
+            s.L = this.jamOverride != null ? s.level * this.jamOverride : s.level * Traffic.hotActivity(s.hours, h);
+            mx = Math.max(mx, s.L);
+            extra += s.L * s.laneM / 9 * 0.55; // ~one car per 9 m of lane, half of it added on top of the normal traffic
+        }
+        this.jamMax = mx;
+        this.jamExtra = Math.round(Math.min(extra, (this.buc ? 140 : 60)));
+    }
+    /** congestion level 0..1 at (x, z) (1 = standstill core of an active hotspot) */
+    jamAt(x, z) {
+        let j = 0;
+        for (const s of this.hot || []) { if (s.L <= 0.01) continue; const d = Math.hypot(x - s.x, z - s.z) / s.r; if (d < 1.25) j = Math.max(j, s.L * clamp((1.25 - d) / 0.5, 0, 1)); }
+        return j;
+    }
+    /** put v on a lane inside an active hotspot (weighted by level), out of the player's way. true on success */
+    placeInHot(v) {
+        const act = (this.hot || []).filter(s => s.L > 0.05 && s.edges.length); if (!act.length || v.tram || v.parked) return false;
+        let tot = 0; for (const s of act) tot += s.L * s.laneM;
+        for (let tries = 0; tries < 30; tries++) {
+            let r = this.rng() * tot, hs = act[0]; for (const s of act) { r -= s.L * s.laneM; if (r <= 0) { hs = s; break; } }
+            const e = hs.edges[Math.floor(this.rng() * hs.edges.length)];
+            let dir = this.rng() < 0.5 ? 1 : -1; if (!canTravel(e, dir)) dir = -dir; if (!canTravel(e, dir)) continue;
+            if (v.bus && (e.len < 30)) continue;
+            const lanes = lanesDir(e, dir);
+            v.edge = e; v.dir = dir; v.s = this.rng.range(Math.min(3, e.len / 2), Math.max(e.len / 2, e.len - 3)); v.route.length = 0; v.layer = layerOf(e); v.latBlend = 0;
+            v.lane = v.laneCur = v.bus ? lanes - 1 : this.rng.int(0, lanes - 1);
+            v.speed = 0; v.stuck = 0; v.still = 0; v.touchT = 0; v.blockT = 0; v.ghost = 0; v.bypass = null; v.served = null; v.dwell = 0; v.jamHold = 0;
+            v.latExtraCur = v.lateralExtra = 0;
+            this.placeOnLane(v, true, 0);
+            if (!this.spawnClear(v)) continue;
+            this.noteRelocated(v);
+            return true;
+        }
+        return false;
     }
     get counts() { let moving = 0, parked = 0; for (const v of this.vehicles) { const c = this.cls(v); if (c === 'moving') moving++; else if (c === 'parked') parked++; } return { moving, parked, active: this.vehicles.length, pool: this.pool.length }; }
     /** hide / show up to `budget` vehicles toward the targets (only out of the player's view) */
@@ -228,12 +297,23 @@ export class Traffic {
                 const v = this.pool[i]; if (this.cls(v) !== kind) continue;
                 v.inactive = false;
                 let ok;
-                if (this.large) ok = this.relocate(v, 300, this.bubble, true);
+                if (kind === 'moving' && this.jamMax > 0.05 && this.rng() < 0.75 && this.placeInHot(v)) ok = true;
+                else if (this.large) ok = this.relocate(v, 300, this.bubble, true);
                 else { this.respawn(v); ok = true; }
                 if (!ok) { v.inactive = true; continue; }
                 this.pool.splice(i, 1); v.mesh.visible = true; this.vehicles.push(v);
                 v.mesh.userData.setLights?.(this.nightLights);
                 diff++; budget--; changed = true;
+            }
+        }
+        // rush hour in a hotspot needs more cars than the pool holds: build a few extra ones (they return to the pool off-peak)
+        if (this.jamMax > 0.05 && budget > 0) {
+            let need = this.target.moving - this.counts.moving; const cap = (this.buc ? 140 : 60) - (this._jamBuilt || 0);
+            for (let i = 0; i < Math.min(need, cap, budget > 1e8 ? 400 : 2); i++) {
+                const v = this.spawn({ edge: this.vehicles[0]?.edge || this.world.graph.edges[0], dir: 1, lane: 0, s: 0, kind: this.rng.pick(this.buc ? ['hatch', 'sedan', 'hatch', 'taxi', 'suv', 'van'] : ['suv', 'sedan', 'pickup', 'suv']) });
+                this._jamBuilt = (this._jamBuilt || 0) + 1; changed = true;
+                if (!this.placeInHot(v)) { this.vehicles.pop(); v.inactive = true; v.mesh.visible = false; this.pool.push(v); }
+                else v.mesh.userData.setLights?.(this.nightLights);
             }
         }
         if (bulk) this._bulk = null;
@@ -301,7 +381,7 @@ export class Traffic {
         };
         const plan = [];
         for (const e of edges) {
-            if (e.len < 4) continue;
+            if (e.len < 4 || closedEdge(e)) continue;
             for (const dir of [1, -1]) {
                 const lanes = lanesDir(e, dir); if (!lanes) continue;
                 const exp = (e.len / 55) * trafficMulOf(e) * density * lanes;
@@ -327,7 +407,7 @@ export class Traffic {
             this.spawn({ edge: e, dir, lane, s, kind });
         }
         // police cruisers on bigger roads
-        const big = edges.filter(e => !e.tram && e.len > 30 && trafficMulOf(e) >= 0.9);
+        const big = edges.filter(e => !e.tram && !closedEdge(e) && e.len > 30 && trafficMulOf(e) >= 0.9);
         for (let i = 0; i < nPolice && big.length; i++) {
             const e = this.rng.pick(big); const dir = canTravel(e, 1) ? 1 : -1;
             const v = this.spawn({ edge: e, dir, lane: 0, s: this.rng.range(2, e.len - 2), kind: 'police' });
@@ -341,7 +421,7 @@ export class Traffic {
         if (pc > 0) {
             for (const e of shuffled) {
                 if (nParked >= maxParked) break;
-                if (isMotorway(e) || e.type === 'dn' || e.roundabout || e.len < 40) continue;
+                if (isMotorway(e) || e.type === 'dn' || e.roundabout || e.len < 40 || closedEdge(e)) continue;
                 const exp = e.len / 90 * pc; let n = Math.floor(exp); if (this.rng() < exp - n) n++;
                 for (let i = 0; i < n; i++) {
                     const dir = this.rng.pick([1, -1]); const lanes = lanesDir(e, dir); if (!this.parkOk(e, dir)) continue;
@@ -523,7 +603,7 @@ export class Traffic {
         const save = { edge: v.edge, dir: v.dir, s: v.s, lane: v.lane, laneCur: v.laneCur, le: v.lateralExtra, lc: v.latExtraCur, layer: v.layer, speed: v.speed };
         for (let tries = 0; tries < 60; tries++) {
             const e = cands[Math.floor(this.rng() * cands.length)];
-            if (e.len < 8 || (e.main === false && !v.tram)) continue;
+            if (e.len < 8 || (e.main === false && !v.tram) || closedEdge(e)) continue;
             if (v.tram !== !!e.tram && v.tram) continue;
             if (v.parked && !(this.parkOk(e, 1) || this.parkOk(e, -1))) continue;
             if (v.bus && isMotorway(e)) continue;
@@ -577,6 +657,7 @@ export class Traffic {
             if (v.tram && !n.tram) continue;
             if (!v.tram && n.tram && n.tramOnly) continue;
             if (n.type === 'service' && !v.isPolice && this.rng() < 0.8) continue;
+            if ((nd > 0 ? n.b : n.a).mapEnd) continue; // toward a district-edge closure: turn off before it
             if (n.main === false && e.main !== false && !v.tram) continue; // never drive into a one-way trap
             const dot = n.dirx * nd * fx + n.dirz * nd * fz;
             let w = (1 + Math.max(0, dot) * 2.5) * (0.4 + trafficMulOf(n));
@@ -640,7 +721,7 @@ export class Traffic {
             const e = edges[Math.floor(this.rng() * edges.length)];
             if (v.tram && !e.tram) continue;
             const dir = canTravel(e, 1) ? (canTravel(e, -1) && this.rng() < 0.5 ? -1 : 1) : (canTravel(e, -1) ? -1 : 0);
-            if (!dir || e.len < 8) continue;
+            if (!dir || e.len < 8 || closedEdge(e)) continue;
             const mx = (e.a.x + e.b.x) / 2, mz = (e.a.z + e.b.z) / 2;
             if (P && Math.hypot(mx - P.x, mz - P.z) < 180) continue;
             v.edge = e; v.dir = dir; v.s = this.rng.range(2, e.len - 2); v.route.length = 0; v.speed = 0; v.stuck = 0; v.still = 0; v.touchT = 0; v.layer = layerOf(e);
@@ -718,6 +799,14 @@ export class Traffic {
         const e = v.edge, L = e.len, half = v.length / 2;
         const lim = v.tram ? 11 : edgeSpeed(e);
         let desired = lim * (v.tram ? 1 : v.desiredMul) * (this.weatherMul ?? 1); // rain / snow: everyone drives slower
+        // congestion hotspot: crawl, with stop-and-go waves (queues build behind the ones that stop)
+        if (this.jamMax > 0.01) { if (((this._frame + v.id) & 7) === 0) v.jam = this.jamAt(v.x, v.z); } else v.jam = 0;
+        const jam = v.jam || 0;
+        if (jam > 0.05 && !v.tram && !v.isPolice) {
+            desired *= 1 - 0.9 * jam;
+            if (v.jamHold > 0) v.jamHold -= dt;
+            else if (jam > 0.25 && v.speed > 0.5 && this.rng() < jam * 0.35 * dt) v.jamHold = this.rng.range(2, 6) * jam;
+        } else v.jamHold = 0;
         const P = this.player;
         // ---------------- obstacles (cone scan via grid) ----------------
         let gap = Infinity, leader = null, leaderSpeed = 0, leaderCross = false;
@@ -848,6 +937,7 @@ export class Traffic {
         if (gap < Infinity) target = Math.min(target, Math.sqrt(Math.max(0, leaderSpeed * leaderSpeed + 2 * b * (gap - minGap - v.speed * headway))));
         if (stopD < Infinity) target = Math.min(target, Math.sqrt(Math.max(0, 2 * b * (stopD - 0.3))));
         if (leader === P && gap < 0.6) target = 0;
+        if (v.jamHold > 0) target = 0;
         const accel = v.tram ? 1.2 : v.bus || v.kind === 'truck' ? 1.6 : (this.buc ? 3.0 : 2.4);
         if (target > v.speed) v.speed = Math.min(target, v.speed + accel * dt);
         else v.speed = Math.max(target, v.speed - (leader === P && gap < 3 ? 14 : 8.5) * dt);
@@ -860,11 +950,11 @@ export class Traffic {
         v.waitRed = waitingRed; v.redQ = !!redQ;
         if (v.speed < 0.3 && desired > 1 && v.dwell === 0) {
             v.stuck += dt;
-            if (!redQ) v.still += dt; else v.still = 0;
-            v.honkCd -= dt;
-            if (v.stuck > v.honkAt && v.honkCd <= 0 && !waitingRed) {
+            if (!redQ) v.still += dt * (jam > 0.3 ? 0.35 : 1); else v.still = 0; // (a jam crawls: not a deadlock)
+            v.honkCd -= dt * (1 + jam);
+            if (v.stuck > v.honkAt * (1 - 0.6 * jam) && v.honkCd <= 0 && !waitingRed) {
                 v.honkCd = this.rng.range(4, 14) / (0.2 + this.chaos);
-                if (this.rng.chance(0.15 + this.chaos * 0.7)) this.honk(v, 'stuck');
+                if (this.rng.chance(0.15 + this.chaos * 0.7 + jam * 0.2)) this.honk(v, 'stuck');
             }
             if (!waitingRed && leader !== P && leader !== 'ped') {
                 const dP = P ? Math.hypot(P.x - v.x, P.z - v.z) : 1e9;

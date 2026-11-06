@@ -1447,6 +1447,7 @@
      "page": "https://commons.wikimedia.org/wiki/File:Buiobuione_Fish_market_at_Pike_Place_in_Seattle.jpg"
     }
    ],
+   "refs_candidates": [],
    "dialogue": {
     "personas": [
      "busker",
@@ -1940,6 +1941,7 @@
      "page": "https://commons.wikimedia.org/wiki/File:Chihuly_Garden_and_Glass_Seattle_Washington20.jpg"
     }
    ],
+   "refs_candidates": [],
    "dialogue": {
     "personas": [
      "guide",
@@ -2486,6 +2488,7 @@
      "page": "https://commons.wikimedia.org/wiki/File:Seattle_Space_Needle_in_the_fog_(44897628634).jpg"
     }
    ],
+   "refs_candidates": [],
    "dialogue": {
     "personas": [
      "busker",
@@ -3011,6 +3014,7 @@
      "page": "https://commons.wikimedia.org/wiki/File:Fremont_Troll_plaque.jpg"
     }
    ],
+   "refs_candidates": [],
    "dialogue": {
     "personas": [
      "guide",
@@ -3486,6 +3490,7 @@
      "page": "https://commons.wikimedia.org/wiki/File:Seattle_-_tourists_at_Kerry_Park_01.jpg"
     }
    ],
+   "refs_candidates": [],
    "dialogue": {
     "personas": [
      "guide",
@@ -3976,6 +3981,7 @@
      "page": "https://commons.wikimedia.org/wiki/File:Museum_of_Pop_Culture_in_Seattle_(6248401525).jpg"
     }
    ],
+   "refs_candidates": [],
    "dialogue": {
     "personas": [
      "busker",
@@ -4142,7 +4148,8 @@
     "lon": -122.3416,
     "heading_deg": 215,
     "note": "New Alaskan Way promenade at the foot of Union St looking SW to the Wheel.",
-    "ground_elev_m": 0.6
+    "ground_elev_m": 0.6,
+    "ground_elev_note": "40 m grid blends water (≈0 m) with the shore here; promenade/pier deck is ≈3–5 m — use OSM pier/coastline geometry."
    },
    "extent": {
     "description": "Alaskan Way promenade from University St (Pier 56) to Pier 60, Pier 57 deck and Miners Landing, Waterfront Park (Pier 57–58, rebuilt 2025), Aquarium plaza (Pier 59) and Ocean Pavilion, Overlook Walk ramp/stairs up to MarketFront.",
@@ -4499,6 +4506,7 @@
      "page": "https://commons.wikimedia.org/wiki/File:Seattle_Aquarium_booth_on_Overlook_Walk_01.jpg"
     }
    ],
+   "refs_candidates": [],
    "dialogue": {
     "personas": [
      "busker",
@@ -5089,6 +5097,44 @@
      "page": "https://commons.wikimedia.org/wiki/File:Pioneer_Square_Pergola_detail_01.jpg"
     }
    ],
+   "refs_candidates": [
+    {
+     "file": "refs/sea-spots/pioneer-square/Pioneer_Building_2890739243_.jpg",
+     "title": "File:Pioneer Building (2890739243).jpg",
+     "author": "Cliff from Arlington, Virginia, USA",
+     "license": "CC BY 2.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Pioneer_Building_(2890739243).jpg",
+     "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Pioneer_Building_%282890739243%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/pioneer-square/Seattle_-_Smith_Tower_-_evening_01.jpg",
+     "title": "File:Seattle - Smith Tower - evening 01.jpg",
+     "author": "Joe Mabel",
+     "license": "CC BY-SA 3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Seattle_-_Smith_Tower_-_evening_01.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/15/Seattle_-_Smith_Tower_-_evening_01.jpg/1280px-Seattle_-_Smith_Tower_-_evening_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/pioneer-square/Seattle_-_Smith_Tower_detail_01.jpg",
+     "title": "File:Seattle - Smith Tower detail 01.jpg",
+     "author": "Joe Mabel",
+     "license": "CC BY-SA 4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Seattle_-_Smith_Tower_detail_01.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Seattle_-_Smith_Tower_detail_01.jpg/1280px-Seattle_-_Smith_Tower_detail_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/pioneer-square/Seattle_-_Pioneer_Square_Totem_Pole_1915.jpg",
+     "title": "File:Seattle - Pioneer Square Totem Pole 1915.jpg",
+     "author": "Unknown authorUnknown author",
+     "license": "Public domain",
+     "page": "https://commons.wikimedia.org/wiki/File:Seattle_-_Pioneer_Square_Totem_Pole_1915.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/01/Seattle_-_Pioneer_Square_Totem_Pole_1915.jpg/1280px-Seattle_-_Pioneer_Square_Totem_Pole_1915.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    }
+   ],
    "dialogue": {
     "personas": [
      "guide",
@@ -5573,6 +5619,71 @@
     "osm_raw_bbox_note": "raw OSM XML kept in the research scratchpad (osm/ballard-locks.osm); re-fetch with api.openstreetmap.org/api/0.6/map?bbox=… if needed"
    },
    "refs": [],
+   "refs_candidates": [
+    {
+     "file": "refs/sea-spots/ballard-locks/Hiram_M._Chittenden_Locks_2011.jpg",
+     "title": "File:Hiram M. Chittenden Locks 2011.JPG",
+     "author": "Jorgenev",
+     "license": "CC0",
+     "page": "https://commons.wikimedia.org/wiki/File:Hiram_M._Chittenden_Locks_2011.JPG",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/12/Hiram_M._Chittenden_Locks_2011.JPG/1280px-Hiram_M._Chittenden_Locks_2011.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/ballard-locks/Hiram_M._Chittenden_Locks-4.jpg",
+     "title": "File:Hiram M. Chittenden Locks-4.jpg",
+     "author": "Visitor7",
+     "license": "CC BY-SA 3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Hiram_M._Chittenden_Locks-4.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/19/Hiram_M._Chittenden_Locks-4.jpg/1280px-Hiram_M._Chittenden_Locks-4.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/ballard-locks/Hiram_M._Chittenden_Locks_Seattle.jpg",
+     "title": "File:Hiram M. Chittenden Locks Seattle.jpg",
+     "author": "Ron Clausen",
+     "license": "CC BY-SA 4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Hiram_M._Chittenden_Locks_Seattle.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c0/Hiram_M._Chittenden_Locks_Seattle.jpg/1280px-Hiram_M._Chittenden_Locks_Seattle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/ballard-locks/Chittenden_Locks_-_salmon_in_ladder_01.jpg",
+     "title": "File:Chittenden Locks - salmon in ladder 01.jpg",
+     "author": "Joe Mabel",
+     "license": "CC BY-SA 3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Chittenden_Locks_-_salmon_in_ladder_01.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/Chittenden_Locks_-_salmon_in_ladder_01.jpg/1280px-Chittenden_Locks_-_salmon_in_ladder_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/ballard-locks/Ballard_Locks_NRHP_78002751_Washington2.jpg",
+     "title": "File:Ballard Locks NRHP 78002751 Washington2.jpg",
+     "author": "Burley Packwood",
+     "license": "CC BY-SA 4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Ballard_Locks_NRHP_78002751_Washington2.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/Ballard_Locks_NRHP_78002751_Washington2.jpg/1280px-Ballard_Locks_NRHP_78002751_Washington2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/ballard-locks/Ballard_locks_fish_ladder_east_entrance.jpg",
+     "title": "File:Ballard locks fish ladder east entrance.jpg",
+     "author": "Ursacascadia",
+     "license": "CC0",
+     "page": "https://commons.wikimedia.org/wiki/File:Ballard_locks_fish_ladder_east_entrance.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/73/Ballard_locks_fish_ladder_east_entrance.jpg/1280px-Ballard_locks_fish_ladder_east_entrance.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/ballard-locks/Ballard_Locks_cleaning_2012-03-16_01.jpg",
+     "title": "File:Ballard Locks cleaning 2012-03-16 01.jpg",
+     "author": "Dennis Bratland",
+     "license": "CC BY-SA 3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Ballard_Locks_cleaning_2012-03-16_01.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f6/Ballard_Locks_cleaning_2012-03-16_01.jpg/1280px-Ballard_Locks_cleaning_2012-03-16_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    }
+   ],
    "dialogue": {
     "personas": [
      "guide",
@@ -5966,6 +6077,62 @@
     "osm_raw_bbox_note": "raw OSM XML kept in the research scratchpad (osm/gas-works.osm); re-fetch with api.openstreetmap.org/api/0.6/map?bbox=… if needed"
    },
    "refs": [],
+   "refs_candidates": [
+    {
+     "file": "refs/sea-spots/gas-works/Gas_Works_Park_01.jpg",
+     "title": "File:Gas Works Park 01.jpg",
+     "author": "Joe Mabel",
+     "license": "CC BY-SA 3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Gas_Works_Park_01.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/Gas_Works_Park_01.jpg/1280px-Gas_Works_Park_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/gas-works/Gas_Works_Park_play_barn_01.jpg",
+     "title": "File:Gas Works Park play barn 01.jpg",
+     "author": "Joe Mabel",
+     "license": "CC BY-SA 3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Gas_Works_Park_play_barn_01.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/01/Gas_Works_Park_play_barn_01.jpg/1280px-Gas_Works_Park_play_barn_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/gas-works/Kite_flying_at_Gas_Works_Park_01.jpg",
+     "title": "File:Kite flying at Gas Works Park 01.jpg",
+     "author": "Joe Mabel",
+     "license": "CC BY-SA 3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Kite_flying_at_Gas_Works_Park_01.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/73/Kite_flying_at_Gas_Works_Park_01.jpg/1280px-Kite_flying_at_Gas_Works_Park_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/gas-works/Gas_works_at_Gas_Works_Park.jpg",
+     "title": "File:Gas works at Gas Works Park.jpg",
+     "author": "Runner1928",
+     "license": "CC BY-SA 4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Gas_works_at_Gas_Works_Park.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/93/Gas_works_at_Gas_Works_Park.jpg/1280px-Gas_works_at_Gas_Works_Park.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/gas-works/Seattle_from_Gas_Works_Park2013.jpg",
+     "title": "File:Seattle from Gas Works Park2013.jpg",
+     "author": "WikiPedant",
+     "license": "CC BY-SA 4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Seattle_from_Gas_Works_Park2013.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/63/Seattle_from_Gas_Works_Park2013.jpg/1280px-Seattle_from_Gas_Works_Park2013.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/gas-works/Gas_works_from_the_hill_01.jpg",
+     "title": "File:Gas works from the hill 01.jpg",
+     "author": "Cody Logan (aka clpo13)",
+     "license": "CC BY-SA 4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Gas_works_from_the_hill_01.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Gas_works_from_the_hill_01.jpg/1280px-Gas_works_from_the_hill_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    }
+   ],
    "dialogue": {
     "personas": [
      "guide",
@@ -6582,6 +6749,81 @@
     "osm_raw_bbox_note": "raw OSM XML kept in the research scratchpad (osm/bel-lincoln-square.osm); re-fetch with api.openstreetmap.org/api/0.6/map?bbox=… if needed"
    },
    "refs": [],
+   "refs_candidates": [
+    {
+     "file": "refs/sea-spots/bel-lincoln-square/Lincoln_Square_Office_Tower_and_One_Lincoln_Tower.jpg",
+     "title": "File:Lincoln Square Office Tower and One Lincoln Tower.jpg",
+     "author": "Sam.meyer.marton",
+     "license": "CC BY-SA 3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Lincoln_Square_Office_Tower_and_One_Lincoln_Tower.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/65/Lincoln_Square_Office_Tower_and_One_Lincoln_Tower.jpg/1280px-Lincoln_Square_Office_Tower_and_One_Lincoln_Tower.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/bel-lincoln-square/Lincoln_Square_from_Bellevue_Main.jpg",
+     "title": "File:Lincoln Square from Bellevue & Main.jpg",
+     "author": "SounderBruce",
+     "license": "CC BY-SA 2.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Lincoln_Square_from_Bellevue_%26_Main.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cb/Lincoln_Square_from_Bellevue_%26_Main.jpg/1280px-Lincoln_Square_from_Bellevue_%26_Main.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/bel-lincoln-square/20190603_151428_Lincoln_Square_North-Lincoln_Square_South_skybridge.jpg",
+     "title": "File:20190603 151428 Lincoln Square North-Lincoln Square South skybridge.jpg",
+     "author": "Gayest Frogs",
+     "license": "CC BY-SA 4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:20190603_151428_Lincoln_Square_North-Lincoln_Square_South_skybridge.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3b/20190603_151428_Lincoln_Square_North-Lincoln_Square_South_skybridge.jpg/1280px-20190603_151428_Lincoln_Square_North-Lincoln_Square_South_skybridge.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/bel-lincoln-square/Bellevue_WA_2023_-_52.jpg",
+     "title": "File:Bellevue, WA (2023) - 52.jpg",
+     "author": "Another Believer",
+     "license": "CC BY-SA 4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Bellevue,_WA_(2023)_-_52.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/99/Bellevue%2C_WA_%282023%29_-_52.jpg/1280px-Bellevue%2C_WA_%282023%29_-_52.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/bel-lincoln-square/Bellevue_WA_2023_-_53.jpg",
+     "title": "File:Bellevue, WA (2023) - 53.jpg",
+     "author": "Another Believer",
+     "license": "CC BY-SA 4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Bellevue,_WA_(2023)_-_53.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/01/Bellevue%2C_WA_%282023%29_-_53.jpg/1280px-Bellevue%2C_WA_%282023%29_-_53.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/bel-lincoln-square/Westinhotelbellevue.jpg",
+     "title": "File:Westinhotelbellevue.JPG",
+     "author": "Just4ivaylo at English Wikipedia",
+     "license": "Public domain",
+     "page": "https://commons.wikimedia.org/wiki/File:Westinhotelbellevue.JPG",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4c/Westinhotelbellevue.JPG/1280px-Westinhotelbellevue.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/bel-lincoln-square/Bellevue_square_outside.jpg",
+     "title": "File:Bellevue square outside.jpg",
+     "author": "Sam.meyer.marton",
+     "license": "CC BY-SA 3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Bellevue_square_outside.jpg",
+     "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/1/10/Bellevue_square_outside.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+     "status": "vetted, not fetched (HTTP 429)"
+    }
+   ],
+   "refs_shared": [
+    {
+     "file": "refs/bellevue/Lincoln_Square_Office_Tower_and_One_Lincoln_Tower.jpg",
+     "licence": "see refs/bellevue/LICENSES.md (research-sea-districts)"
+    },
+    {
+     "file": "refs/bellevue/Lincoln_Square_from_Bellevue_Main.jpg",
+     "licence": "see refs/bellevue/LICENSES.md (research-sea-districts)"
+    }
+   ],
    "dialogue": {
     "personas": [
      "guide",
@@ -7033,6 +7275,68 @@
     "osm_raw_bbox_note": "raw OSM XML kept in the research scratchpad (osm/bel-downtown-park.osm); re-fetch with api.openstreetmap.org/api/0.6/map?bbox=… if needed"
    },
    "refs": [],
+   "refs_candidates": [
+    {
+     "file": "refs/sea-spots/bel-downtown-park/Bellevue_WA_-Downtown_Park_01.jpg",
+     "title": "File:Bellevue WA -Downtown Park 01.jpg",
+     "author": "Joe Mabel",
+     "license": "CC BY-SA 3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Bellevue_WA_-Downtown_Park_01.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5e/Bellevue_WA_-Downtown_Park_01.jpg/1280px-Bellevue_WA_-Downtown_Park_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/bel-downtown-park/Bellevue_WA_-_Downtown_Park_01.jpg",
+     "title": "File:Bellevue, WA - Downtown Park 01.jpg",
+     "author": "Joe Mabel",
+     "license": "CC BY-SA 3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Bellevue,_WA_-_Downtown_Park_01.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a2/Bellevue%2C_WA_-_Downtown_Park_01.jpg/1280px-Bellevue%2C_WA_-_Downtown_Park_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/bel-downtown-park/Bellevue_WA_-_Downtown_Park_pano_01.jpg",
+     "title": "File:Bellevue, WA - Downtown Park pano 01.jpg",
+     "author": "Joe Mabel",
+     "license": "CC BY-SA 3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Bellevue,_WA_-_Downtown_Park_pano_01.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/59/Bellevue%2C_WA_-_Downtown_Park_pano_01.jpg/1280px-Bellevue%2C_WA_-_Downtown_Park_pano_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/bel-downtown-park/Bellevue_Downtown_Park_in_2012.jpg",
+     "title": "File:Bellevue Downtown Park in 2012.JPG",
+     "author": "Another Believer",
+     "license": "CC BY-SA 3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Bellevue_Downtown_Park_in_2012.JPG",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/69/Bellevue_Downtown_Park_in_2012.JPG/1280px-Bellevue_Downtown_Park_in_2012.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/bel-downtown-park/Aerial_Downtown_Bellevue_Park_May_2012.jpg",
+     "title": "File:Aerial Downtown Bellevue Park May 2012.JPG",
+     "author": "Jelson25",
+     "license": "CC BY-SA 3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Aerial_Downtown_Bellevue_Park_May_2012.JPG",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0b/Aerial_Downtown_Bellevue_Park_May_2012.JPG/1280px-Aerial_Downtown_Bellevue_Park_May_2012.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/bel-downtown-park/Bellevue_WA_-_Downtown_Park_-_skating_rink_01.jpg",
+     "title": "File:Bellevue, WA - Downtown Park - skating rink 01.jpg",
+     "author": "Joe Mabel",
+     "license": "CC BY-SA 3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Bellevue,_WA_-_Downtown_Park_-_skating_rink_01.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/Bellevue%2C_WA_-_Downtown_Park_-_skating_rink_01.jpg/1280px-Bellevue%2C_WA_-_Downtown_Park_-_skating_rink_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    }
+   ],
+   "refs_shared": [
+    {
+     "file": "refs/bellevue/Lincoln_Square_from_Bellevue_Main.jpg",
+     "licence": "see refs/bellevue/LICENSES.md (research-sea-districts)"
+    }
+   ],
    "dialogue": {
     "personas": [
      "guide",
@@ -7399,6 +7703,53 @@
     "osm_raw_bbox_note": "raw OSM XML kept in the research scratchpad (osm/bel-botanical-garden.osm); re-fetch with api.openstreetmap.org/api/0.6/map?bbox=… if needed"
    },
    "refs": [],
+   "refs_candidates": [
+    {
+     "file": "refs/sea-spots/bel-botanical-garden/Bellevue_Botanical_Garden_Entrance.jpg",
+     "title": "File:Bellevue Botanical Garden Entrance.jpg",
+     "author": "Heptazane at English Wikipedia",
+     "license": "Public domain",
+     "page": "https://commons.wikimedia.org/wiki/File:Bellevue_Botanical_Garden_Entrance.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d4/Bellevue_Botanical_Garden_Entrance.jpg/1280px-Bellevue_Botanical_Garden_Entrance.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/bel-botanical-garden/Bellevue_Botanical_Garden_01_-_Tateuchi_Viewing_Pavilion.jpg",
+     "title": "File:Bellevue Botanical Garden 01 - Tateuchi Viewing Pavilion.jpg",
+     "author": "Joe Mabel",
+     "license": "CC BY-SA 3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Bellevue_Botanical_Garden_01_-_Tateuchi_Viewing_Pavilion.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e8/Bellevue_Botanical_Garden_01_-_Tateuchi_Viewing_Pavilion.jpg/1280px-Bellevue_Botanical_Garden_01_-_Tateuchi_Viewing_Pavilion.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/bel-botanical-garden/Bellevue_Botanical_Garden_Bridge.jpg",
+     "title": "File:Bellevue Botanical Garden Bridge.JPG",
+     "author": "Heptazane (talk)",
+     "license": "CC BY-SA 3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Bellevue_Botanical_Garden_Bridge.JPG",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/ff/Bellevue_Botanical_Garden_Bridge.JPG/1280px-Bellevue_Botanical_Garden_Bridge.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/bel-botanical-garden/Bellevue_Botanical_Park_aerial_April_2023.jpg",
+     "title": "File:Bellevue Botanical Park aerial, April 2023.png",
+     "author": "Spicypepper999",
+     "license": "CC0",
+     "page": "https://commons.wikimedia.org/wiki/File:Bellevue_Botanical_Park_aerial,_April_2023.png",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/Bellevue_Botanical_Park_aerial%2C_April_2023.png/1280px-Bellevue_Botanical_Park_aerial%2C_April_2023.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/bel-botanical-garden/2025-12-04_Garden_d_Lights_Bellevue_Botanical_Garden_184709.jpg",
+     "title": "File:2025-12-04, Garden d’Lights (Bellevue Botanical Garden), 184709.jpg",
+     "author": "Steven Pavlov",
+     "license": "CC BY-SA 4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:2025-12-04,_Garden_d%E2%80%99Lights_(Bellevue_Botanical_Garden),_184709.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/22/2025-12-04%2C_Garden_d%E2%80%99Lights_%28Bellevue_Botanical_Garden%29%2C_184709.jpg/1280px-2025-12-04%2C_Garden_d%E2%80%99Lights_%28Bellevue_Botanical_Garden%29%2C_184709.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    }
+   ],
    "dialogue": {
     "personas": [
      "guide",
@@ -7741,6 +8092,59 @@
     "osm_raw_bbox_note": "raw OSM XML kept in the research scratchpad (osm/bel-meydenbauer.osm); re-fetch with api.openstreetmap.org/api/0.6/map?bbox=… if needed"
    },
    "refs": [],
+   "refs_candidates": [
+    {
+     "file": "refs/sea-spots/bel-meydenbauer/20191222_Meydenbauer_Bay_Park1.jpg",
+     "title": "File:20191222 Meydenbauer Bay Park1.jpg",
+     "author": "Mark Yasuda",
+     "license": "CC BY-SA 4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:20191222_Meydenbauer_Bay_Park1.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/20191222_Meydenbauer_Bay_Park1.jpg/1280px-20191222_Meydenbauer_Bay_Park1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/bel-meydenbauer/20191222_Meydenbauer_Bay_Park2.jpg",
+     "title": "File:20191222 Meydenbauer Bay Park2.jpg",
+     "author": "Mark Yasuda",
+     "license": "CC BY-SA 4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:20191222_Meydenbauer_Bay_Park2.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/ff/20191222_Meydenbauer_Bay_Park2.jpg/1280px-20191222_Meydenbauer_Bay_Park2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/bel-meydenbauer/20191222_Meydenbauer_Bay_Park0.jpg",
+     "title": "File:20191222 Meydenbauer Bay Park0.jpg",
+     "author": "Mark Yasuda",
+     "license": "CC BY-SA 4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:20191222_Meydenbauer_Bay_Park0.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/54/20191222_Meydenbauer_Bay_Park0.jpg/1280px-20191222_Meydenbauer_Bay_Park0.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/bel-meydenbauer/20191222_Meydenbauer_Bay_Park5.jpg",
+     "title": "File:20191222 Meydenbauer Bay Park5.jpg",
+     "author": "Mark Yasuda",
+     "license": "CC BY-SA 4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:20191222_Meydenbauer_Bay_Park5.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c4/20191222_Meydenbauer_Bay_Park5.jpg/1280px-20191222_Meydenbauer_Bay_Park5.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    },
+    {
+     "file": "refs/sea-spots/bel-meydenbauer/Meydenbauer_Bay_Park_aerial_view_April_2023.jpg",
+     "title": "File:Meydenbauer Bay Park aerial view, April 2023.png",
+     "author": "Spicypepper999",
+     "license": "CC0",
+     "page": "https://commons.wikimedia.org/wiki/File:Meydenbauer_Bay_Park_aerial_view,_April_2023.png",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c4/Meydenbauer_Bay_Park_aerial_view%2C_April_2023.png/1280px-Meydenbauer_Bay_Park_aerial_view%2C_April_2023.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+     "status": "vetted, not fetched (HTTP 429)"
+    }
+   ],
+   "refs_shared": [
+    {
+     "file": "refs/bellevue/Bellevue_skyline_from_Lake_Washington.jpg",
+     "licence": "see refs/bellevue/LICENSES.md (research-sea-districts)"
+    }
+   ],
    "dialogue": {
     "personas": [
      "guide",

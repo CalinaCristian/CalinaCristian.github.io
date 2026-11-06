@@ -34,3 +34,18 @@ Evidence-ranked list (details, sources and scene specs in `game/research/buchare
 9. `cismigiu` — Cișmigiu Gardens (Wikivoyage first park; VB 2022 #3 park).
 10. `peoples-salvation-cathedral` — People's Salvation (National) Cathedral (VB 2022 #5 attraction; world's tallest Orthodox church, opened 26 Oct 2025).
 Changes vs the initial candidate list: Calea Victoriei + CEC merged into #3 with Stavropoleos; Herăstrău and the Village Museum split into two spots; **Patriarchal Cathedral hill replaced by the People's Salvation Cathedral**; National Museum of Art covered inside #4; Therme excluded (indoor water park 10 km outside the city). Not selected: Unirii Fountain Show (VB #2 search — belongs to the Unirii driving district), Botanical Garden (swap-in #11), Antipa Museum, Peasant Museum. Dialogue for R15.6 included per spot (`spots[].dialogue`) plus a general Bucharest pedestrian set.
+
+### 2026-11-06 22:33 UTC — research-sea-spots: Seattle top 10 + Bellevue top 4 confirmed (R15.1 input)
+Ranked list (evidence, scene specs, dialogue in `game/research/seattle-spots.md` / `.json`):
+1. `pike-place` — Pike Place Market + Gum Wall + Rachel + fish market + original Starbucks (Tripadvisor #2, Visit Seattle #2, ~10 M visitors/yr).
+2. `chihuly` — Chihuly Garden and Glass (Tripadvisor #1, 25k reviews).
+3. `space-needle` — Space Needle + Seattle Center (TA #3, VS #1, 1.3 M/yr).
+4. `fremont-troll` — Fremont Troll (owner must-have; Wikivoyage Fremont highlight).
+5. `kerry-park` — Kerry Park viewpoint (TA #6, VS #8; Needle bearing 141°, Rainier 152°).
+6. `mopop` — Museum of Pop Culture (TA #9, LP #3).
+7. `waterfront` — Great Wheel / Pier 57 / Aquarium / Overlook Walk (VS #4).
+8. `pioneer-square` — pergola, totem, Underground, Smith Tower (VS #9).
+9. `ballard-locks` — Ballard Locks + fish ladder (TA #8, >1 M/yr).
+10. `gas-works` — Gas Works Park (VS #15, TA #30; first alternate: Central Library).
+Bellevue (`city:'bellevue'`): `bel-lincoln-square` (Lincoln Square + Bellevue Square + skybridges; UiPath = Lincoln Square North, 700 Bellevue Way NE, Suite 2000), `bel-downtown-park`, `bel-botanical-garden`, `bel-meydenbauer`.
+Notes for spots: Space Needle, Chihuly and MoPOP share one `seattle-center` scene (3 spawns). Troll/Chihuly/Rachel/Changing Form/Piloti are copyrighted artworks (US: no FoP; Troll artists enforce image rights) — stylise, owner to OK the Troll replica. Gas Works towers must not be climbable. Pike Place is car-free (trial since Apr 2025). Request for world (via orchestrator): move `uipath-bel` door to Lincoln Square North entrance 47.61723,-122.20148.

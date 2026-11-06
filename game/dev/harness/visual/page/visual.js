@@ -519,10 +519,9 @@ async function cockpitPrep(lbl, { touch = false, at = null } = {}) {
 async function addCockpitTile(dataUrl, lbl, sub) {
     const im = await createImageBitmap(await (await fetch(dataUrl)).blob());
     const tw = 960, th = Math.round(960 * im.height / im.width);
-    const sh = sheet(`cockpit-${S.cityKey}`, { title: `${S.cityKey} · cockpit + HUD at each viewport`, cols: 1, tw, th: Math.max(th, 200), per: 3 });
-    sh.th = th; // per-tile height follows the aspect (one column)
+    // one tile per sheet, sized to the viewport's aspect
+    const sh = sheet(`cockpit-${S.cityKey}-${lbl.replace(/[^\w]+/g, '-')}`, { title: `${S.cityKey} · cockpit + HUD`, cols: 1, tw, th, per: 1 });
     await sh.add(im, lbl, sub || '');
-    await sh.flush();
 }
 
 // ------------------------------------------------------------------ offices (lobby sign etc.)

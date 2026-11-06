@@ -269,6 +269,7 @@ export class PhotoMode {
         $('.pv-save').addEventListener('click', () => this.save(this.gallery[0]));
         $('.pv-share').addEventListener('click', () => this.save(this.gallery[0], { share: true }));
         $('.pv-dismiss').addEventListener('click', () => this.q.print.classList.remove('show'));
+        this.q.print.addEventListener('pointerenter', () => clearTimeout(this._printT)); // stays while you decide
         $('.pv-gal-close').addEventListener('click', () => this.toggleGallery(false));
         // touch / click entry point (shown on touch devices; desktop uses P)
         const btn = this.openBtn = el('button', 'photo-open', '📷'); btn.title = 'Camera (P)';
@@ -287,7 +288,7 @@ export class PhotoMode {
         const p = this.q.print; this.q.printImg.src = shot.url;
         p.classList.toggle('can-share', this._shareCapable());
         p.classList.remove('show'); void p.offsetWidth; p.classList.add('show');
-        clearTimeout(this._printT); this._printT = setTimeout(() => p.classList.remove('show'), 6000);
+        clearTimeout(this._printT); this._printT = setTimeout(() => p.classList.remove('show'), 12000);
     }
     toggleGallery(open = !this.root.classList.contains('gallery-open')) { this.root.classList.toggle('gallery-open', open); }
     _renderGallery() {

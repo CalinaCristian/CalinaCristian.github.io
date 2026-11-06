@@ -9,6 +9,7 @@ R12.3 Rooftop advertising signs where they exist (Piața Victoriei, Romană, Uni
 R12.4 Street furniture per street from research: lamp models/heights (e.g. Calea Victoriei lanterns), trolleybus wires, tram poles, benches, bins, bollards, metro 'M' totems, bus shelters (STB style / King County Metro style), traffic-light models (RO vs US), street-name plates.
 R12.5 Trees: species look (chestnut/linden/plane in Bucharest; maples/conifers in Seattle), positions from OSM/research, seasonal colours (spec 18).
 R12.6 Landmarks inside districts get a fidelity pass from research (landmarks role); facade photo textures (CC-licensed, attributed) allowed for key buildings when it clearly improves fidelity within budget.
+R12.6b **Lincoln Square (Bellevue)** is a hero landmark and the final CV stop: UiPath's Bellevue office moved there in September 2025 (two floors; previously Plaza Center, 10900 NE 8th St, 2022–2025). Model the whole complex at high fidelity from research (towers, podium, Westin/W, the skybridge to Bellevue Square, the NE 8th St × Bellevue Way corner, lobby entrance used by UiPath, signage); the `uipath-bel` stop door is the real entrance of UiPath's tower.
 R12.7 Budget per district: ≤ 1.5 M visible triangles, ≤ 400 draw calls at high.
 
 ## Acceptance

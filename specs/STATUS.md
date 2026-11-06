@@ -6,7 +6,7 @@ Update your own rows when you start/finish (status, `updated` as `YYYY-MM-DD HH:
 |---|---|---|---|---|---|---|
 | R10.1–3 | District data at 1:1, ~1 km², boundaries + end-of-map | 10 | world | in progress | 2026-11-06 22:30 | redirected from corridors; geometry work carries over |
 | R10.4 | `CHAPTERS` + starts (1.5–2.5 km routes) | 10 | world | in progress | 2026-11-06 22:30 | |
-| R10.5–7 | Chapter flow, montage, chapter select, progress UI | 10 | gameplay | todo | | after current fix list |
+| R10.5–7 | Chapter flow, montage, chapter select, progress UI | 10 | gameplay | in progress | 2026-11-06 22:05 UTC | feature-detects CHAPTERS / districts |
 | R10.8 | Congestion hotspot data per district | 10/13 | world | in progress | 2026-11-06 22:30 | from research `traffic` |
 | R11.1–2 | Continuous ribbons, junction pads, no coplanar overlaps, layering | 11 | world | in progress | 2026-11-06 21:20 | |
 | R11.3 | Country-specific markings, turn arrows, no markings across pads | 11 | world | in progress | | |
@@ -16,7 +16,7 @@ Update your own rows when you start/finish (status, `updated` as `YYYY-MM-DD HH:
 | R12.6 | Landmark fidelity pass from research | 12 | landmarks | todo | | agent to spawn after research |
 | R13.2 | Standstill traffic in hotspots | 13 | gameplay | todo | | queued |
 | R13.3 | Transit liveries (STB trams/trolleys, KCM) | 13 | gameplay | todo | | |
-| R13.4–5 | Pedestrians + overlaps clean; reset/objective/autopilot fixes | 13 | gameplay | in progress | 2026-11-06 21:10 | final-pass list |
+| R13.4–5 | Pedestrians + overlaps clean; reset/objective/autopilot fixes | 13 | gameplay | review | 2026-11-06 22:05 UTC | full harness: no-progress 7→1, drive-failed 2→0, bad-placement 2→0, ft-last-mile 1→0, ped-on-carriageway 4→2, overlap 8→7; remaining = world (Lukoil, DN1 barrier at Bretea) |
 | R14.* | On foot (exit car, walk/run/jump, enter offices) | 14 | gameplay | todo | | queued; reusable OnFootController |
 | R15.* | 20 tourist spots, walk-only scenes | 15 | spots | todo | | agent to spawn after research |
 | R16.* | Photo mode | 16 | cockpit-ui | todo | | queued after cockpit fixes |

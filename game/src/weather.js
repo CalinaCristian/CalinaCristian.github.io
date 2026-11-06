@@ -55,14 +55,17 @@ export class Rain {
         this.mesh.frustumCulled = false; this.mesh.renderOrder = 5;
         this.mesh.userData.shared = true;
     }
-    /** camPos: world position; carVel: Vector3 world velocity of the player (m/s) */
-    update(dt, camPos, carVel) {
+    /** camPos: world position; carVel: Vector3 world velocity of the player (m/s); wind: {x, z} m/s (optional) */
+    update(dt, camPos, carVel, wind) {
         const u = this.uniforms;
         u.uTime.value += dt;
         u.uCam.value.copy(camPos);
         // rain velocity relative to the car (wind + falling - car motion)
-        u.uVel.value.set(0.8 - (carVel ? carVel.x : 0), -9.5, 0.3 - (carVel ? carVel.z : 0));
+        const wx = wind ? wind.x * 0.8 : 0.8, wz = wind ? wind.z * 0.8 : 0.3;
+        u.uVel.value.set(wx - (carVel ? carVel.x : 0), -9.5, wz - (carVel ? carVel.z : 0));
     }
+    /** intensity 0..1 → number of streaks drawn */
+    setIntensity(k) { const n = this.mesh.geometry.attributes.position.count; this.mesh.geometry.setDrawRange(0, 2 * Math.round(n / 2 * THREE.MathUtils.clamp(k, 0, 1))); }
     dispose() { this.mesh.geometry.dispose(); this.mesh.material.dispose(); }
 }
 
@@ -134,4 +137,263 @@ export function skyState(el, cover = 0.4) {
     }
     s.overcast = w;
     return s;
+}
+
+// ============================================================================
+//  Snow: GPU flakes (THREE.Points) in a box that wraps around the camera. Slow fall, per-flake swirl, drifts with
+//  the wind relative to the car. Like Rain, all motion is in the vertex shader.
+// ============================================================================
+export class Snow {
+    constructor({ count = 6000, box = 46, height = 22, size = 0.06, opacity = 0.9 } = {}) {
+        const pos = new Float32Array(count * 3), seed = new Float32Array(count);
+        for (let i = 0; i < count; i++) { pos.set([Math.random() * box, Math.random() * height, Math.random() * box], i * 3); seed[i] = Math.random(); }
+        const g = new THREE.BufferGeometry();
+        g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+        g.setAttribute('aSeed', new THREE.BufferAttribute(seed, 1));
+        g.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 1e6);
+        this.count = count;
+        this.uniforms = {
+            uTime: { value: 0 }, uCam: { value: new THREE.Vector3() }, uVel: { value: new THREE.Vector3(0, -1.1, 0) },
+            uBox: { value: box }, uH: { value: height }, uSize: { value: size }, uColor: { value: new THREE.Color('#f4f7fb') },
+            uOpacity: { value: opacity }, uScale: { value: 400 },
+        };
+        const mat = new THREE.ShaderMaterial({
+            uniforms: this.uniforms, transparent: true, depthWrite: false, fog: false,
+            vertexShader: /* glsl */`
+                attribute float aSeed;
+                uniform float uTime, uBox, uH, uSize, uScale; uniform vec3 uCam, uVel;
+                varying float vA;
+                void main(){
+                    vec3 p = position;
+                    float fall = -uVel.y * (0.7 + aSeed * 0.6);
+                    p.y = mod(p.y - uTime * fall, uH);
+                    float age = uTime * (0.6 + aSeed);
+                    vec3 swirl = vec3(sin(age * 1.7 + aSeed * 40.0), 0.0, cos(age * 1.3 + aSeed * 23.0)) * 0.35;
+                    vec3 drift = vec3(uVel.x, 0.0, uVel.z) * (p.y / max(fall, 0.1));
+                    vec3 w = vec3(mod(p.x - uCam.x - drift.x + swirl.x, uBox), p.y + uCam.y - uH * 0.35, mod(p.z - uCam.z - drift.z + swirl.z, uBox));
+                    w.xz += uCam.xz - uBox * 0.5;
+                    vec4 mv = modelViewMatrix * vec4(w, 1.0);
+                    gl_Position = projectionMatrix * mv;
+                    float d = length(mv.xyz);
+                    gl_PointSize = clamp(uSize * (0.6 + aSeed * 0.8) * uScale / max(d, 0.1), 1.0, 24.0);
+                    vA = smoothstep(0.5, 2.0, d) * (1.0 - smoothstep(uBox * 0.3, uBox * 0.5, d));
+                }`,
+            fragmentShader: /* glsl */`
+                uniform vec3 uColor; uniform float uOpacity; varying float vA;
+                void main(){
+                    vec2 c = gl_PointCoord - 0.5; float r = dot(c, c);
+                    if (r > 0.25) discard;
+                    gl_FragColor = vec4(uColor, uOpacity * vA * (1.0 - r * 3.2));
+                    #include <tonemapping_fragment>
+                    #include <colorspace_fragment>
+                }`,
+        });
+        this.mesh = new THREE.Points(g, mat);
+        this.mesh.frustumCulled = false; this.mesh.renderOrder = 5;
+        this.mesh.userData.shared = true;
+    }
+    /** intensity 0..1 → number of flakes drawn */
+    setIntensity(k) { this.mesh.geometry.setDrawRange(0, Math.round(this.count * THREE.MathUtils.clamp(k, 0, 1))); }
+    update(dt, camPos, carVel, wind) {
+        const u = this.uniforms;
+        u.uTime.value += dt;
+        u.uCam.value.copy(camPos);
+        u.uVel.value.set((wind ? wind.x : 0) - (carVel ? carVel.x : 0), -1.1, (wind ? wind.z : 0) - (carVel ? carVel.z : 0));
+    }
+    dispose() { this.mesh.geometry.dispose(); this.mesh.material.dispose(); }
+}
+
+// ============================================================================
+//  Weather: live (Open-Meteo), climatology fallback, overrides
+// ============================================================================
+/** WMO weather code → coarse kind + label + icon (Open-Meteo `weather_code`) */
+export function classifyWMO(code, isDay = true) {
+    const c = +code;
+    const day = (a, n) => (isDay ? a : n);
+    if (c === 0) return { kind: 'clear', label: 'Clear sky', icon: day('☀️', '🌙') };
+    if (c === 1) return { kind: 'clear', label: 'Mainly clear', icon: day('🌤️', '🌙') };
+    if (c === 2) return { kind: 'partly', label: 'Partly cloudy', icon: day('⛅', '☁️') };
+    if (c === 3) return { kind: 'overcast', label: 'Overcast', icon: '☁️' };
+    if (c === 45 || c === 48) return { kind: 'fog', label: c === 48 ? 'Rime fog' : 'Fog', icon: '🌫️' };
+    if (c >= 51 && c <= 57) return { kind: 'drizzle', label: c >= 56 ? 'Freezing drizzle' : 'Drizzle', icon: '🌦️' };
+    if ((c >= 61 && c <= 67) || (c >= 80 && c <= 82)) return { kind: 'rain', label: c >= 80 ? 'Rain showers' : c >= 66 ? 'Freezing rain' : c === 65 ? 'Heavy rain' : c === 61 ? 'Light rain' : 'Rain', icon: '🌧️' };
+    if ((c >= 71 && c <= 77) || c === 85 || c === 86) return { kind: 'snow', label: c >= 85 ? 'Snow showers' : c === 77 ? 'Snow grains' : c === 75 ? 'Heavy snow' : c === 71 ? 'Light snow' : 'Snow', icon: '🌨️' };
+    if (c >= 95) return { kind: 'storm', label: c > 95 ? 'Thunderstorm with hail' : 'Thunderstorm', icon: '⛈️' };
+    return { kind: 'partly', label: 'Cloudy', icon: '☁️' };
+}
+
+const WX_URL = 'https://api.open-meteo.com/v1/forecast';
+const WX_FIELDS = 'temperature_2m,weather_code,cloud_cover,precipitation,rain,showers,snowfall,snow_depth,wind_speed_10m,wind_direction_10m,visibility,is_day';
+export const WEATHER_TTL_MS = 15 * 60 * 1000;
+/**
+ * Current weather from Open-Meteo (keyless, CORS *). Cached per location in sessionStorage for 15 min.
+ * Throws on network failure, HTTP errors and the API's `{error:true, reason}` JSON (e.g. daily quota exceeded).
+ * @returns normalised {code, tempC, precipMm, rainMm, snowfallCm, snowDepthCm, windKmh, windDir, visibilityM, cloud, isDay, time}
+ */
+export async function fetchLiveWeather(lat, lon, timeZone = 'auto', { timeoutMs = 8000, cache = true } = {}) {
+    const key = `wx:${lat.toFixed(2)},${lon.toFixed(2)}`;
+    if (cache) {
+        try {
+            const c = JSON.parse(sessionStorage.getItem(key) || 'null');
+            if (c && Date.now() - c.t < WEATHER_TTL_MS && c.w) return { ...c.w, cached: true };
+        } catch { /* storage unavailable */ }
+    }
+    const url = `${WX_URL}?latitude=${lat.toFixed(4)}&longitude=${lon.toFixed(4)}&current=${WX_FIELDS}&timezone=${encodeURIComponent(timeZone || 'auto')}`;
+    const ctl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    const to = ctl ? setTimeout(() => ctl.abort(), timeoutMs) : 0;
+    let j;
+    try {
+        const r = await fetch(url, ctl ? { signal: ctl.signal } : undefined);
+        j = await r.json().catch(() => null);
+        if (!r.ok || !j || j.error) throw new Error(`open-meteo: ${j?.reason || r.status}`);
+    } finally { if (to) clearTimeout(to); }
+    const c = j.current || {};
+    if (typeof c.weather_code !== 'number') throw new Error('open-meteo: no current weather');
+    const num = (v, d = 0) => (Number.isFinite(+v) ? +v : d);
+    const w = {
+        code: c.weather_code, tempC: num(c.temperature_2m, 15), precipMm: num(c.precipitation), rainMm: num(c.rain) + num(c.showers),
+        snowfallCm: num(c.snowfall), snowDepthCm: num(c.snow_depth) * 100, windKmh: num(c.wind_speed_10m), windDir: num(c.wind_direction_10m),
+        visibilityM: num(c.visibility, 24000), cloud: num(c.cloud_cover, 40) / 100, isDay: c.is_day !== 0, time: c.time || null,
+    };
+    if (cache) { try { sessionStorage.setItem(key, JSON.stringify({ t: Date.now(), w })); } catch { /* ignore */ } }
+    return w;
+}
+
+// Monthly climate normals (Jan..Dec). t = daily mean °C, wet = days with ≥ 1 mm precipitation, snow = days with
+// snowfall, cover = days with snow on the ground, fog = fog days, thunder = thunderstorm days, cloud = mean cloud cover.
+// Sources (1991–2020 normals, rounded): Bucharest-Băneasa — ANM / Wikipedia "Bucharest" climate box (temperature,
+// precipitation days, snowy days, sunshine → cloud); Seattle-Tacoma Intl — NOAA NCEI / Wikipedia "Seattle" climate box.
+// Cloud cover estimated from mean monthly sunshine (% of possible). Fog/thunder days: WMO station summaries (approx.).
+export const CLIMATE = {
+    bucharest: {
+        lat: 44.43, lon: 26.10,
+        t: [-0.6, 1.4, 5.8, 11.7, 17.2, 21.2, 23.3, 22.9, 17.6, 11.4, 5.9, 0.9],
+        wet: [6, 6, 6, 7, 8, 8, 6, 5, 5, 5, 6, 7],
+        snow: [7, 6, 3, 0.3, 0, 0, 0, 0, 0, 0.1, 2, 5],
+        cover: [13, 10, 3, 0, 0, 0, 0, 0, 0, 0, 2, 8],
+        fog: [5, 4, 2, 1, 0.5, 0.3, 0.2, 0.3, 1, 3, 5, 6],
+        thunder: [0, 0, 0.2, 1, 4, 6, 6, 4, 2, 0.4, 0, 0],
+        cloud: [0.72, 0.66, 0.6, 0.54, 0.48, 0.4, 0.3, 0.3, 0.38, 0.5, 0.68, 0.76],
+        mm: [3.5, 3.5, 3.5, 4.5, 6, 8, 8, 6, 5, 4.5, 4, 3.5], // typical intensity on a wet hour (mm/h, scaled)
+    },
+    seattle: {
+        lat: 47.61, lon: -122.33,
+        t: [5.6, 6.1, 7.8, 10.2, 13.7, 16.4, 19.6, 19.8, 16.8, 11.9, 7.9, 5.3],
+        wet: [18, 15, 17, 14, 10, 8, 4, 4, 7, 13, 18, 18],
+        snow: [1.6, 1.4, 0.4, 0, 0, 0, 0, 0, 0, 0, 0.4, 1.3],
+        cover: [2, 1.5, 0.3, 0, 0, 0, 0, 0, 0, 0, 0.3, 1.5],
+        fog: [4, 3, 1.5, 0.8, 0.5, 0.5, 0.6, 1.2, 3, 5, 5, 5],
+        thunder: [0.1, 0.1, 0.3, 0.4, 0.6, 0.6, 0.6, 0.6, 0.6, 0.3, 0.2, 0.1],
+        cloud: [0.84, 0.8, 0.8, 0.74, 0.66, 0.6, 0.4, 0.44, 0.52, 0.72, 0.84, 0.86],
+        mm: [2, 1.8, 1.8, 1.5, 1.4, 1.3, 1.2, 1.3, 1.5, 2, 2.5, 2.2],
+    },
+};
+export function nearestClimate(lat, lon) {
+    let best = null, bd = Infinity;
+    for (const k in CLIMATE) { const c = CLIMATE[k], d = Math.hypot(c.lat - lat, (c.lon - lon) * Math.cos(lat * RAD)); if (d < bd) { bd = d; best = k; } }
+    return { id: best, ...CLIMATE[best] };
+}
+function localParts(date, timeZone) {
+    let y = date.getUTCFullYear(), m = date.getUTCMonth(), d = date.getUTCDate(), h = date.getUTCHours();
+    try {
+        const f = new Intl.DateTimeFormat('en-GB', { timeZone, year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', hourCycle: 'h23' }).formatToParts(date);
+        const g = (t) => +f.find(p => p.type === t).value;
+        y = g('year'); m = g('month') - 1; d = g('day'); h = g('hour') % 24;
+    } catch { /* no Intl time zone: UTC */ }
+    return { y, m, d, h };
+}
+const hash01 = (...a) => { let x = 2166136261; for (const v of a) { x ^= Math.floor(v * 1000) | 0; x = Math.imul(x, 16777619); x ^= x >>> 13; } return ((x >>> 0) % 100000) / 100000; };
+/**
+ * Plausible weather for a place and time from the climate normals (deterministic per hour; persistent per day /
+ * 3-hour block). Same normalised shape as fetchLiveWeather.
+ */
+export function climateWeather(lat, lon, date, timeZone) {
+    const C = nearestClimate(lat, lon), { y, m, d, h } = localParts(date, timeZone);
+    const dim = new Date(Date.UTC(y, m + 1, 0)).getUTCDate();
+    const dayKey = [y, m, d, Math.round(lat), Math.round(lon)], blk = Math.floor(h / 3);
+    const rDay = hash01(...dayKey, 1), rBlk = hash01(...dayKey, blk, 2), rHr = hash01(...dayKey, h, 3);
+    const anomaly = (hash01(...dayKey, 4) - 0.5) * 6;
+    const tempC = C.t[m] + anomaly + 4 * Math.cos((h - 15) / 24 * Math.PI * 2);
+    const wetDay = rDay < C.wet[m] / dim;
+    const thunderDay = hash01(...dayKey, 5) < C.thunder[m] / dim;
+    const fogDay = hash01(...dayKey, 6) < C.fog[m] / dim;
+    const snowCoverDay = hash01(...dayKey, 7) < C.cover[m] / dim;
+    let code = 0, precipMm = 0, snowfallCm = 0, visibilityM = 24000;
+    let cloud = THREE.MathUtils.clamp(C.cloud[m] + (rBlk - 0.5) * 0.5, 0, 1);
+    if (thunderDay && h >= 14 && h <= 20 && rBlk < 0.6) { code = rHr < 0.2 ? 96 : 95; precipMm = C.mm[m] * (1 + rHr); cloud = 1; }
+    else if (wetDay && rBlk < 0.55) {
+        const snowy = tempC < 0.5 || (C.snow[m] > 0 && hash01(...dayKey, 8) < C.snow[m] / Math.max(C.wet[m], 1) && tempC < 3);
+        const k = rHr; // 0 light … 1 heavy
+        if (snowy) { code = k < 0.45 ? 71 : k < 0.85 ? 73 : 75; snowfallCm = 0.1 + k * 0.6; precipMm = snowfallCm / 0.7; }
+        else if (k < 0.25) { code = 53; precipMm = 0.2 + k; }
+        else { code = k < 0.6 ? 61 : k < 0.9 ? 63 : 65; precipMm = C.mm[m] * (0.15 + k * 0.6); }
+        cloud = Math.max(cloud, 0.88);
+        visibilityM = snowy ? 2500 + (1 - k) * 6000 : 8000 + (1 - k) * 12000;
+    } else if (fogDay && h >= 3 && h <= 10) { code = 45; visibilityM = 250 + rBlk * 600; cloud = Math.max(cloud, 0.7); }
+    else code = cloud < 0.2 ? 0 : cloud < 0.45 ? 1 : cloud < 0.75 ? 2 : 3;
+    const snowDepthCm = snowCoverDay || (snowfallCm > 0 && tempC < 1) ? 2 + hash01(...dayKey, 9) * 12 : 0;
+    const windKmh = 6 + hash01(...dayKey, blk, 10) * 18 + (code >= 95 ? 20 : precipMm > 0 ? 6 : 0);
+    const windDir = (C.id === 'seattle' ? 200 : 300) + (hash01(...dayKey, 11) - 0.5) * 120;
+    return { code, tempC: Math.round(tempC * 10) / 10, precipMm, rainMm: snowfallCm > 0 ? 0 : precipMm, snowfallCm, snowDepthCm, windKmh, windDir: (windDir + 360) % 360, visibilityM, cloud, isDay: null, time: null, climate: C.id };
+}
+
+/** synthetic weather for the menu / ?weather= overrides (same normalised shape) */
+export const WEATHER_PRESETS = {
+    clear: { code: 0, tempC: 22, precipMm: 0, snowfallCm: 0, snowDepthCm: 0, windKmh: 8, windDir: 270, visibilityM: 30000, cloud: 0.1 },
+    cloudy: { code: 3, tempC: 14, precipMm: 0, snowfallCm: 0, snowDepthCm: 0, windKmh: 14, windDir: 250, visibilityM: 20000, cloud: 0.95 },
+    rain: { code: 63, tempC: 11, precipMm: 3.5, snowfallCm: 0, snowDepthCm: 0, windKmh: 18, windDir: 240, visibilityM: 9000, cloud: 1 },
+    drizzle: { code: 53, tempC: 9, precipMm: 0.4, snowfallCm: 0, snowDepthCm: 0, windKmh: 10, windDir: 240, visibilityM: 12000, cloud: 0.95 },
+    snow: { code: 73, tempC: -2, precipMm: 0.8, snowfallCm: 0.6, snowDepthCm: 12, windKmh: 12, windDir: 330, visibilityM: 3000, cloud: 1 },
+    fog: { code: 45, tempC: 4, precipMm: 0, snowfallCm: 0, snowDepthCm: 0, windKmh: 3, windDir: 90, visibilityM: 220, cloud: 0.85 },
+    storm: { code: 95, tempC: 19, precipMm: 9, snowfallCm: 0, snowDepthCm: 0, windKmh: 38, windDir: 260, visibilityM: 5000, cloud: 1 },
+};
+
+/**
+ * Render targets for a weather state: cloud 0..1, rain 0..1, snow 0..1, fogDensity multiplier source (visibility),
+ * wind (m/s toward x/z), thunder flag, sun dimming, snowCover 0..1 (ground dusting).
+ */
+export function weatherTargets(w) {
+    const { kind } = classifyWMO(w.code);
+    const t = { cloud: THREE.MathUtils.clamp(w.cloud ?? 0.4, 0, 1), rain: 0, snow: 0, thunder: kind === 'storm', visibilityM: w.visibilityM ?? 24000, windX: 0, windZ: 0, snowCover: 0, sunMul: 1 };
+    if (kind === 'drizzle') t.rain = THREE.MathUtils.clamp(0.25 + (w.precipMm || 0) * 0.3, 0.25, 0.4);
+    if (kind === 'rain' || kind === 'storm') t.rain = THREE.MathUtils.clamp(0.35 + (w.precipMm || 0) / 7, 0.35, 1);
+    if (kind === 'snow') t.snow = THREE.MathUtils.clamp(0.3 + (w.snowfallCm || 0) * 1.2, 0.3, 1);
+    if (kind === 'fog') t.visibilityM = Math.min(t.visibilityM, 600);
+    if (kind === 'overcast' || t.rain || t.snow) t.cloud = Math.max(t.cloud, 0.9);
+    if (kind === 'storm') { t.cloud = 1; t.sunMul = 0.55; }
+    else if (t.rain) t.sunMul = 0.75;
+    t.snowCover = THREE.MathUtils.clamp((w.snowDepthCm || 0) / 6, 0, 1);
+    // wind: direction the wind comes FROM (meteorological, ° from north) → velocity toward (x east, z south)
+    const ms = (w.windKmh || 0) / 3.6, to = ((w.windDir || 0) + 180) * RAD;
+    t.windX = Math.sin(to) * ms; t.windZ = -Math.cos(to) * ms;
+    return t;
+}
+
+// ============================================================================
+//  Seasons: vegetation state by date + latitude (+ climate type)
+// ============================================================================
+const ramp = (x, a, b) => THREE.MathUtils.clamp((x - a) / (b - a), 0, 1);
+/**
+ * Vegetation look for a date at a latitude. Returns weights 0..1:
+ *  blossom (spring flowering), autumn (leaf colour), bare (deciduous crowns leafless), brown (grass dormant / dry),
+ *  fresh (light spring green) and the season name. maritime = mild winters / dry summers (Seattle).
+ */
+export function seasonState(date, lat = 45, { timeZone, maritime = false, override = null } = {}) {
+    const { y, m, d } = localParts(date, timeZone);
+    let doy = (Date.UTC(y, m, d) - Date.UTC(y, 0, 1)) / 864e5; // 0..365
+    if (lat < 0) doy = (doy + 182.5) % 365;
+    if (override) doy = { spring: 112, summer: 195, autumn: 306, winter: 20 }[override] ?? doy;
+    // phenology (Bucharest-like continental; maritime shifts spring earlier and autumn slightly earlier)
+    const sh = maritime ? -14 : 0, latSh = (Math.abs(lat) - 45) * 2.5; // ~2.5 days later per degree north in spring
+    const leafOut0 = 85 + sh + latSh, leafOut1 = 118 + sh + latSh;          // ~26 Mar → 28 Apr
+    const aut0 = (maritime ? 272 : 283) - latSh, aut1 = (maritime ? 305 : 315) - latSh; // colour: Oct → Nov
+    const bare0 = (maritime ? 300 : 305) - latSh, bare1 = (maritime ? 330 : 335) - latSh;
+    let bare = doy < leafOut1 ? 1 - ramp(doy, leafOut0, leafOut1) : ramp(doy, bare0, bare1);
+    const autumn = doy >= aut0 ? ramp(doy, aut0, aut1) : 0;
+    const blossom = Math.max(0, 1 - Math.abs(doy - (leafOut0 + 22)) / 18) * (1 - bare * 0.3);
+    const fresh = doy > leafOut0 && doy < 165 ? Math.max(0, 1 - Math.abs(doy - (leafOut1 + 8)) / 40) : 0;
+    let brown = maritime ? Math.max(0, 1 - Math.abs(doy - 225) / 45) * 0.6 + (doy < 60 || doy > 340 ? 0.15 : 0)
+        : Math.max(doy < leafOut0 ? 0.75 * (1 - ramp(doy, leafOut0 - 20, leafOut0 + 10)) : 0, doy > bare0 ? 0.75 * ramp(doy, bare0, bare1 + 10) : 0, Math.max(0, 1 - Math.abs(doy - 225) / 30) * 0.3);
+    const season = override || (doy < 59 || doy >= 334 ? 'winter' : doy < 151 ? 'spring' : doy < 243 ? 'summer' : 'autumn');
+    return { season, blossom, autumn, bare, brown: Math.min(1, brown), fresh, doy };
 }

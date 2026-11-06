@@ -10,6 +10,7 @@
     #ui { position: fixed; top: 8px; left: 8px; background: rgba(0,0,0,.55); padding: 8px 10px; border-radius: 6px; }
     #ui select, #ui button { font: inherit; }
     #stats { white-space: pre; margin-top: 6px; }
+    body.noui #ui { display: none; }
 </style>
 </head>
 <body>
@@ -22,6 +23,9 @@
     <br>time <input type="range" id="time" min="0" max="24" step="0.25" style="width:160px"> <span id="tlabel"></span>
     look <select id="ov"><option value="">clock</option><option>day</option><option>sunset</option><option>dusk</option><option>night</option><option>dawn</option></select>
     <label><input type="checkbox" id="head"> headlights (manual)</label>
+    <br>weather <select id="weather"><option value="">real</option><option>clear</option><option>cloudy</option><option>drizzle</option><option>rain</option><option>snow</option><option>fog</option><option>storm</option></select>
+    season <select id="season"><option value="">date</option><option>spring</option><option>summer</option><option>autumn</option><option>winter</option></select>
+    <span id="wx"></span>
     <div id="stats"></div>
 </div>
 <script type="module">
@@ -34,6 +38,10 @@ const qs = new URLSearchParams(location.search);
 const $ = (s) => document.querySelector(s);
 const cityId = qs.get('city') || 'bucharest', quality = qs.get('q') || 'auto', view = qs.get('view') || 'cockpit';
 const ov = qs.get('ov') || '', hour0 = qs.has('t') ? +qs.get('t') : 17.5;
+const look = qs.get('look') || 'front'; // front | back | left | right (cockpit view only)
+if (qs.get('ui') === '0') document.body.classList.add('noui');
+$('#weather').value = qs.get('weather') || ''; $('#season').value = qs.get('season') || '';
+for (const id of ['weather', 'season']) $('#' + id).onchange = () => { const p = new URLSearchParams(location.search); p.set(id, $('#' + id).value); location.search = p; };
 $('#city').value = cityId; $('#q').value = quality; $('#view').value = view; $('#ov').value = ov; $('#time').value = hour0;
 for (const id of ['city', 'q', 'view', 'ov']) $('#' + id).onchange = () => { const p = new URLSearchParams(location.search); p.set(id, $('#' + id).value); location.search = p; };
 
@@ -48,16 +56,20 @@ const oldSky = new THREE.Mesh(new THREE.SphereGeometry(3000, 8, 8), new THREE.Me
 scene.add(oldSky);
 
 // ---- test world ----
-const ground = new THREE.Mesh(new THREE.PlaneGeometry(4000, 4000), new THREE.MeshLambertMaterial({ color: env.ground }));
+// names follow world.js so Renderer3D's weather/season patches find them (groundPlane, 'ground i,j' road, grass, roofs, treeCrowns)
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(4000, 4000, 100, 100), new THREE.MeshLambertMaterial({ color: env.ground }));
+ground.material.name = 'groundPlane';
 ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
-const road = new THREE.Mesh(new THREE.PlaneGeometry(22, 4000), new THREE.MeshStandardMaterial({ color: env.asphalt, roughness: env.rain ? 0.35 : 0.9, metalness: env.rain ? 0.2 : 0 }));
-road.rotation.x = -Math.PI / 2; road.position.y = 0.02; road.receiveShadow = true; scene.add(road);
-const lane = new THREE.Mesh(new THREE.PlaneGeometry(0.15, 4000), new THREE.MeshLambertMaterial({ color: '#e8e8e8' }));
+const road = new THREE.Mesh(new THREE.PlaneGeometry(22, 4000, 1, 400), new THREE.MeshStandardMaterial({ color: env.asphalt, roughness: env.rain ? 0.35 : 0.9, metalness: env.rain ? 0.2 : 0 }));
+road.rotation.x = -Math.PI / 2; road.position.y = 0.02; road.receiveShadow = true; road.name = 'ground 0,0'; scene.add(road);
+
+const lane = new THREE.Mesh(new THREE.PlaneGeometry(0.15, 4000, 1, 400), new THREE.MeshLambertMaterial({ color: '#e8e8e8' }));
 lane.rotation.x = -Math.PI / 2; lane.position.y = 0.03; scene.add(lane);
 let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
 const bGeo = new THREE.BoxGeometry(1, 1, 1); bGeo.translate(0, 0.5, 0);
 const pal = ['#d9c8a9', '#e3d3b4', '#cdb894', '#a9a9a6', '#b5b2a8', '#5d7f99', '#6f93ad', '#efe4cc'];
 const inst = new THREE.InstancedMesh(bGeo, new THREE.MeshLambertMaterial(), 400);
+inst.material.name = 'roofs'; // up-facing faces of the boxes act as roofs for the snow test
 const m4 = new THREE.Matrix4(), col = new THREE.Color();
 for (let i = 0; i < 400; i++) {
     const side = i % 2 ? 1 : -1;
@@ -67,6 +79,28 @@ for (let i = 0; i < 400; i++) {
     inst.setMatrixAt(i, m4); inst.setColorAt(i, col.set(pal[i % pal.length]));
 }
 inst.castShadow = inst.receiveShadow = true; scene.add(inst);
+for (const sx of [-1, 1]) { // grass verges with trees (broadleaf + a few conifers)
+    const verge = new THREE.Mesh(new THREE.PlaneGeometry(8, 4000, 1, 400), new THREE.MeshLambertMaterial({ color: env.grass || '#6d8f4a' }));
+    verge.material.name = 'grass'; verge.rotation.x = -Math.PI / 2; verge.position.set(sx * 15, 0.025, 0); verge.receiveShadow = true; scene.add(verge);
+}
+{
+    const merge = (parts) => { const pos = [], idx = []; let o = 0; for (const [g, m] of parts) { let gg = g.clone().applyMatrix4(m); if (gg.index) gg = gg.toNonIndexed(); const p = gg.attributes.position.array; for (let i = 0; i < p.length; i++) pos.push(p[i]); for (let i = 0; i < p.length / 3; i++) idx.push(o + i); o += p.length / 3; } const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals(); return g; };
+    const ico = new THREE.IcosahedronGeometry(1, 1), cone = new THREE.ConeGeometry(1, 1, 7), mk = (x, y, z, sx, sy, sz) => new THREE.Matrix4().compose(new THREE.Vector3(x, y, z), new THREE.Quaternion(), new THREE.Vector3(sx, sy, sz));
+    const geoBroad = merge([[ico, mk(0, 4.6, 0, 2.6, 2.4, 2.6)], [ico, mk(0.5, 5.9, 0, 1.5, 1.4, 1.5)]]), geoCon = merge([[cone, mk(0, 4.5, 0, 2.3, 6, 2.3)], [cone, mk(0, 7.6, 0, 1.6, 4, 1.6)]]);
+    const crownMat = new THREE.MeshLambertMaterial({ color: '#ffffff' }); crownMat.name = 'treeCrowns';
+    const trunkGeo = new THREE.CylinderGeometry(0.16, 0.22, 3.2, 5); trunkGeo.translate(0, 1.6, 0);
+    for (const con of [false, true]) {
+        const n = con ? 20 : 90, crowns = new THREE.InstancedMesh(con ? geoCon : geoBroad, crownMat, n), trunks = new THREE.InstancedMesh(trunkGeo, new THREE.MeshLambertMaterial({ color: '#6b4a2f' }), n);
+        const BROAD = ['#4f8a3c', '#5d9440', '#679c48', '#4a7f39', '#5a8f3e', '#6f9e4a'], CON = ['#2f5d3a', '#356640', '#2b5434'];
+        for (let i = 0; i < n; i++) {
+            const z = con ? -60 - i * 47 : 6 - i * 10.5 - rnd() * 3, x = (i % 2 ? 1 : -1) * (14 + rnd() * 4), s = 0.8 + rnd() * 0.4;
+            m4.compose(new THREE.Vector3(x, 0.02, z), new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), rnd() * 6), new THREE.Vector3(s, s, s));
+            crowns.setMatrixAt(i, m4); trunks.setMatrixAt(i, m4); crowns.setColorAt(i, col.set((con ? CON : BROAD)[i % (con ? 3 : 6)]));
+        }
+        crowns.name = `treeCrowns 0,0 ${con ? 'conifer' : 'broadleaf'}`; crowns.userData.conifer = con;
+        crowns.castShadow = trunks.castShadow = true; crowns.receiveShadow = true; scene.add(crowns, trunks);
+    }
+}
 
 // row of every vehicle kind (parked along the right side, facing -z)
 const tri = {};
@@ -87,11 +121,16 @@ player.rig = new THREE.Group(); player.cockpit = makeCockpit(); player.rig.add(p
 const camHolder = new THREE.Group(); camHolder.position.set(-0.3, 1.36, -0.45); player.rig.add(camHolder);
 // mirror placeholder exactly like player.js
 const mirror = new THREE.Mesh(new THREE.PlaneGeometry(0.33, 0.11), new THREE.MeshBasicMaterial({ color: '#7d8a99' }));
+// rear-view mirror exactly like player.js: a layer-0 camera on the rig renders into the mirror plane
+const mirrorTarget = new THREE.WebGLRenderTarget(384, 128); mirrorTarget.texture.colorSpace = THREE.LinearSRGBColorSpace;
+const mirrorCam = new THREE.PerspectiveCamera(40, 3, 0.5, 600); mirrorCam.position.set(0.3, 1.5, 0.3); mirrorCam.rotation.set(0, Math.PI, 0); player.rig.add(mirrorCam);
+mirror.material = new THREE.MeshBasicMaterial({ map: mirrorTarget.texture, toneMapped: false }); mirror.material.map.repeat.x = -1; mirror.material.map.offset.x = 1;
+player.mirror = mirror;
 mirror.position.set(0.34, 0.32, -1.05); const frame = new THREE.Mesh(new THREE.BoxGeometry(0.36, 0.14, 0.02), new THREE.MeshBasicMaterial({ color: '#15171a' })); frame.position.z = -0.011; mirror.add(frame); camHolder.add(mirror);
 scene.add(player.rig);
 let cockpitTris = 0; player.cockpit.traverse(o => { if (o.isMesh && o.material.colorWrite !== false) cockpitTris += (o.geometry.index ? o.geometry.index.count : o.geometry.attributes.position.count) / 3; });
 
-if (view === 'cockpit') { camHolder.add(camera); player.speed = 13; }
+if (view === 'cockpit') { camHolder.add(camera); player.speed = 13; camHolder.rotation.y = { back: Math.PI, left: Math.PI / 2, right: -Math.PI / 2 }[look] || 0; mirror.visible = look === 'front'; }
 else if (view === 'cars') { const cz = +(qs.get('cz') || -30); scene.add(camera); camera.position.set(-1.5, 2.4, cz + 9); camera.lookAt(6.5, 0.9, cz); }
 else if (view === 'side') { const cz = +(qs.get('cz') || -30); scene.add(camera); camera.fov = 40; camera.position.set(-2, 2.0, cz + 7); camera.lookAt(6.5, 0.9, cz); }
 else if (view === 'sun') { scene.add(camera); camera.position.set(0, 2, -30); camera.lookAt(new THREE.Vector3(...env.sun).normalize().multiplyScalar(100).add(new THREE.Vector3(0, -25, -30))); }
@@ -103,6 +142,11 @@ r3d.setPlayer(player);
 // ---- street lamps (same object format as world.lamps) + instanced heads ----
 const lamps = [];
 for (let z = 10; z > -900; z -= 32) { lamps.push({ x: -12.5, z, h: 8, rot: 0, y: 0.02 }); lamps.push({ x: 12.5, z: z - 16, h: 8, rot: Math.PI, y: 0.02 }); }
+// ?lamps=grid: denser, irregular city layout (cross streets every ~70 m) — stresses the light-pool assignment
+if (qs.get('lamps') === 'grid') for (let z = -40; z > -900; z -= 70 + (z % 3) * 7) for (let x = -230; x <= 230; x += 21 + rnd() * 9) {
+    if (Math.abs(x) < 16) continue;
+    lamps.push({ x, z: z - 9, h: 7 + rnd() * 3, rot: Math.PI / 2, y: 0.02 }); if (rnd() < 0.6) lamps.push({ x: x + 6, z: z + 9, h: 8, rot: -Math.PI / 2, y: 0.02 });
+}
 const postGeo = new THREE.CylinderGeometry(0.08, 0.11, 8, 5); postGeo.translate(0, 4, 0);
 const headGeo = new THREE.BoxGeometry(0.75, 0.16, 0.34); headGeo.translate(1.8, 7.78, 0);
 const posts = new THREE.InstancedMesh(postGeo, new THREE.MeshLambertMaterial({ color: '#4a4f57' }), lamps.length);
@@ -120,6 +164,11 @@ const setTime = () => {
     $('#tlabel').textContent = `${String(Math.floor(h)).padStart(2, '0')}:${String(Math.round(h % 1 * 60)).padStart(2, '0')} · ${r3d.phase} · sun ${r3d.sunElevation.toFixed(1)}°`;
 };
 r3d.onNightLights = (on) => vehicles.forEach(v => v.userData.setLights(on));
+r3d.setVegetation(null); // patch the test world's materials (the game finds world.js materials the same way at setScene)
+r3d.setWeather(qs.get('weather') || null, { instant: true }); r3d.setSeason(qs.get('season') || null);
+const showWx = (w) => { $('#wx').textContent = w ? `${w.icon} ${w.label} · ${w.tempC}°C · ${w.source} · ${w.season}` : ''; };
+r3d.onWeatherChange = showWx; showWx(r3d.weather);
+r3d.onThunder = (e) => console.log('thunder', e);
 $('#time').oninput = setTime; setTime();
 $('#head').onchange = (e) => r3d.setHeadlights(e.target.checked ? true : null);
 
@@ -127,19 +176,78 @@ const resize = () => { camera.updateProjectionMatrix(); camera.aspect = innerWid
 addEventListener('resize', resize); resize();
 
 const clock = new THREE.Clock();
-let frames = 0;
+let frames = 0, paused = false;
+if (qs.has('drive')) $('#drive').checked = true;
+function step(dt, driveSpeed) {
+    if (driveSpeed) { player.speed = driveSpeed; player.z += player.fz * player.speed * dt; }
+    player.rig.position.set(player.x, 0.24, player.z); player.rig.rotation.y = player.heading;
+    vehicles.forEach(v => v.userData.flash?.(r3d.time));
+    if (mirror.visible) { mirror.visible = false; r3d.renderer.setRenderTarget(mirrorTarget); r3d.renderer.render(scene, mirrorCam); r3d.renderer.setRenderTarget(null); mirror.visible = true; }
+    r3d.frame(dt);
+    frames++;
+}
 function loop() {
     requestAnimationFrame(loop);
     const dt = Math.min(0.1, clock.getDelta());
-    if ($('#drive').checked) { player.speed = 15; player.z += player.fz * player.speed * dt; }
-    player.rig.position.set(player.x, 0.24, player.z); player.rig.rotation.y = player.heading;
-    vehicles.forEach(v => v.userData.flash?.(r3d.time));
-    r3d.frame(dt);
-    frames++;
-    if (frames % 15 === 0) $('#stats').textContent = JSON.stringify(r3d.stats, null, 1).replace(/[{}"]/g, '');
+    if (paused) return;
+    step(dt, $('#drive').checked ? 15 : 0);
+    if (frames % 15 === 0) $('#stats').textContent = JSON.stringify(r3d.stats, null, 1).replace(/[{}"]/g, '') + `\ncockpit tris: ${cockpitTris}`;
 }
 loop();
-window.bench = { r3d, scene, camera, player, tri, cockpitTris, THREE, get frames() { return frames; } };
+
+/**
+ * Night-drive flicker check: pauses the loop, drives `frames` fixed steps and reads the mean luminance of a few
+ * screen patches straight after each frame (same task, so the drawing buffer is still valid). Reports per-frame
+ * values and the largest frame-to-frame change per patch. A pop shows up as a jump far above the smooth drift.
+ */
+function nightDrive({ frames: n = 30, dt = 1 / 30, speed = 16, warm = 30, shots = [], z0 = -300, turn = 0, ab = true } = {}) {
+    paused = true;
+    const gl = r3d.renderer.getContext(), W = gl.drawingBufferWidth, H = gl.drawingBufferHeight;
+    // patches (fractions of the drawing buffer, y from the bottom): road ahead, left + right kerbs, whole frame (sparse)
+    const P = { road: [0.42, 0.58, 0.39, 0.45], left: [0.12, 0.3, 0.39, 0.47], right: [0.7, 0.88, 0.39, 0.47], frame: [0, 1, 0, 1] };
+    const lum = (b) => { let s = 0, c = 0; for (let i = 0; i < b.length; i += 4 * (b.length > 40000 ? 7 : 1)) { s += 0.2126 * b[i] + 0.7152 * b[i + 1] + 0.0722 * b[i + 2]; c++; } return s / c; };
+    const run = (lampsVisible, images) => {
+        player.z = z0; player.x = 1.8; player.heading = 0; r3d._lampAt?.set(1e9, 0, 1e9);
+        const out = {}; for (const k in P) out[k] = [];
+        const drive = (f) => { player.heading += turn * dt; step(dt, speed); };
+        for (let i = 0; i < warm; i++) drive(-1);
+        for (const l of r3d._lampPool) l.layers.set(lampsVisible ? 0 : 31); // hidden from the camera = no contribution
+        for (let f = 0; f < n; f++) {
+            drive(f);
+            for (const k in P) {
+                const [x0, x1, y0, y1] = P[k];
+                const x = Math.floor(x0 * W), y = Math.floor(y0 * H), w = Math.max(1, Math.floor((x1 - x0) * W)), h = Math.max(1, Math.floor((y1 - y0) * H));
+                const buf = new Uint8Array(w * h * 4); gl.readPixels(x, y, w, h, gl.RGBA, gl.UNSIGNED_BYTE, buf);
+                out[k].push(+lum(buf).toFixed(2));
+            }
+            if (images && shots.includes(f)) images[f] = canvas.toDataURL('image/png');
+        }
+        for (const l of r3d._lampPool) l.layers.set(0);
+        return out;
+    };
+    const images = {};
+    const out = run(true, images);
+    const res = { lights: (r3d._lampSlots || []).map(s => s.lamp), series: out, images, maxDelta: {}, maxJerk: {} };
+    // A/B: the same drive with the PointLight pool hidden; the difference is what the real lamp lights add.
+    // Its frame-to-frame steps are lamp pops; geometry (lamp heads leaving the view, parked cars) cancels out.
+    if (ab) {
+        const off = run(false); res.seriesOff = off;
+        res.lampOnly = {}; res.lampMaxStep = {};
+        for (const k in out) {
+            const d = out[k].map((v, i) => +(v - off[k][i]).toFixed(2)); res.lampOnly[k] = d;
+            let m = 0; for (let i = 1; i < d.length; i++) m = Math.max(m, Math.abs(d[i] - d[i - 1])); res.lampMaxStep[k] = +m.toFixed(2);
+        }
+    }
+    // maxDelta: largest frame-to-frame change; maxJerk: largest deviation from the neighbours' mean
+    for (const k in out) {
+        const v = out[k]; let m = 0, j = 0;
+        for (let i = 1; i < v.length; i++) m = Math.max(m, Math.abs(v[i] - v[i - 1]));
+        for (let i = 1; i < v.length - 1; i++) j = Math.max(j, Math.abs(v[i] - (v[i - 1] + v[i + 1]) / 2));
+        res.maxDelta[k] = +m.toFixed(2); res.maxJerk[k] = +j.toFixed(2);
+    }
+    return res;
+}
+window.bench = { r3d, scene, camera, player, tri, cockpitTris, THREE, nightDrive, step, pause(v = true) { paused = v; }, get frames() { return frames; } };
 </script>
 </body>
 </html>

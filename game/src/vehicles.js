@@ -368,6 +368,37 @@ function partsMaterial(emis) {
     m.customProgramCacheKey = () => 'vehicleParts';
     return track(m);
 }
+/**
+ * Cockpit interior material: like partsMaterial, plus a night "cabin glow" (uGlow 0..1): instrument/screen backlight
+ * falling off with distance from the dash, a dim cool cabin fill so the interior never goes pitch black, and
+ * aMat.x emitters (ambient strips) that only light up with the glow. uOff = mesh origin in cockpit space.
+ */
+function cockpitMaterial(off = new THREE.Vector3()) {
+    const m = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, metalness: 1, envMapIntensity: 1 });
+    m.userData.uDirect = { value: 1 };
+    m.userData.uGlow = { value: 0 };
+    m.userData.uOff = { value: off.clone() };
+    m.onBeforeCompile = (sh) => {
+        sh.uniforms.uDirect = m.userData.uDirect; sh.uniforms.uGlow = m.userData.uGlow; sh.uniforms.uOff = m.userData.uOff;
+        sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nattribute vec3 aMat;\nvarying vec3 vMat;\nvarying vec3 vCab;\nuniform vec3 uOff;')
+            .replace('#include <begin_vertex>', '#include <begin_vertex>\nvMat = aMat; vCab = position + uOff;');
+        sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying vec3 vMat;\nvarying vec3 vCab;\nuniform float uDirect;\nuniform float uGlow;')
+            .replace('#include <lights_fragment_end>', '#include <lights_fragment_end>\nreflectedLight.directDiffuse *= uDirect; reflectedLight.directSpecular *= uDirect;')
+            .replace('#include <roughnessmap_fragment>', 'float roughnessFactor = roughness * vMat.y;')
+            .replace('#include <metalnessmap_fragment>', 'float metalnessFactor = metalness * vMat.z;')
+            .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+                if (uGlow > 0.0) {
+                    vec3 base = max(diffuseColor.rgb, vec3(0.035));
+                    float gc = exp(-length((vCab - vec3(-0.3, 1.0, -1.1)) * vec3(1.0, 1.4, 1.0)) * 3.2);  // gauge cluster
+                    float gs = exp(-length(vCab - vec3(0.25, 1.0, -1.12)) * 3.6);                        // centre screen
+                    float fill = 0.55 + 0.45 * smoothstep(0.5, 1.8, vCab.y);                              // city glow through the glass
+                    vec3 glow = vec3(1.0, 0.72, 0.5) * gc * 0.7 + vec3(0.45, 0.65, 1.0) * gs * 0.5 + vec3(0.30, 0.36, 0.5) * 0.12 * fill;
+                    totalEmissiveRadiance += (base * glow + diffuseColor.rgb * vMat.x * 2.5) * uGlow;
+                }`);
+    };
+    m.customProgramCacheKey = () => 'cockpitInterior';
+    return track(m);
+}
 const partsMatOff = partsMaterial(1.0);
 const partsMatOn = partsMaterial(4.5);
 const bodyMats = {};
@@ -519,22 +550,91 @@ export function makeCockpit() {
     }
     // cowl panel (between windshield and hood)
     interior.add(BOX, M(0, 1.0, -1.88, 1.7, 0.03, 0.2), '#121315', { r: 0.8 });
-    const interiorMat = partsMaterial(1);
+    // night ambient strips (emit only with the cabin glow): along the dash trim + door belt lines
+    interior.add(BOX, M(0, 0.872, -1.232, 1.5, 0.006, 0.006), '#6fa8ff', { e: 1, r: 0.5 });
+    for (const s of [-1, 1]) interior.add(BOX, M(s * 0.762, 1.052, -0.75, 0.004, 0.006, 1.7), '#6fa8ff', { e: 0.7, r: 0.5 });
+    // floor, front seats (passenger complete; driver cushion + lower back; the driver's upper back + headrest is a
+    // separate mesh hidden while looking back, as if the head turned past it)
+    const SEAT = '#26272b', SEAT2 = '#1c1d20', CARPET = '#141518', FAB = { r: 0.95 };
+    interior.add(BOX, M(0, 0.43, -0.35, 1.56, 0.03, 2.6), CARPET, FAB);
+    const driverBack = new Batch();
+    for (const x of [-0.3, 0.36]) {
+        interior.add(BOX, M(x, 0.56, -0.3, 0.5, 0.13, 0.52), SEAT, FAB);                       // cushion
+        interior.add(BOX, M(x, 0.47, -0.3, 0.42, 0.08, 0.46), SEAT2, FAB);                     // cushion base
+        const tgt = x < 0 ? driverBack : interior;
+        interior.add(BOX, beamM(new THREE.Vector3(x, 0.6, 0.0), new THREE.Vector3(x, 0.92, 0.06), 0.5, 0.11), SEAT, FAB);  // lower back
+        tgt.add(BOX, beamM(new THREE.Vector3(x, 0.92, 0.06), new THREE.Vector3(x, 1.24, 0.13), 0.48, 0.11), SEAT, FAB);    // upper back
+        tgt.add(BOX, M(x, 1.37, 0.15, 0.26, 0.18, 0.09, -0.12), SEAT2, FAB);                   // headrest
+        for (const dx of [-0.07, 0.07]) tgt.add(BOX, M(x + dx, 1.27, 0.14, 0.012, 0.08, 0.012), '#8d939a', { r: 0.3, m: 0.8 });
+    }
+    interior.add(BOX, M(0.25, 0.62, 0.14, 0.2, 0.08, 0.26), DASH2, DR2); // console armrest
+    const interiorMat = cockpitMaterial();
     const interiorMesh = new THREE.Mesh(interior.build(), interiorMat);
     interiorMesh.receiveShadow = true; g.add(interiorMesh);
+    const driverBackMesh = new THREE.Mesh(driverBack.build(), interiorMat);
+    driverBackMesh.receiveShadow = true; g.add(driverBackMesh);
+    g.userData.driverSeatBack = driverBackMesh;
+
+    // ---- rear cabin (seen when looking back / around). Layer 1 only: the main camera renders it, the rear-view
+    //      mirror camera (layer 0) does not, so it never blocks the mirror's view through the rear window. ----
+    const rear = new Batch();
+    // rear bench: cushion, back, outer headrests, centre armrest seam
+    rear.add(BOX, M(0, 0.57, 0.92, 1.42, 0.14, 0.52), SEAT, FAB);
+    rear.add(BOX, M(0, 0.47, 0.92, 1.38, 0.08, 0.48), SEAT2, FAB);
+    rear.add(BOX, beamM(new THREE.Vector3(0, 0.62, 1.22), new THREE.Vector3(0, 1.16, 1.38), 1.44, 0.13), SEAT, FAB);
+    for (const x of [-0.24, 0.24]) rear.add(BOX, beamM(new THREE.Vector3(x, 0.66, 1.17), new THREE.Vector3(x, 1.12, 1.31), 0.012, 0.02), SEAT2, FAB);
+    for (const x of [-0.45, 0.45]) {
+        rear.add(BOX, M(x, 1.27, 1.41, 0.26, 0.15, 0.08, -0.2), SEAT2, FAB);
+        for (const dx of [-0.07, 0.07]) rear.add(BOX, M(x + dx, 1.18, 1.38, 0.012, 0.07, 0.012), '#8d939a', { r: 0.3, m: 0.8 });
+    }
+    // parcel shelf + rear window frame (no glass: the mirror and the player look straight through)
+    const rwTop = [1.17, 1.80], rwBot = [1.76, 1.15];
+    rear.add(BOX, M(0, 1.135, 1.58, 1.46, 0.03, 0.4), '#18191c', FAB);
+    rear.add(BOX, M(0, rwTop[1], rwTop[0], 1.4, 0.06, 0.07), HEAD, { r: 0.95 });
+    rear.add(BOX, M(0, rwBot[1] + 0.02, rwBot[0], 1.42, 0.05, 0.06), '#141518', FAB);
+    for (const s of [-1, 1]) {
+        rear.add(BOX, beamM(new THREE.Vector3(s * 0.66, rwTop[1], rwTop[0]), new THREE.Vector3(s * 0.7, rwBot[1], rwBot[0]), 0.05, 0.05), '#141518', FAB);
+        // B-pillar (trim, beltline → roof)
+        rear.add(BOX, beamM(new THREE.Vector3(s * 0.77, 1.06, 0.47), new THREE.Vector3(s * 0.74, 1.81, 0.43), 0.06, 0.15), HEAD, { r: 0.9 });
+        rear.add(BOX, M(s * 0.735, 1.62, 0.44, 0.012, 0.05, 0.04), '#3a3b3e', { r: 0.6 }); // belt anchor
+        // C-pillar trim panel between the rear door window and the rear glass
+        rear.add(extrude([[0.98, 1.79], [rwTop[0], rwTop[1]], [rwBot[0], rwBot[1]], [1.74, 1.07], [1.22, 1.07]], s > 0 ? 0.70 : -0.78, s > 0 ? 0.78 : -0.70), IDENT, HEAD, { r: 0.92 });
+        // rear door: panel, belt trim, armrest, handle, window frame (open, like the front windows)
+        rear.add(extrude([[0.42, 0.45], [0.42, 1.07], [1.3, 1.07], [1.3, 0.45]], s * 0.8 - 0.03, s * 0.8 + 0.03), IDENT, SOFT, DR);
+        rear.add(BOX, M(s * 0.765, 1.075, 0.86, 0.05, 0.03, 0.86), TRIM, { r: 0.5, m: 0.2 });
+        rear.add(BOX, M(s * 0.72, 0.8, 0.95, 0.1, 0.06, 0.5), DASH2, DR2);
+        rear.add(BOX, M(s * 0.76, 0.95, 0.6, 0.02, 0.04, 0.1), '#8d939a', { r: 0.3, m: 0.8 });
+        rear.add(BOX, beamM(new THREE.Vector3(s * 0.76, 1.8, 0.4), new THREE.Vector3(s * 0.74, 1.79, 1.0), 0.05, 0.05), HEAD, { r: 0.95 });
+        rear.add(BOX, beamM(new THREE.Vector3(s * 0.775, 1.07, 1.22), new THREE.Vector3(s * 0.755, 1.79, 0.98), 0.045, 0.04), HEAD, { r: 0.95 });
+        // rear quarter panel beside the bench, wheel-arch hump
+        rear.add(extrude([[1.3, 0.45], [1.3, 1.07], [1.74, 1.07], [1.86, 0.9], [1.86, 0.45]], s * 0.79 - 0.03, s * 0.79 + 0.03), IDENT, SOFT, DR);
+        rear.add(BOX, M(s * 0.7, 0.62, 1.3, 0.14, 0.2, 0.5), SOFT, DR);
+    }
+    // roof headliner over the rear cabin + dome light
+    rear.add(BOX, M(0, 1.83, 0.93, 1.5, 0.04, 0.58), HEAD, { r: 0.95 });
+    rear.add(BOX, M(0, 1.806, 0.55, 0.18, 0.012, 0.08), '#d9d6cf', { e: 0.25, r: 0.6 });
+    rear.add(BOX, M(0, 0.43, 0.95, 1.56, 0.03, 1.1), CARPET, FAB); // rear floor
+    rear.add(BOX, M(0, 0.5, 0.35, 0.3, 0.12, 0.5), DASH2, DR2);       // tunnel / rear console end
+    const rearMesh = new THREE.Mesh(rear.build(), interiorMat);
+    rearMesh.layers.set(1); rearMesh.receiveShadow = true; g.add(rearMesh);
+    g.userData.rearCabin = rearMesh;
 
     // ---- hood (painted, tapered toward the nose) ----
     const hoodGeo = extrude([[-1.86, 1.0], [-3.3, 0.88], [-3.42, 0.8], [-3.4, 0.6], [-1.86, 0.6]], -0.87, 0.87, (x, y, z) => 1 - 0.12 * THREE.MathUtils.clamp((-z - 1.86) / 1.5, 0, 1));
     const hood = new THREE.Mesh(hoodGeo, track(new THREE.MeshStandardMaterial({ color: '#b3262b', roughness: 0.34, metalness: 0.3 })));
     hood.material.userData.envScale = 0.55; hood.receiveShadow = true; g.add(hood);
     g.userData.hood = hood;
+    // trunk lid behind the rear window (main camera only, like the rear cabin)
+    const trunk = new THREE.Mesh(extrude([[1.74, 1.12], [2.25, 1.04], [2.36, 0.92], [2.36, 0.6], [1.74, 0.6]], -0.82, 0.82), hood.material);
+    trunk.layers.set(1); trunk.receiveShadow = true; g.add(trunk);
 
     // ---- shadow proxy (lower body + roof + pillars): casts the car's shadow, never drawn ----
     const proxyB = new Batch();
     proxyB.add(BOX, M(0, 0.62, -0.2, 1.78, 0.66, 4.4));
-    proxyB.add(BOX, M(0, 1.8, -0.2, 1.5, 0.06, 1.9));
+    proxyB.add(BOX, M(0, 1.8, 0.05, 1.5, 0.06, 2.4)); // roof incl. the rear cabin
     for (const s of [-1, 1]) proxyB.add(BOX, beamM(new THREE.Vector3(s * 0.79, 1.05, -1.79), new THREE.Vector3(s * 0.72, 1.76, -1.14), 0.08, 0.08));
-    for (const s of [-1, 1]) proxyB.add(BOX, M(s * 0.78, 1.4, 0.75, 0.06, 0.75, 0.25));
+    for (const s of [-1, 1]) proxyB.add(BOX, M(s * 0.78, 1.4, 0.45, 0.06, 0.75, 0.15));  // B-pillars
+    for (const s of [-1, 1]) proxyB.add(BOX, M(s * 0.76, 1.4, 1.35, 0.06, 0.72, 0.5));   // C-pillars
     const proxy = new THREE.Mesh(proxyB.build(false), new THREE.MeshBasicMaterial({ colorWrite: false, depthWrite: false }));
     proxy.castShadow = true; proxy.renderOrder = -10; g.add(proxy);
 
@@ -549,7 +649,8 @@ export function makeCockpit() {
     }
     wb.add(new THREE.CylinderGeometry(0.035, 0.045, 0.32, 8), M(0, 0, -0.17, 1, 1, 1, Math.PI / 2), '#141517', { r: 0.8 }); // column
     const wheel = new THREE.Group();
-    const wheelMesh = new THREE.Mesh(wb.build(), interiorMat);
+    const wheelMat = cockpitMaterial(new THREE.Vector3(-0.3, 0.99, -0.9));
+    const wheelMesh = new THREE.Mesh(wb.build(), wheelMat);
     wheel.add(wheelMesh);
     wheel.position.set(-0.3, 0.99, -0.9); wheel.rotation.x = -0.42;
     g.add(wheel);
@@ -624,7 +725,9 @@ export function makeCockpit() {
     g.userData.tick(0);
     g.userData.wiperState = ws;
     /** scale direct lighting on the interior (1 = day; ~0.3 at night so street lamps don't light the cabin through the roof) */
-    g.userData.setInteriorLight = (k) => { interiorMat.userData.uDirect.value = k; };
+    g.userData.setInteriorLight = (k) => { interiorMat.userData.uDirect.value = wheelMat.userData.uDirect.value = k; };
+    /** night cabin glow 0..1 (instrument + screen backlight, dim cabin fill, ambient strips) */
+    g.userData.setNightGlow = (k) => { interiorMat.userData.uGlow.value = wheelMat.userData.uGlow.value = k; };
 
     // ---- headlights: two warm spot lights + emissive lamp boxes. Hidden (zero cost) until switched on. ----
     const lampMat = new THREE.MeshStandardMaterial({ color: '#cfd5db', emissive: '#fff0d2', emissiveIntensity: 0, roughness: 0.15, metalness: 0.2 });
@@ -633,7 +736,7 @@ export function makeCockpit() {
         const lamp = new THREE.Mesh(BOX, lampMat); lamp.scale.set(0.34, 0.11, 0.06); lamp.position.set(s * 0.6, 0.73, -3.4); g.add(lamp);
         const sp = new THREE.SpotLight('#ffe6bf', 0, 60, 0.42, 0.55, 1.5);
         sp.position.set(s * 0.6, 0.75, -3.45); sp.target.position.set(s * 0.9, 0, -26);
-        sp.visible = false; sp.userData.shared = true;
+        sp.visible = false; sp.castShadow = false; sp.userData.shared = true; // no spot shadow (cost + shimmer)
         g.add(sp, sp.target); spots.push(sp);
     }
     g.userData.headlights = {

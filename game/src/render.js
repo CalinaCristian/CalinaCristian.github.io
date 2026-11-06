@@ -6,7 +6,8 @@ import { UnrealBloomPass } from '../vendor/addons/UnrealBloomPass.js';
 import { OutputPass } from '../vendor/addons/OutputPass.js';
 import { SMAAPass } from '../vendor/addons/SMAAPass.js';
 import { FXAAShader } from '../vendor/addons/FXAAShader.js';
-import { Rain, solarPosition, dirFromElAz, skyState } from './weather.js';
+import { FullScreenQuad } from '../vendor/addons/Pass.js';
+import { Rain, Snow, solarPosition, dirFromElAz, skyState, classifyWMO, fetchLiveWeather, climateWeather, nearestClimate, weatherTargets, seasonState, WEATHER_PRESETS, WEATHER_TTL_MS } from './weather.js';
 import { setVehicleEnvMap } from './vehicles.js';
 
 // ============================================================================
@@ -29,6 +30,21 @@ const AUTO_MAX = 1, AUTO_MIN = 5; // auto never enables 'ultra' (GTAO doubles th
 const SHADOW_SPAN = 160; // metres covered by the sun's shadow map
 const LAMP_RANGE = 150;  // light-pool discs drawn within this distance (m)
 const MAX_DISCS = 220;
+// street-lamp real lights (PointLight pool): assignment is hysteretic and every change fades, so nothing pops
+const LAMP_LIGHT_I = 55;         // candela at full weight
+const LAMP_LIGHT_NEAR = 55, LAMP_LIGHT_FAR = 85; // a light's intensity fades out with distance to the car over this band
+const LAMP_ASSIGN_R = 80;        // lamps considered for a real light (m)
+const LAMP_FADE_S = 0.4;         // fade-in / fade-out time of one real light
+const LAMP_ASSIGN_DT = 0.2;      // re-selection period (s)
+const LAMP_MAX_NEW = 2;          // at most this many new lights per re-selection (≤ 10 / s)
+const NIGHT_FADE_S = 1.5;        // dusk switch / setLampLightsEnabled fade
+const ENV_REBUILD_DEG = 3;       // PMREM environment rebuilt when the sun moved more than this …
+const ENV_FADE_S = 1.5;          // … and cross-faded from the previous one over this time
+const SHADOW_DIR_DEG = 0.15;     // sun direction used for shadows is quantised (no slow shadow crawl)
+const WX_TAU = 3.3;              // weather transitions: exponential, ~95 % after 10 s
+const WET_DRY_S = 1800;          // roads stay wet ~30 min after the rain stops
+const sky0 = new THREE.Color('#888888');
+const WX_TRANSITION_KEYS = ['cloud', 'rain', 'snow', 'snowCover', 'sunMul', 'fogDens', 'windX', 'windZ'];
 const OVERRIDES = { day: { el: 48, az: 200 }, sunset: { el: 3, az: 290 }, dusk: { el: -4, az: 300 }, night: { el: -28, az: 350 }, dawn: { el: 2.5, az: 75 } };
 
 // ---------------------------------------------------------------------------
@@ -45,6 +61,7 @@ const SKY_FRAG = /* glsl */`
 uniform vec3 uZenith, uHorizon, uGround, uSunDir, uSunColor, uCloudLit, uCloudDark;
 uniform float uCover, uTime, uSunSize, uSunPower, uHaze, uNight;
 uniform vec3 uMoonDir;
+uniform vec2 uCloudOff; uniform float uFlash;
 varying vec3 vDir;
 float hash(vec2 p){ p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
 float noise(vec2 p){ vec2 i = floor(p), f = fract(p); f = f*f*(3.0-2.0*f);
@@ -67,7 +84,7 @@ void main(){
     float sunVis = 1.0;
     // clouds: planar layer
     if (h > -0.02) {
-        vec2 uv = d.xz / (h + 0.09) * 0.55 + vec2(uTime * 0.006, uTime * 0.0025);
+        vec2 uv = d.xz / (h + 0.09) * 0.55 + uCloudOff; // offset accumulated on the CPU from the wind
         float n = fbm(uv * 1.3);
         float n2 = fbm(uv * 1.3 + uSunDir.xz * 0.08);
         float cov = mix(0.62, 0.05, uCover);
@@ -95,6 +112,7 @@ void main(){
         col += vec3(0.85, 0.88, 0.95) * (1.0 - smoothstep(0.016, 0.019, md)) * 3.5 * uNight * (0.3 + 0.7 * sunVis);
         col += vec3(0.25, 0.3, 0.45) * pow(max(dot(d, uMoonDir), 0.0), 60.0) * 0.25 * uNight;
     }
+    col += vec3(0.75, 0.8, 1.0) * uFlash * (0.35 + 0.65 * smoothstep(-0.05, 0.35, h)); // lightning
     gl_FragColor = vec4(col, 1.0);
     #include <tonemapping_fragment>
     #include <colorspace_fragment>
@@ -109,6 +127,7 @@ function makeSkyMaterial() {
             uCloudLit: { value: new THREE.Color() }, uCloudDark: { value: new THREE.Color() },
             uCover: { value: 0.4 }, uTime: { value: 0 }, uSunSize: { value: 0.012 }, uSunPower: { value: 30 }, uHaze: { value: 0.6 },
             uNight: { value: 0 }, uMoonDir: { value: new THREE.Vector3(0, 1, 0) },
+            uCloudOff: { value: new THREE.Vector2() }, uFlash: { value: 0 },
         },
         vertexShader: SKY_VERT, fragmentShader: SKY_FRAG,
     });
@@ -124,11 +143,12 @@ const FinalShader = {
         uRain: { value: 0 }, uH: { value: new THREE.Matrix3() }, uWs: { value: new THREE.Vector3(0.9, 0.76, 0.69) },
         uWp0: { value: new THREE.Vector3() }, uWp1: { value: new THREE.Vector3() },
         uWiper: { value: new THREE.Vector4(0.04, 1.72, 0.42, 1.7) }, uWT: { value: 0 }, uRainT: { value: 0 },
+        uMask: { value: new THREE.Vector4(2, 2, -2, -2) }, // screen rect (uv min.xy, max.xy) kept dry: the rear-view mirror
     },
     vertexShader: /* glsl */`varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
     fragmentShader: /* glsl */`
 uniform sampler2D tDiffuse; uniform float uTime, uVignette, uGrain, uRain, uWT, uRainT; uniform vec2 uRes, uGrade;
-uniform mat3 uH; uniform vec3 uWs, uWp0, uWp1; uniform vec4 uWiper;
+uniform mat3 uH; uniform vec3 uWs, uWp0, uWp1; uniform vec4 uWiper, uMask;
 varying vec2 vUv;
 float h12(vec2 p){ vec3 p3 = fract(vec3(p.xyx) * 0.1031); p3 += dot(p3, p3.yzx + 33.33); return fract((p3.x + p3.y) * p3.z); }
 vec4 h42(vec2 p){ vec4 p4 = fract(vec4(p.xyxy) * vec4(0.1031, 0.1030, 0.0973, 0.1099)); p4 += dot(p4, p4.wzxy + 33.33); return fract((p4.xxyz + p4.yzzw) * p4.zywx); }
@@ -160,7 +180,8 @@ vec3 drops(vec2 p, float cell, float rate, float seed, float dens){
 void main(){
     vec2 uv = vUv;
     vec3 rainTint = vec3(0.0); float rainAmt = 0.0;
-    if (uRain > 0.0) {
+    bool masked = all(greaterThan(uv, uMask.xy)) && all(lessThan(uv, uMask.zw));
+    if (uRain > 0.0 && !masked) {
         vec3 hp = uH * vec3(uv * 2.0 - 1.0, 1.0);
         vec2 p = hp.xy / hp.z;
         float hw = mix(uWs.y, uWs.z, clamp(p.y / uWs.x, 0.0, 1.0));
@@ -188,6 +209,98 @@ void main(){
     gl_FragColor = vec4(col, 1.0);
 }`,
 };
+
+// PMREM cross-fade: texel-exact mix of two CubeUV atlases of the same size
+const EnvBlendShader = {
+    uniforms: { tA: { value: null }, tB: { value: null }, uT: { value: 0 } },
+    vertexShader: /* glsl */`void main(){ gl_Position = vec4(position.xy, 0.0, 1.0); }`,
+    fragmentShader: /* glsl */`uniform sampler2D tA, tB; uniform float uT;
+        void main(){ ivec2 p = ivec2(gl_FragCoord.xy); gl_FragColor = mix(texelFetch(tA, p, 0), texelFetch(tB, p, 0), uT); }`,
+};
+
+// ---------------------------------------------------------------------------
+//  Weather / season surface patches (world materials). Injected once at setScene; everything sits behind a
+//  uniform branch (uWxOn), so clear summer weather costs one uniform test per fragment.
+// ---------------------------------------------------------------------------
+const makeSurfU = () => ({
+    uWxOn: { value: 0 }, uSnow: { value: 0 }, uWet: { value: 0 }, uSeasonTint: { value: new THREE.Color(1, 1, 1) },
+    uWetSky: { value: new THREE.Color(0, 0, 0) },
+});
+function chainPatch(mat, tag, fn) {
+    if (mat.userData.wxPatch) return false;
+    mat.userData.wxPatch = tag;
+    const prev = mat.onBeforeCompile, prevKey = mat.customProgramCacheKey;
+    mat.onBeforeCompile = function (sh, r) { prev.call(this, sh, r); fn(sh); };
+    mat.customProgramCacheKey = function () { return prevKey.call(this) + '|' + tag; };
+    mat.needsUpdate = true;
+    return true;
+}
+const UP_VIEW = 'normalize((viewMatrix * vec4(0.0, 1.0, 0.0, 0.0)).xyz)';
+function patchSurface(mat, U) {
+    return chainPatch(mat, 'wxsurf1', (sh) => {
+        Object.assign(sh.uniforms, U);
+        sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nvarying vec3 vWxPos;')
+            .replace('#include <project_vertex>', '#include <project_vertex>\nvWxPos = (modelMatrix * vec4(transformed, 1.0)).xyz;');
+        sh.fragmentShader = sh.fragmentShader.replace('#include <common>', `#include <common>
+            varying vec3 vWxPos; uniform float uWxOn, uSnow, uWet; uniform vec3 uSeasonTint, uWetSky;
+            float wxN(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
+                float a = fract(sin(dot(i, vec2(12.9898, 78.233))) * 43758.5453), b = fract(sin(dot(i + vec2(1, 0), vec2(12.9898, 78.233))) * 43758.5453);
+                float c = fract(sin(dot(i + vec2(0, 1), vec2(12.9898, 78.233))) * 43758.5453), d = fract(sin(dot(i + vec2(1, 1), vec2(12.9898, 78.233))) * 43758.5453);
+                return mix(mix(a, b, f.x), mix(c, d, f.x), f.y); }`)
+            .replace('#include <normal_fragment_maps>', `#include <normal_fragment_maps>
+            float wxUpK = 0.0;
+            if (uWxOn > 0.5) {
+                wxUpK = smoothstep(0.55, 0.9, dot(normal, ${UP_VIEW}));
+                diffuseColor.rgb *= uSeasonTint;
+                diffuseColor.rgb *= 1.0 - uWet * 0.36 * wxUpK;
+                if (uSnow > 0.0) {
+                    float n = wxN(vWxPos.xz * 0.45) * 0.6 + wxN(vWxPos.xz * 2.1) * 0.4;
+                    float sn = clamp((uSnow * 1.35 - n * (1.0 - uSnow * 0.7)) * 2.2, 0.0, 1.0) * wxUpK;
+                    diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.86, 0.89, 0.93), sn);
+                }
+            }`)
+            .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+            if (uWxOn > 0.5 && uWet > 0.0) { // wet sheen: sky reflected at grazing angles
+                float fr = pow(1.0 - clamp(dot(normal, normalize(vViewPosition)), 0.0, 1.0), 4.0);
+                totalEmissiveRadiance += uWetSky * uWet * wxUpK * fr * 0.55;
+            }`);
+    });
+}
+const makeTreeU = () => ({ uBare: { value: 0 }, uAutumn: { value: 0 }, uBlossom: { value: 0 }, uFresh: { value: 0 }, uSnow: { value: 0 }, uEver: { value: 0 }, uCrownC: { value: new THREE.Vector3(0, 5, 0) } });
+function patchCrowns(mat, U) {
+    return chainPatch(mat, 'wxtree1', (sh) => {
+        Object.assign(sh.uniforms, U);
+        sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nuniform float uBare, uEver; uniform vec3 uCrownC; varying vec3 vCrownL; varying float vTreeH;')
+            .replace('#include <begin_vertex>', `#include <begin_vertex>
+                vCrownL = position;
+                transformed = mix(transformed, uCrownC + (transformed - uCrownC) * vec3(0.8, 0.88, 0.8), uBare * (1.0 - uEver));
+                #ifdef USE_INSTANCING
+                    vTreeH = fract(sin(dot(instanceMatrix[3].xz, vec2(12.9898, 78.233))) * 43758.5453);
+                #else
+                    vTreeH = 0.5;
+                #endif`);
+        sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nuniform float uBare, uAutumn, uBlossom, uFresh, uSnow, uEver; varying vec3 vCrownL; varying float vTreeH;')
+            .replace('#include <color_fragment>', `#include <color_fragment>
+            if (uBare + uAutumn + uBlossom + uFresh > 0.0) {
+                float h = vTreeH, dec = 1.0 - uEver;
+                vec3 g = diffuseColor.rgb; float l = dot(g, vec3(0.3, 0.59, 0.11));
+                g = mix(g, g * vec3(1.1, 1.2, 0.72), uFresh * dec);
+                vec3 aut = h < 0.3 ? vec3(0.95, 0.7, 0.12) : h < 0.6 ? vec3(0.92, 0.42, 0.08) : h < 0.85 ? vec3(0.55, 0.33, 0.12) : vec3(0.78, 0.17, 0.07);
+                g = mix(g, aut * (l * 1.2 + 0.16), clamp(uAutumn * 1.6 - h * 0.45, 0.0, 1.0) * dec);
+                vec3 bc = h > 0.82 ? vec3(1.0, 0.74, 0.84) : vec3(0.96, 0.95, 0.9);
+                g = mix(g, bc * 0.8, uBlossom * dec * step(0.55, h) * 0.85);
+                float b = clamp(uBare * 1.25 - h * 0.25, 0.0, 1.0) * dec;
+                if (b > 0.0) {
+                    g = mix(g, vec3(0.2, 0.16, 0.13) * (0.8 + 0.4 * h), b);
+                    vec3 q = floor(vCrownL * 4.5 + h * 7.0);
+                    if (fract(sin(dot(q, vec3(12.9898, 78.233, 37.719))) * 43758.5453) < b * 0.8) discard;
+                }
+                diffuseColor.rgb = g;
+            }`)
+            .replace('#include <normal_fragment_maps>', `#include <normal_fragment_maps>
+            if (uSnow > 0.0) diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.88, 0.9, 0.94), uSnow * smoothstep(0.35, 0.85, dot(normal, ${UP_VIEW})) * (0.45 + 0.4 * uEver));`);
+    });
+}
 
 // ---------------------------------------------------------------------------
 export class Renderer3D {
@@ -225,11 +338,30 @@ export class Renderer3D {
         this.onNightLights = null;  // optional callback(on)
         this._headManual = null;    // null = automatic (on with nightLights)
         this.headlightsOn = false;
-        this._envEl = null; this._envNight = null; this._envT = 0;
+        this._envEl = null; this._envT = 0;
+        this._envA = null; this._envB = null; this._envOut = null; this._envFade = 1; this._envQuad = null;
+        this._nightK = 0;           // 0..1, eased night factor (lamps, heads, cabin glow); 0 by day = all night systems idle
+        this._lampEnabled = true; this._lampEnK = 1; this._cabinK = -1;
+        this._shadowDir = new THREE.Vector3(0, 1, 0);
+        // weather + seasons
+        this.weather = null;        // public snapshot (see _publishWeather)
+        this.onWeatherChange = null; this.onThunder = null;
+        this.snow = null;
+        let qp = null; try { qp = new URLSearchParams(location.search); } catch { /* no location */ }
+        const qw = qp?.get('weather'), qs = qp?.get('season');
+        this._wxOverride = qw && WEATHER_PRESETS[qw] ? qw : null;
+        this._seasonOverride = ['spring', 'summer', 'autumn', 'winter'].includes(qs) ? qs : null;
+        this._wxData = null; this._wxSource = null; this._wxNext = 0; this._wxLoc = ''; this._wxBusy = false; this._wxGen = 0;
+        this._wxT = null; this._wx = null; this._wet = 0; this._wipers = false; this._wxInstant = true;
+        this._flash = 0; this._thunderT = 8; this._hemiBase = 0.6; this._cloudOff = new THREE.Vector2();
+        this._surfU = { road: makeSurfU(), ground: makeSurfU(), grass: makeSurfU(), roof: makeSurfU() };
+        this._treeU = { broad: makeTreeU(), con: makeTreeU() }; this._treeU.con.uEver.value = 1;
+        this._crowns = []; this._season = null; this._seasonT = 0; this._seasonKey = '';
         // street lamps
         this.lamps = null; this._lampHead = null; this._lampPool = []; this._lampGroup = new THREE.Group(); this._lampGroup.visible = false;
         this._lampGroup.userData.shared = true;
         this._discs = null; this._lampT = 0; this._lampAt = new THREE.Vector3(1e9, 0, 1e9);
+        this._lampSlots = []; this._lampNear = []; this._lampAssignT = 0; this._lampReal = null; this._discFar = LAMP_RANGE;
 
         // post
         this.composer = new EffectComposer(r);
@@ -242,7 +374,6 @@ export class Renderer3D {
         this._ema = 16.7; this._slowT = 0; this._fastT = 0; this._settle = 2; this._dts = []; this._block = {}; this._backoff = {};
         this._fpsAcc = 0; this._fpsN = 0;
         this._pmrem = new THREE.PMREMGenerator(r);
-        this._envRT = null;
         this._tmp = { v: new THREE.Vector3(), v2: new THREE.Vector3(), v3: new THREE.Vector3(), m: new THREE.Matrix4(), cam: new THREE.Vector3(), vel: new THREE.Vector3() };
         this.setQuality(opts.quality || 'auto');
     }
@@ -258,20 +389,24 @@ export class Renderer3D {
      */
     setScene(scene, camera, env, o = {}) {
         this.scene = scene; this.camera = camera; this.env = env; this.mph = o.units === 'mph';
+        camera.layers.enable(1); // layer 1 = seen by the main camera only (rear cabin; the mirror camera stays on layer 0)
         const replace = o.replaceLights !== false;
         if (replace) for (const c of [...scene.children]) if ((c.isDirectionalLight || c.isHemisphereLight || c.isAmbientLight) && c !== this.sun && c !== this.hemi) scene.remove(c);
         if (o.sky) o.sky.visible = false;
         scene.add(this.sun, this.sun.target, this.hemi, this.sky, this._lampGroup);
         if (this._discs) scene.add(this._discs);
-        scene.fog = new THREE.FogExp2(env.fog, (env.rain ? 2.0 : 1.45) / env.fogFar);
+        scene.fog = new THREE.FogExp2(env.fog, 1.45 / env.fogFar);
+        this._fogBase = 1.45 / env.fogFar;
+        this.setVegetation(o.vegetation || scene.userData?.vegetation || null);
+        if (!this._wx) this._refreshWeather(); // climate state right away; live data replaces it when it arrives
         scene.background = new THREE.Color(env.fog);
         this._applyLighting(true);
         // environment map for reflections (vehicle paint, glass, wet roads)
-        this._buildEnvMap();
-        this._envEl = this.sunElevation; this._envNight = this.nightLights;
+        this._buildEnvMap(true);
+        this._envEl = this.sunElevation;
         // weather
-        if (this.rain) { this.rain.mesh.removeFromParent(); this.rain.dispose(); this.rain = null; }
-        if (env.rain) { this.rain = new Rain({ count: 4000, opacity: 0.2 }); scene.add(this.rain.mesh); }
+        for (const k of ['rain', 'snow']) if (this[k]) { this[k].mesh.removeFromParent(); this[k].dispose(); this[k] = null; }
+        this._wxInstant = true;
         this._applyRainToCockpit();
         // passes
         this.renderPass.scene = scene; this.renderPass.camera = camera;
@@ -303,6 +438,8 @@ export class Renderer3D {
             if (k.timeScale === 1 || expected === null || Math.abs(ms - expected) > 60000) { k.baseMs = ms; k.baseReal = now; }
             k.lastDate = { ms, real: now };
         }
+        const loc = k.lat.toFixed(2) + ',' + k.lon.toFixed(2);
+        if (loc !== this._wxLoc) { this._wxLoc = loc; this._wxInstant = true; this._seasonT = 0; if (this.scene) this._refreshWeather(); }
         this._applyLighting(true);
     }
     _simMs() { const k = this.clock; return k.baseMs + (performance.now() - k.baseReal) * k.timeScale; }
@@ -320,7 +457,8 @@ export class Renderer3D {
         else ({ elevation: el, azimuth: az } = solarPosition(this._simMs(), this.clock.lat, this.clock.lon));
         this.sunElevation = el; this.sunAzimuth = az;
         this.phase = el >= 8 ? 'day' : el < -6 ? 'night' : (az < 180 ? 'dawn' : 'dusk');
-        const overcastEnv = env.clouds >= 0.85;
+        const clouds = this._wx ? this._wx.cloud : env.clouds;
+        const overcastEnv = clouds >= 0.85;
         if (!this.clock) {
             this.sun.color.set(env.sunColor);
             this.sun.intensity = env.sunIntensity * (overcastEnv ? 1.05 : 1.3);
@@ -338,18 +476,19 @@ export class Renderer3D {
             fu.uGrade.value.set(overcastEnv ? 0.95 : 1.1, overcastEnv ? 1.04 : 1.06);
             this._sunLightDir = this._sunDir; this._sunShadows = true;
         } else {
-            const st = skyState(el, env.clouds);
+            const st = skyState(el, clouds);
+            this._skyHorizon = st.horizon; this._hemiI0 = st.hemiI;
             dirFromElAz(el, az, this._sunDir);
             dirFromElAz(Math.max(22, 12 - el * 0.8), (az + 180) % 360, this._moonDir);
             const useSun = el > -2;
             this._lightDir = (this._lightDir || new THREE.Vector3()).copy(useSun ? this._sunDir : this._moonDir);
             if (this._lightDir.y < 0.05) { this._lightDir.y = 0.05; this._lightDir.normalize(); }
             this._sunLightDir = this._lightDir;
-            if (useSun) { this.sun.color.copy(st.sun); this.sun.intensity = st.sunI * (env.sunIntensity >= 2 ? 1 : 1.15); }
+            if (useSun) { this.sun.color.copy(st.sun); this.sun.intensity = st.sunI * (env.sunIntensity >= 2 ? 1 : 1.15) * (this._wx ? this._wx.sunMul : 1); }
             else { this.sun.color.set('#9fb2e6'); this.sun.intensity = 0.16 * st.night * (1 - st.overcast * 0.7); }
             this.sun.shadow.intensity = (1 - 0.55 * st.overcast) * 0.9;
             this._sunShadows = useSun && st.sunI > 0.15;
-            this.hemi.color.copy(st.hemiSky); this.hemi.groundColor.copy(st.hemiGround); this.hemi.intensity = st.hemiI;
+            this.hemi.color.copy(st.hemiSky); this.hemi.groundColor.copy(st.hemiGround); this.hemi.intensity = this._hemiBase = st.hemiI * (this._wx ? 0.75 + 0.25 * this._wx.sunMul : 1);
             const fog = st.horizon.clone().multiplyScalar(0.94);
             this.scene.fog?.color.copy(fog); if (this.scene.background?.isColor) this.scene.background.copy(fog);
             this._renderer.toneMappingExposure = env.exposure * st.expo;
@@ -362,7 +501,8 @@ export class Renderer3D {
             fu.uGrade.value.set((overcastEnv ? 0.95 : 1.1) - n * 0.15, 1.05);
             this._rainBright = THREE.MathUtils.clamp(st.hemiI / 0.85 + 0.12, 0.25, 1);
         }
-        u.uCover.value = env.clouds; u.uHaze.value = overcastEnv ? 0.3 : 0.65;
+        u.uCover.value = clouds; u.uHaze.value = overcastEnv ? 0.3 : 0.65;
+        if (!this.clock) this._hemiBase = this.hemi.intensity;
         // shadows follow the tier, and are off for moonlight
         this.sun.castShadow = !!this.tier?.shadow && this._sunShadows;
         // night lights switch (hysteresis ±0.5°)
@@ -374,18 +514,193 @@ export class Renderer3D {
     _setNight(on, force) {
         const changed = on !== this.nightLights;
         this.nightLights = on;
-        this._lampGroup.visible = on && this._lampPool.length > 0;
-        if (this._discs) this._discs.visible = on;
-        const hm = this._lampHead;
-        if (hm) {
-            if (hm.emissive) { hm.emissive.set(on ? '#ffd7a0' : '#000000'); hm.emissiveIntensity = on ? 3 : 0; }
-            else if (hm.color) hm.color.set(on ? hm.userData.nightColor || '#ffe2b0' : hm.userData.dayColor || '#d8d4c8');
-            if (hm.color && !hm.emissive && on) hm.color.multiplyScalar(3);
-        }
-        this._lampAt.set(1e9, 0, 1e9);
+        // lamps, lamp heads and cabin glow ease in/out in _updateNight (force = jump straight to the new state)
+        if (force) { this._nightK = on ? 1 : 0; this._lampEnK = this._lampEnabled ? 1 : 0; }
+        this._lampAt.set(1e9, 0, 1e9); this._lampT = 0;
+        this._updateNight(0);
         this._updateHeadlights();
-        this.player?.cockpit?.userData.setInteriorLight?.(on ? 0.3 : 1);
         if (changed) this.onNightLights?.(on);
+    }
+    /** ease the night factor; drives lamp-head emission, light-pool discs, the PointLight pool and the cabin glow */
+    _updateNight(dt) {
+        const tgt = this.nightLights ? 1 : 0, lt = this._lampEnabled ? 1 : 0;
+        if (this._nightK !== tgt) this._nightK = tgt > this._nightK ? Math.min(1, this._nightK + dt / NIGHT_FADE_S) : Math.max(0, this._nightK - dt / NIGHT_FADE_S);
+        if (this._lampEnK !== lt) this._lampEnK = lt > this._lampEnK ? Math.min(1, this._lampEnK + dt / NIGHT_FADE_S) : Math.max(0, this._lampEnK - dt / NIGHT_FADE_S);
+        const n = this._nightK, k = THREE.MathUtils.smoothstep(n, 0, 1), lk = k * this._lampEnK;
+        // heads glow with the night (not with the lamp-light toggle: that only switches the light pool)
+        const hm = this._lampHead;
+        if (hm && hm.userData._k !== k) {
+            hm.userData._k = k;
+            if (hm.emissive) { hm.emissive.set(k > 0 ? '#ffd7a0' : '#000000'); hm.emissiveIntensity = 3 * k; }
+            else if (hm.color) hm.color.set(hm.userData.dayColor || '#d8d4c8').lerp(new THREE.Color(hm.userData.nightColor || '#ffe2b0').multiplyScalar(3), k);
+        }
+        if (this._discs) this._discs.visible = n > 0 && this._discs.count > 0;
+        this._lampGroup.visible = lk > 0 && this._lampPool.length > 0;
+        this._lampK = lk;
+        // cabin: direct light through the (open) roof dims, instrument glow + cabin fill rise
+        if (Math.abs(this._cabinK - k) > 1e-3 || (k === 0) !== (this._cabinK === 0)) {
+            this._cabinK = k;
+            const ck = this.player?.cockpit?.userData;
+            ck?.setInteriorLight?.(1 - 0.7 * k);
+            ck?.setNightGlow?.(k);
+        }
+    }
+    /** street-lamp PointLight pool on/off (fades). Discs and lamp heads stay; off = zero per-pixel lamp cost. */
+    setLampLightsEnabled(on) { this._lampEnabled = !!on; }
+    get lampLightsEnabled() { return this._lampEnabled; }
+
+    // ------------------------------------------------------------------ weather + seasons
+    /**
+     * Weather override: 'clear' | 'cloudy' | 'rain' | 'drizzle' | 'snow' | 'fog' | 'storm', or null / 'real' for real
+     * weather (live Open-Meteo, climatology fallback). Transitions take ~10 s unless {instant: true}.
+     */
+    setWeather(v, { instant = false } = {}) {
+        this._wxOverride = typeof v === 'string' && WEATHER_PRESETS[v] ? v : null;
+        if (instant) this._wxInstant = true;
+        this._wxSource = null;
+        if (this.scene) this._refreshWeather();
+    }
+    /** season override for the vegetation ('spring'|'summer'|'autumn'|'winter'), null = from the date */
+    setSeason(s) { this._seasonOverride = ['spring', 'summer', 'autumn', 'winter'].includes(s) ? s : null; this._seasonT = 0; }
+    /**
+     * Materials / meshes that weather + seasons tint (world.vegetation: {treeCrownMeshes, grassMaterials,
+     * groundMaterials, roofMaterials}); anything missing is found in the scene by name (grass, groundPlane, landuse,
+     * paved-areas, roofs, 'ground i,j' / 'marks i,j' road meshes, 'treeCrowns …' instanced meshes).
+     */
+    setVegetation(v) {
+        const sc = this.scene; if (!sc) return;
+        const cats = { road: new Set(), ground: new Set(), grass: new Set(), roof: new Set() }, crowns = new Set(v?.treeCrownMeshes || []);
+        for (const m of v?.grassMaterials || []) cats.grass.add(m);
+        for (const m of v?.groundMaterials || []) cats.ground.add(m);
+        for (const m of v?.roofMaterials || []) cats.roof.add(m);
+        sc.traverse((o) => {
+            if (!o.isMesh || !o.material || Array.isArray(o.material)) return;
+            const m = o.material, n = m.name || '', on = o.name || '';
+            if (o.isInstancedMesh && /^treeCrowns/.test(on)) { crowns.add(o); return; }
+            if (!(m.isMeshLambertMaterial || m.isMeshStandardMaterial || m.isMeshPhongMaterial)) return;
+            if (n === 'grass') cats.grass.add(m);
+            else if (n === 'groundPlane' || n === 'landuse' || n === 'paved-areas') cats.ground.add(m);
+            else if (n === 'roofs') cats.roof.add(m);
+            else if (/^(ground|marks) /.test(on)) cats.road.add(m);
+        });
+        for (const k in cats) for (const m of cats[k]) if (!m.userData.wxPatch || m.userData.wxPatch === 'wxsurf1') patchSurface(m, this._surfU[k]);
+        this._conMats ??= new WeakMap();
+        for (const c of crowns) {
+            if (c.userData.conifer) {
+                let cm = this._conMats.get(c.material);
+                if (!cm && c.material.userData.wxPatch !== 'wxtree-con') {
+                    const orig = c.material; cm = orig.clone(); delete cm.userData.wxPatch;
+                    patchCrowns(cm, this._treeU.con); cm.userData.wxPatch = 'wxtree-con'; this._conMats.set(orig, cm);
+                }
+                if (cm) c.material = cm;
+            } else patchCrowns(c.material, this._treeU.broad);
+        }
+        this._crowns = [...crowns];
+        this._seasonT = 0;
+    }
+    _wxPlace() { return this.clock || { lat: 44.43, lon: 26.1, timeZone: 'Europe/Bucharest' }; }
+    _refreshWeather() {
+        const gen = ++this._wxGen, k = this._wxPlace(), loc = k.lat.toFixed(2) + ',' + k.lon.toFixed(2);
+        this._wxNext = performance.now() + WEATHER_TTL_MS;
+        if (this._wxOverride) { this._applyWeatherData({ ...WEATHER_PRESETS[this._wxOverride] }, 'override', loc); return; }
+        // climatology right away (unless fresh live data for this place is already showing); live data replaces it
+        if (this._wxSource !== 'live' || this._wxDataLoc !== loc) this._applyWeatherData(climateWeather(k.lat, k.lon, this.simDate || new Date(), k.timeZone), 'climate', loc);
+        if (typeof fetch !== 'function') return;
+        this._wxBusy = true;
+        fetchLiveWeather(k.lat, k.lon, k.timeZone || 'auto')
+            .then((w) => { if (gen === this._wxGen && !this._wxOverride) this._applyWeatherData(w, 'live', loc); })
+            .catch((err) => { if (!this._wxWarned) { this._wxWarned = true; console.info('[weather] live weather unavailable, using climatology:', err?.message || err); } })
+            .finally(() => { if (gen === this._wxGen) this._wxBusy = false; });
+    }
+    _applyWeatherData(w, source, loc) {
+        this._wxData = w; this._wxSource = source; this._wxDataLoc = loc;
+        const t = weatherTargets(w);
+        t.fogDens = Math.min(0.009, 1.9 / Math.max(80, t.visibilityM)); // Koschmieder-ish for FogExp2 (5 % contrast)
+        this._wxT = t;
+        if (!this._wx || this._wxInstant) {
+            this._wx = { ...t };
+            this._wet = t.rain > 0.1 ? 1 : 0;
+            this._wxInstant = false;
+        }
+        this._publishWeather();
+    }
+    _publishWeather() {
+        const w = this._wxData; if (!w) return;
+        const isDay = w.isDay ?? this.sunElevation > -3, c = classifyWMO(w.code, isDay);
+        this.weather = {
+            source: this._wxSource, code: w.code, kind: c.kind, label: c.label, icon: c.icon,
+            tempC: w.tempC, precipMm: w.precipMm, snowCm: w.snowDepthCm, snowfallCm: w.snowfallCm,
+            windKmh: w.windKmh, windDir: w.windDir, visibilityM: w.visibilityM, cloud: w.cloud,
+            season: this._season?.season || null, updatedAt: Date.now(), climate: w.climate || null,
+        };
+        try { this.onWeatherChange?.(this.weather); } catch (e) { console.warn('[weather] onWeatherChange', e); }
+    }
+    _applySeason() {
+        const k = this._wxPlace(), cl = nearestClimate(k.lat, k.lon);
+        const st = this._season = seasonState(this.simDate || new Date(), k.lat, { timeZone: k.timeZone, maritime: cl.id === 'seattle', override: this._seasonOverride });
+        // grass: dormant brown (winter / dry late summer), fresh spring green, a touch of autumn yellow
+        const g = this._surfU.grass.uSeasonTint.value, b = st.brown, f = st.fresh * 0.5, a = st.autumn * 0.3 * (1 - st.brown);
+        g.setRGB((1 + 0.9 * b) * (1 - 0.05 * f) * (1 + 0.25 * a), (1 - 0.15 * b) * (1 + 0.12 * f), (1 - 0.55 * b) * (1 - 0.2 * f) * (1 - 0.3 * a));
+        const B = this._treeU.broad;
+        B.uBare.value = st.bare; B.uAutumn.value = st.autumn; B.uBlossom.value = st.blossom; B.uFresh.value = st.fresh;
+        for (const c of this._crowns) if (!c.userData.conifer) c.castShadow = st.bare < 0.6; // leafless crowns: no blob shadows
+        const key = st.season;
+        if (key !== this._seasonKey) { this._seasonKey = key; if (this.weather) { this.weather.season = key; try { this.onWeatherChange?.(this.weather); } catch { /* ignore */ } } }
+    }
+    _updateWeather(dt, cam, vel) {
+        const t = this._wxT; if (!t || !this.scene) return;
+        if (performance.now() > this._wxNext && !this._wxBusy) this._refreshWeather();
+        const c = this._wx, a = 1 - Math.exp(-dt / WX_TAU);
+        for (const key of WX_TRANSITION_KEYS) c[key] += (t[key] - c[key]) * a;
+        c.thunder = t.thunder;
+        this._wet = c.rain > 0.08 ? Math.min(1, this._wet + dt * c.rain / 40) : Math.max(0, this._wet - dt / WET_DRY_S);
+        this._seasonT -= dt; if (this._seasonT <= 0) { this._seasonT = 600; this._applySeason(); }
+        // fog (visibility) + cloud drift with the wind
+        if (this.scene.fog?.isFogExp2) this.scene.fog.density = Math.max(this._fogBase * (1 + 0.45 * c.rain + 0.6 * c.snow), c.fogDens);
+        this._cloudOff.x += (0.006 - c.windX * 0.0011) * dt; this._cloudOff.y += (0.0025 - c.windZ * 0.0011) * dt;
+        const su = this.sky.material.uniforms; su.uCloudOff.value.copy(this._cloudOff);
+        // precipitation: particle systems exist only while it rains / snows (zero cost when dry)
+        const bright = this.clock ? this._rainBright ?? 1 : 1, wind = this._tmp.wind || (this._tmp.wind = { x: 0, z: 0 });
+        wind.x = c.windX; wind.z = c.windZ;
+        if (c.rain > 0.01 || t.rain > 0) {
+            if (!this.rain) { this.rain = new Rain({ count: 5000, opacity: 0.22 }); this.scene.add(this.rain.mesh); }
+            this.rain.setIntensity(c.rain); this.rain.update(dt, cam, vel, wind);
+            this.rain.uniforms.uColor.value.set('#b9c4cf').multiplyScalar(bright);
+        } else if (this.rain) { this.rain.mesh.removeFromParent(); this.rain.dispose(); this.rain = null; }
+        if (c.snow > 0.01 || t.snow > 0) {
+            if (!this.snow) { this.snow = new Snow({ count: 7000 }); this.scene.add(this.snow.mesh); }
+            this.snow.setIntensity(c.snow); this.snow.update(dt, cam, vel, wind);
+            this.snow.uniforms.uColor.value.set('#f4f7fb').multiplyScalar(Math.max(0.35, bright));
+            this.snow.uniforms.uScale.value = this.height * this._renderer.getPixelRatio() * 0.9;
+        } else if (this.snow) { this.snow.mesh.removeFromParent(); this.snow.dispose(); this.snow = null; }
+        // wipers (hysteresis)
+        const wantW = this._wipers ? (c.rain > 0.08 || c.snow > 0.25) : (c.rain > 0.15 || c.snow > 0.4);
+        if (wantW !== this._wipers) { this._wipers = wantW; this._applyRainToCockpit(); }
+        // thunderstorm: rare short double flash of sky + ambient, rumble callback with a delay
+        if (c.thunder) {
+            this._thunderT -= dt;
+            if (this._thunderT <= 0) {
+                this._thunderT = 7 + Math.random() * 18; this._flashT = 0;
+                try { this.onThunder?.({ delay: 0.8 + Math.random() * 3.5, intensity: 0.5 + Math.random() * 0.5 }); } catch { /* ignore */ }
+            }
+        }
+        if (this._flashT !== undefined && this._flashT !== null) {
+            const f = this._flashT += dt;
+            this._flash = f < 0.06 ? 1 : f < 0.13 ? 0.2 : f < 0.2 ? 0.75 : Math.max(0, 0.75 - (f - 0.2) * 4);
+            if (f > 0.45) { this._flashT = null; this._flash = 0; }
+        }
+        su.uFlash.value = this._flash * 1.4;
+        this.hemi.intensity = this._hemiBase + this._flash * 1.6;
+        // surfaces: snow dusting, wet darkening + sheen, grass season tint
+        const S = this._surfU, sc = c.snowCover, wet = this._wet;
+        const sky = S.road.uWetSky.value.copy(this.scene.fog?.color || this._skyHorizon || sky0).multiplyScalar(0.55);
+        const set = (U, snow, w) => {
+            U.uSnow.value = snow; U.uWet.value = w; if (U !== S.road) U.uWetSky.value.copy(sky);
+            const tc = U.uSeasonTint.value;
+            U.uWxOn.value = snow > 0.002 || w > 0.002 || tc.r !== 1 || tc.g !== 1 || tc.b !== 1 ? 1 : 0;
+        };
+        set(S.road, sc * 0.35, wet); set(S.ground, sc, wet * 0.75); set(S.grass, sc, wet * 0.35); set(S.roof, sc * 1.05, wet * 0.5);
+        this._treeU.broad.uSnow.value = sc; this._treeU.con.uSnow.value = sc;
     }
 
     // ------------------------------------------------------------------ headlights
@@ -434,63 +749,140 @@ export class Renderer3D {
             this._discs.instanceColor = new THREE.InstancedBufferAttribute(new Float32Array(MAX_DISCS * 3), 3);
         }
         this.scene?.add(this._discs);
-        this._discs.visible = this.nightLights;
+        this._discs.count = 0; this._discs.visible = false;
+        this._lampNear = []; this._lampReal = new Float32Array(n);
+        for (const sl of this._lampSlots) { sl.lamp = -1; sl.w = 0; sl.target = 0; sl.light.intensity = 0; }
         this._syncLampPool();
-        this._lampAt.set(1e9, 0, 1e9);
+        this._lampAt.set(1e9, 0, 1e9); this._lampT = 0; this._lampAssignT = 0;
     }
     _syncLampPool() {
         const want = this.lamps && this.lamps.length ? (this.tier?.lamps ?? 0) : 0;
-        while (this._lampPool.length > want) this._lampGroup.remove(this._lampPool.pop());
-        while (this._lampPool.length < want) {
+        const slots = this._lampSlots;
+        while (slots.length > want) {
+            const sl = slots.pop(); this._lampGroup.remove(sl.light);
+            if (sl.lamp >= 0 && this._lampReal) this._lampReal[sl.lamp] = 0;
+        }
+        while (slots.length < want) {
             const l = new THREE.PointLight('#ffc98a', 0, 28, 1.7); l.userData.shared = true;
-            this._lampPool.push(l); this._lampGroup.add(l);
+            slots.push({ light: l, lamp: -1, w: 0, target: 0 }); this._lampGroup.add(l);
         }
-        this._lampGroup.visible = this.nightLights && this._lampPool.length > 0;
+        this._lampPool = slots.map(sl => sl.light);
+        this._lampGroup.visible = (this._lampK || 0) > 0 && slots.length > 0;
     }
+    /**
+     * Street lamps at night.
+     *  - candidate scan (≤ 4 Hz or after 8 m): lamps within LAMP_RANGE, sorted by distance; disc matrices set here
+     *  - every frame: disc brightness from the exact distance (continuous fade, no switching)
+     *  - real PointLights: re-selected at 5 Hz with hysteresis (assigned lamps keep their light until clearly worse),
+     *    stable ordering (look-ahead distance, tie-break by lamp id), ≤ LAMP_MAX_NEW new lights per selection;
+     *    each light fades in/out over LAMP_FADE_S and its intensity also falls off continuously with distance.
+     */
     _updateLamps(cam, dt) {
-        if (!this.nightLights || !this.lamps || !this.lamps.length) return;
-        this._lampT -= dt;
-        const p = this.player, cx = p ? p.x : cam.x, cz = p ? p.z : cam.z;
-        const moved = (cx - this._lampAt.x) ** 2 + (cz - this._lampAt.z) ** 2;
-        if (this._lampT > 0 && moved < 36) return;
-        this._lampT = 0.25; this._lampAt.set(cx, 0, cz);
-        // bias toward lamps ahead of the car
-        const ax = p ? cx + p.fx * 25 : cx, az = p ? cz + p.fz * 25 : cz;
-        const L = this.lamps, R2 = LAMP_RANGE * LAMP_RANGE, near = [];
-        for (let i = 0; i < L.length; i += 4) {
-            const dx = L[i] - cx, dz = L[i + 1] - cz, d2 = dx * dx + dz * dz;
-            if (d2 < R2) near.push(d2, i);
+        if (!(this._nightK > 0) || !this.lamps || !this.lamps.length) {
+            if (this._lampSlots.length && this._lampSlots[0].lamp !== -2) { // day: release every light once, then idle
+                for (const sl of this._lampSlots) { if (sl.lamp >= 0 && this._lampReal) this._lampReal[sl.lamp] = 0; sl.lamp = -1; sl.w = 0; sl.target = 0; sl.light.intensity = 0; }
+                this._lampSlots[0].lamp = -2;
+            }
+            return;
         }
-        const idx = []; for (let k = 0; k < near.length; k += 2) idx.push(k);
-        idx.sort((a, b) => near[a] - near[b]);
-        // discs
-        const D = this._discs, m = this._tmp.m, col = new THREE.Color();
-        const n = Math.min(idx.length, MAX_DISCS);
-        for (let k = 0; k < n; k++) {
-            const i = near[idx[k] + 1], d = Math.sqrt(near[idx[k]]), h = L[i + 2] - L[i + 3], r = h * 1.9;
-            m.makeScale(r, 1, r).setPosition(L[i], L[i + 3] + 0.22, L[i + 1]);
-            D.setMatrixAt(k, m);
-            const f = 1 - THREE.MathUtils.smoothstep(d, LAMP_RANGE * 0.65, LAMP_RANGE);
+        if (this._lampSlots.length && this._lampSlots[0].lamp === -2) this._lampSlots[0].lamp = -1;
+        const p = this.player, cx = p ? p.x : cam.x, cz = p ? p.z : cam.z;
+        const L = this.lamps, sm = THREE.MathUtils.smoothstep;
+        // ---- candidate scan
+        this._lampT -= dt;
+        const moved = (cx - this._lampAt.x) ** 2 + (cz - this._lampAt.z) ** 2;
+        const D = this._discs, m = this._tmp.m;
+        if (this._lampT <= 0 || moved > 64) {
+            this._lampT = 0.25; this._lampAt.set(cx, 0, cz);
+            const R = LAMP_RANGE + 12, R2 = R * R, near = [];
+            for (let i = 0; i < L.length; i += 4) {
+                const dx = L[i] - cx, dz = L[i + 1] - cz, d2 = dx * dx + dz * dz;
+                if (d2 < R2) near.push({ d2, i });
+            }
+            near.sort((a, b) => a.d2 - b.d2 || a.i - b.i); // stable: distance, then lamp id
+            const n = Math.min(near.length, MAX_DISCS), list = this._lampNear = new Int32Array(n);
+            for (let k = 0; k < n; k++) list[k] = near[k].i;
+            // more candidates than discs: fade the far end out before the cut-off so the last discs never pop
+            this._discFarT = near.length > MAX_DISCS ? Math.min(LAMP_RANGE, Math.sqrt(near[MAX_DISCS].d2) - 10) : LAMP_RANGE;
+            for (let k = 0; k < n; k++) {
+                const i = list[k], r = (L[i + 2] - L[i + 3]) * 1.9;
+                m.makeScale(r, 1, r).setPosition(L[i], L[i + 3] + 0.22, L[i + 1]);
+                D.setMatrixAt(k, m);
+            }
+            D.count = n; D.instanceMatrix.needsUpdate = true;
+        }
+        this._discFar += ((this._discFarT ?? LAMP_RANGE) - this._discFar) * Math.min(1, dt * 2);
+        const list = this._lampNear, real = this._lampReal, nk = THREE.MathUtils.smoothstep(this._nightK, 0, 1);
+        // ---- real lights: selection
+        const slots = this._lampSlots, lk = this._lampK || 0;
+        if (slots.length && lk > 0) {
+            this._lampAssignT -= dt;
+            if (this._lampAssignT <= 0) { this._lampAssignT = LAMP_ASSIGN_DT; this._assignLampLights(cx, cz); }
+        } else if (slots.length) for (const sl of slots) { sl.target = 0; }
+        // ---- real lights: fade + distance falloff (every frame)
+        for (const sl of slots) {
+            if (sl.lamp < 0) continue;
+            const step = dt / LAMP_FADE_S;
+            sl.w = sl.target > sl.w ? Math.min(1, sl.w + step) : Math.max(0, sl.w - step);
+            const i = sl.lamp * 4, d = Math.hypot(L[i] - cx, L[i + 1] - cz);
+            const k = sm(sl.w, 0, 1) * (1 - sm(d, LAMP_LIGHT_NEAR, LAMP_LIGHT_FAR));
+            sl.light.intensity = LAMP_LIGHT_I * k * lk;
+            real[sl.lamp] = k * lk;
+            if (sl.w <= 0 && sl.target <= 0) { real[sl.lamp] = 0; sl.lamp = -1; sl.light.intensity = 0; }
+        }
+        // ---- discs: continuous distance fade; slightly dimmer where a real light already lights the ground
+        const col = this._tmp.col || (this._tmp.col = new THREE.Color()), far = this._discFar;
+        for (let k = 0; k < list.length; k++) {
+            const i = list[k], d = Math.hypot(L[i] - cx, L[i + 1] - cz);
+            const f = (1 - sm(d, far * 0.65, far)) * nk * (1 - 0.35 * real[i / 4]);
             D.setColorAt(k, col.setScalar(f));
         }
-        D.count = n; D.instanceMatrix.needsUpdate = true; if (D.instanceColor) D.instanceColor.needsUpdate = true;
-        // real point lights: nearest to the look-ahead point
-        const pool = this._lampPool; if (!pool.length) return;
-        const cand = idx.slice(0, Math.min(idx.length, pool.length * 3)).map(k => near[k + 1]);
-        cand.sort((a, b) => ((L[a] - ax) ** 2 + (L[a + 1] - az) ** 2) - ((L[b] - ax) ** 2 + (L[b + 1] - az) ** 2));
-        for (let j = 0; j < pool.length; j++) {
-            const l = pool[j], i = cand[j];
-            if (i === undefined) { l.intensity = 0; continue; }
-            const d = Math.hypot(L[i] - cx, L[i + 1] - cz);
-            l.position.set(L[i], L[i + 2] - 0.4, L[i + 1]);
-            l.intensity = 55 * (1 - THREE.MathUtils.smoothstep(d, 60, 95));
+        if (D.instanceColor) D.instanceColor.needsUpdate = true;
+        D.visible = list.length > 0;
+    }
+    _assignLampLights(cx, cz) {
+        const L = this.lamps, p = this.player, slots = this._lampSlots, list = this._lampNear;
+        const sp = p ? Math.abs(p.speed || 0) : 0, la = THREE.MathUtils.clamp(10 + sp * 0.9, 10, 32);
+        const ax = p ? cx + p.fx * la : cx, az = p ? cz + p.fz * la : cz;
+        const owner = new Map(); for (const sl of slots) if (sl.lamp >= 0) owner.set(sl.lamp, sl);
+        // score = distance to the look-ahead point; lamps that already own a light get a strong bonus (hysteresis)
+        const cand = [], R2 = LAMP_ASSIGN_R * LAMP_ASSIGN_R;
+        for (let k = 0; k < list.length; k++) {
+            const i = list[k], dx = L[i] - cx, dz = L[i + 1] - cz;
+            if (dx * dx + dz * dz > R2) continue;
+            const id = i / 4, sl = owner.get(id);
+            let sc = Math.hypot(L[i] - ax, L[i + 1] - az);
+            if (sl && sl.target > 0) sc = sc * 0.7 - 10;
+            cand.push({ id, sc });
+        }
+        cand.sort((a, b) => a.sc - b.sc || a.id - b.id);
+        const spare = Math.max(1, Math.round(slots.length * 0.2)), K = Math.max(1, slots.length - spare);
+        const want = new Set(); for (let k = 0; k < Math.min(K, cand.length); k++) want.add(cand[k].id);
+        for (const sl of slots) if (sl.lamp >= 0) sl.target = want.has(sl.lamp) ? 1 : 0;
+        let added = 0;
+        for (let k = 0; k < Math.min(K, cand.length) && added < LAMP_MAX_NEW; k++) {
+            const id = cand[k].id; if (owner.has(id)) continue;
+            const sl = slots.find(s => s.lamp < 0); if (!sl) break;
+            const i = id * 4;
+            sl.lamp = id; sl.w = 0; sl.target = 1; sl.light.intensity = 0;
+            sl.light.position.set(L[i], L[i + 2] - 0.4, L[i + 1]);
+            owner.set(id, sl); added++;
         }
     }
 
-    setPlayer(player) { this.player = player; this._applyRainToCockpit(); this._updateHeadlights(); player?.cockpit?.userData.setInteriorLight?.(this.nightLights ? 0.3 : 1); }
-    _applyRainToCockpit() { this.player?.cockpit?.userData.setRain?.(!!this.env?.rain); }
+    setPlayer(player) {
+        this.player = player; this._applyRainToCockpit(); this._updateHeadlights();
+        this.camera?.layers.enable(1);
+        this._cabinK = -1; this._updateNight(0);
+    }
+    _applyRainToCockpit() { this.player?.cockpit?.userData.setRain?.(this._wipers); }
 
-    _buildEnvMap() {
+    /**
+     * Environment map for reflections/ambient (vehicle paint, glass, wet roads). The texture handed to materials is a
+     * stable render target (_envOut): a rebuilt PMREM is cross-faded into it over ENV_FADE_S, so a rebuild never pops
+     * and never changes material programs. immediate = jump (new scene).
+     */
+    _buildEnvMap(immediate = false) {
         const envScene = new THREE.Scene();
         const dome = new THREE.Mesh(this.sky.geometry, this.sky.material);
         envScene.add(dome);
@@ -502,12 +894,45 @@ export class Renderer3D {
             const a = i / 14 * Math.PI * 2, b = new THREE.Mesh(new THREE.BoxGeometry(14, 6 + (i * 7) % 11, 14), blocks);
             b.position.set(Math.cos(a) * 60, 0, Math.sin(a) * 60); envScene.add(b);
         }
-        if (this._envRT) this._envRT.dispose();
-        this._envRT = this._pmrem.fromScene(envScene, 0, 0.5, 300);
+        const rt = this._pmrem.fromScene(envScene, 0, 0.5, 300);
+        this._envCloud = this._wx ? this._wx.cloud : null;
         envScene.traverse(o => { if (o !== dome && o.geometry) o.geometry.dispose(); });
         blocks.dispose(); ground.material.dispose();
-        setVehicleEnvMap(this._envRT.texture, 1);
-        if (this.opts.envLighting > 0) { this.scene.environment = this._envRT.texture; this.scene.environmentIntensity = this.opts.envLighting; }
+        let out = this._envOut;
+        if (!out || out.width !== rt.width || out.height !== rt.height) {
+            out?.dispose();
+            out = this._envOut = new THREE.WebGLRenderTarget(rt.width, rt.height, {
+                type: rt.texture.type, format: rt.texture.format, colorSpace: rt.texture.colorSpace,
+                magFilter: THREE.LinearFilter, minFilter: THREE.LinearFilter, generateMipmaps: false, depthBuffer: false,
+            });
+            out.texture.mapping = THREE.CubeUVReflectionMapping; out.texture.name = 'EnvBlend';
+            immediate = true;
+            setVehicleEnvMap(out.texture, 1);
+        }
+        if (!this._envQuad) this._envQuad = new FullScreenQuad(new THREE.ShaderMaterial({ ...EnvBlendShader, uniforms: THREE.UniformsUtils.clone(EnvBlendShader.uniforms), depthTest: false, depthWrite: false }));
+        if (immediate || !this._envB) {
+            this._envA?.dispose(); this._envB?.dispose();
+            this._envA = null; this._envB = rt; this._envFade = 1;
+            this._blendEnv(rt.texture, rt.texture, 1, out);
+        } else {
+            if (this._envFade < 1) { // mid-fade: freeze what is on screen as the new start
+                this._blendEnv(out.texture, out.texture, 0, this._envA);
+                this._envB.dispose();
+            } else { this._envA?.dispose(); this._envA = this._envB; }
+            this._envB = rt; this._envFade = 0;
+        }
+        if (this.opts.envLighting > 0) { this.scene.environment = out.texture; this.scene.environmentIntensity = this.opts.envLighting; }
+    }
+    _blendEnv(a, b, t, target) {
+        const r = this._renderer, u = this._envQuad.material.uniforms, prev = r.getRenderTarget(), xr = r.xr.enabled;
+        u.tA.value = a; u.tB.value = b; u.uT.value = t;
+        r.xr.enabled = false; r.setRenderTarget(target); this._envQuad.render(r); r.setRenderTarget(prev); r.xr.enabled = xr;
+    }
+    _stepEnvFade(dt) {
+        if (this._envFade >= 1 || !this._envA) return;
+        this._envFade = Math.min(1, this._envFade + dt / ENV_FADE_S);
+        this._blendEnv(this._envA.texture, this._envB.texture, THREE.MathUtils.smoothstep(this._envFade, 0, 1), this._envOut);
+        if (this._envFade >= 1) { this._envA.dispose(); this._envA = null; }
     }
 
     // ------------------------------------------------------------------ quality
@@ -605,14 +1030,19 @@ export class Renderer3D {
         // sky follows the camera
         this.sky.position.copy(T.cam);
         this.sky.material.uniforms.uTime.value = this.time;
-        if (this.clock) {
+        if (this.clock || this._wx) {
             this._applyLighting();
-            // refresh reflections when the sky changed noticeably (≤ every 2 s)
+            // refresh reflections when the sun moved > ENV_REBUILD_DEG (≤ every 2 s; the sky is constant below -14°),
+            // cross-faded so there is no visible pop
             this._envT -= dt;
-            if (this._envT <= 0 && (Math.abs(this.sunElevation - this._envEl) > 1.5 || this.nightLights !== this._envNight)) {
-                this._envT = 2; this._buildEnvMap(); this._envEl = this.sunElevation; this._envNight = this.nightLights;
+            const e0 = this._envEl, e1 = this.sunElevation;
+            const dc = this._wx ? Math.abs(this._wx.cloud - (this._envCloud ?? this._wx.cloud)) : 0;
+            if (this._envT <= 0 && ((Math.abs(e1 - e0) > ENV_REBUILD_DEG && !(e0 < -14 && e1 < -14)) || dc > 0.2)) {
+                this._envT = 2; this._buildEnvMap(); this._envEl = e1;
             }
         }
+        this._stepEnvFade(dt);
+        this._updateNight(dt);
         this._updateSun(T.cam);
         this._updateLamps(T.cam, dt);
         // weather + cockpit
@@ -622,6 +1052,11 @@ export class Renderer3D {
             const ck = p.cockpit?.userData;
             if (ck) {
                 ck.tick?.(dt);
+                // looking back: the driver's own seat back/headrest steps out of the way (as if the head turned past it)
+                if (ck.driverSeatBack) {
+                    camera.getWorldDirection(T.v); const back = T.v.x * p.fx + T.v.z * p.fz < -0.35;
+                    ck.driverSeatBack.visible = !back;
+                }
                 if (this.opts.autoGauges && ck.updateGauges) {
                     const sp = Math.abs(p.speed), gear = Math.min(5, Math.floor(sp / 8.5));
                     const rpm = 0.11 + Math.min(0.85, ((sp - gear * 8.5) / 8.5) * 0.55 + 0.18 + (p.speed > 0.3 ? 0.05 : 0));
@@ -629,7 +1064,7 @@ export class Renderer3D {
                 }
             }
         } else T.vel.set(0, 0, 0);
-        if (this.rain) { this.rain.update(dt, T.cam, T.vel); this.rain.uniforms.uColor.value.set('#b9c4cf').multiplyScalar(this.clock ? this._rainBright ?? 1 : 1); }
+        this._updateWeather(dt, T.cam, T.vel);
         this._updateWindshield();
         // render
         const fu = this.finalPass.uniforms; fu.uTime.value = this.time;
@@ -645,7 +1080,11 @@ export class Renderer3D {
     }
 
     _updateSun(cam) {
-        const s = this.sun, d = this._sunLightDir || this._sunDir, T = this._tmp;
+        const s = this.sun, T = this._tmp, src = this._sunLightDir || this._sunDir;
+        // the light direction only follows the sun in SHADOW_DIR_DEG steps: a continuously rotating shadow camera
+        // makes every shadow edge crawl across texels
+        const d = this._shadowDir;
+        if (d.dot(src) < Math.cos(SHADOW_DIR_DEG * Math.PI / 180) || !s.castShadow) d.copy(src);
         // centre the shadow frustum a bit ahead of the player, snapped to shadow texels (no shimmering)
         const p = this.player;
         const c = T.v.copy(cam); c.y = 0;
@@ -665,7 +1104,8 @@ export class Renderer3D {
         const fu = this.finalPass.uniforms;
         const ck = this.player?.cockpit;
         const ws = ck?.userData.windshield, st = ck?.userData.wiperState;
-        if (!ws || !st || !this.env?.rain || this.tier.post === 'off' || !ck.visible || !this.player.cockpit.parent) { fu.uRain.value = 0; return; }
+        const wr = this._wx ? Math.max(this._wx.rain, this._wx.snow * 0.5) : 0;
+        if (!ws || !st || !(wr > 0.02) || this.tier.post === 'off' || !ck.visible || !this.player.cockpit.parent) { fu.uRain.value = 0; return; }
         const cam = this.camera, T = this._tmp;
         this.player.rig?.updateMatrixWorld(true);
         cam.updateMatrixWorld(true);
@@ -687,7 +1127,19 @@ export class Renderer3D {
         fu.uWp1.value.set(ws.wipers[1].px, ws.wipers[1].ps, ws.wipers[1].len);
         fu.uWiper.value.set(st.a0, st.a1, st.sweep, st.period);
         fu.uWT.value = st.t; fu.uRainT.value = st.rainT;
-        fu.uRain.value = st.on ? 1 : 0;
+        fu.uRain.value = st.on ? Math.min(1, 0.35 + wr) : 0;
+        // keep the rear-view mirror (a plane in front of the camera, player.js) free of droplets
+        const mir = this.player.mirror, mk = fu.uMask.value;
+        mk.set(2, 2, -2, -2);
+        if (mir && mir.visible && mir.geometry) {
+            mir.updateMatrixWorld(true);
+            const pa = mir.geometry.parameters || { width: 0.33, height: 0.11 }, hw = pa.width / 2 + 0.03, hh = pa.height / 2 + 0.03;
+            for (const [x, y] of [[-hw, -hh], [hw, -hh], [hw, hh], [-hw, hh]]) {
+                const q = T.v.set(x, y, 0).applyMatrix4(mir.matrixWorld).applyMatrix4(A);
+                const qx = q.x * 0.5 + 0.5, qy = q.y * 0.5 + 0.5; // applyMatrix4 divides by w
+                mk.x = Math.min(mk.x, qx); mk.y = Math.min(mk.y, qy); mk.z = Math.max(mk.z, qx); mk.w = Math.max(mk.w, qy);
+            }
+        }
     }
 
     // ------------------------------------------------------------------ adaptive quality
@@ -720,6 +1172,7 @@ export class Renderer3D {
         }
     }
     dispose() {
-        this.composer.dispose?.(); this._envRT?.dispose(); this._pmrem.dispose(); this.rain?.dispose();
+        this._wxGen++; this.snow?.dispose();
+        this.composer.dispose?.(); this._envOut?.dispose(); this._envA?.dispose(); this._envB?.dispose(); this._envQuad?.dispose(); this._pmrem.dispose(); this.rain?.dispose();
     }
 }

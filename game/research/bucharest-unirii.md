@@ -1,6 +1,6 @@
 # Bucharest — Unirii & Călărașilor (`unirii`): field research dossier
 
-Role: research-buc-districts · generated 2026-11-06 22:52 UTC · machine-readable twin: `bucharest-unirii.json` · images: `refs/unirii/` (see LICENSES.md).
+Role: research-buc-districts · generated 2026-11-06 23:06 UTC · machine-readable twin: `bucharest-unirii.json` · images: `refs/unirii/` (see LICENSES.md).
 
 Every OSM-derived fact is keyed by OSM id (w = way, n = node, r = relation) and comes from the OSM API 0.6 snapshot of 2026-11-06 [osm]. Bracketed keys like [wp_lascar] point to the **Sources** table at the end. Confidence: *high* = OSM/official/encyclopedic; *medium* = consistent across photos/common knowledge, verify on refs; *low* = estimate.
 
@@ -118,7 +118,7 @@ Per-segment OSM data (lanes, turn:lanes, bus lanes, parking, trolley wires, spee
 - Fronting buildings: 56; businesses: 18.
 - **cross_section**: TWO-WAY 1+1 (≈7–8 m carriageway), 50 km/h, asphalt with patches; cars parked half on the narrow (1.5–2.5 m) sidewalks on both sides; no tram/trolley on this stretch; overhead telecom cables and older concrete lamp poles
 - **frontage**: Bucharest's best-preserved row of late-19th/early-20th-c. merchant houses ("case de târgoveț"): 1–2-storey rendered street houses (nos. 78–111 listed LMI B-II-m-B-183xx, built 1900–1920) with tall windows, pilasters, cornices, carriage gates, many shabby or seismic-risk; interspersed with 4–6-storey interwar blocks (no. 105, 1936; 117-119 S+P+4+attic) and a few 1990s infills; >200 legally protected buildings along the street
-- **hala_traian**: no. 133 at the Traian corner: Hala Traian (1896) — one of the last two 19th-c. market halls; structure kept but converted into a Mega Image supermarket (red Mega Image fascia on the historic hall); Piața Traian open market opposite (south side)
+- **hala_traian**: no. 133 at the Traian corner: Hala Traian (1896) — one of the last two 19th-c. market halls; cream facade with red-brick bands and a big arched window, small shops (red fascia, blue PESCĂRIE) in the front, supermarket inside; Piața Traian open market opposite (south side). Trams stop right at the junction (stop "Hala Traian", platforms with red-white painted kerbs, trolley/tram wires overhead) — photos 2019–2022
 - **businesses**: Mega Image (133), Superbet, Farmacia Dona, myGOLD & Tezaur pawn shops, shaorma, pastry shop, car-parts shops, Bulgust, Toka, Tripoli restaurants (OSM)
 - confidence: lanes/heritage high (OSM, Digi24); facades medium [osm] [calarasi_200] [hala_traian_mega] [hala_traian_zf]
 
@@ -581,7 +581,7 @@ Culture notes:
 8. Calea Călărașilor is a narrow TWO-WAY street, nothing like a boulevard.
 9. Calea Călărașilor is lined by low 1900–1920 merchant houses (listed), many shabby, with a few 1930s 6-storey blocks.
 10. Cars parked on the sidewalks of Calea Călărașilor; loose overhead cables.
-11. Hala Traian (1896 brick market hall) now carries a red Mega Image fascia.
+11. Hala Traian (1896): cream facade striped with red brick, big arched window, small shop fascias; supermarket inside.
 12. Piața Traian open market stalls opposite Hala Traian.
 13. Trolleybus wires on Str. Traian and Mircea Vodă, not on Călărașilor.
 14. Day Tower glass office + Starbucks and the 12-storey Mercure on Mircea Vodă.
@@ -607,6 +607,51 @@ Culture notes:
 - GTS exact office unit at no. 101 (courtyard building?) unverified; registered seat differs (Str. Frunzei 26)
 - Rooftop advertising brands around Piața Unirii not verified
 - Current (Nov 2026) state of the Planșeul Unirii works
+
+## Reference images (`refs/unirii/`, 40 files, licences in LICENSES.md)
+
+| file | taken | near | licence | facade-texture candidate |
+|---|---|---|---|---|
+| 133_Calea_C_l_ra_ilor_Bucharest_01_.jpg | 2022-05-05 | Hala Traian | CC BY-SA 4.0 | yes |
+| 10_Strada_Sf_nta_Vineri_Bucharest_01_.jpg | 2023-05-11 | Bd. I.C. Brătianu / Coposu | CC0 | yes |
+| Entrance_of_Hala_Traian_from_the_Calea_C_l_ra_i_in_Bucharest_Romania_.jpg | 2019-10-27 | Hala Traian | CC BY-SA 4.0 |  |
+| 43_Strada_B_r_iei_Bucharest_01_.jpg | 2023-05-11 | Bd. I.C. Brătianu / Coposu | CC0 | yes |
+| 43_Strada_B_r_iei_Bucharest_02_.jpg | 2023-05-11 | Bd. I.C. Brătianu / Coposu | CC0 | yes |
+| Bucarest_Pia_a_Unirii_main_fountain_2023.jpg | 2023-08-13 | Piața Unirii fountains | CC BY-SA 4.0 |  |
+| 5_Strada_Baia_de_Fier_Bucharest_05_.jpg | 2023-05-11 | Bd. I.C. Brătianu / Coposu | CC0 | yes |
+| 40_Strada_B_r_iei_Bucharest_01_.jpg | 2023-04-29 | Bd. I.C. Brătianu / Coposu | CC0 | yes |
+| 23_Strada_Mihail_Georgescu_Bucharest_03_.jpg | 2022-09-30 | Hala Traian | CC BY-SA 4.0 | yes |
+| 23_Strada_Mihail_Georgescu_Bucharest_02_.jpg | 2022-09-30 | Hala Traian | CC BY-SA 4.0 | yes |
+| 34_Calea_Mo_ilor_Bucharest_03_.jpg | 2023-04-29 | Bd. I.C. Brătianu / Coposu | CC0 | yes |
+| The_pediment_above_the_entrance_of_Hala_Traian_from_the_Calea_C_l_ra_i_in_Bucharest_Romani.jpg | Taken on 2 | Hala Traian | CC BY-SA 4.0 |  |
+| Ikarus_415T_-_trolleybus_Bucarest_5_.jpg | 2023-07-29 | Piața Unirii south / Dealul Mitropoliei | CC BY 4.0 |  |
+| Degraded_building_on_Strada_Bibescu_Vod_in_Bucharest_01_.jpg | 2022-05-31 | Piața Unirii south / Dealul Mitropoliei | CC BY-SA 4.0 |  |
+| Bucharest_-_tram_in_front_of_Hala_Traian_01.jpg | Taken on 1 | Hala Traian | CC BY-SA 4.0 |  |
+| Bulevardul_Unirii_with_fountains.jpg | Taken on 1 | Bd. Unirii east | CC BY-SA 4.0 |  |
+| Cablaggio_strutturato_lampione_angolo_boulevardul_unirii_-_panoramio.jpg | Taken on 3 | Bd. Unirii east | CC BY 3.0 |  |
+| 20260523_115813_May_2026_in_Bucharest.jpg | 2026-05-23 | Piața Unirii south / Dealul Mitropoliei | CC0 |  |
+| Boulevardul_Unirii_-_panoramio.jpg | 8 April 20 | Piața Unirii fountains | CC BY 3.0 |  |
+| Strada_Vulturilor_-_Bucharest_Romania_-_Travel_photography_33785881754_.jpg | Taken on 1 | Bd. Unirii / Calea Călărașilor east | CC BY 2.0 |  |
+| Strada_Vulturilor_Bucharest_Romania_Travel_Photography_211763961_.jpeg | 12 May 201 | Bd. Unirii / Calea Călărașilor east | CC BY 3.0 |  |
+| Piata_Unirii_-_panoramio_2_.jpg | Taken on 1 | Piața Unirii fountains | CC BY 3.0 |  |
+| Bucharest_Day_1_-_Unirii_9330316144_.jpg | 2013-07-20 | Piața Unirii fountains | CC BY-SA 2.0 |  |
+| Bucharest_-_Hala_Traian_01.jpg | Taken on 1 | Hala Traian | CC BY-SA 4.0 |  |
+| Bucharest_Day_1_-_Unirii_9330342042_.jpg | 2013-07-20 | Piața Unirii south / Dealul Mitropoliei | CC BY-SA 2.0 |  |
+| Bucharest_Day_2_-_Unirii_9335170995_.jpg | 2013-07-21 | Piața Unirii south / Dealul Mitropoliei | CC BY-SA 2.0 |  |
+| Romania-1164_-_Romanian_Military_Academy_7557743754_.jpg | 2012-05-08 | Piața Unirii south / Dealul Mitropoliei | CC BY-SA 2.0 |  |
+| Boekarest_Traian_hotel_view_north_-_panoramio.jpg | 26 Novembe | Piața Alba Iulia | CC BY 3.0 |  |
+| Bucharest_Day_2_-_Unirii_9335170651_.jpg | 2013-07-21 | Piața Unirii south / Dealul Mitropoliei | CC BY-SA 2.0 |  |
+| Welcome_217726283_.jpeg | before 27  | Piața Unirii fountains | CC BY 3.0 |  |
+| Strada_Parfumului_nr._11_B-II-m-B-19334_.JPG | 2012-04-29 | Bd. Unirii / Calea Călărașilor east | CC BY-SA 3.0 |  |
+| Strada_Matei_Basarab_nr._59_B-II-m-B-18088_.JPG | 2012-04-29 | Calea Călărașilor × Traian | CC BY-SA 3.0 |  |
+| Strada_Parfumului_nr._13_B-II-m-B-19336_.JPG | 2012-04-29 | Bd. Unirii / Calea Călărașilor east | CC BY-SA 3.0 |  |
+| Strada_Matei_Basarab_nr._50_B-II-m-B-18083_.JPG | 2012-04-29 | Calea Călărașilor × Traian | CC BY-SA 3.0 |  |
+| Strada_Matei_Basarab_nr._52_B-II-m-B-18085_.JPG | 2012-04-29 | Calea Călărașilor × Traian | CC BY-SA 3.0 |  |
+| Strada_Matei_Basarab_nr._48_B-II-m-B-18081_.JPG | 2012-04-29 | Calea Călărașilor × Traian | CC BY-SA 3.0 |  |
+| Strada_Matei_Basarab_nr._46_B-II-m-B-18080_.JPG | 2012-04-29 | Calea Călărașilor × Traian | CC BY-SA 3.0 |  |
+| Strada_Parfumului_nr._6_B-II-m-B-19333_.JPG | 2012-04-29 | Bd. Unirii / Calea Călărașilor east | CC BY-SA 3.0 |  |
+| Red_bushes_and_young_trees_i-Contrast_off_5727584545_.jpg | Taken on 1 | Bd. Unirii east | CC BY 2.0 |  |
+| Red_bushes_and_young_trees_i-Contrast_on_5727585257_.jpg | Taken on 1 | Bd. Unirii east | CC BY 2.0 |  |
 
 ## Sources
 
@@ -663,6 +708,7 @@ Culture notes:
 | gts_job | https://poslovi.infostud.com/poslodavac/global-technical-systems/55637 |
 | gts_hermes | https://www.zfenglish.com/companies/global-technical-systems-moves-offices-to-hermes-business-campus-23165494 |
 | vice_fountains | https://www.vice.com/ro/article/fantanile-din-bucuresti/ |
+| ref_hala | https://commons.wikimedia.org/wiki/File:133_Calea_C%C4%83l%C4%83ra%C8%99ilor,_Bucharest_(01).jpg |
 | fountains_cost | https://www.romania-insider.com/bucharest-unirii-fountains-record |
 | fountains_ro_insider_2023 | https://romania-insider.com/bucharest-urban-fountains-resume-shows-summer-2023 |
 | fountains_bucharest_ro | https://www.bucharest.ro/article/the-urban-fountains-of-unirii-square-a-tourist-attraction-recognized-by-the-academy-of-world-records-83 |

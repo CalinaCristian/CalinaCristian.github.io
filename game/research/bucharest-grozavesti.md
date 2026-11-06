@@ -1,6 +1,6 @@
 # Bucharest — Grozăvești & Politehnica (`grozavesti`): field research dossier
 
-Role: research-buc-districts · generated 2026-11-06 22:54 UTC · machine-readable twin: `bucharest-grozavesti.json` · images: `refs/grozavesti/` (see LICENSES.md).
+Role: research-buc-districts · generated 2026-11-06 23:07 UTC · machine-readable twin: `bucharest-grozavesti.json` · images: `refs/grozavesti/` (see LICENSES.md).
 
 Every OSM-derived fact is keyed by OSM id (w = way, n = node, r = relation) and comes from the OSM API 0.6 snapshot of 2026-11-06 [osm]. Bracketed keys like [wp_lascar] point to the **Sources** table at the end. Confidence: *high* = OSM/official/encyclopedic; *medium* = consistent across photos/common knowledge, verify on refs; *low* = estimate.
 
@@ -57,7 +57,7 @@ Every OSM-derived fact is keyed by OSM id (w = way, n = node, r = relation) and 
 - **lat**: 44.43848
 - **lon**: 26.05145
 - **door**: lat: 44.4387; lon: 26.0515; street: campus road (service, access=private, barrier at the gates); side: forecourt north of the Rectorat; gates: vehicle gates: Bd. Doina Cornea side (gate node n6810324892 at 44.43807, 26.05543) and Splaiul Independenței side (campus road w26314495/w178160268 meets the eastbound Splai at ≈44.4441, 26.0538)
-- **building**: storeys: 5; facade: large 1960s–70s modernist university block: long horizontal ribbon windows, light-grey/cream concrete panels (#CFCBC0 est.), flat roof with "UNIVERSITATEA POLITEHNICA DIN BUCUREȘTI" lettering (verify), wide stairs and a paved forecourt with flags; conf: storeys high (OSM); facade low–medium [osm] [upb_address] [upb_bucharest_ro]
+- **building**: storeys: 5 + rooftop dome; facade: iconic 1970s modernist Rectorat: long symmetrical white concrete frame grid (#EDEDE8) with RED infill panels (#B8312F) between the window bays, recessed ground floor, and a wide shallow saucer-shaped DOME on the roof (aula), flagpoles; at night the dome rim is lit blue; large paved forecourt + parking; conf: high from photos (refs/grozavesti), storeys OSM [osm] [upb_address] [ref_upb]
 - **cities_js_check**: cities.js upb {44.4366, 26.0526} is ~200 m south of the Rectorat (near the Iuliu Maniu side of campus). The Rectorat is at {44.4385, 26.0515}; it has NO public-street frontage — the drive ends via a campus gate (Doina Cornea) and ~420 m of private campus road. The Splai carriageway next to the campus (way 227053932) is ONE-WAY EASTBOUND.
 
 ## Streets — route and main streets
@@ -213,7 +213,7 @@ Signalised / main junctions on the chapter routes (OSM):
 |---|---|---|---|---|---|---|
 | w661134293 | The Bridge 1 | 11 / 52 | #7D93A0 glass curtain wall |  | 2010s |  [osm] |
 | w699470645 | The Light One | 11 / 45 | #8A9BA5 glass + white fins |  |  |  [osm] |
-| w28240552 | UPB Rectorat | 5 / 20 | #CFCBC0 concrete panels + ribbon glazing | flat | 1960s–70s (est.) | upb [osm] |
+| w28240552 | UPB Rectorat | 5 / 24 | #EDEDE8 white concrete frame grid + red infill panels + glazing | flat with a central shallow saucer dome (aula), blue rim lighting at night | 1970s | upb [osm] [ref_upb] |
 | w50538006 | Biblioteca Centrală UPB |  /  |   |  |  |  [osm] |
 
 ## Buildings fronting the chapter routes (all, from OSM + style rules)
@@ -360,7 +360,7 @@ Culture notes:
 2. Pasajul Basarab viaduct towers over Orhideelor — two levels, trams on it.
 3. Podul Grozăvești is short; Grozăvești metro entrances at both ends.
 4. Regie dorms: long rows of grey/cream 1970s student blocks on the north bank.
-5. UPB campus is fenced with barrier gates; the Rectorat is inside, not on a street.
+5. UPB Rectorat = white grid facade with red panels and a flat saucer dome on the roof, inside the fenced campus.
 6. Bd. Doina Cornea has trams (1, 10, 11) in the median along the campus.
 7. The Bridge glass towers (IBM, Bitdefender) on Orhideelor.
 8. Lukoil station on Orhideelor (east side).
@@ -389,9 +389,23 @@ Culture notes:
 
 ## Gaps / to verify
 
-- Rectorat construction year/architect not found
+- Rectorat construction year/architect not found (look confirmed from photos)
 - Canal/embankment details from photos pending
 - Campus internal road layout only from OSM
+
+## Reference images (`refs/grozavesti/`, 9 files, licences in LICENSES.md)
+
+| file | taken | near | licence | facade-texture candidate |
+|---|---|---|---|---|
+| Politehnica_University_of_Bucharest_at_night.jpg | 2024-04-24 | UPB Rectorat | CC BY-SA 4.0 |  |
+| Politehnica_University_of_Bucharest_at_night_01.jpg | 2024-04-24 | UPB Rectorat | CC BY-SA 4.0 |  |
+| Politehnica_University_of_Bucharest_at_night_02.jpg | 2024-04-24 | UPB Rectorat | CC BY-SA 4.0 |  |
+| Politehnica_University_of_Bucharest.jpg | 2024-01-22 | UPB Rectorat | CC BY-SA 4.0 |  |
+| Politehnica_University_of_Bucharest_02.jpg | 2024-01-22 | UPB Rectorat | CC BY-SA 4.0 |  |
+| Politehnica_University_of_Bucharest_03.jpg | 2024-01-22 | UPB Rectorat | CC BY-SA 4.0 |  |
+| Politehnica_University_of_Bucharest_04.jpg | 2024-01-22 | UPB Rectorat | CC BY-SA 4.0 |  |
+| Bitdefender_Headquarters_Bucharest_Romania.jpg | 2023-02-16 | Grozăvești metro | CC BY-SA 4.0 |  |
+| RO_B_Politehnica_university_rectorate.jpg | 2004-03-20 | Politehnica campus | CC BY-SA 3.0 |  |
 
 ## Sources
 
@@ -438,3 +452,4 @@ Culture notes:
 | wp_grozavesti_metro | https://en.wikipedia.org/wiki/Groz%C4%83ve%C8%99ti_metro_station |
 | adevarul_grozavesti_works | https://adevarul.ro/stiri-locale/bucuresti/de-azi-nu-se-mai-circula-in-zona-podului-1377962.html |
 | newsweek_basarab | https://newsweek.ro/actualitate/podul-grant-se-deschide-doar-pe-jumatate-bucurestenii-nu-scapa-de-haos-in-trafic |
+| ref_upb | https://commons.wikimedia.org/wiki/Category:Universitatea_Politehnica_din_Bucure%C8%99ti (see refs/grozavesti/LICENSES.md for the exact files) |

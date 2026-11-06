@@ -1,6 +1,6 @@
 # Bucharest — Floreasca (`floreasca`): field research dossier
 
-Role: research-buc-districts · generated 2026-11-06 22:53 UTC · machine-readable twin: `bucharest-floreasca.json` · images: `refs/floreasca/` (see LICENSES.md).
+Role: research-buc-districts · generated 2026-11-06 23:07 UTC · machine-readable twin: `bucharest-floreasca.json` · images: `refs/floreasca/` (see LICENSES.md).
 
 Every OSM-derived fact is keyed by OSM id (w = way, n = node, r = relation) and comes from the OSM API 0.6 snapshot of 2026-11-06 [osm]. Bracketed keys like [wp_lascar] point to the **Sources** table at the end. Confidence: *high* = OSM/official/encyclopedic; *medium* = consistent across photos/common knowledge, verify on refs; *low* = estimate.
 
@@ -522,6 +522,18 @@ Culture notes:
 - Rosetti facade/era unverified (no licensed photo yet)
 - School-run congestion is an assumption, not sourced
 - Villa-by-villa facades on Garibaldi not individually researched
+
+## Reference images (`refs/floreasca/`, 7 files, licences in LICENSES.md)
+
+| file | taken | near | licence | facade-texture candidate |
+|---|---|---|---|---|
+| View_from_Sky_Tower_level_35_to_the_North-West_of_Bucharest_-_panoramio.jpg | Taken on 2 | Sky Tower | CC BY 3.0 |  |
+| View_from_Sky_Tower_level_35_to_the_South_-_panoramio.jpg | Taken on 2 | Sky Tower | CC BY 3.0 |  |
+| Sky_Tower_level_35_Floreasca_Lake_-_panoramio.jpg | Taken on 2 | Sky Tower | CC BY 3.0 |  |
+| View_from_Promenada_Mall_-_panoramio.jpg | Taken on 2 | Sky Tower | CC BY 3.0 |  |
+| Floreasca_Lake_-_panoramio.jpg | Taken on 2 | Str. Barbu Văcărescu | CC BY 3.0 |  |
+| Terasa_Promenada_02_-_panoramio.jpg | Taken on 2 | Sky Tower | CC BY-SA 3.0 |  |
+| Terasa_Promenada_Mall_-_panoramio.jpg | Taken on 2 | Sky Tower | CC BY-SA 3.0 |  |
 
 ## Sources
 

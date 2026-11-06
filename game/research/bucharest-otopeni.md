@@ -1,6 +1,6 @@
 # Bucharest — Otopeni — Henri Coandă (OTP) (`otopeni`): field research dossier
 
-Role: research-buc-districts · generated 2026-11-06 22:55 UTC · machine-readable twin: `bucharest-otopeni.json` · images: `refs/otopeni/` (see LICENSES.md).
+Role: research-buc-districts · generated 2026-11-06 23:07 UTC · machine-readable twin: `bucharest-otopeni.json` · images: `refs/otopeni/` (see LICENSES.md).
 
 Every OSM-derived fact is keyed by OSM id (w = way, n = node, r = relation) and comes from the OSM API 0.6 snapshot of 2026-11-06 [osm]. Bracketed keys like [wp_lascar] point to the **Sources** table at the end. Confidence: *high* = OSM/official/encyclopedic; *medium* = consistent across photos/common knowledge, verify on refs; *low* = estimate.
 
@@ -107,8 +107,8 @@ Per-segment OSM data (lanes, turn:lanes, bus lanes, parking, trolley wires, spee
 ## Squares, junctions, landmarks
 
 - **DN1 × airport exit (trunk_link "Henri Coandă Airport")** — grade-separated diverge; flyover;  [osm]
-- **Henri Coandă terminal** (`otp`, w771096082) — control tower and aircraft tails (TAROM blue/white, Wizz Air pink/purple, Blue Air (defunct), Lufthansa…) visible beyond the terminal [wp_otp]
-- **Aeroport Henri Coandă CFR station** (`cfr_station`, w813193384) — small modern station with covered walkway to the terminal (2020) [osm]
+- **Henri Coandă terminal** (`otp`, w771096082) — control tower and aircraft tails (TAROM blue/white, Wizz Air pink/purple, Blue Air (defunct), Lufthansa…) visible beyond the terminal; airside the older terminal shows a row of concrete ARCHES (vaulted roofline) with the red-white striped control tower to the east (photos) [wp_otp]
+- **Aeroport Henri Coandă CFR station** (`cfr_station`, w813193384) — opened 2020; platforms under a long barrel-vaulted canopy of GREEN steel arches with glass/polycarbonate glazing; Siemens Desiro DMUs in CFR white/blue livery; covered walkway to the terminal (photos refs/otopeni) [osm] [ref_otp]
 - **M6 metro works (Aeroport Otopeni station)** (`m6_works`, ) — construction hoardings in front of Departures since 2024 — optional for the 2022 chapter [wp_m6] [otp_parking_m6]
 
 Signalised / main junctions on the chapter routes (OSM):
@@ -315,6 +315,22 @@ Culture notes:
 - Terminal facade details pending licensed photos
 - Exact 2022 kerb layout vs 2025 changes
 
+## Reference images (`refs/otopeni/`, 11 files, licences in LICENSES.md)
+
+| file | taken | near | licence | facade-texture candidate |
+|---|---|---|---|---|
+| Cobus_3000_-_Henri_Coand_Bucarest_Airport.jpg | 2023-07-30 | Departures kerb | CC BY-SA 4.0 |  |
+| OTP_Henri_Coanda_Airport_Bucharest_MAR2023_-_img_01.jpg | 2023-03-24 | Departures kerb | CC BY-SA 4.0 |  |
+| OTP_Henri_Coanda_Airport_Bucharest_MAR2023_-_img_02.jpg | 2023-03-24 | Departures kerb | CC BY-SA 4.0 |  |
+| OTP_Henri_Coanda_Airport_Bucharest_MAR2023_-_img_03.jpg | 2023-03-24 | Departures kerb | CC BY-SA 4.0 |  |
+| OTP_Henri_Coanda_Airport_Bucharest_MAR2023_-_img_04.jpg | 2023-03-24 | Departures kerb | CC BY-SA 4.0 |  |
+| OTP_Henri_Coanda_Airport_Bucharest_MAR2023_-_img_05.jpg | 2023-03-24 | Departures kerb | CC BY-SA 4.0 |  |
+| OTP_Henri_Coanda_Airport_Bucharest_MAR2023_-_img_06.jpg | 2023-03-24 | Departures kerb | CC BY-SA 4.0 |  |
+| OTP_Henri_Coanda_Airport_Bucharest_MAR2023_-_img_07.jpg | 2023-03-24 | Departures kerb | CC BY-SA 4.0 |  |
+| Bucharest_-_Otopeni_8577731095_.jpg | 2013-03-09 | Henri Coandă terminal | CC BY 2.0 |  |
+| Bucharest_-_Otopeni_8577733421_.jpg | 2013-03-09 | Henri Coandă terminal | CC BY 2.0 |  |
+| CFR_Class_96_Desiro_-_Henri_Coand_T1_Airport_2_.jpg | 2023-07-30 | Airport access road | CC BY-SA 4.0 |  |
+
 ## Sources
 
 | key | URL |
@@ -363,3 +379,4 @@ Culture notes:
 | otp_plecari_2025 | https://playtech.ro/2025/accesul-interzis-cu-masina-la-terminalul-plecari-al-aeroportului-otopeni-noile-rute-auto-anuntate-de-autoritati/ |
 | otp_sosiri_parking | https://www.euronews.ro/articole/aeroportul-otopeni-parcarea-de-la-sosiri-inchisa-pentru-consolidare-ce-alternativ |
 | otp_taxi_guide | https://www.inyourpocket.com/bucharest/The-Definitive-Guide-to-Finding-a-Taxi-at-Bucharest-Airport_74243f |
+| ref_otp | see refs/otopeni/LICENSES.md (Commons photos of the CFR station canopy and the terminal arches/control tower from the apron) |

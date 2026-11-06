@@ -120,7 +120,7 @@ async function runCity(browser, base, city, ctxOut) {
     await page.evaluate((o) => window.vqa.setOpts(o), opts);
     const { mode, groups } = await page.evaluate((c) => window.vqa.groups(c), city);
     res.mode = mode;
-    let cockpitDone = false, routeBase = 0;
+    let cockpitDone = false, officesDone = false, routeBase = 0;
     for (const gr of groups) {
         t = Date.now();
         log(`[${city}] loading ${gr.key}…`);
@@ -167,7 +167,7 @@ async function runCity(browser, base, city, ctxOut) {
         }
         T('survey', t);
         if (A.geometry && A.focus > 0) { t = Date.now(); const n = await withTimeout(page.evaluate((m) => window.vqa.focusShots(m), A.focus), 600000, 'focus shots').catch(e => { res.errors.push(e.message); return 0; }); T('focus', t); log(`[${city}] ${n} geometry close-ups`); }
-        if (A.offices && !gr.district) { t = Date.now(); res.offices.push(...await page.evaluate(() => window.vqa.offices()).catch(e => { res.errors.push(e.message); return []; })); T('offices', t); }
+        if (A.offices && !officesDone) { officesDone = true; t = Date.now(); res.offices.push(...await page.evaluate(() => window.vqa.offices()).catch(e => { res.errors.push(e.message); return []; })); T('offices', t); log(`[${city}] office lobbies: ${res.offices.join(', ') || 'none'}`); }
         // ---- cockpit / HUD at every viewport (once per city)
         if (!cockpitDone && A.viewports !== 'none') {
             cockpitDone = true; t = Date.now();

@@ -41,7 +41,9 @@ Shared files touched by several roles (`main.js` hooks for new modules) go throu
 ### Photo (`photo.js`, new)
 - `class PhotoMode { constructor({renderer, getScene, getCamera, hud, audio, input}); open(); close(); get active(); update(dt) }`.
 ### On foot (`onfoot.js`, new)
-- `class OnFootController { constructor({scene, camera, input, colliders, world?}); enter(x, z, heading, y); exit(); update(dt); get position(); }` — reused by tourist spots.
+- `class OnFootController { constructor({scene, camera, input, colliders, world?, traffic?, audio?, obstacles?, groundAt?}); enter(x, z, heading, y); exit(); update(dt); teleport(x, z, heading?); get position(); fx, fz, speed, active }` — reused by tourist spots. `colliders` = a collideBuildings list (`.query` optional); `obstacles()` → extra OBBs `{x, z, fx, fz, length, width}`; `groundAt(x, z, y)` → floor height (default `world.roadHeight` / 0). Harness hook: `auto = {fwd, side, heading, run, jump}`.
+- Chapters (`chapters.js`, gameplay): `chapterCard({done, next, index, total}) → 'next'|'free'`, `chapterMontage({cityName, districts, from, to, year0, year1, title, caption})`, `loadProgress()/saveProgress()`; game: `game.chapter` (id), `game.chapterIdx`, `game.goToChapter(i)`, `game.completeChapter()`, `game.progress.{reached, done}`.
+- Traffic congestion (gameplay): `traffic.setCongestion([{lat, lon, radius, hours, level}], proj)`, `traffic.jamAt(x, z)`, `traffic.jamOverride`, `traffic.walker` (the on-foot controller); URL test hooks `?hour=8.5`, `?jam=1`.
 ### Spots (`spots/*`, new)
 - `loadSpot(id, renderer) → { scene, spawn, colliders, plaques[], dispose() }`; `SPOTS = [{ id, city, name, lat, lon, kind:'walk', blurb }]`.
 ### Telemetry

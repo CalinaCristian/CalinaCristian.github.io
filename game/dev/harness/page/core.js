@@ -326,7 +326,7 @@ export class Harness {
         }
         // obstacles on the path (vehicles, pedestrians)
         const obs = this.obstacleAhead(path, bs, 55);
-        ap.gap = obs.gap; ap.leader = obs.what;
+        ap.gap = obs.gap; ap.leader = obs.what; ap.leaderInfo = obs.info;
         if (obs.gap < Infinity) {
             const vg = Math.min(Math.max(0, obs.speed) + Math.max(0, obs.gap - 5) * 0.7, Math.sqrt(2 * 4 * Math.max(0, obs.gap - 2.5)));
             vt = Math.min(vt, vg);

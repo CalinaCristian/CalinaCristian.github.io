@@ -1,6 +1,6 @@
 # Bucharest — Romană & Victoriei (`romana`): field research dossier
 
-Role: research-buc-districts · generated 2026-11-06 22:46 UTC · machine-readable twin: `bucharest-romana.json` · images: `refs/romana/` (see LICENSES.md).
+Role: research-buc-districts · generated 2026-11-06 23:03 UTC · machine-readable twin: `bucharest-romana.json` · images: `refs/romana/` (see LICENSES.md).
 
 Every OSM-derived fact is keyed by OSM id (w = way, n = node, r = relation) and comes from the OSM API 0.6 snapshot of 2026-11-06 [osm]. Bracketed keys like [wp_lascar] point to the **Sources** table at the end. Confidence: *high* = OSM/official/encyclopedic; *medium* = consistent across photos/common knowledge, verify on refs; *low* = estimate.
 
@@ -117,6 +117,7 @@ Per-segment OSM data (lanes, turn:lanes, bus lanes, parking, trolley wires, spee
 - **frontage_rule**: alternating: 2–3-storey eclectic/neo-Romanian villas set back behind iron fences and gardens, and 6–9-storey interwar modernist apartment blocks (1929–1940, flat roofs, rounded corners, cream/grey render, steel windows) built to the sidewalk; few modern offices (Europe House). Many blocks carry seismic-risk class plaques (red dot "Bulină roșie" on class I).
 - **transit**: trolleybus 79, 86 (+ bus 100 airport express, 361, 381 on Lascăr Catargiu; 168, 226, 301, 331, 368 on Magheru)
 - **history**: part of the old Strada Colței; named Ana Ipătescu under communism
+- **rooftop_signs_observed**: Photo Apr 2023 (refs/romana/4_Bulevardul_Lasc_r_Catargiu_Bucharest_03_.jpg): "NetBet" rooftop sign (white/blue letters on a dark frame) on the block at Lascăr Catargiu 2–4 next to a neo-Romanian villa; LED screen and vertical banners on facades; black steel anti-parking bollards along the kerb; iron villa fences.
 - confidence: lanes/speed/wires high (OSM); trees/paving/lamps medium [osm] [wp_lascar]
 
 ### Bulevardul General Gheorghe Magheru (chapter route)
@@ -128,6 +129,7 @@ Per-segment OSM data (lanes, turn:lanes, bus lanes, parking, trolley wires, spee
 - Fronting buildings: 14; businesses: 70.
 - **cross_section**: Wide boulevard, one-way pairs at Romană: N-bound 4 lanes (through×3 + through;right), S-bound 3 lanes; 60 km/h; metro M2 beneath; wide sidewalks (6–8 m) with grey pavers; continuous interwar modernist blocks (8–12 storeys, Magheru is THE interwar modernist boulevard) with ground-floor shops and cinemas further south
 - **ads**: whole-facade mesh banners on several blocks (pressone_ads)
+- **rooftop_signs_observed**: Photo Apr 2023 (refs/romana/14_Bulevardul_Gheorghe_Magheru_Bucharest_04_.jpg): whole-facade mesh ad on the interwar block at Magheru 14 plus an empty steel rooftop billboard frame; municipal "Dragă Sector 1" banners; traffic signals on mast arms with black backplates.
 - confidence: lanes high; facades medium [osm] [pressone_ads]
 
 ### Piața Victoriei (chapter route)
@@ -170,6 +172,7 @@ Per-segment OSM data (lanes, turn:lanes, bus lanes, parking, trolley wires, spee
 - **layout**: Signalised square where Magheru (S, one-way N-bound arm 3–4 lanes + the S-bound arm), Lascăr Catargiu (NW) and Bd. Dacia (E–W) cross; traffic circulates around a small central island (former Capitoline Wolf statue site 1997–2010, statue moved to Bd. I.C. Brătianu). Metro M2 Piața Romană with entrances on Magheru.
 - **frontage**: N/NE: ASE main building (Academia de Studii Economice, Piața Romană 6 — monumental neoclassical with central dome and portico, 1916–1926) and Casa Nanu-Muscel; SW: Gheorghe Petrașcu House no. 1 (1907, Ion Mincu, neo-Romanian, arcaded loggia, tiled roof); no. 5: second Petrașcu house (1913, Spiridon Cegăneanu); interwar 4–8-storey blocks with shops on Magheru; Sheraton (18 lv, 70 m, 1976) east on Bd. Dacia.
 - **ground_floor**: 5 to go kiosk-cafe, Help Net & Dona pharmacies, Calzedonia, Miniso, STB ticket booth, Patiseria Tineretului, Treevi Pizza (Magheru east side, OSM)
+- **rooftop_signs_observed**: Photo Apr 2023 (refs/romana/9_Pia_a_Roman_Bucharest_05_.jpg): the large curved 8-storey interwar block at Piața Romană 9 (corner Magheru/Dacia, facing the square) carries a long RED Coca-Cola rooftop sign following the curve (red band #E41E2B with white bubbles and white "Coca-Cola" script), plus a tall vertical Coca-Cola bottle panel on its facade and red shop fascias at street level; a glass office tower rises behind to the left. The square has wide multi-lane asphalt with white dashed lane lines and many white turn arrows, kerbed islands and a small monument on the central island.
 - confidence: high (OSM/Wikipedia) except ASE description medium [osm] [wp_romana] [wp_ase]
 
 ### Strada Vasile Alecsandri (chapter route)
@@ -677,7 +680,7 @@ Culture notes:
 16. Cars parked on sidewalks of all side streets (Clopotarii Vechi, Grigore Alexandrescu, Vasile Alecsandri).
 17. BRD Tower and Tower Center (very tall glass towers) dominate the NW skyline from Victoriei.
 18. Sheraton tower (70 m, 1976) visible east of Piața Romană on Bd. Dacia.
-19. Rooftop/facade ad banners and LED screens around both squares.
+19. Coca-Cola red rooftop sign on the curved block at Piața Romană 9; NetBet rooftop sign at Lascăr Catargiu 2-4; mesh banners on Magheru (photos 2023).
 20. Embassies with guard booths (Iran at Lascăr Catargiu 39) and police station Secția 1 on the boulevard.
 21. Big signalised junctions have countdown pedestrian signals and many zebra crossings.
 22. Grey concrete paver sidewalks with metal bollards along boulevards; cracked asphalt on side streets.
@@ -692,10 +695,47 @@ Culture notes:
 
 ## Gaps / to verify
 
-- Rooftop ad brands at Victoriei/Romană not verified (no current licensed photo yet)
+- Rooftop brands at Piața Victoriei not photo-verified (Romană + Lascăr Catargiu verified from 2023 photos; brands rotate)
 - Exact lamp/luminaire model per street
 - Facade hex for unnamed buildings is style-rule based
 - Europe House storey count conflict (OSM 14 vs listing GF+10)
+
+## Reference images (`refs/romana/`, 32 files, licences in LICENSES.md)
+
+| file | taken | near | licence | facade-texture candidate |
+|---|---|---|---|---|
+| 24_Bulevardul_Gheorghe_Magheru_Bucharest_02_.jpg | 2023-04-30 | Bd. Magheru north | CC0 | yes |
+| 26_Bulevardul_Gheorghe_Magheru_Bucharest_01_.jpg | 2023-04-30 | Bd. Magheru north | CC0 | yes |
+| 26_Bulevardul_Gheorghe_Magheru_Bucharest_02_.jpg | 2023-04-30 | Bd. Magheru north | CC0 | yes |
+| 24_Bulevardul_Gheorghe_Magheru_Bucharest_03_.jpg | 2023-04-30 | Bd. Magheru north | CC0 | yes |
+| 54_Bulevardul_Lasc_r_Catargiu.jpg | 2023-04-22 | Europe House / Lascăr Catargiu north | CC BY 4.0 | yes |
+| 14_Bulevardul_Gheorghe_Magheru_Bucharest_04_.jpg | 2023-04-30 | Bd. Magheru north | CC0 | yes |
+| 14_Bulevardul_Gheorghe_Magheru_Bucharest_02_.jpg | 2023-03-24 | Bd. Magheru north | CC BY-SA 4.0 | yes |
+| 9_Bulevardul_Gheorghe_Magheru_Bucharest_02_.jpg | 2023-04-30 | Bd. Magheru north | CC0 | yes |
+| 48_Calea_Doroban_ilor_Bucharest_15_.jpg | 2023-04-19 | Calea Dorobanților south | CC0 | yes |
+| 4_Bulevardul_Lasc_r_Catargiu_Bucharest_03_.jpg | 2023-04-30 | Piața Romană | CC0 | yes |
+| 64_Calea_Doroban_ilor_Bucharest_01_.jpg | 2022-06-21 | Calea Dorobanților south | CC BY-SA 4.0 | yes |
+| 6_Bulevardul_Lasc_r_Catargiu_Bucharest_15_.jpg | 2023-04-30 | Piața Romană | CC0 | yes |
+| 8_Strada_Tache_Ionescu_Bucharest_01_.jpg | 2023-05-02 | Bd. Magheru north | CC0 | yes |
+| 9_Pia_a_Roman_Bucharest_06_.jpg | 2023-04-30 | Piața Romană | CC0 | yes |
+| 9_Strada_Gherghe_Manu_Bucharest_11_.jpg | 2023-05-30 | Bd. Lascăr Catargiu (middle) | CC0 | yes |
+| 9_Strada_Gherghe_Manu_Bucharest_12_.jpg | 2023-05-30 | Bd. Lascăr Catargiu (middle) | CC0 | yes |
+| 9_Pia_a_Roman_Bucharest_05_.jpg | 2023-04-30 | Piața Romană | CC0 | yes |
+| 151_Calea_Victoriei_Bucharest_02_.jpg | 2022-09-24 | Europe House / Lascăr Catargiu north | CC BY-SA 4.0 | yes |
+| 151_Calea_Victoriei_Bucharest_01_.jpg | 2022-02-25 | Europe House / Lascăr Catargiu north | CC BY-SA 4.0 | yes |
+| 5_Pia_a_Roman_Bucharest_58_.jpg | 2023-04-30 | Piața Romană | CC0 | yes |
+| 8A_Bulevardul_Aviatorilor_Bucharest_26_.jpg | 2023-05-30 | Palatul Victoria | CC0 | yes |
+| 10_Strada_Paris_Bucharest_02_.jpg | 2023-06-03 | Palatul Victoria | CC0 | yes |
+| 35_Strada_Grigore_Alexandrescu_Bucharest_01_.jpg | 2022-09-22 | Bd. Iancu de Hunedoara | CC BY-SA 4.0 | yes |
+| 30_Bulevardul_Lasc_r_Catargiu_Bucharest_Romania_2.jpg | Taken on 1 | Bd. Lascăr Catargiu (middle) | CC BY-SA 4.0 |  |
+| 30_Bulevardul_Lasc_r_Catargiu_Bucharest_Romania_.jpg | 2020-05-17 | Bd. Lascăr Catargiu (middle) | CC BY-SA 4.0 |  |
+| 20230426.Ansichten_von_Bukarest.-023.jpg | 2023-04-26 | Palatul Victoria | CC BY-SA 4.0 |  |
+| Grigore_Antipa_Natural_History_Museum_11.jpg | Taken on 2 | Antipa museum / Kiseleff | CC BY-SA 4.0 |  |
+| Grigore_Antipa_Natural_History_Museum.jpg | Taken on 2 | Antipa museum / Kiseleff | CC BY-SA 4.0 |  |
+| Nicu_or_Dan_campaign_rally_in_Bucharest_May_11_2025.jpg | 2025-05-11 | Palatul Victoria | CC BY 2.0 |  |
+| Grigore_Antipa_Natural_History_Museum_8.jpg | Taken on 2 | Antipa museum / Kiseleff | CC BY-SA 4.0 |  |
+| Mavrogheni_Church_51.jpg | 2021-12-23 | Antipa museum / Kiseleff | CC0 |  |
+| Carmina_Cotfas_16_decembrie_2021.jpg | 2021-12-16 | Calea Dorobanților south | CC BY-SA 4.0 |  |
 
 ## Sources
 
@@ -736,3 +776,6 @@ Culture notes:
 | stb | https://en.wikipedia.org/wiki/Societatea_de_Transport_Bucure%C8%99ti |
 | metrorex | https://en.wikipedia.org/wiki/Bucharest_Metro |
 | wp_transport | https://en.wikipedia.org/wiki/Transport_in_Bucharest |
+| ref_romana9 | https://commons.wikimedia.org/wiki/File:9_Pia%C8%9Ba_Roman%C4%83,_Bucharest_(05).jpg |
+| ref_lascar4 | https://commons.wikimedia.org/wiki/File:4_Bulevardul_Lasc%C4%83r_Catargiu,_Bucharest_(03).jpg |
+| ref_magheru14 | https://commons.wikimedia.org/wiki/File:14_Bulevardul_Gheorghe_Magheru,_Bucharest_(04).jpg |

@@ -86,8 +86,9 @@ function materials() {
         g: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.28, metalness: 0.35 }), // glass / metal
         w: new THREE.MeshLambertMaterial({ vertexColors: true, transparent: true, opacity: 0.72, depthWrite: false }), // water
         f: new THREE.MeshLambertMaterial({ vertexColors: true, fog: false }),                       // far backdrops (mountains)
+        e: new THREE.MeshBasicMaterial({ vertexColors: true }),                                     // self-lit: lobby glow, lit signage
     };
-    MATS.w.name = 'landmark-water'; MATS.f.name = 'landmark-backdrop';
+    MATS.w.name = 'landmark-water'; MATS.f.name = 'landmark-backdrop'; MATS.e.name = 'landmark-glow';
     return MATS;
 }
 
@@ -292,6 +293,15 @@ class Builder {
             if (o.capital) this.box(x, y + h - 0.6, z, r * 2.6, 0.6, r * 2.6, o.capital, { ry: o.ry || 0 });
         }
     }
+    /** rectangular beam (w wide, h tall) between two 3D points — truss members, arch ribs, hangers (12 tris) */
+    strut(a, c, w, h, col, mat = 'm') {
+        const d = new THREE.Vector3(c[0] - a[0], c[1] - a[1], c[2] - a[2]), L = d.length(); if (L < 1e-4) return;
+        d.divideScalar(L);
+        const up = Math.abs(d.y) > 0.95 ? new THREE.Vector3(1, 0, 0) : new THREE.Vector3(0, 1, 0);
+        const zA = new THREE.Vector3().crossVectors(d, up).normalize(), yA = new THREE.Vector3().crossVectors(zA, d).normalize();
+        const m = new THREE.Matrix4().makeBasis(d, yA, zA).scale(_s.set(L, h, w)).setPosition((a[0] + c[0]) / 2, (a[1] + c[1]) / 2, (a[2] + c[2]) / 2);
+        this.geo(G.box, col, m, mat);
+    }
     /** tube along points [[x,y,z],...] */
     tube(points, r, col, o = {}) {
         const curve = new THREE.CatmullRomCurve3(points.map(p => new THREE.Vector3(p[0], p[1], p[2])));
@@ -439,7 +449,7 @@ class Builder {
             g.setAttribute('color', new THREE.Float32BufferAttribute(b.c, 3));
             g.computeBoundingSphere(); g.computeBoundingBox();
             const mesh = new THREE.Mesh(g, MT[k]);
-            mesh.castShadow = k !== 'w' && k !== 'f'; mesh.receiveShadow = k !== 'f';
+            mesh.castShadow = k !== 'w' && k !== 'f' && k !== 'e'; mesh.receiveShadow = k !== 'f' && k !== 'e';
             group.add(mesh);
             tris += b.p.length / 9;
         }
@@ -464,7 +474,7 @@ const FONT = (() => {
         3: '11111 00010 00100 00010 00001 10001 01110', 4: '00010 00110 01010 10010 11111 00010 00010', 5: '11111 10000 11110 00001 00001 10001 01110',
         6: '00110 01000 10000 11110 10001 10001 01110', 7: '11111 00001 00010 00100 01000 01000 01000', 8: '01110 10001 10001 01110 10001 10001 01110',
         9: '01110 10001 10001 01111 00001 00010 01100', '.': '00000 00000 00000 00000 00000 01100 01100', '-': '00000 00000 00000 01110 00000 00000 00000',
-        '&': '01100 10010 10100 01000 10101 10010 01101', "'": '00100 00100 01000 00000 00000 00000 00000', ' ': '00000 00000 00000 00000 00000 00000 00000',
+        '&': '01100 10010 10100 01000 10101 10010 01101', '/': '00001 00010 00010 00100 01000 01000 10000', "'": '00100 00100 01000 00000 00000 00000 00000', ' ': '00000 00000 00000 00000 00000 00000 00000',
     };
     const f = {}; for (const [k, v] of Object.entries(src)) f[k] = v.split(' '); return f;
 })();
@@ -1744,7 +1754,8 @@ const A = {
 
 function L(id, city, name, osmNames, radius, fn, extra = {}) {
     const [lat, lon, rotation] = A[id];
-    const lm = { id, city, name, lat, lon, rotation, osmNames, footprintRadius: city === 'seattle' ? radius * SEA_SCALE : radius, ...extra };
+    // footprintRadius: legacy contract (Seattle halved, see SEA_SCALE); radiusM: the same radius in real metres (1:1 districts)
+    const lm = { id, city, name, lat, lon, rotation, osmNames, footprintRadius: city === 'seattle' ? radius * SEA_SCALE : radius, radiusM: radius, ...extra };
     Object.defineProperty(lm, '_fn', { value: fn, enumerable: false });
     lm.build = (ctx) => buildLandmark(lm, ctx);
     return lm;
@@ -1807,12 +1818,15 @@ export const LANDMARKS = [
 /**
  * Build one landmark.
  * @param lm  entry of LANDMARKS
- * @param ctx { THREE?, rng?, helpers?, backdropScale? } — nothing is required; the module is self-contained.
- * @returns { mesh: THREE.Group (rotation applied, position at origin), clear: footprintRadius,
- *            collision: [{x, z, hw, hd, angle}] relative to the anchor in world axes, triangles }
+ * @param ctx { THREE?, rng?, helpers?, backdropScale?, realScale? } — nothing is required; the module is self-contained.
+ *            realScale: true builds Seattle models at 1:1 (district mode, spec 10). Without it (legacy corridor world)
+ *            Seattle models stay squashed by SEA_SCALE on x/z — kept until the spec 22 cleanup.
+ * @returns { mesh: THREE.Group (rotation applied, position at origin), clear: footprintRadius (legacy units) / clearM (real m),
+ *            collision: [{x, z, hw, hd, angle}] relative to the anchor in world axes, triangles,
+ *            authoredScale: x/z scale the model was built at (1, or SEA_SCALE for legacy Seattle) }
  */
 export function buildLandmark(lm, ctx = {}) {
-    const hs = lm.city === 'seattle' ? SEA_SCALE : 1;
+    const hs = lm.city === 'seattle' && !ctx.realScale ? SEA_SCALE : 1;
     const b = new Builder(hs);
     lm._fn(b, ctx);
     const { group, tris } = b.finish();
@@ -1826,5 +1840,5 @@ export function buildLandmark(lm, ctx = {}) {
         const x = q.x * hs, z = q.z * hs;
         return { x: x * c + z * s, z: -x * s + z * c, hw: q.hw * hs, hd: q.hd * hs, angle: lm.rotation + q.angle };
     });
-    return { mesh: group, clear: lm.footprintRadius, collision, triangles: tris };
+    return { mesh: group, clear: hs === 1 ? lm.radiusM : lm.footprintRadius, clearM: lm.radiusM, collision, triangles: tris, authoredScale: hs };
 }

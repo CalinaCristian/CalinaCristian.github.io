@@ -1,6 +1,6 @@
 # Bucharest — Pipera (Dimitrie Pompeiu) (`pipera`): field research dossier
 
-Role: research-buc-districts · generated 2026-11-06 22:54 UTC · machine-readable twin: `bucharest-pipera.json` · images: `refs/pipera/` (see LICENSES.md).
+Role: research-buc-districts · generated 2026-11-06 23:08 UTC · machine-readable twin: `bucharest-pipera.json` · images: `refs/pipera/` (see LICENSES.md).
 
 Every OSM-derived fact is keyed by OSM id (w = way, n = node, r = relation) and comes from the OSM API 0.6 snapshot of 2026-11-06 [osm]. Bracketed keys like [wp_lascar] point to the **Sources** table at the end. Confidence: *high* = OSM/official/encyclopedic; *medium* = consistent across photos/common knowledge, verify on refs; *low* = estimate.
 
@@ -9,12 +9,12 @@ Every OSM-derived fact is keyed by OSM id (w = way, n = node, r = relation) and 
 | metric | value |
 |---|---|
 | route_streets | Bulevardul Dimitrie Pompeiu, Calea Floreasca, Strada Gara Herăstrău, Strada George Constantinescu, Șoseaua Fabrica de Glucoză, Șoseaua Pipera |
-| route_streets_researched | Bulevardul Dimitrie Pompeiu, Calea Floreasca, Strada Gara Herăstrău, Strada George Constantinescu, Șoseaua Fabrica de Glucoză |
+| route_streets_researched | Bulevardul Dimitrie Pompeiu, Calea Floreasca, Strada Gara Herăstrău, Strada George Constantinescu, Șoseaua Fabrica de Glucoză, Șoseaua Pipera |
 | fronting_route_buildings | 39 |
 | fronting_route_with_height | 53.8 |
 | fronting_route_with_colour | 5.1 |
 | fronting_route_researched | 7.7 |
-| fronting_route_with_street_frontage_rule | 94.9 |
+| fronting_route_with_street_frontage_rule | 100.0 |
 | fronting_route_with_storeys_any_source | 100.0 |
 | fronting_route_with_facade_hex_any | 59.0 |
 | fronting_main_buildings | 103 |
@@ -100,6 +100,8 @@ Per-segment OSM data (lanes, turn:lanes, bus lanes, parking, trolley wires, spee
 - Transit lines (OSM route relations): bus 112, bus 135, bus 343, bus 416, bus 449, bus 459.
 - OSM furniture: {'lift_gate': 8, 'parking_entrance': 2}.
 - Fronting buildings: 18; businesses: 18.
+- **cross_section**: one-way pairs 2–3 lanes (secondary, 50 km/h) between Floreasca Park and the Pipera bridge; buses 112, 135, 343, 416, 449, 459; Floreasca Park office campus (Oracle, AFI) on the W side, rail line and Gara Herăstrău nearby
+- confidence: high (OSM) [osm]
 
 ### Bulevardul Dimitrie Pompeiu (chapter route)
 
@@ -444,6 +446,19 @@ Culture notes:
 - HBC1/HBC2/HBC3 footprints not split in OSM
 - Luxoft 2017 site (Hermes vs Novo E) assumed Hermes per owner
 - Pompeiu widening works status (Nov 2026)
+
+## Reference images (`refs/pipera/`, 8 files, licences in LICENSES.md)
+
+| file | taken | near | licence | facade-texture candidate |
+|---|---|---|---|---|
+| Sky_Tower_level_35_Floreasca_Lake_-_panoramio.jpg | Taken on 2 | Pipera bridge / Barbu Văcărescu | CC BY 3.0 |  |
+| View_from_Sky_Tower_level_35_to_the_South_-_panoramio.jpg | Taken on 2 | Pipera bridge / Barbu Văcărescu | CC BY 3.0 |  |
+| View_from_Sky_Tower_level_35_to_the_North-West_of_Bucharest_-_panoramio.jpg | Taken on 2 | Pipera bridge / Barbu Văcărescu | CC BY 3.0 |  |
+| Sky_Tower_in_Winter_20160223_083746_1PS_28802141231_.jpg | Taken on 2 | Novo Park | CC BY 2.0 |  |
+| Cugir_Mosin-Nagant_M44_carbine.jpg | 05.11.2020 | Pipera bridge / Barbu Văcărescu | CC BY-SA 4.0 |  |
+| Pu_ca_ZB_model_1924_cu_vergea_i_baionet_.jpg | 05.11.2020 | Pipera bridge / Barbu Văcărescu | CC BY-SA 4.0 |  |
+| SkyTower_in_the_urban_wilderness_20151028_101210_1PS_23383531113_.jpg | Taken on 2 | Novo Park | CC BY 2.0 |  |
+| Sector_2_Bucharest_Romania_-_panoramio_3_.jpg | Taken on 2 | Pipera bridge / Barbu Văcărescu | CC BY 3.0 |  |
 
 ## Sources
 

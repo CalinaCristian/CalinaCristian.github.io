@@ -838,6 +838,7 @@ export class Traffic {
                 if (Math.abs(l) > v.width * 0.5 + ol + 0.3) return;
                 const hd = o.fx * fx + o.fz * fz;
                 if (hd < -0.3) return; // oncoming
+                if (o.leader === v && v.speed < 0.5 && o.speed < 0.5 && v.id < o.id) return; // each waiting for the other (merge / box): the lower id goes
                 const of = Math.abs(o.fx * fx + o.fz * fz) * o.length * 0.5 + Math.abs(o.rx * fx + o.rz * fz) * o.width * 0.5;
                 let g = f - half - of;
                 const cross = hd < 0.5;
@@ -927,7 +928,7 @@ export class Traffic {
                     if (this.laneFree(v, v.lane - 1)) { v.lane--; v.laneChangeCd = 2; }
                     // wait for a gap before the line; already at / past it (or waited long): merge on the move,
                     // car-following and the junction claim keep it off the others (a stop inside the box locks the junction)
-                    else if (D - rad - 1.5 > -0.5 && v.stuck < 6) { const _d = D - rad - 1.5; if (_d < stopD) { stopD = _d; stopWhy = 'lanedrop'; } }
+                    else if (D - rad - 1.5 > -0.5 && v.stuck < 3) { const _d = D - rad - 1.5; if (_d < stopD) { stopD = _d; stopWhy = 'lanedrop'; } }
                 } else if (v.lane > nl - 1) { /* far: handled when closer */ }
                 else if (v.laneCur > nl - 1 + 0.25 && D - rad < 6) { const _d = D - rad - 1.5; if (_d < stopD) { stopD = _d; stopWhy = 'lanedrop2'; } } // still sliding over
             }

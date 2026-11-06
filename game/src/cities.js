@@ -108,9 +108,10 @@ const BUC_DISTRICTS = {
         name: 'Pipera', label: 'Bd. Dimitrie Pompeiu, Barbu Văcărescu north, Hermes / Novo Park',
         bbox: [44.4745, 26.1010, 44.4900, 26.1240], center: { lat: 44.4822, lon: 26.1125 },
         landmarks: ['hermes'],
-        congestion: [
-            { lat: 44.4850, lon: 26.1160, radius: 250, hours: RUSH, level: 0.9, note: 'Bd. Dimitrie Pompeiu (Pipera offices)' },
-            { lat: 44.4795, lon: 26.1095, radius: 160, hours: RUSH, level: 0.7, note: 'Barbu Văcărescu × Pipera bridge' },
+        congestion: [ // from game/research/bucharest-pipera.json traffic.hotspots
+            { lat: 44.48020, lon: 26.11400, radius: 300, hours: [[8,  10.5],  [16.5,  20]], level: 0.95, note: 'Bd. Dimitrie Pompeiu (whole street)' },
+            { lat: 44.47750, lon: 26.10450, radius: 220, hours: [[8,  10],  [16.5,  19.5]], level: 0.85, note: 'Barbu Văcărescu × Fabrica de Glucoză (Sky Tower)' },
+            { lat: 44.48400, lon: 26.11400, radius: 200, hours: [[7.5,  10],  [17,  20]], level: 0.75, note: 'Șos. Pipera / Podul Pipera' },
         ],
     },
     otopeni: {
@@ -121,9 +122,9 @@ const BUC_DISTRICTS = {
             { lat: 44.5712, lon: 26.0850, name: 'Otopeni terminal' }],
         circles: [{ lat: 44.5712, lon: 26.0850, r: 600, name: 'OTP terminal' }],
         landmarks: ['otp'],
-        congestion: [
-            { lat: 44.5600, lon: 26.0700, radius: 300, hours: RUSH, level: 0.6, note: 'DN1 Otopeni (towards Băneasa)' },
-            { lat: 44.5705, lon: 26.0830, radius: 150, hours: [[5, 8], [16, 20]], level: 0.4, note: 'OTP departures kerb' },
+        congestion: [ // from game/research/bucharest-otopeni.json traffic.hotspots
+            { lat: 44.56200, lon: 26.06970, radius: 400, hours: [[7,  10],  [16.5,  20]], level: 0.65, note: 'DN1 southbound towards Băneasa (Otopeni)' },
+            { lat: 44.56960, lon: 26.07700, radius: 150, hours: [[4.5,  7.5],  [15,  20]], level: 0.45, note: 'Departures kerb / ramp' },
         ],
     },
 };

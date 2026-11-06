@@ -477,7 +477,7 @@ async function capture(routeId, i) {
         await sheet(`${S.cityKey}-${routeId}-aerial`, { title: `${S.cityKey} · ${r.spec.label} · top-down ${S.opts.size} m tiles every ${S.opts.aerialEvery} m (car at centre, driving up; circles = geometry findings)`, tw: 640, th: 640 }).add(a.c, `${lb.title} · aerial`, lb.sub, af, aerialMarks(a.cam, a.sq, near));
     }
     lap('aerial');
-    return { i, idx, s: Math.round(sm.s), x: Math.round(sm.x * 10) / 10, z: Math.round(sm.z * 10) / 10, street: lb.w.street, flags, ms: Math.round(performance.now() - t0), tm, z: zf ? +zf.frac.toFixed(4) : null };
+    return { i, idx, s: Math.round(sm.s), x: Math.round(sm.x * 10) / 10, z: Math.round(sm.z * 10) / 10, street: lb.w.street, flags, ms: Math.round(performance.now() - t0), tm, zfight: zf ? +zf.frac.toFixed(4) : null };
 }
 
 // ------------------------------------------------------------------ focused aerial crops for geometry findings
@@ -527,12 +527,21 @@ async function addCockpitTile(dataUrl, lbl, sub) {
 // ------------------------------------------------------------------ offices (lobby sign etc.)
 async function offices() {
     const out = [];
-    for (const stop of (g.stops || []).filter(s => s.poiRef)) {
+    // every stop of this city (the lobby does not need the stop's building in the current district world)
+    let stops = (g.stops || []).slice();
+    try { const d = await import('../../../../src/data.js'); if (Array.isArray(d.STOPS)) stops = d.STOPS.filter(s => s.city === g.city.id); } catch { /* ignore */ }
+    for (const stop of stops) {
         try {
             g.enterOffice(stop);
             const o = g.office; S.renderNow = true; try { o.update?.(0); o.render(); } finally { S.renderNow = false; }
             const c = grab(g.renderer.domElement.width, g.renderer.domElement.height);
-            await sheet(`offices-${S.cityKey}`, { title: `${S.cityKey} · office lobbies (entrance view)` }).add(c, `${stop.id} · ${stop.company || ''}`, `${stop.role || ''} · ${stop.period || ''}`);
+            const sh = sheet(`offices-${g.city.id}`, { title: `${g.city.id} · office lobbies (entrance view + lobby sign close-up)` });
+            await sh.add(c, `${stop.id} · ${stop.company || ''}`, `${stop.role || ''} · ${stop.period || ''}`);
+            // close-up of the lobby sign (back wall, ~8 m away): text cut / overflowing the sign shows here
+            try {
+                if (o.camRig) { o.camRig.position.set(0, 1.75, -9); o.camRig.rotation.set(0.12, 0, 0); o.camRig.updateMatrixWorld(true); S.renderNow = true; try { o.render(); } finally { S.renderNow = false; } }
+                await sh.add(grab(g.renderer.domElement.width, g.renderer.domElement.height), `${stop.id} · lobby sign close-up`, `${stop.company || ''}`);
+            } catch (e) { note('office sign ' + stop.id + ': ' + e.message); }
             g.leaveOffice();
             out.push(stop.id);
         } catch (e) { note('office ' + stop.id + ': ' + e.message); try { if (g.state === 'office') g.leaveOffice(); } catch { /* ignore */ } }

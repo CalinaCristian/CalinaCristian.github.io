@@ -469,7 +469,9 @@ class Game {
         if (!prompt) prompt = this.updateFuelStops(dt, v);
         if (!prompt && this.stuckT > 2) prompt = '<kbd>R</kbd> Stuck? Reset to the road <small>(nearest lane, facing the traffic flow)</small>';
         hud.prompt(prompt);
-        hud.setHint(this.touch ? '' : 'W/S drive · A/D steer · Space brake · H horn · C look back · M map & nav · F fast travel · R reset · N mini-map · L lights · E enter/refuel');
+        const st = this.r3d.stats;
+        const perf = st ? ` · ${st.quality}${st.fps ? ` · ${st.fps} fps` : ''}` : '';
+        hud.setHint(this.touch ? perf.trim() : 'W/S drive · A/D steer · Space brake · H horn · C look back · M map & nav · F fast travel · R reset · N mini-map · L lights · E enter/refuel' + perf);
         // ---- HUD fuel / trip ----
         const frac = this.fuel / TANK_L;
         const fuelText = us ? `${Math.round(frac * 100)}% · ${(this.fuel / GAL).toFixed(1)} gal` : `${Math.round(frac * 100)}% · ${this.fuel.toFixed(1)} L`;

@@ -53,7 +53,17 @@ export class Office {
         const sign = new THREE.Mesh(new THREE.PlaneGeometry(12, 3), new THREE.MeshBasicMaterial({ map: makeCanvasTexture(1024, 256, (ctx) => {
             ctx.fillStyle = '#0f1115'; ctx.fillRect(0, 0, 1024, 256); ctx.fillStyle = '#' + accent.getHexString(); ctx.fillRect(0, 236, 1024, 20);
             ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; let f = 84; ctx.font = `bold ${f}px Helvetica, Arial`; while (ctx.measureText(s.company).width > 960 && f > 30) { f -= 4; ctx.font = `bold ${f}px Helvetica, Arial`; }
-            ctx.fillText(s.company, 512, 95); ctx.font = '44px Helvetica, Arial'; ctx.fillStyle = '#cbd5e1'; ctx.fillText(`${s.role} · ${s.period}`, 512, 180);
+            ctx.fillText(s.company, 512, 95);
+            // subtitle: shrink to fit, then wrap onto two lines if it still doesn't fit
+            const sub = `${s.role} · ${s.period}`; let sf = 44; ctx.font = `${sf}px Helvetica, Arial`; ctx.fillStyle = '#cbd5e1';
+            while (ctx.measureText(sub).width > 940 && sf > 30) { sf -= 2; ctx.font = `${sf}px Helvetica, Arial`; }
+            if (ctx.measureText(sub).width <= 940) ctx.fillText(sub, 512, 180);
+            else {
+                const words = sub.split(' '); let l1 = '';
+                for (const w of words) { if (ctx.measureText((l1 + ' ' + w).trim()).width > 940) break; l1 = (l1 + ' ' + w).trim(); }
+                const l2 = sub.slice(l1.length).trim();
+                ctx.fillText(l1, 512, 162); ctx.fillText(l2, 512, 205);
+            }
         }) }));
         sign.position.set(0, 2.55, -D / 2 + 0.2); this.scene.add(sign);
         // accent stripe

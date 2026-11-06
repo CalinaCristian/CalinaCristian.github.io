@@ -192,8 +192,18 @@ export class Player {
     }
 
     updateRig(dt) {
-        this.rig.position.set(this.x, 0.24, this.z);
-        this.rig.rotation.y = this.heading;
+        // follow the road's vertical profile (bridges, overpasses, tunnels) when the world provides it
+        let y = 0.24, pitch = 0;
+        if (this.world && typeof this.world.roadHeight === 'function') {
+            const hC = this.world.roadHeight(this.x, this.z);
+            const hF = this.world.roadHeight(this.x + this.fx * 2.2, this.z + this.fz * 2.2);
+            const hB = this.world.roadHeight(this.x - this.fx * 2.2, this.z - this.fz * 2.2);
+            y = hC; pitch = Math.atan2(hF - hB, 4.4);
+        }
+        if (this.y === undefined || !dt) { this.y = y; this.pitch = pitch; }
+        else { this.y = damp(this.y, y, 14, dt); this.pitch = damp(this.pitch || 0, pitch, 10, dt); }
+        this.rig.position.set(this.x, this.y, this.z);
+        this.rig.rotation.set(this.pitch, this.heading, 0, 'YXZ');
         // body roll / pitch
         const roll = -this.steerVisual * clamp(Math.abs(this.speed) / 25, 0, 1) * 0.035;
         this.rig.rotation.z = roll;

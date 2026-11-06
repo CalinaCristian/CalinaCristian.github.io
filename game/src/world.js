@@ -439,7 +439,7 @@ export async function buildWorld(city, renderer) {
 
     // ---- strongly connected components (one-way aware): only the main SCC is drivable / routable
     let sccInfo;
-    {
+    const computeSCC = () => {
         const N = nodeArr.length;
         const out = Array.from({ length: N }, () => []), inn = Array.from({ length: N }, () => []);
         for (const e of edges) { out[e.a.id].push(e.b.id); inn[e.b.id].push(e.a.id); if (!e.oneway) { out[e.b.id].push(e.a.id); inn[e.a.id].push(e.b.id); } }
@@ -470,6 +470,26 @@ export async function buildWorld(city, renderer) {
         for (const e of edges) par[f(e.a.id)] = f(e.b.id);
         const wcc = new Set(); for (const n of nodeArr) if (n.edges.length) wcc.add(f(n.id));
         sccInfo = { scc: nc, mainNodes: sizes[main], nodesOutside: nodeArr.filter(n => n.edges.length && !n.drivable).length, edgesOff: off, weakComponents: wcc.size };
+    };
+    computeSCC();
+    // one-way streets around the CV stops that are traps (not in the main network) become two-way,
+    // so every stop's own street is reachable (e.g. Str. Vasile Alecsandri at UiPath HQ)
+    {
+        let flipped = 0;
+        for (const p of city.pois || []) {
+            const q = city.proj(p.lat, p.lon);
+            edgesInBox(q.x - 180, q.z - 180, q.x + 180, q.z + 180, (e) => {
+                if (e.drivable || !e.oneway || /motorway|trunk|primary/.test(e.type)) return;
+                e.oneway = false; e.lanesB = 1; e.median = 0; e.lanes = Math.max(e.lanesF, 1);
+                e.wR = e.lanesF * e.laneW; e.wL = e.laneW; e.halfW = Math.max(e.wR, e.wL); e.madeTwoWay = true;
+                flipped++;
+            });
+        }
+        if (flipped) {
+            for (const n of nodeArr) if (n.edges.length) n.radius = Math.max(...n.edges.map(e => e.halfW)) + 0.5;
+            computeSCC();
+            sccInfo.twoWayFixups = flipped;
+        }
     }
 
     // refine tram flag per edge using the actual tram geometry
@@ -484,6 +504,43 @@ export async function buildWorld(city, renderer) {
             e.tram = d < e.halfW + 4;
         }
     }
+
+    // ---- vertical profile: bridges / overpasses raised 6 m per layer, tunnels lowered 6 m per layer,
+    //      with linear ramps (10 % grade) along the connected ground approaches. node.y / edge.ya / edge.yb
+    //      are the vertical displacement of the road surface (the asphalt top is at 0.24 + y).
+    const LAYER_H = 6, GRADE = 0.1;
+    {
+        for (const e of edges) e.L = e.virtual ? 0 : Math.max(-2, Math.min(3, e.bridge ? Math.max(1, e.layer) : e.tunnel ? Math.min(-1, e.layer) : 0));
+        const fixed = [];
+        for (const n of nodeArr) {
+            n.y = 0;
+            const lv = n.edges.filter(e => e.L !== 0).map(e => e.L);
+            if (!lv.length) continue;
+            const L = lv.reduce((a, b) => (Math.abs(b) > Math.abs(a) ? b : a), 0);
+            n.y = L * LAYER_H; n.yFixed = true; fixed.push(n);
+        }
+        // ramps: ground nodes get max |y| over anchors of H·(1 - d/(|H|/GRADE)), d = distance along ground edges
+        const best = new Map();
+        for (const a of fixed) {
+            const H = a.y, R = Math.abs(H) / GRADE;
+            const dist = new Map([[a, 0]]); const queue = [[a, 0]];
+            while (queue.length) {
+                queue.sort((p, q) => p[1] - q[1]);
+                const [n, d] = queue.shift();
+                if (d > dist.get(n)) continue;
+                for (const e of n.edges) {
+                    if (e.L !== 0) continue;
+                    const o = e.a === n ? e.b : e.a; const nd = d + e.len;
+                    if (nd >= R || o.yFixed) continue;
+                    if (nd < (dist.get(o) ?? Infinity)) { dist.set(o, nd); queue.push([o, nd]); }
+                }
+            }
+            for (const [n, d] of dist) { if (n === a) continue; const y = H * (1 - d / R); const cur = best.get(n); if (cur === undefined || Math.abs(y) > Math.abs(cur)) best.set(n, y); }
+        }
+        for (const [n, y] of best) n.y = y;
+        for (const e of edges) { e.ya = e.a.y; e.yb = e.b.y; }
+    }
+    const yAlong = (e, x, z) => { const t = clamp(((x - e.a.x) * e.dirx + (z - e.a.z) * e.dirz) / e.len, 0, 1); return e.ya + (e.yb - e.ya) * t; };
 
     // ---- traffic lights: move stop-line signals onto the junction they control, then cluster
     for (const n of nodeArr) {
@@ -538,7 +595,7 @@ export async function buildWorld(city, renderer) {
     const cellOf = (x, z) => {
         const i = Math.floor(x / CELL), j = Math.floor(z / CELL), k = i * 10007 + j;
         let c = cells.get(k);
-        if (!c) cells.set(k, c = { i, j, solid: new MeshBuilder(true), ground: new MeshBuilder(), marks: new MeshBuilder(), water: new MeshBuilder(), signs: [] });
+        if (!c) cells.set(k, c = { i, j, solid: new MeshBuilder(true), ground: new MeshBuilder(), area: new MeshBuilder(), marks: new MeshBuilder(), water: new MeshBuilder(), signs: [] });
         return c;
     };
     const signMB = (c, page) => c.signs[page] || (c.signs[page] = new MeshBuilder());
@@ -574,14 +631,9 @@ export async function buildWorld(city, renderer) {
     const isWater = (x, z) => { let w = false; waterGrid.each(x, z, x, z, (a) => { if (!w && inArea(a, x, z)) w = true; }); return w; };
     const isPark = (x, z) => { let w = false; parkGrid.each(x, z, x, z, (a) => { if (!w && inArea(a, x, z)) w = true; }); return w; };
     const bigWater = new MeshBuilder();
-    // base ground per cell (a single huge plane breaks down on some GPUs / software GL: clipped giant triangles)
-    {
-        const gcol = rgb(env.ground);
-        for (let i = Math.floor(bounds.minX / CELL); i <= Math.floor(bounds.maxX / CELL); i++) for (let j = Math.floor(bounds.minZ / CELL); j <= Math.floor(bounds.maxZ / CELL); j++) {
-            const x0 = i * CELL, z0 = j * CELL;
-            cellOf(x0 + 1, z0 + 1).ground.flatQuad(x0, z0, x0 + CELL, z0, x0 + CELL, z0 + CELL, x0, z0 + CELL, 0.0, gcol, 1 / 12);
-        }
-    }
+    // flat ground layers do not write depth (drawn first, in this order) → no z-fighting, sunken roads stay visible
+    const AREA_ORDER = ['residential', 'industrial', 'commercial', 'retail', 'railway', 'construction', 'cemetery', 'grass', 'scrub', 'forest', 'park', 'pitch', 'parking', 'apron', 'runway', 'water'];
+    areas.sort((p, q) => AREA_ORDER.indexOf(p.kind) - AREA_ORDER.indexOf(q.kind));
     for (const a of areas) {
         const { pts, tris } = triangulate(a.outer, a.holes);
         if (!tris.length) continue;
@@ -591,7 +643,7 @@ export async function buildWorld(city, renderer) {
             const target = (a.x1 - a.x0 > CELL * 2 || a.z1 - a.z0 > CELL * 2) ? bigWater : cellOf((a.x0 + a.x1) / 2, (a.z0 + a.z1) / 2).water;
             target.flatPoly(pts, tris, y, col, 0.02);
         } else {
-            cellOf((a.x0 + a.x1) / 2, (a.z0 + a.z1) / 2).ground.flatPoly(pts, tris, y, col, 0.1);
+            cellOf((a.x0 + a.x1) / 2, (a.z0 + a.z1) / 2).area.flatPoly(pts, tris, y, col, 0.1);
         }
     }
     // runways / rivers as ribbons
@@ -602,7 +654,7 @@ export async function buildWorld(city, renderer) {
         for (let i = 0; i < pts.length - 1; i++) {
             const [ax, az] = pts[i], [bx, bz] = pts[i + 1]; const L = Math.hypot(bx - ax, bz - az); if (L < 0.1) continue;
             const nx = -(bz - az) / L * w / 2, nz = (bx - ax) / L * w / 2;
-            const tgt = kind === 'runway' || kind === 'taxiway' ? cellOf(ax, az).ground : cellOf(ax, az).water;
+            const tgt = kind === 'runway' || kind === 'taxiway' ? cellOf(ax, az).area : cellOf(ax, az).water;
             tgt.flatQuad(ax + nx, az + nz, bx + nx, bz + nz, bx - nx, bz - nz, ax - nx, az - nz, y, col, 0.05);
             if (kind === 'runway') for (let s = 10; s < L - 10; s += 50) { const ux = (bx - ax) / L, uz = (bz - az) / L; const cx = ax + ux * s, cz = az + uz * s; const hw = 0.5, hl = 15; cellOf(cx, cz).marks.flatQuad(cx - uz * hw, cz + ux * hw, cx - uz * hw + ux * hl * 2, cz + ux * hw + uz * hl * 2, cx + uz * hw + ux * hl * 2, cz - ux * hw + uz * hl * 2, cx + uz * hw, cz - ux * hw, y + 0.02, rgb('#e8e8e8')); }
         }
@@ -616,7 +668,7 @@ export async function buildWorld(city, renderer) {
     const sideCol = rgb(env.sidewalk);
     const kerbCol = shadeRgb(rgb(env.sidewalk), 1.18);
     const white = rgb('#e9e9e6'), yellow = rgb('#e3b341'), busCol = rgb('#8a3b34'), railCol = rgb('#55524e'), ballastCol = rgb('#6d6861');
-    const layerY = (e) => (e.tunnel ? -0.05 : Math.max(0, Math.min(3, e.layer)) * Y.layer);
+    const layerY = () => 0; // real heights are applied per vertex (node.y), see displace()
     const shoulderOf = (e) => (/motorway|trunk/.test(e.type) ? (e.type.endsWith('_link') ? 0.6 : 1.2) : 0.15);
     const asphaltOf = (e) => {
         if (e.unpaved) return rgb('#6b645b');
@@ -684,10 +736,15 @@ export async function buildWorld(city, renderer) {
     const lampSpots = [];
     const treeSpots = [];
     const dash = US ? [3, 9] : [3, 5];
+    const displace = (mb, from, fn) => { for (let i = from; i < mb.vc; i++) mb.p[i * 3 + 1] += fn(mb.p[i * 3], mb.p[i * 3 + 2]); };
+    const raised = [];
     for (const e of edges) {
         if (e.virtual) continue; // invisible U-turn connectors
         const mx = (e.a.x + e.b.x) / 2, mz = (e.a.z + e.b.z) / 2;
         const c = cellOf(mx, mz);
+        const v0g = c.ground.vc, v0m = c.marks.vc, v0s = c.solid.vc;
+        const elevated = Math.abs(e.ya) > 0.01 || Math.abs(e.yb) > 0.01;
+        if (elevated) raised.push(e);
         const ly = layerY(e);
         const yR = Y.road + ly, yS = Y.side + ly, yM = Y.road + ly + Y.mark;
         const aR = corner(e, e.a, 1, widthAsphalt(e, 1), widthAsphalt), aL = corner(e, e.a, -1, widthAsphalt(e, -1), widthAsphalt);
@@ -805,14 +862,56 @@ export async function buildWorld(city, renderer) {
             if (big && !e.bridge) for (let s = ra + ((e.id * 7) % 30); s < rb; s += 35) {
                 for (const sd of [1, -1]) {
                     const o = (sd > 0 ? e.wR : e.wL) + shoulderOf(e) + Math.min(0.7, e.sidewalk * 0.3);
-                    lampSpots.push([e.a.x + e.dirx * s + e.nx * o * sd, e.a.z + e.dirz * s + e.nz * o * sd, Math.atan2(e.nz * sd, -e.nx * sd), ly, 8]);
+                    lampSpots.push([e.a.x + e.dirx * s + e.nx * o * sd, e.a.z + e.dirz * s + e.nz * o * sd, Math.atan2(e.nz * sd, -e.nx * sd), e.ya + (e.yb - e.ya) * s / e.len, 8]);
                 }
             }
             if (!e.bridge && (treeStreet || (e.sidewalk >= 3 && !US && rng.chance(0.75)))) {
                 const step = treeStreet ? 9 : 15;
                 for (let s = ra + 3; s < rb; s += step * rng.range(0.85, 1.15)) for (const sd of [1, -1]) {
                     const o = (sd > 0 ? e.wR : e.wL) + shoulderOf(e) + Math.max(1.4, e.sidewalk * 0.55);
-                    treeSpots.push([e.a.x + e.dirx * s + e.nx * o * sd, e.a.z + e.dirz * s + e.nz * o * sd, rng.range(0.8, 1.2), 'street']);
+                    if (!elevated) treeSpots.push([e.a.x + e.dirx * s + e.nx * o * sd, e.a.z + e.dirz * s + e.nz * o * sd, rng.range(0.8, 1.2), 'street']);
+                }
+            }
+        }
+        if (elevated) { const f = (x, z) => yAlong(e, x, z); displace(c.ground, v0g, f); displace(c.marks, v0m, f); displace(c.solid, v0s, f); }
+    }
+    // structures under / beside elevated and sunken roads
+    for (const e of raised) {
+        const c = cellOf((e.a.x + e.b.x) / 2, (e.a.z + e.b.z) / 2);
+        const sb = c.solid;
+        const conc = rgb('#a9a69e'), dark = rgb('#55524d');
+        const wr = widthSide(e, 1), wl = widthSide(e, -1);
+        const P = (s2, o, y) => [e.a.x + e.dirx * s2 + e.nx * o, y, e.a.z + e.dirz * s2 + e.nz * o];
+        const yA = e.ya + Y.road, yB = e.yb + Y.road;
+        const up = Math.max(e.ya, e.yb) > 0.3, down = Math.min(e.ya, e.yb) < -0.3;
+        if (up && e.bridge) {
+            // deck fascia + underside + piers
+            for (const [o, sgn] of [[wr, 1], [-wl, -1]]) sb.face4(P(0, o, yA - 1.1), P(e.len, o, yB - 1.1), P(e.len, o, yB + 0.05), P(0, o, yA + 0.05), conc, [e.nx * sgn, 0, e.nz * sgn]);
+            sb.face4(P(0, wr, yA - 1.1), P(e.len, wr, yB - 1.1), P(e.len, -wl, yB - 1.1), P(0, -wl, yA - 1.1), dark, [0, -1, 0]);
+            const hw = Math.max(wr, wl);
+            for (let s2 = (e.id * 13) % 24 + 6; s2 < e.len - 3; s2 += 26) {
+                const y = e.ya + (e.yb - e.ya) * s2 / e.len + Y.road - 1.1; if (y < 1.2) continue;
+                const cols = hw > 7 ? [-hw * 0.55, hw * 0.55] : [0];
+                for (const o of cols) { const q = P(s2, o, 0); sb.box(q[0], 0, q[2], 1.3, y, 1.3, Math.atan2(e.dirx, e.dirz), conc); }
+            }
+        } else if (up) {
+            // ramp on an embankment: retaining walls down to the ground
+            for (const [o, sgn] of [[wr, 1], [-wl, -1]]) sb.face4(P(0, o, 0), P(e.len, o, 0), P(e.len, o, Math.max(0, yB)), P(0, o, Math.max(0, yA)), conc, [e.nx * sgn, 0, e.nz * sgn]);
+        }
+        if (down) {
+            // trench / tunnel walls facing the road, from the road up to street level
+            for (const [o, sgn] of [[wr, -1], [-wl, 1]]) sb.face4(P(0, o, Math.min(yA, 0)), P(e.len, o, Math.min(yB, 0)), P(e.len, o, 0.4), P(0, o, 0.4), conc, [e.nx * sgn, 0, e.nz * sgn]);
+            if (e.tunnel) {
+                const ca = yA + 5.2, cb = yB + 5.2;
+                sb.face4(P(0, wr, ca), P(e.len, wr, cb), P(e.len, -wl, cb), P(0, -wl, ca), dark, [0, -1, 0]); // ceiling
+                c.ground.face4(P(0, wr + 0.3, 0.06), P(e.len, wr + 0.3, 0.06), P(e.len, -wl - 0.3, 0.06), P(0, -wl - 0.3, 0.06), rgb(env.ground), [0, 1, 0]); // lid at street level
+                // portal facade where the tunnel opens onto a non-tunnel road
+                for (const n of [e.a, e.b]) {
+                    if (!n.allEdges && n.edges.every(f => f.tunnel)) continue;
+                    if (n.edges.every(f => f.tunnel || f.virtual)) continue;
+                    const s2 = n === e.a ? 0 : e.len, yc = (n === e.a ? ca : cb);
+                    const out = n === e.a ? -1 : 1;
+                    sb.face4(P(s2, wr + 0.5, yc), P(s2, -wl - 0.5, yc), P(s2, -wl - 0.5, 1.2), P(s2, wr + 0.5, 1.2), rgb('#6b6862'), [e.dirx * out, 0, e.dirz * out]);
                 }
             }
         }
@@ -821,8 +920,8 @@ export async function buildWorld(city, renderer) {
     for (const [n, o] of padCorners) {
         const c = cellOf(n.x, n.z);
         const ly = Math.max(0, Math.min(...n.edges.map(layerY)));
-        if (o.side.length >= 3) c.ground.flatFan(convexHull(o.side), Y.side + ly - 0.004, sideCol, 0.25);
-        if (o.road.length >= 3) c.ground.flatFan(convexHull(o.road), Y.road + ly + 0.004, asphaltOf(n.edges[0]), 0.15);
+        if (o.side.length >= 3) c.ground.flatFan(convexHull(o.side), Y.side + ly - 0.004 + n.y, sideCol, 0.25);
+        if (o.road.length >= 3) c.ground.flatFan(convexHull(o.road), Y.road + ly + 0.004 + n.y, asphaltOf(n.edges[0]), 0.15);
     }
     // tram tracks
     for (const pl of trams) {
@@ -876,7 +975,13 @@ export async function buildWorld(city, renderer) {
             res.mesh.position.set(p.x, res.mesh.position.y || 0.12, p.z);
             // models are authored at 1:1 (Seattle ones already squashed to 0.5) → match the world's x/z scale
             const lk = lm.city === 'seattle' ? 1 : data.proj.scale;
-            if (lk !== 1 && !lm.backdrop) { res.mesh.scale.x *= lk; res.mesh.scale.z *= lk; }
+            // in the compressed DN1 strip (Băneasa → Otopeni) the city is squashed north–south: squash the model too
+            const cf = (!lm.backdrop && data.proj.compress && lm.lat > data.proj.compress.above) ? data.proj.compress.factor : 1;
+            if (cf !== 1) {
+                const wrap = new THREE.Group(); wrap.name = 'landmark-wrap:' + lm.id;
+                wrap.position.copy(res.mesh.position); res.mesh.position.set(0, 0, 0);
+                wrap.scale.set(lk, 1, lk * cf); wrap.add(res.mesh); res.mesh = wrap;
+            } else if (lk !== 1 && !lm.backdrop) { res.mesh.scale.x *= lk; res.mesh.scale.z *= lk; }
             if (lm.backdrop) { lmGroup.add(res.mesh); res.mesh.traverse(o => { if (o.isMesh) o.frustumCulled = false; }); continue; }
             res.mesh.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
             lmGroup.add(res.mesh);
@@ -887,7 +992,13 @@ export async function buildWorld(city, renderer) {
                 const nm = b.name.toLowerCase();
                 if ((nm && names.some(n => nm.includes(n))) || Math.hypot(b.c[0] - p.x, b.c[1] - p.z) < R) b.skip = true;
             });
-            for (const cb of res.collision || []) collisionBoxes.push({ x: p.x + cb.x * lk, z: p.z + cb.z * lk, hw: cb.hw * lk, hd: cb.hd * lk, angle: cb.angle || 0, r: Math.hypot(cb.hw, cb.hd) * lk, h: 20, poly: null });
+            for (const cb of res.collision || []) {
+                if (cf !== 1) { // axis-aligned bounds of the rotated box, squashed N–S
+                    const a = cb.angle || 0, ex = Math.abs(cb.hw * Math.cos(a)) + Math.abs(cb.hd * Math.sin(a)), ez = Math.abs(cb.hw * Math.sin(a)) + Math.abs(cb.hd * Math.cos(a));
+                    const hw = ex * lk, hd = ez * lk * cf;
+                    collisionBoxes.push({ x: p.x + cb.x * lk, z: p.z + cb.z * lk * cf, hw, hd, angle: 0, r: Math.hypot(hw, hd), h: 20, poly: null });
+                } else collisionBoxes.push({ x: p.x + cb.x * lk, z: p.z + cb.z * lk, hw: cb.hw * lk, hd: cb.hd * lk, angle: cb.angle || 0, r: Math.hypot(cb.hw, cb.hd) * lk, h: 20, poly: null });
+            }
             landmarks.push({ id: lm.id, label: lm.name, x: p.x, z: p.z, clear: res.clear || R, radius: R });
         } catch (err) { console.warn('landmark failed', lm.id, err); }
     }
@@ -896,9 +1007,9 @@ export async function buildWorld(city, renderer) {
     const pois = [];
     const poiGroup = new THREE.Group(); poiGroup.name = 'pois'; group.add(poiGroup);
     const drivable = (e) => e.drivable && !/motorway|trunk_link/.test(e.type) && !e.tunnel && e.type !== 'service';
-    const kerbPoint = (x, z, re, radius = 350) => {
+    const kerbPoint = (x, z, re, radius = 350, anyRoad = false) => {
         let ne = re ? nearestEdge(x, z, (e) => drivable(e) && re.test(e.name), radius) : null;
-        if (!ne) ne = nearestEdge(x, z, drivable, 90);
+        if (!ne && !anyRoad) ne = nearestEdge(x, z, drivable, 90);
         if (!ne) ne = nearestEdge(x, z, (e) => e.drivable && !e.virtual && !/motorway/.test(e.type) && !e.tunnel); // campus / access service roads
         const e = ne.edge;
         const side = ((x - ne.cx) * e.nx + (z - ne.cz) * e.nz) >= 0 ? 1 : -1;
@@ -928,8 +1039,14 @@ export async function buildWorld(city, renderer) {
         const inLandmark = landmarks.find(l => l.radius > 0 && Math.hypot(l.x - q.x, l.z - q.z) < l.radius);
         if (!b && kind !== 'airport' && !inLandmark) { let bd = 45; bGrid.each(q.x - 45, q.z - 45, q.x + 45, q.z + 45, (o) => { if (o.skip || o.area < 150) return; const d = Math.hypot(o.c[0] - q.x, o.c[1] - q.z); if (d < bd) { bd = d; b = o; } }); }
         if (kind === 'airport' && !b && !inLandmark) { let bd = 160; bGrid.each(q.x - 160, q.z - 160, q.x + 160, q.z + 160, (o) => { if (o.skip || o.area < 2000) return; const d = Math.hypot(o.c[0] - q.x, o.c[1] - q.z); if (d < bd) { bd = d; b = o; } }); }
-        const anchor = b ? { x: b.c[0], z: b.c[1] } : { x: q.x, z: q.z };
-        const door = kerbPoint(kind === 'airport' ? anchor.x : (anchor.x + q.x) / 2, kind === 'airport' ? anchor.z : (anchor.z + q.z) / 2, p.road, p.roadRadius || 350);
+        let anchor = b ? { x: b.c[0], z: b.c[1] } : { x: q.x, z: q.z };
+        let door = kerbPoint(kind === 'airport' ? anchor.x : (anchor.x + q.x) / 2, kind === 'airport' ? anchor.z : (anchor.z + q.z) / 2, p.road, p.roadRadius || 350, kind === 'airport'); // airports: the terminal loop (service roads)
+        // the address street is further than the building we found (geocode slightly off): use the building fronting that street
+        if (p.road && kind !== 'airport' && !inLandmark && Math.hypot(anchor.x - door.x, anchor.z - door.z) > 35) {
+            let nb = null, bd = 40;
+            bGrid.each(door.x - 45, door.z - 45, door.x + 45, door.z + 45, (o) => { if (o.skip || o.area < 120 || o.area > 15000) return; const d = Math.hypot(o.c[0] - door.x, o.c[1] - door.z); if (d < bd) { bd = d; nb = o; } });
+            if (nb) { b = nb; anchor = { x: nb.c[0], z: nb.c[1] }; door = kerbPoint(anchor.x, anchor.z, p.road, 120); }
+        }
         const stop = STOPS.find(s => s.poi === p.id);
         if (stop && !p.color) p.color = stop.color;
         const poi = { id: p.id, kind, label: p.label, brand: '', address: p.address || '', x: anchor.x, z: anchor.z, doorX: door.x, doorZ: door.z, color: p.color || null, icon: p.icon || null, visited: false, h: 20, w: 26, d: 22, cv: true, interactive: true };
@@ -1375,7 +1492,7 @@ export async function buildWorld(city, renderer) {
         if (lampNear(x, z, 3)) continue;
         const ne = nearestEdge(x, z, null, 80);
         let rot = 0, hh = osmLamps[i + 2] / 10, ly = 0;
-        if (ne) { rot = Math.atan2(-(ne.cz - z), ne.cx - x); ly = layerY(ne.edge) * (ne.d < ne.edge.halfW ? 1 : 0); if (!hh) hh = /^(motorway|trunk|primary|secondary)/.test(ne.edge.type) ? 8 : 5; }
+        if (ne) { rot = Math.atan2(-(ne.cz - z), ne.cx - x); ly = ne.d < ne.edge.halfW + 4 ? yAlong(ne.edge, x, z) : 0; if (!hh) hh = /^(motorway|trunk|primary|secondary)/.test(ne.edge.type) ? 8 : 5; }
         if (!hh) hh = 6;
         if (buildingAt(x, z)) continue;
         addLamp({ x, z, h: hh, rot, y: 0.15 + ly, osm: true });
@@ -1461,9 +1578,9 @@ export async function buildWorld(city, renderer) {
             const px = n.x + dx * r + rx * w, pz = n.z + dz * r + rz * w;
             const c = cellOf(px, pz);
             const rot = Math.atan2(-dz, dx); // housing local +x faces along +d (toward incoming cars)
-            c.solid.geo(P.tlight, px, 0.15 + layerY(e), pz, rot, 1, 1, 1, [255, 255, 255]);
+            c.solid.geo(P.tlight, px, 0.15 + n.y, pz, rot, 1, 1, 1, [255, 255, 255]);
             addPropColl(px, pz, 0.2);
-            const ap = { edge: e, phase, node: n, x: px + dx * 0.36, z: pz + dz * 0.36, y: 0.15 + layerY(e), state: null, lamp: lampList.length, lamps: null };
+            const ap = { edge: e, phase, node: n, x: px + dx * 0.36, z: pz + dz * 0.36, y: 0.15 + n.y, state: null, lamp: lampList.length, lamps: null };
             lampList.push(ap);
             approaches.push(ap);
         }
@@ -1490,7 +1607,8 @@ export async function buildWorld(city, renderer) {
     const noise = noiseTexture();
     const groundMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: noise });
     const marksMat = new THREE.MeshLambertMaterial({ vertexColors: true, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -4 });
-    const waterMat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.18, metalness: 0.15 });
+    const waterMat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.18, metalness: 0.15, depthWrite: false });
+    const areaMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: noise, depthWrite: false });
     const signTex = signs.textures();
     const signMats = signTex.map(t => new THREE.MeshBasicMaterial({ map: t, color: '#e8e8e8' }));
     const cellsGroup = new THREE.Group(); cellsGroup.name = 'cells'; group.add(cellsGroup);
@@ -1507,14 +1625,15 @@ export async function buildWorld(city, renderer) {
     let cx = 0, cz = 0;
     for (const c of cells.values()) {
         cx = c.i; cz = c.j;
+        const am = addMesh(c.area, areaMat, false, `area ${c.i},${c.j}`); if (am) am.renderOrder = -19;
         addMesh(c.ground, groundMat, false, `ground ${c.i},${c.j}`);
         addMesh(c.marks, marksMat, false, `marks ${c.i},${c.j}`);
-        addMesh(c.water, waterMat, false, `water ${c.i},${c.j}`);
+        const wm = addMesh(c.water, waterMat, false, `water ${c.i},${c.j}`); if (wm) wm.renderOrder = -18;
         addMesh(c.solid, solidMat, true, `solid ${c.i},${c.j}`);
         c.signs.forEach((mb, k) => { if (mb) addMesh(mb, signMats[k], false, `signs ${c.i},${c.j}`); });
     }
     const waterMesh = addMesh(bigWater, waterMat, false, 'water-big');
-    if (waterMesh) waterMesh.userData.always = true;
+    if (waterMesh) { waterMesh.userData.always = true; waterMesh.renderOrder = -18; }
     // distance culling: cells beyond the fog are hidden (three.js only frustum-culls, and the camera far plane is 5 km).
     // The viewer is world.camera if set, else the widest perspective camera found in the scene.
     const cullR = (env.fogFar || 1300) * 1.15 + CELL * 0.71;
@@ -1617,6 +1736,15 @@ export async function buildWorld(city, renderer) {
                 if (ne && ne.d < 15) deadEnds.push({ node: n.id, name: own.name, d: +ne.d.toFixed(1), x: Math.round(n.x), z: Math.round(n.z) });
             }
             return { network: sccInfo, blocked: blocked.length, deadEnds: deadEnds.length, samples: { blocked: blocked.slice(0, 10), deadEnds: deadEnds.slice(0, 10) } };
+        },
+        /**
+         * Height (metres) of the road surface top at (x, z): 0.24 + the vertical profile (bridges / ramps / tunnels).
+         * Pass the edge you are on to skip the nearest-edge lookup. Off-road returns the ground road level (0.24).
+         */
+        roadHeight(x, z, edge = null) {
+            let e = edge;
+            if (!e) { const ne = nearestEdge(x, z, null, 40); if (!ne || ne.d > ne.edge.halfW + 3) return Y.road; e = ne.edge; }
+            return Y.road + yAlong(e, x, z);
         },
         lampsNear(x, z, r, cb) { lampGrid.each(x - r, z - r, x + r, z + r, (l) => { if (Math.hypot(l.x - x, l.z - z) <= r) cb(l); }); },
         /** phase state helper: returns 'green' | 'yellow' | 'red' for an approach edge entering node */

@@ -111,6 +111,8 @@ async function openGame() {
     if (!browser) browser = await chromium.launch({ headless: !args.headed, args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--autoplay-policy=no-user-gesture-required', '--mute-audio'] });
     if (page) await page.close().catch(() => { });
     const ctx = await browser.newContext({ viewport: { width: args.width, height: args.height }, deviceScaleFactor: 1 });
+    // never hit the live weather API from automated runs (quota + determinism): answer with an error so the game uses climate data
+    await ctx.route(/api\.open-meteo\.com/, (route) => route.fulfill({ status: 200, contentType: 'application/json', body: '{"error":true,"reason":"harness: live weather disabled"}' }));
     page = await ctx.newPage();
     await page.addInitScript(INIT);
     page.on('console', (m) => {

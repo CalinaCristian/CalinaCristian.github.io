@@ -194,7 +194,7 @@ export class Harness {
         } else if (typeof g.lanePose === 'function') pose = g.lanePose(x, z, heading ?? g.player.heading);
         else if (typeof g.roadPose === 'function') pose = g.roadPose(x, z);
         if (!pose) { this.issue('harness-api', 'medium', 'no lanePose/roadPose available for teleport', { x, z }, { key: 'lanePose' }); g.player.place(x, z, heading ?? 0); return null; }
-        g.player.place(pose.x, pose.z, pose.heading); g.player.contactAge = 9; g.player.steer = 0;
+        g.player.place(pose.x, pose.z, pose.heading, pose.edge || null); g.player.contactAge = 9; g.player.steer = 0;
         g.stuckT = 0; g.prevEdgeInfo = null;
         try { g.traffic.setPlayer(g.player); g.traffic.clearAround?.(pose.x, pose.z, 14); } catch (e) { this.issue('harness-api', 'medium', 'traffic.setPlayer failed: ' + e.message, {}, { key: 'setPlayer' }); }
         this.mon.skipH = 3; this.mon.prevRH = undefined; this.mon.blockT = 0;
@@ -520,7 +520,7 @@ export class Harness {
             for (const p of T.peds.list) {
                 if (p.state === 'down' || Math.hypot(p.x - P.x, p.z - P.z) > 250) continue;
                 // inside a vehicle
-                for (const v of T.near(p.x, p.z, 16)) if ((v.y ?? 0.24) < 2 && pointInObb(vObb(v), p.x, p.z, 0.15)) { this.issue('ped-in-vehicle', 'medium', `pedestrian ${p.i} (${p.state}) inside ${v.kind} ${v.id}${v.parked ? ' (parked)' : ''}${v.speed > 0.5 ? ' (moving)' : ''}`, { x: p.x, z: p.z, ped: p.i, veh: v.id, pedState: p.state, vehKind: v.kind }, { key: 'piv-' + Math.round(p.x / 15) + ',' + Math.round(p.z / 15), shot: Math.hypot(p.x - P.x, p.z - P.z) < 30 }); break; }
+                for (const v of T.near(p.x, p.z, 16)) if (Math.abs((v.y ?? 0.24) - (p.y ?? 0.24)) < 2 && pointInObb(vObb(v), p.x, p.z, 0.15)) { this.issue('ped-in-vehicle', 'medium', `pedestrian ${p.i} (${p.state}) inside ${v.kind} ${v.id}${v.parked ? ' (parked)' : ''}${v.speed > 0.5 ? ' (moving)' : ''}`, { x: p.x, z: p.z, ped: p.i, veh: v.id, pedState: p.state, vehKind: v.kind }, { key: 'piv-' + Math.round(p.x / 15) + ',' + Math.round(p.z / 15), shot: Math.hypot(p.x - P.x, p.z - P.z) < 30 }); break; }
                 // on the carriageway away from a crossing
                 const atCrossing = p.onRoad && p.legs?.[0]?.cross;
                 const ne = g.nav.index.nearest(p.x, p.z, 30, ground);

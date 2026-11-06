@@ -42,7 +42,26 @@ const handleImageClick = () => {
     document.querySelectorAll('.social-links a').forEach(link => {
         toggleElement(link);
     })
+
+    track('cv_toggle', { open: window.__LAST_SCROLL_DIRECTION__ === 'down' });
 }
+
+// ---- analytics (see public/telemetry.js; no-op unless enabled) ----
+const track = (event, props) => window.cvTelemetry && window.cvTelemetry.track(event, props);
+
+document.addEventListener('click', (e) => {
+    const el = e.target.closest && e.target.closest('a');
+    if (!el) return;
+    if (el.dataset.track) {
+        track(el.dataset.track, el.dataset.placement ? { placement: el.dataset.placement } : {});
+    } else if (el.closest('.social-links')) {
+        track('social_click', { network: el.title });
+    }
+    // keep the same anonymous visitor id when going from the landing page into the game
+    if (el.dataset.track === 'play_cta_click' && window.cvTelemetry) {
+        el.href = window.cvTelemetry.linkWithId(el.getAttribute('href'));
+    }
+});
 
 const toggleElement = (element) => {
     // we also need to make them unaccessible while hidden 

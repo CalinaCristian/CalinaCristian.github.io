@@ -10,6 +10,7 @@
     <link rel="icon" href="./public/favicon.ico" type="image/x-icon">
     <script defer src="./index.js"></script>
     <script defer src="./canvas.js"></script>
+    <script defer src="./public/telemetry.js" data-page="landing"></script>
     <title>Cristian-Florin Calina</title>
 </head>
 
@@ -19,7 +20,7 @@
         <div class="content scale-hide no-transition">
             <div class="section title">
                 <h1>Cristian-Florin Călina</h1>
-                <a title="Open CV" aria-label="Open Cristian-Florin Călina's Curriculum Vitae"  class="cv-viewer" tabindex="-1" href="./public/cv.pdf" target="_blank">
+                <a title="Open CV" aria-label="Open Cristian-Florin Călina's Curriculum Vitae"  class="cv-viewer" tabindex="-1" href="./public/cv.pdf" target="_blank" data-track="cv_pdf_open">
                     <img src="./public/icons/pdf.png" alt="Open CV" />
                 </a>
             </div>
@@ -44,14 +45,14 @@
             <div class="section social">
                 <h4>If you would like to stay in touch, here are my social links:</h4>
                 <div class="social-links"></div>
-                <p class="play-note"><a class="inline-play" href="./game/"><strong>🎮 Play my CV</strong></a> — discover my career interactively.</p>
+                <p class="play-note"><a class="inline-play" href="./game/" data-track="play_cta_click" data-placement="card"><strong>🎮 Play my CV</strong></a> — discover my career interactively.</p>
             </div>
         </div>
         <a aria-label="Click to toggle expansion of the resume"  tabindex="2" class="avatar" href="javascript:void(0);">
             <img alt="avatar" src="./public/me.jfif" />
         </a>
     </div>
-    <a class="play-cta" href="./game/" aria-label="Play the interactive CV driving game">🎮 Play my CV <span>discover my career interactively</span></a>
+    <a class="play-cta" href="./game/" aria-label="Play the interactive CV driving game" data-track="play_cta_click" data-placement="pill">🎮 Play my CV <span>discover my career interactively</span></a>
     <div class="footer">
         <div class="info"><i>&lt;!-- Click/Touch the avatar or scroll down --&gt;</i></div>
         <h4> Made with ❤️ by Cristian-Florin Călina </h4>

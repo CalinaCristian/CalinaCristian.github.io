@@ -22,6 +22,7 @@
                 <div><kbd>Space</kbd> brake · <kbd>H</kbd> horn (you'll need it)</div>
                 <div><kbd>E</kbd> enter office / refuel · <kbd>M</kbd> map &amp; navigation · <kbd>C</kbd> look back · <kbd>L</kbd> headlights</div>
                 <div><kbd>F</kbd> fast-travel to the next stop · <kbd>R</kbd> stuck? reset to the road</div>
+                <div>Mouse: click the view to look around (<kbd>Esc</kbd> frees the cursor) · offices: <kbd>Shift</kbd> run · <kbd>Space</kbd> jump</div>
                 <div>Mind the speed limits, the cameras, the pedestrians and your fuel gauge.</div>
             </div>
             <div class="row">
@@ -31,6 +32,8 @@
             <div class="row small">
                 <label>Quality <select id="quality"><option value="auto">Auto (recommended)</option><option value="ultra">Ultra</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low (mobile)</option></select></label>
                 <label>Time of day <select id="timeofday"><option value="real">Real time (default)</option><option value="dawn">Dawn</option><option value="day">Day</option><option value="sunset">Sunset</option><option value="night">Night</option></select></label>
+                <label>Weather <select id="weather"><option value="real">Real (default)</option><option value="clear">Clear</option><option value="cloudy">Cloudy</option><option value="drizzle">Drizzle</option><option value="rain">Rain</option><option value="snow">Snow</option><option value="fog">Fog</option><option value="storm">Storm</option></select></label>
+                <label>Mouse look <select id="lookmode"><option value="lock">Pointer lock (click the view)</option><option value="hold">Hold right button</option><option value="off">Off</option></select></label>
                 <label><input type="checkbox" id="opt-minimap"> Mini-map</label>
                 <button id="mute" class="icon-btn" title="Mute">🔊</button>
             </div>
@@ -70,7 +73,7 @@
         <!-- touch controls -->
         <div id="touch">
             <div class="pad left"><button data-btn="left">◀</button><button data-btn="right">▶</button></div>
-            <div class="pad right"><button data-btn="horn">📣</button><button data-btn="act">E</button><button data-btn="map" title="Map &amp; navigation">🧭</button><button data-btn="rev">▼</button><button data-btn="gas">▲</button></div>
+            <div class="pad right"><button data-btn="jump" class="office-only" title="Jump">⤒</button><button data-btn="horn" class="drive-only">📣</button><button data-btn="act">E</button><button data-btn="map" title="Map &amp; navigation">🧭</button><button data-btn="rev">▼</button><button data-btn="gas">▲</button></div>
         </div>
     </div>
 
@@ -103,6 +106,8 @@
         <button class="btn ghost skip" data-skip>Skip ▸</button>
     </div>
 
+    <script defer src="../public/telemetry.js" data-page="game"></script>
+    <script type="module" src="./src/telemetry-game.js"></script>
     <script type="module" src="./src/main.js"></script>
 </body>
 </html>

@@ -1,3 +1,4 @@
 tools/osm/cache/
 tools/osm/node_modules/
 .DS_Store
+game/dev/harness/report/

@@ -83,6 +83,12 @@ export class HUD {
         }
     }
     setTicker(facts) { this.tickerQueue = [...facts]; this.tickerTimer = 3; }
+    /** show a message in the radio ticker right away (traffic band changes…); the facts resume afterwards */
+    tickerNow(text) {
+        this.el.tickerText.textContent = '📻 ' + text;
+        this.el.ticker.classList.remove('show'); void this.el.ticker.offsetWidth; this.el.ticker.classList.add('show');
+        this.tickerTimer = 14; this.lastTickerNow = text;
+    }
     bubble(v, kind, cityId) {
         const list = (PHRASES[cityId] || PHRASES.bucharest)[kind] || PHRASES.bucharest[kind];
         const text = list[Math.floor(Math.random() * list.length)];

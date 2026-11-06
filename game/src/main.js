@@ -1,7 +1,7 @@
 import * as THREE from '../vendor/three.module.min.js';
 import { CITIES } from './cities.js';
 import { STOPS, AIRPORTS, FACTS, PROFILE } from './data.js';
-import { buildWorld } from './world.js';
+import { buildWorld, collideBuildings } from './world.js';
 import { Traffic, laneOffset } from './traffic.js';
 import { Player } from './player.js';
 import { Input } from './input.js';
@@ -15,6 +15,52 @@ import { isTouch, clamp, angleDiff, signTexture } from './util.js';
 import { Renderer3D } from './render.js';
 
 const $ = (s) => document.querySelector(s);
+/** dev tools (collision overlay on B) only on localhost or with ?dev */
+const DEV = /^(localhost|127\.0\.0\.1|0\.0\.0\.0)$/.test(location.hostname) || /[?&]dev\b/.test(location.search);
+// ---------- weather (render agent exposes r3d.weather / setWeather / onWeatherChange; all feature-detected) ----------
+const WEATHER_OVERRIDES = ['clear', 'cloudy', 'drizzle', 'rain', 'snow', 'fog', 'storm'];
+const WX_ICON = { clear: '☀️', cloudy: '☁️', rain: '🌧️', snow: '🌨️', fog: '🌫️', storm: '⛈️' };
+const WX_LABEL = { clear: 'Clear', cloudy: 'Cloudy', rain: 'Rain', snow: 'Snow', fog: 'Fog', storm: 'Storm' };
+/** coarse class of a weather object: 'clear' | 'cloudy' | 'rain' | 'snow' | 'fog' | 'storm' */
+function weatherKind(w) {
+    if (!w) return 'clear';
+    const c = w.code;
+    if (typeof c === 'number') { // WMO weather codes
+        if (c >= 95) return 'storm';
+        if ((c >= 71 && c <= 77) || c === 85 || c === 86) return 'snow';
+        if ((c >= 51 && c <= 67) || (c >= 80 && c <= 82)) return 'rain';
+        if (c === 45 || c === 48) return 'fog';
+        if (c >= 2) return 'cloudy';
+    }
+    const t = `${typeof c === 'string' ? c : ''} ${w.label || ''} ${w.kind || ''}`.toLowerCase();
+    if (/thunder|storm/.test(t)) return 'storm';
+    if (/snow|sleet|blizzard|flurr/.test(t)) return 'snow';
+    if (/rain|drizzle|shower/.test(t)) return 'rain';
+    if (/fog|mist|haze/.test(t)) return 'fog';
+    if ((w.snowCm ?? 0) > 0.05) return 'snow';
+    if ((w.precipMm ?? 0) > 0.1) return 'rain';
+    if (Number.isFinite(w.visibilityM) && w.visibilityM < 1000) return 'fog';
+    if (/cloud|overcast/.test(t) || (w.cloud ?? 0) > 0.7) return 'cloudy';
+    return 'clear';
+}
+/** grip (1 dry) and NPC speed factor per weather class */
+const WX_GRIP = { rain: 0.72, storm: 0.66, snow: 0.45 };
+const WX_NPC = { rain: 0.85, storm: 0.8, snow: 0.65 };
+const SEASON_ICON = { winter: '❄️', spring: '🌸', summer: '☀️', autumn: '🍂', fall: '🍂' };
+/** season text for a date and hemisphere (fallback when the weather object has none) */
+function seasonText(date, timeZone) {
+    let m = date.getMonth();
+    try { m = +new Intl.DateTimeFormat('en-GB', { timeZone, month: 'numeric' }).format(date) - 1; } catch { /* ignore */ }
+    const names = ['winter', 'spring', 'summer', 'autumn'];
+    const si = Math.floor(((m + 1) % 12) / 3), pos = (m + 1) % 3; // Dec-Feb winter … Sep-Nov autumn; 0 early, 1 mid, 2 late
+    const name = names[si];
+    return { name, text: pos === 0 ? `Early ${name}` : pos === 2 ? `Late ${name}` : name[0].toUpperCase() + name.slice(1) };
+}
+const BAND_TEXT = {
+    rush: ['🚦 Rush hour', 'Heavy traffic until the peak is over. Expect queues, honking and double-parkers.'],
+    night: ['🌙 Night: light traffic', 'Empty streets — mind the speed cameras.'],
+    normal: ['🚗 Traffic back to normal', ''],
+};
 
 // ---------- fuel model ----------
 const TANK_L = 45;
@@ -73,7 +119,9 @@ class Game {
         this.flags = {};
         this.fuel = TANK_L * 0.6;
         this.stats = { dist: 0, time: 0, fuelL: 0, fuelReal: 0, fuelCost: { RON: 0, USD: 0 }, fines: { RON: 0, USD: 0 }, fineCount: 0, tow: { RON: 0, USD: 0 }, cleanDist: 0, peds: 0, fastTravels: 0, fastDist: 0 };
-        this.opts = { minimap: this.loadOpt('minimap', false) };
+        this.opts = { minimap: this.loadOpt('minimap', false), look: this.loadStr('look', 'lock') };
+        { const q = new URLSearchParams(location.search).get('weather'); this.weatherOverride = WEATHER_OVERRIDES.includes(q) ? q : null; }
+        this.wxGrip = 1; this.wxNpc = 1; this.wxKind = 'clear';
         this.frame = 0;
         this.clock = { date: new Date(), timeZone: 'Europe/Bucharest', override: null };
         this.headlights = 'auto'; // 'auto' | true | false
@@ -81,6 +129,11 @@ class Game {
         this.resize();
         window.addEventListener('resize', () => this.resize());
         if (this.touch) { document.body.classList.add('touch'); this.input.bindTouch(document); }
+        this.input.bindLook(this.canvas);
+        this.input.setLookMode(this.opts.look);
+        this.input.onLockChange = (locked) => this.onLockChange(locked);
+        // debug info for the dev harness (collision log, overlay toggle)
+        this.debug = { dev: DEV, overlay: false, lastCollider: null, hits: [], setOverlay: (on) => this.setDebugOverlay(on) };
         this.bindMenu();
         this.applyOpts();
         this.loop = this.loop.bind(this);
@@ -88,7 +141,12 @@ class Game {
     }
     loadOpt(k, def) { try { const v = localStorage.getItem('dmcv:' + k); return v === null ? def : v === '1'; } catch { return def; } }
     saveOpt(k, v) { try { localStorage.setItem('dmcv:' + k, v ? '1' : '0'); } catch { /* ignore */ } }
-    applyOpts() { document.body.classList.toggle('no-minimap', !this.opts.minimap); const cb = $('#opt-minimap'); if (cb) cb.checked = this.opts.minimap; }
+    loadStr(k, def) { try { return localStorage.getItem('dmcv:' + k) ?? def; } catch { return def; } }
+    saveStr(k, v) { try { localStorage.setItem('dmcv:' + k, v); } catch { /* ignore */ } }
+    applyOpts() {
+        document.body.classList.toggle('no-minimap', !this.opts.minimap); const cb = $('#opt-minimap'); if (cb) cb.checked = this.opts.minimap;
+        const lm = $('#lookmode'); if (lm) lm.value = this.opts.look;
+    }
 
     resize() {
         const w = window.innerWidth, h = window.innerHeight;
@@ -100,7 +158,9 @@ class Game {
         $('#start').addEventListener('click', () => this.start());
         $('#quality').addEventListener('change', (e) => { this.quality = e.target.value; this.r3d.setQuality(e.target.value); });
         $('#mute').addEventListener('click', (e) => { this.audio.setMuted(!this.audio.muted); e.target.textContent = this.audio.muted ? '🔇' : '🔊'; });
+        { const ws = $('#weather'); if (ws) { if (this.weatherOverride) ws.value = this.weatherOverride; ws.addEventListener('change', (e) => this.setWeatherOverride(e.target.value === 'real' ? null : e.target.value)); } }
         $('#timeofday')?.addEventListener('change', (e) => { this.clock.override = e.target.value === 'real' ? null : e.target.value; });
+        $('#lookmode')?.addEventListener('change', (e) => { this.opts.look = e.target.value; this.saveStr('look', this.opts.look); this.input.setLookMode(this.opts.look); });
         $('#opt-minimap')?.addEventListener('change', (e) => { this.opts.minimap = e.target.checked; this.saveOpt('minimap', this.opts.minimap); this.applyOpts(); });
         const bm = $('#bigmap');
         bm.addEventListener('click', (e) => { if (this._dragged) { this._dragged = false; return; } this.onMapClick(e); });
@@ -141,6 +201,20 @@ class Game {
         this.startTime = performance.now();
         this.hud.toast('🚗 Bucharest, 2013', 'Follow the blue route on the dashboard screen. H = horn · M = map & navigation.', 'intro');
         this.player.camHolder.add(this.camera); this.camera.position.set(0, 0, 0); this.camera.rotation.set(0, 0, 0);
+        setTimeout(() => this.lookHint(), 4500);
+    }
+    /** one-time hint for mouse / touch look */
+    lookHint() {
+        if (this.loadOpt('lookHintShown', false) || this.state !== 'drive') return;
+        const m = this.input.lookMode;
+        if (this.touch) this.hud.toast('👀 Look around', 'Drag on the upper half of the screen to look around.', 'intro');
+        else if (m === 'lock') this.hud.toast('🖱️ Look around', 'Click the view to look around with the mouse · Esc frees the cursor · C looks back.', 'intro');
+        else if (m === 'hold') this.hud.toast('🖱️ Look around', 'Hold the right mouse button and move the mouse · C looks back.', 'intro');
+        else return;
+        this.saveOpt('lookHintShown', true);
+    }
+    onLockChange(locked) {
+        if (locked && !this.flags.lockToast) { this.flags.lockToast = true; this.hud.toast('🖱️ Mouse look on', 'Esc frees the cursor. The view re-centres when you drive straight.'); }
     }
 
     // ----------------------------------------------------------------------------------
@@ -160,12 +234,15 @@ class Game {
         // traffic
         const hi = !(this.quality === 'low' || this.quality === 'medium' || this.touch);
         this.traffic = new Traffic(world, city, scene, {
-            maxVehicles: hi ? (id === 'bucharest' ? 420 : 110) : (id === 'bucharest' ? 150 : 45),
+            // pool size at the rush-hour peak; the live count follows the local hour (traffic.setHour)
+            maxVehicles: hi ? (id === 'bucharest' ? 480 : 125) : (id === 'bucharest' ? 170 : 50),
             maxPeds: hi ? (id === 'bucharest' ? 250 : 60) : (id === 'bucharest' ? 110 : 30),
             index: this.nav.index,
             onBubble: (v, kind) => this.hud.bubble(v, kind, city.id),
             onHonk: (v, reason) => this.vehicleHonk(v, reason),
+            onBand: (band, prev) => this.onTrafficBand(band, prev),
         });
+        this.traffic.setHour(this.cityHours(), true);
         this.traffic.setNightLights(this.nightLights);
         // player
         if (!this.player) {
@@ -179,12 +256,17 @@ class Game {
         // renderer: scene, lighting, real-time sun, street lamps, weather
         const center = city.center || (id === 'seattle' ? { lat: 47.61, lon: -122.33 } : { lat: 44.4268, lon: 26.1025 });
         this.r3d.setScene(scene, this.camera, env, { sky: world.sky, units: city.units });
+        if (world.vegetation) this.r3d.setVegetation?.(world.vegetation);
         this.r3d.setPlayer(this.player);
         this.r3d.setClock({ date: new Date(), lat: center.lat, lon: center.lon, timeZone: this.clock.timeZone, override: this.clock.override || null, timeScale: 1 });
         this.r3d.setLamps(world.lamps || [], { headMesh: world.lampHeadMesh });
-        this.r3d.onNightLights = (on) => { this.nightLights = on; this.traffic?.setNightLights(on); };
+        this.r3d.onNightLights = (on) => { this.nightLights = on; this.traffic?.setNightLights(on || !!this._fogLights); };
         this.r3d.onNightLights(this.r3d.nightLights);
         this.r3d.setHeadlights(this.headlights === 'auto' ? null : this.headlights);
+        this._wxKey = null; this._seasonShown = false;
+        if (typeof this.r3d.setWeather === 'function') { try { this.r3d.setWeather(this.weatherOverride); } catch (err) { console.warn('[weather] setWeather', err); } }
+        if ('onWeatherChange' in this.r3d || typeof this.r3d.setWeather === 'function') this.r3d.onWeatherChange = () => this.pollWeather(true);
+        setTimeout(() => this.seasonToast(), 2500);
         this.audio.ambience(env.rain ? 0.08 : 0.02);
         // minimap
         this.minimap = new MiniMap($('#minimap'), world, city);
@@ -219,18 +301,18 @@ class Game {
     placeSpawn(city, world) {
         if (world.spawn && world.spawn.x !== undefined) {
             const p = world.spawn.heading !== undefined ? world.spawn : this.roadPose(world.spawn.x, world.spawn.z);
-            this.player.place(p.x, p.z, p.heading); return;
+            this.player.place(p.x, p.z, p.heading, p.edge || null); return;
         }
         const sp = city.spawn;
         const e = sp && world.graph.edges.find(ed => ed.a.id === sp.edge[0] && ed.b.id === sp.edge[1]);
         if (e) {
             const lat = laneOffset(e, 0) * sp.dir;
-            this.player.place(e.a.x + e.dirx * e.len * sp.t + e.nx * lat, e.a.z + e.dirz * e.len * sp.t + e.nz * lat, Math.atan2(-e.dirx * sp.dir, -e.dirz * sp.dir));
+            this.player.place(e.a.x + e.dirx * e.len * sp.t + e.nx * lat, e.a.z + e.dirz * e.len * sp.t + e.nz * lat, Math.atan2(-e.dirx * sp.dir, -e.dirz * sp.dir), e);
             return;
         }
         const ap = world.pois.find(p => p.id === AIRPORTS[city.id].poi);
         const ref = city.id === 'seattle' && ap ? { x: ap.doorX ?? ap.x, z: ap.doorZ ?? ap.z } : { x: 0, z: 0 };
-        const p = this.roadPose(ref.x, ref.z); this.player.place(p.x, p.z, p.heading);
+        const p = this.roadPose(ref.x, ref.z); this.player.place(p.x, p.z, p.heading, p.edge || null);
     }
 
     /** dashboard navigation screen: uses the cockpit's screen mesh if provided, else a fallback plane */
@@ -365,22 +447,29 @@ class Game {
         const { player, traffic, world, hud, input, city } = this;
         if (input.take('KeyM')) this.toggleMap(!this.mapOpen);
         if (this.mapOpen && input.take('Escape')) this.toggleMap(false);
-        if (this.mapOpen || hud.panelOpen) { input.flush(); this.drawFrame(); return; }
+        if (this.mapOpen || hud.panelOpen) { input.lookAllowed = false; input.releaseLock(); input.flush(); this.drawFrame(); return; }
+        input.lookAllowed = true;
+        if (DEV && input.take('KeyB')) this.setDebugOverlay(!this.debug.overlay);
         if (input.take('KeyN')) { this.opts.minimap = !this.opts.minimap; this.saveOpt('minimap', this.opts.minimap); this.applyOpts(); }
         this.frame++;
         this.updateClock(dt);
+        if (this.frame % 30 === 0) this.pollWeather();
         if (input.take('KeyL')) {
             this.headlights = !this.headlightsOn;
             hud.toast(this.headlights ? '💡 Headlights on' : '💡 Headlights off', '');
             this.audio.blip(this.headlights ? 900 : 600, 0.05, 0.06);
         }
         player.lookBack = input.keys.has('KeyC');
+        { const lk = input.takeLook(); player.applyLook(lk.dx, lk.dy, input.lookHeld, dt); }
         const empty = this.fuel <= 0;
         const prevSpeed = player.speed;
         if (this.refuel) player.update(dt, { throttle: 0, brake: true, steer: 0 }, { maxSpeed: 38 });
-        else player.update(dt, input, { maxSpeed: empty ? 2 : 38 });
+        else player.update(dt, input, { maxSpeed: empty ? 2 : 38, grip: this.wxGrip });
+        traffic.setHour(this.clock.hours);
         traffic.update(dt);
         this.updateUnstick(dt);
+        this.debug.lastCollider = player.debug.lastCollider; this.debug.hits = player.debug.hits;
+        if (this.debug.overlay && this.frame % 6 === 0) this.updateDebugOverlay();
         if (input.take('KeyR')) {
             if (Math.abs(player.speed) < 6) this.resetToRoad();
             else hud.toast('🛟 Slow down first', 'Reset to the road works below ~20 km/h.', 'warn');
@@ -471,7 +560,8 @@ class Game {
         hud.prompt(prompt);
         const st = this.r3d.stats;
         const perf = st ? ` · ${st.quality}${st.fps ? ` · ${st.fps} fps` : ''}` : '';
-        hud.setHint(this.touch ? perf.trim() : 'W/S drive · A/D steer · Space brake · H horn · C look back · M map & nav · F fast travel · R reset · N mini-map · L lights · E enter/refuel' + perf);
+        const lookTxt = input.lookMode === 'lock' ? (input.locked ? 'mouse look (Esc frees)' : 'click to look') : input.lookMode === 'hold' ? 'right-drag look' : '';
+        hud.setHint(this.touch ? perf.trim() : `W/S drive · A/D steer · Space brake · H horn · C look back${lookTxt ? ' · ' + lookTxt : ''} · M map & nav · F fast travel · R reset · N mini-map · L lights · E enter/refuel${DEV ? ' · B colliders' : ''}` + perf);
         // ---- HUD fuel / trip ----
         const frac = this.fuel / TANK_L;
         const fuelText = us ? `${Math.round(frac * 100)}% · ${(this.fuel / GAL).toFixed(1)} gal` : `${Math.round(frac * 100)}% · ${this.fuel.toFixed(1)} L`;
@@ -495,19 +585,74 @@ class Game {
         c.hours = h;
         if (this.r3d && this.scene) {
             this.r3d.setClock({ date: c.date, override: c.override || null });
-            const want = this.headlights === 'auto' ? null : !!this.headlights;
+            const want = this.headlights === 'auto' ? (this._fogLights ? true : null) : !!this.headlights;
             if (this._hlSent !== want) { this._hlSent = want; this.r3d.setHeadlights(want); }
         }
         const ph = this.renderer3d?.phase;
         this.phase = typeof ph === 'string' ? (ph === 'sunset' ? 'dusk' : ph) : phaseFromHours(h);
         if (typeof ph !== 'string') {
             const night = this.phase === 'night' || this.phase === 'dusk' || this.phase === 'dawn';
-            if (night !== this.nightLights) { this.nightLights = night; this.traffic?.setNightLights(night); }
+            if (night !== this.nightLights) { this.nightLights = night; this.traffic?.setNightLights(night || !!this._fogLights); }
         }
         if (this.phase === 'night' && this.state === 'drive') {
             this._nightDist = (this._nightDist || 0) + Math.abs(this.player?.speed || 0) * dt;
             if (this._nightDist > 500 && this.hud.achievement('night-owl')) this.audio.chime();
         }
+    }
+    // ---------------------------------------------------------------------------------- weather
+    get weather() { const w = this.r3d?.weather; return w && typeof w === 'object' ? w : null; }
+    /** "🌧️ 7°C Rain" (°F in Seattle); '' when no weather data */
+    weatherText(withLabel = true) {
+        const w = this.weather; if (!w) return '';
+        const k = weatherKind(w), icon = w.icon || WX_ICON[k] || '';
+        const us = this.city?.units === 'mph';
+        const t = Number.isFinite(w.tempC) ? (us ? `${Math.round(w.tempC * 9 / 5 + 32)}°F` : `${Math.round(w.tempC)}°C`) : '';
+        return [icon, t, withLabel ? (w.label || WX_LABEL[k]) : ''].filter(Boolean).join(' ');
+    }
+    setWeatherOverride(v) {
+        this.weatherOverride = WEATHER_OVERRIDES.includes(v) ? v : null;
+        if (typeof this.r3d?.setWeather === 'function') { try { this.r3d.setWeather(this.weatherOverride); } catch (err) { console.warn('[weather] setWeather', err); } }
+        this.pollWeather(true);
+    }
+    /** read the live weather: gameplay effects (grip, NPC speed, fog lights) + a ticker line when it changes */
+    pollWeather() {
+        const w = this.weather, k = weatherKind(w);
+        this.wxKind = k; this.wxGrip = WX_GRIP[k] ?? 1; this.wxNpc = WX_NPC[k] ?? 1;
+        if (this.traffic) this.traffic.weatherMul = this.wxNpc;
+        // fog: player + NPC lights on (unless the player switched the headlights manually)
+        const fog = k === 'fog';
+        if (this.r3d && this.scene && this._fogLights !== fog) {
+            this._fogLights = fog; // (updateClock forwards it to the headlights in 'auto' mode)
+            this.traffic?.setNightLights(fog || this.nightLights);
+        }
+        if (!w) return;
+        const key = `${k}|${w.label || ''}|${w.source || ''}`;
+        if (this._wxKey === key) return;
+        const first = this._wxKey === null || this._wxKey === undefined; this._wxKey = key;
+        if (first && (k === 'clear' || k === 'cloudy')) return;
+        const cityName = this.city?.id === 'bucharest' ? 'București' : 'Seattle';
+        const tail = k === 'rain' || k === 'storm' ? ' — wipers on' : k === 'snow' ? ' — winter tyres, keep your distance' : k === 'fog' ? ' — fog lights on' : '';
+        const temp = this.weatherText(false).replace(/^\S+\s*/, ''); // drop the icon
+        this.hud.tickerNow(`${w.icon || WX_ICON[k]} ${w.label || WX_LABEL[k]} in ${cityName}${temp ? ', ' + temp : ''}${tail}`);
+    }
+    seasonToast() {
+        if (this._seasonShown || this.state !== 'drive' || !this.city) return; this._seasonShown = true;
+        const w = this.weather; let name, text;
+        const mine = seasonText(new Date(), this.clock.timeZone);
+        if (w && typeof w.season === 'string' && w.season && w.season.toLowerCase() !== mine.name) { text = w.season.replace(/[-_]/g, ' '); text = text[0].toUpperCase() + text.slice(1); name = (text.match(/winter|spring|summer|autumn|fall/i) || ['autumn'])[0].toLowerCase(); }
+        else ({ name, text } = mine); // (same season: keep the early / late nuance)
+        const where = this.city.id === 'bucharest' ? 'Bucharest' : 'Seattle';
+        this.hud.toast(`${SEASON_ICON[name] || '🗓️'} ${text} in ${where}`, this.weatherText() || '');
+    }
+    /** local hour of the current city (or the menu override) */
+    cityHours() { const c = this.clock; return c.override ? OVERRIDE_HOURS[c.override] : localHours(new Date(), c.timeZone); }
+    onTrafficBand(band, prev) {
+        const t = BAND_TEXT[band]; if (!t) return;
+        if (prev === null && band === 'normal') return; // nothing to say at load in normal traffic
+        const msg = `${t[0]}${t[1] ? ' — ' + t[1] : ''}`;
+        if (prev === null) { setTimeout(() => { if (this.state === 'drive') this.hud.tickerNow(msg); }, 3500); return; } // after the city's facts are queued
+        this.hud.tickerNow(msg);
+        if (prev !== null && band !== 'normal') this.hud.toast(t[0], t[1]);
     }
     get headlightsOn() { return this.headlights === 'auto' ? (this.r3d?.headlightsOn ?? this.nightLights) : !!this.headlights; }
     /** HH:MM in the city's time zone (or the override's nominal hour) */
@@ -526,7 +671,8 @@ class Game {
         const dist = us ? `${(s.dist / 1609.34).toFixed(1)} mi` : `${(s.dist / 1000).toFixed(1)} km`;
         const eco = l100 == null ? '—' : us ? `${Math.round(235.21 / l100)} mpg` : `${l100.toFixed(1)} L/100km`;
         const fines = s.fines[cur] ? ` · Fines ${money(cur, s.fines[cur])}` : '';
-        return `${this.phaseIcon} ${this.clockText()} · Trip ${dist} · Ø ${eco}${fines}`;
+        const wx = this.weatherText();
+        return `${this.phaseIcon} ${this.clockText()}${wx ? ' · ' + wx : ''} · Trip ${dist} · Ø ${eco}${fines}`;
     }
 
     drawCarScreen(street, fuelText) {
@@ -536,7 +682,7 @@ class Game {
             player: p, index: this.nav.index, route: this.nav.route, segIdx: this.nav.segIdx, nav: this.navInfo, dest: this.nav.dest,
             street, limit: this.limitInfo, over: this.over, fuel: this.fuel / TANK_L, fuelText, year: this.year, units: this.city.units,
             speedText: us ? `${Math.round(Math.abs(p.speed) * 2.237)} mph` : `${Math.round(Math.abs(p.speed) * 3.6)} km/h`,
-            pois: this.stations, clock: this.clockText(), phaseIcon: this.phaseIcon,
+            pois: this.stations, clock: this.clockText(), phaseIcon: this.phaseIcon, weather: this.weatherText(),
         });
         this.screenTex.needsUpdate = true;
     }
@@ -603,7 +749,7 @@ class Game {
         const ns = this.nearestStation(this.player.x, this.player.z); if (!ns) { this.fuel = 10; return; }
         const p = this.roadPose(ns.st.x, ns.st.z);
         // stop a few metres before the pumps so the refuel prompt is in reach
-        this.player.place(p.x - Math.sin(p.heading) * -4, p.z - Math.cos(p.heading) * -4, p.heading);
+        this.player.place(p.x - Math.sin(p.heading) * -4, p.z - Math.cos(p.heading) * -4, p.heading, p.edge || null);
         this.fuel = 10;
         const cur = PRICES[this.city.id].cur; const fee = cur === 'RON' ? 350 : 195;
         this.stats.tow[cur] += fee;
@@ -701,7 +847,94 @@ class Game {
         }
         this.audio.crash(clamp(strength / 10, 0.2, 1));
         if (what === 'vehicle' && v) { this.traffic.bump(v); this.hud.addRage(12); }
+        else if (what === 'edge') { /* deck edge / trench wall: the crash sound is enough */ }
         else if (strength > 8) this.hud.toast('💥 Ouch', 'Buildings in Bucharest do not move. Neither do double-parked cars.', 'warn');
+    }
+
+    // ---------------------------------------------------------------------------------- dev: collision overlay
+    /** B (dev): draw every collision shape near the player (buildings, props, walls, vehicles, drivable surface) */
+    setDebugOverlay(on) {
+        this.debug.overlay = !!on;
+        if (!this.debugLines) {
+            const g = new THREE.BufferGeometry();
+            g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(6 * 20000), 3));
+            g.setAttribute('color', new THREE.BufferAttribute(new Float32Array(6 * 20000), 3));
+            const m = new THREE.LineBasicMaterial({ vertexColors: true, depthTest: false, transparent: true, opacity: 0.95, toneMapped: false });
+            this.debugLines = new THREE.LineSegments(g, m); this.debugLines.frustumCulled = false; this.debugLines.renderOrder = 999;
+        }
+        if (this.debugLines.parent !== this.scene) this.scene?.add(this.debugLines);
+        this.debugLines.visible = this.debug.overlay;
+        if (on) this.updateDebugOverlay();
+        else { const cv = document.getElementById('dbg-plan'); if (cv) cv.style.display = 'none'; }
+        this.hud.toast(on ? '🧱 Collision overlay on' : '🧱 Collision overlay off', on ? 'red buildings · orange props · magenta walls · cyan vehicles · yellow you · green drivable surface' : '');
+    }
+    updateDebugOverlay(R = 45) {
+        const P = this.player, w = this.world, L = this.debugLines; if (!L || !P || !w) return;
+        if (L.parent !== this.scene) this.scene.add(L);
+        // 1) collect shapes: { c: [r,g,b], pts: [[x,z],…], closed, y0, y1 }
+        const shapes = [];
+        const RED = [1, 0.15, 0.15], ORANGE = [1, 0.6, 0.1], MAG = [1, 0.2, 1], CYAN = [0.2, 0.9, 1], YEL = [1, 1, 0.2], GREEN = [0.3, 1, 0.4], GREY = [0.55, 0.55, 0.6], WHITE = [1, 1, 1];
+        const hitRef = P.debug.lastCollider?.ref;
+        const circle = (x, z, r, k = 14) => Array.from({ length: k }, (_, i) => [x + Math.cos(i / k * Math.PI * 2) * r, z + Math.sin(i / k * Math.PI * 2) * r]);
+        const obb = (x, z, fx, fz, hl, hw) => { const rx = -fz, rz = fx; return [[hl, hw], [hl, -hw], [-hl, -hw], [-hl, hw]].map(([a, b]) => [x + fx * a + rx * b, z + fz * a + rz * b]); };
+        const sy = P.surfY ?? 0.24;
+        if (w.buildings) {
+            const each = (b) => {
+                if (Math.hypot(b.x - P.x, b.z - P.z) > R + (b.r || 0)) return;
+                if (b.wall) { shapes.push({ c: b === hitRef ? WHITE : MAG, pts: [[b.ax, b.az], [b.bx, b.bz]], closed: false, y0: Math.max(b.y0a ?? 0, sy - 0.2), y1: Math.min(b.y1a ?? 1, sy + 1.5), kind: 'wall' }); return; }
+                const lvl = P.atLevel(b), c = b === hitRef ? WHITE : !lvl ? GREY : b.prop ? ORANGE : RED;
+                const y0 = (b.y ?? 0) + 0.3, y1 = y0 + Math.min(b.h ?? 3, 3);
+                if (b.prop && b.hw === b.r) shapes.push({ c, pts: circle(b.x, b.z, b.r, 10), closed: true, y0, y1, kind: 'prop' });
+                else if (b.poly) shapes.push({ c, pts: b.poly, closed: true, y0, y1, kind: 'building' });
+                else { const a = b.angle || 0; shapes.push({ c, pts: obb(b.x, b.z, Math.sin(a), Math.cos(a), b.hd, b.hw), closed: true, y0, y1, kind: 'box' }); }
+            };
+            if (w.buildings.query) w.buildings.query(P.x, P.z, R, each); else for (const b of w.buildings) each(b);
+        }
+        const walls = P.wallsInBuildings?.() ? null : P.wallList?.();
+        if (walls) for (const s of walls) if (Math.hypot(s.x - P.x, s.z - P.z) <= R + s.r) shapes.push({ c: P.atLevel(s) ? MAG : GREY, pts: [[s.ax, s.az], [s.bx, s.bz]], closed: false, y0: Math.max(s.y, sy - 0.2), y1: Math.min(s.top, sy + 1.5), kind: 'wall' });
+        for (const v of this.traffic.near(P.x, P.z, R)) shapes.push({ c: CYAN, pts: obb(v.x, v.z, v.fx, v.fz, v.length / 2, v.width / 2), closed: true, y0: (v.y ?? 0.24), y1: (v.y ?? 0.24) + 1.3, kind: 'vehicle' });
+        if (w.edgesInBox) w.edgesInBox(P.x - R, P.z - R, P.x + R, P.z + R, (e) => {
+            if (e.ya === undefined) return;
+            const hw = e.halfW ?? 6, ym = 0.24 + (e.ya + e.yb) / 2;
+            if (Math.abs(ym - sy) > 3) return;
+            for (const sd of [1, -1]) shapes.push({ c: GREEN, pts: [[e.a.x + e.nx * hw * sd, e.a.z + e.nz * hw * sd], [e.b.x + e.nx * hw * sd, e.b.z + e.nz * hw * sd]], closed: false, y0: ym + 0.05, y1: ym + 0.05, kind: 'ribbon' });
+        });
+        shapes.push({ c: YEL, pts: obb(P.x, P.z, P.fx, P.fz, P.length / 2, P.width / 2), closed: true, y0: sy, y1: sy + 1.2, kind: 'player' });
+        for (const o of [1.3, 0, -1.3]) shapes.push({ c: YEL, pts: circle(P.x + P.fx * o, P.z + P.fz * o, 1.0, 12), closed: true, y0: sy + 0.1, y1: sy + 0.1, kind: 'player' });
+        this.debug.shapes = shapes.length;
+        // 2) 3D lines (through everything)
+        const pos = L.geometry.attributes.position, col = L.geometry.attributes.color, max = pos.count;
+        let n = 0;
+        const seg = (x1, y1, z1, x2, y2, z2, c) => { if (n + 2 > max) return; pos.setXYZ(n, x1, y1, z1); col.setXYZ(n++, c[0], c[1], c[2]); pos.setXYZ(n, x2, y2, z2); col.setXYZ(n++, c[0], c[1], c[2]); };
+        for (const sh of shapes) {
+            const p = sh.pts, m = sh.closed ? p.length : p.length - 1;
+            for (let i = 0; i < m; i++) {
+                const a = p[i], b = p[(i + 1) % p.length];
+                seg(a[0], sh.y0, a[1], b[0], sh.y0, b[1], sh.c);
+                if (sh.y1 > sh.y0 + 0.01) { seg(a[0], sh.y1, a[1], b[0], sh.y1, b[1], sh.c); if (i % 3 === 0) seg(a[0], sh.y0, a[1], a[0], sh.y1, a[1], sh.c); }
+            }
+        }
+        L.geometry.setDrawRange(0, n);
+        pos.needsUpdate = true; col.needsUpdate = true;
+        // 3) plan view (top-down, heading up) in a corner canvas — legible in screenshots
+        let cv = document.getElementById('dbg-plan');
+        if (!cv) { cv = document.createElement('canvas'); cv.id = 'dbg-plan'; cv.width = cv.height = 260; document.body.appendChild(cv); }
+        cv.style.display = this.debug.overlay ? 'block' : 'none';
+        const ctx = cv.getContext('2d'), S = 260 / (2 * R) * 1.4, Hh = P.heading;
+        ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, 260, 260); ctx.fillStyle = 'rgba(8,10,16,0.82)'; ctx.fillRect(0, 0, 260, 260);
+        ctx.translate(130, 150); ctx.scale(S, S); ctx.rotate(Hh); ctx.translate(-P.x, -P.z);
+        ctx.lineWidth = 1.6 / S;
+        const order = { ribbon: 0, building: 1, box: 1, prop: 2, wall: 3, vehicle: 4, player: 5 };
+        for (const sh of shapes.slice().sort((a, b) => order[a.kind] - order[b.kind])) {
+            ctx.beginPath(); sh.pts.forEach((q, i) => (i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]))); if (sh.closed) ctx.closePath();
+            const css = `rgb(${sh.c.map(v => Math.round(v * 255)).join(',')})`;
+            ctx.strokeStyle = css; ctx.lineWidth = (sh.kind === 'wall' ? 3 : 1.6) / S; ctx.stroke();
+            if (sh.closed && sh.kind !== 'player') { ctx.globalAlpha = 0.18; ctx.fillStyle = css; ctx.fill(); ctx.globalAlpha = 1; }
+        }
+        ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = '#e5e7eb'; ctx.font = '11px monospace';
+        const lc = P.debug.lastCollider;
+        ctx.fillText(`y ${sy.toFixed(2)}  hits ${P.debug.count}`, 6, 14);
+        if (lc) ctx.fillText(`last: ${lc.type} ${lc.id ?? ''}`.slice(0, 40), 6, 28);
     }
 
     // ---------------------------------------------------------------------------------- big map + nav panel
@@ -781,34 +1014,49 @@ class Game {
         else this.stuckT = Math.max(0, (this.stuckT || 0) - dt * 0.5);
     }
     /** right-most lane pose on the nearest drivable edge to (x,z), facing the legal direction (closest to `heading`) */
-    lanePose(x, z, heading) {
-        const cands = this.nav.index.near(x, z, 90, []);
-        let best = null, bs = Infinity;
+    lanePose(x, z, heading, y = null) {
+        const cands = this.nav.index.near(x, z, 120, []);
+        const scored = [];
         for (const e of cands) {
             if (e.len < 6 || e.tramOnly || !(canTravel(e, 1) || canTravel(e, -1))) continue;
+            if (e.type === 'service' || e.virtual) continue; // never reset onto service roads (narrow, private, dead ends)
             const ax = e.a.x, az = e.a.z, dx = e.b.x - ax, dz = e.b.z - az, L2 = dx * dx + dz * dz || 1;
             const t = clamp(((x - ax) * dx + (z - az) * dz) / L2, 0, 1);
             const d = Math.hypot(ax + dx * t - x, az + dz * t - z);
-            const score = d + (e.main === false ? 200 : 0) + (e.tunnel || e.bridge ? 25 : 0) + (e.type === 'service' || e.len < 15 ? 12 : 0) + (isMotorway(e) ? 6 : 0);
-            if (score < bs) { bs = score; best = { e, t }; }
+            // on the car's level (a deck above / a street below is not "the nearest road")
+            const ey = 0.24 + (e.ya ?? 0) + ((e.yb ?? 0) - (e.ya ?? 0)) * t;
+            const lvl = y == null ? 0 : Math.abs(ey - y) < 2 ? 0 : 80;
+            const score = d + lvl + (e.main === false ? 200 : 0) + (e.tunnel || e.bridge ? 25 : 0) + (e.len < 15 ? 12 : 0) + (isMotorway(e) ? 6 : 0);
+            scored.push({ e, t, score });
         }
-        if (!best) { const ne = this.nav.index.nearest(x, z, 3000); if (!ne) return null; best = { e: ne.edge, t: ne.t }; }
-        const e = best.e;
+        scored.sort((a, b) => a.score - b.score);
+        if (!scored.length) { const ne = this.nav.index.nearest(x, z, 3000, (e) => e.type !== 'service') || this.nav.index.nearest(x, z, 3000); if (!ne) return null; scored.push({ e: ne.edge, t: ne.t }); }
         const hx = -Math.sin(heading), hz = -Math.cos(heading);
-        let dir = (e.dirx * hx + e.dirz * hz) >= 0 ? 1 : -1;
-        if (!canTravel(e, dir)) dir = -dir;
-        const lane = Math.max(0, lanesDir(e, dir) - 1);
-        // keep out of the junction boxes when the edge is long enough
-        const ra = (e.a.radius ?? 6) + 3, rb = (e.b.radius ?? 6) + 3;
-        let s = best.t * e.len; if (e.len > ra + rb) s = clamp(s, ra, e.len - rb);
-        const lat = this.traffic.laneOffset(e, lane);
-        return { x: e.a.x + e.dirx * s + e.nx * dir * lat, z: e.a.z + e.dirz * s + e.nz * dir * lat, heading: Math.atan2(-e.dirx * dir, -e.dirz * dir), edge: e, dir };
+        const poseOf = ({ e, t }, shift = 0) => {
+            let dir = (e.dirx * hx + e.dirz * hz) >= 0 ? 1 : -1;
+            if (!canTravel(e, dir)) dir = -dir;
+            const lane = Math.max(0, lanesDir(e, dir) - 1);
+            // keep out of the junction boxes when the edge is long enough
+            const ra = (e.a.radius ?? 6) + 3, rb = (e.b.radius ?? 6) + 3;
+            let s = t * e.len + shift; if (e.len > ra + rb) s = clamp(s, ra, e.len - rb); else s = clamp(s, 0, e.len);
+            const lat = this.traffic.laneOffset(e, lane);
+            return { x: e.a.x + e.dirx * s + e.nx * dir * lat, z: e.a.z + e.dirz * s + e.nz * dir * lat, heading: Math.atan2(-e.dirx * dir, -e.dirz * dir), edge: e, dir };
+        };
+        // the spot must be free of buildings / props / walls at that level (the car body = 3 circles of 1 m)
+        const free = (p) => {
+            const w = this.world; if (!w?.buildings) return true;
+            const py = 0.24 + (p.edge.ya ?? 0); const fx = -Math.sin(p.heading), fz = -Math.cos(p.heading);
+            for (const o of [1.3, 0, -1.3]) if (collideBuildings(w.buildings, p.x + fx * o, p.z + fz * o, 1.05, py)) return false;
+            return true;
+        };
+        for (const c of scored.slice(0, 8)) for (const sh of [0, 8, -8, 16, -16]) { const p = poseOf(c, sh); if (free(p)) return p; }
+        return poseOf(scored[0]);
     }
     /** R: put the car back on the road (nearest edge, right lane, legal direction) and clear NPCs around it */
     resetToRoad({ silent = false } = {}) {
         const P = this.player;
-        const pose = this.lanePose(P.x, P.z, P.heading); if (!pose) return false;
-        P.place(pose.x, pose.z, pose.heading); P.contactAge = 9; P.steer = 0;
+        const pose = this.lanePose(P.x, P.z, P.heading, P.surfY ?? null); if (!pose) return false;
+        P.place(pose.x, pose.z, pose.heading, pose.edge); P.contactAge = 9; P.steer = 0;
         this.stuckT = 0; this.prevEdgeInfo = null;
         const n = this.traffic.clearAround(pose.x, pose.z, 12);
         this.nav.reroute(P);
@@ -840,7 +1088,7 @@ class Game {
     async fastTravel(dest) {
         if (this.state !== 'drive' || this.refuel) return false;
         const { player, hud, city } = this;
-        const route = this.nav.compute(player.x, player.z, dest.x, dest.z, player.heading);
+        const route = this.nav.compute(player.x, player.z, dest.x, dest.z, player.heading, player.surfY ?? null);
         if (!route) { hud.toast('🧭 No route', 'Could not find a drivable route there.', 'warn'); return false; }
         if (route.total < 120) { hud.toast('⏩ Already here', `${dest.label || 'Destination'} is just ahead.`); return false; }
         // travel time on the route (speed limits, ~35% lost to lights and traffic) and fuel at the normal rate
@@ -856,6 +1104,7 @@ class Game {
         const pose = this.poseAlongRoute(route, Math.max(0, route.total - 60));
         const names = []; for (const leg of route.legs) { const n = leg.e.name || leg.e.ref; if (n && names[names.length - 1] !== n && !names.includes(n)) names.push(n); }
         this.state = 'montage';
+        this.input.lookAllowed = false; this.input.releaseLock();
         hud.prompt(null); hud.setNavLine('');
         this.audio.blip(520, 0.08, 0.08);
         await this.playMontage({ dest, names, dist: route.total, liters: burn, tank, secs: t });
@@ -863,7 +1112,7 @@ class Game {
         this.fuel = Math.max(0.3, this.fuel - tank);
         this.stats.fuelReal += burn; this.stats.dist += route.total; this.stats.time += t;
         this.stats.fastTravels++; this.stats.fastDist += route.total;
-        player.place(pose.x, pose.z, pose.heading); player.contactAge = 9; player.steer = 0;
+        player.place(pose.x, pose.z, pose.heading, pose.edge); player.contactAge = 9; player.steer = 0;
         this.stuckT = 0; this.prevEdgeInfo = null;
         this.traffic.setPlayer(player);           // big worlds: rebuild the traffic bubble around the new spot
         this.traffic.clearAround(pose.x, pose.z, 12);
@@ -912,6 +1161,7 @@ class Game {
         this.state = 'office';
         this.audio.stopEngine(); this.audio.blip(520, 0.15, 0.1);
         $('#hud').classList.add('in-office');
+        this.player.resetLook();
         this.office = new Office(this.renderer, this.camera, stop, this.hud, this.input, this.audio);
         this.hud.toast(`${stop.icon} ${stop.company}`, stop.tagline);
         this.hud.setStreet(stop.company, stop.address);
@@ -930,6 +1180,7 @@ class Game {
         o.dispose(); this.office = null;
         $('#hud').classList.remove('in-office');
         this.player.camHolder.add(this.camera); this.camera.position.set(0, 0, 0); this.camera.rotation.set(0, 0, 0);
+        this.player.resetLook();
         this.state = 'drive';
         if (o.read.size > 0 && !this.visited.has(stop.id)) {
             this.visited.add(stop.id); stop.poiRef.visited = true;
@@ -946,6 +1197,7 @@ class Game {
     async fly() {
         const from = this.city.id;
         this.state = 'flight';
+        this.input.lookAllowed = false; this.input.releaseLock();
         this.audio.stopEngine();
         $('#hud').classList.add('in-office');
         this.hud.setNavLine('');
@@ -964,6 +1216,7 @@ class Game {
     }
 
     finale() {
+        this.input.releaseLock();
         this.hud.achievement('all');
         const s = this.stats;
         const links = PROFILE.links.map(l => `<a class="btn ghost" href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`).join('');

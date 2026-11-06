@@ -163,6 +163,9 @@ body.touch #ticker { bottom: 335px; }
 .pad button { width: 64px; height: 64px; border-radius: 50%; border: 2px solid rgba(255,255,255,.3); background: rgba(15,18,28,.75); color: #fff; font-size: 24px; font-weight: 700; touch-action: none; user-select: none; }
 .pad button.active { background: var(--accent); }
 .pad.right button[data-btn=gas] { width: 78px; height: 78px; }
+.pad button.office-only { display: none; }
+#hud.in-office .pad button.office-only { display: inline-block; }
+#hud.in-office .pad button.drive-only { display: none; }
 
 @media (max-width: 700px) {
     #minimap { width: 150px; height: 150px; }
@@ -189,3 +192,6 @@ body.touch #ticker { bottom: 335px; }
 #montage .m-bar { height: 4px; width: min(420px, 80vw); margin: 4px auto 0; background: rgba(255,255,255,.12); border-radius: 4px; overflow: hidden; }
 #montage .m-bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #fa4616, #fbbf24); }
 #montage .m-dest { font-size: 15px; color: #e5e7eb; }
+
+/* dev: collision plan view (B) */
+#dbg-plan { position: fixed; right: 12px; top: 64px; z-index: 30; width: 260px; height: 260px; border: 1px solid rgba(255,255,255,.25); border-radius: 8px; pointer-events: none; display: none; }

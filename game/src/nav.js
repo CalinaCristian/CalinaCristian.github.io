@@ -150,9 +150,14 @@ export class Navigator {
     }
 
     /** A* on travel time. heading (optional) penalises starting against the player's heading. */
-    compute(fx, fz, tx, tz, heading = null) {
+    compute(fx, fz, tx, tz, heading = null, fy = null) {
         const main = (e) => e.main !== false;
-        const s = this.index.nearest(fx, fz, 400, main) || this.index.nearest(fx, fz), g = this.index.nearest(tx, tz, 600, main) || this.index.nearest(tx, tz);
+        // start on the road at the car's level (a bridge deck above / a street below is not where we are)
+        const yAt = (e) => { if (e.ya === undefined) return 0.24; const t = Math.max(0, Math.min(1, ((fx - e.a.x) * e.dirx + (fz - e.a.z) * e.dirz) / e.len)); return 0.24 + e.ya + (e.yb - e.ya) * t; };
+        // (callers that do not pass the height but start at the player's position get the player's level)
+        const P = this.player; if (fy == null && P && Math.hypot(P.x - fx, P.z - fz) < 1.5) fy = P.surfY ?? P.y ?? null;
+        const level = (e) => main(e) && (fy == null || Math.abs(yAt(e) - fy) < 2);
+        const s = (fy != null && this.index.nearest(fx, fz, 60, level)) || this.index.nearest(fx, fz, 400, main) || this.index.nearest(fx, fz), g = this.index.nearest(tx, tz, 600, main) || this.index.nearest(tx, tz);
         if (!s || !g) return null;
         const N = this.nodes.length, GOAL = N;
         const dist = new Float64Array(N + 1).fill(Infinity);
@@ -274,13 +279,14 @@ export class Navigator {
 
     /** set a destination {x,z,label}; computes route from the player */
     setDestination(dest, player) {
-        this.dest = dest;
+        this.dest = dest; this.player = player;
         this.reroute(player);
     }
     clear() { this.dest = null; this.route = null; }
     reroute(player) {
         if (!this.dest) { this.route = null; return; }
-        this.route = this.compute(player.x, player.z, this.dest.x, this.dest.z, player.heading);
+        this.player = player;
+        this.route = this.compute(player.x, player.z, this.dest.x, this.dest.z, player.heading, player.surfY ?? player.y ?? null);
         this.segIdx = 0; this.progress = 0; this.offTimer = 0;
     }
 
@@ -505,7 +511,7 @@ export class CarScreen {
         const d = new Date();
         const clock = info.clock || `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
         ctx.textAlign = 'right'; ctx.fillStyle = '#f8fafc'; ctx.font = 'bold 18px sans-serif';
-        ctx.fillText(`${info.phaseIcon ? info.phaseIcon + ' ' : ''}${clock}`, W - 12, by + 24);
+        ctx.fillText(`${info.weather ? info.weather.split(' ').slice(0, 2).join(' ') + '  ' : ''}${info.phaseIcon ? info.phaseIcon + ' ' : ''}${clock}`, W - 12, by + 24);
         ctx.font = '13px sans-serif'; ctx.fillStyle = '#fbbf24'; ctx.fillText(String(info.year || ''), W - 12, by + 44);
         // compass N
         ctx.save(); ctx.translate(W - 22, 96); ctx.rotate(p.heading);

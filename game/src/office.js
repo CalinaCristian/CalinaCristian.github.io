@@ -2,7 +2,8 @@ import * as THREE from '../vendor/three.module.min.js';
 import { makeCanvasTexture, clamp, damp, angleLerp } from './util.js';
 
 /**
- * Walkable office interior. First person: W/S walk, A/D turn, E interacts with a station.
+ * Walkable office interior. First person: mouse look (pointer lock) or touch drag, W/S walk, A/D strafe (turn without
+ * mouse look), Shift run, Space hop, E interacts with a station, Esc leaves.
  * Stations are glowing screens showing one piece of the CV each.
  */
 export class Office {
@@ -13,10 +14,12 @@ export class Office {
         this.scene.fog = new THREE.Fog('#1a1d24', 30, 70);
         this.done = false;
         this.read = new Set();
-        this.x = 0; this.z = 12; this.heading = 0; this.vel = 0;
+        this.x = 0; this.z = 12; this.heading = 0; this.pitch = 0; this.vel = 0; this.vx = 0; this.vz = 0;
+        this.jumpY = 0; this.vy = 0;
         this.stations = [];
+        this.boxes = []; // AABB colliders {x0, z0, x1, z1} (desks, chairs, reception, plants)
         this.build();
-        this.camRig = new THREE.Group(); this.camRig.add(camera); this.scene.add(this.camRig);
+        this.camRig = new THREE.Group(); this.camRig.rotation.order = 'YXZ'; this.camRig.add(camera); this.scene.add(this.camRig);
         camera.position.set(0, 0, 0); camera.rotation.set(0, 0, 0);
         this.t = 0;
     }
@@ -56,14 +59,14 @@ export class Office {
         // accent stripe
         mk(W, 0.08, 0.1, 0, 1.1, -D / 2 + 0.2, new THREE.MeshBasicMaterial({ color: accent }));
         // reception desk
-        mk(6, 1.1, 1.4, 0, 0.55, -D / 2 + 5, lam('#5b4636'));
-        const plant = (x, z) => { mk(0.6, 0.6, 0.6, x, 0.3, z, lam('#8a5a3c')); const l = new THREE.Mesh(new THREE.SphereGeometry(0.7, 8, 6), lam('#3f8f4a')); l.position.set(x, 1.2, z); this.scene.add(l); };
+        mk(6, 1.1, 1.4, 0, 0.55, -D / 2 + 5, lam('#5b4636')); this.addBox(0, -D / 2 + 5, 6, 1.4);
+        const plant = (x, z) => { mk(0.6, 0.6, 0.6, x, 0.3, z, lam('#8a5a3c')); this.addBox(x, z, 0.9, 0.9); const l = new THREE.Mesh(new THREE.SphereGeometry(0.7, 8, 6), lam('#3f8f4a')); l.position.set(x, 1.2, z); this.scene.add(l); };
         plant(-W / 2 + 1.5, D / 2 - 1.5); plant(W / 2 - 1.5, D / 2 - 1.5); plant(-W / 2 + 1.5, -D / 2 + 1.5); plant(W / 2 - 1.5, -D / 2 + 1.5);
         // desks with monitors (decor)
         for (let r = 0; r < 3; r++) for (const x of [-9, 9]) {
             const z = -4 + r * 6;
-            mk(5, 0.08, 1.6, x, 0.75, z, lam('#d8d2c8')); mk(0.2, 0.75, 0.2, x - 2.2, 0.37, z, lam('#777')); mk(0.2, 0.75, 0.2, x + 2.2, 0.37, z, lam('#777'));
-            for (const dx of [-1.3, 1.3]) { mk(1.1, 0.65, 0.05, x + dx, 1.2, z - 0.4, new THREE.MeshBasicMaterial({ color: '#1e3a8a' })); mk(0.9, 0.9, 0.9, x + dx, 0.45, z + 1.3, lam('#2f3540')); }
+            mk(5, 0.08, 1.6, x, 0.75, z, lam('#d8d2c8')); this.addBox(x, z, 5, 1.6); mk(0.2, 0.75, 0.2, x - 2.2, 0.37, z, lam('#777')); mk(0.2, 0.75, 0.2, x + 2.2, 0.37, z, lam('#777'));
+            for (const dx of [-1.3, 1.3]) { mk(1.1, 0.65, 0.05, x + dx, 1.2, z - 0.4, new THREE.MeshBasicMaterial({ color: '#1e3a8a' })); mk(0.9, 0.9, 0.9, x + dx, 0.45, z + 1.3, lam('#2f3540')); this.addBox(x + dx, z + 1.3, 0.9, 0.9); }
         }
         // stations
         const n = s.stations.length;
@@ -102,31 +105,81 @@ export class Office {
         this.x = 0; this.z = D / 2 - 3; this.heading = 0;
     }
 
+    addBox(x, z, w, d) { this.boxes.push({ x0: x - w / 2, x1: x + w / 2, z0: z - d / 2, z1: z + d / 2 }); }
+    /** push the walker (circle r) out of the furniture boxes and the stations */
+    collide(r = 0.35) {
+        for (const b of this.boxes) {
+            const cx = clamp(this.x, b.x0, b.x1), cz = clamp(this.z, b.z0, b.z1);
+            const dx = this.x - cx, dz = this.z - cz, d = Math.hypot(dx, dz);
+            if (d >= r) continue;
+            if (d > 1e-4) { this.x = cx + dx / d * r; this.z = cz + dz / d * r; }
+            else { // centre inside the box: leave by the nearest side
+                const opts = [[b.x0 - r - this.x, 0], [b.x1 + r - this.x, 0], [0, b.z0 - r - this.z], [0, b.z1 + r - this.z]];
+                const m = opts.reduce((a, o) => (Math.abs(o[0]) + Math.abs(o[1]) < Math.abs(a[0]) + Math.abs(a[1]) ? o : a));
+                this.x += m[0]; this.z += m[1];
+            }
+        }
+        for (const st of this.stations) { const dx = this.x - st.x, dz = this.z - st.z; const d = Math.hypot(dx, dz); if (d < 1.1) { this.x = st.x + dx / d * 1.1; this.z = st.z + dz / d * 1.1; } }
+        this.x = clamp(this.x, this.bounds.minX, this.bounds.maxX); this.z = clamp(this.z, this.bounds.minZ, this.bounds.maxZ);
+    }
+
     update(dt) {
+        dt = Math.min(dt, 0.05);
         this.t += dt;
         const inp = this.input;
-        if (!this.hud.panelOpen) {
-            this.heading -= inp.steer * 1.9 * dt;
-            const target = inp.throttle * 4.2;
-            this.vel = damp(this.vel, target, 8, dt);
-            this.x -= Math.sin(this.heading) * this.vel * dt; this.z -= Math.cos(this.heading) * this.vel * dt;
-            this.x = clamp(this.x, this.bounds.minX, this.bounds.maxX); this.z = clamp(this.z, this.bounds.minZ, this.bounds.maxZ);
-            // station collision
-            for (const st of this.stations) { const dx = this.x - st.x, dz = this.z - st.z; const d = Math.hypot(dx, dz); if (d < 1.1) { this.x = st.x + dx / d * 1.1; this.z = st.z + dz / d * 1.1; } }
+        const panel = this.hud.panelOpen;
+        inp.lookAllowed = !panel;
+        // keys pressed while a panel is open (or the key that closed it) must not act on the next frame
+        if (panel || this._panelWas) inp.flush();
+        this._panelWas = panel;
+        if (panel && inp.locked) inp.releaseLock();
+        if (!panel) {
+            // look: mouse (pointer lock / right button) or touch drag
+            const lk = inp.takeLook();
+            this.heading -= lk.dx * 0.0024; this.pitch = clamp(this.pitch - lk.dy * 0.0024, -1.2, 1.2);
+            const mouse = inp.lookHeld || inp.locked;
+            // keyboard: W/S walk, A/D strafe with mouse look (turn without), arrows always turn, Shift runs (2×)
+            let fwd = 0, side = 0, turn = 0;
+            if (inp.keys.has('KeyW') || inp.keys.has('ArrowUp')) fwd += 1;
+            if (inp.keys.has('KeyS') || inp.keys.has('ArrowDown')) fwd -= 1;
+            if (!inp.keys.size && inp.touch.throttle) fwd = inp.touch.throttle;
+            const a = inp.keys.has('KeyA'), d = inp.keys.has('KeyD');
+            if (mouse) side = (d ? 1 : 0) - (a ? 1 : 0); else turn += (d ? 1 : 0) - (a ? 1 : 0);
+            turn += (inp.keys.has('ArrowRight') ? 1 : 0) - (inp.keys.has('ArrowLeft') ? 1 : 0);
+            if (!inp.keys.size && inp.touch.steer) turn = inp.touch.steer;
+            this.heading -= turn * 1.9 * dt;
+            if (!mouse && !turn && Math.abs(fwd) > 0) this.pitch = damp(this.pitch, 0, 2, dt); // keyboard walking levels the view
+            const run = inp.shift ? 2 : 1, sp = 4.2 * run;
+            const fx = -Math.sin(this.heading), fz = -Math.cos(this.heading), rx = -fz, rz = fx;
+            let wx = fx * fwd + rx * side, wz = fz * fwd + rz * side; const wl = Math.hypot(wx, wz); if (wl > 1) { wx /= wl; wz /= wl; }
+            const k = 1 - Math.exp(-(this.jumpY > 0 ? 2 : 10) * dt); // little air control
+            this.vx += (wx * sp - this.vx) * k; this.vz += (wz * sp - this.vz) * k;
+            this.vel = Math.hypot(this.vx, this.vz);
+            this.x += this.vx * dt; this.z += this.vz * dt;
+            this.collide();
+            // Space: a small hop, lands back on the floor
+            if (inp.take('Space') && this.jumpY <= 0) { this.vy = 3.4; this.audio.blip?.(330, 0.04, 0.04); }
         }
-        this.camRig.position.set(this.x, 1.65 + Math.sin(this.t * 7) * 0.02 * Math.abs(this.vel) / 4, this.z);
-        this.camRig.rotation.y = this.heading;
+        if (this.vy !== 0 || this.jumpY > 0) {
+            this.vy -= 9.8 * dt; this.jumpY += this.vy * dt;
+            if (this.jumpY <= 0) { this.jumpY = 0; this.vy = 0; }
+        }
+        const bob = this.jumpY > 0 ? 0 : Math.sin(this.t * 7 * (this.vel > 5 ? 1.4 : 1)) * 0.02 * Math.min(1.6, this.vel / 4);
+        this.camRig.position.set(this.x, 1.65 + this.jumpY + bob, this.z);
+        this.camRig.rotation.set(this.pitch, this.heading, 0, 'YXZ');
         this.camera.fov = damp(this.camera.fov, 70, 5, dt); this.camera.updateProjectionMatrix();
         // nearest station
         let near = null, nd = 3.2;
         for (const st of this.stations) { const d = Math.hypot(this.x - st.x, this.z - st.z); st.glow.intensity = damp(st.glow.intensity, d < nd ? 2.5 : (this.read.has(st.index) ? 0.3 : 1.0), 6, dt); if (d < nd) { nd = d; near = st; } }
         const atExit = this.z > this.exitZ - 1.6 && Math.abs(this.x) < 2.5;
         if (this.hud.panelOpen) { this.hud.prompt(null); }
-        else if (near) { this.hud.prompt(`<kbd>E</kbd> ${this.read.has(near.index) ? 'Re-read' : 'Read'}: <b>${near.data.title}</b>`); if (inp.take('KeyE')) this.open(near); }
+        else if (near) { this.hud.prompt(`<kbd>E</kbd> ${this.read.has(near.index) ? 'Re-read' : 'Read'}: <b>${near.data.title}</b>`); if (inp.take('KeyE')) { inp.releaseLock(); this.open(near); } }
         else if (atExit) { this.hud.prompt(`<kbd>E</kbd> Leave ${this.stop.short} ${this.read.size < this.stations.length ? `<small>(${this.stations.length - this.read.size} screens unread)</small>` : '✓'}`); if (inp.take('KeyE')) this.done = true; }
         else this.hud.prompt(null);
         if (inp.take('Escape') && !this.hud.panelOpen) this.done = true;
-        this.hud.setHint(`${this.read.size}/${this.stations.length} screens read · W/S walk · A/D turn · E read · Esc leave`);
+        const touch = document.body.classList.contains('touch');
+        const lookHint = touch ? 'drag to look' : inp.lookMode === 'lock' ? (inp.locked ? 'mouse look · Esc frees the cursor' : 'click to look around') : inp.lookMode === 'hold' ? 'hold right button to look' : 'A/D turn';
+        this.hud.setHint(`${this.read.size}/${this.stations.length} screens read · W/S walk · ${inp.locked || inp.lookMode === 'hold' ? 'A/D strafe · ' : ''}Shift run · Space jump · ${lookHint} · E read · Esc leave`);
     }
 
     open(st) {
@@ -138,5 +191,5 @@ export class Office {
     }
 
     render() { this.renderer.render(this.scene, this.camera); }
-    dispose() { this.camRig.remove(this.camera); this.scene.traverse(o => { if (o.geometry) o.geometry.dispose(); }); }
+    dispose() { this.input.releaseLock(); this.camRig.remove(this.camera); this.scene.traverse(o => { if (o.geometry) o.geometry.dispose(); }); }
 }

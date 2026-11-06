@@ -45,7 +45,7 @@ export const ROAD_TYPES = {
 const BUC_POIS = [
     { id: 'rosetti', lat: 44.4565, lon: 26.1055, label: 'Liceul C.A. Rosetti', kind: 'school', address: 'Str. Giuseppe Garibaldi 11' },
     { id: 'upb', lat: 44.4385, lon: 26.0505, label: 'Politehnica (UPB)', kind: 'school', address: 'Splaiul Independenței 313', road: /Splaiul Independenței/, size: [60, 22, 40] },
-    { id: 'gts', lat: 44.4302, lon: 26.1178, label: 'GTS Global Intelligence', kind: 'office', address: 'Calea Călărașilor 101, lângă Hala Traian', road: /Călărașilor/, size: [20, 18, 20] },
+    { id: 'gts', lat: 44.4302, lon: 26.1178, label: 'GTS Global Intelligence', kind: 'office', address: 'Calea Călărașilor 101, lângă Hala Traian', road: /Călărașilor/, junction: [/Călărașilor/, /Traian/], size: [20, 18, 20] },
     { id: 'luxoft', lat: 44.4855, lon: 26.1165, label: 'Luxoft — Hermes Business Campus', kind: 'office', address: 'Bd. Dimitrie Pompeiu 5-7', road: /Pompeiu/, size: [36, 42, 26] },
     { id: 'db', lat: 44.4760, lon: 26.1030, label: 'Deutsche Bank — Floreasca Park', kind: 'office', address: 'Calea Floreasca 169A', road: /Floreasca/, size: [40, 48, 30] },
     { id: 'arnia', lat: 44.4510, lon: 26.0880, label: 'Arnia Software — Europe House', kind: 'office', address: 'Bd. Lascăr Catargiu 47-53', road: /Lascăr Catargiu/, size: [24, 26, 20] },
@@ -61,7 +61,7 @@ export const BUCHAREST = {
     center: { lat: 44.4268, lon: 26.1025 },
     timeZone: 'Europe/Bucharest',
     data: './data/bucharest.json',
-    proj: projector({ lat0: 44.4268, lon0: 26.1025, scale: 1, compress: { above: 44.497, factor: 0.35 } }),
+    proj: projector({ lat0: 44.4268, lon0: 26.1025, scale: 0.7, compress: { above: 44.497, factor: 0.35 } }), // whole city drawn at 0.7
     pois: BUC_POIS,
     // drive off from Politehnica eastwards along the Dâmbovița
     spawnLL: { lat: 44.4392, lon: 26.0585, road: /Splaiul Independenței/, bearing: 80 },

@@ -199,4 +199,5 @@ export const ACHIEVEMENTS = [
     { id: 'navigator', title: 'Navigator', desc: 'Set your own waypoint on the map.' },
     { id: 'night-owl', title: 'Night owl', desc: 'Drove through the city at night.' },
     { id: 'law-abiding', title: 'Law-abiding citizen', desc: 'Drove 5 km without a single fine.' },
+    { id: 'fast-travel', title: 'Montage!', desc: 'Skipped the traffic with fast travel. If only it worked in real life.' },
 ];

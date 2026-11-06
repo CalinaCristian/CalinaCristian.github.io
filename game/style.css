@@ -118,6 +118,8 @@ body.no-minimap .bottom-left { display: none; }
 .nav-item small { color: var(--muted); }
 .nav-item button, .small-btn { appearance: none; border: 0; cursor: pointer; background: #2563eb; color: #fff; font: 600 12px var(--font); padding: 5px 9px; border-radius: 8px; }
 .nav-item.active { outline: 2px solid #3b82f6; }
+.nav-item button.ft { background: #7c3aed; padding: 5px 7px; }
+.nav-item button.ft:hover { background: #8b5cf6; }
 .small-btn { background: rgba(255,255,255,.12); margin-left: 10px; }
 .map-hint { margin-top: 12px; color: var(--muted); font-size: 13px; }
 @media (max-width: 900px) { .map-row { flex-direction: column; } #navpanel { width: auto; max-height: 42vh; } }
@@ -170,3 +172,20 @@ body.touch #ticker { bottom: 335px; }
     #street { font-size: 17px; }
     .menu-card { padding: 26px 22px; }
 }
+
+/* ===== fast-travel montage ===== */
+#montage { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; pointer-events: none; opacity: 0; transition: opacity .18s; background: radial-gradient(ellipse at center, rgba(10,12,20,.78), rgba(4,6,10,.96)); overflow: hidden; }
+#montage.show { opacity: 1; pointer-events: auto; }
+#montage .m-streaks { position: absolute; inset: -50% -10%; background: repeating-linear-gradient(90deg, transparent 0 46px, rgba(255,255,255,.06) 46px 48px, transparent 48px 110px, rgba(250,70,22,.12) 110px 112px); animation: m-rush .35s linear infinite; }
+@keyframes m-rush { from { transform: translateX(0) skewX(-18deg); } to { transform: translateX(-112px) skewX(-18deg); } }
+#montage .m-inner { position: relative; text-align: center; display: grid; gap: 10px; padding: 0 16px; max-width: 92vw; }
+#montage .m-eyebrow { font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: #fbbf24; }
+#montage .m-city { font-size: clamp(30px, 6vw, 56px); font-weight: 800; letter-spacing: -.01em; }
+#montage .m-street { font-size: clamp(18px, 3.4vw, 28px); color: #93c5fd; min-height: 1.3em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#montage .m-street.flash { animation: m-flash .22s ease-out; }
+@keyframes m-flash { from { opacity: .35; transform: translateX(40px); filter: blur(3px); } to { opacity: 1; transform: none; filter: none; } }
+#montage .m-stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; font-size: 15px; color: var(--muted); font-variant-numeric: tabular-nums; }
+#montage .m-stats small { color: #94a3b8; }
+#montage .m-bar { height: 4px; width: min(420px, 80vw); margin: 4px auto 0; background: rgba(255,255,255,.12); border-radius: 4px; overflow: hidden; }
+#montage .m-bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #fa4616, #fbbf24); }
+#montage .m-dest { font-size: 15px; color: #e5e7eb; }

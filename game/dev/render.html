@@ -19,6 +19,9 @@
     quality <select id="q"><option>auto</option><option>ultra</option><option>high</option><option>medium</option><option>low</option></select>
     view <select id="view"><option>cockpit</option><option>cars</option><option>orbit</option><option>sun</option><option>side</option></select>
     <label><input type="checkbox" id="drive"> drive</label>
+    <br>time <input type="range" id="time" min="0" max="24" step="0.25" style="width:160px"> <span id="tlabel"></span>
+    look <select id="ov"><option value="">clock</option><option>day</option><option>sunset</option><option>dusk</option><option>night</option><option>dawn</option></select>
+    <label><input type="checkbox" id="head"> headlights (manual)</label>
     <div id="stats"></div>
 </div>
 <script type="module">
@@ -30,8 +33,9 @@ import { makeVehicle, makeCockpit, VEHICLE_KINDS, CAR_COLORS, vehicleTriangles }
 const qs = new URLSearchParams(location.search);
 const $ = (s) => document.querySelector(s);
 const cityId = qs.get('city') || 'bucharest', quality = qs.get('q') || 'auto', view = qs.get('view') || 'cockpit';
-$('#city').value = cityId; $('#q').value = quality; $('#view').value = view;
-for (const id of ['city', 'q', 'view']) $('#' + id).onchange = () => { const p = new URLSearchParams(location.search); p.set(id, $('#' + id).value); location.search = p; };
+const ov = qs.get('ov') || '', hour0 = qs.has('t') ? +qs.get('t') : 17.5;
+$('#city').value = cityId; $('#q').value = quality; $('#view').value = view; $('#ov').value = ov; $('#time').value = hour0;
+for (const id of ['city', 'q', 'view', 'ov']) $('#' + id).onchange = () => { const p = new URLSearchParams(location.search); p.set(id, $('#' + id).value); location.search = p; };
 
 const canvas = $('#gl');
 const r3d = new Renderer3D(canvas, { quality, autoGauges: true });
@@ -76,7 +80,6 @@ for (const kind of VEHICLE_KINDS) {
     scene.add(v); vehicles.push(v);
     tri[kind] = vehicleTriangles(kind);
 }
-vehicles.find(v => v.userData.kind === 'police')?.userData.setLights(true);
 
 // ---- fake player (same interface Renderer3D uses: x, z, fx, fz, speed, cockpit, rig) ----
 const player = { x: 1.8, z: 0, heading: 0, speed: 0, get fx() { return -Math.sin(this.heading); }, get fz() { return -Math.cos(this.heading); } };
@@ -96,6 +99,29 @@ else { scene.add(camera); camera.position.set(-14, 9, 12); camera.lookAt(4, 1, -
 
 r3d.setScene(scene, camera, env, { sky: oldSky, units: CITIES[cityId].units });
 r3d.setPlayer(player);
+
+// ---- street lamps (same object format as world.lamps) + instanced heads ----
+const lamps = [];
+for (let z = 10; z > -900; z -= 32) { lamps.push({ x: -12.5, z, h: 8, rot: 0, y: 0.02 }); lamps.push({ x: 12.5, z: z - 16, h: 8, rot: Math.PI, y: 0.02 }); }
+const postGeo = new THREE.CylinderGeometry(0.08, 0.11, 8, 5); postGeo.translate(0, 4, 0);
+const headGeo = new THREE.BoxGeometry(0.75, 0.16, 0.34); headGeo.translate(1.8, 7.78, 0);
+const posts = new THREE.InstancedMesh(postGeo, new THREE.MeshLambertMaterial({ color: '#4a4f57' }), lamps.length);
+const heads = new THREE.InstancedMesh(headGeo, new THREE.MeshStandardMaterial({ color: '#f4f1e6', emissive: '#000000', roughness: 0.4 }), lamps.length);
+lamps.forEach((l, i) => { m4.compose(new THREE.Vector3(l.x, l.y, l.z), new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), l.rot), new THREE.Vector3(1, 1, 1)); posts.setMatrixAt(i, m4); heads.setMatrixAt(i, m4); });
+posts.castShadow = true; scene.add(posts, heads);
+r3d.setLamps(lamps, { headMesh: heads });
+
+// ---- clock ----
+const CITY_LL = { bucharest: { lat: 44.4268, lon: 26.1025, tz: 'Europe/Bucharest', off: 2 }, seattle: { lat: 47.61, lon: -122.33, tz: 'America/Los_Angeles', off: -8 } }[cityId];
+const dateAt = (h) => { const d = new Date(); d.setUTCHours(0, 0, 0, 0); return new Date(+d + (h - CITY_LL.off) * 3600e3); };
+const setTime = () => {
+    const h = +$('#time').value;
+    r3d.setClock({ date: dateAt(h), lat: CITY_LL.lat, lon: CITY_LL.lon, timeZone: CITY_LL.tz, override: ov || null });
+    $('#tlabel').textContent = `${String(Math.floor(h)).padStart(2, '0')}:${String(Math.round(h % 1 * 60)).padStart(2, '0')} · ${r3d.phase} · sun ${r3d.sunElevation.toFixed(1)}°`;
+};
+r3d.onNightLights = (on) => vehicles.forEach(v => v.userData.setLights(on));
+$('#time').oninput = setTime; setTime();
+$('#head').onchange = (e) => r3d.setHeadlights(e.target.checked ? true : null);
 
 const resize = () => { camera.updateProjectionMatrix(); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); r3d.resize(innerWidth, innerHeight); };
 addEventListener('resize', resize); resize();

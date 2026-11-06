@@ -27,7 +27,7 @@ export class MiniMap {
         this.landmarks = (world.landmarks || []).map(l => ({ label: l.label, x: l.x, z: l.z }));
         // one label per named major street, at its longest segment
         const best = new Map();
-        for (const e of world.graph.edges) {
+        for (const e of (world.allEdges || world.graph.edges)) {
             if (!e.name || rank(e.type) < 3 || /_link/.test(e.type)) continue;
             const key = e.name.split(' — ')[0];
             const cur = best.get(key);
@@ -35,7 +35,7 @@ export class MiniMap {
         }
         this.labels = [...best.values()].filter(e => e.len > 60);
         // edges sorted so bigger roads draw on top
-        this.edgesSorted = world.graph.edges.slice().sort((a, b) => rank(a.type) - rank(b.type));
+        this.edgesSorted = (world.allEdges || world.graph.edges).slice().sort((a, b) => rank(a.type) - rank(b.type));
     }
     _edgesInView(x0, z0, x1, z1, full) {
         if (full || !this.world.edgesInBox) return this.edgesSorted;

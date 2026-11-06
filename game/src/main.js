@@ -10,8 +10,9 @@ import { HUD } from './hud.js';
 import { MiniMap } from './minimap.js';
 import { Office } from './office.js';
 import { playFlight } from './flight.js';
-import { Navigator, CarScreen, canTravel, edgeSpeed, isMotorway, roadName, fmtDist, stepText, stepArrow } from './nav.js';
+import { Navigator, CarScreen, canTravel, edgeSpeed, isMotorway, roadName, fmtDist, stepText, stepArrow, lanesDir } from './nav.js';
 import { isTouch, clamp, angleDiff, signTexture } from './util.js';
+import { Renderer3D } from './render.js';
 
 const $ = (s) => document.querySelector(s);
 
@@ -55,17 +56,15 @@ const money = (cur, v) => cur === 'RON' ? `${Math.round(v).toLocaleString('ro-RO
 class Game {
     constructor() {
         this.canvas = $('#gl');
-        this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: true, powerPreference: 'high-performance' });
-        this.renderer.shadowMap.enabled = true;
-        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-        this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        this.renderer.outputColorSpace = THREE.SRGBColorSpace;
+        // Renderer3D owns the WebGLRenderer, lighting, sky, weather, post-processing and adaptive quality
+        this.r3d = this.renderer3d = new Renderer3D(this.canvas, { quality: 'auto' });
+        this.renderer = this.r3d.renderer; // still used directly for the mirror pass and the office scene
         this.camera = new THREE.PerspectiveCamera(72, 1, 0.4, 5000);
         this.input = new Input();
         this.audio = new Audio();
         this.hud = new HUD();
         this.touch = isTouch();
-        this.quality = this.touch ? 'low' : 'high';
+        this.quality = 'auto'; // Renderer3D's auto mode starts high on desktop, low+ on touch, and adapts to frame time
         this.state = 'menu';
         this.visited = new Set();
         this.honks = 0;
@@ -73,7 +72,7 @@ class Game {
         this.mapOpen = false;
         this.flags = {};
         this.fuel = TANK_L * 0.6;
-        this.stats = { dist: 0, time: 0, fuelL: 0, fuelReal: 0, fuelCost: { RON: 0, USD: 0 }, fines: { RON: 0, USD: 0 }, fineCount: 0, tow: { RON: 0, USD: 0 }, cleanDist: 0, peds: 0 };
+        this.stats = { dist: 0, time: 0, fuelL: 0, fuelReal: 0, fuelCost: { RON: 0, USD: 0 }, fines: { RON: 0, USD: 0 }, fineCount: 0, tow: { RON: 0, USD: 0 }, cleanDist: 0, peds: 0, fastTravels: 0, fastDist: 0 };
         this.opts = { minimap: this.loadOpt('minimap', false) };
         this.frame = 0;
         this.clock = { date: new Date(), timeZone: 'Europe/Bucharest', override: null };
@@ -93,14 +92,13 @@ class Game {
 
     resize() {
         const w = window.innerWidth, h = window.innerHeight;
-        this.renderer.setPixelRatio(Math.min(devicePixelRatio, this.quality === 'high' ? 1.75 : 1));
-        this.renderer.setSize(w, h, false);
         this.camera.aspect = w / h; this.camera.updateProjectionMatrix();
+        this.r3d.resize(w, h);
     }
 
     bindMenu() {
         $('#start').addEventListener('click', () => this.start());
-        $('#quality').addEventListener('change', (e) => { this.quality = e.target.value; this.resize(); });
+        $('#quality').addEventListener('change', (e) => { this.quality = e.target.value; this.r3d.setQuality(e.target.value); });
         $('#mute').addEventListener('click', (e) => { this.audio.setMuted(!this.audio.muted); e.target.textContent = this.audio.muted ? '🔇' : '🔊'; });
         $('#timeofday')?.addEventListener('change', (e) => { this.clock.override = e.target.value === 'real' ? null : e.target.value; });
         $('#opt-minimap')?.addEventListener('change', (e) => { this.opts.minimap = e.target.checked; this.saveOpt('minimap', this.opts.minimap); this.applyOpts(); });
@@ -119,6 +117,8 @@ class Game {
         });
         $('#map-close')?.addEventListener('click', () => this.toggleMap(false));
         $('#navlist')?.addEventListener('click', (e) => {
+            const ft = e.target.closest('[data-ft]');
+            if (ft) { const it = this.navItems[+ft.dataset.ft]; if (it) { this.toggleMap(false); this.fastTravel({ x: it.x, z: it.z, label: it.label.replace(/ ✓$/, ''), station: it.group === 'Gas stations' }); } return; }
             const b = e.target.closest('[data-nav]'); if (!b) return;
             const idx = +b.dataset.nav;
             if (idx < 0) { this.navManual = false; this.autoRoute(true); }
@@ -151,25 +151,14 @@ class Game {
         if (this.scene) { this.scene.traverse(o => { if (o.geometry && !o.userData.shared) o.geometry.dispose?.(); }); }
         const scene = this.scene = new THREE.Scene();
         const env = city.env;
-        scene.fog = new THREE.Fog(env.fog, env.fogNear, env.fogFar);
-        scene.background = new THREE.Color(env.fog);
-        this.renderer.toneMappingExposure = env.exposure;
-        // lights
-        scene.add(new THREE.HemisphereLight(env.hemiSky, env.hemiGround, 0.9));
-        const sun = this.sun = new THREE.DirectionalLight(env.sunColor, env.sunIntensity);
-        sun.castShadow = this.quality === 'high';
-        sun.shadow.mapSize.set(2048, 2048);
-        const sc = sun.shadow.camera; sc.left = -140; sc.right = 140; sc.top = 140; sc.bottom = -140; sc.near = 10; sc.far = 900;
-        sun.shadow.bias = -0.0008; sun.shadow.normalBias = 0.6;
-        scene.add(sun); scene.add(sun.target);
-        this.sunDir = new THREE.Vector3(...env.sun).normalize();
+        // lighting, sky, fog and weather are owned by Renderer3D (set up after the world exists)
         // world (buildWorld may be async)
         const world = this.world = await buildWorld(city, this.renderer);
         scene.add(world.group);
         // navigation (spatial index shared with traffic)
         this.nav = new Navigator(world);
         // traffic
-        const hi = this.quality === 'high';
+        const hi = !(this.quality === 'low' || this.quality === 'medium' || this.touch);
         this.traffic = new Traffic(world, city, scene, {
             maxVehicles: hi ? (id === 'bucharest' ? 420 : 110) : (id === 'bucharest' ? 150 : 45),
             maxPeds: hi ? (id === 'bucharest' ? 250 : 60) : (id === 'bucharest' ? 110 : 30),
@@ -187,9 +176,15 @@ class Game {
         this.player.world = world; this.player.traffic = this.traffic; this.player.bounds = world.bounds;
         this.traffic.setPlayer(this.player);
         this.placeSpawn(city, world);
-        // weather
-        if (this.rain) { this.rain = null; }
-        if (env.rain) this.makeRain();
+        // renderer: scene, lighting, real-time sun, street lamps, weather
+        const center = city.center || (id === 'seattle' ? { lat: 47.61, lon: -122.33 } : { lat: 44.4268, lon: 26.1025 });
+        this.r3d.setScene(scene, this.camera, env, { sky: world.sky, units: city.units });
+        this.r3d.setPlayer(this.player);
+        this.r3d.setClock({ date: new Date(), lat: center.lat, lon: center.lon, timeZone: this.clock.timeZone, override: this.clock.override || null, timeScale: 1 });
+        this.r3d.setLamps(world.lamps || [], { headMesh: world.lampHeadMesh });
+        this.r3d.onNightLights = (on) => { this.nightLights = on; this.traffic?.setNightLights(on); };
+        this.r3d.onNightLights(this.r3d.nightLights);
+        this.r3d.setHeadlights(this.headlights === 'auto' ? null : this.headlights);
         this.audio.ambience(env.rain ? 0.08 : 0.02);
         // minimap
         this.minimap = new MiniMap($('#minimap'), world, city);
@@ -203,9 +198,9 @@ class Game {
         this.hud.setTicker(FACTS[city.id]);
         this.hud.setChapter(city.id === 'bucharest' ? 'Chapter 1 · București' : 'Chapter 2 · Seattle → Bellevue');
         this.stops = STOPS.filter(s => s.city === city.id).sort((a, b) => a.order - b.order);
-        for (const s of this.stops) { s.poiRef = world.pois.find(p => p.id === s.poi); if (s.poiRef) { s.poiRef.visited = this.visited.has(s.id); s.poiRef.color = s.color; s.poiRef.icon = s.icon; } }
+        for (const s of this.stops) { s.poiRef = world.pois.find(p => p.id === s.poi && p.interactive !== false); if (s.poiRef) { s.poiRef.visited = this.visited.has(s.id); s.poiRef.color = s.color; s.poiRef.icon = s.icon; } }
         this.stopPois = this.stops.filter(s => s.poiRef).map(s => ({ stop: s, poi: s.poiRef }));
-        this.airport = world.pois.find(p => p.id === AIRPORTS[city.id].poi);
+        this.airport = world.pois.find(p => p.id === AIRPORTS[city.id].poi && p.interactive !== false) || world.pois.find(p => p.id === AIRPORTS[city.id].poi);
         this.leftAirport = false;
         this.prevEdgeInfo = null;
         this.navManual = false; this.navInfo = null;
@@ -363,7 +358,7 @@ class Game {
     /** the ONLY place the main scene is rendered while driving (render agent may replace the body) */
     drawFrame({ mirror = false } = {}) {
         if (mirror && this.player) this.player.renderMirror(this.renderer, this.scene);
-        this.renderer.render(this.scene, this.camera);
+        this.r3d.frame();
     }
 
     updateDrive(dt) {
@@ -385,13 +380,16 @@ class Game {
         if (this.refuel) player.update(dt, { throttle: 0, brake: true, steer: 0 }, { maxSpeed: 38 });
         else player.update(dt, input, { maxSpeed: empty ? 2 : 38 });
         traffic.update(dt);
+        this.updateUnstick(dt);
+        if (input.take('KeyR')) {
+            if (Math.abs(player.speed) < 6) this.resetToRoad();
+            else hud.toast('🛟 Slow down first', 'Reset to the road works below ~20 km/h.', 'warn');
+        }
+        if (input.take('KeyF')) { this.fastTravelToObjective(); if (this.state !== 'drive') return; }
         hud.update(dt, this.camera, city.id);
         this.audio.engine(empty ? player.speed * 0.3 : player.speed, empty ? 0 : input.throttle, dt);
         this.stats.time += dt;
-        // sun follows player for shadows
-        this.sun.position.copy(this.sunDir).multiplyScalar(260).add(new THREE.Vector3(player.x, 0, player.z));
-        this.sun.target.position.set(player.x, 0, player.z);
-        if (this.rain) this.updateRain(dt);
+        // (sun follow / shadows / rain are handled inside Renderer3D.frame())
         // horn
         if (input.take('KeyH')) this.playerHonk();
         // markers bob
@@ -469,8 +467,9 @@ class Game {
             }
         }
         if (!prompt) prompt = this.updateFuelStops(dt, v);
+        if (!prompt && this.stuckT > 2) prompt = '<kbd>R</kbd> Stuck? Reset to the road <small>(nearest lane, facing the traffic flow)</small>';
         hud.prompt(prompt);
-        hud.setHint(this.touch ? '' : 'W/S drive · A/D steer · Space brake · H horn · C look back · M map & nav · N mini-map · L lights · E enter/refuel');
+        hud.setHint(this.touch ? '' : 'W/S drive · A/D steer · Space brake · H horn · C look back · M map & nav · F fast travel · R reset · N mini-map · L lights · E enter/refuel');
         // ---- HUD fuel / trip ----
         const frac = this.fuel / TANK_L;
         const fuelText = us ? `${Math.round(frac * 100)}% · ${(this.fuel / GAL).toFixed(1)} gal` : `${Math.round(frac * 100)}% · ${this.fuel.toFixed(1)} L`;
@@ -483,7 +482,7 @@ class Game {
             this.drawRouteOverlay(this.minimap.ctx, $('#minimap'), { cx: player.x, cz: player.z, scale: 0.16, heading: player.heading });
         }
         if (this.frame % 2 === 1) this.drawCarScreen(streetName, fuelText);
-        player.mirrorEnabled = this.quality === 'high';
+        player.mirrorEnabled = this.quality !== 'low' && !/low/.test(this.r3d.stats?.quality || '');
         this.drawFrame({ mirror: this.frame % 2 === 1 });
     }
 
@@ -492,16 +491,23 @@ class Game {
         const c = this.clock; c.date = new Date();
         const h = c.override ? OVERRIDE_HOURS[c.override] : localHours(c.date, c.timeZone);
         c.hours = h;
+        if (this.r3d && this.scene) {
+            this.r3d.setClock({ date: c.date, override: c.override || null });
+            const want = this.headlights === 'auto' ? null : !!this.headlights;
+            if (this._hlSent !== want) { this._hlSent = want; this.r3d.setHeadlights(want); }
+        }
         const ph = this.renderer3d?.phase;
         this.phase = typeof ph === 'string' ? (ph === 'sunset' ? 'dusk' : ph) : phaseFromHours(h);
-        const night = this.phase === 'night' || this.phase === 'dusk' || this.phase === 'dawn';
-        if (night !== this.nightLights) { this.nightLights = night; this.traffic?.setNightLights(night); }
+        if (typeof ph !== 'string') {
+            const night = this.phase === 'night' || this.phase === 'dusk' || this.phase === 'dawn';
+            if (night !== this.nightLights) { this.nightLights = night; this.traffic?.setNightLights(night); }
+        }
         if (this.phase === 'night' && this.state === 'drive') {
             this._nightDist = (this._nightDist || 0) + Math.abs(this.player?.speed || 0) * dt;
             if (this._nightDist > 500 && this.hud.achievement('night-owl')) this.audio.chime();
         }
     }
-    get headlightsOn() { return this.headlights === 'auto' ? this.nightLights : !!this.headlights; }
+    get headlightsOn() { return this.headlights === 'auto' ? (this.r3d?.headlightsOn ?? this.nightLights) : !!this.headlights; }
     /** HH:MM in the city's time zone (or the override's nominal hour) */
     clockText() {
         const c = this.clock;
@@ -760,9 +766,143 @@ class Game {
         if (this.navManual) html += `<div class="nav-item active"><span>🧭 ${this.nav.dest?.label || 'Custom'}</span><button data-nav="-1">Clear</button></div>`;
         items.forEach((it, i) => {
             if (it.group !== g) { g = it.group; html += `<h4>${g}</h4>`; }
-            html += `<div class="nav-item"><span>${it.icon} ${it.label} <small>${dist(it.x, it.z)}</small></span><button data-nav="${i}">Go</button></div>`;
+            html += `<div class="nav-item"><span>${it.icon} ${it.label} <small>${dist(it.x, it.z)}</small></span><button data-nav="${i}" title="Route there">Go</button><button class="ft" data-ft="${i}" title="Fast travel (skip the drive)">⏩</button></div>`;
         });
         $('#navlist').innerHTML = html;
+    }
+
+    // ---------------------------------------------------------------------------------- unstick / reset
+    /** stuck = barely moving while touching something for 2 s → prompt for R */
+    updateUnstick(dt) {
+        const P = this.player;
+        if (Math.abs(P.speed) < 1 && P.touching) this.stuckT = (this.stuckT || 0) + dt;
+        else this.stuckT = Math.max(0, (this.stuckT || 0) - dt * 0.5);
+    }
+    /** right-most lane pose on the nearest drivable edge to (x,z), facing the legal direction (closest to `heading`) */
+    lanePose(x, z, heading) {
+        const cands = this.nav.index.near(x, z, 90, []);
+        let best = null, bs = Infinity;
+        for (const e of cands) {
+            if (e.len < 6 || e.tramOnly || !(canTravel(e, 1) || canTravel(e, -1))) continue;
+            const ax = e.a.x, az = e.a.z, dx = e.b.x - ax, dz = e.b.z - az, L2 = dx * dx + dz * dz || 1;
+            const t = clamp(((x - ax) * dx + (z - az) * dz) / L2, 0, 1);
+            const d = Math.hypot(ax + dx * t - x, az + dz * t - z);
+            const score = d + (e.main === false ? 200 : 0) + (e.tunnel || e.bridge ? 25 : 0) + (e.type === 'service' || e.len < 15 ? 12 : 0) + (isMotorway(e) ? 6 : 0);
+            if (score < bs) { bs = score; best = { e, t }; }
+        }
+        if (!best) { const ne = this.nav.index.nearest(x, z, 3000); if (!ne) return null; best = { e: ne.edge, t: ne.t }; }
+        const e = best.e;
+        const hx = -Math.sin(heading), hz = -Math.cos(heading);
+        let dir = (e.dirx * hx + e.dirz * hz) >= 0 ? 1 : -1;
+        if (!canTravel(e, dir)) dir = -dir;
+        const lane = Math.max(0, lanesDir(e, dir) - 1);
+        // keep out of the junction boxes when the edge is long enough
+        const ra = (e.a.radius ?? 6) + 3, rb = (e.b.radius ?? 6) + 3;
+        let s = best.t * e.len; if (e.len > ra + rb) s = clamp(s, ra, e.len - rb);
+        const lat = this.traffic.laneOffset(e, lane);
+        return { x: e.a.x + e.dirx * s + e.nx * dir * lat, z: e.a.z + e.dirz * s + e.nz * dir * lat, heading: Math.atan2(-e.dirx * dir, -e.dirz * dir), edge: e, dir };
+    }
+    /** R: put the car back on the road (nearest edge, right lane, legal direction) and clear NPCs around it */
+    resetToRoad({ silent = false } = {}) {
+        const P = this.player;
+        const pose = this.lanePose(P.x, P.z, P.heading); if (!pose) return false;
+        P.place(pose.x, pose.z, pose.heading); P.contactAge = 9; P.steer = 0;
+        this.stuckT = 0; this.prevEdgeInfo = null;
+        const n = this.traffic.clearAround(pose.x, pose.z, 12);
+        this.nav.reroute(P);
+        if (!silent) { this.hud.toast('🛟 Back on the road', `${roadName(pose.edge)}${n ? ` · ${n} car${n > 1 ? 's' : ''} moved along` : ''}`); this.audio.blip(700, 0.08, 0.08); }
+        return pose;
+    }
+
+    // ---------------------------------------------------------------------------------- fast travel
+    fastTravelToObjective() {
+        if (this.navManual && this.nav.dest) return this.fastTravel({ ...this.nav.dest });
+        const o = this.objective;
+        if (!o) { this.hud.toast('⏩ Nowhere to fast-travel', 'Pick a destination on the map (M).'); return; }
+        return this.fastTravel({ x: o.doorX ?? o.x, z: o.doorZ ?? o.z, label: this.objectivePlain || 'Destination' });
+    }
+    /** point `d` metres along a route → lane pose (right-most lane of that leg, facing along the route) */
+    poseAlongRoute(route, d) {
+        const { points: P, cum, legs } = route;
+        let i = 0; while (i < P.length - 2 && cum[i + 1] < d) i++;
+        const leg = legs[Math.min(i, legs.length - 1)]; const e = leg.e, dir = leg.dir;
+        const segLen = cum[i + 1] - cum[i] || 1;
+        let local = d - cum[i];
+        const r0 = (i === 0 ? 0 : ((dir > 0 ? e.a : e.b).radius ?? 6) + 3), r1 = (i >= P.length - 2 ? 0 : ((dir > 0 ? e.b : e.a).radius ?? 6) + 3);
+        if (segLen > r0 + r1) local = clamp(local, r0, segLen - r1);
+        const t = clamp(local / segLen, 0, 1);
+        const cx = P[i][0] + (P[i + 1][0] - P[i][0]) * t, cz = P[i][1] + (P[i + 1][1] - P[i][1]) * t;
+        const lat = this.traffic.laneOffset(e, Math.max(0, lanesDir(e, dir) - 1));
+        return { x: cx + e.nx * dir * lat, z: cz + e.nz * dir * lat, heading: Math.atan2(-e.dirx * dir, -e.dirz * dir), edge: e, dir };
+    }
+    async fastTravel(dest) {
+        if (this.state !== 'drive' || this.refuel) return false;
+        const { player, hud, city } = this;
+        const route = this.nav.compute(player.x, player.z, dest.x, dest.z, player.heading);
+        if (!route) { hud.toast('🧭 No route', 'Could not find a drivable route there.', 'warn'); return false; }
+        if (route.total < 120) { hud.toast('⏩ Already here', `${dest.label || 'Destination'} is just ahead.`); return false; }
+        // travel time on the route (speed limits, ~35% lost to lights and traffic) and fuel at the normal rate
+        let t = 0; for (const leg of route.legs) t += leg.e.len / Math.max(5, edgeSpeed(leg.e) * 0.8);
+        t = Math.max(t * 1.35, route.total / 16);
+        const vAvg = route.total / t;
+        const burn = (FUEL_IDLE + FUEL_ROLL * vAvg + FUEL_AERO * vAvg * vAvg * vAvg) * t * 1.15; // +15% stop-and-go
+        const tank = burn * FUEL_GAME_MULT;
+        if (tank > this.fuel - 0.2 && !dest.station) {
+            hud.toast('⛽ Not enough fuel for that trip', 'Fast-travel to a gas station first (M → Gas stations).', 'warn');
+            return false;
+        }
+        const pose = this.poseAlongRoute(route, Math.max(0, route.total - 60));
+        const names = []; for (const leg of route.legs) { const n = leg.e.name || leg.e.ref; if (n && names[names.length - 1] !== n && !names.includes(n)) names.push(n); }
+        this.state = 'montage';
+        hud.prompt(null); hud.setNavLine('');
+        this.audio.blip(520, 0.08, 0.08);
+        await this.playMontage({ dest, names, dist: route.total, liters: burn, tank, secs: t });
+        // apply
+        this.fuel = Math.max(0.3, this.fuel - tank);
+        this.stats.fuelReal += burn; this.stats.dist += route.total; this.stats.time += t;
+        this.stats.fastTravels++; this.stats.fastDist += route.total;
+        player.place(pose.x, pose.z, pose.heading); player.contactAge = 9; player.steer = 0;
+        this.stuckT = 0; this.prevEdgeInfo = null;
+        this.traffic.setPlayer(player);           // big worlds: rebuild the traffic bubble around the new spot
+        this.traffic.clearAround(pose.x, pose.z, 12);
+        const o = this.objective, isObjective = o && Math.hypot((o.doorX ?? o.x) - dest.x, (o.doorZ ?? o.z) - dest.z) < 5;
+        if (isObjective) { this.navManual = false; this.autoRoute(true); }
+        else this.setNavDest({ x: dest.x, z: dest.z, label: dest.label }, true); // keep guiding to where we fast-travelled
+        for (const c of this.cameras || []) c.lastD = 1e9;
+        this.state = 'drive';
+        this.input.flush(); this.frameClock.getDelta();
+        hud.toast(`⏩ ${dest.label || 'Arrived'}`, `${fmtDist(60, city.units)} to go on ${roadName(pose.edge)}.`);
+        if (this.stats.fastTravels === 1) hud.achievement('fast-travel');
+        return true;
+    }
+    /** 1.5 s "driving montage": city, street names flashing by, distance, fuel and time */
+    playMontage({ dest, names, dist, liters, tank, secs }) {
+        const el = $('#montage'); if (!el) return Promise.resolve();
+        const us = this.city.units === 'mph';
+        const scale = this.world.scale ?? 1;
+        const cityName = this.city.name || (this.city.id === 'bucharest' ? 'București' : 'Seattle');
+        el.querySelector('.m-city').textContent = cityName;
+        el.querySelector('.m-dest').textContent = '→ ' + (dest.label || 'Destination');
+        const street = el.querySelector('.m-street'), dEl = el.querySelector('.m-dist'), fEl = el.querySelector('.m-fuel'), tEl = el.querySelector('.m-time'), bar = el.querySelector('.m-bar i');
+        const list = names.length ? names : ['…'];
+        el.classList.add('show');
+        const DUR = 1500, t0 = performance.now();
+        return new Promise(res => {
+            let lastIdx = -1;
+            const tick = () => {
+                const k = clamp((performance.now() - t0) / DUR, 0, 1), e = 1 - Math.pow(1 - k, 2);
+                const idx = Math.min(list.length - 1, Math.floor(k * list.length));
+                if (idx !== lastIdx) { lastIdx = idx; street.textContent = list[idx]; street.classList.remove('flash'); void street.offsetWidth; street.classList.add('flash'); }
+                const real = scale !== 1 && k >= 1 ? ` <small>(≈ ${fmtDist(dist / scale, this.city.units)} in real life)</small>` : '';
+                dEl.innerHTML = `🛣️ ${fmtDist(dist * e, this.city.units)}${real}`;
+                fEl.textContent = `⛽ −${us ? (tank * e / GAL).toFixed(2) + ' gal' : (tank * e).toFixed(2) + ' L'} tank`;
+                tEl.textContent = `🕒 +${Math.max(1, Math.round(secs * e / 60))} min`;
+                bar.style.width = (k * 100).toFixed(1) + '%';
+                if (k < 1) requestAnimationFrame(tick);
+                else setTimeout(() => { el.classList.remove('show'); res(); }, 120);
+            };
+            requestAnimationFrame(tick);
+        });
     }
 
     // ----------------------------------------------------------------------------------
@@ -795,6 +935,7 @@ class Game {
             this.hud.toast('✅ ' + stop.short + ' unlocked', `${this.visited.size}/${STOPS.length} chapters of the CV discovered`);
             this.updateObjective();
             if (stop.id === 'uipath-bel') setTimeout(() => this.finale(), 1200);
+            else if (this.objective) setTimeout(() => this.hud.toast('⏩ Press F to fast-travel to the next stop', `${this.objectivePlain} · or drive there yourself`, 'intro'), 1600);
         } else if (o.read.size === 0) this.hud.toast('👀 Nothing read', 'Walk up to a screen and press E to read it.');
         this.input.flush();
         this.player.speed = 0;
@@ -833,6 +974,7 @@ class Game {
             `Fuel spent: ${s.fuelReal.toFixed(1)} L burned · ${s.fuelL.toFixed(1)} L bought (${both(s.fuelCost)})`,
             `Fines: ${s.fineCount} (${both(s.fines)})`,
             `Honks: ${this.honks}`,
+            `Fast travels: ${s.fastTravels}${s.fastTravels ? ` (${(s.fastDist / 1000).toFixed(1)} km skipped)` : ''}`,
             `Achievements: ${this.hud.unlocked.size}`,
         ].join(' · ');
         this.hud.panel(`<div class="eyebrow">🏁 Story complete</div><h2>${PROFILE.name}</h2><p class="lead">${PROFILE.title} · ${PROFILE.location}</p><p>${PROFILE.summary}</p><ul class="timeline">${timeline}</ul><div class="chips">${PROFILE.topSkills.map(sk => `<span class="chip">${sk}</span>`).join('')}</div><h3>Say hi</h3><div class="links">${links}<a class="btn ghost" href="mailto:${PROFILE.email}">Email</a></div><h3>Trip computer</h3><p class="meta">${statLine}</p><p class="meta">You can keep driving around, or fly back to Bucharest from SeaTac.</p>`);

@@ -43,7 +43,7 @@ export class EdgeIndex {
     }
     key(ix, iz) { return ix * 1000003 + iz; }
     /** nearest edge to a point → { edge, d, t, cx, cz } (same shape as world.nearestEdge) */
-    nearest(x, z, maxR = 2000) {
+    nearest(x, z, maxR = 2000, filter = null) {
         const c = this.cell, ix = Math.floor(x / c), iz = Math.floor(z / c);
         let best = null, bd = Infinity;
         const K = Math.ceil(maxR / c);
@@ -53,6 +53,7 @@ export class EdgeIndex {
                     if (Math.max(Math.abs(dx), Math.abs(dz)) !== k) continue;
                     const arr = this.map.get(this.key(ix + dx, iz + dz)); if (!arr) continue;
                     for (const e of arr) {
+                        if (filter && !filter(e)) continue;
                         const r = distPointSeg(x, z, e.a.x, e.a.z, e.b.x, e.b.z);
                         if (r.d < bd) { bd = r.d; best = { edge: e, d: r.d, t: r.t, cx: r.cx, cz: r.cz }; }
                     }
@@ -107,12 +108,51 @@ export class Navigator {
         this.nodes = nodeList(world.graph);
         this.index = new EdgeIndex(world.graph.edges);
         this.nid = new Map(); this.nodes.forEach((n, i) => this.nid.set(n, i));
+        this.markMainComponent();
         this.route = null; this.dest = null; this.offTimer = 0; this.progress = 0; this.segIdx = 0;
+    }
+
+    /**
+     * Largest strongly-connected component of the directed (one-way aware) graph: edges inside it get
+     * `edge.main = true`. Routing, resets and fast travel snap to these so nobody lands in a one-way trap
+     * (OSM clipping / broken chains). Kosaraju, iterative.
+     */
+    markMainComponent() {
+        const N = this.nodes.length, nid = this.nid;
+        const out = Array.from({ length: N }, () => []), inn = Array.from({ length: N }, () => []);
+        for (const e of this.graph.edges) {
+            const a = nid.get(e.a), b = nid.get(e.b); if (a === undefined || b === undefined) continue;
+            if (canTravel(e, 1)) { out[a].push(b); inn[b].push(a); }
+            if (canTravel(e, -1)) { out[b].push(a); inn[a].push(b); }
+        }
+        const order = [], seen = new Uint8Array(N);
+        for (let s = 0; s < N; s++) {
+            if (seen[s]) continue;
+            const st = [[s, 0]]; seen[s] = 1;
+            while (st.length) {
+                const top = st[st.length - 1]; const u = top[0];
+                if (top[1] < out[u].length) { const w = out[u][top[1]++]; if (!seen[w]) { seen[w] = 1; st.push([w, 0]); } }
+                else { order.push(u); st.pop(); }
+            }
+        }
+        const comp = new Int32Array(N).fill(-1); const size = []; let c = 0;
+        for (let i = N - 1; i >= 0; i--) {
+            const s = order[i]; if (comp[s] >= 0) continue;
+            let n = 0; const st = [s]; comp[s] = c;
+            while (st.length) { const u = st.pop(); n++; for (const w of inn[u]) if (comp[w] < 0) { comp[w] = c; st.push(w); } }
+            size.push(n); c++;
+        }
+        let big = 0; for (let i = 1; i < size.length; i++) if (size[i] > size[big]) big = i;
+        let nMain = 0;
+        for (const e of this.graph.edges) { e.main = comp[nid.get(e.a)] === big && comp[nid.get(e.b)] === big; if (e.main) nMain++; }
+        this.mainStats = { components: size.length, mainNodes: size[big] || 0, nodes: N, mainEdges: nMain, edges: this.graph.edges.length };
+        if (nMain === 0) for (const e of this.graph.edges) e.main = true; // degenerate graph: don't filter
     }
 
     /** A* on travel time. heading (optional) penalises starting against the player's heading. */
     compute(fx, fz, tx, tz, heading = null) {
-        const s = this.index.nearest(fx, fz), g = this.index.nearest(tx, tz);
+        const main = (e) => e.main !== false;
+        const s = this.index.nearest(fx, fz, 400, main) || this.index.nearest(fx, fz), g = this.index.nearest(tx, tz, 600, main) || this.index.nearest(tx, tz);
         if (!s || !g) return null;
         const N = this.nodes.length, GOAL = N;
         const dist = new Float64Array(N + 1).fill(Infinity);

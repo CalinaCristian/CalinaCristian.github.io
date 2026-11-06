@@ -21,6 +21,7 @@
                 <div><kbd>W</kbd><kbd>S</kbd> drive · <kbd>A</kbd><kbd>D</kbd> steer</div>
                 <div><kbd>Space</kbd> brake · <kbd>H</kbd> horn (you'll need it)</div>
                 <div><kbd>E</kbd> enter office / refuel · <kbd>M</kbd> map &amp; navigation · <kbd>C</kbd> look back · <kbd>L</kbd> headlights</div>
+                <div><kbd>F</kbd> fast-travel to the next stop · <kbd>R</kbd> stuck? reset to the road</div>
                 <div>Mind the speed limits, the cameras, the pedestrians and your fuel gauge.</div>
             </div>
             <div class="row">
@@ -28,7 +29,7 @@
                 <a class="btn ghost" href="../">Skip the game → classic CV</a>
             </div>
             <div class="row small">
-                <label>Quality <select id="quality"><option value="high">High</option><option value="low">Low (mobile)</option></select></label>
+                <label>Quality <select id="quality"><option value="auto">Auto (recommended)</option><option value="ultra">Ultra</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low (mobile)</option></select></label>
                 <label>Time of day <select id="timeofday"><option value="real">Real time (default)</option><option value="dawn">Dawn</option><option value="day">Day</option><option value="sunset">Sunset</option><option value="night">Night</option></select></label>
                 <label><input type="checkbox" id="opt-minimap"> Mini-map</label>
                 <button id="mute" class="icon-btn" title="Mute">🔊</button>
@@ -81,6 +82,19 @@
         <div class="map-hint">Click the map to drop a waypoint · drag to pan · scroll to zoom · <kbd>M</kbd> / <kbd>Esc</kbd> to close <button id="map-close" class="btn ghost small-btn">Close ✕</button></div>
     </div>
     <div id="panel"></div>
+
+    <!-- ===== FAST-TRAVEL MONTAGE ===== -->
+    <div id="montage" aria-live="polite">
+        <div class="m-streaks"></div>
+        <div class="m-inner">
+            <div class="m-eyebrow">⏩ Fast travel</div>
+            <div class="m-city"></div>
+            <div class="m-street"></div>
+            <div class="m-stats"><span class="m-dist"></span><span class="m-fuel"></span><span class="m-time"></span></div>
+            <div class="m-bar"><i></i></div>
+            <div class="m-dest"></div>
+        </div>
+    </div>
 
     <!-- ===== FLIGHT ===== -->
     <div id="flight" class="overlay">

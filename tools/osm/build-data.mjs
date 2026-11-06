@@ -65,10 +65,10 @@ fs.mkdirSync(CACHE, { recursive: true });
 const CITIES = {
     bucharest: {
         prefixes: ['buc_', 'dn1_', 'bucx_'], country: 'RO',
-        lat0: 44.4268, lon0: 26.1025, scale: 1, compress: { above: 44.497, factor: 0.35 },
+        lat0: 44.4268, lon0: 26.1025, scale: 0.7, compress: { above: 44.497, factor: 0.35 }, // whole city at 0.7 (play-test: trips too long)
         // building footprint scale (local shape around its centroid) — in the compressed DN1 strip
         // buildings are squashed less than the road geometry so they still look like buildings
-        shape: (lat) => lat > 44.497 ? [1, 0.6] : [1, 1],
+        shape: (lat) => lat > 44.497 ? [0.75, 0.45] : [0.7, 0.7], // = the position scale in the core → no new overlaps
         heightMap: (h) => h,
     },
     seattle: {
@@ -80,7 +80,7 @@ const CITIES = {
 };
 
 const ROAD_CLASSES = ['motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link',
-    'tertiary', 'tertiary_link', 'residential', 'unclassified', 'living_street'];
+    'tertiary', 'tertiary_link', 'residential', 'unclassified', 'living_street', 'service'];
 const STYLES = ['interwar', 'eclectic', 'civic', 'bloc', 'glass', 'house', 'shop', 'plain', 'church'];
 const ROOFS = ['flat', 'pyramid', 'gabled', 'dome'];
 const POI_KINDS = ['office', 'school', 'airport', 'fuel', 'food', 'shop', 'bank', 'pharmacy', 'metro', 'busstop', 'hospital', 'landmark', 'park', 'hotel'];
@@ -120,6 +120,7 @@ function parseSpeed(v, country) {
 }
 
 function defaultSpeed(cls, country, lat) {
+    if (cls === 'service') return country === 'US' ? 24 : 20;
     if (country === 'US') {
         const mph = { motorway: 60, trunk: 55, motorway_link: 40, trunk_link: 40, primary: 35, secondary: 35, tertiary: 30, primary_link: 30, secondary_link: 30, tertiary_link: 25, residential: 25, unclassified: 25, living_street: 15 }[cls] || 25;
         return Math.round(mph * 1.609);
@@ -131,8 +132,8 @@ function defaultSpeed(cls, country, lat) {
 }
 
 const DEFAULT_LANES = { motorway: 3, trunk: 3, primary: 2, secondary: 2, tertiary: 1, residential: 1, unclassified: 1, living_street: 1 };
-const laneWidthFor = (cls) => /motorway|trunk/.test(cls) ? 3.7 : (cls === 'residential' || cls === 'living_street' || cls === 'unclassified') ? 3.0 : 3.5;
-const SIDEWALK = { motorway: 0, motorway_link: 0, trunk: 1.5, trunk_link: 1, primary: 4, primary_link: 2.5, secondary: 3.5, secondary_link: 2.5, tertiary: 3, tertiary_link: 2.5, residential: 2.5, unclassified: 2, living_street: 2 };
+const laneWidthFor = (cls) => /motorway|trunk/.test(cls) ? 3.7 : (cls === 'residential' || cls === 'living_street' || cls === 'unclassified' || cls === 'service') ? 3.0 : 3.5;
+const SIDEWALK = { motorway: 0, motorway_link: 0, trunk: 1.5, trunk_link: 1, primary: 4, primary_link: 2.5, secondary: 3.5, secondary_link: 2.5, tertiary: 3, tertiary_link: 2.5, residential: 2.5, unclassified: 2, living_street: 2, service: 1 };
 
 // ---------------------------------------------------------------------------
 function fetchRelationFull(id) {
@@ -181,6 +182,8 @@ function buildCity(cityId) {
         const t = w.tags; const cls = t.highway;
         if (!ROAD_CLASSES.includes(cls)) continue;
         if (t.area === 'yes' || t.oneway === 'reversible' || t.access === 'no' || t.motor_vehicle === 'no' || t.motorcar === 'no') continue;
+        // service roads only as connectors (pruned below unless they link the network); never parking aisles / private
+        if (cls === 'service' && (/parking_aisle|drive-through|emergency_access/.test(t.service || '') || /private|no|delivery/.test(t.access || '') || t.motor_vehicle === 'private')) continue;
         if (w.nodes.some(n => !N.has(n)) || w.nodes.length < 2) continue;
         let nodes = w.nodes.slice();
         let oneway = yes(t.oneway) || t.oneway === '-1' || ((t.junction === 'roundabout' || t.junction === 'circular') && t.oneway !== 'no') || ((cls === 'motorway' || cls === 'motorway_link') && t.oneway !== 'no');
@@ -224,6 +227,22 @@ function buildCity(cityId) {
         if (!name && ref) name = ref;
         if (!name && isLink) name = t.destination ? `Exit → ${t.destination.split(';')[0]}` : (country === 'US' ? 'Ramp' : 'Bretea');
         roads.push({ id, cls, nodes, oneway, lf, lb, laneW, sidewalk, maxspeed, flags, layer, name, lat: ll0[0], tags: t });
+    }
+    // prune service ways that do not connect anything (dangling chains)
+    {
+        let changed = true, removed = 0;
+        while (changed) {
+            changed = false;
+            const cnt = new Map();
+            for (const r of roads) for (const n of r.nodes) cnt.set(n, (cnt.get(n) || 0) + 1);
+            for (let i = roads.length - 1; i >= 0; i--) {
+                const r = roads[i]; if (r.cls !== 'service') continue;
+                const a = r.nodes[0], b = r.nodes[r.nodes.length - 1];
+                const touches = r.nodes.some(n => cnt.get(n) > 1);
+                if (!touches || (a !== b && (cnt.get(a) === 1 || cnt.get(b) === 1))) { roads.splice(i, 1); removed++; changed = true; for (const n of r.nodes) cnt.set(n, cnt.get(n) - 1); }
+            }
+        }
+        log('service connectors kept', roads.filter(r => r.cls === 'service').length, 'pruned', removed);
     }
     log('roads', roads.length);
 
@@ -313,6 +332,58 @@ function buildCity(cityId) {
         }
         for (const [n, d] of disp) { const p = pos.get(n); pos.set(n, [p[0] + d[0] / d[2], p[1] + d[1] / d[2]]); }
         log('dual carriageway nodes pushed apart:', disp.size);
+    }
+
+    // ---- connect dead ends that stop just short of another road (mapping gaps, excluded service links…)
+    //      and drop tiny dead-end stubs
+    {
+        const cnt = new Map();
+        for (const r of roads) for (const n of r.nodes) cnt.set(n, (cnt.get(n) || 0) + 1);
+        const g = new Grid(30);
+        const addSeg = (r, a, b) => { const pa = pos.get(a), pb = pos.get(b); const seg = { r, a, b, dead: false }; g.insertBox(Math.min(pa[0], pb[0]), Math.min(pa[1], pb[1]), Math.max(pa[0], pb[0]), Math.max(pa[1], pb[1]), seg); return seg; };
+        for (const r of roads) for (let i = 0; i < r.nodes.length - 1; i++) addSeg(r, r.nodes[i], r.nodes[i + 1]);
+        let nextId = -1, joined = 0, before = 0;
+        const isMw = (r) => /motorway/.test(r.cls);
+        for (const r of roads) {
+            for (const atStart of [true, false]) {
+                const n = atStart ? r.nodes[0] : r.nodes[r.nodes.length - 1];
+                if (cnt.get(n) !== 1 || r.nodes[0] === r.nodes[r.nodes.length - 1]) continue;
+                const p = pos.get(n), q = pos.get(atStart ? r.nodes[1] : r.nodes[r.nodes.length - 2]);
+                let dx = p[0] - q[0], dz = p[1] - q[1]; const L = Math.hypot(dx, dz) || 1; dx /= L; dz /= L; // outward direction of the dead end
+                let best = null, bd = 12;
+                g.query(p[0], p[1], 12, (sg) => {
+                    if (sg.dead || sg.r === r || sg.r.layer !== r.layer || isMw(sg.r) !== isMw(r)) return;
+                    const pa = pos.get(sg.a), pb = pos.get(sg.b);
+                    const d = distPointSeg(p[0], p[1], pa[0], pa[1], pb[0], pb[1]);
+                    if (d.d < 0.3 || d.d >= bd) return;
+                    if (((d.cx - p[0]) * dx + (d.cz - p[1]) * dz) / d.d < 0.2) return; // must continue roughly forward
+                    bd = d.d; best = { sg, d, pa, pb };
+                });
+                if (!best) continue;
+                before++;
+                const { sg, d, pa, pb } = best;
+                let target;
+                if (Math.hypot(d.cx - pa[0], d.cz - pa[1]) < 2) target = sg.a;
+                else if (Math.hypot(d.cx - pb[0], d.cz - pb[1]) < 2) target = sg.b;
+                else {
+                    target = nextId--; pos.set(target, [d.cx, d.cz]);
+                    const nodes = sg.r.nodes; const k = nodes.findIndex((v, i) => v === sg.a && nodes[i + 1] === sg.b);
+                    if (k < 0) continue;
+                    nodes.splice(k + 1, 0, target); sg.dead = true;
+                    addSeg(sg.r, sg.a, target); addSeg(sg.r, target, sg.b);
+                    cnt.set(target, 1);
+                }
+                if (atStart) r.nodes.unshift(target); else r.nodes.push(target);
+                cnt.set(target, (cnt.get(target) || 0) + 1); cnt.set(n, 2);
+                addSeg(r, atStart ? target : n, atStart ? n : target);
+                joined++;
+            }
+        }
+        // tiny stubs: ways shorter than 15 m with a free end
+        const lenOf = (r) => { let L = 0; for (let i = 0; i < r.nodes.length - 1; i++) { const a = pos.get(r.nodes[i]), b = pos.get(r.nodes[i + 1]); L += Math.hypot(b[0] - a[0], b[1] - a[1]); } return L; };
+        const before2 = roads.length;
+        for (let i = roads.length - 1; i >= 0; i--) { const r = roads[i]; if (lenOf(r) < 15 && (cnt.get(r.nodes[0]) === 1 || cnt.get(r.nodes[r.nodes.length - 1]) === 1)) roads.splice(i, 1); }
+        log(`dev-check: ${before} dead ends within 12 m of another road → ${joined} connected; ${before2 - roads.length} stubs < 15 m removed`);
     }
 
     // ---- simplify polylines, keep junctions & tagged nodes
@@ -660,7 +731,7 @@ function buildCity(cityId) {
         if (!ok) continue;
         if (Math.abs(polyArea(ring)) < 8) continue;
         // ---- overlap test against already accepted buildings (only needed where shapes were rescaled)
-        if (sx !== 1 || sz !== 1 || tries > 0) {
+        if (sx !== C.scale || sz !== C.scale || tries > 0) {
             let overlap = false;
             bGrid.query(c2[0], c2[1], 40, (o) => {
                 if (overlap) return;
@@ -675,6 +746,27 @@ function buildCity(cityId) {
         let x0 = Infinity, z0 = Infinity, x1 = -Infinity, z1 = -Infinity; for (const [x, z] of ring) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); }
         bGrid.insertBox(x0, z0, x1, z1, rec);
         buildings.push(rec);
+    }
+    // ---- dev check: no building may sit on a road ribbon (roads would run into a block)
+    {
+        let hits = 0; const drop = new Set();
+        for (const r of roads) {
+            if (!r.keptIds || (r.flags & 4) || r.layer < 0) continue;
+            const [wr, wl] = sideW(r);
+            for (let i = 0; i < r.keptIds.length - 1; i++) {
+                const a = pos.get(r.keptIds[i]), b = pos.get(r.keptIds[i + 1]);
+                const L = Math.hypot(b[0] - a[0], b[1] - a[1]); if (L < 0.1) continue;
+                const nx = -(b[1] - a[1]) / L, nz = (b[0] - a[0]) / L;
+                for (let s2 = 0; s2 <= L; s2 += 2) {
+                    for (const o of [0, wr * 0.8, -wl * 0.8]) {
+                        const x = a[0] + (b[0] - a[0]) * s2 / L + nx * o, z = a[1] + (b[1] - a[1]) * s2 / L + nz * o;
+                        bGrid.query(x, z, 0, (bb) => { if (!drop.has(bb) && pointInPolygon(x, z, bb.ring)) { drop.add(bb); hits++; } });
+                    }
+                }
+            }
+        }
+        for (let i = buildings.length - 1; i >= 0; i--) if (drop.has(buildings[i])) buildings.splice(i, 1);
+        log(`dev-check: ${hits} buildings overlapping road ribbons removed`);
     }
     log('buildings kept', buildings.length);
 

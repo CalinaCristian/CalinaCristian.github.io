@@ -19,7 +19,7 @@ export class Player {
         camera.position.set(0, 0, 0); camera.rotation.set(0, 0, 0); // camera looks toward -z = car forward
         // rear-view mirror: a small plane in front of the camera showing a render from a rear camera
         this.mirrorTarget = new THREE.WebGLRenderTarget(384, 128);
-        this.mirrorTarget.texture.colorSpace = THREE.SRGBColorSpace;
+        this.mirrorTarget.texture.colorSpace = THREE.LinearSRGBColorSpace;
         this.mirrorCam = new THREE.PerspectiveCamera(40, 3, 0.5, 600);
         this.mirrorCam.position.set(0.3, 1.5, 0.3); this.mirrorCam.rotation.set(0, Math.PI, 0);
         this.rig.add(this.mirrorCam);
@@ -54,9 +54,11 @@ export class Player {
         // longitudinal
         const maxSpeed = opts.maxSpeed || this.maxSpeed;
         let acc = 0;
+        // after a collision: pressing the opposite direction reverses out immediately (no long brake phase)
+        if (this.touching && ((throttle < 0 && this.speed > 0 && this.speed < 3) || (throttle > 0 && this.speed < 0 && this.speed > -3))) this.speed = 0;
         if (throttle > 0) acc = 7.5 * (1 - this.speed / maxSpeed);
         else if (throttle < 0) acc = this.speed > 0.5 ? -9 : -3.5; // brake, then reverse
-        if (brake) acc -= 10 * Math.sign(this.speed || 1);
+        if (brake) acc = -Math.sign(this.speed) * Math.min(10, Math.abs(this.speed) / dt);
         // drag + rolling
         acc -= this.speed * 0.12 + Math.sign(this.speed) * 0.6;
         this.speed += acc * dt;
@@ -84,42 +86,70 @@ export class Player {
     }
 
     collide(dt) {
-        // buildings (two circles: front & rear)
+        // Penetration is resolved fully (minimum translation), speed is damped by the impact angle instead of
+        // being killed, and moving away from an obstacle is never damped -> you can always reverse / steer out.
+        let contact = false;
         if (this.world) {
-            for (const o of [1.3, -1.3]) {
-                const px = this.x + this.fx * o, pz = this.z + this.fz * o;
-                const r = collideBuildings(this.world.buildings, px, pz, 1.0);
-                if (r) {
-                    this.x += r.px; this.z += r.pz;
-                    this.hit(Math.abs(this.speed), 'building');
-                    this.speed *= -0.25;
+            for (let pass = 0; pass < 2; pass++) {
+                let any = false;
+                for (const o of [1.3, 0, -1.3]) {
+                    const px = this.x + this.fx * o, pz = this.z + this.fz * o;
+                    const r = collideBuildings(this.world.buildings, px, pz, 1.0);
+                    if (!r) continue;
+                    const pl = Math.hypot(r.px, r.pz); if (pl < 1e-5) continue;
+                    this.x += r.px * 1.01; this.z += r.pz * 1.01; any = contact = true;
+                    this.impact(r.px / pl, r.pz / pl, 0, 'building', null, 0.75);
                 }
+                if (!any) break;
             }
         }
-        // vehicles
         if (this.traffic) {
-            const near = this.traffic.near(this.x, this.z, 16);
-            for (const v of near) {
-                // treat each vehicle as a few circles along its length
-                const n = Math.max(1, Math.round(v.length / 2.2));
-                for (let i = 0; i < n; i++) {
-                    const t = n === 1 ? 0 : (i / (n - 1) - 0.5) * (v.length - 2.0);
-                    const vx = v.x - v.fx * t * -1, vz = v.z - v.fz * t * -1; // v.fx is travel dir; mesh front = +f
-                    for (const o of [1.3, -1.3]) {
-                        const px = this.x + this.fx * o, pz = this.z + this.fz * o;
-                        const dx = px - vx, dz = pz - vz;
-                        const d = Math.hypot(dx, dz), minD = 1.0 + v.width / 2 + 0.1;
-                        if (d < minD && d > 1e-4) {
-                            const pen = minD - d;
-                            this.x += dx / d * pen; this.z += dz / d * pen;
-                            const rel = Math.abs(this.speed - v.speed);
-                            if (this.collisionCd <= 0 && rel > 1.5) { this.hit(rel, 'vehicle', v); }
-                            this.speed *= 0.4;
-                        }
-                    }
+            const near = this.traffic.near(this.x, this.z, 18);
+            for (let pass = 0; pass < 3; pass++) {
+                let any = false;
+                for (const v of near) {
+                    const m = this.satVehicle(v); if (!m) continue;
+                    this.x += m.nx * (m.pen + 0.01); this.z += m.nz * (m.pen + 0.01); any = contact = true;
+                    // NPC velocity along the contact normal
+                    const vvn = (v.fx * m.nx + v.fz * m.nz) * v.speed;
+                    this.impact(m.nx, m.nz, vvn, 'vehicle', v, 0.55);
                 }
+                if (!any) break;
             }
         }
+        this.contactAge = contact ? 0 : (this.contactAge ?? 9) + dt;
+    }
+    /** true while the car is (or was a moment ago) touching something */
+    get touching() { return (this.contactAge ?? 9) < 0.35; }
+    /** SAT between the player rectangle and vehicle v → {nx, nz, pen} (normal points from v to the player) or null */
+    satVehicle(v) {
+        const dx = this.x - v.x, dz = this.z - v.z;
+        const lim = (this.length + v.length) * 0.5 + 1; if (Math.abs(dx) > lim || Math.abs(dz) > lim) return null;
+        const fx = this.fx, fz = this.fz, rx = -fz, rz = fx;
+        const vfx = v.fx, vfz = v.fz, vrx = v.rx ?? -vfz, vrz = v.rz ?? vfx;
+        const pl = this.length / 2, pw = this.width / 2, vl = v.length / 2, vw = v.width / 2;
+        let best = Infinity, bx = 0, bz = 0;
+        for (const [ux, uz] of [[fx, fz], [rx, rz], [vfx, vfz], [vrx, vrz]]) {
+            const ra = Math.abs(fx * ux + fz * uz) * pl + Math.abs(rx * ux + rz * uz) * pw;
+            const rb = Math.abs(vfx * ux + vfz * uz) * vl + Math.abs(vrx * ux + vrz * uz) * vw;
+            const d = dx * ux + dz * uz; const pen = ra + rb - Math.abs(d);
+            if (pen <= 0) return null;
+            if (pen < best) { best = pen; const sg = d >= 0 ? 1 : -1; bx = ux * sg; bz = uz * sg; }
+        }
+        return { nx: bx, nz: bz, pen: best };
+    }
+    /** contact response along normal (nx,nz) (pointing toward the player); otherVn = obstacle velocity along n */
+    impact(nx, nz, otherVn, what, v, damp) {
+        const cos = this.fx * nx + this.fz * nz;           // >0: normal along our forward
+        const vn = this.speed * cos - otherVn;            // relative normal velocity (<0 = closing)
+        if (vn >= -0.05) return;                            // separating: never hold the car back
+        const strength = -vn;
+        if (this.collisionCd <= 0 && strength > 1.5) this.hit(strength, what, v);
+        // remove (most of) the closing normal component; tangential sliding is kept
+        const k = Math.abs(cos);
+        if (k > 0.85 && strength > 5 && what === 'building') this.speed = -this.speed * 0.15; // small bounce off walls
+        else this.speed *= 1 - damp * k;
+        if (Math.abs(this.speed) < 0.05) this.speed = 0;
     }
     /** pedestrians: knocked over when hit at speed, nudged aside when slow */
     collidePeds() {

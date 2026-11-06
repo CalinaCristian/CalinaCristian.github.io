@@ -353,11 +353,14 @@ function track(m) { allMats.add(m); if (ENV_MAP) { m.envMap = ENV_MAP; m.needsUp
 function partsMaterial(emis) {
     const m = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, metalness: 1, envMapIntensity: 1 });
     m.userData.uEmis = { value: emis };
+    m.userData.uDirect = { value: 1 }; // scales direct light (cockpit interior: lamps shining through the roof at night)
     m.onBeforeCompile = (sh) => {
         sh.uniforms.uEmis = m.userData.uEmis;
+        sh.uniforms.uDirect = m.userData.uDirect;
         sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nattribute vec3 aMat;\nvarying vec3 vMat;')
             .replace('#include <begin_vertex>', '#include <begin_vertex>\nvMat = aMat;');
-        sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying vec3 vMat;\nuniform float uEmis;')
+        sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying vec3 vMat;\nuniform float uEmis;\nuniform float uDirect;')
+            .replace('#include <lights_fragment_end>', '#include <lights_fragment_end>\nreflectedLight.directDiffuse *= uDirect; reflectedLight.directSpecular *= uDirect;')
             .replace('#include <roughnessmap_fragment>', 'float roughnessFactor = roughness * vMat.y;')
             .replace('#include <metalnessmap_fragment>', 'float metalnessFactor = metalness * vMat.z;')
             .replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\ntotalEmissiveRadiance += diffuseColor.rgb * vMat.x * uEmis;');
@@ -516,7 +519,8 @@ export function makeCockpit() {
     }
     // cowl panel (between windshield and hood)
     interior.add(BOX, M(0, 1.0, -1.88, 1.7, 0.03, 0.2), '#121315', { r: 0.8 });
-    const interiorMesh = new THREE.Mesh(interior.build(), partsMaterial(1));
+    const interiorMat = partsMaterial(1);
+    const interiorMesh = new THREE.Mesh(interior.build(), interiorMat);
     interiorMesh.receiveShadow = true; g.add(interiorMesh);
 
     // ---- hood (painted, tapered toward the nose) ----
@@ -545,7 +549,7 @@ export function makeCockpit() {
     }
     wb.add(new THREE.CylinderGeometry(0.035, 0.045, 0.32, 8), M(0, 0, -0.17, 1, 1, 1, Math.PI / 2), '#141517', { r: 0.8 }); // column
     const wheel = new THREE.Group();
-    const wheelMesh = new THREE.Mesh(wb.build(), partsMaterial(1));
+    const wheelMesh = new THREE.Mesh(wb.build(), interiorMat);
     wheel.add(wheelMesh);
     wheel.position.set(-0.3, 0.99, -0.9); wheel.rotation.x = -0.42;
     g.add(wheel);
@@ -619,6 +623,8 @@ export function makeCockpit() {
     };
     g.userData.tick(0);
     g.userData.wiperState = ws;
+    /** scale direct lighting on the interior (1 = day; ~0.3 at night so street lamps don't light the cabin through the roof) */
+    g.userData.setInteriorLight = (k) => { interiorMat.userData.uDirect.value = k; };
 
     // ---- headlights: two warm spot lights + emissive lamp boxes. Hidden (zero cost) until switched on. ----
     const lampMat = new THREE.MeshStandardMaterial({ color: '#cfd5db', emissive: '#fff0d2', emissiveIntensity: 0, roughness: 0.15, metalness: 0.2 });

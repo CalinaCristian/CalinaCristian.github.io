@@ -24,6 +24,39 @@ export function medianOf(e) {
 export function laneOffset(edge, lane, dir = 1) { return medianOf(edge) / 2 + (edge.laneW ?? 3.3) * (lane + 0.5); }
 const tramOffset = (e) => Math.max(1.0, medianOf(e) / 4);
 const layerOf = (e) => (e.bridge ? 1 : 0) + (e.tunnel ? -1 : 0) + (e.layer | 0);
+const isJunction = (n) => n.edges.length >= 3 || n.hasLight;
+/** distance (m) from position s (a→b frame) on edge e to the nearest junction along the road, both ways (capped at `cap`) */
+export function junctionDist(e, s, cap = 60) {
+    const walk = (edge, node, d) => {
+        let cur = edge, n = node, acc = d, guard = 0;
+        while (acc < cap && guard++ < 12) {
+            if (isJunction(n)) return acc;
+            if (n.edges.length < 2) return Infinity; // dead end
+            const nx = n.edges.find(x => x !== cur); if (!nx) return Infinity;
+            acc += nx.len; n = nx.a === n ? nx.b : nx.a; cur = nx;
+        }
+        return acc;
+    };
+    return Math.min(walk(e, e.b, e.len - s), walk(e, e.a, s));
+}
+/** extents of the player's rectangle projected on an axis (ux,uz) */
+function playerExtent(P, ux, uz) {
+    const pl = (P.length || 4.4) / 2, pw = (P.width || 1.8) / 2;
+    return Math.abs(P.fx * ux + P.fz * uz) * pl + Math.abs(-P.fz * ux + P.fx * uz) * pw;
+}
+/** SAT penetration depth between a vehicle and the player (>0 = overlapping, <0 = separation) */
+export function playerPen(v, P, x = v.x, z = v.z, fx = v.fx, fz = v.fz) {
+    const rx = -fz, rz = fx, prx = -P.fz, prz = P.fx;
+    const vl = v.length / 2, vw = v.width / 2;
+    const dx = P.x - x, dz = P.z - z;
+    let min = Infinity;
+    for (const [ux, uz] of [[fx, fz], [rx, rz], [P.fx, P.fz], [prx, prz]]) {
+        const ra = Math.abs(fx * ux + fz * uz) * vl + Math.abs(rx * ux + rz * uz) * vw;
+        const pen = ra + playerExtent(P, ux, uz) - Math.abs(dx * ux + dz * uz);
+        if (pen < min) min = pen;
+    }
+    return min;
+}
 
 // ---------- fixed-size spatial hash (no per-frame allocation) ----------
 class Grid {
@@ -186,8 +219,10 @@ export class Traffic {
                 if (isMotorway(e) || e.type === 'dn' || e.roundabout || e.len < 40) continue;
                 const exp = e.len / 90 * pc; let n = Math.floor(exp); if (this.rng() < exp - n) n++;
                 for (let i = 0; i < n; i++) {
-                    const dir = this.rng.pick([1, -1]); const lanes = lanesDir(e, dir); if (!lanes) continue;
-                    const v = this.spawn({ edge: e, dir, lane: lanes - 1, s: this.rng.range(15, e.len - 15), kind: this.rng.pick(['hatch', 'sedan', 'van', 'hatch']) });
+                    const dir = this.rng.pick([1, -1]); const lanes = lanesDir(e, dir); if (!this.parkOk(e, dir)) continue;
+                    const s = this.rng.range(15, e.len - 15);
+                    if (junctionDist(e, s) < 30 || !free(e, dir, lanes - 1, s, 6)) continue;
+                    const v = this.spawn({ edge: e, dir, lane: lanes - 1, s, kind: this.rng.pick(['hatch', 'sedan', 'van', 'hatch']) });
                     v.parked = true; v.speed = 0; v.lateralExtra = (e.laneW ?? 3.3) * 0.55; v.hazard = true; nParked++;
                     this.placeOnLane(v, true, 0);
                 }
@@ -199,7 +234,9 @@ export class Traffic {
                 if (!e.tram || e.len < 25 || nTrams >= maxTrams) continue;
                 const exp = e.len / 600; let n = Math.floor(exp); if (this.rng() < exp - n || e.len > 300) n = Math.max(n, 1);
                 for (let i = 0; i < n; i++) for (const dir of [1, -1]) {
-                    const v = this.spawn({ edge: e, dir, lane: 0, s: this.rng.range(5, e.len - 5), kind: 'tram' });
+                    const s = this.rng.range(5, e.len - 5);
+                    if (!free(e, dir, 'tram', s, 16)) continue;
+                    const v = this.spawn({ edge: e, dir, lane: 0, s, kind: 'tram' });
                     v.tram = true; v.nextStopOdo = this.rng.range(80, 400); nTrams++;
                 }
             }
@@ -217,7 +254,7 @@ export class Traffic {
         const mesh = makeVehicle(kind, color);
         if (isTaxi && !mesh.userData.length) mesh.userData.length = 4.4, mesh.userData.width = 1.8;
         this.group.add(mesh);
-        const lo = this.buc ? 0.9 : 0.95, hi = this.buc ? 1.25 : 1.1;
+        const lo = this.buc ? 0.95 : 1.0, hi = this.buc ? 1.25 : 1.12;
         const v = {
             id: this._idSeq++, edge, dir, lane, s, kind, mesh,
             length: mesh.userData.length || 4.4, width: mesh.userData.width || 1.8,
@@ -227,6 +264,7 @@ export class Traffic {
             bubbleCd: 0, annoyed: 0, route: [], ghost: 0, odo: 0, stopDone: null, stopTimer: 0, bypass: null, bypassT: 0, dwell: 0, served: null,
             x: 0, z: 0, y: 0.24, heading: 0, fx: 0, fz: 1, rx: 1, rz: 0, layer: layerOf(edge),
             laneChangeCd: this.rng.range(1, 6), leader: null, gap: Infinity,
+            still: 0, touchT: 0, waitRed: false, blockT: 0,
         };
         if (v.isPolice) this.addLightbar(v);
         if (this.nightLights) mesh.userData.setLights?.(true);
@@ -250,6 +288,34 @@ export class Traffic {
         }
         v.lightbar = bar;
     }
+
+    /** double-parking is allowed only on roads with ≥2 lanes in that direction (never motorways / roundabouts / trams) */
+    parkOk(e, dir) {
+        return lanesDir(e, dir) >= 2 && !isMotorway(e) && e.type !== 'dn' && !e.roundabout && !e.tram && !e.tunnel && !e.bridge && e.len >= 40;
+    }
+    /** a freshly placed vehicle must not be on top of / just in front of the player, nor overlap another vehicle */
+    spawnClear(v) {
+        const P = this.player;
+        if (P) {
+            const dx = v.x - P.x, dz = v.z - P.z, d = Math.hypot(dx, dz);
+            if (d < 18) return false;
+            if (d < 40 && dx * P.fx + dz * P.fz > -4) return false; // in front of the player
+        }
+        let ok = true;
+        const check = (o) => {
+            if (!ok || o === v || o.layer !== v.layer) return;
+            const dx = o.x - v.x, dz = o.z - v.z;
+            if (Math.abs(dx) > 20 || Math.abs(dz) > 20) return;
+            const f = dx * v.fx + dz * v.fz, l = dx * v.rx + dz * v.rz;
+            const ext = (u1, u2) => Math.abs(o.fx * u1 + o.fz * u2) * o.length / 2 + Math.abs(o.rx * u1 + o.rz * u2) * o.width / 2;
+            if (Math.abs(f) < v.length / 2 + ext(v.fx, v.fz) + 2 && Math.abs(l) < v.width / 2 + ext(v.rx, v.rz) + 0.4) ok = false;
+        };
+        if (this.grid.items) this.grid.query(v.x, v.z, 14, check); else for (const o of this.vehicles) check(o);
+        // vehicles moved this frame are hashed at their old cell: check the few recently relocated ones too
+        if (ok && this._recent) for (const o of this._recent) check(o);
+        return ok;
+    }
+    noteRelocated(v) { const r = this._recent || (this._recent = []); r.push(v); if (r.length > 32) r.shift(); }
 
     /** world position for a vehicle's lane state */
     laneTarget(v, out) {
@@ -319,9 +385,9 @@ export class Traffic {
         if (!cands.length) return false;
         for (let tries = 0; tries < 60; tries++) {
             const e = cands[Math.floor(this.rng() * cands.length)];
-            if (e.len < 8) continue;
+            if (e.len < 8 || (e.main === false && !v.tram)) continue;
             if (v.tram !== !!e.tram && v.tram) continue;
-            if (v.parked && (isMotorway(e) || e.roundabout || e.len < 30)) continue;
+            if (v.parked && !(this.parkOk(e, 1) || this.parkOk(e, -1))) continue;
             if (v.bus && isMotorway(e)) continue;
             const mul = trafficMulOf(e);
             if (this.rng() > Math.min(1, mul * 0.6 + 0.08)) continue;
@@ -329,13 +395,17 @@ export class Traffic {
             if (d < rMin || d > rMax) continue;
             if (hidden && d < 600 && (mx * P.fx + mz * P.fz) > 0) continue; // ahead & near: would pop in view
             let dir = this.rng() < 0.5 ? 1 : -1; if (!canTravel(e, dir)) dir = -dir; if (!canTravel(e, dir)) continue;
+            if (v.parked && !this.parkOk(e, dir)) { dir = -dir; if (!this.parkOk(e, dir)) continue; }
             const lanes = lanesDir(e, dir);
-            v.edge = e; v.dir = dir; v.s = this.rng.range(Math.min(4, e.len / 2), Math.max(e.len / 2, e.len - 4)); v.route.length = 0; v.layer = layerOf(e);
+            const s = v.parked ? this.rng.range(15, e.len - 15) : this.rng.range(Math.min(4, e.len / 2), Math.max(e.len / 2, e.len - 4));
+            if (v.parked && junctionDist(e, dir > 0 ? s : e.len - s) < 30) continue;
+            v.edge = e; v.dir = dir; v.s = s; v.route.length = 0; v.layer = layerOf(e);
             v.lane = v.laneCur = v.parked || v.bus ? lanes - 1 : this.rng.int(0, lanes - 1);
-            v.speed = v.parked ? 0 : Math.min(edgeSpeed(e) * 0.7, 8); v.stuck = 0; v.bypass = null; v.served = null; v.dwell = 0;
+            v.speed = v.parked ? 0 : Math.min(edgeSpeed(e) * 0.7, 8); v.stuck = 0; v.still = 0; v.touchT = 0; v.blockT = 0; v.ghost = 0; v.bypass = null; v.served = null; v.dwell = 0;
             if (!v.parked) v.latExtraCur = v.lateralExtra = 0; else v.latExtraCur = v.lateralExtra = (e.laneW ?? 3.3) * 0.55;
             this.placeOnLane(v, true, 0);
-            if (Math.hypot(v.x - P.x, v.z - P.z) < 18) continue; // never on top of the player
+            if (!this.spawnClear(v)) continue; // never on top of / just ahead of the player, never overlapping
+            this.noteRelocated(v);
             return true;
         }
         return false;
@@ -366,6 +436,7 @@ export class Traffic {
             if (v.tram && !n.tram) continue;
             if (!v.tram && n.tram && n.tramOnly) continue;
             if (n.type === 'service' && !v.isPolice && this.rng() < 0.8) continue;
+            if (n.main === false && e.main !== false && !v.tram) continue; // never drive into a one-way trap
             const dot = n.dirx * nd * fx + n.dirz * nd * fz;
             let w = (1 + Math.max(0, dot) * 2.5) * (0.4 + trafficMulOf(n));
             if (dot < -0.6) w *= 0.05; // avoid hairpins
@@ -403,7 +474,7 @@ export class Traffic {
         v.edge = nx.e; v.dir = nx.dir; v.layer = layerOf(nx.e);
         const lanes = lanesDir(nx.e, nx.dir) || 1;
         if (v.bus) v.lane = lanes - 1;
-        else if (lanes > lanesDir(e, v.dir) && this.buc && this.rng() < 0.4) v.lane = this.rng.int(0, lanes - 1);
+        else if (lanes > lanesDir(e, v.dir) && this.buc && this.rng() < 0.12) { const l = this.rng.int(0, lanes - 1); v.lane = l; }
         v.lane = clamp(v.lane, 0, lanes - 1);
         v.laneCur = clamp(v.laneCur, 0, lanes - 1);
         if (nx.uturn) { v.laneCur = v.lane; v.transition = 1.2; }
@@ -420,12 +491,16 @@ export class Traffic {
             if (!dir || e.len < 8) continue;
             const mx = (e.a.x + e.b.x) / 2, mz = (e.a.z + e.b.z) / 2;
             if (P && Math.hypot(mx - P.x, mz - P.z) < 180) continue;
-            v.edge = e; v.dir = dir; v.s = this.rng.range(2, e.len - 2); v.route.length = 0; v.speed = 0; v.stuck = 0; v.layer = layerOf(e);
+            v.edge = e; v.dir = dir; v.s = this.rng.range(2, e.len - 2); v.route.length = 0; v.speed = 0; v.stuck = 0; v.still = 0; v.touchT = 0; v.layer = layerOf(e);
             v.lane = v.laneCur = clamp(v.lane, 0, lanesDir(e, dir) - 1); v.bypass = null; v.latExtraCur = v.lateralExtra = 0;
             this.placeOnLane(v, true, 0);
+            if (!this.spawnClear(v)) continue;
+            this.noteRelocated(v);
             return;
         }
-        v.dir = -v.dir; v.s = 0; v.route.length = 0;
+        // nowhere better: turn around only where that is legal
+        if (canTravel(v.edge, -v.dir)) { v.dir = -v.dir; v.s = 0; } else v.s = 0;
+        v.route.length = 0;
     }
 
     // ------------------------------------------------------------------ main update
@@ -450,8 +525,18 @@ export class Traffic {
             }
             this.stepVehicle(v, dt);
         }
+        // vehicles touching the player for > 3 s get nudged away (incl. parked ones)
+        if (P) {
+            for (const v of this.near(P.x, P.z, 12)) {
+                if (playerPen(v, P) > -0.15) { v.touchT += dt; if (v.touchT > 3) this.nudge(v); }
+                else v.touchT = Math.max(0, v.touchT - dt);
+            }
+        }
+        this._dlT = (this._dlT || 0) + dt;
+        if (this._dlT > 1) { this._dlT = 0; this.resolveDeadlocks(); }
         this.peds.update(dt);
         this.recycle();
+        if (this._recent) this._recent.length = 0;
         if (this.world.updateLights) this.world.updateLights(this.time, this.cycle);
         // police lights
         const on = (this.time * 4 | 0) % 2 === 0;
@@ -470,34 +555,56 @@ export class Traffic {
         let desired = lim * (v.tram ? 1 : v.desiredMul);
         const P = this.player;
         // ---------------- obstacles (cone scan via grid) ----------------
-        let gap = Infinity, leader = null, leaderSpeed = 0;
+        let gap = Infinity, leader = null, leaderSpeed = 0, leaderCross = false;
         const look = clamp(10 + v.speed * 2.4, 14, 55);
         const fx = v.fx, fz = v.fz, rx = v.rx, rz = v.rz;
-        const nearEnd = (L - v.s) < ((v.dir > 0 ? e.b : e.a).radius ?? 6) + 12;
+        const endNode = v.dir > 0 ? e.b : e.a, startNode = v.dir > 0 ? e.a : e.b;
+        const endRad = endNode.radius ?? 6;
+        const toEntry = L - v.s - half - endRad; // front bumper → edge of the junction box ahead
+        const nearEnd = toEntry < 12;
+        // already committed to (inside) a junction box: clear it instead of stopping in it
+        const inJunction = (isJunction(endNode) && toEntry < -0.5) || (isJunction(startNode) && v.s - half < (startNode.radius ?? 6) - 0.5);
         if (v.ghost > 0) v.ghost -= dt;
         else {
             this.grid.query(v.x + fx * look * 0.5, v.z + fz * look * 0.5, look * 0.5 + 8, (o) => {
                 if (o === v || o === v.bypass) return;
                 const dx = o.x - v.x, dz = o.z - v.z;
                 const f = dx * fx + dz * fz; if (f <= 0 || f > look + o.length * 0.5) return;
-                const l = dx * rx + dz * rz;
-                if (Math.abs(l) > (v.width + o.width) * 0.5 + 0.3) return;
                 if (o.layer !== v.layer) return;
+                const l = dx * rx + dz * rz;
+                const ol = Math.abs(o.fx * rx + o.fz * rz) * o.length * 0.5 + Math.abs(o.rx * rx + o.rz * rz) * o.width * 0.5;
+                if (Math.abs(l) > v.width * 0.5 + ol + 0.3) return;
                 const hd = o.fx * fx + o.fz * fz;
                 if (hd < -0.3) return; // oncoming
-                let g;
-                if (hd < 0.5) { if (f > 14 && !nearEnd) return; g = f - half - o.width * 0.5; } // cross traffic in junction
-                else g = f - half - o.length * 0.5;
-                if (g < gap) { gap = g; leader = o; leaderSpeed = hd > 0.5 ? o.speed * hd : 0; }
+                const of = Math.abs(o.fx * fx + o.fz * fz) * o.length * 0.5 + Math.abs(o.rx * fx + o.rz * fz) * o.width * 0.5;
+                let g = f - half - of;
+                const cross = hd < 0.5;
+                if (cross) {
+                    // mutual block (both waiting for each other): the lower id goes first
+                    if (o.leader === v && v.id < o.id) return;
+                    if (inJunction) { if (g > 2.5) return; } // committed: only avoid an imminent touch
+                    else {
+                        if (f > 14 && !nearEnd) return;
+                        if (toEntry > 0) g = Math.min(g, toEntry - 0.5); // yield at the line, not inside the box
+                    }
+                }
+                if (g < gap) { gap = g; leader = o; leaderSpeed = cross ? 0 : o.speed * hd; leaderCross = cross; }
             });
         }
+        // the player is a car like any other (any orientation: use its projected rectangle)
         if (P) {
             const dx = P.x - v.x, dz = P.z - v.z;
-            const f = dx * fx + dz * fz, l = dx * rx + dz * rz;
-            if (f > 0 && f < look + 5 && Math.abs(l) < (v.width + 1.8) * 0.5 + 0.4) { const g = f - half - 2.2; if (g < gap) { gap = g; leader = P; leaderSpeed = Math.max(0, P.speed * (P.fx * fx + P.fz * fz)); } }
+            if (Math.abs(dx) < 80 && Math.abs(dz) < 80) {
+                const f = dx * fx + dz * fz, l = dx * rx + dz * rz;
+                if (f > 0 && f < look + 8 && Math.abs(l) < v.width * 0.5 + playerExtent(P, rx, rz) + 0.35) {
+                    const g = f - half - playerExtent(P, fx, fz);
+                    if (g < gap) { gap = g; leader = P; leaderSpeed = Math.max(0, P.speed * (P.fx * fx + P.fz * fz)); leaderCross = false; }
+                }
+            }
         }
         const pg = this.peds.obstacleGap(v, look);
-        if (pg < gap) { gap = pg; leader = 'ped'; leaderSpeed = 0; }
+        if (pg < gap) { gap = pg; leader = 'ped'; leaderSpeed = 0; leaderCross = false; }
+        if (leader === P && P && Math.abs(P.speed) < 1.2 && gap < 14) v.blockT += dt; else v.blockT = Math.max(0, v.blockT - dt * 2);
 
         // ---------------- path constraints: lights, stops, zebras, turns ----------------
         let stopD = Infinity, vCap = Infinity, waitingRed = false;
@@ -521,6 +628,11 @@ export class Traffic {
                 const d = D - rad - 3.5; if (d > -1) { stopD = Math.min(stopD, d); break; }
             }
             if (nxt && nxt.e.roundabout && !curE.roundabout && this.roundaboutBusy(node, v)) { stopD = Math.min(stopD, D - rad - 1); break; }
+            // don't block the box: if the queue beyond the junction leaves no room for us, wait at the line
+            if (k === -1 && isJunction(node) && D - rad > 0.5 && leader && leader !== 'ped' && !leaderCross && leaderSpeed < 2) {
+                const entry = D - rad;
+                if (gap > entry - 0.5 && gap < entry + 2 * rad + v.length + 1.5) stopD = Math.min(stopD, entry - 0.5);
+            }
             if (v.bus) { const bs = this.busStopAhead(v, curE, curDir, D, k === -1); if (bs < stopD) { stopD = bs; } }
             if (!nxt) break;
             const ang = Math.abs(nxt.uturn ? Math.PI : turnAngle(curE.dirx * curDir, curE.dirz * curDir, nxt.e.dirx * nxt.dir, nxt.e.dirz * nxt.dir));
@@ -542,19 +654,24 @@ export class Traffic {
         }
 
         // ---------------- speed control ----------------
-        const headway = this.buc ? 0.6 : 1.0, minGap = this.buc ? 1.6 : 2.4, b = 4.5;
+        const headway = this.buc ? 0.6 : 1.0, minGap = leader === P ? 2.2 : (this.buc ? 1.6 : 2.4), b = 4.5;
         let target = Math.min(desired, vCap);
         if (gap < Infinity) target = Math.min(target, Math.sqrt(Math.max(0, leaderSpeed * leaderSpeed + 2 * b * (gap - minGap - v.speed * headway))));
         if (stopD < Infinity) target = Math.min(target, Math.sqrt(Math.max(0, 2 * b * (stopD - 0.3))));
+        if (leader === P && gap < 0.6) target = 0;
         const accel = v.tram ? 1.2 : v.bus || v.kind === 'truck' ? 1.6 : (this.buc ? 3.0 : 2.4);
         if (target > v.speed) v.speed = Math.min(target, v.speed + accel * dt);
-        else v.speed = Math.max(target, v.speed - 8.5 * dt);
+        else v.speed = Math.max(target, v.speed - (leader === P && gap < 3 ? 14 : 8.5) * dt);
         if (v.speed < 0.05) v.speed = 0;
-        v.gap = gap; v.leader = leader;
+        v.gap = gap; v.leader = leader; v.leaderCross = leaderCross;
 
-        // ---------------- stuck / honking / deadlock breaking ----------------
+        // ---------------- stuck / honking ----------------
+        // waiting in a red-light queue is not "stuck"
+        const redQ = waitingRed || (leader && typeof leader === 'object' && leader !== P && (leader.waitRed || leader.redQ) && gap < 12);
+        v.waitRed = waitingRed; v.redQ = !!redQ;
         if (v.speed < 0.3 && desired > 1 && v.dwell === 0) {
             v.stuck += dt;
+            if (!redQ) v.still += dt; else v.still = 0;
             v.honkCd -= dt;
             if (v.stuck > v.honkAt && v.honkCd <= 0 && !waitingRed) {
                 v.honkCd = this.rng.range(4, 14) / (0.2 + this.chaos);
@@ -563,29 +680,36 @@ export class Traffic {
             if (!waitingRed && leader !== P && leader !== 'ped') {
                 const dP = P ? Math.hypot(P.x - v.x, P.z - v.z) : 1e9;
                 if (v.stuck > 12 && dP > 150) { this.respawn(v); return; }
-                if (v.stuck > 16 && leader && !(leader.parked)) { v.ghost = 2.5; v.stuck = 8; }
+                if (v.stuck > 14 && leader && leaderCross) { v.ghost = 2.5; v.stuck = 8; }
             }
-        } else v.stuck = 0;
+        } else { v.stuck = 0; v.still = 0; }
 
-        // ---------------- bypass double-parked cars ----------------
-        if (leader && leader.parked && gap < 12 && v.speed < 3 && !v.bypass && !v.tram) {
-            const lanes = lanesDir(e, v.dir);
+        // ---------------- bypass double-parked cars / a stopped player ----------------
+        const lanes = lanesDir(e, v.dir);
+        if (!v.bypass && !v.tram && leader && typeof leader === 'object' && v.speed < 3 && gap < 12 && !inJunction &&
+            (leader.parked || (leader === P && v.blockT > 2.0))) {
+            const isP = leader === P;
             if (v.lane > 0 && this.laneFree(v, v.lane - 1)) { v.lane--; v.laneChangeCd = 3; }
-            else if (lanes === 1 || v.stuck > 1.5) { v.bypass = leader; v.bypassT = 7; v.lateralExtra = -(e.laneW ?? 3.3) * 0.95; if (this.chaos > 0.5 && this.rng.chance(0.3)) this.honk(v, 'lanechange'); }
+            else if (isP && v.lane < lanes - 1 && this.laneFree(v, v.lane + 1)) { v.lane++; v.laneChangeCd = 3; }
+            else if (lanes === 1 || v.stuck > 1.5) this.tryBypass(v, leader, isP);
         }
         if (v.bypass) {
             v.bypassT -= dt;
-            const o = v.bypass; const f = (o.x - v.x) * fx + (o.z - v.z) * fz;
-            if (f < -(o.length * 0.5 + half + 1) || v.bypassT <= 0 || o.edge !== v.edge && f < 0) { v.bypass = null; v.lateralExtra = 0; }
+            const o = v.bypass, isP = o === P;
+            const of = isP ? playerExtent(P, fx, fz) : o.length * 0.5;
+            const f = (o.x - v.x) * fx + (o.z - v.z) * fz;
+            const passed = f < -(of + half + 1);
+            const beside = !passed && f < of + half + 1.5;
+            const gone = isP ? Math.hypot(P.x - v.x, P.z - v.z) > 40 : (o.edge !== v.edge && f < 0);
+            if (passed || gone || (v.bypassT <= 0 && !beside)) { v.bypass = null; v.lateralExtra = 0; }
         }
-        v.latExtraCur += (v.lateralExtra - v.latExtraCur) * (1 - Math.exp(-2 * dt));
+        v.latExtraCur += (v.lateralExtra - v.latExtraCur) * (1 - Math.exp(-2 * dt * clamp(0.35 + v.speed / 4, 0.35, 1)));
 
-        // ---------------- lane changes ----------------
+        // ---------------- lane changes (rare, only when useful) ----------------
         v.laneChangeCd -= dt;
-        const lanes = lanesDir(e, v.dir);
-        if (!v.tram && lanes > 1 && v.laneChangeCd <= 0 && !v.bypass) {
-            const blocked = leader && leader !== 'ped' && gap < 25 && leaderSpeed < desired * 0.75;
-            const wander = this.buc && v.speed > 4 && this.rng.chance(0.004 * this.chaos);
+        if (!v.tram && lanes > 1 && v.laneChangeCd <= 0 && !v.bypass && !inJunction) {
+            const blocked = leader && leader !== 'ped' && gap < 25 && leaderSpeed < desired * 0.6;
+            const wander = this.buc && v.speed > 6 && this.rng.chance(0.0006 * this.chaos);
             let want = blocked || (v.stuck > 2 && gap < 8) || wander;
             if (v.bus && v.lane !== lanes - 1) want = true;
             if (want) {
@@ -594,10 +718,17 @@ export class Traffic {
                 if (this.rng() < 0.5) options.reverse();
                 let done = false;
                 for (const l of options) {
-                    if (this.laneFree(v, l)) { v.lane = l; v.laneChangeCd = this.rng.range(this.buc ? 1.5 : 4, this.buc ? 5 : 10); done = true; if (this.chaos > 0.5 && this.rng.chance(0.2)) this.honk(v, 'lanechange'); break; }
+                    if (this.laneFree(v, l)) { v.lane = l; v.laneChangeCd = this.rng.range(this.buc ? 4 : 6, this.buc ? 9 : 14); done = true; if (this.chaos > 0.5 && this.rng.chance(0.2)) this.honk(v, 'lanechange'); break; }
                 }
-                if (!done) v.laneChangeCd = this.buc ? 0.6 : 1.5;
+                if (!done) v.laneChangeCd = this.buc ? 0.8 : 1.5;
             }
+        }
+        // snapshot for the "never push into the player" guard
+        let snap = null;
+        if (P && Math.abs(P.x - v.x) < 14 && Math.abs(P.z - v.z) < 14) {
+            snap = this._snap || (this._snap = {});
+            snap.pen = playerPen(v, P); snap.s = v.s; snap.odo = v.odo; snap.x = v.x; snap.z = v.z; snap.h = v.heading; snap.edge = v.edge;
+            snap.lc = v.laneCur; snap.le = v.latExtraCur; snap.fx = v.fx; snap.fz = v.fz; snap.rx = v.rx; snap.rz = v.rz; snap.tr = v.transition;
         }
         v.laneCur += (v.lane - v.laneCur) * (1 - Math.exp(-2.2 * dt));
 
@@ -609,6 +740,101 @@ export class Traffic {
         v.annoyed = Math.max(0, v.annoyed - dt);
         v.bubbleCd -= dt;
         this.placeOnLane(v, false, dt);
+        if (snap) {
+            const pen = playerPen(v, P);
+            if (pen > -0.05 && pen > snap.pen + 0.002) {
+                // this step would push into the player: undo it (when still on the same edge) and wait
+                if (v.edge === snap.edge) {
+                    v.s = snap.s; v.odo = snap.odo; v.x = snap.x; v.z = snap.z; v.heading = snap.h; v.laneCur = snap.lc; v.latExtraCur = snap.le;
+                    v.fx = snap.fx; v.fz = snap.fz; v.rx = snap.rx; v.rz = snap.rz; v.transition = snap.tr;
+                    v.mesh.position.set(v.x, v.y, v.z); v.mesh.rotation.y = v.heading;
+                }
+                v.speed = 0;
+            }
+        }
+    }
+
+    /** squeeze past a double-parked car or a stopped player (left if possible, else right), checking oncoming traffic */
+    tryBypass(v, o, isP) {
+        const e = v.edge, P = this.player;
+        const rx = v.rx, rz = v.rz;
+        const curOff = laneOffset(e, v.laneCur) + v.latExtraCur;
+        const halfW = e.halfW ?? (laneOffset(e, lanesDir(e, v.dir) - 1) + (e.laneW ?? 3.3) / 2);
+        const margin = 0.6;
+        let shifts;
+        if (isP) {
+            const l = (P.x - v.x) * rx + (P.z - v.z) * rz, el = playerExtent(P, rx, rz);
+            shifts = [l - el - v.width / 2 - margin, l + el + v.width / 2 + margin];
+        } else shifts = [-(e.laneW ?? 3.3) * 0.95];
+        let best = null;
+        for (const sh of shifts) {
+            const off = curOff + sh; // lateral offset from the centreline (right of travel = +)
+            if (Math.abs(off) > halfW - v.width / 2 + 0.3) continue; // stay on the carriageway
+            if (Math.abs(sh) > (e.laneW ?? 3.3) * 1.5) continue;
+            const contra = !e.oneway && off - v.width / 2 < medianOf(e) / 2 - 0.2;
+            if (contra && !this.oncomingClear(v, off, 45)) continue;
+            if (!best || Math.abs(sh) < Math.abs(best)) best = sh;
+        }
+        if (best === null) return false;
+        v.bypass = o; v.bypassT = isP ? 12 : 7; v.lateralExtra = v.latExtraCur + best;
+        if (this.chaos > 0.5 && this.rng.chance(0.3)) this.honk(v, 'lanechange');
+        return true;
+    }
+    /** no oncoming vehicle within `dist` ahead around lateral offset `off` */
+    oncomingClear(v, off, dist) {
+        const e = v.edge; const curOff = laneOffset(e, v.laneCur) + v.latExtraCur;
+        const cx = v.x + v.fx * dist * 0.5 + v.rx * (off - curOff), cz = v.z + v.fz * dist * 0.5 + v.rz * (off - curOff);
+        let ok = true;
+        this.grid.query(cx, cz, dist * 0.5 + 4, (o) => {
+            if (!ok || o === v || o.parked || o.layer !== v.layer) return;
+            if (o.fx * v.fx + o.fz * v.fz > -0.3) return;
+            const dx = o.x - v.x, dz = o.z - v.z; const f = dx * v.fx + dz * v.fz, l = dx * v.rx + dz * v.rz;
+            if (f > -4 && f < dist && Math.abs(l - (off - curOff)) < (v.width + o.width) * 0.5 + 0.8) ok = false;
+        });
+        return ok;
+    }
+    /** true when v overlaps another vehicle */
+    overlapsAny(v) {
+        let hit = false;
+        this.grid.query(v.x, v.z, 12, (o) => {
+            if (hit || o === v || o.layer !== v.layer) return;
+            const dx = o.x - v.x, dz = o.z - v.z; const f = dx * v.fx + dz * v.fz, l = dx * v.rx + dz * v.rz;
+            if (Math.abs(f) < (v.length + o.length) * 0.5 + 0.3 && Math.abs(l) < (v.width + o.width) * 0.5 + 0.1) hit = true;
+        });
+        return hit;
+    }
+    /** a vehicle has been touching the player for a while: back it off a few metres, or move it out of view */
+    nudge(v) {
+        const P = this.player;
+        const f = (P.x - v.x) * v.fx + (P.z - v.z) * v.fz;
+        v.nudges = (v.nudges || 0) + 1; v.touchT = 1.0;
+        const ns = v.s + (f > 0 ? -3.5 : 3.5);
+        if (v.nudges <= 2 && ns > 1 && ns < v.edge.len - 1) {
+            const old = v.s; v.s = ns; this.placeOnLane(v, true, 0);
+            if (!this.overlapsAny(v) && playerPen(v, P) < -0.2) { v.speed = 0; return; }
+            v.s = old; this.placeOnLane(v, true, 0);
+        }
+        v.nudges = 0;
+        if (!(this.large && this.relocate(v, 250, this.bubble, true))) this.respawn(v);
+    }
+    /** queues that have not moved for ~20 s: recycle the head vehicle (out of the player's view if possible) */
+    resolveDeadlocks() {
+        const P = this.player;
+        for (const v of this.vehicles) {
+            if (v.parked || v.still < 18) continue;
+            let h = v; const seen = this._seen || (this._seen = new Set()); seen.clear(); seen.add(v);
+            while (h.leader && typeof h.leader === 'object' && h.leader !== P && !h.leader.parked && h.leader.still > 2 && !seen.has(h.leader)) { h = h.leader; seen.add(h); }
+            let inView = false;
+            if (P) { const dx = h.x - P.x, dz = h.z - P.z, d = Math.hypot(dx, dz); inView = d < 170 && (dx * P.fx + dz * P.fz) > 0.2 * d; }
+            if (inView && v.still < 40) {
+                if (h.leader && typeof h.leader === 'object' && h.leader !== P) h.ghost = 2.5; // let it squeeze through
+                for (const s of seen) s.still = Math.min(s.still, 12);
+                continue;
+            }
+            if (!(this.large && this.relocate(h, 300, this.bubble, true))) this.respawn(h);
+            h.still = 0; this.stats.deadlocks = (this.stats.deadlocks || 0) + 1;
+            for (const s of seen) s.still = Math.min(s.still, 10);
+        }
     }
 
     roundaboutBusy(node, v) {
@@ -635,7 +861,7 @@ export class Traffic {
             const d = D - (e.len - sAlong);
             if (v.served === st) continue;
             if (d < -1) continue;
-            if (d < 1 && v.speed < 0.4 && isCurrent) {
+            if (d < 1.2 && v.speed < 0.4) { // (also when the stop sits just past the next node)
                 v.dwell += this._dt || 0.016;
                 if (v.dwell > 4) { v.served = st; v.dwell = 0; continue; }
                 return 0;
@@ -660,9 +886,15 @@ export class Traffic {
             const L2 = (v.length + o.length) * 0.5;
             if (f > -(L2 + back + Math.max(0, o.speed - v.speed) * 1.5) && f < L2 + front) free = false;
         });
-        if (free && this.player) {
-            const dx = this.player.x - tx, dz = this.player.z - tz;
-            if (Math.hypot(dx, dz) < 8) free = false;
+        const P = this.player;
+        if (free && P) {
+            const dx = P.x - tx, dz = P.z - tz;
+            if (Math.abs(dx) < 40 && Math.abs(dz) < 40) {
+                const f = dx * v.fx + dz * v.fz, l = dx * v.rx + dz * v.rz;
+                const ef = playerExtent(P, v.fx, v.fz), el = playerExtent(P, v.rx, v.rz);
+                const closing = Math.max(0, v.speed - P.speed * (P.fx * v.fx + P.fz * v.fz));
+                if (Math.abs(l) < v.width * 0.5 + el + 0.4 && f > -(v.length * 0.5 + ef + back + 1) && f < v.length * 0.5 + ef + front + 6 + closing * 1.5) free = false;
+            }
         }
         return free;
     }
@@ -711,6 +943,17 @@ export class Traffic {
         return out;
     }
     nearPeds(x, z, r) { return this.peds.near(x, z, r); }
+    /** move every vehicle within r of (x,z) somewhere out of view (used by reset-to-road / fast travel). returns count */
+    clearAround(x, z, r) {
+        let n = 0;
+        for (const v of this.vehicles) {
+            if (Math.hypot(v.x - x, v.z - z) >= r + v.length * 0.5) continue;
+            if (!(this.large && this.relocate(v, 250, this.bubble, true))) this.respawn(v);
+            v.touchT = 0; n++;
+        }
+        this.grid.build(this.vehicles);
+        return n;
+    }
     /** nearest police car within r (or null) */
     policeNear(x, z, r) { let best = null, bd = r; for (const p of this.police) { const d = Math.hypot(p.x - x, p.z - z); if (d < bd) { bd = d; best = p; } } return best; }
 

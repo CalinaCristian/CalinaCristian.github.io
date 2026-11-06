@@ -10,7 +10,7 @@ export class Input {
             if (e.repeat) return;
             const k = this.norm(e);
             this.keys.add(k);
-            if (['Space', 'KeyH', 'KeyE', 'Enter', 'Escape', 'KeyM', 'KeyR', 'KeyC', 'KeyT', 'KeyN', 'KeyL'].includes(e.code)) this.actions.add(e.code);
+            if (['Space', 'KeyH', 'KeyE', 'Enter', 'Escape', 'KeyM', 'KeyR', 'KeyC', 'KeyT', 'KeyN', 'KeyL', 'KeyF'].includes(e.code)) this.actions.add(e.code);
             if (['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.code)) e.preventDefault();
         });
         window.addEventListener('keyup', (e) => this.keys.delete(this.norm(e)));

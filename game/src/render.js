@@ -360,6 +360,7 @@ export class Renderer3D {
             u.uNight.value = st.night; u.uMoonDir.value.copy(this._moonDir);
             const n = st.night;
             fu.uGrade.value.set((overcastEnv ? 0.95 : 1.1) - n * 0.15, 1.05);
+            this._rainBright = THREE.MathUtils.clamp(st.hemiI / 0.85 + 0.12, 0.25, 1);
         }
         u.uCover.value = env.clouds; u.uHaze.value = overcastEnv ? 0.3 : 0.65;
         // shadows follow the tier, and are off for moonlight
@@ -383,6 +384,7 @@ export class Renderer3D {
         }
         this._lampAt.set(1e9, 0, 1e9);
         this._updateHeadlights();
+        this.player?.cockpit?.userData.setInteriorLight?.(on ? 0.3 : 1);
         if (changed) this.onNightLights?.(on);
     }
 
@@ -397,17 +399,27 @@ export class Renderer3D {
 
     // ------------------------------------------------------------------ street lamps
     /**
-     * @param {Float32Array|number[]|Array<[number,number,number]>} lamps  [x, z, height] triples (flat or nested)
-     * @param {{headMaterial?: THREE.Material}} o  the instanced lamp-head material to light up at night
+     * @param {Array<{x,z,h,rot?,y?}>|Float32Array|number[]|Array<[number,number,number]>} lamps
+     *        world.lamps objects (head offset 1.8·h/8 m along `rot`, base height y), or [x, z, height] triples
+     * @param {{headMesh?: THREE.Mesh, headMaterial?: THREE.Material}} o  lamp heads to light up at night (world.lampHeadMesh)
      */
     setLamps(lamps, o = {}) {
-        let flat;
-        if (!lamps || !lamps.length) flat = new Float32Array(0);
-        else if (typeof lamps[0] === 'number') flat = Float32Array.from(lamps);
-        else { flat = new Float32Array(lamps.length * 3); lamps.forEach((l, i) => { flat[i * 3] = l[0]; flat[i * 3 + 1] = l[1]; flat[i * 3 + 2] = l[2] ?? 8; }); }
+        // internal layout: stride 4 = [headX, headZ, headY, groundY]
+        const n = !lamps ? 0 : (typeof lamps[0] === 'number' ? Math.floor(lamps.length / 3) : lamps.length);
+        const flat = new Float32Array(n * 4);
+        for (let i = 0; i < n; i++) {
+            let x, z, h, rot = null, y = 0;
+            if (typeof lamps[0] === 'number') { x = lamps[i * 3]; z = lamps[i * 3 + 1]; h = lamps[i * 3 + 2] || 8; }
+            else if (Array.isArray(lamps[i])) { [x, z, h = 8] = lamps[i]; }
+            else { ({ x, z } = lamps[i]); h = lamps[i].h || 8; rot = lamps[i].rot ?? null; y = lamps[i].y || 0; }
+            const k = h / 8;
+            if (rot !== null) { x += Math.cos(rot) * 1.8 * k; z -= Math.sin(rot) * 1.8 * k; }
+            flat.set([x, z, y + 7.7 * k, y], i * 4);
+        }
         this.lamps = flat;
-        if (this._lampHead && this._lampHead !== o.headMaterial && this._lampHead.emissive) this._lampHead.emissiveIntensity = 0;
-        this._lampHead = o.headMaterial || null;
+        const head = o.headMaterial || o.headMesh?.material || null;
+        if (this._lampHead && this._lampHead !== head && this._lampHead.emissive) this._lampHead.emissiveIntensity = 0;
+        this._lampHead = head;
         if (this._lampHead?.color && !this._lampHead.emissive) this._lampHead.userData.dayColor ??= '#' + this._lampHead.color.getHexString();
         if (!this._discs) {
             const c = document.createElement('canvas'); c.width = c.height = 128;
@@ -445,7 +457,7 @@ export class Renderer3D {
         // bias toward lamps ahead of the car
         const ax = p ? cx + p.fx * 25 : cx, az = p ? cz + p.fz * 25 : cz;
         const L = this.lamps, R2 = LAMP_RANGE * LAMP_RANGE, near = [];
-        for (let i = 0; i < L.length; i += 3) {
+        for (let i = 0; i < L.length; i += 4) {
             const dx = L[i] - cx, dz = L[i + 1] - cz, d2 = dx * dx + dz * dz;
             if (d2 < R2) near.push(d2, i);
         }
@@ -455,8 +467,8 @@ export class Renderer3D {
         const D = this._discs, m = this._tmp.m, col = new THREE.Color();
         const n = Math.min(idx.length, MAX_DISCS);
         for (let k = 0; k < n; k++) {
-            const i = near[idx[k] + 1], d = Math.sqrt(near[idx[k]]), h = L[i + 2] || 8, r = h * 1.9;
-            m.makeScale(r, 1, r).setPosition(L[i], 0.36, L[i + 1]);
+            const i = near[idx[k] + 1], d = Math.sqrt(near[idx[k]]), h = L[i + 2] - L[i + 3], r = h * 1.9;
+            m.makeScale(r, 1, r).setPosition(L[i], L[i + 3] + 0.22, L[i + 1]);
             D.setMatrixAt(k, m);
             const f = 1 - THREE.MathUtils.smoothstep(d, LAMP_RANGE * 0.65, LAMP_RANGE);
             D.setColorAt(k, col.setScalar(f));
@@ -470,12 +482,12 @@ export class Renderer3D {
             const l = pool[j], i = cand[j];
             if (i === undefined) { l.intensity = 0; continue; }
             const d = Math.hypot(L[i] - cx, L[i + 1] - cz);
-            l.position.set(L[i], (L[i + 2] || 8) - 0.5, L[i + 1]);
+            l.position.set(L[i], L[i + 2] - 0.4, L[i + 1]);
             l.intensity = 55 * (1 - THREE.MathUtils.smoothstep(d, 60, 95));
         }
     }
 
-    setPlayer(player) { this.player = player; this._applyRainToCockpit(); this._updateHeadlights(); }
+    setPlayer(player) { this.player = player; this._applyRainToCockpit(); this._updateHeadlights(); player?.cockpit?.userData.setInteriorLight?.(this.nightLights ? 0.3 : 1); }
     _applyRainToCockpit() { this.player?.cockpit?.userData.setRain?.(!!this.env?.rain); }
 
     _buildEnvMap() {
@@ -617,7 +629,7 @@ export class Renderer3D {
                 }
             }
         } else T.vel.set(0, 0, 0);
-        if (this.rain) this.rain.update(dt, T.cam, T.vel);
+        if (this.rain) { this.rain.update(dt, T.cam, T.vel); this.rain.uniforms.uColor.value.set('#b9c4cf').multiplyScalar(this.clock ? this._rainBright ?? 1 : 1); }
         this._updateWindshield();
         // render
         const fu = this.finalPass.uniforms; fu.uTime.value = this.time;

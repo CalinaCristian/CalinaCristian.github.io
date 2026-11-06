@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="base" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1220"/>
+      <stop offset="0.55" stop-color="#101b2e"/>
+      <stop offset="1" stop-color="#0a0f1a"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0.2" cy="0.25" r="0.55">
+      <stop offset="0" stop-color="#1d4ed8" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#1d4ed8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0.85" cy="0.8" r="0.6">
+      <stop offset="0" stop-color="#fa4616" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#fa4616" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowC" cx="0.75" cy="0.15" r="0.4">
+      <stop offset="0" stop-color="#0ea5e9" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#0ea5e9" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M60 0H0V60" fill="none" stroke="#ffffff" stroke-opacity="0.045" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="url(#base)"/>
+  <rect width="1600" height="900" fill="url(#glowA)"/>
+  <rect width="1600" height="900" fill="url(#glowB)"/>
+  <rect width="1600" height="900" fill="url(#glowC)"/>
+  <rect width="1600" height="900" fill="url(#grid)"/>
+  <!-- a few soft "road" curves -->
+  <path d="M-50 720 C 350 640, 650 820, 1000 700 S 1500 560, 1700 640" fill="none" stroke="#ffffff" stroke-opacity="0.06" stroke-width="28" stroke-linecap="round"/>
+  <path d="M-50 720 C 350 640, 650 820, 1000 700 S 1500 560, 1700 640" fill="none" stroke="#fbbf24" stroke-opacity="0.35" stroke-width="2" stroke-dasharray="18 22" stroke-linecap="round"/>
+  <path d="M1700 180 C 1300 260, 1100 120, 800 220 S 300 320, -50 260" fill="none" stroke="#ffffff" stroke-opacity="0.04" stroke-width="22" stroke-linecap="round"/>
+</svg>

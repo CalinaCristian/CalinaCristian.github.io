@@ -5,9 +5,9 @@ window.addEventListener("wheel", (event) => {
     if (document.querySelector('.content').scrollTop > 0) {
         return;
     }
-    if (event.wheelDelta > 0 && window.__LAST_SCROLL_DIRECTION__ !== 'up') {
+    if (event.deltaY < 0 && window.__LAST_SCROLL_DIRECTION__ !== 'up') {
         handleImageClick();
-    } else if (event.wheelDelta < 0 && window.__LAST_SCROLL_DIRECTION__ !== 'down') {
+    } else if (event.deltaY > 0 && window.__LAST_SCROLL_DIRECTION__ !== 'down') {
         handleImageClick();
     }
 }, false);
@@ -36,6 +36,7 @@ const handleImageClick = () => {
     document.querySelector('.content').classList.toggle('scale-hide');
     // opacity-hide will use opacity: 0; to animate the disappearance of the footer 
     document.querySelector('.footer').classList.toggle('opacity-hide');
+    document.querySelector('.play-cta').classList.toggle('opacity-hide');
 
     toggleElement(document.querySelector('.cv-viewer'));
     document.querySelectorAll('.social-links a').forEach(link => {

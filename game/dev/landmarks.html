@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Landmark viewer</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #a9c9e6; overflow: hidden; font: 13px/1.3 system-ui, sans-serif; }
+  #ui { position: fixed; left: 8px; top: 8px; background: rgba(255,255,255,.85); padding: 6px 8px; border-radius: 6px; }
+  #info { position: fixed; left: 8px; bottom: 8px; background: rgba(255,255,255,.85); padding: 4px 8px; border-radius: 6px; }
+</style>
+</head>
+<body>
+<div id="ui"><select id="sel"></select> <label><input type="checkbox" id="top"> top</label> <label><input type="checkbox" id="col"> collision</label></div>
+<div id="info"></div>
+<script type="module">
+import * as THREE from '../vendor/three.module.min.js';
+import { LANDMARKS, buildLandmark } from '../src/landmarks.js';
+
+// Dev viewer: ?id=<landmark id>&view=top|34|street&az=<deg>
+const qs = new URLSearchParams(location.search);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(1);
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color('#a9c9e6');
+scene.add(new THREE.HemisphereLight('#dfeeff', '#7a7466', 1.1));
+const sun = new THREE.DirectionalLight('#fff6e8', 2.2);
+sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048);
+scene.add(sun, sun.target);
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshLambertMaterial({ color: '#9aa58c' }));
+ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
+const camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 1, 2e6);
+
+const sel = document.getElementById('sel');
+for (const l of LANDMARKS) sel.add(new Option(`${l.city.slice(0, 3)} · ${l.name}`, l.id));
+let current = null, colGroup = null;
+
+function show(id) {
+  const lm = LANDMARKS.find(l => l.id === id) || LANDMARKS[0];
+  sel.value = lm.id;
+  if (current) scene.remove(current.mesh);
+  if (colGroup) scene.remove(colGroup);
+  const t0 = performance.now();
+  current = buildLandmark(lm, { THREE });
+  const ms = performance.now() - t0;
+  if (qs.get('norot') === '1') current.mesh.rotation.y = 0;
+  scene.add(current.mesh);
+  // collision overlay
+  colGroup = new THREE.Group();
+  for (const c of current.collision) {
+    const m = new THREE.Mesh(new THREE.BoxGeometry(c.hw * 2, 2, c.hd * 2), new THREE.MeshBasicMaterial({ color: '#ff2a2a', wireframe: true }));
+    m.position.set(c.x, 1, c.z); m.rotation.y = c.angle; colGroup.add(m);
+  }
+  colGroup.visible = document.getElementById('col').checked || qs.get('col') === '1';
+  scene.add(colGroup);
+  // frame
+  const box = new THREE.Box3().setFromObject(current.mesh), size = box.getSize(new THREE.Vector3()), ctr = box.getCenter(new THREE.Vector3());
+  const R = Math.max(size.x, size.z, size.y * 1.15) * 0.5 + 1;
+  ground.scale.set(R * 12, R * 12, 1);
+  const top = document.getElementById('top').checked || qs.get('view') === 'top';
+  const az = THREE.MathUtils.degToRad(+(qs.get('az') ?? 35));
+  const el = top ? Math.PI / 2 - 0.001 : THREE.MathUtils.degToRad(+(qs.get('el') ?? 24));
+  const dist = R / Math.tan(THREE.MathUtils.degToRad(22.5)) * (top ? 1.05 : 1.25);
+  const ly = top ? 0 : size.y * 0.4;
+  camera.position.set(ctr.x + Math.cos(el) * Math.sin(az) * dist, ly + Math.sin(el) * dist, ctr.z + Math.cos(el) * Math.cos(az) * dist);
+  camera.lookAt(ctr.x, ly, ctr.z);
+  camera.near = Math.max(0.5, dist / 500); camera.far = dist * 20; camera.updateProjectionMatrix();
+  sun.position.set(ctr.x + R * 1.2, R * 2.2, ctr.z + R * 0.9); sun.target.position.copy(ctr);
+  const sc = sun.shadow.camera; sc.left = sc.bottom = -R * 1.6; sc.right = sc.top = R * 1.6; sc.near = 1; sc.far = R * 8; sc.updateProjectionMatrix();
+  scene.fog = lm.backdrop ? new THREE.Fog('#a9c9e6', dist * 0.2, dist * 3) : null;
+  renderer.render(scene, camera);
+  const info = `${lm.name} — ${current.triangles} tris, ${current.mesh.children.length} meshes, ${current.collision.length} col boxes, h=${size.y.toFixed(1)} m, ${size.x.toFixed(0)}×${size.z.toFixed(0)} m (world), ${ms.toFixed(1)} ms`;
+  document.getElementById('info').textContent = info;
+  window.__stats = { id: lm.id, triangles: current.triangles, height: size.y, w: size.x, d: size.z, ms };
+  if (!top) history.replaceState(null, '', '?id=' + lm.id);
+}
+sel.onchange = () => show(sel.value);
+document.getElementById('top').onchange = () => show(sel.value);
+document.getElementById('col').onchange = () => { colGroup.visible = document.getElementById('col').checked; renderer.render(scene, camera); };
+addEventListener('resize', () => { renderer.setSize(innerWidth, innerHeight); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.render(scene, camera); });
+window.showLandmark = show;
+window.__ids = LANDMARKS.map(l => l.id);
+show(qs.get('id') || LANDMARKS[0].id);
+window.__ready = true;
+</script>
+</body>
+</html>

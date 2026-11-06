@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="description" content="Drive through Bucharest and Seattle to discover Cristian-Florin Călina's CV — an interactive résumé game.">
+    <title>Drive My CV — Cristian-Florin Călina</title>
+    <link rel="icon" href="../public/favicon.ico">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <canvas id="gl"></canvas>
+
+    <!-- ===== MENU ===== -->
+    <div id="menu" class="overlay show">
+        <div class="menu-card">
+            <div class="eyebrow">An interactive résumé</div>
+            <h1>Drive My CV</h1>
+            <p class="lead">Get behind the wheel in <b>Bucharest</b>, survive the traffic, visit every office where Cristian worked, then fly to <b>Seattle</b> and drive to Bellevue.</p>
+            <div class="controls">
+                <div><kbd>W</kbd><kbd>S</kbd> drive · <kbd>A</kbd><kbd>D</kbd> steer</div>
+                <div><kbd>Space</kbd> brake · <kbd>H</kbd> horn (you'll need it)</div>
+                <div><kbd>E</kbd> enter office / refuel · <kbd>M</kbd> map &amp; navigation · <kbd>C</kbd> look back · <kbd>L</kbd> headlights</div>
+                <div>Mind the speed limits, the cameras, the pedestrians and your fuel gauge.</div>
+            </div>
+            <div class="row">
+                <button id="start" class="btn primary">🚗 Start driving</button>
+                <a class="btn ghost" href="../">Skip the game → classic CV</a>
+            </div>
+            <div class="row small">
+                <label>Quality <select id="quality"><option value="high">High</option><option value="low">Low (mobile)</option></select></label>
+                <label>Time of day <select id="timeofday"><option value="real">Real time (default)</option><option value="dawn">Dawn</option><option value="day">Day</option><option value="sunset">Sunset</option><option value="night">Night</option></select></label>
+                <label><input type="checkbox" id="opt-minimap"> Mini-map</label>
+                <button id="mute" class="icon-btn" title="Mute">🔊</button>
+            </div>
+            <p class="fine">Built with Three.js, vanilla JS and real Bucharest geography. Traffic facts from the TomTom Traffic Index 2025.</p>
+        </div>
+    </div>
+
+    <div id="loading" class="overlay"><div class="spinner"></div><p>Generating the city…</p></div>
+
+    <!-- ===== HUD ===== -->
+    <div id="hud">
+        <div class="top-left">
+            <div id="chapter" class="chapter"></div>
+            <div class="objective-wrap"><span class="label">Next</span><span id="objective"></span></div>
+            <div id="navline"></div>
+            <div class="progress-wrap">CV discovered <b id="progress">0/8</b> · <span class="year-wrap">Year <b id="year">2013</b></span></div>
+        </div>
+        <div class="top-right">
+            <div id="rage" class="rage"><span class="label">Rage</span><div class="bar"><div id="rage-fill"></div></div></div>
+        </div>
+        <div class="street-wrap"><div id="street"></div><div id="district"></div></div>
+        <div class="bottom-right">
+            <div class="sp-row">
+                <div id="limit" class="limit-sign ro"><span class="lbl">SPEED<br>LIMIT</span><span class="val">50</span></div>
+                <div class="speedo"><span id="speed">0</span><small id="speed-unit">km/h</small></div>
+            </div>
+            <div id="fuel" class="fuel"><span class="ico">⛽</span><div class="bar"><div id="fuel-fill"></div></div><span id="fuel-text"></span></div>
+            <div id="trip"></div>
+        </div>
+        <div class="bottom-left"><canvas id="minimap" width="230" height="230"></canvas></div>
+        <div id="ticker"><span></span></div>
+        <div id="prompt"></div>
+        <div id="hint"></div>
+        <div id="toasts"></div>
+        <div id="bubbles"></div>
+        <div id="flash"></div>
+        <!-- touch controls -->
+        <div id="touch">
+            <div class="pad left"><button data-btn="left">◀</button><button data-btn="right">▶</button></div>
+            <div class="pad right"><button data-btn="horn">📣</button><button data-btn="act">E</button><button data-btn="map" title="Map &amp; navigation">🧭</button><button data-btn="rev">▼</button><button data-btn="gas">▲</button></div>
+        </div>
+    </div>
+
+    <div id="bigmap-wrap">
+        <div class="map-row">
+            <canvas id="bigmap"></canvas>
+            <aside id="navpanel"><div class="eyebrow">Navigate to</div><div id="navlist"></div></aside>
+        </div>
+        <div class="map-hint">Click the map to drop a waypoint · drag to pan · scroll to zoom · <kbd>M</kbd> / <kbd>Esc</kbd> to close <button id="map-close" class="btn ghost small-btn">Close ✕</button></div>
+    </div>
+    <div id="panel"></div>
+
+    <!-- ===== FLIGHT ===== -->
+    <div id="flight" class="overlay">
+        <canvas></canvas>
+        <div class="caption"></div>
+        <button class="btn ghost skip" data-skip>Skip ▸</button>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,869 @@
+import * as THREE from '../vendor/three.module.min.js';
+import { CITIES } from './cities.js';
+import { STOPS, AIRPORTS, FACTS, PROFILE } from './data.js';
+import { buildWorld } from './world.js';
+import { Traffic, laneOffset } from './traffic.js';
+import { Player } from './player.js';
+import { Input } from './input.js';
+import { Audio } from './audio.js';
+import { HUD } from './hud.js';
+import { MiniMap } from './minimap.js';
+import { Office } from './office.js';
+import { playFlight } from './flight.js';
+import { Navigator, CarScreen, canTravel, edgeSpeed, isMotorway, roadName, fmtDist, stepText, stepArrow } from './nav.js';
+import { isTouch, clamp, angleDiff, signTexture } from './util.js';
+
+const $ = (s) => document.querySelector(s);
+
+// ---------- fuel model ----------
+const TANK_L = 45;
+const FUEL_IDLE = 0.8 / 3600;      // L/s at idle (~0.8 L/h)
+const FUEL_ROLL = 4.4e-5;          // L per metre-ish term (rolling / drivetrain)
+const FUEL_AERO = 5e-8;            // L/s per (m/s)^3
+const FUEL_ACC = 5e-5;             // L per (m/s^2 · m/s · s) while accelerating
+// ≈ 7 L/100 km cruising at 50 km/h, ~12 in stop-and-go, ~9.5 at 110 km/h.
+// The tank drains FUEL_GAME_MULT× faster than the trip computer shows, so a playthrough needs a fill-up.
+const FUEL_GAME_MULT = 6;
+const GAL = 3.78541;
+const PRICES = {
+    bucharest: { cur: 'RON', unit: 'L', def: 7.35, brands: { Petrom: 7.39, OMV: 7.52, MOL: 7.36, Rompetrol: 7.41, Lukoil: 7.29, Socar: 7.34, Gazprom: 7.31 } },
+    seattle: { cur: 'USD', unit: 'gal', def: 4.49, brands: { Chevron: 4.79, Shell: 4.69, '76': 4.59, Arco: 4.29, ARCO: 4.29, Costco: 4.19, BP: 4.55, Texaco: 4.65, Mobil: 4.62 } },
+};
+const BRANDS = { bucharest: ['Petrom', 'OMV', 'MOL', 'Rompetrol', 'Lukoil', 'Socar'], seattle: ['Chevron', 'Shell', '76', 'Arco'] };
+// fines by km/h over the limit (RO: OUG 195/2002 classes, approx 2025; WA: approx 2025 base + fees)
+function fineFor(cityId, overKmh) {
+    if (cityId === 'bucharest') return overKmh <= 20 ? 580 : overKmh <= 30 ? 1015 : overKmh <= 40 ? 1450 : 2030;
+    const mph = overKmh / 1.609;
+    return mph <= 10 ? 187 : mph <= 15 ? 236 : mph <= 20 ? 289 : mph <= 25 ? 370 : mph <= 30 ? 463 : 555;
+}
+// ---------- local time of the current city ----------
+const TIME_ZONES = { bucharest: 'Europe/Bucharest', seattle: 'America/Los_Angeles' };
+const OVERRIDE_HOURS = { dawn: 6.2, day: 13, sunset: 19.6, night: 23.2 };
+const PHASE_ICON = { night: '🌙', dawn: '🌅', dusk: '🌇', day: '☀️' };
+/** hours (0..24, fractional) of `date` in `timeZone` */
+function localHours(date, timeZone) {
+    try {
+        const parts = new Intl.DateTimeFormat('en-GB', { timeZone, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(date);
+        const h = +parts.find(x => x.type === 'hour').value, m = +parts.find(x => x.type === 'minute').value;
+        return h + m / 60;
+    } catch { return date.getHours() + date.getMinutes() / 60; }
+}
+/** coarse phase from local hour (used when the render module does not expose one) */
+function phaseFromHours(h) { return h < 5.5 || h >= 21 ? 'night' : h < 7.5 ? 'dawn' : h >= 19 ? 'dusk' : 'day'; }
+const money = (cur, v) => cur === 'RON' ? `${Math.round(v).toLocaleString('ro-RO')} RON` : `$ ${v.toFixed(v >= 100 ? 0 : 2)}`;
+
+class Game {
+    constructor() {
+        this.canvas = $('#gl');
+        this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: true, powerPreference: 'high-performance' });
+        this.renderer.shadowMap.enabled = true;
+        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        this.renderer.outputColorSpace = THREE.SRGBColorSpace;
+        this.camera = new THREE.PerspectiveCamera(72, 1, 0.4, 5000);
+        this.input = new Input();
+        this.audio = new Audio();
+        this.hud = new HUD();
+        this.touch = isTouch();
+        this.quality = this.touch ? 'low' : 'high';
+        this.state = 'menu';
+        this.visited = new Set();
+        this.honks = 0;
+        this.frameClock = new THREE.Clock();
+        this.mapOpen = false;
+        this.flags = {};
+        this.fuel = TANK_L * 0.6;
+        this.stats = { dist: 0, time: 0, fuelL: 0, fuelReal: 0, fuelCost: { RON: 0, USD: 0 }, fines: { RON: 0, USD: 0 }, fineCount: 0, tow: { RON: 0, USD: 0 }, cleanDist: 0, peds: 0 };
+        this.opts = { minimap: this.loadOpt('minimap', false) };
+        this.frame = 0;
+        this.clock = { date: new Date(), timeZone: 'Europe/Bucharest', override: null };
+        this.headlights = 'auto'; // 'auto' | true | false
+        this.nightLights = false;
+        this.resize();
+        window.addEventListener('resize', () => this.resize());
+        if (this.touch) { document.body.classList.add('touch'); this.input.bindTouch(document); }
+        this.bindMenu();
+        this.applyOpts();
+        this.loop = this.loop.bind(this);
+        requestAnimationFrame(this.loop);
+    }
+    loadOpt(k, def) { try { const v = localStorage.getItem('dmcv:' + k); return v === null ? def : v === '1'; } catch { return def; } }
+    saveOpt(k, v) { try { localStorage.setItem('dmcv:' + k, v ? '1' : '0'); } catch { /* ignore */ } }
+    applyOpts() { document.body.classList.toggle('no-minimap', !this.opts.minimap); const cb = $('#opt-minimap'); if (cb) cb.checked = this.opts.minimap; }
+
+    resize() {
+        const w = window.innerWidth, h = window.innerHeight;
+        this.renderer.setPixelRatio(Math.min(devicePixelRatio, this.quality === 'high' ? 1.75 : 1));
+        this.renderer.setSize(w, h, false);
+        this.camera.aspect = w / h; this.camera.updateProjectionMatrix();
+    }
+
+    bindMenu() {
+        $('#start').addEventListener('click', () => this.start());
+        $('#quality').addEventListener('change', (e) => { this.quality = e.target.value; this.resize(); });
+        $('#mute').addEventListener('click', (e) => { this.audio.setMuted(!this.audio.muted); e.target.textContent = this.audio.muted ? '🔇' : '🔊'; });
+        $('#timeofday')?.addEventListener('change', (e) => { this.clock.override = e.target.value === 'real' ? null : e.target.value; });
+        $('#opt-minimap')?.addEventListener('change', (e) => { this.opts.minimap = e.target.checked; this.saveOpt('minimap', this.opts.minimap); this.applyOpts(); });
+        const bm = $('#bigmap');
+        bm.addEventListener('click', (e) => { if (this._dragged) { this._dragged = false; return; } this.onMapClick(e); });
+        bm.addEventListener('pointerdown', (e) => { this._drag = { x: e.clientX, y: e.clientY, cx: this.mapView?.cx, cz: this.mapView?.cz }; this._dragged = false; });
+        window.addEventListener('pointerup', () => { this._drag = null; });
+        bm.addEventListener('pointermove', (e) => {
+            const d = this._drag; if (!d || !this.mapView) return;
+            const dx = e.clientX - d.x, dy = e.clientY - d.y;
+            if (!this._dragged && Math.hypot(dx, dy) < 6) return;
+            this._dragged = true;
+            const k = devicePixelRatio / this.mapView.scale;
+            this.mapView.cx = d.cx - dx * k; this.mapView.cz = d.cz - dy * k;
+            if (!this._mapRaf) this._mapRaf = requestAnimationFrame(() => { this._mapRaf = 0; this.redrawMap(); });
+        });
+        $('#map-close')?.addEventListener('click', () => this.toggleMap(false));
+        $('#navlist')?.addEventListener('click', (e) => {
+            const b = e.target.closest('[data-nav]'); if (!b) return;
+            const idx = +b.dataset.nav;
+            if (idx < 0) { this.navManual = false; this.autoRoute(true); }
+            else { const it = this.navItems[idx]; if (it) this.setNavDest({ x: it.x, z: it.z, label: it.label }, true); }
+            this.toggleMap(false);
+        });
+    }
+
+    async start() {
+        if (this.started) return; this.started = true;
+        $('#start').blur();
+        this.audio.init(); this.audio.resume();
+        $('#menu').classList.remove('show');
+        $('#hud').classList.add('show');
+        $('#loading').classList.add('show');
+        await new Promise(r => setTimeout(r, 30));
+        await this.loadCity('bucharest');
+        $('#loading').classList.remove('show');
+        this.state = 'drive';
+        this.startTime = performance.now();
+        this.hud.toast('🚗 Bucharest, 2013', 'Follow the blue route on the dashboard screen. H = horn · M = map & navigation.', 'intro');
+        this.player.camHolder.add(this.camera); this.camera.position.set(0, 0, 0); this.camera.rotation.set(0, 0, 0);
+    }
+
+    // ----------------------------------------------------------------------------------
+    async loadCity(id) {
+        const city = CITIES[id];
+        this.city = city;
+        this.clock.timeZone = city.timeZone || TIME_ZONES[id] || 'UTC';
+        if (this.scene) { this.scene.traverse(o => { if (o.geometry && !o.userData.shared) o.geometry.dispose?.(); }); }
+        const scene = this.scene = new THREE.Scene();
+        const env = city.env;
+        scene.fog = new THREE.Fog(env.fog, env.fogNear, env.fogFar);
+        scene.background = new THREE.Color(env.fog);
+        this.renderer.toneMappingExposure = env.exposure;
+        // lights
+        scene.add(new THREE.HemisphereLight(env.hemiSky, env.hemiGround, 0.9));
+        const sun = this.sun = new THREE.DirectionalLight(env.sunColor, env.sunIntensity);
+        sun.castShadow = this.quality === 'high';
+        sun.shadow.mapSize.set(2048, 2048);
+        const sc = sun.shadow.camera; sc.left = -140; sc.right = 140; sc.top = 140; sc.bottom = -140; sc.near = 10; sc.far = 900;
+        sun.shadow.bias = -0.0008; sun.shadow.normalBias = 0.6;
+        scene.add(sun); scene.add(sun.target);
+        this.sunDir = new THREE.Vector3(...env.sun).normalize();
+        // world (buildWorld may be async)
+        const world = this.world = await buildWorld(city, this.renderer);
+        scene.add(world.group);
+        // navigation (spatial index shared with traffic)
+        this.nav = new Navigator(world);
+        // traffic
+        const hi = this.quality === 'high';
+        this.traffic = new Traffic(world, city, scene, {
+            maxVehicles: hi ? (id === 'bucharest' ? 420 : 110) : (id === 'bucharest' ? 150 : 45),
+            maxPeds: hi ? (id === 'bucharest' ? 250 : 60) : (id === 'bucharest' ? 110 : 30),
+            index: this.nav.index,
+            onBubble: (v, kind) => this.hud.bubble(v, kind, city.id),
+            onHonk: (v, reason) => this.vehicleHonk(v, reason),
+        });
+        this.traffic.setNightLights(this.nightLights);
+        // player
+        if (!this.player) {
+            this.player = new Player(scene, this.camera);
+            this.player.onCollide = (s, what, v) => this.onCollide(s, what, v);
+            this.setupScreen();
+        } else { scene.add(this.player.rig); }
+        this.player.world = world; this.player.traffic = this.traffic; this.player.bounds = world.bounds;
+        this.traffic.setPlayer(this.player);
+        this.placeSpawn(city, world);
+        // weather
+        if (this.rain) { this.rain = null; }
+        if (env.rain) this.makeRain();
+        this.audio.ambience(env.rain ? 0.08 : 0.02);
+        // minimap
+        this.minimap = new MiniMap($('#minimap'), world, city);
+        this.bigmap = new MiniMap($('#bigmap'), world, city);
+        // gas stations + speed cameras
+        this.props = new THREE.Group(); scene.add(this.props);
+        this.setupStations(city, world);
+        this.setupCameras(city, world);
+        // hud
+        this.hud.setUnits(city.units);
+        this.hud.setTicker(FACTS[city.id]);
+        this.hud.setChapter(city.id === 'bucharest' ? 'Chapter 1 · București' : 'Chapter 2 · Seattle → Bellevue');
+        this.stops = STOPS.filter(s => s.city === city.id).sort((a, b) => a.order - b.order);
+        for (const s of this.stops) { s.poiRef = world.pois.find(p => p.id === s.poi); if (s.poiRef) { s.poiRef.visited = this.visited.has(s.id); s.poiRef.color = s.color; s.poiRef.icon = s.icon; } }
+        this.stopPois = this.stops.filter(s => s.poiRef).map(s => ({ stop: s, poi: s.poiRef }));
+        this.airport = world.pois.find(p => p.id === AIRPORTS[city.id].poi);
+        this.leftAirport = false;
+        this.prevEdgeInfo = null;
+        this.navManual = false; this.navInfo = null;
+        this.updateObjective();
+    }
+
+    /** put a point on the nearest drivable lane, returns {x,z,heading,edge,dir} */
+    roadPose(x, z, preferDir = 1) {
+        const ne = this.nav.index.nearest(x, z, 3000); if (!ne) return { x, z, heading: 0 };
+        const e = ne.edge;
+        let dir = canTravel(e, preferDir) ? preferDir : -preferDir;
+        if (!canTravel(e, dir)) dir = 1;
+        const lat = laneOffset(e, 0) * dir;
+        return { x: ne.cx + e.nx * lat, z: ne.cz + e.nz * lat, heading: Math.atan2(-e.dirx * dir, -e.dirz * dir), edge: e, dir };
+    }
+    placeSpawn(city, world) {
+        if (world.spawn && world.spawn.x !== undefined) {
+            const p = world.spawn.heading !== undefined ? world.spawn : this.roadPose(world.spawn.x, world.spawn.z);
+            this.player.place(p.x, p.z, p.heading); return;
+        }
+        const sp = city.spawn;
+        const e = sp && world.graph.edges.find(ed => ed.a.id === sp.edge[0] && ed.b.id === sp.edge[1]);
+        if (e) {
+            const lat = laneOffset(e, 0) * sp.dir;
+            this.player.place(e.a.x + e.dirx * e.len * sp.t + e.nx * lat, e.a.z + e.dirz * e.len * sp.t + e.nz * lat, Math.atan2(-e.dirx * sp.dir, -e.dirz * sp.dir));
+            return;
+        }
+        const ap = world.pois.find(p => p.id === AIRPORTS[city.id].poi);
+        const ref = city.id === 'seattle' && ap ? { x: ap.doorX ?? ap.x, z: ap.doorZ ?? ap.z } : { x: 0, z: 0 };
+        const p = this.roadPose(ref.x, ref.z); this.player.place(p.x, p.z, p.heading);
+    }
+
+    /** dashboard navigation screen: uses the cockpit's screen mesh if provided, else a fallback plane */
+    setupScreen() {
+        const cockpit = this.player.cockpit;
+        let screen = cockpit.userData.screen;
+        if (!screen) {
+            screen = new THREE.Mesh(new THREE.PlaneGeometry(0.42, 0.26), new THREE.MeshBasicMaterial({ toneMapped: false }));
+            screen.position.set(0.25, 1.0, -1.15); screen.rotation.set(-0.3, -0.3, 0, 'YXZ');
+            cockpit.add(screen); cockpit.userData.screen = screen;
+        }
+        this.carScreen = new CarScreen(512, 320);
+        const tex = this.screenTex = new THREE.CanvasTexture(this.carScreen.canvas);
+        tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
+        if (!(screen.material instanceof THREE.MeshBasicMaterial)) screen.material = new THREE.MeshBasicMaterial({ toneMapped: false });
+        screen.material.map = tex; screen.material.color?.set('#ffffff'); screen.material.needsUpdate = true;
+    }
+
+    // ---------------------------------------------------------------------------------- stations & cameras
+    /** farthest-point sampling of edges for fallback props */
+    spreadEdges(filter, n) {
+        const cands = this.world.graph.edges.filter(filter); if (!cands.length) return [];
+        const mid = (e) => [(e.a.x + e.b.x) / 2, (e.a.z + e.b.z) / 2];
+        const chosen = [cands.reduce((a, b) => (b.len > a.len ? b : a))];
+        const md = cands.map(e => { const [x, z] = mid(e), [cx, cz] = mid(chosen[0]); return Math.hypot(x - cx, z - cz); });
+        while (chosen.length < n) {
+            let bi = -1, bd = -1;
+            for (let i = 0; i < cands.length; i++) if (md[i] * Math.min(1, cands[i].len / 150) > bd) { bd = md[i] * Math.min(1, cands[i].len / 150); bi = i; }
+            if (bi < 0 || bd <= 0) break;
+            const e = cands[bi]; chosen.push(e); const [cx, cz] = mid(e);
+            for (let i = 0; i < cands.length; i++) { const [x, z] = mid(cands[i]); md[i] = Math.min(md[i], Math.hypot(x - cx, z - cz)); }
+        }
+        return chosen;
+    }
+    setupStations(city, world) {
+        const P = PRICES[city.id];
+        const real = world.pois.filter(p => p.kind === 'fuel');
+        this.stations = real.map(p => {
+            const brand = p.brand || p.label || p.name || BRANDS[city.id][0];
+            return { x: p.doorX ?? p.x, z: p.doorZ ?? p.z, brand, price: P.brands[brand] ?? P.def, poi: p };
+        });
+        if (!this.stations.length) {
+            const edges = this.spreadEdges(e => !isMotorway(e) || city.id === 'seattle', city.id === 'bucharest' ? 5 : 3);
+            edges.forEach((e, i) => {
+                const dir = canTravel(e, 1) ? 1 : -1; const t = 0.5;
+                const cx = e.a.x + (e.b.x - e.a.x) * t, cz = e.a.z + (e.b.z - e.a.z) * t;
+                const rx = e.nx * dir, rz = e.nz * dir; const hw = e.halfW ?? 6, sw = e.sidewalk ?? 2;
+                const brand = BRANDS[city.id][i % BRANDS[city.id].length];
+                const st = { x: cx + rx * (hw + 1.5), z: cz + rz * (hw + 1.5), brand, price: P.brands[brand] ?? P.def, fallback: true };
+                this.props.add(buildStationMesh(cx + rx * (hw + sw + 7), cz + rz * (hw + sw + 7), Math.atan2(rx, rz), brand));
+                this.stations.push(st);
+            });
+        }
+        for (const s of this.stations) { s.icon = '⛽'; s.color = '#0f766e'; }
+    }
+    setupCameras(city, world) {
+        const real = world.pois.filter(p => p.kind === 'camera' || p.kind === 'speed_camera');
+        this.cameras = real.map(p => ({ x: p.x ?? p.doorX, z: p.z ?? p.doorZ, cd: 0, lastD: 1e9 }));
+        if (!this.cameras.length) {
+            const edges = this.spreadEdges(e => edgeSpeed(e) >= 13 && e.len > 25 && !e.tunnel && !e.roundabout, city.id === 'bucharest' ? 6 : 4);
+            for (const e of edges) {
+                const cx = (e.a.x + e.b.x) / 2, cz = (e.a.z + e.b.z) / 2;
+                const hw = (e.halfW ?? 6) + 1.2;
+                this.cameras.push({ x: cx, z: cz, cd: 0, lastD: 1e9, edge: e });
+                this.props.add(buildCameraMesh(cx + e.nx * hw, cz + e.nz * hw, Math.atan2(e.dirx, e.dirz)));
+            }
+        }
+    }
+
+    makeRain() {
+        // rain streaks as short vertical line segments around the player
+        const n = 900; const pos = new Float32Array(n * 6);
+        for (let i = 0; i < n; i++) {
+            const x = (Math.random() - 0.5) * 50, y = Math.random() * 25, z = (Math.random() - 0.5) * 50;
+            pos.set([x, y, z, x, y + 0.6, z], i * 6);
+        }
+        const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+        const m = new THREE.LineBasicMaterial({ color: '#c9d3dd', transparent: true, opacity: 0.28, depthWrite: false });
+        this.rain = new THREE.LineSegments(g, m); this.rain.frustumCulled = false; this.scene.add(this.rain);
+    }
+    updateRain(dt) {
+        const p = this.rain.geometry.attributes.position; const fall = dt * 22;
+        for (let i = 0; i < p.count; i += 2) {
+            let y = p.getY(i) - fall; if (y < 0) y += 25;
+            p.setY(i, y); p.setY(i + 1, y + 0.6);
+        }
+        p.needsUpdate = true;
+        this.rain.position.set(this.player.x + this.player.fx * 12, 0, this.player.z + this.player.fz * 12);
+    }
+
+    // ---------------------------------------------------------------------------------- objective / navigation
+    get nextStop() { return this.stops.find(s => !this.visited.has(s.id)); }
+    updateObjective() {
+        const done = STOPS.filter(s => this.visited.has(s.id)).length;
+        this.hud.setProgress(done, STOPS.length);
+        const n = this.nextStop;
+        if (n) { this.objective = n.poiRef; this.objectiveLabel = `${n.icon} ${n.short} <small>(${n.year})</small>`; this.objectivePlain = n.short; this.hud.setYear(n.year); this.year = n.year; }
+        else if (this.city.id === 'bucharest') { this.objective = this.airport; this.objectiveLabel = '✈️ Otopeni Airport — fly to Seattle <small>(2022)</small>'; this.objectivePlain = 'Otopeni Airport'; this.hud.setYear(2022); this.year = 2022; if (this.hud.achievement('all-buc')) this.audio.chime(); }
+        else { this.objective = null; this.objectiveLabel = '🏁 Story complete — free roam'; this.objectivePlain = ''; this.hud.setYear('2026'); this.year = 2026; }
+        this.autoRoute(true);
+    }
+    autoRoute(force = false) {
+        if (this.navManual) return;
+        const o = this.objective;
+        if (!o) { this.nav.clear(); return; }
+        const x = o.doorX ?? o.x, z = o.doorZ ?? o.z;
+        if (!force && this.nav.dest && this.nav.dest.x === x && this.nav.dest.z === z) return;
+        this.setNavDest({ x, z, label: this.objectivePlain }, false);
+    }
+    setNavDest(dest, manual) {
+        this.navManual = manual;
+        this.nav.setDestination(dest, this.player);
+        if (manual && !this.nav.route) this.hud.toast('🧭 No route', 'Could not find a drivable route there.', 'warn');
+    }
+
+    // ----------------------------------------------------------------------------------
+    loop() {
+        requestAnimationFrame(this.loop);
+        const dt = Math.min(0.1, this.frameClock.getDelta());
+        if (this.state === 'drive') this.updateDrive(dt);
+        else if (this.state === 'office') this.updateOffice(dt);
+        else if (this.state === 'menu') { /* idle */ }
+    }
+
+    /** the ONLY place the main scene is rendered while driving (render agent may replace the body) */
+    drawFrame({ mirror = false } = {}) {
+        if (mirror && this.player) this.player.renderMirror(this.renderer, this.scene);
+        this.renderer.render(this.scene, this.camera);
+    }
+
+    updateDrive(dt) {
+        const { player, traffic, world, hud, input, city } = this;
+        if (input.take('KeyM')) this.toggleMap(!this.mapOpen);
+        if (this.mapOpen && input.take('Escape')) this.toggleMap(false);
+        if (this.mapOpen || hud.panelOpen) { input.flush(); this.drawFrame(); return; }
+        if (input.take('KeyN')) { this.opts.minimap = !this.opts.minimap; this.saveOpt('minimap', this.opts.minimap); this.applyOpts(); }
+        this.frame++;
+        this.updateClock(dt);
+        if (input.take('KeyL')) {
+            this.headlights = !this.headlightsOn;
+            hud.toast(this.headlights ? '💡 Headlights on' : '💡 Headlights off', '');
+            this.audio.blip(this.headlights ? 900 : 600, 0.05, 0.06);
+        }
+        player.lookBack = input.keys.has('KeyC');
+        const empty = this.fuel <= 0;
+        const prevSpeed = player.speed;
+        if (this.refuel) player.update(dt, { throttle: 0, brake: true, steer: 0 }, { maxSpeed: 38 });
+        else player.update(dt, input, { maxSpeed: empty ? 2 : 38 });
+        traffic.update(dt);
+        hud.update(dt, this.camera, city.id);
+        this.audio.engine(empty ? player.speed * 0.3 : player.speed, empty ? 0 : input.throttle, dt);
+        this.stats.time += dt;
+        // sun follows player for shadows
+        this.sun.position.copy(this.sunDir).multiplyScalar(260).add(new THREE.Vector3(player.x, 0, player.z));
+        this.sun.target.position.set(player.x, 0, player.z);
+        if (this.rain) this.updateRain(dt);
+        // horn
+        if (input.take('KeyH')) this.playerHonk();
+        // markers bob
+        const t = performance.now() / 1000;
+        for (const sp of this.stopPois) { const p = sp.poi; if (p.marker) { p.marker.position.y = (p.h ?? 20) + 8 + Math.sin(t * 2 + p.x) * 0.6; p.marker.rotation.y = t; p.marker.visible = !p.visited; } }
+        if (this.airport?.marker) { const p = this.airport; p.marker.position.y = (p.h ?? 20) + 8 + Math.sin(t * 2) * 0.6; p.marker.rotation.y = t; }
+        // street / district
+        const ne = this.nav.index.nearest(player.x, player.z, 200);
+        const onRoad = ne && ne.d < (ne.edge.halfW ?? 6) + (ne.edge.sidewalk ?? 2) + 6;
+        let district = '', bd = Infinity;
+        for (const d of this.minimap.districts || []) { const dd = Math.hypot(d.x - player.x, d.z - player.z); if (dd < bd) { bd = dd; district = d.name; } }
+        const streetName = onRoad ? roadName(ne.edge) : (world.isPark?.(player.x, player.z) ? 'Park' : 'Off road');
+        hud.setStreet(streetName, district);
+        hud.setSpeed(player.speed);
+        this.checkRoadEvents(ne, dt);
+        // ---- odometer & fuel ----
+        const v = Math.abs(player.speed);
+        const acc = (Math.abs(player.speed) - Math.abs(prevSpeed)) / Math.max(dt, 1e-3);
+        const burn = this.refuel ? 0 : (FUEL_IDLE + FUEL_ROLL * v + FUEL_AERO * v * v * v + FUEL_ACC * Math.max(0, acc) * v) * dt;
+        if (!empty) { this.fuel = Math.max(0, this.fuel - burn * FUEL_GAME_MULT); this.stats.fuelReal += burn; }
+        this.stats.dist += v * dt; this.stats.cleanDist += v * dt;
+        if (this.stats.cleanDist > 5000 && hud.achievement('law-abiding')) this.audio.chime();
+        if (this.fuel <= 0 && !this.flags.emptyToast) { this.flags.emptyToast = true; hud.toast('⛽ Out of fuel!', 'Limping at walking pace. Press T to call a tow truck.', 'warn'); this.audio.blip(220, 0.4, 0.15); }
+        if (this.fuel / TANK_L < 0.15 && this.fuel > 0 && !this.flags.lowFuel) { this.flags.lowFuel = true; hud.toast('⛽ Low fuel', 'Under 15% — find a gas station (M → Gas stations).', 'warn'); this.audio.blip(660, 0.2, 0.12); }
+        if (this.fuel / TANK_L > 0.2) this.flags.lowFuel = false;
+        // ---- speed limit / enforcement ----
+        const us = city.units === 'mph';
+        let limitDisp = null, over = false, overKmh = 0;
+        if (ne && ne.d < (ne.edge.halfW ?? 6) + 2.5) {
+            const lim = edgeSpeed(ne.edge);
+            limitDisp = us ? Math.max(5, Math.round(lim * 2.237 / 5) * 5) : Math.max(10, Math.round(lim * 3.6 / 10) * 10);
+            const limKmh = us ? limitDisp * 1.609 : limitDisp;
+            overKmh = v * 3.6 - limKmh;
+            over = overKmh > 10;
+        }
+        hud.setLimit(limitDisp, us, over);
+        this.limitInfo = limitDisp != null ? { value: limitDisp, us } : null;
+        this.over = over;
+        this.updateEnforcement(dt, over, overKmh);
+        // ---- navigation ----
+        const nv = this.navInfo = this.nav.update(player, dt);
+        if (nv && nv.arrived && this.navManual) { hud.toast('🏁 You have arrived', this.nav.dest?.label || ''); this.navManual = false; this.nav.clear(); this.autoRoute(true); }
+        if (nv && nv.rerouted) this.audio.blip(520, 0.06, 0.06);
+        // objective text
+        if (this.objective || this.nav.dest) {
+            const label = this.navManual ? `🧭 ${this.nav.dest.label}` : this.objectiveLabel;
+            if (nv) {
+                hud.setObjective(`${label} · ${fmtDist(nv.remaining, city.units)}`);
+                hud.setNavLine(`<b>${stepArrow(nv.next)}</b>${stepText(nv.next, nv.distToNext, city.units)}`);
+            } else if (this.objective) {
+                const o = this.objective; const dx = (o.doorX ?? o.x) - player.x, dz = (o.doorZ ?? o.z) - player.z; const dist = Math.hypot(dx, dz);
+                const bearing = Math.atan2(-dx, -dz); const rel = angleDiff(player.heading, bearing);
+                const arrows = ['⬆️', '↗️', '➡️', '↘️', '⬇️', '↙️', '⬅️', '↖️'];
+                const arrow = arrows[((Math.round(-rel / (Math.PI / 4)) % 8) + 8) % 8];
+                hud.setObjective(`${label} · ${fmtDist(dist, city.units)} ${arrow}`);
+                hud.setNavLine('');
+                if (this.frame % 180 === 0) this.autoRoute(true);
+            }
+        } else { hud.setObjective(this.objectiveLabel); hud.setNavLine(''); }
+        // ---- interactions (office > airport > refuel > tow) ----
+        let prompt = null;
+        for (const { stop, poi } of this.stopPois) {
+            const d = Math.hypot((poi.doorX ?? poi.x) - player.x, (poi.doorZ ?? poi.z) - player.z);
+            if (d < 11 && v < 5) {
+                prompt = `<kbd>E</kbd> Enter <b>${stop.company}</b> ${this.visited.has(stop.id) ? '✓' : ''}`;
+                if (input.take('KeyE')) this.enterOffice(stop);
+            }
+        }
+        if (this.airport) {
+            const p = this.airport; const d = Math.hypot((p.doorX ?? p.x) - player.x, (p.doorZ ?? p.z) - player.z);
+            if (d > 140) this.leftAirport = true;
+            if (!prompt && d < 90 && v < 6 && (this.leftAirport || city.id === 'bucharest')) {
+                prompt = city.id === 'bucharest' ? (this.nextStop ? `<kbd>E</kbd> Board flight to Seattle <small>(${this.stops.filter(s => !this.visited.has(s.id)).length} stops still unvisited in Bucharest)</small>` : '<kbd>E</kbd> Board flight to Seattle ✈️') : '<kbd>E</kbd> Fly back to Bucharest ✈️';
+                if (input.take('KeyE')) this.fly();
+            }
+        }
+        if (!prompt) prompt = this.updateFuelStops(dt, v);
+        hud.prompt(prompt);
+        hud.setHint(this.touch ? '' : 'W/S drive · A/D steer · Space brake · H horn · C look back · M map & nav · N mini-map · L lights · E enter/refuel');
+        // ---- HUD fuel / trip ----
+        const frac = this.fuel / TANK_L;
+        const fuelText = us ? `${Math.round(frac * 100)}% · ${(this.fuel / GAL).toFixed(1)} gal` : `${Math.round(frac * 100)}% · ${this.fuel.toFixed(1)} L`;
+        hud.setFuel(frac, fuelText);
+        if (this.frame % 15 === 0) hud.setTrip(this.tripText());
+        player.cockpit.userData.updateGauges?.(player.speed, clamp(0.12 + v / 45 + Math.max(0, input.throttle) * 0.15, 0, 1), frac, us);
+        // ---- screens ----
+        if (this.opts.minimap && this.frame % 2 === 0) {
+            this.minimap.draw({ cx: player.x, cz: player.z, scale: 0.16, heading: player.heading, player, pois: world.pois, objective: this.objective });
+            this.drawRouteOverlay(this.minimap.ctx, $('#minimap'), { cx: player.x, cz: player.z, scale: 0.16, heading: player.heading });
+        }
+        if (this.frame % 2 === 1) this.drawCarScreen(streetName, fuelText);
+        player.mirrorEnabled = this.quality === 'high';
+        this.drawFrame({ mirror: this.frame % 2 === 1 });
+    }
+
+    /** real local time of the current city (or the menu override) + day phase + NPC lights */
+    updateClock(dt) {
+        const c = this.clock; c.date = new Date();
+        const h = c.override ? OVERRIDE_HOURS[c.override] : localHours(c.date, c.timeZone);
+        c.hours = h;
+        const ph = this.renderer3d?.phase;
+        this.phase = typeof ph === 'string' ? (ph === 'sunset' ? 'dusk' : ph) : phaseFromHours(h);
+        const night = this.phase === 'night' || this.phase === 'dusk' || this.phase === 'dawn';
+        if (night !== this.nightLights) { this.nightLights = night; this.traffic?.setNightLights(night); }
+        if (this.phase === 'night' && this.state === 'drive') {
+            this._nightDist = (this._nightDist || 0) + Math.abs(this.player?.speed || 0) * dt;
+            if (this._nightDist > 500 && this.hud.achievement('night-owl')) this.audio.chime();
+        }
+    }
+    get headlightsOn() { return this.headlights === 'auto' ? this.nightLights : !!this.headlights; }
+    /** HH:MM in the city's time zone (or the override's nominal hour) */
+    clockText() {
+        const c = this.clock;
+        if (c.override) { const h = OVERRIDE_HOURS[c.override]; return `${String(Math.floor(h)).padStart(2, '0')}:${String(Math.round((h % 1) * 60)).padStart(2, '0')}`; }
+        try { return new Intl.DateTimeFormat('en-GB', { timeZone: c.timeZone, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(c.date); }
+        catch { return c.date.toTimeString().slice(0, 5); }
+    }
+    get phaseIcon() { return PHASE_ICON[this.phase] || '☀️'; }
+
+    tripText() {
+        const s = this.stats, us = this.city.units === 'mph';
+        const l100 = s.dist > 200 ? s.fuelReal / (s.dist / 100000) : null;
+        const cur = PRICES[this.city.id].cur;
+        const dist = us ? `${(s.dist / 1609.34).toFixed(1)} mi` : `${(s.dist / 1000).toFixed(1)} km`;
+        const eco = l100 == null ? '—' : us ? `${Math.round(235.21 / l100)} mpg` : `${l100.toFixed(1)} L/100km`;
+        const fines = s.fines[cur] ? ` · Fines ${money(cur, s.fines[cur])}` : '';
+        return `${this.phaseIcon} ${this.clockText()} · Trip ${dist} · Ø ${eco}${fines}`;
+    }
+
+    drawCarScreen(street, fuelText) {
+        if (!this.carScreen) return;
+        const us = this.city.units === 'mph', p = this.player;
+        this.carScreen.draw({
+            player: p, index: this.nav.index, route: this.nav.route, segIdx: this.nav.segIdx, nav: this.navInfo, dest: this.nav.dest,
+            street, limit: this.limitInfo, over: this.over, fuel: this.fuel / TANK_L, fuelText, year: this.year, units: this.city.units,
+            speedText: us ? `${Math.round(Math.abs(p.speed) * 2.237)} mph` : `${Math.round(Math.abs(p.speed) * 3.6)} km/h`,
+            pois: this.stations, clock: this.clockText(), phaseIcon: this.phaseIcon,
+        });
+        this.screenTex.needsUpdate = true;
+    }
+
+    /** draws the route + waypoint on a MiniMap canvas using the same transform it was drawn with */
+    drawRouteOverlay(ctx, canvas, { cx, cz, scale, heading = null }) {
+        const r = this.nav?.route; if (!r) return;
+        ctx.save();
+        ctx.translate(canvas.width / 2, canvas.height / 2);
+        if (heading !== null) ctx.rotate(heading);
+        ctx.scale(scale, scale); ctx.translate(-cx, -cz);
+        ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+        ctx.beginPath();
+        const s0 = this.nav.segIdx || 0;
+        ctx.moveTo(this.player.x, this.player.z);
+        for (let i = s0 + 1; i < r.points.length; i++) ctx.lineTo(r.points[i][0], r.points[i][1]);
+        ctx.strokeStyle = 'rgba(29,78,216,0.85)'; ctx.lineWidth = Math.max(4 / scale, 5); ctx.stroke();
+        ctx.strokeStyle = '#60a5fa'; ctx.lineWidth = Math.max(2 / scale, 2.5); ctx.stroke();
+        const d = this.nav.dest;
+        if (d) {
+            ctx.translate(d.x, d.z); if (heading !== null) ctx.rotate(-heading); ctx.scale(1 / scale, 1 / scale);
+            ctx.fillStyle = '#ef4444'; ctx.beginPath(); ctx.arc(0, -16, 9, Math.PI, 0); ctx.lineTo(0, 0); ctx.closePath(); ctx.fill();
+            ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke();
+        }
+        ctx.restore();
+    }
+
+    // ---------------------------------------------------------------------------------- fuel
+    nearestStation(x, z) { let best = null, bd = Infinity; for (const s of this.stations) { const d = Math.hypot(s.x - x, s.z - z); if (d < bd) { bd = d; best = s; } } return best ? { st: best, d: bd } : null; }
+    updateFuelStops(dt, v) {
+        const { player, input, hud, city } = this;
+        const P = PRICES[city.id];
+        if (this.refuel) {
+            const r = this.refuel; r.t += dt;
+            const k = clamp(r.t / r.dur, 0, 1);
+            this.fuel = r.from + (r.to - r.from) * k;
+            if (k >= 1) {
+                const liters = r.to - r.from; const cost = liters * r.st.price / (P.unit === 'gal' ? GAL : 1);
+                this.stats.fuelL += liters; this.stats.fuelCost[P.cur] += cost;
+                const qty = P.unit === 'gal' ? `${(liters / GAL).toFixed(1)} gal` : `${liters.toFixed(1)} L`;
+                hud.toast(`⛽ ${r.st.brand} · full tank`, `${qty} · ${money(P.cur, cost)}`);
+                if (hud.achievement('full-tank')) this.audio.chime();
+                this.refuel = null; this.flags.emptyToast = false;
+            }
+            return `⛽ Refuelling at <b>${r.st.brand}</b>… ${Math.round(k * 100)}%`;
+        }
+        const ns = this.nearestStation(player.x, player.z);
+        if (ns && ns.d < 12 && v < 2 && this.fuel < TANK_L - 0.5) {
+            const price = P.unit === 'gal' ? `$${ns.st.price.toFixed(2)}/gal` : `${ns.st.price.toFixed(2)} RON/L`;
+            if (input.take('KeyE')) {
+                const liters = TANK_L - this.fuel;
+                this.refuel = { t: 0, dur: clamp(2 + liters / 25, 2, 3), from: this.fuel, to: TANK_L, st: ns.st };
+                this.audio.pump(this.refuel.dur);
+            }
+            return `<kbd>E</kbd> Refuel at <b>${ns.st.brand}</b> · ${price}`;
+        }
+        if (this.fuel <= 0 && v < 2.5) {
+            if (input.take('KeyT') || input.take('KeyE')) this.towTruck();
+            return `<kbd>T</kbd> Out of fuel — call a tow truck → nearest station`;
+        }
+        return null;
+    }
+    towTruck() {
+        const ns = this.nearestStation(this.player.x, this.player.z); if (!ns) { this.fuel = 10; return; }
+        const p = this.roadPose(ns.st.x, ns.st.z);
+        // stop a few metres before the pumps so the refuel prompt is in reach
+        this.player.place(p.x - Math.sin(p.heading) * -4, p.z - Math.cos(p.heading) * -4, p.heading);
+        this.fuel = 10;
+        const cur = PRICES[this.city.id].cur; const fee = cur === 'RON' ? 350 : 195;
+        this.stats.tow[cur] += fee;
+        this.hud.addRage(30);
+        this.hud.toast('🚛 Tow truck', `Dropped at ${ns.st.brand} with 10 L. Tow fee: ${money(cur, fee)}.`, 'warn');
+        if (this.hud.achievement('ran-dry')) this.audio.chime();
+        this.flags.emptyToast = false;
+        this.nav.reroute(this.player);
+    }
+
+    // ---------------------------------------------------------------------------------- enforcement
+    giveFine(title, body, overKmh, kind) {
+        const cur = PRICES[this.city.id].cur;
+        const amount = kind === 'pedestrian' ? (cur === 'RON' ? 2900 : 1000) : kind === 'red' ? (cur === 'RON' ? 1160 : 139) : fineFor(this.city.id, overKmh);
+        this.stats.fines[cur] += amount; this.stats.fineCount++; this.stats.cleanDist = 0;
+        this.hud.toast(title, `${body} ${cur === 'RON' ? `Amendă ${money(cur, amount)}` : `${money(cur, amount)} ticket`}`, 'warn');
+        return amount;
+    }
+    updateEnforcement(dt, over, overKmh) {
+        const p = this.player;
+        for (const c of this.cameras || []) {
+            c.cd = Math.max(0, c.cd - dt);
+            const d = Math.hypot(c.x - p.x, c.z - p.z);
+            if (c.lastD >= 16 && d < 16 && over && c.cd <= 0) {
+                c.cd = 15; this.hud.flash(); this.audio.shutter();
+                this.giveFine('📸 Speed camera', `${Math.round(Math.abs(p.speed) * (this.city.units === 'mph' ? 2.237 : 3.6))} ${this.city.units === 'mph' ? 'mph' : 'km/h'} in a ${this.limitInfo?.value} zone.`, overKmh, 'speed');
+                this.hud.achievement('camera');
+            }
+            c.lastD = d;
+        }
+        this.policeCd = Math.max(0, (this.policeCd || 0) - dt);
+        if (over && overKmh > 15 && this.policeCd <= 0) {
+            const cop = this.traffic.policeNear(p.x, p.z, 45);
+            if (cop && Math.random() < dt * 0.6) {
+                this.policeCd = 30; this.audio.siren(1.4);
+                this.giveFine(this.city.id === 'bucharest' ? '🚓 Poliția Rutieră' : '🚓 Pulled over (WSP)', this.city.id === 'bucharest' ? 'Actele la control, vă rog.' : 'License and registration, please.', overKmh, 'speed');
+                this.hud.addRage(10);
+                this.hud.achievement('police');
+            }
+        }
+    }
+
+    checkRoadEvents(ne, dt) {
+        const { player, hud, traffic } = this;
+        if (!ne || ne.d > (ne.edge.halfW ?? 6) + 1) { this.prevEdgeInfo = null; return; }
+        const e = ne.edge;
+        const towardB = (player.fx * e.dirx + player.fz * e.dirz) > 0;
+        const endNode = towardB ? e.b : e.a;
+        const distEnd = towardB ? e.len * (1 - ne.t) : e.len * ne.t;
+        const key = e.id + ':' + endNode.id;
+        const line = (endNode.radius ?? 6) + 1.6;
+        if (this.prevEdgeInfo && this.prevEdgeInfo.key === key && this.prevEdgeInfo.distEnd > line && distEnd <= line && Math.abs(player.speed) > 2.5 && endNode.hasLight) {
+            const st = traffic.lightState(endNode, e);
+            if (st === 'red') {
+                hud.toast('🚦 Red light!', this.city.id === 'bucharest' ? 'Very local of you.' : 'That\'s a ticket in Washington.', 'warn'); hud.achievement('red-light'); hud.addRage(8); traffic.playerHonk(player.x, player.z, player.fx, player.fz);
+                if (traffic.policeNear(player.x, player.z, 70) || this.city.id === 'seattle') this.giveFine(this.city.id === 'bucharest' ? '🚓 Poliția Rutieră' : '📸 Red-light camera', 'Ran a red light.', 0, 'red');
+            }
+        }
+        this.prevEdgeInfo = { key, distEnd };
+        // special places
+        const name = e.name || '';
+        if ((endNode.id === 'victoriei' || /Victoriei/.test(name) && endNode.edges.length >= 4) && distEnd < 25) hud.achievement('victoriei');
+        if (e.toll && !this.flags['toll:' + (e.name || e.id)]) { this.flags['toll:' + (e.name || e.id)] = true; hud.toast('💳 Good To Go!', 'SR-520 toll charged: $4.50', 'warn'); hud.achievement('toll'); this.stats.tolls = (this.stats.tolls || 0) + 4.5; }
+        if (e.bridge && /Murrow|I-90|I 90/.test(name + (e.ref || '')) && /Lake|Murrow|Floating/.test(name) && !this.flags.bridge) { this.flags.bridge = true; hud.achievement('bridge'); hud.toast('🌉 Lake Washington', 'Floating on I-90. Mount Rainier to your right on a clear day.'); }
+        if (name.includes('Kiseleff') && !this.flags.kiseleff) { this.flags.kiseleff = true; hud.toast('🌳 Șoseaua Kiseleff', 'Bucharest\'s grand tree-lined boulevard. Arcul de Triumf ahead.'); }
+        if ((e.type === 'dn' || /DN1\b|București-Ploiești/.test(name + (e.ref || ''))) && !this.flags.dn1) { this.flags.dn1 = true; hud.toast('🛣️ DN1', 'The only road to the airport. Everyone in Bucharest is on it right now.'); }
+    }
+
+    playerHonk() {
+        const p = this.player;
+        this.audio.horn(0, 0, 1.0, 0.45);
+        this.honks++;
+        const reacted = this.traffic.playerHonk(p.x, p.z, p.fx, p.fz);
+        const rage = this.hud.addRage(this.city.id === 'bucharest' ? 6 + reacted * 2 : 3);
+        if (this.honks === 1) this.hud.achievement('first-honk');
+        if (this.honks === 10) this.hud.achievement('honk-10');
+        if (rage >= 100 && this.hud.achievement('rage-max')) this.audio.chime();
+    }
+    vehicleHonk(v) {
+        const p = this.player; const dx = v.x - p.x, dz = v.z - p.z; const d = Math.hypot(dx, dz);
+        if (d > 120) return;
+        const pan = clamp((dx * -p.fz + dz * p.fx) / (d || 1), -1, 1) * -1;
+        this.audio.horn(pan, d, 0.8 + ((v.x * 13) % 7) / 10, 0.3 + Math.random() * 0.4);
+        if (d < 40) this.hud.addRage(2);
+    }
+    onCollide(strength, what, v) {
+        if (what === 'pedestrian') {
+            this.audio.crash(0.35);
+            this.stats.peds++;
+            this.hud.addRage(35);
+            this.giveFine('🚶 Pieton!', this.city.id === 'bucharest' ? 'Pedestrians have priority. They got up and are shouting at you.' : 'They\'re okay, thankfully. The officer is less okay.', 0, 'pedestrian');
+            this.hud.achievement('pedestrian');
+            this.traffic.playerHonk(this.player.x, this.player.z, this.player.fx, this.player.fz);
+            return;
+        }
+        this.audio.crash(clamp(strength / 10, 0.2, 1));
+        if (what === 'vehicle' && v) { this.traffic.bump(v); this.hud.addRage(12); }
+        else if (strength > 8) this.hud.toast('💥 Ouch', 'Buildings in Bucharest do not move. Neither do double-parked cars.', 'warn');
+    }
+
+    // ---------------------------------------------------------------------------------- big map + nav panel
+    toggleMap(open) {
+        this.mapOpen = open;
+        $('#bigmap-wrap').classList.toggle('show', open);
+        if (open) {
+            const c = $('#bigmap');
+            const narrow = window.innerWidth < 900;
+            const cssW = narrow ? window.innerWidth - 24 : Math.min(window.innerWidth - 320, 1100);
+            const cssH = narrow ? Math.min(window.innerHeight * 0.55, 600) : Math.min(window.innerHeight - 80, 760);
+            c.width = cssW * devicePixelRatio; c.height = cssH * devicePixelRatio;
+            c.style.width = cssW + 'px'; c.style.height = cssH + 'px';
+            if (!this.mapView || this.mapView.city !== this.city.id) {
+                const b = this.world.bounds; const pad = 60;
+                const fit = Math.min(c.width / (b.maxX - b.minX - pad * 2), c.height / (b.maxZ - b.minZ - pad * 2)) * 0.98;
+                // start zoomed around the player for big (OSM) cities
+                const scale = Math.max(fit, Math.min(0.35 * devicePixelRatio, c.width / 9000));
+                this.mapView = { city: this.city.id, cx: scale > fit * 1.01 ? this.player.x : (b.minX + b.maxX) / 2, cz: scale > fit * 1.01 ? this.player.z : (b.minZ + b.maxZ) / 2, scale, fit };
+            }
+            this.redrawMap();
+            this.buildNavList();
+            if (!this._wheelBound) {
+                this._wheelBound = true;
+                c.addEventListener('wheel', (e) => { e.preventDefault(); const mv = this.mapView; mv.scale = clamp(mv.scale * (e.deltaY < 0 ? 1.2 : 1 / 1.2), mv.fit * 0.8, 3 * devicePixelRatio); this.redrawMap(); }, { passive: false });
+            }
+        }
+    }
+    redrawMap() {
+        const c = $('#bigmap'); const mv = this.mapView;
+        this.bigmap.draw({ cx: mv.cx, cz: mv.cz, scale: mv.scale, heading: null, player: this.player, pois: this.world.pois, objective: this.objective, full: true, vehicles: this.traffic.vehicles });
+        const ctx = this.bigmap.ctx;
+        this.drawRouteOverlay(ctx, c, { cx: mv.cx, cz: mv.cz, scale: mv.scale });
+        // stations (fallback ones are not world POIs)
+        ctx.save(); ctx.translate(c.width / 2, c.height / 2); ctx.scale(mv.scale, mv.scale); ctx.translate(-mv.cx, -mv.cz);
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        for (const s of this.stations) if (s.fallback) { ctx.save(); ctx.translate(s.x, s.z); ctx.scale(1 / mv.scale, 1 / mv.scale); ctx.beginPath(); ctx.arc(0, 0, 10, 0, 7); ctx.fillStyle = '#0f766e'; ctx.fill(); ctx.font = '12px sans-serif'; ctx.fillStyle = '#fff'; ctx.fillText('⛽', 0, 1); ctx.restore(); }
+        ctx.restore();
+    }
+    onMapClick(e) {
+        const c = $('#bigmap'); const r = c.getBoundingClientRect(); const mv = this.mapView; if (!mv) return;
+        const px = (e.clientX - r.left) * (c.width / r.width), py = (e.clientY - r.top) * (c.height / r.height);
+        const x = (px - c.width / 2) / mv.scale + mv.cx, z = (py - c.height / 2) / mv.scale + mv.cz;
+        if (e.shiftKey) { mv.cx = x; mv.cz = z; this.redrawMap(); return; }
+        const ne = this.nav.index.nearest(x, z, 400);
+        this.setNavDest({ x, z, label: ne ? `Waypoint · ${roadName(ne.edge)}` : 'Waypoint' }, true);
+        if (this.nav.route && this.hud.achievement('navigator')) this.audio.chime();
+        this.audio.blip(880, 0.06, 0.08);
+        this.redrawMap(); this.buildNavList();
+    }
+    buildNavList() {
+        const p = this.player; const items = this.navItems = [];
+        const dist = (x, z) => fmtDist(Math.hypot(x - p.x, z - p.z), this.city.units);
+        const add = (group, icon, label, x, z) => { if (x === undefined || z === undefined) return; items.push({ group, icon, label, x, z }); };
+        const n = this.nextStop;
+        if (n && n.poiRef) add('Story', n.icon, `Next: ${n.short}`, n.poiRef.doorX ?? n.poiRef.x, n.poiRef.doorZ ?? n.poiRef.z);
+        for (const s of this.stops) if (s.poiRef && s !== n) add('Offices', s.icon, `${s.short}${this.visited.has(s.id) ? ' ✓' : ''}`, s.poiRef.doorX ?? s.poiRef.x, s.poiRef.doorZ ?? s.poiRef.z);
+        if (this.airport) add('Travel', '✈️', AIRPORTS[this.city.id].name, this.airport.doorX ?? this.airport.x, this.airport.doorZ ?? this.airport.z);
+        const st = [...this.stations].sort((a, b) => Math.hypot(a.x - p.x, a.z - p.z) - Math.hypot(b.x - p.x, b.z - p.z)).slice(0, 6);
+        for (const s of st) add('Gas stations', '⛽', `${s.brand} · ${this.city.units === 'mph' ? '$' + s.price.toFixed(2) + '/gal' : s.price.toFixed(2) + ' RON/L'}`, s.x, s.z);
+        const lms = (this.bigmap.landmarks || []).slice(0, 12);
+        for (const l of lms) add('Landmarks', '📍', l.label || l.name || l.id, l.x, l.z);
+        let html = '', g = '';
+        if (this.navManual) html += `<div class="nav-item active"><span>🧭 ${this.nav.dest?.label || 'Custom'}</span><button data-nav="-1">Clear</button></div>`;
+        items.forEach((it, i) => {
+            if (it.group !== g) { g = it.group; html += `<h4>${g}</h4>`; }
+            html += `<div class="nav-item"><span>${it.icon} ${it.label} <small>${dist(it.x, it.z)}</small></span><button data-nav="${i}">Go</button></div>`;
+        });
+        $('#navlist').innerHTML = html;
+    }
+
+    // ----------------------------------------------------------------------------------
+    enterOffice(stop) {
+        this.state = 'office';
+        this.audio.stopEngine(); this.audio.blip(520, 0.15, 0.1);
+        $('#hud').classList.add('in-office');
+        this.office = new Office(this.renderer, this.camera, stop, this.hud, this.input, this.audio);
+        this.hud.toast(`${stop.icon} ${stop.company}`, stop.tagline);
+        this.hud.setStreet(stop.company, stop.address);
+        this.hud.prompt(null);
+        this.hud.setNavLine('');
+    }
+    updateOffice(dt) {
+        const o = this.office;
+        o.update(dt);
+        this.hud.update(dt, this.camera, this.city.id);
+        o.render();
+        if (o.done) this.leaveOffice();
+    }
+    leaveOffice() {
+        const o = this.office; const stop = o.stop;
+        o.dispose(); this.office = null;
+        $('#hud').classList.remove('in-office');
+        this.player.camHolder.add(this.camera); this.camera.position.set(0, 0, 0); this.camera.rotation.set(0, 0, 0);
+        this.state = 'drive';
+        if (o.read.size > 0 && !this.visited.has(stop.id)) {
+            this.visited.add(stop.id); stop.poiRef.visited = true;
+            this.audio.chime();
+            this.hud.toast('✅ ' + stop.short + ' unlocked', `${this.visited.size}/${STOPS.length} chapters of the CV discovered`);
+            this.updateObjective();
+            if (stop.id === 'uipath-bel') setTimeout(() => this.finale(), 1200);
+        } else if (o.read.size === 0) this.hud.toast('👀 Nothing read', 'Walk up to a screen and press E to read it.');
+        this.input.flush();
+        this.player.speed = 0;
+    }
+
+    async fly() {
+        const from = this.city.id;
+        this.state = 'flight';
+        this.audio.stopEngine();
+        $('#hud').classList.add('in-office');
+        this.hud.setNavLine('');
+        await playFlight({ from, hud: this.hud, audio: this.audio, texts: from === 'seattle' ? [[0, 'Back to Romania for a visit'], [0.4, 'Over Greenland again'], [0.8, 'Landing at Otopeni. Brace for DN1.']] : undefined });
+        $('#loading').classList.add('show');
+        await new Promise(r => setTimeout(r, 30));
+        await this.loadCity(from === 'bucharest' ? 'seattle' : 'bucharest');
+        this.fuel = TANK_L * 0.85; // rental car / back home: fresh tank
+        $('#loading').classList.remove('show');
+        $('#hud').classList.remove('in-office');
+        this.player.camHolder.add(this.camera); this.camera.position.set(0, 0, 0); this.camera.rotation.set(0, 0, 0);
+        this.state = 'drive';
+        if (from === 'bucharest') { this.hud.achievement('flight'); this.hud.toast('🌧️ Welcome to Seattle', 'Rental car picked up at SeaTac. Follow the route: I-5 N → I-90 E → I-405 N to Bellevue.', 'intro'); }
+        else this.hud.toast('🇷🇴 Back in Bucharest', 'Free roam. The traffic missed you.');
+        this.input.flush();
+    }
+
+    finale() {
+        this.hud.achievement('all');
+        const s = this.stats;
+        const links = PROFILE.links.map(l => `<a class="btn ghost" href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`).join('');
+        const timeline = STOPS.map(st => `<li><span class="dot" style="background:${st.color}"></span><b>${st.company}</b> — ${st.role} <small>${st.period}</small></li>`).join('');
+        const both = (o) => [o.RON ? money('RON', o.RON) : '', o.USD ? money('USD', o.USD) : ''].filter(Boolean).join(' + ') || '0';
+        const mins = Math.round((performance.now() - (this.startTime || performance.now())) / 60000);
+        const statLine = [
+            `Time: ${mins} min`,
+            `Distance driven: ${(s.dist / 1000).toFixed(1)} km (${(s.dist / 1609.34).toFixed(1)} mi)`,
+            `Fuel spent: ${s.fuelReal.toFixed(1)} L burned · ${s.fuelL.toFixed(1)} L bought (${both(s.fuelCost)})`,
+            `Fines: ${s.fineCount} (${both(s.fines)})`,
+            `Honks: ${this.honks}`,
+            `Achievements: ${this.hud.unlocked.size}`,
+        ].join(' · ');
+        this.hud.panel(`<div class="eyebrow">🏁 Story complete</div><h2>${PROFILE.name}</h2><p class="lead">${PROFILE.title} · ${PROFILE.location}</p><p>${PROFILE.summary}</p><ul class="timeline">${timeline}</ul><div class="chips">${PROFILE.topSkills.map(sk => `<span class="chip">${sk}</span>`).join('')}</div><h3>Say hi</h3><div class="links">${links}<a class="btn ghost" href="mailto:${PROFILE.email}">Email</a></div><h3>Trip computer</h3><p class="meta">${statLine}</p><p class="meta">You can keep driving around, or fly back to Bucharest from SeaTac.</p>`);
+    }
+}
+
+// ---------- fallback props (only used when the world has no fuel / camera POIs) ----------
+function buildStationMesh(x, z, angle, brand) {
+    const g = new THREE.Group();
+    const lam = (c) => new THREE.MeshLambertMaterial({ color: c });
+    const box = (w, h, d, c, px, py, pz) => { const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), lam(c)); m.position.set(px, py, pz); m.castShadow = true; g.add(m); return m; };
+    const col = { Petrom: '#0f5132', OMV: '#1d4ed8', MOL: '#dc2626', Rompetrol: '#f59e0b', Lukoil: '#b91c1c', Socar: '#0ea5e9', Chevron: '#1e40af', Shell: '#facc15', '76': '#f97316', Arco: '#1e3a8a' }[brand] || '#0f766e';
+    box(12, 0.6, 8, '#f1f5f9', 0, 5, 0); box(12.1, 0.35, 8.1, col, 0, 4.6, 0);
+    for (const sx of [-5, 5]) for (const sz of [-3, 3]) box(0.35, 4.6, 0.35, '#e5e7eb', sx, 2.3, sz);
+    for (const sx of [-2.5, 2.5]) { box(0.8, 1.6, 0.6, '#e2e8f0', sx, 0.8, 0); box(0.82, 0.3, 0.62, col, sx, 1.5, 0); }
+    box(10, 3.2, 5, '#f8fafc', 0, 1.6, -8);
+    const tex = signTexture(brand, { bg: col, fg: '#ffffff', accent: '#ffffff', w: 512, h: 128 });
+    const sign = new THREE.Mesh(new THREE.PlaneGeometry(4, 1), new THREE.MeshBasicMaterial({ map: tex }));
+    sign.position.set(0, 4.8, 4.06); g.add(sign);
+    const pylon = box(0.5, 6, 0.5, '#94a3b8', 6.5, 3, 5.5);
+    const ps = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 1.2), new THREE.MeshBasicMaterial({ map: tex, side: THREE.DoubleSide })); ps.position.set(6.5, 6.2, 5.5); g.add(ps); pylon.castShadow = true;
+    g.position.set(x, 0.2, z); g.rotation.y = angle + Math.PI;
+    return g;
+}
+function buildCameraMesh(x, z, angle) {
+    const g = new THREE.Group();
+    const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 4, 8), new THREE.MeshLambertMaterial({ color: '#6b7280' })); pole.position.y = 2; g.add(pole);
+    const box = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.45, 0.8), new THREE.MeshLambertMaterial({ color: '#d4d4d8' })); box.position.y = 4.1; g.add(box);
+    const lens = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 0.1, 10), new THREE.MeshBasicMaterial({ color: '#111827' })); lens.rotation.x = Math.PI / 2; lens.position.set(0, 4.1, 0.42); g.add(lens);
+    g.position.set(x, 0.2, z); g.rotation.y = angle + Math.PI;
+    return g;
+}
+
+window.game = new Game();

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Render test bench</title>
+<style>
+    html, body { margin: 0; height: 100%; background: #111; overflow: hidden; font: 12px/1.4 system-ui, sans-serif; color: #eee; }
+    canvas { display: block; width: 100vw; height: 100vh; }
+    #ui { position: fixed; top: 8px; left: 8px; background: rgba(0,0,0,.55); padding: 8px 10px; border-radius: 6px; }
+    #ui select, #ui button { font: inherit; }
+    #stats { white-space: pre; margin-top: 6px; }
+</style>
+</head>
+<body>
+<canvas id="gl"></canvas>
+<div id="ui">
+    city <select id="city"><option>bucharest</option><option>seattle</option></select>
+    quality <select id="q"><option>auto</option><option>ultra</option><option>high</option><option>medium</option><option>low</option></select>
+    view <select id="view"><option>cockpit</option><option>cars</option><option>orbit</option><option>sun</option><option>side</option></select>
+    <label><input type="checkbox" id="drive"> drive</label>
+    <div id="stats"></div>
+</div>
+<script type="module">
+import * as THREE from '../vendor/three.module.min.js';
+import { CITIES } from '../src/cities.js';
+import { Renderer3D } from '../src/render.js';
+import { makeVehicle, makeCockpit, VEHICLE_KINDS, CAR_COLORS, vehicleTriangles } from '../src/vehicles.js';
+
+const qs = new URLSearchParams(location.search);
+const $ = (s) => document.querySelector(s);
+const cityId = qs.get('city') || 'bucharest', quality = qs.get('q') || 'auto', view = qs.get('view') || 'cockpit';
+$('#city').value = cityId; $('#q').value = quality; $('#view').value = view;
+for (const id of ['city', 'q', 'view']) $('#' + id).onchange = () => { const p = new URLSearchParams(location.search); p.set(id, $('#' + id).value); location.search = p; };
+
+const canvas = $('#gl');
+const r3d = new Renderer3D(canvas, { quality, autoGauges: true });
+const camera = new THREE.PerspectiveCamera(72, innerWidth / innerHeight, 0.4, 5000);
+const scene = new THREE.Scene();
+const env = CITIES[cityId].env;
+// legacy lights / sky as main.js creates them (Renderer3D should replace them)
+scene.add(new THREE.HemisphereLight(env.hemiSky, env.hemiGround, 0.9));
+const oldSky = new THREE.Mesh(new THREE.SphereGeometry(3000, 8, 8), new THREE.MeshBasicMaterial({ color: 'red', side: THREE.BackSide }));
+scene.add(oldSky);
+
+// ---- test world ----
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(4000, 4000), new THREE.MeshLambertMaterial({ color: env.ground }));
+ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
+const road = new THREE.Mesh(new THREE.PlaneGeometry(22, 4000), new THREE.MeshStandardMaterial({ color: env.asphalt, roughness: env.rain ? 0.35 : 0.9, metalness: env.rain ? 0.2 : 0 }));
+road.rotation.x = -Math.PI / 2; road.position.y = 0.02; road.receiveShadow = true; scene.add(road);
+const lane = new THREE.Mesh(new THREE.PlaneGeometry(0.15, 4000), new THREE.MeshLambertMaterial({ color: '#e8e8e8' }));
+lane.rotation.x = -Math.PI / 2; lane.position.y = 0.03; scene.add(lane);
+let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+const bGeo = new THREE.BoxGeometry(1, 1, 1); bGeo.translate(0, 0.5, 0);
+const pal = ['#d9c8a9', '#e3d3b4', '#cdb894', '#a9a9a6', '#b5b2a8', '#5d7f99', '#6f93ad', '#efe4cc'];
+const inst = new THREE.InstancedMesh(bGeo, new THREE.MeshLambertMaterial(), 400);
+const m4 = new THREE.Matrix4(), col = new THREE.Color();
+for (let i = 0; i < 400; i++) {
+    const side = i % 2 ? 1 : -1;
+    const w = 12 + rnd() * 22, h = 8 + rnd() * (rnd() < 0.15 ? 90 : 30), d = 12 + rnd() * 22;
+    const x = side * (16 + w / 2 + rnd() * 240), z = -1500 + rnd() * 1700;
+    m4.compose(new THREE.Vector3(x, 0, z), new THREE.Quaternion(), new THREE.Vector3(w, h, d));
+    inst.setMatrixAt(i, m4); inst.setColorAt(i, col.set(pal[i % pal.length]));
+}
+inst.castShadow = inst.receiveShadow = true; scene.add(inst);
+
+// row of every vehicle kind (parked along the right side, facing -z)
+const tri = {};
+let zc = -14;
+const vehicles = [];
+for (const kind of VEHICLE_KINDS) {
+    const color = kind === 'taxi' ? '#ffd400' : kind === 'bus' ? '#2563eb' : kind === 'tram' ? '#d9262c' : CAR_COLORS[(vehicles.length * 5) % CAR_COLORS.length];
+    const v = makeVehicle(kind, color);
+    v.position.set(kind === 'tram' ? -5 : 6.5, 0.02, zc - v.userData.length / 2);
+    if (kind === 'tram') v.position.z = -40; else zc -= v.userData.length + 3;
+    scene.add(v); vehicles.push(v);
+    tri[kind] = vehicleTriangles(kind);
+}
+vehicles.find(v => v.userData.kind === 'police')?.userData.setLights(true);
+
+// ---- fake player (same interface Renderer3D uses: x, z, fx, fz, speed, cockpit, rig) ----
+const player = { x: 1.8, z: 0, heading: 0, speed: 0, get fx() { return -Math.sin(this.heading); }, get fz() { return -Math.cos(this.heading); } };
+player.rig = new THREE.Group(); player.cockpit = makeCockpit(); player.rig.add(player.cockpit);
+const camHolder = new THREE.Group(); camHolder.position.set(-0.3, 1.36, -0.45); player.rig.add(camHolder);
+// mirror placeholder exactly like player.js
+const mirror = new THREE.Mesh(new THREE.PlaneGeometry(0.33, 0.11), new THREE.MeshBasicMaterial({ color: '#7d8a99' }));
+mirror.position.set(0.34, 0.32, -1.05); const frame = new THREE.Mesh(new THREE.BoxGeometry(0.36, 0.14, 0.02), new THREE.MeshBasicMaterial({ color: '#15171a' })); frame.position.z = -0.011; mirror.add(frame); camHolder.add(mirror);
+scene.add(player.rig);
+let cockpitTris = 0; player.cockpit.traverse(o => { if (o.isMesh && o.material.colorWrite !== false) cockpitTris += (o.geometry.index ? o.geometry.index.count : o.geometry.attributes.position.count) / 3; });
+
+if (view === 'cockpit') { camHolder.add(camera); player.speed = 13; }
+else if (view === 'cars') { const cz = +(qs.get('cz') || -30); scene.add(camera); camera.position.set(-1.5, 2.4, cz + 9); camera.lookAt(6.5, 0.9, cz); }
+else if (view === 'side') { const cz = +(qs.get('cz') || -30); scene.add(camera); camera.fov = 40; camera.position.set(-2, 2.0, cz + 7); camera.lookAt(6.5, 0.9, cz); }
+else if (view === 'sun') { scene.add(camera); camera.position.set(0, 2, -30); camera.lookAt(new THREE.Vector3(...env.sun).normalize().multiplyScalar(100).add(new THREE.Vector3(0, -25, -30))); }
+else { scene.add(camera); camera.position.set(-14, 9, 12); camera.lookAt(4, 1, -30); }
+
+r3d.setScene(scene, camera, env, { sky: oldSky, units: CITIES[cityId].units });
+r3d.setPlayer(player);
+
+const resize = () => { camera.updateProjectionMatrix(); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); r3d.resize(innerWidth, innerHeight); };
+addEventListener('resize', resize); resize();
+
+const clock = new THREE.Clock();
+let frames = 0;
+function loop() {
+    requestAnimationFrame(loop);
+    const dt = Math.min(0.1, clock.getDelta());
+    if ($('#drive').checked) { player.speed = 15; player.z += player.fz * player.speed * dt; }
+    player.rig.position.set(player.x, 0.24, player.z); player.rig.rotation.y = player.heading;
+    vehicles.forEach(v => v.userData.flash?.(r3d.time));
+    r3d.frame(dt);
+    frames++;
+    if (frames % 15 === 0) $('#stats').textContent = JSON.stringify(r3d.stats, null, 1).replace(/[{}"]/g, '');
+}
+loop();
+window.bench = { r3d, scene, camera, player, tri, cockpitTris, THREE, get frames() { return frames; } };
+</script>
+</body>
+</html>

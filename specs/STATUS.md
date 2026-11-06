@@ -28,5 +28,6 @@ Update your own rows when you start/finish (status, `updated` as `YYYY-MM-DD HH:
 | R20.* | Research: Seattle districts | 20 | research-sea-districts | in progress | 2026-11-06 22:45 | bellevue first, then seatac |
 | R20.* | Research: Bucharest top-10 spots | 20 | research-buc-spots | in progress | 2026-11-06 23:00 UTC | confirming top-10 with evidence, then scene specs + refs |
 | R20.* | Research: Seattle top-10 spots | 20 | research-sea-spots | in progress | 2026-11-06 21:33 | ranking top-10 with sources, then per-spot scene specs + refs + OSM |
+| R22.* | Code cleanup after district migration (remove corridor era, split world.js, dead code) | 22 | all + code-health | todo | | starts after spec 10 is done |
 | R21 | Telemetry for chapters/on-foot/photo/spots | 21 | orchestrator | todo | | after features land |
 | R21 | Landing background choice | 21 | owner | blocked (owner decision) | | |

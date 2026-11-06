@@ -20,6 +20,7 @@ Every agent **reads the relevant specs before working** and **updates progress h
 | [19-qa-harness.md](19-qa-harness.md) | Logic harness + visual QA harness; definition of done |
 | [20-research.md](20-research.md) | Field research for 100% visual fidelity: districts and tourist spots |
 | [21-telemetry-landing.md](21-telemetry-landing.md) | Analytics (PostHog EU) and the landing page |
+| [22-cleanup.md](22-cleanup.md) | Code cleanup after the district migration (remove corridor era, split world.js) |
 
 ## Process (every agent)
 1. **Before you start**: read `00-vision.md`, `01-architecture.md` (ownership + contracts), your spec(s), and `STATUS.md`.

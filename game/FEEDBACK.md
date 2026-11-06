@@ -36,3 +36,11 @@ Known gaps: Politehnica's door is at the Bd. Doina Cornea gate (~230 m from the 
 14. Look-behind shows half a car (no rear interior).
 16. Main buildings should be more realistic, based on real information.
 17. Weather from real data (live), plus seasons from real data (foliage, snow, climate).
+
+# Play-test round 3 (2026-11-06 night, preview v5) — ultra at 60 fps on the owner's machine
+1. Got stuck at a concrete barrier across the lane on Șos. Orhideelor (Belvedere / Grozăvești).
+2. Map still looks broken in many places on the way from the start point to C.A. Rosetti.
+3. All roads and markings in the US (Seattle) look broken: black patches, broken markings, overlapping carriageways.
+4. In-car map screen: parts of the car go into it; it's cut by the bottom of the view.
+5. Office lobby sign subtitle cut off ("…aureate — Mathematics & Computer Science · 2009"). [quick fix done]
+6. The harness misses visual breakage → needs visual QA (screenshots + detectors + review).

@@ -30,9 +30,20 @@ Washington) are completed with `/api/0.6/relation/<id>/full`, cached in `tools/o
 | `fetch-tiles.mjs` | downloads the tiles (splits a tile in four when the API refuses it) |
 | `parse-osm.mjs` | tiny dependency-free OSM XML parser |
 | `geom.mjs` | polygon / polyline helpers (Douglas–Peucker, ring assembly, spatial grid) |
+| `corridors.mjs` | the story corridors: shortest travel-time routes between the CV stops + loops, buffered into a 10 m margin raster |
 | `build-data.mjs` | the converter; the JSON schema is documented at the top of the file and in `game/data/README.md` |
 
 ## What the converter does
+
+* **Corridors** (`corridors.mjs`, config in `build-data.mjs` `corridorConfig()`): the map is cut to the routes the story
+  drives — Bucharest: spawn (Splaiul Independenței at Grozăvești) → rosetti → upb → gts → luxoft → db → arnia →
+  uipath-buc → DN1 Băneasa → Otopeni, plus a closed centre loop (Victoriei – Romană – Universitate – Unirii – Calea
+  Victoriei) and a north loop (Kiseleff – Arcul de Triumf – Casa Presei – Aviatorilor); Seattle: SeaTac departures →
+  SR-518 → I-5 → I-90 floating bridge → I-405 → UiPath Bellevue, the SR-520 alternative and a downtown loop. Routes are
+  directed travel-time Dijkstra on the OSM graph (waypoints snap to a named road with an optional bearing so one-way
+  carriageways are picked the right way). Buffers: 300 m, 450 m around stops / landmarks (landmarks off the corridor
+  get a short spur route), 600 m in the historic centre. Everything outside is dropped (roads are clipped and only
+  the pieces connected to the routes are kept); building masses 70–1700 m beyond become a low-poly `backdrop`.
 
 * **Projection** – metres, x = east, z = south. Bucharest ×0.7 around Piața Unirii (play-tested: 1:1
   trips were too long), latitudes north of 44.497 (DN1 → Otopeni) additionally compressed ×0.35. Seattle ×0.5 around SeaTac. Parameters are written
@@ -40,8 +51,9 @@ Washington) are completed with `/api/0.6/relation/<id>/full`, cached in `tools/o
 * **Roads** – drivable `highway=*` ways (motorway … living_street), lane counts (`lanes`,
   `lanes:forward/backward`, sensible defaults), one-way (incl. roundabouts, `oneway=-1` reversed),
   max speed (km/h; mph converted), bridges/tunnels/layers, bus lanes, tolls, trams. Polylines are
-  simplified (0.35 m) keeping junctions and tagged nodes (signals, crossings, stops…). Opposite
-  one-way carriageways that would overlap at the drawn lane widths are pushed apart.
+  simplified (0.35 m) keeping junctions and tagged nodes (signals, crossings, stops…). Parallel
+  carriageways that would overlap at the drawn lane widths (dual carriageways, a street beside an underpass /
+  overpass ramp) are pushed apart (3 passes, long segments densified, tapering to zero at shared junctions).
   Dev checks (printed as `dev-check:`): dead ends that stop < 12 m short of another road on the same
   layer are connected, dead-end stubs < 15 m are dropped, and any building whose footprint covers a
   road ribbon is removed.
@@ -50,7 +62,8 @@ Washington) are completed with `/api/0.6/relation/<id>/full`, cached in `tools/o
   facade style (by tags, district and street: civic / interwar / eclectic / bloc / glass / house /
   shop / plain / church) and roof shape. Seattle footprints are drawn at 0.7 of real size around
   their (half-scale) position, the Bucharest DN1 strip at 0.75 × 0.45, then de-overlapped.
-* **Street lamps** – `highway=street_lamp` nodes (+ `height`).
+* **Street lamps** – `highway=street_lamp` nodes (+ `height`); roads carry `lit=yes/no` and bike lanes / tracks as flags.
+* **Trees / furniture** – `natural=tree` (+ `tree_row`), benches, bins, bollards, post boxes, hydrants … (off the carriageway).
 * **POIs** – fuel, food, shops, banks, pharmacies, hospitals, schools, metro, bus/tram stops,
   hotels, landmarks, airports; brand/name attached to the building they sit in (→ facade signs).
 * **Areas / lines / places** – water (incl. Puget Sound from coastline ways), parks, forests,

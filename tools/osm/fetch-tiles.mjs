@@ -18,6 +18,7 @@ export const REGIONS = [
     ['sea_520', 47.630, 47.660, -122.300, -122.220, 0.03, 0.04],
     ['sea_x5', 47.470, 47.535, -122.295, -122.263, 0.01, 0.016],  // I-5 through Tukwila (gap fill)
     ['sea_x405', 47.575, 47.605, -122.185, -122.165, 0.01, 0.02], // I-90 / I-405 interchange (gap fill)
+    ['sea_x520', 47.635, 47.660, -122.335, -122.295, 0.0125, 0.02], // I-5 / SR-520 interchange (gap fill for the SR-520 alternative)
 ];
 
 const args = Object.fromEntries(process.argv.slice(2).reduce((a, v, i, arr) => { if (v.startsWith('--')) a.push([v.slice(2), arr[i + 1]]); return a; }, []));

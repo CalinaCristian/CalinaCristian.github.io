@@ -68,7 +68,15 @@ export const BUCHAREST = {
     spawn: null, // filled in by buildWorld: { edge: [aId, bId], t, dir }
     // named streets lined with dense trees
     treeStreets: /Kiseleff|Aviatorilor|Prezan|Primăverii|Herăstrău|Mareșal Averescu|Dorobanți|Ion Mihalache|Lascăr Catargiu|Bulevardul Unirii/,
-    traffic: { density: 1.0, chaos: 1.0, parkedChance: 0.6, trams: true, lightCycle: 11 },
+    traffic: {
+        density: 1.0, chaos: 1.0, parkedChance: 0.6, trams: true, lightCycle: 11,
+        // world.trafficProfile(hour): TomTom-style congestion curve for Bucharest (weekday): peaks 07–10 and 16–19 ×1.6,
+        // midday ×1.0, night 22–05 ×0.25. Index = local hour (linear interpolation between hours).
+        hourly: [0.25, 0.25, 0.25, 0.25, 0.25, 0.3, 0.75, 1.45, 1.6, 1.6, 1.25, 1.05, 1.0, 1.0, 1.05, 1.25, 1.55, 1.6, 1.6, 1.3, 0.9, 0.6, 0.35, 0.25],
+        hourlyWeekend: [0.3, 0.25, 0.25, 0.25, 0.25, 0.25, 0.35, 0.5, 0.7, 0.9, 1.05, 1.15, 1.2, 1.2, 1.15, 1.1, 1.1, 1.15, 1.15, 1.05, 0.9, 0.7, 0.5, 0.35],
+        // how strongly each road class follows the curve (arterials congest most, side streets barely change)
+        classWeights: { motorway: 1.0, motorway_link: 0.9, trunk: 1.1, trunk_link: 0.9, primary: 1.15, primary_link: 0.9, secondary: 1.0, secondary_link: 0.8, tertiary: 0.85, tertiary_link: 0.7, residential: 0.55, unclassified: 0.55, living_street: 0.3, service: 0.3 },
+    },
     env: {
         skyTop: '#2b6cb0', skyBottom: '#f6c177', sun: [0.55, 0.42, 0.72], sunColor: '#ffd9a0', sunIntensity: 2.4,
         hemiSky: '#9ec5ff', hemiGround: '#b08a5a', fog: '#e9c79a', fogNear: 220, fogFar: 1300,
@@ -96,10 +104,17 @@ export const SEATTLE = {
     data: './data/seattle.json',
     proj: projector({ lat0: 47.4435, lon0: -122.3016, scale: 0.5 }),
     pois: SEA_POIS,
-    spawnLL: { lat: 47.4470, lon: -122.2985, road: null, classes: /primary|trunk|motorway_link|secondary/, bearing: 0 },
+    // spawn on the straight of the (elevated) Departures Drive in front of the terminal, heading for the SR-518 exit
+    spawnLL: { lat: 47.4425, lon: -122.3005, road: /Departures/, bearing: 135 },
     spawn: null,
     treeStreets: /Bellevue Way|NE 8th|Boylston|Lake Washington Boulevard/,
-    traffic: { density: 0.35, chaos: 0.1, parkedChance: 0, trams: false, lightCycle: 14 },
+    traffic: {
+        density: 0.35, chaos: 0.1, parkedChance: 0, trams: false, lightCycle: 14,
+        // Seattle–Bellevue corridor (I-5 / I-90 / I-405 / SR-520): same shape, lower peaks (×1.35 AM, ×1.4 PM)
+        hourly: [0.22, 0.2, 0.2, 0.2, 0.25, 0.4, 0.85, 1.3, 1.35, 1.2, 1.0, 0.95, 0.95, 0.95, 1.05, 1.25, 1.4, 1.4, 1.25, 1.0, 0.75, 0.55, 0.4, 0.28],
+        hourlyWeekend: [0.25, 0.2, 0.2, 0.2, 0.2, 0.25, 0.35, 0.5, 0.65, 0.8, 0.95, 1.05, 1.1, 1.1, 1.1, 1.05, 1.05, 1.0, 0.95, 0.85, 0.7, 0.55, 0.42, 0.3],
+        classWeights: { motorway: 1.15, motorway_link: 1.0, trunk: 1.0, trunk_link: 0.9, primary: 1.0, primary_link: 0.8, secondary: 0.9, secondary_link: 0.7, tertiary: 0.75, tertiary_link: 0.6, residential: 0.45, unclassified: 0.45, living_street: 0.3, service: 0.3 },
+    },
     env: {
         skyTop: '#4b5f7a', skyBottom: '#aeb9c6', sun: [-0.3, 0.5, 0.6], sunColor: '#dde4ec', sunIntensity: 1.6,
         hemiSky: '#b7c4d2', hemiGround: '#5c665a', fog: '#b3bec9', fogNear: 180, fogFar: 1600,

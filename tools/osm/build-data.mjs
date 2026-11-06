@@ -33,10 +33,12 @@
 //        roads it is NEGATIVE (= -lanesF*laneW) so that the lane-centre formula
 //        offset = median/2 + laneW*(i+0.5) centres the lanes on the OSM centreline.
 //        flags: 1 oneway, 2 bridge, 4 tunnel, 8 roundabout, 16 bus lane, 32 tram on/along road,
-//               64 toll, 128 unpaved/cobbles, 256 tram in the median
+//               64 toll, 128 unpaved/cobbles, 256 tram in the median, 512 bike lane, 1024 cycle track,
+//               2048 lit, 4096 lit=no
 //    trams: [delta, ...]                             railway=tram centre lines
-//    buildings: [[style, heightDm, minHeightDm, roof, name, flags, ...delta ring], ...]
-//        style index into `styles`, roof index into `roofs` (flat|pyramid|gabled|dome),
+//    buildings: [[style, heightDm, minHeightDm, roof, name, flags, levels, colour, roofColour, ...delta ring], ...]
+//        (version 2) levels = building:levels (0 unknown), colour / roofColour = string index of '#rrggbb' (-1 none)
+//        style index into `styles`, roof index into `roofs` (flat|pyramid|gabled|dome|hipped|skillion|mansard),
 //        flags: 1 ground-floor shop band, 2 has a sign (name = sign text), 4 tall landmark-ish,
 //               8 brand sign (name is a brand)
 //    pois: [[kind, x, z, name, brand, sub, buildingIndex], ...]   sub = raw OSM value (e.g. fast_food)
@@ -44,6 +46,10 @@
 //    lines: [[kind, widthDm, name, delta], ...]     runways / taxiways / rivers drawn as ribbons
 //    places: [[name, x, z, rank], ...]               rank 0 city, 1 suburb, 2 quarter, 3 neighbourhood
 //    lamps: [x, z, heightDm, ...]                    highway=street_lamp nodes (height 0 = unknown)
+//    trees: [x, z, t, ...]                           natural=tree / tree_row, t = heightDm*2 + conifer
+//    furniture: [kind, x, z, ...]                    kind index into `furnKinds`
+//    backdrop: [x, z, w, d, h, angleDeg, ...]        building masses beyond the corridors (40 m cells)
+//    corridor: { areaKm2, legs: [[label, km]] }      everything above is restricted to these corridors
 //  }
 // ============================================================================
 import fs from 'node:fs';
@@ -52,6 +58,9 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { parseFiles, parseInto } from './parse-osm.mjs';
 import { distPointSeg, pointInPolygon, polyArea, polyCentroid, simplifyIdx, simplifyRing, Grid, assembleRings } from './geom.mjs';
+import { buildCorridor } from './corridors.mjs';
+import { CITIES as GAME_CITIES } from '../../game/src/cities.js';
+import { LANDMARKS } from '../../game/src/landmarks.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(HERE, '..', '..');
@@ -82,12 +91,78 @@ const CITIES = {
 const ROAD_CLASSES = ['motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link',
     'tertiary', 'tertiary_link', 'residential', 'unclassified', 'living_street', 'service'];
 const STYLES = ['interwar', 'eclectic', 'civic', 'bloc', 'glass', 'house', 'shop', 'plain', 'church'];
-const ROOFS = ['flat', 'pyramid', 'gabled', 'dome'];
+const ROOFS = ['flat', 'pyramid', 'gabled', 'dome', 'hipped', 'skillion', 'mansard'];
+const FURN_KINDS = ['bench', 'waste_basket', 'bollard', 'post_box', 'bicycle_parking', 'drinking_water', 'fountain', 'fire_hydrant', 'recycling', 'telephone', 'vending_machine', 'picnic_table', 'advertising'];
+const CSS_COLOURS = { white: '#f2f0ea', black: '#2e2e2e', grey: '#9a9a96', gray: '#9a9a96', lightgrey: '#c9c8c3', lightgray: '#c9c8c3', darkgrey: '#5f5f5c', darkgray: '#5f5f5c', silver: '#b8bcc0',
+    red: '#a8513a', darkred: '#7a3326', maroon: '#7a2f2f', brown: '#7b5a43', darkbrown: '#5a4030', yellow: '#e3cb7a', lightyellow: '#efe2a8', beige: '#dccbaa', cream: '#efe6cc', ivory: '#efe9d8', tan: '#c9b08a',
+    orange: '#d38a52', blue: '#5b7ca3', lightblue: '#9db8d0', darkblue: '#34507a', green: '#6f8f5f', lightgreen: '#a5c08f', darkgreen: '#3f5f3a', pink: '#dba6a0', salmon: '#e09a80', terracotta: '#b5603e', sand: '#d8c49a', ochre: '#c89b4a', khaki: '#c3b57f', olive: '#80804a', gold: '#c8a54a', teal: '#3f7f7f', purple: '#7a5a8a', violet: '#8a6aa0' };
+function normColour(v) {
+    if (!v) return '';
+    v = String(v).trim().toLowerCase().split(';')[0];
+    if (/^#[0-9a-f]{6}$/.test(v)) return v;
+    if (/^#[0-9a-f]{3}$/.test(v)) return '#' + v[1] + v[1] + v[2] + v[2] + v[3] + v[3];
+    return CSS_COLOURS[v.replace(/[\s_-]/g, '')] || '';
+}
+const MATERIAL_COLOUR = { brick: '#a65f45', stone: '#c9bfae', sandstone: '#d4c29a', limestone: '#ddd5c2', wood: '#9a7552', timber_framing: '#d9cdb5', metal: '#9ea4a9', concrete: '#b3b0a8', plaster: '#e4dccb', glass: '' };
 const POI_KINDS = ['office', 'school', 'airport', 'fuel', 'food', 'shop', 'bank', 'pharmacy', 'metro', 'busstop', 'hospital', 'landmark', 'park', 'hotel'];
 const AREA_KINDS = ['water', 'park', 'grass', 'forest', 'scrub', 'pitch', 'cemetery', 'residential', 'industrial', 'commercial', 'retail', 'railway', 'parking', 'apron', 'runway', 'construction'];
 const LINE_KINDS = ['runway', 'taxiway', 'river', 'canal', 'stream'];
 
 const log = (...a) => console.log('[osm]', ...a);
+
+// ---------------------------------------------------------------------------
+//  CORRIDORS — what the story drives (see corridors.mjs). Everything else is dropped
+//  (except a low-poly backdrop of building masses so the horizon is not empty).
+// ---------------------------------------------------------------------------
+function corridorConfig(cityId) {
+    const gc = GAME_CITIES[cityId];
+    const poi = (id) => { const p = gc.pois.find(q => q.id === id); return { lat: p.lat, lon: p.lon, name: id, road: p.road || null }; };
+    const lms = LANDMARKS.filter(l => l.city === cityId && !l.backdrop).map(l => ({ lat: l.lat, lon: l.lon, name: l.id, r: 450 }));
+    const stops = gc.pois.map(p => ({ lat: p.lat, lon: p.lon, name: p.id, r: 450 }));
+    const sp = gc.spawnLL;
+    if (cityId === 'bucharest') {
+        const C = 600; // historic centre buffer (Unirii – Universitate – Romană – Victoriei)
+        return {
+            rRoute: 300, rStop: 450, maxSpur: 2600,
+            route: [{ lat: sp.lat, lon: sp.lon, road: sp.road, name: 'spawn' }, poi('rosetti'), poi('upb'), poi('gts'), poi('luxoft'), poi('db'), poi('arnia'), poi('uipath-buc'),
+                { lat: 44.5185, lon: 26.0870, road: /DN1|București-Ploiești|Bucureşti-Ploieşti/, name: 'DN1 Băneasa' }, { ...poi('otopeni'), road: null }],
+            loops: [
+                { name: 'centre', closed: true, points: [
+                    { lat: 44.4522, lon: 26.0859, name: 'Piața Victoriei', r: C }, { lat: 44.4466, lon: 26.0975, road: /Magheru|Piața Romană/, name: 'Piața Romană', r: C },
+                    { lat: 44.4400, lon: 26.1010, road: /Bălcescu|Magheru/, name: 'Bd. Bălcescu', r: C }, { lat: 44.4355, lon: 26.1025, road: /Brătianu|Bălcescu|Piața Universității/, name: 'Universitate', r: C },
+                    { lat: 44.4268, lon: 26.1025, name: 'Piața Unirii', r: C }, { lat: 44.4318, lon: 26.0968, road: /Calea Victoriei/, name: 'Calea Victoriei (CEC)', r: C },
+                    { lat: 44.4413, lon: 26.0973, road: /Calea Victoriei/, name: 'Calea Victoriei (Ateneu)', r: C }] },
+                { name: 'north', closed: true, points: [
+                    { lat: 44.4522, lon: 26.0859, name: 'Piața Victoriei' }, { lat: 44.4600, lon: 26.0830, road: /Kiseleff/, name: 'Kiseleff' },
+                    { lat: 44.4672, lon: 26.0781, road: /Kiseleff|Arcul de Triumf/, name: 'Arcul de Triumf' }, { lat: 44.4790, lon: 26.0728, road: /Kiseleff|Presei Libere/, name: 'Casa Presei' },
+                    { lat: 44.4700, lon: 26.0850, road: /Aviatorilor|Charles de Gaulle|Herăstrău/, name: 'Aviatorilor' }] },
+            ],
+            circles: [...stops, { lat: sp.lat, lon: sp.lon, name: 'spawn', r: 450 }],
+            spurs: lms,
+        };
+    }
+    return {
+        rRoute: 300, rStop: 450, maxSpur: 3000,
+        route: [{ lat: 47.4425, lon: -122.3005, road: /Departures/, bearing: 135, name: 'seatac departures' },
+            { lat: 47.4635, lon: -122.2750, road: /SR-518/, bearing: 90, motorway: true, name: 'SR-518' },
+            { lat: 47.5300, lon: -122.3060, road: /^I-5\b/, bearing: 340, motorway: true, name: 'I-5 Boeing Field' },
+            { lat: 47.6000, lon: -122.3260, road: /^I-5\b/, bearing: 0, motorway: true, name: 'I-5 downtown' },
+            { lat: 47.5895, lon: -122.2700, road: /^I-90\b/, bearing: 90, motorway: true, name: 'I-90 floating bridge' },
+            { lat: 47.5800, lon: -122.2050, road: /^I-90\b/, bearing: 90, motorway: true, name: 'I-90 east' },
+            { lat: 47.6000, lon: -122.1880, road: /^I-405\b/, bearing: 0, motorway: true, name: 'I-405' },
+            { ...poi('uipath-bel'), road: /8th Street/ }],
+        loops: [
+            { name: 'SR-520', points: [{ lat: 47.6000, lon: -122.3260, road: /^I-5\b/, bearing: 0, motorway: true, name: 'I-5 downtown' },
+                { lat: 47.6390, lon: -122.3220, road: /^I-5\b/, bearing: 0, motorway: true, name: 'I-5 north' },
+                { lat: 47.6420, lon: -122.2700, road: /SR-520/, bearing: 90, motorway: true, name: 'SR-520 bridge' },
+                { lat: 47.6370, lon: -122.2150, road: /SR-520/, bearing: 90, motorway: true, name: 'SR-520 east' }, { ...poi('uipath-bel'), road: /8th Street/ }] },
+            { name: 'downtown', closed: true, points: [{ lat: 47.6045, lon: -122.3307, name: 'Columbia Center' }, { lat: 47.6156, lon: -122.3395, name: 'Spheres' },
+                { lat: 47.6205, lon: -122.3480, name: 'Space Needle' }, { lat: 47.6062, lon: -122.3400, name: 'Pike Place' }, { lat: 47.5960, lon: -122.3300, name: 'Pioneer Square' }] },
+        ],
+        circles: [...stops],
+        spurs: lms,
+    };
+}
 
 // ---------------------------------------------------------------------------
 function makeProj(c) {
@@ -211,6 +286,11 @@ function buildCity(cityId) {
         if (t.junction === 'roundabout' || t.junction === 'circular') flags |= 8;
         if (t['lanes:bus'] || t['lanes:psv'] || /designated/.test(t['bus:lanes'] || '') || /designated/.test(t['psv:lanes'] || '') || /lane/.test(t.busway || '') || /lane/.test(t['busway:right'] || '') || /lane/.test(t['busway:both'] || '')) flags |= 16;
         if (t.toll === 'yes' || /toll/i.test(t.name || '') || t['toll:motorcar'] === 'yes') flags |= 64;
+        const cyc = [t.cycleway, t['cycleway:right'], t['cycleway:left'], t['cycleway:both']].join(' ');
+        if (/\blane\b/.test(cyc)) flags |= 512;                                              // painted bike lane on the carriageway
+        if (/track|separate/.test(cyc) || t['sidewalk:bicycle'] === 'designated' || t['sidewalk:both:bicycle'] === 'designated') flags |= 1024; // cycle track beside it
+        if (/^(yes|24\/7|automatic|limited|interval|sunset-sunrise)$/.test(t.lit || '')) flags |= 2048;   // street lighting
+        if (t.lit === 'no') flags |= 4096;
         if (/unpaved|gravel|dirt|ground|sett|cobblestone|unhewn/.test(t.surface || '')) flags |= 128;
         let layer = parseInt(t.layer) || 0;
         if ((flags & 2) && layer < 1) layer = 1;
@@ -249,6 +329,32 @@ function buildCity(cityId) {
     // projected positions for all road nodes (mutable for push-apart)
     const pos = new Map();
     for (const r of roads) for (const n of r.nodes) if (!pos.has(n)) pos.set(n, pt(n));
+
+    // ---- corridors: keep only what the story drives (+ buffers); see corridors.mjs
+    const cor = buildCorridor(roads, pos, (lat, lon) => P(lat, lon), corridorConfig(cityId), log);
+    const M = (x, z) => cor.margin(x, z);
+    const stat = { roadsBefore: roads.length };
+    {
+        const out = [];
+        for (const r of roads) {
+            const mg = r.nodes.map(n => M(...pos.get(n)));
+            let run = [];
+            const flush = () => { if (run.length >= 2) out.push({ ...r, nodes: run }); run = []; };
+            for (let i = 0; i < r.nodes.length; i++) {
+                if (mg[i] <= 0) { if (!run.length && i > 0 && mg[i - 1] <= 120) run.push(r.nodes[i - 1]); run.push(r.nodes[i]); }
+                else { if (run.length && mg[i] <= 120) run.push(r.nodes[i]); flush(); }
+            }
+            flush();
+        }
+        // keep only the pieces connected to the corridor routes
+        const par = new Map(); const f = (x) => { let r = x; while (par.has(r) && par.get(r) !== r) r = par.get(r); let y = x; while (par.has(y) && par.get(y) !== r) { const nx = par.get(y); par.set(y, r); y = nx; } return r; };
+        for (const r of out) for (const n of r.nodes) if (!par.has(n)) par.set(n, n);
+        for (const r of out) for (let i = 1; i < r.nodes.length; i++) { const a = f(r.nodes[0]), b = f(r.nodes[i]); if (a !== b) par.set(a, b); }
+        const good = new Set(); for (const n of cor.routeNodes) if (par.has(n)) good.add(f(n));
+        roads.length = 0;
+        for (const r of out) if (good.has(f(r.nodes[0]))) roads.push(r);
+        log(`corridor roads: ${stat.roadsBefore} ways → ${out.length} clipped pieces → ${roads.length} connected`);
+    }
 
     // half width of a road (each side) used for clearance
     const sideW = (r) => {
@@ -292,38 +398,65 @@ function buildCity(cityId) {
         if (r.tram) r.flags |= 32;
     }
 
-    // ---- push apart dual carriageways that overlap at this scale (opposite one-way ways)
+    // ---- push apart parallel carriageways that would overlap at the drawn lane widths at this scale:
+    //      dual carriageways, a street running beside an underpass / overpass ramp, parallel ramps…
+    //      Long segments are densified first so the push acts along their whole length; near a node the two roads
+    //      share (a merge / diverge) the push tapers to zero.
     {
+        const MAIN = /^(motorway|trunk|primary|secondary|tertiary)(_link)?$/;
+        const big = roads.filter(r => MAIN.test(r.cls));
+        let densId = -1e9, added = 0;
+        for (const r of big) {
+            const out = [r.nodes[0]];
+            for (let i = 1; i < r.nodes.length; i++) {
+                const a = pos.get(r.nodes[i - 1]), b = pos.get(r.nodes[i]); const L = Math.hypot(b[0] - a[0], b[1] - a[1]);
+                const k = Math.floor(L / 18);
+                for (let j = 1; j <= k; j++) { const id = densId--; pos.set(id, [a[0] + (b[0] - a[0]) * j / (k + 1), a[1] + (b[1] - a[1]) * j / (k + 1)]); out.push(id); added++; }
+                out.push(r.nodes[i]);
+            }
+            r.nodes = out;
+        }
+        const roadsOf = new Map(); for (const r of big) for (const n of r.nodes) { let s = roadsOf.get(n); if (!s) roadsOf.set(n, s = []); s.push(r); }
+        let movedTotal = 0;
+        for (let pass = 0; pass < 3; pass++) {
         const segGrid = new Grid(40);
-        const big = roads.filter(r => r.oneway && /^(motorway|trunk|primary|secondary|tertiary)$/.test(r.cls));
         for (const r of big) for (let i = 0; i < r.nodes.length - 1; i++) {
             const a = pos.get(r.nodes[i]), b = pos.get(r.nodes[i + 1]);
             segGrid.insertBox(Math.min(a[0], b[0]), Math.min(a[1], b[1]), Math.max(a[0], b[0]), Math.max(a[1], b[1]), { r, i, a, b });
         }
+        const graded = (r) => !!(r.flags & 6) || r.layer !== 0 || r.cls.endsWith('_link');
         const disp = new Map();
         for (const r of big) {
             const nodeSet = new Set(r.nodes);
-            const hwSelf = sideW(r)[0];
+            const sw = sideW(r);
             for (let i = 0; i < r.nodes.length; i++) {
+                if ((roadsOf.get(r.nodes[i]) || []).length > 1) continue; // junction nodes stay where they are
                 const p = pos.get(r.nodes[i]);
                 const pa = pos.get(r.nodes[Math.max(0, i - 1)]), pb = pos.get(r.nodes[Math.min(r.nodes.length - 1, i + 1)]);
                 let dx = pb[0] - pa[0], dz = pb[1] - pa[1]; const L = Math.hypot(dx, dz); if (L < 1e-6) continue; dx /= L; dz /= L;
-                let deficit = 0;
+                let push = 0, pushSide = 0;
                 segGrid.query(p[0], p[1], 30, (s) => {
                     if (s.r === r) return;
                     if (nodeSet.has(s.r.nodes[s.i]) || nodeSet.has(s.r.nodes[s.i + 1])) return;
+                    if (s.r.layer !== r.layer && ((s.r.flags | r.flags) & 2)) return; // a deck stacked on purpose (e.g. SeaTac departures over arrivals)
                     let sx = s.b[0] - s.a[0], sz = s.b[1] - s.a[1]; const sl = Math.hypot(sx, sz); if (sl < 1e-6) return; sx /= sl; sz /= sl;
-                    if (sx * dx + sz * dz > -0.8) return; // only opposite direction
+                    const dot = sx * dx + sz * dz; if (Math.abs(dot) < 0.8) return; // parallel only
                     const q = distPointSeg(p[0], p[1], s.a[0], s.a[1], s.b[0], s.b[1]);
-                    if (q.t <= 0 || q.t >= 1) return;
-                    // the other carriageway must be on our LEFT (right-hand traffic)
-                    const side = (q.cx - p[0]) * (-dz) + (q.cz - p[1]) * dx; // >0 => right
-                    if (side > 0) return;
-                    const need = hwSelf + sideW(s.r)[0] + 0.8;
-                    deficit = Math.max(deficit, need - q.d);
+                    if (q.t <= 0 || q.t >= 1 || q.d < 0.3) return;
+                    const side = (q.cx - p[0]) * (-dz) + (q.cz - p[1]) * dx > 0 ? 1 : -1; // other road on our right (+1) / left (−1)
+                    if (!r.oneway || !s.r.oneway || dot > 0) { /* any parallel pair */ } else if (side > 0) return; // opposite one-ways: the other carriageway must be on our left
+                    const swo = sideW(s.r);
+                    const pSideOfS = (p[0] - s.a[0]) * (-sz) + (p[1] - s.a[1]) * sx > 0 ? 0 : 1; // which half of s faces us
+                    const need = sw[side > 0 ? 0 : 1] + swo[pSideOfS] + 0.8 + (graded(r) !== graded(s.r) ? 0.9 : 0);
+                    let deficit = need - q.d; if (deficit <= 0.05) return;
+                    // taper toward nodes the two roads share (merges, diverges)
+                    let taper = 1;
+                    for (const n of s.r.nodes) if (nodeSet.has(n)) { const pn = pos.get(n); const d = Math.hypot(pn[0] - p[0], pn[1] - p[1]); taper = Math.min(taper, Math.max(0, (d - 6) / 45)); }
+                    deficit *= taper;
+                    if (deficit > push) { push = deficit; pushSide = side; }
                 });
-                if (deficit > 0.05) {
-                    const m = Math.min(deficit / 2, 6);
+                if (push > 0.05) {
+                    const m = Math.min(push / 2, 5) * -pushSide; // move away from the other road
                     const prev = disp.get(r.nodes[i]) || [0, 0, 0];
                     prev[0] += -dz * m; prev[1] += dx * m; prev[2]++;
                     disp.set(r.nodes[i], prev);
@@ -331,7 +464,10 @@ function buildCity(cityId) {
             }
         }
         for (const [n, d] of disp) { const p = pos.get(n); pos.set(n, [p[0] + d[0] / d[2], p[1] + d[1] / d[2]]); }
-        log('dual carriageway nodes pushed apart:', disp.size);
+        movedTotal += disp.size;
+        if (!disp.size) break;
+        }
+        log(`parallel carriageways pushed apart: ${movedTotal} node moves (${added} densified)`);
     }
 
     // ---- connect dead ends that stop just short of another road (mapping gaps, excluded service links…)
@@ -477,10 +613,13 @@ function buildCity(cityId) {
         const so = simplifyRing(outer, tol, tol * 0.6, 2000); if (!so) return;
         const A = Math.abs(polyArea(so));
         if (A < 30) return;
-        // keep when near the network (or big water/park/forest)
+        // keep when near the corridors (parks / water / forest may extend further for scenery)
+        const lim = kind === 'water' || kind === 'park' || kind === 'forest' ? 600 : kind === 'apron' || kind === 'runway' ? 400 : 120;
         let near = false;
-        for (let i = 0; i < so.length && !near; i += Math.max(1, Math.floor(so.length / 40))) near = nearNetwork(so[i][0], so[i][1], kind === 'water' || kind === 'park' || kind === 'forest' ? 600 : 300);
-        if (!near) { const c = polyCentroid(so); near = nearNetwork(c[0], c[1], 600); }
+        for (let i = 0; i < so.length && !near; i += Math.max(1, Math.floor(so.length / 60))) near = M(so[i][0], so[i][1]) <= lim;
+        if (!near) { const c = polyCentroid(so); near = M(c[0], c[1]) <= lim; }
+        if (!near && A > 2e4) for (const c of cor.circles) if (pointInPolygon(c.x, c.z, so)) { near = true; break; }
+        if (!near && A > 2e4) for (const pc of cor.pieces) { for (let i = 0; i < pc.pts.length && !near; i += 15) near = pointInPolygon(pc.pts[i][0], pc.pts[i][1], so); if (near) break; }
         if (!near && !(kind === 'water' && A > 1e5)) return;
         const holes = [];
         for (const h of holesIds || []) { const hp = ringPts(h); if (!hp) continue; const sh = simplifyRing(hp, tol, tol * 0.6, 2000); if (sh && Math.abs(polyArea(sh)) > 20) holes.push(sh); }
@@ -582,7 +721,7 @@ function buildCity(cityId) {
         const pts = w.nodes.map(pt); if (pts.some(p => !p)) continue;
         const idx = simplifyIdx(pts, 1.0);
         const sp = idx.map(i => pts[i]);
-        if (!sp.some(p => nearNetwork(p[0], p[1], 600))) continue;
+        if (!sp.some(p => M(p[0], p[1]) <= 600)) continue;
         outLines.push([LINE_KINDS.indexOf(kind), Math.round(width * C.scale * 10), S(t.name), delta(sp)]);
     }
 
@@ -618,6 +757,19 @@ function buildCity(cityId) {
     }
     log('raw buildings', rawBuildings.length);
 
+    // low-poly backdrop of the building masses beyond the corridors (40 m cells → one box each)
+    const bdCells = new Map();
+    const addBackdrop = (c, realArea, local, t, la) => {
+        if (realArea < 40 || /^(garage|garages|shed|hut|kiosk|roof|carport|container|toilets)$/.test(t.building)) return;
+        let h = num(t.height); const lv = num(t['building:levels']);
+        if (!isFinite(h)) h = isFinite(lv) ? lv * 3.1 : realArea > 1500 ? 18 : realArea > 400 ? 12 : 7;
+        h = C.heightMap(Math.min(h, 250));
+        const [sx, sz] = C.shape(la); const a = realArea * sx * sz;
+        const k = Math.floor(c[0] / 40) + ',' + Math.floor(c[1] / 40);
+        let o = bdCells.get(k); if (!o) bdCells.set(k, o = { a: 0, x: 0, z: 0, h: 0, big: 0, ang: 0, hmax: 0 });
+        o.a += a; o.x += c[0] * a; o.z += c[1] * a; o.h += h * a; o.hmax = Math.max(o.hmax, h);
+        if (a > o.big) { o.big = a; let bl = 0; for (let i = 0; i < local.length - 1; i++) { const L = Math.hypot(local[i + 1][0] - local[i][0], local[i + 1][1] - local[i][1]); if (L > bl) { bl = L; o.ang = Math.atan2(local[i + 1][1] - local[i][1], local[i + 1][0] - local[i][0]); } } }
+    };
     const HOUSE = /^(house|detached|semidetached_house|terrace|bungalow|villa|cabin|farm|static_caravan)$/;
     const SMALL = /^(garage|garages|shed|hut|kiosk|roof|carport|container|toilets|gatehouse|guardhouse|booth|bunker|ruins|tent)$/;
     const INDUSTRIAL = /^(industrial|warehouse|hangar|factory|manufacture|service|transformer_tower|storage_tank|silo|power|greenhouse|barn|farm_auxiliary|parking)$/;
@@ -634,6 +786,8 @@ function buildCity(cityId) {
         if (realArea < 12) continue;
         const cL = polyCentroid(local);
         const cOut = P(la, lo); cOut[0] += cL[0] * C.scale; cOut[1] += cL[1] * C.scale; // approx centroid in output space
+        const mg = M(cOut[0], cOut[1]);
+        if (mg > 0) { if (mg > 70 && mg < 1700) addBackdrop(cOut, realArea, local, t, la); continue; }
         if (!nearNetwork(cOut[0], cOut[1])) continue;
         const [sx, sz] = C.shape(la);
         let ring = local.map(([x, z]) => [cOut[0] + (x - cL[0]) * sx, cOut[1] + (z - cL[1]) * sz]);
@@ -692,11 +846,15 @@ function buildCity(cityId) {
         if (b === 'hotel' && country === 'RO' && style !== 'glass') defLevels = Math.max(defLevels, 7);
         if (t['roof:shape']) {
             const rs = t['roof:shape'];
-            if (/gabled|hipped|half-hipped|gambrel|mansard|saltbox/.test(rs) && realArea < 1500) roof = lls.length <= 6 ? 2 : 1;
+            if (/mansard|gambrel/.test(rs)) roof = 6;
+            else if (/hipped|half-hipped/.test(rs) && realArea < 2500) roof = lls.length <= 6 ? 4 : 1;
+            else if (/gabled|saltbox/.test(rs) && realArea < 1500) roof = lls.length <= 6 ? 2 : 1;
+            else if (/skillion|lean_to/.test(rs) && realArea < 1500) roof = 5;
             else if (/pyramidal|cone/.test(rs)) roof = 1;
             else if (/dome|onion/.test(rs)) roof = 3;
             else if (rs === 'flat') roof = 0;
         }
+        if (/glass/.test(t['building:material'] || '') && !['church', 'house'].includes(style)) style = 'glass';
         // shop band on ground floors along big roads (Romanian blocs & centre always have shops)
         if (['interwar', 'eclectic', 'civic', 'bloc'].includes(style) && (nearBig || shop || amen)) flags |= 1;
         if (!isFinite(h)) {
@@ -742,7 +900,9 @@ function buildCity(cityId) {
         let name = t.name || '';
         let brand = t.brand || '';
         if (t.tourism || t.historic || (h > 60)) flags |= 4;
-        const rec = { style, h, minH: Math.min(minH, h - 1), roof, name, brand, flags, ring, c: c2, area: Math.abs(polyArea(ring)), t };
+        const colour = normColour(t['building:colour'] || t['building:color']) || MATERIAL_COLOUR[(t['building:material'] || '').split(';')[0]] || '';
+        const roofColour = normColour(t['roof:colour'] || t['roof:color']) || (/tile|clay/.test(t['roof:material'] || '') ? '#9c5a3c' : /metal|tin|copper/.test(t['roof:material'] || '') ? (t['roof:material'] === 'copper' ? '#6f9a86' : '#7d848a') : '');
+        const rec = { style, h, minH: Math.min(minH, h - 1), roof, name, brand, flags, ring, c: c2, area: Math.abs(polyArea(ring)), t, levels: isFinite(levels) ? Math.round(levels) : 0, colour, roofColour };
         let x0 = Infinity, z0 = Infinity, x1 = -Infinity, z1 = -Infinity; for (const [x, z] of ring) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); }
         bGrid.insertBox(x0, z0, x1, z1, rec);
         buildings.push(rec);
@@ -802,8 +962,8 @@ function buildCity(cityId) {
         const k = poiKind(t); if (!k) return;
         const name = t.name || t.brand || '';
         if (k[0] !== 'busstop' && k[0] !== 'metro' && !name) return;
-        const radius = k[0] === 'landmark' || k[0] === 'airport' || k[0] === 'park' ? 700 : BUFFER;
-        if (!nearNetwork(x, z, radius)) return;
+        if (M(x, z) > (k[0] === 'landmark' || k[0] === 'airport' || k[0] === 'park' ? 100 : 0)) return;
+        if (!nearNetwork(x, z, k[0] === 'landmark' || k[0] === 'airport' || k[0] === 'park' ? 700 : BUFFER)) return;
         const key = k[0] + '|' + name + '|' + Math.round(x / 15) + '|' + Math.round(z / 15);
         if (poiSeen.has(key)) return; poiSeen.add(key);
         if (bIdx < 0) bGrid.query(x, z, 1, (o) => { if (bIdx < 0 && pointInPolygon(x, z, o.ring)) bIdx = buildings.indexOf(o); });
@@ -826,11 +986,45 @@ function buildCity(cityId) {
     }
     log('pois', pois.length);
 
+    // ---- trees (natural=tree nodes + tree_row ways) and street furniture, inside the corridors, off the carriageway
+    const onCarriageway = (x, z, extra) => !!nearestRoad(x, z, 25, null) && (() => { let bad = false; roadGrid.query(x, z, 20, (s) => { if (bad || (s.r.flags & 4)) return; const q = distPointSeg(x, z, s.a[0], s.a[1], s.b[0], s.b[1]); const dx = s.b[0] - s.a[0], dz = s.b[1] - s.a[1]; const right = (x - s.a[0]) * (-dz) + (z - s.a[1]) * dx > 0; if (q.d < (right ? s.wR : s.wL) + extra) bad = true; }); return bad; })();
+    const CONIFER = /^(Pinus|Picea|Abies|Thuja|Pseudotsuga|Cedrus|Taxus|Juniperus|Tsuga|Larix|Sequoia|Chamaecyparis|Cupressus)/i;
+    const outTrees = []; const treeSeen = new Set();
+    const addTree = (x, z, t) => {
+        if (M(x, z) > 0 || onCarriageway(x, z, 0.9)) return;
+        const key = Math.round(x / 1.5) + ',' + Math.round(z / 1.5); if (treeSeen.has(key)) return; treeSeen.add(key);
+        const con = t.leaf_type === 'needleleaved' || CONIFER.test(t.genus || t['species'] || '') ? 1 : 0;
+        let h = num(t.height); if (!isFinite(h) || h > 45) h = 0;
+        outTrees.push(Math.round(x * 10), Math.round(z * 10), Math.round(h * 10) * 2 + con);
+    };
+    for (const [id, t] of ntags) if (t.natural === 'tree') { const p = pt(id); if (p) addTree(p[0], p[1], t); }
+    for (const w of W.values()) {
+        if (w.tags.natural !== 'tree_row') continue;
+        const pts = w.nodes.map(pt); if (pts.some(p => !p)) continue;
+        for (let i = 0; i < pts.length - 1; i++) { const a = pts[i], b = pts[i + 1]; const L = Math.hypot(b[0] - a[0], b[1] - a[1]); for (let s = 0; s < L; s += 7) addTree(a[0] + (b[0] - a[0]) * s / L, a[1] + (b[1] - a[1]) * s / L, w.tags); }
+    }
+    const outFurn = [];
+    for (const [id, t] of ntags) {
+        let k = null;
+        if (['bench', 'waste_basket', 'post_box', 'bicycle_parking', 'drinking_water', 'fountain', 'recycling', 'telephone', 'vending_machine'].includes(t.amenity)) k = t.amenity;
+        else if (t.barrier === 'bollard') k = 'bollard';
+        else if (t.emergency === 'fire_hydrant') k = 'fire_hydrant';
+        else if (t.leisure === 'picnic_table') k = 'picnic_table';
+        else if (t.advertising === 'column' || t.advertising === 'billboard') k = 'advertising';
+        if (!k) continue;
+        const p = pt(id); if (!p || M(p[0], p[1]) > 0) continue;
+        if (k !== 'bollard' && onCarriageway(p[0], p[1], 0.6)) continue;
+        if (k === 'bollard' && onCarriageway(p[0], p[1], 0.3)) continue; // bollards on the road (access barriers) would block it
+        if (k === 'fountain' && t.amenity === 'fountain' && !nearNetwork(p[0], p[1], 60)) continue;
+        outFurn.push(FURN_KINDS.indexOf(k), Math.round(p[0] * 10), Math.round(p[1] * 10));
+    }
+    log('osm trees', outTrees.length / 3, 'furniture', outFurn.length / 3);
+
     // street lamps (highway=street_lamp nodes near the network)
     const lamps = [];
     for (const [id, t] of ntags) {
         if (t.highway !== 'street_lamp') continue;
-        const p = pt(id); if (!p || !nearNetwork(p[0], p[1], 60)) continue;
+        const p = pt(id); if (!p || M(p[0], p[1]) > 0 || !nearNetwork(p[0], p[1], 60)) continue;
         const hgt = num(t.height);
         lamps.push(Math.round(p[0] * 10), Math.round(p[1] * 10), isFinite(hgt) ? Math.round(Math.min(hgt, 20) * 10) : 0);
     }
@@ -842,7 +1036,7 @@ function buildCity(cityId) {
     for (const [id, t] of ntags) {
         if (!(t.place in rank) || !t.name) continue;
         const p = pt(id); if (!p) continue;
-        if (!nearNetwork(p[0], p[1], 1500)) continue;
+        if (M(p[0], p[1]) > 400) continue;
         places.push([S(t.name), Math.round(p[0] * 10), Math.round(p[1] * 10), rank[t.place]]);
     }
 
@@ -855,26 +1049,42 @@ function buildCity(cityId) {
         if (b.signName) { name = b.signName; flags |= 2; if (b.signBrand) flags |= 8; }
         else if (b.brand) { name = b.brand; flags |= 2 | 8; }
         else if (name) flags |= 2;
-        return [STYLES.indexOf(b.style), Math.round(b.h * 10), Math.round(Math.max(0, b.minH) * 10), b.roof, S(name), flags, ...delta(b.ring)];
+        return [STYLES.indexOf(b.style), Math.round(b.h * 10), Math.round(Math.max(0, b.minH) * 10), b.roof, S(name), flags, b.levels || 0, S(b.colour), S(b.roofColour), ...delta(b.ring)];
     });
+    const backdrop = [];
+    for (const o of bdCells.values()) {
+        if (o.a < 220) continue;
+        const h = o.h / o.a; if (h < 5) continue;
+        const side = Math.min(36, Math.sqrt(o.a) * 1.05);
+        backdrop.push(Math.round(o.x / o.a * 10), Math.round(o.z / o.a * 10), Math.round(side * 1.12 * 10), Math.round(side * 0.88 * 10), Math.round(Math.min(o.hmax, h * 1.25) * 10), Math.round(((o.ang * 180 / Math.PI) % 180 + 180) % 180));
+    }
+    log('backdrop boxes', backdrop.length / 6);
     const outP = pois.map(p => [POI_KINDS.indexOf(p.kind), Math.round(p.x * 10), Math.round(p.z * 10), S(p.name), S(p.brand), S(p.sub + (p.cuisine ? ':' + p.cuisine : '')), p.bIdx]);
     const outA = areaRings.map(a => [AREA_KINDS.indexOf(a.kind), S(a.name), ...a.rings.map(delta)]);
-    const outT = tramLines.filter(pl => pl.some(p => nearNetwork(p[0], p[1], 100))).map(pl => delta(pl.filter((p, i) => i === 0 || i === pl.length - 1 || true)));
+    const outT = [];
+    for (const pl of tramLines) { // clip to the corridors
+        let run = [];
+        const flush = () => { if (run.length >= 2) outT.push(delta(run)); run = []; };
+        for (const p of pl) { if (M(p[0], p[1]) <= 30 && nearNetwork(p[0], p[1], 40)) run.push(p); else flush(); }
+        flush();
+    }
     const doc = {
-        version: 1, city: cityId, generated: new Date().toISOString().slice(0, 10),
+        version: 2, city: cityId, generated: new Date().toISOString().slice(0, 10),
         attribution: '© OpenStreetMap contributors (ODbL)',
         proj: P.params, q: 10,
         bounds: [minX, minZ, maxX, maxZ],
-        classes: ROAD_CLASSES, styles: STYLES, roofs: ROOFS, poiKinds: POI_KINDS, areaKinds: AREA_KINDS, lineKinds: LINE_KINDS,
+        classes: ROAD_CLASSES, styles: STYLES, roofs: ROOFS, poiKinds: POI_KINDS, areaKinds: AREA_KINDS, lineKinds: LINE_KINDS, furnKinds: FURN_KINDS,
         strings,
         nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, buildings: outB, pois: outP, areas: outA, lines: outLines, places, lamps,
+        trees: outTrees, furniture: outFurn, backdrop,
+        corridor: { areaKm2: +cor.areaKm2.toFixed(2), legs: cor.legs.map(l => [l.label, l.km]) },
     };
     const outDir = path.join(REPO, 'game', 'data');
     fs.mkdirSync(outDir, { recursive: true });
     const file = path.join(outDir, `${cityId}.json`);
     const json = JSON.stringify(doc);
     fs.writeFileSync(file, json);
-    log(`wrote ${file}  ${(json.length / 1e6).toFixed(2)} MB  roads=${outRoads.length} buildings=${outB.length} pois=${outP.length} areas=${outA.length}`);
+    log(`wrote ${file}  ${(json.length / 1e6).toFixed(2)} MB  roads=${outRoads.length} segments=${segCount} buildings=${outB.length} pois=${outP.length} areas=${outA.length} lamps=${lamps.length / 3} trees=${outTrees.length / 3} furniture=${outFurn.length / 3} backdrop=${backdrop.length / 6}`);
 }
 
 function ROOF_FOR_HOUSE(area, nverts) { return nverts <= 6 && area < 400 ? 2 : area < 300 ? 1 : 0; }

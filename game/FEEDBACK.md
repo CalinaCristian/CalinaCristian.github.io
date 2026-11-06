@@ -35,3 +35,4 @@ Known gaps: Politehnica's door is at the Bd. Doina Cornea gate (~230 m from the 
 13. Seattle spawn: road looks broken, invisible collisions, lamp posts in the middle of the street.
 14. Look-behind shows half a car (no rear interior).
 16. Main buildings should be more realistic, based on real information.
+17. Weather from real data (live), plus seasons from real data (foliage, snow, climate).

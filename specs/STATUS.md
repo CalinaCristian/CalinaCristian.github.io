@@ -8,6 +8,7 @@ Update your own rows when you start/finish (status, `updated` as `YYYY-MM-DD HH:
 | R10.4 | `CHAPTERS` + starts (1.5–2.5 km routes) | 10 | world | in progress | 2026-11-06 23:10 | |
 | R10.5–7 | Chapter flow, montage, chapter select, progress UI | 10 | gameplay | in progress | 2026-11-06 22:05 UTC | feature-detects CHAPTERS / districts |
 | R10.8 | Congestion hotspot data per district | 10/13 | world | review | 2026-11-06 23:10 | from research `traffic` |
+| R10.9 | Free drive + GTA-style boundaries (roadworks closures, story-hint signs, backdrop, turnaround) | 10 | world (geometry, props, backdrop) + gameplay (HUD toast, turnaround, NPC behaviour, map hatch) | todo | 2026-11-06 22:40 | |
 | R11.1–2 | Continuous ribbons, junction pads, no coplanar overlaps, layering | 11 | world | in progress | 2026-11-06 21:20 | |
 | R11.3 | Country-specific markings, turn arrows, no markings across pads | 11 | world | in progress | | |
 | R11.4–5 | Vertical profile + walls (no stacked ribbons, no barriers in lanes) | 11 | world | in progress | | Orhideelor barrier; Seattle interchanges |

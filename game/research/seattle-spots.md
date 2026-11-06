@@ -52,7 +52,7 @@ Ranking sources: [ta_stacker](https://stacker.com/washington/seattle/highest-rat
 ## 2. Cross-cutting findings for the spots builder
 
 - **Copyright (important):** the US has no freedom of panorama for artworks. The Fremont Troll's artists hold image rights and have sued commercial users (free for non-profits, per Wikipedia). Chihuly glass, Rachel (Gerber 1986), Changing Form (1971), Piloti (2023), Typewriter Eraser are in copyright too. Build stylised versions from the descriptions (no photo textures); orchestrator/owner to confirm the Troll replica for this non-commercial portfolio. Few Troll photos survive on Commons for this reason (only one full view found).
-- **UiPath Bellevue:** GeekWire (2025) — UiPath moved to Lincoln Square: two floors, 44,735 sq ft, product & engineering hub; the article describes a 28-storey office building once mostly occupied by Microsoft = **Lincoln Square North** (OSM 126 m, 28 levels). Floors, lobby branding and entrance are not public — **owner to confirm** (spec 10's `uipath-bel` POI still says Plaza Center at 10900 NE 8th St; world role may need to move it ~400 m west to Lincoln Square North, 47.6170,-122.2012).
+- **UiPath Bellevue:** UiPath's offices page lists **Lincoln Square North, 700 Bellevue Way NE, Suite 2000** (found by research-sea-districts, see `seattle-bellevue.md` §6.1); GeekWire (2025): two floors, 44,735 sq ft, product & engineering hub, moved Sept 2025. Tower = 28-floor, 126 m blue-grey glass office tower at the SE corner of NE 8th × Bellevue Way; staff entrance on the Bellevue Way frontage (OSM entrance 7945526075). Lobby/suite look and the second floor are not public — **owner to confirm**. Note for world role: `cities.js` `uipath-bel` POI is still at Plaza Center (10900 NE 8th St) while its address string already says "Lincoln Square since 2025" — the door should move ~400 m west to 47.61723,-122.20148.
 - **Pike Place is pedestrian:** a car-free trial began April 2025 and was extended into 2026 with planters/fences at entrances (Wikipedia) — no through traffic on the brick street in the scene.
 - **Gas Works towers are deadly in real life** (three fatal falls 2012/2022/2025): fence them, no climbing interaction.
 - **Bellevue Arts Museum** building sale to KidsQuest announced Oct 2025 — keep the Steven Holl façade, check signage.
@@ -97,7 +97,7 @@ Seattle's 1907 public market under the red "PUBLIC MARKET CENTER" neon sign: fly
   - The Gum Wall is DOWN in Post Alley under the market (stairs from Pike St), both walls, densest at 0.5–2.4 m
   - Original Starbucks is a narrow storefront with a queue, on the EAST side of Pike Place at 1912
   - Elliott Bay and the Great Wheel are visible from the MarketFront/west edge — the market sits on a bluff
-- **Coverage:** 8 structures, 6 plaques, 0 reference images, 29 dialogue lines (greeting 2, bumped 2, photographed 2, idle 1, spot 21, rain 1), OSM extract `osm/sea-spots/pike-place.json`.
+- **Coverage:** 8 structures, 6 plaques, 20 reference images, 29 dialogue lines (greeting 2, bumped 2, photographed 2, idle 1, spot 21, rain 1), OSM extract `osm/sea-spots/pike-place.json`.
 
 ### 2. Chihuly Garden and Glass — `chihuly` (seattle)
 
@@ -152,7 +152,7 @@ The 605-ft (184 m) 1962 World's Fair tower with its flying-saucer top, glass "Lo
   - Today's roof is white/light; Galaxy Gold orange only in 1962, 2012 and 2022–23
   - Exterior glass elevators on the core
   - Monorail beam runs along 5th Ave N and into MoPOP, not past the Needle base
-- **Coverage:** 4 structures, 5 plaques, 0 reference images, 21 dialogue lines (greeting 1, bumped 1, photographed 2, idle 3, spot 13, rain 1), OSM extract `osm/sea-spots/space-needle.json`.
+- **Coverage:** 4 structures, 5 plaques, 9 reference images, 21 dialogue lines (greeting 1, bumped 1, photographed 2, idle 3, spot 13, rain 1), OSM extract `osm/sea-spots/space-needle.json`.
 
 ### 4. Fremont Troll (the Troll under the Bridge) — `fremont-troll` (seattle)
 
@@ -182,7 +182,7 @@ An 18-ft (5.5 m) concrete troll crouching under the north end of the Aurora Brid
   - One hubcap eye; the other hidden under hair
   - Concrete stairs on the right side up to the head; boulders around; people climbing
   - Troll Ave N slopes down to the south toward N 34th St and the ship canal
-- **Coverage:** 4 structures, 5 plaques, 0 reference images, 22 dialogue lines (greeting 1, bumped 1, photographed 2, idle 2, spot 15, rain 1), OSM extract `osm/sea-spots/fremont-troll.json`.
+- **Coverage:** 4 structures, 5 plaques, 6 reference images, 22 dialogue lines (greeting 1, bumped 1, photographed 2, idle 2, spot 15, rain 1), OSM extract `osm/sea-spots/fremont-troll.json`.
 
 ### 5. Kerry Park viewpoint — `kerry-park` (seattle)
 
@@ -233,7 +233,7 @@ Frank Gehry's "smashed guitar" of 21,000 stainless-steel and painted-aluminium s
   - *Paul Allen* — Microsoft co-founder Paul Allen founded the museum in 2000 as the Experience Music Project. ([source](https://en.wikipedia.org/wiki/Museum_of_Pop_Culture))
 - **What a local would notice if wrong:**
   - Monorail passes THROUGH the building
-  - Several distinct coloured masses (gold, silver, red, blue, purple) with a crumpled steel ribbon on top
+  - Distinct masses: matte silver, sky-blue, and an iridescent gold→magenta→purple mass, plus deep red — with a crumpled steel ribbon on top
   - Shingle skin shifts colour with angle — flat colours look wrong
 - **Coverage:** 5 structures, 4 plaques, 0 reference images, 20 dialogue lines (greeting 1, bumped 1, photographed 1, idle 3, spot 13, rain 1), OSM extract `osm/sea-spots/mopop.json`.
 
@@ -354,11 +354,11 @@ The rusted towers of the last US coal-gasification plant on a lawn promontory in
 Downtown Bellevue's core at NE 8th St × Bellevue Way: Kemper Freeman's Bellevue Collection — the 1946 Bellevue Square mall, the Lincoln Square towers (UiPath's product & engineering hub since 2025) and the glass skybridges that tie them together.
 
 - **Walkable extent:** 353 m E-W × 442 m N-S (15.6 ha); polygon in JSON. Both sides of Bellevue Way NE between NE 4th and NE 8th St: Bellevue Square east entrances (Nordstrom, Macy's, Apple, main east court), Lincoln Square (North office tower, One Lincoln Tower/Westin, 3-level retail podium with Cinemark, Lucky Strike, Din Tai Fung), Lincoln Square South (31-storey office tower, W Bellevue/Avalon tower, food hall), Bellevue Arts Museum, the skybridges; NE 8th × Bellevue Way corner with Bellevue Place/Hyatt across.
-- **Terrain:** 36.93–54.53 m NAVD88 in the grid; spawn ground 48.6 m. Gentle slope; ground ~45–55 m (see terrain); skybridges at level 1 (~2nd floor, ≈ 6–7 m clearance over Bellevue Way — estimate).
-- **Spawn:** 47.61712, -122.20195 heading 120° — NW corner of NE 8th St × Bellevue Way (Bellevue Square side) looking SE at Lincoln Square North and the skybridge.
+- **Terrain:** 36.93–54.53 m NAVD88 in the grid; spawn ground 49.5 m. Gentle slope; ground ~45–55 m (see terrain); skybridges at level 1 (~2nd floor, ≈ 6–7 m clearance over Bellevue Way — estimate).
+- **Spawn:** 47.61755, -122.20195 heading 135° — NW corner of NE 8th St × Bellevue Way looking SE across the junction at Lincoln Square North (UiPath) with the Bellevue Way skybridge to the right.
 - **Key structures:**
-  - Lincoln Square North office tower (2005) — likely UiPath's tower — height_m: 126; storeys: 28; note: Wikipedia (2005 plan) says 27 storeys; OSM/GeekWire 28 — OSM w604028609
-  - UiPath Bellevue entrance / lobby / signage (to confirm with owner)
+  - Lincoln Square North office tower (2005), 700 Bellevue Way NE — UiPath Bellevue, Suite 2000 — height_m: 126; storeys: 28; note: Wikipedia (2005 plan) says 27 storeys; OSM/GeekWire 28 — OSM w604028609
+  - UiPath Bellevue entrance / lobby / signage — OSM n7945526075
   - One Lincoln Tower (Westin Bellevue hotel + condominiums, 2005) — height_m: 137; storeys: 42 — OSM w604028611, w328017119
   - Lincoln Square retail podium (2005) + Chihuly glass — storeys: 3; height_m: 10.9 — OSM w161929514, n11212853758, n11214221844
   - Lincoln Square South (2017): office tower + W Bellevue/Avalon tower + podium — office_height_m: 137; office_storeys: 31; residential_hotel_storeys: 41 — OSM w1326151866, w1326151868, w1326151818
@@ -439,6 +439,7 @@ A 20-acre circle of lawn ringed by a half-mile promenade and a stepped canal end
 Bellevue's lakefront: a sandy beach and a floating 420-ft crescent pier on Lake Washington with the Seattle skyline across the water.
 
 - **Walkable extent:** 278 m E-W × 409 m N-S (11.36 ha); polygon in JSON. Beach, floating crescent pier, kayak rental pavilion, paved/unpaved trails up the ravine toward 100th Ave NE / Downtown Park, playground, restroom building.
+- **Terrain:** 4.98–47.76 m NAVD88 in the grid; spawn ground 5.7 m. Ravine climbs ~25 m from the beach to Main St level.
 - **Spawn:** 47.6106, -122.2108 heading 250° — Beach promenade at the root of the crescent pier looking out over Lake Washington.
 - **Key structures:**
   - Floating crescent pedestrian pier (2019) — length_m: 128
@@ -467,12 +468,12 @@ Bellevue's lakefront: a sandy beach and a floating 420-ft crescent pier on Lake 
 - Indigenous art (totems, Salish Welcome): staff/guides speak respectfully; no jokes about sacred objects. (design guidance)
 - Guardrails: no stereotypes, accents written phonetically, slurs, politics or alcohol jokes about any group; tourists are curious and happy, locals helpful-but-reserved. (design guidance)
 
-General pedestrian set (`dialogue_general.lines`, 38 lines) works in the Seattle and Bellevue driving districts too. Personas: `local`, `tech`, `tourist_us`, `tourist_ca`, `tourist_cn`, `tourist_in`, `tourist_kr`, `tourist_jp`, `tourist_de`, `tourist_es`, `fishmonger`, `vendor`, `busker`, `guide`, `staff`, `kid`, `photographer`. Non-English lines carry `orig` + `lang` (fr-CA, zh-Hans, hi, ko, ja, de, es) with the English `text` for subtitles.
+General pedestrian set (`dialogue_general.lines`, 49 lines) works in the Seattle and Bellevue driving districts too. Personas: `local`, `tech`, `tourist_us`, `tourist_ca`, `tourist_cn`, `tourist_in`, `tourist_kr`, `tourist_jp`, `tourist_de`, `tourist_es`, `fishmonger`, `vendor`, `busker`, `guide`, `staff`, `kid`, `photographer`. Non-English lines carry `orig` + `lang` (fr-CA, zh-Hans, hi, ko, ja, de, es) with the English `text` for subtitles.
 
 ## 5. Gaps / to verify
 
-- UiPath's exact floors, lobby and signage in Lincoln Square North (owner).
-- Exact paint colours of the Aurora Bridge steel, Pioneer Square pergola iron, Ballard Locks roofs; MoPOP purple mass — check against refs/.
+- UiPath's second floor, lobby and signage in Lincoln Square North (Suite 2000 confirmed; owner to describe the rest).
+- Exact paint colours of the Aurora Bridge steel, Pioneer Square pergola iron, Ballard Locks roofs — check against refs/ (MoPOP, Troll and Pike Place sign already checked).
 - Gum Wall current height after periodic cleanings (2024 figure used).
 - Garden d'Lights LED count and Snowflake Lane dates (annual).
 - Bellevue Downtown Park waterfall drop height; Kerry Park railing details; Meydenbauer pier width — estimates.

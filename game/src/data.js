@@ -122,7 +122,9 @@ export const STOPS = [
         id: 'uipath-bel', poi: 'uipath-bel', city: 'seattle', kind: 'office', order: 7,
         company: 'UiPath — Bellevue, WA', short: 'UiPath Bellevue',
         role: 'Senior Software Engineer → Principal Software Engineer', period: 'Sep 2022 – present', year: 2022,
-        address: 'Downtown Bellevue, WA (confirm building)',
+        address: 'Lincoln Square North, 700 Bellevue Way NE, Bellevue, WA',
+        // driving past the 2022–2025 office on NE 8th St on the way to Lincoln Square (caption toast, once)
+        passing: [{ poi: 'plaza-center', lat: 47.6175, lon: -122.1955, title: '🏢 Plaza Center · 2022–2025', caption: 'UiPath Bellevue\'s office from 2022 until the move to Lincoln Square North in September 2025.' }],
         color: '#fa4616', icon: '🌲',
         tagline: 'Design System, Autopilot and Maestro — and the step up to Principal in October 2025.',
         stations: [

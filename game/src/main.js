@@ -558,6 +558,8 @@ class Game {
                 if (this.frame % 180 === 0) this.autoRoute(true);
             }
         } else { hud.setObjective(this.objectiveLabel); hud.setNavLine(''); }
+        // ---- "you are passing …" captions (e.g. Plaza Center, UiPath Bellevue 2022–2025, on the way to Lincoln Square) ----
+        if (this.frame % 15 === 0) this.checkPassing(player);
         // ---- chapter waypoint (e.g. drive out of SeaTac to the I-5 junction) ----
         if (this.ch?.waypoint && !this.chapterDone && this.objective?.waypoint && Math.hypot(this.objective.x - player.x, this.objective.z - player.z) < 30) this.completeChapter();
         // ---- interactions (office > airport > refuel > tow) ----
@@ -1040,6 +1042,21 @@ class Game {
     }
 
 
+    /** one caption toast per place passed: stops' `passing` list (data.js) + world POIs flagged `passing` */
+    checkPassing(P) {
+        if (!this._passList || this._passWorld !== this.world) {
+            this._passWorld = this.world; const list = this._passList = [];
+            for (const st of this.stops || []) for (const ps of st.passing || []) {
+                const poi = this.world.pois.find(p => p.id === ps.poi);
+                const q = poi ? { x: poi.doorX ?? poi.x, z: poi.doorZ ?? poi.z } : (ps.lat != null ? this.city.proj(ps.lat, ps.lon) : null);
+                if (q) list.push({ key: ps.poi || ps.title, x: q.x, z: q.z, title: ps.title, caption: ps.caption, r: ps.r || 90 });
+            }
+            for (const p of this.world.pois || []) if (p.passing && p.caption && !list.some(l => l.key === p.id)) list.push({ key: p.id, x: p.doorX ?? p.x, z: p.doorZ ?? p.z, title: `🏢 ${p.label || p.id}`, caption: p.caption, r: 90 });
+        }
+        const seen = this.flags.passed || (this.flags.passed = new Set());
+        for (const l of this._passList) if (!seen.has(l.key) && Math.hypot(l.x - P.x, l.z - P.z) < l.r) { seen.add(l.key); this.hud.toast(l.title, l.caption, 'intro'); }
+    }
+
     // ---------------------------------------------------------------------------------- chapters (spec 10)
     renderMenuChapters() {
         if (!this.chapters) return;
@@ -1103,8 +1120,8 @@ class Game {
         this.autoRoute(true);
     }
     /** the chapter's goal reached: card → Continue (montage / flight → next chapter) or free drive here */
-    async completeChapter() {
-        if (this._completing || !this.ch) return; this._completing = true;
+    async completeChapter(expect = null) {
+        if (this._completing || !this.ch || this.chapterDone || (expect && expect !== this.chapter)) return; this._completing = true;
         const idx = this.chapterIdx, ch = this.ch, next = this.chapters[idx + 1] || null;
         this.chapterDone = true; this.progress.done.add(ch.id); if (next) this.progress.reached.add(next.id);
         saveProgress(this.progress); this.renderMenuChapters();
@@ -1338,7 +1355,7 @@ class Game {
         this.state = 'drive';
         if (this.ch) { // chapters: reading a screen of this chapter's office completes it
             if (o.read.size > 0 && !this.visited.has(stop.id)) { this.visited.add(stop.id); stop.poiRef.visited = true; this.audio.chime(); }
-            if (o.read.size > 0 && this.ch.stop === stop.id && !this.chapterDone) setTimeout(() => this.completeChapter(), 400);
+            if (o.read.size > 0 && this.ch.stop === stop.id && !this.chapterDone) { const id = this.chapter; queueMicrotask(() => this.completeChapter(id)); }
             else if (o.read.size === 0) this.hud.toast('👀 Nothing read', 'Walk up to a screen and press E to read it.');
         } else if (o.read.size > 0 && !this.visited.has(stop.id)) {
             this.visited.add(stop.id); stop.poiRef.visited = true;

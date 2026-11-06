@@ -228,8 +228,8 @@ function districtSetup(cityId, did) {
     if (!d) throw new Error(`unknown district ${cityId}:${did}`);
     const C = { ...CITIES[cityId], lat0: d.center.lat, lon0: d.center.lon, scale: 1, compress: null, shape: () => [1, 1], heightMap: (h) => h };
     const bb = d.bbox;
-    const polys = d.poly ? [d.poly] : d.route ? [] : [[[bb[0], bb[1]], [bb[0], bb[3]], [bb[2], bb[3]], [bb[2], bb[1]]]];
-    const cfg = { rRoute: d.rRoute ?? 300, rStop: 300, maxSpur: 0, route: d.route || [], loops: [], circles: d.circles || [], spurs: [], polys, fieldPad: 1800 };
+    const polys = d.poly ? [d.poly] : (d.route || d.bands) ? [] : [[[bb[0], bb[1]], [bb[0], bb[3]], [bb[2], bb[3]], [bb[2], bb[1]]]];
+    const cfg = { rRoute: d.rRoute ?? 300, rStop: 300, maxSpur: 0, route: d.route || [], loops: [], circles: d.circles || [], spurs: [], polys, fieldPad: 1800, bands: d.bands || [] };
     return { C, cfg, district: d };
 }
 

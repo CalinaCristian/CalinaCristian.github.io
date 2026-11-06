@@ -192,15 +192,14 @@ const SEA_DISTRICTS = {
     },
     bellevue: {
         name: 'Lake Washington & Bellevue', label: 'I-90 floating bridges, Mercer Island, I-405, downtown Bellevue',
-        bbox: [47.5650, -122.3000, 47.6260, -122.1800], center: { lat: 47.5900, lon: -122.2350 },
-        rRoute: 230,
-        route: [{ lat: 47.5893, lon: -122.2950, road: /^I-90\b/, bearing: 90, motorway: true, name: 'Mount Baker tunnel (east portal)' },
-            { lat: 47.5800, lon: -122.2050, road: /^I-90\b/, bearing: 90, motorway: true, name: 'I-90 east' },
-            { lat: 47.6000, lon: -122.1880, road: /^I-405\b/, bearing: 0, motorway: true, name: 'I-405' },
-            { lat: 47.6175, lon: -122.1955, road: /8th Street/, name: 'NE 8th (Plaza Center)' },
-            { lat: 47.61723, lon: -122.20148, road: /Bellevue Way/, name: 'Lincoln Square (UiPath entrance)' }],
-        poly: [[47.6100, -122.2050], [47.6100, -122.1860], [47.6220, -122.1860], [47.6220, -122.2050]], // downtown Bellevue
-        circles: [{ lat: 47.5893, lon: -122.2950, r: 250, name: 'tunnel portal' }],
+        bbox: [47.5740, -122.3060, 47.6240, -122.1760], center: { lat: 47.5980, lon: -122.2350 },
+        // research (seattle-bellevue.json district.corridorPolygons): bands along I-90 and I-405 + the downtown core
+        bands: [
+            { r: 250, line: [[47.59, -122.306], [47.5899, -122.2857], [47.5892, -122.2547], [47.5911, -122.2404], [47.5843, -122.2248], [47.5787, -122.2076], [47.5797, -122.1934], [47.5791, -122.182]] },
+            { r: 200, line: [[47.5785, -122.176], [47.5847, -122.1773], [47.5982, -122.1798], [47.6034, -122.1844], [47.6074, -122.1874], [47.6165, -122.1885], [47.6195, -122.1889]] },
+            { r: 120, line: [[47.5834, -122.1887], [47.5875, -122.1915], [47.5938, -122.1952], [47.5969, -122.1984], [47.6012, -122.2005], [47.6076, -122.2014], [47.6101, -122.2015]] },
+        ],
+        poly: [[47.6075, -122.2075], [47.6075, -122.1850], [47.6235, -122.1850], [47.6235, -122.2075]], // downtown core (Main St → NE 12th × 100th Ave NE → I-405)
         landmarks: ['mtbaker', 'lincoln', 'bellevuetowers', 'bellevuesq', 'rainier', 'olympics'],
         congestion: [ // from game/research/seattle-bellevue.json traffic.hotspots
             { lat: 47.60000, lon: -122.18100, radius: 900, hours: [[6.5,  9.5],  [15,  19]], level: 0.85, note: 'I-405 NB (Tukwila/Renton → Bellevue) through SE 8th → NE 8th' },
@@ -273,6 +272,6 @@ export const CHAPTERS = [
     { id: 'seatac', stop: null, city: 'seattle', district: 'seatac', year: 2022, title: 'Welcome to Seattle', intro: 'Out of SeaTac: Departures Drive and SR-518 east to the I-5 junction.',
         start: { lat: 47.44557, lon: -122.29902, heading: 200, road: /Departures/ }, waypoint: { lat: 47.46195, lon: -122.26779, label: 'SR-518 east: I-405 / I-5 split' } }, // research
     { id: 'uipath-bel', stop: 'uipath-bel', city: 'seattle', district: 'bellevue', year: 2022, title: 'UiPath Bellevue', intro: 'Across Lake Washington on the I-90 floating bridge, over Mercer Island, up I-405 into downtown Bellevue.',
-        start: { lat: 47.5900, lon: -122.2856, heading: 90, road: /^I-90\b/ } }, // on the floating bridge, just out of the Mount Baker tunnel
+        start: { lat: 47.5893, lon: -122.2700, heading: 90, road: /^I-90\b/ } }, // owner: eastbound on the Lacey V. Murrow floating bridge, mid-lake
 ];
 

@@ -188,9 +188,11 @@ async function plans() {
             let st = null; try { st = g.chapterPose ? g.chapterPose(c) : null; } catch { /* ignore */ }
             if (st) st = { x: st.x, z: st.z, heading: st.heading };
             else { const q = c.start ? g.city.proj(c.start.lat, c.start.lon) : S.spawn; st = { x: q.x, z: q.z, heading: c.start?.heading != null ? -c.start.heading * Math.PI / 180 : null }; }
-            const poi = W.pois.find(p => p.id === c.stop);
-            if (!poi) { issue('route-missing', 'high', `chapter ${c.id}: stop POI "${c.stop}" not in the district world`, {}); continue; }
-            out.push({ id: c.id, label: `${c.year ?? ''} ${c.title ?? c.id}`.trim(), kind: 'chapter', from: st, to: { ...doorOf(poi), label: c.stop } });
+            let to = null;
+            if (c.stop) { const poi = W.pois.find(p => p.id === c.stop); if (poi) to = { ...doorOf(poi), label: c.stop }; }
+            else if (c.waypoint) { const q = g.city.proj(c.waypoint.lat, c.waypoint.lon); to = { x: q.x, z: q.z, label: c.waypoint.label || 'waypoint' }; }
+            if (!to) { issue('route-missing', 'high', `chapter ${c.id}: ${c.stop ? `stop POI "${c.stop}" not in the district world` : 'no stop / waypoint'}`, {}); continue; }
+            out.push({ id: c.id, label: `${c.year ?? ''} ${c.title ?? c.id}`.trim(), kind: 'chapter', from: st, to });
         }
         // free-roam sweep of the district's main streets (longest named primary/secondary/tertiary/trunk roads)
         const byName = new Map();

@@ -81,6 +81,8 @@
    "geekwire_uipath": "https://www.geekwire.com/2025/uipath-hires-former-f5-executive-as-cmo-relocates-bellevue-offices-to-lincoln-square/",
    "cppib_lincoln": "https://www.cppinvestments.com/wp-content/uploads/migrated/documents/451/CPPIB_release_-_Lincoln_Square_Sept_10_2015_kYQ62NU.pdf",
    "uipath_2018": "https://www.businesswire.com/news/home/20180403005065/en/",
+   "uipath_offices": "https://www.uipath.com/about-us/offices (UiPath offices page: Lincoln Square North, 700 Bellevue Way NE, Suite 2000; via research-sea-districts, fetched 2026-11-06)",
+   "sib_bellevue": "game/research/seattle-bellevue.md §6.1 (research-sea-districts: facade colours photo-sampled, entrance node, skybridges)",
    "wp_freeze": "https://en.wikipedia.org/wiki/Seattle_Freeze",
    "wp_coffee": "https://en.wikipedia.org/wiki/Coffee_in_Seattle",
    "pemco_honk": "https://pemco.com/blog/horn-honking-nw-drivers",
@@ -619,9 +621,68 @@
     "p": "tourist_us",
     "ctx": "idle",
     "text": "Everyone here has the same rain jacket."
+   },
+   {
+    "p": "local",
+    "ctx": "honked_at",
+    "text": "...Was that at me?"
+   },
+   {
+    "p": "local",
+    "ctx": "honked_at",
+    "text": "Wow. Okay. Someone's in a hurry."
+   },
+   {
+    "p": "local",
+    "ctx": "honked_at",
+    "text": "We don't really do that here."
+   },
+   {
+    "p": "tech",
+    "ctx": "honked_at",
+    "text": "Whoa — sorry, sorry, I'm going!"
+   },
+   {
+    "p": "local",
+    "ctx": "honked_at",
+    "text": "You know it's a crosswalk, right?"
+   },
+   {
+    "p": "tourist_us",
+    "ctx": "honked_at",
+    "text": "Geez, it's like being back home!"
+   },
+   {
+    "p": "local",
+    "ctx": "near_miss",
+    "text": "Hey! Walk sign was on!"
+   },
+   {
+    "p": "local",
+    "ctx": "near_miss",
+    "text": "Careful! There are people here."
+   },
+   {
+    "p": "tech",
+    "ctx": "near_miss",
+    "text": "That was close. Eyes up, everyone."
+   },
+   {
+    "p": "tourist_de",
+    "ctx": "near_miss",
+    "text": "Careful! That was close!",
+    "orig": "Vorsicht! Das war knapp!",
+    "lang": "de"
+   },
+   {
+    "p": "tourist_es",
+    "ctx": "near_miss",
+    "text": "Watch out!",
+    "orig": "¡Cuidado!",
+    "lang": "es"
    }
   ],
-  "usage": "Pedestrian set for the Seattle and Bellevue driving districts and as filler in every spot. ctx: greeting|bumped|photographed|idle|spot|rain; non-English lines carry orig+lang with English text."
+  "usage": "Pedestrian set for the Seattle and Bellevue driving districts and as filler in every spot. ctx: greeting|bumped|photographed|idle|spot|rain|honked_at|near_miss; non-English lines carry orig+lang with English text."
  },
  "spots": [
   {
@@ -1224,7 +1285,168 @@
     "terrain_grid": "osm/sea-spots/pike-place.terrain.json",
     "osm_raw_bbox_note": "raw OSM XML kept in the research scratchpad (osm/pike-place.osm); re-fetch with api.openstreetmap.org/api/0.6/map?bbox=… if needed"
    },
-   "refs": [],
+   "refs": [
+    {
+     "file": "refs/sea-spots/pike-place/Public_Market_Center_Sign_Seattle_United_States_Unsplash_.jpg",
+     "title": "File:Public Market Center Sign, Seattle, United States (Unsplash).jpg",
+     "author": "Stuart Guest-Smith sguestsmith",
+     "license": "CC0",
+     "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+     "page": "https://commons.wikimedia.org/wiki/File:Public_Market_Center_Sign,_Seattle,_United_States_(Unsplash).jpg"
+    },
+    {
+     "file": "refs/sea-spots/pike-place/Public_Market_Center_sign_at_Pike_Place.jpg",
+     "title": "File:Public Market Center sign at Pike Place.jpg",
+     "author": "Kissmykumbaya",
+     "license": "CC0",
+     "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+     "page": "https://commons.wikimedia.org/wiki/File:Public_Market_Center_sign_at_Pike_Place.jpg"
+    },
+    {
+     "file": "refs/sea-spots/pike-place/Pike_Place_Market_clock_at_4_38.jpg",
+     "title": "File:Pike Place Market clock at 4ː38.jpg",
+     "author": "Ron Clausen",
+     "license": "CC0",
+     "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+     "page": "https://commons.wikimedia.org/wiki/File:Pike_Place_Market_clock_at_4%CB%9038.jpg"
+    },
+    {
+     "file": "refs/sea-spots/pike-place/Pike_Place_Market_at_night.jpg",
+     "title": "File:Pike Place Market at night.jpg",
+     "author": "Michael Righi",
+     "license": "CC BY 2.0",
+     "license_url": "https://creativecommons.org/licenses/by/2.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Pike_Place_Market_at_night.jpg"
+    },
+    {
+     "file": "refs/sea-spots/pike-place/Back_of_Pike_Place_Public_Market_Center_sign_01.jpg",
+     "title": "File:Back of Pike Place 'Public Market Center' sign 01.jpg",
+     "author": "Joe Mabel",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Back_of_Pike_Place_%27Public_Market_Center%27_sign_01.jpg"
+    },
+    {
+     "file": "refs/sea-spots/pike-place/Pike_Place_Market_Entrance.jpg",
+     "title": "File:Pike Place Market Entrance.JPG",
+     "author": "Mtaylor444",
+     "license": "CC BY-SA 3.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Pike_Place_Market_Entrance.JPG"
+    },
+    {
+     "file": "refs/sea-spots/pike-place/Pine_Street_entrance_at_Pike_Place_Market_0286_.jpg",
+     "title": "File:Pine Street entrance at Pike Place Market (0286).jpg",
+     "author": "SecretName101",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Pine_Street_entrance_at_Pike_Place_Market_(0286).jpg"
+    },
+    {
+     "file": "refs/sea-spots/pike-place/Gum_wall_Seattle_Washington_Estados_Unidos_2017-09-02_DD_19-21_HDR.jpg",
+     "title": "File:Gum wall, Seattle, Washington, Estados Unidos, 2017-09-02, DD 19-21 HDR.jpg",
+     "author": "Diego Delso",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Gum_wall,_Seattle,_Washington,_Estados_Unidos,_2017-09-02,_DD_19-21_HDR.jpg"
+    },
+    {
+     "file": "refs/sea-spots/pike-place/The_Gum_Wall_Seattle_Washington_2025.jpg",
+     "title": "File:The Gum Wall, Seattle, Washington, 2025.jpg",
+     "author": "Julian Lupyan",
+     "license": "CC0",
+     "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+     "page": "https://commons.wikimedia.org/wiki/File:The_Gum_Wall,_Seattle,_Washington,_2025.jpg"
+    },
+    {
+     "file": "refs/sea-spots/pike-place/Seattle_Gum_Wall_Close_Up.jpg",
+     "title": "File:Seattle Gum Wall Close Up.JPG",
+     "author": "Almdudler26",
+     "license": "CC BY-SA 3.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Seattle_Gum_Wall_Close_Up.JPG"
+    },
+    {
+     "file": "refs/sea-spots/pike-place/Gum_Wall_in_2022.jpg",
+     "title": "File:Gum Wall in 2022.jpg",
+     "author": "Handrieu",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Gum_Wall_in_2022.jpg"
+    },
+    {
+     "file": "refs/sea-spots/pike-place/Pike_Place_Fish_0.jpg",
+     "title": "File:Pike Place Fish 0.jpg",
+     "author": "Daniel Schwen",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Pike_Place_Fish_0.jpg"
+    },
+    {
+     "file": "refs/sea-spots/pike-place/02_Pike_Place_Fish_Market_main_sign.jpg",
+     "title": "File:02 Pike Place Fish Market main sign.jpg",
+     "author": "Rootology",
+     "license": "CC BY-SA 3.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:02_Pike_Place_Fish_Market_main_sign.jpg"
+    },
+    {
+     "file": "refs/sea-spots/pike-place/Justin_preparing_to_catch_a_fish_Pike_Place_Fish_Market_Seattle.jpg",
+     "title": "File:Justin preparing to catch a fish Pike Place Fish Market Seattle.JPG",
+     "author": "MarmadukePercy",
+     "license": "CC BY-SA 3.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Justin_preparing_to_catch_a_fish_Pike_Place_Fish_Market_Seattle.JPG"
+    },
+    {
+     "file": "refs/sea-spots/pike-place/Starbucks_Seattle_PikePlace_1912.jpg",
+     "title": "File:Starbucks Seattle PikePlace 1912.jpg",
+     "author": "SilentDeath",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Starbucks_Seattle_PikePlace_1912.jpg"
+    },
+    {
+     "file": "refs/sea-spots/pike-place/Original_Starbucks_2021_.jpg",
+     "title": "File:Original Starbucks (2021).jpg",
+     "author": "Srikar  Devaguptapu",
+     "license": "Public domain",
+     "license_url": "",
+     "page": "https://commons.wikimedia.org/wiki/File:Original_Starbucks_(2021).jpg"
+    },
+    {
+     "file": "refs/sea-spots/pike-place/Original_Starbucks_sign.jpg",
+     "title": "File:Original Starbucks sign.jpg",
+     "author": "Kingofthedead",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Original_Starbucks_sign.jpg"
+    },
+    {
+     "file": "refs/sea-spots/pike-place/Pike_Place_Market_-_Leland_Hotel.jpg",
+     "title": "File:Pike Place Market - Leland Hotel.jpg",
+     "author": "Joe Mabel",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Pike_Place_Market_-_Leland_Hotel.jpg"
+    },
+    {
+     "file": "refs/sea-spots/pike-place/Pike_Place_Market_veggie_stalls.jpg",
+     "title": "File:Pike Place Market veggie stalls.jpg",
+     "author": "Casey Yee from Vancouver, BC, Canada",
+     "license": "CC BY-SA 2.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Pike_Place_Market_veggie_stalls.jpg"
+    },
+    {
+     "file": "refs/sea-spots/pike-place/Buiobuione_Fish_market_at_Pike_Place_in_Seattle.jpg",
+     "title": "File:Buiobuione Fish market at Pike Place in Seattle.jpg",
+     "author": "Buiobuione",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Buiobuione_Fish_market_at_Pike_Place_in_Seattle.jpg"
+    }
+   ],
    "dialogue": {
     "personas": [
      "busker",
@@ -1668,7 +1890,56 @@
     "terrain_grid": "osm/sea-spots/chihuly.terrain.json",
     "osm_raw_bbox_note": "raw OSM XML kept in the research scratchpad (osm/seattle-center.osm); re-fetch with api.openstreetmap.org/api/0.6/map?bbox=… if needed"
    },
-   "refs": [],
+   "refs": [
+    {
+     "file": "refs/sea-spots/chihuly/Chihuly_Entrance.jpg",
+     "title": "File:Chihuly Entrance.jpg",
+     "author": "BrandieBreezy",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Chihuly_Entrance.jpg"
+    },
+    {
+     "file": "refs/sea-spots/chihuly/Chihuly_Garden_and_Glass_2014_10.jpg",
+     "title": "File:Chihuly Garden and Glass 2014 10.JPG",
+     "author": "Jllm06",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Chihuly_Garden_and_Glass_2014_10.JPG"
+    },
+    {
+     "file": "refs/sea-spots/chihuly/Chihuly_Garden_and_Glass_2014_09.jpg",
+     "title": "File:Chihuly Garden and Glass 2014 09.JPG",
+     "author": "Jllm06",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Chihuly_Garden_and_Glass_2014_09.JPG"
+    },
+    {
+     "file": "refs/sea-spots/chihuly/Space_Needle_reflection_from_Chihuly_Gardens.jpg",
+     "title": "File:Space Needle reflection from Chihuly Gardens.jpg",
+     "author": "Rholland.03",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Space_Needle_reflection_from_Chihuly_Gardens.jpg"
+    },
+    {
+     "file": "refs/sea-spots/chihuly/Chihuly_Garden_and_Glass_Seattle_Washington19.jpg",
+     "title": "File:Chihuly Garden and Glass Seattle Washington19.jpg",
+     "author": "Burley Packwood",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Chihuly_Garden_and_Glass_Seattle_Washington19.jpg"
+    },
+    {
+     "file": "refs/sea-spots/chihuly/Chihuly_Garden_and_Glass_Seattle_Washington20.jpg",
+     "title": "File:Chihuly Garden and Glass Seattle Washington20.jpg",
+     "author": "Burley Packwood",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Chihuly_Garden_and_Glass_Seattle_Washington20.jpg"
+    }
+   ],
    "dialogue": {
     "personas": [
      "guide",
@@ -2141,7 +2412,80 @@
     "terrain_grid": "osm/sea-spots/space-needle.terrain.json",
     "osm_raw_bbox_note": "raw OSM XML kept in the research scratchpad (osm/seattle-center.osm); re-fetch with api.openstreetmap.org/api/0.6/map?bbox=… if needed"
    },
-   "refs": [],
+   "refs": [
+    {
+     "file": "refs/sea-spots/space-needle/Space_Needle_Seattle_Washington1.jpg",
+     "title": "File:Space Needle Seattle Washington1.jpg",
+     "author": "Burley Packwood",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Space_Needle_Seattle_Washington1.jpg"
+    },
+    {
+     "file": "refs/sea-spots/space-needle/Space_Needle_Seattle_Washington2.jpg",
+     "title": "File:Space Needle Seattle Washington2.jpg",
+     "author": "Burley Packwood",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Space_Needle_Seattle_Washington2.jpg"
+    },
+    {
+     "file": "refs/sea-spots/space-needle/Seattle_WA_USA_Space_Needle_--_2022_--_1498.jpg",
+     "title": "File:Seattle (WA, USA), Space Needle -- 2022 -- 1498.jpg",
+     "author": "Dietmar Rabich",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Seattle_(WA,_USA),_Space_Needle_--_2022_--_1498.jpg"
+    },
+    {
+     "file": "refs/sea-spots/space-needle/Seattle_WA_USA_Space_Needle_--_2022_--_1510.jpg",
+     "title": "File:Seattle (WA, USA), Space Needle -- 2022 -- 1510.jpg",
+     "author": "Dietmar Rabich",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Seattle_(WA,_USA),_Space_Needle_--_2022_--_1510.jpg"
+    },
+    {
+     "file": "refs/sea-spots/space-needle/Seattle_WA_USA_Space_Needle_--_2022_--_1507.jpg",
+     "title": "File:Seattle (WA, USA), Space Needle -- 2022 -- 1507.jpg",
+     "author": "Dietmar Rabich",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Seattle_(WA,_USA),_Space_Needle_--_2022_--_1507.jpg"
+    },
+    {
+     "file": "refs/sea-spots/space-needle/International_Fountain_Space_Needle_Seattle_Center_285281694_.jpg",
+     "title": "File:International Fountain & Space Needle, Seattle Center (285281694).jpg",
+     "author": "David Davies from Birmingham, UK",
+     "license": "CC BY-SA 2.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+     "page": "https://commons.wikimedia.org/wiki/File:International_Fountain_%26_Space_Needle,_Seattle_Center_(285281694).jpg"
+    },
+    {
+     "file": "refs/sea-spots/space-needle/Seattle_Center_-_Armory_Space_Needle_01.jpg",
+     "title": "File:Seattle Center - Armory & Space Needle 01.jpg",
+     "author": "Joe Mabel",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Seattle_Center_-_Armory_%26_Space_Needle_01.jpg"
+    },
+    {
+     "file": "refs/sea-spots/space-needle/Aboard_Seattle_Center_Monorail_Space_Needle_visible.jpg",
+     "title": "File:Aboard Seattle Center Monorail, Space Needle visible.jpg",
+     "author": "Joe Mabel",
+     "license": "CC BY 4.0",
+     "license_url": "https://creativecommons.org/licenses/by/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Aboard_Seattle_Center_Monorail,_Space_Needle_visible.jpg"
+    },
+    {
+     "file": "refs/sea-spots/space-needle/Seattle_Space_Needle_in_the_fog_44897628634_.jpg",
+     "title": "File:Seattle Space Needle in the fog (44897628634).jpg",
+     "author": "Andy Reago &amp; Chrissy McClarren",
+     "license": "CC BY 2.0",
+     "license_url": "https://creativecommons.org/licenses/by/2.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Seattle_Space_Needle_in_the_fog_(44897628634).jpg"
+    }
+   ],
    "dialogue": {
     "personas": [
      "busker",
@@ -2617,7 +2961,56 @@
     "terrain_grid": "osm/sea-spots/fremont-troll.terrain.json",
     "osm_raw_bbox_note": "raw OSM XML kept in the research scratchpad (osm/fremont-troll.osm); re-fetch with api.openstreetmap.org/api/0.6/map?bbox=… if needed"
    },
-   "refs": [],
+   "refs": [
+    {
+     "file": "refs/sea-spots/fremont-troll/Fremont_troll.jpg",
+     "title": "File:Fremont troll.jpg",
+     "author": "Sambusak74",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Fremont_troll.jpg"
+    },
+    {
+     "file": "refs/sea-spots/fremont-troll/Fremont_randoms_-_Flickr_-_eliduke_1_.jpg",
+     "title": "File:Fremont randoms - Flickr - eliduke (1).jpg",
+     "author": "Eli Duke from Portland, OR, USA",
+     "license": "CC BY-SA 2.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Fremont_randoms_-_Flickr_-_eliduke_(1).jpg"
+    },
+    {
+     "file": "refs/sea-spots/fremont-troll/Troll_Ave_Fremont_Seattle_USA.jpg",
+     "title": "File:Troll Ave Fremont Seattle USA.jpg",
+     "author": "GeoTrinity",
+     "license": "CC BY-SA 3.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Troll_Ave_Fremont_Seattle_USA.jpg"
+    },
+    {
+     "file": "refs/sea-spots/fremont-troll/Troll_Avenue_and_36th_Street_signs.jpg",
+     "title": "File:Troll Avenue and 36th Street signs.jpg",
+     "author": "Runner1928",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Troll_Avenue_and_36th_Street_signs.jpg"
+    },
+    {
+     "file": "refs/sea-spots/fremont-troll/Troll_Eye_Apartments.jpg",
+     "title": "File:Troll Eye Apartments.jpg",
+     "author": "Kingofthedead",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Troll_Eye_Apartments.jpg"
+    },
+    {
+     "file": "refs/sea-spots/fremont-troll/Fremont_Troll_plaque.jpg",
+     "title": "File:Fremont Troll plaque.jpg",
+     "author": "Kingofthedead",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Fremont_Troll_plaque.jpg"
+    }
+   ],
    "dialogue": {
     "personas": [
      "guide",
@@ -3043,7 +3436,56 @@
     "terrain_grid": "osm/sea-spots/kerry-park.terrain.json",
     "osm_raw_bbox_note": "raw OSM XML kept in the research scratchpad (osm/kerry-park.osm); re-fetch with api.openstreetmap.org/api/0.6/map?bbox=… if needed"
    },
-   "refs": [],
+   "refs": [
+    {
+     "file": "refs/sea-spots/kerry-park/Seattle_Kerry_Park_Skyline.jpg",
+     "title": "File:Seattle Kerry Park Skyline.jpg",
+     "author": "CommunistSquared",
+     "license": "CC0",
+     "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+     "page": "https://commons.wikimedia.org/wiki/File:Seattle_Kerry_Park_Skyline.jpg"
+    },
+    {
+     "file": "refs/sea-spots/kerry-park/Space_Needle_and_Seattle_skyline_from_Kerry_Park_with_waxing_gibbous_moon_27_June_2026.jpg",
+     "title": "File:Space Needle and Seattle skyline from Kerry Park with waxing gibbous moon, 27 June 2026.jpg",
+     "author": "Guywelch2000",
+     "license": "CC BY 4.0",
+     "license_url": "https://creativecommons.org/licenses/by/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Space_Needle_and_Seattle_skyline_from_Kerry_Park_with_waxing_gibbous_moon,_27_June_2026.jpg"
+    },
+    {
+     "file": "refs/sea-spots/kerry-park/Seattle_Skyline_Kerry_Park.jpg",
+     "title": "File:Seattle Skyline Kerry Park.jpg",
+     "author": "Sajad Mohamad",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Seattle_Skyline_Kerry_Park.jpg"
+    },
+    {
+     "file": "refs/sea-spots/kerry-park/Kerry_Park_view_of_Seattle_Mt_Rainier_28356722347_.jpg",
+     "title": "File:Kerry Park view of Seattle, Mt Rainier (28356722347).jpg",
+     "author": "Michael Neubert from Arlington, VA, USA",
+     "license": "CC BY 2.0",
+     "license_url": "https://creativecommons.org/licenses/by/2.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Kerry_Park_view_of_Seattle,_Mt_Rainier_(28356722347).jpg"
+    },
+    {
+     "file": "refs/sea-spots/kerry-park/Kerry_Park_sign_Seattle.jpg",
+     "title": "File:Kerry Park sign, Seattle.jpg",
+     "author": "Another Believer",
+     "license": "CC BY-SA 3.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Kerry_Park_sign,_Seattle.jpg"
+    },
+    {
+     "file": "refs/sea-spots/kerry-park/Seattle_-_tourists_at_Kerry_Park_01.jpg",
+     "title": "File:Seattle - tourists at Kerry Park 01.jpg",
+     "author": "Joe Mabel",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Seattle_-_tourists_at_Kerry_Park_01.jpg"
+    }
+   ],
    "dialogue": {
     "personas": [
      "guide",
@@ -3271,14 +3713,18 @@
       "exposed steel ribs"
      ],
      "colours": {
-      "gold": "#C9A24A",
-      "silver": "#B8BDC3",
-      "red": "#B2262E",
-      "blue_light": "#6FA8DC",
-      "purple": "#7A3C8F",
-      "ribbon_steel": "#9EA3A8",
-      "note": "palette from Wikipedia/MoPOP (\"myriad colors\") + travel sources (gold, silver, red, blue); purple mass verify against refs"
+      "silver_beadblast": "#C6C8CB",
+      "sky_blue_painted_al": "#8FB8D6",
+      "iridescent_gold": "#C98A3E",
+      "iridescent_orange": "#D2643A",
+      "iridescent_magenta": "#A8305E",
+      "iridescent_purple": "#6A2C80",
+      "mirror_stainless": "#D9DEE3",
+      "deep_red_mass": "#6B2A1E",
+      "fasteners": "#7E8389",
+      "note": "Panels are rectangular shingles in a staggered grid with visible fastener dots; the iridescent (\"chameleon\") mass shifts gold→orange→magenta→purple with view angle (use thin-film / angle-based colour ramp), blue and silver masses are matte-satin, the canopy over the monorail is mirror stainless. Verified against refs mopop/Seattle_WA_USA_Museum_of_Pop_Culture_Fassade_--_2022_--_1582.jpg and View_of_Museum_of_Pop_Culture_of_Seattle_Center_monorail_0127.jpg."
      },
+     "ref_check": "Colours sampled by eye from 2 Commons refs (2019, 2022).",
      "sources": [
       {
        "key": "wp_mopop",
@@ -3303,7 +3749,7 @@
      ],
      "lat": 47.6214,
      "lon": -122.3487,
-     "form": "Concrete beam on columns passing between the shingle masses at ~2nd-floor level; trains every ~10 min.",
+     "form": "Two parallel concrete guideway beams curve between the sky-blue and silver masses at ~2nd-floor level under a mirror-stainless canopy, beside the glass curtain wall of the station end; trains every ~10 min.",
      "sources": [
       {
        "key": "wp_mopop",
@@ -3480,7 +3926,56 @@
     "terrain_grid": "osm/sea-spots/mopop.terrain.json",
     "osm_raw_bbox_note": "raw OSM XML kept in the research scratchpad (osm/seattle-center.osm); re-fetch with api.openstreetmap.org/api/0.6/map?bbox=… if needed"
    },
-   "refs": [],
+   "refs": [
+    {
+     "file": "refs/sea-spots/mopop/Museum_of_Pop_Culture_Seattle_Washington1.jpg",
+     "title": "File:Museum of Pop Culture Seattle Washington1.jpg",
+     "author": "Burley Packwood",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Museum_of_Pop_Culture_Seattle_Washington1.jpg"
+    },
+    {
+     "file": "refs/sea-spots/mopop/View_of_Museum_of_Pop_Culture_of_Seattle_Center_monorail_0127.jpg",
+     "title": "File:View of Museum of Pop Culture of Seattle Center monorail 0127.jpg",
+     "author": "SecretName101",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:View_of_Museum_of_Pop_Culture_of_Seattle_Center_monorail_0127.jpg"
+    },
+    {
+     "file": "refs/sea-spots/mopop/Seattle_Museum_of_Pop_Culture_buiobuione_03.jpg",
+     "title": "File:Seattle Museum of Pop Culture buiobuione 03.jpg",
+     "author": "Buiobuione",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Seattle_Museum_of_Pop_Culture_buiobuione_03.jpg"
+    },
+    {
+     "file": "refs/sea-spots/mopop/Seattle_WA_USA_Museum_of_Pop_Culture_Fassade_--_2022_--_1582.jpg",
+     "title": "File:Seattle (WA, USA), Museum of Pop Culture, Fassade -- 2022 -- 1582.jpg",
+     "author": "Dietmar Rabich",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Seattle_(WA,_USA),_Museum_of_Pop_Culture,_Fassade_--_2022_--_1582.jpg"
+    },
+    {
+     "file": "refs/sea-spots/mopop/Close-up_of_Exterieur_wall_of_the_Museum_of_Pop-Culture_formerly_knows_as_EMP_Seattle_USA_.jpg",
+     "title": "File:Close-up of Exterieur wall of the Museum of Pop-Culture (formerly knows as EMP) Seattle, USA 01.jpg",
+     "author": "ABruszik",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Close-up_of_Exterieur_wall_of_the_Museum_of_Pop-Culture_(formerly_knows_as_EMP)_Seattle,_USA_01.jpg"
+    },
+    {
+     "file": "refs/sea-spots/mopop/Museum_of_Pop_Culture_in_Seattle_6248401525_.jpg",
+     "title": "File:Museum of Pop Culture in Seattle (6248401525).jpg",
+     "author": "Guilhem Vellut from Annecy, France",
+     "license": "CC BY 2.0",
+     "license_url": "https://creativecommons.org/licenses/by/2.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Museum_of_Pop_Culture_in_Seattle_(6248401525).jpg"
+    }
+   ],
    "dialogue": {
     "personas": [
      "busker",
@@ -3946,7 +4441,64 @@
     "terrain_grid": "osm/sea-spots/waterfront.terrain.json",
     "osm_raw_bbox_note": "raw OSM XML kept in the research scratchpad (osm/waterfront.osm); re-fetch with api.openstreetmap.org/api/0.6/map?bbox=… if needed"
    },
-   "refs": [],
+   "refs": [
+    {
+     "file": "refs/sea-spots/waterfront/Seattle_Great_Wheel_Ferris_Wheel.jpg",
+     "title": "File:Seattle Great Wheel Ferris Wheel.jpg",
+     "author": "Dacomet",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Seattle_Great_Wheel_Ferris_Wheel.jpg"
+    },
+    {
+     "file": "refs/sea-spots/waterfront/Seattle_Great_Wheel_Washington1.jpg",
+     "title": "File:Seattle Great Wheel Washington1.jpg",
+     "author": "Burley Packwood",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Seattle_Great_Wheel_Washington1.jpg"
+    },
+    {
+     "file": "refs/sea-spots/waterfront/Seattle_Great_Wheel_ticket_booth.jpg",
+     "title": "File:Seattle Great Wheel ticket booth.jpg",
+     "author": "Kingofthedead",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Seattle_Great_Wheel_ticket_booth.jpg"
+    },
+    {
+     "file": "refs/sea-spots/waterfront/Seattle_-_Overlook_Walk_01.jpg",
+     "title": "File:Seattle - Overlook Walk 01.jpg",
+     "author": "Joe Mabel",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Seattle_-_Overlook_Walk_01.jpg"
+    },
+    {
+     "file": "refs/sea-spots/waterfront/Seattle_-_Overlook_Walk_and_skyline_01.jpg",
+     "title": "File:Seattle - Overlook Walk and skyline 01.jpg",
+     "author": "Joe Mabel",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Seattle_-_Overlook_Walk_and_skyline_01.jpg"
+    },
+    {
+     "file": "refs/sea-spots/waterfront/Downtown_Seattle_Waterfront_from_Overlook_Walk_July_2025_-_01.jpg",
+     "title": "File:Downtown Seattle Waterfront from Overlook Walk July 2025 - 01.jpg",
+     "author": "Joe Mabel",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Downtown_Seattle_Waterfront_from_Overlook_Walk_July_2025_-_01.jpg"
+    },
+    {
+     "file": "refs/sea-spots/waterfront/Seattle_Aquarium_booth_on_Overlook_Walk_01.jpg",
+     "title": "File:Seattle Aquarium booth on Overlook Walk 01.jpg",
+     "author": "Joe Mabel",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Seattle_Aquarium_booth_on_Overlook_Walk_01.jpg"
+    }
+   ],
    "dialogue": {
     "personas": [
      "busker",
@@ -4188,10 +4740,13 @@
      ],
      "colours": {
       "iron": "#1F2A24",
+      "iron_highlight": "#3E5248",
       "glass": "#B9C8C9",
-      "lantern_glow": "#FFD38A",
-      "note": "iron paint colour verify against refs"
+      "globe_lamps": "#F4F2EA",
+      "lantern_glow": "#FFD38A"
      },
+     "details": "Long low triangular canopy with arched gable ends and ornate cresting; posts carry clusters of white globe lamps; low iron railing with planters around; plaza shaded by large London plane trees; trolleybus overhead wires on 1st Ave/Yesler.",
+     "ref_check": "Verified against refs/sea-spots/pioneer-square/Seattle_-_Pioneer_Square_Pergola_-_2020-04-24.jpg (CC BY-SA 4.0).",
      "sources": [
       {
        "key": "wp_pergola",
@@ -4508,7 +5063,32 @@
     "terrain_grid": "osm/sea-spots/pioneer-square.terrain.json",
     "osm_raw_bbox_note": "raw OSM XML kept in the research scratchpad (osm/pioneer-square.osm); re-fetch with api.openstreetmap.org/api/0.6/map?bbox=… if needed"
    },
-   "refs": [],
+   "refs": [
+    {
+     "file": "refs/sea-spots/pioneer-square/Seattle_-_Pioneer_Square_Pergola_-_2020-04-24.jpg",
+     "title": "File:Seattle - Pioneer Square Pergola - 2020-04-24.jpg",
+     "author": "Joe Mabel",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Seattle_-_Pioneer_Square_Pergola_-_2020-04-24.jpg"
+    },
+    {
+     "file": "refs/sea-spots/pioneer-square/Pergola_Pioneer_Square_Seattle_WA.jpg",
+     "title": "File:Pergola Pioneer Square, Seattle, WA.jpg",
+     "author": "Msuner",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Pergola_Pioneer_Square,_Seattle,_WA.jpg"
+    },
+    {
+     "file": "refs/sea-spots/pioneer-square/Pioneer_Square_Pergola_detail_01.jpg",
+     "title": "File:Pioneer Square Pergola detail 01.jpg",
+     "author": "Joe Mabel",
+     "license": "CC BY-SA 3.0",
+     "license_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+     "page": "https://commons.wikimedia.org/wiki/File:Pioneer_Square_Pergola_detail_01.jpg"
+    }
+   ],
    "dialogue": {
     "personas": [
      "guide",
@@ -5558,11 +6138,11 @@
     }
    ],
    "spawn": {
-    "lat": 47.61712,
+    "lat": 47.61755,
     "lon": -122.20195,
-    "heading_deg": 120,
-    "note": "NW corner of NE 8th St × Bellevue Way (Bellevue Square side) looking SE at Lincoln Square North and the skybridge.",
-    "ground_elev_m": 48.6
+    "heading_deg": 135,
+    "note": "NW corner of NE 8th St × Bellevue Way looking SE across the junction at Lincoln Square North (UiPath) with the Bellevue Way skybridge to the right.",
+    "ground_elev_m": 49.5
    },
    "extent": {
     "description": "Both sides of Bellevue Way NE between NE 4th and NE 8th St: Bellevue Square east entrances (Nordstrom, Macy's, Apple, main east court), Lincoln Square (North office tower, One Lincoln Tower/Westin, 3-level retail podium with Cinemark, Lucky Strike, Din Tai Fung), Lincoln Square South (31-storey office tower, W Bellevue/Avalon tower, food hall), Bellevue Arts Museum, the skybridges; NE 8th × Bellevue Way corner with Bellevue Place/Hyatt across.",
@@ -5600,7 +6180,7 @@
    "structures": [
     {
      "id": "lincoln-north",
-     "name": "Lincoln Square North office tower (2005) — likely UiPath's tower",
+     "name": "Lincoln Square North office tower (2005), 700 Bellevue Way NE — UiPath Bellevue, Suite 2000",
      "osm": [
       "w604028609"
      ],
@@ -5611,21 +6191,31 @@
       "storeys": 28,
       "note": "Wikipedia (2005 plan) says 27 storeys; OSM/GeekWire 28"
      },
-     "form": "Rectangular glass-curtain-wall office tower rising from the Lincoln Square retail podium at the SE corner of NE 8th × Bellevue Way; blue-green reflective glass with light mullions, crowned by a flat roof with mechanical screen; office lobby at grade with security desk and elevator banks.",
+     "form": "Rectangular blue-grey glass office tower (footprint ≈ 53 × 43 m) with light horizontal spandrel bands, darker crown, rising from the Lincoln Square retail podium at the SE corner of NE 8th × Bellevue Way; office lobby at grade facing Bellevue Way with security desk and elevator banks.",
      "colours": {
-      "glass": "#5E7F8E",
-      "mullion": "#C9CDD0",
-      "podium_stone": "#CBBFA9"
+      "glass": "#7F97AD",
+      "spandrel": "#C8CED3",
+      "crown": "#5F6163",
+      "podium_stone": "#CBBFA9",
+      "note": "glass/spandrel/crown photo-sampled by research-sea-districts"
      },
-     "tenants": "Microsoft (2006–2023, most floors), LinkedIn (2 floors), ByteDance/TikTok (153,610 sq ft in Lincoln Square North), Lumen; UiPath: 2 floors, 44,735 sq ft product & engineering hub (2025). GeekWire's article describes \"a 28-story office building that was once primarily occupied by Microsoft\" — i.e. Lincoln Square North. Exact floors not public: OWNER TO CONFIRM.",
+     "tenants": "Microsoft (2006–2023, most floors), LinkedIn (2 floors), ByteDance/TikTok (153,610 sq ft in Lincoln Square North), Lumen; UiPath: Suite 2000 (UiPath offices page) — 2 floors, 44,735 sq ft product & engineering hub since Sept 2025 (GeekWire). Floor 20 + one adjacent floor inferred from the suite number (second floor unconfirmed).",
      "sources": [
+      {
+       "key": "uipath_offices",
+       "url": "https://www.uipath.com/about-us/offices (UiPath offices page: Lincoln Square North, 700 Bellevue Way NE, Suite 2000; via research-sea-districts, fetched 2026-11-06)"
+      },
+      {
+       "key": "geekwire_uipath",
+       "url": "https://www.geekwire.com/2025/uipath-hires-former-f5-executive-as-cmo-relocates-bellevue-offices-to-lincoln-square/"
+      },
       {
        "key": "wp_lincoln",
        "url": "https://en.wikipedia.org/wiki/Lincoln_Square_(Bellevue)"
       },
       {
-       "key": "geekwire_uipath",
-       "url": "https://www.geekwire.com/2025/uipath-hires-former-f5-executive-as-cmo-relocates-bellevue-offices-to-lincoln-square/"
+       "key": "sib_bellevue",
+       "url": "game/research/seattle-bellevue.md §6.1 (research-sea-districts: facade colours photo-sampled, entrance node, skybridges)"
       },
       {
        "key": "osm",
@@ -5636,16 +6226,27 @@
     },
     {
      "id": "uipath-entrance",
-     "name": "UiPath Bellevue entrance / lobby / signage (to confirm with owner)",
-     "lat": 47.6169,
-     "lon": -122.2011,
-     "form": "No public photos of UiPath's Lincoln Square suite. Recommended build: Lincoln Square North office lobby (stone floor, glass, security desk, tenant directory with \"UiPath\" listed, turnstiles), elevator to a UiPath floor with a reception wall showing the UiPath wordmark, orange accent wall and Romanian-founded company story. Exterior: no rooftop sign known — do NOT invent a facade logo.",
+     "name": "UiPath Bellevue entrance / lobby / signage",
+     "osm": [
+      "n7945526075"
+     ],
+     "lat": 47.61723,
+     "lon": -122.20148,
+     "form": "Office entrance = OSM entrance node 7945526075 on the Bellevue Way NE frontage just south of NE 8th, facing west (medium confidence); second level-1 entrance from the podium/skybridge on the NE 8th side (47.61726,-122.20089). No public photos of UiPath's suite or lobby. Recommended build: Lincoln Square North office lobby (stone floor, glass, security desk, tenant directory with \"UiPath\" listed, turnstiles), elevator to a UiPath floor with a reception wall showing the UiPath wordmark, orange accent wall and Romanian-founded company story. Exterior: no rooftop sign known — do NOT invent a facade logo.",
      "colours": {
       "uipath_orange_brand_approx": "#FA4616",
       "uipath_dark": "#273139"
      },
-     "note": "Brand colours approximate; owner (UiPath Principal Engineer) can supply the exact lobby look.",
+     "note": "Brand colours approximate; owner (UiPath Principal Engineer) can supply the exact lobby look and the second floor.",
      "sources": [
+      {
+       "key": "uipath_offices",
+       "url": "https://www.uipath.com/about-us/offices (UiPath offices page: Lincoln Square North, 700 Bellevue Way NE, Suite 2000; via research-sea-districts, fetched 2026-11-06)"
+      },
+      {
+       "key": "sib_bellevue",
+       "url": "game/research/seattle-bellevue.md §6.1 (research-sea-districts: facade colours photo-sampled, entrance node, skybridges)"
+      },
       {
        "key": "geekwire_uipath",
        "url": "https://www.geekwire.com/2025/uipath-hires-former-f5-executive-as-cmo-relocates-bellevue-offices-to-lincoln-square/"
@@ -5655,7 +6256,7 @@
        "url": "https://www.businesswire.com/news/home/20180403005065/en/"
       }
      ],
-     "ground_elev_m": 47.3
+     "ground_elev_m": 48.7
     },
     {
      "id": "one-lincoln",
@@ -5670,7 +6271,7 @@
       "height_m": 137,
       "storeys": 42
      },
-     "form": "Slender residential/hotel tower with glass and light panel facade, Westin entrance on Bellevue Way at NE 6th; 337 hotel rooms + 148 residences.",
+     "form": "Slender residential/hotel tower with glass and light panel facade and \"WESTIN\" lettering at the top; Westin entrance on Bellevue Way at NE 6th; 337 hotel rooms + 148 residences.",
      "sources": [
       {
        "key": "wp_lincoln",
@@ -5973,7 +6574,7 @@
    ],
    "refs_dir": "refs/sea-spots/bel-lincoln-square/",
    "kind": "walk",
-   "lat": 47.61712,
+   "lat": 47.61755,
    "lon": -122.20195,
    "data_files": {
     "osm_extract": "osm/sea-spots/bel-lincoln-square.json",
@@ -6960,7 +7561,8 @@
     "lat": 47.6106,
     "lon": -122.2108,
     "heading_deg": 250,
-    "note": "Beach promenade at the root of the crescent pier looking out over Lake Washington."
+    "note": "Beach promenade at the root of the crescent pier looking out over Lake Washington.",
+    "ground_elev_m": 5.7
    },
    "extent": {
     "description": "Beach, floating crescent pier, kayak rental pavilion, paved/unpaved trails up the ravine toward 100th Ave NE / Downtown Park, playground, restroom building.",
@@ -6988,7 +7590,11 @@
      "east_west": 278,
      "north_south": 409,
      "area_ha": 11.36
-    }
+    },
+    "terrain_range_m": [
+     4.98,
+     47.76
+    ]
    },
    "structures": [
     {
@@ -7009,7 +7615,8 @@
        "key": "wv_bellevue",
        "url": "https://en.wikivoyage.org/wiki/Bellevue"
       }
-     ]
+     ],
+     "ground_elev_m": 5.0
     },
     {
      "id": "beach",
@@ -7022,7 +7629,8 @@
        "key": "wp_meyd",
        "url": "https://en.wikipedia.org/wiki/Meydenbauer_Bay_Park"
       }
-     ]
+     ],
+     "ground_elev_m": 5.2
     },
     {
      "id": "pavilion",
@@ -7035,7 +7643,8 @@
        "key": "wp_meyd",
        "url": "https://en.wikipedia.org/wiki/Meydenbauer_Bay_Park"
       }
-     ]
+     ],
+     "ground_elev_m": 11.6
     }
    ],
    "signage": [
@@ -7128,7 +7737,7 @@
    "lon": -122.2108,
    "data_files": {
     "osm_extract": "osm/sea-spots/bel-meydenbauer.json",
-    "terrain_grid": null,
+    "terrain_grid": "osm/sea-spots/bel-meydenbauer.terrain.json",
     "osm_raw_bbox_note": "raw OSM XML kept in the research scratchpad (osm/bel-meydenbauer.osm); re-fetch with api.openstreetmap.org/api/0.6/map?bbox=… if needed"
    },
    "refs": [],

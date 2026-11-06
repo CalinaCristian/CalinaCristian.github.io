@@ -155,7 +155,7 @@ async function runCity(browser, base, city, ctxOut) {
             for (let i = 0; i < r.n; i++) {
                 let c = null;
                 try { c = await withTimeout(page.evaluate(([id, k]) => window.vqa.capture(id, k), [r.id, i]), A.timeout * 1000, `capture ${r.id}#${i}`); }
-                catch (e) { log(`[${city}] !! ${e.message}`); res.errors.push(e.message); if (/timed out|crash|closed/.test(e.message)) break; }
+                catch (e) { log(`[${city}] !! ${e.message}`); res.errors.push(e.message); if (/has been closed|crash/i.test(e.message)) throw e; if (/timed out/.test(e.message)) break; }
                 if (c && c.flags.length) flagged++;
                 if (c) (r.shots ||= []).push({ idx: c.idx, s: c.s, x: c.x, z: c.z, street: c.street, flags: c.flags, sheet: Math.floor(i / 6) + 1 });
                 if (A.verbose && c) log(`[${city}] ${r.id} #${c.idx} ${c.s} m ${c.ms} ms [${Object.entries(c.tm || {}).map(([k, v]) => k + ' ' + v).join(', ')}] ${c.flags.join(' ')}`);

@@ -492,8 +492,8 @@ export const SCENARIOS = [
             if (!g.chapters || typeof g.goToChapter !== 'function') { H.note('no CHAPTERS: skipped'); return { skipped: true }; }
             const chm = await import('../../../src/chapters.js');
             const out = []; const N = g.chapters.length;
-            const waitDrive = async (idx, ms = 240000) => { const t = performance.now(); while (!(g.state === 'drive' && g.chapterIdx === idx) && performance.now() - t < ms) { if (g.state === 'drive' || g.state === 'office') await H.run(0.2); else await sleep(100); } return g.state === 'drive' && g.chapterIdx === idx; };
-            const waitCard = async (ms = 6000) => { const t = performance.now(); while (!chm.chapterCardOpen() && performance.now() - t < ms) { if (g.state === 'drive' || g.state === 'office') await H.run(0.1); else await sleep(60); } return chm.chapterCardOpen(); };
+            const waitDrive = async (idx, ms = 240000) => { const t = performance.now(); while (!(g.state === 'drive' && g.chapterIdx === idx) && performance.now() - t < ms) { if (g.state === 'drive' || g.state === 'office') await H.run(0.2); await sleep(30); } return g.state === 'drive' && g.chapterIdx === idx; };
+            const waitCard = async (ms = 6000) => { const t = performance.now(); while (!chm.chapterCardOpen() && performance.now() - t < ms) { if (g.state === 'drive' || g.state === 'office') await H.run(0.1); await sleep(30); } return chm.chapterCardOpen(); };
             g.goToChapter(0);
             for (let i = 0; i < N; i++) {
                 const ch = g.chapters[i]; const res = { id: ch.id, district: ch.district };

@@ -115,6 +115,11 @@ export function buildCorridor(roads, pos, P, cfg, log = () => { }) {
         for (let i = 0; i < list.length - 1; i++) routeLeg(list[i], list[i + 1], list[i + 1].r ?? list[i].legR ?? rRoute, `${tag}: ${list[i].name || i} → ${list[i + 1].name || i + 1}`);
     };
     chain(cfg.route || [], false, "route");
+    // bands: fixed polylines [[lat, lon], …] with a half-width r (e.g. 250 m either side of I-90); their road nodes are kept
+    for (const b of cfg.bands || []) {
+        const pts = b.line.map(([lat, lon]) => P(lat, lon)); pieces.push({ pts, r: b.r });
+        for (const n of adj.keys()) { const p = pos.get(n); if (!p) continue; for (let i = 0; i < pts.length - 1; i++) if (distPointSeg(p[0], p[1], pts[i][0], pts[i][1], pts[i + 1][0], pts[i + 1][1]).d <= b.r * 0.6) { routeNodes.add(n); break; } }
+    }
     for (const [k, lp] of (cfg.loops || []).entries()) chain(lp.points, !!lp.closed, lp.name || 'loop' + k);
     const circles = [];
     for (const c of cfg.circles || []) { const [x, z] = P(c.lat, c.lon); circles.push({ x, z, r: c.r ?? rStop, name: c.name }); }

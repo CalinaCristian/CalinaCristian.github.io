@@ -7,11 +7,11 @@ Wikimedia Commons, free licences only (CC BY / CC BY-SA / CC0 / Public domain). 
 | [fremont-troll](fremont-troll/LICENSES.md) | 6 |
 | [pike-place](pike-place/LICENSES.md) | 20 |
 | [space-needle](space-needle/LICENSES.md) | 9 |
-| [chihuly](chihuly/LICENSES.md) | 0 |
-| [mopop](mopop/LICENSES.md) | 0 |
-| [kerry-park](kerry-park/LICENSES.md) | 0 |
-| [waterfront](waterfront/LICENSES.md) | 0 |
-| [pioneer-square](pioneer-square/LICENSES.md) | 0 |
+| [chihuly](chihuly/LICENSES.md) | 6 |
+| [mopop](mopop/LICENSES.md) | 6 |
+| [kerry-park](kerry-park/LICENSES.md) | 6 |
+| [waterfront](waterfront/LICENSES.md) | 7 |
+| [pioneer-square](pioneer-square/LICENSES.md) | 3 |
 | [ballard-locks](ballard-locks/LICENSES.md) | 0 |
 | [gas-works](gas-works/LICENSES.md) | 0 |
 | [bel-lincoln-square](bel-lincoln-square/LICENSES.md) | 0 |

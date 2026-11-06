@@ -1,0 +1,17 @@
+# athenaeum-revolution - reference image licences
+
+Source: Wikimedia Commons. Files resized/re-encoded (JPEG) from the 1280 px Commons thumbnail; no other changes. "Texture" = facade-texture candidate.
+
+| file | title (Commons) | author | licence | texture | note |
+|---|---|---|---|---|---|
+| `bucuresti-ateneum-1.jpg` | [Bucuresti Ateneum 1.jpg](https://commons.wikimedia.org/wiki/File:Bucuresti_Ateneum_1.jpg) | Andrzej Otrębski | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | yes | Athenaeum main façade (portico + dome) |
+| `ateneul-roman-bucuresti-fatada.jpg` | [Ateneul Roman, Bucuresti (fatada).JPG](https://commons.wikimedia.org/wiki/File:Ateneul_Roman,_Bucuresti_(fatada).JPG) | Britchi Mirela | [CC BY-SA 3.0 ro](https://creativecommons.org/licenses/by-sa/3.0/ro/) | yes | Athenaeum portico frontal |
+| `ateneul-roman-bucuresti-detaliu-1.jpg` | [Ateneul Roman, Bucuresti (detaliu 1).JPG](https://commons.wikimedia.org/wiki/File:Ateneul_Roman,_Bucuresti_(detaliu_1).JPG) | Britchi Mirela | [CC BY-SA 3.0 ro](https://creativecommons.org/licenses/by-sa/3.0/ro/) | yes | Portico detail, mosaic medallions |
+| `ateneul-roman-bucuresti-vedere-din-lateral-str-benjanin-franklin.jpg` | [Ateneul Roman, Bucuresti (vedere din lateral Str. Benjanin Franklin).JPG](https://commons.wikimedia.org/wiki/File:Ateneul_Roman,_Bucuresti_(vedere_din_lateral_Str._Benjanin_Franklin).JPG) | Britchi Mirela | [CC BY-SA 3.0 ro](https://creativecommons.org/licenses/by-sa/3.0/ro/) | yes | Side elevation |
+| `ateneul-roman-seara.jpg` | [Ateneul Roman seara.jpg](https://commons.wikimedia.org/wiki/File:Ateneul_Roman_seara.jpg) | Korinna | [CC BY-SA 3.0 ro](https://creativecommons.org/licenses/by-sa/3.0/ro/) | no | Night floodlighting |
+| `ateneul-roman-iarna.jpg` | [Ateneul Roman iarna.jpg](https://commons.wikimedia.org/wiki/File:Ateneul_Roman_iarna.jpg) | Emilia Morariu | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | no | Winter snow |
+| `romanian-athenaeum-53691339096.jpg` | [Romanian Athenaeum (53691339096).jpg](https://commons.wikimedia.org/wiki/File:Romanian_Athenaeum_(53691339096).jpg) | Jorge Franganillo | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | no | Wide view with garden |
+| `biblioteca-central-universitar-bucuresti-2023.jpg` | [Biblioteca Centrală Universitară, Bucuresti (2023).jpg](https://commons.wikimedia.org/wiki/File:Biblioteca_Central%C4%83_Universitar%C4%83,_Bucuresti_(2023).jpg) | Chainwit. | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | yes | Central University Library + Carol I statue |
+| `muzeul-de-arta-vedere-periferica-4.jpg` | [Muzeul de arta - vedere periferica 4.jpg](https://commons.wikimedia.org/wiki/File:Muzeul_de_arta_-_vedere_periferica_4.jpg) | Andreea | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | no | Royal Palace / National Museum of Art façade |
+| `the-porch-of-the-royal-palace-of-bucharest.jpg` | [The porch of the Royal Palace of Bucharest.jpg](https://commons.wikimedia.org/wiki/File:The_porch_of_the_Royal_Palace_of_Bucharest.jpg) | rsandu | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | no | Royal Palace porch detail |
+| `the-pavement-in-the-courtyard-of-the-royal-palace-of-bucharest.jpg` | [The pavement in the courtyard of the Royal Palace of Bucharest.jpg](https://commons.wikimedia.org/wiki/File:The_pavement_in_the_courtyard_of_the_Royal_Palace_of_Bucharest.jpg) | rsandu | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | yes | Paving reference |

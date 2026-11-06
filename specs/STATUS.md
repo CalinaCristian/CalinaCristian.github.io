@@ -4,10 +4,10 @@ Update your own rows when you start/finish (status, `updated` as `YYYY-MM-DD HH:
 
 | ID | Item | Spec | Role | Status | Updated | Notes |
 |---|---|---|---|---|---|---|
-| R10.1–3 | District data at 1:1, ~1 km², boundaries + end-of-map | 10 | world | todo | 2026-11-06 21:45 | redirected from corridors; geometry work carries over |
-| R10.4 | `CHAPTERS` + starts (1.5–2.5 km routes) | 10 | world | todo | | |
+| R10.1–3 | District data at 1:1, ~1 km², boundaries + end-of-map | 10 | world | in progress | 2026-11-06 22:30 | redirected from corridors; geometry work carries over |
+| R10.4 | `CHAPTERS` + starts (1.5–2.5 km routes) | 10 | world | in progress | 2026-11-06 22:30 | |
 | R10.5–7 | Chapter flow, montage, chapter select, progress UI | 10 | gameplay | todo | | after current fix list |
-| R10.8 | Congestion hotspot data per district | 10/13 | world | todo | | from research `traffic` |
+| R10.8 | Congestion hotspot data per district | 10/13 | world | in progress | 2026-11-06 22:30 | from research `traffic` |
 | R11.1–2 | Continuous ribbons, junction pads, no coplanar overlaps, layering | 11 | world | in progress | 2026-11-06 21:20 | |
 | R11.3 | Country-specific markings, turn arrows, no markings across pads | 11 | world | in progress | | |
 | R11.4–5 | Vertical profile + walls (no stacked ribbons, no barriers in lanes) | 11 | world | in progress | | Orhideelor barrier; Seattle interchanges |
@@ -23,10 +23,10 @@ Update your own rows when you start/finish (status, `updated` as `YYYY-MM-DD HH:
 | R17.1–4 | Nav screen housing, mirror, fitText, no gaps | 17 | cockpit-ui | in progress | 2026-11-06 21:25 | |
 | R17.5 | HUD layout at all viewports | 17 | gameplay | todo | | detector from qa |
 | R18.5 | Time/weather/season per district + spot | 18 | render | todo | | |
-| R19.1–5 | Visual QA harness + human-style review | 19 | qa | in progress | 2026-11-06 21:25 | |
-| R20.* | Research: Bucharest districts | 20 | research-buc-districts | todo | | spawning |
-| R20.* | Research: Seattle districts | 20 | research-sea-districts | todo | | spawning |
-| R20.* | Research: Bucharest top-10 spots | 20 | research-buc-spots | todo | | spawning |
-| R20.* | Research: Seattle top-10 spots | 20 | research-sea-spots | todo | | spawning |
+| R19.1–5 | Visual QA harness + human-style review | 19 | qa | in progress | 2026-11-06 21:32 | building `game/dev/harness/visual/` (survey, sheets, detectors); CHAPTERS-driven when present, legacy spawn→stops routes otherwise |
+| R20.* | Research: Bucharest districts | 20 | research-buc-districts | in progress | 2026-11-06 21:33 UTC | order: romana, unirii, floreasca, grozavesti, pipera, otopeni; output game/research/bucharest-<d>.json/.md + refs/ |
+| R20.* | Research: Seattle districts | 20 | research-sea-districts | in progress | 2026-11-06 22:45 | bellevue first, then seatac |
+| R20.* | Research: Bucharest top-10 spots | 20 | research-buc-spots | in progress | 2026-11-06 23:00 UTC | confirming top-10 with evidence, then scene specs + refs |
+| R20.* | Research: Seattle top-10 spots | 20 | research-sea-spots | in progress | 2026-11-06 21:33 | ranking top-10 with sources, then per-spot scene specs + refs + OSM |
 | R21 | Telemetry for chapters/on-foot/photo/spots | 21 | orchestrator | todo | | after features land |
 | R21 | Landing background choice | 21 | owner | blocked (owner decision) | | |

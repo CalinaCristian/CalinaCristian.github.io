@@ -1,6 +1,6 @@
 # Bucharest — Otopeni — Henri Coandă (OTP) (`otopeni`): field research dossier
 
-Role: research-buc-districts · generated 2026-11-06 22:18 UTC · machine-readable twin: `bucharest-otopeni.json` · images: `refs/otopeni/` (see LICENSES.md).
+Role: research-buc-districts · generated 2026-11-06 22:55 UTC · machine-readable twin: `bucharest-otopeni.json` · images: `refs/otopeni/` (see LICENSES.md).
 
 Every OSM-derived fact is keyed by OSM id (w = way, n = node, r = relation) and comes from the OSM API 0.6 snapshot of 2026-11-06 [osm]. Bracketed keys like [wp_lascar] point to the **Sources** table at the end. Confidence: *high* = OSM/official/encyclopedic; *medium* = consistent across photos/common knowledge, verify on refs; *low* = estimate.
 
@@ -10,42 +10,43 @@ Every OSM-derived fact is keyed by OSM id (w = way, n = node, r = relation) and 
 |---|---|
 | route_streets | Bulevardul Aeroportului, Calea Bucureștilor |
 | route_streets_researched | Bulevardul Aeroportului, Calea Bucureștilor |
-| fronting_route_buildings | 5 |
-| fronting_route_with_height | 0.0 |
+| fronting_route_buildings | 29 |
+| fronting_route_with_height | 10.3 |
 | fronting_route_with_colour | 0.0 |
 | fronting_route_researched | 0.0 |
 | fronting_route_with_street_frontage_rule | 100.0 |
 | fronting_route_with_storeys_any_source | 100.0 |
-| fronting_route_with_facade_hex_any | 0.0 |
-| fronting_main_buildings | 24 |
-| fronting_main_with_height | 58.3 |
-| buildings_total | 150 |
-| buildings_with_height | 49.3 |
-| businesses_total | 133 |
-| businesses_on_route | 1 |
-| businesses_branded | 22 |
-| trees_osm | 13 |
+| fronting_route_with_facade_hex_any | 3.4 |
+| fronting_main_buildings | 102 |
+| fronting_main_with_height | 23.5 |
+| buildings_total | 1581 |
+| buildings_with_height | 9.0 |
+| businesses_total | 213 |
+| businesses_on_route | 7 |
+| businesses_branded | 28 |
+| trees_osm | 16 |
 | lamps_osm | 0 |
-| crossings | 87 |
+| crossings | 138 |
 | signal_nodes | 0 |
-| transit_stops | 7 |
+| transit_stops | 14 |
 | metro_entrances | 0 |
 
 ## Proposed boundary (~1 km²)
 
-- Polygon (lat, lon): `[[44.56, 26.0675], [44.5745, 26.0675], [44.5745, 26.081], [44.5675, 26.081], [44.56, 26.074]]` → bbox `[44.56, 26.0675, 44.5745, 26.081]`, area **1.494 km²**.
-- Why: A pentagon ≈1.3 km²: the DN1 (Calea Bucureștilor) corridor through Otopeni town from Str. Zborului (S) to the Hilton Garden Inn / Bd. Aeroportului (N), plus the landside of the airport — access roads, departures ramp (bridge, layer 1), arrivals level, multi-storey car parks, the CFR Aeroport station and the Terminal Vioara; airside (aprons, runways) left as backdrop.
+- Polygon (lat, lon): `[[44.552, 26.062], [44.578, 26.062], [44.578, 26.093], [44.552, 26.093]]` → bbox `[44.552, 26.062, 44.578, 26.093]`, area **7.104 km²**.
+- Why: Extraction area = world agent bbox from cities.js BUC_DISTRICTS (so every street the world builds is covered). A pentagon ≈1.3 km²: the DN1 (Calea Bucureștilor) corridor through Otopeni town from Str. Zborului (S) to the Hilton Garden Inn / Bd. Aeroportului (N), plus the landside of the airport — access roads, departures ramp (bridge, layer 1), arrivals level, multi-storey car parks, the CFR Aeroport station and the Terminal Vioara; airside (aprons, runways) left as backdrop.
+- Research-proposed compact ~1 km² polygon (optional tighter cut): `[[44.56, 26.0675], [44.5745, 26.0675], [44.5745, 26.081], [44.5675, 26.081], [44.56, 26.074]]`
 
 ## Chapter routes
 
 ### otopeni · 2022 — Henri Coandă Airport — departures (boarding for Seattle)
 
-- **Start**: DN1 Calea Bucureștilor northbound in Otopeni (Novomatic / OMV) — `44.563825, 26.06962`, heading 2° on Calea Bucureștilor.
+- **Start**: WORLD START: DN1 northbound at Otopeni — `44.555701, 26.069266`, heading 2° on Calea Bucureștilor.
 - **End**: Departures kerb (Plecări), elevated level, heading north along the terminal — `44.569445, 26.077273`.
-- **Length**: 2332 m (computed on the OSM drivable graph respecting one-ways; routable: True).
+- **Length**: 3236 m (computed on the OSM drivable graph respecting one-ways; routable: True).
 - **Why this route**: North on DN1 (Calea Bucureștilor, 2+2 with central barrier, 70 km/h on the flyover) through Otopeni → exit 'Henri Coandă Airport' → round via Bd. Aeroportului (Hilton Garden Inn, car parks) → south on the landside road past the multi-storey car park → up the elevated departures ramp and along the Plecări glass facade to the drop-off.
-- **Sequence**: Calea Bucureștilor (904 m) → (trunk_link) (105 m) → Bulevardul Aeroportului (290 m) → (tertiary) (555 m) → (service) (26 m) → (tertiary) (451 m)
-- Waypoints for `CHAPTERS`/autopilot: `[{"lat": 44.564, "lon": 26.0697, "road": "Calea Bucureștilor", "bearing": 0}, {"lat": 44.57, "lon": 26.07, "road": "Calea Bucureștilor", "bearing": 0}, {"lat": 44.5694, "lon": 26.077, "bearing": 0}]`
+- **Sequence**: Calea Bucureștilor (1807 m) → (trunk_link) (105 m) → Bulevardul Aeroportului (290 m) → (tertiary) (555 m) → (service) (26 m) → (tertiary) (451 m)
+- Waypoints for `CHAPTERS`/autopilot: `[{"lat": 44.556, "lon": 26.07, "road": "Calea Bucureștilor|DN1", "bearing": 0}, {"lat": 44.57, "lon": 26.07, "road": "Calea Bucureștilor", "bearing": 0}, {"lat": 44.5694, "lon": 26.077, "bearing": 0}]`
 
 ## CV stops (verified)
 
@@ -66,10 +67,10 @@ Per-segment OSM data (lanes, turn:lanes, bus lanes, parking, trolley wires, spee
 
 ### Calea Bucureștilor (chapter route)
 
-- OSM: 19 ways, 4651 m in district, classes trunk, trunk_link; lanes values ['2', '3']; one-way segments 19/19; maxspeed ['50', '70']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
+- OSM: 25 ways, 7495 m in district, classes trunk, trunk_link; lanes values ['2', '3']; one-way segments 25/25; maxspeed ['50', '70']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
 - Transit lines (OSM route relations): bus 100, bus 403, bus 441, bus 446, bus 780, bus None.
 - OSM furniture: {'gate': 4, 'lift_gate': 5}.
-- Fronting buildings: 13; businesses: 8.
+- Fronting buildings: 44; businesses: 12.
 - **cross_section**: DN1 (E60) dual carriageway, 2–3 lanes each way separated by a concrete/steel central barrier; 70 km/h through Otopeni (50 on the airport link); flyover (bridge, layer 1) by the airport; wide asphalt shoulders, roadside service lanes
 - **frontage**: car dealerships, fuel stations (OMV, Rompetrol), Novomatic HQ (275-277), warehouses, hotels (Ibis Styles, Hilton Garden Inn), billboards on tall poles; flat open land
 - **transit**: airport express bus 100 (Piața Unirii/Victoriei – Aeroport, STB) and 780 (Gara de Nord – Aeroport), regional 4xx buses
@@ -84,10 +85,24 @@ Per-segment OSM data (lanes, turn:lanes, bus lanes, parking, trolley wires, spee
 - **cross_section**: one-way airport loop road 2 lanes (north side), Hilton Garden Inn, Olimpia parking, Airport Grill
 - confidence: high (OSM) [osm]
 
+### Strada Mărăști
+
+- OSM: 3 ways, 663 m in district, classes residential; lanes values ['2']; one-way segments 0/3; maxspeed ['30', 'RO:urban']; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: —.
+- Transit lines (OSM route relations): bus None.
+- OSM furniture: {'gate': 1}.
+- Fronting buildings: 53; businesses: 1.
+
 ### Drumul Gării Odăii
 
-- OSM: 1 ways, 308 m in district, classes tertiary; lanes values ['2']; one-way segments 0/1; maxspeed ['RO:urban']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
-- Fronting buildings: 6; businesses: 4.
+- OSM: 2 ways, 639 m in district, classes tertiary; lanes values ['2']; one-way segments 0/2; maxspeed ['RO:urban']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
+- OSM furniture: {'lift_gate': 1}.
+- Fronting buildings: 11; businesses: 4.
+
+### Strada Zborului
+
+- OSM: 1 ways, 545 m in district, classes residential; lanes values ['2']; one-way segments 0/1; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
+- OSM furniture: {'gate': 1}.
+- Fronting buildings: 13; businesses: 4.
 
 ## Squares, junctions, landmarks
 
@@ -100,6 +115,10 @@ Signalised / main junctions on the chapter routes (OSM):
 
 | node | streets | signals | roundabout | crossings ≤40 m |
 |---|---|---|---|---|
+| n299023431 | Calea Bucureștilor × Strada Oituz |  |  | 1 |
+| n299021720 | Calea Bucureștilor × Strada Mărășești |  |  | 1 |
+| n299023892 | Calea Bucureștilor × Strada Mărăști |  |  | 1 |
+| n2289697194 | Calea Bucureștilor × Strada Zborului |  |  | 0 |
 
 ## Key buildings (researched)
 
@@ -118,6 +137,30 @@ Signalised / main junctions on the chapter routes (OSM):
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | w267125181 | Bulevardul Aeroportului | SE |  | yes | 2 est |  |  |  | unknown (use district rule) |  | 0 |
 | w267125197 | Bulevardul Aeroportului | S |  | yes | 2 est |  |  |  | unknown (use district rule) |  | 0 |
+| w259171689 | Calea Bucureștilor | E |  | apartments · Bl. A2-3 | 5 est |  |  |  | unknown (use district rule) |  | 0 |
+| w259171695 | Calea Bucureștilor | E |  | apartments · Bl. A2-2 | 5 est |  |  |  | unknown (use district rule) |  | 0 |
+| w259171687 | Calea Bucureștilor | E |  | apartments · Bl. A2-1 | 5 est |  |  |  | unknown (use district rule) |  | 0 |
+| w546176723 | Calea Bucureștilor | E |  | yes | 2 est |  |  |  | unknown (use district rule) |  | 0 |
+| w259171745 | Calea Bucureștilor | E |  | yes | 2 est |  |  |  | unknown (use district rule) |  | 0 |
+| w312547044 | Calea Bucureștilor | E |  | yes | 2 est |  |  |  | unknown (use district rule) |  | 0 |
+| w312546933 | Calea Bucureștilor | E |  | yes | 2 est |  |  |  | unknown (use district rule) |  | 0 |
+| w545777364 | Calea Bucureștilor | E |  | yes | 2 est |  |  |  | unknown (use district rule) |  | 0 |
+| w546176714 | Calea Bucureștilor | E |  | yes | 2 est |  |  |  | unknown (use district rule) |  | 0 |
+| w545777374 | Calea Bucureștilor | E |  | yes | 2 est |  |  |  | unknown (use district rule) |  | 0 |
+| w413830324 | Calea Bucureștilor | E |  | yes | 2 est |  |  |  | unknown (use district rule) |  | 0 |
+| w259171725 | Calea Bucureștilor | E |  | yes | 2 est |  |  |  | unknown (use district rule) |  | 0 |
+| w546176715 | Calea Bucureștilor | E |  | yes | 2 est |  |  |  | unknown (use district rule) |  | 0 |
+| w1097438892 | Calea Bucureștilor | E |  | yes | 2 est |  |  |  | unknown (use district rule) |  | 0 |
+| w545777375 | Calea Bucureștilor | E |  | yes | 2 est |  |  |  | unknown (use district rule) |  | 0 |
+| w312546982 | Calea Bucureștilor | E |  | yes | 2 est |  |  |  | unknown (use district rule) |  | 0 |
+| w312547013 | Calea Bucureștilor | E |  | yes | 2 est |  |  |  | unknown (use district rule) |  | 0 |
+| w433374753 | Calea Bucureștilor | E |  | yes | 2 est |  |  |  | unknown (use district rule) |  | 0 |
+| w259171763 | Calea Bucureștilor | E |  | yes · Ferremo Trendy | 2 est |  |  |  | unknown (use district rule) |  | 0 |
+| w918040928 | Calea Bucureștilor | E | 280A | roof · Gazprom | 1 est |  |  |  | utility/annex |  | 1 |
+| w918040927 | Calea Bucureștilor | E | 280A | retail · Gazprom | 1 | 3 |  |  | low house/villa (19th-early 20th c. likely) |  | 1 |
+| w259171710 | Calea Bucureștilor | E | 1A | hotel · Ramada | 5 | 20 |  |  | unknown (use district rule) |  | 1 |
+| w312547071 | Calea Bucureștilor | E | 216-218 | roof · Rompetrol | 1 est |  |  |  | utility/annex |  | 1 |
+| w918040921 | Calea Bucureștilor | E | 222 | hotel · Ibis Styles | 4 | 12 | 2023 |  | post-1990 building | #BFC2C4 est | 1 |
 | w703958634 | Calea Bucureștilor | E |  | yes | 2 est |  |  |  | unknown (use district rule) |  | 0 |
 | w244429098 | Calea Bucureștilor | E | 224D | roof · OMV | 1 est |  |  |  | utility/annex |  | 1 |
 | w1506836377 | Calea Bucureștilor | E |  | yes | 2 est |  |  |  | unknown (use district rule) |  | 0 |
@@ -126,14 +169,20 @@ Signalised / main junctions on the chapter routes (OSM):
 
 | OSM | name | brand / sign colours | kind | street | side | addr |
 |---|---|---|---|---|---|---|
+| w413592031 |  |  | amenity=parking | Calea Bucureștilor | E |  |
+| w1097438919 |  |  | amenity=parking | Calea Bucureștilor | E |  |
+| w918040927 | Gazprom | Gazprom bg #0079C1 fg #FFFFFF | shop=convenience | Calea Bucureștilor | E | 280A |
+| w918040928 | Gazprom | Gazprom bg #0079C1 fg #FFFFFF | amenity=fuel | Calea Bucureștilor | E | 280A |
 | w244429098 | OMV | OMV bg #FFFFFF fg #0A2165 | amenity=fuel | Calea Bucureștilor | E | 224D |
+| w312547071 | Rompetrol | Rompetrol bg #FFFFFF fg #003F8F | amenity=fuel | Calea Bucureștilor | E | 216-218 |
+| w918040920 | hei |  | shop=convenience | Calea Bucureștilor | E | 216-218 |
 
-Other branded businesses in the district (off-route): Rompetrol (Calea Bucureștilor, w312547071); Rompetrol (Strada Nicolae Grigorescu, w918040922); BRD (, n11257054224); BRD (, n11257028031); BRD (, n11594858571); CEC Bank (, n11257054219); Carrefour Express (, n4892173053); Euronet (, n11257054216); Euronet (, n11257054217); Euronet (, n11257054221); Euronet (, n11257054223); Euronet (, n11257054226); Euronet (, n11257054233); Fornetti (, w1360360981); Gloria Jean's (, w1360387415); Hilton Garden Inn (, w756554173); Ibis Styles (, w918040921); Raiffeisen Bank (, n11257054231); Raiffeisen Bank (, n11594858572); Alpha Bank (, n11594858570); UniCredit (, n11594858573).
+Other branded businesses in the district (off-route): Profi (Strada 23 August, n8727848656); Mega Image (Strada Mărășești, w312547018); Rompetrol (Strada Nicolae Grigorescu, w918040922); 5 to go (Strada Traian, n5278303557); Superbet (Strada Traian, n8628418183); BRD (, n11257054224); BRD (, n11257028031); BRD (, n11594858571); CEC Bank (, n11257054219); Carrefour Express (, n4892173053); Euronet (, n11257054216); Euronet (, n11257054217); Euronet (, n11257054221); Euronet (, n11257054223); Euronet (, n11257054226); Euronet (, n11257054233); Fornetti (, w1360360981); Gloria Jean's (, w1360387415); Hilton Garden Inn (, w756554173); Ibis Styles (, w918040921); Raiffeisen Bank (, n11257054231); Raiffeisen Bank (, n11594858572); Alpha Bank (, n11594858570); UniCredit (, n11594858573).
 
 ## Transit
 
 - Lines with OSM route relations touching the district: bus 100, bus 403, bus 441, bus 446, bus 780, bus None.
-- Stops: Aeroport Henri Coandă Plecări (bus); Aeroport Henri Coandă Sosiri (bus); Aeroportul Henri Coandă (bus); Filan (bus); Mir Trans Bus Stop (bus).
+- Stops: Aeroport Henri Coandă Plecări (bus); Aeroport Henri Coandă Sosiri (bus); Aeroportul Henri Coandă (bus); Biserica Sf. Nicolae (platform); Bisericii (platform); Filan (bus); I.I.C. Brătianu (platform); ICSITMUA (bus); Mir Trans Bus Stop (bus); Steaua Roșie (platform).
 - Liveries:
   - **tram_imperio**: Astra Vagoane Arad Imperio Metropolitan (100 ordered 2021, in service since Dec 2022; 3-section, 100% low floor); body #F4C300 accent #C8102E; yellow STB body with darker front mask; verify accent colours on refs (medium) [imperio] [imperio2] [wp_transport]
   - **tram_v3a**: V3A-93 / V3A-93-2000 / V3A-CH-PPC (articulated, Bucharest URAC-built); body #F2C230 accent #B5121B; yellow with red stripe; frequent full-body advertising wraps (medium) [stb]
@@ -142,6 +191,55 @@ Other branded businesses in the district (off-route): Rompetrol (Calea Bucureșt
   - **bus**: Mercedes-Benz Citaro (1,000 delivered 2006–2009), Citaro Hybrid (2020+), Otokar Kent C 12/18 m, Mercedes eCitaro / BYD electric; body #F4C300 accent #C8102E; STB yellow; Citaro hybrids yellow with STB logo; many carry ad wraps (medium) [stb]
   - **taxi**: ; body #F7D417 accent ; Bucharest licensed taxis are yellow with chequer/stripe and company name/phone on doors (Dacia Logan, Toyota Corolla/Prius, Škoda Octavia) (high)
   - **ride_hail**: ; body  accent ; Uber/Bolt cars are unmarked (any colour), very common (high)
+
+## Dialogue (district pedestrians)
+
+Each line {text (original language), en (English)}; persona.lang = language of text; `base` refers to bucharest-spots.json dialogue_general.persona_library; categories greeting / bumped / photographed / idle / district (place-specific facts, all consistent with this dossier). Shared: bucharest-spots.json → dialogue_general.pedestrian_general (honked_at, near_miss, sidewalk_parking, idle, small_talk) applies to every district pedestrian. Total district lines: 64.
+
+### Elena (flying out) (`departing_traveler`, local, lang ro, 25-50) — 16 lines
+Dragging a suitcase towards Departures, checking her phone for the gate.
+
+- *greeting*: „Bună ziua!” (Good day!) · „Scuzați, Plecările sunt sus?” (Excuse me, are Departures upstairs?) · „Salut, și tu zbori azi?” (Hi, flying today too?)
+- *bumped*: „Vai, valiza!” (Oh, my suitcase!) · „Atenție, vă rog, am un zbor de prins!” (Careful please, I have a flight to catch!) · „Nu-i nimic, scuze și eu.” (It's fine, sorry too.)
+- *photographed*: „O poză de plecare, da!” (A farewell photo, yes!) · „Prinde și panoul cu Plecări.” (Get the Departures sign in.) · „Mersi, o trimit la ai mei.” (Thanks, I'll send it to my folks.)
+- *idle*: „Sper să nu fie coadă la securitate.” (I hope there's no queue at security.) · „Am uitat să-mi iau încărcătorul!” (I forgot my charger!) · „Zborul are întârziere, ca de obicei.” (The flight is delayed, as usual.)
+- *district*: „Am venit cu trenul de la Gara de Nord, e cel mai sigur.” (I came by train from Gara de Nord, it's the safest bet.) · „Pe DN1 a fost coadă de la Băneasa.” (There was a queue on the DN1 from Băneasa.) · „Otopeni a avut peste șaptesprezece milioane de pasageri anul trecut.” (Otopeni had over seventeen million passengers last year.) · „Lucrează la metrou chiar în fața terminalului.” (They're building the metro right in front of the terminal.)
+
+### Familia Ionescu (home for the holidays) (`returning_family`, local, lang ro, 30-60) — 16 lines
+Family that lives abroad, back for Christmas; relatives waiting with flowers at Arrivals.
+
+- *greeting*: „Bine v-am găsit!” (Good to find you well!) · „Bună, ce dor ne-a fost de casă!” (Hi, we missed home so much!) · „Sărbători fericite!” (Happy holidays!)
+- *bumped*: „Ușor, avem bagaje multe!” (Easy, we have lots of luggage!) · „Atenție la cărucior!” (Mind the trolley!) · „Nu-i nimic, e aglomerat.” (No problem, it's crowded.)
+- *photographed*: „Hai toți în poză, cu bunica!” (Everyone in the photo, with grandma!) · „Stai să țină florile în față.” (Wait, let her hold the flowers in front.) · „Încă una, cu terminalul!” (One more, with the terminal!)
+- *idle*: „Am adus cadouri pentru toți.” (We brought presents for everyone.) · „Unde-i mașina lui unchiu'?” (Where's uncle's car?) · „Mâine mergem la țară.” (Tomorrow we go to the countryside.)
+- *district*: „Taxiurile se comandă de la ecranele din Sosiri.” (Taxis are booked from the screens in Arrivals.) · „Parcarea de la Sosiri e închisă pentru lucrări.” (The Arrivals car park is closed for works.) · „Pe DN1 spre oraș e coadă seara.” (There's a queue on DN1 into town in the evening.) · „Ce-a crescut aeroportul de când am plecat!” (How the airport has grown since we left!)
+
+### Agent Popa (airport staff) (`airport_staff`, staff, lang ro, 25-50) — 16 lines
+Uniformed airport/traffic staff keeping the Departures kerb moving.
+
+- *greeting*: „Bună ziua.” (Good day.) · „Bună ziua, vă pot ajuta?” (Good day, can I help you?) · „Good afternoon, can I help?”
+- *bumped*: „Atenție, vă rog!” (Careful, please!) · „Păstrați culoarul liber.” (Keep the walkway clear.) · „Nu-i nimic.” (It's nothing.)
+- *photographed*: „Fără poze la controlul de securitate.” (No photos at security.) · „Afară se poate, înăuntru nu la control.” (Outside is fine, not inside at the checkpoint.) · „Bine, dar nu blocați intrarea.” (Fine, but don't block the entrance.)
+- *idle*: „Azi sunt multe zboruri spre Italia.” (Lots of flights to Italy today.) · „Dimineața devreme e cel mai aglomerat.” (Early morning is the busiest.) · „Am tura până la șase.” (I'm on shift until six.)
+- *district*: „Nu staționați pe banda din fața Plecărilor.” (No waiting in the lane in front of Departures.) · „Debarcarea se face în parcarea din față.” (Drop-off is in the car park in front.) · „Taxiurile autorizate sunt la Sosiri, de la ecrane.” (Licensed taxis are at Arrivals, from the screens.) · „Trenul spre Gara de Nord pleacă din stația de lângă terminal.” (The train to Gara de Nord leaves from the station next to the terminal.)
+
+### Lena (tourist from Germany) (`arriving_tourist`, tourist, lang de, 25-45) — 16 lines
+First-time visitor looking for the bus into town.
+
+- *greeting*: „Hallo!” (Hello!) · „Entschuldigung, wo fährt der Bus in die Stadt?” (Excuse me, where does the bus into town leave?) · „Bună ziua! Habe ich das richtig gesagt?” (Bună ziua! Did I say that right?)
+- *bumped*: „Oh, Entschuldigung!” (Oh, sorry!) · „Vorsicht, mein Koffer!” (Careful, my suitcase!) · „Kein Problem.” (No problem.)
+- *photographed*: „Gern, mit dem Terminal im Hintergrund?” (Sure, with the terminal in the background?) · „Danke, sehr nett!” (Thanks, very kind!) · „Noch eins, bitte, ich habe geblinzelt.” (One more please, I blinked.)
+- *idle*: „Ich brauche Lei für das Ticket.” (I need lei for the ticket.) · „Ist das Taxi teuer?” (Is the taxi expensive?) · „Mein Hotel ist an der Piața Victoriei.” (My hotel is on Piața Victoriei.)
+- *district*: „Der Expressbus 100 fährt bis in die Innenstadt, oder?” (Express bus 100 goes all the way downtown, right?) · „Der Zug zum Nordbahnhof ist praktisch.” (The train to Gara de Nord is handy.) · „So viele Flugzeuge von Wizz Air!” (So many Wizz Air planes!) · „Morgen will ich den Parlamentspalast sehen.” (Tomorrow I want to see the Palace of the Parliament.)
+
+Culture notes:
+
+- **Register** — "Bună ziua" with strangers, "Salut/Neața" among young people; "dumneavoastră" (formal you) to older people; "Mersi" is as common as "Mulțumesc". (https://en.wikivoyage.org/wiki/Romanian_phrasebook)
+- **Traffic temper** — Bucharest drivers honk readily and often do not stop at zebras; pedestrians answer with sarcasm rather than aggression — keep lines teasing, not violent. (https://en.wikivoyage.org/wiki/Bucharest#Stay_safe)
+- **Sidewalk parking** — Cars parked on sidewalks are a constant pedestrian complaint; a natural topic for bumped/idle lines in side streets. (https://en.wikivoyage.org/wiki/Bucharest#Get_around)
+- **Taxis at the airport** — At OTP passengers order licensed taxis from touch-screen kiosks in Arrivals; unsolicited offers are a known nuisance — staff lines should point to the kiosks. (https://www.inyourpocket.com/bucharest/The-Definitive-Guide-to-Finding-a-Taxi-at-Bucharest-Airport_74243f)
+- **No stereotypes** — Personas are defined by role/place (student, vendor, commuter), never by ethnicity; Roma, Moldovan or diaspora characters are not caricatured; humour targets traffic, weather, parking and the metro. (spec 20 (game/research) requirement)
+- **Shared library** — Generic personas (local_elder, tour_guide …) and the pedestrian_general set (honked_at, near_miss, sidewalk_parking) live in bucharest-spots.json → dialogue_general; district personas below add place-specific lines. (game/research/bucharest-spots.json)
 
 ## Traffic / congestion (feeds `congestion`, spec 13)
 

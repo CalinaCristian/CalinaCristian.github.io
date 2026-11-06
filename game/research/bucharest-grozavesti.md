@@ -1,6 +1,6 @@
 # Bucharest — Grozăvești & Politehnica (`grozavesti`): field research dossier
 
-Role: research-buc-districts · generated 2026-11-06 22:19 UTC · machine-readable twin: `bucharest-grozavesti.json` · images: `refs/grozavesti/` (see LICENSES.md).
+Role: research-buc-districts · generated 2026-11-06 22:54 UTC · machine-readable twin: `bucharest-grozavesti.json` · images: `refs/grozavesti/` (see LICENSES.md).
 
 Every OSM-derived fact is keyed by OSM id (w = way, n = node, r = relation) and comes from the OSM API 0.6 snapshot of 2026-11-06 [osm]. Bracketed keys like [wp_lascar] point to the **Sources** table at the end. Confidence: *high* = OSM/official/encyclopedic; *medium* = consistent across photos/common knowledge, verify on refs; *low* = estimate.
 
@@ -10,42 +10,43 @@ Every OSM-derived fact is keyed by OSM id (w = way, n = node, r = relation) and 
 |---|---|
 | route_streets | Bulevardul Doina Cornea, Podul Grozăvești, Șoseaua Grozăvești, Șoseaua Orhideelor |
 | route_streets_researched | Bulevardul Doina Cornea, Podul Grozăvești, Șoseaua Grozăvești, Șoseaua Orhideelor |
-| fronting_route_buildings | 9 |
-| fronting_route_with_height | 77.8 |
-| fronting_route_with_colour | 11.1 |
-| fronting_route_researched | 11.1 |
+| fronting_route_buildings | 10 |
+| fronting_route_with_height | 80.0 |
+| fronting_route_with_colour | 10.0 |
+| fronting_route_researched | 10.0 |
 | fronting_route_with_street_frontage_rule | 100.0 |
 | fronting_route_with_storeys_any_source | 100.0 |
-| fronting_route_with_facade_hex_any | 88.9 |
-| fronting_main_buildings | 144 |
-| fronting_main_with_height | 75.7 |
-| buildings_total | 510 |
-| buildings_with_height | 55.5 |
-| businesses_total | 272 |
-| businesses_on_route | 10 |
-| businesses_branded | 50 |
-| trees_osm | 9 |
+| fronting_route_with_facade_hex_any | 80.0 |
+| fronting_main_buildings | 219 |
+| fronting_main_with_height | 66.2 |
+| buildings_total | 1598 |
+| buildings_with_height | 39.5 |
+| businesses_total | 475 |
+| businesses_on_route | 11 |
+| businesses_branded | 75 |
+| trees_osm | 27 |
 | lamps_osm | 0 |
-| crossings | 138 |
-| signal_nodes | 17 |
-| transit_stops | 19 |
-| metro_entrances | 6 |
+| crossings | 305 |
+| signal_nodes | 38 |
+| transit_stops | 50 |
+| metro_entrances | 7 |
 
 ## Proposed boundary (~1 km²)
 
-- Polygon (lat, lon): `[[44.4345, 26.047], [44.447, 26.047], [44.447, 26.064], [44.4345, 26.064]]` → bbox `[44.4345, 26.047, 44.447, 26.064]`, area **1.877 km²**.
-- Why: 1.39 km N-S × 1.35 km E-W ≈ 1.2 km² (some of it campus/park): north edge Bd. Regiei/Regie campus, east edge just past Podul Grozăvești/Șos. Grozăvești (Basarab overpass ramps), south edge Bd. Iuliu Maniu, west edge Str. Petre Popovăț/Splai bend; includes the whole UPB campus, Regie dorms, Grozăvești metro and the Dâmbovița with both Splai carriageways.
+- Polygon (lat, lon): `[[44.4335, 26.046], [44.449, 26.046], [44.449, 26.0725], [44.4335, 26.0725]]` → bbox `[44.4335, 26.046, 44.449, 26.0725]`, area **3.628 km²**.
+- Why: Extraction area = world agent bbox from cities.js BUC_DISTRICTS (so every street the world builds is covered). 1.39 km N-S × 1.35 km E-W ≈ 1.2 km² (some of it campus/park): north edge Bd. Regiei/Regie campus, east edge just past Podul Grozăvești/Șos. Grozăvești (Basarab overpass ramps), south edge Bd. Iuliu Maniu, west edge Str. Petre Popovăț/Splai bend; includes the whole UPB campus, Regie dorms, Grozăvești metro and the Dâmbovița with both Splai carriageways.
+- Research-proposed compact ~1 km² polygon (optional tighter cut): `[[44.4345, 26.047], [44.447, 26.047], [44.447, 26.064], [44.4345, 26.064]]`
 
 ## Chapter routes
 
 ### upb · 2013 — Politehnica (UPB) — Rectorat
 
-- **Start**: Șos. Orhideelor southbound (Basarab overpass alongside) towards Podul Grozăvești — `44.447432, 26.062618`, heading 242° on Șoseaua Orhideelor.
+- **Start**: WORLD START: Șos. Orhideelor southbound — `44.447432, 26.062618`, heading 242° on Șoseaua Orhideelor.
 - **End**: UPB Rectorat forecourt (campus road behind the Doina Cornea gate) — `44.438998, 26.051727`.
 - **Length**: 1744 m (computed on the OSM drivable graph respecting one-ways; routable: True).
 - **Why this route**: Come down Șos. Orhideelor (Basarab overpass towering alongside), cross the Dâmbovița on Podul Grozăvești (Grozăvești metro + Regie student campus on the right), turn onto Bd. Doina Cornea south along the UPB campus (tram reservation in the middle), then in through the campus gate to the Rectorat forecourt.
 - **Sequence**: Șoseaua Orhideelor (586 m) → Podul Grozăvești (57 m) → Șoseaua Grozăvești (70 m) → Bulevardul Doina Cornea (607 m) → (service) (424 m)
-- Waypoints for `CHAPTERS`/autopilot: `[{"lat": 44.4466, "lon": 26.062, "road": "Orhideelor", "bearing": 180}, {"lat": 44.4405, "lon": 26.057, "road": "Doina Cornea", "bearing": 200}, {"lat": 44.4387, "lon": 26.0515}]`
+- Waypoints for `CHAPTERS`/autopilot: `[{"lat": 44.447432, "lon": 26.062618, "road": "Orhideelor", "bearing": 242}, {"lat": 44.4405, "lon": 26.057, "road": "Doina Cornea", "bearing": 200}, {"lat": 44.4387, "lon": 26.0515}]`
 
 ## CV stops (verified)
 
@@ -62,6 +63,17 @@ Every OSM-derived fact is keyed by OSM id (w = way, n = node, r = relation) and 
 ## Streets — route and main streets
 
 Per-segment OSM data (lanes, turn:lanes, bus lanes, parking, trolley wires, speed, surface) is in the JSON `streets[].segments[]`. Below: research cross-sections + OSM summary.
+
+### Șoseaua Orhideelor (chapter route)
+
+- OSM: 18 ways, 2251 m in district, classes secondary; lanes values ['1', '2', '3', '4']; one-way segments 18/18; maxspeed ['50', 'RO:urban']; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: shared carriageway (rails in road).
+- Transit lines (OSM route relations): bus 105, bus 123, bus 162, bus 163, bus 178, tram 11, tram 44.
+- OSM furniture: {'lift_gate': 6}.
+- Fronting buildings: 13; businesses: 12.
+- **cross_section**: one-way pairs 2–3 lanes each running beside/below the elevated Pasajul Basarab (layer 1–2 bridge) from Gara de Nord side down to Podul Grozăvești; 50 km/h; buses 105, 162, 163
+- **frontage**: W: The Bridge office campus (3 towers, 11 lv, 52 m — IBM, Bitdefender, BCR), Ahrend; E: Poliția Locală Sector 6, Lukoil fuel station (canopy, n/w296332666), Sir Orhideea hotel
+- **barrier_note**: OSM maps NO jersey barrier/guard-rail across Orhideelor here; the concrete parapets belong to the elevated Pasajul Basarab ribbons above/alongside (bridge=yes, layer 1–2). The owner's "concrete barrier across the lane on Orhideelor" is therefore a generation bug (an overpass wall projected onto ground level) — walls must stay on the Basarab layer.
+- confidence: high (OSM) [osm] [newsweek_basarab]
 
 ### Bulevardul Doina Cornea (chapter route)
 
@@ -80,17 +92,6 @@ Per-segment OSM data (lanes, turn:lanes, bus lanes, parking, trolley wires, spee
 - **cross_section**: one-way pairs, 2 lanes each, 50 km/h; trolleybus 63, buses 105/1929; tram tracks cross at the Splai
 - confidence: high (OSM) [osm]
 
-### Șoseaua Orhideelor (chapter route)
-
-- OSM: 12 ways, 1351 m in district, classes secondary; lanes values ['1', '2', '3']; one-way segments 12/12; maxspeed ['50', 'RO:urban']; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: —.
-- Transit lines (OSM route relations): bus 105, bus 162, bus 163.
-- OSM furniture: {'lift_gate': 6}.
-- Fronting buildings: 7; businesses: 11.
-- **cross_section**: one-way pairs 2–3 lanes each running beside/below the elevated Pasajul Basarab (layer 1–2 bridge) from Gara de Nord side down to Podul Grozăvești; 50 km/h; buses 105, 162, 163
-- **frontage**: W: The Bridge office campus (3 towers, 11 lv, 52 m — IBM, Bitdefender, BCR), Ahrend; E: Poliția Locală Sector 6, Lukoil fuel station (canopy, n/w296332666), Sir Orhideea hotel
-- **barrier_note**: OSM maps NO jersey barrier/guard-rail across Orhideelor here; the concrete parapets belong to the elevated Pasajul Basarab ribbons above/alongside (bridge=yes, layer 1–2). The owner's "concrete barrier across the lane on Orhideelor" is therefore a generation bug (an overpass wall projected onto ground level) — walls must stay on the Basarab layer.
-- confidence: high (OSM) [osm] [newsweek_basarab]
-
 ### Podul Grozăvești (chapter route)
 
 - OSM: 6 ways, 115 m in district, classes secondary; lanes values ['3']; one-way segments 6/6; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: —.
@@ -101,42 +102,42 @@ Per-segment OSM data (lanes, turn:lanes, bus lanes, parking, trolley wires, spee
 
 ### Splaiul Independenței
 
-- OSM: 16 ways, 3142 m in district, classes secondary; lanes values ['2', '3', '4']; one-way segments 16/16; maxspeed ['30', '40', '50', '60', 'RO:urban']; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: shared carriageway (rails in road).
-- Transit lines (OSM route relations): tram 1, tram 11, trolleybus 90.
-- OSM furniture: {'lift_gate': 7, 'gate': 4, 'surveillance': 1, 'drinking_water': 1, 'waste_basket': 1}.
-- Fronting buildings: 37; businesses: 20.
+- OSM: 25 ways, 5137 m in district, classes secondary, service; lanes values ['2', '3', '4']; one-way segments 24/25; maxspeed ['10', '30', '40', '50', '60', 'RO:urban']; surface ['asphalt']; trolley_wire ['yes']; turn lanes tagged: True; bus/psv lanes tagged: False; tram: shared carriageway (rails in road).
+- Transit lines (OSM route relations): bus 123, tram 1, tram 11, trolleybus 90, trolleybus 96.
+- OSM furniture: {'lift_gate': 8, 'gate': 8, 'surveillance': 1, 'drinking_water': 1, 'waste_basket': 1, 'bench': 1, 'bicycle_parking': 1}.
+- Fronting buildings: 56; businesses: 26.
 - **cross_section**: the Dâmbovița runs in a straight concrete-lined canal (trapezoidal, ~40 m wide, low water, steel railings) with a ONE-WAY carriageway on each bank: south bank (campus side) EASTBOUND 2–3 lanes (40–50 km/h), north bank (Regie side) WESTBOUND 2 lanes; tram 1/11 and trolleybus 90 sections; poplar/linden rows on the embankments
 - **frontage**: N bank: Regie student campus (dormitories P1–P27, U1–U6: 5–9-storey 1970s blocks), Ibis Politehnica, Novum Invest office; S bank: UPB campus fence, Casa Corpului Didactic
 - confidence: high (OSM); canal look medium [osm]
 
 ### Pasajul Basarab
 
-- OSM: 7 ways, 1775 m in district, classes primary; lanes values ['1', '2']; one-way segments 7/7; maxspeed []; surface []; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: central reservation, shared carriageway (rails in road).
-- Transit lines (OSM route relations): bus 1929, tram 1, tram 10, tram 11.
+- OSM: 14 ways, 2612 m in district, classes primary; lanes values ['1', '2']; one-way segments 14/14; maxspeed []; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: central reservation, shared carriageway (rails in road).
+- Transit lines (OSM route relations): bus 1929, tram 1, tram 10, tram 11, tram 44.
 - Fronting buildings: 3; businesses: 2.
 
 ### Bulevardul Iuliu Maniu
 
-- OSM: 8 ways, 857 m in district, classes primary; lanes values ['3']; one-way segments 8/8; maxspeed ['50']; surface ['asphalt']; trolley_wire ['yes']; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
-- Transit lines (OSM route relations): bus 1929, trolleybus 61, trolleybus 62, trolleybus 63, trolleybus 93.
-- OSM furniture: {'lift_gate': 3, 'gate': 2, 'bench': 3}.
-- Fronting buildings: 8; businesses: 9.
+- OSM: 15 ways, 2216 m in district, classes primary; lanes values ['3']; one-way segments 15/15; maxspeed ['30', '50', '60']; surface ['asphalt']; trolley_wire ['yes']; turn lanes tagged: False; bus/psv lanes tagged: True; tram: —.
+- Transit lines (OSM route relations): bus 139, bus 1929, trolleybus 61, trolleybus 62, trolleybus 63, trolleybus 93.
+- OSM furniture: {'gate': 7, 'lift_gate': 4, 'bench': 6}.
+- Fronting buildings: 24; businesses: 24.
 - **cross_section**: south edge: one-way pairs 3 lanes each with trolleybus wires (61, 62, 63, 93), 50 km/h; Politehnica metro (M3) entrances A–C; new 11-storey offices (The Light One, Campus 6.1/6.2, 45 m) on the N side
 - confidence: high (OSM) [osm]
 
 ### Șoseaua Cotroceni
 
-- OSM: 6 ways, 784 m in district, classes primary; lanes values ['2', '3']; one-way segments 6/6; maxspeed ['50', '60']; surface ['asphalt']; trolley_wire ['yes']; turn lanes tagged: True; bus/psv lanes tagged: False; tram: —.
+- OSM: 16 ways, 1861 m in district, classes primary, secondary; lanes values ['2', '3', '6']; one-way segments 16/16; maxspeed ['50', '60']; surface ['asphalt']; trolley_wire ['yes']; turn lanes tagged: True; bus/psv lanes tagged: False; tram: —.
 - Transit lines (OSM route relations): bus 1929, trolleybus 61, trolleybus 62, trolleybus 93.
-- OSM furniture: {'gate': 1}.
-- Fronting buildings: 28; businesses: 0.
+- OSM furniture: {'gate': 2, 'waste_basket': 2, 'bench': 2}.
+- Fronting buildings: 49; businesses: 14.
 
 ### Bulevardul Regiei
 
 - OSM: 5 ways, 487 m in district, classes residential, tertiary; lanes values ['2']; one-way segments 3/5; maxspeed ['50', 'RO:urban']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
 - Transit lines (OSM route relations): bus 162, bus 163.
 - OSM furniture: {'gate': 4, 'lift_gate': 2}.
-- Fronting buildings: 13; businesses: 5.
+- Fronting buildings: 15; businesses: 5.
 
 ### Strada Economu Cezărescu
 
@@ -144,6 +145,20 @@ Per-segment OSM data (lanes, turn:lanes, bus lanes, parking, trolley wires, spee
 - OSM trees within 25 m: 4 (species —, genus {'Populus': 4}).
 - OSM furniture: {'gate': 2, 'parking_entrance': 1}.
 - Fronting buildings: 19; businesses: 14.
+
+### Bulevardul Geniului
+
+- OSM: 4 ways, 415 m in district, classes primary; lanes values ['2']; one-way segments 4/4; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
+- Transit lines (OSM route relations): bus 139, trolleybus 63.
+- OSM furniture: {'bench': 1}.
+- Fronting buildings: 6; businesses: 0.
+
+### Bulevardul General Paul Teodorescu
+
+- OSM: 5 ways, 405 m in district, classes secondary; lanes values ['2']; one-way segments 5/5; maxspeed ['50']; surface ['asphalt']; trolley_wire ['yes']; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
+- Transit lines (OSM route relations): bus 105, bus 139, trolleybus 93.
+- OSM furniture: {'lift_gate': 1}.
+- Fronting buildings: 6; businesses: 11.
 
 ### Intrarea Grozăvești
 
@@ -156,21 +171,20 @@ Per-segment OSM data (lanes, turn:lanes, bus lanes, parking, trolley wires, spee
 - OSM furniture: {'lift_gate': 4, 'gate': 1}.
 - Fronting buildings: 11; businesses: 10.
 
+### Strada Palatul Cotroceni
+
+- OSM: 4 ways, 316 m in district, classes service; lanes values []; one-way segments 0/4; maxspeed ['RO:urban']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
+- Fronting buildings: 0; businesses: 0.
+
 ### Intrarea Sergent Constantin Ghercu
 
 - OSM: 1 ways, 140 m in district, classes service; lanes values []; one-way segments 0/1; maxspeed []; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
 - Fronting buildings: 0; businesses: 0.
 
-### Bulevardul Geniului
+### Podul Cotroceni
 
-- OSM: 3 ways, 37 m in district, classes primary; lanes values ['2']; one-way segments 3/3; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
-- Transit lines (OSM route relations): trolleybus 63.
-- Fronting buildings: 0; businesses: 0.
-
-### Bulevardul General Paul Teodorescu
-
-- OSM: 2 ways, 30 m in district, classes secondary; lanes values ['2']; one-way segments 2/2; maxspeed ['50']; surface ['asphalt']; trolley_wire ['yes']; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
-- Transit lines (OSM route relations): bus 105, trolleybus 93.
+- OSM: 2 ways, 65 m in district, classes secondary; lanes values ['3']; one-way segments 2/2; maxspeed ['50']; surface ['asphalt']; trolley_wire ['yes']; turn lanes tagged: True; bus/psv lanes tagged: False; tram: —.
+- Transit lines (OSM route relations): bus 123, trolleybus 62, trolleybus 93.
 - Fronting buildings: 0; businesses: 0.
 
 ## Squares, junctions, landmarks
@@ -191,6 +205,7 @@ Signalised / main junctions on the chapter routes (OSM):
 | n2159714546 | Bulevardul Doina Cornea × Șoseaua Grozăvești |  |  | 0 |
 | n304485447 | Bulevardul Doina Cornea × Strada Economu Cezărescu | yes |  | 7 |
 | n32934934 | Bulevardul Regiei × Șoseaua Orhideelor | yes |  | 5 |
+| n981556145 | Calea Giulești × Șoseaua Orhideelor | yes |  | 8 |
 
 ## Key buildings (researched)
 
@@ -216,6 +231,7 @@ Signalised / main junctions on the chapter routes (OSM):
 | w1559344858 | Șoseaua Orhideelor | W | 15A | office | 16 | 64 | 2018 |  | modern office/glass curtain wall | #7D93A0 est | 0 |
 | w740780913 | Șoseaua Orhideelor | W |  | yes | 16 | 64 |  |  | unknown (use district rule) | #BDB7AA est | 4 |
 | w661134293 | Șoseaua Orhideelor | W | 15D | office · The Bridge 1 | 11 | 52 | 2017 |  | modern office/glass curtain wall | #7D93A0 | 7 |
+| w247015074 | Șoseaua Orhideelor | N |  | warehouse | 1 | 8 |  |  | low house/villa (19th-early 20th c. likely) |  | 0 |
 
 ## Ground-floor businesses on the chapter routes
 
@@ -229,16 +245,17 @@ Signalised / main junctions on the chapter routes (OSM):
 | n6933055419 | Bitdefender |  | office=it | Șoseaua Orhideelor | W | 15A |
 | n13710547706 | Domestina România |  | craft=cleaning | Șoseaua Orhideelor | W | 15A |
 | w247015087 | Fabrica Grivița |  | amenity=bar | Șoseaua Orhideelor | N | 2 |
+| w1331454041 | Gradinița nr. 168 |  | amenity=kindergarten | Șoseaua Orhideelor | N | 19 |
 | n3756985973 | Green Day Spa |  | shop=hairdresser | Șoseaua Orhideelor | W | 19 |
 | n6933055421 | IBM |  | office=company | Șoseaua Orhideelor | W | 15D |
 
-Other branded businesses in the district (off-route): OMV (Bulevardul Doina Cornea, w239359996); Starbucks (Bulevardul Doina Cornea, n6098653953); Banca Transilvania (Bulevardul Iuliu Maniu, n1827391331); 5 to go (Splaiul Independenței, n11210115650); Carrefour Express (Splaiul Independenței, n12258231590); Profi (Strada Drajna, n9990622878); 5 to go (Strada Economu Cezărescu, n13236285714); Carrefour (Strada Economu Cezărescu, n11528410571); La Doi Pași (Strada Economu Cezărescu, n13236285710); BCR (Strada George Ranetti, n2414411003); 5 to go (Strada Sergent Constantin Ghercu, n6877476154); 5 to go (, n11210073895); 5 to go (, n11876439490); Vodafone (, n11009381359); BCR (, n610615259); BRD (, n4805940522); BRD (, n6773898600); Carrefour (, w925593033); Chopstix (, n6768983283); Domino's (, n9958810731); Dr. Max (, n11009381348); Dristor Kebap (, n11009381368); Euronet (, n7072653286); Help Net (, n12319355969); Help Net (, n2637755374); Ibis Styles (, w899792464); Intersport (, n11009381360); KFC (, n3619175487); Libra Bank (, w23608496); Maxbet (, n11009381371); McDonald's (, n4805940523); Mega Image (, n12319355971); Mesopotamia (, n11009381367); Mesopotamia (, n11009381353); MOL (, n14189221844); Noriel (, n11009381369); OPTIblu (, n11009381346); Orange (, n6772394787); Pepco (, n11009381363); Pizza Hut (, n10060255155); Profi (, n8727848532); Regina Maria (, n11508840142); Samsonite (, n11009381350); Sephora (, n11009381374); Starbucks (, n6768983282); Yves Rocher (, n11009381345); dm (, n11009381361); Inmedio (, n3619175488); Lukoil (Șoseaua Orhideelor, w256806132).
+Other branded businesses in the district (off-route): OMV (Bulevardul Doina Cornea, w239359996); Starbucks (Bulevardul Doina Cornea, n6098653953); BRD (Bulevardul General Paul Teodorescu, n2437110915); ING (Bulevardul General Paul Teodorescu, n2394811005); Luca (Bulevardul General Paul Teodorescu, n5431039851); 5 to go (Bulevardul Iuliu Maniu, w1158163403); Banca Transilvania (Bulevardul Iuliu Maniu, n1827391331); Dristor Kebap (Bulevardul Iuliu Maniu, n10770721474); Dristor Kebap (Bulevardul Iuliu Maniu, w771711009); Superbet (Bulevardul Iuliu Maniu, n8628417856); Catena (Calea Plevnei, n6257141008); Catena (Calea Plevnei, n11747813932); Shop&Go (Calea Plevnei, n12816643597); ING (Intrarea Elizeu, n7026903567); 5 to go (Splaiul Independenței, n11210115650); Carrefour Express (Splaiul Independenței, n12258231590); Petrom (Strada Doctor Ernest Juvara, w170950529); Profi (Strada Drajna, n9990622878); 5 to go (Strada Economu Cezărescu, n13236285714); Carrefour (Strada Economu Cezărescu, n11528410571); La Doi Pași (Strada Economu Cezărescu, n13236285710); BCR (Strada George Ranetti, n2414411003); 5 to go (Strada Sergent Constantin Ghercu, n6877476154); CEC Bank (Strada Zării, n13174885875); ING (Strada Zării, n6952897499); 5 to go (, n11210073895); 5 to go (, n11876439490); 5 to go (, n12318869822); Vodafone (, n11009381359); BCR (, n610615259); BCR (, n3021606033); BRD (, n4805940522); BRD (, n6773898600); Banca Transilvania (, n1306485690); Carrefour (, w925593033); Chopstix (, n6768983283); Domino's (, n9958810731); Dr. Max (, n11009381348); Dristor Kebap (, n11009381368); Euronet (, n7072653286); Fornetti (, n4805940722); Help Net (, n12319355969); Help Net (, n2637755374); Ibis Styles (, w899792464); Intersport (, n11009381360); KFC (, n3619175487); Kaufland (, w423683661); Libra Bank (, w23608496); Maxbet (, n11009381371); McDonald's (, n4805940523); Mega Image (, n12319355971); Mesopotamia (, n11009381367); Mesopotamia (, n11009381353); MOL (, n14189221844); Noriel (, n11009381369); OPTIblu (, n11009381346); Orange (, n6772394787); Pepco (, n11009381363); Pizza Hut (, n10060255155); Profi (, n8727848532); Profi (, n8727848953); Raiffeisen Bank (, n4805940721); Regina Maria (, n11508840142); Regina Maria (, n9888785698); Samsonite (, n11009381350); Sephora (, n11009381374); Starbucks (, n6768983282); Ted's Coffee Co. (, n12652304729); Yves Rocher (, n11009381345); dm (, n11009381361); Inmedio (, n3619175488); Regina Maria (Șoseaua Cotroceni, n6245711398); Shop&Go (Șoseaua Cotroceni, n6952897501); Lukoil (Șoseaua Orhideelor, w256806132).
 
 ## Transit
 
-- Lines with OSM route relations touching the district: bus 105, bus 162, bus 163, bus 1929, tram 1, tram 10, tram 11, trolleybus 61, trolleybus 62, trolleybus 63, trolleybus 90, trolleybus 93.
-- Stops: Bd. G-ral Paul Teodorescu (bus/trolleybus); Bd. Iuliu Maniu (tram); Bd. Regiei (bus); Complex Grozăvești (platform); Complex Regie (platform); Cămin U4 (bus); Economu Anastasie Stoicescu (bus); General Petre Popovăț (bus); M Petrache Poenaru (bus); Piața Leul (bus/trolleybus); Pod Grozăvești (bus); Pod Grozăvești (tram); Podul Grozăvești (bus); Podul Grozăvești (platform); Universitatea Politehnica (bus/trolleybus); Universitatea Politehnică (bus); Șos. Orhideelor (platform).
-- Metro entrances: Cale acces A Statie Metrou Politehnica (M3) A (44.43476, 26.05506); Cale acces C Politehnica (M3) C (44.43603, 26.05618); Cale acces B Statie Metrou Politehnica (M3) B (44.43526, 26.05627); None  (44.43506, 26.05461); Grozăvești  (44.44285, 26.05994); Grozăvești  (44.44264, 26.06105).
+- Lines with OSM route relations touching the district: bus 105, bus 122, bus 123, bus 137, bus 139, bus 162, bus 163, bus 168, bus 178, bus 182, bus 226, bus 282, bus 368, bus 780, bus 1929, tram 1, tram 10, tram 11, tram 44, trolleybus 61, trolleybus 62, trolleybus 63, trolleybus 69, trolleybus 85, trolleybus 86, trolleybus 90, trolleybus 93, trolleybus 96, trolleybus 97.
+- Stops: A.N.E.F.S. (bus/trolleybus); Bd. Dr. Marinescu (trolleybus); Bd. G-ral Paul Teodorescu (bus/trolleybus); Bd. Iuliu Maniu (bus/trolleybus); Bd. Iuliu Maniu (tram); Bd. Regiei (bus); Calea Giulești (bus); Calea Giulești (platform); Calea Giulești (tram); Calea Plevnei (platform); Calea Plevnei (tram); Calea Plevnei (trolleybus); Carol Davila (bus/trolleybus); Complex Grozăvești (platform); Complex Regie (platform); Cămin U4 (bus); E.L.C.E.N. (bus); Economu Anastasie Stoicescu (bus); Facultatea de Electronică (bus/trolleybus); Facultatea de Filosofie (bus); Facultatea de Medicină (bus/trolleybus); Facultatea de Medicină (trolleybus); Gara Basarab (bus); General Petre Popovăț (bus); Grădina Botanică (bus/trolleybus); M Petrache Poenaru (bus); Mircea Vulcănescu (bus); Piața Leul (bus/trolleybus); Piața Leul (platform); Pod Cotroceni (bus); Pod Cotroceni (bus/trolleybus); Pod Cotroceni (trolleybus); Pod Grozăvești (bus); Pod Grozăvești (tram); Podul Grozăvești (bus); Podul Grozăvești (platform); Primăria Sector 6 (bus); Spitalul Universitar (platform); Universitatea Politehnica (bus/trolleybus); Universitatea Politehnică (bus); Witing (bus/trolleybus); Șos. Orhideelor (platform).
+- Metro entrances: Cale acces A Statie Metrou Politehnica (M3) A (44.43476, 26.05506); Cale acces C Politehnica (M3) C (44.43603, 26.05618); Cale acces B Statie Metrou Politehnica (M3) B (44.43526, 26.05627); None  (44.43506, 26.05461); Grozăvești  (44.44285, 26.05994); Grozăvești  (44.44264, 26.06105); Petrache Poenaru  (44.44534, 26.04669).
 - Liveries:
   - **tram_imperio**: Astra Vagoane Arad Imperio Metropolitan (100 ordered 2021, in service since Dec 2022; 3-section, 100% low floor); body #F4C300 accent #C8102E; yellow STB body with darker front mask; verify accent colours on refs (medium) [imperio] [imperio2] [wp_transport]
   - **tram_v3a**: V3A-93 / V3A-93-2000 / V3A-CH-PPC (articulated, Bucharest URAC-built); body #F2C230 accent #B5121B; yellow with red stripe; frequent full-body advertising wraps (medium) [stb]
@@ -247,6 +264,55 @@ Other branded businesses in the district (off-route): OMV (Bulevardul Doina Corn
   - **bus**: Mercedes-Benz Citaro (1,000 delivered 2006–2009), Citaro Hybrid (2020+), Otokar Kent C 12/18 m, Mercedes eCitaro / BYD electric; body #F4C300 accent #C8102E; STB yellow; Citaro hybrids yellow with STB logo; many carry ad wraps (medium) [stb]
   - **taxi**: ; body #F7D417 accent ; Bucharest licensed taxis are yellow with chequer/stripe and company name/phone on doors (Dacia Logan, Toyota Corolla/Prius, Škoda Octavia) (high)
   - **ride_hail**: ; body  accent ; Uber/Bolt cars are unmarked (any colour), very common (high)
+
+## Dialogue (district pedestrians)
+
+Each line {text (original language), en (English)}; persona.lang = language of text; `base` refers to bucharest-spots.json dialogue_general.persona_library; categories greeting / bumped / photographed / idle / district (place-specific facts, all consistent with this dossier). Shared: bucharest-spots.json → dialogue_general.pedestrian_general (honked_at, near_miss, sidewalk_parking, idle, small_talk) applies to every district pedestrian. Total district lines: 64.
+
+### Vlad (UPB student) (`upb_student`, local, lang ro, 19-24) — 16 lines
+Computer-science student heading from Regie to the Politehnica campus.
+
+- *greeting*: „Salut!” (Hi!) · „Neața, colega!” (Morning, mate!) · „Hei, la ce facultate ești?” (Hey, which faculty are you at?)
+- *bumped*: „Băi, am laptopul la mine!” (Hey, I have my laptop on me!) · „Scuze, eram cu ochii pe cod.” (Sorry, I was looking at code.) · „Ușurel, colega.” (Easy, mate.)
+- *photographed*: „Prinde și Rectoratul!” (Get the Rectorate in!) · „Pentru grupul de an? Ok.” (For the year group chat? OK.) · „Fă-o rapid, am laborator.” (Make it quick, I have a lab.)
+- *idle*: „Am predare la proiect mâine.” (Project hand-in tomorrow.) · „Cantina e plină la unu.” (The canteen is full at one.) · „Mergem la Fabrica după examen?” (Shall we go to Fabrica after the exam?)
+- *district*: „De la Regie la Rectorat faci zece minute pe jos.” (From Regie to the Rectorate is a ten-minute walk.) · „Splaiul e cu sens unic pe fiecare mal.” (The Splai is one-way on each bank.) · „105 e autobuzul studenților.” (The 105 is the students' bus.) · „Metroul Grozăvești e chiar lângă pod.” (Grozăvești metro is right by the bridge.)
+
+### Cristina (Regie dorm resident from Chișinău) (`regie_student_md`, local, lang ro, 19-23) — 16 lines
+Engineering student from the Republic of Moldova living in the Regie dorms; same language, slightly different everyday words.
+
+- *greeting*: „Bună!” (Hi!) · „Salut, ce mai faci?” (Hi, how are you?) · „Bună ziua, știți unde-i căminul P5?” (Good day, do you know where dorm P5 is?)
+- *bumped*: „Ai grijă, te rog!” (Careful, please!) · „Ups, scuze!” (Oops, sorry!) · „Nimic, nimic, se întâmplă.” (Nothing, nothing, it happens.)
+- *photographed*: „Trimit poza la mama acasă!” (I'll send the picture to my mum back home!) · „Fă-o cu Dâmbovița în spate.” (Take it with the Dâmbovița behind.) · „Mulțumesc frumos!” (Thank you kindly!)
+- *idle*: „Diseară gătim în bucătăria de la cămin.” (Tonight we cook in the dorm kitchen.) · „De sărbători plec acasă cu autocarul.” (For the holidays I go home by coach.) · „Am sesiune, nu ies nicăieri.” (Exams are on, I'm not going out.)
+- *district*: „Căminele din Regie sunt toate din anii șaptezeci.” (The Regie dorms are all from the seventies.) · „Pe Splai bate vântul tot timpul.” (The wind always blows on the Splai.) · „Biblioteca Politehnicii e deschisă până seara.” (The Politehnica library is open until evening.) · „Pasajul Basarab se vede de la geamul meu.” (I can see the Basarab overpass from my window.)
+
+### Prof. Ionescu (UPB lecturer) (`professor`, local, lang ro, 50-70) — 16 lines
+Engineering professor in a tweed jacket, formal and dry-witted.
+
+- *greeting*: „Bună ziua.” (Good day.) · „Bună ziua, domnule coleg.” (Good day, colleague.) · „Căutați secretariatul?” (Looking for the faculty office?)
+- *bumped*: „Atenție, vă rog.” (Careful, please.) · „Mai încet, nu e examen de viteză.” (Slower, this isn't a speed exam.) · „Nu s-a întâmplat nimic.” (Nothing happened.)
+- *photographed*: „Fotografiați clădirea, e mai interesantă.” (Photograph the building, it's more interesting.) · „Pentru revista facultății?” (For the faculty magazine?) · „Bine, dar repede.” (Fine, but quickly.)
+- *idle*: „Am patruzeci de lucrări de corectat.” (I have forty papers to mark.) · „Studenții de azi nu mai scriu de mână.” (Students today don't write by hand anymore.) · „Ședința de consiliu e la două.” (The council meeting is at two.)
+- *district*: „Politehnica are rădăcini din 1818, școala lui Gheorghe Lazăr.” (Politehnica's roots go back to 1818, Gheorghe Lazăr's school.) · „Rectoratul e pe Splaiul Independenței 313.” (The Rectorate is at Splaiul Independenței 313.) · „Accesul cu mașina e doar cu permis, la barieră.” (Car access is by permit only, at the barrier.) · „Pe vremuri veneam cu tramvaiul pe Splai.” (In the old days I came by tram along the Splai.)
+
+### Bogdan (shaorma kiosk by the metro) (`shaorma_vendor`, vendor, lang ro, 25-45) — 16 lines
+Runs a late-night shaorma window near Grozăvești metro.
+
+- *greeting*: „Salut, șefu', ce-ți fac?” (Hi boss, what can I make you?) · „Una mare cu de toate?” (A large one with everything?) · „Bună seara, mai avem și falafel.” (Good evening, we have falafel too.)
+- *bumped*: „Ai grijă la geam!” (Mind the window!) · „Hopa, era să-ți cadă sosul!” (Whoa, you nearly dropped the sauce!) · „Nu-i nimic, frate.” (No worries, bro.)
+- *photographed*: „Fă poză la shaorma, e vedeta!” (Photograph the shaorma, it's the star!) · „Dă-ne și o stea pe hartă!” (Give us a star on the map!) · „Stai că zâmbesc!” (Hold on, I'll smile!)
+- *idle*: „La două noaptea vin toți studenții.” (At two a.m. all the students turn up.) · „Azi s-a terminat cartofii devreme.” (We ran out of fries early today.) · „Plata și cu cardul, da.” (Card is fine, yes.)
+- *district*: „Lângă metrou e cea mai bună locație din Grozăvești.” (Next to the metro is the best spot in Grozăvești.) · „Pe Orhideelor e trafic până seara târziu.” (Orhideelor has traffic until late evening.) · „Studenții de la Regie sunt cei mai buni clienți.” (The Regie students are the best customers.) · „Când plouă, se umple tot de umbrele aici.” (When it rains, this place fills with umbrellas.)
+
+Culture notes:
+
+- **Register** — "Bună ziua" with strangers, "Salut/Neața" among young people; "dumneavoastră" (formal you) to older people; "Mersi" is as common as "Mulțumesc". (https://en.wikivoyage.org/wiki/Romanian_phrasebook)
+- **Traffic temper** — Bucharest drivers honk readily and often do not stop at zebras; pedestrians answer with sarcasm rather than aggression — keep lines teasing, not violent. (https://en.wikivoyage.org/wiki/Bucharest#Stay_safe)
+- **Sidewalk parking** — Cars parked on sidewalks are a constant pedestrian complaint; a natural topic for bumped/idle lines in side streets. (https://en.wikivoyage.org/wiki/Bucharest#Get_around)
+- **Taxis at the airport** — At OTP passengers order licensed taxis from touch-screen kiosks in Arrivals; unsolicited offers are a known nuisance — staff lines should point to the kiosks. (https://www.inyourpocket.com/bucharest/The-Definitive-Guide-to-Finding-a-Taxi-at-Bucharest-Airport_74243f)
+- **No stereotypes** — Personas are defined by role/place (student, vendor, commuter), never by ethnicity; Roma, Moldovan or diaspora characters are not caricatured; humour targets traffic, weather, parking and the metro. (spec 20 (game/research) requirement)
+- **Shared library** — Generic personas (local_elder, tour_guide …) and the pedestrian_general set (honked_at, near_miss, sidewalk_parking) live in bucharest-spots.json → dialogue_general; district personas below add place-specific lines. (game/research/bucharest-spots.json)
 
 ## Traffic / congestion (feeds `congestion`, spec 13)
 

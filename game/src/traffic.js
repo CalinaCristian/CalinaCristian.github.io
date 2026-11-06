@@ -969,7 +969,7 @@ export class Traffic {
         v.waitRed = waitingRed; v.redQ = !!redQ;
         if (v.speed < 0.3 && desired > 1 && v.dwell === 0) {
             v.stuck += dt;
-            if (!redQ) v.still += dt * (jam > 0.3 ? 0.35 : 1); else v.still = 0; // (a jam crawls: not a deadlock)
+            if (!redQ) v.still += dt; else v.still = 0; // (a jam's stop-and-go holds last ≤ 6 s: 18 s still is a real gridlock)
             v.honkCd -= dt * (1 + jam);
             if (v.stuck > v.honkAt * (1 - 0.6 * jam) && v.honkCd <= 0 && !waitingRed) {
                 v.honkCd = this.rng.range(4, 14) / (0.2 + this.chaos);

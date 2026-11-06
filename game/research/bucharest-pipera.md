@@ -1,6 +1,6 @@
 # Bucharest — Pipera (Dimitrie Pompeiu) (`pipera`): field research dossier
 
-Role: research-buc-districts · generated 2026-11-06 22:19 UTC · machine-readable twin: `bucharest-pipera.json` · images: `refs/pipera/` (see LICENSES.md).
+Role: research-buc-districts · generated 2026-11-06 22:54 UTC · machine-readable twin: `bucharest-pipera.json` · images: `refs/pipera/` (see LICENSES.md).
 
 Every OSM-derived fact is keyed by OSM id (w = way, n = node, r = relation) and comes from the OSM API 0.6 snapshot of 2026-11-06 [osm]. Bracketed keys like [wp_lascar] point to the **Sources** table at the end. Confidence: *high* = OSM/official/encyclopedic; *medium* = consistent across photos/common knowledge, verify on refs; *low* = estimate.
 
@@ -8,52 +8,53 @@ Every OSM-derived fact is keyed by OSM id (w = way, n = node, r = relation) and 
 
 | metric | value |
 |---|---|
-| route_streets | Bulevardul Dimitrie Pompeiu, Calea Floreasca, Strada Barbu Văcărescu, Strada Gara Herăstrău, Strada George Constantinescu, Șoseaua Fabrica de Glucoză |
-| route_streets_researched | Bulevardul Dimitrie Pompeiu, Calea Floreasca, Strada Barbu Văcărescu, Strada Gara Herăstrău, Strada George Constantinescu, Șoseaua Fabrica de Glucoză |
+| route_streets | Bulevardul Dimitrie Pompeiu, Calea Floreasca, Strada Gara Herăstrău, Strada George Constantinescu, Șoseaua Fabrica de Glucoză, Șoseaua Pipera |
+| route_streets_researched | Bulevardul Dimitrie Pompeiu, Calea Floreasca, Strada Gara Herăstrău, Strada George Constantinescu, Șoseaua Fabrica de Glucoză |
 | fronting_route_buildings | 39 |
 | fronting_route_with_height | 53.8 |
 | fronting_route_with_colour | 5.1 |
-| fronting_route_researched | 10.3 |
-| fronting_route_with_street_frontage_rule | 100.0 |
+| fronting_route_researched | 7.7 |
+| fronting_route_with_street_frontage_rule | 94.9 |
 | fronting_route_with_storeys_any_source | 100.0 |
-| fronting_route_with_facade_hex_any | 61.5 |
-| fronting_main_buildings | 58 |
-| fronting_main_with_height | 70.7 |
-| buildings_total | 295 |
-| buildings_with_height | 51.2 |
-| businesses_total | 273 |
-| businesses_on_route | 19 |
-| businesses_branded | 61 |
-| trees_osm | 1 |
-| lamps_osm | 0 |
-| crossings | 140 |
-| signal_nodes | 20 |
-| transit_stops | 34 |
+| fronting_route_with_facade_hex_any | 59.0 |
+| fronting_main_buildings | 103 |
+| fronting_main_with_height | 66.0 |
+| buildings_total | 473 |
+| buildings_with_height | 46.1 |
+| businesses_total | 346 |
+| businesses_on_route | 40 |
+| businesses_branded | 80 |
+| trees_osm | 2 |
+| lamps_osm | 3 |
+| crossings | 199 |
+| signal_nodes | 26 |
+| transit_stops | 46 |
 | metro_entrances | 2 |
 
 ## Proposed boundary (~1 km²)
 
-- Polygon (lat, lon): `[[44.4745, 26.103], [44.4845, 26.103], [44.4845, 26.1215], [44.4745, 26.1215]]` → bbox `[44.4745, 26.103, 44.4845, 26.1215]`, area **1.633 km²**.
-- Why: 1.11 km N-S × 1.47 km E-W ≈ 1.6 km² trimmed to ~1.3 km² of built area: west edge Calea Floreasca/Gara Herăstrău (Sky Tower, Promenada, Floreasca Park just inside the NW corner), south edge Șos. Fabrica de Glucoză, north edge the Pipera industrial lots / Podul Pipera ramps, east edge Str. George Constantinescu / Conect offices. Contains Hermes Business Campus (luxoft), BOB Tower (DB Global Technology), Novo Park, Globalworth Campus, Pipera metro (M2 terminus).
+- Polygon (lat, lon): `[[44.4745, 26.101], [44.49, 26.101], [44.49, 26.124], [44.4745, 26.124]]` → bbox `[44.4745, 26.101, 44.49, 26.124]`, area **3.147 km²**.
+- Why: Extraction area = world agent bbox from cities.js BUC_DISTRICTS (so every street the world builds is covered). 1.11 km N-S × 1.47 km E-W ≈ 1.6 km² trimmed to ~1.3 km² of built area: west edge Calea Floreasca/Gara Herăstrău (Sky Tower, Promenada, Floreasca Park just inside the NW corner), south edge Șos. Fabrica de Glucoză, north edge the Pipera industrial lots / Podul Pipera ramps, east edge Str. George Constantinescu / Conect offices. Contains Hermes Business Campus (luxoft), BOB Tower (DB Global Technology), Novo Park, Globalworth Campus, Pipera metro (M2 terminus).
+- Research-proposed compact ~1 km² polygon (optional tighter cut): `[[44.4745, 26.103], [44.4845, 26.103], [44.4845, 26.1215], [44.4745, 26.1215]]`
 
 ## Chapter routes
 
 ### luxoft · 2017 — Luxoft — Hermes Business Campus
 
-- **Start**: Barbu Văcărescu × Calea Floreasca (Sky Tower) heading east — `44.477868, 26.10547`, heading 149° on Strada Barbu Văcărescu.
+- **Start**: WORLD START: Barbu Văcărescu north-east-bound — `44.475539, 26.10716`, heading 84° on Șoseaua Fabrica de Glucoză.
 - **End**: Hermes Business Campus, Bd. Dimitrie Pompeiu 5-7 (north side) — `44.48017, 26.113727`.
-- **Length**: 1605 m (computed on the OSM drivable graph respecting one-ways; routable: True).
+- **Length**: 1302 m (computed on the OSM drivable graph respecting one-ways; routable: True).
 - **Why this route**: Start at the Barbu Văcărescu × Calea Floreasca junction under Sky Tower → east on Șos. Fabrica de Glucoză (tram 5 terminus area, Globalworth Tower/Campus, Novo Park on the left) → north on Str. George Constantinescu (Medicover, MG offices) → west a block on Bd. Dimitrie Pompeiu to the Hermes Business Campus (Pipera metro M2 terminus just east).
-- **Sequence**: Strada Barbu Văcărescu (288 m) → Șoseaua Fabrica de Glucoză (840 m) → Strada George Constantinescu (345 m) → Bulevardul Dimitrie Pompeiu (133 m)
-- Waypoints for `CHAPTERS`/autopilot: `[{"lat": 44.4772, "lon": 26.1045, "road": "Barbu Văcărescu|Fabrica", "bearing": 90}, {"lat": 44.479, "lon": 26.116, "road": "George Constantinescu", "bearing": 0}, {"lat": 44.4806, "lon": 26.1135, "road": "Pompeiu"}]`
+- **Sequence**: Șoseaua Fabrica de Glucoză (825 m) → Strada George Constantinescu (345 m) → Bulevardul Dimitrie Pompeiu (133 m)
+- Waypoints for `CHAPTERS`/autopilot: `[{"lat": 44.4752, "lon": 26.1032, "road": "Barbu Văcărescu", "bearing": 40}, {"lat": 44.479, "lon": 26.116, "road": "George Constantinescu", "bearing": 0}, {"lat": 44.4806, "lon": 26.1135, "road": "Pompeiu"}]`
 
 ### db · 2017 — DB Global Technology — BOB Tower, Bd. Dimitrie Pompeiu 6A
 
-- **Start**: Calea Floreasca northbound at Promenada / Sky Tower — `44.476872, 26.102975`, heading 160° on Calea Floreasca.
+- **Start**: Calea Floreasca northbound at Promenada / Sky Tower — `44.477552, 26.102661`, heading 339° on Calea Floreasca.
 - **End**: BOB Tower (DB Global Technology), Pompeiu 6A (south side) — `44.48017, 26.113727`.
-- **Length**: 1488 m (computed on the OSM drivable graph respecting one-ways; routable: True).
+- **Length**: 1401 m (computed on the OSM drivable graph respecting one-ways; routable: True).
 - **Why this route**: From Calea Floreasca at Promenada/Sky Tower → Șos. Fabrica de Glucoză → north on Str. Gara Herăstrău past Floreasca Park/AFI offices → east along narrow two-lane Bd. Dimitrie Pompeiu (office canyon, barrier-gated parking entrances) to BOB Tower (DB Global Technology) on the south side opposite Hermes.
-- **Sequence**: Calea Floreasca (141 m) → Șoseaua Fabrica de Glucoză (313 m) → (primary_link) (33 m) → Șoseaua Fabrica de Glucoză (30 m) → Strada Gara Herăstrău (304 m) → Bulevardul Dimitrie Pompeiu (667 m)
+- **Sequence**: Calea Floreasca (268 m) → Șoseaua Pipera (149 m) → Strada Gara Herăstrău (316 m) → Bulevardul Dimitrie Pompeiu (667 m)
 - Waypoints for `CHAPTERS`/autopilot: `[{"lat": 44.4778, "lon": 26.1036, "road": "Calea Floreasca", "bearing": 0}, {"lat": 44.48, "lon": 26.108, "road": "Pompeiu", "bearing": 90}, {"lat": 44.48, "lon": 26.1146, "road": "Pompeiu"}]`
 
 ## CV stops (verified)
@@ -85,32 +86,39 @@ Per-segment OSM data (lanes, turn:lanes, bus lanes, parking, trolley wires, spee
 
 ### Șoseaua Fabrica de Glucoză (chapter route)
 
-- OSM: 21 ways, 3018 m in district, classes primary, secondary; lanes values ['2', '3', '4']; one-way segments 21/21; maxspeed ['40']; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: —.
+- OSM: 21 ways, 3394 m in district, classes primary, secondary; lanes values ['2', '3', '4']; one-way segments 21/21; maxspeed ['40']; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: —.
 - Transit lines (OSM route relations): bus 343, bus 449, bus 459, bus 461, bus 1929.
 - OSM furniture: {'gate': 2, 'bicycle_rental': 1, 'bicycle_parking': 2, 'lift_gate': 5}.
-- Fronting buildings: 38; businesses: 9.
+- Fronting buildings: 41; businesses: 12.
 - **cross_section**: one-way pairs 2–4 lanes with turn pockets; 40 km/h signed (OSM maxspeed 40); buses 343, 449, 459, 461; tram 5 loop/terminus near Barbu Văcărescu
 - **frontage**: Globalworth Tower (118–120 m, 26 floors, 2016) and Globalworth Campus; 12-storey new residential blocks (Bl. 1–4) on the S side; Novo Park on the N side
 - confidence: high (OSM, Wikipedia) [osm] [wp_globalworth_tower]
 
-### Strada Barbu Văcărescu (chapter route)
+### Șoseaua Pipera (chapter route)
 
-- OSM: 9 ways, 1515 m in district, classes primary; lanes values ['2', '3', '4']; one-way segments 9/9; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: central reservation.
-- Transit lines (OSM route relations): bus 330, bus 449, bus 461, bus 1929, tram 5.
-- OSM furniture: {'parking_entrance': 1}.
-- Fronting buildings: 8; businesses: 7.
-- **cross_section**: dual carriageway 2–3 lanes each way with tram 5 on a central reservation; 50 km/h; offices AFI Lakeview (15 lv, 65 m), Zone 313, FCC, Raiffeisen Bank HQ, DHL
-- confidence: high (OSM) [osm]
+- OSM: 28 ways, 2952 m in district, classes residential, secondary, secondary_link; lanes values ['1', '2', '3', '4']; one-way segments 25/28; maxspeed ['50', 'RO:urban']; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: —.
+- Transit lines (OSM route relations): bus 112, bus 135, bus 343, bus 416, bus 449, bus 459.
+- OSM furniture: {'lift_gate': 8, 'parking_entrance': 2}.
+- Fronting buildings: 18; businesses: 18.
 
 ### Bulevardul Dimitrie Pompeiu (chapter route)
 
-- OSM: 9 ways, 1404 m in district, classes tertiary; lanes values ['1', '2']; one-way segments 2/9; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
+- OSM: 9 ways, 1561 m in district, classes tertiary; lanes values ['1', '2']; one-way segments 2/9; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
 - Transit lines (OSM route relations): bus 416, bus 459.
 - OSM furniture: {'gate': 4, 'parking_entrance': 1, 'bicycle_parking': 2, 'lift_gate': 8}.
-- Fronting buildings: 18; businesses: 25.
+- Fronting buildings: 20; businesses: 28.
 - **cross_section**: despite "Bulevard" it is a narrow 2-lane (1+1) street (≈7–8 m) with a 581 m one-way single-lane section (OSM w1040373748) and frequent office driveways with lift-gate barriers; 50 km/h; buses 416, 459 only; sidewalks 2–3 m, new paving in front of offices, broken elsewhere; a 105 M€ widening/tram project (4 lanes or 2 + double tram + bike lanes, target 2028) is planned — model today's narrow street
 - **frontage**: office canyon: N: Hermes Business Campus (5-7), Nova Building (9 lv), Santo Raphael clinic; S: Courtyard by Marriott (14 lv, 55 m), Novo Park A–G (5–14 lv), BOB Tower (6A), Upground towers; Pipera metro terminus (M2) at the east end; Euronet ATMs, cafes (ibrik), bakeries
 - confidence: lanes high (OSM); project status medium [osm] [pompeiu_project] [pompeiu_105m] [pipera_capital]
+
+### Calea Floreasca (chapter route)
+
+- OSM: 24 ways, 1000 m in district, classes living_street, secondary; lanes values ['2', '4']; one-way segments 14/24; maxspeed ['10', 'RO:urban']; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: —.
+- Transit lines (OSM route relations): bus 135, bus 343, bus 449, bus 459, bus 461.
+- OSM furniture: {'gate': 3, 'parking_entrance': 2}.
+- Fronting buildings: 8; businesses: 24.
+- **cross_section**: north end at Promenada/Sky Tower: 2+2 with turn pockets
+- confidence:  [osm]
 
 ### Strada Gara Herăstrău (chapter route)
 
@@ -129,37 +137,49 @@ Per-segment OSM data (lanes, turn:lanes, bus lanes, parking, trolley wires, spee
 - **cross_section**: two-way 1+1 office street; Medicover, Ted's Coffee, A•R•C Bakery; MG 2, Globalworth Campus B (13 lv)
 - confidence: high (OSM) [osm]
 
-### Calea Floreasca (chapter route)
+### Strada Câmpul Pipera
 
-- OSM: 7 ways, 322 m in district, classes living_street, secondary; lanes values ['2', '4']; one-way segments 0/7; maxspeed ['10', 'RO:urban']; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: —.
-- Transit lines (OSM route relations): bus 135, bus 343, bus 449, bus 459, bus 461.
-- OSM furniture: {'gate': 2}.
-- Fronting buildings: 3; businesses: 1.
-- **cross_section**: north end at Promenada/Sky Tower: 2+2 with turn pockets
-- confidence:  [osm]
+- OSM: 6 ways, 1615 m in district, classes residential; lanes values ['2']; one-way segments 2/6; maxspeed ['50', 'RO:urban']; surface ['asphalt', 'concrete']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
+- Transit lines (OSM route relations): bus 343.
+- Fronting buildings: 11; businesses: 1.
 
-### Șoseaua Pipera
+### Strada Barbu Văcărescu
 
-- OSM: 13 ways, 1993 m in district, classes secondary; lanes values ['1', '2', '3']; one-way segments 13/13; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
-- Transit lines (OSM route relations): bus 112, bus 135, bus 343, bus 416, bus 449, bus 459.
-- OSM furniture: {'lift_gate': 5}.
-- Fronting buildings: 11; businesses: 12.
+- OSM: 9 ways, 1572 m in district, classes primary; lanes values ['2', '3', '4']; one-way segments 9/9; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: True; bus/psv lanes tagged: False; tram: central reservation.
+- Transit lines (OSM route relations): bus 330, bus 449, bus 461, bus 1929, tram 5.
+- OSM furniture: {'parking_entrance': 1}.
+- Fronting buildings: 8; businesses: 10.
+- **cross_section**: dual carriageway 2–3 lanes each way with tram 5 on a central reservation; 50 km/h; offices AFI Lakeview (15 lv, 65 m), Zone 313, FCC, Raiffeisen Bank HQ, DHL
+- confidence: high (OSM) [osm]
+
+### Bulevardul Pipera
+
+- OSM: 10 ways, 716 m in district, classes secondary; lanes values ['2', '4']; one-way segments 7/10; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
+- Transit lines (OSM route relations): bus 343, bus 416, bus 449, bus 459.
+- OSM furniture: {'lift_gate': 2, 'gate': 1}.
+- Fronting buildings: 8; businesses: 1.
+
+### Podul Pipera
+
+- OSM: 1 ways, 472 m in district, classes secondary; lanes values ['4']; one-way segments 0/1; maxspeed ['50']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
+- Transit lines (OSM route relations): bus 343, bus 416, bus 449, bus 459.
+- Fronting buildings: 7; businesses: 0.
+
+### Podul Barbu Văcărescu
+
+- OSM: 1 ways, 447 m in district, classes secondary; lanes values ['4']; one-way segments 0/1; maxspeed ['RO:urban']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
+- Fronting buildings: 0; businesses: 1.
+
+### Strada Marin Preda
+
+- OSM: 1 ways, 435 m in district, classes residential; lanes values ['2']; one-way segments 0/1; maxspeed ['30']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
+- OSM furniture: {'lift_gate': 2, 'parking_entrance': 2}.
+- Fronting buildings: 9; businesses: 2.
 
 ### Aleea New York
 
 - OSM: 1 ways, 295 m in district, classes service; lanes values []; one-way segments 0/1; maxspeed ['10']; surface ['paved']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
 - Fronting buildings: 0; businesses: 0.
-
-### Strada Marin Preda
-
-- OSM: 1 ways, 285 m in district, classes residential; lanes values ['2']; one-way segments 0/1; maxspeed ['30']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
-- OSM furniture: {'lift_gate': 1, 'parking_entrance': 1}.
-- Fronting buildings: 7; businesses: 1.
-
-### Podul Barbu Văcărescu
-
-- OSM: 1 ways, 270 m in district, classes secondary; lanes values ['4']; one-way segments 0/1; maxspeed ['RO:urban']; surface ['asphalt']; trolley_wire —; turn lanes tagged: False; bus/psv lanes tagged: False; tram: —.
-- Fronting buildings: 0; businesses: 1.
 
 ## Squares, junctions, landmarks
 
@@ -174,11 +194,11 @@ Signalised / main junctions on the chapter routes (OSM):
 
 | node | streets | signals | roundabout | crossings ≤40 m |
 |---|---|---|---|---|
-| n7752045889 | Strada Barbu Văcărescu × Șoseaua Fabrica de Glucoză | yes |  | 14 |
-| n656968 | Calea Floreasca × Șoseaua Fabrica de Glucoză | yes |  | 4 |
 | n7684747704 | Intrarea Chefalului × Șoseaua Fabrica de Glucoză | yes |  | 3 |
-| n12500889187 | Strada Gara Herăstrău × Șoseaua Fabrica de Glucoză | yes |  | 11 |
+| n1450415444 | Strada Gara Herăstrău × Șoseaua Pipera | yes |  | 4 |
 | n255387694 | Bulevardul Dimitrie Pompeiu × Strada Gara Herăstrău |  |  | 1 |
+| n1450415450 | Calea Floreasca × Șoseaua Pipera | yes |  | 6 |
+| n2128199316 | Strada Barbu Văcărescu × Strada Căpitan Aviator Alexandru Șerbănescu × Șoseaua Pipera | yes |  | 10 |
 | n3413363629 | Bulevardul Dimitrie Pompeiu × Strada George Constantinescu |  |  | 2 |
 | n11396319606 | Strada George Constantinescu × Șoseaua Fabrica de Glucoză | yes |  | 3 |
 | n7684747707 | Anton Holban × Șoseaua Fabrica de Glucoză |  |  | 4 |
@@ -189,8 +209,8 @@ Signalised / main junctions on the chapter routes (OSM):
 |---|---|---|---|---|---|---|
 | w764534288 | Courtyard by Marriott Bucharest Floreasca | 14 / 55 |   |  |  |  [osm] |
 | w533147567 | Hermes Business Campus (Luxoft, HBC2) | 9 / 36 | #E3E4E1 panels + glazing | flat | 2011–2016 | luxoft [hermes_atenor] [osm] |
-| w237911115 | AFI Lakeview | 15 / 65 |  glass |  |  |  [osm] |
 | w55450549 | BOB Tower (DB Global Technology) | 7 / 28 | #6F8C99 glass curtain wall | flat | 2008 | db [bob_globalworth] [osm] |
+| w237911115 | AFI Lakeview | 15 / 65 |  glass |  |  |  [osm] |
 
 ## Buildings fronting the chapter routes (all, from OSM + style rules)
 
@@ -211,13 +231,11 @@ Signalised / main junctions on the chapter routes (OSM):
 | w55450675 | Bulevardul Dimitrie Pompeiu | SE |  | yes · Clădirea B+C | 2 est |  |  |  | unknown (use district rule) |  | 0 |
 | w231123131 | Bulevardul Dimitrie Pompeiu | NW |  | yes · Centrul naturist de sănătate Santo Raphael | 2 est |  |  |  | unknown (use district rule) |  | 1 |
 | w533147567 | Bulevardul Dimitrie Pompeiu | NW | 5-7 | commercial · Clădirea A | 9 |  |  |  | modern office/glass curtain wall | #E3E4E1 | 1 |
-| w237911115 | Strada Barbu Văcărescu | SW | 301-311 | office · AFI Lakeview | 15 | 65 | 2010 |  | modern office/glass curtain wall | #6F8C99 est | 2 |
-| w289666722 | Strada Barbu Văcărescu | SW |  | yes | 8 | 38 |  |  | unknown (use district rule) | #D9D6CF est | 0 |
-| w771247146 | Strada Barbu Văcărescu | SW | 313-315 | office · Zone 313 | 10 | 35 |  |  | modern office/glass curtain wall | #6F8C99 est | 0 |
-| w232754997 | Strada Barbu Văcărescu | SW | 246D | office · FCC Office Building | 7 | 22 |  |  | modern office/glass curtain wall | #6F8C99 est | 1 |
-| w1289605669 | Strada Gara Herăstrău | NE | 2A | apartments · Corp A | 15 | 53 |  |  | communist-era block (likely) | #C7C3BA est | 0 |
-| w1289605668 | Strada Gara Herăstrău | E | 2A | apartments · Corp B | 15 | 53 |  |  | communist-era block (likely) | #D9D6CF est | 0 |
-| w231123133 | Strada Gara Herăstrău | NE |  | yes | 2 est |  |  |  | unknown (use district rule) |  | 0 |
+| w547396774 | Calea Floreasca | E | 201 | office · Globalworth Tower | 27 | 120 |  |  | modern office/glass curtain wall | #6F8C99 est | 3 |
+| w533147566 | Strada Gara Herăstrău | NE | 4B | office | 12 | 45 | 2016 |  | modern office/glass curtain wall | #6F8C99 est | 0 |
+| w766842568 | Strada Gara Herăstrău | NE | 6 | office · Globalworth Square | 15 | 78 | 2021 |  | modern office/glass curtain wall | #6F8C99 est | 1 |
+| w236041902 | Strada Gara Herăstrău | NE | 42 | office · Nusco Tower | 20 | 80 | 2010 |  | modern office/glass curtain wall | #6F8C99 est | 7 |
+| w1289605664 | Strada Gara Herăstrău | NE |  | yes | 3 | 14 |  |  | unknown (use district rule) | #D9D2C3 est | 0 |
 | w1418380081 | Strada George Constantinescu | NE | 11A | yes · Grup Feroviar Roman | 2 est |  |  |  | unknown (use district rule) |  | 0 |
 | w41506373 | Strada George Constantinescu | SW |  | office · Upground | 5 est |  |  |  | unknown (use district rule) | #D9D2C3 est | 3 |
 | w334223277 | Strada George Constantinescu | NE | 2C | office · MG 2 | 7 |  |  |  | modern office/glass curtain wall | #6F8C99 est | 2 |
@@ -237,6 +255,8 @@ Signalised / main junctions on the chapter routes (OSM):
 | w1132411164 | Șoseaua Fabrica de Glucoză | S |  | apartments | 3 |  | 2021 |  | post-1990 building | #D9D6CF est | 0 |
 | w1132411165 | Șoseaua Fabrica de Glucoză | S |  | apartments | 3 |  | 2021 |  | post-1990 building | #C7C3BA est | 0 |
 | w1132411166 | Șoseaua Fabrica de Glucoză | S |  | apartments | 3 |  | 2021 |  | post-1990 building | #E3E4E1 est | 0 |
+| w467228902 | Șoseaua Pipera | SE | 201 | yes · Mega Image | 2 |  |  |  | low house/villa (19th-early 20th c. likely) |  | 6 |
+| w828429008 | Șoseaua Pipera | SE |  | roof | 1 est |  |  |  | utility/annex |  | 0 |
 
 ## Ground-floor businesses on the chapter routes
 
@@ -249,9 +269,28 @@ Signalised / main junctions on the chapter routes (OSM):
 | n7057976265 | Euronet | Euronet bg #0D2F6A fg #FFFFFF | amenity=atm | Bulevardul Dimitrie Pompeiu | NW |  |
 | n517345542 | Food store |  | shop=convenience | Bulevardul Dimitrie Pompeiu | N |  |
 | n13233924327 | ibrik |  | amenity=cafe | Bulevardul Dimitrie Pompeiu | N |  |
-| n4548556190 | DHL | DHL bg #FFCC00 fg #D40511 | amenity=post_office | Strada Barbu Văcărescu | SW | 301 |
-| n6853428014 | Huawei Enterprise Romania GSC |  | office=company | Strada Barbu Văcărescu | W | 301 |
-| n2443484061 | Raiffeisen Bank Romania | Raiffeisen Bank bg #FFE600 fg #000000 | office=company | Strada Barbu Văcărescu | SW | 246D |
+| w467560249 |  |  | amenity=parking | Calea Floreasca | E |  |
+| n2484094075 | EcoClean Promenada |  | shop=dry_cleaning | Calea Floreasca | E |  |
+| n9574755540 | Fayn |  | amenity=restaurant | Calea Floreasca | NE | 246 |
+| n4866592321 | Florens |  | shop=gift | Calea Floreasca | E |  |
+| n4866589923 | GNC |  | shop=nutrition_supplements | Calea Floreasca | E |  |
+| n5289269918 | Huawei Romania |  | office=company | Calea Floreasca | E | 201 |
+| n4866592323 | JPB Tabac |  | shop=tobacco | Calea Floreasca | E |  |
+| n4866589922 | Next |  | shop=clothes | Calea Floreasca | E | 246B |
+| n4866592422 | Oblio |  | shop=toys | Calea Floreasca | E |  |
+| n2484113356 | Optiblu | OPTIblu bg #005BAC fg #FFFFFF | shop=optician | Calea Floreasca | E |  |
+| n2484113369 | Paul | Paul bg #1A1A1A fg #FFFFFF | shop=bakery | Calea Floreasca | E | 246B |
+| n4866592324 | Profihairshop | Profi bg #F7A600 fg #E30613 | shop=cosmetics | Calea Floreasca | E | 246B |
+| n4866592521 | Simona's Cookshop |  | shop=kitchen | Calea Floreasca | E |  |
+| n4866592421 | Smyk |  | shop=toys | Calea Floreasca | E |  |
+| n4833254421 | Starbucks | Starbucks bg #00704A fg #FFFFFF | amenity=cafe | Calea Floreasca | NE | 246B |
+| n4191473434 | Vivo Fusion Food Bar |  | amenity=restaurant | Calea Floreasca | E | 246 |
+| n5289269917 | Vodafone Romania | Vodafone bg #E60000 fg #FFFFFF | office=company | Calea Floreasca | NE | 201 |
+| n7071797487 | Euronet | Euronet bg #0D2F6A fg #FFFFFF | amenity=atm | Strada Gara Herăstrău | NE |  |
+| n3069844972 | NoaDent |  | amenity=dentist | Strada Gara Herăstrău | NE | 42 |
+| n5868977715 | Pasta Bar |  | shop=vacant | Strada Gara Herăstrău | NE | 42 |
+| n4831193724 | Patria Bank | Patria Bank bg #1C3F94 fg #FFFFFF | amenity=bank | Strada Gara Herăstrău | NE | 42 |
+| n12437261249 | Qualitest |  | office=it | Strada Gara Herăstrău | NE | 6 |
 | w823202265 |  |  | amenity=parking | Strada George Constantinescu | NE |  |
 | n11187972861 | A•R•C Bakery |  | amenity=restaurant | Strada George Constantinescu | NE | 2-4 |
 | n10111661679 | Fayn |  | amenity=restaurant | Strada George Constantinescu | SW | 9B |
@@ -261,13 +300,15 @@ Signalised / main junctions on the chapter routes (OSM):
 | n7063165051 | Radcom |  | office=it | Strada George Constantinescu | NE | 2C |
 | n12652303089 | Ted's Coffee Co. | Ted's Coffee Co. bg #1F1F1F fg #FFFFFF | amenity=cafe | Strada George Constantinescu | NE |  |
 | w823202263 |  |  | amenity=parking | Șoseaua Fabrica de Glucoză | S |  |
+| w828429008 |  |  | amenity=parking | Șoseaua Pipera | SE |  |
+| w467228902 | Mega Image | Mega Image bg #E30613 fg #FFFFFF | shop=supermarket | Șoseaua Pipera | SE | 201 |
 
-Other branded businesses in the district (off-route): 5 to go (Bulevardul Dimitrie Pompeiu, n4080665314); Catena (Bulevardul Dimitrie Pompeiu, n4080665316); Fornetti (Bulevardul Dimitrie Pompeiu, n10113539352); Luca (Bulevardul Dimitrie Pompeiu, n6435803578); Raiffeisen Bank (Bulevardul Dimitrie Pompeiu, n1563503912); Euronet (Strada Gara Herăstrău, n7071797487); Patria Bank (Strada Gara Herăstrău, n4831193724); 5 to go (, n8828063881); Alpha Bank (, n4375547592); Auchan (, n11958088007); BCR (, n9574970238); BCR (, w318990256); BRD (, n10113539339); Banca Transilvania (, n10113539338); CEC Bank (, n5014501222); Calzedonia (, n4866452022); Carrefour Express (, n7024202579); Carrefour Market (, n4618747780); Carrefour Market (, n4866483524); Chopstix (, n2484089641); Cărturești (, n2484089644); Douglas (, n4866286221); Froo (, n13808225715); Garanti (, n3796917465); Garanti (, n4375519191); Help Net (, n2484107173); Intersport (, n2484107185); KFC (, n2484107187); McDonald's (, n2484107194); Mega Image (, n3056571033); Noriel (, n2484107196); OPTIblu (, n12088849037); Orange (, n4866516025); Pizza Hut (, n5014501224); Pizza Hut (, n9226855841); Profi (, n4866592324); Raiffeisen Bank (, n4866553723); Raiffeisen Bank (, n5014501122); Regina Maria (, n6436505010); Samsonite (, n5014390421); Starbucks (, n4107002593); Starbucks (, n6155859303); Ted's Coffee Co. (, n12652303088); Ted's Coffee Co. (, n12759697006); Telekom (, n2484107170); UniCredit (, n4167364826); UniCredit (, n7080689124); Vodafone (, n4866524526); Yves Rocher (, n4866280923); dm (, n4866520622); Inmedio (, n2484107183); Inmedio (, n5014501121); Libra Bank (Șoseaua Fabrica de Glucoză, n13333870192); Shop&Go (Șoseaua Fabrica de Glucoză, n12079963619); Carrefour Market (Șoseaua Pipera, n11096758505); Ted's Coffee Co. (Șoseaua Pipera, n11958088014).
+Other branded businesses in the district (off-route): 5 to go (Bulevardul Dimitrie Pompeiu, n4080665314); Catena (Bulevardul Dimitrie Pompeiu, n4080665316); Fornetti (Bulevardul Dimitrie Pompeiu, n10113539352); Luca (Bulevardul Dimitrie Pompeiu, n6435803578); Raiffeisen Bank (Bulevardul Dimitrie Pompeiu, n1563503912); CEC Bank (Calea Floreasca, n4833254521); Luca (Calea Floreasca, n9574755538); DHL (Strada Barbu Văcărescu, n4548556190); Euronet (Strada Barbu Văcărescu, n7057977916); Raiffeisen Bank (Strada Barbu Văcărescu, n2443484061); La Doi Pași (Strada Câmpul Pipera, n11307582092); Kaufland (Strada Marin Preda, w1198250017); 5 to go (, n8828063881); Alpha Bank (, n4375547592); Auchan (, n11958088007); BCR (, n9574970238); BCR (, w318990256); BRD (, n10113539339); Banca Transilvania (, n10113539338); CEC Bank (, n5014501222); Calzedonia (, n4866452022); Carrefour Express (, n7024202579); Carrefour Market (, n4618747780); Carrefour Market (, n4866483524); Chopstix (, n2484089641); Cărturești (, n2484089644); Douglas (, n4866286221); Dr. Max (, n4866258022); Froo (, n13808225715); Garanti (, n3796917465); Garanti (, n4375519191); Help Net (, n2484107173); ING (, n7026814342); Intersport (, n2484107185); KFC (, n2484107187); Kaufland (, n12857585674); Kaufland (, w1198250027); Kaufland (, w1238689138); McDonald's (, n2484107194); Mega Image (, n3056571033); Noriel (, n2484107196); OPTIblu (, n12088849037); Orange (, n4866516025); Pizza Hut (, n5014501224); Pizza Hut (, n9226855841); Raiffeisen Bank (, n4866553723); Raiffeisen Bank (, n5014501122); Regina Maria (, n6436505010); Samsonite (, n5014390421); Sephora (, n4866265921); Starbucks (, n4107002593); Starbucks (, n6155859303); Ted's Coffee Co. (, n12652303088); Ted's Coffee Co. (, n12759697006); Telekom (, n2484107170); UniCredit (, n4167364826); UniCredit (, n7080689124); Vodafone (, n4866524526); Yves Rocher (, n4866280923); dm (, n4866520622); Inmedio (, n2484107183); Inmedio (, n5014501121); Libra Bank (Șoseaua Fabrica de Glucoză, n13333870192); Shop&Go (Șoseaua Fabrica de Glucoză, n12079963619); Libra Bank (Șoseaua Fabrica de Glucoză, n516859749); Carrefour Market (Șoseaua Pipera, n11096758505); Lukoil (Șoseaua Pipera, n2437135667); Lukoil (Șoseaua Pipera, w547396767); Ted's Coffee Co. (Șoseaua Pipera, n11958088014).
 
 ## Transit
 
 - Lines with OSM route relations touching the district: bus 112, bus 135, bus 330, bus 343, bus 416, bus 449, bus 459, bus 461, bus 1929, tram 5.
-- Stops: Barbu Văcărescu (bus); Chefalului (bus); Cloud 9 (bus); Electronica (tram); George Constantinescu (bus); Marin Drăcea (bus); Metrou Pipera (bus); Muzeul Aviației (bus); Muzeul Aviației (tram); Pipera-Cosmopolis (bus); Platforma Industrială Pipera (tram); Platforma Pipera (bus); Rocin (bus); Rocin (tram); Șoseaua Fabrica de Glucoză (bus); Șoseaua Pipera (tram).
+- Stops: Aurel Vlaicu (bus); Barbu Văcărescu (bus); Chefalului (bus); Cloud 9 (bus); Electronica (tram); Fabrica de Glucoză 15 (bus); Fabrica de Glucoză 8 (bus); George Constantinescu (bus); Marin Drăcea (bus); Metrou Aurel Vlaicu (bus); Metrou Pipera (bus); Muzeul Aviației (bus); Muzeul Aviației (tram); Pasaj CFR Constanța (bus); Pasajul Pipera Urcare (bus); Pasajul Pipera coborare (bus); Pipera-Cosmopolis (bus); Platforma Industrială Pipera (tram); Platforma Pipera (bus); Rocin (bus); Rocin (tram); Șoseaua Fabrica de Glucoză (bus); Șoseaua Pipera (bus); Șoseaua Pipera (tram).
 - Metro entrances: Pipera  (44.48078, 26.11660); Pipera  (44.48073, 26.11639).
 - Liveries:
   - **tram_imperio**: Astra Vagoane Arad Imperio Metropolitan (100 ordered 2021, in service since Dec 2022; 3-section, 100% low floor); body #F4C300 accent #C8102E; yellow STB body with darker front mask; verify accent colours on refs (medium) [imperio] [imperio2] [wp_transport]
@@ -277,6 +318,55 @@ Other branded businesses in the district (off-route): 5 to go (Bulevardul Dimitr
   - **bus**: Mercedes-Benz Citaro (1,000 delivered 2006–2009), Citaro Hybrid (2020+), Otokar Kent C 12/18 m, Mercedes eCitaro / BYD electric; body #F4C300 accent #C8102E; STB yellow; Citaro hybrids yellow with STB logo; many carry ad wraps (medium) [stb]
   - **taxi**: ; body #F7D417 accent ; Bucharest licensed taxis are yellow with chequer/stripe and company name/phone on doors (Dacia Logan, Toyota Corolla/Prius, Škoda Octavia) (high)
   - **ride_hail**: ; body  accent ; Uber/Bolt cars are unmarked (any colour), very common (high)
+
+## Dialogue (district pedestrians)
+
+Each line {text (original language), en (English)}; persona.lang = language of text; `base` refers to bucharest-spots.json dialogue_general.persona_library; categories greeting / bumped / photographed / idle / district (place-specific facts, all consistent with this dossier). Shared: bucharest-spots.json → dialogue_general.pedestrian_general (honked_at, near_miss, sidewalk_parking, idle, small_talk) applies to every district pedestrian. Total district lines: 64.
+
+### Irina (QA engineer, Hermes campus) (`corporate_dev`, local, lang ro, 25-40) — 16 lines
+Corporate employee with a badge and coffee cup; mixes Romanian with English office jargon.
+
+- *greeting*: „Bună!” (Hi!) · „Hey, morning!” · „Salut, mergi și tu spre metrou?” (Hi, heading to the metro too?)
+- *bumped*: „Ups! Sorry!” (Oops! Sorry!) · „Atenție, am cafeaua fierbinte!” (Careful, hot coffee!) · „No worries, se întâmplă.” (No worries, it happens.)
+- *photographed*: „Stai să-mi ascund badge-ul.” (Wait, let me hide my badge.) · „Fă una cu Hermes în spate.” (Take one with Hermes behind.) · „Perfect, mersi!” (Perfect, thanks!)
+- *idle*: „Am call cu echipa din India la zece.” (Call with the team in India at ten.) · „Sprint review iar vineri...” (Sprint review on Friday again...) · „Facem lunch la food truck?” (Lunch at the food truck?)
+- *district*: „Pe Dimitrie Pompeiu stai o oră seara.” (You sit for an hour on Dimitrie Pompeiu in the evening.) · „Vin cu metroul, e singura variantă sigură.” (I come by metro, it's the only reliable option.) · „Barierele de la parcări blochează tot bulevardul.” (The car-park barriers block the whole boulevard.) · „Au promis că lărgesc bulevardul, mai vedem.” (They promised to widen the boulevard, we'll see.)
+
+### Domnul Gelu (office security) (`security_guard`, staff, lang ro, 40-60) — 16 lines
+Security guard in a reflective vest controlling the barrier at an office car park.
+
+- *greeting*: „Bună ziua, aveți acces?” (Good day, do you have access?) · „Ecusonul, vă rog.” (Your badge, please.) · „Bună dimineața!” (Good morning!)
+- *bumped*: „Atenție la barieră!” (Mind the barrier!) · „Nu pe aici, intrarea e în stânga.” (Not this way, the entrance is on the left.) · „Mai încet, domnule.” (Slower, sir.)
+- *photographed*: „Nu e voie cu poze în incintă.” (No photos on the premises.) · „Fotografiați de pe trotuar, vă rog.” (Please take pictures from the sidewalk.) · „Bine, dar fără clădirea pe dinăuntru.” (Fine, but not the inside of the building.)
+- *idle*: „La cinci iese toată lumea deodată.” (At five everyone leaves at once.) · „Azi e liniște, e vineri.” (Quiet today, it's Friday.) · „Am tura de douăsprezece ore.” (I'm on a twelve-hour shift.)
+- *district*: „Vizitatorii se anunță la recepție.” (Visitors check in at reception.) · „Curierii lasă coletele la poartă.” (Couriers leave parcels at the gate.) · „Seara fac eu semn mașinilor să iasă pe Pompeiu.” (In the evening I wave the cars out onto Pompeiu.) · „Metroul Pipera e la două minute.” (Pipera metro is two minutes away.)
+
+### Marian (food-delivery courier) (`courier`, vendor, lang ro, 20-40) — 16 lines
+Bike/scooter courier with an insulated backpack, delivering lunches to the office towers.
+
+- *greeting*: „Salut! Comanda pentru Irina?” (Hi! Order for Irina?) · „Bună, livrare!” (Hi, delivery!) · „Unde e intrarea B, știți?” (Where's entrance B, do you know?)
+- *bumped*: „Hopa, atenție la rucsac!” (Whoa, mind the backpack!) · „Scuze, mă grăbesc, am trei comenzi!” (Sorry, in a hurry, three orders!) · „Ușor, că se varsă supa!” (Easy, the soup will spill!)
+- *photographed*: „Nu, nu, sunt în cursă!” (No, no, I'm on a run!) · „Ok, dar dă-mi cinci stele!” (OK, but give me five stars!) · „Rapid, că se răcește mâncarea.” (Quick, the food's getting cold.)
+- *idle*: „La prânz e nebunie aici.” (Lunchtime is madness here.) · „Bacșiș mic azi.” (Small tips today.) · „Cu trotineta ajung mai repede ca mașinile.” (On the scooter I beat the cars.)
+- *district*: „Pe Pompeiu trec printre mașini, că stau toate.” (On Pompeiu I squeeze between the cars, they're all standing still.) · „Fiecare clădire are altă recepție.” (Every building has a different reception.) · „Globalworth e cel mai înalt de aici.” (Globalworth is the tallest here.) · „Seara livrez în Floreasca.” (In the evening I deliver in Floreasca.)
+
+### Sorin (Pipera metro commuter) (`metro_commuter`, local, lang ro, 30-55) — 16 lines
+Commuter coming out of the M2 terminus at Pipera every morning.
+
+- *greeting*: „Bună dimineața.” (Good morning.) · „Salut.” (Hi.) · „Neața, iar ploaie?” (Morning, rain again?)
+- *bumped*: „Atenție, oameni buni!” (Careful, folks!) · „Ieșim toți deodată din metrou...” (We all come out of the metro at once...) · „Scuze, n-am văzut.” (Sorry, didn't see.)
+- *photographed*: „Ce, sunt la știri?” (What, am I on the news?) · „Fă poză la coadă la autobuz.” (Photograph the bus queue.) · „Ok, gata.” (OK, done.)
+- *idle*: „M2 a mers bine azi, ciudat.” (The M2 ran fine today, strange.) · „Mai am o oră de proiect înainte de ședință.” (One hour of project work before the meeting.) · „Vineri lucrez de acasă.” (I work from home on Fridays.)
+- *district*: „Pipera e capăt de linie la M2.” (Pipera is the end of the line on the M2.) · „Cu mașina nu mai vin de mult.” (I stopped coming by car long ago.) · „Pe vremuri aici erau fabrici și câmp.” (This used to be factories and fields.) · „Autobuzele spre Voluntari pleacă de aici.” (Buses to Voluntari leave from here.)
+
+Culture notes:
+
+- **Register** — "Bună ziua" with strangers, "Salut/Neața" among young people; "dumneavoastră" (formal you) to older people; "Mersi" is as common as "Mulțumesc". (https://en.wikivoyage.org/wiki/Romanian_phrasebook)
+- **Traffic temper** — Bucharest drivers honk readily and often do not stop at zebras; pedestrians answer with sarcasm rather than aggression — keep lines teasing, not violent. (https://en.wikivoyage.org/wiki/Bucharest#Stay_safe)
+- **Sidewalk parking** — Cars parked on sidewalks are a constant pedestrian complaint; a natural topic for bumped/idle lines in side streets. (https://en.wikivoyage.org/wiki/Bucharest#Get_around)
+- **Taxis at the airport** — At OTP passengers order licensed taxis from touch-screen kiosks in Arrivals; unsolicited offers are a known nuisance — staff lines should point to the kiosks. (https://www.inyourpocket.com/bucharest/The-Definitive-Guide-to-Finding-a-Taxi-at-Bucharest-Airport_74243f)
+- **No stereotypes** — Personas are defined by role/place (student, vendor, commuter), never by ethnicity; Roma, Moldovan or diaspora characters are not caricatured; humour targets traffic, weather, parking and the metro. (spec 20 (game/research) requirement)
+- **Shared library** — Generic personas (local_elder, tour_guide …) and the pedestrian_general set (honked_at, near_miss, sidewalk_parking) live in bucharest-spots.json → dialogue_general; district personas below add place-specific lines. (game/research/bucharest-spots.json)
 
 ## Traffic / congestion (feeds `congestion`, spec 13)
 

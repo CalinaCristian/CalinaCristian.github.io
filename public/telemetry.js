@@ -45,11 +45,13 @@
         enabled: enabled,
         page: page,
         /** queue-safe event capture (no-op when tracking is disabled) */
-        track: function (event, props) {
+        track: function (event, props, options) {
             if (!enabled) return;
-            if (ready && window.posthog) window.posthog.capture(event, props || {});
-            else queue.push([event, props || {}]);
+            if (ready && window.posthog) window.posthog.capture(event, props || {}, options);
+            else queue.push([event, props || {}, options]);
         },
+        /** use when the page is going away (pagehide): sends with navigator.sendBeacon */
+        trackBeacon: function (event, props) { api.track(event, props, { transport: 'sendBeacon' }); },
         /** report a caught exception (also captured automatically for uncaught ones) */
         error: function (err, props) {
             if (!enabled) return;
@@ -104,7 +106,7 @@
             respect_dnt: true,
             loaded: function () {
                 ready = true;
-                while (queue.length) { var q = queue.shift(); window.posthog.capture(q[0], q[1]); }
+                while (queue.length) { var q = queue.shift(); window.posthog.capture(q[0], q[1], q[2]); }
             },
         };
         if (handedId) options.bootstrap = { distinctID: handedId };

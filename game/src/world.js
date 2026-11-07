@@ -2420,7 +2420,9 @@ export async function buildWorld(city, renderer, opts = {}) {
         const poi = { id: p.id, kind, label: p.label, brand: '', address: p.address || '', x: anchor.x, z: anchor.z, doorX: door.x, doorZ: door.z, color: p.color || null, icon: p.icon || null, visited: false, h: 20, w: 26, d: 22, cv: !p.passing, interactive: !p.passing, passing: !!p.passing, caption: p.caption || null };
         if (b) {
             b.cv = poi; poi.h = b.h; poi.w = b.x1 - b.x0; poi.d = b.z1 - b.z0;
-            b.name = p.label; b.flags |= 2; b.cvSign = true;
+            // (landmarks Request) a CV-stop landmark that models its own signage (ownSign) gets no generic CV panel
+            const ownSign = LANDMARKS.some(l => l.ownSign && (l.cvStop === p.id || (stop && l.cvStop === stop.id)));
+            if (!ownSign) { b.name = p.label; b.flags |= 2; b.cvSign = true; }
         } else if (inLandmark) {
             poi.h = 25; poi.landmark = inLandmark.id;
         } else if (kind !== 'airport') {

@@ -98,6 +98,9 @@ export default {
             ],
         };
         ctx.sound('birds', -60, 0, 160, 1); ctx.sound('water', -60, 20, 70, 0.4); ctx.sound('crowd', ch.x, ch.z, 25, 0.5); ctx.sound('traffic', 30, 230, 120, 0.6); ctx.sound('crows', -100, -100, 160, 0.5);
-        ctx.spawns['cismigiu'] = { x: ctx.extras.shore.x + 4, z: ctx.extras.shore.z + 5, heading: headingFromBearing(320) };
+        // spawn on the lakeside alley nearest the postcard point, facing along it (the direction closest to the 320° view)
+        { const sh = ctx.extras.shore; let best = null; for (const w of d.ways) { if (!['footway', 'path', 'pedestrian'].includes(w.k) || w.bridge) continue; const q = distPolyline(sh.x, sh.z, w.pts); if (q.d > 4 && (!best || q.d < best.q.d)) best = { q, w }; }
+            if (best) { const [ax, az] = best.w.pts[best.q.i], [bx, bz] = best.w.pts[best.q.i + 1]; let br = Math.atan2(bx - ax, -(bz - az)) * 180 / Math.PI; const df = (a) => Math.abs(((a - 320) % 360 + 540) % 360 - 180); if (df(br + 180) < df(br)) br += 180; ctx.spawns['cismigiu'] = { x: best.q.cx, z: best.q.cz, heading: headingFromBearing(br) }; }
+            else ctx.spawns['cismigiu'] = { x: sh.x + 4, z: sh.z + 5, heading: headingFromBearing(320) }; }
     },
 };

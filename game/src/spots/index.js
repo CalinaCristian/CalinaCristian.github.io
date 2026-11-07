@@ -209,6 +209,13 @@ export async function loadSpot(id, renderer = null, opts = {}) {
     const spawn = spawns[id] || spawns[data.members[0]];
     // crowd
     let crowd = null;
+    if (ctx.crowdCfg && data.city === 'bucharest') { // a few people chatting in view of every arrival point (bubbles from the first seconds)
+        ctx.crowdCfg.groups = ctx.crowdCfg.groups || [];
+        for (const sp of Object.values(spawns)) {
+            const fx = -Math.sin(sp.heading), fz = -Math.cos(sp.heading);
+            search: for (const f of [8, 6, 11, 5, 14]) for (const sd of [3, -3, 1.5, -1.5, 0]) { const x = sp.x + fx * f - fz * sd, z = sp.z + fz * f + fx * sd; if (collide(colliders, x, z, 0.6, ctx.ground.heightAt(x, z) + 0.2) || ctx.ground.nearestDry(x, z).x !== x) continue; ctx.crowdCfg.groups.push({ x, z, r: 1.2, n: 3, act: 'talk' }); break search; }
+        }
+    }
     if (ctx.crowdCfg) {
         const sp = ctx.spot();
         crowd = new Crowd({ ground: ctx.ground, dialogue: mergeDialogue(data, ctx.crowdCfg.spots || data.members), general: data.dialogueGeneral, seed: data.id.length * 7, ...ctx.crowdCfg });

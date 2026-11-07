@@ -233,7 +233,7 @@ export class Crowd {
         // ambient chatter among them (within earshot and on screen)
         if (this.chatT <= 0 && player && camera) {
             this.chatT = r.range(6, 12);
-            const cand = this.peds.filter((p) => p.sayCd <= 0 && Math.hypot(p.x - player.x, p.z - player.z) < 22 && this._inView(p, camera));
+            const cand = this.peds.filter((p) => p.sayCd <= 0 && Math.hypot(p.x - player.x, p.z - player.z) < 26 && this._inView(p, camera));
             if (cand.length) { const p = r.pick(cand); if (!(this.rainy && r() < 0.3 && this._say(p, 'rain', { ambient: true }))) this._say(p, r() < 0.7 ? 'spot' : 'idle', { ambient: true }); }
         }
         this._writeMatrices();

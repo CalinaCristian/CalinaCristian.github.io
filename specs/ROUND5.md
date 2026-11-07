@@ -64,6 +64,7 @@ Source: `game/FEEDBACK.md` "Round 4 play-test" notes 1–27 (+ any that follow),
 | Notes | Owner | Work |
 |---|---|---|
 | 38 | gameplay (traffic.js peds) | Street pedestrians avoid trees, lamps, poles, bins, parked cars (sidewalk lanes around obstacles + local steering), harness check. |
+| 72 | gameplay (+ cockpit-ui style) | Pause menu on Esc / ⏸ (Resume, Map, Free roam, Chapters, Spots, Conditions, Achievements, Photo, Settings, Main menu) everywhere incl. spots/offices and phones. |
 | 7 | gameplay | Find the car on foot: map/minimap/HUD marker + distance/direction, walk-to-car route, key-fob beep/flash, call the car. |
 | 8 | gameplay + research | Illegal parking reactions by culture (RO / US) with researched lines, tow/clamp/ticket, NPCs routing around. |
 | 44 | progression (achievements.js) + gameplay | Achievements unlock at the event (chapter goal reached), not a chapter later; toast not queued behind transitions. |

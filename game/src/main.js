@@ -326,7 +326,7 @@ class Game {
         // hud
         this.hud.setUnits(city.units);
         this.hud.setTicker(FACTS[city.id]);
-        this.hud.setChapter(city.id === 'bucharest' ? 'Chapter 1 · București' : 'Chapter 2 · Seattle → Bellevue');
+        this.hud.setChapter(district ? (city.districts?.[district]?.name || district) : city.id === 'bucharest' ? 'București' : 'Seattle → Bellevue'); // (the chapter / free-roam objective overrides it)
         this.stops = STOPS.filter(s => s.city === city.id).sort((a, b) => a.order - b.order);
         for (const s of this.stops) { s.poiRef = world.pois.find(p => p.id === s.poi && p.interactive !== false); if (s.poiRef) { s.poiRef.visited = this.visited.has(s.id); s.poiRef.color = s.color; s.poiRef.icon = s.icon; } }
         this.stopPois = this.stops.filter(s => s.poiRef).map(s => ({ stop: s, poi: s.poiRef }));
@@ -471,7 +471,8 @@ class Game {
         if (this.ch) return this.updateChapterObjective();
         if (this.freeRoam) return this.updateRoamObjective();
         const done = STOPS.filter(s => this.visited.has(s.id)).length;
-        this.hud.setProgress(done, STOPS.length);
+        if (this.chapters) this.setChapterProgress(); // one progress label everywhere: chapters n/10 (+ completion %)
+        else this.hud.setProgress(done, STOPS.length);
         const n = this.nextStop;
         if (n) { this.objective = n.poiRef; this.objectiveLabel = `${n.icon} ${n.short} <small>(${n.year})</small>`; this.objectivePlain = n.short; this.hud.setYear(n.year); this.year = n.year; }
         else if (this.city.id === 'bucharest') { this.objective = this.airport; this.objectiveLabel = '✈️ Otopeni Airport — fly to Seattle <small>(2022)</small>'; this.objectivePlain = 'Otopeni Airport'; this.hud.setYear(2022); this.year = 2022; if (this.hud.achievement('all-buc')) this.audio.chime(); }
@@ -504,6 +505,8 @@ class Game {
         else if (this.state === 'menu') { /* idle */ }
     }
 
+    /** capture tools / screenshots: render the rear-view mirror now (it otherwise refreshes every 2nd–3rd frame) */
+    renderMirrorNow() { if (this.player && this.scene && this.state === 'drive') { this.player.renderMirror(this.renderer, this.scene); return true; } return false; }
     /** the ONLY place the main scene is rendered while driving (render agent may replace the body) */
     drawFrame({ mirror = false } = {}) {
         if (mirror && this.player) this.player.renderMirror(this.renderer, this.scene);
@@ -658,7 +661,8 @@ class Game {
         player.mirrorEnabled = this.quality !== 'low' && !/low/.test(this.r3d.stats?.quality || '');
         // mirror pass: every 2nd frame at high+, every 3rd at medium (it re-renders the scene; render's perf table)
         const mq = this.r3d.stats?.quality || this.quality, mEvery = /medium/.test(mq) ? 3 : 2;
-        this.drawFrame({ mirror: this.frame % mEvery === 1 });
+        const warm = player.mirrorWarm > 0; if (warm) player.mirrorWarm--;
+        this.drawFrame({ mirror: warm || this.frame % mEvery === 1 });
     }
 
     /** real local time of the current city (or the menu override) + day phase + NPC lights */
@@ -1535,10 +1539,16 @@ class Game {
         const tl = { now: 'real time', rush: 'morning rush, 08:30', noon: 'noon', golden: 'golden hour', night: 'night' }[this.freeRoam.tod] || '';
         this.hud.toast(`🗺️ Free roam · ${d.name}`, `${d.label ? d.label + ' · ' : ''}${tl}${this.freeRoam.weather !== 'live' ? ' · ' + this.freeRoam.weather : ''}. M → map: other districts, tourist spots, offices.`, 'intro');
     }
+    /** progress line: "Chapters n/10" (+ the achievements completion % when progression is loaded) */
+    setChapterProgress() {
+        const n = this.chapters.filter(c => this.progress.done.has(c.id)).length, N = this.chapters.length;
+        let pct = null; try { pct = this.achievements?.completion?.()?.pct ?? null; } catch { pct = null; }
+        this.hud.setProgress(pct != null ? `${n}/${N} · ${pct} %` : n, pct != null ? null : N, 'Chapters');
+    }
     updateRoamObjective() {
         const d = this.city.districts?.[this.district], hud = this.hud;
         hud.setChapter(`Free roam · ${d?.name || this.district}`);
-        hud.setProgress(this.chapters.filter(c => this.progress.done.has(c.id)).length, this.chapters.length, 'Chapters');
+        this.setChapterProgress();
         hud.setYear('2026'); this.year = 2026;
         this.objective = null; this.objectivePlain = ''; this.objectiveLabel = '🗺️ Free roam · M → map: districts, spots, offices';
         this.autoRoute(true);
@@ -1662,7 +1672,7 @@ class Game {
     }
     updateChapterObjective() {
         const ch = this.ch, N = this.chapters.length, hud = this.hud;
-        hud.setProgress(this.chapters.filter(c => this.progress.done.has(c.id)).length, N, 'Chapters');
+        this.setChapterProgress();
         hud.setYear(ch.year); this.year = ch.year;
         hud.setChapter(`Chapter ${this.chapterIdx + 1}/${N} · ${ch.title}`);
         const stop = this.stops.find(s => s.id === ch.stop);

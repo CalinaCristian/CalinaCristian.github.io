@@ -111,7 +111,7 @@ export class Harness {
             if (cam && far > FAR) { cam.far = FAR; cam.updateProjectionMatrix(); }
             if (r && r.getPixelRatio?.() > 0.5) { if (this._pr0 === undefined) this._pr0 = r.getPixelRatio(); r.setPixelRatio(0.5); comp?.setPixelRatio?.(0.5); }
             if (g.state === 'office' && g.office) g.office.render();
-            else { g.drawCarScreen && g.carScreen && g.drawCarScreen(g.hud?.el?.street?.textContent || '', ''); g.drawFrame({ mirror: false }); }
+            else { g.drawCarScreen && g.carScreen && g.drawCarScreen(g.hud?.el?.street?.textContent || '', ''); g.renderMirrorNow?.(); g.drawFrame({ mirror: false }); }
             const gl = r?.getContext?.(); if (gl) gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4));
         } catch (e) { this.issue('harness-error', 'low', 'render failed: ' + e.message, {}, { key: 'render' }); }
         finally { if (cam && far > FAR) { cam.far = far; cam.updateProjectionMatrix(); } }

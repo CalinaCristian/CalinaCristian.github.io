@@ -309,7 +309,8 @@ export default {
         ctx.challenge('stavropoleos-cec', { view: ST ? [ST.x, ST.z] : null, r: 7, tol: 30 });
         // crowd: busy lanes, waiters at every terrace, a tour at Stavropoleos, the Caru' cu Bere queue
         const groups = [];
-        TR.terraces.slice(0, 14).forEach((t, i) => { groups.push({ x: t.x + Math.sin(t.yaw) * (t.depth / 2 + 0.6), z: t.z + Math.cos(t.yaw) * (t.depth / 2 + 0.6), r: 0.3, n: 1, act: 'watch', yaw: t.yaw, personas: ['waiter'] }); if (i % 2 === 0) groups.push({ x: t.x, z: t.z, r: 1.2, n: 2, act: 'sit', personas: ['local_young', 'tourist_uk', 'tourist_it', 'tourist_us'] }); });
+        TR.terraces.slice(0, 14).forEach((t, i) => { groups.push({ x: t.x + Math.sin(t.yaw) * (t.depth / 2 + 0.6), z: t.z + Math.cos(t.yaw) * (t.depth / 2 + 0.6), r: 0.3, n: 1, act: 'watch', yaw: t.yaw, personas: ['waiter'] }); }); // sitters: one per chair (every second chair taken), facing their table
+        TR.seats.forEach((q, i) => { if (i % 2 === 0 && i < 60) groups.push({ x: q.x, z: q.z, r: 0.01, n: 1, act: 'sit', yaw: q.yaw, y: q.y, fixedYaw: true, personas: ['local_young', 'tourist_uk', 'tourist_it', 'tourist_us', 'local_parent'] }); });
         if (ST) groups.push({ x: ST.x + 4, z: -67.5, r: 2.6, n: 8, act: 'photo', look: [ST.x, ST.z], personas: ['tourist_de', 'tourist_fr', 'tourist_us'] }, { x: ST.x + 8.5, z: -66.5, r: 0.3, n: 1, act: 'guide', look: [ST.x + 4, -67.5], personas: ['tour_guide'] });
         if (caruB) groups.push({ line: [[-111, -70.2], [-105, -69.6], [-99, -69.2], [-93, -68.8]], n: 9, act: 'queue', personas: ['tourist_de', 'tourist_us', 'local_young', 'tourist_fr', 'tourist_uk'] });
         if (CA) groups.push({ x: CA.front.x + CA.front.nx * 4, z: CA.front.z + CA.front.nz * 4, r: 2.5, n: 5, act: 'photo', look: [CA.front.x, CA.front.z], personas: ['tourist_it', 'tourist_us', 'local_young'] }, { x: CA.ecx, z: CA.ecz, r: 3, n: 5, act: 'watch', personas: ['local_young', 'tourist_uk', 'tourist_fr'] });

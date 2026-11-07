@@ -927,7 +927,10 @@ export class Traffic {
                 const f = dx * fx + dz * fz, l = dx * rx + dz * rz;
                 // (a stopped player that is behind us in its own direction — a merge — waits for us, not we for it)
                 const aheadOfP = (v.x - P.x) * P.fx + (v.z - P.z) * P.fz;
-                if (f > 0 && f < look + 8 && Math.abs(l) < v.width * 0.5 + playerExtent(P, rx, rz) + 0.35 && !(aheadOfP > 2.5 && Math.abs(P.speed) < 0.5 && f - half - playerExtent(P, fx, fz) > 0.4)) {
+                // (crossing / merging: the NPC is in front of a stopped player that waits for it, and has waited > 4 s
+                //  itself — both would wait for each other forever: the NPC goes, unless a touch is imminent)
+                const mutual = aheadOfP > 0 && Math.abs(P.speed) < 0.5 && v.stuck > 4 && f - half - playerExtent(P, fx, fz) > 0.6;
+                if (f > 0 && f < look + 8 && Math.abs(l) < v.width * 0.5 + playerExtent(P, rx, rz) + 0.35 && !mutual && !(aheadOfP > 2.5 && Math.abs(P.speed) < 0.5 && f - half - playerExtent(P, fx, fz) > 0.4)) {
                     const g = f - half - playerExtent(P, fx, fz);
                     if (g < gap) { gap = g; leader = P; leaderSpeed = Math.max(0, P.speed * (P.fx * fx + P.fz * fz)); leaderCross = false; }
                 }
@@ -1123,7 +1126,10 @@ export class Traffic {
             // (only when the player is ahead: a turning NPC's rear swings toward a player tailgating behind it, and
             //  reverting that froze the NPC — and the player behind it — for good; it is driving away from the player)
             const aheadP = (P.x - v.x) * -Math.sin(v.heading) + (P.z - v.z) * -Math.cos(v.heading) > 0;
-            if (aheadP && pen > -0.05 && pen > v._pp0 + 0.002) { this.revert(v); v.speed = 0; v.zeroWhy = 'revP'; }
+            if (aheadP && pen > -0.05 && pen > v._pp0 + 0.002) {
+                if (v.stuck > 6 && pen > 0) { this.revert(v); this.nudge(v); } // pinned against the player for good (a merge): move it out
+                else { this.revert(v); v.speed = 0; v.zeroWhy = 'revP'; }
+            }
         }
         if (v.latBlend && v.s > 12) v.latBlend = 0;
     }

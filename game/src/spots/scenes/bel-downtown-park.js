@@ -51,10 +51,11 @@ export default {
         const wfw = 73 / R; // radians
         for (let k = 0; k < 4; k++) { const rr = R + 3.4 + k * 1.6, y = meadowY - k * 0.8; const arc = new THREE.CylinderGeometry(rr, rr, 0.9, 64, 1, true, -wa + Math.PI / 2 - wfw / 2, wfw); b.add(arc, 'stone', M(C.x, y - 0.45, C.z), '#b0aa9e'); arc.dispose(); }
         ctx.add(b.build('canal-edges'));
-        const fallMat = new THREE.MeshStandardMaterial({ color: '#e9f2f4', transparent: true, opacity: 0.8, roughness: 0.3, emissive: '#9fb7bd', emissiveIntensity: 0.15 });
+        const fallTex = (() => { const c = document.createElement('canvas'); c.width = 512; c.height = 64; const x = c.getContext('2d'); x.fillStyle = '#cfdfe3'; x.fillRect(0, 0, 512, 64); for (let i = 0; i < 260; i++) { x.fillStyle = Math.random() < 0.5 ? 'rgba(255,255,255,0.7)' : 'rgba(120,150,160,0.35)'; x.fillRect(Math.random() * 512, 0, 1 + Math.random() * 2, 64); } const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(6, 1); t.colorSpace = THREE.SRGBColorSpace; return t; })();
+        const fallMat = new THREE.MeshStandardMaterial({ map: fallTex, color: '#ffffff', transparent: true, opacity: 0.82, roughness: 0.25, emissive: '#9fb7bd', emissiveIntensity: 0.15, side: THREE.DoubleSide });
         const fall = new THREE.Mesh(new THREE.CylinderGeometry(R + 3.6, R + 8.6, 3.2, 96, 1, true, -wa + Math.PI / 2 - wfw / 2, wfw), fallMat); fall.position.set(C.x, meadowY - 1.5, C.z); ctx.add(fall);
         const pond = new THREE.Mesh(new THREE.CircleGeometry(30, 48), waterMat); pond.rotation.x = -Math.PI / 2; pond.position.set(C.x + Math.cos(wa) * (R + 18), pondY, C.z + Math.sin(wa) * (R + 18)); ctx.add(pond);
-        ctx.onUpdate((dt, s) => { fallMat.opacity = 0.72 + 0.1 * Math.sin(s.t * 7); });
+        ctx.onUpdate((dt, s) => { fallMat.opacity = 0.76 + 0.08 * Math.sin(s.t * 7); fallTex.offset.y = (fallTex.offset.y - dt * 0.9) % 1; });
         // WWI memorial elms (1926) in the meadow centre, other park trees around the ring
         const r = rng(26);
         const mem = sp.structures.find((s) => s.id === 'memorial');
@@ -78,7 +79,7 @@ export default {
         ctx.plaque(PL[1], pc.x - Math.cos(wa) * 24, pc.z - Math.sin(wa) * 24, Math.atan2(Math.cos(wa), Math.sin(wa)));
         ctx.plaque(PL[2], mem.x + 3, mem.z + 3, Math.PI / 4);
         ctx.plaque(PL[3], pl.x - 5, pl.z + 2, -Math.PI / 2, { credit: 'Piloti © 2023 Marc Fornes / THEVERYMANY — modelled in 3-D from public descriptions.' });
-        { const vx = C.x + Math.cos(wa) * (R + 50), vz = C.z + Math.sin(wa) * (R + 50), b = ((Math.atan2(C.x - vx, -(C.z - vz)) * 180 / Math.PI) + 360) % 360; ctx.challenge('bel-downtown-park', { x: vx, z: vz, heading: b, r: 18, tol: 35 }); } // across the pond: waterfall in front, towers behind
+        { const vx = C.x + Math.cos(wa) * (R + 37), vz = C.z + Math.sin(wa) * (R + 37), tx = C.x + Math.cos(wa) * (R + 6), tz = C.z + Math.sin(wa) * (R + 6), b = ((Math.atan2(tx - vx, -(tz - vz)) * 180 / Math.PI) + 360) % 360; ctx.challenge('bel-downtown-park', { view: [tx, tz], x: vx, z: vz, heading: b, pitch: 5, r: 14, tol: 35 }); } // across the reflecting pond: the 240-ft cascade in front, the towers behind
         const ringLine = Array.from({ length: 65 }, (_, i) => [C.x + Math.cos(i / 64 * Math.PI * 2) * (R + 5.5), C.z + Math.sin(i / 64 * Math.PI * 2) * (R + 5.5)]);
         ctx.crowdCfg = {
             personas: { local: 5, tech: 3, kid: 2.5, tourist_us: 2, tourist_in: 1.5, tourist_cn: 1.5, tourist_kr: 1, tourist_jp: 1, photographer: 0.6 },

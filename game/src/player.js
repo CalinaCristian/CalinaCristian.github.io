@@ -54,7 +54,7 @@ export class Player {
         this.onCollide = () => { };
     }
     /** put the car at (x, z); pass the road edge when known so the right layer (deck / street / tunnel) is used */
-    place(x, z, heading, edge = null) {
+    place(x, z, heading, edge = null) { this.mirrorWarm = 3; // the mirror texture is stale (dark) after a load / teleport: render it the next 3 frames
         this.x = x; this.z = z; this.heading = heading; this.speed = 0;
         this.surfY = undefined; this.supportEdge = null; this.y = undefined;
         if (edge && edge.ya !== undefined) {

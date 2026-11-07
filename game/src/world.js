@@ -1951,7 +1951,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         };
         const villaZone = (x, z) => { if (US) return false; const ll = city.proj.inverse ? city.proj.inverse(x, z) : null; return !!ll && ll.lat > 44.447 && ll.lat < 44.48 && ll.lon > 26.07 && ll.lon < 26.103; };
         for (const b of bRecs) {
-            if (b.levels > 0 || b.style === 'church' || b.style === 'glass' || b.minH > 0) continue;
+            if (b.levels > 0 || b.style === 'church' || b.style === 'glass' || b.minH > 0 || /^(bl(oc)?\.?\s|bloc\b|block\b)/i.test(b.name || '')) continue; // (a named apartment block keeps its storeys)
             const named = INST.test(b.name || '');
             const isDef = DEF.has(Math.round(b.h * 10) / 10);
             if (!isDef && !(named && b.h > 18)) continue;
@@ -2751,8 +2751,13 @@ export async function buildWorld(city, renderer, opts = {}) {
             const lowCrown = (shape.cy - shape.ry * 0.8) * sz < 4.4; // crown bottom below truck height
             sh = clamp((lo + (lowCrown ? 0.3 : 1.6)) / R, isCon ? 0.35 : 0.55, 1);
         }
+        // guards (route-blocked on Str. Buzești): the trunk collider plus 0.3 m must be off every carriageway / lane strip,
+        // and a crown hanging below 4.4 m may not reach over one (else it is dropped, never left in a lane)
+        const collR = 0.3 * Math.max(0.6, sz * 1.4);
+        if (onRibbon(x, z, collR + 0.3)) return false;
+        if ((shape.cy - shape.ry * 0.8) * sz < 4.4 && onRibbon(x, z, R * sh * 0.9)) { if (kind === 'street' || kind === 'garden') return false; sh = Math.max(0.3, sh * 0.6); }
         treeList.push({ x, z, s: sz, species, con: !!isCon, dec: dec ?? (isCon ? 0 : 1), kind, sh }); treeGrid.insert(x, z, x, z, treeList[treeList.length - 1]);
-        addPropColl(x, z, 0.3 * Math.max(0.6, sz * 1.4), 'tree');
+        addPropColl(x, z, collR, 'tree');
         return true;
     };
     // OSM natural=tree / tree_row (real positions, leaf type where tagged)

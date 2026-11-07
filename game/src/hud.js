@@ -27,7 +27,7 @@ export class HUD {
     setStreet(name, district) { if (this.el.street.textContent !== name) this.el.street.textContent = name || ''; this.el.district.textContent = district || ''; }
     setObjective(text) { this.el.objective.innerHTML = text; }
     setProgress(done, total, label = null) {
-        this.el.progress.textContent = `${done}/${total}`;
+        this.el.progress.textContent = total == null ? String(done) : `${done}/${total}`;
         if (label) { const l = document.getElementById('progress-label'); if (l && l.textContent !== label) l.textContent = label; }
     }
     setYear(y) { this.el.year.textContent = y; }

@@ -355,7 +355,7 @@ export function facadeToward(data, px, pz, qx, qz) {
  * o: { inside(x,z), streets: ways to consider, maxDepth, colours }
  */
 export function oldTownTerraces(ctx, o = {}) {
-    const d = ctx.data, b = new GeoBatch(), r = rng(o.seed || 21), out = { signs: [], lamps: [], terraces: [] };
+    const d = ctx.data, b = new GeoBatch(), r = rng(o.seed || 21), out = { signs: [], lamps: [], terraces: [], seats: [] };
     const streets = o.streets || d.ways.filter((w) => ['pedestrian', 'living_street'].includes(w.k));
     const awn = o.colours || ['#e9e1c8', '#2f5a3a', '#7a2230', '#d9cfb3', '#3b4a5a', '#c9b48a', '#5a3a2a'];
     const placed = [];
@@ -384,7 +384,7 @@ export function oldTownTerraces(ctx, o = {}) {
         // tables + chairs (or cushioned rattan sofas), planters with box shrubs at the ends
         const nT = Math.max(1, Math.floor(W / 2.1));
         for (let i = 0; i < nT; i++) { const u = -W / 2 + (i + 0.5) * W / nT, [x, z] = P(u, depth * 0.55); b.cyl(x, y, z, 0.05, 0.72, '#2a2a2a', 'metal', 6); b.cyl(x, y + 0.72, z, 0.36, 0.04, r.pick(['#d8d2c4', '#6b4a32', '#2a2a2a']), 'wood', 10);
-            for (const s of [-1, 1]) { const [qx, qz] = P(u + s * 0.55, depth * 0.55); b.box(qx, y, qz, 0.42, 0.45, 0.42, '#6b5a44', 'wood', yaw); b.box(qx + s * tx * 0.18, y + 0.45, qz + s * tz * 0.18, 0.06, 0.45, 0.42, '#6b5a44', 'wood', yaw); } }
+            for (const s of [-1, 1]) { const [qx, qz] = P(u + s * 0.55, depth * 0.55); b.box(qx, y, qz, 0.42, 0.45, 0.42, '#6b5a44', 'wood', yaw); b.box(qx + s * tx * 0.18, y + 0.45, qz + s * tz * 0.18, 0.06, 0.45, 0.42, '#6b5a44', 'wood', yaw); out.seats.push({ x: qx - s * tx * 0.04, z: qz - s * tz * 0.04, y, yaw: Math.atan2(-s * tx, -s * tz) }); } }
         for (const s of [-1, 1]) { const [x, z] = P(s * (W / 2 + 0.35), depth * 0.5); b.box(x, y, z, 0.5, 0.55, 0.5, '#3b3a36', 'concrete', yaw); b.sphere(x, y + 0.85, z, 0.32, 0.38, 0.32, '#3d6a33', 'plant', 7, 5); }
         ctx.box(cx, cz, W / 2 + 0.6, depth / 2, yaw + Math.PI / 2, { prop: true, h: 0.8 });
         out.lamps.push({ x: cx, z: cz, h: 2.6, noPost: true });

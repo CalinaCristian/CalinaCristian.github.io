@@ -228,7 +228,7 @@ export class Crowd {
                 p.speed = 0;
                 // fidget: dwellers shift weight, look around, sometimes turn toward the player
                 if (player && dP < 4.5 && !p.group?.fixedYaw) p.tyaw = Math.atan2(player.x - p.x, player.z - p.z);
-                else if (p.home) p.tyaw = p.home.yaw + Math.sin(this.t * 0.3 + p.id) * 0.25;
+                else if (p.home) p.tyaw = p.home.yaw + Math.sin(this.t * 0.3 + p.id) * (p.act === 'sit' ? 0.04 : 0.25);
             }
             // turn smoothly
             let dy = p.tyaw - p.yaw; dy = Math.atan2(Math.sin(dy), Math.cos(dy)); p.yaw += dy * Math.min(1, dt * (p.act === 'walk' ? 6 : 2.5));

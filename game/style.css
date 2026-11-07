@@ -341,6 +341,12 @@ body.in-spot #cond-btn, body.photo-mode #cond-btn { display: none; }
 body.touch #cond-panel .cond-keys { display: none; }
 @media (max-width: 600px) and (orientation: portrait) { #cond-panel { top: 12px; transform: translateX(-50%); max-height: calc(100vh - 250px); } }
 @media (max-height: 520px) and (orientation: landscape) { #cond-panel { left: 12px; top: 8px; transform: none; width: min(460px, 56vw); } body.touch #cond-panel { left: 148px; width: min(460px, calc(100vw - 340px)); } #cond-panel { max-height: calc(100vh - 16px); padding: 10px 12px; } #cond-panel .cond-sec { margin: 6px 0; } #cond-btn { top: 56px; width: 40px; height: 40px; } }
+/* main menu fits any viewport (spec 10 Request from progression): the overlay scrolls, the card is centred when it fits */
+#menu.overlay { overflow-y: auto; justify-content: flex-start; padding: 16px 0; -webkit-overflow-scrolling: touch; }
+#menu .menu-card { margin: auto 0; flex-shrink: 0; }
+#menu .controls-wrap { margin: 10px 0 4px; }
+#menu .controls-wrap > summary { cursor: pointer; font-weight: 600; padding: 6px 0; color: #cbd5e1; }
+#menu .controls-wrap[open] > summary { margin-bottom: 4px; }
 /* ===== end gameplay free-roam block ===== */
 
 /* achievements */

@@ -21,6 +21,8 @@ Sent by `game/src/telemetry-game.js` (observes `window.game`, wraps a few game m
 | `spot_leave` | the spot is left | `id`, `seconds` |
 | `spot_plaque` | an info plaque is read | `id`, `plaque` (index in the spot's plaque list) |
 | `spot_challenge` | the postcard photo challenge is completed | `id`, `first` (first time in this browser) |
+| `free_roam_start` | a district is opened from the free-roam menu | `district`, `tod` (preset id), `weather` (picker value) |
+| `completion_milestone` | overall completion crosses 25 / 50 / 75 / 100 % (achievements.js) | `pct` (25 \| 50 \| 75 \| 100) |
 
 Implementation notes: spots/* and photo.js call `cvTelemetry.track` themselves (`spot_enter`, `spot_exit`, `spot_plaque` with the plaque title, `spot_postcard`, `photo_taken` with the place name); telemetry-game.js installs a filter on `cvTelemetry.track` that rewrites those into the shapes above (`spot_exit` → `spot_leave`, `spot_postcard` → `spot_challenge`, titles → index, place dropped). `game_start` gained `entry` (`story` \| `spot`), `world_loaded` gained `district`. Existing events unchanged.
 

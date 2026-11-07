@@ -94,7 +94,7 @@ class SceneContext {
     /** postcard photo challenge at the research iconic viewpoint */
     challenge(spotId, o = {}) {
         const sp = this.spot(spotId), ic = sp.photo?.iconic; if (!ic) return null;
-        const c = { id: spotId, x: o.x ?? ic.x, z: o.z ?? ic.z, bearing: o.heading ?? ic.heading_deg, pitch: o.pitch ?? ic.pitch_deg ?? 0, fov: ic.fov_deg, text: o.text || ic.frame, r: o.r ?? 8, tol: o.tol ?? 32, targets: o.targets || [], cond: o.cond || null, condHint: o.condHint || null };
+        const c = { view: o.view || null, id: spotId, x: o.x ?? ic.x, z: o.z ?? ic.z, bearing: o.heading ?? ic.heading_deg, pitch: o.pitch ?? ic.pitch_deg ?? 0, fov: ic.fov_deg, text: o.text || ic.frame, r: o.r ?? 8, tol: o.tol ?? 32, targets: o.targets || [], cond: o.cond || null, condHint: o.condHint || null };
         this.challenges.push(c);
         return c;
     }
@@ -178,6 +178,9 @@ export async function loadSpot(id, renderer = null, opts = {}) {
     // optional tree budget + dynamic LOD (ctx.treeLod = { cap, near, max }): beyond `cap` the trees farthest from every
     // member extent are dropped; the `max` trees within `near` m of the viewer get the full crown, the rest a low one
     ctx.finishTrees?.();
+    // postcards with a `view` target [x, z]: no tree in the sight cone from the pose to the hero (the frame stays open)
+    for (const c of ctx.challenges) { if (!c.view) continue; const [vx, vz] = c.view, dx = vx - c.x, dz = vz - c.z, L = Math.hypot(dx, dz) || 1;
+        ctx.trees = ctx.trees.filter((t) => { const u = ((t.x - c.x) * dx + (t.z - c.z) * dz) / L; if (u < -4 || u > L) return true; const v = Math.abs((t.x - c.x) * dz - (t.z - c.z) * dx) / L; return v > 5 + Math.max(0, u) * 0.42; }); }
     if (ctx.treeLod) {
         const boxes = Object.values(data.spots).map((s) => polyBox(s.extent?.polygon?.length ? s.extent.polygon : [[-150, -150], [150, 150]]));
         const dist = (t) => Math.min(...boxes.map((b) => Math.hypot(Math.max(0, b.x0 - t.x, t.x - b.x1), Math.max(0, b.z0 - t.z, t.z - b.z1))));

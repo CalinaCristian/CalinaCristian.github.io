@@ -308,3 +308,18 @@ body.photo-mode .photo-open { display: none; }
     .pv-meta { left: 30px; bottom: 9px; } .pv-filter { right: 30px; bottom: 9px; font-size: 10px; } .pv-zoom { width: 80px; }
     .pv-print { right: 50%; transform: translate(50%, 140%) rotate(6deg); width: 70vw; } .pv-print.show { transform: translate(50%, 0) rotate(-3deg); }
 }
+
+/* ===== gameplay (R10.10, 2026-11-07): free-roam menu — #roam-select (district cards, time + weather) ===== */
+#roam-select { margin-top: 12px; text-align: left; }
+#roam-select summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
+#roam-select summary small { font-weight: 400; opacity: .7; }
+#roam-select .roam-opts { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 6px 0 10px; font-size: 13px; color: #cbd5e1; }
+#roam-select .roam-opts select { margin-left: 6px; }
+#roam-select .roam-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+#roam-select .roam-card { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; min-height: 64px; padding: 8px 10px; border-radius: 10px; border: 1px solid rgba(148,163,184,.35); background: rgba(30,41,59,.85); color: #e2e8f0; font: 13px/1.3 system-ui, sans-serif; text-align: left; cursor: pointer; }
+#roam-select .roam-card:hover, #roam-select .roam-card:focus-visible { border-color: #60a5fa; outline: none; }
+#roam-select .roam-card b { font-size: 14px; color: #fff; }
+#roam-select .roam-card span { color: #94a3b8; font-size: 12px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+#roam-select .roam-card small { color: #60a5fa; font-size: 11px; letter-spacing: .04em; }
+@media (max-width: 480px) { #roam-select .roam-grid { grid-template-columns: 1fr 1fr; } #roam-select .roam-card { min-height: 56px; padding: 6px 8px; } }
+/* ===== end gameplay free-roam block ===== */

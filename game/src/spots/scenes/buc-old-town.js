@@ -306,7 +306,7 @@ export default {
         if (ST) ctx.interactables.push({ x: ST.west.x - 3.5, z: -64.5 + 1.2, r: 2.4, label: 'Light a candle (Stavropoleos)', use: (s) => { s.ui.toast('🕯 Candle lit', 'Quiet please — the choir sings Byzantine chant.'); s.sound.play('chime', 0.3); } });
         if (CA) ctx.challenge('old-town-lipscani', { x: CA.ecx + (CA.front.x - CA.ecx) * 0.75, z: CA.ecz + (CA.front.z - CA.ecz) * 0.75, heading: (Math.atan2(CA.ecx - CA.front.x, -(CA.ecz - CA.front.z)) * 180 / Math.PI + 360) % 360, r: 6, tol: 40, text: 'Cărturești Carusel: the white atrium and its stacked balconies (best from the level-2 balcony)' });
         if (MA) ctx.challenge('old-town-lipscani', { x: MA.gate.x + MA.gn.x * 14, z: MA.gate.z + MA.gn.z * 14, heading: (Math.atan2(-MA.gn.x, MA.gn.z) * 180 / Math.PI + 360) % 360, r: 7, tol: 30, text: "Hanul lui Manuc's gate on Str. Franceză" });
-        ctx.challenge('stavropoleos-cec', { r: 7, tol: 30 });
+        ctx.challenge('stavropoleos-cec', { view: ST ? [ST.x, ST.z] : null, r: 7, tol: 30 });
         // crowd: busy lanes, waiters at every terrace, a tour at Stavropoleos, the Caru' cu Bere queue
         const groups = [];
         TR.terraces.slice(0, 14).forEach((t, i) => { groups.push({ x: t.x + Math.sin(t.yaw) * (t.depth / 2 + 0.6), z: t.z + Math.cos(t.yaw) * (t.depth / 2 + 0.6), r: 0.3, n: 1, act: 'watch', yaw: t.yaw, personas: ['waiter'] }); if (i % 2 === 0) groups.push({ x: t.x, z: t.z, r: 1.2, n: 2, act: 'sit', personas: ['local_young', 'tourist_uk', 'tourist_it', 'tourist_us'] }); });

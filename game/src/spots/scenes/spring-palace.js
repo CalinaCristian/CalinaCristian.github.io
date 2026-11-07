@@ -100,7 +100,7 @@ export default {
         // the peacock portrait: a second postcard (needs a fanned tail near you); the garden façade (research pose moved into the garden)
         const gp = M0 ? { x: M0.o.cx + M0.o.uz * -24, z: M0.o.cz - M0.o.ux * -24 } : { x: 30, z: -35 };
         const inG = inPoly(gp.x, gp.z, grounds) ? gp : { x: 30, z: -35 };
-        ctx.challenge('spring-palace', { x: inG.x, z: inG.z, heading: M0 ? (Math.atan2(M0.o.cx - inG.x, -(M0.o.cz - inG.z)) * 180 / Math.PI + 360) % 360 : 290, r: 12, tol: 34, text: 'The Spring Palace from its garden' });
+        ctx.challenge('spring-palace', { view: M0 ? [M0.o.cx, M0.o.cz] : null, x: inG.x, z: inG.z, heading: M0 ? (Math.atan2(M0.o.cx - inG.x, -(M0.o.cz - inG.z)) * 180 / Math.PI + 360) % 360 : 290, r: 12, tol: 34, text: 'The Spring Palace from its garden' });
         ctx.challenge('spring-palace', { x: centroid(lawn)[0], z: centroid(lawn)[1], heading: 0, r: 40, tol: 180, text: 'A peacock with its tail fanned', cond: (s) => birds.some((q) => q.show > 0 && Math.hypot(q.x - s.position.x, q.z - s.position.z) < 18) }).condHint = 'Wait quietly near a peacock until it fans its tail.';
         ctx.crowdCfg = {
             personas: { tourist_uk: 2, tourist_de: 2, tourist_us: 2, local_elder: 1.5, local_young: 1 },

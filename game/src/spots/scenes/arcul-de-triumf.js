@@ -72,7 +72,7 @@ export default {
         }
         // postcard: on the Kiseleff axis south of the roundabout, looking NNW through the opening (≈ 52 m from the arch)
         const pa = 160 * Math.PI / 180, px = cx + Math.sin(pa) * 52, pz = cz - Math.cos(pa) * 52;
-        ctx.challenge('arcul-de-triumf', { x: px, z: pz, heading: 340, pitch: 12, r: 12, tol: 24 });
+        ctx.challenge('arcul-de-triumf', { view: [cx, cz], x: px, z: pz, heading: 340, pitch: 12, r: 12, tol: 24 });
         ctx.spawns['arcul-de-triumf'] = { x: cx + Math.sin(pa) * 70, z: cz - Math.cos(pa) * 70, heading: headingFromBearing(340) };
         ctx.crowdCfg = {
             personas: { local_young: 3, local_elder: 1.5, tourist_de: 1.5, tourist_it: 1.5, kid: 0.6, local_parent: 1 },

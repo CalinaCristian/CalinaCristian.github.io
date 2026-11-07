@@ -41,29 +41,31 @@ const CLASS_RANK = { motorway: 9, trunk: 8, primary: 7, secondary: 6, tertiary: 
 
 const PALETTES = {
     RO: {
-        interwar: ['#e6dccb', '#efe7d8', '#d9cfbd', '#f1ece1', '#cfc5b2', '#e2d6bf'],
-        eclectic: ['#e9d9b8', '#d8c6a3', '#efe3cc', '#cbbfa6', '#e4cfa7', '#d6d0c2', '#e8d8c4', '#d9b99a', '#c9b8a8'],
+        interwar: ['#ecebe6', '#e7dfca', '#d2d0cb', '#f1ece1', '#dcd6c8', '#e2d6bf', '#c9c6be'],
+        // 19th-c. plasters: cream, ochre, pale yellow, salmon / pink, light grey, sage, weathered white
+        eclectic: ['#e8d7b0', '#d9b46a', '#ecd98e', '#e3a98c', '#e0b2a8', '#c9c7c2', '#b9c2a3', '#e6e2d8', '#d7c09a', '#cf9c7c'],
         civic: ['#efe9db', '#e8e1cf', '#f3eee3', '#e4dccb'],
-        bloc: ['#b9b5aa', '#c7c2b6', '#a9a69d', '#d1cdc3', '#bcb3a4', '#aeaaa0', '#d8cfb8', '#c9b79c', '#b8c2c4'],
-        glass: ['#5b86a8', '#6f9bbd', '#4d7593', '#7fa7c4', '#3d5e78', '#86a9bf', '#2f4a60'],
+        // grey / beige panels, about a third repainted in pastel thermal insulation (ochre, peach, light green, blue)
+        bloc: ['#b9b5aa', '#c7c2b6', '#a9a69d', '#d1cdc3', '#bcb3a4', '#d8cfb8', '#c9b79c', '#d9b25f', '#e8b394', '#b9cf9a', '#a9c3d6', '#e3c98a'],
+        glass: ['#5b86a8', '#6f9bbd', '#4d7593', '#6e9a96', '#3d5e78', '#8fa3ad', '#2f4a60', '#7d8f99'],
         house: ['#f1e8d4', '#ebdfc6', '#f6efe0', '#e3d6bd', '#dcd2c0', '#efd9b5', '#e8c9a8'],
         shop: ['#e3e3e0', '#d6d8da', '#eeeeee', '#e8e2d4'],
         plain: ['#a8a59f', '#9a9ea2', '#b5b1a8', '#c2bdb2', '#8d9194'],
         church: ['#efe6d2', '#e8dcc4', '#f4eee2'],
     },
     US: {
-        interwar: ['#c9c3b8', '#b8b2a8', '#d6d0c4', '#a9a49b'],
-        eclectic: ['#b98d6a', '#a7795a', '#c7a07f'],
+        interwar: ['#9e4f3a', '#8c4a36', '#b0654a', '#c9c3b8', '#a9a49b', '#7f4634'], // brick low-rise + concrete
+        eclectic: ['#b98d6a', '#a7795a', '#c7a07f', '#9e4f3a'],
         civic: ['#d8d4cc', '#c9c5bd'],
         bloc: ['#c8c2b4', '#a9b4b8', '#d9cfb9', '#9fb0b8', '#b7a99a', '#e0d6c3', '#8e9ea6'],
-        glass: ['#5b7f99', '#6a8eaa', '#45657d', '#7d9bb2', '#3a556b', '#8aa3b5', '#2c4356'],
+        glass: ['#5b7f99', '#6a8a8a', '#45657d', '#9aa6ad', '#3a556b', '#7f9a96', '#2c4356', '#8d9399'], // blue-green, grey, silver
         house: ['#d8d2c4', '#c9cfd3', '#e6e1d6', '#b7c1c9', '#cbbfae', '#9fb0b8', '#e0d6c3', '#a7b59c', '#c4a98a'],
         shop: ['#d9d4c8', '#cfd2d4', '#e6e2da', '#b9b1a3'],
         plain: ['#9a9ea2', '#8d9194', '#a7abae', '#b5b1a8'],
         church: ['#d8d2c4', '#c9c3b8'],
     },
 };
-const ROOF_COL = { RO: { pitched: ['#8a4b36', '#9c5a3c', '#6d5a4e', '#7a3f2e', '#5a5e63'], flat: ['#6f6c67', '#7a7670', '#8a8075', '#5f5d59'] }, US: { pitched: ['#4a4e55', '#5e5a55', '#3f4348', '#6b5f55', '#53504c'], flat: ['#6b6f73', '#5c6062', '#7a7d80'] } };
+const ROOF_COL = { RO: { pitched: ['#8a4b36', '#9c5a3c', '#6d5a4e', '#7a3f2e', '#5a5e63'], flat: ['#6f6c67', '#7a7670', '#8a8075', '#5f5d59', '#3d3b39', '#8c8f92'] }, US: { pitched: ['#4a4e55', '#5e5a55', '#3f4348', '#6b5f55', '#53504c'], flat: ['#6b6f73', '#5c6062', '#7a7d80'] } };
 
 // brand → [background, foreground, accent]
 const BRANDS = {
@@ -2392,8 +2394,19 @@ export async function buildWorld(city, renderer, opts = {}) {
         const mb = c.solid;
         const brng = makeRng(b.i * 7919 + 13);
         const pal = palette[b.style] || palette.plain;
-        let wallCol = rgb(b.colour && b.style !== 'glass' ? b.colour : pal[Math.floor(brng() * pal.length)]); // OSM building:colour / material first
-        wallCol = shadeRgb(wallCol, 0.92 + brng() * 0.12);
+        // OSM / research colour first, but the research estimates are mostly the same pale beige: a pale, unsaturated
+        // tagged colour only sets the tone, the hue comes from the city / style / era palette (per-building variety)
+        const palPick = rgb(pal[Math.floor(brng() * pal.length)]);
+        let wallCol = palPick;
+        if (b.colour && b.style !== 'glass') {
+            const tc = rgb(b.colour), mx = Math.max(...tc), mn = Math.min(...tc), sat = mx ? (mx - mn) / mx : 0;
+            wallCol = sat > 0.3 || mx < 120 ? tc : mixRgb(tc, palPick, 0.85); // (research estimates: tone only)
+        }
+        { // per-building hue / value jitter
+            const j = 0.9 + brng() * 0.16, w = (brng() - 0.5) * 0.08;
+            wallCol = [clamp(Math.round(wallCol[0] * j * (1 + w)), 0, 255), clamp(Math.round(wallCol[1] * j), 0, 255), clamp(Math.round(wallCol[2] * j * (1 - w)), 0, 255)];
+            if (b.style !== 'glass') { const l = (wallCol[0] + wallCol[1] + wallCol[2]) / 3, k = 1.35; wallCol = wallCol.map(v => clamp(Math.round(l + (v - l) * k), 0, 255)); } // (AgX desaturates pale plasters)
+        }
         if (b.cv) wallCol = shadeRgb(rgb('#f4f1ea'), 1);
         // very dark researched / tagged facades (dark glass, black cladding: linear luminance < 0.05) read as flat black
         // blocks in shade: lift them to dark-grey glass and give them the curtain-wall tile
@@ -2441,6 +2454,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                     }
                 }
             } else mb.wall(ax, az, bx, bz, y0, wallTop, nx, nz, wallCol, u0, u1, 0, (wallTop - y0) / (floorH * gr), tile);
+            if (!shop && L > 2 && b.style !== 'glass' && b.style !== 'house' && wallTop > 6) mb.wall(ax + nx * 0.04, az + nz * 0.04, bx + nx * 0.04, bz + nz * 0.04, y0, y0 + 0.9, nx, nz, shadeRgb(wallCol, 0.68)); // darker plinth
             wallTris += shop ? 4 : 2;
             perim += L;
         }
@@ -2594,7 +2608,9 @@ export async function buildWorld(city, renderer, opts = {}) {
                 }
                 if (brng() < 0.25 && L > 10) { const [x, z] = P(L * 0.5, 0.3); db.box(x, yTop, z, 0.06, 4, 0.06, 0, rgb('#cfcfcf')); } // flag pole
             } else if (st === 'bloc') {
-                const encl = [rgb('#c9d4d8'), rgb('#9fb3bd'), shadeRgb(wallCol, 0.95), rgb('#d8cfb8'), rgb('#7d8c96'), rgb('#b8a48a')];
+                const ACC = ['#c0564a', '#4f7fa8', '#d99a3a', '#6c9a5a', '#8d6a9e', '#d7d2c4', '#3f6f78'].map(rgb);
+                const accent = ACC[Math.floor(brng() * ACC.length)];
+                const encl = [rgb('#c9d4d8'), rgb('#9fb3bd'), accent, accent, rgb('#d8cfb8'), rgb('#7d8c96'), rgb('#b8a48a')];
                 for (let f = 1; f < Math.min(floors, 9); f++) {
                     const yb = yFirst + f * floorH;
                     for (let i = 0; i < cols.length; i++) {
@@ -2603,7 +2619,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                             if (r < 0.45) slab(s2, yb - 0.1, bayW * 0.9, 1.0, 1.1, encl[Math.floor(brng() * encl.length)]); // enclosed lower part
                             else slab(s2, yb - 0.1, bayW * 0.9, 0.12, 1.1, shadeRgb(wallCol, 0.85));                      // open slab
                             if (r < 0.3) slab(s2, yb + 0.9, bayW * 0.88, floorH - 1.1, 1.0, rgb('#6f8794'));             // glazed top
-                            else if (r < 0.75) slab(s2, yb + 0.02, bayW * 0.9, 0.9, 1.1, shadeRgb(wallCol, 0.8), false);  // parapet
+                            else if (r < 0.75) slab(s2, yb + 0.02, bayW * 0.9, 0.9, 1.1, brng() < 0.6 ? accent : shadeRgb(wallCol, 0.8), false);  // parapet (coloured fronts)
                         } else if (r < 0.18) slab(s2 + bayW * 0.3, yb + 0.25, 0.8, 0.55, 0.3, rgb('#e2e2de')); // AC unit
                         else if (r < 0.22) slab(s2, yb + floorH * 0.7, 0.55, 0.55, 0.14, rgb('#d6d6d0'), false); // dish
                     }
@@ -3190,7 +3206,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const parkedLots = new Map(); // super-cell key → [{kind, color, x, y, z, yaw}]
     const useInst = typeof makeParkedCars === 'function';
     const carTris = useInst ? 260 : carKinds.reduce((s2, k) => { const pr = carProps(k, CAR_COLORS[0]); return s2 + (pr.index ? pr.index.length / 3 : 772); }, 0) / carKinds.length;
-    let parked = 0; const maxParked = Math.round(Math.min(city.id === 'bucharest' ? 2600 : 2000, 220000 / Math.max(1, carTris)));
+    let parked = 0; const maxParked = Math.round(Math.min(city.id === 'bucharest' ? 2600 : 2000, 195000 / Math.max(1, carTris)));
     for (const a of areas) {
         if (a.kind !== 'parking' || parked >= maxParked || a.size < 120) continue;
         // orientation: longest edge

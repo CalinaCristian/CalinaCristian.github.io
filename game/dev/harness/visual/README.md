@@ -27,7 +27,7 @@ node game/dev/harness/run.js --visual …                             # same thi
 | `--city=bucharest,seattle` | both | cities (one page each, run in parallel with `--jobs=2`) |
 | `--route=<id>[,<id>…]` / `--chapter=` | all | route ids or substrings (`all`, `none`). Chapter mode: chapter ids (`rosetti`, `upb`, …) and `sweep-<street>`; legacy mode: `spawn-rosetti`, `rosetti-upb`, …, `uipath-buc-otopeni`, `seatac-uipath-bel` |
 | `--district=<id>[,…]` | all | only these district worlds (`romana`, `bellevue`, …); a `--route` list of chapter ids also skips the districts that do not hold them |
-| `--time=day` / `--weather=clear` | day, clear | look of the survey (`night`, `dusk`, …; `rain`, `fog`, `snow`, …): the game's own `clock.override` / `setWeatherOverride`. `road-dark-patch` is skipped at night / dusk; headlights auto at night |
+| `--time=day` / `--weather=clear` | day, clear | look of the survey (`night`, `dusk`, …; `rain`, `fog`, `snow`, …): the game's own `clock.override` / `setWeatherOverride`. `road-dark-patch` and `road-not-asphalt` are skipped at night / dusk (lamp pools), `road-sky-hole` in rain / snow / fog (wet asphalt mirrors the sky); headlights auto at night |
 | `--traffic-every=<m>` | off | every N m an extra frame of the same view **with** the fleet, transit and the instanced crowd (sheet `…-traffic`), after 12 traffic steps; its draw calls / triangles feed the perf table's "+traffic" columns. Forward frames stay traffic-free so the pixel detectors stay comparable |
 | `--spots[=<id|scene|city>,…]` | off | tourist spots via `game/dev/spots.html?manual=1` + `window.spotDev`: spawn, postcard (the challenge's pose and pitch) and a 3 s walk from the spawn; one sheet per spot (`sheets/spots-<id>.jpg`), frames in `spots/`, a table in `visual.md`. `--spot-q=high` quality. Use `--city=none` for spots only |
 | `--every=40` | 40 m | forward shot spacing |
@@ -41,7 +41,7 @@ node game/dev/harness/run.js --visual …                             # same thi
 | `--traffic` | off | keep traffic / pedestrians visible (off = the map alone) |
 | `--no-geometry`, `--geo=all`, `--corridor=70`, `--focus=40` | | geometry detectors off / whole map / corridor half-width / number of 40 m close-ups |
 | `--no-offices` | | skip the office-lobby shots |
-| `--sweep=2` | 2 | chapter mode: main streets per district surveyed in addition to the chapter routes (streets the chapter routes already cover are skipped); `--sweep-max=2000` m surveyed per sweep |
+| `--sweep=2` | 2 | chapter mode: main streets per district surveyed in addition to the chapter routes (streets the chapter routes already cover are skipped); `--sweep-max=2000` m surveyed per sweep; sweeps start 42 m in from their map end (not inside the closure) |
 | `--root=<dir>` | repo | serve the GAME from another checkout (e.g. a `git archive HEAD` snapshot while `game/src` is mid-edit); the visual QA code always comes from this checkout |
 | `--debug-masks` | | save the lane / cockpit masks used by the pixel detectors (`report/debug/`) |
 | `--report-only` | | rewrite `visual.md` from `visual.json` (after editing the report code) |
@@ -102,7 +102,7 @@ trees, `world.lamps`, landmark / POI groups, `world.buildings`; corridor = 70 m 
 | `marking-off-road` / `marking-on-pad` / `marking-buried` / `marking-floating` | marking triangle not on any carriageway (> 0.25 m out) / inside a junction pad / under or level with another surface / > 4.5 cm above every surface |
 | `tunnel-lid-low` | a **lidded** tunnel edge (`edge.lidded`, > 4.5 m deep) less than 3.8 m below street level: world.js's street-level lid (and ceiling) cut across the road (shallow tunnels are open trenches, skipped) |
 | `bridge-underside-buried` | a bridge's 1.1 m deck fascia / underside goes into the ground at a low end |
-| `object-floating` / `object-sunk` | tree trunk / street lamp / landmark / POI / station prop base > 0.3 m above or > 0.5 m below the ground or road under it |
+| `object-floating` / `object-sunk` | tree trunk / street lamp / landmark / POI / station prop base > 0.3 m above or > 0.5 m below the ground or road under it (objective markers `poi.marker` float by design and are skipped) |
 | `building-over-road` | a building footprint covers > 0.7 m² of a carriageway (at a level the road is drawn) |
 
 Pixels (forward frames; the lane strip 7–40 m ahead along the route is projected to the screen, cockpit pixels are

@@ -256,7 +256,7 @@ function sampleRoute(spec) {
     const dirAt = (s) => { const a = at(Math.max(0, s - 3)), b = at(Math.min(total, s + 3)); const dx = b.x - a.x, dz = b.z - a.z, l = Math.hypot(dx, dz) || 1; return [dx / l, dz / l]; };
     const samples = [];
     const lo = S.opts.from ?? 0, hi = Math.min(S.opts.to ?? Infinity, spec.kind === 'sweep' ? (S.opts.sweepMax ?? 2000) : Infinity);
-    for (let s = 2; s < total - 4; s += every) {
+    for (let s = spec.kind === 'sweep' ? 42 : 2; s < total - 4; s += every) { // (sweeps start at a map end: skip the closure itself)
         if (s < lo || s > hi) continue;
         const p = at(s), [fx, fz] = dirAt(s);
         samples.push({ s, x: p.x, z: p.z, y: p.y, fx, fz, heading: Math.atan2(-fx, -fz), edge: p.leg?.e || null, dir: p.leg?.dir || 1 });
@@ -435,8 +435,8 @@ async function capture(routeId, i) {
         }
         if (a.n > 400) {
             if (a.dark > 0.08 && !/night|dusk/.test(S.opts.time || '')) { flags.push('dark ' + Math.round(a.dark * 100) + '%'); found.push(issue('road-dark-patch', a.dark > 0.2 ? 'high' : 'medium', `${Math.round(a.dark * 100)} % of the lane ahead renders near-black (luminance < 6 %) — black patch on the road surface`, { x: sm.x + sm.fx * 20, z: sm.z + sm.fz * 20, frac: +a.dark.toFixed(3), route: routeId, sample: idx, surfaces: surfacesHere(sm.x + sm.fx * 20, sm.z + sm.fz * 20) }, { extra: { box: a.darkBox } })); }
-            if (a.sky > 0.03) { flags.push('sky ' + Math.round(a.sky * 100) + '%'); found.push(issue('road-sky-hole', a.sky > 0.1 ? 'high' : 'medium', `${Math.round(a.sky * 100)} % of the lane ahead is sky-coloured — a hole in the road surface`, { x: sm.x + sm.fx * 20, z: sm.z + sm.fz * 20, frac: +a.sky.toFixed(3), route: routeId, sample: idx }, { extra: { box: a.skyBox } })); }
-            if (a.grey < 0.55 && a.colourful > 0.3) { flags.push('not-asphalt'); found.push(issue('road-not-asphalt', 'medium', `only ${Math.round(a.grey * 100)} % of the lane ahead looks like asphalt (${Math.round(a.colourful * 100)} % saturated colour: grass / wall / building / slab over the road?)`, { x: sm.x + sm.fx * 20, z: sm.z + sm.fz * 20, route: routeId, sample: idx }, { extra: { box: [Math.min(...lp.map(p => p[0])), Math.min(...lp.map(p => p[1])), Math.max(...lp.map(p => p[0])), Math.max(...lp.map(p => p[1]))].map(Math.round) } })); }
+            if (a.sky > 0.03 && !/rain|drizzle|storm|snow|fog/.test(S.opts.weather || '')) { /* (wet asphalt mirrors the overcast sky) */ flags.push('sky ' + Math.round(a.sky * 100) + '%'); found.push(issue('road-sky-hole', a.sky > 0.1 ? 'high' : 'medium', `${Math.round(a.sky * 100)} % of the lane ahead is sky-coloured — a hole in the road surface`, { x: sm.x + sm.fx * 20, z: sm.z + sm.fz * 20, frac: +a.sky.toFixed(3), route: routeId, sample: idx }, { extra: { box: a.skyBox } })); }
+            if (a.grey < 0.55 && a.colourful > 0.3 && !/night|dusk/.test(S.opts.time || '')) { /* (sodium / LED lamp pools tint asphalt at night) */ flags.push('not-asphalt'); found.push(issue('road-not-asphalt', 'medium', `only ${Math.round(a.grey * 100)} % of the lane ahead looks like asphalt (${Math.round(a.colourful * 100)} % saturated colour: grass / wall / building / slab over the road?)`, { x: sm.x + sm.fx * 20, z: sm.z + sm.fz * 20, route: routeId, sample: idx }, { extra: { box: [Math.min(...lp.map(p => p[0])), Math.min(...lp.map(p => p[1])), Math.max(...lp.map(p => p[0])), Math.max(...lp.map(p => p[1]))].map(Math.round) } })); }
         }
     }
     lap('pixels');

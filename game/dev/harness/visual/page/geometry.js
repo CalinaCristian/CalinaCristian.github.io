@@ -194,7 +194,7 @@ export function geometryDetectors(G, opts) {
                 if (adj && a.e && b.e && ov.area < 3) return; // mitre slivers between consecutive pieces of the same road
                 // round 2: every carriageway class of one family shares one asphalt colour + world-space UVs, and markings
                 // have one owner per overlap → a same-colour overlap is invisible; keep it as low, keep different surfaces graded
-                const ka = surfKey(a, US, ov.x, ov.z), kb = surfKey(b, US, ov.x, ov.z), same = ka === kb && ka !== 'blend';
+                const ka = surfKey(a, US, ov.x, ov.z), kb = surfKey(b, US, ov.x, ov.z), same = ka === kb && (ka !== 'blend' || adj); // (two ramps fading from one shared node have that node's colour there)
                 where.surfaces = `${ka}/${kb}`;
                 add('ribbon-zfight', same ? 'low' : ov.area > 6 ? 'high' : ov.area > 1.5 ? 'medium' : 'low', `${ribLabel(a)} and ${ribLabel(b)} overlap over ${r1(ov.area)} m² at the same height (Δy ${r2(dy)} m) → ${same ? 'same asphalt colour (invisible unless markings cross)' : 'different surfaces z-fight (' + where.surfaces + '), the markings of one run across the other'}`, where);
             } else {
@@ -353,7 +353,10 @@ export function geometryDetectors(G, opts) {
     const groups = [];
     W.group.traverse((o) => { if (o.parent && /^(landmarks|pois)$/.test(o.parent.name || '')) groups.push([o, o.parent.name]); });
     for (const o of opts.extraGroups || []) for (const c of o.children || []) groups.push([c, 'props']);
+    // objective markers (main.js: poi.marker bobbing at h + 8 m over a stop / the airport) float by design
+    const markers = new Set(); try { for (const p of [...(W.pois || []), ...(G?.stopPois || []).map(s => s.poi), G?.airport].filter(Boolean)) if (p.marker) markers.add(p.marker); } catch { /* ignore */ }
     for (const [o, gname] of groups) {
+        if (markers.has(o)) continue;
         try {
             B.setFromObject(o); if (B.isEmpty()) continue;
             const x = (B.min.x + B.max.x) / 2, z = (B.min.z + B.max.z) / 2;

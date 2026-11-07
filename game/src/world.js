@@ -845,7 +845,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 for (let s = Math.min(1, e.len / 2); s <= e.len - Math.min(1, e.len / 2); s += Math.min(3, Math.max(0.5, e.len - 2) / 2)) {
                     const x = e.a.x + e.dirx * s, z = e.a.z + e.dirz * s;
                     edgesInBox(x - 14, z - 14, x + 14, z + 14, (f) => {
-                        if (f === e || f.virtual || f.id < e.id || shares(e, f) || crossed.has(e.id + ':' + f.id) || crossed.has(f.id + ':' + e.id)) return;
+                        if (f === e || f.virtual || f.id < e.id || shares(e, f) || ((crossed.has(e.id + ':' + f.id) || crossed.has(f.id + ':' + e.id)) && Math.abs(e.dirx * f.dirx + e.dirz * f.dirz) < 0.8)) return; // (a near-parallel 'crossing' — a ramp running over the street — stays an overlap)
                         const q = distPointSeg(x, z, f.a.x, f.a.z, f.b.x, f.b.z);
                         if (q.t <= 0.01 || q.t >= 0.99) return;
                         const side = ((x - q.cx) * f.nx + (z - q.cz) * f.nz) >= 0 ? 1 : -1;
@@ -996,6 +996,50 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const s1 = score();
                 if (s1.cb > s0.cb || s1.ob >= s0.ob || resid() > 0.05) nodeArr.forEach((n, i) => { n.y = keep[i]; });
                 else profileStats0 = { overlapsBefore: s0.ob, overlapsAfter: s1.ob, crossBefore: s0.cb, crossAfter: s1.cb };
+            }
+            // (QA round 2) separate-or-dip: overlaps still 0.45–5 m apart (Pasajul Basarab over Orhideelor, Podul Barbu
+            // Văcărescu over Șos. Pipera) are pulled to ≥ 5.2 m: the deck rises where its grade allows, otherwise the
+            // street under it dips (an underpass, as Orhideelor really does under Basarab); < 1.2 m apart → one surface.
+            // Kept when the 0.45–5 m count drops and crossing clearances do not get worse.
+            // decks: every bridge / raised edge sampled every 3 m against the ribbons of the streets under it (the overlap list
+            // above only takes centre lines closer than ~70 % of the widths: a ramp lying half over a street was missed)
+            const ovS = [];
+            for (const e of edges) {
+                if (e.virtual || !(e.bridge || e.L > 0)) continue;
+                for (let s2 = 1; s2 < e.len - 1; s2 += 3) {
+                    const x = e.a.x + e.dirx * s2, z = e.a.z + e.dirz * s2;
+                    edgesInBox(x - 16, z - 16, x + 16, z + 16, (f) => {
+                        if (f === e || f.virtual || f.bridge || f.L > 0 || shares(e, f)) return;
+                        const q = distPointSeg(x, z, f.a.x, f.a.z, f.b.x, f.b.z); if (q.t <= 0.02 || q.t >= 0.98) return;
+                        if (q.d > Math.max(f.wR, f.wL) + shoulderOf(f) + Math.max(e.wR, e.wL) * 0.9) return;
+                        ovS.push({ e, te: s2 / e.len, f, tf: q.t });
+                    });
+                }
+            }
+            const OV = overlaps.concat(ovS);
+            const score5 = () => { let n = 0; for (const o of OV) { const d = Math.abs(yP(o.e, o.te) - yP(o.f, o.tf)); if (d > 0.45 && d < 5) n++; } return n; };
+            const stepSep = () => {
+                let bad = 0;
+                for (const o of OV) {
+                    const ye = yP(o.e, o.te), yf = yP(o.f, o.tf), dh = Math.abs(ye - yf);
+                    if (dh <= 0.45 || dh >= 5) continue;
+                    bad++;
+                    const [hi, th, lo, tl] = ye > yf ? [o.e, o.te, o.f, o.tf] : [o.f, o.tf, o.e, o.te];
+                    if (dh < 1.2) { if (!moveAt(hi, th, yP(lo, tl) - yP(hi, th))) moveAt(lo, tl, yP(hi, th) - yP(lo, tl)); continue; }
+                    const need = 5.2 - dh;
+                    const before = yP(hi, th);
+                    if (hi.bridge || hi.L > 0) moveAt(hi, th, need * 0.6);
+                    const got = yP(hi, th) - before;
+                    if (!lo.bridge && lo.L <= 0) moveAt(lo, tl, -(need - got));
+                }
+                return bad;
+            };
+            const keep2 = nodeArr.map(n => n.y), a0 = score5(), c0 = score().cb;
+            if (a0) {
+                for (let r = 0; r < 24; r++) { if (!stepSep()) break; capY(); gradeFix(); }
+                const a1 = score5(), c1 = score().cb;
+                if (c1 > c0 || a1 >= a0 || resid() > 0.05) nodeArr.forEach((n, i) => { n.y = keep2[i]; });
+                profileStats0 = { ...(profileStats0 || {}), sepBefore: a0, sepAfter: a1, sepKept: !(c1 > c0 || a1 >= a0 || resid() > 0.05), sepCross: [c0, c1] };
             }
         }
         // (2026-11-07, world-visual) gores: a node of a ramp that still lies on the carriageway of the near-parallel road it

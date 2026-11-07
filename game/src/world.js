@@ -1802,6 +1802,22 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (down) {
             // trench / tunnel walls facing the road, from the road up to street level
             for (const [o, sgn] of [[wr, -1], [-wl, 1]]) sb.face4(Pm(0, o, Math.min(yA, 0)), Pm(1, o, Math.min(yB, 0)), Pm(1, o, 0.4), Pm(0, o, 0.4), conc, [e.nx * sgn, 0, e.nz * sgn]);
+            // parapet on the trench rim where the collision wall stands above street level (to 1.0 m; play-test note 46: the
+            // 1 m trench wall beside Bd. Iancu de Hunedoara was invisible from the street side) — open / uncovered part only
+            if (!e.lidded) {
+                const fY = (t) => e.ya + (e.yb - e.ya) * t, tAt = (y) => clamp((y - e.ya) / ((e.yb - e.ya) || 1e-6), 0, 1);
+                let p0 = 0, p1 = 1;
+                const cut = (thr, keepBelow) => { if (fY(0) < thr === fY(1) < thr) return (fY(0) < thr) === keepBelow; const tc = tAt(thr); if ((fY(0) < thr) === keepBelow) p1 = Math.min(p1, tc); else p0 = Math.max(p0, tc); return true; };
+                if (cut(-0.35, true) && (!e.tunnel || cut(-4.2, false)) && p1 - p0 > 0.01) {
+                    const Pt = (t, o, y) => P(t * e.len, o, y), cap = rgb('#b4b0a8');
+                    for (const [o, sgn] of [[wr, -1], [-wl, 1]]) {
+                        const oo = o + 0.25 * -sgn;
+                        sb.face4(Pt(p0, o, 0.4), Pt(p1, o, 0.4), Pt(p1, o, 1.0), Pt(p0, o, 1.0), conc, [e.nx * sgn, 0, e.nz * sgn]);
+                        sb.face4(Pt(p1, oo, 0), Pt(p0, oo, 0), Pt(p0, oo, 1.0), Pt(p1, oo, 1.0), conc, [-e.nx * sgn, 0, -e.nz * sgn]);
+                        sb.face4(Pt(p0, oo, 1.0), Pt(p1, oo, 1.0), Pt(p1, o, 1.0), Pt(p0, o, 1.0), cap, [0, 1, 0]);
+                    }
+                }
+            }
             if (e.tunnel && !e.lidded && Math.min(e.ya, e.yb) < -4.2) { // (play-test note 45) partly deep tunnel edge: the
                 // covered part (deeper than 4.2 m) gets its lid / ceiling and a portal where it opens (the hole in Piața Victoriei)
                 const tY = (y) => clamp((y - e.ya) / ((e.yb - e.ya) || 1e-6), 0, 1), t4 = tY(-4.2);

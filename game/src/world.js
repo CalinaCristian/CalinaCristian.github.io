@@ -2717,7 +2717,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // so the season / weather code can tint each tree (world.vegetation)
     const vegetation = { treeCrownMeshes: [], treeTrunkMeshes: [], deciduousMask: null, grassMaterials: [], groundMaterials: [], roofMaterials: [], trees: treeList };
     {
-        const T = buildSpeciesTrees(treeList, { rng, cull: (env.fogFar || 1300) * 1.15, near: 115, maxNear: 520 });
+        const T = buildSpeciesTrees(treeList, { rng, cull: 1200, near: 115, maxNear: 520 }); // (≈ 1.2 km view range for trees)
         vegetation.treeCrownMeshes.push(...T.crownMeshes); vegetation.treeTrunkMeshes.push(...T.trunkMeshes);
         vegetation.update = T.update;
         vegetation.deciduousMask = new Float32Array(treeList.map(t => t.dec));
@@ -3058,11 +3058,14 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (name.startsWith('signs')) m.userData.cull = 520; else if (name.startsWith('marks')) m.userData.cull = 820;
         cellsGroup.add(m); return m;
     };
-    const cullR = (env.fogFar || 1300) * 1.15 + CELL * 0.71;
+    // view ranges (render's weather-driven visibility is 15–20 km on clear days, so culling no longer follows the fog):
+    // buildings / ground / roads ≈ 2.7 km, small props / trees / parked cars ≈ 1.2 km, signs 520 m, markings 820 m
+    const VIEW = { far: 2700, props: 1200 };
+    const cullR = VIEW.far + CELL * 0.71;
     let cx = 0, cz = 0;
     // (2026-11-07, world-visual) draw calls: the flat / cheap layers of neighbouring cells are merged into super-cells
     // (2×2 cells = 500 m; the far backdrop 4×4) — fewer meshes for the same pixels; solid buildings stay per cell (culling)
-    const SUPER = { area: 4, grass: 4, pave: 4, roof: 4, backdrop: 4, ground: 2, road: 2, pad: 2, marks: 2, water: 4, signs: 4, spill: 4 };
+    const SUPER = { area: 4, grass: 4, pave: 4, roof: 4, backdrop: 4, ground: 2, road: 2, pad: 2, marks: 2, water: 4, signs: 4, spill: 4, solid: 2 };
     const supers = new Map();
     const superOf = (c, layer, page = 0) => {
         const K = SUPER[layer], I = Math.floor(c.i / K), J = Math.floor(c.j / K), key = layer + page + ':' + I + ',' + J;
@@ -3070,7 +3073,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         return o;
     };
     for (const c of cells.values()) {
-        for (const layer of ['area', 'grass', 'pave', 'roof', 'backdrop', 'ground', 'road', 'pad', 'marks', 'water']) {
+        for (const layer of ['area', 'grass', 'pave', 'roof', 'backdrop', 'ground', 'road', 'pad', 'marks', 'water', 'solid']) {
             if (c[layer].empty) continue;
             const o = superOf(c, layer); if (!o.mb) o.mb = c[layer]; else o.mb.append(c[layer]);
         }
@@ -3095,16 +3098,16 @@ export async function buildWorld(city, renderer, opts = {}) {
             case 'pad': { const m = addSuper(o, padMat, false, 'junction'); if (m) m.renderOrder = 3; break; }
             case 'marks': { const m = addSuper(o, marksMat, false, 'marks'); if (m) m.renderOrder = 4; break; }
             case 'water': { const m = addSuper(o, waterMat, false, 'water'); if (m) m.renderOrder = -18; break; }
+            case 'solid': addSuper(o, solidMat, true, 'solid'); break;
             case 'signs': addSuper(o, signMats[o.page], false, 'signs'); break;
             case 'spill': { const m = addSuper(o, spillMat, false, 'shop-spill'); if (m) { m.renderOrder = 5; m.castShadow = m.receiveShadow = false; } break; }
         }
     }
-    for (const c of cells.values()) { cx = c.i; cz = c.j; addMesh(c.solid, solidMat, true, `solid ${c.i},${c.j}`); }
     let parkedCalls = 0;
     for (const [k, list] of parkedLots) {
         const [I, J] = k.split(',').map(Number);
         const pg = makeParkedCars(list, { city: city.id, paintSpace: 'linear' }); pg.name = `parked ${k}`; // (CAR_COLORS are sRGB hex: let three.js linearise them, as the old merged lots did)
-        pg.userData.cx = (I + 0.5) * CELL * 2; pg.userData.cz = (J + 0.5) * CELL * 2; pg.userData.cull = cullR + CELL * 0.71;
+        pg.userData.cx = (I + 0.5) * CELL * 2; pg.userData.cz = (J + 0.5) * CELL * 2; pg.userData.cull = VIEW.props + CELL * 0.71;
         tris += pg.userData.triangles || 0; parkedCalls += pg.userData.drawCalls || 0;
         cellsGroup.add(pg);
     }

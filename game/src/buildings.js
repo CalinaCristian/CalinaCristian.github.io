@@ -54,14 +54,24 @@ export function makeTextures() {
     tex('house', (ctx, w, h) => { win(ctx, w, h, { cols: 3, rows: 1, ww: 0.42, wh: 0.5, frame: 'rgba(255,255,255,0.7)', glass: 'rgba(50,70,95,0.7)' }); });
     // shopfronts at ground level
     tex('shop', (ctx, w, h) => {
-        ctx.fillStyle = '#2b3038'; ctx.fillRect(0, 0, w, h);
+        // (play-test note 10a) four shop units: plain fascia boards in muted materials (no fake white 'text' blanks: named
+        // businesses get their real sign from world.js), framed display windows with mullions and a recessed door
+        const FASCIA = ['#2f3437', '#3b4a3f', '#2c3a52', '#5a4632', '#4a4a4a', '#6b5b4b', '#33302c', '#40474f'];
+        ctx.fillStyle = '#3a3c40'; ctx.fillRect(0, 0, w, h);
         const n = 4, sw = w / n;
         for (let i = 0; i < n; i++) {
-            const c = SHOP_COLORS[(i * 3) % SHOP_COLORS.length];
-            ctx.fillStyle = 'rgba(120,160,200,0.55)'; ctx.fillRect(i * sw + 6, 22, sw - 12, h - 40);
-            ctx.fillStyle = c; ctx.fillRect(i * sw + 2, 0, sw - 4, 18);
-            ctx.fillStyle = 'rgba(255,255,255,0.85)'; ctx.fillRect(i * sw + 10, 5, sw * 0.5, 8);
-            ctx.fillStyle = 'rgba(0,0,0,0.35)'; ctx.fillRect(i * sw + sw * 0.62, 30, sw * 0.28, h - 48);
+            const x0 = i * sw;
+            ctx.fillStyle = FASCIA[(i * 3 + 1) % FASCIA.length]; ctx.fillRect(x0 + 2, 0, sw - 4, 18);
+            ctx.fillStyle = 'rgba(255,255,255,0.08)'; ctx.fillRect(x0 + 2, 0, sw - 4, 2); ctx.fillStyle = 'rgba(0,0,0,0.3)'; ctx.fillRect(x0 + 2, 16, sw - 4, 2);
+            const g = ctx.createLinearGradient(0, 22, 0, h - 10); g.addColorStop(0, 'rgba(150,180,205,0.75)'); g.addColorStop(0.5, 'rgba(70,90,110,0.8)'); g.addColorStop(1, 'rgba(40,50,60,0.85)');
+            const door = i % 2 === 0 ? x0 + sw * 0.66 : x0 + sw * 0.08, dw = sw * 0.24;
+            ctx.fillStyle = g; ctx.fillRect(x0 + 6, 22, sw - 12, h - 32);
+            ctx.fillStyle = 'rgba(25,28,32,0.95)'; ctx.fillRect(door, 24, dw, h - 26);                    // recessed door
+            ctx.fillStyle = 'rgba(120,140,160,0.5)'; ctx.fillRect(door + 4, 30, dw - 8, h - 46);           // its glass
+            ctx.fillStyle = '#22252a';                                                                   // mullions + sill
+            for (const f of [0.33, 0.5]) { const mx = x0 + 6 + (sw - 12) * f; if (mx < door - 3 || mx > door + dw + 3) ctx.fillRect(mx - 1.5, 22, 3, h - 32); }
+            ctx.fillRect(x0 + 6, h - 12, sw - 12, 4); ctx.fillRect(x0 + 6, 22, sw - 12, 3);
+            ctx.fillStyle = 'rgba(255,255,255,0.10)'; ctx.beginPath(); ctx.moveTo(x0 + 10, h - 14); ctx.lineTo(x0 + sw * 0.35, 25); ctx.lineTo(x0 + sw * 0.45, 25); ctx.lineTo(x0 + 22, h - 14); ctx.fill(); // reflection streak
         }
     }, 512, 128);
     return T;

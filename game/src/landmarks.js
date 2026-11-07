@@ -2291,36 +2291,65 @@ function entrance(b, f, o = {}) {
     return { x, z, nx, nz, ry };
 }
 
-// Calea Călărașilor 101 (GTS Global Intelligence, 2015 CV stop) — OSM w245117704: a listed (LMI B-II-m-B-18379)
-// single-storey early-1900s street house on a narrow deep lot (10.5 m frontage x 29 m), building=apartments, 1 level.
-// Research (bucharest-unirii.md gts): pastel render #E3D3B8, tall windows with cornices, carriage gate, grey/brown
-// sheet roof; the 6-storey 1936 block at no. 105 (w245117686) two doors east is a generic OSM building. Small-office
-// signage only: a navy door plate "GTS / GLOBAL INTELLIGENCE" by the entrance + the blue street-number plate "101"
-// (no billboard, owner note 39). Anchor = 8 m in front of the footprint centre (towards the street), so the
-// suppression radius covers this house and the address point but not the neighbours' centroids.
-// Src: game/research/bucharest-unirii.md (gts, w245117704 row) ; OSM w245117704 ; LMI 2015 B-II-m-B-18379
+// Calea Călărașilor 101 (GTS Global Intelligence, 2015 CV stop) — OSM w245117704: listed (LMI B-II-m-B-18379) single-storey
+// eclectic (Beaux-Arts) town house, ≈ 10 m street frontage x 30 m deep, N side of the street. From game/research/cv-buildings.md
+// and the Commons photos "101 Calea Călărașilor, Bucharest (01)/(03)" (2023, CC BY-SA 4.0): warm off-white render #E6DCCD
+// with rustication grooves, grey rendered plinth; three tall round-arched windows on the street front with stucco garland
+// arches, scroll keystones and baluster panels; modillion cornice with a garland frieze; weathered grey zinc mansard with an
+// arched dormer and oculi; the entrance is NOT on the street: a black wrought-iron gate on the WEST side opens onto a paved
+// courtyard drive, the white panelled double door (glazed, transom) is on the long west façade up three steps, with an iron
+// lantern and small company plates on the jamb (no billboard, owner note 39). Anchor = 8 m in front of the footprint centre.
+// Src: game/research/cv-buildings.md (GTS) ; OSM w245117704 ; LMI B-II-m-B-18379
 function bGTS(b) {
     b.shift(0, -8);
-    const [p] = P2.gts.map(pts), R = '#e3d3b8', TR = '#efe4cf', PL = '#c9b998', ROOF = '#7a6e66';
+    const [p] = P2.gts.map(pts), R = '#e6dccd', TR = '#efe7da', ST = '#d9cdb9', PL = '#a9a39a', ZN = '#aeb2ae', WF = '#f4f2ec', GL = '#4a5058';
     b.wall = R;
-    b.prism(p, 0, 4.7, R, { topCol: ROOF });
-    b.prism(offset(p, 0.08), 0, 0.75, PL, { top: false });                                  // plinth
-    b.cornice(p, 4.2, 0.5, 0.35, TR);                                                       // cornice
-    // street front (south edge): parapet with a moulded attic, 3 tall windows with surrounds + cornice caps, entrance
-    const fa = [-7, 14], fc = [3.5, 15], fl = Math.hypot(fc[0] - fa[0], fc[1] - fa[1]), ux = (fc[0] - fa[0]) / fl, uz = (fc[1] - fa[1]) / fl, nx = uz, nz = -ux, ry = Math.atan2(-nx, -nz);
-    const F = (t, n = 0) => [fa[0] + ux * t - nx * n, fa[1] + uz * t - nz * n];     // -n = outward (south)
-    { const [cx, cz] = F(fl / 2, 0.1); b.box(cx, 4.7, cz, fl + 0.4, 0.9, 0.3, TR, { ry }); }
-    for (const t of [1.9, 4.2, 6.5]) {
-        const [cx, cz] = F(t, 0.2), [sx, sz] = F(t, 0.1), [kx, kz] = F(t, 0.22);
-        b.box(sx, 1.05, sz, 1.5, 2.75, 0.1, TR, { ry }); b.box(cx, 1.2, cz, 1.1, 2.4, 0.06, '#3e4247', { ry, mat: 'g' }); b.box(cx, 2.1, F(t, 0.24)[1] * 0 + cz, 1.1, 0.06, 0.08, TR, { ry }); b.box(cx, 1.2, cz, 0.06, 2.4, 0.08, TR, { ry });
-        b.box(kx, 3.85, kz, 1.75, 0.22, 0.3, TR, { ry }); b.box(sx, 0.95, sz, 1.6, 0.12, 0.22, TR, { ry });
+    b.prism(p, 0, 5.6, R, { top: false });
+    b.prism(offset(p, 0.06), 0, 0.85, PL, { top: false });                                   // grey plinth
+    for (let k = 0; k < 4; k++) b.cornice(p, 1.3 + k * 0.85, 0.05, 0.04, '#d9cfbf');           // rustication grooves
+    b.cornice(p, 4.75, 0.45, 0.12, ST); b.cornice(p, 5.2, 0.45, 0.45, TR);                   // garland frieze + modillion cornice
+    // weathered zinc mansard: steep lower slope, flat top
+    const lo = offset(p, 0.35), hi = offset(p, -1.5), y0 = 5.65, y1 = 8.3;
+    for (let i = 0; i < lo.length; i++) { const j = (i + 1) % lo.length; b.quad([lo[i][0], y0, lo[i][1]], [lo[j][0], y0, lo[j][1]], [hi[j][0], y1, hi[j][1]], [hi[i][0], y1, hi[i][1]], ZN, 'm', [lo[i][0] - hi[i][0], 0.6, lo[i][1] - hi[i][1]]); }
+    b.cap(hi, y1, '#9fa39f'); b.lip(p, lo, y0, ZN, 1);
+    // arched window with white frame, stucco garland arch + keystone, baluster panel below (on a facade frame)
+    const win = (x, z, nx, nz, w = 1.25, h = 2.6, garland = true) => {
+        const ry = Math.atan2(nx, nz), at = (n) => [x + nx * n, z + nz * n];
+        b.push(M(at(0.12)[0], 0, at(0.12)[1], ry));
+        b.archWall(w + 0.3, h + w / 2 + 0.2, 0.08, [{ x: 0, w, h: h + w / 2 }], WF, M(0, 1.35, 0));
+        b.box(0, 1.35, -0.06, w, h + w / 2, 0.04, GL, { mat: 'g' }); b.box(0, 1.35, 0.0, 0.07, h + w / 2 - 0.1, 0.05, WF); b.box(0, 1.35 + h * 0.62, 0.0, w, 0.07, 0.05, WF);
+        if (garland) { b.geo(new THREE.TorusGeometry(w / 2 + 0.28, 0.1, 4, 12, Math.PI), ST, M(0, 1.35 + h, 0.06)); b.box(0, 1.35 + h + w / 2 + 0.1, 0.06, 0.34, 0.6, 0.14, ST); }
+        b.box(0, 0.75, 0.04, w + 0.3, 0.55, 0.1, ST); for (let k = -2; k <= 2; k++) b.box(k * w / 5.4, 0.78, 0.1, 0.09, 0.48, 0.07, TR);
+        b.pop();
+    };
+    // street front (south edge (-7,14) -> (3.5,15)), outward = south
+    const fa = [-7, 14], fc = [3.5, 15], fl = Math.hypot(fc[0] - fa[0], fc[1] - fa[1]), ux = (fc[0] - fa[0]) / fl, uz = (fc[1] - fa[1]) / fl, sn = [uz, -ux].map(v => -v);
+    win(fa[0] + ux * 0.9, fa[1] + uz * 0.9, sn[0], sn[1], 0.55, 2.4, false);                // narrow arched window at the corner
+    for (const t of [3.6, 6.1, 8.6]) win(fa[0] + ux * t, fa[1] + uz * t, sn[0], sn[1]);
+    { const ry = Math.atan2(sn[0], sn[1]), x = fa[0] + ux * 2.1 + sn[0] * 0.08, z = fa[1] + uz * 2.1 + sn[1] * 0.08; b.box(x, 3.0, z, 0.36, 0.24, 0.03, '#1d4f91', { ry }); b.text('101', x + sn[0] * 0.02, 3.05, z + sn[1] * 0.02, ry, 0.12, '#ffffff', { d: 0.005 }); }
+    // long west facade (courtyard drive): arched windows + the entrance up three steps
+    const wa = [-7, 14], wb = [-2.5, -15], wl = Math.hypot(wb[0] - wa[0], wb[1] - wa[1]), wx = (wb[0] - wa[0]) / wl, wz = (wb[1] - wa[1]) / wl, wn = [wz, -wx];   // outward = west
+    for (const t of [2.3, 15.5, 18.5, 22.5, 25.5]) win(wa[0] + wx * t, wa[1] + wz * t, wn[0], wn[1], 1.05, 2.3, t > 5);
+    { const t = 9.6, x = wa[0] + wx * t, z = wa[1] + wz * t, ry = Math.atan2(wn[0], wn[1]);
+        b.box(x + wn[0] * 0.25, 0.85, z + wn[1] * 0.25, 2.1, 3.9, 0.35, TR, { ry });            // projecting entrance bay surround
+        const f = entrance(b, { x: x + wn[0] * 0.42, z: z + wn[1] * 0.42, nx: wn[0], nz: wn[1] }, { y: 0.9, w: 1.4, h: 2.55, frame: WF, door: '#eeeae2', doorMat: 'm',
+            plate: { w: 0.32, h: 0.4, y: 0.9, side: 1, bg: '#c9a85a', lines: [['GTS', 0.09, '#1f2a3a'], ['GLOBAL', 0.035, '#1f2a3a'], ['INTELLIGENCE', 0.035, '#1f2a3a']] } });
+        b.box(x + wn[0] * 0.45, 3.45, z + wn[1] * 0.45, 1.4, 0.5, 0.05, '#8fa0a8', { ry, mat: 'g' });                                   // transom
+        for (let k = 0; k < 3; k++) b.box(x + wn[0] * (0.9 + k * 0.35), 0, z + wn[1] * (0.9 + k * 0.35), 2.2, 0.9 - k * 0.3, 0.36, '#c8c2b6', { ry });   // three stone steps
+        const lx = x + wn[0] * 0.55 - wx * 1.4, lz = z + wn[1] * 0.55 - wz * 1.4; b.box(lx, 3.6, lz, 0.22, 0.34, 0.22, '#1d1f20'); void f;
+        const px = x + wn[0] * 2.2 + wx * 1.6, pz = z + wn[1] * 2.2 + wz * 1.6; b.cyl(px, 0, pz, 0.04, 0.05, 1.6, '#b98d78', 6); b.box(px, 1.6, pz, 0.22, 0.3, 0.22, '#b98d78');   // garden lantern
+        for (const d of [-1.9, 1.9]) b.cone(x + wn[0] * 0.9 + wx * d, 0, z + wn[1] * 0.9 + wz * d, 0.45, 3.2, '#9da544', 6);                          // thujas
     }
-    const f = { x: F(8.9)[0], z: F(8.9)[1], nx: -nx, nz: -nz };
-    entrance(b, f, { w: 1.5, h: 3, frame: TR, door: '#5a4433', doorMat: 'm', plate: { w: 0.62, h: 0.48, y: 1.25, side: -1, bg: '#1f3350', lines: [['GTS', 0.16, '#ffffff'], ['GLOBAL', 0.05, '#cfd8e6'], ['INTELLIGENCE', 0.05, '#cfd8e6']] } });
-    { const [cx, cz] = F(9.95, 0.08); b.box(cx, 3.1, cz, 0.36, 0.24, 0.03, '#1d4f91', { ry }); const [tx, tz] = F(9.95, 0.1); b.text('101', tx, 3.15, tz, ry + Math.PI, 0.12, '#ffffff', { d: 0.005 }); }
-    // pitched sheet roof along the lot (hip), chimneys
-    b.hip(0.2, 4.7, 0.6, 26.4, 8.4, 2.4, ROOF, { ry: 1.43 });
-    for (const [x, z] of [[-1.5, 6], [1, -6]]) b.box(x, 5.6, z, 0.6, 2, 0.6, '#b9a98e');
+    // dormer (arched, stucco surround) on the street corner + oculi in the mansard
+    { const x = fa[0] + 1.2, z = fa[1] - 1.6; b.box(x, 6.1, z, 1.3, 1.9, 1, TR); b.box(x - 0.5, 6.4, z, 0.06, 1.2, 0.6, '#3f4246', { mat: 'g' }); b.geo(new THREE.CylinderGeometry(0.65, 0.65, 1, 10, 1, false, 0, Math.PI), TR, M(x, 8, z, 0, 1, 1, 1, Math.PI / 2, Math.PI / 2)); }
+    for (const t of [0.3, 0.55, 0.8]) { const x = wa[0] + wx * wl * t + wn[0] * 0.7, z = wa[1] + wz * wl * t + wn[1] * 0.7; b.geo(new THREE.TorusGeometry(0.32, 0.1, 4, 10), '#8b908c', M(x, 6.9, z, Math.atan2(wn[0], wn[1]))); }
+    // black wrought-iron gate + railing on the west side at the street line (drive into the courtyard)
+    const g0 = [fa[0] - ux * 0.2, fa[1] - uz * 0.2], gw = 5.6;
+    b.box(g0[0] - ux * (gw + 0.35), 0, g0[1] - uz * (gw + 0.35), 0.5, 2.6, 0.5, '#d2cbbd');           // stone gate pier
+    b.fence([g0, [g0[0] - ux * gw, g0[1] - uz * gw]], 2.4, 2.8, '#17191b', { post: 0.08, bars: 0.14 });
+    b.geo(new THREE.TorusGeometry(gw / 4, 0.04, 3, 12, Math.PI), '#17191b', M(g0[0] - ux * gw * 0.25, 2.2, g0[1] - uz * gw * 0.25, Math.atan2(-uz, ux)));
+    b.geo(new THREE.TorusGeometry(gw / 4, 0.04, 3, 12, Math.PI), '#17191b', M(g0[0] - ux * gw * 0.75, 2.2, g0[1] - uz * gw * 0.75, Math.atan2(-uz, ux)));
+    for (const [x, z] of [[-1.5, 6], [1, -6]]) b.box(x, 8.3, z, 0.6, 1, 0.6, '#b9a98e');
     b.colPoly([p], 6);
 }
 

@@ -98,11 +98,15 @@ export class Ground {
             const yAt = (s) => { const f = clamp(s / len, 0, 1) * (ns - 1), q = Math.min(ns - 2, Math.floor(f)); return prof[q] + (prof[q + 1] - prof[q]) * (f - q); };
             for (let si = 1; si < pts.length; si++) {
                 const [ax, az] = pts[si - 1], [bx, bz] = pts[si];
-                cells(Math.min(ax, bx) - hw, Math.min(az, bz) - hw, Math.max(ax, bx) + hw, Math.max(az, bz) + hw, (k, x, z) => {
-                    const r = distSeg(x, z, ax, az, bx, bz); if (r.d > hw + d * 0.5) return;
-                    const key = r.d / hw; if (key >= best[k]) return;
-                    best[k] = key; S[k] = yAt(cum[si - 1] + (cum[si] - cum[si - 1]) * r.t); M[k] = 1;
-                });
+                const sx = bx - ax, sz = bz - az, sl = sx * sx + sz * sz || 1e-9, lim = hw + d * 0.5, s0 = cum[si - 1], s1 = cum[si];
+                const i0 = Math.max(0, Math.floor((Math.min(ax, bx) - lim - x0) / d)), i1 = Math.min(nx - 1, Math.ceil((Math.max(ax, bx) + lim - x0) / d));
+                const j0 = Math.max(0, Math.floor((Math.min(az, bz) - lim - z0) / d)), j1 = Math.min(nz - 1, Math.ceil((Math.max(az, bz) + lim - z0) / d));
+                for (let j = j0; j <= j1; j++) { const z = z0 + j * d; for (let i = i0; i <= i1; i++) {
+                    const x = x0 + i * d; let u = ((x - ax) * sx + (z - az) * sz) / sl; u = u < 0 ? 0 : u > 1 ? 1 : u;
+                    const ex = x - ax - sx * u, ez = z - az - sz * u, dd = Math.sqrt(ex * ex + ez * ez); if (dd > lim) continue;
+                    const k = j * nx + i, key = dd / hw; if (key >= best[k]) continue;
+                    best[k] = key; S[k] = yAt(s0 + (s1 - s0) * u); M[k] = 1;
+                } }
             }
         }
         // building footprints are never "real terrain" (the lot follows its streets)

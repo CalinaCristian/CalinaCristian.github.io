@@ -38,6 +38,70 @@ async function load(page) {
 }
 const comp = (page) => page.evaluate(() => { const c = window.game.achievements.completion(); return { pct: c.pct, exact: c.exact, all: c.all, unlocked: c.unlocked, total: c.total, parts: c.parts.map(p => [p.key, p.n, p.total, p.weight]) }; });
 
+
+/** note 73: save → "reload" (persistent profile closed and reopened) → Continue; gallery; reset */
+async function runSave() {
+    const dir = fs.mkdtempSync(path.join(require('os').tmpdir(), 'dmcv-save-'));
+    const openCtx = async () => {
+        const c = await chromium.launchPersistentContext(dir, { args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'], viewport: { width: 1280, height: 720 }, deviceScaleFactor: 1 });
+        await c.route(/api\.open-meteo\.com/, (r) => r.fulfill({ status: 200, contentType: 'application/json', body: '{}' }));
+        c.setDefaultNavigationTimeout(180000); c.setDefaultTimeout(60000);
+        return c;
+    };
+    try {
+        // ---- 9. (optional, --save) note 73: autosave → reload → Continue at the same pose, gallery persists, reset clears all
+            let ctx = await openCtx(); let page = await newPage(ctx);
+            await load(page);
+            await page.click('#start');
+            await page.waitForFunction(() => window.game.state === 'drive', null, { timeout: 240000 });
+            const want = await page.evaluate(async () => {
+                const g = window.game, P = g.player;
+                // move the car 60 m along its lane, then get out and step 4 m away
+                const p = g.lanePose(P.x + P.fx * 60, P.z + P.fz * 60, P.heading) || { x: P.x, z: P.z, heading: P.heading, edge: null };
+                P.place(p.x, p.z, p.heading, p.edge); P.speed = 0;
+                g.fuel = 17.25; g.stats.fineCount = 2; g.stats.dist = 1234; g.honks = 7;
+                g.exitCar(); g.foot.teleport(g.foot.x + 3, g.foot.z + 2, 1.0);
+                // a photo as PhotoMode would keep it
+                const c = document.createElement('canvas'); c.width = 300; c.height = 200; const x = c.getContext('2d'); x.fillStyle = '#d97706'; x.fillRect(0, 0, 300, 200); x.fillStyle = '#fff'; x.font = '40px sans-serif'; x.fillText('test shot', 40, 110);
+                const blob = await new Promise(r => c.toBlob(r, 'image/jpeg', 0.9));
+                g.photo.gallery.unshift({ blob, url: URL.createObjectURL(blob), name: 'drive-my-cv-test.jpg', meta: { place: 'Harness shot', filter: 'none' } });
+                g.save.observePhotos(); await new Promise(r => setTimeout(r, 300));
+                await g.save.saveSession('harness');
+                return { car: { x: P.x, z: P.z, h: P.heading }, foot: { x: g.foot.x, z: g.foot.z }, fuel: g.fuel, state: g.state, photos: (await g.save.listPhotos()).length };
+            });
+            check('save: session + photo written', want.state === 'foot' && want.photos >= 1, JSON.stringify(want));
+            // "reload": close the browser profile and open it again (same IndexedDB / localStorage on disk)
+            await ctx.close(); ctx = await openCtx(); page = await newPage(ctx);
+            await load(page);
+            const cont = await page.evaluate(async () => { await window.game.save.ready; return { has: window.game.save.hasSession(), btn: !!document.querySelector('#save-continue, #continue, [data-continue]'), label: window.game.save.session?.label }; });
+            check('reload: Continue offered', cont.has && cont.btn, JSON.stringify(cont));
+            await page.screenshot({ path: path.join(OUT, 'continue-menu-1280.png') });
+            await page.click('[data-continue]');
+            await page.waitForFunction(() => window.game.state === 'foot', null, { timeout: 240000 });
+            await sleep(500);
+            const got = await page.evaluate(() => { const g = window.game, P = g.player; return { car: { x: P.x, z: P.z, h: P.heading }, foot: { x: g.foot.x, z: g.foot.z }, fuel: g.fuel, fines: g.stats.fineCount, dist: g.stats.dist, honks: g.honks, state: g.state }; });
+            const dCar = Math.hypot(got.car.x - want.car.x, got.car.z - want.car.z), dFoot = Math.hypot(got.foot.x - want.foot.x, got.foot.z - want.foot.z);
+            check('Continue: car and walker within 1 m, on foot, fuel / fines / trip restored', dCar <= 1 && dFoot <= 1 && Math.abs(got.car.h - want.car.h) < 0.05 && got.state === 'foot' && Math.abs(got.fuel - 17.25) < 0.01 && got.fines === 2 && got.dist >= 1234 && got.honks === 7, JSON.stringify({ dCar: +dCar.toFixed(3), dFoot: +dFoot.toFixed(3), ...got }));
+            await page.screenshot({ path: path.join(OUT, 'continue-restored-1280.png'), timeout: 180000 }).catch(() => { });
+            await page.evaluate(() => window.game.save.openGallery()); await sleep(600);
+            const gal = await page.$$eval('#save-gallery .gal-grid img', l => l.length);
+            check('gallery persists across reload', gal >= 1, `${gal} photo(s)`);
+            await page.screenshot({ path: path.join(OUT, 'gallery-1280.png'), timeout: 180000 }).catch(() => { });
+            await page.setViewportSize({ width: 390, height: 844 }); await sleep(300);
+            await page.screenshot({ path: path.join(OUT, 'gallery-390x844.png'), timeout: 180000 }).catch(() => { });
+            await page.setViewportSize({ width: 1280, height: 720 });
+            await page.evaluate(() => window.game.save.closeGallery());
+            await page.evaluate(() => { window.game.achievements.open(); window.game.achievements.confirmReset = true; window.game.achievements.renderPanel(); });
+            await page.click('#achv-panel [data-achv-act="reset-yes"]', { noWaitAfter: true });
+            await sleep(4000); // clearAll() then location.reload(); check from a fresh tab (see above)
+            await ctx.close(); ctx = await openCtx(); page = await newPage(ctx); await load(page);
+            const cleared = await page.evaluate(async () => { const s = window.game.save; await s.ready; const ls = Object.keys(localStorage).filter(k => k.startsWith('dmcv') && !/lookHintShown/.test(k)); return { has: s.hasSession(), photos: (await s.listPhotos()).length, kv: (await s.keys()).filter(k => k !== 'meta:schema'), ls }; });
+            check('reset clears IndexedDB (session, mirror, photos) and localStorage', !cleared.has && cleared.photos === 0 && !cleared.kv.some(k => /^(session|ls:dmcv\.progression|ls:dmcv:chapters|ls:dmcv\.spots)/.test(String(k))), JSON.stringify(cleared));
+            await ctx.close();
+    } catch (e) { errors.push('save: ' + (e.stack || e.message)); }
+    try { fs.rmSync(dir, { recursive: true, force: true }); } catch { /* ignore */ }
+}
+
 (async () => {
     const browser = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
     const ctx = await browser.newContext({ viewport: { width: 1280, height: 720 }, deviceScaleFactor: 1 });
@@ -208,56 +272,8 @@ const comp = (page) => page.evaluate(() => { const c = window.game.achievements.
             await page.evaluate(() => { window.game.hud.closePanel(); window.game.leaveSpot(); });
             await sleep(500);
         }
-        // ---- 9. (optional, --save) note 73: autosave → reload → Continue at the same pose, gallery persists, reset clears all
-        if (SAVE) {
-            await load(page);
-            await page.click('#start');
-            await page.waitForFunction(() => window.game.state === 'drive', null, { timeout: 240000 });
-            const want = await page.evaluate(async () => {
-                const g = window.game, P = g.player;
-                // move the car 60 m along its lane, then get out and step 4 m away
-                const p = g.lanePose(P.x + P.fx * 60, P.z + P.fz * 60, P.heading) || { x: P.x, z: P.z, heading: P.heading, edge: null };
-                P.place(p.x, p.z, p.heading, p.edge); P.speed = 0;
-                g.fuel = 17.25; g.stats.fineCount = 2; g.stats.dist = 1234; g.honks = 7;
-                g.exitCar(); g.foot.teleport(g.foot.x + 3, g.foot.z + 2, 1.0);
-                // a photo as PhotoMode would keep it
-                const c = document.createElement('canvas'); c.width = 300; c.height = 200; const x = c.getContext('2d'); x.fillStyle = '#d97706'; x.fillRect(0, 0, 300, 200); x.fillStyle = '#fff'; x.font = '40px sans-serif'; x.fillText('test shot', 40, 110);
-                const blob = await new Promise(r => c.toBlob(r, 'image/jpeg', 0.9));
-                g.photo.gallery.unshift({ blob, url: URL.createObjectURL(blob), name: 'drive-my-cv-test.jpg', meta: { place: 'Harness shot', filter: 'none' } });
-                g.save.observePhotos(); await new Promise(r => setTimeout(r, 300));
-                await g.save.saveSession('harness');
-                return { car: { x: P.x, z: P.z, h: P.heading }, foot: { x: g.foot.x, z: g.foot.z }, fuel: g.fuel, state: g.state, photos: (await g.save.listPhotos()).length };
-            });
-            check('save: session + photo written', want.state === 'foot' && want.photos >= 1, JSON.stringify(want));
-            // "reload": a fresh tab on the same origin / storage (navigating away from a running software-GL game times out here)
-            const old = page; page = await newPage(ctx); await old.close({ runBeforeUnload: false }).catch(() => { });
-            await load(page);
-            const cont = await page.evaluate(async () => { await window.game.save.ready; return { has: window.game.save.hasSession(), btn: !!document.querySelector('#save-continue, #continue, [data-continue]'), label: window.game.save.session?.label }; });
-            check('reload: Continue offered', cont.has && cont.btn, JSON.stringify(cont));
-            await page.screenshot({ path: path.join(OUT, 'continue-menu-1280.png') });
-            await page.click('[data-continue]');
-            await page.waitForFunction(() => window.game.state === 'foot', null, { timeout: 240000 });
-            await sleep(500);
-            const got = await page.evaluate(() => { const g = window.game, P = g.player; return { car: { x: P.x, z: P.z, h: P.heading }, foot: { x: g.foot.x, z: g.foot.z }, fuel: g.fuel, fines: g.stats.fineCount, dist: g.stats.dist, honks: g.honks, state: g.state }; });
-            const dCar = Math.hypot(got.car.x - want.car.x, got.car.z - want.car.z), dFoot = Math.hypot(got.foot.x - want.foot.x, got.foot.z - want.foot.z);
-            check('Continue: car and walker within 1 m, on foot, fuel / fines / trip restored', dCar <= 1 && dFoot <= 1 && Math.abs(got.car.h - want.car.h) < 0.05 && got.state === 'foot' && Math.abs(got.fuel - 17.25) < 0.01 && got.fines === 2 && got.dist >= 1234 && got.honks === 7, JSON.stringify({ dCar: +dCar.toFixed(3), dFoot: +dFoot.toFixed(3), ...got }));
-            await page.screenshot({ path: path.join(OUT, 'continue-restored-1280.png'), timeout: 180000 }).catch(() => { });
-            await page.evaluate(() => window.game.save.openGallery()); await sleep(600);
-            const gal = await page.$$eval('#save-gallery .gal-grid img', l => l.length);
-            check('gallery persists across reload', gal >= 1, `${gal} photo(s)`);
-            await page.screenshot({ path: path.join(OUT, 'gallery-1280.png'), timeout: 180000 }).catch(() => { });
-            await page.setViewportSize({ width: 390, height: 844 }); await sleep(300);
-            await page.screenshot({ path: path.join(OUT, 'gallery-390x844.png'), timeout: 180000 }).catch(() => { });
-            await page.setViewportSize({ width: 1280, height: 720 });
-            await page.evaluate(() => window.game.save.closeGallery());
-            await page.evaluate(() => { window.game.achievements.open(); window.game.achievements.confirmReset = true; window.game.achievements.renderPanel(); });
-            await page.click('#achv-panel [data-achv-act="reset-yes"]', { noWaitAfter: true });
-            await sleep(4000); // clearAll() then location.reload(); check from a fresh tab (see above)
-            { const old = page; page = await newPage(ctx); await old.close({ runBeforeUnload: false }).catch(() => { }); await load(page); }
-            const cleared = await page.evaluate(async () => { const s = window.game.save; await s.ready; const ls = Object.keys(localStorage).filter(k => k.startsWith('dmcv') && !/lookHintShown/.test(k)); return { has: s.hasSession(), photos: (await s.listPhotos()).length, kv: (await s.keys()).filter(k => k !== 'meta:schema'), ls }; });
-            check('reset clears IndexedDB (session, mirror, photos) and localStorage', !cleared.has && cleared.photos === 0 && !cleared.kv.some(k => /^(session|ls:dmcv\.progression|ls:dmcv:chapters|ls:dmcv\.spots)/.test(String(k))), JSON.stringify(cleared));
-        }
     } catch (e) { errors.push('harness: ' + (e.stack || e.message)); }
+    if (SAVE) await runSave();
     check('0 page errors', errors.length === 0, errors.slice(0, 5).join(' | '));
     await browser.close();
     const fail = results.filter(r => !r.ok).length;

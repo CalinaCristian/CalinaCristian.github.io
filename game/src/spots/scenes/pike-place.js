@@ -11,10 +11,10 @@
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, canvas, canvasTexture, inPoly, clamp, smooth, headingFromBearing, offsetPolyline, alongPolyline, polylineLength, distPolyline, lerp, polyBox } from '../kit.js';
 import { meshSDF, sdEllipsoid, sdCapsule, sdSphere, smin, smax, noise3 } from '../sdf.js';
-import { neonSign, signBoard, latticeFrame, clockFace, canopy, stall, fishMesh, greatWheel, totemPole, railing } from '../props.js';
+import { neonSign, signBoard, latticeFrame, clockFace, canopy, stall, fishMesh, totemPole, railing } from '../props.js';
 import { addTraffic } from '../cars.js';
 import { buildingStyle, wallGeometry, facadeMaterial, facadeStyle } from '../osm.js';
-import { seaActivity } from './sea-common.js';
+import { seaActivity, seaWheel, seaBackdrop } from './sea-common.js';
 
 // ---------------------------------------------------------------------------- street profile (OSM centrelines, research elevations)
 const PIKE_PLACE = [[-50, 33], [-60, 25], [-76, 10], [-91, -3], [-95, -6], [-103, -14], [-126, -34], [-141, -48], [-148, -53], [-151, -56], [-172, -75], [-179, -81], [-263, -155], [-270, -161]];

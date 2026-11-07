@@ -592,6 +592,30 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (e.name || e.len > 80 || (CLASS_RANK[e.type] || 0) <= 2) continue;
         for (const n of [e.a, e.b]) { const o = n.edges.find(f => f !== e && f.name && (CLASS_RANK[f.type] || 0) >= (CLASS_RANK[e.type] || 0) - 1); if (o) { e.name = o.name; break; } }
     }
+    // ---- (round 6) profile resolution: road heights live on nodes and are linear along an edge, so a 150 m deck edge
+    //      (Doina Cornea's flyover) could only be one straight slope — its last 25 m lay 1–2 m above the street it merges
+    //      into. Bridges and tunnels are cut into ≤ 10 m pieces (plain degree-2 nodes, like OSM's own) so the
+    //      profile can bend where a ramp meets its street (gore pass below).
+    {
+        const PIECE = 10, src = edges.slice();
+        let split = 0;
+        for (const e of src) {
+            if (e.len <= PIECE * 1.4 || !(e.bridge || e.tunnel)) continue; // (at-grade links stay whole: traffic queues / merges there)
+            const k = Math.ceil(e.len / PIECE), b = e.b, plen = e.len / k;
+            b.edges.splice(b.edges.indexOf(e), 1);
+            let prev = e.a;
+            for (let i = 1; i <= k; i++) {
+                const n = i < k ? { id: nodeArr.length, x: e.a.x + e.dirx * plen * i, z: e.a.z + e.dirz * plen * i, edges: [], radius: 0, hasLight: false, crossing: false, zebra: false, stop: false, flags: 0, profilePt: true } : b;
+                if (i < k) nodeArr.push(n);
+                if (i === 1) e.seg = e.id;
+                const p = i === 1 ? e : { ...e, id: edges.length };
+                p.a = prev; p.b = n; p.len = plen;
+                if (i === 1) { n.edges.push(e); } else { edges.push(p); prev.edges.push(p); n.edges.push(p); split++; }
+                prev = n;
+            }
+        }
+        if (split) console.info('[world] profile points: +' + split + ' edge pieces');
+    }
     for (const n of nodeArr) {
         if (!n.edges.length) continue;
         n.radius = Math.max(...n.edges.map(e => e.halfW)) + 0.5;
@@ -1133,7 +1157,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         //      ramps = *_link ways and same-name continuations of a deck through plain (degree-2) nodes, ≤ 300 m; every
         //      other street node is at grade (tunnels keep their depth); deck / ramp heights are recomputed as
         //      min(max-of-cones from the deck targets, G·distance to the nearest ground node) along deck + ramp edges.
-        let finalStats = null;
+        let finalStats = null; const deckTarget = new Map(); // (node → deck height target of the final pass; the gore pass keeps decks gentle)
         {
             const RI = data.roadInfo || [], rawLayer = (e) => { const v = RI[e.road * 6]; return Number.isFinite(v) ? v : e.layer; };
             const G = MAXG * 0.97, PER = 5.5;
@@ -1173,6 +1197,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 while (heap.length) { const [v, n] = pop(); if (v < best.get(n)) continue; for (const e of n.edges) { if (!region(e)) continue; const o = e.a === n ? e.b : e.a, nv = v - G * e.len; if (nv > (best.get(o) ?? -Infinity)) { best.set(o, nv); push(o, nv); } } }
                 return best;
             };
+            for (const [n, v] of target) deckTarget.set(n, v);
             const up = cone([...target], 1), lim = cone([...groundN].map(n => [n, 0]), -1);
             let lowered = 0, raised = 0, maxY = 0;
             for (const n of nodeArr) {
@@ -1188,6 +1213,75 @@ export async function buildWorld(city, renderer, opts = {}) {
             finalStats = { ramps: elig.size, liveDecks: live.size, ground: groundN.size, lowered, raised, maxY: +maxY.toFixed(1) };
             profileStats0 = { ...(profileStats0 || {}), final: finalStats };
         }
+        // ---- (round 6) gores: where a deck / ramp merges into (or splits from) a near-parallel road it is connected to,
+        //      their surfaces touch or overlap for the last metres before the node — no room for a barrier there (the
+        //      wall-cut rule opens it so neither lane is blocked). If they are at different heights the car drops off one
+        //      onto the other (audit 'cliff' at Pasajul Basarab / Bretea / Doina Cornea). Same sampling as the audit's
+        //      cliff check (just beyond one road's edge) plus a sample just inside it (overlapping ribbons): on the other
+        //      road's surface the heights must agree (one surface; the visual QA flags 0.05–2.5 m as a stacked road).
+        //      Only lowering: the higher surface comes down to the lower one there (the lower one is usually held by
+        //      its ground cone), the drop spread back along the graph at the grade limit, never more than 3 m and never
+        //      under a clearance floor.
+        {
+            const G = MAXG * 0.97, DROP = 3, wA = (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e), wS = (e, s) => wA(e, s) + e.sidewalk;
+            const live = nodeArr.filter(n => n.edges.some(e => !e.virtual)), y0 = new Map(live.map(n => [n, n.y]));
+            // floors: no road comes down more than DROP m (a gore that would need a deeper sag is left as it is), none goes
+            // under ground (unless already sunk), and a structure over another road keeps its clearance
+            const floor = new Map(), setFloor = (n, v) => floor.set(n, Math.max(floor.get(n) ?? -Infinity, Math.min(y0.get(n) ?? n.y, v)));
+            for (const n of live) setFloor(n, Math.max(n.y - DROP, Math.min(n.y, 0)));
+            for (const c of crossings) { if (c.u.L <= 0 || Math.abs(c.u.dirx * c.f.dirx + c.u.dirz * c.f.dirz) >= 0.85) continue; const tf = clamp(((c.x - c.f.a.x) * c.f.dirx + (c.z - c.f.a.z) * c.f.dirz) / c.f.len, 0, 1); for (const n of [c.u.a, c.u.b]) setFloor(n, yP(c.f, tf) + CLEAR_MIN); }
+            for (const o of overlaps) { const ye = yP(o.e, o.te), yf = yP(o.f, o.tf); if (Math.abs(ye - yf) < 3) continue; const [hi, lo] = ye > yf ? [o.e, yf] : [o.f, ye]; for (const n of [hi.a, hi.b]) setFloor(n, lo + CLEAR_MIN); }
+            const heapCone = (seeds, sgn) => { // sgn −1: min-plus (v + G d), sgn +1: max-plus (v − G d); over every real edge
+                const best = new Map(), heap = [], key = (v) => sgn * v; // (max-heap on key: the best value is settled first)
+                const push = (n, v) => { heap.push([key(v), v, n]); let i = heap.length - 1; while (i > 0) { const p = (i - 1) >> 1; if (heap[p][0] >= heap[i][0]) break; [heap[p], heap[i]] = [heap[i], heap[p]]; i = p; } };
+                const pop = () => { const top = heap[0], last = heap.pop(); if (heap.length) { heap[0] = last; let i = 0; for (;;) { let c = 2 * i + 1; if (c >= heap.length) break; if (c + 1 < heap.length && heap[c + 1][0] > heap[c][0]) c++; if (heap[c][0] <= heap[i][0]) break; [heap[c], heap[i]] = [heap[i], heap[c]]; i = c; } } return top; };
+                for (const [n, v] of seeds) if (!best.has(n) || key(v) > key(best.get(n))) { best.set(n, v); push(n, v); }
+                while (heap.length) { const [, v, n] = pop(); if (v !== best.get(n)) continue; for (const f of n.edges) { if (f.virtual) continue; const o = f.a === n ? f.b : f.a, nv = v - sgn * G * f.len; if (!best.has(o) || key(nv) > key(best.get(o))) { best.set(o, nv); push(o, nv); } } }
+                return best;
+            };
+            const F = heapCone([...floor], 1); // the highest grade-feasible lower bound
+            const linked = new Map(); // edge → Set of edges within 80 m along the graph
+            const linkSet = (e) => {
+                let s = linked.get(e); if (s) return s;
+                s = new Set(); const dist = new Map(), q = [[e.a, 0], [e.b, 0]];
+                while (q.length) { const [n, d] = q.shift(); if ((dist.get(n) ?? Infinity) <= d) continue; dist.set(n, d); for (const f of n.edges) { if (f.virtual) continue; s.add(f); const o = f.a === n ? f.b : f.a, nd = d + f.len; if (nd <= 80) q.push([o, nd]); } }
+                linked.set(e, s); return s;
+            };
+            let fixes = 0, rounds = 0, pairs = 0;
+            for (; rounds < 20; rounds++) {
+                const caps = new Map(), cap = (n, v) => { if (v < n.y - 0.01 && v < (caps.get(n) ?? Infinity)) caps.set(n, v); };
+                pairs = 0;
+                for (const e of edges) {
+                    if (e.virtual || e.len < 0.5) continue;
+                    const step = Math.max(0.02, 1.5 / e.len);
+                    for (let t = 0; t <= 1 + 1e-6; t += step) {
+                        const tt = Math.min(t, 1), he = e.a.y + (e.b.y - e.a.y) * tt;
+                        // (inside its asphalt edge: overlapping ribbons; just beyond it: the audit's cliff sample)
+                        for (const [s, off] of [[1, wA(e, 1) - 0.5], [-1, wA(e, -1) - 0.5], [1, (e.bridge ? wA(e, 1) + 0.3 : wS(e, 1)) + 0.6], [-1, (e.bridge ? wA(e, -1) + 0.3 : wS(e, -1)) + 0.6]]) {
+                            const x = e.a.x + e.dirx * e.len * tt + e.nx * off * s, z = e.a.z + e.dirz * e.len * tt + e.nz * off * s;
+                            edgesInBox(x - 1, z - 1, x + 1, z + 1, (f) => {
+                                if (f === e || f.virtual || Math.abs(e.dirx * f.dirx + e.dirz * f.dirz) < 0.85) return;
+                                const q = distPointSeg(x, z, f.a.x, f.a.z, f.b.x, f.b.z); if (q.t <= 0 || q.t >= 1) return;
+                                const sf = ((x - q.cx) * f.nx + (z - q.cz) * f.nz) >= 0 ? 1 : -1; if (q.d > wS(f, sf)) return;
+                                const hf = f.a.y + (f.b.y - f.a.y) * q.t, dh = he - hf;
+                                if (Math.abs(dh) <= 0.04 || Math.abs(dh) > 6 || Math.min(he, hf) < -0.5 || !linkSet(e).has(f)) return;
+                                pairs++;
+                                const [h, th, lo] = dh > 0 ? [e, tt, hf] : [f, q.t, he]; // (one surface: the visual QA flags 0.05–2.5 m as a stacked road)
+                                cap(h.a, lo); cap(h.b, lo); // (both ends: a linear piece is only ≤ lo at th if both are; pieces are ≤ 10 m)
+                            });
+                        }
+                    }
+                }
+                if (!caps.size) break;
+                // y = min(y, max(capCone, floorCone)): lowering only, grade-limited, never under a floor
+                const C = heapCone([...caps], -1);
+                let changed = 0;
+                for (const [n, c] of C) { const ny = Math.min(n.y, Math.max(c, F.get(n) ?? -Infinity)); if (ny < n.y - 0.01) { n.y = ny; changed++; } }
+                fixes += changed; if (!changed) break; // (what is left is held by a floor)
+            }
+            let maxDrop = 0; for (const [n, v] of y0) maxDrop = Math.max(maxDrop, v - n.y);
+            profileStats0 = { ...(profileStats0 || {}), gore: { lowered: fixes, rounds, left: pairs, maxDrop: +maxDrop.toFixed(2) } };
+        }
         let residual = 0; for (const e of edges) if (!e.virtual) residual = Math.max(residual, Math.abs(e.b.y - e.a.y) - MAXG * e.len);
         for (const e of edges) { e.ya = e.a.y; e.yb = e.b.y; }
         let cBad = 0, oBad = 0;
@@ -1200,6 +1294,10 @@ export async function buildWorld(city, renderer, opts = {}) {
         // (QA r2) ramps / bridge approaches that pass over a street with < 5 m clearance carry no sidewalk: their walkways
         // lay 1–2 m above the street's carriageway (Pasajul Basarab, Podul Barbu Văcărescu)
         for (const o of overlaps) { const d = Math.abs(yP(o.e, o.te) - yP(o.f, o.tf)); if (d > 0.3 && d < 5) { const hi = yP(o.e, o.te) > yP(o.f, o.tf) ? o.e : o.f; hi.sidewalk = Math.min(hi.sidewalk, 0.3); } }
+        { // (round 6) the pieces of one OSM segment (profile points) share its narrowest walkway, as the whole edge did
+            const seg = new Map(); for (const e of edges) if (e.seg !== undefined) seg.set(e.seg, Math.min(seg.get(e.seg) ?? Infinity, e.sidewalk));
+            for (const e of edges) if (e.seg !== undefined) e.sidewalk = seg.get(e.seg);
+        }
     }
     const yAlong = (e, x, z) => { const t = clamp(((x - e.a.x) * e.dirx + (z - e.a.z) * e.dirz) / e.len, 0, 1); return e.ya + (e.yb - e.ya) * t; };
     /** height of junction n's pad at (x, z): the profile of the nearest approach there (n.y on flat junctions) */

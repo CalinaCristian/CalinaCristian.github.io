@@ -221,35 +221,46 @@ function makeAtlas() {
 
 /** night-window data atlas, same layout as the facade atlas: R = window glass mask, G = per-window random, B = shopfront
  *  (always lit). Built from the facade atlas pixels (dark bluish glass), windows = 4-connected components. */
+/** night / window data atlases, same layout as the facade atlas. nightMap: R = window glass, G = per-window random,
+ *  B = shopfront (255) / brand band (128). winMap: R, G = position inside the window rectangle (0..1, v up), B = glass.
+ *  Windows = connected glass pixels of the facade atlas, filled to their bounding rectangle (the per-pixel colour test
+ *  left noisy holes that read as "TV static" reflections); specks under 24 px are dropped. */
 function nightAtlas(atlas) {
     const src = atlas.image, W = src.width, H = src.height;
     const sctx = src.getContext('2d', { willReadFrequently: true }), d = sctx.getImageData(0, 0, W, H).data;
-    const out = document.createElement('canvas'); out.width = W; out.height = H;
-    const octx = out.getContext('2d'), od = octx.createImageData(W, H), o = od.data;
+    const mk = () => { const c = document.createElement('canvas'); c.width = W; c.height = H; const x = c.getContext('2d'); return { c, x, im: x.createImageData(W, H) }; };
+    const N = mk(), U = mk(), o = N.im.data, u = U.im.data;
     const glass = new Uint8Array(W * H), comp = new Int32Array(W * H).fill(-1), S = W / 4;
     const tileAt = (x, y) => (x / S | 0) + (3 - (y / S | 0)) * 4; // canvas row 0 = uv row 3 (flipY)
     for (let k = 0, p = 0; k < W * H; k++, p += 4) {
         const r = d[p], g = d[p + 1], b = d[p + 2], t = tileAt(k % W, k / W | 0), shop = t === 6 || t === 14;
         const lum = 0.3 * r + 0.59 * g + 0.11 * b;
         const fy = ((k / W | 0) % S) / S; // (0 = top of the cell: the shop texture's coloured sign band is the top ~14 %)
-        glass[k] = shop ? (fy < 0.15 && lum > 40 ? 3 : b > r + 25 && lum > 60 ? 2 : 0) : (lum < 120 && b >= r + 6 ? 1 : 0);
+        glass[k] = shop ? (fy < 0.15 && lum > 40 ? 3 : b > r + 25 && lum > 60 ? 2 : 0) : (lum < 150 && b >= r + 4 ? 1 : 0);
     }
-    let nc = 0; const stack = [];
+    for (let k = 0; k < W * H; k++) { o[k * 4 + 3] = 255; u[k * 4 + 3] = 255; }
+    const stack = [];
     for (let k = 0; k < W * H; k++) {
         if (!glass[k] || comp[k] >= 0) continue;
-        const rv = Math.floor(Math.random() * 255); comp[k] = nc; stack.push(k);
+        const kind = glass[k], px = []; comp[k] = 1; stack.push(k);
+        let x0 = W, y0 = H, x1 = -1, y1 = -1;
         while (stack.length) {
-            const q = stack.pop(), x = q % W, y = q / W | 0, p = q * 4;
-            o[p] = glass[q] === 3 ? 0 : 255; o[p + 1] = rv; o[p + 2] = glass[q] === 2 ? 255 : glass[q] === 3 ? 128 : 0; o[p + 3] = 255;
-            for (const n of [x > 0 ? q - 1 : -1, x < W - 1 ? q + 1 : -1, y > 0 ? q - W : -1, y < H - 1 ? q + W : -1]) if (n >= 0 && glass[n] && comp[n] < 0) { comp[n] = nc; stack.push(n); }
+            const q = stack.pop(), x = q % W, y = q / W | 0; px.push(q);
+            x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y);
+            for (const n of [x > 0 ? q - 1 : -1, x < W - 1 ? q + 1 : -1, y > 0 ? q - W : -1, y < H - 1 ? q + W : -1]) if (n >= 0 && glass[n] === kind && comp[n] < 0) { comp[n] = 1; stack.push(n); }
         }
-        nc++;
+        if (px.length < 24 && kind === 1) continue;
+        const rv = Math.floor(Math.random() * 255);
+        if (kind === 1) { // fill the window rectangle
+            for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) {
+                const p = (y * W + x) * 4; o[p] = 255; o[p + 1] = rv; o[p + 2] = 0;
+                u[p] = Math.round((x - x0 + 0.5) / (x1 - x0 + 1) * 255); u[p + 1] = Math.round((1 - (y - y0 + 0.5) / (y1 - y0 + 1)) * 255); u[p + 2] = 255;
+            }
+        } else for (const q of px) { const p = q * 4; o[p] = kind === 3 ? 0 : 255; o[p + 1] = rv; o[p + 2] = kind === 2 ? 255 : 128; }
     }
-    for (let k = 0; k < W * H; k++) if (!glass[k]) o[k * 4 + 3] = 255;
-    octx.putImageData(od, 0, 0);
-    const t = new THREE.CanvasTexture(out); t.colorSpace = THREE.NoColorSpace; t.wrapS = t.wrapT = THREE.ClampToEdgeWrapping;
-    t.minFilter = THREE.LinearMipmapLinearFilter; t.anisotropy = 4;
-    return t;
+    N.x.putImageData(N.im, 0, 0); U.x.putImageData(U.im, 0, 0);
+    const tex = (c, nearest) => { const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.NoColorSpace; t.wrapS = t.wrapT = THREE.ClampToEdgeWrapping; t.minFilter = nearest ? THREE.NearestFilter : THREE.LinearMipmapLinearFilter; t.magFilter = nearest ? THREE.NearestFilter : THREE.LinearFilter; t.generateMipmaps = !nearest; t.anisotropy = 4; return t; };
+    return { night: tex(N.c, false), win: tex(U.c, true) };
 }
 
 function solidMaterial(atlas) {
@@ -260,11 +271,12 @@ function solidMaterial(atlas) {
     const m = new THREE.MeshStandardMaterial({ vertexColors: true, map: atlas, roughness: 0.92, metalness: 0, emissive: new THREE.Color(1, 1, 1), emissiveIntensity: 0 });
     m.userData.nightEmissive = 1.2;
     m.userData.uClosed = { value: 0 }; // share of shops closed (shutters down), set by world from the local hour
-    let night = null; try { night = nightAtlas(atlas); } catch (e) { console.warn('[world] night atlas', e); }
+    let night = null, win = null; try { ({ night, win } = nightAtlas(atlas)); } catch (e) { console.warn('[world] night atlas', e); }
     m.onBeforeCompile = (sh) => {
-        sh.uniforms.nightMap = { value: night }; sh.uniforms.uClosed = m.userData.uClosed;
-        sh.vertexShader = 'attribute float tile;\nvarying float vTile;\n' + sh.vertexShader.replace('#include <uv_vertex>', '#include <uv_vertex>\n\tvTile = tile;');
-        sh.fragmentShader = 'varying float vTile;\nuniform sampler2D nightMap;\nuniform float uClosed;\n' + sh.fragmentShader.replace('#include <map_fragment>', `
+        sh.uniforms.nightMap = { value: night }; sh.uniforms.winMap = { value: win }; sh.uniforms.uClosed = m.userData.uClosed;
+        sh.vertexShader = 'attribute float tile;\nvarying float vTileRaw;\nvarying float vWY;\n' + sh.vertexShader.replace('#include <uv_vertex>', '#include <uv_vertex>\n\tvTileRaw = tile;').replace('#include <begin_vertex>', '#include <begin_vertex>\n\tvWY = (modelMatrix * vec4(transformed, 1.0)).y;');
+        sh.fragmentShader = 'varying float vTileRaw;\nvarying float vWY;\nuniform sampler2D nightMap;\nuniform sampler2D winMap;\nuniform float uClosed;\nfloat fh1(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }\nfloat fvn(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f); return mix(mix(fh1(i), fh1(i + vec2(1, 0)), f.x), mix(fh1(i + vec2(0, 1)), fh1(i + vec2(1, 1)), f.x), f.y); }\n' + sh.fragmentShader.replace('#include <map_fragment>', `
+    float isGlass = 0.0, winFar = 1.0, glassOpen = 0.0; vec3 roomCol = vec3(0.0);
 #ifdef USE_MAP
     if (vTile > -0.5) {
         vec2 cellSz = vec2(0.25, 0.25);
@@ -273,6 +285,51 @@ function solidMaterial(atlas) {
         vec2 auv = (cellId + 0.006 + f * 0.988) * cellSz;
         vec4 sampledDiffuseColor = textureGrad(map, auv, dFdx(vMapUv) * cellSz, dFdy(vMapUv) * cellSz);
         diffuseColor *= sampledDiffuseColor;
+        bool shopT = abs(vTile - 6.0) < 0.1 || abs(vTile - 14.0) < 0.1, glassT = abs(vTile - 4.0) < 0.1 || abs(vTile - 12.0) < 0.1;
+        float px = max(length(dFdx(vMapUv)), length(dFdy(vMapUv)));
+        winFar = smoothstep(0.06, 0.22, px); // window cells of ≲ 15 px: the flat atlas look
+        vec4 wi = texture(winMap, auv);
+        isGlass = (shopT || glassT) ? 0.0 : step(0.5, wi.b);
+        if (isGlass > 0.5 && winFar < 0.999) {
+            // interior mapping: ray–box through a fake room behind each window, in the wall's tangent frame (view space)
+            float rid = textureLod(nightMap, auv, 0.0).g;
+            vec2 key = floor(vMapUv * 4.0) + vec2(rid * 31.0, vTile);
+            float r1 = fh1(key), r2 = fh1(key + 7.3), r3 = fh1(key + 13.1), r4 = fh1(key + 21.7);
+            vec3 Nv = normalize(vNormal), V = normalize(vViewPosition);
+            vec3 upV = normalize((viewMatrix * vec4(0.0, 1.0, 0.0, 0.0)).xyz);
+            vec3 Tv = cross(upV, Nv); float tl = length(Tv); Tv = tl > 1e-3 ? Tv / tl : vec3(1.0, 0.0, 0.0); vec3 Bv = cross(Nv, Tv);
+            vec3 dir = -V; vec3 dd = vec3(dot(dir, Tv), dot(dir, Bv), max(1e-3, dot(dir, -Nv)));
+            float RW = 1.4, RH = 1.7, RD = 2.6 + 2.4 * r1;
+            vec3 p0 = vec3(wi.r * RW, wi.g * RH, 0.0);
+            float tx = dd.x > 0.0 ? (RW - p0.x) / max(dd.x, 1e-4) : -p0.x / min(dd.x, -1e-4);
+            float ty = dd.y > 0.0 ? (RH - p0.y) / max(dd.y, 1e-4) : -p0.y / min(dd.y, -1e-4);
+            float tz = RD / dd.z, t = min(tx, min(ty, tz));
+            vec3 hp = p0 + dd * t;
+            vec3 wallC = mix(vec3(0.78, 0.72, 0.62), r2 < 0.5 ? vec3(0.62, 0.66, 0.7) : vec3(0.82, 0.76, 0.66), r3);
+            vec3 c;
+            if (t == tz) { c = wallC; if (hp.y < RH * 0.42 && fract(hp.x / RW * 1.7 + r2) > 0.45) c = vec3(0.24, 0.17, 0.12); // furniture silhouette
+                           else if (hp.y > RH * 0.55 && hp.y < RH * 0.85 && fract(hp.x / RW * 2.3 + r4) > 0.7) c = vec3(0.35, 0.3, 0.26); } // picture / shelf
+            else if (t == ty) c = dd.y < 0.0 ? vec3(0.36, 0.26, 0.18) : vec3(0.88, 0.86, 0.82);
+            else c = wallC * 0.82;
+            c *= mix(1.0, 0.5, hp.z / RD); // light falls off into the room
+            // curtains / blinds (fabric on the glass plane, top down to a random height); a few open windows
+            float cl = r4 < 0.55 ? 1.0 - (0.15 + 0.6 * r3) : 2.0;
+            vec3 fabric = mix(vec3(0.9, 0.88, 0.82), r2 < 0.3 ? vec3(0.62, 0.52, 0.42) : vec3(0.82, 0.8, 0.74), r1);
+            if (wi.g > cl) { c = fabric * (0.85 + 0.15 * sin(wi.r * 40.0)); glassOpen = 0.5; }
+            if (r1 > 0.96 && r2 > 0.5) glassOpen = 1.0;
+            roomCol = c;
+            // reveal shadow along the top / one side of the opening
+            float rev = 1.0 - 0.45 * (1.0 - smoothstep(0.0, 0.08, 1.0 - wi.g)) - 0.3 * (1.0 - smoothstep(0.0, 0.06, wi.r));
+            diffuseColor.rgb = mix(c * 0.34 * rev, diffuseColor.rgb, winFar); // (rooms are darker than the street by day)
+        }
+        if (!shopT && !glassT && isGlass < 0.5) { // weathering: grime near the ground, rain streaks, plaster patches
+            float g = 1.0 - 0.16 * (1.0 - smoothstep(0.2, 1.8, vWY));
+            float streak = fvn(vec2(vMapUv.x * 9.0, 0.5)) * smoothstep(0.55, 1.0, fvn(vec2(vMapUv.x * 23.0, vMapUv.y * 0.6)));
+            g *= 1.0 - 0.07 * streak;
+            bool old = abs(vTile - 1.0) < 0.1 || abs(vTile - 9.0) < 0.1 || abs(vTile - 3.0) < 0.1 || abs(vTile - 11.0) < 0.1;
+            if (old) g *= 0.94 + 0.12 * smoothstep(0.35, 0.75, fvn(vMapUv * vec2(1.7, 2.3) + vTile));
+            diffuseColor.rgb *= mix(g, 1.0, winFar * 0.6);
+        }
         if (uClosed > 0.001 && (abs(vTile - 6.0) < 0.1 || abs(vTile - 14.0) < 0.1)) { // closed shops: roller shutters over the glass
             // the whole shop opening below the sign band (not the per-pixel glass mask, which aliased into vertical
             // streaks): horizontal roller-shutter slats every ~19 cm, a darker housing box at the top
@@ -287,10 +344,9 @@ function solidMaterial(atlas) {
 #endif`).replace('#include <metalnessmap_fragment>', `#include <metalnessmap_fragment>
     if (vTile > -0.5 && (abs(vTile - 4.0) < 0.1 || abs(vTile - 12.0) < 0.1)) { metalnessFactor = 0.55; roughnessFactor = 0.16; }
 #ifdef USE_MAP
-    else if (vTile > -0.5) { // window panes of every facade reflect the sky (glass mask of the night atlas); walls stay matte
-        vec2 cs3 = vec2(0.25, 0.25), ci3 = vec2(mod(vTile, 4.0), floor(vTile / 4.0 + 0.01));
-        float gm = textureGrad(nightMap, (ci3 + 0.006 + fract(vMapUv) * 0.988) * cs3, dFdx(vMapUv) * cs3, dFdy(vMapUv) * cs3).r;
-        metalnessFactor = mix(metalnessFactor, 0.4, gm); roughnessFactor = mix(roughnessFactor, 0.14, gm);
+    else if (isGlass > 0.5) { // window panes: calm sky reflection over the fake room (curtains / open windows reflect less)
+        float gl = 1.0 - glassOpen;
+        metalnessFactor = mix(metalnessFactor, 0.35, gl); roughnessFactor = mix(roughnessFactor, 0.12, gl);
     }
 #endif`).replace('#include <emissivemap_fragment>', `
 #ifdef USE_MAP
@@ -320,13 +376,18 @@ function solidMaterial(atlas) {
         float mask = mix(step(0.5, nm.r), nm.r, far);
         lit = mix(lit, mix(0.42, 1.0, max(shop, sign)), far);
         col = mix(col, shop + sign > 0.5 ? col : vec3(1.0, 0.74, 0.47), far);
+        if (isGlass > 0.5) col *= mix(vec3(0.75), roomCol * 0.9 + 0.06, (1.0 - winFar) * (1.0 - far)); // (lit room, not a white card)
         totalEmissiveRadiance *= mask * lit * col;
     } else totalEmissiveRadiance *= 0.0;
 #else
     totalEmissiveRadiance *= 0.0;
 #endif`);
     };
-    m.customProgramCacheKey = () => 'osm-solid-atlas-pbr';
+    { const ob = m.onBeforeCompile; m.onBeforeCompile = (sh, r) => { ob(sh, r);
+        // (the tile id is an interpolated varying: 7.99999 picked the wrong atlas cell on some pixels — the 'TV static' on
+        //  windows; round it once per fragment)
+        sh.fragmentShader = sh.fragmentShader.replace('void main() {', 'void main() {\n\tfloat vTile = floor(vTileRaw + 0.5);'); }; }
+    m.customProgramCacheKey = () => 'osm-solid-atlas-pbr3';
     return m;
 }
 
@@ -3129,7 +3190,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const parkedLots = new Map(); // super-cell key → [{kind, color, x, y, z, yaw}]
     const useInst = typeof makeParkedCars === 'function';
     const carTris = useInst ? 260 : carKinds.reduce((s2, k) => { const pr = carProps(k, CAR_COLORS[0]); return s2 + (pr.index ? pr.index.length / 3 : 772); }, 0) / carKinds.length;
-    let parked = 0; const maxParked = Math.round(Math.min(city.id === 'bucharest' ? 2600 : 2000, 260000 / Math.max(1, carTris)));
+    let parked = 0; const maxParked = Math.round(Math.min(city.id === 'bucharest' ? 2600 : 2000, 220000 / Math.max(1, carTris)));
     for (const a of areas) {
         if (a.kind !== 'parking' || parked >= maxParked || a.size < 120) continue;
         // orientation: longest edge

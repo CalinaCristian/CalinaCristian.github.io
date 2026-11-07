@@ -1116,7 +1116,7 @@ export class Traffic {
             // (only when the player is ahead: a turning NPC's rear swings toward a player tailgating behind it, and
             //  reverting that froze the NPC — and the player behind it — for good; it is driving away from the player)
             const aheadP = (P.x - v.x) * -Math.sin(v.heading) + (P.z - v.z) * -Math.cos(v.heading) > 0;
-            if (aheadP && pen > -0.05 && pen > v._pp0 + 0.002) { this.revert(v); v.speed = 0; }
+            if (aheadP && pen > -0.05 && pen > v._pp0 + 0.002) { this.revert(v); v.speed = 0; v.zeroWhy = 'revP'; }
         }
         if (v.latBlend && v.s > 12) v.latBlend = 0;
     }
@@ -1203,7 +1203,7 @@ export class Traffic {
             });
             // 1) this frame's step made it worse: take it back
             if (worse && this.revert(v)) {
-                v.speed = 0; this.stats.guard = (this.stats.guard || 0) + 1;
+                v.speed = 0; v.zeroWhy = 'guard'; this.stats.guard = (this.stats.guard || 0) + 1;
                 // held back every frame for 1.5 s (two cars converging on a merge, a car squeezed between two others):
                 // nobody's car-following sees the other as a leader, so nobody yields -> let this one through
                 v.revT = (v.revT || 0) + dt;
@@ -1219,7 +1219,8 @@ export class Traffic {
             if (fol.parked || fol.tram) fol = fol === v ? hit : v;
             if (fol.parked) continue;
             const other = fol === v ? hit : v;
-            fol.speed = 0; fol.ovT = (fol.ovT || 0) + dt;
+            if (fol.ghost > 0) continue; // ghosting out of a knot (see 3): let it drive clear instead of freezing it again every frame
+            fol.speed = 0; fol.zeroWhy = 'ovFol:' + (other.kind || '') + '#' + other.id; fol.ovT = (fol.ovT || 0) + dt;
             const back = Math.min(hp + 0.05, 0.25);
             if (fol.s - back > 0.3 && !fol.tram && !(P && Math.hypot(P.x - fol.x, P.z - fol.z) < 12 && vpPen(fol, P) > -0.4 && (P.x - fol.x) * -Math.sin(fol.heading) + (P.z - fol.z) * -Math.cos(fol.heading) < 0)) {
                 const hx = -Math.sin(fol.heading), hz = -Math.cos(fol.heading);

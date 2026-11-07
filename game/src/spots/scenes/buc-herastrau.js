@@ -115,7 +115,7 @@ export default {
             function palisadeRun(run) { const mats = palisade(ctx, b, run, { h: 1.8, post: 4, plinth: 0.3 }); ctx.extras.palMats = mats; }
         }
         // ---- park: busts and statues along the alleys (OSM artworks), the Sleeping Nymph, Japanese garden
-        for (const p of d.pois) { if (p.tourism !== 'artwork' || !/bust|statue/.test(p.artwork_type || '') || !p.name) continue; if (mus && inPoly(p.x, p.z, mus)) continue; if (Math.abs(p.x) > 520 || p.z < -320 || p.z > 420) continue; signs.push(bust(b, ctx, p, r)); }
+        for (const p of d.pois) { if (p.tourism !== 'artwork' || !/bust|statue/.test(p.artwork_type || '') || !p.name) continue; if (mus && inPoly(p.x, p.z, mus)) continue; if (Math.abs(p.x) > 520 || p.z < -320 || p.z > 420 || p.id === 'n1342884103') continue; signs.push(bust(b, ctx, p, r)); }
         const nymph = d.pois.find((p) => p.id === 'n1342884103') || { x: 236.3, z: 109.8 };
         { // the Sleeping Nymph: a reclining marble figure on a low plinth (smooth volumes: torso, hip, legs, arm under the head)
             const y = g.heightAt(nymph.x, nymph.z), yaw = 0.4, c = Math.cos(yaw), sn = Math.sin(yaw), P = (u, v) => [nymph.x + u * c + v * sn, nymph.z - u * sn + v * c], W = '#ecebe6';

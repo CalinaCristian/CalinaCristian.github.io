@@ -381,7 +381,7 @@ export default {
         if (C) ctx.interactables.push({ x: C.candle.x, z: C.candle.z + 2.6, r: 2.4, label: 'Light a candle (for the living / the departed)', use: (s) => { s.ui.toast('🕯 Candle lit', 'Living on one side, the departed on the other — an Orthodox custom.'); s.sound.play('chime', 0.4); } });
         // postcards
         // postcard: the frontal view across Piața Constituției on the Bd. Unirii axis (the Bd. Libertății sidewalk, ≈ 190 m from the east front)
-        ctx.challenge('palace-parliament', { view: [-160, -10.5], x: 31, z: -10.5, heading: 270, pitch: 10, r: 18, tol: 26 });
+        ctx.challenge('palace-parliament', { view: [-160, -10.5], x: 31, z: -10.5, heading: 270, pitch: 14, r: 18, tol: 26 });
         ctx.challenge('peoples-salvation-cathedral', { view: [C?.x ?? -654, C?.z ?? 158], r: 14, tol: 28 });
         // crowd
         const cl = SQ.clock, cat = C || { x: -654, z: 158, PY: 14 };

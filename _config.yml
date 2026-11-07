@@ -1,0 +1,9 @@
+# GitHub Pages (Jekyll): publish only what the site and the game load.
+# Dev tooling, QA reports, research notes and specs stay in the repo but are not deployed.
+exclude:
+  - game/dev
+  - game/research
+  - specs
+  - tools
+  - package.json
+  - README.md

@@ -13,19 +13,78 @@ You can find the live version [here](https://cristiancalina.com)
 
 # 🎮 Drive My CV — the interactive résumé game
 
-The landing page has an opt-in **Play my CV** button that opens `game/`: a first-person 3D driving game
-(Three.js, vanilla ES modules, no build step) in which you drive through **Bucharest** to the offices where I
-worked, fly from Otopeni to Seattle, and drive from SeaTac to the UiPath office in **Bellevue**. Each office is a
-walkable interior whose screens unlock a chapter of my CV.
+The landing page keeps the classic CV; an opt-in **🎮 Play my CV** button lazy-loads `game/`, a first-person 3D
+game (Three.js r170, vanilla ES modules, no build step) that tells my career as a drive: from high school in
+Bucharest (2009) through Politehnica and every office I worked in, a flight from Otopeni to Seattle, and the last
+drive to UiPath's office at Lincoln Square in **Bellevue**. Each office is a walkable interior whose screens hold
+that chapter of the CV.
 
-- **Real maps**: streets, lanes, one-ways, speed limits, traffic signals, building footprints and floor counts,
-  businesses (gas stations, fast food, shops, metro entrances…), parks and water come from OpenStreetMap
-  (`tools/osm/` builds `game/data/*.json`; see `tools/osm/README.md`). Bucharest is scaled 0.7 and the Seattle
-  corridor 0.5 to keep trips short; 44 landmarks are modelled by hand (`game/src/landmarks.js`).
-- **Traffic**: trams, buses, taxis, double-parked cars, pedestrians, honking and chat bubbles (Bucharest edition).
-- **Systems**: speed cameras and fines, fuel and refuelling at real stations, A* navigation with turn-by-turn on the
-  dashboard screen, fast travel, real-time day/night from the city's local time with street lights and headlights.
-- **Controls**: `W/S` drive · `A/D` steer · `Space` brake · `H` horn · `E` enter / refuel · `M` map & navigation ·
-  `F` fast travel · `R` reset to road · `L` headlights · `C` look back · `N` mini-map.
+## What's in it
+- **Story — 10 chapters in real places.** Each chapter is played in a compact district rebuilt at **real 1:1 scale**
+  from OpenStreetMap (Floreasca, Grozăvești, Unirii, Pipera, Romană & Victoriei, Otopeni, SeaTac, downtown Bellevue),
+  starting on a real street a 2–3 minute drive from the office. Map montages connect the districts; leaving the
+  playable area hits a GTA-style roadworks closure ("DRUM ÎNCHIS" in Bucharest, "ROAD CLOSED" in Washington) that
+  hints at the chapter where that road opens.
+- **Free roam.** Open any district from the menu without playing the story, and change the **time of day, weather and
+  season live** from the ☀️ conditions panel (also on phones).
+- **Tourist spots (bonus).** 24 small walk-only scenes — Bucharest's top 10 (Palace of the Parliament, People's
+  Salvation Cathedral, Old Town & Cărturești Carusel, Stavropoleos & CEC, the Athenaeum, Arcul de Triumf, Herăstrău,
+  the Village Museum, the Spring Palace, Cișmigiu), Seattle's top 10 (Pike Place, the Space Needle, Chihuly Garden and
+  Glass, MoPOP, the Fremont Troll, Kerry Park, the waterfront, Pioneer Square, the Ballard Locks, Gas Works Park) and
+  4 in Bellevue. Each has crowds chatting in culture-researched lines, info plaques and a postcard photo challenge.
+- **On foot and photo mode.** Get out of the car anywhere, walk/run/jump, enter offices on foot; pull out a camera,
+  frame a shot with filters and save it to your device.
+- **Achievements and completion %.** 63 achievements (story, explorer, driver, local colour, photographer, on foot and
+  a few secrets) and one weighted completion score shown in the menu, map and pause screens.
+- **A living city.** Country-specific traffic (taxis, delivery vans, police; STB trams, trolleybuses and buses; King
+  County Metro buses) driven by real lanes, one-ways, signals and speed limits, with traffic density by hour, rush-hour
+  standstills at real hotspots (Piața Victoriei, Piața Unirii, Bd. Dimitrie Pompeiu, I-405), honking and angry chat
+  bubbles in Bucharest, pedestrians dressed for the season and weather, fuel and real gas stations, speed cameras,
+  turn-by-turn navigation on the car's screen and fast travel.
+- **Real light and weather.** Sun and moon from each place's real position and local time, street lights,
+  headlights, lit windows and shops at night, live weather (Open-Meteo, with a 1991–2020 climate fallback) with rain,
+  snow and fog, weather-driven visibility, and seasons (autumn colours, bare winter trees, the Unirii fountains drained
+  in winter).
+- **Landmarks and buildings.** 57 hand-modelled landmarks (e.g. Lincoln Square, Plaza Center, The Landmark — UiPath HQ
+  in Bucharest, Europe House, Hala Traian, the Parliament, Victoria Palace, Sky Tower, the SeaTac garage and tower);
+  every other building comes from OSM footprints with researched heights, facade colours and styles by era, shops
+  with their real brands at their real addresses, and species-specific street trees.
+- **Performance.** Adaptive quality tiers, instanced traffic/crowds/parked cars, view-range culling and a draw-call
+  budget per district, so it stays smooth on laptops and phones.
 
-Map data © OpenStreetMap contributors (ODbL).
+## Controls
+| | Keyboard / mouse | Touch |
+|---|---|---|
+| Drive | `W`/`S` throttle & reverse · `A`/`D` steer · `Space` brake · `H` horn | on-screen pedals, steering and horn |
+| Look | click the view and move the mouse (`Esc` frees the cursor) · `C` look back | drag the view |
+| Car | `L` headlights · `E` enter office / refuel · `R` reset to the road · `F` fast travel · `U` U-turn at a closure | buttons |
+| Map | `M` map & navigation (click to drop a waypoint) · `N` mini-map | 🗺️ |
+| On foot | `Enter` get out / back in · `W`/`A`/`S`/`D` walk · `Shift` run · `Space` jump | 🚶 + walk pad |
+| Camera | `P` photo mode | 📷 |
+| Free roam | `K` time / weather / season panel | ☀️ |
+
+## Run it locally
+```bash
+python3 -m http.server 8123
+```
+Then open <http://localhost:8123/> (landing page) or <http://localhost:8123/game/> (game). Useful URL switches for
+testing: `?hour=8.5` (traffic hour), `?jam=1`, `?season=winter`, `?fountains=on`.
+
+Developer pages: `game/dev/spots.html?id=<spot>`, `game/dev/landmarks.html`, `game/dev/render.html`.
+
+## Tests and QA
+- `npm run harness` — logic harness (Playwright + software GL): drives every chapter, free roam, on foot, the tourist
+  spots, rush hour and the finale; checks placement, routing, overlaps, timings and page errors.
+- `npm run harness:visual` — visual QA: route surveys from the driver's seat, defect detectors, contact sheets and a
+  review report (`game/dev/harness/visual/README.md`).
+
+The work is planned spec-first in [`specs/`](specs/) (requirements, contracts, ownership and a status board).
+
+## Data, credits and privacy
+- Map data © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors (ODbL); built offline by
+  `tools/osm/` into `game/data/*.json`.
+- Weather by [Open-Meteo](https://open-meteo.com/) (CC BY 4.0).
+- Artworks are modelled in 3-D from public descriptions and credited in-game (e.g. the Fremont Troll by Steve Badanes,
+  Will Martin, Donna Walter and Ross Whitehead; glass by Dale Chihuly). Romanian buildings are modelled without photo
+  textures; research reference photos are not part of the repository.
+- Analytics: cookieless PostHog (EU), production only, respects Do Not Track / Global Privacy Control.

@@ -1073,6 +1073,12 @@ function buildCity(cityId, did = null) {
         if (a === 'cinema' || a === 'theatre' || a === 'place_of_worship' || a === 'police' || a === 'fire_station' || a === 'townhall' || a === 'arts_centre' || a === 'library') return ['landmark', a];
         if (a === 'bus_station') return ['busstop', a];
         if (['supermarket', 'mall', 'convenience', 'department_store', 'car', 'bakery', 'electronics', 'clothes', 'doityourself', 'hardware', 'furniture'].includes(s)) return ['shop', s];
+        // (2026-11-07, research R12.2) every named trading shop (books, optician, mobile_phone, cosmetics, chemist, pastry, variety_store,
+        // houseware …) and the street-front amenities the research found missing (betting, car rental, couriers / post, bars, clinics)
+        if (s && !/^(vacant|no|yes|disused)$/.test(s) && (t.name || t.brand)) return ['shop', s];
+        if (['bookmaker', 'casino', 'gambling', 'car_rental', 'car_wash', 'post_office', 'money_transfer', 'dentist', 'doctors', 'veterinary', 'internet_cafe', 'driving_school'].includes(a)) return ['shop', a];
+        if (a === 'bar' || a === 'pub' || a === 'biergarten') return ['food', a];
+        if (t.office === 'courier' && (t.name || t.brand)) return ['shop', 'courier'];
         if (tr === 'hotel' || tr === 'hostel' || tr === 'motel') return ['hotel', tr];
         if (tr === 'attraction' || tr === 'museum' || tr === 'viewpoint' || tr === 'artwork' && t.name || t.historic === 'monument' || t.historic === 'memorial' && t.name) return ['landmark', tr || t.historic];
         if (t.railway === 'subway_entrance' || t.station === 'subway' || (t.railway === 'station' && (t.subway === 'yes' || t.station === 'subway' || t.station === 'light_rail'))) return ['metro', t.railway || 'station'];
@@ -1087,30 +1093,87 @@ function buildCity(cityId, did = null) {
     };
     const pois = [];
     const poiSeen = new Set();
-    const addPoi = (t, x, z, bIdx = -1) => {
+    // brand names as they are written on the signs (research businesses-*.json brandTable / notes)
+    const BRAND_NORM = [
+        [/^garanti( bankas[ıi]| bank)?$/i, 'Garanti BBVA'], [/^(лукойл|lukoil)$/i, 'Lukoil'], [/^(omv petrom|petrom)$/i, 'Petrom'],
+        [/^omv$/i, 'OMV'], [/^mol( romania)?$/i, 'MOL'], [/^rompetrol$/i, 'Rompetrol'], [/^(газпром|gazprom)$/i, 'Gazprom'],
+        [/^socar$/i, 'SOCAR'], [/^banca transilvania$/i, 'Banca Transilvania'], [/^brd( groupe soci[eé]t[eé] g[eé]n[eé]rale)?$/i, 'BRD'],
+        [/^ing( bank)?$/i, 'ING'], [/^bcr$/i, 'BCR'],
+    ];
+    const NON_LATIN = /[\u0370-\u03ff\u0400-\u04ff\u0590-\u06ff\u0e00-\u0eff\u3040-\u9fff\uac00-\ud7af]/;
+    const signText = (t) => { // Romanian signage never shows non-Latin scripts: fall back to name:ro / name:en / the brand
+        let name = t.name || '', brand = t.brand || '';
+        for (const [re, v] of BRAND_NORM) { if (re.test(brand.trim())) brand = v; if (re.test(name.trim())) name = v; }
+        if (country === 'RO') { if (NON_LATIN.test(name)) name = t['name:ro'] || t['name:en'] || (NON_LATIN.test(brand) ? '' : brand); if (NON_LATIN.test(brand)) brand = t['brand:en'] || ''; }
+        return { name, brand };
+    };
+    const addPoi = (t, x, z, bIdx = -1, osm = '') => {
         const k = poiKind(t); if (!k) return;
-        const name = t.name || t.brand || '';
+        const st = signText(t);
+        const name = st.name || st.brand || '';
         if (k[0] !== 'busstop' && k[0] !== 'metro' && !name) return;
         if (M(x, z) > (k[0] === 'landmark' || k[0] === 'airport' || k[0] === 'park' ? 100 : 0)) return;
         if (!nearNetwork(x, z, k[0] === 'landmark' || k[0] === 'airport' || k[0] === 'park' ? 700 : BUFFER)) return;
         const key = k[0] + '|' + name + '|' + Math.round(x / 15) + '|' + Math.round(z / 15);
         if (poiSeen.has(key)) return; poiSeen.add(key);
         if (bIdx < 0) bGrid.query(x, z, 1, (o) => { if (bIdx < 0 && pointInPolygon(x, z, o.ring)) bIdx = buildings.indexOf(o); });
-        pois.push({ kind: k[0], sub: k[1], x, z, name: t.name || '', brand: t.brand || '', op: t.operator || '', cuisine: t.cuisine || '', bIdx });
+        pois.push({ kind: k[0], sub: k[1], x, z, name: st.name, brand: st.brand, op: t.operator || '', cuisine: t.cuisine || '', bIdx, osm, inside: (t.level != null && !/^0(;0)*$/.test(String(t.level))) || t.location === 'indoor' });
     };
-    for (const [id, t] of ntags) { const p = pt(id); if (p) addPoi(t, p[0], p[1]); }
-    for (const w of W.values()) {
+    for (const [id, t] of ntags) { const p = pt(id); if (p) addPoi(t, p[0], p[1], -1, 'node/' + id); }
+    for (const [wid, w] of W) {
         const t = w.tags; if (!poiKind(t)) continue;
         if (w.nodes.length < 3) continue;
         const pts = w.nodes.map(pt); if (pts.some(p => !p)) continue;
         const c = polyCentroid(pts);
-        addPoi(t, c[0], c[1]);
+        addPoi(t, c[0], c[1], -1, 'way/' + wid);
+    }
+    // ---- verified businesses (research R12.2: game/research/businesses-<city>-<district>.json, businesses-gamediff.json):
+    //      locator-confirmed stores missing from OSM are added, stale ones (not in the official locator, unverified) dropped,
+    //      disused units on the routes listed as `vacant`, sign colours + logo text into `brands`
+    const vacant = [];
+    let bizAdded = 0, bizDropped = 0;
+    if (ds) {
+        const rf = path.join(REPO, 'game', 'research', `businesses-${cityId}-${did}.json`);
+        let E = []; try { if (fs.existsSync(rf)) E = JSON.parse(fs.readFileSync(rf, 'utf8')); } catch (e) { log('businesses: cannot parse', rf, e.message); }
+        const KIND = (c) => /^(fast_food|cafe|restaurant|bar|pub|ice_cream|food_court)$/.test(c) ? 'food' : c === 'bank' ? 'bank' : c === 'pharmacy' ? 'pharmacy' : c === 'fuel' ? 'fuel' : /^(hotel|hostel|motel)$/.test(c) ? 'hotel' : 'shop';
+        const drop = new Set();
+        for (const e of E) {
+            const stale = e.flag === 'not in official locator' || /^Microsoft Store$/i.test(e.name || '');
+            if (stale) {
+                const [x, z] = P(e.lat, e.lon);
+                pois.forEach((p, i) => { if ((e.osm && p.osm === e.osm) || (Math.hypot(p.x - x, p.z - z) < 35 && (p.brand || p.name) && ((p.brand || p.name) === (e.brand || e.name)))) drop.add(i); });
+                continue;
+            }
+            if (!e.osm && e.lat && e.confidence !== 'low') { // official-locator store not mapped in OSM
+                const [x, z] = P(e.lat, e.lon); const brand = e.brand || '';
+                if (M(x, z) > 0) continue;
+                if (pois.some(p => Math.hypot(p.x - x, p.z - z) < 80 && brand && (p.brand === brand || p.name === brand))) continue;
+                let bIdx = -1; bGrid.query(x, z, 1, (o) => { if (bIdx < 0 && pointInPolygon(x, z, o.ring)) bIdx = buildings.indexOf(o); });
+                if (bIdx < 0) { let bd = 40; bGrid.query(x, z, 40, (o) => { const d = Math.hypot(o.c[0] - x, o.c[1] - z); if (d < bd && o.area > 150) { bd = d; bIdx = buildings.indexOf(o); } }); }
+                pois.push({ kind: KIND(e.category || ''), sub: e.category || 'shop', x, z, name: e.name || brand, brand, op: '', cuisine: '', bIdx, osm: 'locator', inside: false });
+                bizAdded++;
+            }
+            const sg = e.sign || {}; const key = (e.brand || '').toLowerCase().trim();
+            if (key && /^#[0-9a-f]{6}$/i.test(sg.bg || '') && /^#[0-9a-f]{6}$/i.test(sg.fg || '')) {
+                const acc = /^#[0-9a-f]{6}$/i.test(sg.accent || '') ? sg.accent : sg.fg;
+                researchBrands[key] = sg.logoText && sg.logoText.toLowerCase() !== key ? [sg.bg, sg.fg, acc, sg.logoText] : [sg.bg, sg.fg, acc];
+            }
+        }
+        // the old district dossier gave Inglot (cosmetics, black/white) the ING orange
+        if (researchBrands.inglot && /^#ff6200$/i.test(researchBrands.inglot[0])) researchBrands.inglot = ['#000000', '#FFFFFF', '#FFFFFF'];
+        for (const i of [...drop].sort((a, b) => b - a)) { pois.splice(i, 1); bizDropped++; }
+        try {
+            const gd = JSON.parse(fs.readFileSync(path.join(REPO, 'game', 'research', 'businesses-gamediff.json'), 'utf8'))[`${cityId}-${did}`];
+            for (const c of gd?.closed || []) { const [x, z] = P(c.lat, c.lon); if (M(x, z) > 0) continue; let bIdx = -1; bGrid.query(x, z, 1, (o) => { if (bIdx < 0 && pointInPolygon(x, z, o.ring)) bIdx = buildings.indexOf(o); }); vacant.push(Math.round(x * 10), Math.round(z * 10), bIdx); }
+        } catch { /* no gamediff */ }
+        log(`businesses: +${bizAdded} locator-only, −${bizDropped} stale, ${vacant.length / 3} vacant units`);
     }
     // businesses/names attached to buildings → facade signs
     for (const p of pois) {
         if (p.bIdx < 0) continue;
         const b = buildings[p.bIdx];
         if (['busstop', 'metro'].includes(p.kind)) continue;
+        if (p.sub === 'atm' || p.inside) continue; // ATMs are not branches; shops inside malls / upper floors get no street sign
         if (!b.signName) { b.signName = p.brand || p.name; b.signBrand = !!p.brand; }
     }
     log('pois', pois.length);
@@ -1258,7 +1321,7 @@ function buildCity(cityId, did = null) {
         bounds: [minX, minZ, maxX, maxZ],
         classes: ROAD_CLASSES, styles: STYLES, roofs: ROOFS, poiKinds: POI_KINDS, areaKinds: AREA_KINDS, lineKinds: LINE_KINDS, furnKinds: FURN_KINDS,
         strings,
-        nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, roadInfo, rampLimits, buildings: outB, buildingInfo: outBInfo, pois: outP, areas: outA, lines: outLines, places, lamps,
+        nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, roadInfo, rampLimits, vacant, buildings: outB, buildingInfo: outBInfo, pois: outP, areas: outA, lines: outLines, places, lamps,
         trees: outTrees, treeInfo: outTreeInfo, furniture: outFurn, backdrop,
         corridor: { areaKm2: +cor.areaKm2.toFixed(2), legs: cor.legs.map(l => [l.label, l.km]) },
     };

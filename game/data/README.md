@@ -34,6 +34,9 @@ String fields are indices into `strings` (`-1` = none).
 | `lamps` | `[x, z, height_dm, …]` — OSM `highway=street_lamp` nodes (height 0 = unknown) |
 | `places` | `[name, x, z, rank]` (0 city, 1 suburb, 2 quarter, 3 neighbourhood) |
 | `trees` | `[x, z, t, …]` — OSM `natural=tree` nodes and `tree_row` ways (sampled every 7 m); `t = height_dm·2 + conifer` (height 0 = unknown, conifer from `leaf_type` / `genus`) |
+| `rampLimits` | (2026-11-07) `[roadIndex, legalKmh, …]`: US ramps without a posted limit; `roads[i].maxspeed` = advisory, `legalKmh` for the HUD, no limit sign |
+| `vacant` | (2026-11-07) `[x, z, buildingIndex, …]` disused shop units from research (`businesses-gamediff.json` closed) |
+| `brands` | `{brand: [bg, fg, accent, logoText?]}` sign colours from research (district dossier + `businesses-<city>-<district>.json`) |
 | `streetTrees` | (districts, 2026-11-07) `{street name: [species keys]}` from the research dossier's per-street tree notes (`streets[].research.trees` text + `streets[].trees.genus`, mapped with `trees.js speciesFromOSM`); `[]` = researched as treeless. world.js reads it instead of fetching `game/research/*.json` |
 | `roadInfo` | (districts, 2026-11-07) 6 per road, same order as `roads`: `[osmLayer, flags, widthDm, maxheightDm, placement, bridgeStructure, …]` — raw OSM `layer`; flags 1 covered, 2 tunnel=building_passage, 4 bridge, 8 `level` tagged, 16 `*_link`, 32 `layer` tagged; OSM `width` / `maxheight` (dm, 0 unknown); `placement`, `bridge:structure` / `bridge:name` (string indices, −1 none) |
 | `buildingInfo` | (districts, 2026-11-07) one 5-tuple per building, same order as `buildings`: `[type, startYear, architect, material, hSrc, …]` — OSM `building` value / `architect` / `building:material` as string indices (−1 none), `start_date` year (0 unknown), height source 0 OSM, 1 research, 2 default estimate, 3 re-estimated by the height-sanity pass |

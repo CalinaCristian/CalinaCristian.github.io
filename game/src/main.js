@@ -1341,8 +1341,7 @@ class Game {
         box.open = open;
         if (!document.getElementById('spot-select-css')) {
             const st = document.createElement('style'); st.id = 'spot-select-css';
-            st.textContent = '#spot-select{margin-top:10px;text-align:left}#spot-select summary{cursor:pointer;font-weight:600;padding:6px 0}#spot-select summary small{font-weight:400;opacity:.7}#spot-select h4{margin:8px 0 6px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#94a3b8}#spot-select .chs{display:flex;flex-wrap:wrap;gap:6px}#spot-select button{min-height:36px;padding:4px 10px;border-radius:8px;border:1px solid rgba(148,163,184,.35);background:rgba(30,41,59,.85);color:#e2e8f0;font:13px system-ui,sans-serif;cursor:pointer;text-align:left}'
-                + 'body.in-spot #hud{display:block!important}body.in-spot #hud>:not(#touch){display:none!important}body.in-spot .pad button.drive-only,body.in-spot .pad button[data-btn=foot]{display:none}body.in-spot .pad button.office-only{display:inline-block}';
+            st.textContent = '#spot-select{margin-top:10px;text-align:left}#spot-select summary{cursor:pointer;font-weight:600;padding:6px 0}#spot-select summary small{font-weight:400;opacity:.7}#spot-select h4{margin:8px 0 6px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#94a3b8}#spot-select .chs{display:flex;flex-wrap:wrap;gap:6px}#spot-select button{min-height:36px;padding:4px 10px;border-radius:8px;border:1px solid rgba(148,163,184,.35);background:rgba(30,41,59,.85);color:#e2e8f0;font:13px system-ui,sans-serif;cursor:pointer;text-align:left}'; // (body.in-spot HUD / touch-pad rules live in style.css)
             document.head.appendChild(st);
         }
         box.onclick = (e) => { const b = e.target.closest('[data-spot]'); if (b) this.enterSpot(b.dataset.spot); };

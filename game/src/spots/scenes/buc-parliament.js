@@ -347,6 +347,8 @@ export default {
         }
         // trees: species-specific shapes (clipped thuja cones on the palace slopes, firs), no trees on the square
         ctx.trees = ctx.trees.filter((t) => !(sq && inPoly(t.x, t.z, sq)) && !inPoly(t.x, t.z, P.outer));
+        // the view down the axis from the clock / Bd. Unirii head to the palace stays open (median gardens: low planting only)
+        ctx.trees = ctx.trees.filter((t) => !(t.x > -20 && t.x < 290 && Math.abs(t.z + 8) < 26));
         for (const [x, z, , sp] of d.trees) { if (!/Thuja|Juniperus|Taxus|Abies|Picea|Pinus/.test(sp)) continue; const t = ctx.trees.find((q) => Math.abs(q.x - x) < 0.01 && Math.abs(q.z - z) < 0.01); if (!t) continue; t.kind = 'con'; if (/Thuja|Juniperus|Taxus/.test(sp)) { t.s = 0.42 + ((x * 7 + z * 3) % 1 + 1) % 1 * 0.12; t.sy = 1.35; t.c = '#2f5233'; } }
         // parked cars on the square (rows, most of the year it is a car park)
         const parked = [], r = rng(31);

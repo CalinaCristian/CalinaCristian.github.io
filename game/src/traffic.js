@@ -874,9 +874,9 @@ export class Traffic {
         if (this.jamMax > 0.01) { if (((this._frame + v.id) & 7) === 0) v.jam = this.jamAt(v.x, v.z); } else v.jam = 0;
         const jam = v.jam || 0;
         if (jam > 0.05 && !v.tram && !v.isPolice) {
-            desired *= 1 - 0.82 * jam;
+            desired *= 1 - 0.9 * jam;
             if (v.jamHold > 0) v.jamHold -= dt;
-            else if (jam > 0.25 && v.speed > 0.5 && this.rng() < jam * 0.3 * dt && !this.playerBehind(v, 70)) v.jamHold = this.rng.range(2, 6) * jam; // (never right in front of the player: they can creep through)
+            else if (jam > 0.25 && v.speed > 0.5 && this.rng() < jam * 0.35 * dt && !this.playerBehind(v, 30)) v.jamHold = this.rng.range(2, 6) * jam; // (never right in front of the player: they can creep through)
         } else v.jamHold = 0;
         const P = this.player;
         // ---------------- obstacles (cone scan via grid) ----------------

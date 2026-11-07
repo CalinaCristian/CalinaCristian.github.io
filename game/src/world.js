@@ -2587,7 +2587,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         const trunkMat = new THREE.MeshLambertMaterial({ color: '#6b4a2f' }); trunkMat.name = 'treeTrunks';
         const BROAD = ['#4f8a3c', '#5d9440', '#679c48', '#4a7f39', '#5a8f3e', '#6f9e4a'], CON = ['#2f5d3a', '#356640', '#2b5434', '#3a6b45'];
         const chunks = new Map();
-        const TCH = 1000; // (1 km instanced chunks: 4× fewer tree draw calls than 500 m, same culling by distance)
+        const TCH = 750; // (750 m instanced chunks: ~2× fewer tree draw calls than 500 m without drawing much more off-screen)
         for (const t of treeList) { const k = Math.floor(t.x / TCH) + ',' + Math.floor(t.z / TCH); let a = chunks.get(k); if (!a) chunks.set(k, a = []); a.push(t); }
         const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), pV = new THREE.Vector3(), sV = new THREE.Vector3(), up = new THREE.Vector3(0, 1, 0), col = new THREE.Color();
         const masks = [];
@@ -2820,12 +2820,12 @@ export async function buildWorld(city, renderer, opts = {}) {
     // parked cars on surface parking lots
     const carKinds = US ? ['suv', 'sedan', 'suv', 'hatch'] : ['hatch', 'sedan', 'hatch', 'suv'];
     // parked cars: vehicles.js `makeParkedCars` (low-detail ~250-tri parked models as one InstancedMesh per kind, per-car
-    // colour), one group per 1 km super-cell (few draw calls); full lots again (the 700 k cap is gone).
+    // colour), one group per 500 m super-cell (culling + few draw calls); full lots again (the 700 k cap is gone).
     // Fallback without it: merged low-LOD props, triangle-capped.
     const parkedLots = new Map(); // super-cell key → [{kind, color, x, y, z, yaw}]
     const useInst = typeof makeParkedCars === 'function';
     const carTris = useInst ? 260 : carKinds.reduce((s2, k) => { const pr = carProps(k, CAR_COLORS[0]); return s2 + (pr.index ? pr.index.length / 3 : 772); }, 0) / carKinds.length;
-    let parked = 0; const maxParked = Math.round(Math.min(city.id === 'bucharest' ? 2600 : 2000, 400000 / Math.max(1, carTris)));
+    let parked = 0; const maxParked = Math.round(Math.min(city.id === 'bucharest' ? 2600 : 2000, 350000 / Math.max(1, carTris)));
     for (const a of areas) {
         if (a.kind !== 'parking' || parked >= maxParked || a.size < 120) continue;
         // orientation: longest edge
@@ -2843,7 +2843,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const box = { x, z, hw: 0.95, hd: 2.3, angle: rot, r: 2.5, poly: null, h: 1.5, prop: true, kind: 'parked' };
                 if (polyOnRibbon(obbPoly({ ...box, hw: 1.3, hd: 2.7 })) || [-1.6, 0, 1.6].some(o => onRibbon(x + Math.sin(rot) * o, z + Math.cos(rot) * o, 1.2))) continue; // keep off any carriageway / lane strip
                 const kind = rng.pick(carKinds), col = rng.pick(CAR_COLORS);
-                if (useInst) { const k2 = Math.floor(x / (CELL * 4)) + ',' + Math.floor(z / (CELL * 4)); let L = parkedLots.get(k2); if (!L) parkedLots.set(k2, L = []); L.push({ kind, color: col, x, y: 0.12, z, yaw: rot }); }
+                if (useInst) { const k2 = Math.floor(x / (CELL * 2)) + ',' + Math.floor(z / (CELL * 2)); let L = parkedLots.get(k2); if (!L) parkedLots.set(k2, L = []); L.push({ kind, color: col, x, y: 0.12, z, yaw: rot }); }
                 else cellOf(x, z).solid.geo(carProps(kind, col), x, 0.12, z, rot, 1, 1, 1, [255, 255, 255]);
                 propColl.push(box);
                 parked++; lotCount++;
@@ -2948,7 +2948,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     let cx = 0, cz = 0;
     // (2026-11-07, world-visual) draw calls: the flat / cheap layers of neighbouring cells are merged into super-cells
     // (2×2 cells = 500 m; the far backdrop 4×4) — fewer meshes for the same pixels; solid buildings stay per cell (culling)
-    const SUPER = { area: 4, grass: 4, pave: 4, roof: 2, backdrop: 4, ground: 2, road: 2, pad: 2, marks: 2, water: 4, signs: 4 };
+    const SUPER = { area: 4, grass: 4, pave: 4, roof: 4, backdrop: 4, ground: 2, road: 2, pad: 2, marks: 2, water: 4, signs: 4 };
     const supers = new Map();
     const superOf = (c, layer, page = 0) => {
         const K = SUPER[layer], I = Math.floor(c.i / K), J = Math.floor(c.j / K), key = layer + page + ':' + I + ',' + J;
@@ -2988,7 +2988,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     for (const [k, list] of parkedLots) {
         const [I, J] = k.split(',').map(Number);
         const pg = makeParkedCars(list, { city: city.id }); pg.name = `parked ${k}`;
-        pg.userData.cx = (I + 0.5) * CELL * 4; pg.userData.cz = (J + 0.5) * CELL * 4; pg.userData.cull = cullR + CELL * 2.2;
+        pg.userData.cx = (I + 0.5) * CELL * 2; pg.userData.cz = (J + 0.5) * CELL * 2; pg.userData.cull = cullR + CELL * 0.71;
         tris += pg.userData.triangles || 0; parkedCalls += pg.userData.drawCalls || 0;
         cellsGroup.add(pg);
     }

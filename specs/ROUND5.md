@@ -40,6 +40,7 @@ Source: `game/FEEDBACK.md` "Round 4 play-test" notes 1–27 (+ any that follow),
 | 36 | spots | Blank green signboards (no text) — readable plaques on both faces, no empty signs. |
 | 55 | spots/landmarks (+ render) | Space Needle underside flickers (coplanar discs / depth precision); proper underside beams + elevators; consider near-plane/log depth on foot. |
 | 54 | spots (+ render) | Chihuly Glasshouse: real glass, sculpture as translucent glass forms, no floating slab, night lighting; full fidelity pass. |
+| 60, 61 | spots (+ render, qa) | Waterfront: Pier 57 + promenade, lit Great Wheel, water reflections, bay context. **Quality bar for all 24 spots**: reference-driven rebuild + side-by-side review vs real photos (day/night, spawn, postcard, 3 walk poses); spots below the bar hidden until fixed. |
 | 59 | spots | MoPOP: folded sheet-metal Gehry forms in the real colours with panel texture, monorail beam + train through the building, plaza; no floating squiggle. |
 | 58 | spots (+ render) | Kerry Park: the real postcard view — elevation, slope, Space Needle foreground, 3D lit downtown skyline at real scale, Elliott Bay + ferries + cranes, Rainier when clear, nothing blocking. |
 | 53 | spots | Pike Place full fidelity pass from references (arcade + stalls, sign + clock, Post Alley, Gum Wall, paving and slope, crowds, night). |

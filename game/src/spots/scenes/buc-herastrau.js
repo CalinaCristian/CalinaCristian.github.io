@@ -10,36 +10,89 @@
 //  islands). All modelled from descriptions; sculptors credited on plaques.
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
-import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, obb, polyArea, offsetPolyline } from '../kit.js';
-import { bucBackdrop, osmPoly, cityFiller, palisade, signAtlas } from '../buc.js';
+import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, obb, polyArea, offsetPolyline, distPolyline } from '../kit.js';
+import { bucBackdrop, osmPoly, cityFiller, palisade, signAtlas, bucActivity, boatRide } from '../buc.js';
 import { railing } from '../props.js';
 
 function grow(poly, d) { const cw = polyArea(poly) > 0; const o = offsetPolyline([...poly, poly[0], poly[1]], cw ? -d : d); return o.slice(1, poly.length + 1); }
 const NORTH = /Maramureș|Maramures|Bistrița|Hunedoara|Harghita|Suceava|Neamț|Neamt|Alba|Cluj|Sălaj|Mureș|Brașov|Sibiu|Covasna|Bihor|Satu Mare|Bucovina/;
 
-/** a peasant house from its OSM footprint: walls (whitewash or logs), porch, steep hipped roof (shingle / reed) */
+/** hipped roof whose eave rectangle (len × wid, centred on (cx, cz), axis (ux, uz)) starts at y; ridge along the long axis.
+ *  shingles: horizontal courses as colour bands; a fascia board under the eave so the roof never reads paper-thin */
+function hipRoofOn(b, o, y, len, wid, h, col, { courses = 0.22, fascia = '#3e2f22', key = 'roofs' } = {}) {
+    const hl = len / 2, hw = wid / 2, ridge = Math.max(0, hl - hw * 0.85);
+    const P = (u, v, yy) => [o.cx + o.ux * u - o.uz * v, yy, o.cz + o.uz * u + o.ux * v];
+    const A = P(-hl, -hw, y), B = P(hl, -hw, y), C = P(hl, hw, y), D = P(-hl, hw, y), R1 = P(-ridge, 0, y + h), R2 = P(ridge, 0, y + h);
+    const shade = new THREE.Color(col).multiplyScalar(0.72), base = new THREE.Color(col);
+    const cf = (px, py) => (Math.floor((py - y) / courses) % 2 ? shade : base);
+    const tri = (a, b2, c) => { const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute([...a, ...b2, ...c], 3)); g.computeVertexNormals(); b.add(g, key, null, cf); g.dispose(); };
+    tri(A, R2, B); tri(A, R1, R2); tri(C, R1, D); tri(C, R2, R1); tri(B, R2, C); tri(D, R1, A);   // outer faces (ridge up)
+    tri(A, B, R2); tri(A, R2, R1); tri(C, D, R1); tri(C, R1, R2); tri(B, C, R2); tri(D, A, R1);   // soffit side (seen from under the eaves)
+    for (const [p, q] of [[A, B], [B, C], [C, D], [D, A]]) { const L = Math.hypot(q[0] - p[0], q[2] - p[2]); b.box((p[0] + q[0]) / 2, y - 0.16, (p[2] + q[2]) / 2, 0.06, 0.18, L, fascia, 'wood', Math.atan2(q[0] - p[0], q[2] - p[2])); }
+}
+/** a carved porch post (stâlp): square shaft with turned rings, a flared capital and corner brackets under the beam */
+function carvedPost(b, x, y, z, h, col, yaw) {
+    b.box(x, y, z, 0.16, h, 0.16, col, 'wood', yaw);
+    for (const t of [0.18, 0.5, 0.72]) b.cyl(x, y + h * t, z, 0.12, 0.08, col, 'wood', 8);
+    b.cyl(x, y + h - 0.28, z, 0.15, 0.28, col, 'wood', 6, 1.5);
+    for (const s of [-1, 1]) b.rod([x + Math.sin(yaw) * s * 0.06, y + h - 0.6, z + Math.cos(yaw) * s * 0.06], [x + Math.sin(yaw) * s * 0.55, y + h - 0.04, z + Math.cos(yaw) * s * 0.55], 0.04, col, 'wood', 4);
+}
+/** a peasant house from its OSM footprint (note 30): walls on the real footprint (whitewash on a painted plinth, or log courses),
+ *  the porch (prispă: clay platform, carved posts, beam) on the front long side under the same roof, framed windows with shutters,
+ *  a plank door, and a steep hipped roof (shingle in the north, reed / shingle in the south) that SITS on the walls with a 0.6 m eave */
 function peasantHouse(b, ctx, bd, r) {
     const g = ctx.ground, o = obb(bd.poly); if (!o || o.len < 2) return null;
-    const north = NORTH.test(bd.name || '') || (bd.mat === 'wood'), small = o.len * o.wid < 30;
-    const y = Math.min(...bd.poly.map(([x, z]) => g.heightAt(x, z))) - 0.1;
-    const wallH = small ? 2.1 : 2.6 + r() * 0.5, roofH = (north ? 1.25 : 0.85) * Math.min(o.wid, 8) * (0.75 + r() * 0.2);
+    if (o.wid > o.len) { [o.len, o.wid] = [o.wid, o.len]; [o.ux, o.uz] = [-o.uz, o.ux]; o.angle = Math.atan2(-o.uz, o.ux); }
+    const north = NORTH.test(bd.name || '') || (bd.mat === 'wood') || r() < 0.35, small = o.len * o.wid < 22;
+    const y = Math.min(...bd.poly.map(([x, z]) => g.heightAt(x, z))) - 0.05;
+    const wallH = small ? 2.0 : 2.3 + r() * 0.3, porch = !small && o.wid > 4.2 ? Math.min(1.6, o.wid * 0.28) : 0;
     const wall = north ? (r() < 0.5 ? '#6e553c' : '#7d6448') : r.pick(['#f1eee6', '#ece8dc', '#f3f0e8', '#e8e2d2']);
-    const roof = north ? r.pick(['#5c5246', '#6b5f50', '#4f463c']) : r.pick(['#8c7a55', '#7d6b4a', '#6b5f50', '#9a8a62']);
-    const inset = 0.6, core = [[-o.len / 2 + inset, -o.wid / 2 + inset], [o.len / 2 - inset, -o.wid / 2 + inset], [o.len / 2 - inset, o.wid / 2 - inset], [-o.len / 2 + inset, o.wid / 2 - inset]].map(([u, v]) => [o.cx + o.ux * u - o.uz * v, o.cz + o.uz * u + o.ux * v]);
-    b.prism(core, y, y + wallH, wall, north ? 'wood' : 'concrete');
-    if (north) for (let k = 0.3; k < wallH; k += 0.32) b.prism(grow(core, 0.03), y + k, y + k + 0.06, '#4f3d2b', 'wood', { noTop: true }); // log courses
-    else b.prism(grow(core, 0.02), y, y + 0.45, '#9a8e7c', 'stone', { noTop: true }); // plinth
-    // small windows (dark) on the long sides + a door
-    for (const s of [-1, 1]) for (let k = -1; k <= 1; k += 2) { const u = k * o.len * 0.22, v = s * (o.wid / 2 - inset + 0.03); b.box(o.cx + o.ux * u - o.uz * v, y + wallH * 0.45, o.cz + o.uz * u + o.ux * v, 0.7, 0.75, 0.06, '#2c3036', 'paint', o.angle === undefined ? 0 : -o.angle); }
-    // porch (prispă) along the front long side: posts + roof overhang
-    const pv = o.wid / 2 + 0.5;
-    if (!small) for (let k = -2; k <= 2; k++) { const u = k * o.len * 0.2, x = o.cx + o.ux * u + o.uz * pv, z = o.cz + o.uz * u - o.ux * pv; b.box(x, y, z, 0.16, wallH, 0.16, '#5a4632', 'wood'); }
-    // steep hipped roof (frustum with a short ridge), deep eaves
-    const rg = new THREE.CylinderGeometry(Math.SQRT1_2 * 0.18, Math.SQRT1_2, 1, 4).rotateY(Math.PI / 4);
-    b.add(rg, 'roofs', M(o.cx, y + wallH + roofH / 2, o.cz, 0, -o.angle, 0, o.len + 1.4, roofH, o.wid + 1.6), roof); rg.dispose();
-    ctx.box(o.cx, o.cz, o.len / 2, o.wid / 2, -o.angle, { y0: y - 1, y1: y + wallH + roofH });
-    return { o, y, north };
+    const roofC = north ? r.pick(['#5c4a38', '#66533f', '#4f4134']) : r.pick(['#a08c5e', '#8c7a55', '#6b5f50', '#5c4a38']);
+    const P = (u, v) => [o.cx + o.ux * u - o.uz * v, o.cz + o.uz * u + o.ux * v], yawL = Math.atan2(o.ux, o.uz);
+    const hl = o.len / 2, hw = o.wid / 2, v0 = -hw + porch; // walls from v0 (porch side −v) to +hw
+    const core = [P(-hl, v0), P(hl, v0), P(hl, hw), P(-hl, hw)];
+    if (north) { // log courses: round logs stacked, ends crossing at the corners
+        b.prism(core, y, y + wallH, wall, 'wood');
+        for (let k = 0.12; k < wallH; k += 0.26) { for (const [u0, v0b, u1, v1b] of [[-hl - 0.15, v0, hl + 0.15, v0], [-hl - 0.15, hw, hl + 0.15, hw], [-hl, v0 - 0.15, -hl, hw + 0.15], [hl, v0 - 0.15, hl, hw + 0.15]]) { const [ax, az] = P(u0, v0b), [bx, bz] = P(u1, v1b); b.rod([ax, y + k, az], [bx, y + k, bz], 0.12, k % 0.52 < 0.26 ? '#5e4733' : '#6b523b', 'wood', 6); } }
+    } else {
+        b.prism(core, y, y + wallH, wall, 'concrete');
+        b.prism(grow(core, 0.03), y, y + 0.5, r.pick(['#3f5f8a', '#8a6a3a', '#7a7a72', '#5a7a8a']), 'paint', { noTop: true }); // painted plinth band
+    }
+    // windows with frames + shutters on the porch side and the back, a plank door in the middle of the porch side
+    const winU = o.len > 6 ? [-hl * 0.55, hl * 0.55] : [hl * 0.4];
+    for (const [v, s] of [[v0, -1], [hw, 1]]) {
+        for (const u of winU) { const [x, z] = P(u, v + s * 0.04); b.boxC(x, y + wallH * 0.55, z, 0.9, 0.85, 0.06, '#5a4632', 'wood', yawL + Math.PI / 2); const [x2, z2] = P(u, v + s * 0.07); b.boxC(x2, y + wallH * 0.55, z2, 0.66, 0.62, 0.04, '#26303a', 'glass', yawL + Math.PI / 2); for (const q of [-1, 1]) { const [x3, z3] = P(u + q * 0.62, v + s * 0.06); b.boxC(x3, y + wallH * 0.55, z3, 0.32, 0.8, 0.04, north ? '#4a3626' : '#3f6a8a', 'wood', yawL + Math.PI / 2); } }
+        if (s < 0) { const [x, z] = P(o.len > 6 ? 0 : -hl * 0.35, v - 0.05); b.box(x, y + (porch ? 0.4 : 0), z, 0.9, 1.75, 0.08, '#4a3626', 'wood', yawL + Math.PI / 2); }
+    }
+    let roofW = o.wid + 1.2, roofL = o.len + 1.2;
+    if (porch) { // prispă: clay platform + carved posts + beam, under the main roof
+        const plat = [P(-hl, -hw), P(hl, -hw), P(hl, v0), P(-hl, v0)]; b.prism(plat, y - 0.1, y + 0.4, north ? '#7a6248' : '#d8cfbd', north ? 'wood' : 'concrete'); ctx.ground.addPoly(plat, y + 0.4, y - 1);
+        const n = Math.max(2, Math.round(o.len / 1.9)); for (let k = 0; k <= n; k++) { const [x, z] = P(-hl + 0.12 + (o.len - 0.24) * k / n, -hw + 0.12); carvedPost(b, x, y + 0.4, z, wallH - 0.4, '#5a4632', yawL); ctx.circle(x, z, 0.1, wallH); }
+        const [bx0, bz0] = P(0, -hw + 0.12); b.box(bx0, y + wallH - 0.04, bz0, 0.16, 0.2, o.len, '#5a4632', 'wood', yawL);
+        if (!north) for (let k = 0; k < n; k++) { const [x, z] = P(-hl + (o.len) * (k + 0.5) / n, -hw + 0.12); b.box(x, y + 0.4, z, 0.04, 0.55, o.len / n - 0.3, '#5a4632', 'wood', yawL); } // low railing
+    }
+    const roofH = north ? Math.min(5.2, roofW * 0.85) : Math.min(3.6, roofW * 0.5);
+    hipRoofOn(b, o, y + wallH, roofL, roofW, roofH, roofC, { courses: north ? 0.2 : 0.35 });
+    { const [kx, kz] = P(0, (v0 + hw) / 2); ctx.box(kx, kz, o.len / 2, (hw - v0) / 2, -o.angle, { y0: y - 1, y1: y + wallH + roofH }); }
+    return { o, y, north, porch, P };
 }
+/** Dobrogea wooden windmill (Village Museum): octagonal plank tower, conical cap turned to the wind, six lattice sails */
+function windmill(b, ctx, x, z, yaw) {
+    const y = ctx.ground.heightAt(x, z) - 0.1;
+    b.cyl(x, y, z, 2.0, 0.6, '#9a8e7c', 'stone', 8);
+    b.cyl(x, y + 0.6, z, 1.8, 6.4, '#7a6650', 'wood', 8, 0.75);
+    for (let k = 1; k < 6; k++) b.cyl(x, y + 0.6 + k * 1.1, z, 1.82 - k * 0.08, 0.06, '#5e4b38', 'wood', 8);
+    b.add(new THREE.ConeGeometry(1.75, 2.0, 10), 'roofs', M(x, y + 8.0, z), '#5c4a38');
+    const fx = Math.sin(yaw), fz = Math.cos(yaw), hx = x + fx * 1.6, hz = z + fz * 1.6, hy = y + 6.8;
+    b.rod([x, hy, z], [hx, hy, hz], 0.14, '#4a3a2a', 'wood', 6);
+    for (let i = 0; i < 6; i++) { const a = i / 6 * Math.PI * 2 + 0.3, sx = Math.cos(yaw) * Math.cos(a), sz = -Math.sin(yaw) * Math.cos(a), sy = Math.sin(a), L = 5.6;
+        b.rod([hx, hy, hz], [hx + sx * L, hy + sy * L, hz + sz * L], 0.06, '#5a4632', 'wood', 4);
+        for (const t of [0.35, 0.6, 0.85]) { const px = hx + sx * L * t, py = hy + sy * L * t, pz = hz + sz * L * t; b.boxC(px, py, pz, 0.04, 0.9, 0.04, '#5a4632', 'wood', yaw, 0, -a); }
+        b.boxC(hx + sx * L * 0.62, hy + sy * L * 0.62, hz + sz * L * 0.62, 0.02, 3.4, 0.8, '#d8cdb5', 'fabric', yaw, 0, Math.PI / 2 - a); }
+    b.box(x + fx * 1.75, y + 0.6, z + fz * 1.75, 0.9, 1.9, 0.08, '#4a3626', 'wood', yaw + Math.PI / 2);
+    ctx.circle(x, z, 2.0, 9);
+}
+
 /** the wooden church from Dragomirești (1722): log nave, double shingle roof, west tower with an open belfry and a needle spire */
 function woodenChurch(b, ctx, bd) {
     const g = ctx.ground, o = obb(bd.poly), y = Math.min(...bd.poly.map(([x, z]) => g.heightAt(x, z))) - 0.1;
@@ -83,7 +136,7 @@ export default {
             // the DEM (EU-DEM, opened) slopes far into the water; the real banks stand ~1.5 m above the lake: keep land above
             // the water level and carve the lake bed below it
             level = g.heightAt(24, -30) - 1.6;
-            const inLake = (x, z) => { if (x < bbL.x0 || x > bbL.x1 || z < bbL.z0 || z > bbL.z1 || !inPoly(x, z, lake.poly)) return false; for (let i = 0; i < holes.length; i++) { const q = hb[i]; if (x >= q.x0 && x <= q.x1 && z >= q.z0 && z <= q.z1 && inPoly(x, z, holes[i])) return false; } return true; };
+            const inLake = ctx.extras.inLake = (x, z) => { if (x < bbL.x0 || x > bbL.x1 || z < bbL.z0 || z > bbL.z1 || !inPoly(x, z, lake.poly)) return false; for (let i = 0; i < holes.length; i++) { const q = hb[i]; if (x >= q.x0 && x <= q.x1 && z >= q.z0 && z <= q.z1 && inPoly(x, z, holes[i])) return false; } return true; };
             g.mod((x, z, h) => (inLake(x, z) ? Math.min(h, level - 2.2) : Math.max(h, level + 1.2 + Math.max(0, h - level) * 0.0)));
             // shore: land next to the water sits a little above it
             ctx.water(level, { x0: -1400, z0: -2400, x1: 1400, z1: 100 }, [], { color: '#3b5560' });
@@ -102,9 +155,16 @@ export default {
         for (const h of houses.slice(0, 40)) {
             const { o, y } = h, fw = o.len / 2 + 4, fd = o.wid / 2 + 4;
             const ring = [[-fw, -fd], [fw, -fd], [fw, fd], [-fw, fd], [-fw, -fd]].map(([u, v]) => [o.cx + o.ux * u - o.uz * v, o.cz + o.uz * u + o.ux * v]);
-            for (let i = 1; i < ring.length; i++) { if (i === 3) continue; const [ax, az] = ring[i - 1], [bx, bz] = ring[i], L = Math.hypot(bx - ax, bz - az), cx = (ax + bx) / 2, cz = (az + bz) / 2; b.box(cx, g.heightAt(cx, cz) - 0.05, cz, 0.12, 1.1, L, '#7a6448', 'wood', Math.atan2(bx - ax, bz - az)); ctx.collider({ wall: true, ax, az, bx, bz, y0a: y - 1, y1a: y + 1.1, y0b: y - 1, y1b: y + 1.1, x: cx, z: cz, r: L / 2 + 0.5 }); }
+            for (let i = 1; i < ring.length; i++) { if (i === 1) { if (h.north && r() < 0.6) { const [gx, gz] = [(ring[0][0] + ring[1][0]) / 2, (ring[0][1] + ring[1][1]) / 2], gy = g.heightAt(gx, gz), ya = Math.atan2(o.ux, o.uz) + Math.PI / 2, ex = Math.sin(ya) * 1.7, ez = Math.cos(ya) * 1.7; for (const s of [-1, 1]) carvedPost(b, gx + ex * s, gy, gz + ez * s, 3.4, '#5e4733', ya); b.box(gx, gy + 3.4, gz, 0.3, 0.3, 4.2, '#5e4733', 'wood', ya - Math.PI / 2 + Math.PI / 2); hipRoofOn(b, { cx: gx, cz: gz, ux: Math.sin(ya), uz: Math.cos(ya) }, gy + 3.7, 4.6, 1.2, 0.9, '#4f4134', { courses: 0.15 }); } continue; } const [ax, az] = ring[i - 1], [bx, bz] = ring[i], L = Math.hypot(bx - ax, bz - az), cx = (ax + bx) / 2, cz = (az + bz) / 2; b.box(cx, g.heightAt(cx, cz) - 0.05, cz, 0.12, 1.1, L, '#7a6448', 'wood', Math.atan2(bx - ax, bz - az)); ctx.collider({ wall: true, ax, az, bx, bz, y0a: y - 1, y1a: y + 1.1, y0b: y - 1, y1b: y + 1.1, x: cx, z: cz, r: L / 2 + 0.5 }); }
             if (r() < 0.3) { const wx = o.cx + o.uz * (fd - 1.8), wz = o.cz - o.ux * (fd - 1.8), wy = g.heightAt(wx, wz); b.cyl(wx, wy, wz, 0.55, 0.8, '#6b5a44', 'wood', 8); b.box(wx + 1.6, wy, wz, 0.2, 3.6, 0.2, '#5a4632', 'wood'); b.rod([wx - 2.2, wy + 4.6, wz], [wx + 3.6, wy + 2.4, wz], 0.07, '#5a4632', 'wood', 5); b.rod([wx - 2.2, wy + 4.6, wz], [wx - 2.2, wy + 1.2, wz], 0.02, '#3a2a1e', 'metal', 3); ctx.circle(wx, wz, 0.6, 1); }
         }
+        if (mus) { const wr = rng(5), bbm = polyBox(mus); let placed = 0; for (let k = 0; k < 400 && placed < 3; k++) { const x = bbm.x0 + wr() * (bbm.x1 - bbm.x0), z = bbm.z0 + wr() * (bbm.z1 - bbm.z0); if (!inPoly(x, z, grow(mus, -15)) || houses.some((h) => Math.hypot(h.o.cx - x, h.o.cz - z) < 16) || (church && Math.hypot(church.x - x, church.z - z) < 30) || d.ways.some((w) => ['footway', 'path', 'service'].includes(w.k) && distPolyline(x, z, w.pts).d < 5)) continue; windmill(b, ctx, x, z, 0.6 + placed); placed++; ctx.trees = ctx.trees.filter((t) => Math.hypot(t.x - x, t.z - z) > 7); } }
+        // activity (note 57, research `lm-village-passport`): a village passport — step onto the porch of five households from
+        // different regions (E at the door: a stamp + what the house is); the fifth stamp completes "village-museum:farmhouse"
+        { const named = houses.filter((h) => h.porch && h.bd.name), pick = [], regions = new Set();
+          for (const h of named) { const reg = (h.bd.name.match(/din ([^,(]+)/) || [, h.bd.name])[1].trim(); if (regions.has(reg)) continue; regions.add(reg); pick.push(h); if (pick.length >= 8) break; }
+          const stamps = new Set();
+          for (const h of pick) { const [x, z] = h.P(h.o.len > 6 ? 0 : -h.o.len * 0.175, -h.o.wid / 2 + 0.6); ctx.interactables.push({ x, z, r: 2.2, label: () => (stamps.has(h.bd.id) ? `${h.bd.name} (stamped)` : `Step into the house: ${h.bd.name}`), use: (s) => { if (stamps.has(h.bd.id)) return; stamps.add(h.bd.id); if (stamps.size >= 5) bucActivity(s, 'village-museum', 'farmhouse', '🏡 Village passport complete', `Five households from five regions — the last: ${h.bd.name}. The houses were moved here whole, with their furniture, from 1936 on.`); else s.ui.toast(`🏡 Stamp ${stamps.size} / 5`, `${h.bd.name}: a clay-floored main room, painted dowry chest, woven rugs on the walls, the bread oven by the door.`); } }); } }
         for (const [x, z] of d.furniture.cross || []) { if (mus && !inPoly(x, z, mus)) continue; const y = g.heightAt(x, z); b.box(x, y, z, 0.18, 2.2, 0.18, '#5a4632', 'wood'); b.box(x, y + 1.6, z, 1.1, 0.16, 0.16, '#5a4632', 'wood'); b.box(x, y + 2.15, z, 0.7, 0.2, 0.5, '#4a3a2a', 'wood'); ctx.circle(x, z, 0.15, 2.2); }
         // museum fence (ticketed site) with the entrance by Kiseleff and a gate toward the park
         if (mus) {
@@ -158,6 +218,12 @@ export default {
         PH.forEach((pl, i) => ctx.plaque(pl, nymph.x - 14 + i * 7, nymph.z + 10, Math.PI, { style: 'park' }));
         if (church) PV.forEach((pl, i) => { const a = Math.PI * 0.75 + i * 0.28, x = church.x + Math.cos(a) * 18, z = church.z + Math.sin(a) * 18; ctx.plaque(pl, x, z, Math.atan2(church.x - x, church.z - z) + Math.PI, { style: 'park', credit: i === 0 ? 'Founded by sociologist Dimitrie Gusti (1936).' : null }); });
         // fun: feed the ducks, ring the toaca, draw water
+        // activity (note 57): a boat out on Lake Herăstrău from the south landing (rentals April–October), out and back
+        if (ctx.extras.inLake) { const inL = ctx.extras.inLake; let st = null; for (let k = 0; k < 40 && !st; k++) { const x = 30 + (k % 2 ? 1 : -1) * k * 2, z = -32 - k * 1.5; if (inL(x, z)) st = [x, z]; }
+            if (st) { const out = [st]; for (let k = 1; k < 60; k++) { const x = st[0] + Math.sin(k * 0.09) * 26, z = st[1] - k * 6; if (!inL(x, z) || !inL(x + 8, z) || !inL(x - 8, z)) break; out.push([x, z]); }
+                if (out.length > 6) { const bt = new THREE.Group(); const hull = new THREE.Mesh(new THREE.SphereGeometry(1, 12, 6, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2), new THREE.MeshStandardMaterial({ color: '#f2efe6', roughness: 0.5 })); hull.scale.set(0.95, 0.5, 2.3); bt.add(hull); const seat = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.06, 0.4), new THREE.MeshStandardMaterial({ color: '#2f5a7a' })); seat.position.y = -0.04; bt.add(seat); bt.position.set(st[0], level + 0.02, st[1]); ctx.add(bt);
+                    const path = [...out, ...out.slice(0, -1).reverse()], ride = boatRide(ctx, bt, path, level + 0.02, { speed: 2.2, onDone: (s) => bucActivity(s, 'herastrau-park', 'boat', '⛵ Lake Herăstrău', 'Out past the Japanese garden and back — boats and pedal boats are rented at the landings from spring to autumn.') });
+                    ctx.interactables.push({ x: 37, z: -24, r: 3, label: 'Rent a boat (out on the lake and back, Esc to stop)', cond: () => !ride.active(), use: (s) => { const m = new Date().getMonth(); if (m < 3 || m > 9) { s.ui.toast('⛵ Boats are seasonal', 'Boat and pedal-boat rentals run from April to October.'); return; } ride.start(s); } }); } } }
         ctx.interactables.push({ x: 30, z: -26, r: 4, label: 'Feed the ducks', use: (s) => { s.ui.toast('🦆 Quack', 'Ducks gather at the south tip of the lake.'); s.sound.play('splat', 0.4); } });
         if (church) ctx.interactables.push({ x: church.x + 6, z: church.z + 6, r: 3, label: 'Strike the toaca (wooden semantron)', use: (s) => { s.sound.play('thump', 0.8); setTimeout(() => s.sound.play('thump', 0.6), 260); setTimeout(() => s.sound.play('thump', 0.9), 520); s.ui.toast('Toaca', 'The wooden board calls to service on feast days.'); } });
         // postcards: the church spire from the lawn (research pose); the nymph with the lake behind

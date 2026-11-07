@@ -8,7 +8,7 @@
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, polyArea, offsetPolyline, distPolyline } from '../kit.js';
-import { bucBackdrop, osmPoly, cityFiller, signAtlas } from '../buc.js';
+import { bucBackdrop, osmPoly, cityFiller, signAtlas, bucActivity, boatRide } from '../buc.js';
 import { bench } from '../osm.js';
 import { clockFace, railing } from '../props.js';
 
@@ -105,8 +105,18 @@ export default {
         if (rink) { const [rx, rz] = centroid(rink); ctx.plaque(PL[2], rx - 18, rz, -Math.PI / 2, { style: 'park' }); }
         ctx.plaque(PL[3], rot.x + 14.5, rot.z + 2, Math.PI / 2, { style: 'bronze', credit: 'Writers\' Rotunda (1943); busts by several sculptors.' });
         ctx.plaque(PL[4], -40, 40, Math.PI / 2, { style: 'park' });
-        ctx.interactables.push({ x: ch.x + 4.5, z: ch.z, r: 3, label: 'Watch a chess game at "La Șahiști"', use: (s) => { const lines = ['„Nu muta calul acolo, domnule!" — "Don\'t move the knight there, sir!"', '„Șah! Și mat în trei." — "Check! And mate in three."', '„Pe vremea mea se juca șah adevărat." — "In my day we played real chess."']; s.ui.toast('♟ La Șahiști', lines[Math.floor(Math.random() * lines.length)]); } });
-        if (!winter) ctx.interactables.push({ x: -150, z: -100, r: 5, label: 'Rent a rowing boat (summer)', use: (s) => s.ui.toast('🚣 Debarcader', 'Boats are rented by the hour from the landing — row round the island.') });
+        ctx.interactables.push({ x: ch.x + 4.5, z: ch.z, r: 3, label: 'Watch a chess game at "La Șahiști"', use: (s) => { const lines = ['„Nu muta calul acolo, domnule!" — "Don\'t move the knight there, sir!"', '„Șah! Și mat în trei." — "Check! And mate in three."', '„Pe vremea mea se juca șah adevărat." — "In my day we played real chess."']; bucActivity(s, 'cismigiu', 'chess', '♟ La Șahiști', lines[Math.floor(Math.random() * lines.length)]); } });
+        // activity (note 57): row round the lake from the landing (boats April–October; the rink replaces them in winter)
+        if (lake) {
+            const landing = { x: -150, z: -100 }, q = distPolyline(landing.x, landing.z, [...lake, lake[0]]);
+            const loop = offsetPolyline([...lake, lake[0]], polyArea(lake) > 0 ? -9 : 9).filter(([x, z]) => inPoly(x, z, lake) && !bridges.some((w) => distPolyline(x, z, w.pts).d < 4));
+            const rb = new THREE.Group(); { const hull = new THREE.Mesh(new THREE.SphereGeometry(1, 12, 6, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2), new THREE.MeshStandardMaterial({ color: '#e8e2d2', roughness: 0.6 })); hull.scale.set(0.75, 0.42, 2.0); rb.add(hull); const seat = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.06, 0.3), new THREE.MeshStandardMaterial({ color: '#7a5a3c' })); seat.position.y = -0.05; rb.add(seat); for (const sd of [-1, 1]) { const oar = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 2.4, 5), seat.material); oar.rotation.z = sd * 1.25; oar.position.set(sd * 1.0, 0.05, 0.1); rb.add(oar); } }
+            rb.position.set(q.cx, level + 0.02, q.cz); ctx.add(rb);
+            const ride = loop.length > 4 ? boatRide(ctx, rb, [[q.cx, q.cz], ...loop.slice(Math.floor(loop.length * 0.0)), [q.cx, q.cz]], level + 0.02, { speed: 1.5, onDone: (s) => bucActivity(s, 'cismigiu', 'rowboat', '🚣 Rowed in Cișmigiu', 'Round the lake under the willows and back to the landing (debarcader). Boats are rented by the hour, April to October.') }) : null;
+            ctx.interactables.push({ x: landing.x, z: landing.z, r: 5, label: () => (winter ? 'Boat landing (rink season: skating on the frozen-over lake)' : 'Rent a rowing boat (row round the lake, Esc to stop)'), cond: () => !ride?.active(), use: (s) => { const m = new Date().getMonth(); if (winter || m < 3 || m > 9) { s.ui.toast('🚣 Boats are seasonal', 'The landing rents rowing boats from April to October; in winter the lake becomes the rink.'); return; } ride?.start(s); } });
+        }
+        // the Writers' Rotunda: read all twelve names (walk past each bust)
+        { const seen = new Set(); ctx.onUpdate((dt, s) => { const p = s.position; if (Math.hypot(p.x - rot.x, p.z - rot.z) > 14 || seen.size >= 12) return; WRITERS.forEach((nm, i) => { const a = i / 12 * Math.PI * 2; if (Math.hypot(p.x - (rot.x + Math.cos(a) * 9.2), p.z - (rot.z + Math.sin(a) * 9.2)) < 1.6 && !seen.has(nm)) { seen.add(nm); if (seen.size === 12) bucActivity(s, 'cismigiu', 'rotunda', '📖 Twelve writers', 'You stood before every bust in the Rotunda — Eminescu to Iosif.'); } }); }); }
         ctx.challenge('cismigiu', { x: ctx.extras.shore.x, z: ctx.extras.shore.z, r: 12, tol: 30 });
         // crowd
         ctx.crowdCfg = {

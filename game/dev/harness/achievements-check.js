@@ -42,7 +42,7 @@ const comp = (page) => page.evaluate(() => { const c = window.game.achievements.
     const browser = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
     const ctx = await browser.newContext({ viewport: { width: 1280, height: 720 }, deviceScaleFactor: 1 });
     await ctx.route(/api\.open-meteo\.com/, (r) => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ current: { temperature_2m: 12, weather_code: 3, cloud_cover: 80, precipitation: 0, visibility: 20000, wind_speed_10m: 10, is_day: 1, snowfall: 0 } }) }));
-    const page = await newPage(ctx);
+    let page = await newPage(ctx);
     try {
         // ---- 1. fresh start
         await load(page);
@@ -229,6 +229,8 @@ const comp = (page) => page.evaluate(() => { const c = window.game.achievements.
                 return { car: { x: P.x, z: P.z, h: P.heading }, foot: { x: g.foot.x, z: g.foot.z }, fuel: g.fuel, state: g.state, photos: (await g.save.listPhotos()).length };
             });
             check('save: session + photo written', want.state === 'foot' && want.photos >= 1, JSON.stringify(want));
+            // "reload": a fresh tab on the same origin / storage (navigating away from a running software-GL game times out here)
+            const old = page; page = await newPage(ctx); await old.close({ runBeforeUnload: false }).catch(() => { });
             await load(page);
             const cont = await page.evaluate(async () => { await window.game.save.ready; return { has: window.game.save.hasSession(), btn: !!document.querySelector('#save-continue, #continue, [data-continue]'), label: window.game.save.session?.label }; });
             check('reload: Continue offered', cont.has && cont.btn, JSON.stringify(cont));
@@ -249,8 +251,9 @@ const comp = (page) => page.evaluate(() => { const c = window.game.achievements.
             await page.setViewportSize({ width: 1280, height: 720 });
             await page.evaluate(() => window.game.save.closeGallery());
             await page.evaluate(() => { window.game.achievements.open(); window.game.achievements.confirmReset = true; window.game.achievements.renderPanel(); });
-            await Promise.all([page.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 60000 }), page.click('#achv-panel [data-achv-act="reset-yes"]')]);
-            await page.waitForFunction(() => window.game?.save, null, { timeout: 60000 });
+            await page.click('#achv-panel [data-achv-act="reset-yes"]', { noWaitAfter: true });
+            await sleep(4000); // clearAll() then location.reload(); check from a fresh tab (see above)
+            { const old = page; page = await newPage(ctx); await old.close({ runBeforeUnload: false }).catch(() => { }); await load(page); }
             const cleared = await page.evaluate(async () => { const s = window.game.save; await s.ready; const ls = Object.keys(localStorage).filter(k => k.startsWith('dmcv') && !/lookHintShown/.test(k)); return { has: s.hasSession(), photos: (await s.listPhotos()).length, kv: (await s.keys()).filter(k => k !== 'meta:schema'), ls }; });
             check('reset clears IndexedDB (session, mirror, photos) and localStorage', !cleared.has && cleared.photos === 0 && !cleared.kv.some(k => /^(session|ls:dmcv\.progression|ls:dmcv:chapters|ls:dmcv\.spots)/.test(String(k))), JSON.stringify(cleared));
         }

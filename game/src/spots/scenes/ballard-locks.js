@@ -10,6 +10,7 @@ import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, clamp, lerp, smooth, headingFromBearing, polyBox, inPoly } from '../kit.js';
 import { signBoard } from '../props.js';
 import { addTraffic } from '../cars.js';
+import { waterMaterial, worldUV } from './sea-common.js';
 
 // lock axis from the west (sea) gate to the east (lake) gate — OSM lock_gate ways
 const A = [-105, 42], B = [131, 130];
@@ -57,7 +58,7 @@ function buildLock(ctx, L, water) {
     ctx.add(b.build('lock'));
     // chamber water (animated level)
     const [cx, cz] = fromAx((L.s0 + L.s1) / 2, L.t);
-    const wm = new THREE.Mesh(new THREE.PlaneGeometry(L.w, L.s1 - L.s0), water.material); wm.rotation.set(-Math.PI / 2, 0, YAW); wm.position.set(cx, SEA, cz); wm.name = 'lock-water'; ctx.add(wm);
+    const wg = new THREE.PlaneGeometry(L.w, L.s1 - L.s0); worldUV(wg, 25); const wm = new THREE.Mesh(wg, water.material); wm.rotation.set(-Math.PI / 2, 0, YAW); wm.position.set(cx, SEA, cz); wm.name = 'lock-water'; ctx.add(wm);
     return { water: wm, cx, cz };
 }
 
@@ -67,8 +68,10 @@ export default {
         const g = ctx.ground, d = ctx.data, sp = ctx.spot('ballard-locks');
         // water bodies from the DEM: lake level east of the locks / dam, tidal sea level west
         g.mod((x, z, h) => (h < -2.6 ? Math.min(h, (h > -6.2 ? LAKE : SEA) - 2.6) : h));
-        const waterMat = new THREE.MeshStandardMaterial({ color: '#36525a', roughness: 0.07, metalness: 0.3 }); waterMat.name = 'spot-water';
-        const sea = new THREE.Mesh(new THREE.PlaneGeometry(9000, 9000), waterMat); sea.rotation.x = -Math.PI / 2; sea.position.y = SEA; ctx.add(sea);
+        // round 5 (note 64): rippled water that reflects the sky (sea-common), the lock chambers and Salmon Bay share it
+        const waterMat = waterMaterial(ctx, { color: '#24413f', rough: 0.12, name: 'spot-water' });
+        const seaG = new THREE.PlaneGeometry(9000, 9000); seaG.rotateX(-Math.PI / 2); worldUV(seaG, 60);
+        const sea = new THREE.Mesh(seaG, waterMat); sea.position.y = SEA; sea.name = 'puget-sound'; ctx.add(sea);
         { // lake surface = grid cells where the DEM sits at lake level
             const pos = [], step = 4, bb = { x0: -500, x1: 900, z0: -400, z1: 700 };
             for (let x = bb.x0; x < bb.x1; x += step) for (let z = bb.z0; z < bb.z1; z += step) {
@@ -77,7 +80,7 @@ export default {
                 if (s > -5 && s < LEN + 5 && t > -16 && t < 40) continue; // not over the locks
                 pos.push(x, LAKE, z, x, LAKE, z + step, x + step, LAKE, z + step, x, LAKE, z, x + step, LAKE, z + step, x + step, LAKE, z);
             }
-            const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); geo.computeVertexNormals();
+            const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); geo.computeVertexNormals(); worldUV(geo, 60);
             const lake = new THREE.Mesh(geo, waterMat); lake.name = 'salmon-bay'; ctx.add(lake);
         }
         const big = buildLock(ctx, LARGE, sea), small = buildLock(ctx, SMALL, sea);
@@ -99,6 +102,10 @@ export default {
         ctx.osmBackdrop({ paint: {}, urban: false, style: (bd) => (bd.rc === '#a2452d' ? 'apartment' : undefined), areaTreeOpts: { conifer: 0.5, density: 1 / 70 } });
         // Carl S. English Jr. Botanical Garden: specimen trees + beds
         { const gd = d.areas.find((a) => a.id === 'w51475864'); if (gd) { const bb = polyBox(gd.poly), r = rng(14); for (let i = 0; i < 260; i++) { const x = bb.x0 + r() * (bb.x1 - bb.x0), z = bb.z0 + r() * (bb.z1 - bb.z0); if (!inPoly(x, z, gd.poly)) continue; ctx.trees.push({ x, z, kind: r() < 0.25 ? 'con' : r() < 0.6 ? 'broad' : 'shrub', s: 0.6 + r() * 0.7 }); } } }
+        // night: lamps along the lock walls (every 24 m, both sides) and the garden / promenade paths
+        for (const side of [-1, 1]) for (let s0 = 8; s0 < LEN - 4; s0 += 24) { const [x, z] = fromAx(s0, LARGE.t + side * (LARGE.w / 2 + 2.6)); ctx.lampPoints.push({ x, z, rot: 0, y: WALL_TOP }); }
+        { let n = 0; for (const pts of ctx.footLines()) { let acc = 0; for (let i = 1; i < pts.length; i++) { acc += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]); if (acc > 28 && n < 60) { acc = 0; n++; ctx.lampPoints.push({ x: pts[i][0] + 1.1, z: pts[i][1], rot: 0 }); } } } }
+        ctx.lampOpts = { style: 'acorn', color: '#1f2a26', h: 4.2 };
         // boats in the large lock, rising and falling with the water
         const boats = [['#1f3b57', 11], ['#e8e4d8', 14], ['#7a2c2c', 9], ['#f2f2ee', 18], ['#2d5a3a', 10]].map(([c, l], i) => { const bt = boat(c, l); const [x, z] = fromAx(30 + i * 42, (i % 2 ? 6 : -6)); bt.position.set(x, SEA, z); bt.rotation.y = YAW; ctx.add(bt); return bt; });
         // lockage cycle: fill (sea → lake), hold, drain; E at the control tower runs one immediately

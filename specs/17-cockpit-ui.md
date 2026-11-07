@@ -77,6 +77,21 @@ this.camHolder.rotation.y = L.baseYaw + L.yawCur + (this.lookBack ? 0 : (pv?.yaw
 this.camera.fov = damp(this.camera.fov, (pv?.fov ?? 72) + clamp(this.speed, 0, 40) * 0.35, 4, d);
 ```
 Landscape is unchanged (viewFor returns fov 72 and zero offsets for aspect ≥ 1). The on-foot / spot cameras don't use it.
+### → gameplay (round 5 hooks for notes 16 / 71 / 37 / 78, 2026-11-07 11:02 UTC)
+1. **Finale (note 71)**: `main.js finale()`: replace the `this.hud.panel(...)` block with:
+```js
+import { showFinale } from './finale.js';
+// in finale(), after this.hud.achievement('all'):
+const ach = this.hud.progression?.counts?.() || null;   // or whatever achievements.js exposes: [unlocked, total]
+showFinale({ profile: PROFILE, stops: STOPS, stats: { minutes: mins, distanceKm: s.dist / 1000, chapters: [this.progress?.done?.size ?? this.visited.size, this.chapters?.length ?? STOPS.length],
+    achievements: ach ? [ach.unlocked, ach.total] : [this.hud.unlocked.size, ACHIEVEMENTS.length], completion: this.hud.progression?.completion?.() ?? null, photos: this.photo?.count ?? null,
+    fines: s.fineCount ? `${s.fineCount} (${both(s.fines)})` : '' },
+  actions: { explore: () => this.startFreeRoam?.(), spots: () => this.openSpots?.(), replay: () => this.goToChapter(0) } });
+```
+(Hand the real explore / spots / replay entry points to `actions`; a missing one hides its button. "Download CV" uses `PROFILE.links` "CV (PDF)".)
+2. **Chapter transition (note 16)**: `main.js` (chapter jump, ~line 1888) and the free-roam jump (~1713): replace `await chapterMontage({...})` with `await playChapterTransition({ ...same args..., card: st ? { company: st.company, role: st.role, period: st.period, color: st.color, icon: st.icon } : null, globe: !prev || prev.city !== ch.city, audio: this.audio })`, where `st = STOPS.find(s => s.id === ch.stop)` (`import { playChapterTransition } from './transition.js'`). Keep `chapterCard` for now; the transition already shows the CV card.
+3. **Office conversation (note 37)**: no `main.js` change is needed (`office.read` / `done` / `stations` / `exitZ` keep working, and so do `leaveOffice` and the achievements `screens` set). Please (a) relabel the copy "screens read" → "answers heard" where main / hud / achievements show it (achievements.js is progression's: `cv` label + `reader-all` desc), and (b) add a harness scenario `office-talk`: `g.enterOffice(stop)`; walk to `o.stations[0]` (x·0.45, z); press E → `hud.panelOpen`, `o.read.size ≥ 1`; press 1/A until `o.read.size === o.stations.length`; click `#panel .dlg-opts button.bye` → panel closed; leave at `o.exitZ`. The existing `enterOfficeAndRead` still passes (E at the NPC opens the talk and the greeting already answers the first topic).
+4. **Touch (note 78)**: I changed only the touch part of `input.js`: the touch-look listener is replaced by `_initTouch()`; the ◀ ▶ ▲ ▼ button bindings are replaced by `_buildTouchUI()`; the run toggle keeps working; new `setTouchMode`, `touchModeNow`, `touch.stick`. Mode is automatic (body `on-foot` / `in-spot` / `drone-mode`, hud `in-office` → thumbstick; otherwise the steering + pedals). index.html's `data-btn=left/right/gas/rev` buttons are hidden by CSS and can be removed. Explore (drone): call `input.setTouchMode('drone')` on entering and `setTouchMode(null)` on leaving, and read `input.touch.stick` (left thumb) + `takeLook()` (right thumb).
 ## Progress log
 - **2026-11-06 22:20 UTC — cockpit-ui.** R17.1–R17.4 implemented, R17.5 CSS part done (`vehicles.js`, `canvasText.js` new, `office.js`, `flight.js`, `style.css`).
   - **Dashboard redesign (R17.1)**: parts laid out by viewing angle from the driver eye (−0.3, 1.36, −0.45): cluster pod (binnacle with visor) at 20.6° below the horizon, read *over* a lowered wheel (rim top 27.5°, centre (−0.3, 0.89, −0.945)); nav screen 0.34×0.2125 m (same 1.6 aspect as the CarScreen canvas) at az 27°, el 20.5°, 0.86 m, turned + tilted to face the eye, in a glossy bezel + back shell on a centre stack (vents, hazard, climate panel) aligned with its yaw; console moved to the car centre (x 0.03). Everything sits below the windshield's bottom edge in screen space (rain overlay never draws over it).

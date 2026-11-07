@@ -2337,7 +2337,7 @@ function bRosetti(b) {
     b.windows(p, 0, 11.1, 3.7, GL, { bay: 3.3, wf: 0.4, hf: 0.52, start: 0.95, minL: 4, off: 0.12, mat: 'g' });   // glazing inside the white frames
     b.prism(offset(p, 0.06), 0, 0.6, '#b9ae92', { top: false });
     const f = nearestFacade(p, 40, 7.4);                                                  // on the Garibaldi (east) face, level with the address node
-    entrance(b, f, { w: 2.6, h: 2.9, frame: '#d7cba5', door: '#6d7f88', canopy: 2.2, canopyCol: '#cfc6b0', plate: { w: 1.1, h: 0.62, y: 1.4, bg: '#1d4f91', lines: [['LICEUL TEORETIC', 0.08, '#ffffff'], ['C.A. ROSETTI', 0.12, '#ffffff']] } });
+    entrance(b, f, { w: 2.6, h: 2.9, frame: '#d7cba5', door: '#6d7f88', canopy: 2.2, canopyCol: '#cfc6b0', plate: { w: 1.5, h: 0.8, y: 1.3, bg: '#1d4f91', lines: [['LICEUL TEORETIC', 0.1, '#ffffff'], ['C.A. ROSETTI', 0.16, '#ffffff']] } });
     { const x = f.x + f.nx * 0.4 - f.nz * 2.3, z = f.z + f.nz * 0.4 + f.nx * 2.3; b.cyl(x, 3.2, z, 0.03, 0.03, 1.8, '#d8d8d8', 5, { rz: 0.5 }); flag(b, x + 0.4, 5, z, 1.1); }
     b.colPoly([p], 8);
 }

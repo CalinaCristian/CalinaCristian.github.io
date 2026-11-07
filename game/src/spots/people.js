@@ -141,7 +141,7 @@ export class Crowd {
     _ped(persona, x, z, yaw, act, extra = {}) {
         const look = this._look(persona);
         const p = { persona, look, x, z, y: 0, yaw, tyaw: yaw, act, phase: this.r() * 6.28, speed: 0, base: act, cd: 0, pose: null, poseT: 0, id: this.peds.length, sayCd: 0, ...extra };
-        if (extra.y === undefined && act !== 'sit') this._settle(p); // note 27: on the walkable surface, outside every collider
+        if (extra.y === undefined && act !== 'sit' && !globalThis.__spotsLegacy) this._settle(p); // note 27: on the walkable surface, outside every collider
         p.y = extra.y ?? this._floor(p.x, p.z, null);
         this.peds.push(p); return p;
     }

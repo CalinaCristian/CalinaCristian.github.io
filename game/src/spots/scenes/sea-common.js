@@ -363,7 +363,7 @@ export function cityGround(ctx, { box, hole = null, step = 24, holeDrop = 40, se
 /** instanced street-tree crowns over land (season colour via vertex colour) */
 export function cityTrees(ctx, { box, n = 3000, clear = 250, seed = 11, exclude = [], season = null } = {}) {
     const E = ctx.data.origin.elev, pr = ctx.data.projection, o = ctx.data.origin, r = rng(seed);
-    const geo = new THREE.IcosahedronGeometry(1, 1); geo.translate(0, 0.6, 0);
+    const geo = new THREE.IcosahedronGeometry(1, 0); geo.translate(0, 0.6, 0);
     const mat = new THREE.MeshStandardMaterial({ roughness: 0.95 }); mat.name = 'sea-city-trees';
     const im = new THREE.InstancedMesh(geo, mat, n); const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), c = new THREE.Color();
     const mo = (season ?? new Date().getMonth()); const autumn = mo >= 9 && mo <= 10, winter = mo === 11 || mo <= 1;
@@ -404,8 +404,19 @@ export function seaWater(ctx, y, { box = { x0: -12000, z0: -12000, x1: 12000, z1
     let g;
     if (poly) { g = new THREE.ShapeGeometry(new THREE.Shape(poly.map(([px, pz]) => new THREE.Vector2(px, -pz)))); g.rotateX(-Math.PI / 2); }
     else { g = new THREE.PlaneGeometry(box.x1 - box.x0, box.z1 - box.z0, 1, 1); g.rotateX(-Math.PI / 2); g.translate((box.x0 + box.x1) / 2, 0, (box.z0 + box.z1) / 2); }
-    // world-space uv (metres / repeat)
-    const P = g.attributes.position, uv = []; for (let i = 0; i < P.count; i++) uv.push(P.getX(i) / repeat, P.getZ(i) / repeat); g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+    worldUV(g, repeat);
+    const m = waterMaterial(ctx, { color, rough, opacity, name });
+    const mesh = new THREE.Mesh(g, m); mesh.position.y = y; mesh.name = name; mesh.receiveShadow = true; mesh.renderOrder = -5;
+    return mesh;
+}
+/** world-space uv (metres / repeat) on a geometry already in its final x/z placement (for waterMaterial's ripples) */
+export function worldUV(g, repeat = 90, m = null) {
+    const P = g.attributes.position, uv = [], v = new THREE.Vector3();
+    for (let i = 0; i < P.count; i++) { v.fromBufferAttribute(P, i); if (m) v.applyMatrix4(m); uv.push(v.x / repeat, v.z / repeat); }
+    g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); return g;
+}
+/** the water material (two drifting normal layers, sky reflections; time driven by the scene) */
+export function waterMaterial(ctx, { color = '#203540', rough = 0.14, opacity = 1, name = 'sea-water' } = {}) {
     const nm = waterNormals().clone(); nm.needsUpdate = true; nm.wrapS = nm.wrapT = THREE.RepeatWrapping;
     const m = new THREE.MeshStandardMaterial({ color, roughness: rough, metalness: 0.05, normalMap: nm, normalScale: new THREE.Vector2(0.45, 0.45), envMapIntensity: 1.0, transparent: opacity < 1, opacity, depthWrite: opacity >= 1 });
     m.name = name; m.userData.water = true;
@@ -420,9 +431,8 @@ export function seaWater(ctx, y, { box = { x0: -12000, z0: -12000, x1: 12000, z1
             normal = normalize(tbn * mapN);`);
     };
     m.customProgramCacheKey = () => 'sea-water-v1';
-    const mesh = new THREE.Mesh(g, m); mesh.position.y = y; mesh.name = name; mesh.receiveShadow = true; mesh.renderOrder = -5;
     ctx.onUpdate((dt, s) => { U.uT.value = s.t ?? (U.uT.value + dt); });
-    return mesh;
+    return m;
 }
 
 // ============================================================================ ships, cranes, bay lights

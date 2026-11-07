@@ -75,7 +75,7 @@ export default {
         const bd = seaBackdrop(ctx, {
             clear: 300, eyeY: 1.6, needleDetail: 1,
             midrise: 2600, midClear: 330, midBox: [47.596, -122.375, 47.6285, -122.315],
-            ground: { box: { x0: -4200, z0: -2600, x1: 4200, z1: 5200 }, hole, step: 22 },
+            ground: { box: { x0: -4200, z0: -2600, x1: 4200, z1: 5200 }, hole, step: 32 },
             trees: 2600, treeClear: 330,
         });
         // ---- street sign, Highland Dr traffic + parked cars

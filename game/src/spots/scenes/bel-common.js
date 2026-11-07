@@ -264,3 +264,18 @@ export function glowText(text, w, h, { fg = '#ffffff', bg = null, font = (s) => 
     const mesh = new THREE.Mesh(new THREE.PlaneGeometry(w, h), m); mesh.name = 'sign:' + text;
     return mesh;
 }
+
+/** a single triangle into a GeoBatch (no degenerate quads → no zero normals) */
+export function tri(b, a, c, d, color, key = 'concrete') {
+    const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute([...a, ...c, ...d], 3)); g.computeVertexNormals(); b.add(g, key, null, color); g.dispose();
+}
+/** gable roof: ridge along `yaw` (L long), W wide, H high, eaves at y, overhang `over` m */
+export function gableRoof(b, cx, y, cz, yaw, L, W, H, color, { key = 'roofs', over = 0.45, gable = null } = {}) {
+    const s = Math.sin(yaw), c = Math.cos(yaw), P = (lx, ly, lz) => [cx + c * lx + s * lz, y + ly, cz - s * lx + c * lz];
+    const w = W / 2 + over, l = L / 2 + over;
+    b.quad(P(-w, 0, -l), P(-w, 0, l), P(0, H, l), P(0, H, -l), color, key);
+    b.quad(P(w, 0, l), P(w, 0, -l), P(0, H, -l), P(0, H, l), color, key);
+    const gw = W / 2, gl = L / 2;
+    tri(b, P(-gw, 0, gl), P(gw, 0, gl), P(0, H * gw / w, gl), gable || color, gable ? 'paint' : key);
+    tri(b, P(gw, 0, -gl), P(-gw, 0, -gl), P(0, H * gw / w, -gl), gable || color, gable ? 'paint' : key);
+}

@@ -20,7 +20,7 @@
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, offsetPolyline, distPolyline, canvas, canvasTexture, fitDraw, obb } from '../kit.js';
 import { clockFace } from '../props.js';
-import { bucBackdrop, classicFacade, classicWalls, balustrade, balustradeMaterial, flagpole, palisade, hedge, osmPoly, cityFiller, placeLandmark } from '../buc.js';
+import { bucBackdrop, classicFacade, classicWalls, balustrade, balustradeMaterial, flagpole, palisade, hedge, osmPoly, cityFiller, placeLandmark, bucActivity } from '../buc.js';
 import { addTraffic } from '../cars.js';
 
 const CREAM = '#d9ccb2', CREAM2 = '#e3d8c2', ROOF = '#bdb6a7';
@@ -386,9 +386,16 @@ export default {
         const mk = new GeoBatch(); for (const m of [mA, mB]) { const y = g.heightAt(m.x, m.z); mk.cyl(m.x, y, m.z, 0.22, 1.1, '#3b4b5a', 'metal', 10); mk.cyl(m.x, y + 1.1, m.z, 0.3, 0.12, '#c8a34a', 'bronze', 12); ctx.circle(m.x, m.z, 0.25, 1.2); }
         ctx.add(mk.build('pace-markers'));
         ctx.interactables.push({ x: mA.x, z: mA.z, r: 2, label: 'Pace the Palace: start (walk to the far marker)', use: (s) => { pace = { t: s.t, x: s.position.x, z: s.position.z }; s.ui.toast('⏱ Pace the Palace', 'Walk along the façade to the marker at the other end.'); } });
-        ctx.interactables.push({ x: mB.x, z: mB.z, r: 2, label: () => (pace ? 'Pace the Palace: finish' : 'Pace the Palace (start at the other marker)'), use: (s) => { if (!pace) return; const sec = s.t - pace.t; s.ui.toast(`⏱ ${sec.toFixed(0)} s for 270 m`, `About ${Math.round(sec / 60 * 10) / 10} min — and this is only one side. The Pentagon's side is 281 m.`); pace = null; } });
+        ctx.interactables.push({ x: mB.x, z: mB.z, r: 2, label: () => (pace ? 'Pace the Palace: finish' : 'Pace the Palace (start at the other marker)'), use: (s) => { if (!pace) return; const sec = s.t - pace.t; bucActivity(s, 'palace-parliament', 'pace', `⏱ ${sec.toFixed(0)} s for 270 m`, `About ${Math.round(sec / 60 * 10) / 10} min — and this is only one side. The Pentagon's side is 281 m.`); pace = null; } });
+        // activity (note 57, research `lm-palace-balcony`): the guided tour ends on the central balcony over Bd. Unirii — walk the
+        // balcony (walkable, balustrade), look down the axis to Piața Unirii, E at the balcony door to return to the square
+        { const pt = P.portico, by = pt.y + 13.5 + 3.1, bal = [[pt.x - 14, -10.5 - 27], [pt.x + 1.0, -10.5 - 27], [pt.x + 1.0, -10.5 + 27], [pt.x - 14, -10.5 + 27]];
+          g.addPoly(bal, by, by - 3); ctx.collider({ wall: true, ax: pt.x + 1.3, az: -38, bx: pt.x + 1.3, bz: 17, y0a: by - 0.5, y1a: by + 1.2, y0b: by - 0.5, y1b: by + 1.2, x: pt.x + 1.3, z: -10.5, r: 28 });
+          const door = { x: 34, z: 8 };
+          ctx.interactables.push({ x: door.x, z: door.z, r: 2.4, label: 'Join the guided tour (ends on the balcony over Bd. Unirii)', use: (s) => { s.ctl.y = by; s.ctl.teleport(pt.x - 4, -10.5, headingFromBearing(90)); bucActivity(s, 'palace-parliament', 'balcony', '🏛 The balcony over the boulevard', 'After the marble halls the tour steps out here: Bd. Unirii runs 3.2 km straight to Piața Unirii — built 6 m wider than the Champs-Élysées.'); } });
+          ctx.interactables.push({ x: pt.x - 6, z: -10.5, y: by, r: 3, label: 'Back down to Piața Constituției', use: (s) => { s.ctl.y = g.heightAt(door.x + 2, door.z); s.ctl.teleport(door.x + 2, door.z, headingFromBearing(270)); } }); }
         // cathedral: light a candle
-        if (C) ctx.interactables.push({ x: C.candle.x, z: C.candle.z + 2.6, r: 2.4, label: 'Light a candle (for the living / the departed)', use: (s) => { s.ui.toast('🕯 Candle lit', 'Living on one side, the departed on the other — an Orthodox custom.'); s.sound.play('chime', 0.4); } });
+        if (C) ctx.interactables.push({ x: C.candle.x, z: C.candle.z + 2.6, r: 2.4, label: 'Light a candle (for the living / the departed)', use: (s) => { bucActivity(s, 'peoples-salvation-cathedral', 'candle', '🕯 Candle lit', 'Living on one side, the departed on the other — an Orthodox custom.'); s.sound.play('chime', 0.4); } });
         // postcards
         // postcard: the frontal view across Piața Constituției on the Bd. Unirii axis (the Bd. Libertății sidewalk, ≈ 190 m from the east front)
         ctx.challenge('palace-parliament', { view: [-160, -10.5], x: 31, z: -10.5, heading: 270, pitch: 14, r: 18, tol: 26 });

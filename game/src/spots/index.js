@@ -193,7 +193,7 @@ export async function loadSpot(id, renderer = null, opts = {}) {
         const dist = (t) => Math.min(...boxes.map((b) => Math.hypot(Math.max(0, b.x0 - t.x, t.x - b.x1), Math.max(0, b.z0 - t.z, t.z - b.z1))));
         const cap = ctx.treeLod.cap ?? 4500; if (ctx.trees.length > cap) { for (const t of ctx.trees) t._d = dist(t); ctx.trees.sort((a, b) => a._d - b._d); ctx.trees.length = cap; }
     }
-    { const t0 = ctx.trees.length; ctx.trees = ctx.trees.filter((t) => t.keepOnRoad || !ctx.onRoad(t.x, t.z, 0.2)); ctx.extras.clippedOnRoad = { trees: t0 - ctx.trees.length }; }
+    { const cut = globalThis.__spotsLegacy ? [] : ctx.trees.filter((t) => !t.keepOnRoad && ctx.onRoad(t.x, t.z, 0.2)); ctx.trees = ctx.trees.filter((t) => !cut.includes(t)); ctx.extras.clippedOnRoad = { trees: cut.length, treeSamples: cut.slice(0, 6).map((t) => [Math.round(t.x), Math.round(t.z)]) }; }
     const trees = buildTrees(ctx.trees, ctx.ground, { seed: data.id.length, lod: ctx.treeLod ? { near: ctx.treeLod.near ?? 90, max: ctx.treeLod.max ?? 700 } : null });
     if (trees.update) {
         const v = new THREE.Vector3();
@@ -203,7 +203,7 @@ export async function loadSpot(id, renderer = null, opts = {}) {
     ctx.add(trees.group); ctx.colliders.push(...trees.colliders); ctx.crownMeshes.push(...trees.crowns);
     // note 29: no lamp post or tree inside a carriageway (scene points included; `keepOnRoad: true` keeps a deliberate one)
     { const n0 = ctx.lampPoints.length;
-        ctx.lampPoints = ctx.lampPoints.filter((p) => p.noPost || p.keepOnRoad || !ctx.onRoad(p.x, p.z, 0.25));
+        if (!globalThis.__spotsLegacy) ctx.lampPoints = ctx.lampPoints.filter((p) => p.noPost || p.keepOnRoad || !ctx.onRoad(p.x, p.z, 0.25));
         ctx.extras.clippedOnRoad.lamps = n0 - ctx.lampPoints.length; }
     const lamps = buildLamps(ctx.lampPoints, ctx.ground, ctx.lampOpts);
     ctx.add(lamps.group); ctx.colliders.push(...lamps.colliders);
@@ -468,7 +468,7 @@ export function auditSpot(spot, { maxSamples = 6 } = {}) {
             const ux = bx - ax, uy = by - ay, uz = bz - az, wx = cx - ax, wy = cy - ay, wz = cz - az;
             let nx = uy * wz - uz * wy, ny = uz * wx - ux * wz, nz = ux * wy - uy * wx; const A2 = Math.hypot(nx, ny, nz); if (A2 < 0.6) continue; // < 0.3 m²
             nx /= A2; ny /= A2; nz /= A2;
-            tris.push({ o: o.id, n: [nx, ny, nz], d: nx * ax + ny * ay + nz * az, p: [ax, ay, az, bx, by, bz, cx, cy, cz] });
+            tris.push({ o: o.id, name: o.name, n: [nx, ny, nz], d: nx * ax + ny * ay + nz * az, p: [ax, ay, az, bx, by, bz, cx, cy, cz] });
         }
     });
     // ---- z-fight: bucket by quantised plane, overlap test in the plane (vertex / centroid strictly inside the other)
@@ -486,7 +486,7 @@ export function auditSpot(spot, { maxSamples = 6 } = {}) {
             const ca = [(A[0][0] + A[1][0] + A[2][0]) / 3, (A[0][1] + A[1][1] + A[2][1]) / 3], cb = [(B[0][0] + B[1][0] + B[2][0]) / 3, (B[0][1] + B[1][1] + B[2][1]) / 3];
             if (!(inTri(ca, B) || inTri(cb, A))) continue;
             zpairs++; const key = `${Math.round(ta.p[0] / 4)},${Math.round(ta.p[2] / 4)}`; if (zseen.has(key)) continue; zseen.add(key);
-            add('zfight', { x: +ta.p[0].toFixed(1), y: +ta.p[1].toFixed(1), z: +ta.p[2].toFixed(1), same: ta.o === tb.o });
+            add('zfight', { x: +ta.p[0].toFixed(1), y: +ta.p[1].toFixed(1), z: +ta.p[2].toFixed(1), a: ta.name, b: tb.name });
         }
     }
     if (out.zfight) out.zfight.pairs = zpairs;

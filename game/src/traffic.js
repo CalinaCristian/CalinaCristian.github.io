@@ -897,13 +897,20 @@ export class Traffic {
             const e = edges[Math.floor(this.rng() * edges.length)];
             if (v.tram && !e.tram) continue;
             if (v.trolley && !e.trolleyWire && (this.transit?.trolleyEdges || 0) > 0 && tries < 25) continue;
-            const dir = canTravel(e, 1) ? (canTravel(e, -1) && this.rng() < 0.5 ? -1 : 1) : (canTravel(e, -1) ? -1 : 0);
+            let dir = canTravel(e, 1) ? (canTravel(e, -1) && this.rng() < 0.5 ? -1 : 1) : (canTravel(e, -1) ? -1 : 0);
             if (!dir || e.len < 8 || closedEdge(e)) continue;
             const mx = (e.a.x + e.b.x) / 2, mz = (e.a.z + e.b.z) / 2;
             if (P && Math.hypot(mx - P.x, mz - P.z) < 180) continue;
-            const sp = v.long ? this.sSpan(e, dir, v.length, true) : [2, e.len - 2]; if (!sp) continue;
-            v.edge = e; v.dir = dir; v.s = this.rng.range(sp[0], sp[1]); v.route.length = 0; v.speed = 0; if (v.hist) v.hist.length = 0; v.stuck = 0; v.still = 0; v.touchT = 0; v.layer = layerOf(e);
-            v.lane = v.laneCur = clamp(v.lane, 0, lanesDir(e, dir) - 1); v.bypass = null; v.latExtraCur = v.lateralExtra = 0;
+            // double-parked cars only where double-parking is possible (≥ 2 lanes, ≥ 30 m from a junction), at the kerb —
+            // not in the middle of any lane anywhere (they were respawned into single-lane streets and junction mouths)
+            if (v.parked && !this.parkOk(e, dir)) { dir = -dir; if (!canTravel(e, dir) || !this.parkOk(e, dir)) continue; }
+            const sp = v.parked ? [15, e.len - 15] : v.long ? this.sSpan(e, dir, v.length, true) : [2, e.len - 2]; if (!sp || sp[1] <= sp[0]) continue;
+            const s = this.rng.range(sp[0], sp[1]);
+            if (v.parked && junctionDist(e, dir > 0 ? s : e.len - s) < 30) continue;
+            v.edge = e; v.dir = dir; v.s = s; v.route.length = 0; v.speed = 0; if (v.hist) v.hist.length = 0; v.stuck = 0; v.still = 0; v.touchT = 0; v.layer = layerOf(e);
+            const lanes = lanesDir(e, dir) || 1;
+            v.lane = v.laneCur = v.parked || v.bus ? lanes - 1 : clamp(v.lane, 0, this.carLaneMax(e, dir, v)); v.bypass = null;
+            v.latExtraCur = v.lateralExtra = v.parked ? (e.laneW ?? 3.3) * 0.55 : 0;
             this.placeOnLane(v, true, 0);
             if (!this.spawnClear(v)) continue;
             this.noteRelocated(v);
@@ -1348,7 +1355,11 @@ export class Traffic {
             const ahead = (a, b) => (b.x - a.x) * -Math.sin(a.heading) + (b.z - a.z) * -Math.cos(a.heading);
             let fol = ahead(v, hit) >= ahead(hit, v) ? v : hit;
             if (fol.parked || fol.tram) fol = fol === v ? hit : v;
-            if (fol.parked) continue;
+            if (fol.parked) {
+                // two parked cars inside each other (placed / respawned onto one another): move one away, out of view
+                if (!fol.service && (fol === v ? hit : v).parked && P) { const dx = fol.x - P.x, dz = fol.z - P.z, d = Math.hypot(dx, dz); if (d > 70 || (d > 30 && dx * P.fx + dz * P.fz < 0)) { this.respawn(fol); this.stats.unstuck = (this.stats.unstuck || 0) + 1; } }
+                continue;
+            }
             const other = fol === v ? hit : v;
             if (fol.knotT > 0) { fol.knotT -= dt; continue; } // driving out of a knot (see 3): don't freeze it again every frame
             fol.speed = 0; fol.zeroWhy = 'ovFol:' + (other.kind || '') + '#' + other.id; fol.ovT = (fol.ovT || 0) + dt;
@@ -2377,3 +2388,58 @@ class Pedestrians {
     dispose() { this.crowd.dispose(); }
 }
 const T_BUC = (peds) => peds.t.buc;
+
+// ============================================================================
+//  ILLEGAL-PARKING LINES (note 8). Bucharest: Romanian with the English translation (research/bucharest-spots.json
+//  dialogue_general: locals grumble about sidewalk parking, honking and buses — good-humoured, never aggressive; the
+//  three sidewalk lines are quoted from pedestrian_general.sidewalk_parking). Seattle / Bellevue: polite,
+//  passive-aggressive remarks, little honking (research/seattle-spots.json: "Nobody honks around here — we wave").
+// ============================================================================
+const RL = (t, en) => ({ t, en });
+const PARK_RO = {
+    remark: [RL('Ts-ts-ts… parcat ca un șmecher.', 'Tsk tsk… parked like a big shot.'), RL('Ce tupeu!', 'The nerve!'), RL('Avariile = parcare gratuită, nu?', 'Hazard lights = free parking, right?'),
+        RL('Las’ că vine Poliția Locală.', 'Just wait, the local police are coming.'), RL('Unde parchezi, pe capota mea?', 'Where are you parking, on my bonnet?'), RL('„Doar cinci minute”, sigur…', '"Just five minutes", sure…')],
+    reason: {
+        zebra: [RL('Pe trecere, domnule? Serios?', 'On the zebra crossing, sir? Seriously?'), RL('Pe unde trec acum, prin portbagaj?', 'How do I cross now, through the boot?')],
+        junction: [RL('În mijlocul intersecției… bravo!', 'In the middle of the junction… well done!')],
+        tram: [RL('Acum stă tramvaiul din cauza lui.', 'Now the tram is stuck because of him.'), RL('Pe șine?! Vine tramvaiul!', 'On the tracks?! The tram is coming!')],
+        busstop: [RL('În stație?! Unde oprește autobuzul?', 'In the bus stop?! Where is the bus supposed to stop?')],
+        buslane: [RL('Pe banda de autobuz, normal.', 'In the bus lane, of course.')],
+        lane: [RL('A lăsat-o pe bandă, cu avariile, și dus a fost.', 'Left it in the lane with the hazards on and off he went.')],
+        driveway: [RL('A blocat poarta. Cum mai ies eu acum?', 'He blocked the gate. How do I get out now?')],
+        sidewalk: [RL('Iar mașini parcate pe trotuar...', 'Cars parked on the sidewalk again...'), RL('Pe unde să trec cu căruciorul?', 'Where am I supposed to pass with the stroller?')],
+    },
+    photo: [RL('Stai să-i fac o poză.', 'Hang on, let me take a picture.'), RL('Poză pentru grupul cartierului de pe Facebook.', 'A photo for the neighbourhood Facebook group.')],
+    call: [RL('Alo, Poliția Locală? Avem una parcată {where}.', 'Hello, local police? There\'s one parked {where}.'), RL('Sun la Poliția Locală, gata.', 'I\'m calling the local police, that\'s it.')],
+    where: { zebra: RL('pe trecere', 'on the crossing'), junction: RL('în intersecție', 'in the junction'), tram: RL('pe șine', 'on the tram tracks'), busstop: RL('în stație', 'in the bus stop'), buslane: RL('pe banda de autobuz', 'in the bus lane'), lane: RL('pe bandă', 'in the traffic lane'), driveway: RL('în fața porții', 'in front of a gate'), sidewalk: RL('pe trotuar', 'on the sidewalk') },
+    driver: [RL('Hai, mă, mută mașina!', 'Come on, move the car!'), RL('Cine a lăsat-o aici?!', 'Who left this here?!'), RL('Ăsta-i parcat, nu? Super.', 'He\'s parked, isn\'t he? Great.')],
+    officer: [RL('Poliția Locală. Ce avem aici…', 'Local police. What do we have here…')],
+    ticket: [RL('Proces-verbal. Amendă pe parbriz.', 'Official report. The fine is on the windscreen.')],
+    clamp: [RL('Proces-verbal și sabot pe roată.', 'A fine and a clamp on the wheel.')],
+    truck: [RL('Ridicare auto! Facem loc.', 'Tow-away! Clearing the way.')],
+    tow: [RL('O ridicăm. O găsiți la depozit.', 'We\'re lifting it. You\'ll find it at the pound.')],
+};
+const PARK_US = {
+    remark: [RL('Wow. Okay.'), RL('Must be nice.'), RL('I\'m sure they\'ll be right back…'), RL('Interesting parking choice.'), RL('Some people, huh.'), RL('Hazards on doesn\'t make it a parking spot.')],
+    reason: {
+        zebra: [RL('That\'s… a crosswalk.'), RL('Guess I\'ll just walk around it. Into traffic.')],
+        junction: [RL('In the intersection. Bold.')],
+        busstop: [RL('The bus has to stop somewhere, you know.')],
+        buslane: [RL('Pretty sure that\'s a bus lane.')],
+        hydrant: [RL('Hope there\'s no fire today.'), RL('That\'s a hydrant, friend.')],
+        lane: [RL('Just… in the lane. Cool.')],
+        driveway: [RL('Pretty sure that\'s someone\'s driveway.')],
+        sidewalk: [RL('I\'ll just walk in the street, then.'), RL('Strollers and wheelchairs use this, but sure.')],
+        tram: [RL('On the tracks? Really?')],
+    },
+    photo: [RL('Getting a picture of this.'), RL('Snapping this for the city.')],
+    note: [RL('Leaving them a little note. 🙂'), RL('A polite note. Very polite.')],
+    call: [RL('Hi, yes — reporting a car parked {where}.'), RL('I\'ll call parking enforcement.')],
+    where: { zebra: RL('in a crosswalk'), junction: RL('in an intersection'), tram: RL('on the tracks'), busstop: RL('in a bus zone'), buslane: RL('in the bus lane'), lane: RL('in a travel lane'), driveway: RL('across a driveway'), sidewalk: RL('on the sidewalk'), hydrant: RL('at a fire hydrant') },
+    driver: [RL('Seriously?'), RL('Are they just… gone?'), RL('Okay, going around.')],
+    officer: [RL('Parking Enforcement. Let\'s take a look.')],
+    ticket: [RL('Citation\'s on the windshield.')],
+    clamp: [RL('Citation\'s on the windshield.')],
+    truck: [RL('Tow truck. This one\'s blocking traffic.')],
+    tow: [RL('Hooking it up — it\'ll be at the impound lot.')],
+};

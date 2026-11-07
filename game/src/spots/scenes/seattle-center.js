@@ -11,7 +11,8 @@
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, canvas, canvasTexture, inPoly, clamp, lerp, smooth, headingFromBearing, polyBox, alongPolyline, polylineLength, centroid, offsetPolyline } from '../kit.js';
 import { meshSDF, sdEllipsoid, sdCapsule, sdBox, sdSphere, smin, smax, noise3, fbm3 } from '../sdf.js';
-import { spaceNeedle, signBoard, skyline, SEATTLE_TOWERS, railing } from '../props.js';
+import { signBoard, railing } from '../props.js';
+import { seaNeedle, seaBackdrop } from './sea-common.js';
 import { addTraffic } from '../cars.js';
 import { polyCollider } from '../osm.js';
 
@@ -22,43 +23,96 @@ const MONO_Y = 7.6; // guideway top above the plaza (≈ 2nd-floor level at MoPO
 // ---------------------------------------------------------------------------- Space Needle + base pavilion + elevator ride to the deck
 function buildNeedle(ctx) {
     const g = ctx.ground, y = NEEDLE.y;
-    const n = spaceNeedle(NEEDLE.x, y, NEEDLE.z); ctx.add(n);
-    ctx.onNight((k) => n.userData.night?.(k));
+    // round-5 model (sea-common): one lathe top house, recessed glass bands, radial underside beams, 3 gold elevator
+    // cabs running on the core, Loupe glass floor, open-air deck with tilted glass barriers (note 55)
+    const n = seaNeedle({ detail: 1 }); n.position.set(NEEDLE.x, y, NEEDLE.z); ctx.add(n);
+    const N = n.userData, LV = N.levels;
+    ctx.onNight((k) => N.night(k)); ctx.onUpdate((dt) => N.update(dt));
     // base pavilion: low curved glass pavilion between the legs + gift shop roof
     const b = new GeoBatch();
     b.add(new THREE.CylinderGeometry(13.5, 13.5, 5.2, 48, 1, true), 'glass', M(NEEDLE.x, y + 2.6, NEEDLE.z), '#9fb6c2');
-    b.add(new THREE.CylinderGeometry(14.2, 14.2, 0.6, 48), 'paint', M(NEEDLE.x, y + 5.4, NEEDLE.z), '#e9ebe8');
+    b.add(new THREE.CylinderGeometry(14.2, 14.2, 0.6, 48), 'paint', M(NEEDLE.x, y + 5.5, NEEDLE.z), '#e9ebe8');
     for (let i = 0; i < 24; i++) { const a = i / 24 * Math.PI * 2; b.rod([NEEDLE.x + Math.cos(a) * 13.5, y, NEEDLE.z + Math.sin(a) * 13.5], [NEEDLE.x + Math.cos(a) * 13.5, y + 5.2, NEEDLE.z + Math.sin(a) * 13.5], 0.06, '#d4d8da', 'steel', 5); }
-    // spiral ramp around the core outside the pavilion (exit ramp)
     const ramp = []; for (let i = 0; i <= 40; i++) { const a = -0.6 + i / 40 * 2.6, r = 16.2; ramp.push([NEEDLE.x + Math.cos(a) * r, y + 0.3 + i / 40 * 2.6, NEEDLE.z + Math.sin(a) * r]); }
     b.tube(ramp, 0.05, '#c9cdd0', 'steel', 5);
     ctx.add(b.build('needle-base'));
     const sign = signBoard('SPACE NEEDLE', 5.2, 0.8, { bg: '#f2f2ee', fg: '#1f3b57', font: (s) => `700 ${s}px "Futura", "Century Gothic", sans-serif` });
     sign.position.set(NEEDLE.x, y + 4.2, NEEDLE.z + 13.9); ctx.add(sign);
-    // colliders: pavilion ring (open at the south door), the six legs at the base, the core
+    // colliders: pavilion ring, the six leg feet (pairs at 90° / 210° / 330°, half-gap ≈ 3.2 m at r 17.8)
     const ring = []; for (let i = 0; i < 32; i++) { const a = i / 32 * Math.PI * 2; ring.push([NEEDLE.x + Math.cos(a) * 13.6, NEEDLE.z + Math.sin(a) * 13.6]); }
     ctx.poly(ring);
-    for (let k = 0; k < 3; k++) for (const off of [-0.17, 0.17]) { const a = k * Math.PI * 2 / 3 + off + Math.PI / 6; ctx.circle(NEEDLE.x + Math.cos(a) * 18.4, NEEDLE.z + Math.sin(a) * 18.4, 1.0, 20); }
-    // the 520 ft deck: walkable ring between the top house glass (r 17.6) and the barrier (r 21.4)
-    const DECK_Y = y + 158.6, ringPoly = (r) => { const p = []; for (let i = 0; i < 48; i++) { const a = i / 48 * Math.PI * 2; p.push([NEEDLE.x + Math.cos(a) * r, NEEDLE.z + Math.sin(a) * r]); } return p; };
-    const outer = ringPoly(21.3), inner = ringPoly(17.4);
-    ctx.ground.addPoly(outer, (px, pz) => (Math.hypot(px - NEEDLE.x, pz - NEEDLE.z) > 17.3 ? DECK_Y : NaN), DECK_Y - 1);
-    for (let i = 0; i < 48; i++) { const [ax, az] = outer[i], [bx, bz] = outer[(i + 1) % 48]; ctx.collider({ wall: true, ax, az, bx, bz, y0a: DECK_Y - 1, y1a: DECK_Y + 3, y0b: DECK_Y - 1, y1b: DECK_Y + 3, nx: 0, nz: 1 }); const [cx, cz] = inner[i], [dx, dz] = inner[(i + 1) % 48]; ctx.collider({ wall: true, ax: cx, az: cz, bx: dx, bz: dz, y0a: DECK_Y - 1, y1a: DECK_Y + 3, y0b: DECK_Y - 1, y1b: DECK_Y + 3, nx: 0, nz: 1 }); }
-    const deckFloor = new THREE.Mesh(new THREE.RingGeometry(17.3, 21.3, 64), new THREE.MeshStandardMaterial({ color: '#8e9396', roughness: 0.7 })); deckFloor.rotation.x = -Math.PI / 2; deckFloor.position.set(NEEDLE.x, DECK_Y + 0.01, NEEDLE.z); ctx.add(deckFloor);
+    for (let k = 0; k < 3; k++) { const a = k * 2 * Math.PI / 3 + Math.PI / 2, ca = Math.cos(a), sa = Math.sin(a); for (const sd of [-1, 1]) ctx.circle(NEEDLE.x + ca * 17.8 - sa * 3.25 * sd, NEEDLE.z + sa * 17.8 + ca * 3.25 * sd, 1.0, 20); }
+    // walkable rings: the Loupe (rotating glass floor, 152.6 m) and the open-air deck (158.5 m)
+    const ringPoly = (r) => { const p = []; for (let i = 0; i < 48; i++) { const a = i / 48 * Math.PI * 2; p.push([NEEDLE.x + Math.cos(a) * r, NEEDLE.z + Math.sin(a) * r]); } return p; };
+    const walkRing = (yy, r0, r1, h) => {
+        const outer = ringPoly(r1), inner = ringPoly(r0);
+        ctx.ground.addPoly(outer, (px, pz) => (Math.hypot(px - NEEDLE.x, pz - NEEDLE.z) > r0 - 0.1 ? yy : NaN), yy - 1);
+        for (let i = 0; i < 48; i++) {
+            const [ax, az] = outer[i], [bx, bz] = outer[(i + 1) % 48], [cx, cz] = inner[i], [dx, dz] = inner[(i + 1) % 48];
+            ctx.collider({ wall: true, ax, az, bx, bz, y0a: yy - 1, y1a: yy + h, y0b: yy - 1, y1b: yy + h, nx: 0, nz: 1 });
+            ctx.collider({ wall: true, ax: cx, az: cz, bx: dx, bz: dz, y0a: yy - 1, y1a: yy + h, y0b: yy - 1, y1b: yy + h, nx: 0, nz: 1 });
+        }
+    };
+    const LOUPE_Y = y + LV.loupe, DECK_Y = y + LV.deck;
+    walkRing(LOUPE_Y, 14.9, 20.1, 3.2); walkRing(DECK_Y, 17.5, 20.8, 2.6);
+    // the Loupe turns once every 45 min: stand on it and it carries you round (real speed)
+    const LOUPE_W = Math.PI * 2 / 2700;
+    ctx.onUpdate((dt, s) => {
+        N.loupe.rotation.z += LOUPE_W * dt;
+        const p = s.ctl?.position; if (!p || ride || Math.abs(p.y - LOUPE_Y) > 0.6) return;
+        const dx = p.x - NEEDLE.x, dz = p.z - NEEDLE.z, r = Math.hypot(dx, dz); if (r < 14.9 || r > 20.1) return;
+        const a = Math.atan2(dz, dx) - LOUPE_W * dt; s.ctl.x = NEEDLE.x + Math.cos(a) * r; s.ctl.z = NEEDLE.z + Math.sin(a) * r;
+    });
+    // ---- activity (note 57): elevator ride → The Loupe → open-air deck. The cab rises along the core in 41 s; you ride inside it.
     const door = { x: NEEDLE.x, z: NEEDLE.z + 15.2 };
-    ctx.interactables.push({ kind: 'ride', x: door.x, z: door.z, r: 3, label: 'Ride the elevator to the 520 ft deck (41 s)', cond: (s) => s.ctl.position.y < y + 20,
-        use: (s) => { s.sound.play('whoosh'); s.ui.toast('🛗 41 seconds later…', 'The Loupe level and the open-air deck at 158 m.'); s.ctl.teleport(NEEDLE.x, NEEDLE.z + 19.3, 0); } });
-    ctx.interactables.push({ kind: 'ride', x: NEEDLE.x, z: NEEDLE.z + 18.6, y: DECK_Y, r: 2.6, label: 'Ride the elevator back down', cond: (s) => s.ctl.position.y > y + 100,
-        use: (s) => { s.sound.play('whoosh'); s.ctl.teleport(door.x, door.z + 1.5, 0); } });
-    return { DECK_Y };
+    const cab = N.elevators[0];
+    let ride = null;
+    const done = (s, id, title, text) => { s.ui.toast(title, text); try { s.host?.onActivity?.({ id, spot: 'space-needle' }); } catch { /* host hook optional */ } s.progress.needle = { ...(s.progress.needle || {}), [id]: true }; };
+    ctx.onUpdate((dt, s) => {
+        if (!ride) return;
+        ride.t += dt * ride.speed;
+        const k = clamp(ride.t / 41, 0, 1), e = k * k * (3 - 2 * k), yy = lerp(ride.y0, ride.y1, e);
+        cab.pinned = true; cab.y = yy - y; cab.cab.position.y = cab.y;
+        const ca = Math.cos(cab.a), sa = Math.sin(cab.a), px = NEEDLE.x + ca * 6.6, pz = NEEDLE.z + sa * 6.6;
+        const lk = s.input?.takeLook?.() || { dx: 0, dy: 0 }; ride.heading -= lk.dx * 0.0024; ride.pitch = clamp(ride.pitch - lk.dy * 0.0024, -1.3, 1.2);
+        s.ctl.rig?.position.set(px, yy + 1.62, pz); s.ctl.rig?.rotation.set(ride.pitch, ride.heading, 0, 'YXZ');
+        if (k >= 1) {
+            const up = ride.y1 > ride.y0; ride = null; cab.pinned = false; s.ctl.active = true;
+            if (up) { s.ctl.y = LOUPE_Y; s.ctl.teleport(NEEDLE.x + ca * 17.4, NEEDLE.z + sa * 17.4, Math.atan2(-ca, -sa)); s.ctl.place?.(); done(s, 'needle-elevator', '🛗 520 ft in 41 seconds', 'You are on The Loupe — the world\'s first revolving glass floor. Look down! Stairs lead up to the open-air deck.'); }
+            else { s.ctl.y = y; s.ctl.teleport(door.x, door.z + 1.6, 0); s.ctl.place?.(); }
+        }
+    });
+    const startRide = (s, up) => { const p = s.ctl.position; ride = { t: 0, speed: 1, y0: up ? y + 1.2 : LOUPE_Y - 1.4, y1: up ? LOUPE_Y - 1.4 : y + 1.2, heading: Math.atan2(Math.cos(cab.a), Math.sin(cab.a)) + Math.PI, pitch: up ? -0.05 : 0.1 }; void p; s.ctl.active = false; s.sound.play('whoosh'); s.ui.toast(up ? '🛗 Going up' : '🛗 Going down', 'The gold elevator cabs climb the outside of the core at 10 mph (E: hurry up).'); };
+    ctx.interactables.push({ kind: 'ride', x: door.x, z: door.z, r: 3, label: 'Ride the elevator to The Loupe (41 s)', cond: (s) => !ride && s.ctl.position.y < y + 20, use: (s) => startRide(s, true) });
+    ctx.interactables.push({ kind: 'ride', x: NEEDLE.x, z: NEEDLE.z, y: LOUPE_Y, r: 40, label: 'Hurry the elevator (×4)', cond: (s) => !!ride && ride.speed === 1, use: () => { ride.speed = 4; } });
+    // on the Loupe: look down through the glass floor (achievement), stairs up to the deck; on the deck: the 360° view
+    const onLevel = (s, yy) => Math.abs(s.ctl.position.y - yy) < 1.2;
+    ctx.interactables.push({ kind: 'activity', x: NEEDLE.x, z: NEEDLE.z + 17.6, y: LOUPE_Y, r: 3.2, label: 'Look down through the glass floor', cond: (s) => !ride && onLevel(s, LOUPE_Y),
+        use: (s) => { s.ctl.pitch = -1.25; done(s, 'needle-loupe', '👀 500 ft straight down', 'The Loupe\'s glass floor turns once every 45 minutes; you can see the base, the elevators and the cars on 5th Ave.'); } });
+    ctx.interactables.push({ kind: 'stairs', x: NEEDLE.x - 15.6, z: NEEDLE.z, y: LOUPE_Y, r: 2.6, label: 'Take the stairs up to the open-air deck', cond: (s) => !ride && onLevel(s, LOUPE_Y),
+        use: (s) => { s.ctl.y = DECK_Y; s.ctl.teleport(NEEDLE.x - 19.2, NEEDLE.z, -Math.PI / 2); s.ctl.place?.(); done(s, 'needle-deck', '🌬️ The open-air deck, 520 ft', 'Lean on the tilted glass: downtown and Mt Rainier to the south, Elliott Bay and the Olympics west, Lake Union north-east.'); } });
+    ctx.interactables.push({ kind: 'stairs', x: NEEDLE.x - 18.4, z: NEEDLE.z, y: DECK_Y, r: 2.4, label: 'Back down to The Loupe', cond: (s) => !ride && onLevel(s, DECK_Y), use: (s) => { s.ctl.y = LOUPE_Y; s.ctl.teleport(NEEDLE.x - 16.6, NEEDLE.z, -Math.PI / 2); s.ctl.place?.(); } });
+    ctx.interactables.push({ kind: 'ride', x: NEEDLE.x + Math.cos(cab.a) * 16.4, z: NEEDLE.z + Math.sin(cab.a) * 16.4, y: LOUPE_Y, r: 3, label: 'Ride the elevator back down', cond: (s) => !ride && onLevel(s, LOUPE_Y), use: (s) => startRide(s, false) });
+    return { DECK_Y, LOUPE_Y };
 }
 
 // ---------------------------------------------------------------------------- Chihuly Glasshouse + suspended sculpture + garden glass
+/** a Chihuly "Persian"-like form: a shallow ruffled bowl / trumpet with a wavy rim (lathe + rim displacement) */
+function persianGeometry(seed = 1) {
+    const prof = []; for (let i = 0; i <= 8; i++) { const t = i / 8; prof.push(new THREE.Vector2(0.04 + 0.5 * Math.pow(t, 1.4), 0.32 * t * t - 0.05 * t)); }
+    const g = new THREE.LatheGeometry(prof, 18), p = g.attributes.position, r = rng(seed);
+    const lobes = 5 + Math.floor(r() * 4), ph = r() * 6;
+    for (let i = 0; i < p.count; i++) { const x = p.getX(i), z = p.getZ(i), y = p.getY(i), rr = Math.hypot(x, z), a = Math.atan2(z, x); p.setY(i, y + Math.sin(a * lobes + ph) * 0.07 * rr * 2.2); }
+    g.computeVertexNormals(); return g;
+}
 function glassForms(n, colors, { seed = 1, shape = 'tear' } = {}) {
-    const g = shape === 'sphere' ? new THREE.SphereGeometry(0.5, 14, 10) : shape === 'reed' ? new THREE.ConeGeometry(0.06, 1, 6) : (() => { const c = new THREE.ConeGeometry(0.16, 0.9, 7, 4); const p = c.attributes.position; for (let i = 0; i < p.count; i++) { const y = p.getY(i), a = y * 4; const x = p.getX(i), z = p.getZ(i); p.setXYZ(i, x * Math.cos(a) - z * Math.sin(a) + Math.sin(y * 6) * 0.05, y, x * Math.sin(a) + z * Math.cos(a)); } c.computeVertexNormals(); return c; })();
-    const m = new THREE.MeshStandardMaterial({ roughness: 0.12, metalness: 0.0, transparent: true, opacity: 0.88, emissive: '#ffffff', emissiveIntensity: 0.0 });
-    m.onBeforeCompile = (sh) => { sh.fragmentShader = sh.fragmentShader.replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\n totalEmissiveRadiance = diffuseColor.rgb * 0.35;'); }; // glass glows with its own colour
-    m.customProgramCacheKey = () => 'spotGlass1';
+    const g = shape === 'persian' ? persianGeometry(seed) : shape === 'sphere' ? new THREE.SphereGeometry(0.5, 14, 10) : shape === 'reed' ? new THREE.ConeGeometry(0.06, 1, 6) : (() => { const c = new THREE.ConeGeometry(0.16, 0.9, 7, 4); const p = c.attributes.position; for (let i = 0; i < p.count; i++) { const y = p.getY(i), a = y * 4; const x = p.getX(i), z = p.getZ(i); p.setXYZ(i, x * Math.cos(a) - z * Math.sin(a) + Math.sin(y * 6) * 0.05, y, x * Math.sin(a) + z * Math.cos(a)); } c.computeVertexNormals(); return c; })();
+    const m = new THREE.MeshStandardMaterial({ roughness: 0.08, metalness: 0.0, transparent: true, opacity: 0.8, side: shape === 'persian' ? THREE.DoubleSide : THREE.FrontSide, emissive: '#ffffff', emissiveIntensity: 0.0, envMapIntensity: 1.6 });
+    // translucent glass: light through it (view-dependent, glowing face-on) + its own colour lit at night
+    const GU = { uNight: { value: 0 } };
+    m.onBeforeCompile = (sh) => { sh.uniforms.uNight = GU.uNight; sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nuniform float uNight;').replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\n { float fr = abs(dot(normalize(vViewPosition), normal)); totalEmissiveRadiance = diffuseColor.rgb * (0.28 + 0.5 * fr + uNight * 0.9); }'); };
+    m.customProgramCacheKey = () => 'spotGlass2';
+    m.userData.glassNight = GU.uNight;
     const im = new THREE.InstancedMesh(g, m, n); im.castShadow = false; im.receiveShadow = false;
     const r = rng(seed), col = new THREE.Color();
     for (let i = 0; i < n; i++) im.setColorAt(i, col.set(colors[Math.floor(r() * colors.length)]));
@@ -70,8 +124,8 @@ function buildChihuly(ctx) {
     ctx.skipBuildings.add('w329416207');
     const bb = polyBox(gh.poly), cx = (bb.x0 + bb.x1) / 2, cz = (bb.z0 + bb.z1) / 2, W = bb.x1 - bb.x0, D = bb.z1 - bb.z0, y0 = g.heightAt(cx, cz);
     // Glasshouse: steel frame, clear glass walls, gambrel roof (ridge along z, the long side), 12.2 m tall
-    const H = 12.2, eave = 7.4, kneeH = 10.4, b = new GeoBatch(), steel = '#3b4247';
-    const glass = new THREE.MeshStandardMaterial({ color: '#cfe3ea', transparent: true, opacity: 0.16, roughness: 0.05, metalness: 0.2, depthWrite: false, side: THREE.DoubleSide }); glass.name = 'spot-glasshouse';
+    const H = 12.2, eave = 7.4, kneeH = 10.4, b = new GeoBatch(), steel = '#5a6166';
+    const glass = new THREE.MeshStandardMaterial({ color: '#dceff4', transparent: true, opacity: 0.22, roughness: 0.02, metalness: 0.0, envMapIntensity: 2.2, depthWrite: false, side: THREE.DoubleSide, emissive: new THREE.Color('#ffe3b8'), emissiveIntensity: 0 }); glass.userData.nightEmissive = 0.08; glass.name = 'spot-glasshouse';
     const prof = (u) => { const a = Math.abs(u) / (W / 2); return a > 0.72 ? eave + (1 - a) / 0.28 * (kneeH - eave) : kneeH + (0.72 - a) / 0.72 * (H - kneeH); }; // gambrel section height at offset u
     const gGeo = new THREE.BufferGeometry(), pos = [];
     const us = [-W / 2, -W / 2 * 0.72, 0, W / 2 * 0.72, W / 2];
@@ -93,15 +147,24 @@ function buildChihuly(ctx) {
     // walls on three sides; the east side (Art Plaza, sliding doors) stays open so you can walk in under the sculpture
     for (const [ax, az, bx2, bz] of [[bb.x0, bb.z0, bb.x1, bb.z0], [bb.x0, bb.z1, bb.x1, bb.z1], [bb.x0, bb.z0, bb.x0, bb.z1]]) ctx.collider({ wall: true, ax, az, bx: bx2, bz, y0a: y0 - 1, y1a: y0 + 8, y0b: y0 - 1, y1b: y0 + 8, nx: 0, nz: 1 });
     // the suspended sculpture: ≈ 30 m of red / orange / yellow / amber forms hanging under the ridge
-    const S = glassForms(1400, ['#d7261e', '#e8541c', '#f28a1b', '#f6b81f', '#f9d648', '#b8340f', '#ffa040', '#e03a24'], { seed: 7 });
-    const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler(), r = S.r;
-    for (let i = 0; i < 1400; i++) {
-        const t = r(), z = bb.z0 + 2 + t * (D - 4), rad = 2.6 * Math.sqrt(r()) * (0.8 + 0.4 * Math.sin(t * 9)), a = r() * 6.28;
-        const x = cx + Math.cos(a) * rad, y = y0 + H - 1.6 - Math.abs(Math.sin(a)) * rad * 0.8 - r() * 1.2;
-        e.set((r() - 0.5) * 1.2 + Math.PI, r() * 6.28, (r() - 0.5) * 1.2); q.setFromEuler(e);
-        const s = 0.7 + r() * 0.9; m4.compose(new THREE.Vector3(x, y, z), q, new THREE.Vector3(s, s * (0.8 + r() * 0.8), s)); S.im.setMatrixAt(i, m4);
+    // ≈ 30 m long mass of ruffled red / orange / amber / yellow "Persian" forms layered under the ridge, opening outward
+    const S = glassForms(1300, ['#c8161d', '#d7261e', '#e8541c', '#f07a1a', '#f6a21f', '#f9c63a', '#b8340f', '#e03a24', '#ff8c2a'], { seed: 7, shape: 'persian' });
+    const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler(), r = S.r, up = new THREE.Vector3(0, 1, 0), dir = new THREE.Vector3();
+    const axisY = y0 + H - 3.4, L0 = bb.z0 + 3, L1 = bb.z1 - 3;
+    for (let i = 0; i < 1300; i++) {
+        const t = r(), z = lerp(L0, L1, t), env = Math.sin(Math.PI * clamp(t * 1.08 - 0.04, 0, 1)) ** 0.5; // tapered ends
+        const a = -Math.PI * (0.05 + 0.9 * r()) - Math.PI * 0 , rad = (1.6 + 1.3 * env) * (0.75 + 0.3 * r());          // lower half of the section (hangs)
+        const x = cx + Math.cos(a) * rad * 1.25, y = axisY + Math.sin(a) * rad * 0.9 + 0.8;
+        dir.set(Math.cos(a) * 1.25, Math.sin(a) * 0.9, (r() - 0.5) * 0.6).normalize(); q.setFromUnitVectors(up, dir);
+        q.multiply(new THREE.Quaternion().setFromEuler(e.set(0, r() * 6.28, 0)));
+        const sc = (0.9 + r() * 1.5) * (0.7 + 0.5 * env); m4.compose(new THREE.Vector3(x, y, z), q, new THREE.Vector3(sc, sc * (0.8 + r() * 0.5), sc)); S.im.setMatrixAt(i, m4);
     }
+    // the hanging steel armature + cables to the ridge
+    { const ab = new GeoBatch(); ab.rod([cx, axisY + 0.6, L0], [cx, axisY + 0.6, L1], 0.08, '#2c3236', 'metal', 6); for (let z = L0; z <= L1; z += 3) ab.rod([cx, axisY + 0.6, z], [cx, y0 + H - 0.3, z], 0.015, '#9aa0a4', 'steel', 3); ctx.add(ab.build('chihuly-armature')); }
     S.im.name = 'chihuly-suspended'; ctx.add(S.im);
+    ctx.onNight((k) => ctx.scene.traverse((o) => { const u = o.material?.userData?.glassNight; if (u) u.value = k; }));
+    // interior lighting at night: warm downlights in the Glasshouse (render lamp points, no posts)
+    for (let z = bb.z0 + 4; z < bb.z1 - 2; z += 8) ctx.lampPoints.push({ x: cx, z, y: y0 + 0.02, h: H - 1, noPost: true });
     // garden glass (outside, west of the Glasshouse): the yellow "sun", blue floats, red reeds, purple / white forms in the beds
     const sunC = { x: bb.x0 - 16, z: cz - 2 };
     const sun = glassForms(260, ['#f7d21d', '#f9e04a', '#f2b80f', '#ffe066'], { seed: 3 });
@@ -121,7 +184,8 @@ function buildChihuly(ctx) {
     for (let i = 0; i < 160; i++) { const x = bb.x0 - 40 + rr() * 38, z = bb.z0 - 14 + rr() * (D + 26); if (Math.hypot(x - sunC.x, z - sunC.z) < 7) continue; ctx.trees.push({ x, z, kind: rr() < 0.18 ? 'broad' : 'shrub', s: rr() < 0.18 ? 0.45 + rr() * 0.3 : 0.6 + rr() * 0.9, c: rr() < 0.3 ? '#5a3a4a' : undefined }); }
     // entrance sign on the Needle plaza side
     const sg = signBoard('CHIHULY GARDEN AND GLASS', 6.8, 0.7, { bg: '#1d1d1f', fg: '#f4f1ea', font: (s) => `600 ${s}px "Gill Sans", "Helvetica Neue", sans-serif` });
-    sg.position.set(bb.x1 + 3.5, y0 + 3.4, cz + 10); sg.rotation.y = Math.PI / 2; ctx.add(sg);
+    sg.position.set(bb.x1 + 3.5, y0 + 1.25, cz + 10); sg.rotation.y = Math.PI / 2; ctx.add(sg);
+    { const wb = new GeoBatch(); wb.box(bb.x1 + 3.4, y0, cz + 10, 0.5, 0.85, 7.4, '#3a3a3c', 'stone', Math.PI / 2 * 0); ctx.add(wb.build('chihuly-sign-wall')); ctx.box(bb.x1 + 3.4, cz + 10, 0.3, 3.7, 0, { prop: true, h: 1.6 }); }
     return { cx, cz, bb, sunC, y0, H };
 }
 
@@ -143,26 +207,38 @@ function buildMoPOP(ctx) {
         { c: 2, x: 0.42, z: 0.86, rx: 8, ry: 10, rz: 9, tilt: 0 },
     ].map((m) => ({ ...m, x: ox + m.x * W, z: oz + m.z * D }));
     const slotZ = -86.5, slotY = y0 + MONO_Y - 0.6;
-    const one = (x, y, z, m) => { const yy = y - y0, lx = x - m.x, ly = yy * Math.cos(m.tilt) - lx * Math.sin(m.tilt), lxx = lx * Math.cos(m.tilt) + yy * Math.sin(m.tilt); let dd = sdEllipsoid(lxx, ly, z, 0, 0, m.z, m.rx, m.ry, m.rz); dd += 1.4 * (noise3(x * 0.06 + m.c * 3, yy * 0.06, z * 0.06) - 0.5); return dd; };
+    // Gehry's folded sheet-metal masses (note 59): each mass is an ellipsoid cut by 9 tilted planes (crisp folds, flat
+    // facets that catch the light differently), slightly sheared, joined with tight blends — no smooth eggs
+    const fr = rng(41);
+    for (const m of masses) { m.planes = []; for (let k = 0; k < 9; k++) { const th = fr() * Math.PI * 2, ph = (fr() - 0.35) * 1.4, n = [Math.cos(th) * Math.cos(ph), Math.sin(ph), Math.sin(th) * Math.cos(ph)], sup = Math.sqrt((n[0] * m.rx) ** 2 + (n[1] * m.ry) ** 2 + (n[2] * m.rz) ** 2); m.planes.push([n, sup * (0.7 + fr() * 0.18)]); } m.shear = (fr() - 0.5) * 0.5; }
+    const one = (x, y, z, m) => {
+        const yy = y - y0, lx = x - m.x + yy * m.shear * 0.3, ly = yy * Math.cos(m.tilt) - lx * Math.sin(m.tilt), lxx = lx * Math.cos(m.tilt) + yy * Math.sin(m.tilt), lz = z - m.z;
+        let dd = sdEllipsoid(lxx, ly, lz, 0, 0, 0, m.rx, m.ry, m.rz);
+        for (const [n, o] of m.planes) dd = smax(dd, lxx * n[0] + ly * n[1] + lz * n[2] - o, 0.35);
+        // a soft crease running across the larger facets (the "crumpled" read)
+        dd += 0.25 * Math.sin(lxx * 0.35 + ly * 0.21 + m.c) * Math.sin(lz * 0.3 - ly * 0.17);
+        return dd;
+    };
     const sdf = (x, y, z) => {
-        let dd = 1e9; for (const m of masses) dd = smin(dd, one(x, y, z, m), 1.1);
+        let dd = 1e9; for (const m of masses) dd = smin(dd, one(x, y, z, m), 0.45);
         dd = smax(dd, -(y - y0), 0.5);                           // cut at the ground
         dd = smax(dd, -sdBox(x, y, z, (bb.x0 + bb.x1) / 2, slotY + 3.2, slotZ, W, 3.6, 5.2, 0.8), 1.2); // monorail slot through the building
         return dd;
     };
-    const IRI = ['#d4a53a', '#c2477a', '#6a3a8f'], COLS = [null, '#b9bec3', '#7fb7e0', '#a3262a', '#d6a640'];
+    const IRI = ['#c99a3e', '#a6487a', '#5d3a86'], COLS = [null, '#c3c7cb', '#8cc2e6', '#9e1f26', '#c8963a'];
     const tmp = new THREE.Color(), tmp2 = new THREE.Color();
     const t0 = performance.now();
     const geo = meshSDF(sdf, {
-        min: [bb.x0 - 8, y0 - 0.5, bb.z0 - 8], max: [bb.x1 + 8, y0 + 30, bb.z1 + 8], cell: 0.75, ao: 2.2, lipschitz: 2.4,
+        min: [bb.x0 - 8, y0 - 0.5, bb.z0 - 8], max: [bb.x1 + 8, y0 + 30, bb.z1 + 8], cell: 0.6, ao: 2.2, lipschitz: 2.6,
         color: (x, y, z, nx, ny, nz, ao, out) => {
             let best = 0, bd = 1e9; masses.forEach((m, i) => { const v = one(x, y, z, m); if (v < bd) { bd = v; best = i; } });
             const m = masses[best];
             if (m.c === 0) { const t = clamp(0.5 + 0.45 * ny + 0.35 * nx + 0.2 * Math.sin(y * 0.4), 0, 1); out.set(IRI[2]).lerp(tmp.set(IRI[1]), smooth(0.25, 0.55, t)).lerp(tmp2.set(IRI[0]), smooth(0.6, 0.9, t)); }
             else out.set(COLS[m.c]);
             // shingle seams: thin darker lines on a 1 m grid following the surface
-            const sx = Math.abs(((x * 2.2 + z * 0.7) % 1 + 1) % 1 - 0.5), sy = Math.abs(((y * 3.1 + x * 0.2) % 1 + 1) % 1 - 0.5);
-            if (sx > 0.47 || sy > 0.47) out.multiplyScalar(0.9);
+            const sx = Math.abs((((x + z) * 0.85) % 1 + 1) % 1 - 0.5), sy = Math.abs(((y * 1.6 + (x - z) * 0.12) % 1 + 1) % 1 - 0.5);
+            if (sx > 0.465 || sy > 0.465) out.multiplyScalar(0.78); // shingled stainless / aluminium panels
+            else out.multiplyScalar(0.96 + 0.08 * Math.sin((x * 3.1 + y * 2.3 + z * 1.7)));
             out.multiplyScalar(0.94 + 0.12 * noise3(x * 0.6, y * 0.6, z * 0.6));
             return out.multiplyScalar(0.7 + 0.3 * ao);
         },
@@ -172,8 +248,7 @@ function buildMoPOP(ctx) {
     // the crumpled stainless "guitar neck" ribbon on top
     const b = new GeoBatch(), r = rng(5), pts = [];
     let px = ox + W * 0.45, py = y0 + 24, pz = oz + D * 0.4;
-    for (let i = 0; i < 14; i++) { pts.push([px, py, pz]); px += (r() - 0.3) * 6; py += (r() - 0.5) * 3 + 0.6; pz += (r() - 0.5) * 6; }
-    b.tube(pts, 0.9, '#dfe3e6', 'chrome', 6);
+    void pts; void px; void py; void pz; void r; // (the old floating ribbon is gone: the steel 'guitar' fins are part of the folded masses)
     // glass entrance on the Needle side
     b.box(ox + W * 0.12, y0, oz + D * 0.62, 0.4, 7, 14, '#2c3a44', 'glass');
     ctx.add(b.build('mopop-ribbon'));
@@ -239,7 +314,7 @@ export default {
         // plaza level around the Needle base (flat), gentle elsewhere
         const plaza = []; for (let i = 0; i < 40; i++) { const a = i / 40 * Math.PI * 2; plaza.push([NEEDLE.x + Math.cos(a) * 34, NEEDLE.z + Math.sin(a) * 34]); }
         g.flatten(plaza, NEEDLE.y, 10);
-        ctx.terrainOpts = { bg: '#8f8b82', bgMask: 'slab', innerPx: 2048 };
+        ctx.terrainOpts = { bg: '#8f8b82', bgMask: 'slab', innerPx: 2048, outerPad: 420, skirtY: -42, skirtColor: '#1f333c' };
         { const c = []; for (let i = 0; i < 24; i++) { const a = i / 24 * Math.PI * 2; c.push([NEEDLE.x + Math.cos(a) * 26, NEEDLE.z + Math.sin(a) * 26]); } ctx.exclude.push(c); } // the Needle's OSM parts → hero model
         const needle = buildNeedle(ctx);
         const chi = buildChihuly(ctx);
@@ -250,9 +325,11 @@ export default {
         P.circle(NEEDLE.x, NEEDLE.z, 30, '#b4afa6', 'slab'); P.circle(NEEDLE.x, NEEDLE.z, 13.6, '#8d8a84', 'slab');
         // Howard S. Wright Memorial Fountain: shallow pool south of the base
         { const fw = d.areas.find((a) => a.id === 'w241876412'); if (fw) { const c = centroid(fw.poly), w = new THREE.Mesh(new THREE.CircleGeometry(4.2, 32), new THREE.MeshStandardMaterial({ color: '#3d6f80', roughness: 0.05, metalness: 0.3 })); w.rotation.x = -Math.PI / 2; w.position.set(c[0], g.heightAt(c[0], c[1]) + 0.06, c[1]); ctx.add(w); } }
-        // downtown skyline 1.5–2 km south
-        ctx.add(skyline(SEATTLE_TOWERS.map(([la, lo, h, w, dd, c, crown]) => { const p = ctx.ll(la, lo); return { x: p.x, z: p.z, w, d: dd, h, c, crown, y: -30 }; }), { hazeK: 0.18 }));
-        ctx.onNight((k) => ctx.scene.getObjectByName('skyline')?.userData.night?.(k));
+        // the city around the grounds (seen from the deck: 360°) — real towers, blocks, ground, Elliott Bay + ferries, mountains
+        { const W = Object.values(d.spots).flatMap((sp) => sp.extent?.polygon || []), xs = W.map((p) => p[0]), zs = W.map((p) => p[1]), m8 = (v) => Math.round(v / 8) * 8, OUT = 420;
+          const hole = { x0: m8(Math.min(...xs) - 60) - OUT + 16, z0: m8(Math.min(...zs) - 60) - OUT + 16, x1: m8(Math.max(...xs) + 60) + OUT - 16, z1: m8(Math.max(...zs) + 60) + OUT - 16 };
+          ctx.extras.seaBackdrop = seaBackdrop(ctx, { needle: false, clear: 380, eyeY: 1.6, midrise: 2400, midClear: 420, midBox: [47.596, -122.375, 47.645, -122.31],
+            ground: { box: { x0: -4000, z0: -3600, x1: 4000, z1: 3600 }, hole, step: 24 }, trees: 2600, treeClear: 420, lake: true }); }
         // 5th Ave / Broad St traffic
         addTraffic(ctx, { lanes: [{ pts: [[129, 160], [129, -20], [129, -174], [130, -219], [124, -305]], n: 3, speed: 10 }, { pts: [[124, -305], [130, -219], [129, -174], [129, -20], [129, 160]].map(([x, z]) => [x - 5, z]), n: 3, speed: 10 }, { pts: [[7, 120], [18, 108], [40, 83], [79, 34], [103, 6], [129, -20]], n: 2, speed: 10 }] });
         // ---- plaques (Needle 5, Chihuly 3, MoPOP 4) with artist / architect credits

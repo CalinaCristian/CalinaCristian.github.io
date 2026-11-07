@@ -12,7 +12,7 @@
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, offsetPolyline, polyArea, obb } from '../kit.js';
-import { bucBackdrop, classicFacade, classicWalls, osmPoly, cityFiller, placeLandmark, signAtlas, balustrade, balustradeMaterial, flagpole, floodlight } from '../buc.js';
+import { bucBackdrop, classicFacade, classicWalls, osmPoly, cityFiller, placeLandmark, signAtlas, balustrade, balustradeMaterial, flagpole, floodlight, narratedVisit } from '../buc.js';
 import { bench } from '../osm.js';
 import { addTraffic } from '../cars.js';
 
@@ -101,6 +101,9 @@ export default {
         ctx.plaque(PL[5], carol.x + 5, carol.z + 4, Math.PI * 0.75, { style: 'bronze', credit: 'After Ivan Meštrović (1930); recreated by Florin Codre (2010).' });
         // fun: give one leu for the Athenaeum (donation box by the steps)
         if (AT) { const q = local(AT, 31.5, 0); ctx.interactables.push({ x: q.x, z: q.z, r: 2.6, label: 'Give one leu for the Athenaeum', use: (s) => { const P = s.progress; P.lei = (P.lei || 0) + 1; try { localStorage.setItem('dmcv.spots.v1', JSON.stringify(P)); } catch { /* */ } s.ui.toast('🪙 "Dați un leu pentru Ateneu!"', `You gave ${P.lei} leu — the 1880s campaign raised the money for the hall this way.`); s.sound.play('coin', 0.6); } }); }
+        // activity (note 57, `lm-ateneu-concert`): sit in on a rehearsal in the domed hall (interior narrated, not modelled)
+        if (AT) { const q = local(AT, 28, 6); narratedVisit(ctx, { x: q.x, z: q.z, r: 9, every: 6, label: 'Go in: a rehearsal in the concert hall', spot: 'athenaeum-revolution', id: 'concert-hall', title: '🎻 Under the dome', body: 'The George Enescu Philharmonic rehearses here; the hall seats about 800 under a 41 m dome.', steps: [
+            ['🎻 The foyer', 'Marble columns, a spiral of four stairs up to the round hall.'], ['🎻 The round hall', 'Red velvet, gilded ribs; the orchestra tunes to the oboe\'s A.'], ['🎨 The fresco', 'Costin Petrescu\'s 75 m ring runs from Trajan\'s conquest of Dacia to the 1918 Great Union.'] ] }); }
         if (balcony) ctx.interactables.push({ x: balcony.x, z: balcony.z, r: 4, label: 'Stand below the balcony (21 December 1989)', use: (s) => { s.ui.toast('21 December 1989', 'Ceaușescu\'s last speech from this balcony was booed by the crowd; he fled by helicopter from the roof the next day.'); s.sound.play('crowd', 0.6); } });
         // postcard: from the garden in front of the portico, looking back at the portico and the dome (the research point
         // lies at the building's south side; the portico faces the garden / Calea Victoriei)

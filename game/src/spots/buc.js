@@ -497,3 +497,53 @@ export function floodlight(root, colour = '#ffd9a0', k = 0.35) {
         o.material = m;
     });
 }
+
+// ---------------------------------------------------------------------------- activities (note 57; contract 01 *Activities*)
+/** report a finished spot activity (achievements listen to `dmcv:activity`) and show its toast */
+export function bucActivity(s, spot, id, title, body) {
+    s._bucDone = s._bucDone || new Set(); s._bucDone.add(spot + ':' + id);
+    try {
+        if (typeof window.game?.emit === 'function') window.game.emit('activity', { spot, id });
+        else window.dispatchEvent(new CustomEvent('dmcv:activity', { detail: { spot, id } }));
+    } catch { /* no host */ }
+    window.cvTelemetry?.track?.('spot_activity', { spot, id });
+    if (title) s.ui.toast(title, body || '');
+}
+/**
+ * a ride along a closed or open path (rowing boat, pedal boat): the walker is parked, the camera rides the boat (mouse look free),
+ * the boat mesh follows; at the end the player is put back where the ride started and onDone(s) runs.
+ * path: [[x, z]…] (metres), y: water level, speed m/s. Returns { start(s), active() }.
+ */
+export function boatRide(ctx, boat, path, y, { speed = 1.6, eye = 0.95, onDone = null } = {}) {
+    const L = polylineLength(path); let ride = null;
+    ctx.onUpdate((dt, s) => {
+        if (!ride) return;
+        ride.t += dt; const sp = Math.min(L, ride.t * speed), p = alongPolyline(path, sp), p2 = alongPolyline(path, Math.min(L, sp + 1.2));
+        const yaw = Math.atan2(p2.x - p.x, p2.z - p.z), bob = Math.sin(ride.t * 1.6) * 0.04;
+        boat.position.set(p.x, y + bob, p.z); boat.rotation.set(Math.sin(ride.t * 2.1) * 0.03, yaw, Math.sin(ride.t * 1.2) * 0.04);
+        const lk = s.input?.takeLook?.() || { dx: 0, dy: 0 }; ride.look -= lk.dx * 0.0024; ride.pitch = Math.max(-0.9, Math.min(0.9, ride.pitch - lk.dy * 0.0024));
+        if (s.ctl.rig) { s.ctl.rig.position.set(p.x, y + eye + bob, p.z); s.ctl.rig.rotation.set(ride.pitch, yaw + Math.PI + ride.look, 0, 'YXZ'); }
+        if (sp >= L - 0.05 || s.input?.take?.('Escape')) { s.ctl.active = true; s.ctl.teleport(ride.back.x, ride.back.z, ride.back.heading); boat.position.copy(ride.home.p); boat.rotation.copy(ride.home.r); const done = sp >= L - 0.05; ride = null; if (done) onDone?.(s); }
+    });
+    return {
+        active: () => !!ride,
+        start(s) { const p = s.ctl.position; ride = { t: 0, look: 0, pitch: -0.05, back: { x: p.x, z: p.z, heading: s.ctl.heading }, home: { p: boat.position.clone(), r: boat.rotation.clone() } }; s.ctl.active = false; },
+    };
+}
+/**
+ * a short narrated visit at a door (rooms that are not modelled as walkable interiors): E starts it, one toast per step every
+ * `every` s while the player stays within `r` m of (x, z); the last step reports the activity. Returns the interactable.
+ */
+export function narratedVisit(ctx, { x, z, r = 7, every = 6, label, steps, spot, id, title, body }) {
+    let run = null;
+    ctx.onUpdate((dt, s) => {
+        if (!run) return;
+        if (Math.hypot(s.position.x - x, s.position.z - z) > r) { s.ui.toast('Tour left', 'Come back to the entrance to start again.'); run = null; return; }
+        run.t -= dt; if (run.t > 0) return;
+        if (run.i < steps.length) { const [t, b] = steps[run.i++]; s.ui.toast(t, b); run.t = every; return; }
+        bucActivity(s, spot, id, title, body); run = null;
+    });
+    const it = { x, z, r: 2.6, label: () => (run ? 'Tour in progress… (stay close)' : label), use: (s) => { if (!run) run = { i: 0, t: 0 }; } };
+    ctx.interactables.push(it);
+    return it;
+}

@@ -313,8 +313,8 @@ export function buildBuildings(data, ground, o = {}) {
             for (let i = 0; i < 9; i++) { const x = bbq.x0 + (bbq.x1 - bbq.x0) * ((i % 3) + 0.5) / 3, z = bbq.z0 + (bbq.z1 - bbq.z0) * (Math.floor(i / 3) + 0.5) / 3; if (inPoly(x, z, b.poly)) smp.push([x, z]); }
             let hit = 0, host = null; for (const [x, z] of smp) { const a = insideAcc(x, z); if (a) { hit++; host = a; } }
             const f = hit / smp.length, H0 = buildingHeight(b) + (b.minH || 0);
-            if (f >= 0.85 && host && H0 <= host.H + 0.5 && !b.minH) { dropped++; continue; }
-            if (f > 0.04 || smp.some(([x, z]) => insideAcc(x, z))) { const pin = insetPoly(b.poly, 0.12); if (pin) { b = { ...b, poly: pin, _lift: 0.08 }; inset++; } }
+            if (globalThis.__spotsLegacy) { /* dev A/B */ } else if (f >= 0.85 && host && H0 <= host.H + 0.5 && !b.minH) { dropped++; continue; }
+            if (!globalThis.__spotsLegacy && (f > 0.04) || false && smp.some(([x, z]) => insideAcc(x, z))) { const pin = insetPoly(b.poly, 0.12); if (pin) { b = { ...b, poly: pin, _lift: 0.08 }; inset++; } }
         }
         const [cx, cz] = centroid(b.poly);
         if (exclude.some((p) => inPoly(cx, cz, p))) continue;
@@ -353,7 +353,7 @@ export function buildBuildings(data, ground, o = {}) {
         // the walker can't get under / into a building that stands on the ground (floating parts keep their underside)
         colliders.push(polyCollider(b.poly, b.minH || b.minLv ? base : base - 30, top));
     }
-    for (const m of Object.values(mats)) m.side = THREE.DoubleSide; // inside a wall the camera sees a wall, never the street beyond
+    for (const m of Object.values(mats)) m.side = globalThis.__spotsLegacy ? THREE.FrontSide : THREE.DoubleSide; // inside a wall the camera sees a wall, never the street beyond
     const group = batch.build('osm-buildings', { matOverrides: mats });
     return { group, colliders, tris: countFromGroup(group), dedupe: { dropped, inset } };
 }
@@ -647,7 +647,7 @@ export function roadLampPoints(data, { spacing = 34, skip = new Set(), inside = 
 /** benches, bins, bike racks, hydrants, bollards, drinking fountains, info boards from OSM furniture points */
 export function buildFurniture(data, ground, { inside = null, exclude = [], seed = 4, onRoad = null } = {}) {
     const b = new GeoBatch(), r = rng(seed), colliders = [];
-    const ok = (x, z) => (!inside || inside(x, z)) && !exclude.some((p) => inPoly(x, z, p)) && !(onRoad && onRoad(x, z, 0.4));
+    const ok = (x, z) => (!inside || inside(x, z)) && !exclude.some((p) => inPoly(x, z, p)) && !(onRoad && !globalThis.__spotsLegacy && onRoad(x, z, 0.4));
     const yaw = (x, z) => { // face the nearest footway/road
         let best = null; for (const w of data.ways) { const d = distPolyline(x, z, w.pts); if (!best || d.d < best.d) best = d; }
         return best && best.d < 15 ? Math.atan2(best.cx - x, best.cz - z) : r() * 6.28;

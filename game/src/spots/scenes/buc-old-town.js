@@ -12,7 +12,7 @@
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, hash2, headingFromBearing, centroid, polyBox, inPoly, offsetPolyline, distPolyline, canvas, canvasTexture, fitDraw, obb, polyArea } from '../kit.js';
-import { bucBackdrop, classicFacade, classicWalls, balustradeMaterial, palisade, osmPoly, cityFiller, placeLandmark, signAtlas, oldTownTerraces, floodlight, shopfrontFacade } from '../buc.js';
+import { bucBackdrop, classicFacade, classicWalls, balustradeMaterial, palisade, osmPoly, cityFiller, placeLandmark, signAtlas, oldTownTerraces, floodlight, shopfrontFacade, bucActivity } from '../buc.js';
 import { wallGeometry } from '../osm.js';
 
 function simplify(pts, tol) { if (pts.length < 4) return pts; const dist = (p, a, b) => { const dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz) || 1; return Math.abs((p[0] - a[0]) * dz - (p[1] - a[1]) * dx) / L; }; let md = 0, mi = 0; for (let i = 1; i < pts.length - 1; i++) { const dd = dist(pts[i], pts[0], pts[pts.length - 1]); if (dd > md) { md = dd; mi = i; } } if (md <= tol) return [pts[0], pts[pts.length - 1]]; return [...simplify(pts.slice(0, mi + 1), tol).slice(0, -1), ...simplify(pts.slice(mi), tol)]; }
@@ -63,12 +63,17 @@ function oldTownFronts(ctx, { exclude = [] } = {}) {
     const shop = shopfrontFacade('ot-shop', { bay: 3.4, floor: 4.4 }); mats[shop.key] = shop.mat;
     const facs = OT_VARIANTS.map(([key, rows, o], i) => { const f = classicFacade(key, rows, { bay: 3.4, floor: 3.7, res: 2, lit: 0.4, seed: i * 7, ...o }); mats[f.key] = f.mat; return f; });
     const rails = new GeoBatch(), built = [];
-    for (const bd of d.buildings) {
-        if (bd.part || bd.hasParts || ctx.skipBuildings.has(bd.id) || /church|roof|kiosk|chapel/.test(bd.k || '') || (bd.h || 0) > 26) continue;
-        const p = polyArea(bd.poly) > 0 ? bd.poly : [...bd.poly].reverse(), [cx, cz] = centroid(p);
+    for (let bd of d.buildings) {
+        if (bd.part || ctx.skipBuildings.has(bd.id) || /church|roof|kiosk|chapel/.test(bd.k || '') || (bd.h || 0) > 26) continue;
+        let parts = null;
+        if (bd.hasParts) { // outline with building:parts (e.g. Lipscani 53, Gilda): one front on the outline, the parts' max height
+            parts = d.buildings.filter((x) => x.part && inPoly(...centroid(x.poly), bd.poly)); const hp = Math.max(0, ...parts.map((x) => x.h || 0));
+            if (hp > 26) continue; bd = { ...bd, h: bd.h || hp || undefined };
+        }
+        const p0 = polyArea(bd.poly) > 0 ? bd.poly : [...bd.poly].reverse(), p = simplifyRing(p0.filter((q, i) => { const n = p0[(i + 1) % p0.length]; return Math.hypot(n[0] - q[0], n[1] - q[1]) > 0.25; }), 0.12), [cx, cz] = centroid(p);
         if (!exts.some((e) => inPoly(cx, cz, e)) || exclude.some((e) => inPoly(cx, cz, e)) || Math.abs(polyArea(p)) < 25) continue;
         if (!p.some(([x, z]) => nearWay(x, z) < 8)) continue;
-        ctx.skipBuildings.add(bd.id);
+        ctx.skipBuildings.add(bd.id); if (parts) for (const x of parts) ctx.skipBuildings.add(x.id);
         const hs = hash2(cx * 0.37, cz * 0.53), lv = Math.max(2, Math.min(6, bd.lv || (bd.h ? Math.round((bd.h - 4.4) / 3.7) + 1 : 2 + Math.floor(hs * 3.2))));
         let gmin = 1e9, gmax = -1e9; for (const [x, z] of p) { const h = g.heightAt(x, z); gmin = Math.min(gmin, h); gmax = Math.max(gmax, h); }
         const base = gmin - 0.4, GF = 4.4, top = gmax + GF + (lv - 1) * 3.7;
@@ -79,9 +84,9 @@ function oldTownFronts(ctx, { exclude = [] } = {}) {
         const light = '#f2ede2';
         b.prism(grow(p, 0.16), gmax + GF - 0.22, gmax + GF + 0.12, light, 'stone');                       // string course
         b.prism(grow(p, 0.42), top - 0.5, top - 0.15, light, 'stone', { noTop: true, bottom: true });      // cornice (two steps)
-        b.prism(grow(p, 0.22), top - 0.15, top + 0.1, light, 'stone', { bottom: true });
+        b.prism(grow(p, 0.22), top - 0.15, top + 0.1, light, 'stone', { noTop: true, bottom: true });
+        b.flat(grow(p, 0.22), top + 0.1, '#77736c', 'roofs');                                               // roof (= cornice top)
         b.prism(p, top + 0.1, top + 0.75, col, 'stone', { noTop: true });                                     // attic parapet
-        b.flat(p, top + 0.1, '#77736c', 'roofs');
         const o = obb(p), fill = o ? Math.abs(polyArea(p)) / (o.len * o.wid) : 0;
         if (o && fill > 0.82 && o.wid < 17 && hs > 0.3) { const rh = Math.min(3.2, o.wid * 0.28), rc = hs > 0.62 ? '#8a4a33' : '#6c7074'; b.add(new THREE.CylinderGeometry(Math.SQRT1_2 * 0.45, Math.SQRT1_2, 1, 4, 1).rotateY(Math.PI / 4), 'roofs', M(o.cx, top + 0.1 + rh / 2, o.cz, 0, -o.angle, 0, o.len - 0.2, rh, o.wid - 0.2), rc); }
         // 3-D balconies with wrought-iron railings on the street side (first floor, where the façade row has a balconette)
@@ -243,7 +248,7 @@ function buildCarusel(ctx) {
     // stairs: E to go up / down (the levels are walkable)
     const lvOf = (yy) => LV.reduce((bi, L, i) => (Math.abs(y0 + L - yy) < Math.abs(y0 + LV[bi] - yy) ? i : bi), 0);
     ctx.interactables.push({ x: stair.x, z: stair.z, r: 2.6, y: undefined, label: (s) => { const k = lvOf(s.position.y); return k < LV.length - 1 ? `Climb to level ${k + 1}${k + 1 === LV.length - 1 ? ' (bistro)' : ''}` : 'Go down to the ground floor'; },
-        use: (s) => { const k = lvOf(s.position.y), to = k < LV.length - 1 ? k + 1 : 0, px = stair.x + (ecx - stair.x) * 0.15, pz = stair.z + (ecz - stair.z) * 0.15; s.ctl.y = y0 + LV[to]; s.ctl.teleport(px, pz, s.ctl.heading); s.sound.play('step', 0.5); if (to === LV.length - 1) s.ui.toast('☕ Bistro', 'Top floor of Cărturești Carusel.'); } });
+        use: (s) => { const k = lvOf(s.position.y), to = k < LV.length - 1 ? k + 1 : 0, px = stair.x + (ecx - stair.x) * 0.15, pz = stair.z + (ecz - stair.z) * 0.15; s.ctl.y = y0 + LV[to]; s.ctl.teleport(px, pz, s.ctl.heading); s.sound.play('step', 0.5); if (to === LV.length - 1) bucActivity(s, 'old-town-lipscani', 'carusel', '📚 Top of the Carusel', 'The bistro on the top floor — look down the white balconies into the atrium.'); } });
     return { front: { x: fx, z: fzz, nx, nz, yaw }, y0, LV, ecx, ecz, along, stair };
 }
 
@@ -437,8 +442,8 @@ export default {
         ctx.plaque(PS[3], -212, -82, -Math.PI / 2, { style: 'city', credit: 'Architect Paul Gottereau (1897–1900).' });
         ctx.plaque(PS[4], -212, -32, -Math.PI / 2, { style: 'city', credit: 'Post Palace (1894–1900), architect Alexandru Săvulescu.' });
         // fun: Dracula magnets ("Nu, mersi"), light a candle at Stavropoleos, the Carusel postcard needs level 2
-        ctx.interactables.push({ x: CV.bust.x - 3, z: CV.bust.z - 3, r: 2.4, label: 'Souvenir stall: "Dracula magnet, only 10 lei!" — say "Nu, mersi"', use: (s) => s.ui.toast('🧛 "Nu, mersi!"', 'Vlad III ruled from this court in 1459 — locals see him as a hero, not a vampire.') });
-        if (ST) ctx.interactables.push({ x: ST.west.x - 3.5, z: -64.5 + 1.2, r: 2.4, label: 'Light a candle (Stavropoleos)', use: (s) => { s.ui.toast('🕯 Candle lit', 'Quiet please — the choir sings Byzantine chant.'); s.sound.play('chime', 0.3); } });
+        ctx.interactables.push({ x: CV.bust.x - 3, z: CV.bust.z - 3, r: 2.4, label: 'Souvenir stall: "Dracula magnet, only 10 lei!" — say "Nu, mersi"', use: (s) => bucActivity(s, 'old-town-lipscani', 'curtea-veche', '🧛 "Nu, mersi!"', 'Vlad III ruled from this court in 1459 — locals see him as a hero, not a vampire.') });
+        if (ST) ctx.interactables.push({ x: ST.west.x - 3.5, z: -64.5 + 1.2, r: 2.4, label: 'Light a candle (Stavropoleos)', use: (s) => { bucActivity(s, 'stavropoleos-cec', 'stavropoleos', '🕯 Candle lit', 'Quiet please — the choir sings Byzantine chant.'); s.sound.play('chime', 0.3); } });
         if (CA) ctx.challenge('old-town-lipscani', { x: CA.ecx + (CA.front.x - CA.ecx) * 0.75, z: CA.ecz + (CA.front.z - CA.ecz) * 0.75, heading: (Math.atan2(CA.ecx - CA.front.x, -(CA.ecz - CA.front.z)) * 180 / Math.PI + 360) % 360, r: 6, tol: 40, text: 'Cărturești Carusel: the white atrium and its stacked balconies (best from the level-2 balcony)' });
         if (MA) ctx.challenge('old-town-lipscani', { x: MA.gate.x + MA.gn.x * 14, z: MA.gate.z + MA.gn.z * 14, heading: (Math.atan2(-MA.gn.x, MA.gn.z) * 180 / Math.PI + 360) % 360, r: 7, tol: 30, text: "Hanul lui Manuc's gate on Str. Franceză" });
         ctx.challenge('stavropoleos-cec', { view: ST ? [ST.x, ST.z] : null, r: 7, tol: 30 });

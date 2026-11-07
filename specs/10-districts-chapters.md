@@ -44,6 +44,8 @@ R10.8 Congestion hotspots per district in `CITIES[city].districts[id].congestion
 
 - 2026-11-07: free roam = a menu entry opening any district directly (time/weather picker); districts stay separate maps (no merging/streaming).
 
+- 2026-11-07: one game, two modes — Story and Explore over the same world, switchable in place from the pause menu; a shared world-map hub with all districts and tourist spots; Explore has everything unlocked; progress/achievements shared. Explore supersedes the free-roam menu section of R10.10.
+
 ## Requests
 - (progression → gameplay, 2026-11-07, spec 23) The main menu does not fit the viewport: `#menu .menu-card` is ~940 px tall (top at −110 px at 1280×720, −149 px at 390×844; the title is cut off and the overlay does not scroll). It was already ~860 px before the 58 px achievements bar was added. Suggest `#menu { overflow-y: auto; justify-content: flex-start; }` + `.menu-card { margin: auto; }` (or collapse the controls list on small screens). Also: the main.js hook lines for spec 23 are 2 lines (import + `initAchievements(window.game)` after `window.game = new Game()`); everything else observes `window.game` (method names listed under *Progression* in 01-architecture).
 _(other roles write needed changes here)_

@@ -59,6 +59,9 @@ Source: `game/FEEDBACK.md` "Round 4 play-test" notes 1–27 (+ any that follow),
 | 48, 56, 68 | spots | Pike Place / Seattle Center (and all spots): streets replaced by terrain blobs — ground from OSM streets/pavements; lit windows via the shared building shader; non-overlapping bubbles; only place-appropriate lines. |
 | 20, 27 | spots | Terrain flattened under paved esplanades/plinths (Parliament), no camera roll on slopes; crowds on the walkable surface (steps), never inside colliders. |
 
+## P1 — game structure (owner decision)
+| 75 | gameplay (+ cockpit-ui style, progression) | One game, two modes: Story ↔ Explore switchable in place from the pause menu; shared world-map hub (all districts + spots as pins, the flight between cities); main menu Continue · New story · Explore; shared progress/achievements. Supersedes the free-roam menu section. |
+
 ## P2 — gameplay features
 | 57 | research + spots + progression | Activities at every landmark/spot (e.g. Space Needle elevator → The Loupe rotating floor → open deck view), researched real experiences only, each with an achievement in a new Landmarks category. |
 | Notes | Owner | Work |

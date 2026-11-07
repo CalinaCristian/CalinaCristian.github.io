@@ -1476,7 +1476,11 @@ export async function buildWorld(city, renderer, opts = {}) {
     for (const [n, o] of padCorners) {
         const c = cellOf(n.x, n.z);
         const ly = Math.max(0, Math.min(...n.edges.map(layerY)));
-        if (o.side.length >= 3) c.ground.flatFan(convexHull(o.side), Y.side + ly - 0.004 + n.y, sideCol, 0.25);
+        if (o.side.length >= 3) { // (sloped like the pad: a flat sidewalk hull would poke through a pad on a grade)
+            const hull = convexHull(o.side), mb = c.ground, base = mb.vc;
+            hull.forEach(([x, z]) => mb.v(x, Y.side + ly - 0.004 + padHeightAt(n, x, z), z, 0, 1, 0, x * 0.25, z * 0.25, sideCol));
+            for (let k = 1; k < hull.length - 1; k++) mb.triUp(base, base + k, base + k + 1);
+        }
         if (o.road.length >= 3) {
             // (2026-11-07, world-visual) each pad corner takes the height of the approach it belongs to (a junction on
             // a grade is not a flat shelf with a 0.3–0.9 m step at every sloping mouth: the step made the rim barriers

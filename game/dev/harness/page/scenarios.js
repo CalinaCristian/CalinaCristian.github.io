@@ -689,7 +689,7 @@ async function visitSpot(H, id) {
         // the postcard challenge pose (research iconic photo)
         const ch = (S.spot?.challenges || []).find(c => c.id === id) || S.spot?.challenges?.[0];
         if (ch && C.teleport) {
-            C.teleport(ch.x, ch.z, -(ch.bearing * Math.PI / 180)); C.pitch = 0.05; C.place?.(); await H.run(0.2);
+            C.teleport(ch.x, ch.z, -(ch.bearing * Math.PI / 180)); C.pitch = (ch.pitch || 3) * Math.PI / 180; C.place?.(); await H.run(0.2); // the challenge's own pitch (look-up postcards: space-needle 60°, chihuly 45°)
             const s2 = await cam(() => g.photo.shoot());
             res.postcard = !!s2 && !!(S.progress?.postcards?.[ch.id]);
         }

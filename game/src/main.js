@@ -605,7 +605,7 @@ class Game {
         let prompt = null;
         for (const { stop, poi } of this.stopPois) {
             const d = Math.hypot((poi.doorX ?? poi.x) - player.x, (poi.doorZ ?? poi.z) - player.z);
-            if (d < 11 && v < 5) {
+            if (d < this.doorReach(poi) && v < 5) {
                 prompt = `<kbd>E</kbd> Enter <b>${stop.company}</b> ${this.visited.has(stop.id) ? '✓' : ''}`;
                 if (input.take('KeyE')) this.enterOffice(stop);
             }
@@ -926,7 +926,7 @@ class Game {
         this.audio.crash(clamp(strength / 10, 0.2, 1));
         if (what === 'vehicle' && v) { this.traffic.bump(v); this.hud.addRage(12); }
         else if (what === 'edge') { /* deck edge / trench wall: the crash sound is enough */ }
-        else if (strength > 8) this.hud.toast('💥 Ouch', 'Buildings in Bucharest do not move. Neither do double-parked cars.', 'warn');
+        else if (strength > 8) this.hud.toast('💥 Ouch', this.city.id === 'bucharest' ? 'Buildings in Bucharest do not move. Neither do double-parked cars.' : 'That was not a drive-thru. Your rental deposit just got smaller.', 'warn');
     }
 
     // ---------------------------------------------------------------------------------- dev: collision overlay
@@ -1135,6 +1135,14 @@ class Game {
         if (!this.flags.footToast) { this.flags.footToast = true; this.hud.toast('🚶 On foot', 'WASD walk · Shift run · Space jump · mouse look · Enter at the driver\'s door to get back in · E enters offices.', 'intro'); }
         this.input.flush();
         return true;
+    }
+    /** how close the car must stop to an office door: 11 m, or more when the door stands back from a wide road (a car in
+     *  the inner lane next to a kerb-side door on a 4-lane carriageway is ~13 m away) — kerb offset + 5 m, capped at 16 m */
+    doorReach(poi) {
+        if (poi._reach != null && poi._reachWorld === this.world) return poi._reach;
+        const dx = poi.doorX ?? poi.x, dz = poi.doorZ ?? poi.z, ne = this.nav?.index?.nearest(dx, dz, 40);
+        poi._reachWorld = this.world;
+        return (poi._reach = ne ? clamp(ne.d + 5, 11, 16) : 11);
     }
     /** driver's door position of the parked car */
     carDoor() { const P = this.player, w = this.carBox?.width || 1.8; return { x: P.x + P.fz * (w / 2 + 0.4) + P.fx * 0.4, z: P.z - P.fx * (w / 2 + 0.4) + P.fz * 0.4 }; }

@@ -116,7 +116,8 @@ async function enterOfficeAndRead(H, stop) {
     const g = H.g, P = g.player; const door = stop.poiRef; const res = { stop: stop.id };
     const dx = door.doorX ?? door.x, dz = door.doorZ ?? door.z;
     const d = Math.hypot(P.x - dx, P.z - dz); res.doorDist = r1(d);
-    if (d >= 11 || Math.abs(P.speed) >= 5) { H.issue('stop-unreachable', 'high', `could not stop within 11 m of the ${stop.id} door (closest ${r1(d)} m)`, { door: H.where(dx, dz) }, { shot: true, key: 'stop:' + stop.id }); res.ok = false; return res; }
+    const reach = typeof g.doorReach === 'function' ? g.doorReach(door) : 11; res.reach = r1(reach);
+    if (d >= reach || Math.abs(P.speed) >= 5) { H.issue('stop-unreachable', 'high', `could not stop within ${r1(reach)} m of the ${stop.id} door (closest ${r1(d)} m)`, { door: H.where(dx, dz) }, { shot: true, key: 'stop:' + stop.id }); res.ok = false; return res; }
     H.press('KeyE'); await H.run(0.2, () => g.state === 'office');
     if (g.state !== 'office') { H.issue('office-enter-failed', 'high', `pressed E at ${r1(d)} m from the ${stop.id} door but the office did not open`, {}, { shot: true, key: 'enter:' + stop.id }); res.ok = false; return res; }
     const o = g.office; const st = o.stations?.[0];

@@ -55,7 +55,7 @@ export default {
         const T0 = g.heightAt(0, 0); g.mod((x, z, h) => T0 + (h - T0) * 0.4);
         const grounds = osmPoly(d, 'w38236017') || [[-55, -34], [-23, 7], [51, -49], [19, -90]];
         const yG = g.heightAt(...centroid(grounds)); g.flatten(grounds, yG, 6);
-        const b = new GeoBatch(), WALL = '#dad5c8', TRIM = '#ece8de', ROOF = '#a0503a';
+        const b = new GeoBatch(), WALL = '#dad5c8', TRIM = '#ece8de', ROOF = '#8c4a35';
         const fMain = classicFacade('primaverii', [{ t: 'arch', w: 0.44, top: 0.16, bottom: 0.1, pil: true }, { t: 'rect', w: 0.36, top: 0.22, pil: true }, { t: 'blank' }, { t: 'blank' }], { bay: 3.8, floor: 4.3, glass: '#3a2e26', lit: 0.55 });
         const main = d.buildings.find((x) => x.id === 'w549676146'), pool = d.buildings.find((x) => x.id === 'w549676153');
         let M0 = null;
@@ -66,7 +66,7 @@ export default {
             classicWalls(b, fMain, bd.poly, y + 0.6, y + H, WALL, y + 0.6);
             b.prism(grow(bd.poly, 0.7), y + H - 0.5, y + H, TRIM, 'stone', { noTop: true });
             if (isPool) { b.flat(bd.poly, y + H, '#8f8a82', 'roofs'); balustrade(b, grow(bd.poly, 0.3), y + H, 1.0, { closed: true }); }
-            else { hipRoof(b, bd.poly, y + H, 4.2, ROOF, 1.1); M0 = { o: obb(bd.poly), y }; }
+            else { b.prism(grow(bd.poly, 1.0), y + H, y + H + 0.35, '#5a3a2a', 'wood', { noTop: true, bottom: true }); hipRoof(b, bd.poly, y + H + 0.35, 3.6, ROOF, 1.0); M0 = { o: obb(bd.poly), y }; }
             ctx.poly(bd.poly, { y0: y - 1, y1: y + H + 5 });
         }
         // garden terrace with balustrade along the main building's garden side (toward the pool wing)
@@ -106,8 +106,8 @@ export default {
             personas: { tourist_uk: 2, tourist_de: 2, tourist_us: 2, local_elder: 1.5, local_young: 1 },
             walkers: 14, paths: ctx.footLines(),
             groups: [
-                { x: inG.x - 3, z: inG.z + 2, r: 3, n: 8, act: 'watch', look: M0 ? [M0.o.cx, M0.o.cz] : [0, -30], personas: ['tourist_uk', 'tourist_de', 'tourist_us'], y: yG },
-                { x: inG.x - 6, z: inG.z - 2, r: 0.3, n: 1, act: 'guide', look: [inG.x - 3, inG.z + 2], personas: ['tour_guide'], y: yG },
+                { x: inG.x - 12, z: inG.z + 9, r: 3, n: 8, act: 'watch', look: M0 ? [M0.o.cx, M0.o.cz] : [0, -30], personas: ['tourist_uk', 'tourist_de', 'tourist_us'], y: yG },
+                { x: inG.x - 15, z: inG.z + 5, r: 0.3, n: 1, act: 'guide', look: [inG.x - 12, inG.z + 9], personas: ['tour_guide'], y: yG },
                 { x: gmx - (centroid(grounds)[0] - gmx) * 0.08, z: gmz - (centroid(grounds)[1] - gmz) * 0.08, r: 0.3, n: 1, act: 'watch', personas: ['guard'] },
                 { x: -20, z: -130, r: 0.3, n: 1, act: 'watch', personas: ['guard'] },
             ],

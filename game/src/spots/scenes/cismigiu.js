@@ -25,7 +25,7 @@ export default {
         if (lake) { ctx.skipAreas.add('w16292044'); let s = 0; for (const [x, z] of lake) s += g.heightAt(x, z); level = s / lake.length - 1.1; ctx.water(level, polyBox(lake), [lake], { color: '#3f5a52', depth: 1.6 }); }
         const b = new GeoBatch(), signs = [];
         // lake edge: stone kerb + low railing; weeping willows leaning over the water
-        if (lake) { const L = [...lake, lake[0]]; for (let i = 1; i < L.length; i++) { const [ax, az] = L[i - 1], [bx, bz] = L[i], Ln = Math.hypot(bx - ax, bz - az); if (Ln < 0.2) continue; const cx = (ax + bx) / 2, cz = (az + bz) / 2; b.box(cx, level - 0.6, cz, 0.45, 1.0, Ln + 0.1, '#a7a196', 'stone', Math.atan2(bx - ax, bz - az)); }
+        if (lake) { const L = [...lake, lake[0]];
             const lw = offsetPolyline(L, polyArea(lake) > 0 ? -1.4 : 1.4); railing(b, lw, (x, z) => g.heightAt(x, z), { h: 0.7, post: 2.6, color: '#2a2e2c', r: 0.025 });
             for (let i = 1; i < lw.length; i++) { const [ax, az] = lw[i - 1], [bx, bz] = lw[i]; ctx.collider({ wall: true, ax, az, bx, bz, y0a: level - 3, y1a: level + 4, y0b: level - 3, y1b: level + 4, x: (ax + bx) / 2, z: (az + bz) / 2, r: Math.hypot(bx - ax, bz - az) / 2 + 0.5 }); }
             for (let i = 0; i < L.length; i += 6) { const [x, z] = L[i], o = offsetPolyline(L.slice(Math.max(0, i - 1), i + 2), polyArea(lake) > 0 ? -4.5 : 4.5)[Math.min(1, i)] || [x, z]; if (r() < 0.55) ctx.trees.push({ x: o[0], z: o[1], kind: 'broad', s: 1.3 + r() * 0.4, sy: 0.85, sx: 1.25, c: r.pick(['#8aa04a', '#94a852', '#7d9640']) }); }
@@ -47,7 +47,7 @@ export default {
         // the Writers' Rotunda: 12 busts on plinths round a paved circle
         const rot = d.pois.find((p) => p.id === 'n473428600') || { x: -162.6, z: 27.1 };
         { const y = g.heightAt(rot.x, rot.z); ctx.painter.custom((x, T, k) => { const [px, py] = T(rot.x, rot.z); x.fillStyle = '#b8b0a2'; x.beginPath(); x.arc(px, py, 13 * k, 0, 7); x.fill(); x.fillStyle = '#6c8a44'; x.beginPath(); x.arc(px, py, 5 * k, 0, 7); x.fill(); });
-            WRITERS.forEach((nm, i) => { const a = i / 12 * Math.PI * 2, x = rot.x + Math.cos(a) * 10.5, z = rot.z + Math.sin(a) * 10.5, yaw = Math.atan2(rot.x - x, rot.z - z); b.box(x, y, z, 0.8, 1.6, 0.8, '#d8d4cb', 'stone', yaw); b.sphere(x, y + 2.05, z, 0.38, 0.3, 0.28, '#f1efe9', 'stone', 10, 7); b.sphere(x, y + 2.55, z, 0.19, 0.24, 0.21, '#f1efe9', 'stone', 10, 8); ctx.circle(x, z, 0.5, 2.8); signs.push({ x: x + Math.sin(yaw) * 0.42, y: y + 1.05, z: z + Math.cos(yaw) * 0.42, yaw, w: 0.78, h: 0.24, text: nm.toUpperCase(), bg: '#d8d4cb', fg: '#2a2a2a', border: false }); });
+            WRITERS.forEach((nm, i) => { const a = i / 12 * Math.PI * 2, x = rot.x + Math.cos(a) * 10.5, z = rot.z + Math.sin(a) * 10.5, yaw = Math.atan2(rot.x - x, rot.z - z); b.box(x, y, z, 0.7, 1.75, 0.7, '#d8d4cb', 'stone', yaw); b.box(x, y + 1.75, z, 0.82, 0.1, 0.82, '#e4e0d7', 'stone', yaw); b.sphere(x, y + 2.02, z, 0.42, 0.2, 0.24, '#f1efe9', 'stone', 10, 6); b.cyl(x, y + 2.1, z, 0.08, 0.16, '#f1efe9', 'stone', 8); b.sphere(x, y + 2.42, z, 0.15, 0.19, 0.17, '#f1efe9', 'stone', 10, 8); ctx.circle(x, z, 0.5, 2.8); signs.push({ x: x + Math.sin(yaw) * 0.42, y: y + 1.05, z: z + Math.cos(yaw) * 0.42, yaw, w: 0.78, h: 0.24, text: nm.toUpperCase(), bg: '#d8d4cb', fg: '#2a2a2a', border: false }); });
             for (let i = 0; i < 12; i++) { const a = (i + 0.5) / 12 * Math.PI * 2; bench(b, rot.x + Math.cos(a) * 12.6, y, rot.z + Math.sin(a) * 12.6, Math.atan2(rot.x - (rot.x + Math.cos(a)), rot.z - (rot.z + Math.sin(a))), '#6e5a42', '#2e3236'); } }
         // "La Șahiști": concrete chess tables, players, onlookers
         const ch = d.pois.find((p) => p.id === 'n473428599') || { x: -134.5, z: 78.6 };
@@ -64,6 +64,14 @@ export default {
         const park = osmPoly(d, 'w16291869');
         if (park) { for (const w of d.ways) { if (!['footway', 'path'].includes(w.k) || !w.pts.some(([x, z]) => inPoly(x, z, park))) continue; for (let i = 1; i < w.pts.length; i++) { const [ax, az] = w.pts[i - 1], [bx, bz] = w.pts[i], L = Math.hypot(bx - ax, bz - az); if (L < 1) continue; const nx = -(bz - az) / L, nz = (bx - ax) / L; for (let t = r() * 10; t < L; t += 9 + r() * 5) for (const sd of [-1, 1]) { if (r() < 0.35) continue; const x = ax + (bx - ax) * t / L + nx * sd * (3.6 + r() * 2), z = az + (bz - az) * t / L + nz * sd * (3.6 + r() * 2); if (lake && (inPoly(x, z, lake) || distPolyline(x, z, [...lake, lake[0]]).d < 2.5)) continue; if (Math.hypot(x - rot.x, z - rot.z) < 15 || Math.hypot(x - ch.x, z - ch.z) < 7) continue; ctx.trees.push({ x, z, kind: r() < 0.08 ? 'con' : 'broad', s: 1.2 + r() * 0.6 }); } } } }
         ctx.trees = ctx.trees.filter((t) => !(lake && inPoly(t.x, t.z, lake)));
+        // keep the alleys clear (no trunks on the paths) and the postcard view along the lake open
+        const paths = d.ways.filter((w) => ['footway', 'path', 'pedestrian', 'cycleway', 'service'].includes(w.k));
+        ctx.trees = ctx.trees.filter((t) => !paths.some((w) => distPolyline(t.x, t.z, w.pts).d < 2.6));
+        const ic = sp.photo.iconic; let shore = { x: ic.x, z: ic.z };
+        if (lake) { const q = distPolyline(ic.x, ic.z, [...lake, lake[0]]), [lx, lz] = centroid(lake), inside = inPoly(ic.x, ic.z, lake); const ox = q.cx - lx, oz = q.cz - lz, L = Math.hypot(ox, oz) || 1; shore = { x: q.cx + ox / L * 3.2, z: q.cz + oz / L * 3.2 }; void inside; }
+        const view = (t) => { const a = (320 * Math.PI) / 180, fx = Math.sin(a), fz = -Math.cos(a), u = (t.x - shore.x) * fx + (t.z - shore.z) * fz; if (u < -3 || u > 120) return true; const v = Math.abs((t.x - shore.x) * fz - (t.z - shore.z) * fx); return v > 3 + u * 0.18; };
+        ctx.trees = ctx.trees.filter(view);
+        ctx.extras.shore = shore;
         // benches in pairs along the lake path
         if (lake) { const bb2 = new GeoBatch(), L = offsetPolyline([...lake, lake[0]], polyArea(lake) > 0 ? -4.2 : 4.2); for (let i = 3; i < L.length; i += 9) { const [x, z] = L[i], [x2, z2] = L[i - 1], a = Math.atan2(x2 - x, z2 - z) + Math.PI / 2, y = g.heightAt(x, z); if (Math.hypot(x - ch.x, z - ch.z) < 8) continue; bench(bb2, x, y, z, a); ctx.box(x, z, 0.9, 0.3, a, { prop: true, h: 0.45 }); } ctx.add(bb2.build('lake-benches')); }
         cityFiller(ctx, { ring: 600 });
@@ -76,7 +84,7 @@ export default {
         ctx.plaque(PL[4], -40, 40, Math.PI / 2, { style: 'park' });
         ctx.interactables.push({ x: ch.x + 4.5, z: ch.z, r: 3, label: 'Watch a chess game at "La Șahiști"', use: (s) => { const lines = ['„Nu muta calul acolo, domnule!" — "Don\'t move the knight there, sir!"', '„Șah! Și mat în trei." — "Check! And mate in three."', '„Pe vremea mea se juca șah adevărat." — "In my day we played real chess."']; s.ui.toast('♟ La Șahiști', lines[Math.floor(Math.random() * lines.length)]); } });
         if (!winter) ctx.interactables.push({ x: -150, z: -100, r: 5, label: 'Rent a rowing boat (summer)', use: (s) => s.ui.toast('🚣 Debarcader', 'Boats are rented by the hour from the landing — row round the island.') });
-        ctx.challenge('cismigiu', { r: 12, tol: 30 });
+        ctx.challenge('cismigiu', { x: ctx.extras.shore.x, z: ctx.extras.shore.z, r: 12, tol: 30 });
         // crowd
         ctx.crowdCfg = {
             personas: { local_elder: 3.5, local_young: 3, local_parent: 2, kid: 1.4, tourist_fr: 1, tourist_it: 1 },
@@ -90,6 +98,6 @@ export default {
             ],
         };
         ctx.sound('birds', -60, 0, 160, 1); ctx.sound('water', -60, 20, 70, 0.4); ctx.sound('crowd', ch.x, ch.z, 25, 0.5); ctx.sound('traffic', 30, 230, 120, 0.6); ctx.sound('crows', -100, -100, 160, 0.5);
-        ctx.spawns['cismigiu'] = { x: sp.spawn.x, z: sp.spawn.z, heading: headingFromBearing(320) };
+        ctx.spawns['cismigiu'] = { x: ctx.extras.shore.x + 4, z: ctx.extras.shore.z + 5, heading: headingFromBearing(320) };
     },
 };

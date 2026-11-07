@@ -65,7 +65,7 @@ function woodenChurch(b, ctx, bd) {
 function bust(b, ctx, p, r) {
     const y = ctx.ground.heightAt(p.x, p.z), stone = r() < 0.6, col = stone ? '#d6d1c6' : '#3f4a3c', a = r() * 6.28;
     b.box(p.x, y, p.z, 0.9, 1.7, 0.9, '#bdb6a8', 'stone', a); b.box(p.x, y + 1.7, p.z, 1.0, 0.12, 1.0, '#cfc8ba', 'stone', a);
-    b.sphere(p.x, y + 2.2, p.z, 0.42, 0.3, 0.3, col, stone ? 'stone' : 'bronze', 10, 7); b.cyl(p.x, y + 2.35, p.z, 0.12, 0.22, col, stone ? 'stone' : 'bronze', 8); b.sphere(p.x, y + 2.75, p.z, 0.2, 0.25, 0.22, col, stone ? 'stone' : 'bronze', 10, 8);
+    b.sphere(p.x, y + 1.95, p.z, 0.44, 0.2, 0.25, col, stone ? 'stone' : 'bronze', 10, 6); b.cyl(p.x, y + 2.03, p.z, 0.08, 0.16, col, stone ? 'stone' : 'bronze', 8); b.sphere(p.x, y + 2.35, p.z, 0.15, 0.19, 0.17, col, stone ? 'stone' : 'bronze', 10, 8);
     ctx.circle(p.x, p.z, 0.55, 2.9);
     return { x: p.x + Math.sin(a) * 0.47, y: y + 1.1, z: p.z + Math.cos(a) * 0.47, yaw: a, w: 0.85, h: 0.26, text: (p.name || '').replace(/ (bust|statue)$/i, ''), bg: '#d8d2c4', fg: '#2a2a2a', border: false };
 }

@@ -399,7 +399,7 @@ export class Traffic {
         return k;
     }
     /** the highest lane index a non-bus may use on (e, dir): the outermost lane is a bus lane where the edge has one */
-    carLaneMax(e, dir) { const n = lanesDir(e, dir) || 1; return e.busLane && n > 1 && !isMotorway(e) ? n - 2 : n - 1; }
+    carLaneMax(e, dir, v = null) { const n = lanesDir(e, dir) || 1; return e.busLane && n > 1 && !isMotorway(e) && !v?.busLaneOk ? n - 2 : n - 1; }
 
     // ------------------------------------------------------------------ bus stops
     buildBusStops() {
@@ -527,6 +527,7 @@ export class Traffic {
             speed: 0, desiredMul: this.isBusKind(kind) || kind === 'truck' ? this.rng.range(0.85, 0.95) : this.rng.range(lo, hi),
             stuck: 0, honkAt: this.rng.range(2.5, 7) / (0.3 + this.chaos), honkCd: 0,
             laneCur: lane, lateralExtra: 0, latExtraCur: 0, parked: false, tram: /tram/.test(kind), bus: this.isBusKind(kind), trolley: /trolley/.test(kind), isPolice: kind === 'police',
+            busLaneOk: this.buc && kind === 'taxi' ? true : this.rng() < (this.buc ? 0.3 : 0.03), // taxis may use STB bus lanes; some drivers just do
             bubbleCd: 0, annoyed: 0, route: [], ghost: 0, odo: 0, stopDone: null, stopTimer: 0, bypass: null, bypassT: 0, dwell: 0, served: null,
             x: 0, z: 0, y: 0.24, heading: 0, fx: 0, fz: 1, rx: 1, rz: 0, layer: layerOf(edge),
             laneChangeCd: this.rng.range(1, 6), leader: null, gap: Infinity,
@@ -685,7 +686,7 @@ export class Traffic {
             const s = v.parked ? this.rng.range(15, e.len - 15) : this.rng.range(Math.min(4, e.len / 2), Math.max(e.len / 2, e.len - 4));
             if (v.parked && junctionDist(e, dir > 0 ? s : e.len - s) < 30) continue;
             v.edge = e; v.dir = dir; v.s = s; v.route.length = 0; v.layer = layerOf(e); v.latBlend = 0;
-            v.lane = v.laneCur = v.parked || v.bus ? lanes - 1 : this.rng.int(0, this.carLaneMax(e, dir));
+            v.lane = v.laneCur = v.parked || v.bus ? lanes - 1 : this.rng.int(0, this.carLaneMax(e, dir, v));
             v.speed = v.parked ? 0 : Math.min(edgeSpeed(e) * 0.7, 8); v.stuck = 0; v.still = 0; v.touchT = 0; v.blockT = 0; v.ghost = 0; v.bypass = null; v.served = null; v.dwell = 0;
             if (!v.parked) v.latExtraCur = v.lateralExtra = 0; else v.latExtraCur = v.lateralExtra = (e.laneW ?? 3.3) * 0.55;
             this.placeOnLane(v, true, 0);
@@ -768,7 +769,7 @@ export class Traffic {
         const lanes = lanesDir(nx.e, nx.dir) || 1;
         if (v.bus) v.lane = lanes - 1;
         else if (lanes > lanesDir(e, odir) && this.buc && this.rng() < 0.12) { const l = this.rng.int(0, lanes - 1); if (Math.abs(l - v.lane) <= 1 && l < lanes && this.laneFree(v, l)) v.lane = l; }
-        v.lane = clamp(v.lane, 0, v.bus || v.tram || v.isPolice ? lanes - 1 : this.carLaneMax(nx.e, nx.dir));
+        v.lane = clamp(v.lane, 0, v.bus || v.tram || v.isPolice ? lanes - 1 : this.carLaneMax(nx.e, nx.dir, v));
         v.laneCur = clamp(v.laneCur, 0, lanes - 1);
         if (nx.uturn) { v.laneCur = v.lane; v.transition = 1.2; v.latBlend = 0; }
         else {
@@ -1080,7 +1081,7 @@ export class Traffic {
             if (v.bus && v.lane !== lanes - 1) want = true;
             if (want) {
                 let options = v.bus ? [lanes - 1 > v.lane ? v.lane + 1 : v.lane - 1] : [v.lane - 1, v.lane + 1];
-                const lmax = v.bus ? lanes - 1 : this.carLaneMax(v.edge, v.dir);
+                const lmax = v.bus ? lanes - 1 : this.carLaneMax(v.edge, v.dir, v);
                 options = options.filter(l => l >= 0 && l <= lmax && l !== v.lane);
                 if (this.rng() < 0.5) options.reverse();
                 let done = false;

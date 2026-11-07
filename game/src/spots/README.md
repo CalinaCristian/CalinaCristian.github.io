@@ -1,7 +1,7 @@
 # Tourist spots framework (spec 15)
 
-Walk-only, high-fidelity bonus scenes built from the research dossiers (spec 20). Seattle 10 + Bellevue 4 are
-done on this framework; Bucharest's 10 are added the same way (see *Adding a spot*). Owner role: **spots**
+Walk-only, high-fidelity bonus scenes built from the research dossiers (spec 20). Seattle 10 + Bellevue 4 and
+Bucharest 10 (7 scenes) are built on this framework (see *Adding a spot* and *Bucharest*). Owner role: **spots**
 (`game/src/spots/*`, `game/data/spots/*`, `game/dev/spots.html`).
 
 ## Quick start
@@ -64,6 +64,8 @@ Progress (postcards, coins, gum…) is kept in `localStorage['dmcv.spots.v1']`.
 | `sound.js` | `SpotSound`: procedural positional ambience (traffic, crowd, water, waterfall, wind, birds, gulls, crows, bells, market calls, bridge thumps) + one-shots |
 | `cars.js` | light traffic loops + parked cars (vehicles.js models) |
 | `walker.js` | collider spatial index, collisions, `LocalWalker` fallback |
+| `buc.js` | Bucharest kit: `bucBackdrop` (eclectic / bloc / interwar façades, white centre lines, lanterns / candelabras, tree LOD), `classicFacade` + `classicWalls` (canvas façade tiles for heroes: arcades, arched / pedimented windows, pilasters, niches, brick-band stripes, floodlit at night), `balustrade`, `palisade`, `hedge`, `flagpole` (RO / EU / NATO, waving in the real wind), `placeLandmark` (landmarks.js models at their lat/lon), `floodlight`, `signAtlas` (all shop signs in one draw call), `oldTownTerraces` (pergolas + awnings + tables in front of OSM bars), `cityFiller` (blocks beyond the OSM extract) |
+| `tools/fetch-buc.mjs` | Bucharest sources: Overpass OSM extract + EU-DEM terrain (OpenTopoData, opened to bare earth) per scene, cached in `$SPOTS_OSM_CACHE` (default `<tmp>/dmcv-spots-osm/buc`), never in git |
 
 ## Coordinates
 
@@ -103,6 +105,26 @@ Colliders use the `world.js` formats (polygon `{x,z,r,poly}`, oriented box `{x,z
    side, keep ≤ 1 M triangles (the dev stats show scene / drawn triangles) and load < 3 s.
 
 Data caveats: the OSM extracts drop multipolygon inner rings (a lake around a park becomes one big polygon) — derive shorelines from the terrain grid (`g.mod((x,z,h) => h < level ? …)`) and let the water plane draw the water; linear waterways are painted as lines. Research coordinates (iconic photo points) can fall inside buildings or water: `loadSpot` moves spawns and challenge poses to the nearest dry spot; check them in the dev page.
+
+## Bucharest
+
+Scenes: `buc-parliament` (palace-parliament + peoples-salvation-cathedral), `buc-old-town` (old-town-lipscani +
+stavropoleos-cec), `athenaeum-revolution`, `arcul-de-triumf`, `buc-herastrau` (herastrau-park + village-museum),
+`spring-palace`, `cismigiu`. The research dossier (`bucharest-spots.json`) has its own schema: `build-data.mjs`
+adapts it (`bucSpot`: spawn from `SCENES[].spawns`, extent from `footprint`, postcard from `photo_angle`, plaque
+titles from `BUC_TITLES`; `bucDialogue`: persona lines → `{p, ctx, text (en), orig, lang}` plus `when` /
+`wx` / `season` tags derived from the text — the crowd prefers lines that fit the spot's local time, the real
+weather and the season). OSM + terrain are fetched by `tools/fetch-buc.mjs` (Overpass + EU-DEM; run automatically
+by the builder when the cache is missing; needs `NODE_USE_ENV_PROXY=1` behind a proxy). Romania has no freedom of
+panorama: every building and artwork is modelled (canvas façade tiles are drawn procedurally, never photos);
+architects / sculptors are credited on the plaques. Heroes: own models for the Palace of the Parliament (OSM parts:
+29 / 58 / 86 m tiers, east portico), the People's Salvation Cathedral (section-drawing heights, ribbed gilded
+domes), Cărturești Carusel (enterable 5-level white atrium, E at the stair), Hanul lui Manuc (courtyard, gate),
+Stavropoleos (porch, painted frieze, tower), Curtea Veche, the Dragomirești wooden church + peasant households,
+Spring Palace (+ peacocks); landmarks.js models (floodlit) for Arcul de Triumf, Ateneul Român (frieze plate
+"ATHENEUL ROMAN"), Palatul Regal, CEC, MNIR. New spots go to `DEV_SPOTS` (loadable in the dev page, not listed)
+until verified, then move to `SPOTS`. Tree LOD: `ctx.treeLod = { cap, near, max }` (Bucharest scenes) keeps
+the `max` trees within `near` m of the camera at full detail, the rest low-poly.
 
 Rules (spec 15): artworks are modelled in 3-D from the research description (no photo textures) and credited on a
 plaque; dialogue comes from the research (`spots[].dialogue`, translation under non-English lines); keep

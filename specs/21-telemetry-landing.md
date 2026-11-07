@@ -28,3 +28,4 @@ Implementation notes: spots/* and photo.js call `cvTelemetry.track` themselves (
 Opt-in "🎮 Play my CV — discover my career interactively" CTA (pill + card footer); lightweight background (owner's choice still pending: plain dark gradient / tech texture / light theme / own photo; keep or drop the bouncing balls).
 
 ## Progress log
+- 2026-11-07 04:12 UTC (gameplay, grant this round): events above implemented in `game/src/telemetry-game.js`; verified with a capturing `cvTelemetry` stub in Playwright: `chapter_select {id:'luxoft', source:'menu'}`, `chapter_start {id:'luxoft', n:4, district:'pipera', …}`, `chapter_complete {id:'luxoft', minutes:0.9, …}`, `chapter_start {id:'db', n:5, district:'pipera'}`, `on_foot {action:'enter', district:'floreasca'}`, `spot_enter {id:'fremont-troll', city:'seattle', from:'foot'}`, `spot_leave {id:'fremont-troll', seconds:9}`; no free text or coordinates in any of them. Existing events unchanged.

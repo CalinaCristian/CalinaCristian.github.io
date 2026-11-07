@@ -719,3 +719,39 @@ async function visitSpot(H, id) {
     try { ids = (await import('../../../src/spots/index.js')).SPOTS.map(s => s.id); } catch (e) { console.warn('[harness] spots module', e); }
     for (const id of ids) SCENARIOS.push({ id: 'spots:' + id, group: 'spots', title: `Tourist spot ${id}: enter from the drive, walk, photo + postcard pose, pause → leave, drive restored`, city: 'bucharest', run: (H) => visitSpot(H, id) });
 }
+
+// ---------------------------------------------------------------- the Bellevue finale at legal speed (spec 10: ≤ 3 min)
+SCENARIOS.push({
+    id: 'fin', title: 'Bellevue finale (13:00): drive the chapter route at legal speed from the start to the UiPath door; time ≤ 180 s, no junction gridlock', city: 'bucharest',
+    async run(H) {
+        const g = H.g; const idx = (g.chapters || []).findIndex(c => c.id === 'uipath-bel');
+        if (idx < 0) { H.note('no uipath-bel chapter: skipped'); return { skipped: true }; }
+        const prevHour = g.clock.trafficHour; g.clock.trafficHour = 13;
+        await g.enterChapter(idx, { initial: true }); H.lampSet = null;
+        g.traffic.setHour(13, true); H.refuelInstant(); g.navManual = false; g.autoRoute(true);
+        await H.run(1);
+        const stop = g.stops.find(s => s.id === 'uipath-bel'); const o = stop?.poiRef; if (!o) return { skipped: 'no door' };
+        const res = { route: g.nav.route ? Math.round(g.nav.route.total) : null, via: g.nav.route ? [...new Set(g.nav.route.legs.map(l => roadName(l.e)))].slice(0, 8) : null };
+        // junction watch: NPCs standing still inside a junction box for > 20 s
+        const stuckIn = new Map(); let worst = 0, worstAt = null;
+        const watch = () => {
+            for (const v of g.traffic.vehicles) {
+                if (v.parked) continue;
+                const n = v.s < 6 ? (v.dir > 0 ? v.edge.a : v.edge.b) : v.edge.len - v.s < 6 ? (v.dir > 0 ? v.edge.b : v.edge.a) : null;
+                if (n && n.hasLight && Math.abs(v.speed) < 0.2) { const t = (stuckIn.get(v) || 0) + H.dt * 15; stuckIn.set(v, t); if (t > worst) { worst = t; worstAt = { x: Math.round(v.x), z: Math.round(v.z), why: v.stopWhy || null, road: roadName(v.edge) }; } }
+                else stuckIn.delete(v);
+            }
+            return false;
+        };
+        const t0 = H.scT;
+        const origStep = H.stepOnce.bind(H); H.stepOnce = (dt) => { origStep(dt); if (H.mon.steps % 15 === 0) watch(); };
+        try { res.drive = await H.driveTo(o.doorX ?? o.x, o.doorZ ?? o.z, { label: 'bellevue finale', arriveR: 9, timeout: 300, stop: true }); }
+        finally { H.stepOnce = origStep; }
+        res.seconds = r1(H.scT - t0); res.junctionStillMax = r1(worst); res.junctionStillAt = worstAt;
+        res.shot = await H.shot('fin-arrived');
+        if (res.seconds > 180) H.issue('finale-too-long', 'medium', `Bellevue finale took ${res.seconds} s at legal speed (spec ≤ 180 s)`, {}, { key: 'fin-time' });
+        if (worst > 45) H.issue('junction-gridlock', 'high', `an NPC stood ${r1(worst)} s at a signalised junction on the finale route (${worstAt?.road}, ${worstAt?.why})`, worstAt || {}, { shot: true, key: 'fin-grid' });
+        g.clock.trafficHour = prevHour;
+        return res;
+    },
+});

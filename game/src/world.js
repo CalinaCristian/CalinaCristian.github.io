@@ -1,7 +1,7 @@
 import * as THREE from '../vendor/three.module.min.js';
 import { makeRng, distPointSeg, pointInPolygon, clamp, makeCanvasTexture, landmarkHelpers } from './util.js';
 import { makeTextures } from './buildings.js';
-import { makeVehicle, CAR_COLORS } from './vehicles.js';
+import { makeVehicle, CAR_COLORS, makeParkedCars } from './vehicles.js';
 import { projector, CHAPTERS } from './cities.js';
 import { STOPS } from './data.js';
 import { MeshBuilder, rgb, shadeRgb, prep, mergeProps, bakeProp, UNIT_BOX } from './geobuild.js';
@@ -319,7 +319,7 @@ const carPropCache = new Map();
 function carProps(kind, color) {
     const key = kind + color;
     let p = carPropCache.get(key); if (p) return p;
-    const grp = makeVehicle(kind, color);
+    const grp = makeVehicle(kind, color, { lod: 'parked' }); // (static props: the ~250-tri parked model)
     grp.updateMatrixWorld(true);
     const list = [];
     grp.traverse(o => {
@@ -868,6 +868,8 @@ export async function buildWorld(city, renderer, opts = {}) {
         for (const e of edges) if (!e.bridge && Math.max(Math.abs(e.ya), Math.abs(e.yb)) > 0.3) e.sidewalk = Math.min(e.sidewalk, 0.5);
     }
     const yAlong = (e, x, z) => { const t = clamp(((x - e.a.x) * e.dirx + (z - e.a.z) * e.dirz) / e.len, 0, 1); return e.ya + (e.yb - e.ya) * t; };
+    /** height of junction n's pad at (x, z): the profile of the nearest approach there (n.y on flat junctions) */
+    const padHeightAt = (n, x, z) => { let best = null, bd = Infinity; for (const e of n.edges) { if (e.virtual) continue; const d = distPointSeg(x, z, e.a.x, e.a.z, e.b.x, e.b.z).d; if (d < bd) { bd = d; best = e; } } return best ? yAlong(best, x, z) : n.y; };
 
     // ---- traffic lights: move stop-line signals onto the junction they control, then cluster
     for (const n of nodeArr) {
@@ -1140,7 +1142,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         const ins = (o, poly) => { let x0 = Infinity, z0 = Infinity, x1 = -Infinity, z1 = -Infinity; for (const [x, z] of poly) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); } Object.assign(o, { poly, x0, z0, x1, z1 }); surfGrid.insert(x0, z0, x1, z1, o); };
         for (const [e, poly] of ribPoly) ins({ e, h: (x, z) => yAlong(e, x, z) }, poly);
-        for (const [n, pts] of padPts) if (pts.length >= 3) ins({ node: n, h: () => n.y }, convexHull(pts));
+        for (const [n, pts] of padPts) if (pts.length >= 3) ins({ node: n, h: (x, z) => padHeightAt(n, x, z) }, convexHull(pts));
     }
     /** is (x, z) at height y well inside a road surface other than edge e's own ribbon? (inset m from its rim) */
     // prio (markings): where two carriageways overlap in plan (a ramp along its motorway at a split / merge, the two
@@ -1328,9 +1330,17 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (e.bridge) {
             for (const s of [1, -1]) {
                 const pa = corner(e, e.a, s, widthAsphalt(e, s) + 0.3, widthAsphalt), pb = corner(e, e.b, s, widthAsphalt(e, s) + 0.3, widthAsphalt);
-                c.solid.wall(pa[0], pa[1], pb[0], pb[1], yR, yR + 1.1, e.nx * s, e.nz * s, rgb('#9aa3ad'));
-                c.solid.wall(pa[0], pa[1], pb[0], pb[1], yR, yR + 1.1, -e.nx * s, -e.nz * s, rgb('#8a939d'));
-                c.solid.flatQuad(pa[0], pa[1], pb[0], pb[1], pb[0] + e.nx * s * 0.3, pb[1] + e.nz * s * 0.3, pa[0] + e.nx * s * 0.3, pa[1] + e.nz * s * 0.3, yR + 1.1, rgb('#b0b8c0'), 0, -1);
+                // in ~3 m pieces; a piece standing on another deck / carriageway at this level (two ways mapped side by
+                // side on one viaduct, a merging ramp) is left out — no parapet fins across a deck (upb route, Basarab)
+                const L = Math.hypot(pb[0] - pa[0], pb[1] - pa[1]), k = Math.max(1, Math.ceil(L / 3));
+                for (let j = 0; j < k; j++) {
+                    const A = [pa[0] + (pb[0] - pa[0]) * j / k, pa[1] + (pb[1] - pa[1]) * j / k], B = [pa[0] + (pb[0] - pa[0]) * (j + 1) / k, pa[1] + (pb[1] - pa[1]) * (j + 1) / k];
+                    const mx = (A[0] + B[0]) / 2, mz = (A[1] + B[1]) / 2;
+                    if (coveredByOther(mx, mz, e, yAlong(e, mx, mz), 0.1)) continue;
+                    c.solid.wall(A[0], A[1], B[0], B[1], yR, yR + 1.1, e.nx * s, e.nz * s, rgb('#9aa3ad'));
+                    c.solid.wall(A[0], A[1], B[0], B[1], yR, yR + 1.1, -e.nx * s, -e.nz * s, rgb('#8a939d'));
+                    c.solid.flatQuad(A[0], A[1], B[0], B[1], B[0] + e.nx * s * 0.3, B[1] + e.nz * s * 0.3, A[0] + e.nx * s * 0.3, A[1] + e.nz * s * 0.3, yR + 1.1, rgb('#b0b8c0'), 0, -1);
+                }
             }
         }
         // motorway barriers (only along plain stretches)
@@ -1467,7 +1477,16 @@ export async function buildWorld(city, renderer, opts = {}) {
         const c = cellOf(n.x, n.z);
         const ly = Math.max(0, Math.min(...n.edges.map(layerY)));
         if (o.side.length >= 3) c.ground.flatFan(convexHull(o.side), Y.side + ly - 0.004 + n.y, sideCol, 0.25);
-        if (o.road.length >= 3) { const hull = convexHull(o.road); c.pad.flatFan(hull, Y.road + ly + n.y, padAsphalt(n), 0.15); ribbons.push({ node: n, poly: hull }); }
+        if (o.road.length >= 3) {
+            // (2026-11-07, world-visual) each pad corner takes the height of the approach it belongs to (a junction on
+            // a grade is not a flat shelf with a 0.3–0.9 m step at every sloping mouth: the step made the rim barriers
+            // across the Bellevue 13B loop / NE 8th lanes); flat junctions are unchanged
+            const hull = convexHull(o.road), col = padAsphalt(n), mb = c.pad, u = 0.15, base = mb.vc;
+            const hs = hull.map(([x, z]) => padHeightAt(n, x, z));
+            hull.forEach(([x, z], k) => mb.v(x, Y.road + ly + hs[k], z, 0, 1, 0, x * u, z * u, col));
+            for (let k = 1; k < hull.length - 1; k++) mb.triUp(base, base + k, base + k + 1);
+            ribbons.push({ node: n, poly: hull, hs });
+        }
     }
     // ---- ribbon index: is (x, z) (± r) on a carriageway / junction pad? (tunnel ribbons do not block the surface)
     const ribGrid = new BoxGrid(24);
@@ -1531,7 +1550,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     {
         const wallGrid = [];
         const surfaceAt = (x, z, own) => { // heights of the other ribbons under (x, z)
-            const hs = []; ribGrid.each(x, z, x, z, (rb) => { if (rb.e === own || (rb.e && (rb.e.a === own.a || rb.e.b === own.b || rb.e.a === own.b || rb.e.b === own.a)) || (rb.node && (rb.node === own.a || rb.node === own.b))) return; if (x < rb.x0 || x > rb.x1 || z < rb.z0 || z > rb.z1 || !pointInPolygon(x, z, rb.poly)) return; const h = rb.e ? rb.e.a.y + (rb.e.b.y - rb.e.a.y) * clamp(((x - rb.e.a.x) * rb.e.dirx + (z - rb.e.a.z) * rb.e.dirz) / rb.e.len, 0, 1) : rb.node.y; hs.push(h); hs.tol = Math.max(hs.tol || 0, rb.e && Math.abs(rb.e.dirx * own.dirx + rb.e.dirz * own.dirz) > 0.85 ? 0 : 1); (hs.items || (hs.items = [])).push([h, rb.e && Math.abs(rb.e.dirx * own.dirx + rb.e.dirz * own.dirz) > 0.85]); }); return hs; };
+            const hs = []; ribGrid.each(x, z, x, z, (rb) => { if (rb.e === own || (rb.e && (rb.e.a === own.a || rb.e.b === own.b || rb.e.a === own.b || rb.e.b === own.a)) || (rb.node && (rb.node === own.a || rb.node === own.b))) return; if (x < rb.x0 || x > rb.x1 || z < rb.z0 || z > rb.z1 || !pointInPolygon(x, z, rb.poly)) return; const h = rb.e ? rb.e.a.y + (rb.e.b.y - rb.e.a.y) * clamp(((x - rb.e.a.x) * rb.e.dirx + (z - rb.e.a.z) * rb.e.dirz) / rb.e.len, 0, 1) : padHeightAt(rb.node, x, z); hs.push(h); hs.tol = Math.max(hs.tol || 0, rb.e && Math.abs(rb.e.dirx * own.dirx + rb.e.dirz * own.dirz) > 0.85 ? 0 : 1); (hs.items || (hs.items = [])).push([h, rb.e && Math.abs(rb.e.dirx * own.dirx + rb.e.dirz * own.dirz) > 0.85]); }); return hs; };
         const add = (e, s, off, kind, tFrom, tTo) => {
             // sub-divide into ~6 m pieces so the wall can be cut where it would cross another carriageway (junction mouths)
             const yAtT = (t) => Y.road + e.ya + (e.yb - e.ya) * t;
@@ -1612,7 +1631,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 // and a car pushed through the gap would really land on a surface at this level (same test as roadHeight)
                 let cont = false; surfacesAt(x - w.nx * 0.6, z - w.nz * 0.6, (hh) => { if (hh >= y0 && hh <= y1) cont = true; }, null, false, w.edge);
                 if (!cont) return;
-                const h = Y.road + (rb.e ? rb.e.a.y + (rb.e.b.y - rb.e.a.y) * clamp(((x - rb.e.a.x) * rb.e.dirx + (z - rb.e.a.z) * rb.e.dirz) / rb.e.len, 0, 1) : rb.node.y);
+                const h = Y.road + (rb.e ? rb.e.a.y + (rb.e.b.y - rb.e.a.y) * clamp(((x - rb.e.a.x) * rb.e.dirx + (z - rb.e.a.z) * rb.e.dirz) / rb.e.len, 0, 1) : padHeightAt(rb.node, x, z));
                 if (h >= y0 && h <= y1) hit = true;
             });
             return hit;
@@ -1687,15 +1706,18 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const p = P[k], q = P[(k + 1) % P.length]; const L = Math.hypot(q[0] - p[0], q[1] - p[1]); if (L < 0.3) continue;
                 let ox = (q[1] - p[1]) / L, oz = -(q[0] - p[0]) / L; if ((p[0] + q[0]) / 2 * ox + (p[1] + q[1]) / 2 * oz - (cx * ox + cz * oz) < 0) { ox = -ox; oz = -oz; }
                 const steps = Math.max(1, Math.ceil(L / 1.5)); let run = null;
+                const mouth = (x, z) => n.edges.some(e => { if (e.virtual) return false; const rp = ribPoly.get(e); return rp && (pointInPolygon(x, z, rp) || polyDist(x, z, rp) < 0.4); });
                 const flush = () => {
                     if (!run) return; const a0 = run[0], b0 = run[1]; run = null;
                     const ax = p[0] + (q[0] - p[0]) * a0, az = p[1] + (q[1] - p[1]) * a0, bx = p[0] + (q[0] - p[0]) * b0, bz = p[1] + (q[1] - p[1]) * b0;
-                    const w = { wall: true, ax, az, bx, bz, y0a: own - 0.45, y1a: own + 0.45, y0b: own - 0.45, y1b: own + 0.45, nx: -ox, nz: -oz, kind: 'barrier', edge: n.edges[0], node: n, x: (ax + bx) / 2, z: (az + bz) / 2, r: Math.hypot(bx - ax, bz - az) / 2 + 0.3, hw: 0, hd: 0, angle: 0, poly: null, h: 1 };
+                    const oa = Y.road + padHeightAt(n, ax, az), ob = Y.road + padHeightAt(n, bx, bz);
+                    const w = { wall: true, ax, az, bx, bz, y0a: oa - 0.45, y1a: oa + 0.45, y0b: ob - 0.45, y1b: ob + 0.45, nx: -ox, nz: -oz, kind: 'barrier', edge: n.edges[0], node: n, x: (ax + bx) / 2, z: (az + bz) / 2, r: Math.hypot(bx - ax, bz - az) / 2 + 0.3, hw: 0, hd: 0, angle: 0, poly: null, h: 1 };
                     walls.push(w); wg.insert(Math.min(ax, bx), Math.min(az, bz), Math.max(ax, bx), Math.max(az, bz), w);
                 };
                 for (let i = 0; i <= steps; i++) {
-                    const t = i / steps, x = p[0] + (q[0] - p[0]) * t, z = p[1] + (q[1] - p[1]) * t;
-                    const bad = Math.abs(land(x + ox * 0.6, z + oz * 0.6, own) - own) > 0.45 && !blocked(n.x, n.z, x + ox * 0.6, z + oz * 0.6, own);
+                    const t = i / steps, x = p[0] + (q[0] - p[0]) * t, z = p[1] + (q[1] - p[1]) * t, ownH = Y.road + padHeightAt(n, x, z);
+                    // (a rim sample whose outside point is on one of this junction's own approaches is a mouth: open)
+                    const bad = !mouth(x + ox * 0.6, z + oz * 0.6) && Math.abs(land(x + ox * 0.6, z + oz * 0.6, ownH) - ownH) > 0.45 && !blocked(n.x, n.z, x + ox * 0.6, z + oz * 0.6, ownH);
                     if (bad) { if (!run) run = [Math.max(0, t - 0.5 / steps), Math.min(1, t + 0.5 / steps)]; else run[1] = Math.min(1, t + 0.5 / steps); } else flush();
                 }
                 flush();
@@ -2565,7 +2587,8 @@ export async function buildWorld(city, renderer, opts = {}) {
         const trunkMat = new THREE.MeshLambertMaterial({ color: '#6b4a2f' }); trunkMat.name = 'treeTrunks';
         const BROAD = ['#4f8a3c', '#5d9440', '#679c48', '#4a7f39', '#5a8f3e', '#6f9e4a'], CON = ['#2f5d3a', '#356640', '#2b5434', '#3a6b45'];
         const chunks = new Map();
-        for (const t of treeList) { const k = Math.floor(t.x / 500) + ',' + Math.floor(t.z / 500); let a = chunks.get(k); if (!a) chunks.set(k, a = []); a.push(t); }
+        const TCH = 1000; // (1 km instanced chunks: 4× fewer tree draw calls than 500 m, same culling by distance)
+        for (const t of treeList) { const k = Math.floor(t.x / TCH) + ',' + Math.floor(t.z / TCH); let a = chunks.get(k); if (!a) chunks.set(k, a = []); a.push(t); }
         const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), pV = new THREE.Vector3(), sV = new THREE.Vector3(), up = new THREE.Vector3(0, 1, 0), col = new THREE.Color();
         const masks = [];
         for (const [k, list] of chunks) {
@@ -2588,7 +2611,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 crowns.castShadow = trunks.castShadow = true; crowns.receiveShadow = true;
                 crowns.name = `treeCrowns ${k} ${con ? 'conifer' : 'broadleaf'}`; trunks.name = `treeTrunks ${k}`;
                 crowns.userData.deciduousMask = mask; crowns.userData.conifer = con;
-                for (const m of [crowns, trunks]) { m.userData.cx = (ci + 0.5) * 500; m.userData.cz = (cj + 0.5) * 500; m.userData.cull = (env.fogFar || 1300) * 1.15 + 360; m.matrixAutoUpdate = false; }
+                for (const m of [crowns, trunks]) { m.userData.cx = (ci + 0.5) * TCH; m.userData.cz = (cj + 0.5) * TCH; m.userData.cull = (env.fogFar || 1300) * 1.15 + TCH * 0.71; m.matrixAutoUpdate = false; }
                 vegetation.treeCrownMeshes.push(crowns); vegetation.treeTrunkMeshes.push(trunks); masks.push(mask);
             }
         }
@@ -2796,10 +2819,13 @@ export async function buildWorld(city, renderer, opts = {}) {
     void P;
     // parked cars on surface parking lots
     const carKinds = US ? ['suv', 'sedan', 'suv', 'hatch'] : ['hatch', 'sedan', 'hatch', 'suv'];
-    // triangle budget for the merged parked cars (700 k per district): the detailed car models (≈ 1.3 k tris) made the
-    // lots alone 1.5–3.4 M triangles, more than the whole visible-frame budget (spec R12.7: ≤ 1.5 M visible)
-    const carTris = carKinds.reduce((s2, k) => { const pr = carProps(k, CAR_COLORS[0]); return s2 + (pr.index ? pr.index.length / 3 : 772); }, 0) / carKinds.length;
-    let parked = 0; const maxParked = Math.round(Math.min(city.id === 'bucharest' ? 2600 : 2000, 700000 / Math.max(1, carTris)));
+    // parked cars: vehicles.js `makeParkedCars` (low-detail ~250-tri parked models as one InstancedMesh per kind, per-car
+    // colour), one group per 1 km super-cell (few draw calls); full lots again (the 700 k cap is gone).
+    // Fallback without it: merged low-LOD props, triangle-capped.
+    const parkedLots = new Map(); // super-cell key → [{kind, color, x, y, z, yaw}]
+    const useInst = typeof makeParkedCars === 'function';
+    const carTris = useInst ? 260 : carKinds.reduce((s2, k) => { const pr = carProps(k, CAR_COLORS[0]); return s2 + (pr.index ? pr.index.length / 3 : 772); }, 0) / carKinds.length;
+    let parked = 0; const maxParked = Math.round(Math.min(city.id === 'bucharest' ? 2600 : 2000, 1200000 / Math.max(1, carTris)));
     for (const a of areas) {
         if (a.kind !== 'parking' || parked >= maxParked || a.size < 120) continue;
         // orientation: longest edge
@@ -2817,7 +2843,8 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const box = { x, z, hw: 0.95, hd: 2.3, angle: rot, r: 2.5, poly: null, h: 1.5, prop: true, kind: 'parked' };
                 if (polyOnRibbon(obbPoly({ ...box, hw: 1.3, hd: 2.7 })) || [-1.6, 0, 1.6].some(o => onRibbon(x + Math.sin(rot) * o, z + Math.cos(rot) * o, 1.2))) continue; // keep off any carriageway / lane strip
                 const kind = rng.pick(carKinds), col = rng.pick(CAR_COLORS);
-                cellOf(x, z).solid.geo(carProps(kind, col), x, 0.12, z, rot, 1, 1, 1, [255, 255, 255]);
+                if (useInst) { const k2 = Math.floor(x / (CELL * 4)) + ',' + Math.floor(z / (CELL * 4)); let L = parkedLots.get(k2); if (!L) parkedLots.set(k2, L = []); L.push({ kind, color: col, x, y: 0.12, z, yaw: rot }); }
+                else cellOf(x, z).solid.geo(carProps(kind, col), x, 0.12, z, rot, 1, 1, 1, [255, 255, 255]);
                 propColl.push(box);
                 parked++; lotCount++;
                 if (parked >= maxParked || lotCount > 80) break;
@@ -2921,7 +2948,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     let cx = 0, cz = 0;
     // (2026-11-07, world-visual) draw calls: the flat / cheap layers of neighbouring cells are merged into super-cells
     // (2×2 cells = 500 m; the far backdrop 4×4) — fewer meshes for the same pixels; solid buildings stay per cell (culling)
-    const SUPER = { area: 2, grass: 2, pave: 2, roof: 2, backdrop: 4, ground: 2, road: 2, pad: 2, marks: 2, water: 2, signs: 2 };
+    const SUPER = { area: 4, grass: 4, pave: 4, roof: 2, backdrop: 4, ground: 2, road: 2, pad: 2, marks: 2, water: 4, signs: 4 };
     const supers = new Map();
     const superOf = (c, layer, page = 0) => {
         const K = SUPER[layer], I = Math.floor(c.i / K), J = Math.floor(c.j / K), key = layer + page + ':' + I + ',' + J;
@@ -2957,6 +2984,14 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
     }
     for (const c of cells.values()) { cx = c.i; cz = c.j; addMesh(c.solid, solidMat, true, `solid ${c.i},${c.j}`); }
+    let parkedCalls = 0;
+    for (const [k, list] of parkedLots) {
+        const [I, J] = k.split(',').map(Number);
+        const pg = makeParkedCars(list, { city: city.id }); pg.name = `parked ${k}`;
+        pg.userData.cx = (I + 0.5) * CELL * 4; pg.userData.cz = (J + 0.5) * CELL * 4; pg.userData.cull = cullR + CELL * 2.2;
+        tris += pg.userData.triangles || 0; parkedCalls += pg.userData.drawCalls || 0;
+        cellsGroup.add(pg);
+    }
     for (const m of vegetation.treeCrownMeshes.concat(vegetation.treeTrunkMeshes)) { cellsGroup.add(m); tris += m.count * (m.geometry.index.count / 3); }
     const waterMesh = addMesh(bigWater, waterMat, false, 'water-big');
     if (waterMesh) { waterMesh.userData.always = true; waterMesh.renderOrder = -18; }

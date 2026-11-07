@@ -1154,8 +1154,8 @@ const faceEyeEuler = (p) => { const n = EYE.clone().sub(p).normalize(); return n
 // layout (degrees from the eye). FOV 72 puts the bottom of the view 36° below the horizon; the HUD's speedometer
 // block starts ~41° right of centre at 16:9. Wheel rim top 27.5° (hub 44°, below the view), cluster above the
 // rim, screen right of the rim and left of the HUD, everything below the windshield's bottom edge (rain overlay).
-const CLUSTER = { az: 0, el: 20.6, dist: 0.75, w: 0.33, h: 0.33 * GAUGE_H / GAUGE_W };
-const SCREEN = { az: 27, el: 20.5, dist: 0.86, w: 0.34, h: 0.2125 };
+const CLUSTER = { az: 0, el: 20.6, dist: 0.75, w: 0.33, h: 0.33 * GAUGE_H / GAUGE_W, tilt: 18 };
+const SCREEN = { az: 27, el: 20.5, dist: 0.86, w: 0.34, h: 0.2125, yaw: 8, tilt: 16 }; // integrated in the centre stack: parallel to the dash, 8° toward the driver, 16° back-tilt
 const WHEEL = { pos: new THREE.Vector3(-0.3, 0.89, -0.945), tilt: -0.42, r: 0.178, tube: 0.02 };
 const B_Z = 0.1; // front door rear edge / B-pillar (z, cockpit space): beside the front seat back, in view when looking 90° to the side
 const MIRROR = { pos: new THREE.Vector3(0.0, 1.655, -1.125), w: 0.27, h: 0.09 };
@@ -1188,7 +1188,7 @@ export function makeCockpit() {
     interior.add(BOX, M(0, 0.56, -1.79, 1.56, 0.26, 0.1), '#141518', { r: 0.95 });
 
     // ---- instrument cluster pod: a binnacle on the dash top, seen over the steering-wheel rim ----
-    const cPos = fromEye(CLUSTER.az, CLUSTER.el, CLUSTER.dist), cRot = faceEyeEuler(cPos);
+    const cPos = fromEye(CLUSTER.az, CLUSTER.el, CLUSTER.dist), cRot = new THREE.Euler(-CLUSTER.tilt * D2R, 0, 0, 'YXZ'); // square to the car axis, leaned back like a real binnacle
     {
         // profile along the cluster face (tilted toward the eye), 8 mm behind it, with a short visor on top
         const up = new THREE.Vector3(0, 1, 0).applyEuler(cRot), nrm = new THREE.Vector3(0, 0, 1).applyEuler(cRot);
@@ -1209,8 +1209,8 @@ export function makeCockpit() {
     g.add(cluster);
     g.userData.cluster = cluster;
 
-    // ---- centre screen in its housing on top of the centre stack, turned and tilted to face the driver ----
-    const sPos = fromEye(SCREEN.az, SCREEN.el, SCREEN.dist), sRot = faceEyeEuler(sPos);
+    // ---- centre screen integrated at the top of the centre stack: square to the dash, mild driver yaw + back-tilt ----
+    const sPos = fromEye(SCREEN.az, SCREEN.el, SCREEN.dist), sRot = new THREE.Euler(-SCREEN.tilt * D2R, -SCREEN.yaw * D2R, 0, 'YXZ');
     {
         // centre stack under the screen, aligned with the screen's yaw (front face just behind the bezel's bottom edge)
         const yawM = new THREE.Matrix4().makeRotationY(sRot.y), at = (x, y, z) => new THREE.Vector3(x, y, z).applyMatrix4(yawM).add(sPos);
@@ -1230,12 +1230,26 @@ export function makeCockpit() {
         for (const x of [-0.09, 0.09]) interior.add(new THREE.CylinderGeometry(0.022, 0.024, 0.024, 12), M(at(x, stackTop - 0.165, stackFront + 0.014).x, at(x, stackTop - 0.165, stackFront + 0.014).y, at(x, stackTop - 0.165, stackFront + 0.014).z, 1, 1, 1, Math.PI / 2, sRot.y, 0), '#4a4e55', { r: 0.35, m: 0.6 });
         for (let i = -1; i <= 1; i++) interior.add(BOX, SM(i * 0.035, stackTop - 0.165, stackFront + 0.008, 0.024, 0.014, 0.004), '#5d6670', { e: 0.6, r: 0.4 });
     }
-    // test pattern until another module assigns the navigation map
-    const scv = document.createElement('canvas'); scv.width = 64; scv.height = 40;
-    const sctx = scv.getContext('2d'); const sg = sctx.createLinearGradient(0, 0, 0, 40); sg.addColorStop(0, '#0d1520'); sg.addColorStop(1, '#05080c');
-    sctx.fillStyle = sg; sctx.fillRect(0, 0, 64, 40);
-    const stex = new THREE.CanvasTexture(scv); stex.colorSpace = THREE.SRGBColorSpace;
-    const screen = new THREE.Mesh(new THREE.PlaneGeometry(SCREEN.w, SCREEN.h), new THREE.MeshBasicMaterial({ map: stex, color: '#ffffff', toneMapped: false }));
+    // home screen (clock, media, hint) shown wherever the assigned map texture is still empty (alpha 0: e.g. before the
+    // navigation's first draw), plus an anti-glare glass finish (soft sheen, faint daylight veil, dimmer at night)
+    const home = homeScreenCanvas(), htex = new THREE.CanvasTexture(home.canvas); htex.colorSpace = THREE.SRGBColorSpace; htex.anisotropy = 4;
+    const blank = new THREE.DataTexture(new Uint8Array([0, 0, 0, 0]), 1, 1); blank.needsUpdate = true;
+    const screenMat = new THREE.MeshBasicMaterial({ map: blank, color: '#ffffff', toneMapped: false });
+    screenMat.userData.uHome = { value: htex }; screenMat.userData.uScreen = { value: new THREE.Vector2(1, 0.035) }; // (brightness, veil)
+    screenMat.onBeforeCompile = (sh) => {
+        sh.uniforms.uHome = screenMat.userData.uHome; sh.uniforms.uScreen = screenMat.userData.uScreen;
+        sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nuniform sampler2D uHome;\nuniform vec2 uScreen;')
+            .replace('#include <map_fragment>', `#include <map_fragment>
+            #ifdef USE_MAP
+                vec4 homeC = texture2D(uHome, vMapUv);
+                diffuseColor.rgb = mix(homeC.rgb, diffuseColor.rgb / max(sampledDiffuseColor.a, 1e-3) * sampledDiffuseColor.a, step(0.02, sampledDiffuseColor.a));
+                float sheen = smoothstep(0.35, 1.0, vMapUv.y * 0.8 + (1.0 - vMapUv.x) * 0.5) * 0.05;
+                diffuseColor.rgb = diffuseColor.rgb * uScreen.x * 0.92 + vec3(uScreen.y + sheen) * (0.6 + 0.4 * uScreen.x);
+                diffuseColor.a = 1.0;
+            #endif`);
+    };
+    screenMat.customProgramCacheKey = () => 'carScreen1';
+    const screen = new THREE.Mesh(new THREE.PlaneGeometry(SCREEN.w, SCREEN.h), screenMat);
     screen.name = 'screen';
     screen.position.copy(sPos); screen.rotation.copy(sRot);
     // housing: glossy bezel just behind the glass + a deeper back shell (children: they follow the screen)

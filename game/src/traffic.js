@@ -165,6 +165,8 @@ export class Traffic {
         this.pool = [];           // inactive vehicles (hidden) — the live count follows the hour of day
         this.profile = { density: 1, parked: 1, aggression: 1, band: 'normal', hour: null };
         this.onBubble = opts.onBubble || (() => { });
+        this.onSay = opts.onSay || null; // (target, text, sub, cls): free-text bubbles (parking reactions); falls back to game.hud.say
+        this.park = null; this.parking = null; // illegal-parking watch (note 8)
         this.onHonk = opts.onHonk || (() => { });
         this.player = null;
         this.maxVehicles = opts.maxVehicles || (this.buc ? 210 : 70);
@@ -2180,6 +2182,7 @@ class Pedestrians {
                 p.downT -= dt; if (p.downT <= 0) { p.state = p.prev === 'stand' ? 'stand' : (p.legs.length ? 'legs' : 'walk'); p.onRoad = false; if (p.state === 'walk' && p.e) this.placeWalk(p); }
                 continue;
             }
+            if (p.agent || p.react) { this.updateActor(p, dt); continue; } // reacting to the player's parked car / the officer
             const ox = p.x, oz = p.z, os = p.s;
             let moved = false;
             if (p.state === 'stand') { /* waits at the stop */ }
@@ -2261,6 +2264,25 @@ class Pedestrians {
         }
         if (this._fr % 15 === 0) this.countObstacleOverlaps();
         this.writeMatrices(dt);
+    }
+
+    /** a pedestrian busy with the player's parked car: an officer walking up / standing by it, a passer-by reacting */
+    updateActor(p, dt) {
+        const a = p.agent;
+        if (a) {
+            const dx = a.x - p.x, dz = a.z - p.z, d = Math.hypot(dx, dz);
+            if (d > 0.15) { const sp = Math.min(d, 1.45 * dt); p.x += dx / d * sp; p.z += dz / d * sp; p.heading = Math.atan2(-dx, -dz); p.moving = true; }
+            else { if (!a.arrived) { a.arrived = true; try { a.onArrive?.(); } catch { /* ignore */ } } p.moving = false; p.heading = Math.atan2(-(a.fx - p.x), -(a.fz - p.z)); }
+            p.pose = p.moving ? 0 : a.pose || 0; p.prop = p.moving ? null : a.prop || null;
+            if (((p.i + this._fr) & 7) === 0) p.onRoad = this.inCarriageway(p); // (cars stop for an officer stepping into the lane)
+            if (d > 1) this.clearObstacles(p);
+            this.avoidVehicles(p, p.x, p.z, false);
+            return;
+        }
+        const r = p.react; r.t -= dt; p.moving = false;
+        p.heading = Math.atan2(-(r.x - p.x), -(r.z - p.z)); p.pose = r.pose || 0; p.prop = r.prop || null;
+        if (r.t <= 0) { p.react = null; p.pose = 0; p.prop = null; }
+        this.avoidVehicles(p, p.x, p.z, false);
     }
 
     planNode(p, node) {
@@ -2347,9 +2369,9 @@ class Pedestrians {
         for (const p of this.list) {
             const s = p.scale;
             if (p.state === 'down') { C.set(p.i, { x: p.x, y: 0.2, z: p.z, scale: s, down: true, fallDir: p.fallDir }); continue; }
-            const moving = p.state === 'walk' || p.state === 'legs';
+            const moving = p.agent || p.react ? !!p.moving : p.state === 'walk' || p.state === 'legs';
             const bob = moving ? Math.abs(Math.sin(p.phase)) * 0.03 : 0;
-            C.set(p.i, { x: p.x, y: 0.2 + bob, z: p.z, yaw: p.heading, phase: p.phase, amp: moving ? 1 : 0, scale: s });
+            C.set(p.i, { x: p.x, y: 0.2 + bob, z: p.z, yaw: p.heading, phase: p.phase, amp: moving ? 1 : 0, scale: s, pose: moving ? 0 : (p.pose || 0), prop: moving ? null : (p.prop || null) });
         }
     }
     dispose() { this.crowd.dispose(); }

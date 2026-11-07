@@ -44,7 +44,7 @@ Source: `game/FEEDBACK.md` "Round 4 play-test" notes 1–27 (+ any that follow),
 | 51, 52 | spots Pike Place signs tilted/floating/overlapping across upper floors; indoor market shops get no outer-facade signs (or a directory board), one non-overlapping sign per shopfront, upright at fascia height. |
 | 50 | spots (+ render) | Pike Place: Rachel inside the fish counter, broken plaque stand, old blocky vendors, blown-out floor under arcade lights; no prop–prop intersections (detector). |
 | 49 | spots | See-through/floating buildings in spots: extrude to the ground, closed volumes, walker can't enter buildings. |
-| 48 | spots | Pike Place: street replaced by a smooth terrain blob — ground from OSM streets/pavements; lit windows via the shared building shader; non-overlapping bubbles; only place-appropriate lines. |
+| 48, 56 | spots | Pike Place / Seattle Center (and all spots): streets replaced by terrain blobs — ground from OSM streets/pavements; lit windows via the shared building shader; non-overlapping bubbles; only place-appropriate lines. |
 | 20, 27 | spots | Terrain flattened under paved esplanades/plinths (Parliament), no camera roll on slopes; crowds on the walkable surface (steps), never inside colliders. |
 
 ## P2 — gameplay features

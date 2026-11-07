@@ -69,12 +69,14 @@ const FOG_H = 1100;
     C.fog_pars_vertex = `#ifdef USE_FOG
         varying float vFogDepth;
         #ifdef FOG_EXP2
-            varying float vFogH;
+            varying float vFogH; varying vec3 vFogV;
         #endif
     #endif`;
     C.fog_vertex = `#ifdef USE_FOG
         #ifdef FOG_EXP2
-            vFogDepth = length(mvPosition.xyz);
+            // distance is computed per fragment from the (linearly interpolated) view vector: a per-vertex length()
+            // interpolated across a large ground triangle overestimates it many times near the camera
+            vFogDepth = - mvPosition.z; vFogV = mvPosition.xyz;
             vFogH = (transpose(mat3(viewMatrix)) * (mvPosition.xyz - viewMatrix[3].xyz)).y;
         #else
             vFogDepth = - mvPosition.z;
@@ -85,7 +87,7 @@ const FOG_H = 1100;
         varying float vFogDepth;
         #ifdef FOG_EXP2
             uniform float fogDensity;
-            varying float vFogH;
+            varying float vFogH; varying vec3 vFogV;
         #else
             uniform float fogNear;
             uniform float fogFar;
@@ -96,7 +98,7 @@ const FOG_H = 1100;
             float fgK = ${(1 / FOG_H).toFixed(7)};
             float fgA = max(cameraPosition.y, 0.0) * fgK, fgB = max(vFogH, 0.0) * fgK, fgD = fgB - fgA;
             float fgL = abs(fgD) > 1e-3 ? (exp(-fgA) - exp(-fgB)) / fgD : exp(-fgA);
-            float fogFactor = 1.0 - exp(-fogDensity * vFogDepth * fgL);
+            float fogFactor = 1.0 - exp(-fogDensity * length(vFogV) * fgL);
         #else
             float fogFactor = smoothstep(fogNear, fogFar, vFogDepth);
         #endif
@@ -360,7 +362,7 @@ function patchSurface(mat, U) {
 }
 const makeTreeU = () => ({ uBare: { value: 0 }, uAutumn: { value: 0 }, uBlossom: { value: 0 }, uFresh: { value: 0 }, uSnow: { value: 0 }, uEver: { value: 0 }, uCrownC: { value: new THREE.Vector3(0, 5, 0) } });
 function patchCrowns(mat, U) {
-    return chainPatch(mat, 'wxtree2', (sh) => {
+    return chainPatch(mat, 'wxtree3', (sh) => {
         Object.assign(sh.uniforms, U);
         sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nuniform float uBare, uEver; uniform vec3 uCrownC; varying vec3 vCrownL; varying float vTreeH;')
             .replace('#include <begin_vertex>', `#include <begin_vertex>
@@ -388,17 +390,21 @@ function patchCrowns(mat, U) {
                 g = mix(g, bc * 0.8, uBlossom * dec * step(0.55, h) * 0.85);
                 float b = clamp(uBare * 1.25 - h * 0.25, 0.0, 1.0) * dec;
                 if (b > 0.0) {
-                    g = mix(g, vec3(0.2, 0.16, 0.13) * (0.8 + 0.4 * h), b);
-                    // leafless crown = a lattice of branches and twigs: ridges of 3-D noise (|n - 0.5| small) are kept, the
-                    // rest is sky. Ridge width widens with the screen-space derivative so distant crowns become an even
-                    // twig haze instead of aliasing, and partial coverage is dithered (interleaved gradient noise).
+                    // leaves fall in clumps: a coarse 3-D mask keeps solid, fully leafed patches (no dots, no tint) where
+                    // the mask is above the bare fraction; only where the leaves are gone the branch/twig lattice shows:
+                    // ridges of 3-D noise (|n - 0.5| small) kept, the rest sky; ridge width widens with the screen-space
+                    // derivative so distant crowns become an even twig haze, partial coverage dithered (IGN)
                     vec3 cp = vCrownL * (0.9 + 0.2 * h) + h * 11.0;
-                    float r1 = abs(crN(cp * 1.5) - 0.5), r2 = abs(crN(cp * 4.4 + 3.7) - 0.5);
-                    float f1 = fwidth(r1) + 1e-3, f2 = fwidth(r2) + 1e-3;
-                    float cov = max(1.0 - smoothstep(0.032 - f1, 0.032 + f1, r1), 0.8 * (1.0 - smoothstep(0.026 - f2, 0.026 + f2, r2)));
-                    float ign = fract(52.9829189 * fract(dot(gl_FragCoord.xy, vec2(0.06711056, 0.00583715))));
-                    if (mix(1.0, cov, min(1.0, b * 1.05)) < ign) discard;
-                    g *= 0.85 + 0.3 * cov;
+                    float leaf = crN(cp * 0.7 + 5.3) * 0.75 + crN(cp * 2.1 + 1.7) * 0.25;
+                    float gone = smoothstep(leaf - 0.04, leaf + 0.04, b * 1.15 - 0.05); // 0 = leaves still on
+                    if (gone > 0.0) {
+                        float r1 = abs(crN(cp * 1.5) - 0.5), r2 = abs(crN(cp * 4.4 + 3.7) - 0.5);
+                        float f1 = fwidth(r1) + 1e-3, f2 = fwidth(r2) + 1e-3;
+                        float cov = max(1.0 - smoothstep(0.032 - f1, 0.032 + f1, r1), 0.8 * (1.0 - smoothstep(0.026 - f2, 0.026 + f2, r2)));
+                        float ign = fract(52.9829189 * fract(dot(gl_FragCoord.xy, vec2(0.06711056, 0.00583715))));
+                        if (mix(1.0, cov, gone) < ign) discard;
+                        g = mix(g, vec3(0.2, 0.16, 0.13) * (0.8 + 0.4 * h) * (0.85 + 0.3 * cov), gone);
+                    }
                 }
                 diffuseColor.rgb = g;
             }`)
@@ -831,7 +837,7 @@ export class Renderer3D {
         this.weather = {
             source: this._wxSource, code: w.code, kind: c.kind, label: c.label, icon: c.icon,
             tempC: w.tempC, precipMm: w.precipMm, snowCm: w.snowDepthCm, snowfallCm: w.snowfallCm,
-            windKmh: w.windKmh, windDir: w.windDir, visibilityM: w.visibilityM, cloud: w.cloud,
+            windKmh: w.windKmh, windDir: w.windDir, visibilityM: Math.round(this._wxT?.visibilityM ?? w.visibilityM), cloud: w.cloud,
             season: this._season?.season || null, updatedAt: Date.now(), climate: w.climate || null,
         };
         try { this.onWeatherChange?.(this.weather); } catch (e) { console.warn('[weather] onWeatherChange', e); }

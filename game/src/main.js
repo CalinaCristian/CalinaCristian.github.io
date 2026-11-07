@@ -17,6 +17,7 @@ import { Renderer3D } from './render.js';
 import { PhotoMode } from './photo.js';
 import { OnFootController } from './onfoot.js';
 import * as VEHICLES from './vehicles.js';
+import { makeCrowd, dressFor, seasonOf } from './crowd.js';
 import { initAchievements } from './achievements.js'; // spec 23 (progression): observes window.game
 const { makeVehicle } = VEHICLES;
 
@@ -281,6 +282,7 @@ class Game {
         this.nav = new Navigator(world);
         // traffic
         const hi = !(this.quality === 'low' || this.quality === 'medium' || this.touch);
+        try { this.traffic?.dispose?.(); } catch (e) { console.warn('[traffic] dispose', e); } // (its instanced crowd would stay registered)
         this.traffic = new Traffic(world, city, scene, {
             // pool size at the rush-hour peak; the live count follows the local hour (traffic.setHour)
             maxVehicles: hi ? (id === 'bucharest' ? 480 : 125) : (id === 'bucharest' ? 170 : 50),
@@ -699,6 +701,7 @@ class Game {
     pollWeather() {
         const w = this.weather, k = weatherKind(w);
         this.wxKind = k; this.wxGrip = WX_GRIP[k] ?? 1; this.wxNpc = WX_NPC[k] ?? 1;
+        if (this.traffic) this.traffic.weatherKind = k; // pedestrians' umbrellas / coats (crowd.js)
         if (this.traffic) this.traffic.weatherMul = this.wxNpc;
         // fog: player + NPC lights on (unless the player switched the headlights manually)
         const fog = k === 'fog';
@@ -1240,27 +1243,21 @@ class Game {
         this.closureStopT = 0; this._outside = null;
         if (this.player) this.player.softZones = this.closures;
         this.workers = [];
+        this.crew?.dispose?.(); this.crew = null;
         if (city.id !== 'bucharest' || !this.closures.length) return;
-        const lam = (c) => new THREE.MeshLambertMaterial({ color: c });
-        const vest = lam('#f97316'), stripe = new THREE.MeshBasicMaterial({ color: '#f1f5f9' }), skin = lam('#e0ac85'), helmet = lam('#facc15'), pants = lam('#1f2937');
-        const gBody = new THREE.CapsuleGeometry(0.24, 0.55, 3, 8), gLeg = new THREE.CapsuleGeometry(0.1, 0.62, 2, 6), gHead = new THREE.SphereGeometry(0.13, 10, 8);
-        const gHelm = new THREE.SphereGeometry(0.16, 10, 6, 0, Math.PI * 2, 0, Math.PI / 2), gStripe = new THREE.CylinderGeometry(0.255, 0.255, 0.06, 12, 1, true);
-        for (const c of this.closures) {
-            const e = c.edge; if (!e) continue;
+        // one instanced crowd for the whole roadworks crew (2 draw calls instead of 7 meshes per worker; crowd.js)
+        const list = this.closures.filter(c => c.edge);
+        const crew = this.crew = makeCrowd({ max: list.length, city: city.id, season: seasonOf(this.nowDate()), castShadow: true });
+        list.forEach((c, i) => {
+            const e = c.edge;
             const ix = Math.sin(c.heading), iz = Math.cos(c.heading), px = -iz, pz = ix; // into the map / across the road
             const side = Math.max(e.wR ?? 3, e.wL ?? 3) + 1.6;
-            const g = new THREE.Group();
-            const body = new THREE.Mesh(gBody, vest); body.position.y = 1.15; g.add(body);
-            for (const y of [1.0, 1.3]) { const st = new THREE.Mesh(gStripe, stripe); st.position.y = y; g.add(st); }
-            for (const lx of [-0.11, 0.11]) { const l = new THREE.Mesh(gLeg, pants); l.position.set(lx, 0.42, 0); g.add(l); }
-            const head = new THREE.Mesh(gHead, skin); head.position.y = 1.72; g.add(head);
-            const hm = new THREE.Mesh(gHelm, helmet); hm.position.y = 1.76; g.add(hm);
             const x = c.x + ix * 3 + px * side, z = c.z + iz * 3 + pz * side, y = (c.node?.y ?? 0) + 0.2;
-            g.position.set(x, y, z); g.rotation.y = Math.atan2(ix, iz) + Math.PI; // facing the traffic coming from inside
-            g.traverse(o => { if (o.isMesh) o.castShadow = true; });
-            this.scene.add(g);
-            this.workers.push({ x, z, mesh: g, nextT: 0 });
-        }
+            crew.dress(i, dressFor(city.id, crew.season, null, Math.random, 'worker'));
+            crew.set(i, { x, y, z, yaw: Math.atan2(-ix, -iz), amp: 0, phase: i }); // facing into the map (the traffic coming from inside)
+            this.workers.push({ x, z, nextT: 0 });
+        });
+        this.scene.add(crew.object);
     }
     closureText(c) {
         if (this.freeRoam) { const nm = c.leadsTo ? (this.city.districts?.[c.leadsTo]?.name || c.leadsTo) : null; return ['🚧 Road closed', nm ? `${nm} is another district: switch from the map (M).` : 'Edge of the free-roam district. Turn around (U).']; }
@@ -1608,7 +1605,7 @@ class Game {
         if (this.freeRoam) this.freeRoam.tod = tod;
         this.updateClock(0); this.traffic?.setHour(this.trafficHours(), true); this.syncConditions();
     }
-    setRoamWeather(w) { if (this.freeRoam) this.freeRoam.weather = w; this.setWeatherOverride(w === 'live' ? null : w); this.syncConditions(); }
+    setRoamWeather(w) { if (this.freeRoam) this.freeRoam.weather = w; this.setWeatherOverride(w === 'live' ? null : w); if (this.traffic && w !== 'live') this.traffic.weatherKind = w; this.syncConditions(); }
     setRoamSeason(s) { if (this.freeRoam) this.freeRoam.season = s; this.r3d.setSeason?.(s === 'auto' ? null : s); this.syncConditions(); }
     syncConditions() {
         const el = document.getElementById('cond-panel'); if (!el) return;

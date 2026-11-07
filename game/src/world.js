@@ -5,6 +5,7 @@ import { makeVehicle, CAR_COLORS, makeParkedCars } from './vehicles.js';
 import { projector, CHAPTERS } from './cities.js';
 import { STOPS } from './data.js';
 import { MeshBuilder, rgb, shadeRgb, prep, mergeProps, bakeProp, UNIT_BOX } from './geobuild.js';
+import { treeGeometries, SPECIES, defaultSpecies, buildSpeciesTrees } from './trees.js';
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -1462,7 +1463,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const step = treeStreet ? 9 : 15;
                 for (let s = ra + 3; s < rb; s += step * rng.range(0.85, 1.15)) for (const sd of [1, -1]) {
                     const o = (sd > 0 ? e.wR : e.wL) + shoulderOf(e) + clamp(e.sidewalk * 0.45, 1.0, 2.2);
-                    treeSpots.push([e.a.x + e.dirx * s + e.nx * o * sd, e.a.z + e.dirz * s + e.nz * o * sd, rng.range(0.8, 1.2), 'street']);
+                    treeSpots.push([e.a.x + e.dirx * s + e.nx * o * sd, e.a.z + e.dirz * s + e.nz * o * sd, rng.range(0.8, 1.2), 'street', e.road]);
                 }
             }
         }
@@ -2637,35 +2638,42 @@ export async function buildWorld(city, renderer, opts = {}) {
         const dt = Math.min(Math.hypot(x - dtSea.x, z - dtSea.z) / 1300, Math.hypot(x - dtBel.x, z - dtBel.z) / 700);
         return kind === 'street' ? (dt < 1 ? 0.08 : 0.3) : dt < 1 ? 0.2 : 0.62;
     };
-    const placeTree = (x, z, s, kind, con = null, dec = null) => {
+    // species trees (trees.js): species from OSM where mapped, else per city / street-type defaults (one species per
+    // street row; conifers only where OSM says needleleaved, in parks / forests / gardens); size from the OSM height,
+    // else typical per kind. `s` (legacy ≈ 1 for a 6–8 m tree) only seeds the height when nothing better is known.
+    const TG = treeGeometries();
+    const placeTree = (x, z, s, kind, con = null, dec = null, opt = {}) => {
         if (treeList.length >= maxTrees) return false;
         const k = Math.round(x / 1.6) + ',' + Math.round(z / 1.6); if (treeSeen.has(k)) return false;
         if (onRibbon(x, z, 0.35 * s + 0.5) || buildingAt(x, z) || isWater(x, z)) return false;
         treeSeen.add(k);
-        let isCon = con ?? rng.chance(coniferChance(x, z, kind));
-        // a crown that would reach over a carriageway is pruned like a real street tree: lifted to ≥ 4.4 m clearance
-        // (trunk extended) and narrowed toward the road (no foliage at windscreen height over the lane, review #20)
-        let lift = 0, sh = 1;
-        if (onRibbon(x, z, 2.9 * s)) {
-            let lo = 0.35 * s + 0.5, hi = 2.9 * s;
+        const isCon = con ?? (kind === 'street' || kind === 'osm' ? false : rng.chance(coniferChance(x, z, kind)));
+        let species = opt.species || (isCon ? 'conifer' : defaultSpecies(city.id, kind, opt.road ?? Math.round(x * 0.01 + z * 0.013), rng()));
+        if (species === 'conifer' && !isCon) species = 'generic';
+        const shape = TG.shapes[(SPECIES[species] || SPECIES.generic).shape];
+        const H = opt.h > 0 ? opt.h : kind === 'street' ? (US ? rng.range(8, 12) : rng.range(10, 14)) * (shape.top < 9 ? 0.75 : 1) : kind === 'garden' ? rng.range(5, 9) : kind === 'forest' ? rng.range(12, 20) : rng.range(8, 15);
+        const sz = clamp(H / shape.top, 0.35, 1.5);
+        // a crown that would reach over a carriageway is narrowed toward it (clear stems keep foliage above the lanes;
+        // review #20); conifers are slimmed, never lifted
+        let sh = 1;
+        const R = shape.rx * sz;
+        if (onRibbon(x, z, R)) {
+            let lo = 0.35 * s + 0.5, hi = R;
             for (let it = 0; it < 4; it++) { const m = (lo + hi) / 2; if (onRibbon(x, z, m)) hi = m; else lo = m; }
-            // (a conifer cannot be crown-lifted: a lifted cone reads as a green bell on a stick at mirror height. Untagged
-            // kerb conifers become broadleaf street trees; OSM-tagged ones stay at their height, slimmed to clear the lane)
-            if (isCon && con !== true) isCon = false;
-            if (isCon) { lift = 0; sh = clamp((lo - 0.2) / (2.3 * s), 0.35, 1); }
-            else { lift = Math.max(0, 4.4 - 2.2 * s); sh = clamp((lo + 1.2) / (2.6 * s), 0.6, 1); }
+            const lowCrown = (shape.cy - shape.ry * 0.8) * sz < 4.4; // crown bottom below truck height
+            sh = clamp((lo + (lowCrown ? 0.3 : 1.6)) / R, isCon ? 0.35 : 0.55, 1);
         }
-        treeList.push({ x, z, s, con: !!isCon, dec: dec ?? (isCon ? 0 : 1), kind, lift, sh });
-        addPropColl(x, z, 0.3 * s, 'tree');
+        treeList.push({ x, z, s: sz, species, con: !!isCon, dec: dec ?? (isCon ? 0 : 1), kind, sh });
+        addPropColl(x, z, 0.3 * Math.max(0.6, sz * 1.4), 'tree');
         return true;
     };
     // OSM natural=tree / tree_row (real positions, leaf type where tagged)
     const osmTrees = data.trees || [];
     for (let i = 0; i + 2 < osmTrees.length; i += 3) {
         const x = osmTrees[i] / 10, z = osmTrees[i + 1] / 10, t = osmTrees[i + 2], con = t & 1, hh = (t >> 1) / 10;
-        placeTree(x, z, hh > 0 ? clamp(hh / 6.5, 0.6, 2.0) : rng.range(0.85, 1.25), 'osm', con ? true : (US ? null : false));
+        placeTree(x, z, hh > 0 ? clamp(hh / 6.5, 0.6, 2.0) : rng.range(0.85, 1.25), 'osm', con ? true : false, null, { h: hh });
     }
-    for (const [x, z, s, kind] of treeSpots) placeTree(x, z, s, kind);
+    for (const [x, z, s, kind, road] of treeSpots) placeTree(x, z, s, kind, null, null, { road });
     // parks & forests
     for (const a of areas) {
         if (!['park', 'forest', 'scrub', 'cemetery', 'grass'].includes(a.kind)) continue;
@@ -2692,45 +2700,10 @@ export async function buildWorld(city, renderer, opts = {}) {
     // so the season / weather code can tint each tree (world.vegetation)
     const vegetation = { treeCrownMeshes: [], treeTrunkMeshes: [], deciduousMask: null, grassMaterials: [], groundMaterials: [], roofMaterials: [], trees: treeList };
     {
-        const toGeo = (p) => { const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(p.pos, 3)); g.setAttribute('normal', new THREE.BufferAttribute(p.nor, 3)); g.setIndex(new THREE.BufferAttribute(p.index, 1)); g.computeBoundingSphere(); return g; };
-        const ico = new THREE.IcosahedronGeometry(1, 0), cone = new THREE.ConeGeometry(1, 1, 7);
-        const geoBroad = toGeo(mergeProps([bakeProp(ico, { y: 4.6, sx: 2.6, sy: 2.4, sz: 2.6 }), bakeProp(ico, { y: 5.9, x: 0.5, sx: 1.5, sy: 1.4, sz: 1.5 })]));
-        const geoCon = toGeo(mergeProps([bakeProp(cone, { y: 4.5, sx: 2.3, sy: 6, sz: 2.3 }), bakeProp(cone, { y: 7.6, sx: 1.6, sy: 4, sz: 1.6 })]));
-        const geoTrunk = toGeo(bakeProp(new THREE.CylinderGeometry(0.16, 0.22, 1, 5), { y: 1.6, sy: 3.2 }));
-        const crownMat = new THREE.MeshLambertMaterial({ color: '#ffffff' }); crownMat.name = 'treeCrowns';
-        const trunkMat = new THREE.MeshLambertMaterial({ color: '#6b4a2f' }); trunkMat.name = 'treeTrunks';
-        const BROAD = ['#4f8a3c', '#5d9440', '#679c48', '#4a7f39', '#5a8f3e', '#6f9e4a'], CON = ['#2f5d3a', '#356640', '#2b5434', '#3a6b45'];
-        const chunks = new Map();
-        const TCH = 750; // (750 m instanced chunks: ~2× fewer tree draw calls than 500 m without drawing much more off-screen)
-        for (const t of treeList) { const k = Math.floor(t.x / TCH) + ',' + Math.floor(t.z / TCH); let a = chunks.get(k); if (!a) chunks.set(k, a = []); a.push(t); }
-        const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), pV = new THREE.Vector3(), sV = new THREE.Vector3(), up = new THREE.Vector3(0, 1, 0), col = new THREE.Color();
-        const masks = [];
-        for (const [k, list] of chunks) {
-            const [ci, cj] = k.split(',').map(Number);
-            for (const con of [false, true]) {
-                const ts = list.filter(t => t.con === con); if (!ts.length) continue;
-                const crowns = new THREE.InstancedMesh(con ? geoCon : geoBroad, crownMat, ts.length);
-                const trunks = new THREE.InstancedMesh(geoTrunk, trunkMat, ts.length);
-                const mask = new Float32Array(ts.length);
-                ts.forEach((t, i) => {
-                    const sy = t.s * rng.range(0.9, 1.15);
-                    q.setFromAxisAngle(up, rng() * 6.28);
-                    m4.compose(pV.set(t.x, 0.12 + (t.lift || 0), t.z), q, sV.set(t.s * (t.sh || 1), sy, t.s * (t.sh || 1))); crowns.setMatrixAt(i, m4);
-                    m4.compose(pV.set(t.x, 0.12, t.z), q, sV.set(t.s, sy + (t.lift || 0) / 3.2, t.s)); trunks.setMatrixAt(i, m4);
-                    col.set(rng.pick(con ? CON : BROAD)).multiplyScalar(rng.range(0.88, 1.08)); crowns.setColorAt(i, col);
-                    mask[i] = t.dec;
-                });
-                crowns.instanceMatrix.needsUpdate = true; crowns.instanceColor.needsUpdate = true;
-                crowns.computeBoundingSphere(); trunks.computeBoundingSphere();
-                crowns.castShadow = trunks.castShadow = true; crowns.receiveShadow = true;
-                crowns.name = `treeCrowns ${k} ${con ? 'conifer' : 'broadleaf'}`; trunks.name = `treeTrunks ${k}`;
-                crowns.userData.deciduousMask = mask; crowns.userData.conifer = con;
-                for (const m of [crowns, trunks]) { m.userData.cx = (ci + 0.5) * TCH; m.userData.cz = (cj + 0.5) * TCH; m.userData.cull = (env.fogFar || 1300) * 1.15 + TCH * 0.71; m.matrixAutoUpdate = false; }
-                vegetation.treeCrownMeshes.push(crowns); vegetation.treeTrunkMeshes.push(trunks); masks.push(mask);
-            }
-        }
-        const total = masks.reduce((s, m) => s + m.length, 0); vegetation.deciduousMask = new Float32Array(total);
-        let o = 0; for (const m of masks) { vegetation.deciduousMask.set(m, o); o += m.length; }
+        const T = buildSpeciesTrees(treeList, { rng, cull: (env.fogFar || 1300) * 1.15, near: 115, maxNear: 520 });
+        vegetation.treeCrownMeshes.push(...T.crownMeshes); vegetation.treeTrunkMeshes.push(...T.trunkMeshes);
+        vegetation.update = T.update;
+        vegetation.deciduousMask = new Float32Array(treeList.map(t => t.dec));
     }
     // street lamps: real OSM highway=street_lamp nodes (moved to the sidewalk edge when mapped on the carriageway)
     // + synthesized ones on lit / main roads at the outer edge of the sidewalk
@@ -3118,7 +3091,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         tris += pg.userData.triangles || 0; parkedCalls += pg.userData.drawCalls || 0;
         cellsGroup.add(pg);
     }
-    for (const m of vegetation.treeCrownMeshes.concat(vegetation.treeTrunkMeshes)) { cellsGroup.add(m); tris += m.count * (m.geometry.index.count / 3); }
+    for (const m of vegetation.treeCrownMeshes.concat(vegetation.treeTrunkMeshes)) { cellsGroup.add(m); tris += (m.userData.always ? m.instanceMatrix.count : m.count) * (m.geometry.index.count / 3); }
     const waterMesh = addMesh(bigWater, waterMat, false, 'water-big');
     if (waterMesh) { waterMesh.userData.always = true; waterMesh.renderOrder = -18; }
     // distance culling: cells beyond the fog are hidden (three.js only frustum-culls, and the camera far plane is 5 km).
@@ -3146,6 +3119,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (!lastCull || Math.abs(_v.x - lastCull.x) + Math.abs(_v.z - lastCull.z) > 20) {
                 lastCull = { x: _v.x, z: _v.z };
                 fillLamps(_v.x, _v.z, Math.min(cullR, 1100));
+                vegetation.update?.(_v.x, _v.z);
                 for (const m of this.children) if (!m.userData.always) m.visible = Math.hypot(m.userData.cx - _v.x, m.userData.cz - _v.z) < (m.userData.cull || cullR);
             }
         }

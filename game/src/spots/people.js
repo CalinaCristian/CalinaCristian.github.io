@@ -183,13 +183,13 @@ export class Crowd {
             const city = this.o.city === 'bucharest' ? 'bucharest' : 'seattle', season = seasonOf(this.o.date || new Date()), r = this.r;
             this.cr = makeCrowd({ max: N, city, season, weather: null, rng: () => r() });
             this.cr.count = N; grp.add(this.cr.object);
-            this.peds.forEach((p, i) => { const o = dressFor(city, season, null, () => r(), p.persona === 'guard' || p.persona === 'staff' ? 'adult' : 'adult'); const L = LOOKS[p.persona]; if (L && /guide|tour_guide|waiter|guard|vendor|fishmonger|staff|busker/.test(p.persona)) { o.top = p.look.top; o.bottom = p.look.legs; } if (p.look.scale < 0.8) o.flags = (o.flags || 0) & ~2; this.cr.dress(i, o); });
+            this.peds.forEach((p, i) => { const o = dressFor(city, season, null, () => r(), p.persona === 'guard' || p.persona === 'staff' ? 'adult' : 'adult'); const L = LOOKS[p.persona]; if (L && /guide|tour_guide|waiter|guard|vendor|fishmonger|staff|busker/.test(p.persona)) { o.top = p.look.top; o.bottom = p.look.legs; } if (p.look.scale < 0.8) o.flags = (o.flags || 0) & ~2; if (/guide/.test(p.persona)) o.acc = r.pick(['#f59e0b', '#c8102e', '#1d4ed8', '#16a34a']); this.cr.dress(i, o); });
         } catch (e) { console.warn('[spots] crowd.js unavailable, legacy figures', e); this.cr = null; }
         const mk = (geo, n, name, vc = true) => {
             const m = new THREE.InstancedMesh(geo, new THREE.MeshStandardMaterial({ roughness: 0.8, vertexColors: vc && !!geo.attributes.color }), Math.max(1, n));
             m.name = 'crowd:' + name; m.castShadow = true; m.receiveShadow = false; m.frustumCulled = false;
             m.instanceColor = new THREE.InstancedBufferAttribute(new Float32Array(Math.max(1, n) * 3), 3);
-            grp.add(m); return m;
+            if (!this.cr) grp.add(m); return m; // legacy part meshes: only the fallback when crowd.js is unavailable
         };
         this.mesh = {
             legs: mk(G.leg, N * 2, 'legs'), arms: mk(G.arm, N * 2, 'arms'), hands: mk(G.hand, N * 2, 'hands'), torso: mk(G.torso, N, 'torso'), head: mk(G.head, N, 'head'),
@@ -365,7 +365,7 @@ export class Crowd {
             const p = this.peds[i], L = p.look, s = L.scale, walking = p.act === 'walk' && p.speed > 0.1;
             const legacy = !cr;
             if (cr) { // crowd.js idle poses + hand-held props (sit / phone / photo / wave / flag / guitar / talk)
-                let pose = 'stand', prop = null; const q = p.pose || ({ photo: 'photo', perform: 'perform', guide: 'flag', sit: 'sit' })[p.act] || (L.prop === 'flag' ? 'flag' : null);
+                let pose = 'stand', prop = null; const q = p.pose || ({ photo: 'photo', perform: 'perform', guide: 'flag', sit: 'sit', talk: 'talk' })[p.act] || (L.prop === 'flag' ? 'flag' : null);
                 if (walking) pose = 'walk';
                 else if (q === 'sit') pose = 'sit';
                 else if (q === 'photo') { pose = 'photo'; prop = L.prop === 'camera' ? 'camera' : 'phone'; }

@@ -172,7 +172,7 @@ function M(x = 0, y = 0, z = 0, ry = 0, sx = 1, sy = 1, sz = 1, rx = 0, rz = 0) 
 }
 
 class Builder {
-    constructor(hs = 1) { this.hs = hs; this.wall = null; this.bk = {}; this.cols = []; this.stack = [new THREE.Matrix4()]; this.ox = 0; this.oz = 0; }
+    constructor(hs = 1) { this.hs = hs; this.wall = null; this.bk = {}; this.cols = []; this.extras = []; this.stack = [new THREE.Matrix4()]; this.ox = 0; this.oz = 0; }
     /** translate everything that follows by (dx, dz) model metres (lets a builder keep its source coordinates when its anchor moves) */
     shift(dx, dz) { this.ox = dx; this.oz = dz; return this; }
     _b(mat) { return this.bk[mat] || (this.bk[mat] = { p: [], n: [], c: [] }); }
@@ -470,11 +470,13 @@ class Builder {
             g.setAttribute('normal', new THREE.Float32BufferAttribute(b.n, 3));
             g.setAttribute('color', new THREE.Float32BufferAttribute(b.c, 3));
             g.computeBoundingSphere(); g.computeBoundingBox();
-            const mesh = new THREE.Mesh(g, MT[k]);
-            mesh.castShadow = k !== 'w' && k !== 'f' && k !== 'e'; mesh.receiveShadow = k !== 'f' && k !== 'e';
+            const mesh = new THREE.Mesh(g, k === 'fw' ? fountainMaterials().water : MT[k]);
+            if (k === 'fw') { mesh.onBeforeRender = (r) => fountainTick(r); mesh.renderOrder = 1; }
+            mesh.castShadow = k !== 'w' && k !== 'f' && k !== 'e' && k !== 'fw'; mesh.receiveShadow = k !== 'f' && k !== 'e';
             group.add(mesh);
             tris += b.p.length / 9;
         }
+        for (const m of this.extras) { group.add(m); tris += (m.geometry.index ? m.geometry.index.count : m.geometry.attributes.position.count) / 3; }   // custom meshes (fountain jets)
         return { group, tris };
     }
 }
@@ -1200,7 +1202,108 @@ const FOUNTAINS = [[-770, -48, 14], [-722, -44, 14], [-686, -42, 7], [-650, -39,
 // grey granite / concrete rims, turquoise-tiled basin bottoms, jets 2-15 m; the round central plaza basin is
 // "Fântâna lui Bucur". OSM maps 49 basins (some fountains have two basins).
 // Src: https://en.wikipedia.org/wiki/Piața_Unirii ; OSM natural=water / amenity=fountain ways ; game/research/bucharest-unirii.json (fountains_44)
+// ---------------------------------------------------------------------------
+//  Fountain water: translucent animated jets / spray crowns / foam rings and the basin water surface. Two shared
+//  materials (one draw call each for the whole fountain field), animated in the shader by a time uniform; the CPU only
+//  sets 3 uniforms once per frame (onBeforeRender of the meshes). Schedule (research bucharest-unirii.md "Fountains"):
+//  running May-Oct 10:00-23:00 Bucharest time, basins drained Nov-Apr; "Simfonia Apei" show Fri-Sun 21:00-21:45
+//  May-Sep with colour-cycling underwater LEDs; otherwise static white/blue underwater lights after sunset.
+//  Night light: material.userData.nightEmissive (render.js eases emissiveIntensity at dusk). State source, in order:
+//  FOUNTAIN_STATE.mode ('on'|'off'|'show'|null; URL ?fountains=on|off|show), FOUNTAIN_STATE.date, window.game.r3d /
+//  window.spotDev.r3d .simDate, else now; render's season 'winter' (?season=winter) forces them off.
+// ---------------------------------------------------------------------------
+export const FOUNTAIN_STATE = { mode: null, date: null };
+try { const q = new URLSearchParams(globalThis.location?.search || '').get('fountains'); if (['on', 'off', 'show'].includes(q)) FOUNTAIN_STATE.mode = q; } catch { /* no location */ }
+const FU = { uTime: { value: 0 }, uOn: { value: 1 }, uShow: { value: 0 } };
+let _fuFrame = -1, _fuCheck = -1e9;
+const _bucFmt = (() => { try { return new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Bucharest', month: 'numeric', weekday: 'short', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' }); } catch { return null; } })();
+export function fountainSchedule(date) {   // → { on, show } for a Date (Bucharest local time)
+    let mo = date.getMonth() + 1, wd = date.getDay(), h = date.getHours() + date.getMinutes() / 60;
+    if (_bucFmt) { const pp = Object.fromEntries(_bucFmt.formatToParts(date).map(x => [x.type, x.value])); mo = +pp.month; h = +pp.hour + +pp.minute / 60; wd = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(pp.weekday); }
+    const season = mo >= 5 && mo <= 10, on = season && h >= 10 && h < 23;
+    const show = on && mo <= 9 && (wd === 5 || wd === 6 || wd === 0) && h >= 21 && h < 21.75;
+    return { on, show };
+}
+function fountainTick(renderer) {
+    const f = renderer?.info?.render?.frame ?? -2; if (f === _fuFrame) return; _fuFrame = f;
+    const now = performance.now(); FU.uTime.value = (now / 1000) % 3600;
+    if (now - _fuCheck < 1000) return; _fuCheck = now;
+    const st = FOUNTAIN_STATE, r3d = globalThis.game?.r3d || globalThis.spotDev?.r3d;
+    let on, show;
+    if (st.mode) { on = st.mode !== 'off'; show = st.mode === 'show'; }
+    else {
+        ({ on, show } = fountainSchedule(st.date || r3d?.simDate || new Date()));
+        if ((r3d?.weather?.season || r3d?._season?.season) === 'winter') on = show = false;
+    }
+    FU.uOn.value = on ? 1 : 0; FU.uShow.value = show ? 1 : 0;
+}
+let FMATS = null;
+function fountainMaterials() {
+    if (FMATS) return FMATS;
+    const head = 'uniform float uTime; uniform float uOn; uniform float uShow;\n';
+    // jets: kind 0 = column, 1 = falling spray crown, 2 = foam ring (aJ = kind, seed, height)
+    const jet = new THREE.MeshLambertMaterial({ vertexColors: true, transparent: true, depthWrite: false, side: THREE.DoubleSide, emissive: new THREE.Color('#bfe6ff'), emissiveIntensity: 0 });
+    jet.name = 'landmark-fountain-jets'; jet.userData.nightEmissive = 1.4;
+    jet.onBeforeCompile = (sh) => {
+        Object.assign(sh.uniforms, FU);
+        sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\n' + head + 'attribute vec3 aJ; varying vec3 vJ; varying vec2 vU;')
+            .replace('#include <begin_vertex>', `#include <begin_vertex>
+vJ = aJ; vU = uv;
+if (aJ.x < 1.5) transformed.y *= 1.0 + 0.05 * sin(uTime * 2.3 + aJ.y * 17.0) * uv.y;
+if (uOn < 0.5) transformed *= 0.0;`);
+        sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\n' + head + 'varying vec3 vJ; varying vec2 vU;')
+            .replace('#include <color_fragment>', `#include <color_fragment>
+float k = vJ.x, sd = vJ.y, a = 0.0;
+if (k < 0.5) {            // rising column: streaks moving up, thinning to the top
+  float st = 0.5 + 0.5 * sin(vU.y * vJ.z * 2.2 - uTime * 9.0 + sd * 30.0 + sin(vU.x * 37.7 + sd) * 1.5);
+  a = (0.32 + 0.4 * st) * smoothstep(1.0, 0.7, vU.y) * smoothstep(0.0, 0.06, vU.y);
+} else if (k < 1.5) {     // spray crown: droplet curtains falling outward
+  float fall = fract(vU.y * 2.5 - uTime * 1.3 + sd);
+  float drops = smoothstep(0.35, 0.9, fract(vU.x * 48.0 + sd * 7.0 + fall * 0.6)) * 0.6 + 0.4;
+  a = 0.5 * drops * (0.55 + 0.45 * fall) * smoothstep(1.0, 0.65, vU.y);
+} else {                  // foam ring where the water falls back
+  vec2 q = vU - 0.5; float d = length(q) * 2.0, an = atan(q.y, q.x);
+  float fo = sin(an * 7.0 + d * 19.0 - uTime * 2.3 + sd * 9.0) * sin(an * 13.0 - d * 11.0 + uTime * 1.7) + 0.6 * sin(an * 3.0 + uTime * 0.9 + sd * 4.0);
+  a = 0.8 * smoothstep(1.0, 0.45, d) * (0.45 + 0.35 * fo) + 0.35 * smoothstep(0.3, 0.0, d);
+}
+diffuseColor.a *= a * uOn;`)
+            .replace('#include <opaque_fragment>', 'outgoingLight += diffuseColor.rgb * 0.45 * (1.0 - min(length(emissive) * 0.7, 1.0));   // light scattered in the spray (daylight)\n#include <opaque_fragment>')
+            .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+vec3 hue = 0.55 + 0.45 * cos(6.2832 * (uTime * 0.12 + sd * 0.35 + vec3(0.0, 0.33, 0.67)));
+totalEmissiveRadiance *= mix(vec3(0.75, 0.9, 1.0), hue * 1.3, uShow) * a * uOn;`);
+    };
+    jet.customProgramCacheKey = () => 'landmark-fountain-jets';
+    // basin water surface: translucent, gentle animated ripple shading, drained (invisible) when off, underwater glow at night
+    const water = new THREE.MeshLambertMaterial({ vertexColors: true, transparent: true, opacity: 0.78, depthWrite: false, emissive: new THREE.Color('#5ec4ff'), emissiveIntensity: 0 });
+    water.name = 'landmark-fountain-water'; water.userData.nightEmissive = 0.55;
+    water.onBeforeCompile = (sh) => {
+        Object.assign(sh.uniforms, FU);
+        sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\n' + head + 'varying vec2 vW;')
+            .replace('#include <begin_vertex>', '#include <begin_vertex>\nvW = (modelMatrix * vec4(position, 1.0)).xz;');
+        sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\n' + head + 'varying vec2 vW;')
+            .replace('#include <color_fragment>', `#include <color_fragment>
+float rp = sin(vW.x * 1.7 + uTime * 1.6) * sin(vW.y * 2.1 - uTime * 1.3) + 0.5 * sin((vW.x + vW.y) * 4.3 + uTime * 3.1);
+diffuseColor.rgb *= 0.92 + 0.12 * rp; diffuseColor.a *= uOn;`)
+            .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+vec3 hue2 = 0.55 + 0.45 * cos(6.2832 * (uTime * 0.12 + vW.x * 0.004 + vec3(0.0, 0.33, 0.67)));
+totalEmissiveRadiance *= mix(vec3(1.0), hue2 * 1.2, uShow) * uOn;`);
+    };
+    water.customProgramCacheKey = () => 'landmark-fountain-water';
+    FMATS = { jet, water };
+    return FMATS;
+}
+
 function bFountains(b) {
+    const P = [], N = [], U = [], CO = [], J = [], I = [];
+    const spray = rgb('#eef6fb');
+    const add = (g, x, y, z, kind, seed, h) => {               // append a THREE geometry (local) to the jet buffers
+        const base = P.length / 3, pos = g.attributes.position, nor = g.attributes.normal, uv = g.attributes.uv;
+        for (let i = 0; i < pos.count; i++) { P.push(pos.getX(i) + x, pos.getY(i) + y, pos.getZ(i) + z); N.push(nor.getX(i), nor.getY(i), nor.getZ(i)); U.push(uv.getX(i), uv.getY(i)); CO.push(spray[0], spray[1], spray[2]); J.push(kind, seed, h); }
+        const idx = g.index ? g.index.array : [...Array(pos.count).keys()];
+        for (const k of idx) I.push(base + k);
+        g.dispose();
+    };
+    let n = 0;
     for (const [x, z, L] of FOUNTAINS) {
         const plaza = Math.abs(x) < 100, oval = !plaza && L >= 12;
         const rx = plaza ? L * 0.52 : (oval ? 13 : 6.5), rz = plaza ? L * 0.38 : (oval ? 5.5 : 6.5);   // L = basin length in OSM
@@ -1208,15 +1311,27 @@ function bFountains(b) {
         const rot = (q) => q.map(([a, c]) => [x + a * Math.cos(ang) - c * Math.sin(ang), z + a * Math.sin(ang) + c * Math.cos(ang)]);
         const ns = plaza ? 12 : 8, outer = rot(ellipse(0, 0, rx, rz, ns)), inner = rot(ellipse(0, 0, rx - 0.7, rz - 0.7, ns));
         b.ring(outer, 0, 0.6, '#a5a29b'); b.ring(inner, 0.35, 0.6, '#a5a29b', { inward: true }); b.lip(inner, outer, 0.6, '#b4b1a9', 1);   // granite kerb
-        b.cap(inner, 0.12, '#3f9fae', [], 1);                                                   // turquoise tiled bottom
-        b.cap(inner, 0.35, '#5db8c4', [], 1, 'w');
+        b.ring(inner, 0.12, 0.35, '#8fb9bf', { inward: true });                                // inner basin wall (visible when drained)
+        b.cap(inner, 0.12, '#79aab0', [], 1);                                                   // pale turquoise tiled bottom (reads dry when drained)
+        b.cap(inner, 0.35, '#4fb0c0', [], 1, 'fw');                                             // water surface (own material)
         const jets = oval ? [-7, 0, 7] : plaza ? [-rx * 0.4, rx * 0.4] : [0];
         for (const j of jets) {
             const jx = x + j * Math.cos(ang), jz = z + j * Math.sin(ang), h = plaza ? (L >= 30 ? 14 : 8) : oval && j === 0 ? 9 : oval ? 4 : 2.5;
-            b.cone(jx, 0.35, jz, 0.7 + h * 0.09, h, C.spray, 6, { mat: 'w' });
-            if (h > 6) b.dome(jx, 0.35, jz, 2.2 + h * 0.08, 1.1, C.spray, 6, { mat: 'w' });
+            const seed = hash(++n), r0 = 0.08 + h * 0.01, r1 = 0.18 + h * 0.025, R = Math.min(0.6 + h * 0.16, plaza ? rz * 0.7 : 3.2);
+            add(new THREE.CylinderGeometry(r1, r0, h, 8, 1, true).translate(0, h / 2, 0), jx, 0.35, jz, 0, seed, h);   // uv.y 0 bottom → 1 top
+            const sk = [[0.05, h + 0.35], [R * 0.35, h * 0.98], [R * 0.7, h * 0.82], [R * 0.92, h * 0.55], [R, 0.05]].map(([a, c]) => new THREE.Vector2(a, c));
+            add(new THREE.LatheGeometry(sk, 10), jx, 0.35, jz, 1, seed, h);                      // falling spray crown (uv.y 0 top → 1 bottom)
+            add(new THREE.RingGeometry(0.05, R * 1.12, 16, 2).rotateX(-Math.PI / 2), jx, 0.37, jz, 2, seed, h);   // foam ring on the water
         }
     }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.Float32BufferAttribute(P, 3)); g.setAttribute('normal', new THREE.Float32BufferAttribute(N, 3));
+    g.setAttribute('uv', new THREE.Float32BufferAttribute(U, 2)); g.setAttribute('color', new THREE.Float32BufferAttribute(CO, 3));
+    g.setAttribute('aJ', new THREE.Float32BufferAttribute(J, 3)); g.setIndex(I);
+    g.computeBoundingSphere(); g.computeBoundingBox();
+    const mesh = new THREE.Mesh(g, fountainMaterials().jet); mesh.name = 'fountain-jets'; mesh.renderOrder = 2;
+    mesh.onBeforeRender = (r) => fountainTick(r);
+    b.extras.push(mesh);
 }
 
 // Sky Tower (Floreasca City Center, 2012) — 137 m, 37 floors, tallest building in Romania (OSM way 219622660:

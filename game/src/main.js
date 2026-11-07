@@ -1697,6 +1697,17 @@ class Game {
         } else { this.objective = null; this.objectiveLabel = `${ch.title}`; this.objectivePlain = ''; }
         this.autoRoute(true);
     }
+    /** the next chapter in the same district, in place (notes 41/42): the player keeps driving / walking from where they are */
+    chainChapter(idx) {
+        const ch = this.chapters[idx]; if (!ch) return false;
+        this.chapterIdx = idx; this.ch = ch; this.chapter = ch.id; this.chapterDone = false; this.navManual = false;
+        this.progress.reached.add(ch.id); saveProgress(this.progress); this.renderMenuChapters();
+        this.updateObjective();
+        if (this.state === 'foot' && this.foot?.active) this.nav.setDestination(this.nav.dest || { x: this.objective?.doorX ?? this.objective?.x, z: this.objective?.doorZ ?? this.objective?.z, label: this.objectivePlain }, { x: this.foot.x, z: this.foot.z, heading: this.foot.heading });
+        const km = this.nav.route ? ` · ${fmtDist(this.nav.route.total, this.city.units)}` : '';
+        this.hud.toast(`📖 ${ch.year} · ${ch.title}`, `A few months later: walk or drive there${km}. ${ch.intro || ''}`, 'intro');
+        return true;
+    }
     /** the chapter's goal reached: card → Continue (montage / flight → next chapter) or free drive here */
     async completeChapter(expect = null) {
         if (this._completing || !this.ch || this.chapterDone || (expect && expect !== this.chapter)) return; this._completing = true;

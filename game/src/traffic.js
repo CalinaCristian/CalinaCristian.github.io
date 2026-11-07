@@ -1219,7 +1219,7 @@ export class Traffic {
             if (fol.parked || fol.tram) fol = fol === v ? hit : v;
             if (fol.parked) continue;
             const other = fol === v ? hit : v;
-            if (fol.ghost > 0) continue; // ghosting out of a knot (see 3): let it drive clear instead of freezing it again every frame
+            if (fol.knotT > 0) { fol.knotT -= dt; continue; } // driving out of a knot (see 3): don't freeze it again every frame
             fol.speed = 0; fol.zeroWhy = 'ovFol:' + (other.kind || '') + '#' + other.id; fol.ovT = (fol.ovT || 0) + dt;
             const back = Math.min(hp + 0.05, 0.25);
             if (fol.s - back > 0.3 && !fol.tram && !(P && Math.hypot(P.x - fol.x, P.z - fol.z) < 12 && vpPen(fol, P) > -0.4 && (P.x - fol.x) * -Math.sin(fol.heading) + (P.z - fol.z) * -Math.cos(fol.heading) < 0)) {
@@ -1237,7 +1237,7 @@ export class Traffic {
                 let hidden = true;
                 if (P) { const dx = fol.x - P.x, dz = fol.z - P.z, d = Math.hypot(dx, dz); hidden = d > 70 || (d > 30 && dx * P.fx + dz * P.fz < 0); } // (a swap 70 m away goes unnoticed; two cars stuck in each other would not)
                 if (hidden) { fol.ovT = 0; if (!(this.large && this.relocate(fol, 250, this.bubble, true))) this.respawn(fol); this.stats.unstuck = (this.stats.unstuck || 0) + 1; }
-                else if (fol.ovT > 3) { fol.ghost = 1.5; fol.ovT = 0; }
+                else if (fol.ovT > 3) { fol.ghost = 1.5; fol.knotT = 1.5; fol.ovT = 0; } // (a 3-car knot in a junction box froze the finale for minutes)
             }
         }
         // 4) nothing may end the frame inside the player's car: slide such an NPC out along its own axis

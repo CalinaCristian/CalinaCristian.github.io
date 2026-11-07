@@ -27,6 +27,7 @@ Source: `game/FEEDBACK.md` "Round 4 play-test" notes 1–27 (+ any that follow),
 |---|---|---|
 | 22, 24, 25 | spots | Old Town fidelity pass per street (layout, fronts, venues, string lights instead of random cables, terraces with seated people, no hard-hat figures). |
 | 23, 26 | spots (+ qa) | Z-fighting and invisible walls in all spots: de-duplicate overlapping footprints/coplanar facades, colliders only from visible geometry; z-fight + phantom-collider detectors in `harness:spots`. |
+| 28 | spots | Black rectangle flashing in the view while walking at Arcul de Triumf (camera-attached/near-clipped quad). |
 | 20, 27 | spots | Terrain flattened under paved esplanades/plinths (Parliament), no camera roll on slopes; crowds on the walkable surface (steps), never inside colliders. |
 
 ## P2 — gameplay features

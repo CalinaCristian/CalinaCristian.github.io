@@ -777,6 +777,7 @@ SCENARIOS.push({
             res.objective = g.objective; res.label = g.hud?.el?.chapter?.textContent;
             const P = g.player, ahead = g.lanePose(P.x + P.fx * 200, P.z + P.fz * 200, P.heading);
             if (ahead) { res.drive = await H.driveTo(ahead.x, ahead.z, { label: `free roam ${d.id} 200 m`, arriveR: 20, timeout: 45, stop: false }); }
+            if ((res.drive?.dist ?? 0) < 100) H.issue('roam-drive', 'medium', `free roam ${d.id}: drove only ${res.drive?.dist ?? 0} m in 45 s from the start`, {}, { shot: true, key: 'roamd:' + d.id }); // (the target 200 m ahead may need a long one-way detour: distance driven is what counts)
             if (i === 0) {
                 // conditions panel: each control must reach Renderer3D
                 g.toggleConditions(true); res.panel = !!document.getElementById('cond-panel')?.classList.contains('show');

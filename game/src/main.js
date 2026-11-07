@@ -17,6 +17,7 @@ import { Renderer3D } from './render.js';
 import { PhotoMode } from './photo.js';
 import { OnFootController } from './onfoot.js';
 import * as VEHICLES from './vehicles.js';
+import { initAchievements } from './achievements.js'; // spec 23 (progression): observes window.game
 const { makeVehicle } = VEHICLES;
 
 const $ = (s) => document.querySelector(s);
@@ -2025,3 +2026,4 @@ function buildCameraMesh(x, z, angle) {
 }
 
 window.game = new Game();
+initAchievements(window.game); // spec 23: achievements, completion %, panel

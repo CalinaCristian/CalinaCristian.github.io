@@ -121,6 +121,7 @@ export class HUD {
         setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 500); }, 4200);
     }
     achievement(id) {
+        if (this.progression) return this.progression.unlock(id); // achievements.js (spec 23): persistence, queue, completion %
         if (this.unlocked.has(id)) return false;
         const a = ACHIEVEMENTS.find(x => x.id === id); if (!a) return false;
         this.unlocked.add(id);

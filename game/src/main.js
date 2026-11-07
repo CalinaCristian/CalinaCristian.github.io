@@ -645,7 +645,9 @@ class Game {
         }
         if (this.frame % 2 === 1) this.drawCarScreen(streetName, fuelText);
         player.mirrorEnabled = this.quality !== 'low' && !/low/.test(this.r3d.stats?.quality || '');
-        this.drawFrame({ mirror: this.frame % 2 === 1 });
+        // mirror pass: every 2nd frame at high+, every 3rd at medium (it re-renders the scene; render's perf table)
+        const mq = this.r3d.stats?.quality || this.quality, mEvery = /medium/.test(mq) ? 3 : 2;
+        this.drawFrame({ mirror: this.frame % mEvery === 1 });
     }
 
     /** real local time of the current city (or the menu override) + day phase + NPC lights */

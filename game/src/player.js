@@ -26,7 +26,7 @@ export class Player {
         // rear-view mirror: a small plane in front of the camera showing a render from a rear camera
         this.mirrorTarget = new THREE.WebGLRenderTarget(384, 128);
         this.mirrorTarget.texture.colorSpace = THREE.LinearSRGBColorSpace;
-        this.mirrorCam = new THREE.PerspectiveCamera(40, 3, 0.5, 600);
+        this.mirrorCam = new THREE.PerspectiveCamera(40, 3, 0.5, 200); // far 200 m: the mirror is small, distant blocks cost draw calls (render, spec 17)
         this.mirrorCam.position.set(0.3, 1.5, 0.3); this.mirrorCam.rotation.set(0, Math.PI, 0);
         this.rig.add(this.mirrorCam);
         const mirrorMat = new THREE.MeshBasicMaterial({ map: this.mirrorTarget.texture, toneMapped: false });

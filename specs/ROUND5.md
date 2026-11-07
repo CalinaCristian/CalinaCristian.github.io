@@ -23,6 +23,7 @@ Source: `game/FEEDBACK.md` "Round 4 play-test" notes 1–27 (+ any that follow),
 | 14 | cockpit-ui (office.js) | Unique interiors per CV stop (school, Rectorat, GTS, Luxoft, DB, Arnia, UiPath Bucharest, UiPath Bellevue, airports) with era props, brand colours, real views, colleagues. |
 | 37 | cockpit-ui (office.js) + gameplay + progression | Office CV screens → an in-character NPC (teacher / professor / manager / host) with A–D question choices and answers drawn only from the CV content; achievements count answers heard. |
 | 16 | gameplay (chapters.js) + cockpit-ui (style) | Cinematic chapter transition (animated stylised map, route line, district fly-over, year counter, clean CV card). |
+| 47 | cockpit-ui (flight.js) | Realistic flight map: Natural Earth coastlines (baked, small), proper projection for the great-circle arc (or a 3D globe), clean typography; shared style with the chapter-transition map (16). |
 | 15 | gameplay (data.js) | Remove the student-projects GitHub line. |
 
 ## P1 — tourist spots

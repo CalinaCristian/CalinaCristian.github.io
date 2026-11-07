@@ -153,6 +153,10 @@ class Game {
         // lets the next click on the view take the mouse look again (note 21)
         this.canvas.tabIndex = -1; this.canvas.style.outline = 'none';
         this.hud.onPanelClose = () => this.returnFocus();
+        // settings (pause menu): look sensitivity / invert, volume, HUD
+        { const sv = +this.loadStr('sens', '1'); this.input.sens = Number.isFinite(sv) && sv > 0 ? sv : 1; this.input.invertY = this.loadOpt('invertY', false);
+          const vv = +this.loadStr('volume', '1'); this.audio.volume = Number.isFinite(vv) ? vv : 1; this.opts.hudOff = this.loadOpt('hudOff', false); document.body.classList.toggle('hud-off', this.opts.hudOff); }
+        this.buildPause();
         // in a spot, an Esc / M that closes the camera, a plaque or a panel must not also open the pause panel
         window.addEventListener('keydown', (e) => {
             if ((e.code === 'Escape' || e.code === 'KeyM') && this.state === 'spot' && (this.photo?.active || this.spot?.ui?.panelOpen || this.hud.panelOpen)) this._spotSwallow = e.code;
@@ -342,7 +346,7 @@ class Game {
         this.setupStations(city, world);
         this.setupCameras(city, world);
         // hud
-        this.hud.setUnits(city.units);
+        this.applyUnits(); // (settings: km/h / mph override)
         this.hud.setTicker(FACTS[city.id]);
         this.hud.setChapter(district ? (city.districts?.[district]?.name || district) : city.id === 'bucharest' ? 'București' : 'Seattle → Bellevue'); // (the chapter / free-roam objective overrides it)
         this.stops = STOPS.filter(s => s.city === city.id).sort((a, b) => a.order - b.order);
@@ -515,6 +519,12 @@ class Game {
     loop() {
         requestAnimationFrame(this.loop);
         const dt = Math.min(0.1, this.frameClock.getDelta());
+        if (this._pauseOpen) { // paused: nothing moves; the scene keeps being drawn behind the menu
+            if (this.input.take('Escape')) this.togglePause(false);
+            this.input.flush();
+            if (this.state === 'office') this.office?.render(); else if (this.state === 'spot') this.r3d.frame(); else if (this.scene) this.drawFrame();
+            return;
+        }
         if (this.state === 'drive') this.updateDrive(dt);
         else if (this.state === 'office') this.updateOffice(dt);
         else if (this.state === 'foot') this.updateFoot(dt);
@@ -538,6 +548,7 @@ class Game {
         if (input.take('KeyM')) this.toggleMap(!this.mapOpen);
         if (this.mapOpen && input.take('Escape')) this.toggleMap(false);
         if (this.mapOpen || hud.panelOpen) { input.lookAllowed = false; input.releaseLock(); input.flush(); this.drawFrame(); return; }
+        if (input.take('Escape')) { this.togglePause(true); this.drawFrame(); return; } // (the first Esc only frees the mouse)
         input.lookAllowed = true;
         if (DEV && input.take('KeyB')) this.setDebugOverlay(!this.debug.overlay);
         if (input.take('KeyN')) { this.opts.minimap = !this.opts.minimap; this.saveOpt('minimap', this.opts.minimap); this.applyOpts(); }
@@ -1208,6 +1219,7 @@ class Game {
         if (input.take('KeyM')) this.toggleMap(!this.mapOpen);
         if (this.mapOpen && input.take('Escape')) this.toggleMap(false);
         if (this.mapOpen || hud.panelOpen) { input.lookAllowed = false; input.releaseLock(); input.flush(); this.drawFrame(); return; }
+        if (input.take('Escape')) { this.togglePause(true); this.drawFrame(); return; }
         input.lookAllowed = true;
         if (input.take('KeyN')) { this.opts.minimap = !this.opts.minimap; this.saveOpt('minimap', this.opts.minimap); this.applyOpts(); }
         this.frame++;
@@ -1455,7 +1467,7 @@ class Game {
         if (busy) { inp.take('Escape'); inp.take('KeyM'); }
         if (this._spotSwallow) { inp.take(this._spotSwallow); this._spotSwallow = null; }
         if (hud.panelOpen) { inp.lookAllowed = false; inp.releaseLock(); inp.flush(); this.r3d.frame(); return; }
-        if (!busy && (inp.take('Escape') || inp.take('KeyM'))) { this.spotPause(); this.r3d.frame(); return; }
+        if (!busy && (inp.take('Escape') || inp.take('KeyM'))) { this.togglePause(true); this.r3d.frame(); return; }
         inp.take('Enter'); inp.take('NumpadEnter'); inp.take('KeyR'); inp.take('KeyF'); inp.take('KeyH');
         if (!s.ui?.panelOpen) inp.lookAllowed = true;
         s.update(dt);
@@ -1490,6 +1502,124 @@ class Game {
         this.hud.toast('📸 Saved', `${meta.place || 'Photo'} · ${meta.filter}`);
     }
 
+    // ---------------------------------------------------------------------------------- pause menu (note 72)
+    /** Esc (once the mouse is free) / ⏸: Resume · Map · Chapters · Tourist spots · Time, weather & season · Achievements ·
+     *  Photo mode · Settings · Explore (coming soon) · Main menu; in spots also the entrances + Leave; the game is paused */
+    pauseItems() {
+        const st = this.state, inGame = ['drive', 'foot', 'office'].includes(st) && !!this.world;
+        const items = [['resume', '▶️', 'Resume']];
+        if (st === 'spot') {
+            const e = this.spotEntry || {}, same = (this.spotsMod?.SPOTS || []).filter(x => x.scene && x.scene === e.scene && x.id !== this.spotId && this.spot?.spot?.spawns?.[x.id]);
+            for (const x of same) items.push(['tp:' + x.id, '📍', `Walk to ${x.name}`]);
+            items.push(['leave-spot', '🚪', 'Leave tourist spot']);
+        }
+        if (inGame && st !== 'office') items.push(['map', '🗺️', 'Map & navigation']);
+        if (this.chapters) items.push(['chapters', '📖', 'Chapters']);
+        if (this.spotsMod?.SPOTS?.length) items.push(['spots', '🏛️', 'Tourist spots']);
+        if (this.chapters) items.push(['roam', '🚗', this.freeRoam ? 'Free roam: district' : 'Free roam']);
+        if (st === 'drive' || st === 'foot') items.push(['conditions', '☀️', 'Time, weather & season']);
+        if (this.achievements?.open) { let pct = null; try { pct = this.achievements.completion?.().pct; } catch { /* ignore */ } items.push(['achievements', '🏆', `Achievements${pct != null ? ` · ${pct} %` : ''}`]); }
+        if (this.photo && st !== 'office') items.push(['photo', '📷', 'Photo mode']);
+        items.push(['settings', '⚙️', 'Settings']);
+        items.push(['explore', '🧭', 'Explore mode', 'coming soon']); // note 75 plugs in here
+        items.push(['main-menu', '🏠', 'Main menu']);
+        return items;
+    }
+    buildPause() {
+        if (document.getElementById('pause-menu')) return;
+        const btn = document.createElement('button'); btn.id = 'pause-btn'; btn.title = 'Pause (Esc)'; btn.textContent = '⏸';
+        btn.addEventListener('click', (e) => { e.preventDefault(); this.togglePause(); });
+        document.body.appendChild(btn);
+        const el = document.createElement('div'); el.id = 'pause-menu'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', 'Pause');
+        document.body.appendChild(el);
+        el.addEventListener('click', (e) => { const b = e.target.closest('[data-pa]'); if (b && !b.disabled) this.pauseAction(b.dataset.pa, b); else if (e.target === el) this.togglePause(false); });
+        el.addEventListener('input', (e) => this.pauseSetting(e.target));
+        el.addEventListener('change', (e) => this.pauseSetting(e.target));
+    }
+    get pauseOpen() { return !!this._pauseOpen; }
+    togglePause(open = !this._pauseOpen, view = 'main') {
+        this.buildPause();
+        const el = document.getElementById('pause-menu');
+        if (open && !['drive', 'foot', 'office', 'spot'].includes(this.state)) return;
+        if (open) {
+            if (this.photo?.active) this.photo.close();
+            if (this.mapOpen) this.toggleMap(false);
+            if (this.condOpen) this.toggleConditions(false);
+            this.input.releaseLock(); this.input.lookAllowed = false; this.input.flush();
+            this._pauseOpen = true; this.renderPause(view); el.classList.add('show'); document.body.classList.add('paused');
+            this.audio.stopEngine?.();
+            el.querySelector('[data-pa]')?.focus({ preventScroll: true });
+        } else if (this._pauseOpen) {
+            this._pauseOpen = false; el.classList.remove('show'); document.body.classList.remove('paused');
+            this.returnFocus();
+        }
+    }
+    renderPause(view = 'main') {
+        const el = document.getElementById('pause-menu'); if (!el) return;
+        const esc = (t) => String(t ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+        const where = this.state === 'spot' ? (this.spotEntry?.name || 'Tourist spot') : this.state === 'office' ? (this.office?.stop?.company || 'Office')
+            : this.freeRoam ? `Free roam · ${this.city?.districts?.[this.district]?.name || ''}` : this.ch ? `Chapter ${this.chapterIdx + 1}/${this.chapters.length} · ${this.ch.title}` : (this.city?.name || '');
+        let body = '';
+        if (view === 'main') body = `<div class="pm-grid">${this.pauseItems().map(([id, ic, label, note]) => `<button data-pa="${id}"${id === 'explore' ? ' disabled' : ''}><span class="ic">${ic}</span><span>${esc(label)}${note ? `<small>${esc(note)}</small>` : ''}</span></button>`).join('')}</div>`;
+        else if (view === 'chapters') body = `<div class="pm-list">${this.chapters.map((c, i) => { const ok = this.progress.reached.has(c.id) || i === 0; return `<button data-pa="chapter:${i}"${ok ? '' : ' disabled'}><span class="ic">${this.progress.done.has(c.id) ? '✓' : ok ? '▶' : '🔒'}</span><span>${c.year} · ${esc(c.title)}<small>${esc(this.city?.districts?.[c.district]?.name || CITIES[c.city]?.districts?.[c.district]?.name || c.district)}</small></span></button>`; }).join('')}</div>`;
+        else if (view === 'spots') body = `<div class="pm-list">${(this.spotsMod?.SPOTS || []).map(sp => `<button data-pa="spot:${esc(sp.id)}"><span class="ic">${sp.city === 'bucharest' ? '🇷🇴' : '🇺🇸'}</span><span>${esc(sp.name)}</span></button>`).join('')}</div>`;
+        else if (view === 'roam') body = `<div class="pm-list">${this.roamDistricts().map(d => `<button data-pa="roam:${esc(d.id)}"><span class="ic">${d.id === this.district && this.freeRoam ? '•' : '🗺️'}</span><span>${esc(d.name)}<small>${esc(d.cityName)}</small></span></button>`).join('')}</div>`;
+        else if (view === 'settings') {
+            const q = this.quality, u = this.loadStr('units', 'auto'), sens = this.input.sens ?? 1, vol = this.audio.volume ?? 1;
+            body = `<div class="pm-set">
+<label>Graphics quality <select data-set="quality">${['auto', 'ultra', 'high', 'medium', 'low'].map(x => `<option value="${x}"${x === q ? ' selected' : ''}>${x[0].toUpperCase() + x.slice(1)}</option>`).join('')}</select></label>
+<label>Mouse / touch look sensitivity <input type="range" data-set="sens" min="0.3" max="2.5" step="0.05" value="${sens}"></label>
+<label class="cb"><input type="checkbox" data-set="invert"${this.input.invertY ? ' checked' : ''}> Invert vertical look</label>
+<label>Mouse look <select data-set="look">${[['lock', 'Pointer lock (click the view)'], ['hold', 'Hold right button'], ['off', 'Off']].map(([v, l]) => `<option value="${v}"${v === this.input.lookMode ? ' selected' : ''}>${l}</option>`).join('')}</select></label>
+<label>Volume <input type="range" data-set="volume" min="0" max="1" step="0.05" value="${vol}"></label>
+<label class="cb"><input type="checkbox" data-set="mute"${this.audio.muted ? ' checked' : ''}> Mute</label>
+<label class="cb"><input type="checkbox" data-set="minimap"${this.opts.minimap ? ' checked' : ''}> Mini-map</label>
+<label class="cb"><input type="checkbox" data-set="hud"${this.opts.hudOff ? '' : ' checked'}> HUD</label>
+<label>Units <select data-set="units">${[['auto', 'Local (km/h in Bucharest, mph in Seattle)'], ['kmh', 'km/h'], ['mph', 'mph']].map(([v, l]) => `<option value="${v}"${v === u ? ' selected' : ''}>${l}</option>`).join('')}</select></label></div>`;
+        }
+        const back = view === 'main' ? '' : '<button class="pm-back" data-pa="back">← Back</button>';
+        const title = { main: 'Paused', chapters: 'Chapters', spots: 'Tourist spots', roam: 'Free roam', settings: 'Settings' }[view] || 'Paused';
+        el.innerHTML = `<div class="pm-card"><div class="pm-head">${back}<div><div class="pm-eyebrow">${esc(where)}</div><h2>${title}</h2></div><button class="pm-x" data-pa="resume" aria-label="Resume">✕</button></div>${body}<div class="pm-foot">Esc · Resume</div></div>`;
+        this._pauseView = view;
+    }
+    pauseAction(a, b) {
+        const [k, arg] = a.split(/:(.*)/s);
+        if (k === 'resume') return this.togglePause(false);
+        if (k === 'back') return this.renderPause('main');
+        if (['chapters', 'spots', 'roam', 'settings'].includes(k)) return this.renderPause(k);
+        this.togglePause(false);
+        if (k === 'map') this.toggleMap(true);
+        else if (k === 'conditions') { this.buildConditions(); this.toggleConditions(true, { any: true }); }
+        else if (k === 'achievements') this.achievements?.open?.();
+        else if (k === 'photo') this.photo?.open?.();
+        else if (k === 'main-menu') { this.toMainMenu(); }
+        else if (k === 'leave-spot') this.leaveSpot();
+        else if (k === 'tp' && this.spot) { this.spot.teleport(arg); this.spotId = arg; this.spotEntry = this.spotsMod?.SPOTS?.find(x => x.id === arg) || this.spotEntry; }
+        else if (k === 'chapter') { if (this.state === 'spot') this.leaveSpot(); if (this.started) this.goToChapter(+arg); else this.start(+arg); }
+        else if (k === 'spot') this.enterSpot(arg);
+        else if (k === 'roam') { if (this.state === 'spot') this.leaveSpot(); if (this.freeRoam) this.switchRoamDistrict(arg); else this.startFreeRoam(arg, { tod: 'now', weather: 'live' }); }
+    }
+    pauseSetting(t) {
+        const k = t?.dataset?.set; if (!k) return;
+        if (k === 'quality') { this.quality = t.value; this.r3d.setQuality(t.value); const q = $('#quality'); if (q) q.value = t.value; }
+        else if (k === 'sens') { this.input.sens = +t.value; this.saveStr('sens', t.value); }
+        else if (k === 'invert') { this.input.invertY = t.checked; this.saveOpt('invertY', t.checked); }
+        else if (k === 'look') { this.opts.look = t.value; this.saveStr('look', t.value); this.input.setLookMode(t.value); this.applyOpts(); }
+        else if (k === 'volume') { this.audio.setVolume?.(+t.value); this.saveStr('volume', t.value); }
+        else if (k === 'mute') { this.audio.setMuted(t.checked); const m = $('#mute'); if (m) m.textContent = t.checked ? '🔇' : '🔊'; }
+        else if (k === 'minimap') { this.opts.minimap = t.checked; this.saveOpt('minimap', t.checked); this.applyOpts(); }
+        else if (k === 'hud') { this.opts.hudOff = !t.checked; this.saveOpt('hudOff', this.opts.hudOff); document.body.classList.toggle('hud-off', this.opts.hudOff); }
+        else if (k === 'units') { this.saveStr('units', t.value); this.applyUnits(); }
+    }
+    /** units preference: 'auto' = the city's own, else km/h or mph everywhere */
+    applyUnits() {
+        if (!this.city) return;
+        if (this.city._units0 === undefined) this.city._units0 = this.city.units;
+        const u = this.loadStr('units', 'auto'); this.city.units = u === 'auto' ? this.city._units0 : u;
+        this.hud.setUnits(this.city.units); this._closeCarScreen = true;
+    }
+    /** back to the title menu: progress is saved; a fresh page is the cleanest way to drop the world */
+    toMainMenu() { try { this.photo?.close(); } catch { /* ignore */ } location.reload(); }
     // ---------------------------------------------------------------------------------- free roam (spec 10, R10.10)
     /** every district (story order), with its city and the chapter start the car is put at */
     roamDistricts() {
@@ -1612,9 +1742,9 @@ class Game {
         el.querySelector('#cond-hour').addEventListener('input', (e) => this.setRoamHour(+e.target.value));
         this.syncConditions();
     }
-    toggleConditions(open = !this.condOpen) {
+    toggleConditions(open = !this.condOpen, { any = false } = {}) {
         const el = document.getElementById('cond-panel'); if (!el) { this.condOpen = false; return; }
-        if (open && !this.freeRoam) return;
+        if (open && !this.freeRoam && !any) return; // (HUD button / K: free roam; the pause menu: any mode)
         if (open && this.mapOpen) this.toggleMap(false);
         this.condOpen = !!open; el.classList.toggle('show', this.condOpen); document.body.classList.toggle('cond-open', this.condOpen);
         if (this.condOpen) { this.input.releaseLock(); this.input.lookAllowed = false; if (this.player) this.player.speed *= 0.2; this.syncConditions(); }

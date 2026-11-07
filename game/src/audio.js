@@ -8,7 +8,7 @@ export class Audio {
         try {
             const AC = window.AudioContext || window.webkitAudioContext;
             this.ctx = new AC();
-            this.master = this.ctx.createGain(); this.master.gain.value = 0.6; this.master.connect(this.ctx.destination);
+            this.master = this.ctx.createGain(); this.master.gain.value = this.muted ? 0 : 0.6 * (this.volume ?? 1); this.master.connect(this.ctx.destination);
             // engine
             this.engOsc = this.ctx.createOscillator(); this.engOsc.type = 'sawtooth'; this.engOsc.frequency.value = 50;
             this.engOsc2 = this.ctx.createOscillator(); this.engOsc2.type = 'square'; this.engOsc2.frequency.value = 25;
@@ -28,7 +28,9 @@ export class Audio {
         } catch (e) { console.warn('audio unavailable', e); }
     }
     resume() { if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume(); }
-    setMuted(m) { this.muted = m; if (this.master) this.master.gain.value = m ? 0 : 0.6; }
+    setMuted(m) { this.muted = m; if (this.master) this.master.gain.value = m ? 0 : 0.6 * (this.volume ?? 1); }
+    /** master volume 0..1 (settings) */
+    setVolume(v) { this.volume = Math.max(0, Math.min(1, v)); if (this.master && !this.muted) this.master.gain.value = 0.6 * this.volume; }
     engine(speed, throttle, dt) {
         if (!this.enabled) return;
         const rpm = 45 + Math.abs(speed) * 6 + Math.abs(throttle) * 20;

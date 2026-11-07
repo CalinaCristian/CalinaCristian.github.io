@@ -78,7 +78,7 @@ export class Input {
     /** the look gesture is active (head stays where it was put) */
     get lookHeld() { return this.locked || (this.lookMode === 'hold' && this.rmb) || !!this.touchLook; }
     /** consume the accumulated look movement → {dx, dy} in px */
-    takeLook() { const r = { dx: this.lookDX, dy: this.lookDY }; this.lookDX = this.lookDY = 0; if (!this.lookAllowed || this.lookMode === 'off' && !this.touchLook) { r.dx = r.dy = 0; } return r; }
+    takeLook() { const r = { dx: this.lookDX * (this.sens ?? 1), dy: this.lookDY * (this.sens ?? 1) * (this.invertY ? -1 : 1) }; // settings: sensitivity, invert Y this.lookDX = this.lookDY = 0; if (!this.lookAllowed || this.lookMode === 'off' && !this.touchLook) { r.dx = r.dy = 0; } return r; }
 
     norm(e) { return e.code; }
     get steer() {

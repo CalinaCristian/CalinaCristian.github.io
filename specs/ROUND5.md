@@ -81,3 +81,24 @@ Source: `game/FEEDBACK.md` "Round 4 play-test" notes 1–27 (+ any that follow),
 ## Verification
 - qa: visual QA round 3 over all chapter routes + spots after the P0/P1 batches; every note's pose re-shot; Top-25 list updated.
 - Preview republished only after telling the owner (republishing reloads an open preview).
+
+## Parallel lanes and file ownership (round 5, started 2026-11-07 — overrides 01-architecture for this round)
+Each lane edits ONLY its files. Anything else → a dated Request in the owning spec + mention in the final report. Cross-lane hooks in `main.js` are added by the **gameplay** lane (or as tiny, localized hook lines the brief explicitly allows — re-read the region right before each Edit, never reformat others' code). Nobody commits, pushes or republishes the preview; the orchestrator does.
+
+| Lane | Owns | Notes (game/FEEDBACK.md round 4) |
+|---|---|---|
+| gameplay | main.js, player.js, input.js, hud.js, nav.js, audio.js, data.js, chapters.js, onfoot.js, index.html, telemetry-game.js, dev/harness/page/* | 72 pause menu, 12/71 fines, 44, 21, 19 (close path in photo.js), 41/42, 15 → then hooks for explore/traffic/save/finale/transition, 7 find the car, 9 map entries |
+| explore (new) | new: explore.js, worldmap.js, drone.js; delimited `/* explore */` block in style.css | 74 deploy drone, 75 Story↔Explore + world-map hub, 76 retire old free roam (with gameplay) |
+| traffic (new) | traffic.js | 4 buses broadside, 38 peds avoid obstacles, 8 illegal-parking reactions (behaviour + bubbles), NPC spawn/overlap leftovers |
+| world-visual | world.js, geobuild.js, buildings.js, trees.js, dev/harness/visual/page/geometry.js (detectors) | residual 1/2/10b/12 (stacked ribbons, ramp lifts), 6 closures, 10a/10c storefront signs + balconies, 5 real fuel stations, 17 nothing in water + conifers, signage Requests from research (brandStyle whole-word, styles, ATMs, vacant) |
+| world-data | cities.js, minimap.js, tools/osm/*, game/data/*.json (not spots) | 43 smaller-district boundary PROPOSAL (maps for owner approval, no rebuild yet), 9/18 reachable-landmark lists + map POI categories/icons/legend data, data for the world-map hub |
+| render | render.js, weather.js, new water.js, vendor/addons/* | 11 water (shared water material/API for districts + spots), 70 wet road/snow/night crowns, 55 depth precision, 50 blown-out floors |
+| spots-core | spots/{index,osm,ground,kit,props,people,ui,walker,backdrop,sdf,sound,cars}.js, new spots/bike.js, dev/spots.html | 48/56/68 ground from OSM, 49 closed buildings, 23/26 z-fight + phantom colliders, degenerate normals, 27 crowds on surfaces, 29 lamps/traffic in spots, 36 plaques, 51/52 sign placement, 32/33/67 spot map + guided tour, 31 Herăstrău bike, 61 review gate (hide spots not passing) |
+| spots-buc | spots/scenes/{buc-*,arcul-de-triumf,athenaeum-revolution,cismigiu,spring-palace}.js, game/data/spots/{buc-*,arcul-*,athenaeum-*,cismigiu,spring-palace}.json | 20, 22, 24, 25, 30, 34, 35 + hero fidelity, activities from research (57) |
+| spots-sea | spots/scenes/{seattle-center,pike-place,kerry-park,waterfront,pioneer-square,ballard-locks,gas-works,fremont-troll}.js + their data | 50, 53, 54, 55, 58, 59, 60, 62, 63, 64, 65 + activities (57) |
+| spots-bel | spots/scenes/bel-*.js + their data | 66, 68, 69 + activities (57) |
+| cockpit-ui | vehicles.js, crowd.js, office.js, flight.js, canvasText.js, photo.js (except the close path), new transition.js, new finale.js, style.css (except the explore/achievements blocks) | 14 unique interiors, 37 NPC dialogue A–D (CV content only), 16 chapter transition, 47 flight map, 71 finale page |
+| progression | achievements.js, new save.js, delimited `/* achievements */` css | 73 IndexedDB autosave/Continue/photo gallery, 57 Landmarks achievement category |
+| landmarks | landmarks.js, dev/landmarks.html | 39 CV-stop buildings faithful (GTS Călărașilor 101, BOB Tower, Hermes, Europe House, The Landmark, Rosetti, Rectorat) from research |
+| research | game/research/* | 57 real activities per landmark, 63 totem attribution, 39 CV-stop building facts, 24 Old Town street fronts, 37 dialogue grounding notes, drone rules |
+| qa (later) | dev/harness/run.js, report.js, README, visual/* (except detectors in geometry.js this round) | round 3 after the batches |

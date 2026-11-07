@@ -12,7 +12,7 @@
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, offsetPolyline, polyArea, obb } from '../kit.js';
-import { bucBackdrop, classicFacade, classicWalls, osmPoly, cityFiller, placeLandmark, signAtlas, balustrade, balustradeMaterial, flagpole } from '../buc.js';
+import { bucBackdrop, classicFacade, classicWalls, osmPoly, cityFiller, placeLandmark, signAtlas, balustrade, balustradeMaterial, flagpole, floodlight } from '../buc.js';
 import { bench } from '../osm.js';
 import { addTraffic } from '../cars.js';
 
@@ -57,6 +57,7 @@ export default {
         if (at) { ctx.skipBuildings.add(at.id); for (const x of d.buildings) { const [cx, cz] = centroid(x.poly); if (x.part && inPoly(cx, cz, grow(at.poly, 2))) ctx.skipBuildings.add(x.id); } }
         const AT = placeLandmark(ctx, 'ateneu', { colliderH: 45 });
         if (at) ctx.poly(at.poly, { y0: -50, y1: 60 });
+        if (AT) floodlight(AT.mesh, '#ffe2b0', 0.42);
         if (AT) { // the frieze reads ATHENEUL ROMAN (with H): plate over the model's inscription band
             const p = local(AT, 27.12, 0), sg = signAtlas([{ x: p.x, y: AT.y + 14.95, z: p.z, yaw: AT.lm.rotation + Math.PI / 2, w: 15.5, h: 1.25, text: 'ATHENEUL ROMAN', bg: '#e5dbc6', fg: '#7c6a4c', border: false, font: (q) => `600 ${q}px "Times New Roman", Georgia, serif` }], { name: 'ateneu-frieze', night: 0.4 });
             if (sg) ctx.add(sg);
@@ -65,9 +66,9 @@ export default {
         }
         const garden = osmPoly(d, 'w23556716');
         // Eminescu statue (bronze, seated poet) in the garden
-        { const e = d.pois.find((p) => p.id === 'n1911337561') || { x: -69.3, z: -24.3 }, y = g.heightAt(e.x, e.z); b.box(e.x, y, e.z, 2.2, 2.4, 2.2, '#cbc4b6', 'stone'); b.cyl(e.x, y + 2.4, e.z, 0.5, 1.5, '#3e4a40', 'bronze', 10, 0.8); b.sphere(e.x, y + 4.15, e.z, 0.24, 0.29, 0.26, '#3e4a40', 'bronze', 10, 8); ctx.circle(e.x, e.z, 1.3, 4); }
+        { const e = d.pois.find((p) => p.id === 'n1911337561') || { x: -69.3, z: -24.3 }, y = g.heightAt(e.x, e.z); b.box(e.x, y, e.z, 1.3, 2.6, 1.3, '#a9a397', 'stone'); b.cyl(e.x, y + 2.6, e.z, 0.42, 1.55, '#2f3a33', 'bronze', 10, 0.75); b.sphere(e.x, y + 4.35, e.z, 0.22, 0.27, 0.24, '#2f3a33', 'bronze', 10, 8); ctx.circle(e.x, e.z, 1.3, 4); }
         // ---- Piața Revoluției
-        const rg = d.buildings.find((x) => x.id === 'w232472401'); if (rg) { ctx.skipBuildings.add(rg.id); for (const x of d.buildings) { const [cx, cz] = centroid(x.poly); if (x.part && inPoly(cx, cz, rg.poly)) ctx.skipBuildings.add(x.id); } placeLandmark(ctx, 'regal', { colliderH: 30 }); ctx.poly(rg.poly, { y0: -50, y1: 60 }); }
+        const rg = d.buildings.find((x) => x.id === 'w232472401'); if (rg) { ctx.skipBuildings.add(rg.id); for (const x of d.buildings) { const [cx, cz] = centroid(x.poly); if (x.part && inPoly(cx, cz, rg.poly)) ctx.skipBuildings.add(x.id); } const RG = placeLandmark(ctx, 'regal', { colliderH: 30 }); if (RG) floodlight(RG.mesh, '#ffe2b0', 0.25); ctx.poly(rg.poly, { y0: -50, y1: 60 }); }
         // Central University Library (eclectic, three storeys, domed corner pavilions)
         const bcu = d.buildings.find((x) => x.id === 'r19896250');
         const fBCU = classicFacade('bcu', [{ t: 'portal', w: 0.42, rustic: true }, { t: 'arch', w: 0.34, pil: 'pair', rail: true }, { t: 'pediment', w: 0.32, pil: 'pair' }, { t: 'small', w: 0.26, dentils: true }], { bay: 4.4, floor: 5.2, lit: 0.4 });
@@ -83,6 +84,7 @@ export default {
             for (const [z0, k] of [[-6, 'ro'], [6, 'eu']]) { if (!best) break; const f = flagpole(best.mx - 0.8 + best.ux * z0, y + 12, best.mz + best.uz * z0, 4, k, { yaw: Math.PI }); f.group.rotation.z = 0.5; ctx.add(f.group); }
         }
         const mem = d.pois.find((p) => p.id === 'n1393030628') || { x: -15.6, z: 217.9 };
+        for (const x of d.buildings) { const [cx, cz] = centroid(x.poly); if (Math.hypot(cx - mem.x, cz - mem.z) < 14) ctx.skipBuildings.add(x.id); }
         const MEM = memorial(b, ctx, mem.x, mem.z);
         ctx.painter.custom((x, T, k) => { const [px, py] = T(mem.x, mem.z); x.fillStyle = '#a39c94'; x.beginPath(); x.arc(px, py, 22 * k, 0, 7); x.fill(); });
         const carol = d.pois.find((p) => p.id === 'n1883108499') || { x: -51.1, z: 133.4 };
@@ -91,7 +93,7 @@ export default {
         // ---- backdrop: Calea Victoriei eclectic façades, the garden, lamps, traffic
         ctx.terrainOpts = { bg: '#8b8780', bgMask: 'slab', innerPx: 2048, innerStep: 3, outerStep: 16, outerPad: 700 };
         bucBackdrop(ctx, { lampStyle: 'lantern', lampColor: '#1b1d1e', lampH: 4.6, lampPad: 30, treeLod: { cap: 1200, max: 400 }, lampOpts: { spacing: 26, kinds: ['secondary', 'tertiary', 'residential', 'living_street', 'pedestrian'] }, streetTreeOpts: { kinds: ['tertiary', 'residential'], prob: 0.5 } });
-        if (garden) { ctx.painter.poly(garden, '#5f7d3f', 'grass'); const r = rng(3), bb = polyBox(garden); for (let i = 0; i < 26; i++) { const x = bb.x0 + r() * (bb.x1 - bb.x0), z = bb.z0 + r() * (bb.z1 - bb.z0); if (inPoly(x, z, grow(garden, -3)) && !(at && inPoly(x, z, grow(at.poly, 6)))) ctx.trees.push({ x, z, kind: 'broad', s: 0.9 + r() * 0.5 }); } }
+        if (garden) { ctx.painter.poly(garden, '#5f7d3f', 'grass'); const r = rng(3), bb = polyBox(garden); const axis = AT ? [local(AT, 30, 0), local(AT, 110, 0)] : null; for (let i = 0; i < 16; i++) { const x = bb.x0 + r() * (bb.x1 - bb.x0), z = bb.z0 + r() * (bb.z1 - bb.z0); const onAxis = axis && Math.abs((x - axis[0].x) * (axis[1].z - axis[0].z) - (z - axis[0].z) * (axis[1].x - axis[0].x)) / 80 < 14; if (inPoly(x, z, grow(garden, -3)) && !onAxis && !(at && inPoly(x, z, grow(at.poly, 6)))) ctx.trees.push({ x, z, kind: 'broad', s: 0.9 + r() * 0.5 }); } }
         ctx.painter.custom((x, T, k) => { const [px, py] = T(mem.x, mem.z); x.strokeStyle = '#c9c0b4'; x.lineWidth = 1.5 * k; x.beginPath(); x.arc(px, py, 14 * k, 0, 7); x.stroke(); });
         cityFiller(ctx, { ring: 600 });
         const way = (id) => d.ways.find((w) => w.id === id)?.pts || [];

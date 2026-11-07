@@ -20,14 +20,14 @@ import { setVehicleEnvMap } from './vehicles.js';
 export const QUALITY_LADDER = [
     { name: 'ultra', pr: 2.0, shadow: 4096, post: 'full', aa: 'smaa', ao: true, lamps: 24 },
     { name: 'high', pr: 1.5, shadow: 4096, post: 'full', aa: 'smaa', ao: false, lamps: 16 },
-    { name: 'high-', pr: 1.25, shadow: 2048, post: 'full', aa: 'smaa', ao: false, lamps: 12 },
-    { name: 'medium', pr: 1.0, shadow: 2048, post: 'lite', aa: 'fxaa', ao: false, lamps: 8 },
+    { name: 'high-', pr: 1.25, shadow: 2048, span: 140, post: 'full', aa: 'smaa', ao: false, lamps: 12 },
+    { name: 'medium', pr: 1.0, shadow: 2048, span: 120, post: 'lite', aa: 'fxaa', ao: false, lamps: 8 },
     { name: 'low+', pr: 1.0, shadow: 0, post: 'lite', aa: 'fxaa', ao: false, lamps: 4 },
     { name: 'low', pr: 1.0, shadow: 0, post: 'off', aa: 'none', ao: false, lamps: 0 },
 ];
 const NAMED = { ultra: 0, high: 1, medium: 3, low: 5 };
 const AUTO_MAX = 1, AUTO_MIN = 5; // auto never enables 'ultra' (GTAO doubles the draw calls)
-const SHADOW_SPAN = 160; // metres covered by the sun's shadow map
+const SHADOW_SPAN = 160; // metres covered by the sun's shadow map (tier.span overrides: fewer casters, sharper texels on cheaper tiers)
 const LAMP_RANGE = 150;  // light-pool discs drawn within this distance (m)
 const MAX_DISCS = 220;
 // street-lamp real lights (PointLight pool): assignment is hysteretic and every change fades, so nothing pops
@@ -385,6 +385,9 @@ export class Renderer3D {
         // lights + sky (re-parented into each scene)
         this.sun = new THREE.DirectionalLight('#ffffff', 2);
         this.sun.castShadow = true;
+        // the sun's shadow map is drawn once per frame() (main pass); the rear-view mirror / photo / GTAO renders in
+        // between reuse it instead of re-rendering the 4096² map
+        this.sun.shadow.autoUpdate = false;
         this.sun.shadow.camera.near = 1; this.sun.shadow.camera.far = 600; // light sits 400 m up-sun: receivers end ≈ 400 + 80 + 60 m
         this.hemi = new THREE.HemisphereLight('#ffffff', '#444444', 0.6); // not in the scene: its colours/intensity feed the probe
         // image-based ambient for every lit material (Lambert included): SH9 of sky + sunlit walls + ground bounce
@@ -596,6 +599,8 @@ export class Renderer3D {
         const T = this._amb || (this._amb = { sky: new THREE.Color(), gnd: new THREE.Color(), sun: new THREE.Color(), wall: new THREE.Color(), glow: new THREE.Color('#ffb36b'), c: new THREE.Color(), out: Array.from({ length: 9 }, () => new THREE.Vector3()) });
         const h = this.hemi, sd = this._sunLightDir || this._sunDir;
         const skyE = this._hemiBase ?? h.intensity, sky = T.sky.copy(h.color); // base: the lightning flash scales probe.intensity
+        // the eye / a camera white-balances shade: keep only part of the sky's blue in the ambient (spec 18 request)
+        { const l = sky.r * 0.2126 + sky.g * 0.7152 + sky.b * 0.0722; sky.lerp(T.c.setRGB(l, l, l), 0.4); }
         const sunOn = this.sun.intensity > 0 && sd.y > 0 && (this.clock ? this.sunElevation > -2 : true);
         const sunI = sunOn ? this.sun.intensity * (this.sun.shadow ? 0.55 + 0.45 * (this.sun.shadow.intensity ?? 1) : 1) : 0;
         const sun = T.sun.copy(this.sun.color);
@@ -667,6 +672,7 @@ export class Renderer3D {
             if (hm.emissive) { hm.emissive.set(k > 0 ? '#ffd7a0' : '#000000'); hm.emissiveIntensity = 3 * k; }
             else if (hm.color) hm.color.set(hm.userData.dayColor || '#d8d4c8').lerp(new THREE.Color(hm.userData.nightColor || '#ffe2b0').multiplyScalar(3), k);
         }
+        if (this.headlightsOn && Math.abs((this._headK ?? -1) - k) > 0.02) this._updateHeadlights();
         if (this._nightMats?.length && this._nightMatK !== k) { this._nightMatK = k; for (const m of this._nightMats) m.emissiveIntensity = m.userData.nightEmissive * k; }
         if (this._discs) this._discs.visible = n > 0 && this._discs.count > 0;
         this._lampGroup.visible = lk > 0 && this._lampPool.length > 0;
@@ -849,7 +855,10 @@ export class Renderer3D {
     _updateHeadlights() {
         const on = this._headManual ?? this.nightLights;
         this.headlightsOn = on;
-        this.player?.cockpit?.userData.headlights?.setOn(on);
+        // by day (fog, rain, manual) the beams are dimmed: 140 cd at night, ≈ 25 cd in daylight (no white blow-out on a
+        // light vehicle ahead); _updateNight re-applies it while the night factor eases
+        this._headK = THREE.MathUtils.smoothstep(this._nightK, 0, 1);
+        this.player?.cockpit?.userData.headlights?.setOn(on, 140 * (0.18 + 0.82 * this._headK));
     }
 
     // ------------------------------------------------------------------ street lamps
@@ -1100,9 +1109,9 @@ export class Renderer3D {
         if (t.shadow) {
             if (this.sun.shadow.mapSize.x !== t.shadow) { this.sun.shadow.map?.dispose(); this.sun.shadow.map = null; this.sun.shadow.mapSize.set(t.shadow, t.shadow); }
             this.sun.castShadow = this._sunShadows !== false;
-            const sc = this.sun.shadow.camera, h = SHADOW_SPAN / 2;
+            const span = t.span || SHADOW_SPAN, sc = this.sun.shadow.camera, h = span / 2;
             sc.left = -h; sc.right = h; sc.top = h; sc.bottom = -h; sc.updateProjectionMatrix();
-            const texel = SHADOW_SPAN / t.shadow;
+            const texel = span / t.shadow;
             this.sun.shadow.bias = -0.0004; this.sun.shadow.normalBias = texel * 0.9;
             this.sun.shadow.radius = 3;
         } else this.sun.castShadow = false;
@@ -1209,6 +1218,7 @@ export class Renderer3D {
         this._fogCull(camera);
         // render
         const fu = this.finalPass.uniforms; fu.uTime.value = this.time;
+        this.sun.shadow.needsUpdate = true;
         if (this.tier.post === 'off') this._renderer.render(scene, camera);
         else this.composer.render(dt);
         // stats
@@ -1244,9 +1254,10 @@ export class Renderer3D {
         // centre the shadow frustum a bit ahead of the player, snapped to shadow texels (no shimmering)
         const p = this.player;
         const c = T.v.copy(cam); c.y = 0;
-        if (p) { c.x += p.fx * SHADOW_SPAN * 0.25; c.z += p.fz * SHADOW_SPAN * 0.25; }
+        const span = this.tier?.span || SHADOW_SPAN;
+        if (p) { c.x += p.fx * span * 0.25; c.z += p.fz * span * 0.25; }
         if (s.castShadow) {
-            const texel = SHADOW_SPAN / s.shadow.mapSize.x;
+            const texel = span / s.shadow.mapSize.x;
             const right = T.v2.set(0, 1, 0).cross(d).normalize(); const up = T.v3.copy(d).cross(right).normalize();
             const cr = c.dot(right), cu = c.dot(up);
             c.addScaledVector(right, Math.round(cr / texel) * texel - cr).addScaledVector(up, Math.round(cu / texel) * texel - cu);

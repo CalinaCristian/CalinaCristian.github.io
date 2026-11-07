@@ -821,6 +821,42 @@ export async function buildWorld(city, renderer, opts = {}) {
                 else profileStats0 = { overlapsBefore: s0.ob, overlapsAfter: s1.ob, crossBefore: s0.cb, crossAfter: s1.cb };
             }
         }
+        // (2026-11-07, world-visual) gores: a node of a ramp that still lies on the carriageway of the near-parallel road it
+        // leaves / joins (sharing no node with it: the overlap list skips those pairs) takes that road's height, so the
+        // ramp stays on the deck / street while the two overlap and only climbs / dives once it is clear of it (no ramp
+        // slab 0.1–4.5 m above or below the road beside it: review #11 / #18). Kept only without new clearance violations.
+        {
+            const tuOf = (c, e) => clamp(((c.x - e.a.x) * e.dirx + (c.z - e.a.z) * e.dirz) / e.len, 0, 1);
+            const crossBad = () => { let cb = 0; for (const c of crossings) if ((yP(c.u, tuOf(c, c.u)) - yP(c.f, tuOf(c, c.f))) * (c.u.L > 0 ? 1 : -1) < 4.5) cb++; return cb; };
+            const goreScan = (apply) => {
+                let n0 = 0;
+                for (const n of nodeArr) {
+                    if (!n.edges.length || hard.has(n)) continue;
+                    let best = null;
+                    for (const e of n.edges) {
+                        if (e.virtual) continue;
+                        edgesInBox(n.x - 24, n.z - 24, n.x + 24, n.z + 24, (f) => {
+                            if (f === e || f.virtual || f.a === n || f.b === n || (e.tunnel !== f.tunnel)) return;
+                            if (Math.abs(e.dirx * f.dirx + e.dirz * f.dirz) < 0.8) return;
+                            const q = distPointSeg(n.x, n.z, f.a.x, f.a.z, f.b.x, f.b.z); if (q.t <= 0.02 || q.t >= 0.98) return;
+                            const side = ((n.x - q.cx) * f.nx + (n.z - q.cz) * f.nz) >= 0 ? 1 : -1;
+                            if (q.d > (side > 0 ? f.wR : f.wL) + shoulderOf(f) + e.halfW * 0.6) return;
+                            const dh = yP(f, q.t) - n.y; if (Math.abs(dh) < 0.1 || Math.abs(dh) > 4.5) return;
+                            if (!best || Math.abs(dh) < Math.abs(best)) best = dh;
+                        });
+                    }
+                    if (best !== null) { n0++; if (apply) n.y += best; }
+                }
+                return n0;
+            };
+            const keep = nodeArr.map(n => n.y), g0 = goreScan(false), c0 = crossBad();
+            if (g0) {
+                for (let r = 0; r < 8; r++) { if (!goreScan(true)) break; capY(); gradeFix(); }
+                const g1 = goreScan(false), c1 = crossBad();
+                if (c1 > c0 || g1 >= g0 || resid() > 0.05) nodeArr.forEach((n, i) => { n.y = keep[i]; });
+                profileStats0 = { ...(profileStats0 || {}), goreBefore: g0, goreAfter: g1 >= g0 || c1 > c0 ? g0 : g1, goreCross: [c0, c1] };
+            }
+        }
         let residual = 0; for (const e of edges) if (!e.virtual) residual = Math.max(residual, Math.abs(e.b.y - e.a.y) - MAXG * e.len);
         for (const e of edges) { e.ya = e.a.y; e.yb = e.b.y; }
         let cBad = 0, oBad = 0;
@@ -976,17 +1012,24 @@ export async function buildWorld(city, renderer, opts = {}) {
     const isConcrete = (e) => US && e.type === 'motorway';
     // US ramps: concrete where they leave / join the motorway (they overlap it at the gore), fading to asphalt over
     // 40–120 m along the ramp, so neither the gore nor the ramp terminal shows a two-colour slab (review #2)
-    const linkDist = new Map();
-    if (US) {
-        const heap = [];
-        for (const n of nodeArr) if (n.edges.some(isConcrete)) { linkDist.set(n, 0); heap.push(n); }
-        while (heap.length) { // (small graphs: a plain relaxation queue is enough)
-            const n = heap.shift(), d0 = linkDist.get(n);
-            for (const e of n.edges) { if (e.type !== 'motorway_link' || e.virtual) continue; const o = e.a === n ? e.b : e.a, d = d0 + e.len; if (d < (linkDist.get(o) ?? Infinity) && d < 200) { linkDist.set(o, d); heap.push(o); } }
+    // distance along the ramps from the motorway (dM) and from the street network (dA): concrete at the motorway end,
+    // asphalt at the street end, a smooth blend between (no light slab where an off-ramp meets an arterial deck)
+    const rampDist = (seed) => {
+        const dist = new Map(), q = [];
+        for (const n of nodeArr) if (n.edges.some(seed)) { dist.set(n, 0); q.push(n); }
+        while (q.length) {
+            const n = q.shift(), d0 = dist.get(n);
+            for (const e of n.edges) { if (e.type !== 'motorway_link' || e.virtual) continue; const o = e.a === n ? e.b : e.a, d = d0 + e.len; if (d < (dist.get(o) ?? Infinity) && d < 400) { dist.set(o, d); q.push(o); } }
         }
-    }
+        return dist;
+    };
+    const dMot = US ? rampDist(isConcrete) : new Map(), dArt = US ? rampDist(e => !e.virtual && !/^motorway/.test(e.type)) : new Map();
     const mixCol = (a, b, t) => [Math.round(a[0] + (b[0] - a[0]) * t), Math.round(a[1] + (b[1] - a[1]) * t), Math.round(a[2] + (b[2] - a[2]) * t)];
-    const nodeSurf = (n) => { const d = linkDist.get(n); return d == null ? asphaltBase : mixCol(concreteCol, asphaltBase, clamp((d - 40) / 80, 0, 1)); };
+    const nodeSurf = (n) => {
+        const m = dMot.get(n); if (m == null) return asphaltBase;
+        const a = dArt.get(n) ?? 400, t = clamp((m - 25) / Math.max(1, m + a - 50), 0, 1);
+        return mixCol(concreteCol, asphaltBase, t * t * (3 - 2 * t));
+    };
     const asphaltOf = (e) => { // (one shade per class family: overlapping ribbons of one colour cannot flicker)
         if (e.unpaved) return rgb('#6b645b');
         if (isConcrete(e)) return e.tunnel ? shadeRgb(concreteCol, 0.85) : concreteCol;
@@ -1959,6 +2002,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         get() { return this._color; }, set(v) { this._color = v; if (this.marker && v) this.marker.userData.pin.material.color.set(v); }, configurable: true, enumerable: true,
     });
     for (const p of pois) p.color = p._color || (city.pois.find(q => q.id === p.id) || {}).color || null;
+    const lmSignColl = []; // (monument signs: colliders added with the other props below)
     // CV facade sign on landmark-hosted stops (poi.landmark: uipath-bel → lincoln, uipath-buc → thelandmark, arnia →
     // europehouse): the models only carry real-world signage, so the stop's sign goes on the facade nearest its door,
     // found by casting rays from the door at sign height to the model (the real facade, not a trimmed collision box)
@@ -1999,13 +2043,51 @@ export async function buildWorld(city, renderer, opts = {}) {
                 }
                 if (pick) break;
             }
-            if (!pick) { const best = facadeAt(7.5, 0.35); if (!best) continue; pick = { ys: 7.5, nx: best.nx, nz: best.nz, cx: best.x, cz: best.z, w: 8 }; }
+            if (!pick) { // entrance canopy: tenant letters standing on its front edge, facing the street (above the canopy's own lettering)
+                const best = facadeAt(4, 0.35) || facadeAt(7.5, 0.35);
+                if (best) {
+                    // walk from the kerb side of the door toward the building with downward rays: the first roof found
+                    // 3–8.5 m up is the canopy's front edge
+                    let end = null, ch = 0;
+                    for (let k = 0; k < 40; k++) {
+                        const px = poi.doorX + best.nx * 2 - best.nx * 0.3 * k, pz = poi.doorZ + best.nz * 2 - best.nz * 0.3 * k;
+                        o3.set(px, 9.0, pz); d3.set(0, -1, 0); rc.set(o3, d3); rc.far = 9.0;
+                        const h2 = rc.intersectObject(lmk.mesh, true)[0], hy = h2 ? 9.0 - h2.distance : 0;
+                        if (h2 && hy > 3 && hy < 8.5) { end = [px, pz]; ch = hy; break; }
+                        if (h2 && hy >= 8.5) break;
+                    }
+                    if (end) {
+                        const ww = 8, hh2 = ww / (signs.get(poi.label.split(' — ')[0], '#111827', '#ffffff', poi._color || '#f97316') || s).aspect;
+                        pick = { ys: ch + hh2 / 2 + 0.25, nx: best.nx, nz: best.nz, cx: end[0] - best.nx * 0.4, cz: end[1] - best.nz * 0.4, w: ww, canopy: true, text: poi.label.split(' — ')[0] };
+                    }
+                }
+            }
+            if (!pick) { // no flush facade (glazed lobby under a canopy): a freestanding tenant monument sign by the entrance,
+                // set across the sidewalk so it reads from the street in both directions (like real office-tower signage)
+                const best = facadeAt(4, 0.35) || facadeAt(7.5, 0.35); if (!best) continue;
+                const { nx, nz } = best, short = signs.get(poi.label.split(' — ')[0], '#111827', '#ffffff', poi._color || '#f97316'); if (!short) continue;
+                const midX = (best.x + poi.doorX) / 2, midZ = (best.z + poi.doorZ) / 2;
+                let placed = false;
+                for (const off of [6, -6, 9, -9, 4, -4]) {
+                    const tx = nz, tz = -nx, x = midX + tx * off, z = midZ + tz * off;
+                    if (onRibbon(x, z, 1.8) || buildingAt(x, z)) continue;
+                    const c2 = cellOf(x, z), W = 3.2, H = W / short.aspect;
+                    c2.solid.box(x, 0.15, z, W + 0.5, 0.35, 0.7, Math.atan2(nx, nz) + Math.PI / 2, rgb('#8a8d91')); // plinth
+                    c2.solid.box(x, 0.5, z, W + 0.3, H + 0.5, 0.42, Math.atan2(nx, nz) + Math.PI / 2, rgb('#2b2f36')); // slab
+                    for (const sd of [1, -1]) addSignQuad(c2, x, z, Math.atan2(tx, tz), sd, W, H, 0.75 + H / 2, short, 0.22);
+                    lmSignColl.push([x, z]);
+                    poi.landmarkSign = { x, z, y: 0.75 + H / 2, nx: tx, nz: tz, w: W, h: H, monument: true }; placed = true; break;
+                }
+                if (placed) continue;
+                pick = { ys: 7.5, nx, nz, cx: best.x, cz: best.z, w: 8 };
+            }
             const { ys, nx, nz, cx, cz, w } = pick;
-            const hh = w / s.aspect, mx = cx + nx * 0.15, mz = cz + nz * 0.15;
+            const sg = pick.text ? signs.get(pick.text, '#111827', '#ffffff', poi._color || '#f97316') || s : s;
+            const hh = w / sg.aspect, mx = cx + nx * 0.15, mz = cz + nz * 0.15;
             const lx = mx - nz * w / 2, lz = mz + nx * w / 2, rx = mx + nz * w / 2, rz = mz - nx * w / 2;
-            const mbS = signMB(cellOf(mx, mz), s.page), wh = [255, 255, 255];
-            const i0 = mbS.v(lx, ys - hh / 2, lz, nx, 0, nz, s.u0, s.v0, wh), i1 = mbS.v(rx, ys - hh / 2, rz, nx, 0, nz, s.u1, s.v0, wh);
-            const i2 = mbS.v(rx, ys + hh / 2, rz, nx, 0, nz, s.u1, s.v1, wh), i3 = mbS.v(lx, ys + hh / 2, lz, nx, 0, nz, s.u0, s.v1, wh);
+            const mbS = signMB(cellOf(mx, mz), sg.page), wh = [255, 255, 255];
+            const i0 = mbS.v(lx, ys - hh / 2, lz, nx, 0, nz, sg.u0, sg.v0, wh), i1 = mbS.v(rx, ys - hh / 2, rz, nx, 0, nz, sg.u1, sg.v0, wh);
+            const i2 = mbS.v(rx, ys + hh / 2, rz, nx, 0, nz, sg.u1, sg.v1, wh), i3 = mbS.v(lx, ys + hh / 2, lz, nx, 0, nz, sg.u0, sg.v1, wh);
             mbS.tri(i0, i1, i2); mbS.tri(i0, i2, i3);
             poi.landmarkSign = { x: mx, z: mz, y: ys, nx, nz, w, h: hh };
         }
@@ -2020,6 +2102,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const collision = [];
     const propColl = []; // small circles for street furniture (trees, posts, shelters…)
     const addPropColl = (x, z, r, kind = 'prop') => propColl.push({ x, z, r, hw: r, hd: r, angle: 0, poly: null, h: 3, prop: true, kind });
+    for (const [x, z] of lmSignColl) addPropColl(x, z, 1.4, 'sign');
     let wallTris = 0;
     for (const b of bRecs) {
         if (b.skip) continue;
@@ -2836,21 +2919,44 @@ export async function buildWorld(city, renderer, opts = {}) {
     };
     const cullR = (env.fogFar || 1300) * 1.15 + CELL * 0.71;
     let cx = 0, cz = 0;
+    // (2026-11-07, world-visual) draw calls: the flat / cheap layers of neighbouring cells are merged into super-cells
+    // (2×2 cells = 500 m; the far backdrop 4×4) — fewer meshes for the same pixels; solid buildings stay per cell (culling)
+    const SUPER = { area: 2, grass: 2, pave: 2, roof: 2, backdrop: 4, ground: 2, road: 2, pad: 2, marks: 2, water: 2, signs: 2 };
+    const supers = new Map();
+    const superOf = (c, layer, page = 0) => {
+        const K = SUPER[layer], I = Math.floor(c.i / K), J = Math.floor(c.j / K), key = layer + page + ':' + I + ',' + J;
+        let o = supers.get(key); if (!o) supers.set(key, o = { layer, page, K, I, J, mb: null });
+        return o;
+    };
     for (const c of cells.values()) {
-        cx = c.i; cz = c.j;
-        const am = addMesh(c.area, areaMat, false, `area ${c.i},${c.j}`); if (am) am.renderOrder = -19.5;
-        const gm = addMesh(c.grass, grassMat, false, `grass ${c.i},${c.j}`); if (gm) gm.renderOrder = -19.2;
-        const pm = addMesh(c.pave, paveMat, false, `pave ${c.i},${c.j}`); if (pm) pm.renderOrder = -19;
-        addMesh(c.roof, roofMat, true, `roofs ${c.i},${c.j}`);
-        const bm = addMesh(c.backdrop, backdropMat, true, `backdrop ${c.i},${c.j}`); if (bm) bm.userData.cull = cullR + 600;
-        const gr = addMesh(c.ground, groundMat, false, `ground ${c.i},${c.j}`); if (gr) gr.renderOrder = 1;
-        const rm = addMesh(c.road, roadMat, false, `road ${c.i},${c.j}`); if (rm) rm.renderOrder = 2;
-        const pm2 = addMesh(c.pad, padMat, false, `junction ${c.i},${c.j}`); if (pm2) pm2.renderOrder = 3;
-        const mm = addMesh(c.marks, marksMat, false, `marks ${c.i},${c.j}`); if (mm) mm.renderOrder = 4;
-        const wm = addMesh(c.water, waterMat, false, `water ${c.i},${c.j}`); if (wm) wm.renderOrder = -18;
-        addMesh(c.solid, solidMat, true, `solid ${c.i},${c.j}`);
-        c.signs.forEach((mb, k) => { if (mb) addMesh(mb, signMats[k], false, `signs ${c.i},${c.j}`); });
+        for (const layer of ['area', 'grass', 'pave', 'roof', 'backdrop', 'ground', 'road', 'pad', 'marks', 'water']) {
+            if (c[layer].empty) continue;
+            const o = superOf(c, layer); if (!o.mb) o.mb = c[layer]; else o.mb.append(c[layer]);
+        }
+        c.signs.forEach((mb, k) => { if (!mb || mb.empty) return; const o = superOf(c, 'signs', k); if (!o.mb) o.mb = mb; else o.mb.append(mb); });
     }
+    const addSuper = (o, mat, cast, name) => {
+        cx = o.I * o.K + o.K / 2 - 0.5; cz = o.J * o.K + o.K / 2 - 0.5; // (addMesh centres at (cx + 0.5) · CELL)
+        const m = addMesh(o.mb, mat, cast, `${name} ${o.I},${o.J}`); if (!m) return null;
+        const extra = CELL * (o.K - 1) * 0.71; m.userData.cull = (m.userData.cull || cullR) + extra;
+        return m;
+    };
+    for (const o of supers.values()) {
+        switch (o.layer) {
+            case 'area': { const m = addSuper(o, areaMat, false, 'area'); if (m) m.renderOrder = -19.5; break; }
+            case 'grass': { const m = addSuper(o, grassMat, false, 'grass'); if (m) m.renderOrder = -19.2; break; }
+            case 'pave': { const m = addSuper(o, paveMat, false, 'pave'); if (m) m.renderOrder = -19; break; }
+            case 'roof': addSuper(o, roofMat, true, 'roofs'); break;
+            case 'backdrop': { const m = addSuper(o, backdropMat, true, 'backdrop'); if (m) m.userData.cull = cullR + 600 + CELL * (o.K - 1) * 0.71; break; }
+            case 'ground': { const m = addSuper(o, groundMat, false, 'ground'); if (m) m.renderOrder = 1; break; }
+            case 'road': { const m = addSuper(o, roadMat, false, 'road'); if (m) m.renderOrder = 2; break; }
+            case 'pad': { const m = addSuper(o, padMat, false, 'junction'); if (m) m.renderOrder = 3; break; }
+            case 'marks': { const m = addSuper(o, marksMat, false, 'marks'); if (m) m.renderOrder = 4; break; }
+            case 'water': { const m = addSuper(o, waterMat, false, 'water'); if (m) m.renderOrder = -18; break; }
+            case 'signs': addSuper(o, signMats[o.page], false, 'signs'); break;
+        }
+    }
+    for (const c of cells.values()) { cx = c.i; cz = c.j; addMesh(c.solid, solidMat, true, `solid ${c.i},${c.j}`); }
     for (const m of vegetation.treeCrownMeshes.concat(vegetation.treeTrunkMeshes)) { cellsGroup.add(m); tris += m.count * (m.geometry.index.count / 3); }
     const waterMesh = addMesh(bigWater, waterMat, false, 'water-big');
     if (waterMesh) { waterMesh.userData.always = true; waterMesh.renderOrder = -18; }

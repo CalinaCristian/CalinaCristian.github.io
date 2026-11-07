@@ -461,7 +461,7 @@ export class Traffic {
             const lanes = lanesDir(e, dir), isBus = this.isBusKind(kind);
             const lane = isBus ? lanes - 1 : this.rng.int(0, this.carLaneMax(e, dir));
             const s = e.len < 10 ? e.len / 2 : this.rng.range(4, e.len - 4);
-            if (!free(e, dir, lane, s, isBus ? 13 : 5)) continue;
+            if (!free(e, dir, lane, s, isBus ? this.kindLength(kind) + 1 : 5)) continue;
             this.spawn({ edge: e, dir, lane, s, kind });
         }
         // police cruisers on bigger roads
@@ -497,9 +497,9 @@ export class Traffic {
                 if (!e.tram || e.len < 25 || nTrams >= maxTrams) continue;
                 const exp = e.len / 600; let n = Math.floor(exp); if (this.rng() < exp - n || e.len > 300) n = Math.max(n, 1);
                 for (let i = 0; i < n; i++) for (const dir of [1, -1]) {
-                    const s = this.rng.range(5, e.len - 5);
-                    if (!free(e, dir, 'tram', s, 16)) continue;
-                    const v = this.spawn({ edge: e, dir, lane: 0, s, kind: this.transitKind?.('tram') || 'tram' });
+                    const s = this.rng.range(5, e.len - 5), tk = this.transitKind?.('tram') || 'tram';
+                    if (!free(e, dir, 'tram', s, this.kindLength(tk) + 2)) continue; // 27 m V3A / 36 m Imperio
+                    const v = this.spawn({ edge: e, dir, lane: 0, s, kind: tk });
                     v.tram = true; v.nextStopOdo = this.rng.range(80, 400); nTrams++;
                 }
             }
@@ -539,6 +539,8 @@ export class Traffic {
         return v;
     }
 
+    /** real model length of a kind (vehicles.js vehicleSize), for spawn spacing of 12–36 m transit */
+    kindLength(k) { try { const L = VEH.vehicleSize?.(k, this.city.id)?.length; if (L > 0) return L; } catch { /* ignore */ } return /tram/.test(k) ? 27 : /artic/.test(k) ? 18.3 : 12.5; }
     isBusKind(k) { return /bus|artic/.test(k || ''); } // bus, stb-bus, kcm-bus, kcm-artic, trolleybus…
 
     addLightbar(v) {

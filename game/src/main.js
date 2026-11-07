@@ -16,7 +16,8 @@ import { isTouch, clamp, angleDiff, signTexture } from './util.js';
 import { Renderer3D } from './render.js';
 import { PhotoMode } from './photo.js';
 import { OnFootController } from './onfoot.js';
-import { makeVehicle } from './vehicles.js';
+import * as VEHICLES from './vehicles.js';
+const { makeVehicle } = VEHICLES;
 
 const $ = (s) => document.querySelector(s);
 const { CITIES } = CITY_MOD;
@@ -145,6 +146,10 @@ class Game {
         // debug info for the dev harness (collision log, overlay toggle)
         this.debug = { dev: DEV, overlay: false, lastCollider: null, hits: [], setOverlay: (on) => this.setDebugOverlay(on) };
         this.bindMenu();
+        // in a spot, an Esc / M that closes the camera, a plaque or a panel must not also open the pause panel
+        window.addEventListener('keydown', (e) => {
+            if ((e.code === 'Escape' || e.code === 'KeyM') && this.state === 'spot' && (this.photo?.active || this.spot?.ui?.panelOpen || this.hud.panelOpen)) this._spotSwallow = e.code;
+        }, true);
         this.applyOpts();
         $('#prompt')?.addEventListener('click', (e) => { if (e.target.closest('[data-act=uturn]')) this.uTurn(); });
         // photo mode (spec 16): listens to P itself while drive / office / on foot
@@ -263,6 +268,7 @@ class Game {
         const env = city.env;
         // lighting, sky, fog and weather are owned by Renderer3D (set up after the world exists)
         // world (buildWorld may be async)
+        try { VEHICLES.setFleetCity?.(id); } catch { /* older vehicles.js */ } // plates / police livery of parked props + the player's exterior car
         const world = this.world = await buildWorld(city, this.renderer, district ? { district, start } : {});
         scene.add(world.group);
         // navigation (spatial index shared with traffic)
@@ -1328,7 +1334,7 @@ class Game {
         if (!document.getElementById('spot-select-css')) {
             const st = document.createElement('style'); st.id = 'spot-select-css';
             st.textContent = '#spot-select{margin-top:10px;text-align:left}#spot-select summary{cursor:pointer;font-weight:600;padding:6px 0}#spot-select summary small{font-weight:400;opacity:.7}#spot-select h4{margin:8px 0 6px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#94a3b8}#spot-select .chs{display:flex;flex-wrap:wrap;gap:6px}#spot-select button{min-height:36px;padding:4px 10px;border-radius:8px;border:1px solid rgba(148,163,184,.35);background:rgba(30,41,59,.85);color:#e2e8f0;font:13px system-ui,sans-serif;cursor:pointer;text-align:left}'
-                + 'body.in-spot #hud>:not(#touch){display:none!important}body.in-spot .pad button.drive-only,body.in-spot .pad button[data-btn=foot]{display:none}body.in-spot .pad button.office-only{display:inline-block}';
+                + 'body.in-spot #hud{display:block!important}body.in-spot #hud>:not(#touch){display:none!important}body.in-spot .pad button.drive-only,body.in-spot .pad button[data-btn=foot]{display:none}body.in-spot .pad button.office-only{display:inline-block}';
             document.head.appendChild(st);
         }
         box.onclick = (e) => { const b = e.target.closest('[data-spot]'); if (b) this.enterSpot(b.dataset.spot); };
@@ -1367,7 +1373,7 @@ class Game {
             return false;
         }
         ld?.classList.remove('show'); if (lp) lp.textContent = this._loadingText;
-        this.spotId = id; this.spotEntry = entry; this.state = 'spot'; this._spotBusyWas = false;
+        this.spotId = id; this.spotEntry = entry; this.state = 'spot'; this._spotSwallow = null;
         this.input.lookAllowed = true; this.input.flush(); this.frameClock.getDelta();
         this._spotBusy = false;
         return true;
@@ -1400,10 +1406,10 @@ class Game {
     updateSpot(dt) {
         const s = this.spot; if (!s) return;
         const inp = this.input, hud = this.hud;
-        // Esc / M pause — but not the Esc / M that closed the camera, a plaque or the pause panel itself
+        // Esc / M pause — but not the Esc / M that closed the camera, a plaque or the pause panel itself (marked at keydown)
         const busy = !!(this.photo?.active || s.ui?.panelOpen || hud.panelOpen);
-        if (busy || this._spotBusyWas) { inp.take('Escape'); inp.take('KeyM'); }
-        this._spotBusyWas = busy;
+        if (busy) { inp.take('Escape'); inp.take('KeyM'); }
+        if (this._spotSwallow) { inp.take(this._spotSwallow); this._spotSwallow = null; }
         if (hud.panelOpen) { inp.lookAllowed = false; inp.releaseLock(); inp.flush(); this.r3d.frame(); return; }
         if (!busy && (inp.take('Escape') || inp.take('KeyM'))) { this.spotPause(); this.r3d.frame(); return; }
         inp.take('Enter'); inp.take('NumpadEnter'); inp.take('KeyR'); inp.take('KeyF'); inp.take('KeyH');

@@ -75,6 +75,7 @@ function profileZ(points, y, side) {
         const z = z0 + (z1 - z0) * (y - y0) / (y1 - y0);
         best = side < 0 ? Math.min(best, z) : Math.max(best, z);
     }
+    if (!Number.isFinite(best)) best = side < 0 ? Math.min(...points.map(p => p[0])) : Math.max(...points.map(p => p[0])); // y outside the profile
     return best;
 }
 /** a thin strip glued on a profile segment (windshield / rear window), offset outward */
@@ -240,9 +241,36 @@ function buildCar(o) {
     if (o.antenna) b.add(BOX, M(0, top + 0.03, o.antenna, 0.05, 0.06, 0.14), C.trim, { r: 0.4 }); // shark fin
     if (o.extra) o.extra(b, o);
     const g = b.build();
-    return { geo: g, length: L, width: W, height: o.H || top, far: farCar(o, plan) };
+    return { geo: g, length: L, width: W, height: o.H || top, far: farCar(o, plan), parked: parkedCar(o) };
 }
 
+const TYRE8 = new THREE.CylinderGeometry(1, 1, 1, 8, 1); TYRE8.rotateZ(Math.PI / 2);
+/** parked-car model (~250–300 triangles): real side profile + greenhouse, glass, 4 tyres, lamps; no interior, no underside
+ *  detail, no seams / handles / plates — for static lots seen from the street (world `makeParkedCars`) */
+function parkedCar(o) {
+    const b = new Batch();
+    const { W, belt, top } = o, gW = o.gW || W - 0.08;
+    b.add(extrude(o.low, -W / 2, W / 2), IDENT, '#ffffff', PAINT);
+    const taper = (x, y) => 1 - o.taper * THREE.MathUtils.clamp((y - belt) / (top - belt), 0, 1);
+    if (o.gh) {
+        const g = o.gh, f = g[0], r = g[g.length - 1];
+        b.add(extrude([...g, [r[0], r[1] - 0.08], [f[0], f[1] - 0.08]], -gW / 2, gW / 2, taper), IDENT, '#ffffff', PAINT);
+        // one dark glass band per side (greenhouse inset) + windshield / rear window
+        const inset = g.map(([z, y], i) => [z + (i === 0 ? 0.12 : i === g.length - 1 ? -0.1 : 0), Math.min(y, top - 0.05)]).filter(([, y]) => y > belt);
+        const band = [[g[0][0] + 0.16, belt + 0.05], ...inset.map(([z, y]) => [z, y - 0.04]), [r[0] - 0.14, belt + 0.05]];
+        b.add(extrude(band, gW / 2 - 0.01, gW / 2 + 0.012, taper), IDENT, C.glass, GLASS);
+        b.add(extrude(band, -gW / 2 - 0.012, -gW / 2 + 0.01, taper), IDENT, C.glass, GLASS);
+        const gx = gW / 2 - 0.06;
+        if (o.ws) b.add(extrude(glassStrip(o.ws[0], o.ws[1]), -gx, gx, taper), IDENT, C.glass, GLASS);
+        if (o.rw) b.add(extrude(glassStrip(o.rw[0], o.rw[1]), -gx, gx, taper), IDENT, C.glassDark, GLASS);
+    } else if (o.ws) b.add(extrude(glassStrip(o.ws[0], o.ws[1]), -(gW / 2 - 0.06), gW / 2 - 0.06), IDENT, C.glass, GLASS);
+    const tw = o.tw || 0.22;
+    for (const z of o.wz) for (const s of [-1, 1]) b.add(TYRE8, M(s * (W / 2 - tw / 2 + 0.012), o.wr, z, tw, o.wr, o.wr), C.tyre, TYREM);
+    const hw = o.headW || 0.36, tlw = o.tailW || 0.32, fz = profileZ(o.low, o.headY, -1), rz = profileZ(o.low, o.tailY, 1);
+    lightPair(b, fz + 0.03, o.headY, W / 2 - hw / 2 - 0.07, hw, o.lightH || 0.13, C.head, { r: 0.15 }, 0.08);
+    lightPair(b, rz - 0.03, o.tailY, W / 2 - tlw / 2 - 0.05, tlw, (o.lightH || 0.13) + 0.03, C.tail, { r: 0.2 }, 0.08);
+    return b.build();
+}
 /** far LOD (~150 triangles): painted lower box + tinted greenhouse + roof, wheels, light blocks */
 function farCar(o, plan = () => 1) {
     const b = new Batch();
@@ -372,7 +400,7 @@ const CARS = {
         gh: [[-1.25, 1.05], [-0.25, 1.75], [2.2, 1.74], [2.5, 1.09]],
         ws: [[-1.25, 1.05], [-0.25, 1.75]], rw: [[2.25, 1.7], [2.5, 1.1]],
         side: [[[-1.1, 1.12], [-0.3, 1.69], [0.28, 1.69], [0.28, 1.12]], [[0.38, 1.12], [0.38, 1.69], [1.42, 1.69], [1.42, 1.12]], [[1.52, 1.13], [1.52, 1.68], [2.2, 1.68], [2.36, 1.13]]],
-        pillars: [0.33, 1.47], seams: [-1.2, 0.33, 1.47], handles: [0.05, 0.55], headY: 0.9, tailY: 1.15, headW: 0.42, tailW: 0.22, lightH: 0.12, bumperY: 0.46, mirror: [-1.1, 1.12], roofRails: [-0.2, 2.0],
+        pillars: [0.33, 1.47], seams: [-1.2, 0.33, 1.47], handles: [0.05, 0.55], headY: 0.9, tailY: 0.98, headW: 0.42, tailW: 0.22, lightH: 0.12, bumperY: 0.46, mirror: [-1.1, 1.12], roofRails: [-0.2, 2.0],
         extra: (b) => { for (const s of [-1, 1]) b.add(BOX, M(s * 0.997, 1.06, 1.25, 0.008, 0.02, 1.4), C.seal, { r: 0.4 }); },
     }),
     // full-size crew-cab pickup (F-150-like): 5.89 × 2.03 × 1.96, open bed
@@ -727,9 +755,12 @@ function vehicleModel(kind, city) {
     }
     return m;
 }
-function splitModel(m) {
-    if (m.split) return m.split;
-    const g = m.geo, p = g.attributes.position, n = g.attributes.normal, c = g.attributes.color, a = g.attributes.aMat, idx = g.index;
+function splitModel(m, lod = 'near') {
+    if (lod === 'parked') return m.splitParked || (m.splitParked = splitGeo(m.parked || m.far));
+    return m.split || (m.split = splitGeo(m.geo));
+}
+function splitGeo(g) {
+    const p = g.attributes.position, n = g.attributes.normal, c = g.attributes.color, a = g.attributes.aMat, idx = g.index;
     const body = new Batch(), parts = new Batch(), map = [new Map(), new Map()];
     for (let i = 0; i < idx.count; i += 3) {
         const tri = [idx.getX(i), idx.getX(i + 1), idx.getX(i + 2)];
@@ -744,8 +775,7 @@ function splitModel(m) {
             tgt.idx.push(j);
         }
     }
-    m.split = { body: body.build(false), parts: parts.build() };
-    return m.split;
+    return { body: body.build(false), parts: parts.build() };
 }
 
 // ---------------------------------------------------------------------------
@@ -996,7 +1026,9 @@ export function makeVehicle(kind, color, opts = {}) {
         LIVE.add(new WeakRef(grp));
         return grp;
     }
-    const sp = splitModel(m);
+    const parkedLod = opts.lod === 'parked';
+    if (parkedLod) { for (const x of extras) grp.remove(x); extras.length = 0; u.lod = 'parked'; }
+    const sp = splitModel(m, parkedLod ? 'parked' : 'near');
     const body = new THREE.Mesh(sp.body, bodyMat(color));
     body.castShadow = true;
     const parts = new THREE.Mesh(sp.parts, partsMat(false, false));
@@ -1009,8 +1041,45 @@ export function makeVehicle(kind, color, opts = {}) {
     u.setBrake = (on) => { B = !!on; parts.material = partsMat(L, B); };
     return grp;
 }
+/**
+ * Static parked cars as instanced meshes: one InstancedMesh per kind (the ~100–170-tri low model: closed tinted glass,
+ * no interior / underside, lights off), per-instance body colour. cars: [{ kind, color?, x, y?, z, yaw }] (yaw = rotation.y,
+ * forward −z; colour default = fleetColor). Returns a Group to add to the scene (call it per world cell to keep frustum
+ * culling useful); group.userData = { count, triangles, drawCalls }. Not part of the per-frame fleet hook (zero CPU per frame).
+ * group.userData.dispose() frees the per-group instance buffers (the shared model geometry stays).
+ */
+export function makeParkedCars(cars, { city, castShadow = true, receiveShadow = true } = {}) {
+    const c0 = city || FLEET_CITY, grp = new THREE.Group(), byKey = new Map();
+    for (const car of cars) {
+        const m = vehicleModel(car.kind, c0); let e = byKey.get(m.key);
+        if (!e) byKey.set(m.key, e = { m, list: [] });
+        e.list.push(car);
+    }
+    const _m = new THREE.Matrix4(), _q = new THREE.Quaternion(), _p = new THREE.Vector3(), _s = new THREE.Vector3(1, 1, 1), _y = new THREE.Vector3(0, 1, 0), col = new THREE.Color();
+    let tris = 0, n = 0; const owned = [];
+    for (const { m, list } of byKey.values()) {
+        const g = new THREE.BufferGeometry();
+        const pg = m.parked || m.far;
+        for (const k in pg.attributes) g.setAttribute(k, pg.attributes[k]);
+        g.setIndex(pg.index);
+        const paint = new THREE.InstancedBufferAttribute(new Float32Array(list.length * 3), 3), lb = new THREE.InstancedBufferAttribute(new Float32Array(list.length * 2), 2);
+        g.setAttribute('aPaint', paint); g.setAttribute('aLB', lb);
+        const mesh = new THREE.InstancedMesh(g, fleetMaterial(), list.length);
+        list.forEach((c, i) => {
+            mesh.setMatrixAt(i, _m.compose(_p.set(c.x, c.y || 0, c.z), _q.setFromAxisAngle(_y, c.yaw || 0), _s));
+            col.set(m.transit || m.paint ? (m.paint || '#cccccc') : (c.color || fleetColor(m.kind, c0) || '#c9ccd1'));
+            paint.setXYZ(i, col.r, col.g, col.b);
+        });
+        mesh.instanceMatrix.needsUpdate = true; mesh.computeBoundingSphere();
+        mesh.castShadow = castShadow; mesh.receiveShadow = receiveShadow; mesh.name = 'parked-cars ' + m.kind; mesh.userData.parkedFleet = true;
+        grp.add(mesh); owned.push(g);
+        tris += list.length * pg.index.count / 3; n += list.length;
+    }
+    grp.userData = { count: n, triangles: tris, drawCalls: byKey.size, dispose: () => { for (const g of owned) { g.deleteAttribute('aPaint'); g.deleteAttribute('aLB'); g.dispose(); } } };
+    return grp;
+}
 /** triangle count of a kind's near / far model (diagnostics) */
-export function vehicleTriangles(kind, lod = 'near', city) { const m = vehicleModel(kind, city); const g = lod === 'far' ? m.far : m.geo; return g.index.count / 3; }
+export function vehicleTriangles(kind, lod = 'near', city) { const m = vehicleModel(kind, city); const g = lod === 'far' ? m.far : lod === 'parked' ? (m.parked || m.far) : m.geo; return g.index.count / 3; }
 /** model dimensions without building a mesh: { length, width, height, transit } */
 export function vehicleSize(kind, city) { const m = vehicleModel(kind, city); return { length: m.length, width: m.width, height: m.height, transit: m.transit || null }; }
 

@@ -38,9 +38,10 @@ export function bucBackdrop(ctx, o = {}) {
         streetTreeOpts: { spacing: 12, prob: 0.7, ...(o.streetTreeOpts || {}) },
         lampOpts: { spacing: 32, inside: near, ...(o.lampOpts || {}) },
         ...o,
-        paint: { centre: '#e8e6df', centreSingle: true, ...(o.paint || {}) },
+        paint: { centre: '#e8e6df', centreSingle: !o.doubleCentre, ...(o.paint || {}) },
     });
     ctx.treeLod = { dist: 45, cap: 3200, ...(o.treeLod || {}) };
+    if (o.treeScale) for (const t of ctx.trees) t.s = (t.s || 0.9) * o.treeScale; // mature boulevard trees (Kiseleff: 15–20 m)
     ctx.lampOpts = { style: o.lampStyle || 'lantern', color: o.lampColor || '#1b1d1e', h: o.lampH || (o.lampStyle === 'candelabra' ? 9 : 4.4) };
 }
 
@@ -379,3 +380,12 @@ export function oldTownTerraces(ctx, o = {}) {
     return out;
 }
 function distPolylineK(px, pz, pts) { let best = { d: 1e9 }; for (let i = 1; i < pts.length; i++) { const [ax, az] = pts[i - 1], [bx, bz] = pts[i], dx = bx - ax, dz = bz - az, L2 = dx * dx + dz * dz || 1; let t = ((px - ax) * dx + (pz - az) * dz) / L2; t = Math.max(0, Math.min(1, t)); const cx = ax + dx * t, cz = az + dz * t, d2 = Math.hypot(px - cx, pz - cz); if (d2 < best.d) best = { d: d2, cx, cz }; } return best; }
+/** floodlit at night: clone the meshes' materials and give them a warm emissive driven by the session's night factor */
+export function floodlight(root, colour = '#ffd9a0', k = 0.35) {
+    root.traverse((o) => {
+        if (!o.isMesh || !o.material || Array.isArray(o.material)) return;
+        const m = o.material.clone(); m.userData = { ...o.material.userData, shared: false, dayGlow: 0, nightGlow: k };
+        if (m.emissive) { m.emissive = new THREE.Color(colour); m.emissiveIntensity = 0; if (m.map && !m.emissiveMap) m.emissiveMap = m.map; }
+        o.material = m;
+    });
+}

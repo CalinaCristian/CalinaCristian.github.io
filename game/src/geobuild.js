@@ -128,6 +128,18 @@ export class MeshBuilder {
         for (let i = 0; i < I.length; i++) this.i[this.ic++] = I[i] + o;
         this.vc += n;
     }
+    /** append all of another builder's vertices / triangles (same attribute layout) */
+    append(o) {
+        if (!o || o.empty) return this;
+        this._growV(o.vc); this._growI(o.ic);
+        const k = this.vc;
+        this.p.set(o.p.subarray(0, o.vc * 3), k * 3); this.n.set(o.n.subarray(0, o.vc * 3), k * 3);
+        this.u.set(o.u.subarray(0, o.vc * 2), k * 2); this.c.set(o.c.subarray(0, o.vc * 3), k * 3);
+        if (this.t) { if (o.t) this.t.set(o.t.subarray(0, o.vc), k); else this.t.fill(-1, k, k + o.vc); }
+        for (let i = 0; i < o.ic; i++) this.i[this.ic + i] = o.i[i] + k;
+        this.vc += o.vc; this.ic += o.ic;
+        return this;
+    }
     build() {
         const geo = new THREE.BufferGeometry();
         geo.setAttribute('position', new THREE.BufferAttribute(this.p.slice(0, this.vc * 3), 3));

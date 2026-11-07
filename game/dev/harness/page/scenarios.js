@@ -570,6 +570,10 @@ export const SCENARIOS = [
             }
             const avg = (a) => a.length ? r2(a.reduce((x, y) => x + y, 0) / a.length) : null;
             const res = { hotspot: hs.note, level: r2(hs.L), vehicles: T.counts, avgIn: avg(inS), avgOut: avg(outS), updateMs: r2(T.stats.updateMs) };
+            // transit + fleet (R13.3): kinds on the road, buses on bus routes, trolleybuses under wires, render cost
+            { const kinds = {}; let bus = 0, busOn = 0, trol = 0, trolOn = 0; for (const v of T.vehicles) { kinds[v.kind] = (kinds[v.kind] || 0) + 1; if (v.trolley) { trol++; if (v.edge.trolleyWire) trolOn++; } else if (v.bus) { bus++; if (v.edge.busRoute) busOn++; } }
+              H.renderFrame(); const rs = g.r3d?.stats || {};
+              res.transit = { ...(T.transit || {}), kinds, bus, busOnRoute: busOn, trolley: trol, trolleyUnderWires: trolOn, drawCalls: rs.drawCalls, triangles: rs.triangles }; }
             if (!(res.avgIn < 2)) H.issue('jam-too-fluid', 'medium', `rush hour: average speed in the ${hs.note} hotspot ${res.avgIn} m/s (spec < 2)`, { x: hs.x, z: hs.z }, { key: 'jam-in' });
             if (!(res.avgOut > 6)) H.issue('jam-everywhere', 'medium', `rush hour: average speed outside the hotspots ${res.avgOut} m/s (spec > 6)`, {}, { key: 'jam-out' });
             // the player gets in: from ~300 m away to the hotspot centre through the queues

@@ -86,7 +86,7 @@ function personGeometry() {
     b.add(BOX, TM(0.235, 0.80, -0.035, 0.012, 0.14, 0.07), P.PHONE, 6);                         // phone (screen faces the head when raised)
     b.add(BOX, TM(0.228, 0.80, -0.035, 0.002, 0.12, 0.058), P.SCREEN, 6);
     b.add(BOX, TM(0.17, 0.79, -0.06, 0.13, 0.085, 0.075), P.CAMERA, 6);                          // camera body
-    b.add(taper(0.028, 0.028, 0.77, 0.81, 8), TM(0.17, 0, -0.1, 1, 1, 1, Math.PI / 2, 0, 0), P.CAMERA, 6); // lens
+    b.add(taper(0.028, 0.028, -0.025, 0.025, 8), TM(0.17, 0.79, -0.11, 1, 1, 1, Math.PI / 2, 0, 0), P.CAMERA, 6); // lens
     b.add(taper(0.012, 0.012, -0.55, 0.9, 4), TM(0.245, 0, 0), P.FLAGPOLE, 6);                   // guide flag pole (points along the forearm)
     b.add(BOX, TM(0.245, -0.38, 0.17, 0.008, 0.3, 0.34), P.FLAGCLOTH, 6);                         // flag cloth near the tip
     // guitar (on the body, strap over the shoulder): body + neck to the left hand

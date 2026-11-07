@@ -966,7 +966,13 @@ export class Traffic {
                     // apart, not always in phase): the link can't hold a car, so the first node's light governs the
                     // crossing — never stop inside / right behind the first box for the second one (it gridlocked the
                     // crossing street, e.g. NE 8th × Bellevue Way); the box claims keep crossing paths apart
-                    if (k >= 0 && prevNode && isJunction(prevNode) && curE.len - (prevNode.radius ?? 6) - rad < v.length + 4) d = Infinity;
+                    if (k >= 0 && prevNode && isJunction(prevNode) && curE.len - (prevNode.radius ?? 6) - rad < v.length + 4) {
+                        // not yet over the first line: wait there for the second light (cross traffic has green at it);
+                        // waited > 8 s (the two signals are out of phase) or already committed: go through both
+                        const dPrev = prevD - (prevNode.radius ?? 6) - 1.6;
+                        if (dPrev > -0.5 && (v.splitWait || 0) < 8) { d = dPrev; if (dPrev < 3 && v.speed < 0.5) v.splitWait = (v.splitWait || 0) + dt; }
+                        else d = Infinity;
+                    }
                     if (d !== Infinity) { if (d < stopD) { stopD = d; stopWhy = 'light'; } if (d < 10) waitingRed = true; break; }
                 }
             }
@@ -1040,6 +1046,7 @@ export class Traffic {
         else v.speed = Math.max(target, v.speed - (leader === P && gap < 3 ? 14 : 8.5) * dt);
         if (v.speed < 0.05) v.speed = 0;
         v.gap = gap; v.leader = leader; v.leaderCross = leaderCross; v.stopD = stopD; v.stopWhy = stopWhy;
+        if (v.speed > 3) v.splitWait = 0;
 
         // ---------------- stuck / honking ----------------
         // waiting in a red-light queue is not "stuck"

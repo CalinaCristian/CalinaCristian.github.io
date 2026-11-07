@@ -107,7 +107,8 @@ function localHours(date, timeZone) {
 }
 /** coarse phase from local hour (used when the render module does not expose one) */
 function phaseFromHours(h) { return h < 5.5 || h >= 21 ? 'night' : h < 7.5 ? 'dawn' : h >= 19 ? 'dusk' : 'day'; }
-const money = (cur, v) => cur === 'RON' ? `${Math.round(v).toLocaleString('ro-RO')} RON` : `$ ${v.toFixed(v >= 100 ? 0 : 2)}`;
+// RON: whole lei grouped with a thin space ("149 060 RON"); the ro-RO "." grouping read as decimals to most players
+const money = (cur, v) => cur === 'RON' ? `${Math.round(v).toLocaleString('en-US').replace(/,/g, ' ')} RON` : `$${v >= 1000 ? Math.round(v).toLocaleString('en-US') : v.toFixed(v >= 100 ? 0 : 2)}`;
 
 class Game {
     constructor() {
@@ -1702,8 +1703,11 @@ class Game {
         const idx = this.chapterIdx, ch = this.ch, next = this.chapters[idx + 1] || null;
         this.chapterDone = true; this.progress.done.add(ch.id); if (next) this.progress.reached.add(next.id);
         saveProgress(this.progress); this.renderMenuChapters();
+        try { this.achievements?.evaluate?.(); } catch (e) { console.warn('[achievements]', e); } // unlock at the event, not on the next load (note 44)
         this.audio.chime(); this.updateObjective(); this.hud.setObjective(this.objectiveLabel); this.hud.setNavLine('');
         if (!next) { this._completing = false; setTimeout(() => this.finale(), 900); return; }
+        // same district (luxoft → db, arnia → uipath-buc): no card, no respawn — the next objective appears where you are
+        if (next.city === ch.city && next.district === ch.district && this.world?.district?.id === next.district) { this._completing = false; this.chainChapter(idx + 1); return; }
         this.player.speed = 0; this.input.releaseLock(); this.input.lookAllowed = false; this.hud.prompt(null);
         this.photo?.close?.(); this.state = 'card';
         const nd = CITIES[next.city]?.districts?.[next.district];

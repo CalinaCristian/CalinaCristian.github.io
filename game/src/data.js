@@ -45,7 +45,7 @@ export const STOPS = [
         color: '#6366f1', icon: '🏛️',
         tagline: 'Four years on the Splai: algorithms, operating systems, and projects now on GitHub.',
         stations: [
-            { title: 'Degree', lines: ["Bachelor of Computer Science, Faculty of Automatic Control and Computers.", 'Student projects are on github.com/CalinaCristian.'] },
+            { title: 'Degree', lines: ["Bachelor of Computer Science, Faculty of Automatic Control and Computers."] },
             { title: 'Hackathon trophy 🏆', lines: ['23 April 2017 — 1st place, BEST Engineering Marathon (BEST București).', 'Built a recruiting platform: recruiters post/edit/reassign jobs, candidates apply or email recruiters.'] },
         ],
     },

@@ -418,7 +418,10 @@ export class Player {
                 const dx = p.x - cx, dz = p.z - cz; const d = Math.hypot(dx, dz);
                 if (d > 1.25 || d < 1e-4) continue;
                 const sp = Math.abs(this.speed);
-                if (sp > 2.2) {
+                // only a pedestrian actually on the carriageway (crossing / standing in the road) can be knocked down: one on
+                // the sidewalk next to a car hugging the kerb is just brushed aside (that fined the player dozens of times)
+                if (sp > 2.2 && p.onRoad && this.pedCd <= 0) {
+                    this.pedCd = 3;
                     const nx = dx / d * 0.5 + this.fx * Math.sign(this.speed) * 0.5, nz = dz / d * 0.5 + this.fz * Math.sign(this.speed) * 0.5;
                     if (this.traffic.peds.knock(p, nx, nz, sp)) {
                         this.shake = clamp(sp / 15, 0.2, 0.8);

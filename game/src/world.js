@@ -5,7 +5,7 @@ import { makeVehicle, CAR_COLORS, makeParkedCars } from './vehicles.js';
 import { projector, CHAPTERS } from './cities.js';
 import { STOPS } from './data.js';
 import { MeshBuilder, rgb, shadeRgb, prep, mergeProps, bakeProp, UNIT_BOX } from './geobuild.js';
-import { treeGeometries, SPECIES, defaultSpecies, buildSpeciesTrees } from './trees.js';
+import { treeGeometries, SPECIES, defaultSpecies, buildSpeciesTrees, speciesFromOSM } from './trees.js';
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -446,6 +446,16 @@ export async function buildWorld(city, renderer, opts = {}) {
     const inDistrictLL = (lat, lon, m = 0.0015) => !distCfg || (lat >= distCfg.bbox[0] - m && lat <= distCfg.bbox[2] + m && lon >= distCfg.bbox[1] - m * 1.4 && lon <= distCfg.bbox[3] + m * 1.4);
     const url = new URL(`../data/${distId ? city.id + '-' + distId : city.id}.json`, import.meta.url).href;
     const data = await (await fetch(url)).json();
+    // field research (spec 20), optional: street-tree notes per street (streets[].research.trees, streets[].trees)
+    let research = null;
+    if (distId) { try { const r = await fetch(new URL(`../research/${city.id}-${distId}.json`, import.meta.url).href); if (r.ok) research = await r.json(); } catch { research = null; } }
+    const researchTrees = new Map(); // street name → { species: [...], none }
+    for (const st of research?.streets || []) {
+        const txt = String(st.research?.trees || ''), gen = st.trees?.genus || {}, out = [];
+        for (const g of Object.keys(gen)) { const k = speciesFromOSM(g); if (k && !out.includes(k)) out.push(k); }
+        for (const w of txt.split(/[^\p{L}]+/u)) { const k = speciesFromOSM(w); if (k && k !== 'conifer' && !out.includes(k)) out.push(k); }
+        if (out.length || /no (street )?trees|treeless|none/i.test(txt)) researchTrees.set(st.name, { species: out, none: !out.length });
+    }
     RESEARCH_BRANDS = data.brands || {};
     setProgress('Building the road network…'); await tick();
 
@@ -1470,11 +1480,21 @@ export async function buildWorld(city, renderer, opts = {}) {
                     }
                 }
             }
-            if ((big || treeStreet) && !e.bridge && !elevated && e.sidewalk >= 2.2 && (treeStreet || (e.sidewalk >= 3 && !US && rng.chance(0.75)))) {
-                const step = treeStreet ? 9 : 15;
-                for (let s = ra + 3; s < rb; s += step * rng.range(0.85, 1.15)) for (const sd of [1, -1]) {
+            // procedural street-tree rows where OSM maps few trees (tree coverage is very uneven between districts):
+            // research notes first, then the city's known tree-lined streets, then defaults by road class: Bucharest
+            // boulevards and residential / tertiary streets with ≥ 3 m sidewalks, Seattle / Bellevue downtown tree pits.
+            // Rows keep clear of junction sight lines (12 m from the pad); the OSM trees nearby win (placeTree dedups).
+            const rt = researchTrees.get(e.name);
+            const dtUS = US && (e.sidewalk >= 2.5) && /^(primary|secondary|tertiary|residential)$/.test(e.type);
+            const roRes = !US && /^(tertiary|residential|unclassified)$/.test(e.type) && e.sidewalk >= 3 && (((e.road * 2654435761) >>> 0) % 100) < 60;
+            const rowOK = !e.bridge && !elevated && e.sidewalk >= 2.2 && !rt?.none && (rt || treeStreet || (big && e.sidewalk >= 3 && !US) || roRes || dtUS);
+            if (rowOK) {
+                const step = rt || treeStreet ? rng.range(7, 9) : roRes ? rng.range(8, 11) : dtUS ? 9 : 10;
+                const sp = rt?.species?.length ? rt.species[((e.road * 40503) >>> 0) % rt.species.length] : null;
+                const s0 = retract(e, e.a) + 12, s1 = e.len - retract(e, e.b) - 12;
+                for (let s = s0 + 2; s < s1; s += step * rng.range(0.9, 1.1)) for (const sd of [1, -1]) {
                     const o = (sd > 0 ? e.wR : e.wL) + shoulderOf(e) + clamp(e.sidewalk * 0.45, 1.0, 2.2);
-                    treeSpots.push([e.a.x + e.dirx * s + e.nx * o * sd, e.a.z + e.dirz * s + e.nz * o * sd, rng.range(0.8, 1.2), 'street', e.road]);
+                    treeSpots.push([e.a.x + e.dirx * s + e.nx * o * sd, e.a.z + e.dirz * s + e.nz * o * sd, rng.range(0.8, 1.2), 'street', e.road, sp]);
                 }
             }
         }
@@ -1918,7 +1938,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const heightFixes = [];
     {
         const DEF = new Set([11.6, 12.6, 14.5, 15.5, 23.2, 24.2, 29, 30]);
-        const INST = /muze|museum|biseric|church|catedral|institut|[șs]coal|liceu|gr[ăa]dini|teatr|atene|bibliotec|universit|facult|spital|palat|casa |vila|villa|ambasad|embassy|primări|primari|tribunal|ministe/i;
+        const INST = /muze|museum|biseric|church|catedral|institut|[șs]coal|liceu|gr[ăa]dini|teatr|atene|bibliotec|universit|facult|spital|palat|casa |vila|villa|ambasada\b|embassy|primări|primari|tribunal|ministe/i;
         const minWidth = (ring) => { // smallest width over the footprint's own edge directions
             let best = Infinity, len = 0;
             for (let k = 0; k < ring.length; k++) {
@@ -2708,8 +2728,10 @@ export async function buildWorld(city, renderer, opts = {}) {
     // street row; conifers only where OSM says needleleaved, in parks / forests / gardens); size from the OSM height,
     // else typical per kind. `s` (legacy ≈ 1 for a 6–8 m tree) only seeds the height when nothing better is known.
     const TG = treeGeometries();
+    const treeGrid = new BoxGrid(20), treeNear = (x, z, r) => { let f = false; treeGrid.each(x - r, z - r, x + r, z + r, (t) => { if (!f && Math.hypot(t.x - x, t.z - z) < r) f = true; }); return f; };
     const placeTree = (x, z, s, kind, con = null, dec = null, opt = {}) => {
         if (treeList.length >= maxTrees) return false;
+        if (kind === 'street' && treeNear(x, z, 4.5)) return false; // (a mapped OSM tree already stands there)
         const k = Math.round(x / 1.6) + ',' + Math.round(z / 1.6); if (treeSeen.has(k)) return false;
         if (onRibbon(x, z, 0.35 * s + 0.5) || buildingAt(x, z) || isWater(x, z)) return false;
         treeSeen.add(k);
@@ -2729,17 +2751,26 @@ export async function buildWorld(city, renderer, opts = {}) {
             const lowCrown = (shape.cy - shape.ry * 0.8) * sz < 4.4; // crown bottom below truck height
             sh = clamp((lo + (lowCrown ? 0.3 : 1.6)) / R, isCon ? 0.35 : 0.55, 1);
         }
-        treeList.push({ x, z, s: sz, species, con: !!isCon, dec: dec ?? (isCon ? 0 : 1), kind, sh });
+        treeList.push({ x, z, s: sz, species, con: !!isCon, dec: dec ?? (isCon ? 0 : 1), kind, sh }); treeGrid.insert(x, z, x, z, treeList[treeList.length - 1]);
         addPropColl(x, z, 0.3 * Math.max(0.6, sz * 1.4), 'tree');
         return true;
     };
     // OSM natural=tree / tree_row (real positions, leaf type where tagged)
     const osmTrees = data.trees || [];
+    const TI = data.treeInfo || [];
+    let treesOSM = 0, treesRows = 0;
     for (let i = 0; i + 2 < osmTrees.length; i += 3) {
-        const x = osmTrees[i] / 10, z = osmTrees[i + 1] / 10, t = osmTrees[i + 2], con = t & 1, hh = (t >> 1) / 10;
-        placeTree(x, z, hh > 0 ? clamp(hh / 6.5, 0.6, 2.0) : rng.range(0.85, 1.25), 'osm', con ? true : false, null, { h: hh });
+        const x = osmTrees[i] / 10, z = osmTrees[i + 1] / 10, t = osmTrees[i + 2], hh = (t >> 1) / 10;
+        // treeInfo (world-data): taxon text → species, circumference → size, leaf bits (2 needleleaved, 1 broadleaved)
+        const k = i / 3, taxon = TI[k * 3] >= 0 ? str(TI[k * 3]) : '', circ = TI[k * 3 + 1] || 0, leaf = TI[k * 3 + 2] || 0;
+        let species = taxon ? speciesFromOSM(taxon) : null;
+        const con = species === 'conifer' || (leaf & 2) ? true : (t & 1) && !(leaf & 1) ? true : false;
+        if (con) species = 'conifer'; else if (species === 'conifer') species = null;
+        const dbh = circ > 0 ? circ / Math.PI : 0; // trunk diameter, cm
+        const h = hh > 0 ? hh : dbh > 0 ? clamp(4 + dbh * 0.2, 4, 26) : 0;
+        if (placeTree(x, z, h > 0 ? clamp(h / 6.5, 0.6, 2.0) : rng.range(0.85, 1.25), 'osm', con, null, { h, species: species || undefined })) treesOSM++;
     }
-    for (const [x, z, s, kind, road] of treeSpots) placeTree(x, z, s, kind, null, null, { road });
+    for (const [x, z, s, kind, road, sp] of treeSpots) if (placeTree(x, z, s, kind, null, null, { road, species: sp || undefined })) treesRows++;
     // parks & forests
     for (const a of areas) {
         if (!['park', 'forest', 'scrub', 'cemetery', 'grass'].includes(a.kind)) continue;
@@ -3284,7 +3315,7 @@ export async function buildWorld(city, renderer, opts = {}) {
 
     setProgress(''); const phases = PHASES.splice(0);
     const stats = { phases, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, backdrop: backdropCount,
-        profile: profileStats, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingsDropped: bDropped, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
+        profile: profileStats, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingsDropped: bDropped, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
     console.info('[world]', city.id, stats);
 
     /** calls cb(height) for every drivable surface (carriageway + shoulder + sidewalk, junction pads) covering (x, z) */

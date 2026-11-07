@@ -517,16 +517,10 @@ export async function buildWorld(city, renderer, opts = {}) {
     const inDistrictLL = (lat, lon, m = 0.0015) => !distCfg || (lat >= distCfg.bbox[0] - m && lat <= distCfg.bbox[2] + m && lon >= distCfg.bbox[1] - m * 1.4 && lon <= distCfg.bbox[3] + m * 1.4);
     const url = new URL(`../data/${distId ? city.id + '-' + distId : city.id}.json`, import.meta.url).href;
     const data = await (await fetch(url)).json();
-    // field research (spec 20), optional: street-tree notes per street (streets[].research.trees, streets[].trees)
-    let research = null;
-    if (distId) { try { const r = await fetch(new URL(`../research/${city.id}-${distId}.json`, import.meta.url).href); if (r.ok) research = await r.json(); } catch { research = null; } }
+    // field research (spec 20): street-tree notes per street, baked by tools/osm into data.streetTrees
+    // ({street name: [species keys]}, [] = researched as treeless) — no runtime fetch of the research dossier
     const researchTrees = new Map(); // street name → { species: [...], none }
-    for (const st of research?.streets || []) {
-        const txt = String(st.research?.trees || ''), gen = st.trees?.genus || {}, out = [];
-        for (const g of Object.keys(gen)) { const k = speciesFromOSM(g); if (k && !out.includes(k)) out.push(k); }
-        for (const w of txt.split(/[^\p{L}]+/u)) { const k = speciesFromOSM(w); if (k && k !== 'conifer' && !out.includes(k)) out.push(k); }
-        if (out.length || /no (street )?trees|treeless|none/i.test(txt)) researchTrees.set(st.name, { species: out, none: !out.length });
-    }
+    for (const [name, out] of Object.entries(data.streetTrees || {})) researchTrees.set(name, { species: out, none: !out.length });
     RESEARCH_BRANDS = data.brands || {};
     setProgress('Building the road network…'); await tick();
 
@@ -2551,13 +2545,15 @@ export async function buildWorld(city, renderer, opts = {}) {
                 mb.wall(ax, az, bx, bz, yShop, wallTop, nx, nz, wallCol, u0, u1, 0, (wallTop - yShop) / (floorH * gr), tile);
                 // night light spill on the sidewalk in front of the shop window (additive decal, 0 by day)
                 if (L > 2.5) {
-                    const mx = (ax + bx) / 2, mz = (az + bz) / 2, D = 3.2;
-                    const ne = nearestEdge(mx + nx * 3, mz + nz * 3, null, 30);
-                    if (ne && ne.d < 22 && !buildingAt(mx + nx * 1.5, mz + nz * 1.5)) {
+                    const mx = (ax + bx) / 2, mz = (az + bz) / 2, D = 3.0;
+                    const ne = nearestEdge(mx + nx * 3, mz + nz * 3, (e) => !e.virtual && e.type !== 'service', 30);
+                    // only shopfronts on a street (its carriageway within ≈ 12 m: a sidewalk), never fronts on a square / plaza
+                    const wallToRoad = ne ? Math.max(0, ne.d + 3 - (((mx + nx * 3 - ne.cx) * ne.edge.nx + (mz + nz * 3 - ne.cz) * ne.edge.nz) >= 0 ? ne.edge.wR : ne.edge.wL)) : Infinity;
+                    if (ne && wallToRoad < 12 && !buildingAt(mx + nx * 1.5, mz + nz * 1.5) && !isPark(mx + nx * 2, mz + nz * 2)) {
                         const sb = c.spill || (c.spill = new MeshBuilder()), w0 = [255, 255, 255], yS2 = Y.side + 0.02;
                         // inset 0.3 m at both ends; stop at the kerb (never on the carriageway)
                         const ux = (bx - ax) / L, uz = (bz - az) / L, p0x = ax + ux * 0.3, p0z = az + uz * 0.3, p1x = bx - ux * 0.3, p1z = bz - uz * 0.3;
-                        let d = D; while (d > 0.8 && (onRibbon(p0x + nx * d, p0z + nz * d, 0.2) || onRibbon(p1x + nx * d, p1z + nz * d, 0.2) || onRibbon(mx + nx * d, mz + nz * d, 0.2))) d -= 0.4;
+                        let d = Math.min(D, wallToRoad - 0.4); const offRoad = (dd) => { for (const f of [0, 0.25, 0.5, 0.75, 1]) { const px = p0x + (p1x - p0x) * f + nx * dd, pz = p0z + (p1z - p0z) * f + nz * dd; if (onRibbon(px, pz, 0.25)) return false; } return true; }; while (d > 0.8 && !offRoad(d)) d -= 0.4;
                         if (d > 0.8) {
                             const i0 = sb.v(p0x, yS2, p0z, 0, 1, 0, 0.5, 1, w0), i1 = sb.v(p1x, yS2, p1z, 0, 1, 0, 0.5, 1, w0);
                             const i2 = sb.v(p1x + nx * d, yS2, p1z + nz * d, 0, 1, 0, 0.5, 1 - d / D, w0), i3 = sb.v(p0x + nx * d, yS2, p0z + nz * d, 0, 1, 0, 0.5, 1 - d / D, w0);
@@ -2931,17 +2927,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         c2.solid.box(x - best.nx * 0.08, b.h + 1.2, z - best.nz * 0.08, w, hh, 0.12, ang, steel);
         roofAds++; roofAdList.push({ text: ad.text, x: Math.round(x), z: Math.round(z), y: Math.round(y), nx: +best.nx.toFixed(2), nz: +best.nz.toFixed(2) });
     }
-    // night: the big squares glow (sodium / LED floods, shop windows, ad screens all around) — a soft warm pool over the
-    // whole square (additive decal on the shop-spill material: 0 by day, eased in at dusk by render)
-    const SQUARES = { bucharest: [{ lat: 44.4522, lon: 26.0859, r: 95 }, { lat: 44.4466, lon: 26.0975, r: 60 }, { lat: 44.4268, lon: 26.1025, r: 110 }] }[city.id] || [];
-    for (const sq of SQUARES) {
-        if (!inDistrictLL(sq.lat, sq.lon, 0)) continue;
-        const q = city.proj(sq.lat, sq.lon), c3 = cellOf(q.x, q.z), sb = c3.spill || (c3.spill = new MeshBuilder()), W = [255, 255, 255];
-        const y = Y.road + 0.06, n = 28, base = sb.vc;
-        sb.v(q.x, y, q.z, 0, 1, 0, 0.5, 0.45, W); // (a soft pool: ≈ 30 % of the shop-spill intensity at the centre)
-        for (let k = 0; k < n; k++) { const a2 = k / n * Math.PI * 2; sb.v(q.x + Math.cos(a2) * sq.r, y, q.z + Math.sin(a2) * sq.r, 0, 1, 0, 0.5, 0.02, W); }
-        for (let k = 0; k < n; k++) sb.triUp(base, base + 1 + k, base + 1 + (k + 1) % n);
-    }
+    // (the warm 'square glow' pools were removed: render's lamps / floodlights carry the squares at night)
 
     // -----------------------------------------------------------------------
     //  POIs from OSM (businesses, transport…)
@@ -3453,7 +3439,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         const g = makeCanvasTexture(4, 64, (ctx, w, h) => { const gr = ctx.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, '#ffffff'); gr.addColorStop(0.35, '#6a6a6a'); gr.addColorStop(1, '#000000'); ctx.fillStyle = gr; ctx.fillRect(0, 0, w, h); });
         g.colorSpace = THREE.NoColorSpace;
         const m = new THREE.MeshLambertMaterial({ color: 0x000000, emissive: new THREE.Color('#ffc890'), emissiveMap: g, emissiveIntensity: 0, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -6, polygonOffsetUnits: -12, fog: true });
-        m.userData.nightEmissive = 0.45; m.name = 'shop-spill';
+        m.userData.nightEmissive = 0.3; m.name = 'shop-spill';
         m.onBeforeCompile = (sh) => { sh.uniforms.uClosed = solidMat.userData.uClosed; sh.fragmentShader = 'uniform float uClosed;\n' + sh.fragmentShader.replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\n\ttotalEmissiveRadiance *= 1.0 - 0.8 * uClosed;'); };
         return m;
     })();

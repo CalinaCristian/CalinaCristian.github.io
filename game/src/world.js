@@ -1826,7 +1826,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (w.kind !== 'barrier') { hit = true; return; } // wide-band walls (embankment / trench / rail / guard) never stand in a lane
                 // at a split / merge the sibling ramp (sharing a node with the wall's edge) is driven through the gore: a barrier
                 // standing in its lanes is always cut (the wall across 'Exit → Westfield Southcenter', QA round 2)
-                const sib = rb.e && w.edge && /_link$/.test(rb.e.type) && /_link$/.test(w.edge.type) && (rb.e.a === w.edge.a || rb.e.a === w.edge.b || rb.e.b === w.edge.a || rb.e.b === w.edge.b);
+                const sib = distId && rb.e && w.edge && /_link$/.test(rb.e.type) && /_link$/.test(w.edge.type) && (rb.e.a === w.edge.a || rb.e.a === w.edge.b || rb.e.b === w.edge.a || rb.e.b === w.edge.b);
                 if (sib) { const n = (rb.e.a === w.edge.a || rb.e.a === w.edge.b) ? rb.e.a : rb.e.b;
                     const hS = Y.road + rb.e.a.y + (rb.e.b.y - rb.e.a.y) * clamp(((x - rb.e.a.x) * rb.e.dirx + (z - rb.e.a.z) * rb.e.dirz) / rb.e.len, 0, 1), own = (y0 + y1) / 2;
                     if (Math.hypot(x - n.x, z - n.z) < 15 && Math.abs(hS - own) < 1.0 && polyDist(x, z, rb.poly) > 0.5) { hit = true; return; } }
@@ -3012,7 +3012,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // so the season / weather code can tint each tree (world.vegetation)
     const vegetation = { treeCrownMeshes: [], treeTrunkMeshes: [], deciduousMask: null, grassMaterials: [], groundMaterials: [], roofMaterials: [], trees: treeList };
     {
-        const T = buildSpeciesTrees(treeList, { rng, cull: 1200, near: 100, maxNear: 280 }); // (≈ 1.2 km view range for trees)
+        const T = buildSpeciesTrees(treeList, { rng, cull: 650, chunk: 500, near: 100, maxNear: 280, farLayer: 1 }); // (layer 1: main camera only — not the rear-view mirror pass) // (far chunks drawn to ≈ 1 km) // (≈ 1.2 km view range for trees)
         vegetation.treeCrownMeshes.push(...T.crownMeshes); vegetation.treeTrunkMeshes.push(...T.trunkMeshes);
         vegetation.update = T.update;
         vegetation.deciduousMask = new Float32Array(treeList.map(t => t.dec));
@@ -3424,9 +3424,10 @@ export async function buildWorld(city, renderer, opts = {}) {
     let parkedCalls = 0;
     for (const [k, list] of parkedLots) {
         const [I, J] = k.split(',').map(Number);
-        const pg = makeParkedCars(list, { city: city.id, paintSpace: 'linear' }); pg.name = `parked ${k}`; // (CAR_COLORS are sRGB hex: let three.js linearise them, as the old merged lots did)
+        const pg = makeParkedCars(list, { city: city.id, paintSpace: 'linear', castShadow: false }); // (no shadow pass for lots) pg.name = `parked ${k}`; // (CAR_COLORS are sRGB hex: let three.js linearise them, as the old merged lots did)
         pg.userData.cx = (I + 0.5) * CELL * 2; pg.userData.cz = (J + 0.5) * CELL * 2; pg.userData.cull = 700 + CELL * 0.71;
         tris += pg.userData.triangles || 0; parkedCalls += pg.userData.drawCalls || 0;
+        pg.traverse(o => o.layers.set(1)); // (main camera only: the mirror pass skips parked lots)
         cellsGroup.add(pg);
     }
     for (const m of vegetation.treeCrownMeshes.concat(vegetation.treeTrunkMeshes)) { cellsGroup.add(m); tris += (m.userData.always ? m.instanceMatrix.count : m.count) * (m.geometry.index.count / 3); }

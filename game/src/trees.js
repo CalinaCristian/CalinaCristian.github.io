@@ -175,7 +175,7 @@ export function buildSpeciesTrees(trees, opts = {}) {
         trunkMeshes.push(trunks);
         for (const m of mine) {
             m.instanceMatrix.needsUpdate = true; if (m.instanceColor) m.instanceColor.needsUpdate = true;
-            m.computeBoundingSphere(); m.castShadow = opts.castShadow !== false; m.receiveShadow = true; m.matrixAutoUpdate = false;
+            m.computeBoundingSphere(); m.castShadow = false; m.receiveShadow = true; m.matrixAutoUpdate = false; if (opts.farLayer != null) m.layers.set(opts.farLayer); // (far LOD: no shadow pass — the near crowns cast; optionally on a main-camera-only layer)
             m.userData.cx = (ci + 0.5) * CH; m.userData.cz = (cj + 0.5) * CH; m.userData.cull = cull + CH * 0.71;
             group.add(m); farOf.push(m);
         }

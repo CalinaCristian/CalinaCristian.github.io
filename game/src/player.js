@@ -473,18 +473,19 @@ export class Player {
         // camera bob + shake + look-back + mouse look
         const s = this.shake, d = dt || 0.016, L = this.look;
         const bobY = Math.sin(this.bob) * 0.004 * clamp(Math.abs(this.speed) / 10, 0, 1);
-        this.camHolder.position.y = 1.36 + bobY + (Math.random() - 0.5) * s * 0.08;
+        const pv = this.cockpit?.userData.viewFor?.(this.camera.aspect) || null; // portrait phones: eye / yaw / FOV per aspect (cockpit-ui, R17.1)
+        this.camHolder.position.y = 1.36 + (pv?.eye.y || 0) + bobY + (Math.random() - 0.5) * s * 0.08;
         if (this.mirror) this.mirror.visible = this.mirrorEnabled && !this.lookBack;
         L.baseYaw = damp(L.baseYaw, (this.lookBack ? Math.PI : 0) + this.steerVisual * 0.06, 10, d);
         L.yawCur = damp(L.yawCur, this.lookBack ? 0 : L.yaw, 22, d);
         // looking far to the side / back: the head leans toward the centre of the car a little
         const lean = clamp(Math.abs(L.yawCur) / LOOK_YAW, 0, 1);
-        this.camHolder.position.x = -0.3 + (L.yawCur < 0 ? 0.16 : 0.06) * lean;
-        this.camHolder.position.z = -0.45 + 0.08 * lean;
-        this.camHolder.rotation.y = L.baseYaw + L.yawCur;
+        this.camHolder.position.x = -0.3 + (pv?.eye.x || 0) + (L.yawCur < 0 ? 0.16 : 0.06) * lean;
+        this.camHolder.position.z = -0.45 + (pv?.eye.z || 0) + 0.08 * lean;
+        this.camHolder.rotation.y = L.baseYaw + L.yawCur + (this.lookBack ? 0 : (pv?.yaw || 0));
         this.camHolder.rotation.x = (Math.random() - 0.5) * s * 0.04 + this.speed * 0.0004 + (this.lookBack ? 0 : L.pitch);
         this.camHolder.rotation.z = (Math.random() - 0.5) * s * 0.03;
-        this.camera.fov = damp(this.camera.fov, 72 + clamp(this.speed, 0, 40) * 0.35, 4, d);
+        this.camera.fov = damp(this.camera.fov, (pv?.fov ?? 72) + clamp(this.speed, 0, 40) * 0.35, 4, d);
         this.camera.updateProjectionMatrix();
     }
 }

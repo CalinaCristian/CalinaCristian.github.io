@@ -701,7 +701,9 @@ export class Traffic {
         return false;
     }
     recycle() {
-        const P = this.player; if (!P || !this.large) return;
+        const P = this.player; if (!P) return;
+        this.peds.recycle(); // (districts too: walkers stay around the player)
+        if (!this.large) return;
         const all = this.vehicles; const n = Math.min(all.length, 25);
         const R = this.bubble + 100;
         for (let k = 0; k < n; k++) {
@@ -710,7 +712,6 @@ export class Traffic {
             const d = Math.hypot(v.x - P.x, v.z - P.z);
             if (d > R) this.relocate(v, 350, this.bubble, true);
         }
-        this.peds.recycle();
     }
 
     // ------------------------------------------------------------------ routing
@@ -1565,6 +1566,7 @@ class Pedestrians {
             const mx = (e.a.x + e.b.x) / 2 - P.x, mz = (e.a.z + e.b.z) / 2 - P.z; const d = Math.hypot(mx, mz);
             if (d < rMin || d > rMax) continue;
             if (hidden && d < 250 && (mx * P.fx + mz * P.fz) > 0) continue;
+            if (this.rng() > 0.2 + Math.min(0.8, trafficMulOf(e) * 0.45)) continue; // busy streets get more walkers
             p.e = e; p.dir = this.rng() < 0.5 ? 1 : -1; p.side = this.rng() < 0.5 ? 1 : -1; p.s = this.rng.range(0, e.len);
             p.state = 'walk'; p.legs = []; p.onRoad = false; p.waitT = 0; this.placeWalk(p); return;
         }
@@ -1576,7 +1578,9 @@ class Pedestrians {
         for (let k = 0; k < 10; k++) {
             this._rr = ((this._rr || 0) + 1) % this.list.length;
             const p = this.list[this._rr];
-            if (p.state !== 'down' && Math.hypot(p.x - P.x, p.z - P.z) > 480) this.relocate(p, 120, 420, true);
+            // districts (~1 km²): keep the walkers around the player (a busy street at noon), big legacy maps as before
+            const far = this.t.large ? 480 : 230;
+            if (p.state !== 'down' && Math.hypot(p.x - P.x, p.z - P.z) > far) this.relocate(p, this.t.large ? 120 : 45, this.t.large ? 420 : 200, true);
         }
     }
     ok(e) { return !isMotorway(e) && !e.tunnel && !e.bridge && e.len > 4 && (e.sidewalk ?? 1) > 0 && e.type !== 'dn' && e.type !== 'service'; }

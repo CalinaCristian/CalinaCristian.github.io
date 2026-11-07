@@ -48,6 +48,7 @@ Source: `game/FEEDBACK.md` "Round 4 play-test" notes 1–27 (+ any that follow),
 | 20, 27 | spots | Terrain flattened under paved esplanades/plinths (Parliament), no camera roll on slopes; crowds on the walkable surface (steps), never inside colliders. |
 
 ## P2 — gameplay features
+| 57 | research + spots + progression | Activities at every landmark/spot (e.g. Space Needle elevator → The Loupe rotating floor → open deck view), researched real experiences only, each with an achievement in a new Landmarks category. |
 | Notes | Owner | Work |
 |---|---|---|
 | 38 | gameplay (traffic.js peds) | Street pedestrians avoid trees, lamps, poles, bins, parked cars (sidewalk lanes around obstacles + local steering), harness check. |

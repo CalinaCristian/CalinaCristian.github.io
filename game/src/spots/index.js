@@ -213,7 +213,7 @@ export async function loadSpot(id, renderer = null, opts = {}) {
     const spawn = spawns[id] || spawns[data.members[0]];
     // crowd
     let crowd = null;
-    if (ctx.crowdCfg && data.city === 'bucharest') { // a few people chatting in view of every arrival point (bubbles from the first seconds)
+    if (ctx.crowdCfg) { // a few people chatting in view of every arrival point (bubbles from the first seconds)
         ctx.crowdCfg.groups = ctx.crowdCfg.groups || [];
         for (const sp of Object.values(spawns)) {
             const fx = -Math.sin(sp.heading), fz = -Math.cos(sp.heading);

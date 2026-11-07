@@ -74,7 +74,7 @@ export default {
             else { // note 34: the real roof is a balustraded attic (white balusters on the cornice) with a LOW tiled hip set back
                 // behind it (no overhang beyond the walls), as in the street photos of Bd. Primăverii
                 b.flat(bd.poly, y + H, '#9a948a', 'roofs'); balustrade(b, grow(bd.poly, 0.35), y + H, 1.0, { closed: true, colour: '#f1ede4' });
-                const inner = grow(bd.poly, -1.6); hipRoof(b, inner, y + H - 0.05, Math.min(2.2, (obb(inner)?.wid || 8) * 0.18), ROOF, 0); M0 = { o: obb(bd.poly), y }; }
+                hipRoof(b, bd.poly, y + H - 0.05, Math.min(2.2, (obb(bd.poly)?.wid || 8) * 0.16), ROOF, -1.6); // set back 1.6 m inside the balustrade M0 = { o: obb(bd.poly), y }; }
             ctx.poly(bd.poly, { y0: y - 1, y1: y + H + 5 });
         }
         // garden terrace with balustrade along the main building's garden side (toward the pool wing)
@@ -127,6 +127,7 @@ export default {
         ctx.sound('birds', 0, -40, 90, 0.9); ctx.sound('traffic', -60, -50, 120, 0.35); ctx.sound('wind', 0, -40, 80, 0.3);
         ctx.onUpdate((dt, s) => { s._peacockT = (s._peacockT ?? 8) - dt; if (s._peacockT < 0) { s._peacockT = 12 + Math.random() * 14; const q = birds[Math.floor(Math.random() * birds.length)]; if (q && Math.hypot(q.x - s.position.x, q.z - s.position.z) < 60) s.sound.play('calls', 0.35); } });
         // spawn: on the boulevard outside the gate, looking in
+        { const sx = gmx - (centroid(grounds)[0] - gmx) * 0.35, sz = gmz - (centroid(grounds)[1] - gmz) * 0.35; ctx.trees = ctx.trees.filter((t) => Math.hypot(t.x - sx, t.z - sz) > 4.5); }
         ctx.spawns['spring-palace'] = { x: gmx - (centroid(grounds)[0] - gmx) * 0.35, z: gmz - (centroid(grounds)[1] - gmz) * 0.35, heading: headingFromBearing((Math.atan2(centroid(grounds)[0] - gmx, -(centroid(grounds)[1] - gmz)) * 180 / Math.PI + 360) % 360) };
     },
 };

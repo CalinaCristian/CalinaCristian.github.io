@@ -47,7 +47,7 @@ function boat(b, x, y, z, yaw, kind, r) {
     if (kind === 'sail') {
         const L = 8 + r() * 3.5, W = L * 0.32, col = ['#f4f4f0', '#eef0f2', '#1f3550', '#f1ece0'][Math.floor(r() * 4)];
         b.add(hullGeo(L, W, 0.8, 0.5), 'paint', M(x, y, z, 0, yaw), col);
-        b.add(hullGeo(L * 0.995, W * 1.01, 0.18, 0.02), 'paint', M(x, y + 0.08, z, 0, yaw), '#2b2f33'); // boot stripe
+        b.add(hullGeo(L * 1.01, W * 1.04, 0.18, 0.02), 'paint', M(x, y + 0.08, z, 0, yaw), '#2b2f33'); // boot stripe
         const [cx, cy, cz] = C(0, 0.8, -L * 0.08); b.box(cx, cy, cz, W * 0.62, 0.55, L * 0.32, '#e9e7e1', 'paint', yaw);
         const [wx, wy, wz] = C(0, 1.1, -L * 0.02); b.box(wx, wy, wz, W * 0.64, 0.18, L * 0.26, '#2d3438', 'darkglass', yaw);
         const mh = L * 1.35, [mx, my, mz] = C(0, 0.9, L * 0.12); b.cyl(mx, my, mz, 0.06, mh, '#c9ccce', 'chrome', 6);
@@ -59,7 +59,7 @@ function boat(b, x, y, z, yaw, kind, r) {
     }
     const L = 7 + r() * 5, W = L * 0.36;
     b.add(hullGeo(L, W, 0.95, 0.5), 'paint', M(x, y, z, 0, yaw), r() < 0.8 ? '#f5f5f2' : '#e9e3d6');
-    b.add(hullGeo(L * 0.995, W * 1.01, 0.16, 0.02), 'paint', M(x, y + 0.12, z, 0, yaw), ['#1f3b5e', '#7a1f22', '#2b2f33'][Math.floor(r() * 3)]);
+    b.add(hullGeo(L * 1.01, W * 1.04, 0.16, 0.02), 'paint', M(x, y + 0.12, z, 0, yaw), ['#1f3b5e', '#7a1f22', '#2b2f33'][Math.floor(r() * 3)]);
     const [cx, cy, cz] = C(0, 0.95, -L * 0.05); b.box(cx, cy, cz, W * 0.7, 1.1, L * 0.38, '#f2f2ef', 'paint', yaw);
     const [gx, gy, gz] = C(0, 1.4, L * 0.02); b.box(gx, gy, gz, W * 0.72, 0.45, L * 0.3, '#22292e', 'darkglass', yaw);
     if (L > 9.5) { const [fx, fy, fz] = C(0, 2.05, -L * 0.1); b.box(fx, fy, fz, W * 0.6, 0.12, L * 0.24, '#ece9e2', 'paint', yaw); b.rod(C(-W * 0.28, 2.17, -L * 0.2), C(-W * 0.28, 2.9, -L * 0.15), 0.025, '#c9ccce', 'chrome', 4); }
@@ -116,7 +116,7 @@ export default {
         // ---------------------------------------------------------------- ground paint: rocky shore band, beach, wide promenade
         const P = ctx.painter;
         P.custom((x, T, k, isMask) => { x.strokeStyle = isMask ? 'rgb(0,0,120)' : '#7a7466'; x.lineWidth = 5.5 * k; x.lineJoin = 'round'; x.beginPath(); lakePoly.forEach(([px, pz], i) => { const [a, c] = T(px, pz); if (i) x.lineTo(a, c); else x.moveTo(a, c); }); x.closePath(); x.stroke(); });
-        if (beachPoly.length) { P.poly(beachPoly, '#ad9f86', 'dirt'); P.custom((x, T, k, isMask) => { if (isMask) return; x.strokeStyle = 'rgba(92,84,70,0.55)'; x.lineWidth = 3 * k; x.beginPath(); lakePoly.forEach(([px, pz], i) => { const [a, c] = T(px, pz); if (i) x.lineTo(a, c); else x.moveTo(a, c); }); x.stroke(); }); }
+        if (beachPoly.length) { P.poly(beachPoly, '#988c78', 'dirt'); P.custom((x, T, k, isMask) => { if (isMask) return; x.strokeStyle = 'rgba(92,84,70,0.55)'; x.lineWidth = 3 * k; x.beginPath(); lakePoly.forEach(([px, pz], i) => { const [a, c] = T(px, pz); if (i) x.lineTo(a, c); else x.moveTo(a, c); }); x.stroke(); }); }
         const prom = [way('w841411877'), way('w840902369'), way('w840902368'), way('w840902371'), way('w841411883'), way('w840902373')].filter(Boolean);
         for (const pts of prom) P.line(pts, 4.6, '#c4c0b6', 'slab');
         // ---------------------------------------------------------------- crescent pier (OSM w688415225 centreline, w687934817 deck outline)
@@ -247,7 +247,7 @@ export default {
         sb.box(lg.x, ly + 2.1, lg.z, 1.2, 0.1, 1.1, '#f2f2ee', 'paint'); sb.box(lg.x, ly + 2.2, lg.z + 0.45, 0.9, 0.5, 0.1, '#c8102e', 'paint'); sb.cyl(lg.x, ly + 2.2, lg.z, 0.04, 1.6, '#cccccc', 'metal', 4); sb.cyl(lg.x, ly + 3.7, lg.z, 0.9, 0.35, '#c8102e', 'fabric', 10, 0.1);
         summer.add(sb.build('summer-swim'));
         ctx.add(summer); seasonal(ctx, [5, 25], [9, 8], (on) => { summer.visible = on; });
-        for (const [x, z, a] of [[-18, -26, 0.3], [24, -18, 1.1], [-26, -33, 2.1]]) { const y = g.heightAt(x, z); fb.rod([x - Math.cos(a) * 2.2, y + 0.25, z - Math.sin(a) * 2.2], [x + Math.cos(a) * 2.2, y + 0.3, z + Math.sin(a) * 2.2], 0.28, '#8d7a64', 'wood', 8, 0.24); ctx.box(x, z, 2.2, 0.3, -a, { prop: true, h: 0.55 }); }
+        for (const [x, z, a] of [[-18, -26, 0.3], [8, -14, 1.1], [-26, -33, 2.1]]) { const y = g.heightAt(x, z); fb.rod([x - Math.cos(a) * 2.2, y + 0.25, z - Math.sin(a) * 2.2], [x + Math.cos(a) * 2.2, y + 0.3, z + Math.sin(a) * 2.2], 0.28, '#8d7a64', 'wood', 8, 0.24); ctx.box(x, z, 2.2, 0.3, -a, { prop: true, h: 0.55 }); }
         // ---------------------------------------------------------------- rockeries (OSM retaining walls) + boulders along the promenade
         const rk = new GeoBatch();
         for (const a of d.areas) if (a.barrier === 'retaining_wall') { boulderWall(rk, a.poly, (x, z) => g.heightAt(x, z) - 0.25, { h: 1.6, seed: a.poly.length * 13 }); for (let i = 1; i < a.poly.length; i++) { const [ax, az] = a.poly[i - 1], [qx, qz] = a.poly[i]; ctx.collider({ wall: true, ax, az, bx: qx, bz: qz, y0a: g.heightAt(ax, az) - 3, y1a: g.heightAt(ax, az) + 0.9, y0b: g.heightAt(qx, qz) - 3, y1b: g.heightAt(qx, qz) + 0.9, nx: 0, nz: 1 }); } }
@@ -285,7 +285,7 @@ export default {
         ctx.lampOpts = { style: 'cobra', color: '#b9bec1', h: 7.2 };
         for (const pts of prom) { const Lp = polylineLength(pts); for (let s = 6; s < Lp; s += 24) { const p = alongPolyline(pts, s), p2 = alongPolyline(pts, Math.min(Lp, s + 1)), tx = p2.x - p.x, tz = p2.z - p.z, tl = Math.hypot(tx, tz) || 1; ctx.lampPoints.push({ x: p.x + tz / tl * 2.7, z: p.z - tx / tl * 2.7, rot: Math.atan2(-tz, tx) }); } }
         // Seattle on the horizon (≈ 9 km west) + Olympics, Rainier on clear days
-        seattleBackdrop(ctx, { baseY: LAKE_Y - 0.4, clear: 3000, hazeK: 0.45, olympics: true, rainier: true, eyeY: 1.6 });
+        seattleBackdrop(ctx, { baseY: LAKE_Y - 0.4, clear: 3000, hazeK: 0.45, olympics: false, rainier: false, eyeY: 1.6 });
         // ---------------------------------------------------------------- activities (note 57)
         // 1) walk to the end of the crescent
         let pierDone = false;

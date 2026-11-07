@@ -454,7 +454,7 @@ export class Renderer3D {
         // image-based ambient for every lit material (Lambert included): SH9 of sky + sunlit walls + ground bounce
         this.probe = new THREE.LightProbe(); this.probe.userData.shared = true; this._ambAt = -1e9; this._ambKey = '';
         this.sky = new THREE.Mesh(new THREE.SphereGeometry(100, 32, 16), makeSkyMaterial());
-        this.sky.frustumCulled = false; this.sky.renderOrder = -100; this.sky.userData.shared = true;
+        this.sky.name = 'sky'; this.sky.frustumCulled = false; this.sky.renderOrder = -100; this.sky.userData.shared = true;
         this._sunDir = new THREE.Vector3(0, 1, 0);
         this._moonDir = new THREE.Vector3(0, 1, 0);
         this.rain = null;

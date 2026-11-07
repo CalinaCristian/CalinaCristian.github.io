@@ -2808,18 +2808,26 @@ export async function buildWorld(city, renderer, opts = {}) {
             } else if (st === 'bloc') {
                 const ACC = ['#c0564a', '#4f7fa8', '#d99a3a', '#6c9a5a', '#8d6a9e', '#d7d2c4', '#3f6f78'].map(rgb);
                 const accent = ACC[Math.floor(brng() * ACC.length)];
-                const encl = [rgb('#c9d4d8'), rgb('#9fb3bd'), accent, accent, rgb('#d8cfb8'), rgb('#7d8c96'), rgb('#b8a48a')];
+                // (play-test note 10c) balconies read as balconies: real blocks stack the same balcony type up a bay column
+                // (open slab + parapet, or enclosed by the owners: glazed / clad), with one parapet colour per building;
+                // AC units hang on the balcony fronts / under windows, small and white, with a dark grille
+                const neutral = shadeRgb(wallCol, 0.86), encl = [rgb('#c9d0cf'), rgb('#b8b2a3'), neutral];
+                const colType = cols.map(() => { const r = brng(); return r < 0.55 ? 'open' : r < 0.85 ? 'glazed' : 'clad'; });
+                const colAcc = cols.map(() => brng() < 0.35);
                 for (let f = 1; f < Math.min(floors, 9); f++) {
                     const yb = yFirst + f * floorH;
                     for (let i = 0; i < cols.length; i++) {
                         const s2 = cols[i], r = brng();
-                        if (i % 2 === 0) { // balcony every other bay: open slab + parapet, or enclosed (glazed / clad, mixed colours)
-                            if (r < 0.45) slab(s2, yb - 0.1, bayW * 0.9, 1.0, 1.1, encl[Math.floor(brng() * encl.length)]); // enclosed lower part
-                            else slab(s2, yb - 0.1, bayW * 0.9, 0.12, 1.1, shadeRgb(wallCol, 0.85));                      // open slab
-                            if (r < 0.3) slab(s2, yb + 0.9, bayW * 0.88, floorH - 1.1, 1.0, rgb('#6f8794'));             // glazed top
-                            else if (r < 0.75) slab(s2, yb + 0.02, bayW * 0.9, 0.9, 1.1, brng() < 0.6 ? accent : shadeRgb(wallCol, 0.8), false);  // parapet (coloured fronts)
-                        } else if (r < 0.18) slab(s2 + bayW * 0.3, yb + 0.25, 0.8, 0.55, 0.3, rgb('#e2e2de')); // AC unit
-                        else if (r < 0.22) slab(s2, yb + floorH * 0.7, 0.55, 0.55, 0.14, rgb('#d6d6d0'), false); // dish
+                        if (i % 2 === 0) {
+                            const t = r < 0.12 ? (colType[i] === 'open' ? 'glazed' : 'open') : colType[i]; // (a few owners differ)
+                            slab(s2, yb - 0.1, bayW * 0.9, 0.12, 1.1, neutral);                                   // slab
+                            const front = colAcc[i] ? accent : t === 'clad' ? encl[i % encl.length] : neutral;
+                            slab(s2, yb + 0.02, bayW * 0.9, 0.95, 1.1, front, false);                            // parapet front
+                            if (t === 'glazed') slab(s2, yb + 0.97, bayW * 0.88, floorH - 1.15, 1.02, rgb('#71879a'));     // glazed upper part
+                            else if (t === 'clad') slab(s2, yb + 0.97, bayW * 0.88, floorH - 1.15, 1.04, shadeRgb(front, 0.92));
+                            if (r > 0.82) { slab(s2 + bayW * 0.25, yb + 0.25, 0.75, 0.5, 1.32, rgb('#ececea')); slab(s2 + bayW * 0.25, yb + 0.33, 0.5, 0.32, 1.34, rgb('#55585c'), false); } // AC on the front
+                        } else if (r < 0.1) { slab(s2, yb + 0.15, 0.75, 0.5, 0.3, rgb('#ececea')); slab(s2, yb + 0.23, 0.5, 0.32, 0.32, rgb('#55585c'), false); } // AC under a window
+                        else if (r < 0.13) slab(s2, yb + floorH * 0.7, 0.55, 0.55, 0.14, rgb('#d6d6d0'), false); // dish
                     }
                 }
                 const [x0, z0] = P(0, 0.03), [x1, z1] = P(L, 0.03); // prefab panel joints (horizontal)
@@ -3830,7 +3838,7 @@ export async function buildWorld(city, renderer, opts = {}) {
 
     setProgress(''); const phases = PHASES.splice(0);
     const stats = { phases, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount,
-        profile: profileStats, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingsDropped: bDropped, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, unitSigns, crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
+        profile: profileStats, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingsDropped: bDropped, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
     console.info('[world]', city.id, stats);
 
     /** calls cb(height) for every drivable surface (carriageway + shoulder + sidewalk, junction pads) covering (x, z) */

@@ -227,7 +227,7 @@ const SEA_DISTRICTS = {
         ],
         circles: [{ lat: 47.465700, lon: -122.276430, r: 200, name: 'seatac door' }, { lat: 47.455500, lon: -122.299560, r: 110, name: 'seatac start' }],
         landmarks: ['seatac', 'seatower', 'seagarage', 'sealink', 'rainier', 'olympics'],
-        scenery: ['seatac', 'seagarage', 'sealink', 'rainier', 'olympics'], // background only (round 5, notes 9/18): built and visible, but no marker / label / route — not reachable in this district
+        scenery: ['seatac', 'seatower', 'seagarage', 'sealink', 'rainier', 'olympics'], // background only (round 5, notes 9/18): built and visible, but no marker / label / route — not reachable in this district
         congestion: [ // from game/research/seattle-seatac.json traffic.hotspots
             { lat: 47.44400, lon: -122.30000, radius: 250, hours: [[4.5,  7.5],  [11,  14]], level: 0.70, note: 'Departures Drive kerb' },
             { lat: 47.44350, lon: -122.30000, radius: 250, hours: [[11,  14],  [20.5,  24]], level: 0.60, note: 'Arrivals Drive kerb' },

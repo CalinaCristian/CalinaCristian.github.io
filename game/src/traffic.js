@@ -1746,7 +1746,7 @@ export class Traffic {
         if (!st) {
             const check = this.assessParking(P);
             // where the tow truck left it (gameplay moves the car on 'tow'): the pound's spot, nobody reacts to it again
-            const tw = this._towedTo; if (tw && Math.hypot(P.x - tw.x, P.z - tw.z) < 3) { check.illegal = false; check.towed = true; } else this._towedTo = null;
+            const tw = this._towedTo; if (tw && Math.hypot(P.x - tw.x, P.z - tw.z) < 3) { check.illegal = false; check.towed = true; check.blockEdge = null; } else this._towedTo = null;
             st = this.park = { x: P.x, z: P.z, heading: P.heading, t: 0, check, S: {}, seen: new Set(), bubbleT: 1.5, driverT: 2, scanT: 0, log: [], officer: null, truck: null, props: [], blockEdge: check.blockEdge };
             this.parking = { illegal: check.illegal, reasons: check.reasons, primary: check.primary, severity: check.severity, t: 0, log: st.log };
             if (check.illegal) this.emitParking('illegal');

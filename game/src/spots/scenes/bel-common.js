@@ -279,3 +279,11 @@ export function gableRoof(b, cx, y, cz, yaw, L, W, H, color, { key = 'roofs', ov
     tri(b, P(-gw, 0, gl), P(gw, 0, gl), P(0, H * gw / w, gl), gable || color, gable ? 'paint' : key);
     tri(b, P(gw, 0, -gl), P(-gw, 0, -gl), P(0, H * gw / w, -gl), gable || color, gable ? 'paint' : key);
 }
+
+/** skip the OSM buildings whose centroid lies within `r` m of a landmark anchor (the landmark model replaces them) */
+export function skipNearLandmark(ctx, id, r = null) {
+    const lm = LANDMARKS.find((l) => l.id === id); if (!lm) return [];
+    const p = ctx.ll(lm.lat, lm.lon), R = r ?? lm.radiusM * 0.85, out = [];
+    for (const b of ctx.data.buildings) { let x = 0, z = 0; for (const q of b.poly) { x += q[0]; z += q[1]; } x /= b.poly.length; z /= b.poly.length; if (Math.hypot(x - p.x, z - p.z) < R) { ctx.skipBuildings.add(b.id); out.push(b.id); } }
+    return out;
+}

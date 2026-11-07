@@ -47,6 +47,10 @@
 //    places: [[name, x, z, rank], ...]               rank 0 city, 1 suburb, 2 quarter, 3 neighbourhood
 //    lamps: [x, z, heightDm, ...]                    highway=street_lamp nodes (height 0 = unknown)
 //    trees: [x, z, t, ...]                           natural=tree / tree_row, t = heightDm*2 + conifer
+//    treeInfo: [taxon, circumferenceCm, leaf, ...]   one triple per tree (same order as `trees`): taxon = string index of
+//                                                    the OSM species / taxon / genus text ("Tilia cordata", "Platanus", -1 none),
+//                                                    circumference in cm (0 unknown), leaf: 0 unknown, 1 broadleaved, 2 needleleaved,
+//                                                    +4 deciduous, +8 evergreen (leaf_cycle); +16 from a tree_row
 //    furniture: [kind, x, z, ...]                    kind index into `furnKinds`
 //    backdrop: [x, z, w, d, h, angleDeg, ...]        building masses beyond the corridors (40 m cells)
 //    corridor: { areaKm2, legs: [[label, km]] }      everything above is restricted to these corridors
@@ -1072,19 +1076,25 @@ function buildCity(cityId, did = null) {
     // ---- trees (natural=tree nodes + tree_row ways) and street furniture, inside the corridors, off the carriageway
     const onCarriageway = (x, z, extra) => !!nearestRoad(x, z, 25, null) && (() => { let bad = false; roadGrid.query(x, z, 20, (s) => { if (bad || (s.r.flags & 4)) return; const q = distPointSeg(x, z, s.a[0], s.a[1], s.b[0], s.b[1]); const dx = s.b[0] - s.a[0], dz = s.b[1] - s.a[1]; const right = (x - s.a[0]) * (-dz) + (z - s.a[1]) * dx > 0; if (q.d < (right ? s.wR : s.wL) + extra) bad = true; }); return bad; })();
     const CONIFER = /^(Pinus|Picea|Abies|Thuja|Pseudotsuga|Cedrus|Taxus|Juniperus|Tsuga|Larix|Sequoia|Chamaecyparis|Cupressus)/i;
-    const outTrees = []; const treeSeen = new Set();
-    const addTree = (x, z, t) => {
+    const outTrees = [], outTreeInfo = []; const treeSeen = new Set();
+    const circCm = (v) => { if (v == null) return 0; const n = num(v); if (!isFinite(n) || n <= 0) return 0; const cm = /cm/.test(v) ? n : n < 20 ? n * 100 : n; return Math.min(2000, Math.round(cm)); };
+    const addTree = (x, z, t, row = false) => {
         if (M(x, z) > 0 || onCarriageway(x, z, 0.9)) return;
         const key = Math.round(x / 1.5) + ',' + Math.round(z / 1.5); if (treeSeen.has(key)) return; treeSeen.add(key);
         const con = t.leaf_type === 'needleleaved' || CONIFER.test(t.genus || t['species'] || '') ? 1 : 0;
         let h = num(t.height); if (!isFinite(h) || h > 45) h = 0;
         outTrees.push(Math.round(x * 10), Math.round(z * 10), Math.round(h * 10) * 2 + con);
+        // species text for world.js / trees.js speciesFromOSM (spec 12 request): most specific first
+        const taxon = t.species || t.taxon || t['species:en'] || t['taxon:en'] || t.genus || t['genus:en'] || '';
+        const lt = t.leaf_type === 'broadleaved' ? 1 : (t.leaf_type === 'needleleaved' || con) ? 2 : 0;
+        const lc = t.leaf_cycle === 'deciduous' ? 4 : t.leaf_cycle === 'evergreen' ? 8 : 0;
+        outTreeInfo.push(S(taxon.trim()), circCm(t.circumference), lt + lc + (row ? 16 : 0));
     };
     for (const [id, t] of ntags) if (t.natural === 'tree') { const p = pt(id); if (p) addTree(p[0], p[1], t); }
     for (const w of W.values()) {
         if (w.tags.natural !== 'tree_row') continue;
         const pts = w.nodes.map(pt); if (pts.some(p => !p)) continue;
-        for (let i = 0; i < pts.length - 1; i++) { const a = pts[i], b = pts[i + 1]; const L = Math.hypot(b[0] - a[0], b[1] - a[1]); for (let s = 0; s < L; s += 7) addTree(a[0] + (b[0] - a[0]) * s / L, a[1] + (b[1] - a[1]) * s / L, w.tags); }
+        for (let i = 0; i < pts.length - 1; i++) { const a = pts[i], b = pts[i + 1]; const L = Math.hypot(b[0] - a[0], b[1] - a[1]); for (let s = 0; s < L; s += 7) addTree(a[0] + (b[0] - a[0]) * s / L, a[1] + (b[1] - a[1]) * s / L, w.tags, true); }
     }
     const outFurn = [];
     for (const [id, t] of ntags) {
@@ -1159,7 +1169,7 @@ function buildCity(cityId, did = null) {
         classes: ROAD_CLASSES, styles: STYLES, roofs: ROOFS, poiKinds: POI_KINDS, areaKinds: AREA_KINDS, lineKinds: LINE_KINDS, furnKinds: FURN_KINDS,
         strings,
         nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, buildings: outB, pois: outP, areas: outA, lines: outLines, places, lamps,
-        trees: outTrees, furniture: outFurn, backdrop,
+        trees: outTrees, treeInfo: outTreeInfo, furniture: outFurn, backdrop,
         corridor: { areaKm2: +cor.areaKm2.toFixed(2), legs: cor.legs.map(l => [l.label, l.km]) },
     };
     if (Object.keys(researchBrands).length) doc.brands = researchBrands;

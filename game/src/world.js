@@ -29,6 +29,10 @@ const CELL = 250;
 // layering heights (metres) — every flat layer has its own height to avoid z-fighting
 const Y = { landuse: 0.02, grass: 0.045, forest: 0.06, park: 0.07, pitch: 0.095, parking: 0.095, water: 0.11, ballast: 0.2, side: 0.15, road: 0.24, layer: 0.09, mark: 0.03, kerb: 0.13 };
 const TILE = { interwar: 0, eclectic: 1, civic: 2, bloc: 3, glass: 4, house: 5, shop: 6, plain: 7, church: 1 };
+/** window grid (columns × rows) drawn in each facade atlas tile: wall UVs are divided by it so one window column = one
+ *  bay (≈ 2.4–3.6 m) and one window row = one storey (the tiles hold 2 storeys and 2–4 bays: without this the windows
+ *  came out at half / a quarter of their real size — the "tiny window dots") */
+const TILE_GRID = { 0: [2, 2], 1: [3, 2], 2: [4, 2], 3: [4, 2], 4: [4, 2], 5: [3, 1], 6: [1, 1], 7: [1, 1], 8: [3, 2], 9: [3, 2], 10: [2, 2], 11: [4, 2], 12: [2, 4], 13: [2, 1], 14: [1, 1], 15: [4, 1] };
 const GRASSY = new Set(['park', 'grass', 'forest', 'scrub', 'pitch', 'cemetery']);
 const PAVED = new Set(['parking', 'apron', 'runway']);
 const AREA_Y = { residential: Y.landuse, industrial: Y.landuse, commercial: Y.landuse, retail: Y.landuse, railway: Y.landuse, construction: Y.landuse, cemetery: Y.grass, grass: Y.grass, scrub: Y.grass, forest: Y.forest, park: Y.park, pitch: Y.pitch, parking: Y.parking, apron: Y.parking, runway: Y.parking + 0.01, water: Y.water };
@@ -281,7 +285,14 @@ function solidMaterial(atlas) {
         }
     }
 #endif`).replace('#include <metalnessmap_fragment>', `#include <metalnessmap_fragment>
-    if (vTile > -0.5 && (abs(vTile - 4.0) < 0.1 || abs(vTile - 12.0) < 0.1)) { metalnessFactor = 0.55; roughnessFactor = 0.16; }`).replace('#include <emissivemap_fragment>', `
+    if (vTile > -0.5 && (abs(vTile - 4.0) < 0.1 || abs(vTile - 12.0) < 0.1)) { metalnessFactor = 0.55; roughnessFactor = 0.16; }
+#ifdef USE_MAP
+    else if (vTile > -0.5) { // window panes of every facade reflect the sky (glass mask of the night atlas); walls stay matte
+        vec2 cs3 = vec2(0.25, 0.25), ci3 = vec2(mod(vTile, 4.0), floor(vTile / 4.0 + 0.01));
+        float gm = textureGrad(nightMap, (ci3 + 0.006 + fract(vMapUv) * 0.988) * cs3, dFdx(vMapUv) * cs3, dFdy(vMapUv) * cs3).r;
+        metalnessFactor = mix(metalnessFactor, 0.4, gm); roughnessFactor = mix(roughnessFactor, 0.14, gm);
+    }
+#endif`).replace('#include <emissivemap_fragment>', `
 #ifdef USE_MAP
     if (vTile > -0.5 && totalEmissiveRadiance.r > 0.001) {
         vec2 cellSz2 = vec2(0.25, 0.25);
@@ -1899,6 +1910,43 @@ export async function buildWorld(city, renderer, opts = {}) {
         return { i, style: data.styles[b[0]], h: b[1] / 10, minH: b[2] / 10, roof: data.roofs[b[3]], name: str(b[4]), flags: b[5], ring, c, x0, z0, x1, z1, area: Math.abs(signedArea(ring)), skip: false,
             levels: B_OFF === 9 ? b[6] : 0, colour: B_OFF === 9 ? str(b[7]) : '', roofColour: B_OFF === 9 ? str(b[8]) : '' };
     });
+    // ---- height sanity (2026-11-07, world-visual): the data build gives every untagged large footprint outside the old
+    //      centre 8–10 storeys (23–30 m 'bloc'), so museums, villas and institutions on Kiseleff / Dorobanți became grey
+    //      slabs. Buildings without building:levels whose height is exactly such a default are re-estimated here from
+    //      their name and shape: real slab blocks (≤ 22 m wide, ≥ 30 m long) keep their storeys, compact or courtyard
+    //      footprints become 3–5 storeys, named institutions 2–4 (data-build fix requested in spec 12 Requests)
+    const heightFixes = [];
+    {
+        const DEF = new Set([11.6, 12.6, 14.5, 15.5, 23.2, 24.2, 29, 30]);
+        const INST = /muze|museum|biseric|church|catedral|institut|[șs]coal|liceu|gr[ăa]dini|teatr|atene|bibliotec|universit|facult|spital|palat|casa |vila|villa|ambasad|embassy|primări|primari|tribunal|ministe/i;
+        const minWidth = (ring) => { // smallest width over the footprint's own edge directions
+            let best = Infinity, len = 0;
+            for (let k = 0; k < ring.length; k++) {
+                const [ax, az] = ring[k], [bx, bz] = ring[(k + 1) % ring.length], L = Math.hypot(bx - ax, bz - az); if (L < 1) continue;
+                const ux = (bx - ax) / L, uz = (bz - az) / L; let a0 = Infinity, a1 = -Infinity, c0 = Infinity, c1 = -Infinity;
+                for (const [x, z] of ring) { const p = x * ux + z * uz, q = -x * uz + z * ux; a0 = Math.min(a0, p); a1 = Math.max(a1, p); c0 = Math.min(c0, q); c1 = Math.max(c1, q); }
+                if (c1 - c0 < best) { best = c1 - c0; len = a1 - a0; }
+            }
+            return { w: best, l: len };
+        };
+        const villaZone = (x, z) => { if (US) return false; const ll = city.proj.inverse ? city.proj.inverse(x, z) : null; return !!ll && ll.lat > 44.447 && ll.lat < 44.48 && ll.lon > 26.07 && ll.lon < 26.103; };
+        for (const b of bRecs) {
+            if (b.levels > 0 || b.style === 'church' || b.style === 'glass' || b.minH > 0) continue;
+            const named = INST.test(b.name || '');
+            const isDef = DEF.has(Math.round(b.h * 10) / 10);
+            if (!isDef && !(named && b.h > 18)) continue;
+            const { w, l } = minWidth(b.ring);
+            const slab = w <= 22 && l >= 30 && !named && !villaZone(b.c[0], b.c[1]);
+            if (slab || (!named && b.h < 16)) continue;
+            const lv = named ? (b.area > 3000 ? 4 : b.area > 800 ? 3 : 2) : villaZone(b.c[0], b.c[1]) ? (b.area > 1500 ? 4 : 3) : (w > 22 ? 5 : 4);
+            const floor = named ? 4.6 : 3.3, h2 = Math.round((lv * floor + 1.2) * 10) / 10;
+            if (h2 >= b.h - 0.5) continue;
+            heightFixes.push({ name: b.name || '', from: b.h, to: h2, w: Math.round(w), l: Math.round(l), x: Math.round(b.c[0]), z: Math.round(b.c[1]) });
+            b.h = h2; b.levels = lv; if (named && b.style === 'bloc') b.style = US ? 'interwar' : 'eclectic';
+            if (!named && villaZone(b.c[0], b.c[1]) && b.style === 'bloc') b.style = US ? 'interwar' : 'eclectic';
+        }
+        if (heightFixes.length) console.info('[world] height sanity:', heightFixes.length, 'buildings re-estimated', heightFixes.slice(0, 8));
+    }
     // definitive check: no footprint may overlap a carriageway / junction pad (shrink toward the centroid, else drop)
     let bShrunk = 0, bDropped = 0;
     const laneInPoly = (ring) => { // lane samples (as devCheck / traffic see them) inside the footprint
@@ -2271,10 +2319,11 @@ export async function buildWorld(city, renderer, opts = {}) {
             // outward normal: for signedArea<0 (counter-clockwise on screen with z down) the right-hand normal points out
             let nx = (bz - az) / L, nz = -(bx - ax) / L;
             if (!ccw) { nx = -nx; nz = -nz; }
-            const u0 = perim / bayW, u1 = (perim + L) / bayW;
+            const [gc, gr] = TILE_GRID[tile] || [1, 1];
+            const u0 = perim / (bayW * gc), u1 = (perim + L) / (bayW * gc);
             if (shop) {
                 mb.wall(ax, az, bx, bz, y0, yShop, nx, nz, rgb('#ffffff'), perim / 16, (perim + L) / 16, 0, 1, TILE.shop + (b.i % 2) * 8);
-                mb.wall(ax, az, bx, bz, yShop, wallTop, nx, nz, wallCol, u0, u1, 0, (wallTop - yShop) / floorH, tile);
+                mb.wall(ax, az, bx, bz, yShop, wallTop, nx, nz, wallCol, u0, u1, 0, (wallTop - yShop) / (floorH * gr), tile);
                 // night light spill on the sidewalk in front of the shop window (additive decal, 0 by day)
                 if (L > 2.5) {
                     const mx = (ax + bx) / 2, mz = (az + bz) / 2, D = 3.2;
@@ -2291,7 +2340,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                         }
                     }
                 }
-            } else mb.wall(ax, az, bx, bz, y0, wallTop, nx, nz, wallCol, u0, u1, 0, (wallTop - y0) / floorH, tile);
+            } else mb.wall(ax, az, bx, bz, y0, wallTop, nx, nz, wallCol, u0, u1, 0, (wallTop - y0) / (floorH * gr), tile);
             wallTris += shop ? 4 : 2;
             perim += L;
         }
@@ -3047,6 +3096,28 @@ export async function buildWorld(city, renderer, opts = {}) {
             propColl.push(box); backdropCount++;
         }
     }
+    // horizon masses (district worlds): the rest of the city as low-detail blocks in a ring 250 m – 4 km outside the map,
+    // so the district edge and the empty ground beyond it never show (one merged mesh, always drawn). Bucharest: dense
+    // 4–11 storey blocks; Seattle: low suburbs / wooded hills, no masses toward the open water west of Bellevue / SeaTac.
+    const horizon = new MeshBuilder();
+    if (distId) {
+        const cx = (bounds.minX + bounds.maxX) / 2, cz = (bounds.minZ + bounds.maxZ) / 2, R0 = Math.hypot(bounds.maxX - bounds.minX, bounds.maxZ - bounds.minZ) / 2 + 250;
+        const hr = makeRng(4711 + distId.length * 31), pal = PALETTES[country];
+        const woods = [shadeRgb(rgb(env.grass), 0.55), shadeRgb(rgb(env.grass), 0.45)];
+        for (let ring = 0; ring < 4; ring++) {
+            const R = R0 + ring * 900 + hr.range(0, 300), n = Math.round(2 * Math.PI * R / (US ? 70 : 55));
+            for (let i = 0; i < n; i++) {
+                const a = (i + hr.range(-0.3, 0.3)) / n * Math.PI * 2, x = cx + Math.cos(a) * (R + hr.range(-150, 150)), z = cz + Math.sin(a) * (R + hr.range(-150, 150));
+                const westDeg = ((Math.atan2(z - cz, x - cx) * 180 / Math.PI) + 360) % 360; // 180 = west (−x)
+                if (US && westDeg > 150 && westDeg < 230 && (distId === 'bellevue' || distId === 'seatac')) continue;
+                if (isWater(x, z)) continue;
+                const trees = US ? hr.chance(0.55) : hr.chance(0.15);
+                const w = hr.range(30, 70), d = hr.range(14, 40), h = trees ? hr.range(10, 22) : US ? hr.range(6, ring === 0 ? 30 : 14) : hr.range(12, ring === 0 ? 36 : 28);
+                const col = trees ? hr.pick(woods) : shadeRgb(rgb(hr.pick(pal[h > 20 ? 'bloc' : US ? 'house' : 'plain'] || pal.plain)), 0.85);
+                horizon.box(x, -0.2, z, w, h, d, a + hr.range(-0.4, 0.4), col);
+            }
+        }
+    }
     const cellsGroup = new THREE.Group(); cellsGroup.name = 'cells'; group.add(cellsGroup);
     let tris = 0;
     const addMesh = (mb, mat, cast, name) => {
@@ -3112,6 +3183,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         cellsGroup.add(pg);
     }
     for (const m of vegetation.treeCrownMeshes.concat(vegetation.treeTrunkMeshes)) { cellsGroup.add(m); tris += (m.userData.always ? m.instanceMatrix.count : m.count) * (m.geometry.index.count / 3); }
+    { const hm = addMesh(horizon, backdropMat, false, 'horizon'); if (hm) { hm.userData.always = true; hm.frustumCulled = true; } }
     const waterMesh = addMesh(bigWater, waterMat, false, 'water-big');
     if (waterMesh) { waterMesh.userData.always = true; waterMesh.renderOrder = -18; }
     // distance culling: cells beyond the fog are hidden (three.js only frustum-culls, and the camera far plane is 5 km).
@@ -3153,9 +3225,11 @@ export async function buildWorld(city, renderer, opts = {}) {
     }
     // ground plane
     const W = bounds.maxX - bounds.minX, H = bounds.maxZ - bounds.minZ;
-    const groundGeo = new THREE.PlaneGeometry(W + 6000, H + 6000, 1, 1);
+    // (the plane reaches 30 km past the map: its edge was visible at ~3 km on clear days with render's 15–20 km visibility)
+    const GPAD = 60000;
+    const groundGeo = new THREE.PlaneGeometry(W + GPAD, H + GPAD, 1, 1);
     groundGeo.rotateX(-Math.PI / 2);
-    const uv = groundGeo.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * (W + 6000) / 12, uv.getY(i) * (H + 6000) / 12);
+    const uv = groundGeo.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * (W + GPAD) / 12, uv.getY(i) * (H + GPAD) / 12);
     const groundPlaneMat = new THREE.MeshLambertMaterial({ color: env.ground, map: noise, depthWrite: false }); groundPlaneMat.name = 'groundPlane';
     const ground = new THREE.Mesh(groundGeo, groundPlaneMat);
     vegetation.grassMaterials.push(grassMat);
@@ -3210,7 +3284,7 @@ export async function buildWorld(city, renderer, opts = {}) {
 
     setProgress(''); const phases = PHASES.splice(0);
     const stats = { phases, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, backdrop: backdropCount,
-        profile: profileStats, buildingsShrunk: bShrunk, buildingsDropped: bDropped, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
+        profile: profileStats, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingsDropped: bDropped, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
     console.info('[world]', city.id, stats);
 
     /** calls cb(height) for every drivable surface (carriageway + shoulder + sidewalk, junction pads) covering (x, z) */

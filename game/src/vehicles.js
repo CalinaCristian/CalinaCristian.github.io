@@ -845,7 +845,12 @@ function cockpitMaterial(off = new THREE.Vector3()) {
             .replace('#include <begin_vertex>', '#include <begin_vertex>\nvMat = aMat; vCab = position + uOff;');
         sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying vec4 vMat;\nvarying vec3 vCab;\nuniform float uDirect;\nuniform float uGlow;')
             .replace('#include <lights_fragment_end>', '#include <lights_fragment_end>\nreflectedLight.directDiffuse *= uDirect; reflectedLight.directSpecular *= uDirect;')
-            .replace('#include <roughnessmap_fragment>', 'float roughnessFactor = roughness * vMat.y;')
+            .replace('#include <color_fragment>', `#include <color_fragment>
+                // soft-touch grain on matte trim (8 mm cells, ±3 %): reads as leather-grain plastic, not flat paint
+                float gn = fract(sin(dot(floor(vCab * 125.0), vec3(12.9898, 78.233, 37.719))) * 43758.5453);
+                float softT = step(0.62, vMat.y);
+                diffuseColor.rgb *= 1.0 + softT * (gn - 0.5) * 0.07;`)
+            .replace('#include <roughnessmap_fragment>', 'float roughnessFactor = roughness * vMat.y * (1.0 + softT * (gn - 0.5) * 0.12);')
             .replace('#include <metalnessmap_fragment>', 'float metalnessFactor = metalness * vMat.z;')
             .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
                 if (uGlow > 0.0) {
@@ -857,7 +862,7 @@ function cockpitMaterial(off = new THREE.Vector3()) {
                     totalEmissiveRadiance += (base * glow + diffuseColor.rgb * vMat.x * 2.5) * uGlow;
                 }`);
     };
-    m.customProgramCacheKey = () => 'cockpitInterior';
+    m.customProgramCacheKey = () => 'cockpitInterior2';
     return track(m);
 }
 const partsMats = [[partsMaterial(0), partsMaterial(1)], [null, null]]; // [lights][brake]
@@ -1160,6 +1165,47 @@ const WHEEL = { pos: new THREE.Vector3(-0.3, 0.89, -0.945), tilt: -0.42, r: 0.17
 const B_Z = 0.1; // front door rear edge / B-pillar (z, cockpit space): beside the front seat back, in view when looking 90° to the side
 const MIRROR = { pos: new THREE.Vector3(0.0, 1.655, -1.125), w: 0.27, h: 0.09 };
 
+/** centre-screen home page (512×320): clock, date, media card, nav hint — what the screen shows until the map is drawn */
+function homeScreenCanvas() {
+    const canvas = document.createElement('canvas'); canvas.width = 512; canvas.height = 320;
+    const ctx = canvas.getContext('2d'), F = (w) => (sz) => `${w} ${sz}px system-ui, "Helvetica Neue", Arial, sans-serif`;
+    let lastKey = '';
+    const draw = (date = new Date()) => {
+        const hh = String(date.getHours()).padStart(2, '0'), mm = String(date.getMinutes()).padStart(2, '0'), key = hh + mm;
+        if (key === lastKey) return false; lastKey = key;
+        const g = ctx.createLinearGradient(0, 0, 512, 320); g.addColorStop(0, '#0e1a2b'); g.addColorStop(0.6, '#0a1220'); g.addColorStop(1, '#16213a');
+        ctx.fillStyle = g; ctx.fillRect(0, 0, 512, 320);
+        ctx.fillStyle = 'rgba(80,140,220,0.10)'; ctx.beginPath(); ctx.arc(430, 40, 160, 0, 7); ctx.fill();
+        // status bar
+        ctx.fillStyle = 'rgba(255,255,255,0.06)'; ctx.fillRect(0, 0, 512, 34);
+        ctx.fillStyle = '#c7d2e0'; ctx.textAlign = 'left'; drawFitText(ctx, 'Home', 18, 17, 150, { maxSize: 15, minSize: 10, font: F('600'), label: 'screen home' });
+        ctx.textAlign = 'right'; drawFitText(ctx, `${hh}:${mm}`, 494, 17, 90, { maxSize: 15, minSize: 10, font: F('600'), label: 'screen clock small' });
+        // clock + date
+        ctx.textAlign = 'left'; ctx.fillStyle = '#f4f7fb';
+        drawFitText(ctx, `${hh}:${mm}`, 28, 112, 250, { maxSize: 84, minSize: 30, font: F('300'), label: 'screen clock' });
+        ctx.fillStyle = '#8fa3bb';
+        drawFitText(ctx, date.toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' }), 30, 168, 250, { maxSize: 18, minSize: 11, font: F('500'), label: 'screen date' });
+        // media card
+        const card = (x, y, w, h) => { ctx.fillStyle = 'rgba(255,255,255,0.07)'; ctx.beginPath(); ctx.roundRect ? ctx.roundRect(x, y, w, h, 14) : ctx.rect(x, y, w, h); ctx.fill(); };
+        card(300, 60, 186, 118);
+        ctx.fillStyle = '#2b6cb0'; ctx.fillRect(316, 76, 44, 44); ctx.fillStyle = '#e6eef8'; ctx.textAlign = 'center';
+        drawFitText(ctx, 'FM', 338, 98, 40, { maxSize: 16, minSize: 9, font: F('700'), label: 'screen fm' });
+        ctx.textAlign = 'left'; ctx.fillStyle = '#f4f7fb'; drawFitText(ctx, 'Radio', 372, 88, 104, { maxSize: 16, minSize: 10, font: F('600'), label: 'screen radio' });
+        ctx.fillStyle = '#8fa3bb'; drawFitText(ctx, '98.3 FM', 372, 110, 104, { maxSize: 14, minSize: 9, font: F('500'), label: 'screen station' });
+        ctx.fillStyle = 'rgba(255,255,255,0.18)'; ctx.fillRect(316, 146, 154, 4); ctx.fillStyle = '#5fa8ff'; ctx.fillRect(316, 146, 62, 4);
+        // tiles row
+        const tiles = [['Navigation', '#3b82f6'], ['Phone', '#22c55e'], ['Media', '#f59e0b'], ['Settings', '#94a3b8']];
+        tiles.forEach(([t, c], i) => {
+            const x = 28 + i * 118; card(x, 206, 106, 78);
+            ctx.fillStyle = c; ctx.beginPath(); ctx.arc(x + 53, 236, 13, 0, 7); ctx.fill();
+            ctx.fillStyle = '#c7d2e0'; ctx.textAlign = 'center'; drawFitText(ctx, t, x + 53, 268, 96, { maxSize: 13, minSize: 8, font: F('500'), label: 'screen tile' });
+        });
+        return true;
+    };
+    draw();
+    return { canvas, draw };
+}
+
 /** The cockpit the player sits in. Coordinates in the car rig space (driver eye at (-0.3, 1.36, -0.45), forward -z). */
 export function makeCockpit() {
     const g = new THREE.Group();
@@ -1184,6 +1230,9 @@ export function makeCockpit() {
         for (const dy of [-0.012, 0.012]) interior.add(BOX, M(x, 0.958 + dy, -1.192, 0.14, 0.006, 0.006), '#3a3d42', { r: 0.4, m: 0.4 });
     }
     interior.add(BOX, M(-0.68, 0.8, -1.205, 0.1, 0.05, 0.016), '#24272b', DR2); // light switch panel
+    // stitching hints: dashed seam along the dash lip (passenger half) and over the door armrests
+    for (let x = 0.2; x < 0.76; x += 0.026) interior.add(BOX, M(x, 0.972, -1.21, 0.013, 0.003, 0.004), '#4d4a44', { r: 0.8 });
+    for (const sx of [-1, 1]) for (let z = -0.6; z < -0.1; z += 0.026) interior.add(BOX, M(sx * 0.72, 0.851, z, 0.004, 0.003, 0.013), '#4a4741', { r: 0.8 });
     // firewall / footwell front (closes the gap under the dash) + floor
     interior.add(BOX, M(0, 0.56, -1.79, 1.56, 0.26, 0.1), '#141518', { r: 0.95 });
 
@@ -1253,7 +1302,7 @@ export function makeCockpit() {
     screen.name = 'screen';
     screen.position.copy(sPos); screen.rotation.copy(sRot);
     // housing: glossy bezel just behind the glass + a deeper back shell (children: they follow the screen)
-    const housingMat = new THREE.MeshStandardMaterial({ color: GLOSS, roughness: 0.3, metalness: 0.25 });
+    const housingMat = track(new THREE.MeshStandardMaterial({ color: GLOSS, roughness: 0.12, metalness: 0.35 })); // piano black
     const bezel = new THREE.Mesh(new THREE.BoxGeometry(SCREEN.w + 0.028, SCREEN.h + 0.028, 0.026), housingMat);
     bezel.position.z = -0.0135; bezel.name = 'screen-bezel'; screen.add(bezel);
     const shell = new THREE.Mesh(new THREE.BoxGeometry(SCREEN.w - 0.03, SCREEN.h - 0.03, 0.05), new THREE.MeshStandardMaterial({ color: '#16181b', roughness: 0.8 }));
@@ -1437,6 +1486,17 @@ export function makeCockpit() {
     // ---- rear-view mirror placement (the mirror glass + its camera live in player.js) ----
     {
         const q = new THREE.Quaternion().setFromEuler(faceEyeEuler(MIRROR.pos));
+        // housing: black plastic shell around / behind the glass (player.js draws the glass + its thin frame), rounded ends
+        const hb = new Batch(), nrm = new THREE.Vector3(0, 0, 1).applyQuaternion(q);
+        const hm = (off, sx, sy, sz) => new THREE.Matrix4().compose(MIRROR.pos.clone().addScaledVector(nrm, off), q, new THREE.Vector3(sx, sy, sz));
+        hb.add(BOX, hm(-0.02, MIRROR.w + 0.026, MIRROR.h + 0.026, 0.026), '#121315', { r: 0.45, m: 0.1 });
+        hb.add(BOX, hm(-0.042, MIRROR.w - 0.02, MIRROR.h - 0.01, 0.03), '#141517', { r: 0.6 });
+        for (const sx of [-1, 1]) {
+            const c = new THREE.CylinderGeometry((MIRROR.h + 0.026) / 2, (MIRROR.h + 0.026) / 2, 0.026, 10);
+            const end = MIRROR.pos.clone().addScaledVector(nrm, -0.02).add(new THREE.Vector3(sx * (MIRROR.w / 2 + 0.013), 0, 0).applyQuaternion(q));
+            hb.add(c, new THREE.Matrix4().compose(end, q.clone().multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(Math.PI / 2, 0, 0))), new THREE.Vector3(1, 1, 1)), '#121315', { r: 0.45, m: 0.1 });
+        }
+        const housing = new THREE.Mesh(hb.build(), interiorMat); housing.name = 'mirror-housing'; g.add(housing);
         g.userData.mirrorMount = {
             position: MIRROR.pos.clone(), quaternion: q, width: MIRROR.w, height: MIRROR.h,
             // camera: centred, under the roof, looking straight back through the rear window; nothing of the car is
@@ -1474,7 +1534,9 @@ export function makeCockpit() {
     };
     let parking = false;
     g.userData.setRain = (on) => { if (on && !ws.on) { ws.t = 0; ws.rainT = 0; } ws.on = !!on; parking = !on; };
+    let homeT = 0;
     g.userData.tick = (dt) => {
+        if ((homeT -= dt) <= 0) { homeT = 5; if (home.draw()) htex.needsUpdate = true; }
         if (ws.on) { ws.t = (ws.t + dt) % W_PERIOD; ws.rainT += dt; }
         else if (parking) { // finish the current sweep, then park
             if (ws.t > 0 && ws.t < 2 * W_SWEEP) ws.t = Math.min(2 * W_SWEEP, ws.t + dt); else parking = false;
@@ -1487,7 +1549,7 @@ export function makeCockpit() {
     /** scale direct lighting on the interior (1 = day; ~0.3 at night so street lamps don't light the cabin through the roof) */
     g.userData.setInteriorLight = (k) => { interiorMat.userData.uDirect.value = wheelMat.userData.uDirect.value = k; };
     /** night cabin glow 0..1 (instrument + screen backlight, dim cabin fill, ambient strips) */
-    g.userData.setNightGlow = (k) => { interiorMat.userData.uGlow.value = wheelMat.userData.uGlow.value = k; };
+    g.userData.setNightGlow = (k) => { interiorMat.userData.uGlow.value = wheelMat.userData.uGlow.value = k; screenMat.userData.uScreen.value.set(1 - 0.3 * k, 0.035 * (1 - k)); }; // screen: dimmed at night, faint daylight veil by day
 
     // ---- headlights: two warm spot lights + emissive lamp boxes. Hidden (zero cost) until switched on. ----
     const lampMat = new THREE.MeshStandardMaterial({ color: '#cfd5db', emissive: '#fff0d2', emissiveIntensity: 0, roughness: 0.15, metalness: 0.2 });

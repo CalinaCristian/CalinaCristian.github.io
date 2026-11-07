@@ -34,6 +34,7 @@ String fields are indices into `strings` (`-1` = none).
 | `lamps` | `[x, z, height_dm, …]` — OSM `highway=street_lamp` nodes (height 0 = unknown) |
 | `places` | `[name, x, z, rank]` (0 city, 1 suburb, 2 quarter, 3 neighbourhood) |
 | `trees` | `[x, z, t, …]` — OSM `natural=tree` nodes and `tree_row` ways (sampled every 7 m); `t = height_dm·2 + conifer` (height 0 = unknown, conifer from `leaf_type` / `genus`) |
+| `treeInfo` | (districts, 2026-11-07) one triple per tree, same order as `trees`: `[taxon, circumferenceCm, leaf, …]` — `taxon` = string index of the OSM `species` / `taxon` / `species:en` / `genus` text (most specific first, −1 none), circumference in cm (0 unknown; OSM metres converted), `leaf` bits: 1 broadleaved, 2 needleleaved, 4 deciduous, 8 evergreen, 16 generated from a `tree_row` (7 m spacing) |
 | `furniture` | `[kind, x, z, …]` — kinds in `furnKinds` (bench, waste_basket, bollard, post_box, bicycle_parking, drinking_water, fountain, fire_hydrant, recycling, telephone, vending_machine, picnic_table, advertising); none on a carriageway |
 | `backdrop` | `[x, z, w, d, h, angleDeg, …]` (dm, degrees) — low-poly building masses beyond the corridors (one box per 40 m cell) so the horizon is not empty |
 | `corridor` | `{areaKm2, legs: [[label, km], …]}` — the routes the map was cut to (see `tools/osm/corridors.mjs`) |

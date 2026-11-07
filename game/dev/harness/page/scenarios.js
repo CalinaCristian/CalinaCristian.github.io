@@ -134,8 +134,8 @@ async function enterOfficeAndRead(H, stop) {
     await sleep(0);
     // ('card': the chapter-complete card opened on leaving)
     if (g.state !== 'drive' && g.state !== 'card') { H.issue('office-leave-failed', 'high', `could not leave the ${stop.id} office with E at the exit`, {}, { key: 'leave:' + stop.id }); o.done = true; await H.run(0.3); }
-    res.visited = g.visited?.has(stop.id); res.ok = !!res.visited;
-    if (!res.visited) H.issue('office-not-unlocked', 'high', `left the ${stop.id} office after reading a screen but the stop is not marked visited`, {}, { key: 'unlock:' + stop.id });
+    res.visited = g.visited?.has(stop.id); res.ok = !!res.visited || (!!g.freeRoam && g.state === 'drive'); // free roam: CV content only, no unlocks
+    if (!res.ok) H.issue('office-not-unlocked', 'high', `left the ${stop.id} office after reading a screen but the stop is not marked visited`, {}, { key: 'unlock:' + stop.id });
     return res;
 }
 async function fast(H, x, z, label, station = false) {

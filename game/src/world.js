@@ -1066,7 +1066,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         const col = rgb(areaColors[a.kind] || env.ground);
         if (a.kind === 'water') {
             const target = (a.x1 - a.x0 > CELL * 2 || a.z1 - a.z0 > CELL * 2) ? bigWater : cellOf((a.x0 + a.x1) / 2, (a.z0 + a.z1) / 2).water;
-            target.flatPoly(pts, tris, y, col, 0.02);
+            const v0 = target.vc; target.flatPoly(pts, tris, y, col, 0.02); a.waterMesh = { mb: target, v0, v1: target.vc };
         } else {
             const cc = cellOf((a.x0 + a.x1) / 2, (a.z0 + a.z1) / 2);
             (GRASSY.has(a.kind) ? cc.grass : PAVED.has(a.kind) ? cc.pave : cc.area).flatPoly(pts, tris, y, col, 0.1);
@@ -1981,6 +1981,23 @@ export async function buildWorld(city, renderer, opts = {}) {
             }
             landmarks.push({ id: lm.id, label: lm.name, x: p.x, z: p.z, clear: res.clear || R, radius: R, mesh: res.mesh });
         } catch (err) { console.warn('landmark failed', lm.id, err); }
+    }
+    // landmarks that model their own water (the Unirii fountains: basins drained Nov–Apr by landmarks.js's
+    // fountainSchedule) replace the OSM water polygons inside them: those are collapsed (no doubled / always-full basins)
+    {
+        const OWN_WATER = new Set(['fountains']);
+        const box = new THREE.Box3();
+        for (const lm of landmarks) {
+            if (!OWN_WATER.has(lm.id) || !lm.mesh) continue;
+            box.setFromObject(lm.mesh); box.expandByScalar(3);
+            for (const a of areas) {
+                if (a.kind !== 'water' || !a.waterMesh || a.size > 30000) continue;
+                const cx = (a.x0 + a.x1) / 2, cz = (a.z0 + a.z1) / 2;
+                if (cx < box.min.x || cx > box.max.x || cz < box.min.z || cz > box.max.z) continue;
+                const { mb, v0, v1 } = a.waterMesh; for (let i = v0; i < v1; i++) { mb.p[i * 3] = mb.p[v0 * 3]; mb.p[i * 3 + 1] = -50; mb.p[i * 3 + 2] = mb.p[v0 * 3 + 2]; }
+                a.ownedBy = lm.id;
+            }
+        }
     }
     // landmark collision boxes must not reach into a carriageway (e.g. the squashed SeaTac / OTP terminals over their drives)
     let lmTrim = 0, lmDrop = 0;

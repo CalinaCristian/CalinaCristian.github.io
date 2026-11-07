@@ -20,7 +20,7 @@
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, offsetPolyline, distPolyline, canvas, canvasTexture, fitDraw, obb } from '../kit.js';
 import { clockFace } from '../props.js';
-import { bucBackdrop, classicFacade, classicWalls, balustrade, balustradeMaterial, flagpole, palisade, hedge, osmPoly, cityFiller } from '../buc.js';
+import { bucBackdrop, classicFacade, classicWalls, balustrade, balustradeMaterial, flagpole, palisade, hedge, osmPoly, cityFiller, placeLandmark } from '../buc.js';
 import { addTraffic } from '../cars.js';
 
 const CREAM = '#d9ccb2', CREAM2 = '#e3d8c2', ROOF = '#bdb6a7';
@@ -306,7 +306,9 @@ function buildCathedral(ctx) {
         ctx.painter.custom((x, T, k, isMask) => { if (isMask) return; x.strokeStyle = 'rgba(120,112,100,0.35)'; x.lineWidth = Math.max(1, 0.12 * k); for (let q = -768; q <= -570; q += 6) { const [a, b0] = T(q, 96), [, b1] = T(q, 216); x.beginPath(); x.moveTo(a, b0); x.lineTo(a, b1); x.stroke(); } for (let q = 96; q <= 216; q += 6) { const [a0, bb] = T(-768, q), [a1] = T(-570, q); x.beginPath(); x.moveTo(a0, bb); x.lineTo(a1, bb); x.stroke(); } });
     };
     ctx.exclude.push(piazza);
-    const lm = buildCathedralModel(ctx, PY);
+    // landmarks.js bCathedral (fixed 2026-11-07: white drums, ribbed gilded domes, floodlit) reads better than the spot's
+    // own model (kept below as buildCathedralModel for reference / fallback)
+    const L0 = placeLandmark(ctx, 'cathedral', { y: PY, colliderH: 140 }), lm = L0 ? { x: L0.x, z: L0.z } : buildCathedralModel(ctx, PY);
     ctx.poly(cat.poly, { y0: PY - 2, y1: PY + 140 });
     const b = new GeoBatch();
     // granite kerb around the piazza
@@ -339,7 +341,7 @@ export default {
         // square: granite setts (OSM parking area w219710325)
         const sq = osmPoly(d, 'w219710325');
         ctx.terrainOpts = { bg: '#7c8a55', bgMask: 'grass', innerPx: 2048, innerStep: 5, outerStep: 16, outerPad: 900 };
-        bucBackdrop(ctx, { treeLod: { cap: 2400, max: 360 }, lampPad: 25, lampStyle: 'candelabra', lampColor: '#2c2f2c', lampOpts: { spacing: 50, kinds: ['primary'] }, streetTreeOpts: { spacing: 10, prob: 0.8, kinds: ['primary', 'secondary', 'tertiary', 'residential'] } });
+        bucBackdrop(ctx, { treeLod: { cap: 2000, max: 240 }, lampPad: 25, lampStyle: 'candelabra', lampColor: '#2c2f2c', lampOpts: { spacing: 50, kinds: ['primary'] }, streetTreeOpts: { spacing: 10, prob: 0.8, kinds: ['primary', 'secondary', 'tertiary', 'residential'] } });
         C?.paintPiazza();
         if (sq) {
             ctx.painter.poly(sq, '#8e8a84', 'cobble');

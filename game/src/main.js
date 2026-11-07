@@ -1573,7 +1573,7 @@ class Game {
 <div class="cond-sec"><div class="cond-lbl">Time of day <output id="cond-time">--:--</output></div><input id="cond-hour" type="range" min="0" max="23.75" step="0.25" aria-label="Hour of day">${chips('tod', pre)}</div>
 <div class="cond-sec"><div class="cond-lbl">Weather</div>${chips('wx', wx)}</div>
 <div class="cond-sec"><div class="cond-lbl">Season</div>${chips('season', se)}</div>
-<div class="cond-foot">Traffic follows the hour · game paused · <kbd>K</kbd> / <kbd>Esc</kbd> closes</div>`;
+<div class="cond-foot">Traffic follows the hour · game paused<span class="cond-keys"> · <kbd>K</kbd> / <kbd>Esc</kbd> closes</span></div>`;
         document.body.appendChild(el);
         el.addEventListener('click', (e) => {
             const b = e.target.closest('button'); if (!b) return;

@@ -64,7 +64,7 @@ export function ringSvg(pct, size = 64, stroke = 7) {
     const r = (size - stroke) / 2, c = 2 * Math.PI * r, off = c * (1 - Math.max(0, Math.min(100, pct)) / 100);
     return `<svg class="achv-ring" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true"><circle cx="${size / 2}" cy="${size / 2}" r="${r}" fill="none" stroke="rgba(148,163,184,.25)" stroke-width="${stroke}"/>`
         + `<circle cx="${size / 2}" cy="${size / 2}" r="${r}" fill="none" stroke="${pct >= 100 ? GOLD : '#fbbf24'}" stroke-width="${stroke}" stroke-linecap="round" stroke-dasharray="${c.toFixed(2)}" stroke-dashoffset="${off.toFixed(2)}" transform="rotate(-90 ${size / 2} ${size / 2})"/>`
-        + `<text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" fill="#fff" font-size="${Math.round(size * 0.27)}" font-weight="700" font-family="system-ui,sans-serif">${Math.floor(pct)}%</text></svg>`;
+        + `<text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" fill="#fff" font-size="${Math.round(size * (pct >= 100 ? 0.22 : 0.27))}" font-weight="700" font-family="system-ui,sans-serif">${Math.floor(pct)}%</text></svg>`;
 }
 
 export class Progression {
@@ -84,7 +84,7 @@ export class Progression {
         game.loadSpotsModule?.()?.then?.(() => { this.evaluate(); this.refreshUi(); });
         this._last = performance.now();
         this._timer = setInterval(() => { try { this.tick(); } catch (e) { console.warn('[achievements]', e); } }, 250);
-        addEventListener('pagehide', () => this.save(true));
+        addEventListener('pagehide', () => { if (this.dirty) this.save(true); });
     }
 
     // ------------------------------------------------------------------ persistence
@@ -345,7 +345,7 @@ export class Progression {
         } else this.walkPrev = null;
         // ---- gold paint (100 % reward) + the deferred thank-you card
         this.applyGold();
-        if (this.pendingThanks && !this.showing && !g.hud?.panelOpen && ['drive', 'foot', 'spot', 'menu'].includes(st) && !g.mapOpen && !document.getElementById('chapter-card')?.classList.contains('show')) { this.pendingThanks = false; this.showThanks(); }
+        if (this.pendingThanks && !this.showing && !g.hud?.panelOpen && (['foot', 'spot', 'menu'].includes(st) || (st === 'drive' && Math.abs(g.player?.speed || 0) < 1)) && !g.mapOpen && !g.photo?.active && !this.isOpen && !document.getElementById('chapter-card')?.classList.contains('show')) { this.pendingThanks = false; this.showThanks(); }
         if (this.dirty) this.save();
     }
     /** on the carriageway within a pedestrian crossing (world nodes flagged zebra / crossing) */
@@ -388,7 +388,8 @@ export class Progression {
         if (card) {
             const m = this.menuEl = document.createElement('div'); m.id = 'achv-menu';
             (card.querySelector('.controls') || card.querySelector('.row'))?.insertAdjacentElement('beforebegin', m);
-            m.addEventListener('click', (e) => { if (e.target.closest('[data-achv-open]')) this.open(); });
+            m.setAttribute('data-achv-open', ''); m.title = 'Achievements & completion';
+            m.addEventListener('click', () => this.open()); // the whole bar is the target (the button is hidden on phones)
         }
         document.getElementById('navlist')?.addEventListener('click', (e) => { if (e.target.closest('[data-achv-open]')) { e.stopPropagation(); this.open(); } }, true);
         // Esc closes the panel before the game / hud panel see it
@@ -400,10 +401,10 @@ export class Progression {
     }
     summaryHtml(size = 56) {
         const c = this.completion();
-        return `${ringSvg(c.pct, size, Math.max(5, Math.round(size / 9)))}<div class="achv-sum"><b>${c.pct}% complete</b><small>🏆 ${c.unlocked}/${c.total} achievements</small></div><button class="achv-btn" data-achv-open>🏆 Achievements</button>`;
+        return `${ringSvg(c.pct, size, Math.max(5, Math.round(size / 9)))}<div class="achv-sum"><b>${c.pct}% complete</b><small>🏆 ${c.unlocked}/${c.total} achievements</small></div><button class="achv-btn" data-achv-open>🏆 Achievements</button><span class="achv-chev" aria-hidden="true">›</span>`;
     }
     refreshUi() {
-        if (this.menuEl) this.menuEl.innerHTML = this.summaryHtml(56);
+        if (this.menuEl) this.menuEl.innerHTML = this.summaryHtml(44);
         const nav = document.querySelector('#navlist .achv-nav'); if (nav) nav.innerHTML = this.summaryHtml(48);
         const sp = document.querySelector('#panel .achv-pause'); if (sp) sp.innerHTML = this.summaryHtml(48);
         if (this.isOpen) this.renderPanel();
@@ -428,10 +429,11 @@ export class Progression {
         this.renderPanel();
         this.panelEl.classList.add('show');
         document.body.classList.add('achv-open');
-        setTimeout(() => this.panelEl.querySelector('.achv-x')?.focus({ preventScroll: true }), 30);
+        setTimeout(() => this.panelEl.querySelector('.achv-x, [data-achv-act=close]')?.focus({ preventScroll: true }), 30);
     }
-    close() { this.panelEl.classList.remove('show'); document.body.classList.remove('achv-open'); this.game.input?.flush?.(); }
+    close() { this.view = null; this.panelEl.classList.remove('show'); document.body.classList.remove('achv-open'); this.game.input?.flush?.(); }
     renderPanel() {
+        if (this.view === 'thanks') { this.panelEl.innerHTML = this.thanksHtml(); return; }
         const c = this.completion(), s = this.state, f = this.filter;
         const fmtDate = (t) => { try { return new Date(t).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }); } catch { return ''; } };
         const catCount = (id) => { const l = ACHIEVEMENTS.filter(a => id === 'all' || a.cat === id); return `${l.filter(a => s.unlocked[a.id]).length}/${l.length}`; };
@@ -467,15 +469,20 @@ export class Progression {
         else if (act === 'reset-no') { this.confirmReset = false; this.renderPanel(); }
         else if (act === 'reset-yes') this.reset();
         else if (act === 'gold') { this.state.gold = !this.state.gold; this.save(true); this.applyGold(); this.renderPanel(); }
-        else if (act === 'thanks') { this.close(); this.showThanks(); }
+        else if (act === 'thanks') this.showThanks();
+        else if (act === 'list') { this.view = null; this.renderPanel(); }
     }
-    /** the 100 % thank-you card (contact links from the CV: PROFILE in data.js) */
+    /** the 100 % thank-you card (contact links from the CV: PROFILE in data.js), drawn in the panel overlay (above the menu) */
     showThanks() {
-        const hud = this.game.hud; if (!hud?.panel) return;
         this.state.thanksShown = true; this.save(true);
-        try { this.game.input?.releaseLock?.(); } catch { /* ignore */ }
+        this.view = 'thanks'; this.open();
+    }
+    thanksHtml() {
         const links = PROFILE.links.map(l => `<a class="btn ghost" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('');
-        hud.panel(`<div class="achv-thanks">${ringSvg(100, 96, 9)}<div class="eyebrow">👑 100 % complete</div><h2>Thank you for playing!</h2><p>You drove every chapter, read every screen, walked every tourist spot and found every secret. The car has a gold paint option now (🏆 panel).</p><p>${esc(PROFILE.name)} would love to hear from you:</p><div class="links">${links}<a class="btn ghost" href="mailto:${esc(PROFILE.email)}">Email</a></div></div>`);
+        return `<div class="achv-inner achv-thanks">${ringSvg(100, 96, 9)}<div class="eyebrow">👑 100 % complete</div><h2>Thank you for playing!</h2>
+<p>Every chapter driven, every CV screen read, every tourist spot walked and every secret found. The car has a gold paint option now.</p>
+<p>${esc(PROFILE.name)} would love to hear from you:</p><div class="links">${links}<a class="btn ghost" href="mailto:${esc(PROFILE.email)}">Email</a></div>
+<div class="row"><button class="achv-btn" data-achv-act="gold">${this.state.gold ? '🟡 Gold paint: on' : '⚪ Gold paint: off'}</button><button class="achv-btn" data-achv-act="list">🏆 Achievements</button><button class="achv-btn ghost" data-achv-act="close">Close</button></div></div>`;
     }
 }
 

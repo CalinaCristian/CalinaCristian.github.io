@@ -3,6 +3,7 @@ import { makeVehicle, CAR_COLORS } from './vehicles.js';
 import * as VEH from './vehicles.js';
 import { TRANSIT, TRANSIT_RE } from './data.js';
 import { makeRng, clamp, angleLerp } from './util.js';
+import { makeCrowd } from './crowd.js';
 import { lanesDir, canTravel, edgeSpeed, isMotorway, turnAngle, nodeList, EdgeIndex } from './nav.js';
 
 // ============================================================================
@@ -1479,12 +1480,10 @@ class Pedestrians {
         const stops = this.stops = (traffic.world.pois || []).filter(p => p.kind === 'busstop');
         if (!edges.length) count = 0;
         // geometry
-        const body = new THREE.CapsuleGeometry(0.21, 0.85, 3, 8); body.translate(0, 0.21 + 0.425, 0);
-        const head = new THREE.SphereGeometry(0.13, 8, 6);
-        this.bodyMesh = new THREE.InstancedMesh(body, new THREE.MeshLambertMaterial({ color: '#ffffff' }), Math.max(1, count));
-        this.headMesh = new THREE.InstancedMesh(head, new THREE.MeshLambertMaterial({ color: '#ffffff' }), Math.max(1, count));
-        this.bodyMesh.castShadow = true; this.bodyMesh.frustumCulled = false; this.headMesh.frustumCulled = false;
-        const col = new THREE.Color(); const clothes = traffic.buc ? CLOTHES_B : CLOTHES_S;
+        // rendering (vehicles/cockpit-ui, crowd.js): instanced people with clothes by city / season / weather, walk cycle in the shader
+        this.crowd = makeCrowd({ max: Math.max(1, count), city: traffic.city?.id || (traffic.buc ? 'bucharest' : 'seattle'), rng: makeRng(traffic.buc ? 4321 : 8765) });
+        this.group = this.crowd.object; // (visual harness hides peds via .group)
+        const clothes = traffic.buc ? CLOTHES_B : CLOTHES_S;
         for (let i = 0; i < count; i++) {
             const p = { i, x: 0, z: 0, heading: 0, speed: this.rng.range(1.05, 1.6), state: 'walk', legs: [], waitT: 0, phase: this.rng() * 6, downT: 0, onRoad: false, scale: this.rng.range(0.92, 1.1) };
             if (stops.length && i < count * 0.1) {
@@ -1498,11 +1497,10 @@ class Pedestrians {
                 p.s = this.rng.range(0, e.len); this.placeWalk(p);
             }
             this.list.push(p);
-            this.bodyMesh.setColorAt(i, col.set(this.rng.pick(clothes)));
-            this.headMesh.setColorAt(i, col.set(this.rng.pick(SKIN)));
+            this.rng.pick(clothes); this.rng.pick(SKIN); // (kept: same random sequence for the ped logic as before the crowd renderer)
         }
-        this.bodyMesh.count = this.headMesh.count = count;
-        traffic.group.add(this.bodyMesh, this.headMesh);
+        this.crowd.count = count;
+        traffic.group.add(this.crowd.object);
         this._m = new THREE.Matrix4(); this._q = new THREE.Quaternion(); this._p = new THREE.Vector3(); this._s = new THREE.Vector3(); this._e = new THREE.Euler(0, 0, 0, 'YXZ');
         this.buildGrid();
         this.writeMatrices(0);
@@ -1820,25 +1818,16 @@ class Pedestrians {
     }
 
     writeMatrices() {
-        const m = this._m, q = this._q, pos = this._p, sc = this._s, eu = this._e;
+        const C = this.crowd;
+        const wx = this.t.weatherKind ?? globalThis.game?.wxKind; if (wx !== undefined && wx !== C.weather) C.setWeather(wx);
         for (const p of this.list) {
             const s = p.scale;
-            if (p.state === 'down') {
-                eu.set(-Math.PI / 2, p.fallDir, 0, 'YXZ'); q.setFromEuler(eu);
-                pos.set(p.x, 0.26, p.z); sc.set(s, s, s); m.compose(pos, q, sc); this.bodyMesh.setMatrixAt(p.i, m);
-                const hx = p.x - Math.sin(p.fallDir) * 1.45 * s, hz = p.z - Math.cos(p.fallDir) * 1.45 * s;
-                pos.set(hx, 0.26, hz); m.compose(pos, q, sc); this.headMesh.setMatrixAt(p.i, m);
-                continue;
-            }
+            if (p.state === 'down') { C.set(p.i, { x: p.x, y: 0.2, z: p.z, scale: s, down: true, fallDir: p.fallDir }); continue; }
             const moving = p.state === 'walk' || p.state === 'legs';
-            const bob = moving ? Math.abs(Math.sin(p.phase)) * 0.05 : 0;
-            const sway = moving ? Math.sin(p.phase) * 0.06 : 0;
-            eu.set(0, p.heading, sway, 'YXZ'); q.setFromEuler(eu);
-            pos.set(p.x, 0.2 + bob, p.z); sc.set(s, s, s); m.compose(pos, q, sc); this.bodyMesh.setMatrixAt(p.i, m);
-            pos.set(p.x, 0.2 + bob + 1.62 * s, p.z); m.compose(pos, q, sc); this.headMesh.setMatrixAt(p.i, m);
+            const bob = moving ? Math.abs(Math.sin(p.phase)) * 0.03 : 0;
+            C.set(p.i, { x: p.x, y: 0.2 + bob, z: p.z, yaw: p.heading, phase: p.phase, amp: moving ? 1 : 0, scale: s });
         }
-        this.bodyMesh.instanceMatrix.needsUpdate = true; this.headMesh.instanceMatrix.needsUpdate = true;
     }
-    dispose() { this.bodyMesh.geometry.dispose(); this.headMesh.geometry.dispose(); }
+    dispose() { this.crowd.dispose(); }
 }
 const T_BUC = (peds) => peds.t.buc;

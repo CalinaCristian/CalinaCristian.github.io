@@ -810,10 +810,12 @@ function partsMaterial(lights) {
     return track(m);
 }
 /** instanced fleet material: one draw call per kind × LOD; per instance aPaint (linear rgb) + aLB (lights, brake) */
-let FLEET_MAT = null;
-function fleetMaterial() {
-    if (FLEET_MAT) return FLEET_MAT;
-    const m = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, metalness: 1, envMapIntensity: 1.05 });
+let FLEET_MAT = null, PARKED_MAT = null;
+/** parked lots: same shader, half the sky reflection (dusty, seen from above they otherwise read washed-out next to the matte world) */
+function parkedMaterial() { if (!PARKED_MAT) { PARKED_MAT = newFleetMaterial(0.5); PARKED_MAT.userData.envScale = 0.5; } return PARKED_MAT; }
+function fleetMaterial() { return FLEET_MAT || (FLEET_MAT = newFleetMaterial(1.05)); }
+function newFleetMaterial(envI) {
+    const m = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, metalness: 1, envMapIntensity: envI });
     m.onBeforeCompile = (sh) => {
         sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nattribute vec4 aMat;\nattribute vec3 aPaint;\nattribute vec2 aLB;\nvarying vec4 vMat;\nvarying vec2 vLB;')
             .replace('#include <color_vertex>', '#include <color_vertex>\nvColor.rgb = mix(color.rgb, aPaint, aMat.w);')
@@ -824,7 +826,8 @@ function fleetMaterial() {
             .replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\n' + EMIS_GLSL);
     };
     m.customProgramCacheKey = () => 'vehicleFleet';
-    return (FLEET_MAT = track(m));
+    m.userData.envScale = envI;
+    return track(m);
 }
 /**
  * Cockpit interior material: like partsMaterial, plus a night "cabin glow" (uGlow 0..1): instrument/screen backlight
@@ -985,10 +988,20 @@ function fleetBeforeRender(renderer, scene, camera) {
     }
     Object.assign(fleetStats, { instances: nNear + nFar, near: nNear, far: nFar, culled: nCull, pools: pools.size, ms: Math.round((performance.now() - t0) * 100) / 100 });
 }
+// other instanced renderers (crowd.js) that cull / fill per render call: fn(renderer, scene, camera)
+const PRE_HOOKS = new Set();
+/** register fn(renderer, scene, camera) to run in the shared Scene pre-render hook (before culling); returns the remover */
+export function addPreRenderHook(fn) { PRE_HOOKS.add(fn); return () => PRE_HOOKS.delete(fn); }
+export function getVehicleEnvMap() { return ENV_MAP; }
 // install once (chained with any prototype hook present)
 if (!THREE.Scene.prototype.__fleetHook) {
     const prev = THREE.Scene.prototype.onBeforeRender;
-    THREE.Scene.prototype.onBeforeRender = function (renderer, scene, camera, rt) { prev?.call(this, renderer, scene, camera, rt); fleetBeforeRender(renderer, this, camera); };
+    THREE.Scene.prototype.onBeforeRender = function (renderer, scene, camera, rt) {
+        prev?.call(this, renderer, scene, camera, rt);
+        if (!camera) return;
+        fleetBeforeRender(renderer, this, camera);
+        for (const fn of PRE_HOOKS) fn(renderer, this, camera);
+    };
     THREE.Scene.prototype.__fleetHook = true;
 }
 /** LOD / culling tuning: { near (m), nearBig (m, vehicles > 7 m), far (m), margin (m, frustum sphere padding for shadows) } */
@@ -1048,7 +1061,7 @@ export function makeVehicle(kind, color, opts = {}) {
  * culling useful); group.userData = { count, triangles, drawCalls }. Not part of the per-frame fleet hook (zero CPU per frame).
  * group.userData.dispose() frees the per-group instance buffers (the shared model geometry stays).
  */
-export function makeParkedCars(cars, { city, castShadow = true, receiveShadow = true } = {}) {
+export function makeParkedCars(cars, { city, castShadow = true, receiveShadow = true, paintSpace = 'world' } = {}) {
     const c0 = city || FLEET_CITY, grp = new THREE.Group(), byKey = new Map();
     for (const car of cars) {
         const m = vehicleModel(car.kind, c0); let e = byKey.get(m.key);
@@ -1064,10 +1077,11 @@ export function makeParkedCars(cars, { city, castShadow = true, receiveShadow = 
         g.setIndex(pg.index);
         const paint = new THREE.InstancedBufferAttribute(new Float32Array(list.length * 3), 3), lb = new THREE.InstancedBufferAttribute(new Float32Array(list.length * 2), 2);
         g.setAttribute('aPaint', paint); g.setAttribute('aLB', lb);
-        const mesh = new THREE.InstancedMesh(g, fleetMaterial(), list.length);
+        const mesh = new THREE.InstancedMesh(g, parkedMaterial(), list.length);
         list.forEach((c, i) => {
             mesh.setMatrixAt(i, _m.compose(_p.set(c.x, c.y || 0, c.z), _q.setFromAxisAngle(_y, c.yaw || 0), _s));
             col.set(m.transit || m.paint ? (m.paint || '#cccccc') : (c.color || fleetColor(m.kind, c0) || '#c9ccd1'));
+            if (paintSpace === 'world') col.convertLinearToSRGB(); // world convention: hex bytes / 255 used as linear (as the old merged lots)
             paint.setXYZ(i, col.r, col.g, col.b);
         });
         mesh.instanceMatrix.needsUpdate = true; mesh.computeBoundingSphere();

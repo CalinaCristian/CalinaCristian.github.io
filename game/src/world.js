@@ -275,11 +275,18 @@ function solidMaterial(atlas) {
         vec2 cellId2 = vec2(mod(vTile, 4.0), floor(vTile / 4.0 + 0.01));
         vec2 auv2 = (cellId2 + 0.006 + fract(vMapUv) * 0.988) * cellSz2;
         vec3 nm = textureGrad(nightMap, auv2, dFdx(vMapUv) * cellSz2, dFdy(vMapUv) * cellSz2).rgb;
-        float h = fract(sin(dot(floor(vMapUv) + vec2(nm.g * 17.0, vTile), vec2(12.9898, 78.233))) * 43758.5453);
+        // lit in runs (2–3 neighbouring bays of one floor share a state, like real offices / flats), and distance-stable:
+        // once a facade tile covers only a few pixels, the per-window pattern fades to its average glow (no speckle)
+        vec2 cellK = vec2(floor(vMapUv.x / 2.5), floor(vMapUv.y));
+        float h = fract(sin(dot(cellK + vec2(floor(nm.g * 2.99) * 7.0, vTile), vec2(12.9898, 78.233))) * 43758.5453);
         float shop = step(0.5, nm.b), lit = max(shop, step(h, 0.42));
         float h2 = fract(h * 13.7);
         vec3 col = h2 > 0.93 ? vec3(0.55, 0.68, 1.0) : mix(vec3(1.0, 0.6, 0.3), vec3(1.0, 0.82, 0.58), h2);
-        totalEmissiveRadiance *= step(0.5, nm.r) * lit * col * mix(1.0, 0.75, shop);
+        float far = smoothstep(0.12, 0.45, max(length(dFdx(vMapUv)), length(dFdy(vMapUv)))); // facade tiles per pixel
+        float mask = mix(step(0.5, nm.r), nm.r, far);
+        lit = mix(lit, mix(0.42, 1.0, shop), far);
+        col = mix(col, vec3(1.0, 0.74, 0.47), far);
+        totalEmissiveRadiance *= mask * lit * col * mix(1.0, 0.75, shop);
     } else totalEmissiveRadiance *= 0.0;
 #else
     totalEmissiveRadiance *= 0.0;
@@ -2595,14 +2602,18 @@ export async function buildWorld(city, renderer, opts = {}) {
         const k = Math.round(x / 1.6) + ',' + Math.round(z / 1.6); if (treeSeen.has(k)) return false;
         if (onRibbon(x, z, 0.35 * s + 0.5) || buildingAt(x, z) || isWater(x, z)) return false;
         treeSeen.add(k);
-        const isCon = con ?? rng.chance(coniferChance(x, z, kind));
+        let isCon = con ?? rng.chance(coniferChance(x, z, kind));
         // a crown that would reach over a carriageway is pruned like a real street tree: lifted to ≥ 4.4 m clearance
         // (trunk extended) and narrowed toward the road (no foliage at windscreen height over the lane, review #20)
         let lift = 0, sh = 1;
         if (onRibbon(x, z, 2.9 * s)) {
             let lo = 0.35 * s + 0.5, hi = 2.9 * s;
             for (let it = 0; it < 4; it++) { const m = (lo + hi) / 2; if (onRibbon(x, z, m)) hi = m; else lo = m; }
-            lift = Math.max(0, 4.4 - (isCon ? 1.5 : 2.2) * s); sh = clamp((lo + 1.2) / (2.6 * s), 0.6, 1);
+            // (a conifer cannot be crown-lifted: a lifted cone reads as a green bell on a stick at mirror height. Untagged
+            // kerb conifers become broadleaf street trees; OSM-tagged ones stay at their height, slimmed to clear the lane)
+            if (isCon && con !== true) isCon = false;
+            if (isCon) { lift = 0; sh = clamp((lo - 0.2) / (2.3 * s), 0.35, 1); }
+            else { lift = Math.max(0, 4.4 - 2.2 * s); sh = clamp((lo + 1.2) / (2.6 * s), 0.6, 1); }
         }
         treeList.push({ x, z, s, con: !!isCon, dec: dec ?? (isCon ? 0 : 1), kind, lift, sh });
         addPropColl(x, z, 0.3 * s, 'tree');
@@ -3050,7 +3061,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     let parkedCalls = 0;
     for (const [k, list] of parkedLots) {
         const [I, J] = k.split(',').map(Number);
-        const pg = makeParkedCars(list, { city: city.id }); pg.name = `parked ${k}`;
+        const pg = makeParkedCars(list, { city: city.id, paintSpace: 'linear' }); // (CAR_COLORS are sRGB hex: let three.js linearise them, as the old merged lots did) pg.name = `parked ${k}`;
         pg.userData.cx = (I + 0.5) * CELL * 2; pg.userData.cz = (J + 0.5) * CELL * 2; pg.userData.cull = cullR + CELL * 0.71;
         tris += pg.userData.triangles || 0; parkedCalls += pg.userData.drawCalls || 0;
         cellsGroup.add(pg);

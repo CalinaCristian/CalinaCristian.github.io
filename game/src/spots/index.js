@@ -217,7 +217,7 @@ export async function loadSpot(id, renderer = null, opts = {}) {
         ctx.crowdCfg.groups = ctx.crowdCfg.groups || [];
         for (const sp of Object.values(spawns)) {
             const fx = -Math.sin(sp.heading), fz = -Math.cos(sp.heading);
-            search: for (const f of [8, 6, 11, 5, 14]) for (const sd of [3, -3, 1.5, -1.5, 0]) { const x = sp.x + fx * f - fz * sd, z = sp.z + fz * f + fx * sd; if (collide(colliders, x, z, 0.6, ctx.ground.heightAt(x, z) + 0.2) || ctx.ground.nearestDry(x, z).x !== x) continue; ctx.crowdCfg.groups.push({ x, z, r: 1.2, n: 3, act: 'talk' }); break search; }
+            search: for (const f of [8, 11, 6, 14]) for (const sd of [6, -6, 4.5, -4.5]) { const x = sp.x + fx * f - fz * sd, z = sp.z + fz * f + fx * sd; if (collide(colliders, x, z, 0.6, ctx.ground.heightAt(x, z) + 0.2) || ctx.ground.nearestDry(x, z).x !== x) continue; ctx.crowdCfg.groups.push({ x, z, r: 1.2, n: 3, act: 'talk' }); break search; }
         }
     }
     if (ctx.crowdCfg) {

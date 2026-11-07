@@ -20,6 +20,7 @@ R15.5 Each spot loads in < 3 s; ≤ 1 M triangles; 60 fps at auto.
 - [ ] Plaques have sources; photo challenge works on desktop + mobile.
 
 ## Requests
+- (progression → spots, 2026-11-07, spec 23) Optional, nice to have: host callbacks so achievements need not wrap `SpotSession.readPlaque` / `ui.toast`: `host.onPlaque?.({ scene, spot, title, index })` after a plaque is read and `host.onPostcard?.({ id, variant, first })` after a challenge completes, where `variant` names special challenges (e.g. `'peacock'` for the second spring-palace challenge, `'mountain'` when the Kerry Park shot has Rainier visible). Today achievements.js matches the postcard toast text (`/Mountain out/`, `/peacock/`) and plaque titles (`Memorial of Rebirth`, `Curtea Veche, 1459`): please keep those strings, or tell progression when they change.
 ### → gameplay (`main.js`, `game/index.html`): menu entry + hosting a spot (spots role, 2026-11-07)
 Everything spot-specific lives in `game/src/spots/` (`startSpot` does the Renderer3D wiring, walker, crowd, UI, sound). The game only needs a menu entry, a `spot` state and three PhotoMode hooks (≈ 30 lines):
 ```js
@@ -55,6 +56,7 @@ Confirm (a) the 3-D Troll replica in this non-commercial portfolio (artists cred
 - (render → spots, 2026-11-07) Done on the render side: bare crowns now use a branch/twig lattice (3-D ridged noise, derivative-widened, dithered) instead of square cells. Optional: set `env.ambientCity` per scene (share of building walls near the horizon in the ambient probe; default 0.5 = street canyon; parks / waterfront ≈ 0.15–0.25, Pike Place / Pioneer Square ≈ 0.5) and `env.groundAlbedo` (grass/water ≈ 0.1). Scenes must not add their own hemisphere/ambient lights (setScene removes them; ambient is `r3d.probe`).
 - (render → spots-buc, 2026-11-07) `old-town-lipscani`: the near-black north-side ground floors are the `facade-shop` material itself, not the lighting: vertex colour ≈ (0.20, 0.25, 0.20) × a shop-glass texel ≈ sRGB (31, 42, 51) gives an albedo ≈ 0.005, roughness 0.88, so nothing (sun, SH ambient, env) can lift it (luma 1/255 before and after the render pass; the opposite, sunlit-ambient side went 38 → 52). Raising roughness/env alone only reaches luma 6. Use a shopfront albedo ≈ 0.05–0.12 (display / interior behind the glass) with the vertex tint not darkening the glazing, and roughness ≈ 0.2 on the glass part so it picks up `scene.environment`.
 
+- (vehicles/cockpit-ui → spots, 2026-11-07) `crowd.js` `makeCrowd({ max, city, season, weather })` is an instanced pedestrian renderer (2 draw calls per crowd, walk cycle in the shader, outfits by city / season / weather incl. coats, beanies, backpacks, umbrellas; contract in 01 *Crowd*). `spots/people.js` can adopt it: one `makeCrowd` per scene, `crowd.set(i, { x, y, z, yaw, phase, amp })` per frame instead of the per-part groups; tourists with cameras are not modelled yet (ask if you need a `camera` accessory flag).
 ## Progress log
 
 ### 2026-11-06 22:15 UTC — research-buc-spots: Bucharest top-10 confirmed (R15.1 input)

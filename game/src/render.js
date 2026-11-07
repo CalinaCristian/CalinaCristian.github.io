@@ -559,7 +559,9 @@ export class Renderer3D {
             this.sun.shadow.intensity = (1 - 0.55 * st.overcast) * 0.9;
             this._sunShadows = useSun && st.sunI > 0.15;
             this.hemi.color.copy(st.hemiSky); this.hemi.groundColor.copy(st.hemiGround); this.hemi.intensity = this._hemiBase = st.hemiI * (this._wx ? 0.75 + 0.25 * this._wx.sunMul : 1);
-            const fog = st.horizon.clone().multiplyScalar(0.94);
+            // fog/haze colour: the horizon by day; at night the air between the viewer and the streets is dark (the sky glow
+            // is light scattered high up), otherwise distant blocks turn into a beige veil
+            const fog = st.horizon.clone().multiplyScalar(0.94 - 0.62 * st.night);
             this.scene.fog?.color.copy(fog); if (this.scene.background?.isColor) this.scene.background.copy(fog);
             this._renderer.toneMappingExposure = env.exposure * st.expo;
             u.uZenith.value.copy(st.zenith); u.uHorizon.value.copy(st.horizon); u.uGround.value.copy(st.hemiGround).multiplyScalar(0.8);
@@ -570,6 +572,9 @@ export class Renderer3D {
             const n = st.night;
             fu.uGrade.value.set(((overcastEnv ? 0.95 : 1.1) - n * 0.15) * this._satK, 1.05);
             this._rainBright = THREE.MathUtils.clamp(st.hemiI / 0.85 + 0.12, 0.25, 1);
+            // bloom: by day only the sun / speculars; at night only genuinely bright sources (lamp heads, headlights,
+            // signs) — lit windows (emissive ≈ 1–2) stay crisp, halos tighter
+            if (this.bloomPass) { const bn = st.night; this.bloomPass.threshold = 0.95 + 1.6 * bn; this.bloomPass.strength = 0.32 - 0.1 * bn; this.bloomPass.radius = 0.55 - 0.2 * bn; }
         }
         u.uCover.value = clouds; u.uHaze.value = overcastEnv ? 0.3 : 0.65;
         if (!this.clock) this._hemiBase = this.hemi.intensity;

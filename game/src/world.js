@@ -379,6 +379,14 @@ function solidMaterial(atlas) {
         lit = mix(lit, mix(0.42, 1.0, max(shop, sign)), far);
         col = mix(col, shop + sign > 0.5 ? col : vec3(1.0, 0.74, 0.47), far);
         if (isGlass > 0.5) col *= mix(vec3(0.75), roomCol * 0.9 + 0.06, (1.0 - winFar) * (1.0 - far)); // (lit room, not a white card)
+        if (abs(vTile - 4.0) < 0.1 || abs(vTile - 12.0) < 0.1) { // curtain walls: lit office floors in runs, dim cool light, never per-pane tiles
+            float fl = floor(vMapUv.y * (abs(vTile - 12.0) < 0.1 ? 4.0 : 2.0)), run = floor(vMapUv.x / 3.0);
+            float hf = fract(sin(dot(vec2(fl, run * 0.37 + floor(vMapUv.x / 9.0)), vec2(12.9898, 78.233))) * 43758.5453);
+            float fv = fract(vMapUv.y * (abs(vTile - 12.0) < 0.1 ? 4.0 : 2.0));
+            lit = step(hf, 0.28) * smoothstep(0.08, 0.2, fv) * (1.0 - smoothstep(0.8, 0.92, fv));
+            col = mix(vec3(0.85, 0.9, 1.0), vec3(1.0, 0.86, 0.66), step(0.75, fract(hf * 9.1))) * 0.4;
+            mask = 1.0; lit = mix(lit, 0.24, far) + 0.03;
+        }
         totalEmissiveRadiance *= mask * lit * col;
     } else totalEmissiveRadiance *= 0.0;
 #else
@@ -1039,6 +1047,9 @@ export async function buildWorld(city, renderer, opts = {}) {
         function yAt(e, x, z) { const t = clamp(((x - e.a.x) * e.dirx + (z - e.a.z) * e.dirz) / e.len, 0, 1); return e.a.y + (e.b.y - e.a.y) * t; }
         // ramps (embankments / trenches) have at most a narrow service walkway: their walls stand right at the kerb
         for (const e of edges) if (!e.bridge && Math.max(Math.abs(e.ya), Math.abs(e.yb)) > 0.3) e.sidewalk = Math.min(e.sidewalk, 0.5);
+        // (QA r2) ramps / bridge approaches that pass over a street with < 5 m clearance carry no sidewalk: their walkways
+        // lay 1–2 m above the street's carriageway (Pasajul Basarab, Podul Barbu Văcărescu)
+        for (const o of overlaps) { const d = Math.abs(yP(o.e, o.te) - yP(o.f, o.tf)); if (d > 0.3 && d < 5) { const hi = yP(o.e, o.te) > yP(o.f, o.tf) ? o.e : o.f; hi.sidewalk = Math.min(hi.sidewalk, 0.3); } }
     }
     const yAlong = (e, x, z) => { const t = clamp(((x - e.a.x) * e.dirx + (z - e.a.z) * e.dirz) / e.len, 0, 1); return e.ya + (e.yb - e.ya) * t; };
     /** height of junction n's pad at (x, z): the profile of the nearest approach there (n.y on flat junctions) */
@@ -1180,7 +1191,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // (env.asphalt, the old near-black [7, 8, 9] in Seattle, is no longer used for carriageways)
     const ASPHALT = US ? '#535250' : '#5d5c5a', CONCRETE = '#7c7a76'; // (render's AgX + SH ambient target: albedo ≈ 0.08–0.12) // (slightly warm: the sky-lit shade is blue)
     const asphaltBase = rgb(ASPHALT), concreteCol = rgb(CONCRETE);
-    const sideCol = rgb(env.sidewalk);
+    const sideCol = shadeRgb(rgb(env.sidewalk), 0.8); // (QA r2: sidewalks read snow-white under AgX; paving albedo ≈ 0.3)
     const kerbCol = shadeRgb(rgb(env.sidewalk), 1.18);
     const white = rgb('#e9e9e6'), yellow = rgb('#e3b341'), busCol = rgb('#8a3b34'), railCol = rgb('#55524e'), ballastCol = rgb('#6d6861');
     const layerY = () => 0; // real heights are applied per vertex (node.y), see displace()
@@ -1815,7 +1826,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (w.kind !== 'barrier') { hit = true; return; } // wide-band walls (embankment / trench / rail / guard) never stand in a lane
                 // at a split / merge the sibling ramp (sharing a node with the wall's edge) is driven through the gore: a barrier
                 // standing in its lanes is always cut (the wall across 'Exit → Westfield Southcenter', QA round 2)
-                const sib = rb.e && w.edge && (rb.e.a === w.edge.a || rb.e.a === w.edge.b || rb.e.b === w.edge.a || rb.e.b === w.edge.b);
+                const sib = rb.e && w.edge && /_link$/.test(rb.e.type) && /_link$/.test(w.edge.type) && (rb.e.a === w.edge.a || rb.e.a === w.edge.b || rb.e.b === w.edge.a || rb.e.b === w.edge.b);
                 if (sib) { const n = (rb.e.a === w.edge.a || rb.e.a === w.edge.b) ? rb.e.a : rb.e.b;
                     const hS = Y.road + rb.e.a.y + (rb.e.b.y - rb.e.a.y) * clamp(((x - rb.e.a.x) * rb.e.dirx + (z - rb.e.a.z) * rb.e.dirz) / rb.e.len, 0, 1), own = (y0 + y1) / 2;
                     if (Math.hypot(x - n.x, z - n.z) < 15 && Math.abs(hS - own) < 1.0 && polyDist(x, z, rb.poly) > 0.5) { hit = true; return; } }
@@ -2929,6 +2940,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const placeTree = (x, z, s, kind, con = null, dec = null, opt = {}) => {
         if (treeList.length >= maxTrees) return false;
         if (kind === 'street' && treeNear(x, z, 4.5)) return false; // (a mapped OSM tree already stands there)
+        { let under = false; surfacesAt(x, z, (hh) => { if (hh > Y.road + 2.5) under = true; }); if (under) return false; } // (no trees under a bridge deck / viaduct)
         if (kind === 'street' && onRibbon(x, z, 1.3)) return false; // (no row trees on medians / verges narrower than ≈ 2.6 m)
         const k = Math.round(x / 1.6) + ',' + Math.round(z / 1.6); if (treeSeen.has(k)) return false;
         if (onRibbon(x, z, 0.35 * s + 0.5) || buildingAt(x, z) || isWater(x, z)) return false;
@@ -3465,7 +3477,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const groundGeo = new THREE.PlaneGeometry(W + GPAD, H + GPAD, 1, 1);
     groundGeo.rotateX(-Math.PI / 2);
     const uv = groundGeo.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * (W + GPAD) / 12, uv.getY(i) * (H + GPAD) / 12);
-    const groundPlaneMat = new THREE.MeshLambertMaterial({ color: env.ground, map: noise, depthWrite: false }); groundPlaneMat.name = 'groundPlane';
+    const groundPlaneMat = new THREE.MeshLambertMaterial({ color: new THREE.Color(env.ground).multiplyScalar(0.72), map: noise, depthWrite: false }); groundPlaneMat.name = 'groundPlane';
     const ground = new THREE.Mesh(groundGeo, groundPlaneMat);
     vegetation.grassMaterials.push(grassMat);
     vegetation.groundMaterials.push(groundPlaneMat, areaMat, paveMat);

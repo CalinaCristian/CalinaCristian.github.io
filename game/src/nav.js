@@ -121,8 +121,11 @@ export class Navigator {
      * (OSM clipping / broken chains). Kosaraju, iterative.
      */
     markMainComponent() {
-        const N = this.nodes.length, nid = this.nid;
+        // district maps: every road cut at the boundary (node.mapEnd) leads to / comes from "the rest of the city":
+        // join them through one virtual outside node (as world.js does), so a one-way street entering the map is no trap
+        const OUT = this.nodes.length, N = OUT + 1, nid = this.nid;
         const out = Array.from({ length: N }, () => []), inn = Array.from({ length: N }, () => []);
+        this.nodes.forEach((n, i) => { if (n.mapEnd) { out[i].push(OUT); inn[OUT].push(i); out[OUT].push(i); inn[i].push(OUT); } });
         for (const e of this.graph.edges) {
             const a = nid.get(e.a), b = nid.get(e.b); if (a === undefined || b === undefined) continue;
             if (canTravel(e, 1)) { out[a].push(b); inn[b].push(a); }
@@ -146,9 +149,10 @@ export class Navigator {
             size.push(n); c++;
         }
         let big = 0; for (let i = 1; i < size.length; i++) if (size[i] > size[big]) big = i;
+        // (the virtual node counts toward its component's size, but it is no real node)
         let nMain = 0;
         for (const e of this.graph.edges) { e.main = comp[nid.get(e.a)] === big && comp[nid.get(e.b)] === big; if (e.main) nMain++; }
-        this.mainStats = { components: size.length, mainNodes: size[big] || 0, nodes: N, mainEdges: nMain, edges: this.graph.edges.length };
+        this.mainStats = { components: size.length, mainNodes: size[big] || 0, nodes: OUT, mainEdges: nMain, edges: this.graph.edges.length };
         if (nMain === 0) for (const e of this.graph.edges) e.main = true; // degenerate graph: don't filter
     }
 

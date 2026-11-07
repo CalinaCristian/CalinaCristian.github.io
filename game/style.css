@@ -187,10 +187,10 @@ body.touch #ticker { bottom: 335px; }
     body.touch #prompt { top: 34%; }
     /* the cockpit (cluster + nav screen, portrait view from vehicles.js viewFor) fills y ≈ 62–75 %: speed limit + fuel go
        to the top right under the route cards, the DOM speedo hides (the 3D cluster shows the speed) */
-    body.touch .bottom-right { top: 150px; bottom: auto; right: 10px; gap: 4px; }
+    body.touch .bottom-right { top: 176px; bottom: auto; right: 10px; gap: 4px; }
     body.touch .bottom-right .speedo { display: none; }
-    body.touch .street-wrap { bottom: auto; top: 245px; }
-    body.touch #ticker { bottom: auto; top: 300px; right: auto; left: 16px; max-width: calc(100vw - 32px); }
+    body.touch .street-wrap { bottom: auto; top: 178px; left: 16px; transform: none; text-align: left; max-width: calc(100vw - 150px); } /* left of the limit sign, above the rear-view mirror */
+    body.touch #ticker { bottom: auto; top: 262px; right: auto; left: 16px; max-width: calc(100vw - 32px); }
 }
 
 /* ===== fast-travel montage ===== */

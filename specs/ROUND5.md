@@ -40,6 +40,7 @@ Source: `game/FEEDBACK.md` "Round 4 play-test" notes 1–27 (+ any that follow),
 | 36 | spots | Blank green signboards (no text) — readable plaques on both faces, no empty signs. |
 | 55 | spots/landmarks (+ render) | Space Needle underside flickers (coplanar discs / depth precision); proper underside beams + elevators; consider near-plane/log depth on foot. |
 | 54 | spots (+ render) | Chihuly Glasshouse: real glass, sculpture as translucent glass forms, no floating slab, night lighting; full fidelity pass. |
+| 63 | research + spots | Pioneer Square totem pole modelled faithfully and respectfully (carved figures, formline palette, weathered cedar), correct attribution on the plaque; Pioneer Place pergola, bust, Pioneer Building. |
 | 62 | spots | Great Wheel ride: inside an enclosed gondola (glass, frame, bench, riders), slow rotation, real 3D lit skyline (no noise-textured slabs). |
 | 60, 61 | spots (+ render, qa) | Waterfront: Pier 57 + promenade, lit Great Wheel, water reflections, bay context. **Quality bar for all 24 spots**: reference-driven rebuild + side-by-side review vs real photos (day/night, spawn, postcard, 3 walk poses); spots below the bar hidden until fixed. |
 | 59 | spots | MoPOP: folded sheet-metal Gehry forms in the real colours with panel texture, monorail beam + train through the building, plaza; no floating squiggle. |

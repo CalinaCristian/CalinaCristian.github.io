@@ -73,11 +73,11 @@ export function treeGeometries() {
         for (let i = 0; i < p.count; i++) p.setY(i, p.getY(i) - cy + 5); g.computeBoundingSphere(); P.push(cy);
         return { geo: g, cy };
     })();
-    const low = lobeCrown([[0, 5, 0, 1, 1, 1]], { seg: [7, 5], seed: 4, amp: 0.12, bend: 0.4 }); // unit far lobe, centre (0,5,0)
+    const low = lobeCrown([[0, 5, 0, 1, 1, 1]], { seg: [6, 4], seed: 4, amp: 0.12, bend: 0.4 }); // (≈ 40 tris: thousands of these) // unit far lobe, centre (0,5,0)
     const conLow = (() => { const c = new THREE.ConeGeometry(1, 2.4, 6); c.translate(0, 5, 0); c.computeBoundingSphere(); return { geo: c, cy: 5 }; })();
     // one shared stem with limbs (authored 5 m tall; instances scale it to the species' clear stem)
     const trunk = trunkWithLimbs(5, 0.25, [[1, 0.3, 2.6, 0.5], [-0.8, -0.6, 2.4, 0.45], [0.1, 1, 2.2, 0.4]]);
-    const trunkLow = (() => { const t = new THREE.CylinderGeometry(0.15, 0.25, 5, 4); t.translate(0, 2.5, 0); return t; })();
+    const trunkLow = (() => { const t = new THREE.CylinderGeometry(0.15, 0.25, 5, 3, 1, true); t.translate(0, 2.5, 0); return t; })(); // open, 6 tris
     GEO = {
         shapes: {
             plane: { ...plane, stem: 7.0, top: 15, rx: 4.3, ry: 3.6, cols: ['#6a9a45', '#5f9140', '#74a14c'] },

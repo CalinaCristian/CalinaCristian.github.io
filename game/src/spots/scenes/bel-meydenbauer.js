@@ -52,7 +52,12 @@ export default {
         ctx.interactables.push({ kind: 'skip', x: beach.x - 40, z: beach.z + 5, r: 14, label: 'Skip a stone', use: (s) => { const w = s.r3d.weather?.windKmh ?? 8, n = Math.max(1, Math.round(3 + Math.random() * 6 - w / 10)); s.sound.play('splat', 0.4); s.ui.toast('🪨 ' + '•'.repeat(n), `${n} skip${n > 1 ? 's' : ''}${n >= 7 ? ' — impressive!' : ''}`); } });
         const PL = sp.plaques;
         ctx.plaque(PL[0], 14, 8, -2.2); ctx.plaque(PL[1], pv.x - 10, pv.z + 6, -2.0); ctx.plaque(PL[2], 40, -10, -2.4);
-        ctx.challenge('bel-meydenbauer', { x: tip.x, z: tip.z, r: 22, tol: 35 });
+        // postcard: on the pier near its root, the crescent curving out ahead over the bay, the crescent pier curving out over the bay, marina + Seattle beyond
+        const root = Q(0), mid = Q(0.55), back = Q(0.02), dx = root.x - mid.x, dz = root.z - mid.z, dl = Math.hypot(dx, dz) || 1;
+        const pcx = root.x + dx / dl * 9, pcz = root.z + dz / dl * 9, pb = (Math.atan2(mid.x - pcx, -(mid.z - pcz)) * 180 / Math.PI + 360) % 360;
+        const p0 = Q(0.14), p1 = Q(0.78), pb2 = (Math.atan2(p1.x - p0.x, -(p1.z - p0.z)) * 180 / Math.PI + 360) % 360;
+        ctx.challenge('bel-meydenbauer', { view: [p1.x, p1.z], x: p0.x, z: p0.z, heading: pb2, pitch: 1, r: 14, tol: 35, text: 'The crescent pier curving out over Meydenbauer Bay, Seattle on the horizon' });
+        void back;
         const pierLine = Array.from({ length: 25 }, (_, i) => { const p = Q(i / 24); return [p.x, p.z]; });
         ctx.crowdCfg = {
             personas: { local: 5, tech: 2, kid: 2.5, tourist_us: 1.5, tourist_in: 1.5, tourist_cn: 1, photographer: 1, staff: 0.3 },
@@ -64,7 +69,7 @@ export default {
             ],
         };
         ctx.sound('water', beach.x - 30, beach.z + 10, 120, 1.3); ctx.sound('gulls', -40, 60, 220, 1); ctx.sound('birds', 120, -80, 160, 1);
-        ctx.spawns['bel-meydenbauer'] = { x: sp.spawn.x, z: sp.spawn.z, heading: headingFromBearing(sp.spawn.heading_deg) };
+        ctx.spawns['bel-meydenbauer'] = { x: pcx + dx / dl * 3, z: pcz + dz / dl * 3, heading: headingFromBearing(pb) }; // walk straight onto the pier
         void lerp; void smooth; void M;
     },
 };

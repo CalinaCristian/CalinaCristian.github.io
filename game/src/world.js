@@ -2458,7 +2458,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             wallTris += shop ? 4 : 2;
             perim += L;
         }
-        addDetail(b, mb, brng, wallCol, h, y0, shop, yShop, floorH, ccw);
+        addDetail(b, h > 40 ? mb : c.detail, brng, wallCol, h, y0, shop, yShop, floorH, ccw); // (cornices / balconies / mullions: near LOD only, except towers' silhouettes)
         // roof (own mesh / material: world.vegetation.roofMaterials, so weather can tint it, e.g. snow)
         const rmb = c.roof;
         const flatRoofCol = b.roofColour ? rgb(b.roofColour) : rgb(roofCols.flat[Math.floor(brng() * roofCols.flat.length)]);
@@ -3407,7 +3407,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     for (const [k, list] of parkedLots) {
         const [I, J] = k.split(',').map(Number);
         const pg = makeParkedCars(list, { city: city.id, paintSpace: 'linear' }); pg.name = `parked ${k}`; // (CAR_COLORS are sRGB hex: let three.js linearise them, as the old merged lots did)
-        pg.userData.cx = (I + 0.5) * CELL * 2; pg.userData.cz = (J + 0.5) * CELL * 2; pg.userData.cull = VIEW.props + CELL * 0.71;
+        pg.userData.cx = (I + 0.5) * CELL * 2; pg.userData.cz = (J + 0.5) * CELL * 2; pg.userData.cull = 700 + CELL * 0.71;
         tris += pg.userData.triangles || 0; parkedCalls += pg.userData.drawCalls || 0;
         cellsGroup.add(pg);
     }

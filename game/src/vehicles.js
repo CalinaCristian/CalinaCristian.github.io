@@ -1570,6 +1570,18 @@ export function makeCockpit() {
             lampMat.emissiveIntensity = this.on ? 5 : 0;
         },
     };
+    /**
+     * Driving view per viewport aspect (camera = player.js camHolder child). Landscape: the layout above (eye at EYE, FOV 72).
+     * Portrait phones (aspect < 1): the eye moves back / up / toward the centre, the view turns 9° right and the vertical FOV
+     * opens to ~92° so the cluster AND the nav screen sit in the lower third, between the top HUD cards and the touch pad.
+     * → { fov (vertical, °, at rest; add the speed zoom on top), yaw (rad, + = left), pitch (rad), eye: Vector3 offset }
+     */
+    const _pv = { fov: 72, yaw: 0, pitch: 0, eye: new THREE.Vector3() };
+    g.userData.viewFor = (aspect = 16 / 9) => {
+        const a = THREE.MathUtils.clamp((1 - aspect) / (1 - 390 / 844), 0, 1);
+        _pv.fov = 72 + 20 * a; _pv.yaw = -9 * D2R * a; _pv.pitch = 0; _pv.eye.set(0.07 * a, 0.05 * a, 0.2 * a);
+        return _pv;
+    };
     g.userData.windshield = { origin: cowl.clone(), u: new THREE.Vector3(1, 0, 0), s: sAxis.clone(), len: wsLen, halfW0, halfW1, wipers: wiperDefs };
     // Every visible cockpit mesh lives on layer 1: the main camera renders layers 0 + 1 (render.js), the rear-view
     // mirror camera only layer 0, so no part of the car can ever show up in the mirror. The invisible shadow proxy

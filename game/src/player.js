@@ -26,7 +26,7 @@ export class Player {
         // rear-view mirror: a small plane in front of the camera showing a render from a rear camera
         this.mirrorTarget = new THREE.WebGLRenderTarget(384, 128);
         this.mirrorTarget.texture.colorSpace = THREE.LinearSRGBColorSpace;
-        this.mirrorCam = new THREE.PerspectiveCamera(40, 3, 0.5, 200); // far 200 m: the mirror is small, distant blocks cost draw calls (render, spec 17)
+        this.mirrorCam = new THREE.PerspectiveCamera(40, 3, 0.5, 150); // far 200 m: the mirror is small, distant blocks cost draw calls (render, spec 17)
         this.mirrorCam.position.set(0.3, 1.5, 0.3); this.mirrorCam.rotation.set(0, Math.PI, 0);
         this.rig.add(this.mirrorCam);
         const mirrorMat = new THREE.MeshBasicMaterial({ map: this.mirrorTarget.texture, toneMapped: false });
@@ -435,9 +435,13 @@ export class Player {
         if (!this.mirrorEnabled || this.lookBack) return;
         this.mirror.visible = false;
         const prev = renderer.getRenderTarget();
+        // a cheap view: far 150 m (set in the constructor), layer 0 only (layer 1 = cockpit, layer 2 = main-view-only
+        // detail: backdrop / horizon / far LOD), and no shadow-map pass of its own (the main frame's maps are reused)
+        const sm = renderer.shadowMap, au = sm.autoUpdate, nu = sm.needsUpdate; sm.autoUpdate = false; sm.needsUpdate = false;
         renderer.setRenderTarget(this.mirrorTarget);
         renderer.render(scene, this.mirrorCam);
         renderer.setRenderTarget(prev);
+        sm.autoUpdate = au; sm.needsUpdate = nu;
         this.mirror.visible = true;
     }
     hit(strength, what, v) {

@@ -1481,6 +1481,22 @@ export class Traffic {
         this.grid.build(this.vehicles);
         return n;
     }
+    /** a clean start for the player after a load / teleport / reset: nothing within r, nor in its lane from `behind` m
+     *  back to `ahead` m in front (same level); returns how many vehicles were moved elsewhere */
+    clearForPlayer(P = this.player, { r = 12, ahead = 40, behind = 12 } = {}) {
+        if (!P) return 0;
+        let n = 0;
+        for (const v of this.vehicles) {
+            if (Math.abs((v.y ?? 0.24) - (P.y ?? P.surfY ?? 0.24)) > 2.5) continue;
+            const dx = v.x - P.x, dz = v.z - P.z, f = dx * P.fx + dz * P.fz, l = Math.abs(dx * -P.fz + dz * P.fx);
+            const near = Math.hypot(dx, dz) < r + v.length * 0.5, inLane = l < 2.6 + v.width * 0.5 && f > -behind - v.length * 0.5 && f < ahead + v.length * 0.5;
+            if (!near && !inLane) continue;
+            if (!(this.large && this.relocate(v, 250, this.bubble, true))) this.respawn(v);
+            v.touchT = 0; n++;
+        }
+        this.grid.build(this.vehicles);
+        return n;
+    }
     /** nearest police car within r (or null) */
     policeNear(x, z, r) { let best = null, bd = r; for (const p of this.police) { const d = Math.hypot(p.x - x, p.z - z); if (d < bd) { bd = d; best = p; } } return best; }
 
@@ -1502,7 +1518,7 @@ class Pedestrians {
         this.crossCount = new Map();
         const edges = traffic.world.graph.edges.filter(e => this.ok(e));
         const cum = new Float64Array(edges.length); let wsum = 0;
-        edges.forEach((e, i) => { wsum += e.len * (0.3 + Math.min(2, trafficMulOf(e))); cum[i] = wsum; });
+        edges.forEach((e, i) => { const m = Math.min(2, trafficMulOf(e)); wsum += e.len * (0.15 + m * m * 0.8 + (e.busRoute ? 0.4 : 0)); cum[i] = wsum; }); // busy boulevards (Magheru, Unirii, Romană) get most walkers
         const pick = () => { const r = this.rng() * wsum; let lo = 0, hi = edges.length - 1; while (lo < hi) { const m = (lo + hi) >> 1; if (cum[m] < r) lo = m + 1; else hi = m; } return edges[lo]; };
         const stops = this.stops = (traffic.world.pois || []).filter(p => p.kind === 'busstop');
         if (!edges.length) count = 0;

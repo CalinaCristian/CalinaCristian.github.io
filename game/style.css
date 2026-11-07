@@ -182,11 +182,15 @@ body.touch #ticker { bottom: 335px; }
 /* portrait phones (R17.5): street name above the speed block, ticker above it, smaller touch buttons so the two pads
    never meet, prompt above the bottom HUD stack */
 @media (max-width: 700px) and (orientation: portrait) {
-    body.touch .street-wrap { bottom: 350px; }
-    body.touch #ticker { bottom: 410px; }
     body.touch .pad { gap: 8px; } body.touch .pad button { width: 54px; height: 54px; font-size: 21px; }
     body.touch .pad.right button[data-btn=gas] { width: 62px; height: 62px; }
     body.touch #prompt { top: 34%; }
+    /* the cockpit (cluster + nav screen, portrait view from vehicles.js viewFor) fills y ≈ 62–75 %: speed limit + fuel go
+       to the top right under the route cards, the DOM speedo hides (the 3D cluster shows the speed) */
+    body.touch .bottom-right { top: 150px; bottom: auto; right: 10px; gap: 4px; }
+    body.touch .bottom-right .speedo { display: none; }
+    body.touch .street-wrap { bottom: auto; top: 245px; }
+    body.touch #ticker { bottom: auto; top: 300px; right: auto; left: 16px; max-width: calc(100vw - 32px); }
 }
 
 /* ===== fast-travel montage ===== */

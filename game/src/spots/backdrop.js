@@ -28,7 +28,12 @@ export function seattleBackdrop(ctx, o = {}) {
     const HILLS = [[47.636, -122.357, 125, 1100], [47.625, -122.316, 100, 1000], [47.608, -122.322, 85, 650], [47.585, -122.31, 90, 900], [47.645, -122.35, 40, 700]];
     const groundNavd = o.groundNavd || ((la, lo) => { let h = 12 + Math.max(0, Math.min(40, (lo + 122.342) * 6000)) * (la < 47.615 && la > 47.598 ? 1 : 0.3); for (const [a, b, H, s] of HILLS) { const dx = (lo - b) * 75000, dy = (la - a) * 111000; h += H * Math.exp(-(dx * dx + dy * dy) / (2 * s * s)); } return h; });
     const out = { group: grp };
-    const place = (la, lo, h) => { const gy = groundNavd(la, lo) - E; return o.baseY === undefined ? { y: gy, h } : { y: o.baseY, h: h + Math.max(0, gy - o.baseY) }; };
+    const place = (la, lo, h) => {
+        let gy = groundNavd(la, lo) - E;
+        // inside the scene's terrain grid the block stands on the modelled ground (never floating above a lower street)
+        const q = ctx.ll(la, lo); { const gl = ctx.ground.heightAt(q.x, q.z) - 1.5; if (gl < gy) { h += gy - gl; gy = gl; } }
+        return o.baseY === undefined ? { y: gy, h } : { y: o.baseY, h: h + Math.max(0, gy - o.baseY) };
+    };
     if (o.needle !== false && distM(ctx, NEEDLE_LL[0], NEEDLE_LL[1]) > 250) {
         const p = ctx.ll(NEEDLE_LL[0], NEEDLE_LL[1]), n = spaceNeedle(p.x, NEEDLE_LL[2] - E, p.z, { detail: 0.5 });
         if (o.baseY !== undefined && NEEDLE_LL[2] - E > o.baseY + 2) { const ped = new THREE.Mesh(new THREE.CylinderGeometry(30, 34, NEEDLE_LL[2] - E - o.baseY, 16), new THREE.MeshLambertMaterial({ color: '#7d7a70' })); ped.position.set(p.x, (NEEDLE_LL[2] - E + o.baseY) / 2, p.z); grp.add(ped); }

@@ -98,7 +98,7 @@ const BUC_DISTRICTS = {
     floreasca: {
         name: 'Floreasca', label: 'Calea Floreasca, Piața Floreasca, Str. Garibaldi and the streets around C.A. Rosetti',
         // rosetti only (db moved to pipera, 2026-11-07): trimmed to the Calea Floreasca run-in + the Garibaldi block; north edge keeps Sky Tower (landmark margin 0.004°)
-        bbox: [44.4548, 26.0975, 44.4740, 26.1100], center: { lat: 44.4644, lon: 26.1038 },
+        bbox: [44.4538, 26.0975, 44.4740, 26.1100], center: { lat: 44.4644, lon: 26.1038 },
         landmarks: ['skytower', 'globalworth'], // Sky Tower 0.4 km / Globalworth Tower 0.6 km north of the box, ahead on Calea Floreasca
         congestion: [ // from game/research/bucharest-floreasca.json traffic.hotspots
             { lat: 44.47100, lon: 26.10350, radius: 200, hours: [[8,  10],  [17,  19.5]], level: 0.70, note: 'Calea Floreasca N (towards Barbu Văcărescu / Sky Tower)' },
@@ -258,7 +258,7 @@ export const CITIES = { bucharest: BUCHAREST, seattle: SEATTLE };
 // ---------------------------------------------------------------------------
 export const CHAPTERS = [
     { id: 'rosetti', stop: 'rosetti', city: 'bucharest', district: 'floreasca', year: 2009, title: 'High school', intro: 'Floreasca, 2009: up Calea Floreasca from the market to C.A. Rosetti on Str. Garibaldi.',
-        start: { lat: 44.4565, lon: 26.1000, heading: 8, road: /Calea Floreasca/ } }, // Calea Floreasca northbound, 400 m before Piața Floreasca (research start + a longer run-in)
+        start: { lat: 44.4556, lon: 26.10071, heading: 358, road: /^Calea Floreasca$/ } }, // on the one-way northbound Calea Floreasca itself (the old pin lay 55 m west of it and the car could land on parallel Str. Turbinei)
     { id: 'upb', stop: 'upb', city: 'bucharest', district: 'grozavesti', year: 2013, title: 'Politehnica', intro: 'Down Șoseaua Orhideelor beside the Basarab overpass, over Podul Grozăvești and south on Doina Cornea to the Politehnica gate.',
         start: { lat: 44.44849, lon: 26.06540, heading: 242, road: /Orhideelor/ } }, // research start moved 250 m back up Orhideelor (southbound): the door is now the Doina Cornea car gate (the Rectorat's campus roads are private)
     { id: 'gts', stop: 'gts', city: 'bucharest', district: 'unirii', year: 2015, title: 'First job', intro: 'Round Piața Unirii and its fountains, then out along Calea Călărașilor towards Hala Traian.',
@@ -273,8 +273,8 @@ export const CHAPTERS = [
         start: { lat: 44.4560, lon: 26.0842, heading: 160, road: /Kiseleff/ } },
     { id: 'otopeni', stop: 'otopeni', city: 'bucharest', district: 'otopeni', year: 2022, title: 'Departure', intro: 'DN1 into Otopeni and up to Henri Coandă departures: a flight to Seattle is waiting.',
         start: { lat: 44.5560, lon: 26.0700, heading: 5, road: /DN1|București-Ploiești|Bucureşti-Ploieşti|Calea Bucureștilor/ } },
-    { id: 'seatac', stop: null, city: 'seattle', district: 'seatac', year: 2022, title: 'Welcome to Seattle', intro: 'Out of SeaTac: Departures Drive and SR-518 east to the I-5 junction.',
-        start: { lat: 47.44557, lon: -122.29902, heading: 200, road: /Departures/ }, waypoint: { lat: 47.46195, lon: -122.26779, label: 'SR-518 east: I-405 / I-5 split' } }, // research
+    { id: 'seatac', stop: null, city: 'seattle', district: 'seatac', year: 2022, title: 'Welcome to Seattle', intro: 'Out of SeaTac: north on the Airport Expressway, then SR-518 east toward the I-5 / I-405 split.',
+        start: { lat: 47.4555, lon: -122.29956, heading: 20, road: /Airport Expressway/ }, waypoint: { lat: 47.46570, lon: -122.27643, label: 'SR-518 east toward I-5 / I-405' } }, // QA round 2: ~2.3 km, no terminal loop; waypoint ON the SR-518 EB carriageway (nearest edge 0 m, WB 18 m away), 1 km before the I-5/I-405 split
     { id: 'uipath-bel', stop: 'uipath-bel', city: 'seattle', district: 'bellevue', year: 2022, title: 'UiPath Bellevue', intro: 'Bellevue: off I-405 on the NE 8th St West loop, west on NE 8th past Plaza Center, then Bellevue Way to Lincoln Square.',
         montageCaption: 'Over Lake Washington on the I-90 floating bridge, across Mercer Island, then north on I-405 to Bellevue.',
         start: { lat: 47.61746, lon: -122.18725, heading: 255, road: /Northeast 8th Street West/ } }, // owner decision (≤ 3 min): bottom of the I-405 NB exit 13B loop, merging onto NE 8th WB (I-405 beside/behind) → past Plaza Center → Bellevue Way → Lincoln Square (1.38 km, ≈ 1:55 at the limits, ≈ 2:30 with expected signal waits)

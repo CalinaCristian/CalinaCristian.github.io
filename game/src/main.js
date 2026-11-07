@@ -278,6 +278,9 @@ class Game {
         try { VEHICLES.setFleetCity?.(id); } catch { /* older vehicles.js */ } // plates / police livery of parked props + the player's exterior car
         const world = this.world = await buildWorld(city, this.renderer, district ? { district, start } : {});
         scene.add(world.group);
+        // layer 2 = main view only (the rear-view mirror camera renders layer 0): far backdrop / horizon masses
+        this.camera.layers.enable(2);
+        world.group.traverse(o => { if (o.isMesh && /^(backdrop|horizon)$/.test(o.material?.name || '')) o.layers.set(2); });
         // navigation (spatial index shared with traffic)
         this.nav = new Navigator(world);
         // traffic
@@ -286,7 +289,8 @@ class Game {
         this.traffic = new Traffic(world, city, scene, {
             // pool size at the rush-hour peak; the live count follows the local hour (traffic.setHour)
             maxVehicles: hi ? (id === 'bucharest' ? 480 : 125) : (id === 'bucharest' ? 170 : 50),
-            maxPeds: hi ? (id === 'bucharest' ? 250 : 60) : (id === 'bucharest' ? 110 : 30),
+            // (instanced crowd: 2 draw calls whatever the count; a district is ~1 km², so these fill its sidewalks — QA round 2)
+            maxPeds: district ? (hi ? (id === 'bucharest' ? 560 : 180) : (id === 'bucharest' ? 260 : 90)) : hi ? (id === 'bucharest' ? 250 : 60) : (id === 'bucharest' ? 110 : 30),
             index: this.nav.index,
             onBubble: (v, kind) => this.hud.bubble(v, kind, city.id),
             onHonk: (v, reason) => this.vehicleHonk(v, reason),
@@ -1299,7 +1303,7 @@ class Game {
         const pose = this.lanePose(P.x - P.fx * 3, P.z - P.fz * 3, P.heading + Math.PI, P.surfY ?? null);
         if (!pose) return false;
         P.place(pose.x, pose.z, pose.heading, pose.edge); P.speed = 0; P.steer = 0; P.contactAge = 9; P.closureHit = null;
-        this.closureStopT = 0; this.traffic.clearAround(pose.x, pose.z, 10); this.nav.reroute(P);
+        this.closureStopT = 0; this.traffic.clearForPlayer?.(P, { r: 10, ahead: 25, behind: 6 }) ?? this.traffic.clearAround(pose.x, pose.z, 10); this.nav.reroute(P);
         this.audio.blip(640, 0.06, 0.07);
         return true;
     }
@@ -1529,7 +1533,7 @@ class Game {
     enterRoam(d) {
         this.endFoot();
         const P = this.player; P.speed = 0; P.steer = 0; P.contactAge = 9; P.resetLook?.();
-        this.traffic.setPlayer(P); this.traffic.clearAround(P.x, P.z, 14);
+        this.traffic.setPlayer(P); this.traffic.clearForPlayer?.(P) ?? this.traffic.clearAround(P.x, P.z, 14);
         this.stuckT = 0; this.prevEdgeInfo = null; this.navManual = false;
         this.fuel = Math.max(this.fuel, TANK_L * 0.6); this.flags.emptyToast = false;
         P.camHolder.add(this.camera); this.camera.position.set(0, 0, 0); this.camera.rotation.set(0, 0, 0);
@@ -1658,7 +1662,7 @@ class Game {
         if (!builtFor) { const p = this.chapterPose(ch); if (p) this.player.place(p.x, p.z, p.heading, p.edge); }
         this.endFoot();
         this.player.speed = 0; this.player.steer = 0; this.player.contactAge = 9; this.player.resetLook?.();
-        this.traffic.setPlayer(this.player); this.traffic.clearAround(this.player.x, this.player.z, 14);
+        this.traffic.setPlayer(this.player); this.traffic.clearForPlayer?.(this.player) ?? this.traffic.clearAround(this.player.x, this.player.z, 14);
         this.stuckT = 0; this.prevEdgeInfo = null; this.navManual = false;
         this.chapterIdx = idx; this.ch = ch; this.chapter = ch.id; this.chapterDone = false;
         this.progress.reached.add(ch.id); saveProgress(this.progress); this.renderMenuChapters();
@@ -1798,7 +1802,7 @@ class Game {
         const pose = this.lanePose(P.x, P.z, P.heading, P.surfY ?? null); if (!pose) return false;
         P.place(pose.x, pose.z, pose.heading, pose.edge); P.contactAge = 9; P.steer = 0;
         this.stuckT = 0; this.prevEdgeInfo = null;
-        const n = this.traffic.clearAround(pose.x, pose.z, 12);
+        const n = this.traffic.clearForPlayer?.(P) ?? this.traffic.clearAround(pose.x, pose.z, 12);
         this.nav.reroute(P);
         if (!silent) { this.hud.toast('🛟 Back on the road', `${roadName(pose.edge)}${n ? ` · ${n} car${n > 1 ? 's' : ''} moved along` : ''}`); this.audio.blip(700, 0.08, 0.08); }
         return pose;
@@ -1862,7 +1866,7 @@ class Game {
         player.place(pose.x, pose.z, pose.heading, pose.edge); player.contactAge = 9; player.steer = 0;
         this.stuckT = 0; this.prevEdgeInfo = null;
         this.traffic.setPlayer(player);           // big worlds: rebuild the traffic bubble around the new spot
-        this.traffic.clearAround(pose.x, pose.z, 12);
+        this.traffic.clearForPlayer?.(player) ?? this.traffic.clearAround(pose.x, pose.z, 12);
         // and nobody queued between the landing spot and the door
         for (let d = route.total - landD + 6; d < route.total + 4; d += 6) {
             const q = this.poseAlongRoute(route, Math.min(route.total, d)); this.traffic.clearAround(q.x, q.z, 5);

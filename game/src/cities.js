@@ -277,6 +277,6 @@ export const CHAPTERS = [
         start: { lat: 47.44557, lon: -122.29902, heading: 200, road: /Departures/ }, waypoint: { lat: 47.46195, lon: -122.26779, label: 'SR-518 east: I-405 / I-5 split' } }, // research
     { id: 'uipath-bel', stop: 'uipath-bel', city: 'seattle', district: 'bellevue', year: 2022, title: 'UiPath Bellevue', intro: 'Bellevue: off I-405 on the NE 8th St West loop, west on NE 8th past Plaza Center, then Bellevue Way to Lincoln Square.',
         montageCaption: 'Over Lake Washington on the I-90 floating bridge, across Mercer Island, then north on I-405 to Bellevue.',
-        start: { lat: 47.6168, lon: -122.18829, heading: 0, road: /Northeast 8th Street West/ } }, // owner decision (≤ 3 min): I-405 NB exit 13B, NE 8th St West ramp just before the loop → NE 8th WB past Plaza Center → Bellevue Way (1.68 km, ≈ 2:20 at the limits + ≈ 35 s expected signal delay)
+        start: { lat: 47.61746, lon: -122.18725, heading: 255, road: /Northeast 8th Street West/ } }, // owner decision (≤ 3 min): bottom of the I-405 NB exit 13B loop, merging onto NE 8th WB (I-405 beside/behind) → past Plaza Center → Bellevue Way → Lincoln Square (1.38 km, ≈ 1:55 at the limits, ≈ 2:30 with expected signal waits)
 ];
 

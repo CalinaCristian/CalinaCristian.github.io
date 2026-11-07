@@ -186,6 +186,7 @@ class Game {
         this.renderMenuChapters();
         this.loadSpotsModule().then(() => this.renderMenuSpots());
         this.renderMenuRoam();
+        { const cw = $('#menu .controls-wrap'); if (cw && matchMedia('(min-height: 900px) and (min-width: 900px)').matches) cw.open = true; } // tall screens: controls open; else collapsed so the menu fits
         $('#quality').addEventListener('change', (e) => { this.quality = e.target.value; this.r3d.setQuality(e.target.value); });
         $('#mute').addEventListener('click', (e) => { this.audio.setMuted(!this.audio.muted); e.target.textContent = this.audio.muted ? '🔇' : '🔊'; });
         { const ws = $('#weather'); if (ws) { if (this.weatherOverride) ws.value = this.weatherOverride; ws.addEventListener('change', (e) => this.setWeatherOverride(e.target.value === 'real' ? null : e.target.value)); } }

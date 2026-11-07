@@ -40,6 +40,9 @@ function injectStyles() {
 #chapter-montage .cap{position:absolute;left:50%;bottom:9vh;transform:translateX(-50%);width:min(720px,calc(100vw - 32px));text-align:center;color:#e2e8f0;font:16px/1.45 system-ui,sans-serif;text-shadow:0 2px 8px #000}
 #chapter-montage .yr{display:block;font:800 clamp(44px,9vw,92px)/1 system-ui,sans-serif;color:#fff;letter-spacing:.02em;margin-bottom:8px;font-variant-numeric:tabular-nums}
 #chapter-montage .ti{display:block;font-weight:700;font-size:20px;color:#93c5fd;margin-bottom:6px}
+#chapter-montage .kk{display:block;font:600 13px/1.3 system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#94a3b8;margin-bottom:6px}
+#chapter-montage .mc{display:block;margin-top:8px;color:#bfdbfe;font-style:italic}
+@media (max-height:480px){#chapter-montage .cap{bottom:4vh;font-size:14px}#chapter-montage .ti{font-size:16px;margin-bottom:2px}#chapter-montage .yr{font-size:40px;margin-bottom:2px}}
 #chapter-montage .skip{position:absolute;right:16px;top:16px;color:#64748b;font:12px system-ui,sans-serif}
 #chapter-select{margin-top:12px;text-align:left}
 #chapter-select h4,#navlist h4 small{margin:8px 0 6px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#94a3b8}
@@ -86,11 +89,15 @@ export const chapterCardOpen = () => !!document.getElementById('chapter-card')?.
  * District-jump montage on the city map (4–6 s): the city's districts as outlines, a marker jumping from the
  * previous district to the next one, the year ticking forward and the chapter's `intro` as a caption.
  * districts: { id: { name, bbox:[minLat,minLon,maxLat,maxLon], center:{lat,lon} } }. Any key / click skips.
+ * Options: `kicker` (small line above the year, e.g. "A few months later"), `travel` (a second caption line, e.g. the
+ * chapter's `montageCaption`), `via` ([{lat, lon, label?, hi?}] waypoints of the jump, drawn as a route; `hi` marks the
+ * leg that ends at that point — e.g. the I-90 floating bridge — and `label` names it on the map), `water`
+ * ([{lat, lon, rlat, rlon, label?, land?}] ellipses drawn under the map: lakes, `land: true` = an island on top).
  */
-export function chapterMontage({ cityName, districts = {}, from = null, to, year0, year1, title, caption, duration = 5000 }) {
+export function chapterMontage({ cityName, districts = {}, from = null, to, year0, year1, title, caption, kicker = '', travel = '', via = [], water = [], duration = 5000 }) {
     injectStyles();
     const m = el('chapter-montage');
-    m.innerHTML = `<canvas></canvas><div class="cap"><span class="yr">${esc(year0 ?? year1)}</span><span class="ti">${esc(title || '')}</span><span class="tx">${esc(caption || '')}</span></div><div class="skip">click / any key to skip</div>`;
+    m.innerHTML = `<canvas></canvas><div class="cap">${kicker ? `<span class="kk">${esc(kicker)}</span>` : ''}<span class="yr">${esc(year0 ?? year1)}</span><span class="ti">${esc(title || '')}</span><span class="tx">${esc(caption || '')}</span>${travel ? `<span class="mc">${esc(travel)}</span>` : ''}</div><div class="skip">click / any key to skip</div>`;
     const cv = m.querySelector('canvas'), yr = m.querySelector('.yr');
     m.classList.add('show');
     const list = Object.entries(districts).map(([id, d]) => ({ id, ...d }));
@@ -100,6 +107,7 @@ export function chapterMontage({ cityName, districts = {}, from = null, to, year
     const fr = [districts[from], districts[to]].filter(d => d?.bbox);
     let a0 = 90, a1 = -90, o0 = 180, o1 = -180;
     for (const d of (fr.length ? fr : list)) { const b = d.bbox; if (!b) continue; a0 = Math.min(a0, b[0]); o0 = Math.min(o0, b[1]); a1 = Math.max(a1, b[2]); o1 = Math.max(o1, b[3]); }
+    for (const v of via) { a0 = Math.min(a0, v.lat); a1 = Math.max(a1, v.lat); o0 = Math.min(o0, v.lon); o1 = Math.max(o1, v.lon); }
     if (a0 > a1) { a0 = 0; a1 = 1; o0 = 0; o1 = 1; }
     const k = Math.cos(((a0 + a1) / 2) * Math.PI / 180);
     { const cl = (a0 + a1) / 2, co = (o0 + o1) / 2, hl = Math.max((a1 - a0) * 0.85, 0.018), ho = Math.max((o1 - o0) * 0.85, hl / k); a0 = cl - hl; a1 = cl + hl; o0 = co - ho; o1 = co + ho; }
@@ -117,11 +125,17 @@ export function chapterMontage({ cityName, districts = {}, from = null, to, year
             if (cv.width !== Math.round(W * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
             const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0);
             g.fillStyle = '#050914'; g.fillRect(0, 0, W, H);
-            const pad = 24, sw = (o1 - o0) * k, sh = (a1 - a0), mapH = H * 0.5;
+            const pad = 24, sw = (o1 - o0) * k, sh = (a1 - a0), mapH = H * (via.length ? 0.56 : 0.5);
             const sc = Math.min((W - 2 * pad) / sw, mapH / sh);
             const ox = (W - sw * sc) / 2, oy = H * 0.06 + (mapH - sh * sc) / 2;
             g.save(); g.beginPath(); g.rect(0, H * 0.04, W, mapH + H * 0.06); g.clip();
             const P = (lat, lon) => [ox + (lon - o0) * k * sc, oy + (a1 - lat) * sc];
+            // water bodies (and islands) under everything
+            for (const wv of water) {
+                const [cx, cy] = P(wv.lat, wv.lon), rx = wv.rlon * k * sc, ry = wv.rlat * sc;
+                g.fillStyle = wv.land ? '#050914' : 'rgba(30,64,120,.35)'; g.beginPath(); g.ellipse(cx, cy, Math.max(2, rx), Math.max(2, ry), 0, 0, 7); g.fill();
+                if (wv.label) { g.save(); g.font = 'italic 12px system-ui,sans-serif'; g.fillStyle = 'rgba(147,197,253,.55)'; g.textAlign = 'center'; g.translate(cx, cy - ry * 0.4); if (rx < 30) g.rotate(-Math.PI / 2); g.fillText(wv.label, 0, 4); g.restore(); }
+            }
             // grid
             g.strokeStyle = 'rgba(148,163,184,.07)'; g.lineWidth = 1;
             for (let x = 0; x < W; x += 40) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x, H); g.stroke(); }
@@ -141,7 +155,30 @@ export function chapterMontage({ cityName, districts = {}, from = null, to, year
             // the jump: an arc from A to B, a dot travelling along it
             if (B) {
                 const [bx, by] = P(B.lat, B.lon);
-                if (A && (A.lat !== B.lat || A.lon !== B.lon)) {
+                if (A && via.length) {
+                    // a routed jump: polyline A → via… → B, the dot travels at constant speed, highlighted legs glow
+                    const pts = [A, ...via, B].map(p => P(p.lat, p.lon)), cum = [0];
+                    for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
+                    const e = Math.min(1, Math.max(0, (u - 0.1) / 0.7)), s = e * e * (3 - 2 * e), d = s * cum[cum.length - 1];
+                    for (let i = 1; i < pts.length; i++) {
+                        const v = via[i - 1] || {}, hi = !!v.hi;
+                        g.strokeStyle = hi ? 'rgba(96,165,250,.35)' : 'rgba(148,163,184,.25)'; g.lineWidth = hi ? 7 : 2; g.setLineDash(hi ? [] : [6, 6]);
+                        g.beginPath(); g.moveTo(pts[i - 1][0], pts[i - 1][1]); g.lineTo(pts[i][0], pts[i][1]); g.stroke();
+                        if (d > cum[i - 1]) {
+                            const k = Math.min(1, (d - cum[i - 1]) / ((cum[i] - cum[i - 1]) || 1));
+                            g.strokeStyle = hi ? '#bfdbfe' : 'rgba(147,197,253,.85)'; g.lineWidth = hi ? 4 : 2;
+                            g.beginPath(); g.moveTo(pts[i - 1][0], pts[i - 1][1]); g.lineTo(pts[i - 1][0] + (pts[i][0] - pts[i - 1][0]) * k, pts[i - 1][1] + (pts[i][1] - pts[i - 1][1]) * k); g.stroke();
+                        }
+                        g.setLineDash([]);
+                        if (v.label && i < pts.length - 1) {
+                            const mx = (pts[i - 1][0] + pts[i][0]) / 2, my = (pts[i - 1][1] + pts[i][1]) / 2;
+                            g.font = '600 12px system-ui,sans-serif'; g.textAlign = 'right'; g.fillStyle = d >= cum[i - 1] ? '#e0f2fe' : '#94a3b8'; g.fillText(v.label, Math.min(pts[i - 1][0], pts[i][0]) - 10, my + 4);
+                        }
+                    }
+                    let i = 1; while (i < pts.length - 1 && cum[i] < d) i++;
+                    const k = Math.min(1, Math.max(0, (d - cum[i - 1]) / ((cum[i] - cum[i - 1]) || 1)));
+                    g.fillStyle = '#fff'; g.beginPath(); g.arc(pts[i - 1][0] + (pts[i][0] - pts[i - 1][0]) * k, pts[i - 1][1] + (pts[i][1] - pts[i - 1][1]) * k, 6, 0, 7); g.fill();
+                } else if (A && (A.lat !== B.lat || A.lon !== B.lon)) {
                     const [ax, ay] = P(A.lat, A.lon); const mx = (ax + bx) / 2, my = Math.min(ay, by) - Math.hypot(bx - ax, by - ay) * 0.35;
                     const e = Math.min(1, Math.max(0, (u - 0.1) / 0.6)), s = e * e * (3 - 2 * e);
                     g.strokeStyle = 'rgba(147,197,253,.8)'; g.setLineDash([6, 6]); g.lineWidth = 2; g.beginPath();

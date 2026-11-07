@@ -28,7 +28,10 @@ District mode (`districtSetup` in `build-data.mjs`) takes the district from `gam
 `center`, scale 1, no compression; `bbox` / `poly` areas keep every road, building, POI inside; `route` + `circles` districts
 (otopeni, seatac, bellevue) keep a buffered drive (`corridors.mjs`, now also with `polys`). Roads are cut exactly at the
 boundary (a new end node, listed in `district.ends`), only tiles near the district are parsed, tall `building:part`s are kept,
-and `game/research/<city>-<district>.json` (if present) enriches building tags and brand sign colours.
+and `game/research/<city>-<district>.json` (if present) enriches building tags and brand sign colours (a building's hand-researched
+`research: {height_m, storeys, facade_hex, roof}` beats the generic estimates; OSM tags always win). Link roads whose every lane is
+HOV-designated (e.g. Bellevue's NE 6th St direct-access ramps) are dropped. Tiles: region `bucx` (east of Pipera) was added on
+2026-11-07 for the `pipera` district; fetch it with `node tools/osm/fetch-tiles.mjs --out DIR --only bucx`.
 
 Regions (bounding boxes) are listed in `fetch-tiles.mjs` (`REGIONS`). Tile files are named
 `<region>_<minlat>_<minlon>_<maxlat>_<maxlon>.xml`; `build-data.mjs` picks the tiles of a city by

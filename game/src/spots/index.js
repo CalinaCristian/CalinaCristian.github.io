@@ -32,9 +32,18 @@ export const SPOTS = [
     { id: 'bel-lincoln-square', city: 'seattle', area: 'bellevue', name: 'Lincoln Square & Bellevue Square (UiPath)', lat: 47.61755, lon: -122.20195, kind: 'walk', scene: 'bel-lincoln-square', blurb: 'Downtown Bellevue at NE 8th St × Bellevue Way: Bellevue Square, the Lincoln Square towers (UiPath\'s office since 2025) and the skybridges between them.' },
     { id: 'bel-downtown-park', city: 'seattle', area: 'bellevue', name: 'Bellevue Downtown Park', lat: 47.6133, lon: -122.2034, kind: 'walk', scene: 'bel-downtown-park', blurb: 'A circle of lawn ringed by a half-mile promenade and canal ending in a 240-ft-wide waterfall, with the skyline rising behind.' },
     { id: 'bel-botanical-garden', city: 'seattle', area: 'bellevue', name: 'Bellevue Botanical Garden', lat: 47.6088, lon: -122.1793, kind: 'walk', scene: 'bel-botanical-garden', blurb: '53 free acres of Pacific Northwest gardens: the Perennial Border, the Yao Japanese garden and a suspension bridge over a ravine.' },
+    // ---- Bucharest (research: game/research/bucharest-spots.json; scenes share a module when adjacent)
+    { id: 'palace-parliament', city: 'bucharest', name: 'Palace of the Parliament & Piața Constituției', lat: 44.42741, lon: 26.09205, kind: 'walk', scene: 'buc-parliament', blurb: 'The heaviest building on Earth, seen from the vast square at the head of Bulevardul Unirii: 270 m of cream stone façade, 84 m tall, built 1984–97.' },
+    { id: 'peoples-salvation-cathedral', city: 'bucharest', name: 'People\'s Salvation Cathedral', lat: 44.42528, lon: 26.08135, kind: 'walk', scene: 'buc-parliament', blurb: 'The tallest Orthodox church in the world (127 m), white stone and gilded domes on the hill behind the Palace of the Parliament; consecrated 2018–2025.' },
     { id: 'bel-meydenbauer', city: 'seattle', area: 'bellevue', name: 'Meydenbauer Bay Park', lat: 47.6106, lon: -122.2108, kind: 'walk', scene: 'bel-meydenbauer', blurb: 'Bellevue\'s lakefront: a sandy beach and a floating 420-ft crescent pier on Lake Washington with Seattle on the horizon.' },
 ];
-export const spotById = (id) => SPOTS.find((s) => s.id === id) || null;
+/** spots still being built: loadable by id (dev page) but not listed in SPOTS / the game menu until verified */
+export const DEV_SPOTS = [
+    { id: 'athenaeum-revolution', city: 'bucharest', name: 'Romanian Athenaeum & Piața Revoluției', lat: 44.44085, lon: 26.09765, kind: 'walk', scene: 'athenaeum-revolution', blurb: 'The domed 1888 concert hall in its garden, and the square where the December 1989 revolution began under the Central Committee balcony.' },
+    { id: 'old-town-lipscani', city: 'bucharest', name: 'Old Town: Lipscani & Cărturești Carusel', lat: 44.43218, lon: 26.10100, kind: 'walk', scene: 'buc-old-town', blurb: 'The pedestrian medieval core: guild-named lanes full of terraces, the white "carousel" bookshop, the 1808 Manuc\'s Inn and Vlad the Impaler\'s princely court.' },
+    { id: 'stavropoleos-cec', city: 'bucharest', name: 'Stavropoleos, Caru\' cu Bere & CEC Palace', lat: 44.43212, lon: 26.09830, kind: 'walk', scene: 'buc-old-town', blurb: 'A tiny 1724 Brâncovenesc jewel of a church between a neo-Gothic beer hall, the domed CEC Palace and the National History Museum.' },
+];
+export const spotById = (id) => SPOTS.find((s) => s.id === id) || DEV_SPOTS.find((s) => s.id === id) || null;
 
 const DATA_URL = (scene) => new URL(`../../data/spots/${scene}.json`, import.meta.url).href;
 const STORE = 'dmcv.spots.v1';
@@ -161,7 +170,19 @@ export async function loadSpot(id, renderer = null, opts = {}) {
     const outer = T.outer || { x0: inner.x0 - m8(outerPad), z0: inner.z0 - m8(outerPad), x1: inner.x1 + m8(outerPad), z1: inner.z1 + m8(outerPad) };
     const terr = buildTerrain(ctx.ground, ctx.painter, { inner, outer, innerPx: T.innerPx || 2048, outerPx: T.outerPx || 1024, innerStep: T.innerStep || 2, outerStep: T.outerStep || 8, bg: T.bg || '#617242', bgMask: T.bgMask || 'grass', brickAngle: T.brickAngle || 0, skirt: T.skirt ?? 6000, skirtY: T.skirtY ?? null, skirtColor: T.skirtColor ?? null });
     ctx.add(terr.group); ctx.extras.terrain = terr;
-    const trees = buildTrees(ctx.trees, ctx.ground, { seed: data.id.length });
+    // optional tree budget + dynamic LOD (ctx.treeLod = { cap, near, max }): beyond `cap` the trees farthest from every
+    // member extent are dropped; the `max` trees within `near` m of the viewer get the full crown, the rest a low one
+    if (ctx.treeLod) {
+        const boxes = Object.values(data.spots).map((s) => polyBox(s.extent?.polygon?.length ? s.extent.polygon : [[-150, -150], [150, 150]]));
+        const dist = (t) => Math.min(...boxes.map((b) => Math.hypot(Math.max(0, b.x0 - t.x, t.x - b.x1), Math.max(0, b.z0 - t.z, t.z - b.z1))));
+        const cap = ctx.treeLod.cap ?? 4500; if (ctx.trees.length > cap) { for (const t of ctx.trees) t._d = dist(t); ctx.trees.sort((a, b) => a._d - b._d); ctx.trees.length = cap; }
+    }
+    const trees = buildTrees(ctx.trees, ctx.ground, { seed: data.id.length, lod: ctx.treeLod ? { near: ctx.treeLod.near ?? 90, max: ctx.treeLod.max ?? 700 } : null });
+    if (trees.update) {
+        const v = new THREE.Vector3();
+        ctx.updaters.push((dt, s) => { s.camera.getWorldPosition(v); trees.update(v.x, v.z); });
+        const sp0 = Object.values(ctx.spawns)[0] || data.spots[data.members[0]].spawn; trees.update(sp0.x, sp0.z);
+    }
     ctx.add(trees.group); ctx.colliders.push(...trees.colliders); ctx.crownMeshes.push(...trees.crowns);
     const lamps = buildLamps(ctx.lampPoints, ctx.ground, ctx.lampOpts);
     ctx.add(lamps.group); ctx.colliders.push(...lamps.colliders);
@@ -255,8 +276,7 @@ export class SpotSession {
         if (this.input) this.input.lookAllowed = true;
         // UI + sound
         this.ui = new SpotUI(host.uiRoot || document.body);
-        const ar = spot.entry.area === 'bellevue' ? 'Bellevue, WA' : spot.city === 'seattle' ? 'Seattle, WA' : spot.city;
-        this.ui.setTitle(spot.name, `${ar} · walk-only bonus`);
+        this.ui.setTitle(spot.name, `${placeLabel(spot)} · walk-only bonus`);
         this.ui.setHelp('WASD walk · Shift run · Space jump · E interact · P camera · click to look (Esc releases)');
         if (spot.crowd) spot.crowd.o.bubbles = this.ui.bubbles;
         this.sound = new SpotSound({ audio: host.audio });
@@ -275,7 +295,17 @@ export class SpotSession {
         return { people: n, postcard: done };
     }
     /** info for PhotoMode.getInfo while in a spot */
-    photoInfo() { const sp = this.spot; return { place: sp.name, city: sp.city, timeZone: sp.clock.timeZone, night: !!this.r3d.nightLights, sub: sp.entry.area === 'bellevue' ? 'Bellevue, WA' : 'Seattle, WA' }; }
+    photoInfo() { const sp = this.spot; return { place: sp.name, city: sp.city, timeZone: sp.clock.timeZone, night: !!this.r3d.nightLights, sub: placeLabel(sp) }; }
+    /** local time / weather / season for the crowd's tagged lines (spec 15 R15.6) */
+    _conditions() {
+        const d = this.r3d.simDate || this.host.date || new Date(), w = this.r3d.weather || {};
+        let hour = 12, month = d.getMonth(), day = d.getDate();
+        try {
+            const f = new Intl.DateTimeFormat('en-GB', { timeZone: this.spot.clock.timeZone, hour: 'numeric', hourCycle: 'h23', month: 'numeric', day: 'numeric' }).formatToParts(d);
+            const g = (t) => +f.find((x) => x.type === t)?.value; hour = g('hour'); month = g('month') - 1; day = g('day');
+        } catch { /* old browsers: device time */ }
+        return { hour, month, day, tempC: w.tempC, kind: w.kind || '', snowCm: w.snowCm || 0 };
+    }
     checkChallenge() {
         const cam = this.camera, p = this.ctl.position, dir = cam.getWorldDirection(new THREE.Vector3());
         const bearing = ((Math.atan2(dir.x, -dir.z) / DEG) % 360 + 360) % 360;
@@ -316,7 +346,11 @@ export class SpotSession {
         // night factor (lamps, windows, neon)
         const tgt = this.r3d.nightLights ? 1 : 0; this.nightK += Math.sign(tgt - this.nightK) * Math.min(Math.abs(tgt - this.nightK), dt / 1.5);
         if (this._lastNightK !== this.nightK) { this._lastNightK = this.nightK; setNightWindows(this.spot.scene, this.nightK); for (const f of this.spot.nightHooks) f(this.nightK, this); }
-        if (this.spot.crowd) { this.spot.crowd.rainy = (this.r3d.weather?.kind || '').includes('rain'); this.spot.crowd.update(dt, pl, this.camera); }
+        if (this.spot.crowd) {
+            this.condT = (this.condT ?? 0) - dt;
+            if (this.condT <= 0) { this.condT = 2; this.spot.crowd.cond = this._conditions(); }
+            this.spot.crowd.rainy = (this.r3d.weather?.kind || '').includes('rain'); this.spot.crowd.update(dt, pl, this.camera);
+        }
         for (const f of this.spot.updaters) f(dt, this, pl);
         // interactions (nearest within reach)
         if (!photo && !panel) {
@@ -354,6 +388,8 @@ export class SpotSession {
         window.cvTelemetry?.track?.('spot_exit', { id: this.spot.id, seconds: Math.round(this.t) });
     }
 }
+/** "Seattle, WA" / "Bellevue, WA" / "Bucharest, Romania" */
+export function placeLabel(sp) { return sp.entry?.area === 'bellevue' ? 'Bellevue, WA' : sp.city === 'seattle' ? 'Seattle, WA' : sp.city === 'bucharest' ? 'Bucharest, Romania' : sp.city; }
 function escapeHtml(s) { return String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])); }
 /** façade night windows + anything flagged userData.nightWindows / nightGlow */
 export function setNightWindows(root, k) {

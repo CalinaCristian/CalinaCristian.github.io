@@ -16,6 +16,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { execFileSync } from 'node:child_process';
+import { BUC_CACHE } from './fetch-buc.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../..');
 const RES = path.join(ROOT, 'game/research');
@@ -35,7 +37,90 @@ export const SCENES = {
     'bel-downtown-park': { members: ['bel-downtown-park'], research: 'seattle-spots.json', osmDir: 'sea-spots', tz: 'America/Los_Angeles' },
     'bel-botanical-garden': { members: ['bel-botanical-garden'], research: 'seattle-spots.json', osmDir: 'sea-spots', tz: 'America/Los_Angeles' },
     'bel-meydenbauer': { members: ['bel-meydenbauer'], research: 'seattle-spots.json', osmDir: 'sea-spots', tz: 'America/Los_Angeles' },
+    // ---- Bucharest (research schema adapted by bucSpot(); OSM + terrain from tools/fetch-buc.mjs, cached outside git)
+    'buc-parliament': { members: ['palace-parliament', 'peoples-salvation-cathedral'], research: 'bucharest-spots.json', buc: true, tz: 'Europe/Bucharest', origin: { lat: 44.42735, lon: 26.0905 }, name: 'Dealul Arsenalului',
+        spawns: { 'palace-parliament': [44.42741, 26.09205, 268], 'peoples-salvation-cathedral': [44.42528, 26.08135, 52] } },
+    'buc-old-town': { members: ['old-town-lipscani', 'stavropoleos-cec'], research: 'bucharest-spots.json', buc: true, tz: 'Europe/Bucharest', origin: { lat: 44.4313, lon: 26.0995 }, name: 'Centrul Vechi',
+        spawns: { 'old-town-lipscani': [44.43218, 26.10100, 95], 'stavropoleos-cec': [44.43212, 26.09830, 140] } },
+    'athenaeum-revolution': { members: ['athenaeum-revolution'], research: 'bucharest-spots.json', buc: true, tz: 'Europe/Bucharest', spawns: { 'athenaeum-revolution': [44.44085, 26.09765, 315] } },
+    'arcul-de-triumf': { members: ['arcul-de-triumf'], research: 'bucharest-spots.json', buc: true, tz: 'Europe/Bucharest', spawns: { 'arcul-de-triumf': [44.46632, 26.07850, 340] } },
+    'buc-herastrau': { members: ['herastrau-park', 'village-museum'], research: 'bucharest-spots.json', buc: true, tz: 'Europe/Bucharest', origin: { lat: 44.4710, lon: 26.0800 }, name: 'Herăstrău',
+        spawns: { 'herastrau-park': [44.46985, 26.08310, 0], 'village-museum': [44.47085, 26.07800, 40] } },
+    'spring-palace': { members: ['spring-palace'], research: 'bucharest-spots.json', buc: true, tz: 'Europe/Bucharest', spawns: { 'spring-palace': [44.46850, 26.09235, 320] } },
+    'cismigiu': { members: ['cismigiu'], research: 'bucharest-spots.json', buc: true, tz: 'Europe/Bucharest', spawns: { 'cismigiu': [44.43700, 26.09120, 320] } },
 };
+
+// ---------------------------------------------------------------------------- Bucharest research schema → scene schema
+/** short plaque titles (the research gives text + source only) */
+const BUC_TITLES = {
+    'palace-parliament': ['Size', 'Anca Petrescu', 'The heaviest building', 'What was lost', 'Romanian materials', 'Not for sale'],
+    'old-town-lipscani': ['Lipscani = Leipzig', 'Guild streets', "Manuc's Inn (1808)", 'Curtea Veche, 1459', 'Curtea Veche church', 'Cărturești Carusel'],
+    'stavropoleos-cec': ['Stavropoleos (1724)', 'Byzantine chant', "Caru' cu Bere", 'CEC Palace', 'National History Museum'],
+    'athenaeum-revolution': ['One leu for the Athenaeum', 'The great fresco', 'The 1919 vote', '21 December 1989', 'Memorial of Rebirth', 'Carol I statue'],
+    'arcul-de-triumf': ['Dimensions', '1922 → 1936', 'Architect and sculptors', 'The royal medallions', 'Earlier arches'],
+    'village-museum': ['Opened 1936', 'A whole country', '56 railway wagons', 'Dragomirești church', 'The 2002 fire', 'Visitors'],
+    'herastrau-park': ['187 hectares', 'From marsh to park', 'Many names', 'Why "Herăstrău"', 'Mammoths'],
+    'spring-palace': ['24 years, 174 rooms', 'Open since 2016', 'Gold taps, mosaic pool', 'The peacocks'],
+    'cismigiu': ['The oldest garden', 'The name', 'Skating since 1883', "Writers' Rotunda", 'Swans and pelicans'],
+    'peoples-salvation-cathedral': ['127 metres', 'Murano mosaics', 'The great bell', 'Consecrated', 'The piazza'],
+};
+const LOOK_OF = { tour_guide: 'tour_guide', guard: 'guard', vendor: 'vendor', waiter: 'waiter', busker: 'busker', kid: 'kid' };
+/** time / weather / season tags from the line text (both languages) */
+function lineTags(t) {
+    const s = t.toLowerCase(), o = {};
+    if (/bună dimineața|good morning|this morning|azi-dimineaț|în dimineața|breakfast|mic dejun/.test(s)) o.when = 'morning';
+    else if (/bună seara|good evening|\bseara\b|diseară|tonight|evening|\bnight\b|noaptea|noapte bună|at night|lit up|floodlit|luminat[ăe]? noaptea/.test(s)) o.when = 'evening';
+    else if (/bună ziua|good day|ziua bună/.test(s)) o.when = 'day';
+    if (/crăciun|christmas|colind|carol(s|ing)\b|vin fiert|mulled|decembrie|december market|târgul de crăciun/.test(s)) o.season = 'xmas';
+    else if (/mărțișor|1 martie|first of march/.test(s)) o.season = 'march';
+    else if (/sakura|cherry blossom|flori de cireș|cireșii|blossom/.test(s)) o.season = 'spring';
+    else if (/toamn|autumn|frunze(le)? (galbene|cad)|golden leaves|falling leaves/.test(s)) o.season = 'autumn';
+    else if (/patinoar|patin|skating|\brink\b|iarna|winter/.test(s)) o.season = 'winter';
+    else if (/\bvara\b|vara asta|summer|înghețat|ice cream|bărci|rowing boat|barca|boats/.test(s)) o.season = 'summer';
+    if (/zăpad|ninge|\bsnow|bulgăr/.test(s)) o.wx = 'snow';
+    else if (/plou|\brain\b|\brainy\b|ud leoarcă|soaked/.test(s)) o.wx = 'rain';
+    else if (/caniculă|ce cald|cald azi|e cald|e prea cald|heatwave|so hot|too hot|it's hot|sun cream|la umbră|transpir|sweat/.test(s)) o.wx = 'hot';
+    else if (/\bger\b|ce ger|e frig|\bfrig\b|freezing|so cold|it's cold|mănuși|gloves/.test(s)) o.wx = 'cold';
+    return o;
+}
+function bucDialogue(spot, general) {
+    const lines = [], personas = new Set();
+    const push = (p, ctx, l, lang) => {
+        const en = l.en || l.text, orig = lang && lang !== 'en' && l.text !== en ? l.text : null;
+        lines.push({ p, ctx, text: en, ...(orig ? { orig, lang } : {}), ...lineTags((l.text || '') + ' ' + en) });
+    };
+    for (const per of spot.dialogue?.personas || []) {
+        const p = LOOK_OF[per.base] || per.base; personas.add(p);
+        for (const [ctx, L] of Object.entries(per.lines || {})) for (const l of L) push(p, ctx, l, per.lang);
+    }
+    for (const l of spot.dialogue?.ambient_pairs || []) push('local_young', 'spot', l, 'ro');
+    void general;
+    return { lines, personas: [...personas] };
+}
+function bucGeneral(research) {
+    const dg = research.dialogue_general || {}, lines = [];
+    const push = (p, ctx, l, lang) => { const en = l.en || l.text, orig = lang && lang !== 'en' && l.text !== en ? l.text : null; lines.push({ p, ctx, text: en, ...(orig ? { orig, lang } : {}), ...lineTags((l.text || '') + ' ' + en) }); };
+    for (const [id, per] of Object.entries(dg.persona_library || {})) for (const ctx of ['greeting', 'bumped', 'photographed', 'idle']) for (const l of per[ctx] || []) push(LOOK_OF[id] || id, ctx, l, per.lang);
+    const pg = dg.pedestrian_general || {};
+    for (const l of pg.idle || []) push('local_elder', 'idle', l, 'ro');
+    for (const l of pg.small_talk || []) push('local_young', 'spot', l, 'ro');
+    return { lines, culture: dg.culture_notes || null };
+}
+/** a Bucharest research spot in the Seattle research shape (spawn, extent, photo.iconic, plaques with titles) */
+function bucSpot(s, cfg) {
+    const sp = cfg.spawns?.[s.id] || [s.center.lat, s.center.lon, 0];
+    const pa = s.photo_angle || {};
+    const pers = s.crowd?.personas || [];
+    return {
+        ...s, city: 'bucharest',
+        spawn: { lat: sp[0], lon: sp[1], heading_deg: sp[2], ground_elev_m: null },
+        extent: { description: s.footprint?.note || '', polygon_latlon: s.footprint?.polygon_latlon || [] },
+        photo: { iconic: pa.position ? { from: pa.position, heading_deg: pa.heading_deg, pitch_deg: pa.pitch_deg, fov_deg: pa.fov_deg, frame: pa.note, interior: !!pa.interior } : null },
+        plaques: (s.plaques || []).map((p, i) => ({ title: BUC_TITLES[s.id]?.[i] || s.name, text: p.text, source_url: p.source, source: p.source })),
+        crowdPersonas: pers,
+        sounds: s.ambient_sounds, furniture: s.street_furniture, seasonal: s.seasonal_time_of_day,
+    };
+}
 
 const r1 = (v) => Math.round(v * 10) / 10;
 const r2 = (v) => Math.round(v * 100) / 100;
@@ -66,9 +151,20 @@ const num = (v) => { if (v === null || v === undefined || v === '') return null;
 function buildScene(sceneId) {
     const cfg = SCENES[sceneId];
     const research = JSON.parse(fs.readFileSync(path.join(RES, cfg.research), 'utf8'));
-    const spots = cfg.members.map((id) => { const s = research.spots.find((x) => x.id === id); if (!s) throw new Error('no research spot ' + id); return s; });
+    let spots = cfg.members.map((id) => { const s = research.spots.find((x) => x.id === id); if (!s) throw new Error('no research spot ' + id); return s; });
+    if (cfg.buc) spots = spots.map((s) => bucSpot(s, cfg));
     const first = spots[0];
-    const origin = cfg.origin || { lat: first.spawn.lat, lon: first.spawn.lon, elev: Math.round(first.spawn.ground_elev_m * 10) / 10 };
+    const srcFile = (s, ext) => cfg.buc ? path.join(BUC_CACHE, sceneId + ext) : path.join(RES, 'osm', cfg.osmDir, s.id + ext);
+    if (cfg.buc && !(fs.existsSync(srcFile(first, '.json')) && fs.existsSync(srcFile(first, '.terrain.json')))) {
+        execFileSync(process.execPath, [path.join(path.dirname(fileURLToPath(import.meta.url)), 'fetch-buc.mjs'), sceneId], { stdio: 'inherit', env: { NODE_USE_ENV_PROXY: '1', NODE_EXTRA_CA_CERTS: '/root/.ccr/ca-bundle.crt', ...process.env } });
+    }
+    const origin = { ...(cfg.origin || { lat: first.spawn.lat, lon: first.spawn.lon, elev: first.spawn.ground_elev_m == null ? undefined : Math.round(first.spawn.ground_elev_m * 10) / 10 }) };
+    if (origin.elev === undefined || origin.elev === null || Number.isNaN(origin.elev)) { // Bucharest: ground at the origin from the terrain grid
+        const t = JSON.parse(fs.readFileSync(srcFile(first, '.terrain.json'), 'utf8'));
+        const Q = projector(t.origin_latlon_sw[0], t.origin_latlon_sw[1]), [ox, oz] = Q.xy(origin.lat, origin.lon);
+        const fx = Math.max(0, Math.min(t.nx - 1.001, ox / t.spacing_m)), fy = Math.max(0, Math.min(t.ny - 1.001, -oz / t.spacing_m)), i = Math.floor(fx), j = Math.floor(fy), u = fx - i, v = fy - j, e = t.elev_m;
+        origin.elev = Math.round((e[j][i] * (1 - u) * (1 - v) + e[j][i + 1] * u * (1 - v) + e[j + 1][i] * (1 - u) * v + e[j + 1][i + 1] * u * v) * 10) / 10;
+    }
     const P = projector(origin.lat, origin.lon);
     const Y = (e) => (e === null || e === undefined ? null : r2(e - origin.elev));
 
@@ -76,9 +172,9 @@ function buildScene(sceneId) {
     const seen = new Set();
     const out = { buildings: [], ways: [], areas: [], trees: [], pois: [], furniture: {} };
     const terrains = [];
-    for (const s of spots) {
-        const osm = JSON.parse(fs.readFileSync(path.join(RES, 'osm', cfg.osmDir, s.id + '.json'), 'utf8'));
-        const tf = path.join(RES, 'osm', cfg.osmDir, s.id + '.terrain.json');
+    for (const s of (cfg.buc ? [first] : spots)) {
+        const osm = JSON.parse(fs.readFileSync(srcFile(s, '.json'), 'utf8'));
+        const tf = srcFile(s, '.terrain.json');
         if (fs.existsSync(tf)) terrains.push(JSON.parse(fs.readFileSync(tf, 'utf8')));
         for (const [list, backdrop] of [[osm.buildings, false], [osm.backdrop_buildings, true]]) for (const b of list || []) {
             if (seen.has(b.id)) continue; seen.add(b.id);
@@ -93,6 +189,8 @@ function buildScene(sceneId) {
             };
             if (b.amenity) o.amenity = b.amenity; if (b.shop) o.shop = b.shop; if (b.tourism) o.tourism = b.tourism;
             if (b.layer) o.layer = num(b.layer);
+            if (b.holes) o.holes = b.holes.map((h) => cleanPoly(h.map(([la, lo]) => P.xy(la, lo))));
+            if (b.historic) o.historic = b.historic; if (b.religion) o.religion = b.religion;
             if (b['addr:street']) o.addr = `${b['addr:housenumber'] || ''} ${b['addr:street']}`.trim();
             for (const k of Object.keys(o)) if (o[k] === null || o[k] === false) delete o[k];
             out.buildings.push(o);
@@ -101,7 +199,7 @@ function buildScene(sceneId) {
             if (seen.has(w.id)) continue; seen.add(w.id);
             const pts = w.line.map(([la, lo]) => P.xy(la, lo));
             const o = { id: w.id, k: w.highway || w.railway || w.barrier || w.man_made || 'line', pts };
-            const keep = ['name', 'footway', 'surface', 'lanes', 'oneway', 'bridge', 'tunnel', 'layer', 'width', 'service', 'crossing', 'incline', 'step_count', 'covered', 'area', 'sidewalk', 'sidewalk:both', 'cycleway', 'access', 'level', 'indoor'];
+            const keep = ['name', 'footway', 'surface', 'lanes', 'oneway', 'bridge', 'tunnel', 'layer', 'width', 'service', 'crossing', 'incline', 'step_count', 'covered', 'area', 'sidewalk', 'sidewalk:both', 'cycleway', 'access', 'level', 'indoor', 'height', 'material', 'fence_type', 'natural', 'tram', 'junction'];
             for (const k of keep) if (w[k] !== undefined) o[k.replace(':', '_')] = w[k];
             out.ways.push(o);
         }
@@ -112,6 +210,7 @@ function buildScene(sceneId) {
             const o = { id: a.id, poly };
             const keep = ['landuse', 'leisure', 'natural', 'amenity', 'man_made', 'barrier', 'waterway', 'water', 'surface', 'name', 'area:highway', 'layer', 'level', 'indoor', 'leaf_type', 'parking', 'railway', 'fence_type', 'height', 'highway', 'place', 'building', 'tourism'];
             for (const k of keep) if (a[k] !== undefined) o[k.replace(':', '_')] = a[k];
+            if (a.holes) o.holes = a.holes.map((h) => cleanPoly(h.map(([la, lo]) => P.xy(la, lo))));
             out.areas.push(o);
         }
         for (const t of osm.trees || []) {
@@ -177,6 +276,7 @@ function buildScene(sceneId) {
         if (sp.photo?.iconic?.from) Object.assign(sp.photo.iconic, loc(...sp.photo.iconic.from));
         for (const a of sp.photo?.alternates || []) if (a.from) Object.assign(a, loc(...a.from));
         delete sp.refs_candidates; delete sp.sources_rank; delete sp.why_top10;
+        if (cfg.buc) { sp.dialogue = bucDialogue(s, research); delete sp.osm; delete sp.colour_samples; delete sp.refs; }
         spotsOut[s.id] = sp;
     }
 
@@ -184,9 +284,9 @@ function buildScene(sceneId) {
         id: sceneId, city: first.city, name: cfg.name || first.name, timeZone: cfg.tz,
         origin, projection: { mLat: r2(P.mLat), mLon: r2(P.mLon) },
         members: cfg.members, terrain, ...out, spots: spotsOut,
-        dialogueGeneral: research.dialogue_general || null,
-        culture: research.culture || null,
-        attribution: '© OpenStreetMap contributors (ODbL 1.0); terrain: USGS 3DEP via EPQS; scene specs: game/research/' + cfg.research,
+        dialogueGeneral: cfg.buc ? { lines: bucGeneral(research).lines } : research.dialogue_general || null,
+        culture: cfg.buc ? bucGeneral(research).culture : research.culture || null,
+        attribution: '© OpenStreetMap contributors (ODbL 1.0); terrain: ' + (cfg.buc ? 'EU-DEM v1.1 (Copernicus) via OpenTopoData' : 'USGS 3DEP via EPQS') + '; scene specs: game/research/' + cfg.research,
         built: new Date().toISOString(),
     };
     fs.mkdirSync(OUT, { recursive: true });

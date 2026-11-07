@@ -49,6 +49,7 @@ export class Harness {
             if (g.state === 'drive') g.updateDrive(dt);
             else if (g.state === 'office') g.updateOffice(dt);
             else if (g.state === 'foot' && g.updateFoot) g.updateFoot(dt);
+            else if (g.state === 'spot' && g.updateSpot) g.updateSpot(dt);
         };
         // rendering is by far the most expensive part in software GL: render only on request
         const df = g.drawFrame.bind(g);
@@ -163,6 +164,10 @@ export class Harness {
         } else if (g.state === 'foot' && g.updateFoot) {
             if (this.walkAp) this.walkAp(dt);
             g.updateFoot(dt);
+        } else if (g.state === 'spot' && g.updateSpot) {
+            // tourist spot: the game renders every update; only render when a frame is requested
+            if (!g._hSpotPatched) { const fr = g.r3d.frame.bind(g.r3d); g.r3d.frame = (...a) => { if (!this.owned || this._renderNow || g.state !== 'spot') return fr(...a); }; g._hSpotPatched = true; }
+            g.updateSpot(dt);
         } else if (g.state === 'office' && g.office) {
             if (!g.office._hPatched) { const r = g.office.render.bind(g.office); g.office.render = () => { if (this._renderNow) r(); }; g.office._hPatched = true; }
             g.updateOffice(dt);

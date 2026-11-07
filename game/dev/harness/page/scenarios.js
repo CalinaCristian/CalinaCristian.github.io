@@ -521,7 +521,7 @@ export const SCENARIOS = [
                 res.start = H.where(g.player.x, g.player.z);
                 res.problems = checkPose(H, `chapter ${ch.id} start`);
                 res.route = g.nav.route ? Math.round(g.nav.route.total) : null;
-                const maxLen = ch.district === 'bellevue' ? 12000 : 2500;
+                const maxLen = ch.district === 'bellevue' ? 4000 : ch.district === 'seatac' ? 6000 : 2500; // bellevue ≤ 3 min since 2026-11-07
                 if (!g.objective) H.issue('chapter-no-objective', 'high', `chapter ${ch.id}: no objective at the start`, {}, { key: 'cho:' + ch.id });
                 else if (!g.nav.route) H.issue('route-failure', 'high', `chapter ${ch.id}: no route from the start to ${g.objectivePlain}`, {}, { key: 'chr:' + ch.id });
                 else if (res.route < 1500 || res.route > maxLen) H.issue('chapter-route-length', 'low', `chapter ${ch.id}: route ${res.route} m from the start (spec 1.5–${maxLen / 1000} km)`, { route: res.route }, { key: 'chlen:' + ch.id });
@@ -644,3 +644,73 @@ export const SCENARIOS = [
         },
     },
 ];
+
+// ---------------------------------------------------------------- tourist spots (spec 15): enter from the drive, walk, photo, postcard, pause → leave
+/** one spot visit: g.enterSpot(id) from the current drive, walk ~10 s, a photo, the postcard pose, Esc → "Leave tourist spot",
+ *  then the drive must be back exactly as it was (state, scene, car pose) */
+async function visitSpot(H, id) {
+    const g = H.g, res = { id };
+    if (typeof g.enterSpot !== 'function') { H.note('no tourist spots in the game: skipped'); return { skipped: true }; }
+    if (g.state !== 'drive' && g.state !== 'foot') await prep(H);
+    const from = g.state, P = g.player, car = P ? { x: P.x, z: P.z, h: P.heading } : null, scene0 = g.scene;
+    H.setControls(0, 0, true);
+    const t0 = performance.now();
+    const ok = await g.enterSpot(id);
+    res.loadMs = Math.round(performance.now() - t0);
+    if (!ok || g.state !== 'spot' || !g.spot) { H.issue('spot-enter-failed', 'high', `tourist spot ${id}: enterSpot failed (state ${g.state})`, {}, { key: 'spe:' + id }); return res; }
+    H.setControls(0, 0, false);
+    const S = g.spot, C = S.ctl;
+    res.walker = S.walkerKind; res.sceneTris = S.spot?.tris ?? null;
+    await H.run(0.5);
+    res.shotIn = await H.shot(`spot-${id}-in`);
+    const rs = g.r3d?.stats; if (rs) res.render = { drawCalls: rs.drawCalls, triangles: rs.triangles, quality: rs.quality };
+    // walk: 5 s ahead, then 4 s after a turn
+    const p0 = { x: C.x, z: C.z };
+    C.auto = { fwd: 1, side: 0, run: true, heading: C.heading };
+    await H.run(5);
+    C.auto.heading = C.heading + 1.4; await H.run(4);
+    C.auto = null; await H.run(0.3);
+    res.walked = r1(Math.hypot(C.x - p0.x, C.z - p0.z)); res.y = r2(C.y);
+    if (![C.x, C.y, C.z].every(Number.isFinite)) H.issue('spot-nan', 'high', `tourist spot ${id}: walker position is NaN`, {}, { key: 'spn:' + id });
+    else if (res.walked < 2) H.issue('spot-walk-stuck', 'medium', `tourist spot ${id}: walked only ${res.walked} m in 9 s from the spawn`, {}, { shot: true, key: 'sps:' + id });
+    // photo (rendered on request, the harness owns the frames)
+    if (g.photo) {
+        const cam = (fn) => { const pr = g.photo.o.render; g.photo.o.render = () => H.renderFrame(); return fn().finally(() => { g.photo.o.render = pr; }); };
+        g.photo.open(); await H.run(0.2);
+        res.photoOpen = !!g.photo.active;
+        const shot = await cam(() => g.photo.shoot());
+        res.photoBytes = shot?.meta?.bytes ?? null; res.photoPlace = shot?.meta?.place ?? null;
+        if (!shot) H.issue('spot-photo-failed', 'medium', `tourist spot ${id}: the camera produced no photo`, {}, { key: 'spp:' + id });
+        // the postcard challenge pose (research iconic photo)
+        const ch = (S.spot?.challenges || []).find(c => c.id === id) || S.spot?.challenges?.[0];
+        if (ch && C.teleport) {
+            C.teleport(ch.x, ch.z, -(ch.bearing * Math.PI / 180)); C.pitch = 0.05; C.place?.(); await H.run(0.2);
+            const s2 = await cam(() => g.photo.shoot());
+            res.postcard = !!s2 && !!(S.progress?.postcards?.[ch.id]);
+        }
+        g.photo.close(); await H.run(0.2);
+    }
+    // seattle-center: the other entrances via the pause panel
+    // pause → leave
+    H.press('Escape'); await H.run(0.2);
+    res.paused = !!g.hud.panelOpen;
+    if (!res.paused) H.issue('spot-pause-missing', 'medium', `tourist spot ${id}: Esc did not open the pause panel`, {}, { key: 'spz:' + id });
+    const tp = document.querySelector('#panel [data-spot-act=tp]');
+    if (tp) { tp.click(); await H.run(0.5); res.teleported = g.spotId === tp.dataset.id; H.press('KeyM'); await H.run(0.2); }
+    const leave = document.querySelector('#panel [data-spot-act=leave]');
+    if (leave) leave.click(); else g.leaveSpot();
+    await H.run(0.3);
+    res.back = g.state;
+    if (g.state !== from) H.issue('spot-leave-state', 'high', `tourist spot ${id}: left to state ${g.state}, expected ${from}`, {}, { key: 'spl:' + id });
+    if (g.r3d?.scene !== scene0) H.issue('spot-leave-scene', 'high', `tourist spot ${id}: the renderer did not get the street scene back`, {}, { key: 'spr:' + id });
+    if (car && Math.hypot(P.x - car.x, P.z - car.z) > 0.5) H.issue('spot-car-moved', 'medium', `tourist spot ${id}: the car moved ${r1(Math.hypot(P.x - car.x, P.z - car.z))} m while away`, {}, { key: 'spc:' + id });
+    if (document.body.classList.contains('in-spot')) H.issue('spot-leave-css', 'medium', `tourist spot ${id}: body.in-spot still set after leaving`, {}, { key: 'spk:' + id });
+    await H.run(1);
+    res.shotBack = await H.shot(`spot-${id}-back`);
+    return res;
+}
+{
+    let ids = [];
+    try { ids = (await import('../../../src/spots/index.js')).SPOTS.map(s => s.id); } catch (e) { console.warn('[harness] spots module', e); }
+    for (const id of ids) SCENARIOS.push({ id: 'spots:' + id, group: 'spots', title: `Tourist spot ${id}: enter from the drive, walk, photo + postcard pose, pause → leave, drive restored`, city: 'bucharest', run: (H) => visitSpot(H, id) });
+}

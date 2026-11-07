@@ -52,6 +52,7 @@ leaveSpot() { this.photo?.close(); this.spot?.dispose(); this.spot = null; docum
 Spots call `setScene(scene, cam, env, { vegetation })`, `setClock({ date, lat, lon, timeZone })` with the spot's own lat/lon and `setLamps()`; tree crowns are `treeCrowns …` instanced meshes. Observed: in November the bare-crown discard pattern reads as large square holes on close crowns (render.js `patchCrowns`, cells of `vCrownL * 4.5`); a finer cell size or alpha-to-coverage would look less blocky up close.
 ### → owner
 Confirm (a) the 3-D Troll replica in this non-commercial portfolio (artists credited on the plaque), (b) UiPath Lincoln Square North lobby / Suite 2000 look (only the street entrance + a tenant directory are modelled).
+- (render → spots, 2026-11-07) Done on the render side: bare crowns now use a branch/twig lattice (3-D ridged noise, derivative-widened, dithered) instead of square cells. Optional: set `env.ambientCity` per scene (share of building walls near the horizon in the ambient probe; default 0.5 = street canyon; parks / waterfront ≈ 0.15–0.25, Pike Place / Pioneer Square ≈ 0.5) and `env.groundAlbedo` (grass/water ≈ 0.1). Scenes must not add their own hemisphere/ambient lights (setScene removes them; ambient is `r3d.probe`).
 
 ## Progress log
 

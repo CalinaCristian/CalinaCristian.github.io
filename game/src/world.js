@@ -558,7 +558,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     //      node.y / edge.ya / edge.yb are the vertical displacement of the road surface (asphalt top = 0.24 + y).
     const CLEAR = 6, GRADE = 0.09;
     const crossings = []; // {u (upper), f (lower), x, z}
-    let profileStats = null, wallCut = 0, blocksLane = null;
+    let profileStats = null, profileStats0 = null, wallCut = 0, blocksLane = null;
     {
         for (const e of edges) { e.L = e.virtual ? 0 : Math.max(-2, Math.min(3, e.bridge ? Math.max(1, e.layer) : e.tunnel ? Math.min(-1, e.layer) : 0)); e.over = null; e.anchorH = 0; }
         const near = (e) => { const s = new Set([e.a, e.b]); for (const n of [e.a, e.b]) for (const f of n.edges) { s.add(f.a); s.add(f.b); } return s; };
@@ -802,13 +802,31 @@ export async function buildWorld(city, renderer, opts = {}) {
             }
             return bad;
         };
-        void stepO2;
+        // (2026-11-07, world-visual) a few merge-or-separate rounds for overlapping carriageways 0.45–4 m apart (ramps
+        // lying 1–4 m above the street beside / under them, review #15c / #18), each followed by the grade fix; kept
+        // only when it reduces those overlaps without adding clearance violations at crossings
+        {
+            const tuOf = (c, e) => clamp(((c.x - e.a.x) * e.dirx + (c.z - e.a.z) * e.dirz) / e.len, 0, 1);
+            const score = () => {
+                let cb = 0, ob = 0;
+                for (const c of crossings) if ((yP(c.u, tuOf(c, c.u)) - yP(c.f, tuOf(c, c.f))) * (c.u.L > 0 ? 1 : -1) < 4.5) cb++;
+                for (const o of overlaps) { const d = Math.abs(yP(o.e, o.te) - yP(o.f, o.tf)); if (d > 0.45 && d < 4) ob++; }
+                return { cb, ob };
+            };
+            const keep = nodeArr.map(n => n.y), s0 = score();
+            if (s0.ob) {
+                for (let r = 0; r < 8; r++) { if (!stepO2()) break; capY(); gradeFix(); }
+                const s1 = score();
+                if (s1.cb > s0.cb || s1.ob >= s0.ob || resid() > 0.05) nodeArr.forEach((n, i) => { n.y = keep[i]; });
+                else profileStats0 = { overlapsBefore: s0.ob, overlapsAfter: s1.ob, crossBefore: s0.cb, crossAfter: s1.cb };
+            }
+        }
         let residual = 0; for (const e of edges) if (!e.virtual) residual = Math.max(residual, Math.abs(e.b.y - e.a.y) - MAXG * e.len);
         for (const e of edges) { e.ya = e.a.y; e.yb = e.b.y; }
         let cBad = 0, oBad = 0;
         for (const c of crossings) { const tu = clamp(((c.x - c.u.a.x) * c.u.dirx + (c.z - c.u.a.z) * c.u.dirz) / c.u.len, 0, 1), tf = clamp(((c.x - c.f.a.x) * c.f.dirx + (c.z - c.f.a.z) * c.f.dirz) / c.f.len, 0, 1); if ((yP(c.u, tu) - yP(c.f, tf)) * (c.u.L > 0 ? 1 : -1) < 3) cBad++; }
         for (const o of overlaps) { const d = Math.abs(yP(o.e, o.te) - yP(o.f, o.tf)); if (d > 0.45 && d < 2.6) oBad++; }
-        profileStats = { crossings: crossings.length, overlaps: overlaps.length, clearanceViolations: cBad, overlapSteps: oBad, gradeResidual: +residual.toFixed(3), hardNodes: hard.size, nanAt };
+        profileStats = { merge: profileStats0, crossings: crossings.length, overlaps: overlaps.length, clearanceViolations: cBad, overlapSteps: oBad, gradeResidual: +residual.toFixed(3), hardNodes: hard.size, nanAt };
         function yAt(e, x, z) { const t = clamp(((x - e.a.x) * e.dirx + (z - e.a.z) * e.dirz) / e.len, 0, 1); return e.a.y + (e.b.y - e.a.y) * t; }
         // ramps (embankments / trenches) have at most a narrow service walkway: their walls stand right at the kerb
         for (const e of edges) if (!e.bridge && Math.max(Math.abs(e.ya), Math.abs(e.yb)) > 0.3) e.sidewalk = Math.min(e.sidewalk, 0.5);
@@ -945,18 +963,38 @@ export async function buildWorld(city, renderer, opts = {}) {
     //  ROADS
     // -----------------------------------------------------------------------
     setProgress('Paving the streets…'); await tick();
-    const asphaltBase = rgb(env.asphalt);
+    // asphalt albedo (linear vertex colour): weathered asphalt is ≈ 0.09–0.15, so the road reads mid-grey in shade
+    // and does not wash out in sun under ACES. Bucharest: lighter, sun-bleached, patched; Seattle: darker, wetter
+    // asphalt, and Portland-cement concrete panels on the motorway main lines (I-5 / I-405 / SR-518).
+    // (env.asphalt, the old near-black [7, 8, 9] in Seattle, is no longer used for carriageways)
+    const ASPHALT = US ? '#5d5c5a' : '#6c6b69', CONCRETE = '#878581'; // (slightly warm: the sky-lit shade is blue)
+    const asphaltBase = rgb(ASPHALT), concreteCol = rgb(CONCRETE);
     const sideCol = rgb(env.sidewalk);
     const kerbCol = shadeRgb(rgb(env.sidewalk), 1.18);
     const white = rgb('#e9e9e6'), yellow = rgb('#e3b341'), busCol = rgb('#8a3b34'), railCol = rgb('#55524e'), ballastCol = rgb('#6d6861');
     const layerY = () => 0; // real heights are applied per vertex (node.y), see displace()
-    const asphaltOf = (e) => {
+    const isConcrete = (e) => US && e.type === 'motorway';
+    // US ramps: concrete where they leave / join the motorway (they overlap it at the gore), fading to asphalt over
+    // 40–120 m along the ramp, so neither the gore nor the ramp terminal shows a two-colour slab (review #2)
+    const linkDist = new Map();
+    if (US) {
+        const heap = [];
+        for (const n of nodeArr) if (n.edges.some(isConcrete)) { linkDist.set(n, 0); heap.push(n); }
+        while (heap.length) { // (small graphs: a plain relaxation queue is enough)
+            const n = heap.shift(), d0 = linkDist.get(n);
+            for (const e of n.edges) { if (e.type !== 'motorway_link' || e.virtual) continue; const o = e.a === n ? e.b : e.a, d = d0 + e.len; if (d < (linkDist.get(o) ?? Infinity) && d < 200) { linkDist.set(o, d); heap.push(o); } }
+        }
+    }
+    const mixCol = (a, b, t) => [Math.round(a[0] + (b[0] - a[0]) * t), Math.round(a[1] + (b[1] - a[1]) * t), Math.round(a[2] + (b[2] - a[2]) * t)];
+    const nodeSurf = (n) => { const d = linkDist.get(n); return d == null ? asphaltBase : mixCol(concreteCol, asphaltBase, clamp((d - 40) / 80, 0, 1)); };
+    const asphaltOf = (e) => { // (one shade per class family: overlapping ribbons of one colour cannot flicker)
         if (e.unpaved) return rgb('#6b645b');
-        let c = asphaltBase;
-        if (US && /motorway/.test(e.type)) c = rgb('#5c5c5e');
-        if (e.tunnel) c = shadeRgb(c, 0.55);
-        return c;
+        if (isConcrete(e)) return e.tunnel ? shadeRgb(concreteCol, 0.85) : concreteCol;
+        return e.tunnel ? shadeRgb(asphaltBase, 0.85) : asphaltBase;
     };
+    /** [colour at a, colour at b] of a carriageway (ramps fade) */
+    const asphaltEnds = (e) => (US && e.type === 'motorway_link' && !e.tunnel) ? [nodeSurf(e.a), nodeSurf(e.b)] : [asphaltOf(e), asphaltOf(e)];
+    const padAsphalt = (n) => { const es = n.edges.filter(f => !f.virtual); const cc = es.filter(isConcrete).length; if (cc * 2 >= es.length && cc) return concreteCol; if (es.length && es.every(f => f.tunnel)) return shadeRgb(asphaltBase, 0.85); return es.some(f => f.type === 'motorway_link') ? nodeSurf(n) : asphaltBase; };
     const isPadNode = (n) => {
         if (n.edges.length !== 2) return n.edges.length >= 3;
         const [e1, e2] = n.edges;
@@ -1025,6 +1063,17 @@ export async function buildWorld(city, renderer, opts = {}) {
 
     const lampSpots = [];
     const treeSpots = [];
+    const zebraRects = []; // signalised-junction crossings drawn so far {e, rect}
+    const convexOverlap = (A, B) => { // separating axis test, convex polygons [[x, z]…]
+        for (const P of [A, B]) for (let i = 0; i < P.length; i++) {
+            const [ax, az] = P[i], [bx, bz] = P[(i + 1) % P.length], nx = bz - az, nz = ax - bx;
+            let a0 = Infinity, a1 = -Infinity, b0 = Infinity, b1 = -Infinity;
+            for (const [x, z] of A) { const v = x * nx + z * nz; a0 = Math.min(a0, v); a1 = Math.max(a1, v); }
+            for (const [x, z] of B) { const v = x * nx + z * nz; b0 = Math.min(b0, v); b1 = Math.max(b1, v); }
+            if (a1 <= b0 || b1 <= a0) return false;
+        }
+        return true;
+    };
     const ribbons = []; // carriageway polygons (asphalt incl. shoulder) of every edge + junction pads → definitive clearance checks
     const dash = US ? [3, 9] : [3, 5];
     const displace = (mb, from, fn) => { for (let i = from; i < mb.vc; i++) mb.p[i * 3 + 1] += fn(mb.p[i * 3], mb.p[i * 3 + 2]); };
@@ -1040,6 +1089,9 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (e.virtual) continue;
             const aR = corner(e, e.a, 1, widthAsphalt(e, 1), widthAsphalt), aL = corner(e, e.a, -1, widthAsphalt(e, -1), widthAsphalt);
             const bR = corner(e, e.b, 1, widthAsphalt(e, 1), widthAsphalt), bL = corner(e, e.b, -1, widthAsphalt(e, -1), widthAsphalt);
+            // a mitre longer than a short edge folds that side over itself (bow-tie / flipped quad, review #22): collapse
+            // the folded side to its midpoint (a triangle) instead
+            for (const [P, Q] of [[aR, bR], [aL, bL]]) if ((Q[0] - P[0]) * e.dirx + (Q[1] - P[1]) * e.dirz < 0.05) { const mx = (P[0] + Q[0]) / 2, mz = (P[1] + Q[1]) / 2; P[0] = Q[0] = mx; P[1] = Q[1] = mz; }
             const poly = [aR, bR, bL, aL]; ribPoly.set(e, poly);
             for (const [n, p, q] of [[e.a, aR, aL], [e.b, bR, bL]]) if (n.pad) { let o = padPts.get(n); if (!o) padPts.set(n, o = []); o.push(p, q); }
         }
@@ -1048,20 +1100,38 @@ export async function buildWorld(city, renderer, opts = {}) {
         for (const [n, pts] of padPts) if (pts.length >= 3) ins({ node: n, h: () => n.y }, convexHull(pts));
     }
     /** is (x, z) at height y well inside a road surface other than edge e's own ribbon? (inset m from its rim) */
-    const coveredByOther = (x, z, e, y, inset = 0.25) => {
+    // prio (markings): where two carriageways overlap in plan (a ramp along its motorway at a split / merge, the two
+    // directions of a road mapped too close), only the higher-class one (then the lower id) keeps its markings, so the
+    // overlap reads as one road with one set of lines instead of a slab with none (review #3 / #4); pads always win
+    const markWins = (e, f) => { if (Math.abs(e.dirx * f.dirx + e.dirz * f.dirz) < 0.94) return false; const re = CLASS_RANK[e.type] || 0, rf = CLASS_RANK[f.type] || 0; return re !== rf ? re > rf : e.id < f.id; }; // (near-parallel overlaps only: a road crossing at grade keeps its mouth clear)
+    const coveredByOther = (x, z, e, y, inset = 0.25, prio = false) => {
         let hit = false;
         surfGrid.each(x, z, x, z, (o) => {
             if (hit || o.e === e || x < o.x0 || x > o.x1 || z < o.z0 || z > o.z1) return;
+            if (prio && o.e && markWins(e, o.e)) return;
             if (Math.abs(o.h(x, z) - y) > 1.0 || !pointInPolygon(x, z, o.poly) || polyDist(x, z, o.poly) < inset) return;
             hit = true;
         });
         return hit;
     };
     /** a MeshBuilder proxy for edge e's markings: quads whose centre lies on another surface (pad, touching carriageway) are dropped */
+    //   (2026-11-07) and every corner must lie on the edge's own carriageway (± 5 cm): pieces that stick out of it
+    //   (edge lines over the sidewalk past a mitre, bus bands where the ribbon narrows) are halved along their
+    //   length until they fit or are shorter than 0.5 m (then dropped)
+    const onOwn = (e, x, z, tol = 0.05) => { const p = ribPoly.get(e); return !p || pointInPolygon(x, z, p) || polyDist(x, z, p) < tol; };
     const markProxy = (mb, e) => ({
-        flatQuad(x0, z0, x1, z1, x2, z2, x3, z3, y, col, uvS) {
+        flatQuad(x0, z0, x1, z1, x2, z2, x3, z3, y, col, uvS, depth = 0) {
             const cx = (x0 + x1 + x2 + x3) / 4, cz = (z0 + z1 + z2 + z3) / 4;
-            if (coveredByOther(cx, cz, e, yAlong(e, cx, cz), 0.15)) return;
+            if (coveredByOther(cx, cz, e, yAlong(e, cx, cz), 0.15, true)) return;
+            const ok = (x, z) => onOwn(e, x, z) && !coveredByOther(x, z, e, yAlong(e, x, z), 0.15, true);
+            if (!(ok(x0, z0) && ok(x1, z1) && ok(x2, z2) && ok(x3, z3))) {
+                if (!onOwn(e, cx, cz) && depth > 0) return;
+                if (depth >= 3 || Math.hypot(x1 - x0, z1 - z0) < 0.5) return;
+                const ax = (x0 + x1) / 2, az = (z0 + z1) / 2, bx = (x2 + x3) / 2, bz = (z2 + z3) / 2;
+                this.flatQuad(x0, z0, ax, az, bx, bz, x3, z3, y, col, uvS, depth + 1);
+                this.flatQuad(ax, az, x1, z1, x2, z2, bx, bz, y, col, uvS, depth + 1);
+                return;
+            }
             mb.flatQuad(x0, z0, x1, z1, x2, z2, x3, z3, y, col, uvS);
         },
     });
@@ -1075,8 +1145,10 @@ export async function buildWorld(city, renderer, opts = {}) {
         const ly = layerY(e);
         const yR = Y.road + ly, yS = Y.side + ly, yM = Y.road + ly + Y.mark;
         const [aR, bR, bL, aL] = ribPoly.get(e);
-        const asph = asphaltOf(e);
-        c.road.flatQuad(aR[0], aR[1], bR[0], bR[1], bL[0], bL[1], aL[0], aL[1], yR, asph, 0.15);
+        { const [ca, cb] = asphaltEnds(e); const mb = c.road, u = 0.15;
+          const i0 = mb.v(aR[0], yR, aR[1], 0, 1, 0, aR[0] * u, aR[1] * u, ca), i1 = mb.v(bR[0], yR, bR[1], 0, 1, 0, bR[0] * u, bR[1] * u, cb);
+          const i2 = mb.v(bL[0], yR, bL[1], 0, 1, 0, bL[0] * u, bL[1] * u, cb), i3 = mb.v(aL[0], yR, aL[1], 0, 1, 0, aL[0] * u, aL[1] * u, ca);
+          mb.triUp(i0, i1, i2); mb.triUp(i0, i2, i3); }
         ribbons.push({ e, poly: [aR, bR, bL, aL] });
         // sidewalks
         const hasSide = e.sidewalk > 0.3;
@@ -1097,12 +1169,23 @@ export async function buildWorld(city, renderer, opts = {}) {
                     const L = Math.max(Math.hypot(ib[0] - ia[0], ib[1] - ia[1]), Math.hypot(ob[0] - oa[0], ob[1] - oa[1]));
                     const k = Math.max(1, Math.ceil(L / 4));
                     const lp = (P, Q, f) => [P[0] + (Q[0] - P[0]) * f, P[1] + (Q[1] - P[1]) * f];
+                    // (a piece with a corner on another surface is split in 1 m pieces, each tested on all four corners:
+                    //  no kerb strip reaches into a crossing carriageway — review #8)
+                    const cov = (p) => coveredByOther(p[0], p[1], e, yAlong(e, p[0], p[1]), 0.02);
+                    const piece = (i0, i1, o0, o1) => {
+                        c.ground.flatQuad(i0[0], i0[1], i1[0], i1[1], o1[0], o1[1], o0[0], o0[1], top, kerbCol, 0.25);
+                        c.ground.wall(i0[0], i0[1], i1[0], i1[1], yR - 0.01, top, -e.nx * s, -e.nz * s, shadeRgb(kerbCol, 0.85));
+                    };
                     for (let j = 0; j < k; j++) {
                         const i0 = lp(ia, ib, j / k), i1 = lp(ia, ib, (j + 1) / k), o0 = lp(oa, ob, j / k), o1 = lp(oa, ob, (j + 1) / k);
                         const cx = (i0[0] + i1[0] + o0[0] + o1[0]) / 4, cz = (i0[1] + i1[1] + o0[1] + o1[1]) / 4;
                         if (coveredByOther(cx, cz, e, yAlong(e, cx, cz), 0.05)) continue;
-                        c.ground.flatQuad(i0[0], i0[1], i1[0], i1[1], o1[0], o1[1], o0[0], o0[1], top, kerbCol, 0.25);
-                        c.ground.wall(i0[0], i0[1], i1[0], i1[1], yR - 0.01, top, -e.nx * s, -e.nz * s, shadeRgb(kerbCol, 0.85));
+                        if (!cov(i0) && !cov(i1) && !cov(o0) && !cov(o1)) { piece(i0, i1, o0, o1); continue; }
+                        const m = Math.max(1, Math.ceil(Math.hypot(i1[0] - i0[0], i1[1] - i0[1])));
+                        for (let q = 0; q < m; q++) {
+                            const a0 = lp(i0, i1, q / m), a1 = lp(i0, i1, (q + 1) / m), b0 = lp(o0, o1, q / m), b1 = lp(o0, o1, (q + 1) / m);
+                            if (!cov(a0) && !cov(a1) && !cov(b0) && !cov(b1)) piece(a0, a1, b0, b1);
+                        }
                     }
                 }
             }
@@ -1119,6 +1202,22 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (e.busLane && !/motorway|trunk/.test(e.type)) {
                 if (e.lanesF > 1) band(m, e, s0, s1, med2 + e.laneW * (e.lanesF - 1), med2 + e.laneW * e.lanesF, yM - 0.004, busCol);
                 if (e.lanesB > 1) band(m, e, s0, s1, -(med2 + e.laneW * (e.lanesB - 1)), -(med2 + e.laneW * e.lanesB), yM - 0.004, busCol);
+            }
+            // surface texture: transverse joints on concrete motorways (US, ~4.6 m panels); patched asphalt (repair
+            // patches: Bucharest many, darker / lighter rectangles; Seattle a few dark sealed ones)
+            if (isConcrete(e)) {
+                const jc = shadeRgb(concreteCol, 0.72);
+                for (let s = s0 + 2.3; s < s1 - 0.5; s += 4.6) band(m, e, s - 0.03, s + 0.03, -e.wL + 0.05, e.wR - 0.05, yM - 0.008, jc);
+            } else if (!e.tunnel && e.len > 8) {
+                const pr = makeRng(e.id * 7919 + 101), per = US ? 90 : minor ? 22 : 34;
+                const n = Math.floor((s1 - s0) / per + pr());
+                for (let q = 0; q < n; q++) {
+                    const L = pr.range(1.2, US ? 4 : 7), sa = pr.range(s0 + 0.5, Math.max(s0 + 0.6, s1 - L - 0.5));
+                    const wR2 = e.wR - 0.3, wL2 = -(e.wL - 0.3); if (wR2 - wL2 < 2) break;
+                    const W = Math.min(wR2 - wL2, pr.range(0.9, e.laneW * 1.1)), o = pr.range(wL2, wR2 - W);
+                    const pc = shadeRgb(asphaltBase, US ? 0.72 : pr.chance(0.6) ? 0.74 : 1.12);
+                    band(m, e, sa, sa + L, o, o + W, yM - 0.008, pc);
+                }
             }
             // lane dividers
             if (!minor || e.lanesF > 1 || e.lanesB > 1) {
@@ -1162,15 +1261,25 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const atA = end === e.a;
                 if (end.hasLight && end.edges.length >= 3) {
                     const r = retract(e, end) + 2.0;
-                    const sc = atA ? r + 1.3 : e.len - r - 1.3;
-                    if (sc < 1 || sc > e.len - 1) continue;
+                    // skewed approaches: a crossing that would overlap another approach's crossing steps back (≤ 3 m) or is left out
+                    let sc = null;
+                    for (const back of [0, 1.5, 3]) {
+                        const s2 = atA ? r + 1.3 + back : e.len - r - 1.3 - back;
+                        if (s2 < 1 || s2 > e.len - 1) break;
+                        const P = (s, o) => [e.a.x + e.dirx * s + e.nx * o, e.a.z + e.dirz * s + e.nz * o];
+                        const rect = [P(s2 - 1.5, -e.wL), P(s2 + 1.5, -e.wL), P(s2 + 1.5, e.wR), P(s2 - 1.5, e.wR)];
+                        if (zebraRects.some(z => z.e !== e && convexOverlap(z.rect, rect))) continue;
+                        zebraRects.push({ e, rect }); sc = s2; break;
+                    }
+                    if (sc === null) continue;
                     for (let k = -e.wL + 0.4; k < e.wR - 0.3; k += 1.0) band(m, e, sc - 1.4, sc + 1.4, k, k + 0.5, yM + 0.004, white);
                 }
             }
         }
         // zebra at degree-2 crossing nodes (drawn once by the edge leaving the node)
-        if (e.a.zebra && e.a.edges.length === 2 && e.a.edges[0] === e && !e.unpaved) {
-            for (let k = -e.wL + 0.4; k < e.wR - 0.3; k += 1.0) band(markProxy(c.marks, e), e, -1.4, 1.4, k, k + 0.5, yM + 0.004, white);
+        if (e.a.zebra && e.a.edges.length === 2 && e.a.edges[0] === e && !e.unpaved) { // (on this edge's own ribbon: markings are clipped to it)
+            const z0 = e.len > 4 ? 0.1 : -1.4, z1 = e.len > 4 ? 2.9 : 1.4;
+            for (let k = -e.wL + 0.4; k < e.wR - 0.3; k += 1.0) band(markProxy(c.marks, e), e, z0, z1, k, k + 0.5, yM + 0.004, white);
         }
         // bridges: railings
         if (e.bridge) {
@@ -1202,7 +1311,8 @@ export async function buildWorld(city, renderer, opts = {}) {
                 for (let s = ra + ((e.id * 7) % step); s < rb; s += step) {
                     for (const sd of (e.oneway && e.lanesF <= 1 ? [1] : [1, -1])) {
                         const w = (sd > 0 ? e.wR : e.wL) + shoulderOf(e);
-                        const o = e.bridge ? w + 0.35 : e.sidewalk >= 1.2 ? w + Math.max(0.55, e.sidewalk - 0.45) : w + 1.0;
+                        const yl = e.ya + (e.yb - e.ya) * s / e.len;
+                        const o = e.bridge || Math.abs(yl) > 0.3 ? w + 0.35 : e.sidewalk >= 1.2 ? w + Math.max(0.55, e.sidewalk - 0.45) : w + 1.0; // (on ramps / in trenches: on the deck edge, inside the walls)
                         lampSpots.push([e.a.x + e.dirx * s + e.nx * o * sd, e.a.z + e.dirz * s + e.nz * o * sd, Math.atan2(e.nz * sd, -e.nx * sd), e.ya + (e.yb - e.ya) * s / e.len, hh, e, sd]);
                     }
                 }
@@ -1267,6 +1377,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     }
     // structures under / beside elevated and sunken roads
     const pierSpots = [], pierColl = [];
+    for (const e of edges) e.lidded = !!e.tunnel && !e.virtual && Math.max(e.ya, e.yb) < -4.5;
     for (const e of raised) {
         const c = cellOf((e.a.x + e.b.x) / 2, (e.a.z + e.b.z) / 2);
         const sb = c.solid;
@@ -1294,14 +1405,13 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (down) {
             // trench / tunnel walls facing the road, from the road up to street level
             for (const [o, sgn] of [[wr, -1], [-wl, 1]]) sb.face4(Pm(0, o, Math.min(yA, 0)), Pm(1, o, Math.min(yB, 0)), Pm(1, o, 0.4), Pm(0, o, 0.4), conc, [e.nx * sgn, 0, e.nz * sgn]);
-            if (e.tunnel) {
+            if (e.tunnel && e.lidded) { // (shallow 'tunnels' < 4.5 m deep stay open trenches: a lid would lie on the street)
                 const ca = yA + 5.2, cb = yB + 5.2;
                 sb.face4(Pm(0, wr, ca), Pm(1, wr, cb), Pm(1, -wl, cb), Pm(0, -wl, ca), dark, [0, -1, 0]); // ceiling
                 c.ground.face4(Pm(0, wr + 0.3, 0.06), Pm(1, wr + 0.3, 0.06), Pm(1, -wl - 0.3, 0.06), Pm(0, -wl - 0.3, 0.06), rgb(env.ground), [0, 1, 0]); // lid at street level
                 // portal facade where the tunnel opens onto a non-tunnel road
                 for (const n of [e.a, e.b]) {
-                    if (!n.allEdges && n.edges.every(f => f.tunnel)) continue;
-                    if (n.edges.every(f => f.tunnel || f.virtual)) continue;
+                    if (n.edges.every(f => f === e || f.virtual || f.lidded)) continue;
                     const s2 = n === e.a ? 0 : e.len, yc = (n === e.a ? ca : cb);
                     const out = n === e.a ? -1 : 1;
                     sb.face4(P(s2, wr + 0.5, yc), P(s2, -wl - 0.5, yc), P(s2, -wl - 0.5, 1.2), P(s2, wr + 0.5, 1.2), rgb('#6b6862'), [e.dirx * out, 0, e.dirz * out]);
@@ -1314,14 +1424,14 @@ export async function buildWorld(city, renderer, opts = {}) {
         const c = cellOf(n.x, n.z);
         const ly = Math.max(0, Math.min(...n.edges.map(layerY)));
         if (o.side.length >= 3) c.ground.flatFan(convexHull(o.side), Y.side + ly - 0.004 + n.y, sideCol, 0.25);
-        if (o.road.length >= 3) { const hull = convexHull(o.road); c.pad.flatFan(hull, Y.road + ly + n.y, asphaltOf(n.edges[0]), 0.15); ribbons.push({ node: n, poly: hull }); }
+        if (o.road.length >= 3) { const hull = convexHull(o.road); c.pad.flatFan(hull, Y.road + ly + n.y, padAsphalt(n), 0.15); ribbons.push({ node: n, poly: hull }); }
     }
     // ---- ribbon index: is (x, z) (± r) on a carriageway / junction pad? (tunnel ribbons do not block the surface)
     const ribGrid = new BoxGrid(24);
     for (const rb of ribbons) {
         let x0 = Infinity, z0 = Infinity, x1 = -Infinity, z1 = -Infinity;
         for (const [x, z] of rb.poly) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); }
-        Object.assign(rb, { x0, z0, x1, z1, block: rb.e ? !(rb.e.tunnel && Math.max(rb.e.ya, rb.e.yb) < -2) : rb.node.y > -2, y: rb.e ? Math.max(rb.e.ya, rb.e.yb) : rb.node.y });
+        Object.assign(rb, { x0, z0, x1, z1, block: rb.e ? !rb.e.lidded : rb.node.y > -4.5, y: rb.e ? Math.max(rb.e.ya, rb.e.yb) : rb.node.y });
         ribGrid.insert(x0, z0, x1, z1, rb);
     }
     /** the ribbon (carriageway or junction pad) that a circle (x, z, r) touches, or null */
@@ -1335,7 +1445,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (hit || filter) return hit;
         // also the straight lane strip of every edge from node to node (what traffic / the harness consider the lanes)
         edgeGrid.each(x - r - 12, z - r - 12, x + r + 12, z + r + 12, (e) => {
-            if (hit || e.virtual || (e.tunnel && Math.max(e.ya, e.yb) < -2)) return;
+            if (hit || e.virtual || e.lidded) return;
             const s = (x - e.a.x) * e.dirx + (z - e.a.z) * e.dirz; if (s < 0.3 || s > e.len - 0.3) return;
             const lat = (x - e.a.x) * e.nx + (z - e.a.z) * e.nz;
             if (Math.abs(lat) < (lat >= 0 ? e.wR : e.wL) + r + 0.25) hit = { e, strip: true, y: Math.max(e.ya, e.yb) };
@@ -1383,7 +1493,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             // sub-divide into ~6 m pieces so the wall can be cut where it would cross another carriageway (junction mouths)
             const yAtT = (t) => Y.road + e.ya + (e.yb - e.ya) * t;
             // trench walls reach street level (cars up there must not fall in) — except under a tunnel's roof
-            const range = (y) => kind === 'rail' ? [y > 2.6 ? y - 2.2 : -1.5, y + 1.1] : kind === 'embank' ? [-1.5, y + 1.1] : kind === 'trench' ? [y - 1.5, e.tunnel ? Math.min(1.0, y + 4.6) : 1.0] : [y - 1.0, y + 0.85];
+            const range = (y) => kind === 'rail' ? [y > 2.6 ? y - 2.2 : -1.5, y + 1.1] : kind === 'embank' ? [-1.5, y + 1.1] : kind === 'trench' ? [y - 1.5, e.lidded ? Math.min(1.0, y + 4.6) : 1.0] : [y - 1.0, y + 0.85];
             const n = Math.max(1, Math.ceil((tTo - tFrom) * e.len / 3));
             let last = null;
             for (let k = 0; k < n; k++) {
@@ -1568,7 +1678,12 @@ export async function buildWorld(city, renderer, opts = {}) {
             const n = nodeArr[i]; const real = n ? n.edges.filter(f => !f.virtual) : []; if (real.length !== 1) continue; // (a U-turn connector may join a cut dual carriageway)
             const e = real[0];
             const out = e.a === n ? 1 : -1; // into the edge (= into the map)
-            const ix = e.dirx * out, iz = e.dirz * out, px = -iz, pz = ix;
+            // road direction over the last ~20 m (a short, skewed last OSM segment made the barrier run diagonally)
+            let ix = e.dirx * out, iz = e.dirz * out;
+            { let m = n, f = e, acc = 0, qx = n.x, qz = n.z; const seen = new Set([n]);
+              while (f && acc < 20) { const o = f.a === m ? f.b : f.a; if (seen.has(o)) break; seen.add(o); acc += f.len; qx = o.x; qz = o.z; m = o; const nx2 = o.edges.filter(g => g !== f && !g.virtual); f = nx2.length === 1 ? nx2[0] : null; }
+              const L = Math.hypot(qx - n.x, qz - n.z); if (L > 4) { const dx = (qx - n.x) / L, dz = (qz - n.z) / L; if (dx * ix + dz * iz > 0.7) { ix = dx; iz = dz; } } }
+            const px = -iz, pz = ix;
             const cx = n.x + ix * 1.5, cz = n.z + iz * 1.5, y = Y.road + n.y;
             const half = Math.max(e.wR, e.wL) + shoulderOf(e) + e.sidewalk + 0.3;
             const ax = cx - px * half, az = cz - pz * half, bx = cx + px * half, bz = cz + pz * half;
@@ -1576,7 +1691,9 @@ export async function buildWorld(city, renderer, opts = {}) {
             const w = { wall: true, ax, az, bx, bz, y0a: y - 2, y1a: y + 3, y0b: y - 2, y1b: y + 3, nx: ix, nz: iz, kind: 'closure', soft: true, edge: e, node: n, x: cx, z: cz, r: half + 0.3, hw: 0, hd: 0, angle: 0, poly: null, h: 1.2 };
             walls.push(w); n.mapEnd = true;
             const kind = /motorway|trunk/.test(e.type) ? 'highway' : (/^(primary|secondary)(_link)?$/.test(e.type) || e.lanesF + e.lanesB >= 4) ? 'boulevard' : 'small';
-            mapEnds.push({ x: cx, z: cz, node: n, edge: e, ix, iz, px, pz, half, y, kind, heading: Math.atan2(ix, iz) });
+            // the visible barrier spans the asphalt only (asymmetric on one-way / offset roads): lateral l0…l1 along +p
+            const sgn = px * e.nx + pz * e.nz >= 0 ? 1 : -1, wP = (sgn > 0 ? e.wR : e.wL) + shoulderOf(e), wN = (sgn > 0 ? e.wL : e.wR) + shoulderOf(e);
+            mapEnds.push({ x: cx, z: cz, node: n, edge: e, ix, iz, px, pz, half, y, kind, heading: Math.atan2(ix, iz), l0: -wN, l1: wP });
         }
         if (dmask) { // outline of the inside cells, merged into straight runs
             const { w: MW, h: MH, cell: CS, x0: X0, z0: Z0 } = dmask, B = (i, j) => i >= 0 && j >= 0 && i < MW && j < MH && dmask.bits[j * MW + i] === 1;
@@ -1663,7 +1780,8 @@ export async function buildWorld(city, renderer, opts = {}) {
     for (const lm of LANDMARKS) {
         try {
             let p = city.proj(lm.lat, lm.lon);
-            const ctx = { THREE, rng: makeRng(Math.floor(Math.abs(lm.lat * 1e4 + lm.lon * 1e4))), helpers: landmarkHelpers, proj: city.proj, scale: data.proj.scale, US };
+            // district worlds (1:1): realScale models (contract 01: lk = scale / authoredScale, R = radiusM · scale)
+            const ctx = { THREE, rng: makeRng(Math.floor(Math.abs(lm.lat * 1e4 + lm.lon * 1e4))), helpers: landmarkHelpers, proj: city.proj, scale: data.proj.scale, US, realScale: !!distId };
             if (lm.backdrop) {
                 // real position is beyond the far plane: pull it in along the same bearing from the map centre and shrink it
                 const cx = (bx0 + bx1) / 2, cz = (bz0 + bz1) / 2;
@@ -1676,7 +1794,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (!res || !res.mesh) continue;
             res.mesh.position.set(p.x, res.mesh.position.y || 0.12, p.z);
             // models are authored at 1:1 (Seattle ones already squashed to 0.5) → match the world's x/z scale
-            const lk = lm.city === 'seattle' ? data.proj.scale / SEA_SCALE : data.proj.scale; // (Seattle models are authored squashed by SEA_SCALE)
+            const lk = distId && res.authoredScale ? data.proj.scale / res.authoredScale : lm.city === 'seattle' ? data.proj.scale / SEA_SCALE : data.proj.scale; // (legacy: Seattle models are authored squashed by SEA_SCALE)
             // in the compressed DN1 strip (Băneasa → Otopeni) the city is squashed north–south: squash the model too
             const cf = (!lm.backdrop && data.proj.compress && lm.lat > data.proj.compress.above) ? data.proj.compress.factor : 1;
             if (cf !== 1) {
@@ -1688,7 +1806,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             res.mesh.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
             lmGroup.add(res.mesh);
             const names = (lm.osmNames || []).map(s => s.toLowerCase());
-            const R = (lm.footprintRadius || 0) * lk;
+            const R = distId && res.authoredScale && lm.radiusM != null ? lm.radiusM * data.proj.scale : (lm.footprintRadius || 0) * lk;
             bGrid.each(p.x - R - 60, p.z - R - 60, p.x + R + 60, p.z + R + 60, (b) => {
                 if (b.skip) return;
                 const nm = b.name.toLowerCase();
@@ -1701,7 +1819,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                     collisionBoxes.push({ x: p.x + cb.x * lk, z: p.z + cb.z * lk * cf, hw, hd, angle: 0, r: Math.hypot(hw, hd), h: 20, poly: null });
                 } else collisionBoxes.push({ x: p.x + cb.x * lk, z: p.z + cb.z * lk, hw: cb.hw * lk, hd: cb.hd * lk, angle: cb.angle || 0, r: Math.hypot(cb.hw, cb.hd) * lk, h: 20, poly: null });
             }
-            landmarks.push({ id: lm.id, label: lm.name, x: p.x, z: p.z, clear: res.clear || R, radius: R });
+            landmarks.push({ id: lm.id, label: lm.name, x: p.x, z: p.z, clear: res.clear || R, radius: R, mesh: res.mesh });
         } catch (err) { console.warn('landmark failed', lm.id, err); }
     }
     // landmark collision boxes must not reach into a carriageway (e.g. the squashed SeaTac / OTP terminals over their drives)
@@ -1808,6 +1926,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             const nb = { i: bRecs.length, style: 'glass', h, minH: 0, roof: 'flat', name: p.label, flags: 2, ring, c: [cx, cz], x0: cx - w, z0: cz - w, x1: cx + w, z1: cz + w, area: w * d, skip: false, cv: poi, cvSign: true };
             bRecs.push(nb); bGrid.insert(nb.x0, nb.z0, nb.x1, nb.z1, nb);
             poi.x = cx; poi.z = cz; poi.h = h; poi.w = w; poi.d = d;
+            poi.generated = true;
             }
         } else { poi.h = 18; }
         // floating marker
@@ -1816,7 +1935,17 @@ export async function buildWorld(city, renderer, opts = {}) {
         pin.rotation.x = Math.PI; marker.add(pin);
         const ring = new THREE.Mesh(new THREE.TorusGeometry(2.2, 0.25, 8, 24), new THREE.MeshBasicMaterial({ color: '#ffffff' }));
         ring.rotation.x = Math.PI / 2; ring.position.y = 2.4; marker.add(ring);
-        marker.position.set(poi.x, poi.h + 8, poi.z);
+        { // over the building itself (the centroid of an L / U-shaped footprint can lie over the street)
+            let mx = poi.x, mz = poi.z;
+            if (b && b.ring && !pointInPolygon(mx, mz, b.ring)) {
+                let bd = Infinity; const st = Math.max(1, Math.min(b.x1 - b.x0, b.z1 - b.z0) / 12);
+                for (let x = b.x0; x <= b.x1; x += st) for (let z = b.z0; z <= b.z1; z += st) {
+                    if (!pointInPolygon(x, z, b.ring) || polyDist(x, z, b.ring) < 2) continue;
+                    const d = Math.hypot(x - poi.x, z - poi.z); if (d < bd) { bd = d; mx = x; mz = z; }
+                }
+            } else if (!b && !inLandmark && !poi.generated) { mx = door.x; mz = door.z; } // no footprint: above the door
+            marker.position.set(mx, poi.h + 8, mz);
+        }
         marker.userData.pin = pin;
         poiGroup.add(marker);
         poi.marker = marker; if (p.passing) marker.visible = false; // a passing landmark (caption) has no stop marker / door mat
@@ -1830,6 +1959,57 @@ export async function buildWorld(city, renderer, opts = {}) {
         get() { return this._color; }, set(v) { this._color = v; if (this.marker && v) this.marker.userData.pin.material.color.set(v); }, configurable: true, enumerable: true,
     });
     for (const p of pois) p.color = p._color || (city.pois.find(q => q.id === p.id) || {}).color || null;
+    // CV facade sign on landmark-hosted stops (poi.landmark: uipath-bel → lincoln, uipath-buc → thelandmark, arnia →
+    // europehouse): the models only carry real-world signage, so the stop's sign goes on the facade nearest its door,
+    // found by casting rays from the door at sign height to the model (the real facade, not a trimmed collision box)
+    {
+        const rc = new THREE.Raycaster(), o3 = new THREE.Vector3(), d3 = new THREE.Vector3(), nW = new THREE.Vector3();
+        lmGroup.updateMatrixWorld(true);
+        for (const poi of pois) {
+            if (!poi.landmark || poi.passing) continue;
+            const lmk = landmarks.find(l => l.id === poi.landmark); if (!lmk || !lmk.mesh) continue;
+            const s = signs.get(poi.label, '#111827', '#ffffff', poi._color || '#f97316'); if (!s) continue;
+            const facadeAt = (ys, minDot) => { let best = null;
+                for (let k = -6; k <= 6; k++) { // a fan of rays toward the model
+                    const bx = lmk.x - poi.doorX, bz = lmk.z - poi.doorZ, a0 = Math.atan2(bz, bx) + k * 0.12;
+                    o3.set(poi.doorX, ys, poi.doorZ); d3.set(Math.cos(a0), 0, Math.sin(a0));
+                    rc.set(o3, d3); rc.far = 80;
+                    const hit = rc.intersectObject(lmk.mesh, true).find(h => h.face && h.object.isMesh && h.object.visible);
+                    if (!hit) continue;
+                    nW.copy(hit.face.normal).transformDirection(hit.object.matrixWorld); nW.y = 0;
+                    if (nW.lengthSq() < 0.25) continue; nW.normalize();
+                    if (nW.x * -d3.x + nW.z * -d3.z < minDot) continue; // facing the door
+                    if (!best || hit.distance < best.d) best = { d: hit.distance, x: hit.point.x, z: hit.point.z, nx: nW.x, nz: nW.z };
+                }
+                return best; };
+            // beside the entrance at 7.5 m (its canopy carries the building's own lettering), else above the canopy,
+            // on a flush stretch of facade (slid along it); last resort: over the door, narrower
+            let pick = null;
+            for (const ys of [7.5, 10, 12.5]) {
+                const best = facadeAt(ys, 0.8); if (!best) continue;
+                const { nx, nz } = best, w = 12;
+                for (const sg of [0, 1, -1]) {
+                    const tx = nz * (sg || 1), tz = -nx * (sg || 1), d = sg ? w / 2 + 3 : 0, px = best.x + tx * d, pz = best.z + tz * d;
+                    let flush = true;
+                    for (const f of [-w / 2 + 0.5, -w / 4, 0, w / 4, w / 2 - 0.5]) {
+                        o3.set(px + tx * f + nx * 6, ys, pz + tz * f + nz * 6); d3.set(-nx, 0, -nz); rc.set(o3, d3); rc.far = 12;
+                        const h2 = rc.intersectObject(lmk.mesh, true)[0]; if (!h2 || Math.abs(h2.distance - 6) > 0.6) { flush = false; break; }
+                    }
+                    if (flush) { pick = { ys, nx, nz, cx: px, cz: pz, w }; break; }
+                }
+                if (pick) break;
+            }
+            if (!pick) { const best = facadeAt(7.5, 0.35); if (!best) continue; pick = { ys: 7.5, nx: best.nx, nz: best.nz, cx: best.x, cz: best.z, w: 8 }; }
+            const { ys, nx, nz, cx, cz, w } = pick;
+            const hh = w / s.aspect, mx = cx + nx * 0.15, mz = cz + nz * 0.15;
+            const lx = mx - nz * w / 2, lz = mz + nx * w / 2, rx = mx + nz * w / 2, rz = mz - nx * w / 2;
+            const mbS = signMB(cellOf(mx, mz), s.page), wh = [255, 255, 255];
+            const i0 = mbS.v(lx, ys - hh / 2, lz, nx, 0, nz, s.u0, s.v0, wh), i1 = mbS.v(rx, ys - hh / 2, rz, nx, 0, nz, s.u1, s.v0, wh);
+            const i2 = mbS.v(rx, ys + hh / 2, rz, nx, 0, nz, s.u1, s.v1, wh), i3 = mbS.v(lx, ys + hh / 2, lz, nx, 0, nz, s.u0, s.v1, wh);
+            mbS.tri(i0, i1, i2); mbS.tri(i0, i2, i3);
+            poi.landmarkSign = { x: mx, z: mz, y: ys, nx, nz, w, h: hh };
+        }
+    }
 
     // ground-floor shops along the streets of the CV stops (the owner drives there: give them life)
     for (const p of pois) if (p.cv) bGrid.each(p.x - 140, p.z - 140, p.x + 140, p.z + 140, (o) => {
@@ -1850,8 +2030,13 @@ export async function buildWorld(city, renderer, opts = {}) {
         let wallCol = rgb(b.colour && b.style !== 'glass' ? b.colour : pal[Math.floor(brng() * pal.length)]); // OSM building:colour / material first
         wallCol = shadeRgb(wallCol, 0.92 + brng() * 0.12);
         if (b.cv) wallCol = shadeRgb(rgb('#f4f1ea'), 1);
+        // very dark researched / tagged facades (dark glass, black cladding: linear luminance < 0.05) read as flat black
+        // blocks in shade: lift them to dark-grey glass and give them the curtain-wall tile
+        const lum = (0.2126 * wallCol[0] + 0.7152 * wallCol[1] + 0.0722 * wallCol[2]) / 255;
+        let darkGlass = false;
+        if (lum < 0.05) { wallCol = lum > 0.004 ? shadeRgb(wallCol, 0.07 / lum) : [17, 19, 22]; darkGlass = true; }
         // facade texture: base tile or its variant (atlas rows 2–3), slightly varied bay width per building
-        const tile = (TILE[b.style] ?? 7) + (brng() < 0.5 ? 8 : 0);
+        const tile = (darkGlass ? TILE.glass : (TILE[b.style] ?? 7)) + (brng() < 0.5 ? 8 : 0);
         let floorH = b.style === 'bloc' ? 2.9 : b.style === 'glass' ? 3.6 : b.style === 'eclectic' || b.style === 'church' ? 3.7 : 3.2;
         if (b.levels > 0 && b.style !== 'church') floorH = clamp((b.h - Math.max(0, b.minH)) / b.levels, 2.6, 5.5); // real floor count from building:levels
         const bayW = (b.style === 'glass' ? 2.4 : b.style === 'house' ? 3.6 : 3.3) * (0.88 + brng() * 0.24);
@@ -2181,10 +2366,11 @@ export async function buildWorld(city, renderer, opts = {}) {
               if (shelterBad() || buildingAt(sx, sz)) continue; }
             const L2W = (lx, lz) => [sx + lx * ca + lz * sa, sz - lx * sa + lz * ca];
             const back = L2W(-side * 0.8, 0); // local +x points toward the road (= -normal)
-            const glass = rgb('#a8c3d6'), frame = rgb(US ? '#2f3e46' : '#3b3f45');
-            c.solid.box(back[0], 0.2, back[1], 0.08, 2.4, 3.6, ang, glass);
-            for (const lz of [-1.8, 1.8]) { const p2 = L2W(-side * 0.8, lz); c.solid.box(p2[0], 0.2, p2[1], 0.12, 2.5, 0.12, ang, frame); const p3 = L2W(-side * 0.1, lz); c.solid.box(p3[0], 0.2, p3[1], 1.4, 2.4, 0.06, ang, glass); }
-            const roofP = L2W(-side * 0.2, 0); c.solid.box(roofP[0], 2.6, roofP[1], 1.9, 0.12, 4.0, ang, frame);
+            // (real STB / King County Metro shelter: ~3.4 × 1.5 m, 2.3 m roof, tinted glass on a raised frame — not a pale box)
+            const glass = rgb('#6f8a99'), frame = rgb(US ? '#2f3e46' : '#3b3f45');
+            c.solid.box(back[0], 0.35, back[1], 0.06, 1.9, 3.2, ang, glass);
+            for (const lz of [-1.6, 1.6]) { const p2 = L2W(-side * 0.8, lz); c.solid.box(p2[0], 0.2, p2[1], 0.1, 2.15, 0.1, ang, frame); const p3 = L2W(-side * 0.25, lz); c.solid.box(p3[0], 0.35, p3[1], 1.1, 1.9, 0.05, ang, glass); }
+            const roofP = L2W(-side * 0.25, 0); c.solid.box(roofP[0], 2.35, roofP[1], 1.6, 0.1, 3.5, ang, frame);
             const bench = L2W(-side * 0.5, 0); c.solid.box(bench[0], 0.45, bench[1], 0.4, 0.08, 2.4, ang, rgb('#6b4a2f'));
             const pole = L2W(side * 0.3, 1.9);
             for (const lz of [-1.3, 0, 1.3]) { const q2 = L2W(-side * 0.5, lz); addPropColl(q2[0], q2[1], 0.75, 'busstop'); }
@@ -2242,7 +2428,15 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (onRibbon(x, z, 0.35 * s + 0.5) || buildingAt(x, z) || isWater(x, z)) return false;
         treeSeen.add(k);
         const isCon = con ?? rng.chance(coniferChance(x, z, kind));
-        treeList.push({ x, z, s, con: !!isCon, dec: dec ?? (isCon ? 0 : 1), kind });
+        // a crown that would reach over a carriageway is pruned like a real street tree: lifted to ≥ 4.4 m clearance
+        // (trunk extended) and narrowed toward the road (no foliage at windscreen height over the lane, review #20)
+        let lift = 0, sh = 1;
+        if (onRibbon(x, z, 2.9 * s)) {
+            let lo = 0.35 * s + 0.5, hi = 2.9 * s;
+            for (let it = 0; it < 4; it++) { const m = (lo + hi) / 2; if (onRibbon(x, z, m)) hi = m; else lo = m; }
+            lift = Math.max(0, 4.4 - (isCon ? 1.5 : 2.2) * s); sh = clamp((lo + 1.2) / (2.6 * s), 0.6, 1);
+        }
+        treeList.push({ x, z, s, con: !!isCon, dec: dec ?? (isCon ? 0 : 1), kind, lift, sh });
         addPropColl(x, z, 0.3 * s, 'tree');
         return true;
     };
@@ -2299,8 +2493,10 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const trunks = new THREE.InstancedMesh(geoTrunk, trunkMat, ts.length);
                 const mask = new Float32Array(ts.length);
                 ts.forEach((t, i) => {
-                    m4.compose(pV.set(t.x, 0.12, t.z), q.setFromAxisAngle(up, rng() * 6.28), sV.set(t.s, t.s * rng.range(0.9, 1.15), t.s));
-                    crowns.setMatrixAt(i, m4); trunks.setMatrixAt(i, m4);
+                    const sy = t.s * rng.range(0.9, 1.15);
+                    q.setFromAxisAngle(up, rng() * 6.28);
+                    m4.compose(pV.set(t.x, 0.12 + (t.lift || 0), t.z), q, sV.set(t.s * (t.sh || 1), sy, t.s * (t.sh || 1))); crowns.setMatrixAt(i, m4);
+                    m4.compose(pV.set(t.x, 0.12, t.z), q, sV.set(t.s, sy + (t.lift || 0) / 3.2, t.s)); trunks.setMatrixAt(i, m4);
                     col.set(rng.pick(con ? CON : BROAD)).multiplyScalar(rng.range(0.88, 1.08)); crowns.setColorAt(i, col);
                     mask[i] = t.dec;
                 });
@@ -2321,7 +2517,10 @@ export async function buildWorld(city, renderer, opts = {}) {
     const lamps = [];
     const lampGrid = new BoxGrid(30);
     const lampNear = (x, z, r) => { let f = false; lampGrid.each(x - r, z - r, x + r, z + r, (l) => { if (!f && Math.hypot(l.x - x, l.z - z) < r) f = true; }); return f; };
-    const addLamp = (l) => { lamps.push(l); lampGrid.insert(l.x, l.z, l.x, l.z, l); addPropColl(l.x, l.z, 0.18, 'lamp'); };
+    // a lamp stands on the surface under its own base (deck, embankment, trench floor, sidewalk or ground), never at
+    // the height of its parent edge's profile while standing beside it (the floating / sunk lamps of review #19b)
+    const standY = (x, z, y) => { let best = 0.15, bd = Math.abs(y - 0.15); surfacesAt(x, z, (h) => { const v = h - Y.road + 0.15, d = Math.abs(v - y); if (d < bd) { bd = d; best = v; } }); return best; };
+    const addLamp = (l) => { l.y = standY(l.x, l.z, l.y); lamps.push(l); lampGrid.insert(l.x, l.z, l.x, l.z, l); addPropColl(l.x, l.z, 0.18, 'lamp'); };
     const osmLamps = data.lamps || [];
     let lampsMoved = 0;
     for (let i = 0; i + 2 < osmLamps.length; i += 3) {
@@ -2388,8 +2587,10 @@ export async function buildWorld(city, renderer, opts = {}) {
         const post = (c, x, z, y, h) => c.solid.box(x, y, z, 0.08, h, 0.08, 0, postCol);
         const sign = (c, x, z, y, ang, text, bg, fg, accent, w = 1.6) => { const sg = signs.get(text, bg, fg, accent, true); if (!sg) return; post(c, x, z, y, 1.4 + 0.25); addSignQuad(c, x, z, ang, 1, w, w / sg.aspect * 1.0, y + 1.4 + w / sg.aspect / 2, sg, 0.05); };
         mapEnds.forEach((m, k) => {
-            const { ix, iz, px, pz, half, y, kind, edge: e } = m, c = cellOf(m.x, m.z), ang = Math.atan2(px, pz), face = Math.atan2(ix, iz); // signs face the driver coming toward the edge
-            const at = (d, l) => [m.x + ix * d + px * l, m.z + iz * d + pz * l];
+            const { ix, iz, px, pz, y, kind, edge: e } = m, c = cellOf(m.x, m.z), ang = Math.atan2(px, pz), face = Math.atan2(ix, iz); // signs face the driver coming toward the edge
+            // lateral positions relative to the middle of the asphalt, `half` = half its width (barriers stop at the kerbs)
+            const half = (m.l1 - m.l0) / 2, lc = (m.l0 + m.l1) / 2;
+            const at = (d, l) => [m.x + ix * d + px * (lc + l), m.z + iz * d + pz * (lc + l)];
             // the closing barrier line (RO red-white boards / US type III barricade: orange-white rails)
             const segs = Math.max(2, Math.round(half * 2 / 1.2)), cA = US ? orange : red;
             for (let j = 0; j < segs; j++) {
@@ -2406,11 +2607,11 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const ab = signs.get(US ? '<<<<' : '◄◄◄', '#141414', '#ffb300', null, true); if (ab) addSignQuad(c, bx, bz, face, 1, 2.0, 0.9, y + 1.8, ab, 0.08);
             }
             // signs on the kerb
-            const [sx, sz] = at(5, half - 0.6), [tx, tz] = at(9, -(half - 0.6));
+            const [sx, sz] = at(5, half + 0.7), [tx, tz] = at(9, -(half + 0.7)); // (on the kerb, just off the asphalt)
             if (US) {
                 sign(c, sx, sz, y, face, 'ROAD CLOSED', '#ffffff', '#111111', null, 1.8);
                 sign(c, tx, tz, y, face, kind === 'highway' ? 'RAMP CLOSED' : k % 2 ? 'LOCAL TRAFFIC ONLY' : 'DETOUR →', kind === 'highway' ? '#ff6a13' : k % 2 ? '#ffffff' : '#ff6a13', '#111111', null, 1.7);
-                if (kind === 'highway') { const [hx, hz] = at(12, half - 0.6); sign(c, hx, hz, y, face, 'CLOSED FOR BRIDGE MAINTENANCE', '#ff6a13', '#111111', null, 2.6); }
+                if (kind === 'highway') { const [hx, hz] = at(12, half + 0.7); sign(c, hx, hz, y, face, 'CLOSED FOR BRIDGE MAINTENANCE', '#ff6a13', '#111111', null, 2.6); }
             } else {
                 sign(c, sx, sz, y, face, 'DRUM ÎNCHIS', '#ffffff', '#c62828', '#c62828', 1.6);
                 sign(c, tx, tz, y, face, k % 2 ? 'DEVIERE →' : 'LUCRĂRI', '#f5c400', '#111111', null, 1.5);
@@ -2511,8 +2712,11 @@ export async function buildWorld(city, renderer, opts = {}) {
     };
     void P;
     // parked cars on surface parking lots
-    let parked = 0; const maxParked = city.id === 'bucharest' ? 2600 : 2000;
     const carKinds = US ? ['suv', 'sedan', 'suv', 'hatch'] : ['hatch', 'sedan', 'hatch', 'suv'];
+    // triangle budget for the merged parked cars (700 k per district): the detailed car models (≈ 1.3 k tris) made the
+    // lots alone 1.5–3.4 M triangles, more than the whole visible-frame budget (spec R12.7: ≤ 1.5 M visible)
+    const carTris = carKinds.reduce((s2, k) => { const pr = carProps(k, CAR_COLORS[0]); return s2 + (pr.index ? pr.index.length / 3 : 772); }, 0) / carKinds.length;
+    let parked = 0; const maxParked = Math.round(Math.min(city.id === 'bucharest' ? 2600 : 2000, 700000 / Math.max(1, carTris)));
     for (const a of areas) {
         if (a.kind !== 'parking' || parked >= maxParked || a.size < 120) continue;
         // orientation: longest edge

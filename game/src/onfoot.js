@@ -7,7 +7,7 @@
 //
 //  new OnFootController({ scene, camera, input, colliders, world?, traffic?, audio?, obstacles?, groundAt? })
 //    colliders: a collision list for collideBuildings (world.buildings, with .query) — or null
-//    obstacles(): [{ x, z, fx, fz, length, width }] extra oriented boxes (e.g. the parked car)
+//    obstacles(): [{ x, z, y?, fx, fz, length, width }] extra oriented boxes (e.g. the parked car; y = base height, default the walker's ground)
 //    groundAt(x, z, y): ground height under the walker (default: world.roadHeight / 0)
 //  enter(x, z, heading, y) · exit() · update(dt) · get position() · teleport(x, z, heading?)
 // ============================================================================
@@ -105,14 +105,14 @@ export class OnFootController {
             }
             // vehicles: oriented boxes, they push you aside (and you can't walk through them)
             const boxes = [];
-            if (this.traffic?.near && feet < 2.5) for (const v of this.traffic.near(this.x, this.z, 9)) if (Math.abs((v.y ?? 0.24) - 0.24 - this.y) < 2) boxes.push({ x: v.x, z: v.z, fx: -Math.sin(v.heading), fz: -Math.cos(v.heading), length: v.length, width: v.width, speed: v.speed, v });
+            if (this.traffic?.near) for (const v of this.traffic.near(this.x, this.z, 9)) if (Math.abs((v.y ?? 0.24) - 0.24 - this.y) < 2) boxes.push({ x: v.x, z: v.z, y: (v.y ?? 0.24) - 0.24, fx: -Math.sin(v.heading), fz: -Math.cos(v.heading), length: v.length, width: v.width, speed: v.speed, v });
             if (this.obstacles) for (const o of this.obstacles() || []) boxes.push(o);
             for (const o of boxes) {
                 const dx = this.x - o.x, dz = this.z - o.z;
                 const f = dx * o.fx + dz * o.fz, l = dx * -o.fz + dz * o.fx;
                 const hl = o.length / 2 + R, hw = o.width / 2 + R;
                 if (Math.abs(f) >= hl || Math.abs(l) >= hw) continue;
-                if (feet > 1.3) continue; // standing on the roof after a jump: fine
+                if (feet - (o.y ?? this.y) > 1.3) continue; // above its base (on the roof after a jump): fine — relative, so it works on any terrain height (spots)
                 const pf = hl - Math.abs(f), pl = hw - Math.abs(l);
                 if (pl < pf) { const s = l >= 0 ? 1 : -1; this.x += -o.fz * s * pl; this.z += o.fx * s * pl; } else { const s = f >= 0 ? 1 : -1; this.x += o.fx * s * pf; this.z += o.fz * s * pf; }
                 if ((o.speed || 0) > 1.5) this.bumped = this.t; // a moving car shoved you

@@ -32,6 +32,18 @@ export const LOOKS = {
     staff: { top: ['#1f4e79', '#14532d', '#d4e157', '#7f1d1d'], legs: ['#1f2937', '#374151'], prop: ['none', 'radio'] },
     kid: { top: ['#f472b6', '#60a5fa', '#facc15', '#34d399', '#f87171', '#a78bfa'], legs: ['#1d4ed8', '#be185d', '#4b5563', ...JEANS], prop: ['none', 'none', 'phone'], scale: [0.55, 0.75] },
     photographer: { top: ['#1f2937', '#3f3f46', '#57534e'], legs: ['#1f2937', ...JEANS], pack: 0.7, prop: ['camera'] },
+    // ---- Bucharest personas (research persona library)
+    local_elder: { top: ['#4a4038', '#3b3a3f', '#5b4b3d', '#6b5b4b', '#2f3437', '#6a3f3a'], legs: ['#2e2e33', '#4a4740', '#3d3a35', '#55524c'], hat: ['#3a342e', '#5a4d40', null, null], prop: ['bag', 'none', 'bag'], scale: [0.9, 1.0] },
+    local_young: { top: ['#1d1f22', '#f5f5f4', '#22304a', '#7a1f2b', '#3f6b4f', '#c2410c', '#6b7280'], legs: JEANS, pack: 0.35, prop: ['phone', 'phone', 'cup', 'none'] },
+    local_parent: { top: ['#334155', '#9a3412', '#0f766e', '#e7e5e4', '#1e3a8a'], legs: JEANS, prop: ['bag', 'phone', 'none'] },
+    tourist_uk: { top: ['#1e3a5f', '#e5e7eb', '#7a1f2b', '#14532d', '#f5f5f4'], legs: ['#a39c88', ...JEANS], prop: ['phone', 'cup', 'camera'], pack: 0.3 },
+    tourist_it: { top: ['#1d4ed8', '#f5f5f4', '#1f2937', '#a16207', '#be123c'], legs: ['#1f2937', '#e7e5e4', ...JEANS], prop: ['phone', 'selfie', 'none'] },
+    tourist_fr: { top: ['#1e3a8a', '#f5f5f4', '#7f1d1d', '#374151', '#d6c7a6'], legs: ['#1f2937', ...JEANS], prop: ['book', 'phone', 'camera'] },
+    tourist_bg: { top: ['#15803d', '#dc2626', '#f5f5f4', '#1f2937', '#0369a1'], legs: JEANS, prop: ['phone', 'bag', 'none'] },
+    waiter: { top: ['#f5f5f4', '#111111', '#f5f5f4'], legs: ['#111111', '#1f2937'], apron: ['#111111', '#3b2a1e', '#7f1d1d'], prop: ['none'] },
+    guard: { top: ['#1f2a3a', '#2b3440', '#2d3a2a'], legs: ['#1f2a3a', '#22252b'], hat: ['#1f2a3a', '#2b3440'], prop: ['radio', 'none'] },
+    tour_guide: { top: ['#f59e0b', '#facc15', '#16a34a', '#2563eb', '#dc2626'], legs: JEANS, prop: ['flag', 'umbrella'], hat: [null, null, '#f59e0b'] },
+    priest: { top: ['#111111'], legs: ['#111111'], hat: ['#111111'], apron: ['#111111'], prop: ['none', 'book'] },
 };
 const PROP = { // size (w, h, d), colour, offset along the forearm
     none: null, phone: { s: [0.075, 0.15, 0.012], c: '#15171a' }, cup: { s: [0.085, 0.13, 0.085], c: '#f5f1e8' }, camera: { s: [0.13, 0.09, 0.09], c: '#1a1b1e' },
@@ -99,6 +111,8 @@ export class Crowd {
         this.peds = []; this.t = 0; this.chatT = 4; this.globalCd = 0; this.idleT = 0; this.recent = [];
         this.lines = o.dialogue?.lines || []; this.general = o.general?.lines || [];
         this.rainy = false;
+        /** current conditions for tagged lines (set by SpotSession): { hour, month, day, tempC, kind, snowCm } */
+        this.cond = null;
         this.net = pathNetwork(o.paths || []);
         const weights = Object.entries(o.personas || { local: 1, tourist_us: 1 });
         const total = weights.reduce((s, [, w]) => s + w, 0);
@@ -220,7 +234,7 @@ export class Crowd {
         if (this.chatT <= 0 && player && camera) {
             this.chatT = r.range(6, 12);
             const cand = this.peds.filter((p) => p.sayCd <= 0 && Math.hypot(p.x - player.x, p.z - player.z) < 22 && this._inView(p, camera));
-            if (cand.length) { const p = r.pick(cand); this._say(p, this.rainy && r() < 0.3 ? 'rain' : 'spot', { ambient: true }); }
+            if (cand.length) { const p = r.pick(cand); if (!(this.rainy && r() < 0.3 && this._say(p, 'rain', { ambient: true }))) this._say(p, r() < 0.7 ? 'spot' : 'idle', { ambient: true }); }
         }
         this._writeMatrices();
     }
@@ -279,13 +293,36 @@ export class Crowd {
         if (hits[0]) this._say(hits[0].p, 'photographed', { force: true });
         return hits.length;
     }
-    /** pick a dialogue line for persona + context (scene lines first, then city-wide), avoiding repeats */
+    /** does a line's time / weather / season tag fit the current conditions? (untagged lines always fit) */
+    fits(l) {
+        const c = this.cond; if (!c || (!l.when && !l.wx && !l.season)) return true;
+        const h = c.hour ?? 12, m = c.month ?? 6, t = c.tempC, k = c.kind || '';
+        if (l.when === 'morning' && !(h >= 5 && h < 11)) return false;
+        if (l.when === 'evening' && !(h >= 18 || h < 4)) return false;
+        if (l.when === 'day' && !(h >= 9 && h < 19)) return false;
+        if (l.wx === 'rain' && !/rain|drizzle|storm|shower/.test(k)) return false;
+        if (l.wx === 'snow' && !(/snow/.test(k) || (c.snowCm || 0) > 0)) return false;
+        if (l.wx === 'hot' && !(t !== undefined && t !== null ? t >= 25 : m >= 5 && m <= 7)) return false;
+        if (l.wx === 'cold' && !(t !== undefined && t !== null ? t <= 4 : m === 11 || m <= 1)) return false;
+        if (l.season === 'xmas' && !(m === 11 || (m === 10 && (c.day || 1) >= 25))) return false;
+        if (l.season === 'march' && !(m === 2 && (c.day || 1) <= 9)) return false;
+        if (l.season === 'winter' && !(m === 11 || m <= 1)) return false;
+        if (l.season === 'spring' && !(m >= 2 && m <= 4)) return false;
+        if (l.season === 'summer' && !(m >= 5 && m <= 8)) return false;
+        if (l.season === 'autumn' && !(m >= 8 && m <= 10)) return false;
+        return true;
+    }
+    /** pick a dialogue line for persona + context (scene lines first, then city-wide), avoiding repeats.
+     *  Lines tagged for the current time / weather / season are preferred (about half the time when there are any). */
     pickLine(persona, ctx) {
         const fresh = (l) => !this.recent.includes(l);
+        const ok = (l) => l.ctx === ctx && this.fits(l);
         const pools = [
-            this.lines.filter((l) => l.ctx === ctx && l.p === persona), this.general.filter((l) => l.ctx === ctx && l.p === persona),
-            this.lines.filter((l) => l.ctx === ctx), this.general.filter((l) => l.ctx === ctx),
+            this.lines.filter((l) => ok(l) && l.p === persona), this.general.filter((l) => ok(l) && l.p === persona),
+            this.lines.filter(ok), this.general.filter(ok),
         ];
+        const tagged = pools[0].concat(pools[2]).filter((l) => (l.when || l.wx || l.season) && fresh(l));
+        if (tagged.length && this.r() < 0.5) return this.r.pick(tagged);
         for (const pool of pools) { const f = pool.filter(fresh); if (f.length) return this.r.pick(f); }
         for (const pool of pools) if (pool.length) return this.r.pick(pool);
         return null;

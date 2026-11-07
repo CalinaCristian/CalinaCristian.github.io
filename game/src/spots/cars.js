@@ -4,8 +4,8 @@
 //  game's vehicle models (vehicles.js, read-only import). Pike Place has none.
 // ============================================================================
 import * as THREE from '../../vendor/three.module.min.js';
-import { makeVehicle, CAR_COLORS } from '../vehicles.js';
-import { alongPolyline, polylineLength, rng } from './kit.js';
+import { makeVehicle, CAR_COLORS, pickFleetKind, fleetColor } from '../vehicles.js';
+import { alongPolyline, polylineLength, rng, GeoBatch } from './kit.js';
 
 const KINDS = ['sedan', 'sedan', 'hatch', 'suv', 'suv', 'pickup', 'van', 'sedan'];
 /**
@@ -14,8 +14,26 @@ const KINDS = ['sedan', 'sedan', 'hatch', 'suv', 'suv', 'pickup', 'van', 'sedan'
  */
 export function addTraffic(ctx, o = {}) {
     const r = rng(o.seed || 11), cars = [];
-    for (const p of o.parked || []) {
-        const v = makeVehicle(p.kind || r.pick(KINDS), p.color || r.pick(CAR_COLORS));
+    // Bucharest scenes: the city's own fleet mix / colours (Dacia & co.), whatever city the game drove last
+    const buc = ctx.data.city === 'bucharest', vo = buc ? { city: 'bucharest' } : {};
+    const kindOf = (k) => k || (buc ? pickFleetKind('bucharest', r) : r.pick(KINDS));
+    const colOf = (c, k) => c || (buc ? fleetColor(k, 'bucharest', r) : r.pick(CAR_COLORS));
+    if (o.merge && o.parked?.length) { // static parked cars merged into 2 draw calls (bodies + parts)
+        const bodies = new GeoBatch(), parts = []; let partsMat = null;
+        for (const p of o.parked) {
+            const k = kindOf(p.kind), v = makeVehicle(k, colOf(p.color, k), vo), y = ctx.ground.heightAt(p.x, p.z) + 0.02;
+            v.position.set(p.x, y, p.z); v.rotation.y = p.yaw; v.updateMatrixWorld(true);
+            const [body, pt] = v.children;
+            if (body?.geometry) bodies.add(body.geometry, 'carpaint', body.matrixWorld, body.material.color, { roughness: 0.32, metalness: 0.3 });
+            if (pt?.geometry) { parts.push(pt.geometry.clone().applyMatrix4(pt.matrixWorld)); partsMat = pt.material; }
+            const L = v.userData.length || 4.5, W = v.userData.width || 1.8;
+            ctx.box(p.x, p.z, W / 2, L / 2, p.yaw, { prop: true, h: 1.5, y });
+        }
+        ctx.add(bodies.build('parked-bodies'));
+        if (parts.length) { const g = mergeAll(parts); const m = new THREE.Mesh(g, partsMat); m.name = 'parked-parts'; m.castShadow = true; m.userData.shared = false; ctx.add(m); for (const q of parts) q.dispose(); }
+    }
+    for (const p of o.merge ? [] : o.parked || []) {
+        const k = kindOf(p.kind), v = makeVehicle(k, colOf(p.color, k), vo);
         v.position.set(p.x, ctx.ground.heightAt(p.x, p.z) + 0.02, p.z); v.rotation.y = p.yaw; ctx.add(v);
         const L = v.userData.length || 4.5, W = v.userData.width || 1.8;
         ctx.box(p.x, p.z, W / 2, L / 2, p.yaw, { prop: true, h: 1.5, y: ctx.ground.heightAt(p.x, p.z) });
@@ -23,7 +41,7 @@ export function addTraffic(ctx, o = {}) {
     for (const lane of o.lanes || []) {
         const L = polylineLength(lane.pts), n = lane.n ?? Math.max(1, Math.round(L / 60));
         for (let i = 0; i < n; i++) {
-            const v = makeVehicle(r.pick(lane.kinds || KINDS), r.pick(CAR_COLORS)); ctx.add(v);
+            const k = lane.kinds ? r.pick(lane.kinds) : kindOf(null), v = makeVehicle(k, colOf(null, k), vo); ctx.add(v);
             cars.push({ v, lane, L, s: (i / n) * L + r() * 10, speed: 0, vmax: (lane.speed || 9) * (0.85 + r() * 0.3), len: v.userData.length || 4.5, wid: v.userData.width || 1.8, x: 0, z: 0, yaw: 0 });
         }
     }
@@ -49,4 +67,20 @@ export function addTraffic(ctx, o = {}) {
     });
     ctx.extras.obstacles = () => cars.filter((c) => c.v.visible).map((c) => ({ x: c.x, z: c.z, fx: -Math.sin(c.yaw), fz: -Math.cos(c.yaw), length: c.len, width: c.wid, speed: c.speed }));
     return { cars };
+}
+
+/** concatenate geometries with identical attribute sets (indexed or not) */
+function mergeAll(list) {
+    const names = Object.keys(list[0].attributes), out = new THREE.BufferGeometry(), idx = []; let base = 0;
+    const arrs = Object.fromEntries(names.map((n) => [n, []]));
+    for (const g of list) {
+        for (const n of names) { const a = g.attributes[n]; if (!a) continue; for (let i = 0; i < a.array.length; i++) arrs[n].push(a.array[i]); }
+        const cnt = g.attributes.position.count;
+        if (g.index) for (const i of g.index.array) idx.push(base + i); else for (let i = 0; i < cnt; i++) idx.push(base + i);
+        base += cnt;
+    }
+    for (const n of names) out.setAttribute(n, new THREE.Float32BufferAttribute(arrs[n], list[0].attributes[n].itemSize));
+    out.setIndex(base > 65535 ? new THREE.Uint32BufferAttribute(idx, 1) : new THREE.Uint16BufferAttribute(idx, 1));
+    out.computeBoundingSphere();
+    return out;
 }

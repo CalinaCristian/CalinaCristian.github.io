@@ -1,0 +1,381 @@
+// ============================================================================
+//  Bucharest kit for spot scenes (spec 15): OSM backdrop in the Bucharest look
+//  (eclectic stucco / 1980s blocks / interwar, white centre lines, cast-iron
+//  lanterns, boulevard candelabras), procedural classical façades for hero
+//  buildings (canvas tiles: arcades, arched / pedimented windows, pilasters,
+//  cornices, loggias — no photo textures: Romania has no freedom of panorama),
+//  see-through stone balustrades, flags (RO / EU / NATO), placed landmark
+//  models from landmarks.js (read-only import) and small street props.
+// ============================================================================
+import * as THREE from '../../vendor/three.module.min.js';
+import { GeoBatch, M, rng, hash2, canvas, canvasTexture, fitDraw, polyArea, centroid, inPoly, polyBox, offsetPolyline, polylineLength, alongPolyline } from './kit.js';
+import { wallGeometry, polyCollider } from './osm.js';
+import { LANDMARKS, buildLandmark } from '../landmarks.js';
+
+// ---------------------------------------------------------------------------- OSM backdrop, Bucharest look
+/** building style for Bucharest OSM buildings (osm.js façade styles) */
+export function bucStyle(b) {
+    const k = b.k, h = b.h || (b.lv ? b.lv * 3.1 : 0), m = b.mat || '';
+    if (/glass/.test(m) || (k === 'office' && h > 34) || h > 55) return 'office';
+    if (k === 'house' || k === 'detached' || k === 'villa' || k === 'semidetached_house') return h > 9 || (b.lv || 2) > 2 ? 'interwar' : 'eclectic';
+    if (k === 'garage' || k === 'shed' || k === 'kiosk' || k === 'service' || k === 'roof') return 'concrete';
+    if (k === 'church' || k === 'chapel' || k === 'cathedral' || k === 'monastery') return 'eclectic';
+    if ((b.lv || 0) >= 7 || h >= 21) return (k === 'office' || k === 'government' || k === 'public') && (b.lv || 0) < 9 ? 'interwar' : 'bloc';
+    if ((b.lv || 0) >= 5 && /apartments|residential/.test(k)) return hash2(b.poly[0][0], b.poly[0][1]) < 0.5 ? 'interwar' : 'bloc';
+    return 'eclectic';
+}
+/**
+ * the standard OSM backdrop in the Bucharest look; o is passed to ctx.osmBackdrop (o.paint merged)
+ * lamps: 'lantern' (old town, parks) | 'candelabra' (boulevards) | 'cobra'
+ */
+export function bucBackdrop(ctx, o = {}) {
+    // lamps only near the walkable extents (+ pad), never inside hero exclusions
+    const boxes = Object.values(ctx.data.spots).map((s) => polyBox(s.extent?.polygon?.length ? s.extent.polygon : [[-150, -150], [150, 150]]));
+    const pad = o.lampPad ?? 60, ex = ctx.exclude;
+    const near = (x, z) => boxes.some((b) => x > b.x0 - pad && x < b.x1 + pad && z > b.z0 - pad && z < b.z1 + pad) && !ex.some((p) => inPoly(x, z, p));
+    ctx.osmBackdrop({
+        urban: true, style: o.style || bucStyle,
+        streetTreeOpts: { spacing: 12, prob: 0.7, ...(o.streetTreeOpts || {}) },
+        lampOpts: { spacing: 32, inside: near, ...(o.lampOpts || {}) },
+        ...o,
+        paint: { centre: '#e8e6df', centreSingle: true, ...(o.paint || {}) },
+    });
+    ctx.treeLod = { dist: 45, cap: 3200, ...(o.treeLod || {}) };
+    ctx.lampOpts = { style: o.lampStyle || 'lantern', color: o.lampColor || '#1b1d1e', h: o.lampH || (o.lampStyle === 'candelabra' ? 9 : 4.4) };
+}
+
+// ---------------------------------------------------------------------------- classical façade tiles
+const FAC = new Map();
+/**
+ * Canvas façade for hero buildings: a tile of 4 bays × 4 bands (bottom → top). Use with wallGeometry(poly, y0, y1,
+ * { bay, floor }, vBase, colour) so one tile spans 4 bays × 4 bands. Vertex colour tints the white stucco.
+ * rows: 4 band specs { t: 'arcade'|'arch'|'arch2'|'rect'|'pediment'|'small'|'loggia'|'blank'|'columns'|'portal', pil?: bool|'pair',
+ *   cornice?: bool, rail?: bool (iron balconette), rustic?: bool, w?: window width frac, top?: frac, bottom?: frac }
+ * o: { glass, trim (shadow tone), lit (prob. of a lit window at night), flood: '#hex' → whole façade glows (floodlit) at night }
+ */
+export function classicFacade(key, rows, o = {}) {
+    if (FAC.has(key)) return FAC.get(key);
+    const T = 512, C = T / 4, c = canvas(T, T), g = c.getContext('2d'), e = canvas(T, T), ge = e.getContext('2d');
+    const glass = o.glass || '#2b3036', r = rng(key.length * 31 + 5);
+    g.fillStyle = '#ffffff'; g.fillRect(0, 0, T, T); ge.fillStyle = '#000'; ge.fillRect(0, 0, T, T);
+    if (o.stripes) { // Wallachian banding: courses of red brick between white plaster bands (Curtea Veche church)
+        const P = o.stripes.period || 32;
+        for (let y = 0; y < T; y += P) { g.fillStyle = o.stripes.brick; g.fillRect(0, y, T, P * 0.45); g.fillStyle = 'rgba(0,0,0,0.18)'; for (let q = y + 4; q < y + P * 0.45; q += 5) g.fillRect(0, q, T, 1); for (let q = 0; q < T; q += 11) g.fillRect(q + ((y / P) % 2) * 5, y, 1, P * 0.45); g.fillStyle = o.stripes.band; g.fillRect(0, y + P * 0.45, T, P * 0.55); }
+    }
+    const shade = (a) => `rgba(60,50,35,${a})`, light = (a) => `rgba(255,255,250,${a})`;
+    const archWin = (x, y, w, h, gl = glass, frame = true) => { // x,y = top-left of the rect part; arch on top
+        g.fillStyle = shade(0.28); g.beginPath(); g.moveTo(x - 3, y + h + 3); g.lineTo(x - 3, y); g.arc(x + w / 2, y, w / 2 + 3, Math.PI, 0); g.lineTo(x + w + 3, y + h + 3); g.closePath(); g.fill();
+        g.fillStyle = gl; g.beginPath(); g.moveTo(x, y + h); g.lineTo(x, y); g.arc(x + w / 2, y, w / 2, Math.PI, 0); g.lineTo(x + w, y + h); g.closePath(); g.fill();
+        if (frame) { g.fillStyle = light(0.55); g.fillRect(x + w / 2 - 1, y - w / 2, 2, h + w / 2); g.fillRect(x, y + h * 0.15, w, 2); g.fillStyle = light(0.12); g.fillRect(x + 2, y + 2, w * 0.3, h * 0.5); }
+        g.fillStyle = light(0.6); g.fillRect(x + w / 2 - 3, y - w / 2 - 7, 6, 7); // keystone
+    };
+    const rectWin = (x, y, w, h, gl = glass) => {
+        g.fillStyle = light(0.5); g.fillRect(x - 5, y - 5, w + 10, h + 9);
+        g.fillStyle = shade(0.3); g.fillRect(x - 1, y - 1, w + 2, h + 2);
+        g.fillStyle = gl; g.fillRect(x, y, w, h);
+        g.fillStyle = light(0.55); g.fillRect(x + w / 2 - 1, y, 2, h); g.fillRect(x, y + h * 0.3, w, 2);
+        g.fillStyle = light(0.12); g.fillRect(x + 2, y + 2, w * 0.3, h * 0.45);
+        g.fillStyle = shade(0.3); g.fillRect(x - 6, y + h + 4, w + 12, 3); g.fillStyle = light(0.6); g.fillRect(x - 6, y + h + 1, w + 12, 3); // sill
+    };
+    const lit = (x, y, w, h) => { if (r() < (o.lit ?? 0.3)) { ge.fillStyle = r() < 0.8 ? `rgb(255,${200 + r() * 30},${130 + r() * 40})` : 'rgb(200,220,255)'; ge.fillRect(x, y, w, h); } };
+    rows.forEach((R, ri) => {
+        const y0 = T - (ri + 1) * C; // band top in canvas px
+        for (let fx = 0; fx < 4; fx++) {
+            const x0 = fx * C, w = (R.w ?? 0.4) * C, cx = x0 + C / 2;
+            if (R.rustic) { g.fillStyle = shade(0.1); for (let q = y0 + 10; q < y0 + C; q += 11) g.fillRect(x0, q, C, 1.5); for (let q = 0; q < C; q += 32) g.fillRect(x0 + q + ((Math.floor((y0) / 11) % 2) * 16), y0, 1, C); }
+            if (R.pil) { // pilasters at the bay edges (pairs if 'pair')
+                const pw = R.pil === 'pair' ? 7 : 10;
+                for (const px of R.pil === 'pair' ? [x0 + 2, x0 + 12, x0 + C - 2 - pw, x0 + C - 12 - pw] : [x0, x0 + C - pw]) { g.fillStyle = light(0.5); g.fillRect(px, y0 + 6, pw, C - 8); g.fillStyle = shade(0.16); g.fillRect(px + pw - 2, y0 + 6, 2, C - 8); g.fillStyle = light(0.65); g.fillRect(px - 2, y0 + 4, pw + 4, 4); }
+            }
+            const top = y0 + (R.top ?? 0.24) * C, bot = y0 + (1 - (R.bottom ?? 0.12)) * C, h = bot - top;
+            switch (R.t) {
+                case 'arcade': { const aw = (R.w ?? 0.62) * C; archWin(cx - aw / 2, y0 + 0.08 * C + aw / 2, aw, C * 0.9 - aw / 2, '#2a2826', false); g.fillStyle = 'rgba(0,0,0,0.35)'; g.fillRect(cx - aw / 2, y0 + C * 0.55, aw, C * 0.43); lit(cx - aw / 2, y0 + C * 0.4, aw, C * 0.58); break; }
+                case 'portal': { const aw = (R.w ?? 0.5) * C; archWin(cx - aw / 2, y0 + 0.12 * C + aw / 2, aw, C * 0.86 - aw / 2, '#3a2e24'); lit(cx - aw / 2, y0 + 0.4 * C, aw, C * 0.5); break; }
+                case 'arch': archWin(cx - w / 2, top + w / 2, w, h - w / 2); lit(cx - w / 2, top, w, h); break;
+                case 'arch2': { const h1 = h * 0.58; rectWin(cx - w / 2, bot - h1, w, h1); archWin(cx - w * 0.35, top + w * 0.35, w * 0.7, h - h1 - w * 0.35 - 10); lit(cx - w / 2, bot - h1, w, h1); break; }
+                case 'rect': rectWin(cx - w / 2, top, w, h); g.fillStyle = light(0.6); g.fillRect(cx - w / 2 - 8, top - 12, w + 16, 5); g.fillStyle = shade(0.25); g.fillRect(cx - w / 2 - 8, top - 7, w + 16, 2); lit(cx - w / 2, top, w, h); break;
+                case 'pediment': rectWin(cx - w / 2, top, w, h); g.fillStyle = light(0.65); g.beginPath(); g.moveTo(cx - w / 2 - 10, top - 7); g.lineTo(cx, top - 22); g.lineTo(cx + w / 2 + 10, top - 7); g.closePath(); g.fill(); g.fillStyle = shade(0.28); g.fillRect(cx - w / 2 - 10, top - 7, w + 20, 2); lit(cx - w / 2, top, w, h); break;
+                case 'small': rectWin(cx - w / 2, top, w, h * 0.7); lit(cx - w / 2, top, w, h * 0.7); break;
+                case 'loggia': { g.fillStyle = '#3a3631'; g.fillRect(x0, top - 6, C, bot - top + 6); g.fillStyle = 'rgba(0,0,0,0.3)'; g.fillRect(x0, top - 6, C, 10); for (const px of [x0 + 4, x0 + C / 2 - 5]) { g.fillStyle = light(0.95); g.fillRect(px, top - 6, 10, bot - top + 6); g.fillStyle = shade(0.2); g.fillRect(px + 7, top - 6, 3, bot - top + 6); } lit(x0 + 16, top, C / 2 - 24, h); break; }
+                case 'columns': { g.fillStyle = '#4a443c'; g.fillRect(x0, y0 + 10, C, C - 14); for (const px of [x0 + 10, x0 + C / 2 + 4]) { g.fillStyle = light(0.95); g.fillRect(px, y0 + 10, 14, C - 14); g.fillStyle = shade(0.3); g.fillRect(px + 10, y0 + 10, 4, C - 14); for (let q = 0; q < 3; q++) { g.fillStyle = shade(0.12); g.fillRect(px + 3 + q * 4, y0 + 12, 1, C - 18); } } break; }
+                case 'niches': { const n = R.n || 4, nw = C / n; for (let q = 0; q < n; q++) { const nx = x0 + q * nw + nw * 0.18, ww = nw * 0.64; g.fillStyle = shade(0.22); g.beginPath(); g.moveTo(nx, bot); g.lineTo(nx, top + ww / 2); g.arc(nx + ww / 2, top + ww / 2, ww / 2, Math.PI, 0); g.lineTo(nx + ww, bot); g.closePath(); g.fill(); g.fillStyle = light(0.5); g.fillRect(nx - 2, bot, ww + 4, 2); } break; }
+                case 'blank': g.fillStyle = shade(0.07); g.fillRect(cx - C * 0.32, y0 + C * 0.22, C * 0.64, C * 0.56); g.fillStyle = light(0.4); g.fillRect(cx - C * 0.32, y0 + C * 0.22, C * 0.64, 3); break;
+                default: break;
+            }
+            if (R.rail) { g.fillStyle = 'rgba(28,28,28,0.9)'; const ry = bot - 14; g.fillRect(cx - w / 2 - 6, ry, w + 12, 2); for (let q = cx - w / 2 - 5; q < cx + w / 2 + 6; q += 4) g.fillRect(q, ry, 1.2, 14); }
+            if (R.balus) { const by = y0 + C - 22; g.fillStyle = light(0.85); g.fillRect(x0, by, C, 4); g.fillRect(x0, y0 + C - 4, C, 4); for (let q = x0 + 3; q < x0 + C; q += 8) { g.fillStyle = light(0.85); g.fillRect(q, by + 4, 4, 14); g.fillStyle = shade(0.25); g.fillRect(q + 3, by + 4, 1, 14); } }
+        }
+        if (R.cornice !== false) { g.fillStyle = light(0.7); g.fillRect(0, y0, T, 5); g.fillStyle = shade(0.3); g.fillRect(0, y0 + 5, T, 3); g.fillStyle = shade(0.1); g.fillRect(0, y0 + 8, T, 3); }
+        if (R.dentils) { for (let q = 0; q < T; q += 6) { g.fillStyle = shade(0.22); g.fillRect(q, y0 + 11, 3, 4); } }
+    });
+    const map = canvasTexture(c, { repeat: true }), em = canvasTexture(e, { repeat: true });
+    const flood = !!o.flood;
+    const m = new THREE.MeshStandardMaterial({ map, vertexColors: true, roughness: 0.82, emissive: new THREE.Color(o.flood || '#ffffff'), emissiveMap: flood ? map : em, emissiveIntensity: 0 });
+    m.name = 'facade-' + key; m.userData.shared = true;
+    if (flood) { m.userData.dayGlow = 0; m.userData.nightGlow = o.floodK ?? 0.55; } else m.userData.nightWindows = true;
+    const S = { bay: o.bay || 4, floor: o.floor || 4 };
+    const res = { mat: m, S, key: 'f-' + key };
+    FAC.set(key, res);
+    return res;
+}
+/** walls with a classic façade into a GeoBatch (material key = fac.key; pass { [fac.key]: fac.mat } as matOverrides at build) */
+export function classicWalls(b, fac, poly, y0, y1, colour = '#e4dccb', vBase = y0) {
+    b.add(wallGeometry(poly, y0, y1, fac.S, vBase, colour), fac.key, null, colour);
+}
+
+// ---------------------------------------------------------------------------- balustrades (alpha-tested, see-through)
+let BAL = null;
+export function balustradeMaterial() {
+    if (BAL) return BAL;
+    const W = 256, H = 64, c = canvas(W, H), g = c.getContext('2d');
+    g.clearRect(0, 0, W, H);
+    g.fillStyle = '#f2ede2'; g.fillRect(0, 0, W, 10); g.fillRect(0, H - 9, W, 9); // rail + plinth
+    for (let i = 0; i < 8; i++) { // vase-shaped balusters
+        const cx = (i + 0.5) * W / 8; g.beginPath(); g.moveTo(cx - 6, H - 9); g.bezierCurveTo(cx - 13, H - 24, cx - 3, H - 34, cx - 4, H - 44); g.lineTo(cx - 6, 10); g.lineTo(cx + 6, 10); g.lineTo(cx + 4, H - 44); g.bezierCurveTo(cx + 3, H - 34, cx + 13, H - 24, cx + 6, H - 9); g.closePath(); g.fill();
+    }
+    g.fillStyle = 'rgba(0,0,0,0.12)'; g.fillRect(0, 8, W, 2);
+    const t = canvasTexture(c, { repeat: true });
+    BAL = new THREE.MeshStandardMaterial({ map: t, alphaTest: 0.5, side: THREE.DoubleSide, roughness: 0.8, vertexColors: true, emissive: new THREE.Color('#ffe2b0'), emissiveMap: t, emissiveIntensity: 0 });
+    BAL.name = 'balustrade'; BAL.userData.shared = true; BAL.userData.dayGlow = 0; BAL.userData.nightGlow = 0.35;
+    return BAL;
+}
+/** balustrade strip along a polyline (closed: back to the start) at height y (number or fn(x,z)), h metres tall */
+export function balustrade(b, pts, y, h = 1.05, { closed = false, colour = '#ffffff', unit = 2.4 } = {}) {
+    const P = closed ? [...pts, pts[0]] : pts, pos = [], uv = [], idx = []; let u = 0;
+    const Y = typeof y === 'function' ? y : () => y;
+    for (let i = 1; i < P.length; i++) {
+        const [ax, az] = P[i - 1], [bx, bz] = P[i], L = Math.hypot(bx - ax, bz - az); if (L < 0.05) continue;
+        const k = pos.length / 3, ya = Y(ax, az), yb = Y(bx, bz);
+        pos.push(ax, ya, az, bx, yb, bz, bx, yb + h, bz, ax, ya + h, az);
+        uv.push(u / unit, 0, (u + L) / unit, 0, (u + L) / unit, 1, u / unit, 1); u += L;
+        idx.push(k, k + 1, k + 2, k, k + 2, k + 3);
+    }
+    const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); g.setIndex(idx); g.computeVertexNormals();
+    b.add(g, 'balustrade', null, colour); g.dispose();
+}
+
+// ---------------------------------------------------------------------------- flags
+const FLAGS = {};
+function flagTexture(kind) {
+    if (FLAGS[kind]) return FLAGS[kind];
+    const c = canvas(192, 128), g = c.getContext('2d');
+    if (kind === 'ro') { ['#002b7f', '#fcd116', '#ce1126'].forEach((col, i) => { g.fillStyle = col; g.fillRect(i * 64, 0, 64, 128); }); }
+    else if (kind === 'eu') { g.fillStyle = '#003399'; g.fillRect(0, 0, 192, 128); g.fillStyle = '#ffcc00'; for (let i = 0; i < 12; i++) { const a = i / 12 * Math.PI * 2; star(g, 96 + Math.cos(a) * 38, 64 + Math.sin(a) * 38, 6); } }
+    else if (kind === 'nato') { g.fillStyle = '#004990'; g.fillRect(0, 0, 192, 128); g.strokeStyle = '#fff'; g.lineWidth = 3; g.beginPath(); g.arc(96, 64, 26, 0, 7); g.stroke(); g.fillStyle = '#fff'; for (let i = 0; i < 4; i++) { const a = i * Math.PI / 2; g.beginPath(); g.moveTo(96, 64); g.lineTo(96 + Math.cos(a) * 44, 64 + Math.sin(a) * 44); g.lineTo(96 + Math.cos(a + 0.35) * 12, 64 + Math.sin(a + 0.35) * 12); g.closePath(); g.fill(); } }
+    else { g.fillStyle = '#fff'; g.fillRect(0, 0, 192, 128); }
+    return (FLAGS[kind] = canvasTexture(c));
+}
+function star(g, x, y, r) { g.beginPath(); for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? r * 0.42 : r; g.lineTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr); } g.closePath(); g.fill(); }
+/**
+ * flagpole with a waving flag; returns { group, update(t, windKmh) }. kind: 'ro' | 'eu' | 'nato'. yaw: wind direction (radians)
+ */
+export function flagpole(x, y, z, h, kind = 'ro', { w = null, yaw = 0, pole = '#d9dcdf' } = {}) {
+    const grp = new THREE.Group(); grp.name = 'flag:' + kind;
+    const pm = new THREE.MeshStandardMaterial({ color: pole, metalness: 0.7, roughness: 0.35 });
+    const pg = new THREE.CylinderGeometry(0.05 + h * 0.002, 0.09 + h * 0.004, h, 8); pg.translate(0, h / 2, 0);
+    const p = new THREE.Mesh(pg, pm); p.castShadow = true; grp.add(p);
+    const ball = new THREE.Mesh(new THREE.SphereGeometry(0.12 + h * 0.003, 8, 6), new THREE.MeshStandardMaterial({ color: '#d8b44a', metalness: 0.9, roughness: 0.3 })); ball.position.y = h + 0.1; grp.add(ball);
+    const fw = w || Math.max(1.2, h * 0.16), fh = fw * 2 / 3;
+    const fg = new THREE.PlaneGeometry(fw, fh, 10, 2); fg.translate(fw / 2, 0, 0);
+    const base = fg.attributes.position.array.slice();
+    const fm = new THREE.MeshStandardMaterial({ map: flagTexture(kind), side: THREE.DoubleSide, roughness: 0.85 });
+    const f = new THREE.Mesh(fg, fm); f.position.y = h - fh / 2 - 0.15; f.castShadow = true;
+    const holder = new THREE.Group(); holder.rotation.y = yaw; holder.add(f); grp.add(holder);
+    grp.position.set(x, y, z);
+    const ph = hash2(x, z) * 6;
+    return {
+        group: grp,
+        update(t, wind = 12) {
+            const P = fg.attributes.position.array, k = Math.min(1, wind / 25) * 0.9 + 0.1;
+            for (let i = 0; i < P.length; i += 3) { const u = base[i] / fw; P[i + 2] = Math.sin(base[i] * 2.2 - t * (3 + k * 4) + ph) * 0.18 * u * fw * 0.25 * k; P[i + 1] = base[i + 1] - u * (1 - k) * fh * 0.35; P[i] = base[i] * (0.75 + 0.25 * k); }
+            fg.attributes.position.needsUpdate = true; fg.computeVertexNormals();
+        },
+    };
+}
+
+// ---------------------------------------------------------------------------- landmark models (landmarks.js, read-only)
+/**
+ * place a landmarks.js model at its own lat/lon (1:1); y = base height. Adds colliders (oriented boxes) to ctx.
+ * @returns {{ mesh, x, z }} or null
+ */
+export function placeLandmark(ctx, id, { y = null, collide = true, colliderH = 60 } = {}) {
+    const lm = LANDMARKS.find((l) => l.id === id); if (!lm) return null;
+    const r = buildLandmark(lm, { THREE, realScale: true }); if (!r) return null;
+    const p = ctx.ll(lm.lat, lm.lon), yy = y ?? ctx.ground.heightAt(p.x, p.z);
+    r.mesh.position.set(p.x, yy, p.z); ctx.add(r.mesh);
+    r.mesh.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
+    if (collide) for (const c of r.collision) ctx.box(p.x + c.x, p.z + c.z, c.hw, c.hd, c.angle, { y0: yy - 1, y1: yy + colliderH });
+    return { mesh: r.mesh, x: p.x, z: p.z, y: yy, lm, tris: r.triangles };
+}
+
+// ---------------------------------------------------------------------------- small helpers
+/** polygon of an OSM building / area by id (data) */
+export const osmPoly = (d, id) => (d.buildings.find((b) => b.id === id) || d.areas.find((a) => a.id === id))?.poly || null;
+let PAL = null;
+function palisadeMaterial() {
+    if (PAL) return PAL;
+    const W = 128, H = 128, c = canvas(W, H), g = c.getContext('2d');
+    g.clearRect(0, 0, W, H); g.fillStyle = '#1d2321';
+    g.fillRect(0, 6, W, 4); g.fillRect(0, H - 14, W, 4); // rails
+    for (let i = 0; i < 8; i++) { const x = i * 16 + 7; g.fillRect(x, 0, 3, H); g.beginPath(); g.moveTo(x - 3, 2); g.lineTo(x + 1.5, -6); g.lineTo(x + 6, 2); g.fill(); } // bars + spear tips
+    const t = canvasTexture(c, { repeat: true });
+    PAL = new THREE.MeshStandardMaterial({ map: t, alphaTest: 0.5, side: THREE.DoubleSide, roughness: 0.5, metalness: 0.5, vertexColors: true });
+    PAL.name = 'palisade'; PAL.userData.shared = true;
+    return PAL;
+}
+/** iron palisade (alpha-tested bars + posts every `post` m, optional stone plinth) along a polyline; collides as wall segments.
+ *  Add { palisade: palisadeMat() } to the batch's matOverrides (or use the returned matOverrides). */
+export function palisade(ctx, b, pts, { h = 2.2, colour = '#ffffff', post = 3, y = null, plinth = 0, plinthCol = '#cfc6b4', postCol = '#1d2321', collide = true } = {}) {
+    const g = ctx.ground, Y = (x, z) => (y ?? g.heightAt(x, z));
+    const pos = [], uv = [], idx = []; let u = 0;
+    for (let i = 1; i < pts.length; i++) {
+        const [ax, az] = pts[i - 1], [bx, bz] = pts[i], L = Math.hypot(bx - ax, bz - az); if (L < 0.2) continue;
+        const ya = Y(ax, az) + plinth, yb = Y(bx, bz) + plinth, k = pos.length / 3;
+        pos.push(ax, ya, az, bx, yb, bz, bx, yb + h, bz, ax, ya + h, az); uv.push(u / 2, 0, (u + L) / 2, 0, (u + L) / 2, 1, u / 2, 1); idx.push(k, k + 1, k + 2, k, k + 2, k + 3); u += L;
+        const n = Math.max(1, Math.round(L / post));
+        for (let q = 0; q <= n; q++) { const t = q / n, x = ax + (bx - ax) * t, z = az + (bz - az) * t, yy = Y(x, z) + plinth; b.box(x, yy, z, 0.14, h + 0.12, 0.14, postCol, 'metal'); b.sphere(x, yy + h + 0.18, z, 0.08, 0.1, 0.08, '#a8893a', 'bronze', 6, 4); }
+        if (plinth > 0) { const cx = (ax + bx) / 2, cz = (az + bz) / 2; b.box(cx, Math.min(ya, yb) - plinth - 0.3, cz, 0.45, plinth + 0.3 + Math.abs(ya - yb), L + 0.3, plinthCol, 'stone', Math.atan2(bx - ax, bz - az)); }
+        if (collide) ctx.collider({ wall: true, ax, az, bx, bz, y0a: ya - plinth - 1, y1a: ya + h, y0b: yb - plinth - 1, y1b: yb + h, x: (ax + bx) / 2, z: (az + bz) / 2, r: L / 2 + 0.5 });
+    }
+    const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); geo.setIndex(idx); geo.computeVertexNormals();
+    b.add(geo, 'palisade', null, colour); geo.dispose();
+    return { palisade: palisadeMaterial() };
+}
+export const palisadeMat = () => palisadeMaterial();
+/** low hedge along a polyline (box segments, green, collides) */
+export function hedge(ctx, b, pts, { h = 1.1, w = 0.9, colour = '#3f5f2f' } = {}) {
+    const g = ctx.ground;
+    for (let i = 1; i < pts.length; i++) {
+        const [ax, az] = pts[i - 1], [bx, bz] = pts[i], L = Math.hypot(bx - ax, bz - az); if (L < 0.3) continue;
+        const cx = (ax + bx) / 2, cz = (az + bz) / 2, a = Math.atan2(bx - ax, bz - az);
+        b.box(cx, g.heightAt(cx, cz) - 0.05, cz, w, h, L + 0.2, colour, 'plant', a);
+        ctx.box(cx, cz, w / 2, L / 2 + 0.1, a, { prop: true, h });
+    }
+}
+export { polyCollider, polyArea, centroid, inPoly, polyBox, offsetPolyline, polylineLength, alongPolyline, M, fitDraw };
+
+// ---------------------------------------------------------------------------- city filler beyond the OSM extract
+import { facadeMaterial, facadeStyle } from './osm.js';
+/**
+ * low-cost city blocks in a ring around the OSM coverage (so the horizon reads as Bucharest, not grass):
+ * jittered grid of 4–14-storey blocks with façade textures, none inside `avoid` polygons or near the data.
+ * o: { ring = 650, spacing = 46, avoid = [], seed, tall = 0.25 }
+ */
+export function cityFiller(ctx, o = {}) {
+    const d = ctx.data, r = rng(o.seed || 77), b = new GeoBatch(), mats = {};
+    let x0 = 1e9, z0 = 1e9, x1 = -1e9, z1 = -1e9;
+    for (const bd of d.buildings) for (const [x, z] of bd.poly) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (z < z0) z0 = z; if (z > z1) z1 = z; }
+    const ring = o.ring ?? 650, sp = o.spacing ?? 46, avoid = o.avoid || [];
+    const cols = { bloc: ['#d9d3c5', '#cfc8b8', '#e2dccd', '#bdb7aa', '#d8cdb5', '#c7cdc9'], eclectic: ['#e4dccb', '#dccfb4', '#d9c3a5', '#e6d3c3', '#cfc7b8'], office: ['#8fa3b6', '#6c7f92', '#a6b4c0'] };
+    for (let gx = x0 - ring; gx < x1 + ring; gx += sp) for (let gz = z0 - ring; gz < z1 + ring; gz += sp) {
+        if (gx > x0 - 30 && gx < x1 + 30 && gz > z0 - 30 && gz < z1 + 30) continue;
+        if (r() < 0.22) continue; // streets, squares, parks
+        const cx = gx + (r() - 0.5) * sp * 0.4, cz = gz + (r() - 0.5) * sp * 0.4;
+        if (avoid.some((p) => inPoly(cx, cz, p))) continue;
+        const dist = Math.max(x0 - cx, cx - x1, z0 - cz, cz - z1);
+        const style = r() < (o.tall ?? 0.25) * (dist > 250 ? 1.4 : 0.8) ? 'bloc' : r() < 0.85 ? 'eclectic' : 'office';
+        const lv = style === 'bloc' ? 8 + Math.floor(r() * 3) * (r() < 0.3 ? 1.5 : 1) : style === 'office' ? 10 + Math.floor(r() * 12) : 3 + Math.floor(r() * 4);
+        const h = lv * (style === 'bloc' ? 2.75 : style === 'office' ? 3.6 : 3.8), w = style === 'bloc' ? 36 + r() * 30 : 14 + r() * 22, dd = style === 'bloc' ? 11 + r() * 3 : 12 + r() * 14;
+        const a = (r() < 0.5 ? 0 : Math.PI / 2) + (r() - 0.5) * 0.25, c = Math.cos(a), s = Math.sin(a);
+        const poly = [[-w / 2, -dd / 2], [w / 2, -dd / 2], [w / 2, dd / 2], [-w / 2, dd / 2]].map(([u, v]) => [cx + u * c - v * s, cz + u * s + v * c]);
+        const y0 = ctx.ground.heightAt(cx, cz) - 0.5, col = r.pick(cols[style]);
+        b.add(wallGeometry(poly, y0, y0 + h, facadeStyle(style), y0, col), 'f-' + style, null, col); mats['f-' + style] = facadeMaterial(style);
+        b.flat(poly, y0 + h, '#8a8580', 'roofs');
+    }
+    const g = b.build('city-filler', { castShadow: false, matOverrides: mats }); ctx.add(g);
+    return g;
+}
+
+// ---------------------------------------------------------------------------- shop signs (one atlas = one draw call)
+/**
+ * signs: [{ x, y, z, yaw, w, h, text, bg?, fg?, font?, sub? }] → one mesh (canvas atlas, 2 columns × N rows); lit at night.
+ * yaw: the sign faces +z rotated by yaw (same as plaques).
+ */
+export function signAtlas(signs, { name = 'signs', night = 0.9 } = {}) {
+    const n = signs.length; if (!n) return null;
+    const CW = 1024, RH = 96, cols = 2, rows = Math.ceil(n / cols), H = Math.min(4096, 2 ** Math.ceil(Math.log2(rows * RH)));
+    const rh = Math.min(RH, Math.floor(H / rows)), c = canvas(CW * cols, H), g = c.getContext('2d');
+    const pos = [], uv = [], idx = [], nor = [];
+    signs.forEach((s, i) => {
+        const cx = (i % cols) * CW, cy = Math.floor(i / cols) * rh, cw = Math.min(CW, Math.round(rh * s.w / s.h));
+        g.fillStyle = s.bg || '#1d2a24'; g.fillRect(cx, cy, cw, rh);
+        if (s.border !== false) { g.strokeStyle = s.border || 'rgba(220,200,150,0.8)'; g.lineWidth = 3; g.strokeRect(cx + 4, cy + 4, cw - 8, rh - 8); }
+        fitDraw(g, s.text, cx + rh * 0.18, cy + rh * (s.sub ? 0.08 : 0.14), cw - rh * 0.36, rh * (s.sub ? 0.56 : 0.72), { font: s.font || ((q) => `700 ${q}px Georgia, serif`), color: s.fg || '#f1e6c8' });
+        if (s.sub) fitDraw(g, s.sub, cx + rh * 0.2, cy + rh * 0.64, cw - rh * 0.4, rh * 0.26, { font: (q) => `500 ${q}px Helvetica, Arial, sans-serif`, color: s.fg || '#f1e6c8' });
+        const u0 = cx / (CW * cols), u1 = (cx + cw) / (CW * cols), v1 = 1 - cy / H, v0 = 1 - (cy + rh) / H;
+        const C = Math.cos(s.yaw), S = Math.sin(s.yaw), hw = s.w / 2, k = pos.length / 3;
+        // plane facing +z rotated by yaw: right vector (cos, 0, -sin)
+        for (const [u, v, a, bb] of [[-hw, -s.h / 2, u0, v0], [hw, -s.h / 2, u1, v0], [hw, s.h / 2, u1, v1], [-hw, s.h / 2, u0, v1]]) { pos.push(s.x + C * u, s.y + v, s.z - S * u); uv.push(a, bb); nor.push(S, 0, C); }
+        idx.push(k, k + 1, k + 2, k, k + 2, k + 3);
+    });
+    const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); geo.setAttribute('normal', new THREE.Float32BufferAttribute(nor, 3)); geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); geo.setIndex(idx);
+    const t = canvasTexture(c);
+    const m = new THREE.MeshStandardMaterial({ map: t, roughness: 0.6, emissive: new THREE.Color('#ffffff'), emissiveMap: t, emissiveIntensity: 0.05 });
+    m.userData.dayGlow = 0.05; m.userData.nightGlow = night;
+    const mesh = new THREE.Mesh(geo, m); mesh.name = name;
+    return mesh;
+}
+
+// ---------------------------------------------------------------------------- old-town terraces (pergolas, awnings, tables)
+/** façade point of the building containing (px, pz) toward the street point (qx, qz): { x, z, nx, nz } or null */
+export function facadeToward(data, px, pz, qx, qz) {
+    for (const b of data.buildings) {
+        if (b.part || b.backdrop) continue; const bb = b._bb || (b._bb = polyBox(b.poly));
+        if (px < bb.x0 || px > bb.x1 || pz < bb.z0 || pz > bb.z1 || !inPoly(px, pz, b.poly)) continue;
+        let best = null; const p = b.poly;
+        for (let i = 0, j = p.length - 1; i < p.length; j = i++) {
+            const [ax, az] = p[j], [bx, bz] = p[i], dx = qx - px, dz = qz - pz, ex = bx - ax, ez = bz - az, den = dx * ez - dz * ex; if (Math.abs(den) < 1e-9) continue;
+            const t = ((ax - px) * ez - (az - pz) * ex) / den, u = ((ax - px) * dz - (az - pz) * dx) / den;
+            if (t >= 0 && t <= 1.5 && u >= 0 && u <= 1 && (!best || t < best.t)) { const L = Math.hypot(ex, ez); best = { t, x: px + dx * t, z: pz + dz * t, ex: ex / L, ez: ez / L }; }
+        }
+        if (!best) return null;
+        let nx = best.ez, nz = -best.ex; if ((qx - best.x) * nx + (qz - best.z) * nz < 0) { nx = -nx; nz = -nz; }
+        return { x: best.x, z: best.z, nx, nz, b };
+    }
+    return null;
+}
+/**
+ * terraces in front of bars / restaurants / cafés (POIs) along pedestrian streets: pergola posts, canvas awning, tables + chairs,
+ * planters; a shop sign above the door. Returns { group, signs[], lamps[] } (signs → signAtlas, lamps → ctx.lampPoints).
+ * o: { inside(x,z), streets: ways to consider, maxDepth, colours }
+ */
+export function oldTownTerraces(ctx, o = {}) {
+    const d = ctx.data, b = new GeoBatch(), r = rng(o.seed || 21), out = { signs: [], lamps: [], terraces: [] };
+    const streets = o.streets || d.ways.filter((w) => ['pedestrian', 'living_street'].includes(w.k));
+    const awn = o.colours || ['#e9e1c8', '#2f5a3a', '#7a2230', '#d9cfb3', '#3b4a5a', '#c9b48a', '#5a3a2a'];
+    const placed = [];
+    for (const p of d.pois) {
+        const shop = !!p.shop, eat = ['restaurant', 'bar', 'cafe', 'pub', 'fast_food', 'ice_cream', 'biergarten'].includes(p.amenity);
+        if (!(eat || shop) || !p.name) continue;
+        if (o.inside && !o.inside(p.x, p.z)) continue;
+        let best = null; for (const w of streets) { const q = distPolylineK(p.x, p.z, w.pts); if (!best || q.d < best.d) best = { ...q, w }; }
+        if (!best || best.d > 28) continue;
+        const f = facadeToward(d, p.x, p.z, best.cx, best.cz); if (!f) continue;
+        const half = Math.hypot(best.cx - f.x, best.cz - f.z); if (half < 2.2 || half > 16) continue;
+        if (placed.some((q) => Math.hypot(q.x - f.x, q.z - f.z) < (eat ? 7 : 4.5))) continue;
+        placed.push(f);
+        const y = ctx.ground.heightAt(f.x, f.z), tx = -f.nz, tz = f.nx, yaw = Math.atan2(f.nx, f.nz);
+        // sign above the door (on the façade)
+        out.signs.push({ x: f.x + f.nx * 0.12, y: y + 3.9, z: f.z + f.nz * 0.12, yaw, w: Math.min(5.5, 1.2 + p.name.length * 0.28), h: 0.62, text: p.name, bg: r.pick(['#1d2a24', '#2a1d1a', '#1a2230', '#3b2a1e', '#0f0f10', '#5a1e22']), fg: r.pick(['#f1e6c8', '#e8c870', '#ffffff']) });
+        if (!eat) continue;
+        const depth = Math.min(o.maxDepth ?? 3.4, half * 0.62), W = 5.5 + r() * 3, col = r.pick(awn), cx = f.x + f.nx * depth / 2, cz = f.z + f.nz * depth / 2;
+        // pergola: 4 posts, beams, canvas roof sloping to the street, side valance
+        const P = (u, v) => [f.x + tx * u + f.nx * v, f.z + tz * u + f.nz * v];
+        for (const [u, v] of [[-W / 2, depth - 0.15], [W / 2, depth - 0.15], [-W / 2, 0.3], [W / 2, 0.3]]) { const [x, z] = P(u, v); b.box(x, y, z, 0.1, 2.75, 0.1, '#2b2724', 'metal'); }
+        const [ax, az] = P(-W / 2, 0.15), [bx, bz] = P(W / 2, 0.15), [cx2, cz2] = P(W / 2, depth), [dx2, dz2] = P(-W / 2, depth);
+        b.quad([dx2, y + 2.6, dz2], [cx2, y + 2.6, cz2], [bx, y + 3.05, bz], [ax, y + 3.05, az], col, 'fabric');
+        b.quad([ax, y + 3.05, az], [bx, y + 3.05, bz], [cx2, y + 2.6, cz2], [dx2, y + 2.6, dz2], col, 'fabric');
+        { const [vx, vz] = P(0, depth); b.box(vx, y + 2.3, vz, 0.03, 0.3, W, col, 'fabric', yaw + Math.PI / 2); }
+        // tables + chairs (or cushioned rattan sofas), planters with box shrubs at the ends
+        const nT = Math.max(1, Math.floor(W / 2.1));
+        for (let i = 0; i < nT; i++) { const u = -W / 2 + (i + 0.5) * W / nT, [x, z] = P(u, depth * 0.55); b.cyl(x, y, z, 0.05, 0.72, '#2a2a2a', 'metal', 6); b.cyl(x, y + 0.72, z, 0.36, 0.04, r.pick(['#d8d2c4', '#6b4a32', '#2a2a2a']), 'wood', 10);
+            for (const s of [-1, 1]) { const [qx, qz] = P(u + s * 0.55, depth * 0.55); b.box(qx, y, qz, 0.42, 0.45, 0.42, '#6b5a44', 'wood', yaw); b.box(qx + s * tx * 0.18, y + 0.45, qz + s * tz * 0.18, 0.06, 0.45, 0.42, '#6b5a44', 'wood', yaw); } }
+        for (const s of [-1, 1]) { const [x, z] = P(s * (W / 2 + 0.35), depth * 0.5); b.box(x, y, z, 0.5, 0.55, 0.5, '#3b3a36', 'concrete', yaw); b.sphere(x, y + 0.85, z, 0.32, 0.38, 0.32, '#3d6a33', 'plant', 7, 5); }
+        ctx.box(cx, cz, W / 2 + 0.6, depth / 2, yaw + Math.PI / 2, { prop: true, h: 0.8 });
+        out.lamps.push({ x: cx, z: cz, h: 2.6, noPost: true });
+        out.terraces.push({ x: cx, z: cz, yaw, W, depth, name: p.name, f });
+    }
+    out.group = b.build('terraces');
+    return out;
+}
+function distPolylineK(px, pz, pts) { let best = { d: 1e9 }; for (let i = 1; i < pts.length; i++) { const [ax, az] = pts[i - 1], [bx, bz] = pts[i], dx = bx - ax, dz = bz - az, L2 = dx * dx + dz * dz || 1; let t = ((px - ax) * dx + (pz - az) * dz) / L2; t = Math.max(0, Math.min(1, t)); const cx = ax + dx * t, cz = az + dz * t, d2 = Math.hypot(px - cx, pz - cz); if (d2 < best.d) best = { d: d2, cx, cz }; } return best; }

@@ -104,13 +104,14 @@ const KF = [
     { el: -14, zenith: '#02040b', horizon: '#080e1c', sun: '#000000', sunI: 0, hemiSky: '#2a3a5c', hemiGround: '#0a0c10', hemiI: 0.14, expo: 1.75, night: 1, cLit: '#141b29', cDark: '#070a10' },
     { el: -6, zenith: '#081127', horizon: '#252a45', sun: '#000000', sunI: 0, hemiSky: '#43517a', hemiGround: '#14141a', hemiI: 0.22, expo: 1.55, night: 0.75, cLit: '#2b2a3c', cDark: '#12131c' },
     { el: -1.5, zenith: '#16295a', horizon: '#c86a45', sun: '#ff6a2a', sunI: 0, hemiSky: '#6c76a0', hemiGround: '#3a2a26', hemiI: 0.36, expo: 1.3, night: 0.15, cLit: '#e08a64', cDark: '#3c3346' },
-    { el: 2, zenith: '#22427f', horizon: '#f08a4b', sun: '#ff7f3a', sunI: 0.9, hemiSky: '#8a9cc8', hemiGround: '#6a4a36', hemiI: 0.5, expo: 1.18, night: 0, cLit: '#ffb07a', cDark: '#5a4a5e' },
-    { el: 8, zenith: '#2c5aa2', horizon: '#f2c18e', sun: '#ffc27e', sunI: 1.9, hemiSky: '#9ec0f0', hemiGround: '#8a7050', hemiI: 0.7, expo: 1.06, night: 0, cLit: '#ffe4c4', cDark: '#8a8ea0' },
+    { el: 2, zenith: '#22427f', horizon: '#f08a4b', sun: '#ff7f3a', sunI: 0.9, hemiSky: '#8a9cc8', hemiGround: '#6a4a36', hemiI: 0.58, expo: 1.18, night: 0, cLit: '#ffb07a', cDark: '#5a4a5e' },
+    { el: 8, zenith: '#2c5aa2', horizon: '#f2c18e', sun: '#ffc27e', sunI: 1.9, hemiSky: '#9ec0f0', hemiGround: '#8a7050', hemiI: 0.8, expo: 1.08, night: 0, cLit: '#ffe4c4', cDark: '#8a8ea0' },
     { el: 25, zenith: '#2e6cc0', horizon: '#cfdeec', sun: '#fff0da', sunI: 2.8, hemiSky: '#a9cbff', hemiGround: '#8c7a62', hemiI: 0.85, expo: 1.0, night: 0, cLit: '#ffffff', cDark: '#a3adbb' },
     { el: 70, zenith: '#2a64b6', horizon: '#d6e4f1', sun: '#fff8ee', sunI: 3.1, hemiSky: '#a9cbff', hemiGround: '#8c7a62', hemiI: 0.9, expo: 0.98, night: 0, cLit: '#ffffff', cDark: '#a8b2bf' },
 ];
 for (const k of KF) for (const key of ['zenith', 'horizon', 'sun', 'hemiSky', 'hemiGround', 'cLit', 'cDark']) k[key] = new THREE.Color(k[key]);
 const _grey = new THREE.Color();
+const GLOW = { h: new THREE.Color('#33281e'), z: new THREE.Color('#0b0d16'), c: new THREE.Color('#4b3f38'), cd: new THREE.Color('#231c18') };
 function greyed(c, amt, lum = 0.92) {
     const l = c.r * 0.2126 + c.g * 0.7152 + c.b * 0.0722;
     _grey.setRGB(l * lum, l * lum * 1.01, l * lum * 1.04);
@@ -127,6 +128,7 @@ export function skyState(el, cover = 0.4) {
     const s = {};
     for (const key of ['zenith', 'horizon', 'sun', 'hemiSky', 'hemiGround', 'cLit', 'cDark']) s[key] = a[key].clone().lerp(b[key], t);
     for (const key of ['sunI', 'hemiI', 'expo', 'night']) s[key] = a[key] + (b[key] - a[key]) * t;
+    const night0 = s.night;
     // overcast: desaturate, dim the sun, lift the sky light
     const w = THREE.MathUtils.smoothstep(cover, 0.55, 1.0);
     if (w > 0) {
@@ -136,6 +138,12 @@ export function skyState(el, cover = 0.4) {
         greyed(s.sun, w * 0.5, 1.0);
     }
     s.overcast = w;
+    // urban sky glow at night (street lighting scattered by the haze and the cloud base): warm horizon, lit clouds
+    const ng = night0 * (0.55 + 0.45 * w);
+    if (ng > 0.01) {
+        s.horizon.lerp(GLOW.h, 0.6 * ng); s.zenith.lerp(GLOW.z, 0.3 * ng);
+        s.cLit.lerp(GLOW.c, (0.3 + 0.4 * w) * ng); s.cDark.lerp(GLOW.cd, (0.3 + 0.4 * w) * ng);
+    }
     return s;
 }
 

@@ -66,7 +66,7 @@ export const STOPS = [
         id: 'luxoft', poi: 'luxoft', city: 'bucharest', kind: 'office', order: 3,
         company: 'Luxoft', short: 'Luxoft',
         role: 'Software Engineer', period: 'Sep 2017 – Dec 2017', year: 2017,
-        address: 'Oregon Park, Șoseaua Pipera (confirm)',
+        address: 'Hermes Business Campus, Bd. Dimitrie Pompeiu 5-7, Pipera',
         color: '#0ea5e9', icon: '🖧',
         tagline: 'A short stop in Pipera: enterprise front-end for network device configuration.',
         stations: [
@@ -79,7 +79,7 @@ export const STOPS = [
         id: 'db', poi: 'db', city: 'bucharest', kind: 'office', order: 4,
         company: 'Deutsche Bank — DB Global Technology', short: 'Deutsche Bank',
         role: 'Software Engineer', period: 'Dec 2017 – Dec 2018', year: 2017,
-        address: 'Floreasca Park, Calea Floreasca 169A',
+        address: 'BOB Tower, Bd. Dimitrie Pompeiu 6A, Pipera',
         color: '#1d4ed8', icon: '🏦',
         tagline: 'Real-time data in the browser, and a first taste of teaching.',
         stations: [
@@ -188,6 +188,46 @@ export const ROADWORKS = {
         { text: 'Turn around — that way\'s for another chapter.', en: '' },
     ],
 };
+// ---------------------------------------------------------------------------
+//  Montage routes between chapters of the same city (spec 10): waypoints of the jump drawn on the montage map.
+//  `hi` = the leg ending at that point is highlighted and labelled (the I-90 floating bridge into Bellevue).
+// ---------------------------------------------------------------------------
+export const MONTAGE_VIA = {
+    'uipath-bel': [
+        { lat: 47.5520, lon: -122.2950 },                                              // I-5 north past Boeing Field
+        { lat: 47.5895, lon: -122.2905 },                                              // I-90 east, Mount Baker tunnel
+        { lat: 47.5888, lon: -122.2545, hi: true, label: 'I-90 floating bridge' },     // Lacey V. Murrow / Homer Hadley bridges over Lake Washington
+        { lat: 47.5870, lon: -122.2250 },                                              // Mercer Island
+        { lat: 47.5800, lon: -122.1880 },                                              // I-405 north
+    ],
+};
+
+/** water drawn under the montage map (rough ellipses): Lake Washington with Mercer Island */
+export const MONTAGE_WATER = {
+    'uipath-bel': [
+        { lat: 47.625, lon: -122.257, rlat: 0.125, rlon: 0.03, label: 'Lake Washington' },
+        { lat: 47.562, lon: -122.228, rlat: 0.04, rlon: 0.014, land: true },
+    ],
+};
+
+// ---------------------------------------------------------------------------
+//  Transit streets per Bucharest district (R13.3), from the research dossiers (game/research/bucharest-<d>.json:
+//  streets with OSM trolley_wire=yes or a trolleybus route → `trolley`; STB bus routes → `bus`; tram routes → `tram`).
+//  Seattle has no research table: King County Metro buses use the arterials in `TRANSIT_RE`.
+// ---------------------------------------------------------------------------
+export const TRANSIT = {
+    floreasca: { bus: ["Bulevardul Dimitrie Pompeiu", "Bulevardul Lacul Tei", "Bulevardul Mircea Eliade", "Calea Dorobanților", "Calea Floreasca", "Strada Barbu Văcărescu", "Strada Gara Herăstrău", "Strada Piotr Ilici Ceaikovski", "Șoseaua Fabrica de Glucoză"], tram: ["Strada Barbu Văcărescu", "Strada Piotr Ilici Ceaikovski"] },
+    grozavesti: { trolley: ["Bulevardul Eroii Sanitari", "Bulevardul Eroilor", "Bulevardul General Paul Teodorescu", "Bulevardul Geniului", "Bulevardul Iuliu Maniu", "Bulevardul Profesor Doctor Gheorghe Marinescu", "Calea Griviței", "Calea Plevnei", "Podul Cotroceni", "Splaiul Independenței", "Strada Constantin Noica", "Strada Doctor Carol Davila", "Strada General Petre Popovăț", "Strada Witting", "Șoseaua Cotroceni", "Șoseaua Grozăvești"], bus: ["Bulevardul Dinicu Golescu", "Bulevardul Doina Cornea", "Bulevardul Eroilor", "Bulevardul General Paul Teodorescu", "Bulevardul Geniului", "Bulevardul Iuliu Maniu", "Bulevardul Regiei", "Calea Giulești", "Calea Griviței", "Calea Plevnei", "Podul Cotroceni", "Podul Grozăvești", "Splaiul Independenței", "Strada Constantin Noica", "Strada Pascal Cristian, Inginer", "Strada Witting", "Șoseaua Grozăvești", "Șoseaua Orhideelor"], tram: ["Bulevardul Doina Cornea", "Calea Giulești", "Pasajul Basarab", "Splaiul Independenței", "Șoseaua Orhideelor"] },
+    otopeni: { bus: ["Bulevardul Aeroportului", "Calea Bucureștilor", "Strada 23 August"] },
+    pipera: { bus: ["Bulevardul Dimitrie Pompeiu", "Bulevardul Pipera", "Calea Floreasca", "Podul Pipera", "Strada Barbu Văcărescu", "Strada Câmpul Pipera", "Strada Căpitan Aviator Alexandru Șerbănescu", "Strada Gara Herăstrău", "Șoseaua Fabrica de Glucoză", "Șoseaua Pipera"], tram: ["Strada Barbu Văcărescu"] },
+    romana: { trolley: ["Bulevardul Dacia", "Bulevardul Lascăr Catargiu", "Calea Dorobanților", "Calea Griviței", "Piața Romană", "Piața Sfinții Voievozi", "Strada General Gheorghe Manu", "Strada Mircea Vulcănescu", "Strada Occidentului"], bus: ["Bulevardul Aviatorilor", "Bulevardul Dacia", "Bulevardul General Gheorghe Magheru", "Bulevardul Ion Mihalache", "Bulevardul Lascăr Catargiu", "Bulevardul Nicolae Bălcescu", "Calea Dorobanților", "Calea Griviței", "Calea Victoriei", "Piața Alexandru Lahovari", "Piața Romană", "Piața Victoriei", "Strada Buzești", "Strada C. A. Rosetti", "Strada Episcopiei", "Strada General Constantin Budișteanu", "Strada General Henri Mathias Berthelot", "Strada George Enescu", "Strada Ion Câmpineanu", "Strada Luterană", "Strada Mircea Vulcănescu", "Strada Nicolae Golescu", "Strada Știrbei Vodă", "Șoseaua Nicolae Titulescu", "Șoseaua Pavel Dimitrievici Kiseleff", "Șoseaua Ștefan cel Mare"], tram: ["Bulevardul Iancu de Hunedoara", "Pasajul Victoria", "Piața Victoriei", "Șoseaua Ștefan cel Mare"] },
+    unirii: { trolley: ["Bulevardul Carol I", "Bulevardul Corneliu Coposu", "Bulevardul Dimitrie Cantemir", "Bulevardul Mircea Vodă", "Bulevardul Regina Elisabeta", "Bulevardul Unirii", "Piața C. A. Rosetti", "Piața Unirii", "Piața Universității", "Strada Halelor", "Strada Nerva Traian", "Strada Traian"], bus: ["Bulevardul Carol I", "Bulevardul Corneliu Coposu", "Bulevardul Dimitrie Cantemir", "Bulevardul Ion C. Brătianu", "Bulevardul Ion Constantin Brătianu", "Bulevardul Mircea Vodă", "Bulevardul Nicolae Bălcescu", "Bulevardul Octavian Goga", "Bulevardul Regina Elisabeta", "Bulevardul Regina Maria", "Bulevardul Unirii", "Calea Victoriei", "Pasajul Unirii", "Piața C. A. Rosetti", "Piața Unirii", "Piața Universității", "Splaiul Independenței", "Splaiul Unirii", "Strada Bibescu Vodă", "Strada Halelor", "Strada Sfânta Vineri"], tram: ["Bulevardul Ion Constantin Brătianu", "Bulevardul Octavian Goga", "Bulevardul Regina Maria", "Calea Moșilor", "Pasajul Mărășești", "Piața Unirii", "Podul Mărășești", "Splaiul Unirii", "Strada Anastasie Panu", "Strada Cavafii Vechi", "Strada Lipscani"] },
+};
+export const TRANSIT_RE = {
+    bellevue: { bus: /Bellevue Way|NE 8th|NE 4th|NE 6th|NE 10th|NE 12th|108th Ave|110th Ave|112th Ave|Main St|116th Ave/i },
+    seatac: { bus: /International B|S 188th|S 176th|S 170th|Air Cargo/i },
+};
+
 export const PHRASES = {
     bucharest: {
         honkedAt: ['Hai, mișcă!', 'Ce faci, dormi?!', 'Claxonezi la mine?!', 'Băi, nene!', 'Mută căruța!', 'Dă-te, că întârzii!', 'Ia-ți permisul de la Dedeman!', 'Ai luat carnetul la tombolă?', 'Hai, că nu e Formula 1!'],

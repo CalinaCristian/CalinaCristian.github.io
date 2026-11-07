@@ -45,6 +45,16 @@ const WX_TAU = 3.3;              // weather transitions: exponential, ~95 % afte
 const WET_DRY_S = 1800;          // roads stay wet ~30 min after the rain stops
 const sky0 = new THREE.Color('#888888');
 const WX_TRANSITION_KEYS = ['cloud', 'rain', 'snow', 'snowCover', 'sunMul', 'fogDens', 'windX', 'windZ'];
+// fixed direction set (Fibonacci sphere) + SH basis for the ambient probe projection
+const AMB_DIRS = (() => {
+    const N = 192, out = [], b = new Array(9).fill(0), v = new THREE.Vector3();
+    for (let i = 0; i < N; i++) {
+        const y = 1 - (i + 0.5) / N * 2, r = Math.sqrt(1 - y * y), a = i * 2.399963229728653;
+        v.set(Math.cos(a) * r, y, Math.sin(a) * r); THREE.SphericalHarmonics3.getBasisAt(v, b);
+        out.push({ x: v.x, y: v.y, z: v.z, b: b.slice() });
+    }
+    return out;
+})();
 const OVERRIDES = { day: { el: 48, az: 200 }, sunset: { el: 3, az: 290 }, dusk: { el: -4, az: 300 }, night: { el: -28, az: 350 }, dawn: { el: 2.5, az: 75 } };
 
 // ---------------------------------------------------------------------------
@@ -224,7 +234,7 @@ const EnvBlendShader = {
 // ---------------------------------------------------------------------------
 const makeSurfU = () => ({
     uWxOn: { value: 0 }, uSnow: { value: 0 }, uWet: { value: 0 }, uSeasonTint: { value: new THREE.Color(1, 1, 1) },
-    uWetSky: { value: new THREE.Color(0, 0, 0) },
+    uWetSky: { value: new THREE.Color(0, 0, 0) }, uPuddle: { value: 0 },
 });
 function chainPatch(mat, tag, fn) {
     if (mat.userData.wxPatch) return false;
@@ -236,39 +246,74 @@ function chainPatch(mat, tag, fn) {
     return true;
 }
 const UP_VIEW = 'normalize((viewMatrix * vec4(0.0, 1.0, 0.0, 0.0)).xyz)';
+// wet-road light streaks: every real light (street-lamp pool, headlights) leaves a reflection that is narrow across
+// the view and long toward the viewer (rough wet film); only compiled into the shader when the scene has such lights
+const WET_STREAK = (arr, n, spot) => `
+    #if ${n} > 0
+    for (int i = 0; i < ${n}; i++) {
+        vec3 Lv = ${arr}[i].position - wxP; float dl = length(Lv); vec3 Ld = Lv / dl;
+        // the mirror image of a lamp keeps the lamp's own brightness: no inverse-square falloff, only a range window
+        float att = 1.0 - smoothstep(${arr}[i].distance * 0.7, ${arr}[i].distance * 1.6, dl);
+        ${spot ? `att *= getSpotAttenuation(${arr}[i].coneCos, ${arr}[i].penumbraCos, dot(-Ld, ${arr}[i].direction));` : ''}
+        if (att <= 0.0) continue;
+        vec3 dv = Ld - wxR; float a = dot(dv, wxT); float b = length(dv - a * wxT);
+        wxSpec += ${arr}[i].color * att * exp(-a * a * wxSa - b * b * wxSb);
+    }
+    #endif`;
 function patchSurface(mat, U) {
-    return chainPatch(mat, 'wxsurf1', (sh) => {
+    return chainPatch(mat, 'wxsurf2', (sh) => {
         Object.assign(sh.uniforms, U);
         sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nvarying vec3 vWxPos;')
             .replace('#include <project_vertex>', '#include <project_vertex>\nvWxPos = (modelMatrix * vec4(transformed, 1.0)).xyz;');
         sh.fragmentShader = sh.fragmentShader.replace('#include <common>', `#include <common>
-            varying vec3 vWxPos; uniform float uWxOn, uSnow, uWet; uniform vec3 uSeasonTint, uWetSky;
+            varying vec3 vWxPos; uniform float uWxOn, uSnow, uWet, uPuddle; uniform vec3 uSeasonTint, uWetSky;
             float wxN(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
                 float a = fract(sin(dot(i, vec2(12.9898, 78.233))) * 43758.5453), b = fract(sin(dot(i + vec2(1, 0), vec2(12.9898, 78.233))) * 43758.5453);
                 float c = fract(sin(dot(i + vec2(0, 1), vec2(12.9898, 78.233))) * 43758.5453), d = fract(sin(dot(i + vec2(1, 1), vec2(12.9898, 78.233))) * 43758.5453);
                 return mix(mix(a, b, f.x), mix(c, d, f.x), f.y); }`)
             .replace('#include <normal_fragment_maps>', `#include <normal_fragment_maps>
-            float wxUpK = 0.0;
+            float wxUpK = 0.0, wxPud = 0.0;
             if (uWxOn > 0.5) {
                 wxUpK = smoothstep(0.55, 0.9, dot(normal, ${UP_VIEW}));
                 diffuseColor.rgb *= uSeasonTint;
-                diffuseColor.rgb *= 1.0 - uWet * 0.36 * wxUpK;
+                if (uWet > 0.0 && wxUpK > 0.0) {
+                    // standing water in the low spots (two octaves of noise), only once the surface is soaked
+                    float pn = wxN(vWxPos.xz * 0.31) * 0.65 + wxN(vWxPos.xz * 1.9 + 7.3) * 0.35;
+                    wxPud = smoothstep(0.6, 0.74, pn) * uPuddle * smoothstep(0.3, 0.9, uWet) * wxUpK;
+                }
+                diffuseColor.rgb *= 1.0 - uWet * (0.36 + 0.3 * wxPud) * wxUpK;
                 if (uSnow > 0.0) {
                     float n = wxN(vWxPos.xz * 0.45) * 0.6 + wxN(vWxPos.xz * 2.1) * 0.4;
                     float sn = clamp((uSnow * 1.35 - n * (1.0 - uSnow * 0.7)) * 2.2, 0.0, 1.0) * wxUpK;
                     diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.86, 0.89, 0.93), sn);
+                    wxPud *= 1.0 - sn;
                 }
             }`)
             .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
-            if (uWxOn > 0.5 && uWet > 0.0) { // wet sheen: sky reflected at grazing angles
-                float fr = pow(1.0 - clamp(dot(normal, normalize(vViewPosition)), 0.0, 1.0), 4.0);
-                totalEmissiveRadiance += uWetSky * uWet * wxUpK * fr * 0.55;
-            }`);
+            if (uWxOn > 0.5 && uWet > 0.0) { // wet film / puddles: the sky reflected (Schlick, water F0 0.02)
+                float wxNv = clamp(dot(normal, normalize(vViewPosition)), 0.0, 1.0);
+                float fmax = mix(0.22, 0.55, wxPud); // rough film vs standing water: roughness caps the grazing Fresnel
+                float fr = 0.02 + (fmax - 0.02) * pow(1.0 - wxNv, 5.0);
+                totalEmissiveRadiance += uWetSky * uWet * wxUpK * fr;
+            }`)
+            .replace('#include <lights_fragment_end>', `#include <lights_fragment_end>
+            #if NUM_POINT_LIGHTS > 0 || NUM_SPOT_LIGHTS > 0
+            if (uWxOn > 0.5 && uWet > 0.0 && wxUpK > 0.0) {
+                vec3 wxP = - vViewPosition, wxV = normalize(vViewPosition);
+                vec3 wxR = reflect(-wxV, normal), wxT = normalize(cross(normal, wxV) + 1e-5);
+                float wxRo = mix(0.05, 0.018, wxPud), wxSa = 1.0 / (wxRo * wxRo), wxSb = wxSa / 30.0;
+                vec3 wxSpec = vec3(0.0);
+                ${WET_STREAK('pointLights', 'NUM_POINT_LIGHTS', false)}
+                ${WET_STREAK('spotLights', 'NUM_SPOT_LIGHTS', true)}
+                float fr2 = 0.02 + 0.98 * pow(1.0 - clamp(dot(normal, wxV), 0.0, 1.0), 5.0);
+                reflectedLight.directDiffuse += wxSpec * uWet * wxUpK * mix(0.4, 1.0, wxPud) * fr2 * 0.06;
+            }
+            #endif`);
     });
 }
 const makeTreeU = () => ({ uBare: { value: 0 }, uAutumn: { value: 0 }, uBlossom: { value: 0 }, uFresh: { value: 0 }, uSnow: { value: 0 }, uEver: { value: 0 }, uCrownC: { value: new THREE.Vector3(0, 5, 0) } });
 function patchCrowns(mat, U) {
-    return chainPatch(mat, 'wxtree1', (sh) => {
+    return chainPatch(mat, 'wxtree2', (sh) => {
         Object.assign(sh.uniforms, U);
         sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nuniform float uBare, uEver; uniform vec3 uCrownC; varying vec3 vCrownL; varying float vTreeH;')
             .replace('#include <begin_vertex>', `#include <begin_vertex>
@@ -279,7 +324,12 @@ function patchCrowns(mat, U) {
                 #else
                     vTreeH = 0.5;
                 #endif`);
-        sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nuniform float uBare, uAutumn, uBlossom, uFresh, uSnow, uEver; varying vec3 vCrownL; varying float vTreeH;')
+        sh.fragmentShader = sh.fragmentShader.replace('#include <common>', `#include <common>
+            uniform float uBare, uAutumn, uBlossom, uFresh, uSnow, uEver; varying vec3 vCrownL; varying float vTreeH;
+            float crH(vec3 p){ return fract(sin(dot(p, vec3(12.9898, 78.233, 37.719))) * 43758.5453); }
+            float crN(vec3 p){ vec3 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
+                return mix(mix(mix(crH(i), crH(i + vec3(1, 0, 0)), f.x), mix(crH(i + vec3(0, 1, 0)), crH(i + vec3(1, 1, 0)), f.x), f.y),
+                           mix(mix(crH(i + vec3(0, 0, 1)), crH(i + vec3(1, 0, 1)), f.x), mix(crH(i + vec3(0, 1, 1)), crH(i + vec3(1, 1, 1)), f.x), f.y), f.z); }`)
             .replace('#include <color_fragment>', `#include <color_fragment>
             if (uBare + uAutumn + uBlossom + uFresh > 0.0) {
                 float h = vTreeH, dec = 1.0 - uEver;
@@ -292,8 +342,16 @@ function patchCrowns(mat, U) {
                 float b = clamp(uBare * 1.25 - h * 0.25, 0.0, 1.0) * dec;
                 if (b > 0.0) {
                     g = mix(g, vec3(0.2, 0.16, 0.13) * (0.8 + 0.4 * h), b);
-                    vec3 q = floor(vCrownL * 4.5 + h * 7.0);
-                    if (fract(sin(dot(q, vec3(12.9898, 78.233, 37.719))) * 43758.5453) < b * 0.8) discard;
+                    // leafless crown = a lattice of branches and twigs: ridges of 3-D noise (|n - 0.5| small) are kept, the
+                    // rest is sky. Ridge width widens with the screen-space derivative so distant crowns become an even
+                    // twig haze instead of aliasing, and partial coverage is dithered (interleaved gradient noise).
+                    vec3 cp = vCrownL * (0.9 + 0.2 * h) + h * 11.0;
+                    float r1 = abs(crN(cp * 1.5) - 0.5), r2 = abs(crN(cp * 4.4 + 3.7) - 0.5);
+                    float f1 = fwidth(r1) + 1e-3, f2 = fwidth(r2) + 1e-3;
+                    float cov = max(1.0 - smoothstep(0.032 - f1, 0.032 + f1, r1), 0.8 * (1.0 - smoothstep(0.026 - f2, 0.026 + f2, r2)));
+                    float ign = fract(52.9829189 * fract(dot(gl_FragCoord.xy, vec2(0.06711056, 0.00583715))));
+                    if (mix(1.0, cov, min(1.0, b * 1.05)) < ign) discard;
+                    g *= 0.85 + 0.3 * cov;
                 }
                 diffuseColor.rgb = g;
             }`)
@@ -313,8 +371,11 @@ export class Renderer3D {
         const r = this._renderer = opts.renderer || new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance', stencil: false });
         r.shadowMap.enabled = true;
         r.shadowMap.type = THREE.PCFSoftShadowMap;
-        r.toneMapping = THREE.ACESFilmicToneMapping;
+        // AgX: photographic toe (ACES-fitted crushed shaded asphalt to ~0.2 % reflectance on screen, review #1);
+        // the display-space grade in FinalShader restores the punch (saturation / contrast)
+        r.toneMapping = { aces: THREE.ACESFilmicToneMapping, neutral: THREE.NeutralToneMapping }[opts.toneMapping] ?? THREE.AgXToneMapping;
         r.outputColorSpace = THREE.SRGBColorSpace;
+        this._satK = r.toneMapping === THREE.AgXToneMapping ? 1.12 : 1; // AgX desaturates: grade compensates
         r.info.autoReset = false;
         this.width = canvas.clientWidth || window.innerWidth; this.height = canvas.clientHeight || window.innerHeight;
         this.time = 0;
@@ -324,8 +385,10 @@ export class Renderer3D {
         // lights + sky (re-parented into each scene)
         this.sun = new THREE.DirectionalLight('#ffffff', 2);
         this.sun.castShadow = true;
-        this.sun.shadow.camera.near = 1; this.sun.shadow.camera.far = 900;
-        this.hemi = new THREE.HemisphereLight('#ffffff', '#444444', 0.6);
+        this.sun.shadow.camera.near = 1; this.sun.shadow.camera.far = 600; // light sits 400 m up-sun: receivers end ≈ 400 + 80 + 60 m
+        this.hemi = new THREE.HemisphereLight('#ffffff', '#444444', 0.6); // not in the scene: its colours/intensity feed the probe
+        // image-based ambient for every lit material (Lambert included): SH9 of sky + sunlit walls + ground bounce
+        this.probe = new THREE.LightProbe(); this.probe.userData.shared = true; this._ambAt = -1e9; this._ambKey = '';
         this.sky = new THREE.Mesh(new THREE.SphereGeometry(100, 32, 16), makeSkyMaterial());
         this.sky.frustumCulled = false; this.sky.renderOrder = -100; this.sky.userData.shared = true;
         this._sunDir = new THREE.Vector3(0, 1, 0);
@@ -355,6 +418,7 @@ export class Renderer3D {
         this._wxT = null; this._wx = null; this._wet = 0; this._wipers = false; this._wxInstant = true;
         this._flash = 0; this._thunderT = 8; this._hemiBase = 0.6; this._cloudOff = new THREE.Vector2();
         this._surfU = { road: makeSurfU(), ground: makeSurfU(), grass: makeSurfU(), roof: makeSurfU() };
+        this._surfU.road.uPuddle.value = 1; this._surfU.ground.uPuddle.value = 0.5; this._surfU.roof.uPuddle.value = 0.3;
         this._treeU = { broad: makeTreeU(), con: makeTreeU() }; this._treeU.con.uEver.value = 1;
         this._crowns = []; this._season = null; this._seasonT = 0; this._seasonKey = '';
         // street lamps
@@ -391,14 +455,17 @@ export class Renderer3D {
         this.scene = scene; this.camera = camera; this.env = env; this.mph = o.units === 'mph';
         camera.layers.enable(1); // layer 1 = seen by the main camera only (rear cabin; the mirror camera stays on layer 0)
         const replace = o.replaceLights !== false;
-        if (replace) for (const c of [...scene.children]) if ((c.isDirectionalLight || c.isHemisphereLight || c.isAmbientLight) && c !== this.sun && c !== this.hemi) scene.remove(c);
+        if (replace) for (const c of [...scene.children]) if ((c.isDirectionalLight || c.isHemisphereLight || c.isAmbientLight || (c.isLightProbe && c !== this.probe)) && c !== this.sun) scene.remove(c);
         if (o.sky) o.sky.visible = false;
-        scene.add(this.sun, this.sun.target, this.hemi, this.sky, this._lampGroup);
+        if (this.hemi.parent) this.hemi.removeFromParent();
+        scene.add(this.sun, this.sun.target, this.probe, this.sky, this._lampGroup);
         if (this._discs) scene.add(this._discs);
         scene.fog = new THREE.FogExp2(env.fog, 1.45 / env.fogFar);
         this._fogBase = 1.45 / env.fogFar;
         this.setVegetation(o.vegetation || scene.userData?.vegetation || null);
-        if (!this._wx) this._refreshWeather(); // climate state right away; live data replaces it when it arrives
+        // climate state right away; live data replaces it when it arrives. Before the first setClock the place is not
+        // known yet (hosts call setClock right after setScene): no live request for a default place (shared API quota)
+        if (!this._wx) this._refreshWeather({ live: !!this.clock });
         scene.background = new THREE.Color(env.fog);
         this._applyLighting(true);
         // environment map for reflections (vehicle paint, glass, wet roads)
@@ -473,7 +540,7 @@ export class Renderer3D {
             u.uSunPower.value = overcastEnv ? 2 : 28; u.uNight.value = 0;
             if (overcastEnv) { u.uCloudLit.value.set('#c3cbd4'); u.uCloudDark.value.set('#6e7884'); }
             else { u.uCloudLit.value.set('#fff4e6').lerp(new THREE.Color(env.sunColor), 0.35); u.uCloudDark.value.set(env.skyBottom).lerp(new THREE.Color('#8a8ea0'), 0.5); }
-            fu.uGrade.value.set(overcastEnv ? 0.95 : 1.1, overcastEnv ? 1.04 : 1.06);
+            fu.uGrade.value.set((overcastEnv ? 0.95 : 1.1) * this._satK, overcastEnv ? 1.04 : 1.06);
             this._sunLightDir = this._sunDir; this._sunShadows = true;
         } else {
             const st = skyState(el, clouds);
@@ -496,19 +563,85 @@ export class Renderer3D {
             u.uSunDir.value.copy(this._sunDir); u.uSunColor.value.copy(st.sun);
             u.uSunPower.value = (overcastEnv ? 2 : 28) * THREE.MathUtils.smoothstep(el, -1.5, 1);
             u.uCloudLit.value.copy(st.cLit); u.uCloudDark.value.copy(st.cDark);
-            u.uNight.value = st.night; u.uMoonDir.value.copy(this._moonDir);
+            u.uNight.value = st.night; u.uMoonDir.value.copy(this._moonDir); this._skyNight = st.night;
             const n = st.night;
-            fu.uGrade.value.set((overcastEnv ? 0.95 : 1.1) - n * 0.15, 1.05);
+            fu.uGrade.value.set(((overcastEnv ? 0.95 : 1.1) - n * 0.15) * this._satK, 1.05);
             this._rainBright = THREE.MathUtils.clamp(st.hemiI / 0.85 + 0.12, 0.25, 1);
         }
         u.uCover.value = clouds; u.uHaze.value = overcastEnv ? 0.3 : 0.65;
         if (!this.clock) this._hemiBase = this.hemi.intensity;
+        this._updateAmbient(force, this.clock ? (this._skyNight ?? 0) : 0, clouds);
         // shadows follow the tier, and are off for moonlight
         this.sun.castShadow = !!this.tier?.shadow && this._sunShadows;
         // night lights switch (hysteresis ±0.5°)
         const thr = 4 + (overcastEnv ? 4 : 0);
         const night = this.nightLights ? el < thr + 0.5 : el < thr - 0.5;
         if (night !== this.nightLights || force) this._setNight(night, force);
+    }
+
+    /**
+     * Ambient light as a 3rd-order SH light probe (works for Lambert + Standard). Radiance model per direction:
+     *  - sky: the hemisphere colour/intensity (same upward irradiance as before), brighter toward the horizon and the
+     *    sun when clear, toward the zenith when overcast (CIE overcast);
+     *  - street canyon: below ~27° a share of the view is building walls; a wall facing the sun bounces
+     *    albedo × (sun + sky) / π, so shaded surfaces facing sunlit walls are lifted and warmed;
+     *  - ground: urban albedo × (sun + sky) / π (bounce onto walls, car bodies and undersides);
+     *  - night: a faint sodium/LED glow from below and from the walls (lamps, windows), none by day.
+     * Re-projected at most every 0.4 s (and on force); the cost per pixel is the same as the hemisphere light it replaces.
+     */
+    _updateAmbient(force, night = 0, clouds = 0.4) {
+        const now = performance.now();
+        if (!force && now - this._ambAt < 400) return;
+        this._ambAt = now;
+        const T = this._amb || (this._amb = { sky: new THREE.Color(), gnd: new THREE.Color(), sun: new THREE.Color(), wall: new THREE.Color(), glow: new THREE.Color('#ffb36b'), c: new THREE.Color(), out: Array.from({ length: 9 }, () => new THREE.Vector3()) });
+        const h = this.hemi, sd = this._sunLightDir || this._sunDir;
+        const skyE = this._hemiBase ?? h.intensity, sky = T.sky.copy(h.color); // base: the lightning flash scales probe.intensity
+        const sunOn = this.sun.intensity > 0 && sd.y > 0 && (this.clock ? this.sunElevation > -2 : true);
+        const sunI = sunOn ? this.sun.intensity * (this.sun.shadow ? 0.55 + 0.45 * (this.sun.shadow.intensity ?? 1) : 1) : 0;
+        const sun = T.sun.copy(this.sun.color);
+        const oc = THREE.MathUtils.smoothstep(clouds, 0.55, 1);
+        const env = this.env || {};
+        const cityK = env.ambientCity ?? 0.5, gAlb = env.groundAlbedo ?? 0.15, wAlb = env.wallAlbedo ?? 0.3;
+        // ground tint: hemiGround chroma at unit luminance
+        const hg = h.groundColor, hl = Math.max(1e-4, hg.r * 0.2126 + hg.g * 0.7152 + hg.b * 0.0722);
+        const gt = T.gnd.setRGB(hg.r / hl, hg.g / hl, hg.b / hl).lerp(T.c.setRGB(1, 1, 1), 0.5);
+        const Esun = sunI * Math.max(0, sd.y);                       // horizontal sun irradiance
+        const D = AMB_DIRS, n = D.length, w4 = 4 * Math.PI / n;
+        // sky shape normalisation: the cosine-weighted sky integral must give the hemisphere light's irradiance
+        const shape = (d) => {
+            const y = Math.max(0, d.y), mu = Math.max(0, d.x * sd.x + d.y * sd.y + d.z * sd.z);
+            const clear = 0.75 + 0.7 * (1 - y) ** 3 + (sunOn ? 1.6 * mu ** 8 : 0);
+            return clear * (1 - oc) + oc * (1 + 2 * y) / 3 * 1.6;
+        };
+        let norm = 0; for (const d of D) if (d.y > 0) norm += shape(d) * d.y * w4;
+        const skyL = skyE / Math.max(1e-4, norm);                  // radiance scale (per unit shape)
+        const out = T.out; for (const v of out) v.set(0, 0, 0);
+        const Lg = gAlb * (Esun * 0.6 + skyE) / Math.PI;           // ground radiance (partly shaded)
+        const glow = night * (0.018 + 0.012 * oc);
+        const c = T.c, wall = T.wall;
+        for (const d of D) {
+            let r, g, b;
+            if (d.y >= 0) {
+                const k = shape(d) * skyL; r = sky.r * k; g = sky.g * k; b = sky.b * k;
+                const band = d.y < 0.45 ? cityK * (1 - d.y / 0.45) : 0;
+                if (band > 0) {
+                    // the wall seen in direction d faces -d: lit when the sun is on that side
+                    const hl2 = Math.hypot(d.x, d.z) || 1, ndl = Math.max(0, -(d.x * sd.x + d.z * sd.z) / hl2);
+                    const Ew = sunI * ndl * Math.sqrt(Math.max(0, 1 - sd.y * sd.y)), Es = 0.5 * skyE;
+                    wall.setRGB(sun.r * Ew + sky.r * Es + gt.r * Lg * 1.6, sun.g * Ew + sky.g * Es + gt.g * Lg * 1.6, sun.b * Ew + sky.b * Es + gt.b * Lg * 1.6).multiplyScalar(wAlb / Math.PI);
+                    wall.r += T.glow.r * glow * 0.7; wall.g += T.glow.g * glow * 0.7; wall.b += T.glow.b * glow * 0.7;
+                    r += (wall.r - r) * band; g += (wall.g - g) * band; b += (wall.b - b) * band;
+                }
+            } else {
+                const e = Esun * 0.6 + skyE;
+                r = gAlb * gt.r * (sun.r * Esun * 0.6 + sky.r * skyE) / Math.PI; g = gAlb * gt.g * (sun.g * Esun * 0.6 + sky.g * skyE) / Math.PI; b = gAlb * gt.b * (sun.b * Esun * 0.6 + sky.b * skyE) / Math.PI;
+                if (!(e > 0)) r = g = b = 0;
+                r += T.glow.r * glow; g += T.glow.g * glow; b += T.glow.b * glow;
+            }
+            const B = d.b;
+            for (let i = 0; i < 9; i++) { const f = B[i] * w4; out[i].x += r * f; out[i].y += g * f; out[i].z += b * f; }
+        }
+        const co = this.probe.sh.coefficients; for (let i = 0; i < 9; i++) co[i].copy(out[i]);
     }
 
     _setNight(on, force) {
@@ -534,6 +667,7 @@ export class Renderer3D {
             if (hm.emissive) { hm.emissive.set(k > 0 ? '#ffd7a0' : '#000000'); hm.emissiveIntensity = 3 * k; }
             else if (hm.color) hm.color.set(hm.userData.dayColor || '#d8d4c8').lerp(new THREE.Color(hm.userData.nightColor || '#ffe2b0').multiplyScalar(3), k);
         }
+        if (this._nightMats?.length && this._nightMatK !== k) { this._nightMatK = k; for (const m of this._nightMats) m.emissiveIntensity = m.userData.nightEmissive * k; }
         if (this._discs) this._discs.visible = n > 0 && this._discs.count > 0;
         this._lampGroup.visible = lk > 0 && this._lampPool.length > 0;
         this._lampK = lk;
@@ -581,9 +715,9 @@ export class Renderer3D {
             if (n === 'grass') cats.grass.add(m);
             else if (n === 'groundPlane' || n === 'landuse' || n === 'paved-areas') cats.ground.add(m);
             else if (n === 'roofs') cats.roof.add(m);
-            else if (/^(ground|marks) /.test(on)) cats.road.add(m);
+            else if (n === 'road' || n === 'junction' || n === 'markings' || /^(ground|marks|road|junction) /.test(on)) cats.road.add(m);
         });
-        for (const k in cats) for (const m of cats[k]) if (!m.userData.wxPatch || m.userData.wxPatch === 'wxsurf1') patchSurface(m, this._surfU[k]);
+        for (const k in cats) for (const m of cats[k]) if (!m.userData.wxPatch) patchSurface(m, this._surfU[k]);
         this._conMats ??= new WeakMap();
         for (const c of crowns) {
             if (c.userData.conifer) {
@@ -597,15 +731,20 @@ export class Renderer3D {
         }
         this._crowns = [...crowns];
         this._seasonT = 0;
+        // night-lit materials (lit windows, shop fronts, signs): material.userData.nightEmissive = emissiveIntensity at full
+        // night; render scales it with the eased night factor (0 by day)
+        const nm = new Set(v?.nightMaterials || []);
+        sc.traverse((o) => { const ms = !o.material ? [] : Array.isArray(o.material) ? o.material : [o.material]; for (const m of ms) if (m.userData?.nightEmissive > 0 && m.emissive) nm.add(m); });
+        this._nightMats = [...nm]; this._nightMatK = -1;
     }
     _wxPlace() { return this.clock || { lat: 44.43, lon: 26.1, timeZone: 'Europe/Bucharest' }; }
-    _refreshWeather() {
+    _refreshWeather({ live = true } = {}) {
         const gen = ++this._wxGen, k = this._wxPlace(), loc = k.lat.toFixed(2) + ',' + k.lon.toFixed(2);
         this._wxNext = performance.now() + WEATHER_TTL_MS;
         if (this._wxOverride) { this._applyWeatherData({ ...WEATHER_PRESETS[this._wxOverride] }, 'override', loc); return; }
         // climatology right away (unless fresh live data for this place is already showing); live data replaces it
         if (this._wxSource !== 'live' || this._wxDataLoc !== loc) this._applyWeatherData(climateWeather(k.lat, k.lon, this.simDate || new Date(), k.timeZone), 'climate', loc);
-        if (typeof fetch !== 'function') return;
+        if (typeof fetch !== 'function' || !live) return;
         this._wxBusy = true;
         fetchLiveWeather(k.lat, k.lon, k.timeZone || 'auto')
             .then((w) => { if (gen === this._wxGen && !this._wxOverride) this._applyWeatherData(w, 'live', loc); })
@@ -691,9 +830,10 @@ export class Renderer3D {
         }
         su.uFlash.value = this._flash * 1.4;
         this.hemi.intensity = this._hemiBase + this._flash * 1.6;
+        this.probe.intensity = 1 + this._flash * 1.6 / Math.max(0.2, this._hemiBase);
         // surfaces: snow dusting, wet darkening + sheen, grass season tint
         const S = this._surfU, sc = c.snowCover, wet = this._wet;
-        const sky = S.road.uWetSky.value.copy(this.scene.fog?.color || this._skyHorizon || sky0).multiplyScalar(0.55);
+        const sky = S.road.uWetSky.value.copy(this.scene.fog?.color || this._skyHorizon || sky0).multiplyScalar(0.6); // a street reflects facades as much as sky
         const set = (U, snow, w) => {
             U.uSnow.value = snow; U.uWet.value = w; if (U !== S.road) U.uWetSky.value.copy(sky);
             const tc = U.uSeasonTint.value;
@@ -1066,6 +1206,7 @@ export class Renderer3D {
         } else T.vel.set(0, 0, 0);
         this._updateWeather(dt, T.cam, T.vel);
         this._updateWindshield();
+        this._fogCull(camera);
         // render
         const fu = this.finalPass.uniforms; fu.uTime.value = this.time;
         if (this.tier.post === 'off') this._renderer.render(scene, camera);
@@ -1077,6 +1218,21 @@ export class Renderer3D {
         this._fpsAcc += dt; this._fpsN++;
         if (this._fpsAcc > 0.5) { this.stats.fps = Math.round(this._fpsN / this._fpsAcc); this._fpsAcc = 0; this._fpsN = 0; }
         this._adapt(dt);
+    }
+
+    /**
+     * In rain / snow / fog the visibility is far shorter than the world's draw distance: pull the camera far plane in to
+     * where the fog leaves < 0.5 % of an object's colour (FogExp2: exp(-(d·z)²) = 0.005 → z ≈ 2.3 / d), so whole cells,
+     * buildings and their draw calls are frustum-culled. Never below 220 m, restored as soon as it clears; clear-weather
+     * fog is left alone (backdrops beyond it are meant to show).
+     */
+    _fogCull(camera) {
+        const fog = this.scene?.fog;
+        if (!camera?.isPerspectiveCamera) return;
+        if (this._farSet === undefined || Math.abs(camera.far - this._farSet) > 0.01) { this._farBase = camera.far; this._farSet = camera.far; }
+        let want = this._farBase;
+        if (fog?.isFogExp2 && this._fogBase && fog.density > this._fogBase * 1.5) want = Math.min(this._farBase, Math.max(220, 2.3 / fog.density));
+        if (Math.abs(want - camera.far) > camera.far * 0.04) { camera.far = want; camera.updateProjectionMatrix(); this._farSet = want; }
     }
 
     _updateSun(cam) {

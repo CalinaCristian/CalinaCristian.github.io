@@ -3,10 +3,11 @@ import { makeCanvasTexture } from './util.js';
 import { drawFitText } from './canvasText.js';
 
 // ============================================================================
-//  VEHICLES — low-poly but shaped cars built from extruded side profiles.
-//  Every vehicle = 2 draw calls: a painted body (per-colour shared material)
-//  and a "parts" mesh (glass, tyres, lights, trim) using one shared material
-//  whose per-vertex attribute aMat = (emissive, roughness, metalness).
+//  VEHICLES — country-specific fleet of unbranded silhouettes with real L/W/H,
+//  built from extruded side profiles. One geometry per kind (+ a ~150-tri far
+//  LOD) with per-vertex aMat = (emissive code, roughness, metalness, painted).
+//  Traffic uses the instanced path (one draw call per kind × LOD for all cars);
+//  the classic path = painted body mesh (per-colour material) + parts mesh.
 //  forward = -z, ground at y = 0.
 // ============================================================================
 
@@ -23,19 +24,19 @@ const IDENT = new THREE.Matrix4();
 // ---------------------------------------------------------------------------
 class Batch {
     constructor() { this.pos = []; this.nor = []; this.col = []; this.mat = []; this.idx = []; this.n = 0; }
-    /** opts: e = emissive, r = roughness, m = metalness */
-    add(geo, matrix = IDENT, color = '#ffffff', { e = 0, r = 0.6, m = 0 } = {}) {
-        const p = geo.attributes.position, nr = geo.attributes.normal;
+    /** opts: e = emissive, r = roughness, m = metalness, p = painted (takes the vehicle's body colour) */
+    add(geo, matrix = IDENT, color = '#ffffff', { e = 0, r = 0.6, m = 0, p = 0 } = {}) {
+        const pa = geo.attributes.position, nr = geo.attributes.normal;
         const nm = new THREE.Matrix3().getNormalMatrix(matrix);
         const c = color instanceof THREE.Color ? color : new THREE.Color(color);
-        for (let i = 0; i < p.count; i++) {
-            _v.fromBufferAttribute(p, i).applyMatrix4(matrix); this.pos.push(_v.x, _v.y, _v.z);
+        for (let i = 0; i < pa.count; i++) {
+            _v.fromBufferAttribute(pa, i).applyMatrix4(matrix); this.pos.push(_v.x, _v.y, _v.z);
             _n.fromBufferAttribute(nr, i).applyMatrix3(nm).normalize(); this.nor.push(_n.x, _n.y, _n.z);
-            this.col.push(c.r, c.g, c.b); this.mat.push(e, r, m);
+            this.col.push(c.r, c.g, c.b); this.mat.push(e, r, m, p);
         }
         if (geo.index) for (let i = 0; i < geo.index.count; i++) this.idx.push(geo.index.getX(i) + this.n);
-        else for (let i = 0; i < p.count; i++) this.idx.push(i + this.n);
-        this.n += p.count;
+        else for (let i = 0; i < pa.count; i++) this.idx.push(i + this.n);
+        this.n += pa.count;
         return this;
     }
     build(withMat = true) {
@@ -43,7 +44,7 @@ class Batch {
         g.setAttribute('position', new THREE.Float32BufferAttribute(this.pos, 3));
         g.setAttribute('normal', new THREE.Float32BufferAttribute(this.nor, 3));
         g.setAttribute('color', new THREE.Float32BufferAttribute(this.col, 3));
-        if (withMat) g.setAttribute('aMat', new THREE.Float32BufferAttribute(this.mat, 3));
+        if (withMat) g.setAttribute('aMat', new THREE.Float32BufferAttribute(this.mat, 4));
         g.setIndex(this.n > 65535 ? new THREE.Uint32BufferAttribute(this.idx, 1) : new THREE.Uint16BufferAttribute(this.idx, 1));
         g.computeBoundingSphere(); g.computeBoundingBox();
         return g;
@@ -92,245 +93,558 @@ function beamM(a, b, w, h) {
 }
 
 // ---------------------------------------------------------------------------
-//  Shared geometries
+//  Shared geometries + palette
 // ---------------------------------------------------------------------------
-const TYRE = new THREE.CylinderGeometry(1, 1, 1, 12, 1); TYRE.rotateZ(Math.PI / 2);
-const RIM = new THREE.CylinderGeometry(1, 1, 1, 8, 1); RIM.rotateZ(Math.PI / 2);
-const ARCH = new THREE.CylinderGeometry(1, 1, 1, 7, 1, true, -Math.PI / 2, Math.PI); ARCH.rotateZ(Math.PI / 2);
+const TYRE = new THREE.CylinderGeometry(1, 1, 1, 14, 1); TYRE.rotateZ(Math.PI / 2);
+const RIM = new THREE.CylinderGeometry(1, 1, 1, 10, 1); RIM.rotateZ(Math.PI / 2);
+const HUB = new THREE.CylinderGeometry(1, 1, 1, 6, 1); HUB.rotateZ(Math.PI / 2);
+const ARCH = new THREE.CylinderGeometry(1, 1, 1, 8, 1, true, -Math.PI / 2, Math.PI); ARCH.rotateZ(Math.PI / 2);
+const POLE = new THREE.CylinderGeometry(1, 1, 1, 5, 1);
 
 const C = {
-    glass: '#26343f', tyre: '#151618', rim: '#9aa0a6', trim: '#1c1d20', plastic: '#2a2c30', head: '#fff7dc', tail: '#c4141b', amber: '#ff8a1c',
-    plate: '#f2f2f2', euBlue: '#1f3d99', chrome: '#c9ced4', grille: '#0f1012',
+    glass: '#1b242c', glassDark: '#11171c', tyre: '#141517', rim: '#a3a8ae', rimDark: '#3a3d42', trim: '#18191c', plastic: '#232529', head: '#f4f1e6',
+    drl: '#fffaf0', tail: '#b0121a', tailDark: '#5a0a0e', amber: '#ff8a1c', reverse: '#e8e8e8', chrome: '#c9ced4', grille: '#0d0e10',
+    plate: '#f2f2f2', euBlue: '#1f3d99', plateText: '#2a2d33', waText: '#26407a', seal: '#0b0c0e',
 };
-const GLASS = { r: 0.05, m: 0.5 }, HEAD = { e: 0.55, r: 0.15 }, TAIL = { e: 0.45, r: 0.2 }, TYREM = { r: 0.9 }, RIMM = { r: 0.35, m: 0.8 };
+// aMat = (emissive, roughness, metalness, paint). Emissive codes: < 10 = plain (headlights/markers, ×light),
+// 10..19 = tail lamp (base e − 10; brighter when braking), 20..29 = always-lit sign (base e − 20, not affected by lights)
+const GLASS = { r: 0.04, m: 0.6 }, HEAD = { e: 0.5, r: 0.12 }, DRL = { e: 0.8, r: 0.2 }, TAIL = { e: 10.42, r: 0.18 }, TYREM = { r: 0.92 }, RIMM = { r: 0.32, m: 0.85 };
+const PAINT = { r: 0.32, m: 0.3, p: 1 }, PAINT_MATTE = { r: 0.5, m: 0.15, p: 1 };
+const SIGN = (e = 0.9) => ({ e: 20 + e, r: 0.3 });
 
-function wheels(b, { W, wr, wz, tw = 0.22, inset = 0.04, arch = true }) {
+function wheels(b, { W, wr, wz, tw = 0.22, inset = 0.04, arch = true, rim = C.rim, archPaint = false, archLip = 0.07 }) {
     for (const z of wz) for (const s of [-1, 1]) {
         const x = s * (W / 2 - tw / 2 - inset);
         b.add(TYRE, M(x, wr, z, tw, wr, wr), C.tyre, TYREM);
-        b.add(RIM, M(x + s * 0.012, wr, z, tw, wr * 0.6, wr * 0.6), C.rim, RIMM);
-        if (arch) b.add(ARCH, M(s * (W / 2 - 0.02), wr, z, 0.1, wr + 0.08, wr + 0.08), C.trim, { r: 0.8 });
+        b.add(RIM, M(x + s * 0.014, wr, z, tw * 0.9, wr * 0.64, wr * 0.64), rim, RIMM);
+        b.add(HUB, M(x + s * 0.03, wr, z, tw * 0.9, wr * 0.2, wr * 0.2), C.rimDark, { r: 0.5, m: 0.6 });
+        if (arch) {
+            b.add(ARCH, M(s * (W / 2 - 0.12), wr, z, 0.22, wr + 0.065, wr + 0.065), C.seal, { r: 0.95 }); // dark wheel-well liner
+            if (archLip > 0.08) b.add(ARCH, M(s * (W / 2 + 0.005), wr, z, 0.03, wr + archLip, wr + archLip), archPaint ? '#ffffff' : C.plastic, archPaint ? PAINT : { r: 0.75 }); // cladding lip (SUVs)
+        }
     }
 }
 function lightPair(b, z, y, x, w, h, color, opts, dz = 0.08) {
     for (const s of [-1, 1]) b.add(BOX, M(s * x, y, z, w, h, dz), color, opts);
 }
-function plate(b, z, y, dir, yellowish = false) {
-    b.add(BOX, M(0, y, z, 0.52, 0.12, 0.02), yellowish ? '#f4e9b8' : C.plate, { r: 0.5 });
-    b.add(BOX, M(-0.235, y, z + dir * 0.004, 0.05, 0.12, 0.02), C.euBlue, { r: 0.5 });
+/** number plate: 'eu' = 520×110 mm, blue strip; 'us' = 305×152 mm (Washington: white, dark-blue characters) */
+function plate(b, z, y, dir, style = 'eu', yellow = false) {
+    if (style === 'us') {
+        b.add(BOX, M(0, y, z, 0.31, 0.155, 0.02), C.plate, { r: 0.45 });
+        b.add(BOX, M(0, y - 0.01, z + dir * 0.006, 0.24, 0.06, 0.012), C.waText, { r: 0.5 });
+        b.add(BOX, M(0, y + 0.058, z + dir * 0.006, 0.2, 0.012, 0.012), '#8aa0c8', { r: 0.5 });
+        return;
+    }
+    b.add(BOX, M(0, y, z, 0.52, 0.115, 0.02), yellow ? '#f4e9b8' : C.plate, { r: 0.45 });
+    b.add(BOX, M(-0.235 * dir, y, z + dir * 0.004, 0.05, 0.115, 0.02), C.euBlue, { r: 0.45 }); // blue strip on the viewer's left
+    b.add(BOX, M(0.025 * dir, y, z + dir * 0.006, 0.4, 0.065, 0.012), C.plateText, { r: 0.5 }); // characters (unreadable at game distance)
 }
 
+const CH_Z = 0.6;
+/** clip a side profile [[z,y]] into the parts z ≤ zA, zA..zB, z ≥ zB (Sutherland–Hodgman on half-planes) */
+function clipZ(poly, z0, keepBelow) {
+    const out = [], inside = (p) => (keepBelow ? p[0] <= z0 : p[0] >= z0);
+    for (let i = 0; i < poly.length; i++) {
+        const a = poly[i], c = poly[(i + 1) % poly.length], ia = inside(a), ic = inside(c);
+        if (ia) out.push(a);
+        if (ia !== ic) { const t = (z0 - a[0]) / (c[0] - a[0]); out.push([z0, a[1] + (c[1] - a[1]) * t]); }
+    }
+    return out;
+}
+function planPieces(poly, zA, zB) {
+    const area = (p) => { let s = 0; for (let i = 0; i < p.length; i++) { const a = p[i], c = p[(i + 1) % p.length]; s += a[0] * c[1] - c[0] * a[1]; } return Math.abs(s / 2); };
+    return [clipZ(poly, zA, true), clipZ(clipZ(poly, zA, false), zB, true), clipZ(poly, zB, false)].filter(p => p.length >= 3 && area(p) > 1e-4);
+}
 // ---------------------------------------------------------------------------
-//  Passenger-car builder from profiles
+//  Passenger-car builder from side profiles (near LOD, ≤ ~1.8k triangles)
 // ---------------------------------------------------------------------------
 /**
- * o: { L, W, wr, wz, low (lower-body profile), gh (greenhouse profile) or null, belt, top, taper,
- *      ws:[p0,p1] windshield segment, rw:[p0,p1] rear window segment, side: [[z,y]...][] side windows,
- *      headY, tailY, headW, tailW, lightH, extra(body, parts) }
+ * o: { L, W, H, wr, wz, low (lower-body side profile [[z,y]]), gh (greenhouse profile) or null, belt, top, taper (greenhouse
+ *      tumblehome), chamfer (plan-view corner rounding, m), ws/rw windshield / rear window segments, side: side windows,
+ *      pillars: [z, ...] dark pillar z (B/C) between side windows, headY, tailY, headW, tailW, lightH, handles, seams, mirror,
+ *      plate: 'eu'|'us', bumperY, extra(b), roofRails, wheel/rim options }
  */
 function buildCar(o) {
-    const body = new Batch(), parts = new Batch();
+    const b = new Batch();
     const { L, W, belt, top } = o;
-    const gW = o.gW || W - 0.06;
-    const taper = (x, y) => 1 - o.taper * THREE.MathUtils.clamp((y - belt) / (top - belt), 0, 1);
-    body.add(extrude(o.low, -W / 2, W / 2));
-    if (o.gh) { // sink the greenhouse bottom into the lower body (no coplanar faces → no z-fighting at the belt line)
+    const gW = o.gW || W - 0.08;
+    const ch = o.chamfer ?? 0.09;
+    const zf = profileZ(o.low, belt - 0.05, -1), zr = profileZ(o.low, belt - 0.05, 1);
+    // plan-view rounding: the body narrows linearly over the last CH_Z m toward both bumpers. The side profile is cut at
+    // the two zone boundaries and each piece extruded on its own, so every side panel stays planar (no creases)
+    const zA = -L / 2 + CH_Z, zB = L / 2 - CH_Z, k = ch / (W / 2);
+    const plan = (x, y, z) => 1 - k * THREE.MathUtils.clamp(Math.max((zA - z) / CH_Z, (z - zB) / CH_Z), 0, 1);
+    const taper = (x, y, z) => (1 - o.taper * THREE.MathUtils.clamp((y - belt) / (top - belt), 0, 1)) * plan(x, y, z);
+    // wheel-arch cut-outs along the bottom edge of the side profile (closing edge = rear bottom → front bottom)
+    const low = o.low.slice(), yb = Math.min(low[0][1], low[low.length - 1][1]), ra = o.wr + 0.075;
+    for (const wz of [...o.wz].sort((p, q) => q - p)) {
+        const t0 = Math.asin(THREE.MathUtils.clamp((yb - o.wr) / ra, -1, 1));
+        for (let i = 0; i <= 8; i++) { const t = t0 + (Math.PI - 2 * t0) * i / 8; low.push([wz + ra * Math.cos(t), o.wr + ra * Math.sin(t)]); }
+    }
+    for (const piece of planPieces(low, zA, zB)) b.add(extrude(piece, -W / 2, W / 2, plan), IDENT, '#ffffff', PAINT);
+    if (o.gh) { // greenhouse sunk into the lower body (no coplanar faces at the belt line)
         const g = o.gh, f = g[0], r = g[g.length - 1];
-        body.add(extrude([...g, [r[0], r[1] - 0.08], [f[0], f[1] - 0.08]], -gW / 2, gW / 2, taper));
+        for (const piece of planPieces([...g, [r[0], r[1] - 0.08], [f[0], f[1] - 0.08]], zA, zB)) b.add(extrude(piece, -gW / 2, gW / 2, taper), IDENT, '#ffffff', PAINT);
     }
-    // glass
-    const gx = gW / 2 - 0.065;
-    if (o.ws) parts.add(extrude(glassStrip(o.ws[0], o.ws[1]), -gx, gx, taper), IDENT, C.glass, GLASS);
-    if (o.rw) parts.add(extrude(glassStrip(o.rw[0], o.rw[1]), -gx, gx, taper), IDENT, C.glass, GLASS);
+    // glass (tinted, glossy)
+    const gx = gW / 2 - 0.055;
+    if (o.ws) b.add(extrude(glassStrip(o.ws[0], o.ws[1]), -gx, gx, taper), IDENT, C.glass, GLASS);
+    if (o.rw) b.add(extrude(glassStrip(o.rw[0], o.rw[1]), -gx, gx, taper), IDENT, o.rearTint || C.glassDark, GLASS);
     for (const poly of o.side || []) {
-        parts.add(extrude(poly, gW / 2 - 0.01, gW / 2 + 0.012, taper), IDENT, C.glass, GLASS);
-        parts.add(extrude(poly, -gW / 2 - 0.012, -gW / 2 + 0.01, taper), IDENT, C.glass, GLASS);
+        b.add(extrude(poly, gW / 2 - 0.008, gW / 2 + 0.012, taper), IDENT, poly.tint || C.glass, GLASS);
+        b.add(extrude(poly, -gW / 2 - 0.012, -gW / 2 + 0.008, taper), IDENT, poly.tint || C.glass, GLASS);
     }
-    wheels(parts, o);
-    // lights
+    // black B/C pillar appliqués between the side windows
+    for (const pz of o.pillars || []) for (const s of [-1, 1]) {
+        const yb = belt + 0.04, yt = top - 0.1;
+        const t = (y) => (1 - o.taper * THREE.MathUtils.clamp((y - belt) / (top - belt), 0, 1));
+        b.add(BOX, beamM(new THREE.Vector3(s * (gW / 2 * t(yb) + 0.012), yb, pz), new THREE.Vector3(s * (gW / 2 * t(yt) + 0.012), yt, pz + (o.pillarLean || 0)), 0.012, 0.09), C.seal, { r: 0.25, m: 0.2 });
+    }
+    wheels(b, { ...o, W: W * plan(0, 0, o.wz[0]) });
+    // lights: headlamp cluster (lens + DRL strip + indicator), wrap-around tail lamps
     const hy = o.headY, ty = o.tailY;
     const fz = profileZ(o.low, hy, -1), rz = profileZ(o.low, ty, 1);
-    const lh = o.lightH || 0.13;
-    lightPair(parts, fz + 0.025, hy, W / 2 - (o.headW || 0.36) / 2 - 0.08, o.headW || 0.36, lh, C.head, HEAD);
-    lightPair(parts, fz + 0.03, hy - lh / 2 - 0.035, W / 2 - 0.16, 0.12, 0.05, C.amber, { e: 0.1, r: 0.3 });
-    lightPair(parts, rz - 0.025, ty, W / 2 - (o.tailW || 0.32) / 2 - 0.06, o.tailW || 0.32, lh + 0.03, C.tail, TAIL);
-    // grille + bumpers + plates
+    const lh = o.lightH || 0.13, hw = o.headW || 0.36, tw = o.tailW || 0.32;
+    const xF = W / 2 * plan(0, 0, fz + 0.05) - hw / 2 - 0.05, xR = W / 2 * plan(0, 0, rz - 0.05) - tw / 2 - 0.04;
+    lightPair(b, fz + 0.035, hy, xF, hw, lh, C.head, HEAD, 0.1);
+    lightPair(b, fz + 0.02, hy - lh / 2 + 0.012, xF, hw * 0.8, 0.022, C.drl, DRL, 0.1);
+    lightPair(b, fz + 0.04, hy + lh / 2 - 0.02, xF + hw / 2 - 0.05, 0.08, 0.035, C.amber, { e: 0.08, r: 0.3 }, 0.1);
+    lightPair(b, rz - 0.035, ty, xR, tw, lh + 0.03, C.tail, TAIL, 0.1);
+    lightPair(b, rz - 0.03, ty - 0.035, xR - tw * 0.2, tw * 0.35, 0.04, C.reverse, { e: 0.05, r: 0.2 }, 0.1);
+    for (const s of [-1, 1]) b.add(BOX, M(s * (W / 2 * plan(0, 0, rz - 0.14) - 0.01), ty, rz - 0.14, 0.03, lh + 0.02, 0.2), C.tail, TAIL); // side wrap
+    if (o.lightBar) b.add(BOX, M(0, ty + 0.02, rz - 0.03, W - 2 * tw - 0.1, 0.03, 0.08), C.tail, TAIL);         // full-width rear light bar
+    if (o.cHMSL !== false && o.rw) { const p = o.rw[0]; b.add(BOX, M(0, p[1] - 0.04, p[0] + 0.04, 0.28, 0.025, 0.03), C.tail, TAIL); } // high brake light
+    // grille, bumpers (body colour with dark lower intake), plates
     const gz = profileZ(o.low, hy - 0.02, -1);
-    parts.add(BOX, M(0, hy - 0.02, gz + 0.02, W - 2 * (o.headW || 0.36) - 0.25, lh * 0.8, 0.05), C.grille, { r: 0.5 });
+    if (o.grille !== false) b.add(BOX, M(0, hy - 0.03, gz + 0.025, W - 2 * hw - 0.32, lh * (o.grilleH || 0.85), 0.05), C.grille, { r: 0.45, m: 0.2 });
+    if (o.chromeGrille) b.add(BOX, M(0, hy - 0.03, gz + 0.01, W - 2 * hw - 0.25, lh * 1.4, 0.04), C.chrome, { r: 0.15, m: 1 });
     const by = o.bumperY || 0.38;
-    parts.add(BOX, M(0, by, profileZ(o.low, by, -1) + 0.02, W + 0.02, 0.14, 0.12), C.plastic, { r: 0.7 });
-    parts.add(BOX, M(0, by, profileZ(o.low, by, 1) - 0.02, W + 0.02, 0.14, 0.12), C.plastic, { r: 0.7 });
-    plate(parts, profileZ(o.low, by + 0.11, -1) - 0.015, by + 0.11, -1);
-    plate(parts, profileZ(o.low, (by + ty) / 2, 1) + 0.015, (by + ty) / 2, 1);
-    // side skirts
-    for (const s of [-1, 1]) parts.add(BOX, M(s * (W / 2 + 0.005), o.wr * 0.95, (o.wz[0] + o.wz[1]) / 2, 0.03, 0.12, Math.abs(o.wz[1] - o.wz[0]) - o.wr * 2.4), C.plastic, { r: 0.7 });
-    // door handles
-    if (o.handles) for (const z of o.handles) for (const s of [-1, 1]) parts.add(BOX, M(s * (W / 2 + 0.01), belt - 0.08, z, 0.03, 0.035, 0.16), C.trim, { r: 0.4, m: 0.4 });
-    // side mirrors (painted housings on the body)
+    const fbz = profileZ(o.low, by, -1), rbz = profileZ(o.low, by, 1);
+    b.add(BOX, M(0, by - 0.1, fbz + 0.03, (W - 0.1) * plan(0, 0, fbz), 0.12, 0.1), C.plastic, { r: 0.7 });  // front lower intake / splitter
+    b.add(BOX, M(0, by - 0.1, rbz - 0.03, (W - 0.1) * plan(0, 0, rbz), 0.1, 0.1), C.plastic, { r: 0.7 });  // rear diffuser
+    const pS = o.plate || 'eu';
+    plate(b, profileZ(o.low, by + 0.08, -1) - 0.012, by + 0.08, -1, pS);
+    plate(b, profileZ(o.low, (by + ty) / 2, 1) + 0.012, (by + ty) / 2 - (pS === 'us' ? 0.02 : 0), 1, pS);
+    // sills, door seams, handles
+    const z0 = o.wz[0] + o.wr * 1.15, z1 = o.wz[1] - o.wr * 1.15;
+    for (const s of [-1, 1]) b.add(BOX, M(s * (W / 2 + 0.004), o.wr * 0.78, (z0 + z1) / 2, 0.03, 0.1, z1 - z0), C.plastic, { r: 0.75 });
+    for (const z of o.seams || []) for (const s of [-1, 1]) b.add(BOX, M(s * (W / 2 + 0.003), (o.wr * 0.9 + belt) / 2, z, 0.008, belt - o.wr * 0.9, 0.008), C.seal, { r: 0.6 });
+    if (o.handles) for (const z of o.handles) for (const s of [-1, 1]) b.add(BOX, M(s * (W / 2 + 0.012), belt - 0.07, z, 0.03, 0.03, 0.15), o.handleColor || '#ffffff', o.handleColor ? { r: 0.3, m: 0.6 } : PAINT);
+    // side mirrors: body-coloured housing + dark arm + glass
     if (o.mirror) for (const s of [-1, 1]) {
-        body.add(BOX, M(s * (W / 2 + 0.1), o.mirror[1], o.mirror[0], 0.18, 0.12, 0.1));
-        parts.add(BOX, M(s * (W / 2 + 0.1), o.mirror[1], o.mirror[0] + 0.051, 0.15, 0.09, 0.005), C.chrome, { r: 0.05, m: 1 });
+        b.add(BOX, M(s * (gW / 2 + 0.13), o.mirror[1] + 0.05, o.mirror[0], 0.2, 0.12, 0.1), '#ffffff', PAINT);
+        b.add(BOX, M(s * (gW / 2 + 0.03), o.mirror[1], o.mirror[0] - 0.02, 0.08, 0.06, 0.16), C.seal, { r: 0.5 });
+        b.add(BOX, M(s * (gW / 2 + 0.13), o.mirror[1] + 0.05, o.mirror[0] + 0.051, 0.17, 0.09, 0.005), C.chrome, { r: 0.05, m: 1 });
     }
-    if (o.extra) o.extra(body, parts);
-    return { body: body.build(false), parts: parts.build(), length: L, width: W };
+    if (o.roofRails) for (const s of [-1, 1]) b.add(BOX, M(s * (gW / 2 * (1 - o.taper) - 0.06), top + 0.03, (o.roofRails[0] + o.roofRails[1]) / 2, 0.04, 0.05, o.roofRails[1] - o.roofRails[0]), C.trim, { r: 0.35, m: 0.5 });
+    if (o.antenna) b.add(BOX, M(0, top + 0.03, o.antenna, 0.05, 0.06, 0.14), C.trim, { r: 0.4 }); // shark fin
+    if (o.extra) o.extra(b, o);
+    const g = b.build();
+    return { geo: g, length: L, width: W, height: o.H || top, far: farCar(o, plan) };
+}
+
+/** far LOD (~150 triangles): painted lower box + tinted greenhouse + roof, wheels, light blocks */
+function farCar(o, plan = () => 1) {
+    const b = new Batch();
+    const { L, W, belt, top } = o, gW = (o.gW || W - 0.08) * (1 - o.taper * 0.5);
+    const zf = profileZ(o.low, belt - 0.05, -1), zr = profileZ(o.low, belt - 0.05, 1);
+    const lowTop = belt, lowBot = o.wr * 0.55;
+    b.add(BOX, M(0, (lowTop + lowBot) / 2, (zf + zr) / 2, W - 0.04, lowTop - lowBot, zr - zf), '#ffffff', PAINT);
+    const nose = profileZ(o.low, o.headY, -1), tail = profileZ(o.low, o.tailY, 1);
+    b.add(BOX, M(0, (o.headY + lowBot) / 2 + 0.02, (nose + zf) / 2, W - 0.14, o.headY - lowBot + 0.1, Math.max(0.05, zf - nose)), '#ffffff', PAINT);
+    b.add(BOX, M(0, (o.tailY + lowBot) / 2 + 0.02, (tail + zr) / 2, W - 0.14, o.tailY - lowBot + 0.1, Math.max(0.05, tail - zr)), '#ffffff', PAINT);
+    if (o.gh || o.farCabin) {
+        const g = o.farCabin || [o.gh[0][0], o.gh[o.gh.length - 1][0]];
+        const zs = (o.gh || []).map(p => p[0]); const rz0 = o.gh ? Math.min(...o.gh.filter(p => p[1] > top - 0.05).map(p => p[0])) : g[0] + 0.5;
+        const rz1 = o.gh ? Math.max(...o.gh.filter(p => p[1] > top - 0.05).map(p => p[0])) : g[1] - 0.3;
+        b.add(BOX, M(0, (belt + top) / 2 - 0.02, (rz0 + rz1) / 2, gW, top - belt - 0.04, rz1 - rz0), C.glass, GLASS);
+        b.add(BOX, M(0, (belt + top) / 2 - 0.03, (g[0] + rz0) / 2 + 0.05, gW - 0.1, (top - belt) * 0.8, rz0 - g[0] - 0.1), C.glass, GLASS);
+        if (g[1] - rz1 > 0.15) b.add(BOX, M(0, (belt + top) / 2 - 0.03, (rz1 + g[1]) / 2 - 0.05, gW - 0.1, (top - belt) * 0.8, g[1] - rz1 - 0.1), C.glassDark, GLASS);
+        b.add(BOX, M(0, top - 0.01, (rz0 + rz1) / 2, gW - 0.06, 0.04, rz1 - rz0 + 0.04), '#ffffff', PAINT);
+        void zs;
+    }
+    for (const z of o.wz) b.add(BOX, M(0, o.wr, z, W - 0.02, o.wr * 1.8, o.wr * 1.8), C.tyre, TYREM);
+    const hw = o.headW || 0.36, tw = o.tailW || 0.32;
+    lightPair(b, nose + 0.03, o.headY, W / 2 - hw / 2 - 0.08, hw, o.lightH || 0.13, C.head, HEAD, 0.08);
+    lightPair(b, tail - 0.03, o.tailY, W / 2 - tw / 2 - 0.06, tw, (o.lightH || 0.13) + 0.03, C.tail, TAIL, 0.08);
+    return b.build();
+}
+
+/** far LOD for a box-shaped vehicle (bus, tram section, truck) */
+function farBox(L, W, H, { z0 = -L / 2, wz = [], wr = 0.5, winY = [1.2, 2.6], ends = true, segs = null } = {}) {
+    const b = new Batch();
+    for (const [a, c] of segs || [[z0, z0 + L]]) {
+        b.add(BOX, M(0, (H + 0.35) / 2, (a + c) / 2, W, H - 0.35, c - a), '#ffffff', PAINT);
+        b.add(BOX, M(0, (winY[0] + winY[1]) / 2, (a + c) / 2, W + 0.02, winY[1] - winY[0], c - a - 0.6), C.glass, GLASS);
+    }
+    for (const z of wz) b.add(BOX, M(0, wr, z, W - 0.1, wr * 1.8, wr * 1.8), C.tyre, TYREM);
+    if (ends) {
+        lightPair(b, z0 - 0.02, 0.85, W / 2 - 0.3, 0.35, 0.18, C.head, HEAD, 0.06);
+        lightPair(b, z0 + L + 0.02, 0.95, W / 2 - 0.25, 0.25, 0.4, C.tail, TAIL, 0.06);
+    }
+    return b.build();
 }
 
 // ---------------------------------------------------------------------------
-//  Kind definitions
+//  Car kinds (real dimensions, unbranded silhouettes). L × W × H in metres.
 // ---------------------------------------------------------------------------
-const KINDS = {
-    sedan: () => buildCar({ // Dacia Logan-ish three box
-        L: 4.4, W: 1.76, wr: 0.31, wz: [-1.33, 1.28], belt: 0.98, top: 1.46, taper: 0.2,
-        low: [[-2.2, 0.3], [-2.23, 0.6], [-2.1, 0.8], [-0.95, 0.97], [1.45, 0.99], [2.12, 0.95], [2.23, 0.74], [2.2, 0.3]],
-        gh: [[-0.95, 0.96], [-0.12, 1.45], [0.95, 1.46], [1.55, 0.98]],
-        ws: [[-0.95, 0.96], [-0.12, 1.45]], rw: [[0.95, 1.46], [1.55, 0.98]],
-        side: [[[-0.82, 1.01], [-0.17, 1.39], [0.36, 1.4], [0.36, 1.01]], [[0.46, 1.01], [0.46, 1.4], [0.92, 1.4], [1.4, 1.01]]],
-        headY: 0.7, tailY: 0.8, mirror: [-0.8, 1.03], handles: [0.15, 1.0],
+const CARS = {
+    // compact three-box saloon (Logan-like proportions): 4.36 × 1.73 × 1.52
+    'compact-sedan': (pl) => buildCar({
+        L: 4.36, W: 1.73, H: 1.52, wr: 0.31, wz: [-1.31, 1.29], belt: 0.98, top: 1.51, taper: 0.17, plate: pl,
+        low: [[-2.15, 0.28], [-2.18, 0.58], [-2.1, 0.76], [-1.75, 0.86], [-0.95, 0.97], [1.42, 0.99], [2.08, 0.97], [2.17, 0.78], [2.15, 0.28]],
+        gh: [[-0.95, 0.96], [-0.14, 1.49], [0.88, 1.51], [1.5, 0.98]],
+        ws: [[-0.95, 0.96], [-0.14, 1.49]], rw: [[0.88, 1.51], [1.5, 0.98]],
+        side: [[[-0.8, 1.02], [-0.18, 1.44], [0.32, 1.45], [0.32, 1.02]], [[0.42, 1.02], [0.42, 1.45], [0.86, 1.45], [1.36, 1.02]]],
+        pillars: [0.37], seams: [-1.02, 0.36, 1.33], handles: [0.12, 1.02], headY: 0.72, tailY: 0.84, headW: 0.38, mirror: [-0.8, 1.0], antenna: 0.85,
     }),
-    hatch: () => buildCar({ // Dacia Sandero-ish
-        L: 4.06, W: 1.74, wr: 0.31, wz: [-1.27, 1.3], belt: 1.0, top: 1.52, taper: 0.2,
-        low: [[-2.02, 0.3], [-2.05, 0.62], [-1.92, 0.83], [-0.85, 0.99], [1.86, 1.01], [2.03, 0.98], [2.05, 0.6], [2.0, 0.3]],
-        gh: [[-0.85, 0.98], [-0.05, 1.51], [1.62, 1.51], [1.96, 1.0]],
-        ws: [[-0.85, 0.98], [-0.05, 1.51]], rw: [[1.62, 1.51], [1.96, 1.0]],
-        side: [[[-0.72, 1.03], [-0.1, 1.45], [0.45, 1.45], [0.45, 1.03]], [[0.55, 1.03], [0.55, 1.45], [1.25, 1.45], [1.45, 1.03]], [[1.55, 1.08], [1.55, 1.42], [1.68, 1.42], [1.82, 1.08]]],
-        headY: 0.74, tailY: 0.86, tailW: 0.22, lightH: 0.15, mirror: [-0.72, 1.06], handles: [0.2, 1.05],
+    // mid-size saloon (Passat / Camry-like): 4.85 × 1.84 × 1.45
+    sedan: (pl) => buildCar({
+        L: 4.85, W: 1.84, H: 1.45, wr: 0.33, wz: [-1.43, 1.4], belt: 0.97, top: 1.45, taper: 0.2, chamfer: 0.1, plate: pl,
+        low: [[-2.4, 0.27], [-2.43, 0.56], [-2.32, 0.74], [-1.9, 0.85], [-1.05, 0.96], [1.55, 0.99], [2.33, 0.95], [2.43, 0.74], [2.4, 0.27]],
+        gh: [[-1.05, 0.95], [-0.08, 1.44], [0.95, 1.45], [1.75, 0.98]],
+        ws: [[-1.05, 0.95], [-0.08, 1.44]], rw: [[0.95, 1.45], [1.75, 0.98]],
+        side: [[[-0.9, 1.01], [-0.13, 1.39], [0.42, 1.4], [0.42, 1.01]], [[0.52, 1.01], [0.52, 1.4], [0.93, 1.4], [1.5, 1.01]]],
+        pillars: [0.47], seams: [-1.1, 0.46, 1.5], handles: [0.22, 1.18], headY: 0.72, tailY: 0.86, headW: 0.42, tailW: 0.38, lightH: 0.11, mirror: [-0.88, 0.99], antenna: 0.9,
     }),
-    suv: () => buildCar({ // Duster / RAV4-ish
-        L: 4.6, W: 1.88, wr: 0.38, wz: [-1.42, 1.38], belt: 1.13, top: 1.72, taper: 0.14,
-        low: [[-2.28, 0.42], [-2.31, 0.82], [-2.14, 1.0], [-1.0, 1.12], [2.1, 1.14], [2.3, 1.1], [2.31, 0.42]],
-        gh: [[-1.0, 1.11], [-0.22, 1.7], [1.95, 1.72], [2.24, 1.13]],
-        ws: [[-1.0, 1.11], [-0.22, 1.7]], rw: [[1.95, 1.72], [2.24, 1.13]],
-        side: [[[-0.86, 1.16], [-0.26, 1.64], [0.5, 1.65], [0.5, 1.16]], [[0.6, 1.16], [0.6, 1.65], [1.45, 1.66], [1.45, 1.16]], [[1.55, 1.18], [1.55, 1.64], [1.92, 1.65], [2.12, 1.18]]],
-        headY: 0.88, tailY: 1.0, headW: 0.4, mirror: [-0.92, 1.2], handles: [0.3, 1.25], bumperY: 0.48,
-        extra: (body, parts) => { // roof rails + cladding
-            for (const s of [-1, 1]) parts.add(BOX, M(s * 0.68, 1.75, 0.85, 0.05, 0.05, 2.0), C.trim, { r: 0.4, m: 0.5 });
+    // compact hatchback (Golf-like): 4.28 × 1.79 × 1.46
+    hatch: (pl) => buildCar({
+        L: 4.28, W: 1.79, H: 1.46, wr: 0.32, wz: [-1.33, 1.3], belt: 0.98, top: 1.46, taper: 0.18, plate: pl,
+        low: [[-2.11, 0.28], [-2.14, 0.58], [-2.04, 0.76], [-1.7, 0.86], [-0.88, 0.98], [1.88, 1.0], [2.12, 0.96], [2.14, 0.58], [2.1, 0.28]],
+        gh: [[-0.88, 0.97], [-0.06, 1.45], [1.55, 1.44], [2.02, 0.99]],
+        ws: [[-0.88, 0.97], [-0.06, 1.45]], rw: [[1.62, 1.41], [2.02, 1.0]],
+        side: [[[-0.74, 1.02], [-0.11, 1.4], [0.42, 1.4], [0.42, 1.02]], [[0.52, 1.02], [0.52, 1.4], [1.22, 1.4], [1.4, 1.02]]],
+        pillars: [0.47], seams: [-0.98, 0.46, 1.42], handles: [0.18, 1.05], headY: 0.74, tailY: 0.88, tailW: 0.3, lightH: 0.12, mirror: [-0.74, 1.01], antenna: 1.3,
+        cpillar: true,
+    }),
+    // estate / wagon (Octavia-combi-like): 4.69 × 1.83 × 1.47, roof rails
+    estate: (pl) => buildCar({
+        L: 4.69, W: 1.83, H: 1.47, wr: 0.32, wz: [-1.47, 1.22], belt: 0.98, top: 1.47, taper: 0.17, plate: pl,
+        low: [[-2.31, 0.28], [-2.34, 0.57], [-2.24, 0.75], [-1.85, 0.86], [-0.98, 0.97], [2.1, 1.0], [2.33, 0.96], [2.35, 0.56], [2.31, 0.28]],
+        gh: [[-0.98, 0.96], [-0.1, 1.46], [1.95, 1.43], [2.26, 0.99]],
+        ws: [[-0.98, 0.96], [-0.1, 1.46]], rw: [[1.98, 1.4], [2.26, 1.0]],
+        side: [[[-0.84, 1.02], [-0.15, 1.41], [0.38, 1.41], [0.38, 1.02]], [[0.48, 1.02], [0.48, 1.41], [1.22, 1.41], [1.22, 1.02]], [[1.32, 1.04], [1.32, 1.39], [1.88, 1.37], [2.08, 1.04]]],
+        pillars: [0.43, 1.27], seams: [-1.06, 0.42, 1.3], handles: [0.15, 1.08], headY: 0.73, tailY: 0.9, tailW: 0.3, mirror: [-0.83, 1.0], roofRails: [-0.05, 1.85],
+    }),
+    // small SUV (Duster-like): 4.34 × 1.80 × 1.69, plastic cladding
+    'small-suv': (pl) => buildCar({
+        L: 4.34, W: 1.8, H: 1.69, wr: 0.36, wz: [-1.33, 1.34], belt: 1.08, top: 1.66, taper: 0.13, plate: pl, archPaint: false, archLip: 0.1,
+        low: [[-2.13, 0.4], [-2.17, 0.78], [-2.05, 0.95], [-1.62, 1.02], [-0.95, 1.07], [1.86, 1.1], [2.15, 1.06], [2.17, 0.42]],
+        gh: [[-0.95, 1.06], [-0.2, 1.64], [1.72, 1.65], [2.05, 1.08]],
+        ws: [[-0.95, 1.06], [-0.2, 1.64]], rw: [[1.74, 1.6], [2.05, 1.1]],
+        side: [[[-0.81, 1.12], [-0.24, 1.58], [0.4, 1.58], [0.4, 1.12]], [[0.5, 1.12], [0.5, 1.58], [1.32, 1.59], [1.32, 1.12]], [[1.42, 1.14], [1.42, 1.56], [1.7, 1.57], [1.88, 1.14]]],
+        pillars: [0.45, 1.37], seams: [-0.96, 0.45, 1.36], handles: [0.15, 1.1], headY: 0.88, tailY: 1.0, headW: 0.4, bumperY: 0.5, mirror: [-0.85, 1.12], roofRails: [-0.15, 1.75],
+        extra: (b) => { for (const s of [-1, 1]) b.add(BOX, M(s * 0.905, 0.5, 0, 0.02, 0.2, 2.7), C.plastic, { r: 0.8 }); b.add(BOX, M(0, 0.45, -2.17, 1.1, 0.06, 0.05), '#9aa0a6', { r: 0.4, m: 0.5 }); },
+    }),
+    // compact crossover (RAV4 / CR-V-like): 4.60 × 1.86 × 1.69
+    crossover: (pl) => buildCar({
+        L: 4.6, W: 1.86, H: 1.69, wr: 0.37, wz: [-1.41, 1.28], belt: 1.08, top: 1.68, taper: 0.15, chamfer: 0.11, plate: pl, archLip: 0.1,
+        low: [[-2.27, 0.38], [-2.3, 0.72], [-2.18, 0.92], [-1.7, 1.02], [-1.0, 1.07], [1.98, 1.1], [2.28, 1.04], [2.3, 0.4]],
+        gh: [[-1.0, 1.06], [-0.18, 1.66], [1.8, 1.65], [2.2, 1.09]],
+        ws: [[-1.0, 1.06], [-0.18, 1.66]], rw: [[1.85, 1.6], [2.2, 1.1]],
+        side: [[[-0.86, 1.12], [-0.23, 1.6], [0.42, 1.6], [0.42, 1.12]], [[0.52, 1.12], [0.52, 1.6], [1.3, 1.6], [1.3, 1.12]], [[1.4, 1.14], [1.4, 1.57], [1.72, 1.58], [2.0, 1.14]]],
+        pillars: [0.47, 1.35], seams: [-1.02, 0.47, 1.35], handles: [0.18, 1.1], headY: 0.92, tailY: 1.04, headW: 0.42, lightH: 0.11, bumperY: 0.48, mirror: [-0.88, 1.12], roofRails: [-0.1, 1.8], antenna: 1.55,
+        extra: (b) => { for (const s of [-1, 1]) b.add(BOX, M(s * 0.935, 0.52, 0, 0.02, 0.18, 2.6), C.plastic, { r: 0.8 }); },
+    }),
+    // mid-size 3-row SUV (Explorer-like): 5.05 × 2.00 × 1.78
+    suv: (pl) => buildCar({
+        L: 5.05, W: 2.0, H: 1.78, wr: 0.39, wz: [-1.6, 1.42], belt: 1.15, top: 1.78, taper: 0.12, chamfer: 0.1, plate: pl, archLip: 0.1, tw: 0.25,
+        low: [[-2.49, 0.42], [-2.53, 0.85], [-2.4, 1.04], [-1.85, 1.11], [-1.1, 1.14], [2.2, 1.17], [2.5, 1.12], [2.53, 0.44]],
+        gh: [[-1.1, 1.13], [-0.25, 1.76], [2.15, 1.76], [2.42, 1.16]],
+        ws: [[-1.1, 1.13], [-0.25, 1.76]], rw: [[2.18, 1.72], [2.42, 1.17]],
+        side: [[[-0.95, 1.19], [-0.3, 1.7], [0.42, 1.71], [0.42, 1.19]], [[0.52, 1.19], [0.52, 1.71], [1.4, 1.71], [1.4, 1.19]], [[1.5, 1.2], [1.5, 1.7], [2.12, 1.7], [2.25, 1.2]]],
+        pillars: [0.47, 1.45], seams: [-1.12, 0.47, 1.44], handles: [0.18, 1.2], headY: 0.98, tailY: 1.12, headW: 0.42, tailW: 0.24, lightH: 0.12, bumperY: 0.52, mirror: [-0.95, 1.2], roofRails: [-0.2, 2.0],
+    }),
+    // EV fastback saloon (smooth nose, no grille, glass roof, light bar): 4.72 × 1.85 × 1.44
+    'ev-sedan': (pl) => buildCar({
+        L: 4.72, W: 1.85, H: 1.44, wr: 0.34, wz: [-1.44, 1.43], belt: 0.95, top: 1.44, taper: 0.22, chamfer: 0.13, plate: pl, grille: false, rim: '#3d4147',
+        low: [[-2.33, 0.26], [-2.36, 0.5], [-2.28, 0.66], [-2.0, 0.78], [-1.0, 0.93], [1.75, 0.98], [2.3, 0.96], [2.36, 0.74], [2.34, 0.27]],
+        gh: [[-1.0, 0.92], [0.0, 1.43], [0.72, 1.44], [2.05, 0.98]],
+        ws: [[-1.0, 0.92], [0.0, 1.43]], rw: [[0.72, 1.44], [2.05, 0.99]],
+        side: [[[-0.86, 0.99], [-0.05, 1.38], [0.42, 1.39], [0.42, 0.99]], [[0.52, 0.99], [0.52, 1.39], [0.75, 1.39], [1.6, 0.99]]],
+        pillars: [0.47], seams: [-1.08, 0.47, 1.45], handles: [0.15, 1.05], handleColor: '#1a1b1e', headY: 0.7, tailY: 0.85, headW: 0.4, tailW: 0.36, lightH: 0.07, mirror: [-0.85, 0.98],
+        extra: (b) => b.add(extrude(glassStrip([0.0, 1.43], [0.72, 1.44], 0.02), -0.62, 0.62), IDENT, C.glassDark, GLASS), // glass roof
+    }),
+    // minivan (Sienna / Odyssey-like): 5.17 × 2.00 × 1.78, sliding-door rail
+    minivan: (pl) => buildCar({
+        L: 5.17, W: 1.99, H: 1.78, wr: 0.36, wz: [-1.62, 1.4], belt: 1.07, top: 1.77, taper: 0.11, chamfer: 0.12, plate: pl,
+        low: [[-2.55, 0.34], [-2.58, 0.66], [-2.45, 0.86], [-1.95, 0.98], [-1.25, 1.06], [2.3, 1.1], [2.55, 1.04], [2.58, 0.36]],
+        gh: [[-1.25, 1.05], [-0.25, 1.75], [2.2, 1.74], [2.5, 1.09]],
+        ws: [[-1.25, 1.05], [-0.25, 1.75]], rw: [[2.25, 1.7], [2.5, 1.1]],
+        side: [[[-1.1, 1.12], [-0.3, 1.69], [0.28, 1.69], [0.28, 1.12]], [[0.38, 1.12], [0.38, 1.69], [1.42, 1.69], [1.42, 1.12]], [[1.52, 1.13], [1.52, 1.68], [2.2, 1.68], [2.36, 1.13]]],
+        pillars: [0.33, 1.47], seams: [-1.2, 0.33, 1.47], handles: [0.05, 0.55], headY: 0.9, tailY: 1.15, headW: 0.42, tailW: 0.22, lightH: 0.12, bumperY: 0.46, mirror: [-1.1, 1.12], roofRails: [-0.2, 2.0],
+        extra: (b) => { for (const s of [-1, 1]) b.add(BOX, M(s * 0.997, 1.06, 1.25, 0.008, 0.02, 1.4), C.seal, { r: 0.4 }); },
+    }),
+    // full-size crew-cab pickup (F-150-like): 5.89 × 2.03 × 1.96, open bed
+    pickup: (pl) => buildCar({
+        L: 5.89, W: 2.03, H: 1.96, wr: 0.42, wz: [-1.95, 1.72], belt: 1.3, top: 1.95, taper: 0.09, chamfer: 0.06, plate: pl, tw: 0.27, archLip: 0.12, chromeGrille: true,
+        low: [[-2.92, 0.46], [-2.95, 1.0], [-2.85, 1.22], [-1.6, 1.3], [2.92, 1.3], [2.95, 0.46]],
+        gh: [[-1.6, 1.29], [-0.85, 1.94], [0.72, 1.95], [0.8, 1.3]],
+        ws: [[-1.6, 1.29], [-0.85, 1.94]], rw: [[0.72, 1.95], [0.8, 1.31]],
+        side: [[[-1.44, 1.35], [-0.88, 1.88], [-0.25, 1.89], [-0.25, 1.35]], [[-0.15, 1.35], [-0.15, 1.89], [0.66, 1.9], [0.7, 1.35]]],
+        pillars: [-0.2], seams: [-1.5, -0.2, 0.84], handles: [-0.55, 0.3], handleColor: '#c9ced4', headY: 1.08, tailY: 1.05, headW: 0.4, tailW: 0.14, lightH: 0.2, bumperY: 0.6, mirror: [-1.42, 1.38], grilleH: 1.6, cHMSL: false,
+        extra: (b) => {
+            b.add(BOX, M(0, 1.0, 1.9, 1.72, 0.03, 2.0), '#18191b', { r: 0.95 });                         // bed floor
+            for (const s of [-1, 1]) b.add(BOX, M(s * 0.88, 1.15, 1.9, 0.03, 0.32, 2.0), '#1d1e21', { r: 0.9 }); // bed inner walls
+            b.add(BOX, M(0, 1.15, 2.92, 1.8, 0.3, 0.02), '#1d1e21', { r: 0.9 });                         // tailgate inner
+            b.add(BOX, M(0, 0.55, -2.97, 2.0, 0.18, 0.1), C.chrome, { r: 0.2, m: 1 });                   // chrome bumpers
+            b.add(BOX, M(0, 0.6, 2.97, 2.0, 0.16, 0.1), C.chrome, { r: 0.2, m: 1 });
         },
     }),
-    pickup: () => buildCar({ // F-150-ish (Seattle)
-        L: 5.4, W: 1.98, wr: 0.41, wz: [-1.7, 1.62], belt: 1.25, top: 1.9, taper: 0.1,
-        low: [[-2.7, 0.45], [-2.72, 0.95], [-2.55, 1.18], [-1.35, 1.25], [2.68, 1.25], [2.7, 0.45]],
-        gh: [[-1.35, 1.24], [-0.7, 1.88], [0.52, 1.9], [0.6, 1.25]],
-        ws: [[-1.35, 1.24], [-0.7, 1.88]], rw: [[0.52, 1.9], [0.6, 1.25]],
-        side: [[[-1.2, 1.3], [-0.73, 1.82], [-0.12, 1.83], [-0.12, 1.3]], [[-0.02, 1.3], [-0.02, 1.83], [0.47, 1.84], [0.5, 1.3]]],
-        headY: 1.0, tailY: 1.0, headW: 0.42, tailW: 0.14, lightH: 0.2, mirror: [-1.2, 1.35], handles: [-0.5, 0.25], bumperY: 0.52,
-        extra: (body, parts) => {
-            parts.add(BOX, M(0, 1.255, 1.68, 1.78, 0.012, 1.84), '#1a1b1e', { r: 0.9 }); // open bed floor (dark)
-            parts.add(BOX, M(0, 1.0, -2.72, 1.2, 0.3, 0.04), C.chrome, { r: 0.2, m: 1 }); // chrome grille
+    // small van (Dokker / Kangoo-like): 4.36 × 1.75 × 1.81
+    van: (pl) => buildCar({
+        L: 4.36, W: 1.75, H: 1.81, wr: 0.32, wz: [-1.36, 1.4], belt: 1.05, top: 1.81, taper: 0.05, chamfer: 0.08, plate: pl,
+        low: [[-2.15, 0.3], [-2.18, 0.62], [-2.02, 0.86], [-1.3, 1.02], [-0.65, 1.79], [2.1, 1.81], [2.18, 1.72], [2.18, 0.3]],
+        gh: null, ws: [[-1.3, 1.02], [-0.65, 1.79]],
+        side: [[[-1.15, 1.1], [-0.68, 1.68], [-0.08, 1.69], [-0.08, 1.1]]],
+        seams: [-1.2, -0.02, 1.0], handles: [-0.25, 0.55], headY: 0.78, tailY: 0.98, headW: 0.34, tailW: 0.14, lightH: 0.3, mirror: [-1.12, 1.12], cHMSL: false,
+        extra: (b) => {
+            b.add(BOX, M(0, 1.45, 2.185, 1.3, 0.4, 0.02), C.glassDark, GLASS);
+            b.add(BOX, M(0, 1.45, 2.19, 0.04, 0.4, 0.02), C.trim);
+            for (const s of [-1, 1]) b.add(BOX, M(s * 0.88, 1.0, 0.75, 0.01, 0.02, 0.9), C.trim);
         },
     }),
-    van: () => buildCar({ // Dacia Dokker-ish
-        L: 4.4, W: 1.8, wr: 0.32, wz: [-1.38, 1.38], belt: 1.08, top: 1.86, taper: 0.06,
-        low: [[-2.2, 0.3], [-2.23, 0.64], [-2.04, 0.9], [-1.28, 1.05], [-0.62, 1.84], [2.12, 1.86], [2.2, 1.75], [2.21, 0.3]],
-        gh: null,
-        ws: [[-1.28, 1.05], [-0.62, 1.84]],
-        side: [[[-1.12, 1.12], [-0.64, 1.72], [-0.1, 1.73], [-0.1, 1.12]]],
-        headY: 0.76, tailY: 0.95, headW: 0.34, tailW: 0.16, lightH: 0.3, mirror: [-1.12, 1.15], handles: [-0.3, 0.6],
-        extra: (body, parts) => {
-            parts.add(BOX, M(0, 1.45, 2.215, 1.3, 0.42, 0.02), C.glass, GLASS); // rear windows
-            parts.add(BOX, M(0, 1.45, 2.22, 0.04, 0.42, 0.02), C.trim);
-            for (const s of [-1, 1]) parts.add(BOX, M(s * 0.905, 1.0, 0.75, 0.01, 0.02, 0.9), C.trim); // sliding door rail
-        },
-    }),
-    taxi: () => {
-        const g = KINDS.sedan();
-        // checker band along both sides
-        const band = new Batch();
-        for (const s of [-1, 1]) for (let i = 0; i < 12; i++) band.add(BOX, M(s * 0.885, 0.82 + (i % 2) * 0.05, -1.0 + i * 0.17, 0.012, 0.05, 0.17), i % 2 ? '#111' : '#f4f4f4', { r: 0.5 });
-        g.parts = mergeBatches(g.parts, band.build());
-        return g;
-    },
-    police: () => {
-        const g = KINDS.sedan();
-        const band = new Batch();
-        for (const s of [-1, 1]) {
-            band.add(BOX, M(s * 0.885, 0.78, 0.0, 0.012, 0.16, 3.6), '#1d4ed8', { r: 0.4 });
-            band.add(BOX, M(s * 0.886, 0.72, 0.0, 0.012, 0.03, 3.6), '#facc15', { e: 0.1, r: 0.4 });
-        }
-        g.parts = mergeBatches(g.parts, band.build());
-        return g;
-    },
-    bus: () => { // Mercedes Citaro-ish, STB blue/white
-        const L = 12, W = 2.55, H = 3.1, body = new Batch(), parts = new Batch();
-        const low = [[-6.0, 0.32], [-6.06, 1.0], [-5.98, 2.95], [-5.85, H], [5.9, H], [6.0, 2.9], [6.02, 0.32]];
-        body.add(extrude(low, -W / 2, W / 2));
-        // white upper band + roof
-        parts.add(BOX, M(0, 2.82, 0.05, W + 0.02, 0.5, L - 0.25), '#f1f3f5', { r: 0.45 });
-        parts.add(BOX, M(0, H + 0.12, 1.5, 1.7, 0.24, 2.6), '#d5d8dc', { r: 0.6 }); // AC unit
-        // window band with white pillars
-        for (const s of [-1, 1]) {
-            parts.add(BOX, M(s * (W / 2 + 0.006), 1.95, 0.2, 0.015, 1.1, L - 1.6), C.glass, GLASS);
-            for (let z = -4.8; z <= 5.2; z += 1.55) parts.add(BOX, M(s * (W / 2 + 0.014), 1.95, z, 0.012, 1.12, 0.12), '#eef0f2', { r: 0.4 });
-        }
-        // doors (right side), dark glass
-        for (const z of [-5.0, -0.9, 3.4]) parts.add(BOX, M(W / 2 + 0.016, 1.45, z, 0.012, 2.1, 1.15), '#20262c', { r: 0.1 });
-        // windscreen + destination sign
-        parts.add(BOX, M(0, 1.85, -6.045, W - 0.15, 1.65, 0.04), C.glass, GLASS);
-        parts.add(BOX, M(0, 2.85, -6.0, 1.9, 0.26, 0.05), '#ff9a1a', { e: 0.9, r: 0.3 });
-        parts.add(BOX, M(0, 1.6, 6.03, W - 0.4, 1.0, 0.03), C.glass, GLASS);
-        wheels(parts, { W, wr: 0.5, wz: [-3.6, 2.4], tw: 0.3 });
-        lightPair(parts, -6.06, 0.75, 0.95, 0.4, 0.18, C.head, HEAD);
-        lightPair(parts, 6.05, 0.9, 1.05, 0.25, 0.45, C.tail, TAIL);
-        parts.add(BOX, M(0, 0.45, -6.07, W, 0.3, 0.1), C.plastic, { r: 0.7 });
-        parts.add(BOX, M(0, 0.45, 6.06, W, 0.3, 0.1), C.plastic, { r: 0.7 });
-        plate(parts, -6.13, 0.45, -1); plate(parts, 6.12, 0.62, 1);
-        for (const s of [-1, 1]) body.add(BOX, M(s * (W / 2 + 0.12), 2.3, -5.9, 0.08, 0.35, 0.12));
-        return { body: body.build(false), parts: parts.build(), length: L, width: W };
-    },
-    tram: () => { // articulated Astra Imperio / V3A-ish (3 sections)
-        const L = 28, W = 2.4, H = 3.3, body = new Batch(), parts = new Batch();
-        const secs = [[-14, -4], [-3.5, 3.5], [4, 14]];
-        secs.forEach(([z0, z1], i) => {
-            const nose = (z) => [[z0 + (i === 0 ? 0.35 : 0), 0.45], [z0, 1.1], [z0 + (i === 0 ? 0.35 : 0), H - 0.15], [z0 + (i === 0 ? 0.6 : 0), H], [z1 - (i === 2 ? 0.6 : 0), H], [z1 - (i === 2 ? 0.35 : 0), H - 0.15], [z1, 1.1], [z1 - (i === 2 ? 0.35 : 0), 0.45]];
-            body.add(extrude(nose(), -W / 2, W / 2));
-            const len = z1 - z0, zc = (z0 + z1) / 2;
-            for (const s of [-1, 1]) {
-                parts.add(BOX, M(s * (W / 2 + 0.006), 2.05, zc, 0.012, 1.15, len - 1.0), C.glass, GLASS);
-                parts.add(BOX, M(s * (W / 2 + 0.008), 0.75, zc, 0.012, 0.18, len - 0.2), '#f2f2f2', { r: 0.5 });
-                for (let z = z0 + 1.6; z < z1 - 0.8; z += 1.8) parts.add(BOX, M(s * (W / 2 + 0.014), 2.05, z, 0.012, 1.17, 0.14), '#2a2c30', { r: 0.4 });
-            }
-            parts.add(BOX, M(0, H + 0.15, zc, 1.6, 0.3, len * 0.55), '#8a8f96', { r: 0.6 }); // roof equipment
-            parts.add(BOX, M(0, 0.32, zc, W - 0.3, 0.4, len - 1.4), C.trim, { r: 0.8 }); // bogie skirt
-            for (const z of [z0 + 1.5, z1 - 1.5]) for (const s of [-1, 1]) parts.add(TYRE, M(s * 0.8, 0.36, z, 0.15, 0.36, 0.36), '#2b2b2b', TYREM);
-        });
-        for (const z of [-3.75, 3.75]) parts.add(BOX, M(0, 1.9, z, W - 0.2, 2.7, 0.55), '#1f2023', { r: 0.9 }); // bellows
-        // windscreens, sign
-        parts.add(BOX, M(0, 2.15, -14.02, W - 0.3, 1.2, 0.04), C.glass, GLASS);
-        parts.add(BOX, M(0, 2.15, 14.02, W - 0.3, 1.2, 0.04), C.glass, GLASS);
-        parts.add(BOX, M(0, 3.0, -13.95, 1.3, 0.22, 0.05), '#ff9a1a', { e: 0.9, r: 0.3 });
-        lightPair(parts, -14.0, 1.0, 0.85, 0.3, 0.15, C.head, HEAD);
-        lightPair(parts, 14.0, 1.0, 0.85, 0.3, 0.15, C.tail, TAIL);
-        // pantograph on the middle section
-        const a = new THREE.Vector3(0, H + 0.3, -0.7), b = new THREE.Vector3(0, H + 1.1, 0.2), c = new THREE.Vector3(0, H + 1.9, -0.5);
-        parts.add(BOX, beamM(a, b, 0.05, 0.05), '#333');
-        parts.add(BOX, beamM(b, c, 0.05, 0.05), '#333');
-        parts.add(BOX, M(0, H + 1.92, -0.5, 1.6, 0.05, 0.08), '#333');
-        return { body: body.build(false), parts: parts.build(), length: L, width: W };
-    },
-    truck: () => { // cab-over + box
-        const L = 9, W = 2.45, body = new Batch(), parts = new Batch();
-        body.add(extrude([[-4.5, 0.55], [-4.55, 1.2], [-4.45, 2.9], [-4.2, 3.0], [-2.9, 3.0], [-2.9, 0.55]], -W / 2, W / 2));
-        parts.add(BOX, M(0, 2.05, 1.4, W + 0.05, 2.9, 6.1), '#e8e9ea', { r: 0.6 }); // box
-        parts.add(BOX, M(0, 0.62, 0.3, 1.0, 0.25, 8.4), C.trim, { r: 0.8 }); // chassis
-        parts.add(BOX, M(0, 2.15, -4.51, W - 0.2, 0.9, 0.05), C.glass, GLASS);
-        for (const s of [-1, 1]) parts.add(BOX, M(s * (W / 2 + 0.006), 2.15, -3.75, 0.012, 0.75, 0.9), C.glass, GLASS);
-        parts.add(BOX, M(0, 1.15, -4.56, 1.5, 0.45, 0.04), C.grille, { r: 0.5 });
-        wheels(parts, { W, wr: 0.5, wz: [-3.3, 2.0, 3.25], tw: 0.32, arch: false });
-        lightPair(parts, -4.57, 0.85, 0.95, 0.35, 0.2, C.head, HEAD);
-        lightPair(parts, 4.47, 0.9, 1.0, 0.22, 0.18, C.tail, TAIL);
-        parts.add(BOX, M(0, 0.6, -4.6, W, 0.25, 0.1), C.plastic, { r: 0.7 });
-        plate(parts, -4.66, 0.6, -1); plate(parts, 4.47, 0.75, 1, true);
-        for (const s of [-1, 1]) body.add(BOX, M(s * (W / 2 + 0.15), 2.3, -4.2, 0.06, 0.4, 0.1));
-        return { body: body.build(false), parts: parts.build(), length: L, width: W };
-    },
 };
 
-function mergeBatches(a, b) {
+// tall panel van (Sprinter-like, high roof): 5.93 × 2.02 × 2.6 — white delivery fleet
+function deliveryVan(pl) {
+    const o = {
+        L: 5.93, W: 2.02, H: 2.6, wr: 0.36, wz: [-1.95, 1.72], belt: 1.25, top: 2.6, taper: 0.03, chamfer: 0.1, plate: pl, tw: 0.24,
+        low: [[-2.94, 0.34], [-2.97, 0.72], [-2.82, 1.02], [-2.3, 1.18], [-1.62, 1.3], [-1.05, 2.45], [-0.85, 2.6], [2.9, 2.6], [2.97, 2.5], [2.97, 0.34]],
+        gh: null, ws: [[-1.62, 1.3], [-1.05, 2.42]],
+        side: [[[-1.45, 1.36], [-1.08, 2.18], [-0.62, 2.2], [-0.62, 1.36]]],
+        seams: [-1.55, -0.55, 0.85, 2.92], handles: [-0.75, 0.2], headY: 0.95, tailY: 0.95, headW: 0.38, tailW: 0.14, lightH: 0.32, bumperY: 0.46, mirror: [-1.45, 1.45], cHMSL: false,
+        farCabin: [-1.6, -0.6],
+        extra: (b) => {
+            for (const s of [-1, 1]) b.add(BOX, M(s * 1.016, 1.3, 1.05, 0.01, 0.02, 1.0), C.trim); // sliding-door rail
+            b.add(BOX, M(0, 1.35, 2.975, 0.01, 1.9, 0.01), C.seal);                                 // barn doors split
+            b.add(BOX, M(0, 2.62, -0.2, 0.25, 0.03, 0.08), C.tail, TAIL);                            // high brake lamp
+            for (const s of [-1, 1]) b.add(BOX, M(s * 0.98, 1.25, -2.0, 0.08, 0.04, 1.6), '#2a2c30', { r: 0.8 });
+        },
+    };
+    const r = buildCar(o);
+    r.far = farCar({ ...o, gh: null }, () => 1);
+    { // far: add the windshield as dark glass
+        const b = new Batch(); b.add(BOX, M(0, 1.85, -1.4, 1.84, 0.95, 0.5, -0.5), C.glass, GLASS);
+        r.far = mergeGeos(r.far, b.build());
+    }
+    return r;
+}
+
+// box truck (cab-over + box body): 8.9 × 2.45 × 3.4
+function boxTruck(pl) {
+    const L = 8.9, W = 2.45, b = new Batch();
+    b.add(extrude([[-4.45, 0.55], [-4.5, 1.2], [-4.4, 2.85], [-4.15, 2.95], [-2.9, 2.95], [-2.9, 0.55]], -W / 2, W / 2), IDENT, '#ffffff', PAINT);
+    b.add(BOX, M(0, 2.0, 1.35, W + 0.04, 2.85, 6.05), '#e9eaeb', { r: 0.55 });                  // box body
+    b.add(BOX, M(0, 0.48, 1.35, W + 0.06, 0.06, 6.0), '#6b6e72', { r: 0.6, m: 0.4 });           // box floor rail
+    for (const s of [-1, 1]) b.add(BOX, M(s * 1.0, 0.6, 1.4, 0.03, 0.2, 4.6), '#d6d8da', { r: 0.6, m: 0.5 }); // side guard
+    b.add(BOX, M(0, 0.6, 0.3, 1.0, 0.25, 8.3), C.trim, { r: 0.8 });
+    b.add(BOX, M(0, 2.1, -4.47, W - 0.2, 0.9, 0.05), C.glass, GLASS);
+    for (const s of [-1, 1]) b.add(BOX, M(s * (W / 2 + 0.006), 2.1, -3.7, 0.012, 0.75, 0.9), C.glass, GLASS);
+    b.add(BOX, M(0, 1.15, -4.53, 1.5, 0.45, 0.04), C.grille, { r: 0.5 });
+    wheels(b, { W, wr: 0.5, wz: [-3.3, 2.0, 3.2], tw: 0.32, arch: false });
+    lightPair(b, -4.54, 0.85, 0.95, 0.35, 0.2, C.head, HEAD);
+    lightPair(b, 4.4, 0.85, 1.0, 0.22, 0.18, C.tail, TAIL);
+    b.add(BOX, M(0, 0.6, -4.58, W, 0.25, 0.1), C.plastic, { r: 0.7 });
+    b.add(BOX, M(0, 0.5, 4.38, W, 0.12, 0.12), '#c0322b', { r: 0.6 }); // under-run bar
+    plate(b, -4.64, 0.6, -1, pl); plate(b, 4.46, 0.75, 1, pl, pl !== 'us');
+    for (const s of [-1, 1]) b.add(BOX, M(s * (W / 2 + 0.15), 2.3, -4.2, 0.06, 0.4, 0.1), C.seal);
+    return { geo: b.build(), length: L, width: W, height: 3.45, far: farBox(L, W, 3.4, { wz: [-3.3, 2.0, 3.2], winY: [1.7, 2.5] }) };
+}
+
+// police: city-specific base car + livery
+function policeCar(pl, city) {
+    if (city === 'seattle') { // US interceptor SUV: black with white front doors, lightbar
+        const r = CARS.suv('us'); const b = new Batch();
+        for (const s of [-1, 1]) b.add(BOX, M(s * 1.003, 0.8, -0.35, 0.008, 0.62, 1.45), '#f4f5f7', { r: 0.35, m: 0.2 });
+        b.add(BOX, M(0, 0.62, -2.6, 1.6, 0.16, 0.12), '#111214', { r: 0.6 }); // push bar
+        b.add(BOX, M(0, 1.83, 0.1, 1.25, 0.1, 0.3), '#1a1b1e', { r: 0.4 });  // lightbar base
+        r.geo = mergeGeos(r.geo, b.build()); r.bar = { y: 1.93, z: 0.1, w: 1.2 }; r.paint = '#121316';
+        return r;
+    }
+    // Romanian police: white saloon, blue side band with a thin yellow line
+    const r = CARS['compact-sedan']('eu'); const b = new Batch();
+    for (const s of [-1, 1]) {
+        b.add(BOX, M(s * 0.871, 0.76, -0.05, 0.008, 0.17, 3.7), '#1d3f9a', { r: 0.35 });
+        b.add(BOX, M(s * 0.872, 0.66, -0.05, 0.008, 0.03, 3.7), '#e8d215', { e: 0.05, r: 0.4 });
+    }
+    b.add(BOX, M(0, 1.555, 0.35, 1.1, 0.08, 0.26), '#222', { r: 0.5 });
+    r.geo = mergeGeos(r.geo, b.build()); r.bar = { y: 1.62, z: 0.35, w: 1.1 }; r.paint = '#f4f5f7';
+    return r;
+}
+
+// Bucharest taxi: yellow Logan-like with the roof sign (own textured mesh near) + checker band
+function taxiCar(pl) {
+    const r = CARS['compact-sedan'](pl); const b = new Batch();
+    for (const s of [-1, 1]) for (let i = 0; i < 14; i++) b.add(BOX, M(s * 0.869, 0.8 + (i % 2) * 0.045, -1.05 + i * 0.16, 0.008, 0.045, 0.16), i % 2 ? '#111' : '#f4f4f4', { r: 0.5 });
+    b.add(BOX, M(0, 1.53, 0.35, 0.82, 0.04, 0.28), '#111', { r: 0.5 });                       // sign base
+    r.geo = mergeGeos(r.geo, b.build());
+    const f = new Batch(); f.add(BOX, M(0, 1.63, 0.35, 0.8, 0.22, 0.24), '#ffd400', SIGN(0.6)); r.far = mergeGeos(r.far, f.build());
+    r.taxiSign = true; r.paint = '#f2c200';
+    return r;
+}
+
+// ---------------------------------------------------------------------------
+//  Transit (R13.3): STB bus / trolleybus / trams, King County Metro buses
+// ---------------------------------------------------------------------------
+/** one low-floor bus body section. z0 = front end (−z), len, opts: front/rear shaping, livery painter */
+function busBody(b, { W, H, z0, z1, front = true, rear = true }) {
+    const fz = z0, rz = z1;
+    const p = [[fz + (front ? 0.08 : 0), 0.3], [fz, 0.9], [fz + (front ? 0.05 : 0), H - 0.15], [fz + (front ? 0.2 : 0), H], [rz - (rear ? 0.15 : 0), H], [rz, H - 0.12], [rz, 0.3]];
+    b.add(extrude(p, -W / 2, W / 2), IDENT, '#ffffff', PAINT);
+}
+/** side windows (dark tinted band with thin pillars), doors on the right (+x) side */
+function busWindows(b, { W, z0, z1, y0 = 1.15, y1 = 2.55, doors = [], pillar = '#15171a', step = 1.45, left = true }) {
+    for (const s of left ? [-1, 1] : [1]) {
+        b.add(BOX, M(s * (W / 2 + 0.005), (y0 + y1) / 2, (z0 + z1) / 2, 0.012, y1 - y0, z1 - z0), C.glass, GLASS);
+        for (let z = z0 + step; z < z1 - 0.3; z += step) b.add(BOX, M(s * (W / 2 + 0.011), (y0 + y1) / 2, z, 0.008, y1 - y0, 0.08), pillar, { r: 0.4 });
+    }
+    for (const [zc, w] of doors) {
+        b.add(BOX, M(W / 2 + 0.014, 1.38, zc, 0.012, 2.3, w), '#1d2329', GLASS);
+        b.add(BOX, M(W / 2 + 0.018, 1.38, zc, 0.01, 2.3, 0.04), '#9aa0a6', { r: 0.3, m: 0.7 });
+        b.add(BOX, M(W / 2 + 0.018, 0.33, zc, 0.01, 0.06, w), C.plastic, { r: 0.7 });
+    }
+}
+function destSign(b, z, y, w, dir = -1, h = 0.26) {
+    b.add(BOX, M(0, y, z, w + 0.06, h + 0.06, 0.05), '#0b0c0d', { r: 0.5 });
+    b.add(BOX, M(0, y, z + dir * 0.03, w, h * 0.45, 0.01), '#ffb21a', SIGN(1.0)); // LED text line (amber)
+}
+function busEnds(b, { W, z0, z1, H, pl, kcm = false, rackFront = false }) {
+    // front: big windscreen, wipers, lamps, bumper; rear: engine grille, lamps, plate
+    b.add(BOX, M(0, 1.75, z0 - 0.012, W - 0.16, 1.55, 0.04), C.glass, GLASS);
+    destSign(b, z0 - 0.02, H - 0.32, W - 0.5);
+    for (const x of [-0.5, 0.4]) b.add(BOX, M(x, 1.05, z0 - 0.045, 0.03, 0.03, 0.02), C.seal);
+    lightPair(b, z0 - 0.02, 0.72, W / 2 - 0.3, 0.38, 0.16, C.head, HEAD);
+    lightPair(b, z0 - 0.025, 0.58, W / 2 - 0.3, 0.3, 0.035, C.drl, DRL);
+    b.add(BOX, M(0, 0.42, z0 - 0.04, W, 0.26, 0.1), C.plastic, { r: 0.7 });
+    plate(b, z0 - 0.1, 0.42, -1, pl);
+    if (rackFront) { // KCM front bike rack (folded)
+        b.add(BOX, M(0, 0.62, z0 - 0.18, 1.5, 0.05, 0.05), '#2b2d31', { r: 0.4, m: 0.6 });
+        for (const x of [-0.6, 0, 0.6]) b.add(BOX, M(x, 0.95, z0 - 0.2, 0.05, 0.7, 0.04), '#2b2d31', { r: 0.4, m: 0.6 });
+    }
+    b.add(BOX, M(0, 1.55, z1 + 0.015, W - 0.4, 0.75, 0.03), kcm ? '#16191c' : C.glassDark, GLASS);
+    b.add(BOX, M(0, 0.85, z1 + 0.02, W - 0.6, 0.5, 0.03), '#1a1c1f', { r: 0.6 });   // engine grille
+    lightPair(b, z1 + 0.02, 0.95, W / 2 - 0.2, 0.22, 0.5, C.tail, TAIL);
+    b.add(BOX, M(0, 0.42, z1 + 0.04, W, 0.24, 0.08), C.plastic, { r: 0.7 });
+    plate(b, z1 + 0.09, 0.62, 1, pl);
+    for (const s of [-1, 1]) b.add(BOX, beamM(new THREE.Vector3(s * (W / 2 - 0.05), H - 0.35, z0 + 0.25), new THREE.Vector3(s * (W / 2 + 0.25), H - 0.55, z0 - 0.2), 0.04, 0.04), C.seal);
+    for (const s of [-1, 1]) b.add(BOX, M(s * (W / 2 + 0.25), H - 0.85, z0 - 0.2, 0.06, 0.45, 0.14), C.seal, { r: 0.3 });
+}
+
+/** STB 12 m city bus (Citaro-like) — yellow, dark window band, red accent stripe; or the trolleybus variant (poles) */
+function stbBus(pl, trolley = false) {
+    const L = 12.0, W = 2.55, H = trolley ? 3.0 : 3.1, b = new Batch(), z0 = -L / 2, z1 = L / 2;
+    busBody(b, { W, H, z0, z1 });
+    busWindows(b, { W, z0: z0 + 0.6, z1: z1 - 0.6, doors: [[z0 + 1.1, 1.2], [-0.6, 1.2], trolley ? [3.6, 1.2] : [3.9, 1.2]] });
+    for (const s of [-1, 1]) {
+        b.add(BOX, M(s * (W / 2 + 0.008), 0.62, 0, 0.01, 0.07, L - 0.3), '#c8102e', { r: 0.4 });   // red accent line
+        b.add(BOX, M(s * (W / 2 + 0.006), 0.4, 0, 0.01, 0.12, L - 0.2), '#2b2d31', { r: 0.7 });    // dark skirt
+    }
+    b.add(BOX, M(0, 0.95, z0 - 0.02, W - 0.4, 0.18, 0.02), '#c8102e', { r: 0.4 });
+    if (!trolley) b.add(BOX, M(0, H + 0.14, 1.5, 1.8, 0.28, 2.8), '#e2e4e6', { r: 0.55 }); // AC + hybrid roof pack
+    busEnds(b, { W, z0, z1, H, pl });
+    wheels(b, { W, wr: 0.5, wz: [-3.55, 2.4], tw: 0.3, rim: '#bfc3c7' });
+    if (trolley) trolleyGear(b, { W, H, zBase: -1.0 });
+    return { geo: b.build(), length: L, width: W, height: H, paint: '#f4c300', far: farBox(L, W, H, { wz: [-3.55, 2.4], winY: [1.15, 2.55] }), transit: trolley ? 'trolleybus' : 'bus' };
+}
+/** trolley poles (raised to the wires ≈ 5.6 m), roof fairing with the traction gear */
+function trolleyGear(b, { W, H, zBase }) {
+    b.add(BOX, M(0, H + 0.2, 0.6, 2.1, 0.4, 4.6), '#e2e4e6', { r: 0.55 });          // traction equipment fairing
+    b.add(BOX, M(0, H + 0.42, zBase, 1.0, 0.14, 0.5), '#2b2d31', { r: 0.6 });         // pole base
+    for (const x of [-0.3, 0.3]) {
+        const a = new THREE.Vector3(x, H + 0.5, zBase), c = new THREE.Vector3(x * 1.0, 5.6, zBase + 5.4); // trailing poles
+        b.add(POLE, beamPole(a, c, 0.035), '#141517', { r: 0.6 });
+        b.add(BOX, M(c.x, c.y, c.z, 0.08, 0.06, 0.2), '#3a3d42', { r: 0.5, m: 0.4 });  // shoe
+        b.add(BOX, M(x, H + 0.43, zBase + 4.2, 0.05, 0.05, 0.35), '#141517');          // pole hook (rear roof)
+    }
+}
+function beamPole(a, c, r) {
+    const d = new THREE.Vector3().subVectors(c, a); const len = d.length();
+    const q = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.normalize());
+    return new THREE.Matrix4().compose(new THREE.Vector3().addVectors(a, c).multiplyScalar(0.5), q, new THREE.Vector3(r, len, r));
+}
+
+/** King County Metro low-floor bus, 40 ft (12.2 m) or articulated 60 ft (18.3 m): white, dark-green skirt, teal band, purple tail accent */
+function kcmBus(pl, artic = false) {
+    const W = 2.59, H = 3.2, b = new Batch();
+    const L = artic ? 18.3 : 12.2, z0 = -L / 2, z1 = L / 2;
+    const secs = artic ? [[z0, z0 + 10.9], [z0 + 11.4, z1]] : [[z0, z1]];
+    secs.forEach(([a, c], i) => {
+        busBody(b, { W, H, z0: a, z1: c, front: i === 0, rear: i === secs.length - 1 });
+        const doors = artic ? (i === 0 ? [[a + 1.1, 1.15], [a + 6.4, 1.15]] : [[a + 2.6, 1.15]]) : [[z0 + 1.1, 1.15], [0.9, 1.15]];
+        busWindows(b, { W, z0: a + (i === 0 ? 0.65 : 0.3), z1: c - (i === secs.length - 1 ? 0.7 : 0.3), y0: 1.2, y1: 2.5, doors, pillar: '#1c1f22' });
+        for (const s of [-1, 1]) {
+            b.add(BOX, M(s * (W / 2 + 0.006), 0.62, (a + c) / 2, 0.01, 0.62, c - a - 0.1), '#174b3f', { r: 0.4 });  // dark green skirt
+            b.add(BOX, M(s * (W / 2 + 0.008), 1.0, (a + c) / 2, 0.01, 0.14, c - a - 0.1), '#2aa198', { r: 0.4 }); // teal band
+        }
+        b.add(BOX, M(0, H + 0.16, (a + c) / 2 + 0.5, 1.9, 0.32, Math.min(4.5, c - a - 2)), '#e8e9ea', { r: 0.5 }); // roof pack (hybrid batteries / AC)
+    });
+    const zt = z1 - 1.6; for (const s of [-1, 1]) b.add(BOX, M(s * (W / 2 + 0.01), 1.5, zt, 0.01, 1.6, 1.6), '#5b3a8c', { r: 0.4 }); // purple tail accent
+    b.add(BOX, M(0, 0.62, z0 - 0.02, W - 0.1, 0.5, 0.02), '#174b3f', { r: 0.4 });
+    if (artic) { // bellows + turntable
+        b.add(BOX, M(0, 1.7, z0 + 11.15, W - 0.2, 2.8, 0.7), '#1b1c1f', { r: 0.95 });
+        for (let k = -2; k <= 2; k++) b.add(BOX, M(0, 1.7, z0 + 11.15 + k * 0.12, W - 0.15, 2.82, 0.03), '#2a2b2f', { r: 0.9 });
+    }
+    busEnds(b, { W, z0, z1, H, pl, kcm: true, rackFront: true });
+    const wz = artic ? [z0 + 2.6, z0 + 8.6, z1 - 1.9] : [z0 + 2.6, z1 - 3.6];
+    wheels(b, { W, wr: 0.5, wz, tw: 0.3, rim: '#c4c8cc' });
+    return { geo: b.build(), length: L, width: W, height: H, paint: '#f3f4f2', far: farBox(L, W, H, { wz, winY: [1.2, 2.5], segs: secs }), transit: 'bus' };
+}
+
+/** STB trams. imperio: 4-section low-floor, 36 m (Imperio Metropolitan proportions); v3a: 3-section, 27 m (V3A-like) */
+function stbTram(kind = 'v3a') {
+    const imperio = kind === 'imperio';
+    const W = 2.4, H = imperio ? 3.5 : 3.3, b = new Batch();
+    const L = imperio ? 36 : 27, z0 = -L / 2;
+    const n = imperio ? 4 : 3, gap = 0.45, sl = (L - gap * (n - 1)) / n;
+    const secs = []; for (let i = 0; i < n; i++) secs.push([z0 + i * (sl + gap), z0 + i * (sl + gap) + sl]);
+    const floor = imperio ? 0.35 : 0.85;
+    secs.forEach(([a, c], i) => {
+        const first = i === 0, last = i === n - 1;
+        const nose = imperio ? 0.9 : 0.4;
+        const p = [[a + (first ? nose : 0), 0.3], [a + (first ? nose * 0.4 : 0), 0.9], [a, 1.4], [a + (first ? 0.25 : 0), H - 0.2], [a + (first ? 0.55 : 0), H], [c - (last ? 0.55 : 0), H], [c - (last ? 0.25 : 0), H - 0.2], [c, 1.4], [c - (last ? nose * 0.4 : 0), 0.9], [c - (last ? nose : 0), 0.3]];
+        b.add(extrude(p, -W / 2, W / 2), IDENT, '#ffffff', PAINT);
+        const wz0 = a + (first ? 2.2 : 0.4), wz1 = c - (last ? 2.2 : 0.4);
+        const doorsAt = imperio ? (first ? [a + 3.2] : last ? [c - 3.2] : [(a + c) / 2 - 1.8, (a + c) / 2 + 1.8].slice(0, i === 1 ? 2 : 1)) : [(a + c) / 2 - 1.6, (a + c) / 2 + 1.6];
+        busWindows(b, { W, z0: wz0, z1: wz1, y0: imperio ? 1.05 : 1.45, y1: H - 0.45, doors: doorsAt.map(z => [z, 1.3]), pillar: '#141516', step: imperio ? 1.6 : 1.25 });
+        for (const s of [-1, 1]) {
+            if (imperio) b.add(BOX, M(s * (W / 2 + 0.008), H - 0.32, (a + c) / 2, 0.01, 0.12, c - a - 0.2), '#1a1a1a', { r: 0.4 }); // dark roofline
+            else b.add(BOX, M(s * (W / 2 + 0.008), 1.15, (a + c) / 2, 0.01, 0.12, c - a - 0.2), '#b5121b', { r: 0.4 });           // red stripe (V3A)
+            b.add(BOX, M(s * (W / 2 + 0.006), 0.42, (a + c) / 2, 0.01, 0.24, c - a - 0.1), imperio ? '#c8102e' : '#2b2b2b', { r: 0.6 });
+        }
+        b.add(BOX, M(0, H + 0.17, (a + c) / 2, 1.7, 0.34, (c - a) * 0.6), '#9da2a8', { r: 0.6 }); // roof equipment
+        if (!imperio || i === 0 || last) for (const z of (imperio ? [first ? a + 2.5 : c - 2.5] : [a + 1.6, c - 1.6])) { // bogies
+            b.add(BOX, M(0, 0.4, z, W - 0.35, 0.45, 2.2), '#202124', { r: 0.8 });
+            for (const dz of [-0.9, 0.9]) for (const s of [-1, 1]) b.add(TYRE, M(s * 0.72, 0.33, z + dz, 0.12, 0.33, 0.33), '#2b2b2b', TYREM);
+        }
+        void floor;
+    });
+    for (let i = 1; i < n; i++) { const z = secs[i][0] - gap / 2; b.add(BOX, M(0, 1.9, z, W - 0.2, H - 0.7, gap + 0.1), '#1b1c1f', { r: 0.95 }); }
+    for (const [zEnd, dir] of [[z0, -1], [z0 + L, 1]]) { // both cabs (bidirectional) — windscreen, dark mask, lamps, dest sign
+        const nz = zEnd - dir * (imperio ? 0.35 : 0.15);
+        b.add(BOX, M(0, 2.05, nz + dir * 0.02, W - 0.35, 1.25, 0.05), C.glass, GLASS);
+        if (imperio) b.add(BOX, M(0, 1.1, zEnd - dir * (imperio ? 0.6 : 0.1), W - 0.25, 0.55, 0.05), '#121315', { r: 0.4 }); // black front mask
+        destSign(b, nz + dir * 0.03, H - 0.3, 1.5, dir);
+        lightPair(b, zEnd - dir * (imperio ? 0.75 : 0.25), 0.95, 0.85, 0.3, 0.13, dir < 0 ? C.head : C.tail, dir < 0 ? HEAD : TAIL);
+        lightPair(b, zEnd - dir * (imperio ? 0.75 : 0.25), 0.82, 0.85, 0.3, 0.035, dir < 0 ? C.drl : C.tailDark, dir < 0 ? DRL : { r: 0.3 });
+    }
+    // pantograph (raised to the contact wire ≈ 5.6–5.9 m) on the 2nd section
+    const pz = (secs[1][0] + secs[1][1]) / 2;
+    const pa = new THREE.Vector3(0, H + 0.35, pz + 0.6), pb = new THREE.Vector3(0, H + 1.2, pz - 0.3), pc = new THREE.Vector3(0, 5.75, pz + 0.3);
+    b.add(BOX, beamM(pa, pb, 0.05, 0.05), '#2a2b2e'); b.add(BOX, beamM(pb, pc, 0.04, 0.04), '#2a2b2e');
+    b.add(BOX, M(0, 5.77, pz + 0.3, 1.5, 0.04, 0.08), '#3a3b3e', { r: 0.4, m: 0.5 });
+    const farSegs = secs.map(([a, c]) => [a, c]);
+    const far = farBox(L, W, H, { winY: [imperio ? 1.05 : 1.45, H - 0.45], segs: farSegs });
+    return { geo: b.build(), length: L, width: W, height: H, paint: imperio ? '#f4c300' : '#f2c230', far, transit: 'tram' };
+}
+
+function mergeGeos(a, b) {
     const out = new Batch();
     for (const g of [a, b]) {
         const p = g.attributes.position, n = g.attributes.normal, c = g.attributes.color, m = g.attributes.aMat;
         for (let i = 0; i < p.count; i++) {
             out.pos.push(p.getX(i), p.getY(i), p.getZ(i)); out.nor.push(n.getX(i), n.getY(i), n.getZ(i));
-            out.col.push(c.getX(i), c.getY(i), c.getZ(i)); out.mat.push(m.getX(i), m.getY(i), m.getZ(i));
+            out.col.push(c.getX(i), c.getY(i), c.getZ(i)); out.mat.push(m.getX(i), m.getY(i), m.getZ(i), m.getW(i));
         }
         for (let i = 0; i < g.index.count; i++) out.idx.push(g.index.getX(i) + out.n);
         out.n += p.count;
@@ -338,10 +652,100 @@ function mergeBatches(a, b) {
     return out.build();
 }
 
+// ---------------------------------------------------------------------------
+//  Kind registry, fleet mix, paint statistics
+// ---------------------------------------------------------------------------
+/** city used for plates / police livery / 'bus' alias when makeVehicle gets no `city` option (call per city load) */
+let FLEET_CITY = 'bucharest';
+export function setFleetCity(cityId) { FLEET_CITY = cityId === 'seattle' ? 'seattle' : 'bucharest'; }
+const US = (city) => city === 'seattle';
+const BUILDERS = {
+    sedan: (c) => CARS.sedan(US(c) ? 'us' : 'eu'), 'compact-sedan': (c) => CARS['compact-sedan'](US(c) ? 'us' : 'eu'),
+    hatch: (c) => CARS.hatch(US(c) ? 'us' : 'eu'), estate: (c) => CARS.estate(US(c) ? 'us' : 'eu'), 'small-suv': (c) => CARS['small-suv'](US(c) ? 'us' : 'eu'),
+    crossover: (c) => CARS.crossover(US(c) ? 'us' : 'eu'), suv: (c) => CARS.suv(US(c) ? 'us' : 'eu'), 'ev-sedan': (c) => CARS['ev-sedan'](US(c) ? 'us' : 'eu'),
+    minivan: (c) => CARS.minivan(US(c) ? 'us' : 'eu'), pickup: (c) => CARS.pickup(US(c) ? 'us' : 'eu'), van: (c) => CARS.van(US(c) ? 'us' : 'eu'),
+    'delivery-van': (c) => deliveryVan(US(c) ? 'us' : 'eu'), truck: (c) => boxTruck(US(c) ? 'us' : 'eu'),
+    taxi: (c) => taxiCar(US(c) ? 'us' : 'eu'), police: (c) => policeCar(US(c) ? 'us' : 'eu', c),
+    'stb-bus': () => stbBus('eu'), trolleybus: () => stbBus('eu', true), 'kcm-bus': () => kcmBus('us'), 'kcm-artic': () => kcmBus('us', true),
+    tram: () => stbTram('v3a'), 'tram-v3a': () => stbTram('v3a'), 'tram-imperio': () => stbTram('imperio'),
+    bus: (c) => (US(c) ? kcmBus('us') : stbBus('eu')),
+};
+export const VEHICLE_KINDS = Object.keys(BUILDERS);
+/** kinds that only make sense in one city (their plates follow it) */
+const HOME = { 'stb-bus': 'bucharest', trolleybus: 'bucharest', tram: 'bucharest', 'tram-v3a': 'bucharest', 'tram-imperio': 'bucharest', 'kcm-bus': 'seattle', 'kcm-artic': 'seattle' };
+
+// share of the moving car fleet per city (passenger cars + vans/trucks; transit, police and taxis on top are the
+// caller's choice — Bucharest taxis are in the mix since they are ~5–10 % of central traffic)
+const MIX = {
+    bucharest: [['hatch', 0.2], ['compact-sedan', 0.19], ['estate', 0.11], ['small-suv', 0.13], ['sedan', 0.08], ['crossover', 0.05], ['taxi', 0.09], ['van', 0.05], ['delivery-van', 0.06], ['ev-sedan', 0.01], ['truck', 0.03]],
+    seattle: [['crossover', 0.24], ['sedan', 0.15], ['pickup', 0.16], ['suv', 0.13], ['ev-sedan', 0.07], ['minivan', 0.06], ['hatch', 0.06], ['delivery-van', 0.05], ['van', 0.02], ['truck', 0.03], ['compact-sedan', 0.03]],
+};
+// body colour shares (European / US fleet surveys: white, grey, black and silver ≈ 70–80 % of cars)
+const PAINT_EU = [[['#eef0f1', '#f6f6f3', '#e4e6e7'], 0.24], [['#6d7177', '#55595f', '#868a8f', '#3f4348'], 0.21], [['#111214', '#1b1d21'], 0.15], [['#b9bdc2', '#a5aab0'], 0.11],
+    [['#1f3f7a', '#2a5291', '#17284a', '#3b6ea8'], 0.12], [['#9a1b1f', '#b3262b', '#6e1418'], 0.07], [['#5a4636', '#b8a78a', '#7a6a55'], 0.05], [['#2f4a3a', '#43573f'], 0.02], [['#c8641e', '#d6a81c'], 0.02], [['#5b2a3a'], 0.01]];
+const PAINT_US = [[['#eef0f1', '#f6f6f3', '#e2e4e5'], 0.25], [['#111214', '#1b1d21', '#0c0d0f'], 0.22], [['#6d7177', '#55595f', '#868a8f', '#43474c'], 0.19], [['#b9bdc2', '#a5aab0'], 0.11],
+    [['#1f3f7a', '#2a5291', '#17284a', '#3e6f99'], 0.09], [['#9a1b1f', '#b3262b', '#7a1418'], 0.09], [['#2f4a3a', '#56603f'], 0.02], [['#5a4636', '#8c7a5e'], 0.02], [['#c8641e', '#e0b324'], 0.01]];
+const pickW = (list, r) => { let t = 0; for (const [, w] of list) t += w; let x = r() * t; for (const [k, w] of list) { if ((x -= w) <= 0) return k; } return list[list.length - 1][0]; };
+const R01 = (rng) => (typeof rng === 'function' ? rng : Math.random);
+/** the city's car mix as [[kind, weight], …] (weights sum to 1) — what traffic.js feature-detects */
+export function fleetMix(cityId) { return MIX[cityId === 'seattle' ? 'seattle' : 'bucharest'].map(([k, w]) => [k, w]); }
+/** a car kind for this city's moving traffic (weights = real fleet mix). rng: () → [0,1) (or an object with .random / the traffic RNG function) */
+export function pickFleetKind(cityId, rng = Math.random) { return pickW(MIX[cityId === 'seattle' ? 'seattle' : 'bucharest'], R01(rng)); }
+/** transit kind for a mode: 'bus' | 'trolleybus' | 'tram' (Bucharest trams: ~1/3 Imperio, rest V3A family; Seattle: ~30 % articulated) */
+export function pickTransitKind(cityId, mode = 'bus', rng = Math.random) {
+    const r = R01(rng)();
+    if (cityId === 'seattle') return mode === 'bus' ? (r < 0.3 ? 'kcm-artic' : 'kcm-bus') : 'kcm-bus';
+    if (mode === 'tram') return r < 0.35 ? 'tram-imperio' : 'tram-v3a';
+    if (mode === 'trolleybus') return 'trolleybus';
+    return 'stb-bus';
+}
+/** body colour for a kind in this city (fleet statistics; fixed liveries for taxis, police, transit, delivery vans mostly white) */
+export function fleetColor(kind, cityId, rng = Math.random) {
+    const r = R01(rng); const sea = cityId === 'seattle';
+    if (kind === 'taxi') return sea ? '#f6f6f3' : '#f2c200';
+    if (kind === 'police') return sea ? '#121316' : '#f4f5f7';
+    if (HOME[kind] || kind === 'bus') return null; // livery
+    if (kind === 'delivery-van' && r() < 0.75) return '#f3f4f2';
+    if (kind === 'van' && r() < 0.45) return '#eef0f1';
+    if (kind === 'truck') return pickW([['#eef0f1', 0.6], ['#c0322b', 0.1], ['#1f3f7a', 0.15], ['#55595f', 0.15]], r);
+    const shades = pickW(sea ? PAINT_US : PAINT_EU, r);
+    return shades[Math.floor(r() * shades.length) % shades.length];
+}
+
 const cache = {};
-function vehicleGeometry(kind) {
-    if (!KINDS[kind]) kind = 'sedan';
-    return cache[kind] || (cache[kind] = KINDS[kind]());
+function vehicleModel(kind, city) {
+    if (!BUILDERS[kind]) kind = 'sedan';
+    const c = HOME[kind] || city || FLEET_CITY;
+    const key = kind + '|' + (US(c) ? 'us' : 'eu');
+    let m = cache[key];
+    if (!m) {
+        m = cache[key] = BUILDERS[kind](c);
+        m.key = key; m.kind = kind;
+        m.geo.computeBoundingSphere(); m.radius = Math.hypot(m.length / 2, m.width / 2, (m.height || 2) / 2);
+        // split into painted body + parts for the classic (non-instanced) meshes
+        m.split = null;
+    }
+    return m;
+}
+function splitModel(m) {
+    if (m.split) return m.split;
+    const g = m.geo, p = g.attributes.position, n = g.attributes.normal, c = g.attributes.color, a = g.attributes.aMat, idx = g.index;
+    const body = new Batch(), parts = new Batch(), map = [new Map(), new Map()];
+    for (let i = 0; i < idx.count; i += 3) {
+        const tri = [idx.getX(i), idx.getX(i + 1), idx.getX(i + 2)];
+        const painted = a.getW(tri[0]) > 0.5, tgt = painted ? body : parts, mp = map[painted ? 0 : 1];
+        for (const v of tri) {
+            let j = mp.get(v);
+            if (j === undefined) {
+                j = tgt.n++; mp.set(v, j);
+                tgt.pos.push(p.getX(v), p.getY(v), p.getZ(v)); tgt.nor.push(n.getX(v), n.getY(v), n.getZ(v));
+                tgt.col.push(c.getX(v), c.getY(v), c.getZ(v)); tgt.mat.push(a.getX(v), a.getY(v), a.getZ(v), 0);
+            }
+            tgt.idx.push(j);
+        }
+    }
+    m.split = { body: body.build(false), parts: parts.build() };
+    return m.split;
 }
 
 // ---------------------------------------------------------------------------
@@ -351,23 +755,46 @@ let ENV_MAP = null;
 const allMats = new Set();
 function track(m) { allMats.add(m); if (ENV_MAP) { m.envMap = ENV_MAP; m.needsUpdate = true; } return m; }
 
-function partsMaterial(emis) {
+/** shared emissive decoding (see aMat): k = light factor (1 day / 4.5 night), br = brake 0..1 */
+const EMIS_GLSL = `
+    float eRaw = vMat.x; float isTail = step(9.5, eRaw) * (1.0 - step(19.5, eRaw)); float isSign = step(19.5, eRaw);
+    float eBase = eRaw - 10.0 * isTail - 20.0 * isSign;
+    float eK = mix(mix(1.0, 4.5, vLB.x), 2.2, isSign) + isTail * vLB.y * 2.6;
+    totalEmissiveRadiance += diffuseColor.rgb * eBase * eK;`;
+/** classic (per-mesh) parts material: uLB = (lights, brake) uniform */
+function partsMaterial(lights) {
     const m = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, metalness: 1, envMapIntensity: 1 });
-    m.userData.uEmis = { value: emis };
-    m.userData.uDirect = { value: 1 }; // scales direct light (cockpit interior: lamps shining through the roof at night)
+    m.userData.uLB = { value: new THREE.Vector2(lights, 0) };
+    m.userData.uDirect = { value: 1 };
     m.onBeforeCompile = (sh) => {
-        sh.uniforms.uEmis = m.userData.uEmis;
-        sh.uniforms.uDirect = m.userData.uDirect;
-        sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nattribute vec3 aMat;\nvarying vec3 vMat;')
+        sh.uniforms.uLB = m.userData.uLB; sh.uniforms.uDirect = m.userData.uDirect;
+        sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nattribute vec4 aMat;\nvarying vec4 vMat;')
             .replace('#include <begin_vertex>', '#include <begin_vertex>\nvMat = aMat;');
-        sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying vec3 vMat;\nuniform float uEmis;\nuniform float uDirect;')
+        sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying vec4 vMat;\nuniform vec2 uLB;\nuniform float uDirect;\n#define vLB uLB')
             .replace('#include <lights_fragment_end>', '#include <lights_fragment_end>\nreflectedLight.directDiffuse *= uDirect; reflectedLight.directSpecular *= uDirect;')
             .replace('#include <roughnessmap_fragment>', 'float roughnessFactor = roughness * vMat.y;')
             .replace('#include <metalnessmap_fragment>', 'float metalnessFactor = metalness * vMat.z;')
-            .replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\ntotalEmissiveRadiance += diffuseColor.rgb * vMat.x * uEmis;');
+            .replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\n' + EMIS_GLSL);
     };
-    m.customProgramCacheKey = () => 'vehicleParts';
+    m.customProgramCacheKey = () => 'vehicleParts2';
     return track(m);
+}
+/** instanced fleet material: one draw call per kind × LOD; per instance aPaint (linear rgb) + aLB (lights, brake) */
+let FLEET_MAT = null;
+function fleetMaterial() {
+    if (FLEET_MAT) return FLEET_MAT;
+    const m = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, metalness: 1, envMapIntensity: 1.05 });
+    m.onBeforeCompile = (sh) => {
+        sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nattribute vec4 aMat;\nattribute vec3 aPaint;\nattribute vec2 aLB;\nvarying vec4 vMat;\nvarying vec2 vLB;')
+            .replace('#include <color_vertex>', '#include <color_vertex>\nvColor.rgb = mix(color.rgb, aPaint, aMat.w);')
+            .replace('#include <begin_vertex>', '#include <begin_vertex>\nvMat = aMat; vLB = aLB;');
+        sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying vec4 vMat;\nvarying vec2 vLB;')
+            .replace('#include <roughnessmap_fragment>', 'float roughnessFactor = roughness * vMat.y;')
+            .replace('#include <metalnessmap_fragment>', 'float metalnessFactor = metalness * vMat.z;')
+            .replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\n' + EMIS_GLSL);
+    };
+    m.customProgramCacheKey = () => 'vehicleFleet';
+    return (FLEET_MAT = track(m));
 }
 /**
  * Cockpit interior material: like partsMaterial, plus a night "cabin glow" (uGlow 0..1): instrument/screen backlight
@@ -381,9 +808,9 @@ function cockpitMaterial(off = new THREE.Vector3()) {
     m.userData.uOff = { value: off.clone() };
     m.onBeforeCompile = (sh) => {
         sh.uniforms.uDirect = m.userData.uDirect; sh.uniforms.uGlow = m.userData.uGlow; sh.uniforms.uOff = m.userData.uOff;
-        sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nattribute vec3 aMat;\nvarying vec3 vMat;\nvarying vec3 vCab;\nuniform vec3 uOff;')
+        sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nattribute vec4 aMat;\nvarying vec4 vMat;\nvarying vec3 vCab;\nuniform vec3 uOff;')
             .replace('#include <begin_vertex>', '#include <begin_vertex>\nvMat = aMat; vCab = position + uOff;');
-        sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying vec3 vMat;\nvarying vec3 vCab;\nuniform float uDirect;\nuniform float uGlow;')
+        sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying vec4 vMat;\nvarying vec3 vCab;\nuniform float uDirect;\nuniform float uGlow;')
             .replace('#include <lights_fragment_end>', '#include <lights_fragment_end>\nreflectedLight.directDiffuse *= uDirect; reflectedLight.directSpecular *= uDirect;')
             .replace('#include <roughnessmap_fragment>', 'float roughnessFactor = roughness * vMat.y;')
             .replace('#include <metalnessmap_fragment>', 'float metalnessFactor = metalness * vMat.z;')
@@ -400,8 +827,13 @@ function cockpitMaterial(off = new THREE.Vector3()) {
     m.customProgramCacheKey = () => 'cockpitInterior';
     return track(m);
 }
-const partsMatOff = partsMaterial(1.0);
-const partsMatOn = partsMaterial(4.5);
+const partsMats = [[partsMaterial(0), partsMaterial(1)], [null, null]]; // [lights][brake]
+function partsMat(light, brake) {
+    const L = light ? 1 : 0, B = brake ? 1 : 0;
+    if (!partsMats[B]) partsMats[B] = [null, null];
+    if (!partsMats[B][L]) { partsMats[B][L] = partsMaterial(L); partsMats[B][L].userData.uLB.value.y = B; }
+    return partsMats[B][L];
+}
 const bodyMats = {};
 function bodyMat(color) {
     return bodyMats[color] || (bodyMats[color] = track(new THREE.MeshStandardMaterial({ color, roughness: 0.32, metalness: 0.3, envMapIntensity: 1.1 })));
@@ -413,58 +845,174 @@ export function setVehicleEnvMap(tex, intensity = 1) {
     for (const m of allMats) { m.envMap = tex; m.envMapIntensity = (m.userData.envScale || 1) * intensity; m.needsUpdate = true; }
 }
 
-// taxi sign + police bar (shared)
+// taxi sign + police lamps (shared)
 let taxiSign = null;
 function getTaxiSign() {
     if (taxiSign) return taxiSign;
     const tex = makeCanvasTexture(256, 96, (ctx, w, h) => {
-        ctx.fillStyle = '#111'; ctx.fillRect(0, 0, w, h);
-        ctx.fillStyle = '#ffd400'; ctx.fillRect(0, h - 8, w, 8);
-        ctx.textAlign = 'center';
-        drawFitText(ctx, 'TAXI', w / 2, (h - 8) / 2, w - 24, { maxSize: 72, minSize: 20, maxHeight: h - 16, lineHeight: 1, font: (s) => `bold ${s}px "Helvetica Neue", Arial, sans-serif`, label: 'taxi sign' });
+        ctx.fillStyle = '#ffd400'; ctx.fillRect(0, 0, w, h);
+        ctx.fillStyle = '#111'; ctx.fillRect(0, h - 10, w, 10);
+        ctx.textAlign = 'center'; ctx.fillStyle = '#111';
+        drawFitText(ctx, 'TAXI', w / 2, (h - 10) / 2, w - 24, { maxSize: 72, minSize: 20, maxHeight: h - 18, lineHeight: 1, font: (s) => `bold ${s}px "Helvetica Neue", Arial, sans-serif`, label: 'taxi sign' });
     });
-    const dark = new THREE.MeshBasicMaterial({ color: '#111' });
-    const face = new THREE.MeshBasicMaterial({ map: tex, color: new THREE.Color(1.6, 1.6, 1.6) });
-    taxiSign = { geo: new THREE.BoxGeometry(0.8, 0.24, 0.26), mats: [dark, dark, dark, dark, face, face] };
+    const dark = new THREE.MeshBasicMaterial({ color: '#c9a800' });
+    const face = new THREE.MeshBasicMaterial({ map: tex, color: new THREE.Color(1.25, 1.25, 1.25) });
+    taxiSign = { geo: new THREE.BoxGeometry(0.8, 0.22, 0.24), mats: [dark, dark, dark, dark, face, face] };
     return taxiSign;
 }
-const POLICE_BAR = new Batch().add(BOX, M(0, 0, 0, 1.1, 0.08, 0.26), '#222', { r: 0.5 }).build();
-const POLICE_LAMP = new THREE.BoxGeometry(0.4, 0.1, 0.22);
+const POLICE_LAMP = new THREE.BoxGeometry(0.42, 0.1, 0.22);
+function policeLamps(grp, bar) {
+    const mL = new THREE.MeshBasicMaterial({ color: '#1e3a8a' }), mR = new THREE.MeshBasicMaterial({ color: FLEET_CITY === 'seattle' && bar.w > 1.15 ? '#7f1d1d' : '#1e3a8a' });
+    const l = new THREE.Mesh(POLICE_LAMP, mL), r = new THREE.Mesh(POLICE_LAMP, mR);
+    l.position.set(-bar.w / 4, bar.y, bar.z); r.position.set(bar.w / 4, bar.y, bar.z); l.userData.shared = r.userData.shared = true;
+    grp.add(l, r);
+    const redR = grp.userData.city === 'seattle';
+    grp.userData.flash = (t) => {
+        const ph = (t * 2.2) % 1, a = ph < 0.25 && (ph * 16 | 0) % 2 === 0, b = ph > 0.5 && ph < 0.75 && (ph * 16 | 0) % 2 === 0;
+        mL.color.setRGB(a ? 0.4 : 0.03, a ? 0.8 : 0.06, a ? 6 : 0.25);
+        if (redR) mR.color.setRGB(b ? 6 : 0.25, b ? 0.3 : 0.03, b ? 0.3 : 0.03); else mR.color.setRGB(b ? 0.4 : 0.03, b ? 0.8 : 0.06, b ? 6 : 0.25);
+    };
+    return [l, r];
+}
 
-/** Create a vehicle mesh group. forward = -z in local space. */
-export function makeVehicle(kind, color) {
-    if (kind === 'police') color = '#f4f5f7';
-    const g = vehicleGeometry(kind);
+// ---------------------------------------------------------------------------
+//  Instanced fleet: every instanced vehicle of a kind (+ LOD) in a scene = 1 draw call.
+//  Hooked into Scene.prototype.onBeforeRender (runs after the scene's matrixWorld update, before culling), so the
+//  vehicle groups stay ordinary Object3Ds that callers move / hide / add / remove as before.
+// ---------------------------------------------------------------------------
+const LIVE = new Set();            // WeakRef<Group> of instanced vehicles
+const SCENE_POOLS = new WeakMap(); // Scene → Map<key, Pool>
+const FLEET_OPTS = { near: 70, nearBig: 140, far: 1200, margin: 8 };
+export const fleetStats = { instances: 0, near: 0, far: 0, culled: 0, pools: 0, ms: 0 };
+class Pool {
+    constructor(geo, cast) { this.base = geo; this.cast = cast; this.cap = 0; this.n = 0; this.mesh = null; this.grow(32); }
+    grow(cap) {
+        const old = this.mesh;
+        const g = new THREE.BufferGeometry();
+        for (const k in this.base.attributes) g.setAttribute(k, this.base.attributes[k]);
+        g.setIndex(this.base.index); g.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 1e7);
+        this.paint = new THREE.InstancedBufferAttribute(new Float32Array(cap * 3), 3); this.paint.setUsage(THREE.DynamicDrawUsage);
+        this.lb = new THREE.InstancedBufferAttribute(new Float32Array(cap * 2), 2); this.lb.setUsage(THREE.DynamicDrawUsage);
+        g.setAttribute('aPaint', this.paint); g.setAttribute('aLB', this.lb);
+        const mesh = new THREE.InstancedMesh(g, fleetMaterial(), cap);
+        mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+        mesh.frustumCulled = false; mesh.castShadow = this.cast; mesh.receiveShadow = true; mesh.count = 0;
+        mesh.name = 'fleet'; mesh.userData.shared = true; mesh.userData.fleet = true;
+        if (old) { // keep what this render already wrote
+            mesh.instanceMatrix.array.set(old.instanceMatrix.array); this.paint.array.set(old.geometry.attributes.aPaint.array); this.lb.array.set(old.geometry.attributes.aLB.array);
+            old.parent?.add(mesh); old.parent?.remove(old); old.geometry.dispose(); old.dispose?.();
+        }
+        this.mesh = mesh; this.cap = cap;
+    }
+}
+const _fr = new THREE.Frustum(), _pm = new THREE.Matrix4(), _sp = new THREE.Sphere(), _cp = new THREE.Vector3(), _col = new THREE.Color();
+function fleetBeforeRender(renderer, scene, camera) {
+    if (!LIVE.size || !camera) return;
+    const t0 = performance.now();
+    let pools = SCENE_POOLS.get(scene);
+    if (!pools) SCENE_POOLS.set(scene, pools = new Map());
+    for (const p of pools.values()) p.n = 0;
+    _pm.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse); _fr.setFromProjectionMatrix(_pm);
+    _cp.setFromMatrixPosition(camera.matrixWorld);
+    const now = t0 / 1000;
+    let nNear = 0, nFar = 0, nCull = 0;
+    for (const ref of LIVE) {
+        const g = ref.deref();
+        if (!g) { LIVE.delete(ref); continue; }
+        let o = g, vis = true;
+        while (o.parent) { if (!o.visible) { vis = false; break; } o = o.parent; }
+        if (o !== scene || !vis || !scene.visible || !camera.layers.test(g.layers)) continue;
+        const u = g.userData, e = g.matrixWorld.elements, m = u._model;
+        // brake lights from the motion (decelerating or stopped in traffic), unless set explicitly / parked
+        if (u._autoBrake && now - (u._tPrev || 0) > 0.04) {
+            const dt = now - (u._tPrev || now - 1), dx = e[12] - (u._xPrev ?? e[12]), dz = e[14] - (u._zPrev ?? e[14]);
+            const v = Math.hypot(dx, dz) / Math.max(dt, 1e-3), dv = v - (u._vPrev ?? v);
+            const want = !u.parked && dt < 0.5 && (v < 0.4 ? (u._moved || false) : dv / dt < -0.9);
+            if (v > 1) u._moved = true;
+            u._brakeK += ((want ? 1 : 0) - u._brakeK) * Math.min(1, dt * 10);
+            u._tPrev = now; u._xPrev = e[12]; u._zPrev = e[14]; u._vPrev = v;
+        }
+        _sp.center.set(e[12], e[13] + 1, e[14]); _sp.radius = m.radius + FLEET_OPTS.margin;
+        const d = _sp.center.distanceTo(_cp);
+        if (d > FLEET_OPTS.far || !_fr.intersectsSphere(_sp)) { nCull++; if (u._extras) for (const x of u._extras) x.visible = false; continue; }
+        const near = d < (m.length > 7 ? FLEET_OPTS.nearBig : FLEET_OPTS.near);
+        if (u._extras) for (const x of u._extras) x.visible = near;
+        const key = m.key + (near ? '' : '|far');
+        let p = pools.get(key);
+        if (!p) { p = new Pool(near ? m.geo : m.far, near || m.length > 7); pools.set(key, p); }
+        if (p.n >= p.cap) p.grow(p.cap * 2);
+        const i = p.n++;
+        p.mesh.instanceMatrix.array.set(e, i * 16);
+        p.paint.array[i * 3] = u._paint.r; p.paint.array[i * 3 + 1] = u._paint.g; p.paint.array[i * 3 + 2] = u._paint.b;
+        p.lb.array[i * 2] = u._lights ? 1 : 0; p.lb.array[i * 2 + 1] = u._brake ?? u._brakeK;
+        if (near) nNear++; else nFar++;
+    }
+    for (const p of pools.values()) {
+        const mesh = p.mesh;
+        if (p.n && mesh.parent !== scene) scene.add(mesh);
+        mesh.count = p.n; mesh.visible = p.n > 0;
+        if (p.n) { mesh.instanceMatrix.needsUpdate = true; p.paint.needsUpdate = true; p.lb.needsUpdate = true; }
+    }
+    Object.assign(fleetStats, { instances: nNear + nFar, near: nNear, far: nFar, culled: nCull, pools: pools.size, ms: Math.round((performance.now() - t0) * 100) / 100 });
+}
+// install once (chained with any prototype hook present)
+if (!THREE.Scene.prototype.__fleetHook) {
+    const prev = THREE.Scene.prototype.onBeforeRender;
+    THREE.Scene.prototype.onBeforeRender = function (renderer, scene, camera, rt) { prev?.call(this, renderer, scene, camera, rt); fleetBeforeRender(renderer, this, camera); };
+    THREE.Scene.prototype.__fleetHook = true;
+}
+/** LOD / culling tuning: { near (m), nearBig (m, vehicles > 7 m), far (m), margin (m, frustum sphere padding for shadows) } */
+export function setFleetOptions(o = {}) { Object.assign(FLEET_OPTS, o); }
+
+/**
+ * Create a vehicle. forward = −z, ground at y = 0. userData: length, width, height, kind, setLights(on), setBrake(on|null),
+ * flash(t) (police). opts: { city: 'bucharest'|'seattle' (plates / police / 'bus' alias; default setFleetCity()),
+ * instanced: true → no per-car meshes: drawn by the shared per-kind InstancedMeshes (≈ 1 draw call per kind and LOD),
+ * near/far LOD + culling automatic; brake lights automatic from the motion (userData.parked = true disables) }.
+ * Without `instanced` the group holds classic meshes (painted body + parts) — e.g. for baking into merged props.
+ */
+export function makeVehicle(kind, color, opts = {}) {
+    const city = opts.city || FLEET_CITY;
+    const m = vehicleModel(kind, city);
+    if (m.paint && (m.transit || kind === 'police' || kind === 'taxi')) color = m.paint;
+    else if (m.paint && !color) color = m.paint;
+    if (!color) color = fleetColor(m.kind, city) || '#c9ccd1';
     const grp = new THREE.Group();
-    const body = new THREE.Mesh(g.body, bodyMat(color));
-    body.castShadow = true;
-    const parts = new THREE.Mesh(g.parts, partsMatOff);
-    body.userData.shared = parts.userData.shared = true;
-    grp.add(body, parts);
-    if (kind === 'taxi') {
+    const u = grp.userData;
+    u.length = m.length; u.width = m.width; u.height = m.height; u.kind = m.kind; u.city = HOME[m.kind] || city; u.transit = m.transit || null;
+    const extras = [];
+    if (m.taxiSign) {
         const s = getTaxiSign();
         const sign = new THREE.Mesh(s.geo, s.mats); sign.userData.shared = true;
-        sign.position.set(0, 1.58, 0.35); grp.add(sign);
+        sign.position.set(0, 1.66, 0.35); grp.add(sign); extras.push(sign);
     }
-    if (kind === 'police') {
-        const bar = new THREE.Mesh(POLICE_BAR, partsMatOff); bar.position.set(0, 1.5, 0.35); bar.userData.shared = true;
-        const mL = new THREE.MeshBasicMaterial({ color: '#1e3a8a' }), mR = new THREE.MeshBasicMaterial({ color: '#1e3a8a' });
-        const l = new THREE.Mesh(POLICE_LAMP, mL), r = new THREE.Mesh(POLICE_LAMP, mR);
-        l.position.set(-0.3, 0.07, 0); r.position.set(0.3, 0.07, 0); l.userData.shared = r.userData.shared = true;
-        bar.add(l, r); grp.add(bar);
-        grp.userData.flash = (t) => {
-            const ph = (t * 2.2) % 1, a = ph < 0.25 && (ph * 16 | 0) % 2 === 0, b = ph > 0.5 && ph < 0.75 && (ph * 16 | 0) % 2 === 0;
-            mL.color.setRGB(a ? 0.4 : 0.03, a ? 0.8 : 0.06, a ? 6 : 0.25);
-            mR.color.setRGB(b ? 0.4 : 0.03, b ? 0.8 : 0.06, b ? 6 : 0.25);
-        };
+    if (m.bar) extras.push(...policeLamps(grp, m.bar));
+    if (opts.instanced) {
+        u._model = m; u._paint = new THREE.Color(color); u._lights = false; u._brake = null; u._brakeK = 0; u._autoBrake = true; u._extras = extras.length ? extras : null;
+        u.instanced = true;
+        u.setLights = (on) => { u._lights = !!on; };
+        u.setBrake = (on) => { u._brake = on == null ? null : (on ? 1 : 0); };
+        u.setColor = (c) => { u._paint.set(c); };
+        LIVE.add(new WeakRef(grp));
+        return grp;
     }
-    grp.userData.length = g.length; grp.userData.width = g.width; grp.userData.kind = kind;
-    grp.userData.setLights = (on) => { parts.material = on ? partsMatOn : partsMatOff; };
+    const sp = splitModel(m);
+    const body = new THREE.Mesh(sp.body, bodyMat(color));
+    body.castShadow = true;
+    const parts = new THREE.Mesh(sp.parts, partsMat(false, false));
+    body.userData.shared = parts.userData.shared = true;
+    if (extras.length) grp.remove(...extras);
+    grp.add(body, parts); // children[0] = body, [1] = parts (spots/cars.js merges them), extras after
+    if (extras.length) grp.add(...extras);
+    let L = false, B = false;
+    u.setLights = (on) => { L = !!on; parts.material = partsMat(L, B); };
+    u.setBrake = (on) => { B = !!on; parts.material = partsMat(L, B); };
     return grp;
 }
-export const VEHICLE_KINDS = ['sedan', 'hatch', 'suv', 'van', 'taxi', 'bus', 'tram', 'truck', 'police', 'pickup'];
-/** triangle count of a kind (for diagnostics) */
-export function vehicleTriangles(kind) { const g = vehicleGeometry(kind); return (g.body.index.count + g.parts.index.count) / 3; }
+/** triangle count of a kind's near / far model (diagnostics) */
+export function vehicleTriangles(kind, lod = 'near', city) { const m = vehicleModel(kind, city); const g = lod === 'far' ? m.far : m.geo; return g.index.count / 3; }
+/** model dimensions without building a mesh: { length, width, height, transit } */
+export function vehicleSize(kind, city) { const m = vehicleModel(kind, city); return { length: m.length, width: m.width, height: m.height, transit: m.transit || null }; }
 
 // ============================================================================
 //  COCKPIT
@@ -526,6 +1074,7 @@ const faceEyeEuler = (p) => { const n = EYE.clone().sub(p).normalize(); return n
 const CLUSTER = { az: 0, el: 20.6, dist: 0.75, w: 0.33, h: 0.33 * GAUGE_H / GAUGE_W };
 const SCREEN = { az: 27, el: 20.5, dist: 0.86, w: 0.34, h: 0.2125 };
 const WHEEL = { pos: new THREE.Vector3(-0.3, 0.89, -0.945), tilt: -0.42, r: 0.178, tube: 0.02 };
+const B_Z = 0.1; // front door rear edge / B-pillar (z, cockpit space): beside the front seat back, in view when looking 90° to the side
 const MIRROR = { pos: new THREE.Vector3(0.0, 1.655, -1.125), w: 0.27, h: 0.09 };
 
 /** The cockpit the player sits in. Coordinates in the car rig space (driver eye at (-0.3, 1.36, -0.45), forward -z). */
@@ -639,13 +1188,20 @@ export function makeCockpit() {
     // ---- doors (left = driver, right = passenger): panel, belt line trim, armrest, handle, window frame ----
     for (const s of [-1, 1]) {
         const x = s * 0.8;
-        interior.add(extrude([[-1.75, 0.43], [-1.75, 1.0], [-1.6, 1.07], [0.4, 1.07], [0.4, 0.43]], x - 0.03, x + 0.03), IDENT, SOFT, DR);
-        interior.add(BOX, M(x - s * 0.035, 1.075, -0.65, 0.05, 0.03, 2.1), TRIM, { r: 0.5, m: 0.2 });
+        interior.add(extrude([[-1.75, 0.43], [-1.75, 1.0], [-1.6, 1.07], [B_Z, 1.07], [B_Z, 0.43]], x - 0.03, x + 0.03), IDENT, SOFT, DR);
+        interior.add(BOX, M(x - s * 0.035, 1.075, (-1.6 + B_Z) / 2, 0.05, 0.03, B_Z + 1.6), TRIM, { r: 0.5, m: 0.2 });
+        interior.add(BOX, M(x - s * 0.012, 1.098, (-1.15 + B_Z) / 2, 0.03, 0.02, B_Z + 1.15), '#0c0d0f', { r: 0.6 }); // window channel seal at the sill
+        // door window frame (#25): front edge up the A-pillar, top rail ~0.3 m above the eye (real greenhouse height),
+        // sloping roof-side panel up to the headliner — what frames the side window when the driver looks left/right
+        interior.add(BOX, beamM(new THREE.Vector3(s * 0.8, 1.09, -1.18), new THREE.Vector3(s * 0.795, 1.64, -1.02), 0.04, 0.05), HEAD, { r: 0.92 });
+        interior.add(BOX, beamM(new THREE.Vector3(s * 0.795, 1.655, -1.03), new THREE.Vector3(s * 0.795, 1.655, B_Z), 0.05, 0.045), HEAD, { r: 0.92 });
+        interior.add(BOX, M(s * 0.705, 1.745, (-1.02 + 1.3) / 2, 0.27, 0.02, 2.32, 0, 0, s < 0 ? 0.76 : Math.PI - 0.76), HEAD, { r: 0.95 });
+        interior.add(BOX, M(s * 0.74, 1.70, -0.25, 0.03, 0.03, 0.22), '#3a3936', { r: 0.8 }); // grab handle
+        // mirror sail (triangle trim at the front lower corner of the window)
+        interior.add(extrude([[-1.6, 1.07], [-1.15, 1.07], [-1.15, 1.2], [-1.3, 1.07]], x - 0.025, x + 0.025), IDENT, SOFT, DR);
         interior.add(BOX, M(x - s * 0.08, 0.82, -0.35, 0.1, 0.06, 0.6), DASH2, DR2);
         interior.add(BOX, M(x - s * 0.04, 0.95, -0.95, 0.02, 0.04, 0.12), '#8d939a', { r: 0.3, m: 0.8 });
         interior.add(BOX, M(x - s * 0.035, 0.6, -0.9, 0.012, 0.16, 0.5), '#1a1b1e', { r: 0.9 }); // door pocket
-        // window frame top rail (follows roof line)
-        interior.add(BOX, beamM(new THREE.Vector3(s * 0.73, 1.78, -1.05), new THREE.Vector3(s * 0.76, 1.8, 0.4), 0.05, 0.05), HEAD, { r: 0.95 });
         // door skin behind the trim: what you see when the camera's near plane (0.4 m) cuts the driver's door
         // panel at the edge of a very wide view (21:9) — keeps the outside from showing through below the belt line
         // (driver side further out: the eye is only 0.47 m from that panel)
@@ -709,16 +1265,16 @@ export function makeCockpit() {
     for (const s of [-1, 1]) {
         rear.add(BOX, beamM(new THREE.Vector3(s * 0.66, rwTop[1], rwTop[0]), new THREE.Vector3(s * 0.7, rwBot[1], rwBot[0]), 0.05, 0.05), '#141518', FAB);
         // B-pillar (trim, beltline → roof)
-        rear.add(BOX, beamM(new THREE.Vector3(s * 0.77, 1.06, 0.47), new THREE.Vector3(s * 0.74, 1.81, 0.43), 0.06, 0.15), HEAD, { r: 0.9 });
-        rear.add(BOX, M(s * 0.735, 1.62, 0.44, 0.012, 0.05, 0.04), '#3a3b3e', { r: 0.6 }); // belt anchor
+        rear.add(BOX, beamM(new THREE.Vector3(s * 0.78, 1.06, B_Z + 0.1), new THREE.Vector3(s * 0.76, 1.8, B_Z + 0.08), 0.07, 0.19), HEAD, { r: 0.9 });
+        rear.add(BOX, M(s * 0.74, 1.56, B_Z + 0.06, 0.012, 0.05, 0.04), '#3a3b3e', { r: 0.6 }); // belt anchor
         // C-pillar trim panel between the rear door window and the rear glass
         rear.add(extrude([[0.98, 1.79], [rwTop[0], rwTop[1]], [rwBot[0], rwBot[1]], [1.74, 1.07], [1.22, 1.07]], s > 0 ? 0.70 : -0.85, s > 0 ? 0.85 : -0.70), IDENT, HEAD, { r: 0.92 });
         // rear door: panel, belt trim, armrest, handle, window frame (open, like the front windows)
-        rear.add(extrude([[0.42, 0.43], [0.42, 1.07], [1.3, 1.07], [1.3, 0.43]], s * 0.8 - 0.03, s * 0.8 + 0.03), IDENT, SOFT, DR);
-        rear.add(BOX, M(s * 0.765, 1.075, 0.86, 0.05, 0.03, 0.86), TRIM, { r: 0.5, m: 0.2 });
+        rear.add(extrude([[B_Z + 0.02, 0.43], [B_Z + 0.02, 1.07], [1.3, 1.07], [1.3, 0.43]], s * 0.8 - 0.03, s * 0.8 + 0.03), IDENT, SOFT, DR);
+        rear.add(BOX, M(s * 0.765, 1.075, (B_Z + 1.3) / 2, 0.05, 0.03, 1.3 - B_Z), TRIM, { r: 0.5, m: 0.2 });
         rear.add(BOX, M(s * 0.72, 0.8, 0.95, 0.1, 0.06, 0.5), DASH2, DR2);
         rear.add(BOX, M(s * 0.76, 0.95, 0.6, 0.02, 0.04, 0.1), '#8d939a', { r: 0.3, m: 0.8 });
-        rear.add(BOX, beamM(new THREE.Vector3(s * 0.76, 1.8, 0.4), new THREE.Vector3(s * 0.74, 1.79, 1.0), 0.05, 0.05), HEAD, { r: 0.95 });
+        rear.add(BOX, beamM(new THREE.Vector3(s * 0.795, 1.655, B_Z), new THREE.Vector3(s * 0.79, 1.655, 1.05), 0.05, 0.045), HEAD, { r: 0.95 });
         rear.add(BOX, beamM(new THREE.Vector3(s * 0.775, 1.07, 1.22), new THREE.Vector3(s * 0.755, 1.79, 0.98), 0.045, 0.04), HEAD, { r: 0.95 });
         // rear quarter panel beside the bench, wheel-arch hump
         rear.add(extrude([[1.3, 0.43], [1.3, 1.07], [1.74, 1.07], [1.86, 0.9], [1.86, 0.43]], s * 0.79 - 0.03, s * 0.79 + 0.03), IDENT, SOFT, DR);
@@ -747,7 +1303,7 @@ export function makeCockpit() {
     proxyB.add(BOX, M(0, 0.62, -0.2, 1.78, 0.66, 4.4));
     proxyB.add(BOX, M(0, 1.8, 0.05, 1.5, 0.06, 2.4)); // roof incl. the rear cabin
     for (const s of [-1, 1]) proxyB.add(BOX, beamM(new THREE.Vector3(s * 0.79, 1.05, -1.79), new THREE.Vector3(s * 0.72, 1.76, -1.14), 0.08, 0.08));
-    for (const s of [-1, 1]) proxyB.add(BOX, M(s * 0.78, 1.4, 0.45, 0.06, 0.75, 0.15));  // B-pillars
+    for (const s of [-1, 1]) proxyB.add(BOX, M(s * 0.78, 1.4, B_Z + 0.09, 0.06, 0.75, 0.19));  // B-pillars
     for (const s of [-1, 1]) proxyB.add(BOX, M(s * 0.76, 1.4, 1.35, 0.06, 0.72, 0.5));   // C-pillars
     const proxy = new THREE.Mesh(proxyB.build(false), new THREE.MeshBasicMaterial({ colorWrite: false, depthWrite: false }));
     proxy.castShadow = true; proxy.renderOrder = -10; proxy.name = 'shadow-proxy'; g.add(proxy);

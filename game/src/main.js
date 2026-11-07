@@ -1,7 +1,7 @@
 import * as THREE from '../vendor/three.module.min.js';
 import * as CITY_MOD from './cities.js';
 import { chapterCard, chapterMontage, chapterSelectHtml, loadProgress, saveProgress, chapterCardOpen } from './chapters.js';
-import { STOPS, AIRPORTS, FACTS, PROFILE, ROADWORKS } from './data.js';
+import { STOPS, AIRPORTS, FACTS, PROFILE, ROADWORKS, MONTAGE_VIA, MONTAGE_WATER } from './data.js';
 import { buildWorld, collideBuildings } from './world.js';
 import { Traffic, laneOffset } from './traffic.js';
 import { Player } from './player.js';
@@ -150,11 +150,11 @@ class Game {
         // photo mode (spec 16): listens to P itself while drive / office / on foot
         try {
             this.photo = new PhotoMode({
-                renderer: this.renderer, getScene: () => (this.state === 'office' ? this.office?.scene : this.scene), getCamera: () => this.camera,
+                renderer: this.renderer, getScene: () => (this.state === 'spot' ? this.spot?.spot?.scene : this.state === 'office' ? this.office?.scene : this.scene), getCamera: () => this.camera,
                 hud: this.hud, audio: this.audio, input: this.input,
-                canOpen: () => (this.state === 'drive' || this.state === 'office' || this.state === 'foot') && !this.mapOpen && !this.hud.panelOpen,
-                getInfo: () => ({ place: this.state === 'office' ? this.office?.stop.company : document.getElementById('street')?.textContent, city: this.city?.id, timeZone: this.clock.timeZone, night: !!this.r3d.nightLights }),
-                onPhoto: (meta) => this.hud.toast('📸 Saved', `${meta.place || 'Photo'} · ${meta.filter}`),
+                canOpen: () => (this.state === 'drive' || this.state === 'office' || this.state === 'foot' || (this.state === 'spot' && !this.spot?.ui?.panelOpen)) && !this.mapOpen && !this.hud.panelOpen,
+                getInfo: () => (this.state === 'spot' && this.spot ? this.spot.photoInfo() : { place: this.state === 'office' ? this.office?.stop.company : document.getElementById('street')?.textContent, city: this.city?.id, timeZone: this.clock.timeZone, night: !!this.r3d.nightLights }),
+                onPhoto: (meta) => this.onPhoto(meta),
             });
         } catch (e) { console.warn('[photo]', e); this.photo = null; }
         this.loop = this.loop.bind(this);
@@ -178,6 +178,7 @@ class Game {
     bindMenu() {
         $('#start').addEventListener('click', () => this.start());
         this.renderMenuChapters();
+        this.loadSpotsModule().then(() => this.renderMenuSpots());
         $('#quality').addEventListener('change', (e) => { this.quality = e.target.value; this.r3d.setQuality(e.target.value); });
         $('#mute').addEventListener('click', (e) => { this.audio.setMuted(!this.audio.muted); e.target.textContent = this.audio.muted ? '🔇' : '🔊'; });
         { const ws = $('#weather'); if (ws) { if (this.weatherOverride) ws.value = this.weatherOverride; ws.addEventListener('change', (e) => this.setWeatherOverride(e.target.value === 'real' ? null : e.target.value)); } }
@@ -199,6 +200,8 @@ class Game {
         });
         $('#map-close')?.addEventListener('click', () => this.toggleMap(false));
         $('#navlist')?.addEventListener('click', (e) => {
+            const spb = e.target.closest('[data-spot]');
+            if (spb) { this.toggleMap(false); this.enterSpot(spb.dataset.spot); return; }
             const chb = e.target.closest('[data-chapter]');
             if (chb) { this.toggleMap(false); this.goToChapter(+chb.dataset.chapter); return; }
             const ft = e.target.closest('[data-ft]');
@@ -290,12 +293,7 @@ class Game {
         this.traffic.setPlayer(this.player);
         this.placeSpawn(city, world);
         // renderer: scene, lighting, real-time sun, street lamps, weather
-        const center = city.center || (id === 'seattle' ? { lat: 47.61, lon: -122.33 } : { lat: 44.4268, lon: 26.1025 });
-        this.r3d.setScene(scene, this.camera, env, { sky: world.sky, units: city.units });
-        if (world.vegetation) this.r3d.setVegetation?.(world.vegetation);
-        this.r3d.setPlayer(this.player);
-        this.r3d.setClock({ date: new Date(), lat: center.lat, lon: center.lon, timeZone: this.clock.timeZone, override: this.clock.override || null, timeScale: 1 });
-        this.r3d.setLamps(world.lamps || [], { headMesh: world.lampHeadMesh });
+        this.attachWorldRender();
         this.r3d.onNightLights = (on) => { this.nightLights = on; this.traffic?.setNightLights(on || !!this._fogLights); };
         this.r3d.onNightLights(this.r3d.nightLights);
         this.r3d.setHeadlights(this.headlights === 'auto' ? null : this.headlights);
@@ -326,6 +324,19 @@ class Game {
         this.updateObjective();
     }
 
+    /** hand the loaded world to Renderer3D (scene, vegetation, player, real sun at the city, lamps); also used when
+     *  coming back from a tourist spot, which swapped the renderer to its own scene */
+    attachWorldRender() {
+        const city = this.city, world = this.world, id = city.id;
+        // the district's own centre (sun + weather cell: Bellevue is not downtown Seattle), else the city's (R18.5)
+        const dc = world.district?.center || city.districts?.[this.district]?.center;
+        const center = (dc && Number.isFinite(dc.lat) ? dc : null) || city.center || (id === 'seattle' ? { lat: 47.61, lon: -122.33 } : { lat: 44.4268, lon: 26.1025 });
+        this.r3d.setScene(this.scene, this.camera, city.env, { sky: world.sky, units: city.units, vegetation: world.vegetation || null });
+        if (world.vegetation) this.r3d.setVegetation?.(world.vegetation);
+        this.r3d.setPlayer(this.player);
+        this.r3d.setClock({ date: new Date(), lat: center.lat, lon: center.lon, timeZone: this.clock.timeZone, override: this.clock.override || null, timeScale: 1 });
+        this.r3d.setLamps(world.lamps || [], { headMesh: world.lampHeadMesh });
+    }
     /** put a point on the nearest drivable lane, returns {x,z,heading,edge,dir} */
     roadPose(x, z, preferDir = 1) {
         const ne = this.nav.index.nearest(x, z, 3000); if (!ne) return { x, z, heading: 0 };
@@ -473,6 +484,7 @@ class Game {
         if (this.state === 'drive') this.updateDrive(dt);
         else if (this.state === 'office') this.updateOffice(dt);
         else if (this.state === 'foot') this.updateFoot(dt);
+        else if (this.state === 'spot') this.updateSpot(dt);
         else if (this.state === 'card' && this.scene) this.drawFrame();
         else if (this.state === 'menu') { /* idle */ }
     }
@@ -727,9 +739,10 @@ class Game {
         const cur = PRICES[this.city.id].cur;
         const dist = us ? `${(s.dist / 1609.34).toFixed(1)} mi` : `${(s.dist / 1000).toFixed(1)} km`;
         const eco = l100 == null ? '—' : us ? `${Math.round(235.21 / l100)} mpg` : `${l100.toFixed(1)} L/100km`;
-        const fines = s.fines[cur] ? ` · Fines ${money(cur, s.fines[cur])}` : '';
+        const fines = s.fines[cur] ? `\nFines ${money(cur, s.fines[cur])}` : '';
         const wx = this.weatherText();
-        return `${this.phaseIcon} ${this.clockText()}${wx ? ' · ' + wx : ''} · Trip ${dist} · Ø ${eco}${fines}`;
+        // short lines: the bottom-right block is ≤ 220 px wide (R17.5: one long nowrap line ran into the hint)
+        return `${this.phaseIcon} ${this.clockText()}${wx ? ' · ' + wx : ''}\nTrip ${dist} · Ø ${eco}${fines}`;
     }
 
     drawCarScreen(street, fuelText) {
@@ -1063,10 +1076,12 @@ class Game {
             html += chapterSelectHtml(this.chapters, this.progress, this.chapterIdx).replace('<h4>Chapters</h4>', '<h4>Chapters <small>(replay)</small></h4>');
         }
         if (this.navManual) html += `<div class="nav-item active"><span>🧭 ${this.nav.dest?.label || 'Custom'}</span><button data-nav="-1">Clear</button></div>`;
+        const spotsHere = (this.spotsMod?.SPOTS || []).filter(sp => sp.city === this.city.id);
         items.forEach((it, i) => {
             if (it.group !== g) { g = it.group; html += `<h4>${g}</h4>`; }
             html += `<div class="nav-item"><span>${it.icon} ${it.label} <small>${dist(it.x, it.z)}</small></span><button data-nav="${i}" title="Route there">Go</button><button class="ft" data-ft="${i}" title="Fast travel (skip the drive)">⏩</button></div>`;
         });
+        if (spotsHere.length) html += this.spotGroupsHtml(spotsHere, { heading: 'h4', button: 'Visit' });
         $('#navlist').innerHTML = html;
     }
 
@@ -1281,6 +1296,150 @@ class Game {
         ctx.restore();
     }
 
+    // ---------------------------------------------------------------------------------- tourist spots (spec 15, R15.4)
+    /** spots/index.js loaded lazily (a broken / missing spots module never breaks the drive) */
+    loadSpotsModule() {
+        if (!this._spotsP) this._spotsP = import('./spots/index.js').then(m => (this.spotsMod = m)).catch(e => { console.warn('[spots] module', e); this._spotsP = null; return null; });
+        return this._spotsP;
+    }
+    /** buttons for a list of SPOTS entries grouped Bucharest / Seattle / Bellevue (whatever SPOTS holds) */
+    spotGroupsHtml(list, { heading = 'h4', button = null } = {}) {
+        const esc = (t) => String(t ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+        const groups = [['București', (s) => s.city === 'bucharest'], ['Seattle', (s) => s.city === 'seattle' && s.area !== 'bellevue'], ['Bellevue', (s) => s.area === 'bellevue'],
+            ['More', (s) => s.city !== 'bucharest' && s.city !== 'seattle']];
+        const done = this.spotsMod?.spotProgress?.()?.postcards || {};
+        let html = '';
+        for (const [label, f] of groups) {
+            const items = list.filter(f); if (!items.length) continue;
+            html += `<${heading} class="spot-group">📷 Tourist spots · ${label}</${heading}>`;
+            if (button) html += items.map(s => `<div class="nav-item"><span>${done[s.id] ? '✓ ' : ''}${esc(s.name)}</span><button data-spot="${esc(s.id)}" title="${esc(s.blurb)}">${button}</button></div>`).join('');
+            else html += `<div class="chs">${items.map(s => `<button data-spot="${esc(s.id)}" title="${esc(s.blurb)}">${done[s.id] ? '✓ ' : ''}${esc(s.name)}</button>`).join('')}</div>`;
+        }
+        return html;
+    }
+    /** main menu: "Bonus: Tourist spots" (always available, R15.4 default) */
+    renderMenuSpots() {
+        const list = this.spotsMod?.SPOTS; if (!list?.length) return;
+        let box = $('#spot-select');
+        if (!box) { const anchor = $('#chapter-select') || $('#start')?.parentElement; if (!anchor) return; box = document.createElement('details'); box.id = 'spot-select'; anchor.insertAdjacentElement('afterend', box); }
+        const open = box.open;
+        box.innerHTML = `<summary>🏛️ Bonus: Tourist spots <small>(${list.length}, on foot)</small></summary>${this.spotGroupsHtml(list, { heading: 'h4' })}`;
+        box.open = open;
+        if (!document.getElementById('spot-select-css')) {
+            const st = document.createElement('style'); st.id = 'spot-select-css';
+            st.textContent = '#spot-select{margin-top:10px;text-align:left}#spot-select summary{cursor:pointer;font-weight:600;padding:6px 0}#spot-select summary small{font-weight:400;opacity:.7}#spot-select h4{margin:8px 0 6px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#94a3b8}#spot-select .chs{display:flex;flex-wrap:wrap;gap:6px}#spot-select button{min-height:36px;padding:4px 10px;border-radius:8px;border:1px solid rgba(148,163,184,.35);background:rgba(30,41,59,.85);color:#e2e8f0;font:13px system-ui,sans-serif;cursor:pointer;text-align:left}'
+                + 'body.in-spot #hud>:not(#touch){display:none!important}body.in-spot .pad button.drive-only,body.in-spot .pad button[data-btn=foot]{display:none}body.in-spot .pad button.office-only{display:inline-block}';
+            document.head.appendChild(st);
+        }
+        box.onclick = (e) => { const b = e.target.closest('[data-spot]'); if (b) this.enterSpot(b.dataset.spot); };
+    }
+    /** walk a tourist spot (from the menu, or from the map panel while driving / walking); the street world stays loaded */
+    async enterSpot(id) {
+        if (this._spotBusy || this._transit || this._completing) return false;
+        const mod = await this.loadSpotsModule();
+        const entry = mod?.SPOTS?.find(s => s.id === id);
+        if (!entry) { this.hud.toast('🏛️ Not available', 'This tourist spot is not ready yet.', 'warn'); return false; }
+        this._spotBusy = true;
+        this.audio.init(); this.audio.resume();
+        this.photo?.close?.(); if (this.mapOpen) this.toggleMap(false);
+        if (!this.spotReturn) {
+            const F = this.foot;
+            this.spotReturn = { state: this.state, foot: this.state === 'foot' && F?.active ? { x: F.x, z: F.z, heading: F.heading, y: F.y } : null, near: this.camera.near, far: this.camera.far };
+            if (this.state === 'foot') F.exit();
+            if (this.state === 'drive' && this.player) { this.player.speed = 0; this.player.steer = 0; }
+        }
+        this.audio.stopEngine?.();
+        this.input.lookAllowed = false; this.input.releaseLock(); this.input.flush();
+        this.state = 'loading'; this.hud.prompt(null);
+        $('#menu').classList.remove('show'); $('#hud').classList.add('show');
+        document.body.classList.add('in-spot');
+        const ld = $('#loading'), lp = ld?.querySelector('p'); if (lp && this._loadingText == null) this._loadingText = lp.textContent;
+        if (lp) lp.textContent = `Walking to ${entry.name}…`; ld?.classList.add('show');
+        const old = this.spot; this.spot = null; try { old?.dispose(); } catch (e) { console.warn('[spots] dispose', e); }
+        try {
+            this.spot = await mod.startSpot(id, { r3d: this.r3d, camera: this.camera, input: this.input, photo: this.photo, audio: this.audio, hud: this.hud,
+                date: new Date(), override: this.clock.override || null, onProgress: (t) => { if (lp && t) lp.textContent = String(t); } });
+        } catch (e) {
+            console.error('[spots] start', e);
+            this.spot = null; this._spotBusy = false; ld?.classList.remove('show'); if (lp) lp.textContent = this._loadingText;
+            this.leaveSpot();
+            this.hud.toast('🏛️ Could not open the spot', entry.name, 'warn');
+            return false;
+        }
+        ld?.classList.remove('show'); if (lp) lp.textContent = this._loadingText;
+        this.spotId = id; this.spotEntry = entry; this.state = 'spot'; this._spotBusyWas = false;
+        this.input.lookAllowed = true; this.input.flush(); this.frameClock.getDelta();
+        this._spotBusy = false;
+        return true;
+    }
+    /** back to where the player was: the menu, or the chapter / free drive with the car (or the walker) where it was */
+    leaveSpot() {
+        this.photo?.close?.();
+        if (this.hud.panelOpen) this.hud.closePanel();
+        const s = this.spot; this.spot = null;
+        try { s?.dispose(); } catch (e) { console.warn('[spots] dispose', e); }
+        document.body.classList.remove('in-spot');
+        const R = this.spotReturn || { state: 'menu' }; this.spotReturn = null; this.spotId = null; this.spotEntry = null;
+        this.camera.near = R.near ?? 0.2; this.camera.far = R.far ?? 5000; this.camera.updateProjectionMatrix();
+        this.input.releaseLock(); this.input.flush(); this.hud.prompt(null);
+        const toGame = this.world && this.player && ['drive', 'foot'].includes(R.state);
+        if (toGame) {
+            this.attachWorldRender();
+            this.r3d.setHeadlights(this.headlights === 'auto' ? null : this.headlights);
+            if (typeof this.r3d.setWeather === 'function') { try { this.r3d.setWeather(this.weatherOverride); } catch { /* ignore */ } }
+            if (R.state === 'foot' && R.foot && this.foot) { this.foot.enter(R.foot.x, R.foot.z, R.foot.heading, R.foot.y); this.state = 'foot'; }
+            else { this.player.camHolder.add(this.camera); this.camera.position.set(0, 0, 0); this.camera.rotation.set(0, 0, 0); this.state = 'drive'; }
+            $('#hud').classList.add('show');
+            this.input.lookAllowed = true; this.frameClock.getDelta();
+        } else {
+            this.state = 'menu'; this.input.lookAllowed = false;
+            $('#hud').classList.remove('show'); $('#menu').classList.add('show');
+            this.renderMenuSpots();
+        }
+    }
+    updateSpot(dt) {
+        const s = this.spot; if (!s) return;
+        const inp = this.input, hud = this.hud;
+        // Esc / M pause — but not the Esc / M that closed the camera, a plaque or the pause panel itself
+        const busy = !!(this.photo?.active || s.ui?.panelOpen || hud.panelOpen);
+        if (busy || this._spotBusyWas) { inp.take('Escape'); inp.take('KeyM'); }
+        this._spotBusyWas = busy;
+        if (hud.panelOpen) { inp.lookAllowed = false; inp.releaseLock(); inp.flush(); this.r3d.frame(); return; }
+        if (!busy && (inp.take('Escape') || inp.take('KeyM'))) { this.spotPause(); this.r3d.frame(); return; }
+        inp.take('Enter'); inp.take('NumpadEnter'); inp.take('KeyR'); inp.take('KeyF'); inp.take('KeyH');
+        if (!s.ui?.panelOpen) inp.lookAllowed = true;
+        s.update(dt);
+        this.r3d.frame();
+    }
+    /** pause panel in a spot: resume, other entrances of the same scene, leave */
+    spotPause() {
+        const s = this.spot, e = this.spotEntry || {}; if (!s) return;
+        const esc = (t) => String(t ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+        const R = this.spotReturn || { state: 'menu' };
+        const back = R.state === 'menu' ? 'Back to the menu' : this.ch ? `Back to ${this.chapterDone ? 'free drive' : `chapter ${this.chapterIdx + 1}`}` : 'Back to the drive';
+        const same = (this.spotsMod?.SPOTS || []).filter(x => x.scene && x.scene === e.scene && x.id !== this.spotId && s.spot?.spawns?.[x.id]);
+        const tp = same.length ? `<h3>Walk over to</h3><div class="links">${same.map(x => `<button class="btn ghost" data-spot-act="tp" data-id="${esc(x.id)}">📍 ${esc(x.name)}</button>`).join('')}</div>` : '';
+        this.input.releaseLock(); this.input.lookAllowed = false;
+        this.hud.panel(`<div class="eyebrow">🏛️ Tourist spot · paused</div><h2>${esc(e.name)}</h2><p>${esc(e.blurb)}</p>${tp}<div class="links"><button class="btn primary" data-spot-act="leave">🚪 Leave tourist spot</button></div><p class="meta">${back} · Continue / Esc = keep walking</p>`);
+        document.querySelectorAll('#panel [data-spot-act]').forEach(b => b.addEventListener('click', () => {
+            const act = b.dataset.spotAct, id = b.dataset.id;
+            this.hud.closePanel();
+            if (act === 'leave') this.leaveSpot();
+            else if (act === 'tp' && this.spot) { this.spot.teleport(id); this.spotId = id; this.spotEntry = this.spotsMod?.SPOTS?.find(x => x.id === id) || this.spotEntry; }
+        }));
+    }
+    /** PhotoMode.onPhoto (drive, office, on foot and spots) */
+    onPhoto(meta = {}) {
+        if (this.state === 'spot' && this.spot) {
+            const r = this.spot.onPhoto(meta);
+            if (!r?.postcard) this.spot.ui?.toast?.('📸 Saved', `${meta.place || 'Photo'} · ${meta.filter || ''}`);
+            this.photoCount = (this.photoCount || 0) + 1; this.lastPhoto = { state: 'spot', postcard: !!r?.postcard };
+            return;
+        }
+        this.photoCount = (this.photoCount || 0) + 1; this.lastPhoto = { state: this.state };
+        this.hud.toast('📸 Saved', `${meta.place || 'Photo'} · ${meta.filter}`);
+    }
+
     // ---------------------------------------------------------------------------------- chapters (spec 10)
     renderMenuChapters() {
         if (!this.chapters) return;
@@ -1371,7 +1530,14 @@ class Game {
             this.photo?.close?.(); this.state = 'montage'; this.input.lookAllowed = false; this.input.releaseLock(); this.hud.prompt(null); this.hud.setNavLine('');
             this.audio.stopEngine?.();
             if (prev && prev.city !== ch.city) await this.flightCutscene(prev.city);
-            else await chapterMontage({ cityName: this.city?.name, districts: CITIES[ch.city].districts || {}, from: prev?.district, to: ch.district, year0: prev?.year, year1: ch.year, title: ch.title, caption: ch.intro, duration: prev ? 5000 : 4200 });
+            else {
+                // same district (luxoft → db in pipera): a short "a few months later" card on the map, no district jump
+                const sameDistrict = prev && prev.city === ch.city && prev.district === ch.district;
+                const via = !sameDistrict && prev ? (ch.montageVia || MONTAGE_VIA[ch.id] || []) : [];
+                await chapterMontage({ cityName: CITIES[ch.city]?.name || this.city?.name, districts: CITIES[ch.city].districts || {}, from: prev?.district, to: ch.district, year0: prev?.year, year1: ch.year, title: ch.title,
+                    caption: ch.intro, travel: sameDistrict ? '' : (ch.montageCaption || ''), via, water: via.length ? (MONTAGE_WATER[ch.id] || []) : [], kicker: sameDistrict ? (ch.year === prev.year ? 'A few months later' : 'Later') : '',
+                    duration: sameDistrict ? 3200 : ch.montageCaption ? 6000 : prev ? 5000 : 4200 });
+            }
             await this.enterChapter(idx);
             if (prev && prev.city !== ch.city && ch.city === 'seattle') this.hud.achievement('flight');
         } finally { this._transit = false; }

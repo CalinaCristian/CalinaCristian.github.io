@@ -10,6 +10,7 @@ import { execFileSync } from 'node:child_process';
 export const REGIONS = [
     ['buc', 44.415, 44.495, 26.045, 26.125, 0.01, 0.016],      // Bucharest core
     ['dn1', 44.495, 44.585, 26.060, 26.105, 0.015, 0.045],     // DN1 corridor to Otopeni (auto-split when too big)
+    ['bucx', 44.465, 44.495, 26.125, 26.157, 0.01, 0.016],     // east of Pipera (Fabrica de Glucoză east, Petricani): db chapter run-in + pipera backdrop (2026-11-07)
     ['sea_seatac', 47.430, 47.470, -122.320, -122.260, 0.02, 0.03],
     ['sea_i5', 47.470, 47.590, -122.345, -122.295, 0.02, 0.025],
     ['sea_dt', 47.590, 47.640, -122.360, -122.300, 0.0125, 0.02],

@@ -41,7 +41,7 @@ const qs = new URLSearchParams(location.search), $ = (s) => document.querySelect
 const id = qs.get('id') || 'fremont-troll';
 if (qs.get('ui') === '0') document.body.classList.add('noui');
 if (qs.get('hud') === '0') document.body.classList.add('nohud');
-for (const s of SPOTS) $('#spot').append(new Option(`${s.name} (${s.id})`, s.id));
+for (const s of SPOTS) $('#spot').append(new Option(`${s.city === 'bucharest' ? '🇷🇴 ' : ''}${s.name} (${s.id})`, s.id));
 for (const [k, el] of [['id', '#spot'], ['ov', '#ov'], ['weather', '#weather'], ['season', '#season'], ['q', '#q'], ['walker', '#walker'], ['hour', '#hour']]) {
     if (qs.has(k)) $(el).value = qs.get(k);
     $(el).onchange = () => { const p = new URLSearchParams(location.search); p.set(k, $(el).value); location.search = p; };
@@ -58,8 +58,8 @@ addEventListener('resize', resize); resize();
 // date: real now, or ?hour=H (local time at the spot) / ?date=ISO
 let date = new Date();
 if (qs.get('date')) date = new Date(qs.get('date'));
-if (qs.get('hour')) { // set the wall-clock hour in America/Los_Angeles (spots' tz) by offsetting from now
-    const tz = 'America/Los_Angeles', h = +qs.get('hour');
+if (qs.get('hour')) { // set the wall-clock hour at the spot (its city's time zone) by offsetting from now
+    const tz = spotById(id)?.city === 'bucharest' ? 'Europe/Bucharest' : 'America/Los_Angeles', h = +qs.get('hour');
     const parts = new Intl.DateTimeFormat('en-US', { timeZone: tz, hour: 'numeric', minute: 'numeric', hourCycle: 'h23' }).formatToParts(date);
     const cur = +parts.find((p) => p.type === 'hour').value + +parts.find((p) => p.type === 'minute').value / 60;
     date = new Date(+date + (h - cur) * 3600e3);

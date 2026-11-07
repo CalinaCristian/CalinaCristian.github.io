@@ -1,5 +1,7 @@
 import * as THREE from '../vendor/three.module.min.js';
 import { makeVehicle, CAR_COLORS } from './vehicles.js';
+import * as VEH from './vehicles.js';
+import { TRANSIT, TRANSIT_RE } from './data.js';
 import { makeRng, clamp, angleLerp } from './util.js';
 import { lanesDir, canTravel, edgeSpeed, isMotorway, turnAngle, nodeList, EdgeIndex } from './nav.js';
 
@@ -159,6 +161,7 @@ export class Traffic {
         this.boxes = new Map(); // junction box reservations: node → [{v, path, inE, outE, lane, t}]
         this.stats = { updateMs: 0 };
         this._idSeq = 0;
+        this.setupTransit();
         this.buildBusStops();
         this.spawnAll();
         this.base = { moving: this.vehicles.filter(v => this.cls(v) === 'moving').length, parked: this.vehicles.filter(v => v.parked).length };
@@ -316,7 +319,7 @@ export class Traffic {
         if (this.jamMax > 0.05 && budget > 0) {
             let need = this.target.moving - this.counts.moving; const cap = (this.buc ? 140 : 60) - (this._jamBuilt || 0);
             for (let i = 0; i < Math.min(need, cap, budget > 1e8 ? 400 : 2); i++) {
-                const v = this.spawn({ edge: this.vehicles[0]?.edge || this.world.graph.edges[0], dir: 1, lane: 0, s: 0, kind: this.rng.pick(this.buc ? ['hatch', 'sedan', 'hatch', 'taxi', 'suv', 'van'] : ['suv', 'sedan', 'pickup', 'suv']) });
+                const v = this.spawn({ edge: this.vehicles[0]?.edge || this.world.graph.edges[0], dir: 1, lane: 0, s: 0, kind: this.carKind() });
                 this._jamBuilt = (this._jamBuilt || 0) + 1; changed = true;
                 if (!this.placeInHot(v)) { this.vehicles.pop(); v.inactive = true; v.mesh.visible = false; this.pool.push(v); }
                 else v.mesh.userData.setLights?.(this.nightLights);
@@ -349,6 +352,55 @@ export class Traffic {
         return local > this.cycle - 2.2 ? 'yellow' : 'green';
     }
 
+    // ------------------------------------------------------------------ transit (R13.3)
+    /** transit streets (research: trolley wires, STB bus / tram routes; Seattle: KCM arterials), the vehicle kinds
+     *  vehicles.js offers for them (feature-detected), and the country's car fleet mix (vehicles.js FLEET) */
+    setupTransit() {
+        const did = this.world.district?.id || this.city.activeDistrict || null;
+        const T = (did && TRANSIT[did]) || null, RE = (did && TRANSIT_RE[did]) || null;
+        const norm = (t) => String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+        const sets = {}; for (const k of ['trolley', 'bus', 'tram']) sets[k] = new Set((T?.[k] || []).map(norm));
+        const has = (e, k) => !!e.name && (sets[k].has(norm(e.name)) || !!RE?.[k]?.test(e.name));
+        let nT = 0, nB = 0;
+        for (const e of this.world.graph.edges) {
+            e.trolleyWire = !isMotorway(e) && !e.tramOnly && has(e, 'trolley');
+            e.busRoute = !isMotorway(e) && !e.tramOnly && (has(e, 'bus') || e.trolleyWire);
+            if (e.trolleyWire) nT++; if (e.busRoute) nB++;
+        }
+        const K = new Set(VEH.VEHICLE_KINDS || []), pick = (...c) => c.find(k => K.has(k)) || null;
+        try { VEH.setFleetCity?.(this.city.id); } catch { /* older vehicles.js */ }
+        this.transitKinds = {
+            tram: pick('tram-v3a', 'tram-stb', 'stb-tram', 'tram'),
+            trolley: this.buc ? pick('trolleybus', 'trolleybus-stb', 'stb-trolleybus') : null,
+            bus: this.buc ? pick('stb-bus', 'bus-stb', 'bus') : pick('kcm-bus', 'bus-kcm', 'metro-bus', 'bus'),
+        };
+        // vehicles.js picks the model within a mode (Imperio vs V3A trams, KCM articulated buses …) when it can
+        const ptk = typeof VEH.pickTransitKind === 'function' ? VEH.pickTransitKind : null;
+        this.transitKind = (mode) => {
+            const base = this.transitKinds[mode === 'trolleybus' ? 'trolley' : mode];
+            if (!base) return null;
+            if (ptk) { try { const k = ptk(this.city.id, mode, this.rng); if (k && (!K.size || K.has(k))) return k; } catch { /* ignore */ } }
+            return base;
+        };
+        // fleet mix: vehicles.js FLEET[city] / fleetMix(city) → [[kind, weight]], only kinds it can build
+        let fleet = null;
+        try { fleet = (typeof VEH.fleetMix === 'function' ? VEH.fleetMix(this.city.id) : null) || VEH.FLEET?.[this.city.id] || VEH.FLEET?.[this.buc ? 'RO' : 'US'] || null; } catch { fleet = null; }
+        if (fleet && !Array.isArray(fleet)) fleet = Object.entries(fleet);
+        fleet = Array.isArray(fleet) ? fleet.map(f => Array.isArray(f) ? f : [f.kind, f.weight ?? f.w ?? 1]).filter(([k, w]) => w > 0 && (!K.size || K.has(k))) : null;
+        if (fleet?.length) { const tot = fleet.reduce((a, f) => a + f[1], 0); this.fleet = fleet.map(([k, w]) => [k, w / tot]); } else this.fleet = null;
+        this.transit = { district: did, trolleyEdges: nT, busEdges: nB, kinds: this.transitKinds, fleet: !!this.fleet };
+    }
+    /** a car kind from the fleet mix (vehicles.js FLEET) or the built-in table */
+    carKind(e = null) {
+        const kinds = this.fleet || (this.buc ? [['hatch', 0.4], ['sedan', 0.22], ['suv', 0.1], ['taxi', 0.12], ['van', 0.1], ['truck', 0.03], ['pickup', 0.03]] : [['suv', 0.36], ['pickup', 0.19], ['sedan', 0.26], ['hatch', 0.06], ['van', 0.07], ['truck', 0.04], ['taxi', 0.02]]);
+        let r = this.rng(), k = kinds[kinds.length - 1][0];
+        for (const [kk, p] of kinds) { r -= p; if (r <= 0) { k = kk; break; } }
+        if (e && isMotorway(e) && /bus|tram/.test(k)) k = this.buc ? 'sedan' : 'suv';
+        return k;
+    }
+    /** the highest lane index a non-bus may use on (e, dir): the outermost lane is a bus lane where the edge has one */
+    carLaneMax(e, dir) { const n = lanesDir(e, dir) || 1; return e.busLane && n > 1 && !isMotorway(e) ? n - 2 : n - 1; }
+
     // ------------------------------------------------------------------ bus stops
     buildBusStops() {
         this.busStops = new Map(); // edge -> [{s (a→b), side}]
@@ -376,14 +428,14 @@ export class Traffic {
     spawnAll() {
         const { edges } = this.world.graph;
         const density = this.city.traffic?.density ?? 0.7;
-        const kindsB = [['hatch', 0.38], ['sedan', 0.2], ['suv', 0.1], ['taxi', 0.11], ['van', 0.1], ['bus', 0.05], ['truck', 0.03], ['pickup', 0.03]];
-        const kindsS = [['suv', 0.34], ['pickup', 0.18], ['sedan', 0.25], ['hatch', 0.06], ['van', 0.07], ['truck', 0.05], ['bus', 0.03], ['taxi', 0.02]];
-        const kinds = this.buc ? kindsB : kindsS;
+        // transit share: buses on bus routes (more on trolley streets: trolleybuses), cars from the fleet mix elsewhere
+        const TK = this.transitKinds || {}, anyRoutes = (this.transit?.busEdges || 0) > 0;
         const pickKind = (e) => {
-            let r = this.rng(); let k = 'sedan';
-            for (const [kk, p] of kinds) { r -= p; if (r <= 0) { k = kk; break; } }
-            if (k === 'bus' && isMotorway(e)) k = 'sedan';
-            return k;
+            if (!isMotorway(e) && !e.tramOnly && !closedEdge(e)) {
+                const pBus = anyRoutes ? (e.busRoute ? (this.buc ? 0.09 : 0.07) : 0.006) : (this.buc ? 0.05 : 0.03);
+                if (this.rng() < pBus) return e.trolleyWire && TK.trolley && this.rng() < 0.6 ? this.transitKind('trolleybus') : (this.transitKind('bus') || 'bus');
+            }
+            return this.carKind(e);
         };
         const plan = [];
         for (const e of edges) {
@@ -406,10 +458,10 @@ export class Traffic {
         for (const { e, dir } of plan) {
             if (this.vehicles.length >= this.maxVehicles - nPolice) break;
             const kind = pickKind(e);
-            const lanes = lanesDir(e, dir);
-            const lane = kind === 'bus' ? lanes - 1 : this.rng.int(0, lanes - 1);
+            const lanes = lanesDir(e, dir), isBus = this.isBusKind(kind);
+            const lane = isBus ? lanes - 1 : this.rng.int(0, this.carLaneMax(e, dir));
             const s = e.len < 10 ? e.len / 2 : this.rng.range(4, e.len - 4);
-            if (!free(e, dir, lane, s, kind === 'bus' ? 12 : 5)) continue;
+            if (!free(e, dir, lane, s, isBus ? 13 : 5)) continue;
             this.spawn({ edge: e, dir, lane, s, kind });
         }
         // police cruisers on bigger roads
@@ -434,7 +486,7 @@ export class Traffic {
                     const s = this.rng.range(15, e.len - 15);
                     if (junctionDist(e, s) < 30 || !free(e, dir, lanes - 1, s, 6)) continue;
                     const v = this.spawn({ edge: e, dir, lane: lanes - 1, s, kind: this.rng.pick(['hatch', 'sedan', 'van', 'hatch']) });
-                    v.parked = true; v.speed = 0; v.lateralExtra = (e.laneW ?? 3.3) * 0.55; v.hazard = true; nParked++;
+                    v.parked = true; v.mesh.userData.parked = true; v.speed = 0; v.lateralExtra = (e.laneW ?? 3.3) * 0.55; v.hazard = true; nParked++;
                     this.placeOnLane(v, true, 0);
                 }
             }
@@ -447,7 +499,7 @@ export class Traffic {
                 for (let i = 0; i < n; i++) for (const dir of [1, -1]) {
                     const s = this.rng.range(5, e.len - 5);
                     if (!free(e, dir, 'tram', s, 16)) continue;
-                    const v = this.spawn({ edge: e, dir, lane: 0, s, kind: 'tram' });
+                    const v = this.spawn({ edge: e, dir, lane: 0, s, kind: this.transitKind?.('tram') || 'tram' });
                     v.tram = true; v.nextStopOdo = this.rng.range(80, 400); nTrams++;
                 }
             }
@@ -458,20 +510,23 @@ export class Traffic {
         const isTaxi = kind === 'taxi';
         let color;
         if (isTaxi) color = '#ffd400';
-        else if (kind === 'bus') color = this.buc ? '#f2c230' : '#2e7d32';
-        else if (kind === 'tram') color = this.rng.chance(0.5) ? '#d9262c' : '#f2c230';
+        else if (this.isBusKind(kind)) color = this.buc ? '#f2c230' : '#2e7d32';
+        else if (/tram/.test(kind)) color = this.rng.chance(0.5) ? '#d9262c' : '#f2c230';
         else if (kind === 'police') color = this.buc ? '#f1f5f9' : '#111827';
         else color = this.rng.pick(CAR_COLORS);
-        const mesh = makeVehicle(kind, color);
+        // vehicles.js fleet paint statistics / fixed liveries when available (null = the model's own livery)
+        if (typeof VEH.fleetColor === 'function') { try { color = VEH.fleetColor(kind, this.city.id, this.rng) ?? undefined; } catch { /* keep */ } }
+        // instanced: one draw call per kind and LOD for the whole fleet (vehicles.js), the group is moved as before
+        const mesh = makeVehicle(kind, color, { city: this.city.id, instanced: VEH.fleetStats ? true : undefined });
         if (isTaxi && !mesh.userData.length) mesh.userData.length = 4.4, mesh.userData.width = 1.8;
         this.group.add(mesh);
         const lo = this.buc ? 0.95 : 1.0, hi = this.buc ? 1.25 : 1.12;
         const v = {
             id: this._idSeq++, edge, dir, lane, s, kind, mesh,
             length: mesh.userData.length || 4.4, width: mesh.userData.width || 1.8,
-            speed: 0, desiredMul: kind === 'bus' || kind === 'truck' ? this.rng.range(0.85, 0.95) : this.rng.range(lo, hi),
+            speed: 0, desiredMul: this.isBusKind(kind) || kind === 'truck' ? this.rng.range(0.85, 0.95) : this.rng.range(lo, hi),
             stuck: 0, honkAt: this.rng.range(2.5, 7) / (0.3 + this.chaos), honkCd: 0,
-            laneCur: lane, lateralExtra: 0, latExtraCur: 0, parked: false, tram: kind === 'tram', bus: kind === 'bus', isPolice: kind === 'police',
+            laneCur: lane, lateralExtra: 0, latExtraCur: 0, parked: false, tram: /tram/.test(kind), bus: this.isBusKind(kind), trolley: /trolley/.test(kind), isPolice: kind === 'police',
             bubbleCd: 0, annoyed: 0, route: [], ghost: 0, odo: 0, stopDone: null, stopTimer: 0, bypass: null, bypassT: 0, dwell: 0, served: null,
             x: 0, z: 0, y: 0.24, heading: 0, fx: 0, fz: 1, rx: 1, rz: 0, layer: layerOf(edge),
             laneChangeCd: this.rng.range(1, 6), leader: null, gap: Infinity,
@@ -483,6 +538,8 @@ export class Traffic {
         this.vehicles.push(v);
         return v;
     }
+
+    isBusKind(k) { return /bus|artic/.test(k || ''); } // bus, stb-bus, kcm-bus, kcm-artic, trolleybus…
 
     addLightbar(v) {
         if (v.mesh.userData.flash) { v.flash = v.mesh.userData.flash; return; }
@@ -613,6 +670,8 @@ export class Traffic {
             if (v.tram !== !!e.tram && v.tram) continue;
             if (v.parked && !(this.parkOk(e, 1) || this.parkOk(e, -1))) continue;
             if (v.bus && isMotorway(e)) continue;
+            if (v.trolley && !e.trolleyWire && (this.transit?.trolleyEdges || 0) > 0) continue; // trolleybuses stay under their wires
+            if (v.bus && !v.trolley && !e.busRoute && (this.transit?.busEdges || 0) > 0 && this.rng() < 0.85) continue;
             const mul = trafficMulOf(e);
             if (this.rng() > Math.min(1, mul * 0.6 + 0.08)) continue;
             const mx = (e.a.x + e.b.x) / 2 - P.x, mz = (e.a.z + e.b.z) / 2 - P.z; const d = Math.hypot(mx, mz);
@@ -624,7 +683,7 @@ export class Traffic {
             const s = v.parked ? this.rng.range(15, e.len - 15) : this.rng.range(Math.min(4, e.len / 2), Math.max(e.len / 2, e.len - 4));
             if (v.parked && junctionDist(e, dir > 0 ? s : e.len - s) < 30) continue;
             v.edge = e; v.dir = dir; v.s = s; v.route.length = 0; v.layer = layerOf(e); v.latBlend = 0;
-            v.lane = v.laneCur = v.parked || v.bus ? lanes - 1 : this.rng.int(0, lanes - 1);
+            v.lane = v.laneCur = v.parked || v.bus ? lanes - 1 : this.rng.int(0, this.carLaneMax(e, dir));
             v.speed = v.parked ? 0 : Math.min(edgeSpeed(e) * 0.7, 8); v.stuck = 0; v.still = 0; v.touchT = 0; v.blockT = 0; v.ghost = 0; v.bypass = null; v.served = null; v.dwell = 0;
             if (!v.parked) v.latExtraCur = v.lateralExtra = 0; else v.latExtraCur = v.lateralExtra = (e.laneW ?? 3.3) * 0.55;
             this.placeOnLane(v, true, 0);
@@ -669,6 +728,8 @@ export class Traffic {
             let w = (1 + Math.max(0, dot) * 2.5) * (0.4 + trafficMulOf(n));
             if (dot < -0.6) w *= 0.05; // avoid hairpins
             if (e.name && n.name === e.name) w *= 5;
+            if (v.trolley && this.transit?.trolleyEdges) w *= n.trolleyWire ? 20 : 0.02;      // under the wires
+            else if (v.bus && this.transit?.busEdges) w *= n.busRoute ? 8 : 0.15;             // along its route
             if (e.roundabout && n.roundabout) w *= 1.5;
             cands.push({ n, nd, w }); total += w;
         }
@@ -705,7 +766,7 @@ export class Traffic {
         const lanes = lanesDir(nx.e, nx.dir) || 1;
         if (v.bus) v.lane = lanes - 1;
         else if (lanes > lanesDir(e, odir) && this.buc && this.rng() < 0.12) { const l = this.rng.int(0, lanes - 1); if (Math.abs(l - v.lane) <= 1 && l < lanes && this.laneFree(v, l)) v.lane = l; }
-        v.lane = clamp(v.lane, 0, lanes - 1);
+        v.lane = clamp(v.lane, 0, v.bus || v.tram || v.isPolice ? lanes - 1 : this.carLaneMax(nx.e, nx.dir));
         v.laneCur = clamp(v.laneCur, 0, lanes - 1);
         if (nx.uturn) { v.laneCur = v.lane; v.transition = 1.2; v.latBlend = 0; }
         else {
@@ -726,6 +787,7 @@ export class Traffic {
         for (let tries = 0; tries < 30; tries++) {
             const e = edges[Math.floor(this.rng() * edges.length)];
             if (v.tram && !e.tram) continue;
+            if (v.trolley && !e.trolleyWire && (this.transit?.trolleyEdges || 0) > 0 && tries < 25) continue;
             const dir = canTravel(e, 1) ? (canTravel(e, -1) && this.rng() < 0.5 ? -1 : 1) : (canTravel(e, -1) ? -1 : 0);
             if (!dir || e.len < 8 || closedEdge(e)) continue;
             const mx = (e.a.x + e.b.x) / 2, mz = (e.a.z + e.b.z) / 2;
@@ -1016,7 +1078,8 @@ export class Traffic {
             if (v.bus && v.lane !== lanes - 1) want = true;
             if (want) {
                 let options = v.bus ? [lanes - 1 > v.lane ? v.lane + 1 : v.lane - 1] : [v.lane - 1, v.lane + 1];
-                options = options.filter(l => l >= 0 && l < lanes && l !== v.lane);
+                const lmax = v.bus ? lanes - 1 : this.carLaneMax(v.edge, v.dir);
+                options = options.filter(l => l >= 0 && l <= lmax && l !== v.lane);
                 if (this.rng() < 0.5) options.reverse();
                 let done = false;
                 for (const l of options) {

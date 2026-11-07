@@ -89,7 +89,7 @@ export function paintOSM(P, data, o = {}) {
     if (o.markings !== false) for (const w of roads) {
         if (w.k === 'service' || w.k === 'living_street') continue;
         const lanes = parseInt(w.lanes, 10) || (w.k === 'residential' ? 0 : 2);
-        if (w.oneway !== 'yes' && lanes >= 2) { for (const d of [-0.11, 0.11]) P.line(offsetPolyline(w.pts, d), 0.1, COL.yellow, 'none', { cap: 'butt' }); }
+        if (w.oneway !== 'yes' && lanes >= 2) { for (const d of (o.centreSingle ? [0] : [-0.11, 0.11])) P.line(offsetPolyline(w.pts, d), o.centreSingle ? 0.15 : 0.1, o.centre || COL.yellow, 'none', { cap: 'butt' }); }
         if (lanes >= 3) { const W = width(w); const per = w.oneway === 'yes' ? lanes : Math.max(1, Math.floor(lanes / 2)); for (let i = 1; i < per; i++) { const off = (w.oneway === 'yes' ? -W / 2 + 1.3 : 0) + i * 3.3; for (const s of (w.oneway === 'yes' ? [1] : [-1, 1])) P.line(offsetPolyline(w.pts, s * off), 0.1, COL.white, 'none', { dash: [3, 9], cap: 'butt' }); } }
     }
     // footways, paths, plazas drawn as lines
@@ -119,6 +119,12 @@ const STYLES = {
     concrete: { bay: 3.0, floor: 3.6, wall: '#ffffff', glass: '#2a333c', win: [0.1, 0.35, 0.9, 0.8] },
     industrial: { bay: 4.0, floor: 4.5, wall: '#ffffff', glass: '#384048', corrugated: true, win: [0.2, 0.55, 0.8, 0.8], sparse: true },
     shop: { bay: 4.2, floor: 4.3, wall: '#ffffff', glass: '#1f2a33', shop: true, win: [0.06, 0.05, 0.94, 0.72] },
+    // Bucharest: 19th / early-20th c. eclectic stucco (tall windows in moulded surrounds, pediments, floor cornices)
+    eclectic: { bay: 3.3, floor: 4.0, wall: '#ffffff', glass: '#2a2f33', eclectic: true, win: [0.3, 0.18, 0.7, 0.8] },
+    // Bucharest: 1970s–80s apartment blocks (panel joints, balcony bands, mixed glazing / enclosed balconies)
+    bloc: { bay: 3.0, floor: 2.75, wall: '#ffffff', glass: '#2d3438', bloc: true, win: [0.16, 0.2, 0.84, 0.82] },
+    // Bucharest: interwar modernist (horizontal bands, wide windows)
+    interwar: { bay: 3.6, floor: 3.2, wall: '#ffffff', glass: '#283038', interwar: true, win: [0.12, 0.28, 0.88, 0.8] },
 };
 export function facadeMaterial(style, { lambert = false } = {}) {
     const key = style + (lambert ? 'L' : 'S');
@@ -135,7 +141,44 @@ export function facadeMaterial(style, { lambert = false } = {}) {
         const x0 = fx * cell, y0 = (3 - fy) * cell; // floor 0 at the bottom of the tile
         if (S.sparse && (fx + fy) % 2) continue;
         const [a, b, cc, d] = S.win, wx = x0 + a * cell, wy = y0 + (1 - d) * cell, ww = (cc - a) * cell, wh = (d - b) * cell;
-        if (S.curtain) {
+        if (S.eclectic) {
+            // rusticated / plain wall, moulded window surround, sill, pediment or straight hood, cornice line per floor
+            g.fillStyle = 'rgba(0,0,0,0.05)'; g.fillRect(x0, y0 + cell - 3, cell, 3);
+            g.fillStyle = 'rgba(255,255,255,0.35)'; g.fillRect(x0, y0 + 1, cell, 3); g.fillStyle = 'rgba(0,0,0,0.18)'; g.fillRect(x0, y0 + 4, cell, 1.5); // cornice band
+            g.fillStyle = 'rgba(255,255,255,0.45)'; g.fillRect(wx - 4, wy - 3, ww + 8, wh + 7); // light surround
+            g.fillStyle = 'rgba(0,0,0,0.25)'; g.fillRect(wx - 1, wy - 1, ww + 2, wh + 2);
+            g.fillStyle = S.glass; g.fillRect(wx, wy, ww, wh);
+            g.fillStyle = 'rgba(255,255,255,0.13)'; g.fillRect(wx + 2, wy + 2, ww * 0.35, wh * 0.45);
+            g.fillStyle = 'rgba(240,236,226,0.85)'; g.fillRect(wx + ww / 2 - 1, wy, 2, wh); g.fillRect(wx, wy + wh * 0.32, ww, 2); // casement + transom
+            const kind = (fx * 7 + fy * 3) % 3;
+            g.fillStyle = 'rgba(255,255,255,0.55)';
+            if (fy === 1 && kind !== 2) { g.beginPath(); g.moveTo(wx - 6, wy - 4); g.lineTo(wx + ww / 2, wy - 13); g.lineTo(wx + ww + 6, wy - 4); g.closePath(); g.fill(); g.fillStyle = 'rgba(0,0,0,0.2)'; g.fillRect(wx - 6, wy - 4, ww + 12, 1.5); }
+            else { g.fillRect(wx - 6, wy - 8, ww + 12, 4); g.fillStyle = 'rgba(0,0,0,0.22)'; g.fillRect(wx - 6, wy - 4, ww + 12, 1.5); }
+            g.fillStyle = 'rgba(0,0,0,0.3)'; g.fillRect(wx - 5, wy + wh + 3, ww + 10, 2.5); g.fillStyle = 'rgba(255,255,255,0.5)'; g.fillRect(wx - 5, wy + wh + 1, ww + 10, 2.5); // sill
+            if (fy === 1 && fx % 2 === 0) { g.fillStyle = 'rgba(25,25,25,0.85)'; g.fillRect(wx - 4, wy + wh - 7, ww + 8, 1.5); for (let q = wx - 3; q < wx + ww + 4; q += 3) g.fillRect(q, wy + wh - 7, 1, 9); g.fillRect(wx - 4, wy + wh + 2, ww + 8, 1.5); } // wrought-iron balconette
+            if (fy === 0) { g.fillStyle = 'rgba(0,0,0,0.08)'; for (let q = y0 + 8; q < y0 + cell; q += 7) g.fillRect(x0, q, cell, 1); } // rusticated ground floor
+        } else if (S.bloc) {
+            g.fillStyle = 'rgba(0,0,0,0.10)'; g.fillRect(x0, y0 + cell - 2, cell, 2); g.fillRect(x0 + cell - 1, y0, 1, cell); // panel joints
+            const balcony = (fx % 2 === 1);
+            if (balcony) {
+                const enclosed = r() < 0.55;
+                g.fillStyle = enclosed ? ['#c9d3d8', '#7d8b93', '#e8e4da', '#a0aab0'][Math.floor(r() * 4)] : S.glass; g.fillRect(x0 + 3, wy - 2, cell - 6, wh + 2);
+                if (enclosed) { g.fillStyle = 'rgba(0,0,0,0.35)'; for (let q = x0 + 3; q < x0 + cell - 3; q += 9) g.fillRect(q, wy - 2, 1.5, wh + 2); }
+                g.fillStyle = 'rgba(255,255,255,0.9)'; g.fillRect(x0 + 1, wy + wh * 0.55, cell - 2, wh * 0.45 + 2); // parapet
+                g.fillStyle = 'rgba(0,0,0,0.28)'; g.fillRect(x0 + 1, wy + wh + 2, cell - 2, 3);
+            } else {
+                g.fillStyle = 'rgba(0,0,0,0.2)'; g.fillRect(wx - 2, wy - 2, ww + 4, wh + 4);
+                g.fillStyle = S.glass; g.fillRect(wx, wy, ww, wh);
+                g.fillStyle = r() < 0.6 ? 'rgba(255,255,255,0.85)' : 'rgba(120,80,50,0.8)'; g.fillRect(wx, wy, ww, 2); g.fillRect(wx + ww / 2 - 1, wy, 2, wh); g.fillRect(wx, wy + wh - 2, ww, 2); // PVC / old wood frames
+                if (r() < 0.25) { g.fillStyle = 'rgba(230,230,225,0.9)'; g.fillRect(wx + ww * 0.55, wy + wh * 0.5, ww * 0.35, wh * 0.28); } // AC unit
+            }
+        } else if (S.interwar) {
+            g.fillStyle = 'rgba(0,0,0,0.12)'; g.fillRect(x0, wy + wh + 2, cell, 3);
+            g.fillStyle = 'rgba(255,255,255,0.4)'; g.fillRect(x0, wy - 5, cell, 3);
+            g.fillStyle = S.glass; g.fillRect(wx, wy, ww, wh);
+            g.fillStyle = 'rgba(255,255,255,0.75)'; for (let q = 1; q < 3; q++) g.fillRect(wx + ww * q / 3 - 1, wy, 2, wh);
+            g.fillStyle = 'rgba(255,255,255,0.12)'; g.fillRect(wx + 2, wy + 2, ww * 0.3, wh * 0.4);
+        } else if (S.curtain) {
             g.fillStyle = S.glass; g.fillRect(x0, y0, cell, cell);
             g.fillStyle = 'rgba(255,255,255,0.10)'; g.fillRect(x0 + 2, y0 + 2, cell * 0.45, cell - 4);
             g.fillStyle = '#9aa6b1'; g.fillRect(x0, y0, 2, cell); g.fillRect(x0, y0 + cell - 5, cell, 5);
@@ -173,6 +216,10 @@ const HOUSE_COLS = ['#cfc8b8', '#8fa3ad', '#d9caa3', '#6f7f8c', '#a5594c', '#e4d
 const APT_COLS = ['#c4bdaf', '#8c9095', '#c7b299', '#6d7a84', '#a34c3c', '#d2cbbd', '#7a8a7a', '#b8afa0', '#55606a', '#9a8670'];
 const OFFICE_COLS = ['#8fa3b6', '#6c7f92', '#a6b4c0', '#5a6a78', '#7f8f99'];
 const BRICK_COLS = ['#c8826a', '#b8725c', '#d39478', '#c08470', '#ddb196'];
+// Bucharest stucco / plaster and block colours (judged albedos from the research colour samples)
+const ECLECTIC_COLS = ['#e4dccb', '#dccfb4', '#e8d9b8', '#d9c3a5', '#e6d3c3', '#cfc7b8', '#e2cfa2', '#d8cdc0', '#c9b9a0', '#e9e1d2', '#d6b9a3', '#bfb6a6'];
+const BLOC_COLS = ['#d9d3c5', '#cfc8b8', '#e2dccd', '#bdb7aa', '#d8cdb5', '#c7cdc9', '#e0d2bd', '#cfc0a8', '#b9bdb6', '#e6e0d2'];
+const PALETTES = { eclectic: ECLECTIC_COLS, bloc: BLOC_COLS, interwar: ['#e7e3d8', '#d9d4c7', '#cec9bb', '#e3dccb', '#c9c3b6'] };
 
 export function buildingStyle(b, urban) {
     const k = b.k, m = b.mat || '';
@@ -217,7 +264,7 @@ export function buildBuildings(data, ground, o = {}) {
         const top = (b.minH || b.minLv ? gmax : gmax) + H;
         if (top - base < 1) continue;
         const style = o.style?.(b) || buildingStyle(b, urban);
-        const pal = style === 'house' ? HOUSE_COLS : style === 'office' ? OFFICE_COLS : style === 'brick' ? BRICK_COLS : APT_COLS;
+        const pal = PALETTES[style] || (style === 'house' ? HOUSE_COLS : style === 'office' ? OFFICE_COLS : style === 'brick' ? BRICK_COLS : APT_COLS);
         const hcol = b.c ? safeCol(b.c) : pal[Math.floor(hash2(cx, cz) * pal.length)];
         const S = facadeStyle(style);
         const pitched = (style === 'house' && (b.roof !== 'flat')) || /gabled|hipped|pitched/.test(b.roof || '');
@@ -299,7 +346,12 @@ function treeGeos() {
     const shrub = jitter(merge([[ico, mk(0, 0.55, 0, 0.9, 0.65, 0.9)], [ico, mk(0.5, 0.5, 0.2, 0.6, 0.5, 0.6)]]), 0.3);
     const trunk = new THREE.CylinderGeometry(0.13, 0.22, 4.4, 6); trunk.translate(0, 2.2, 0);
     const trunkC = new THREE.CylinderGeometry(0.12, 0.25, 4, 6); trunkC.translate(0, 2, 0);
-    TREE_GEO = { broad, con, shrub, trunk, trunkC };
+    // low-detail variants for distant trees (scenes opt in with ctx.treeLod)
+    const ico0 = new THREE.IcosahedronGeometry(1, 0), cone5 = new THREE.ConeGeometry(1, 1, 5);
+    const broadLow = jitter(merge([[ico0, mk(0, 5.2, 0, 3.0, 2.7, 3.0)], [ico0, mk(0.4, 6.8, 0.1, 2.0, 1.7, 2.0)]]), 0.15);
+    const conLow = merge([[cone5, mk(0, 5.0, 0, 2.6, 7.5, 2.6)], [cone5, mk(0, 8.6, 0, 1.6, 4.6, 1.6)]]);
+    const trunkLow = new THREE.CylinderGeometry(0.13, 0.22, 4.4, 3); trunkLow.translate(0, 2.2, 0);
+    TREE_GEO = { broad, con, shrub, trunk, trunkC, broadLow, conLow, trunkLow };
     return TREE_GEO;
 }
 const BROAD_C = ['#4f8a3c', '#5d9440', '#679c48', '#4a7f39', '#5a8f3e', '#6f9e4a', '#55893f'];
@@ -307,31 +359,56 @@ const CON_C = ['#2f5d3a', '#356640', '#2b5434', '#3a6a45'];
 const SHRUB_C = ['#456f35', '#3e6530', '#567d3c', '#3a5c2e'];
 /**
  * instanced trees. list: [{x, z, y?, s?, kind:'broad'|'con'|'shrub', c?}]
- * @returns {{ group, crowns[], colliders[] }}
+ * lod: optional { near = 90, max = 700 } → dynamic LOD: the `max` trees within `near` m of the viewer use the full crown,
+ *      all others a low-detail crown + trunk (same season tinting); call update(x, z) with the viewer position.
+ * @returns {{ group, crowns[], colliders[], update?(x, z) }}
  */
-export function buildTrees(list, ground, { seed = 5, collide = true } = {}) {
+export function buildTrees(list, ground, { seed = 5, collide = true, lod = null } = {}) {
     const G = treeGeos(), r = rng(seed), grp = new THREE.Group(); grp.name = 'trees';
-    const crowns = [], colliders = [];
+    const crowns = [], colliders = [], dyn = [];
     const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), col = new THREE.Color();
+    const mk = (geo, mat, n, name) => { const m = new THREE.InstancedMesh(geo, mat, Math.max(1, n)); m.name = name; return m; };
     for (const kind of ['broad', 'con', 'shrub']) {
         const L = list.filter((t) => (t.kind || 'broad') === kind); if (!L.length) continue;
+        const useLod = !!lod && kind !== 'shrub' && L.length > (lod.max ?? 700) * 0.6;
         const crownMat = new THREE.MeshLambertMaterial({ color: '#ffffff' }); crownMat.name = 'treeCrowns';
-        const crown = new THREE.InstancedMesh(kind === 'broad' ? G.broad : kind === 'con' ? G.con : G.shrub, crownMat, L.length);
-        crown.name = `treeCrowns ${kind === 'con' ? 'conifer' : kind}`; crown.userData.conifer = kind === 'con' || kind === 'shrub';
-        const trunk = kind === 'shrub' ? null : new THREE.InstancedMesh(kind === 'con' ? G.trunkC : G.trunk, new THREE.MeshLambertMaterial({ color: '#5f4632' }), L.length);
+        const trunkMat = new THREE.MeshLambertMaterial({ color: '#5f4632' });
+        const hiN = useLod ? Math.min(L.length, lod.max ?? 700) : L.length;
+        const crown = mk(kind === 'broad' ? G.broad : kind === 'con' ? G.con : G.shrub, crownMat, hiN, `treeCrowns ${kind === 'con' ? 'conifer' : kind}`); crown.userData.conifer = kind === 'con' || kind === 'shrub';
+        const trunk = kind === 'shrub' ? null : mk(kind === 'con' ? G.trunkC : G.trunk, trunkMat, hiN, 'treeTrunks');
+        const lowC = useLod ? mk(kind === 'broad' ? G.broadLow : G.conLow, crownMat, L.length, `treeCrowns ${kind === 'con' ? 'conifer' : kind} low`) : null;
+        if (lowC) lowC.userData.conifer = crown.userData.conifer;
+        const lowT = useLod ? mk(G.trunkLow, trunkMat, L.length, 'treeTrunks low') : null;
+        const mats = [], cols = [];
         L.forEach((t, i) => {
             const s = t.s || (kind === 'shrub' ? 0.7 + r() * 0.8 : 0.75 + r() * 0.5), y = t.y ?? ground.heightAt(t.x, t.z) - 0.05;
             m4.compose(new THREE.Vector3(t.x, y, t.z), q.setFromAxisAngle(new THREE.Vector3(0, 1, 0), r() * 6.28), new THREE.Vector3(s * (t.sx || 1), s * (t.sy || 1), s * (t.sx || 1)));
-            crown.setMatrixAt(i, m4); trunk?.setMatrixAt(i, m4);
-            crown.setColorAt(i, col.set(t.c || (kind === 'broad' ? r.pick(BROAD_C) : kind === 'con' ? r.pick(CON_C) : r.pick(SHRUB_C))));
+            col.set(t.c || (kind === 'broad' ? r.pick(BROAD_C) : kind === 'con' ? r.pick(CON_C) : r.pick(SHRUB_C)));
+            if (useLod) { mats.push(m4.clone()); cols.push(col.clone()); }
+            else { crown.setMatrixAt(i, m4); trunk?.setMatrixAt(i, m4); crown.setColorAt(i, col); }
             if (collide && kind !== 'shrub') colliders.push({ x: t.x, z: t.z, r: 0.28 * s, hw: 0.28 * s, prop: true, h: 6 });
         });
-        crown.castShadow = true; crown.receiveShadow = true; crown.instanceMatrix.needsUpdate = true;
-        crown.computeBoundingSphere();
-        grp.add(crown); crowns.push(crown);
-        if (trunk) { trunk.castShadow = true; trunk.computeBoundingSphere(); grp.add(trunk); }
+        for (const m of [crown, lowC]) if (m) { m.castShadow = true; m.receiveShadow = true; grp.add(m); crowns.push(m); }
+        for (const m of [trunk, lowT]) if (m) { m.castShadow = true; grp.add(m); }
+        if (useLod) {
+            const near2 = (lod.near ?? 90) ** 2;
+            const D = { L, mats, cols, crown, trunk, lowC, lowT, hiN, last: null };
+            D.apply = (px, pz) => {
+                const idx = L.map((t, i) => [i, (t.x - px) ** 2 + (t.z - pz) ** 2]).filter((e) => e[1] < near2).sort((a, b2) => a[1] - b2[1]).slice(0, hiN).map((e) => e[0]);
+                const hi = new Uint8Array(L.length); let k = 0;
+                for (const i of idx) { hi[i] = 1; crown.setMatrixAt(k, mats[i]); trunk?.setMatrixAt(k, mats[i]); crown.setColorAt(k, cols[i]); k++; }
+                crown.count = k; if (trunk) trunk.count = k;
+                let j = 0; for (let i = 0; i < L.length; i++) if (!hi[i]) { lowC.setMatrixAt(j, mats[i]); lowT.setMatrixAt(j, mats[i]); lowC.setColorAt(j, cols[i]); j++; }
+                lowC.count = j; lowT.count = j;
+                for (const m of [crown, trunk, lowC, lowT]) if (m) { m.instanceMatrix.needsUpdate = true; if (m.instanceColor) m.instanceColor.needsUpdate = true; }
+            };
+            dyn.push(D);
+        } else { crown.instanceMatrix.needsUpdate = true; crown.computeBoundingSphere(); trunk?.computeBoundingSphere(); }
+        for (const m of [crown, trunk, lowC, lowT]) if (m) m.frustumCulled = !useLod;
     }
-    return { group: grp, crowns, colliders };
+    let lx = 1e9, lz = 1e9;
+    const update = dyn.length ? (x, z) => { if (Math.hypot(x - lx, z - lz) < 12) return; lx = x; lz = z; for (const D of dyn) D.apply(x, z); } : null;
+    return { group: grp, crowns, colliders, update };
 }
 /** street trees along motor roads (both sides, skipping building footprints / exclusions) */
 export function streetTrees(data, { inside = null, spacing = 11, offset = null, skip = new Set(), exclude = [], seed = 3, kinds = ['residential', 'tertiary', 'secondary', 'primary', 'unclassified'], prob = 0.75 } = {}) {
@@ -380,12 +457,22 @@ export function buildLamps(allPoints, ground, { style = 'cobra', color = '#5c606
     const extra = allPoints.filter((p) => p.noPost).map((p) => ({ x: p.x, z: p.z, h: p.h || 3, y: p.y ?? ground.heightAt(p.x, p.z) }));
     const points = allPoints.filter((p) => !p.noPost), n = points.length;
     if (!n) return { group: grp, lamps: extra, headMesh: null, colliders: [] };
-    const postG = style === 'acorn' ? new THREE.CylinderGeometry(0.07, 0.14, h, 8) : new THREE.CylinderGeometry(0.07, 0.13, h, 7); postG.translate(0, h / 2, 0);
+    const top = style === 'acorn' || style === 'lantern' || style === 'candelabra';
+    const postG = top ? new THREE.CylinderGeometry(0.06, style === 'lantern' ? 0.16 : 0.14, h, 8) : new THREE.CylinderGeometry(0.07, 0.13, h, 7); postG.translate(0, h / 2, 0);
+    if (style === 'lantern') { const base = new THREE.CylinderGeometry(0.2, 0.24, 0.9, 6, 1, true); base.translate(0, 0.45, 0); const cap = new THREE.CylinderGeometry(0.03, 0.2, 0.22, 6); cap.translate(0, h + 0.72, 0); const ring = new THREE.CylinderGeometry(0.12, 0.08, 0.12, 6); ring.translate(0, h + 0.02, 0); const fin = new THREE.SphereGeometry(0.05, 4, 3); fin.translate(0, h + 0.86, 0); postG.copy(mergeGeos([postG, base, cap, ring, fin])); }
     const armG = new THREE.BoxGeometry(0.08, 0.08, 1.9); armG.translate(0, h - 0.15, -0.95);
-    const headG = style === 'acorn' ? new THREE.SphereGeometry(0.28, 10, 8) : new THREE.BoxGeometry(0.38, 0.14, 0.75);
-    if (style === 'acorn') headG.translate(0, h + 0.2, 0); else headG.translate(0, h - 0.24, -1.8);
+    const headG = style === 'candelabra' ? (() => { const gl = []; for (const [x, z] of [[-1.15, 0], [1.15, 0], [0, 0]]) { const q = new THREE.SphereGeometry(0.26, 7, 5); q.translate(x, h - 0.2 + (x === 0 && z === 0 ? 0.45 : 0), z); gl.push(q); } return mergeGeos(gl); })() : style === 'acorn' ? new THREE.SphereGeometry(0.28, 10, 8) : style === 'lantern' ? new THREE.CylinderGeometry(0.2, 0.13, 0.62, 6) : new THREE.BoxGeometry(0.38, 0.14, 0.75);
+    if (style === 'candelabra') { /* globes already placed */ } else if (style === 'acorn') headG.translate(0, h + 0.2, 0); else if (style === 'lantern') headG.translate(0, h + 0.39, 0); else headG.translate(0, h - 0.24, -1.8);
     const post = new THREE.InstancedMesh(postG, new THREE.MeshStandardMaterial({ color, roughness: 0.5, metalness: 0.6 }), n);
-    const arm = style === 'acorn' ? null : new THREE.InstancedMesh(armG, post.material, n);
+    if (style === 'candelabra') { // Bucharest boulevard candelabra: fluted post, scroll ring, crossbar with three globes
+        const base = new THREE.CylinderGeometry(0.26, 0.32, 1.4, 8); base.translate(0, 0.7, 0);
+        const ring = new THREE.TorusGeometry(0.45, 0.04, 3, 10); ring.translate(0, h - 1.6, 0);
+        const ring2 = ring.clone(); ring2.rotateY(Math.PI / 2);
+        const bar = new THREE.BoxGeometry(2.4, 0.08, 0.08); bar.translate(0, h - 0.5, 0);
+        const bar2 = new THREE.BoxGeometry(0.08, 0.08, 1.6); bar2.translate(0, h - 0.5, 0);
+        postG.copy(mergeGeos([postG, base, ring, ring2, bar, bar2]));
+    }
+    const arm = top ? null : new THREE.InstancedMesh(armG, post.material, n);
     const headMat = new THREE.MeshStandardMaterial({ color: '#d8d4c8', roughness: 0.3, emissive: '#000000' }); headMat.name = 'lampHeads';
     const head = new THREE.InstancedMesh(headG, headMat, n);
     const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), up = new THREE.Vector3(0, 1, 0), one = new THREE.Vector3(1, 1, 1);
@@ -395,12 +482,17 @@ export function buildLamps(allPoints, ground, { style = 'cobra', color = '#5c606
         m4.compose(new THREE.Vector3(p.x, y, p.z), q.setFromAxisAngle(up, rot), one);
         post.setMatrixAt(i, m4); arm?.setMatrixAt(i, m4); head.setMatrixAt(i, m4);
         // render.js lamp head offset: x += cos(rot)·1.8, z -= sin(rot)·1.8 → our arm (−z rotated by rot) matches rot' = rot + π/2
-        if (style === 'acorn') lamps.push({ x: p.x, z: p.z, h: (h + 0.3) * 8 / 7.7, y });
+        if (top) lamps.push({ x: p.x, z: p.z, h: (h + 0.3) * 8 / 7.7, y });
         else lamps.push({ x: p.x, z: p.z, h, rot: rot + Math.PI / 2, y });
         colliders.push({ x: p.x, z: p.z, r: 0.16, hw: 0.16, prop: true, h });
     });
     for (const m of [post, arm, head]) if (m) { m.castShadow = m !== head; m.computeBoundingSphere(); grp.add(m); }
     return { group: grp, lamps: [...lamps, ...extra], headMesh: head, colliders };
+}
+function mergeGeos(list) {
+    const pos = [], nor = [], idx = []; let base = 0;
+    for (const g0 of list) { const g = g0.index ? g0 : g0; const P = g.attributes.position, N = g.attributes.normal; for (let i = 0; i < P.count; i++) { pos.push(P.getX(i), P.getY(i), P.getZ(i)); nor.push(N.getX(i), N.getY(i), N.getZ(i)); } if (g.index) for (const i of g.index.array) idx.push(base + i); else for (let i = 0; i < P.count; i++) idx.push(base + i); base += P.count; }
+    const o = new THREE.BufferGeometry(); o.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); o.setAttribute('normal', new THREE.Float32BufferAttribute(nor, 3)); o.setIndex(idx); return o;
 }
 /** lamp positions along motor roads (every `spacing` m, alternating sides), arm pointing over the road */
 export function roadLampPoints(data, { spacing = 34, skip = new Set(), inside = null, kinds = ['primary', 'secondary', 'tertiary', 'residential', 'unclassified', 'trunk'], seed = 2 } = {}) {

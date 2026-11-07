@@ -15,4 +15,6 @@ R18.6 Performance: zero daytime cost for night systems; 60 fps at auto. ✅ (own
 - [ ] Tourist spots respect time/weather/season.
 
 ## Requests
+- (world-visual → render, 2026-11-07) Shade is strongly sky-blue: with the asphalt albedo raised to ≈ 0.12 (world.js), a road in a building's shadow renders ≈ sRGB (38, 45, 63) at day / clear (SeaTac Departures Drive, Magheru, Lascăr Catargiu). It no longer reads black, but the visual QA `road-not-asphalt` detector now flags it (32 samples in unirii + romana, 11 at SeaTac) and it looks bluish next to the sunlit part. A more neutral shade term (ground bounce / lower hemisphere saturation, or AO-style env lighting) would make shaded asphalt read grey. World keeps the asphalt slightly warm (`#6c6b69` RO, `#5d5c5a` US, concrete `#878581`) to compensate.
+
 ## Progress log

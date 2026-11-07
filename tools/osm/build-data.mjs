@@ -276,7 +276,8 @@ function buildCity(cityId, did = null) {
         if (!ROAD_CLASSES.includes(cls)) continue;
         if (t.area === 'yes' || t.oneway === 'reversible' || t.access === 'no' || t.motor_vehicle === 'no' || t.motorcar === 'no') continue;
         // HOV / transit-only ramps (every lane hov=designated + bus designated, e.g. the I-405 NE 6th St direct-access ramp)
-        if (/_link$/.test(cls) && (t.hov === 'designated' || /^designated(\|designated)*$/.test(t['hov:lanes'] || '')) && (t.bus === 'designated' || t.psv === 'designated' || t.hov === 'designated')) continue;
+        // (2026-11-07: every lane HOV-designated is enough — the NE 6th St HOV-only ramps carry hov:lanes=designated|designated without bus tags)
+        if (/_link$/.test(cls) && (t.hov === 'designated' || /^designated(\|designated)*$/.test(t['hov:lanes'] || ''))) continue;
         // service roads only as connectors (pruned below unless they link the network); never parking aisles / private
         if (cls === 'service' && (/parking_aisle|drive-through|emergency_access/.test(t.service || '') || /private|no|delivery/.test(t.access || '') || t.motor_vehicle === 'private')) continue;
         if (w.nodes.some(n => !N.has(n)) || w.nodes.length < 2) continue;
@@ -790,13 +791,17 @@ function buildCity(cityId, did = null) {
                 const t = w.tags = { ...w.tags }, ot = b.osmTags || {};
                 const set = (k, v) => { if (v == null || v === '' || t[k] != null) return false; t[k] = String(v); return true; };
                 let ch = false;
-                ch = set('height', b.heightM ?? b.height ?? ot.height) || ch;
-                ch = set('building:levels', b.levels ?? b.building_levels ?? ot['building:levels']) || ch;
+                // `research: {height_m, storeys, facade_hex, roof}` = the hand-researched key buildings (CV stops, landmarks): they beat the estimates
+                const rs = (b.research && typeof b.research === 'object') ? b.research : {};
+                const hex = (v) => (typeof v === 'string' && /^#[0-9a-f]{6}$/i.test(v)) ? v : null;
+                const roofShape = (v) => (typeof v === 'string' && /^(flat|gabled|hipped|pyramidal|dome|skillion|mansard|round|gambrel)$/.test(v)) ? v : null;
+                ch = set('height', rs.height_m ?? b.heightM ?? b.height ?? ot.height) || ch;
+                ch = set('building:levels', rs.storeys ?? b.levels ?? b.building_levels ?? ot['building:levels']) || ch;
                 if (t.height == null && t['building:levels'] == null) ch = set('height', b.heightEstM ?? b.height_est_m) || ch;
                 if (t['building:levels'] == null && t.height == null) ch = set('building:levels', b.levelsEst) || ch;
-                const fc = b.facade_hex || b.facade_hex_est || b.building_colour || (b.facade && (b.facade.colour || b.facade.wall || b.facade.glass));
+                const fc = hex(rs.facade_hex) || b.facade_hex || b.facade_hex_est || b.building_colour || (b.facade && (b.facade.colour || b.facade.wall || b.facade.glass));
                 ch = set('building:colour', fc) || ch;
-                ch = set('roof:shape', b.roof_shape ?? b.roofShape) || ch;
+                ch = set('roof:shape', roofShape(rs.roof) ?? b.roof_shape ?? b.roofShape) || ch;
                 ch = set('roof:colour', b.roof_colour ?? b.roofColour) || ch;
                 ch = set('min_height', b.min_height) || ch;
                 if (ch) applied++;

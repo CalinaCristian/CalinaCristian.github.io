@@ -44,13 +44,14 @@ export const ROAD_TYPES = {
 // CV stops (ids are referenced by data.js STOPS). `road` (optional) restricts the kerb snap to a street name.
 const BUC_POIS = [
     { id: 'rosetti', lat: 44.46709, lon: 26.1063, label: 'Liceul C.A. Rosetti', kind: 'school', address: 'Str. Giuseppe Garibaldi 11', road: /Garibaldi/ }, // research: gate on the W side of one-way (northbound) Garibaldi
-    { id: 'upb', lat: 44.4366, lon: 26.0526, label: 'Politehnica (UPB)', kind: 'school', address: 'Splaiul Independenței 313 (Bd. Doina Cornea gate)', road: /Doina Cornea|Splaiul Independenței|Paul Teodorescu/, roadRadius: 250, size: [60, 22, 40] },
+    { id: 'upb', lat: 44.4385, lon: 26.0515, label: 'Politehnica (UPB)', kind: 'school', address: 'Splaiul Independenței 313 — Rectorat (car gate on Bd. Doina Cornea)', road: /Doina Cornea/, roadRadius: 450, doorAlong: { m: 90, bearing: 30 }, size: [60, 22, 40] }, // research: the Rectorat (politehnica landmark) has no street frontage; the campus roads are private → door at the Doina Cornea vehicle gate
     { id: 'gts', lat: 44.4333, lon: 26.11762, label: 'GTS Global Intelligence', kind: 'office', address: 'Calea Călărașilor 101, lângă Hala Traian', road: /Călărașilor/, size: [20, 18, 20] }, // research: N side, ~240 m west of the Traian junction
-    { id: 'luxoft', lat: 44.4855, lon: 26.1165, label: 'Luxoft — Hermes Business Campus', kind: 'office', address: 'Bd. Dimitrie Pompeiu 5-7', road: /Pompeiu/, size: [36, 42, 26] },
-    { id: 'db', lat: 44.4760, lon: 26.1030, label: 'Deutsche Bank — Floreasca Park', kind: 'office', address: 'Calea Floreasca 169A', road: /Floreasca/, size: [40, 48, 30] },
+    // owner-confirmed (spec 10 Owner decisions): both on Bd. Dimitrie Pompeiu, Pipera. Pins = the researched entrances (game/research/bucharest-pipera.json stops[].door)
+    { id: 'luxoft', lat: 44.4804, lon: 26.1139, label: 'Luxoft — Hermes Business Campus', kind: 'office', address: 'Bd. Dimitrie Pompeiu 5-7 (Hermes Business Campus)', road: /Pompeiu/, roadRadius: 120, size: [36, 42, 26] }, // N side lobby, inside the `hermes` landmark
+    { id: 'db', lat: 44.47969, lon: 26.11461, label: 'Deutsche Bank — BOB Tower', kind: 'office', address: 'Bd. Dimitrie Pompeiu 6A (BOB Tower)', road: /Pompeiu/, roadRadius: 120, doorAlong: { m: 12, bearing: 65 }, size: [40, 28, 30] }, // OSM w55450549, GF+6 glass; entrance on the S side of Pompeiu, opposite Hermes
     { id: 'arnia', lat: 44.45118, lon: 26.08795, label: 'Arnia Software — Europe House', kind: 'office', address: 'Bd. Lascăr Catargiu 47-53', road: /Lascăr Catargiu/, size: [24, 26, 20] },
     { id: 'uipath-buc', lat: 44.4499, lon: 26.0944, label: 'UiPath HQ', kind: 'office', address: 'Str. Vasile Alecsandri 4', road: /Vasile Alecsandri/, size: [28, 24, 24] },
-    { id: 'otopeni', lat: 44.5712, lon: 26.0850, label: 'Henri Coandă Airport (OTP)', kind: 'airport' },
+    { id: 'otopeni', lat: 44.5696, lon: 26.0770, label: 'Henri Coandă Airport (OTP)', kind: 'airport', doorAlong: { m: 42, bearing: 0 } }, // research: landside Departures (Plecări) drop-off kerb on the elevated ramp (was airside, 600 m east)
 ];
 
 
@@ -65,7 +66,7 @@ const RUSH = [[7, 10], [16, 19]];
 const BUC_DISTRICTS = {
     grozavesti: {
         name: 'Grozăvești', label: 'Grozăvești & Politehnica — Splaiul Independenței, Podul Grozăvești, Bd. Doina Cornea',
-        bbox: [44.4335, 26.0460, 44.4490, 26.0725], center: { lat: 44.4412, lon: 26.0592 },
+        bbox: [44.4335, 26.0480, 44.4510, 26.0725], center: { lat: 44.4412, lon: 26.0592 }, // north edge +200 m for the longer Orhideelor run-in
         landmarks: ['politehnica'],
         congestion: [ // from game/research/bucharest-grozavesti.json traffic.hotspots
             { lat: 44.44370, lon: 26.06120, radius: 180, hours: [[7.5,  10],  [16.5,  19.5]], level: 0.65, note: 'Podul Grozăvești / Orhideelor' },
@@ -76,7 +77,7 @@ const BUC_DISTRICTS = {
     unirii: {
         name: 'Unirii', label: 'Piața Unirii, Calea Călărașilor, Hala Traian',
         bbox: [44.4230, 26.0975, 44.4365, 26.1205], center: { lat: 44.4297, lon: 26.1090 },
-        landmarks: ['unirea', 'fountains'],
+        landmarks: ['unirea', 'fountains', 'halatraian'],
         congestion: [ // from game/research/bucharest-unirii.json traffic.hotspots
             { lat: 44.42680, lon: 26.10250, radius: 250, hours: [[7.5,  10],  [16,  19.5]], level: 0.90, note: 'Piața Unirii (all arms, Pasajul Unirii)' },
             { lat: 44.43230, lon: 26.11180, radius: 150, hours: [[8,  10],  [17,  19]], level: 0.60, note: 'Bd. Mircea Vodă × Coposu × Călărașilor' },
@@ -86,7 +87,7 @@ const BUC_DISTRICTS = {
     romana: {
         name: 'Romană & Victoriei', label: 'Piața Romană, Bd. Lascăr Catargiu, Piața Victoriei, Vasile Alecsandri',
         bbox: [44.4395, 26.0825, 44.4570, 26.1000], center: { lat: 44.4483, lon: 26.0912 },
-        landmarks: ['victoria', 'ase', 'ambasador'],
+        landmarks: ['victoria', 'ase', 'ambasador', 'thelandmark', 'europehouse'],
         congestion: [ // from game/research/bucharest-romana.json traffic.hotspots
             { lat: 44.45260, lon: 26.08580, radius: 220, hours: [[7.5,  10],  [16,  19.5]], level: 0.90, note: 'Piața Victoriei' },
             { lat: 44.44680, lon: 26.09700, radius: 160, hours: [[7.5,  10],  [16,  19.5]], level: 0.85, note: 'Piața Romană' },
@@ -95,9 +96,10 @@ const BUC_DISTRICTS = {
         ],
     },
     floreasca: {
-        name: 'Floreasca', label: 'Calea Floreasca, Barbu Văcărescu, Floreasca Park, the lake shore',
-        bbox: [44.4540, 26.0960, 44.4790, 26.1120], center: { lat: 44.4665, lon: 26.1040 },
-        landmarks: ['skytower', 'promenada'],
+        name: 'Floreasca', label: 'Calea Floreasca, Piața Floreasca, Str. Garibaldi and the streets around C.A. Rosetti',
+        // rosetti only (db moved to pipera, 2026-11-07): trimmed to the Calea Floreasca run-in + the Garibaldi block; north edge keeps Sky Tower (landmark margin 0.004°)
+        bbox: [44.4548, 26.0975, 44.4740, 26.1100], center: { lat: 44.4644, lon: 26.1038 },
+        landmarks: ['skytower'],
         congestion: [ // from game/research/bucharest-floreasca.json traffic.hotspots
             { lat: 44.47100, lon: 26.10350, radius: 200, hours: [[8,  10],  [17,  19.5]], level: 0.70, note: 'Calea Floreasca N (towards Barbu Văcărescu / Sky Tower)' },
             { lat: 44.46650, lon: 26.10550, radius: 140, hours: [[7.5,  8.25],  [13,  14.5]], level: 0.45, note: 'Rosetti school run (Garibaldi/Ceaikovski)' },
@@ -105,9 +107,13 @@ const BUC_DISTRICTS = {
         ],
     },
     pipera: {
-        name: 'Pipera', label: 'Bd. Dimitrie Pompeiu, Barbu Văcărescu north, Hermes / Novo Park',
-        bbox: [44.4745, 26.1010, 44.4900, 26.1240], center: { lat: 44.4822, lon: 26.1125 },
-        landmarks: ['hermes'],
+        name: 'Pipera', label: 'Bd. Dimitrie Pompeiu, Hermes Business Campus, BOB Tower, Șos. Fabrica de Glucoză, Șos. Pipera',
+        // two chapters, two approaches to Bd. Dimitrie Pompeiu: luxoft from the south-east (Șos. Petricani → Fabrica de Glucoză → George Constantinescu,
+        // Pompeiu westbound: Hermes on the right), db from the north-west (Podul Pipera → Șos. Pipera → Gara Herăstrău, Pompeiu eastbound: BOB Tower on the right).
+        // Polygon instead of the old 3.1 km² box: the NW residential grid beyond Șos. Pipera and the lots south of Fabrica de Glucoză are left out.
+        poly: [[44.4742, 26.1008], [44.4742, 26.1110], [44.4762, 26.1222], [44.4712, 26.1222], [44.4712, 26.1272], [44.4800, 26.1272], [44.4840, 26.1190], [44.4878, 26.1152], [44.4870, 26.1103], [44.4815, 26.1008]],
+        bbox: [44.4712, 26.1008, 44.4878, 26.1272], center: { lat: 44.4800, lon: 26.1130 },
+        landmarks: ['hermes', 'globalworth', 'skytower', 'promenada'],
         congestion: [ // from game/research/bucharest-pipera.json traffic.hotspots
             { lat: 44.48020, lon: 26.11400, radius: 300, hours: [[8,  10.5],  [16.5,  20]], level: 0.95, note: 'Bd. Dimitrie Pompeiu (whole street)' },
             { lat: 44.47750, lon: 26.10450, radius: 220, hours: [[8,  10],  [16.5,  19.5]], level: 0.85, note: 'Barbu Văcărescu × Fabrica de Glucoză (Sky Tower)' },
@@ -171,7 +177,7 @@ const SEA_POIS = [
     // UiPath Bellevue: Lincoln Square North since Sept 2025; entrance on Bellevue Way NE just south of NE 8th (research: OSM entrance node 7945526075)
     { id: 'uipath-bel', lat: 47.61723, lon: -122.20148, label: 'UiPath Bellevue — Lincoln Square', kind: 'office', address: '700 Bellevue Way NE (Lincoln Square North, since Sept 2025)', road: /Bellevue Way/, size: [34, 70, 30] },
     // passing landmark on the chapter route (UiPath's Bellevue office 2022–2025): a caption, not a stop
-    { id: 'plaza-center', lat: 47.6175, lon: -122.1955, label: 'Plaza Center — UiPath Bellevue 2022–2025', kind: 'office', address: '10900 NE 8th St', road: /8th Street|NE 8th/, passing: true, caption: 'Plaza Center: UiPath\'s Bellevue office from 2022 until the move to Lincoln Square in September 2025.', size: [34, 60, 30] },
+    { id: 'plaza-center', lat: 47.61762, lon: -122.19405, label: 'Plaza Center — UiPath Bellevue 2022–2025', kind: 'office', address: '10900 NE 8th St', road: /8th Street|NE 8th/, passing: true, caption: 'Plaza Center: UiPath\'s Bellevue office from 2022 until the move to Lincoln Square in September 2025.', size: [34, 60, 30] },
 ];
 
 
@@ -184,7 +190,7 @@ const SEA_DISTRICTS = {
             
             { lat: 47.4648, lon: -122.2665, road: /SR-518/, bearing: 90, motorway: true, name: 'SR-518 at I-5' }],
         circles: [{ lat: 47.4435, lon: -122.3016, r: 600, name: 'terminal' }, { lat: 47.4650, lon: -122.2640, r: 350, name: 'I-5 / SR-518' }],
-        landmarks: ['seatac', 'seatower', 'rainier', 'olympics'],
+        landmarks: ['seatac', 'seatower', 'seagarage', 'sealink', 'rainier', 'olympics'],
         congestion: [ // from game/research/seattle-seatac.json traffic.hotspots
             { lat: 47.44400, lon: -122.30000, radius: 250, hours: [[4.5,  7.5],  [11,  14]], level: 0.70, note: 'Departures Drive kerb' },
             { lat: 47.44350, lon: -122.30000, radius: 250, hours: [[11,  14],  [20.5,  24]], level: 0.60, note: 'Arrivals Drive kerb' },
@@ -192,24 +198,21 @@ const SEA_DISTRICTS = {
         ],
     },
     bellevue: {
-        name: 'Lake Washington & Bellevue', label: 'I-90 floating bridges, Mercer Island, I-405, downtown Bellevue',
-        bbox: [47.5740, -122.3060, 47.6240, -122.1760], center: { lat: 47.5980, lon: -122.2350 },
-        // research (seattle-bellevue.json district.corridorPolygons): bands along I-90 and I-405 + the downtown core
-        bands: [
-            { r: 250, line: [[47.59, -122.306], [47.5899, -122.2857], [47.5892, -122.2547], [47.5911, -122.2404], [47.5843, -122.2248], [47.5787, -122.2076], [47.5797, -122.1934], [47.5791, -122.182]] },
-            { r: 200, line: [[47.5785, -122.176], [47.5847, -122.1773], [47.5982, -122.1798], [47.6034, -122.1844], [47.6074, -122.1874], [47.6165, -122.1885], [47.6195, -122.1889]] },
-            { r: 120, line: [[47.5834, -122.1887], [47.5875, -122.1915], [47.5938, -122.1952], [47.5969, -122.1984], [47.6012, -122.2005], [47.6076, -122.2014], [47.6101, -122.2015]] },
+        name: 'Downtown Bellevue', label: 'I-405 at the NE 8th St exit, NE 8th St, Bellevue Way, Lincoln Square',
+        // owner decision 2026-11-07: finale ≤ 3 min of driving; the I-90 floating bridge / Mercer Island only appear in the montage (CHAPTERS montageCaption).
+        // = the downtown core (Main St → NE 10th St × Bellevue Square → just east of I-405) + a band along I-405 through the NE 8th St interchange.
+        // A start further south on I-405 NB does not fit 3 min: the NB → NE 8th West movement is a 1.1 km ramp + loop (spec 10 log 2026-11-07).
+        bands: [ // I-405 through the NE 8th St interchange (cloverleaf + the exit-13 ramps)
+            { r: 130, line: [[47.6070, -122.1874], [47.6105, -122.1883], [47.6165, -122.1885], [47.6195, -122.1889], [47.6228, -122.1891]] },
         ],
-        poly: [[47.6075, -122.2075], [47.6075, -122.1850], [47.6235, -122.1850], [47.6235, -122.2075]], // downtown core (Main St → NE 12th × 100th Ave NE → I-405)
-        landmarks: ['mtbaker', 'lincoln', 'bellevuetowers', 'bellevuesq', 'rainier', 'olympics'],
-        congestion: [ // from game/research/seattle-bellevue.json traffic.hotspots
-            { lat: 47.60000, lon: -122.18100, radius: 900, hours: [[6.5,  9.5],  [15,  19]], level: 0.85, note: 'I-405 NB (Tukwila/Renton → Bellevue) through SE 8th → NE 8th' },
-            { lat: 47.60500, lon: -122.18400, radius: 800, hours: [[15,  19]], level: 0.90, note: 'I-405 SB Bellevue → Tukwila (opposite carriageway)' },
-            { lat: 47.59000, lon: -122.26000, radius: 1500, hours: [[7.5,  9.5],  [15.5,  18.5]], level: 0.80, note: 'I-90 WB (Bellevue → Seattle) on the Hadley bridge — OPPOSITE carriageway, visible beside t' },
-            { lat: 47.58950, lon: -122.26000, radius: 1500, hours: [[16.5,  18]], level: 0.35, note: 'I-90 EB (the player’s direction)' },
+        poly: [[47.6097, -122.2050], [47.6097, -122.1858], [47.6192, -122.1858], [47.6192, -122.2050]],
+        bbox: [47.6060, -122.2050, 47.6240, -122.1840], center: { lat: 47.6145, lon: -122.1950 },
+        landmarks: ['lincoln', 'onelincoln', 'lincolnsouth', 'plazacenter', 'sonic', 'bellevue600', 'bellevuetowers', 'bellevuesq', 'rainier', 'olympics'],
+        congestion: [ // from game/research/seattle-bellevue.json traffic.hotspots (I-90 / Bellevue Way SE entries dropped with those roads)
+            { lat: 47.60500, lon: -122.18500, radius: 500, hours: [[6.5,  9.5],  [15,  19]], level: 0.85, note: 'I-405 NB through downtown (SE 8th → NE 8th)' },
+            { lat: 47.60900, lon: -122.18700, radius: 450, hours: [[15,  19]], level: 0.90, note: 'I-405 SB Bellevue → Tukwila (opposite carriageway)' },
             { lat: 47.61738, lon: -122.19091, radius: 220, hours: [[16,  18.5]], level: 0.75, note: 'NE 8th St at 112th Ave NE / I-405 ramps' },
             { lat: 47.61020, lon: -122.20150, radius: 160, hours: [[16,  18.5]], level: 0.60, note: 'Bellevue Way × Main St' },
-            { lat: 47.58800, lon: -122.19250, radius: 500, hours: [[15.5,  18.5]], level: 0.55, note: 'Bellevue Way SE southbound to I-90 (route B opposite direction)' },
             { lat: 47.61600, lon: -122.20170, radius: 250, hours: [[12,  18]], level: 0.50, note: 'Bellevue Way NE at Bellevue Square/Lincoln Square garages' },
         ],
     },
@@ -256,14 +259,14 @@ export const CITIES = { bucharest: BUCHAREST, seattle: SEATTLE };
 export const CHAPTERS = [
     { id: 'rosetti', stop: 'rosetti', city: 'bucharest', district: 'floreasca', year: 2009, title: 'High school', intro: 'Floreasca, 2009: up Calea Floreasca from the market to C.A. Rosetti on Str. Garibaldi.',
         start: { lat: 44.4565, lon: 26.1000, heading: 8, road: /Calea Floreasca/ } }, // Calea Floreasca northbound, 400 m before Piața Floreasca (research start + a longer run-in)
-    { id: 'upb', stop: 'upb', city: 'bucharest', district: 'grozavesti', year: 2013, title: 'Politehnica', intro: 'Down Șoseaua Orhideelor under the Basarab overpass, over Podul Grozăvești and along the Splai to the Politehnica gate.',
-        start: { lat: 44.447432, lon: 26.062618, heading: 242, road: /Orhideelor/ } }, // research: Șos. Orhideelor southbound (the owner's way from home)
+    { id: 'upb', stop: 'upb', city: 'bucharest', district: 'grozavesti', year: 2013, title: 'Politehnica', intro: 'Down Șoseaua Orhideelor beside the Basarab overpass, over Podul Grozăvești and south on Doina Cornea to the Politehnica gate.',
+        start: { lat: 44.44849, lon: 26.06540, heading: 242, road: /Orhideelor/ } }, // research start moved 250 m back up Orhideelor (southbound): the door is now the Doina Cornea car gate (the Rectorat's campus roads are private)
     { id: 'gts', stop: 'gts', city: 'bucharest', district: 'unirii', year: 2015, title: 'First job', intro: 'Round Piața Unirii and its fountains, then out along Calea Călărașilor towards Hala Traian.',
         start: { lat: 44.426766, lon: 26.100968, heading: 183, road: /Unirii/ } }, // research: Piața Unirii west side, southbound
-    { id: 'luxoft', stop: 'luxoft', city: 'bucharest', district: 'pipera', year: 2017, title: 'Luxoft', intro: 'Up Barbu Văcărescu and over to Bd. Dimitrie Pompeiu: the Pipera office park.',
-        start: { lat: 44.4752, lon: 26.1032, heading: 40, road: /Barbu Văcărescu/ } },
-    { id: 'db', stop: 'db', city: 'bucharest', district: 'floreasca', year: 2017, title: 'Deutsche Bank', intro: 'North on Calea Floreasca, past Rosetti and the lake shore, to Floreasca Park.',
-        start: { lat: 44.4575, lon: 26.1010, heading: 10, road: /Calea Floreasca/ } },
+    { id: 'luxoft', stop: 'luxoft', city: 'bucharest', district: 'pipera', year: 2017, title: 'Luxoft', intro: 'Pipera, 2017: up Șoseaua Petricani, west on Fabrica de Glucoză past the Globalworth offices, then George Constantinescu to Hermes Business Campus.',
+        start: { lat: 44.4730, lon: 26.1243, heading: 350, road: /Petricani/ } }, // Șos. Petricani NB → Fabrica de Glucoză WB → G. Constantinescu NB → Pompeiu WB (Hermes on the right; research route + run-in)
+    { id: 'db', stop: 'db', city: 'bucharest', district: 'pipera', year: 2017, title: 'Deutsche Bank', intro: 'Same street, other end: off Podul Pipera, down Șoseaua Pipera and Gara Herăstrău, then along Dimitrie Pompeiu to BOB Tower.',
+        start: { lat: 44.4856, lon: 26.1123, heading: 225, road: /Șoseaua Pipera/ } }, // SW-bound at the foot of Podul Pipera → Șos. Pipera → Gara Herăstrău SB → Pompeiu EB (BOB Tower on the right; research db route)
     { id: 'arnia', stop: 'arnia', city: 'bucharest', district: 'romana', year: 2019, title: 'Arnia', intro: 'Up Magheru to Piața Romană and along Lascăr Catargiu to Europe House.',
         start: { lat: 44.4418, lon: 26.0988, heading: 0, road: /Magheru|Bălcescu/ } },
     { id: 'uipath-buc', stop: 'uipath-buc', city: 'bucharest', district: 'romana', year: 2020, title: 'UiPath', intro: 'Down Kiseleff into Piața Victoriei and through the streets behind Romană to Vasile Alecsandri.',
@@ -272,7 +275,8 @@ export const CHAPTERS = [
         start: { lat: 44.5560, lon: 26.0700, heading: 5, road: /DN1|București-Ploiești|Bucureşti-Ploieşti|Calea Bucureștilor/ } },
     { id: 'seatac', stop: null, city: 'seattle', district: 'seatac', year: 2022, title: 'Welcome to Seattle', intro: 'Out of SeaTac: Departures Drive and SR-518 east to the I-5 junction.',
         start: { lat: 47.44557, lon: -122.29902, heading: 200, road: /Departures/ }, waypoint: { lat: 47.46195, lon: -122.26779, label: 'SR-518 east: I-405 / I-5 split' } }, // research
-    { id: 'uipath-bel', stop: 'uipath-bel', city: 'seattle', district: 'bellevue', year: 2022, title: 'UiPath Bellevue', intro: 'Across Lake Washington on the I-90 floating bridge, over Mercer Island, up I-405 into downtown Bellevue.',
-        start: { lat: 47.5893, lon: -122.2700, heading: 90, road: /^I-90\b/ } }, // owner: eastbound on the Lacey V. Murrow floating bridge, mid-lake
+    { id: 'uipath-bel', stop: 'uipath-bel', city: 'seattle', district: 'bellevue', year: 2022, title: 'UiPath Bellevue', intro: 'Bellevue: off I-405 on the NE 8th St West loop, west on NE 8th past Plaza Center, then Bellevue Way to Lincoln Square.',
+        montageCaption: 'Over Lake Washington on the I-90 floating bridge, across Mercer Island, then north on I-405 to Bellevue.',
+        start: { lat: 47.6155, lon: -122.18825, heading: 0, road: /Northeast 8th Street West/ } }, // owner decision (≤ 3 min): on the I-405 NB exit 13B ramp just after the East/West split → loop → NE 8th WB → Bellevue Way
 ];
 

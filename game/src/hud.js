@@ -51,7 +51,7 @@ export class HUD {
         this.el.fuel.classList.toggle('mid', f >= 0.15 && f < 0.3);
         if (this.el.fuelText.textContent !== text) this.el.fuelText.textContent = text;
     }
-    setTrip(text) { if (this.el.trip && this.el.trip.textContent !== text) this.el.trip.textContent = text; }
+    setTrip(text) { if (this.el.trip && this._trip !== text) { this._trip = text; this.el.trip.innerText = text; } } // '\n' = line break
     setNavLine(html) { if (!this.el.navline) return; if (this._nav !== html) { this._nav = html; this.el.navline.innerHTML = html || ''; this.el.navline.classList.toggle('show', !!html); } }
     flash() { const f = this.el.flash; if (!f) return; f.classList.remove('go'); void f.offsetWidth; f.classList.add('go'); }
     addRage(v, max = 100) { this.rage = clamp(this.rage + v, 0, max); return this.rage; }

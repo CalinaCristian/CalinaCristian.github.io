@@ -5,8 +5,13 @@
  *
  * Events: game_menu_view, game_start, world_loaded, stop_visited, office_enter, office_screen_read,
  * flight_taken, seattle_arrived, finale_reached, fast_travel, map_opened, refuel, fine, reset_used,
- * headlights_toggle, achievement, weather_source, stuck_detected, context_lost, perf_summary, game_exit.
- * No personal data; positions are rounded to 50 m and only sent with stuck reports.
+ * headlights_toggle, achievement, weather_source, stuck_detected, context_lost, perf_summary, game_exit;
+ * chapters / on foot / photo / tourist spots (spec 21): chapter_start, chapter_complete, chapter_select, free_drive,
+ * boundary_hit, on_foot, photo_taken, spot_enter, spot_leave, spot_plaque, spot_challenge.
+ * No personal data; positions are rounded to 50 m and only sent with stuck reports. The new events are coarse:
+ * ids from fixed lists (chapter / district / spot ids, filter names, counts, minutes), never free text or coordinates.
+ * Events that other modules send themselves (photo.js photo_taken, spots/* spot_*) pass through `coarse()` below,
+ * which drops their free-text props (place names, plaque titles) and renames them to the documented events.
  */
 const T = () => window.cvTelemetry;
 const track = (e, p) => { try { T()?.track(e, p); } catch (_) { /* never break the game */ } };
@@ -34,7 +39,31 @@ function percentile(arr, p) {
     return s[Math.min(s.length - 1, Math.floor(p * s.length))];
 }
 
+/** rewrite events sent directly by other modules into the documented, coarse shape (null = drop) */
+function coarseRules(game) {
+    const where = () => ({ city: game.city?.id || null, district: game.district || null });
+    return {
+        photo_taken: (p) => ['photo_taken', { ...(game.state === 'spot' ? { city: game.spotEntry?.city || p.city || null, spot: game.spotId || null } : where()), mode: game.state, filter: typeof p.filter === 'string' ? p.filter : null }],
+        spot_enter: (p) => ['spot_enter', { id: p.id || game.spotId || null, city: p.city || game.spotEntry?.city || null, from: game.spotReturn?.state || 'menu' }],
+        spot_exit: (p) => ['spot_leave', { id: p.id || null, seconds: Number.isFinite(p.seconds) ? p.seconds : null }],
+        spot_plaque: (p) => { const list = game.spot?.spot?.plaques || []; const i = list.findIndex(x => x?.title === p.title); return ['spot_plaque', { id: p.id || game.spotId || null, plaque: i >= 0 ? i : null }]; },
+        spot_postcard: (p) => ['spot_challenge', { id: p.id || null, first: !!p.first }],
+    };
+}
+function installCoarseFilter(game, tries = 0) {
+    const api = T();
+    if (!api) { if (tries < 50) setTimeout(() => installCoarseFilter(game, tries + 1), 200); return; }
+    if (api._coarse) return; api._coarse = true;
+    const raw = api.track, rules = coarseRules(game);
+    api.track = function (event, props, options) {
+        const r = rules[event];
+        if (r) { let out = null; try { out = r(props || {}); } catch (_) { out = null; } if (!out) return; return raw.call(this, out[0], out[1], options); }
+        return raw.call(this, event, props, options);
+    };
+}
+
 function start(game) {
+    installCoarseFilter(game);
     const prev = { state: game.state, city: null, visited: 0, read: 0, mapOpen: false, fast: 0, fines: 0, fuelL: 0, achv: 0, headlights: game.headlights, quality: null };
     const perf = { fps: [], calls: [], tierChanges: 0, lastTier: null };
     let gpu = null, cityLoadStart = null, stuckFor = 0, stuckReports = 0, finaleSent = false, started = false;
@@ -48,6 +77,35 @@ function start(game) {
         game[name] = function (...args) { try { fn(...args); } catch (_) { /* ignore */ } return orig.apply(this, args); };
     };
     wrap('resetToRoad', (opts) => { if (!opts?.silent) track('reset_used', { city: game.city?.id }); });
+    // call-through wrapper that sees the result (sync or a promise)
+    const wrapAfter = (name, fn) => {
+        const orig = game[name];
+        if (typeof orig !== 'function') return;
+        game[name] = function (...args) {
+            const r = orig.apply(this, args);
+            try { if (r && typeof r.then === 'function') r.then((v) => { try { fn(v, ...args); } catch (_) { /* ignore */ } }, () => { }); else fn(r, ...args); } catch (_) { /* ignore */ }
+            return r;
+        };
+    };
+    // chapters (spec 10)
+    const chap = { id: null, t: 0, done: false, replay: false };
+    wrapAfter('enterChapter', (ok, idx) => {
+        const ch = game.chapters?.[idx]; if (!ok || !ch) return;
+        chap.id = ch.id; chap.t = performance.now(); chap.done = false; chap.replay = !!game.progress?.done?.has?.(ch.id);
+        track('chapter_start', { id: ch.id, n: idx + 1, district: ch.district, city: ch.city, replay: chap.replay, minutes: minutes() });
+    });
+    wrap('start', (idx) => { if (idx != null && game.chapters?.[idx]) track('chapter_select', { id: game.chapters[idx].id, source: 'menu' }); });
+    document.getElementById('navlist')?.addEventListener('click', (e) => {
+        const b = e.target.closest?.('[data-chapter]'); const ch = b && game.chapters?.[+b.dataset.chapter];
+        if (ch) track('chapter_select', { id: ch.id, source: ch === game.chapters[game.chapterIdx + 1] && game.chapterDone ? 'next' : 'map' });
+    }, true);
+    // district edge closures: the approach toast (R10.9)
+    let boundaryHits = 0;
+    wrap('closureText', (c) => { if (boundaryHits++ < 20) track('boundary_hit', { district: game.district || null, kind: c?.kind || null, leads_to: c?.leadsTo || null, chapter: game.chapter || null }); });
+    // on foot (spec 14)
+    let footT = 0;
+    wrapAfter('exitCar', (ok) => { if (ok) { footT = performance.now(); track('on_foot', { action: 'enter', district: game.district || null, city: game.city?.id || null }); } });
+    wrap('enterCar', () => { track('on_foot', { action: 'exit', seconds: footT ? Math.round((performance.now() - footT) / 1000) : null, district: game.district || null }); footT = 0; });
 
     const canvas = game.renderer?.domElement;
     canvas?.addEventListener('webglcontextlost', () => track('context_lost', { city: game.city?.id, minutes: minutes() }));
@@ -73,11 +131,11 @@ function start(game) {
         if (!started && st !== 'menu') {
             started = true; cityLoadStart = performance.now();
             const q = (id) => document.getElementById(id)?.value;
-            track('game_start', { quality: q('quality') || game.quality, time_of_day: q('timeofday') || 'real', weather: q('weather') || 'real' });
+            track('game_start', { quality: q('quality') || game.quality, time_of_day: q('timeofday') || 'real', weather: q('weather') || 'real', entry: st === 'spot' || st === 'loading' ? 'spot' : 'story' });
         }
         if (st === 'drive' && city && city !== prev.city) {
             if (!gpu && game.renderer) gpu = gpuInfo(game.renderer);
-            track('world_loaded', { city, load_ms: cityLoadStart ? Math.round(performance.now() - cityLoadStart) : null, ...(gpu || {}) });
+            track('world_loaded', { city, district: game.district || null, load_ms: cityLoadStart ? Math.round(performance.now() - cityLoadStart) : null, ...(gpu || {}) });
             if (city === 'seattle') track('seattle_arrived', { minutes: minutes() });
             const w = game.r3d?.weather;
             if (w) track('weather_source', { city, source: w.source, label: w.label, season: w.season });
@@ -102,6 +160,13 @@ function start(game) {
             const s = game.stats || {};
             track('finale_reached', { minutes: minutes(), stops: visited.length, fast_travels: s.fastTravels, fines: s.fineCount, honks: game.honks, km: s.dist ? Math.round(s.dist / 100) / 10 : null });
         }
+
+        // chapter completion + "free drive here" on the card
+        if (chap.id && game.chapter === chap.id && game.chapterDone && !chap.done) {
+            chap.done = true;
+            track('chapter_complete', { id: chap.id, district: game.district || null, minutes: Math.round((performance.now() - chap.t) / 6000) / 10, replay: chap.replay, fast_travels: game.stats?.fastTravels ?? null });
+        }
+        if (prev.state === 'card' && (st === 'drive' || st === 'foot') && game.chapterDone) track('free_drive', { chapter: game.chapter || null, district: game.district || null });
 
         // feature usage
         if (game.mapOpen && !prev.mapOpen) track('map_opened', { city });

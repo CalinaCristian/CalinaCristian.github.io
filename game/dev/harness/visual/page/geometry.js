@@ -386,5 +386,50 @@ export function geometryDetectors(G, opts) {
         });
         for (const [it, o] of hits) add('building-over-road', o.a > 6 ? 'high' : 'medium', `${c.poi ? 'CV building' : 'building'} footprint (h ${r1(c.h ?? 0)} m) covers ${r1(o.a)} m² of ${ribLabel(it)}`, { x: o.x, z: o.z, area: r1(o.a), road: ribLabel(it) });
     }
+    // ---------------------------------------------------------------- levels (world-visual, play-test round 4)
+    //   deck-dangling     a raised (> 0.5 m) road end with no other road there (deck ending in mid-air)
+    //   lifted-nonbridge  a road that is neither a bridge nor a ramp (*_link / same-name continuation) more than 0.5 m up
+    //   phantom-wall      a collision wall crossing the surveyed path inside its height band (car blocked by something unseen)
+    //   tunnel-visible    a tunnel carriageway ≥ 3 m deep with no lid over it (the sunken road shows through the ground)
+    try {
+        const EE = (W.allEdges || W.graph?.edges || []).filter(e => !e.virtual && e.a && e.b);
+        const inCorr = (x, z) => corridor.all || corridor.near(x, z, corridor.r);
+        const seenN = new Set();
+        for (const e of EE) for (const n of [e.a, e.b]) {
+            if (seenN.has(n)) continue; seenN.add(n);
+            if ((n.y || 0) > 0.5 && !n.mapEnd && n.edges.filter(f => !f.virtual).length === 1 && inCorr(n.x, n.z))
+                add('deck-dangling', 'high', `${e.name || e.type} ends ${r1(n.y)} m up with no road connected (deck / ramp ending in mid-air)`, { x: n.x, z: n.z, y: r2(n.y) });
+        }
+        const rampOK = new Set();
+        for (const e of EE) if (/_link$/.test(e.type) || e.bridge) rampOK.add(e);
+        for (let k = 0; k < 6; k++) for (const e of EE) { if (rampOK.has(e) || e.tunnel) continue; for (const n of [e.a, e.b]) if (n.edges.filter(f => !f.virtual).length <= 2 && n.edges.some(f => f !== e && rampOK.has(f) && f.name === e.name)) rampOK.add(e); }
+        for (const e of EE) {
+            if (rampOK.has(e) || e.tunnel) continue;
+            const my = Math.max(e.ya || 0, e.yb || 0); if (my <= 0.5) continue;
+            const x = (e.a.x + e.b.x) / 2, z = (e.a.z + e.b.z) / 2; if (!inCorr(x, z)) continue;
+            add('lifted-nonbridge', my > 1.5 ? 'high' : 'medium', `${e.name || e.type} (not a bridge or ramp) is lifted ${r1(my)} m`, { x, z, y: r2(my) });
+        }
+        for (const e of EE) {
+            if (!e.tunnel || e.lidded || Math.max(e.ya, e.yb) > -3) continue;
+            const x = (e.a.x + e.b.x) / 2, z = (e.a.z + e.b.z) / 2; if (!inCorr(x, z)) continue;
+            add('tunnel-visible', 'medium', `${e.name || e.type} runs ${r1(-Math.max(e.ya, e.yb))} m deep with no lid (the sunken road shows through the street level)`, { x, z });
+        }
+        const walls = W.walls || [];
+        const cross = (a, b, c, d) => { const o = (p, q, r) => (q[0] - p[0]) * (r[1] - p[1]) - (q[1] - p[1]) * (r[0] - p[0]); return o(a, b, c) * o(a, b, d) < 0 && o(c, d, a) * o(c, d, b) < 0; };
+        for (const path of opts.paths || []) {
+            let last = -1e9;
+            for (let i = 1; i < path.length; i++) {
+                const A = path[i - 1], B = path[i], y = (A[2] ?? 0.24);
+                for (const w of walls) {
+                    if (w.kind === 'boundary' || w.kind === 'closure') continue;
+                    if (Math.max(w.ax, w.bx) < Math.min(A[0], B[0]) - 1 || Math.min(w.ax, w.bx) > Math.max(A[0], B[0]) + 1 || Math.max(w.az, w.bz) < Math.min(A[1], B[1]) - 1 || Math.min(w.az, w.bz) > Math.max(A[1], B[1]) + 1) continue;
+                    if (!cross([A[0], A[1]], [B[0], B[1]], [w.ax, w.az], [w.bx, w.bz])) continue;
+                    const y0 = Math.min(w.y0a, w.y0b), y1 = Math.max(w.y1a, w.y1b);
+                    if (y + 0.3 < y0 || y + 0.3 > y1) continue;
+                    if (i - last > 5) { last = i; add('phantom-wall', 'high', `a ${w.kind} wall${w.edge ? ' of ' + (w.edge.name || w.edge.type) : ''} crosses the driven path at its level (y ${r2(y)} in ${r2(y0)}…${r2(y1)}): the car is blocked`, { x: (A[0] + B[0]) / 2, z: (A[1] + B[1]) / 2, kind: w.kind }); }
+                }
+            }
+        }
+    } catch (err) { add('harness-error', 'low', 'level detectors failed: ' + err.message, {}); }
     return { counts, ms: Math.round(performance.now() - T0), ribbons: R.length, triangles: triN, objects: objN, buildings: bN, cells: cells.length };
 }

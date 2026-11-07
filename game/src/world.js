@@ -1914,7 +1914,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             // sub-divide into ~6 m pieces so the wall can be cut where it would cross another carriageway (junction mouths)
             const yAtT = (t) => Y.road + e.ya + (e.yb - e.ya) * t;
             // trench walls reach street level (cars up there must not fall in) — except under a tunnel's roof
-            const range = (y) => kind === 'rail' ? [y > 2.6 ? y - 2.2 : -1.5, y + 1.1] : kind === 'embank' ? [-1.5, y + 1.1] : kind === 'trench' ? [y - 1.5, e.lidded ? Math.min(1.0, y + 4.6) : 1.0] : [y - 1.0, y + 0.85];
+            const range = (y) => kind === 'rail' ? [y > 2.6 ? y - 2.2 : -1.5, y + 1.1] : kind === 'embank' ? [-1.5, y + 1.1] : kind === 'trench' ? [y - 1.5, (e.lidded || (e.tunnel && y < -4.2)) ? Math.min(1.0, y + 4.6) : 1.0] : [y - 1.0, y + 0.85];
             const n = Math.max(1, Math.ceil((tTo - tFrom) * e.len / 3));
             let last = null;
             for (let k = 0; k < n; k++) {

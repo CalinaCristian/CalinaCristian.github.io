@@ -104,6 +104,7 @@ trees, `world.lamps`, landmark / POI groups, `world.buildings`; corridor = 70 m 
 | `bridge-underside-buried` | a bridge's 1.1 m deck fascia / underside goes into the ground at a low end |
 | `object-floating` / `object-sunk` | tree trunk / street lamp / landmark / POI / station prop base > 0.3 m above or > 0.5 m below the ground or road under it (objective markers `poi.marker` float by design and are skipped) |
 | `building-over-road` | a building footprint covers > 0.7 m² of a carriageway (at a level the road is drawn) |
+| `deck-dangling` / `lifted-nonbridge` / `tunnel-visible` / `phantom-wall` | (world-visual, 2026-11-07) a raised road end with no road connected; a road that is neither bridge nor ramp lifted > 0.5 m; a tunnel ≥ 3 m deep without a lid; a collision wall crossing the surveyed path inside its height band |
 
 Pixels (forward frames; the lane strip 7–40 m ahead along the route is projected to the screen, cockpit pixels are
 masked with a cockpit-only render):

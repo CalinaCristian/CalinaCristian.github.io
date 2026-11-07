@@ -111,7 +111,7 @@ const KF = [
 ];
 for (const k of KF) for (const key of ['zenith', 'horizon', 'sun', 'hemiSky', 'hemiGround', 'cLit', 'cDark']) k[key] = new THREE.Color(k[key]);
 const _grey = new THREE.Color();
-const GLOW = { h: new THREE.Color('#33281e'), z: new THREE.Color('#0b0d16'), c: new THREE.Color('#4b3f38'), cd: new THREE.Color('#231c18') };
+const GLOW = { h: new THREE.Color('#33281e'), z: new THREE.Color('#0b0d16'), c: new THREE.Color('#3a312b'), cd: new THREE.Color('#231c18') };
 function greyed(c, amt, lum = 0.92) {
     const l = c.r * 0.2126 + c.g * 0.7152 + c.b * 0.0722;
     _grey.setRGB(l * lum, l * lum * 1.01, l * lum * 1.04);

@@ -812,7 +812,7 @@ function partsMaterial(lights) {
 /** instanced fleet material: one draw call per kind × LOD; per instance aPaint (linear rgb) + aLB (lights, brake) */
 let FLEET_MAT = null, PARKED_MAT = null;
 /** parked lots: same shader, half the sky reflection (dusty, seen from above they otherwise read washed-out next to the matte world) */
-function parkedMaterial() { if (!PARKED_MAT) { PARKED_MAT = newFleetMaterial(0.5); PARKED_MAT.userData.envScale = 0.5; } return PARKED_MAT; }
+function parkedMaterial() { if (!PARKED_MAT) { PARKED_MAT = newFleetMaterial(0.5); PARKED_MAT.userData.envScale = 0.5; PARKED_MAT.roughness = 1.6; PARKED_MAT.metalness = 0.4; } return PARKED_MAT; } // (roughness / metalness scale the per-vertex aMat values: paint 0.32 → 0.51, metal 0.3 → 0.12)
 function fleetMaterial() { return FLEET_MAT || (FLEET_MAT = newFleetMaterial(1.05)); }
 function newFleetMaterial(envI) {
     const m = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, metalness: 1, envMapIntensity: envI });
@@ -1061,7 +1061,7 @@ export function makeVehicle(kind, color, opts = {}) {
  * culling useful); group.userData = { count, triangles, drawCalls }. Not part of the per-frame fleet hook (zero CPU per frame).
  * group.userData.dispose() frees the per-group instance buffers (the shared model geometry stays).
  */
-export function makeParkedCars(cars, { city, castShadow = true, receiveShadow = true, paintSpace = 'world' } = {}) {
+export function makeParkedCars(cars, { city, castShadow = true, receiveShadow = true, paintSpace = 'linear' } = {}) {
     const c0 = city || FLEET_CITY, grp = new THREE.Group(), byKey = new Map();
     for (const car of cars) {
         const m = vehicleModel(car.kind, c0); let e = byKey.get(m.key);

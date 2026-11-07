@@ -319,6 +319,10 @@ export function textPlane(text, w, h, o = {}) {
         : new THREE.MeshStandardMaterial({ map: t, roughness: o.roughness ?? 0.6, metalness: o.metalness ?? 0.1, side: o.double ? THREE.DoubleSide : THREE.FrontSide, transparent: !!o.transparent, emissive: o.emissive ? new THREE.Color('#ffffff') : new THREE.Color(0), emissiveMap: o.emissive ? t : null, emissiveIntensity: o.emissive ? (o.emissiveIntensity ?? 0.3) : 1 });
     const mesh = new THREE.Mesh(new THREE.PlaneGeometry(w, h), m);
     mesh.name = 'sign:' + String(text).slice(0, 30);
+    if (o.double) { // two single-sided faces so the text never reads mirrored from behind
+        m.side = THREE.FrontSide;
+        const g = new THREE.Group(); g.name = mesh.name; const back = new THREE.Mesh(mesh.geometry, m); back.rotation.y = Math.PI; g.add(mesh, back); return g;
+    }
     return mesh;
 }
 /** count triangles under an object */

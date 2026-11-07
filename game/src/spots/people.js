@@ -143,7 +143,7 @@ export class Crowd {
                 if (g.act === 'talk' && n > 1) { yaw = Math.atan2(g.x - x, g.z - z); }
             }
             const persona = this.pickPersona(g.personas);
-            const p = this._ped(persona, x, z, yaw, g.act || 'watch', { home: { x, z, yaw }, look: g.look, y: g.y !== undefined ? (typeof g.y === 'function' ? g.y(x, z) : g.y) : undefined, group: g });
+            const p = this._ped(persona, x, z, yaw, g.act || 'watch', { home: { x, z, yaw }, lookAt: g.look, y: g.y !== undefined ? (typeof g.y === 'function' ? g.y(x, z) : g.y) : undefined, group: g });
             if (g.prop) p.look.prop = g.prop;
             if (g.act === 'photo' && p.look.prop === 'none') p.look.prop = 'phone';
         }

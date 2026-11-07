@@ -33,7 +33,7 @@ node game/dev/harness/run.js --visual …                             # same thi
 | `--far=450` | 450 m | camera far plane for survey frames (fog hides the rest) |
 | `--traffic` | off | keep traffic / pedestrians visible (off = the map alone) |
 | `--no-geometry`, `--geo=all`, `--corridor=70`, `--focus=40` | | geometry detectors off / whole map / corridor half-width / number of 40 m close-ups |
-| `--no-offices` | | skip the office-lobby shots (legacy mode only) |
+| `--no-offices` | | skip the office-lobby shots |
 | `--sweep=2` | 2 | chapter mode: main streets per district surveyed in addition to the chapter routes (streets the chapter routes already cover are skipped); `--sweep-max=2000` m surveyed per sweep |
 | `--root=<dir>` | repo | serve the GAME from another checkout (e.g. a `git archive HEAD` snapshot while `game/src` is mid-edit); the visual QA code always comes from this checkout |
 | `--debug-masks` | | save the lane / cockpit masks used by the pixel detectors (`report/debug/`) |
@@ -41,6 +41,11 @@ node game/dev/harness/run.js --visual …                             # same thi
 | `--keep`, `--out=<dir>`, `--port=8123`, `--headed`, `--timeout=120`, `--verbose` | | |
 
 Exit code: 0 = no high finding, 1 = at least one high finding, 3 = the tool failed.
+
+Per-city runs (review one city while the other runs, or after a fix in one city):
+`node game/dev/harness/run.js --visual --city=seattle --out=game/dev/harness/visual/report/seattle`. Finding ids
+(`#n`, also drawn on the aerial tiles) are per report: with one city per run they restart at 1, with both cities in
+one run Seattle's start at 100001. Office lobbies only: `--route=none --viewports=none --no-geometry --pr=1`.
 
 **Routes are data-driven.** If `game/src/cities.js` exports `CHAPTERS` (spec 10), every chapter is surveyed in its
 district world (`game.loadCity(city, { district, start })`, start pose from `game.chapterPose(ch)` when present),
@@ -56,7 +61,7 @@ Routes come from `game.nav.compute()`; the car is placed on lane 0 of the route'
   with the game renderer; geometry findings are circled with their id.
 - **geometry close-ups**: a 40 m top-down tile (north up) for the worst findings of each geometry detector.
 - **cockpit** at each viewport with the HUD visible (full-page screenshot), once per city.
-- **offices**: the lobby (entrance view) of every stop in the city (legacy mode).
+- **offices**: the lobby of every stop in the city (entrance view + a close-up of the lobby sign), once per city.
 
 ## Report (`report/`, not tracked except review.md)
 
@@ -113,10 +118,13 @@ The source line (`game/src/<file>:<line>`) is reported.
 
 ## Speed
 
-Software GL is fragment-bound: a medium-quality 960×540 frame costs ≈ 0.5–1 s on an idle 4-core machine
-(2–3 s with several other headless browsers running), the flicker test ≈ 2 × 0.3 s, looks 3 frames per 200 m,
-aerials 1 per 200 m. Rough cost: ≈ 1.5–2 s per 40 m sample idle. Use `--from/--to`, `--route`,
-`--no-looks --no-aerial --no-zfight` or `--every=80` for a quick loop; one page per city is reused for all its routes.
+Software GL is fragment-bound, so frames are rendered at `--pr=0.5` (640×360 internal for the 1280×720 viewport,
+exactly the sheet tile size; `--pr=1` for full resolution). Measured 2026-11-06 with both cities in parallel on a
+4-core box shared with other agents' browsers (load average 20–30): 1.5–4.4 s per 40 m sample including looks,
+aerials and the flicker test; Seattle 815 samples in 39 min, Bucharest 812 samples in 50 min. On an idle machine
+expect roughly half. For the fast loop use `--route`, `--from/--to`, `--every=80`, `--no-looks --no-aerial
+--no-zfight`, `--viewports=none` (one 40 m sample ≈ 1 s idle); one page per city is reused for all its routes and
+district loads take 2–15 s.
 
 ## Files
 

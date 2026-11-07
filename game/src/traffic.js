@@ -859,7 +859,9 @@ export class Traffic {
             const dx = P.x - v.x, dz = P.z - v.z;
             if (Math.abs(dx) < 80 && Math.abs(dz) < 80) {
                 const f = dx * fx + dz * fz, l = dx * rx + dz * rz;
-                if (f > 0 && f < look + 8 && Math.abs(l) < v.width * 0.5 + playerExtent(P, rx, rz) + 0.35) {
+                // (a stopped player that is behind us in its own direction — a merge — waits for us, not we for it)
+                const aheadOfP = (v.x - P.x) * P.fx + (v.z - P.z) * P.fz;
+                if (f > 0 && f < look + 8 && Math.abs(l) < v.width * 0.5 + playerExtent(P, rx, rz) + 0.35 && !(aheadOfP > 2.5 && Math.abs(P.speed) < 0.5 && f - half - playerExtent(P, fx, fz) > 0.4)) {
                     const g = f - half - playerExtent(P, fx, fz);
                     if (g < gap) { gap = g; leader = P; leaderSpeed = Math.max(0, P.speed * (P.fx * fx + P.fz * fz)); leaderCross = false; }
                 }
@@ -916,8 +918,9 @@ export class Traffic {
                 const reach = Math.max(9, v.speed * v.speed / 9 + 3);
                 if (D - rad < reach) {
                     const res = this.boxCheck(v, curE, curDir, nxt, node, rad);
-                    if (res === 'wait') { const _d = D - rad - 0.8; if (_d < stopD) { stopD = _d; stopWhy = 'claim'; } }
-                    else if (D - rad < Math.max(4, v.speed * 0.6 + 2)) this.boxClaim(v, node, res);
+                    if (res === 'wait' && D - rad - 0.8 > -0.3) { const _d = D - rad - 0.8; if (_d < stopD) { stopD = _d; stopWhy = 'claim'; } } // (already over the line: committed, clear the box)
+                    else if (res !== 'wait' && D - rad < Math.max(4, v.speed * 0.6 + 2)) this.boxClaim(v, node, res);
+                    else if (res === 'wait') this.boxClaim(v, node, this.boxPath(v, curE, curDir, nxt, rad));
                 }
             }
             // lane drop ahead (next edge has fewer lanes): merge before the end of this edge, or wait at the end
@@ -1653,6 +1656,8 @@ class Pedestrians {
             if (p.onRoad && p.state === 'legs') {
                 const leg = p.legs[0];
                 p.crossT = (p.crossT || 0) + dt;
+                // pinned between cars on the carriageway (they wait for the pedestrian, the pedestrian for them): step through
+                if (leg && (p.blockT || 0) > 4) { p.x = leg.x; p.z = leg.z; p.blockT = 0; }
                 if (leg && leg.cross && leg.sx !== undefined && p.crossT > 5 + (leg.len || 10) / 1.2 && !leg.back) {
                     leg.back = true; leg.x = leg.sx; leg.z = leg.sz; p.blockT = 0;
                     p.legs.length = 1; p.next = { e: p.e, dir: -p.dir, side: p.side, s: p.s };
@@ -1682,6 +1687,7 @@ class Pedestrians {
             // every kerb point of the plan (corner, crossing ends, next sidewalk) outside all carriageways: at
             // tight / skewed junctions a sidewalk-line point can fall inside another road
             for (const L of legs) { const q = { x: L.x, z: L.z }; if (this.kerbClamp(q)) { L.x = q.x; L.z = q.z; } }
+
             p.legs = legs; p.state = 'legs'; p.next = { e: g, dir: og, side: useA ? 1 : -1, s: P2.s };
         };
         const crossLeg = (X, legs, from) => {

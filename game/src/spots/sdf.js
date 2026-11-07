@@ -8,11 +8,11 @@
 import * as THREE from '../../vendor/three.module.min.js';
 
 // ---------------------------------------------------------------------------- primitives (all return signed distance)
-export const sdSphere = (x, y, z, cx, cy, cz, r) => Math.hypot(x - cx, y - cy, z - cz) - r;
+export const sdSphere = (x, y, z, cx, cy, cz, r) => { const dx = x - cx, dy = y - cy, dz = z - cz; return Math.sqrt(dx * dx + dy * dy + dz * dz) - r; };
 /** ellipsoid (approximate, good near the surface) */
 export function sdEllipsoid(x, y, z, cx, cy, cz, rx, ry, rz) {
     const px = (x - cx) / rx, py = (y - cy) / ry, pz = (z - cz) / rz;
-    const k0 = Math.hypot(px, py, pz), k1 = Math.hypot(px / rx, py / ry, pz / rz);
+    const qx = px / rx, qy = py / ry, qz = pz / rz, k0 = Math.sqrt(px * px + py * py + pz * pz), k1 = Math.sqrt(qx * qx + qy * qy + qz * qz);
     return k1 > 1e-9 ? k0 * (k0 - 1) / k1 : -Math.min(rx, ry, rz);
 }
 /** round cone / capsule between a and b with radii ra → rb */
@@ -20,12 +20,12 @@ export function sdCapsule(x, y, z, ax, ay, az, bx, by, bz, ra, rb = ra) {
     const bax = bx - ax, bay = by - ay, baz = bz - az, pax = x - ax, pay = y - ay, paz = z - az;
     const L2 = bax * bax + bay * bay + baz * baz;
     let h = L2 > 0 ? (pax * bax + pay * bay + paz * baz) / L2 : 0; h = h < 0 ? 0 : h > 1 ? 1 : h;
-    return Math.hypot(pax - bax * h, pay - bay * h, paz - baz * h) - (ra + (rb - ra) * h);
+    const ex = pax - bax * h, ey = pay - bay * h, ez = paz - baz * h; return Math.sqrt(ex * ex + ey * ey + ez * ez) - (ra + (rb - ra) * h);
 }
 /** rounded box centred at c with half-extents h, rounding r */
 export function sdBox(x, y, z, cx, cy, cz, hx, hy, hz, r = 0) {
     const qx = Math.abs(x - cx) - hx + r, qy = Math.abs(y - cy) - hy + r, qz = Math.abs(z - cz) - hz + r;
-    return Math.hypot(Math.max(qx, 0), Math.max(qy, 0), Math.max(qz, 0)) + Math.min(Math.max(qx, qy, qz), 0) - r;
+    const mx = qx > 0 ? qx : 0, my = qy > 0 ? qy : 0, mz = qz > 0 ? qz : 0; return Math.sqrt(mx * mx + my * my + mz * mz) + Math.min(Math.max(qx, qy, qz), 0) - r;
 }
 /** polynomial smooth min (k = blend radius) */
 export function smin(a, b, k) { const h = Math.max(k - Math.abs(a - b), 0) / k; return Math.min(a, b) - h * h * k * 0.25; }
@@ -103,10 +103,25 @@ export function meshSDF(sdf, o) {
     // normals from the SDF gradient, colour + AO
     const nV = pos.length / 3, nor = new Float32Array(nV * 3), col = new Float32Array(nV * 3), e = c * 0.5, aoR = o.ao ?? c * 3;
     const tmp = new THREE.Color();
+    // gradient from the sampled grid: central differences at the 8 cell corners, trilinearly blended (no extra SDF calls)
+    const V = (i, j, k) => vals[Math.min(nx - 1, Math.max(0, i)) + nx * (Math.min(ny - 1, Math.max(0, j)) + ny * Math.min(nz - 1, Math.max(0, k)))];
+    const gridGrad = (x, y, z) => {
+        const fx = (x - x0) / c, fy = (y - y0) / c, fz = (z - z0) / c;
+        const i = Math.min(nx - 2, Math.max(0, Math.floor(fx))), j = Math.min(ny - 2, Math.max(0, Math.floor(fy))), k = Math.min(nz - 2, Math.max(0, Math.floor(fz)));
+        const u = fx - i, v = fy - j, w = fz - k; let gx = 0, gy = 0, gz = 0;
+        for (let q = 0; q < 8; q++) {
+            const a = q & 1, b = (q >> 1) & 1, d = (q >> 2) & 1, wt = (a ? u : 1 - u) * (b ? v : 1 - v) * (d ? w : 1 - w);
+            const ii = i + a, jj = j + b, kk = k + d;
+            gx += wt * (V(ii + 1, jj, kk) - V(ii - 1, jj, kk)); gy += wt * (V(ii, jj + 1, kk) - V(ii, jj - 1, kk)); gz += wt * (V(ii, jj, kk + 1) - V(ii, jj, kk - 1));
+        }
+        return [gx, gy, gz];
+    };
     for (let v = 0; v < nV; v++) {
         const x = pos[v * 3], y = pos[v * 3 + 1], z = pos[v * 3 + 2];
-        let gx = sdf(x + e, y, z) - sdf(x - e, y, z), gy = sdf(x, y + e, z) - sdf(x, y - e, z), gz = sdf(x, y, z + e) - sdf(x, y, z - e);
-        const L = Math.hypot(gx, gy, gz) || 1; gx /= L; gy /= L; gz /= L;
+        let gx, gy, gz;
+        if (o.exactNormals) { gx = sdf(x + e, y, z) - sdf(x - e, y, z); gy = sdf(x, y + e, z) - sdf(x, y - e, z); gz = sdf(x, y, z + e) - sdf(x, y, z - e); }
+        else [gx, gy, gz] = gridGrad(x, y, z);
+        const L = Math.sqrt(gx * gx + gy * gy + gz * gz) || 1; gx /= L; gy /= L; gz /= L;
         nor[v * 3] = gx; nor[v * 3 + 1] = gy; nor[v * 3 + 2] = gz;
         let ao = 1;
         if (aoR > 0) { // 2-tap SDF AO: how open is the space along the normal

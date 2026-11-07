@@ -206,6 +206,9 @@ async function plans() {
             const ns = o.edges.flatMap(e => [e.a, e.b]); let best = null, bd = 0;
             for (const p of ns) for (const q of ns) { const d = Math.hypot(p.x - q.x, p.z - q.z); if (d > bd) { bd = d; best = [p, q]; } }
             if (!best || bd < 150) continue;
+            // drive the street in the direction the router actually follows it (one-way streets: the other way detours)
+            const share = (p, q) => { try { const r = g.nav.compute(p.x, p.z, q.x, q.z, null); if (!r?.legs?.length) return 0; let on = 0, all = 0; for (const L of r.legs) { all += L.e.len; if (L.e.name === name) on += L.e.len; } return all ? on / all : 0; } catch { return 0; } };
+            if (share(best[1], best[0]) > share(best[0], best[1]) + 0.05) best = [best[1], best[0]];
             out.push({ id: 'sweep-' + name.toLowerCase().replace(/[^\w]+/g, '-').replace(/^-|-$/g, ''), label: 'main street: ' + name, kind: 'sweep', from: { x: best[0].x, z: best[0].z, heading: null }, to: { x: best[1].x, z: best[1].z, label: name } });
         }
         return out;

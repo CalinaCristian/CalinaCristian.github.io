@@ -15,6 +15,7 @@ export class Ground {
     constructor(terrain) {
         this.t = terrain || { x0: -100, z0: -100, d: 200, nx: 2, nz: 2, h: [0, 0, 0, 0] };
         this.mods = [];      // (x, z, h) => h
+        this.waterY = null;  // set by scenes with open water: the walker can't wade in
         this.surfaces = [];  // walkable solids: { box?, poly?, hm?, top(x,z), bottom, wallAbove? }
         this._cache = new Map();
     }
@@ -64,7 +65,7 @@ export class Ground {
         });
     }
     // ---------------------------------------------------------------- walkable solids
-    /** oriented box solid from y0 to y1 (stairs, planters, decks, benches you can jump on) */
+    /** oriented box solid from y0 to y1 (stairs, planters, decks, benches you can jump on); angle = the mesh rotation.y (local z = long axis hd) */
     addBox(x, z, hw, hd, angle, y0, y1, o = {}) {
         const c = Math.cos(angle), s = Math.sin(angle);
         const s2 = { kind: 'box', x, z, hw, hd, angle, bottom: y0, r: Math.hypot(hw, hd), ...o,
@@ -104,6 +105,13 @@ export class Ground {
         };
         this.surfaces.push(s2); return s2;
     }
+    /** nearest walkable (not deep-water) point to (x, z), searching outward in rings (for spawns / challenge poses) */
+    nearestDry(x, z, maxR = 80) {
+        const ok = (px, pz) => { const g = this.groundAt(px, pz, this.heightAt(px, pz) + 1); return g < this.heightAt(px, pz) + 40; };
+        if (ok(x, z)) return { x, z };
+        for (let r = 2; r <= maxR; r += 2) for (let i = 0; i < 16; i++) { const a = i / 16 * Math.PI * 2, px = x + Math.cos(a) * r, pz = z + Math.sin(a) * r; if (ok(px, pz)) return { x: px, z: pz }; }
+        return { x, z };
+    }
     /**
      * what the walker stands on at (x, z) with feet at y: terrain or the highest walkable solid whose bottom is
      * at most ~head height above the feet (so a bridge deck overhead is ignored); steep sculpture cells above the
@@ -119,6 +127,8 @@ export class Ground {
             if (s.steepAt && s.steepAt(x, z) && t > y + 0.35) return y + 50;
             if (t > g) g = t;
         }
+        // deep water is not walkable (piers / decks above it are, through the surfaces)
+        if (this.waterY !== null && this.waterY !== undefined && g < this.waterY - 0.5) return y + 50;
         return g;
     }
 }
@@ -126,7 +136,8 @@ export class Ground {
 // ============================================================================
 //  Splat painter: records draw ops in world metres, replays them onto canvases
 // ============================================================================
-export const MASK = { brick: [255, 0, 0, 0], slab: [0, 255, 0, 0], grass: [0, 0, 255, 0], asphalt: [0, 0, 0, 255], none: [0, 0, 0, 0], cobble: [255, 0, 0, 128], dirt: [0, 0, 160, 0], wood: [0, 120, 0, 0] };
+// mask weights live in RGB only (canvas alpha is premultiplied): R brick (cobble at half), G slab joints (wood at half), B grass (dirt at half); black = asphalt grain
+export const MASK = { brick: [255, 0, 0], cobble: [120, 0, 0], slab: [0, 255, 0], wood: [0, 120, 0], grass: [0, 0, 255], dirt: [0, 0, 120], asphalt: [0, 0, 0], none: [0, 0, 0] };
 
 export class Painter {
     constructor() { this.ops = []; }
@@ -166,7 +177,7 @@ export class Painter {
         return out;
     }
 }
-function rgba(m) { return `rgba(${m[0]},${m[1]},${m[2]},${(m[3] / 255).toFixed(3)})`; }
+function rgba(m) { return `rgb(${m[0]},${m[1]},${m[2]})`; }
 
 // ============================================================================
 //  Ground material: splat colour × procedural detail by mask (brick, slabs, grass, asphalt)
@@ -196,18 +207,19 @@ export function groundMaterial(colorTex, maskTex, { brickAngle = 0, name = 'grou
                 k *= 0.93 + 0.14 * sN(w * 0.35) + 0.05 * (sN(w * 2.3) - 0.5);
                 // brick / pavers (running bond 0.20 × 0.10 m)
                 if (mk.r > 0.02) {
+                    float cob = 1.0 - smoothstep(0.55, 0.75, mk.r); // half-weight red = cobbles / setts
                     vec2 q = vec2(dot(w, uBrickRot), dot(w, vec2(-uBrickRot.y, uBrickRot.x)));
-                    vec2 b = q / vec2(0.205, 0.102); b.x += 0.5 * mod(floor(b.y), 2.0);
+                    vec2 b = q / mix(vec2(0.205, 0.102), vec2(0.16, 0.13), cob); b.x += 0.5 * mod(floor(b.y), 2.0);
                     vec2 f = fract(b), id = floor(b);
                     float mortar = smoothstep(0.0, 0.07, f.x) * smoothstep(1.0, 0.93, f.x) * smoothstep(0.0, 0.12, f.y) * smoothstep(1.0, 0.88, f.y);
                     float tint = 0.82 + 0.3 * sH(id) - 0.08 * step(0.8, sH(id + 7.0));
-                    float cob = mk.a > 0.3 ? 1.0 : 0.0; // cobble variant: squarer setts
                     float br = mix(0.62, tint, mortar);
-                    k *= mix(1.0, mix(br, br * (0.9 + 0.2 * sN(w * 9.0)), cob), mk.r * mix(0.35, 1.0, near));
+                    k *= mix(1.0, br, clamp(mk.r * 1.6, 0.0, 1.0) * mix(0.35, 1.0, near));
                 }
                 // concrete slabs with joints (≈1.5 m)
                 if (mk.g > 0.02) {
-                    vec2 f = fract(w / 1.52), id = floor(w / 1.52);
+                    float wood = 1.0 - smoothstep(0.55, 0.75, mk.g);
+                    vec2 f = fract(w / mix(vec2(1.52), vec2(0.14, 6.0), wood)), id = floor(w / 1.52);
                     float j = smoothstep(0.0, 0.012, f.x) * smoothstep(1.0, 0.988, f.x) * smoothstep(0.0, 0.012, f.y) * smoothstep(1.0, 0.988, f.y);
                     float sl = (0.95 + 0.1 * sH(id)) * mix(0.78, 1.0, j);
                     sl *= 0.97 + 0.06 * sN(w * 6.0);
@@ -219,9 +231,10 @@ export function groundMaterial(colorTex, maskTex, { brickAngle = 0, name = 'grou
                     k *= mix(1.0, gN, mk.b);
                 }
                 // asphalt grain + patches
-                if (mk.a > 0.02 && mk.r < 0.02) {
+                float asph = 1.0 - clamp((mk.r + mk.g + mk.b) * 3.0, 0.0, 1.0);
+                if (asph > 0.02) {
                     float aN = 0.9 + 0.12 * sN(w * 0.8) + 0.1 * (sH(floor(w * 30.0)) - 0.5) * near;
-                    k *= mix(1.0, aN, mk.a);
+                    k *= mix(1.0, aN, asph);
                 }
                 diffuseColor.rgb *= k;
             }`);
@@ -234,7 +247,7 @@ export function groundMaterial(colorTex, maskTex, { brickAngle = 0, name = 'grou
  * Terrain meshes: an inner patch (fine grid, high-res splat) and an outer apron (coarse grid, low-res splat)
  * with the inner rectangle cut out. Returns { group, inner, outer, materials[] }.
  */
-export function buildTerrain(ground, painter, { inner, outer, innerPx = 2048, outerPx = 1024, innerStep = 2, outerStep = 8, bg = '#6b7a4f', bgMask = 'grass', brickAngle = 0, skirt = 0 }) {
+export function buildTerrain(ground, painter, { inner, outer, innerPx = 2048, outerPx = 1024, innerStep = 2, outerStep = 8, bg = '#6b7a4f', bgMask = 'grass', brickAngle = 0, skirt = 0, skirtY = null, skirtColor = null }) {
     const grp = new THREE.Group(); grp.name = 'terrain';
     const mats = [];
     const mk = (box, px, step, hole) => {
@@ -269,8 +282,8 @@ export function buildTerrain(ground, painter, { inner, outer, innerPx = 2048, ou
     if (skirt > 0) { // a far apron disc so the horizon never shows a gap
         const g = new THREE.RingGeometry(Math.max(outer.x1 - outer.x0, outer.z1 - outer.z0) * 0.7, skirt, 48, 1); g.rotateX(-Math.PI / 2);
         const cx = (outer.x0 + outer.x1) / 2, cz = (outer.z0 + outer.z1) / 2;
-        const m = new THREE.MeshStandardMaterial({ color: bg, roughness: 1 }); m.name = 'groundPlane'; mats.push(m);
-        const ring = new THREE.Mesh(g, m); ring.position.set(cx, ground.heightAt(cx, cz) - 2, cz); ring.name = 'terrain-apron'; grp.add(ring);
+        const m = new THREE.MeshStandardMaterial({ color: skirtColor || bg, roughness: 1 }); m.name = 'groundPlane'; mats.push(m);
+        const ring = new THREE.Mesh(g, m); ring.position.set(cx, skirtY ?? ground.heightAt(cx, cz) - 2, cz); ring.name = 'terrain-apron'; grp.add(ring);
     }
     return { group: grp, inner: i, outer: o, materials: mats };
 }

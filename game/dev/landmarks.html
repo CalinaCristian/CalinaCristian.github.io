@@ -18,6 +18,10 @@ import * as THREE from '../vendor/three.module.min.js';
 import { LANDMARKS, buildLandmark } from '../src/landmarks.js';
 
 // Dev viewer: ?id=<landmark id>&view=top|34|street&az=<deg>&el=<deg>&d=<distance m>&fov=<deg>&ty=<look-at height m>
+//   Seattle models are shown at real 1:1 scale (district mode, buildLandmark realScale); &legacy=1 shows the old x/z-squashed build.
+//   &tx=&tz= aim at a model point; &ex=&ez=&ey= put a street-level camera at that exact model point (looking at tx/tz, ty).
+//   &with=id1,id2 also places those landmarks around the selected one at their real lat/lon offsets (e.g. the whole
+//   Lincoln Square complex: ?id=lincoln&with=onelincoln,lincolnsouth,bellevuesq).
 //   view=street puts the camera at driver eye height (1.3 m) at distance d (default 1.6 x radius) from the
 //   model centre (or &tx=&tz=), looking towards it; az is the bearing of the camera from the centre (0 = south/+z, 90 = east/+x).
 const qs = new URLSearchParams(location.search);
@@ -40,18 +44,27 @@ const camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 1, 2e6)
 
 const sel = document.getElementById('sel');
 for (const l of LANDMARKS) sel.add(new Option(`${l.city.slice(0, 3)} · ${l.name}`, l.id));
-let current = null, colGroup = null;
+let current = null, colGroup = null, extras = [];
 
 function show(id) {
   const lm = LANDMARKS.find(l => l.id === id) || LANDMARKS[0];
   sel.value = lm.id;
   if (current) scene.remove(current.mesh);
+  for (const e of extras) scene.remove(e); extras = [];
   if (colGroup) scene.remove(colGroup);
   const t0 = performance.now();
-  current = buildLandmark(lm, { THREE });
+  current = buildLandmark(lm, { THREE, realScale: qs.get('legacy') !== '1' });
   const ms = performance.now() - t0;
   if (qs.get('norot') === '1') current.mesh.rotation.y = 0;
   scene.add(current.mesh);
+  let extraTris = 0;
+  for (const id2 of (qs.get('with') || '').split(',').filter(Boolean)) {
+    const l2 = LANDMARKS.find(l => l.id === id2); if (!l2) continue;
+    const r2 = buildLandmark(l2, { THREE, realScale: qs.get('legacy') !== '1' });
+    const mLon = 111320 * Math.cos(lm.lat * Math.PI / 180), k = l2.city === 'seattle' && qs.get('legacy') === '1' ? 0.5 : 1;
+    r2.mesh.position.set((l2.lon - lm.lon) * mLon * k, 0, -(l2.lat - lm.lat) * 111132 * k);
+    scene.add(r2.mesh); extras.push(r2.mesh); extraTris += r2.triangles;
+  }
   // collision overlay
   colGroup = new THREE.Group();
   for (const c of current.collision) {
@@ -74,7 +87,8 @@ function show(id) {
   if (street) {
     dist = +(qs.get('d') ?? Math.max(size.x, size.z) * 0.8 + 25);
     ly = +(qs.get('ty') ?? Math.min(size.y * 0.45, Math.tan(THREE.MathUtils.degToRad(camera.fov * 0.32)) * dist));
-    camera.position.set(ctr.x + Math.sin(az) * dist, 1.3, ctr.z + Math.cos(az) * dist);
+    camera.position.set(ctr.x + Math.sin(az) * dist, +(qs.get('ey') ?? 1.3), ctr.z + Math.cos(az) * dist);
+    if (qs.get('ex') !== null) camera.position.set(+qs.get('ex'), +(qs.get('ey') ?? 1.3), +qs.get('ez'));
     camera.lookAt(ctr.x, ly, ctr.z);
   } else {
     const el = top ? Math.PI / 2 - 0.001 : THREE.MathUtils.degToRad(+(qs.get('el') ?? 24));
@@ -90,7 +104,7 @@ function show(id) {
   const sc = sun.shadow.camera; sc.left = sc.bottom = -R * 1.6; sc.right = sc.top = R * 1.6; sc.near = 1; sc.far = R * 8; sc.updateProjectionMatrix();
   scene.fog = lm.backdrop ? new THREE.Fog('#a9c9e6', dist * 0.2, dist * 3) : null;
   renderer.render(scene, camera);
-  const info = `${lm.name} — ${current.triangles} tris, ${current.mesh.children.length} meshes, ${current.collision.length} col boxes, h=${size.y.toFixed(1)} m, ${size.x.toFixed(0)}×${size.z.toFixed(0)} m (world), ${ms.toFixed(1)} ms`;
+  const info = `${lm.name} — ${current.triangles} tris${extraTris ? ' (+' + extraTris + ' with)' : ''} (scale ${current.authoredScale ?? 1}), ${current.mesh.children.length} meshes, ${current.collision.length} col boxes, h=${size.y.toFixed(1)} m, ${size.x.toFixed(0)}×${size.z.toFixed(0)} m (world), ${ms.toFixed(1)} ms`;
   document.getElementById('info').textContent = info;
   window.__stats = { id: lm.id, triangles: current.triangles, height: size.y, w: size.x, d: size.z, ms };
   if (!top && !qs.get('view')) history.replaceState(null, '', '?id=' + lm.id);

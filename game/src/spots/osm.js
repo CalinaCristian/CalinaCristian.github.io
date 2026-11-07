@@ -53,6 +53,7 @@ export function paintOSM(P, data, o = {}) {
         .map((a) => ({ a, A: Math.abs(polyArea(a.poly)) })).sort((p, q) => q.A - p.A).map((p) => p.a);
     for (const a of areas) {
         const lu = a.landuse, le = a.leisure, na = a.natural, am = a.amenity;
+        if (a.waterway && !['riverbank', 'dock', 'boatyard'].includes(a.waterway) && na !== 'water') { if (['stream', 'river', 'ditch', 'drain'].includes(a.waterway)) P.line(a.poly, a.waterway === 'river' ? 8 : 2.2, '#3d5560', 'none'); continue; } // linear waterways (streams, canals, dams, lock gates) are not areas
         let c = null, m = 'none';
         if (lu === 'residential') { c = COL.lawn; m = 'grass'; }
         else if (lu === 'commercial' || lu === 'retail' || lu === 'construction' || lu === 'railway' || lu === 'industrial') { c = '#8e8b83'; m = 'slab'; }
@@ -61,7 +62,7 @@ export function paintOSM(P, data, o = {}) {
         else if (na === 'scrub' || lu === 'shrubs' || na === 'heath') { c = COL.scrub; m = 'grass'; }
         else if (lu === 'flowerbed' || a.man_made === 'planter') { c = COL.flower; m = 'grass'; }
         else if (am === 'parking' || am === 'parking_space') { c = am === 'parking' ? COL.parking : null; m = 'asphalt'; }
-        else if (na === 'water' || a.waterway || a.water || am === 'fountain' || le === 'swimming_pool' || na === 'coastline') { c = COL.water; m = 'none'; }
+        else if (na === 'water' || a.waterway || a.water || am === 'fountain' || le === 'swimming_pool' || na === 'coastline') { if (!o.paintBigWater && Math.abs(polyArea(a.poly)) > 25000) continue; c = COL.water; m = 'none'; } // big water bodies: the scene's water plane draws them (OSM multipolygon holes are not in the extracts)
         else if (na === 'beach' || na === 'sand') { c = COL.sand; m = 'dirt'; }
         else if (le === 'playground') { c = COL.bark; m = 'dirt'; }
         else if (le === 'pitch') { c = a.surface && /artificial|turf/.test(a.surface) ? '#4e7a3c' : COL.grass; m = 'grass'; }
@@ -119,7 +120,7 @@ const STYLES = {
     industrial: { bay: 4.0, floor: 4.5, wall: '#ffffff', glass: '#384048', corrugated: true, win: [0.2, 0.55, 0.8, 0.8], sparse: true },
     shop: { bay: 4.2, floor: 4.3, wall: '#ffffff', glass: '#1f2a33', shop: true, win: [0.06, 0.05, 0.94, 0.72] },
 };
-export function facadeMaterial(style, { lambert = true } = {}) {
+export function facadeMaterial(style, { lambert = false } = {}) {
     const key = style + (lambert ? 'L' : 'S');
     if (FACADES[key]) return FACADES[key];
     const S = STYLES[style] || STYLES.apartment, T = 256, cell = T / 4;
@@ -160,7 +161,7 @@ export function facadeMaterial(style, { lambert = true } = {}) {
     }
     const map = canvasTexture(c, { repeat: true }), em = canvasTexture(e, { repeat: true });
     const M2 = lambert ? THREE.MeshLambertMaterial : THREE.MeshStandardMaterial;
-    const m = new M2({ map, emissiveMap: em, emissive: new THREE.Color('#ffffff'), emissiveIntensity: 0, vertexColors: true, ...(lambert ? {} : { roughness: S.curtain ? 0.25 : 0.85, metalness: S.curtain ? 0.4 : 0 }) });
+    const m = new M2({ map, emissiveMap: em, emissive: new THREE.Color('#ffffff'), emissiveIntensity: 0, vertexColors: true, ...(lambert ? {} : { roughness: S.curtain ? 0.3 : 0.88, metalness: S.curtain ? 0.35 : 0 }) });
     m.name = 'facade-' + style; m.userData.shared = true; m.userData.style = S; m.userData.nightWindows = true;
     FACADES[key] = m;
     return m;
@@ -171,7 +172,7 @@ export const facadeStyle = (s) => STYLES[s] || STYLES.apartment;
 const HOUSE_COLS = ['#cfc8b8', '#8fa3ad', '#d9caa3', '#6f7f8c', '#a5594c', '#e4ded2', '#5f6d5c', '#b9a58a', '#7d8b74', '#c4b49a', '#3f4f5f', '#d3cfc4'];
 const APT_COLS = ['#c4bdaf', '#8c9095', '#c7b299', '#6d7a84', '#a34c3c', '#d2cbbd', '#7a8a7a', '#b8afa0', '#55606a', '#9a8670'];
 const OFFICE_COLS = ['#8fa3b6', '#6c7f92', '#a6b4c0', '#5a6a78', '#7f8f99'];
-const BRICK_COLS = ['#a65a43', '#8e4a38', '#b46e52', '#9b5e4a', '#c38f73'];
+const BRICK_COLS = ['#c8826a', '#b8725c', '#d39478', '#c08470', '#ddb196'];
 
 export function buildingStyle(b, urban) {
     const k = b.k, m = b.mat || '';
@@ -373,9 +374,12 @@ export function areaTrees(data, { density = 1 / 90, kinds = ['wood', 'forest', '
  * lamps from OSM furniture + generated along motor roads; returns { group, lamps[], headMesh, colliders[] }
  * style: 'cobra' (Seattle steel cobra-head) | 'acorn' (historic) | 'park'
  */
-export function buildLamps(points, ground, { style = 'cobra', color = '#5c6066', h = 8.5 } = {}) {
-    const n = points.length, grp = new THREE.Group(); grp.name = 'lamps';
-    if (!n) return { group: grp, lamps: [], headMesh: null, colliders: [] };
+export function buildLamps(allPoints, ground, { style = 'cobra', color = '#5c6066', h = 8.5 } = {}) {
+    const grp = new THREE.Group(); grp.name = 'lamps';
+    // meshless light points (lamps modelled by the scene itself, e.g. under an arcade): render-lamp entries only
+    const extra = allPoints.filter((p) => p.noPost).map((p) => ({ x: p.x, z: p.z, h: p.h || 3, y: p.y ?? ground.heightAt(p.x, p.z) }));
+    const points = allPoints.filter((p) => !p.noPost), n = points.length;
+    if (!n) return { group: grp, lamps: extra, headMesh: null, colliders: [] };
     const postG = style === 'acorn' ? new THREE.CylinderGeometry(0.07, 0.14, h, 8) : new THREE.CylinderGeometry(0.07, 0.13, h, 7); postG.translate(0, h / 2, 0);
     const armG = new THREE.BoxGeometry(0.08, 0.08, 1.9); armG.translate(0, h - 0.15, -0.95);
     const headG = style === 'acorn' ? new THREE.SphereGeometry(0.28, 10, 8) : new THREE.BoxGeometry(0.38, 0.14, 0.75);
@@ -396,7 +400,7 @@ export function buildLamps(points, ground, { style = 'cobra', color = '#5c6066',
         colliders.push({ x: p.x, z: p.z, r: 0.16, hw: 0.16, prop: true, h });
     });
     for (const m of [post, arm, head]) if (m) { m.castShadow = m !== head; m.computeBoundingSphere(); grp.add(m); }
-    return { group: grp, lamps, headMesh: head, colliders };
+    return { group: grp, lamps: [...lamps, ...extra], headMesh: head, colliders };
 }
 /** lamp positions along motor roads (every `spacing` m, alternating sides), arm pointing over the road */
 export function roadLampPoints(data, { spacing = 34, skip = new Set(), inside = null, kinds = ['primary', 'secondary', 'tertiary', 'residential', 'unclassified', 'trunk'], seed = 2 } = {}) {

@@ -252,7 +252,7 @@ function solidMaterial(atlas) {
     // by day to userData.nightEmissive at night (contract 01 → Render); ~42 % of windows lit, warm 2700–4000 K, a few
     // TV-blue, shopfronts always lit and brighter. One material, no extra draw calls.
     const m = new THREE.MeshStandardMaterial({ vertexColors: true, map: atlas, roughness: 0.92, metalness: 0, emissive: new THREE.Color(1, 1, 1), emissiveIntensity: 0 });
-    m.userData.nightEmissive = 1.6;
+    m.userData.nightEmissive = 1.2;
     let night = null; try { night = nightAtlas(atlas); } catch (e) { console.warn('[world] night atlas', e); }
     m.onBeforeCompile = (sh) => {
         sh.uniforms.nightMap = { value: night };
@@ -279,7 +279,7 @@ function solidMaterial(atlas) {
         float shop = step(0.5, nm.b), lit = max(shop, step(h, 0.42));
         float h2 = fract(h * 13.7);
         vec3 col = h2 > 0.93 ? vec3(0.55, 0.68, 1.0) : mix(vec3(1.0, 0.6, 0.3), vec3(1.0, 0.82, 0.58), h2);
-        totalEmissiveRadiance *= step(0.5, nm.r) * lit * col * mix(1.0, 1.6, shop);
+        totalEmissiveRadiance *= step(0.5, nm.r) * lit * col * mix(1.0, 0.75, shop);
     } else totalEmissiveRadiance *= 0.0;
 #else
     totalEmissiveRadiance *= 0.0;

@@ -184,10 +184,11 @@ class Game {
         $('#start').addEventListener('click', () => this.start());
         this.renderMenuChapters();
         this.loadSpotsModule().then(() => this.renderMenuSpots());
+        this.renderMenuRoam();
         $('#quality').addEventListener('change', (e) => { this.quality = e.target.value; this.r3d.setQuality(e.target.value); });
         $('#mute').addEventListener('click', (e) => { this.audio.setMuted(!this.audio.muted); e.target.textContent = this.audio.muted ? '🔇' : '🔊'; });
         { const ws = $('#weather'); if (ws) { if (this.weatherOverride) ws.value = this.weatherOverride; ws.addEventListener('change', (e) => this.setWeatherOverride(e.target.value === 'real' ? null : e.target.value)); } }
-        $('#timeofday')?.addEventListener('change', (e) => { this.clock.override = e.target.value === 'real' ? null : e.target.value; });
+        $('#timeofday')?.addEventListener('change', (e) => { this.clock.override = this.menuOverride = e.target.value === 'real' ? null : e.target.value; });
         $('#lookmode')?.addEventListener('change', (e) => { this.opts.look = e.target.value; this.saveStr('look', this.opts.look); this.input.setLookMode(this.opts.look); });
         $('#opt-minimap')?.addEventListener('change', (e) => { this.opts.minimap = e.target.checked; this.saveOpt('minimap', this.opts.minimap); this.applyOpts(); });
         const bm = $('#bigmap');
@@ -205,6 +206,8 @@ class Game {
         });
         $('#map-close')?.addEventListener('click', () => this.toggleMap(false));
         $('#navlist')?.addEventListener('click', (e) => {
+            const rb = e.target.closest('[data-roam]');
+            if (rb) { this.toggleMap(false); if (rb.dataset.roam !== this.district) this.switchRoamDistrict(rb.dataset.roam); return; }
             const spb = e.target.closest('[data-spot]');
             if (spb) { this.toggleMap(false); this.enterSpot(spb.dataset.spot); return; }
             const chb = e.target.closest('[data-chapter]');
@@ -340,7 +343,7 @@ class Game {
         this.r3d.setScene(this.scene, this.camera, city.env, { sky: world.sky, units: city.units, vegetation: world.vegetation || null });
         if (world.vegetation) this.r3d.setVegetation?.(world.vegetation);
         this.r3d.setPlayer(this.player);
-        this.r3d.setClock({ date: new Date(), lat: center.lat, lon: center.lon, timeZone: this.clock.timeZone, override: this.clock.override || null, timeScale: 1 });
+        this.r3d.setClock({ date: this.nowDate(), lat: center.lat, lon: center.lon, timeZone: this.clock.timeZone, override: this.clock.override || null, timeScale: 1 });
         this.r3d.setLamps(world.lamps || [], { headMesh: world.lampHeadMesh });
     }
     /** put a point on the nearest drivable lane, returns {x,z,heading,edge,dir} */
@@ -461,6 +464,7 @@ class Game {
     get nextStop() { return this.stops.find(s => !this.visited.has(s.id)); }
     updateObjective() {
         if (this.ch) return this.updateChapterObjective();
+        if (this.freeRoam) return this.updateRoamObjective();
         const done = STOPS.filter(s => this.visited.has(s.id)).length;
         this.hud.setProgress(done, STOPS.length);
         const n = this.nextStop;
@@ -619,7 +623,7 @@ class Game {
                     prompt = '<kbd>E</kbd> Board the flight to Seattle ✈️';
                     if (input.take('KeyE')) this.completeChapter();
                 }
-            } else if (!prompt && d < 90 && v < 6 && (this.leftAirport || city.id === 'bucharest')) {
+            } else if (!prompt && !this.freeRoam && d < 90 && v < 6 && (this.leftAirport || city.id === 'bucharest')) {
                 prompt = city.id === 'bucharest' ? (this.nextStop ? `<kbd>E</kbd> Board flight to Seattle <small>(${this.stops.filter(s => !this.visited.has(s.id)).length} stops still unvisited in Bucharest)</small>` : '<kbd>E</kbd> Board flight to Seattle ✈️') : '<kbd>E</kbd> Fly back to Bucharest ✈️';
                 if (input.take('KeyE')) this.fly();
             }
@@ -652,7 +656,7 @@ class Game {
 
     /** real local time of the current city (or the menu override) + day phase + NPC lights */
     updateClock(dt) {
-        const c = this.clock; c.date = new Date();
+        const c = this.clock; c.date = this.nowDate();
         const h = c.override ? OVERRIDE_HOURS[c.override] : localHours(c.date, c.timeZone);
         c.hours = h;
         if (this.r3d && this.scene) {
@@ -722,7 +726,9 @@ class Game {
         if (this.clock.trafficHour == null) { const q = new URLSearchParams(location.search).get('hour'); this.clock.trafficHour = q != null && q !== '' && Number.isFinite(+q) ? +q : false; }
         return this.clock.trafficHour !== false ? this.clock.trafficHour : (this.clock.hours ?? this.cityHours());
     }
-    cityHours() { const c = this.clock; return c.override ? OVERRIDE_HOURS[c.override] : localHours(new Date(), c.timeZone); }
+    cityHours() { const c = this.clock; return c.override ? OVERRIDE_HOURS[c.override] : localHours(this.nowDate(), c.timeZone); }
+    /** the game's "now": real time, shifted by the free-roam time-of-day pick (clock.offsetMs) */
+    nowDate() { return new Date(Date.now() + (this.clock.offsetMs || 0)); }
     onTrafficBand(band, prev) {
         const t = BAND_TEXT[band]; if (!t) return;
         if (prev === null && band === 'normal') return; // nothing to say at load in normal traffic
@@ -1089,6 +1095,7 @@ class Game {
             if (it.group !== g) { g = it.group; html += `<h4>${g}</h4>`; }
             html += `<div class="nav-item"><span>${it.icon} ${it.label} <small>${dist(it.x, it.z)}</small></span><button data-nav="${i}" title="Route there">Go</button><button class="ft" data-ft="${i}" title="Fast travel (skip the drive)">⏩</button></div>`;
         });
+        if (this.freeRoam) html += '<h4>🗺️ Free roam · districts</h4>' + this.roamDistricts().map(d => `<div class="nav-item${d.id === this.district ? ' active' : ''}"><span>${d.name}${d.id === this.district ? ' •' : ''} <small>${d.cityName}</small></span><button data-roam="${d.id}">Go</button></div>`).join('');
         if (spotsHere.length) html += this.spotGroupsHtml(spotsHere, { heading: 'h4', button: 'Visit' });
         $('#navlist').innerHTML = html;
     }
@@ -1249,6 +1256,7 @@ class Game {
         }
     }
     closureText(c) {
+        if (this.freeRoam) { const nm = c.leadsTo ? (this.city.districts?.[c.leadsTo]?.name || c.leadsTo) : null; return ['🚧 Road closed', nm ? `${nm} is another district: switch from the map (M).` : 'Edge of the free-roam district. Turn around (U).']; }
         const name = c.leadsTo ? (this.city.districts?.[c.leadsTo]?.name || c.leadsTo) : null;
         const idx = c.leadsTo && this.chapters ? this.chapters.findIndex(ch => ch.city === this.city.id && ch.district === c.leadsTo) : -1;
         if (idx < 0) return ['🚧 Road closed', 'Outside the story. Turn around (U).'];
@@ -1373,7 +1381,7 @@ class Game {
         const old = this.spot; this.spot = null; try { old?.dispose(); } catch (e) { console.warn('[spots] dispose', e); }
         try {
             this.spot = await mod.startSpot(id, { r3d: this.r3d, camera: this.camera, input: this.input, photo: this.photo, audio: this.audio, hud: this.hud,
-                date: new Date(), override: this.clock.override || null, onProgress: (t) => { if (lp && t) lp.textContent = String(t); } });
+                date: this.nowDate(), override: this.clock.override || null, onProgress: (t) => { if (lp && t) lp.textContent = String(t); } });
         } catch (e) {
             console.error('[spots] start', e);
             this.spot = null; this._spotBusy = false; ld?.classList.remove('show'); if (lp) lp.textContent = this._loadingText;
@@ -1455,6 +1463,93 @@ class Game {
         this.hud.toast('📸 Saved', `${meta.place || 'Photo'} · ${meta.filter}`);
     }
 
+    // ---------------------------------------------------------------------------------- free roam (spec 10, R10.10)
+    /** every district (story order), with its city and the chapter start the car is put at */
+    roamDistricts() {
+        const out = [], seen = new Set();
+        for (const ch of this.chapters || []) {
+            if (seen.has(ch.district)) continue; seen.add(ch.district);
+            const c = CITIES[ch.city], d = c?.districts?.[ch.district]; if (!d) continue;
+            out.push({ id: ch.district, city: ch.city, cityName: ch.city === 'bucharest' ? 'București' : 'Seattle area', name: d.name || ch.district, label: d.label || '', start: ch.start, years: ch.year });
+        }
+        return out;
+    }
+    /** main menu: "Free roam" — district cards + time of day + weather (no story gating) */
+    renderMenuRoam() {
+        if (!this.chapters) return;
+        let box = $('#roam-select');
+        if (!box) { const anchor = $('#start')?.parentElement; if (!anchor) return; box = document.createElement('details'); box.id = 'roam-select'; anchor.insertAdjacentElement('afterend', box); }
+        const esc = (t) => String(t ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+        const ds = this.roamDistricts();
+        box.innerHTML = `<summary>🗺️ Free roam <small>(any district, no story)</small></summary>
+<div class="roam-opts"><label>Time <select id="roam-tod"><option value="now">Now (real time)</option><option value="rush">Morning rush · 08:30</option><option value="noon">Noon</option><option value="golden">Golden hour</option><option value="night">Night</option></select></label>
+<label>Weather <select id="roam-wx"><option value="live">Live</option><option value="clear">Clear</option><option value="rain">Rain</option><option value="fog">Fog</option><option value="snow">Snow</option></select></label></div>
+<div class="roam-grid">${ds.map(d => `<button class="roam-card" data-roam="${esc(d.id)}"><b>${esc(d.name)}</b><span>${esc(d.label)}</span><small>${esc(d.cityName)}</small></button>`).join('')}</div>`;
+        box.onclick = (e) => { const b = e.target.closest('[data-roam]'); if (b) this.startFreeRoam(b.dataset.roam, { tod: $('#roam-tod')?.value || 'now', weather: $('#roam-wx')?.value || 'live' }); };
+    }
+    /** time-of-day pick → clock: rush / noon shift the real clock to that local hour (real sun), golden hour / night use the render looks */
+    applyRoamTime(tod, timeZone) {
+        const c = this.clock; c.offsetMs = 0; c.override = null;
+        const H = tod === 'rush' ? 8.5 : tod === 'noon' ? 12.5 : null;
+        if (H != null) { const h0 = localHours(new Date(), timeZone); c.offsetMs = (((H - h0) % 24 + 24) % 24) * 3600e3; }
+        else if (tod === 'golden') c.override = 'sunset';
+        else if (tod === 'night') c.override = 'night';
+    }
+    /** free roam in a district: the car at the district's chapter start, no objective, no chapter cards / story progress */
+    async startFreeRoam(districtId, { tod = 'now', weather = 'live' } = {}) {
+        const d = this.roamDistricts().find(x => x.id === districtId); if (!d || this._transit) return false;
+        if (this.state === 'menu' && !this.started) {
+            this.started = true; $('#start')?.blur();
+            this.audio.init(); this.audio.resume();
+            $('#menu').classList.remove('show'); $('#hud').classList.add('show');
+            this.startTime = performance.now();
+        }
+        this._transit = true;
+        try {
+            this.freeRoam = { district: d.id, tod, weather };
+            this.applyRoamTime(tod, CITIES[d.city].timeZone || TIME_ZONES[d.city]);
+            this.weatherOverride = weather === 'live' ? null : (WEATHER_OVERRIDES.includes(weather) ? weather : null);
+            this.photo?.close?.(); this.state = 'loading';
+            $('#loading').classList.add('show'); await new Promise(r => setTimeout(r, 30));
+            await this.loadCity(d.city, { district: d.id, start: d.start });
+            $('#loading').classList.remove('show');
+            this.freeRoam = { district: d.id, tod, weather }; // (loadCity resets the chapter state)
+            this.enterRoam(d);
+        } finally { this._transit = false; }
+        return true;
+    }
+    enterRoam(d) {
+        this.endFoot();
+        const P = this.player; P.speed = 0; P.steer = 0; P.contactAge = 9; P.resetLook?.();
+        this.traffic.setPlayer(P); this.traffic.clearAround(P.x, P.z, 14);
+        this.stuckT = 0; this.prevEdgeInfo = null; this.navManual = false;
+        this.fuel = Math.max(this.fuel, TANK_L * 0.6); this.flags.emptyToast = false;
+        P.camHolder.add(this.camera); this.camera.position.set(0, 0, 0); this.camera.rotation.set(0, 0, 0);
+        this.state = 'drive'; this.input.flush(); this.frameClock.getDelta();
+        this.updateObjective();
+        const tl = { now: 'real time', rush: 'morning rush, 08:30', noon: 'noon', golden: 'golden hour', night: 'night' }[this.freeRoam.tod] || '';
+        this.hud.toast(`🗺️ Free roam · ${d.name}`, `${d.label ? d.label + ' · ' : ''}${tl}${this.freeRoam.weather !== 'live' ? ' · ' + this.freeRoam.weather : ''}. M → map: other districts, tourist spots, offices.`, 'intro');
+    }
+    updateRoamObjective() {
+        const d = this.city.districts?.[this.district], hud = this.hud;
+        hud.setChapter(`Free roam · ${d?.name || this.district}`);
+        hud.setProgress(this.chapters.filter(c => this.progress.done.has(c.id)).length, this.chapters.length, 'Chapters');
+        hud.setYear('2026'); this.year = 2026;
+        this.objective = null; this.objectivePlain = ''; this.objectiveLabel = '🗺️ Free roam · M → map: districts, spots, offices';
+        this.autoRoute(true);
+    }
+    /** map → another district: the montage (same city) or the flight (other city), then the district's start */
+    async switchRoamDistrict(id) {
+        const d = this.roamDistricts().find(x => x.id === id), fr = this.freeRoam; if (!d || !fr || this._transit) return false;
+        const fromCity = this.city.id, fromDistrict = this.district;
+        this._transit = true;
+        try {
+            this.photo?.close?.(); this.state = 'montage'; this.input.lookAllowed = false; this.input.releaseLock(); this.hud.prompt(null); this.hud.setNavLine(''); this.audio.stopEngine?.();
+            if (fromCity !== d.city) await this.flightCutscene(fromCity);
+            else await chapterMontage({ cityName: CITIES[d.city]?.name, districts: CITIES[d.city].districts || {}, from: fromDistrict, to: d.id, year0: 2026, year1: 2026, title: `Free roam · ${d.name}`, caption: d.label, kicker: 'Free roam', duration: 2800 });
+        } finally { this._transit = false; }
+        return this.startFreeRoam(d.id, { tod: fr.tod, weather: fr.weather });
+    }
     // ---------------------------------------------------------------------------------- chapters (spec 10)
     renderMenuChapters() {
         if (!this.chapters) return;
@@ -1473,6 +1568,7 @@ class Game {
     /** load (or reuse) the chapter's district, put the car at its start, set the objective */
     async enterChapter(idx, { initial = false } = {}) {
         const ch = this.chapters[idx]; if (!ch) return false;
+        if (this.freeRoam) { this.freeRoam = null; this.clock.offsetMs = 0; this.clock.override = this.menuOverride ?? null; }
         const same = this.world && this.city?.id === ch.city && this.district === ch.district && !initial;
         if (!same) {
             $('#loading').classList.add('show');
@@ -1770,7 +1866,10 @@ class Game {
             this.foot.enter(dx + (ne ? (ne.cx - dx) * 0.15 : 0), dz + (ne ? (ne.cz - dz) * 0.15 : 0), hd);
             this.state = 'foot';
         }
-        if (this.ch) { // chapters: reading a screen of this chapter's office completes it
+        if (this.freeRoam) { // free roam (R10.10): the CV content, no story progress
+            if (o.read.size === 0) this.hud.toast('👀 Nothing read', 'Walk up to a screen and press E to read it.');
+            else this.hud.toast(`${stop.icon} ${stop.short}`, 'Free roam: keep exploring (M → map, districts and tourist spots).');
+        } else if (this.ch) { // chapters: reading a screen of this chapter's office completes it
             if (o.read.size > 0 && !this.visited.has(stop.id)) { this.visited.add(stop.id); stop.poiRef.visited = true; this.audio.chime(); }
             if (o.read.size > 0 && this.ch.stop === stop.id && !this.chapterDone) { const id = this.chapter; queueMicrotask(() => this.completeChapter(id)); }
             else if (o.read.size === 0) this.hud.toast('👀 Nothing read', 'Walk up to a screen and press E to read it.');

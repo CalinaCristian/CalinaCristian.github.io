@@ -1038,8 +1038,9 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (a0) {
                 for (let r = 0; r < 24; r++) { if (!stepSep()) break; capY(); gradeFix(); }
                 const a1 = score5(), c1 = score().cb;
-                if (c1 > c0 || a1 >= a0 || resid() > 0.05) nodeArr.forEach((n, i) => { n.y = keep2[i]; });
-                profileStats0 = { ...(profileStats0 || {}), sepBefore: a0, sepAfter: a1, sepKept: !(c1 > c0 || a1 >= a0 || resid() > 0.05), sepCross: [c0, c1] };
+                const rej = (c1 > c0 + (a1 < a0 * 0.75 ? 1 : 0)) || a1 >= a0 || resid() > 0.05; // (one crossing a little under 4.5 m is worth a large stacked-deck reduction)
+                if (rej) nodeArr.forEach((n, i) => { n.y = keep2[i]; });
+                profileStats0 = { ...(profileStats0 || {}), sepBefore: a0, sepAfter: a1, sepKept: !rej, sepCross: [c0, c1] };
             }
         }
         // (2026-11-07, world-visual) gores: a node of a ramp that still lies on the carriageway of the near-parallel road it
@@ -3056,7 +3057,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // so the season / weather code can tint each tree (world.vegetation)
     const vegetation = { treeCrownMeshes: [], treeTrunkMeshes: [], deciduousMask: null, grassMaterials: [], groundMaterials: [], roofMaterials: [], trees: treeList };
     {
-        const T = buildSpeciesTrees(treeList, { rng, cull: 650, chunk: 500, near: 100, maxNear: 280, farLayer: 1 }); // (layer 1: main camera only — not the rear-view mirror pass) // (far chunks drawn to ≈ 1 km) // (≈ 1.2 km view range for trees)
+        const T = buildSpeciesTrees(treeList, { rng, cull: 650, chunk: 500, near: 100, maxNear: 280, farLayer: 2 }); // (layer 2: main view only — not the rear-view mirror pass) // (far chunks drawn to ≈ 1 km) // (≈ 1.2 km view range for trees)
         vegetation.treeCrownMeshes.push(...T.crownMeshes); vegetation.treeTrunkMeshes.push(...T.trunkMeshes);
         vegetation.update = T.update;
         vegetation.deciduousMask = new Float32Array(treeList.map(t => t.dec));
@@ -3460,7 +3461,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             case 'marks': { const m = addSuper(o, marksMat, false, 'marks'); if (m) m.renderOrder = 4; break; }
             case 'water': { const m = addSuper(o, waterMat, false, 'water'); if (m) m.renderOrder = -18; break; }
             case 'solid': addSuper(o, solidMat, true, 'solid'); break;
-            case 'detail': { const m = addSuper(o, solidMat, true, 'detail'); if (m) m.userData.cull = 110 + CELL * 0.71; break; } // near LOD only
+            case 'detail': { const m = addSuper(o, solidMat, true, 'detail'); if (m) { m.userData.cull = 110 + CELL * 0.71; m.layers.set(2); } break; } // (main view only) // near LOD only
             case 'signs': addSuper(o, signMats[o.page], false, 'signs'); break;
             case 'spill': { const m = addSuper(o, spillMat, false, 'shop-spill'); if (m) { m.renderOrder = 5; m.castShadow = m.receiveShadow = false; } break; }
         }
@@ -3471,7 +3472,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         const pg = makeParkedCars(list, { city: city.id, paintSpace: 'linear', castShadow: false }); // (no shadow pass for lots) pg.name = `parked ${k}`; // (CAR_COLORS are sRGB hex: let three.js linearise them, as the old merged lots did)
         pg.userData.cx = (I + 0.5) * CELL * 2; pg.userData.cz = (J + 0.5) * CELL * 2; pg.userData.cull = 700 + CELL * 0.71;
         tris += pg.userData.triangles || 0; parkedCalls += pg.userData.drawCalls || 0;
-        pg.traverse(o => o.layers.set(1)); // (main camera only: the mirror pass skips parked lots)
+        pg.traverse(o => o.layers.set(2)); // (layer 2, main view only: the mirror pass skips parked lots)
         cellsGroup.add(pg);
     }
     for (const m of vegetation.treeCrownMeshes.concat(vegetation.treeTrunkMeshes)) { cellsGroup.add(m); tris += (m.userData.always ? m.instanceMatrix.count : m.count) * (m.geometry.index.count / 3); }

@@ -191,6 +191,8 @@ body.touch #ticker { bottom: 335px; }
     body.touch .bottom-right .speedo { display: none; }
     body.touch .street-wrap { bottom: auto; top: 178px; left: 16px; transform: none; text-align: left; max-width: calc(100vw - 150px); } /* left of the limit sign, above the rear-view mirror */
     body.touch #ticker { bottom: auto; top: 262px; right: auto; left: 16px; max-width: calc(100vw - 32px); }
+    /* toasts: below the route cards / limit block / ticker, above the 3D cluster + nav screen (y ≈ 60–75 %); 2 at most */
+    #toasts { top: 296px; left: 16px; right: 16px; width: auto; align-items: stretch; max-height: 190px; overflow: hidden; gap: 6px; } .toast { padding: 8px 12px; font-size: 13px; } .toast span { font-size: 12px; }
 }
 
 /* ===== fast-travel montage ===== */

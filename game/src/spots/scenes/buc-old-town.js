@@ -256,7 +256,7 @@ function buildStavropoleos(ctx) {
 }
 
 export default {
-    env: { fogFar: 3000 },
+    env: { fogFar: 3000, ambientCity: 0.65, groundAlbedo: 0.15 },
     async build(ctx) {
         const g = ctx.ground, d = ctx.data, spL = ctx.spot('old-town-lipscani'), spS = ctx.spot('stavropoleos-cec');
         // a flat old town (bare-earth grid) — smooth the DEM noise

@@ -6,7 +6,7 @@
 //  Hero builders exclude/replace anything here by id or polygon.
 // ============================================================================
 import * as THREE from '../../vendor/three.module.min.js';
-import { GeoBatch, mat, rng, hash2, polyArea, inPoly, centroid, polyBox, obb, distPolyline, alongPolyline, polylineLength, offsetPolyline, canvas, canvasTexture, clamp, M } from './kit.js';
+import { GeoBatch, mat, rng, hash2, fbm2, polyArea, inPoly, centroid, polyBox, obb, distPolyline, alongPolyline, polylineLength, offsetPolyline, canvas, canvasTexture, clamp, M } from './kit.js';
 
 // ---------------------------------------------------------------------------- palettes (Seattle defaults; scenes override)
 export const COL = {
@@ -119,6 +119,8 @@ const STYLES = {
     concrete: { bay: 3.0, floor: 3.6, wall: '#ffffff', glass: '#2a333c', win: [0.1, 0.35, 0.9, 0.8] },
     industrial: { bay: 4.0, floor: 4.5, wall: '#ffffff', glass: '#384048', corrugated: true, win: [0.2, 0.55, 0.8, 0.8], sparse: true },
     shop: { bay: 4.2, floor: 4.3, wall: '#ffffff', glass: '#1f2a33', shop: true, win: [0.06, 0.05, 0.94, 0.72] },
+    // Bucharest ground floors: plaster piers, timber / bronze frames, lit displays behind the glass (albedo ≈ 0.05–0.15)
+    bucshop: { bay: 4.0, floor: 4.3, wall: '#ffffff', glass: '#6f5d4a', shop: true, buc: true, win: [0.1, 0.06, 0.9, 0.74] },
     // Bucharest: 19th / early-20th c. eclectic stucco (tall windows in moulded surrounds, pediments, floor cornices)
     eclectic: { bay: 3.3, floor: 4.0, wall: '#ffffff', glass: '#2a2f33', eclectic: true, win: [0.3, 0.18, 0.7, 0.8] },
     // Bucharest: 1970s–80s apartment blocks (panel joints, balcony bands, mixed glazing / enclosed balconies)
@@ -182,6 +184,14 @@ export function facadeMaterial(style, { lambert = false } = {}) {
             g.fillStyle = S.glass; g.fillRect(x0, y0, cell, cell);
             g.fillStyle = 'rgba(255,255,255,0.10)'; g.fillRect(x0 + 2, y0 + 2, cell * 0.45, cell - 4);
             g.fillStyle = '#9aa6b1'; g.fillRect(x0, y0, 2, cell); g.fillRect(x0, y0 + cell - 5, cell, 5);
+        } else if (S.shop && S.buc) {
+            g.fillStyle = '#d9d1c2'; g.fillRect(x0, y0, cell, cell); // plaster piers
+            const sx = wx, sy = wy + wh * 0.22, sw = ww, sh = wh * 0.78;
+            g.fillStyle = ['#4a3424', '#2f3b33', '#3b2a22', '#5a5048'][(fx + fy * 3) % 4]; g.fillRect(sx - 3, sy - 3, sw + 6, sh + 3); // frame
+            const gr = g.createLinearGradient(0, sy, 0, sy + sh); gr.addColorStop(0, '#a89880'); gr.addColorStop(1, '#6e5e4c'); g.fillStyle = gr; g.fillRect(sx, sy, sw, sh); // lit interior
+            for (let q = 0; q < 6; q++) { g.fillStyle = `hsl(${(fx * 70 + q * 50) % 360},35%,${45 + r() * 25}%)`; g.fillRect(sx + 4 + q * (sw - 8) / 6, sy + sh * (0.45 + r() * 0.3), (sw - 8) / 7, sh * 0.25); } // goods / tables
+            g.fillStyle = 'rgba(255,255,255,0.22)'; g.fillRect(sx + 3, sy + 3, sw * 0.3, sh * 0.8); g.fillStyle = 'rgba(40,30,20,0.85)'; g.fillRect(sx + sw / 2 - 1.5, sy, 3, sh); // reflection + mullion
+            g.fillStyle = ['#2f5a3a', '#7a2230', '#e9e1c8', '#3b4a5a'][(fx + fy) % 4]; g.fillRect(x0 + 2, y0 + cell * 0.06, cell - 4, cell * 0.12); // fascia
         } else if (S.shop) {
             g.fillStyle = '#2a2d31'; g.fillRect(x0, y0, cell, cell);
             g.fillStyle = S.glass; g.fillRect(wx, wy + wh * 0.25, ww, wh * 0.75);
@@ -204,8 +214,8 @@ export function facadeMaterial(style, { lambert = false } = {}) {
     }
     const map = canvasTexture(c, { repeat: true }), em = canvasTexture(e, { repeat: true });
     const M2 = lambert ? THREE.MeshLambertMaterial : THREE.MeshStandardMaterial;
-    const m = new M2({ map, emissiveMap: em, emissive: new THREE.Color('#ffffff'), emissiveIntensity: 0, vertexColors: true, ...(lambert ? {} : { roughness: S.curtain ? 0.3 : 0.88, metalness: S.curtain ? 0.35 : 0 }) });
-    m.name = 'facade-' + style; m.userData.shared = true; m.userData.style = S; m.userData.nightWindows = true;
+    const m = new M2({ map, emissiveMap: em, emissive: new THREE.Color('#ffffff'), emissiveIntensity: S.buc ? 0.12 : 0, vertexColors: !S.buc, ...(lambert ? {} : { roughness: S.curtain ? 0.3 : S.buc ? 0.55 : 0.88, metalness: S.curtain ? 0.35 : 0 }) });
+    m.name = 'facade-' + style; m.userData.shared = true; m.userData.style = S; m.userData.nightWindows = true; if (S.buc) m.userData.dayWindows = 0.12;
     FACADES[key] = m;
     return m;
 }
@@ -272,7 +282,7 @@ export function buildBuildings(data, ground, o = {}) {
         // ground floor shop band for urban commercial/mixed buildings
         const shopBand = urban && !b.minH && H > 7 && (b.shop || b.amenity || /commercial|retail|mixed|yes/.test(b.k)) && style !== 'house' && style !== 'industrial';
         const yGF = shopBand ? Math.min(wallTop, gmax + 4.3) : base;
-        if (shopBand) add('shop', wallGeometry(b.poly, base, yGF, facadeStyle('shop'), gmax, hcol));
+        if (shopBand) add(o.shopStyle || 'shop', wallGeometry(b.poly, base, yGF, facadeStyle(o.shopStyle || 'shop'), gmax, hcol));
         add(style, wallGeometry(b.poly, yGF, wallTop, S, shopBand ? yGF : gmax, hcol));
         // roof
         if (pitched) { const g = gableRoof(b.poly, wallTop, top, b.rc ? safeCol(b.rc) : ['#4a4a4f', '#5b4a42', '#3f4a52', '#6b6660'][Math.floor(hash2(cz, cx) * 4)], hcol); if (g) { batch.add(g.roof, 'roofs', null, g.roofCol); batch.add(g.gables, 'f-' + style, null, hcol); mats['f-' + style] = facadeMaterial(style); } }
@@ -351,8 +361,53 @@ function treeGeos() {
     const broadLow = jitter(merge([[ico0, mk(0, 5.2, 0, 3.0, 2.7, 3.0)], [ico0, mk(0.4, 6.8, 0.1, 2.0, 1.7, 2.0)]]), 0.15);
     const conLow = merge([[cone5, mk(0, 5.0, 0, 2.6, 7.5, 2.6)], [cone5, mk(0, 8.6, 0, 1.6, 4.6, 1.6)]]);
     const trunkLow = new THREE.CylinderGeometry(0.13, 0.22, 4.4, 3); trunkLow.translate(0, 2.2, 0);
-    TREE_GEO = { broad, con, shrub, trunk, trunkC, broadLow, conLow, trunkLow };
+    TREE_GEO = { broad, con, shrub, trunk, trunkC, broadLow, conLow, trunkLow, ...speciesGeos() };
     return TREE_GEO;
+}
+// ---------------------------------------------------------------------------- smooth species crowns (Bucharest street / park trees)
+/** a crown of noise-displaced, smooth-shaded lobes; normals bent toward the crown centre (soft foliage light) */
+function lobeCrown(lobes, { seg = [9, 6], amp = 0.22, freq = 1.7, bend = 0.55, seed = 1 } = {}) {
+    const pos = [], nor = [], idx = []; let base = 0;
+    let cx = 0, cy = 0, cz = 0, W = 0; for (const [x, y, z, rx, ry, rz] of lobes) { const w = rx * ry * rz; cx += x * w; cy += y * w; cz += z * w; W += w; } cx /= W; cy /= W; cz /= W;
+    for (const [x, y, z, rx, ry, rz] of lobes) {
+        const g = new THREE.SphereGeometry(1, seg[0], seg[1]), P = g.attributes.position;
+        for (let i = 0; i < P.count; i++) {
+            const ux = P.getX(i), uy = P.getY(i), uz = P.getZ(i), px = x + ux * rx, py = y + uy * ry, pz = z + uz * rz;
+            const n = 1 + amp * (fbm2(px * freq + seed * 7.1, pz * freq + py * 0.7) - 0.5) * 2;
+            P.setXYZ(i, x + ux * rx * n, y + uy * ry * n, z + uz * rz * n);
+        }
+        g.computeVertexNormals();
+        const N = g.attributes.normal;
+        for (let i = 0; i < P.count; i++) {
+            const px = P.getX(i), py = P.getY(i), pz = P.getZ(i); let rx2 = px - cx, ry2 = py - cy, rz2 = pz - cz; const L = Math.hypot(rx2, ry2, rz2) || 1; rx2 /= L; ry2 /= L; rz2 /= L;
+            let nx = N.getX(i) * (1 - bend) + rx2 * bend, ny = N.getY(i) * (1 - bend) + ry2 * bend, nz = N.getZ(i) * (1 - bend) + rz2 * bend; const l2 = Math.hypot(nx, ny, nz) || 1;
+            pos.push(px, py, pz); nor.push(nx / l2, ny / l2, nz / l2);
+        }
+        for (const i of g.index.array) idx.push(base + i); base += P.count; g.dispose();
+    }
+    const o = new THREE.BufferGeometry(); o.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); o.setAttribute('normal', new THREE.Float32BufferAttribute(nor, 3)); o.setIndex(idx); return o;
+}
+/** trunk with a clear stem and a few scaffold branches into the crown */
+function trunkWithLimbs(h, r0, limbs) {
+    const parts = [], t = new THREE.CylinderGeometry(r0 * 0.6, r0, h, 7); t.translate(0, h / 2, 0); parts.push(t);
+    for (const [ax, az, len, tilt] of limbs) { const b = new THREE.CylinderGeometry(r0 * 0.25, r0 * 0.45, len, 5); b.translate(0, len / 2, 0); b.rotateZ(-tilt * Math.cos(Math.atan2(az, ax))); b.rotateX(tilt * Math.sin(Math.atan2(az, ax))); b.translate(0, h * 0.92, 0); parts.push(b); }
+    return mergeGeos(parts);
+}
+function speciesGeos() {
+    return {
+        // London plane: tall clear stem (≈ 6 m), broad irregular crown 7–15 m
+        plane: lobeCrown([[0, 10.5, 0, 3.8, 3.0, 3.8], [2.4, 9.2, 1.0, 2.6, 2.3, 2.6], [-2.2, 9.6, -1.2, 2.7, 2.4, 2.6], [0.6, 12.6, -0.6, 2.4, 2.0, 2.4], [-1.0, 8.4, 2.0, 2.2, 1.8, 2.2]], { seed: 1 }),
+        trunk_plane: trunkWithLimbs(7.2, 0.28, [[1, 0.3, 3.2, 0.5], [-0.8, -0.6, 3.0, 0.45], [0.1, 1, 2.8, 0.4]]),
+        // linden: dense ovoid crown from ≈ 4 m, 4.5–13 m
+        linden: lobeCrown([[0, 8.6, 0, 3.0, 4.2, 3.0], [1.3, 7.2, 0.6, 2.2, 2.6, 2.2], [-1.2, 7.5, -0.7, 2.2, 2.6, 2.2], [0, 11.4, 0.2, 2.0, 2.0, 2.0]], { seed: 2, amp: 0.16 }),
+        trunk_linden: trunkWithLimbs(5.4, 0.24, [[1, 0, 2.4, 0.35], [-1, 0.4, 2.2, 0.35]]),
+        // horse chestnut: rounded broad dome from ≈ 3.5 m, 4–11 m
+        chestnut: lobeCrown([[0, 7.4, 0, 3.6, 3.0, 3.6], [2.0, 6.4, 0.8, 2.4, 2.0, 2.4], [-1.9, 6.6, -0.9, 2.4, 2.0, 2.4], [0.3, 9.4, 0, 2.6, 1.8, 2.6]], { seed: 3, amp: 0.2 }),
+        trunk_chestnut: trunkWithLimbs(4.6, 0.26, [[1, 0.2, 2.4, 0.55], [-0.9, -0.3, 2.3, 0.5], [0, 1, 2.0, 0.45]]),
+        // smooth low crown for distant species trees (one lobe, few triangles)
+        speciesLow: lobeCrown([[0, 8.8, 0, 3.4, 3.4, 3.4]], { seg: [7, 5], seed: 4, amp: 0.15, bend: 0.4 }),
+        trunk_speciesLow: (() => { const t = new THREE.CylinderGeometry(0.16, 0.25, 6.4, 4); t.translate(0, 3.2, 0); return t; })(),
+    };
 }
 const BROAD_C = ['#4f8a3c', '#5d9440', '#679c48', '#4a7f39', '#5a8f3e', '#6f9e4a', '#55893f'];
 const CON_C = ['#2f5d3a', '#356640', '#2b5434', '#3a6a45'];
@@ -368,25 +423,27 @@ export function buildTrees(list, ground, { seed = 5, collide = true, lod = null 
     const crowns = [], colliders = [], dyn = [];
     const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), col = new THREE.Color();
     const mk = (geo, mat, n, name) => { const m = new THREE.InstancedMesh(geo, mat, Math.max(1, n)); m.name = name; return m; };
-    for (const kind of ['broad', 'con', 'shrub']) {
+    const SPECIES = ['plane', 'linden', 'chestnut'];
+    for (const kind of ['broad', 'con', 'shrub', ...SPECIES]) {
         const L = list.filter((t) => (t.kind || 'broad') === kind); if (!L.length) continue;
-        const useLod = !!lod && kind !== 'shrub' && L.length > (lod.max ?? 700) * 0.6;
+        const sp = SPECIES.includes(kind);
+        const useLod = !!lod && kind !== 'shrub' && L.length > (lod.max ?? 700) * (sp ? 0.25 : 0.6);
         const crownMat = new THREE.MeshLambertMaterial({ color: '#ffffff' }); crownMat.name = 'treeCrowns';
         const trunkMat = new THREE.MeshLambertMaterial({ color: '#5f4632' });
-        const hiN = useLod ? Math.min(L.length, lod.max ?? 700) : L.length;
-        const crown = mk(kind === 'broad' ? G.broad : kind === 'con' ? G.con : G.shrub, crownMat, hiN, `treeCrowns ${kind === 'con' ? 'conifer' : kind}`); crown.userData.conifer = kind === 'con' || kind === 'shrub';
-        const trunk = kind === 'shrub' ? null : mk(kind === 'con' ? G.trunkC : G.trunk, trunkMat, hiN, 'treeTrunks');
-        const lowC = useLod ? mk(kind === 'broad' ? G.broadLow : G.conLow, crownMat, L.length, `treeCrowns ${kind === 'con' ? 'conifer' : kind} low`) : null;
+        const hiN = useLod ? Math.min(L.length, Math.round((lod.max ?? 700) * (sp ? 0.3 : 1))) : L.length;
+        const crown = mk(sp ? G[kind] : kind === 'broad' ? G.broad : kind === 'con' ? G.con : G.shrub, crownMat, hiN, `treeCrowns ${kind === 'con' ? 'conifer' : kind}`); crown.userData.conifer = kind === 'con' || kind === 'shrub';
+        const trunk = kind === 'shrub' ? null : mk(sp ? G['trunk_' + kind] : kind === 'con' ? G.trunkC : G.trunk, trunkMat, hiN, 'treeTrunks');
+        const lowC = useLod ? mk(sp ? G.speciesLow : kind === 'broad' ? G.broadLow : G.conLow, crownMat, L.length, `treeCrowns ${kind === 'con' ? 'conifer' : kind} low`) : null;
         if (lowC) lowC.userData.conifer = crown.userData.conifer;
-        const lowT = useLod ? mk(G.trunkLow, trunkMat, L.length, 'treeTrunks low') : null;
+        const lowT = useLod ? mk(sp ? G.trunk_speciesLow : G.trunkLow, trunkMat, L.length, 'treeTrunks low') : null;
         const mats = [], cols = [];
         L.forEach((t, i) => {
-            const s = t.s || (kind === 'shrub' ? 0.7 + r() * 0.8 : 0.75 + r() * 0.5), y = t.y ?? ground.heightAt(t.x, t.z) - 0.05;
+            const s = t.s || (kind === 'shrub' ? 0.7 + r() * 0.8 : sp ? 0.85 + r() * 0.3 : 0.75 + r() * 0.5), y = t.y ?? ground.heightAt(t.x, t.z) - 0.05;
             m4.compose(new THREE.Vector3(t.x, y, t.z), q.setFromAxisAngle(new THREE.Vector3(0, 1, 0), r() * 6.28), new THREE.Vector3(s * (t.sx || 1), s * (t.sy || 1), s * (t.sx || 1)));
-            col.set(t.c || (kind === 'broad' ? r.pick(BROAD_C) : kind === 'con' ? r.pick(CON_C) : r.pick(SHRUB_C)));
+            col.set(t.c || (kind === 'con' ? r.pick(CON_C) : kind === 'shrub' ? r.pick(SHRUB_C) : r.pick(BROAD_C)));
             if (useLod) { mats.push(m4.clone()); cols.push(col.clone()); }
             else { crown.setMatrixAt(i, m4); trunk?.setMatrixAt(i, m4); crown.setColorAt(i, col); }
-            if (collide && kind !== 'shrub') colliders.push({ x: t.x, z: t.z, r: 0.28 * s, hw: 0.28 * s, prop: true, h: 6 });
+            if (collide && kind !== 'shrub') colliders.push({ x: t.x, z: t.z, r: (sp ? 0.32 : 0.28) * s, hw: (sp ? 0.32 : 0.28) * s, prop: true, h: 6 });
         });
         for (const m of [crown, lowC]) if (m) { m.castShadow = true; m.receiveShadow = true; grp.add(m); crowns.push(m); }
         for (const m of [trunk, lowT]) if (m) { m.castShadow = true; grp.add(m); }

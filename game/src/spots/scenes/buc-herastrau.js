@@ -71,7 +71,7 @@ function bust(b, ctx, p, r) {
 }
 
 export default {
-    env: { fogFar: 3400 },
+    env: { fogFar: 3400, ambientCity: 0.15, groundAlbedo: 0.1 },
     async build(ctx) {
         const g = ctx.ground, d = ctx.data, spH = ctx.spot('herastrau-park'), spV = ctx.spot('village-museum');
         // ---- the lake (OSM multipolygon with its islands): water plane, shore carved, not walkable
@@ -95,7 +95,7 @@ export default {
         if (mus) for (const bd of d.buildings) {
             const [cx, cz] = centroid(bd.poly); if (bd.part || !inPoly(cx, cz, mus) || bd.id === 'w44037354' || bd.id === 'w102780052') continue;
             ctx.skipBuildings.add(bd.id);
-            if (bd.id === 'w277782593' || bd.k === 'church') { church = woodenChurch(b, ctx, bd); continue; }
+            if (bd.id === 'w277782593' || bd.k === 'church') { const cb = new GeoBatch(); church = woodenChurch(cb, ctx, bd); ctx.add(cb.build('wooden-church')); continue; }
             const h = peasantHouse(b, ctx, bd, r); if (h) houses.push({ ...h, bd });
         }
         // wattle fences round the households near the church + wells with sweeps + wayside crosses (OSM crosses)
@@ -154,7 +154,8 @@ export default {
         ctx.interactables.push({ x: 30, z: -26, r: 4, label: 'Feed the ducks', use: (s) => { s.ui.toast('🦆 Quack', 'Ducks gather at the south tip of the lake.'); s.sound.play('splat', 0.4); } });
         if (church) ctx.interactables.push({ x: church.x + 6, z: church.z + 6, r: 3, label: 'Strike the toaca (wooden semantron)', use: (s) => { s.sound.play('thump', 0.8); setTimeout(() => s.sound.play('thump', 0.6), 260); setTimeout(() => s.sound.play('thump', 0.9), 520); s.ui.toast('Toaca', 'The wooden board calls to service on feast days.'); } });
         // postcards: the church spire from the lawn (research pose); the nymph with the lake behind
-        ctx.challenge('village-museum', { r: 10, tol: 28 });
+        if (church) { const ic = spV.photo.iconic, dx = ic.x - church.x, dz = ic.z - church.z, L = Math.hypot(dx, dz) || 1, px = church.x + dx / L * 30, pz = church.z + dz / L * 30; ctx.challenge('village-museum', { x: px, z: pz, heading: (Math.atan2(church.x - px, -(church.z - pz)) * 180 / Math.PI + 360) % 360, pitch: 22, r: 10, tol: 28 }); }
+        else ctx.challenge('village-museum', { r: 10, tol: 28 });
         ctx.challenge('herastrau-park', { x: nymph.x - 2, z: nymph.z + 24, heading: 355, r: 10, tol: 28, text: 'The Sleeping Nymph with Lake Herăstrău behind' });
         // crowd
         ctx.crowdCfg = {

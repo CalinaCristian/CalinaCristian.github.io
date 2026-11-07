@@ -15,7 +15,7 @@ import { clockFace, railing } from '../props.js';
 const WRITERS = ['Mihai Eminescu', 'Ion Creangă', 'Ion Luca Caragiale', 'Vasile Alecsandri', 'George Coșbuc', 'Alexandru Vlahuță', 'Barbu Ștefănescu Delavrancea', 'Duiliu Zamfirescu', 'Titu Maiorescu', 'Nicolae Bălcescu', 'Alexandru Odobescu', 'Ștefan Octavian Iosif'];
 
 export default {
-    env: { fogFar: 2600 },
+    env: { fogFar: 2600, ambientCity: 0.2, groundAlbedo: 0.1 },
     async build(ctx) {
         const g = ctx.ground, d = ctx.data, sp = ctx.spot('cismigiu'), r = rng(41);
         const T0 = g.heightAt(0, 0); g.mod((x, z, h) => T0 + (h - T0) * 0.5);

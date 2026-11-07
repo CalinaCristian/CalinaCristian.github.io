@@ -30,6 +30,7 @@ const qs = new URLSearchParams(location.search);
 if (qs.get('clean') === '1') document.head.insertAdjacentHTML('beforeend', '<style>#ui,#info{display:none}</style>');
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(1);
+if (new URLSearchParams(location.search).get('night') === '1') renderer.toneMapping = THREE.AgXToneMapping;   // like render.js
 renderer.setSize(innerWidth, innerHeight);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;

@@ -34,15 +34,29 @@ export function bucBackdrop(ctx, o = {}) {
     const pad = o.lampPad ?? 60, ex = ctx.exclude;
     const near = (x, z) => boxes.some((b) => x > b.x0 - pad && x < b.x1 + pad && z > b.z0 - pad && z < b.z1 + pad) && !ex.some((p) => inPoly(x, z, p));
     ctx.osmBackdrop({
-        urban: true, style: o.style || bucStyle,
+        urban: true, style: o.style || bucStyle, shopStyle: 'bucshop',
         streetTreeOpts: { spacing: 12, prob: 0.7, ...(o.streetTreeOpts || {}) },
         lampOpts: { spacing: 32, inside: near, ...(o.lampOpts || {}) },
         ...o,
         paint: { centre: '#e8e6df', centreSingle: !o.doubleCentre, ...(o.paint || {}) },
     });
     ctx.treeLod = { dist: 45, cap: 3200, ...(o.treeLod || {}) };
+    ctx.finishTrees = () => assignSpecies(ctx, o.species); // run by loadSpot after the scene added all its trees
     if (o.treeScale) for (const t of ctx.trees) t.s = (t.s || 0.9) * o.treeScale; // mature boulevard trees (Kiseleff: 15–20 m)
     ctx.lampOpts = { style: o.lampStyle || 'lantern', color: o.lampColor || '#1b1d1e', h: o.lampH || (o.lampStyle === 'candelabra' ? 9 : 4.4) };
+}
+
+/** broadleaf trees → species crowns (OSM species where mapped; else plane / linden / chestnut by weights) */
+export function assignSpecies(ctx, weights = { plane: 0.4, linden: 0.35, chestnut: 0.25 }) {
+    const bySpot = new Map(); for (const [x, z, , sp] of ctx.data.trees) bySpot.set(Math.round(x * 10) + ',' + Math.round(z * 10), sp || '');
+    const r = rng(91), W = Object.entries(weights), tot = W.reduce((a, [, w]) => a + w, 0);
+    for (const t of ctx.trees) {
+        if ((t.kind || 'broad') !== 'broad' || t.c) continue;
+        const sp = bySpot.get(Math.round(t.x * 10) + ',' + Math.round(t.z * 10)) || '';
+        if (/Platanus/.test(sp)) t.kind = 'plane'; else if (/Tilia/.test(sp)) t.kind = 'linden'; else if (/Aesculus|Quercus|Juglans|Acer/.test(sp)) t.kind = 'chestnut';
+        else { let q = r() * tot; for (const [k, w] of W) { q -= w; if (q <= 0) { t.kind = k; break; } } }
+        t.s = (t.s || 1) * (0.85 + r() * 0.25) / Math.max(0.8, t.s || 1); // species crowns carry their real size
+    }
 }
 
 // ---------------------------------------------------------------------------- classical façade tiles

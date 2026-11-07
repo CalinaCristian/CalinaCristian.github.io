@@ -26,6 +26,7 @@ R10.9 **Free drive inside every district** (all streets around the work location
 - **It still looks like a city past the edge**: real buildings continue as low-detail backdrop for ≥ 1 km, with distance haze, so the world never ends in a void; the minimap/big map shows the outside area hatched.
 - **Smooth turnaround**: pushing into a closure gently stops the car (soft collision, no damage); after 2 s a prompt offers "Turn around" (auto U-turn into the right lane). On foot, the closure is a fence or tape line.
 - **Traffic**: NPCs never drive into a closure; they U-turn or turn off before it, honk at it occasionally (Bucharest), and despawn out of view behind it.
+R10.10 **Free-roam menu**: the main menu offers "Free roam" from the start (no story progress needed): pick any of the 8 districts, a time of day (now / morning rush / noon / golden hour / night) and weather (live / clear / rain / fog / snow); the car starts on a main road (the district's chapter start). No objective or chapter cards; offices in the district can be entered and their CV content read; story progress is unaffected. Districts stay separate (closures at the edges); M → map offers switching district (montage) and the tourist spots.
 R10.4 `CHAPTERS` exported from cities.js in story order with `start` chosen so the route to the stop is 1.5–2.5 km through the district's most characteristic streets/landmarks, on a legal lane.
 R10.5 Chapter flow: start at chapter 1; on leaving the office (or reaching a waypoint) → "Chapter complete" card → "Next: <year> · <title>" with Continue / Free drive here; transition = 4–6 s montage on the city map (district jump, year ticking, `intro` caption); load the next district (reuse if same); otopeni → flight cutscene → seatac.
 R10.6 Chapter select (menu + map panel) for chapters reached; free drive in any unlocked district; fast travel limited to the current district.
@@ -40,6 +41,8 @@ R10.8 Congestion hotspots per district in `CITIES[city].districts[id].congestion
 
 ## Owner decisions
 - 2026-11-07: Deutsche Bank (2017–2018) was at BOB Tower, Bd. Dimitrie Pompeiu 6A, Pipera (44.4797, 26.1146) → chapter `db` moves to `pipera`. Luxoft confirmed at Hermes Business Campus, Bd. Dimitrie Pompeiu 5-7 (44.4805, 26.1139). Bellevue finale shortened to ≤ 3 min of driving (start near downtown Bellevue; the floating bridge moves into the montage).
+
+- 2026-11-07: free roam = a menu entry opening any district directly (time/weather picker); districts stay separate maps (no merging/streaming).
 
 ## Requests
 _(other roles write needed changes here)_

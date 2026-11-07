@@ -95,13 +95,14 @@ function materials() {
     MATS.w.name = 'landmark-water'; MATS.f.name = 'landmark-backdrop'; MATS.e.name = 'landmark-glow';
     // floodlit masonry (LANDMARKS[].floodlit): the 'm' geometry of floodlit monuments uses this material instead. Warm
     // emissive scaled per vertex by the vertex colour (stone glows, dark windows stay dark) and dimmed on up-facing
-    // surfaces (floodlights hit the walls, not the roofs). emissiveIntensity is 0 by day; render.js eases it to
+    // surfaces (floodlights hit the walls, not the roofs), fading with height and varying by facade direction. emissiveIntensity is 0 by day; render.js eases it to
     // userData.nightEmissive at night (contract 01-architecture "Night-lit materials").
-    const fl = new THREE.MeshLambertMaterial({ vertexColors: true, emissive: new THREE.Color('#ffdcae'), emissiveIntensity: 0 });
-    fl.name = 'landmark-floodlit'; fl.userData.nightEmissive = 0.5; fl.userData.floodlit = true;
+    const fl = new THREE.MeshLambertMaterial({ vertexColors: true, emissive: new THREE.Color('#ffd7a3'), emissiveIntensity: 0 });
+    // nightGlow/dayGlow mirror nightEmissive for the spots' setNightWindows() (spots/index.js), so both drivers agree
+    fl.name = 'landmark-floodlit'; fl.userData.nightEmissive = 1.1; fl.userData.nightGlow = 1.1; fl.userData.dayGlow = 0; fl.userData.floodlit = true;
     fl.onBeforeCompile = (sh) => {
         sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nvarying float vFlood;')
-            .replace('#include <beginnormal_vertex>', '#include <beginnormal_vertex>\nvFlood = 1.0 - 0.75 * max(normalize(mat3(modelMatrix) * objectNormal).y, 0.0);');
+            .replace('#include <beginnormal_vertex>', '#include <beginnormal_vertex>\nvec3 fN = normalize(mat3(modelMatrix) * objectNormal); vFlood = (1.0 - 0.8 * max(fN.y, 0.0)) * (0.72 + 0.28 * abs(fN.x)) * mix(1.0, 0.55, clamp(position.y / 70.0, 0.0, 1.0));');
         sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying float vFlood;')
             .replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\n#ifdef USE_COLOR\ntotalEmissiveRadiance *= vColor.rgb * vColor.rgb * 1.25;\n#endif\ntotalEmissiveRadiance *= vFlood;');
     };

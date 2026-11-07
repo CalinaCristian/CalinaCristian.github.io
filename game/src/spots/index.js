@@ -102,7 +102,7 @@ class SceneContext {
     osmBackdrop(o = {}) {
         const d = this.data, ex = [...this.exclude, ...(o.exclude || [])];
         paintOSM(this.painter, d, { skipWays: this.skipWays, skipAreas: this.skipAreas, skipBuildings: this.skipBuildings, ...o.paint });
-        const B = buildBuildings(d, this.ground, { skip: this.skipBuildings, exclude: ex, urban: o.urban ?? true, style: o.style, filter: o.filter });
+        const B = buildBuildings(d, this.ground, { skip: this.skipBuildings, exclude: ex, urban: o.urban ?? true, style: o.style, filter: o.filter, shopStyle: o.shopStyle });
         this.add(B.group); this.colliders.push(...B.colliders); this.extras.buildings = B;
         if (o.trees !== false) {
             this.trees.push(...d.trees.filter(([x, z]) => !ex.some((p) => inPoly(x, z, p))).map(([x, z, lt]) => ({ x, z, kind: lt === 'needleleaved' ? 'con' : 'broad' })));
@@ -177,6 +177,7 @@ export async function loadSpot(id, renderer = null, opts = {}) {
     ctx.add(terr.group); ctx.extras.terrain = terr;
     // optional tree budget + dynamic LOD (ctx.treeLod = { cap, near, max }): beyond `cap` the trees farthest from every
     // member extent are dropped; the `max` trees within `near` m of the viewer get the full crown, the rest a low one
+    ctx.finishTrees?.();
     if (ctx.treeLod) {
         const boxes = Object.values(data.spots).map((s) => polyBox(s.extent?.polygon?.length ? s.extent.polygon : [[-150, -150], [150, 150]]));
         const dist = (t) => Math.min(...boxes.map((b) => Math.hypot(Math.max(0, b.x0 - t.x, t.x - b.x1), Math.max(0, b.z0 - t.z, t.z - b.z1))));
@@ -408,7 +409,7 @@ export function setNightWindows(root, k) {
     const seen = new Set();
     root.traverse((o) => {
         const m = o.material; if (!m || Array.isArray(m) || seen.has(m)) return; seen.add(m);
-        if (m.userData?.nightWindows) m.emissiveIntensity = 0.9 * k;
+        if (m.userData?.nightWindows) m.emissiveIntensity = (m.userData.dayWindows || 0) + (0.9 - (m.userData.dayWindows || 0)) * k;
         else if (m.userData?.nightGlow !== undefined) m.emissiveIntensity = m.userData.dayGlow + (m.userData.nightGlow - m.userData.dayGlow) * k;
     });
 }

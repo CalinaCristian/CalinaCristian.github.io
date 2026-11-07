@@ -327,7 +327,7 @@ function buildCathedral(ctx) {
 }
 
 export default {
-    env: { fogFar: 5200 },
+    env: { fogFar: 5200, ambientCity: 0.3, groundAlbedo: 0.15 },
     async build(ctx) {
         const g = ctx.ground, d = ctx.data, spP = ctx.spot('palace-parliament'), spC = ctx.spot('peoples-salvation-cathedral');
         const G = palaceGround(ctx);
@@ -378,7 +378,8 @@ export default {
         // cathedral: light a candle
         if (C) ctx.interactables.push({ x: C.candle.x, z: C.candle.z + 2.6, r: 2.4, label: 'Light a candle (for the living / the departed)', use: (s) => { s.ui.toast('🕯 Candle lit', 'Living on one side, the departed on the other — an Orthodox custom.'); s.sound.play('chime', 0.4); } });
         // postcards
-        ctx.challenge('palace-parliament', { r: 14, tol: 26 });
+        // postcard: the frontal view across Piața Constituției on the Bd. Unirii axis (≈ 220 m from the east front)
+        ctx.challenge('palace-parliament', { x: 62, z: -10.5, heading: 270, pitch: 8, r: 18, tol: 26 });
         ctx.challenge('peoples-salvation-cathedral', { r: 14, tol: 28 });
         // crowd
         const cl = SQ.clock, cat = C || { x: -654, z: 158, PY: 14 };

@@ -49,7 +49,7 @@ function peacocks(ctx, area, n = 4) {
 }
 
 export default {
-    env: { fogFar: 2600 },
+    env: { fogFar: 2600, ambientCity: 0.25, groundAlbedo: 0.12 },
     async build(ctx) {
         const g = ctx.ground, d = ctx.data, sp = ctx.spot('spring-palace');
         const T0 = g.heightAt(0, 0); g.mod((x, z, h) => T0 + (h - T0) * 0.4);

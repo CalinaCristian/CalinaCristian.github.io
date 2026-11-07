@@ -47,7 +47,7 @@ function memorial(b, ctx, x, z) {
 }
 
 export default {
-    env: { fogFar: 3200 },
+    env: { fogFar: 3200, ambientCity: 0.45, groundAlbedo: 0.15 },
     async build(ctx) {
         const g = ctx.ground, d = ctx.data, sp = ctx.spot('athenaeum-revolution');
         const T0 = g.heightAt(0, 0); g.mod((x, z, h) => T0 + (h - T0) * 0.4);

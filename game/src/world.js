@@ -214,11 +214,50 @@ function makeAtlas() {
     return tex;
 }
 
+/** night-window data atlas, same layout as the facade atlas: R = window glass mask, G = per-window random, B = shopfront
+ *  (always lit). Built from the facade atlas pixels (dark bluish glass), windows = 4-connected components. */
+function nightAtlas(atlas) {
+    const src = atlas.image, W = src.width, H = src.height;
+    const sctx = src.getContext('2d', { willReadFrequently: true }), d = sctx.getImageData(0, 0, W, H).data;
+    const out = document.createElement('canvas'); out.width = W; out.height = H;
+    const octx = out.getContext('2d'), od = octx.createImageData(W, H), o = od.data;
+    const glass = new Uint8Array(W * H), comp = new Int32Array(W * H).fill(-1), S = W / 4;
+    const tileAt = (x, y) => (x / S | 0) + (3 - (y / S | 0)) * 4; // canvas row 0 = uv row 3 (flipY)
+    for (let k = 0, p = 0; k < W * H; k++, p += 4) {
+        const r = d[p], g = d[p + 1], b = d[p + 2], t = tileAt(k % W, k / W | 0), shop = t === 6 || t === 14;
+        const lum = 0.3 * r + 0.59 * g + 0.11 * b;
+        glass[k] = shop ? (b > r + 25 && lum > 60 ? 2 : 0) : (lum < 120 && b >= r + 6 ? 1 : 0);
+    }
+    let nc = 0; const stack = [];
+    for (let k = 0; k < W * H; k++) {
+        if (!glass[k] || comp[k] >= 0) continue;
+        const rv = Math.floor(Math.random() * 255); comp[k] = nc; stack.push(k);
+        while (stack.length) {
+            const q = stack.pop(), x = q % W, y = q / W | 0, p = q * 4;
+            o[p] = 255; o[p + 1] = rv; o[p + 2] = glass[q] === 2 ? 255 : 0; o[p + 3] = 255;
+            for (const n of [x > 0 ? q - 1 : -1, x < W - 1 ? q + 1 : -1, y > 0 ? q - W : -1, y < H - 1 ? q + W : -1]) if (n >= 0 && glass[n] && comp[n] < 0) { comp[n] = nc; stack.push(n); }
+        }
+        nc++;
+    }
+    for (let k = 0; k < W * H; k++) if (!glass[k]) o[k * 4 + 3] = 255;
+    octx.putImageData(od, 0, 0);
+    const t = new THREE.CanvasTexture(out); t.colorSpace = THREE.NoColorSpace; t.wrapS = t.wrapT = THREE.ClampToEdgeWrapping;
+    t.minFilter = THREE.LinearMipmapLinearFilter; t.anisotropy = 4;
+    return t;
+}
+
 function solidMaterial(atlas) {
-    const m = new THREE.MeshLambertMaterial({ vertexColors: true, map: atlas });
+    // (2026-11-07, world-visual) PBR so glass curtain walls pick up the sky probe / environment (tiles 4 / 12: metalness
+    // 0.55, roughness 0.16; everything else matte), and lit windows at night: render.js eases emissiveIntensity from 0
+    // by day to userData.nightEmissive at night (contract 01 → Render); ~42 % of windows lit, warm 2700–4000 K, a few
+    // TV-blue, shopfronts always lit and brighter. One material, no extra draw calls.
+    const m = new THREE.MeshStandardMaterial({ vertexColors: true, map: atlas, roughness: 0.92, metalness: 0, emissive: new THREE.Color(1, 1, 1), emissiveIntensity: 0 });
+    m.userData.nightEmissive = 1.6;
+    let night = null; try { night = nightAtlas(atlas); } catch (e) { console.warn('[world] night atlas', e); }
     m.onBeforeCompile = (sh) => {
+        sh.uniforms.nightMap = { value: night };
         sh.vertexShader = 'attribute float tile;\nvarying float vTile;\n' + sh.vertexShader.replace('#include <uv_vertex>', '#include <uv_vertex>\n\tvTile = tile;');
-        sh.fragmentShader = 'varying float vTile;\n' + sh.fragmentShader.replace('#include <map_fragment>', `
+        sh.fragmentShader = 'varying float vTile;\nuniform sampler2D nightMap;\n' + sh.fragmentShader.replace('#include <map_fragment>', `
 #ifdef USE_MAP
     if (vTile > -0.5) {
         vec2 cellSz = vec2(0.25, 0.25);
@@ -228,9 +267,25 @@ function solidMaterial(atlas) {
         vec4 sampledDiffuseColor = textureGrad(map, auv, dFdx(vMapUv) * cellSz, dFdy(vMapUv) * cellSz);
         diffuseColor *= sampledDiffuseColor;
     }
+#endif`).replace('#include <metalnessmap_fragment>', `#include <metalnessmap_fragment>
+    if (vTile > -0.5 && (abs(vTile - 4.0) < 0.1 || abs(vTile - 12.0) < 0.1)) { metalnessFactor = 0.55; roughnessFactor = 0.16; }`).replace('#include <emissivemap_fragment>', `
+#ifdef USE_MAP
+    if (vTile > -0.5 && totalEmissiveRadiance.r > 0.001) {
+        vec2 cellSz2 = vec2(0.25, 0.25);
+        vec2 cellId2 = vec2(mod(vTile, 4.0), floor(vTile / 4.0 + 0.01));
+        vec2 auv2 = (cellId2 + 0.006 + fract(vMapUv) * 0.988) * cellSz2;
+        vec3 nm = textureGrad(nightMap, auv2, dFdx(vMapUv) * cellSz2, dFdy(vMapUv) * cellSz2).rgb;
+        float h = fract(sin(dot(floor(vMapUv) + vec2(nm.g * 17.0, vTile), vec2(12.9898, 78.233))) * 43758.5453);
+        float shop = step(0.5, nm.b), lit = max(shop, step(h, 0.42));
+        float h2 = fract(h * 13.7);
+        vec3 col = h2 > 0.93 ? vec3(0.55, 0.68, 1.0) : mix(vec3(1.0, 0.6, 0.3), vec3(1.0, 0.82, 0.58), h2);
+        totalEmissiveRadiance *= step(0.5, nm.r) * lit * col * mix(1.0, 1.6, shop);
+    } else totalEmissiveRadiance *= 0.0;
+#else
+    totalEmissiveRadiance *= 0.0;
 #endif`);
     };
-    m.customProgramCacheKey = () => 'osm-solid-atlas';
+    m.customProgramCacheKey = () => 'osm-solid-atlas-pbr';
     return m;
 }
 
@@ -1009,7 +1064,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // and does not wash out in sun under ACES. Bucharest: lighter, sun-bleached, patched; Seattle: darker, wetter
     // asphalt, and Portland-cement concrete panels on the motorway main lines (I-5 / I-405 / SR-518).
     // (env.asphalt, the old near-black [7, 8, 9] in Seattle, is no longer used for carriageways)
-    const ASPHALT = US ? '#5d5c5a' : '#6c6b69', CONCRETE = '#878581'; // (slightly warm: the sky-lit shade is blue)
+    const ASPHALT = US ? '#535250' : '#5d5c5a', CONCRETE = '#7c7a76'; // (render's AgX + SH ambient target: albedo ≈ 0.08–0.12) // (slightly warm: the sky-lit shade is blue)
     const asphaltBase = rgb(ASPHALT), concreteCol = rgb(CONCRETE);
     const sideCol = rgb(env.sidewalk);
     const kerbCol = shadeRgb(rgb(env.sidewalk), 1.18);

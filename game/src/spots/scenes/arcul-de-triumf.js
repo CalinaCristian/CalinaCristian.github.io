@@ -20,7 +20,7 @@ const INSCRIPTIONS = [
 ];
 
 export default {
-    env: { fogFar: 3000 },
+    env: { fogFar: 3000, ambientCity: 0.25, groundAlbedo: 0.12 },
     async build(ctx) {
         const g = ctx.ground, d = ctx.data, sp = ctx.spot('arcul-de-triumf');
         const T0 = g.heightAt(0, 0); g.mod((x, z, h) => T0 + (h - T0) * 0.4);
@@ -45,11 +45,16 @@ export default {
         ctx.add(b.build('arch-island'));
         // ground: granite slabs round the arch, lawn beds, the roundabout + Kiseleff
         ctx.terrainOpts = { bg: '#6f8545', bgMask: 'grass', innerPx: 2048, innerStep: 3, outerStep: 16, outerPad: 700 };
-        bucBackdrop(ctx, { treeScale: 1.85, doubleCentre: true, lampStyle: 'cobra', lampColor: '#5c6066', lampH: 10, lampPad: 30, treeLod: { cap: 1500, max: 420 }, lampOpts: { spacing: 34, kinds: ['primary', 'secondary'] }, streetTreeOpts: { spacing: 8.5, prob: 0.92, kinds: ['primary', 'secondary', 'tertiary'] } });
+        bucBackdrop(ctx, { species: { plane: 0.55, linden: 0.3, chestnut: 0.15 }, doubleCentre: true, lampStyle: 'cobra', lampColor: '#5c6066', lampH: 10, lampPad: 30, treeLod: { cap: 1500, max: 420 }, lampOpts: { spacing: 34, kinds: ['primary', 'secondary'] }, streetTreeOpts: { spacing: 8.5, prob: 0.92, kinds: ['primary', 'secondary', 'tertiary'] } });
         ctx.painter.poly(island, '#6c8a44', 'grass');
         ctx.painter.custom((x, T, k) => { const [px, py] = T(cx, cz); x.fillStyle = '#b5b0a6'; x.beginPath(); x.ellipse(px, py, 19 * k, 19 * k, 0, 0, 7); x.fill(); x.strokeStyle = 'rgba(90,85,78,0.35)'; x.lineWidth = Math.max(1, 0.1 * k); for (let r2 = 3; r2 < 19; r2 += 2.4) { x.beginPath(); x.arc(px, py, r2 * k, 0, 7); x.stroke(); } });
         // no trees on the island apart from a few by the lawn edge
         ctx.trees = ctx.trees.filter((t) => Math.hypot(t.x - cx, t.z - cz) > R + 4);
+        // rows along the outer kerbs only: nothing on the carriageways or in the Kiseleff median (the view to the arch stays open)
+        const roads = d.ways.filter((w) => ['primary', 'secondary', 'tertiary'].includes(w.k)).map((w) => ({ pts: w.pts, hw: (parseInt(w.lanes, 10) || 2) * 3.3 / 2 + 1.6 }));
+        const onRoad = (x, z) => roads.some((w) => { for (let i = 1; i < w.pts.length; i++) { const [ax, az] = w.pts[i - 1], [bx, bz] = w.pts[i], dx = bx - ax, dz = bz - az, L2 = dx * dx + dz * dz || 1, u = Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / L2)); if (Math.hypot(x - ax - dx * u, z - az - dz * u) < w.hw) return true; } return false; });
+        const kis = d.ways.find((w) => w.id === 'w281701377')?.pts || [];
+        ctx.trees = ctx.trees.filter((t) => !onRoad(t.x, t.z) && !(kis.length && (() => { for (let i = 1; i < kis.length; i++) { const [ax, az] = kis[i - 1], [bx, bz] = kis[i], dx = bx - ax, dz = bz - az, L2 = dx * dx + dz * dz || 1, u = Math.max(0, Math.min(1, ((t.x - ax) * dx + (t.z - az) * dz) / L2)); if (Math.hypot(t.x - ax - dx * u, t.z - az - dz * u) < 13) return true; } return false; })()));
         cityFiller(ctx, { ring: 650 });
         // traffic: the roundabout loop (counter-clockwise seen from above) + Kiseleff both ways + Prezan
         const loop = []; for (let i = 0; i <= 48; i++) { const a = -i / 48 * Math.PI * 2; loop.push([cx + Math.cos(a) * (R - 2.5), cz + Math.sin(a) * (R - 2.5)]); }
@@ -65,7 +70,10 @@ export default {
             let read = new Set();
             for (const ins of INSCRIPTIONS) { const p = faces[ins.face]; ctx.interactables.push({ x: p.x, z: p.z, r: 3.2, label: `Read the inscription (${ins.face} face)`, use: (sess) => { read.add(ins.face); sess.ui.toast(ins.ro, `${ins.en} (${read.size}/4 faces read)`); if (read.size === 4) sess.ui.toast('🏛 All four faces read', 'The roof terrace opens to visitors in the warm season: a view down Kiseleff.'); } }); }
         }
-        ctx.challenge('arcul-de-triumf', { r: 12, tol: 24 });
+        // postcard: on the Kiseleff axis south of the roundabout, looking NNW through the opening (≈ 52 m from the arch)
+        const pa = 160 * Math.PI / 180, px = cx + Math.sin(pa) * 52, pz = cz - Math.cos(pa) * 52;
+        ctx.challenge('arcul-de-triumf', { x: px, z: pz, heading: 340, pitch: 12, r: 12, tol: 24 });
+        ctx.spawns['arcul-de-triumf'] = { x: cx + Math.sin(pa) * 70, z: cz - Math.cos(pa) * 70, heading: headingFromBearing(340) };
         ctx.crowdCfg = {
             personas: { local_young: 3, local_elder: 1.5, tourist_de: 1.5, tourist_it: 1.5, kid: 0.6, local_parent: 1 },
             walkers: 26, paths: ctx.footLines(),
@@ -77,7 +85,7 @@ export default {
         };
         ctx.sound('traffic', cx, cz, 120, 1.2); ctx.sound('traffic', 30, 120, 160, 0.8); ctx.sound('wind', cx, cz, 60, 0.4); ctx.sound('birds', 60, -160, 90, 0.5);
         if (flag) ctx.onUpdate((dt, s) => flag.update(s.t, s.r3d.weather?.windKmh ?? 12));
-        ctx.spawns['arcul-de-triumf'] = { x: sp.spawn.x, z: sp.spawn.z, heading: headingFromBearing(340) };
+
         void rng; void polyBox;
     },
 };

@@ -29,6 +29,9 @@ Source: `game/FEEDBACK.md` "Round 4 play-test" notes 1–27 (+ any that follow),
 | 23, 26 | spots (+ qa) | Z-fighting and invisible walls in all spots: de-duplicate overlapping footprints/coplanar facades, colliders only from visible geometry; z-fight + phantom-collider detectors in `harness:spots`. |
 | 29 | spots | Lamps in the middle of carriageways in spots (Arc), overlapping spot traffic cars. |
 | 28 | render (+ spots) | Screen-aligned black rectangle flashing while walking at Arcul de Triumf — likely NaN pixels spreading through bloom; find the NaN source shader, guard bloom input. |
+| 30, 34 | spots | Village Museum houses (roofs floating over boxes) and Spring Palace (oversized roof, doubled fences, flat peacock) rebuilt from real references. |
+| 31 | spots + gameplay | Rentable bike at Herăstrău next to the spawn; ride park paths. |
+| 32, 33 | spots + gameplay (minimap/map) | Map in spots; every landmark/spot has its own map with everything relevant (entrances, hero, plaques, postcard, cafés, toilets, bikes, transit), waypoints. |
 | 20, 27 | spots | Terrain flattened under paved esplanades/plinths (Parliament), no camera roll on slopes; crowds on the walkable surface (steps), never inside colliders. |
 
 ## P2 — gameplay features

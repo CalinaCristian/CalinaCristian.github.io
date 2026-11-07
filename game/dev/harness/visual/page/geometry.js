@@ -390,6 +390,15 @@ export function geometryDetectors(G, opts) {
     //   deck-dangling     a raised (> 0.5 m) road end with no other road there (deck ending in mid-air)
     //   lifted-nonbridge  a road that is neither a bridge nor a ramp (*_link / same-name continuation) more than 0.5 m up
     //   phantom-wall      a collision wall crossing the surveyed path inside its height band (car blocked by something unseen)
+    //   in-water          a street lamp or tree standing in a water / fountain basin (or on its rim, < 1 m)
+    try {
+        const wet = (x, z, m) => W.isWater(x, z) || W.isWater(x + m, z) || W.isWater(x - m, z) || W.isWater(x, z + m) || W.isWater(x, z - m);
+        const inC = (x, z) => corridor.all || corridor.near(x, z, corridor.r);
+        if (W.isWater) {
+            for (const l of W.lamps || []) if (inC(l.x, l.z) && wet(l.x, l.z, 1)) add('in-water', 'high', `a street lamp stands in water / a fountain basin`, { x: l.x, z: l.z });
+            for (const t of W.treeSpots || []) if (inC(t.x, t.z) && wet(t.x, t.z, 1)) add('in-water', 'medium', `a ${t.species || 'tree'} stands in water / a fountain basin`, { x: t.x, z: t.z });
+        }
+    } catch (err) { add('harness-error', 'low', 'in-water detector failed: ' + err.message, {}); }
     //   tunnel-visible    a tunnel carriageway ≥ 3 m deep with no lid over it (the sunken road shows through the ground)
     try {
         const EE = (W.allEdges || W.graph?.edges || []).filter(e => !e.virtual && e.a && e.b);

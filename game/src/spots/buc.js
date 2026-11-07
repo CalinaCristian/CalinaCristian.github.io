@@ -70,8 +70,10 @@ const FAC = new Map();
  */
 export function classicFacade(key, rows, o = {}) {
     if (FAC.has(key)) return FAC.get(key);
-    const T = 512, C = T / 4, c = canvas(T, T), g = c.getContext('2d'), e = canvas(T, T), ge = e.getContext('2d');
-    const glass = o.glass || '#2b3036', r = rng(key.length * 31 + 5);
+    // drawn in a 512 px design space; o.res (1 | 2) renders it at 512·res px (sharper close-up, e.g. old-town fronts)
+    const T = 512, C = T / 4, RES = o.res || 1, c = canvas(T * RES, T * RES), g = c.getContext('2d'), e = canvas(T * RES, T * RES), ge = e.getContext('2d');
+    g.scale(RES, RES); ge.scale(RES, RES);
+    const glass = o.glass || '#2b3036', r = rng(key.length * 31 + 5 + (o.seed || 0));
     g.fillStyle = '#ffffff'; g.fillRect(0, 0, T, T); ge.fillStyle = '#000'; ge.fillRect(0, 0, T, T);
     if (o.stripes) { // Wallachian banding: courses of red brick between white plaster bands (Curtea Veche church)
         const P = o.stripes.period || 32;
@@ -117,12 +119,23 @@ export function classicFacade(key, rows, o = {}) {
                 case 'blank': g.fillStyle = shade(0.07); g.fillRect(cx - C * 0.32, y0 + C * 0.22, C * 0.64, C * 0.56); g.fillStyle = light(0.4); g.fillRect(cx - C * 0.32, y0 + C * 0.22, C * 0.64, 3); break;
                 default: break;
             }
+            if (R.orn && R.t !== 'blank') { // stucco ornament over the window: shell cartouche + garland swags (eclectic fronts)
+                const oy = top - (R.t === 'pediment' ? 30 : R.t === 'arch' || R.t === 'arch2' ? w * 0.5 + 16 : 18);
+                g.fillStyle = light(0.7); g.beginPath(); g.ellipse(cx, oy, 7, 6, 0, 0, 7); g.fill(); g.fillStyle = shade(0.25); g.beginPath(); g.ellipse(cx, oy + 1.5, 7, 3, 0, 0, Math.PI); g.fill();
+                g.strokeStyle = light(0.65); g.lineWidth = 2.2; for (const s of [-1, 1]) { g.beginPath(); g.moveTo(cx + s * 8, oy); g.quadraticCurveTo(cx + s * (w * 0.3 + 6), oy + 9, cx + s * (w * 0.5 + 6), oy - 1); g.stroke(); }
+                g.strokeStyle = shade(0.18); g.lineWidth = 1; for (const s of [-1, 1]) { g.beginPath(); g.moveTo(cx + s * 8, oy + 2); g.quadraticCurveTo(cx + s * (w * 0.3 + 6), oy + 11, cx + s * (w * 0.5 + 6), oy + 1); g.stroke(); }
+            }
             if (R.rail) { g.fillStyle = 'rgba(28,28,28,0.9)'; const ry = bot - 14; g.fillRect(cx - w / 2 - 6, ry, w + 12, 2); for (let q = cx - w / 2 - 5; q < cx + w / 2 + 6; q += 4) g.fillRect(q, ry, 1.2, 14); }
             if (R.balus) { const by = y0 + C - 22; g.fillStyle = light(0.85); g.fillRect(x0, by, C, 4); g.fillRect(x0, y0 + C - 4, C, 4); for (let q = x0 + 3; q < x0 + C; q += 8) { g.fillStyle = light(0.85); g.fillRect(q, by + 4, 4, 14); g.fillStyle = shade(0.25); g.fillRect(q + 3, by + 4, 1, 14); } }
         }
         if (R.cornice !== false) { g.fillStyle = light(0.7); g.fillRect(0, y0, T, 5); g.fillStyle = shade(0.3); g.fillRect(0, y0 + 5, T, 3); g.fillStyle = shade(0.1); g.fillRect(0, y0 + 8, T, 3); }
         if (R.dentils) { for (let q = 0; q < T; q += 6) { g.fillStyle = shade(0.22); g.fillRect(q, y0 + 11, 3, 4); } }
     });
+    if (o.decay) { // peeling plaster, exposed brick, rain streaks under sills (the unrestored Lipscani fronts)
+        const k = o.decay === true ? 1 : o.decay;
+        for (let i = 0; i < 26 * k; i++) { const x = r() * T, y = r() * T, rw = 6 + r() * 26, rh = 4 + r() * 16; g.fillStyle = r() < 0.5 ? 'rgba(255,255,248,0.22)' : 'rgba(90,80,64,0.16)'; g.beginPath(); g.ellipse(x, y, rw, rh, r() * 3, 0, 7); g.fill(); if (r() < 0.45) { g.fillStyle = 'rgba(150,82,58,0.55)'; g.beginPath(); g.ellipse(x + r() * 4, y + r() * 3, rw * 0.35, rh * 0.35, r() * 3, 0, 7); g.fill(); g.fillStyle = 'rgba(70,40,30,0.25)'; for (let q = 0; q < 3; q++) g.fillRect(x - rw * 0.3, y - rh * 0.2 + q * 3, rw * 0.6, 1); } }
+        for (let i = 0; i < 40 * k; i++) { const x = r() * T, y = r() * T, L = 10 + r() * 50; const gr = g.createLinearGradient(0, y, 0, y + L); gr.addColorStop(0, 'rgba(60,55,45,0.18)'); gr.addColorStop(1, 'rgba(60,55,45,0)'); g.fillStyle = gr; g.fillRect(x, y, 1.5 + r() * 3, L); }
+    }
     const map = canvasTexture(c, { repeat: true }), em = canvasTexture(e, { repeat: true });
     const flood = !!o.flood;
     const m = new THREE.MeshStandardMaterial({ map, vertexColors: true, roughness: 0.82, emissive: new THREE.Color(o.flood || '#ffffff'), emissiveMap: flood ? map : em, emissiveIntensity: 0 });
@@ -136,6 +149,70 @@ export function classicFacade(key, rows, o = {}) {
 /** walls with a classic façade into a GeoBatch (material key = fac.key; pass { [fac.key]: fac.mat } as matOverrides at build) */
 export function classicWalls(b, fac, poly, y0, y1, colour = '#e4dccb', vBase = y0) {
     b.add(wallGeometry(poly, y0, y1, fac.S, vBase, colour), fac.key, null, colour);
+}
+
+// ---------------------------------------------------------------------------- old-town shopfronts (ground floors)
+/**
+ * Ground-floor shopfronts of the 19th-c. commercial streets (Lipscani & co.): a canvas tile of 4 bays × 4 rows; each ROW is a
+ * shopfront type, so a building picks its type with vBase = yBase − row · floor (wallGeometry v). Row 0 timber shopfronts
+ * (painted wooden frames, stall risers, transoms, a door), row 1 round-arched openings between rusticated piers, row 2 modern
+ * café glazing in black steel, row 3 closed fronts (barred windows, double timber door). A plain fascia band runs along the top
+ * of every row (shop signs are placed there, see oldTownTerraces). Plaster is white (tinted by the vertex colour); displays
+ * are warm interiors (albedo ≈ 0.1–0.2), lit at night. Use with { bay: 3.4, floor: GF } (S of the result).
+ */
+export function shopfrontFacade(key = 'ot-shop', { res = 2, bay = 3.4, floor = 4.4 } = {}) {
+    if (FAC.has(key)) return FAC.get(key);
+    const T = 512, C = T / 4, c = canvas(T * res, T * res), g = c.getContext('2d'), e = canvas(T * res, T * res), ge = e.getContext('2d'), r = rng(77);
+    g.scale(res, res); ge.scale(res, res);
+    g.fillStyle = '#f4f1ea'; g.fillRect(0, 0, T, T); ge.fillStyle = '#000'; ge.fillRect(0, 0, T, T);
+    const WOOD = ['#3b2a1e', '#23392e', '#5a1e22', '#1f2a3a', '#4a3a2a', '#2b2b2b', '#6b4a2e', '#30402f'];
+    const interior = (x, y, w, h, lit = 0.85) => { // display / café interior seen through the glass
+        const gr = g.createLinearGradient(0, y, 0, y + h); gr.addColorStop(0, '#5d5448'); gr.addColorStop(0.55, '#3e3329'); gr.addColorStop(1, '#2a221c'); g.fillStyle = gr; g.fillRect(x, y, w, h);
+        for (let q = 0; q < 3; q++) { g.fillStyle = 'rgba(210,180,130,0.35)'; g.fillRect(x + 2, y + h * (0.3 + q * 0.2), w - 4, 1.5); for (let k = x + 3; k < x + w - 3; k += 3 + r() * 4) { g.fillStyle = `hsla(${r() * 360},${30 + r() * 40}%,${35 + r() * 30}%,0.8)`; g.fillRect(k, y + h * (0.3 + q * 0.2) - 4 - r() * 4, 2, 4 + r() * 3); } }
+        g.fillStyle = 'rgba(255,240,210,0.16)'; g.fillRect(x + w * 0.1, y + 2, w * 0.25, h * 0.6); // glass reflection
+        if (r() < lit) { const ge2 = ge.createLinearGradient(0, y, 0, y + h); ge2.addColorStop(0, 'rgb(255,214,150)'); ge2.addColorStop(1, 'rgb(150,100,60)'); ge.fillStyle = ge2; ge.fillRect(x, y, w, h); }
+    };
+    const fascia = (x0, y0, col) => { g.fillStyle = 'rgba(0,0,0,0.08)'; g.fillRect(x0, y0 + 2, C, C * 0.2); g.fillStyle = col; g.fillRect(x0 + 6, y0 + C * 0.04, C - 12, C * 0.14); g.fillStyle = 'rgba(255,255,255,0.25)'; g.fillRect(x0 + 6, y0 + C * 0.04, C - 12, 1.5); g.fillStyle = 'rgba(0,0,0,0.35)'; g.fillRect(x0 + 6, y0 + C * 0.18 - 1.5, C - 12, 1.5); };
+    for (let row = 0; row < 4; row++) {
+        const y0 = T - (row + 1) * C;
+        g.fillStyle = 'rgba(80,70,55,0.25)'; g.fillRect(0, y0, T, 3); // cornice line under the first floor
+        for (let col = 0; col < 4; col++) {
+            const x0 = col * C, wood = WOOD[(row * 4 + col * 3) % WOOD.length], top = y0 + C * 0.22, bot = y0 + C;
+            if (row === 0) { // timber shopfront: piers, frame, stall riser, transom, door in column 1
+                fascia(x0, y0, wood);
+                g.fillStyle = wood; g.fillRect(x0 + 10, top, C - 20, bot - top);
+                if (col === 1) { interior(x0 + 34, top + 18, C - 68, bot - top - 22, 0.9); g.fillStyle = wood; g.fillRect(x0 + 34, top + C * 0.45, C - 68, 2.5); g.fillStyle = '#c9a24e'; g.fillRect(x0 + C - 44, top + C * 0.5, 2, 6); interior(x0 + 14, top + 6, 16, C * 0.5); interior(x0 + C - 30, top + 6, 16, C * 0.5); }
+                else { interior(x0 + 15, top + 16, C - 30, (bot - top) * 0.62); g.fillStyle = wood; for (const k of [0.33, 0.66]) g.fillRect(x0 + 15 + (C - 30) * k - 1, top + 16, 2.5, (bot - top) * 0.62); interior(x0 + 15, top + 4, C - 30, 9); g.fillStyle = 'rgba(255,255,255,0.12)'; g.fillRect(x0 + 15, bot - (bot - top) * 0.2, C - 30, 2); g.fillStyle = 'rgba(0,0,0,0.25)'; g.fillRect(x0 + 18, bot - (bot - top) * 0.17, C - 36, (bot - top) * 0.13); }
+                g.fillStyle = 'rgba(255,250,240,0.6)'; g.fillRect(x0 + 2, top - 4, 8, bot - top + 4); g.fillRect(x0 + C - 10, top - 4, 8, bot - top + 4);
+            } else if (row === 1) { // round-arched openings between rusticated piers
+                g.fillStyle = 'rgba(80,70,55,0.14)'; for (let q = y0 + 8; q < bot; q += 10) g.fillRect(x0, q, C, 1.5);
+                const aw = C * 0.7, ax = x0 + (C - aw) / 2, ay = y0 + C * 0.22 + aw / 2;
+                g.fillStyle = 'rgba(70,60,45,0.35)'; g.beginPath(); g.moveTo(ax - 4, bot); g.lineTo(ax - 4, ay); g.arc(ax + aw / 2, ay, aw / 2 + 4, Math.PI, 0); g.lineTo(ax + aw + 4, bot); g.fill();
+                g.save(); g.beginPath(); g.moveTo(ax, bot); g.lineTo(ax, ay); g.arc(ax + aw / 2, ay, aw / 2, Math.PI, 0); g.lineTo(ax + aw, bot); g.closePath(); g.clip(); interior(ax, ay - aw / 2, aw, bot - ay + aw / 2, 0.9); g.restore();
+                g.strokeStyle = wood; g.lineWidth = 3; g.beginPath(); g.arc(ax + aw / 2, ay, aw / 2 - 1, Math.PI, 0); g.stroke(); g.beginPath(); g.moveTo(ax, ay); g.lineTo(ax + aw, ay); g.stroke();
+                for (let k = 1; k < 4; k++) { const a = Math.PI + k * Math.PI / 4; g.beginPath(); g.moveTo(ax + aw / 2, ay); g.lineTo(ax + aw / 2 + Math.cos(a) * aw / 2, ay + Math.sin(a) * aw / 2); g.stroke(); }
+                g.fillStyle = wood; g.fillRect(ax + aw / 2 - 1.5, ay, 3, bot - ay); if (col % 2) g.fillRect(ax, bot - 18, aw, 18);
+                g.fillStyle = '#efe9dc'; g.fillRect(ax + aw / 2 - 5, ay - aw / 2 - 9, 10, 10); // keystone
+            } else if (row === 2) { // modern café glazing in black steel (restored ground floors)
+                fascia(x0, y0, ['#111214', '#1d2a24', '#3b2a1e', '#5a1e22'][col]);
+                g.fillStyle = '#18191b'; g.fillRect(x0 + 6, top, C - 12, bot - top);
+                interior(x0 + 9, top + 3, C - 18, bot - top - 3, 0.95);
+                g.fillStyle = '#18191b'; g.fillRect(x0 + C / 2 - 1, top, 2, bot - top); g.fillRect(x0 + 9, top + (bot - top) * 0.2, C - 18, 2);
+                for (let k = 0; k < 3; k++) { const tx = x0 + 18 + k * 34; g.fillStyle = 'rgba(20,16,12,0.7)'; g.fillRect(tx, bot - 26, 14, 2); g.fillRect(tx + 6, bot - 26, 2, 26); }
+            } else { // closed fronts: rendered plinth, barred windows, a double timber door in column 3, a roll shutter in column 0
+                g.fillStyle = 'rgba(80,70,55,0.14)'; for (let q = y0 + 8; q < bot; q += 10) g.fillRect(x0, q, C, 1.5);
+                if (col === 3) { g.fillStyle = 'rgba(70,60,45,0.35)'; g.fillRect(x0 + 30, top - 4, C - 60, bot - top + 4); g.fillStyle = wood; g.fillRect(x0 + 34, top, C - 68, bot - top); g.fillStyle = 'rgba(255,255,255,0.12)'; for (const k of [0.25, 0.75]) { g.fillRect(x0 + 34 + (C - 68) * k - 10, top + 8, 20, 30); g.fillRect(x0 + 34 + (C - 68) * k - 10, top + 46, 20, 40); } g.fillStyle = 'rgba(0,0,0,0.4)'; g.fillRect(x0 + C / 2 - 1, top, 2, bot - top); }
+                else if (col === 0) { g.fillStyle = '#8d8f8c'; g.fillRect(x0 + 14, top, C - 28, bot - top); g.fillStyle = 'rgba(0,0,0,0.18)'; for (let q = top; q < bot; q += 4) g.fillRect(x0 + 14, q, C - 28, 1.2); g.fillStyle = 'rgba(40,40,60,0.35)'; g.fillRect(x0 + 30, top + 20, 40, 18); /* tag graffiti */ }
+                else { const wx = x0 + 32, wy = top + 14, ww = C - 64, wh = (bot - top) * 0.5; g.fillStyle = 'rgba(255,255,250,0.5)'; g.fillRect(wx - 5, wy - 5, ww + 10, wh + 10); interior(wx, wy, ww, wh, 0.5); g.fillStyle = '#1b1c1d'; for (let k = wx + 4; k < wx + ww; k += 7) g.fillRect(k, wy, 1.6, wh); g.fillRect(wx, wy + wh * 0.5, ww, 1.6); }
+            }
+        }
+    }
+    const map = canvasTexture(c, { repeat: true }), em = canvasTexture(e, { repeat: true });
+    const m = new THREE.MeshStandardMaterial({ map, vertexColors: true, roughness: 0.6, emissive: new THREE.Color('#ffffff'), emissiveMap: em, emissiveIntensity: 0.06 });
+    m.name = 'facade-' + key; m.userData.shared = true; m.userData.nightWindows = true; m.userData.dayWindows = 0.06;
+    const res2 = { mat: m, S: { bay, floor }, key: 'f-' + key };
+    FAC.set(key, res2);
+    return res2;
 }
 
 // ---------------------------------------------------------------------------- balustrades (alpha-tested, see-through)
@@ -381,11 +458,28 @@ export function oldTownTerraces(ctx, o = {}) {
         b.quad([dx2, y + 2.6, dz2], [cx2, y + 2.6, cz2], [bx, y + 3.05, bz], [ax, y + 3.05, az], col, 'fabric');
         b.quad([ax, y + 3.05, az], [bx, y + 3.05, bz], [cx2, y + 2.6, cz2], [dx2, y + 2.6, dz2], col, 'fabric');
         { const [vx, vz] = P(0, depth); b.box(vx, y + 2.3, vz, 0.03, 0.3, W, col, 'fabric', yaw + Math.PI / 2); }
-        // tables + chairs (or cushioned rattan sofas), planters with box shrubs at the ends
-        const nT = Math.max(1, Math.floor(W / 2.1));
-        for (let i = 0; i < nT; i++) { const u = -W / 2 + (i + 0.5) * W / nT, [x, z] = P(u, depth * 0.55); b.cyl(x, y, z, 0.05, 0.72, '#2a2a2a', 'metal', 6); b.cyl(x, y + 0.72, z, 0.36, 0.04, r.pick(['#d8d2c4', '#6b4a32', '#2a2a2a']), 'wood', 10);
-            for (const s of [-1, 1]) { const [qx, qz] = P(u + s * 0.55, depth * 0.55); b.box(qx, y, qz, 0.42, 0.45, 0.42, '#6b5a44', 'wood', yaw); b.box(qx + s * tx * 0.18, y + 0.45, qz + s * tz * 0.18, 0.06, 0.45, 0.42, '#6b5a44', 'wood', yaw); out.seats.push({ x: qx - s * tx * 0.04, z: qz - s * tz * 0.04, y, yaw: Math.atan2(-s * tx, -s * tz) }); } }
-        for (const s of [-1, 1]) { const [x, z] = P(s * (W / 2 + 0.35), depth * 0.5); b.box(x, y, z, 0.5, 0.55, 0.5, '#3b3a36', 'concrete', yaw); b.sphere(x, y + 0.85, z, 0.32, 0.38, 0.32, '#3d6a33', 'plant', 7, 5); }
+        // furniture at real size (note 22): round bistro tables with two slatted chairs facing each other, a cushioned rattan
+        // sofa along the façade on some terraces, bamboo planters at the ends, a patio heater, a menu A-board at the street end
+        const nT = Math.max(1, Math.floor(W / 2.1)), chairCol = r.pick(['#3a2c22', '#6b4a32', '#22262a', '#8a6a48']), sofa = depth >= 2.8 && r() < 0.5;
+        const chair = (qx, qz, fyaw) => { // fyaw: direction the sitter faces
+            const fx = Math.sin(fyaw), fz = Math.cos(fyaw), sx = Math.cos(fyaw), sz = -Math.sin(fyaw);
+            for (const [a, c] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) b.box(qx + sx * a * 0.18 + fx * c * 0.18, y, qz + sz * a * 0.18 + fz * c * 0.18, 0.035, 0.44, 0.035, '#1e1f21', 'metal', fyaw);
+            b.box(qx, y + 0.44, qz, 0.44, 0.05, 0.42, chairCol, 'wood', fyaw);
+            const bx = qx - fx * 0.2, bz = qz - fz * 0.2;
+            for (const a of [-1, 1]) b.box(bx + sx * a * 0.18, y + 0.44, bz + sz * a * 0.18, 0.035, 0.46, 0.035, '#1e1f21', 'metal', fyaw);
+            for (const hh of [0.62, 0.78]) b.box(bx, y + hh, bz, 0.42, 0.08, 0.025, chairCol, 'wood', fyaw);
+        };
+        for (let i = 0; i < nT; i++) { const u = -W / 2 + (i + 0.5) * W / nT, [x, z] = P(u, depth * (sofa ? 0.62 : 0.55)); b.cyl(x, y, z, 0.22, 0.03, '#1e1f21', 'metal', 8); b.cyl(x, y, z, 0.03, 0.73, '#1e1f21', 'metal', 6); b.cyl(x, y + 0.73, z, 0.33, 0.035, r.pick(['#d8d2c4', '#6b4a32', '#2a2a2a', '#efe9dc']), 'wood', 12);
+            for (const s of [-1, 1]) { const [qx, qz] = P(u + s * 0.55, depth * (sofa ? 0.62 : 0.55)); const fyaw = Math.atan2(-s * tx, -s * tz); chair(qx, qz, fyaw); out.seats.push({ x: qx - s * tx * 0.04, z: qz - s * tz * 0.04, y, yaw: fyaw }); } }
+        if (sofa) { // rattan sofa with grey cushions against the pergola's façade side, facing the street
+            const [sx0, sz0] = P(0, 0.62), cush = r.pick(['#8c8f93', '#d8d0c0', '#5a6a5a', '#7a2230']);
+            b.box(sx0, y, sz0, W - 0.8, 0.42, 0.75, '#7a5a3a', 'wood', yaw + Math.PI / 2); b.box(sx0, y + 0.42, sz0, W - 0.9, 0.12, 0.7, cush, 'fabric', yaw + Math.PI / 2);
+            const [bk, bkz] = P(0, 0.3); b.box(bk, y + 0.42, bkz, W - 0.8, 0.5, 0.14, '#7a5a3a', 'wood', yaw + Math.PI / 2); b.box(bk + f.nx * 0.12, y + 0.5, bkz + f.nz * 0.12, W - 1.0, 0.4, 0.12, cush, 'fabric', yaw + Math.PI / 2);
+            for (let u = -W / 2 + 0.9; u < W / 2 - 0.5; u += 1.2) { const [qx, qz] = P(u, 0.72); out.seats.push({ x: qx, z: qz, y, yaw }); }
+        }
+        for (const s of [-1, 1]) { const [x, z] = P(s * (W / 2 + 0.35), depth * 0.5); b.box(x, y, z, 0.5, 0.55, 0.5, '#3b3a36', 'concrete', yaw); for (let q = 0; q < 5; q++) { const ox = (r() - 0.5) * 0.3, oz = (r() - 0.5) * 0.3; b.cyl(x + ox, y + 0.55, z + oz, 0.015, 1.2 + r() * 0.6, '#7d8a4a', 'plant', 4); b.sphere(x + ox, y + 1.5 + r() * 0.4, z + oz, 0.18, 0.32, 0.18, '#4f7a3a', 'plant', 6, 4); } }
+        if (r() < 0.6) { const [x, z] = P(W / 2 - 0.5, depth - 0.45); b.cyl(x, y, z, 0.22, 0.06, '#2b2d30', 'metal', 10); b.cyl(x, y, z, 0.05, 2.1, '#5c5f63', 'steel', 8); b.cyl(x, y + 2.05, z, 0.34, 0.1, '#5c5f63', 'steel', 12, 0.4); }
+        { const [x, z] = P(-W / 2 - 0.2, depth + 0.35), a = yaw + Math.PI / 2; b.box(x, y, z, 0.55, 1.05, 0.06, '#1b1c1d', 'wood', a, 0.12); b.box(x, y, z, 0.55, 1.05, 0.06, '#1b1c1d', 'wood', a, -0.12); b.box(x + f.nx * 0.07, y + 0.25, z + f.nz * 0.07, 0.45, 0.6, 0.02, '#e9e4d6', 'paint', a + Math.PI / 2 * 0, 0.12); }
         ctx.box(cx, cz, W / 2 + 0.6, depth / 2, yaw + Math.PI / 2, { prop: true, h: 0.8 });
         out.lamps.push({ x: cx, z: cz, h: 2.6, noPost: true });
         out.terraces.push({ x: cx, z: cz, yaw, W, depth, name: p.name, f });

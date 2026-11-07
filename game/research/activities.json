@@ -1,0 +1,808 @@
+{
+ "generated": "2026-11-07",
+ "note": "Real visitor activities per tourist spot and major district landmark, for spots / progression (note 57). \"real\" = what visitors actually do; \"interaction\" = suggested in-game moment; achievements for a new Landmarks category (ids prefixed lm-). Confidence high = official page or Wikipedia text fetched 2026-11-07; medium = earlier dossier / OSM / secondary source or hours not confirmed.",
+ "places": [
+  {
+   "id": "space-needle",
+   "name": "Space Needle",
+   "city": "seattle",
+   "spot": "space-needle",
+   "landmark": null,
+   "activities": [
+    {
+     "name": "Elevator ride",
+     "real": "Elevators lift visitors to the observation level about 520 ft up in 41 seconds. In 2025 the first of three new double-deck, floor-to-ceiling glass elevators went in; the other two follow in 2027 and 2028.",
+     "when": "Open all year; on 2026-11-07 the official site showed Sa 9:30–20:30, Su 9:30–19:30, Mo–Th 11:00–19:00, Fr 10:30–19:30 (hours change by season). General admission $35–55.",
+     "sources": [
+      "https://en.wikipedia.org/wiki/Space_Needle",
+      "https://www.spaceneedle.com/"
+     ],
+     "confidence": "high",
+     "interaction": "41 s cut-scene in the glass car, the city dropping away; HUD shows the height rising to 158 m.",
+     "achievement": {
+      "id": "lm-needle-up",
+      "title": "520 feet in 41 seconds"
+     }
+    },
+    {
+     "name": "The Loupe: revolving glass floor",
+     "real": "The lower level reopened in August 2018 as the Loupe, an indoor observation deck with the world's first revolving glass floor. It turns once every 45 minutes. The Oculus Stairs connect the two levels, and through the glass oculus at their foot you can watch the elevators moving.",
+     "when": "Same hours. A Loupe Lounge (cocktails) runs seasonally, September to May.",
+     "sources": [
+      "https://en.wikipedia.org/wiki/Space_Needle",
+      "https://www.spaceneedle.com/"
+     ],
+     "confidence": "high",
+     "interaction": "Stand on the glass and look straight down 500 ft; the floor carries you around (one full turn = 45 min, or time-lapsed). Spot the elevator through the Oculus.",
+     "achievement": {
+      "id": "lm-needle-loupe",
+      "title": "Stand on the Loupe"
+     }
+    },
+    {
+     "name": "Open-air deck and Skyriser benches",
+     "real": "The upper observation level is open-air behind floor-to-ceiling glass panels (2018 Century Project). The \"Skyriser\" glass benches tilt outward toward the view: downtown, Elliott Bay, Mount Rainier, the Olympics and Cascades, Mount Baker.",
+     "when": "Same hours.",
+     "sources": [
+      "https://www.spaceneedle.com/",
+      "https://en.wikipedia.org/wiki/Space_Needle"
+     ],
+     "confidence": "high",
+     "interaction": "Lean back on a Skyriser bench (camera tilts outward); identify Rainier, Elliott Bay and downtown for a 360° checklist (Rainier only when the real weather is clear).",
+     "achievement": {
+      "id": "lm-needle-360",
+      "title": "Seen from the Needle"
+     }
+    }
+   ]
+  },
+  {
+   "id": "chihuly",
+   "name": "Chihuly Garden and Glass",
+   "city": "seattle",
+   "spot": "chihuly",
+   "landmark": null,
+   "activities": [
+    {
+     "name": "Galleries, Glasshouse and Garden",
+     "real": "A self-paced visit through eight galleries, the Glasshouse (about 100 ft long suspended sculpture in reds, yellows and oranges) and the Garden. Typical visit 1–2 h. Live glassblowing demonstrations and an audio tour are included. Photos are encouraged (flash allowed); no touching, no selfie sticks or tripods.",
+     "when": "On 2026-11-07: Sa 10–18, Su 10–17, Mo–F 11–17. Combo tickets with the Space Needle.",
+     "sources": [
+      "https://www.chihulygardenandglass.com/visit",
+      "https://en.wikipedia.org/wiki/Chihuly_Garden_and_Glass"
+     ],
+     "confidence": "high",
+     "interaction": "Walk the galleries in order; in the Glasshouse look up as the sun moves through the suspended sculpture; watch a glassblowing demo loop.",
+     "achievement": {
+      "id": "lm-chihuly-glasshouse",
+      "title": "Under the Glasshouse"
+     }
+    }
+   ]
+  },
+  {
+   "id": "mopop",
+   "name": "Museum of Pop Culture (MoPOP)",
+   "city": "seattle",
+   "spot": "mopop",
+   "landmark": null,
+   "activities": [
+    {
+     "name": "Museum visit and the monorail",
+     "real": "Galleries of popular culture (music, sci-fi, games). The Seattle Center Monorail runs straight through the Gehry building.",
+     "when": "Open daily; the official site showed \"Open today from 10 AM – 5 PM\" (2026-11-07).",
+     "sources": [
+      "https://www.mopop.org/visit",
+      "https://en.wikipedia.org/wiki/Museum_of_Pop_Culture"
+     ],
+     "confidence": "high",
+     "interaction": "Time a photo as the monorail passes through the building; look inside at the guitar tower.",
+     "achievement": {
+      "id": "lm-mopop-monorail",
+      "title": "Monorail through the guitar"
+     }
+    }
+   ]
+  },
+  {
+   "id": "pike-place",
+   "name": "Pike Place Market and the Gum Wall",
+   "city": "seattle",
+   "spot": "pike-place",
+   "landmark": null,
+   "activities": [
+    {
+     "name": "Fish throwing at Pike Place Fish Market",
+     "real": "When a customer orders a fish, the fishmonger in orange overalls calls the order and the crew shouts it back. The fish is then thrown over the counter to be wrapped. Up to 10,000 visitors a day watch in summer. A monkfish is sometimes made to \"snap\" at customers with a hidden line.",
+     "when": "All year during market hours (Pike Street × Pike Place).",
+     "sources": [
+      "https://en.wikipedia.org/wiki/Pike_Place_Fish_Market",
+      "https://www.pikeplacefish.com/"
+     ],
+     "confidence": "high",
+     "interaction": "Order a salmon: the call-and-response chant plays, a fish flies over the counter and you catch it with a timed click (the fish is thrown to the wrapper, not into the crowd).",
+     "achievement": {
+      "id": "lm-pike-fish",
+      "title": "Catch!"
+     }
+    },
+    {
+     "name": "Add gum to the Gum Wall",
+     "real": "Post Alley under the Market, by the Market Theater box office. Visitors stick used gum on the brick wall: as of 2024 it was 54 ft long and 8 ft high, about 180 pieces per brick. Fully steam-cleaned in November 2015, September 2018 and November 2024; gum returns at once.",
+     "when": "All year (open alley).",
+     "sources": [
+      "https://en.wikipedia.org/wiki/Gum_Wall"
+     ],
+     "confidence": "high",
+     "interaction": "Chew, choose a colour, press a blob on the wall; bonus for making a heart.",
+     "achievement": {
+      "id": "lm-gum-wall",
+      "title": "Part of the wall"
+     }
+    },
+    {
+     "name": "Rachel the pig",
+     "real": "A 550 lb bronze piggy bank by Georgia Gerber (1986); donations fund the Market's social services.",
+     "when": "All year.",
+     "sources": [
+      "https://en.wikipedia.org/wiki/Rachel_the_Pig"
+     ],
+     "confidence": "medium",
+     "interaction": "Drop a coin; the plaque thanks you.",
+     "achievement": {
+      "id": "lm-pike-rachel",
+      "title": "Fed Rachel"
+     }
+    }
+   ]
+  },
+  {
+   "id": "waterfront",
+   "name": "Seattle Great Wheel (Pier 57)",
+   "city": "seattle",
+   "spot": "waterfront",
+   "landmark": null,
+   "activities": [
+    {
+     "name": "Ride the Great Wheel",
+     "real": "A 175 ft wheel with 42 climate-controlled gondolas (up to 8 people each). A ride is about 12 minutes, three revolutions, reaching out 40 ft over Elliott Bay. More than 500,000 LEDs; light shows usually Fri–Sun evenings.",
+     "when": "On 2026-11-07 the official site listed 11:00–21:00 daily (varies); New Year's Eve midnight ride by reservation.",
+     "sources": [
+      "https://en.wikipedia.org/wiki/Seattle_Great_Wheel",
+      "https://seattlegreatwheel.com/",
+      "https://seattlegreatwheel.com/faq/"
+     ],
+     "confidence": "high",
+     "interaction": "Board a gondola, three turns with free-look; the photo at the top faces the skyline and the bay.",
+     "achievement": {
+      "id": "lm-great-wheel",
+      "title": "Three times round"
+     }
+    }
+   ]
+  },
+  {
+   "id": "pioneer-square",
+   "name": "Pioneer Square (Underground Tour, totem pole, Smith Tower)",
+   "city": "seattle",
+   "spot": "pioneer-square",
+   "landmark": null,
+   "activities": [
+    {
+     "name": "Bill Speidel's Underground Tour",
+     "real": "A 75-minute guided walking tour starting beneath Doc Maynard's Public House (614 1st Ave, Pioneer Place). It goes through the buried sidewalks and storefronts left when streets were raised after the 1889 fire, lit from above by amethyst vault-light prisms.",
+     "when": "Every day, all year, on the hour 10:00–18:00; extra half-hourly tours June–September. Closed Thanksgiving and Christmas Day.",
+     "sources": [
+      "https://www.undergroundtour.com/",
+      "https://en.wikipedia.org/wiki/Seattle_Underground"
+     ],
+     "confidence": "high",
+     "interaction": "Short scripted descent under the sidewalk; look up at the purple prisms from below.",
+     "achievement": {
+      "id": "lm-underground",
+      "title": "Below Seattle"
+     }
+    },
+    {
+     "name": "Read the totem pole",
+     "real": "The 1940 Tlingit replica of the Chief-of-All-Women pole (see pioneer-totem.md). Visitors read the figures top to bottom.",
+     "when": "All year.",
+     "sources": [
+      "https://en.wikipedia.org/wiki/Pioneer_Square_totem_pole"
+     ],
+     "confidence": "high",
+     "interaction": "Plaque with the figure order and the carvers' credit; looking up the pole highlights each figure in turn (no climbing, no touching).",
+     "achievement": {
+      "id": "lm-totem-read",
+      "title": "Read the pole"
+     }
+    }
+   ]
+  },
+  {
+   "id": "fremont-troll",
+   "name": "Fremont Troll",
+   "city": "seattle",
+   "spot": "fremont-troll",
+   "landmark": null,
+   "activities": [
+    {
+     "name": "Climb on the Troll",
+     "real": "The 18 ft concrete troll under the north end of the Aurora Bridge (Badanes, Martin, Walter, Whitehead, 1990) clutches a real VW Beetle with a California plate. Climbing on it for photos is the classic visit (it even appears that way in the game Life is Strange).",
+     "when": "Open public space, all year; Troll's birthday party around Halloween (unveiled Halloween 1990).",
+     "sources": [
+      "https://en.wikipedia.org/wiki/Fremont_Troll"
+     ],
+     "confidence": "medium",
+     "interaction": "Climb hand → wrist → head with scripted holds; sit on the Beetle for a photo.",
+     "achievement": {
+      "id": "lm-troll-climb",
+      "title": "On the Troll's head"
+     }
+    }
+   ]
+  },
+  {
+   "id": "ballard-locks",
+   "name": "Hiram M. Chittenden (Ballard) Locks",
+   "city": "seattle",
+   "spot": "ballard-locks",
+   "landmark": null,
+   "activities": [
+    {
+     "name": "Watch a lockage",
+     "real": "Two locks: small 30 × 150 ft, large 80 × 825 ft. Boats rise or fall between Salmon Bay and Puget Sound. They carry more boat traffic than any other U.S. lock; more than a million visitors a year.",
+     "when": "All year; the large lock is drained for maintenance about two weeks in November, the small lock in March.",
+     "sources": [
+      "https://en.wikipedia.org/wiki/Hiram_M._Chittenden_Locks"
+     ],
+     "confidence": "high",
+     "interaction": "Stand on the lock wall while the chamber fills; boats float up past you (watching, not operating).",
+     "achievement": {
+      "id": "lm-locks-lockage",
+      "title": "Locked through"
+     }
+    },
+    {
+     "name": "Salmon in the fish ladder",
+     "real": "The fish ladder (rebuilt 1976, 21 weirs) is part of the locks; an underwater viewing room shows migrating salmon. Peak sockeye July to mid-August; Chinook and coho later in summer and autumn.",
+     "when": "Seasonal for fish; grounds and the Carl S. English Jr. Botanical Garden all year.",
+     "sources": [
+      "https://en.wikipedia.org/wiki/Hiram_M._Chittenden_Locks"
+     ],
+     "confidence": "high",
+     "interaction": "Count salmon through the viewing window (only July–October in game time).",
+     "achievement": {
+      "id": "lm-locks-salmon",
+      "title": "Salmon spotted"
+     }
+    }
+   ]
+  },
+  {
+   "id": "gas-works",
+   "name": "Gas Works Park",
+   "city": "seattle",
+   "spot": "gas-works",
+   "landmark": null,
+   "activities": [
+    {
+     "name": "Fly a kite on Kite Hill",
+     "real": "Artificial kite-flying hill with a sculptured sundial at the summit; views of Lake Union and downtown.",
+     "when": "Daily 6:00–22:00. Climbing the plant towers is dangerous: several falls, three deaths since 2008. Entering the lake is prohibited (contaminated sediment).",
+     "sources": [
+      "https://www.seattle.gov/parks/allparks/gas-works-park",
+      "https://en.wikipedia.org/wiki/Gas_Works_Park"
+     ],
+     "confidence": "high",
+     "interaction": "Kite minigame with wind from the live weather; stand on the sundial to read the time. No tower climbing, no swimming.",
+     "achievement": {
+      "id": "lm-gasworks-kite",
+      "title": "Kite on Kite Hill"
+     }
+    }
+   ]
+  },
+  {
+   "id": "kerry-park",
+   "name": "Kerry Park",
+   "city": "seattle",
+   "spot": "kerry-park",
+   "landmark": null,
+   "activities": [
+    {
+     "name": "Sunset postcard view",
+     "real": "Viewpoint on Queen Anne Hill with the most iconic skyline view: Space Needle in the centre, Elliott Bay, and Mount Rainier behind on clear days. Photographers line the wall at sunset. Doris Totten Chase's 15 ft steel sculpture \"Changing Form\" (1971) frames the view.",
+     "when": "Daily 6:00–22:00.",
+     "sources": [
+      "https://www.seattle.gov/parks/allparks/kerry-park",
+      "https://en.wikipedia.org/wiki/Kerry_Park_(Seattle)"
+     ],
+     "confidence": "high",
+     "interaction": "Postcard challenge: Needle plus Rainier in one frame (only possible when the real weather is clear); frame the skyline through Changing Form.",
+     "achievement": {
+      "id": "lm-kerry-mountain",
+      "title": "The Mountain is out"
+     }
+    }
+   ]
+  },
+  {
+   "id": "bel-lincoln-square",
+   "name": "Lincoln Square and Bellevue Square (the Bellevue Collection)",
+   "city": "bellevue",
+   "spot": "bel-lincoln-square",
+   "landmark": "lincoln",
+   "activities": [
+    {
+     "name": "Cross the skybridges",
+     "real": "Bellevue Square is linked to Lincoln Square by skybridge (2007); together they form the Bellevue Collection. UiPath's Bellevue office is in Lincoln Square North (two floors, since 2025).",
+     "when": "Mall hours; Snowflake Lane holiday parade November–December (verify current dates).",
+     "sources": [
+      "https://en.wikipedia.org/wiki/Bellevue_Square"
+     ],
+     "confidence": "medium",
+     "interaction": "Walk every skybridge (collectible); badge in at the UiPath floor (final chapter tie-in).",
+     "achievement": {
+      "id": "lm-bellevue-skybridges",
+      "title": "Above NE 8th"
+     }
+    }
+   ]
+  },
+  {
+   "id": "bel-downtown-park",
+   "name": "Bellevue Downtown Park",
+   "city": "bellevue",
+   "spot": "bel-downtown-park",
+   "landmark": null,
+   "activities": [
+    {
+     "name": "Waterfall loop",
+     "real": "A 21-acre park: a half-mile promenade with a double row of shade trees and a stepped canal leads to a 240 ft wide waterfall into a reflecting pond. A 10-acre lawn looks out on the skyline and, on clear days, Mount Rainier.",
+     "when": "City park.",
+     "sources": [
+      "https://bellevuewa.gov/city-government/departments/parks/parks-and-trails/parks/bellevue-downtown-park"
+     ],
+     "confidence": "high",
+     "interaction": "Walk the half-mile loop (timer and step counter); stop at the waterfall.",
+     "achievement": {
+      "id": "lm-bdp-loop",
+      "title": "Half a mile round"
+     }
+    }
+   ]
+  },
+  {
+   "id": "bel-botanical-garden",
+   "name": "Bellevue Botanical Garden",
+   "city": "bellevue",
+   "spot": "bel-botanical-garden",
+   "landmark": null,
+   "activities": [
+    {
+     "name": "Garden walk",
+     "real": "53 acres of cultivated gardens, restored woodland and wetland: Perennial Border, Yao Garden (sister city Yao, Japan), Fuchsia Garden, Native Discovery Garden, Urban Meadow, Rhododendron Glen. Free admission.",
+     "when": "Open every day dawn to dusk including holidays. Garden d'Lights holiday light show in December (dates not checked here). Free journaling programmes.",
+     "sources": [
+      "https://bellevuebotanical.org/",
+      "https://en.wikipedia.org/wiki/Bellevue_Botanical_Garden"
+     ],
+     "confidence": "high",
+     "interaction": "Photograph 5 labelled plants. The ravine suspension bridge on the Lost Meadow trail is in the earlier dossier, not re-checked in this pass: keep the sway gentle.",
+     "achievement": {
+      "id": "lm-bbg-plants",
+      "title": "Five plants named"
+     }
+    }
+   ]
+  },
+  {
+   "id": "bel-meydenbauer",
+   "name": "Meydenbauer Bay Park",
+   "city": "bellevue",
+   "spot": "bel-meydenbauer",
+   "landmark": null,
+   "activities": [
+    {
+     "name": "Kayak or walk the crescent pier",
+     "real": "A floating 420 ft crescent pedestrian pier (opened March 2019), beach, viewing terrace and historic whaling building. Best Kayak Rentals rents canoes and kayaks seasonally; it is a non-motorised watercraft launch site.",
+     "when": "Lifeguards late June to Labor Day; kayak rentals seasonal.",
+     "sources": [
+      "https://bellevuewa.gov/city-government/departments/parks/parks-and-trails/parks/meydenbauer-beach-park",
+      "https://en.wikipedia.org/wiki/Meydenbauer_Bay_Park"
+     ],
+     "confidence": "high",
+     "interaction": "Walk to the end of the crescent pier; summer only, a short kayak loop in the bay.",
+     "achievement": {
+      "id": "lm-meyd-pier",
+      "title": "End of the crescent"
+     }
+    }
+   ]
+  },
+  {
+   "id": "palace-parliament",
+   "name": "Palace of the Parliament",
+   "city": "bucharest",
+   "spot": "palace-parliament",
+   "landmark": null,
+   "activities": [
+    {
+     "name": "Guided tour of the Palace",
+     "real": "Visits are by guided tour run by the Chamber of Deputies' visitor centre; it also houses the National Museum of Contemporary Art (west wing, glass annex 2004) and the Museum of the Palace.",
+     "when": "Tour hours, prices and the ID requirement could not be verified (cic.cdep.ro did not respond on 2026-11-07): confirm before showing times.",
+     "sources": [
+      "https://en.wikipedia.org/wiki/Palace_of_the_Parliament"
+     ],
+     "confidence": "medium",
+     "interaction": "Guided walk through one ornate hall to the balcony over Bd. Unirii (view down the axis to Piața Unirii).",
+     "achievement": {
+      "id": "lm-palace-balcony",
+      "title": "Balcony over the boulevard"
+     }
+    },
+    {
+     "name": "Christmas Market on Piața Constituției",
+     "real": "Every December the square in front hosts the Christmas Market (2025 edition 29 Nov–28 Dec), with the tree on the axis.",
+     "when": "Late November to late December.",
+     "sources": [
+      "bucharest-spots.json palace-parliament.seasonal_time_of_day"
+     ],
+     "confidence": "medium",
+     "interaction": "Mulled-wine cup and a carousel ride in December.",
+     "achievement": {
+      "id": "lm-palace-xmas",
+      "title": "Christmas at the Palace"
+     }
+    }
+   ]
+  },
+  {
+   "id": "old-town-lipscani",
+   "name": "Old Town: Cărturești Carusel, Hanul lui Manuc, Curtea Veche",
+   "city": "bucharest",
+   "spot": "old-town-lipscani",
+   "landmark": null,
+   "activities": [
+    {
+     "name": "Climb Cărturești Carusel",
+     "real": "An 1860s bank building on Lipscani 55, restored and reopened in 2015 as a six-floor bookshop with white spiral balconies and a top-floor bistro.",
+     "when": "Bookshop hours (carturesti.ro returned 403 on 2026-11-07).",
+     "sources": [
+      "https://ro.wikipedia.org/wiki/Cărturești_Carusel"
+     ],
+     "confidence": "high",
+     "interaction": "Climb the white balconies to the top; atrium postcard.",
+     "achievement": {
+      "id": "lm-carusel-top",
+      "title": "Top of the Carusel"
+     }
+    },
+    {
+     "name": "Terrace evening in Hanul lui Manuc",
+     "real": "The 1808 caravanserai of Manuc Bei, where the 1812 Treaty of Bucharest was negotiated; today a restaurant and terrace around the wooden-galleried courtyard.",
+     "when": "Terraces mostly spring to autumn (heaters in winter).",
+     "sources": [
+      "https://en.wikipedia.org/wiki/Manuc%27s_Inn",
+      "https://ro.wikipedia.org/wiki/Hanul_lui_Manuc"
+     ],
+     "confidence": "high",
+     "interaction": "Sit at a courtyard table (time skip to the evening, string lights on).",
+     "achievement": {
+      "id": "lm-manuc-terrace",
+      "title": "A table at Manuc"
+     }
+    },
+    {
+     "name": "Curtea Veche ruins and Vlad III",
+     "real": "The Old Princely Court: ruins and the 1559 church; Vlad III dated a document here on 20 September 1459. A bust of Vlad stands in front.",
+     "when": "Museum open-air ruins; the interior museum's opening varies (not checked).",
+     "sources": [
+      "https://en.wikipedia.org/wiki/Curtea_Veche"
+     ],
+     "confidence": "medium",
+     "interaction": "Find the Vlad bust; politely refuse souvenir sellers.",
+     "achievement": {
+      "id": "lm-curtea-veche",
+      "title": "At Vlad's court"
+     }
+    }
+   ]
+  },
+  {
+   "id": "stavropoleos-cec",
+   "name": "Stavropoleos, Caru' cu Bere and the CEC Palace",
+   "city": "bucharest",
+   "spot": "stavropoleos-cec",
+   "landmark": null,
+   "activities": [
+    {
+     "name": "Stavropoleos courtyard and chant",
+     "real": "A 1724 Brâncovenesc church of a convent of nuns. The courtyard is lined with old stone crosses and tombstones; the choir sings neo-Byzantine chant; the library holds over 8,000 books.",
+     "when": "Church open daily; services with the choir (schedule on stavropoleos.ro).",
+     "sources": [
+      "https://en.wikipedia.org/wiki/Stavropoleos_Monastery",
+      "https://www.stavropoleos.ro/"
+     ],
+     "confidence": "high",
+     "interaction": "Walk the quiet courtyard (running becomes walking), light a candle; the chant plays during services.",
+     "achievement": {
+      "id": "lm-stavropoleos",
+      "title": "Quiet courtyard"
+     }
+    },
+    {
+     "name": "A beer at Caru' cu Bere",
+     "real": "A brewery since 1879; the neo-Gothic beer hall opened in 1899.",
+     "when": "Daily, restaurant hours.",
+     "sources": [
+      "https://en.wikipedia.org/wiki/Caru%27_cu_Bere"
+     ],
+     "confidence": "high",
+     "interaction": "Seat inside under the painted vaults (time skip).",
+     "achievement": {
+      "id": "lm-caru-cu-bere",
+      "title": "A table at the Caru'"
+     }
+    }
+   ]
+  },
+  {
+   "id": "athenaeum-revolution",
+   "name": "Romanian Athenaeum and Piața Revoluției",
+   "city": "bucharest",
+   "spot": "athenaeum-revolution",
+   "landmark": null,
+   "activities": [
+    {
+     "name": "Concert in the domed hall",
+     "real": "The city's most prestigious concert hall (1888), home of the George Enescu Philharmonic and the George Enescu Festival (September of odd years). The auditorium has 600 stalls seats plus 52 loges under the dome. The 75 × 3 m Costin Petrescu fresco circles the hall.",
+     "when": "Concert season roughly autumn to spring plus the festival; fge.org.ro did not respond (2026-11-07) for the schedule.",
+     "sources": [
+      "https://en.wikipedia.org/wiki/Romanian_Athenaeum"
+     ],
+     "confidence": "high",
+     "interaction": "Take a seat in the round hall during a rehearsal; the camera pans along the fresco from Trajan to 1918.",
+     "achievement": {
+      "id": "lm-ateneu-concert",
+      "title": "Under the dome"
+     }
+    }
+   ]
+  },
+  {
+   "id": "arcul-de-triumf",
+   "name": "Arcul de Triumf",
+   "city": "bucharest",
+   "spot": "arcul-de-triumf",
+   "landmark": null,
+   "activities": [
+    {
+     "name": "Climb to the roof terrace and the small museum",
+     "real": "Inside the arch is a small museum with four exhibitions (the Great War, heraldry, the arch in pictures, the 1918 Union). Per ro.wikipedia it can be visited only on special occasions, typically national holidays such as 1 December. Stairs lead up to the terrace on top, with a view down Kiseleff.",
+     "when": "Special occasions / public holidays. Note: OSM opening_hours on the node read Apr–Oct Tu–Fr 10–18, Sa–Su 11–19; Nov–Mar Tu–Su 9–17 (earlier dossier). The two sources disagree: in game, open the terrace on Romanian public holidays and weekends.",
+     "sources": [
+      "https://ro.wikipedia.org/wiki/Arcul_de_Triumf_din_București",
+      "bucharest-spots.json arcul-de-triumf.interaction"
+     ],
+     "confidence": "medium",
+     "interaction": "On an open day climb the internal stairs to the terrace; the 1 December parade passes underneath.",
+     "achievement": {
+      "id": "lm-arc-terrace",
+      "title": "On top of the Arc"
+     }
+    }
+   ]
+  },
+  {
+   "id": "village-museum",
+   "name": "Dimitrie Gusti National Village Museum",
+   "city": "bucharest",
+   "spot": "village-museum",
+   "landmark": null,
+   "activities": [
+    {
+     "name": "Walk through the farmsteads",
+     "real": "An open-air museum (1936) inside King Michael I Park: 123 peasant households, 363 monuments brought from every region, including the Dragomirești wooden church (1722). Many houses can be looked into.",
+     "when": "Open all year (hours on muzeul-satului.ro: page fetched but the schedule was not readable). Craft fairs (Târgul Meșterilor Populari), Easter and Christmas events.",
+     "sources": [
+      "https://en.wikipedia.org/wiki/Dimitrie_Gusti_National_Village_Museum",
+      "https://muzeul-satului.ro/"
+     ],
+     "confidence": "high",
+     "interaction": "Village passport: get a stamp at 5 regional households; work the well sweep (cumpănă).",
+     "achievement": {
+      "id": "lm-village-passport",
+      "title": "Village passport"
+     }
+    }
+   ]
+  },
+  {
+   "id": "herastrau-park",
+   "name": "King Michael I (Herăstrău) Park",
+   "city": "bucharest",
+   "spot": "herastrau-park",
+   "landmark": null,
+   "activities": [
+    {
+     "name": "Boat or bike around the lake",
+     "real": "187 ha park, 74 ha of it Lake Herăstrău; small boats are allowed on the lake. Since 2017 a temporary footbridge lets you walk or cycle all the way round. I'Velo bike rental at Piața Charles de Gaulle (OSM: Mo–Fr 11:30–20:30, Sa–Su 9:30–20:30, check_date 2022) and an I'Velo dock at the Arc.",
+     "when": "Boats in the warm season; park all year.",
+     "sources": [
+      "https://en.wikipedia.org/wiki/King_Michael_I_Park",
+      "https://ro.wikipedia.org/wiki/Parcul_Herăstrău",
+      "OSM node 2858053386"
+     ],
+     "confidence": "medium",
+     "interaction": "Rent a bike and ride the full lake loop (timer).",
+     "achievement": {
+      "id": "lm-herastrau-loop",
+      "title": "Round the lake"
+     }
+    },
+    {
+     "name": "Japanese Garden in bloom",
+     "real": "Japanese garden with cherry trees; bloom in April.",
+     "when": "April for sakura.",
+     "sources": [
+      "bucharest-spots.json herastrau-park"
+     ],
+     "confidence": "medium",
+     "interaction": "Cherry-blossom photo from the bridge in April.",
+     "achievement": {
+      "id": "lm-herastrau-sakura",
+      "title": "Sakura"
+     }
+    }
+   ]
+  },
+  {
+   "id": "spring-palace",
+   "name": "Spring Palace (Ceaușescu residence)",
+   "city": "bucharest",
+   "spot": "spring-palace",
+   "landmark": null,
+   "activities": [
+    {
+     "name": "Guided tour of the residence",
+     "real": "The Ceaușescus' house (1964–65), open to the public since March 2016. Guided tours of the rooms; highlights are the gold-fitted bathroom and the indoor pool with its 1960s mosaic. Peacocks walk the garden.",
+     "when": "Tours by booking (palatulprimaverii.ro returned an almost empty page on 2026-11-07: hours not confirmed).",
+     "sources": [
+      "https://www.romania-insider.com/primaverii-palace-romanian-dictators-residence-communist-bucharest",
+      "https://atlasobscura.com/places/house-of-ceausescu-romania",
+      "https://www.antena3.ro/actualitate/casa-lui-ceausescu-palatul-primaverii-nicolae-ceausescu-593158.html"
+     ],
+     "confidence": "medium",
+     "interaction": "Guided walk: pool hall, gold bathroom; wait quietly for a peacock to fan its tail.",
+     "achievement": {
+      "id": "lm-spring-peacock",
+      "title": "Peacock portrait"
+     }
+    }
+   ]
+  },
+  {
+   "id": "cismigiu",
+   "name": "Cișmigiu Gardens",
+   "city": "bucharest",
+   "spot": "cismigiu",
+   "landmark": null,
+   "activities": [
+    {
+     "name": "Rowing boat on the lake",
+     "real": "The oldest public park in central Bucharest (from 1847). Rowing boats on the lake in summer; skating on the frozen lake has been a tradition since 1883, with a rink in winter.",
+     "when": "Boats in the warm season, rink in winter (OSM seasonal=winter); hours not confirmed (ALPAB site did not respond).",
+     "sources": [
+      "https://ro.wikipedia.org/wiki/Parcul_Cișmigiu",
+      "https://en.wikipedia.org/wiki/Cișmigiu_Gardens"
+     ],
+     "confidence": "medium",
+     "interaction": "Row round the island (summer) / skate (winter).",
+     "achievement": {
+      "id": "lm-cismigiu-boat",
+      "title": "Rowed in Cișmigiu"
+     }
+    },
+    {
+     "name": "Watch the chess players",
+     "real": "Concrete chess tables mapped in the park (OSM sport=chess, 3 tables around 44.4363, 26.0896) where regulars play.",
+     "when": "All year, daytime.",
+     "sources": [
+      "OSM nodes 10877390595–10877390597"
+     ],
+     "confidence": "medium",
+     "interaction": "Watch a game; the regulars comment if you play a move.",
+     "achievement": {
+      "id": "lm-cismigiu-chess",
+      "title": "Kibitzer"
+     }
+    },
+    {
+     "name": "Writers' Rotunda",
+     "real": "A circular alley with stone busts of twelve Romanian writers (Eminescu, Caragiale, Creangă…).",
+     "when": "All year.",
+     "sources": [
+      "https://en.wikipedia.org/wiki/Cișmigiu_Gardens"
+     ],
+     "confidence": "high",
+     "interaction": "Find all 12 busts.",
+     "achievement": {
+      "id": "lm-cismigiu-rotunda",
+      "title": "Twelve writers"
+     }
+    }
+   ]
+  },
+  {
+   "id": "peoples-salvation-cathedral",
+   "name": "People's Salvation Cathedral",
+   "city": "bucharest",
+   "spot": "peoples-salvation-cathedral",
+   "landmark": null,
+   "activities": [
+    {
+     "name": "Visit the nave and light a candle",
+     "real": "The largest Orthodox church building (127 m), consecrated 2018; mosaics finished and consecrated 26 October 2025, when the cathedral opened permanently. About 25,000 m² of mosaics. The 25.19 t main bell can be heard 15–20 km away.",
+     "when": "Open for services and visits (catedralaneamului.ro did not respond: hours not confirmed).",
+     "sources": [
+      "https://en.wikipedia.org/wiki/People%27s_Salvation_Cathedral"
+     ],
+     "confidence": "high",
+     "interaction": "Light a candle at the candle pavilion; look up into the mosaic dome; hear the great bell at noon.",
+     "achievement": {
+      "id": "lm-cathedral-dome",
+      "title": "Under the great dome"
+     }
+    }
+   ]
+  },
+  {
+   "id": "unirii-fountains",
+   "name": "Piața Unirii fountains (Simfonia Apei)",
+   "city": "bucharest",
+   "spot": null,
+   "landmark": "fountains",
+   "activities": [
+    {
+     "name": "Water and light show",
+     "real": "Simfonia Apei: water choreography to music with lights; families line the basins.",
+     "when": "May to end of September, Friday–Sunday from 21:00, about 45 min (2025: 23 May – 28 Sept). The fountains were being decommissioned during the 2025–26 Planșeul Unirii works.",
+     "sources": [
+      "bucharest-unirii.json fountains (sources there)"
+     ],
+     "confidence": "medium",
+     "interaction": "Be on the square on a show night: jets and LEDs to music; photo from the Unirea side.",
+     "achievement": {
+      "id": "lm-unirii-show",
+      "title": "Simfonia Apei"
+     }
+    }
+   ]
+  },
+  {
+   "id": "hala-traian",
+   "name": "Hala Traian",
+   "city": "bucharest",
+   "spot": null,
+   "landmark": "halatraian",
+   "activities": [
+    {
+     "name": "Shop in the 1896 market hall",
+     "real": "The 1896 iron market hall at Calea Călărașilor × Traian, now a Mega Image supermarket (on the gts chapter route).",
+     "when": "Store hours.",
+     "sources": [
+      "bucharest-unirii.json landmarks.hala_traian"
+     ],
+     "confidence": "medium",
+     "interaction": "Pop in after the gts chapter.",
+     "achievement": {
+      "id": "lm-hala-traian",
+      "title": "Inside Hala Traian"
+     }
+    }
+   ]
+  }
+ ]
+}

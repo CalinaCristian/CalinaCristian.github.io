@@ -16,6 +16,7 @@ const arg = (k, d) => { const a = process.argv.find(x => x.startsWith(`--${k}=`)
 const PORT = +arg('port', 8123);
 const OUT = arg('out', path.join(__dirname, 'report', 'achievements'));
 const GAME = process.argv.includes('--game');
+const SAVE = process.argv.includes('--save');
 const URL = `http://127.0.0.1:${PORT}/game/index.html`;
 fs.mkdirSync(OUT, { recursive: true });
 
@@ -48,10 +49,12 @@ const comp = (page) => page.evaluate(() => { const c = window.game.achievements.
         check('fresh: 0 % and 0 unlocked', c.pct === 0 && c.unlocked === 0, JSON.stringify(c.parts));
         const info = await page.evaluate(async () => {
             const { ACHIEVEMENTS } = await import('./src/data.js');
-            const ids = ACHIEVEMENTS.map(a => a.id);
-            return { n: ids.length, dup: ids.length - new Set(ids).size, cats: [...new Set(ACHIEVEMENTS.map(a => a.cat))], hidden: ACHIEVEMENTS.filter(a => a.hidden).length };
+            const { activeAchievements } = await import('./src/achievements.js');
+            const ids = ACHIEVEMENTS.map(a => a.id), act = activeAchievements();
+            return { n: ids.length, active: act.length, dup: ids.length - new Set(ids).size, cats: [...new Set(ACHIEVEMENTS.map(a => a.cat))], activeCats: [...new Set(act.map(a => a.cat))].length, landmarks: ACHIEVEMENTS.filter(a => a.cat === 'landmarks').length };
         });
-        check('catalogue: 40–65 achievements, unique ids, 7 categories', info.n >= 40 && info.n <= 65 && info.dup === 0 && info.cats.length === 7, JSON.stringify(info));
+        check('catalogue: unique ids, 8 categories, live set 40–65 (landmarks wait for their activity)', info.active >= 40 && info.active <= 65 && info.dup === 0 && info.cats.length === 8, JSON.stringify(info));
+        check('IndexedDB store open (versioned schema)', await page.evaluate(async () => { const s = window.game.save; await s.ready; return s.mode === 'idb' && (await s.get('meta:schema')) === 1; }));
         await page.screenshot({ path: path.join(OUT, 'menu-1280.png') });
         check('menu ring present', await page.$('#achv-menu .achv-ring') !== null);
 
@@ -74,6 +77,20 @@ const comp = (page) => page.evaluate(() => { const c = window.game.achievements.
         const expect = 25 * got.length / c.total;
         check('completion math: achievements share = 25 × n/total', Math.abs(c.exact - expect) < 1e-9 && c.pct === Math.floor(expect), `exact ${c.exact.toFixed(3)} pct ${c.pct}`);
 
+        // ---- 2b. note 44: a chapter achievement unlocks at the goal, not on a later poll; note 57 activity events
+        const t44 = await page.evaluate(async () => { const g = window.game, t0 = performance.now(); g.progress.done.add('rosetti'); while (!g.achievements.isUnlocked('ch-rosetti') && performance.now() - t0 < 3000) await new Promise(r => setTimeout(r, 20)); const ok = g.achievements.isUnlocked('ch-rosetti'); g.progress.done.delete('rosetti'); delete g.achievements.state.unlocked['ch-rosetti']; g.achievements.save(true); return { ok, ms: Math.round(performance.now() - t0) }; });
+        check('note 44: chapter achievement within 0.5 s of progress.done', t44.ok && t44.ms < 500, JSON.stringify(t44));
+        const act = await page.evaluate(async () => {
+            const g = window.game, A = g.achievements, before = A.completion().total;
+            g.emit('activity', { spot: 'gas-works', id: 'kite' });
+            await new Promise(r => setTimeout(r, 100));
+            const r = { kite: A.isUnlocked('lm-kite'), all: A.isUnlocked('landmarks-all'), before, after: A.completion().total };
+            // undo (keeps the later sections' numbers): forget the activity
+            for (const id of ['lm-kite', 'landmarks-all']) delete A.state.unlocked[id]; A.state.sets.activities = []; A.save(true);
+            return r;
+        });
+        check('note 57: game.emit("activity") unlocks its Landmarks achievement and makes it count', act.kite && act.all && act.after === act.before + 2, JSON.stringify(act));
+        await load(page); // (the live-activity set is per page: start clean)
         // ---- 3. persistence across reload
         const before = await page.evaluate(() => ({ ...window.game.achievements.state.unlocked }));
         await load(page);
@@ -189,6 +206,52 @@ const comp = (page) => page.evaluate(() => { const c = window.game.achievements.
             await page.screenshot({ path: path.join(OUT, 'spot-pause-1280.png'), timeout: 180000 }).catch(e => console.log('(spot screenshot skipped: ' + e.message.split('\n')[0] + ')'));
             await page.evaluate(() => { window.game.hud.closePanel(); window.game.leaveSpot(); });
             await sleep(500);
+        }
+        // ---- 9. (optional, --save) note 73: autosave → reload → Continue at the same pose, gallery persists, reset clears all
+        if (SAVE) {
+            await load(page);
+            await page.click('#start');
+            await page.waitForFunction(() => window.game.state === 'drive', null, { timeout: 240000 });
+            const want = await page.evaluate(async () => {
+                const g = window.game, P = g.player;
+                // move the car 60 m along its lane, then get out and step 4 m away
+                const p = g.lanePose(P.x + P.fx * 60, P.z + P.fz * 60, P.heading) || { x: P.x, z: P.z, heading: P.heading, edge: null };
+                P.place(p.x, p.z, p.heading, p.edge); P.speed = 0;
+                g.fuel = 17.25; g.stats.fineCount = 2; g.stats.dist = 1234; g.honks = 7;
+                g.exitCar(); g.foot.teleport(g.foot.x + 3, g.foot.z + 2, 1.0);
+                // a photo as PhotoMode would keep it
+                const c = document.createElement('canvas'); c.width = 300; c.height = 200; const x = c.getContext('2d'); x.fillStyle = '#d97706'; x.fillRect(0, 0, 300, 200); x.fillStyle = '#fff'; x.font = '40px sans-serif'; x.fillText('test shot', 40, 110);
+                const blob = await new Promise(r => c.toBlob(r, 'image/jpeg', 0.9));
+                g.photo.gallery.unshift({ blob, url: URL.createObjectURL(blob), name: 'drive-my-cv-test.jpg', meta: { place: 'Harness shot', filter: 'none' } });
+                g.save.observePhotos(); await new Promise(r => setTimeout(r, 300));
+                await g.save.saveSession('harness');
+                return { car: { x: P.x, z: P.z, h: P.heading }, foot: { x: g.foot.x, z: g.foot.z }, fuel: g.fuel, state: g.state, photos: (await g.save.listPhotos()).length };
+            });
+            check('save: session + photo written', want.state === 'foot' && want.photos >= 1, JSON.stringify(want));
+            await load(page);
+            const cont = await page.evaluate(async () => { await window.game.save.ready; return { has: window.game.save.hasSession(), btn: !!document.querySelector('#save-continue, #continue, [data-continue]'), label: window.game.save.session?.label }; });
+            check('reload: Continue offered', cont.has && cont.btn, JSON.stringify(cont));
+            await page.screenshot({ path: path.join(OUT, 'continue-menu-1280.png') });
+            await page.click('[data-continue]');
+            await page.waitForFunction(() => window.game.state === 'foot', null, { timeout: 240000 });
+            await sleep(500);
+            const got = await page.evaluate(() => { const g = window.game, P = g.player; return { car: { x: P.x, z: P.z, h: P.heading }, foot: { x: g.foot.x, z: g.foot.z }, fuel: g.fuel, fines: g.stats.fineCount, dist: g.stats.dist, honks: g.honks, state: g.state }; });
+            const dCar = Math.hypot(got.car.x - want.car.x, got.car.z - want.car.z), dFoot = Math.hypot(got.foot.x - want.foot.x, got.foot.z - want.foot.z);
+            check('Continue: car and walker within 1 m, on foot, fuel / fines / trip restored', dCar <= 1 && dFoot <= 1 && Math.abs(got.car.h - want.car.h) < 0.05 && got.state === 'foot' && Math.abs(got.fuel - 17.25) < 0.01 && got.fines === 2 && got.dist >= 1234 && got.honks === 7, JSON.stringify({ dCar: +dCar.toFixed(3), dFoot: +dFoot.toFixed(3), ...got }));
+            await page.screenshot({ path: path.join(OUT, 'continue-restored-1280.png'), timeout: 180000 }).catch(() => { });
+            await page.evaluate(() => window.game.save.openGallery()); await sleep(600);
+            const gal = await page.$$eval('#save-gallery .gal-grid img', l => l.length);
+            check('gallery persists across reload', gal >= 1, `${gal} photo(s)`);
+            await page.screenshot({ path: path.join(OUT, 'gallery-1280.png'), timeout: 180000 }).catch(() => { });
+            await page.setViewportSize({ width: 390, height: 844 }); await sleep(300);
+            await page.screenshot({ path: path.join(OUT, 'gallery-390x844.png'), timeout: 180000 }).catch(() => { });
+            await page.setViewportSize({ width: 1280, height: 720 });
+            await page.evaluate(() => window.game.save.closeGallery());
+            await page.evaluate(() => { window.game.achievements.open(); window.game.achievements.confirmReset = true; window.game.achievements.renderPanel(); });
+            await Promise.all([page.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 60000 }), page.click('#achv-panel [data-achv-act="reset-yes"]')]);
+            await page.waitForFunction(() => window.game?.save, null, { timeout: 60000 });
+            const cleared = await page.evaluate(async () => { const s = window.game.save; await s.ready; const ls = Object.keys(localStorage).filter(k => k.startsWith('dmcv') && !/lookHintShown/.test(k)); return { has: s.hasSession(), photos: (await s.listPhotos()).length, kv: (await s.keys()).filter(k => k !== 'meta:schema'), ls }; });
+            check('reset clears IndexedDB (session, mirror, photos) and localStorage', !cleared.has && cleared.photos === 0 && !cleared.kv.some(k => /^(session|ls:dmcv\.progression|ls:dmcv:chapters|ls:dmcv\.spots)/.test(String(k))), JSON.stringify(cleared));
         }
     } catch (e) { errors.push('harness: ' + (e.stack || e.message)); }
     check('0 page errors', errors.length === 0, errors.slice(0, 5).join(' | '));

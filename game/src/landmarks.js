@@ -108,6 +108,10 @@ function materials() {
     };
     fl.customProgramCacheKey = () => 'landmark-floodlit';
     MATS.fl = fl;
+    // night-lit accent (e.g. the blue-lit rim of the UPB Rectorat dome): vertex-coloured Lambert + emissive eased by render.js
+    const nb = new THREE.MeshLambertMaterial({ vertexColors: true, emissive: new THREE.Color('#3f7fff'), emissiveIntensity: 0 });
+    nb.name = 'landmark-nightlight'; nb.userData.nightEmissive = 2.2; nb.userData.nightGlow = 2.2; nb.userData.dayGlow = 0;
+    MATS.nb = nb;
     return MATS;
 }
 
@@ -1468,24 +1472,6 @@ function bOpera(b) {
     b.colPoly([p], 22);
 }
 
-// Rectoratul Universității Politehnica (Splaiul Independenței 313, 1970s) — OSM way 28240552: 5 levels,
-// square ≈ 48 x 48 m; roof part 1217715300: dome, building:levels 7 (≈ 42 m Ø). No tower is mapped and no
-// published height was found, so the height follows OSM: 5 storeys (≈ 20 m) + shallow dome to ≈ 28 m.
-// Concrete frame with continuous ribbon windows and vertical fins; aula under the copper-grey dome.
-// Src: OSM way 28240552 (building:levels 5) + roof part 1217715300 (dome, levels 7)
-function bPolitehnica(b) {
-    const [p] = P.politehnica.map(pts), CON = '#d7d3ca', GL = '#3d4b57';
-    b.prism(p, 0, 20, CON, { topCol: '#b9b4aa' });
-    b.prism(offset(p, -0.6), 0, 4.6, GL, { mat: 'g', top: false });                          // recessed glazed ground floor
-    for (let y = 4.6; y < 19; y += 3.85) b.prism(offset(p, 0.05), y + 1.1, y + 3.2, GL, { mat: 'g', top: false });   // ribbon windows
-    b.pilasters(p, 4.6, 20, 3.2, 0.35, 0.45, '#e6e3dc', {});
-    b.cornice(p, 19.4, 1, 0.8, '#e6e3dc');
-    b.cyl(1, 20.4, 1, 20.5, 21, 1.6, CON, 24);
-    b.dome(1, 22, 1, 20.2, 6.2, '#7f8b8c', 24);
-    b.cyl(1, 28, 1, 2.2, 2.2, 1.6, '#c9ccc8', 10);
-    b.colPoly([p], 16);
-}
-
 // Hermes Business Campus (Pipera, 2009) — OSM: Clădirea A 9 levels (way 533147567), B+C with a courtyard
 // (458259608) and the smaller building 231123137 (levels unmapped: 7 assumed). Blue-green curtain walls with
 // white spandrel lines and aluminium fins, recessed glazed ground floors, rooftop plant boxes, "HERMES" sign.
@@ -1501,6 +1487,8 @@ function bHermes(b) {
         b.prism(offset(ps[i], -6), H[i], H[i] + 3, '#b5bcc1');
     }
     b.text('HERMES', 35, 31, 57.9, 0, 2.4, '#ffffff');
+    // Luxoft (2017 CV stop): lobby door on the Pompeiu (south) face of building A, campus name on the canopy, tenant plate
+    entrance(b, nearestFacade(ps[0], 14, 70), { w: 3.6, h: 3.4, canopy: 2.6, canopyCol: '#e8ecef', canopyText: 'HERMES BUSINESS CAMPUS', canopyTextH: 0.16, canopyTextCol: '#2b4a63', plate: { w: 0.66, h: 0.36, y: 1.35, bg: '#ffffff', lines: [['LUXOFT', 0.12, '#2a3a8c'], ['A DXC COMPANY', 0.04, '#5b6b7a']] } });
     b.colPoly(ps.slice(0, 3), 20);
 }
 
@@ -1976,6 +1964,11 @@ const P2 = {
     sealink: [[12,-74,-7,-73,-5,-31.5,-19,-14.5,-11,-7.5,-3.5,0.5,0,74,19,73]], // w54139654 (anchor 47.4452089, -122.2969786)
     thelandmark: [[19.5,-19,-19,-19.5,-19.5,19.5,2,19.5,2,2,19,2.5]], // w546500235 The Landmark Corp B (UiPath, Vasile Alecsandri 4), anchor 44.450012, 26.0946079
     europehouse: [[-34.5,-23.5,-31,-21,-36.5,-13,-7,8,-10,13,14.5,29,24.5,31,32,31,36.5,29.5,29,24,35.5,15,-29.5,-31]], // w246115249 (anchor 44.4511557, 26.087697)
+    // CV-stop buildings (round 5), OSM API geometry 2026-11-07, model frame = bbox centre (+x east, +z south)
+    gts: [[7,-9.5,4,-10,4,-11.5,1.5,-11.5,1.5,-13.5,-2.5,-15,-7,14,3.5,15]],                       // w245117704 Calea Călărașilor 101 (LMI B-II-m-B-18379), bbox centre 44.433441, 26.1176015
+    rosetti: [[-16.5,-29,26.5,-18.5,14.5,29,-26.5,19,-23.5,7.5,5,14.5,11,-10,-19,-17.5]],            // w28240279 Liceul C.A. Rosetti, Garibaldi 11 (3 levels), bbox centre 44.4671565, 26.106133
+    bob: [[-72.5,-3.5,-46,56,72.5,3.5,46,-56,-11,-30.5,-12,-30]],                                    // w55450549 BOB Tower, Pompeiu 6A, bbox centre 44.479608, 26.1147802
+    rectorat: [[-16.5,-29,28.5,-17.5,22,8.5,17,29,-28.5,17,-23.5,-4,-19,-20.5]],                     // w28240552 Rectorat UPB (5 levels), bbox centre 44.438429, 26.0515105
     halatraian: [[-10,-20,-14,17,10,20,12,1.5,14,-17]], // w35147215 (anchor 44.4333566, 26.120567)
     globalworth: [[-33,-25,-12,25,24,10.5,20,1.5,33,-4,28,-16.5]], // w547396774 (anchor 44.4792401, 26.1024141)
 };
@@ -2272,6 +2265,130 @@ function bSeaLink(b) {
     for (let z = z0 + 6; z <= z1 - 6; z += 18.5) b.col(6 + z * 7 / 148, z, 1.4, 1.8, Math.atan2(7, 148));
 }
 
+// ---- CV-stop helpers: a real entrance (door, surround, optional canopy) on the facade point nearest (px, pz), and a
+// small tenant plate beside it (lines of 5x7 text) — door signs / plaques, never billboards (owner note 39).
+function nearestFacade(p, px, pz) {
+    let best = null;
+    for (let i = 0; i < p.length; i++) {
+        const a = p[i], c = p[(i + 1) % p.length], dx = c[0] - a[0], dz = c[1] - a[1], L = Math.hypot(dx, dz); if (L < 2) continue;
+        const t = Math.max(1.5, Math.min(L - 1.5, ((px - a[0]) * dx + (pz - a[1]) * dz) / L)), x = a[0] + dx / L * t, z = a[1] + dz / L * t, d = Math.hypot(px - x, pz - z);
+        if (!best || d < best.d) { const n = edgeN(p, i); best = { d, x, z, nx: n[0], nz: n[1], ux: dx / L, uz: dz / L }; }
+    }
+    return best;
+}
+function entrance(b, f, o = {}) {
+    const { x, z, nx, nz } = f, ux = -nz, uz = nx, ry = Math.atan2(nx, nz), w = o.w ?? 2.4, h = o.h ?? 2.9, y = o.y ?? 0;
+    const at = (u, n) => [x + ux * u + nx * n, z + uz * u + nz * n];
+    { const [cx, cz] = at(0, 0.1); b.box(cx, y, cz, w + 0.5, h + 0.35, 0.22, o.frame || '#3c3f42', { ry }); }
+    { const [cx, cz] = at(0, 0.2); b.box(cx, y, cz, w, h, 0.08, o.door || '#7e959e', { ry, mat: o.doorMat || 'g' }); }
+    if (o.canopy) { const [cx, cz] = at(0, o.canopy / 2); b.box(cx, y + h + 0.35, cz, w + 1.6, 0.25, o.canopy, o.canopyCol || '#3c3f42', { ry }); if (o.canopyText) { const [tx, tz] = at(0, o.canopy + 0.02); b.text(o.canopyText, tx, y + h + 0.37, tz, ry, o.canopyTextH || 0.2, o.canopyTextCol || '#f2f2f2', { d: 0.01 }); } }
+    if (o.plate) {
+        const pw = o.plate.w ?? 0.8, ph = o.plate.h ?? 0.55, side = o.plate.side ?? 1, u = side * (w / 2 + 0.55 + pw / 2), yb = y + (o.plate.y ?? 1.35);
+        const [cx, cz] = at(u, 0.04); b.box(cx, yb, cz, pw, ph, 0.05, o.plate.bg || '#1f3350', { ry });
+        let yy = yb + ph - 0.07;
+        for (const [t, th, tc] of o.plate.lines) { yy -= th; const [tx, tz] = at(u, 0.07); b.text(t, tx, yy, tz, ry, th, tc || '#f4f4f4', { d: 0.005 }); yy -= th * 0.45; }
+    }
+    return { x, z, nx, nz, ry };
+}
+
+// Calea Călărașilor 101 (GTS Global Intelligence, 2015 CV stop) — OSM w245117704: a listed (LMI B-II-m-B-18379)
+// single-storey early-1900s street house on a narrow deep lot (10.5 m frontage x 29 m), building=apartments, 1 level.
+// Research (bucharest-unirii.md gts): pastel render #E3D3B8, tall windows with cornices, carriage gate, grey/brown
+// sheet roof; the 6-storey 1936 block at no. 105 (w245117686) two doors east is a generic OSM building. Small-office
+// signage only: a navy door plate "GTS / GLOBAL INTELLIGENCE" by the entrance + the blue street-number plate "101"
+// (no billboard, owner note 39). Anchor = 8 m in front of the footprint centre (towards the street), so the
+// suppression radius covers this house and the address point but not the neighbours' centroids.
+// Src: game/research/bucharest-unirii.md (gts, w245117704 row) ; OSM w245117704 ; LMI 2015 B-II-m-B-18379
+function bGTS(b) {
+    b.shift(0, -8);
+    const [p] = P2.gts.map(pts), R = '#e3d3b8', TR = '#efe4cf', PL = '#c9b998', ROOF = '#7a6e66';
+    b.wall = R;
+    b.prism(p, 0, 4.7, R, { topCol: ROOF });
+    b.prism(offset(p, 0.08), 0, 0.75, PL, { top: false });                                  // plinth
+    b.cornice(p, 4.2, 0.5, 0.35, TR);                                                       // cornice
+    // street front (south edge): parapet with a moulded attic, 3 tall windows with surrounds + cornice caps, entrance
+    const fa = [-7, 14], fc = [3.5, 15], fl = Math.hypot(fc[0] - fa[0], fc[1] - fa[1]), ux = (fc[0] - fa[0]) / fl, uz = (fc[1] - fa[1]) / fl, nx = uz, nz = -ux, ry = Math.atan2(-nx, -nz);
+    const F = (t, n = 0) => [fa[0] + ux * t - nx * n, fa[1] + uz * t - nz * n];     // -n = outward (south)
+    { const [cx, cz] = F(fl / 2, 0.1); b.box(cx, 4.7, cz, fl + 0.4, 0.9, 0.3, TR, { ry }); }
+    for (const t of [1.9, 4.2, 6.5]) {
+        const [cx, cz] = F(t, 0.2), [sx, sz] = F(t, 0.1), [kx, kz] = F(t, 0.22);
+        b.box(sx, 1.05, sz, 1.5, 2.75, 0.1, TR, { ry }); b.box(cx, 1.2, cz, 1.1, 2.4, 0.06, '#3e4247', { ry, mat: 'g' }); b.box(cx, 2.1, F(t, 0.24)[1] * 0 + cz, 1.1, 0.06, 0.08, TR, { ry }); b.box(cx, 1.2, cz, 0.06, 2.4, 0.08, TR, { ry });
+        b.box(kx, 3.85, kz, 1.75, 0.22, 0.3, TR, { ry }); b.box(sx, 0.95, sz, 1.6, 0.12, 0.22, TR, { ry });
+    }
+    const f = { x: F(8.9)[0], z: F(8.9)[1], nx: -nx, nz: -nz };
+    entrance(b, f, { w: 1.5, h: 3, frame: TR, door: '#5a4433', doorMat: 'm', plate: { w: 0.62, h: 0.48, y: 1.25, side: -1, bg: '#1f3350', lines: [['GTS', 0.16, '#ffffff'], ['GLOBAL', 0.05, '#cfd8e6'], ['INTELLIGENCE', 0.05, '#cfd8e6']] } });
+    { const [cx, cz] = F(9.95, 0.08); b.box(cx, 3.1, cz, 0.36, 0.24, 0.03, '#1d4f91', { ry }); const [tx, tz] = F(9.95, 0.1); b.text('101', tx, 3.15, tz, ry + Math.PI, 0.12, '#ffffff', { d: 0.005 }); }
+    // pitched sheet roof along the lot (hip), chimneys
+    b.hip(0.2, 4.7, 0.6, 26.4, 8.4, 2.4, ROOF, { ry: 1.43 });
+    for (const [x, z] of [[-1.5, 6], [1, -6]]) b.box(x, 5.6, z, 0.6, 2, 0.6, '#b9a98e');
+    b.colPoly([p], 6);
+}
+
+// Liceul Teoretic "C.A. Rosetti" (Str. Gen. Giuseppe Garibaldi 11, 2009 CV stop) — OSM w28240279: 3-level school
+// block, U-shaped (wings to the west, base along Garibaldi). Research (bucharest-floreasca.md rosetti): 1950s-60s
+// rendered masonry, cream #E8DDB8, white window frames, regular grid of tall windows, flat roof; gate on the W side
+// of one-way (northbound) Garibaldi. Entrance with a canopy and the blue Romanian school name plate + flag.
+// Src: game/research/bucharest-floreasca.md (rosetti, w28240279 row) ; OSM w28240279
+function bRosetti(b) {
+    const [p] = P2.rosetti.map(pts), W = '#e8ddb8', FR = '#f4f2ec', GL = '#4c5660';
+    b.wall = W;
+    const top = storeys(b, p, 0, [[3.9, 0.48, 0.62, false], [3.6, 0.48, 0.62, false], [3.6, 0.48, 0.62, false]], { wall: W, win: FR, trim: '#ddd1aa', bay: 3.3, courses: [0], corniceOut: 0.35, corniceH: 0.5, minL: 4, roofCol: '#8d8b86' });
+    b.ring(offset(p, -0.05), top, top + 0.7, '#ddd1aa'); b.ring(offset(p, -0.35), top, top + 0.7, '#ddd1aa', { inward: true });   // parapet
+    b.windows(p, 0, 11.1, 3.7, GL, { bay: 3.3, wf: 0.4, hf: 0.52, start: 0.95, minL: 4, off: 0.12, mat: 'g' });   // glazing inside the white frames
+    b.prism(offset(p, 0.06), 0, 0.6, '#b9ae92', { top: false });
+    const f = nearestFacade(p, 40, 7.4);                                                  // on the Garibaldi (east) face, level with the address node
+    entrance(b, f, { w: 2.6, h: 2.9, frame: '#d7cba5', door: '#6d7f88', canopy: 2.2, canopyCol: '#cfc6b0', plate: { w: 1.1, h: 0.62, y: 1.4, bg: '#1d4f91', lines: [['LICEUL TEORETIC', 0.08, '#ffffff'], ['C.A. ROSETTI', 0.12, '#ffffff']] } });
+    { const x = f.x + f.nx * 0.4 - f.nz * 2.3, z = f.z + f.nz * 0.4 + f.nx * 2.3; b.cyl(x, 3.2, z, 0.03, 0.03, 1.8, '#d8d8d8', 5, { rz: 0.5 }); flag(b, x + 0.4, 5, z, 1.1); }
+    b.colPoly([p], 8);
+}
+
+// BOB / "BOB Tower" (Globalworth, Bd. Dimitrie Pompeiu 6A, 2008; DB Global Technology 2017 CV stop) — OSM w55450549;
+// research (bucharest-pipera.md db): GF + 6 floors (≈ 28 m), blue-green curtain wall #6F8C99 with grey spandrels,
+// flat roof; on the south side of Pompeiu opposite Hermes; OSM entrance nodes on the north face (≈ -11.5, -30).
+// Signage: building name on the entrance canopy + a small tenant plate (no rooftop logo found in research).
+// Src: game/research/bucharest-pipera.md (db, w55450549 row; Globalworth BOB particulars) ; OSM w55450549
+function bBOB(b) {
+    const q = P2.bob.map(pts)[0], p = q.slice(0, 4), GL = '#6f8c99', SP = '#8e989c', MU = '#c3c8ca';
+    b.prism(offset(p, -0.8), 0, 4.5, '#5d737d', { mat: 'g', top: false });                   // recessed glazed ground floor
+    curtainTower(b, p, 4.5, 27.4, { glass: GL, spandrel: SP, mullion: MU, pitch: 1.8, mw: 0.12, md: 0.18, fh: 3.8, frac: 0.66 });
+    b.prism(p, 4.3, 4.6, SP, { top: false }); b.cornice(p, 27.2, 0.6, 0.3, MU);
+    b.pilasters(p, 0, 4.5, 7.2, 0.5, 0.5, '#9aa3a6', {});
+    { const t = offset(p, -12); b.prism(t, 27.4, 30.4, '#a3a7a8'); }                        // plant enclosure
+    const f = nearestFacade(p, -11.5, -30.2);
+    entrance(b, f, { w: 4.8, h: 3.6, canopy: 3.2, canopyCol: '#2f3437', canopyText: 'BOB', canopyTextH: 0.32, plate: { w: 0.7, h: 0.5, y: 1.3, bg: '#ffffff', lines: [['DB', 0.14, '#0018a8'], ['GLOBAL', 0.05, '#0018a8'], ['TECHNOLOGY', 0.05, '#0018a8']] } });
+    b.colPoly([p], 18);
+}
+
+// Rectoratul Universității Politehnica București (1970s) — OSM w28240552 (5 levels) + dome part. From the Commons refs
+// (game/research/refs/grozavesti: "RO B Politehnica university rectorate", "Politehnica University of Bucharest 0x"):
+// glazed recessed ground floor, three storeys behind dense vertical concrete fins, a projecting slab, a recessed
+// red-brick top storey with ribbon windows, a wide projecting roof slab and the big dark saucer dome (aula) on a
+// glazed drum with the flag; blue-lit dome rim at night (research). Entrance on the north forecourt: canopy, flags,
+// "RECTORAT" plate. Src: game/research/bucharest-grozavesti.md (upb, w28240552 row) ; OSM w28240552
+function bPolitehnica(b) {
+    const [p] = P2.rectorat.map(pts), CON = '#b3afa6', FIN = '#c9c5bc', BR = '#8f5440', GL = '#3d4b57', SL = '#d4d0c7';
+    b.prism(offset(p, -1.2), 0, 3.8, GL, { mat: 'g', top: false });                          // recessed glazed ground floor
+    b.prism(p, 3.8, 14.6, '#55606a', { top: false, mat: 'g' });                             // glazing behind the fins
+    b.pilasters(p, 0, 14.6, 1.7, 0.42, 1.0, FIN, {});                                       // dense vertical fins
+    b.cornice(p, 14.6, 0.8, 1.6, SL, { solid: true });                                     // projecting slab
+    const up = offset(p, -2.2);
+    b.prism(up, 15.4, 19.8, BR, { topCol: CON }); b.bands(up, 15.4, 19.8, 4.4, '#46525c', { frac: 0.42, start: 1.4, mat: 'g', wall: BR, pitch: 2.4 });
+    b.cornice(p, 19.8, 0.7, 2.2, SL, { solid: true });                                     // wide roof slab
+    const [cx, cz] = centroid(p);
+    b.cyl(cx, 20.5, cz, 13.5, 13.5, 1.6, '#566470', 24, { mat: 'g' });                      // glazed drum
+    b.geo(new THREE.LatheGeometry([[0.01, 5.6], [6, 5.2], [12, 3.9], [16.6, 2.2], [19.6, 0.6], [19.2, 0], [13.5, -0.2]].map(([a, c]) => new THREE.Vector2(a, c)), 32), '#5d6366', M(cx, 22.1, cz), 'g');   // saucer dome
+    b.geo(new THREE.TorusGeometry(19.45, 0.22, 4, 48), '#4f7fc7', M(cx, 22.65, cz, 0, 1, 1, 1, Math.PI / 2), 'nb');   // dome rim (blue-lit at night)
+    b.cyl(cx, 27.7, cz, 3.2, 3.4, 1.2, '#6a7072', 12); b.cyl(cx, 28.9, cz, 0.06, 0.08, 6, '#d8d8d8', 5); flag(b, cx, 34.6, cz, 2.4);
+    const f = nearestFacade(p, 0, -40);                                                    // north forecourt
+    entrance(b, f, { w: 6, h: 3.4, canopy: 3, canopyCol: SL, plate: { w: 1.2, h: 0.5, y: 1.4, bg: '#e9e6df', lines: [['UNIVERSITATEA POLITEHNICA', 0.045, '#1b3f73'], ['RECTORAT', 0.13, '#1b3f73']] } });
+    for (const [k, col] of [[-1, 'ro'], [0, 'eu'], [1, 'upb']]) {
+        const x = f.x + f.nx * 9 - f.nz * k * 3, z = f.z + f.nz * 9 + f.nx * k * 3; b.cyl(x, 0, z, 0.07, 0.1, 9, '#e3e3e3', 6);
+        if (col === 'ro') flag(b, x, 8.8, z, 2.2); else b.box(x + 1.1, 7.3, z, 2.2, 1.45, 0.05, col === 'eu' ? '#003399' : '#1b3f73');
+    }
+    b.colPoly([p], 14);
+}
+
+
 // The Landmark (Str. Vasile Alecsandri 4 / Căderea Bastiliei, 2016-17) — UiPath's Bucharest HQ (2020 CV stop) in
 // "Corp B" (OSM w546500235, 7 levels, the address node Vasile Alecsandri 4 lies inside it); the sister block "Corp C"
 // (w583612401, 7 levels) is left to the generic OSM buildings. Class-A offices: light stone / fibre-cement panels #D8D3C8 with regular vertical window bands, dark grey
@@ -2297,6 +2414,7 @@ function bTheLandmark(b) {
     const dz = 12.4;
     b.box(-21.2, 4.4, dz, 3.4, 0.3, 6, FR); b.box(-19.6, 0, dz, 0.2, 3, 2.4, '#8fa3ad', { mat: 'g' });
     b.text('4', -19.82, 3.3, dz + 2.3, -Math.PI / 2, 0.8, '#f2f2f2');
+    entrance(b, { x: -19.5, z: dz, nx: -1, nz: 0 }, { w: 2.2, h: 3, plate: { w: 0.6, h: 0.42, y: 1.3, side: 1, bg: '#ffffff', lines: [['UIPATH', 0.12, '#fa4616'], ['THE LANDMARK', 0.045, '#3c3f42']] } });
     b.colPoly(ps, 10);
 }
 
@@ -2313,6 +2431,8 @@ function bEuropeHouse(b) {
     const t = offset(p, -3.5);
     b.prism(t, 41, 45, GL, { mat: 'g', topCol: '#8e9396' }); b.pilasters(t, 41, 45, 1.8, 0.14, 0.2, FR, {});   // taller glazed top volume / plant screen
     { const [qx, qz] = centroid(p); b.box(qx, 45, qz, 10, 2.5, 6, '#9a9c9c'); }
+    // Arnia (2019 CV stop): main door on Lascăr Catargiu nearest the address point, building name on the canopy, tenant plate
+    entrance(b, nearestFacade(p, 20, 2.7), { w: 3.2, h: 3.4, canopy: 2.4, canopyCol: '#9ea3a6', canopyText: 'EUROPE HOUSE', canopyTextH: 0.18, canopyTextCol: '#20343d', plate: { w: 0.6, h: 0.36, y: 1.35, bg: '#ffffff', lines: [['ARNIA', 0.12, '#e2232a'], ['SOFTWARE', 0.05, '#3c3f42']] } });
     b.colPoly([p], 10);
 }
 
@@ -2387,7 +2507,7 @@ const A = {
     victoria: [44.4528232, 26.0874287, -1.501], cec: [44.4320212, 26.0964749, -0.2094], mnir: [44.4313746, 26.097758, -0.2094],
     marriott: [44.4257465, 26.0766337, -0.6981], unirea: [44.4280154, 26.1048886, -1.501], skytower: [44.4779551, 26.1047395, -1.3265],
     promenada: [44.4781916, 26.1034126, -1.1868], baneasasc: [44.507022, 26.0897843, -0.1745], romexpo: [44.4762793, 26.065137, -0.5411],
-    gara: [44.4466161, 26.0748974, -2.3213], opera: [44.4360568, 26.0795203, -0.0873], politehnica: [44.4384296, 26.0515099, -0.2443],
+    gara: [44.4466161, 26.0748974, -2.3213], opera: [44.4360568, 26.0795203, -0.0873], politehnica: [44.438429, 26.0515105, 0],
     hermes: [44.4810862, 26.1140757, -1.1519], baneasaterm: [44.4962356, 26.0814666, -2.7751], otp: [44.5708154, 26.0795884, -1.4661],
     ase: [44.447807, 26.0971572, -1.5184], ambasador: [44.441963, 26.099535, -1.501], aro: [44.4424337, 26.0992711, -3.0543],
     fountains: [44.4268, 26.1025, 0], aviatorilor: [44.4597696, 26.0860782, 0],
@@ -2405,7 +2525,7 @@ const A = {
     // rotation = road heading (model +x along the road): west high-rise dir (0.9995, 0.0326), east (0.9991, 0.0433)
     murroww: [47.5899055, -122.2849997, -0.0326], murrowe: [47.5892615, -122.2560025, -0.0433],
     seagarage: [47.4432823, -122.2992416, 0], sealink: [47.4452089, -122.2969786, 0],
-    thelandmark: [44.450012, 26.0946079, 0], europehouse: [44.4511557, 26.087697, 0], halatraian: [44.4333566, 26.120567, 0], globalworth: [44.4792401, 26.1024141, 0],
+    gts: [44.433369, 26.1176015, 0], rosetti: [44.4671565, 26.106133, 0], bob: [44.479608, 26.1147802, 0], thelandmark: [44.450012, 26.0946079, 0], europehouse: [44.4511557, 26.087697, 0], halatraian: [44.4333566, 26.120567, 0], globalworth: [44.4792401, 26.1024141, 0],
 };
 
 function L(id, city, name, osmNames, radius, fn, extra = {}) {
@@ -2446,15 +2566,18 @@ export const LANDMARKS = [
     L('aviatorilor', 'bucharest', 'Monumentul Eroilor Aerului', ['Monumentul Eroilor Aerului'], 8, bAviatorilor),
     L('gara', 'bucharest', 'Gara de Nord', ['Gara de Nord'], 120, bGara),
     L('opera', 'bucharest', 'Opera Națională București', ['Opera Națională'], 70, bOpera),
-    L('politehnica', 'bucharest', 'Rectoratul Politehnicii', ['Rectorat Universitatea Politehnica din București'], 30, bPolitehnica),
-    L('hermes', 'bucharest', 'Hermes Business Campus', ['Hermes', 'Clădirea B+C', 'Hermes Business Campus'], 80, bHermes),
+    L('politehnica', 'bucharest', 'Rectoratul Politehnicii', ['Rectorat Universitatea Politehnica din București'], 30, bPolitehnica, { cvStop: 'upb', ownSign: true }),
+    L('hermes', 'bucharest', 'Hermes Business Campus', ['Hermes', 'Clădirea B+C', 'Hermes Business Campus'], 80, bHermes, { cvStop: 'luxoft', ownSign: true }),
     L('baneasaterm', 'bucharest', 'Aeroportul Băneasa (terminal 1952)', ['Aeroportul Internațional Aurel Vlaicu'], 75, bBaneasaTerm),
     L('otp', 'bucharest', 'Aeroportul Henri Coandă', ['Aeroportul Otopeni Henri Coandă - Plecări', 'Aeroportul Otopeni Henri Coandă - Sosiri', 'Terminalul Vioara'], 230, bOTP),
     L('ase', 'bucharest', 'ASE — Palatul Ion N. Angelescu', ['Clădirea Ion N. Angelescu', 'Academia de Studii Economice'], 60, bASE),
     L('ambasador', 'bucharest', 'Hotel Ambasador', ['Hotel Ambasador'], 30, bAmbasador),
     L('aro', 'bucharest', 'Blocul ARO / Patria', ['Bl. ARO/Patria', 'Hanul Elias - Patria'], 32, bARO),
-    L('thelandmark', 'bucharest', 'The Landmark (UiPath HQ)', ['The Landmark Corp B'], 25, bTheLandmark, { cvStop: 'uipath-buc' }),
-    L('europehouse', 'bucharest', 'Europe House', ['Europe House'], 24, bEuropeHouse, { cvStop: 'arnia' }),
+    L('thelandmark', 'bucharest', 'The Landmark (UiPath HQ)', ['The Landmark Corp B'], 25, bTheLandmark, { cvStop: 'uipath-buc', ownSign: true }),
+    L('europehouse', 'bucharest', 'Europe House', ['Europe House'], 24, bEuropeHouse, { cvStop: 'arnia', ownSign: true }),
+    L('gts', 'bucharest', 'Calea Călărașilor 101 (GTS Global Intelligence)', [], 9.5, bGTS, { cvStop: 'gts', ownSign: true }),
+    L('rosetti', 'bucharest', 'Liceul Teoretic C.A. Rosetti', ['Liceul Teoretic C.A. Rosetti', 'Liceul Teoretic „C.A. Rosetti”', 'Liceul C.A. Rosetti'], 26, bRosetti, { cvStop: 'rosetti', ownSign: true }),
+    L('bob', 'bucharest', 'BOB Tower (DB Global Technology)', ['BOB Tower'], 40, bBOB, { cvStop: 'db', ownSign: true }),
     L('halatraian', 'bucharest', 'Hala Traian', ['Hala Traian'], 12, bHalaTraian),
     L('globalworth', 'bucharest', 'Globalworth Tower', ['Globalworth Tower'], 12, bGlobalworth),
     // ---- Seattle / Bellevue (radius given in real metres, halved by L()) ----

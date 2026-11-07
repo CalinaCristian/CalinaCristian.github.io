@@ -313,6 +313,27 @@ export const ACHIEVEMENTS = [
     { id: 'foot-office', cat: 'foot', icon: '🚪', title: 'Walk-in', desc: 'Walked into a CV office on foot.' },
     { id: 'foot-jump', cat: 'foot', icon: '🦘', title: 'Hop', desc: 'Jumped (Space, on foot).' },
     { id: 'foot-zebra', cat: 'foot', icon: '🦓', title: 'Zebra', desc: 'Crossed a street at a pedestrian crossing.' },
+    // ---- Landmarks (note 57): one per researched spot activity. `activity` = '<spot id>:<activity id>' fired by the scene
+    // with game.emit('activity', {spot, id}); hidden from the panel and the % until live (`live: true` here, or listed in
+    // spotsMod.ACTIVITIES). Facts: game/research/seattle-spots.md / bucharest-spots.md ("Fun interaction", plaques, blurbs).
+    { id: 'lm-needle-loupe', cat: 'landmarks', activity: 'space-needle:loupe', icon: '🗼', title: 'The Loupe', desc: 'Rode up the Space Needle and stood on the Loupe, the revolving glass floor that turns once every 45 minutes.' },
+    { id: 'lm-gum-wall', cat: 'landmarks', activity: 'pike-place:gum-wall', icon: '🍬', title: 'Stuck on Post Alley', desc: 'Added your gum to the Gum Wall.' },
+    { id: 'lm-troll-climb', cat: 'landmarks', activity: 'fremont-troll:climb', icon: '🧗', title: 'Troll summit', desc: 'Climbed the Fremont Troll, from the hand clutching the Beetle to the top of the head.' },
+    { id: 'lm-great-wheel', cat: 'landmarks', activity: 'waterfront:great-wheel', icon: '🎡', title: 'Three times around', desc: 'Rode the Seattle Great Wheel: three revolutions, 53 m above Pier 57.' },
+    { id: 'lm-underground', cat: 'landmarks', activity: 'pioneer-square:underground', icon: '🔦', title: 'Under the sidewalk', desc: 'Walked below Pioneer Square among the old storefronts, under the purple vault lights.' },
+    { id: 'lm-lockage', cat: 'landmarks', activity: 'ballard-locks:lockage', icon: '⛴️', title: 'Lock through', desc: 'Watched boats rise in the Ballard Locks between Puget Sound and the lakes.' },
+    { id: 'lm-kite', cat: 'landmarks', activity: 'gas-works:kite', icon: '🪁', title: 'Kite Hill', desc: 'Flew a kite on Kite Hill at Gas Works Park.' },
+    { id: 'lm-bel-loop', cat: 'landmarks', activity: 'bel-downtown-park:loop', icon: '⛲', title: 'The half-mile loop', desc: 'Walked the promenade loop of Bellevue Downtown Park past the waterfall.' },
+    { id: 'lm-bel-bridge', cat: 'landmarks', activity: 'bel-botanical-garden:bridge', icon: '🌉', title: 'Ravine bridge', desc: 'Crossed the suspension bridge over the ravine in the Bellevue Botanical Garden.' },
+    { id: 'lm-bel-kayak', cat: 'landmarks', activity: 'bel-meydenbauer:kayak', icon: '🛶', title: 'Meydenbauer paddle', desc: 'Paddled a kayak around Meydenbauer Bay.' },
+    { id: 'lm-bel-badge', cat: 'landmarks', activity: 'bel-lincoln-square:badge-in', icon: '🪪', title: 'Badge in', desc: 'Badged in at UiPath in Lincoln Square North.' },
+    { id: 'lm-cismigiu-boat', cat: 'landmarks', activity: 'cismigiu:rowboat', icon: '🚣', title: 'Rowing in Cișmigiu', desc: 'Took a rowing boat out on the lake of Bucharest\'s oldest public garden.' },
+    { id: 'lm-herastrau-boat', cat: 'landmarks', activity: 'herastrau-park:boat', icon: '⛵', title: 'Lake Herăstrău', desc: 'Out on Lake Herăstrău in King Michael I Park.' },
+    { id: 'lm-village-house', cat: 'landmarks', activity: 'village-museum:farmhouse', icon: '🏡', title: 'Village in the city', desc: 'Stepped inside one of the real wooden houses moved to the Village Museum.' },
+    { id: 'lm-spring-palace', cat: 'landmarks', activity: 'spring-palace:tour', icon: '🛁', title: 'Gold taps', desc: 'Toured the Spring Palace: the rooms, the mosaic pool and the peacocks.' },
+    { id: 'lm-carusel', cat: 'landmarks', activity: 'old-town-lipscani:carusel', icon: '📚', title: 'Carousel of light', desc: 'Climbed the white balconies of Cărturești Carusel.' },
+    { id: 'lm-athenaeum', cat: 'landmarks', activity: 'athenaeum-revolution:concert-hall', icon: '🎻', title: 'Under the fresco', desc: 'Sat in the Athenaeum\'s domed concert hall under its 75 m fresco.' },
+    { id: 'landmarks-all', cat: 'landmarks', icon: '🏅', title: 'Done it all', desc: 'Did every landmark activity in the game.' },
     // ---- Secrets (hidden)
     { id: 'troll-night', cat: 'secret', hidden: true, icon: '🧌', title: 'Under the bridge', desc: 'Visited the Fremont Troll at night, under the north end of the Aurora Bridge.' },
     { id: 'mountain-out', cat: 'secret', hidden: true, icon: '🏔️', title: 'The Mountain is out', desc: 'Got the Kerry Park postcard with Mount Rainier showing.' },

@@ -14,6 +14,7 @@
 //  - telemetry: `completion_milestone {pct}` (achievement events: telemetry-game.js)
 // ============================================================================
 import { ACHIEVEMENTS, STOPS, PROFILE } from './data.js';
+import { save as SAVE } from './save.js'; // note 73: IndexedDB autosave / Continue / gallery
 
 const KEY = 'dmcv.progression.v1';
 const SPOTS_KEY = 'dmcv.spots.v1';      // spots/index.js (read-only here)
@@ -31,7 +32,7 @@ export const CATEGORIES = [
     { id: 'story', label: 'Story', icon: '📖' }, { id: 'explorer', label: 'Explorer', icon: '🧭' },
     { id: 'driver', label: 'Driver', icon: '🚗' }, { id: 'local', label: 'Local colour', icon: '📣' },
     { id: 'photo', label: 'Photographer', icon: '📷' }, { id: 'foot', label: 'On foot', icon: '🚶' },
-    { id: 'secret', label: 'Secrets', icon: '🗝️' },
+    { id: 'landmarks', label: 'Landmarks', icon: '🎡' }, { id: 'secret', label: 'Secrets', icon: '🗝️' },
 ];
 const MILESTONES = [25, 50, 75, 100];
 const BUC_OFFICES = ['rosetti', 'upb', 'gts', 'luxoft', 'db', 'arnia', 'uipath-buc'];
@@ -42,12 +43,17 @@ const HOTSPOTS = [['victoriei', /^Piața Victoriei/], ['unirii', /^Piața Unirii
 const GOLD = '#d4a017';
 
 const byId = new Map(ACHIEVEMENTS.map(a => [a.id, a]));
+/** Landmarks (note 57): an activity achievement counts (panel, completion %) only once its activity exists in the game:
+ *  `live: true` in data.js, or listed by the spots module (`spotsMod.ACTIVITIES` = [{spot, id}]) — see 01-architecture *Activities* */
+let liveActs = new Set();
+const isLive = (a) => a.cat !== 'landmarks' || a.live === true || (a.activity && liveActs.has(a.activity)) || (a.id === 'landmarks-all' && ACHIEVEMENTS.some(x => x.activity && (x.live === true || liveActs.has(x.activity))));
+export const activeAchievements = () => ACHIEVEMENTS.filter(isLive);
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const rainy = (w) => !!w && (/rain|drizzle|shower|storm|thunder/i.test(`${typeof w.code === 'string' ? w.code : ''} ${w.kind || ''} ${w.label || ''}`) || (typeof w.code === 'number' && ((w.code >= 51 && w.code <= 67) || (w.code >= 80 && w.code <= 82) || w.code >= 95)));
 
 function emptyState() {
     return { v: 1, created: Date.now(), unlocked: {}, counters: { walk: 0, photos: 0 }, dist: { rain: 0, snow: 0, fog: 0 },
-        sets: { screens: [], roam: [], spots: [], plaques: [], rush: [] }, milestones: [], gold: false, thanksShown: false };
+        sets: { screens: [], roam: [], spots: [], plaques: [], rush: [], activities: [] }, milestones: [], gold: false, thanksShown: false };
 }
 function loadState() {
     try {
@@ -77,6 +83,7 @@ export class Progression {
         this.lastChime = 0; this.pendingThanks = false;
         if (game.hud) { game.hud.progression = this; game.hud.unlocked = game.hud.unlocked || new Set(); }
         this.installWraps();
+        this.installActivities();
         this.buildDom();
         this.evaluate();
         this.silent = false;
@@ -96,9 +103,10 @@ export class Progression {
     }
     addTo(set, v) { const a = this.state.sets[set]; if (a.includes(v)) return false; a.push(v); this.save(); return true; }
     /** wipe everything (achievements, chapters, spots/postcards) and reload */
-    reset() {
+    async reset() {
+        clearInterval(this._timer); this.state = emptyState(); this.dirty = false; this._resetting = true;
         try { [KEY, CHAPTERS_KEY, SPOTS_KEY].forEach(k => localStorage.removeItem(k)); } catch { /* ignore */ }
-        this.state = emptyState(); clearInterval(this._timer);
+        try { await SAVE.clearAll(); } catch (e) { console.warn('[achievements] reset', e); } // IndexedDB session, mirror, photos + every dmcv* key
         location.reload();
     }
 
@@ -134,6 +142,7 @@ export class Progression {
             case 'postcards-all': return sd.postcards.filter(x => !ids || ids.has(x)).length;
             case 'photo-roll': return s.counters.photos;
             case 'foot-km': return Math.floor(s.counters.walk);
+            case 'landmarks-all': return ACHIEVEMENTS.filter(a => a.activity && isLive(a) && s.unlocked[a.id]).length;
             default: return 0;
         }
     }
@@ -151,6 +160,9 @@ export class Progression {
             if (this.spotData().postcards.length) this.unlock('postcard-first');
             if (this.state.counters.photos > 0) this.unlock('photo-first');
             for (const a of ACHIEVEMENTS) if (a.target && this.count(a.id) >= a.target) this.unlock(a.id);
+            // activities done before their achievement shipped (or before a reload)
+            for (const a of ACHIEVEMENTS) if (a.activity && this.state.sets.activities?.includes(a.activity)) this.unlock(a.id);
+            { const L = activeAchievements().filter(a => a.activity); if (L.length && L.every(a => this.state.unlocked[a.id])) this.unlock('landmarks-all'); }
         } finally { this._eval = false; }
         this.checkMilestones();
         this.refreshUi();
@@ -167,7 +179,7 @@ export class Progression {
             cv: [Math.min(s.sets.screens.length, N_SCREENS), N_SCREENS],
             spots: [s.sets.spots.filter(x => !ids || ids.has(x)).length, nSpots],
             postcards: [sd.postcards.filter(x => !ids || ids.has(x)).length, nSpots],
-            achievements: [ACHIEVEMENTS.filter(a => s.unlocked[a.id]).length, ACHIEVEMENTS.length],
+            achievements: [activeAchievements().filter(a => s.unlocked[a.id]).length, activeAchievements().length],
         };
         const parts = WEIGHTS.map(w => { const [n, total] = raw[w.key]; const frac = total ? Math.min(1, n / total) : 0; return { ...w, n: Math.min(n, total), total, frac, points: w.weight * frac }; });
         const exact = parts.reduce((t, p) => t + p.points, 0);
@@ -225,6 +237,8 @@ export class Progression {
             g[name] = function (...args) { try { fn(...args); } catch (e) { console.warn('[achievements]', name, e); } return orig.apply(this, args); };
         };
         // chapters: crash count per chapter (clean-chapter), the montage over the I-90 bridge (bridge)
+        // note 44: chapter achievements unlock at the goal (completeChapter adds to progress.done before the card)
+        after('completeChapter', () => self.evaluate());
         before('enterChapter', (idx) => { const ch = g.chapters?.[idx]; if (ch) self.chap = { id: ch.id, crashes: 0, checked: false }; });
         before('chainChapter', (idx) => { const ch = g.chapters?.[idx]; if (ch) self.chap = { id: ch.id, crashes: 0, checked: false }; }); // same-district chapters chain in place (gameplay)
         before('goToChapter', () => { self._fromChapter = g.ch?.id || null; });
@@ -239,6 +253,21 @@ export class Progression {
         after('spotPause', () => self.injectSpotPause());
         // double-chime guard
         const a = g.audio; if (a && typeof a.chime === 'function' && !a._achvWrapped) { const c = a.chime.bind(a); a.chime = (...x) => { self.lastChime = performance.now(); return c(...x); }; a._achvWrapped = true; }
+    }
+    /** note 57 activity events: `game.emit('activity', {spot, id})` or `window.dispatchEvent(new CustomEvent('dmcv:activity', {detail: {spot, id}}))` */
+    installActivities() {
+        const g = this.game;
+        if (typeof g.emit !== 'function') g.emit = (type, detail = {}) => { try { window.dispatchEvent(new CustomEvent('dmcv:' + type, { detail })); } catch (e) { console.warn('[emit]', e); } };
+        addEventListener('dmcv:activity', (e) => this.onActivity(e.detail || {}));
+        const refresh = () => { const L = g.spotsMod?.ACTIVITIES; if (Array.isArray(L)) liveActs = new Set(L.map(x => `${x.spot}:${x.id}`)); };
+        refresh(); g.loadSpotsModule?.()?.then?.(() => { refresh(); this.evaluate(); });
+    }
+    onActivity({ spot, id } = {}) {
+        if (!spot || !id) return;
+        const key = `${spot}:${id}`;
+        liveActs.add(key); // an activity that fired exists in the game
+        this.state.sets.activities ||= [];
+        if (this.addTo('activities', key)) { const a = ACHIEVEMENTS.find(x => x.activity === key); if (a) this.unlock(a.id); this.evaluate(); }
     }
     onPhoto(meta) {
         const g = this.game, s = this.state;
@@ -288,6 +317,8 @@ export class Progression {
         const g = this.game, s = this.state, now = performance.now();
         const dt = Math.min(0.5, (now - this._last) / 1000); this._last = now;
         const st = g.state;
+        // ---- chapter progress changed (any path): unlock right away (note 44)
+        const nDone = g.progress?.done?.size ?? 0; if (nDone !== this._nDone) { this._nDone = nDone; this.evaluate(); }
         // ---- free roam
         if (g.freeRoam?.district && (st === 'drive' || st === 'foot')) { if (this.addTo('roam', g.freeRoam.district)) this.evaluate(); }
         // ---- tourist spots
@@ -388,7 +419,8 @@ export class Progression {
         const card = document.querySelector('#menu .menu-card');
         if (card) {
             const m = this.menuEl = document.createElement('div'); m.id = 'achv-menu';
-            (card.querySelector('.controls') || card.querySelector('.row'))?.insertAdjacentElement('beforebegin', m);
+            const lead = card.querySelector(':scope > .lead');
+            if (lead) lead.insertAdjacentElement('afterend', m); else (document.getElementById('start')?.parentElement || card.firstElementChild)?.insertAdjacentElement('beforebegin', m);
             m.setAttribute('data-achv-open', ''); m.title = 'Achievements & completion';
             m.addEventListener('click', () => this.open()); // the whole bar is the target (the button is hidden on phones)
         }
@@ -437,14 +469,15 @@ export class Progression {
         if (this.view === 'thanks') { this.panelEl.innerHTML = this.thanksHtml(); return; }
         const c = this.completion(), s = this.state, f = this.filter;
         const fmtDate = (t) => { try { return new Date(t).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }); } catch { return ''; } };
-        const catCount = (id) => { const l = ACHIEVEMENTS.filter(a => id === 'all' || a.cat === id); return `${l.filter(a => s.unlocked[a.id]).length}/${l.length}`; };
-        const chips = [{ id: 'all', label: 'All', icon: '🏆' }, ...CATEGORIES].map(k => `<button class="achv-chip${f === k.id ? ' on' : ''}" data-achv-filter="${k.id}" aria-pressed="${f === k.id}">${k.icon} ${esc(k.label)} <small>${catCount(k.id)}</small></button>`).join('');
+        const catCount = (id) => { const l = activeAchievements().filter(a => id === 'all' || a.cat === id); return `${l.filter(a => s.unlocked[a.id]).length}/${l.length}`; };
+        const chips = [{ id: 'all', label: 'All', icon: '🏆' }, ...CATEGORIES.filter(k => activeAchievements().some(a => a.cat === k.id))].map(k => `<button class="achv-chip${f === k.id ? ' on' : ''}" data-achv-filter="${k.id}" aria-pressed="${f === k.id}">${k.icon} ${esc(k.label)} <small>${catCount(k.id)}</small></button>`).join('');
         const parts = c.parts.map(p => `<li><span class="lbl">${p.icon} ${esc(p.label)} <small>${p.n}/${p.total}</small></span><span class="bar"><i style="width:${(p.frac * 100).toFixed(1)}%"></i></span><span class="pts">${p.points.toFixed(1)} / ${p.weight}</span></li>`).join('');
-        const list = ACHIEVEMENTS.filter(a => f === 'all' || a.cat === f);
+        const list = activeAchievements().filter(a => f === 'all' || a.cat === f);
         const cards = list.map(a => {
             const on = !!s.unlocked[a.id], secret = a.hidden && !on;
             let prog = '';
-            if (a.target && !on) { const n = Math.min(this.count(a.id), a.target); prog = `<div class="prog"><span class="bar"><i style="width:${(n / a.target * 100).toFixed(1)}%"></i></span><small>${a.unit === 'm' ? `${n} / ${a.target} m` : `${n}/${a.target}`}</small></div>`; }
+            const target = a.id === 'landmarks-all' ? activeAchievements().filter(x => x.activity).length : a.target;
+            if (target && !on) { const n = Math.min(this.count(a.id), target); prog = `<div class="prog"><span class="bar"><i style="width:${(n / target * 100).toFixed(1)}%"></i></span><small>${a.unit === 'm' ? `${n} / ${target} m` : `${n}/${target}`}</small></div>`; }
             return `<li class="achv-card${on ? ' on' : ''}${secret ? ' secret' : ''}"><span class="ic" aria-hidden="true">${secret ? '❓' : a.icon}</span><div><b>${secret ? '???' : esc(a.title)}</b><p>${secret ? 'A secret. Keep exploring.' : esc(a.desc)}</p>${prog}${on ? `<small class="when">✓ ${fmtDate(s.unlocked[a.id])}</small>` : ''}</div></li>`;
         }).join('');
         const reward = c.all
@@ -458,7 +491,7 @@ export class Progression {
 <details class="achv-break"${this._breakOpen ? ' open' : ''}><summary>Completion breakdown</summary><ul>${parts}</ul></details>
 <nav class="achv-chips">${chips}</nav>
 <ul class="achv-grid">${cards}</ul>
-<footer>${reward}${reset}</footer></div>`;
+<footer><div class="achv-reset"><button class="achv-btn" data-achv-act="gallery">📷 Photo gallery</button></div>${reward}${reset}</footer></div>`;
         const det = this.panelEl.querySelector('.achv-break'); det?.addEventListener('toggle', () => { this._breakOpen = det.open; });
     }
     onPanelClick(e) {
@@ -469,6 +502,7 @@ export class Progression {
         else if (act === 'reset') { this.confirmReset = true; this.renderPanel(); }
         else if (act === 'reset-no') { this.confirmReset = false; this.renderPanel(); }
         else if (act === 'reset-yes') this.reset();
+        else if (act === 'gallery') { this.close(); SAVE.openGallery(); }
         else if (act === 'gold') { this.state.gold = !this.state.gold; this.save(true); this.applyGold(); this.renderPanel(); }
         else if (act === 'thanks') this.showThanks();
         else if (act === 'list') { this.view = null; this.renderPanel(); }
@@ -490,6 +524,7 @@ export class Progression {
 /** called once by main.js after `window.game = new Game()` */
 export function initAchievements(game) {
     if (!game || game.achievements) return game?.achievements || null;
+    try { SAVE.attach(game); } catch (e) { console.warn('[save] attach', e); } // note 73: autosave + Continue + gallery
     try { game.achievements = new Progression(game); } catch (e) { console.warn('[achievements] init', e); return null; }
     return game.achievements;
 }

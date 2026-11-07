@@ -9,6 +9,7 @@
 // ============================================================================
 import * as THREE from '../../vendor/three.module.min.js';
 import { rng, clamp, distSeg, inPoly } from './kit.js';
+import { collide } from './walker.js';
 import { makeCrowd, dressFor, seasonOf } from '../crowd.js';
 
 // ---------------------------------------------------------------------------- looks per persona
@@ -112,6 +113,8 @@ export class Crowd {
         this.peds = []; this.t = 0; this.chatT = 4; this.globalCd = 0; this.idleT = 0; this.recent = [];
         this.lines = o.dialogue?.lines || []; this.general = o.general?.lines || [];
         this.rainy = false;
+        /** colliderIndex of the scene (walker colliders): peds are placed outside them and walkers turn back at them */
+        this.colliders = o.colliders || null;
         /** current conditions for tagged lines (set by SpotSession): { hour, month, day, tempC, kind, snowCm } */
         this.cond = null;
         this.net = pathNetwork(o.paths || []);
@@ -138,8 +141,25 @@ export class Crowd {
     _ped(persona, x, z, yaw, act, extra = {}) {
         const look = this._look(persona);
         const p = { persona, look, x, z, y: 0, yaw, tyaw: yaw, act, phase: this.r() * 6.28, speed: 0, base: act, cd: 0, pose: null, poseT: 0, id: this.peds.length, sayCd: 0, ...extra };
-        p.y = extra.y ?? this.ground.heightAt(x, z);
+        if (extra.y === undefined && act !== 'sit') this._settle(p); // note 27: on the walkable surface, outside every collider
+        p.y = extra.y ?? this._floor(p.x, p.z, null);
         this.peds.push(p); return p;
+    }
+    /** walkable height at (x, z): terrain or a walkable solid (steps, plinth, terrace, deck) within reach of `y` (null: from the terrain up to +4 m) */
+    _floor(x, z, y) {
+        const h = this.ground.heightAt(x, z), probe = y ?? h + 4, g = this.ground.groundAt?.(x, z, probe);
+        return Number.isFinite(g) && g < probe + 0.6 && g >= h - 0.01 ? g : h;
+    }
+    /** a free spot (no collider at body height) at or near the ped's position, searched in rings up to 6 m */
+    _blocked(x, z, y) { return !!(this.colliders && collide(this.colliders, x, z, 0.28, y + 0.25)); }
+    _settle(p) {
+        if (!this.colliders) return true;
+        if (!this._blocked(p.x, p.z, this._floor(p.x, p.z, null))) return true;
+        for (let rr = 0.5; rr <= 6; rr += 0.5) for (let i = 0; i < 12; i++) {
+            const a = i / 12 * Math.PI * 2 + rr, x = p.x + Math.cos(a) * rr, z = p.z + Math.sin(a) * rr;
+            if (!this._blocked(x, z, this._floor(x, z, null))) { p.x = x; p.z = z; if (p.home) { p.home.x = x; p.home.z = z; } return true; }
+        }
+        p.stuck = true; return false;
     }
     _spawnGroup(g) {
         const r = this.r, n = g.n || 1;
@@ -261,8 +281,11 @@ export class Crowd {
         let v = p.vmax;
         if (player && dP < 2.2) { const ax = player.x - p.x, az = player.z - p.z; if (ax * dx + az * dz > 0) { v *= dP < 1 ? 0 : 0.5; const side = (ax * dz - az * dx) > 0 ? -1 : 1; dx += -dz * side * 0.6; dz += dx * side * 0.6; } }
         p.speed += (v - p.speed) * Math.min(1, dt * 3);
-        p.x += dx * p.speed * dt; p.z += dz * p.speed * dt;
-        p.y = this.ground.heightAt(p.x, p.z);
+        const nx = p.x + dx * p.speed * dt, nz = p.z + dz * p.speed * dt, ny = this._floor(nx, nz, p.y + 0.45);
+        if (this.colliders && p.speed > 0.05 && this._blocked(nx, nz, ny) && !this._blocked(p.x, p.z, p.y)) { // a prop / wall on the path: turn back
+            p.dir = -p.dir; p.i = clamp(p.i + p.dir, 0, line.pts.length - 1); p.speed = 0; return;
+        }
+        p.x = nx; p.z = nz; p.y = ny;
         p.tyaw = Math.atan2(dx, dz);
         p.phase += dt * p.speed * 4.6;
     }

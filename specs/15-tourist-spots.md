@@ -20,6 +20,7 @@ R15.5 Each spot loads in < 3 s; ≤ 1 M triangles; 60 fps at auto.
 - [ ] Plaques have sources; photo challenge works on desktop + mobile.
 
 ## Requests
+- (progression → spots-core / spots-buc / spots-sea / spots-bel, 2026-11-07, note 57) **Activity events**: when the player completes an activity, call `window.game?.emit?.('activity', { spot, id })` (contract in 01 *Activities*). Ids already in the Landmarks catalogue (data.js): `space-needle:loupe`, `pike-place:gum-wall`, `fremont-troll:climb`, `waterfront:great-wheel`, `pioneer-square:underground`, `ballard-locks:lockage`, `gas-works:kite`, `bel-downtown-park:loop`, `bel-botanical-garden:bridge`, `bel-meydenbauer:kayak`, `bel-lincoln-square:badge-in`, `cismigiu:rowboat`, `herastrau-park:boat`, `village-museum:farmhouse`, `spring-palace:tour`, `old-town-lipscani:carusel`, `athenaeum-revolution:concert-hall` (research "Fun interaction" lines + blurbs). Use these ids, or tell progression the ones you ship (other activities get an achievement on request). spots-core: please export `ACTIVITIES = [{spot, id, title}]` from spots/index.js listing the activities that exist, so their achievements show (and count toward 100 %) before they are done.
 - (progression → spots, 2026-11-07, spec 23) Optional, nice to have: host callbacks so achievements need not wrap `SpotSession.readPlaque` / `ui.toast`: `host.onPlaque?.({ scene, spot, title, index })` after a plaque is read and `host.onPostcard?.({ id, variant, first })` after a challenge completes, where `variant` names special challenges (e.g. `'peacock'` for the second spring-palace challenge, `'mountain'` when the Kerry Park shot has Rainier visible). Today achievements.js matches the postcard toast text (`/Mountain out/`, `/peacock/`) and plaque titles (`Memorial of Rebirth`, `Curtea Veche, 1459`): please keep those strings, or tell progression when they change.
 ### → gameplay (`main.js`, `game/index.html`): menu entry + hosting a spot (spots role, 2026-11-07)
 Everything spot-specific lives in `game/src/spots/` (`startSpot` does the Renderer3D wiring, walker, crowd, UI, sound). The game only needs a menu entry, a `spot` state and three PhotoMode hooks (≈ 30 lines):
@@ -71,6 +72,20 @@ Confirm (a) the 3-D Troll replica in this non-commercial portfolio (artists cred
   8. **L — plain box backdrops** (Kerry Park / Gas Works skylines, only 2 towers behind Bellevue Downtown Park, a 9-storey slab behind the Botanical Garden).
   All 24: 0 page errors, 0.25–0.52 M scene tris, ≤ 355 calls / ≤ 0.85 M drawn at high, loads 0.6–7.6 s in software GL.
 - (render → spots / spots-buc, 2026-11-07, feedback note 28) `arcul-de-triumf`: the mesh `osm-buildings:f-eclectic` (material `facade-eclectic`) has 6 vertices with zero-length normals, and one unnamed mesh in the same scene has 12. `normalize(0)` gives NaN pixels (3 px at walker x −18.7, z −2.7, t ≈ 24 s), which bloom spread into the black block. render.js now guards both the normal and the bloom input (0 NaN on 60 s walks), but please drop the degenerate triangles or give them a face normal in the facade builder (`spots/osm.js` buildings). Other scenes may have the same issue: check with `geometry.attributes.normal`, length < 1e-6.
+- (research → spots + progression, 2026-11-07, round 5 note 57) **Real activities per spot**: `game/research/activities.json` / `.md`. Covers 26 places (all 24 spots + Piața Unirii fountains + Hala Traian) with 39 activities. Each has what visitors really do, hours/season (official page fetched 2026-11-07 where reachable), sources, confidence, an in-game interaction idea and an achievement id `lm-*` for a new Landmarks category. Examples:
+  - Space Needle: 41 s elevator → Loupe revolving glass floor (one turn per 45 min) → open-air deck with Skyriser benches.
+  - Seattle waterfront: Great Wheel, 12 min / 3 revolutions.
+  - Pike Place: fish throwing and Gum Wall (cleaned Nov 2024).
+  - Ballard Locks: lockage + salmon ladder (sockeye July–mid-Aug).
+  - Arcul de Triumf: terrace + museum only on special occasions (sources disagree; see entry).
+  - Cișmigiu: boats / rink / chess tables.
+
+  Hours are not confirmed for the Parliament, Athenaeum, Spring Palace and Cathedral (their sites did not respond).
+- (research → spots, 2026-11-07, round 5 note 63) **Pioneer Square totem pole**: `game/research/pioneer-totem.md`.
+  - It is the 1940 replica of the Tlingit Chief-of-All-Women pole (Kinninook family, Raven moiety, c. 1790, Tongass Island). Carved at Saxman, Alaska, by CCC-employed Tlingit carvers led by Charles Brown, including Kinninook family members; restored 1972 by Tsimshian carver John C. Hudson Jr.
+  - Figures top to bottom: Raven with the moon, woman holding frog child, frog husband, Mink, Raven, Whale with seal, Raven-at-the-Head-of-Nass.
+  - Paint only black / red / blue-green on weathered red cedar, about 50 ft.
+  - Plaque text and the pergola / Chief Seattle bust / Pioneer Building facts are in the same file.
 
 ## Progress log
 

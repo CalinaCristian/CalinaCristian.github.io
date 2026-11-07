@@ -9,6 +9,7 @@ import { FXAAShader } from '../vendor/addons/FXAAShader.js';
 import { FullScreenQuad } from '../vendor/addons/Pass.js';
 import { Rain, Snow, solarPosition, dirFromElAz, skyState, classifyWMO, fetchLiveWeather, climateWeather, nearestClimate, weatherTargets, seasonState, WEATHER_PRESETS, WEATHER_TTL_MS } from './weather.js';
 import { setVehicleEnvMap } from './vehicles.js';
+import { setWaterEnv, tickWater } from './water.js';
 
 // ============================================================================
 //  Renderer3D — WebGL renderer + sky + sun/shadows + post-processing + weather
@@ -287,7 +288,7 @@ const EnvBlendShader = {
 // ---------------------------------------------------------------------------
 const makeSurfU = () => ({
     uWxOn: { value: 0 }, uSnow: { value: 0 }, uWet: { value: 0 }, uSeasonTint: { value: new THREE.Color(1, 1, 1) },
-    uWetSky: { value: new THREE.Color(0, 0, 0) }, uPuddle: { value: 0 },
+    uWetSky: { value: new THREE.Color(0, 0, 0) }, uPuddle: { value: 0 }, uSnowFlat: { value: 0 },
 });
 function chainPatch(mat, tag, fn) {
     if (mat.userData.wxPatch) return false;
@@ -314,12 +315,12 @@ const WET_STREAK = (arr, n, spot) => `
     }
     #endif`;
 function patchSurface(mat, U) {
-    return chainPatch(mat, 'wxsurf2', (sh) => {
+    return chainPatch(mat, 'wxsurf3', (sh) => {
         Object.assign(sh.uniforms, U);
         sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nvarying vec3 vWxPos;')
             .replace('#include <project_vertex>', '#include <project_vertex>\nvWxPos = (modelMatrix * vec4(transformed, 1.0)).xyz;');
         sh.fragmentShader = sh.fragmentShader.replace('#include <common>', `#include <common>
-            varying vec3 vWxPos; uniform float uWxOn, uSnow, uWet, uPuddle; uniform vec3 uSeasonTint, uWetSky;
+            varying vec3 vWxPos; uniform float uWxOn, uSnow, uWet, uPuddle, uSnowFlat; uniform vec3 uSeasonTint, uWetSky;
             float wxN(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
                 float a = fract(sin(dot(i, vec2(12.9898, 78.233))) * 43758.5453), b = fract(sin(dot(i + vec2(1, 0), vec2(12.9898, 78.233))) * 43758.5453);
                 float c = fract(sin(dot(i + vec2(0, 1), vec2(12.9898, 78.233))) * 43758.5453), d = fract(sin(dot(i + vec2(1, 1), vec2(12.9898, 78.233))) * 43758.5453);
@@ -330,14 +331,17 @@ function patchSurface(mat, U) {
                 wxUpK = smoothstep(0.55, 0.9, dot(normal, ${UP_VIEW}));
                 diffuseColor.rgb *= uSeasonTint;
                 if (uWet > 0.0 && wxUpK > 0.0) {
-                    // standing water in the low spots (two octaves of noise), only once the surface is soaked
-                    float pn = wxN(vWxPos.xz * 0.31) * 0.65 + wxN(vWxPos.xz * 1.9 + 7.3) * 0.35;
-                    wxPud = smoothstep(0.6, 0.74, pn) * uPuddle * smoothstep(0.3, 0.9, uWet) * wxUpK;
+                    // a few small puddles (≈ 1–2 m, a few % of the surface) once soaked; the rest is a uniform wet film
+                    // (note 70: large noise puddles read as camouflage blotches)
+                    float pn = wxN(vWxPos.xz * 0.85) * 0.6 + wxN(vWxPos.xz * 2.7 + 7.3) * 0.4;
+                    wxPud = smoothstep(0.8, 0.88, pn) * uPuddle * smoothstep(0.5, 1.0, uWet) * wxUpK;
                 }
-                diffuseColor.rgb *= 1.0 - uWet * (0.36 + 0.3 * wxPud) * wxUpK;
+                diffuseColor.rgb *= 1.0 - uWet * (0.42 + 0.25 * wxPud) * wxUpK;
                 if (uSnow > 0.0) {
+                    // verges / roofs / squares: patchy cover growing with depth; driven carriageways (uSnowFlat): an even
+                    // grey slush film only, never blotches
                     float n = wxN(vWxPos.xz * 0.45) * 0.6 + wxN(vWxPos.xz * 2.1) * 0.4;
-                    float sn = clamp((uSnow * 1.35 - n * (1.0 - uSnow * 0.7)) * 2.2, 0.0, 1.0) * wxUpK;
+                    float sn = mix(clamp((uSnow * 1.35 - n * (1.0 - uSnow * 0.7)) * 2.2, 0.0, 1.0), uSnow * 0.45, uSnowFlat) * wxUpK;
                     diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.86, 0.89, 0.93), sn);
                     wxPud *= 1.0 - sn;
                 }
@@ -407,7 +411,7 @@ function patchCrowns(mat, U) {
                         float cov = max(1.0 - smoothstep(0.032 - f1, 0.032 + f1, r1), 0.8 * (1.0 - smoothstep(0.026 - f2, 0.026 + f2, r2)));
                         float ign = fract(52.9829189 * fract(dot(gl_FragCoord.xy, vec2(0.06711056, 0.00583715))));
                         if (mix(1.0, cov, gone) < ign) discard;
-                        g = mix(g, vec3(0.2, 0.16, 0.13) * (0.8 + 0.4 * h) * (0.85 + 0.3 * cov), gone);
+                        g = mix(g, vec3(0.115, 0.095, 0.08) * (0.85 + 0.3 * h) * (0.9 + 0.15 * cov), gone); // dark bark: no lit 'scribbles' at night
                     }
                 }
                 diffuseColor.rgb = g;
@@ -478,7 +482,7 @@ export class Renderer3D {
         this._wxT = null; this._wx = null; this._wet = 0; this._wipers = false; this._wxInstant = true;
         this._flash = 0; this._thunderT = 8; this._hemiBase = 0.6; this._cloudOff = new THREE.Vector2();
         this._surfU = { road: makeSurfU(), ground: makeSurfU(), grass: makeSurfU(), roof: makeSurfU() };
-        this._surfU.road.uPuddle.value = 1; this._surfU.ground.uPuddle.value = 0.5; this._surfU.roof.uPuddle.value = 0.3;
+        this._surfU.road.uPuddle.value = 1; this._surfU.ground.uPuddle.value = 0.35; this._surfU.roof.uPuddle.value = 0; this._surfU.road.uSnowFlat.value = 1;
         this._treeU = { broad: makeTreeU(), con: makeTreeU() }; this._treeU.con.uEver.value = 1;
         this._crowns = []; this._season = null; this._seasonT = 0; this._seasonKey = '';
         // street lamps
@@ -911,7 +915,7 @@ export class Renderer3D {
             const tc = U.uSeasonTint.value;
             U.uWxOn.value = snow > 0.002 || w > 0.002 || tc.r !== 1 || tc.g !== 1 || tc.b !== 1 ? 1 : 0;
         };
-        set(S.road, sc * 0.35, wet); set(S.ground, sc, wet * 0.75); set(S.grass, sc, wet * 0.35); set(S.roof, sc * 1.05, wet * 0.5);
+        set(S.road, sc * 0.5, wet); set(S.ground, sc, wet * 0.75); set(S.grass, sc, wet * 0.35); set(S.roof, sc * 1.05, wet * 0.5);
         this._treeU.broad.uSnow.value = sc; this._treeU.con.uSnow.value = sc;
     }
 
@@ -1056,7 +1060,9 @@ export class Renderer3D {
             sl.w = sl.target > sl.w ? Math.min(1, sl.w + step) : Math.max(0, sl.w - step);
             const i = sl.lamp * 4, d = Math.hypot(L[i] - cx, L[i + 1] - cz);
             const k = sm(sl.w, 0, 1) * (1 - sm(d, LAMP_LIGHT_NEAR, LAMP_LIGHT_FAR));
-            sl.light.intensity = LAMP_LIGHT_I * k * lk * (0.35 + 0.65 * (this._lampDens?.[sl.lamp] ?? 1));
+            // low arcade / bollard lamps (2–4 m) would blow out the floor at street-lamp candela: scale with height²
+            const hh = (L[sl.lamp * 4 + 2] - L[sl.lamp * 4 + 3]) / 7.7, hK = THREE.MathUtils.clamp(hh * hh, 0.12, 1);
+            sl.light.intensity = LAMP_LIGHT_I * k * lk * hK * (0.35 + 0.65 * (this._lampDens?.[sl.lamp] ?? 1));
             real[sl.lamp] = k * lk;
             if (sl.w <= 0 && sl.target <= 0) { real[sl.lamp] = 0; sl.lamp = -1; sl.light.intensity = 0; }
         }
@@ -1066,7 +1072,7 @@ export class Renderer3D {
             const i = list[k], d = Math.hypot(L[i] - cx, L[i + 1] - cz);
             const f = (1 - sm(d, far * 0.65, far)) * nk * (1 - 0.35 * real[i / 4]);
             const li = i / 4, td = this._lampTint, dd = this._lampDens ? this._lampDens[li] : 1;
-            D.setColorAt(k, td ? col.setRGB(td[li * 3], td[li * 3 + 1], td[li * 3 + 2]).multiplyScalar(f * dd * 1.25) : col.setScalar(f));
+            D.setColorAt(k, td ? col.setRGB(td[li * 3], td[li * 3 + 1], td[li * 3 + 2]).multiplyScalar(f * dd * 1.25 * THREE.MathUtils.clamp((L[i + 2] - L[i + 3]) / 7.7, 0.35, 1)) : col.setScalar(f));
         }
         if (D.instanceColor) D.instanceColor.needsUpdate = true;
         D.visible = list.length > 0;
@@ -1140,6 +1146,7 @@ export class Renderer3D {
             out.texture.mapping = THREE.CubeUVReflectionMapping; out.texture.name = 'EnvBlend';
             immediate = true;
             setVehicleEnvMap(out.texture, 1);
+            setWaterEnv(out.texture, 1);
         }
         if (!this._envQuad) this._envQuad = new FullScreenQuad(new THREE.ShaderMaterial({ ...EnvBlendShader, uniforms: THREE.UniformsUtils.clone(EnvBlendShader.uniforms), depthTest: false, depthWrite: false }));
         if (immediate || !this._envB) {
@@ -1257,6 +1264,7 @@ export class Renderer3D {
         if (dt === undefined) dt = this._lastNow ? Math.min(0.1, (now - this._lastNow) / 1000) : 1 / 60;
         this._lastNow = now;
         this.time += dt;
+        tickWater(dt);
         const T = this._tmp;
         camera.getWorldPosition(T.cam);
         // sky follows the camera

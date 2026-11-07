@@ -48,6 +48,12 @@ const layerOf = (e) => (e.bridge ? 1 : 0) + (e.tunnel ? -1 : 0) + (e.layer | 0);
 const isJunction = (n) => n.edges.length >= 3 || n.hasLight;
 /** a road cut at the district boundary (closure at its map-end node, spec R10.9): never routed into, never spawned on */
 const closedEdge = (e) => !!(e.a.mapEnd || e.b.mapEnd);
+// long vehicles (buses, trams, trucks ≥ 8.5 m): the body follows the lane path — front and rear axle points on the
+// path, the junction pad crossed as the chord entry lane → exit lane — instead of pivoting on its centre (note 4:
+// an 18 m bus turning on its centre swept broadside across the junction mouth, and froze like that when stopped)
+const LONG_LEN = 8.5;
+/** pad half-length used to blend lane paths across node n (junction pad, or a few metres at a bend) */
+const padOf = (n, e) => Math.min(Math.max(n.radius ?? 0, 3), e.len * 0.45);
 /** distance (m) from position s (a→b frame) on edge e to the nearest junction along the road, both ways (capped at `cap`) */
 export function junctionDist(e, s, cap = 60) {
     const walk = (edge, node, d) => {
@@ -269,8 +275,8 @@ export class Traffic {
             const e = hs.edges[Math.floor(this.rng() * hs.edges.length)];
             let dir = this.rng() < 0.5 ? 1 : -1; if (!canTravel(e, dir)) dir = -dir; if (!canTravel(e, dir)) continue;
             if (v.bus && (e.len < 30)) continue;
-            const lanes = lanesDir(e, dir);
-            v.edge = e; v.dir = dir; v.s = this.rng.range(Math.min(3, e.len / 2), Math.max(e.len / 2, e.len - 3)); v.route.length = 0; v.layer = layerOf(e); v.latBlend = 0;
+            const lanes = lanesDir(e, dir), sp = v.long ? this.sSpan(e, dir, v.length, true) : [Math.min(3, e.len / 2), Math.max(e.len / 2, e.len - 3)]; if (!sp) continue;
+            v.edge = e; v.dir = dir; v.s = this.rng.range(sp[0], sp[1]); v.route.length = 0; v.layer = layerOf(e); v.latBlend = 0; if (v.hist) v.hist.length = 0;
             v.lane = v.laneCur = v.bus ? lanes - 1 : this.rng.int(0, lanes - 1);
             v.speed = 0; v.stuck = 0; v.still = 0; v.touchT = 0; v.blockT = 0; v.ghost = 0; v.bypass = null; v.served = null; v.dwell = 0; v.jamHold = 0;
             v.latExtraCur = v.lateralExtra = 0;
@@ -405,7 +411,16 @@ export class Traffic {
     // ------------------------------------------------------------------ bus stops
     buildBusStops() {
         this.busStops = new Map(); // edge -> [{s (a→b), side}]
-        const add = (e, s, side) => { let a = this.busStops.get(e); if (!a) this.busStops.set(e, a = []); a.push({ s, side, id: this.busStops.size + ':' + a.length }); };
+        // a bus stops with its front at the stop: the whole body (up to an 18 m articulated bus) must stand in its lane,
+        // off the junction pads (note 4) — the stop moves along the kerb to the nearest such spot, or is not served
+        const TK = this.transitKinds || {}, Lb = Math.max(12.5, TK.bus ? this.kindLength(TK.bus) : 0, TK.trolley ? this.kindLength(TK.trolley) : 0, this.buc ? 0 : 18.3) + 1;
+        const add = (e, s, side) => {
+            const dir = e.oneway ? 1 : side, len = e.len, st = dir > 0 ? e.a : e.b, en = dir > 0 ? e.b : e.a;
+            const lo = Lb - Math.min(this.runTo(st, e, Lb), Lb), hi = Math.min(len - 0.5, len + this.runTo(en, e, Lb));
+            if (hi < lo) return;
+            const sAl = clamp(dir > 0 ? s : len - s, lo, hi); s = dir > 0 ? sAl : len - sAl;
+            let a = this.busStops.get(e); if (!a) this.busStops.set(e, a = []); a.push({ s, side, id: this.busStops.size + ':' + a.length });
+        };
         const stops = (this.world.pois || []).filter(p => p.kind === 'busstop');
         if (stops.length) {
             for (const p of stops) {
@@ -459,10 +474,11 @@ export class Traffic {
         for (const { e, dir } of plan) {
             if (this.vehicles.length >= this.maxVehicles - nPolice) break;
             const kind = pickKind(e);
-            const lanes = lanesDir(e, dir), isBus = this.isBusKind(kind);
+            const lanes = lanesDir(e, dir), isBus = this.isBusKind(kind), kL = this.kindLength(kind);
             const lane = isBus ? lanes - 1 : this.rng.int(0, this.carLaneMax(e, dir));
-            const s = e.len < 10 ? e.len / 2 : this.rng.range(4, e.len - 4);
-            if (!free(e, dir, lane, s, isBus ? this.kindLength(kind) + 1 : 5)) continue;
+            const sp = this.sSpan(e, dir, kL, isBus || kL >= LONG_LEN); if (!sp) continue; // (a bus never straddles a junction mouth)
+            const s = e.len < 10 ? e.len / 2 : this.rng.range(sp[0], sp[1]);
+            if (!free(e, dir, lane, s, isBus || kL >= LONG_LEN ? kL + 1 : 5)) continue;
             this.spawn({ edge: e, dir, lane, s, kind });
         }
         // police cruisers on bigger roads
@@ -498,7 +514,8 @@ export class Traffic {
                 if (!e.tram || e.len < 25 || nTrams >= maxTrams) continue;
                 const exp = e.len / 600; let n = Math.floor(exp); if (this.rng() < exp - n || e.len > 300) n = Math.max(n, 1);
                 for (let i = 0; i < n; i++) for (const dir of [1, -1]) {
-                    const s = this.rng.range(5, e.len - 5), tk = this.transitKind?.('tram') || 'tram';
+                    const tk = this.transitKind?.('tram') || 'tram', sp = this.sSpan(e, dir, this.kindLength(tk), true); if (!sp) continue;
+                    const s = this.rng.range(sp[0], sp[1]);
                     if (!free(e, dir, 'tram', s, this.kindLength(tk) + 2)) continue; // 27 m V3A / 36 m Imperio
                     const v = this.spawn({ edge: e, dir, lane: 0, s, kind: tk });
                     v.tram = true; v.nextStopOdo = this.rng.range(80, 400); nTrams++;
@@ -533,7 +550,9 @@ export class Traffic {
             x: 0, z: 0, y: 0.24, heading: 0, fx: 0, fz: 1, rx: 1, rz: 0, layer: layerOf(edge),
             laneChangeCd: this.rng.range(1, 6), leader: null, gap: Infinity,
             still: 0, touchT: 0, waitRed: false, blockT: 0,
+            long: false, hist: null,
         };
+        v.long = v.length >= LONG_LEN; if (v.long) v.hist = [];
         if (v.isPolice) this.addLightbar(v);
         if (this.nightLights) mesh.userData.setLights?.(true);
         this.placeOnLane(v, true, 0);
@@ -603,10 +622,79 @@ export class Traffic {
         return out;
     }
 
+    /** lateral offset of v's lane on edge e (dir): the current edge as laneTarget, others at the same lane index */
+    latOn(v, e, dir) {
+        if (v.tram) return tramOffset(e);
+        if (e === v.edge) return laneOffset(e, v.laneCur) + v.latExtraCur;
+        return laneOffset(e, clamp(v.laneCur, 0, (lanesDir(e, dir) || 1) - 1)) + v.latExtraCur;
+    }
+    /** the edge v drove before (e, dir): its history, else the only other edge at a 2-way node (null: unknown) */
+    prevLink(v, e, dir, hi) {
+        const st = dir > 0 ? e.a : e.b, H = v.hist;
+        if (H && hi >= 0 && hi < H.length) { const h = H[hi]; if (h.e !== e && (h.dir > 0 ? h.e.b : h.e.a) === st) return { e: h.e, dir: h.dir, hi: hi - 1 }; }
+        if (st.edges.length === 2) { const g = st.edges[0] === e ? st.edges[1] : st.edges[0]; if (g && g !== e) return { e: g, dir: g.b === st ? 1 : -1, hi: -1 }; }
+        return null;
+    }
+    lanePt(v, c, s, out) {
+        const e = c.e, st = c.dir > 0 ? e.a : e.b, lat = this.latOn(v, e, c.dir);
+        out.x = st.x + e.dirx * c.dir * s + e.nx * c.dir * lat; out.z = st.z + e.dirz * c.dir * s + e.nz * c.dir * lat;
+        return out;
+    }
+    /**
+     * Point of v's lane path at signed distance `off` from its centre: the planned route ahead (never through a
+     * U-turn), the edges it came from behind; across every node the path is the straight chord from the entry lane
+     * point to the exit lane point (as the junction claims draw it), so a long body never pivots across a box.
+     */
+    pathPoint(v, off, out) {
+        const S = v.s + off, seq = [{ e: v.edge, dir: v.dir, s0: 0 }];
+        let end = v.edge.len;
+        for (let k = 0; end < S + 8 && k < v.route.length; k++) { const r = v.route[k]; if (r.uturn) break; seq.push({ e: r.e, dir: r.dir, s0: end }); end += r.e.len; }
+        let s0 = 0, e = v.edge, dir = v.dir, hi = (v.hist?.length ?? 0) - 1;
+        for (let k = 0; s0 > S - 8 && k < 6; k++) { const p = this.prevLink(v, e, dir, hi); if (!p) break; s0 -= p.e.len; seq.unshift({ e: p.e, dir: p.dir, s0 }); e = p.e; dir = p.dir; hi = p.hi; }
+        let i = 0; while (i < seq.length - 1 && S >= seq[i + 1].s0) i++;
+        const c = seq[i], A = this._pa || (this._pa = {}), B = this._pb || (this._pb = {});
+        const pad = (a, b) => {
+            const nd = a.dir > 0 ? a.e.b : a.e.a, ra = padOf(nd, a.e), rb = padOf(nd, b.e), lo = b.s0 - ra, hi2 = b.s0 + rb;
+            if (S <= lo || S >= hi2) return false;
+            this.lanePt(v, a, a.e.len - ra, A); this.lanePt(v, b, rb, B);
+            const t = (S - lo) / (ra + rb); out.x = A.x + (B.x - A.x) * t; out.z = A.z + (B.z - A.z) * t;
+            return true;
+        };
+        if (i + 1 < seq.length && pad(c, seq[i + 1])) return out;
+        if (i > 0 && pad(seq[i - 1], c)) return out;
+        return this.lanePt(v, c, S - c.s0, out);
+    }
+    /** centre positions [lo, hi] a vehicle of length L may take on (e, dir) when placed: long ones keep the whole body
+     *  off the junction pads (no bus / tram spawned across a junction mouth); null = the edge is too short for it */
+    sSpan(e, dir, L, long) {
+        if (!long) return [Math.min(4, e.len / 2), Math.max(e.len / 2, e.len - 4)];
+        const a = dir > 0 ? e.a : e.b, b = dir > 0 ? e.b : e.a;
+        const lo = Math.max(0.5, L / 2 - this.runTo(a, e, L)), hi = Math.min(e.len - 0.5, e.len - L / 2 + this.runTo(b, e, L));
+        return hi > lo ? [lo, hi] : null;
+    }
+    /** free length beyond node n (reached along e) up to the next junction pad / dead end, through 2-way nodes (≤ cap) */
+    runTo(n, e, cap) {
+        let d = 0;
+        for (let k = 0; k < 8 && d < cap; k++) {
+            if (isJunction(n)) return d - (n.radius ?? 6) - 1.5;
+            if (n.edges.length !== 2) return d - 1;
+            const g = n.edges[0] === e ? n.edges[1] : n.edges[0];
+            d += g.len; n = g.a === n ? g.b : g.a; e = g;
+        }
+        return d;
+    }
+
     placeOnLane(v, snap, dt) {
         const t = this.laneTarget(v, this._t || (this._t = {}));
         v.fx = t.fx; v.fz = t.fz; v.rx = t.rx; v.rz = t.rz;
-        if (snap) { v.x = t.x; v.z = t.z; v.heading = Math.atan2(-t.fx, -t.fz); }
+        if (v.long) {
+            // body on the path: centre between the axle points, heading along them (same while stopped, snapped or not)
+            const d = v.length * 0.36, F = this.pathPoint(v, d, this._pf || (this._pf = {})), R = this.pathPoint(v, -d, this._pr || (this._pr = {}));
+            const hx = F.x - R.x, hz = F.z - R.z;
+            v.x = (F.x + R.x) / 2; v.z = (F.z + R.z) / 2;
+            v.heading = hx * hx + hz * hz > 1e-6 ? Math.atan2(-hx, -hz) : Math.atan2(-t.fx, -t.fz);
+        }
+        else if (snap) { v.x = t.x; v.z = t.z; v.heading = Math.atan2(-t.fx, -t.fz); }
         else {
             // move fully along the lane direction, damp the lateral component -> smooth curves through bends
             const dx = t.x - v.x, dz = t.z - v.z;
@@ -684,9 +772,10 @@ export class Traffic {
             let dir = this.rng() < 0.5 ? 1 : -1; if (!canTravel(e, dir)) dir = -dir; if (!canTravel(e, dir)) continue;
             if (v.parked && !this.parkOk(e, dir)) { dir = -dir; if (!this.parkOk(e, dir)) continue; }
             const lanes = lanesDir(e, dir);
-            const s = v.parked ? this.rng.range(15, e.len - 15) : this.rng.range(Math.min(4, e.len / 2), Math.max(e.len / 2, e.len - 4));
+            const sp = v.parked ? [15, e.len - 15] : this.sSpan(e, dir, v.length, v.long); if (!sp) continue;
+            const s = this.rng.range(sp[0], sp[1]);
             if (v.parked && junctionDist(e, dir > 0 ? s : e.len - s) < 30) continue;
-            v.edge = e; v.dir = dir; v.s = s; v.route.length = 0; v.layer = layerOf(e); v.latBlend = 0;
+            v.edge = e; v.dir = dir; v.s = s; v.route.length = 0; v.layer = layerOf(e); v.latBlend = 0; if (v.hist) v.hist.length = 0;
             v.lane = v.laneCur = v.parked || v.bus ? lanes - 1 : this.rng.int(0, this.carLaneMax(e, dir, v));
             v.speed = v.parked ? 0 : Math.min(edgeSpeed(e) * 0.7, 8); v.stuck = 0; v.still = 0; v.touchT = 0; v.blockT = 0; v.ghost = 0; v.bypass = null; v.served = null; v.dwell = 0;
             if (!v.parked) v.latExtraCur = v.lateralExtra = 0; else v.latExtraCur = v.lateralExtra = (e.laneW ?? 3.3) * 0.55;
@@ -731,7 +820,7 @@ export class Traffic {
             if (n.main === false && e.main !== false && !v.tram) continue; // never drive into a one-way trap
             const dot = n.dirx * nd * fx + n.dirz * nd * fz;
             let w = (1 + Math.max(0, dot) * 2.5) * (0.4 + trafficMulOf(n));
-            if (dot < -0.6) w *= 0.05; // avoid hairpins
+            if (dot < -0.6) w *= v.long ? 0.002 : 0.05; // avoid hairpins (a long body can't make them)
             if (e.name && n.name === e.name) w *= 5;
             if (v.trolley && this.transit?.trolleyEdges) w *= n.trolleyWire ? 20 : 0.02;      // under the wires
             else if (v.bus && this.transit?.busEdges) w *= n.busRoute ? 8 : 0.15;             // along its route
@@ -739,7 +828,9 @@ export class Traffic {
             cands.push({ n, nd, w }); total += w;
         }
         if (!cands.length) {
-            if (canTravel(e, -dir) && !e.roundabout) return { e, dir: -dir, uturn: true };
+            // (long vehicles never U-turn on the carriageway — an 18 m bus turning on the spot stands broadside across the
+            //  road: the route ends here and the vehicle is respawned elsewhere when it reaches the end)
+            if (canTravel(e, -dir) && !e.roundabout && !v.long) return { e, dir: -dir, uturn: true };
             return null;
         }
         let r = this.rng() * total;
@@ -764,6 +855,7 @@ export class Traffic {
         const nx = v.route.shift();
         if (!nx) { this.respawn(v); return; }
         (v._sh || (v._sh = [])).push(nx);
+        if (v.hist) { v.hist.push({ e, dir: odir }); if (v.hist.length > 6) v.hist.shift(); }
         const oldLat = v.tram ? tramOffset(e) : laneOffset(e, v.laneCur) + v.latExtraCur + (v.latBlend || 0) * Math.max(0, 1 - v.s / 12);
         v.s -= e.len;
         if (v.s < 0) v.s = 0;
@@ -780,7 +872,7 @@ export class Traffic {
             // lateral offset over and blend it into the new lane over the first 12 m instead of jumping sideways
             const dot = (e.nx * odir) * (nx.e.nx * nx.dir) + (e.nz * odir) * (nx.e.nz * nx.dir);
             const newLat = v.tram ? tramOffset(nx.e) : laneOffset(nx.e, v.laneCur) + v.latExtraCur;
-            v.latBlend = dot > 0.7 ? clamp(oldLat * dot - newLat, -4, 4) : 0;
+            v.latBlend = dot > 0.7 && !v.long ? clamp(oldLat * dot - newLat, -4, 4) : 0; // (long bodies: the path chord blends)
         }
     }
     /** move a vehicle somewhere else in the city, out of sight of the player */
@@ -797,7 +889,8 @@ export class Traffic {
             if (!dir || e.len < 8 || closedEdge(e)) continue;
             const mx = (e.a.x + e.b.x) / 2, mz = (e.a.z + e.b.z) / 2;
             if (P && Math.hypot(mx - P.x, mz - P.z) < 180) continue;
-            v.edge = e; v.dir = dir; v.s = this.rng.range(2, e.len - 2); v.route.length = 0; v.speed = 0; v.stuck = 0; v.still = 0; v.touchT = 0; v.layer = layerOf(e);
+            const sp = v.long ? this.sSpan(e, dir, v.length, true) : [2, e.len - 2]; if (!sp) continue;
+            v.edge = e; v.dir = dir; v.s = this.rng.range(sp[0], sp[1]); v.route.length = 0; v.speed = 0; if (v.hist) v.hist.length = 0; v.stuck = 0; v.still = 0; v.touchT = 0; v.layer = layerOf(e);
             v.lane = v.laneCur = clamp(v.lane, 0, lanesDir(e, dir) - 1); v.bypass = null; v.latExtraCur = v.lateralExtra = 0;
             this.placeOnLane(v, true, 0);
             if (!this.spawnClear(v)) continue;
@@ -867,7 +960,7 @@ export class Traffic {
         // snapshot for the vehicle↔vehicle overlap guard (Traffic.update)
         v._f = this._frame; v._s0 = v.s; v._odo0 = v.odo; v._x0 = v.x; v._z0 = v.z; v._h0 = v.heading; v._e0 = v.edge;
         v._lc0 = v.laneCur; v._le0 = v.latExtraCur; v._fx0 = v.fx; v._fz0 = v.fz; v._rx0 = v.rx; v._rz0 = v.rz; v._tr0 = v.transition;
-        v._d0 = v.dir; v._ln0 = v.lane; v._ly0 = v.layer; v._y0 = v.y; v._lb0 = v.latBlend || 0; v._resp = false; if (v._sh) v._sh.length = 0;
+        v._d0 = v.dir; v._ln0 = v.lane; v._ly0 = v.layer; v._y0 = v.y; v._lb0 = v.latBlend || 0; v._resp = false; if (v._sh) v._sh.length = 0; v._hl0 = v.hist ? v.hist.length : 0;
         { const P0 = this.player; v._pp0 = P0 && Math.abs(P0.x - v.x) < 16 && Math.abs(P0.z - v.z) < 16 && Math.abs((P0.y ?? 0.24) - v.y) < 2.5 ? vpPen(v, P0) : undefined; }
         this.ensureRoute(v);
         const e = v.edge, L = e.len, half = v.length / 2;
@@ -1032,7 +1125,13 @@ export class Traffic {
         }
         // trams: stops every few hundred metres
         if (v.tram) {
-            const d = v.nextStopOdo - v.odo;
+            let d = v.nextStopOdo - v.odo;
+            if (d > 0.8 && d < 60) {
+                // the stop must hold the whole tram off the junction pads (never dwelling across a junction mouth)
+                let ss = v.s + d, ce = e, cd = v.dir; if (ss > L && v.route[0] && !v.route[0].uturn) { ss -= L; ce = v.route[0].e; cd = v.route[0].dir; }
+                const sp = ss <= ce.len ? this.sSpan(ce, cd, v.length, true) : [0, 0];
+                if (!sp || ss < sp[0] || ss > sp[1]) { v.nextStopOdo += 12; d += 12; }
+            }
             if (d < 60) {
                 if (d < 0.8 && v.speed < 0.5) { v.dwell += dt; if (v.dwell > 5) { v.dwell = 0; v.nextStopOdo = v.odo + this.rng.range(300, 480); } else stopD = Math.min(stopD, 0); }
                 else stopD = Math.min(stopD, Math.max(0, d));
@@ -1188,6 +1287,7 @@ export class Traffic {
     revert(v) {
         if (v._f !== this._frame || v._resp) return false;
         if (v._sh && v._sh.length) { while (v._sh.length) v.route.unshift(v._sh.pop()); }
+        if (v.hist && v.hist.length > v._hl0) v.hist.length = v._hl0;
         v.edge = v._e0; v.dir = v._d0; v.lane = v._ln0; v.layer = v._ly0; v.y = v._y0; v.latBlend = v._lb0;
         v.s = v._s0; v.odo = v._odo0; v.x = v._x0; v.z = v._z0; v.heading = v._h0; v.laneCur = v._lc0; v.latExtraCur = v._le0;
         v.fx = v._fx0; v.fz = v._fz0; v.rx = v._rx0; v.rz = v._rz0; v.transition = v._tr0;

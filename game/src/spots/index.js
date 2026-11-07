@@ -10,7 +10,7 @@
 import * as THREE from '../../vendor/three.module.min.js';
 import { CITIES } from '../cities.js';
 import { Ground, Painter, buildTerrain } from './ground.js';
-import { paintOSM, buildBuildings, buildTrees, buildLamps, buildFurniture, roadLampPoints, streetTrees, areaTrees, waterPlane, polyCollider } from './osm.js';
+import { paintOSM, buildBuildings, buildTrees, buildLamps, buildFurniture, roadLampPoints, streetTrees, areaTrees, waterPlane, polyCollider, streetBands } from './osm.js';
 import { Crowd } from './people.js';
 import { SpotUI, plaqueMesh } from './ui.js';
 import { SpotSound } from './sound.js';
@@ -63,6 +63,9 @@ class SceneContext {
         this.data = data; this.spotId = spotId; this.id = data.id;
         this.scene = new THREE.Scene(); this.scene.name = 'spot:' + data.id;
         this.ground = new Ground(data.terrain);
+        // street-conformed ground (notes 48/56/68), built on the first height query; a scene opts out with
+        // `ctx.ground.pendingConform = null` (or tunes it: `ctx.ground.pendingConform.opts = {...}`) before querying heights
+        this.ground.pendingConform = streetBands(data);
         this.painter = new Painter();
         this.colliders = []; this.plaques = []; this.interactables = []; this.challenges = []; this.updaters = []; this.nightHooks = [];
         this.lampPoints = []; this.lampOpts = {}; this.trees = []; this.crownMeshes = []; this.grassMaterials = []; this.roofMaterials = [];
@@ -101,6 +104,7 @@ class SceneContext {
     /** standard OSM backdrop: paint ground, buildings, trees, lamps, furniture (excluding hero areas) */
     osmBackdrop(o = {}) {
         const d = this.data, ex = [...this.exclude, ...(o.exclude || [])];
+        this.ground.settle?.(o.settle);
         paintOSM(this.painter, d, { skipWays: this.skipWays, skipAreas: this.skipAreas, skipBuildings: this.skipBuildings, ...o.paint });
         const B = buildBuildings(d, this.ground, { skip: this.skipBuildings, exclude: ex, urban: o.urban ?? true, style: o.style, filter: o.filter, shopStyle: o.shopStyle });
         this.add(B.group); this.colliders.push(...B.colliders); this.extras.buildings = B;
@@ -222,7 +226,7 @@ export async function loadSpot(id, renderer = null, opts = {}) {
     }
     if (ctx.crowdCfg) {
         const sp = ctx.spot();
-        crowd = new Crowd({ city: data.city, ground: ctx.ground, dialogue: mergeDialogue(data, ctx.crowdCfg.spots || data.members), general: data.dialogueGeneral, seed: data.id.length * 7, ...ctx.crowdCfg });
+        crowd = new Crowd({ city: data.city, ground: ctx.ground, dialogue: mergeDialogue(data, ctx.crowdCfg.spots || data.members), general: data.dialogueGeneral, seed: data.id.length * 7, colliders, ...ctx.crowdCfg });
         ctx.add(crowd.group);
         void sp;
     }

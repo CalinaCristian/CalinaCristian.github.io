@@ -11,8 +11,8 @@
 //  No photo textures (no freedom of panorama in Romania): all modelled.
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
-import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, offsetPolyline, canvas, canvasTexture, fitDraw, obb, polyArea } from '../kit.js';
-import { bucBackdrop, classicFacade, classicWalls, balustradeMaterial, palisade, osmPoly, cityFiller, placeLandmark, signAtlas, oldTownTerraces, floodlight } from '../buc.js';
+import { GeoBatch, M, rng, hash2, headingFromBearing, centroid, polyBox, inPoly, offsetPolyline, distPolyline, canvas, canvasTexture, fitDraw, obb, polyArea } from '../kit.js';
+import { bucBackdrop, classicFacade, classicWalls, balustradeMaterial, palisade, osmPoly, cityFiller, placeLandmark, signAtlas, oldTownTerraces, floodlight, shopfrontFacade } from '../buc.js';
 import { wallGeometry } from '../osm.js';
 
 function simplify(pts, tol) { if (pts.length < 4) return pts; const dist = (p, a, b) => { const dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz) || 1; return Math.abs((p[0] - a[0]) * dz - (p[1] - a[1]) * dx) / L; }; let md = 0, mi = 0; for (let i = 1; i < pts.length - 1; i++) { const dd = dist(pts[i], pts[0], pts[pts.length - 1]); if (dd > md) { md = dd; mi = i; } } if (md <= tol) return [pts[0], pts[pts.length - 1]]; return [...simplify(pts.slice(0, mi + 1), tol).slice(0, -1), ...simplify(pts.slice(mi), tol)]; }
@@ -27,6 +27,132 @@ function ringWalls(ctx, poly, y0, y1, gaps = []) {
         for (const g of gaps) { const t = ((g.x - ax) * (bx - ax) + (g.z - az) * (bz - az)) / (L * L), dd = Math.abs((g.x - ax) * (bz - az) - (g.z - az) * (bx - ax)) / L; if (t < 0 || t > 1 || dd > 2) continue; const h = g.w / 2 / L; segs = segs.flatMap(([s, e]) => (t + h <= s || t - h >= e ? [[s, e]] : [[s, Math.max(s, t - h)], [Math.min(e, t + h), e]].filter(([p, q]) => q - p > 0.02))); }
         for (const [s, e] of segs) wallSeg(ctx, ax + (bx - ax) * s, az + (bz - az) * s, ax + (bx - ax) * e, az + (bz - az) * e, y0, y1);
     }
+}
+
+// ---------------------------------------------------------------------------- the street fronts (notes 22 / 24)
+// Lipscani, Gabroveni, Șelari, Covaci, Smârdan, Franceză & co.: 2–6-storey 19th-c. eclectic / neoclassical fronts on the OSM
+// footprints. Tall shop ground floor (4.4 m) with timber / arched / modern shopfronts on every street side, a moulded string
+// course, upper floors of 3.7 m with pilasters, pedimented / arched windows, stucco garlands, wrought-iron balconies (3-D on the
+// street side), deep cornices and low zinc / tile roofs; pastel plasters, some restored and some peeling. All procedural.
+const OT_NAMES = /Lipscani|Gabroveni|Șelari|Covaci|Smârdan|Franceză|Stavropoleos|Poștei|Șepcari|Sfântul Dumitru|Hanul cu Tei|Blănari|Băcani|Sf\. Gheorghe|Nicolae Șelari/;
+const OT_COLS = ['#e9dfca', '#e6d3b3', '#ead9c6', '#d8c9a8', '#e3d6c3', '#cfd3c9', '#e7cfc0', '#d9c2a0', '#f0ebe0', '#c9c0b0', '#dcc9a6', '#e8e0d0', '#bfc6c4', '#d6b8a0', '#c7cbb8', '#e4c9b4'];
+const OT_VARIANTS = [
+    ['ot-a', [{ t: 'rect', w: 0.34, rail: true, pil: true, orn: true, top: 0.22 }, { t: 'pediment', w: 0.32, pil: true, top: 0.32 }, { t: 'arch', w: 0.3, pil: true, top: 0.3 }, { t: 'small', w: 0.26, dentils: true }], {}],
+    ['ot-b', [{ t: 'arch', w: 0.36, pil: 'pair', rail: true, orn: true, top: 0.2 }, { t: 'arch', w: 0.34, pil: 'pair', top: 0.22 }, { t: 'rect', w: 0.3, pil: 'pair', top: 0.3 }, { t: 'small', w: 0.26, dentils: true }], {}],
+    ['ot-c', [{ t: 'arch2', w: 0.4, rail: true, top: 0.14 }, { t: 'pediment', w: 0.34, orn: true, top: 0.32 }, { t: 'rect', w: 0.32, top: 0.3 }, { t: 'small', w: 0.28 }], { decay: 0.8 }],
+    ['ot-d', [{ t: 'rect', w: 0.36, rail: true, top: 0.24 }, { t: 'rect', w: 0.34, top: 0.26 }, { t: 'rect', w: 0.34, top: 0.28 }, { t: 'small', w: 0.3 }], { decay: 1.4 }],
+    ['ot-e', [{ t: 'arch', w: 0.34, rustic: true, rail: true, top: 0.2 }, { t: 'pediment', w: 0.32, pil: true, orn: true, top: 0.32 }, { t: 'arch', w: 0.3, pil: true, dentils: true, top: 0.3 }, { t: 'small', w: 0.26 }], {}],
+    ['ot-f', [{ t: 'rect', w: 0.3, pil: 'pair', orn: true, rail: true, top: 0.24 }, { t: 'rect', w: 0.3, pil: 'pair', orn: true, top: 0.26 }, { t: 'arch', w: 0.3, pil: 'pair', top: 0.3 }, { t: 'blank' }], { decay: 0.5 }],
+];
+let IRON = null;
+function ironRailMaterial() { // wrought-iron balcony railing: bars, a scroll band, top rail (alpha-tested)
+    if (IRON) return IRON;
+    const c = canvas(256, 128), x = c.getContext('2d'); x.clearRect(0, 0, 256, 128); x.strokeStyle = x.fillStyle = '#16181a';
+    x.fillRect(0, 0, 256, 7); x.fillRect(0, 121, 256, 7); x.fillRect(0, 88, 256, 4);
+    for (let i = 0; i < 16; i++) x.fillRect(i * 16 + 7, 0, 2.5, 128);
+    x.lineWidth = 3; for (let i = 0; i < 8; i++) { const cx = i * 32 + 16; x.beginPath(); x.arc(cx - 6, 104, 7, 0, Math.PI * 1.6); x.stroke(); x.beginPath(); x.arc(cx + 6, 104, 7, Math.PI, Math.PI * 2.6); x.stroke(); }
+    const t = canvasTexture(c, { repeat: true });
+    IRON = new THREE.MeshStandardMaterial({ map: t, alphaTest: 0.5, side: THREE.DoubleSide, roughness: 0.5, metalness: 0.6, color: '#ffffff' }); IRON.name = 'ot-iron'; IRON.userData.shared = true;
+    return IRON;
+}
+function oldTownFronts(ctx, { exclude = [] } = {}) {
+    const d = ctx.data, g = ctx.ground, b = new GeoBatch(), mats = {}, r = rng(41);
+    const ways = d.ways.filter((w) => ['pedestrian', 'living_street', 'footway', 'residential'].includes(w.k) && OT_NAMES.test(w.name || ''));
+    const exts = Object.values(d.spots).map((s) => s.extent.polygon);
+    const nearWay = (x, z) => { let best = 1e9; for (const w of ways) { const q = distPolyline(x, z, w.pts); if (q.d < best) best = q.d; } return best; };
+    const shop = shopfrontFacade('ot-shop', { bay: 3.4, floor: 4.4 }); mats[shop.key] = shop.mat;
+    const facs = OT_VARIANTS.map(([key, rows, o], i) => { const f = classicFacade(key, rows, { bay: 3.4, floor: 3.7, res: 2, lit: 0.4, seed: i * 7, ...o }); mats[f.key] = f.mat; return f; });
+    const rails = new GeoBatch(), built = [];
+    for (const bd of d.buildings) {
+        if (bd.part || bd.hasParts || ctx.skipBuildings.has(bd.id) || /church|roof|kiosk|chapel/.test(bd.k || '') || (bd.h || 0) > 26) continue;
+        const p = polyArea(bd.poly) > 0 ? bd.poly : [...bd.poly].reverse(), [cx, cz] = centroid(p);
+        if (!exts.some((e) => inPoly(cx, cz, e)) || exclude.some((e) => inPoly(cx, cz, e)) || Math.abs(polyArea(p)) < 25) continue;
+        if (!p.some(([x, z]) => nearWay(x, z) < 8)) continue;
+        ctx.skipBuildings.add(bd.id);
+        const hs = hash2(cx * 0.37, cz * 0.53), lv = Math.max(2, Math.min(6, bd.lv || (bd.h ? Math.round((bd.h - 4.4) / 3.7) + 1 : 2 + Math.floor(hs * 3.2))));
+        let gmin = 1e9, gmax = -1e9; for (const [x, z] of p) { const h = g.heightAt(x, z); gmin = Math.min(gmin, h); gmax = Math.max(gmax, h); }
+        const base = gmin - 0.4, GF = 4.4, top = gmax + GF + (lv - 1) * 3.7;
+        const v = Math.floor(hash2(cz * 0.11, cx * 0.17) * facs.length), fac = facs[v], col = OT_COLS[Math.floor(hash2(cx, cz) * OT_COLS.length)];
+        const row = /^(yes|retail|commercial)$/.test(bd.k || 'yes') ? [0, 0, 1, 2, 2, 0, 1][Math.floor(hs * 7)] : 3;
+        b.add(wallGeometry(p, base, gmax + GF, shop.S, gmax - row * GF, col), shop.key, null, col);
+        b.add(wallGeometry(p, gmax + GF, top, fac.S, gmax + GF, col), fac.key, null, col);
+        const light = '#f2ede2';
+        b.prism(grow(p, 0.16), gmax + GF - 0.22, gmax + GF + 0.12, light, 'stone');                       // string course
+        b.prism(grow(p, 0.42), top - 0.5, top - 0.15, light, 'stone', { noTop: true, bottom: true });      // cornice (two steps)
+        b.prism(grow(p, 0.22), top - 0.15, top + 0.1, light, 'stone', { bottom: true });
+        b.prism(p, top + 0.1, top + 0.75, col, 'stone', { noTop: true });                                     // attic parapet
+        b.flat(p, top + 0.1, '#77736c', 'roofs');
+        const o = obb(p), fill = o ? Math.abs(polyArea(p)) / (o.len * o.wid) : 0;
+        if (o && fill > 0.82 && o.wid < 17 && hs > 0.3) { const rh = Math.min(3.2, o.wid * 0.28), rc = hs > 0.62 ? '#8a4a33' : '#6c7074'; b.add(new THREE.CylinderGeometry(Math.SQRT1_2 * 0.45, Math.SQRT1_2, 1, 4, 1).rotateY(Math.PI / 4), 'roofs', M(o.cx, top + 0.1 + rh / 2, o.cz, 0, -o.angle, 0, o.len - 0.2, rh, o.wid - 0.2), rc); }
+        // 3-D balconies with wrought-iron railings on the street side (first floor, where the façade row has a balconette)
+        for (let i = 0; i < p.length; i++) {
+            const [ax, az] = p[i], [bx, bz] = p[(i + 1) % p.length], L = Math.hypot(bx - ax, bz - az); if (L < 6.5) continue;
+            const mx = (ax + bx) / 2, mz = (az + bz) / 2; if (nearWay(mx, mz) > 9) continue;
+            const ux = (bx - ax) / L, uz = (bz - az) / L, nx = uz, nz = -ux; // outward normal (CCW polygon)
+            const n = Math.max(1, Math.round(L / 3.4)), bw = L / n, span = n >= 3 && hash2(mx, mz) < 0.45 ? 3 : 1, c0 = Math.floor((n - span) / 2);
+            for (const fl of lv >= 3 && hash2(mz, mx) < 0.5 ? [1, 2] : [1]) {
+                if (fl === 2 && span === 3) continue;
+                const yb = gmax + GF + (fl - 1) * 3.7 + 0.05, u0 = (c0 + 0.12) * bw, u1 = (c0 + span - 0.12) * bw, w = u1 - u0, uc = (u0 + u1) / 2, D = 0.8;
+                const px = ax + ux * uc + nx * D / 2, pz = az + uz * uc + nz * D / 2, yaw = Math.atan2(ux, uz);
+                b.box(px, yb - 0.14, pz, D, 0.16, w, light, 'stone', yaw);
+                for (const k of [-0.42, 0.42]) b.box(ax + ux * (uc + k * w) + nx * 0.3, yb - 0.5, az + uz * (uc + k * w) + nz * 0.3, 0.45, 0.36, 0.14, light, 'stone', yaw);
+                const P = (u, dd, y) => [ax + ux * u + nx * dd, y, az + uz * u + nz * dd];
+                rails.quad(P(u0, D, yb), P(u1, D, yb), P(u1, D, yb + 1.0), P(u0, D, yb + 1.0), '#ffffff', 'iron', [0, 0, w / 1.6, 0, w / 1.6, 1, 0, 1]);
+                for (const [uu, s] of [[u0, 1], [u1, -1]]) rails.quad(P(uu, 0.02, yb), P(uu, D, yb), P(uu, D, yb + 1.0), P(uu, 0.02, yb + 1.0), '#ffffff', 'iron', [0, 0, D / 1.6, 0, D / 1.6, 1, 0, 1]);
+            }
+        }
+        ctx.poly(p, { y0: base - 1, y1: top + 1 });
+        built.push({ bd, p, top, gmax, GF, lv });
+    }
+    ctx.add(b.build('old-town-fronts', { matOverrides: mats }));
+    ctx.add(rails.build('old-town-balconies', { castShadow: true, matOverrides: { iron: ironRailMaterial() } }));
+    return { built, ways };
+}
+
+// ---------------------------------------------------------------------------- festoon string lights (note 25)
+// Lipscani & co. are strung with festoons: warm bulbs on a black cable hung across the lane between wall brackets at a consistent
+// height (≈ 5.6 m) with a gentle sag, lit at night. Every line ends on a façade bracket; no line is drawn without walls on both sides.
+function rayFacade(blds, px, pz, dx, dz, maxD) {
+    let best = null;
+    for (const { p, bb } of blds) {
+        if (Math.max(px, px + dx * maxD) < bb.x0 - 1 || Math.min(px, px + dx * maxD) > bb.x1 + 1 || Math.max(pz, pz + dz * maxD) < bb.z0 - 1 || Math.min(pz, pz + dz * maxD) > bb.z1 + 1) continue;
+        for (let i = 0, j = p.length - 1; i < p.length; j = i++) {
+            const [ax, az] = p[j], [bx, bz] = p[i], ex = bx - ax, ez = bz - az, den = dx * ez - dz * ex; if (Math.abs(den) < 1e-9) continue;
+            const t = ((ax - px) * ez - (az - pz) * ex) / den, u = ((ax - px) * dz - (az - pz) * dx) / den;
+            if (t > 0.5 && t < maxD && u >= 0 && u <= 1 && (!best || t < best.t)) best = { t, x: px + dx * t, z: pz + dz * t };
+        }
+    }
+    return best;
+}
+function festoons(ctx, ways, { spacing = 5.5, height = 5.6 } = {}) {
+    const d = ctx.data, g = ctx.ground, b = new GeoBatch(), bulbs = new GeoBatch(), out = [];
+    const blds = d.buildings.filter((x) => !x.part).map((x) => ({ p: x.poly, bb: polyBox(x.poly) }));
+    const bulbGeo = new THREE.OctahedronGeometry(0.05, 0);
+    for (const w of ways) {
+        if (!/Lipscani|Gabroveni|Șelari|Smârdan|Covaci|Franceză|Hanul cu Tei|Stavropoleos|Poștei|Blănari|Băcani/.test(w.name || '') || w.k === 'residential') continue;
+        let acc = spacing * 0.5;
+        for (let i = 1; i < w.pts.length; i++) {
+            const [ax, az] = w.pts[i - 1], [bx, bz] = w.pts[i], L = Math.hypot(bx - ax, bz - az); if (L < 0.5) continue;
+            const ux = (bx - ax) / L, uz = (bz - az) / L, nx = -uz, nz = ux;
+            for (; acc < L; acc += spacing) {
+                const cx = ax + ux * acc, cz = az + uz * acc;
+                const A = rayFacade(blds, cx, cz, nx, nz, 11), B = rayFacade(blds, cx, cz, -nx, -nz, 11);
+                if (!A || !B || A.t + B.t < 3.5 || A.t + B.t > 18) continue;
+                const y = g.heightAt(cx, cz) + height, span = A.t + B.t, sag = 0.18 + span * 0.035;
+                const pts = []; for (let q = 0; q <= 10; q++) { const t = q / 10; pts.push([A.x + (B.x - A.x) * t, y - Math.sin(t * Math.PI) * sag, A.z + (B.z - A.z) * t]); }
+                for (let q = 1; q < pts.length; q++) b.rod(pts[q - 1], pts[q], 0.008, '#121212', 'metal', 3);
+                for (const [P, s] of [[A, 1], [B, -1]]) { b.box(P.x - nx * s * 0.12, y - 0.05, P.z - nz * s * 0.12, 0.05, 0.08, 0.24, '#1a1a1a', 'metal', Math.atan2(nx, nz)); }
+                const nb = Math.max(4, Math.round(span / 0.55));
+                for (let q = 1; q < nb; q++) { const t = q / nb, x = A.x + (B.x - A.x) * t, z = A.z + (B.z - A.z) * t, yy = y - Math.sin(t * Math.PI) * sag - 0.09; bulbs.add(bulbGeo, 'bulb', M(x, yy, z, 0, 0, 0, 0.9, 1.25, 0.9), '#fff4d6'); b.cyl(x, yy + 0.04, z, 0.012, 0.05, '#121212', 'metal', 4); }
+                out.push({ A, B, y });
+            }
+            acc -= L;
+        }
+    }
+    const bm = new THREE.MeshStandardMaterial({ color: '#fff3d8', emissive: new THREE.Color('#ffc978'), emissiveIntensity: 0.15, roughness: 0.25 }); bm.name = 'festoon-bulbs'; bm.userData.dayGlow = 0.15; bm.userData.nightGlow = 3.2;
+    ctx.add(b.build('festoon-cables', { castShadow: false }));
+    ctx.add(bulbs.build('festoon-bulbs', { castShadow: false, matOverrides: { bulb: bm } }));
+    return out;
 }
 
 // ---------------------------------------------------------------------------- Cărturești Carusel (Lipscani 55)
@@ -264,6 +390,7 @@ export default {
         // most old-town buildings have no height in OSM: 2–5 storeys (uneven skyline), lantern-lit ground floors
         for (const bd of d.buildings) if (!bd.part && !bd.h && !bd.lv && bd.k !== 'church' && bd.k !== 'roof') { const hsh = Math.abs(Math.sin(bd.poly[0][0] * 12.9898 + bd.poly[0][1] * 78.233) * 43758.5453) % 1; bd.lv = 2 + Math.floor(hsh * 4); }
         const CA = buildCarusel(ctx), MA = buildManuc(ctx), CV = buildCurteaVeche(ctx), ST = buildStavropoleos(ctx);
+        const OT = oldTownFronts(ctx);
         // CEC Palace + Post Palace (History Museum) from landmarks.js
         for (const [lmId, osmId] of [['cec', 'w973712798'], ['mnir', 'r19919941']]) { const bd = d.buildings.find((x) => x.id === osmId); if (!bd) continue; ctx.skipBuildings.add(osmId); for (const x of d.buildings) { const [cx, cz] = centroid(x.poly); if (x.part && inPoly(cx, cz, bd.poly)) ctx.skipBuildings.add(x.id); } const L2 = placeLandmark(ctx, lmId, { colliderH: 50 }); ctx.poly(bd.poly, { y0: -50, y1: 80 }); }
         // Caru' cu Bere (Str. Stavropoleos 5): neo-Gothic front, sign, queue
@@ -283,12 +410,8 @@ export default {
         const signs = [...TR.signs];
         if (caruB) signs.push({ x: -111, y: g.heightAt(-111, -71.5) + 5.4, z: -71.4, yaw: 0, w: 6.2, h: 1.0, text: "CARU' CU BERE", bg: '#2a1d14', fg: '#e8c870', font: (q) => `700 ${q}px "Times New Roman", serif` });
         const SA = signAtlas(signs.slice(0, 96), { name: 'shop-signs' }); if (SA) ctx.add(SA);
-        // overhead cables across the lanes (string lights at night)
-        const cab = new GeoBatch(), bulbs = new GeoBatch(), r = rng(12);
-        for (const w of d.ways) { if (w.k !== 'pedestrian' || !/Lipscani|Șelari|Smârdan|Gabroveni/.test(w.name || '')) continue; for (let i = 1; i < w.pts.length; i++) { const [ax, az] = w.pts[i - 1], [bx, bz] = w.pts[i], L = Math.hypot(bx - ax, bz - az); for (let s = 4; s < L; s += 7 + r() * 5) { const t = s / L, cx = ax + (bx - ax) * t, cz = az + (bz - az) * t, nx = -(bz - az) / L, nz = (bx - ax) / L, y = g.heightAt(cx, cz) + 6.2 + r() * 1.4; const A = [cx + nx * 5, y, cz + nz * 5], Bq = [cx - nx * 5, y, cz - nz * 5]; cab.rod(A, [cx, y - 0.35, cz], 0.015, '#151515', 'metal', 3); cab.rod([cx, y - 0.35, cz], Bq, 0.015, '#151515', 'metal', 3); for (let q = 0; q <= 8; q++) { const u = q / 8, sag = Math.sin(u * Math.PI) * 0.35; bulbs.sphere(A[0] + (Bq[0] - A[0]) * u, y - sag - 0.08, A[2] + (Bq[2] - A[2]) * u, 0.05, 0.06, 0.05, '#fff2c8', 'glow', 4, 3); } } } }
-        ctx.add(cab.build('cables', { castShadow: false }));
-        const bulbG = bulbs.build('string-lights', { castShadow: false }); bulbG.visible = false; ctx.add(bulbG);
-        ctx.onNight((k) => { bulbG.visible = k > 0.4; });
+        // festoon string lights strung between façade brackets (note 25: replaces the loose overhead cables)
+        festoons(ctx, OT.ways);
         cityFiller(ctx, { ring: 600 });
         // plaques
         const PL = spL.plaques, PS = spS.plaques, gy = (x, z) => g.heightAt(x, z);

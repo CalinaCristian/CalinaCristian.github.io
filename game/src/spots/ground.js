@@ -8,6 +8,19 @@
 import * as THREE from '../../vendor/three.module.min.js';
 import { clamp, canvas, canvasTexture, inPoly, polyBox, distSeg } from './kit.js';
 
+/** three box-blur passes per axis (≈ Gaussian with σ ≈ r cells), clamped edges */
+function boxBlur3(src, nx, nz, r) {
+    let a = Float32Array.from(src), b = new Float32Array(src.length);
+    const pass = (from, to, n, m, stride, step) => { // n lines of m samples
+        for (let l = 0; l < n; l++) {
+            const o = l * stride; let acc = 0;
+            for (let q = -r; q <= r; q++) acc += from[o + clamp(q, 0, m - 1) * step];
+            for (let q = 0; q < m; q++) { to[o + q * step] = acc / (2 * r + 1); acc += from[o + Math.min(m - 1, q + r + 1) * step] - from[o + Math.max(0, q - r) * step]; }
+        }
+    };
+    for (let it = 0; it < 3; it++) { pass(a, b, nz, nx, nx, 1); [a, b] = [b, a]; pass(a, b, nx, nz, 1, nx); [a, b] = [b, a]; }
+    return a;
+}
 const cr = (p0, p1, p2, p3, t) => p1 + 0.5 * t * (p2 - p0 + t * (2 * p0 - 5 * p1 + 4 * p2 - p3 + t * (3 * (p1 - p2) + p3 - p0)));
 
 export class Ground {
@@ -19,8 +32,25 @@ export class Ground {
         this.surfaces = [];  // walkable solids: { box?, poly?, hm?, top(x,z), bottom, wallAbove? }
         this._cache = new Map();
     }
-    /** raw terrain (Catmull-Rom over the grid, clamped outside) */
+    /**
+     * terrain under the modifiers: the street-conformed grid (see conform) where it exists, else the raw DEM.
+     * A pending conform (SceneContext sets `pendingConform`) runs on the first height query unless the scene
+     * opted out first with `ground.pendingConform = null`.
+     */
     base(x, z) {
+        if (this.pendingConform) { const p = this.pendingConform; this.pendingConform = null; this.conform(p, p.opts); }
+        const c = this.c;
+        if (c) {
+            const fx = (x - c.x0) / c.d, fz = (z - c.z0) / c.d;
+            if (fx >= 0 && fz >= 0 && fx <= c.nx - 1 && fz <= c.nz - 1) {
+                const i = Math.min(c.nx - 2, Math.floor(fx)), j = Math.min(c.nz - 2, Math.floor(fz)), u = fx - i, v = fz - j, k = j * c.nx + i, h = c.h;
+                return (h[k] * (1 - u) + h[k + 1] * u) * (1 - v) + (h[k + c.nx] * (1 - u) + h[k + c.nx + 1] * u) * v;
+            }
+        }
+        return this.raw(x, z);
+    }
+    /** raw terrain (Catmull-Rom over the research elevation grid, clamped outside) */
+    raw(x, z) {
         const t = this.t;
         const fx = clamp((x - t.x0) / t.d, 0, t.nx - 1.0001), fz = clamp((z - t.z0) / t.d, 0, t.nz - 1.0001);
         const i = Math.floor(fx), j = Math.floor(fz), u = fx - i, v = fz - j;
@@ -28,6 +58,94 @@ export class Ground {
         const row = (jj) => cr(H(i - 1, jj), H(i, jj), H(i + 1, jj), H(i + 2, jj), u);
         return cr(row(j - 1), row(j), row(j + 1), row(j + 2), v);
     }
+    /**
+     * Street-conformed ground (owner notes 48/56/68): streets, sidewalks, footways and plazas are flat across and follow
+     * a smoothed profile along; the ground between streets (building lots, small yards) is the smoothed DEM shifted to
+     * meet the street levels (no bicubic overshoot "blobs"); the raw DEM is kept only away from the street network
+     * (parks, hills, banks: real terrain). Result: a `cell`-m grid sampled bilinearly by base().
+     * @param {{lines:{pts:number[][],w:number}[], polys:number[][][], buildings?:number[][][]}} net from osm.streetBands
+     */
+    conform(net, { cell = 2, smooth = 14, reach = 10, maxCells = 420000 } = {}) {
+        const t = this.t, W = (t.nx - 1) * t.d, H = (t.nz - 1) * t.d;
+        let d = cell; while ((W / d + 1) * (H / d + 1) > maxCells) d *= 1.25;
+        const nx = Math.floor(W / d) + 1, nz = Math.floor(H / d) + 1, N = nx * nz, x0 = t.x0, z0 = t.z0;
+        const D = new Float32Array(N);
+        for (let j = 0; j < nz; j++) for (let i = 0; i < nx; i++) D[j * nx + i] = this.raw(x0 + i * d, z0 + j * d);
+        const blur = (src, sigma) => boxBlur3(src, nx, nz, Math.max(1, Math.round(sigma / d)));
+        const Ds = blur(D, smooth);
+        const sDs = (x, z) => { const fx = clamp((x - x0) / d, 0, nx - 1.001), fz = clamp((z - z0) / d, 0, nz - 1.001), i = Math.floor(fx), j = Math.floor(fz), u = fx - i, v = fz - j, k = j * nx + i;
+            return (Ds[k] * (1 - u) + Ds[k + 1] * u) * (1 - v) + (Ds[k + nx] * (1 - u) + Ds[k + nx + 1] * u) * v; };
+        const S = new Float32Array(N), M = new Uint8Array(N), best = new Float32Array(N).fill(1e9);
+        const cells = (bx0, bz0, bx1, bz1, fn) => {
+            const i0 = Math.max(0, Math.floor((bx0 - x0) / d)), i1 = Math.min(nx - 1, Math.ceil((bx1 - x0) / d));
+            const j0 = Math.max(0, Math.floor((bz0 - z0) / d)), j1 = Math.min(nz - 1, Math.ceil((bz1 - z0) / d));
+            for (let j = j0; j <= j1; j++) for (let i = i0; i <= i1; i++) fn(j * nx + i, x0 + i * d, z0 + j * d);
+        };
+        // plazas / pedestrian areas: smoothed terrain, flat-ish
+        for (const poly of net.polys || []) { if (!poly || poly.length < 3) continue; const b = polyBox(poly);
+            cells(b.x0, b.z0, b.x1, b.z1, (k, x, z) => { if (inPoly(x, z, poly)) { S[k] = Ds[k]; M[k] = 1; best[k] = 1e6; } }); }
+        // street bands: centreline profile = smoothed DEM averaged ±12 m along the way, flat across the band
+        for (const L of net.lines || []) {
+            const pts = L.pts, hw = L.w / 2; if (!(hw > 0.3)) continue;
+            const cum = [0]; for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
+            const len = cum[cum.length - 1]; if (!(len > 0.5)) continue;
+            const ns = Math.max(2, Math.ceil(len / 4) + 1), prof = new Float32Array(ns), at = (s) => { let i = 1; while (i < pts.length - 1 && cum[i] < s) i++; const u = clamp((s - cum[i - 1]) / ((cum[i] - cum[i - 1]) || 1), 0, 1); return [pts[i - 1][0] + (pts[i][0] - pts[i - 1][0]) * u, pts[i - 1][1] + (pts[i][1] - pts[i - 1][1]) * u]; };
+            const raw = []; for (let q = 0; q < ns; q++) { const [x, z] = at(len * q / (ns - 1)); raw.push(sDs(x, z)); }
+            for (let q = 0; q < ns; q++) { let a = 0, n = 0; for (let r = -3; r <= 3; r++) { const qq = q + r; if (qq >= 0 && qq < ns) { a += raw[qq]; n++; } } prof[q] = a / n; }
+            const yAt = (s) => { const f = clamp(s / len, 0, 1) * (ns - 1), q = Math.min(ns - 2, Math.floor(f)); return prof[q] + (prof[q + 1] - prof[q]) * (f - q); };
+            for (let si = 1; si < pts.length; si++) {
+                const [ax, az] = pts[si - 1], [bx, bz] = pts[si];
+                cells(Math.min(ax, bx) - hw, Math.min(az, bz) - hw, Math.max(ax, bx) + hw, Math.max(az, bz) + hw, (k, x, z) => {
+                    const r = distSeg(x, z, ax, az, bx, bz); if (r.d > hw + d * 0.5) return;
+                    const key = r.d / hw; if (key >= best[k]) return;
+                    best[k] = key; S[k] = yAt(cum[si - 1] + (cum[si] - cum[si - 1]) * r.t); M[k] = 1;
+                });
+            }
+        }
+        // building footprints are never "real terrain" (the lot follows its streets)
+        const B = new Uint8Array(N);
+        for (const poly of net.buildings || []) { if (!poly || poly.length < 3) continue; const b = polyBox(poly); cells(b.x0, b.z0, b.x1, b.z1, (k, x, z) => { if (inPoly(x, z, poly)) B[k] = 1; }); }
+        // residual street level − smoothed terrain (smoothed within the network: no steps between bands / at junctions),
+        // spread off-street by normalised convolution
+        const RM = new Float32Array(N), Mf = new Float32Array(N);
+        for (let k = 0; k < N; k++) if (M[k]) { RM[k] = S[k] - Ds[k]; Mf[k] = 1; }
+        { const a = blur(RM, 4), w = blur(Mf, 4); for (let k = 0; k < N; k++) if (M[k]) { RM[k] = a[k] / w[k]; S[k] = Ds[k] + RM[k]; } }
+        const Nr = blur(RM, reach), Wm = blur(Mf, reach), Wf = blur(Mf, reach * 2.5);
+        const out = new Float32Array(N);
+        for (let k = 0; k < N; k++) {
+            if (M[k]) { out[k] = S[k]; continue; }
+            const nat = B[k] ? 0 : clamp(1 - Wf[k] / 0.06, 0, 1); // far from every street: the real (raw) terrain
+            const a = clamp(Wm[k] / 0.04, 0, 1), rf = Wm[k] > 1e-4 ? Nr[k] / Wm[k] : 0;
+            out[k] = Ds[k] + (D[k] - Ds[k]) * nat + rf * a * (1 - nat);
+        }
+        this.c = { x0, z0, d, nx, nz, h: out, streets: M };
+        this._cache?.clear?.();
+        return this.c;
+    }
+    /**
+     * Settle the lots onto the scene's own street levels: where scene modifiers registered so far re-graded the
+     * street network (a curated street profile, a cut, a plaza), the untouched ground next to it follows that
+     * change, fading over ~`reach` m — no mound or trench where a curated street meets the raw lots.
+     * Called once by SceneContext.osmBackdrop() (before buildings are placed); idempotent.
+     */
+    settle({ reach = 9, min = 0.08 } = {}) {
+        if (this._settled) return; this._settled = true;
+        this.base(0, 0); const c = this.c; if (!c || !this.mods.length) return;
+        const { nx, nz, d, x0, z0 } = c, N = nx * nz, R = new Float32Array(N), Wt = new Float32Array(N); let any = false;
+        for (let j = 0; j < nz; j++) for (let i = 0; i < nx; i++) { const k = j * nx + i; if (!c.streets[k]) continue; const x = x0 + i * d, z = z0 + j * d, dh = this.heightAt(x, z) - c.h[k]; if (Math.abs(dh) < min) continue; R[k] = dh; Wt[k] = 1; any = true; }
+        if (!any) return;
+        const r = Math.max(1, Math.round(reach / d)), Nr = boxBlur3(R, nx, nz, r), Wm = boxBlur3(Wt, nx, nz, r), F = new Float32Array(N);
+        for (let k = 0; k < N; k++) if (!c.streets[k] && Wm[k] > 1e-4) F[k] = (Nr[k] / Wm[k]) * clamp(Wm[k] / 0.12, 0, 1);
+        this.settleField = F;
+        this.mod((x, z, h) => {
+            const fx = (x - x0) / d, fz = (z - z0) / d; if (fx < 0 || fz < 0 || fx > nx - 1 || fz > nz - 1) return h;
+            if (Math.abs(h - this.base(x, z)) > 0.05) return h; // a scene modifier owns this point
+            const i = Math.min(nx - 2, Math.floor(fx)), j = Math.min(nz - 2, Math.floor(fz)), u = fx - i, v = fz - j, k = j * nx + i;
+            return h + (F[k] * (1 - u) + F[k + 1] * u) * (1 - v) + (F[k + nx] * (1 - u) + F[k + nx + 1] * u) * v;
+        });
+    }
+    /** is (x, z) on the conformed street network (carriageway, sidewalk, footway, plaza)? */
+    onStreet(x, z) { const c = this.c; if (!c) return false; const i = Math.round((x - c.x0) / c.d), j = Math.round((z - c.z0) / c.d); return i >= 0 && j >= 0 && i < c.nx && j < c.nz && c.streets[j * c.nx + i] === 1; }
     /** terrain + modifiers (the visible ground) */
     heightAt(x, z) { let h = this.base(x, z); for (const m of this.mods) h = m(x, z, h); return h; }
     /** add a modifier (x,z,h)=>h */

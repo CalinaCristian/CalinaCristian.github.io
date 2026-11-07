@@ -1299,6 +1299,8 @@ export async function buildWorld(city, renderer, opts = {}) {
     }
     const inArea = (a, x, z) => x >= a.x0 && x <= a.x1 && z >= a.z0 && z <= a.z1 && pointInPolygon(x, z, a.outer) && !a.holes.some(h => pointInPolygon(x, z, h));
     const isWater = (x, z) => { let w = false; waterGrid.each(x, z, x, z, (a) => { if (!w && inArea(a, x, z)) w = true; }); return w; };
+    // nothing stands in water / fountain basins (play-test note 17): `m` = margin for the basin rim / coping
+    const nearWater = (x, z, m = 1.5) => isWater(x, z) || (m > 0 && (isWater(x + m, z) || isWater(x - m, z) || isWater(x, z + m) || isWater(x, z - m)));
     const isPark = (x, z) => { let w = false; parkGrid.each(x, z, x, z, (a) => { if (!w && inArea(a, x, z)) w = true; }); return w; };
     const bigWater = new MeshBuilder();
     // flat ground layers do not write depth (drawn first, in this order) → no z-fighting, sunken roads stay visible
@@ -3146,7 +3148,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const treeSeen = new Set();
     const dtSea = US ? city.proj(47.6062, -122.3321) : null, dtBel = US ? city.proj(47.6150, -122.2000) : null;
     const coniferChance = (x, z, kind) => {
-        if (!US) return kind === 'forest' ? 0.15 : kind === 'park' ? 0.08 : 0.03;
+        if (!US) return kind === 'forest' ? 0.1 : 0; // (Bucharest: conifers only where OSM says needleleaved, or in woods — note 17)
         const dt = Math.min(Math.hypot(x - dtSea.x, z - dtSea.z) / 1300, Math.hypot(x - dtBel.x, z - dtBel.z) / 700);
         return kind === 'street' ? (dt < 1 ? 0.08 : 0.3) : dt < 1 ? 0.2 : 0.62;
     };
@@ -3161,7 +3163,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         { let under = false; surfacesAt(x, z, (hh) => { if (hh > Y.road + 2.5) under = true; }); if (under) return false; } // (no trees under a bridge deck / viaduct)
         if (kind === 'street' && onRibbon(x, z, 1.3)) return false; // (no row trees on medians / verges narrower than ≈ 2.6 m)
         const k = Math.round(x / 1.6) + ',' + Math.round(z / 1.6); if (treeSeen.has(k)) return false;
-        if (onRibbon(x, z, 0.35 * s + 0.5) || buildingAt(x, z) || isWater(x, z)) return false;
+        if (onRibbon(x, z, 0.35 * s + 0.5) || buildingAt(x, z) || nearWater(x, z, 2.0)) return false;
         treeSeen.add(k);
         const isCon = con ?? (kind === 'street' || kind === 'osm' ? false : rng.chance(coniferChance(x, z, kind)));
         let species = opt.species || (isCon ? 'conifer' : defaultSpecies(city.id, kind, opt.road ?? Math.round(x * 0.01 + z * 0.013), rng()));
@@ -3197,7 +3199,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         // treeInfo (world-data): taxon text → species, circumference → size, leaf bits (2 needleleaved, 1 broadleaved)
         const k = i / 3, taxon = TI[k * 3] >= 0 ? str(TI[k * 3]) : '', circ = TI[k * 3 + 1] || 0, leaf = TI[k * 3 + 2] || 0;
         let species = taxon ? speciesFromOSM(taxon) : null;
-        const con = species === 'conifer' || (leaf & 2) ? true : (t & 1) && !(leaf & 1) ? true : false;
+        const con = species === 'conifer' || (leaf & 2) ? true : (t & 1) && !(leaf & 1) && !TI.length ? true : false; // (leaf data known: needleleaved only)
         if (con) species = 'conifer'; else if (species === 'conifer') species = null;
         const dbh = circ > 0 ? circ / Math.PI : 0; // trunk diameter, cm
         const h = hh > 0 ? hh : dbh > 0 ? clamp(4 + dbh * 0.2, 4, 26) : 0;
@@ -3243,8 +3245,9 @@ export async function buildWorld(city, renderer, opts = {}) {
     // a lamp stands on the surface under its own base (deck, embankment, trench floor, sidewalk or ground), never at
     // the height of its parent edge's profile while standing beside it (the floating / sunk lamps of review #19b)
     const standY = (x, z, y) => { let best = 0.15, bd = Math.abs(y - 0.15); surfacesAt(x, z, (h) => { const v = h - Y.road + 0.15, d = Math.abs(v - y); if (d < bd) { bd = d; best = v; } }); return best; };
-    const addLamp = (l) => { l.y = standY(l.x, l.z, l.y); lamps.push(l); lampGrid.insert(l.x, l.z, l.x, l.z, l); addPropColl(l.x, l.z, 0.18, 'lamp'); };
+    const addLamp = (l) => { if (nearWater(l.x, l.z, 1.5)) { lampsWet++; return; } l.y = standY(l.x, l.z, l.y); lamps.push(l); lampGrid.insert(l.x, l.z, l.x, l.z, l); addPropColl(l.x, l.z, 0.18, 'lamp'); };
     const osmLamps = data.lamps || [];
+    let lampsWet = 0;
     let lampsMoved = 0;
     for (let i = 0; i + 2 < osmLamps.length; i += 3) {
         let x = osmLamps[i] / 10, z = osmLamps[i + 1] / 10;
@@ -3274,7 +3277,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         for (let i = 0; i + 2 < F.length; i += 3) {
             const kind = K[F[i]], x = F[i + 1] / 10, z = F[i + 2] / 10;
             const R = { bench: 0.9, waste_basket: 0.3, bollard: 0.15, post_box: 0.35, bicycle_parking: 0.9, drinking_water: 0.25, fountain: 1.6, fire_hydrant: 0.2, recycling: 1.0, telephone: 0.5, vending_machine: 0.5, picnic_table: 1.0, advertising: 0.7 }[kind] ?? 0.4;
-            if (onRibbon(x, z, R + 0.2) || buildingAt(x, z) || isWater(x, z)) continue;
+            if (onRibbon(x, z, R + 0.2) || buildingAt(x, z) || nearWater(x, z, R + 1.2)) continue;
             const ne = nearestEdge(x, z, null, 40); const ang = ne ? Math.atan2(ne.edge.dirx, ne.edge.dirz) : 0;
             const c = cellOf(x, z), sb = c.solid;
             switch (kind) {
@@ -3750,7 +3753,7 @@ export async function buildWorld(city, renderer, opts = {}) {
 
     setProgress(''); const phases = PHASES.splice(0);
     const stats = { phases, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount,
-        profile: profileStats, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingsDropped: bDropped, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
+        profile: profileStats, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingsDropped: bDropped, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
     console.info('[world]', city.id, stats);
 
     /** calls cb(height) for every drivable surface (carriageway + shoulder + sidewalk, junction pads) covering (x, z) */
@@ -3771,6 +3774,8 @@ export async function buildWorld(city, renderer, opts = {}) {
         camera: null, // optional: set to the main camera for distance culling (auto-detected otherwise)
         group, graph, buildings: allColl, pois, lights, nodeLight, bounds, nearestEdge, edgesInBox, isWater, isPark, waterMesh, sky,
         districts, areas, landmarks, trams, stats, data, spawn, city, allEdges,
+        /** placed trees {x, z, species, con, kind} (read-only; QA detectors) */
+        treeSpots: treeList,
         /** chapters: the loaded district {id, name, label, bbox, center, landmarks, congestion, areaKm2, ends:[{x,z,node,edge}] (road-closed
          *  barriers where roads leave the map; node.mapEnd = true), inside(x, z) (the drivable area)} — null for the legacy corridor maps */
         district: distId ? { id: distId, ...distCfg, areaKm2: data.district?.areaKm2, ends: mapEnds, inside: (x, z) => (dmask ? dmask.at(x, z) : true) } : null,

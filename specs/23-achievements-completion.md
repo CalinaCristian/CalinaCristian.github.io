@@ -28,6 +28,11 @@ R23.7 **Tests**: harness scenario that unlocks a sample via test hooks, checks c
 - [ ] Panel and menu ring look right on phone and desktop (screenshots).
 
 ## Requests
+- (progression → gameplay, 2026-11-07, round 5, note 73) Optional `main.js` hook lines (everything already works without them; save.js observes and wraps):
+  1. Menu "Continue" (note 75 menu: Continue · New story · Explore): `import { save } from './save.js';` then in `bindMenu()`: `save.ready.then(() => { const b = $('#continue'); if (b) { b.hidden = !save.hasSession(); b.onclick = () => save.restore(this); } });` with a `<button id="continue" data-continue>` in index.html — save.js then stops adding its own `#save-continue` (and stops renaming `#start` to "New story").
+  2. PhotoMode: `onPhoto: (meta, shot) => this.onPhoto(meta, shot)` (the shot blob is already picked up from `photo.gallery`; this only makes it explicit).
+  3. Explore (note 75): expose `game.enterExplore(districtId, { tod, weather, season })` and `game.mode = 'explore'|'story'`; `save.capture` / `save.restore` use them when present (today: `freeRoam` / `startFreeRoam`).
+  4. Pause menu: an item `['gallery', '📷', 'Photo gallery']` → `this.save?.openGallery()` (the achievements panel already has a gallery button).
 
 ## Progress log
 - 2026-11-07 06:30 UTC (progression) — R23.1–R23.7 implemented.
@@ -71,3 +76,8 @@ R23.7 **Tests**: harness scenario that unlocks a sample via test hooks, checks c
 
   - **Requests filed**: spec 10 (gameplay: the main menu card is ~940 px tall and the overlay does not scroll — pre-existing), spec 15 (spots: optional `onPlaque` / `onPostcard` host callbacks; keep the matched strings meanwhile). Telemetry doc (orchestrator): add `completion_milestone {pct}` to the event list in telemetry-game.js' header / spec 21.
   - **In game** (`--game`, software GL, chapter 1 Floreasca + Kerry Park): map panel ring ✓ (`map-1280.png`), real `playerHonk()` → first-honk via main.js ✓, exitCar → foot-first + foot-jump ✓ but only 0.7 m walked in 10 s (frame-starved; distance check relaxed to > 0), Kerry Park visit + 3/3 plaques → spot-first + plaques-spot ✓, spot pause panel gets the ring block (DOM ✓; the screenshot caught the scene after the panel closed), 0 page errors. Not exercised end to end in a browser: rush-hour, weather drives, jam-stuck, zebra, clean-chapter, nav-arrive, secrets (logic only, triggers in the table above).
+- 2026-11-07 (progression, round 5) — notes 73, 57, 44.
+  - **note 73 IndexedDB** (`game/src/save.js`, new): contract in 01 *Save*. DB `dmcv` v1 (`kv`, `photos`), schema record, migration of every `dmcv*` localStorage key (mirror + write-back), autosave 30 s / chapter events (wrapped) / hidden / pagehide (+ sync localStorage copy), `capture()` / `hasSession()` / `restore(game)`, "Continue" button (feature-detected: gameplay's `#continue` wins), photo store fed from `photo.gallery` + gallery panel (view, download, delete; newest 60), fallback localStorage / memory, `clearAll()` from "Reset progress".
+  - **note 57 Landmarks**: new category (17 activity achievements + `landmarks-all`, data.js), `game.emit('activity', {spot, id})` / `dmcv:activity` window event (01 *Activities*, spec 15 Requests with the ids). They stay hidden and out of the % until their activity is live, so 100 % stays reachable today (63 live).
+  - **note 44**: `completeChapter` wrapped (evaluate right after the goal) + the 4 Hz tick evaluates whenever `progress.done` changes; harness: ch-rosetti unlocks within 0.5 s of `progress.done.add` (was: only on the next unrelated evaluate, e.g. the next office). Toasts are in their own z 70 box (above card/montage).
+  - Menu bar moved after `.lead` (the controls list became a collapsed `<details>`, which hid it).

@@ -37,9 +37,12 @@ function palaceGround(ctx) {
     const w89 = ret('w1444650053', -89), w49 = ret('w1444650060', -49), w13 = ret('w1444650056', -13);
     const YP = 6.2; // palace platform above the square
     const at = (pts, z, fb) => xAtZ(pts, z) ?? fb;
+    // note 20: the esplanade outside the fence is flat paved ground at the level of Piața Constituției (no DEM dip
+    // between the fence plinth and the square); the first lawn terrace behind the low plinth sits just above it
+    const SQY = (x) => 0.2 - Math.max(0, x - 28) * 0.004;
     const terrace = (x, z) => {
         const xf = at(front, z, 20); if (x > xf) return null;
-        if (x > at(w13, z, -13)) return 1.4; if (x > at(w49, z, -49)) return 2.9; if (x > at(w89, z, -89)) return 4.5; return YP;
+        if (x > at(w13, z, -13)) return 0.8; if (x > at(w49, z, -49)) return 2.9; if (x > at(w89, z, -89)) return 4.5; return YP;
     };
     g.mod((x, z, h) => {
         if (z < -330 || z > 300 || x < -470 || x > 40) return h;
@@ -47,8 +50,15 @@ function palaceGround(ctx) {
         if (x < -400) { const k = (x + 470) / 70; return h + (YP - h) * Math.max(0, Math.min(1, k)); }
         return t + 0.0;
     });
-    // the square, the ring road and the head of Bd. Unirii: smooth, gently falling to the east
-    g.mod((x, z, h) => (x > 28 && x < 330 && z > -330 && z < 330 ? 0.2 - (x - 28) * 0.004 : h));
+    // the square, the ring road, the sidewalk along the fence and the head of Bd. Unirii: one flat plane, gently falling east
+    g.mod((x, z, h) => {
+        if (x >= 330 || z <= -330 || z >= 330) return h;
+        if (x > 28) return SQY(x);
+        const xf = xAtZ(front, z); // outside the fence line (toward the square) → square level
+        if (xf !== null && x > xf - 0.2) return SQY(x);
+        if (xf === null && x > -40 && (z < -295 || z > 285)) return h + (SQY(x) - h) * Math.max(0, Math.min(1, (x + 40) / 40)); // past the fence ends
+        return h;
+    });
     return { YP, w89, w49, w13, front, wall, terrace };
 }
 

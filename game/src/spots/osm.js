@@ -17,6 +17,26 @@ export const COL = {
 const ROAD_W = { motorway: 14, trunk: 14, primary: 14, secondary: 12.5, tertiary: 10.5, unclassified: 8, residential: 8.5, living_street: 6, service: 5, trunk_link: 7, primary_link: 7, secondary_link: 7, motorway_link: 7, construction: 7, pedestrian: 6, road: 7 };
 const FOOT_W = { footway: 2.2, path: 1.6, cycleway: 2.6, steps: 2.4, bridleway: 2, track: 3, pedestrian: 5 };
 export const isMotorRoad = (k) => k in ROAD_W && k !== 'pedestrian';
+/** carriageway width of an OSM road (width tag, lanes, or the class default) */
+export function roadWidth(w) { const lw = parseFloat(w.width); if (lw > 2) return lw; const lanes = parseInt(w.lanes, 10); const base = ROAD_W[w.k] || 7; return lanes > 0 ? Math.max(base * 0.6, lanes * 3.3 + (['primary', 'secondary', 'tertiary', 'residential', 'unclassified'].includes(w.k) ? 2.6 : 0.4)) : base; }
+/**
+ * the paved street network at ground level, for the street-conformed ground (Ground.conform): carriageways with their
+ * sidewalks, footways / paths as bands, pedestrian areas / squares / plazas as polygons
+ */
+export function streetBands(data, { skipWays = new Set(), skipAreas = new Set() } = {}) {
+    const lines = [], polys = [];
+    for (const w of data.ways || []) {
+        if (skipWays.has(w.id) || !onGround(w) || !w.pts || w.pts.length < 2) continue;
+        if (w.area === 'yes') { if (w.k in FOOT_W || w.k === 'pedestrian') polys.push(w.pts); continue; }
+        if (isMotorRoad(w.k)) lines.push({ pts: w.pts, w: roadWidth(w) + (['service', 'trunk', 'motorway', 'trunk_link', 'motorway_link'].includes(w.k) && !w.sidewalk ? 0.4 : 5.2), motor: true });
+        else if (w.k in FOOT_W && w.k !== 'steps' && w.k !== 'track') lines.push({ pts: w.pts, w: parseFloat(w.width) > 0.5 ? parseFloat(w.width) : FOOT_W[w.k], motor: false });
+    }
+    for (const a of data.areas || []) {
+        if (skipAreas.has(a.id) || a.indoor === 'yes' || (a.layer && +a.layer !== 0) || (a.level && !/^0(;|$)/.test(String(a.level)))) continue;
+        if (a.area_highway || a.highway === 'pedestrian' || a.place === 'square') polys.push(a.poly);
+    }
+    return { lines, polys, buildings: (data.buildings || []).filter((b) => !b.part).map((b) => b.poly) };
+}
 
 /** is this way at ground level and outdoors (painted on the terrain)? */
 export function onGround(w) {
@@ -78,7 +98,7 @@ export function paintOSM(P, data, o = {}) {
     // roads: sidewalks under, kerb edge, carriageway, markings
     const ways = data.ways.filter((w) => !skipW.has(w.id) && onGround(w));
     const roads = ways.filter((w) => isMotorRoad(w.k) && w.area !== 'yes');
-    const width = (w) => { const lw = parseFloat(w.width); if (lw > 2) return lw; const lanes = parseInt(w.lanes, 10); const base = ROAD_W[w.k] || 7; return lanes > 0 ? Math.max(base * 0.6, lanes * 3.3 + (['primary', 'secondary', 'tertiary', 'residential', 'unclassified'].includes(w.k) ? 2.6 : 0.4)) : base; };
+    const width = roadWidth;
     if (o.sidewalks !== false) for (const w of roads) if (!['service', 'trunk', 'motorway', 'trunk_link', 'motorway_link'].includes(w.k) || w.sidewalk_both || w.sidewalk) P.line(w.pts, width(w) + 5.2, COL.sidewalk, 'slab');
     for (const w of roads) P.line(w.pts, width(w) + 0.35, COL.kerb, 'slab');
     for (const w of roads) {
@@ -268,9 +288,12 @@ export function buildBuildings(data, ground, o = {}) {
         if (o.filter && !o.filter(b)) continue;
         const H = buildingHeight(b) * (o.heightScale || 1);
         let gmin = 1e9, gmax = -1e9;
-        for (const [x, z] of b.poly) { const h = ground.heightAt(x, z); gmin = Math.min(gmin, h); gmax = Math.max(gmax, h); }
-        { const h = ground.heightAt(cx, cz); gmin = Math.min(gmin, h); gmax = Math.max(gmax, h); }
-        const base = b.minH ? gmax + b.minH : (b.minLv ? gmax + b.minLv * 3.2 : gmin - 0.3);
+        // lowest / highest ground under the footprint: vertices, centroid and every ~2.5 m along the edges (a long
+        // wall over a slope or a re-graded street must still reach the ground: closed volume, nothing to see under)
+        const gs = (x, z) => { const h = ground.heightAt(x, z); if (h < gmin) gmin = h; if (h > gmax) gmax = h; };
+        for (let i = 0, j = b.poly.length - 1; i < b.poly.length; j = i++) { const [ax, az] = b.poly[j], [bx, bz] = b.poly[i], n = Math.min(24, Math.ceil(Math.hypot(bx - ax, bz - az) / 2.5)); for (let q = 0; q < n; q++) gs(ax + (bx - ax) * q / n, az + (bz - az) * q / n); }
+        gs(cx, cz);
+        const base = b.minH ? gmax + b.minH : (b.minLv ? gmax + b.minLv * 3.2 : gmin - 0.6);
         const top = (b.minH || b.minLv ? gmax : gmax) + H;
         if (top - base < 1) continue;
         const style = o.style?.(b) || buildingStyle(b, urban);
@@ -292,8 +315,10 @@ export function buildBuildings(data, ground, o = {}) {
             const A = Math.abs(polyArea(b.poly));
             if (A > 300 && H > 9) { const bb = obb(b.poly); if (bb) for (let i = 0; i < Math.min(4, A / 400); i++) { const u = (r() - 0.5) * bb.len * 0.5, v = (r() - 0.5) * bb.wid * 0.5; batch.box(bb.cx + bb.ux * u - bb.uz * v, top, bb.cz + bb.uz * u + bb.ux * v, 2 + r() * 3, 1.2 + r() * 1.5, 2 + r() * 2, '#9a9a96', 'metal', bb.angle); } }
         }
-        colliders.push(polyCollider(b.poly, base, top));
+        // the walker can't get under / into a building that stands on the ground (floating parts keep their underside)
+        colliders.push(polyCollider(b.poly, b.minH || b.minLv ? base : base - 30, top));
     }
+    for (const m of Object.values(mats)) m.side = THREE.DoubleSide; // inside a wall the camera sees a wall, never the street beyond
     const group = batch.build('osm-buildings', { matOverrides: mats });
     return { group, colliders, tris: countFromGroup(group) };
 }

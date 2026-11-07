@@ -2511,11 +2511,11 @@ export async function buildWorld(city, renderer, opts = {}) {
             // window centres along this edge: the atlas puts one window column per bay, centred at (i + 0.5) bays
             const cols = []; for (let i = Math.ceil(p0 / bayW - 0.5); (i + 0.5) * bayW - p0 < L - 0.6; i++) { const s2 = (i + 0.5) * bayW - p0; if (s2 > 0.6) cols.push(s2); }
             if (st === 'eclectic' || st === 'civic') {
-                for (let f = 0; f < floors; f++) {
+                for (let f = 0; f < Math.min(floors, 5); f++) { // (surrounds on the lower five storeys: what a driver sees)
                     const yb = yFirst + f * floorH, wTop = yb + floorH * 0.8, wBot = yb + floorH * 0.2;
                     for (const s2 of cols) {
-                        slab(s2, wTop, bayW * 0.56, 0.28, 0.32, trim, true);                                // lintel / cornice over the window
-                        if (f % 2 === 0 && st === 'eclectic') slab(s2, wTop + 0.28, bayW * 0.4, 0.34, 0.2, shadeRgb(trim, 0.95), false); // pediment
+                        slab(s2, wTop, bayW * 0.56, 0.28, 0.32, trim, false);                                // lintel / cornice over the window
+                        if (f === 0 && st === 'eclectic') slab(s2, wTop + 0.28, bayW * 0.4, 0.34, 0.2, shadeRgb(trim, 0.95), false); // pediment
                         slab(s2, wBot - 0.12, bayW * 0.56, 0.12, 0.24, trim, false);                           // sill
                     }
                 }
@@ -2534,7 +2534,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (brng() < 0.25 && L > 10) { const [x, z] = P(L * 0.5, 0.3); db.box(x, yTop, z, 0.06, 4, 0.06, 0, rgb('#cfcfcf')); } // flag pole
             } else if (st === 'bloc') {
                 const encl = [rgb('#c9d4d8'), rgb('#9fb3bd'), shadeRgb(wallCol, 0.95), rgb('#d8cfb8'), rgb('#7d8c96'), rgb('#b8a48a')];
-                for (let f = 1; f < floors; f++) {
+                for (let f = 1; f < Math.min(floors, 9); f++) {
                     const yb = yFirst + f * floorH;
                     for (let i = 0; i < cols.length; i++) {
                         const s2 = cols[i], r = brng();
@@ -2917,7 +2917,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // so the season / weather code can tint each tree (world.vegetation)
     const vegetation = { treeCrownMeshes: [], treeTrunkMeshes: [], deciduousMask: null, grassMaterials: [], groundMaterials: [], roofMaterials: [], trees: treeList };
     {
-        const T = buildSpeciesTrees(treeList, { rng, cull: 1200, near: 115, maxNear: 520 }); // (≈ 1.2 km view range for trees)
+        const T = buildSpeciesTrees(treeList, { rng, cull: 1200, near: 100, maxNear: 280 }); // (≈ 1.2 km view range for trees)
         vegetation.treeCrownMeshes.push(...T.crownMeshes); vegetation.treeTrunkMeshes.push(...T.trunkMeshes);
         vegetation.update = T.update;
         vegetation.deciduousMask = new Float32Array(treeList.map(t => t.dec));
@@ -3129,7 +3129,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const parkedLots = new Map(); // super-cell key → [{kind, color, x, y, z, yaw}]
     const useInst = typeof makeParkedCars === 'function';
     const carTris = useInst ? 260 : carKinds.reduce((s2, k) => { const pr = carProps(k, CAR_COLORS[0]); return s2 + (pr.index ? pr.index.length / 3 : 772); }, 0) / carKinds.length;
-    let parked = 0; const maxParked = Math.round(Math.min(city.id === 'bucharest' ? 2600 : 2000, 350000 / Math.max(1, carTris)));
+    let parked = 0; const maxParked = Math.round(Math.min(city.id === 'bucharest' ? 2600 : 2000, 260000 / Math.max(1, carTris)));
     for (const a of areas) {
         if (a.kind !== 'parking' || parked >= maxParked || a.size < 120) continue;
         // orientation: longest edge
@@ -3287,7 +3287,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     let cx = 0, cz = 0;
     // (2026-11-07, world-visual) draw calls: the flat / cheap layers of neighbouring cells are merged into super-cells
     // (2×2 cells = 500 m; the far backdrop 4×4) — fewer meshes for the same pixels; solid buildings stay per cell (culling)
-    const SUPER = { area: 4, grass: 4, pave: 4, roof: 4, backdrop: 4, ground: 2, road: 2, pad: 2, marks: 2, water: 4, signs: 4, spill: 4, solid: 2, detail: 2 };
+    const SUPER = { area: 4, grass: 4, pave: 4, roof: 4, backdrop: 4, ground: 2, road: 2, pad: 2, marks: 2, water: 4, signs: 4, spill: 4, solid: 2, detail: 1 };
     const supers = new Map();
     const superOf = (c, layer, page = 0) => {
         const K = SUPER[layer], I = Math.floor(c.i / K), J = Math.floor(c.j / K), key = layer + page + ':' + I + ',' + J;
@@ -3321,7 +3321,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             case 'marks': { const m = addSuper(o, marksMat, false, 'marks'); if (m) m.renderOrder = 4; break; }
             case 'water': { const m = addSuper(o, waterMat, false, 'water'); if (m) m.renderOrder = -18; break; }
             case 'solid': addSuper(o, solidMat, true, 'solid'); break;
-            case 'detail': { const m = addSuper(o, solidMat, true, 'detail'); if (m) m.userData.cull = 180 + CELL * 2 * 0.71; break; } // near LOD only
+            case 'detail': { const m = addSuper(o, solidMat, true, 'detail'); if (m) m.userData.cull = 110 + CELL * 0.71; break; } // near LOD only
             case 'signs': addSuper(o, signMats[o.page], false, 'signs'); break;
             case 'spill': { const m = addSuper(o, spillMat, false, 'shop-spill'); if (m) { m.renderOrder = 5; m.castShadow = m.receiveShadow = false; } break; }
         }

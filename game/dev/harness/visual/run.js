@@ -14,8 +14,8 @@ const HERE = __dirname;
 
 // ---------------------------------------------------------------- args
 const A = {
-    city: null, route: null, every: 40, from: null, to: null, aerial: true, looks: true, zEvery: 3, pr: 0.5, viewports: '1280x720,1920x1080,2560x1080,844x390',
-    quality: 'medium', far: 450, traffic: false, offices: true, geometry: true, geoAll: false, jobs: 2, headed: false, port: 8123, timeout: 120,
+    city: null, route: null, district: null, every: 40, from: null, to: null, aerial: true, looks: true, zEvery: 3, pr: 0.5, viewports: '1280x720,1920x1080,2560x1080,844x390,390x844',
+    quality: 'medium', far: 0, time: 'day', weather: 'clear', trafficEvery: 0, spots: null, spotQ: 'high', traffic: false, offices: true, geometry: true, geoAll: false, jobs: 2, headed: false, port: 8123, timeout: 120,
     focus: 40, corridor: 70, sweep: 2, lookEvery: 200, aerialEvery: 200, size: 120, out: path.join(HERE, 'report'), keep: false, verbose: false,
 };
 for (const a of process.argv.slice(2)) {
@@ -26,6 +26,12 @@ for (const a of process.argv.slice(2)) {
         case 'visual': break; // passed through by ../run.js
         case 'city': A.city = v; break;
         case 'route': case 'chapter': A.route = v; break;
+        case 'district': A.district = v; break;
+        case 'time': A.time = v || 'day'; break;
+        case 'weather': A.weather = v || 'clear'; break;
+        case 'traffic-every': A.trafficEvery = num(); break;
+        case 'spots': A.spots = v || 'all'; break;
+        case 'spot-q': A.spotQ = v; break;
         case 'every': A.every = num(); break;
         case 'from': A.from = num(); break;
         case 'to': A.to = num(); break;
@@ -116,12 +122,16 @@ async function runCity(browser, base, city, ctxOut) {
     await page.addScriptTag({ url: base + 'game/dev/harness/visual/page/visual.js?v=' + Date.now(), type: 'module' });
     await page.waitForFunction(() => window.vqa, null, { timeout: 30000 });
     await page.evaluate((b) => window.vqa.setIdBase(b), ctxOut.idBase);
-    const opts = { quality: A.quality, far: A.far, traffic: A.traffic, every: A.every, lookEvery: A.lookEvery, aerialEvery: A.aerialEvery, zEvery: A.zEvery, aerial: A.aerial, looks: A.looks, size: A.size, from: A.from, to: A.to, corridor: A.corridor, sweep: A.sweep, sweepMax: A.sweepMax ?? 2000, debugMasks: !!A.debugMasks, pr: A.pr };
+    const opts = { quality: A.quality, far: A.far, time: A.time, weather: A.weather, trafficEvery: A.trafficEvery, traffic: A.traffic, every: A.every, lookEvery: A.lookEvery, aerialEvery: A.aerialEvery, zEvery: A.zEvery, aerial: A.aerial, looks: A.looks, size: A.size, from: A.from, to: A.to, corridor: A.corridor, sweep: A.sweep, sweepMax: A.sweepMax ?? 2000, debugMasks: !!A.debugMasks, pr: A.pr };
     await page.evaluate((o) => window.vqa.setOpts(o), opts);
     const { mode, groups } = await page.evaluate((c) => window.vqa.groups(c), city);
     res.mode = mode;
     let cockpitDone = false, officesDone = false, routeBase = 0;
+    const sel0 = A.route ? A.route.split(',') : null;
     for (const gr of groups) {
+        if (A.district && !A.district.split(',').some(d => gr.key === d || gr.district === d)) continue;
+        // a --route list of chapter ids (no sweeps) only needs the districts of those chapters
+        if (sel0 && mode === 'chapters' && !sel0.some(s => s === 'all' || /sweep/.test(s)) && !gr.chapters.some(c => sel0.some(s => s !== 'none' && c.id.includes(s))) && !(sel0.includes('none') && !cockpitDone)) continue;
         t = Date.now();
         log(`[${city}] loading ${gr.key}…`);
         const info = await withTimeout(page.evaluate(([k, o]) => window.vqa.loadGroup(k, o), [gr.key, opts]), 240000, 'load ' + gr.key);
@@ -157,11 +167,15 @@ async function runCity(browser, base, city, ctxOut) {
                 try { c = await withTimeout(page.evaluate(([id, k]) => window.vqa.capture(id, k), [r.id, i]), A.timeout * 1000, `capture ${r.id}#${i}`); }
                 catch (e) { log(`[${city}] !! ${e.message}`); res.errors.push(e.message); if (/has been closed|crash/i.test(e.message)) throw e; if (/timed out/.test(e.message)) break; }
                 if (c && c.flags.length) flagged++;
-                if (c) (r.shots ||= []).push({ idx: c.idx, s: c.s, x: c.x, z: c.z, street: c.street, flags: c.flags, sheet: Math.floor(i / 6) + 1 });
+                if (c) (r.shots ||= []).push({ idx: c.idx, s: c.s, x: c.x, z: c.z, street: c.street, flags: c.flags, sheet: Math.floor(i / 6) + 1, perf: c.perf, perfT: c.perfT });
                 if (A.verbose && c) log(`[${city}] ${r.id} #${c.idx} ${c.s} m ${c.ms} ms [${Object.entries(c.tm || {}).map(([k, v]) => k + ' ' + v).join(', ')}] ${c.flags.join(' ')}`);
                 if (!A.verbose && i % 10 === 9) log(`[${city}] ${r.id}: ${i + 1}/${r.n} (${((Date.now() - tr) / (i + 1) / 1000).toFixed(1)} s/sample)`);
             }
             r.wallSec = Math.round((Date.now() - tr) / 1000); r.flagged = flagged;
+            // perf: the chapter-start frame and the worst frame (world only = forward shots; full = traffic shots)
+            const sh = r.shots || [], worst = (k, f) => sh.filter(x => x[k] && x[k][f] != null).reduce((a, b) => (!a || b[k][f] > a[k][f]) ? b : a, null);
+            const pick = (x, k) => x ? { idx: x.idx, s: x.s, street: x.street, x: x.x, z: x.z, ...x[k] } : null;
+            r.perf = { start: pick(sh[0], 'perf'), worstCalls: pick(worst('perf', 'calls'), 'perf'), worstTris: pick(worst('perf', 'tris'), 'perf'), startT: pick(sh.find(x => x.perfT), 'perfT'), worstCallsT: pick(worst('perfT', 'calls'), 'perfT'), worstTrisT: pick(worst('perfT', 'tris'), 'perfT') };
             res.routes.push({ group: gr.key, ...r });
             log(`[${city}] ${r.id} done: ${r.n} samples in ${r.wallSec} s, ${flagged} with pixel flags`);
         }
@@ -204,6 +218,94 @@ async function runCity(browser, base, city, ctxOut) {
     return res;
 }
 
+// ---------------------------------------------------------------- tourist spots (R19.4): game/dev/spots.html + window.spotDev
+function spotIds() {
+    const src = fs.readFileSync(path.join(ROOT, 'game/src/spots/index.js'), 'utf8');
+    const block = src.slice(src.indexOf('export const SPOTS'), src.indexOf('export const DEV_SPOTS'));
+    return [...block.matchAll(/\{\s*id:\s*'([^']+)',\s*city:\s*'(\w+)'[^\n]*?scene:\s*'([^']+)'/g)].map(m => ({ id: m[1], city: m[2], scene: m[3] }));
+}
+async function runSpots(browser, base) {
+    const all = spotIds(), sel = A.spots === 'all' ? null : A.spots.split(',');
+    const list = all.filter(s => !sel || sel.some(q => s.id === q || s.id.includes(q) || s.scene === q || s.city === q));
+    const res = { city: 'spots', mode: 'spots', groups: [], routes: [], sheets: [], issues: [], counts: {}, cockpit: [], offices: [], errors: [], log: [], timing: {}, spots: [] };
+    let nid = 900000;
+    const issue = (type, severity, msg, data = {}) => { res.issues.push({ id: ++nid, type, severity, city: 'spots', group: 'spots', msg, count: 1, data }); res.counts[type] = (res.counts[type] || 0) + 1; };
+    fs.mkdirSync(path.join(OUT, 'sheets'), { recursive: true }); fs.mkdirSync(path.join(OUT, 'spots'), { recursive: true });
+    for (const sp of list) {
+        const t = Date.now(), out = { id: sp.id, city: sp.city, scene: sp.scene, poses: {}, flags: [] };
+        const ctx = await browser.newContext({ viewport: { width: 1280, height: 720 }, deviceScaleFactor: 1 });
+        await ctx.route(/api\.open-meteo\.com/, (route) => route.fulfill({ status: 200, contentType: 'application/json', body: '{"error":true,"reason":"visual QA: live weather disabled"}' }));
+        const page = await ctx.newPage(); const errs = [];
+        page.on('pageerror', (e) => errs.push(String(e.message || e).slice(0, 300)));
+        await page.addInitScript(INIT);
+        try {
+            await page.goto(`${base}game/dev/spots.html?id=${encodeURIComponent(sp.id)}&manual=1&ui=0&q=${A.spotQ}&ov=${A.time}&weather=${A.weather}`, { waitUntil: 'load' });
+            await page.waitForFunction(() => window.spotDev?.ready || /Failed/.test(document.querySelector('#loading')?.textContent || ''), null, { timeout: 180000 });
+            const fail = await page.evaluate(() => window.spotDev ? null : document.querySelector('#loading')?.textContent);
+            if (fail) throw new Error(fail);
+            Object.assign(out, await page.evaluate((id) => {
+                const D = window.spotDev, S = D.session.spot; const ch = (S.challenges || []).find(c => c.id === id) || (S.challenges || [])[0] || null;
+                return { loadMs: D.loadMs, sceneTris: S.tris ?? null, timing: S.timing || null, challenge: ch ? { id: ch.id, x: ch.x, z: ch.z, bearing: ch.bearing, pitch: ch.pitch ?? 3, title: ch.title || ch.name || '' } : null, spawn: S.spawn ? { x: S.spawn.x, y: S.spawn.y, z: S.spawn.z, heading: S.spawn.heading } : null, plaques: (S.plaques || []).length, walker: D.session.walkerKind };
+            }, sp.id));
+            const shots = [];
+            const shoot = async (pose, prep) => {
+                const st = await page.evaluate(prep);
+                const buf = await page.screenshot({ type: 'jpeg', quality: 85, timeout: 60000 });
+                const file = `spots/${sp.id}-${pose}.jpg`; fs.writeFileSync(path.join(OUT, file), buf);
+                const m = await page.evaluate(async (d) => { // luminance stats of the frame (dark = L < 4 %)
+                    const im = await createImageBitmap(await (await fetch(d)).blob()); const c = new OffscreenCanvas(320, 180), x = c.getContext('2d'); x.drawImage(im, 0, 0, 320, 180);
+                    const a = x.getImageData(0, 0, 320, 180).data; let dark = 0, sum = 0; for (let i = 0; i < a.length; i += 4) { const L = (0.2126 * a[i] + 0.7152 * a[i + 1] + 0.0722 * a[i + 2]) / 255; sum += L; if (L < 0.04) dark++; }
+                    return { dark: +(dark / (a.length / 4)).toFixed(3), mean: +(sum / (a.length / 4)).toFixed(3) };
+                }, 'data:image/jpeg;base64,' + buf.toString('base64'));
+                out.poses[pose] = { calls: st.drawCalls, tris: st.triangles, pos: st.pos, ...m };
+                shots.push({ pose, data: 'data:image/jpeg;base64,' + buf.toString('base64'), sub: `${st.drawCalls} calls · ${(st.triangles / 1e6).toFixed(2)} M tris · pos ${st.pos} · dark ${Math.round(m.dark * 100)} %` });
+            };
+            const statsJs = `const s = D.step(4, 1 / 30), p = D.session.ctl.position || { x: 0, y: 0, z: 0 }; return { drawCalls: s.drawCalls, triangles: s.triangles, pos: [p.x, p.y, p.z].map(v => Math.round(v * 10) / 10).join(', ') };`;
+            await shoot('spawn', new Function(`const D = window.spotDev; ${statsJs}`));
+            if (out.challenge) await shoot('postcard', new Function(`const D = window.spotDev, c = ${JSON.stringify(out.challenge)}; D.walkTo(c.x, c.z, c.bearing, c.pitch); ${statsJs}`));
+            // walk: back at the spawn, 3 s forward along the spawn heading (walk cycle, crowd, collisions)
+            const w = await page.evaluate(() => {
+                const D = window.spotDev, S = D.session.spot, C = D.session.ctl, s = S.spawn;
+                D.walkTo(s.x, s.z, -s.heading * 180 / Math.PI, 0); D.step(2, 1 / 30);
+                const p0 = { ...C.position }; C.auto = { fwd: 1, side: 0, run: false, heading: C.heading }; D.step(90, 1 / 30); C.auto = null;
+                const p1 = C.position; return { walked: Math.round(Math.hypot(p1.x - p0.x, p1.z - p0.z) * 10) / 10, y: Math.round(p1.y * 100) / 100, nan: ![p1.x, p1.y, p1.z].every(Number.isFinite) };
+            });
+            out.walked = w.walked;
+            await shoot('walk', new Function(`const D = window.spotDev; ${statsJs}`));
+            // flags
+            if (w.nan) { out.flags.push('walker NaN'); issue('spot-walk-nan', 'high', `${sp.id}: walker position NaN after 3 s walk`, { spot: sp.id }); }
+            else if (w.walked < 2) { out.flags.push(`walk ${w.walked} m`); issue('spot-walk-stuck', 'medium', `${sp.id}: walked only ${w.walked} m in 3 s from the spawn (blocked at the spawn?)`, { spot: sp.id }); }
+            for (const [pose, P] of Object.entries(out.poses)) {
+                if (P.calls > 400) { out.flags.push(`${pose} ${P.calls} calls`); issue('spot-perf', 'medium', `${sp.id} ${pose}: ${P.calls} draw calls (> 400)`, { spot: sp.id, pose, ...P }); }
+                if (P.tris > 1.5e6) { out.flags.push(`${pose} ${(P.tris / 1e6).toFixed(1)} M tris`); issue('spot-perf', 'medium', `${sp.id} ${pose}: ${(P.tris / 1e6).toFixed(2)} M triangles drawn (> 1.5 M)`, { spot: sp.id, pose, ...P }); }
+                if (/day/.test(A.time) && P.dark > 0.3) { out.flags.push(`${pose} dark ${Math.round(P.dark * 100)}%`); issue('spot-dark', 'medium', `${sp.id} ${pose}: ${Math.round(P.dark * 100)} % of the frame is near-black at day`, { spot: sp.id, pose, ...P }); }
+            }
+            if (out.sceneTris > 1e6) { out.flags.push('scene > 1 M tris'); issue('spot-perf', 'low', `${sp.id}: scene ${(out.sceneTris / 1e6).toFixed(2)} M triangles (R15.5 ≤ 1 M)`, { spot: sp.id }); }
+            if (out.loadMs > 3000) out.flags.push(`load ${(out.loadMs / 1000).toFixed(1)} s (software GL)`);
+            // one sheet per spot (3 tiles)
+            out.sheet = await page.evaluate(async ([tiles, title]) => {
+                const tw = 640, th = 360, LH = 36, c = new OffscreenCanvas(tw * 2 + 6, 30 + 2 * (th + LH + 6)), x = c.getContext('2d');
+                x.fillStyle = '#111'; x.fillRect(0, 0, c.width, c.height); x.fillStyle = '#ddd'; x.font = 'bold 16px Arial'; x.fillText(title, 8, 20);
+                for (const [k, t] of tiles.entries()) {
+                    const im = await createImageBitmap(await (await fetch(t.data)).blob()); const ox = (k % 2) * (tw + 6), oy = 30 + Math.floor(k / 2) * (th + LH + 6);
+                    x.fillStyle = '#222'; x.fillRect(ox, oy, tw, LH); x.fillStyle = '#fff'; x.font = 'bold 14px Arial'; x.fillText(t.pose, ox + 6, oy + 15); x.font = '12px Arial'; x.fillStyle = '#ccc'; x.fillText(t.sub.slice(0, 100), ox + 6, oy + 31, tw - 12);
+                    x.drawImage(im, ox, oy + LH, tw, th);
+                }
+                const b = await c.convertToBlob({ type: 'image/jpeg', quality: 0.85 }); return await new Promise(r => { const f = new FileReader(); f.onload = () => r(f.result); f.readAsDataURL(b); });
+            }, [shots, `${sp.id} · ${sp.scene} · load ${(out.loadMs / 1000).toFixed(1)} s · scene ${((out.sceneTris || 0) / 1e6).toFixed(2)} M tris · ${A.time} ${A.weather} · q ${A.spotQ}`]);
+            const sf = `sheets/spots-${sp.id}.jpg`; fs.writeFileSync(path.join(OUT, sf), Buffer.from(out.sheet.replace(/^data:[^,]+,/, ''), 'base64')); out.sheet = sf;
+            res.sheets.push({ name: 'spots-' + sp.id, title: `spot ${sp.id}`, files: [{ file: sf, labels: [] }] });
+        } catch (e) { out.flags.push('FAILED'); issue('spot-load-failed', 'high', `${sp.id}: ${e.message.slice(0, 200)}`, { spot: sp.id }); }
+        for (const e of errs) { res.errors.push(`${sp.id}: ${e}`); }
+        if (errs.length) issue('spot-page-error', 'high', `${sp.id}: ${errs.length} page error(s): ${errs[0].slice(0, 160)}`, { spot: sp.id });
+        out.wallSec = Math.round((Date.now() - t) / 1000);
+        res.spots.push(out);
+        log(`[spots] ${sp.id}: load ${(out.loadMs / 1000 || 0).toFixed(1)} s, ${Object.entries(out.poses).map(([k, p]) => `${k} ${p.calls}/${(p.tris / 1e6).toFixed(2)}M`).join(' ')}, walk ${out.walked} m ${out.flags.join(' ')} (${out.wallSec} s)`);
+        await ctx.close().catch(() => { });
+    }
+    return res;
+}
+
 // ---------------------------------------------------------------- report
 const SEV = { high: 0, medium: 1, low: 2 };
 function writeReport(results) {
@@ -213,7 +315,7 @@ function writeReport(results) {
     const byType = {}; for (const it of issues) { (byType[it.type] ||= []).push(it); }
     const L = [];
     L.push(`# Visual QA — ${new Date().toISOString().slice(0, 16).replace('T', ' ')} UTC`, '');
-    L.push(`Run: \`${process.argv.slice(2).join(' ') || '(defaults)'}\` · ${Math.round((Date.now() - t0) / 60)} min · quality ${A.quality}, day, clear, far ${A.far} m, forward every ${A.every} m, looks/aerial every ${A.lookEvery}/${A.aerialEvery} m, z-fight test every ${A.zEvery || '–'} sample(s).`, '');
+    L.push(`Run: \`${process.argv.slice(2).join(' ') || '(defaults)'}\` · ${Math.round((Date.now() - t0) / 60)} min · quality ${A.quality}, ${A.time}, ${A.weather}, far ${A.far > 0 ? A.far + ' m' : 'game'},${A.trafficEvery ? ` traffic shots every ${A.trafficEvery} m,` : ''} forward every ${A.every} m, looks/aerial every ${A.lookEvery}/${A.aerialEvery} m, z-fight test every ${A.zEvery || '–'} sample(s).`, '');
     L.push('Human review: [review.md](review.md).', '');
     L.push('## Findings by detector', '', '| detector | high | medium | low | total |', '|---|---|---|---|---|');
     for (const [k, v] of Object.entries(byType).sort((a, b) => b[1].length - a[1].length)) {
@@ -231,6 +333,23 @@ function writeReport(results) {
         L.push('', '### Contact sheets', '');
         for (const s of r.sheets) { if (!s.files.length) continue; L.push(`- **${s.title}**: ${s.files.map((f, i) => `[${i + 1}](${f.file})`).join(' ')}`); }
         if (r.cockpit.length) { L.push('', '### Cockpit / HUD screenshots', ''); for (const c of r.cockpit) L.push(`- [${c.viewport}](${c.file}) — nav screen ${c.parts.screen ? `${Math.round(c.parts.screen.outside * 100)} % off-view, ${Math.round(c.parts.screen.occluded * 100)} % occluded (${(c.parts.screen.occluders || []).join(', ') || '—'}), ${c.parts.screen.hPx} px tall` : 'n/a'}`); }
+        L.push('');
+    }
+    // perf per route (r3d.stats of the forward frame = world only, and of the traffic shots = full scene)
+    const pr = results.flatMap(r => r.routes.filter(rt => rt.perf).map(rt => ({ city: r.city, ...rt })));
+    if (pr.length) {
+        const f = (p) => p ? `${p.calls ?? '?'} / ${p.tris != null ? (p.tris / 1e6).toFixed(2) : '?'} M` : '—';
+        const at = (p) => p ? ` (#${p.idx} ${p.s} m ${p.street || ''})` : '';
+        const flag = (p) => p && (p.calls > 400 || p.tris > 1.5e6) ? ' ⚠' : '';
+        L.push(`## Perf (quality ${A.quality}; draw calls / triangles from r3d.stats; ⚠ > 400 calls or > 1.5 M tris)`, '', '| route | start (world) | worst calls (world) | worst tris (world) | start (+traffic) | worst calls (+traffic) | worst tris (+traffic) |', '|---|---|---|---|---|---|---|');
+        for (const rt of pr) { const P = rt.perf; L.push(`| \`${rt.group}\` ${rt.id} | ${f(P.start)}${flag(P.start)} | ${f(P.worstCalls)}${flag(P.worstCalls)}${at(P.worstCalls)} | ${f(P.worstTris)}${flag(P.worstTris)}${at(P.worstTris)} | ${f(P.startT)}${flag(P.startT)} | ${f(P.worstCallsT)}${flag(P.worstCallsT)}${at(P.worstCallsT)} | ${f(P.worstTrisT)}${flag(P.worstTrisT)}${at(P.worstTrisT)} |`); }
+        L.push('');
+    }
+    // tourist spots (R19.4)
+    for (const r of results.filter(r => r.spots)) {
+        L.push(`## Tourist spots (${r.spots.length}; spots.html, quality ${A.spotQ}, ${A.time}, ${A.weather})`, '', '| spot | scene | load | scene tris | spawn calls / tris | postcard calls / tris | walk | flags | sheet |', '|---|---|---|---|---|---|---|---|---|');
+        const f = (p) => p ? `${p.calls} / ${(p.tris / 1e6).toFixed(2)} M` : '—';
+        for (const sp of r.spots) L.push(`| ${sp.id} | ${sp.scene || ''} | ${sp.loadMs != null ? (sp.loadMs / 1000).toFixed(1) + ' s' : '—'} | ${sp.sceneTris != null ? (sp.sceneTris / 1e6).toFixed(2) + ' M' : '—'} | ${f(sp.poses?.spawn)} | ${f(sp.poses?.postcard)} | ${sp.walked != null ? sp.walked + ' m' : '—'} | ${(sp.flags || []).join(', ') || '—'} | ${sp.sheet ? `[sheet](${sp.sheet})` : '—'} |`);
         L.push('');
     }
     // hotspots: findings clustered in 60 m cells, with the nearest surveyed shot (route #index → forward sheet page)
@@ -276,14 +395,15 @@ async function main() {
     else { srv = await serve(); base = `http://127.0.0.1:${srv.address().port}/`; log('static server on', base); }
     const { chromium } = require('playwright');
     const browser = await chromium.launch({ headless: !A.headed, args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--mute-audio', '--autoplay-policy=no-user-gesture-required'] });
-    const cities = A.city ? A.city.split(',') : ['bucharest', 'seattle'];
+    const cities = A.city === 'none' ? [] : A.city ? A.city.split(',') : ['bucharest', 'seattle'];
     const results = [];
+    if (A.spots) { try { results.push(await runSpots(browser, base)); } catch (e) { log('!! spots: ' + (e.stack || e.message)); } }
     const run = async (c, k) => { try { results.push(await runCity(browser, base, c, { idBase: k * 100000 })); } catch (e) { log(`!! ${c}: ${e.stack || e.message}`); results.push({ city: c, mode: '?', groups: [], routes: [], sheets: [], issues: [{ id: k * 100000 + 1, type: 'vqa-failure', severity: 'high', city: c, msg: e.message, count: 1, data: {} }], counts: {}, cockpit: [], offices: [], errors: [e.message], log: [], timing: {} }); } };
     if (A.jobs > 1) await Promise.all(cities.map((c, k) => run(c, k)));
     else for (const [k, c] of cities.entries()) await run(c, k);
     await browser.close().catch(() => { });
     if (srv) srv.close();
-    results.sort((a, b) => cities.indexOf(a.city) - cities.indexOf(b.city));
+    results.sort((a, b) => (a.city === 'spots') - (b.city === 'spots') || cities.indexOf(a.city) - cities.indexOf(b.city));
     const rep = writeReport(results);
     console.log(`\nVisual QA: ${rep.issues.length} findings (${rep.c.high} high, ${rep.c.medium} medium, ${rep.c.low} low) in ${Math.round((Date.now() - t0) / 1000)} s`);
     for (const [k, v] of Object.entries(rep.byType).sort((a, b) => b[1].length - a[1].length)) console.log(`  ${k.padEnd(28)} ${v.length}`);

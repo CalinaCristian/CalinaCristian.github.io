@@ -19,7 +19,7 @@ const canTravel = (e, d) => d > 0 ? (e.lanesF ?? e.lanes ?? 1) > 0 : !e.oneway &
 const laneOff = (e, lane = 0) => (e.median ?? (e.tram ? 4.4 : 0)) / 2 + (e.laneW ?? 3.3) * (lane + 0.5);
 
 const S = {
-    opts: { quality: 'medium', far: 450, traffic: false, every: 40, lookEvery: 200, aerialEvery: 200, zEvery: 3, aerial: true, looks: true, size: 120, pr: 0.5 },
+    opts: { quality: 'medium', far: 0, time: 'day', weather: 'clear', traffic: false, trafficSteps: 12, every: 40, lookEvery: 200, aerialEvery: 200, zEvery: 3, aerial: true, looks: true, size: 120, pr: 0.5 },
     issues: [], byKey: new Map(), routes: new Map(), sheets: new Map(), masks: new Map(), log: [], counts: {}, renderNow: false,
     model: null, corridorPts: [], cityKey: null, focus: 0,
 };
@@ -121,15 +121,16 @@ function basicSwap(root) {
     });
     return () => { for (const [o, m] of swapped) o.material = m; };
 }
-function hideTraffic() {
-    if (S.opts.traffic) return;
+function hideTraffic(force = false) {
+    if (S.opts.traffic && !force) return;
     try { if (g.traffic?.group) g.traffic.group.visible = false; const p = g.traffic?.peds; if (p) { if (p.bodyMesh) p.bodyMesh.visible = false; if (p.headMesh) p.headMesh.visible = false; if (p.group) p.group.visible = false; } } catch { /* ignore */ }
 }
 function applyLook() {
-    try { g.clock.override = 'day'; g.r3d.setClock({ override: 'day' }); } catch (e) { note('clock: ' + e.message); }
-    try { if (g.setWeatherOverride) g.setWeatherOverride('clear'); else g.r3d.setWeather?.('clear', { instant: true }); g.r3d.setWeather?.('clear', { instant: true }); } catch (e) { note('weather: ' + e.message); }
+    const tod = S.opts.time || 'day', wx = S.opts.weather || 'clear';
+    try { g.clock.override = tod; g.r3d.setClock({ override: tod }); } catch (e) { note('clock: ' + e.message); }
+    try { if (g.setWeatherOverride) g.setWeatherOverride(wx); else g.r3d.setWeather?.(wx, { instant: true }); g.r3d.setWeather?.(wx, { instant: true }); } catch (e) { note('weather: ' + e.message); }
     try { g.r3d.setQuality(S.opts.quality); const sel = document.querySelector('#quality'); if (sel) sel.value = S.opts.quality; g.quality = S.opts.quality; } catch (e) { note('quality: ' + e.message); }
-    try { g.headlights = false; g.r3d.setHeadlights?.(false); } catch { /* ignore */ }
+    try { const night = /night|dusk/.test(S.opts.time || ''); g.headlights = night ? 'auto' : false; g.r3d.setHeadlights?.(night ? null : false); } catch { /* ignore */ }
     setPR();
     hideTraffic();
 }
@@ -161,7 +162,8 @@ async function loadGroup(key, opts = {}) {
     S.cityKey = key; S.model = null; S.corridorPts = []; S.routes.clear(); S.masks.clear();
     g.state = 'loading';
     if (!g.started) { g.started = true; document.querySelector('#menu')?.classList.remove('show'); document.querySelector('#hud')?.classList.add('show'); g.startTime = performance.now(); }
-    g.clock.override = 'day'; g.weatherOverride = 'clear';
+    g.clock.override = S.opts.time || 'day'; g.weatherOverride = S.opts.weather || 'clear';
+    try { g.quality = S.opts.quality; } catch { /* ignore */ } // (traffic pool sizes follow the quality at load time)
     const t0 = performance.now();
     if (gr.district) {
         const ch = (await chaptersList()).find(c => c.city === gr.city && c.district === gr.district);
@@ -169,6 +171,7 @@ async function loadGroup(key, opts = {}) {
         if (distId() !== gr.district) note(`asked for district ${gr.district}, world says ${distId()}`);
     } else await g.loadCity(gr.city);
     try { g.player.camHolder.add(g.camera); g.camera.position.set(0, 0, 0); g.camera.rotation.set(0, 0, 0); } catch { /* ignore */ }
+    if (S.gameFar == null) S.gameFar = g.camera.far;
     g.fuel = 45; g.state = 'drive';
     applyLook();
     document.body.classList.add('no-minimap');
@@ -281,7 +284,8 @@ function runGeometry(all = false) {
 }
 
 // ------------------------------------------------------------------ rendering helpers
-function setFar() { const c = g.camera; if (c.far !== S.opts.far) { c.far = S.opts.far; c.updateProjectionMatrix(); } }
+/** --far > 0 clips the survey frames (old behaviour); default 0 = the game's own far plane (round 2: weather-driven visibility, 15–20 km on clear days) */
+function setFar() { const c = g.camera, f = S.opts.far > 0 ? S.opts.far : (S.gameFar || c.far); if (c.far !== f) { c.far = f; c.updateProjectionMatrix(); } }
 function place(sm) {
     const P = g.player;
     P.place(sm.x, sm.z, sm.heading, sm.edge || null);
@@ -397,13 +401,19 @@ async function capture(routeId, i) {
         S.navFor = routeId; place(sm);
         try { if (g.setNavDest) g.setNavDest({ x: r.spec.to.x, z: r.spec.to.z, label: r.spec.to.label || r.spec.label }, true); else g.nav?.setDestination?.({ x: r.spec.to.x, z: r.spec.to.z, label: r.spec.to.label }, g.player); } catch (e) { note('nav: ' + e.message); }
     }
-    place(sm); stepGame(); place(sm); lap('step');
+    place(sm); stepGame(); place(sm);
+    if (S.opts.traffic && g.traffic) { // let the relocated fleet / crowd settle (instanced matrices, lanes, brake lights)
+        try { for (let k = 0; k < (S.opts.trafficSteps ?? 12); k++) g.traffic.update(1 / 30); g.traffic.peds?.writeMatrices?.(); } catch (e) { note('traffic: ' + e.message); }
+    }
+    lap('step');
     const R = g.renderer, W = R.domElement.width, H = R.domElement.height;
     if (i === 0 || S.lastPlaced === undefined || Math.hypot(sm.x - S.lastPlaced.x, sm.z - S.lastPlaced.z) > 250) renderMain(false); // warm-up: culling / shadows / lamp pool
     S.lastPlaced = { x: sm.x, z: sm.z };
     const cm = cockpitMask(W, H); // cached per canvas size (renders the cockpit alone once)
     lap('warm');
+    try { g.renderer.info.reset(); } catch { /* ignore */ }
     renderMain(true);
+    const st = g.r3d?.stats || {}, perf = { calls: st.drawCalls ?? null, tris: st.triangles ?? null, quality: st.quality || S.opts.quality };
     const frame = grab(W, H); lap('render');
     const flags = [], found = [];
     const lb = label(r, sm, idx);
@@ -424,7 +434,7 @@ async function capture(routeId, i) {
             await save(`debug/${S.cityKey}-${routeId}-${idx}-mask.jpg`, c);
         }
         if (a.n > 400) {
-            if (a.dark > 0.08) { flags.push('dark ' + Math.round(a.dark * 100) + '%'); found.push(issue('road-dark-patch', a.dark > 0.2 ? 'high' : 'medium', `${Math.round(a.dark * 100)} % of the lane ahead renders near-black (luminance < 6 %) — black patch on the road surface`, { x: sm.x + sm.fx * 20, z: sm.z + sm.fz * 20, frac: +a.dark.toFixed(3), route: routeId, sample: idx, surfaces: surfacesHere(sm.x + sm.fx * 20, sm.z + sm.fz * 20) }, { extra: { box: a.darkBox } })); }
+            if (a.dark > 0.08 && !/night|dusk/.test(S.opts.time || '')) { flags.push('dark ' + Math.round(a.dark * 100) + '%'); found.push(issue('road-dark-patch', a.dark > 0.2 ? 'high' : 'medium', `${Math.round(a.dark * 100)} % of the lane ahead renders near-black (luminance < 6 %) — black patch on the road surface`, { x: sm.x + sm.fx * 20, z: sm.z + sm.fz * 20, frac: +a.dark.toFixed(3), route: routeId, sample: idx, surfaces: surfacesHere(sm.x + sm.fx * 20, sm.z + sm.fz * 20) }, { extra: { box: a.darkBox } })); }
             if (a.sky > 0.03) { flags.push('sky ' + Math.round(a.sky * 100) + '%'); found.push(issue('road-sky-hole', a.sky > 0.1 ? 'high' : 'medium', `${Math.round(a.sky * 100)} % of the lane ahead is sky-coloured — a hole in the road surface`, { x: sm.x + sm.fx * 20, z: sm.z + sm.fz * 20, frac: +a.sky.toFixed(3), route: routeId, sample: idx }, { extra: { box: a.skyBox } })); }
             if (a.grey < 0.55 && a.colourful > 0.3) { flags.push('not-asphalt'); found.push(issue('road-not-asphalt', 'medium', `only ${Math.round(a.grey * 100)} % of the lane ahead looks like asphalt (${Math.round(a.colourful * 100)} % saturated colour: grass / wall / building / slab over the road?)`, { x: sm.x + sm.fx * 20, z: sm.z + sm.fz * 20, route: routeId, sample: idx }, { extra: { box: [Math.min(...lp.map(p => p[0])), Math.min(...lp.map(p => p[1])), Math.max(...lp.map(p => p[0])), Math.max(...lp.map(p => p[1]))].map(Math.round) } })); }
         }
@@ -458,7 +468,8 @@ async function capture(routeId, i) {
     // ---- sheets
     const geoNear = (S.geoIssues || []).filter(it => Math.hypot(it.x - sm.x, it.z - sm.z) < 45 && (it.x - sm.x) * sm.fx + (it.z - sm.z) * sm.fz > -5);
     const gflags = [...new Set(geoNear.filter(it => it.severity !== 'low').map(it => it.type))].slice(0, 3);
-    await sheet(`${S.cityKey}-${routeId}-forward`, { title: `${S.cityKey} · ${r.spec.label} · forward view every ${S.opts.every} m` }).add(frame, lb.title, lb.sub, flags.concat(gflags));
+    const look = `${S.opts.time || 'day'}${S.opts.weather && S.opts.weather !== 'clear' ? ' ' + S.opts.weather : ''}${S.opts.traffic ? ', traffic' : ''}`;
+    await sheet(`${S.cityKey}-${routeId}-forward`, { title: `${S.cityKey} · ${r.spec.label} · forward view every ${S.opts.every} m · ${look}` }).add(frame, lb.title, `${lb.sub} · ${perf.calls ?? '?'} calls ${perf.tris != null ? (perf.tris / 1e6).toFixed(2) + ' M tris' : ''}`, flags.concat(gflags));
     // ---- looks + aerial every ~200 m
     const lookHere = S.opts.looks && Math.floor(sm.s / S.opts.lookEvery) !== Math.floor((sm.s - S.opts.every) / S.opts.lookEvery);
     const aerialHere = S.opts.aerial && Math.floor(sm.s / S.opts.aerialEvery) !== Math.floor((sm.s - S.opts.every) / S.opts.aerialEvery);
@@ -480,7 +491,23 @@ async function capture(routeId, i) {
         await sheet(`${S.cityKey}-${routeId}-aerial`, { title: `${S.cityKey} · ${r.spec.label} · top-down ${S.opts.size} m tiles every ${S.opts.aerialEvery} m (car at centre, driving up; circles = geometry findings)`, tw: 640, th: 640 }).add(a.c, `${lb.title} · aerial`, lb.sub, af, aerialMarks(a.cam, a.sq, near));
     }
     lap('aerial');
-    return { i, idx, s: Math.round(sm.s), x: Math.round(sm.x * 10) / 10, z: Math.round(sm.z * 10) / 10, street: lb.w.street, flags, ms: Math.round(performance.now() - t0), tm, zfight: zf ? +zf.frac.toFixed(4) : null };
+    // ---- traffic shot every --traffic-every m: the same view with the fleet, transit and the instanced crowd (look + perf)
+    let perfT = null;
+    const trafHere = S.opts.trafficEvery > 0 && !S.opts.traffic && g.traffic && Math.floor(sm.s / S.opts.trafficEvery) !== Math.floor((sm.s - S.opts.every) / S.opts.trafficEvery);
+    if (trafHere) {
+        const tg = g.traffic, p = tg.peds;
+        try {
+            if (tg.group) tg.group.visible = true; if (p) { if (p.group) p.group.visible = true; if (p.bodyMesh) p.bodyMesh.visible = true; if (p.headMesh) p.headMesh.visible = true; }
+            place(sm); for (let k = 0; k < (S.opts.trafficSteps ?? 12); k++) tg.update(1 / 30); try { p?.writeMatrices?.(); } catch { /* ignore */ }
+            try { g.renderer.info.reset(); } catch { /* ignore */ }
+            renderMain(true);
+            const st2 = g.r3d?.stats || {}; perfT = { calls: st2.drawCalls ?? null, tris: st2.triangles ?? null, veh: tg.vehicles?.length ?? null, peds: p?.list?.length ?? p?.peds?.length ?? null };
+            await sheet(`${S.cityKey}-${routeId}-traffic`, { title: `${S.cityKey} · ${r.spec.label} · with traffic + pedestrians every ${S.opts.trafficEvery} m · ${look}` }).add(grab(W, H), `${lb.title} · traffic`, `${lb.sub} · ${perfT.calls} calls ${(perfT.tris / 1e6).toFixed(2)} M tris · ${perfT.veh ?? '?'} vehicles`);
+        } catch (e) { note('traffic shot: ' + e.message); }
+        finally { hideTraffic(true); place(sm); }
+    }
+    lap('traffic');
+    return { i, idx, s: Math.round(sm.s), x: Math.round(sm.x * 10) / 10, z: Math.round(sm.z * 10) / 10, street: lb.w.street, flags, ms: Math.round(performance.now() - t0), tm, zfight: zf ? +zf.frac.toFixed(4) : null, perf, perfT };
 }
 
 // ------------------------------------------------------------------ focused aerial crops for geometry findings

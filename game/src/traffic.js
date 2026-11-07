@@ -822,6 +822,7 @@ export class Traffic {
         this.peds.buildGrid();
         this._frame = (this._frame || 0) + 1;
         const P = this.player, lod = this.large && P;
+        if (P) P.stillT = Math.abs(P.speed) < 0.5 ? (P.stillT || 0) + dt : 0; // (mutual waits with a stopped player, stepVehicle)
         for (let i = 0; i < all.length; i++) {
             const v = all[i];
             if (v.parked) { v.honkCd -= dt; continue; }
@@ -929,7 +930,7 @@ export class Traffic {
                 const aheadOfP = (v.x - P.x) * P.fx + (v.z - P.z) * P.fz;
                 // (crossing / merging: the NPC is in front of a stopped player that waits for it, and has waited > 4 s
                 //  itself — both would wait for each other forever: the NPC goes, unless a touch is imminent)
-                const mutual = aheadOfP > 0 && Math.abs(P.speed) < 0.5 && v.stuck > 4 && f - half - playerExtent(P, fx, fz) > 0.6;
+                const mutual = Math.abs(P.speed) < 0.5 && (P.stillT || 0) > 4 && v.stuck > 4 && f - half - playerExtent(P, fx, fz) > 0.6;
                 if (f > 0 && f < look + 8 && Math.abs(l) < v.width * 0.5 + playerExtent(P, rx, rz) + 0.35 && !mutual && !(aheadOfP > 2.5 && Math.abs(P.speed) < 0.5 && f - half - playerExtent(P, fx, fz) > 0.4)) {
                     const g = f - half - playerExtent(P, fx, fz);
                     if (g < gap) { gap = g; leader = P; leaderSpeed = Math.max(0, P.speed * (P.fx * fx + P.fz * fz)); leaderCross = false; }

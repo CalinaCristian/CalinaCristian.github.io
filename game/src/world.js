@@ -1034,7 +1034,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const cellOf = (x, z) => {
         const i = Math.floor(x / CELL), j = Math.floor(z / CELL), k = i * 10007 + j;
         let c = cells.get(k);
-        if (!c) cells.set(k, c = { i, j, solid: new MeshBuilder(true), roof: new MeshBuilder(), ground: new MeshBuilder(), area: new MeshBuilder(), grass: new MeshBuilder(), pave: new MeshBuilder(), marks: new MeshBuilder(), road: new MeshBuilder(), pad: new MeshBuilder(), water: new MeshBuilder(), backdrop: new MeshBuilder(), signs: [] });
+        if (!c) cells.set(k, c = { i, j, solid: new MeshBuilder(true), roof: new MeshBuilder(), ground: new MeshBuilder(), area: new MeshBuilder(), grass: new MeshBuilder(), pave: new MeshBuilder(), marks: new MeshBuilder(), road: new MeshBuilder(), pad: new MeshBuilder(), water: new MeshBuilder(), backdrop: new MeshBuilder(), detail: new MeshBuilder(true), signs: [] });
         return c;
     };
     const signMB = (c, page) => c.signs[page] || (c.signs[page] = new MeshBuilder());
@@ -2442,6 +2442,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             mb.box(b.c[0], h, b.c[1], r * 2, r * 2.4, r * 2, 0, wallCol, tile);
             mb.geo(props().sphere, b.c[0], h + r * 2.4, b.c[1], 0, r * 1.05, r * 1.4, r * 1.05, rgb('#6f8f86'));
         }
+        if (h >= 5 && b.style !== 'church') addNearDetail(b, c.detail, brng, wallCol, h, y0, shop, yShop, floorH, bayW, ccw, flatRoofCol);
         // collision
         collision.push({ x: b.c[0], z: b.c[1], r: Math.max(...ring.map(([x, z]) => Math.hypot(x - b.c[0], z - b.c[1]))), poly: ring, angle: 0, hw: (b.x1 - b.x0) / 2, hd: (b.z1 - b.z0) / 2, h, poi: b.cv || undefined });
         // facade sign
@@ -2460,6 +2461,95 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (ne && ne.d < 35 && ((ne.cx - mx) * nx + (ne.cz - mz) * nz) > 0) out[k] = true;
         }
         return out;
+    }
+    /**
+     * near-LOD facade / roof geometry (own 500 m super-cell meshes, drawn within ≈ 300 m; beyond, the facade atlas alone):
+     * eclectic window surrounds + pediments, pilasters, rusticated ground floor; interwar floor bands; bloc balconies with
+     * mixed enclosures, AC units, satellite dishes; glass spandrel bands + podium canopies; rooftop parapets, HVAC units,
+     * water tanks (RO), elevator overruns, antennas. Window positions follow the facade atlas grid (TILE_GRID).
+     */
+    function addNearDetail(b, db, brng, wallCol, h, y0, shop, yShop, floorH, bayW, ccw, roofCol) {
+        const st = b.style, ring = b.ring, n = ring.length, pitched = b.roof !== 'flat' && b.roof !== 'dome' && b.roof !== 'mansard';
+        const faces = streetFacing(b, ccw);
+        const yTop = h, yFirst = shop ? yShop : y0;
+        const floors = Math.max(0, Math.floor((yTop - yFirst - 0.6) / floorH));
+        const trim = shadeRgb(wallCol, st === 'eclectic' ? 1.12 : 0.9), deep = shadeRgb(wallCol, 0.72);
+        let perim = 0;
+        for (let k = 0; k < n; k++) {
+            const [ax, az] = ring[k], [bx, bz] = ring[(k + 1) % n]; const L = Math.hypot(bx - ax, bz - az);
+            const p0 = perim; perim += L;
+            if (L < 4 || !faces[k]) continue;
+            let nx = (bz - az) / L, nz = -(bx - ax) / L; if (!ccw) { nx = -nx; nz = -nz; }
+            const ux = (bx - ax) / L, uz = (bz - az) / L, ang = Math.atan2(ux, uz);
+            const P = (s2, o) => [ax + ux * s2 + nx * o, az + uz * s2 + nz * o];
+            // window centres along this edge: the atlas puts one window column per bay, centred at (i + 0.5) bays
+            const cols = []; for (let i = Math.ceil(p0 / bayW - 0.5); (i + 0.5) * bayW - p0 < L - 0.6; i++) { const s2 = (i + 0.5) * bayW - p0; if (s2 > 0.6) cols.push(s2); }
+            if (st === 'eclectic' || st === 'civic') {
+                for (let f = 0; f < floors; f++) {
+                    const yb = yFirst + f * floorH, wTop = yb + floorH * 0.8, wBot = yb + floorH * 0.2;
+                    for (const s2 of cols) {
+                        const [x, z] = P(s2, 0.08);
+                        db.box(x, wTop, z, bayW * 0.5, 0.16, 0.22, ang, trim);                    // lintel / cornice over the window
+                        if (f % 2 === 0 && st === 'eclectic') db.box(x, wTop + 0.16, z, bayW * 0.36, 0.22, 0.16, ang, trim); // pediment
+                        db.box(x, wBot - 0.1, z, bayW * 0.5, 0.1, 0.2, ang, trim);                // sill
+                    }
+                }
+                if (cols.length > 3) for (let i = 1; i < cols.length; i += 2) { // pilasters between bays
+                    const [x, z] = P((cols[i - 1] + cols[i]) / 2, 0.1); db.box(x, yFirst, z, 0.45, Math.max(0.5, yTop - 0.8 - yFirst), 0.2, ang, trim);
+                }
+                if (!shop && y0 + 3.6 < yTop) for (let y = y0 + 0.5; y < y0 + 3.6; y += 0.55) { // rusticated ground floor
+                    const [x0, z0] = P(0, 0.05), [x1, z1] = P(L, 0.05); db.wall(x0, z0, x1, z1, y, y + 0.06, nx, nz, deep);
+                }
+            } else if (st === 'interwar') {
+                for (let f = 0; f <= floors; f++) { // continuous parapet bands under the ribbon windows
+                    const y = yFirst + f * floorH + floorH * 0.12; if (y > yTop - 0.8) break;
+                    const [x0, z0] = P(0, 0.12), [x1, z1] = P(L, 0.12);
+                    db.wall(x0, z0, x1, z1, y - 0.3, y, nx, nz, trim); db.flatQuad(ax, az, bx, bz, x1, z1, x0, z0, y, shadeRgb(trim, 1.06), 0, -1);
+                }
+                if (brng() < 0.25 && L > 10) { const [x, z] = P(L * 0.5, 0.3); db.box(x, yTop, z, 0.06, 4, 0.06, 0, rgb('#cfcfcf')); } // flag pole
+            } else if (st === 'bloc') {
+                const encl = [rgb('#c9d4d8'), rgb('#9fb3bd'), shadeRgb(wallCol, 0.95), rgb('#d8cfb8'), rgb('#7d8c96'), rgb('#b8a48a')];
+                for (let f = 1; f < floors; f++) {
+                    const yb = yFirst + f * floorH;
+                    for (let i = 0; i < cols.length; i++) {
+                        const s2 = cols[i], [x, z] = P(s2, 0.0), r = brng();
+                        if (i % 2 === 0) { // balcony every other bay: open slab + parapet, or enclosed (glazed / clad, mixed colours)
+                            const [bx2, bz2] = P(s2, 0.55);
+                            if (r < 0.45) db.box(bx2, yb - 0.1, bz2, bayW * 0.9, 1.0, 1.1, ang, encl[Math.floor(brng() * encl.length)]); // enclosed lower part
+                            else db.box(bx2, yb - 0.1, bz2, bayW * 0.9, 0.12, 1.1, ang, shadeRgb(wallCol, 0.85));                      // open slab
+                            if (r < 0.3) db.box(bx2, yb + 0.9, bz2, bayW * 0.88, floorH - 1.1, 1.0, ang, rgb('#6f8794'));             // glazed top
+                            else if (r < 0.75) db.box(bx2, yb + 0.12, bz2, bayW * 0.9, 0.9, 0.06, ang, shadeRgb(wallCol, 0.8));  // parapet
+                        } else if (r < 0.18) { const [cx2, cz2] = P(s2 + bayW * 0.3, 0.3); db.box(cx2, yb + 0.25, cz2, 0.8, 0.55, 0.3, ang, rgb('#e2e2de')); } // AC unit
+                        else if (r < 0.22) { const [cx2, cz2] = P(s2, 0.25); db.box(cx2, yb + floorH * 0.7, cz2, 0.55, 0.55, 0.12, ang + 0.4, rgb('#d6d6d0')); } // dish
+                    }
+                }
+                const [x0, z0] = P(0, 0.03), [x1, z1] = P(L, 0.03); // prefab panel joints (horizontal)
+                for (let f = 1; f <= floors; f++) { const y = yFirst + f * floorH - 0.03; if (y < yTop - 0.4) db.wall(x0, z0, x1, z1, y, y + 0.05, nx, nz, deep); }
+            } else if (st === 'glass') {
+                const sp = rgb(US ? '#3d4b57' : '#4a5965');
+                const [x0, z0] = P(0, 0.06), [x1, z1] = P(L, 0.06);
+                for (let y = yFirst + floorH; y < yTop - 1; y += floorH) db.wall(x0, z0, x1, z1, y - 0.45, y + 0.25, nx, nz, sp); // spandrels
+                if (h > 30) { const [c0x, c0z] = P(0, 2.2), [c1x, c1z] = P(L, 2.2); db.flatQuad(ax, az, bx, bz, c1x, c1z, c0x, c0z, y0 + 4.6, rgb('#3a3f45'), 0, -1); db.flatQuad(ax, az, c0x, c0z, c1x, c1z, bx, bz, y0 + 4.58, rgb('#2a2e33'), 0, -1); } // podium canopy
+            } else if (US && (st === 'interwar' || st === 'bloc') && h < 25) { // brick low-rise: stone trim bands
+                const [x0, z0] = P(0, 0.06), [x1, z1] = P(L, 0.06);
+                for (let f = 1; f <= floors; f++) { const y = yFirst + f * floorH - 0.15; if (y < yTop - 0.4) db.wall(x0, z0, x1, z1, y, y + 0.18, nx, nz, rgb('#d8d2c4')); }
+            }
+        }
+        // rooftop: parapet + plant (flat roofs only)
+        if (!pitched && b.area > 60) {
+            const pc = shadeRgb(wallCol, 0.92);
+            for (let k = 0; k < n; k++) { const [ax, az] = ring[k], [bx, bz] = ring[(k + 1) % n]; if (Math.hypot(bx - ax, bz - az) < 0.5) continue; db.wall(ax, az, bx, bz, yTop, yTop + 0.9, 0, 1, pc); db.wall(bx, bz, ax, az, yTop, yTop + 0.9, 0, 1, shadeRgb(pc, 0.8)); }
+            const nUnits = Math.min(6, Math.floor(b.area / 250));
+            for (let u = 0; u < nUnits; u++) {
+                const x = b.c[0] + (brng() - 0.5) * Math.sqrt(b.area) * 0.45, z = b.c[1] + (brng() - 0.5) * Math.sqrt(b.area) * 0.45;
+                if (!pointInPolygon(x, z, ring)) continue;
+                const r = brng();
+                if (r < 0.45) db.box(x, yTop, z, 1.8, 1.2, 1.2, brng() * 3, rgb('#a9adb1'));                      // HVAC
+                else if (r < 0.6 && !US && st === 'bloc') db.box(x, yTop, z, 2.2, 2.6, 2.2, 0, rgb('#8d8f8c'));   // water tank / machine room
+                else if (r < 0.8) db.box(x, yTop, z, 3.2, 2.8, 2.6, brng() * 3, shadeRgb(roofCol, 1.1));          // elevator overrun
+                else db.box(x, yTop, z, 0.08, 4.5, 0.08, 0, rgb('#8a8a8a'));                                         // antenna
+            }
+        }
     }
     function addDetail(b, mb, brng, wallCol, h, y0, shop, yShop, floorH, ccw) {
         const st = b.style;
@@ -2732,6 +2822,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const placeTree = (x, z, s, kind, con = null, dec = null, opt = {}) => {
         if (treeList.length >= maxTrees) return false;
         if (kind === 'street' && treeNear(x, z, 4.5)) return false; // (a mapped OSM tree already stands there)
+        if (kind === 'street' && onRibbon(x, z, 1.3)) return false; // (no row trees on medians / verges narrower than ≈ 2.6 m)
         const k = Math.round(x / 1.6) + ',' + Math.round(z / 1.6); if (treeSeen.has(k)) return false;
         if (onRibbon(x, z, 0.35 * s + 0.5) || buildingAt(x, z) || isWater(x, z)) return false;
         treeSeen.add(k);
@@ -3172,7 +3263,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     let cx = 0, cz = 0;
     // (2026-11-07, world-visual) draw calls: the flat / cheap layers of neighbouring cells are merged into super-cells
     // (2×2 cells = 500 m; the far backdrop 4×4) — fewer meshes for the same pixels; solid buildings stay per cell (culling)
-    const SUPER = { area: 4, grass: 4, pave: 4, roof: 4, backdrop: 4, ground: 2, road: 2, pad: 2, marks: 2, water: 4, signs: 4, spill: 4, solid: 2 };
+    const SUPER = { area: 4, grass: 4, pave: 4, roof: 4, backdrop: 4, ground: 2, road: 2, pad: 2, marks: 2, water: 4, signs: 4, spill: 4, solid: 2, detail: 2 };
     const supers = new Map();
     const superOf = (c, layer, page = 0) => {
         const K = SUPER[layer], I = Math.floor(c.i / K), J = Math.floor(c.j / K), key = layer + page + ':' + I + ',' + J;
@@ -3180,7 +3271,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         return o;
     };
     for (const c of cells.values()) {
-        for (const layer of ['area', 'grass', 'pave', 'roof', 'backdrop', 'ground', 'road', 'pad', 'marks', 'water', 'solid']) {
+        for (const layer of ['area', 'grass', 'pave', 'roof', 'backdrop', 'ground', 'road', 'pad', 'marks', 'water', 'solid', 'detail']) {
             if (c[layer].empty) continue;
             const o = superOf(c, layer); if (!o.mb) o.mb = c[layer]; else o.mb.append(c[layer]);
         }
@@ -3206,6 +3297,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             case 'marks': { const m = addSuper(o, marksMat, false, 'marks'); if (m) m.renderOrder = 4; break; }
             case 'water': { const m = addSuper(o, waterMat, false, 'water'); if (m) m.renderOrder = -18; break; }
             case 'solid': addSuper(o, solidMat, true, 'solid'); break;
+            case 'detail': { const m = addSuper(o, solidMat, true, 'detail'); if (m) m.userData.cull = 300 + CELL * 2 * 0.71; break; } // near LOD only
             case 'signs': addSuper(o, signMats[o.page], false, 'signs'); break;
             case 'spill': { const m = addSuper(o, spillMat, false, 'shop-spill'); if (m) { m.renderOrder = 5; m.castShadow = m.receiveShadow = false; } break; }
         }

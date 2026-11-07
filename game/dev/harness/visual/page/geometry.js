@@ -133,6 +133,14 @@ export function ribbonModel(world, corridor) {
 
 const nameOf = (e) => !e ? '' : (e.name || e.ref || (e.type ? `(${e.type})` : 'unnamed'));
 const ribLabel = (it) => it.e ? `${nameOf(it.e)} [edge ${it.e.id}${it.e.bridge ? ', bridge' : ''}${it.e.tunnel ? ', tunnel' : ''}]` : `junction pad (node ${it.n.id}, ${(it.n.allEdges || it.n.edges || []).map(nameOf).filter((v, i, a) => v && a.indexOf(v) === i).slice(0, 3).join(' × ')})`;
+/** the colour family world.js gives a ribbon (asphaltOf / padAsphalt): unpaved, concrete (US motorway), blend (US ramps fade), tunnel, asphalt */
+const surfKey = (it, US) => {
+    const k = (e) => e.unpaved ? 'unpaved' : (US && e.type === 'motorway') ? 'concrete' : (US && e.type === 'motorway_link') ? 'blend' : e.tunnel ? 'tunnel' : 'asphalt';
+    if (it.e) return k(it.e);
+    const es = (it.n.edges || []).filter(f => !f.virtual); if (!es.length) return 'asphalt';
+    const ks = es.map(k); if (ks.includes('blend')) return 'blend'; if (ks.filter(x => x === 'concrete').length * 2 >= ks.length) return 'concrete';
+    return ks.every(x => x === 'tunnel') ? 'tunnel' : 'asphalt';
+};
 const sharesNode = (a, b) => {
     const na = a.e ? [a.e.a, a.e.b] : [a.n], nb = b.e ? [b.e.a, b.e.b] : [b.n];
     return na.some(x => nb.includes(x));
@@ -144,6 +152,7 @@ const sharesNode = (a, b) => {
  */
 export function geometryDetectors(G, opts) {
     const { world: W, corridor, issue } = opts;
+    const US = (G?.city?.id ?? W.cityId ?? W.city?.id) === 'seattle' || !!W.US;
     const T0 = performance.now();
     const counts = {};
     const add = (type, sev, msg, data) => { counts[type] = (counts[type] || 0) + 1; issue(type, sev, msg, data); };
@@ -176,7 +185,11 @@ export function geometryDetectors(G, opts) {
             if (dy < 0.05) {
                 if (padPair && adj) { if (ov.area > 1.5) add('pad-overlap', 'low', `${ribLabel(a.e ? a : b)} runs ${r1(ov.area)} m² into its own junction pad (4 mm apart → z-fight at range)`, where); return; }
                 if (adj && a.e && b.e && ov.area < 3) return; // mitre slivers between consecutive pieces of the same road
-                add('ribbon-zfight', ov.area > 6 ? 'high' : ov.area > 1.5 ? 'medium' : 'low', `${ribLabel(a)} and ${ribLabel(b)} overlap over ${r1(ov.area)} m² at the same height (Δy ${r2(dy)} m) → z-fighting asphalt, the markings of one run across the other`, where);
+                // round 2: every carriageway class of one family shares one asphalt colour + world-space UVs, and markings
+                // have one owner per overlap → a same-colour overlap is invisible; keep it as low, keep different surfaces graded
+                const same = surfKey(a, US) === surfKey(b, US) && surfKey(a, US) !== 'blend';
+                where.surfaces = `${surfKey(a, US)}/${surfKey(b, US)}`;
+                add('ribbon-zfight', same ? 'low' : ov.area > 6 ? 'high' : ov.area > 1.5 ? 'medium' : 'low', `${ribLabel(a)} and ${ribLabel(b)} overlap over ${r1(ov.area)} m² at the same height (Δy ${r2(dy)} m) → ${same ? 'same asphalt colour (invisible unless markings cross)' : 'different surfaces z-fight (' + where.surfaces + '), the markings of one run across the other'}`, where);
             } else {
                 add('ribbon-stacked', ov.area > 4 && dy > 0.12 ? 'high' : 'medium', `${ribLabel(a)} and ${ribLabel(b)} overlap over ${r1(ov.area)} m² with only ${r2(dy)} m between them (spec R11.4: share one surface or ≥ 5 m clearance) → a visible stacked / stepped road surface`, where);
             }
@@ -286,7 +299,7 @@ export function geometryDetectors(G, opts) {
     const edgesSeen = new Set();
     for (const it of R) {
         const e = it.e; if (!e || edgesSeen.has(e)) continue; edgesSeen.add(e);
-        if (e.tunnel) {
+        if (e.tunnel && e.lidded !== false) { // (world builds a lid / ceiling only on `lidded` tunnels > 4.5 m deep; shallow ones are open trenches)
             // world.js draws a lid at street level (y 0.06) over the whole tunnel edge and a ceiling at road + 5.2 m
             for (let t = 0.05; t <= 0.95; t += 0.15) {
                 const yRoad = ROAD_Y + e.ya + (e.yb - e.ya) * t;

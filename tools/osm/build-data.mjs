@@ -46,6 +46,10 @@
 //    lines: [[kind, widthDm, name, delta], ...]     runways / taxiways / rivers drawn as ribbons
 //    places: [[name, x, z, rank], ...]               rank 0 city, 1 suburb, 2 quarter, 3 neighbourhood
 //    lamps: [x, z, heightDm, ...]                    highway=street_lamp nodes (height 0 = unknown)
+//    buildingInfo: [type, startYear, architect, material, hSrc, ...]   one 5-tuple per building (district builds): OSM `building`
+//                                                    value (string index, -1 for yes/none), start_date year (0 unknown), architect and
+//                                                    building:material (string index), hSrc: 0 OSM height/levels, 1 research, 2 default
+//                                                    estimate, 3 re-estimated by the height-sanity pass (levels then = the estimate)
 //    trees: [x, z, t, ...]                           natural=tree / tree_row, t = heightDm*2 + conifer
 //    treeInfo: [taxon, circumferenceCm, leaf, ...]   one triple per tree (same order as `trees`): taxon = string index of
 //                                                    the OSM species / taxon / genus text ("Tilia cordata", "Platanus", -1 none),
@@ -799,10 +803,12 @@ function buildCity(cityId, did = null) {
                 const rs = (b.research && typeof b.research === 'object') ? b.research : {};
                 const hex = (v) => (typeof v === 'string' && /^#[0-9a-f]{6}$/i.test(v)) ? v : null;
                 const roofShape = (v) => (typeof v === 'string' && /^(flat|gabled|hipped|pyramidal|dome|skillion|mansard|round|gambrel)$/.test(v)) ? v : null;
-                ch = set('height', rs.height_m ?? b.heightM ?? b.height ?? ot.height) || ch;
-                ch = set('building:levels', rs.storeys ?? b.levels ?? b.building_levels ?? ot['building:levels']) || ch;
-                if (t.height == null && t['building:levels'] == null) ch = set('height', b.heightEstM ?? b.height_est_m) || ch;
-                if (t['building:levels'] == null && t.height == null) ch = set('building:levels', b.levelsEst) || ch;
+                let hr = 0; // 1 = researched height / storeys, 2 = only the research estimate
+                if (set('height', rs.height_m ?? b.heightM ?? b.height ?? ot.height)) { ch = true; hr = 1; }
+                if (set('building:levels', rs.storeys ?? b.levels ?? b.building_levels ?? ot['building:levels'])) { ch = true; hr = 1; }
+                if (t.height == null && t['building:levels'] == null && set('height', b.heightEstM ?? b.height_est_m)) { ch = true; hr = hr || 2; }
+                if (t['building:levels'] == null && t.height == null && set('building:levels', b.levelsEst)) { ch = true; hr = hr || 2; }
+                if (hr) t.__hRes = hr;
                 const fc = hex(rs.facade_hex) || b.facade_hex || b.facade_hex_est || b.building_colour || (b.facade && (b.facade.colour || b.facade.wall || b.facade.glass));
                 ch = set('building:colour', fc) || ch;
                 ch = set('roof:shape', roofShape(rs.roof) ?? b.roof_shape ?? b.roofShape) || ch;
@@ -989,7 +995,8 @@ function buildCity(cityId, did = null) {
         if (t.tourism || t.historic || (h > 60)) flags |= 4;
         const colour = normColour(t['building:colour'] || t['building:color']) || MATERIAL_COLOUR[(t['building:material'] || '').split(';')[0]] || '';
         const roofColour = normColour(t['roof:colour'] || t['roof:color']) || (/tile|clay/.test(t['roof:material'] || '') ? '#9c5a3c' : /metal|tin|copper/.test(t['roof:material'] || '') ? (t['roof:material'] === 'copper' ? '#6f9a86' : '#7d848a') : '');
-        const rec = { style, h, minH: Math.min(minH, h - 1), roof, name, brand, flags, ring, c: c2, area: Math.abs(polyArea(ring)), t, levels: isFinite(levels) ? Math.round(levels) : 0, colour, roofColour };
+        const rec = { style, h, minH: Math.min(minH, h - 1), roof, name, brand, flags, ring, c: c2, area: Math.abs(polyArea(ring)), t, levels: isFinite(levels) ? Math.round(levels) : 0, colour, roofColour, la, lo,
+            hSrc: t.__hRes === 1 ? 1 : t.__hRes === 2 ? 2 : (isFinite(num(t.height)) || isFinite(levels)) ? 0 : 2 };
         let x0 = Infinity, z0 = Infinity, x1 = -Infinity, z1 = -Infinity; for (const [x, z] of ring) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); }
         bGrid.insertBox(x0, z0, x1, z1, rec);
         buildings.push(rec);
@@ -1136,6 +1143,54 @@ function buildCity(cityId, did = null) {
     // =======================================================================
     // OUTPUT
     // =======================================================================
+    const finalName = (b) => b.signName ? b.signName : b.brand ? b.brand : (b.name || '');
+    // ---- height sanity (district mode; mirrors world.js' runtime pass, spec 12 request 2026-11-07): untagged large
+    //      footprints outside the old centre got 8–10 storeys (23–30 m). Re-estimate them from name and shape: real slab
+    //      blocks (≤ 22 m wide, ≥ 30 m long) and "Bl. …" names keep their storeys, named institutions 2–4 storeys,
+    //      compact / wide footprints 4–5, the Kiseleff / Primăverii / Dorobanți villa zone ≤ 4. Research / OSM tags win.
+    let heightFixes = 0;
+    if (ds) {
+        const DEF = new Set([11.6, 12.6, 14.5, 15.5, 23.2, 24.2, 29, 30]);
+        const INST = /muze|museum|biseric|church|catedral|institut|[șs]coal|liceu|gr[ăa]dini|teatr|atene|bibliotec|universit|facult|spital|palat|casa |vila|villa|ambasada\b|embassy|primări|primari|tribunal|ministe/i;
+        const minWidth = (ring) => {
+            let best = Infinity, len = 0;
+            for (let k = 0; k < ring.length; k++) {
+                const [ax, az] = ring[k], [bx, bz] = ring[(k + 1) % ring.length], L = Math.hypot(bx - ax, bz - az); if (L < 1) continue;
+                const ux = (bx - ax) / L, uz = (bz - az) / L; let a0 = Infinity, a1 = -Infinity, c0 = Infinity, c1 = -Infinity;
+                for (const [x, z] of ring) { const p = x * ux + z * uz, q = -x * uz + z * ux; a0 = Math.min(a0, p); a1 = Math.max(a1, p); c0 = Math.min(c0, q); c1 = Math.max(c1, q); }
+                if (c1 - c0 < best) { best = c1 - c0; len = a1 - a0; }
+            }
+            return { w: best, l: len };
+        };
+        const US = country === 'US';
+        const villa = (b) => !US && b.la > 44.447 && b.la < 44.48 && b.lo > 26.07 && b.lo < 26.103;
+        for (const b of buildings) {
+            const name = finalName(b);
+            if (b.levels > 0 || b.style === 'church' || b.style === 'glass' || b.minH > 0 || /^(bl(oc)?\.?\s|bloc\b|block\b)/i.test(name)) continue;
+            const named = INST.test(name);
+            const isDef = DEF.has(Math.round(b.h * 10) / 10);
+            if (!isDef && !(named && b.h > 18)) continue;
+            // a real (OSM / researched) height: keep it and give it storeys so world.js' runtime pass leaves it alone
+            if (b.hSrc === 0 || b.hSrc === 1) { b.levels = Math.max(1, Math.round((b.h - 1) / 3.3)); continue; }
+            const { w, l } = minWidth(b.ring);
+            const vz = villa(b);
+            const slab = w <= 22 && l >= 30 && !named && !vz;
+            if (slab || (!named && b.h < 16)) continue;
+            const lv = named ? (b.area > 3000 ? 4 : b.area > 800 ? 3 : 2) : vz ? (b.area > 1500 ? 4 : 3) : (w > 22 ? 5 : 4);
+            const h2 = Math.round((lv * (named ? 4.6 : 3.3) + 1.2) * 10) / 10;
+            if (h2 >= b.h - 0.5) continue;
+            b.h = h2; b.levels = lv; b.hSrc = 3; heightFixes++;
+            if ((named || vz) && b.style === 'bloc') b.style = US ? 'interwar' : 'eclectic';
+        }
+        log('height sanity:', heightFixes, 'untagged footprints re-estimated');
+    }
+    // building type / era hints for the facade styles (parallel to `buildings`): [type, startYear, architect, material, hSrc]
+    const yearOf = (v) => { const m = String(v || '').match(/(1[5-9]\d\d|20[0-4]\d)/); return m ? +m[1] : 0; };
+    const outBInfo = [];
+    for (const b of buildings) {
+        const t = b.t || {};
+        outBInfo.push(S(t.building && t.building !== 'yes' ? t.building : ''), yearOf(t.start_date || t['building:start_date'] || t.construction_date), S(t.architect || ''), S((t['building:material'] || t['building:facade:material'] || '').split(';')[0]), b.hSrc ?? 0);
+    }
     const outB = buildings.map(b => {
         let flags = b.flags;
         let name = b.name;
@@ -1168,7 +1223,7 @@ function buildCity(cityId, did = null) {
         bounds: [minX, minZ, maxX, maxZ],
         classes: ROAD_CLASSES, styles: STYLES, roofs: ROOFS, poiKinds: POI_KINDS, areaKinds: AREA_KINDS, lineKinds: LINE_KINDS, furnKinds: FURN_KINDS,
         strings,
-        nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, buildings: outB, pois: outP, areas: outA, lines: outLines, places, lamps,
+        nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, buildings: outB, buildingInfo: outBInfo, pois: outP, areas: outA, lines: outLines, places, lamps,
         trees: outTrees, treeInfo: outTreeInfo, furniture: outFurn, backdrop,
         corridor: { areaKm2: +cor.areaKm2.toFixed(2), legs: cor.legs.map(l => [l.label, l.km]) },
     };

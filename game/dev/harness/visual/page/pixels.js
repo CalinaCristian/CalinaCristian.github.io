@@ -34,8 +34,11 @@ export function analyseRoad(img, lane, cockpit, skyRef) {
         const L = lum(r, g, b), mx = Math.max(r, g, b), mn = Math.min(r, g, b), sat = mx ? (mx - mn) / mx : 0;
         if (L < 0.06) { dark++; if (x < bx0) bx0 = x; if (x > bx1) bx1 = x; if (y < by0) by0 = y; if (y > by1) by1 = y; }
         if (skyRef && b > r && Math.abs(r - skyRef[0]) + Math.abs(g - skyRef[1]) + Math.abs(b - skyRef[2]) < 36) { sky++; if (x < sx0) sx0 = x; if (x > sx1) sx1 = x; if (y < sy0) sy0 = y; if (y > sy1) sy1 = y; }
-        if (sat > 0.28 && L > 0.08) colourful++;
-        else if (sat < 0.2) grey++;
+        // shaded asphalt is sky-tinted (grey-blue, e.g. (38, 45, 63)): blue-dominant pixels of moderate saturation count
+        // as asphalt in shade, not as grass / wall / brick (round 2: hue test instead of saturation alone)
+        const blueShade = b >= r && b >= g && sat < 0.5 && L < 0.45;
+        if (sat > 0.28 && L > 0.08 && !blueShade) colourful++;
+        else if (sat < 0.2 || blueShade) grey++;
     }
     return {
         n, dark: n ? dark / n : 0, sky: n ? sky / n : 0, colourful: n ? colourful / n : 0, grey: n ? grey / n : 0,

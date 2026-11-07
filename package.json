@@ -1,0 +1,14 @@
+{
+  "name": "calinacristian.github.io",
+  "private": true,
+  "description": "Static personal site + Drive My CV game (no build step). Scripts are dev tooling only.",
+  "scripts": {
+    "harness": "node game/dev/harness/run.js",
+    "harness:audit": "node game/dev/harness/run.js --audit",
+    "harness:visual": "node game/dev/harness/run.js --visual",
+    "harness:spots": "node game/dev/harness/run.js --visual --city=none --spots=all"
+  },
+  "devDependencies": {
+    "playwright": "^1.50.0"
+  }
+}

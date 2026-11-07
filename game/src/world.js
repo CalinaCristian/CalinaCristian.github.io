@@ -2850,9 +2850,9 @@ export async function buildWorld(city, renderer, opts = {}) {
         bucharest: [
             { lat: 44.44660, lon: 26.09700, text: 'Coca-Cola', bg: '#e41e2b', fg: '#ffffff', w: 26 },   // Piața Romană 9 (photo Apr 2023)
             { lat: 44.44720, lon: 26.09560, text: 'NetBet', bg: '#141a2e', fg: '#3aa0ff', w: 16 },      // Lascăr Catargiu 2–4 (photo Apr 2023)
-            { lat: 44.44800, lon: 26.09860, text: 'SHERATON', bg: '#1b1b1b', fg: '#ffffff', w: 18 },     // Sheraton crown (research, to verify)
-            { lat: 44.45160, lon: 26.08720, text: 'Samsung', bg: '#1428a0', fg: '#ffffff', w: 20 },     // Piața Victoriei blocks (brands rotate: estimated)
-            { lat: 44.45250, lon: 26.08690, text: 'Raiffeisen Bank', bg: '#fff200', fg: '#111111', w: 22 }, // Piața Victoriei blocks (estimated)
+            // Piața Victoriei: rooftop ads exist on the 1990s blocks but the current brands are not researched → unbranded frames
+            { lat: 44.45160, lon: 26.08720, text: 'SPAȚIU PUBLICITAR', bg: '#e8e8e4', fg: '#55585c', w: 20, generic: true },
+            { lat: 44.45250, lon: 26.08690, text: 'SPAȚIU PUBLICITAR', bg: '#e8e8e4', fg: '#55585c', w: 20, generic: true },
         ],
     }[city.id] || [];
     let roofAds = 0; const roofAdList = [];

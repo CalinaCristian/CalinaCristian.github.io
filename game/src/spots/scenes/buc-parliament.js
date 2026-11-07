@@ -57,19 +57,19 @@ function buildPalace(ctx, G) {
     const outerB = d.buildings.find((x) => x.id === 'r2230391'), tier = osmPoly(d, 'w283976783'), cen = osmPoly(d, 'w232360843');
     for (const x of d.buildings) { const [cx, cz] = centroid(x.poly); if (x.id === 'r2230391' || (inPoly(cx, cz, outerB.poly) && x.part)) ctx.skipBuildings.add(x.id); }
     const outer = outerB.poly;
-    const flood = '#ffc98a';
+    const flood = '#ffcf94';
     const fWing = classicFacade('palace-wing', [
         { t: 'arcade', rustic: true, pil: 'pair', w: 0.48 }, { t: 'arch', pil: 'pair', rail: true, w: 0.34, top: 0.28 },
         { t: 'pediment', pil: 'pair', w: 0.32, top: 0.34 }, { t: 'arch', pil: 'pair', w: 0.3, top: 0.32, dentils: true },
-    ], { bay: 6.2, floor: 26.5 / 4, flood, floodK: 0.62, lit: 0.15 });
+    ], { bay: 6.2, floor: 26.5 / 4, flood, floodK: 1.05, lit: 0.15 });
     const fTier = classicFacade('palace-tier', [
         { t: 'arch', pil: 'pair', w: 0.34, top: 0.26 }, { t: 'rect', pil: 'pair', w: 0.3, top: 0.32 },
         { t: 'arch', pil: 'pair', w: 0.32, rail: true, top: 0.28 }, { t: 'small', pil: 'pair', w: 0.28, top: 0.36, dentils: true },
-    ], { bay: 5.6, floor: 28 / 4, flood, floodK: 0.62, lit: 0.15 });
+    ], { bay: 5.6, floor: 28 / 4, flood, floodK: 1.05, lit: 0.15 });
     const fTop = classicFacade('palace-top', [
         { t: 'arch2', pil: 'pair', w: 0.38 }, { t: 'rect', pil: 'pair', w: 0.3, top: 0.3 },
         { t: 'arch', pil: 'pair', w: 0.34, top: 0.26 }, { t: 'arch', pil: 'pair', w: 0.3, top: 0.3, dentils: true },
-    ], { bay: 5.2, floor: 27 / 4, flood, floodK: 0.62, lit: 0.15 });
+    ], { bay: 5.2, floor: 27 / 4, flood, floodK: 1.05, lit: 0.15 });
     const y1 = YP + 26.5, y2 = y1 + 28, y3 = y2 + 27;
     // plinth / terrace the palace stands on (stone, slightly larger than the footprint)
     b.prism(grow(outer, 4), YP - 3, YP + 0.6, '#cfc5b2', 'stone');
@@ -341,7 +341,7 @@ export default {
         // square: granite setts (OSM parking area w219710325)
         const sq = osmPoly(d, 'w219710325');
         ctx.terrainOpts = { bg: '#7c8a55', bgMask: 'grass', innerPx: 2048, innerStep: 5, outerStep: 16, outerPad: 900 };
-        bucBackdrop(ctx, { treeLod: { cap: 2000, max: 240 }, lampPad: 25, lampStyle: 'candelabra', lampColor: '#2c2f2c', lampOpts: { spacing: 50, kinds: ['primary'] }, streetTreeOpts: { spacing: 10, prob: 0.8, kinds: ['primary', 'secondary', 'tertiary', 'residential'] } });
+        bucBackdrop(ctx, { treeLod: { cap: 1400, max: 240 }, lampPad: 25, lampStyle: 'candelabra', lampColor: '#2c2f2c', lampOpts: { spacing: 50, kinds: ['primary'] }, streetTreeOpts: { spacing: 10, prob: 0.8, kinds: ['primary', 'secondary', 'tertiary', 'residential'] } });
         C?.paintPiazza();
         if (sq) {
             ctx.painter.poly(sq, '#8e8a84', 'cobble');
@@ -359,7 +359,7 @@ export default {
         const way = (id) => d.ways.find((w) => w.id === id)?.pts || [];
         const ring = [...way('w666686367'), ...way('w1138494722')].length ? [[30, 300], [24, 120], [28, -10], [34, -114], [52, -194], [56, -263]] : [];
         cityFiller(ctx, { ring: 700 });
-        addTraffic(ctx, { merge: true, parked: parked.filter((q, i) => i % 2 === 0).slice(0, 84), lanes: [
+        addTraffic(ctx, { merge: true, parked: parked.filter((q, i) => i % 2 === 0).slice(0, 60), lanes: [
             { pts: ring, n: 4, speed: 11 }, { pts: [[60, -263], [56, -194], [52, -113], [106, -88], [151, -10], [151, 32], [106, 92], [48, 124], [20, 300]], n: 4, speed: 10 },
             { pts: [[150, 40], [300, 50], [520, 52], [790, 60]], n: 4, speed: 13 }, { pts: [[790, -8], [520, -12], [300, -12], [152, -12]], n: 4, speed: 13 },
             { pts: [[18, 330], [-250, 308], [-462, 291], [-650, 275], [-905, 232]], n: 3, speed: 12 }, { pts: [[-908, 251], [-649, 275], [-465, 291], [7, 309]].map(([x, z]) => [x, z - 5]), n: 3, speed: 12 },

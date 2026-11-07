@@ -405,7 +405,7 @@ function speciesGeos() {
         chestnut: lobeCrown([[0, 7.4, 0, 3.6, 3.0, 3.6], [2.0, 6.4, 0.8, 2.4, 2.0, 2.4], [-1.9, 6.6, -0.9, 2.4, 2.0, 2.4], [0.3, 9.4, 0, 2.6, 1.8, 2.6]], { seed: 3, amp: 0.2 }),
         trunk_chestnut: trunkWithLimbs(4.6, 0.26, [[1, 0.2, 2.4, 0.55], [-0.9, -0.3, 2.3, 0.5], [0, 1, 2.0, 0.45]]),
         // smooth low crown for distant species trees (one lobe, few triangles)
-        speciesLow: lobeCrown([[0, 8.8, 0, 3.4, 3.4, 3.4]], { seg: [7, 5], seed: 4, amp: 0.15, bend: 0.4 }),
+        speciesLow: lobeCrown([[0, 8.8, 0, 3.4, 3.4, 3.4]], { seg: [6, 4], seed: 4, amp: 0.15, bend: 0.4 }),
         trunk_speciesLow: (() => { const t = new THREE.CylinderGeometry(0.16, 0.25, 6.4, 4); t.translate(0, 3.2, 0); return t; })(),
     };
 }

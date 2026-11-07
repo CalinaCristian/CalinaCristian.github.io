@@ -222,7 +222,7 @@ export async function loadSpot(id, renderer = null, opts = {}) {
     }
     if (ctx.crowdCfg) {
         const sp = ctx.spot();
-        crowd = new Crowd({ ground: ctx.ground, dialogue: mergeDialogue(data, ctx.crowdCfg.spots || data.members), general: data.dialogueGeneral, seed: data.id.length * 7, ...ctx.crowdCfg });
+        crowd = new Crowd({ city: data.city, ground: ctx.ground, dialogue: mergeDialogue(data, ctx.crowdCfg.spots || data.members), general: data.dialogueGeneral, seed: data.id.length * 7, ...ctx.crowdCfg });
         ctx.add(crowd.group);
         void sp;
     }

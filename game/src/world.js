@@ -269,10 +269,14 @@ function solidMaterial(atlas) {
         vec4 sampledDiffuseColor = textureGrad(map, auv, dFdx(vMapUv) * cellSz, dFdy(vMapUv) * cellSz);
         diffuseColor *= sampledDiffuseColor;
         if (uClosed > 0.001 && (abs(vTile - 6.0) < 0.1 || abs(vTile - 14.0) < 0.1)) { // closed shops: roller shutters over the glass
-            float nb = textureGrad(nightMap, auv, dFdx(vMapUv) * cellSz, dFdy(vMapUv) * cellSz).b;
-            float sid = floor(vMapUv.x * 4.0);
+            // the whole shop opening below the sign band (not the per-pixel glass mask, which aliased into vertical
+            // streaks): horizontal roller-shutter slats every ~19 cm, a darker housing box at the top
+            float sid = floor(vMapUv.x * 4.0), fu = fract(vMapUv.x * 4.0), fv = fract(vMapUv.y);
             float hc = fract(sin(dot(vec2(sid, floor(vMapUv.y) + vTile * 3.1), vec2(41.3, 289.1))) * 15731.743);
-            if (nb > 0.75 && hc < uClosed) diffuseColor.rgb = vec3(0.32, 0.33, 0.34) * (0.85 + 0.15 * step(0.5, fract(vMapUv.y * 22.0)));
+            if (hc < uClosed && fv < 0.85 && fv > 0.03 && fu > 0.04 && fu < 0.96) {
+                float slat = 0.82 + 0.18 * smoothstep(0.35, 0.5, fract(vMapUv.y * 22.0)) * (1.0 - smoothstep(0.85, 1.0, fract(vMapUv.y * 22.0)));
+                diffuseColor.rgb = vec3(0.36, 0.37, 0.38) * (fv > 0.78 ? 0.6 : slat);
+            }
         }
     }
 #endif`).replace('#include <metalnessmap_fragment>', `#include <metalnessmap_fragment>
@@ -1926,7 +1930,9 @@ export async function buildWorld(city, renderer, opts = {}) {
     let SEA_SCALE = 0.5;
     try { const mod = await import('./landmarks.js'); LANDMARKS = (mod.LANDMARKS || []).filter(l => l.city === city.id); buildLandmarkFn = mod.buildLandmark || null; SEA_SCALE = mod.SEA_SCALE || 0.5; } catch (err) { LANDMARKS = []; }
     // a district only builds its own landmarks (+ distant backdrops such as Rainier)
-    if (distCfg) LANDMARKS = LANDMARKS.filter(l => (distCfg.landmarks ? distCfg.landmarks.includes(l.id) : true) && (l.backdrop || inDistrictLL(l.lat, l.lon, 0.004)));
+    // (a landmark the district lists explicitly may stand outside it, up to ~2.5 km: skyline landmarks seen down an
+    //  avenue, e.g. the Parliament / People's Salvation Cathedral at the west end of Bd. Unirii seen from Piața Unirii)
+    if (distCfg) LANDMARKS = LANDMARKS.filter(l => (distCfg.landmarks ? distCfg.landmarks.includes(l.id) : true) && (l.backdrop || inDistrictLL(l.lat, l.lon, distCfg.landmarks ? 0.022 : 0.004)));
     const landmarks = [];
     const collisionBoxes = [];
     const lmGroup = new THREE.Group(); lmGroup.name = 'landmarks'; group.add(lmGroup);
@@ -2251,6 +2257,22 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (shop) {
                 mb.wall(ax, az, bx, bz, y0, yShop, nx, nz, rgb('#ffffff'), perim / 16, (perim + L) / 16, 0, 1, TILE.shop + (b.i % 2) * 8);
                 mb.wall(ax, az, bx, bz, yShop, wallTop, nx, nz, wallCol, u0, u1, 0, (wallTop - yShop) / floorH, tile);
+                // night light spill on the sidewalk in front of the shop window (additive decal, 0 by day)
+                if (L > 2.5) {
+                    const mx = (ax + bx) / 2, mz = (az + bz) / 2, D = 3.2;
+                    const ne = nearestEdge(mx + nx * 3, mz + nz * 3, null, 30);
+                    if (ne && ne.d < 22 && !buildingAt(mx + nx * 1.5, mz + nz * 1.5)) {
+                        const sb = c.spill || (c.spill = new MeshBuilder()), w0 = [255, 255, 255], yS2 = Y.side + 0.02;
+                        // inset 0.3 m at both ends; stop at the kerb (never on the carriageway)
+                        const ux = (bx - ax) / L, uz = (bz - az) / L, p0x = ax + ux * 0.3, p0z = az + uz * 0.3, p1x = bx - ux * 0.3, p1z = bz - uz * 0.3;
+                        let d = D; while (d > 0.8 && (onRibbon(p0x + nx * d, p0z + nz * d, 0.2) || onRibbon(p1x + nx * d, p1z + nz * d, 0.2) || onRibbon(mx + nx * d, mz + nz * d, 0.2))) d -= 0.4;
+                        if (d > 0.8) {
+                            const i0 = sb.v(p0x, yS2, p0z, 0, 1, 0, 0.5, 1, w0), i1 = sb.v(p1x, yS2, p1z, 0, 1, 0, 0.5, 1, w0);
+                            const i2 = sb.v(p1x + nx * d, yS2, p1z + nz * d, 0, 1, 0, 0.5, 1 - d / D, w0), i3 = sb.v(p0x + nx * d, yS2, p0z + nz * d, 0, 1, 0, 0.5, 1 - d / D, w0);
+                            sb.triUp(i0, i1, i2); sb.triUp(i0, i2, i3);
+                        }
+                    }
+                }
             } else mb.wall(ax, az, bx, bz, y0, wallTop, nx, nz, wallCol, u0, u1, 0, (wallTop - y0) / floorH, tile);
             wallTris += shop ? 4 : 2;
             perim += L;
@@ -2996,6 +3018,16 @@ export async function buildWorld(city, renderer, opts = {}) {
     setProgress('Finishing…'); await tick();
     const atlas = makeAtlas();
     const solidMat = solidMaterial(atlas);
+    // shop light spill: additive, black diffuse + warm emissive with a falloff away from the window; render eases
+    // emissiveIntensity 0 → nightEmissive at dusk (0 by day: adds nothing); dimmed as shops close (uClosed)
+    const spillMat = (() => {
+        const g = makeCanvasTexture(4, 64, (ctx, w, h) => { const gr = ctx.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, '#ffffff'); gr.addColorStop(0.35, '#6a6a6a'); gr.addColorStop(1, '#000000'); ctx.fillStyle = gr; ctx.fillRect(0, 0, w, h); });
+        g.colorSpace = THREE.NoColorSpace;
+        const m = new THREE.MeshLambertMaterial({ color: 0x000000, emissive: new THREE.Color('#ffc890'), emissiveMap: g, emissiveIntensity: 0, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -6, polygonOffsetUnits: -12, fog: true });
+        m.userData.nightEmissive = 0.45; m.name = 'shop-spill';
+        m.onBeforeCompile = (sh) => { sh.uniforms.uClosed = solidMat.userData.uClosed; sh.fragmentShader = 'uniform float uClosed;\n' + sh.fragmentShader.replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\n\ttotalEmissiveRadiance *= 1.0 - 0.8 * uClosed;'); };
+        return m;
+    })();
     const noise = noiseTexture();
     const groundMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: noise });
     // strict layering (spec R11.2): ground/sidewalks (0) < carriageways (-1) < junction pads (-2) < markings (-4); each also has
@@ -3040,7 +3072,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     let cx = 0, cz = 0;
     // (2026-11-07, world-visual) draw calls: the flat / cheap layers of neighbouring cells are merged into super-cells
     // (2×2 cells = 500 m; the far backdrop 4×4) — fewer meshes for the same pixels; solid buildings stay per cell (culling)
-    const SUPER = { area: 4, grass: 4, pave: 4, roof: 4, backdrop: 4, ground: 2, road: 2, pad: 2, marks: 2, water: 4, signs: 4 };
+    const SUPER = { area: 4, grass: 4, pave: 4, roof: 4, backdrop: 4, ground: 2, road: 2, pad: 2, marks: 2, water: 4, signs: 4, spill: 4 };
     const supers = new Map();
     const superOf = (c, layer, page = 0) => {
         const K = SUPER[layer], I = Math.floor(c.i / K), J = Math.floor(c.j / K), key = layer + page + ':' + I + ',' + J;
@@ -3053,6 +3085,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             const o = superOf(c, layer); if (!o.mb) o.mb = c[layer]; else o.mb.append(c[layer]);
         }
         c.signs.forEach((mb, k) => { if (!mb || mb.empty) return; const o = superOf(c, 'signs', k); if (!o.mb) o.mb = mb; else o.mb.append(mb); });
+        if (c.spill && !c.spill.empty) { const o = superOf(c, 'spill'); if (!o.mb) o.mb = c.spill; else o.mb.append(c.spill); }
     }
     const addSuper = (o, mat, cast, name) => {
         cx = o.I * o.K + o.K / 2 - 0.5; cz = o.J * o.K + o.K / 2 - 0.5; // (addMesh centres at (cx + 0.5) · CELL)
@@ -3073,13 +3106,14 @@ export async function buildWorld(city, renderer, opts = {}) {
             case 'marks': { const m = addSuper(o, marksMat, false, 'marks'); if (m) m.renderOrder = 4; break; }
             case 'water': { const m = addSuper(o, waterMat, false, 'water'); if (m) m.renderOrder = -18; break; }
             case 'signs': addSuper(o, signMats[o.page], false, 'signs'); break;
+            case 'spill': { const m = addSuper(o, spillMat, false, 'shop-spill'); if (m) { m.renderOrder = 5; m.castShadow = m.receiveShadow = false; } break; }
         }
     }
     for (const c of cells.values()) { cx = c.i; cz = c.j; addMesh(c.solid, solidMat, true, `solid ${c.i},${c.j}`); }
     let parkedCalls = 0;
     for (const [k, list] of parkedLots) {
         const [I, J] = k.split(',').map(Number);
-        const pg = makeParkedCars(list, { city: city.id, paintSpace: 'linear' }); // (CAR_COLORS are sRGB hex: let three.js linearise them, as the old merged lots did) pg.name = `parked ${k}`;
+        const pg = makeParkedCars(list, { city: city.id, paintSpace: 'linear' }); pg.name = `parked ${k}`; // (CAR_COLORS are sRGB hex: let three.js linearise them, as the old merged lots did)
         pg.userData.cx = (I + 0.5) * CELL * 2; pg.userData.cz = (J + 0.5) * CELL * 2; pg.userData.cull = cullR + CELL * 0.71;
         tris += pg.userData.triangles || 0; parkedCalls += pg.userData.drawCalls || 0;
         cellsGroup.add(pg);

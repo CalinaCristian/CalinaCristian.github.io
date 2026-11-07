@@ -1237,7 +1237,7 @@ export class Traffic {
                 let hidden = true;
                 if (P) { const dx = fol.x - P.x, dz = fol.z - P.z, d = Math.hypot(dx, dz); hidden = d > 70 || (d > 30 && dx * P.fx + dz * P.fz < 0); } // (a swap 70 m away goes unnoticed; two cars stuck in each other would not)
                 if (hidden) { fol.ovT = 0; if (!(this.large && this.relocate(fol, 250, this.bubble, true))) this.respawn(fol); this.stats.unstuck = (this.stats.unstuck || 0) + 1; }
-                else if (fol.ovT > 3) { fol.ghost = 1.5; fol.knotT = 1.5; fol.ovT = 0; } // (a 3-car knot in a junction box froze the finale for minutes)
+                else if (fol.ovT > 3) { fol.ghost = 4; fol.knotT = 4; fol.ovT = 0; } // (a 3-car knot in a junction box froze the finale for minutes)
             }
         }
         // 4) nothing may end the frame inside the player's car: slide such an NPC out along its own axis

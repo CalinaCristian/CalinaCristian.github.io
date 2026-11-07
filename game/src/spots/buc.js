@@ -127,7 +127,7 @@ export function classicFacade(key, rows, o = {}) {
     const flood = !!o.flood;
     const m = new THREE.MeshStandardMaterial({ map, vertexColors: true, roughness: 0.82, emissive: new THREE.Color(o.flood || '#ffffff'), emissiveMap: flood ? map : em, emissiveIntensity: 0 });
     m.name = 'facade-' + key; m.userData.shared = true;
-    if (flood) { m.userData.dayGlow = 0; m.userData.nightGlow = o.floodK ?? 0.55; } else m.userData.nightWindows = true;
+    if (flood) { const k = o.floodK ?? 0.55; m.userData.dayGlow = 0; m.userData.nightGlow = k; m.userData.nightEmissive = k; m.userData.floodlit = true; } else m.userData.nightWindows = true;
     const S = { bay: o.bay || 4, floor: o.floor || 4 };
     const res = { mat: m, S, key: 'f-' + key };
     FAC.set(key, res);

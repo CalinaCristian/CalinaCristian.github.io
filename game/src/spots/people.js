@@ -9,6 +9,7 @@
 // ============================================================================
 import * as THREE from '../../vendor/three.module.min.js';
 import { rng, clamp, distSeg, inPoly } from './kit.js';
+import { makeCrowd, dressFor, seasonOf } from '../crowd.js';
 
 // ---------------------------------------------------------------------------- looks per persona
 const SKIN = ['#f1c9a5', '#e0ac85', '#c68863', '#9a6544', '#7a4b31', '#f5d6bc', '#d8a47f', '#5f3a26'];
@@ -175,6 +176,15 @@ export class Crowd {
     }
     _buildMeshes() {
         const G = partGeos(), N = this.peds.length, grp = new THREE.Group(); grp.name = 'crowd';
+        // bodies: the shared instanced crowd (crowd.js: 2 draw calls, walk cycle in the shader, outfits by city / season /
+        // weather); the legacy part meshes below only draw people who sit (benches, terraces, chess) and hand-held props
+        this.cr = null;
+        try {
+            const city = this.o.city === 'bucharest' ? 'bucharest' : 'seattle', season = seasonOf(this.o.date || new Date()), r = this.r;
+            this.cr = makeCrowd({ max: N, city, season, weather: null, rng: () => r() });
+            this.cr.count = N; grp.add(this.cr.object);
+            this.peds.forEach((p, i) => { const o = dressFor(city, season, null, () => r(), p.persona === 'guard' || p.persona === 'staff' ? 'adult' : 'adult'); const L = LOOKS[p.persona]; if (L && /guide|tour_guide|waiter|guard|vendor|fishmonger|staff|busker/.test(p.persona)) { o.top = p.look.top; o.bottom = p.look.legs; } if (p.look.scale < 0.8) o.flags = (o.flags || 0) & ~2; this.cr.dress(i, o); });
+        } catch (e) { console.warn('[spots] crowd.js unavailable, legacy figures', e); this.cr = null; }
         const mk = (geo, n, name, vc = true) => {
             const m = new THREE.InstancedMesh(geo, new THREE.MeshStandardMaterial({ roughness: 0.8, vertexColors: vc && !!geo.attributes.color }), Math.max(1, n));
             m.name = 'crowd:' + name; m.castShadow = true; m.receiveShadow = false; m.frustumCulled = false;
@@ -350,8 +360,11 @@ export class Crowd {
     // -------------------------------------------------------------- animation → instance matrices
     _writeMatrices() {
         const M = this.mesh; if (!M) return;
+        const cr = this.cr; if (cr && this.rainy !== this._crRain) { this._crRain = this.rainy; cr.setWeather(this.rainy ? 'rain' : 'clear'); }
         for (let i = 0; i < this.peds.length; i++) {
             const p = this.peds[i], L = p.look, s = L.scale, walking = p.act === 'walk' && p.speed > 0.1;
+            const legacy = !cr || p.act === 'sit';
+            if (cr) { if (legacy) cr.hide(i); else cr.set(i, { x: p.x, y: p.y, z: p.z, yaw: p.yaw + Math.PI, phase: p.phase, amp: walking ? clamp(p.speed / 1.4, 0.2, 1) : 0, scale: s }); }
             const sw = walking ? Math.sin(p.phase) * clamp(p.speed / 1.4, 0, 1.2) : 0;
             const sitting = p.act === 'sit';
             const bob = walking ? Math.abs(Math.cos(p.phase)) * 0.035 : Math.sin(this.t * 1.3 + i) * 0.004;
@@ -359,6 +372,7 @@ export class Crowd {
             // base (feet on the ground)
             _b.compose(_v.set(p.x, p.y + bob * s, p.z), _q.setFromAxisAngle(_s.set(0, 1, 0), p.yaw), _s.set(s, s, s));
             const part = (mesh, k, x, y, z, rx = 0, ry = 0, rz = 0, sx = 1, sy = 1, sz = 1) => {
+                if (!legacy && mesh !== M.prop) { sx = sy = sz = 0; }
                 _m.compose(_v.set(x, y, z), _q.setFromEuler(_e.set(rx, ry, rz, 'YXZ')), _s.set(sx, sy, sz));
                 _m.premultiply(_b); mesh.setMatrixAt(k, _m);
             };
@@ -411,5 +425,5 @@ export class Crowd {
         }
         for (const m of Object.values(M)) m.instanceMatrix.needsUpdate = true;
     }
-    dispose() { this.group?.traverse((o) => { if (o.isMesh) { o.geometry.dispose(); o.material.dispose(); } }); }
+    dispose() { this.cr?.dispose(); this.group?.traverse((o) => { if (o.isMesh && !o.userData.shared) { o.geometry.dispose(); o.material.dispose(); } }); }
 }

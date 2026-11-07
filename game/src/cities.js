@@ -67,7 +67,7 @@ const BUC_DISTRICTS = {
     grozavesti: {
         name: 'Grozăvești', label: 'Grozăvești & Politehnica — Splaiul Independenței, Podul Grozăvești, Bd. Doina Cornea',
         bbox: [44.4335, 26.0480, 44.4510, 26.0725], center: { lat: 44.4412, lon: 26.0592 }, // north edge +200 m for the longer Orhideelor run-in
-        landmarks: ['politehnica'],
+        landmarks: ['politehnica', 'cathedral'], // People's Salvation Cathedral 1.1 km south-east, seen from Podul Grozăvești / the Splai
         congestion: [ // from game/research/bucharest-grozavesti.json traffic.hotspots
             { lat: 44.44370, lon: 26.06120, radius: 180, hours: [[7.5,  10],  [16.5,  19.5]], level: 0.65, note: 'Podul Grozăvești / Orhideelor' },
             { lat: 44.43460, lon: 26.05450, radius: 160, hours: [[7.5,  9.5],  [16,  19]], level: 0.60, note: 'Iuliu Maniu × Doina Cornea (Politehnica)' },
@@ -77,7 +77,7 @@ const BUC_DISTRICTS = {
     unirii: {
         name: 'Unirii', label: 'Piața Unirii, Calea Călărașilor, Hala Traian',
         bbox: [44.4230, 26.0975, 44.4365, 26.1205], center: { lat: 44.4297, lon: 26.1090 },
-        landmarks: ['unirea', 'fountains', 'halatraian'],
+        landmarks: ['unirea', 'fountains', 'halatraian', 'parliament', 'cathedral'], // + skyline at the west end of Bd. Unirii (0.8 / 1.2 km outside the box)
         congestion: [ // from game/research/bucharest-unirii.json traffic.hotspots
             { lat: 44.42680, lon: 26.10250, radius: 250, hours: [[7.5,  10],  [16,  19.5]], level: 0.90, note: 'Piața Unirii (all arms, Pasajul Unirii)' },
             { lat: 44.43230, lon: 26.11180, radius: 150, hours: [[8,  10],  [17,  19]], level: 0.60, note: 'Bd. Mircea Vodă × Coposu × Călărașilor' },
@@ -87,7 +87,7 @@ const BUC_DISTRICTS = {
     romana: {
         name: 'Romană & Victoriei', label: 'Piața Romană, Bd. Lascăr Catargiu, Piața Victoriei, Vasile Alecsandri',
         bbox: [44.4395, 26.0825, 44.4570, 26.1000], center: { lat: 44.4483, lon: 26.0912 },
-        landmarks: ['victoria', 'ase', 'ambasador', 'thelandmark', 'europehouse'],
+        landmarks: ['victoria', 'ase', 'ambasador', 'thelandmark', 'europehouse', 'skytower'], // Sky Tower 2.4 km north, on the skyline up Kiseleff / Dorobanți
         congestion: [ // from game/research/bucharest-romana.json traffic.hotspots
             { lat: 44.45260, lon: 26.08580, radius: 220, hours: [[7.5,  10],  [16,  19.5]], level: 0.90, note: 'Piața Victoriei' },
             { lat: 44.44680, lon: 26.09700, radius: 160, hours: [[7.5,  10],  [16,  19.5]], level: 0.85, note: 'Piața Romană' },
@@ -99,7 +99,7 @@ const BUC_DISTRICTS = {
         name: 'Floreasca', label: 'Calea Floreasca, Piața Floreasca, Str. Garibaldi and the streets around C.A. Rosetti',
         // rosetti only (db moved to pipera, 2026-11-07): trimmed to the Calea Floreasca run-in + the Garibaldi block; north edge keeps Sky Tower (landmark margin 0.004°)
         bbox: [44.4548, 26.0975, 44.4740, 26.1100], center: { lat: 44.4644, lon: 26.1038 },
-        landmarks: ['skytower'],
+        landmarks: ['skytower', 'globalworth'], // Sky Tower 0.4 km / Globalworth Tower 0.6 km north of the box, ahead on Calea Floreasca
         congestion: [ // from game/research/bucharest-floreasca.json traffic.hotspots
             { lat: 44.47100, lon: 26.10350, radius: 200, hours: [[8,  10],  [17,  19.5]], level: 0.70, note: 'Calea Floreasca N (towards Barbu Văcărescu / Sky Tower)' },
             { lat: 44.46650, lon: 26.10550, radius: 140, hours: [[7.5,  8.25],  [13,  14.5]], level: 0.45, note: 'Rosetti school run (Garibaldi/Ceaikovski)' },

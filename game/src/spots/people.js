@@ -423,6 +423,7 @@ export class Crowd {
             } else part(M.prop, i, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             void hl;
         }
+        if (this._anyLegacy === undefined) { this._anyLegacy = !cr || this.peds.some((p) => p.act === 'sit'); this._anyProp = this.peds.some((p) => PROP[p.look.prop]); for (const [k, m] of Object.entries(M)) m.visible = k === 'prop' ? this._anyProp || this._anyLegacy : this._anyLegacy; }
         for (const m of Object.values(M)) m.instanceMatrix.needsUpdate = true;
     }
     dispose() { this.cr?.dispose(); this.group?.traverse((o) => { if (o.isMesh && !o.userData.shared) { o.geometry.dispose(); o.material.dispose(); } }); }

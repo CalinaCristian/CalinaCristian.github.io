@@ -1237,7 +1237,13 @@ export class Traffic {
                 let hidden = true;
                 if (P) { const dx = fol.x - P.x, dz = fol.z - P.z, d = Math.hypot(dx, dz); hidden = d > 70 || (d > 30 && dx * P.fx + dz * P.fz < 0); } // (a swap 70 m away goes unnoticed; two cars stuck in each other would not)
                 if (hidden) { fol.ovT = 0; if (!(this.large && this.relocate(fol, 250, this.bubble, true))) this.respawn(fol); this.stats.unstuck = (this.stats.unstuck || 0) + 1; }
-                else if (fol.ovT > 3) { fol.ghost = 4; fol.knotT = 4; fol.ovT = 0; } // (a 3-car knot in a junction box froze the finale for minutes)
+                else if (fol.ovT > 3) {
+                    // a knot in view: first let it drive through (ghost); still knotted the second time → take it out
+                    // (respawn elsewhere): a short pop beats a junction locked for minutes (Bellevue finale, NE 8th)
+                    fol.knotN = (fol.knotN || 0) + 1; fol.ovT = 0;
+                    if (fol.knotN >= 2) { fol.knotN = 0; fol.knotT = 0; if (!(this.large && this.relocate(fol, 250, this.bubble, true))) this.respawn(fol); this.stats.unknot = (this.stats.unknot || 0) + 1; }
+                    else { fol.ghost = 4; fol.knotT = 4; }
+                } // (a 3-car knot in a junction box froze the finale for minutes)
             }
         }
         // 4) nothing may end the frame inside the player's car: slide such an NPC out along its own axis

@@ -357,6 +357,17 @@ export const WEATHER_PRESETS = {
 };
 
 /**
+ * Meteorological visibility (m) for a weather state: the reported visibility, capped by what the sky type allows
+ * (station / model values saturate at 24–50 km and miss urban haze). Clear 15–20 km, partly 12, overcast 6,
+ * drizzle 4, rain 2–3.5, storm 2, snow 1–2.5, fog 0.15–0.8 km.
+ */
+export function meteorologicalRange(w, kind = classifyWMO(w.code).kind) {
+    const cloud = THREE.MathUtils.clamp(w.cloud ?? 0.4, 0, 1), p = w.precipMm || 0;
+    const cap = { clear: 20000 - 5000 * cloud, partly: 12000, overcast: 6000, drizzle: 4000, rain: THREE.MathUtils.clamp(3500 - p * 250, 2000, 3500), storm: 2000, snow: THREE.MathUtils.clamp(2500 - (w.snowfallCm || 0) * 1500, 1000, 2500), fog: 800 }[kind] ?? 12000;
+    return THREE.MathUtils.clamp(Math.min(w.visibilityM ?? 24000, cap), 150, 20000);
+}
+
+/**
  * Render targets for a weather state: cloud 0..1, rain 0..1, snow 0..1, fogDensity multiplier source (visibility),
  * wind (m/s toward x/z), thunder flag, sun dimming, snowCover 0..1 (ground dusting).
  */
@@ -366,11 +377,11 @@ export function weatherTargets(w) {
     if (kind === 'drizzle') t.rain = THREE.MathUtils.clamp(0.25 + (w.precipMm || 0) * 0.3, 0.25, 0.4);
     if (kind === 'rain' || kind === 'storm') t.rain = THREE.MathUtils.clamp(0.35 + (w.precipMm || 0) / 7, 0.35, 1);
     if (kind === 'snow') t.snow = THREE.MathUtils.clamp(0.3 + (w.snowfallCm || 0) * 1.2, 0.3, 1);
-    if (kind === 'fog') t.visibilityM = Math.min(t.visibilityM, 600);
     if (kind === 'overcast' || t.rain || t.snow) t.cloud = Math.max(t.cloud, 0.9);
     if (kind === 'storm') { t.cloud = 1; t.sunMul = 0.55; }
     else if (t.rain) t.sunMul = 0.75;
     t.snowCover = THREE.MathUtils.clamp((w.snowDepthCm || 0) / 6, 0, 1);
+    t.visibilityM = meteorologicalRange(w, kind);
     // wind: direction the wind comes FROM (meteorological, ° from north) → velocity toward (x east, z south)
     const ms = (w.windKmh || 0) / 3.6, to = ((w.windDir || 0) + 180) * RAD;
     t.windX = Math.sin(to) * ms; t.windZ = -Math.cos(to) * ms;

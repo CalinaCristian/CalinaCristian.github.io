@@ -58,6 +58,53 @@ const AMB_DIRS = (() => {
 const OVERRIDES = { day: { el: 48, az: 200 }, sunset: { el: 3, az: 290 }, dusk: { el: -4, az: 300 }, night: { el: -28, az: 350 }, dawn: { el: 2.5, az: 75 } };
 
 // ---------------------------------------------------------------------------
+//  Aerial perspective (replaces three's FogExp2 for every material; linear THREE.Fog is untouched).
+//  Beer–Lambert by view distance (not depth: no fog change when the head turns) with extinction fogDensity at
+//  ground level in a haze layer of scale height FOG_H, so tall landmarks and far ridges keep contrast; the far blend
+//  colour is the horizon sky (scene.fog.color, set by _applyLighting).
+// ---------------------------------------------------------------------------
+const FOG_H = 1100;
+{
+    const C = THREE.ShaderChunk;
+    C.fog_pars_vertex = `#ifdef USE_FOG
+        varying float vFogDepth;
+        #ifdef FOG_EXP2
+            varying float vFogH;
+        #endif
+    #endif`;
+    C.fog_vertex = `#ifdef USE_FOG
+        #ifdef FOG_EXP2
+            vFogDepth = length(mvPosition.xyz);
+            vFogH = (transpose(mat3(viewMatrix)) * (mvPosition.xyz - viewMatrix[3].xyz)).y;
+        #else
+            vFogDepth = - mvPosition.z;
+        #endif
+    #endif`;
+    C.fog_pars_fragment = `#ifdef USE_FOG
+        uniform vec3 fogColor;
+        varying float vFogDepth;
+        #ifdef FOG_EXP2
+            uniform float fogDensity;
+            varying float vFogH;
+        #else
+            uniform float fogNear;
+            uniform float fogFar;
+        #endif
+    #endif`;
+    C.fog_fragment = `#ifdef USE_FOG
+        #ifdef FOG_EXP2
+            float fgK = ${(1 / FOG_H).toFixed(7)};
+            float fgA = max(cameraPosition.y, 0.0) * fgK, fgB = max(vFogH, 0.0) * fgK, fgD = fgB - fgA;
+            float fgL = abs(fgD) > 1e-3 ? (exp(-fgA) - exp(-fgB)) / fgD : exp(-fgA);
+            float fogFactor = 1.0 - exp(-fogDensity * vFogDepth * fgL);
+        #else
+            float fogFactor = smoothstep(fogNear, fogFar, vFogDepth);
+        #endif
+        gl_FragColor.rgb = mix(gl_FragColor.rgb, fogColor, fogFactor);
+    #endif`;
+}
+
+// ---------------------------------------------------------------------------
 //  Sky
 // ---------------------------------------------------------------------------
 const SKY_VERT = /* glsl */`
@@ -463,8 +510,12 @@ export class Renderer3D {
         if (this.hemi.parent) this.hemi.removeFromParent();
         scene.add(this.sun, this.sun.target, this.probe, this.sky, this._lampGroup);
         if (this._discs) scene.add(this._discs);
-        scene.fog = new THREE.FogExp2(env.fog, 1.45 / env.fogFar);
-        this._fogBase = 1.45 / env.fogFar;
+        // FogExp2 here = aerial perspective (patched chunk below): density is the ground-level extinction coefficient
+        // (3.912 / meteorological visibility, from the weather). env.edgeM (or a spot's env.fogFar ≥ 2500 m) sets a
+        // minimum haze that hides a scene's content edge; district worlds hide theirs with backdrop masses.
+        const edge = env.edgeM ?? (env.fogFar >= 2500 ? env.fogFar : null);
+        this._fogBase = edge ? 3.0 / edge : 0;
+        scene.fog = new THREE.FogExp2(env.fog, Math.max(this._fogBase, 3.912 / 15000));
         this.setVegetation(o.vegetation || scene.userData?.vegetation || null);
         // climate state right away; live data replaces it when it arrives. Before the first setClock the place is not
         // known yet (hosts call setClock right after setScene): no live request for a default place (shared API quota)
@@ -765,7 +816,7 @@ export class Renderer3D {
     _applyWeatherData(w, source, loc) {
         this._wxData = w; this._wxSource = source; this._wxDataLoc = loc;
         const t = weatherTargets(w);
-        t.fogDens = Math.min(0.009, 1.9 / Math.max(80, t.visibilityM)); // Koschmieder-ish for FogExp2 (5 % contrast)
+        t.fogDens = 3.912 / Math.max(150, t.visibilityM); // Koschmieder: 2 % contrast left at the visibility distance
         this._wxT = t;
         if (!this._wx || this._wxInstant) {
             this._wx = { ...t };
@@ -806,7 +857,7 @@ export class Renderer3D {
         this._wet = c.rain > 0.08 ? Math.min(1, this._wet + dt * c.rain / 40) : Math.max(0, this._wet - dt / WET_DRY_S);
         this._seasonT -= dt; if (this._seasonT <= 0) { this._seasonT = 600; this._applySeason(); }
         // fog (visibility) + cloud drift with the wind
-        if (this.scene.fog?.isFogExp2) this.scene.fog.density = Math.max(this._fogBase * (1 + 0.45 * c.rain + 0.6 * c.snow), c.fogDens);
+        if (this.scene.fog?.isFogExp2) this.scene.fog.density = Math.max(this._fogBase, c.fogDens);
         this._cloudOff.x += (0.006 - c.windX * 0.0011) * dt; this._cloudOff.y += (0.0025 - c.windZ * 0.0011) * dt;
         const su = this.sky.material.uniforms; su.uCloudOff.value.copy(this._cloudOff);
         // precipitation: particle systems exist only while it rains / snows (zero cost when dry)
@@ -1246,7 +1297,7 @@ export class Renderer3D {
         if (!camera?.isPerspectiveCamera) return;
         if (this._farSet === undefined || Math.abs(camera.far - this._farSet) > 0.01) { this._farBase = camera.far; this._farSet = camera.far; }
         let want = this._farBase;
-        if (fog?.isFogExp2 && this._fogBase && fog.density > this._fogBase * 1.5) want = Math.min(this._farBase, Math.max(220, 2.3 / fog.density));
+        if (fog?.isFogExp2 && fog.density > 0) want = Math.min(this._farBase, Math.max(220, 5.3 / fog.density)); // 0.5 % left
         if (Math.abs(want - camera.far) > camera.far * 0.04) { camera.far = want; camera.updateProjectionMatrix(); this._farSet = want; }
     }
 

@@ -48,6 +48,10 @@ const LuminosityHighPassShader = {
 		void main() {
 
 			vec4 texel = texture2D( tDiffuse, vUv );
+			// (render.js guard) a single NaN / Inf pixel in the HDR buffer would spread through the whole bloom mip chain
+			// as a black screen-aligned block: drop non-finite values, clamp the rest to the half-float range
+			if ( any( isnan( texel ) ) || any( isinf( texel ) ) ) texel = vec4( 0.0 );
+			texel = min( texel, vec4( 6.0e4 ) );
 
 			float v = luminance( texel.xyz );
 

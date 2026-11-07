@@ -66,6 +66,10 @@ const OVERRIDES = { day: { el: 48, az: 200 }, sunset: { el: 3, az: 290 }, dusk: 
 const FOG_H = 1100;
 {
     const C = THREE.ShaderChunk;
+    // zero-length vertex normals (degenerate triangles in generated geometry) made normalize() return NaN, which the
+    // bloom pass then smeared into a black screen-aligned block (feedback note 28): fall back to the face normal
+    C.normal_fragment_begin = C.normal_fragment_begin.replace('vec3 normal = normalize( vNormal );',
+        'vec3 normal = dot( vNormal, vNormal ) > 1e-12 ? normalize( vNormal ) : normalize( cross( dFdx( vViewPosition ), dFdy( vViewPosition ) ) + 1e-9 );');
     C.fog_pars_vertex = `#ifdef USE_FOG
         varying float vFogDepth;
         #ifdef FOG_EXP2
@@ -300,7 +304,7 @@ const UP_VIEW = 'normalize((viewMatrix * vec4(0.0, 1.0, 0.0, 0.0)).xyz)';
 const WET_STREAK = (arr, n, spot) => `
     #if ${n} > 0
     for (int i = 0; i < ${n}; i++) {
-        vec3 Lv = ${arr}[i].position - wxP; float dl = length(Lv); vec3 Ld = Lv / dl;
+        vec3 Lv = ${arr}[i].position - wxP; float dl = max(length(Lv), 1e-3); vec3 Ld = Lv / dl;
         // the mirror image of a lamp keeps the lamp's own brightness: no inverse-square falloff, only a range window
         float att = 1.0 - smoothstep(${arr}[i].distance * 0.7, ${arr}[i].distance * 1.6, dl);
         ${spot ? `att *= getSpotAttenuation(${arr}[i].coneCos, ${arr}[i].penumbraCos, dot(-Ld, ${arr}[i].direction));` : ''}

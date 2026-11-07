@@ -6,6 +6,7 @@ Source: `game/FEEDBACK.md` "Round 4 play-test" notes 1–27 (+ any that follow),
 | Notes | Owner | Work |
 |---|---|---|
 | 1, 2, 10b, 12 | world-visual (+ world-data for data) | Deck/profile regression from the layer-lift pass: no deck may end in mid-air, slope into a lane or lift a non-bridge segment; ramps connect to their roads; Doina Cornea route to the Rectorat drivable; upb chapter start on Șos. Orhideelor, not a service road. Diagnosis so far (read-only, 2026-11-07): the upb chapter start pose is identical before and after the lift commit (on Șos. Orhideelor, 1.6 km route), so the breakage is not only that commit — inspect the owner's poses (looking up/left under Basarab, the service-road spot, Doina Cornea toward the Rectorat) at HEAD and at the pre-lift commit, then rebuild the viaduct correctly. New detectors: `deck-dangling` (ribbon end with no connected ribbon at the same height), `route-blocked` on every chapter route at both 30/60 Hz. |
+| 45 | world-visual | Piața Victoriei underpass visible through the square: tunnel lids, portals only at real entrances, real square surface. |
 | 12 (fines) | gameplay | Fine accumulation on world collisions, RO number formatting. |
 | 4 | gameplay (+ vehicles) | Buses never placed broadside across carriageways/junction mouths; stops at real stops, in lane. |
 

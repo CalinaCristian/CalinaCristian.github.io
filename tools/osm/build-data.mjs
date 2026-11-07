@@ -25,7 +25,7 @@
 //    nodes: [x0, z0, x1, z1, ...],                   road graph nodes (dm, absolute)
 //    nodeFlags: [nodeIndex, flags, ...]              bit 1 traffic_signals, 2 crossing,
 //               4 zebra, 8 crossing with signals, 16 stop, 32 give_way, 64 bus_stop,
-//               128 tram_stop, 256 speed_camera, 512 mini_roundabout
+//               128 tram_stop, 256 speed_camera, 512 mini_roundabout, 1024 red-light camera
 //    roads: [[name, cls, lanesF, lanesB, median(dm, signed), laneW(dm), sidewalk(dm),
 //             maxspeed(km/h), flags, layer, nodeIndex0, nodeIndex1, ...], ...]
 //        Nodes are ordered in the direction of travel for one-way roads.
@@ -208,14 +208,17 @@ function parseSpeed(v, country) {
     return Math.round(n);
 }
 
-function defaultSpeed(cls, country, lat) {
+function defaultSpeed(cls, country, lat, lon = null) {
     if (cls === 'service') return country === 'US' ? 24 : 20;
+    // (spec 11, speedlimits.json) Bellevue: local streets without maxspeed are 20 mph (city 2026 local-street reduction)
+    if (country === 'US' && lon != null && /^(residential|unclassified|living_street)$/.test(cls) && lat > 47.57 && lat < 47.64 && lon > -122.215 && lon < -122.14) return 32;
     if (country === 'US') {
         const mph = { motorway: 60, trunk: 55, motorway_link: 40, trunk_link: 40, primary: 35, secondary: 35, tertiary: 30, primary_link: 30, secondary_link: 30, tertiary_link: 25, residential: 25, unclassified: 25, living_street: 15 }[cls] || 25;
         return Math.round(mph * 1.609);
     }
     if (cls === 'living_street') return 30;
-    if ((cls === 'trunk' || cls === 'primary') && lat > 44.515) return 100; // DN1 outside Băneasa
+    // DN1 outside Băneasa: 100 outside localities; inside Otopeni (locality ≈ 44.53–44.575 × 26.04–26.10) the urban 50 applies
+    if ((cls === 'trunk' || cls === 'primary') && lat > 44.515) return (lon != null && lat > 44.53 && lat < 44.575 && lon > 26.04 && lon < 26.10) ? 50 : 100;
     if (cls === 'motorway') return 130;
     return 50;
 }
@@ -313,7 +316,17 @@ function buildCity(cityId, did = null) {
         let sidewalk = SIDEWALK[cls] ?? 2;
         if (t.sidewalk === 'no' || t.sidewalk === 'none' || t.foot === 'no') sidewalk = Math.min(sidewalk, 0.8);
         const ll0 = N.get(nodes[0]);
-        let maxspeed = parseSpeed(t.maxspeed, country) || defaultSpeed(cls, country, ll0[0]);
+        let maxspeed = parseSpeed(t.maxspeed, country) || defaultSpeed(cls, country, ll0[0], ll0[1]);
+        // US ramps without a posted limit (spec 11): Washington ramps carry no regulatory sign, only yellow advisory plates.
+        // maxspeed = the advisory (what drivers / AI do: maxspeed:advisory, else 25 mph on loops, 40 mph otherwise);
+        // the legal limit for the HUD is the mainline's (60 mph state highway, RCW 46.61.400) → `rampLimits`
+        let regKmh = 0;
+        if (country === 'US' && isLink && /motorway|trunk/.test(base) && !t.maxspeed) {
+            let turn = 0, prev = null;
+            for (let i = 1; i < nodes.length; i++) { const a = N.get(nodes[i - 1]), b = N.get(nodes[i]); const h = Math.atan2((b[1] - a[1]) * Math.cos(a[0] * Math.PI / 180), b[0] - a[0]); if (prev != null) { let d = h - prev; while (d > Math.PI) d -= 2 * Math.PI; while (d < -Math.PI) d += 2 * Math.PI; turn += d; } prev = h; }
+            maxspeed = parseSpeed(t['maxspeed:advisory'], country) || (Math.abs(turn) > Math.PI * 0.9 ? 40 : 64);
+            regKmh = 97;
+        }
         let flags = 0;
         if (oneway) flags |= 1;
         if (t.bridge && t.bridge !== 'no') flags |= 2;
@@ -341,7 +354,7 @@ function buildCity(cityId, did = null) {
         }
         if (!name && ref) name = ref;
         if (!name && isLink) name = t.destination ? `Exit → ${t.destination.split(';')[0]}` : (country === 'US' ? 'Ramp' : 'Bretea');
-        roads.push({ id, cls, nodes, oneway, lf, lb, laneW, sidewalk, maxspeed, flags, layer, name, lat: ll0[0], tags: t });
+        roads.push({ id, cls, nodes, oneway, lf, lb, laneW, sidewalk, maxspeed, flags, layer, name, lat: ll0[0], tags: t, regKmh });
     }
     // prune service ways that do not connect anything (dangling chains)
     {
@@ -587,7 +600,8 @@ function buildCity(cityId, did = null) {
         if (h === 'give_way') f |= 32;
         if (h === 'bus_stop' || t.public_transport === 'stop_position' && t.bus === 'yes') f |= 64;
         if (t.railway === 'tram_stop' || (t.public_transport === 'stop_position' && t.tram === 'yes')) f |= 128;
-        if (h === 'speed_camera') f |= 256;
+        if (h === 'speed_camera' && t.enforcement !== 'traffic_signals') f |= 256;
+        if (t.enforcement === 'traffic_signals' || (h === 'speed_camera' && /red_light|traffic_signals/.test(t['camera:type'] || t.enforcement || ''))) f |= 1024; // red-light camera (spec 11)
         if (h === 'mini_roundabout') f |= 512;
         return f;
     };
@@ -602,6 +616,7 @@ function buildCity(cityId, did = null) {
         return i;
     };
     const outRoads = [];
+    const rampLimits = []; // [roadIndex, legalKmh, …]: US ramps without a posted limit (roads[i].maxspeed = advisory; no R2-1 sign)
     const roadInfo = []; // per output road: [osmLayer, flags, widthDm, maxheightDm, placement, bridgeStructure] (vertical / placement hints, see header)
     const turnLanes = []; // [roadIndex, forward 'left|through;right|…' string, backward string, …] (OSM turn:lanes → painted arrows)
     let segCount = 0;
@@ -621,6 +636,7 @@ function buildCity(cityId, did = null) {
         { const t = r.tags || {}; const lay = parseInt(t.layer); const dm = (v) => { const n = num(v); return isFinite(n) && n > 0 && n < 100 ? Math.round(n * 10) : 0; };
           const f = (t.covered && t.covered !== 'no' ? 1 : 0) | (t.tunnel === 'building_passage' ? 2 : 0) | (/^(yes|viaduct|aqueduct|boardwalk|cantilever|covered|movable|trestle)$/.test(t.bridge || '') ? 4 : 0) | (t.level != null ? 8 : 0) | (r.cls.endsWith('_link') ? 16 : 0) | (t.layer != null ? 32 : 0);
           roadInfo.push(isFinite(lay) ? lay : 0, f, dm(t.width), dm(t.maxheight || t['maxheight:physical']), S(t.placement || t['placement:forward'] || ''), S(t['bridge:structure'] || t['bridge:name'] || '')); }
+        if (r.regKmh) rampLimits.push(outRoads.length, r.regKmh);
         outRoads.push([S(r.name), ROAD_CLASSES.indexOf(r.cls), r.lf, r.oneway ? 0 : r.lb, Math.round(r.median * 10), Math.round(r.laneW * 10), Math.round(r.sidewalk * 10), r.maxspeed, r.flags, r.layer, ...ids.map(idxOf)]);
     }
     log('graph nodes', outNodes.length / 2, 'segments', segCount);
@@ -1242,7 +1258,7 @@ function buildCity(cityId, did = null) {
         bounds: [minX, minZ, maxX, maxZ],
         classes: ROAD_CLASSES, styles: STYLES, roofs: ROOFS, poiKinds: POI_KINDS, areaKinds: AREA_KINDS, lineKinds: LINE_KINDS, furnKinds: FURN_KINDS,
         strings,
-        nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, roadInfo, buildings: outB, buildingInfo: outBInfo, pois: outP, areas: outA, lines: outLines, places, lamps,
+        nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, roadInfo, rampLimits, buildings: outB, buildingInfo: outBInfo, pois: outP, areas: outA, lines: outLines, places, lamps,
         trees: outTrees, treeInfo: outTreeInfo, furniture: outFurn, backdrop,
         corridor: { areaKm2: +cor.areaKm2.toFixed(2), legs: cor.legs.map(l => [l.label, l.km]) },
     };

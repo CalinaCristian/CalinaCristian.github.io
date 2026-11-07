@@ -363,8 +363,21 @@ export class Crowd {
         const cr = this.cr; if (cr && this.rainy !== this._crRain) { this._crRain = this.rainy; cr.setWeather(this.rainy ? 'rain' : 'clear'); }
         for (let i = 0; i < this.peds.length; i++) {
             const p = this.peds[i], L = p.look, s = L.scale, walking = p.act === 'walk' && p.speed > 0.1;
-            const legacy = !cr || p.act === 'sit';
-            if (cr) { if (legacy) cr.hide(i); else cr.set(i, { x: p.x, y: p.y, z: p.z, yaw: p.yaw + Math.PI, phase: p.phase, amp: walking ? clamp(p.speed / 1.4, 0.2, 1) : 0, scale: s }); }
+            const legacy = !cr;
+            if (cr) { // crowd.js idle poses + hand-held props (sit / phone / photo / wave / flag / guitar / talk)
+                let pose = 'stand', prop = null; const q = p.pose || ({ photo: 'photo', perform: 'perform', guide: 'flag', sit: 'sit' })[p.act] || (L.prop === 'flag' ? 'flag' : null);
+                if (walking) pose = 'walk';
+                else if (q === 'sit') pose = 'sit';
+                else if (q === 'photo') { pose = 'photo'; prop = L.prop === 'camera' ? 'camera' : 'phone'; }
+                else if (q === 'wave' || q === 'peace') pose = 'wave';
+                else if (q === 'flag') { pose = 'flag'; prop = 'flag'; }
+                else if (q === 'perform' || L.prop === 'guitar') { pose = 'guitar'; prop = 'guitar'; }
+                else if (q === 'talk') pose = 'talk';
+                else if (L.prop === 'phone' && i % 3 === 0) { pose = 'phone'; prop = 'phone'; }
+                if (walking && L.prop === 'phone' && i % 5 === 0) prop = 'phone';
+                cr.set(i, { x: p.x, y: p.y, z: p.z, yaw: p.yaw + Math.PI, phase: p.phase, amp: walking ? clamp(p.speed / 1.4, 0.2, 1) : 0, scale: s, pose, prop });
+                if (this._legacyHidden) continue;
+            }
             const sw = walking ? Math.sin(p.phase) * clamp(p.speed / 1.4, 0, 1.2) : 0;
             const sitting = p.act === 'sit';
             const bob = walking ? Math.abs(Math.cos(p.phase)) * 0.035 : Math.sin(this.t * 1.3 + i) * 0.004;
@@ -372,7 +385,7 @@ export class Crowd {
             // base (feet on the ground)
             _b.compose(_v.set(p.x, p.y + bob * s, p.z), _q.setFromAxisAngle(_s.set(0, 1, 0), p.yaw), _s.set(s, s, s));
             const part = (mesh, k, x, y, z, rx = 0, ry = 0, rz = 0, sx = 1, sy = 1, sz = 1) => {
-                if (!legacy && mesh !== M.prop) { sx = sy = sz = 0; }
+                if (!legacy) { sx = sy = sz = 0; }
                 _m.compose(_v.set(x, y, z), _q.setFromEuler(_e.set(rx, ry, rz, 'YXZ')), _s.set(sx, sy, sz));
                 _m.premultiply(_b); mesh.setMatrixAt(k, _m);
             };
@@ -423,7 +436,7 @@ export class Crowd {
             } else part(M.prop, i, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             void hl;
         }
-        if (this._anyLegacy === undefined) { this._anyLegacy = !cr || this.peds.some((p) => p.act === 'sit'); this._anyProp = this.peds.some((p) => PROP[p.look.prop]); for (const [k, m] of Object.entries(M)) m.visible = k === 'prop' ? this._anyProp || this._anyLegacy : this._anyLegacy; }
+        if (this._anyLegacy === undefined) { this._anyLegacy = !cr; for (const m of Object.values(M)) m.visible = this._anyLegacy; this._legacyHidden = !!cr; }
         for (const m of Object.values(M)) m.instanceMatrix.needsUpdate = true;
     }
     dispose() { this.cr?.dispose(); this.group?.traverse((o) => { if (o.isMesh && !o.userData.shared) { o.geometry.dispose(); o.material.dispose(); } }); }

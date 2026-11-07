@@ -379,7 +379,7 @@ export default {
         // ---- Rachel coin
         ctx.interactables.push({ kind: 'coin', x: RACHEL.x + 0.6, z: RACHEL.z - 0.4, r: 1.8, label: 'Drop a coin in Rachel', use: (s) => { s.sound.play('coin'); s.progress.coins = (s.progress.coins || 0) + 1; s.ui.toast('🪙 Clink', `Coin #${s.progress.coins} — Rachel's donations fund the Market's social services.`); } });
         // ---- postcard challenge (blue hour best: the neon glows)
-        ctx.challenge('pike-place', { r: 12, tol: 30 });
+        (() => { const ic = ctx.spot('pike-place').photo.iconic, a = (ic.heading_deg ?? 229) * Math.PI / 180; return ctx.challenge('pike-place', { x: ic.x + Math.sin(a) * 26, z: ic.z - Math.cos(a) * 26, pitch: 12, r: 12, tol: 30 }); })() // 26 m down Pike St: the sign + clock fill the frame;
         // ---- crowd (dense): fish-throw audience, mongers, Starbucks queue, gum-wall selfies, buskers, vendors, walkers
         const pp = (s, off) => { const p = alongPolyline(PIKE_PLACE, s); return [p.x - p.tz * off, p.z + p.tx * off]; };
         const vendors = []; for (let s = 16; s < 150; s += 11) { const [x, z] = pp(s, -7.8); vendors.push({ x, z, r: 0.2, n: 1, act: 'watch', look: pp(s, 0), personas: ['vendor'] }); }

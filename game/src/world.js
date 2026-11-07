@@ -1127,6 +1127,67 @@ export async function buildWorld(city, renderer, opts = {}) {
                 profileStats0 = { ...(profileStats0 || {}), deck: deckStats };
             }
         }
+        // ---- (2026-11-07, world-visual, play-test round 4) final profile sanity: only bridge decks and their own ramps may
+        //      leave the ground. Earlier passes (cone ramps through the graph, constraint relaxation, overlap merge) also
+        //      lifted at-grade streets (Calea Giulești to 14 m, Orhideelor 4.9 m) and left decks sloping into lanes. Here:
+        //      ramps = *_link ways and same-name continuations of a deck through plain (degree-2) nodes, ≤ 300 m; every
+        //      other street node is at grade (tunnels keep their depth); deck / ramp heights are recomputed as
+        //      min(max-of-cones from the deck targets, G·distance to the nearest ground node) along deck + ramp edges.
+        let finalStats = null;
+        {
+            const RI = data.roadInfo || [], rawLayer = (e) => { const v = RI[e.road * 6]; return Number.isFinite(v) ? v : e.layer; };
+            const G = MAXG * 0.97, PER = 5.5;
+            const isDeck = (e) => !e.virtual && e.bridge;
+            const elig = new Set();
+            { // ramps
+                const q = []; const dist = new Map();
+                for (const n of nodeArr) if (n.edges.some(isDeck)) { dist.set(n, 0); q.push(n); }
+                while (q.length) {
+                    const n = q.shift(), d0 = dist.get(n), deckNames = new Set(n.edges.filter(isDeck).map(e => e.name).concat([...elig].filter(e => e.a === n || e.b === n).map(e => e.name)));
+                    const plain = n.edges.filter(f => !f.virtual).length <= 2;
+                    for (const e of n.edges) {
+                        if (e.virtual || isDeck(e) || e.tunnel || elig.has(e)) continue;
+                        const link = /_link$/.test(e.type), same = e.name && deckNames.has(e.name) && plain;
+                        if (!link && !same) continue;
+                        const o = e.a === n ? e.b : e.a, d = d0 + e.len; if (d > 300) continue;
+                        elig.add(e); if (!dist.has(o) || dist.get(o) > d) { dist.set(o, d); q.push(o); }
+                    }
+                }
+            }
+            const region = (e) => isDeck(e) || elig.has(e);
+            // live decks (pass over a road) and their targets
+            const chainOf = new Map(); let nc = 0;
+            for (const e of edges) { if (!isDeck(e) || chainOf.has(e)) continue; const st = [e]; chainOf.set(e, nc); while (st.length) { const f = st.pop(); for (const n of [f.a, f.b]) for (const g of n.edges) if (isDeck(g) && !chainOf.has(g)) { chainOf.set(g, nc); st.push(g); } } nc++; }
+            const live = new Set(); for (const e of edges) if (chainOf.has(e) && (e.over?.length || crossings.some(c => c.u === e))) live.add(chainOf.get(e));
+            for (const o of overlaps) for (const [u, f] of [[o.e, o.f], [o.f, o.e]]) if (chainOf.has(u) && !f.bridge && !f.tunnel) live.add(chainOf.get(u));
+            const target = new Map();
+            for (const [e, k] of chainOf) { if (!live.has(k)) continue; const t = Math.max(1, Math.min(3, rawLayer(e))) * PER; for (const n of [e.a, e.b]) target.set(n, Math.max(target.get(n) ?? 0, t)); }
+            // ground nodes: touch any street that is neither deck nor ramp (tunnels aside)
+            const groundN = new Set();
+            for (const n of nodeArr) if (n.edges.some(e => !e.virtual && !region(e) && !e.tunnel)) groundN.add(n);
+            const cone = (seeds, sgn) => {
+                const best = new Map(), heap = [];
+                const push = (n, v) => { heap.push([v, n]); let i = heap.length - 1; while (i > 0) { const p = (i - 1) >> 1; if (heap[p][0] >= heap[i][0]) break; [heap[p], heap[i]] = [heap[i], heap[p]]; i = p; } };
+                const pop = () => { const top = heap[0], last = heap.pop(); if (heap.length) { heap[0] = last; let i = 0; for (;;) { let c = 2 * i + 1; if (c >= heap.length) break; if (c + 1 < heap.length && heap[c + 1][0] > heap[c][0]) c++; if (heap[c][0] <= heap[i][0]) break; [heap[c], heap[i]] = [heap[i], heap[c]]; i = c; } } return top; };
+                for (const [n, v] of seeds) { best.set(n, v * sgn); push(n, v * sgn); }
+                while (heap.length) { const [v, n] = pop(); if (v < best.get(n)) continue; for (const e of n.edges) { if (!region(e)) continue; const o = e.a === n ? e.b : e.a, nv = v - G * e.len; if (nv > (best.get(o) ?? -Infinity)) { best.set(o, nv); push(o, nv); } } }
+                return best;
+            };
+            const up = cone([...target], 1), lim = cone([...groundN].map(n => [n, 0]), -1);
+            let lowered = 0, raised = 0, maxY = 0;
+            for (const n of nodeArr) {
+                if (!n.edges.length) continue;
+                const inRegion = n.edges.some(region), tunnelN = n.edges.some(e => e.tunnel && !e.virtual);
+                if (tunnelN && n.y < 0) continue; // trenches / tunnels keep their depth
+                let y;
+                if (groundN.has(n) || !inRegion) y = Math.min(n.y, 0); // (only lifts are removed: trench approaches keep their dip)
+                else { const u = up.get(n) ?? 0, cap = lim.has(n) ? -lim.get(n) : Infinity; y = Math.max(0, Math.min(u, cap)); }
+                if (y < n.y - 0.05) lowered++; else if (y > n.y + 0.05) raised++;
+                n.y = y; maxY = Math.max(maxY, y);
+            }
+            finalStats = { ramps: elig.size, liveDecks: live.size, ground: groundN.size, lowered, raised, maxY: +maxY.toFixed(1) };
+            profileStats0 = { ...(profileStats0 || {}), final: finalStats };
+        }
         let residual = 0; for (const e of edges) if (!e.virtual) residual = Math.max(residual, Math.abs(e.b.y - e.a.y) - MAXG * e.len);
         for (const e of edges) { e.ya = e.a.y; e.yb = e.b.y; }
         let cBad = 0, oBad = 0;

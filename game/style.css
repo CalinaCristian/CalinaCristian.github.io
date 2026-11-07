@@ -233,7 +233,7 @@ body.touch #ticker { bottom: 335px; }
     #toasts { top: 8px; right: 160px; width: min(300px, 40vw); } .toast { padding: 8px 12px; font-size: 12px; } .toast span { font-size: 11px; }
     #prompt { font-size: 14px; padding: 8px 14px; }
     body.touch .bottom-left { bottom: 120px; }
-    body.touch .street-wrap { bottom: 238px; } body.touch #ticker { bottom: 70px; }
+    body.touch .street-wrap { bottom: 238px; } body.touch #ticker { bottom: 136px; } /* above the 3D cluster (y ≈ 67–82 %) */
     .pad { bottom: 10px; gap: 8px; } .pad button { width: 52px; height: 52px; font-size: 20px; }
     /* right pad as a compact 3×2 block in the corner (right of the nav screen) */
     .pad.right { display: grid; grid-template-columns: repeat(3, 52px); right: 10px; } .pad.right button[data-btn=gas] { width: 52px; height: 52px; }

@@ -66,6 +66,17 @@ In the game the mirror is fine: in Unirii by day its render target goes from dar
   2. **L — stale "Leave UiPath Bucharest (4 screens unread)" prompt** while driving after an office visit (`buc-cockpit-1280-stale-office-prompt.jpg`): `leaveOffice()` leaves `hud.prompt` set (gameplay).
   3. **L — controls hint wraps to 2 lines at 1280×720**; ⛽ icon 12 px past the right edge of the nav canvas (`nav.js:455`, was 110 px).
 
+### → gameplay (`player.js` update, R17.1 portrait): apply the cockpit's view per aspect (2026-11-07 08:21 UTC)
+Portrait phones only see the cluster and nav screen when the view comes from `cockpit.userData.viewFor(aspect)`. Five lines in the camera block of `Player.update` (in-game verified with exactly this patch, numbers in the log):
+```js
+const pv = this.cockpit?.userData.viewFor?.(this.camera.aspect) || null;           // before the camHolder lines
+this.camHolder.position.y = 1.36 + (pv?.eye.y || 0) + bobY + (Math.random() - 0.5) * s * 0.08;
+this.camHolder.position.x = -0.3 + (pv?.eye.x || 0) + (L.yawCur < 0 ? 0.16 : 0.06) * lean;
+this.camHolder.position.z = -0.45 + (pv?.eye.z || 0) + 0.08 * lean;
+this.camHolder.rotation.y = L.baseYaw + L.yawCur + (this.lookBack ? 0 : (pv?.yaw || 0));
+this.camera.fov = damp(this.camera.fov, (pv?.fov ?? 72) + clamp(this.speed, 0, 40) * 0.35, 4, d);
+```
+Landscape is unchanged (viewFor returns fov 72 and zero offsets for aspect ≥ 1). The on-foot / spot cameras don't use it.
 ## Progress log
 - **2026-11-06 22:20 UTC — cockpit-ui.** R17.1–R17.4 implemented, R17.5 CSS part done (`vehicles.js`, `canvasText.js` new, `office.js`, `flight.js`, `style.css`).
   - **Dashboard redesign (R17.1)**: parts laid out by viewing angle from the driver eye (−0.3, 1.36, −0.45): cluster pod (binnacle with visor) at 20.6° below the horizon, read *over* a lowered wheel (rim top 27.5°, centre (−0.3, 0.89, −0.945)); nav screen 0.34×0.2125 m (same 1.6 aspect as the CarScreen canvas) at az 27°, el 20.5°, 0.86 m, turned + tilted to face the eye, in a glossy bezel + back shell on a centre stack (vents, hazard, climate panel) aligned with its yaw; console moved to the car centre (x 0.03). Everything sits below the windshield's bottom edge in screen space (rain overlay never draws over it).

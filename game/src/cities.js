@@ -98,7 +98,7 @@ const BUC_DISTRICTS = {
     floreasca: {
         name: 'Floreasca', label: 'Calea Floreasca, Piața Floreasca, Str. Garibaldi and the streets around C.A. Rosetti',
         // rosetti only (db moved to pipera, 2026-11-07): trimmed to the Calea Floreasca run-in + the Garibaldi block; north edge keeps Sky Tower (landmark margin 0.004°)
-        bbox: [44.4538, 26.0975, 44.4740, 26.1100], center: { lat: 44.4644, lon: 26.1038 },
+        bbox: [44.4548, 26.0975, 44.4740, 26.1100], center: { lat: 44.4644, lon: 26.1038 },
         landmarks: ['skytower', 'globalworth'], // Sky Tower 0.4 km / Globalworth Tower 0.6 km north of the box, ahead on Calea Floreasca
         congestion: [ // from game/research/bucharest-floreasca.json traffic.hotspots
             { lat: 44.47100, lon: 26.10350, radius: 200, hours: [[8,  10],  [17,  19.5]], level: 0.70, note: 'Calea Floreasca N (towards Barbu Văcărescu / Sky Tower)' },

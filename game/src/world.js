@@ -1813,6 +1813,12 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (x < rb.x0 - 0.6 || x > rb.x1 + 0.6 || z < rb.z0 - 0.6 || z > rb.z1 + 0.6) return;
                 if (!pointInPolygon(x, z, rb.poly) || polyDist(x, z, rb.poly) < 0.3) return; // only where it would stand ≥ 0.3 m inside a lane
                 if (w.kind !== 'barrier') { hit = true; return; } // wide-band walls (embankment / trench / rail / guard) never stand in a lane
+                // at a split / merge the sibling ramp (sharing a node with the wall's edge) is driven through the gore: a barrier
+                // standing in its lanes is always cut (the wall across 'Exit → Westfield Southcenter', QA round 2)
+                const sib = rb.e && w.edge && (rb.e.a === w.edge.a || rb.e.a === w.edge.b || rb.e.b === w.edge.a || rb.e.b === w.edge.b);
+                if (sib) { const n = (rb.e.a === w.edge.a || rb.e.a === w.edge.b) ? rb.e.a : rb.e.b;
+                    const hS = Y.road + rb.e.a.y + (rb.e.b.y - rb.e.a.y) * clamp(((x - rb.e.a.x) * rb.e.dirx + (z - rb.e.a.z) * rb.e.dirz) / rb.e.len, 0, 1), own = (y0 + y1) / 2;
+                    if (Math.hypot(x - n.x, z - n.z) < 15 && Math.abs(hS - own) < 1.0 && polyDist(x, z, rb.poly) > 0.5) { hit = true; return; } }
                 // narrow separation barriers: only where the lane continues on both sides (a lane merely ending at the line keeps it)
                 if (!pointInPolygon(x + w.nx * 0.9, z + w.nz * 0.9, rb.poly) || !pointInPolygon(x - w.nx * 0.9, z - w.nz * 0.9, rb.poly)) return;
                 // and a car pushed through the gap would really land on a surface at this level (same test as roadHeight)

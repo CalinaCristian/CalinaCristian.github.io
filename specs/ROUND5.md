@@ -38,6 +38,7 @@ Source: `game/FEEDBACK.md` "Round 4 play-test" notes 1–27 (+ any that follow),
 | 32, 33 | spots + gameplay (minimap/map) | Map in spots; every landmark/spot has its own map with everything relevant (entrances, hero, plaques, postcard, cafés, toilets, bikes, transit), waypoints. |
 | 35 | spots | Cișmigiu: railing across the bridge entrance, stepped blocky deck, broken handrails — walkable arched footbridges like the real ones. |
 | 36 | spots | Blank green signboards (no text) — readable plaques on both faces, no empty signs. |
+| 50 | spots (+ render) | Pike Place: Rachel inside the fish counter, broken plaque stand, old blocky vendors, blown-out floor under arcade lights; no prop–prop intersections (detector). |
 | 49 | spots | See-through/floating buildings in spots: extrude to the ground, closed volumes, walker can't enter buildings. |
 | 48 | spots | Pike Place: street replaced by a smooth terrain blob — ground from OSM streets/pavements; lit windows via the shared building shader; non-overlapping bubbles; only place-appropriate lines. |
 | 20, 27 | spots | Terrain flattened under paved esplanades/plinths (Parliament), no camera roll on slopes; crowds on the walkable surface (steps), never inside colliders. |

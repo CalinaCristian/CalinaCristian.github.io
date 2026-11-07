@@ -57,18 +57,12 @@ export default {
         if (at) { ctx.skipBuildings.add(at.id); for (const x of d.buildings) { const [cx, cz] = centroid(x.poly); if (x.part && inPoly(cx, cz, grow(at.poly, 2))) ctx.skipBuildings.add(x.id); } }
         const AT = placeLandmark(ctx, 'ateneu', { colliderH: 45 });
         if (at) ctx.poly(at.poly, { y0: -50, y1: 60 });
-        if (AT) floodlight(AT.mesh, '#ffe2b0', 0.42);
-        if (AT) { // the frieze reads ATHENEUL ROMAN (with H): plate over the model's inscription band
-            const p = local(AT, 27.12, 0), sg = signAtlas([{ x: p.x, y: AT.y + 14.95, z: p.z, yaw: AT.lm.rotation + Math.PI / 2, w: 15.5, h: 1.25, text: 'ATHENEUL ROMAN', bg: '#e5dbc6', fg: '#7c6a4c', border: false, font: (q) => `600 ${q}px "Times New Roman", Georgia, serif` }], { name: 'ateneu-frieze', night: 0.4 });
-            if (sg) ctx.add(sg);
-            // gold mosaic medallions behind the Ionic columns (5 roundels in the portico)
-            for (let i = 0; i < 5; i++) { const q = local(AT, 19.1, -10 + i * 5); b.cyl(q.x, AT.y + 9.6, q.z, 1.05, 0.12, '#c9a24e', 'bronze', 16, 1, Math.PI / 2, -AT.lm.rotation, 0); }
-        }
+        // (the frieze 'ATHENEUL ROMAN' and the gold roundels are in the landmarks.js model since its 2026-11-07 fix)
         const garden = osmPoly(d, 'w23556716');
         // Eminescu statue (bronze, seated poet) in the garden
         { const e = d.pois.find((p) => p.id === 'n1911337561') || { x: -69.3, z: -24.3 }, y = g.heightAt(e.x, e.z); b.box(e.x, y, e.z, 1.3, 2.6, 1.3, '#a9a397', 'stone'); b.cyl(e.x, y + 2.6, e.z, 0.42, 1.55, '#2f3a33', 'bronze', 10, 0.75); b.sphere(e.x, y + 4.35, e.z, 0.22, 0.27, 0.24, '#2f3a33', 'bronze', 10, 8); ctx.circle(e.x, e.z, 1.3, 4); }
         // ---- Piața Revoluției
-        const rg = d.buildings.find((x) => x.id === 'w232472401'); if (rg) { ctx.skipBuildings.add(rg.id); for (const x of d.buildings) { const [cx, cz] = centroid(x.poly); if (x.part && inPoly(cx, cz, rg.poly)) ctx.skipBuildings.add(x.id); } const RG = placeLandmark(ctx, 'regal', { colliderH: 30 }); if (RG) floodlight(RG.mesh, '#ffe2b0', 0.25); ctx.poly(rg.poly, { y0: -50, y1: 60 }); }
+        const rg = d.buildings.find((x) => x.id === 'w232472401'); if (rg) { ctx.skipBuildings.add(rg.id); for (const x of d.buildings) { const [cx, cz] = centroid(x.poly); if (x.part && inPoly(cx, cz, rg.poly)) ctx.skipBuildings.add(x.id); } const RG = placeLandmark(ctx, 'regal', { colliderH: 30 }); ctx.poly(rg.poly, { y0: -50, y1: 60 }); }
         // Central University Library (eclectic, three storeys, domed corner pavilions)
         const bcu = d.buildings.find((x) => x.id === 'r19896250');
         const fBCU = classicFacade('bcu', [{ t: 'portal', w: 0.42, rustic: true }, { t: 'arch', w: 0.34, pil: 'pair', rail: true }, { t: 'pediment', w: 0.32, pil: 'pair' }, { t: 'small', w: 0.26, dentils: true }], { bay: 4.4, floor: 5.2, lit: 0.4 });

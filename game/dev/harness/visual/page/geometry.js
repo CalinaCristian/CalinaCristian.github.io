@@ -134,8 +134,15 @@ export function ribbonModel(world, corridor) {
 const nameOf = (e) => !e ? '' : (e.name || e.ref || (e.type ? `(${e.type})` : 'unnamed'));
 const ribLabel = (it) => it.e ? `${nameOf(it.e)} [edge ${it.e.id}${it.e.bridge ? ', bridge' : ''}${it.e.tunnel ? ', tunnel' : ''}]` : `junction pad (node ${it.n.id}, ${(it.n.allEdges || it.n.edges || []).map(nameOf).filter((v, i, a) => v && a.indexOf(v) === i).slice(0, 3).join(' × ')})`;
 /** the colour family world.js gives a ribbon (asphaltOf / padAsphalt): unpaved, concrete (US motorway), blend (US ramps fade), tunnel, asphalt */
-const surfKey = (it, US) => {
-    const k = (e) => e.unpaved ? 'unpaved' : (US && e.type === 'motorway') ? 'concrete' : (US && e.type === 'motorway_link') ? 'blend' : e.tunnel ? 'tunnel' : 'asphalt';
+const surfKey = (it, US, x = null, z = null) => {
+    const k0 = (e) => e.unpaved ? 'unpaved' : (US && e.type === 'motorway') ? 'concrete' : (US && e.type === 'motorway_link') ? 'blend' : e.tunnel ? 'tunnel' : 'asphalt';
+    // a US ramp fades concrete → asphalt: at the end it shares with a street it is asphalt, at a motorway end concrete
+    const k = (e) => {
+        const c = k0(e); if (c !== 'blend' || x == null || e.tunnel) return c;
+        const n = Math.hypot(e.a.x - x, e.a.z - z) < Math.hypot(e.b.x - x, e.b.z - z) ? e.a : e.b;
+        const ks = (n.edges || []).filter(f => f !== e && !f.virtual).map(k0);
+        return ks.includes('concrete') ? 'concrete' : ks.includes('asphalt') ? 'asphalt' : 'blend';
+    };
     if (it.e) return k(it.e);
     const es = (it.n.edges || []).filter(f => !f.virtual); if (!es.length) return 'asphalt';
     const ks = es.map(k); if (ks.includes('blend')) return 'blend'; if (ks.filter(x => x === 'concrete').length * 2 >= ks.length) return 'concrete';
@@ -187,8 +194,8 @@ export function geometryDetectors(G, opts) {
                 if (adj && a.e && b.e && ov.area < 3) return; // mitre slivers between consecutive pieces of the same road
                 // round 2: every carriageway class of one family shares one asphalt colour + world-space UVs, and markings
                 // have one owner per overlap → a same-colour overlap is invisible; keep it as low, keep different surfaces graded
-                const same = surfKey(a, US) === surfKey(b, US) && surfKey(a, US) !== 'blend';
-                where.surfaces = `${surfKey(a, US)}/${surfKey(b, US)}`;
+                const ka = surfKey(a, US, ov.x, ov.z), kb = surfKey(b, US, ov.x, ov.z), same = ka === kb && ka !== 'blend';
+                where.surfaces = `${ka}/${kb}`;
                 add('ribbon-zfight', same ? 'low' : ov.area > 6 ? 'high' : ov.area > 1.5 ? 'medium' : 'low', `${ribLabel(a)} and ${ribLabel(b)} overlap over ${r1(ov.area)} m² at the same height (Δy ${r2(dy)} m) → ${same ? 'same asphalt colour (invisible unless markings cross)' : 'different surfaces z-fight (' + where.surfaces + '), the markings of one run across the other'}`, where);
             } else {
                 add('ribbon-stacked', ov.area > 4 && dy > 0.12 ? 'high' : 'medium', `${ribLabel(a)} and ${ribLabel(b)} overlap over ${r1(ov.area)} m² with only ${r2(dy)} m between them (spec R11.4: share one surface or ≥ 5 m clearance) → a visible stacked / stepped road surface`, where);

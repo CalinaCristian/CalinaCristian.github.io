@@ -250,7 +250,7 @@ async function runSpots(browser, base) {
             const shots = [];
             const shoot = async (pose, prep) => {
                 const st = await page.evaluate(prep);
-                const buf = await page.screenshot({ type: 'jpeg', quality: 85, timeout: 60000 });
+                const buf = await page.screenshot({ type: 'jpeg', quality: 85, timeout: 180000 });
                 const file = `spots/${sp.id}-${pose}.jpg`; fs.writeFileSync(path.join(OUT, file), buf);
                 const m = await page.evaluate(async (d) => { // luminance stats of the frame (dark = L < 4 %)
                     const im = await createImageBitmap(await (await fetch(d)).blob()); const c = new OffscreenCanvas(320, 180), x = c.getContext('2d'); x.drawImage(im, 0, 0, 320, 180);
@@ -267,7 +267,7 @@ async function runSpots(browser, base) {
             const w = await page.evaluate(() => {
                 const D = window.spotDev, S = D.session.spot, C = D.session.ctl, s = S.spawn;
                 D.walkTo(s.x, s.z, -s.heading * 180 / Math.PI, 0); D.step(2, 1 / 30);
-                const p0 = { ...C.position }; C.auto = { fwd: 1, side: 0, run: false, heading: C.heading }; D.step(90, 1 / 30); C.auto = null;
+                const p0 = { ...C.position }; C.auto = { fwd: 1, side: 0, run: false, heading: C.heading }; for (let k = 0; k < 90; k++) D.session.update(1 / 30); C.auto = null; // (simulate without rendering: 90 software-GL frames at high stall the GPU process)
                 const p1 = C.position; return { walked: Math.round(Math.hypot(p1.x - p0.x, p1.z - p0.z) * 10) / 10, y: Math.round(p1.y * 100) / 100, nan: ![p1.x, p1.y, p1.z].every(Number.isFinite) };
             });
             out.walked = w.walked;

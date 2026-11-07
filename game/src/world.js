@@ -1930,6 +1930,25 @@ export async function buildWorld(city, renderer, opts = {}) {
         return { i, style: data.styles[b[0]], h: b[1] / 10, minH: b[2] / 10, roof: data.roofs[b[3]], name: str(b[4]), flags: b[5], ring, c, x0, z0, x1, z1, area: Math.abs(signedArea(ring)), skip: false,
             levels: B_OFF === 9 ? b[6] : 0, colour: B_OFF === 9 ? str(b[7]) : '', roofColour: B_OFF === 9 ? str(b[8]) : '' };
     });
+    // ---- facade style from data.buildingInfo (world-data: OSM type, start_date year, architect, material, height source)
+    {
+        const BI = data.buildingInfo || [];
+        let restyled = 0;
+        for (const b of bRecs) {
+            const k = b.i * 5; if (k + 4 >= BI.length) break;
+            const type = BI[k] >= 0 ? str(BI[k]) : '', yr = BI[k + 1] || 0, mat = BI[k + 3] >= 0 ? str(BI[k + 3]) : '';
+            b.type = type; b.year = yr; b.material = mat;
+            if (b.style === 'church' || b.style === 'house' || b.style === 'shop') continue;
+            let st = null;
+            if (/glass/.test(mat) || ((type === 'office' || type === 'commercial') && yr >= 1995)) st = 'glass';
+            else if (yr && yr < 1914) st = US ? 'interwar' : 'eclectic';
+            else if (yr >= 1925 && yr <= 1945) st = US ? 'interwar' : 'interwar';
+            else if (yr >= 1960 && yr <= 1989 && /apartments|residential|yes|^$/.test(type) && !US) st = 'bloc';
+            else if (/brick/.test(mat) && US) st = 'interwar';
+            if (st && st !== b.style) { b.style = st; restyled++; }
+        }
+        if (restyled) console.info('[world] facade styles from buildingInfo:', restyled);
+    }
     // ---- height sanity (2026-11-07, world-visual): the data build gives every untagged large footprint outside the old
     //      centre 8–10 storeys (23–30 m 'bloc'), so museums, villas and institutions on Kiseleff / Dorobanți became grey
     //      slabs. Buildings without building:levels whose height is exactly such a default are re-estimated here from
@@ -2473,7 +2492,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         const faces = streetFacing(b, ccw);
         const yTop = h, yFirst = shop ? yShop : y0;
         const floors = Math.max(0, Math.floor((yTop - yFirst - 0.6) / floorH));
-        const trim = shadeRgb(wallCol, st === 'eclectic' ? 1.12 : 0.9), deep = shadeRgb(wallCol, 0.72);
+        const trim = st === 'eclectic' || st === 'civic' ? mixRgb(wallCol, [236, 230, 218], 0.6) : shadeRgb(wallCol, 0.82), deep = shadeRgb(wallCol, 0.62);
         let perim = 0;
         for (let k = 0; k < n; k++) {
             const [ax, az] = ring[k], [bx, bz] = ring[(k + 1) % n]; const L = Math.hypot(bx - ax, bz - az);
@@ -2482,20 +2501,26 @@ export async function buildWorld(city, renderer, opts = {}) {
             let nx = (bz - az) / L, nz = -(bx - ax) / L; if (!ccw) { nx = -nx; nz = -nz; }
             const ux = (bx - ax) / L, uz = (bz - az) / L, ang = Math.atan2(ux, uz);
             const P = (s2, o) => [ax + ux * s2 + nx * o, az + uz * s2 + nz * o];
+            // cheap projecting element: front face + top (+ ends when deep): 4–8 triangles instead of a 12-triangle box
+            const slab = (s2, y, w, hh, d, col, ends = d > 0.3) => {
+                const [x0, z0] = P(s2 - w / 2, d), [x1, z1] = P(s2 + w / 2, d), [b0x, b0z] = P(s2 - w / 2, 0.02), [b1x, b1z] = P(s2 + w / 2, 0.02);
+                db.wall(x0, z0, x1, z1, y, y + hh, nx, nz, col);
+                db.flatQuad(b0x, b0z, b1x, b1z, x1, z1, x0, z0, y + hh, shadeRgb(col, 1.06), 0, -1);
+                if (ends) { db.wall(b0x, b0z, x0, z0, y, y + hh, -ux, -uz, shadeRgb(col, 0.9)); db.wall(x1, z1, b1x, b1z, y, y + hh, ux, uz, shadeRgb(col, 0.9)); }
+            };
             // window centres along this edge: the atlas puts one window column per bay, centred at (i + 0.5) bays
             const cols = []; for (let i = Math.ceil(p0 / bayW - 0.5); (i + 0.5) * bayW - p0 < L - 0.6; i++) { const s2 = (i + 0.5) * bayW - p0; if (s2 > 0.6) cols.push(s2); }
             if (st === 'eclectic' || st === 'civic') {
                 for (let f = 0; f < floors; f++) {
                     const yb = yFirst + f * floorH, wTop = yb + floorH * 0.8, wBot = yb + floorH * 0.2;
                     for (const s2 of cols) {
-                        const [x, z] = P(s2, 0.08);
-                        db.box(x, wTop, z, bayW * 0.5, 0.16, 0.22, ang, trim);                    // lintel / cornice over the window
-                        if (f % 2 === 0 && st === 'eclectic') db.box(x, wTop + 0.16, z, bayW * 0.36, 0.22, 0.16, ang, trim); // pediment
-                        db.box(x, wBot - 0.1, z, bayW * 0.5, 0.1, 0.2, ang, trim);                // sill
+                        slab(s2, wTop, bayW * 0.56, 0.28, 0.32, trim, true);                                // lintel / cornice over the window
+                        if (f % 2 === 0 && st === 'eclectic') slab(s2, wTop + 0.28, bayW * 0.4, 0.34, 0.2, shadeRgb(trim, 0.95), false); // pediment
+                        slab(s2, wBot - 0.12, bayW * 0.56, 0.12, 0.24, trim, false);                           // sill
                     }
                 }
                 if (cols.length > 3) for (let i = 1; i < cols.length; i += 2) { // pilasters between bays
-                    const [x, z] = P((cols[i - 1] + cols[i]) / 2, 0.1); db.box(x, yFirst, z, 0.45, Math.max(0.5, yTop - 0.8 - yFirst), 0.2, ang, trim);
+                    slab((cols[i - 1] + cols[i]) / 2, yFirst, 0.45, Math.max(0.5, yTop - 0.8 - yFirst), 0.16, trim, false);
                 }
                 if (!shop && y0 + 3.6 < yTop) for (let y = y0 + 0.5; y < y0 + 3.6; y += 0.55) { // rusticated ground floor
                     const [x0, z0] = P(0, 0.05), [x1, z1] = P(L, 0.05); db.wall(x0, z0, x1, z1, y, y + 0.06, nx, nz, deep);
@@ -2503,8 +2528,8 @@ export async function buildWorld(city, renderer, opts = {}) {
             } else if (st === 'interwar') {
                 for (let f = 0; f <= floors; f++) { // continuous parapet bands under the ribbon windows
                     const y = yFirst + f * floorH + floorH * 0.12; if (y > yTop - 0.8) break;
-                    const [x0, z0] = P(0, 0.12), [x1, z1] = P(L, 0.12);
-                    db.wall(x0, z0, x1, z1, y - 0.3, y, nx, nz, trim); db.flatQuad(ax, az, bx, bz, x1, z1, x0, z0, y, shadeRgb(trim, 1.06), 0, -1);
+                    const [x0, z0] = P(0, 0.25), [x1, z1] = P(L, 0.25);
+                    db.wall(x0, z0, x1, z1, y - 0.35, y, nx, nz, mixRgb(wallCol, [245, 242, 236], 0.5)); db.flatQuad(ax, az, bx, bz, x1, z1, x0, z0, y, [240, 238, 232], 0, -1);
                 }
                 if (brng() < 0.25 && L > 10) { const [x, z] = P(L * 0.5, 0.3); db.box(x, yTop, z, 0.06, 4, 0.06, 0, rgb('#cfcfcf')); } // flag pole
             } else if (st === 'bloc') {
@@ -2512,15 +2537,14 @@ export async function buildWorld(city, renderer, opts = {}) {
                 for (let f = 1; f < floors; f++) {
                     const yb = yFirst + f * floorH;
                     for (let i = 0; i < cols.length; i++) {
-                        const s2 = cols[i], [x, z] = P(s2, 0.0), r = brng();
+                        const s2 = cols[i], r = brng();
                         if (i % 2 === 0) { // balcony every other bay: open slab + parapet, or enclosed (glazed / clad, mixed colours)
-                            const [bx2, bz2] = P(s2, 0.55);
-                            if (r < 0.45) db.box(bx2, yb - 0.1, bz2, bayW * 0.9, 1.0, 1.1, ang, encl[Math.floor(brng() * encl.length)]); // enclosed lower part
-                            else db.box(bx2, yb - 0.1, bz2, bayW * 0.9, 0.12, 1.1, ang, shadeRgb(wallCol, 0.85));                      // open slab
-                            if (r < 0.3) db.box(bx2, yb + 0.9, bz2, bayW * 0.88, floorH - 1.1, 1.0, ang, rgb('#6f8794'));             // glazed top
-                            else if (r < 0.75) db.box(bx2, yb + 0.12, bz2, bayW * 0.9, 0.9, 0.06, ang, shadeRgb(wallCol, 0.8));  // parapet
-                        } else if (r < 0.18) { const [cx2, cz2] = P(s2 + bayW * 0.3, 0.3); db.box(cx2, yb + 0.25, cz2, 0.8, 0.55, 0.3, ang, rgb('#e2e2de')); } // AC unit
-                        else if (r < 0.22) { const [cx2, cz2] = P(s2, 0.25); db.box(cx2, yb + floorH * 0.7, cz2, 0.55, 0.55, 0.12, ang + 0.4, rgb('#d6d6d0')); } // dish
+                            if (r < 0.45) slab(s2, yb - 0.1, bayW * 0.9, 1.0, 1.1, encl[Math.floor(brng() * encl.length)]); // enclosed lower part
+                            else slab(s2, yb - 0.1, bayW * 0.9, 0.12, 1.1, shadeRgb(wallCol, 0.85));                      // open slab
+                            if (r < 0.3) slab(s2, yb + 0.9, bayW * 0.88, floorH - 1.1, 1.0, rgb('#6f8794'));             // glazed top
+                            else if (r < 0.75) slab(s2, yb + 0.02, bayW * 0.9, 0.9, 1.1, shadeRgb(wallCol, 0.8), false);  // parapet
+                        } else if (r < 0.18) slab(s2 + bayW * 0.3, yb + 0.25, 0.8, 0.55, 0.3, rgb('#e2e2de')); // AC unit
+                        else if (r < 0.22) slab(s2, yb + floorH * 0.7, 0.55, 0.55, 0.14, rgb('#d6d6d0'), false); // dish
                     }
                 }
                 const [x0, z0] = P(0, 0.03), [x1, z1] = P(L, 0.03); // prefab panel joints (horizontal)
@@ -3297,7 +3321,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             case 'marks': { const m = addSuper(o, marksMat, false, 'marks'); if (m) m.renderOrder = 4; break; }
             case 'water': { const m = addSuper(o, waterMat, false, 'water'); if (m) m.renderOrder = -18; break; }
             case 'solid': addSuper(o, solidMat, true, 'solid'); break;
-            case 'detail': { const m = addSuper(o, solidMat, true, 'detail'); if (m) m.userData.cull = 300 + CELL * 2 * 0.71; break; } // near LOD only
+            case 'detail': { const m = addSuper(o, solidMat, true, 'detail'); if (m) m.userData.cull = 180 + CELL * 2 * 0.71; break; } // near LOD only
             case 'signs': addSuper(o, signMats[o.page], false, 'signs'); break;
             case 'spill': { const m = addSuper(o, spillMat, false, 'shop-spill'); if (m) { m.renderOrder = 5; m.castShadow = m.receiveShadow = false; } break; }
         }
@@ -3613,6 +3637,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     return world;
 }
 
+function mixRgb(a, b, t) { return [Math.round(a[0] + (b[0] - a[0]) * t), Math.round(a[1] + (b[1] - a[1]) * t), Math.round(a[2] + (b[2] - a[2]) * t)]; }
 function shadeHex(hex, k) { const c = new THREE.Color(hex); c.multiplyScalar(k); return '#' + c.getHexString(); }
 
 function buildSky(env) {

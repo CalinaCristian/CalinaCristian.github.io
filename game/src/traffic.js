@@ -1064,6 +1064,9 @@ export class Traffic {
                 v.honkCd = this.rng.range(4, 14) / (0.2 + this.chaos);
                 if (this.rng.chance(0.15 + this.chaos * 0.7 + jam * 0.2)) this.honk(v, 'stuck');
             }
+            // face to face / T-boned with a stopped player at a merge for 8 s: both wait for each other — move the NPC
+            // back along its lane (nudge) so the player's way is free
+            if (leader === P && P && (P.stillT || 0) > 8 && v.stuck > 8) { v.stuck = 0; this.nudge(v); return; }
             if (!waitingRed && leader !== P && leader !== 'ped') {
                 const dP = P ? Math.hypot(P.x - v.x, P.z - v.z) : 1e9;
                 if (v.stuck > 12 && dP > 150) { this.respawn(v); return; }

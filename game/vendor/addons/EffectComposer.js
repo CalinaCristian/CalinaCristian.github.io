@@ -1,5 +1,7 @@
 import {
 	Clock,
+	DepthTexture,
+	FloatType,
 	HalfFloatType,
 	NoBlending,
 	Vector2,
@@ -26,6 +28,8 @@ class EffectComposer {
 
 			renderTarget = new WebGLRenderTarget( this._width * this._pixelRatio, this._height * this._pixelRatio, { type: HalfFloatType } );
 			renderTarget.texture.name = 'EffectComposer.rt1';
+			// (render.js) reversed-Z needs a floating-point depth buffer to gain precision (32F instead of 24-bit fixed)
+			if ( renderer.capabilities.reverseDepthBuffer ) renderTarget.depthTexture = new DepthTexture( renderTarget.width, renderTarget.height, FloatType );
 
 		} else {
 

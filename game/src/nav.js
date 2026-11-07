@@ -164,6 +164,9 @@ export class Navigator {
     }
     /** A* on travel time. heading (optional) penalises starting against the player's heading. */
     compute(fx, fz, tx, tz, heading = null, fy = null) {
+        // on foot (nav.walking): every street both ways (no one-way rules), walking pace, no heading penalty; motorways excluded
+        const W = !!this.walking, canTravelW = (e, dir) => W ? !isMotorway(e) : canTravel(e, dir), speedW = (e) => W ? 1.5 : edgeSpeed(e);
+        if (W) heading = null;
         const main = (e) => e.main !== false;
         // start on the road at the car's level (a bridge deck above / a street below is not where we are)
         const yAt = (e) => { if (e.ya === undefined) return 0.24; const t = Math.max(0, Math.min(1, ((fx - e.a.x) * e.dirx + (fz - e.a.z) * e.dirz) / e.len)); return 0.24 + e.ya + (e.yb - e.ya) * t; };
@@ -183,11 +186,11 @@ export class Navigator {
         const hx = heading === null ? 0 : -Math.sin(heading), hz = heading === null ? 0 : -Math.cos(heading);
         const startOpts = [];
         for (const dir of [1, -1]) {
-            if (!canTravel(se, dir)) continue;
+            if (!canTravelW(se, dir)) continue;
             const node = dir > 0 ? se.b : se.a;
             const along = dir > 0 ? (1 - s.t) * se.len : s.t * se.len;
             const against = heading !== null && (se.dirx * dir * hx + se.dirz * dir * hz) < -0.3;
-            const cost = along / edgeSpeed(se) + (against ? 25 : 0);
+            const cost = along / speedW(se) + (against ? 25 : 0);
             startOpts.push({ dir, node, cost, along });
             const i = this.nid.get(node);
             if (cost < dist[i]) { dist[i] = cost; prevN[i] = -1; prevE[i] = { e: se, dir }; heap.push(cost + h(node), i); }
@@ -198,15 +201,15 @@ export class Navigator {
         if (ge === se) {
             for (const o of startOpts) {
                 const ahead = o.dir > 0 ? g.t >= s.t : g.t <= s.t;
-                if (ahead) { const c = Math.abs(g.t - s.t) * se.len / edgeSpeed(se) + (o.cost - o.along / edgeSpeed(se)); direct = { dir: o.dir, cost: c }; }
+                if (ahead) { const c = Math.abs(g.t - s.t) * se.len / speedW(se) + (o.cost - o.along / speedW(se)); direct = { dir: o.dir, cost: c }; }
             }
         }
         const goalCost = new Map(); // nodeIdx -> {cost, dir}
         for (const dir of [1, -1]) {
-            if (!canTravel(ge, dir)) continue;
+            if (!canTravelW(ge, dir)) continue;
             const entry = dir > 0 ? ge.a : ge.b;
             const along = dir > 0 ? g.t * ge.len : (1 - g.t) * ge.len;
-            goalCost.set(this.nid.get(entry), { cost: along / edgeSpeed(ge), dir });
+            goalCost.set(this.nid.get(entry), { cost: along / speedW(ge), dir });
         }
         if (direct) { dist[GOAL] = direct.cost; prevN[GOAL] = -3; }
         let found = !!direct, iter = 0;
@@ -219,13 +222,13 @@ export class Navigator {
             if (gc && du + gc.cost < dist[GOAL]) { dist[GOAL] = du + gc.cost; prevN[GOAL] = u; prevE[GOAL] = { e: ge, dir: gc.dir }; heap.push(dist[GOAL], GOAL); }
             for (const e of node.edges) {
                 const dir = e.a === node ? 1 : -1;
-                if (!canTravel(e, dir)) continue;
+                if (!canTravelW(e, dir)) continue;
                 const other = dir > 0 ? e.b : e.a;
                 const vi = this.nid.get(other); if (vi === undefined) continue;
                 const pe = prevE[u];
                 const turnPen = !pe ? 0 : pe.e === e ? 40 : (node.edges.length >= 3 && (pe.e.name || '') !== (e.name || '')) ? 7 : 0;
                 const svc = e.type === 'service' && pe && pe.e.type !== 'service' ? SERVICE_ENTRY : 0;
-                const c = du + e.len / edgeSpeed(e) * (TYPE_COST[e.type] || 1) + turnPen + svc;
+                const c = du + e.len / speedW(e) * (TYPE_COST[e.type] || 1) + turnPen + svc;
                 if (c < dist[vi]) { dist[vi] = c; prevN[vi] = u; prevE[vi] = { e, dir }; heap.push(c + h(other), vi); }
             }
         }

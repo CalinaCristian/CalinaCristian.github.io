@@ -112,12 +112,18 @@ const GTAOShader = {
 			return viewSpacePosition.xyz / viewSpacePosition.w;
 		}
 
+		// (render.js) reversed-Z depth buffer: convert back to the conventional 0 = near … 1 = far
+		#ifdef USE_REVERSEDEPTHBUF
+			#define GTAO_D(x) (1.0 - (x))
+		#else
+			#define GTAO_D(x) (x)
+		#endif
 		float getDepth(const vec2 uv) {  
-			return textureLod(tDepth, uv.xy, 0.0).DEPTH_SWIZZLING;
+			return GTAO_D(textureLod(tDepth, uv.xy, 0.0).DEPTH_SWIZZLING);
 		}
 
 		float fetchDepth(const ivec2 uv) {   
-			return texelFetch(tDepth, uv.xy, 0).DEPTH_SWIZZLING;
+			return GTAO_D(texelFetch(tDepth, uv.xy, 0).DEPTH_SWIZZLING);
 		}
 
 		float getViewZ(const in float depth) {

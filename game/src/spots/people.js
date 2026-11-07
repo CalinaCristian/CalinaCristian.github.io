@@ -111,7 +111,10 @@ export class Crowd {
     constructor(o) {
         this.o = o; this.ground = o.ground; this.r = rng(o.seed || 77);
         this.peds = []; this.t = 0; this.chatT = 4; this.globalCd = 0; this.idleT = 0; this.recent = [];
-        this.lines = o.dialogue?.lines || []; this.general = o.general?.lines || [];
+        this.lines = o.dialogue?.lines || [];
+        // note 48: only place-appropriate city-wide lines — a persona line (e.g. office talk) only where that persona is in the scene
+        { const here = new Set([...Object.keys(o.personas || {}), ...(o.groups || []).flatMap((g) => g.personas || []), 'local', 'tourist', 'tourist_us']);
+            this.general = (o.general?.lines || []).filter((l) => !l.p || here.has(l.p) || /^(local|tourist)/.test(l.p)); }
         this.rainy = false;
         /** colliderIndex of the scene (walker colliders): peds are placed outside them and walkers turn back at them */
         this.colliders = o.colliders || null;
@@ -244,6 +247,7 @@ export class Crowd {
         for (const p of this.peds) {
             p.cd -= dt; p.sayCd -= dt; p.poseT -= dt; if (p.poseT <= 0) p.pose = null;
             const dP = player ? Math.hypot(p.x - player.x, p.z - player.z) : 1e9;
+            if (p.driven) continue; // moved by its owner (the tour guide): position, yaw, speed, phase set from outside
             if (p.act === 'walk') this._walk(p, dt, player, dP);
             else {
                 p.speed = 0;
@@ -386,11 +390,11 @@ export class Crowd {
         const M = this.mesh; if (!M) return;
         const cr = this.cr; if (cr && this.rainy !== this._crRain) { this._crRain = this.rainy; cr.setWeather(this.rainy ? 'rain' : 'clear'); }
         for (let i = 0; i < this.peds.length; i++) {
-            const p = this.peds[i], L = p.look, s = L.scale, walking = p.act === 'walk' && p.speed > 0.1;
+            const p = this.peds[i], L = p.look, s = L.scale, walking = (p.act === 'walk' || p.driven) && p.speed > 0.1;
             const legacy = !cr;
             if (cr) { // crowd.js idle poses + hand-held props (sit / phone / photo / wave / flag / guitar / talk)
                 let pose = 'stand', prop = null; const q = p.pose || ({ photo: 'photo', perform: 'perform', guide: 'flag', sit: 'sit', talk: 'talk' })[p.act] || (L.prop === 'flag' ? 'flag' : null);
-                if (walking) pose = 'walk';
+                if (walking) { pose = 'walk'; if (p.driven && L.prop === 'flag') prop = 'flag'; }
                 else if (q === 'sit') pose = 'sit';
                 else if (q === 'photo') { pose = 'photo'; prop = L.prop === 'camera' ? 'camera' : 'phone'; }
                 else if (q === 'wave' || q === 'peace') pose = 'wave';

@@ -206,9 +206,9 @@ export function boulderWall(b, pts, yFn, { h = 1.4, seed = 1, cols = ['#8d8a83',
         const yaw = Math.atan2(bx - ax, bz - az);
         for (let s = acc; s < L; s += 0.95 + r() * 0.35) {
             const t = s / L, x = ax + (bx - ax) * t, z = az + (bz - az) * t, y = yFn(x, z);
-            const rr = 0.42 + r() * 0.25, c = cols[Math.floor(r() * cols.length)];
+            const rr = 0.32 + r() * 0.22, c = cols[Math.floor(r() * cols.length)];
             b.add(ROCK, 'stone', new THREE.Matrix4().compose(new THREE.Vector3(x, y + rr * 0.55, z), new THREE.Quaternion().setFromEuler(new THREE.Euler(r() * 0.5, yaw + r() * 3, r() * 0.4)), new THREE.Vector3(rr * 2.1, rr * 1.5, rr * 1.8)), c);
-            if (h > 1 && r() < 0.85) { const r2 = 0.33 + r() * 0.2; b.add(ROCK, 'stone', new THREE.Matrix4().compose(new THREE.Vector3(x + (r() - 0.5) * 0.4, y + rr * 1.2 + r2 * 0.5, z + (r() - 0.5) * 0.4), new THREE.Quaternion().setFromEuler(new THREE.Euler(r(), r() * 6, r())), new THREE.Vector3(r2 * 2, r2 * 1.4, r2 * 1.8)), cols[Math.floor(r() * cols.length)]); }
+            if (h > 1 && r() < 0.7) { const r2 = 0.26 + r() * 0.16; b.add(ROCK, 'stone', new THREE.Matrix4().compose(new THREE.Vector3(x + (r() - 0.5) * 0.4, y + rr * 1.2 + r2 * 0.5, z + (r() - 0.5) * 0.4), new THREE.Quaternion().setFromEuler(new THREE.Euler(r(), r() * 6, r())), new THREE.Vector3(r2 * 2, r2 * 1.4, r2 * 1.8)), cols[Math.floor(r() * cols.length)]); }
         }
         acc = 0;
     }

@@ -16,7 +16,8 @@ const arg = (k, d) => { const a = process.argv.find(x => x.startsWith(`--${k}=`)
 const PORT = +arg('port', 8123);
 const OUT = arg('out', path.join(__dirname, 'report', 'achievements'));
 const GAME = process.argv.includes('--game');
-const SAVE = process.argv.includes('--save');
+const SAVE = process.argv.includes('--save') || process.argv.includes('--only-save');
+const ONLY_SAVE = process.argv.includes('--only-save'); // skip the menu / panel sections (one browser, short)
 const URL = `http://127.0.0.1:${PORT}/game/index.html`;
 fs.mkdirSync(OUT, { recursive: true });
 
@@ -103,6 +104,7 @@ async function runSave() {
 }
 
 (async () => {
+    if (ONLY_SAVE) { await runSave(); const fail = results.filter(r => !r.ok).length + (errors.length ? 1 : 0); console.log(`\n${results.length - results.filter(r => !r.ok).length}/${results.length} passed${errors.length ? ' · errors: ' + errors.join(' | ').slice(0, 400) : ''}`); process.exit(fail ? 1 : 0); }
     const browser = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
     const ctx = await browser.newContext({ viewport: { width: 1280, height: 720 }, deviceScaleFactor: 1 });
     await ctx.route(/api\.open-meteo\.com/, (r) => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ current: { temperature_2m: 12, weather_code: 3, cloud_cover: 80, precipitation: 0, visibility: 20000, wind_speed_10m: 10, is_day: 1, snowfall: 0 } }) }));
@@ -273,9 +275,10 @@ async function runSave() {
             await sleep(500);
         }
     } catch (e) { errors.push('harness: ' + (e.stack || e.message)); }
+    await browser.close().catch(() => { }); // one browser at a time (shared machine)
     if (SAVE) await runSave();
     check('0 page errors', errors.length === 0, errors.slice(0, 5).join(' | '));
-    await browser.close();
+    // (browser closed above)
     const fail = results.filter(r => !r.ok).length;
     fs.writeFileSync(path.join(OUT, 'results.json'), JSON.stringify({ results, errors }, null, 2));
     console.log(`\n${results.length - fail}/${results.length} passed · screenshots in ${OUT}`);

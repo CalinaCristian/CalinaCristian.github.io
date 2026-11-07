@@ -515,7 +515,7 @@ const PROPS = {
             const p = new THREE.Mesh(new THREE.PlaneGeometry(0.6, 0.15), new THREE.MeshBasicMaterial({ map: ind })); p.position.set(-W / 2 + 0.42, 2.85, z); p.rotation.y = Math.PI / 2; o.scene.add(p);
         }
         box(4.5, 1.1, 1, 3, 0.55, -4, mat('#efe9df', { roughness: 0.35 }), true); box(4.6, 0.05, 1.1, 3, 1.12, -4, mat('#2b2e33', { roughness: 0.2, metalness: 0.3 }));
-        for (const x of [-3, 0]) { const p = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.3, 0.6, 12), mat('#3a3d44')); p.position.set(x, 0.3, 4); o.scene.add(p); const t = new THREE.Mesh(new THREE.SphereGeometry(0.6, 10, 8), mat('#3f7a3f')); t.position.set(x, 1.1, 4); o.scene.add(t); o.addBox(x, 4, 0.8, 0.8); }
+        for (const x of [-6.5, 6.5]) { const p = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.3, 0.6, 12), mat('#3a3d44')); p.position.set(x, 0.3, 4); o.scene.add(p); const t = new THREE.Mesh(new THREE.SphereGeometry(0.6, 10, 8), mat('#3f7a3f')); t.position.set(x, 1.1, 4); o.scene.add(t); o.addBox(x, 4, 0.8, 0.8); }
         box(2.2, 0.45, 0.9, 5.5, 0.23, 3, mat('#5a5f66'), true);
         void accent;
     },

@@ -2931,6 +2931,45 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
     }
 
+    /** (play-test note 10a) a business inside a building: its own ground-floor fascia (brand colours + name) over its
+     *  unit, on the street wall nearest to the mapped point, + a projecting blade sign; lit at night with the signs */
+    let unitSigns = 0;
+    function addUnitSign(b, x, z, text, kind) {
+        if (b.skip || b.cv || (b.minH || 0) > 0.5 || b.h < 3) return;
+        const ring = b.ring, ccw = signedArea(ring) > 0;
+        let best = null, bd = Infinity;
+        for (let k = 0; k < ring.length; k++) {
+            const [ax, az] = ring[k], [bx, bz] = ring[(k + 1) % ring.length], L = Math.hypot(bx - ax, bz - az); if (L < 3) continue;
+            let nx = (bz - az) / L, nz = -(bx - ax) / L; if (!ccw) { nx = -nx; nz = -nz; }
+            const t = clamp(((x - ax) * (bx - ax) + (z - az) * (bz - az)) / (L * L), 0, 1), px = ax + (bx - ax) * t, pz = az + (bz - az) * t;
+            const ne = nearestEdge(px + nx * 4, pz + nz * 4, (e) => !e.virtual && e.drivable, 30); if (!ne || buildingAt(px + nx * 1.5, pz + nz * 1.5)) continue; // (a street front)
+            const d = Math.hypot(px - x, pz - z) + ne.d * 0.3; if (d < bd) { bd = d; best = { ax, az, bx, bz, L, nx, nz, t }; }
+        }
+        if (!best) return;
+        const bs = brandStyle(text) || (kind === 'pharmacy' ? ['#15803d', '#ffffff', null] : kind === 'bank' ? ['#1e3a8a', '#ffffff', null] : ['#1f2937', '#f5f5f4', null]);
+        const s = signs.get(text.slice(0, 24), bs[0], bs[1], bs[2]); if (!s) return;
+        const { ax, az, bx, bz, L, nx, nz } = best, tx = (bx - ax) / L, tz = (bz - az) / L;
+        let w = Math.min(6.5, L - 0.8), hh = Math.min(0.7, w / s.aspect); w = Math.min(w, hh * s.aspect);
+        const tc = clamp(best.t * L, w / 2 + 0.4, L - w / 2 - 0.4), mx = ax + tx * tc + nx * 0.14, mz = az + tz * tc + nz * 0.14;
+        const shop = (b.flags & 1) && b.h > 6, y = shop ? 4.2 - hh - 0.1 : Math.min(3.0, b.h - hh - 0.3);
+        if (signedHits(mx, mz, y)) return; // (one sign per unit: another business already signed this spot)
+        const cc = cellOf(mx, mz), white = [255, 255, 255], mbS = signMB(cc, s.page);
+        const lx = mx - tx * w / 2, lz = mz - tz * w / 2, rx = mx + tx * w / 2, rz = mz + tz * w / 2;
+        // viewer outside looks along -n; their right-hand vector is (nz, -nx) = +t when the ring is ccw-out
+        const [Lx, Lz, Rx, Rz] = (nz * tx - nx * tz) > 0 ? [lx, lz, rx, rz] : [rx, rz, lx, lz];
+        const i0 = mbS.v(Lx, y, Lz, nx, 0, nz, s.u0, s.v0, white), i1 = mbS.v(Rx, y, Rz, nx, 0, nz, s.u1, s.v0, white);
+        const i2 = mbS.v(Rx, y + hh, Rz, nx, 0, nz, s.u1, s.v1, white), i3 = mbS.v(Lx, y + hh, Lz, nx, 0, nz, s.u0, s.v1, white);
+        mbS.tri(i0, i1, i2); mbS.tri(i0, i2, i3);
+        cc.solid.box(mx - nx * 0.07, y - 0.1, mz - nz * 0.07, 0.1, hh + 0.2, w + 0.5, Math.atan2(tx, tz), rgb(bs[0])); // fascia board
+        const ex = mx + tx * (w / 2 + 0.7) + nx * 0.5, ez = mz + tz * (w / 2 + 0.7) + nz * 0.5;
+        if (tc + w / 2 + 1.3 < L) { // projecting blade sign (both faces), on a bracket
+            cc.solid.box(ex - nx * 0.25, y + hh + 0.75, ez - nz * 0.25, 0.04, 0.04, 0.7, Math.atan2(nx, nz), rgb('#2b2b2b'));
+            addSignQuad(cc, ex, ez, Math.atan2(tx, tz), 1, 1.1, Math.max(0.28, 1.1 / s.aspect), y + hh + 0.4, s, 0.05);
+        }
+        signedSpots.push([mx, mz, y]); unitSigns++;
+    }
+    const signedSpots = [];
+    const signedHits = (x, z, y) => signedSpots.some(([a, b2, c]) => Math.hypot(a - x, b2 - z) < 3.5 && Math.abs(c - y) < 1);
     function addFacadeSign(b, h, shop, wallCol) {
         const ne = nearestEdge(b.c[0], b.c[1]);
         if (!ne || ne.d > 90) return;
@@ -3056,6 +3095,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             }
         }
         const c = cellOf(x, z);
+        if (['food', 'shop', 'bank', 'pharmacy', 'hotel'].includes(kind) && bIdx >= 0 && bRecs[bIdx] && (brand || name) && !(kind === 'fuel')) addUnitSign(bRecs[bIdx], x, z, (brand || name), kind);
         const ne = nearestEdge(x, z);
         if (!ne) continue;
         const e = ne.edge;
@@ -3790,7 +3830,7 @@ export async function buildWorld(city, renderer, opts = {}) {
 
     setProgress(''); const phases = PHASES.splice(0);
     const stats = { phases, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount,
-        profile: profileStats, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingsDropped: bDropped, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
+        profile: profileStats, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingsDropped: bDropped, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, unitSigns, crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
     console.info('[world]', city.id, stats);
 
     /** calls cb(height) for every drivable surface (carriageway + shoulder + sidewalk, junction pads) covering (x, z) */

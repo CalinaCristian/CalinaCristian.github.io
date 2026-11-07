@@ -74,7 +74,7 @@ export function seaHeight(la, lo) {
 // ============================================================================ façade shader
 const STYLES = {
     // bay width m, floor height m, mullion frac (x), spandrel frac (y), glass colour, lit share, glass metalness, roughness, metal
-    glass: { bay: 1.52, floor: 3.95, fx: 0.06, fy: 0.24, glass: '#3e5668', lit: 0.42, gm: 0.55, rough: 0.6, metal: 0.25, night: 1.15 },
+    glass: { bay: 1.52, floor: 3.95, fx: 0.06, fy: 0.24, glass: '#2c4152', lit: 0.42, gm: 0.55, rough: 0.6, metal: 0.25, night: 1.15 },
     dark: { bay: 1.52, floor: 3.95, fx: 0.05, fy: 0.22, glass: '#1b232b', lit: 0.4, gm: 0.6, rough: 0.5, metal: 0.3, night: 1.1 },
     stone: { bay: 1.6, floor: 3.9, fx: 0.24, fy: 0.36, glass: '#262d33', lit: 0.4, gm: 0.45, rough: 0.82, metal: 0.02, night: 1.05 },
     brick: { bay: 2.1, floor: 3.7, fx: 0.3, fy: 0.42, glass: '#22282d', lit: 0.36, gm: 0.35, rough: 0.9, metal: 0, night: 0.95 },
@@ -126,7 +126,7 @@ export function facadeMaterial(style = 'glass') {
             .replace('#include <metalnessmap_fragment>', '#include <metalnessmap_fragment>\nmetalnessFactor = mix(metalnessFactor, uLit.y, sWin);')
             .replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\ntotalEmissiveRadiance *= sLit * sTint * mix(0.8, 1.15, sfHash(sC + 5.1));')
             // skyline towers keep more contrast than the haze floor gives far ground (clear PNW days: 30+ km visibility)
-            .replace('#include <fog_fragment>', THREE.ShaderChunk.fog_fragment.replace('fogDensity * length', 'fogDensity * 0.55 * length'));
+            .replace('#include <fog_fragment>', THREE.ShaderChunk.fog_fragment.replace('fogDensity * length', 'fogDensity * 0.4 * length'));
     };
     m.customProgramCacheKey = () => 'sea-facade-v1';
     FACADE.set(style, m);
@@ -696,7 +696,7 @@ export function seaBackdrop(ctx, o = {}) {
     if (o.rainier !== false) {
         const R = RAINIER_LL, p = ctx.ll(R[0], R[1]), dist = Math.hypot(p.x, p.z), bear = ((Math.atan2(p.x, -p.z) / DEG) + 360) % 360;
         const m = mountain(0, 0, bear, dist, R[2] - E - (o.eyeY ?? 0), 16000, { dist: 8000, eyeY: o.eyeY ?? 0, color: '#7486a0', snow: '#f4f6fa', haze: '#a9b9cb', seed: 4 });
-        m.userData.weatherMountain = true; m.material.fog = false; grp.add(m); out.rainier = m;
+        m.position.y -= m.geometry.parameters?.height ? 0 : 0; m.scale.y = 1; m.position.y -= 0.12 * (new THREE.Box3().setFromObject(m).getSize(new THREE.Vector3()).y); m.userData.weatherMountain = true; m.material.fog = false; grp.add(m); out.rainier = m;
     }
     if (o.olympics !== false) {
         for (const [b2, h, w2] of [[262, 1700, 30000], [276, 2200, 26000], [290, 2400, 32000], [305, 2000, 24000], [318, 1600, 22000]]) { const m = mountain(0, 0, b2, 70000, h - E - (o.eyeY ?? 0), w2, { dist: 7800, eyeY: o.eyeY ?? 0, color: '#66779a', snow: '#e6ebf2', haze: '#aebdd0', seed: b2 }); m.userData.weatherMountain = true; grp.add(m); }

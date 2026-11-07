@@ -12,7 +12,7 @@ import { CITIES } from '../cities.js';
 import { Ground, Painter, buildTerrain } from './ground.js';
 import { paintOSM, buildBuildings, buildTrees, buildLamps, buildFurniture, roadLampPoints, streetTrees, areaTrees, waterPlane, polyCollider, streetBands, carriagewayTest } from './osm.js';
 import { Crowd } from './people.js';
-import { SpotUI, plaqueMesh } from './ui.js';
+import { SpotUI, SpotMap, plaqueMesh } from './ui.js';
 import { SpotSound } from './sound.js';
 import { colliderIndex, LocalWalker, collide } from './walker.js';
 import { countTris, disposeTree, headingFromBearing, inPoly, polyBox, DEG, rng } from './kit.js';
@@ -247,6 +247,10 @@ export async function loadSpot(id, renderer = null, opts = {}) {
     if (ctx.crowdCfg) {
         const sp = ctx.spot();
         const fp = globalThis.__spotsLegacy ? null : floorProbe(ctx.scene); ctx.extras.floorProbe = fp;
+        // the tour guide (note 67): waits with a flag a few metres from the first spawn until the player joins the tour
+        if (ctx.crowdCfg.tour !== false) { const s0 = Object.values(spawns)[0] || spawn, fx = -Math.sin(s0.heading), fz = -Math.cos(s0.heading);
+            let gx = s0.x + fx * 4 + fz * 2.5, gz = s0.z + fz * 4 - fx * 2.5; if (collide(colliders, gx, gz, 0.4, ctx.ground.heightAt(gx, gz) + 0.2)) { gx = s0.x - fz * 2; gz = s0.z + fx * 2; }
+            ctx.crowdCfg = { ...ctx.crowdCfg, groups: [...(ctx.crowdCfg.groups || []), { x: gx, z: gz, r: 0, n: 1, act: 'guide', personas: ['tour_guide'], tour: true, fixedYaw: true, yaw: Math.atan2(s0.x - gx, s0.z - gz) }] }; }
         crowd = new Crowd({ lift: fp?.lift, city: data.city, ground: ctx.ground, dialogue: mergeDialogue(data, ctx.crowdCfg.spots || data.members), general: data.dialogueGeneral, seed: data.id.length * 7, colliders, ...ctx.crowdCfg });
         ctx.add(crowd.group);
         void sp;
@@ -323,12 +327,123 @@ export class SpotSession {
         this.sound = new SpotSound({ audio: host.audio });
         for (const so of spot.sounds) this.sound.add(so.kind, so.x, so.z, so.radius, so.gain);
         spot.ctx.session = this;
-        this._updateChallengeText(); T.push(performance.now());
+        this._updateChallengeText();
+        try { this._initMap(); } catch (e) { console.warn('[spots] map', e); }
+        T.push(performance.now());
         this.startTiming = T.slice(1).map((t, i) => Math.round(t - T[i]));
         console.info('[spots] session start ms (setScene, setClock, setLamps, walker+ui+sound):', this.startTiming.join(', '));
         window.cvTelemetry?.track?.('spot_enter', { id: spot.id, scene: spot.sceneId, city: spot.city });
     }
     get position() { return this.ctl.position; }
+    // ------------------------------------------------------------------ spot map + objectives + guided tour (notes 32/33/67)
+    /** everything worth finding in this scene: { kind, x, z, label, done, icon? } (landmarks, plaques, postcard, activities, entrances) */
+    objectives() {
+        const S = this.spot, out = [], P = this.progress, read = P.plaques || {};
+        for (const mid of S.data.members || []) { const e = spotById(mid), d = S.data.spots[mid]; if (!e || !d) continue;
+            const ch = S.challenges.find((c) => c.id === mid), ext = d.extent?.polygon?.length ? polyBox(d.extent.polygon) : null;
+            const hx = ch?.view?.[0] ?? (ext ? (ext.x0 + ext.x1) / 2 : d.spawn?.x ?? 0), hz = ch?.view?.[1] ?? (ext ? (ext.z0 + ext.z1) / 2 : d.spawn?.z ?? 0);
+            out.push({ kind: 'hero', x: hx, z: hz, label: e.name, blurb: e.blurb, done: !!this._seen?.has('hero:' + mid) }); }
+        for (const [k, sp] of Object.entries(S.spawns || {})) if (Object.keys(S.spawns).length > 1) out.push({ kind: 'entrance', x: sp.x, z: sp.z, label: 'Entrance: ' + (spotById(k)?.name || k), done: true, noTour: true });
+        for (const pl of S.plaques) out.push({ kind: 'plaque', x: pl.x, z: pl.z, label: pl.title, text: pl.text, done: !!read[S.sceneId + ':' + pl.title], plaque: pl });
+        for (const c of S.challenges) out.push({ kind: 'postcard', x: c.x, z: c.z, label: 'Postcard: ' + (c.text ? c.text.split(/[—.;]/)[0].trim() : 'the iconic photo'), text: c.text, done: !!P.postcards?.[c.id] });
+        for (const it of S.interactables) { if (it.kind === 'plaque' || it.kind === 'guide') continue; const lb = typeof it.label === 'function' ? it.label(this) : it.label; if (!lb) continue;
+            out.push({ kind: it.kind === 'bike' ? 'bike' : 'activity', x: it.x, z: it.z, label: lb.replace(/^(Read|Take|Try|Ride|Rent):?\s*/i, (m) => m), done: !!this._seen?.has('act:' + lb) }); }
+        return out;
+    }
+    _initMap() {
+        const S = this.spot, T = S.ctx.extras.terrain, b = T?.inner || { x0: -200, z0: -200, x1: 200, z1: 200 }, tp = S.ctx.terrainOpts || {};
+        const px = 900, [img] = S.ctx.painter.render(b.x0, b.z0, b.x1 - b.x0, b.z1 - b.z0, px, null, tp.bg || '#617242', tp.bgMask || 'grass');
+        this._seen = new Set(); this.map = new SpotMap(this.ui, { image: img, bounds: b });
+        this.ui.$('.sp-mini').onclick = () => this.openMap();
+        this.ui.setHelp('WASD walk · Shift run · Space jump · E interact · G map · P camera · click to look (Esc releases)');
+        this.ui.setTour(null);
+        // the tour guide ped + its interactable
+        this.guide = S.crowd?.peds.find((p) => p.group?.tour) || null;
+        if (this.guide) {
+            this.guide.driven = true; this.guide.speed = 0;
+            this._guideIt = { kind: 'guide', x: this.guide.x, z: this.guide.z, r: 2.6, label: (s) => (s.tour?.state === 'done' ? 'Thanks for the tour!' : s.tour ? 'Tour guide — follow the flag' : 'Join the free guided tour'), use: (s) => { if (!s.tour) s.startTour(); } };
+            S.interactables.push(this._guideIt);
+        }
+        this._refreshMarkers();
+    }
+    _refreshMarkers() {
+        if (!this.map) return; const list = this.objectives(), cur = this.tour?.stops?.[this.tour.i];
+        if (this.guide) list.push({ kind: 'guide', x: this.guide.x, z: this.guide.z, label: this.tour ? 'Your guide' : 'Free guided tour', done: false });
+        for (const m of list) if (cur && m.kind === cur.kind && m.label === cur.label) m.cur = true;
+        this.map.setMarkers(list); this._objs = list;
+    }
+    async openMap() {
+        if (this.ui.panelOpen || !this.map) return;
+        if (this.input) { this.input.lookAllowed = false; this.input.releaseLock?.(); }
+        this._refreshMarkers();
+        const items = this._objs.filter((m) => m.kind !== 'guide' && m.kind !== 'entrance').map((m) => ({ icon: { hero: '⭐', plaque: '📜', postcard: '📷', bike: '🚲', activity: '🎯' }[m.kind] || '•', label: m.label, done: m.done }));
+        await this.ui.showMap(this.map, { title: this.spot.name, items, tour: this.guide && !this.tour ? { label: '🚩 Start the guided tour', run: () => this.startTour() } : null });
+        if (this.input) { this.input.lookAllowed = true; this.input.flush?.(); this.input.keys?.clear?.(); }
+        this.returnFocus();
+    }
+    /** optional guided tour: the guide walks ahead with a flag to each stop (landmark → plaques → activities → postcard), narrates, ticks the checklist */
+    startTour() {
+        if (!this.guide || this.tour) return;
+        const objs = this.objectives().filter((m) => !m.noTour && m.kind !== 'entrance');
+        const stops = []; let cx = this.guide.x, cz = this.guide.z; const pool = objs.filter((m) => m.kind !== 'postcard'), post = objs.filter((m) => m.kind === 'postcard');
+        while (pool.length && stops.length < 7) { let bi = 0, bd = 1e9; pool.forEach((m, i) => { const d = Math.hypot(m.x - cx, m.z - cz) + (m.kind === 'hero' ? -60 : 0); if (d < bd) { bd = d; bi = i; } }); const m = pool.splice(bi, 1)[0]; stops.push(m); cx = m.x; cz = m.z; }
+        if (post[0]) stops.push(post[0]); // finish at the postcard viewpoint
+        for (const m of stops) { m.done = false; const dry = this.spot.ground.nearestDry(m.x, m.z); m.tx = dry.x; m.tz = dry.z; } // the guide stops next to it
+        this.tour = { stops, i: 0, state: 'walk', wait: 0, said: false, t: 0 };
+        this.guide.act = 'guide';
+        this.spot.crowd?._say?.(this.guide, 'spot');
+        this.ui.toast('🚩 Guided tour', `${stops.length} stops — follow the guide's flag (G shows the map).`);
+        try { window.dispatchEvent(new CustomEvent('dmcv:activity', { detail: { spot: this.spot.id, id: 'tour-start' } })); } catch { /* no host */ }
+        this._tourUI(); this._routeLine();
+    }
+    _tourUI() { const T = this.tour; if (!T) return this.ui.setTour(null); this.ui.setTour(T.stops.map((m, i) => ({ label: m.label, done: i < T.i || m.done && i < T.i, cur: i === T.i && T.state !== 'done' })), T.state === 'done' ? 'Tour complete' : `Guided tour ${Math.min(T.i + 1, T.stops.length)}/${T.stops.length}`); }
+    /** a dashed ground line from the guide to the current stop (3-D) + the same route on the map */
+    _routeLine() {
+        if (this._route) { this.spot.scene.remove(this._route); this._route.geometry.dispose(); this._route = null; }
+        const T = this.tour, st = T?.stops[T.i]; if (!st || T.state === 'done') { this.map?.setRoute(null); return; }
+        const a = this.guide, L = Math.hypot(st.tx - a.x, st.tz - a.z), n = Math.max(1, Math.floor(L / 1.6)), pos = [], g = this.spot.ground;
+        for (let i = 0; i < n; i += 1) { const u0 = i / n, u1 = Math.min(1, (i + 0.55) / n); for (const [u, sd] of [[u0, -0.12], [u0, 0.12], [u1, 0.12], [u1, -0.12]]) { const x = a.x + (st.tx - a.x) * u, z = a.z + (st.tz - a.z) * u, nx = -(st.tz - a.z) / (L || 1), nz = (st.tx - a.x) / (L || 1); pos.push(x + nx * sd, g.groundAt(x, z, g.heightAt(x, z) + 1) + 0.06, z + nz * sd); } }
+        const idx = []; for (let q = 0; q < pos.length / 12; q++) { const b = q * 4; idx.push(b, b + 1, b + 2, b, b + 2, b + 3); }
+        const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); geo.setIndex(idx);
+        const m = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: '#fbbf24', transparent: true, opacity: 0.75, depthWrite: false, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }));
+        m.name = 'tour-route'; m.userData.noAudit = true; m.renderOrder = 2; this.spot.scene.add(m); this._route = m;
+        this.map?.setRoute([[a.x, a.z], [st.tx, st.tz]]);
+    }
+    _updateTour(dt, p) {
+        const T = this.tour, G = this.guide; if (!T || !G || T.state === 'done') return;
+        const st = T.stops[T.i]; T.t += dt;
+        const dP = Math.hypot(p.x - G.x, p.z - G.z), dS = Math.hypot(st.tx - G.x, st.tz - G.z);
+        if (T.state === 'walk') {
+            const wait = dP > 14; // the guide waits for the player, waving the flag
+            if (dS < 2.2) { T.state = 'arrive'; T.wait = 0; G.speed = 0; }
+            else if (!wait) {
+                const v = Math.min(1.35, 0.6 + Math.max(0, 9 - dP) * 0.12); let dx = (st.tx - G.x) / dS, dz = (st.tz - G.z) / dS;
+                const cols = this.spot.colliders; let nx = G.x + dx * v * dt, nz = G.z + dz * v * dt;
+                for (const turn of [0, 0.7, -0.7, 1.4, -1.4]) { const c = Math.cos(turn), s2 = Math.sin(turn), ex = dx * c - dz * s2, ez = dx * s2 + dz * c; nx = G.x + ex * v * dt; nz = G.z + ez * v * dt; if (!collide(cols, nx, nz, 0.3, G.y + 0.3)) { dx = ex; dz = ez; break; } }
+                G.x = nx; G.z = nz; G.y = this.spot.ground.groundAt(nx, nz, G.y + 0.45); G.speed = v; G.phase += dt * v * 4.6; G.yaw = Math.atan2(dx, dz); G.tyaw = G.yaw;
+                if ((T.t % 1) < dt) this._routeLine();
+            } else { G.speed = 0; G.yaw = Math.atan2(p.x - G.x, p.z - G.z); }
+        }
+        if (T.state === 'arrive') {
+            G.speed = 0; G.yaw = Math.atan2(st.x - G.x, st.z - G.z); T.wait += dt;
+            if (dP < 10 && !T.said) { // narration: the guide's bubble + the full line in a toast
+                T.said = true; const text = st.kind === 'hero' ? (st.blurb || st.label) : st.kind === 'plaque' ? firstSentence(st.text) || st.label : st.kind === 'postcard' ? 'Best photo of the day from right here — ' + (st.text || 'the classic view') : st.label;
+                this.ui.bubbles?.say(this.spot.crowd?._headRef?.(G) || G, `${st.kind === 'hero' ? 'Here it is: ' : ''}${firstSentence(text).slice(0, 140)}`, '', 'friendly');
+                this.ui.toast('🚩 ' + st.label, text.slice(0, 260)); this._seen.add((st.kind === 'hero' ? 'hero:' : 'act:') + st.label); T.wait = 0;
+            }
+            if (T.said && T.wait > 6) { st.done = true; T.i++; T.said = false; T.t = 0; if (T.i >= T.stops.length) return this._finishTour(); T.state = 'walk'; this._tourUI(); this._routeLine(); this._refreshMarkers(); }
+        }
+        if (this._guideIt) { this._guideIt.x = G.x; this._guideIt.z = G.z; }
+    }
+    _finishTour() {
+        const T = this.tour; T.state = 'done'; this.guide.speed = 0; this._tourUI(); this._routeLine();
+        const P = this.progress, k = this.spot.sceneId; (P.tours || (P.tours = {}))[k] = Date.now(); saveProgress(P);
+        this.ui.toast('🏅 Tour complete', `You saw ${T.stops.length} stops at ${this.spot.name}.`);
+        try { this.host.onTour?.({ scene: k, spot: this.spot.id, stops: T.stops.length }); } catch { /* host */ }
+        try { window.dispatchEvent(new CustomEvent('dmcv:activity', { detail: { spot: this.spot.id, id: 'tour' } })); } catch { /* no host */ }
+        window.cvTelemetry?.track?.('spot_tour', { id: this.spot.id });
+        this._refreshMarkers();
+    }
     /** photo-mode hook (host's PhotoMode onPhoto → here) */
     onPhoto(meta = {}) {
         const n = this.spot.crowd?.onPhoto(this.camera) || 0;
@@ -375,6 +490,7 @@ export class SpotSession {
         if (this.input) { this.input.lookAllowed = false; this.input.releaseLock?.(); }
         window.cvTelemetry?.track?.('spot_plaque', { id: this.spot.id, title: p.title });
         await this.ui.showPlaque(p, this.spot.name);
+        { const P = this.progress; (P.plaques || (P.plaques = {}))[this.spot.sceneId + ':' + p.title] = Date.now(); saveProgress(P); this._refreshMarkers?.(); }
         if (this.input) { this.input.lookAllowed = true; this.input.flush?.(); this.input.keys?.clear?.(); }
         this.returnFocus();
     }
@@ -401,6 +517,9 @@ export class SpotSession {
             this.spot.crowd.rainy = (this.r3d.weather?.kind || '').includes('rain'); this.spot.crowd.update(dt, pl, this.camera);
         }
         for (const f of this.spot.updaters) f(dt, this, pl);
+        if (this.tour) this._updateTour(dt, p);
+        if (this.map && !photo) { this.map.update(dt, { x: p.x, z: p.z, heading: this.ctl.heading }); if (this.guide && (this._mkT = (this._mkT ?? 0) - dt) <= 0) { this._mkT = 1; this._refreshMarkers(); } }
+        if (!photo && !panel && this.input?.take?.('KeyG')) this.openMap();
         // interactions (nearest within reach)
         if (!photo && !panel) {
             let best = null, bd = 1e9;
@@ -439,6 +558,7 @@ export class SpotSession {
 }
 /** "Seattle, WA" / "Bellevue, WA" / "Bucharest, Romania" */
 export function placeLabel(sp) { return sp.entry?.area === 'bellevue' ? 'Bellevue, WA' : sp.city === 'seattle' ? 'Seattle, WA' : sp.city === 'bucharest' ? 'Bucharest, Romania' : sp.city; }
+function firstSentence(t) { const s = String(t || '').trim(); const m = s.match(/^.{20,220}?[.!?](\s|$)/); return (m ? m[0] : s.slice(0, 200)).trim(); }
 function escapeHtml(s) { return String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])); }
 /** façade night windows + anything flagged userData.nightWindows / nightGlow */
 export function setNightWindows(root, k) {

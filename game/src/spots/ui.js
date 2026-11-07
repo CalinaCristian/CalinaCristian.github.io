@@ -42,15 +42,30 @@ const CSS = `
 #spot-ui .bubble.friendly{background:#e0f2fe}#spot-ui .bubble.friendly::after{border-top-color:#e0f2fe}
 #spot-ui .bubble small{display:block;opacity:.72;font-size:.85em;font-weight:500;margin-top:2px;font-style:italic}
 @keyframes sp-pop{from{transform:translate(-50%,-80%) scale(.6);opacity:0}}
+#spot-ui .sp-mini{position:absolute;right:12px;bottom:12px;width:168px;height:168px;border-radius:14px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.35);border:2px solid rgba(255,255,255,.75);pointer-events:auto;cursor:pointer;background:#1c2125}
+#spot-ui .sp-mini canvas{width:100%;height:100%;display:block}
+#spot-ui .sp-mini b{position:absolute;left:6px;top:4px;font:700 10px system-ui;color:#fff;text-shadow:0 1px 2px #000;letter-spacing:.5px}
+#spot-ui .sp-map{width:min(960px,calc(100vw - 24px));max-height:calc(100vh - 24px);display:flex;gap:12px;background:rgba(18,21,25,.94);border-radius:14px;padding:12px;box-shadow:0 20px 60px rgba(0,0,0,.55);flex-wrap:wrap}
+#spot-ui .sp-map canvas{flex:1 1 520px;min-width:0;max-width:100%;aspect-ratio:1;border-radius:10px;background:#20262b}
+#spot-ui .sp-map .sp-side{flex:0 1 300px;min-width:220px;overflow:auto;max-height:calc(100vh - 60px);font-size:13px}
+#spot-ui .sp-map h3{margin:0 0 6px;font-size:17px}
+#spot-ui .sp-map ul{list-style:none;margin:6px 0 10px;padding:0}
+#spot-ui .sp-map li{padding:3px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+#spot-ui .sp-map li.done{opacity:.6;text-decoration:line-through}
+#spot-ui .sp-map button{font:600 13px system-ui;background:#fbbf24;color:#1d160a;border:0;border-radius:8px;padding:7px 12px;cursor:pointer;margin:4px 6px 0 0}
+#spot-ui .sp-map .sp-legend span{display:inline-block;margin:0 10px 4px 0;opacity:.85}
+#spot-ui .sp-tour{margin-top:6px;font-size:12px;border-top:1px solid rgba(255,255,255,.15);padding-top:5px}
+#spot-ui .sp-tour div{opacity:.9}#spot-ui .sp-tour .done{opacity:.55;text-decoration:line-through}#spot-ui .sp-tour .cur{color:#fde68a;font-weight:700}
+body.photo-mode #spot-ui .sp-mini,
 body.photo-mode #spot-ui .sp-card,body.photo-mode #spot-ui .sp-prompt,body.photo-mode #spot-ui .sp-help,body.photo-mode #spot-ui .sp-cross{display:none}
-@media (max-width:600px){#spot-ui .sp-help{display:none}#spot-ui .bubble{font-size:12px}}
+@media (max-width:600px){#spot-ui .sp-help{display:none}#spot-ui .bubble{font-size:12px}#spot-ui .sp-mini{width:112px;height:112px}}
 `;
 
 export class SpotUI {
     constructor(root = document.body) {
         if (!document.getElementById('spot-ui-css')) { const st = document.createElement('style'); st.id = 'spot-ui-css'; st.textContent = CSS; document.head.appendChild(st); }
         const el = this.el = document.createElement('div'); el.id = 'spot-ui';
-        el.innerHTML = `<div class="sp-bubbles"></div><div class="sp-card"><b></b><span></span><div class="sp-chal"></div></div>
+        el.innerHTML = `<div class="sp-bubbles"></div><div class="sp-card"><b></b><span></span><div class="sp-chal"></div><div class="sp-tour"></div></div><div class="sp-mini" title="Map (G)"><canvas width="168" height="168"></canvas><b>N ↑</b></div>
             <div class="sp-cross"></div><div class="sp-prompt"></div><div class="sp-toasts"></div><div class="sp-help"></div><div class="sp-panel"></div>`;
         root.appendChild(el);
         this.$ = (s) => el.querySelector(s);
@@ -91,9 +106,76 @@ export class SpotUI {
         });
     }
     closePanel() { this._closePanel?.(); }
+    /** tour checklist under the title card: [{label, done, cur}] or null */
+    setTour(items, title = 'Guided tour') {
+        const el = this.$('.sp-tour'); if (!items) { el.innerHTML = ''; el.style.display = 'none'; return; }
+        el.style.display = ''; el.innerHTML = `<b>🚩 ${esc(title)}</b>` + items.map((it) => `<div class="${it.done ? 'done' : it.cur ? 'cur' : ''}">${it.done ? '✓' : it.cur ? '▶' : '○'} ${esc(it.label)}</div>`).join('');
+    }
+    /**
+     * full spot map (notes 32/33/67): the map with every objective + legend + checklist + tour button. Same panel
+     * discipline as the plaque (closing key consumed, focus back to the game). `map` is the SpotMap; resolves on close.
+     */
+    showMap(map, { title = '', items = [], tour = null } = {}) {
+        const p = this.$('.sp-panel');
+        const legend = MAP_KINDS.map(([k, ic, nm]) => `<span>${ic} ${nm}</span>`).join('');
+        p.innerHTML = `<div class="sp-map"><canvas width="1024" height="1024"></canvas><div class="sp-side"><h3>${esc(title)}</h3><div class="sp-legend">${legend}</div>
+            <ul>${items.map((it) => `<li class="${it.done ? 'done' : ''}">${it.icon} ${esc(it.label)}</li>`).join('')}</ul>
+            ${tour ? `<button data-tour>${esc(tour.label)}</button>` : ''}<button data-close>Close (G)</button></div></div>`;
+        map.draw(p.querySelector('canvas'), { full: true });
+        p.classList.add('show');
+        return new Promise((res) => {
+            const swallowUp = (e) => { e.preventDefault(); e.stopPropagation(); window.removeEventListener('keyup', swallowUp, true); };
+            const close = (e) => { if (!p.classList.contains('show')) return; p.classList.remove('show'); window.removeEventListener('keydown', key, true); if (e?.type === 'keydown') window.addEventListener('keyup', swallowUp, true); document.activeElement?.blur?.(); p.innerHTML = ''; this._closePanel = null; res(); };
+            const key = (e) => { if (['Escape', 'KeyG', 'KeyE', 'Enter'].includes(e.code)) { e.preventDefault(); e.stopPropagation(); close(e); } };
+            p.querySelector('[data-close]').onclick = () => close();
+            const tb = p.querySelector('[data-tour]'); if (tb) tb.onclick = () => { close(); tour.run(); };
+            p.onclick = (e) => { if (e.target === p) close(); };
+            setTimeout(() => window.addEventListener('keydown', key, true), 120);
+            this._closePanel = close;
+        });
+    }
     update(camera) { this.bubbles.update(camera); }
     dispose() { this.el.remove(); }
 }
+/** map marker kinds: [kind, icon, legend name] */
+export const MAP_KINDS = [['hero', '⭐', 'Landmark'], ['plaque', '📜', 'Plaque'], ['postcard', '📷', 'Postcard photo'], ['activity', '🎯', 'Activity'], ['bike', '🚲', 'Bikes'], ['entrance', '🚪', 'Entrance'], ['view', '👁', 'Viewpoint'], ['guide', '🚩', 'Tour guide'], ['you', '➤', 'You']];
+const ICON = Object.fromEntries(MAP_KINDS.map(([k, i]) => [k, i]));
+/**
+ * Spot map: a top-down image of the scene's ground (the terrain painter: streets, paths, lawns, water, footprints)
+ * with objective markers, the tour route and the player. Minimap (north-up, ~160 m around the player) in the UI
+ * corner; draw(canvas, { full }) renders the whole scene for the map panel.
+ */
+export class SpotMap {
+    constructor(ui, { image, bounds }) {
+        this.ui = ui; this.img = image; this.b = bounds; this.markers = []; this.route = null; this.player = { x: 0, z: 0, heading: 0 }; this.t = 0;
+        this.mini = ui.$('.sp-mini canvas'); this.span = 160;
+    }
+    setMarkers(list) { this.markers = list; this._dirty = true; }
+    setRoute(pts) { this.route = pts; }
+    update(dt, player) { this.player = player; this.t -= dt; if (this.t > 0) return; this.t = 0.15; this.draw(this.mini, { full: false }); }
+    draw(cv, { full }) {
+        const c = cv.getContext('2d'), W = cv.width, H = cv.height, b = this.b, p = this.player;
+        const span = full ? Math.max(b.x1 - b.x0, b.z1 - b.z0) : this.span, cx = full ? (b.x0 + b.x1) / 2 : p.x, cz = full ? (b.z0 + b.z1) / 2 : p.z, k = W / span;
+        const T = (x, z) => [(x - cx) * k + W / 2, (z - cz) * k + H / 2];
+        c.fillStyle = '#20262b'; c.fillRect(0, 0, W, H);
+        if (this.img) { const iw = this.img.width / (b.x1 - b.x0), [ox, oy] = T(b.x0, b.z0); c.globalAlpha = 0.95; c.drawImage(this.img, ox, oy, (b.x1 - b.x0) * k, (b.z1 - b.z0) * k); c.globalAlpha = 1; void iw; }
+        if (this.route?.length > 1) { c.save(); c.strokeStyle = '#fbbf24'; c.lineWidth = Math.max(2.5, W / 220); c.setLineDash([W / 60, W / 90]); c.beginPath(); this.route.forEach(([x, z], i) => { const [u, v] = T(x, z); if (i) c.lineTo(u, v); else c.moveTo(u, v); }); c.stroke(); c.restore(); }
+        const fs = full ? 26 : 15; c.font = `${fs}px system-ui, "Apple Color Emoji", "Segoe UI Emoji", sans-serif`; c.textAlign = 'center'; c.textBaseline = 'middle';
+        for (const m of this.markers) {
+            let [u, v] = T(m.x, m.z); const off = u < 0 || v < 0 || u > W || v > H; if (off && full) continue;
+            if (off) { if (!m.cur) continue; u = clamp(u, 10, W - 10); v = clamp(v, 10, H - 10); } // the current tour stop stays on the minimap edge
+            c.globalAlpha = m.done ? 0.45 : 1; c.fillStyle = m.cur ? 'rgba(251,191,36,.9)' : 'rgba(15,18,22,.65)'; c.beginPath(); c.arc(u, v, fs * 0.72, 0, 7); c.fill();
+            c.fillStyle = '#fff'; c.fillText(m.icon || ICON[m.kind] || '•', u, v + 1);
+            if (full && m.label) { c.font = '600 15px system-ui'; c.lineWidth = 4; c.strokeStyle = 'rgba(0,0,0,.75)'; c.strokeText(m.label.slice(0, 34), u, v + fs * 1.05); c.fillText(m.label.slice(0, 34), u, v + fs * 1.05); c.font = `${fs}px system-ui, "Apple Color Emoji", "Segoe UI Emoji", sans-serif`; }
+            c.globalAlpha = 1;
+        }
+        // the player: arrow pointing along the heading (heading 0 = north = −z)
+        const [u, v] = T(p.x, p.z), a = -(p.heading || 0), r = full ? 16 : 9;
+        c.save(); c.translate(u, v); c.rotate(a); c.fillStyle = '#38bdf8'; c.strokeStyle = '#fff'; c.lineWidth = 2; c.beginPath(); c.moveTo(0, -r); c.lineTo(r * 0.7, r * 0.8); c.lineTo(0, r * 0.4); c.lineTo(-r * 0.7, r * 0.8); c.closePath(); c.fill(); c.stroke(); c.restore();
+        if (full) { c.fillStyle = 'rgba(0,0,0,.6)'; c.fillRect(W - 120, H - 34, 108, 24); const L = 50 * k; c.fillStyle = '#fff'; c.fillRect(W - 112, H - 18, L, 3); c.font = '12px system-ui'; c.textAlign = 'left'; c.fillText('50 m', W - 108 + L, H - 20); }
+    }
+}
+const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
 function esc(s) { return String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 
 /** chat bubbles anchored to {x, y, z} targets (getters allowed), scaled by distance, hidden off-screen */
@@ -119,11 +201,18 @@ export class BubbleLayer {
             b.el.style.display = vis ? 'block' : 'none';
             if (vis) {
                 const d = Math.hypot(t.x - this.cp.x, (t.y ?? 0) - this.cp.y, t.z - this.cp.z);
-                b.el.style.left = ((this.v.x + 1) / 2 * w).toFixed(1) + 'px'; b.el.style.top = ((1 - this.v.y) / 2 * h).toFixed(1) + 'px';
-                b.el.style.transform = `translate(-50%,-100%) scale(${Math.max(0.55, Math.min(1.05, 1.5 - d / 30)).toFixed(3)})`;
+                b.sx = (this.v.x + 1) / 2 * w; b.sy = (1 - this.v.y) / 2 * h; b.sc = Math.max(0.55, Math.min(1.05, 1.5 - d / 30)); b.d = d;
             }
-            return true;
+            b.vis = vis; return true;
         });
+        // note 48: bubbles never overlap — nearer speakers keep their anchor, farther ones move up out of the way
+        const vis = this.list.filter((b) => b.vis).sort((a, b) => a.d - b.d), placed = [];
+        for (const b of vis) {
+            const bw = (b.el.offsetWidth || 160) * b.sc, bh = (b.el.offsetHeight || 40) * b.sc; let y = b.sy;
+            for (let k = 0; k < 8; k++) { const hit = placed.find((q) => Math.abs(q.x - b.sx) < (q.w + bw) / 2 + 4 && y > q.y - q.h - 4 && y - bh < q.y + 4); if (!hit) break; y = hit.y - hit.h - 6; }
+            placed.push({ x: b.sx, y, w: bw, h: bh });
+            b.el.style.left = b.sx.toFixed(1) + 'px'; b.el.style.top = y.toFixed(1) + 'px'; b.el.style.transform = `translate(-50%,-100%) scale(${b.sc.toFixed(3)})`;
+        }
     }
     clear() { for (const b of this.list) b.el.remove(); this.list = []; }
 }

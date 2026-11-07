@@ -141,7 +141,7 @@ export class Input {
                 const L = this._tL; if (!L || t.identifier !== L.id) continue;
                 const r = R(); let dx = (t.clientX - L.ox) / r, dy = (t.clientY - L.oy) / r;
                 if (L.mode === 'drive') { // steering: horizontal only, gentle centre (expo) + full lock at the edge
-                    const s = Math.max(-1, Math.min(1, (t.clientX - L.ox) / (r * 1.4)));
+                    const s = Math.max(-1, Math.min(1, (t.clientX - L.ox) / (r * 1.8)));
                     this.touch.steer = Math.sign(s) * Math.pow(Math.abs(s), 1.35);
                     this.touch.stick.x = s; this.touch.stick.y = 0; this.touch.stick.mag = Math.abs(s); this.touch.stick.active = true;
                     this._moveStick(s, 0, true);

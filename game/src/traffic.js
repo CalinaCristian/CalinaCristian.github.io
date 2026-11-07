@@ -1684,7 +1684,10 @@ export class Traffic {
         for (const n of nodes) {
             const d = Math.hypot(x - n.x, z - n.z), rad = n.radius ?? 6;
             if (isJunction(n) && n.edges.length >= 3 && d < rad + 0.3) R.add('junction');
-            if ((n.zebra || n.crossing) && n.edges.length <= 2 && car && (car.e.a === n || car.e.b === n) && (car.e.a === n ? car.t : 1 - car.t) * car.e.len < 4.5) R.add('zebra'); // (marked crossing: 0–3 m past the node, carriageway-wide)
+            if ((n.zebra || n.crossing) && n.edges.length <= 2 && d < 14) for (const g of n.edges) { // (marked crossing: 0–3 m past the node, carriageway-wide)
+                const sg = g.a === n ? 1 : -1, al = ((x - n.x) * g.dirx + (z - n.z) * g.dirz) * sg, la = Math.abs((x - n.x) * g.nx + (z - n.z) * g.nz);
+                if (al > -2.5 && al < 5 && la < (g.halfW ?? 6) + 0.3) R.add('zebra');
+            }
             if ((n.hasLight || n.zebra) && n.edges.length >= 3 && car && (car.e.a === n || car.e.b === n)) {
                 const ds = (car.e.a === n ? car.t : 1 - car.t) * car.e.len; if (ds > rad - 1 && ds < rad + 6) R.add('zebra'); // the crossing in front of the stop line
             }
@@ -1738,10 +1741,12 @@ export class Traffic {
         const P = this.player, W = this.walker;
         const parked = !!(P && W && W.active && Math.abs(P.speed || 0) < 0.3);
         let st = this.park;
-        if (st && (!parked || Math.hypot(P.x - st.x, P.z - st.z) > 1.5)) { this.endParking(parked ? 'moved' : 'driven-off'); st = null; }
+        if (st && (!parked || Math.hypot(P.x - st.x, P.z - st.z) > 1.5)) { const towed = !!st.S.tow; this.endParking(towed ? 'towed' : parked ? 'moved' : 'driven-off'); st = null; if (towed && parked) this._towedTo = { x: P.x, z: P.z }; }
         if (!parked) return;
         if (!st) {
             const check = this.assessParking(P);
+            // where the tow truck left it (gameplay moves the car on 'tow'): the pound's spot, nobody reacts to it again
+            const tw = this._towedTo; if (tw && Math.hypot(P.x - tw.x, P.z - tw.z) < 3) { check.illegal = false; check.towed = true; } else this._towedTo = null;
             st = this.park = { x: P.x, z: P.z, heading: P.heading, t: 0, check, S: {}, seen: new Set(), bubbleT: 1.5, driverT: 2, scanT: 0, log: [], officer: null, truck: null, props: [], blockEdge: check.blockEdge };
             this.parking = { illegal: check.illegal, reasons: check.reasons, primary: check.primary, severity: check.severity, t: 0, log: st.log };
             if (check.illegal) this.emitParking('illegal');
@@ -2107,6 +2112,7 @@ class Pedestrians {
         return best;
     }
     inCarriageway(p) { return !!this.roadAt(p.x, p.z, 0.4); }
+    inWater(x, z) { const w = this.t.world.isWater; if (!w) return false; return w(x, z) || w(x + 1, z) || w(x - 1, z) || w(x, z + 1) || w(x, z - 1); }
     /** keep a pedestrian that is not crossing out of every carriageway: move it to the nearest kerb */
     kerbClamp(p) {
         let moved = false;
@@ -2245,6 +2251,13 @@ class Pedestrians {
                     else if (p.roadHits === 2) { p.side = -p.side; this.placeWalk(p); }
                     else { p.roadHits = 0; if (T.large) this.relocate(p, 120, 420, true); else { p.state = 'stand'; this.kerbClamp(p); } }
                 } else p.roadHits = 0;
+                // never in water / a fountain basin (+ 1 m rim; world-visual request, note 17): walkers cross to the other
+                // sidewalk, anyone else is moved back onto a sidewalk around the player
+                if (this.inWater(p.x, p.z)) {
+                    if (p.state === 'walk' && !p.wetFlip) { p.wetFlip = true; p.side = -p.side; this.placeWalk(p); }
+                    else { p.wetFlip = false; this.relocate(p, 30, 200, true); }
+                    this.stats.wet = (this.stats.wet || 0) + 1;
+                } else if (p.wetFlip && (p.i + this._fr) % 300 === 0) p.wetFlip = false;
             }
             // static obstacles (trees, lamps, poles, bins, signs, shelters, lot cars): never inside one (note 38) — walkers
             // already detour around them on their sidewalk line (dodgeAt); this catches corners, crossings and stops

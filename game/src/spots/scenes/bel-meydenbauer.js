@@ -38,7 +38,7 @@ function hullGeo(L, W, fb = 0.75, draft = 0.45) {
     const pos = [], push = (a, b, c) => pos.push(...a, ...b, ...c);
     for (let i = 0; i < N; i++) for (let j = 0; j < 6; j++) { const a = st[i][j], b = st[i][j + 1], c = st[i + 1][j + 1], d = st[i + 1][j]; push(a, c, b); push(a, d, c); }
     for (let j = 1; j < 6; j++) push(st[0][0], st[0][j], st[0][j + 1]); // transom
-    for (let i = 0; i < N; i++) { const a = st[i][0], b = st[i][6], c = st[i + 1][6], d = st[i + 1][0]; push(a, b, c); push(a, c, d); } // deck
+    for (let i = 0; i < N; i++) { const a = st[i][0], b = st[i][6], c = st[i + 1][6], d = st[i + 1][0]; push(a, b, c); if (i + 1 < N) push(a, c, d); } // deck (bow: one triangle)
     const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.computeVertexNormals();
     HULLS.set(k, g); return g;
 }
@@ -95,8 +95,8 @@ export default {
         const area = (id) => d.areas.find((a) => a.id === id)?.poly, way = (id) => d.ways.find((w) => w.id === id)?.pts, bld = (id) => d.buildings.find((x) => x.id === id)?.poly;
         // ---------------------------------------------------------------- lake + shoreline (OSM Lake Washington outline, not the 20 m DEM)
         const lakePoly = area('r2793848');
-        const SB = { x0: -430, z0: -270, x1: 430, z1: 490 };
-        const F = shoreField(lakePoly, SB, 3), sdf = F.sample;
+        const SB = { x0: -780, z0: -760, x1: 720, z1: 700 }; // the whole terrain (inner + outer apron): no clamped DEM hills poking out of the lake
+        const F = shoreField(lakePoly, SB, 4), sdf = F.sample;
         const beachPoly = area('w688203354') || [];
         const bb = polyBox(beachPoly);
         const inBeach = (x, z) => x > bb.x0 - 6 && x < bb.x1 + 6 && z > bb.z0 - 6 && z < bb.z1 + 6 && inPoly(x, z, beachPoly);
@@ -174,13 +174,15 @@ export default {
         if (pv) {
             const py = Math.min(...pv.map(([x, z]) => g.heightAt(x, z))); g.flatten(pv, py, 3);
             pb.prism(pv, py - 0.5, py + 3.3, '#8b8479', 'stone');                                              // stacked-stone walls
-            const big = pv.map(([x, z]) => { const bx = polyBox(pv), cx = (bx.x0 + bx.x1) / 2, cz = (bx.z0 + bx.z1) / 2; return [cx + (x - cx) * 1.28, cz + (z - cz) * 1.22]; });
-            pb.prism(big, py + 3.3, py + 3.75, '#33373a', 'metal');                                            // dark standing-seam roof, deep overhang
+            const pc = polyBox(pv), pcx = (pc.x0 + pc.x1) / 2, pcz = (pc.z0 + pc.z1) / 2, big = pv.map(([x, z]) => [pcx + (x - pcx) * 1.3, pcz + (z - pcz) * 1.22]);
+            pb.prism(big, py + 3.3, py + 3.38, '#a0754e', 'wood', { bottom: true });                        // cedar soffit
+            pb.prism(big, py + 3.38, py + 3.85, '#2f3336', 'metal');                                         // dark standing-seam roof, deep overhang
+            for (let i = 0; i < pv.length; i++) { const [ax, az] = pv[i], [qx, qz] = pv[(i + 1) % pv.length], Le = Math.hypot(qx - ax, qz - az); if (Le < 3.5) continue; const ya = Math.atan2(qx - ax, qz - az), ox = -Math.cos(ya) * 0.08, oz = Math.sin(ya) * 0.08; // clerestory glazing + cedar slat panels
+                for (let t = 1; t < Le - 0.8; t += 2.2) { const px = ax + (qx - ax) * (t + 0.6) / Le, pz = az + (qz - az) * (t + 0.6) / Le; pb.box(px, py + 2.35, pz, 1.5, 0.7, 0.1, '#2b3236', 'darkglass', ya + Math.PI / 2); } }
             for (let i = 0; i < pv.length; i += 3) { const [x, z] = pv[i]; pb.box(x, py, z, 0.18, 3.3, 0.18, '#5b3d2a', 'wood'); }
             ctx.poly(pv);
             const bx = polyBox(pv), sx = (bx.x0 + bx.x1) / 2, sz = bx.z0 - 0.3;
-            const s = glowText('MEYDENBAUER BAY PARK', 4.2, 0.42, { fg: '#f0ece2', bg: '#2a3a40', font: (q) => `600 ${q}px Georgia, serif`, night: 0.9 }); s.position.set(sx, py + 2.6, sz); s.rotation.y = Math.PI; ctx.add(s);
-            const win = nightLit('#ffd9a0', 1.2, { base: '#3a4448', name: 'pavilion-glow' }); const wm = new THREE.Mesh(new THREE.BoxGeometry(bx.x1 - bx.x0 - 1.4, 1.2, 0.08), win); wm.position.set(sx, py + 2.2, bx.z1 + 0.02); ctx.add(wm);
+            const sg = glowText('MEYDENBAUER BAY PARK', 4.2, 0.42, { fg: '#f0ece2', bg: '#2a3a40', font: (q) => `600 ${q}px Georgia, serif`, night: 0.9 }); sg.position.set(sx, py + 2.75, sz); sg.rotation.y = Math.PI; ctx.add(sg);
         }
         const wh = bld('w819159071');
         if (wh) { // historic whaling building on piles over the water (2 storeys, gabled)
@@ -327,8 +329,7 @@ export default {
             ],
         };
         ctx.sound('water', beachC.x, beachC.z + 10, 120, 1.3); ctx.sound('gulls', -40, 60, 220, 1); ctx.sound('birds', 60, -120, 160, 1);
-        const rp = Q(5), rp2 = Q(16); const back = { x: rp.x + (rp.x - rp2.x) * 0.9, z: rp.z + (rp.z - rp2.z) * 0.9 };
-        ctx.spawns['bel-meydenbauer'] = { x: back.x, z: back.z, heading: Math.atan2(-(rp2.x - back.x), -(rp2.z - back.z)) }; // on the promenade at the pier root, looking along the crescent
+        { const sx = 22, sz = -21, t = Q(arcL * 0.45); ctx.spawns['bel-meydenbauer'] = { x: sx, z: sz, heading: Math.atan2(-(t.x - sx), -(t.z - sz)) }; } // on the beach promenade: beach, crescent pier and the bay ahead
         void M; void headingFromBearing;
     },
 };

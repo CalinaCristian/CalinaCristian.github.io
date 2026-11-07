@@ -366,6 +366,7 @@ class Game {
         this.prevEdgeInfo = null;
         this.navManual = false; this.navInfo = null;
         this.setupClosures(city, world);
+        this.loadPlaces(city, district); // note 9: the district's reachable places by category (world-data places.json)
         this.updateObjective();
     }
 
@@ -846,6 +847,23 @@ class Game {
         ctx.restore();
     }
 
+    /** world-data's categorized reachable places (game/data/places.json) for the current district → this.places
+     *  [{cat, name, icon, color, x, z}] (positions re-projected from lat/lon with the city projection) */
+    async loadPlaces(city, district) {
+        this.places = []; if (this.bigmap) this.bigmap.places = this.places;
+        if (!district) return;
+        try {
+            this._placesJson = this._placesJson || fetch(new URL('../data/places.json', import.meta.url)).then(r => r.ok ? r.json() : null).catch(() => null);
+            const all = await this._placesJson; const d = all?.districts?.[`${city.id}-${district}`]; if (!d || this.district !== district) return;
+            const legend = Object.fromEntries((all.legend || []).map(l => [l.cat, l]));
+            const out = [];
+            for (const [cat, list] of Object.entries(d.places || {})) for (const p of list || []) {
+                const q = Number.isFinite(p.lat) && city.proj ? city.proj(p.lat, p.lon) : { x: p.x, z: p.z }; if (!q || !Number.isFinite(q.x)) continue;
+                out.push({ cat, name: p.name || p.brand || p.id || cat, icon: legend[cat]?.icon || '•', color: legend[cat]?.color || '#64748b', label: legend[cat]?.label || cat, x: q.x, z: q.z, kind: p.kind || p.sub || null });
+            }
+            this.places = out; if (this.bigmap) this.bigmap.places = out;
+        } catch (e) { console.warn('[places]', e); }
+    }
     /** on foot (note 7): the parked car on the minimap / big map (+ the walker on the big map, which centres on the car) */
     drawCarMarker(ctx, canvas, { cx, cz, scale, heading = null }) {
         if (!this.foot?.active || !this.carBody?.parent) return;
@@ -1159,6 +1177,7 @@ class Game {
         // stations (fallback ones are not world POIs)
         ctx.save(); ctx.translate(c.width / 2, c.height / 2); ctx.scale(mv.scale, mv.scale); ctx.translate(-mv.cx, -mv.cz);
         ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        for (const q of this.places || []) { if (q.cat === 'fuel' || q.cat === 'cv') continue; ctx.save(); ctx.translate(q.x, q.z); ctx.scale(1 / mv.scale, 1 / mv.scale); ctx.beginPath(); ctx.arc(0, 0, 8, 0, 7); ctx.fillStyle = q.color; ctx.globalAlpha = 0.9; ctx.fill(); ctx.globalAlpha = 1; ctx.font = '10px sans-serif'; ctx.fillStyle = '#fff'; ctx.fillText(q.icon, 0, 1); if (mv.scale > 0.6 && q.cat !== 'business') { ctx.font = '600 11px system-ui, sans-serif'; ctx.fillStyle = '#e2e8f0'; ctx.strokeStyle = 'rgba(2,6,23,.85)'; ctx.lineWidth = 3; ctx.strokeText(q.name, 0, -14); ctx.fillText(q.name, 0, -14); } ctx.restore(); }
         for (const s of this.stations) if (s.fallback) { ctx.save(); ctx.translate(s.x, s.z); ctx.scale(1 / mv.scale, 1 / mv.scale); ctx.beginPath(); ctx.arc(0, 0, 10, 0, 7); ctx.fillStyle = '#0f766e'; ctx.fill(); ctx.font = '12px sans-serif'; ctx.fillStyle = '#fff'; ctx.fillText('⛽', 0, 1); ctx.restore(); }
         ctx.restore();
     }
@@ -1183,8 +1202,17 @@ class Game {
         if (this.airport) add('Travel', '✈️', AIRPORTS[this.city.id].name, this.airport.doorX ?? this.airport.x, this.airport.doorZ ?? this.airport.z);
         const st = [...this.stations].sort((a, b) => Math.hypot(a.x - p.x, a.z - p.z) - Math.hypot(b.x - p.x, b.z - p.z)).slice(0, 6);
         for (const s of st) add('Gas stations', '⛽', `${s.brand} · ${this.city.units === 'mph' ? '$' + s.price.toFixed(2) + '/gal' : s.price.toFixed(2) + ' RON/L'}`, s.x, s.z);
-        const lms = (this.bigmap.landmarks || []).slice(0, 12);
-        for (const l of lms) add('Landmarks', '📍', l.label || l.name || l.id, l.x, l.z);
+        if (this.places?.length) {
+            // every reachable place of the district by category (world-data places.json): nearest first, long lists capped
+            const order = ['cv', 'landmark', 'spot', 'park', 'transit', 'business'], cap = { business: 15, transit: 10 };
+            for (const cat of order) {
+                const L = this.places.filter(q => q.cat === cat).sort((a, b) => Math.hypot(a.x - p.x, a.z - p.z) - Math.hypot(b.x - p.x, b.z - p.z)).slice(0, cap[cat] || 40);
+                for (const q of L) add(q.label + 's', q.icon, q.name, q.x, q.z);
+            }
+        } else {
+            const lms = (this.bigmap.landmarks || []).slice(0, 12);
+            for (const l of lms) add('Landmarks', '📍', l.label || l.name || l.id, l.x, l.z);
+        }
         let html = '', g = '';
         if (this.foot?.active && this.carBody?.parent) html += `<div class="nav-item active"><span>🚗 Your car <small>${fmtDist(Math.hypot(this.player.x - this.foot.x, this.player.z - this.foot.z), this.city.units)}</small></span><button data-car="route">Walk there</button><button data-car="call" title="Call the car to you">📲</button></div>`;
         if (this.ch) {
@@ -1241,6 +1269,7 @@ class Game {
         this.foot.enter(P.x + lx * (wid / 2 + 0.55) + P.fx * 0.4, P.z + lz * (wid / 2 + 0.55) + P.fz * 0.4, P.heading, (P.surfY ?? 0.24) - 0.24);
         this.traffic.walker = this.foot;
         this.state = 'foot'; document.body.classList.add('on-foot');
+        this.nav.walking = true; if (this.nav.dest) this.nav.reroute({ x: this.foot.x, z: this.foot.z, heading: this.foot.heading }); // walking routes: no one-way rules
         if (!document.getElementById('onfoot-css')) { const st = document.createElement('style'); st.id = 'onfoot-css'; st.textContent = 'body.on-foot .pad button.office-only{display:inline-block}body.on-foot .pad button.drive-only{display:none}'; document.head.appendChild(st); }
         this.audio.stopEngine?.(); this.audio.blip(300, 0.06, 0.08);
         this.hud.setLimit(null, this.city.units === 'mph', false); this.hud.setSpeed(0);
@@ -1292,6 +1321,7 @@ class Game {
         this.carBox = null; if (this.player) this.player.rig.visible = true;
         if (this.traffic) this.traffic.walker = null;
         document.body.classList.remove('on-foot'); document.getElementById('car-finder')?.classList.remove('show');
+        if (this.nav?.walking) { this.nav.walking = false; if (this.nav.dest && this.player) this.nav.reroute(this.player); }
         if (this.player && this.camera.parent !== this.player.camHolder && this.state !== 'office') { this.player.camHolder.add(this.camera); this.camera.position.set(0, 0, 0); this.camera.rotation.set(0, 0, 0); }
         if (this.officeFromFoot) this.officeFromFoot = false;
     }
@@ -1319,6 +1349,7 @@ class Game {
         hud.update(dt, this.camera, city.id);
         this.stats.time += dt;
         // find the car (note 7): L = key fob (beep + flash), T = call the car, HUD chip / map marker
+        this.nav.walking = true;
         if (input.take('KeyL')) this.beepCar();
         if (input.take('KeyT')) this.callCar();
         this.updateCarFinder();

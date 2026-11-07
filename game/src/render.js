@@ -429,7 +429,7 @@ export class Renderer3D {
      */
     constructor(canvas, opts = {}) {
         this.opts = { autoGauges: false, envLighting: 0.3, ...opts };
-        const r = this._renderer = opts.renderer || new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance', stencil: false });
+        const r = this._renderer = opts.renderer || new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance', stencil: false, reverseDepthBuffer: opts.reverseDepth !== false });
         r.shadowMap.enabled = true;
         r.shadowMap.type = THREE.PCFSoftShadowMap;
         // AgX: photographic toe (ACES-fitted crushed shaded asphalt to ~0.2 % reflectance on screen, review #1);

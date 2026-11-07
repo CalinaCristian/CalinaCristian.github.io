@@ -112,12 +112,13 @@ export class WorldMap {
         this.modeEl.textContent = startMode ? '🧭 Explore · pick a start' : this.o.mode?.() === 'explore' ? '🧭 Explore' : '📖 Story';
         this.condBtn.hidden = !this.o.canConditions?.();
         this.renderTabs(); this.renderRecent(); this.renderList();
-        this._size(); this.draw();
+        this._size(); this.draw(); this._scrollList();
         if (!matchMedia('(pointer: coarse)').matches) setTimeout(() => { try { this.searchEl.focus({ preventScroll: true }); } catch { /* ignore */ } }, 30);
     }
     close() { if (!this.isOpen) return; this.el.classList.remove('show'); document.body.classList.remove('wm-open'); this.searchEl.blur(); this.o.onClose?.(); }
     refresh() { if (this.isOpen) this.open({ tab: this.tab, startMode: this.startMode }); }
-    setTab(t) { this.tab = t; this.sel = null; this.card.hidden = true; this.renderTabs(); this._size(); this.draw(); }
+    setTab(t) { this.tab = t; this.sel = null; this.card.hidden = true; this.renderTabs(); this._size(); this.draw(); this._scrollList(); }
+    _scrollList() { const h = this.listEl.querySelector(`[data-region="${this.tab}"]`); if (h) this.listEl.scrollTop = h.offsetTop - this.listEl.offsetTop; else if (this.tab !== 'here') this.listEl.scrollTop = 0; }
     renderTabs() {
         const here = this.hereInfo, list = [['here', here ? `📍 Here <small>${esc(here.name || '')}</small>` : '📍 Here', !here], ...REGIONS.map((r) => [r.id, `${r.flag} ${r.name}`, false]), ['world', '🌍 World', false]];
         this.tabsEl.innerHTML = list.map(([id, lab, dis]) => `<button role="tab" data-tab="${id}"${id === this.tab ? ' class="on" aria-selected="true"' : ''}${dis ? ' disabled' : ''}>${lab}</button>`).join('');
@@ -143,7 +144,7 @@ export class WorldMap {
         let html = '';
         for (const r of REGIONS) {
             const its = list.filter((i) => i.region === r.id); if (!its.length) continue;
-            html += `<div class="wm-h">${r.flag} ${esc(r.name)} <small>${its.filter((i) => i.kind === 'district').length} districts · ${its.filter((i) => i.kind === 'spot').length} spots</small></div>`;
+            html += `<div class="wm-h" data-region="${r.id}">${r.flag} ${esc(r.name)} <small>${its.filter((i) => i.kind === 'district').length} districts · ${its.filter((i) => i.kind === 'spot').length} spots</small></div>`;
             for (const it of its) {
                 const here = it.key === this.curKey;
                 html += `<div class="wm-row${here ? ' here' : ''}${this.sel?.key === it.key ? ' sel' : ''}" data-sel="${esc(it.key)}">${this._thumb(it)}<span class="wm-txt"><b>${esc(it.name)}</b><small>${it.kind === 'district' ? '🚗 District · drive &amp; walk' : '🚶 Tourist spot · walk'}${it.done ? ' · ✓ postcard' : ''}${here ? ' · you are here' : ''}</small></span><button class="wm-go" data-go="${esc(it.key)}"${here ? ' disabled' : ''}>${here ? '•' : 'Go'}</button></div>`;
@@ -252,11 +253,19 @@ export class WorldMap {
         // you are here
         const cur = this._byKey(this.curKey); if (cur && cur.region === this.tab) { const p = S(cur.lat, cur.lon), t = performance.now() / 600; g.beginPath(); g.arc(p.x, p.y, 20 + (t % 1) * 8, 0, 7); g.strokeStyle = `rgba(52,211,153,${0.8 - (t % 1) * 0.7})`; g.lineWidth = 2; g.stroke(); }
         // off-screen places: a chip on the edge pointing at them (click → centre there)
+        const chips = [];
         for (const it of its) {
             const p = S(it.lat, it.lon); if (p.x > -10 && p.y > -10 && p.x < this.W + 10 && p.y < this.H + 10) continue;
+            const cx0 = this.W / 2, cy0 = this.H / 2, k0 = Math.min((this.W / 2 - 70) / Math.abs(p.x - cx0 || 1e-6), (this.H / 2 - 40) / Math.abs(p.y - cy0 || 1e-6));
+            const ex0 = cx0 + (p.x - cx0) * k0, ey0 = cy0 + (p.y - cy0) * k0, near = chips.find((c) => Math.abs(c.x - ex0) < 150 && Math.abs(c.y - ey0) < 30);
+            if (near) { near.more++; continue; }
+            chips.push({ it, p, x: ex0, y: ey0, more: 0 });
+        }
+        for (const ch of chips) {
+            const it = ch.it, p = ch.p;
             const cx = this.W / 2, cy = this.H / 2, dx = p.x - cx, dy = p.y - cy, k = Math.min((this.W / 2 - 70) / Math.abs(dx || 1e-6), (this.H / 2 - 40) / Math.abs(dy || 1e-6));
             const ex = cx + dx * k, ey = cy + dy * k, km = hav(it, { lat: -(v.cy) / 111.32, lon: v.cx / (111.32 * Math.cos(this._lat0 * Math.PI / 180)) });
-            const t = `${it.icon} ${it.name.split(/[:(&]/)[0].trim()} · ${km.toFixed(0)} km ${Math.abs(dy) > Math.abs(dx) ? (dy < 0 ? '↑' : '↓') : (dx < 0 ? '←' : '→')}`;
+            const t = `${it.icon} ${it.name.split(/[:(&]/)[0].trim()}${ch.more ? ` +${ch.more}` : ''} · ${km.toFixed(0)} km ${Math.abs(dy) > Math.abs(dx) ? (dy < 0 ? '↑' : '↓') : (dx < 0 ? '←' : '→')}`;
             g.font = '600 12px system-ui,sans-serif'; const w = g.measureText(t).width + 18;
             g.fillStyle = 'rgba(30,58,138,.92)'; this._pill(g, ex - w / 2, ey - 13, w, 26, 13); g.fill(); g.strokeStyle = '#93c5fd'; g.lineWidth = 1; g.stroke();
             g.fillStyle = '#fff'; g.textAlign = 'center'; g.fillText(t, ex, ey + 1);

@@ -33,6 +33,7 @@ Source: `game/FEEDBACK.md` "Round 4 play-test" notes 1–27 (+ any that follow),
 | 31 | spots + gameplay | Rentable bike at Herăstrău next to the spawn; ride park paths. |
 | 32, 33 | spots + gameplay (minimap/map) | Map in spots; every landmark/spot has its own map with everything relevant (entrances, hero, plaques, postcard, cafés, toilets, bikes, transit), waypoints. |
 | 35 | spots | Cișmigiu: railing across the bridge entrance, stepped blocky deck, broken handrails — walkable arched footbridges like the real ones. |
+| 36 | spots | Blank green signboards (no text) — readable plaques on both faces, no empty signs. |
 | 20, 27 | spots | Terrain flattened under paved esplanades/plinths (Parliament), no camera roll on slopes; crowds on the walkable surface (steps), never inside colliders. |
 
 ## P2 — gameplay features

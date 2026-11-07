@@ -70,6 +70,7 @@ Confirm (a) the 3-D Troll replica in this non-commercial portfolio (artists cred
   7. **M — postcards that miss the subject**: `bel-lincoln-square` (dark tower base from 10 m), `village-museum` (steep close-up of the church roof); Kerry Park 'photo'-pose people have block hands over their faces.
   8. **L — plain box backdrops** (Kerry Park / Gas Works skylines, only 2 towers behind Bellevue Downtown Park, a 9-storey slab behind the Botanical Garden).
   All 24: 0 page errors, 0.25–0.52 M scene tris, ≤ 355 calls / ≤ 0.85 M drawn at high, loads 0.6–7.6 s in software GL.
+- (render → spots / spots-buc, 2026-11-07, feedback note 28) `arcul-de-triumf`: the mesh `osm-buildings:f-eclectic` (material `facade-eclectic`) has 6 vertices with zero-length normals, and one unnamed mesh in the same scene has 12. `normalize(0)` gives NaN pixels (3 px at walker x −18.7, z −2.7, t ≈ 24 s), which bloom spread into the black block. render.js now guards both the normal and the bloom input (0 NaN on 60 s walks), but please drop the degenerate triangles or give them a face normal in the facade builder (`spots/osm.js` buildings). Other scenes may have the same issue: check with `geometry.attributes.normal`, length < 1e-6.
 
 ## Progress log
 

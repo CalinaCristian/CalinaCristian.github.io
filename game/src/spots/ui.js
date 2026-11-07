@@ -158,7 +158,7 @@ export class SpotMap {
         const span = full ? Math.max(b.x1 - b.x0, b.z1 - b.z0) : this.span, cx = full ? (b.x0 + b.x1) / 2 : p.x, cz = full ? (b.z0 + b.z1) / 2 : p.z, k = W / span;
         const T = (x, z) => [(x - cx) * k + W / 2, (z - cz) * k + H / 2];
         c.fillStyle = '#20262b'; c.fillRect(0, 0, W, H);
-        if (this.img) { const iw = this.img.width / (b.x1 - b.x0), [ox, oy] = T(b.x0, b.z0); c.globalAlpha = 0.95; c.drawImage(this.img, ox, oy, (b.x1 - b.x0) * k, (b.z1 - b.z0) * k); c.globalAlpha = 1; void iw; }
+        if (this.img?.width > 0 && this.img.height > 0) { const iw = this.img.width / (b.x1 - b.x0), [ox, oy] = T(b.x0, b.z0); c.globalAlpha = 0.95; c.drawImage(this.img, ox, oy, (b.x1 - b.x0) * k, (b.z1 - b.z0) * k); c.globalAlpha = 1; void iw; }
         if (this.route?.length > 1) { c.save(); c.strokeStyle = '#fbbf24'; c.lineWidth = Math.max(2.5, W / 220); c.setLineDash([W / 60, W / 90]); c.beginPath(); this.route.forEach(([x, z], i) => { const [u, v] = T(x, z); if (i) c.lineTo(u, v); else c.moveTo(u, v); }); c.stroke(); c.restore(); }
         const fs = full ? 26 : 15; c.font = `${fs}px system-ui, "Apple Color Emoji", "Segoe UI Emoji", sans-serif`; c.textAlign = 'center'; c.textBaseline = 'middle';
         for (const m of this.markers) {

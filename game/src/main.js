@@ -1204,10 +1204,11 @@ class Game {
         for (const s of st) add('Gas stations', '⛽', `${s.brand} · ${this.city.units === 'mph' ? '$' + s.price.toFixed(2) + '/gal' : s.price.toFixed(2) + ' RON/L'}`, s.x, s.z);
         if (this.places?.length) {
             // every reachable place of the district by category (world-data places.json): nearest first, long lists capped
-            const order = ['cv', 'landmark', 'spot', 'park', 'transit', 'business'], cap = { business: 15, transit: 10 };
+            const order = ['landmark', 'spot', 'park', 'transit', 'business'], cap = { business: 15, transit: 10 }; // (CV stops: "Offices" above; fuel: "Gas stations")
+            const groupName = { landmark: 'Landmarks', spot: 'Tourist spots (walk)', park: 'Parks', transit: 'Metro · tram · train', business: 'Shops · cafés · banks' };
             for (const cat of order) {
                 const L = this.places.filter(q => q.cat === cat).sort((a, b) => Math.hypot(a.x - p.x, a.z - p.z) - Math.hypot(b.x - p.x, b.z - p.z)).slice(0, cap[cat] || 40);
-                for (const q of L) add(q.label + 's', q.icon, q.name, q.x, q.z);
+                for (const q of L) add(groupName[cat] || q.label, q.icon, q.name, q.x, q.z);
             }
         } else {
             const lms = (this.bigmap.landmarks || []).slice(0, 12);

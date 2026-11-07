@@ -193,7 +193,7 @@ export async function loadSpot(id, renderer = null, opts = {}) {
     const outerPad = T.outerPad ?? 420;
     const outer = T.outer || { x0: inner.x0 - m8(outerPad), z0: inner.z0 - m8(outerPad), x1: inner.x1 + m8(outerPad), z1: inner.z1 + m8(outerPad) };
     const terr = buildTerrain(ctx.ground, ctx.painter, { inner, outer, innerPx: T.innerPx || 2048, outerPx: T.outerPx || 1024, innerStep: T.innerStep || 2, outerStep: T.outerStep || 8, bg: T.bg || '#617242', bgMask: T.bgMask || 'grass', brickAngle: T.brickAngle || 0, skirt: T.skirt ?? 6000, skirtY: T.skirtY ?? null, skirtColor: T.skirtColor ?? null });
-    ctx.add(terr.group); ctx.extras.terrain = terr;
+    ctx.add(terr.group); ctx.extras.terrain = terr; ctx.extras.terrainBox = inner;
     // optional tree budget + dynamic LOD (ctx.treeLod = { cap, near, max }): beyond `cap` the trees farthest from every
     // member extent are dropped; the `max` trees within `near` m of the viewer get the full crown, the rest a low one
     ctx.finishTrees?.();
@@ -351,7 +351,7 @@ export class SpotSession {
         return out;
     }
     _initMap() {
-        const S = this.spot, T = S.ctx.extras.terrain, b = T?.inner || { x0: -200, z0: -200, x1: 200, z1: 200 }, tp = S.ctx.terrainOpts || {};
+        const S = this.spot, b = S.ctx.extras.terrainBox || { x0: -200, z0: -200, x1: 200, z1: 200 }, tp = S.ctx.terrainOpts || {};
         const px = 900, [img] = S.ctx.painter.render(b.x0, b.z0, b.x1 - b.x0, b.z1 - b.z0, px, null, tp.bg || '#617242', tp.bgMask || 'grass');
         this._seen = new Set(); this.map = new SpotMap(this.ui, { image: img, bounds: b });
         this.ui.$('.sp-mini').onclick = () => this.openMap();
@@ -517,8 +517,10 @@ export class SpotSession {
             this.spot.crowd.rainy = (this.r3d.weather?.kind || '').includes('rain'); this.spot.crowd.update(dt, pl, this.camera);
         }
         for (const f of this.spot.updaters) f(dt, this, pl);
-        if (this.tour) this._updateTour(dt, p);
-        if (this.map && !photo) { this.map.update(dt, { x: p.x, z: p.z, heading: this.ctl.heading }); if (this.guide && (this._mkT = (this._mkT ?? 0) - dt) <= 0) { this._mkT = 1; this._refreshMarkers(); } }
+        try { // map + tour never break the frame loop
+            if (this.tour) this._updateTour(dt, p);
+            if (this.map && !photo) { this.map.update(dt, { x: p.x, z: p.z, heading: this.ctl.heading }); if (this.guide && (this._mkT = (this._mkT ?? 0) - dt) <= 0) { this._mkT = 1; this._refreshMarkers(); } }
+        } catch (e) { if (!this._mapErr) { this._mapErr = true; console.warn('[spots] map/tour', e); } }
         if (!photo && !panel && this.input?.take?.('KeyG')) this.openMap();
         // interactions (nearest within reach)
         if (!photo && !panel) {

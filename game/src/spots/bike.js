@@ -62,7 +62,7 @@ export function addBikeRental(ctx, { x, z, heading = 0, n = 6, name = 'Bike rent
         if (inp.take?.('KeyE')) { // get off: at the station → docked, elsewhere → park it there (it rolls back to the dock)
             stop(s, Math.hypot(st.x - x, st.z - z) > 4); return;
         }
-        const thr = inp.throttle ?? ((keys.has('KeyW') || keys.has('ArrowUp')) ? 1 : 0), brk = (keys.has('KeyS') || keys.has('ArrowDown')) ? 1 : 0, steer = inp.steer ?? ((keys.has('KeyD') || keys.has('ArrowRight') ? 1 : 0) - (keys.has('KeyA') || keys.has('ArrowLeft') ? 1 : 0));
+        const thr = inp.throttle ?? ((keys.has('KeyW') || keys.has('ArrowUp')) ? 1 : 0), brk = (keys.has('KeyS') || keys.has('ArrowDown') || (inp.throttle ?? 0) < 0 || inp.brake) ? 1 : 0, steer = inp.steer ?? ((keys.has('KeyD') || keys.has('ArrowRight') ? 1 : 0) - (keys.has('KeyA') || keys.has('ArrowLeft') ? 1 : 0));
         const vmax = inp.shift ? fast : speed;
         st.v += (thr > 0 ? Math.min(2.2, (vmax - st.v) * 1.2) : 0) * dt; if (brk) st.v -= 5 * dt; st.v -= st.v * 0.18 * dt; st.v = Math.max(0, Math.min(vmax, st.v));
         const turn = steer * dt * (0.9 + 1.4 / (1 + st.v)) * Math.min(1, 0.4 + st.v / 3); st.yaw -= turn; st.lean += ((-steer * Math.min(1, st.v / 4)) * 0.22 - st.lean) * Math.min(1, dt * 4);

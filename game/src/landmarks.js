@@ -1477,13 +1477,18 @@ function bOpera(b) {
 // white spandrel lines and aluminium fins, recessed glazed ground floors, rooftop plant boxes, "HERMES" sign.
 // Src: https://www.openstreetmap.org/way/533147567 (Clădirea A, 9 levels)
 function bHermes(b) {
+    // (round 5) landlord/agency photos (esop.ro listing; viewed only, not kept): 9-10 storeys, alternating horizontal bands of
+    // grey metal panels and green-tinted glass ribbons, some full-height green glass bays, double-height recessed glazed
+    // ground floor on columns, rooftop plant screens.
     const ps = P.hermes.map(pts), H = [35, 27.5, 31.5];
     for (let i = 0; i < 3; i++) {
         const holes = i === 2 ? [ps[3]] : [];
-        b.prism(ps[i], 0, H[i], '#466e8c', { mat: 'g', holes, topCol: '#9aa4ab' });
-        for (let y = 4.4; y < H[i] - 0.5; y += 3.6) b.cornice(ps[i], y, 0.7, 0.08, '#e8ecef');
-        b.pilasters(ps[i], 0, H[i], 4.5, 0.25, 0.35, '#c9d0d5', {});
-        b.cornice(ps[i], H[i], 1.1, 0.25, '#e8ecef');
+        b.prism(offset(ps[i], -1), 0, 7, '#3f5d5a', { mat: 'g', top: false });                // recessed double-height glazed GF
+        b.pilasters(ps[i], 0, 7, 8, 0.6, 0.6, '#9a9fa1', {});
+        b.prism(ps[i], 7, H[i], '#8b9094', { holes, topCol: '#9aa4ab' });                       // grey metal panel bands…
+        b.bands(ps[i], 7, H[i], 3.6, '#4d8a85', { frac: 0.55, off: 0.06, mat: 'g', start: 1.2, wall: null, holes });   // …and green glass ribbons
+        b.pilasters(ps[i], 7, H[i], 9, 1.6, 0.08, '#3f7a74', { every: 3 });                     // full-height green glass bays
+        b.cornice(ps[i], H[i], 1.1, 0.25, '#c9cdcf');
         b.prism(offset(ps[i], -6), H[i], H[i] + 3, '#b5bcc1');
     }
     b.text('HERMES', 35, 31, 57.9, 0, 2.4, '#ffffff');
@@ -2359,15 +2364,24 @@ function bGTS(b) {
 // of one-way (northbound) Garibaldi. Entrance with a canopy and the blue Romanian school name plate + flag.
 // Src: game/research/bucharest-floreasca.md (rosetti, w28240279 row) ; OSM w28240279
 function bRosetti(b) {
-    const [p] = P2.rosetti.map(pts), W = '#e8ddb8', FR = '#f4f2ec', GL = '#4c5660';
+    // (round 5) public photo of the school (bucharest.ro listing; viewed only, not kept): 3 storeys, beige textured render,
+    // wide white PVC windows each sitting on an ORANGE spandrel panel, low red standing-seam hipped roof with eaves,
+    // small entrance porch with a flat canopy, asphalt yard with court markings.
+    const [p] = P2.rosetti.map(pts), W = '#e3d7b5', OR = '#e58b3a', FR = '#f6f6f2', GL = '#4c5660', RF = '#b8333a';
     b.wall = W;
-    const top = storeys(b, p, 0, [[3.9, 0.48, 0.62, false], [3.6, 0.48, 0.62, false], [3.6, 0.48, 0.62, false]], { wall: W, win: FR, trim: '#ddd1aa', bay: 3.3, courses: [0], corniceOut: 0.35, corniceH: 0.5, minL: 4, roofCol: '#8d8b86' });
-    b.ring(offset(p, -0.05), top, top + 0.7, '#ddd1aa'); b.ring(offset(p, -0.35), top, top + 0.7, '#ddd1aa', { inward: true });   // parapet
-    b.windows(p, 0, 11.1, 3.7, GL, { bay: 3.3, wf: 0.4, hf: 0.52, start: 0.95, minL: 4, off: 0.12, mat: 'g' });   // glazing inside the white frames
-    b.prism(offset(p, 0.06), 0, 0.6, '#b9ae92', { top: false });
-    const f = nearestFacade(p, 40, 7.4);                                                  // on the Garibaldi (east) face, level with the address node
-    entrance(b, f, { w: 2.6, h: 2.9, frame: '#d7cba5', door: '#6d7f88', canopy: 2.2, canopyCol: '#cfc6b0', plate: { w: 1.5, h: 0.8, y: 1.3, bg: '#1d4f91', lines: [['LICEUL TEORETIC', 0.1, '#ffffff'], ['C.A. ROSETTI', 0.16, '#ffffff']] } });
-    { const x = f.x + f.nx * 0.4 - f.nz * 2.3, z = f.z + f.nz * 0.4 + f.nx * 2.3; b.cyl(x, 3.2, z, 0.03, 0.03, 1.8, '#d8d8d8', 5, { rz: 0.5 }); flag(b, x + 0.4, 5, z, 1.1); }
+    b.prism(p, 0, 11.3, W, { top: false });
+    b.prism(offset(p, 0.06), 0, 0.55, '#a7a49b', { top: false });                             // plinth
+    for (const [y0, h] of [[0.35, 1.0], [3.95, 1.0], [7.55, 1.0]]) b.windows(p, y0, y0 + 3.6, 3.6, OR, { bay: 3.4, wf: 0.36, hf: h / 3.6, start: 0, minL: 4, off: 0.06 });   // orange spandrel panels
+    b.windows(p, 1.35, 11.3, 3.6, FR, { bay: 3.4, wf: 0.36, hf: 0.42, start: 0, minL: 4, off: 0.08 });          // white frames
+    b.windows(p, 1.35, 11.3, 3.6, GL, { bay: 3.4, wf: 0.3, hf: 0.36, start: 0.1, minL: 4, off: 0.11, mat: 'g' }); // glazing
+    // low red standing-seam hipped roof with eaves (over the U plan)
+    const lo = offset(p, 0.6), hi = offset(p, -4.6), y0 = 11.3, y1 = 13.4;
+    for (let i = 0; i < lo.length; i++) { const j = (i + 1) % lo.length; b.quad([lo[i][0], y0, lo[i][1]], [lo[j][0], y0, lo[j][1]], [hi[j][0], y1, hi[j][1]], [hi[i][0], y1, hi[i][1]], RF, 'm', [lo[i][0] - hi[i][0], 1.5, lo[i][1] - hi[i][1]]); }
+    b.cap(hi, y1, '#a52d33'); b.lip(p, lo, y0, '#d9d4c8', -1);
+    const f = nearestFacade(p, 40, 7.4);                                                    // on the Garibaldi (east) face, level with the address node
+    { const x = f.x + f.nx * 1.6, z = f.z + f.nz * 1.6, ry = Math.atan2(f.nx, f.nz); b.box(x, 0, z, 4.2, 3.4, 3.2, W, { ry }); b.box(x + f.nx * 0.2, 3.4, z + f.nz * 0.2, 4.8, 0.25, 3.8, '#e9e6de', { ry }); }   // entrance porch
+    entrance(b, { x: f.x + f.nx * 3.2, z: f.z + f.nz * 3.2, nx: f.nx, nz: f.nz }, { w: 1.8, h: 2.5, frame: '#ece9e2', door: '#7a8a92', plate: { w: 1.2, h: 0.7, y: 1.2, bg: '#1d4f91', lines: [['LICEUL TEORETIC', 0.08, '#ffffff'], ['C.A. ROSETTI', 0.13, '#ffffff']] } });
+    { const x = f.x + f.nx * 3.4 - f.nz * 1.6, z = f.z + f.nz * 3.4 + f.nx * 1.6; b.cyl(x, 2.6, z, 0.03, 0.03, 1.8, '#d8d8d8', 5, { rz: 0.5 }); flag(b, x + 0.4, 4.4, z, 1.1); }
     b.colPoly([p], 8);
 }
 
@@ -2377,14 +2391,20 @@ function bRosetti(b) {
 // Signage: building name on the entrance canopy + a small tenant plate (no rooftop logo found in research).
 // Src: game/research/bucharest-pipera.md (db, w55450549 row; Globalworth BOB particulars) ; OSM w55450549
 function bBOB(b) {
-    const q = P2.bob.map(pts)[0], p = q.slice(0, 4), GL = '#6f8c99', SP = '#8e989c', MU = '#c3c8ca';
-    b.prism(offset(p, -0.8), 0, 4.5, '#5d737d', { mat: 'g', top: false });                   // recessed glazed ground floor
-    curtainTower(b, p, 4.5, 27.4, { glass: GL, spandrel: SP, mullion: MU, pitch: 1.8, mw: 0.12, md: 0.18, fh: 3.8, frac: 0.66 });
-    b.prism(p, 4.3, 4.6, SP, { top: false }); b.cornice(p, 27.2, 0.6, 0.3, MU);
-    b.pilasters(p, 0, 4.5, 7.2, 0.5, 0.5, '#9aa3a6', {});
-    { const t = offset(p, -12); b.prism(t, 27.4, 30.4, '#a3a7a8'); }                        // plant enclosure
+    // (round 5) landlord photos (globalworth.com / bob.globalworth.com; viewed only, not kept): GF + 6 glass block with
+    // DARK horizontal spandrel bands, acute "prow" corners clad in white aluminium, a white projecting slab over a dark
+    // granite ground floor with tall glazed entrances, thin projecting roof edge; lobby with a "DB Global Technology" desk.
+    const q = P2.bob.map(pts)[0], p = q.slice(0, 4), GL = '#6f9aa3', SP = '#2c3336', WH = '#e8eaea';
+    b.prism(p, 0, 4.8, '#5a4d47', { top: false });                                            // dark granite ground floor
+    b.windows(p, 0, 4.8, 4.8, '#3d4c52', { bay: 7.2, wf: 0.55, hf: 0.82, start: 0.1, minL: 6, mat: 'g', off: 0.06 });
+    b.cornice(p, 4.8, 0.45, 2.4, WH, { solid: true });                                        // white projecting slab
+    curtainTower(b, p, 5.25, 27.6, { glass: GL, spandrel: SP, mullion: '#3c4447', pitch: 1.6, mw: 0.08, md: 0.12, fh: 3.75, frac: 0.7, start: 0.55 });
+    b.cornice(p, 27.6, 0.5, 1.2, WH, { solid: true });                                        // thin projecting roof edge
+    for (const k of [0, 2]) { const [x, z] = p[k]; b.cyl(x, 5.25, z, 1.6, 1.6, 22.4, WH, 6); }   // white-clad acute prows
+    { const t = offset(p, -12); b.prism(t, 28.1, 30.6, '#a3a7a8'); }                        // plant enclosure
     const f = nearestFacade(p, -11.5, -30.2);
-    entrance(b, f, { w: 4.8, h: 3.6, canopy: 3.2, canopyCol: '#2f3437', canopyText: 'BOB', canopyTextH: 0.32, plate: { w: 0.7, h: 0.5, y: 1.3, bg: '#ffffff', lines: [['DB', 0.14, '#0018a8'], ['GLOBAL', 0.05, '#0018a8'], ['TECHNOLOGY', 0.05, '#0018a8']] } });
+    entrance(b, f, { w: 4.8, h: 3.9, canopyText: null, plate: { w: 0.7, h: 0.5, y: 1.3, bg: '#ffffff', lines: [['DB', 0.14, '#0018a8'], ['GLOBAL', 0.05, '#0018a8'], ['TECHNOLOGY', 0.05, '#0018a8']] } });
+    { const x = f.x + f.nx * 2.45 - f.nz * 4.2, z = f.z + f.nz * 2.45 + f.nx * 4.2, ry = Math.atan2(f.nx, f.nz); b.text('BOB', x, 4.95, z, ry, 0.5, '#2c3336', { d: 0.02 }); }   // building name on the slab edge
     b.colPoly([p], 18);
 }
 
@@ -2426,18 +2446,20 @@ function bPolitehnica(b) {
 // Height: 7 levels ≈ 26 m (research table). No published exterior tenant signage -> street number only.
 // Src: game/research/bucharest-romana.json/.md (uipath-buc, w546500235 row) ; OSM w546500235 / w583612401
 function bTheLandmark(b) {
-    const ps = P2.thelandmark.map(pts), ST = '#d8d3c8', FR = '#3c3f42', GL = '#6f8a94';
+    // (round 5) news photo of the campus (economica.net; viewed only, not kept): Corp B = four storeys of light-stone grid
+    // with deep window reveals, topped by a cantilevered three-storey glass box with dark horizontal bands and a rooftop
+    // metal mesh screen; glazed ground floor; landscaped courtyard with a pool between the blocks.
+    const ps = P2.thelandmark.map(pts), ST = '#ddd6c8', FR = '#3c3f42', GL = '#6f8a94';
     for (const p of ps) {
-        b.prism(p, 0, 22.5, ST, { topCol: '#a9a59d' });
-        b.prism(offset(p, 0.1), 0, 4.5, '#7d949c', { mat: 'g', top: false });                 // glazed ground floor (cafés)
-        b.pilasters(offset(p, 0.1), 0, 4.5, 3.2, 0.16, 0.12, FR, {});
-        b.cornice(p, 4.4, 0.35, 0.2, FR);
-        b.windows(p, 4.5, 22.5, 3.6, FR, { bay: 2.4, wf: 0.46, hf: 0.8, start: 0.3, minL: 3, off: 0.06 });   // dark aluminium frames…
-        b.windows(p, 4.5, 22.5, 3.6, GL, { bay: 2.4, wf: 0.38, hf: 0.72, start: 0.45, mat: 'g', minL: 3, off: 0.1 });   // …around the glass
-        const t = offset(p, -2);                                                               // recessed top floor
-        b.prism(t, 22.5, 26.1, GL, { mat: 'g', topCol: '#9a978f' }); b.pilasters(t, 22.5, 26.1, 2.4, 0.12, 0.12, FR, {});
-        b.ring(offset(p, 0.05), 22.5, 23.6, ST); b.cap(offset(p, -0.05), 22.5, '#b5b1a8', [t], 1);   // parapet / terrace
-        { const [qx, qz] = centroid(t); b.box(qx, 26.1, qz, 8, 2.6, 6, '#a5a39d'); }   // plant room
+        b.prism(p, 0, 15.6, ST, { top: false });
+        b.prism(offset(p, 0.1), 0, 4.2, '#7d949c', { mat: 'g', top: false });                // glazed ground floor
+        b.pilasters(offset(p, 0.1), 0, 4.2, 3.2, 0.16, 0.12, FR, {});
+        b.windows(p, 4.2, 15.6, 3.8, '#55636b', { bay: 2.6, wf: 0.62, hf: 0.78, start: 0.4, mat: 'g', minL: 3, off: -0.25 });   // deep reveals
+        b.pilasters(p, 4.2, 15.6, 2.6, 0.5, 0.35, ST, {});
+        const top = offset(p, 0.7);                                                            // cantilevered glass box
+        curtainTower(b, top, 15.6, 26.6, { glass: GL, spandrel: '#2f3438', mullion: '#8d9599', pitch: 1.5, mw: 0.08, md: 0.1, fh: 3.65, frac: 0.78, start: 0.3 });
+        b.cap(top, 15.6, '#cfc8ba', [], -1);
+        const sc = offset(p, -1.5); b.ring(sc, 26.6, 29.4, '#6c7175'); b.ring(offset(sc, -0.1), 26.6, 29.4, '#6c7175', { inward: true });   // rooftop mesh screen
     }
     // UiPath door on Vasile Alecsandri (west face of Corp B at the address point 44.4499, 26.0944): canopy + street number
     const dz = 12.4;
@@ -2453,13 +2475,26 @@ function bTheLandmark(b) {
 // says 14 levels incl. plant floors) ≈ 45 m. Footprint OSM w246115249 (slab along Lascăr Catargiu).
 // Src: game/research/bucharest-romana.md (arnia — Europe House: europe_house_caimmo / _cw / _zf) ; OSM w246115249
 function bEuropeHouse(b) {
-    const [p] = P2.europehouse.map(pts), GL = '#5e7f8c', FR = '#9ea3a6', BASE = '#b9b4aa';
+    // (round 5) news photos (officerentinfo.ro / bursa.ro; viewed only, not kept): long slab in DARK blue-grey reflective glass
+    // with fine horizontal lines, a taller charcoal wedge-shaped volume at one end with the lit "Orange" rooftop sign (Orange
+    // Romania offices are in the building), a light-grey panelled end box with small square windows and "EUROPE HOUSE"
+    // lettering, shops on the ground floor. Which end carries the wedge is not certain from the photos (NW end assumed).
+    const [p] = P2.europehouse.map(pts), GL = '#3a4c5c', FR = '#6d7880', BASE = '#8d8c88';
     b.prism(p, 0, 5.5, BASE, { top: false }); b.bands(p, 0.4, 5, 4.6, '#3f4f58', { frac: 0.8, wall: BASE, pitch: 4.8, start: 0.4 });
-    curtainTower(b, p, 5.5, 41, { glass: GL, spandrel: '#6f8b96', mullion: FR, pitch: 1.8, mw: 0.14, md: 0.2, fh: 3.55, frac: 0.8, start: 0.3 });
+    curtainTower(b, p, 5.5, 44, { glass: GL, spandrel: '#2f3b46', mullion: FR, pitch: 1.6, mw: 0.08, md: 0.12, fh: 3.4, frac: 0.82, start: 0.3 });
     b.cornice(p, 5.4, 0.5, 0.35, FR);
-    const t = offset(p, -3.5);
-    b.prism(t, 41, 45, GL, { mat: 'g', topCol: '#8e9396' }); b.pilasters(t, 41, 45, 1.8, 0.14, 0.2, FR, {});   // taller glazed top volume / plant screen
-    { const [qx, qz] = centroid(p); b.box(qx, 45, qz, 10, 2.5, 6, '#9a9c9c'); }
+    // charcoal wedge at the NW end (along the slab axis), rising to ≈ 56 m with a sloped top
+    const ax = [36.5 - -34.5, 29.5 - -23.5], L = Math.hypot(...ax), ux = ax[0] / L, uz = ax[1] / L, nx = -uz, nz = ux;
+    const c0 = [-31 + ux * 6, -26 + uz * 6], ry = Math.atan2(ux, uz);
+    b.box(c0[0], 0, c0[1], 12, 46, 11, '#26292c', { ry: ry + Math.PI / 2 });
+    b.geo((() => { const sh = new THREE.Shape([new THREE.Vector2(-6, 0), new THREE.Vector2(6, 0), new THREE.Vector2(-6, 10)]); const g = new THREE.ExtrudeGeometry(sh, { depth: 11, bevelEnabled: false }); g.translate(0, 0, -5.5); return g; })(), '#26292c', M(c0[0], 46, c0[1], ry - Math.PI / 2));
+    // lit "Orange" sign on the wedge (real tenant signage)
+    for (const sg of [-1, 1]) { const x = c0[0] + nx * sg * 5.6 - ux * 3.5, z = c0[1] + nz * sg * 5.6 - uz * 3.5, r2 = Math.atan2(nx * sg, nz * sg); b.box(x, 50.5, z, 4.2, 1.6, 0.1, '#ff7900', { ry: r2, mat: 'e' }); b.text('ORANGE', x + nx * sg * 0.06, 50.85, z + nz * sg * 0.06, r2, 0.8, '#ffffff', { mat: 'e', d: 0.01 }); }
+    // light-grey panelled end box (SE end) with small square windows
+    const c1 = [33 - ux * 4, 29 - uz * 4];
+    b.box(c1[0], 5.5, c1[1], 9, 38.5, 9, '#c9cbca', { ry: ry + Math.PI / 2 });
+    { const t = offset(p, -3.5); b.prism(t, 44, 46, '#8e9396'); }
+    { const [qx, qz] = centroid(p); b.box(qx, 46, qz, 10, 2.5, 6, '#9a9c9c'); }
     // Arnia (2019 CV stop): main door on Lascăr Catargiu nearest the address point, building name on the canopy, tenant plate
     entrance(b, nearestFacade(p, 20, 2.7), { w: 3.2, h: 3.4, canopy: 2.4, canopyCol: '#9ea3a6', canopyText: 'EUROPE HOUSE', canopyTextH: 0.18, canopyTextCol: '#20343d', plate: { w: 0.6, h: 0.36, y: 1.35, bg: '#ffffff', lines: [['ARNIA', 0.12, '#e2232a'], ['SOFTWARE', 0.05, '#3c3f42']] } });
     b.colPoly([p], 10);

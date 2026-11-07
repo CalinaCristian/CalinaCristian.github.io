@@ -1113,7 +1113,10 @@ export class Traffic {
         if (v._pp0 !== undefined) {
             const pen = vpPen(v, P);
             // this step would push into the player (box as drawn): undo it, whatever edge it reached, and wait
-            if (pen > -0.05 && pen > v._pp0 + 0.002) { this.revert(v); v.speed = 0; }
+            // (only when the player is ahead: a turning NPC's rear swings toward a player tailgating behind it, and
+            //  reverting that froze the NPC — and the player behind it — for good; it is driving away from the player)
+            const aheadP = (P.x - v.x) * -Math.sin(v.heading) + (P.z - v.z) * -Math.cos(v.heading) > 0;
+            if (aheadP && pen > -0.05 && pen > v._pp0 + 0.002) { this.revert(v); v.speed = 0; }
         }
         if (v.latBlend && v.s > 12) v.latBlend = 0;
     }

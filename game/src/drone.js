@@ -183,7 +183,7 @@ export class Drone {
     covered(c) {
         try {
             const w = c.walker, rc = this._rc || (this._rc = new THREE.Raycaster());
-            rc.set(this._v.set(w.x, (w.y || 0) + EYE + 0.4, w.z), new THREE.Vector3(0, 1, 0)); rc.near = 0; rc.far = 35;
+            rc.set(this._v.set(w.x, (w.y || 0) + EYE + 0.4, w.z), new THREE.Vector3(0, 1, 0)); rc.near = 0; rc.far = 35; rc.camera = this.g.camera;
             const hits = rc.intersectObject(c.scene, true);
             return hits.some((h) => h.object.isMesh && h.object.visible !== false && h.object.name !== 'drone' && !/sky|cloud|rain|snow/i.test(h.object.name || '') && !(h.object.material?.name || '').match(/sky|backdrop|horizon/i));
         } catch { return false; }

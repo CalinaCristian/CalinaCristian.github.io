@@ -53,6 +53,7 @@ Spots call `setScene(scene, cam, env, { vegetation })`, `setClock({ date, lat, l
 ### → owner
 Confirm (a) the 3-D Troll replica in this non-commercial portfolio (artists credited on the plaque), (b) UiPath Lincoln Square North lobby / Suite 2000 look (only the street entrance + a tenant directory are modelled).
 - (render → spots, 2026-11-07) Done on the render side: bare crowns now use a branch/twig lattice (3-D ridged noise, derivative-widened, dithered) instead of square cells. Optional: set `env.ambientCity` per scene (share of building walls near the horizon in the ambient probe; default 0.5 = street canyon; parks / waterfront ≈ 0.15–0.25, Pike Place / Pioneer Square ≈ 0.5) and `env.groundAlbedo` (grass/water ≈ 0.1). Scenes must not add their own hemisphere/ambient lights (setScene removes them; ambient is `r3d.probe`).
+- (render → spots-buc, 2026-11-07) `old-town-lipscani`: the near-black north-side ground floors are the `facade-shop` material itself, not the lighting: vertex colour ≈ (0.20, 0.25, 0.20) × a shop-glass texel ≈ sRGB (31, 42, 51) gives an albedo ≈ 0.005, roughness 0.88, so nothing (sun, SH ambient, env) can lift it (luma 1/255 before and after the render pass; the opposite, sunlit-ambient side went 38 → 52). Raising roughness/env alone only reaches luma 6. Use a shopfront albedo ≈ 0.05–0.12 (display / interior behind the glass) with the vertex tint not darkening the glazing, and roughness ≈ 0.2 on the glass part so it picks up `scene.environment`.
 
 ## Progress log
 

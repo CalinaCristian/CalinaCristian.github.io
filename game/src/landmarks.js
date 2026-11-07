@@ -93,6 +93,20 @@ function materials() {
         e: new THREE.MeshBasicMaterial({ vertexColors: true }),                                     // self-lit: lobby glow, lit signage
     };
     MATS.w.name = 'landmark-water'; MATS.f.name = 'landmark-backdrop'; MATS.e.name = 'landmark-glow';
+    // floodlit masonry (LANDMARKS[].floodlit): the 'm' geometry of floodlit monuments uses this material instead. Warm
+    // emissive scaled per vertex by the vertex colour (stone glows, dark windows stay dark) and dimmed on up-facing
+    // surfaces (floodlights hit the walls, not the roofs). emissiveIntensity is 0 by day; render.js eases it to
+    // userData.nightEmissive at night (contract 01-architecture "Night-lit materials").
+    const fl = new THREE.MeshLambertMaterial({ vertexColors: true, emissive: new THREE.Color('#ffdcae'), emissiveIntensity: 0 });
+    fl.name = 'landmark-floodlit'; fl.userData.nightEmissive = 0.5; fl.userData.floodlit = true;
+    fl.onBeforeCompile = (sh) => {
+        sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nvarying float vFlood;')
+            .replace('#include <beginnormal_vertex>', '#include <beginnormal_vertex>\nvFlood = 1.0 - 0.75 * max(normalize(mat3(modelMatrix) * objectNormal).y, 0.0);');
+        sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying float vFlood;')
+            .replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\n#ifdef USE_COLOR\ntotalEmissiveRadiance *= vColor.rgb * vColor.rgb * 1.25;\n#endif\ntotalEmissiveRadiance *= vFlood;');
+    };
+    fl.customProgramCacheKey = () => 'landmark-floodlit';
+    MATS.fl = fl;
     return MATS;
 }
 
@@ -444,11 +458,12 @@ class Builder {
         return { x: p[0][0], z: p[0][1], nx: 1, nz: 0 };
     }
     /** merge everything into meshes */
-    finish() {
+    finish(o = {}) {
         const group = new THREE.Group(), MT = materials();
         let tris = 0;
-        for (const [k, b] of Object.entries(this.bk)) {
+        for (const [k0, b] of Object.entries(this.bk)) {
             if (!b.p.length) continue;
+            const k = k0 === 'm' && o.floodlit ? 'fl' : k0;
             const g = new THREE.BufferGeometry();
             g.setAttribute('position', new THREE.Float32BufferAttribute(b.p, 3));
             g.setAttribute('normal', new THREE.Float32BufferAttribute(b.n, 3));
@@ -563,132 +578,145 @@ function storeys(b, p, y0, spec, o = {}) {
 
 // Palatul Parlamentului (Anca Petrescu, 1984-97) — 240 m E-W x 270 m N-S, 84 m high (en.wikipedia
 // "Palace of the Parliament" infobox; skyscrapercenter.com/building/wd/10216), 12 storeys above ground.
-// Footprint OSM rel 2230391 (outer 14325732, courtyards 167231786/178309073); tier ring from OSM part 283976783
-// (58 m, x -82..82 / z -94..106, mirrored — the extract maps only half of it). Massing / facade read from the
-// Commons photos "Bucarest - Palau del Parlament.png" (north front) and "Bucharest - Palace of the Parliament (2024)":
-// 4-storey arcaded base with corner pavilions, 4-storey arched tier ring, 12-storey central block (≈72 x 104 m)
-// with flat roof + flag, north portico (4 pairs of giant columns, balcony), terraced lawns, forecourt wall (OSM 178305226).
+// Footprint OSM rel 2230391 (29 m outer 14325732 + courtyards 167231786/178309073). Massing from the OSM
+// building:parts: 58 m tier ring w283976783 (x -63..82 / z -94..106 around the inner courtyard block) and the
+// 86 m central block w232360843 (28 x 107 m, x 38..66) set ≈ 20 m behind the tier's EAST face, so the tall block
+// stands over the main front. Main front = EAST, on the Bd. Unirii axis (Piața Constituției): portico of paired
+// giant columns with the balcony, arcaded wings, steps (OSM w178305826, x 86..102 on the axis), terraced lawns.
+// Commons refs "Bucharest - Palace of the Parliament (2024)", "Palace of the Parliament in Bucharest (51878975552)"
+// (view from the balcony down Bd. Unirii) and "Bucarest - Palazzo del Parlamento di notte 01" (floodlit at night).
 // Src: https://en.wikipedia.org/wiki/Palace_of_the_Parliament ; https://www.skyscrapercenter.com/building/wd/10216 ; OSM rel 2230391
 function bParliament(b) {
-    const W = '#f1eadb', TR = '#e8dfcb', WIN = '#56606a', DK = '#3d454d';
+    const W = '#f1eadb', TR = '#e8dfcb', WIN = '#56606a', COL = '#f3eee4';
     b.wall = W;
     const [outer, cyN, cyS] = P.parliament.map(pts);
-    const Y0 = 1.6;   // courtyards cyN / cyS sit inside the tier ring + central block, so they stay roofed over
-    void cyN; void cyS;
+    const Y0 = 1.6;
     // terrace: stepped platform with balustrade around the building
     b.prism(offset(outer, 7), 0, Y0, '#cfc6b3', { topCol: '#d8d0bf' });
     b.ring(offset(outer, 6.6), Y0, Y0 + 1, TR);                                  // terrace balustrade
-    // base (ground arcade + 2 arched storeys + mezzanine + attic) ~ 27 m
+    // base (ground arcade + 2 arched storeys + mezzanine + attic) to ≈ 29 m; the two OSM courtyards stay open
     const top0 = storeys(b, outer, Y0, [[7.5, 0.5, 0.72, true], [6.2, 0.45, 0.62, true], [5.2, 0.42, 0.55, false], [4.2, 0.34, 0.45, false]],
-        { wall: W, win: WIN, bay: 6.9, courses: [0, 2], trim: TR, pilasters: true, pilasterEvery: 2, pilasterW: 0.9, corniceOut: 1.2, parapet: 1.3 });
+        { wall: W, win: WIN, bay: 6.9, holes: [cyN, cyS], courses: [0, 2], trim: TR, pilasters: true, pilasterEvery: 2, pilasterW: 0.9, corniceOut: 1.2, parapet: 1.3 });
     // corner pavilions of the base rise one storey more, with round-headed attic windows
     const pav = [[-115, -137.5, -86, -106], [86, -137.5, 115, -106], [-115, 106, -84, 137.5], [86, 108, 115, 137.5]];
-    for (const [x0, z0, x1, z1] of pav) {
-        const r = rect(x0, z0, x1, z1);
-        storeys(b, r, top0 - 0.8, [[5.5, 0.42, 0.6, true]], { wall: W, win: WIN, bay: 5.8, trim: TR, corniceOut: 0.8, parapet: 1.1, minL: 6 });
-    }
-    // tier ring (x ±82, z -94..106) around the courtyards — 4 storeys of arched windows
-    const ring = rect(-82, -94, 82, 106);
-    const top1 = storeys(b, ring, top0 - 1, [[4.8, 0.44, 0.62, true], [4.3, 0.42, 0.55, false], [4.6, 0.42, 0.62, true]],
-        { wall: W, win: WIN, bay: 5.6, courses: true, trim: TR, corniceOut: 1, parapet: 1.2 });
-    // four towers on the tier ring (front ones are the tall square pavilions seen from Piața Constituției)
-    for (const [cx, cz] of [[-70, -82], [70, -82], [-70, 94], [70, 94]]) {
-        const r = rect(cx - 12, cz - 12, cx + 12, cz + 12);
-        storeys(b, r, top1 - 1, [[4.4, 0.44, 0.6, false], [4.4, 0.44, 0.6, false], [5, 0.44, 0.65, true]], { wall: W, win: WIN, bay: 6, trim: TR, corniceOut: 0.8, parapet: 1.2, minL: 6 });
-    }
-    // central 12-storey block (72 x 104 m) — flat roof at 84 m, top storeys arched
-    const cen = rect(-36, -52, 36, 52);
-    const cs = [[4.2, 0.44, 0.55, false], [4.2, 0.44, 0.55, false], [4.4, 0.46, 0.66, true], [4.1, 0.44, 0.55, false], [4.1, 0.44, 0.55, false], [4.1, 0.44, 0.55, false], [4.4, 0.46, 0.66, true], [4.1, 0.4, 0.5, false], [4.6, 0.46, 0.66, true]];
-    const ct = storeys(b, cen, top1 - 1, cs, { wall: W, win: WIN, bay: 6.4, holes: [rect(-20, -38, 20, 38)], courses: true, trim: TR, pilasters: true, pilasterEvery: 2, pilasterW: 1.1, corniceOut: 1.3, parapet: 1.4, roofCol: '#cfc7b6' });
-    for (const [x0, z0, x1, z1] of [[-36, -52, -26, -42], [26, -52, 36, -42], [-36, 42, -26, 52], [26, 42, 36, 52]]) b.prism(offset(rect(x0, z0, x1, z1), 0.6), top1 - 1, ct - 1, TR, { top: false });  // corner piers
-    b.box(0, ct, 0, 10, 2.2, 8, TR);                                              // roof house
-    b.cyl(0, ct + 2.2, 0, 0.12, 0.18, 12, '#d8d8d8', 6);
-    flag(b, 0, ct + 14, 0, 3.2);
-    // north portico (Piața Constituției): 4 pairs of giant columns on a podium, entablature + balustraded balcony
-    const zn = -102;
-    b.box(0, Y0, zn - 6, 48, 1.2, 12, TR);
-    for (let i = 0; i < 4; i++) for (const s of [-1, 1]) { const x = s * (5 + i * 6.2); b.colonnade(x - 1, zn - 10.5, x + 1, zn - 10.5, Y0 + 1.2, 13.5, 2, 0.75, '#f3eee4', { capital: TR, seg: 6 }); }
-    b.box(0, Y0 + 14.7, zn - 6, 50, 2, 12.5, TR);                                    // entablature
-    b.fence([[-24, zn - 12], [24, zn - 12]], 1.2, 3.2, TR, { post: 0.45 });         // balcony balustrade (on top)
-    b.box(0, Y0 + 16.7, zn - 12, 48, 0.2, 0.25, TR);
-    b.archWall(48, 14, 0.6, [-18, -6, 6, 18].map(x => ({ x, w: 5.5, h: 11 })), '#e6ddca', M(0, Y0 + 1.2, zn - 0.6));   // arcade behind the columns
-    // arcaded loggias on the front wings and the Izvor (west) / Libertății (east) fronts
-    for (const s of [-1, 1]) b.archWall(36, 8.2, 0.8, [-14, -7, 0, 7, 14].map(x => ({ x, w: 4.4, h: 7.2 })), '#efe8d8', M(s * 44, Y0, zn - 0.45));
-    for (const s of [-1, 1]) {
-        const xw = s < 0 ? -112.5 : 86.5;
-        b.box(xw + s * 4, Y0, -1, 8, 1, 34, TR);
-        b.colonnade(xw + s * 7, -14, xw + s * 7, 12, Y0 + 1, 11, 6, 0.65, '#f3eee4', { capital: TR, seg: 6 });
-        b.box(xw + s * 4.5, Y0 + 12, -1, 8, 1.6, 34, TR);
-    }
-    // stepped lawn terraces on the north slope + forecourt retaining wall with stone pillars and iron railing
-    for (const s of [-1, 1]) for (const [k, h] of [[0, 0.5], [9, 1.1]]) b.prism(rect(s > 0 ? 27 : -82, -134 + k, s > 0 ? 82 : -27, -105), 0, h, '#7f9d5e', { topCol: '#86a663' });
+    for (const [x0, z0, x1, z1] of pav) storeys(b, rect(x0, z0, x1, z1), top0 - 0.8, [[5.5, 0.42, 0.6, true]], { wall: W, win: WIN, bay: 5.8, trim: TR, corniceOut: 0.8, parapet: 1.1, minL: 6 });
+    // 58 m tier ring (OSM w283976783) around the lower inner block: arched storeys between paired pilasters
+    const tier = rect(-63, -94.5, 82, 106), tierHole = rect(-37, -66.5, 38, 83);
+    const ts = [[4.6, 0.44, 0.62, true], [4.2, 0.42, 0.55, false], [4.2, 0.42, 0.55, false], [4.6, 0.44, 0.62, true], [4.2, 0.42, 0.55, false], [4.2, 0.42, 0.55, false], [4.4, 0.44, 0.62, true]];
+    const top1 = storeys(b, tier, top0 - 1, ts, { wall: W, win: WIN, bay: 5.6, holes: [tierHole], courses: [0, 3], trim: TR, pilasters: true, pilasterEvery: 2, pilasterW: 0.8, corniceOut: 1, parapet: 1.2 });
+    // 86 m central block (OSM w232360843) over the east front: 6 storeys above the tier, arched top storey, flag
+    const cen = rect(38, -46.7, 66, 60.4);
+    const cs = [[4.2, 0.44, 0.55, false], [4.4, 0.46, 0.66, true], [4.1, 0.44, 0.55, false], [4.1, 0.44, 0.55, false], [4.4, 0.46, 0.66, true], [4.4, 0.46, 0.66, true]];
+    const ct = storeys(b, cen, top1 - 1.6, cs, { wall: W, win: WIN, bay: 6.4, courses: true, trim: TR, pilasters: true, pilasterEvery: 2, pilasterW: 1.1, corniceOut: 1.3, parapet: 1.4, roofCol: '#cfc7b6' });
+    for (const [x0, z0, x1, z1] of [[38, -46.7, 44, -40.7], [60, -46.7, 66, -40.7], [38, 54.4, 44, 60.4], [60, 54.4, 66, 60.4]]) b.prism(offset(rect(x0, z0, x1, z1), 0.6), top1 - 1.6, ct - 1, TR, { top: false });  // corner piers
+    b.box(52, ct, 7, 8, 2.2, 10, TR);                                              // roof house
+    b.cyl(52, ct + 2.2, 7, 0.12, 0.18, 12, '#d8d8d8', 6);
+    flag(b, 52, ct + 14, 7, 3.2);
+    // EAST portico (main entrance, Bd. Unirii axis): local frame x along the front (= world z), local -z = outward (= world +x)
+    b.push(M(86, 0, 0, -Math.PI / 2));
+    b.box(0, Y0, -6, 48, 1.2, 12, TR);
+    for (let i = 0; i < 4; i++) for (const s of [-1, 1]) { const x = s * (5 + i * 6.2); b.colonnade(x - 1, -10.5, x + 1, -10.5, Y0 + 1.2, 13.5, 2, 0.75, COL, { capital: TR, seg: 8 }); b.box(x, Y0 + 1.2, -10.5, 4.2, 0.8, 2.2, TR); }
+    b.box(0, Y0 + 14.7, -6, 50, 2, 12.5, TR);                                      // entablature
+    b.box(0, Y0 + 16.7, -6.2, 51, 0.5, 13, '#ece4d2');
+    b.fence([[-24, -12], [24, -12]], 1.2, 3.2, TR, { post: 0.45 });                // the balcony balustrade (on the portico roof)
+    b.archWall(48, 14, 0.6, [-18, -6, 6, 18].map(x => ({ x, w: 5.5, h: 11 })), '#e6ddca', M(0, Y0 + 1.2, -0.6));   // arcade behind the columns
+    for (const x of [-18, -6, 6, 18]) b.box(x, Y0 + 1.2, -0.2, 4.6, 8.5, 0.2, '#4f5760');   // glazed doors in the arcade
+    for (const s of [-1, 1]) b.archWall(36, 8.2, 0.8, [-14, -7, 0, 7, 14].map(x => ({ x, w: 4.4, h: 7.2 })), '#efe8d8', M(s * 44, Y0, -0.45));   // arcaded loggias on the front wings
+    for (let i = 0; i < 6; i++) b.box(0, i * 0.27, -12.5 - i * 0.6, 30 - i * 0.6, 0.27, 0.6 + (5 - i) * 0.6 * 0 + 0.6, '#ddd5c3');   // steps down to the forecourt (OSM w178305826)
+    b.pop();
+    // Izvor (west) front: giant colonnade; north (Bd. Națiunile Unite) front: smaller columned entrance
+    b.box(-116.5, Y0, -1, 8, 1, 34, TR);
+    b.colonnade(-119.5, -14, -119.5, 12, Y0 + 1, 11, 6, 0.65, COL, { capital: TR, seg: 8 });
+    b.box(-117, Y0 + 12, -1, 8, 1.6, 34, TR);
+    b.push(M(0, 0, -101.5, 0));
+    b.box(0, Y0, -4, 30, 1, 8, TR); b.colonnade(-12, -7, 12, -7, Y0 + 1, 11, 6, 0.65, COL, { capital: TR, seg: 8 }); b.box(0, Y0 + 12, -4, 31, 1.6, 8.5, TR);
+    b.pop();
+    // terraced front gardens on the east (OSM retaining walls + hedges): stepped lawns either side of the axis, flower parterre
+    for (const s of [-1, 1]) for (const [x0, h] of [[100, 0.9], [124, 0.55], [140, 0.25]]) b.prism(rect(x0, s > 0 ? 10 : -92, 158, s > 0 ? 92 : -10), 0, h, '#7f9d5e', { topCol: '#86a663' });
+    for (const s of [-1, 1]) b.prism(ellipse(130, s * 50, 14, 22, 16), 0.58, 0.7, '#a85a5a', { topCol: s > 0 ? '#c9a23c' : '#9b5ba0' });
+    // north forecourt retaining wall with stone pillars and iron railing (OSM w178305226)
     const fl = [[-80.1, -266.3], [-78.7, -179.8], [-81.1, -179.6], [-83.9, -177.1], [-82.8, -161.3], [-78, -156.5], [-34.9, -157.4], [88.3, -159.8], [95.9, -164.8], [96.2, -171.9], [89.8, -182], [88.7, -267.5]];
     b.fence(fl, 1.9, 18, '#d9cfbb', { post: 1, base: 0.9, baseCol: '#d6ccb8', bars: 2.4, postCol: '#e1d8c6' });
     for (let i = 0; i + 1 < fl.length; i++) if (Math.hypot(fl[i + 1][0] - fl[i][0], fl[i + 1][1] - fl[i][1]) > 20) b.colSeg(fl[i][0], fl[i][1], fl[i + 1][0], fl[i + 1][1], 0.6);
-    b.colPoly([outer], 22);
+    b.colPoly([outer], 22); b.col(93, 0, 7, 25);
 }
 
-// Catedrala Mântuirii Neamului (Vanel Exim / A. Ion, 2010-25) — 126.1 m x 67.7 m cross plan, 127 m to the
-// lantern, cross top ≈ 130-135 m; masonry levels (ro.wikipedia "Catedrala Mântuirii Neamului", building log):
-// nave +45 m, four secondary towers +62 m, west bell tower +75.5 m, Pantocrator tower +106 m (then dome + cross).
-// Neo-Brâncovenesc: light stone walls with a band of "ocnițe" (blind arched niches), tall arched windows,
-// gilded roofs and onion domes, open west porch (pridvor). Footprint OSM way 232332568.
+// Catedrala Mântuirii Neamului (Vanel Exim / A. Ion, 2010-25) — 126.1 m x 67.7 m cross plan. Heights from the 2013
+// section drawing (ro.wikipedia "Catedrala Mântuirii Neamului"): walls 41.4 m, Pantocrator drum 71.8-97.8 m, dome to
+// 121 m, lantern 127 m, cross 133 m; four secondary towers ≈ 62 m, west bell tower ≈ 75.5 m (+ dome, cross).
+// Neo-Brâncovenesc: white stone walls with a band of blind arched niches, tall arched windows; drums are WHITE STONE
+// with tall arched windows between paired colonnettes under an arcaded cornice; gilded ribbed hemispherical domes
+// with lanterns (Commons "Catedrala Națională a României iunie 2023"), open west porch (pridvor). OSM way 232332568.
 // Src: https://ro.wikipedia.org/wiki/Catedrala_Mântuirii_Neamului ; OSM way 232332568
 function bCathedral(b) {
-    const S = '#f4f0e7', TR = '#e3dccb', NI = '#c9bfa8', WIN = '#4a535d', GOLD = '#d2a645', GOLDR = '#b88d3a';
+    const S = '#f4f0e7', TR = '#e3dccb', NI = '#d6cdb9', WIN = '#3e434a', GOLD = '#d2a645', GOLDR = '#b88d3a', CL = '#fbf8f1';
     b.wall = S;
-    const [outer] = P.cathedral.map(pts), onionLater = [];
+    const [outer] = P.cathedral.map(pts), domesLater = [];
+    const HW = 41.4;
     b.prism(offset(outer, 2.5), 0, 1.4, '#cfc6b4', { topCol: '#d9d1c1' });                      // stylobate
-    b.prism(outer, 1.4, 36, S, { topCol: TR });
+    b.prism(outer, 1.4, HW, S, { topCol: TR });
     b.windows(outer, 1.4, 9, 7.6, '#6d6a62', { bay: 4.4, wf: 0.5, hf: 0.7, start: 1.2, arch: true, minL: 7 });     // ground-floor arcade
-    b.windows(outer, 9, 31, 7.3, WIN, { bay: 4.6, wf: 0.36, hf: 0.42, start: 1.6, arch: true, minL: 9 });           // rows of small arched windows
-    b.cornice(outer, 9, 0.6, 0.5, GOLDR); b.cornice(outer, 35.4, 1, 0.9, TR);
+    b.windows(outer, 9, 33, 8, WIN, { bay: 4.6, wf: 0.36, hf: 0.5, start: 1.6, arch: true, minL: 9 });              // tall arched windows
+    b.windows(outer, 33.2, 39.6, 6.4, NI, { bay: 2.3, wf: 0.6, hf: 0.62, start: 1, arch: true, minL: 9 });          // band of blind niches (ocnițe)
+    b.cornice(outer, 9, 0.6, 0.5, GOLDR); b.cornice(outer, 32.6, 0.6, 0.4, TR); b.cornice(outer, HW - 0.6, 1, 0.9, TR);
     // round corner turrets with gilded domes at the ends of the arms
     for (const [x, z] of [[-58.5, -13.5], [-58.5, 13.5], [6.5, -31], [21.5, -31], [6.5, 31], [21.5, 31], [-31, -24], [-31, 24]]) {
-        b.cyl(x, 1.4, z, 3.4, 3.6, 40.6, S, 10);
-        b.cyl(x, 42, z, 3.9, 3.9, 0.8, TR, 8); onionLater.push([x, 42.8, z, 3.6, 5.6, 8]);
+        b.cyl(x, 1.4, z, 3.4, 3.6, HW + 4.6, S, 10);
+        b.cyl(x, HW + 6, z, 3.9, 3.9, 0.8, TR, 8); domesLater.push([x, HW + 6.8, z, 3.5, 4.2, 10, 0]);
     }
-    b.roof(outer, 36, 5, GOLDR, 3, { topCol: GOLDR });
-    const cross = (x, y, z, h) => { b.box(x, y, z, 0.6, h, 0.6, GOLD, { mat: 'g' }); b.box(x, y + h * 0.62, z, 0.6, 0.55, h * 0.52, GOLD, { mat: 'g' }); };
-    const onion = (x, y, z, r, h, seg) => {                                                   // bulbous gilded dome
-        const pr = [[0.001, 0], [1, 0], [1.08, 0.24], [0.92, 0.56], [0.46, 0.85], [0.08, 1]].map(([a, c]) => new THREE.Vector2(a * r, c * h));
+    b.roof(outer, HW, 4, GOLDR, 3, { topCol: GOLDR });
+    const cross = (x, y, z, h) => { b.box(x, y, z, h * 0.09, h, h * 0.09, GOLD, { mat: 'g' }); b.box(x, y + h * 0.62, z, h * 0.09, h * 0.09, h * 0.52, GOLD, { mat: 'g' }); };
+    // gilded ribbed hemispherical dome (slightly raised), ribs, collar; lantern when `lan` > 0
+    const domeG = (x, y, z, r, h, seg, lan) => {
+        const pr = [[r * 1.04, 0], [r, h * 0.06], [r * 0.97, h * 0.28], [r * 0.87, h * 0.52], [r * 0.68, h * 0.74], [r * 0.4, h * 0.92], [0.001, h]].map(([a, c]) => new THREE.Vector2(a, c));
         b.geo(new THREE.LatheGeometry(pr, seg), GOLD, M(x, y, z), 'g');
+        for (let i = 0; i < seg; i += 2) { const a = i / seg * Math.PI * 2, c = Math.cos(a), s2 = Math.sin(a); b.tube(pr.slice(1, 6).map(v => [x + c * (v.x + r * 0.03), y + v.y, z + s2 * (v.x + r * 0.03)]), Math.max(0.12, r * 0.022), GOLDR, { seg: 5, radial: 3, mat: 'g' }); }
+        b.cyl(x, y, z, r * 1.08, r * 1.1, Math.max(0.4, r * 0.06), GOLDR, seg, { mat: 'g' });
+        if (lan > 0) { const lr = Math.max(0.6, r * 0.16); b.cyl(x, y + h * 0.95, z, lr, lr, lan * 0.7, S, 8); b.dome(x, y + h * 0.95 + lan * 0.7, z, lr * 1.1, lan * 0.3, GOLD, 8, { mat: 'g' }); return y + h * 0.95 + lan; }
+        return y + h;
     };
-    const drum = (x, z, y0, y1, r, seg, winH) => {                                            // polygonal drum, arched windows + colonnettes
-        const ring = ellipse(x, z, r, r, seg, Math.PI / seg);
+    // drum: white stone polygon, tall arched windows (recessed dark) between paired colonnettes, arcaded cornice
+    const drum = (x, z, y0, y1, r, seg, winH) => {
+        const ring = ellipse(x, z, r, r, seg, Math.PI / seg), side = 2 * r * Math.sin(Math.PI / seg);
         b.prism(ring, y0, y1, S, { top: false });
-        b.windows(ring, y0, y1 - 1, y1 - y0 - 1, WIN, { bay: 2 * r * Math.sin(Math.PI / seg), wf: 0.42, hf: winH, start: (y1 - y0) * 0.16, arch: true, minL: 0.5 });
-        b.cornice(ring, y1 - 1.2, 1.2, 0.6, TR); b.cornice(ring, y0, 0.8, 0.5, TR);
+        b.cornice(ring, y0, 0.9, 0.5, TR);
+        b.windows(ring, y0 + 1, y1 - 1.6, y1 - y0 - 2.6, WIN, { bay: side, wf: 0.34, hf: winH, start: (y1 - y0) * 0.12, arch: true, minL: 0.5, off: 0.05 });
+        const ch = (y1 - y0) * 0.86, cr = Math.max(0.16, side * 0.045);
+        for (let i = 0; i < seg; i++) {
+            const a = i / seg * Math.PI * 2 + Math.PI / seg, px = x + Math.cos(a) * (r + cr), pz = z + Math.sin(a) * (r + cr), tx = -Math.sin(a), tz = Math.cos(a);
+            for (const d of [-1, 1]) b.cyl(px + tx * d * cr * 1.6, y0 + 0.9, pz + tz * d * cr * 1.6, cr, cr, ch - 0.9, CL, 6);
+        }
+        b.cornice(ring, y0 + ch, 0.5, 0.35, TR); b.cornice(ring, y1 - 1.2, 1.2, 0.7, TR);
     };
-    // Pantocrator tower over the crossing: square base, 16-sided drum to +106 m, onion dome, lantern, cross
-    const mx = 13.5;
-    b.prism(rect(mx - 17, -17, mx + 17, 17), 36, 52, S, { topCol: GOLDR }); b.windows(rect(mx - 17, -17, mx + 17, 17), 36, 52, 16, NI, { bay: 2.6, wf: 0.6, hf: 0.6, start: 4, arch: true });
-    b.cornice(rect(mx - 17, -17, mx + 17, 17), 51, 1, 0.8, TR);
-    b.cyl(mx, 52, 0, 15.5, 16.5, 4, GOLDR, 16);
-    drum(mx, 0, 56, 100, 14.2, 16, 0.55);
-    b.cyl(mx, 100, 0, 14.6, 14.8, 6, S, 16);
-    onion(mx, 106, 0, 13.6, 18, 20);
-    b.cyl(mx, 123, 0, 1.8, 2.1, 4, GOLD, 8, { mat: 'g' }); onion(mx, 127, 0, 2.1, 3, 8);
-    cross(mx, 129.5, 0, 6);
-    // four secondary towers at the corners of the crossing (+62 m)
+    // Pantocrator tower over the crossing: square base, 16-sided lower drum, drum 71.8-97.8 m, dome to 121, lantern 127, cross 133
+    const mx = 13.5, base = rect(mx - 17, -17, mx + 17, 17);
+    b.prism(base, HW, 56, S, { topCol: GOLDR }); b.windows(base, HW, 56, 14.6, NI, { bay: 2.6, wf: 0.6, hf: 0.6, start: 4, arch: true });
+    b.cornice(base, 55, 1, 0.8, TR);
+    const low = ellipse(mx, 0, 15.6, 15.6, 16, Math.PI / 16);
+    b.prism(low, 56, 71.8, S, { topCol: GOLDR }); b.windows(low, 57, 71, 14, WIN, { bay: 6, wf: 0.3, hf: 0.42, start: 4, arch: true, minL: 0.5 }); b.cornice(low, 70.8, 1, 0.8, TR);
+    drum(mx, 0, 71.8, 97.8, 14.2, 16, 0.6);
+    const ly = domeG(mx, 97.8, 0, 14.6, 23.2, 24, 7.2);
+    cross(mx, ly, 0, 6);
+    // four secondary towers at the corners of the crossing (≈ 62 m)
     for (const [x, z] of [[mx - 21.5, -21], [mx + 21.5, -21], [mx - 21.5, 21], [mx + 21.5, 21]]) {
-        b.prism(rect(x - 5, z - 5, x + 5, z + 5), 36, 42, S, { topCol: GOLDR });
-        drum(x, z, 42, 58, 4.4, 8, 0.6);
-        onion(x, 58, z, 4.6, 6.5, 12);
-        cross(x, 64.2, z, 3.2);
+        const q = rect(x - 5.2, z - 5.2, x + 5.2, z + 5.2);
+        b.prism(q, HW, 46, S, { topCol: GOLDR }); b.windows(q, HW, 46, 4.6, WIN, { bay: 3.4, wf: 0.36, hf: 0.6, start: 1, arch: true }); b.cornice(q, 45.4, 0.6, 0.6, TR);
+        drum(x, z, 46, 56.5, 4.6, 8, 0.6);
+        const y2 = domeG(x, 56.5, z, 4.9, 5.6, 12, 1.6);
+        cross(x, y2, z, 3.2);
     }
-    // west bell tower (+75.5 m) over the narthex, flanked by two smaller towers
-    const bx = -48;
-    b.prism(rect(bx - 10, -10, bx + 10, 10), 36, 56, S, { topCol: GOLDR });
-    b.windows(rect(bx - 10, -10, bx + 10, 10), 36, 56, 20, WIN, { bay: 5, wf: 0.4, hf: 0.6, start: 4, arch: true });
-    b.cornice(rect(bx - 10, -10, bx + 10, 10), 55, 1, 0.8, TR);
-    drum(bx, 0, 56, 75.5, 7.6, 12, 0.6);
-    onion(bx, 75.5, 0, 7.8, 10.5, 14);
-    cross(bx, 85.5, 0, 4.5);
-    for (const [x, y, z, r, h, sg] of onionLater) { onion(x, y, z, r, h, sg); cross(x, y + h - 0.3, z, 2.4); }
+    // west bell tower (≈ 75.5 m) over the narthex
+    const bx = -48, bq = rect(bx - 10, -10, bx + 10, 10);
+    b.prism(bq, HW, 58, S, { topCol: GOLDR });
+    b.windows(bq, HW, 58, 16.6, WIN, { bay: 5, wf: 0.4, hf: 0.6, start: 4, arch: true });
+    b.cornice(bq, 57, 1, 0.8, TR);
+    drum(bx, 0, 58, 72, 7.6, 12, 0.6);
+    const by = domeG(bx, 72, 0, 8, 8.5, 16, 2.6);
+    cross(bx, by, 0, 4.5);
+    for (const [x, y, z, r, h, sg, lan] of domesLater) { const y2 = domeG(x, y, z, r, h, sg, lan); cross(x, y2 - 0.2, z, 2.4); }
     // west gable: semicircular pediment with a rose window above the porch
-    b.geo(new THREE.CylinderGeometry(9, 9, 1.2, 16, 1, false, 0, Math.PI), S, M(-60.6, 36, 0, 0, 1, 1, 1, Math.PI / 2, Math.PI / 2));
-    b.cyl(-61.4, 28, 0, 3, 3, 0.4, '#6b7480', 14, { rz: Math.PI / 2 }); b.geo(new THREE.TorusGeometry(3.2, 0.35, 4, 14), TR, M(-61.5, 28, 0, Math.PI / 2));
+    b.geo(new THREE.CylinderGeometry(9, 9, 1.2, 16, 1, false, 0, Math.PI), S, M(-60.6, HW, 0, 0, 1, 1, 1, Math.PI / 2, Math.PI / 2));
+    b.cyl(-61.4, 31, 0, 3, 3, 0.4, '#6b7480', 14, { rz: Math.PI / 2 }); b.geo(new THREE.TorusGeometry(3.2, 0.35, 4, 14), TR, M(-61.5, 31, 0, Math.PI / 2));
     // open west porch (pridvor): arcade of stone columns under a gilded roof
     const px = -60.5;
     b.box(px - 6, 0, 0, 13, 1.4, 34, '#cfc6b4');
@@ -707,7 +735,7 @@ function bCathedral(b) {
 // flanking the inscription, royal crown/arms; north (+z) and south (-z) inscriptions abridged to their bold lines.
 // Src: https://ro.wikipedia.org/wiki/Arcul_de_Triumf_din_București ; OSM way 217851530
 function bArcul(b) {
-    const W = 25, D = 9.6, S = '#e3d6bd', S2 = '#d8c9ad', TR = '#ece2cf', RL = '#c4b293', TX = '#7d6d55';
+    const W = 25, D = 9.6, S = '#ebe3d2', S2 = '#e0d5bf', TR = '#f2ecdf', RL = '#cdbfa3', TX = '#857660';   // pale Rușchița marble
     b.box(0, 0, 0, W + 1.4, 1.3, D + 1.4, '#bfb3a0');                                     // granite plinth
     b.archWall(W, 17.1, D, [{ x: 0, w: 8.8, h: 15.7 }], S, M(0, 1.3, 0));                     // piers + vault
     b.archWall(D + 0.1, 4.4, 2.2, [{ x: 0, w: 1.8, h: 3.2 }], S, M(-W / 2 + 1.1, 1.3, 0, Math.PI / 2));   // small side doors
@@ -723,6 +751,8 @@ function bArcul(b) {
             b.box(x, 4.4, z + s * 0.12, 2.6, 1.1, 0.2, RL);                                          // lower panel
         }
         b.box(0, 15.8, z + s * 0.18, 1.4, 1.6, 0.4, TR);                                            // keystone
+        b.geo(new THREE.TorusGeometry(4.75, 0.28, 4, 18, Math.PI), TR, M(0, 1.3 + 15.7 - 4.4, z + s * 0.12));        // archivolt moulding
+        for (const x of [-4.75, 4.75]) b.box(x, 1.3, z + s * 0.12, 0.56, 11.9, 0.3, TR);                          // jamb mouldings
         // entablature: inscription band with winged Victories either side
         b.box(0, 18.4, 0, W, 2.4, D, S);
         b.box(0, 18.45, z + s * 0.1, 15.2, 2.3, 0.2, '#e3d6bd');
@@ -960,32 +990,67 @@ function bAteneu(b) {
         const a3 = a + Math.PI / 12; b.box(cx + Math.cos(a3) * 16.5, 29.5, Math.sin(a3) * 16.5, 1.4, 2.2, 1.6, '#e8e1d0', { ry: -a3 });
     }
     b.cyl(cx, 41, 0, 2.2, 2.6, 2.6, '#e8e1d0', 10); b.dome(cx, 43.6, 0, 2.3, 1.8, D, 10); b.cyl(cx, 45.2, 0, 0.12, 0.25, 2.2, GOLD, 6);
-    // portico (+x): steps, Ionic hexastyle, entablature, pediment
+    // portico (+x): steps, Ionic hexastyle (+ return columns), entablature with the ATHENEUL ROMAN frieze, pediment
     for (let i = 0; i < 4; i++) b.box(29 - i * 0.6, i * 0.5, 0, 12 - i * 1.2, 0.5, 30 - i * 0.4, '#ddd3bf');
     b.box(14, 2, 0, 10, 13.2, 28, S);
-    b.windows(rect(9, -14, 19, 14), 2, 14, 11, '#6b5d45', { bay: 5, wf: 0.5, hf: 0.65, edges: [1], minL: 3 });
-    b.colonnade(26.2, -12, 26.2, 12, 2, 12, 6, 0.75, '#f8f4ea', { capital: '#e9dfca', seg: 10 });
-    b.box(21, 14, 0, 12, 1.9, 29, TR);
-    b.text('ATENEUL ROMAN', 27.06, 14.35, 0, Math.PI / 2, 0.9, '#8b7a5a');
-    b.pediment(21, 15.9, 0, 29, 5.4, 12, S, Math.PI / 2);
-    b.box(21, 15.9, 0, 12.3, 0.4, 29.6, TR);
+    // portico back wall: rusticated joints, two carved wooden doors with fanlights, five gold mosaic roundels
+    for (let k = 0; k < 6; k++) b.box(19.06, 2.2 + k * 1.15, 0, 0.08, 0.06, 26, '#dacfb8');
+    for (const z of [-4.8, 0, 4.8]) { b.box(19.1, 2, z, 0.3, 7.2, 3, TR); b.box(19.2, 2, z, 0.25, 5.4, 2.3, '#5a4128'); b.box(19.22, 7.4, z, 0.2, 1.5, 2.3, '#8a7a55', { mat: 'g' }); }
+    for (let i = 0; i < 5; i++) { const z = -9.6 + i * 4.8; b.cyl(19.15, 9.6, z, 1.15, 1.15, 0.2, TR, 14, { rz: Math.PI / 2 }); b.cyl(19.3, 9.6, z, 0.95, 0.95, 0.12, '#c9a24e', 14, { rz: Math.PI / 2, mat: 'g' }); }
+    const ionic = (x, z) => {                                                   // Attic base, fluted-looking 12-sided shaft, Ionic capital
+        b.box(x, 2, z, 1.9, 0.35, 1.9, TR); b.cyl(x, 2.35, z, 0.92, 0.98, 0.45, TR, 12);
+        b.cyl(x, 2.8, z, 0.66, 0.76, 10.2, '#f6f1e6', 12);
+        b.cyl(x, 13, z, 0.82, 0.7, 0.35, TR, 12);
+        for (const s2 of [-1, 1]) b.cyl(x, 13.05, z + s2 * 0.82, 0.36, 0.36, 1.7, '#efe8d8', 8, { rz: Math.PI / 2 });
+        b.box(x, 13.4, z, 1.75, 0.22, 2.05, TR);
+    };
+    for (let i = 0; i < 6; i++) ionic(26.2, -12 + i * 4.8);
+    for (const z of [-12, 12]) ionic(21.6, z);
+    // entablature: three-fascia architrave, frieze with the inscription, dentilled cornice
+    b.box(21, 13.62, 0, 12, 0.36, 28.6, TR); b.box(21.05, 13.98, 0, 12.1, 0.36, 28.7, TR); b.box(21.1, 14.34, 0, 12.2, 0.36, 28.8, TR);
+    b.box(21, 14.7, 0, 12, 1.2, 28.6, S);
+    b.text('ATHENEUL ROMAN', 27.02, 14.72, 0, Math.PI / 2, 0.74, '#a3926f');
+    for (let i = 0; i < 46; i++) b.box(27.2, 15.9, -14.35 + i * 0.638, 0.3, 0.28, 0.3, TR);
+    b.box(21.2, 16.18, 0, 12.6, 0.45, 29.6, TR);
+    b.pediment(21, 16.63, 0, 29, 5.3, 12, S, Math.PI / 2);
+    // raking cornices + acroteria (gilded lyres at the apex and corners)
+    const ang = Math.atan2(5.3, 14.5), Lr = Math.hypot(5.3, 14.5);
+    for (const s2 of [-1, 1]) b.box(21.3, 16.63 + 2.65 - 0.2, s2 * 7.25, 12.7, 0.55, Lr + 0.8, TR, { rx: s2 * ang });
+    for (const [z, y] of [[0, 22.1], [-14.6, 16.9], [14.6, 16.9]]) { b.box(26.5, y, z, 1, 0.5, 1, TR); b.box(26.5, y + 0.5, z, 0.25, 1.4, 0.9, '#b9974c', { mat: 'g' }); }
     b.col(-4, 0, 30, 24);
 }
 
-// Palatul Regal (Royal Palace, now MNAR, 1937 rebuild) — 4 levels (~20 m), long neoclassical
-// front on Calea Victoriei with central columned body; OSM way 232472401.
+// Palatul Regal (Royal Palace, now MNAR; N. Nenciulescu 1927-37 rebuild) — OSM way 232472401 (250 x 86 m, flat roof).
+// The main front faces EAST-NORTH-EAST onto Calea Victoriei / Piața Revoluției: a cour d'honneur (model -z side, x ≈ -36..59,
+// ≈ 40 m deep) framed by the north and south wings. Limestone ashlar (#E1D6BC), rusticated ground floor with arched
+// windows, giant fluted Corinthian columns in pairs on pedestals spanning the two upper storeys, dentilled cornice,
+// balustraded attic; iron-and-glass marquee over the main door (Commons "49-53, Calea Victoriei, Bucharest (Romania)",
+// "The porch of the Royal Palace of Bucharest"). Model frame: +x = SSE along the street, -z = ENE (towards the square).
 // Src: https://en.wikipedia.org/wiki/Royal_Palace,_Bucharest ; OSM way 232472401
 function bRegal(b) {
-    b.wall = '#e9e1cd';
+    const S = '#e1d6bc', TR = '#d8ccb0', WIN = '#4f565a', COL = '#ebe2cd';
+    b.wall = S;
     const [p] = P.regal.map(pts);
-    b.prism(p, 0, 19, '#e9e1cd', { topCol: C.stone });
-    b.bands(p, 0, 19, 4.4, C.winWarm, { frac: 0.45 });
-    b.roof(p, 19, 3, '#86847f', 1.8);
-    const zf = zAt([p], 20)?.[1] ?? 40;                                     // +z = west, Calea Victoriei
-    b.colonnade(-6, zf + 1.5, 44, zf + 1.5, 5, 13, 10, 0.75, C.white, { capital: C.stone });
-    b.box(19, 0, zf + 1, 54, 5, 4, C.stone);
-    b.box(19, 18, zf + 0.5, 54, 1.4, 4.5, C.cream2);
-    b.dome(19, 22, zf - 18, 9, 5, '#8a8f8c', 16);
+    const top = storeys(b, p, 0, [[6.2, 0.42, 0.62, true], [5.6, 0.36, 0.62, false], [4.6, 0.34, 0.5, false]],
+        { wall: S, win: WIN, trim: TR, bay: 4.6, courses: [0], pilasters: true, pilasterFrom: 6.2, pilasterEvery: 2, pilasterW: 1, corniceOut: 1.1, corniceH: 1.3, parapet: 1.2, roofCol: '#b9b2a4', minL: 6 });
+    for (let k = 0; k < 5; k++) b.cornice(p, 0.6 + k * 1.15, 0.08, 0.06, '#cfc3a6');           // rusticated joints of the ground floor
+    b.ring(offset(p, 0.25), top - 0.1, top + 1.0, '#ddd2b8');                                  // balustraded attic (solid read)
+    b.piers(offset(p, 0.3), top - 0.1, top + 1.0, 2.2, TR);
+    // cour d'honneur: paired giant columns on pedestals along the central body and the inner faces of the wings
+    const fz = (x) => (zAt([p], x)?.[0] ?? 2);
+    for (const x of [-22, -12, -1, 10, 21, 32, 43]) for (const d of [-1.05, 1.05]) {
+        const z = fz(x + d) - 1.25;
+        b.box(x + d, 6.2, z, 1.7, 1.1, 1.7, TR); b.cyl(x + d, 7.3, z, 0.62, 0.7, 9.4, COL, 12);
+        b.cyl(x + d, 16.7, z, 0.85, 0.66, 1.1, TR, 8); b.box(x + d, 17.6, z, 1.9, 0.25, 1.9, TR);
+    }
+    for (const [x0, x1] of [[-24, 0], [-2, 23], [19, 45]]) { const z = Math.min(fz(x0), fz(x1)) - 1.4; b.box((x0 + x1) / 2, 17.85, z, x1 - x0 + 2, 1.3, 2.4, TR); }
+    // main door + iron-and-glass marquee
+    const zd = fz(10); b.box(10, 0, zd - 0.15, 3.4, 5, 0.3, '#5b4a35'); b.box(10, 4.6, zd - 3, 9, 0.35, 6, '#2c3134', { mat: 'g' }); b.box(10, 4.95, zd - 3, 8.4, 0.12, 5.6, '#9db0b8', { mat: 'g' });
+    for (const s2 of [-1, 1]) b.box(10 + s2 * 4.3, 0, zd - 5.6, 0.2, 4.6, 0.2, '#2c3134');
+    // court paving + the iron railing with stone pillars closing the court on Calea Victoriei
+    b.prism(rect(-36, -40, 59, fz(10) - 0.5), 0, 0.06, '#c9c4b8');
+    b.fence([[-55, -42], [-8, -44], [28, -44], [75, -36]], 2.4, 7, '#22272a', { post: 0.7, postCol: '#d6ccb4', base: 0.6, baseCol: '#d6ccb4', bars: 0.35 });
+    b.cyl(-6, 0, -2 + fz(-6), 0.1, 0.14, 12, '#dddddd', 6); flag(b, -6, 11.8, -2 + fz(-6), 2.6);
     b.colPoly([p], 22);
 }
 
@@ -1019,31 +1084,55 @@ function bVictoria(b) {
     b.colPoly([p], 20);
 }
 
-// Palatul CEC (Paul Gottereau, 1897-1900) — eclectic, ≈ 58 x 60 m (OSM way 973712798); glass-and-iron dome
-// over the banking hall (top ≈ 40 m), monumental arched porch with paired columns and a ribbed dome on the
-// Calea Victoriei corner (+x), four corner cupolas; white stone with rusticated ground floor.
+// Palatul CEC (Paul Gottereau, 1897-1900) — eclectic, ≈ 58 x 60 m (OSM way 973712798); glass-and-iron dome over the
+// banking hall (top ≈ 40 m), the Calea Victoriei corner (+x) entrance pavilion = a monumental semicircular arch
+// whose archivolt crowns the pavilion, flanked by paired composite columns, a glazed recess behind it (door, balcony,
+// clock in the tympanum); four corner pavilions with pediments under square-plan (cloister) zinc domes with lanterns.
+// Warm limestone/stucco (research #E2D9C6), zinc-grey domes #8d9799 (Commons "Bucharest CEC building 02").
 // Src: https://en.wikipedia.org/wiki/CEC_Palace ; OSM way 973712798
 function bCEC(b) {
-    const S = '#ece5d5', TR = '#e1d8c4', MT = '#6f7b80', WIN = '#4f4a43';
+    const S = '#e2d6bb', TR = '#d6c8a8', MT = '#8d9799', WIN = '#4a4943', COL = '#ece4d0';
     b.wall = S;
     const [p] = P.cec.map(pts);
     storeys(b, p, 0, [[6.5, 0.45, 0.68, true], [5.4, 0.4, 0.62, true], [4.6, 0.38, 0.55, false]], { wall: S, win: WIN, trim: TR, bay: 4.4, courses: [0, 1], pilasters: true, pilasterEvery: 1, pilasterW: 0.8, corniceOut: 0.9, parapet: 1, minL: 5 });
-    // central glass dome on a drum
+    for (let k = 0; k < 4; k++) b.cornice(p, 0.8 + k * 1.4, 0.1, 0.07, '#cbbd9d');           // rusticated ground floor
+    // central glass-and-iron dome on a drum with a balustrade
     b.cyl(0, 17.6, 0, 11, 11.5, 4.5, S, 20); b.windows(ellipse(0, 0, 11.3, 11.3, 10), 17.6, 22, 4.4, WIN, { bay: 7, wf: 0.35, hf: 0.6, arch: true, minL: 3 });
-    b.geo(new THREE.LatheGeometry([[11, 0], [10.4, 4], [8.4, 8.2], [5.2, 11.4], [1.6, 12.8], [0.01, 13]].map(([a, c]) => new THREE.Vector2(a, c)), 20), '#9db3ba', M(0, 22.1, 0), 'g');
-    for (let i = 0; i < 10; i++) { const a = i / 10 * Math.PI * 2; b.tube([[Math.cos(a) * 11.1, 22.1, Math.sin(a) * 11.1], [Math.cos(a) * 8.6, 30.2, Math.sin(a) * 8.6], [Math.cos(a) * 1.7, 34.9, Math.sin(a) * 1.7]], 0.22, MT, { seg: 3, radial: 3 }); }
-    b.cyl(0, 35, 0, 1.6, 1.8, 2.6, MT, 8); b.cone(0, 37.6, 0, 1.6, 2.6, MT, 8);
-    // entrance pavilion (+x): big arch with paired columns, dome on a drum
+    b.cyl(0, 22, 0, 11.7, 11.7, 0.5, TR, 20); b.cyl(0, 22.5, 0, 11.5, 11.5, 0.9, '#d9cdb0', 20, { open: true });
+    b.geo(new THREE.LatheGeometry([[11, 0], [10.4, 4], [8.4, 8.2], [5.2, 11.4], [1.6, 12.8], [0.01, 13]].map(([a, c]) => new THREE.Vector2(a, c)), 20), '#a9bcc2', M(0, 22.1, 0), 'g');
+    for (let i = 0; i < 16; i++) { const a = i / 16 * Math.PI * 2; b.tube([[Math.cos(a) * 11.15, 22.1, Math.sin(a) * 11.15], [Math.cos(a) * 10.5, 26.1, Math.sin(a) * 10.5], [Math.cos(a) * 8.5, 30.3, Math.sin(a) * 8.5], [Math.cos(a) * 1.7, 34.9, Math.sin(a) * 1.7]], 0.16, '#5d6668', { seg: 4, radial: 3, mat: 'g' }); }
+    for (const [r, y] of [[10.75, 25.6], [8.9, 29.8]]) b.geo(new THREE.TorusGeometry(r, 0.14, 3, 20), '#5d6668', M(0, y, 0, 0, 1, 1, 1, Math.PI / 2), 'g');
+    b.cyl(0, 35, 0, 1.6, 1.8, 2.6, MT, 8); b.dome(0, 37.6, 0, 1.7, 1.4, MT, 8); b.cone(0, 38.9, 0, 0.4, 1.6, MT, 6);
+    // entrance pavilion (+x): crowning archivolt, deep arch with a glazed recess, paired columns, small dome behind
     const xf = xAt([p], 0)?.[1] ?? 22;
-    b.box(xf - 4, 0, 0, 9, 21, 18, S);
-    b.archWall(18.2, 17.5, 1.6, [{ x: 0, w: 8, h: 13.5 }], TR, M(xf + 0.6, 0, 0, Math.PI / 2));
-    for (const z of [-6.8, -5.3, 5.3, 6.8]) b.cyl(xf + 1.9, 1.2, z, 0.5, 0.55, 12, '#f4efe4', 8);
-    b.box(xf + 1.9, 0, 0, 1.6, 1.2, 16, '#cfc6b3'); b.box(xf + 1.4, 13.2, 0, 2.4, 1.4, 18.4, TR);
-    b.text('CEC', xf + 1.65, 15.1, 0, Math.PI / 2, 1.5, '#7a6b52');
-    b.cyl(xf - 4, 21, 0, 5.4, 5.6, 3.5, S, 16); b.dome(xf - 4, 24.5, 0, 5.4, 7, MT, 16);
-    b.cyl(xf - 4, 31.3, 0, 0.9, 1, 1.6, S, 8); b.cone(xf - 4, 32.9, 0, 0.9, 3, MT, 8);
+    b.box(xf - 5.7, 0, 0, 7, 16, 18, S);
+    for (const sg of [-1, 1]) b.box(xf - 1.2, 0, sg * 7, 2.1, 16, 4, S);
+    b.box(xf - 1.2, 15.2, 0, 2.1, 0.8, 10.2, S);
+    b.archWall(18.2, 16, 1.6, [{ x: 0, w: 10, h: 15.4 }], TR, M(xf + 0.6, 0, 0, Math.PI / 2));
+    { const sh = new THREE.Shape(); sh.absarc(0, 0, 9.1, 0, Math.PI, false); sh.lineTo(9.1, 0); const g = new THREE.ExtrudeGeometry(sh, { depth: 2.2, bevelEnabled: false, curveSegments: 16 }); g.translate(0, 0, -1.1); b.geo(g, S, M(xf + 0.3, 10.6, 0, Math.PI / 2)); }   // archivolt / crowning half-disc
+    b.geo(new THREE.TorusGeometry(9.2, 0.45, 4, 20, Math.PI), TR, M(xf + 0.9, 10.6, 0, Math.PI / 2));
+    b.geo(new THREE.TorusGeometry(5.2, 0.35, 4, 16, Math.PI), TR, M(xf + 1.4, 10.4, 0, Math.PI / 2));
+    // recess: door, two storeys of windows, balcony, clock and relief in the tympanum
+    const xr = xf - 2.2;
+    b.box(xr, 0, 0, 0.3, 5.8, 3.6, '#4a3a2a'); b.box(xr + 0.2, 0, 0, 0.3, 6.4, 4.4, TR);
+    for (const z of [-2.8, 2.8]) b.box(xr + 0.05, 7.4, z, 0.25, 3.2, 1.8, WIN);
+    b.box(xr + 0.6, 6.6, 0, 1.2, 0.3, 9, TR); b.fence([[xr + 1.15, -4.4], [xr + 1.15, 4.4]], 1, 1.1, '#2e3335', { post: 0.08 });
+    b.cyl(xr + 0.2, 12.4, 0, 1.1, 1.1, 0.3, '#f1ece0', 16, { rz: Math.PI / 2 }); b.cyl(xr + 0.3, 12.4, 0, 0.95, 0.95, 0.12, '#e9e3d4', 16, { rz: Math.PI / 2 });
+    b.box(xr + 0.35, 12.3, 0, 0.1, 0.8, 0.1, '#222'); b.box(xr + 0.35, 12.35, 0.2, 0.1, 0.1, 0.5, '#222');
+    for (const z of [-2.6, 2.6]) b.box(xr + 0.3, 11.4, z, 0.5, 2.2, 1.6, '#d9ccb0');
+    for (const z of [-6.8, -5.3, 5.3, 6.8]) { b.box(xf + 1.9, 1.2, z, 1.3, 1, 1.3, TR); b.cyl(xf + 1.9, 2.2, z, 0.48, 0.55, 10.4, COL, 10); b.box(xf + 1.9, 12.6, z, 1.25, 0.9, 1.25, '#cfc0a0'); }
+    b.box(xf + 1.9, 0, 0, 1.6, 1.2, 16, '#cfc6b3'); b.box(xf + 1.6, 13.5, 0, 2.6, 1.4, 18.4, TR);
+    for (let i = 0; i < 5; i++) b.box(xf + 3 - i * 0.4, i * 0.24, 0, 1.6, 0.24, 9, '#d3cab8');            // entrance steps
+    b.cyl(xf - 6, 16, 0, 4.6, 4.8, 5, S, 16); b.dome(xf - 6, 21, 0, 4.6, 5.4, MT, 16, { mat: 'g' });
+    b.cyl(xf - 6, 26.3, 0, 0.8, 0.9, 1.4, S, 8); b.cone(xf - 6, 27.7, 0, 0.8, 2.6, MT, 8);
+    // corner pavilions: attic with pediments, square-plan zinc cloister domes, lanterns + finials
     const bb = bbox([p]);
-    for (const [x, z] of [[bb.x0 + 3, bb.z0 + 3], [bb.x1 - 3, bb.z0 + 3], [bb.x0 + 3, bb.z1 - 3], [bb.x1 - 3, bb.z1 - 3]]) { b.cyl(x, 18.6, z, 3, 3.2, 3, S, 12); b.dome(x, 21.6, z, 3, 4.2, MT, 12); b.cone(x, 25.6, z, 0.5, 2.2, MT, 6); }
+    for (const [x, z] of [[bb.x0 + 4.5, bb.z0 + 4.5], [bb.x1 - 4.5, bb.z0 + 4.5], [bb.x0 + 4.5, bb.z1 - 4.5], [bb.x1 - 4.5, bb.z1 - 4.5]]) {
+        b.box(x, 16.4, z, 7.6, 4.4, 7.6, S); b.box(x, 20.8, z, 8.2, 0.45, 8.2, TR);
+        for (const r2 of [0, Math.PI / 2]) for (const sg of [-1, 1]) { const ox = r2 ? 0 : sg * 3.85, oz = r2 ? sg * 3.85 : 0; b.pediment(x + ox, 18.6, z + oz, 4.6, 1.5, 0.5, TR, r2 ? 0 : Math.PI / 2); }
+        b.geo(new THREE.LatheGeometry([[5.2, 0], [5, 1.4], [4.2, 2.9], [2.7, 4.3], [0.9, 5], [0.01, 5.1]].map(([a, c]) => new THREE.Vector2(a, c)), 4), MT, M(x, 21.25, z, Math.PI / 4), 'g');
+        b.cyl(x, 26, z, 0.8, 1, 1.6, '#d9cdb0', 8); b.dome(x, 27.6, z, 0.9, 0.9, MT, 8, { mat: 'g' }); b.cone(x, 28.4, z, 0.22, 1.8, MT, 6);
+    }
     b.colPoly([p], 15);
 }
 
@@ -2219,18 +2308,18 @@ function L(id, city, name, osmNames, radius, fn, extra = {}) {
  */
 export const LANDMARKS = [
     // ---- Bucharest ----
-    L('parliament', 'bucharest', 'Palatul Parlamentului', ['Palatul Parlamentului', 'Casa Poporului'], 175, bParliament),
-    L('cathedral', 'bucharest', 'Catedrala Mântuirii Neamului', ['Catedrala Națională', 'Catedrala Mântuirii Neamului', 'Catedrala Mântuirii Neamului Românesc'], 70, bCathedral),
-    L('arcul', 'bucharest', 'Arcul de Triumf', ['Arcul de Triumf'], 18, bArcul),
+    L('parliament', 'bucharest', 'Palatul Parlamentului', ['Palatul Parlamentului', 'Casa Poporului'], 175, bParliament, { floodlit: true }),
+    L('cathedral', 'bucharest', 'Catedrala Mântuirii Neamului', ['Catedrala Națională', 'Catedrala Mântuirii Neamului', 'Catedrala Mântuirii Neamului Românesc'], 70, bCathedral, { floodlit: true }),
+    L('arcul', 'bucharest', 'Arcul de Triumf', ['Arcul de Triumf'], 18, bArcul, { floodlit: true }),
     L('casapresei', 'bucharest', 'Casa Presei Libere', ['Casa Presei Libere', 'Casa Scînteii'], 160, bCasaPresei),
     L('grandhotel', 'bucharest', 'Grand Hotel Bucharest (ex-InterContinental)', ['Grand Hotel Bucharest', 'InterContinental', 'Hotel InterContinental'], 40, bGrandHotel),
-    L('univ', 'bucharest', 'Palatul Universității', ['Universitatea din București', 'Palatul Universității'], 110, bUniv),
+    L('univ', 'bucharest', 'Palatul Universității', ['Universitatea din București', 'Palatul Universității'], 110, bUniv, { floodlit: true }),
     L('tnb', 'bucharest', 'Teatrul Național București', ['Teatrul Național', 'Teatrul Național București', 'Teatrul Național „Ion Luca Caragiale”'], 95, bTNB),
-    L('ateneu', 'bucharest', 'Ateneul Român', ['Ateneul Român'], 38, bAteneu),
-    L('regal', 'bucharest', 'Palatul Regal (MNAR)', ['Palatul Regal', 'Muzeul Național de Artă al României'], 130, bRegal),
-    L('victoria', 'bucharest', 'Palatul Victoria', ['Palatul Victoria'], 58, bVictoria),
-    L('cec', 'bucharest', 'Palatul CEC', ['Palatul Casei de Economii şi Consemnaţiuni', 'Palatul CEC'], 36, bCEC),
-    L('mnir', 'bucharest', 'Muzeul Național de Istorie a României', ['Palatul Poștelor', 'Muzeul Național de Istorie a României'], 70, bMNIR),
+    L('ateneu', 'bucharest', 'Ateneul Român', ['Ateneul Român'], 38, bAteneu, { floodlit: true }),
+    L('regal', 'bucharest', 'Palatul Regal (MNAR)', ['Palatul Regal', 'Muzeul Național de Artă al României'], 130, bRegal, { floodlit: true }),
+    L('victoria', 'bucharest', 'Palatul Victoria', ['Palatul Victoria'], 58, bVictoria, { floodlit: true }),
+    L('cec', 'bucharest', 'Palatul CEC', ['Palatul Casei de Economii şi Consemnaţiuni', 'Palatul CEC'], 36, bCEC, { floodlit: true }),
+    L('mnir', 'bucharest', 'Muzeul Național de Istorie a României', ['Palatul Poștelor', 'Muzeul Național de Istorie a României'], 70, bMNIR, { floodlit: true }),
     L('marriott', 'bucharest', 'JW Marriott Grand Hotel', ['JW Marriott', 'JW Marriott Bucharest Grand Hotel'], 75, bMarriott),
     L('unirea', 'bucharest', 'Unirea Shopping Center', ['Unirea Shopping Center'], 115, bUnirea),
     L('fountains', 'bucharest', 'Fântânile din Piața Unirii', [], 0, bFountains),
@@ -2296,7 +2385,7 @@ export function buildLandmark(lm, ctx = {}) {
     const hs = lm.city === 'seattle' && !ctx.realScale ? SEA_SCALE : 1;
     const b = new Builder(hs);
     lm._fn(b, ctx);
-    const { group, tris } = b.finish();
+    const { group, tris } = b.finish({ floodlit: !!lm.floodlit && ctx.floodlit !== false && !(lm.city === 'seattle' && !ctx.realScale) });
     group.name = 'landmark:' + lm.id;
     group.userData.landmark = lm.id;
     group.rotation.y = lm.rotation;

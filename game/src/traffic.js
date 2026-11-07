@@ -874,9 +874,9 @@ export class Traffic {
         if (this.jamMax > 0.01) { if (((this._frame + v.id) & 7) === 0) v.jam = this.jamAt(v.x, v.z); } else v.jam = 0;
         const jam = v.jam || 0;
         if (jam > 0.05 && !v.tram && !v.isPolice) {
-            desired *= 1 - 0.9 * jam;
+            desired *= 1 - 0.82 * jam;
             if (v.jamHold > 0) v.jamHold -= dt;
-            else if (jam > 0.25 && v.speed > 0.5 && this.rng() < jam * 0.35 * dt && !this.playerBehind(v, 30)) v.jamHold = this.rng.range(2, 6) * jam; // (never right in front of the player: they can creep through)
+            else if (jam > 0.25 && v.speed > 0.5 && this.rng() < jam * 0.3 * dt && !this.playerBehind(v, 70)) v.jamHold = this.rng.range(2, 6) * jam; // (never right in front of the player: they can creep through)
         } else v.jamHold = 0;
         const P = this.player;
         // ---------------- obstacles (cone scan via grid) ----------------
@@ -951,7 +951,7 @@ export class Traffic {
 
         // ---------------- path constraints: lights, stops, zebras, turns ----------------
         let stopD = Infinity, vCap = Infinity, waitingRed = false, stopWhy = null;
-        let curE = e, curDir = v.dir, D = L - v.s - half;
+        let curE = e, curDir = v.dir, D = L - v.s - half, prevNode = null, prevD = 0;
         const maxLook = Math.max(70, v.speed * v.speed / 4 + 30);
         for (let k = -1; k < v.route.length && D < maxLook; k++) {
             const node = curDir > 0 ? curE.b : curE.a;
@@ -959,8 +959,15 @@ export class Traffic {
             const rad = node.radius ?? 6;
             if (node.hasLight && !v.isPolice) {
                 const st = this.lightState(node, curE);
-                const d = D - rad - 1.6;
-                if (d > -0.5 && (st === 'red' || (st === 'yellow' && d > v.speed * 1.1))) { if (d < stopD) { stopD = d; stopWhy = 'light'; } if (d < 10) waitingRed = true; break; }
+                let d = D - rad - 1.6;
+                if (d > -0.5 && (st === 'red' || (st === 'yellow' && d > v.speed * 1.1))) {
+                    // a red just past the junction ahead (dual carriageways / split nodes: two signal nodes a few metres
+                    // apart, not always in phase): the link can't hold a car, so the first node's light governs the
+                    // crossing — never stop inside / right behind the first box for the second one (it gridlocked the
+                    // crossing street, e.g. NE 8th × Bellevue Way); the box claims keep crossing paths apart
+                    if (k >= 0 && prevNode && isJunction(prevNode) && curE.len - (prevNode.radius ?? 6) - rad < v.length + 4) d = Infinity;
+                    if (d !== Infinity) { if (d < stopD) { stopD = d; stopWhy = 'light'; } if (d < 10) waitingRed = true; break; }
+                }
             }
             if (node.stop && v.stopDone !== node) {
                 const d = D - rad - 1;
@@ -1008,6 +1015,7 @@ export class Traffic {
             }
             const ns = (v.tram ? 11 : edgeSpeed(nxt.e) * v.desiredMul);
             if (ns < desired) vCap = Math.min(vCap, Math.sqrt(ns * ns + 2 * 2 * Math.max(0, D)));
+            prevNode = node; prevD = D;
             D += nxt.e.len; curE = nxt.e; curDir = nxt.dir;
         }
         // trams: stops every few hundred metres

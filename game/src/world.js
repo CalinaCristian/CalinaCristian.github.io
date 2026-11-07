@@ -832,11 +832,15 @@ export async function buildWorld(city, renderer, opts = {}) {
                 let n0 = 0;
                 for (const n of nodeArr) {
                     if (!n.edges.length || hard.has(n)) continue;
+                    // only a ramp next to the road it leaves / joins (connected within 4 edges): a street that merely
+                    // runs beside / under a viaduct keeps its own level (Șos. Pipera under Podul Barbu Văcărescu)
+                    if (!n.edges.some(e => /_link$/.test(e.type))) continue;
+                    const near = new Set(); { let fr = [n]; const seenN = new Set([n]); for (let d = 0; d < 4; d++) { const nf = []; for (const m of fr) for (const e of m.edges) { near.add(e); const o = e.a === m ? e.b : e.a; if (!seenN.has(o)) { seenN.add(o); nf.push(o); } } fr = nf; } }
                     let best = null;
                     for (const e of n.edges) {
                         if (e.virtual) continue;
                         edgesInBox(n.x - 24, n.z - 24, n.x + 24, n.z + 24, (f) => {
-                            if (f === e || f.virtual || f.a === n || f.b === n || (e.tunnel !== f.tunnel)) return;
+                            if (f === e || f.virtual || f.a === n || f.b === n || (e.tunnel !== f.tunnel) || !near.has(f)) return;
                             if (Math.abs(e.dirx * f.dirx + e.dirz * f.dirz) < 0.8) return;
                             const q = distPointSeg(n.x, n.z, f.a.x, f.a.z, f.b.x, f.b.z); if (q.t <= 0.02 || q.t >= 0.98) return;
                             const side = ((n.x - q.cx) * f.nx + (n.z - q.cz) * f.nz) >= 0 ? 1 : -1;

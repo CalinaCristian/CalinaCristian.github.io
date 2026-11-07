@@ -738,7 +738,8 @@ SCENARIOS.push({
             for (const v of g.traffic.vehicles) {
                 if (v.parked) continue;
                 const n = v.s < 6 ? (v.dir > 0 ? v.edge.a : v.edge.b) : v.edge.len - v.s < 6 ? (v.dir > 0 ? v.edge.b : v.edge.a) : null;
-                if (n && n.hasLight && Math.abs(v.speed) < 0.2) { const t = (stuckIn.get(v) || 0) + H.dt * 15; stuckIn.set(v, t); if (t > worst) { worst = t; worstAt = { x: Math.round(v.x), z: Math.round(v.z), why: v.stopWhy || null, road: roadName(v.edge) }; } }
+                if (n && n.hasLight && Math.abs(v.speed) < 0.2) { const t = (stuckIn.get(v) || 0) + H.dt * 15; stuckIn.set(v, t); if (t > worst) { worst = t; const T = g.traffic, hits = {}; for (let k = 0; k < 60; k++) { const st = g.world.lightState ? g.world.lightState(n.id, v.edge, T.time + k, T.cycle) : T.lightState(n, v.edge); hits[st] = (hits[st] || 0) + 1; }
+                    worstAt = { x: Math.round(v.x), z: Math.round(v.z), why: v.stopWhy || null, road: roadName(v.edge), kind: v.kind, node: n.id, cycle: T.cycle, light60s: hits, leader: v.leader && typeof v.leader === 'object' ? `${v.leader.kind || 'player'}:${v.leader.stopWhy || ''}` : String(v.leader), stopD: Math.round(v.stopD ?? -1) }; } }
                 else stuckIn.delete(v);
             }
             return false;

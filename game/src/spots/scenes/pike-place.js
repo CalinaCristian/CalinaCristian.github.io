@@ -21,7 +21,8 @@ const PP_Y = [[0, -6.4], [60, -6.2], [125, -5.2], [185, -4.3], [300, -1.8]];  //
 const PIKE_ST = [[18, 3], [0, 8], [-10, 14], [-25, 18], [-50, 33]];
 const POST_ALLEY_S = [[-50, 40], [-47, 44], [-49, 48], [-36, 69], [-28, 82], [0, 128]];
 const SIGN = { x: -59.4, z: 47.8 };
-const RACHEL = { x: -55.2, z: 37.4 };
+const RACHEL_AT = { s: 1.6, off: -5.6 };            // on the arcade floor at the entrance under the sign (free-standing; the fish counter starts 4 m further north)
+const RACHEL = (() => { const p = alongPolyline(PIKE_PLACE, RACHEL_AT.s); return { x: p.x - p.tz * RACHEL_AT.off, z: p.z + p.tx * RACHEL_AT.off, yaw: Math.atan2(p.tx, p.tz) + Math.PI * 0.75 }; })();
 const GUM = { x: -38.3, z: 61.2 };
 const STARBUCKS = { x: -203.8, z: -115.6 };
 const ppLen = polylineLength(PIKE_PLACE);
@@ -47,9 +48,9 @@ function buildRachel(ctx) {
         color: (x, y, z, nx, ny, nz, ao, o) => { o.set('#5b4128'); if (ny > 0.55 || z > 0.85) o.lerp(new THREE.Color('#c9a25d'), 0.75); return o.multiplyScalar(0.7 + 0.3 * ao); } });
     const m = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, metalness: 0.85, roughness: 0.35 })); m.name = 'rachel'; m.castShadow = true;
     const y = ctx.ground.heightAt(RACHEL.x, RACHEL.z);
-    m.position.set(RACHEL.x, y, RACHEL.z); m.rotation.y = 0.9; // snout toward Pike St
-    ctx.add(m); ctx.box(RACHEL.x, RACHEL.z, 0.3, 0.75, 0.9, { prop: true, h: 0.9, y });
-    ctx.ground.addBox(RACHEL.x, RACHEL.z, 0.25, 0.6, 0.9, y, y + 0.88);
+    m.position.set(RACHEL.x, y, RACHEL.z); m.rotation.y = RACHEL.yaw; // snout out toward the Pike St / Pike Place corner
+    ctx.add(m); ctx.box(RACHEL.x, RACHEL.z, 0.3, 0.75, RACHEL.yaw, { prop: true, h: 0.9, y });
+    ctx.ground.addBox(RACHEL.x, RACHEL.z, 0.25, 0.6, RACHEL.yaw, y, y + 0.88);
     return m;
 }
 
@@ -160,7 +161,7 @@ function buildSigns(ctx, roofY) {
     { const [x, z] = [mp.position.x, mp.position.z]; b.box(x - Math.cos(mp.rotation.y) * 5, profileY(26) + 11.0, z + Math.sin(mp.rotation.y) * 5, 0.15, 1.6, 0.15, '#222', 'metal'); b.box(x + Math.cos(mp.rotation.y) * 5, profileY(26) + 11.0, z - Math.sin(mp.rotation.y) * 5, 0.15, 1.6, 0.15, '#222', 'metal'); }
     // PIKE PLACE FISH board over the fish counter (under the arcade at the corner)
     const pf = signBoard('PIKE PLACE FISH', 5.6, 0.85, { bg: '#efe6cc', fg: '#2b2b2b', font: (s) => `700 ${s}px Georgia, "Times New Roman", serif`, glow: 0.05, night: 0.5 });
-    const fp = alongPolyline(PIKE_PLACE, 4.5); pf.position.set(fp.x - fp.tz * -3.4, profileY(4.5) + 3.1, fp.z + fp.tx * -3.4); pf.rotation.y = Math.atan2(-fp.tz, fp.tx); grp.add(pf);
+    const fp = alongPolyline(PIKE_PLACE, 9.6); pf.position.set(fp.x - fp.tz * -3.4, profileY(9.6) + 3.1, fp.z + fp.tx * -3.4); pf.rotation.y = Math.atan2(-fp.tz, fp.tx); grp.add(pf);
     // LA SALLE HOTEL vertical blade on the building south of the sign
     const ls = signBoard('LA SALLE HOTEL', 4.2, 0.7, { bg: '#1d2a2a', fg: '#f3efe2', font: (s) => `700 ${s}px Georgia, serif`, glow: 0.1, night: 1.4 });
     ls.position.set(SIGN.x - 9.5, roofY - 1.2, SIGN.z + 9.0); ls.rotation.set(0, yaw + Math.PI / 2, Math.PI / 2); grp.add(ls);
@@ -170,7 +171,7 @@ function buildSigns(ctx, roofY) {
 }
 
 // ---------------------------------------------------------------------------- market arcade (west side of Pike Place) — hero façade over the OSM footprints
-function buildArcade(ctx) {
+function buildArcade(ctx, names = []) {
     const g = ctx.ground, b = new GeoBatch(), r = rng(31);
     const front = offsetPolyline(PIKE_PLACE.slice(0, 9), -4.6); // canopy edge line (west side), from the sign corner to Pine St
     const yS = (x, z) => ppAt(x, z).y;
@@ -178,26 +179,36 @@ function buildArcade(ctx) {
     canopy(b, front, 4.4, yS, { h: 3.5, every: 6, roof: '#3d5a47', col: '#2f4a3b', side: -1, lamps });
     // stalls under the canopy: fish at the corner, then produce / flowers / crafts
     const L = polylineLength(front); let k = 0;
-    for (let s = 3; s < L - 3; s += 3.6) {
+    const boards = new THREE.Group(); boards.name = 'stall-boards';
+    for (let s = 6.2; s < L - 3; s += 3.6) {
         const p = alongPolyline(front, s), nx = p.tz, nz = -p.tx; // pointing west into the arcade (−side)
         const x = p.x - p.tz * -1.8, z = p.z + p.tx * -1.8, yaw = Math.atan2(-nx, -nz);
-        stall(b, x, yS(p.x, p.z), z, yaw, { w: 3.3, kind: s < 9 ? 'fish' : (k % 4 === 2 ? 'flowers' : 'produce'), seed: k + 3 });
+        const kind = s < 13 ? 'fish' : (k % 4 === 2 ? 'flowers' : 'produce');
+        stall(b, x, yS(p.x, p.z), z, yaw, { w: 3.3, kind, seed: k + 3 });
+        // the vendor's board hangs from the canopy beam over the stall, facing the street (real OSM vendor names, note 51)
+        if (kind !== 'fish') { const nm = names[k] || (kind === 'flowers' ? 'Fresh Flowers' : ['Fresh Produce', 'Local Fruit', 'Washington Apples', 'Farm Vegetables'][k % 4]);
+            const pal = [['#1f3d2b', '#f2e9d0'], ['#f2e8cf', '#3a2a1a'], ['#5a1e1e', '#f6efe0'], ['#0b4f6c', '#f5f5f5'], ['#2b2b2b', '#f5e6b0']][k % 5];
+            const sb = signBoard(nm, 3.0, 0.42, { bg: pal[0], fg: pal[1], font: (q) => `700 ${q}px Georgia, serif`, glow: 0.05, night: 1.0, depth: 0.04 });
+            sb.position.set(x - nx * 0.45, yS(p.x, p.z) + 2.75, z - nz * 0.45); sb.rotation.y = Math.atan2(-nx, -nz); boards.add(sb);
+            b.rod([x - nx * 0.45 - p.tx * 1.2, yS(p.x, p.z) + 2.97, z - nz * 0.45 - p.tz * 1.2], [x - nx * 0.45 - p.tx * 1.2, yS(p.x, p.z) + 3.5, z - nz * 0.45 - p.tz * 1.2], 0.01, '#222', 'metal', 3);
+            b.rod([x - nx * 0.45 + p.tx * 1.2, yS(p.x, p.z) + 2.97, z - nz * 0.45 + p.tz * 1.2], [x - nx * 0.45 + p.tx * 1.2, yS(p.x, p.z) + 3.5, z - nz * 0.45 + p.tz * 1.2], 0.01, '#222', 'metal', 3); }
         ctx.box(x, z, 1.7, 0.6, yaw, { prop: true, h: 0.85 });
         k++;
     }
     // hanging lamps under the canopy (warm at night)
     for (const l of lamps) { b.rod([l.x, l.y + 0.6, l.z], [l.x, l.y + 0.15, l.z], 0.012, '#222', 'metal', 4); b.sphere(l.x, l.y, l.z, 0.16, 0.12, 0.16, '#fff2c8', 'glow'); }
     // the arcade building behind: storeys with cream stucco + green trim (Leland Hotel / Main Arcade), market interior dark behind
-    ctx.add(b.build('arcade'));
-    ctx.lampPoints.push(...lamps.filter((_, i) => i % 2 === 0).map((l) => ({ x: l.x, z: l.z, y: l.y - 3.1, h: 3.0, noPost: true })));
+    ctx.add(b.build('arcade'), boards);
+    // a few warm light pools under the canopy (not one per lamp: note 50, blown-out floor)
+    ctx.lampPoints.push(...lamps.filter((_, i) => i % 5 === 2).map((l) => ({ x: l.x, z: l.z, y: l.y - 3.1, h: 3.0, noPost: true })));
 }
 
 // ---------------------------------------------------------------------------- flying fish
 function buildFishThrow(ctx) {
     const fishLine = ctx.data.spots['pike-place'].dialogue.lines.filter((l) => l.p === 'fishmonger');
     const fish = fishMesh(); fish.visible = false; ctx.add(fish);
-    const p0 = alongPolyline(PIKE_PLACE, 5.5);
-    const yS = profileY(5.5);
+    const p0 = alongPolyline(PIKE_PLACE, 9.6);
+    const yS = profileY(9.6);
     const front = { x: p0.x - p0.tz * -1.2, z: p0.z + p0.tx * -1.2 };    // monger in front of the counter (street side)
     const back = { x: p0.x - p0.tz * -5.6, z: p0.z + p0.tx * -5.6 };     // catcher behind the counter
     let t = -1, from = null, to = null, dur = 1.1, next = 4, toPlayer = false, caught = false, catchWindow = 0;
@@ -238,26 +249,61 @@ function buildFishThrow(ctx) {
     return { front, back };
 }
 
-// ---------------------------------------------------------------------------- storefront signs from OSM POIs along Pike Place / Post Alley / Pike St
+// ---------------------------------------------------------------------------- storefront signs from OSM POIs (notes 51 / 52)
+/**
+ * Market vendors inside the Main Arcade (west of Pike Place) or on an upper / lower market level get NO façade sign:
+ * their names go on the stall boards (returned). Street shops (east side of Pike Place, Pike St, Post Alley, 1st Ave)
+ * get one upright fascia sign each, flush on the street-facing wall of the building that holds them, at ground-floor
+ * fascia height, laid out per wall without overlaps (skipped when the wall is full).
+ */
 function buildStorefronts(ctx) {
     const grp = new THREE.Group(); grp.name = 'storefronts';
-    const seen = new Set(); let n = 0;
-    const lines = [[PIKE_PLACE, 'pp'], [PIKE_ST, 'ps']];
-    for (const p of ctx.data.pois) {
-        if (!p.name || (p.level && !/^0/.test(String(p.level))) || p['addr:floor'] || !(p.shop || p.amenity === 'cafe' || p.amenity === 'restaurant' || p.amenity === 'fast_food' || p.amenity === 'bar' || p.craft)) continue;
-        let best = null; for (const [L] of lines) { const d = distPolyline(p.x, p.z, L); if (!best || d.d < best.d) best = { ...d, L }; }
-        if (!best || best.d > 14 || best.d < 3 || seen.has(p.name)) continue;
+    const d = ctx.data, g = ctx.ground, seen = new Set(), stallNames = [], byWall = new Map();
+    const streets = [PIKE_PLACE, PIKE_ST, POST_ALLEY_S, [[-60, -95], [-39, -34], [-20, -3], [-10, 14], [10, 46], [54, 118]]];
+    const streetDist = (x, z) => Math.min(...streets.map((L) => distPolyline(x, z, L).d));
+    const bldgs = d.buildings.filter((bd) => !ctx.skipBuildings.has(bd.id));
+    for (const p of d.pois) {
+        if (!p.name || seen.has(p.name) || !(p.shop || p.amenity === 'cafe' || p.amenity === 'restaurant' || p.amenity === 'fast_food' || p.amenity === 'bar' || p.craft)) continue;
+        if (/starbucks/i.test(p.name) && Math.hypot(p.x - STARBUCKS.x, p.z - STARBUCKS.z) < 12) continue; // the original store is a hero below
+        const r = distPolyline(p.x, p.z, PIKE_PLACE), seg = PIKE_PLACE[r.i], nxt = PIKE_PLACE[r.i + 1];
+        const tx = nxt[0] - seg[0], tz = nxt[1] - seg[1], tl = Math.hypot(tx, tz), side = ((p.x - r.cx) * -tz + (p.z - r.cz) * tx) / tl;
+        const indoor = (p.level && !/^0/.test(String(p.level))) || p['addr:floor'] || p.indoor;
+        if ((r.d < 32 && side < 0 && r.i < 9) || indoor) { seen.add(p.name); if (!indoor || r.d < 40) stallNames.push(p.name); continue; }
+        // the building that holds it (or the nearest one within 6 m)
+        let host = bldgs.find((bd) => inPoly(p.x, p.z, bd.poly));
+        if (!host) { let best = 6; for (const bd of bldgs) for (let i = 0; i < bd.poly.length; i++) { const q = bd.poly[i], w = bd.poly[(i + 1) % bd.poly.length], dd = distPolyline(p.x, p.z, [q, w]).d; if (dd < best) { best = dd; host = bd; } } }
+        if (!host) continue;
+        // its street-facing wall: an edge ≥ 3 m whose midpoint is closest to a street centreline (tie → nearest to the POI)
+        let wall = null, score = 1e9;
+        for (let i = 0; i < host.poly.length; i++) {
+            const [ax, az] = host.poly[i], [bx, bz] = host.poly[(i + 1) % host.poly.length], L = Math.hypot(bx - ax, bz - az); if (L < 3) continue;
+            const mx = (ax + bx) / 2, mz = (az + bz) / 2, sc = streetDist(mx, mz) + 0.25 * distPolyline(p.x, p.z, [[ax, az], [bx, bz]]).d;
+            if (sc < score) { score = sc; wall = { ax, az, bx, bz, L, key: host.id + ':' + i }; }
+        }
+        if (!wall || streetDist((wall.ax + wall.bx) / 2, (wall.az + wall.bz) / 2) > 16) continue;
+        const ux = (wall.bx - wall.ax) / wall.L, uz = (wall.bz - wall.az) / wall.L; let nx = uz, nz = -ux;
+        if (inPoly((wall.ax + wall.bx) / 2 + nx * 0.5, (wall.az + wall.bz) / 2 + nz * 0.5, host.poly)) { nx = -nx; nz = -nz; }
+        const t = clamp((p.x - wall.ax) * ux + (p.z - wall.az) * uz, 0, wall.L);
         seen.add(p.name);
-        const ux = p.x - best.cx, uz = p.z - best.cz, ul = Math.hypot(ux, uz), fx = -ux / ul, fz = -uz / ul; // face the street
-        const x = best.cx + ux / ul * Math.min(best.d, 6.2), z = best.cz + uz / ul * Math.min(best.d, 6.2), y = ctx.ground.heightAt(x, z);
-        const isStar = /starbucks/i.test(p.name) && Math.hypot(p.x - STARBUCKS.x, p.z - STARBUCKS.z) < 12;
-        if (isStar) continue; // the original store is a hero below
-        const pal = [['#1f3d2b', '#f2e9d0'], ['#5a1e1e', '#f6efe0'], ['#14213d', '#fca311'], ['#2b2b2b', '#f5f5f5'], ['#f2e8cf', '#3a2a1a'], ['#0b4f6c', '#f5f5f5']][n % 6];
-        const s = signBoard(p.name, Math.min(4.2, 0.9 + p.name.length * 0.19), 0.55, { bg: pal[0], fg: pal[1], font: (q) => `700 ${q}px Georgia, serif`, glow: 0.05, night: 1.1 });
-        s.position.set(x, y + 3.2, z); s.rotation.y = Math.atan2(fx, fz); grp.add(s); n++;
-        if (n > 40) break;
+        if (!byWall.has(wall.key)) byWall.set(wall.key, { wall, ux, uz, nx, nz, items: [] });
+        byWall.get(wall.key).items.push({ p, t });
+    }
+    let n = 0;
+    for (const W of byWall.values()) {
+        W.items.sort((a, b) => a.t - b.t); let end = 0.3;
+        for (const it of W.items) {
+            const w = Math.min(4.2, 0.9 + it.p.name.length * 0.17, W.wall.L - 0.6); if (w < 1.4) continue;
+            let c = Math.max(it.t, end + w / 2); if (c + w / 2 > W.wall.L - 0.3) continue; end = c + w / 2 + 0.5;
+            const x = W.wall.ax + W.ux * c + W.nx * 0.14, z = W.wall.az + W.uz * c + W.nz * 0.14;
+            const y = g.heightAt(x + W.nx * 1.5, z + W.nz * 1.5) + 3.05;
+            const pal = [['#1f3d2b', '#f2e9d0'], ['#5a1e1e', '#f6efe0'], ['#14213d', '#fca311'], ['#2b2b2b', '#f5f5f5'], ['#f2e8cf', '#3a2a1a'], ['#0b4f6c', '#f5f5f5']][n % 6];
+            const sb = signBoard(it.p.name, w, 0.55, { bg: pal[0], fg: pal[1], font: (q) => `700 ${q}px Georgia, serif`, glow: 0.05, night: 1.1, depth: 0.06 });
+            sb.position.set(x, y, z); sb.rotation.y = Math.atan2(W.nx, W.nz); grp.add(sb); n++;
+        }
     }
     ctx.add(grp);
+    ctx.extras.storefronts = { signs: n, stallNames: stallNames.length };
+    return stallNames;
 }
 
 // ---------------------------------------------------------------------------- the original Starbucks (1912 Pike Place, Soames-Dunn Building)
@@ -352,12 +398,12 @@ export default {
             for (let i = 1; i < trim.length; i++) { const [ax, az] = trim[i - 1], [bx, bz] = trim[i], ya = ppAt(ax, az).y, yb = ppAt(bx, bz).y; bb.quad([ax, ya + 3.9, az], [bx, yb + 3.9, bz], [bx, yb + 4.5, bz], [ax, ya + 4.5, az], '#2f5a44', 'paint'); bb.quad([bx, yb + 3.9, bz], [ax, ya + 3.9, az], [ax, ya + 4.5, az], [bx, yb + 4.5, bz], '#2f5a44', 'paint'); }
             ctx.add(bb.build('main-arcade', { matOverrides: { 'f-brick': facadeMaterial('brick'), 'f-apartment': facadeMaterial('apartment') } }));
         }
-        buildArcade(ctx);
+        const stallNames = buildStorefronts(ctx);
+        buildArcade(ctx, stallNames);
         buildSigns(ctx, ctx.extras.signRoof ?? -6.4 + 10.8);
         buildRachel(ctx);
         buildGumWall(ctx);
         const fish = buildFishThrow(ctx);
-        buildStorefronts(ctx);
         const sb = buildStarbucks(ctx);
         buildSteinbrueck(ctx);
         // Elliott Bay view: the Great Wheel at Pier 57 (≈ 370 m south of MarketFront)

@@ -6,7 +6,7 @@
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, smooth, lerp, headingFromBearing, centroid, polyBox, inPoly } from '../kit.js';
-import { seattleBackdrop } from '../backdrop.js';
+import { seaBackdrop, seaWater, mirrorAbout } from './sea-common.js';
 import { bench } from '../osm.js';
 
 const KITE = { x: -58, z: 31, h: 9.5, r: 34 };
@@ -89,26 +89,46 @@ export default {
     async build(ctx) {
         const g = ctx.ground, d = ctx.data, sp = ctx.spot('gas-works');
         const lake = d.areas.filter((a) => (a.natural === 'water' || a.waterway === 'canal') && a.poly.length > 3).map((a) => a.poly);
-        // shoreline from the DEM (Lake Union reads ≈ −5.9 here); the OSM lake multipolygon lost its inner rings (the park) in the extract
-        g.mod((x, z, h) => (h < -3.2 ? Math.min(h, -7.1) : h));
-        ctx.water(-4.6, { x0: -3000, z0: -3000, x1: 3000, z1: 3000 }, [], { depth: 2.5 });
-        g.mod((x, z, h) => (z > 150 ? Math.min(h, lerp(h, -8, smooth(150, 200, z))) : h)); // open lake south of the park
+        // shoreline from the DEM (Lake Union reads ≈ −5.9 here); the OSM lake multipolygon lost its inner rings (the park) in the extract.
+        // The bed drops deep so the mirrored skyline (fake planar reflection) shows through the partly transparent lake.
+        const WY = -4.6, BED = -420;
+        g.mod((x, z, h) => (h < -3.2 ? BED : h));
+        g.mod((x, z, h) => (z > 150 ? Math.min(h, lerp(h, BED, smooth(150, 158, z))) : h)); // open lake south of the park
+        const wPlane = ctx.water(WY, { x0: -3000, z0: -3000, x1: 3000, z1: 3000 }, [], { depth: 2.5 }); wPlane.visible = false;
         buildKiteHill(ctx);
         buildTowers(ctx);
         buildPlayBarn(ctx);
-        ctx.terrainOpts = { bg: '#5f7d3d', innerPx: 2048, skirtY: -7.5, skirtColor: '#4d5f44' };
-        ctx.osmBackdrop({ paint: {}, urban: false, streetTreeOpts: { spacing: 12, prob: 0.6 }, areaTreeOpts: { conifer: 0.4 } });
+        ctx.terrainOpts = { bg: '#5f7d3d', innerPx: 2048, outerPad: 420, skirtY: BED, skirtColor: '#10181b' };
+        ctx.osmBackdrop({ paint: {}, urban: false, streetTreeOpts: { spacing: 12, prob: 0.6 }, areaTreeOpts: { conifer: 0.1 } });
         // lakeside lawns get a few big trees; picnic benches near the shelter
-        const rr = rng(12); for (let i = 0; i < 40; i++) { const x = -150 + rr() * 300, z = -110 + rr() * 220; if (Math.hypot(x - KITE.x, z - KITE.z) < KITE.r + 4 || (x > 35 && x < 135 && z > -35 && z < 95) || g.heightAt(x, z) < -3.5) continue; ctx.trees.push({ x, z, kind: rr() < 0.35 ? 'con' : 'broad', s: 0.8 + rr() * 0.5 }); }
+        const rr = rng(12); for (let i = 0; i < 40; i++) { const x = -150 + rr() * 300, z = -110 + rr() * 220; if (Math.hypot(x - KITE.x, z - KITE.z) < KITE.r + 4 || (x > 35 && x < 135 && z > -35 && z < 95) || g.heightAt(x, z) < -3.5) continue; ctx.trees.push({ x, z, kind: rr() < 0.1 ? 'con' : 'broad', s: 0.8 + rr() * 0.5 }); }
         { const b = new GeoBatch(); for (const [x, z, a] of [[10, 110, Math.PI], [20, 112, Math.PI], [-20, 95, 2.6], [150, 60, -2]]) { bench(b, x, g.heightAt(x, z), z, a); ctx.box(x, z, 0.9, 0.3, a, { prop: true, h: 0.45 }); } ctx.add(b.build('benches')); }
-        // skyline + Needle across Lake Union (SSW)
-        seattleBackdrop(ctx, { baseY: -7.5, filler: 1800, coreTowers: 60, rainier: true, clear: 500, fillerBox: [47.598, -122.37, 47.638, -122.31], eyeY: 1.6, fillerExclude: lake });
+        // skyline + Needle across Lake Union (SSW): real towers at true distance, SLU / Eastlake / Westlake blocks, the city
+        // ground with the lake carved deep, the lake surface (sky reflections + a mirrored copy of the lit skyline)
+        const W = sp.extent.polygon, xs = W.map((p) => p[0]), zs = W.map((p) => p[1]), m8 = (v) => Math.round(v / 8) * 8, OUT = 420;
+        const hole = { x0: m8(Math.min(...xs) - 60) - OUT + 16, z0: m8(Math.min(...zs) - 60) - OUT + 16, x1: m8(Math.max(...xs) + 60) + OUT - 16, z1: m8(Math.max(...zs) + 60) + OUT - 16 };
+        const bd = seaBackdrop(ctx, { clear: 420, eyeY: 1.6, needleDetail: 1, bay: false, cranes: false,
+            midrise: 2200, midClear: 520, midBox: [47.598, -122.372, 47.6445, -122.312],
+            ground: { box: { x0: -3600, z0: -2600, x1: 3200, z1: 5400 }, hole, step: 24, lakeY: BED },
+            trees: 2200, treeClear: 500 });
+        const lakeW = seaWater(ctx, WY, { box: { x0: -4000, z0: -3000, x1: 4000, z1: 6000 }, name: 'lake-union', color: '#1e3238', opacity: 0.78 });
+        ctx.add(lakeW, mirrorAbout([bd.towers, bd.needle, bd.midrise], WY, 'lake-reflection'));
+        // floatplanes moored / taxiing off Kenmore Air's dock (south-west) and a couple of houseboats along the east shore
+        { const fb = new GeoBatch(); const plane = (x, z, yaw) => { const c = Math.cos(yaw), s2 = Math.sin(yaw), P = (u, v, y) => [x + c * u + s2 * v, WY + y, z - s2 * u + c * v];
+            fb.rod(P(0, -5, 1.7), P(0, 4.5, 1.7), 0.6, '#f2f2ee', 'paint', 10); fb.rod(P(-7, 0, 2.6), P(7, 0, 2.6), 0.12, '#f2f2ee', 'paint', 4);
+            for (const u of [-1.3, 1.3]) fb.rod(P(u, -3, 0.25), P(u, 3, 0.25), 0.25, '#d9dcdf', 'paint', 6); fb.box(...P(0, -5.2, 2.1), 0.15, 1.6, 1.2, '#c62828', 'paint', yaw); };
+          plane(-260, 420, 0.4); plane(-310, 500, 1.2); plane(120, 640, -0.6);
+          for (let i = 0; i < 6; i++) { const x = 330 + i * 9, z = 300 + i * 26; fb.box(x, WY - 0.4, z, 7, 1.2, 12, '#7a6a55', 'wood'); fb.box(x, WY + 0.8, z, 6, 3.4, 9, ['#d9cdb2', '#7da0b5', '#c8695a', '#e8e4da', '#8aa37a', '#d7b05a'][i], 'paint'); }
+          ctx.add(fb.build('lake-craft')); }
+        // path lamps (night): every ~32 m along the park paths
+        { let n = 0; for (const pts of ctx.footLines()) { let acc = 0; for (let i = 1; i < pts.length; i++) { const L = Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]); acc += L; if (acc > 32 && n < 70) { acc = 0; n++; ctx.lampPoints.push({ x: pts[i][0] + 1.2, z: pts[i][1], rot: 0 }); } } } }
         // plaques: Richard Haag credited; the fence is a safety message too
         const PL = sp.plaques;
         ctx.plaque(PL[0], 36, 2, Math.PI * 0.5, { credit: 'The structures are fenced: three fatal falls (2012, 2022, 2025) — please admire from outside.' });
         ctx.plaque(PL[1], -40, 56, 0.6, { credit: 'Landscape architect: Richard Haag (park opened 1975).' });
         ctx.plaque(PL[2], 92, 100, Math.PI);
         ctx.challenge('gas-works', { r: 14, tol: 35 });
+        ctx.extras.seaBackdrop = bd;
         // fun: fly a kite on Kite Hill (height from the real wind)
         const kite = new THREE.Group(); kite.name = 'kite'; kite.visible = false;
         const sail = new THREE.Mesh(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0.7, 0), new THREE.Vector3(0.45, 0, 0), new THREE.Vector3(0, -0.9, 0), new THREE.Vector3(-0.45, 0, 0)]).setIndex([0, 1, 2, 0, 2, 3]), new THREE.MeshStandardMaterial({ color: '#e53935', side: THREE.DoubleSide })); sail.geometry.computeVertexNormals(); kite.add(sail);

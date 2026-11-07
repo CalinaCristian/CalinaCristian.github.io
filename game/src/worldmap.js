@@ -23,7 +23,6 @@ const WATER = {
     bucharest: [
         { line: [[44.4482, 26.0200], [44.4440, 26.0420], [44.4398, 26.0570], [44.4356, 26.0705], [44.4318, 26.0840], [44.4296, 26.0950], [44.4282, 26.1015], [44.4262, 26.1120], [44.4225, 26.1250], [44.4180, 26.1400]], w: 5, label: 'Dâmbovița' },
         { ell: [44.4775, 26.0870, 0.0055, 0.0130], rot: -0.35, label: 'Lacul Herăstrău' },
-        { ell: [44.4710, 26.1010, 0.0035, 0.0040], rot: 0.6, label: 'Lacul Floreasca' },
         { ell: [44.4369, 26.0899, 0.0010, 0.0016] },
     ],
     seattle: [
@@ -174,7 +173,10 @@ export class WorldMap {
     _view() {
         const t = this.tab; if (t === 'world' || t === 'here') return this.views[t] || null;
         if (this.views[t]) { this._lat0 = this.views[t].lat0; return this.views[t]; }
-        const its = this.items.filter((i) => i.region === t); if (!its.length) return null;
+        let its = this.items.filter((i) => i.region === t); if (!its.length) return null;
+        // fit the core: places within 7 km of the median (an outlier such as the airport gets an edge chip instead)
+        const med = (a) => a.slice().sort((x, y) => x - y)[a.length >> 1], mc = { lat: med(its.map((i) => i.lat)), lon: med(its.map((i) => i.lon)) };
+        const core = its.filter((i) => hav(i, mc) < 7); if (core.length >= 2) its = core;
         let a0 = 90, a1 = -90, o0 = 180, o1 = -180;
         for (const i of its) { const b = i.bbox || [i.lat, i.lon, i.lat, i.lon]; a0 = Math.min(a0, b[0]); o0 = Math.min(o0, b[1]); a1 = Math.max(a1, b[2]); o1 = Math.max(o1, b[3]); }
         this._lat0 = (a0 + a1) / 2;
@@ -249,6 +251,17 @@ export class WorldMap {
         }
         // you are here
         const cur = this._byKey(this.curKey); if (cur && cur.region === this.tab) { const p = S(cur.lat, cur.lon), t = performance.now() / 600; g.beginPath(); g.arc(p.x, p.y, 20 + (t % 1) * 8, 0, 7); g.strokeStyle = `rgba(52,211,153,${0.8 - (t % 1) * 0.7})`; g.lineWidth = 2; g.stroke(); }
+        // off-screen places: a chip on the edge pointing at them (click → centre there)
+        for (const it of its) {
+            const p = S(it.lat, it.lon); if (p.x > -10 && p.y > -10 && p.x < this.W + 10 && p.y < this.H + 10) continue;
+            const cx = this.W / 2, cy = this.H / 2, dx = p.x - cx, dy = p.y - cy, k = Math.min((this.W / 2 - 70) / Math.abs(dx || 1e-6), (this.H / 2 - 40) / Math.abs(dy || 1e-6));
+            const ex = cx + dx * k, ey = cy + dy * k, km = hav(it, { lat: -(v.cy) / 111.32, lon: v.cx / (111.32 * Math.cos(this._lat0 * Math.PI / 180)) });
+            const t = `${it.icon} ${it.name.split(/[:(&]/)[0].trim()} · ${km.toFixed(0)} km ${Math.abs(dy) > Math.abs(dx) ? (dy < 0 ? '↑' : '↓') : (dx < 0 ? '←' : '→')}`;
+            g.font = '600 12px system-ui,sans-serif'; const w = g.measureText(t).width + 18;
+            g.fillStyle = 'rgba(30,58,138,.92)'; this._pill(g, ex - w / 2, ey - 13, w, 26, 13); g.fill(); g.strokeStyle = '#93c5fd'; g.lineWidth = 1; g.stroke();
+            g.fillStyle = '#fff'; g.textAlign = 'center'; g.fillText(t, ex, ey + 1);
+            this._hits.push({ it, x0: ex - w / 2, y0: ey - 13, x1: ex + w / 2, y1: ey + 13, edge: true });
+        }
         // scale bar
         this._scaleBar(g, v.s);
         g.font = '11px system-ui,sans-serif'; g.textAlign = 'right'; g.fillStyle = 'rgba(148,163,184,.6)'; g.fillText('Schematic water · real positions (OSM / cities.js / spots)', this.W - 10, this.H - 10);
@@ -346,7 +359,7 @@ export class WorldMap {
             setTimeout(() => { this._target = null; this.close(); this.o.onHere?.(wx, wz, h?.pin || null); }, 140);
             return;
         }
-        if (h?.it) this.select(h.it); else { this.sel = null; this.card.hidden = true; this.renderList(); this.draw(); }
+        if (h?.it) this.select(h.it, !!h.edge); else { this.sel = null; this.card.hidden = true; this.renderList(); this.draw(); }
     }
 }
 export { REGIONS };

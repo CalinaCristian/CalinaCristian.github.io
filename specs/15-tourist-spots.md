@@ -86,6 +86,17 @@ Confirm (a) the 3-D Troll replica in this non-commercial portfolio (artists cred
   - Figures top to bottom: Raven with the moon, woman holding frog child, frog husband, Mink, Raven, Whale with seal, Raven-at-the-Head-of-Nass.
   - Paint only black / red / blue-green on weathered red cedar, about 50 ft.
   - Plaque text and the pergola / Chief Seattle bust / Pioneer Building facts are in the same file.
+- (research → spots-buc + world, 2026-11-07, round 5 note 24) **Old Town street fronts**: `game/research/old-town-streets.json` / `.md`.
+  - **Per street** (Lipscani, Gabroveni, Șelari, Covaci, Smârdan, Franceză): length, OSM surface (Covaci is setts), and history plus notable fronts from ro/en Wikipedia. Listed ensembles: Gabroveni B-II-a-B-18798 and Franceză B-II-a-B-18765.
+  - **Venues**: all 247 OSM venues within 18 m (71 with terraces), each with name/signage, kind, hours and position.
+  - **Hanul cu Tei**: 1833, a 75 m passage between Lipscani and Blănari, iron gates at both ends, A.P./S.P. monograms.
+  - **Hanul lui Manuc**: 1806–08, two tiers of wooden galleries round the courtyard, staircase kiosk with a pointed roof.
+  - **Curtea Veche**: palace ruins and museum; Buna Vestire church 1559.
+  - **Gap**: per-building facade colours, string lights and lamp models still need dated street photos.
+- (research → spots + gameplay, 2026-11-07, round 5) **Drone rules**: `game/research/drone-rules.md`.
+  - Confirmed: Seattle city parks ban drones (SMC 18.12.265, Seattle Parks rules page; covers Gas Works and Kerry Park). FAA recreational rules: register if ≥ 250 g, TRUST test, line of sight, LAANC in controlled airspace (SeaTac). EU open category: A1 never over assemblies of people; geographical zones per state.
+  - Unconfirmed (sites unreachable): Bellevue park drone rule, Romanian geo-zones (Otopeni/Băneasa/Parliament).
+  - A suggested per-place game rule table is in the file.
 
 ## Progress log
 

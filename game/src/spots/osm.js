@@ -298,9 +298,24 @@ export function buildBuildings(data, ground, o = {}) {
     const colliders = [];
     const mats = {};
     const add = (style, g) => { const k = 'f-' + style; mats[k] = facadeMaterial(style); batch.add(g, k, null, g.userData.col); };
-    for (const b of data.buildings) {
-        if (skip.has(b.id) || b.hasParts) continue;
+    // notes 23/26: overlapping OSM footprints (duplicates, parts over parts) z-fight on coplanar facades and roofs.
+    // Largest first; a footprint (mostly) inside an accepted one that is not taller is dropped; a partly overlapping
+    // or taller one is inset 0.12 m and its roof lifted 8 cm so no facade / roof plane coincides.
+    const acc = [], cellA = 32, gridA = new Map(), keyA = (i, j) => i * 7919 + j;
+    const insideAcc = (x, z) => { for (const a of gridA.get(keyA(Math.floor(x / cellA), Math.floor(z / cellA))) || []) if (x >= a.bb.x0 && x <= a.bb.x1 && z >= a.bb.z0 && z <= a.bb.z1 && inPoly(x, z, a.poly)) return a; return null; };
+    const order = data.buildings.filter((b) => !skip.has(b.id) && !b.hasParts && b.poly?.length > 2).map((b) => ({ b, A: Math.abs(polyArea(b.poly)) })).sort((p, q) => q.A - p.A).map((p) => p.b);
+    let dropped = 0, inset = 0;
+    for (const b0 of order) {
+        let b = b0;
         if (b.k === 'roof' && !o.keepRoofs) continue;
+        { // overlap with accepted footprints
+            const [qx, qz] = centroid(b.poly), bbq = polyBox(b.poly), smp = [[qx, qz], ...b.poly.map(([x, z]) => [x + (qx - x) * 0.2, z + (qz - z) * 0.2])];
+            for (let i = 0; i < 9; i++) { const x = bbq.x0 + (bbq.x1 - bbq.x0) * ((i % 3) + 0.5) / 3, z = bbq.z0 + (bbq.z1 - bbq.z0) * (Math.floor(i / 3) + 0.5) / 3; if (inPoly(x, z, b.poly)) smp.push([x, z]); }
+            let hit = 0, host = null; for (const [x, z] of smp) { const a = insideAcc(x, z); if (a) { hit++; host = a; } }
+            const f = hit / smp.length, H0 = buildingHeight(b) + (b.minH || 0);
+            if (f >= 0.85 && host && H0 <= host.H + 0.5 && !b.minH) { dropped++; continue; }
+            if (f > 0.04 || smp.some(([x, z]) => insideAcc(x, z))) { const pin = insetPoly(b.poly, 0.12); if (pin) { b = { ...b, poly: pin, _lift: 0.08 }; inset++; } }
+        }
         const [cx, cz] = centroid(b.poly);
         if (exclude.some((p) => inPoly(cx, cz, p))) continue;
         if (o.filter && !o.filter(b)) continue;
@@ -312,8 +327,10 @@ export function buildBuildings(data, ground, o = {}) {
         for (let i = 0, j = b.poly.length - 1; i < b.poly.length; j = i++) { const [ax, az] = b.poly[j], [bx, bz] = b.poly[i], n = Math.min(24, Math.ceil(Math.hypot(bx - ax, bz - az) / 2.5)); for (let q = 0; q < n; q++) gs(ax + (bx - ax) * q / n, az + (bz - az) * q / n); }
         gs(cx, cz);
         const base = b.minH ? gmax + b.minH : (b.minLv ? gmax + b.minLv * 3.2 : gmin - 0.6);
-        const top = (b.minH || b.minLv ? gmax : gmax) + H;
+        const top = (b.minH || b.minLv ? gmax : gmax) + H + (b._lift || 0);
         if (top - base < 1) continue;
+        { const bb = polyBox(b0.poly), a = { poly: b0.poly, bb, H: buildingHeight(b0) + (b0.minH || 0) }; acc.push(a);
+            for (let i = Math.floor(bb.x0 / cellA); i <= Math.floor(bb.x1 / cellA); i++) for (let j = Math.floor(bb.z0 / cellA); j <= Math.floor(bb.z1 / cellA); j++) { const k = keyA(i, j); let l = gridA.get(k); if (!l) gridA.set(k, l = []); l.push(a); } }
         const style = o.style?.(b) || buildingStyle(b, urban);
         const pal = PALETTES[style] || (style === 'house' ? HOUSE_COLS : style === 'office' ? OFFICE_COLS : style === 'brick' ? BRICK_COLS : APT_COLS);
         const hcol = b.c ? safeCol(b.c) : pal[Math.floor(hash2(cx, cz) * pal.length)];
@@ -338,7 +355,20 @@ export function buildBuildings(data, ground, o = {}) {
     }
     for (const m of Object.values(mats)) m.side = THREE.DoubleSide; // inside a wall the camera sees a wall, never the street beyond
     const group = batch.build('osm-buildings', { matOverrides: mats });
-    return { group, colliders, tris: countFromGroup(group) };
+    return { group, colliders, tris: countFromGroup(group), dedupe: { dropped, inset } };
+}
+/** polygon offset inward by d (per-vertex bisector; null when the result folds over) */
+export function insetPoly(poly, d) {
+    const n = poly.length, sgn = polyArea(poly) > 0 ? 1 : -1, out = [];
+    for (let i = 0; i < n; i++) {
+        const [px, pz] = poly[(i + n - 1) % n], [x, z] = poly[i], [nx2, nz2] = poly[(i + 1) % n];
+        let ax = x - px, az = z - pz, bx = nx2 - x, bz = nz2 - z; const la = Math.hypot(ax, az) || 1, lb = Math.hypot(bx, bz) || 1; ax /= la; az /= la; bx /= lb; bz /= lb;
+        // inward normals (left of the edge for a positive-area ring in x/z)
+        const n1x = -az * sgn, n1z = ax * sgn, n2x = -bz * sgn, n2z = bx * sgn; let mx = n1x + n2x, mz = n1z + n2z; const ml = Math.hypot(mx, mz);
+        if (ml < 0.2) return null; mx /= ml; mz /= ml; const k = d / Math.max(0.35, mx * n1x + mz * n1z);
+        out.push([x + mx * k, z + mz * k]);
+    }
+    const a0 = polyArea(poly), a1 = polyArea(out); return Math.sign(a0) === Math.sign(a1) && Math.abs(a1) < Math.abs(a0) ? out : null;
 }
 function countFromGroup(g) { let n = 0; g.traverse((o) => { if (o.isMesh) n += o.geometry.index.count / 3; }); return n; }
 function safeCol(c) { try { return '#' + new THREE.Color(c).getHexString(); } catch { return '#9a958c'; } }

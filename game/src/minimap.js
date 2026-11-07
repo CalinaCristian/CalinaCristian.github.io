@@ -15,6 +15,10 @@ const AREA_FILL = {
 };
 const POI_MINI = new Set(['fuel', 'metro', 'airport', 'hospital']);
 const POI_MINI_BRAND = new Set(['food', 'shop', 'bank', 'pharmacy']);
+// reachable places per district (tools/osm/places.mjs → game/data/places.json, round 5 notes 9/18): fetched once
+let PLACES = null;
+const placesData = () => PLACES || (PLACES = fetch(new URL('../data/places.json', import.meta.url).href).then(r => (r.ok ? r.json() : null)).catch(() => null));
+const PLACE_DRAW = { landmark: 1, spot: 1, fuel: 1, transit: 1, park: 1, business: 1 }; // cv stops are drawn from world.pois (doors)
 const rank = (t) => ({ motorway: 6, trunk: 5, primary: 4, secondary: 3, tertiary: 2, motorway_link: 4, trunk_link: 4, primary_link: 3, secondary_link: 2, tertiary_link: 1 }[t] || 0);
 
 export class MiniMap {
@@ -24,7 +28,19 @@ export class MiniMap {
         // polygons worth drawing on the map (residential landuse would just add noise)
         this.polys = (world.areas || []).filter(a => AREA_FILL[a.kind]).sort((a, b) => (a.kind === 'water') - (b.kind === 'water'));
         this.districts = (world.districts || []).map(d => ({ name: d.name, x: d.x, z: d.z, rank: d.rank }));
-        this.landmarks = (world.landmarks || []).map(l => ({ label: l.label, x: l.x, z: l.z }));
+        // landmarks listed for the map: reachable ones only; `scenery` landmarks are background (no marker / label / route)
+        const dcfg = city?.districts?.[world.district?.id] || null;
+        this.scenery = new Set(dcfg?.scenery || []);
+        this.landmarks = (world.landmarks || []).filter(l => !this.scenery.has(l.id)).map(l => ({ id: l.id, label: l.label, x: l.x, z: l.z }));
+        this.places = []; this.legend = null; // [{cat, name, x, z, …}] once places.json is in
+        if (world.district?.id) placesData().then((pd) => {
+            const e = pd?.districts?.[`${city?.id}-${world.district.id}`]; if (!e) return;
+            this.legend = pd.legend; const LG = Object.fromEntries(pd.legend.map(l => [l.cat, l]));
+            for (const [cat, list] of Object.entries(e.places)) for (const p of list) this.places.push({ ...p, cat, icon: LG[cat]?.icon, color: LG[cat]?.color });
+            // landmarks: the reachable list comes from the data (same filter as the build)
+            const ok = new Set((e.places.landmark || []).map(p => p.id));
+            this.landmarks = (world.landmarks || []).filter(l => ok.has(l.id)).map(l => ({ id: l.id, label: l.label, x: l.x, z: l.z }));
+        });
         // one label per named major street, at its longest segment
         const best = new Map();
         for (const e of (world.allEdges || world.graph.edges)) {
@@ -111,7 +127,7 @@ export class MiniMap {
                 ctx.fillText(d.name.toUpperCase(), d.x, d.z);
             }
             ctx.font = `${lw(10)}px sans-serif`;
-            for (const l of this.landmarks) { ctx.beginPath(); ctx.arc(l.x, l.z, lw(3), 0, 7); ctx.fillStyle = '#6b655a'; ctx.fill(); ctx.fillText(l.label, l.x, l.z + lw(12)); }
+            if (!this.places.length) for (const l of this.landmarks) { ctx.beginPath(); ctx.arc(l.x, l.z, lw(3), 0, 7); ctx.fillStyle = '#6b655a'; ctx.fill(); ctx.fillText(l.label, l.x, l.z + lw(12)); }
         } else if (scale > 0.12) {
             ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
             for (const d of this.districts) {
@@ -128,6 +144,7 @@ export class MiniMap {
         for (const p of pois) {
             if (p.cv || p.interactive) { cvPois.push(p); continue; }
             if (p.x < x0 || p.x > x1 || p.z < z0 || p.z > z1) continue;
+            if (this.places.length && (p.kind === 'fuel' || p.kind === 'metro' || p.kind === 'landmark')) continue; // drawn as places below
             const show = POI_MINI.has(p.kind) || (POI_MINI_BRAND.has(p.kind) && p.brand && !full && scale > 0.14) || (p.kind === 'landmark' && full && p.label && p.sub !== 'place_of_worship');
             if (!show) continue;
             const r = lw(full ? 4 : 5.5);
@@ -136,6 +153,22 @@ export class MiniMap {
             ctx.save(); ctx.translate(p.x, p.z); if (heading !== null) ctx.rotate(-heading);
             ctx.font = `${lw(full ? 5 : 7)}px sans-serif`; ctx.fillStyle = '#fff';
             ctx.fillText(p.kind === 'metro' ? 'M' : p.kind === 'fuel' ? '⛽' : (p.icon || '•'), 0, lw(0.5));
+            ctx.restore();
+        }
+        // reachable places (categorized icons; labels on the full map)
+        for (const p of this.places) {
+            if (!PLACE_DRAW[p.cat] || p.x < x0 || p.x > x1 || p.z < z0 || p.z > z1) continue;
+            if (!full && (p.cat === 'business' ? scale < 0.14 : p.cat === 'park' ? scale < 0.1 : false)) continue;
+            const big = p.cat === 'landmark' || p.cat === 'spot', r = lw(full ? (big ? 7 : 5) : (big ? 7 : 5.5));
+            ctx.save(); ctx.translate(p.x, p.z); if (heading !== null) ctx.rotate(-heading);
+            ctx.beginPath(); if (big) { ctx.moveTo(0, -r * 1.2); ctx.lineTo(r * 1.2, 0); ctx.lineTo(0, r * 1.2); ctx.lineTo(-r * 1.2, 0); ctx.closePath(); } else ctx.arc(0, 0, r, 0, 7);
+            ctx.fillStyle = p.color || '#666'; ctx.fill(); ctx.lineWidth = lw(1.2); ctx.strokeStyle = '#fff'; ctx.stroke();
+            ctx.fillStyle = '#fff'; ctx.font = `bold ${lw(full ? (big ? 8 : 6) : 7)}px sans-serif`; ctx.fillText(p.cat === 'transit' ? (p.mode === 'tram' ? 'T' : p.mode === 'train' ? 'R' : 'M') : p.icon || '•', 0, lw(0.5));
+            if (full && (p.cat !== 'business' || scale > 0.5)) {
+                const label = (p.name || '').length > 28 ? p.name.slice(0, 26) + '…' : (p.name || '');
+                ctx.font = `${big ? 'bold ' : ''}${lw(big ? 11 : 9)}px sans-serif`; ctx.strokeStyle = 'rgba(255,255,255,0.9)'; ctx.lineWidth = lw(3);
+                ctx.strokeText(label, 0, r + lw(9)); ctx.fillStyle = big ? '#3b0764' : '#222'; ctx.fillText(label, 0, r + lw(9));
+            }
             ctx.restore();
         }
         // CV stops + airports
@@ -166,5 +199,26 @@ export class MiniMap {
         ctx.fillStyle = '#333'; ctx.font = 'bold 9px sans-serif'; ctx.textAlign = 'center'; ctx.fillText('N', 0, 14);
         ctx.restore();
         if (full) { ctx.save(); ctx.fillStyle = 'rgba(0,0,0,0.55)'; ctx.font = '11px sans-serif'; ctx.textAlign = 'right'; ctx.fillText('© OpenStreetMap contributors', w - 8, h - 8); ctx.restore(); }
+        if (full && this.legend) this.drawLegend(ctx, w, h);
+    }
+    /** map legend (full map): one row per place category + the hatched outside-the-story area */
+    drawLegend(ctx, w, h) {
+        const rows = this.legend.filter(l => l.cat === 'cv' || this.places.some(p => p.cat === l.cat));
+        const lh = 18, pad = 8, bw = 178, bh = pad * 2 + 16 + (rows.length + 1) * lh;
+        ctx.save(); ctx.translate(10, h - bh - 24);
+        ctx.fillStyle = 'rgba(255,255,255,0.92)'; ctx.strokeStyle = 'rgba(0,0,0,0.15)'; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.roundRect ? ctx.roundRect(0, 0, bw, bh, 8) : ctx.rect(0, 0, bw, bh); ctx.fill(); ctx.stroke();
+        ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#111'; ctx.font = 'bold 12px sans-serif'; ctx.fillText('Legend', pad, pad + 7);
+        rows.forEach((l, i) => {
+            const y = pad + 16 + lh * (i + 0.5) + 4;
+            ctx.beginPath(); ctx.arc(pad + 8, y, 7, 0, 7); ctx.fillStyle = l.color; ctx.fill();
+            ctx.fillStyle = '#fff'; ctx.font = 'bold 8px sans-serif'; ctx.textAlign = 'center'; ctx.fillText(l.icon, pad + 8, y + 0.5);
+            ctx.textAlign = 'left'; ctx.fillStyle = '#222'; ctx.font = '12px sans-serif'; ctx.fillText(l.label, pad + 22, y);
+        });
+        const y = pad + 16 + lh * (rows.length + 0.5) + 4;
+        ctx.save(); ctx.beginPath(); ctx.rect(pad + 1, y - 7, 14, 14); ctx.fillStyle = 'rgba(15,23,42,0.45)'; ctx.fill(); ctx.clip();
+        ctx.strokeStyle = 'rgba(148,163,184,0.9)'; ctx.lineWidth = 2; for (let k = -14; k < 28; k += 5) { ctx.beginPath(); ctx.moveTo(pad + 1 + k, y + 7); ctx.lineTo(pad + 15 + k, y - 7); ctx.stroke(); }
+        ctx.restore(); ctx.fillStyle = '#222'; ctx.font = '12px sans-serif'; ctx.fillText('Outside the story area', pad + 22, y);
+        ctx.restore();
     }
 }

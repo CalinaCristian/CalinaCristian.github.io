@@ -19,6 +19,7 @@ import { OnFootController } from './onfoot.js';
 import * as VEHICLES from './vehicles.js';
 import { makeCrowd, dressFor, seasonOf } from './crowd.js';
 import { initAchievements } from './achievements.js'; // spec 23 (progression): observes window.game
+import { initExplore } from './explore.js'; // explore lane (notes 74–76): Explore mode, world-map hub, drone — hooks listed in spec 10
 const { makeVehicle } = VEHICLES;
 
 const $ = (s) => document.querySelector(s);
@@ -2199,3 +2200,4 @@ function buildCameraMesh(x, z, angle) {
 
 window.game = new Game();
 initAchievements(window.game); // spec 23: achievements, completion %, panel
+try { initExplore(window.game); } catch (e) { console.error('[explore] init', e); } // explore lane: game.explore API

@@ -35,7 +35,7 @@
 import * as THREE from '../vendor/three.module.min.js';
 import { Renderer3D } from '../src/render.js';
 import { Input } from '../src/input.js';
-import { SPOTS, startSpot, spotById } from '../src/spots/index.js';
+import { SPOTS, startSpot, spotById, auditSpot } from '../src/spots/index.js';
 
 const qs = new URLSearchParams(location.search), $ = (s) => document.querySelector(s);
 const id = qs.get('id') || 'fremont-troll';
@@ -115,7 +115,13 @@ const tick = (dt) => {
 const loop = () => { tick(Math.min(0.1, clock.getDelta())); requestAnimationFrame(loop); };
 if (!manual) requestAnimationFrame(loop);
 const step = (n = 1, dt = 1 / 30) => { for (let i = 0; i < n; i++) tick(dt); return r3d.stats; };
-window.spotDev = { session, r3d, camera, THREE, setCam, walkTo, loadMs, ready: true, photo, step };
+window.spotDev = { session, r3d, camera, THREE, setCam, walkTo, loadMs, ready: true, photo, step, audit: (o) => auditSpot(session.spot, o) };
+// automated runs (harness:spots, Playwright): audit once and surface findings as one page error so the harness reports them
+if ((navigator.webdriver && qs.get('audit') !== '0') || qs.get('audit') === '1') {
+    const a = window.spotDev.auditResult = auditSpot(session.spot), f = Object.entries(a.counts);
+    console.info('[spots-audit]', JSON.stringify(a.counts), a.ms + ' ms');
+    if (f.length) setTimeout(() => { throw new Error(`[spots-audit] ${id}: ${f.map(([k, n]) => `${k} ${n}`).join(', ')} — e.g. ${JSON.stringify(Object.values(a.findings)[0].samples[0])} (spotDev.audit() for details)`); }, 0);
+}
 </script>
 </body>
 </html>

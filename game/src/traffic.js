@@ -3,7 +3,7 @@ import { makeVehicle, CAR_COLORS } from './vehicles.js';
 import * as VEH from './vehicles.js';
 import { TRANSIT, TRANSIT_RE } from './data.js';
 import { makeRng, clamp, angleLerp } from './util.js';
-import { makeCrowd } from './crowd.js';
+import { makeCrowd, dressFor } from './crowd.js';
 import { lanesDir, canTravel, edgeSpeed, isMotorway, turnAngle, nodeList, EdgeIndex } from './nav.js';
 
 // ============================================================================
@@ -186,7 +186,7 @@ export class Traffic {
     }
 
     // ------------------------------------------------------------------ traffic by hour
-    cls(v) { return v.parked ? 'parked' : (v.tram || v.isPolice) ? 'fixed' : 'moving'; }
+    cls(v) { return v.service ? 'fixed' : v.parked ? 'parked' : (v.tram || v.isPolice) ? 'fixed' : 'moving'; }
     /** {density, parked, aggression, band} for a local hour: world.trafficProfile(hour) when present, else the table */
     profileAt(h) {
         let r = null;
@@ -834,6 +834,7 @@ export class Traffic {
             if (v.trolley && this.transit?.trolleyEdges) w *= n.trolleyWire ? 20 : 0.02;      // under the wires
             else if (v.bus && this.transit?.busEdges) w *= n.busRoute ? 8 : 0.15;             // along its route
             if (e.roundabout && n.roundabout) w *= 1.5;
+            if (this.park?.blockEdge === n && (lanesDir(n, nd) || 1) <= 1 && !v.service) w *= 0.03; // the player's car left in the only lane: go round
             cands.push({ n, nd, w }); total += w;
         }
         if (!cands.length) {
@@ -953,6 +954,7 @@ export class Traffic {
         this.recycle();
         this.grid.build(this.vehicles); // positions changed (guard / relocations): pedestrians test against the final boxes
         this.peds.update(dt);           // last, so nobody is left inside a vehicle that moved this frame
+        try { this.updateParking(dt); } catch (e) { if (!this._parkErr) { this._parkErr = true; console.warn('[traffic] parking', e); } }
         if (this._recent) this._recent.length = 0;
         if (this.world.updateLights) this.world.updateLights(this.time, this.cycle);
         // police lights
@@ -1610,7 +1612,254 @@ export class Traffic {
     /** nearest police car within r (or null) */
     policeNear(x, z, r) { let best = null, bd = r; for (const p of this.police) { const d = Math.hypot(p.x - x, p.z - z); if (d < bd) { bd = d; best = p; } } return best; }
 
-    dispose() { this.scene.remove(this.group); this.peds.dispose(); }
+    dispose() { try { this.endParking('dispose'); } catch { /* ignore */ } this.scene.remove(this.group); this.peds.dispose(); }
+
+    // ------------------------------------------------------------------ illegal parking reactions (note 8)
+    /**
+     * The player's car left somewhere illegal while the player is on foot (traffic.walker active, car still): passers-by
+     * notice it and react (tutting / remarks, photos, a call to the city, a note on the windscreen — RO / US lines),
+     * blocked drivers queue, honk and go round it (routing avoids a single-lane street it blocks), and after a while
+     * Poliția Locală (ticket, wheel clamp, the "ridicare auto" tow truck) or Parking Enforcement (ticket, tow truck) turn up.
+     *   traffic.onParkingEvent(cb) → unsubscribe. Events { type, reason, reasons, severity ('obstruct' | 'mild'), city,
+     *   district, x, z, t (s since parked), fine?: { amount, currency, label } }. Types: 'illegal' (detected when the car
+     *   is left), 'noticed', 'photo', 'report' (called in), 'note' (US, windscreen note), 'officer' (on the way),
+     *   'ticket', 'clamp' (RO), 'towtruck' (arrived), 'tow' (the car is to be taken away — gameplay decides what happens:
+     *   impound / fine; nothing moves the car here), 'cleared' (the player drove off / the car moved).
+     *   traffic.parking: live state { illegal, reasons, primary, severity, t, log } (null while driving).
+     * Rules (approximate, per spec 13 Request to research): RO OUG 195/2002 — no stopping on crossings, in junctions,
+     * in bus / tram stops, on tram tracks, in a traffic lane of a main road, in front of gates; sidewalk parking where not
+     * marked is fined. US (WA RCW 46.61.570 / city codes) — no parking in a crosswalk or intersection, within 15 ft of a
+     * hydrant, in a bus zone, on a sidewalk, blocking a driveway or a traffic lane.
+     */
+    onParkingEvent(cb) { const L = this._parkCbs || (this._parkCbs = []); L.push(cb); return () => { const i = L.indexOf(cb); if (i >= 0) L.splice(i, 1); }; }
+    emitParking(type, extra = {}) {
+        const st = this.park, c = st?.check || {};
+        const ev = { type, city: this.city.id, district: this.world.district?.id || null, reason: c.primary || null, reasons: c.reasons || [], severity: c.severity || null, x: st?.x, z: st?.z, t: Math.round((st?.t || 0) * 10) / 10, ...extra };
+        if (st) st.log.push(type + '@' + ev.t);
+        this.stats.parkingEvents = (this.stats.parkingEvents || 0) + 1;
+        for (const cb of (this._parkCbs || []).slice()) { try { cb(ev); } catch (e) { console.warn('[traffic] parking event handler', e); } }
+        return ev;
+    }
+    /** a chat bubble over anything with {x, z}: opts.onSay(target, text, sub, cls) when gameplay wires it, else hud.say */
+    say(target, line, cls = '') {
+        if (!line || !target) return false;
+        const ref = this.walker?.active ? this.walker : this.player;
+        if (ref && Math.hypot(target.x - ref.x, target.z - ref.z) > 75) return false;
+        const text = line.t, sub = line.en && line.en !== line.t ? line.en : '';
+        try { if (this.onSay) this.onSay(target, text, sub, cls); else globalThis.game?.hud?.say?.(target, text, sub, cls); } catch { /* no HUD */ }
+        this.stats.parkingBubbles = (this.stats.parkingBubbles || 0) + 1;
+        (this._sayLog || (this._sayLog = [])).push(text); if (this._sayLog.length > 40) this._sayLog.shift();
+        return true;
+    }
+    /** where the car stands and why that is illegal → { illegal, reasons, primary, severity, edge, dir, lat, along } */
+    assessParking(P) {
+        const x = P.x, z = P.z, y = P.surfY ?? P.y ?? 0.24, US = !this.buc;
+        const R = new Set(); let car = null, depth = -Infinity, walk = null;
+        const near = this.index.near(x, z, 40, []), nodes = new Set();
+        for (const e of near) {
+            if (e.tunnel) continue;
+            const dx = e.b.x - e.a.x, dz = e.b.z - e.a.z, L2 = dx * dx + dz * dz || 1;
+            const t = clamp(((x - e.a.x) * dx + (z - e.a.z) * dz) / L2, 0, 1);
+            const ey = (e.a.y ?? 0) + ((e.b.y ?? 0) - (e.a.y ?? 0)) * t;
+            if (Math.abs(ey + 0.24 - y) > 2) continue;
+            nodes.add(e.a); nodes.add(e.b);
+            const cx = e.a.x + dx * t, cz = e.a.z + dz * t, d = Math.hypot(x - cx, z - cz), lat = (x - cx) * e.nx + (z - cz) * e.nz, hw = e.halfW ?? 6;
+            if ((t <= 0 || t >= 1) && d > 1) continue; // past the edge end: the junction pad decides
+            if (d < hw + 0.3) { if (hw - d > depth) { depth = hw - d; car = { e, t, d, lat, hw }; } }
+            else if ((e.sidewalk ?? 0) > 0.6 && d < hw + (e.sidewalk ?? 0) + 1.2 && !walk) walk = { e, t, d, lat, hw };
+        }
+        for (const n of nodes) {
+            const d = Math.hypot(x - n.x, z - n.z), rad = n.radius ?? 6;
+            if (isJunction(n) && n.edges.length >= 3 && d < rad + 0.3) R.add('junction');
+            if ((n.zebra || n.crossing) && n.edges.length <= 2 && d < 4.5) R.add('zebra');
+            if ((n.hasLight || n.zebra) && n.edges.length >= 3 && car && (car.e.a === n || car.e.b === n)) {
+                const ds = (car.e.a === n ? car.t : 1 - car.t) * car.e.len; if (ds > rad - 1 && ds < rad + 6) R.add('zebra'); // the crossing in front of the stop line
+            }
+            const all = n.allEdges || n.edges;
+            if (d < 7 && (car || walk) && all.some(g => g.type === 'service') && all.some(g => g.type !== 'service')) R.add('driveway');
+        }
+        for (const e of near) if (e.tramOnly && Math.hypot(x - (e.a.x + e.b.x) / 2, z - (e.a.z + e.b.z) / 2) < e.len / 2 + 2) {
+            const dx = e.b.x - e.a.x, dz = e.b.z - e.a.z, L2 = dx * dx + dz * dz || 1, t = clamp(((x - e.a.x) * dx + (z - e.a.z) * dz) / L2, 0, 1);
+            if (Math.hypot(x - e.a.x - dx * t, z - e.a.z - dz * t) < tramOffset(e) + 2.2) R.add('tram');
+        }
+        if (car) {
+            const e = car.e, side = car.lat >= 0 ? 1 : -1, laneW = e.laneW ?? 3.3;
+            if (e.tram && Math.abs(car.lat) < tramOffset(e) + 2.1) R.add('tram');
+            if (e.busLane && Math.abs(car.lat) > car.hw - laneW - 0.3) R.add('buslane');
+            const kerbOk = (/^(residential|unclassified|living_street)$/.test(e.type) || (US && /^(tertiary|secondary)$/.test(e.type))) && Math.abs(car.lat) > car.hw - 2.8;
+            if (e.type !== 'service' && !kerbOk && !e.tramOnly) R.add('lane');
+            for (const p of this.world.pois || []) {
+                if (p.kind !== 'busstop') continue; const px = p.x ?? p.doorX, pz = p.z ?? p.doorZ;
+                if (Math.abs(px - x) > 18 || Math.abs(pz - z) > 18 || Math.hypot(px - x, pz - z) > 16) continue;
+                const ps = (px - e.a.x - (e.b.x - e.a.x) * car.t) * e.nx + (pz - e.a.z - (e.b.z - e.a.z) * car.t) * e.nz;
+                if (Math.sign(ps) === side && Math.abs(car.lat) > car.hw - laneW - 0.5) R.add('busstop');
+            }
+        } else if (walk) {
+            let lot = false;
+            for (const a of this.world.areas || []) if (a.kind === 'parking' && x >= a.x0 && x <= a.x1 && z >= a.z0 && z <= a.z1 && pointInPoly(x, z, a.outer)) { lot = true; break; }
+            if (!lot) R.add('sidewalk');
+            for (const p of this.world.pois || []) if (p.kind === 'busstop' && Math.hypot((p.x ?? p.doorX) - x, (p.z ?? p.doorZ) - z) < 8) R.add('busstop');
+        }
+        if (US) for (const h of this.hydrants()) if (Math.hypot(h.x - x, h.z - z) < 4.6) { R.add('hydrant'); break; } // 15 ft
+        const order = ['tram', 'junction', 'zebra', 'busstop', 'buslane', 'hydrant', 'driveway', 'lane', 'sidewalk'];
+        const reasons = order.filter(r => R.has(r)), primary = reasons[0] || null;
+        const severity = !primary ? null : reasons.some(r => r !== 'sidewalk') ? 'obstruct' : 'mild';
+        let dir = 1, along = 0;
+        if (car) { const hx = -Math.sin(P.heading), hz = -Math.cos(P.heading); dir = car.e.dirx * hx + car.e.dirz * hz >= 0 ? 1 : -1; if (!canTravel(car.e, dir) && canTravel(car.e, -dir)) dir = -dir; along = (dir > 0 ? car.t : 1 - car.t) * car.e.len; }
+        return { illegal: !!primary, reasons, primary, severity, edge: car?.e || walk?.e || null, inLane: !!car, dir, lat: car ? car.lat * dir : 0, along, blockEdge: car && (R.has('lane') || R.has('junction') || R.has('tram') || R.has('zebra')) ? car.e : null };
+    }
+    hydrants() {
+        if (this._hyd) return this._hyd;
+        const out = this._hyd = [], F = this.world.data?.furniture || [], K = this.world.data?.furnKinds || [];
+        for (let i = 0; i + 2 < F.length; i += 3) if (K[F[i]] === 'fire_hydrant') out.push({ x: F[i + 1] / 10, z: F[i + 2] / 10 });
+        return out;
+    }
+    fineFor(kind) {
+        // approximate amounts (placeholders until research confirms them, spec 13 Request): RO fines in class-II
+        // penalty points (1 point = 10 % of the gross minimum wage), Bucharest tow + pound fees; US city ticket / tow
+        const st = this.park, obstruct = st?.check?.severity === 'obstruct';
+        if (this.buc) return kind === 'tow' ? { amount: 1520, currency: 'RON', label: 'Amendă + ridicare auto (taxe de ridicare și depozitare)' } : kind === 'clamp' ? { amount: 1120, currency: 'RON', label: 'Amendă + deblocare roată' } : { amount: obstruct ? 810 : 405, currency: 'RON', label: 'Amendă Poliția Locală' };
+        return kind === 'tow' ? { amount: 350, currency: 'USD', label: 'Tow + impound' } : { amount: obstruct ? 53 : 44, currency: 'USD', label: 'Parking citation' };
+    }
+    updateParking(dt) {
+        const P = this.player, W = this.walker;
+        const parked = !!(P && W && W.active && Math.abs(P.speed || 0) < 0.3);
+        let st = this.park;
+        if (st && (!parked || Math.hypot(P.x - st.x, P.z - st.z) > 1.5)) { this.endParking(parked ? 'moved' : 'driven-off'); st = null; }
+        if (!parked) return;
+        if (!st) {
+            const check = this.assessParking(P);
+            st = this.park = { x: P.x, z: P.z, heading: P.heading, t: 0, check, S: {}, seen: new Set(), bubbleT: 1.5, driverT: 2, scanT: 0, log: [], officer: null, truck: null, props: [], blockEdge: check.blockEdge };
+            this.parking = { illegal: check.illegal, reasons: check.reasons, primary: check.primary, severity: check.severity, t: 0, log: st.log };
+            if (check.illegal) this.emitParking('illegal');
+            return;
+        }
+        if (!st.check.illegal) return;
+        st.t += dt; this.parking.t = st.t;
+        const S = st.S, US = !this.buc, L = US ? PARK_US : PARK_RO, rsn = st.check.primary, rng = this.rng;
+        const pick = (arr) => arr && arr.length ? arr[Math.floor(rng() * arr.length)] : null;
+        st.bubbleT -= dt; st.driverT -= dt; st.scanT -= dt;
+        // ---- passers-by
+        if (st.scanT <= 0) {
+            st.scanT = 0.25;
+            for (const p of this.peds.near(st.x, st.z, 15)) {
+                if (st.bubbleT > 0) break;
+                if (st.seen.has(p) || p.agent || p.react || p.onRoad || p.state === 'down') continue;
+                st.seen.add(p); if (st.t < 2.5 || rng() > 0.75) continue;
+                const r = rng(), face = { x: st.x, z: st.z };
+                let kind = r < (US ? 0.6 : 0.5) ? 'remark' : r < (US ? 0.78 : 0.8) ? 'photo' : US && !S.note && st.t > 8 ? 'note' : 'call';
+                if (kind === 'call' && S.report && rng() < 0.6) kind = 'remark';
+                let line = null;
+                if (kind === 'remark') line = rng() < 0.55 ? pick(L.reason[rsn]) || pick(L.remark) : pick(L.remark);
+                else if (kind === 'photo') line = pick(L.photo);
+                else if (kind === 'note') line = pick(L.note);
+                if (kind === 'call') { const c = pick(L.call), w = L.where[rsn] || L.where.lane; line = { t: c.t.replace('{where}', w.t), en: c.en ? c.en.replace('{where}', w.en || w.t) : undefined }; }
+                p.react = { t: kind === 'remark' ? rng.range(2, 3.5) : rng.range(3.5, 5), x: face.x, z: face.z, pose: kind === 'photo' ? 'photo' : kind === 'call' ? 'phone' : kind === 'note' ? 'point' : 'talk', prop: kind === 'photo' || kind === 'call' ? 'phone' : null };
+                if (this.say(p, line)) st.bubbleT = rng.range(2.2, 3.6);
+                this.emitParking(kind === 'remark' ? 'noticed' : kind === 'photo' ? 'photo' : kind === 'note' ? 'note' : 'report', { by: 'passer-by' });
+                if (kind === 'note') { S.note = true; this.addCarProp('note'); }
+                if (kind === 'call') S.report = true;
+            }
+        }
+        if (!S.report && st.t > (US ? 30 : 22)) { S.report = true; this.emitParking('report', { by: 'someone' }); }
+        if (US && !S.note && st.t > 20) { S.note = true; this.addCarProp('note'); this.emitParking('note', { by: 'someone' }); }
+        // ---- blocked drivers: queue, honk (Bucharest: a lot), remarks, go round (tryBypass / routing)
+        if (st.driverT <= 0) {
+            st.driverT = 0.5;
+            for (const v of this.near(st.x, st.z, 32)) {
+                if (v.parked || v.service || v.leader !== P || v.speed > 0.5 || (v.blockT || 0) < 1.5) continue;
+                if (rng() < (US ? 0.15 : 0.55)) this.onHonk(v, 'stuck');
+                if (st.bubbleT <= 0 && rng() < 0.6 && this.say(v, pick(L.driver))) { st.bubbleT = rng.range(2, 3); st.driverT = 3; this.stats.parkingHonks = (this.stats.parkingHonks || 0) + 1; }
+                break;
+            }
+        }
+        // ---- the authorities
+        const obstruct = st.check.severity === 'obstruct';
+        if (!S.officer && st.t > (US ? 42 : obstruct ? 36 : 45)) { S.officer = true; this.callOfficer(st); }
+        if (S.arrived != null && !S.ticket && st.t > S.arrived + 6) {
+            S.ticket = true;
+            const off = st.officer;
+            if (!US && !obstruct) { this.addCarProp('clamp'); this.emitParking('clamp', { fine: this.fineFor('clamp') }); this.say(off, pick(L.clamp)); }
+            else { this.addCarProp('ticket'); this.emitParking('ticket', { fine: this.fineFor('ticket') }); this.say(off, pick(L.ticket)); }
+        }
+        if (obstruct && !S.truck && st.t > (US ? 70 : 50)) { S.truck = true; this.callTowTruck(st); }
+        if (S.truckAt != null && !S.tow && st.t > S.truckAt + (US ? 12 : 10)) { S.tow = true; this.emitParking('tow', { fine: this.fineFor('tow') }); this.say(st.truck || st.officer, pick(L.tow)); }
+        if (st.truck) { const on = ((this.time * 3) | 0) % 2 === 0; if (st.beacon) st.beacon.visible = on; st.truck.mesh.userData.setLights?.(on); }
+    }
+    /** the officer: a passer-by in uniform walks up to the car, writes the ticket / fits the clamp */
+    callOfficer(st) {
+        const peds = this.peds, P = this.player, W = this.walker; if (!peds.list.length) return;
+        // a walker 25–120 m away (else anyone not busy), reused as the officer
+        let best = null, bd = Infinity;
+        for (const p of peds.list) { if (p.agent || p.react || p.state === 'down' || p.onRoad) continue; const d = Math.hypot(p.x - st.x, p.z - st.z); const sc = d < 25 ? 1e6 + d : Math.abs(d - 60); if (sc < bd) { bd = sc; best = p; } }
+        if (!best) return;
+        const e = st.check.edge, fx = -Math.sin(st.heading), fz = -Math.cos(st.heading), lx = fz, lz = -fx, w = (P.width || 1.8) / 2;
+        // stand by the driver's door on the kerb side when the car is at the kerb, else beside the driver's door
+        let tx = st.x + lx * (w + 0.8), tz = st.z + lz * (w + 0.8);
+        // walk in from ~22 m behind the car along its sidewalk (out of the carriageway when possible)
+        let sx = st.x - fx * 22 + lx * (w + 3), sz = st.z - fz * 22 + lz * (w + 3);
+        if (e) { const side = ((st.x - e.a.x) * e.nx + (st.z - e.a.z) * e.nz) >= 0 ? 1 : -1, o = (e.halfW ?? 6) + 1.6, t = clamp(((st.x - e.a.x) * e.dirx + (st.z - e.a.z) * e.dirz) - 22 * Math.sign(fx * e.dirx + fz * e.dirz || 1), 0, e.len); sx = e.a.x + e.dirx * t + e.nx * o * side; sz = e.a.z + e.dirz * t + e.nz * o * side; }
+        if (W && Math.hypot(sx - W.x, sz - W.z) < 6) { sx = st.x + fx * 24; sz = st.z + fz * 24; }
+        best.x = sx; best.z = sz; peds.kerbClamp(best); peds.obsClamp(best);
+        best.outfit0 = true; const o = dressFor(this.city.id, undefined, null, this.rng);
+        try { peds.crowd.dress(best.i, { ...o, top: this.buc ? '#1c2a4a' : '#16213a', bottom: '#151b29', flags: 4 }); } catch { /* old crowd */ }
+        best.agent = { x: tx, z: tz, fx: st.x, fz: st.z, pose: 'phone', prop: 'phone', onArrive: () => { st.S.arrived = st.t; this.emitParking('officer', { arrived: true }); } };
+        st.officer = best; this.emitParking('officer', { arrived: false });
+        this.say(best, (this.buc ? PARK_RO : PARK_US).officer[0]);
+    }
+    /** the tow truck ("ridicare auto" / tow company): parks in the lane right in front of the car, beacon flashing */
+    callTowTruck(st) {
+        const P = this.player, c = st.check, e = c.edge; if (!e) return;
+        const dir = canTravel(e, c.dir) ? c.dir : -c.dir, lanes = lanesDir(e, dir) || 1;
+        let lane = 0, bd = Infinity; for (let l = 0; l < lanes; l++) { const d = Math.abs(laneOffset(e, l) - c.lat * (dir === c.dir ? 1 : -1)); if (d < bd) { bd = d; lane = l; } }
+        const kind = VEH.VEHICLE_KINDS?.includes?.('truck') ? 'truck' : 'van', Lt = this.kindLength(kind), Lc = P.length || 4.4;
+        const along = dir === c.dir ? c.along : e.len - c.along;
+        let s = along + Lc / 2 + Lt / 2 + 1.2; if (s + Lt / 2 > e.len - 1) s = along - Lc / 2 - Lt / 2 - 1.2;
+        if (s - Lt / 2 < 0.5) return;
+        const v = this.spawn({ edge: e, dir, lane, s, kind });
+        v.service = 'tow'; v.parked = true; v.mesh.userData.parked = true; v.speed = 0; v.hazard = true;
+        v.lateralExtra = v.latExtraCur = clamp(c.lat * (dir === c.dir ? 1 : -1) - laneOffset(e, lane), -4, 4);
+        this.placeOnLane(v, true, 0);
+        const h = VEH.vehicleSize?.(kind, this.city.id)?.height || 3;
+        const b = st.beacon = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.16, 0.3), new THREE.MeshBasicMaterial({ color: '#ffae00' }));
+        b.position.set(0, h + 0.08, -Lt * 0.3); v.mesh.add(b);
+        for (const o of this.near(v.x, v.z, 16)) if (o !== v && !o.service && !o.inactive && vvPen(v, o) > -0.3) { if (!(this.large && this.relocate(o, 250, this.bubble, true))) this.respawn(o); }
+        this.grid.build(this.vehicles);
+        st.truck = v; st.S.truckAt = st.t;
+        this.emitParking('towtruck');
+        this.say(v, (this.buc ? PARK_RO : PARK_US).truck[0]);
+    }
+    /** paper under the wiper (note / ticket) or a yellow wheel clamp on the parked car */
+    addCarProp(kind) {
+        const st = this.park, P = this.player; if (!st || !P) return;
+        if (st.props.some(m => m.userData.kind === kind)) return;
+        const fx = -Math.sin(st.heading), fz = -Math.cos(st.heading), lx = fz, lz = -fx, w = (P.width || 1.8) / 2, y0 = P.surfY ?? 0.24;
+        const g = new THREE.Group(); g.userData.kind = kind;
+        if (kind === 'clamp') {
+            const yel = new THREE.MeshBasicMaterial({ color: '#f5c518' }), red = new THREE.MeshBasicMaterial({ color: '#c81e1e' });
+            const disc = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.52, 0.52), yel), arm = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.08, 0.6), red);
+            disc.position.set(0, 0.33, 0); arm.position.set(0.02, 0.62, 0); g.add(disc, arm);
+            g.position.set(st.x + fx * 1.25 + lx * (w + 0.06), y0, st.z + fz * 1.25 + lz * (w + 0.06));
+            g.rotation.y = st.heading;
+        } else {
+            const paper = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.012, 0.28), new THREE.MeshBasicMaterial({ color: kind === 'note' ? '#fde68a' : '#fb923c' }));
+            g.add(paper);
+            const side = kind === 'note' ? 0.38 : -0.3;
+            g.position.set(st.x + fx * 0.9 + lx * side, y0 + 1.02, st.z + fz * 0.9 + lz * side);
+            g.rotation.set(-0.55, st.heading, 0, 'YXZ');
+        }
+        this.group.add(g); st.props.push(g);
+    }
+    endParking(why) {
+        const st = this.park; if (!st) return;
+        if (st.check.illegal) this.emitParking('cleared', { why, stages: Object.keys(st.S) });
+        for (const m of st.props) { this.group.remove(m); m.traverse(o => { o.geometry?.dispose?.(); o.material?.dispose?.(); }); }
+        const off = st.officer;
+        if (off) { off.agent = null; off.pose = 0; off.prop = null; try { this.peds.crowd.dress(off.i, null); } catch { /* ignore */ } if (off.state === 'walk' && off.e) this.peds.placeWalk(off); else off.state = off.e ? 'walk' : 'stand'; if (off.state === 'walk') this.peds.placeWalk(off); }
+        const v = st.truck;
+        if (v) { const i = this.vehicles.indexOf(v); if (i >= 0) this.vehicles.splice(i, 1); v.inactive = true; v.mesh.visible = false; if (st.beacon) v.mesh.remove(st.beacon); this.group.remove(v.mesh); this.grid.build(this.vehicles); }
+        this.park = null; this.parking = null;
+    }
 }
 
 // ============================================================================

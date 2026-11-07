@@ -37,7 +37,7 @@ export function initExplore(game) {
     if (!game || game.explore) return game?.explore;
     let busy = false, jumping = false, story = null, thumbDue = null, bypassMap = false;
     const api = { active: false };
-    game.explore = api;
+    game.explore = api; document.body.classList.add('has-explore');
 
     // ------------------------------------------------------------------ drone + hub
     const drone = api.drone = new Drone(game, { onEvent: (d) => { if (d.type === 'deploy') { game.hud?.prompt?.(null); } } });

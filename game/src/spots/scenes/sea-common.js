@@ -323,7 +323,7 @@ export function seaMidrise(ctx, { box = [47.596, -122.372, 47.640, -122.312], n 
  * a ground mesh from seaHeight over `box` (scene metres) with a hole over the scene's own terrain (`hole`, dropped
  * below it); vertex colours: urban grey-green, darker street grid, parks greener; water areas sit below the water plane.
  */
-export function cityGround(ctx, { box, hole = null, step = 24, holeDrop = 40, seed = 3 } = {}) {
+export function cityGround(ctx, { box, hole = null, step = 24, holeDrop = 40, seed = 3, lakeY = null } = {}) {
     const E = ctx.data.origin.elev, pr = ctx.data.projection, o = ctx.data.origin, r = rng(seed);
     const toLL = (x, z) => [o.lat - z / pr.mLat, o.lon + x / pr.mLon];
     const nx = Math.round((box.x1 - box.x0) / step), nz = Math.round((box.z1 - box.z0) / step);
@@ -332,6 +332,7 @@ export function cityGround(ctx, { box, hole = null, step = 24, holeDrop = 40, se
     for (let j = 0; j <= nz; j++) for (let i = 0; i <= nx; i++) {
         const x = box.x0 + i * (box.x1 - box.x0) / nx, z = box.z0 + j * (box.z1 - box.z0) / nz, [la, lo] = toLL(x, z);
         let y = seaHeight(la, lo) - E;
+        if (lakeY !== null && inLakeUnion(la, lo)) y = lakeY;
         if (hole && x > hole.x0 && x < hole.x1 && z > hole.z0 && z < hole.z1) y -= holeDrop;
         pos.push(x, y, z);
         const water = isWater(la, lo), k = r();
@@ -399,14 +400,14 @@ function waterNormals() {
  * water surface at y over `box` (scene metres) or a polygon list: dark green-grey, low roughness so it mirrors the
  * sky (scene.environment); two drifting normal layers. Not walkable (the scene sets ground.waterY / ctx.water).
  */
-export function seaWater(ctx, y, { box = { x0: -12000, z0: -12000, x1: 12000, z1: 12000 }, poly = null, color = '#203540', name = 'sea-water', repeat = 90, rough = 0.14 } = {}) {
+export function seaWater(ctx, y, { box = { x0: -12000, z0: -12000, x1: 12000, z1: 12000 }, poly = null, color = '#203540', name = 'sea-water', repeat = 90, rough = 0.14, opacity = 1 } = {}) {
     let g;
     if (poly) { g = new THREE.ShapeGeometry(new THREE.Shape(poly.map(([px, pz]) => new THREE.Vector2(px, -pz)))); g.rotateX(-Math.PI / 2); }
     else { g = new THREE.PlaneGeometry(box.x1 - box.x0, box.z1 - box.z0, 1, 1); g.rotateX(-Math.PI / 2); g.translate((box.x0 + box.x1) / 2, 0, (box.z0 + box.z1) / 2); }
     // world-space uv (metres / repeat)
     const P = g.attributes.position, uv = []; for (let i = 0; i < P.count; i++) uv.push(P.getX(i) / repeat, P.getZ(i) / repeat); g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
     const nm = waterNormals().clone(); nm.needsUpdate = true; nm.wrapS = nm.wrapT = THREE.RepeatWrapping;
-    const m = new THREE.MeshStandardMaterial({ color, roughness: rough, metalness: 0.05, normalMap: nm, normalScale: new THREE.Vector2(0.45, 0.45), envMapIntensity: 1.0 });
+    const m = new THREE.MeshStandardMaterial({ color, roughness: rough, metalness: 0.05, normalMap: nm, normalScale: new THREE.Vector2(0.45, 0.45), envMapIntensity: 1.0, transparent: opacity < 1, opacity, depthWrite: opacity >= 1 });
     m.name = name; m.userData.water = true;
     const U = { uT: { value: 0 } };
     m.onBeforeCompile = (sh) => { // second, slower normal layer at another scale and direction
@@ -695,5 +696,14 @@ export function seaBackdrop(ctx, o = {}) {
         out.mountainVisible = vis > 0.4;
     });
     return out;
+}
+/**
+ * fake planar reflection for a calm lake: a y-mirrored copy (shared geometry / materials) of `objs` about the water
+ * plane y = wy; the water must be partly transparent and the bed deep enough not to hide the mirrored copy.
+ */
+export function mirrorAbout(objs, wy, name = 'sea-reflection') {
+    const m = new THREE.Group(); m.name = name; m.scale.set(1, -1, 1); m.position.y = 2 * wy;
+    for (const o of objs) { if (!o) continue; const c = o.clone(true); c.traverse((q) => { q.castShadow = false; q.receiveShadow = false; }); m.add(c); }
+    return m;
 }
 export { clamp };

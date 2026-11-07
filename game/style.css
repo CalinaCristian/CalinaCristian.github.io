@@ -594,3 +594,175 @@ body.photo-mode #achv-toasts { top: auto; bottom: 120px; }
     #finale .fn-actions { display: grid; grid-template-columns: 1fr 1fr; }
     #finale .fn-act { justify-content: center; padding: 11px 10px; font-size: 13px; }
 }
+
+/* explore */
+/* ===== explore lane (notes 74 / 75 / 76): main-menu entry, HUD bar, world-map hub, drone HUD, warp flash ===== */
+#explore-start { display: inline-flex; align-items: center; gap: 8px; }
+#explore-start small { font-weight: 400; opacity: .75; font-size: 12px; }
+body.has-explore #roam-select { display: none !important; } /* note 76: free roam lives in Explore (removal filed in spec 10) */
+#explore-bar { display: none; position: fixed; z-index: 30; right: 320px; top: 20px; gap: 8px; }
+body.playing #explore-bar { display: flex; }
+#explore-bar button { width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(148,163,184,.4); background: rgba(15,23,42,.72); color: #e2e8f0; font-size: 18px; cursor: pointer; display: none; }
+#explore-bar.show-map button[data-x=map] { display: block; }
+body.on-foot #explore-bar button[data-x=drone], body.in-spot #explore-bar button[data-x=drone], body.drone-mode #explore-bar button[data-x=drone] { display: block; }
+body.photo-mode #explore-bar, body.paused #explore-bar, body.wm-open #explore-bar, body.in-office #explore-bar { display: none !important; }
+body.drone-mode #explore-bar { right: auto; left: 50%; transform: translateX(-50%); top: auto; bottom: 18px; } /* ⤓ next to the drone controls */
+body.drone-mode #explore-bar button[data-x=drone] { display: none; }
+body.drone-mode #explore-bar button[data-x=map] { display: block; }
+@media (max-width: 600px) { #explore-bar { right: 166px; top: 400px; } }
+@media (max-height: 520px) and (orientation: landscape) { #explore-bar { right: 160px; top: 56px; } #explore-bar button { width: 40px; height: 40px; } }
+#explore-warp { position: fixed; inset: 0; z-index: 64; pointer-events: none; opacity: 0; background: radial-gradient(circle at 50% 50%, rgba(255,255,255,.95), rgba(186,230,253,.85) 40%, rgba(15,23,42,.9)); }
+#explore-warp.go { animation: ex-warp .5s ease-out; }
+@keyframes ex-warp { 0% { opacity: 0; } 35% { opacity: 1; } 100% { opacity: 0; } }
+
+/* world-map hub */
+#world-map { display: none; position: fixed; inset: 0; z-index: 62; flex-direction: column; background: #070d19; color: #e2e8f0; font: 14px/1.35 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
+#world-map.show { display: flex; }
+#world-map button { font: inherit; color: inherit; cursor: pointer; }
+#world-map .wm-head { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 1px solid rgba(148,163,184,.18); background: rgba(15,23,42,.9); }
+#world-map .wm-title { display: flex; flex-direction: column; min-width: 120px; }
+#world-map .wm-title b { font-size: 17px; letter-spacing: .02em; }
+#world-map .wm-mode { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #fbbf24; }
+#world-map .wm-tabs { display: flex; gap: 6px; flex: 1; overflow-x: auto; scrollbar-width: none; }
+#world-map .wm-tabs button { white-space: nowrap; padding: 7px 12px; border-radius: 999px; border: 1px solid rgba(148,163,184,.3); background: rgba(30,41,59,.7); }
+#world-map .wm-tabs button small { opacity: .7; font-size: 11px; }
+#world-map .wm-tabs button.on { background: #fbbf24; color: #111827; border-color: #fbbf24; font-weight: 600; }
+#world-map .wm-tabs button:disabled { opacity: .35; cursor: default; }
+#world-map .wm-tools { display: flex; gap: 6px; }
+#world-map .wm-tools button { width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(148,163,184,.35); background: rgba(30,41,59,.8); font-size: 16px; }
+#world-map .wm-body { flex: 1; display: flex; min-height: 0; }
+#world-map .wm-mapwrap { position: relative; flex: 1; min-width: 0; }
+#world-map .wm-canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: grab; display: block; }
+#world-map .wm-zoom { position: absolute; right: 12px; top: 12px; display: flex; flex-direction: column; gap: 6px; }
+#world-map .wm-zoom button { width: 36px; height: 36px; border-radius: 8px; border: 1px solid rgba(148,163,184,.35); background: rgba(15,23,42,.85); font-size: 18px; }
+#world-map .wm-hint { position: absolute; left: 12px; top: 12px; right: 64px; font-size: 12px; color: rgba(226,232,240,.75); pointer-events: none; text-shadow: 0 1px 2px #000; }
+#world-map .wm-hint.flash { animation: ex-flash 1.2s; }
+@keyframes ex-flash { 0%, 60% { color: #fbbf24; } 100% { color: rgba(226,232,240,.75); } }
+#world-map .wm-card { position: absolute; left: 12px; right: 12px; bottom: 34px; max-width: 560px; display: flex; gap: 12px; align-items: center; padding: 10px; border-radius: 14px; background: rgba(15,23,42,.94); border: 1px solid rgba(148,163,184,.3); box-shadow: 0 16px 40px rgba(0,0,0,.5); }
+#world-map .wm-card[hidden] { display: none; }
+#world-map .wm-ctx { flex: 1; min-width: 0; }
+#world-map .wm-ctx b { display: block; font-size: 15px; }
+#world-map .wm-ctx p { margin: 4px 0 0; font-size: 12px; color: rgba(226,232,240,.8); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+#world-map .wm-ctx p.wm-note { color: #fde68a; -webkit-line-clamp: 2; }
+#world-map .wm-ck { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #93c5fd; }
+#world-map .wm-side { width: 360px; display: flex; flex-direction: column; border-left: 1px solid rgba(148,163,184,.18); background: rgba(15,23,42,.7); min-height: 0; }
+#world-map .wm-search { margin: 10px; padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(148,163,184,.35); background: #0b1424; color: #e2e8f0; font: inherit; }
+#world-map .wm-recent { padding: 0 10px; }
+#world-map .wm-rrow { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: thin; }
+#world-map .wm-rrow button { flex: 0 0 auto; width: 92px; padding: 0; border: 0; background: none; text-align: left; font-size: 11px; }
+#world-map .wm-rrow button span:last-child { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 3px; }
+#world-map .wm-list { flex: 1; overflow-y: auto; padding: 0 10px 12px; }
+#world-map .wm-h { margin: 12px 0 6px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #94a3b8; }
+#world-map .wm-h small { letter-spacing: 0; text-transform: none; opacity: .8; margin-left: 4px; }
+#world-map .wm-row { display: flex; align-items: center; gap: 10px; padding: 6px; border-radius: 10px; cursor: pointer; }
+#world-map .wm-row:hover { background: rgba(51,65,85,.55); }
+#world-map .wm-row.sel { background: rgba(251,191,36,.16); outline: 1px solid rgba(251,191,36,.5); }
+#world-map .wm-row.here .wm-txt b::after { content: ' •'; color: #34d399; }
+#world-map .wm-txt { flex: 1; min-width: 0; }
+#world-map .wm-txt b { display: block; font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#world-map .wm-txt small { font-size: 11px; color: rgba(203,213,225,.75); }
+#world-map .wm-go { flex: 0 0 auto; min-width: 48px; min-height: 34px; padding: 4px 12px; border-radius: 8px; border: 0; background: #2563eb; color: #fff; font-weight: 600; }
+#world-map .wm-go:disabled { background: #334155; color: #94a3b8; cursor: default; }
+#world-map .wm-go.big { min-height: 44px; padding: 6px 18px; font-size: 15px; }
+#world-map .wm-th, #world-map .wm-rth, #world-map .wm-cth { flex: 0 0 auto; display: grid; place-items: center; border-radius: 8px; background-size: cover; background-position: center; background-color: #1e293b; }
+#world-map .wm-th { width: 72px; height: 41px; }
+#world-map .wm-rth { width: 92px; height: 52px; }
+#world-map .wm-cth { width: 128px; height: 72px; border-radius: 10px; }
+#world-map .ph b { font-size: 20px; filter: drop-shadow(0 1px 2px rgba(0,0,0,.5)); }
+#world-map .wm-cth.ph b { font-size: 30px; }
+#world-map .ph.bucharest { background: linear-gradient(135deg, #1e3a8a, #b45309); }
+#world-map .ph.seattle { background: linear-gradient(135deg, #064e3b, #1e40af); }
+#world-map .ph.bellevue { background: linear-gradient(135deg, #0f766e, #4338ca); }
+#world-map .wm-empty { color: #94a3b8; padding: 12px 4px; }
+@media (max-width: 760px) {
+    #world-map .wm-head { flex-wrap: wrap; gap: 8px; padding: 8px 10px; }
+    #world-map .wm-tabs { order: 3; flex-basis: 100%; }
+    #world-map .wm-title { flex: 1; }
+    #world-map .wm-body { flex-direction: column; }
+    #world-map .wm-mapwrap { flex: 0 0 48%; }
+    #world-map .wm-side { width: auto; border-left: 0; border-top: 1px solid rgba(148,163,184,.18); flex: 1; }
+    #world-map .wm-card { bottom: 10px; padding: 8px; gap: 8px; }
+    #world-map .wm-cth { width: 84px; height: 48px; }
+    #world-map .wm-ctx p { -webkit-line-clamp: 2; }
+}
+@media (max-height: 520px) and (orientation: landscape) {
+    #world-map .wm-head { padding: 6px 10px; }
+    #world-map .wm-side { width: 300px; }
+    #world-map .wm-recent { display: none; }
+}
+
+/* drone HUD (drone.js): camera-style overlay; the game HUD steps aside */
+body.drone-mode #hud > :not(#toasts) { display: none !important; }
+body.drone-mode #spot-ui > :not(.sp-toasts):not(.sp-toast) { visibility: hidden; }
+body.drone-mode #touch, body.drone-mode #cond-btn { display: none !important; }
+#drone-hud { display: none; position: fixed; inset: 0; z-index: 12; pointer-events: none; color: #fff; font: 600 13px/1.2 ui-monospace, "SF Mono", Menlo, Consolas, monospace; text-shadow: 0 1px 2px rgba(0,0,0,.7); opacity: 0; transition: opacity .5s; }
+#drone-hud.show { display: block; }
+body.drone-mode:not(.drone-lift):not(.drone-dock) #drone-hud.show { opacity: 1; }
+body.drone-dock #drone-hud { opacity: 0 !important; }
+body.photo-mode #drone-hud { display: none; }
+#drone-hud button { pointer-events: auto; font: inherit; color: #fff; cursor: pointer; }
+#drone-hud .dr-frame i { position: absolute; width: 34px; height: 34px; border: 2px solid rgba(255,255,255,.75); }
+#drone-hud .dr-frame .tl { left: 18px; top: 18px; border-right: 0; border-bottom: 0; } #drone-hud .dr-frame .tr { right: 18px; top: 18px; border-left: 0; border-bottom: 0; }
+#drone-hud .dr-frame .bl { left: 18px; bottom: 18px; border-right: 0; border-top: 0; } #drone-hud .dr-frame .br { right: 18px; bottom: 18px; border-left: 0; border-top: 0; }
+#drone-hud .dr-top { position: absolute; left: 64px; right: 64px; top: 22px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+#drone-hud .dr-rec { display: inline-flex; align-items: center; gap: 6px; padding: 3px 8px; border-radius: 6px; background: rgba(0,0,0,.35); }
+#drone-hud .dr-rec i { width: 10px; height: 10px; border-radius: 50%; background: #ef4444; box-shadow: 0 0 8px #ef4444; animation: ex-rec 1s steps(2) infinite; }
+@keyframes ex-rec { 50% { opacity: .15; } }
+#drone-hud .dr-chip { padding: 3px 8px; border-radius: 6px; background: rgba(0,0,0,.35); }
+#drone-hud .dr-mode { background: #fbbf24; color: #111; text-shadow: none; min-width: 14px; text-align: center; }
+#drone-hud .dr-gps b { color: #4ade80; letter-spacing: -1px; }
+#drone-hud .dr-bat { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; padding: 3px 8px; border-radius: 6px; background: rgba(0,0,0,.35); }
+#drone-hud .dr-batbar { width: 34px; height: 13px; border: 2px solid #fff; border-radius: 3px; position: relative; padding: 1px; }
+#drone-hud .dr-batbar::after { content: ''; position: absolute; right: -5px; top: 3px; width: 3px; height: 5px; background: #fff; border-radius: 0 1px 1px 0; }
+#drone-hud .dr-batbar i { display: block; height: 100%; background: #4ade80; border-radius: 1px; }
+#drone-hud .dr-bat.low .dr-batbar i { background: #fbbf24; } #drone-hud .dr-bat.crit .dr-batbar i { background: #ef4444; } #drone-hud .dr-bat.crit b { color: #fca5a5; }
+#drone-hud .dr-bat small { opacity: .8; font-weight: 400; }
+#drone-hud .dr-compass { position: absolute; left: 50%; top: 58px; transform: translateX(-50%); width: 360px; height: 34px; max-width: calc(100vw - 140px); }
+#drone-hud .dr-horizon { position: absolute; left: 50%; top: 50%; width: 0; height: 0; }
+#drone-hud .dr-hline { position: absolute; left: -170px; width: 340px; top: 0; height: 0; transition: transform .08s linear; }
+#drone-hud .dr-hline i { position: absolute; top: -1px; width: 120px; height: 2px; background: rgba(255,255,255,.8); box-shadow: 0 0 3px rgba(0,0,0,.6); }
+#drone-hud .dr-hline i:first-child { left: 0; } #drone-hud .dr-hline i:last-child { right: 0; }
+#drone-hud .dr-reticle { position: absolute; left: -36px; top: -8px; width: 72px; height: 16px; display: flex; align-items: center; justify-content: space-between; }
+#drone-hud .dr-reticle i { width: 22px; height: 2px; background: #4ade80; } #drone-hud .dr-reticle b { width: 6px; height: 6px; border-radius: 50%; border: 2px solid #4ade80; }
+#drone-hud .dr-gimbal { position: absolute; left: 200px; top: -60px; width: 4px; height: 120px; background: rgba(255,255,255,.3); border-radius: 2px; }
+#drone-hud .dr-gimbal i { position: absolute; left: -4px; width: 12px; height: 4px; background: #fbbf24; border-radius: 2px; margin-top: -2px; }
+#drone-hud .dr-gimbal span { position: absolute; left: 12px; top: -8px; font-size: 11px; opacity: .85; }
+#drone-hud .dr-left, #drone-hud .dr-right { position: absolute; top: 50%; transform: translateY(-50%); min-width: 84px; padding: 8px 10px; border-radius: 10px; background: rgba(0,0,0,.28); }
+#drone-hud .dr-left { left: 30px; } #drone-hud .dr-right { right: 30px; text-align: right; }
+#drone-hud .dr-lbl { font-size: 11px; letter-spacing: .14em; opacity: .8; }
+#drone-hud .dr-big { font-size: 30px; line-height: 1.05; }
+#drone-hud .dr-unit { font-size: 12px; opacity: .8; }
+#drone-hud .dr-sub { margin-top: 6px; font-size: 12px; font-weight: 400; }
+#drone-hud .dr-warn { position: absolute; left: 50%; top: 27%; transform: translateX(-50%); padding: 6px 14px; border-radius: 8px; background: rgba(0,0,0,.5); opacity: 0; transition: opacity .25s; white-space: nowrap; max-width: calc(100vw - 40px); overflow: hidden; text-overflow: ellipsis; }
+#drone-hud .dr-warn.show { opacity: 1; } #drone-hud .dr-warn.hot { background: rgba(185,28,28,.75); }
+#drone-hud .dr-bottom { position: absolute; left: 0; right: 0; bottom: 70px; display: flex; justify-content: center; align-items: center; gap: 18px; flex-wrap: wrap; }
+#drone-hud .dr-modes, #drone-hud .dr-acts { display: flex; gap: 4px; padding: 4px; border-radius: 10px; background: rgba(0,0,0,.35); }
+#drone-hud .dr-modes button, #drone-hud .dr-acts button { min-height: 34px; padding: 4px 12px; border-radius: 7px; border: 0; background: transparent; }
+#drone-hud .dr-modes button.on { background: #fbbf24; color: #111; text-shadow: none; }
+#drone-hud .dr-acts button { background: rgba(255,255,255,.12); }
+#drone-hud .dr-help { position: absolute; left: 50%; bottom: 46px; transform: translateX(-50%); font: 400 11px system-ui, sans-serif; opacity: .7; white-space: nowrap; }
+#drone-hud .dr-stick, #drone-hud .dr-vert { display: none; }
+body.touch #drone-hud .dr-help { display: none; }
+body.touch #drone-hud .dr-stick { display: block; position: absolute; left: 26px; bottom: 26px; width: 130px; height: 130px; border-radius: 50%; border: 2px solid rgba(255,255,255,.45); background: rgba(0,0,0,.18); pointer-events: auto; touch-action: none; }
+body.touch #drone-hud .dr-stick i { position: absolute; left: 50%; top: 50%; width: 54px; height: 54px; margin: -27px 0 0 -27px; border-radius: 50%; background: rgba(255,255,255,.55); }
+body.touch #drone-hud .dr-vert { display: flex; flex-direction: column; gap: 12px; position: absolute; right: 26px; bottom: 36px; }
+body.touch #drone-hud .dr-vert button { width: 62px; height: 62px; border-radius: 50%; border: 2px solid rgba(255,255,255,.45); background: rgba(0,0,0,.25); font-size: 22px; touch-action: none; }
+body.touch #drone-hud .dr-vert button.on { background: rgba(251,191,36,.6); }
+body.touch #drone-hud .dr-bottom { bottom: 24px; left: 170px; right: 110px; gap: 8px; }
+@media (max-width: 600px) {
+    #drone-hud .dr-top { left: 14px; right: 14px; top: 14px; gap: 6px; font-size: 11px; }
+    #drone-hud .dr-wind, #drone-hud .dr-gps { display: none; }
+    #drone-hud .dr-compass { top: 46px; width: 260px; }
+    #drone-hud .dr-left { left: 10px; top: 38%; } #drone-hud .dr-right { right: 10px; top: 38%; }
+    #drone-hud .dr-big { font-size: 22px; }
+    #drone-hud .dr-gimbal { display: none; }
+    #drone-hud .dr-hline { left: -120px; width: 240px; } #drone-hud .dr-hline i { width: 80px; }
+    body.touch #drone-hud .dr-bottom { left: 12px; right: 12px; bottom: 176px; }
+}
+@media (max-height: 520px) and (orientation: landscape) {
+    #drone-hud .dr-compass { top: 44px; } #drone-hud .dr-big { font-size: 22px; }
+    body.touch #drone-hud .dr-bottom { bottom: 12px; }
+    body.touch #drone-hud .dr-stick { width: 110px; height: 110px; bottom: 14px; }
+    body.touch #drone-hud .dr-vert { bottom: 14px; gap: 8px; } body.touch #drone-hud .dr-vert button { width: 52px; height: 52px; }
+}
+/* end explore */

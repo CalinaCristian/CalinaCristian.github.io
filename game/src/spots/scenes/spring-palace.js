@@ -23,26 +23,31 @@ function peacocks(ctx, area, n = 4) {
     const fanMat = new THREE.MeshStandardMaterial({ map: fanTex, transparent: true, alphaTest: 0.4, side: THREE.DoubleSide, roughness: 0.5 });
     const bb = polyBox(area);
     for (let i = 0; i < n; i++) {
-        const g = new THREE.Group();
-        const body = new THREE.Mesh(new THREE.SphereGeometry(0.22, 8, 6), blue); body.scale.set(1, 0.85, 1.5); body.position.y = 0.55; g.add(body);
-        const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.08, 0.45, 6), blue); neck.position.set(0, 0.85, 0.22); neck.rotation.x = 0.35; g.add(neck);
-        const head = new THREE.Mesh(new THREE.SphereGeometry(0.07, 6, 5), blue); head.position.set(0, 1.08, 0.3); g.add(head);
-        const train = new THREE.Mesh(new THREE.ConeGeometry(0.16, 1.3, 6), green); train.rotation.x = -Math.PI / 2 - 0.12; train.position.set(0, 0.45, -0.85); g.add(train);
-        for (const s of [-1, 1]) { const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 0.4, 4), new THREE.MeshStandardMaterial({ color: '#8a7a6a' })); leg.position.set(s * 0.07, 0.2, 0); g.add(leg); }
-        const fan = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 1.2), fanMat); fan.position.set(0, 1.15, -0.35); fan.visible = false; g.add(fan);
+        const g = new THREE.Group(); // note 34: standing bird (≈ 1 m tall incl. neck), long train held just off the ground behind it
+        const legM = new THREE.MeshStandardMaterial({ color: '#8a7a6a' }), brown = new THREE.MeshStandardMaterial({ color: '#6a5236', roughness: 0.7 });
+        const body = new THREE.Mesh(new THREE.SphereGeometry(0.2, 10, 8), blue); body.scale.set(0.9, 1.0, 1.45); body.position.y = 0.62; body.rotation.x = -0.25; g.add(body);
+        const wing = new THREE.Mesh(new THREE.SphereGeometry(0.19, 8, 6), brown); wing.scale.set(1.0, 0.75, 1.3); wing.position.set(0, 0.64, -0.06); g.add(wing);
+        const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.075, 0.42, 8), blue); neck.position.set(0, 0.92, 0.2); neck.rotation.x = 0.28; g.add(neck);
+        const head = new THREE.Mesh(new THREE.SphereGeometry(0.06, 8, 6), blue); head.scale.set(0.85, 1, 1.25); head.position.set(0, 1.15, 0.27); g.add(head);
+        const beak = new THREE.Mesh(new THREE.ConeGeometry(0.018, 0.07, 5), legM); beak.rotation.x = Math.PI / 2; beak.position.set(0, 1.14, 0.36); g.add(beak);
+        for (let k = -2; k <= 2; k++) { const c = new THREE.Mesh(new THREE.CylinderGeometry(0.004, 0.004, 0.09, 3), blue); c.position.set(k * 0.012, 1.24, 0.25); c.rotation.z = k * 0.15; g.add(c); const t = new THREE.Mesh(new THREE.SphereGeometry(0.012, 4, 3), blue); t.position.set(k * 0.019, 1.29, 0.25); g.add(t); }
+        const trainG = new THREE.SphereGeometry(0.5, 12, 6); trainG.scale(0.34, 0.07, 1.3); const train = new THREE.Mesh(trainG, green); train.position.set(0, 0.36, -0.95); train.rotation.x = 0.22; g.add(train);
+        const legs = []; for (const s of [-1, 1]) { const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.014, 0.014, 0.46, 4), legM); leg.geometry.translate(0, -0.23, 0); leg.position.set(s * 0.07, 0.48, 0.02); g.add(leg); legs.push(leg); }
+        const fan = new THREE.Mesh(new THREE.PlaneGeometry(2.2, 1.1), fanMat); fan.position.set(0, 0.62, -0.32); fan.rotation.x = -0.18; fan.visible = false; g.add(fan);
         let x = 0, z = 0; for (let k = 0; k < 30; k++) { x = bb.x0 + r() * (bb.x1 - bb.x0); z = bb.z0 + r() * (bb.z1 - bb.z0); if (inPoly(x, z, area)) break; }
         g.position.set(x, ctx.ground.heightAt(x, z), z); grp.add(g);
-        birds.push({ g, fan, x, z, tx: x, tz: z, wait: r() * 4, show: 0, yaw: r() * 6.28 });
+        birds.push({ g, fan, train, legs, x, z, tx: x, tz: z, wait: r() * 4, show: 0, yaw: r() * 6.28, ph: r() * 6 });
     }
     ctx.add(grp);
     ctx.onUpdate((dt) => {
         for (const b of birds) {
-            if (b.show > 0) { b.show -= dt; b.fan.visible = b.show > 0; continue; }
+            if (b.show > 0) { b.show -= dt; b.fan.visible = b.show > 0; b.train.visible = !b.fan.visible; continue; }
             b.wait -= dt;
             if (b.wait <= 0) { b.wait = 3 + r() * 6; if (r() < 0.25) { b.show = 6 + r() * 6; b.fan.visible = true; continue; } for (let k = 0; k < 10; k++) { const nx = b.x + (r() - 0.5) * 10, nz = b.z + (r() - 0.5) * 10; if (inPoly(nx, nz, area)) { b.tx = nx; b.tz = nz; break; } } }
             const dx = b.tx - b.x, dz = b.tz - b.z, L = Math.hypot(dx, dz);
-            if (L > 0.1) { const v = Math.min(L, dt * 0.6); b.x += dx / L * v; b.z += dz / L * v; b.yaw = Math.atan2(dx, dz); }
-            b.g.position.set(b.x, ctx.ground.heightAt(b.x, b.z), b.z); b.g.rotation.y = b.yaw;
+            let walk = 0; if (L > 0.1) { const v = Math.min(L, dt * 0.6); b.x += dx / L * v; b.z += dz / L * v; b.yaw = Math.atan2(dx, dz); walk = 1; }
+            b.ph += dt * 7 * walk; b.legs[0].rotation.x = Math.sin(b.ph) * 0.45 * walk; b.legs[1].rotation.x = -Math.sin(b.ph) * 0.45 * walk;
+            b.g.position.set(b.x, ctx.ground.heightAt(b.x, b.z) + Math.abs(Math.sin(b.ph)) * 0.02 * walk, b.z); b.g.rotation.y = b.yaw;
         }
     });
     return birds;
@@ -66,11 +71,14 @@ export default {
             classicWalls(b, fMain, bd.poly, y + 0.6, y + H, WALL, y + 0.6);
             b.prism(grow(bd.poly, 0.7), y + H - 0.5, y + H, TRIM, 'stone', { noTop: true });
             if (isPool) { b.flat(bd.poly, y + H, '#8f8a82', 'roofs'); balustrade(b, grow(bd.poly, 0.3), y + H, 1.0, { closed: true }); }
-            else { b.prism(grow(bd.poly, 1.0), y + H, y + H + 0.35, '#5a3a2a', 'wood', { noTop: true, bottom: true }); hipRoof(b, bd.poly, y + H + 0.35, 3.6, ROOF, 1.0); M0 = { o: obb(bd.poly), y }; }
+            else { // note 34: the real roof is a balustraded attic (white balusters on the cornice) with a LOW tiled hip set back
+                // behind it (no overhang beyond the walls), as in the street photos of Bd. Primăverii
+                b.flat(bd.poly, y + H, '#9a948a', 'roofs'); balustrade(b, grow(bd.poly, 0.35), y + H, 1.0, { closed: true, colour: '#f1ede4' });
+                const inner = grow(bd.poly, -1.6); hipRoof(b, inner, y + H - 0.05, Math.min(2.2, (obb(inner)?.wid || 8) * 0.18), ROOF, 0); M0 = { o: obb(bd.poly), y }; }
             ctx.poly(bd.poly, { y0: y - 1, y1: y + H + 5 });
         }
         // garden terrace with balustrade along the main building's garden side (toward the pool wing)
-        if (M0) { const o = M0.o, side = 1; const ty = M0.y + 0.6; const pts = [[-o.len * 0.4, o.wid / 2 + 5], [o.len * 0.4, o.wid / 2 + 5]].map(([u, v]) => [o.cx + o.ux * u - o.uz * v * side, o.cz + o.uz * u + o.ux * v * side]); const terr = [[-o.len * 0.42, o.wid / 2], [o.len * 0.42, o.wid / 2], [o.len * 0.42, o.wid / 2 + 5.3], [-o.len * 0.42, o.wid / 2 + 5.3]].map(([u, v]) => [o.cx + o.ux * u - o.uz * v, o.cz + o.uz * u + o.ux * v]); b.prism(terr, M0.y - 0.3, ty, '#cfc8ba', 'stone'); g.addPoly(terr, ty, M0.y - 2); balustrade(b, pts, ty, 1.0); }
+        if (M0) { const o = M0.o, side = 1; const ty = M0.y + 0.6; const pts = [[-o.len * 0.4, o.wid / 2 + 5], [o.len * 0.4, o.wid / 2 + 5]].map(([u, v]) => [o.cx + o.ux * u - o.uz * v * side, o.cz + o.uz * u + o.ux * v * side]); const terr = [[-o.len * 0.42, o.wid / 2], [o.len * 0.42, o.wid / 2], [o.len * 0.42, o.wid / 2 + 5.3], [-o.len * 0.42, o.wid / 2 + 5.3]].map(([u, v]) => [o.cx + o.ux * u - o.uz * v, o.cz + o.uz * u + o.ux * v]); const ringD = (x, z) => { let m = 1e9; for (let i = 0; i < grounds.length; i++) { const [ax, az] = grounds[i], [bx, bz] = grounds[(i + 1) % grounds.length], dx = bx - ax, dz = bz - az, L2 = dx * dx + dz * dz || 1, t = Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / L2)); m = Math.min(m, Math.hypot(x - ax - dx * t, z - az - dz * t)); } return m; }; if (terr.every(([x, z]) => inPoly(x, z, grounds) && ringD(x, z) > 5)) { b.prism(terr, M0.y - 0.3, ty, '#cfc8ba', 'stone'); g.addPoly(terr, ty, M0.y - 2); balustrade(b, pts, ty, 1.0); } }
         // granite plinth + black wrought-iron fence round the grounds (gate on the boulevard side)
         const ring = [...grounds, grounds[0]];
         let gateI = 0, gd = 1e9; for (let i = 0; i < grounds.length; i++) { const [ax, az] = grounds[i], [bx, bz] = grounds[(i + 1) % grounds.length], mx = (ax + bx) / 2, mz = (az + bz) / 2, dd = Math.hypot(mx - -60, mz - -60); if (dd < gd) { gd = dd; gateI = i; } }

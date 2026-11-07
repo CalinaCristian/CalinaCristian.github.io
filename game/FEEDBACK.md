@@ -47,3 +47,4 @@ Known gaps: Politehnica's door is at the Bd. Doina Cornea gate (~230 m from the 
 
 ## Round 4 play-test (owner, 2026-11-07) — collecting, not actioned yet
 1. Politehnica (upb) chapter spawn, Șos. Orhideelor under the Pasajul Basarab viaduct: a road is missing — the elevated decks overhead read as disconnected slabs on piers with gaps where the carriageway should continue (screenshot kept in the orchestrator scratchpad: fb4-01-upb-spawn-viaduct.webp).
+2. Politehnica (upb) section: roads completely broken around Pasajul Basarab — elevated ramps end in mid-air and are cut off, vans drive on deck stubs floating in the air, a huge sloped slab blocks the view ahead, decks don't connect to the ground roads; the car sits on a "Service road" (30 km/h) at the chapter start instead of Șos. Orhideelor (screenshot: fb4-02-upb-roads-broken.webp). Likely a regression from the latest deck-lifting pass.

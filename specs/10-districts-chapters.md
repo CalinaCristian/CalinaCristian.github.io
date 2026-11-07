@@ -6,18 +6,18 @@ Owner roles: **world** (district data, CHAPTERS, boundaries), **gameplay** (chap
 Trips between story points were too long; districts keep a good amount of driving but in about 1 km² each, sized by drive time. The 0.7/0.5 scale squeeze also caused overlapping parallel roads.
 
 ## Requirements
-R10.1 Districts at **real 1:1 scale**, ~**1 km²** each (sized so the chapter route is 1.5–2.5 km ≈ 2–4 min with traffic; the Seattle finale may be longer). Fully covered inside the boundary (all roads, buildings, POIs, trees, furniture), not a corridor.
+R10.1 Districts at **real 1:1 scale**, ~**1 km²** each (sized so the chapter route is 1.5–2.5 km ≈ 2–4 min with traffic). The Bellevue finale drive is **≤ 3 min** at legal speeds including signals. Fully covered inside the boundary (all roads, buildings, POIs, trees, furniture), not a corridor.
 R10.2 District list (boundaries chosen by world, snapped to quiet streets/parks/river where possible):
 | id | city | area | chapters (stop · year) |
 |---|---|---|---|
-| `floreasca` | bucharest | Calea Floreasca, Barbu Văcărescu, Garibaldi, Floreasca Park | rosetti · 2009, db · 2017 |
+| `floreasca` | bucharest | Calea Floreasca, Barbu Văcărescu, Garibaldi, Floreasca Park | rosetti · 2009 |
 | `grozavesti` | bucharest | Grozăvești, Politehnica, Splaiul, Podul Grozăvești | upb · 2013 |
 | `unirii` | bucharest | Piața Unirii (fountains), Calea Călărașilor, Hala Traian, Bd. Unirii east | gts · 2015 |
-| `pipera` | bucharest | Pipera, Bd. Dimitrie Pompeiu, Novo Park/Hermes | luxoft · 2017 |
+| `pipera` | bucharest | Pipera, Bd. Dimitrie Pompeiu, Hermes Business Campus, BOB Tower | luxoft · 2017 (Hermes Business Campus, Bd. Dimitrie Pompeiu 5-7), db · 2017 (BOB Tower, Bd. Dimitrie Pompeiu 6A) |
 | `romana` | bucharest | Piața Romană, Lascăr Catargiu, Vasile Alecsandri, Piața Victoriei | arnia · 2019, uipath-buc · 2020 |
 | `otopeni` | bucharest | Henri Coandă terminal + short DN1 approach | otopeni · 2022 (boarding) |
 | `seatac` | seattle | SeaTac terminal loop, departures/arrivals, SR-518 to I-5 | seatac · 2022 (waypoint: drive out) |
-| `bellevue` | seattle | I-90 floating bridge (scenic approach) → Mercer Island → I-405 → downtown Bellevue (NE 8th, Bellevue Way, Lincoln Square) | uipath-bel · 2022→2025 (stop = UiPath's entrance in Lincoln Square; Plaza Center 2022–2025 shown as a passing landmark with a story caption) |
+| `bellevue` | seattle | Downtown Bellevue + the I-405 stretch at the NE 8th St exit (NE 8th, Bellevue Way, Lincoln Square); the I-90 floating bridge appears only in the montage into the chapter | uipath-bel · 2022→2025 (stop = UiPath's entrance in Lincoln Square; Plaza Center 2022–2025 shown as a passing landmark with a story caption) |
 R10.3 Roads leaving a district end in a visible "end of map / road closed" barrier + soft invisible wall; traffic despawns there; the player can't leave.
 R10.9 **Free drive inside every district** (all streets around the work locations are drivable, not just the chapter route), with **in-world, GTA-style boundaries** instead of an invisible wall:
 - **Bucharest**: every road crossing the boundary ends at an authentic roadworks closure: "DRUM ÎNCHIS / LUCRĂRI" signs, red-white barriers and cones, a "DEVIERE" (detour) arrow, an excavator or a dug-up tram line, sometimes a Poliția Rutieră car with lights, and a worker whose chat bubbles joke about Bucharest's never-ending roadworks (lines from research). Main boulevards use larger setups (concrete jersey barriers, flashing arrow boards).
@@ -34,9 +34,12 @@ R10.8 Congestion hotspots per district in `CITIES[city].districts[id].congestion
 
 ## Acceptance
 - [ ] All 8 district JSONs build; each ≤ 3 MB; each loads in < 4 s (desktop) / < 12 s (software GL).
-- [ ] Every chapter route 1.5–2.5 km (bellevue ≤ 12 km), routable, no detours via service roads.
+- [ ] Every chapter route 1.5–2.5 km (bellevue: ≤ 3 min drive), routable, no detours via service roads.
 - [ ] Full story playable in ≈ 20–30 min; logic harness `c`/`f` pass per chapter.
 - [ ] Visual QA review of each chapter route: 0 defects of severity ≥ medium.
+
+## Owner decisions
+- 2026-11-07: Deutsche Bank (2017–2018) was at BOB Tower, Bd. Dimitrie Pompeiu 6A, Pipera (44.4797, 26.1146) → chapter `db` moves to `pipera`. Luxoft confirmed at Hermes Business Campus, Bd. Dimitrie Pompeiu 5-7 (44.4805, 26.1139). Bellevue finale shortened to ≤ 3 min of driving (start near downtown Bellevue; the floating bridge moves into the montage).
 
 ## Requests
 _(other roles write needed changes here)_

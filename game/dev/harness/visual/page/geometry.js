@@ -410,7 +410,7 @@ export function geometryDetectors(G, opts) {
             add('lifted-nonbridge', my > 1.5 ? 'high' : 'medium', `${e.name || e.type} (not a bridge or ramp) is lifted ${r1(my)} m`, { x, z, y: r2(my) });
         }
         for (const e of EE) {
-            if (!e.tunnel || e.lidded || Math.max(e.ya, e.yb) > -3) continue;
+            if (!e.tunnel || e.lidded || Math.max(e.ya, e.yb) > -3 || Math.min(e.ya, e.yb) < -4.2) continue; // (a partly deep edge gets a lid over its part below −4.2 m; the rest is the open portal ramp)
             const x = (e.a.x + e.b.x) / 2, z = (e.a.z + e.b.z) / 2; if (!inCorr(x, z)) continue;
             add('tunnel-visible', 'medium', `${e.name || e.type} runs ${r1(-Math.max(e.ya, e.yb))} m deep with no lid (the sunken road shows through the street level)`, { x, z });
         }

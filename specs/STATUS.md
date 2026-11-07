@@ -38,3 +38,4 @@ Update your own rows when you start/finish (status, `updated` as `YYYY-MM-DD HH:
 | R21 | Landing background choice | 21 | owner | blocked (owner decision) | | |
 | R16 hook / R17.2 / R17.4 | Photo mode construction + close on state changes, mirror mount, camera near 0.2 | 16/17 | gameplay | review | 2026-11-07 01:30 UTC | main.js / player.js per the cockpit-ui Requests |
 | R15.4 | Tourist spots in the game (menu, spot state, pause/leave, photo hooks) | 15 | gameplay | review | 2026-11-07 04:30 UTC | menu + map entry, enter/leave keeps the drive intact; harness spots 16/16 0 issues; onfoot relative obstacle height |
+| R23.* | Achievements catalogue, persistence, completion %, panel, milestones | 23 | progression | todo | | owner request 2026-11-07 |

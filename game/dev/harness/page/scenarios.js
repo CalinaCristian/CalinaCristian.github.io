@@ -756,3 +756,58 @@ SCENARIOS.push({
         return res;
     },
 });
+
+// ---------------------------------------------------------------- free roam (spec 10, R10.10)
+SCENARIOS.push({
+    id: 'roam', title: 'Free roam: every district (start pose, drive 200 m), one office, district switch via the map (montage / flight), conditions panel (time / weather / season → r3d)', city: 'bucharest',
+    async run(H) {
+        const g = H.g; if (typeof g.startFreeRoam !== 'function') { H.note('no free roam: skipped'); return { skipped: true }; }
+        const out = { districts: [] };
+        const ds = g.roamDistricts();
+        const skipFlight = async (p) => { let done = false; p.then(() => { done = true; }); while (!done) { document.querySelector('#flight [data-skip]')?.click(); document.querySelector('#chapter-montage')?.dispatchEvent(new Event('pointerdown')); await sleep(200); } return p; };
+        for (let i = 0; i < ds.length; i++) {
+            const d = ds[i], res = { id: d.id };
+            const ok = i === 0 ? await g.startFreeRoam(d.id, { tod: 'noon', weather: 'clear' }) : await skipFlight(g.switchRoamDistrict(d.id));
+            H.lampSet = null;
+            res.ok = !!ok && g.state === 'drive' && g.district === d.id && !!g.freeRoam && !g.ch;
+            if (!res.ok) { H.issue('roam-load-failed', 'high', `free roam ${d.id}: state ${g.state}, district ${g.district}`, {}, { key: 'roam:' + d.id }); out.districts.push(res); continue; }
+            H.refuelInstant(); H.mon.skipH = 3; H.mon.prevRH = undefined; H.mon.pathXZ = [];
+            await H.run(0.5);
+            res.start = H.where(g.player.x, g.player.z); res.problems = checkPose(H, `free roam ${d.id} start`);
+            res.objective = g.objective; res.label = g.hud?.el?.chapter?.textContent;
+            const P = g.player, ahead = g.lanePose(P.x + P.fx * 200, P.z + P.fz * 200, P.heading);
+            if (ahead) { res.drive = await H.driveTo(ahead.x, ahead.z, { label: `free roam ${d.id} 200 m`, arriveR: 20, timeout: 45, stop: false }); }
+            if (i === 0) {
+                // conditions panel: each control must reach Renderer3D
+                g.toggleConditions(true); res.panel = !!document.getElementById('cond-panel')?.classList.contains('show');
+                const r3 = g.r3d, frame = () => { g.updateClock(0); H.renderFrame(); };
+                g.setRoamTime('night'); frame(); res.night = r3.phase;
+                g.setRoamTime('noon'); frame(); res.noon = r3.phase;
+                g.setRoamHour(19.0); frame(); res.h19 = { phase: r3.phase, sun: Math.round(r3.sunElevation ?? 0), traffic: Math.round(g.trafficHours() * 10) / 10 };
+                g.setRoamWeather('rain'); frame(); res.rain = r3._wxOverride || r3.weather?.kind;
+                g.setRoamWeather('snow'); frame(); res.snow = r3._wxOverride || r3.weather?.kind;
+                g.setRoamWeather('live'); frame(); res.live = r3._wxOverride ?? null;
+                g.setRoamSeason('winter'); r3.frame?.(0.02); frame(); res.winter = r3._season?.season || r3.weather?.season;
+                g.setRoamSeason('summer'); r3.frame?.(0.02); frame(); res.summer = r3._season?.season || r3.weather?.season;
+                g.setRoamSeason('auto'); g.setRoamTime('noon'); g.setRoamWeather('clear');
+                g.toggleConditions(false); res.panelClosed = !document.getElementById('cond-panel')?.classList.contains('show');
+                const bad = []; if (res.night !== 'night') bad.push('night→' + res.night); if (res.noon !== 'day') bad.push('noon→' + res.noon); if (res.rain !== 'rain') bad.push('rain→' + res.rain); if (res.snow !== 'snow') bad.push('snow→' + res.snow); if (res.winter !== 'winter') bad.push('winter→' + res.winter); if (res.summer !== 'summer') bad.push('summer→' + res.summer);
+                if (bad.length) H.issue('roam-conditions', 'high', `conditions panel did not reach the renderer: ${bad.join(', ')}`, {}, { key: 'roam-cond' });
+                // one office: fast travel to the district's stop, drive to the door, read, leave (no story progress)
+                const stop = (g.stops || []).find(s => s.poiRef);
+                if (stop) {
+                    const doneBefore = [...g.progress.done].join();
+                    const o = stop.poiRef, ox = o.doorX ?? o.x, oz = o.doorZ ?? o.z;
+                    if (Math.hypot(P.x - ox, P.z - oz) > 150) await fast(H, ox, oz, stop.short);
+                    await H.driveTo(ox, oz, { label: stop.id, arriveR: 7, timeout: 50, stop: true });
+                    res.office = await enterOfficeAndRead(H, stop);
+                    res.progressUnchanged = [...g.progress.done].join() === doneBefore && !g.ch && g.state === 'drive';
+                    if (!res.progressUnchanged) H.issue('roam-progress', 'high', `free roam office ${stop.id} changed story state (state ${g.state}, chapter ${g.chapter})`, {}, { key: 'roam-prog' });
+                }
+            }
+            res.shot = await H.shot(`roam-${d.id}`);
+            out.districts.push(res);
+        }
+        return out;
+    },
+});

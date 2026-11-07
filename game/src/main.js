@@ -93,7 +93,7 @@ function fineFor(cityId, overKmh) {
 }
 // ---------- local time of the current city ----------
 const TIME_ZONES = { bucharest: 'Europe/Bucharest', seattle: 'America/Los_Angeles' };
-const OVERRIDE_HOURS = { dawn: 6.2, day: 13, sunset: 19.6, night: 23.2 };
+const OVERRIDE_HOURS = { dawn: 6.2, day: 13, sunset: 19.6, dusk: 20.3, night: 23.2 };
 const PHASE_ICON = { night: '🌙', dawn: '🌅', dusk: '🌇', day: '☀️' };
 /** hours (0..24, fractional) of `date` in `timeZone` */
 function localHours(date, timeZone) {
@@ -206,6 +206,7 @@ class Game {
         });
         $('#map-close')?.addEventListener('click', () => this.toggleMap(false));
         $('#navlist')?.addEventListener('click', (e) => {
+            if (e.target.closest('[data-cond]')) { this.toggleMap(false); this.toggleConditions(true); return; }
             const rb = e.target.closest('[data-roam]');
             if (rb) { this.toggleMap(false); if (rb.dataset.roam !== this.district) this.switchRoamDistrict(rb.dataset.roam); return; }
             const spb = e.target.closest('[data-spot]');
@@ -507,6 +508,8 @@ class Game {
 
     updateDrive(dt) {
         const { player, traffic, world, hud, input, city } = this;
+        if (this.freeRoam && input.take('KeyK')) this.toggleConditions();
+        if (this.condOpen) { if (input.take('Escape')) this.toggleConditions(false); input.lookAllowed = false; input.flush(); this.updateClock(0); this.drawFrame(); return; }
         if (input.take('KeyM')) this.toggleMap(!this.mapOpen);
         if (this.mapOpen && input.take('Escape')) this.toggleMap(false);
         if (this.mapOpen || hud.panelOpen) { input.lookAllowed = false; input.releaseLock(); input.flush(); this.drawFrame(); return; }
@@ -1095,7 +1098,7 @@ class Game {
             if (it.group !== g) { g = it.group; html += `<h4>${g}</h4>`; }
             html += `<div class="nav-item"><span>${it.icon} ${it.label} <small>${dist(it.x, it.z)}</small></span><button data-nav="${i}" title="Route there">Go</button><button class="ft" data-ft="${i}" title="Fast travel (skip the drive)">⏩</button></div>`;
         });
-        if (this.freeRoam) html += '<h4>🗺️ Free roam · districts</h4>' + this.roamDistricts().map(d => `<div class="nav-item${d.id === this.district ? ' active' : ''}"><span>${d.name}${d.id === this.district ? ' •' : ''} <small>${d.cityName}</small></span><button data-roam="${d.id}">Go</button></div>`).join('');
+        if (this.freeRoam) html += '<div class="nav-item active"><span>☀️ Time, weather &amp; season</span><button data-cond="1">Open</button></div><h4>🗺️ Free roam · districts</h4>' + this.roamDistricts().map(d => `<div class="nav-item${d.id === this.district ? ' active' : ''}"><span>${d.name}${d.id === this.district ? ' •' : ''} <small>${d.cityName}</small></span><button data-roam="${d.id}">Go</button></div>`).join('');
         if (spotsHere.length) html += this.spotGroupsHtml(spotsHere, { heading: 'h4', button: 'Visit' });
         $('#navlist').innerHTML = html;
     }
@@ -1172,6 +1175,8 @@ class Game {
     }
     updateFoot(dt) {
         const { traffic, hud, input, city, world } = this, F = this.foot, P = this.player;
+        if (this.freeRoam && input.take('KeyK')) this.toggleConditions();
+        if (this.condOpen) { if (input.take('Escape')) this.toggleConditions(false); input.lookAllowed = false; input.flush(); this.updateClock(0); this.drawFrame(); return; }
         if (input.take('KeyM')) this.toggleMap(!this.mapOpen);
         if (this.mapOpen && input.take('Escape')) this.toggleMap(false);
         if (this.mapOpen || hud.panelOpen) { input.lookAllowed = false; input.releaseLock(); input.flush(); this.drawFrame(); return; }
@@ -1527,6 +1532,7 @@ class Game {
         P.camHolder.add(this.camera); this.camera.position.set(0, 0, 0); this.camera.rotation.set(0, 0, 0);
         this.state = 'drive'; this.input.flush(); this.frameClock.getDelta();
         this.updateObjective();
+        this.buildConditions(); document.body.classList.add('free-roam');
         const tl = { now: 'real time', rush: 'morning rush, 08:30', noon: 'noon', golden: 'golden hour', night: 'night' }[this.freeRoam.tod] || '';
         this.hud.toast(`🗺️ Free roam · ${d.name}`, `${d.label ? d.label + ' · ' : ''}${tl}${this.freeRoam.weather !== 'live' ? ' · ' + this.freeRoam.weather : ''}. M → map: other districts, tourist spots, offices.`, 'intro');
     }
@@ -1550,6 +1556,68 @@ class Game {
         } finally { this._transit = false; }
         return this.startFreeRoam(d.id, { tod: fr.tod, weather: fr.weather });
     }
+    // ---------------------------------------------------------------------------------- free-roam conditions panel (R10.10)
+    /** ☀️ button (HUD) + panel: 24 h slider + presets, weather, season — applied live through the render API */
+    buildConditions() {
+        if (document.getElementById('cond-panel')) { this.syncConditions(); return; }
+        const btn = document.createElement('button'); btn.id = 'cond-btn'; btn.title = 'Time, weather & season (K)'; btn.textContent = '☀️';
+        btn.addEventListener('click', (e) => { e.preventDefault(); this.toggleConditions(); });
+        $('#hud')?.appendChild(btn);
+        const el = document.createElement('div'); el.id = 'cond-panel'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', 'Conditions');
+        const pre = [['dawn', '🌅 Dawn'], ['rush', '🚦 Rush 08:30'], ['noon', '☀️ Noon'], ['golden', '🌇 Golden hour'], ['dusk', '🌆 Dusk'], ['night', '🌙 Night']];
+        const wx = [['live', 'Live'], ['clear', '☀️ Clear'], ['cloudy', '☁️ Cloudy'], ['rain', '🌧️ Rain'], ['storm', '⛈️ Storm'], ['fog', '🌫️ Fog'], ['snow', '🌨️ Snow']];
+        const se = [['auto', 'Auto'], ['spring', '🌸 Spring'], ['summer', '☀️ Summer'], ['autumn', '🍂 Autumn'], ['winter', '❄️ Winter']];
+        const chips = (name, list) => `<div class="cond-chips" data-group="${name}">${list.map(([v, l]) => `<button data-${name}="${v}">${l}</button>`).join('')}</div>`;
+        el.innerHTML = `<div class="cond-head"><b>Conditions</b><button class="cond-x" data-close aria-label="Close">✕</button></div>
+<div class="cond-sec"><div class="cond-lbl">Time of day <output id="cond-time">--:--</output></div><input id="cond-hour" type="range" min="0" max="23.75" step="0.25" aria-label="Hour of day">${chips('tod', pre)}</div>
+<div class="cond-sec"><div class="cond-lbl">Weather</div>${chips('wx', wx)}</div>
+<div class="cond-sec"><div class="cond-lbl">Season</div>${chips('season', se)}</div>
+<div class="cond-foot">Traffic follows the hour · game paused · <kbd>K</kbd> / <kbd>Esc</kbd> closes</div>`;
+        document.body.appendChild(el);
+        el.addEventListener('click', (e) => {
+            const b = e.target.closest('button'); if (!b) return;
+            if (b.hasAttribute('data-close')) return this.toggleConditions(false);
+            if (b.dataset.tod) this.setRoamTime(b.dataset.tod);
+            else if (b.dataset.wx) this.setRoamWeather(b.dataset.wx);
+            else if (b.dataset.season) this.setRoamSeason(b.dataset.season);
+        });
+        el.querySelector('#cond-hour').addEventListener('input', (e) => this.setRoamHour(+e.target.value));
+        this.syncConditions();
+    }
+    toggleConditions(open = !this.condOpen) {
+        const el = document.getElementById('cond-panel'); if (!el) { this.condOpen = false; return; }
+        if (open && !this.freeRoam) return;
+        if (open && this.mapOpen) this.toggleMap(false);
+        this.condOpen = !!open; el.classList.toggle('show', this.condOpen); document.body.classList.toggle('cond-open', this.condOpen);
+        if (this.condOpen) { this.input.releaseLock(); this.input.lookAllowed = false; if (this.player) this.player.speed *= 0.2; this.syncConditions(); }
+        else { this.input.flush(); this.frameClock.getDelta(); }
+    }
+    /** a local hour (0..24) in the district's city: the real sun at that hour, traffic for that hour */
+    setRoamHour(h) {
+        const c = this.clock; c.override = null;
+        const h0 = localHours(new Date(), c.timeZone); c.offsetMs = (((h - h0) % 24 + 24) % 24) * 3600e3;
+        if (this.freeRoam) this.freeRoam.tod = 'h' + h;
+        this.updateClock(0); this.traffic?.setHour(this.trafficHours(), true); this.syncConditions();
+    }
+    setRoamTime(tod) {
+        const H = { dawn: 6.5, rush: 8.5, noon: 12.5 }[tod];
+        if (H != null) return this.setRoamHour(H);
+        const c = this.clock; c.offsetMs = 0; c.override = tod === 'golden' ? 'sunset' : tod === 'dusk' ? 'dusk' : tod === 'night' ? 'night' : null;
+        if (this.freeRoam) this.freeRoam.tod = tod;
+        this.updateClock(0); this.traffic?.setHour(this.trafficHours(), true); this.syncConditions();
+    }
+    setRoamWeather(w) { if (this.freeRoam) this.freeRoam.weather = w; this.setWeatherOverride(w === 'live' ? null : w); this.syncConditions(); }
+    setRoamSeason(s) { if (this.freeRoam) this.freeRoam.season = s; this.r3d.setSeason?.(s === 'auto' ? null : s); this.syncConditions(); }
+    syncConditions() {
+        const el = document.getElementById('cond-panel'); if (!el) return;
+        const c = this.clock, h = c.override ? OVERRIDE_HOURS[c.override] : localHours(this.nowDate(), c.timeZone);
+        const sl = el.querySelector('#cond-hour'); if (sl && document.activeElement !== sl) sl.value = String(Math.round(h * 4) / 4 % 24);
+        const o = el.querySelector('#cond-time'); if (o) o.textContent = this.clockText();
+        const fr = this.freeRoam || {}, tod = c.override === 'sunset' ? 'golden' : c.override || ({ 6.5: 'dawn', 8.5: 'rush', 12.5: 'noon' }[String(fr.tod || '').slice(1)] || fr.tod);
+        for (const b of el.querySelectorAll('[data-tod]')) b.classList.toggle('on', b.dataset.tod === tod);
+        for (const b of el.querySelectorAll('[data-wx]')) b.classList.toggle('on', b.dataset.wx === (this.weatherOverride || 'live'));
+        for (const b of el.querySelectorAll('[data-season]')) b.classList.toggle('on', b.dataset.season === (fr.season || 'auto'));
+    }
     // ---------------------------------------------------------------------------------- chapters (spec 10)
     renderMenuChapters() {
         if (!this.chapters) return;
@@ -1568,7 +1636,7 @@ class Game {
     /** load (or reuse) the chapter's district, put the car at its start, set the objective */
     async enterChapter(idx, { initial = false } = {}) {
         const ch = this.chapters[idx]; if (!ch) return false;
-        if (this.freeRoam) { this.freeRoam = null; this.clock.offsetMs = 0; this.clock.override = this.menuOverride ?? null; }
+        if (this.freeRoam) { this.freeRoam = null; this.clock.offsetMs = 0; this.clock.override = this.menuOverride ?? null; this.toggleConditions(false); document.body.classList.remove('free-roam'); this.r3d.setSeason?.(null); }
         const same = this.world && this.city?.id === ch.city && this.district === ch.district && !initial;
         if (!same) {
             $('#loading').classList.add('show');

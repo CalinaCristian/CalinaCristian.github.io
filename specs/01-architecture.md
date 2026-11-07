@@ -13,6 +13,7 @@ Static site, no build step, ES modules, Three.js r170 vendored (`game/vendor/`).
 | **landmarks** | `game/src/landmarks.js`, `game/dev/landmarks.html` | 12 (landmarks) |
 | **spots** | `game/src/spots/*` (new), `game/data/spots/*` (new), `game/dev/spots.html` (new) | 15 |
 | **qa** | `game/dev/harness/run.js`, `report.js`, `README.md`, `game/dev/harness/visual/*`, root `package.json` scripts | 19 |
+| **progression** | `game/src/achievements.js` (new); the `ACHIEVEMENTS` block in `data.js`; a delimited `/* achievements */` block in `game/style.css`; hook lines in `hud.js` (`achievement()` delegates to achievements.js) and `main.js` (import/init, trigger calls, menu/pause/map entries) coordinated with gameplay | 23 |
 | **research-*** | `game/research/*` only | 20 |
 
 Shared files touched by several roles (`main.js` hooks for new modules) go through the **gameplay** role; others send the exact lines needed in their spec's *Requests* section.

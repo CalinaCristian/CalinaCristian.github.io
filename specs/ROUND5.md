@@ -19,6 +19,7 @@ Source: `game/FEEDBACK.md` "Round 4 play-test" notes 1–27 (+ any that follow),
 | 9, 18 | world-data + gameplay + spots | Only reachable landmarks shown in a district; unreachable ones (Sky Tower, Globalworth, I-90 bridge/Mt Baker portal, SeaTac tower …) live in tourist spots; map/minimap show every reachable place clearly (icons, labels, legend, list/search) for easy waypoints. |
 | 13 | gameplay + world-visual | Clear entrances: modelled doors at the real entrance, beacon + ground ring, prompt only at the door, routes end at the door. |
 | 14 | cockpit-ui (office.js) | Unique interiors per CV stop (school, Rectorat, GTS, Luxoft, DB, Arnia, UiPath Bucharest, UiPath Bellevue, airports) with era props, brand colours, real views, colleagues. |
+| 37 | cockpit-ui (office.js) + gameplay + progression | Office CV screens → an in-character NPC (teacher / professor / manager / host) with A–D question choices and answers drawn only from the CV content; achievements count answers heard. |
 | 16 | gameplay (chapters.js) + cockpit-ui (style) | Cinematic chapter transition (animated stylised map, route line, district fly-over, year counter, clean CV card). |
 | 15 | gameplay (data.js) | Remove the student-projects GitHub line. |
 

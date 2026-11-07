@@ -698,11 +698,11 @@ async function visitSpot(H, id) {
     // seattle-center: the other entrances via the pause panel
     // pause → leave
     H.press('Escape'); await H.run(0.2);
-    res.paused = !!g.hud.panelOpen;
-    if (!res.paused) H.issue('spot-pause-missing', 'medium', `tourist spot ${id}: Esc did not open the pause panel`, {}, { key: 'spz:' + id });
-    const tp = document.querySelector('#panel [data-spot-act=tp]');
-    if (tp) { tp.click(); await H.run(0.5); res.teleported = g.spotId === tp.dataset.id; H.press('KeyM'); await H.run(0.2); }
-    const leave = document.querySelector('#panel [data-spot-act=leave]');
+    res.paused = !!(g.pauseOpen ?? g.hud.panelOpen);
+    if (!res.paused) H.issue('spot-pause-missing', 'medium', `tourist spot ${id}: Esc did not open the pause menu`, {}, { key: 'spz:' + id });
+    const tp = document.querySelector('#pause-menu [data-pa^="tp:"]') || document.querySelector('#panel [data-spot-act=tp]');
+    if (tp) { tp.click(); await H.run(0.5); const tid = tp.dataset.pa ? tp.dataset.pa.slice(3) : tp.dataset.id; res.teleported = g.spotId === tid; H.press('KeyM'); await H.run(0.2); }
+    const leave = document.querySelector('#pause-menu [data-pa=leave-spot]') || document.querySelector('#panel [data-spot-act=leave]');
     if (leave) leave.click(); else g.leaveSpot();
     await H.run(0.3);
     res.back = g.state;
@@ -813,5 +813,96 @@ SCENARIOS.push({
             out.districts.push(res);
         }
         return out;
+    },
+});
+
+// ---------------------------------------------------------------- round 5: pause menu, fines, achievements timing, focus, photo restore, chapter chaining
+SCENARIOS.push({
+    id: 'pause', group: 'r5', title: 'Pause menu: Esc opens it in the drive and on foot, the game is paused, sub-views + settings work, Resume / Esc closes it, focus back on the game', city: 'bucharest',
+    async run(H) {
+        const g = H.g; if (typeof g.togglePause !== 'function') return { skipped: true };
+        await prep(H); const P = g.player, res = {};
+        H.setControls(1, 0, false); await H.run(2); H.setControls(0, 0, false);
+        const p0 = { x: P.x, z: P.z, t: g.traffic.time };
+        H.press('Escape'); await H.run(0.2);
+        res.openDrive = g.pauseOpen; await H.run(2);
+        res.pausedMoved = r2(Math.hypot(P.x - p0.x, P.z - p0.z)); res.trafficFrozen = g.traffic.time === p0.t || Math.abs(g.traffic.time - p0.t) < 0.25;
+        res.items = [...document.querySelectorAll('#pause-menu [data-pa]')].map(b => b.dataset.pa);
+        for (const v of ['settings', 'chapters', 'spots', 'roam']) { const b = document.querySelector(`#pause-menu [data-pa="${v}"]`); if (b) { b.click(); res['view_' + v] = g._pauseView === v; document.querySelector('#pause-menu [data-pa=back]')?.click(); } }
+        document.querySelector('#pause-menu [data-pa=settings]')?.click(); const sens = document.querySelector('#pause-menu [data-set=sens]'); if (sens) { sens.value = '1.5'; sens.dispatchEvent(new Event('input', { bubbles: true })); } res.sens = g.input.sens;
+        document.querySelector('#pause-menu [data-pa=back]')?.click();
+        H.press('Escape'); await H.run(0.2); res.closedByEsc = !g.pauseOpen; res.focusCanvas = document.activeElement === g.canvas;
+        g.input.sens = 1; g.saveStr('sens', '1');
+        // on foot
+        P.speed = 0; await H.run(0.5); H.press('Enter'); await H.run(0.3);
+        if (g.state === 'foot') { H.press('Escape'); await H.run(0.2); res.openFoot = g.pauseOpen; document.querySelector('#pause-menu [data-pa=resume]')?.click(); await H.run(0.2); res.closedResume = !g.pauseOpen && g.state === 'foot'; g.enterCar(); }
+        const bad = []; if (!res.openDrive) bad.push('no menu on Esc (drive)'); if (res.pausedMoved > 0.05) bad.push(`car moved ${res.pausedMoved} m while paused`); if (!res.closedByEsc) bad.push('Esc did not resume'); if (!res.focusCanvas) bad.push('focus not on the game after resume'); if (res.openFoot === false) bad.push('no menu on Esc (foot)'); if (res.sens !== 1.5) bad.push('sensitivity setting');
+        if (bad.length) H.issue('pause-menu', 'high', `pause menu: ${bad.join(', ')}`, {}, { shot: true, key: 'pause' });
+        return res;
+    },
+});
+SCENARIOS.push({
+    id: 'fines', group: 'r5', title: 'Fines: 5 min of driving with traffic and crashes into walls must not pile up fines (only real offences: cameras, police, red lights, pedestrians in the road)', city: 'bucharest',
+    async run(H) {
+        const g = H.g; await prep(H); const P = g.player, res = { kinds: {} };
+        const orig = g.giveFine; g.giveFine = function (title, body, over, kind) { res.kinds[kind] = (res.kinds[kind] || 0) + 1; return orig.call(this, title, body, over, kind); };
+        const f0 = g.stats.fineCount, m0 = { ...g.stats.fines }; let crashes = 0;
+        const oc = g.onCollide.bind(g); g.onCollide = (s, w, v) => { if (w !== 'pedestrian') crashes++; return oc(s, w, v); };
+        try {
+            const t0 = H.scT;
+            while (H.scT - t0 < 300) {
+                const ahead = g.lanePose(P.x + P.fx * 400 + (Math.random() - 0.5) * 300, P.z + P.fz * 400 + (Math.random() - 0.5) * 300, P.heading);
+                if (!ahead) break;
+                await H.driveTo(ahead.x, ahead.z, { label: 'fines drive', arriveR: 20, timeout: 60, stop: false });
+                // a crash into whatever is beside the road every lap
+                H.setControls(1, 0.8, false); await H.run(2.5); H.setControls(0, 0, true); await H.run(0.5); g.resetToRoad({ silent: true });
+            }
+        } finally { g.giveFine = orig; delete g.onCollide; }
+        res.fines = g.stats.fineCount - f0; res.crashes = crashes; res.amount = Object.fromEntries(Object.entries(g.stats.fines).map(([k, v]) => [k, v - (m0[k] || 0)]));
+        res.label = document.getElementById('trip')?.innerText?.replace(/\n/g, ' | ') || '';
+        if (res.fines > 8) H.issue('fines-pileup', 'high', `${res.fines} fines in 5 min of driving (${JSON.stringify(res.kinds)}, ${crashes} crashes)`, {}, { key: 'fines' });
+        return res;
+    },
+});
+SCENARIOS.push({
+    id: 'chain', group: 'r5', title: 'Achievements at the event + same-district chapters chain in place (luxoft → db, arnia → uipath-buc): no card, no respawn, objective switches where the player is', city: 'bucharest',
+    async run(H) {
+        const g = H.g; if (!g.chapters) return { skipped: true };
+        const chm = await import('../../../src/chapters.js'); const out = [];
+        for (const [a, b] of [['luxoft', 'db'], ['arnia', 'uipath-buc']]) {
+            const ia = g.chapters.findIndex(c => c.id === a); if (ia < 0) continue;
+            await g.enterChapter(ia, { initial: true }); H.lampSet = null; await H.run(0.5);
+            const P = g.player, p0 = { x: P.x, z: P.z }, r = { from: a };
+            const ach = 'ch-' + a; const had = g.achievements?.isUnlocked?.(ach);
+            g.completeChapter(); await sleep(0); await H.run(0.1);
+            r.achNow = !g.achievements || had || g.achievements.isUnlocked(ach); r.toast = !!document.querySelector('#achv-toasts .achv-toast');
+            r.chapter = g.chapter; r.card = chm.chapterCardOpen(); r.state = g.state; r.moved = r1(Math.hypot(P.x - p0.x, P.z - p0.z));
+            r.objective = g.objectivePlain; r.route = g.nav.route ? Math.round(g.nav.route.total) : null;
+            const bad = []; if (r.chapter !== b) bad.push(`chapter ${r.chapter}`); if (r.card) { bad.push('card shown'); chm.closeChapterCard('free'); } if (r.moved > 0.5) bad.push(`moved ${r.moved} m`); if (!r.achNow) bad.push(`${ach} not unlocked at once`);
+            if (bad.length) H.issue('chapter-chain', 'high', `${a} → ${b}: ${bad.join(', ')}`, {}, { shot: true, key: 'chain:' + a });
+            out.push(r);
+        }
+        return { pairs: out };
+    },
+});
+SCENARIOS.push({
+    id: 'restore', group: 'r5', title: 'Photo mode zoom is undone on close (FOV, near/far, layers) and closing panels / map hands focus + mouse look back to the game', city: 'bucharest',
+    async run(H) {
+        const g = H.g; await prep(H); const res = {}, cam = g.camera;
+        await H.run(1);
+        const before = { fov: cam.fov, near: cam.near, far: cam.far, layers: cam.layers.mask };
+        g.photo.open(); g.photo.setFov(25); await H.run(0.3); g.photo.close(); await H.run(0.05);
+        res.fov = [r1(before.fov), r1(cam.fov)]; res.nearFar = [cam.near === before.near, cam.far === before.far, cam.layers.mask === before.layers];
+        if (Math.abs(cam.fov - before.fov) > 1.5 || !res.nearFar.every(Boolean)) H.issue('photo-restore', 'high', `photo mode close left FOV ${r1(cam.fov)} (was ${r1(before.fov)}) near/far/layers ${res.nearFar}`, {}, { key: 'photo-restore' });
+        // panels: map, hud panel, pause → focus on the canvas, look allowed, no stuck keys
+        const checks = {};
+        g.toggleMap(true); await H.run(0.2); g.toggleMap(false); await H.run(0.1); checks.map = document.activeElement === g.canvas && g.input.lookAllowed;
+        g.hud.panel('<p>test</p>'); await H.run(0.2); document.querySelector('#panel [data-close]')?.click(); await H.run(0.1); checks.panel = document.activeElement === g.canvas && g.input.lookAllowed;
+        g.togglePause?.(true); await H.run(0.1); document.querySelector('#pause-menu [data-pa=resume]')?.click(); await H.run(0.1); checks.pause = document.activeElement === g.canvas && g.input.lookAllowed;
+        if (g.achievements?.open) { g.achievements.open(); await H.run(0.1); g.achievements.close(); await H.run(0.1); checks.achievements = document.activeElement === g.canvas && g.input.lookAllowed; }
+        res.focus = checks;
+        const bad = Object.entries(checks).filter(([, v]) => !v).map(([k]) => k);
+        if (bad.length) H.issue('focus-after-panel', 'high', `focus / mouse look not back after closing: ${bad.join(', ')}`, {}, { key: 'focus' });
+        return res;
     },
 });

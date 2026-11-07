@@ -240,7 +240,7 @@ class Game {
         $('#start').blur();
         this.audio.init(); this.audio.resume();
         $('#menu').classList.remove('show');
-        $('#hud').classList.add('show');
+        $('#hud').classList.add('show'); document.body.classList.add('playing');
         this.startTime = performance.now();
         if (this.chapters) {
             await this.enterChapter(chapterIdx ?? 0, { initial: true });
@@ -1414,7 +1414,7 @@ class Game {
         this.input.lookAllowed = false; this.input.releaseLock(); this.input.flush();
         this.state = 'loading'; this.hud.prompt(null);
         $('#menu').classList.remove('show'); $('#hud').classList.add('show');
-        document.body.classList.add('in-spot');
+        document.body.classList.add('in-spot', 'playing');
         const ld = $('#loading'), lp = ld?.querySelector('p'); if (lp && this._loadingText == null) this._loadingText = lp.textContent;
         if (lp) lp.textContent = `Walking to ${entry.name}…`; ld?.classList.add('show');
         const old = this.spot; this.spot = null; try { old?.dispose(); } catch (e) { console.warn('[spots] dispose', e); }
@@ -1455,7 +1455,7 @@ class Game {
             this.input.lookAllowed = true; this.frameClock.getDelta();
         } else {
             this.state = 'menu'; this.input.lookAllowed = false;
-            $('#hud').classList.remove('show'); $('#menu').classList.add('show');
+            $('#hud').classList.remove('show'); $('#menu').classList.add('show'); document.body.classList.remove('playing');
             this.renderMenuSpots();
         }
     }
@@ -1658,7 +1658,7 @@ class Game {
         if (this.state === 'menu' && !this.started) {
             this.started = true; $('#start')?.blur();
             this.audio.init(); this.audio.resume();
-            $('#menu').classList.remove('show'); $('#hud').classList.add('show');
+            $('#menu').classList.remove('show'); $('#hud').classList.add('show'); document.body.classList.add('playing');
             this.startTime = performance.now();
         }
         this._transit = true;

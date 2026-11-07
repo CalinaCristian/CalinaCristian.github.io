@@ -46,6 +46,7 @@ export class Harness {
             requestAnimationFrame(g.loop);
             const dt = Math.min(0.1, g.frameClock.getDelta());
             if (H.owned) return;
+            if (g._pauseOpen) return;
             if (g.state === 'drive') g.updateDrive(dt);
             else if (g.state === 'office') g.updateOffice(dt);
             else if (g.state === 'foot' && g.updateFoot) g.updateFoot(dt);
@@ -153,7 +154,8 @@ export class Harness {
     stepOnce(dt = this.dt) {
         const g = this.g;
         const pf = this.pf();
-        if (g.state === 'drive') {
+        if (g._pauseOpen) { if (g.input.take('Escape')) g.togglePause(false); g.input.flush(); }
+        else if (g.state === 'drive') {
             const t0 = performance.now();
             if (this.ap) this.autopilot(dt);
             const t1 = performance.now();

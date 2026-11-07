@@ -2956,10 +2956,12 @@ export async function buildWorld(city, renderer, opts = {}) {
         const s = signs.get(b.name, st[0], st[1], st[2]);
         if (!s) return;
         let w = Math.min(L * 0.8, cvp ? 18 : (b.flags & 8 ? 7 : 9)); let hh = w / s.aspect;
-        if (hh > 2.4 && !cvp) { hh = 2.4; w = hh * s.aspect; }
-        let y = shop ? 4.6 + 0.2 : Math.min(h - hh - 0.6, 3.6);
-        if (cvp) y = Math.max(4, Math.min(h - hh - 1.5, 14));
-        else if (!(b.flags & 8) && h > 14) y = h - hh - 0.8; // named buildings: sign near the top
+        // (play-test note 10a) businesses sign at ground floor: a fascia over the shop window (≤ 0.75 m high) or a board
+        // over the door — never a box on an upper floor; only the CV buildings keep their big sign higher up
+        const hMax = cvp ? 2.4 : shop ? 0.72 : 0.85;
+        if (hh > hMax) { hh = hMax; w = hh * s.aspect; } if (w > L * 0.9) { w = L * 0.9; hh = w / s.aspect; }
+        const y0b = b.minH || 0;
+        let y = cvp ? Math.max(4, Math.min(h - hh - 1.5, 14)) : shop ? y0b + 4.2 - hh - 0.08 : y0b + Math.min(3.0, Math.max(2.4, h - hh - 0.4));
         if (y < 1) y = 1;
         const mx = (ax + bx) / 2 + nx * 0.12, mz = (az + bz) / 2 + nz * 0.12;
         // viewer outside looks along -n; their right-hand vector is (nz, -nx)
@@ -2969,6 +2971,18 @@ export async function buildWorld(city, renderer, opts = {}) {
         const i0 = mbS.v(lx, y, lz, nx, 0, nz, s.u0, s.v0, white), i1 = mbS.v(rx, y, rz, nx, 0, nz, s.u1, s.v0, white);
         const i2 = mbS.v(rx, y + hh, rz, nx, 0, nz, s.u1, s.v1, white), i3 = mbS.v(lx, y + hh, lz, nx, 0, nz, s.u0, s.v1, white);
         mbS.tri(i0, i1, i2); mbS.tri(i0, i2, i3); // (i0,i1,i2) normal = n by construction
+        if (!cvp) { // fascia board in the brand colour behind the letters + a projecting (blade) sign at the end of the front
+            const sb = cellOf(b.c[0], b.c[1]).solid, bg = rgb(st[0]), pad = 0.12, tx = -nz, tz = nx; // tx/tz: along the wall
+            const cx0 = (ax + bx) / 2 + nx * 0.06, cz0 = (az + bz) / 2 + nz * 0.06, bw2 = Math.min(L * 0.96, w + 0.8);
+            sb.box(cx0, y - pad, cz0, 0.1, hh + pad * 2, bw2, Math.atan2(tx, tz), bg);
+            if (L > 4 && (b.flags & 8 || shop)) {
+                const ex = (ax + bx) / 2 + tx * (bw2 / 2 + 0.6) * (L > bw2 + 2 ? 1 : 0) + nx * 0.55, ez = (az + bz) / 2 + tz * (bw2 / 2 + 0.6) * (L > bw2 + 2 ? 1 : 0) + nz * 0.55;
+                const bh = 0.75, by = y + hh + 0.35;
+                sb.box(ex - nx * 0.45, by + bh / 2 - 0.03, ez - nz * 0.45, 0.04, 0.04, 1.0, Math.atan2(nx, nz), rgb('#2b2b2b')); // bracket
+                const bladeS = signs.get(b.name.slice(0, 14), st[0], st[1], st[2]);
+                if (bladeS && L > bw2 + 2) addSignQuad(cellOf(b.c[0], b.c[1]), ex, ez, Math.atan2(tx, tz), 1, 0.8, Math.min(0.8, 0.8 / bladeS.aspect * 1.6), by, bladeS, 0.06);
+            }
+        }
         if (cvp) { // coloured band at the top of the CV building
             const mb = cellOf(b.c[0], b.c[1]).solid;
             const col = rgb(cvp._color || '#f97316');

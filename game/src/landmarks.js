@@ -2405,7 +2405,7 @@ function bPolitehnica(b) {
     b.cornice(p, 19.8, 0.7, 2.2, SL, { solid: true });                                     // wide roof slab
     const [cx, cz] = centroid(p);
     b.cyl(cx, 20.5, cz, 13.5, 13.5, 1.6, '#566470', 24, { mat: 'g' });                      // glazed drum
-    b.geo(new THREE.LatheGeometry([[0.01, 5.6], [6, 5.2], [12, 3.9], [16.6, 2.2], [19.6, 0.6], [19.2, 0], [13.5, -0.2]].map(([a, c]) => new THREE.Vector2(a, c)), 32), '#5d6366', M(cx, 22.1, cz), 'g');   // saucer dome
+    b.geo(new THREE.LatheGeometry([[0.01, 5.6], [6, 5.2], [12, 3.9], [16.6, 2.2], [19.6, 0.6], [19.2, 0], [13.5, -0.2]].map(([a, c]) => new THREE.Vector2(a, c)), 32), '#80878a', M(cx, 22.1, cz), 'g');   // saucer dome
     b.geo(new THREE.TorusGeometry(19.45, 0.22, 4, 48), '#4f7fc7', M(cx, 22.65, cz, 0, 1, 1, 1, Math.PI / 2), 'nb');   // dome rim (blue-lit at night)
     b.cyl(cx, 27.7, cz, 3.2, 3.4, 1.2, '#6a7072', 12); b.cyl(cx, 28.9, cz, 0.06, 0.08, 6, '#d8d8d8', 5); flag(b, cx, 34.6, cz, 2.4);
     const f = nearestFacade(p, 0, -40);                                                    // north forecourt

@@ -409,6 +409,8 @@ export default {
         buildSteinbrueck(ctx);
         // Elliott Bay view: the Great Wheel at Pier 57 (≈ 370 m south of MarketFront)
         { const w = ctx.ll(47.60617, -122.3425), wh = greatWheel(w.x, -33.5, w.z, -0.35, { spin: true }); ctx.add(wh.group); ctx.onUpdate((dt, s) => wh.update(dt, s.nightK)); }
+        // the city + bay context: downtown towers beyond the OSM extract, ferries on the Bainbridge run, port cranes, the Olympics
+        ctx.extras.seaBackdrop = seaBackdrop(ctx, { clear: 330, needle: true, eyeY: 1.6 });
         // MarketFront viewpoint railing
         { const b = new GeoBatch(); railing(b, [[-268, -98], [-262, -72], [-250, -50], [-238, -36]], (x, z) => g.heightAt(x, z)); ctx.add(b.build('marketfront-rail')); }
         // 1st Ave traffic (Pike Place itself is car-free)

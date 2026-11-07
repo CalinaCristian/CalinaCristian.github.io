@@ -246,7 +246,8 @@ export async function loadSpot(id, renderer = null, opts = {}) {
     }
     if (ctx.crowdCfg) {
         const sp = ctx.spot();
-        crowd = new Crowd({ city: data.city, ground: ctx.ground, dialogue: mergeDialogue(data, ctx.crowdCfg.spots || data.members), general: data.dialogueGeneral, seed: data.id.length * 7, colliders, ...ctx.crowdCfg });
+        const fp = globalThis.__spotsLegacy ? null : floorProbe(ctx.scene); ctx.extras.floorProbe = fp;
+        crowd = new Crowd({ lift: fp?.lift, city: data.city, ground: ctx.ground, dialogue: mergeDialogue(data, ctx.crowdCfg.spots || data.members), general: data.dialogueGeneral, seed: data.id.length * 7, colliders, ...ctx.crowdCfg });
         ctx.add(crowd.group);
         void sp;
     }
@@ -450,6 +451,34 @@ export function setNightWindows(root, k) {
 }
 
 // ============================================================================
+//  Rendered floors (note 27): big, near-horizontal triangles of the static scene meshes (steps, plinths, terraces,
+//  decks) in an x/z grid. lift(x, z, y) raises a person whose body cuts such a floor (top within (y, y + 1.4]) onto it,
+//  repeatedly (a flight of steps); furniture / roofs / vehicles are not floors.
+// ============================================================================
+export function floorProbe(scene, { minArea = 0.25, cell = 4 } = {}) {
+    scene.updateMatrixWorld(true);
+    const grid = new Map(), key = (i, j) => i * 100003 + j, v = [new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()], list = [];
+    const skip = /^(terrain|ground|sky|water|people|crowd|tree|lamp|bench|table|chair|terrace|stall|car|parked|furniture|sign|plaque|roof|canopy|awning|umbrella|bubble)/i;
+    scene.traverse((o) => {
+        if (!o.isMesh || o.isInstancedMesh || o.isSkinnedMesh || !o.visible || skip.test(o.name || '') || /roof|canopy|awning|bench|table|chair|shelf|car/i.test(o.name || '')) return;
+        const pos = o.geometry?.attributes?.position, idx = o.geometry?.index; if (!pos) return;
+        const n = idx ? idx.count / 3 : pos.count / 3, mw = o.matrixWorld;
+        for (let t = 0; t < n; t++) {
+            for (let k = 0; k < 3; k++) v[k].fromBufferAttribute(pos, idx ? idx.getX(t * 3 + k) : t * 3 + k).applyMatrix4(mw);
+            const ux = v[1].x - v[0].x, uy = v[1].y - v[0].y, uz = v[1].z - v[0].z, wx = v[2].x - v[0].x, wy = v[2].y - v[0].y, wz = v[2].z - v[0].z;
+            const nx = uy * wz - uz * wy, ny = uz * wx - ux * wz, nz = ux * wy - uy * wx, A2 = Math.hypot(nx, ny, nz);
+            if (A2 < minArea * 2 || ny * ny < 0.85 * 0.85 * A2 * A2) continue; // small or not horizontal
+            const T = [v[0].x, v[0].z, v[1].x, v[1].z, v[2].x, v[2].z, (v[0].y + v[1].y + v[2].y) / 3]; list.push(T);
+            for (let i = Math.floor(Math.min(T[0], T[2], T[4]) / cell); i <= Math.floor(Math.max(T[0], T[2], T[4]) / cell); i++) for (let j = Math.floor(Math.min(T[1], T[3], T[5]) / cell); j <= Math.floor(Math.max(T[1], T[3], T[5]) / cell); j++) { const k = key(i, j); let b = grid.get(k); if (!b) grid.set(k, b = []); b.push(T); }
+        }
+    });
+    const inT = (x, z, T) => { const s = (ax, az, bx, bz) => (x - bx) * (az - bz) - (ax - bx) * (z - bz); const d1 = s(T[0], T[1], T[2], T[3]), d2 = s(T[2], T[3], T[4], T[5]), d3 = s(T[4], T[5], T[0], T[1]); return !((d1 < 0 || d2 < 0 || d3 < 0) && (d1 > 0 || d2 > 0 || d3 > 0)); };
+    /** the highest rendered floor whose top is within (y + lo, y + hi] at (x, z), or null */
+    const above = (x, z, y, lo = 0.08, hi = 1.4) => { let best = null; for (const T of grid.get(key(Math.floor(x / cell), Math.floor(z / cell))) || []) { const ty = T[6]; if (ty > y + lo && ty <= y + hi && (best === null || ty > best) && inT(x, z, T)) best = ty; } return best; };
+    return { tris: list.length, above, lift: (x, z, y) => { for (let k = 0; k < 12; k++) { const t = above(x, z, y); if (t === null) return y; y = t; } return y; } };
+}
+
+// ============================================================================
 //  Spot audit (owner notes 23/26/27/29/36; run by dev/spots.html → harness:spots). Static checks on the built scene:
 //   zfight        coplanar, same-facing triangles of the scene's static meshes that overlap in their plane (> 0.05 m²)
 //   phantom       colliders with no rendered geometry inside their footprint at body height (invisible walls)
@@ -523,8 +552,10 @@ export function auditSpot(spot, { maxSamples = 6 } = {}) {
         if (miss === pts.length) add('phantom', { x: +c.x.toFixed(1), z: +c.z.toFixed(1), kind: c.wall ? 'wall' : c.poly ? 'poly' : c.prop ? 'prop' : 'box', r: +(c.r || 0).toFixed(1) });
     }
     // ---- people
+    const fp = spot.ctx?.extras?.floorProbe || floorProbe(scene);
     for (const p of spot.crowd?.peds || []) {
         if (p.act === 'sit' || p.hidden) continue;
+        { const t = fp.above(p.x, p.z, p.y, 0.15, 1.2); if (t !== null) add('pedSunk', { x: +p.x.toFixed(1), z: +p.z.toFixed(1), y: +p.y.toFixed(2), floor: +t.toFixed(2), act: p.act }); }
         if (spot.colliders.length && collide(spot.colliders, p.x, p.z, 0.2, p.y + 0.3)) add('pedCollider', { x: +p.x.toFixed(1), z: +p.z.toFixed(1), act: p.act });
         const gy = G.groundAt(p.x, p.z, p.y + 1.2); if (Number.isFinite(gy) && gy < p.y + 30 && p.y < gy - 0.15) add('pedBelow', { x: +p.x.toFixed(1), z: +p.z.toFixed(1), y: +p.y.toFixed(2), floor: +gy.toFixed(2) });
     }

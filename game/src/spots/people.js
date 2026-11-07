@@ -143,6 +143,7 @@ export class Crowd {
         const p = { persona, look, x, z, y: 0, yaw, tyaw: yaw, act, phase: this.r() * 6.28, speed: 0, base: act, cd: 0, pose: null, poseT: 0, id: this.peds.length, sayCd: 0, ...extra };
         if (extra.y === undefined && act !== 'sit' && !globalThis.__spotsLegacy) this._settle(p); // note 27: on the walkable surface, outside every collider
         p.y = extra.y ?? this._floor(p.x, p.z, null);
+        if (extra.y === undefined && act !== 'walk' && act !== 'sit' && this.o.lift) p.y = this.o.lift(p.x, p.z, p.y); // standing on rendered steps / plinths
         this.peds.push(p); return p;
     }
     /** walkable height at (x, z): terrain or a walkable solid (steps, plinth, terrace, deck) within reach of `y` (null: from the terrain up to +4 m) */

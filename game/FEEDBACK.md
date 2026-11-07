@@ -44,3 +44,6 @@ Known gaps: Politehnica's door is at the Bd. Doina Cornea gate (~230 m from the 
 4. In-car map screen: parts of the car go into it; it's cut by the bottom of the view.
 5. Office lobby sign subtitle cut off ("…aureate — Mathematics & Computer Science · 2009"). [quick fix done]
 6. The harness misses visual breakage → needs visual QA (screenshots + detectors + review).
+
+## Round 4 play-test (owner, 2026-11-07) — collecting, not actioned yet
+1. Politehnica (upb) chapter spawn, Șos. Orhideelor under the Pasajul Basarab viaduct: a road is missing — the elevated decks overhead read as disconnected slabs on piers with gaps where the carriageway should continue (screenshot kept in the orchestrator scratchpad: fb4-01-upb-spawn-viaduct.webp).

@@ -20,7 +20,7 @@ const vnoise = (x, y) => {
 const fbm = (x, y) => vnoise(x, y) * 0.55 + vnoise(x * 2.1 + 5.3, y * 2.1 + 1.7) * 0.3 + vnoise(x * 4.3 + 9.1, y * 4.3 + 3.3) * 0.15;
 
 /** noise-displaced smooth lobes; normals bent toward the crown centre (soft foliage light). Returns {geo, cy} */
-function lobeCrown(lobes, { seg = [9, 6], amp = 0.2, freq = 1.7, bend = 0.55, seed = 1 } = {}) {
+function lobeCrown(lobes, { seg = [8, 5], amp = 0.2, freq = 1.7, bend = 0.55, seed = 1 } = {}) {
     const pos = [], nor = [], idx = []; let base = 0;
     let cx = 0, cy = 0, cz = 0, W = 0; for (const [x, y, z, rx, ry, rz] of lobes) { const w = rx * ry * rz; cx += x * w; cy += y * w; cz += z * w; W += w; } cx /= W; cy /= W; cz /= W;
     for (const [x, y, z, rx, ry, rz] of lobes) {

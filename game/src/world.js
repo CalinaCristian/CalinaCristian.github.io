@@ -1035,7 +1035,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 return bad;
             };
             const keep2 = nodeArr.map(n => n.y), a0 = score5(), c0 = score().cb;
-            if (a0 && globalThis.__sepPass !== false) {
+            if (a0 && globalThis.__sepPass === true) { // (off: on the upb / db routes it made the visual-QA stacked count worse — 17 → 19, 6 → 27)
                 for (let r = 0; r < 24; r++) { if (!stepSep()) break; capY(); gradeFix(); }
                 const a1 = score5(), c1 = score().cb;
                 const rej = (c1 > c0 + (a1 < a0 * 0.75 ? 1 : 0)) || a1 >= a0 || resid() > 0.05; // (one crossing a little under 4.5 m is worth a large stacked-deck reduction)
@@ -2888,7 +2888,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (!inDistrictLL(sq.lat, sq.lon, 0)) continue;
         const q = city.proj(sq.lat, sq.lon), c3 = cellOf(q.x, q.z), sb = c3.spill || (c3.spill = new MeshBuilder()), W = [255, 255, 255];
         const y = Y.road + 0.06, n = 28, base = sb.vc;
-        sb.v(q.x, y, q.z, 0, 1, 0, 0.5, 0.9, W);
+        sb.v(q.x, y, q.z, 0, 1, 0, 0.5, 0.45, W); // (a soft pool: ≈ 30 % of the shop-spill intensity at the centre)
         for (let k = 0; k < n; k++) { const a2 = k / n * Math.PI * 2; sb.v(q.x + Math.cos(a2) * sq.r, y, q.z + Math.sin(a2) * sq.r, 0, 1, 0, 0.5, 0.02, W); }
         for (let k = 0; k < n; k++) sb.triUp(base, base + 1 + k, base + 1 + (k + 1) % n);
     }
@@ -3106,7 +3106,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // so the season / weather code can tint each tree (world.vegetation)
     const vegetation = { treeCrownMeshes: [], treeTrunkMeshes: [], deciduousMask: null, grassMaterials: [], groundMaterials: [], roofMaterials: [], trees: treeList };
     {
-        const T = buildSpeciesTrees(treeList, { rng, cull: 650, chunk: 500, near: 100, maxNear: 280, farLayer: 2 }); // (layer 2: main view only — not the rear-view mirror pass) // (far chunks drawn to ≈ 1 km) // (≈ 1.2 km view range for trees)
+        const T = buildSpeciesTrees(treeList, { rng, cull: 550, chunk: 500, near: 95, maxNear: 240, farLayer: 2 }); // (layer 2: main view only — not the rear-view mirror pass) // (far chunks drawn to ≈ 1 km) // (≈ 1.2 km view range for trees)
         vegetation.treeCrownMeshes.push(...T.crownMeshes); vegetation.treeTrunkMeshes.push(...T.trunkMeshes);
         vegetation.update = T.update;
         vegetation.deciduousMask = new Float32Array(treeList.map(t => t.dec));

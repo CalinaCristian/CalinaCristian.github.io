@@ -34,7 +34,7 @@ class Utils {
             position: Utils.GenerateRandomPosition(canvas, radius),
             velocity: Utils.GenerateRandomVelocity(),
             radius,
-            color: 'rgb(0, 0, 0, 1)'
+            color: 'rgb(255, 255, 255, 1)'
         }
     }
 

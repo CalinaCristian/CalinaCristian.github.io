@@ -66,7 +66,7 @@ export class Ground {
      * @param {{lines:{pts:number[][],w:number}[], polys:number[][][], buildings?:number[][][]}} net from osm.streetBands
      */
     conform(net, { cell = 2, smooth = 14, reach = 10, maxCells = 420000 } = {}) {
-        const t = this.t, W = (t.nx - 1) * t.d, H = (t.nz - 1) * t.d;
+        const t = this.t, W = (t.nx - 1) * t.d, H = (t.nz - 1) * t.d, t0 = performance.now();
         let d = cell; while ((W / d + 1) * (H / d + 1) > maxCells) d *= 1.25;
         const nx = Math.floor(W / d) + 1, nz = Math.floor(H / d) + 1, N = nx * nz, x0 = t.x0, z0 = t.z0;
         const D = new Float32Array(N);
@@ -119,6 +119,7 @@ export class Ground {
             out[k] = Ds[k] + (D[k] - Ds[k]) * nat + rf * a * (1 - nat);
         }
         this.c = { x0, z0, d, nx, nz, h: out, streets: M };
+        this.timing = { ...this.timing, conform: Math.round(performance.now() - t0) };
         this._cache?.clear?.();
         return this.c;
     }
@@ -130,13 +131,13 @@ export class Ground {
      */
     settle({ reach = 9, min = 0.08 } = {}) {
         if (this._settled) return; this._settled = true;
-        this.base(0, 0); const c = this.c; if (!c || !this.mods.length) return;
+        this.base(0, 0); const c = this.c; if (!c || !this.mods.length) return; const t0 = performance.now();
         const { nx, nz, d, x0, z0 } = c, N = nx * nz, R = new Float32Array(N), Wt = new Float32Array(N); let any = false;
         for (let j = 0; j < nz; j++) for (let i = 0; i < nx; i++) { const k = j * nx + i; if (!c.streets[k]) continue; const x = x0 + i * d, z = z0 + j * d, dh = this.heightAt(x, z) - c.h[k]; if (Math.abs(dh) < min) continue; R[k] = dh; Wt[k] = 1; any = true; }
         if (!any) return;
         const r = Math.max(1, Math.round(reach / d)), Nr = boxBlur3(R, nx, nz, r), Wm = boxBlur3(Wt, nx, nz, r), F = new Float32Array(N);
-        for (let k = 0; k < N; k++) if (!c.streets[k] && Wm[k] > 1e-4) F[k] = (Nr[k] / Wm[k]) * clamp(Wm[k] / 0.12, 0, 1);
-        this.settleField = F;
+        for (let k = 0; k < N; k++) if (Wm[k] > 1e-4) F[k] = (Nr[k] / Wm[k]) * clamp(Wm[k] / 0.12, 0, 1); // untouched streets + lots
+        this.settleField = F; this.timing = { ...this.timing, settle: Math.round(performance.now() - t0) };
         this.mod((x, z, h) => {
             const fx = (x - x0) / d, fz = (z - z0) / d; if (fx < 0 || fz < 0 || fx > nx - 1 || fz > nz - 1) return h;
             if (Math.abs(h - this.base(x, z)) > 0.05) return h; // a scene modifier owns this point

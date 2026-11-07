@@ -544,3 +544,51 @@ body.photo-mode #achv-toasts { top: auto; bottom: 120px; }
     #chapter-transition .ct-card { left: 16px; right: 16px; bottom: 18px; max-width: none; }
     #chapter-transition .ct-skip { top: 18px; right: 18px; }
 }
+
+/* ===== finale "Story complete" (note 71, cockpit-ui: finale.js) ===== */
+#finale { position: fixed; inset: 0; z-index: 65; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(4,8,18,.45); backdrop-filter: blur(10px) saturate(1.1); opacity: 0; pointer-events: none; transition: opacity .35s; }
+#finale.show { opacity: 1; pointer-events: auto; }
+#finale .fn-wrap { position: relative; width: min(1080px, 100%); max-height: calc(100vh - 48px); overflow: auto; background: linear-gradient(160deg, rgba(17,22,36,.97), rgba(10,13,22,.97)); border: 1px solid rgba(255,255,255,.1); border-radius: 24px; box-shadow: 0 40px 120px rgba(0,0,0,.6); color: #e8edf5; padding: 34px 38px 26px; }
+#finale .fn-x { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,.15); background: rgba(255,255,255,.05); color: #cbd5e1; cursor: pointer; font-size: 15px; }
+#finale .fn-eyebrow { font-size: 12px; letter-spacing: .28em; text-transform: uppercase; color: #fbbf24; }
+#finale h1 { margin: 6px 0 4px; font: 800 clamp(28px, 4vw, 44px)/1.05 system-ui, sans-serif; letter-spacing: -.02em; }
+#finale .fn-role { margin: 0; font-size: clamp(15px, 1.6vw, 19px); color: #fdba74; font-weight: 600; }
+#finale .fn-role span { color: #94a3b8; font-weight: 500; }
+#finale .fn-sum { margin: 10px 0 0; max-width: 760px; color: #cbd5e1; line-height: 1.55; font-size: 14.5px; }
+#finale .fn-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 34px; margin-top: 24px; }
+#finale h3 { margin: 0 0 12px; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: #94a3b8; }
+#finale .fn-col h3:not(:first-child) { margin-top: 22px; }
+#finale .fn-tl { list-style: none; margin: 0; padding: 0; position: relative; }
+#finale .fn-tl::before { content: ''; position: absolute; left: 17px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(#8b5cf6, #fa4616); opacity: .5; }
+#finale .fn-tl li { position: relative; display: grid; grid-template-columns: 36px 1fr; gap: 12px; padding: 7px 0; }
+#finale .fn-node { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: #0c1220; border: 2px solid var(--c); font-size: 16px; z-index: 1; }
+#finale .fn-tl-row { display: flex; align-items: baseline; gap: 10px; }
+#finale .fn-tl-row b { font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+#finale .fn-tl-row time { margin-left: auto; flex: none; font-size: 12.5px; color: var(--c); font-weight: 700; font-variant-numeric: tabular-nums; }
+#finale .fn-tl-body > span { display: block; font-size: 13px; color: #a8b3c4; margin-top: 1px; }
+#finale .fn-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+#finale .fn-tile { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: 10px 12px; display: grid; gap: 2px; }
+#finale .fn-tile .fn-ti { font-size: 16px; }
+#finale .fn-tile b { font-size: 19px; font-variant-numeric: tabular-nums; }
+#finale .fn-tile small { font-size: 11.5px; color: #94a3b8; }
+#finale .fn-note { margin: 8px 0 0; font-size: 12.5px; color: #94a3b8; }
+#finale .fn-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+#finale .fn-tags span { padding: 6px 11px; border-radius: 999px; font-size: 12.5px; font-weight: 600; background: rgba(96,165,250,.12); border: 1px solid rgba(96,165,250,.35); color: #bfdbfe; }
+#finale .fn-links { display: flex; flex-wrap: wrap; gap: 8px; }
+#finale .fn-links a { display: inline-flex; align-items: center; gap: 7px; padding: 7px 12px; border-radius: 10px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); color: #e8edf5; text-decoration: none; font-size: 13px; }
+#finale .fn-links a:hover { background: rgba(255,255,255,.12); }
+#finale svg { width: 17px; height: 17px; fill: currentColor; flex: none; }
+#finale .fn-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.08); }
+#finale .fn-act { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 12px; border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06); color: #f1f5f9; font: 600 14px system-ui, sans-serif; cursor: pointer; text-decoration: none; }
+#finale .fn-act.primary { background: #fa4616; border-color: #fa4616; color: #fff; }
+#finale .fn-act:hover { filter: brightness(1.12); }
+#finale .fn-e { font-size: 16px; }
+@media (max-width: 760px) {
+    #finale { padding: 10px; align-items: stretch; }
+    #finale .fn-wrap { padding: 22px 18px 18px; max-height: calc(100vh - 20px); border-radius: 18px; }
+    #finale .fn-grid { grid-template-columns: 1fr; gap: 18px; }
+    #finale .fn-tiles { grid-template-columns: repeat(3, 1fr); gap: 7px; }
+    #finale .fn-tile { padding: 8px; } #finale .fn-tile b { font-size: 15px; }
+    #finale .fn-actions { display: grid; grid-template-columns: 1fr 1fr; }
+    #finale .fn-act { justify-content: center; padding: 11px 10px; font-size: 13px; }
+}

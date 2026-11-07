@@ -1955,6 +1955,7 @@ class Pedestrians {
                         p.heading = Math.atan2(-(leg.x - p.x), -(leg.z - p.z));
                         // waiting at the kerb: never in a carriageway (a push by a car, a corner inside another road)
                         if ((p.i + this._fr) % 30 === 0) this.kerbClamp(p);
+                        this.clearObstacles(p); // (a pole / sign at the corner)
                         this.avoidVehicles(p, ox, oz, false); // (last: nobody ends the frame inside a car)
                         continue;
                     }
@@ -1982,6 +1983,12 @@ class Pedestrians {
                     else { p.roadHits = 0; if (T.large) this.relocate(p, 120, 420, true); else { p.state = 'stand'; this.kerbClamp(p); } }
                 } else p.roadHits = 0;
             }
+            // static obstacles (trees, lamps, poles, bins, signs, shelters, lot cars): never inside one (note 38) — walkers
+            // already detour around them on their sidewalk line (dodgeAt); this catches corners, crossings and stops
+            if (this.clearObstacles(p) && p.state === 'legs') {
+                const lg = p.legs[0]; // its corner point is taken by an obstacle: close enough is reached
+                if (lg && !lg.cross && Math.hypot(lg.x - p.x, lg.z - p.z) < 1.2) { lg.x = p.x; lg.z = p.z; }
+            }
             // vehicles are obstacles (never overlap); a walker blocked for long turns back
             // (a crossing blocked for a while by a car standing on it: walk around it — the push slides them along its side)
             if (this.avoidVehicles(p, ox, oz, moved && !(p.onRoad && (p.blockT || 0) > 2.5))) {
@@ -2003,6 +2010,7 @@ class Pedestrians {
                 }
             }
         }
+        if (this._fr % 15 === 0) this.countObstacleOverlaps();
         this.writeMatrices(dt);
     }
 
@@ -2025,7 +2033,7 @@ class Pedestrians {
             legs.push({ x: P2.x, z: P2.z });
             // every kerb point of the plan (corner, crossing ends, next sidewalk) outside all carriageways: at
             // tight / skewed junctions a sidewalk-line point can fall inside another road
-            for (const L of legs) { const q = { x: L.x, z: L.z }; if (this.kerbClamp(q)) { L.x = q.x; L.z = q.z; } }
+            for (const L of legs) { const q = { x: L.x, z: L.z }; if (this.kerbClamp(q)) { L.x = q.x; L.z = q.z; } if (this.obsClamp(q)) { L.x = q.x; L.z = q.z; } }
 
             p.legs = legs; p.state = 'legs'; p.next = { e: g, dir: og, side: useA ? 1 : -1, s: P2.s };
         };

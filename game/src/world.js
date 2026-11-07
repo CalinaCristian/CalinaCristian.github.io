@@ -1035,7 +1035,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 return bad;
             };
             const keep2 = nodeArr.map(n => n.y), a0 = score5(), c0 = score().cb;
-            if (a0) {
+            if (a0 && globalThis.__sepPass !== false) {
                 for (let r = 0; r < 24; r++) { if (!stepSep()) break; capY(); gradeFix(); }
                 const a1 = score5(), c1 = score().cb;
                 const rej = (c1 > c0 + (a1 < a0 * 0.75 ? 1 : 0)) || a1 >= a0 || resid() > 0.05; // (one crossing a little under 4.5 m is worth a large stacked-deck reduction)
@@ -2844,6 +2844,55 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
     }
 
+    // ---- rooftop advertising (R12.3) from the field research (game/research/bucharest-romana.json rooftop_signs):
+    //      lit sign boxes on the roof edge facing the street / square, on a steel frame; sign-atlas material = self-lit
+    const ROOF_ADS = {
+        bucharest: [
+            { lat: 44.44660, lon: 26.09700, text: 'Coca-Cola', bg: '#e41e2b', fg: '#ffffff', w: 26 },   // Piața Romană 9 (photo Apr 2023)
+            { lat: 44.44720, lon: 26.09560, text: 'NetBet', bg: '#141a2e', fg: '#3aa0ff', w: 16 },      // Lascăr Catargiu 2–4 (photo Apr 2023)
+            { lat: 44.44800, lon: 26.09860, text: 'SHERATON', bg: '#1b1b1b', fg: '#ffffff', w: 18 },     // Sheraton crown (research, to verify)
+            { lat: 44.45160, lon: 26.08720, text: 'Samsung', bg: '#1428a0', fg: '#ffffff', w: 20 },     // Piața Victoriei blocks (brands rotate: estimated)
+            { lat: 44.45250, lon: 26.08690, text: 'Raiffeisen Bank', bg: '#fff200', fg: '#111111', w: 22 }, // Piața Victoriei blocks (estimated)
+        ],
+    }[city.id] || [];
+    let roofAds = 0; const roofAdList = [];
+    for (const ad of ROOF_ADS) {
+        if (!inDistrictLL(ad.lat, ad.lon, 0)) continue;
+        const q = city.proj(ad.lat, ad.lon);
+        let b = buildingAt(q.x, q.z); if (b && (b.skip || b.h < 18)) b = null;
+        if (!b) { let bd = 70; bGrid.each(q.x - 70, q.z - 70, q.x + 70, q.z + 70, (o) => { if (o.skip || o.area < 200 || o.h < 18) return; const d = Math.hypot(o.c[0] - q.x, o.c[1] - q.z); if (d < bd) { bd = d; b = o; } }); }
+        if (!b) continue; // (rooftop signs stand on blocks of ≥ 6 storeys)
+        const ne = nearestEdge(b.c[0], b.c[1], (e) => !e.virtual && /^(primary|secondary|trunk)/.test(e.type), 120); if (!ne) continue;
+        // the roof edge facing that road
+        const ring = b.ring, ccw = signedArea(ring) > 0; let best = null, bs = -Infinity;
+        for (let k = 0; k < ring.length; k++) {
+            const [ax, az] = ring[k], [bx, bz] = ring[(k + 1) % ring.length], L = Math.hypot(bx - ax, bz - az); if (L < 8) continue;
+            let nx = (bz - az) / L, nz = -(bx - ax) / L; if (!ccw) { nx = -nx; nz = -nz; }
+            const mx = (ax + bx) / 2, mz = (az + bz) / 2, tx = ne.cx - mx, tz = ne.cz - mz, tl = Math.hypot(tx, tz) || 1;
+            const sc = (tx * nx + tz * nz) / tl * 2 + Math.min(L, 30) / 30; if (sc > bs) { bs = sc; best = { mx, mz, nx, nz, L }; }
+        }
+        if (!best) continue;
+        const sg = signs.get(ad.text, ad.bg, ad.fg, null, true); if (!sg) continue;
+        const w = Math.min(ad.w, best.L * 0.9), hh = Math.min(4.5, w / sg.aspect), c2 = cellOf(best.mx, best.mz);
+        const x = best.mx - best.nx * 1.0, z = best.mz - best.nz * 1.0, ang = Math.atan2(best.nx, best.nz), y = b.h + 1.2 + hh / 2;
+        addSignQuad(c2, x, z, ang, 1, w, hh, y, sg, 0.15);
+        const steel = rgb('#3a3d42');
+        for (const f of [-0.42, 0, 0.42]) { const px = x + best.nz * w * f, pz = z - best.nx * w * f; c2.solid.box(px, b.h, pz, 0.14, 1.2 + hh, 0.14, ang, steel); }
+        c2.solid.box(x - best.nx * 0.08, b.h + 1.2, z - best.nz * 0.08, w, hh, 0.12, ang, steel);
+        roofAds++; roofAdList.push({ text: ad.text, x: Math.round(x), z: Math.round(z), y: Math.round(y), nx: +best.nx.toFixed(2), nz: +best.nz.toFixed(2) });
+    }
+    // night: the big squares glow (sodium / LED floods, shop windows, ad screens all around) — a soft warm pool over the
+    // whole square (additive decal on the shop-spill material: 0 by day, eased in at dusk by render)
+    const SQUARES = { bucharest: [{ lat: 44.4522, lon: 26.0859, r: 95 }, { lat: 44.4466, lon: 26.0975, r: 60 }, { lat: 44.4268, lon: 26.1025, r: 110 }] }[city.id] || [];
+    for (const sq of SQUARES) {
+        if (!inDistrictLL(sq.lat, sq.lon, 0)) continue;
+        const q = city.proj(sq.lat, sq.lon), c3 = cellOf(q.x, q.z), sb = c3.spill || (c3.spill = new MeshBuilder()), W = [255, 255, 255];
+        const y = Y.road + 0.06, n = 28, base = sb.vc;
+        sb.v(q.x, y, q.z, 0, 1, 0, 0.5, 0.9, W);
+        for (let k = 0; k < n; k++) { const a2 = k / n * Math.PI * 2; sb.v(q.x + Math.cos(a2) * sq.r, y, q.z + Math.sin(a2) * sq.r, 0, 1, 0, 0.5, 0.02, W); }
+        for (let k = 0; k < n; k++) sb.triUp(base, base + 1 + k, base + 1 + (k + 1) % n);
+    }
+
     // -----------------------------------------------------------------------
     //  POIs from OSM (businesses, transport…)
     // -----------------------------------------------------------------------
@@ -3576,7 +3625,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     graph.edges = driv;
 
     setProgress(''); const phases = PHASES.splice(0);
-    const stats = { phases, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, backdrop: backdropCount,
+    const stats = { phases, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount,
         profile: profileStats, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingsDropped: bDropped, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
     console.info('[world]', city.id, stats);
 

@@ -184,7 +184,7 @@ body.touch #ticker { bottom: 335px; }
 @media (max-width: 700px) and (orientation: portrait) {
     body.touch .pad { gap: 8px; } body.touch .pad button { width: 54px; height: 54px; font-size: 21px; }
     body.touch .pad.right button[data-btn=gas] { width: 62px; height: 62px; }
-    body.touch #prompt { top: 34%; }
+    body.touch #prompt { top: 55%; } /* under the toasts, above the cockpit / on-foot pad */
     /* the cockpit (cluster + nav screen, portrait view from vehicles.js viewFor) fills y ≈ 62–75 %: speed limit + fuel go
        to the top right under the route cards, the DOM speedo hides (the 3D cluster shows the speed) */
     body.touch .bottom-right { top: 176px; bottom: auto; right: 10px; gap: 4px; }
@@ -192,7 +192,7 @@ body.touch #ticker { bottom: 335px; }
     body.touch .street-wrap { bottom: auto; top: 178px; left: 16px; transform: none; text-align: left; max-width: calc(100vw - 150px); } /* left of the limit sign, above the rear-view mirror */
     body.touch #ticker { bottom: auto; top: 262px; right: auto; left: 16px; max-width: calc(100vw - 32px); }
     /* toasts: below the route cards / limit block / ticker, above the 3D cluster + nav screen (y ≈ 60–75 %); 2 at most */
-    #toasts { top: 296px; left: 16px; right: 16px; width: auto; align-items: stretch; max-height: 190px; overflow: hidden; gap: 6px; } .toast { padding: 8px 12px; font-size: 13px; } .toast span { font-size: 12px; }
+    #toasts { top: 296px; left: 16px; right: 64px; width: auto; align-items: stretch; max-height: 140px; overflow: hidden; gap: 6px; } #toasts > .toast:nth-last-child(n+3) { display: none; } .toast { padding: 8px 12px; font-size: 13px; } .toast span { font-size: 12px; }
 }
 
 /* ===== fast-travel montage ===== */
@@ -311,7 +311,7 @@ body.photo-mode .photo-open { display: none; }
 }
 @media (max-width: 520px) {
     .pv-read { font-size: 9px; right: 30px; top: 10px; } .pv-rec { left: 30px; top: 10px; font-size: 10px; } .pv-c { width: 18px; height: 18px; border-width: 2px; }
-    .pv-meta { left: 30px; bottom: 9px; } .pv-filter { right: 30px; bottom: 9px; font-size: 10px; } .pv-zoom { width: 80px; }
+    .pv-meta { left: 30px; bottom: 9px; max-width: calc(100% - 150px); } .pv-filter { right: 30px; bottom: 9px; font-size: 10px; } .pv-zoom { width: 80px; }
     .pv-print { right: 50%; transform: translate(50%, 140%) rotate(6deg); width: 70vw; } .pv-print.show { transform: translate(50%, 0) rotate(-3deg); }
 }
 

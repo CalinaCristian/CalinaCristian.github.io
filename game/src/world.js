@@ -3183,7 +3183,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         cellsGroup.add(pg);
     }
     for (const m of vegetation.treeCrownMeshes.concat(vegetation.treeTrunkMeshes)) { cellsGroup.add(m); tris += (m.userData.always ? m.instanceMatrix.count : m.count) * (m.geometry.index.count / 3); }
-    { const hm = addMesh(horizon, backdropMat, false, 'horizon'); if (hm) { hm.userData.always = true; hm.frustumCulled = true; } }
+    { const hMat = new THREE.MeshLambertMaterial({ vertexColors: true }); hMat.name = 'horizon'; const hm = addMesh(horizon, hMat, false, 'horizon'); if (hm) { hm.userData.always = true; hm.frustumCulled = true; } }
     const waterMesh = addMesh(bigWater, waterMat, false, 'water-big');
     if (waterMesh) { waterMesh.userData.always = true; waterMesh.renderOrder = -18; }
     // distance culling: cells beyond the fog are hidden (three.js only frustum-culls, and the camera far plane is 5 km).

@@ -46,12 +46,24 @@ export function addTraffic(ctx, o = {}) {
         }
     }
     if (!cars.length) return { cars };
+    // note 29: spot traffic never overlaps — spawn spacing on every lane (and across lanes that share road space),
+    // then per frame a car yields to any car in its path on another lane (merges, roundabouts, crossings)
+    const place = (c) => { const p = alongPolyline(c.lane.pts, c.s); c.x = p.x; c.z = p.z; c.yaw = Math.atan2(-p.tx, -p.tz); };
+    const hits = (a, b) => { const dx = b.x - a.x, dz = b.z - a.z, fx = -Math.sin(a.yaw), fz = -Math.cos(a.yaw), along = dx * fx + dz * fz, lat = Math.abs(dx * fz - dz * fx); return Math.abs(along) < (a.len + b.len) / 2 + 1.5 && lat < (a.wid + b.wid) / 2 + 0.6; };
+    for (let i = 0; i < cars.length; i++) { const c = cars[i]; place(c);
+        for (let k = 0; k < 40 && cars.slice(0, i).some((d) => hits(c, d) || hits(d, c)); k++) { c.s = (c.s + c.len + 2) % c.L; place(c); }
+        if (cars.slice(0, i).some((d) => hits(c, d) || hits(d, c))) { c.dead = true; c.v.visible = false; } }
+    for (let i = cars.length - 1; i >= 0; i--) if (cars[i].dead) { ctx.scene.remove(cars[i].v); cars.splice(i, 1); }
+    cars.forEach((c, i) => { c.id = i; });
+    /** distance to a car on another lane that sits in c's path (ahead, within its width); mutual blocks: the higher id yields */
+    const inPath = (c, d, look) => { const dx = d.x - c.x, dz = d.z - c.z, fx = -Math.sin(c.yaw), fz = -Math.cos(c.yaw), along = dx * fx + dz * fz, lat = Math.abs(dx * fz - dz * fx); return along > 0 && along < look && lat < (c.wid + d.wid) / 2 + 0.5 ? along - (c.len + d.len) / 2 : null; };
     const fwd = new THREE.Vector3();
     ctx.onUpdate((dt, session, pl) => {
         for (const c of cars) {
             // gap to the car ahead on the same lane, and to the walker on the carriageway
             let gap = 1e9;
             for (const d of cars) if (d !== c && d.lane === c.lane) { let ds = d.s - c.s; if (ds < 0) ds += c.L; if (ds < gap) gap = ds - (d.len + c.len) / 2; }
+            for (const d of cars) { if (d === c || d.lane === c.lane) continue; const g = inPath(c, d, 16 + c.speed * 1.5); if (g === null) continue; if (inPath(d, c, 16 + d.speed * 1.5) !== null && c.id < d.id) continue; gap = Math.min(gap, g); }
             if (pl) { const ax = pl.x - c.x, az = pl.z - c.z, along = ax * Math.sin(c.yaw + Math.PI) + az * Math.cos(c.yaw + Math.PI), lat = Math.abs(ax * Math.cos(c.yaw) - az * Math.sin(c.yaw)); if (along > 0 && along < 14 && lat < 1.8) gap = Math.min(gap, along - c.len / 2 - 1.5); }
             const want = gap < 3 ? 0 : Math.min(c.vmax, (gap - 3) * 0.9);
             c.speed += Math.max(-7 * dt, Math.min(2.5 * dt, want - c.speed));

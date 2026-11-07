@@ -26,13 +26,14 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 async function newPage(ctx) {
     const page = await ctx.newPage();
+    page.setDefaultNavigationTimeout(180000); page.setDefaultTimeout(60000); // reloading a running game in software GL is slow
     page.on('pageerror', (e) => errors.push(`pageerror: ${e.message}`));
     page.on('console', (m) => { if (m.type() === 'error' && !/favicon|Failed to load resource/.test(m.text())) errors.push(`console: ${m.text().slice(0, 200)}`); });
     return page;
 }
 async function load(page) {
     await page.goto(URL, { waitUntil: 'domcontentloaded' });
-    await page.waitForFunction(() => window.game?.achievements && window.game.spotsMod?.SPOTS, null, { timeout: 60000 });
+    await page.waitForFunction(() => window.game?.achievements && window.game.spotsMod?.SPOTS, null, { timeout: 180000 });
     await page.evaluate(() => { window.__tm = []; const t = window.cvTelemetry; if (t) { const o = t.track; t.track = function (e, p, x) { window.__tm.push([e, p]); return o?.call(this, e, p, x); }; } else window.cvTelemetry = { track: (e, p) => window.__tm.push([e, p]) }; });
 }
 const comp = (page) => page.evaluate(() => { const c = window.game.achievements.completion(); return { pct: c.pct, exact: c.exact, all: c.all, unlocked: c.unlocked, total: c.total, parts: c.parts.map(p => [p.key, p.n, p.total, p.weight]) }; });

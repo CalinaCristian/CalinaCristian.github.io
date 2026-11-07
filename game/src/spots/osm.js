@@ -20,6 +20,24 @@ export const isMotorRoad = (k) => k in ROAD_W && k !== 'pedestrian';
 /** carriageway width of an OSM road (width tag, lanes, or the class default) */
 export function roadWidth(w) { const lw = parseFloat(w.width); if (lw > 2) return lw; const lanes = parseInt(w.lanes, 10); const base = ROAD_W[w.k] || 7; return lanes > 0 ? Math.max(base * 0.6, lanes * 3.3 + (['primary', 'secondary', 'tertiary', 'residential', 'unclassified'].includes(w.k) ? 2.6 : 0.4)) : base; }
 /**
+ * point-on-carriageway test for ground-level motor roads (note 29: no lamps / trees / furniture in the traffic lanes):
+ * fn(x, z, margin = 0.3) → true when (x, z) is within half the carriageway width + margin of a road's centreline
+ */
+export function carriagewayTest(data, { skipWays = new Set() } = {}) {
+    const cell = 24, grid = new Map(), key = (i, j) => i * 92821 + j;
+    for (const w of data.ways || []) {
+        if (skipWays.has(w.id) || !onGround(w) || !isMotorRoad(w.k) || w.area === 'yes' || !w.pts || w.pts.length < 2) continue;
+        const hw = roadWidth(w) / 2;
+        for (let i = 1; i < w.pts.length; i++) {
+            const [ax, az] = w.pts[i - 1], [bx, bz] = w.pts[i], seg = [ax, az, bx, bz, hw];
+            for (let gi = Math.floor((Math.min(ax, bx) - hw) / cell); gi <= Math.floor((Math.max(ax, bx) + hw) / cell); gi++)
+                for (let gj = Math.floor((Math.min(az, bz) - hw) / cell); gj <= Math.floor((Math.max(az, bz) + hw) / cell); gj++) { const k = key(gi, gj); let b = grid.get(k); if (!b) grid.set(k, b = []); b.push(seg); }
+        }
+    }
+    return (x, z, margin = 0.3) => { const b = grid.get(key(Math.floor(x / cell), Math.floor(z / cell))); if (!b) return false; for (const [ax, az, bx, bz, hw] of b) if (distSegXZ(x, z, ax, az, bx, bz) < hw + margin) return true; return false; };
+}
+function distSegXZ(x, z, ax, az, bx, bz) { const dx = bx - ax, dz = bz - az, L = dx * dx + dz * dz, t = L > 0 ? clamp(((x - ax) * dx + (z - az) * dz) / L, 0, 1) : 0; return Math.hypot(x - ax - dx * t, z - az - dz * t); }
+/**
  * the paved street network at ground level, for the street-conformed ground (Ground.conform): carriageways with their
  * sidewalks, footways / paths as bands, pedestrian areas / squares / plazas as polygons
  */
@@ -597,9 +615,9 @@ export function roadLampPoints(data, { spacing = 34, skip = new Set(), inside = 
 
 // ---------------------------------------------------------------------------- furniture props
 /** benches, bins, bike racks, hydrants, bollards, drinking fountains, info boards from OSM furniture points */
-export function buildFurniture(data, ground, { inside = null, exclude = [], seed = 4 } = {}) {
+export function buildFurniture(data, ground, { inside = null, exclude = [], seed = 4, onRoad = null } = {}) {
     const b = new GeoBatch(), r = rng(seed), colliders = [];
-    const ok = (x, z) => (!inside || inside(x, z)) && !exclude.some((p) => inPoly(x, z, p));
+    const ok = (x, z) => (!inside || inside(x, z)) && !exclude.some((p) => inPoly(x, z, p)) && !(onRoad && onRoad(x, z, 0.4));
     const yaw = (x, z) => { // face the nearest footway/road
         let best = null; for (const w of data.ways) { const d = distPolyline(x, z, w.pts); if (!best || d.d < best.d) best = d; }
         return best && best.d < 15 ? Math.atan2(best.cx - x, best.cz - z) : r() * 6.28;
@@ -613,7 +631,7 @@ export function buildFurniture(data, ground, { inside = null, exclude = [], seed
     for (const [x, z] of data.furniture.bollard || []) { if (!ok(x, z)) continue; const y = ground.heightAt(x, z); b.cyl(x, y, z, 0.11, 0.95, '#3a3d40', 'metal', 8); colliders.push({ x, z, r: 0.12, hw: 0.12, prop: true, h: 0.95 }); }
     for (const [x, z] of data.furniture.bicycle_parking || []) { if (!ok(x, z)) continue; const y = ground.heightAt(x, z), a = yaw(x, z); for (let i = -1; i <= 1; i += 2) { const ox = Math.cos(a) * i * 0.45, oz = -Math.sin(a) * i * 0.45; b.tube([[x + ox - Math.sin(a) * 0.35, y, z + oz - Math.cos(a) * 0.35], [x + ox - Math.sin(a) * 0.35, y + 0.8, z + oz - Math.cos(a) * 0.35], [x + ox + Math.sin(a) * 0.35, y + 0.8, z + oz + Math.cos(a) * 0.35], [x + ox + Math.sin(a) * 0.35, y, z + oz + Math.cos(a) * 0.35]], 0.03, '#8c9196', 'steel', 6); } }
     for (const [x, z] of data.furniture.drinking_water || []) { if (!ok(x, z)) continue; const y = ground.heightAt(x, z); b.cyl(x, y, z, 0.2, 0.9, '#5d6a72', 'metal', 10); b.cyl(x, y + 0.9, z, 0.28, 0.08, '#9aa3a8', 'steel', 12); }
-    for (const [x, z] of data.furniture.information || []) { if (!ok(x, z)) continue; const y = ground.heightAt(x, z), a = yaw(x, z); b.box(x, y, z, 0.1, 1.0, 0.1, '#3b3f42', 'metal', a); b.boxC(x, y + 1.35, z, 1.2, 0.8, 0.06, '#4b5a3f', 'paint', a, -0.25); }
+    // OSM `tourism=information` boards carry no text in the data: no blank board is placed (note 36); scenes add real plaques
     for (const [x, z] of data.furniture.picnic_table || []) { if (!ok(x, z)) continue; const y = ground.heightAt(x, z), a = yaw(x, z); b.box(x, y + 0.72, z, 1.8, 0.06, 0.8, '#7a5a3c', 'wood', a); for (const s of [-1, 1]) b.box(x + Math.cos(a) * 0 + Math.sin(a) * 0, y + 0.42, z, 1.8, 0.05, 0.3, '#6d5034', 'wood', a); b.box(x, y, z, 0.1, 0.72, 0.1, '#5d4632', 'wood', a); colliders.push({ x, z, r: 1, angle: a, hw: 0.9, hd: 0.7, prop: true, h: 0.78 }); }
     return { group: b.build('furniture'), colliders };
 }

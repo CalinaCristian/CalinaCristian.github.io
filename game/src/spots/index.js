@@ -10,7 +10,7 @@
 import * as THREE from '../../vendor/three.module.min.js';
 import { CITIES } from '../cities.js';
 import { Ground, Painter, buildTerrain } from './ground.js';
-import { paintOSM, buildBuildings, buildTrees, buildLamps, buildFurniture, roadLampPoints, streetTrees, areaTrees, waterPlane, polyCollider, streetBands } from './osm.js';
+import { paintOSM, buildBuildings, buildTrees, buildLamps, buildFurniture, roadLampPoints, streetTrees, areaTrees, waterPlane, polyCollider, streetBands, carriagewayTest } from './osm.js';
 import { Crowd } from './people.js';
 import { SpotUI, plaqueMesh } from './ui.js';
 import { SpotSound } from './sound.js';
@@ -66,6 +66,8 @@ class SceneContext {
         // street-conformed ground (notes 48/56/68), built on the first height query; a scene opts out with
         // `ctx.ground.pendingConform = null` (or tunes it: `ctx.ground.pendingConform.opts = {...}`) before querying heights
         this.ground.pendingConform = streetBands(data);
+        /** (x, z, margin) → inside a ground-level carriageway? (lamps, trees, furniture are clipped against it) */
+        this.onRoad = carriagewayTest(data);
         this.painter = new Painter();
         this.colliders = []; this.plaques = []; this.interactables = []; this.challenges = []; this.updaters = []; this.nightHooks = [];
         this.lampPoints = []; this.lampOpts = {}; this.trees = []; this.crownMeshes = []; this.grassMaterials = []; this.roofMaterials = [];
@@ -117,7 +119,7 @@ class SceneContext {
             const fromOsm = (d.furniture.street_lamp || []).map(([x, z]) => ({ x, z, rot: 0 }));
             this.lampPoints.push(...(fromOsm.length > 6 ? fromOsm : []), ...roadLampPoints(d, { skip: this.skipWays, inside: (x, z) => !ex.some((p) => inPoly(x, z, p)), ...(o.lampOpts || {}) }));
         }
-        if (o.furniture !== false) { const F = buildFurniture(d, this.ground, { exclude: ex }); this.add(F.group); this.colliders.push(...F.colliders); }
+        if (o.furniture !== false) { const F = buildFurniture(d, this.ground, { exclude: ex, onRoad: this.onRoad }); this.add(F.group); this.colliders.push(...F.colliders); }
     }
     /** water plane at level y over a box (terrain inside `polys` is pushed below it) */
     water(y, box, polys = [], o = {}) {
@@ -190,6 +192,7 @@ export async function loadSpot(id, renderer = null, opts = {}) {
         const dist = (t) => Math.min(...boxes.map((b) => Math.hypot(Math.max(0, b.x0 - t.x, t.x - b.x1), Math.max(0, b.z0 - t.z, t.z - b.z1))));
         const cap = ctx.treeLod.cap ?? 4500; if (ctx.trees.length > cap) { for (const t of ctx.trees) t._d = dist(t); ctx.trees.sort((a, b) => a._d - b._d); ctx.trees.length = cap; }
     }
+    { const t0 = ctx.trees.length; ctx.trees = ctx.trees.filter((t) => t.keepOnRoad || !ctx.onRoad(t.x, t.z, 0.2)); ctx.extras.clippedOnRoad = { trees: t0 - ctx.trees.length }; }
     const trees = buildTrees(ctx.trees, ctx.ground, { seed: data.id.length, lod: ctx.treeLod ? { near: ctx.treeLod.near ?? 90, max: ctx.treeLod.max ?? 700 } : null });
     if (trees.update) {
         const v = new THREE.Vector3();
@@ -197,6 +200,10 @@ export async function loadSpot(id, renderer = null, opts = {}) {
         const sp0 = Object.values(ctx.spawns)[0] || data.spots[data.members[0]].spawn; trees.update(sp0.x, sp0.z);
     }
     ctx.add(trees.group); ctx.colliders.push(...trees.colliders); ctx.crownMeshes.push(...trees.crowns);
+    // note 29: no lamp post or tree inside a carriageway (scene points included; `keepOnRoad: true` keeps a deliberate one)
+    { const n0 = ctx.lampPoints.length;
+        ctx.lampPoints = ctx.lampPoints.filter((p) => p.noPost || p.keepOnRoad || !ctx.onRoad(p.x, p.z, 0.25));
+        ctx.extras.clippedOnRoad.lamps = n0 - ctx.lampPoints.length; }
     const lamps = buildLamps(ctx.lampPoints, ctx.ground, ctx.lampOpts);
     ctx.add(lamps.group); ctx.colliders.push(...lamps.colliders);
     // props need their base height (walkers jump onto low props)

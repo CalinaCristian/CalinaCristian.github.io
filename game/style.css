@@ -516,3 +516,31 @@ body.photo-mode #achv-toasts { top: auto; bottom: 120px; }
 .dlg-opts button.bye { color: #fca5a5; }
 .dlg-opts kbd { flex: none; width: 24px; height: 24px; display: grid; place-items: center; border-radius: 7px; background: rgba(255,255,255,.1); font: 700 12px system-ui, sans-serif; }
 @media (max-width: 600px) { .dlg { padding: 12px; border-radius: 14px; } .dlg-portrait { width: 48px; height: 48px; } .dlg-text { font-size: 14px; } .dlg-opts { grid-template-columns: 1fr; gap: 6px; } .dlg-opts button { min-height: 40px; font-size: 13px; } }
+
+/* ===== chapter transition (note 16, cockpit-ui: transition.js) ===== */
+#chapter-transition { position: fixed; inset: 0; z-index: 70; opacity: 0; pointer-events: none; transition: opacity .4s; background: #060b16; color: #f8fafc; font-family: var(--font, system-ui, sans-serif); overflow: hidden; }
+#chapter-transition.show { opacity: 1; pointer-events: auto; }
+#chapter-transition canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+#chapter-transition .ct-vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at 62% 48%, transparent 40%, rgba(2,4,10,.75)); pointer-events: none; }
+#chapter-transition .ct-top { position: absolute; top: 28px; left: 32px; display: flex; flex-direction: column; gap: 4px; }
+#chapter-transition .ct-kicker { font-size: 12px; letter-spacing: .28em; text-transform: uppercase; color: #fbbf24; }
+#chapter-transition .ct-city { font-size: 13px; letter-spacing: .3em; text-transform: uppercase; color: #94a3b8; }
+#chapter-transition .ct-year { position: absolute; left: 30px; top: 50%; transform: translateY(-62%); font: 800 clamp(64px, 12vw, 168px)/1 system-ui, sans-serif; letter-spacing: -.04em; color: rgba(255,255,255,.92); text-shadow: 0 10px 50px rgba(250,70,22,.35); font-variant-numeric: tabular-nums; }
+#chapter-transition .ct-title { position: absolute; left: 34px; top: calc(50% + clamp(40px, 6vw, 90px)); max-width: min(520px, 38vw); }
+#chapter-transition .ct-title h2 { margin: 0 0 6px; font: 700 clamp(20px, 2.6vw, 34px)/1.15 system-ui, sans-serif; }
+#chapter-transition .ct-title p { margin: 0; color: #cbd5e1; font-size: clamp(13px, 1.3vw, 16px); line-height: 1.45; }
+#chapter-transition .ct-title .ct-travel { margin-top: 6px; color: #fdba74; }
+#chapter-transition .ct-card { position: absolute; right: 32px; bottom: 34px; display: flex; gap: 14px; align-items: center; padding: 14px 18px; border-radius: 16px; background: rgba(12,16,26,.88); border: 1px solid rgba(255,255,255,.12); border-left: 4px solid var(--c); box-shadow: 0 20px 60px rgba(0,0,0,.5); transform: translateY(24px); opacity: 0; transition: all .6s cubic-bezier(.2,.8,.2,1); max-width: min(420px, 86vw); }
+#chapter-transition.ct-cardin .ct-card { transform: none; opacity: 1; }
+#chapter-transition .ct-card .ct-ic { font-size: 30px; }
+#chapter-transition .ct-card b { display: block; font-size: 16px; }
+#chapter-transition .ct-card span { display: block; color: #cbd5e1; font-size: 13.5px; }
+#chapter-transition .ct-card small { color: var(--c); font-weight: 700; font-size: 12.5px; }
+#chapter-transition .ct-skip { position: absolute; top: 28px; right: 32px; font-size: 12px; color: #64748b; }
+@media (orientation: portrait), (max-width: 640px) {
+    #chapter-transition .ct-top { top: 18px; left: 18px; }
+    #chapter-transition .ct-year { left: 0; right: 0; top: auto; bottom: calc(150px + 13vh); transform: none; text-align: center; font-size: clamp(56px, 20vw, 110px); }
+    #chapter-transition .ct-title { left: 18px; right: 18px; top: auto; bottom: 150px; max-width: none; text-align: center; }
+    #chapter-transition .ct-card { left: 16px; right: 16px; bottom: 18px; max-width: none; }
+    #chapter-transition .ct-skip { top: 18px; right: 18px; }
+}

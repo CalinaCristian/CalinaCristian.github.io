@@ -54,6 +54,15 @@ const closedEdge = (e) => !!(e.a.mapEnd || e.b.mapEnd);
 const LONG_LEN = 8.5;
 /** pad half-length used to blend lane paths across node n (junction pad, or a few metres at a bend) */
 const padOf = (n, e) => Math.min(Math.max(n.radius ?? 0, 3), e.len * 0.45);
+const PED_R = 0.3; // pedestrian body radius (vehicles and static obstacles keep this clear)
+function pointInPoly(x, z, poly) {
+    let inside = false;
+    for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+        const xi = poly[i][0], zi = poly[i][1], xj = poly[j][0], zj = poly[j][1];
+        if ((zi > z) !== (zj > z) && x < (xj - xi) * (z - zi) / (zj - zi) + xi) inside = !inside;
+    }
+    return inside;
+}
 /** distance (m) from position s (a→b frame) on edge e to the nearest junction along the road, both ways (capped at `cap`) */
 export function junctionDist(e, s, cap = 60) {
     const walk = (edge, node, d) => {
@@ -1645,6 +1654,8 @@ class Pedestrians {
         }
         this.crowd.count = count;
         traffic.group.add(this.crowd.object);
+        this.buildObstacles();
+        for (const p of this.list) { if (p.state === 'walk') this.placeWalk(p); else this.clearObstacles(p); }
         this._m = new THREE.Matrix4(); this._q = new THREE.Quaternion(); this._p = new THREE.Vector3(); this._s = new THREE.Vector3(); this._e = new THREE.Euler(0, 0, 0, 'YXZ');
         this.buildGrid();
         this.writeMatrices(0);
@@ -1686,8 +1697,117 @@ class Pedestrians {
     ok(e) { return !isMotorway(e) && !e.tunnel && !e.bridge && e.len > 4 && (e.sidewalk ?? 1) > 0 && e.type !== 'dn' && e.type !== 'service'; }
     off(e) { return (e.halfW ?? 6) + 1.5; }
     inset(node) { return node.edges.length >= 3 ? (node.radius ?? 6) + 1.2 : 0; }
+
+    // ------------------------------------------------------------------ static obstacles on the sidewalks (note 38)
+    /** trees, lamps, poles, bins, signs, shelters, benches, lot cars …: the world's prop colliders (read-only), in a fixed grid */
+    buildObstacles() {
+        const obs = this.obs = [];
+        for (const c of this.t.world.buildings || []) {
+            if (!c || !c.prop || c.wall || c.poly || !(c.r > 0) || c.r > 4 || c.yMax !== undefined) continue;
+            const box = !(c.hw === c.r && c.hd === c.r) && c.hw > 0 && c.hd > 0;
+            const a = c.angle || 0;
+            obs.push({ x: c.x, z: c.z, r: c.r, box, hw: box ? c.hw : c.r, hd: box ? c.hd : c.r, c: Math.cos(a), s: Math.sin(a), kind: c.kind || 'prop' });
+        }
+        this.obsGrid = new Grid(4, 15); this.obsGrid.build(obs);
+        this._side = new Map();
+        this.t.stats.pedObstacles = obs.length;
+    }
+    /** push-out of a pedestrian disc (radius R) from obstacle o → [nx, nz, depth] or null */
+    obsPush(o, x, z, R) {
+        const dx = x - o.x, dz = z - o.z;
+        if (!o.box) { const d = Math.hypot(dx, dz), pen = o.r + R - d; if (pen <= 0) return null; return d > 1e-4 ? [dx / d, dz / d, pen] : [1, 0, pen]; }
+        const lx = dx * o.c - dz * o.s, lz = dx * o.s + dz * o.c;
+        let ex = lx - clamp(lx, -o.hw, o.hw), ez = lz - clamp(lz, -o.hd, o.hd), pen;
+        const d = Math.hypot(ex, ez);
+        if (d > 1e-4) { if (d >= R) return null; ex /= d; ez /= d; pen = R - d; }
+        else { const ox = o.hw - Math.abs(lx), oz = o.hd - Math.abs(lz); if (ox < oz) { ex = Math.sign(lx) || 1; ez = 0; pen = R + ox; } else { ex = 0; ez = Math.sign(lz) || 1; pen = R + oz; } }
+        return [ex * o.c + ez * o.s, -ex * o.s + ez * o.c, pen];
+    }
+    /** deepest overlap of a pedestrian disc at (x, z) with any obstacle (0 = clear) */
+    obsDepth(x, z, R = PED_R) {
+        let m = 0; if (!this.obsGrid) return 0;
+        this.obsGrid.query(x, z, R + 3, (o) => { const q = this.obsPush(o, x, z, R); if (q && q[2] > m) m = q[2]; });
+        return m;
+    }
+    /** move a point / pedestrian out of every obstacle (a few relaxation passes); returns the total push [dx, dz] */
+    obsClamp(q, R = PED_R) {
+        let tx = 0, tz = 0; if (!this.obsGrid) return null;
+        for (let pass = 0; pass < 3; pass++) {
+            let any = false;
+            this.obsGrid.query(q.x, q.z, R + 3, (o) => { const r = this.obsPush(o, q.x, q.z, R); if (!r) return; const k = r[2] + 0.02; q.x += r[0] * k; q.z += r[1] * k; tx += r[0] * k; tz += r[1] * k; any = true; });
+            if (!any) break;
+        }
+        return tx || tz ? [tx, tz] : null;
+    }
+    /** a pedestrian ends every step outside every obstacle; walkers shift their sidewalk line instead of being dragged back */
+    clearObstacles(p) {
+        const push = this.obsClamp(p); if (!push) return false;
+        if (p.state === 'walk' && p.e) { const e = p.e, o = (push[0] * e.nx + push[1] * e.nz) * p.side; p.walkOff = clamp((p.walkOff || 0) + o, -1.2, 3); }
+        this.stats.obsPush = (this.stats.obsPush || 0) + 1;
+        return true;
+    }
+    /**
+     * Obstacles along the sidewalk line of (e, side), in the edge frame: s along a→b, u = lateral distance from the
+     * centreline on that side, half extents hs / hu, and whether the walker may pass on the road side (okIn: stays
+     * ≥ 0.45 m off the carriageway) or the building side (okOut: no building / other obstacle there). Cached per edge side.
+     */
+    sideObs(e, side) {
+        let m = this._side.get(e); if (!m) this._side.set(e, m = [null, null]);
+        const k = side > 0 ? 1 : 0; if (m[k]) return m[k];
+        const out = [], seen = new Set(), base = this.off(e), hw = e.halfW ?? 6, R = PED_R;
+        const W = this.t.world.buildings;
+        const inBuilding = (x, z) => { let hit = false; W?.query?.(x, z, 0.5, (c) => { if (!hit && c.poly && !c.prop && pointInPoly(x, z, c.poly)) hit = true; }); return hit; };
+        for (let s = 0; s <= e.len + 4.9; s += 5) {
+            const sx = e.a.x + e.dirx * Math.min(s, e.len) + e.nx * base * side, sz = e.a.z + e.dirz * Math.min(s, e.len) + e.nz * base * side;
+            this.obsGrid.query(sx, sz, 7, (o) => {
+                if (seen.has(o)) return; seen.add(o);
+                const dx = o.x - e.a.x, dz = o.z - e.a.z, os = dx * e.dirx + dz * e.dirz, ou = (dx * e.nx + dz * e.nz) * side;
+                if (os < -4 || os > e.len + 4 || ou < hw - 1 || ou > base + 4.5) return;
+                let hs = o.r, hu = o.r;
+                if (o.box) { // local x axis in world (c, −s), local z axis (s, c)
+                    hs = Math.abs(e.dirx * o.c - e.dirz * o.s) * o.hw + Math.abs(e.dirx * o.s + e.dirz * o.c) * o.hd;
+                    hu = Math.abs(e.nx * o.c - e.nz * o.s) * o.hw + Math.abs(e.nx * o.s + e.nz * o.c) * o.hd;
+                }
+                const need = hu + R + 0.08, uIn = ou - need, uOut = ou + need;
+                const at = (u) => [e.a.x + e.dirx * os + e.nx * u * side, e.a.z + e.dirz * os + e.nz * u * side];
+                const okIn = uIn >= hw + 0.45 && this.obsDepth(...at(uIn)) < 0.02;
+                const pOut = at(uOut), okOut = !inBuilding(pOut[0], pOut[1]) && this.obsDepth(pOut[0], pOut[1]) < 0.02;
+                out.push({ s: os, u: ou, hs, hu, okIn, okOut });
+            });
+        }
+        out.sort((a, b) => a.s - b.s);
+        return (m[k] = out);
+    }
+    /** lateral detour (m, + = away from the road) of a walker at its sidewalk position: full clearance beside an
+     *  obstacle, ramped in / out over ~1.7 m before and after it (continuous in s, so the walk stays smooth) */
+    dodgeAt(p) {
+        if (!this.obsGrid || !p.e) return 0;
+        const list = this.sideObs(p.e, p.side); if (!list.length) return 0;
+        const R = PED_R, base = this.off(p.e) + (p.walkOff || 0), s = p.s;
+        let lo = 0, hi = list.length; while (lo < hi) { const mid = (lo + hi) >> 1; if (list[mid].s < s - 7) lo = mid + 1; else hi = mid; }
+        let best = 0;
+        for (let i = lo; i < list.length && list[i].s < s + 7; i++) {
+            const o = list[i], ds = Math.abs(s - o.s) - o.hs - R;
+            const w = ds <= 0.1 ? 1 : ds >= 1.8 ? 0 : 1 - (ds - 0.1) / 1.7; if (w <= 0) continue;
+            const need = o.hu + R + 0.08; if (Math.abs(base - o.u) >= need) continue;
+            const cin = o.u - need, cout = o.u + need;
+            const tgt = o.okIn && o.okOut ? (Math.abs(cin - base) <= Math.abs(cout - base) ? cin : cout) : o.okIn ? cin : cout;
+            const sh = (tgt - base) * w; if (Math.abs(sh) > Math.abs(best)) best = sh;
+        }
+        return best;
+    }
+    /** harness counter (note 38): pedestrians overlapping a static obstacle by > 5 cm right now (target 0) */
+    countObstacleOverlaps() {
+        let n = 0, worst = 0, at = null;
+        for (const p of this.list) {
+            if (p.state === 'down' || p.hidden) continue;
+            const d = this.obsDepth(p.x, p.z); if (d > 0.05) { n++; if (d > worst) { worst = d; at = { x: Math.round(p.x * 10) / 10, z: Math.round(p.z * 10) / 10, state: p.state }; } }
+        }
+        const S = this.t.stats; S.pedObstacleOverlaps = n; S.pedObstacleMax = Math.max(S.pedObstacleMax || 0, n); S.pedObstacleWorst = at ? { depth: Math.round(worst * 100) / 100, ...at } : null;
+        return n;
+    }
     placeWalk(p) {
-        const e = p.e; const o = (this.off(e) + (p.walkOff || 0)) * p.side;
+        const e = p.e; const o = (this.off(e) + (p.walkOff || 0) + this.dodgeAt(p)) * p.side;
         p.x = e.a.x + e.dirx * p.s + e.nx * o; p.z = e.a.z + e.dirz * p.s + e.nz * o;
         p.heading = Math.atan2(-e.dirx * p.dir, -e.dirz * p.dir);
     }

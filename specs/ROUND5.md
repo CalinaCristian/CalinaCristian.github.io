@@ -44,7 +44,7 @@ Source: `game/FEEDBACK.md` "Round 4 play-test" notes 1–27 (+ any that follow),
 | 38 | gameplay (traffic.js peds) | Street pedestrians avoid trees, lamps, poles, bins, parked cars (sidewalk lanes around obstacles + local steering), harness check. |
 | 7 | gameplay | Find the car on foot: map/minimap/HUD marker + distance/direction, walk-to-car route, key-fob beep/flash, call the car. |
 | 8 | gameplay + research | Illegal parking reactions by culture (RO / US) with researched lines, tow/clamp/ticket, NPCs routing around. |
-| 40 | gameplay (onfoot.js) + spots (walker.js) | On foot: A/D strafe (not turn), standard FPS controls; touch stick strafes. |
+| 41 | gameplay (chapters/main) | Luxoft → DB: no respawn, no card — the DB objective appears where you are (walk/drive to BOB Tower across the street). |
 | 19 | cockpit-ui (photo.js) | Photo mode restores the exact camera state on close. |
 | 21 | gameplay (input/main) | Closing any panel returns focus/pointer lock to the game. |
 | — | gameplay | WebGL context-loss recovery (pause + restore instead of a broken page). |

@@ -58,8 +58,6 @@ export default {
         railing(b, [[-27, 8.4], [-25, 10], [-23, 10], [4, 11]], y0, { h: 1.2, color: '#2a2e31' });
         railing(b, [[22, 11], [54, 11], [58, 10], [59, 7]], y0, { h: 1.2, color: '#2a2e31' });
         b.box(13, -0.2, 11.6, 18, 0.7, 0.4, '#9c968a', 'stone');
-        // retaining wall face below the railing (the drop to the lower park) — read from the slope below
-        b.box(15, -6, 12.4, 88, 6.2, 0.6, '#8f8a7f', 'stone');
         for (const [x0, z0, x1, z1] of [[-27, 8.4, 4, 11], [4, 11, 22, 11], [22, 11, 59, 7]]) ctx.collider({ wall: true, ax: x0, az: z0, bx: x1, bz: z1, y0a: -5, y1a: 1.4, y0b: -5, y1b: 1.4, nx: 0, nz: -1 });
         for (const [x, z] of d.furniture.bench || []) { bench(b, x, y0(x, z), z, Math.PI); ctx.box(x, z, 0.9, 0.3, Math.PI, { prop: true, h: 0.45 }); }
         ctx.add(b.build('terrace'));

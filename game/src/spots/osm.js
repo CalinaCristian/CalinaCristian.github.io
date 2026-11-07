@@ -314,7 +314,7 @@ export function buildBuildings(data, ground, o = {}) {
             let hit = 0, host = null; for (const [x, z] of smp) { const a = insideAcc(x, z); if (a) { hit++; host = a; } }
             const f = hit / smp.length, H0 = buildingHeight(b) + (b.minH || 0);
             if (globalThis.__spotsLegacy) { /* dev A/B */ } else if (f >= 0.85 && host && H0 <= host.H + 0.5 && !b.minH) { dropped++; continue; }
-            if (!globalThis.__spotsLegacy && (f > 0.04) || false && smp.some(([x, z]) => insideAcc(x, z))) { const pin = insetPoly(b.poly, 0.12); if (pin) { b = { ...b, poly: pin, _lift: 0.08 }; inset++; } }
+            if (!globalThis.__spotsLegacy && f > 0.04) { const pin = insetPoly(b.poly, 0.12); if (pin) { b = { ...b, poly: pin, _lift: 0.08 }; inset++; } }
         }
         const [cx, cz] = centroid(b.poly);
         if (exclude.some((p) => inPoly(cx, cz, p))) continue;

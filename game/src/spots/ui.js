@@ -79,9 +79,12 @@ export class SpotUI {
         p.innerHTML = `<div class="sp-plaque"><div class="sp-place">${esc(place)}</div><h3>${esc(pl.title)}</h3><p>${esc(pl.text)}</p>${pl.credit ? `<div class="sp-credit">${esc(pl.credit)}</div>` : ''}${src}<button data-close>Close (E)</button></div>`;
         p.classList.add('show');
         return new Promise((res) => {
-            const close = () => { p.classList.remove('show'); window.removeEventListener('keydown', key, true); res(); };
-            const key = (e) => { if (['Escape', 'KeyE', 'Enter', 'Space'].includes(e.code)) { e.preventDefault(); e.stopPropagation(); close(); } };
-            p.querySelector('[data-close]').onclick = close;
+            // note 21: the closing key is consumed (its keyup too, so it neither re-opens the plaque nor opens the pause
+            // menu), focus leaves the panel; the session hands focus back to the game (pointer lock on the next click)
+            const swallowUp = (e) => { e.preventDefault(); e.stopPropagation(); window.removeEventListener('keyup', swallowUp, true); };
+            const close = (e) => { if (!p.classList.contains('show')) return; p.classList.remove('show'); window.removeEventListener('keydown', key, true); if (e?.type === 'keydown') window.addEventListener('keyup', swallowUp, true); document.activeElement?.blur?.(); p.innerHTML = ''; this._closePanel = null; res(); };
+            const key = (e) => { if (['Escape', 'KeyE', 'Enter', 'Space'].includes(e.code)) { e.preventDefault(); e.stopPropagation(); close(e); } };
+            p.querySelector('[data-close]').onclick = () => close();
             p.onclick = (e) => { if (e.target === p) close(); };
             setTimeout(() => window.addEventListener('keydown', key, true), 120);
             this._closePanel = close;

@@ -124,7 +124,9 @@ export function facadeMaterial(style = 'glass') {
             diffuseColor.rgb = mix(diffuseColor.rgb, uGlass * mix(sVar, 1.0, sFar), sWin);`)
             .replace('#include <roughnessmap_fragment>', '#include <roughnessmap_fragment>\nroughnessFactor = mix(roughnessFactor, 0.1, sWin);')
             .replace('#include <metalnessmap_fragment>', '#include <metalnessmap_fragment>\nmetalnessFactor = mix(metalnessFactor, uLit.y, sWin);')
-            .replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\ntotalEmissiveRadiance *= sLit * sTint * mix(0.8, 1.15, sfHash(sC + 5.1));');
+            .replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\ntotalEmissiveRadiance *= sLit * sTint * mix(0.8, 1.15, sfHash(sC + 5.1));')
+            // skyline towers keep more contrast than the haze floor gives far ground (clear PNW days: 30+ km visibility)
+            .replace('#include <fog_fragment>', THREE.ShaderChunk.fog_fragment.replace('fogDensity * length', 'fogDensity * 0.55 * length'));
     };
     m.customProgramCacheKey = () => 'sea-facade-v1';
     FACADE.set(style, m);
@@ -693,7 +695,7 @@ export function seaBackdrop(ctx, o = {}) {
     }
     if (o.rainier !== false) {
         const R = RAINIER_LL, p = ctx.ll(R[0], R[1]), dist = Math.hypot(p.x, p.z), bear = ((Math.atan2(p.x, -p.z) / DEG) + 360) % 360;
-        const m = mountain(0, 0, bear, dist, R[2] - E - (o.eyeY ?? 0), 34000, { dist: 8000, eyeY: o.eyeY ?? 0, color: '#7486a0', snow: '#f4f6fa', haze: '#a9b9cb', seed: 4 });
+        const m = mountain(0, 0, bear, dist, R[2] - E - (o.eyeY ?? 0), 16000, { dist: 8000, eyeY: o.eyeY ?? 0, color: '#7486a0', snow: '#f4f6fa', haze: '#a9b9cb', seed: 4 });
         m.userData.weatherMountain = true; m.material.fog = false; grp.add(m); out.rainier = m;
     }
     if (o.olympics !== false) {

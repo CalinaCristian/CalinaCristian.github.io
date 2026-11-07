@@ -363,6 +363,14 @@ export class SpotSession {
         window.cvTelemetry?.track?.('spot_plaque', { id: this.spot.id, title: p.title });
         await this.ui.showPlaque(p, this.spot.name);
         if (this.input) { this.input.lookAllowed = true; this.input.flush?.(); this.input.keys?.clear?.(); }
+        this.returnFocus();
+    }
+    /** note 21: back to play after a spot panel closed — the host's returnFocus (main.js) or: focus the canvas, flush input */
+    returnFocus() {
+        if (this.host.returnFocus) { try { this.host.returnFocus(); return; } catch { /* fall through */ } }
+        const a = document.activeElement; if (a && a !== document.body) a.blur?.();
+        const cv = this.host.r3d?.renderer?.domElement || this.host.r3d?.canvas; try { cv?.focus?.({ preventScroll: true }); } catch { /* ignore */ }
+        if (this.input) { this.input.flush?.(); this.input.keys?.clear?.(); this.input.lookAllowed = true; }
     }
     /** per-frame: walker, crowd, interactions, scene animations, night, UI, sound */
     update(dt) {

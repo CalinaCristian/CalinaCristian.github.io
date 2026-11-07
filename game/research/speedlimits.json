@@ -1,0 +1,1917 @@
+{
+ "generated": "2026-11-07",
+ "method": "chapter routes recomputed on the OSM graph (tiles 2026-11-06) from CHAPTERS starts to the stops; per OSM way: maxspeed tag vs. the value the game gets (tools/osm/build-data.mjs parseSpeed/defaultSpeed)",
+ "countries": {
+  "RO": {
+   "default_kmh": 50,
+   "rules": [
+    "Inside localities 50 km/h unless signed; road owner + traffic police may raise to max 80 km/h on sections or lower (min 30 km/h for cars) — OUG 195/2002 art. 49 as summarised by Wikipedia 'Speed limits in Romania' (fetched 2026-11-07); legislatie.just.ro unreachable from here",
+    "Outside localities: 130 motorway, 100 expressway, 100 European national road, 90 other roads (cars) — same source",
+    "No automatic school-zone limit: 'Copii' warning triangle near schools; a 30 limit exists only where signed (OSM maxspeed=30)",
+    "OSM maxspeed=RO:urban means the 50 km/h default (no sign)"
+   ],
+   "signs": {
+    "limit": "circular, red ring, white field, black numerals (Vienna Convention C-type prohibitory sign)",
+    "end": "white disc, grey numerals, diagonal black bar (end of the specific limit)",
+    "placement": "right-hand side, 2.0–2.5 m to the panel bottom in town; on dual carriageways also on the median; repeated after junctions (in Vienna-Convention practice a speed restriction lapses at the next junction unless repeated) — confirm per street from photos; no sign where the 50 default applies"
+   },
+   "sources": [
+    "https://en.wikipedia.org/wiki/Speed_limits_in_Romania"
+   ]
+  },
+  "US": {
+   "default_mph": {
+    "city_street": 25,
+    "county_road": 50,
+    "state_highway": 60,
+    "school_zone_when_signed": 20
+   },
+   "rules": [
+    "RCW 46.61.400: 25 mph city/town streets, 50 county roads, 60 state highways unless posted (https://app.leg.wa.gov/rcw/default.aspx?cite=46.61.400, fetched 2026-11-07)",
+    "RCW 46.61.440: 20 mph passing a marked, signed school or playground crosswalk; zone extends 300 ft each way (https://app.leg.wa.gov/rcw/default.aspx?cite=46.61.440)",
+    "Bellevue: posted limits 20–40 mph; arterials 25–40; most local streets lowered to 20 mph during 2026 (bellevuewa.gov speed-limits page, fetched 2026-11-07)",
+    "Seattle (not a game district): arterial default 25 mph since 2016 code change, >90 % of arterials signed 25 mph after the 2020–21 sign programme; non-arterial 20 mph (seattle.gov SDOT Vision Zero Speed Limits page, fetched 2026-11-07)"
+   ],
+   "signs": {
+    "limit": "MUTCD R2-1 white rectangle 'SPEED LIMIT nn' (black)",
+    "school": "MUTCD S5-1 'SCHOOL SPEED LIMIT 20 WHEN CHILDREN ARE PRESENT / WHEN FLASHING'",
+    "advisory": "yellow W13-1P advisory plaque under curve warnings; W13-2 Exit Speed / W13-3 Ramp Speed on exit ramps (required/recommended per MUTCD Table 2C-5 for freeway ramps)",
+    "placement": "R2-1 at every point of change, at the downstream end showing the next limit, and beyond major intersections (MUTCD 2009 §2B.13, https://mutcd.fhwa.dot.gov/htm/2009/part2/part2b.htm); freeway R2-1 after each entrance; no regulatory R2-1 on ramps (yellow advisory instead) — §2C.08"
+   },
+   "sources": [
+    "https://app.leg.wa.gov/rcw/default.aspx?cite=46.61.400",
+    "https://app.leg.wa.gov/rcw/default.aspx?cite=46.61.440",
+    "https://bellevuewa.gov/city-government/departments/transportation/safety-and-maintenance/traffic-safety/speed-limits-speed-management",
+    "https://www.seattle.gov/transportation/projects-and-programs/safety-first/vision-zero/speedlimits",
+    "https://mutcd.fhwa.dot.gov/htm/2009/part2/part2b.htm",
+    "https://mutcd.fhwa.dot.gov/htm/2009/part2/part2c.htm"
+   ]
+  }
+ },
+ "districts": {
+  "bucharest-floreasca": {
+   "chapters": {
+    "rosetti": {
+     "lengthM": 1637,
+     "ways": [
+      {
+       "way": "way/669019902",
+       "name": "Calea Floreasca",
+       "highway": "tertiary",
+       "m": 286,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/1206961918",
+       "name": "Calea Floreasca",
+       "highway": "tertiary",
+       "m": 42,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/1206961908",
+       "name": "Calea Floreasca",
+       "highway": "tertiary",
+       "m": 129,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/1206961909",
+       "name": "Calea Floreasca",
+       "highway": "tertiary",
+       "m": 40,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/1206961910",
+       "name": "Calea Floreasca",
+       "highway": "tertiary",
+       "m": 58,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/1206961911",
+       "name": "Calea Floreasca",
+       "highway": "tertiary",
+       "m": 49,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/1206961917",
+       "name": "Calea Floreasca",
+       "highway": "tertiary",
+       "m": 14,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/259898145",
+       "name": "Calea Floreasca",
+       "highway": "tertiary",
+       "m": 103,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/669019904",
+       "name": "Calea Floreasca",
+       "highway": "tertiary",
+       "m": 37,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/23624166",
+       "name": "Strada Béla Bartók",
+       "highway": "residential",
+       "m": 124,
+       "osmMaxspeed": "RO:urban",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/26974402",
+       "name": "Strada Serghei Vasilievici Rahmaninov",
+       "highway": "residential",
+       "m": 138,
+       "osmMaxspeed": "RO:urban",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/329764147",
+       "name": "Strada Serghei Vasilievici Rahmaninov",
+       "highway": "residential",
+       "m": 10,
+       "osmMaxspeed": "RO:urban",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/26974413",
+       "name": "Strada Serghei Vasilievici Rahmaninov",
+       "highway": "residential",
+       "m": 247,
+       "osmMaxspeed": "RO:urban",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/39247066",
+       "name": "Strada Serghei Vasilievici Rahmaninov",
+       "highway": "residential",
+       "m": 140,
+       "osmMaxspeed": "RO:urban",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/23624598",
+       "name": "Strada Georges Bizet",
+       "highway": "residential",
+       "m": 176,
+       "osmMaxspeed": "RO:urban",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/669209222",
+       "name": "Strada General Giuseppe Garibaldi",
+       "highway": "residential",
+       "m": 42,
+       "osmMaxspeed": "40",
+       "gameKmh": 40,
+       "gameIsDefault": false
+      }
+     ],
+     "tagged": 16,
+     "untagged": 0,
+     "taggedM": 1635,
+     "untaggedM": 0
+    }
+   },
+   "mappedSigns": [],
+   "schoolsNearRoute": [
+    {
+     "osm": "node/1544915641",
+     "name": "Paradisul Copiilor",
+     "amenity": "kindergarten",
+     "lat": 44.463338,
+     "lon": 26.103002,
+     "distRoute": 12,
+     "chapter": "rosetti"
+    },
+    {
+     "osm": "node/4365350292",
+     "name": "Grădinița nr. 12 Albinuța",
+     "amenity": "kindergarten",
+     "lat": 44.464028,
+     "lon": 26.104709,
+     "distRoute": 111,
+     "chapter": "rosetti"
+    },
+    {
+     "osm": "way/26974362",
+     "name": "Școala Gimnazială Maria Rosetti",
+     "amenity": "school",
+     "lat": 44.46447,
+     "lon": 26.105038,
+     "distRoute": 129,
+     "chapter": "rosetti"
+    },
+    {
+     "osm": "way/253216276",
+     "name": "Liceul Teoretic C.A. Rosetti",
+     "amenity": "school",
+     "lat": 44.467577,
+     "lon": 26.105918,
+     "distRoute": 76,
+     "chapter": "rosetti"
+    }
+   ],
+   "corrections": []
+  },
+  "bucharest-grozavesti": {
+   "chapters": {
+    "upb": {
+     "lengthM": 1661,
+     "ways": [
+      {
+       "way": "way/139788054",
+       "name": "Șoseaua Orhideelor",
+       "highway": "secondary",
+       "m": 142,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/106797418",
+       "name": "Șoseaua Orhideelor",
+       "highway": "secondary",
+       "m": 62,
+       "osmMaxspeed": "RO:urban",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/295382943",
+       "name": "Șoseaua Orhideelor",
+       "highway": "secondary",
+       "m": 238,
+       "osmMaxspeed": "RO:urban",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/34172374",
+       "name": "Șoseaua Orhideelor",
+       "highway": "secondary",
+       "m": 10,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/360805311",
+       "name": "Șoseaua Orhideelor",
+       "highway": "secondary",
+       "m": 148,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/678256588",
+       "name": "Șoseaua Orhideelor",
+       "highway": "secondary",
+       "m": 141,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/256807105",
+       "name": "Șoseaua Orhideelor",
+       "highway": "secondary",
+       "m": 95,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/84488633",
+       "name": "Podul Grozăvești",
+       "highway": "secondary",
+       "m": 7,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/128304847",
+       "name": "Podul Grozăvești",
+       "highway": "secondary",
+       "m": 37,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/128304848",
+       "name": "Podul Grozăvești",
+       "highway": "secondary",
+       "m": 12,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/314447339",
+       "name": "Șoseaua Grozăvești",
+       "highway": "secondary",
+       "m": 38,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/665896757",
+       "name": "Șoseaua Grozăvești",
+       "highway": "secondary",
+       "m": 32,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/241717663",
+       "name": "Bulevardul Doina Cornea",
+       "highway": "secondary",
+       "m": 85,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/119235183",
+       "name": "Bulevardul Doina Cornea",
+       "highway": "secondary",
+       "m": 126,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/668355272",
+       "name": "Bulevardul Doina Cornea",
+       "highway": "secondary",
+       "m": 51,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/80013062",
+       "name": "Bulevardul Doina Cornea",
+       "highway": "secondary",
+       "m": 429,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      }
+     ],
+     "tagged": 16,
+     "untagged": 0,
+     "taggedM": 1653,
+     "untaggedM": 0
+    }
+   },
+   "mappedSigns": [],
+   "schoolsNearRoute": [
+    {
+     "osm": "way/1331454041",
+     "name": "Gradinița nr. 168",
+     "amenity": "kindergarten",
+     "lat": 44.447299,
+     "lon": 26.060535,
+     "distRoute": 41,
+     "chapter": "upb"
+    }
+   ],
+   "corrections": []
+  },
+  "bucharest-unirii": {
+   "chapters": {
+    "gts": {
+     "lengthM": 1891,
+     "ways": [
+      {
+       "way": "way/153967352",
+       "name": "Piața Unirii",
+       "highway": "primary",
+       "m": 73,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/244601702",
+       "name": "Piața Unirii",
+       "highway": "primary",
+       "m": 66,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/665110039",
+       "name": "Piața Unirii",
+       "highway": "primary",
+       "m": 69,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/665110038",
+       "name": "Piața Unirii",
+       "highway": "primary",
+       "m": 119,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/204909977",
+       "name": "Piața Unirii",
+       "highway": "primary",
+       "m": 94,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/153967349",
+       "name": "Piața Unirii",
+       "highway": "primary",
+       "m": 18,
+       "osmMaxspeed": "40",
+       "gameKmh": 40,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/4045771",
+       "name": "Piața Unirii",
+       "highway": "primary",
+       "m": 156,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/228997079",
+       "name": "Piața Unirii",
+       "highway": "primary",
+       "m": 67,
+       "osmMaxspeed": "60",
+       "gameKmh": 60,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/241211787",
+       "name": "Bulevardul Corneliu Coposu",
+       "highway": "secondary",
+       "m": 253,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/982816378",
+       "name": "Bulevardul Corneliu Coposu",
+       "highway": "secondary",
+       "m": 19,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/982825171",
+       "name": "Bulevardul Corneliu Coposu",
+       "highway": "secondary",
+       "m": 14,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/982816379",
+       "name": "Bulevardul Corneliu Coposu",
+       "highway": "secondary",
+       "m": 229,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/982816382",
+       "name": "Bulevardul Corneliu Coposu",
+       "highway": "secondary",
+       "m": 158,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/229949119",
+       "name": "Bulevardul Corneliu Coposu",
+       "highway": "secondary",
+       "m": 27,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/236238104",
+       "name": "Bulevardul Corneliu Coposu",
+       "highway": "secondary",
+       "m": 24,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/252338062",
+       "name": "Bulevardul Corneliu Coposu",
+       "highway": "secondary",
+       "m": 32,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/982816374",
+       "name": "Calea Călărașilor",
+       "highway": "secondary",
+       "m": 16,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/1301617054",
+       "name": "Calea Călărașilor",
+       "highway": "secondary",
+       "m": 32,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/309155262",
+       "name": "Calea Călărașilor",
+       "highway": "secondary",
+       "m": 9,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/231940317",
+       "name": "Calea Călărașilor",
+       "highway": "secondary",
+       "m": 183,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/8211143",
+       "name": "Calea Călărașilor",
+       "highway": "secondary",
+       "m": 99,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/23050045",
+       "name": "Calea Călărașilor",
+       "highway": "secondary",
+       "m": 130,
+       "osmMaxspeed": "RO:urban",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      }
+     ],
+     "tagged": 22,
+     "untagged": 0,
+     "taggedM": 1887,
+     "untaggedM": 0
+    }
+   },
+   "mappedSigns": [
+    {
+     "osm": "node/6242940774",
+     "lat": 44.4248288,
+     "lon": 26.1030366,
+     "distRouteM": 113,
+     "tags": {
+      "maxspeed": "60",
+      "traffic_sign": "maxspeed",
+      "traffic_sign:forward": "yes"
+     }
+    },
+    {
+     "osm": "node/6225649427",
+     "lat": 44.4269443,
+     "lon": 26.1005667,
+     "distRouteM": 38,
+     "tags": {
+      "maxspeed": "60",
+      "traffic_sign": "maxspeed"
+     }
+    }
+   ],
+   "schoolsNearRoute": [
+    {
+     "osm": "way/83488919",
+     "name": "Liceul Tehnologic Unirea",
+     "amenity": "school",
+     "lat": 44.433463,
+     "lon": 26.111141,
+     "distRoute": 121,
+     "chapter": "gts"
+    }
+   ],
+   "corrections": []
+  },
+  "bucharest-pipera": {
+   "chapters": {
+    "luxoft": {
+     "lengthM": 1814,
+     "ways": [
+      {
+       "way": "way/668976608",
+       "name": "Șoseaua Petricani",
+       "highway": "secondary",
+       "m": 52,
+       "osmMaxspeed": "60",
+       "gameKmh": 60,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/8208290",
+       "name": "Șoseaua Petricani",
+       "highway": "secondary",
+       "m": 83,
+       "osmMaxspeed": "40",
+       "gameKmh": 40,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/8208289",
+       "name": "Strada Petricani",
+       "highway": "secondary",
+       "m": 32,
+       "osmMaxspeed": "40",
+       "gameKmh": 40,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/902027548",
+       "name": "Strada Petricani",
+       "highway": "secondary",
+       "m": 31,
+       "osmMaxspeed": "40",
+       "gameKmh": 40,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/374569777",
+       "name": "Șoseaua Petricani",
+       "highway": "secondary",
+       "m": 83,
+       "osmMaxspeed": "40",
+       "gameKmh": 40,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/658273289",
+       "name": "Șoseaua Petricani",
+       "highway": "secondary",
+       "m": 220,
+       "osmMaxspeed": "60",
+       "gameKmh": 60,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/668976611",
+       "name": "Șoseaua Petricani",
+       "highway": "secondary",
+       "m": 16,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/668781653",
+       "name": "Șoseaua Petricani",
+       "highway": "secondary",
+       "m": 148,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/830383389",
+       "name": "Șoseaua Petricani",
+       "highway": "secondary",
+       "m": 11,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/1137274091",
+       "name": "Șoseaua Fabrica de Glucoză",
+       "highway": "primary",
+       "m": 584,
+       "osmMaxspeed": "40",
+       "gameKmh": 40,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/769137579",
+       "name": "Șoseaua Fabrica de Glucoză",
+       "highway": "primary",
+       "m": 109,
+       "osmMaxspeed": "40",
+       "gameKmh": 40,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/853493235",
+       "name": "Strada George Constantinescu",
+       "highway": "tertiary",
+       "m": 24,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/769137567",
+       "name": "Strada George Constantinescu",
+       "highway": "tertiary",
+       "m": 311,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/1239993644",
+       "name": "Bulevardul Dimitrie Pompeiu",
+       "highway": "tertiary",
+       "m": 16,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      }
+     ],
+     "tagged": 14,
+     "untagged": 0,
+     "taggedM": 1720,
+     "untaggedM": 0
+    },
+    "db": {
+     "lengthM": 1584,
+     "ways": [
+      {
+       "way": "way/8063802",
+       "name": "Șoseaua Pipera",
+       "highway": "secondary",
+       "m": 53,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/1443263023",
+       "name": "Șoseaua Pipera",
+       "highway": "secondary",
+       "m": 355,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/1559269258",
+       "name": "Șoseaua Pipera",
+       "highway": "secondary",
+       "m": 6,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/220443734",
+       "name": "Șoseaua Pipera",
+       "highway": "secondary",
+       "m": 52,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/668775862",
+       "name": "Șoseaua Pipera",
+       "highway": "secondary",
+       "m": 47,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/244456093",
+       "name": "Șoseaua Pipera",
+       "highway": "secondary",
+       "m": 14,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/769056848",
+       "name": "Șoseaua Pipera",
+       "highway": "secondary",
+       "m": 30,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/27735693",
+       "name": "Strada Gara Herăstrău",
+       "highway": "tertiary",
+       "m": 316,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/1545660106",
+       "name": "Bulevardul Dimitrie Pompeiu",
+       "highway": "tertiary",
+       "m": 24,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/1443394971",
+       "name": "Bulevardul Dimitrie Pompeiu",
+       "highway": "tertiary",
+       "m": 95,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/1545660107",
+       "name": "Bulevardul Dimitrie Pompeiu",
+       "highway": "tertiary",
+       "m": 158,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/23583806",
+       "name": "Bulevardul Dimitrie Pompeiu",
+       "highway": "tertiary",
+       "m": 359,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/1040373749",
+       "name": "Bulevardul Dimitrie Pompeiu",
+       "highway": "tertiary",
+       "m": 25,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/1040373747",
+       "name": "Bulevardul Dimitrie Pompeiu",
+       "highway": "tertiary",
+       "m": 6,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      }
+     ],
+     "tagged": 14,
+     "untagged": 0,
+     "taggedM": 1540,
+     "untaggedM": 0
+    }
+   },
+   "mappedSigns": [],
+   "schoolsNearRoute": [
+    {
+     "osm": "way/23732187",
+     "name": "Colegiul Tehnic \"Edmond Nicolau\"",
+     "amenity": "school",
+     "lat": 44.47946,
+     "lon": 26.108564,
+     "distRoute": 72,
+     "chapter": "db"
+    },
+    {
+     "osm": "way/256525667",
+     "name": "Liceul Tehnologic \"Constantin Brâncuși\"",
+     "amenity": "school",
+     "lat": 44.479044,
+     "lon": 26.106996,
+     "distRoute": 62,
+     "chapter": "db"
+    }
+   ],
+   "corrections": []
+  },
+  "bucharest-romana": {
+   "chapters": {
+    "arnia": {
+     "lengthM": 1920,
+     "ways": [
+      {
+       "way": "way/119241030",
+       "name": "Bulevardul General Gheorghe Magheru",
+       "highway": "primary",
+       "m": 245,
+       "osmMaxspeed": "60",
+       "gameKmh": 60,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/669726791",
+       "name": "Bulevardul General Gheorghe Magheru",
+       "highway": "primary",
+       "m": 61,
+       "osmMaxspeed": "60",
+       "gameKmh": 60,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/448266581",
+       "name": "Bulevardul General Gheorghe Magheru",
+       "highway": "primary",
+       "m": 90,
+       "osmMaxspeed": "60",
+       "gameKmh": 60,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/543523320",
+       "name": "Bulevardul General Gheorghe Magheru",
+       "highway": "primary",
+       "m": 28,
+       "osmMaxspeed": "60",
+       "gameKmh": 60,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/668307642",
+       "name": "Bulevardul General Gheorghe Magheru",
+       "highway": "primary",
+       "m": 70,
+       "osmMaxspeed": "60",
+       "gameKmh": 60,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/130848152",
+       "name": "Bulevardul General Gheorghe Magheru",
+       "highway": "primary",
+       "m": 52,
+       "osmMaxspeed": "60",
+       "gameKmh": 60,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/778823271",
+       "name": "Bulevardul General Gheorghe Magheru",
+       "highway": "primary",
+       "m": 26,
+       "osmMaxspeed": "60",
+       "gameKmh": 60,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/23781801",
+       "name": "Piața Romană",
+       "highway": "primary",
+       "m": 54,
+       "osmMaxspeed": "60",
+       "gameKmh": 60,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/241212606",
+       "name": "Piața Romană",
+       "highway": "primary",
+       "m": 13,
+       "osmMaxspeed": "60",
+       "gameKmh": 60,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/668307633",
+       "name": "Bulevardul Lascăr Catargiu",
+       "highway": "primary",
+       "m": 237,
+       "osmMaxspeed": "60",
+       "gameKmh": 60,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/668307632",
+       "name": "Bulevardul Lascăr Catargiu",
+       "highway": "primary",
+       "m": 30,
+       "osmMaxspeed": "60",
+       "gameKmh": 60,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/668307630",
+       "name": "Bulevardul Lascăr Catargiu",
+       "highway": "primary",
+       "m": 52,
+       "osmMaxspeed": "60",
+       "gameKmh": 60,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/4045775",
+       "name": "Bulevardul Lascăr Catargiu",
+       "highway": "primary",
+       "m": 84,
+       "osmMaxspeed": "60",
+       "gameKmh": 60,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/667696381",
+       "name": "Bulevardul Lascăr Catargiu",
+       "highway": "primary",
+       "m": 37,
+       "osmMaxspeed": "60",
+       "gameKmh": 60,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/668307628",
+       "name": "Bulevardul Lascăr Catargiu",
+       "highway": "primary",
+       "m": 44,
+       "osmMaxspeed": "60",
+       "gameKmh": 60,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/668307627",
+       "name": "Bulevardul Lascăr Catargiu",
+       "highway": "primary",
+       "m": 167,
+       "osmMaxspeed": "60",
+       "gameKmh": 60,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/668307626",
+       "name": "Bulevardul Lascăr Catargiu",
+       "highway": "primary",
+       "m": 47,
+       "osmMaxspeed": "60",
+       "gameKmh": 60,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/244656971",
+       "name": "Bulevardul Lascăr Catargiu",
+       "highway": "primary",
+       "m": 128,
+       "osmMaxspeed": "60",
+       "gameKmh": 60,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/668312905",
+       "name": "Bulevardul Lascăr Catargiu",
+       "highway": "primary",
+       "m": 45,
+       "osmMaxspeed": "60",
+       "gameKmh": 60,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/542791322",
+       "name": "Bulevardul Lascăr Catargiu",
+       "highway": "primary",
+       "m": 33,
+       "osmMaxspeed": "60",
+       "gameKmh": 60,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/232080905",
+       "name": "Piața Victoriei",
+       "highway": "primary",
+       "m": 71,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/139713890",
+       "name": "Piața Victoriei",
+       "highway": "primary",
+       "m": 62,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/14254203",
+       "name": "Piața Victoriei",
+       "highway": "primary",
+       "m": 73,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/178061488",
+       "name": "Piața Victoriei",
+       "highway": "primary",
+       "m": 17,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/542810837",
+       "name": "Bulevardul Lascăr Catargiu",
+       "highway": "primary",
+       "m": 55,
+       "osmMaxspeed": "60",
+       "gameKmh": 60,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/1320314857",
+       "name": "Bulevardul Lascăr Catargiu",
+       "highway": "primary",
+       "m": 54,
+       "osmMaxspeed": "60",
+       "gameKmh": 60,
+       "gameIsDefault": false
+      }
+     ],
+     "tagged": 26,
+     "untagged": 0,
+     "taggedM": 1875,
+     "untaggedM": 0
+    },
+    "uipath-buc": {
+     "lengthM": 1458,
+     "ways": [
+      {
+       "way": "way/1372391887",
+       "name": "Șoseaua Pavel Dimitrievici Kiseleff",
+       "highway": "primary",
+       "m": 342,
+       "osmMaxspeed": "60",
+       "gameKmh": 60,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/723764940",
+       "name": "Piața Victoriei",
+       "highway": "primary",
+       "m": 11,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/178060182",
+       "name": "Piața Victoriei",
+       "highway": "primary",
+       "m": 55,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/14254203",
+       "name": "Piața Victoriei",
+       "highway": "primary",
+       "m": 73,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/178061488",
+       "name": "Piața Victoriei",
+       "highway": "primary",
+       "m": 17,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/139713887",
+       "name": "Piața Victoriei",
+       "highway": "primary",
+       "m": 58,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/232080904",
+       "name": "Bulevardul Iancu de Hunedoara",
+       "highway": "primary",
+       "m": 187,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/1396531988",
+       "name": "Bulevardul Iancu de Hunedoara",
+       "highway": "primary",
+       "m": 37,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/1396531850",
+       "name": "Bulevardul Iancu de Hunedoara",
+       "highway": "primary",
+       "m": 43,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/231176852",
+       "name": "Strada Clopotarii Vechi",
+       "highway": "residential",
+       "m": 132,
+       "osmMaxspeed": "RO:urban",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/26991957",
+       "name": "Strada Grigore Alexandrescu",
+       "highway": "residential",
+       "m": 313,
+       "osmMaxspeed": "30",
+       "gameKmh": 30,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/178030044",
+       "name": "Strada Vasile Alecsandri",
+       "highway": "residential",
+       "m": 186,
+       "osmMaxspeed": "RO:urban",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      }
+     ],
+     "tagged": 12,
+     "untagged": 0,
+     "taggedM": 1454,
+     "untaggedM": 0
+    }
+   },
+   "mappedSigns": [
+    {
+     "osm": "node/6251793021",
+     "lat": 44.4510053,
+     "lon": 26.0892977,
+     "distRouteM": 19,
+     "tags": {
+      "maxspeed": "40",
+      "maxweight": "3.5",
+      "traffic_sign": "maxweight;maxspeed",
+      "traffic_sign:forward": "yes"
+     }
+    }
+   ],
+   "schoolsNearRoute": [
+    {
+     "osm": "node/2558783253",
+     "name": "Grădinița nr. 116",
+     "amenity": "kindergarten",
+     "lat": 44.444774,
+     "lon": 26.096365,
+     "distRoute": 117,
+     "chapter": "arnia"
+    },
+    {
+     "osm": "way/405529583",
+     "name": "Liceul de Arte Plastice Nicolae Tonitza",
+     "amenity": "school",
+     "lat": 44.453414,
+     "lon": 26.091467,
+     "distRoute": 148,
+     "chapter": "uipath-buc"
+    },
+    {
+     "osm": "way/245083700",
+     "name": "Școala Internațională Italiană „Aldo Moro” din București",
+     "amenity": "school",
+     "lat": 44.450485,
+     "lon": 26.093587,
+     "distRoute": 57,
+     "chapter": "uipath-buc"
+    },
+    {
+     "osm": "way/1059582478",
+     "name": "Grădiniţa Nr. 50",
+     "amenity": "kindergarten",
+     "lat": 44.448395,
+     "lon": 26.096328,
+     "distRoute": 104,
+     "chapter": "arnia"
+    },
+    {
+     "osm": "way/23611106",
+     "name": "Școala Generală nr. 11 \"Ion Heliade Rădulescu\"",
+     "amenity": "school",
+     "lat": 44.455478,
+     "lon": 26.083566,
+     "distRoute": 34,
+     "chapter": "uipath-buc"
+    }
+   ],
+   "corrections": []
+  },
+  "bucharest-otopeni": {
+   "chapters": {
+    "otopeni": {
+     "lengthM": 2113,
+     "ways": [
+      {
+       "way": "way/1122904650",
+       "name": "Calea Bucureștilor",
+       "highway": "trunk",
+       "m": 122,
+       "osmMaxspeed": "70",
+       "gameKmh": 70,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/715324181",
+       "name": "Calea Bucureștilor",
+       "highway": "trunk",
+       "m": 610,
+       "osmMaxspeed": "70",
+       "gameKmh": 70,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/39728274",
+       "name": "Calea Bucureștilor",
+       "highway": "trunk",
+       "m": 379,
+       "osmMaxspeed": "70",
+       "gameKmh": 70,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/715422426",
+       "name": "Calea Bucureștilor",
+       "highway": "trunk",
+       "m": 188,
+       "osmMaxspeed": "70",
+       "gameKmh": 70,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/19750498",
+       "name": null,
+       "highway": "tertiary",
+       "m": 361,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/1529771672",
+       "name": null,
+       "highway": "tertiary",
+       "m": 85,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/1529676125",
+       "name": null,
+       "highway": "tertiary",
+       "m": 63,
+       "osmMaxspeed": "50",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/19750493",
+       "name": null,
+       "highway": "tertiary",
+       "m": 148,
+       "osmMaxspeed": "RO:urban",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/180054678",
+       "name": null,
+       "highway": "tertiary",
+       "m": 155,
+       "osmMaxspeed": "RO:urban",
+       "gameKmh": 50,
+       "gameIsDefault": false
+      }
+     ],
+     "tagged": 9,
+     "untagged": 0,
+     "taggedM": 2111,
+     "untaggedM": 0
+    }
+   },
+   "mappedSigns": [],
+   "schoolsNearRoute": [],
+   "corrections": [
+    {
+     "where": "latent rule: untagged trunk/primary north of 44.515 → 100 km/h in build-data defaultSpeed",
+     "osm": "all DN1 ways on the route tagged 70",
+     "game": "70 (tags win)",
+     "fix": "inside the Otopeni locality the untagged default must be 50 (urban); 100 only outside localities (none on the current route)",
+     "confidence": "high"
+    }
+   ]
+  },
+  "seattle-seatac": {
+   "chapters": {
+    "seatac": {
+     "lengthM": 2375,
+     "ways": [
+      {
+       "way": "way/124272629",
+       "name": "Airport Expressway",
+       "highway": "motorway",
+       "m": 596,
+       "osmMaxspeed": "40 mph",
+       "gameKmh": 64,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/433205294",
+       "name": "Seattle;Tacoma",
+       "highway": "motorway_link",
+       "m": 372,
+       "osmMaxspeed": null,
+       "gameKmh": 64,
+       "gameIsDefault": true
+      },
+      {
+       "way": "way/1021048512",
+       "name": null,
+       "highway": "motorway_link",
+       "m": 50,
+       "osmMaxspeed": null,
+       "gameKmh": 64,
+       "gameIsDefault": true
+      },
+      {
+       "way": "way/4856725",
+       "name": null,
+       "highway": "motorway_link",
+       "m": 393,
+       "osmMaxspeed": null,
+       "gameKmh": 64,
+       "gameIsDefault": true
+      },
+      {
+       "way": "way/428292661",
+       "name": "SR 518",
+       "highway": "motorway",
+       "m": 71,
+       "osmMaxspeed": "60 mph",
+       "gameKmh": 97,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/124045513",
+       "name": "SR 518",
+       "highway": "motorway",
+       "m": 303,
+       "osmMaxspeed": "60 mph",
+       "gameKmh": 97,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/623957740",
+       "name": "SR 518",
+       "highway": "motorway",
+       "m": 145,
+       "osmMaxspeed": "60 mph",
+       "gameKmh": 97,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/23622871",
+       "name": "SR 518",
+       "highway": "motorway",
+       "m": 62,
+       "osmMaxspeed": "60 mph",
+       "gameKmh": 97,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/23622872",
+       "name": "SR 518",
+       "highway": "motorway",
+       "m": 189,
+       "osmMaxspeed": "60 mph",
+       "gameKmh": 97,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/1442135183",
+       "name": "SR 518",
+       "highway": "motorway",
+       "m": 174,
+       "osmMaxspeed": "60 mph",
+       "gameKmh": 97,
+       "gameIsDefault": false
+      }
+     ],
+     "tagged": 7,
+     "untagged": 3,
+     "taggedM": 1540,
+     "untaggedM": 815
+    }
+   },
+   "mappedSigns": [],
+   "schoolsNearRoute": [],
+   "corrections": [
+    {
+     "where": "Airport Expressway → SR-518 EB connector (OSM 'Seattle;Tacoma' motorway_link + 2 unnamed links, 815 m of the seatac chapter)",
+     "osm": "no maxspeed",
+     "game": "64 km/h (40 mph motorway_link default in tools/osm/build-data.mjs defaultSpeed)",
+     "fix": "legal limit = the state-highway limit (SR-518 posted 60 mph, RCW 46.61.400) unless posted; show no R2-1 sign on the ramp; drive AI at the curve advisory (W13-2/W13-3 plaque values need a photo); for HUD use the downstream mainline limit",
+     "confidence": "medium"
+    }
+   ]
+  },
+  "seattle-bellevue": {
+   "chapters": {
+    "uipath-bel": {
+     "lengthM": 1388,
+     "ways": [
+      {
+       "way": "way/160183269",
+       "name": "Northeast 8th Street West",
+       "highway": "motorway_link",
+       "m": 39,
+       "osmMaxspeed": null,
+       "gameKmh": 64,
+       "gameIsDefault": true
+      },
+      {
+       "way": "way/513238696",
+       "name": "Northeast 8th Street",
+       "highway": "primary",
+       "m": 15,
+       "osmMaxspeed": "30 mph",
+       "gameKmh": 48,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/30615115",
+       "name": "Northeast 8th Street",
+       "highway": "primary",
+       "m": 15,
+       "osmMaxspeed": "30 mph",
+       "gameKmh": 48,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/513238699",
+       "name": "Northeast 8th Street",
+       "highway": "primary",
+       "m": 15,
+       "osmMaxspeed": "30 mph",
+       "gameKmh": 48,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/428073537",
+       "name": "Northeast 8th Street",
+       "highway": "primary",
+       "m": 64,
+       "osmMaxspeed": "30 mph",
+       "gameKmh": 48,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/1058885032",
+       "name": "Northeast 8th Street",
+       "highway": "primary",
+       "m": 21,
+       "osmMaxspeed": "30 mph",
+       "gameKmh": 48,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/30265145",
+       "name": "Northeast 8th Street",
+       "highway": "primary",
+       "m": 10,
+       "osmMaxspeed": "30 mph",
+       "gameKmh": 48,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/427906916",
+       "name": "Northeast 8th Street",
+       "highway": "primary",
+       "m": 96,
+       "osmMaxspeed": "30 mph",
+       "gameKmh": 48,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/816498800",
+       "name": "Northeast 8th Street",
+       "highway": "primary",
+       "m": 13,
+       "osmMaxspeed": "30 mph",
+       "gameKmh": 48,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/87177193",
+       "name": "Northeast 8th Street",
+       "highway": "primary",
+       "m": 84,
+       "osmMaxspeed": "30 mph",
+       "gameKmh": 48,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/427906927",
+       "name": "Northeast 8th Street",
+       "highway": "primary",
+       "m": 110,
+       "osmMaxspeed": "30 mph",
+       "gameKmh": 48,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/513503510",
+       "name": "Northeast 8th Street",
+       "highway": "primary",
+       "m": 70,
+       "osmMaxspeed": "30 mph",
+       "gameKmh": 48,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/513503509",
+       "name": "Northeast 8th Street",
+       "highway": "primary",
+       "m": 132,
+       "osmMaxspeed": "30 mph",
+       "gameKmh": 48,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/513503508",
+       "name": "Northeast 8th Street",
+       "highway": "primary",
+       "m": 65,
+       "osmMaxspeed": "30 mph",
+       "gameKmh": 48,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/513503506",
+       "name": "Northeast 8th Street",
+       "highway": "primary",
+       "m": 66,
+       "osmMaxspeed": "30 mph",
+       "gameKmh": 48,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/513503505",
+       "name": "Northeast 8th Street",
+       "highway": "primary",
+       "m": 72,
+       "osmMaxspeed": "30 mph",
+       "gameKmh": 48,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/513503504",
+       "name": "Northeast 8th Street",
+       "highway": "primary",
+       "m": 53,
+       "osmMaxspeed": "30 mph",
+       "gameKmh": 48,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/513503503",
+       "name": "Northeast 8th Street",
+       "highway": "primary",
+       "m": 16,
+       "osmMaxspeed": "30 mph",
+       "gameKmh": 48,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/513503502",
+       "name": "Northeast 8th Street",
+       "highway": "primary",
+       "m": 38,
+       "osmMaxspeed": "30 mph",
+       "gameKmh": 48,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/513503501",
+       "name": "Northeast 8th Street",
+       "highway": "primary",
+       "m": 19,
+       "osmMaxspeed": "30 mph",
+       "gameKmh": 48,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/513503500",
+       "name": "Northeast 8th Street",
+       "highway": "primary",
+       "m": 70,
+       "osmMaxspeed": "30 mph",
+       "gameKmh": 48,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/968748779",
+       "name": "Northeast 8th Street",
+       "highway": "primary",
+       "m": 12,
+       "osmMaxspeed": "30 mph",
+       "gameKmh": 48,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/968748782",
+       "name": "Bellevue Way Northeast",
+       "highway": "primary",
+       "m": 10,
+       "osmMaxspeed": "30 mph",
+       "gameKmh": 48,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/968748784",
+       "name": "Bellevue Way Northeast",
+       "highway": "primary",
+       "m": 9,
+       "osmMaxspeed": "30 mph",
+       "gameKmh": 48,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/425272687",
+       "name": "Bellevue Way Northeast",
+       "highway": "primary",
+       "m": 99,
+       "osmMaxspeed": "30 mph",
+       "gameKmh": 48,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/425272696",
+       "name": null,
+       "highway": "primary_link",
+       "m": 39,
+       "osmMaxspeed": null,
+       "gameKmh": 48,
+       "gameIsDefault": true
+      },
+      {
+       "way": "way/436279139",
+       "name": "Northeast 7th Street",
+       "highway": "service",
+       "m": 14,
+       "osmMaxspeed": null,
+       "gameKmh": 24,
+       "gameIsDefault": true
+      },
+      {
+       "way": "way/738584326",
+       "name": "Bellevue Way Northeast",
+       "highway": "primary",
+       "m": 77,
+       "osmMaxspeed": "30 mph",
+       "gameKmh": 48,
+       "gameIsDefault": false
+      },
+      {
+       "way": "way/427906774",
+       "name": "Bellevue Way Northeast",
+       "highway": "primary",
+       "m": 11,
+       "osmMaxspeed": "30 mph",
+       "gameKmh": 48,
+       "gameIsDefault": false
+      }
+     ],
+     "tagged": 26,
+     "untagged": 3,
+     "taggedM": 1262,
+     "untaggedM": 92
+    }
+   },
+   "mappedSigns": [
+    {
+     "osm": "node/5773437927",
+     "lat": 47.6172369,
+     "lon": -122.19153,
+     "distRouteM": 20,
+     "tags": {
+      "enforcement": "traffic_signals",
+      "highway": "speed_camera"
+     }
+    }
+   ],
+   "schoolsNearRoute": [],
+   "corrections": [
+    {
+     "where": "I-405 NB exit 13 loop 'Northeast 8th Street West' (motorway_link, start of uipath-bel)",
+     "osm": "no maxspeed",
+     "game": "64 km/h default",
+     "fix": "same ramp rule (no R2-1; advisory plaque; NE 8th St 30 mph from the merge)",
+     "confidence": "medium"
+    },
+    {
+     "where": "Bellevue local streets (residential / unclassified without maxspeed) in free roam",
+     "osm": "20 of 25 local ways read 25 mph (default or tagged), 2 already 20 mph",
+     "game": "40 km/h",
+     "fix": "20 mph (32 km/h) for untagged local streets in Bellevue per the city's 2026 Local Street Speed Limit Reduction ('the majority of these streets will have their speed limits lowered to 20 mph in 2026'); OSM tags win where present",
+     "confidence": "medium"
+    },
+    {
+     "where": "node/5773437927 at NE 8th St × 110th Ave NE (20 m from route)",
+     "osm": "highway=speed_camera + enforcement=traffic_signals",
+     "game": "no camera",
+     "fix": "it is a red-light camera, not a speed camera: if modelled, mount it on the signal mast; no speed-camera warning",
+     "confidence": "medium"
+    }
+   ]
+  }
+ }
+}

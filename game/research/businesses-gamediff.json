@@ -1,0 +1,4061 @@
+{
+ "bucharest-floreasca": {
+  "missing": [
+   {
+    "brand": null,
+    "name": "Librarul Dulimex",
+    "category": "books",
+    "lat": 44.4545576,
+    "lon": 26.098179,
+    "osm": "node/1768905825",
+    "onRoute": false,
+    "reason": "dropped by the build filter: books is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Garanti BBVA",
+    "name": "Garanti Bankası",
+    "category": "bank",
+    "lat": 44.454985,
+    "lon": 26.0972676,
+    "osm": "node/4657735590",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "Carrefour Express",
+    "name": "Carrefour Express",
+    "category": "convenience",
+    "lat": 44.4547045,
+    "lon": 26.0981095,
+    "osm": "node/5068656516",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "OTP Bank",
+    "name": "OTP Bank",
+    "category": "bank",
+    "lat": 44.4548861,
+    "lon": 26.0973181,
+    "osm": "node/7038716407",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "Libra Internet Bank",
+    "name": "Libra Bank Dorobanți",
+    "category": "bank",
+    "lat": 44.4547647,
+    "lon": 26.0975607,
+    "osm": "node/7056384863",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "Opticris",
+    "name": "Opticris",
+    "category": "optician",
+    "lat": 44.4546312,
+    "lon": 26.0981429,
+    "osm": "node/13427923367",
+    "onRoute": false,
+    "reason": "dropped by the build filter: optician is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Jade",
+    "category": "clothes",
+    "lat": 44.454764,
+    "lon": 26.0980832,
+    "osm": "node/13427923369",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "Superbet",
+    "name": "Superbet",
+    "category": "bookmaker",
+    "lat": 44.4545739,
+    "lon": 26.097625,
+    "osm": "node/13429496917",
+    "onRoute": false,
+    "reason": "dropped by the build filter: bookmaker is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "5àsec",
+    "name": "5àsec",
+    "category": "dry_cleaning",
+    "lat": 44.4546718,
+    "lon": 26.0975799,
+    "osm": "node/13429496920",
+    "onRoute": false,
+    "reason": "dropped by the build filter: dry_cleaning is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Help Net",
+    "name": "Farmacia HelpNet",
+    "category": "pharmacy",
+    "lat": 44.4561712,
+    "lon": 26.0972795,
+    "osm": "node/1768906184",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Nomasvello",
+    "category": "beauty",
+    "lat": 44.461669,
+    "lon": 26.1010704,
+    "osm": "node/2794388697",
+    "onRoute": true,
+    "reason": "dropped by the build filter: beauty is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Raionul Floreasca",
+    "category": "seafood",
+    "lat": 44.4603309,
+    "lon": 26.100504,
+    "osm": "node/6968373509",
+    "onRoute": true,
+    "reason": "dropped by the build filter: seafood is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "The Beer Institute",
+    "category": "pub",
+    "lat": 44.4606048,
+    "lon": 26.1006972,
+    "osm": "node/6968373510",
+    "onRoute": true,
+    "reason": "dropped by the build filter: pub is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Verso Cărturești",
+    "category": "books",
+    "lat": 44.4606115,
+    "lon": 26.1005361,
+    "osm": "node/6968373512",
+    "onRoute": true,
+    "reason": "dropped by the build filter: books is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Rosa Mundi",
+    "category": "perfumery",
+    "lat": 44.4603747,
+    "lon": 26.1006025,
+    "osm": "node/6968373514",
+    "onRoute": true,
+    "reason": "dropped by the build filter: perfumery is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Maxbet",
+    "name": "Maxbet",
+    "category": "bookmaker",
+    "lat": 44.4591514,
+    "lon": 26.1005588,
+    "osm": "node/7038741853",
+    "onRoute": true,
+    "reason": "dropped by the build filter: bookmaker is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "La Magie Beauty Salon",
+    "category": "hairdresser",
+    "lat": 44.4615556,
+    "lon": 26.1014335,
+    "osm": "node/8255157886",
+    "onRoute": true,
+    "reason": "dropped by the build filter: hairdresser is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Superbet",
+    "name": "Superbet",
+    "category": "bookmaker",
+    "lat": 44.4608771,
+    "lon": 26.1005169,
+    "osm": "node/8628417842",
+    "onRoute": true,
+    "reason": "dropped by the build filter: bookmaker is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "SlimArt",
+    "category": "doctors",
+    "lat": 44.4595891,
+    "lon": 26.1002888,
+    "osm": "node/11069855113",
+    "onRoute": true,
+    "reason": "dropped by the build filter: doctors is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Beautyland Salon",
+    "category": "beauty",
+    "lat": 44.4595877,
+    "lon": 26.1002923,
+    "osm": "node/11069855114",
+    "onRoute": true,
+    "reason": "dropped by the build filter: beauty is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Oficiul Postal Bucuresti 30",
+    "category": "post_office",
+    "lat": 44.4634678,
+    "lon": 26.1047543,
+    "osm": "node/12443853507",
+    "onRoute": false,
+    "reason": "dropped by the build filter: post_office is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Attitude",
+    "category": "clothes",
+    "lat": 44.4561069,
+    "lon": 26.0973205,
+    "osm": "node/13427923380",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Clinica Optissima",
+    "category": "optician",
+    "lat": 44.4604293,
+    "lon": 26.1073544,
+    "osm": "node/13625639413",
+    "onRoute": false,
+    "reason": "dropped by the build filter: optician is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Drivefleet",
+    "category": "car_rental",
+    "lat": 44.463163,
+    "lon": 26.108342,
+    "osm": "node/14331714674",
+    "onRoute": false,
+    "reason": "dropped by the build filter: car_rental is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "ING",
+    "name": "ING",
+    "category": "bank",
+    "lat": 44.4635937,
+    "lon": 26.1100658,
+    "osm": "node/2394839102",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "Farmacia Tei",
+    "name": "Farmacia Tei",
+    "category": "pharmacy",
+    "lat": 44.4586486,
+    "lon": 26.1103354,
+    "osm": "node/3530644614",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Simetria",
+    "category": "dentist",
+    "lat": 44.4654308,
+    "lon": 26.1030255,
+    "osm": "node/11573016846",
+    "onRoute": true,
+    "reason": "dropped by the build filter: dentist is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Lidl",
+    "name": "Lidl",
+    "category": "supermarket",
+    "lat": 44.4690543,
+    "lon": 26.1102181,
+    "osm": "node/10904467979",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Gyros Thessalonikis",
+    "category": "fast_food",
+    "lat": 44.4701176,
+    "lon": 26.1102605,
+    "osm": "node/11581903269",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Piața Floreasca",
+    "category": "marketplace",
+    "lat": 44.4605189,
+    "lon": 26.1003448,
+    "osm": "way/34832556",
+    "onRoute": true,
+    "reason": "dropped by the build filter: marketplace is not in tools/osm/build-data.mjs poiKind()"
+   }
+  ],
+  "wrong": [],
+  "extra": [
+   {
+    "name": "Garanti Bank",
+    "brand": "Garanti Bankası",
+    "sub": "bank",
+    "lat": 44.461332,
+    "lon": 26.101098,
+    "issue": "not matched by this research (unbranded duplicate or outside research filters)"
+   }
+  ],
+  "noSignColours": [
+   "5àsec",
+   "Dona",
+   "Fresh Corner",
+   "Garanti BBVA",
+   "Libra Internet Bank",
+   "TBI Bank"
+  ],
+  "atmAsBank": 0,
+  "brandTable": [],
+  "closed": [
+   {
+    "name": null,
+    "brand": null,
+    "category": "disused:amenity=cafe",
+    "lat": 44.458173,
+    "lon": 26.1008368,
+    "osm": "node/1081724064",
+    "distRoute": 20,
+    "lastEdit": "2025-04-22",
+    "source": "OSM node/1081724064 (lifecycle-prefixed tag: no longer trading)"
+   },
+   {
+    "name": "My Maya",
+    "brand": null,
+    "category": "disused:shop=bakery",
+    "lat": 44.4555739,
+    "lon": 26.0999519,
+    "osm": "node/4454713391",
+    "distRoute": 59,
+    "lastEdit": "2026-04-25",
+    "source": "OSM node/4454713391 (lifecycle-prefixed tag: no longer trading)"
+   },
+   {
+    "name": null,
+    "brand": null,
+    "category": "disused:shop=motorcycle_repair",
+    "lat": 44.4563406,
+    "lon": 26.100459,
+    "osm": "node/7038739416",
+    "distRoute": 16,
+    "lastEdit": "2025-04-22",
+    "source": "OSM node/7038739416 (lifecycle-prefixed tag: no longer trading)"
+   }
+  ],
+  "skipped": {
+   "atms": 0,
+   "parcelLockers": 0,
+   "companyOffices": 3
+  }
+ },
+ "bucharest-grozavesti": {
+  "missing": [
+   {
+    "brand": "Superbet",
+    "name": "Superbet",
+    "category": "bookmaker",
+    "lat": 44.4342548,
+    "lon": 26.0536642,
+    "osm": "node/8628417856",
+    "onRoute": false,
+    "reason": "dropped by the build filter: bookmaker is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Eden Bride",
+    "category": "clothes",
+    "lat": 44.4333693,
+    "lon": 26.0704152,
+    "osm": "node/9688653423",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Cargus",
+    "category": "post_office",
+    "lat": 44.4377425,
+    "lon": 26.0686948,
+    "osm": "node/3756817944",
+    "onRoute": false,
+    "reason": "dropped by the build filter: post_office is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Green Day Spa",
+    "category": "hairdresser",
+    "lat": 44.446299,
+    "lon": 26.059994,
+    "osm": "node/3756985973",
+    "onRoute": true,
+    "reason": "dropped by the build filter: hairdresser is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "LYB Arhi-Proiect S.R.L.",
+    "name": "LYB Plotare Belvedere",
+    "category": "copyshop",
+    "lat": 44.4488297,
+    "lon": 26.0562587,
+    "osm": "node/6932733687",
+    "onRoute": false,
+    "reason": "dropped by the build filter: copyshop is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": null,
+    "category": "convenience",
+    "lat": 44.447706,
+    "lon": 26.0648368,
+    "osm": "node/2534635567",
+    "onRoute": true,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "Mega Image",
+    "name": "Mega Image",
+    "category": "supermarket",
+    "lat": 44.4510168,
+    "lon": 26.0697427,
+    "osm": "node/3716138625",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "Synevo",
+    "name": "Synevo",
+    "category": "doctors",
+    "lat": 44.4512048,
+    "lon": 26.0698387,
+    "osm": "node/4389094627",
+    "onRoute": false,
+    "reason": "dropped by the build filter: doctors is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "SmartelGSM.RO",
+    "category": "electronics",
+    "lat": 44.4510983,
+    "lon": 26.0686142,
+    "osm": "node/4583347690",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Choco-Museum",
+    "category": "chocolate",
+    "lat": 44.4468556,
+    "lon": 26.0615472,
+    "osm": "node/6801238663",
+    "onRoute": true,
+    "reason": "dropped by the build filter: chocolate is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "MARIVO TRADING INVEST",
+    "category": "convenience",
+    "lat": 44.4499733,
+    "lon": 26.070682,
+    "osm": "node/6867630185",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Derby",
+    "category": "restaurant",
+    "lat": 44.4340414,
+    "lon": 26.0725625,
+    "osm": "way/262496379",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "GT ALL BUSINESS",
+    "category": "convenience",
+    "lat": 44.4507034,
+    "lon": 26.0692109,
+    "osm": "way/803126216",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   }
+  ],
+  "wrong": [],
+  "extra": [],
+  "noSignColours": [
+   "Altex",
+   "Dodo Pizza",
+   "Honda",
+   "Kia",
+   "LYB Arhi-Proiect S.R.L.",
+   "Samsung",
+   "Synevo",
+   "Toyota",
+   "Tucano Coffee"
+  ],
+  "atmAsBank": 0,
+  "brandTable": [
+   {
+    "key": "Molson Coors GBS",
+    "issue": "world.js brandStyle() prefix match gives it the 'mol' brand colours"
+   }
+  ],
+  "closed": [
+   {
+    "name": null,
+    "brand": null,
+    "category": "disused:amenity=restaurant",
+    "lat": 44.4458062,
+    "lon": 26.0598376,
+    "osm": "node/6792143476",
+    "distRoute": 42,
+    "lastEdit": "2024-11-06",
+    "source": "OSM node/6792143476 (lifecycle-prefixed tag: no longer trading)"
+   }
+  ],
+  "skipped": {
+   "atms": 1,
+   "parcelLockers": 4,
+   "companyOffices": 4
+  }
+ },
+ "bucharest-unirii": {
+  "missing": [
+   {
+    "brand": null,
+    "name": "Prince Park Residence Hotel",
+    "category": "hotel",
+    "lat": 44.4229176,
+    "lon": 26.0988045,
+    "osm": "node/2544242258",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Il Giardino Segreto",
+    "category": "restaurant",
+    "lat": 44.4228942,
+    "lon": 26.098747,
+    "osm": "node/2544242259",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Prince Residence Apartments",
+    "category": "hotel",
+    "lat": 44.4228883,
+    "lon": 26.0985525,
+    "osm": "node/2726670594",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "AFC service center",
+    "category": "mobile_phone",
+    "lat": 44.424809,
+    "lon": 26.1046588,
+    "osm": "node/5183790451",
+    "onRoute": false,
+    "reason": "dropped by the build filter: mobile_phone is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Market Non-Stop",
+    "category": "convenience",
+    "lat": 44.423804,
+    "lon": 26.1207189,
+    "osm": "node/2956524633",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Jerry's Pizza - Vitan",
+    "category": "fast_food",
+    "lat": 44.423676,
+    "lon": 26.1205981,
+    "osm": "node/3255797461",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Trattoria Adagio",
+    "category": "restaurant",
+    "lat": 44.4228851,
+    "lon": 26.1113761,
+    "osm": "node/5040392521",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "Superbet",
+    "name": "Superbet",
+    "category": "bookmaker",
+    "lat": 44.422908,
+    "lon": 26.117598,
+    "osm": "node/8628417589",
+    "onRoute": false,
+    "reason": "dropped by the build filter: bookmaker is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Superbet",
+    "name": "Superbet",
+    "category": "bookmaker",
+    "lat": 44.4237239,
+    "lon": 26.1202955,
+    "osm": "node/9424549167",
+    "onRoute": false,
+    "reason": "dropped by the build filter: bookmaker is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Probeauty",
+    "category": "cosmetics",
+    "lat": 44.4260895,
+    "lon": 26.09896,
+    "osm": "node/501911061",
+    "onRoute": false,
+    "reason": "dropped by the build filter: cosmetics is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Spălătorie Unirea Etaj 7",
+    "category": "car_wash",
+    "lat": 44.4288224,
+    "lon": 26.1052678,
+    "osm": "node/1439628952",
+    "onRoute": true,
+    "reason": "dropped by the build filter: car_wash is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Victoria",
+    "category": "cafe",
+    "lat": 44.4330304,
+    "lon": 26.0971975,
+    "osm": "node/1510015597",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Trored Anticariat",
+    "category": "books",
+    "lat": 44.4295089,
+    "lon": 26.104708,
+    "osm": "node/1814904301",
+    "onRoute": true,
+    "reason": "dropped by the build filter: books is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Librăria Sophia",
+    "category": "books",
+    "lat": 44.4254074,
+    "lon": 26.1021994,
+    "osm": "node/2077821792",
+    "onRoute": true,
+    "reason": "dropped by the build filter: books is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "AIO Market Non-Stop",
+    "category": "convenience",
+    "lat": 44.4321844,
+    "lon": 26.0973883,
+    "osm": "node/2355295308",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Mil Pasos Penthouse",
+    "category": "apartment",
+    "lat": 44.4309178,
+    "lon": 26.1081937,
+    "osm": "node/2387688683",
+    "onRoute": true,
+    "reason": "dropped by the build filter: apartment is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Librăria Bizantină",
+    "category": "books",
+    "lat": 44.425328,
+    "lon": 26.101999,
+    "osm": "node/2394580762",
+    "onRoute": false,
+    "reason": "dropped by the build filter: books is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Taxi Pelicanul by AST",
+    "category": "mobile_phone",
+    "lat": 44.4347982,
+    "lon": 26.1067372,
+    "osm": "node/2448132537",
+    "onRoute": false,
+    "reason": "dropped by the build filter: mobile_phone is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Telekom",
+    "name": "Telekom",
+    "category": "mobile_phone",
+    "lat": 44.4293521,
+    "lon": 26.1048308,
+    "osm": "node/2451994413",
+    "onRoute": true,
+    "reason": "dropped by the build filter: mobile_phone is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "L'optique",
+    "category": "optician",
+    "lat": 44.4288815,
+    "lon": 26.1000885,
+    "osm": "node/2455057413",
+    "onRoute": false,
+    "reason": "dropped by the build filter: optician is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "BikeXpert",
+    "category": "bicycle",
+    "lat": 44.4307106,
+    "lon": 26.1078434,
+    "osm": "node/2719765244",
+    "onRoute": true,
+    "reason": "dropped by the build filter: bicycle is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Sex Shop Erotica",
+    "category": "erotic",
+    "lat": 44.4292161,
+    "lon": 26.1059011,
+    "osm": "node/2725099364",
+    "onRoute": true,
+    "reason": "dropped by the build filter: erotic is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Mega Image",
+    "name": "Mega Image",
+    "category": "supermarket",
+    "lat": 44.4253647,
+    "lon": 26.097391,
+    "osm": "node/2908801707",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Sfinx",
+    "category": "florist",
+    "lat": 44.4298173,
+    "lon": 26.1056187,
+    "osm": "node/3462280487",
+    "onRoute": true,
+    "reason": "dropped by the build filter: florist is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": null,
+    "category": "antiques",
+    "lat": 44.4298497,
+    "lon": 26.105534,
+    "osm": "node/3462280489",
+    "onRoute": true,
+    "reason": "dropped by the build filter: antiques is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "service GSM",
+    "category": "mobile_phone",
+    "lat": 44.4314712,
+    "lon": 26.1039651,
+    "osm": "node/3462280492",
+    "onRoute": false,
+    "reason": "dropped by the build filter: mobile_phone is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Salonul Gabriela",
+    "category": "clothes",
+    "lat": 44.426506,
+    "lon": 26.0972193,
+    "osm": "node/3499957975",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Zoomserie",
+    "category": "pastry",
+    "lat": 44.4300076,
+    "lon": 26.1075785,
+    "osm": "node/3723247228",
+    "onRoute": true,
+    "reason": "dropped by the build filter: pastry is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "dm",
+    "name": "dm",
+    "category": "chemist",
+    "lat": 44.4293712,
+    "lon": 26.1014695,
+    "osm": "node/3748890801",
+    "onRoute": false,
+    "reason": "dropped by the build filter: chemist is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Cargus Ship & Go",
+    "category": "post_office",
+    "lat": 44.4308546,
+    "lon": 26.1078855,
+    "osm": "node/3756820806",
+    "onRoute": true,
+    "reason": "dropped by the build filter: post_office is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Dentall Pro",
+    "category": "dentist",
+    "lat": 44.4303418,
+    "lon": 26.1089285,
+    "osm": "node/3875082433",
+    "onRoute": true,
+    "reason": "dropped by the build filter: dentist is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Târgul Cărții",
+    "category": "books",
+    "lat": 44.4338439,
+    "lon": 26.1027212,
+    "osm": "node/3875095830",
+    "onRoute": false,
+    "reason": "dropped by the build filter: books is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Iris",
+    "category": "florist",
+    "lat": 44.4300286,
+    "lon": 26.1063332,
+    "osm": "node/4036022289",
+    "onRoute": true,
+    "reason": "dropped by the build filter: florist is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Amanet Cashbook",
+    "category": "pawnbroker",
+    "lat": 44.4306002,
+    "lon": 26.1086119,
+    "osm": "node/4092211384",
+    "onRoute": true,
+    "reason": "dropped by the build filter: pawnbroker is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Pet Shop Boys",
+    "category": "pet",
+    "lat": 44.4305372,
+    "lon": 26.1084835,
+    "osm": "node/4092211386",
+    "onRoute": true,
+    "reason": "dropped by the build filter: pet is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Optica",
+    "category": "optician",
+    "lat": 44.4320537,
+    "lon": 26.1041741,
+    "osm": "node/4170467697",
+    "onRoute": false,
+    "reason": "dropped by the build filter: optician is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Opticris",
+    "name": "Opticris",
+    "category": "optician",
+    "lat": 44.4273895,
+    "lon": 26.0989896,
+    "osm": "node/4549705871",
+    "onRoute": false,
+    "reason": "dropped by the build filter: optician is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "stampile ok",
+    "category": "copyshop",
+    "lat": 44.4302916,
+    "lon": 26.1079821,
+    "osm": "node/4697328193",
+    "onRoute": true,
+    "reason": "dropped by the build filter: copyshop is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Victoria Gold",
+    "category": "jewelry",
+    "lat": 44.4293853,
+    "lon": 26.104908,
+    "osm": "node/4997248597",
+    "onRoute": true,
+    "reason": "dropped by the build filter: jewelry is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Oftaprax",
+    "category": "optician",
+    "lat": 44.4295029,
+    "lon": 26.1051738,
+    "osm": "node/4997248598",
+    "onRoute": true,
+    "reason": "dropped by the build filter: optician is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Libmag",
+    "category": "books",
+    "lat": 44.4340451,
+    "lon": 26.1027277,
+    "osm": "node/5519218142",
+    "onRoute": false,
+    "reason": "dropped by the build filter: books is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Stephanus",
+    "category": "books",
+    "lat": 44.4256359,
+    "lon": 26.1021553,
+    "osm": "node/6053541301",
+    "onRoute": true,
+    "reason": "dropped by the build filter: books is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Leonidas",
+    "name": "Leonidas",
+    "category": "chocolate",
+    "lat": 44.433668,
+    "lon": 26.1023982,
+    "osm": "node/6053541486",
+    "onRoute": false,
+    "reason": "dropped by the build filter: chocolate is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "FotoTapet 3D.ro",
+    "category": "home_decoration",
+    "lat": 44.4302677,
+    "lon": 26.1079333,
+    "osm": "node/6181180785",
+    "onRoute": true,
+    "reason": "dropped by the build filter: home_decoration is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "MoneyGram",
+    "name": "MoneyGram",
+    "category": "money_transfer",
+    "lat": 44.4250929,
+    "lon": 26.1037502,
+    "osm": "node/6227450135",
+    "onRoute": false,
+    "reason": "dropped by the build filter: money_transfer is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Optica Orange",
+    "category": "optician",
+    "lat": 44.4288131,
+    "lon": 26.1002385,
+    "osm": "node/6403201508",
+    "onRoute": false,
+    "reason": "dropped by the build filter: optician is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "2na Farm",
+    "category": "pharmacy",
+    "lat": 44.4264875,
+    "lon": 26.097425,
+    "osm": "node/6579666191",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "La Pecora Nera",
+    "category": "restaurant",
+    "lat": 44.4304323,
+    "lon": 26.0972626,
+    "osm": "node/7613023117",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Filitti Boutique Hotel",
+    "category": "hotel",
+    "lat": 44.4304196,
+    "lon": 26.0971846,
+    "osm": "node/7613023119",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "DHL",
+    "name": "DHL-Express",
+    "category": "post_office",
+    "lat": 44.4308119,
+    "lon": 26.1079322,
+    "osm": "node/7942218168",
+    "onRoute": true,
+    "reason": "dropped by the build filter: post_office is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Cofetarie Agapitos",
+    "category": "pastry",
+    "lat": 44.4304177,
+    "lon": 26.1082394,
+    "osm": "node/7942333216",
+    "onRoute": true,
+    "reason": "dropped by the build filter: pastry is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "LIBRĂRIA PAULINE",
+    "category": "books",
+    "lat": 44.4308428,
+    "lon": 26.1041576,
+    "osm": "node/7942344847",
+    "onRoute": false,
+    "reason": "dropped by the build filter: books is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Inglot",
+    "name": "Inglot",
+    "category": "cosmetics",
+    "lat": 44.4270389,
+    "lon": 26.1077011,
+    "osm": "node/8478282369",
+    "onRoute": false,
+    "reason": "dropped by the build filter: cosmetics is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Superbet",
+    "name": "Superbet",
+    "category": "bookmaker",
+    "lat": 44.429225,
+    "lon": 26.102571,
+    "osm": "node/8628417559",
+    "onRoute": false,
+    "reason": "dropped by the build filter: bookmaker is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Superbet",
+    "name": "Superbet",
+    "category": "bookmaker",
+    "lat": 44.4292658,
+    "lon": 26.1046496,
+    "osm": "node/8628417649",
+    "onRoute": true,
+    "reason": "dropped by the build filter: bookmaker is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Vodafone",
+    "name": "Vodafone",
+    "category": "mobile_phone",
+    "lat": 44.4284534,
+    "lon": 26.1007898,
+    "osm": "node/9159258050",
+    "onRoute": false,
+    "reason": "dropped by the build filter: mobile_phone is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Sephora",
+    "name": "Sephora",
+    "category": "cosmetics",
+    "lat": 44.4275798,
+    "lon": 26.104353,
+    "osm": "node/9255719431",
+    "onRoute": true,
+    "reason": "dropped by the build filter: cosmetics is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Douglas",
+    "name": "Douglas",
+    "category": "perfumery",
+    "lat": 44.4282039,
+    "lon": 26.1045884,
+    "osm": "node/9336831437",
+    "onRoute": true,
+    "reason": "dropped by the build filter: perfumery is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Fastprint",
+    "category": "copyshop",
+    "lat": 44.4256307,
+    "lon": 26.1025697,
+    "osm": "node/9411250630",
+    "onRoute": true,
+    "reason": "dropped by the build filter: copyshop is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "El Studio Unirii",
+    "category": "beauty",
+    "lat": 44.4301832,
+    "lon": 26.1077609,
+    "osm": "node/9843135501",
+    "onRoute": true,
+    "reason": "dropped by the build filter: beauty is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Piese auto Dacia",
+    "category": "car_parts",
+    "lat": 44.4306505,
+    "lon": 26.1087147,
+    "osm": "node/9843226357",
+    "onRoute": true,
+    "reason": "dropped by the build filter: car_parts is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Medident",
+    "category": "dentist",
+    "lat": 44.4308612,
+    "lon": 26.1081128,
+    "osm": "node/9843242562",
+    "onRoute": true,
+    "reason": "dropped by the build filter: dentist is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": null,
+    "category": "bureau_de_change",
+    "lat": 44.425484,
+    "lon": 26.1035975,
+    "osm": "node/9999021743",
+    "onRoute": true,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "Maxbet",
+    "name": "MaxBet",
+    "category": "casino",
+    "lat": 44.4255069,
+    "lon": 26.1035256,
+    "osm": "node/9999021744",
+    "onRoute": true,
+    "reason": "dropped by the build filter: casino is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "GSM Point",
+    "category": "mobile_phone",
+    "lat": 44.4309251,
+    "lon": 26.1032859,
+    "osm": "node/9999375434",
+    "onRoute": false,
+    "reason": "dropped by the build filter: mobile_phone is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "MoneyGram",
+    "name": "MoneyGram",
+    "category": "money_transfer",
+    "lat": 44.4303083,
+    "lon": 26.1080162,
+    "osm": "node/11190619791",
+    "onRoute": true,
+    "reason": "dropped by the build filter: money_transfer is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Pofta Inimii",
+    "category": "fast_food",
+    "lat": 44.4320125,
+    "lon": 26.0973456,
+    "osm": "node/11191307996",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "dm",
+    "name": "dm",
+    "category": "chemist",
+    "lat": 44.4335793,
+    "lon": 26.1028497,
+    "osm": "node/12759263037",
+    "onRoute": false,
+    "reason": "dropped by the build filter: chemist is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Stanleybet",
+    "name": "Stanleybet",
+    "category": "bookmaker",
+    "lat": 44.4299084,
+    "lon": 26.1057745,
+    "osm": "node/12759899758",
+    "onRoute": true,
+    "reason": "dropped by the build filter: bookmaker is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "First Copy",
+    "category": "copyshop",
+    "lat": 44.4253734,
+    "lon": 26.1021643,
+    "osm": "node/13248674624",
+    "onRoute": true,
+    "reason": "dropped by the build filter: copyshop is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Giant",
+    "name": "Giant",
+    "category": "bicycle",
+    "lat": 44.4301695,
+    "lon": 26.1205092,
+    "osm": "node/989093276",
+    "onRoute": false,
+    "reason": "dropped by the build filter: bicycle is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": null,
+    "category": "dentist",
+    "lat": 44.4322347,
+    "lon": 26.1124315,
+    "osm": "node/1240999506",
+    "onRoute": true,
+    "reason": "dropped by the build filter: dentist is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Mega Image",
+    "name": "Mega Image",
+    "category": "supermarket",
+    "lat": 44.4333028,
+    "lon": 26.1205511,
+    "osm": "node/1890565824",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Art Estetic",
+    "category": "beauty",
+    "lat": 44.431406,
+    "lon": 26.1093809,
+    "osm": "node/2690812697",
+    "onRoute": true,
+    "reason": "dropped by the build filter: beauty is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Megapan",
+    "category": "bakery",
+    "lat": 44.4332243,
+    "lon": 26.1206632,
+    "osm": "node/3144454751",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Pharma Plant",
+    "category": "pharmacy",
+    "lat": 44.4333495,
+    "lon": 26.1206987,
+    "osm": "node/3873157367",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "Shop&Go",
+    "name": "Shop&Go",
+    "category": "convenience",
+    "lat": 44.4302764,
+    "lon": 26.1207558,
+    "osm": "node/4151705165",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Grilly's Corner",
+    "category": "deli",
+    "lat": 44.4326821,
+    "lon": 26.1111547,
+    "osm": "node/4339114989",
+    "onRoute": true,
+    "reason": "dropped by the build filter: deli is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Jade Palace",
+    "category": "massage",
+    "lat": 44.4331548,
+    "lon": 26.1176065,
+    "osm": "node/5488312323",
+    "onRoute": true,
+    "reason": "dropped by the build filter: massage is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Antiquariat",
+    "category": "books",
+    "lat": 44.4315499,
+    "lon": 26.1095276,
+    "osm": "node/6945377486",
+    "onRoute": true,
+    "reason": "dropped by the build filter: books is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Fx Auto",
+    "category": "car_repair",
+    "lat": 44.4331234,
+    "lon": 26.1143033,
+    "osm": "node/7715933706",
+    "onRoute": true,
+    "reason": "dropped by the build filter: car_repair is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Superbet",
+    "name": "Superbet",
+    "category": "bookmaker",
+    "lat": 44.433215,
+    "lon": 26.1204491,
+    "osm": "node/8628418067",
+    "onRoute": false,
+    "reason": "dropped by the build filter: bookmaker is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Gelato Experience",
+    "category": "confectionery",
+    "lat": 44.4309405,
+    "lon": 26.1092549,
+    "osm": "node/9843232908",
+    "onRoute": true,
+    "reason": "dropped by the build filter: confectionery is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Fortuna",
+    "name": "Fortuna",
+    "category": "bookmaker",
+    "lat": 44.4334323,
+    "lon": 26.1207009,
+    "osm": "node/10539907930",
+    "onRoute": false,
+    "reason": "dropped by the build filter: bookmaker is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "ARCADIA TRADE S.R.L.",
+    "category": "deli",
+    "lat": 44.4328233,
+    "lon": 26.1116199,
+    "osm": "node/11187795292",
+    "onRoute": true,
+    "reason": "dropped by the build filter: deli is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "DAILY FLOWERS",
+    "category": "florist",
+    "lat": 44.4328718,
+    "lon": 26.1117038,
+    "osm": "node/11188733300",
+    "onRoute": true,
+    "reason": "dropped by the build filter: florist is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "THE BARBER",
+    "category": "hairdresser",
+    "lat": 44.4313222,
+    "lon": 26.1091584,
+    "osm": "node/11190304924",
+    "onRoute": true,
+    "reason": "dropped by the build filter: hairdresser is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Carne Mântuleasa",
+    "category": "butcher",
+    "lat": 44.432775,
+    "lon": 26.1114739,
+    "osm": "node/11192754942",
+    "onRoute": true,
+    "reason": "dropped by the build filter: butcher is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Hair Story by Amelie",
+    "category": "hairdresser",
+    "lat": 44.4331323,
+    "lon": 26.1121585,
+    "osm": "node/11760644116",
+    "onRoute": true,
+    "reason": "dropped by the build filter: hairdresser is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "5 to go",
+    "name": "5 to go",
+    "category": "cafe",
+    "lat": 44.4334837,
+    "lon": 26.1207061,
+    "osm": "node/13456671090",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Librăria Mihai Eminescu",
+    "category": "books",
+    "lat": 44.4351006,
+    "lon": 26.099313,
+    "osm": "node/734592703",
+    "onRoute": false,
+    "reason": "dropped by the build filter: books is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Trattoria Colosseum",
+    "category": "restaurant",
+    "lat": 44.4365712,
+    "lon": 26.0988974,
+    "osm": "node/1729617185",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Derya Kebab",
+    "category": "fast_food",
+    "lat": 44.4366009,
+    "lon": 26.1074645,
+    "osm": "node/2476357693",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Librăria CLB Mihail Sadoveanu",
+    "category": "books",
+    "lat": 44.4354347,
+    "lon": 26.0993527,
+    "osm": "node/2486977239",
+    "onRoute": false,
+    "reason": "dropped by the build filter: books is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Cărturești",
+    "name": "Cărturești & friends",
+    "category": "books",
+    "lat": 44.4355956,
+    "lon": 26.0991584,
+    "osm": "node/2538454246",
+    "onRoute": false,
+    "reason": "dropped by the build filter: books is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Mengotti",
+    "category": "clothes",
+    "lat": 44.4365223,
+    "lon": 26.0980782,
+    "osm": "node/2814009701",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "T-zero",
+    "category": "cafe",
+    "lat": 44.4366894,
+    "lon": 26.1066732,
+    "osm": "node/7175216885",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Buoni e Bravi",
+    "category": "fast_food",
+    "lat": 44.4366036,
+    "lon": 26.1066405,
+    "osm": "node/8911909155",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "Cărturești",
+    "name": "Cărturești Modul",
+    "category": "books",
+    "lat": 44.4363213,
+    "lon": 26.0996344,
+    "osm": "node/9240541064",
+    "onRoute": false,
+    "reason": "dropped by the build filter: books is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Pastrami & More",
+    "category": "fast_food",
+    "lat": 44.4366731,
+    "lon": 26.1072831,
+    "osm": "node/9416312640",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Los Amantes",
+    "category": "restaurant",
+    "lat": 44.4366043,
+    "lon": 26.0980582,
+    "osm": "node/10984499946",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "Inmedio",
+    "name": "inmedio",
+    "category": "newsagent",
+    "lat": 44.4354417,
+    "lon": 26.1023054,
+    "osm": "node/11157791272",
+    "onRoute": false,
+    "reason": "dropped by the build filter: newsagent is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Shop&Go",
+    "name": "Shop&Go",
+    "category": "convenience",
+    "lat": 44.4365692,
+    "lon": 26.1057223,
+    "osm": "node/12424707433",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "Carrefour Express",
+    "name": "Carrefour Express",
+    "category": "supermarket",
+    "lat": 44.4365954,
+    "lon": 26.1064998,
+    "osm": "node/14152468402",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Trattoria Roma Mântuleasa",
+    "category": "restaurant",
+    "lat": 44.4366986,
+    "lon": 26.1140032,
+    "osm": "node/3505817593",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Hemingway Residence Hotel",
+    "category": "hotel",
+    "lat": 44.4366817,
+    "lon": 26.1139129,
+    "osm": "node/3505817594",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "Mega Image",
+    "name": "Mega Image",
+    "category": "supermarket",
+    "lat": 44.4365883,
+    "lon": 26.1108502,
+    "osm": "way/373532473",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   }
+  ],
+  "wrong": [],
+  "extra": [
+   {
+    "name": null,
+    "brand": "Euronet",
+    "sub": "atm",
+    "lat": 44.43001,
+    "lon": 26.107502,
+    "issue": "ATM drawn as a bank POI (and as the building's sign if it is the first POI inside)"
+   },
+   {
+    "name": null,
+    "brand": "Euronet",
+    "sub": "atm",
+    "lat": 44.425463,
+    "lon": 26.103629,
+    "issue": "ATM drawn as a bank POI (and as the building's sign if it is the first POI inside)"
+   }
+  ],
+  "noSignColours": [
+   "Avbs Broker",
+   "DoubleTree by Hilton",
+   "Fortuna",
+   "Garanti BBVA",
+   "Giant",
+   "Intesa Sanpaolo",
+   "Mercure",
+   "MoneyGram",
+   "New Yorker",
+   "Tucano Coffee"
+  ],
+  "atmAsBank": 2,
+  "brandTable": [
+   {
+    "key": "inglot",
+    "has": [
+     "#FF6200",
+     "#FFFFFF",
+     "#FFFFFF"
+    ],
+    "issue": "data.brands gives Inglot (cosmetics, black/white fascia) the ING orange colours",
+    "expected": [
+     "#000000",
+     "#FFFFFF",
+     "#FFFFFF"
+    ]
+   }
+  ],
+  "closed": [
+   {
+    "name": "H&M",
+    "brand": null,
+    "category": "disused:shop=clothes",
+    "lat": 44.4272498,
+    "lon": 26.1044846,
+    "osm": "node/1814949000",
+    "distRoute": 44,
+    "lastEdit": "2026-10-19",
+    "source": "OSM node/1814949000 (lifecycle-prefixed tag: no longer trading)"
+   },
+   {
+    "name": null,
+    "brand": null,
+    "category": "disused:shop=yes",
+    "lat": 44.4328397,
+    "lon": 26.1121614,
+    "osm": "node/1726032531",
+    "distRoute": 15,
+    "lastEdit": "2023-02-05",
+    "source": "OSM node/1726032531 (lifecycle-prefixed tag: no longer trading)"
+   }
+  ],
+  "skipped": {
+   "atms": 11,
+   "parcelLockers": 3,
+   "companyOffices": 6
+  }
+ },
+ "bucharest-pipera": {
+  "missing": [
+   {
+    "brand": null,
+    "name": "Jerry's Pizza - Aviației",
+    "category": "fast_food",
+    "lat": 44.4810708,
+    "lon": 26.0921825,
+    "osm": "node/3255802188",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Librăria 11 CLB",
+    "category": "books",
+    "lat": 44.4800851,
+    "lon": 26.0929259,
+    "osm": "node/4679363055",
+    "onRoute": false,
+    "reason": "dropped by the build filter: books is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Salon Rebelle",
+    "category": "hairdresser",
+    "lat": 44.479439,
+    "lon": 26.095828,
+    "osm": "node/643325123",
+    "onRoute": true,
+    "reason": "dropped by the build filter: hairdresser is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": null,
+    "category": "butcher",
+    "lat": 44.4796875,
+    "lon": 26.0981515,
+    "osm": "node/1143517382",
+    "onRoute": true,
+    "reason": "dropped by the build filter: butcher is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": null,
+    "category": "car_wash",
+    "lat": 44.4790376,
+    "lon": 26.096338,
+    "osm": "node/2190051481",
+    "onRoute": true,
+    "reason": "dropped by the build filter: car_wash is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Cărturești",
+    "name": "Cărturești",
+    "category": "books",
+    "lat": 44.4776014,
+    "lon": 26.1032717,
+    "osm": "node/2484089644",
+    "onRoute": false,
+    "reason": "dropped by the build filter: books is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Deichmann",
+    "name": "Deichmann",
+    "category": "shoes",
+    "lat": 44.4789386,
+    "lon": 26.1034959,
+    "osm": "node/2484094073",
+    "onRoute": false,
+    "reason": "dropped by the build filter: shoes is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Hervis",
+    "name": "Hervis",
+    "category": "sports",
+    "lat": 44.4787444,
+    "lon": 26.1026658,
+    "osm": "node/2484107176",
+    "onRoute": false,
+    "reason": "dropped by the build filter: sports is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "OPTIblu",
+    "name": "Optiblu",
+    "category": "optician",
+    "lat": 44.478099,
+    "lon": 26.1029248,
+    "osm": "node/2484113356",
+    "onRoute": false,
+    "reason": "dropped by the build filter: optician is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "NoaDent",
+    "category": "dentist",
+    "lat": 44.4801254,
+    "lon": 26.1035942,
+    "osm": "node/3069844972",
+    "onRoute": true,
+    "reason": "dropped by the build filter: dentist is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Nufărul - Aviației",
+    "category": "dry_cleaning",
+    "lat": 44.4794835,
+    "lon": 26.0959882,
+    "osm": "node/4347623290",
+    "onRoute": true,
+    "reason": "dropped by the build filter: dry_cleaning is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "DHL",
+    "name": "DHL",
+    "category": "post_office",
+    "lat": 44.4764916,
+    "lon": 26.1062405,
+    "osm": "node/4548556190",
+    "onRoute": false,
+    "reason": "dropped by the build filter: post_office is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Digi",
+    "name": "Digi",
+    "category": "telecommunication",
+    "lat": 44.4794473,
+    "lon": 26.094977,
+    "osm": "node/4679372195",
+    "onRoute": false,
+    "reason": "dropped by the build filter: telecommunication is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Florărie",
+    "category": "florist",
+    "lat": 44.4794735,
+    "lon": 26.1008705,
+    "osm": "node/4835012421",
+    "onRoute": true,
+    "reason": "dropped by the build filter: florist is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Cafe' de Fleurs",
+    "category": "florist",
+    "lat": 44.4798528,
+    "lon": 26.1024943,
+    "osm": "node/4836608723",
+    "onRoute": true,
+    "reason": "dropped by the build filter: florist is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "English Home",
+    "name": "English Home",
+    "category": "interior_decoration",
+    "lat": 44.478709,
+    "lon": 26.1037193,
+    "osm": "node/4866516024",
+    "onRoute": false,
+    "reason": "dropped by the build filter: interior_decoration is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "GNC",
+    "name": "GNC",
+    "category": "nutrition_supplements",
+    "lat": 44.477726,
+    "lon": 26.1031605,
+    "osm": "node/4866589923",
+    "onRoute": false,
+    "reason": "dropped by the build filter: nutrition_supplements is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Profihairshop",
+    "category": "cosmetics",
+    "lat": 44.477644,
+    "lon": 26.1032144,
+    "osm": "node/4866592324",
+    "onRoute": false,
+    "reason": "dropped by the build filter: cosmetics is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Smyk",
+    "name": "Smyk",
+    "category": "toys",
+    "lat": 44.4781852,
+    "lon": 26.1028735,
+    "osm": "node/4866592421",
+    "onRoute": false,
+    "reason": "dropped by the build filter: toys is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Superbet",
+    "name": "Superbet",
+    "category": "bookmaker",
+    "lat": 44.4796093,
+    "lon": 26.095317,
+    "osm": "node/8628417793",
+    "onRoute": false,
+    "reason": "dropped by the build filter: bookmaker is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Maxbet",
+    "name": "Maxbet",
+    "category": "casino",
+    "lat": 44.4797528,
+    "lon": 26.0996774,
+    "osm": "node/11824955965",
+    "onRoute": true,
+    "reason": "dropped by the build filter: casino is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Fortuna",
+    "name": "Fortuna",
+    "category": "bookmaker",
+    "lat": 44.4797657,
+    "lon": 26.099798,
+    "osm": "node/12184162182",
+    "onRoute": true,
+    "reason": "dropped by the build filter: bookmaker is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Medicover",
+    "category": "doctors",
+    "lat": 44.4792685,
+    "lon": 26.1162812,
+    "osm": "node/3749088960",
+    "onRoute": true,
+    "reason": "dropped by the build filter: doctors is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "eiluminat Concept Store",
+    "category": "lighting",
+    "lat": 44.4781143,
+    "lon": 26.1218016,
+    "osm": "node/13269380071",
+    "onRoute": true,
+    "reason": "dropped by the build filter: lighting is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Husqvarna",
+    "category": "appliance",
+    "lat": 44.4780062,
+    "lon": 26.1206392,
+    "osm": "node/13269915332",
+    "onRoute": true,
+    "reason": "dropped by the build filter: appliance is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Audio Forum",
+    "category": "hifi",
+    "lat": 44.4780797,
+    "lon": 26.1218236,
+    "osm": "node/13333853514",
+    "onRoute": true,
+    "reason": "dropped by the build filter: hifi is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Sophia home decoration",
+    "category": "curtain",
+    "lat": 44.4778156,
+    "lon": 26.1189314,
+    "osm": "node/13333870193",
+    "onRoute": true,
+    "reason": "dropped by the build filter: curtain is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Creo Kitchens",
+    "category": "kitchen",
+    "lat": 44.4776347,
+    "lon": 26.1175275,
+    "osm": "node/13333870194",
+    "onRoute": true,
+    "reason": "dropped by the build filter: kitchen is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Florăria Voicu",
+    "category": "garden_centre",
+    "lat": 44.4767279,
+    "lon": 26.1254106,
+    "osm": "node/451751023",
+    "onRoute": true,
+    "reason": "dropped by the build filter: garden_centre is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": null,
+    "category": "convenience",
+    "lat": 44.4801116,
+    "lon": 26.1016583,
+    "osm": "way/39887767",
+    "onRoute": true,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Tunel Carwash",
+    "category": "car_wash",
+    "lat": 44.480353,
+    "lon": 26.1015917,
+    "osm": "way/45260812",
+    "onRoute": true,
+    "reason": "dropped by the build filter: car_wash is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Bilete STB",
+    "category": "ticket",
+    "lat": 44.4793273,
+    "lon": 26.1001031,
+    "osm": "way/1203914865",
+    "onRoute": true,
+    "reason": "dropped by the build filter: ticket is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "McDonald's",
+    "name": "McDonald's Promenada Mall",
+    "category": "fast_food",
+    "lat": 44.478615,
+    "lon": 26.10155,
+    "osm": null,
+    "onRoute": false,
+    "reason": "not in OSM (official locator only)"
+   },
+   {
+    "brand": "KFC",
+    "name": "KFC Promenada",
+    "category": "fast_food",
+    "lat": 44.47881,
+    "lon": 26.103661,
+    "osm": null,
+    "onRoute": false,
+    "reason": "not in OSM (official locator only)"
+   },
+   {
+    "brand": "Carrefour Express",
+    "name": "Express Green Court",
+    "category": "convenience",
+    "lat": 44.479447,
+    "lon": 26.105141,
+    "osm": null,
+    "onRoute": true,
+    "reason": "not in OSM (official locator only)"
+   },
+   {
+    "brand": "Kaufland",
+    "name": "Kaufland Bucuresti Fabrica de Glucoza",
+    "category": "supermarket",
+    "lat": 44.477991,
+    "lon": 26.122599,
+    "osm": null,
+    "onRoute": true,
+    "reason": "not in OSM (official locator only)"
+   }
+  ],
+  "wrong": [],
+  "extra": [
+   {
+    "name": null,
+    "brand": "Euronet",
+    "sub": "atm",
+    "lat": 44.479782,
+    "lon": 26.102573,
+    "issue": "ATM drawn as a bank POI (and as the building's sign if it is the first POI inside)"
+   },
+   {
+    "name": null,
+    "brand": "Euronet",
+    "sub": "atm",
+    "lat": 44.48025,
+    "lon": 26.103425,
+    "issue": "ATM drawn as a bank POI (and as the building's sign if it is the first POI inside)"
+   },
+   {
+    "name": null,
+    "brand": "Euronet",
+    "sub": "atm",
+    "lat": 44.478132,
+    "lon": 26.107205,
+    "issue": "ATM drawn as a bank POI (and as the building's sign if it is the first POI inside)"
+   },
+   {
+    "name": "BRD",
+    "brand": "BRD",
+    "sub": "atm",
+    "lat": 44.478875,
+    "lon": 26.124453,
+    "issue": "ATM drawn as a bank POI (and as the building's sign if it is the first POI inside)"
+   },
+   {
+    "name": null,
+    "brand": "Euronet",
+    "sub": "atm",
+    "lat": 44.480513,
+    "lon": 26.113692,
+    "issue": "ATM drawn as a bank POI (and as the building's sign if it is the first POI inside)"
+   },
+   {
+    "name": null,
+    "brand": "UniCredit Bank",
+    "sub": "atm",
+    "lat": 44.478891,
+    "lon": 26.124613,
+    "issue": "ATM drawn as a bank POI (and as the building's sign if it is the first POI inside)"
+   }
+  ],
+  "noSignColours": [
+   "C&A",
+   "Courtyard",
+   "Deichmann",
+   "Digi",
+   "English Home",
+   "Fortuna",
+   "GNC",
+   "Garanti BBVA",
+   "Hervis",
+   "Hyundai",
+   "Libra Internet Bank",
+   "Maxbet",
+   "Mazda",
+   "Mobexpert",
+   "Next",
+   "Smyk",
+   "SsangYong",
+   "Superbet",
+   "Vianor"
+  ],
+  "atmAsBank": 6,
+  "brandTable": [],
+  "closed": [],
+  "skipped": {
+   "atms": 7,
+   "parcelLockers": 8,
+   "companyOffices": 2
+  }
+ },
+ "bucharest-romana": {
+  "missing": [
+   {
+    "brand": null,
+    "name": "Tulin",
+    "category": "restaurant",
+    "lat": 44.4393112,
+    "lon": 26.086758,
+    "osm": "node/2992696433",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Librăria Sf. Iosif",
+    "category": "books",
+    "lat": 44.442229,
+    "lon": 26.090936,
+    "osm": "node/3701983871",
+    "onRoute": false,
+    "reason": "dropped by the build filter: books is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Rya Optik",
+    "category": "optician",
+    "lat": 44.440246,
+    "lon": 26.092943,
+    "osm": "node/11405274911",
+    "onRoute": false,
+    "reason": "dropped by the build filter: optician is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Cărturești",
+    "name": "Cărturești",
+    "category": "books",
+    "lat": 44.4429293,
+    "lon": 26.0994774,
+    "osm": "node/328616370",
+    "onRoute": true,
+    "reason": "dropped by the build filter: books is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Klauss Coffee Shop",
+    "category": "cafe",
+    "lat": 44.4403246,
+    "lon": 26.1002571,
+    "osm": "node/828137227",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Librăria din fundul Curții - Humanitas",
+    "category": "books",
+    "lat": 44.4425103,
+    "lon": 26.0944351,
+    "osm": "node/1472207729",
+    "onRoute": false,
+    "reason": "dropped by the build filter: books is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "IQOS",
+    "name": "IQOS",
+    "category": "e-cigarette",
+    "lat": 44.4408722,
+    "lon": 26.0952556,
+    "osm": "node/1563413156",
+    "onRoute": false,
+    "reason": "dropped by the build filter: e-cigarette is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Eba Optics",
+    "category": "optician",
+    "lat": 44.4408712,
+    "lon": 26.1002359,
+    "osm": "node/2446511072",
+    "onRoute": false,
+    "reason": "dropped by the build filter: optician is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Vodafone",
+    "name": "Vodafone",
+    "category": "mobile_phone",
+    "lat": 44.4409057,
+    "lon": 26.0994717,
+    "osm": "node/2446512554",
+    "onRoute": false,
+    "reason": "dropped by the build filter: mobile_phone is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Kix",
+    "category": "shoes",
+    "lat": 44.4442291,
+    "lon": 26.0978249,
+    "osm": "node/2469082081",
+    "onRoute": true,
+    "reason": "dropped by the build filter: shoes is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Sex Shop 4Love.ro",
+    "category": "erotic",
+    "lat": 44.4442952,
+    "lon": 26.0987111,
+    "osm": "node/2479085812",
+    "onRoute": true,
+    "reason": "dropped by the build filter: erotic is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Old Bastards Tattoo",
+    "category": "tattoo",
+    "lat": 44.4441916,
+    "lon": 26.0985759,
+    "osm": "node/2554131315",
+    "onRoute": true,
+    "reason": "dropped by the build filter: tattoo is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Digi",
+    "name": "Digi",
+    "category": "telecommunication",
+    "lat": 44.4407483,
+    "lon": 26.0995367,
+    "osm": "node/3091660466",
+    "onRoute": false,
+    "reason": "dropped by the build filter: telecommunication is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Club XS",
+    "category": "nightclub",
+    "lat": 44.4443292,
+    "lon": 26.0985778,
+    "osm": "node/3118882252",
+    "onRoute": true,
+    "reason": "dropped by the build filter: nightclub is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Librăria Papirus",
+    "category": "books",
+    "lat": 44.4448195,
+    "lon": 26.0975677,
+    "osm": "node/3734652409",
+    "onRoute": true,
+    "reason": "dropped by the build filter: books is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Florăria Iris - pct. Magheru x Take Ionescu",
+    "category": "florist",
+    "lat": 44.4442988,
+    "lon": 26.097704,
+    "osm": "node/4038498365",
+    "onRoute": true,
+    "reason": "dropped by the build filter: florist is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Credit Europe Bank",
+    "category": "bank",
+    "lat": 44.4394305,
+    "lon": 26.09996,
+    "osm": "node/4549378498",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "Marionnaud",
+    "name": "Marionnaud",
+    "category": "perfumery",
+    "lat": 44.4406511,
+    "lon": 26.1000984,
+    "osm": "node/5084238578",
+    "onRoute": false,
+    "reason": "dropped by the build filter: perfumery is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Basarabia",
+    "category": "deli",
+    "lat": 44.4422245,
+    "lon": 26.0992949,
+    "osm": "node/5519214706",
+    "onRoute": true,
+    "reason": "dropped by the build filter: deli is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Sephora",
+    "name": "Sephora",
+    "category": "cosmetics",
+    "lat": 44.439974,
+    "lon": 26.099759,
+    "osm": "node/5602931594",
+    "onRoute": false,
+    "reason": "dropped by the build filter: cosmetics is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Sixt",
+    "name": "Sixt",
+    "category": "car_rental",
+    "lat": 44.4412194,
+    "lon": 26.0945546,
+    "osm": "node/8426585665",
+    "onRoute": false,
+    "reason": "dropped by the build filter: car_rental is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Superbet",
+    "name": "Superbet",
+    "category": "bookmaker",
+    "lat": 44.4442879,
+    "lon": 26.0977945,
+    "osm": "node/8628417865",
+    "onRoute": true,
+    "reason": "dropped by the build filter: bookmaker is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Samsonite",
+    "name": "Samsonite",
+    "category": "bag",
+    "lat": 44.44082,
+    "lon": 26.0995232,
+    "osm": "node/10996915893",
+    "onRoute": false,
+    "reason": "dropped by the build filter: bag is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Limerence",
+    "category": "pastry",
+    "lat": 44.4418623,
+    "lon": 26.0985353,
+    "osm": "node/11067430933",
+    "onRoute": true,
+    "reason": "dropped by the build filter: pastry is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "My Private Sex Shop",
+    "category": "erotic",
+    "lat": 44.4435628,
+    "lon": 26.0986536,
+    "osm": "node/11618363305",
+    "onRoute": true,
+    "reason": "dropped by the build filter: erotic is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "J'Info Tours",
+    "category": "travel_agency",
+    "lat": 44.44407,
+    "lon": 26.0985526,
+    "osm": "node/11618366216",
+    "onRoute": true,
+    "reason": "dropped by the build filter: travel_agency is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Super Gold",
+    "category": "jewelry",
+    "lat": 44.4437509,
+    "lon": 26.0985821,
+    "osm": "node/12318285863",
+    "onRoute": true,
+    "reason": "dropped by the build filter: jewelry is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Gogoșeria Puiului",
+    "category": "fast_food",
+    "lat": 44.4405247,
+    "lon": 26.1001599,
+    "osm": "node/12582016452",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Ardes",
+    "category": "cosmetics",
+    "lat": 44.4433925,
+    "lon": 26.0976131,
+    "osm": "node/13483547258",
+    "onRoute": false,
+    "reason": "dropped by the build filter: cosmetics is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "First Copy",
+    "category": "copyshop",
+    "lat": 44.4442705,
+    "lon": 26.0976188,
+    "osm": "node/13544497940",
+    "onRoute": true,
+    "reason": "dropped by the build filter: copyshop is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Amanet",
+    "category": "pawnbroker",
+    "lat": 44.4442506,
+    "lon": 26.0975589,
+    "osm": "node/13670245769",
+    "onRoute": true,
+    "reason": "dropped by the build filter: pawnbroker is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Admiral",
+    "name": "Admiral",
+    "category": "casino",
+    "lat": 44.4508226,
+    "lon": 26.087515,
+    "osm": "node/2621172403",
+    "onRoute": false,
+    "reason": "dropped by the build filter: casino is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "F.M. Medident - Piața Victoriei",
+    "category": "dentist",
+    "lat": 44.4520372,
+    "lon": 26.089003,
+    "osm": "node/3707528309",
+    "onRoute": true,
+    "reason": "dropped by the build filter: dentist is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "DHL",
+    "name": "DHL",
+    "category": "post_office",
+    "lat": 44.450081,
+    "lon": 26.0832114,
+    "osm": "node/3756813282",
+    "onRoute": false,
+    "reason": "dropped by the build filter: post_office is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Artemis.Masaj",
+    "category": "massage",
+    "lat": 44.4508857,
+    "lon": 26.0923243,
+    "osm": "node/5488367122",
+    "onRoute": true,
+    "reason": "dropped by the build filter: massage is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Superbet",
+    "name": "Superbet",
+    "category": "bookmaker",
+    "lat": 44.445469,
+    "lon": 26.082578,
+    "osm": "node/8628418145",
+    "onRoute": false,
+    "reason": "dropped by the build filter: bookmaker is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Inmedio",
+    "name": "inmedio",
+    "category": "newsagent",
+    "lat": 44.4523996,
+    "lon": 26.0825282,
+    "osm": "node/10951615124",
+    "onRoute": false,
+    "reason": "dropped by the build filter: newsagent is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Froo",
+    "name": "Froo",
+    "category": "convenience",
+    "lat": 44.4524001,
+    "lon": 26.0824105,
+    "osm": "node/10951615127",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Librarul",
+    "category": "books",
+    "lat": 44.4518337,
+    "lon": 26.0821485,
+    "osm": "node/10951647270",
+    "onRoute": false,
+    "reason": "dropped by the build filter: books is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "L'optique",
+    "category": "optician",
+    "lat": 44.4518308,
+    "lon": 26.0823121,
+    "osm": "node/10951647272",
+    "onRoute": false,
+    "reason": "dropped by the build filter: optician is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Mon Bijou",
+    "category": "fashion_accessories",
+    "lat": 44.4511666,
+    "lon": 26.087122,
+    "osm": "node/11212136333",
+    "onRoute": true,
+    "reason": "dropped by the build filter: fashion_accessories is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Chef Box",
+    "category": "restaurant",
+    "lat": 44.4488299,
+    "lon": 26.0823168,
+    "osm": "node/11558060169",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "Dent estet",
+    "name": "Green Dental",
+    "category": "dentist",
+    "lat": 44.4511238,
+    "lon": 26.0892329,
+    "osm": "node/13138050832",
+    "onRoute": true,
+    "reason": "dropped by the build filter: dentist is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Chautari",
+    "category": "restaurant",
+    "lat": 44.4457076,
+    "lon": 26.0822041,
+    "osm": "node/14232278601",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Oficiul Poștal 63",
+    "category": "post_office",
+    "lat": 44.4524229,
+    "lon": 26.0990259,
+    "osm": "node/1768904024",
+    "onRoute": false,
+    "reason": "dropped by the build filter: post_office is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Librarul Dulimex",
+    "category": "books",
+    "lat": 44.4545576,
+    "lon": 26.098179,
+    "osm": "node/1768905825",
+    "onRoute": false,
+    "reason": "dropped by the build filter: books is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Orange",
+    "name": "Orange",
+    "category": "mobile_phone",
+    "lat": 44.4527406,
+    "lon": 26.0985097,
+    "osm": "node/2432213825",
+    "onRoute": false,
+    "reason": "dropped by the build filter: mobile_phone is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Librăria AGIR",
+    "category": "books",
+    "lat": 44.446782,
+    "lon": 26.0980779,
+    "osm": "node/2457737097",
+    "onRoute": false,
+    "reason": "dropped by the build filter: books is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "L'Optique",
+    "category": "optician",
+    "lat": 44.4451151,
+    "lon": 26.0992926,
+    "osm": "node/2479080671",
+    "onRoute": false,
+    "reason": "dropped by the build filter: optician is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Florărie Non-Stop",
+    "category": "florist",
+    "lat": 44.4471308,
+    "lon": 26.0971789,
+    "osm": "node/3005951633",
+    "onRoute": true,
+    "reason": "dropped by the build filter: florist is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Shop&Go",
+    "name": "Shop&Go",
+    "category": "convenience",
+    "lat": 44.4527805,
+    "lon": 26.1001667,
+    "osm": "node/3757940558",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Târgul Cărții",
+    "category": "books",
+    "lat": 44.4527544,
+    "lon": 26.0984363,
+    "osm": "node/3759186609",
+    "onRoute": false,
+    "reason": "dropped by the build filter: books is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Librăria CLB",
+    "category": "books",
+    "lat": 44.4531738,
+    "lon": 26.0979418,
+    "osm": "node/3759186614",
+    "onRoute": false,
+    "reason": "dropped by the build filter: books is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Vodafone",
+    "name": "Vodafone",
+    "category": "mobile_phone",
+    "lat": 44.4527814,
+    "lon": 26.0999048,
+    "osm": "node/3759186615",
+    "onRoute": false,
+    "reason": "dropped by the build filter: mobile_phone is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Marshal Turism",
+    "category": "travel_agency",
+    "lat": 44.4461497,
+    "lon": 26.0968952,
+    "osm": "node/4048726664",
+    "onRoute": true,
+    "reason": "dropped by the build filter: travel_agency is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "dm",
+    "name": "dm",
+    "category": "chemist",
+    "lat": 44.4538748,
+    "lon": 26.0985089,
+    "osm": "node/4564405596",
+    "onRoute": false,
+    "reason": "dropped by the build filter: chemist is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Dental Pallace",
+    "category": "dentist",
+    "lat": 44.446253,
+    "lon": 26.0968388,
+    "osm": "node/6513700354",
+    "onRoute": true,
+    "reason": "dropped by the build filter: dentist is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Secret Massage",
+    "category": "massage",
+    "lat": 44.4510673,
+    "lon": 26.093537,
+    "osm": "node/6897182945",
+    "onRoute": true,
+    "reason": "dropped by the build filter: massage is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "dm",
+    "name": "dm",
+    "category": "chemist",
+    "lat": 44.4463252,
+    "lon": 26.0966215,
+    "osm": "node/7293845639",
+    "onRoute": true,
+    "reason": "dropped by the build filter: chemist is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Orange",
+    "name": "Orange",
+    "category": "mobile_phone",
+    "lat": 44.4460612,
+    "lon": 26.096935,
+    "osm": "node/7293870988",
+    "onRoute": true,
+    "reason": "dropped by the build filter: mobile_phone is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Miele",
+    "name": "Miele",
+    "category": "appliance",
+    "lat": 44.4483091,
+    "lon": 26.0995729,
+    "osm": "node/7312238329",
+    "onRoute": false,
+    "reason": "dropped by the build filter: appliance is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Animax",
+    "name": "Animax",
+    "category": "pet",
+    "lat": 44.4484845,
+    "lon": 26.0988641,
+    "osm": "node/7312864785",
+    "onRoute": false,
+    "reason": "dropped by the build filter: pet is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Fornetti",
+    "name": "Fornetti",
+    "category": "pastry",
+    "lat": 44.4467635,
+    "lon": 26.097562,
+    "osm": "node/8513025042",
+    "onRoute": true,
+    "reason": "dropped by the build filter: pastry is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Xerox",
+    "category": "copyshop",
+    "lat": 44.4460208,
+    "lon": 26.0978807,
+    "osm": "node/9944937396",
+    "onRoute": true,
+    "reason": "dropped by the build filter: copyshop is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Innovative Romana",
+    "category": "copyshop",
+    "lat": 44.446471,
+    "lon": 26.097223,
+    "osm": "node/11172363184",
+    "onRoute": true,
+    "reason": "dropped by the build filter: copyshop is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Hobby Mobile Accessories",
+    "category": "mobile_phone_accessories",
+    "lat": 44.4462834,
+    "lon": 26.097321,
+    "osm": "node/11172363186",
+    "onRoute": true,
+    "reason": "dropped by the build filter: mobile_phone_accessories is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Tabakos",
+    "category": "tobacco",
+    "lat": 44.4462186,
+    "lon": 26.0973526,
+    "osm": "node/11172363187",
+    "onRoute": true,
+    "reason": "dropped by the build filter: tobacco is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Miniso",
+    "name": "Miniso",
+    "category": "variety_store",
+    "lat": 44.4456174,
+    "lon": 26.0978428,
+    "osm": "node/11178795303",
+    "onRoute": true,
+    "reason": "dropped by the build filter: variety_store is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Librarul",
+    "category": "books",
+    "lat": 44.4467669,
+    "lon": 26.0976473,
+    "osm": "node/11261905154",
+    "onRoute": true,
+    "reason": "dropped by the build filter: books is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": null,
+    "category": "newsagent",
+    "lat": 44.44672,
+    "lon": 26.0973372,
+    "osm": "node/11261905155",
+    "onRoute": true,
+    "reason": "dropped by the build filter: newsagent is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "STB",
+    "category": "ticket",
+    "lat": 44.4454787,
+    "lon": 26.0976416,
+    "osm": "node/11263095690",
+    "onRoute": true,
+    "reason": "dropped by the build filter: ticket is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Prego",
+    "category": "shoes",
+    "lat": 44.4453101,
+    "lon": 26.0979885,
+    "osm": "node/11513853602",
+    "onRoute": true,
+    "reason": "dropped by the build filter: shoes is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Gregory's",
+    "category": "pastry",
+    "lat": 44.447019,
+    "lon": 26.0975382,
+    "osm": "node/11513854103",
+    "onRoute": true,
+    "reason": "dropped by the build filter: pastry is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Casandra",
+    "category": "confectionery",
+    "lat": 44.4454238,
+    "lon": 26.0979284,
+    "osm": "node/11513855675",
+    "onRoute": true,
+    "reason": "dropped by the build filter: confectionery is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "opti.plus",
+    "category": "optician",
+    "lat": 44.4527803,
+    "lon": 26.1002145,
+    "osm": "node/11607872755",
+    "onRoute": false,
+    "reason": "dropped by the build filter: optician is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Maxbet",
+    "name": "Maxbet",
+    "category": "casino",
+    "lat": 44.4462009,
+    "lon": 26.0967297,
+    "osm": "node/11825001199",
+    "onRoute": true,
+    "reason": "dropped by the build filter: casino is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "the spot",
+    "category": "fast_food",
+    "lat": 44.4469955,
+    "lon": 26.1002251,
+    "osm": "node/12278130455",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "Meli Melo",
+    "name": "Meli Melo",
+    "category": "fashion_accessories",
+    "lat": 44.4470503,
+    "lon": 26.0995974,
+    "osm": "node/12278142827",
+    "onRoute": false,
+    "reason": "dropped by the build filter: fashion_accessories is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Vibe Anime Cafe",
+    "category": "cafe",
+    "lat": 44.4451535,
+    "lon": 26.1002004,
+    "osm": "node/12903400878",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Grand Boulevard Apartment at Piata Romana",
+    "category": "apartment",
+    "lat": 44.4485341,
+    "lon": 26.09414,
+    "osm": "node/12906263752",
+    "onRoute": true,
+    "reason": "dropped by the build filter: apartment is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Opticris",
+    "name": "Opticris",
+    "category": "optician",
+    "lat": 44.4546312,
+    "lon": 26.0981429,
+    "osm": "node/13427923367",
+    "onRoute": false,
+    "reason": "dropped by the build filter: optician is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Superbet",
+    "name": "Superbet",
+    "category": "bookmaker",
+    "lat": 44.4545739,
+    "lon": 26.097625,
+    "osm": "node/13429496917",
+    "onRoute": false,
+    "reason": "dropped by the build filter: bookmaker is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "5àsec",
+    "name": "5àsec",
+    "category": "dry_cleaning",
+    "lat": 44.4546718,
+    "lon": 26.0975799,
+    "osm": "node/13429496920",
+    "onRoute": false,
+    "reason": "dropped by the build filter: dry_cleaning is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Xtime",
+    "category": "tobacco",
+    "lat": 44.4500097,
+    "lon": 26.0948315,
+    "osm": "node/13572917436",
+    "onRoute": true,
+    "reason": "dropped by the build filter: tobacco is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "AGS",
+    "category": "jewelry",
+    "lat": 44.4474067,
+    "lon": 26.0964221,
+    "osm": "node/13572917437",
+    "onRoute": true,
+    "reason": "dropped by the build filter: jewelry is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Optica Medicală",
+    "category": "optician",
+    "lat": 44.4527438,
+    "lon": 26.098084,
+    "osm": "node/13574655837",
+    "onRoute": false,
+    "reason": "dropped by the build filter: optician is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "THAI temple SPA",
+    "category": "massage",
+    "lat": 44.4515215,
+    "lon": 26.0941662,
+    "osm": "node/14090085282",
+    "onRoute": true,
+    "reason": "dropped by the build filter: massage is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Porcelanosa",
+    "name": "Porcelanosa",
+    "category": "tiles",
+    "lat": 44.4566829,
+    "lon": 26.0964446,
+    "osm": "node/2432281711",
+    "onRoute": false,
+    "reason": "dropped by the build filter: tiles is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Sushi Terra",
+    "category": "restaurant",
+    "lat": 44.4570612,
+    "lon": 26.0966591,
+    "osm": "node/5068655506",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Gia Concept Store",
+    "category": "clothes",
+    "lat": 44.4572557,
+    "lon": 26.0965019,
+    "osm": "node/13427923391",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "McDonald's",
+    "name": "McDonald's",
+    "category": "fast_food",
+    "lat": 44.4485294,
+    "lon": 26.0824217,
+    "osm": "way/255662260",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "McDonald's",
+    "name": "McDonald's PlayPlace",
+    "category": "fast_food",
+    "lat": 44.448586,
+    "lon": 26.0822396,
+    "osm": "way/1111013126",
+    "onRoute": false,
+    "reason": "dropped by the build filter: fast_food is not in tools/osm/build-data.mjs poiKind()"
+   }
+  ],
+  "wrong": [],
+  "extra": [
+   {
+    "name": null,
+    "brand": "Euronet",
+    "sub": "atm",
+    "lat": 44.443177,
+    "lon": 26.09793,
+    "issue": "ATM drawn as a bank POI (and as the building's sign if it is the first POI inside)"
+   }
+  ],
+  "noSignColours": [
+   "5àsec",
+   "Admiral",
+   "Animax",
+   "Burberry",
+   "COS",
+   "Dent estet",
+   "Digi",
+   "Hugo Boss",
+   "IQOS",
+   "Il Calcio",
+   "InterContinental",
+   "Intesa Sanpaolo",
+   "La Romana",
+   "Libra Internet Bank",
+   "Marionnaud",
+   "Max Mara",
+   "Meli Melo",
+   "Miele",
+   "Miniso",
+   "Park Inn",
+   "Porcelanosa",
+   "ProCredit Bank",
+   "Radisson Blu",
+   "Sheraton",
+   "Sixt",
+   "TBI Bank",
+   "Terranova",
+   "Triumph",
+   "Tucano Coffee"
+  ],
+  "atmAsBank": 1,
+  "brandTable": [],
+  "closed": [
+   {
+    "name": null,
+    "brand": null,
+    "category": "disused:shop=kiosk",
+    "lat": 44.4424336,
+    "lon": 26.0992611,
+    "osm": "node/2546324265",
+    "distRoute": 18,
+    "lastEdit": "2026-07-03",
+    "source": "OSM node/2546324265 (lifecycle-prefixed tag: no longer trading)"
+   },
+   {
+    "name": null,
+    "brand": null,
+    "category": "disused:shop=yes",
+    "lat": 44.4417451,
+    "lon": 26.0995341,
+    "osm": "node/4549374247",
+    "distRoute": 28,
+    "lastEdit": "2026-04-07",
+    "source": "OSM node/4549374247 (lifecycle-prefixed tag: no longer trading)"
+   },
+   {
+    "name": null,
+    "brand": null,
+    "category": "disused:shop=coffee",
+    "lat": 44.4421431,
+    "lon": 26.099353,
+    "osm": "node/6513758411",
+    "distRoute": 14,
+    "lastEdit": "2025-02-12",
+    "source": "OSM node/6513758411 (lifecycle-prefixed tag: no longer trading)"
+   },
+   {
+    "name": null,
+    "brand": null,
+    "category": "disused:shop=coffee",
+    "lat": 44.4423959,
+    "lon": 26.099208,
+    "osm": "node/9001427429",
+    "distRoute": 12,
+    "lastEdit": "2025-02-12",
+    "source": "OSM node/9001427429 (lifecycle-prefixed tag: no longer trading)"
+   },
+   {
+    "name": null,
+    "brand": null,
+    "category": "disused:shop=newsagent",
+    "lat": 44.4445651,
+    "lon": 26.0983328,
+    "osm": "node/11261959885",
+    "distRoute": 23,
+    "lastEdit": "2025-02-12",
+    "source": "OSM node/11261959885 (lifecycle-prefixed tag: no longer trading)"
+   },
+   {
+    "name": null,
+    "brand": null,
+    "category": "disused:shop=florist",
+    "lat": 44.4445782,
+    "lon": 26.0983849,
+    "osm": "node/11261959886",
+    "distRoute": 28,
+    "lastEdit": "2025-02-12",
+    "source": "OSM node/11261959886 (lifecycle-prefixed tag: no longer trading)"
+   },
+   {
+    "name": null,
+    "brand": null,
+    "category": "disused:amenity=bureau_de_change",
+    "lat": 44.4443223,
+    "lon": 26.098508,
+    "osm": "node/11618365273",
+    "distRoute": 28,
+    "lastEdit": "2026-06-30",
+    "source": "OSM node/11618365273 (lifecycle-prefixed tag: no longer trading)"
+   },
+   {
+    "name": null,
+    "brand": null,
+    "category": "disused:amenity=pharmacy",
+    "lat": 44.4509545,
+    "lon": 26.0900593,
+    "osm": "node/2637716554",
+    "distRoute": 37,
+    "lastEdit": "2026-06-15",
+    "source": "OSM node/2637716554 (lifecycle-prefixed tag: no longer trading)"
+   },
+   {
+    "name": null,
+    "brand": null,
+    "category": "disused:amenity=bank",
+    "lat": 44.4517777,
+    "lon": 26.0878695,
+    "osm": "node/3757940559",
+    "distRoute": 23,
+    "lastEdit": "2026-06-15",
+    "source": "OSM node/3757940559 (lifecycle-prefixed tag: no longer trading)"
+   },
+   {
+    "name": "Centrul Rus de Știință și Cultură din București",
+    "brand": null,
+    "category": "disused:amenity=community_centre",
+    "lat": 44.4508461,
+    "lon": 26.0896161,
+    "osm": "node/3956663257",
+    "distRoute": 19,
+    "lastEdit": "2026-08-31",
+    "source": "OSM node/3956663257 (lifecycle-prefixed tag: no longer trading)"
+   },
+   {
+    "name": null,
+    "brand": null,
+    "category": "disused:shop=florist",
+    "lat": 44.4515558,
+    "lon": 26.087144,
+    "osm": "node/11222737061",
+    "distRoute": 16,
+    "lastEdit": "2026-06-15",
+    "source": "OSM node/11222737061 (lifecycle-prefixed tag: no longer trading)"
+   },
+   {
+    "name": null,
+    "brand": null,
+    "category": "disused:shop=mobile_phone",
+    "lat": 44.4455643,
+    "lon": 26.0972003,
+    "osm": "node/5084229431",
+    "distRoute": 25,
+    "lastEdit": "2026-06-30",
+    "source": "OSM node/5084229431 (lifecycle-prefixed tag: no longer trading)"
+   },
+   {
+    "name": "Cinema Studio",
+    "brand": null,
+    "category": "disused:amenity=cinema",
+    "lat": 44.4450198,
+    "lon": 26.0974653,
+    "osm": "node/5859527796",
+    "distRoute": 25,
+    "lastEdit": "2026-06-30",
+    "source": "OSM node/5859527796 (lifecycle-prefixed tag: no longer trading)"
+   },
+   {
+    "name": null,
+    "brand": null,
+    "category": "disused:shop=yes",
+    "lat": 44.4470886,
+    "lon": 26.0958554,
+    "osm": "node/7293870987",
+    "distRoute": 36,
+    "lastEdit": "2023-09-21",
+    "source": "OSM node/7293870987 (lifecycle-prefixed tag: no longer trading)"
+   }
+  ],
+  "skipped": {
+   "atms": 9,
+   "parcelLockers": 3,
+   "companyOffices": 4
+  }
+ },
+ "bucharest-otopeni": {
+  "missing": [
+   {
+    "brand": null,
+    "name": "Press & GO",
+    "category": "kiosk",
+    "lat": 44.5694603,
+    "lon": 26.0775448,
+    "osm": "node/11257054230",
+    "onRoute": true,
+    "reason": "dropped by the build filter: kiosk is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Hertz",
+    "name": "Hertz",
+    "category": "car_rental",
+    "lat": 44.569926,
+    "lon": 26.0777449,
+    "osm": "node/11257087450",
+    "onRoute": true,
+    "reason": "dropped by the build filter: car_rental is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Autonom",
+    "category": "car_rental",
+    "lat": 44.5699256,
+    "lon": 26.0777081,
+    "osm": "node/11257087451",
+    "onRoute": true,
+    "reason": "dropped by the build filter: car_rental is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Alamo",
+    "name": "Alamo",
+    "category": "car_rental",
+    "lat": 44.5699258,
+    "lon": 26.0777203,
+    "osm": "node/11257087452",
+    "onRoute": true,
+    "reason": "dropped by the build filter: car_rental is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "SIXT",
+    "name": "SIXT",
+    "category": "car_rental",
+    "lat": 44.5699264,
+    "lon": 26.0777567,
+    "osm": "node/11257087453",
+    "onRoute": true,
+    "reason": "dropped by the build filter: car_rental is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Avis",
+    "name": "Avis",
+    "category": "car_rental",
+    "lat": 44.5699262,
+    "lon": 26.0777326,
+    "osm": "node/11257087454",
+    "onRoute": true,
+    "reason": "dropped by the build filter: car_rental is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "okmobility",
+    "category": "car_rental",
+    "lat": 44.5699269,
+    "lon": 26.0777698,
+    "osm": "node/11257087455",
+    "onRoute": true,
+    "reason": "dropped by the build filter: car_rental is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Zoe Auto Rent",
+    "category": "car_rental",
+    "lat": 44.5672963,
+    "lon": 26.0685642,
+    "osm": "node/12238896058",
+    "onRoute": false,
+    "reason": "dropped by the build filter: car_rental is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": null,
+    "category": "furniture",
+    "lat": 44.5594198,
+    "lon": 26.0699824,
+    "osm": "way/259171750",
+    "onRoute": true,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   }
+  ],
+  "wrong": [
+   {
+    "brand": "Carrefour Express",
+    "name": "Carrefour Express",
+    "lat": 44.5685392,
+    "lon": 26.0778708,
+    "osm": "node/4892173053",
+    "issue": "not in official locator but drawn in game"
+   }
+  ],
+  "extra": [
+   {
+    "name": null,
+    "brand": "Euronet",
+    "sub": "atm",
+    "lat": 44.568954,
+    "lon": 26.077454,
+    "issue": "ATM drawn as a bank POI (and as the building's sign if it is the first POI inside)"
+   },
+   {
+    "name": null,
+    "brand": "Euronet",
+    "sub": "atm",
+    "lat": 44.569297,
+    "lon": 26.077406,
+    "issue": "ATM drawn as a bank POI (and as the building's sign if it is the first POI inside)"
+   },
+   {
+    "name": null,
+    "brand": "CEC Bank",
+    "sub": "atm",
+    "lat": 44.569262,
+    "lon": 26.077409,
+    "issue": "ATM drawn as a bank POI (and as the building's sign if it is the first POI inside)"
+   },
+   {
+    "name": null,
+    "brand": "Euronet",
+    "sub": "atm",
+    "lat": 44.568932,
+    "lon": 26.077632,
+    "issue": "ATM drawn as a bank POI (and as the building's sign if it is the first POI inside)"
+   },
+   {
+    "name": null,
+    "brand": "BRD",
+    "sub": "atm",
+    "lat": 44.568924,
+    "lon": 26.077459,
+    "issue": "ATM drawn as a bank POI (and as the building's sign if it is the first POI inside)"
+   },
+   {
+    "name": null,
+    "brand": "Euronet",
+    "sub": "atm",
+    "lat": 44.569369,
+    "lon": 26.077561,
+    "issue": "ATM drawn as a bank POI (and as the building's sign if it is the first POI inside)"
+   },
+   {
+    "name": null,
+    "brand": "Raiffeisen Bank",
+    "sub": "atm",
+    "lat": 44.568959,
+    "lon": 26.077628,
+    "issue": "ATM drawn as a bank POI (and as the building's sign if it is the first POI inside)"
+   },
+   {
+    "name": null,
+    "brand": "Euronet",
+    "sub": "atm",
+    "lat": 44.569592,
+    "lon": 26.077518,
+    "issue": "ATM drawn as a bank POI (and as the building's sign if it is the first POI inside)"
+   },
+   {
+    "name": "UniCredit Bank",
+    "brand": "Alpha Bank",
+    "sub": "atm",
+    "lat": 44.569458,
+    "lon": 26.077496,
+    "issue": "ATM drawn as a bank POI (and as the building's sign if it is the first POI inside)"
+   },
+   {
+    "name": "BRD Bank",
+    "brand": "BRD",
+    "sub": "atm",
+    "lat": 44.56925,
+    "lon": 26.077449,
+    "issue": "ATM drawn as a bank POI (and as the building's sign if it is the first POI inside)"
+   },
+   {
+    "name": "Raiffeisenbank",
+    "brand": "Raiffeisen Bank",
+    "sub": "atm",
+    "lat": 44.569262,
+    "lon": 26.07738,
+    "issue": "ATM drawn as a bank POI (and as the building's sign if it is the first POI inside)"
+   },
+   {
+    "name": "UniCredit Bank",
+    "brand": "UniCredit Bank",
+    "sub": "atm",
+    "lat": 44.569896,
+    "lon": 26.077618,
+    "issue": "ATM drawn as a bank POI (and as the building's sign if it is the first POI inside)"
+   }
+  ],
+  "noSignColours": [
+   "Alamo",
+   "Avis",
+   "Hertz",
+   "Ramada",
+   "SIXT",
+   "Vienna House",
+   "Viva",
+   "hei"
+  ],
+  "atmAsBank": 12,
+  "brandTable": [],
+  "closed": [],
+  "skipped": {
+   "atms": 13,
+   "parcelLockers": 1,
+   "companyOffices": 0
+  }
+ },
+ "seattle-seatac": {
+  "missing": [
+   {
+    "brand": null,
+    "name": "Seattle Airport Car Rental",
+    "category": "car_rental",
+    "lat": 47.4609936,
+    "lon": -122.2946019,
+    "osm": "node/5260770627",
+    "onRoute": true,
+    "reason": "dropped by the build filter: car_rental is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "ampm",
+    "name": "ampm",
+    "category": "convenience",
+    "lat": 47.4656396,
+    "lon": -122.2880159,
+    "osm": "way/205724258",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "ARCO",
+    "name": "Arco",
+    "category": "fuel",
+    "lat": 47.4655541,
+    "lon": -122.288308,
+    "osm": "way/205724266",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Alliance Auto Gas",
+    "category": "fuel",
+    "lat": 47.4606407,
+    "lon": -122.2907209,
+    "osm": "way/737770102",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Star Coffee",
+    "category": "cafe",
+    "lat": 47.4594086,
+    "lon": -122.2926911,
+    "osm": "way/993409798",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "Starbucks",
+    "name": "SEA Bag Claim 4",
+    "category": "cafe",
+    "lat": 47.44253,
+    "lon": -122.30102,
+    "osm": null,
+    "onRoute": false,
+    "reason": "not in OSM (official locator only)"
+   }
+  ],
+  "wrong": [],
+  "extra": [],
+  "noSignColours": [
+   "Denny's",
+   "Extended Stay America",
+   "Hudson",
+   "Red Roof Inn",
+   "ampm"
+  ],
+  "atmAsBank": 0,
+  "brandTable": [],
+  "closed": [],
+  "skipped": {
+   "atms": 2,
+   "parcelLockers": 0,
+   "companyOffices": 0
+  }
+ },
+ "seattle-bellevue": {
+  "missing": [
+   {
+    "brand": "7-Eleven",
+    "name": "7-Eleven",
+    "category": "convenience",
+    "lat": 47.6095292,
+    "lon": -122.2011035,
+    "osm": "node/364608769",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "IGSM Wireless",
+    "category": "mobile_phone",
+    "lat": 47.6104874,
+    "lon": -122.1981153,
+    "osm": "node/395165929",
+    "onRoute": false,
+    "reason": "dropped by the build filter: mobile_phone is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Gilbert's on Main",
+    "category": "restaurant",
+    "lat": 47.6102914,
+    "lon": -122.2053448,
+    "osm": "node/3883947001",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "CVS Pharmacy",
+    "name": "CVS Pharmacy",
+    "category": "pharmacy",
+    "lat": 47.6095253,
+    "lon": -122.201757,
+    "osm": "node/4053640838",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "FedEx",
+    "name": "FedEx Office",
+    "category": "copyshop",
+    "lat": 47.6104176,
+    "lon": -122.200676,
+    "osm": "node/6313239765",
+    "onRoute": false,
+    "reason": "dropped by the build filter: copyshop is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Chocolate Lounge",
+    "category": "bar",
+    "lat": 47.6169656,
+    "lon": -122.1913425,
+    "osm": "node/5235488524",
+    "onRoute": true,
+    "reason": "dropped by the build filter: bar is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Jet City Device Repair",
+    "category": "electronics_repair",
+    "lat": 47.618932,
+    "lon": -122.1934259,
+    "osm": "node/6001631578",
+    "onRoute": false,
+    "reason": "dropped by the build filter: electronics_repair is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Tanoor",
+    "category": "restaurant",
+    "lat": 47.6192057,
+    "lon": -122.1913009,
+    "osm": "node/13597352865",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": "The Container Store",
+    "name": "The Container Store",
+    "category": "houseware",
+    "lat": 47.6166024,
+    "lon": -122.2014048,
+    "osm": "node/1271668742",
+    "onRoute": true,
+    "reason": "dropped by the build filter: houseware is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Xfinity",
+    "name": "Xfinity",
+    "category": "telecommunication",
+    "lat": 47.615392,
+    "lon": -122.20193,
+    "osm": "node/1437183004",
+    "onRoute": false,
+    "reason": "dropped by the build filter: telecommunication is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Chromatique",
+    "category": "hairdresser",
+    "lat": 47.6179039,
+    "lon": -122.20148,
+    "osm": "node/1928451410",
+    "onRoute": true,
+    "reason": "dropped by the build filter: hairdresser is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "AT&T",
+    "name": "AT&T",
+    "category": "mobile_phone",
+    "lat": 47.6177571,
+    "lon": -122.202361,
+    "osm": "node/3073269012",
+    "onRoute": true,
+    "reason": "dropped by the build filter: mobile_phone is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Tempur-Pedic",
+    "name": "Tempur-Pedic",
+    "category": "bed",
+    "lat": 47.6190185,
+    "lon": -122.201978,
+    "osm": "node/3651436126",
+    "onRoute": false,
+    "reason": "dropped by the build filter: bed is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Mephisto",
+    "name": "Mephisto",
+    "category": "shoes",
+    "lat": 47.617734,
+    "lon": -122.2038551,
+    "osm": "node/3905207486",
+    "onRoute": false,
+    "reason": "dropped by the build filter: shoes is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "See's Candies",
+    "name": "See's Candies",
+    "category": "confectionery",
+    "lat": 47.6177598,
+    "lon": -122.2041533,
+    "osm": "node/3921542485",
+    "onRoute": false,
+    "reason": "dropped by the build filter: confectionery is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Envision",
+    "category": "optician",
+    "lat": 47.6177359,
+    "lon": -122.2036675,
+    "osm": "node/3921542490",
+    "onRoute": false,
+    "reason": "dropped by the build filter: optician is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Tavern Hall",
+    "category": "pub",
+    "lat": 47.6165675,
+    "lon": -122.202069,
+    "osm": "node/3926527635",
+    "onRoute": true,
+    "reason": "dropped by the build filter: pub is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Paddy Coyne's",
+    "category": "pub",
+    "lat": 47.6172005,
+    "lon": -122.201183,
+    "osm": "node/3926527640",
+    "onRoute": true,
+    "reason": "dropped by the build filter: pub is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Mattress Firm",
+    "name": "Mattress Firm",
+    "category": "bed",
+    "lat": 47.6181029,
+    "lon": -122.2023467,
+    "osm": "node/3928039558",
+    "onRoute": false,
+    "reason": "dropped by the build filter: bed is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Paper Source",
+    "category": "paper",
+    "lat": 47.615993,
+    "lon": -122.2014447,
+    "osm": "node/4190971187",
+    "onRoute": true,
+    "reason": "dropped by the build filter: paper is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "LensCrafters",
+    "name": "LensCrafters",
+    "category": "optician",
+    "lat": 47.6125586,
+    "lon": -122.2013775,
+    "osm": "node/4358042490",
+    "onRoute": false,
+    "reason": "dropped by the build filter: optician is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Edible Arrangements",
+    "name": "Edible Arrangements",
+    "category": "gift",
+    "lat": 47.6136515,
+    "lon": -122.200669,
+    "osm": "node/5235764159",
+    "onRoute": false,
+    "reason": "dropped by the build filter: gift is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Optima Dental Spa",
+    "category": "dentist",
+    "lat": 47.6176171,
+    "lon": -122.2001928,
+    "osm": "node/5608446845",
+    "onRoute": true,
+    "reason": "dropped by the build filter: dentist is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Specialty Eye",
+    "category": "optician",
+    "lat": 47.6128253,
+    "lon": -122.1992323,
+    "osm": "node/6313223309",
+    "onRoute": false,
+    "reason": "dropped by the build filter: optician is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "TRUCE Spa",
+    "category": "beauty",
+    "lat": 47.6159462,
+    "lon": -122.2008702,
+    "osm": "node/9480344700",
+    "onRoute": true,
+    "reason": "dropped by the build filter: beauty is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Forum Social House",
+    "category": "bar",
+    "lat": 47.6170349,
+    "lon": -122.201328,
+    "osm": "node/9480344702",
+    "onRoute": true,
+    "reason": "dropped by the build filter: bar is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Prime 21 Lounge",
+    "category": "bar",
+    "lat": 47.6178696,
+    "lon": -122.2003182,
+    "osm": "node/9480344703",
+    "onRoute": true,
+    "reason": "dropped by the build filter: bar is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Trillium Custom Tailoring & Design",
+    "category": "tailor",
+    "lat": 47.6177529,
+    "lon": -122.2001834,
+    "osm": "node/9480344708",
+    "onRoute": true,
+    "reason": "dropped by the build filter: tailor is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Finish Line",
+    "name": "Finish Line",
+    "category": "sports",
+    "lat": 47.6154937,
+    "lon": -122.2023413,
+    "osm": "node/11213162188",
+    "onRoute": false,
+    "reason": "dropped by the build filter: sports is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "Jo Malone",
+    "name": "Jo Malone",
+    "category": "perfumery",
+    "lat": 47.6178202,
+    "lon": -122.2030332,
+    "osm": "node/12008728875",
+    "onRoute": false,
+    "reason": "dropped by the build filter: perfumery is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": "Omo Thai Tea",
+    "category": "cafe",
+    "lat": 47.6193584,
+    "lon": -122.2035778,
+    "osm": "node/12064246469",
+    "onRoute": false,
+    "reason": "not found within 35 m (outside the district mask, deduplicated, or dropped by the near-network filter)"
+   },
+   {
+    "brand": null,
+    "name": "Eco Car Cafe",
+    "category": "car_wash",
+    "lat": 47.6176123,
+    "lon": -122.2004108,
+    "osm": "node/13279136171",
+    "onRoute": true,
+    "reason": "dropped by the build filter: car_wash is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": null,
+    "name": null,
+    "category": "second_hand",
+    "lat": 47.6178313,
+    "lon": -122.1983075,
+    "osm": "way/33725909",
+    "onRoute": true,
+    "reason": "dropped by the build filter: second_hand is not in tools/osm/build-data.mjs poiKind()"
+   },
+   {
+    "brand": "QFC",
+    "name": "QFC Bellevue 808 (host store of a licensed Starbucks)",
+    "category": "supermarket",
+    "lat": 47.61839,
+    "lon": -122.20494,
+    "osm": null,
+    "onRoute": false,
+    "reason": "not in OSM (official locator only)"
+   }
+  ],
+  "wrong": [
+   {
+    "brand": "Starbucks",
+    "name": "Starbucks",
+    "lat": 47.6175489,
+    "lon": -122.1933228,
+    "osm": "node/471973082",
+    "issue": "not in official locator but drawn in game"
+   },
+   {
+    "brand": "Bank of America",
+    "name": "Bank of America",
+    "lat": 47.6184746,
+    "lon": -122.2048252,
+    "osm": "node/697212586",
+    "issue": "not in official locator but drawn in game"
+   }
+  ],
+  "extra": [
+   {
+    "name": "Westin Bellevue",
+    "brand": "Westin",
+    "sub": "hotel",
+    "lat": 47.615879,
+    "lon": -122.200878,
+    "issue": "not matched by this research (unbranded duplicate or outside research filters)"
+   }
+  ],
+  "noSignColours": [
+   "7-Eleven",
+   "AC Hotel",
+   "AT&T",
+   "BECU",
+   "Banner Bank",
+   "Charles Schwab",
+   "Chicha San Chen",
+   "Chick-fil-A",
+   "Chipotle",
+   "Cinemark",
+   "CoCo",
+   "Crate & Barrel",
+   "Din Tai Fung",
+   "Dough Zone",
+   "Earls",
+   "Edible Arrangements",
+   "Evergreens",
+   "FedEx",
+   "Fidelity Investments",
+   "Finish Line",
+   "First Citizens Bank",
+   "First Tech Federal Credit Union",
+   "Fogo de Chão",
+   "H Mart",
+   "HSBC",
+   "Haidilao Hot Pot",
+   "Hermès",
+   "Hilton Garden Inn",
+   "Hui Lau Shan",
+   "Hyatt Regency",
+   "Jimmy John's",
+   "Jo Malone",
+   "KeyBank",
+   "LensCrafters",
+   "MOD Pizza",
+   "Macu",
+   "Macy's",
+   "Mango Mango Dessert",
+   "Marriott",
+   "Mattress Firm",
+   "Men's Wearhouse",
+   "Mendocino Farms",
+   "Mephisto",
+   "Microsoft Store",
+   "Nordstrom",
+   "Nordstrom Rack",
+   "Pagliacci Pizza",
+   "Paris Baguette",
+   "Potbelly",
+   "Pressed",
+   "Salt & Straw",
+   "See's Candies",
+   "Shake Shack",
+   "Tempur-Pedic",
+   "The Cheesecake Factory",
+   "The Container Store",
+   "The Melting Pot",
+   "Tous les Jours",
+   "U.S. Bank",
+   "Umpqua Bank",
+   "Uniqlo",
+   "Voodoo Doughnut",
+   "WSECU",
+   "WaFd Bank",
+   "Xfinity",
+   "Zara",
+   "ZoomCare",
+   "west elm"
+  ],
+  "atmAsBank": 0,
+  "brandTable": [
+   {
+    "key": "Molly Moon's Homemade Ice Cream",
+    "issue": "world.js brandStyle() prefix match gives it the 'mol' brand colours"
+   },
+   {
+    "key": "Molly Tea Bellevue",
+    "issue": "world.js brandStyle() prefix match gives it the 'mol' brand colours"
+   },
+   {
+    "key": "Orangetheory Fitness",
+    "issue": "world.js brandStyle() prefix match gives it the 'orange' brand colours"
+   }
+  ],
+  "closed": [
+   {
+    "name": "Plaza Salon",
+    "brand": null,
+    "category": "disused:shop=hairdresser",
+    "lat": 47.6176826,
+    "lon": -122.1941787,
+    "osm": "node/5752787322",
+    "distRoute": 27,
+    "lastEdit": "2026-05-11",
+    "source": "OSM node/5752787322 (lifecycle-prefixed tag: no longer trading)"
+   },
+   {
+    "name": null,
+    "brand": null,
+    "category": "disused:amenity=restaurant",
+    "lat": 47.616834,
+    "lon": -122.201971,
+    "osm": "node/1271661516",
+    "distRoute": 14,
+    "lastEdit": "2022-02-13",
+    "source": "OSM node/1271661516 (lifecycle-prefixed tag: no longer trading)"
+   },
+   {
+    "name": "Legion",
+    "brand": null,
+    "category": "disused:amenity=bar",
+    "lat": 47.6162622,
+    "lon": -122.201218,
+    "osm": "node/3926527641",
+    "distRoute": 29,
+    "lastEdit": "2026-05-02",
+    "source": "OSM node/3926527641 (lifecycle-prefixed tag: no longer trading)"
+   }
+  ],
+  "skipped": {
+   "atms": 6,
+   "parcelLockers": 1,
+   "companyOffices": 14
+  }
+ }
+}

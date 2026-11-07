@@ -95,6 +95,11 @@ function start(game) {
         chap.id = ch.id; chap.t = performance.now(); chap.done = false; chap.replay = !!game.progress?.done?.has?.(ch.id);
         track('chapter_start', { id: ch.id, n: idx + 1, district: ch.district, city: ch.city, replay: chap.replay, minutes: minutes() });
     });
+    wrapAfter('chainChapter', (ok, idx) => {
+        const ch = game.chapters?.[idx]; if (!ok || !ch) return;
+        chap.id = ch.id; chap.t = performance.now(); chap.done = false; chap.replay = !!game.progress?.done?.has?.(ch.id);
+        track('chapter_start', { id: ch.id, n: idx + 1, district: ch.district, city: ch.city, replay: chap.replay, minutes: minutes(), chained: true });
+    });
     wrap('start', (idx) => { if (idx != null && game.chapters?.[idx]) track('chapter_select', { id: game.chapters[idx].id, source: 'menu' }); });
     document.getElementById('navlist')?.addEventListener('click', (e) => {
         const b = e.target.closest?.('[data-chapter]'); const ch = b && game.chapters?.[+b.dataset.chapter];

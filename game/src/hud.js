@@ -139,7 +139,7 @@ export class HUD {
         p.innerHTML = `<div class="panel-inner">${html}${closable ? '<button class="btn close" data-close>Continue ▸</button>' : ''}</div>`;
         p.classList.add('show');
         return new Promise(res => {
-            const close = () => { p.classList.remove('show'); window.removeEventListener('keydown', onKey); res(); };
+            const close = () => { p.classList.remove('show'); window.removeEventListener('keydown', onKey); try { this.onPanelClose?.(); } catch { /* ignore */ } res(); };
             const onKey = (e) => { if (closable && (e.code === 'Escape' || e.code === 'Enter' || e.code === 'KeyE' || e.code === 'Space')) { e.preventDefault(); close(); } };
             p.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', close));
             setTimeout(() => window.addEventListener('keydown', onKey), 250);

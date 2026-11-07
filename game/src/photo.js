@@ -105,6 +105,8 @@ export class PhotoMode {
         if (this._active) return;
         const cam = this.o.getCamera?.(); if (!cam) return;
         this._active = true; this.cam = cam;
+        // (gameplay, note 19) remember the camera exactly as the game had it, restored on close
+        this._restore = { fov: cam.fov, near: cam.near, far: cam.far, zoom: cam.zoom, layers: cam.layers.mask, rotZ: cam.rotation.z };
         this.fov = Math.min(FOV_MAX, Math.max(FOV_MIN, cam.fov || 60));
         // own the camera FOV while active: the game's own per-frame FOV damping becomes a no-op
         const self = this;
@@ -123,7 +125,15 @@ export class PhotoMode {
     close() {
         if (!this._active) return;
         this._active = false; cancelAnimationFrame(this._raf);
-        const cam = this.cam; if (cam) { const f = this.fov; delete cam.fov; cam.fov = f; cam.updateProjectionMatrix(); }
+        const cam = this.cam, R = this._restore;
+        if (cam) {
+            delete cam.fov;
+            // the game's own FOV (drive damping / portrait viewFor / on foot / spot), not the photo zoom (note 19)
+            cam.fov = R?.fov ?? this.fov;
+            if (R) { cam.near = R.near; cam.far = R.far; cam.zoom = R.zoom; cam.layers.mask = R.layers; cam.rotation.z = R.rotZ; }
+            cam.updateProjectionMatrix();
+        }
+        this._restore = null;
         if (this.input?.touch) this.input.touch.brake = this._prevBrake || false;
         document.body.classList.remove('photo-mode');
         this.root.classList.remove('show', 'gallery-open');

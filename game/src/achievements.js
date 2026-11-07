@@ -226,6 +226,7 @@ export class Progression {
         };
         // chapters: crash count per chapter (clean-chapter), the montage over the I-90 bridge (bridge)
         before('enterChapter', (idx) => { const ch = g.chapters?.[idx]; if (ch) self.chap = { id: ch.id, crashes: 0, checked: false }; });
+        before('chainChapter', (idx) => { const ch = g.chapters?.[idx]; if (ch) self.chap = { id: ch.id, crashes: 0, checked: false }; }); // same-district chapters chain in place (gameplay)
         before('goToChapter', () => { self._fromChapter = g.ch?.id || null; });
         after('goToChapter', (ok, idx) => { const ch = g.chapters?.[idx]; if (ok && ch?.id === 'uipath-bel' && self._fromChapter === 'seatac') self.unlock('bridge'); });
         before('onCollide', () => { if (self.chap) self.chap.crashes++; });
@@ -431,7 +432,7 @@ export class Progression {
         document.body.classList.add('achv-open');
         setTimeout(() => this.panelEl.querySelector('.achv-x, [data-achv-act=close]')?.focus({ preventScroll: true }), 30);
     }
-    close() { this.view = null; this.panelEl.classList.remove('show'); document.body.classList.remove('achv-open'); this.game.input?.flush?.(); }
+    close() { this.view = null; this.panelEl.classList.remove('show'); document.body.classList.remove('achv-open'); this.game.input?.flush?.(); try { this.game.returnFocus?.(); } catch { /* ignore */ } } // (returnFocus: gameplay, note 21)
     renderPanel() {
         if (this.view === 'thanks') { this.panelEl.innerHTML = this.thanksHtml(); return; }
         const c = this.completion(), s = this.state, f = this.filter;

@@ -149,6 +149,10 @@ class Game {
         // debug info for the dev harness (collision log, overlay toggle)
         this.debug = { dev: DEV, overlay: false, lastCollider: null, hits: [], setOverlay: (on) => this.setDebugOverlay(on) };
         this.bindMenu();
+        // closing any panel hands keyboard focus back to the game (a focused, hidden button would eat Space / Enter) and
+        // lets the next click on the view take the mouse look again (note 21)
+        this.canvas.tabIndex = -1; this.canvas.style.outline = 'none';
+        this.hud.onPanelClose = () => this.returnFocus();
         // in a spot, an Esc / M that closes the camera, a plaque or a panel must not also open the pause panel
         window.addEventListener('keydown', (e) => {
             if ((e.code === 'Escape' || e.code === 'KeyM') && this.state === 'spot' && (this.photo?.active || this.spot?.ui?.panelOpen || this.hud.panelOpen)) this._spotSwallow = e.code;
@@ -248,6 +252,15 @@ class Game {
         this.hud.toast('🚗 Bucharest, 2013', 'Follow the blue route on the dashboard screen. H = horn · M = map & navigation.', 'intro');
         this.player.camHolder.add(this.camera); this.camera.position.set(0, 0, 0); this.camera.rotation.set(0, 0, 0);
         setTimeout(() => this.lookHint(), 4500);
+    }
+    /** back to play after a panel / card / map closed: keyboard focus on the game canvas, input flushed (the Esc / Enter
+     *  that closed it does nothing more), mouse look allowed again (pointer lock comes back on the next click on the view) */
+    returnFocus() {
+        const a = document.activeElement; if (a && a !== document.body && a !== this.canvas) a.blur?.();
+        try { this.canvas.focus({ preventScroll: true }); } catch { /* ignore */ }
+        this.input.flush(); this.input.keys?.clear?.();
+        if (['drive', 'foot', 'spot', 'office'].includes(this.state)) this.input.lookAllowed = true;
+        this.frameClock.getDelta();
     }
     /** one-time hint for mouse / touch look */
     lookHint() {
@@ -1042,8 +1055,9 @@ class Game {
 
     // ---------------------------------------------------------------------------------- big map + nav panel
     toggleMap(open) {
-        this.mapOpen = open;
+        const was = this.mapOpen; this.mapOpen = open;
         $('#bigmap-wrap').classList.toggle('show', open);
+        if (was && !open) this.returnFocus();
         if (open) {
             const c = $('#bigmap');
             const narrow = window.innerWidth < 900;
@@ -1604,7 +1618,7 @@ class Game {
         if (open && this.mapOpen) this.toggleMap(false);
         this.condOpen = !!open; el.classList.toggle('show', this.condOpen); document.body.classList.toggle('cond-open', this.condOpen);
         if (this.condOpen) { this.input.releaseLock(); this.input.lookAllowed = false; if (this.player) this.player.speed *= 0.2; this.syncConditions(); }
-        else { this.input.flush(); this.frameClock.getDelta(); }
+        else this.returnFocus();
     }
     /** a local hour (0..24) in the district's city: the real sun at that hour, traffic for that hour */
     setRoamHour(h) {
@@ -1723,7 +1737,7 @@ class Game {
         this.photo?.close?.(); this.state = 'card';
         const nd = CITIES[next.city]?.districts?.[next.district];
         const act = await chapterCard({ done: ch, next, index: idx, total: this.chapters.length, nextDistrictName: nd?.name });
-        this._completing = false;
+        this._completing = false; this.returnFocus();
         if (act === 'next') { await this.goToChapter(idx + 1); return; }
         this.state = this.foot?.active ? 'foot' : 'drive'; this.input.flush(); this.frameClock.getDelta();
         this.hud.toast('🚗 Free drive', `Explore ${this.world.district?.name || 'the district'}. Continue the story any time: M → Next chapter.`, 'intro');
@@ -1979,6 +1993,7 @@ class Game {
         } else if (o.read.size === 0) this.hud.toast('👀 Nothing read', 'Walk up to a screen and press E to read it.');
         this.input.flush();
         this.player.speed = 0;
+        this.returnFocus();
     }
 
     async fly() {

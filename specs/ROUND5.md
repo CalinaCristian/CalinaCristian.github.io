@@ -38,6 +38,7 @@ Source: `game/FEEDBACK.md` "Round 4 play-test" notes 1–27 (+ any that follow),
 | 32, 33 | spots + gameplay (minimap/map) | Map in spots; every landmark/spot has its own map with everything relevant (entrances, hero, plaques, postcard, cafés, toilets, bikes, transit), waypoints. |
 | 35 | spots | Cișmigiu: railing across the bridge entrance, stepped blocky deck, broken handrails — walkable arched footbridges like the real ones. |
 | 36 | spots | Blank green signboards (no text) — readable plaques on both faces, no empty signs. |
+| 55 | spots/landmarks (+ render) | Space Needle underside flickers (coplanar discs / depth precision); proper underside beams + elevators; consider near-plane/log depth on foot. |
 | 54 | spots (+ render) | Chihuly Glasshouse: real glass, sculpture as translucent glass forms, no floating slab, night lighting; full fidelity pass. |
 | 53 | spots | Pike Place full fidelity pass from references (arcade + stalls, sign + clock, Post Alley, Gum Wall, paving and slope, crowds, night). |
 | 51, 52 | spots Pike Place signs tilted/floating/overlapping across upper floors; indoor market shops get no outer-facade signs (or a directory board), one non-overlapping sign per shopfront, upright at fascia height. |

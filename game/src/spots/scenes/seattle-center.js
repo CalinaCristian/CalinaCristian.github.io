@@ -262,8 +262,8 @@ export default {
         S['mopop'].plaques.forEach((pl, i) => ctx.plaque(pl, mop.bb.x0 - 6, mop.bb.z0 + 30 + i * 4, -Math.PI / 2, { credit: 'Building: Frank O. Gehry (2000). Artworks nearby © their artists.', style: 'city' }));
         void needleY;
         // ---- challenges
-        ctx.challenge('space-needle', { r: 14, tol: 40, cond: (s) => s.camera.getWorldDirection(new THREE.Vector3()).y > 0.55, condHint: 'Look straight up the legs.' });
-        ctx.challenge('chihuly', { x: chi.cx, z: chi.cz, r: 12, tol: 70, cond: (s) => s.camera.getWorldDirection(new THREE.Vector3()).y > 0.4, condHint: 'Stand inside the Glasshouse and look up through the sculpture.' });
+        ctx.challenge('space-needle', { r: 16, tol: 45, pitch: 60, cond: (s) => s.camera.getWorldDirection(new THREE.Vector3()).y > 0.42, condHint: 'Look straight up the legs.' });
+        ctx.challenge('chihuly', { x: chi.cx, z: chi.cz, r: 12, tol: 80, pitch: 45, cond: (s) => s.camera.getWorldDirection(new THREE.Vector3()).y > 0.3, condHint: 'Stand inside the Glasshouse and look up through the sculpture.' });
         ctx.challenge('mopop', { r: 30, tol: 40, cond: (s) => { const t = s.spot.ctx.extras.trainPos; return t && Math.hypot(t.x - mop.cx, t.z - mop.cz) < 70; }, condHint: 'Wait for the Monorail to pass through the building.' });
         // ---- spawns (research)
         for (const id of ['space-needle', 'chihuly', 'mopop']) { const sp = S[id].spawn; ctx.spawns[id] = { x: sp.x, z: sp.z, heading: headingFromBearing(sp.heading_deg) }; }

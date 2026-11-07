@@ -284,7 +284,7 @@ export class Harness {
         const remaining = ap.remaining = Math.max(0, path.total - bs) + Math.hypot(path.pts[path.pts.length - 1][0] - ap.tx, path.pts[path.pts.length - 1][1] - ap.tz) * 0;
         const toTarget = Math.hypot(P.x - ap.tx, P.z - ap.tz);
         if (remaining < ap.bestRem - 3 || bs > (ap.bestS ?? -1) + 3) { ap.bestRem = Math.min(ap.bestRem, remaining); ap.bestS = Math.max(ap.bestS ?? 0, bs); ap.lastProgressT = this.scT; }
-        if (this.trace && this.scT - (ap.traceT ?? -9) > this.trace) { ap.traceT = this.scT; this.note(`ap x=${r1(P.x)} z=${r1(P.z)} v=${r1(v)} s=${r1(bs)}/${r1(path.total)} dev=${r1(best)} pi=${bi} gap=${ap.gap === Infinity ? '-' : r1(ap.gap)} ${ap.leader || ''} thr=${r2(this.ctl.throttle)} st=${r2(this.ctl.steer)} br=${this.ctl.brake} leg=${roadName(path.legOf[Math.min(bi, path.legOf.length - 1)].e)}`); }
+        if (this.trace && this.scT - (ap.traceT ?? -9) > this.trace) { ap.traceT = this.scT; this.note(`ap x=${r1(P.x)} z=${r1(P.z)} v=${r1(v)} s=${r1(bs)}/${r1(path.total)} dev=${r1(best)} pi=${bi} gap=${ap.gap === Infinity ? '-' : r1(ap.gap)} ${ap.leader || ''}${this.leaderChain(P)} thr=${r2(this.ctl.throttle)} st=${r2(this.ctl.steer)} br=${this.ctl.brake} leg=${roadName(path.legOf[Math.min(bi, path.legOf.length - 1)].e)}`); }
         // arrival
         if ((remaining < ap.o.arriveR || toTarget < ap.o.arriveR * 0.7) && (!ap.o.stop || av < 1.2)) { ap.done = true; ap.reason = 'arrived'; this.setControls(0, 0, true); return; }
         // off the path → own reroute (the game's nav reroutes itself too)
@@ -395,6 +395,15 @@ export class Harness {
         if (ap && !this.apRoute()) { ap.done = true; ap.reason = 'no route after reset'; }
     }
     /** nearest vehicle / pedestrian on the path within `look` m → { gap, speed, what } */
+    /** trace helper: the queue ahead of the player (kind · speed · why it stops), up to 8 vehicles */
+    leaderChain(P) {
+        const T = this.g.traffic; if (!T?.near) return '';
+        let best = null, bd = 1e9;
+        for (const v of T.near(P.x, P.z, 14)) { const dx = v.x - P.x, dz = v.z - P.z, f = dx * P.fx + dz * P.fz, l = Math.abs(dx * -P.fz + dz * P.fx); if (f > 0 && l < 2.5 && f < bd) { bd = f; best = v; } }
+        const out = []; const seen = new Set();
+        for (let v = best; v && typeof v === 'object' && !seen.has(v) && out.length < 8; v = v.leader) { seen.add(v); out.push(`${v.kind}#${v.id}:${r1(v.speed)}:${v.stopWhy || '-'}`); }
+        return out.length ? ` Q[${out.join(' > ')}]` : '';
+    }
     obstacleAhead(path, s0, look) {
         const g = this.g, P = g.player; let gap = Infinity, speed = 0, what = null, info = null;
         const T = g.traffic; if (!T) return { gap, speed, what };

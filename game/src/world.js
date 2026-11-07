@@ -2825,7 +2825,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const parkedLots = new Map(); // super-cell key → [{kind, color, x, y, z, yaw}]
     const useInst = typeof makeParkedCars === 'function';
     const carTris = useInst ? 260 : carKinds.reduce((s2, k) => { const pr = carProps(k, CAR_COLORS[0]); return s2 + (pr.index ? pr.index.length / 3 : 772); }, 0) / carKinds.length;
-    let parked = 0; const maxParked = Math.round(Math.min(city.id === 'bucharest' ? 2600 : 2000, 1200000 / Math.max(1, carTris)));
+    let parked = 0; const maxParked = Math.round(Math.min(city.id === 'bucharest' ? 2600 : 2000, 400000 / Math.max(1, carTris)));
     for (const a of areas) {
         if (a.kind !== 'parking' || parked >= maxParked || a.size < 120) continue;
         // orientation: longest edge

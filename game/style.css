@@ -179,6 +179,15 @@ body.touch #ticker { bottom: 335px; }
     body.touch .street-wrap { bottom: 215px; }
     .menu-card { padding: 26px 22px; }
 }
+/* portrait phones (R17.5): street name above the speed block, ticker above it, smaller touch buttons so the two pads
+   never meet, prompt above the bottom HUD stack */
+@media (max-width: 700px) and (orientation: portrait) {
+    body.touch .street-wrap { bottom: 350px; }
+    body.touch #ticker { bottom: 410px; }
+    body.touch .pad { gap: 8px; } body.touch .pad button { width: 54px; height: 54px; font-size: 21px; }
+    body.touch .pad.right button[data-btn=gas] { width: 62px; height: 62px; }
+    body.touch #prompt { top: 34%; }
+}
 
 /* ===== fast-travel montage ===== */
 #montage { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; pointer-events: none; opacity: 0; transition: opacity .18s; background: radial-gradient(ellipse at center, rgba(10,12,20,.78), rgba(4,6,10,.96)); overflow: hidden; }
@@ -229,8 +238,12 @@ body.touch #ticker { bottom: 335px; }
 
 /* ===== photo mode (photo.js) ===== */
 body.photo-mode #hud, body.photo-mode #dbg-plan { visibility: hidden; }
-/* tourist spots (spec 15): the spot overlay #spot-ui replaces the driving HUD */
-body.in-spot #hud, body.in-spot .pad .drive-only { display: none; }
+/* tourist spots (spec 15): the spot overlay #spot-ui replaces the driving HUD, but the touch pad stays so phones can walk
+   (walk ◀ ▶ ▲ ▼, jump, E; no horn / get-in) */
+body.in-spot #hud { display: block !important; }
+body.in-spot #hud > :not(#touch) { display: none !important; }
+body.in-spot .pad button.drive-only, body.in-spot .pad button[data-btn=foot] { display: none; }
+body.in-spot .pad button.office-only { display: inline-block; }
 .photo { position: fixed; inset: 0; z-index: 45; pointer-events: none; display: none; color: #fff; font-family: var(--font); }
 .photo.show { display: block; }
 .photo .pv-frame { position: absolute; box-shadow: 0 0 0 200vmax rgba(0, 0, 0, .42); outline: 1px solid rgba(255,255,255,.35); pointer-events: none; }

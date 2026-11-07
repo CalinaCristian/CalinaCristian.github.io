@@ -339,7 +339,7 @@ export default {
         // square: granite setts (OSM parking area w219710325)
         const sq = osmPoly(d, 'w219710325');
         ctx.terrainOpts = { bg: '#7c8a55', bgMask: 'grass', innerPx: 2048, innerStep: 5, outerStep: 16, outerPad: 900 };
-        bucBackdrop(ctx, { treeLod: { cap: 2600, max: 450 }, lampPad: 25, lampStyle: 'candelabra', lampColor: '#2c2f2c', lampOpts: { spacing: 50, kinds: ['primary'] }, streetTreeOpts: { spacing: 10, prob: 0.8, kinds: ['primary', 'secondary', 'tertiary', 'residential'] } });
+        bucBackdrop(ctx, { treeLod: { cap: 2400, max: 360 }, lampPad: 25, lampStyle: 'candelabra', lampColor: '#2c2f2c', lampOpts: { spacing: 50, kinds: ['primary'] }, streetTreeOpts: { spacing: 10, prob: 0.8, kinds: ['primary', 'secondary', 'tertiary', 'residential'] } });
         C?.paintPiazza();
         if (sq) {
             ctx.painter.poly(sq, '#8e8a84', 'cobble');
@@ -355,7 +355,7 @@ export default {
         const way = (id) => d.ways.find((w) => w.id === id)?.pts || [];
         const ring = [...way('w666686367'), ...way('w1138494722')].length ? [[30, 300], [24, 120], [28, -10], [34, -114], [52, -194], [56, -263]] : [];
         cityFiller(ctx, { ring: 700 });
-        addTraffic(ctx, { merge: true, parked: parked.filter((q, i) => i % 2 === 0).slice(0, 96), lanes: [
+        addTraffic(ctx, { merge: true, parked: parked.filter((q, i) => i % 2 === 0).slice(0, 84), lanes: [
             { pts: ring, n: 4, speed: 11 }, { pts: [[60, -263], [56, -194], [52, -113], [106, -88], [151, -10], [151, 32], [106, 92], [48, 124], [20, 300]], n: 4, speed: 10 },
             { pts: [[150, 40], [300, 50], [520, 52], [790, 60]], n: 4, speed: 13 }, { pts: [[790, -8], [520, -12], [300, -12], [152, -12]], n: 4, speed: 13 },
             { pts: [[18, 330], [-250, 308], [-462, 291], [-650, 275], [-905, 232]], n: 3, speed: 12 }, { pts: [[-908, 251], [-649, 275], [-465, 291], [7, 309]].map(([x, z]) => [x, z - 5]), n: 3, speed: 12 },
@@ -399,7 +399,7 @@ export default {
         ctx.sound('traffic', 30, 0, 140, 1); ctx.sound('traffic', 150, -10, 110, 0.8); ctx.sound('wind', 95, 0, 160, 0.6); ctx.sound('water', 200, 14, 40, 0.6);
         ctx.sound('crowd', cl.x - 10, cl.z, 30, 0.4); ctx.sound('traffic', -500, 285, 160, 0.7); ctx.sound('bell', cat.x, cat.z, 400, 0.6); ctx.sound('wind', cat.x, cat.z, 120, 0.5);
         // spawns: the square by the clock looking at the palace; the piazza's south-west corner looking at the west front
-        ctx.spawns['palace-parliament'] = { x: spP.spawn.x, z: spP.spawn.z, heading: headingFromBearing(268) };
+        ctx.spawns['palace-parliament'] = { x: cl.x - 4, z: cl.z - 3, heading: headingFromBearing(268) };
         ctx.spawns['peoples-salvation-cathedral'] = { x: -748, z: 208, heading: headingFromBearing(62) };
         void distPolyline; void canvas; void canvasTexture; void fitDraw;
     },

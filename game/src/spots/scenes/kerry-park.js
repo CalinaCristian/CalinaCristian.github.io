@@ -62,7 +62,8 @@ export default {
         // plaques + challenge (Needle + Rainier: only with the Mountain out)
         const PL = sp.plaques;
         ctx.plaque(PL[0], -14, 9.0, Math.PI); ctx.plaque(PL[1], cf.x + 2.6, cf.z + 1.0, Math.PI, { credit: 'Changing Form © 1971 Doris Totten Chase — modelled in 3-D from public descriptions.' }); ctx.plaque(PL[2], 40, 9.2, Math.PI);
-        ctx.challenge('kerry-park', { r: 10, tol: 20, cond: (s) => !!bd.mountainVisible, condHint: 'The Mountain isn\'t out today — Rainier is hidden by clouds. Try another day (real weather).' });
+        // the postcard counts in any weather (the research frame is the Needle + skyline); with the Mountain out the toast says so
+        const kc = ctx.challenge('kerry-park', { r: 12, tol: 28 }); if (kc) { const base = kc.text; Object.defineProperty(kc, 'text', { get: () => (bd.mountainVisible ? base + ' — with the Mountain out!' : base + ' (Rainier hidden by clouds today)') }); }
         // crowd: photographers along the railing, people on the lawn and benches, kids on the sculpture
         ctx.crowdCfg = {
             personas: { tourist_us: 4, local: 3, photographer: 2, tourist_cn: 1.5, tourist_kr: 1, tourist_jp: 1, tourist_de: 1, tourist_es: 1, tourist_ca: 1, tourist_in: 1, kid: 1 },

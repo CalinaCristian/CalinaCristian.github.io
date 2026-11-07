@@ -111,8 +111,8 @@ const BUC_DISTRICTS = {
         // two chapters, two approaches to Bd. Dimitrie Pompeiu: luxoft from the south-east (Șos. Petricani → Fabrica de Glucoză → George Constantinescu,
         // Pompeiu westbound: Hermes on the right), db from the north-west (Podul Pipera → Șos. Pipera → Gara Herăstrău, Pompeiu eastbound: BOB Tower on the right).
         // Polygon instead of the old 3.1 km² box: the NW residential grid beyond Șos. Pipera and the lots south of Fabrica de Glucoză are left out.
-        poly: [[44.4742, 26.1008], [44.4742, 26.1110], [44.4762, 26.1222], [44.4712, 26.1222], [44.4712, 26.1272], [44.4800, 26.1272], [44.4840, 26.1190], [44.4878, 26.1152], [44.4870, 26.1103], [44.4815, 26.1008]],
-        bbox: [44.4712, 26.1008, 44.4878, 26.1272], center: { lat: 44.4800, lon: 26.1130 },
+        poly: [[44.4742, 26.1008], [44.4742, 26.1110], [44.4762, 26.1222], [44.4712, 26.1222], [44.4712, 26.1272], [44.4800, 26.1272], [44.4840, 26.1190], [44.4878, 26.1152], [44.4870, 26.1103], [44.4815, 26.1008], [44.4808, 26.0915], [44.4778, 26.0915], [44.4778, 26.1008]], // + a strip west along Șos. Pipera (db run-in)
+        bbox: [44.4712, 26.0915, 44.4878, 26.1272], center: { lat: 44.4800, lon: 26.1130 },
         landmarks: ['hermes', 'globalworth', 'skytower', 'promenada'],
         congestion: [ // from game/research/bucharest-pipera.json traffic.hotspots
             { lat: 44.48020, lon: 26.11400, radius: 300, hours: [[8,  10.5],  [16.5,  20]], level: 0.95, note: 'Bd. Dimitrie Pompeiu (whole street)' },
@@ -265,8 +265,8 @@ export const CHAPTERS = [
         start: { lat: 44.426766, lon: 26.100968, heading: 183, road: /Unirii/ } }, // research: Piața Unirii west side, southbound
     { id: 'luxoft', stop: 'luxoft', city: 'bucharest', district: 'pipera', year: 2017, title: 'Luxoft', intro: 'Pipera, 2017: up Șoseaua Petricani, west on Fabrica de Glucoză past the Globalworth offices, then George Constantinescu to Hermes Business Campus.',
         start: { lat: 44.4730, lon: 26.1243, heading: 350, road: /Petricani/ } }, // Șos. Petricani NB → Fabrica de Glucoză WB → G. Constantinescu NB → Pompeiu WB (Hermes on the right; research route + run-in)
-    { id: 'db', stop: 'db', city: 'bucharest', district: 'pipera', year: 2017, title: 'Deutsche Bank', intro: 'Same street, other end: off Podul Pipera, down Șoseaua Pipera and Gara Herăstrău, then along Dimitrie Pompeiu to BOB Tower.',
-        start: { lat: 44.4856, lon: 26.1123, heading: 225, road: /Șoseaua Pipera/ } }, // SW-bound at the foot of Podul Pipera → Șos. Pipera → Gara Herăstrău SB → Pompeiu EB (BOB Tower on the right; research db route)
+    { id: 'db', stop: 'db', city: 'bucharest', district: 'pipera', year: 2017, title: 'Deutsche Bank', intro: 'Same street, other end: north-east on Șoseaua Pipera past Sky Tower, right on Gara Herăstrău, then along Dimitrie Pompeiu to BOB Tower.',
+        start: { lat: 44.47919, lon: 26.0963, heading: 85, road: /Șoseaua Pipera/ } }, // NE-bound from Podul Barbu Văcărescu → right on Gara Herăstrău → left on Pompeiu EB (BOB on the right). The SW-bound start off Podul Pipera needed a U-turn (no left turn into Gara Herăstrău).
     { id: 'arnia', stop: 'arnia', city: 'bucharest', district: 'romana', year: 2019, title: 'Arnia', intro: 'Up Magheru to Piața Romană and along Lascăr Catargiu to Europe House.',
         start: { lat: 44.4418, lon: 26.0988, heading: 0, road: /Magheru|Bălcescu/ } },
     { id: 'uipath-buc', stop: 'uipath-buc', city: 'bucharest', district: 'romana', year: 2020, title: 'UiPath', intro: 'Down Kiseleff into Piața Victoriei and through the streets behind Romană to Vasile Alecsandri.',

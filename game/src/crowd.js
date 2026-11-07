@@ -119,22 +119,23 @@ const GLSL_HEAD = `
     uniform float uCrowdTime;
     float flagOn(float flags, float bit) { return mod(floor(flags / bit), 2.0); }
     mat3 rotX(float a) { float c = cos(a), s = sin(a); return mat3(1.0, 0.0, 0.0, 0.0, c, s, 0.0, -s, c); }
+    mat3 rotY(float a) { float c = cos(a), s = sin(a); return mat3(c, 0.0, -s, 0.0, 1.0, 0.0, s, 0.0, c); }
     mat3 rotZ(float a) { float c = cos(a), s = sin(a); return mat3(c, s, 0.0, -s, c, 0.0, 0.0, 0.0, 1.0); }
     // joints: arm = (shoulder pitch [+ forward], shoulder roll [+ outward], elbow [+ forearm forward]); leg = (hip pitch, knee)
     float cIs(float p, float id) { return 1.0 - step(0.5, abs(p - id)); }
-    void armJoints(float side, out float pitch, out float roll, out float elbow) {
-        float pose = aAnim.w, fl = aAnim.z, t = uCrowdTime + aAnim.x * 0.37, sw = sin(aAnim.x) * aAnim.y, R = step(0.0, side), L = 1.0 - R;
+    void armJoints(float side, out float pitch, out float roll, out float elbow, out float yaw) {
+        float pose = aAnim.w, fl = aAnim.z, t = uCrowdTime + aAnim.x * 0.37, sw = sin(aAnim.x) * aAnim.y, R = step(0.0, side);
         float umb = max(flagOn(fl, 2.0), cIs(pose, 9.0));
-        pitch = -side * sw * 0.32 * (1.0 - umb * R); roll = 0.06; elbow = 0.12 + abs(sw) * 0.25;
-        if (umb > 0.5 && R > 0.5) { pitch = 0.55; roll = -0.25; elbow = 1.45; }
-        if (cIs(pose, 1.0) > 0.5) { pitch = 0.55; roll = 0.0; elbow = 0.75; }                                   // sit: hands on the thighs
-        if (cIs(pose, 2.0) > 0.5) { if (R > 0.5) { pitch = 0.35; roll = -0.35; elbow = 1.75; } else { pitch = 0.2; roll = -0.3; elbow = 1.5; } } // phone
-        if (cIs(pose, 3.0) > 0.5) { pitch = 0.95; roll = -0.55; elbow = 2.05; }                                  // photo: both hands at the face
-        if (cIs(pose, 4.0) > 0.5 && R > 0.5) { pitch = 0.25; roll = 2.5 + sin(t * 7.0) * 0.28; elbow = 0.55; }   // wave
-        if (cIs(pose, 5.0) > 0.5 && R > 0.5) { pitch = 1.45; roll = 0.1; elbow = 0.08; }                         // point
-        if (cIs(pose, 6.0) > 0.5 && R > 0.5) { pitch = 2.75 + sin(t * 0.9) * 0.08; roll = 0.12; elbow = 0.1; }   // guide flag held up
-        if (cIs(pose, 7.0) > 0.5) { pitch = 0.3 + sin(t * 2.1 + side) * 0.18; roll = -0.1; elbow = 1.2 + sin(t * 3.3 + side * 1.7) * 0.35; } // talk
-        if (cIs(pose, 8.0) > 0.5) { if (R > 0.5) { pitch = 0.35; roll = -0.45; elbow = 1.25 + sin(t * 9.0) * 0.12; } else { pitch = 0.95; roll = -0.25; elbow = 1.05; } } // guitar
+        pitch = -side * sw * 0.32; roll = 0.06; elbow = 0.12 + abs(sw) * 0.25; yaw = 0.0;
+        if (umb > 0.5 && R > 0.5) { pitch = 0.6; roll = 0.0; elbow = 1.35; yaw = 0.35; }                         // umbrella in front of the chest
+        if (cIs(pose, 1.0) > 0.5) { pitch = 0.55; roll = 0.0; elbow = 0.75; yaw = 0.15; }                       // sit: hands on the thighs
+        if (cIs(pose, 2.0) > 0.5) { if (R > 0.5) { pitch = 0.3; roll = 0.0; elbow = 1.85; yaw = 0.55; } else { pitch = 0.2; roll = 0.0; elbow = 1.55; yaw = 0.5; } } // phone
+        if (cIs(pose, 3.0) > 0.5) { pitch = 1.0; roll = 0.0; elbow = 2.0; yaw = 0.62; }                          // photo: both hands at the face
+        if (cIs(pose, 4.0) > 0.5 && R > 0.5) { pitch = 0.2; roll = 2.45 + sin(t * 7.0) * 0.28; elbow = 0.5; yaw = 0.0; } // wave
+        if (cIs(pose, 5.0) > 0.5 && R > 0.5) { pitch = 1.45; roll = 0.1; elbow = 0.08; yaw = -0.15; }           // point
+        if (cIs(pose, 6.0) > 0.5 && R > 0.5) { pitch = 2.75 + sin(t * 0.9) * 0.08; roll = 0.12; elbow = 0.1; yaw = 0.0; } // guide flag held up
+        if (cIs(pose, 7.0) > 0.5) { pitch = 0.3 + sin(t * 2.1 + side) * 0.18; roll = 0.0; elbow = 1.2 + sin(t * 3.3 + side * 1.7) * 0.35; yaw = 0.3; } // talk
+        if (cIs(pose, 8.0) > 0.5) { if (R > 0.5) { pitch = 0.4; roll = 0.0; elbow = 1.2 + sin(t * 9.0) * 0.12; yaw = 0.75; } else { pitch = 1.0; roll = 0.0; elbow = 0.6; yaw = 0.2; } } // guitar
     }
     void legJoints(float side, out float hip, out float knee) {
         float pose = aAnim.w, fl = aAnim.z, sw = sin(aAnim.x) * aAnim.y, coat = flagOn(fl, 1.0);
@@ -153,9 +154,9 @@ const GLSL_HEAD = `
             if (lb > 6.5) { mat3 Rk = rotX(knee); p = Rk * (p - K) + K; n = Rk * n; }
             p = Rh * (p - H) + H; n = Rh * n;
         } else {                                             // arms
-            float pitch, roll, elbow; armJoints(side, pitch, roll, elbow);
+            float pitch, roll, elbow, yaw; armJoints(side, pitch, roll, elbow, yaw);
             vec3 S = vec3(side * 0.235, ${SHOULDER_Y.toFixed(2)}, 0.0), E = vec3(side * 0.245, ${ELBOW_Y.toFixed(2)}, 0.0);
-            mat3 Rs = rotZ(side * roll) * rotX(pitch);
+            mat3 Rs = rotZ(side * roll) * rotY(side * yaw) * rotX(pitch);
             if (lb > 4.5) { mat3 Re = rotX(elbow); p = Re * (p - E) + E; n = Re * n; }
             p = Rs * (p - S) + S; n = Rs * n;
         }
@@ -217,7 +218,7 @@ function crowdMaterial() {
             .replace('#include <roughnessmap_fragment>', 'float roughnessFactor = vRough;')
             .replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\ntotalEmissiveRadiance += diffuseColor.rgb * vEmis;');
     };
-    m.customProgramCacheKey = () => 'crowd3';
+    m.customProgramCacheKey = () => 'crowd4';
     const env = getVehicleEnvMap?.(); if (env) { m.envMap = env; m.envMapIntensity = 0.35; }
     return (MAT = m);
 }
@@ -226,7 +227,7 @@ function crowdDepthMaterial() {
     if (DEPTH) return DEPTH;
     const m = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking });
     m.onBeforeCompile = (sh) => { sh.uniforms.uCrowdTime = UTIME; sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\n' + GLSL_HEAD).replace('#include <begin_vertex>', '#include <begin_vertex>\n' + GLSL_POSE); };
-    m.customProgramCacheKey = () => 'crowdDepth3';
+    m.customProgramCacheKey = () => 'crowdDepth4';
     return (DEPTH = m);
 }
 

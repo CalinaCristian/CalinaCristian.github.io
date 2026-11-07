@@ -117,7 +117,14 @@ export default {
         // ---- park: busts and statues along the alleys (OSM artworks), the Sleeping Nymph, Japanese garden
         for (const p of d.pois) { if (p.tourism !== 'artwork' || !/bust|statue/.test(p.artwork_type || '') || !p.name) continue; if (mus && inPoly(p.x, p.z, mus)) continue; if (Math.abs(p.x) > 520 || p.z < -320 || p.z > 420) continue; signs.push(bust(b, ctx, p, r)); }
         const nymph = d.pois.find((p) => p.id === 'n1342884103') || { x: 236.3, z: 109.8 };
-        { const y = g.heightAt(nymph.x, nymph.z); b.box(nymph.x, y, nymph.z, 3.4, 0.9, 1.6, '#cfc9bc', 'stone', 0.4); b.sphere(nymph.x, y + 1.2, nymph.z, 1.4, 0.32, 0.45, '#ece9e2', 'stone', 12, 8); b.sphere(nymph.x - 1.2, y + 1.35, nymph.z + 0.4, 0.22, 0.25, 0.22, '#ece9e2', 'stone', 10, 8); b.sphere(nymph.x + 0.2, y + 1.45, nymph.z, 0.5, 0.3, 0.42, '#ece9e2', 'stone', 10, 8); ctx.box(nymph.x, nymph.z, 1.7, 0.8, 0.4, { prop: true, h: 1.6 }); }
+        { // the Sleeping Nymph: a reclining marble figure on a low plinth (smooth volumes: torso, hip, legs, arm under the head)
+            const y = g.heightAt(nymph.x, nymph.z), yaw = 0.4, c = Math.cos(yaw), sn = Math.sin(yaw), P = (u, v) => [nymph.x + u * c + v * sn, nymph.z - u * sn + v * c], W = '#ecebe6';
+            b.box(nymph.x, y, nymph.z, 3.6, 0.8, 1.7, '#bdb7ab', 'stone', yaw); b.box(nymph.x, y + 0.8, nymph.z, 3.3, 0.12, 1.45, '#d4cfc4', 'stone', yaw);
+            const Y = y + 0.92, seg = (u0, h0, u1, h1, r0, r1) => { const [ax, az] = P(u0, 0), [bx, bz] = P(u1, 0); b.rod([ax, Y + h0, az], [bx, Y + h1, bz], r0, W, 'stone', 12, r1); b.sphere(bx, Y + h1, bz, r1, r1, r1, W, 'stone', 10, 8); };
+            seg(-1.15, 0.42, -0.35, 0.3, 0.2, 0.26); seg(-0.35, 0.3, 0.15, 0.24, 0.26, 0.24); seg(0.15, 0.24, 0.85, 0.16, 0.16, 0.12); seg(0.85, 0.16, 1.4, 0.1, 0.12, 0.07); seg(0.2, 0.32, 0.8, 0.28, 0.14, 0.1);
+            const [hx, hz] = P(-1.35, 0.05); b.sphere(hx, Y + 0.55, hz, 0.15, 0.17, 0.15, W, 'stone', 12, 10); const [ax2, az2] = P(-1.45, -0.15); b.rod([ax2, Y + 0.2, az2], [hx, Y + 0.45, hz], 0.07, W, 'stone', 8);
+            const [dx, dz] = P(0, 0.35); b.box(dx, Y, dz, 2.6, 0.08, 0.5, '#e4e2dc', 'stone', yaw); // drapery
+            ctx.box(nymph.x, nymph.z, 1.8, 0.85, yaw, { prop: true, h: 1.6 }); }
         const jg = osmPoly(d, 'w28342074');
         if (jg) { const [jx, jz] = centroid(jg), y = g.heightAt(jx, jz);
             // red arched bridge over a pond, stone lanterns, cherries
@@ -154,9 +161,9 @@ export default {
         ctx.interactables.push({ x: 30, z: -26, r: 4, label: 'Feed the ducks', use: (s) => { s.ui.toast('🦆 Quack', 'Ducks gather at the south tip of the lake.'); s.sound.play('splat', 0.4); } });
         if (church) ctx.interactables.push({ x: church.x + 6, z: church.z + 6, r: 3, label: 'Strike the toaca (wooden semantron)', use: (s) => { s.sound.play('thump', 0.8); setTimeout(() => s.sound.play('thump', 0.6), 260); setTimeout(() => s.sound.play('thump', 0.9), 520); s.ui.toast('Toaca', 'The wooden board calls to service on feast days.'); } });
         // postcards: the church spire from the lawn (research pose); the nymph with the lake behind
-        if (church) { const ic = spV.photo.iconic, dx = ic.x - church.x, dz = ic.z - church.z, L = Math.hypot(dx, dz) || 1, px = church.x + dx / L * 21, pz = church.z + dz / L * 21; ctx.challenge('village-museum', { view: [church.x, church.z], x: px, z: pz, heading: (Math.atan2(church.x - px, -(church.z - pz)) * 180 / Math.PI + 360) % 360, pitch: 30, r: 10, tol: 28 }); }
+        if (church) { const ic = spV.photo.iconic, dx = ic.x - church.x, dz = ic.z - church.z, L = Math.hypot(dx, dz) || 1, px = church.x + dx / L * 16, pz = church.z + dz / L * 16; ctx.challenge('village-museum', { view: [church.x, church.z], x: px, z: pz, heading: (Math.atan2(church.x - px, -(church.z - pz)) * 180 / Math.PI + 360) % 360, pitch: 32, r: 10, tol: 28 }); }
         else ctx.challenge('village-museum', { r: 10, tol: 28 });
-        ctx.challenge('herastrau-park', { view: [nymph.x, nymph.z], x: nymph.x - 1.5, z: nymph.z + 7.5, heading: 350, pitch: -6, r: 8, tol: 30, text: 'The Sleeping Nymph with the park and Lake Herăstrău behind' });
+        ctx.challenge('herastrau-park', { view: [nymph.x, nymph.z], x: nymph.x - 0.8, z: nymph.z + 4.2, heading: 350, pitch: -12, r: 8, tol: 30, text: 'The Sleeping Nymph with the park and Lake Herăstrău behind' });
         // crowd
         ctx.crowdCfg = {
             spots: ['herastrau-park', 'village-museum'],

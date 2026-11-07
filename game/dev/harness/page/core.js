@@ -401,7 +401,7 @@ export class Harness {
         let best = null, bd = 1e9;
         for (const v of T.near(P.x, P.z, 14)) { const dx = v.x - P.x, dz = v.z - P.z, f = dx * P.fx + dz * P.fz, l = Math.abs(dx * -P.fz + dz * P.fx); if (f > 0 && l < 2.5 && f < bd) { bd = f; best = v; } }
         const out = []; const seen = new Set();
-        for (let v = best; v && typeof v === 'object' && !seen.has(v) && out.length < 8; v = v.leader) { seen.add(v); out.push(`${v.kind}#${v.id}:${r1(v.speed)}:${v.stopWhy || '-'}`); }
+        for (let v = best; v && typeof v === 'object' && !seen.has(v) && out.length < 8; v = v.leader) { seen.add(v); out.push(`${v.kind}#${v.id}:${r1(v.speed)}:${v.stopWhy || '-'}${v.leader === P ? ':P' : typeof v.leader === 'string' ? ':' + v.leader : ''}${v.jamHold > 0 ? ':hold' : ''}${v.dwell ? ':dwell' : ''}${v.stuck > 3 ? ':st' + Math.round(v.stuck) : ''}${Number.isFinite(v.stopD) ? ':d' + Math.round(v.stopD) : ''}${v.ghost > 0 ? ':ghost' : ''}`); }
         return out.length ? ` Q[${out.join(' > ')}]` : '';
     }
     obstacleAhead(path, s0, look) {

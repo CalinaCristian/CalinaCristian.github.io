@@ -7,6 +7,7 @@
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, smooth, lerp, headingFromBearing, centroid, polyBox, inPoly } from '../kit.js';
 import { seaBackdrop, seaWater, mirrorAbout } from './sea-common.js';
+import { seaActivity } from './sea-common.js';
 import { bench } from '../osm.js';
 
 const KITE = { x: -58, z: 31, h: 9.5, r: 34 };
@@ -17,20 +18,46 @@ function buildTowers(ctx) {
     const big = ['w191328736', 'w191328732', 'w191328724', 'w191328731', 'w191328734', 'w191328729', 'w986412515'].map((id) => d.buildings.find((x) => x.id === id)).filter(Boolean);
     const small = d.buildings.filter((x) => /^w4496263/.test(x.id));
     for (const id of [...big, ...small]) ctx.skipBuildings.add(id.id);
-    const tops = [];
+    // round 5 (note 65, refs: Commons "Gas works from the hill 01", "Gas works at Gas Works Park"): two clusters of fat
+    // riveted generator tanks (≈ 7 m Ø, 11–14 m, domed tops with a small cupola, braced steel frames and catwalks around
+    // them) between tall slender stacks (≈ 2.6 m Ø, 22–26 m), tied by horizontal pipes on trestles ≈ 3–5 m up
+    const hubs = [];
     big.forEach((bd, i) => {
-        const [cx, cz] = centroid(bd.poly), y0 = g.heightAt(cx, cz), H = 17 + (i % 3) * 3.5 + r() * 2, R = 2.9;
-        b.cyl(cx, y0, cz, R, H, rust(r), 'metal', 20);
-        for (let k = 1; k < H / 2.4; k++) b.cyl(cx, y0 + k * 2.4, cz, R + 0.08, 0.18, '#2b2420', 'metal', 20); // riveted rings
-        b.cyl(cx, y0 + H, cz, R, 2.2, rust(r), 'metal', 20, 0.35);                                           // conical top
-        b.cyl(cx, y0 + H + 2.2, cz, 0.45, 3.5, '#3a2f29', 'metal', 8);                                         // vent stack
-        b.box(cx + R + 0.25, y0, cz, 0.08, H, 0.5, '#2a2622', 'metal');                                        // ladder rails
-        for (let y = 0.5; y < H; y += 0.4) b.box(cx + R + 0.25, y0 + y, cz, 0.08, 0.04, 0.5, '#2a2622', 'metal');
-        for (const yy of [H * 0.45, H * 0.8]) { b.cyl(cx, y0 + yy, cz, R + 1.1, 0.12, '#33291f', 'metal', 20); for (let a = 0; a < 12; a++) { const t = a / 12 * Math.PI * 2; b.rod([cx + Math.cos(t) * (R + 1.1), y0 + yy, cz + Math.sin(t) * (R + 1.1)], [cx + Math.cos(t) * (R + 1.1), y0 + yy + 1.0, cz + Math.sin(t) * (R + 1.1)], 0.03, '#33291f', 'metal', 4); } } // catwalks
-        tops.push([cx, y0 + H * (0.55 + r() * 0.3), cz]);
-        ctx.circle(cx, cz, R + 0.2, H);
+        const [cx, cz] = centroid(bd.poly), y0 = g.heightAt(cx, cz), stack = i % 3 === 1;
+        if (stack) {
+            const H = 22 + r() * 4, R = 1.3;
+            b.cyl(cx, y0, cz, R, H, rust(r), 'metal', 16);
+            for (let k = 1; k < H / 3; k++) b.cyl(cx, y0 + k * 3, cz, R + 0.06, 0.14, '#2b2420', 'metal', 16);
+            b.cyl(cx, y0 + H * 0.7, cz, R + 0.9, 0.12, '#33291f', 'metal', 16); // platform
+            for (let a = 0; a < 8; a++) { const t = a / 8 * Math.PI * 2; b.rod([cx + Math.cos(t) * (R + 0.9), y0 + H * 0.7, cz + Math.sin(t) * (R + 0.9)], [cx + Math.cos(t) * (R + 0.9), y0 + H * 0.7 + 1, cz + Math.sin(t) * (R + 0.9)], 0.03, '#33291f', 'metal', 4); }
+            b.cyl(cx, y0 + H, cz, R * 0.8, 0.8, '#3a2f29', 'metal', 12, 0.7);
+            b.box(cx + R + 0.25, y0, cz, 0.08, H, 0.5, '#2a2622', 'metal');
+            ctx.circle(cx, cz, R + 0.2, H);
+        } else {
+            const H = 11 + r() * 3.5, R = 3.3 + r() * 0.6;
+            b.cyl(cx, y0, cz, R, H, rust(r), 'metal', 24);
+            for (let k = 1; k < H / 1.8; k++) b.cyl(cx, y0 + k * 1.8, cz, R + 0.05, 0.12, '#2b2420', 'metal', 24); // riveted seams
+            b.sphere(cx, y0 + H, cz, R, R * 0.42, R, rust(r), 'metal', 24, 8); // domed top
+            b.cyl(cx, y0 + H + R * 0.36, cz, 0.7, 1.4, '#3a2f29', 'metal', 10); b.cyl(cx, y0 + H + R * 0.36 + 1.4, cz, 0.9, 0.3, '#3a2f29', 'metal', 10);
+            // braced frame: 6 posts around the tank to above the dome, ring beams, diagonal braces
+            const fr = R + 1.0;
+            for (let a = 0; a < 6; a++) { const t = a / 6 * Math.PI * 2, t2 = (a + 1) / 6 * Math.PI * 2, px = cx + Math.cos(t) * fr, pz = cz + Math.sin(t) * fr, qx = cx + Math.cos(t2) * fr, qz = cz + Math.sin(t2) * fr;
+                b.box(px, y0, pz, 0.35, H + 1.2, 0.35, '#2e2620', 'metal', -t);
+                for (const yy of [H * 0.35, H * 0.7, H + 1.0]) b.rod([px, y0 + yy, pz], [qx, y0 + yy, qz], 0.12, '#2e2620', 'metal', 5);
+                b.rod([px, y0 + H * 0.35, pz], [qx, y0 + H * 0.7, qz], 0.07, '#2e2620', 'metal', 4); }
+            b.cyl(cx, y0 + H * 0.7, cz, fr + 0.4, 0.1, '#33291f', 'metal', 24); // catwalk
+            ctx.circle(cx, cz, fr + 0.3, H + 2);
+        }
+        hubs.push([cx, y0, cz]);
     });
-    for (let i = 1; i < tops.length; i++) { const a = tops[i - 1], c = tops[i]; b.rod(a, c, 0.55, rust(r), 'metal', 10); b.rod([a[0] - 4, a[1] - 5, a[2]], [c[0] - 4, c[1] - 6, c[2]], 0.35, rust(r), 'metal', 8); }
+    // horizontal pipe runs on trestles between neighbouring structures (≈ 4.5 m up), with drops into the tanks
+    for (let i = 1; i < hubs.length; i++) {
+        const a = hubs[i - 1], c = hubs[i], yy = Math.max(a[1], c[1]) + 4.2 + (i % 2) * 1.1, rr = 0.42 + (i % 3) * 0.08;
+        b.rod([a[0], yy, a[2]], [c[0], yy, c[2]], rr, rust(r), 'metal', 10);
+        b.rod([a[0], a[1] + 1.5, a[2]], [a[0], yy, a[2]], rr, rust(r), 'metal', 10);
+        const L = Math.hypot(c[0] - a[0], c[2] - a[2]); for (let t = 4; t < L - 2; t += 6) { const x = a[0] + (c[0] - a[0]) * t / L, z = a[2] + (c[2] - a[2]) * t / L; b.box(x, g.heightAt(x, z), z, 0.25, yy - g.heightAt(x, z), 0.25, '#2e2620', 'metal'); }
+    }
+    { const a = hubs[0], c = hubs[hubs.length - 1]; if (a && c) { const yy = a[1] + 2.6; b.rod([a[0] - 6, yy, a[2] + 4], [c[0] + 6, yy, c[2] + 4], 0.5, rust(r), 'metal', 10); } }
     for (const sd of small) { const [cx, cz] = centroid(sd.poly), y0 = g.heightAt(cx, cz); b.cyl(cx, y0, cz, 1.3, 6 + r() * 4, rust(r), 'metal', 12); }
     // pipelines (OSM man_made=pipeline) as rusty pipes on supports
     for (const a of d.areas.filter((x) => x.man_made === 'pipeline')) { const pts = a.poly.map(([x, z]) => [x, g.heightAt(x, z) + (a.layer ? 6 : 1.2), z]); for (let i = 1; i < pts.length; i++) b.rod(pts[i - 1], pts[i], 0.35, rust(r), 'metal', 8); for (const p of pts) b.rod([p[0], g.heightAt(p[0], p[2]), p[2]], p, 0.12, '#2e2a26', 'metal', 5); }
@@ -135,7 +162,7 @@ export default {
         const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]), new THREE.LineBasicMaterial({ color: '#f5f5f5' }));
         ctx.add(kite, line); line.visible = false;
         let flying = false;
-        ctx.interactables.push({ kind: 'kite', x: KITE.x, z: KITE.z, r: 9, label: () => (flying ? 'Reel the kite in' : 'Fly a kite'), use: (s) => { flying = !flying; kite.visible = line.visible = flying; if (flying) { const w = s.r3d.weather; s.ui.toast('🪁 Up it goes', w ? `Wind ${Math.round(w.windKmh ?? 10)} km/h — ${(w.windKmh ?? 10) > 12 ? 'great kite weather' : 'a gentle breeze'}.` : 'Catch the breeze.'); } } });
+        ctx.interactables.push({ kind: 'kite', x: KITE.x, z: KITE.z, r: 9, label: () => (flying ? 'Reel the kite in' : 'Fly a kite'), use: (s) => { flying = !flying; kite.visible = line.visible = flying; if (flying) { seaActivity(s, 'lm-gasworks-kite', 'gas-works'); const w = s.r3d.weather; s.ui.toast('🪁 Up it goes', w ? `Wind ${Math.round(w.windKmh ?? 10)} km/h — ${(w.windKmh ?? 10) > 12 ? 'great kite weather' : 'a gentle breeze'}.` : 'Catch the breeze.'); } } });
         ctx.onUpdate((dt, s, pl) => {
             if (!flying || !pl) return;
             const w = s.r3d.weather, wind = Math.max(4, w?.windKmh ?? 10), dir = ((w?.windDir ?? 200) + 180) * Math.PI / 180, L = 8 + wind * 1.4, t = s.t;

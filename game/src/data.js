@@ -264,7 +264,7 @@ export const ACHIEVEMENTS = [
     { id: 'flight', cat: 'story', icon: '✈️', title: 'Relocated', desc: 'OTP → SEA. Swapped the horn for the turn signal.' },
     { id: 'bridge', cat: 'story', icon: '🌉', title: 'Floating bridge', desc: 'Crossed Lake Washington on the I-90 floating bridge in the montage into Bellevue.' },
     { id: 'all', cat: 'story', icon: '🏁', title: 'CV complete', desc: 'You know the whole story now. Say hi!' },
-    { id: 'reader-all', cat: 'story', icon: '📚', title: 'Read every word', desc: 'Read every screen in every CV office.', target: 27 },
+    { id: 'reader-all', cat: 'story', icon: '📚', title: 'Heard it all', desc: 'Hear every answer in every CV office.', target: 27 },
     // ---- Explorer
     { id: 'roam-first', cat: 'explorer', icon: '🗺️', title: 'Off the script', desc: 'Started a free roam.' },
     { id: 'roam-all', cat: 'explorer', icon: '🧭', title: 'All eight districts', desc: 'Opened every district in free roam.', target: 8 },

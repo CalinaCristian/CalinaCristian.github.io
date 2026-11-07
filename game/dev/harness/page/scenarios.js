@@ -906,3 +906,51 @@ SCENARIOS.push({
         return res;
     },
 });
+SCENARIOS.push({
+    id: 'office-talk', group: 'r5', title: 'Office conversation (note 37): E at the host opens the talk, every topic can be asked (A–D), "Thanks, bye" closes it, leave at the exit', city: 'bucharest',
+    async run(H) {
+        const g = H.g; await prep(H); const stop = (g.stops || []).find(s => s.poiRef); if (!stop) return { skipped: true };
+        g.enterOffice(stop); await H.run(0.3);
+        const o = g.office, res = { stop: stop.id, stations: o.stations?.length };
+        const st = o.stations?.[0]; if (st) { o.x = st.x * 0.45; o.z = st.z; } await H.run(0.2);
+        H.press('KeyE'); await H.run(0.3); res.talkOpen = g.hud.panelOpen;
+        for (let k = 0; k < 20 && o.read.size < (o.stations?.length || 0); k++) {
+            const b = [...document.querySelectorAll('#panel .dlg-opts button')].find(x => !x.classList.contains('bye') && !x.classList.contains('again')) || document.querySelector('#panel .dlg-opts button:not(.bye)');
+            if (!b) break; b.click(); await H.run(0.3);
+        }
+        res.read = o.read.size;
+        document.querySelector('#panel .dlg-opts button.bye')?.click(); await H.run(0.3); res.closed = !g.hud.panelOpen;
+        o.x = 0; o.z = o.exitZ ?? 14; await H.run(0.2); H.press('KeyE'); await H.run(0.6, () => g.state !== 'office');
+        await sleep(0); if (g.state === 'card') { const chm = await import('../../../src/chapters.js'); chm.closeChapterCard('free'); await sleep(50); }
+        res.left = g.state !== 'office'; res.focus = document.activeElement === g.canvas;
+        const bad = []; if (!res.talkOpen) bad.push('E did not open the talk'); if (res.read < res.stations) bad.push(`heard ${res.read}/${res.stations}`); if (!res.closed) bad.push('bye did not close'); if (!res.left) bad.push('could not leave');
+        if (bad.length) H.issue('office-talk', 'high', `office ${stop.id}: ${bad.join(', ')}`, {}, { shot: true, key: 'otalk' });
+        return res;
+    },
+});
+SCENARIOS.push({
+    id: 'findcar', group: 'r5', title: 'Find the car on foot (note 7): HUD chip with distance + direction, map marker, walk-back route, key-fob beep, call the car, get back in', city: 'bucharest',
+    async run(H) {
+        const g = H.g; await prep(H); const P = g.player, res = {};
+        H.setControls(0, 0, true); await H.run(1); H.press('Enter'); await H.run(0.3);
+        if (g.state !== 'foot') { H.issue('findcar', 'high', 'could not get out of the car', {}, { key: 'fc-exit' }); return res; }
+        const F = g.foot, car = { x: P.x, z: P.z };
+        // walk ~80 m along the street, on the sidewalk
+        const ne = g.nav.index.nearest(F.x, F.z, 50), e = ne.edge, dir = (e.dirx * P.fx + e.dirz * P.fz) > 0 ? 1 : -1;
+        const side = ((F.x - ne.cx) * e.nx + (F.z - ne.cz) * e.nz) >= 0 ? 1 : -1, off = (e.halfW ?? 4) + 1.6;
+        await walkTo(H, ne.cx + e.dirx * dir * 80 + e.nx * side * off, ne.cz + e.dirz * dir * 80 + e.nz * side * off, { r: 4, timeout: 60 });
+        await H.run(0.3);
+        res.away = r1(Math.hypot(F.x - car.x, F.z - car.z));
+        const chip = document.getElementById('car-finder'); res.chip = chip?.classList.contains('show') ? chip.textContent : null;
+        g.routeToCar(); res.route = g.nav.route ? Math.round(g.nav.route.total) : null; const d0 = g.carDoor();
+        res.routeEndsAtCar = g.nav.route ? r1(Math.hypot(g.nav.route.points.at(-1)[0] - d0.x, g.nav.route.points.at(-1)[1] - d0.z)) : null;
+        g.toggleMap(true); await H.run(0.2); res.mapEntry = !!document.querySelector('#navlist [data-car=route]'); res.shotMap = await H.shot('findcar-map'); g.toggleMap(false);
+        H.press('KeyL'); await H.run(0.4); res.beeped = !!g._fobT;
+        H.press('KeyT'); await H.run(0.4); res.calledDist = r1(Math.hypot(P.x - F.x, P.z - F.z));
+        res.shot = await H.shot('findcar-called');
+        const d1 = g.carDoor(); await walkTo(H, d1.x, d1.z, { r: 2.2, timeout: 30 }); H.press('Enter'); await H.run(0.3); res.backIn = g.state === 'drive';
+        const bad = []; if (!res.chip) bad.push('no HUD chip'); if (!res.route) bad.push('no route to the car'); if (res.routeEndsAtCar > 15) bad.push(`route ends ${res.routeEndsAtCar} m from the car`); if (!res.mapEntry) bad.push('no map entry'); if (!(res.calledDist < 25)) bad.push(`called car ${res.calledDist} m away`); if (!res.backIn) bad.push('could not get back in');
+        if (bad.length) H.issue('findcar', 'high', `find the car: ${bad.join(', ')}`, {}, { shot: true, key: 'findcar' });
+        return res;
+    },
+});

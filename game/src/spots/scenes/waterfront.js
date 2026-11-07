@@ -9,7 +9,7 @@
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, smooth, lerp, clamp, headingFromBearing, centroid, polyBox, inPoly, polyArea } from '../kit.js';
 import { signBoard } from '../props.js';
-import { seaWheel, seaWater, seaBackdrop, mirrorAbout } from './sea-common.js';
+import { seaWheel, seaWater, seaBackdrop, mirrorAbout, seaActivity } from './sea-common.js';
 import { makeCrowd } from '../../crowd.js';
 import { addTraffic } from '../cars.js';
 
@@ -72,7 +72,7 @@ export default {
             if (ride.t > 3 * 90) end(s, true);
         });
         const end = (s, full) => { wheel.speed = 1; cabin.visible = false; riders.object.visible = false; s.ctl.active = true; s.ctl.teleport(ride.back.x, ride.back.z, ride.back.heading); ride = null;
-            if (full) { s.ui.toast('🎡 Three turns over Elliott Bay', '175 ft up — the West Coast\'s tallest Ferris wheel when it opened in 2012.'); try { s.host?.onActivity?.({ id: 'great-wheel-ride', spot: 'waterfront' }); } catch { /* optional host hook */ } } };
+            if (full) seaActivity(s, 'lm-great-wheel', 'waterfront', '🎡 Three turns over Elliott Bay', '175 ft up — the West Coast\'s tallest Ferris wheel when it opened in 2012.'); };
         const booth = d.buildings.find((x) => x.id === 'w429553385'); const [bx, bz] = booth ? centroid(booth.poly) : [-47, 64];
         ctx.interactables.push({ kind: 'ride', x: bx + 3, z: bz - 2, r: 3.5, label: 'Ride the Seattle Great Wheel (3 turns, ≈ 4 min)', cond: () => !ride,
             use: (s) => { const p = s.ctl.position; let best = 0, by = 1e9; for (let i = 0; i < 42; i++) { wheel.cabLocal(i, v3); if (v3.y < by) { by = v3.y; best = i; } } ride = { i: best, t: 0, heading: 2.27 + Math.PI / 2 + 0.6, pitch: 0.05, back: { x: p.x, z: p.z, heading: s.ctl.heading } }; cabin.visible = true; riders.object.visible = true; s.ctl.active = false; s.sound.play('chime'); s.ui.toast('🎡 Doors closed', 'Enclosed, heated gondolas; 42 of them. Look around (E: get off early).'); } });

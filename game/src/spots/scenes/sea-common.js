@@ -710,6 +710,20 @@ export function seaBackdrop(ctx, o = {}) {
     return out;
 }
 /**
+ * A landmark activity was completed (note 57; ids = game/research/activities.json `achievement.id`, e.g. 'lm-needle-up').
+ * Toast + progress (localStorage 'dmcv.spots.v1' → activities{id: time}) + host hook `host.onActivity({ id, spot, first })`
+ * + a window event 'dmcv:activity' (detail = same) so progression can unlock without a main.js hook (spec 23 Request).
+ */
+export function seaActivity(s, id, spot, title = null, text = '') {
+    const A = s.progress.activities || (s.progress.activities = {}), first = !A[id]; A[id] = Date.now();
+    try { localStorage.setItem('dmcv.spots.v1', JSON.stringify(s.progress)); } catch { /* private mode */ }
+    if (title) s.ui?.toast?.(title, text);
+    const detail = { id, spot, first };
+    try { s.host?.onActivity?.(detail); } catch (e) { console.warn('[sea] onActivity', e); }
+    try { window.dispatchEvent(new CustomEvent('dmcv:activity', { detail })); } catch { /* no window */ }
+    return first;
+}
+/**
  * fake planar reflection for a calm lake: a y-mirrored copy (shared geometry / materials) of `objs` about the water
  * plane y = wy; the water must be partly transparent and the bed deep enough not to hide the mirrored copy.
  */

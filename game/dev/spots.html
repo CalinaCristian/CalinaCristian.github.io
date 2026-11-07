@@ -35,14 +35,14 @@
 import * as THREE from '../vendor/three.module.min.js';
 import { Renderer3D } from '../src/render.js';
 import { Input } from '../src/input.js';
-import { SPOTS, startSpot, spotById, auditSpot } from '../src/spots/index.js';
+import { SPOTS_ALL as SPOTS, startSpot, spotById, auditSpot } from '../src/spots/index.js';
 
 const qs = new URLSearchParams(location.search), $ = (s) => document.querySelector(s);
 globalThis.__spotsLegacy = qs.get('legacy') === '1'; // dev A/B: the pre-round-5 core behaviour (ground, footprints, clipping, crowd placement)
 const id = qs.get('id') || 'fremont-troll';
 if (qs.get('ui') === '0') document.body.classList.add('noui');
 if (qs.get('hud') === '0') document.body.classList.add('nohud');
-for (const s of SPOTS) $('#spot').append(new Option(`${s.city === 'bucharest' ? '🇷🇴 ' : ''}${s.name} (${s.id})`, s.id));
+for (const s of SPOTS) $('#spot').append(new Option(`${s.city === 'bucharest' ? '🇷🇴 ' : ''}${s.name} (${s.id})${s.ready ? '' : ' · in review'}`, s.id));
 for (const [k, el] of [['id', '#spot'], ['ov', '#ov'], ['weather', '#weather'], ['season', '#season'], ['q', '#q'], ['walker', '#walker'], ['hour', '#hour']]) {
     if (qs.has(k)) $(el).value = qs.get(k);
     $(el).onchange = () => { const p = new URLSearchParams(location.search); p.set(k, $(el).value); location.search = p; };

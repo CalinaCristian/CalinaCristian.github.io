@@ -21,6 +21,8 @@ Sent by `game/src/telemetry-game.js` (observes `window.game`, wraps a few game m
 | `spot_leave` | the spot is left | `id`, `seconds` |
 | `spot_plaque` | an info plaque is read | `id`, `plaque` (index in the spot's plaque list) |
 | `spot_challenge` | the postcard photo challenge is completed | `id`, `first` (first time in this browser) |
+| `parking_event` | the player's car left illegally: detected / ticket / clamp / tow / cleared (round 5, note 8) | `type`, `reason` (rule id), `city`, `district` |
+| `free_roam_start` | free roam started from the menu / map | `district`, `tod`, `weather` |
 | `free_roam_start` | a district is opened from the free-roam menu | `district`, `tod` (preset id), `weather` (picker value) |
 | `completion_milestone` | overall completion crosses 25 / 50 / 75 / 100 % (achievements.js) | `pct` (25 \| 50 \| 75 \| 100) |
 

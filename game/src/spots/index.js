@@ -18,7 +18,7 @@ import { colliderIndex, LocalWalker, collide } from './walker.js';
 import { countTris, disposeTree, headingFromBearing, inPoly, polyBox, DEG, rng } from './kit.js';
 
 // ---------------------------------------------------------------------------- registry (Seattle 10 + Bellevue 4; Bucharest added by its builder)
-export const SPOTS = [
+export const SPOTS_ALL = [
     { id: 'pike-place', city: 'seattle', name: 'Pike Place Market & the Gum Wall', lat: 47.60897, lon: -122.33987, kind: 'walk', scene: 'pike-place', blurb: 'Seattle\'s 1907 public market under the red PUBLIC MARKET CENTER neon sign: flying fish, Rachel the bronze pig, the original Starbucks and the Gum Wall in Post Alley.' },
     { id: 'chihuly', city: 'seattle', name: 'Chihuly Garden and Glass', lat: 47.6204, lon: -122.3504, kind: 'walk', scene: 'seattle-center', blurb: 'Dale Chihuly\'s glass art at the foot of the Space Needle: the Glasshouse with its 100-ft red-orange-yellow suspended sculpture and a garden of glass among plants.' },
     { id: 'space-needle', city: 'seattle', name: 'Space Needle & Seattle Center', lat: 47.61995, lon: -122.34935, kind: 'walk', scene: 'seattle-center', blurb: 'The 605-ft (184 m) 1962 World\'s Fair tower with its flying-saucer top and the Seattle Center grounds at its feet.' },
@@ -48,7 +48,17 @@ export const SPOTS = [
 /** spots still being built: loadable by id (dev page) but not listed in SPOTS / the game menu until verified */
 export const DEV_SPOTS = [
 ];
-export const spotById = (id) => SPOTS.find((s) => s.id === id) || DEV_SPOTS.find((s) => s.id === id) || null;
+/**
+ * Review gate (owner note 61): a spot is listed in SPOTS (game menu, world map, explore pins, achievements) only once
+ * its scene passed the side-by-side review against real photos (day / night, spawn, postcard, 3 walk poses). Scene
+ * lanes ask for the flip in spec 15 Requests → spots-core. Every spot stays loadable by id (spotById, dev page); a
+ * reviewer lists all with `?spots=all` in the URL or localStorage `dmcv.spots.showAll` = '1'.
+ */
+export const READY = new Set([]);
+const showAll = (() => { try { return /[?&]spots=all\b/.test(globalThis.location?.search || '') || globalThis.localStorage?.getItem('dmcv.spots.showAll') === '1'; } catch { return false; } })();
+for (const s of SPOTS_ALL) s.ready = READY.has(s.id);
+export const SPOTS = SPOTS_ALL.filter((s) => s.ready || showAll);
+export const spotById = (id) => SPOTS_ALL.find((s) => s.id === id) || DEV_SPOTS.find((s) => s.id === id) || null;
 
 const DATA_URL = (scene) => new URL(`../../data/spots/${scene}.json`, import.meta.url).href;
 const STORE = 'dmcv.spots.v1';
@@ -66,6 +76,7 @@ class SceneContext {
         // street-conformed ground (notes 48/56/68), built on the first height query; a scene opts out with
         // `ctx.ground.pendingConform = null` (or tunes it: `ctx.ground.pendingConform.opts = {...}`) before querying heights
         this.ground.pendingConform = streetBands(data);
+        { const W = Object.values(data.spots).flatMap((s) => s.extent?.polygon || []); if (W.length) { const b = polyBox(W); this.ground.pendingConform.bounds = { x0: b.x0 - 220, z0: b.z0 - 220, x1: b.x1 + 220, z1: b.z1 + 220 }; } }
         /** (x, z, margin) → inside a ground-level carriageway? (lamps, trees, furniture are clipped against it) */
         this.onRoad = carriagewayTest(data);
         this.painter = new Painter();
@@ -88,6 +99,7 @@ class SceneContext {
     onNight(fn) { this.nightHooks.push(fn); }
     /** a plaque (research entry) at (x, z) facing yaw (reader stands on the +z side of the board) */
     plaque(pl, x, z, yaw, { credit = null, style = 'bronze', y = null } = {}) {
+        if (!String(pl?.title || '').trim() || !String(pl?.text || '').trim()) { console.warn('[spots] plaque without text skipped', pl?.title); return null; } // note 36: no empty signs
         const p = { ...pl, credit: credit || pl.credit || null, x, z };
         const m = plaqueMesh(p, { style }); m.position.set(x, y ?? this.ground.heightAt(x, z), z); m.rotation.y = yaw; this.scene.add(m);
         p.mesh = m; p.place = this.data.name; this.plaques.push(p);
@@ -521,6 +533,12 @@ export function auditSpot(spot, { maxSamples = 6 } = {}) {
     if (onRoad) for (const l of spot.lamps || []) if (!l.noPost && l.h > 4 && onRoad(l.x, l.z, 0.1)) add('lampOnRoad', { x: +l.x.toFixed(1), z: +l.z.toFixed(1) });
     const cars = spot.ctx?.extras?.obstacles?.() || [];
     for (let i = 0; i < cars.length; i++) for (let j = i + 1; j < cars.length; j++) { const a = cars[i], b = cars[j], dx = b.x - a.x, dz = b.z - a.z, along = Math.abs(dx * a.fx + dz * a.fz), lat = Math.abs(dx * a.fz - dz * a.fx); if (along < (a.length + b.length) / 2 - 0.3 && lat < (a.width + b.width) / 2 - 0.2) add('carOverlap', { x: +a.x.toFixed(1), z: +a.z.toFixed(1) }); }
+    // ---- signs (notes 51/52): tilted boards, boards overlapping each other
+    const signs = []; const up = new THREE.Vector3(), q = new THREE.Quaternion();
+    scene.traverse((o) => { if (!o.isMesh || !/^sign:/.test(o.name) || !visible(o)) return; o.getWorldQuaternion(q); up.set(0, 1, 0).applyQuaternion(q); const b = new THREE.Box3().setFromObject(o);
+        if (up.y < 0.995 && !o.userData.tiltOk) add('signTilted', { x: +b.getCenter(up).x.toFixed(1), z: +up.z.toFixed(1), name: o.name.slice(5, 40), deg: Math.round(Math.acos(Math.min(1, new THREE.Vector3(0, 1, 0).applyQuaternion(q).y)) / DEG) });
+        signs.push({ b, name: o.name }); });
+    for (let i = 0; i < signs.length; i++) for (let j = i + 1; j < signs.length; j++) { const A = signs[i].b, B = signs[j].b; if (!A.intersectsBox(B)) continue; const I = A.clone().intersect(B), s1 = I.getSize(new THREE.Vector3()); if (s1.y > 0.08 && Math.max(s1.x, s1.z) > 0.15) add('signOverlap', { x: +I.min.x.toFixed(1), y: +I.min.y.toFixed(1), z: +I.min.z.toFixed(1), a: signs[i].name.slice(5, 30), b: signs[j].name.slice(5, 30) }); }
     // ---- empty signs / plaques
     for (const p of spot.plaques || []) if (!String(p.title || '').trim() || !String(p.text || '').trim()) add('emptySign', { x: p.x, z: p.z, title: p.title || '' });
     const counts = Object.fromEntries(Object.entries(out).map(([k, o]) => [k, o.n]));

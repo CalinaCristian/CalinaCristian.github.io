@@ -305,8 +305,9 @@ export function buildBuildings(data, ground, o = {}) {
     const insideAcc = (x, z) => { for (const a of gridA.get(keyA(Math.floor(x / cellA), Math.floor(z / cellA))) || []) if (x >= a.bb.x0 && x <= a.bb.x1 && z >= a.bb.z0 && z <= a.bb.z1 && inPoly(x, z, a.poly)) return a; return null; };
     const order = data.buildings.filter((b) => !skip.has(b.id) && !b.hasParts && b.poly?.length > 2).map((b) => ({ b, A: Math.abs(polyArea(b.poly)) })).sort((p, q) => q.A - p.A).map((p) => p.b);
     let dropped = 0, inset = 0;
-    for (const b0 of order) {
-        let b = b0;
+    for (const b1 of order) {
+        const cp = cleanPoly(b1.poly); if (!cp) continue;
+        const b0 = cp === b1.poly ? b1 : { ...b1, poly: cp }; let b = b0;
         if (b.k === 'roof' && !o.keepRoofs) continue;
         { // overlap with accepted footprints
             const [qx, qz] = centroid(b.poly), bbq = polyBox(b.poly), smp = [[qx, qz], ...b.poly.map(([x, z]) => [x + (qx - x) * 0.2, z + (qz - z) * 0.2])];
@@ -356,6 +357,14 @@ export function buildBuildings(data, ground, o = {}) {
     for (const m of Object.values(mats)) m.side = globalThis.__spotsLegacy ? THREE.FrontSide : THREE.DoubleSide; // inside a wall the camera sees a wall, never the street beyond
     const group = batch.build('osm-buildings', { matOverrides: mats });
     return { group, colliders, tris: countFromGroup(group), dedupe: { dropped, inset } };
+}
+/** ring without repeated / near-coincident (< 5 cm) or collinear vertices (no zero-length wall quads → no degenerate triangles / zero normals); null if < 3 left */
+export function cleanPoly(poly) {
+    let out = []; for (const p of poly) { const q = out[out.length - 1]; if (!q || Math.hypot(p[0] - q[0], p[1] - q[1]) > 0.05) out.push(p); }
+    while (out.length > 2 && Math.hypot(out[0][0] - out[out.length - 1][0], out[0][1] - out[out.length - 1][1]) <= 0.05) out.pop();
+    for (let k = 0, changed = true; changed && k < 4; k++) { changed = false; const r = []; for (let i = 0; i < out.length; i++) { const a = out[(i + out.length - 1) % out.length], b = out[i], c = out[(i + 1) % out.length]; const cr = (b[0] - a[0]) * (c[1] - b[1]) - (b[1] - a[1]) * (c[0] - b[0]), dt = (b[0] - a[0]) * (c[0] - b[0]) + (b[1] - a[1]) * (c[1] - b[1]); if (Math.abs(cr) < 2e-3 * Math.hypot(b[0] - a[0], b[1] - a[1]) * Math.hypot(c[0] - b[0], c[1] - b[1]) || (Math.abs(cr) < 1e-4 && dt < 0)) { changed = true; continue; } r.push(b); } out = r; }
+    if (out.length < 3 || Math.abs(polyArea(out)) < 0.5) return null;
+    return out.length === poly.length ? poly : out;
 }
 /** polygon offset inward by d (per-vertex bisector; null when the result folds over) */
 export function insetPoly(poly, d) {

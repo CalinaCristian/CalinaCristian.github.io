@@ -19,6 +19,9 @@ import { OnFootController } from './onfoot.js';
 import * as VEHICLES from './vehicles.js';
 import { makeCrowd, dressFor, seasonOf } from './crowd.js';
 import { initAchievements } from './achievements.js'; // spec 23 (progression): observes window.game
+import { showFinale } from './finale.js'; // cockpit-ui, note 71
+import { playChapterTransition } from './transition.js'; // cockpit-ui, note 16
+import { save } from './save.js'; // progression, note 73
 import { initExplore } from './explore.js'; // explore lane (notes 74–76): Explore mode, world-map hub, drone — hooks listed in spec 10
 const { makeVehicle } = VEHICLES;
 
@@ -171,7 +174,7 @@ class Game {
                 hud: this.hud, audio: this.audio, input: this.input,
                 canOpen: () => (this.state === 'drive' || this.state === 'office' || this.state === 'foot' || (this.state === 'spot' && !this.spot?.ui?.panelOpen)) && !this.mapOpen && !this.hud.panelOpen,
                 getInfo: () => (this.state === 'spot' && this.spot ? this.spot.photoInfo() : { place: this.state === 'office' ? this.office?.stop.company : document.getElementById('street')?.textContent, city: this.city?.id, timeZone: this.clock.timeZone, night: !!this.r3d.nightLights }),
-                onPhoto: (meta) => this.onPhoto(meta),
+                onPhoto: (meta, shot) => this.onPhoto(meta, shot),
             });
         } catch (e) { console.warn('[photo]', e); this.photo = null; }
         this.loop = this.loop.bind(this);
@@ -197,6 +200,8 @@ class Game {
         this.renderMenuChapters();
         this.loadSpotsModule().then(() => this.renderMenuSpots());
         this.renderMenuRoam();
+        // Continue (progression / save.js, note 73): restores the last session (position, mode, conditions)
+        try { save.ready?.then?.(() => { const b = $('#continue'); if (b) { b.hidden = !save.hasSession?.(); b.onclick = () => save.restore(this); } }); } catch (e) { console.warn('[save]', e); }
         { const cw = $('#menu .controls-wrap'); if (cw && matchMedia('(min-height: 900px) and (min-width: 900px)').matches) cw.open = true; } // tall screens: controls open; else collapsed so the menu fits
         $('#quality').addEventListener('change', (e) => { this.quality = e.target.value; this.r3d.setQuality(e.target.value); });
         $('#mute').addEventListener('click', (e) => { this.audio.setMuted(!this.audio.muted); e.target.textContent = this.audio.muted ? '🔇' : '🔊'; });
@@ -220,6 +225,8 @@ class Game {
         $('#map-close')?.addEventListener('click', () => this.toggleMap(false));
         $('#navlist')?.addEventListener('click', (e) => {
             if (e.target.closest('[data-cond]')) { this.toggleMap(false); this.toggleConditions(true); return; }
+            const cb = e.target.closest('[data-car]');
+            if (cb) { this.toggleMap(false); if (cb.dataset.car === 'call') this.callCar(); else this.routeToCar(); return; }
             const rb = e.target.closest('[data-roam]');
             if (rb) { this.toggleMap(false); if (rb.dataset.roam !== this.district) this.switchRoamDistrict(rb.dataset.roam); return; }
             const spb = e.target.closest('[data-spot]');
@@ -315,6 +322,7 @@ class Game {
             onHonk: (v, reason) => this.vehicleHonk(v, reason),
             onBand: (band, prev) => this.onTrafficBand(band, prev),
         });
+        try { this.traffic.onParkingEvent?.((ev) => this.onParkingEvent(ev)); } catch (e) { console.warn('[parking]', e); } // traffic lane, note 8
         // standstill hotspots of this district (spec 13): from the loaded world, else the city's district config
         { const cong = world.district?.congestion || (district && city.districts?.[district]?.congestion) || null; if (cong?.length && this.traffic.setCongestion) this.traffic.setCongestion(cong, city.proj); }
         { const q = new URLSearchParams(location.search); if (q.has('jam')) this.traffic.jamOverride = clamp(+q.get('jam') || 0, 0, 1); }
@@ -816,6 +824,7 @@ class Game {
     /** draws the route + waypoint on a MiniMap canvas using the same transform it was drawn with */
     drawRouteOverlay(ctx, canvas, { cx, cz, scale, heading = null }) {
         this.drawOutside(ctx, canvas, { cx, cz, scale, heading });
+        this.drawCarMarker(ctx, canvas, { cx, cz, scale, heading });
         const r = this.nav?.route; if (!r) return;
         ctx.save();
         ctx.translate(canvas.width / 2, canvas.height / 2);
@@ -835,6 +844,56 @@ class Game {
             ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke();
         }
         ctx.restore();
+    }
+
+    /** on foot (note 7): the parked car on the minimap / big map (+ the walker on the big map, which centres on the car) */
+    drawCarMarker(ctx, canvas, { cx, cz, scale, heading = null }) {
+        if (!this.foot?.active || !this.carBody?.parent) return;
+        const P = this.player, F = this.foot;
+        ctx.save(); ctx.translate(canvas.width / 2, canvas.height / 2); if (heading !== null) ctx.rotate(heading); ctx.scale(scale, scale); ctx.translate(-cx, -cz);
+        const pin = (x, z, fill, glyph, r = 11) => { ctx.save(); ctx.translate(x, z); if (heading !== null) ctx.rotate(-heading); ctx.scale(1 / scale, 1 / scale); ctx.beginPath(); ctx.arc(0, 0, r, 0, 7); ctx.fillStyle = fill; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = '#fff'; ctx.stroke(); ctx.font = `${r + 1}px sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(glyph, 0, 1); ctx.restore(); };
+        pin(P.x, P.z, '#2563eb', '🚗', 12);
+        if (canvas.id === 'bigmap') pin(F.x, F.z, '#16a34a', '🚶', 9);
+        ctx.restore();
+    }
+    /** HUD chip "🚗 120 m ↗" while on foot away from the car */
+    updateCarFinder() {
+        let el = document.getElementById('car-finder');
+        const F = this.foot, P = this.player, on = this.state === 'foot' && F?.active && this.carBody?.parent;
+        const d = on ? Math.hypot(P.x - F.x, P.z - F.z) : 0;
+        if (!on || d < 12) { if (el) el.classList.remove('show'); return; }
+        if (!el) { el = document.createElement('button'); el.id = 'car-finder'; el.title = 'Your car — click: walk back (route), L: beep, T: call the car'; el.addEventListener('click', (e) => { e.preventDefault(); this.routeToCar(); }); $('#hud')?.appendChild(el); }
+        const rel = angleDiff(F.heading, Math.atan2(-(P.x - F.x), -(P.z - F.z)));
+        const arrow = ['⬆️', '↗️', '➡️', '↘️', '⬇️', '↙️', '⬅️', '↖️'][((Math.round(-rel / (Math.PI / 4)) % 8) + 8) % 8];
+        const t = `🚗 ${fmtDist(d, this.city.units)} ${arrow}`; if (el.textContent !== t) el.textContent = t;
+        el.classList.add('show');
+    }
+    /** walking route back to the car's driver door */
+    routeToCar() {
+        if (!this.foot?.active) return;
+        const door = this.carDoor(), F = this.foot;
+        this.navManual = true; this.nav.setDestination({ x: door.x, z: door.z, label: 'Your car' }, { x: F.x, z: F.z, heading: F.heading });
+        this.hud.toast('🚗 Route to your car', `${fmtDist(Math.hypot(door.x - F.x, door.z - F.z), this.city.units)} · the blue line on the map`);
+    }
+    /** key fob: beep + flash the lights (and a light pulse at the car) */
+    beepCar() {
+        const b = this.carBody; if (!b) return;
+        this.audio.blip(1250, 0.07, 0.12); setTimeout(() => this.audio.blip(1250, 0.07, 0.12), 180);
+        let n = 0; const flash = () => { b.userData.setLights?.(n % 2 === 0); if (++n < 6) setTimeout(flash, 160); }; flash();
+        this._fobT = performance.now();
+    }
+    /** call the car: it drives itself to the nearest lane spot next to the player (on foot, > 25 m away) */
+    callCar() {
+        const F = this.foot, P = this.player; if (!F?.active || !this.carBody) return false;
+        const pose = this.lanePose(F.x, F.z, F.heading, (F.y ?? 0) + 0.24); if (!pose) { this.hud.toast('🚗 No road here', 'Walk to a street first.', 'warn'); return false; }
+        if (Math.hypot(pose.x - F.x, pose.z - F.z) > 60) { this.hud.toast('🚗 Too far from a road', 'Walk closer to a street.', 'warn'); return false; }
+        P.place(pose.x, pose.z, pose.heading, pose.edge); P.speed = 0;
+        this.traffic.clearForPlayer?.(P, { r: 8, ahead: 15, behind: 8 });
+        this.carBody.position.set(P.x, P.surfY ?? 0.24, P.z); this.carBody.rotation.set(0, P.heading, 0);
+        this.carBox = { ...this.carBox, x: P.x, z: P.z, fx: P.fx, fz: P.fz };
+        this.beepCar(); this.hud.toast('🚗 Your car is here', 'It pulled up at the kerb next to you.');
+        if (this.navManual && this.nav.dest?.label === 'Your car') { this.navManual = false; this.autoRoute(true); }
+        return true;
     }
 
     // ---------------------------------------------------------------------------------- fuel
@@ -1127,6 +1186,7 @@ class Game {
         const lms = (this.bigmap.landmarks || []).slice(0, 12);
         for (const l of lms) add('Landmarks', '📍', l.label || l.name || l.id, l.x, l.z);
         let html = '', g = '';
+        if (this.foot?.active && this.carBody?.parent) html += `<div class="nav-item active"><span>🚗 Your car <small>${fmtDist(Math.hypot(this.player.x - this.foot.x, this.player.z - this.foot.z), this.city.units)}</small></span><button data-car="route">Walk there</button><button data-car="call" title="Call the car to you">📲</button></div>`;
         if (this.ch) {
             const next = this.chapters[this.chapterIdx + 1];
             if (this.chapterDone && next) html += `<div class="nav-item active"><span>▶️ Next chapter: ${next.year} · ${next.title}</span><button data-chapter="${this.chapterIdx + 1}">Go</button></div>`;
@@ -1196,6 +1256,28 @@ class Game {
         poi._reachWorld = this.world;
         return (poi._reach = ne ? clamp(ne.d + 5, 11, 16) : 11);
     }
+    /** illegal parking reactions (traffic.js, note 8): tickets / clamp / tow become fines; the tow moves the car */
+    onParkingEvent(ev = {}) {
+        const RO = this.city?.id === 'bucharest';
+        if (ev.type === 'illegal' && !this.flags.parkHint) { this.flags.parkHint = true; this.hud.toast('🅿️ Not a parking spot', RO ? 'Somebody will notice. Poliția Locală is never far.' : 'Parking Enforcement patrols here.', 'warn'); }
+        else if (ev.type === 'officer' && ev.arrived === false) this.hud.toast(RO ? '🚓 Poliția Locală is coming' : '🚓 Parking Enforcement is coming', 'Move the car or pay for it.', 'warn');
+        if (ev.fine && (ev.type === 'ticket' || ev.type === 'clamp' || ev.type === 'tow')) {
+            const cur = ev.fine.currency || PRICES[this.city.id].cur, amt = ev.fine.amount || 0;
+            this.stats.fines[cur] = (this.stats.fines[cur] || 0) + amt; this.stats.fineCount++; this.stats.cleanDist = 0;
+            const t = { ticket: RO ? '🧾 Amendă de parcare' : '🧾 Parking ticket', clamp: '🔒 Wheel clamp', tow: '🚛 Towed' }[ev.type];
+            this.hud.toast(t, `${ev.fine.label || ''} · ${money(cur, amt)}`, 'warn');
+        }
+        if (ev.type === 'tow') this.towCar();
+        this.lastParkingEvent = ev.type;
+    }
+    /** the tow truck takes the parked car: it waits on the nearest legal lane spot ~60 m away (car marker shows where) */
+    towCar() {
+        const P = this.player; if (!P) return;
+        const pose = this.lanePose(P.x + P.fx * 60, P.z + P.fz * 60, P.heading, P.surfY ?? null); if (!pose) return;
+        P.place(pose.x, pose.z, pose.heading, pose.edge); P.speed = 0;
+        if (this.carBody?.parent) { this.carBody.position.set(P.x, P.surfY ?? 0.24, P.z); this.carBody.rotation.set(0, P.heading, 0); this.carBox = { ...this.carBox, x: P.x, z: P.z, fx: P.fx, fz: P.fz }; }
+        this.hud.toast('🚛 Your car was moved', 'Follow the car marker on the map to get it back.', 'warn');
+    }
     /** driver's door position of the parked car */
     carDoor() { const P = this.player, w = this.carBox?.width || 1.8; return { x: P.x + P.fz * (w / 2 + 0.4) + P.fx * 0.4, z: P.z - P.fx * (w / 2 + 0.4) + P.fz * 0.4 }; }
     enterCar() {
@@ -1209,7 +1291,7 @@ class Game {
         if (this.carBody?.parent) this.carBody.parent.remove(this.carBody);
         this.carBox = null; if (this.player) this.player.rig.visible = true;
         if (this.traffic) this.traffic.walker = null;
-        document.body.classList.remove('on-foot');
+        document.body.classList.remove('on-foot'); document.getElementById('car-finder')?.classList.remove('show');
         if (this.player && this.camera.parent !== this.player.camHolder && this.state !== 'office') { this.player.camHolder.add(this.camera); this.camera.position.set(0, 0, 0); this.camera.rotation.set(0, 0, 0); }
         if (this.officeFromFoot) this.officeFromFoot = false;
     }
@@ -1236,6 +1318,11 @@ class Game {
         if (input.take('KeyR')) { const ne = this.nav.index.nearest(F.x, F.z, 200); if (ne) { const e = ne.edge, sd = (F.x - ne.cx) * e.nx + (F.z - ne.cz) * e.nz >= 0 ? 1 : -1, off = (e.halfW ?? 4) + 1.5; F.teleport(ne.cx + e.nx * sd * off, ne.cz + e.nz * sd * off); } }
         hud.update(dt, this.camera, city.id);
         this.stats.time += dt;
+        // find the car (note 7): L = key fob (beep + flash), T = call the car, HUD chip / map marker
+        if (input.take('KeyL')) this.beepCar();
+        if (input.take('KeyT')) this.callCar();
+        this.updateCarFinder();
+        if (this.navManual && this.nav.dest?.label === 'Your car' && Math.hypot(this.carDoor().x - F.x, this.carDoor().z - F.z) < 4) { this.navManual = false; this.autoRoute(true); }
         // street + navigation from the walker's position
         const pos = { x: F.x, z: F.z, heading: F.heading, surfY: F.y + 0.24, speed: F.vel };
         const ne = this.nav.index.nearest(F.x, F.z, 200);
@@ -1492,7 +1579,7 @@ class Game {
         }));
     }
     /** PhotoMode.onPhoto (drive, office, on foot and spots) */
-    onPhoto(meta = {}) {
+    onPhoto(meta = {}, shot = null) { this.lastShot = shot;
         if (this.state === 'spot' && this.spot) {
             const r = this.spot.onPhoto(meta);
             if (!r?.postcard) this.spot.ui?.toast?.('📸 Saved', `${meta.place || 'Photo'} · ${meta.filter || ''}`);
@@ -1515,12 +1602,14 @@ class Game {
             items.push(['leave-spot', '🚪', 'Leave tourist spot']);
         }
         if (inGame && st !== 'office') items.push(['map', '🗺️', 'Map & navigation']);
+        if (st === 'foot' && this.carBody?.parent) items.push(['car-route', '🚗', 'Walk back to the car'], ['car-call', '📲', 'Call the car (T)'], ['car-beep', '🔑', 'Key fob: beep (L)']);
         if (this.chapters) items.push(['chapters', '📖', 'Chapters']);
         if (this.spotsMod?.SPOTS?.length) items.push(['spots', '🏛️', 'Tourist spots']);
         if (this.chapters) items.push(['roam', '🚗', this.freeRoam ? 'Free roam: district' : 'Free roam']);
         if (st === 'drive' || st === 'foot') items.push(['conditions', '☀️', 'Time, weather & season']);
         if (this.achievements?.open) { let pct = null; try { pct = this.achievements.completion?.().pct; } catch { /* ignore */ } items.push(['achievements', '🏆', `Achievements${pct != null ? ` · ${pct} %` : ''}`]); }
         if (this.photo && st !== 'office') items.push(['photo', '📷', 'Photo mode']);
+        if (this.save?.openGallery || save?.openGallery) items.push(['gallery', '🖼️', 'Photo gallery']);
         items.push(['settings', '⚙️', 'Settings']);
         items.push(['explore', '🧭', 'Explore mode', 'coming soon']); // note 75 plugs in here
         items.push(['main-menu', '🏠', 'Main menu']);
@@ -1593,6 +1682,10 @@ class Game {
         else if (k === 'conditions') { this.buildConditions(); this.toggleConditions(true, { any: true }); }
         else if (k === 'achievements') this.achievements?.open?.();
         else if (k === 'photo') this.photo?.open?.();
+        else if (k === 'gallery') (this.save || save)?.openGallery?.();
+        else if (k === 'car-route') this.routeToCar();
+        else if (k === 'car-call') this.callCar();
+        else if (k === 'car-beep') this.beepCar();
         else if (k === 'main-menu') { this.toMainMenu(); }
         else if (k === 'leave-spot') this.leaveSpot();
         else if (k === 'tp' && this.spot) { this.spot.teleport(arg); this.spotId = arg; this.spotEntry = this.spotsMod?.SPOTS?.find(x => x.id === arg) || this.spotEntry; }
@@ -1711,7 +1804,7 @@ class Game {
         try {
             this.photo?.close?.(); this.state = 'montage'; this.input.lookAllowed = false; this.input.releaseLock(); this.hud.prompt(null); this.hud.setNavLine(''); this.audio.stopEngine?.();
             if (fromCity !== d.city) await this.flightCutscene(fromCity);
-            else await chapterMontage({ cityName: CITIES[d.city]?.name, districts: CITIES[d.city].districts || {}, from: fromDistrict, to: d.id, year0: 2026, year1: 2026, title: `Free roam · ${d.name}`, caption: d.label, kicker: 'Free roam', duration: 2800 });
+            else await this.transition({ cityName: CITIES[d.city]?.name, districts: CITIES[d.city].districts || {}, from: fromDistrict, to: d.id, year0: 2026, year1: 2026, title: `Free roam · ${d.name}`, caption: d.label, kicker: 'Free roam', duration: 2800 });
         } finally { this._transit = false; }
         return this.startFreeRoam(d.id, { tod: fr.tod, weather: fr.weather });
     }
@@ -1842,6 +1935,11 @@ class Game {
         } else { this.objective = null; this.objectiveLabel = `${ch.title}`; this.objectivePlain = ''; }
         this.autoRoute(true);
     }
+    /** chapter / district jump: the cinematic transition (transition.js, note 16) with the map montage as a fallback */
+    async transition(o) {
+        try { return await playChapterTransition({ ...o, audio: this.audio }); }
+        catch (e) { console.warn('[transition]', e); return chapterMontage(o); }
+    }
     /** the next chapter in the same district, in place (notes 41/42): the player keeps driving / walking from where they are */
     chainChapter(idx) {
         const ch = this.chapters[idx]; if (!ch) return false;
@@ -1886,7 +1984,8 @@ class Game {
                 // same district (luxoft → db in pipera): a short "a few months later" card on the map, no district jump
                 const sameDistrict = prev && prev.city === ch.city && prev.district === ch.district;
                 const via = !sameDistrict && prev ? (ch.montageVia || MONTAGE_VIA[ch.id] || []) : [];
-                await chapterMontage({ cityName: CITIES[ch.city]?.name || this.city?.name, districts: CITIES[ch.city].districts || {}, from: prev?.district, to: ch.district, year0: prev?.year, year1: ch.year, title: ch.title,
+                const stc = STOPS.find(x => x.id === ch.stop);
+                await this.transition({ card: stc ? { company: stc.company, role: stc.role, period: stc.period, color: stc.color, icon: stc.icon } : null, globe: !prev || prev.city !== ch.city, cityName: CITIES[ch.city]?.name || this.city?.name, districts: CITIES[ch.city].districts || {}, from: prev?.district, to: ch.district, year0: prev?.year, year1: ch.year, title: ch.title,
                     caption: ch.intro, travel: sameDistrict ? '' : (ch.montageCaption || ''), via, water: via.length ? (MONTAGE_WATER[ch.id] || []) : [], kicker: sameDistrict ? (ch.year === prev.year ? 'A few months later' : 'Later') : '',
                     duration: sameDistrict ? 3200 : ch.montageCaption ? 6000 : prev ? 5000 : 4200 });
             }
@@ -2108,12 +2207,12 @@ class Game {
             this.state = 'foot';
         }
         if (this.freeRoam) { // free roam (R10.10): the CV content, no story progress
-            if (o.read.size === 0) this.hud.toast('👀 Nothing read', 'Walk up to a screen and press E to read it.');
+            if (o.read.size === 0) this.hud.toast('💬 Nobody asked', 'Walk up to your host and press E to talk.');
             else this.hud.toast(`${stop.icon} ${stop.short}`, 'Free roam: keep exploring (M → map, districts and tourist spots).');
         } else if (this.ch) { // chapters: reading a screen of this chapter's office completes it
             if (o.read.size > 0 && !this.visited.has(stop.id)) { this.visited.add(stop.id); stop.poiRef.visited = true; this.audio.chime(); }
             if (o.read.size > 0 && this.ch.stop === stop.id && !this.chapterDone) { const id = this.chapter; queueMicrotask(() => this.completeChapter(id)); }
-            else if (o.read.size === 0) this.hud.toast('👀 Nothing read', 'Walk up to a screen and press E to read it.');
+            else if (o.read.size === 0) this.hud.toast('💬 Nobody asked', 'Walk up to your host and press E to talk.');
         } else if (o.read.size > 0 && !this.visited.has(stop.id)) {
             this.visited.add(stop.id); stop.poiRef.visited = true;
             this.audio.chime();
@@ -2121,7 +2220,7 @@ class Game {
             this.updateObjective();
             if (stop.id === 'uipath-bel') setTimeout(() => this.finale(), 1200);
             else if (this.objective) setTimeout(() => this.hud.toast('⏩ Press F to fast-travel to the next stop', `${this.objectivePlain} · or drive there yourself`, 'intro'), 1600);
-        } else if (o.read.size === 0) this.hud.toast('👀 Nothing read', 'Walk up to a screen and press E to read it.');
+        } else if (o.read.size === 0) this.hud.toast('💬 Nobody asked', 'Walk up to your host and press E to talk.');
         this.input.flush();
         this.player.speed = 0;
         this.returnFocus();
@@ -2167,6 +2266,13 @@ class Game {
             `Fast travels: ${s.fastTravels}${s.fastTravels ? ` (${(s.fastDist / 1000).toFixed(1)} km skipped)` : ''}`,
             `Achievements: ${this.hud.unlocked.size}`,
         ].join(' · ');
+        let comp = null; try { comp = this.achievements?.completion?.() || null; } catch { comp = null; }
+        const fin = { profile: PROFILE, stops: STOPS, stats: { minutes: mins, distanceKm: s.dist / 1000, chapters: [this.progress?.done?.size ?? this.visited.size, this.chapters?.length ?? STOPS.length],
+            achievements: comp ? [comp.unlocked, comp.total] : [this.hud.unlocked.size, null], completion: comp?.pct ?? null, photos: this.photoCount ?? null,
+            fines: s.fineCount ? `${s.fineCount} (${both(s.fines)})` : '' },
+            actions: { explore: () => { if (this.explore?.enterExplore) this.explore.enterExplore(); else this.startFreeRoam?.(this.district || 'romana', { tod: 'now', weather: 'live' }); }, spots: () => this.togglePause(true, 'spots'), replay: () => this.goToChapter(0) } };
+        try { showFinale(fin); return; } catch (e) { console.warn('[finale]', e); }
+        // fallback: the old panel
         this.hud.panel(`<div class="eyebrow">🏁 Story complete</div><h2>${PROFILE.name}</h2><p class="lead">${PROFILE.title} · ${PROFILE.location}</p><p>${PROFILE.summary}</p><ul class="timeline">${timeline}</ul><div class="chips">${PROFILE.topSkills.map(sk => `<span class="chip">${sk}</span>`).join('')}</div><h3>Say hi</h3><div class="links">${links}<a class="btn ghost" href="mailto:${PROFILE.email}">Email</a></div><h3>Trip computer</h3><p class="meta">${statLine}</p><p class="meta">You can keep driving around, or fly back to Bucharest from SeaTac.</p>`);
     }
 }

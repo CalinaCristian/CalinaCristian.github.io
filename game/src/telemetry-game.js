@@ -107,6 +107,8 @@ function start(game) {
     }, true);
     // free roam (R10.10): district + time-of-day / weather picks (ids from fixed lists)
     wrapAfter('startFreeRoam', (ok, district, o) => { if (ok) track('free_roam_start', { district: district || null, tod: o?.tod || 'now', weather: o?.weather || 'live' }); });
+    // illegal parking (note 8): coarse event types and reason ids only
+    wrap('onParkingEvent', (ev) => { if (ev && ['illegal', 'ticket', 'clamp', 'tow', 'cleared'].includes(ev.type)) track('parking_event', { type: ev.type, reason: typeof ev.reason === 'string' ? ev.reason.slice(0, 32) : null, city: ev.city || null, district: ev.district || null }); });
     // district edge closures: the approach toast (R10.9)
     let boundaryHits = 0;
     wrap('closureText', (c) => { if (boundaryHits++ < 20) track('boundary_hit', { district: game.district || null, kind: c?.kind || null, leads_to: c?.leadsTo || null, chapter: game.chapter || null }); });

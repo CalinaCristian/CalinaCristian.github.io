@@ -384,6 +384,11 @@ body.photo-mode #pause-btn, body.paused #pause-btn { display: none; }
 body.touch #pause-menu .pm-foot { display: none; }
 @media (max-width: 480px) { #pause-menu .pm-grid { grid-template-columns: 1fr; } }
 body.hud-off #hud > :not(#touch) { visibility: hidden; }
+/* find the car on foot (note 7): HUD chip under the objective */
+#car-finder { display: none; position: absolute; left: 16px; top: 168px; padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(96,165,250,.6); background: rgba(15,23,42,.8); color: #e2e8f0; font: 600 14px system-ui, sans-serif; pointer-events: auto; cursor: pointer; }
+#car-finder.show { display: block; }
+@media (max-width: 600px) { #car-finder { top: 162px; } }
+@media (max-height: 520px) and (orientation: landscape) { #car-finder { top: 120px; } }
 /* ===== end gameplay free-roam block ===== */
 
 /* achievements */

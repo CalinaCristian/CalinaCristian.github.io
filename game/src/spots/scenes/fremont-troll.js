@@ -14,6 +14,7 @@ import { GeoBatch, M, rng, mat, textPlane, canvas, canvasTexture, inPoly, smooth
 import { meshSDF, sdfHeightmap, sdEllipsoid, sdCapsule, sdSphere, sdBox, smin, smax, noise3, fbm3 } from '../sdf.js';
 import { addTraffic } from '../cars.js';
 import { bench } from '../osm.js';
+import { seaActivity } from './sea-common.js';
 
 // ---------------------------------------------------------------------------- site constants (local metres)
 const TX = -3.0, TZ = -50.0, TY = 4.0;           // troll base centre (OSM node n2485251324 ≈ (−1.1, −49.8); centred in its arch bay)
@@ -489,7 +490,7 @@ export default {
         ctx.challenge('fremont-troll', { r: 9, tol: 30 });
         // ---- fun: climb spots (E): hand, Beetle, head
         const toTop = (x, z) => ({ x, z });
-        const climb = (label, x, z, tx, tz, line) => ctx.interactables.push({ kind: 'climb', x, z, r: 1.8, label, use: (s) => { const p = toTop(tx, tz); s.ctl.teleport(p.x, p.z, s.ctl.heading); s.sound.play('whoosh', 0.6); if (line && s.spot.crowd) { const c = s.spot.crowd, k = c.peds.find((q) => Math.hypot(q.x - p.x, q.z - p.z) < 9); if (k) c._say(k, 'photographed', { force: true }); } } });
+        const climb = (label, x, z, tx, tz, line) => ctx.interactables.push({ kind: 'climb', x, z, r: 1.8, label, use: (s) => { seaActivity(s, 'lm-troll-climb', 'fremont-troll'); const p = toTop(tx, tz); s.ctl.teleport(p.x, p.z, s.ctl.heading); s.sound.play('whoosh', 0.6); if (line && s.spot.crowd) { const c = s.spot.crowd, k = c.peds.find((q) => Math.hypot(q.x - p.x, q.z - p.z) < 9); if (k) c._say(k, 'photographed', { force: true }); } } });
         climb('Climb onto the hand', TX - 3.4, TZ + 5.2, TX - 3.3, TZ + 2.6, true);
         climb('Sit on the Beetle', TX + 4.8, TZ + 4.6, TX + 4.0, TZ + 2.6, true);
         ctx.interactables.push({ kind: 'touch', x: TX + 0.15, z: TZ + 3.2, r: 1.3, cond: (s) => s.ctl.position.y > TY + 2.6, label: 'Touch his nose', use: (s) => { s.ui.toast('👃 Boop', 'Generations of visitors polished that nose.'); s.sound.play('chime', 0.5); } });

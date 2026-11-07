@@ -23,7 +23,7 @@ const CHAPTERS_KEY = 'dmcv:chapters';   // chapters.js (read-only here; cleared 
 /** completion weights (sum 100) — the one table */
 export const WEIGHTS = [
     { key: 'story', label: 'Story chapters', icon: '📖', weight: 40 },
-    { key: 'cv', label: 'CV screens read', icon: '🖥️', weight: 10 },
+    { key: 'cv', label: 'CV answers heard', icon: '💬', weight: 10 }, // (offices are conversations since note 37)
     { key: 'spots', label: 'Tourist spots visited', icon: '🏛️', weight: 15 },
     { key: 'postcards', label: 'Postcards', icon: '💌', weight: 10 },
     { key: 'achievements', label: 'Achievements', icon: '🏆', weight: 25 },

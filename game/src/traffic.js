@@ -1672,19 +1672,19 @@ export class Traffic {
         for (const e of near) {
             if (e.tunnel) continue;
             const dx = e.b.x - e.a.x, dz = e.b.z - e.a.z, L2 = dx * dx + dz * dz || 1;
-            const t = clamp(((x - e.a.x) * dx + (z - e.a.z) * dz) / L2, 0, 1);
+            const t0 = ((x - e.a.x) * dx + (z - e.a.z) * dz) / L2, t = clamp(t0, 0, 1);
             const ey = (e.a.y ?? 0) + ((e.b.y ?? 0) - (e.a.y ?? 0)) * t;
             if (Math.abs(ey + 0.24 - y) > 2) continue;
             nodes.add(e.a); nodes.add(e.b);
             const cx = e.a.x + dx * t, cz = e.a.z + dz * t, d = Math.hypot(x - cx, z - cz), lat = (x - cx) * e.nx + (z - cz) * e.nz, hw = e.halfW ?? 6;
-            if ((t <= 0 || t >= 1) && d > 1) continue; // past the edge end: the junction pad decides
+            if ((t0 < 0 || t0 > 1) && Math.abs(t0 - t) * e.len > 0.8) continue; // past the edge end: the junction pad decides
             if (d < hw + 0.3) { if (hw - d > depth) { depth = hw - d; car = { e, t, d, lat, hw }; } }
             else if ((e.sidewalk ?? 0) > 0.6 && d < hw + (e.sidewalk ?? 0) + 1.2 && !walk) walk = { e, t, d, lat, hw };
         }
         for (const n of nodes) {
             const d = Math.hypot(x - n.x, z - n.z), rad = n.radius ?? 6;
             if (isJunction(n) && n.edges.length >= 3 && d < rad + 0.3) R.add('junction');
-            if ((n.zebra || n.crossing) && n.edges.length <= 2 && d < 4.5) R.add('zebra');
+            if ((n.zebra || n.crossing) && n.edges.length <= 2 && car && (car.e.a === n || car.e.b === n) && (car.e.a === n ? car.t : 1 - car.t) * car.e.len < 4.5) R.add('zebra'); // (marked crossing: 0–3 m past the node, carriageway-wide)
             if ((n.hasLight || n.zebra) && n.edges.length >= 3 && car && (car.e.a === n || car.e.b === n)) {
                 const ds = (car.e.a === n ? car.t : 1 - car.t) * car.e.len; if (ds > rad - 1 && ds < rad + 6) R.add('zebra'); // the crossing in front of the stop line
             }

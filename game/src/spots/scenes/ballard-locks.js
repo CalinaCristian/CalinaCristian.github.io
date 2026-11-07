@@ -11,6 +11,7 @@ import { GeoBatch, M, rng, clamp, lerp, smooth, headingFromBearing, polyBox, inP
 import { signBoard } from '../props.js';
 import { addTraffic } from '../cars.js';
 import { waterMaterial, worldUV } from './sea-common.js';
+import { seaActivity } from './sea-common.js';
 
 // lock axis from the west (sea) gate to the east (lake) gate — OSM lock_gate ways
 const A = [-105, 42], B = [131, 130];
@@ -122,7 +123,7 @@ export default {
         });
         const [tx, tz] = fromAx(108, -16);
         ctx.interactables.push({ kind: 'lockage', x: tx, z: tz, r: 4, label: () => (phase === 'low' ? 'Operate a lockage: close the gates, open the fill valves' : phase === 'high' ? 'Drain the chamber to sea level' : 'Lockage in progress…'),
-            use: (s) => { if (phase === 'low') { runLockage(); s.ui.toast('🚢 Filling', 'Boats rise up to 26 ft in 10–15 minutes (here: 25 s).'); } else if (phase === 'high') { phase = 'drain'; timer = 0; } s.sound.play('bell'); } });
+            use: (s) => { if (phase === 'low') { runLockage(); seaActivity(s, 'lm-locks-lockage', 'ballard-locks'); s.ui.toast('🚢 Filling', 'Boats rise up to 26 ft in 10–15 minutes (here: 25 s).'); } else if (phase === 'high') { phase = 'drain'; timer = 0; } s.sound.play('bell'); } });
         // signage
         const sg = signBoard('HIRAM M. CHITTENDEN LOCKS', 6.5, 0.9, { bg: '#1e3a2b', fg: '#f1ead4', font: (q) => `700 ${q}px Georgia, serif` }); sg.position.set(55, g.heightAt(55, -140) + 2.2, -140); sg.rotation.y = Math.PI; ctx.add(sg);
         addTraffic(ctx, { lanes: [{ pts: [[-142, -119], [-99, -126], [-63, -131], [32, -148], [56, -157], [69, -167]], n: 2, speed: 9 }] });

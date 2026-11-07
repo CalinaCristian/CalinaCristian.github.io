@@ -12,7 +12,7 @@ import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, canvas, canvasTexture, inPoly, clamp, lerp, smooth, headingFromBearing, polyBox, alongPolyline, polylineLength, centroid, offsetPolyline } from '../kit.js';
 import { meshSDF, sdEllipsoid, sdCapsule, sdBox, sdSphere, smin, smax, noise3, fbm3 } from '../sdf.js';
 import { signBoard, railing } from '../props.js';
-import { seaNeedle, seaBackdrop } from './sea-common.js';
+import { seaNeedle, seaBackdrop, seaActivity } from './sea-common.js';
 import { addTraffic } from '../cars.js';
 import { polyCollider } from '../osm.js';
 
@@ -67,7 +67,7 @@ function buildNeedle(ctx) {
     const door = { x: NEEDLE.x, z: NEEDLE.z + 15.2 };
     const cab = N.elevators[0];
     let ride = null;
-    const done = (s, id, title, text) => { s.ui.toast(title, text); try { s.host?.onActivity?.({ id, spot: 'space-needle' }); } catch { /* host hook optional */ } s.progress.needle = { ...(s.progress.needle || {}), [id]: true }; };
+    const done = (s, id, title, text) => seaActivity(s, id, 'space-needle', title, text);
     ctx.onUpdate((dt, s) => {
         if (!ride) return;
         ride.t += dt * ride.speed;
@@ -78,7 +78,7 @@ function buildNeedle(ctx) {
         s.ctl.rig?.position.set(px, yy + 1.62, pz); s.ctl.rig?.rotation.set(ride.pitch, ride.heading, 0, 'YXZ');
         if (k >= 1) {
             const up = ride.y1 > ride.y0; ride = null; cab.pinned = false; s.ctl.active = true;
-            if (up) { s.ctl.y = LOUPE_Y; s.ctl.teleport(NEEDLE.x + ca * 17.4, NEEDLE.z + sa * 17.4, Math.atan2(-ca, -sa)); s.ctl.place?.(); done(s, 'needle-elevator', '🛗 520 ft in 41 seconds', 'You are on The Loupe — the world\'s first revolving glass floor. Look down! Stairs lead up to the open-air deck.'); }
+            if (up) { s.ctl.y = LOUPE_Y; s.ctl.teleport(NEEDLE.x + ca * 17.4, NEEDLE.z + sa * 17.4, Math.atan2(-ca, -sa)); s.ctl.place?.(); done(s, 'lm-needle-up', '🛗 520 ft in 41 seconds', 'You are on The Loupe — the world\'s first revolving glass floor. Look down! Stairs lead up to the open-air deck.'); }
             else { s.ctl.y = y; s.ctl.teleport(door.x, door.z + 1.6, 0); s.ctl.place?.(); }
         }
     });
@@ -88,9 +88,9 @@ function buildNeedle(ctx) {
     // on the Loupe: look down through the glass floor (achievement), stairs up to the deck; on the deck: the 360° view
     const onLevel = (s, yy) => Math.abs(s.ctl.position.y - yy) < 1.2;
     ctx.interactables.push({ kind: 'activity', x: NEEDLE.x, z: NEEDLE.z + 17.6, y: LOUPE_Y, r: 3.2, label: 'Look down through the glass floor', cond: (s) => !ride && onLevel(s, LOUPE_Y),
-        use: (s) => { s.ctl.pitch = -1.25; done(s, 'needle-loupe', '👀 500 ft straight down', 'The Loupe\'s glass floor turns once every 45 minutes; you can see the base, the elevators and the cars on 5th Ave.'); } });
+        use: (s) => { s.ctl.pitch = -1.25; done(s, 'lm-needle-loupe', '👀 500 ft straight down', 'The Loupe\'s glass floor turns once every 45 minutes; you can see the base, the elevators and the cars on 5th Ave.'); } });
     ctx.interactables.push({ kind: 'stairs', x: NEEDLE.x - 15.6, z: NEEDLE.z, y: LOUPE_Y, r: 2.6, label: 'Take the stairs up to the open-air deck', cond: (s) => !ride && onLevel(s, LOUPE_Y),
-        use: (s) => { s.ctl.y = DECK_Y; s.ctl.teleport(NEEDLE.x - 19.2, NEEDLE.z, -Math.PI / 2); s.ctl.place?.(); done(s, 'needle-deck', '🌬️ The open-air deck, 520 ft', 'Lean on the tilted glass: downtown and Mt Rainier to the south, Elliott Bay and the Olympics west, Lake Union north-east.'); } });
+        use: (s) => { s.ctl.y = DECK_Y; s.ctl.teleport(NEEDLE.x - 19.2, NEEDLE.z, -Math.PI / 2); s.ctl.place?.(); done(s, 'lm-needle-360', '🌬️ The open-air deck, 520 ft', 'Lean on the tilted glass: downtown and Mt Rainier to the south, Elliott Bay and the Olympics west, Lake Union north-east.'); } });
     ctx.interactables.push({ kind: 'stairs', x: NEEDLE.x - 18.4, z: NEEDLE.z, y: DECK_Y, r: 2.4, label: 'Back down to The Loupe', cond: (s) => !ride && onLevel(s, DECK_Y), use: (s) => { s.ctl.y = LOUPE_Y; s.ctl.teleport(NEEDLE.x - 16.6, NEEDLE.z, -Math.PI / 2); s.ctl.place?.(); } });
     ctx.interactables.push({ kind: 'ride', x: NEEDLE.x + Math.cos(cab.a) * 16.4, z: NEEDLE.z + Math.sin(cab.a) * 16.4, y: LOUPE_Y, r: 3, label: 'Ride the elevator back down', cond: (s) => !ride && onLevel(s, LOUPE_Y), use: (s) => startRide(s, false) });
     return { DECK_Y, LOUPE_Y };

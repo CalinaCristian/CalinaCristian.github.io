@@ -140,12 +140,13 @@ export function plaqueMesh(pl, { style = 'bronze', w = 0.62, h = 0.42 } = {}) {
     fitDraw(x, pl.text, 34, 84, 444, 200, { font: (s) => `${s}px Georgia, serif`, color: fg, max: 26, min: 9, maxLines: 9, lineH: 1.25 });
     if (pl.credit) fitDraw(x, pl.credit, 34, 288, 444, 34, { font: (s) => `italic ${s}px Georgia, serif`, color: fg, max: 18, min: 8 });
     const t = canvasTexture(c);
+    // note 36: the text reads on both faces (a box's −z face shows the map unmirrored from behind); a lectern tilt that
+    // still reads from the back (bronze) or an upright park board
+    const face = new THREE.MeshStandardMaterial({ map: t, metalness: style === 'bronze' ? 0.45 : 0.1, roughness: 0.45 });
     const board = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.03), [
-        ...Array(4).fill(new THREE.MeshStandardMaterial({ color: '#4a3b20', metalness: 0.7, roughness: 0.4 })),
-        new THREE.MeshStandardMaterial({ map: t, metalness: style === 'bronze' ? 0.45 : 0.1, roughness: 0.45 }),
-        new THREE.MeshStandardMaterial({ color: '#2a2a2a', roughness: 0.7 }),
+        ...Array(4).fill(new THREE.MeshStandardMaterial({ color: style === 'bronze' ? '#4a3b20' : '#2b2f2a', metalness: 0.7, roughness: 0.4 })), face, face,
     ]);
-    board.position.set(0, 1.0, 0); board.rotation.x = -0.55; board.castShadow = true;
+    board.position.set(0, style === 'bronze' ? 1.0 : 1.12, 0); board.rotation.x = style === 'bronze' ? -0.4 : -0.08; board.castShadow = true;
     const post = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.05, 0.95, 8), new THREE.MeshStandardMaterial({ color: '#2f3134', metalness: 0.6, roughness: 0.4 }));
     post.position.y = 0.47; post.castShadow = true;
     g.add(board, post);

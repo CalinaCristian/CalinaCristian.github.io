@@ -65,10 +65,13 @@ export class Ground {
      * (parks, hills, banks: real terrain). Result: a `cell`-m grid sampled bilinearly by base().
      * @param {{lines:{pts:number[][],w:number}[], polys:number[][][], buildings?:number[][][]}} net from osm.streetBands
      */
-    conform(net, { cell = 2, smooth = 14, reach = 10, maxCells = 420000 } = {}) {
-        const t = this.t, W = (t.nx - 1) * t.d, H = (t.nz - 1) * t.d, t0 = performance.now();
-        let d = cell; while ((W / d + 1) * (H / d + 1) > maxCells) d *= 1.25;
-        const nx = Math.floor(W / d) + 1, nz = Math.floor(H / d) + 1, N = nx * nz, x0 = t.x0, z0 = t.z0;
+    conform(net, { cell = 2, smooth = 14, reach = 10, maxCells = 180000, bounds = net.bounds || null } = {}) {
+        const t = this.t, t0 = performance.now();
+        // the grid covers the DEM ∩ bounds (the spot extents + a margin); outside it base() is the raw DEM
+        const X0 = Math.max(t.x0, bounds?.x0 ?? -1e9), Z0 = Math.max(t.z0, bounds?.z0 ?? -1e9), X1 = Math.min(t.x0 + (t.nx - 1) * t.d, bounds?.x1 ?? 1e9), Z1 = Math.min(t.z0 + (t.nz - 1) * t.d, bounds?.z1 ?? 1e9);
+        const W = X1 - X0, H = Z1 - Z0; if (!(W > 10 && H > 10)) return null;
+        let d = cell; while ((W / d + 1) * (H / d + 1) > maxCells) d *= 1.15;
+        const nx = Math.floor(W / d) + 1, nz = Math.floor(H / d) + 1, N = nx * nz, x0 = X0, z0 = Z0;
         const D = new Float32Array(N);
         for (let j = 0; j < nz; j++) for (let i = 0; i < nx; i++) D[j * nx + i] = this.raw(x0 + i * d, z0 + j * d);
         const blur = (src, sigma) => boxBlur3(src, nx, nz, Math.max(1, Math.round(sigma / d)));
@@ -118,6 +121,7 @@ export class Ground {
             const a = clamp(Wm[k] / 0.04, 0, 1), rf = Wm[k] > 1e-4 ? Nr[k] / Wm[k] : 0;
             out[k] = Ds[k] + (D[k] - Ds[k]) * nat + rf * a * (1 - nat);
         }
+        if (bounds) { const m = Math.max(2, Math.round(30 / d)); for (let j = 0; j < nz; j++) for (let i = 0; i < nx; i++) { const e = Math.min(i, j, nx - 1 - i, nz - 1 - j); if (e >= m) continue; const k = j * nx + i, w = e / m; out[k] = D[k] + (out[k] - D[k]) * w * w * (3 - 2 * w); } }
         this.c = { x0, z0, d, nx, nz, h: out, streets: M };
         this.timing = { ...this.timing, conform: Math.round(performance.now() - t0) };
         this._cache?.clear?.();

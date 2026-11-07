@@ -14,6 +14,7 @@ import { meshSDF, sdEllipsoid, sdCapsule, sdSphere, smin, smax, noise3 } from '.
 import { neonSign, signBoard, latticeFrame, clockFace, canopy, stall, fishMesh, greatWheel, totemPole, railing } from '../props.js';
 import { addTraffic } from '../cars.js';
 import { buildingStyle, wallGeometry, facadeMaterial, facadeStyle } from '../osm.js';
+import { seaActivity } from './sea-common.js';
 
 // ---------------------------------------------------------------------------- street profile (OSM centrelines, research elevations)
 const PIKE_PLACE = [[-50, 33], [-60, 25], [-76, 10], [-91, -3], [-95, -6], [-103, -14], [-126, -34], [-141, -48], [-148, -53], [-151, -56], [-172, -75], [-179, -81], [-263, -155], [-270, -161]];
@@ -125,7 +126,7 @@ function buildGumWall(ctx) {
             m4.compose(hit.point.clone().addScaledVector(n, 0.015), new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 0, 1), n), new THREE.Vector3(1 + Math.random() * 0.6, 0.8 + Math.random() * 0.5, 0.45));
             blobs.setMatrixAt(blobs.count, m4); blobs.setColorAt(blobs.count, col.set(cols[stuck % cols.length])); blobs.count = Math.min(299, blobs.count + 1);
             blobs.instanceMatrix.needsUpdate = true; blobs.instanceColor.needsUpdate = true; stuck++;
-            s.sound.play('splat'); s.progress.gum = (s.progress.gum || 0) + 1;
+            s.sound.play('splat'); s.progress.gum = (s.progress.gum || 0) + 1; seaActivity(s, 'lm-gum-wall', 'pike-place');
             if (stuck === 1) s.ui.toast('🫧 Stuck!', 'Your gum joins about 180 pieces per brick.');
             if (stuck === 5) s.ui.toast('💗 Five pieces', 'Now you are part of the Gum Wall.');
             const near = s.spot.crowd?.peds.find((p) => Math.hypot(p.x - hit.point.x, p.z - hit.point.z) < 6); if (near) s.spot.crowd._say(near, 'spot', { force: false });
@@ -238,7 +239,7 @@ function buildFishThrow(ctx) {
         label: (s) => (t >= 0 && toPlayer ? 'Catch!' : 'Ask the fishmongers to throw you a salmon'),
         use: (s) => {
             if (t >= 0 && toPlayer) {
-                if (catchWindow > 0 && !caught) { caught = true; fish.visible = false; t = -1; s.ui.toast('🐟 Caught it!', 'Flying fish since 1986 — up to 10,000 people watch on a summer day.'); s.sound.play('catch'); s.progress.fish = (s.progress.fish || 0) + 1; }
+                if (catchWindow > 0 && !caught) { caught = true; fish.visible = false; t = -1; s.ui.toast('🐟 Caught it!', 'Flying fish since 1986 — up to 10,000 people watch on a summer day.'); s.sound.play('catch'); s.progress.fish = (s.progress.fish || 0) + 1; seaActivity(s, 'lm-pike-fish', 'pike-place'); }
                 return;
             }
             const p = s.ctl.position;
@@ -423,7 +424,7 @@ export default {
         ctx.plaque(PL[4], GUM.x + 1.4, GUM.z - 5.5, -0.6);
         ctx.plaque(PL[5], sb.x + Math.cos(sb.yaw) * 4.5 + Math.sin(sb.yaw) * 1.2, sb.z - Math.sin(sb.yaw) * 4.5 + Math.cos(sb.yaw) * 1.2, sb.yaw);
         // ---- Rachel coin
-        ctx.interactables.push({ kind: 'coin', x: RACHEL.x + 0.6, z: RACHEL.z - 0.4, r: 1.8, label: 'Drop a coin in Rachel', use: (s) => { s.sound.play('coin'); s.progress.coins = (s.progress.coins || 0) + 1; s.ui.toast('🪙 Clink', `Coin #${s.progress.coins} — Rachel's donations fund the Market's social services.`); } });
+        ctx.interactables.push({ kind: 'coin', x: RACHEL.x + 0.6, z: RACHEL.z - 0.4, r: 1.8, label: 'Drop a coin in Rachel', use: (s) => { s.sound.play('coin'); seaActivity(s, 'lm-pike-rachel', 'pike-place'); s.progress.coins = (s.progress.coins || 0) + 1; s.ui.toast('🪙 Clink', `Coin #${s.progress.coins} — Rachel's donations fund the Market's social services.`); } });
         // ---- postcard challenge (blue hour best: the neon glows)
         (() => { const ic = ctx.spot('pike-place').photo.iconic, a = (ic.heading_deg ?? 229) * Math.PI / 180; return ctx.challenge('pike-place', { x: ic.x + Math.sin(a) * 26, z: ic.z - Math.cos(a) * 26, pitch: 12, r: 12, tol: 30 }); })() // 26 m down Pike St: the sign + clock fill the frame;
         // ---- crowd (dense): fish-throw audience, mongers, Starbucks queue, gum-wall selfies, buskers, vendors, walkers

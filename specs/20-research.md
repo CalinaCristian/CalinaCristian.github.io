@@ -76,3 +76,13 @@ OSM tags (building:levels, building:colour, roof:*, building:material, shop/amen
 - **Speed limits**: Bucharest chapter routes 100 % `maxspeed`-tagged and matched by the game; US: 3 untagged ramps (seatac connector 815 m, Bellevue exit-13 loop) fall back to 40 mph; Bellevue local streets go to 20 mph in 2026 (city page); latent 100 km/h default for untagged trunks in Otopeni; the NE 8th camera is red-light only.
 - **Not reachable** (2026-11-07): Mega Image (GraphQL refused after the first call), Profi, Dr.Max, HelpNet, CEC, Raiffeisen (403), most RO bank/telecom/fuel locators (JavaScript-only), Lukoil/OTP/Alpha/Digi/telekom.ro (no response), Chase/U.S. Bank/Walgreens (JavaScript), CVS/McDonald's US/Trader Joe's (403), legislatie.just.ro. Those brands are OSM-only in the files. McDonald's Otopeni (DN1 km 16 per the official list) has no coordinates and is not in OSM — position unknown.
 - **Requests** filed: spec 12 (world-data: read the files, widen `poiKind`, ATMs, brand names/colours, stale shops; world-visual: sign styles, `brandStyle` whole-word match), spec 11 (speed-limit corrections + sign placement per country).
+
+### 2026-11-07 11:30 UTC — research: round 5 deliverables
+- **Note 57**: `activities.json/.md` covers 26 places and 39 real activities, with hours from official pages where reachable, sources, confidence, interaction ideas and `lm-*` achievement ids.
+- **Note 63**: `pioneer-totem.md` gives the 1940 CCC replica of the Tlingit Chief-of-All-Women pole: carvers led by Charles Brown with Kinninook family members, 1972 restoration by John C. Hudson Jr., figures top to bottom, black/red/blue-green palette, plaque text, and pergola / bust / Pioneer Building facts.
+- **Note 39**: `cv-buildings.json/.md` covers the 7 CV-stop buildings. GTS (Calea Călărașilor 101) is described from 2023 Commons photos as a listed single-storey eclectic house with a mansard, side courtyard entrance and door plaques. No free photos exist for BOB / Hermes / Europe House / The Landmark / Rosetti.
+- **Note 24**: `old-town-streets.json/.md` covers 6 streets with history and notable fronts (ro/en Wikipedia), 247 OSM venues (71 with terraces), listed buildings, Hanul cu Tei, Manuc and Curtea Veche.
+- **Drones**: `drone-rules.md`. Seattle parks ban (SMC 18.12.265), FAA recreational rules, EU open category. Bellevue and Romanian zones unconfirmed.
+- **Note 77**: `buildings-<city>-<district>.json` ×8, 615 buildings.
+- **Constraints**: Wikipedia/Commons API rate-limited (`action=raw` used instead); several Romanian official sites unreachable (listed in each file).
+

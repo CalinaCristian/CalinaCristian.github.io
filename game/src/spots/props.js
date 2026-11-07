@@ -5,7 +5,7 @@
 //  poles, railings. Scenes compose these; nothing here is spot-specific data.
 // ============================================================================
 import * as THREE from '../../vendor/three.module.min.js';
-import { GeoBatch, M, rng, canvas, canvasTexture, fitDraw, alongPolyline, polylineLength, offsetPolyline, clamp } from './kit.js';
+import { GeoBatch, M, rng, canvas, canvasTexture, fitDraw, alongPolyline, polylineLength, offsetPolyline, clamp, inPoly, distPolyline } from './kit.js';
 
 // ---------------------------------------------------------------------------- signs
 /**
@@ -326,3 +326,57 @@ export const SEATTLE_TOWERS = [
     [47.6066, -122.3350, 140, 30, 30, '#c9c0b0', 'flat'],    // Washington Mutual / Seattle Art Museum area
     [47.6016, -122.3288, 155, 30, 30, '#7d8790', 'flat'],    // Municipal / courthouse area
 ];
+
+/**
+ * Shopfront signs from OSM POIs (notes 51 / 52), shared by every scene: one upright fascia board per street shop, flush
+ * on the street-facing wall of the building that holds it, at ground-floor fascia height, packed per wall without
+ * overlaps (skipped when the wall is full). Shops inside a market hall / on another level (`level`≠0, `indoor`,
+ * `addr:floor`, or `isIndoor(p)` true) get no façade sign: their names are returned (`indoorNames`) for stall boards /
+ * a directory board.
+ * @param {SceneContext} ctx  @param {{ streets?: number[][][], skip?: (p)=>boolean, isIndoor?: (p)=>boolean, maxW?: number, h?: number, y?: number, palette?: string[][] }} o
+ * @returns {{ group: THREE.Group, signs: number, indoorNames: string[], skippedFull: number }}
+ */
+export function shopfrontSigns(ctx, o = {}) {
+    const grp = new THREE.Group(); grp.name = 'storefronts';
+    const d = ctx.data, g = ctx.ground, seen = new Set(), indoorNames = [], byWall = new Map();
+    const streets = o.streets || d.ways.filter((w) => w.pts?.length > 1 && /^(primary|secondary|tertiary|residential|unclassified|living_street|pedestrian|service)$/.test(w.k) && !(w.bridge && w.bridge !== 'no') && !w.tunnel).map((w) => w.pts);
+    const streetDist = (x, z) => { let m = 1e9; for (const L of streets) { const r = distPolyline(x, z, L).d; if (r < m) m = r; } return m; };
+    const bldgs = d.buildings.filter((bd) => !ctx.skipBuildings?.has(bd.id) && !bd.part);
+    const pal = o.palette || [['#1f3d2b', '#f2e9d0'], ['#5a1e1e', '#f6efe0'], ['#14213d', '#fca311'], ['#2b2b2b', '#f5f5f5'], ['#f2e8cf', '#3a2a1a'], ['#0b4f6c', '#f5f5f5']];
+    for (const p of d.pois || []) {
+        if (!p.name || seen.has(p.name) || !(p.shop || /^(cafe|restaurant|fast_food|bar|pub|ice_cream|pharmacy|bank)$/.test(p.amenity || '') || p.craft)) continue;
+        if (o.skip?.(p)) continue;
+        const indoor = (p.level && !/^0(;|$)/.test(String(p.level))) || p['addr:floor'] || p.indoor || o.isIndoor?.(p);
+        if (indoor) { seen.add(p.name); indoorNames.push(p.name); continue; }
+        let host = bldgs.find((bd) => inPoly(p.x, p.z, bd.poly));
+        if (!host) { let best = 6; for (const bd of bldgs) for (let i = 0; i < bd.poly.length; i++) { const dd = distPolyline(p.x, p.z, [bd.poly[i], bd.poly[(i + 1) % bd.poly.length]]).d; if (dd < best) { best = dd; host = bd; } } }
+        if (!host) continue;
+        let wall = null, score = 1e9;
+        for (let i = 0; i < host.poly.length; i++) {
+            const [ax, az] = host.poly[i], [bx, bz] = host.poly[(i + 1) % host.poly.length], L = Math.hypot(bx - ax, bz - az); if (L < 3) continue;
+            const sc = streetDist((ax + bx) / 2, (az + bz) / 2) + 0.25 * distPolyline(p.x, p.z, [[ax, az], [bx, bz]]).d;
+            if (sc < score) { score = sc; wall = { ax, az, bx, bz, L, key: host.id + ':' + i }; }
+        }
+        if (!wall || streetDist((wall.ax + wall.bx) / 2, (wall.az + wall.bz) / 2) > 16) continue;
+        const ux = (wall.bx - wall.ax) / wall.L, uz = (wall.bz - wall.az) / wall.L; let nx = uz, nz = -ux;
+        if (inPoly((wall.ax + wall.bx) / 2 + nx * 0.5, (wall.az + wall.bz) / 2 + nz * 0.5, host.poly)) { nx = -nx; nz = -nz; }
+        seen.add(p.name);
+        if (!byWall.has(wall.key)) byWall.set(wall.key, { wall, ux, uz, nx, nz, items: [] });
+        byWall.get(wall.key).items.push({ p, t: clamp((p.x - wall.ax) * ux + (p.z - wall.az) * uz, 0, wall.L) });
+    }
+    let n = 0, full = 0;
+    for (const W of byWall.values()) {
+        W.items.sort((a, b) => a.t - b.t); let end = 0.3;
+        for (const it of W.items) {
+            const w = Math.min(o.maxW || 4.2, 0.9 + it.p.name.length * 0.17, W.wall.L - 0.6); if (w < 1.4) { full++; continue; }
+            const c = Math.max(it.t, end + w / 2); if (c + w / 2 > W.wall.L - 0.3) { full++; continue; } end = c + w / 2 + 0.5;
+            const x = W.wall.ax + W.ux * c + W.nx * 0.14, z = W.wall.az + W.uz * c + W.nz * 0.14;
+            const y = (o.y ?? g.heightAt(x + W.nx * 1.5, z + W.nz * 1.5)) + 3.05;
+            const [bg, fg] = pal[n % pal.length];
+            const sb = signBoard(it.p.name, w, o.h || 0.55, { bg, fg, font: (q) => `700 ${q}px Georgia, serif`, glow: 0.05, night: 1.1, depth: 0.06 });
+            sb.position.set(x, y, z); sb.rotation.y = Math.atan2(W.nx, W.nz); sb.userData.fascia = true; grp.add(sb); n++;
+        }
+    }
+    ctx.add(grp);
+    return { group: grp, signs: n, indoorNames, skippedFull: full };
+}

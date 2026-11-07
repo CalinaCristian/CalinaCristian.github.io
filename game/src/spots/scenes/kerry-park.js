@@ -17,7 +17,7 @@ import { GeoBatch, smooth, lerp, headingFromBearing } from '../kit.js';
 import { railing, signBoard } from '../props.js';
 import { bench } from '../osm.js';
 import { addTraffic } from '../cars.js';
-import { seaBackdrop, seaHeight } from './sea-common.js';
+import { seaBackdrop, seaHeight, seaActivity } from './sea-common.js';
 
 /** Changing Form (1971): two interlocking curved slabs of dark weathered steel, each pierced by a round opening, ≈ 4.6 m */
 function changingForm(x, y, z, yaw) {
@@ -85,7 +85,7 @@ export default {
         const kc = ctx.challenge('kerry-park', { r: 12, tol: 28, view: [800, 1000] }); if (kc) { const base = kc.text; Object.defineProperty(kc, 'text', { get: () => (bd.mountainVisible ? base + ' — with the Mountain out!' : base + ' (Rainier hidden by clouds today)') }); }
         // ---- activity (note 57): the sunset photo — at golden / blue hour the postcard counts double
         ctx.interactables.push({ kind: 'activity', id: 'kerry-sunset', x: 12.8, z: 6.2, r: 2.2, label: 'Wait for the city lights (blue hour)',
-            use: (sess) => { const k = sess.nightK ?? 0; sess.ui.toast(k > 0.2 ? '🌃 Blue hour over Seattle' : '⏳ Come back at dusk', k > 0.2 ? 'The Needle\'s halo and downtown\'s offices light up — take the postcard now.' : 'Kerry Park is busiest at sunset; the skyline lights up about 30 min after.'); sess.host?.onActivity?.({ id: 'kerry-blue-hour', spot: 'kerry-park', done: k > 0.2 }); } });
+            use: (sess) => { const k = sess.nightK ?? 0; sess.ui.toast(k > 0.2 ? '🌃 Blue hour over Seattle' : '⏳ Come back at dusk', k > 0.2 ? 'The Needle\'s halo and downtown\'s offices light up — take the postcard now.' : 'Kerry Park is busiest at sunset; the skyline lights up about 30 min after.'); if (k > 0.2) seaActivity(sess, 'lm-kerry-blue-hour', 'kerry-park'); } });
         // ---- crowd: photographers along the railing, people on the lawn and benches, kids on the sculpture
         ctx.crowdCfg = {
             personas: { tourist_us: 4, local: 3, photographer: 2, tourist_cn: 1.5, tourist_kr: 1, tourist_jp: 1, tourist_de: 1, tourist_es: 1, tourist_ca: 1, tourist_in: 1, kid: 1 },

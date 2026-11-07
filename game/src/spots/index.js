@@ -169,6 +169,7 @@ export async function loadSpot(id, renderer = null, opts = {}) {
     ]);
     const tFetch = performance.now();
     const ctx = new SceneContext(data, id);
+    if (opts.legacyGround) { ctx.ground.pendingConform = null; ctx.ground._settled = true; } // dev A/B: the pre-round-5 raw DEM ground
     const def = mod.default || mod;
     await def.build(ctx);
     const tBuild = performance.now();
@@ -272,7 +273,7 @@ function mergeDialogue(data, ids) {
  *   photo  PhotoMode instance (spec 16); the host should call session.onPhoto(meta) from its onPhoto
  */
 export async function startSpot(id, host) {
-    const spot = await loadSpot(id, host.r3d, { onProgress: host.onProgress });
+    const spot = await loadSpot(id, host.r3d, { onProgress: host.onProgress, legacyGround: host.legacyGround });
     const s = new SpotSession(spot, host);
     await s.start();
     return s;

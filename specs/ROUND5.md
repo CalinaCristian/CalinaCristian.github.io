@@ -28,6 +28,8 @@ Source: `game/FEEDBACK.md` "Round 4 play-test" notes 1–27 (+ any that follow),
 | 47 | cockpit-ui (flight.js) | Realistic flight map: Natural Earth coastlines (baked, small), proper projection for the great-circle arc (or a 3D globe), clean typography; shared style with the chapter-transition map (16). |
 | 15 | gameplay (data.js) | Remove the student-projects GitHub line. |
 
+| 77 | research → world-data → world-visual (+ landmarks) | Every non-residential building in the smaller districts realistic: per-building specs from research (on-route first), parametric archetypes in buildings.js driven by them, iconic ones as landmarks; reference-vs-game sheets per street. |
+
 ## P1 — tourist spots
 | Notes | Owner | Work |
 |---|---|---|

@@ -409,6 +409,18 @@ export default {
         ctx.add(TR.group); ctx.lampPoints.push(...TR.lamps.filter((_, i) => i % 2 === 0));
         const signs = [...TR.signs];
         if (caruB) signs.push({ x: -111, y: g.heightAt(-111, -71.5) + 5.4, z: -71.4, yaw: 0, w: 6.2, h: 1.0, text: "CARU' CU BERE", bg: '#2a1d14', fg: '#e8c870', font: (q) => `700 ${q}px "Times New Roman", serif` });
+        // Hanul cu Tei (Lipscani 63–65 → Blănari 14, 1833): the arched gateways of the inn's passage, painted lettering over the arch
+        { const blds = d.buildings.filter((x) => !x.part).map((x) => ({ p: x.poly, bb: polyBox(x.poly) })), hb = new GeoBatch();
+          for (const [px, pz, sz] of [[208.2, -56, -1], [212.8, -127, 1]]) {
+            const A = rayFacade(blds, px, pz, 1, 0, 6), B = rayFacade(blds, px, pz, -1, 0, 6); if (!A || !B) continue;
+            const y = g.heightAt(px, pz), x0 = B.x, x1 = A.x, w = x1 - x0, cxm = (x0 + x1) / 2, zf = pz + sz * 0.4, rr = w / 2 - 0.35;
+            for (const xx of [x0 + 0.2, x1 - 0.2]) hb.box(xx, y - 0.2, zf, 0.7, 3.4, 0.9, '#efe6d2', 'stone');
+            const arch = new THREE.TorusGeometry(rr, 0.32, 6, 16, Math.PI); hb.add(arch, 'stone', M(cxm, y + 3.2, zf), '#efe6d2'); arch.dispose();
+            hb.box(cxm, y + 3.2 + rr, zf, w + 0.6, 1.5, 0.9, '#efe6d2', 'stone'); hb.box(cxm, y + 4.7 + rr, zf, w + 1.0, 0.25, 1.1, '#f6f1e6', 'stone');
+            signs.push({ x: cxm, y: y + 3.95 + rr, z: zf + sz * 0.47, yaw: sz < 0 ? Math.PI : 0, w: Math.min(w + 0.2, 4.6), h: 0.62, text: 'HANUL CU TEI', bg: '#efe6d2', fg: '#3b2a1e', border: false, font: (q) => `700 ${q}px Georgia, serif` });
+            ctx.lampPoints.push({ x: cxm, z: zf, h: 3.0, noPost: true });
+          }
+          ctx.add(hb.build('hanul-cu-tei')); }
         const SA = signAtlas(signs.slice(0, 96), { name: 'shop-signs' }); if (SA) ctx.add(SA);
         // festoon string lights strung between façade brackets (note 25: replaces the loose overhead cables)
         festoons(ctx, OT.ways);
@@ -432,8 +444,11 @@ export default {
         ctx.challenge('stavropoleos-cec', { view: ST ? [ST.x, ST.z] : null, r: 7, tol: 30 });
         // crowd: busy lanes, waiters at every terrace, a tour at Stavropoleos, the Caru' cu Bere queue
         const groups = [];
-        TR.terraces.slice(0, 14).forEach((t, i) => { groups.push({ x: t.x + Math.sin(t.yaw) * (t.depth / 2 + 0.6), z: t.z + Math.cos(t.yaw) * (t.depth / 2 + 0.6), r: 0.3, n: 1, act: 'watch', yaw: t.yaw, personas: ['waiter'] }); }); // sitters: one per chair (every second chair taken), facing their table
-        TR.seats.forEach((q, i) => { if (i % 2 === 0 && i < 60) groups.push({ x: q.x, z: q.z, r: 0.01, n: 1, act: 'sit', yaw: q.yaw, y: q.y, fixedYaw: true, personas: ['local_young', 'tourist_uk', 'tourist_it', 'tourist_us', 'local_parent'] }); });
+        // waiters at the terraces nearest the arrival points, turned toward their tables (talking, not standing stiff)
+        const SP0 = { x: 128, z: -56.5 }, dist0 = (q) => Math.min(Math.hypot(q.x - SP0.x, q.z - SP0.z), Math.hypot(q.x + 92, q.z + 67.5));
+        [...TR.terraces].sort((a, b) => dist0(a) - dist0(b)).slice(0, 16).forEach((t) => { groups.push({ x: t.x + Math.sin(t.yaw) * (t.depth / 2 + 0.5), z: t.z + Math.cos(t.yaw) * (t.depth / 2 + 0.5), r: 0.2, n: 1, act: 'talk', yaw: t.yaw + Math.PI, personas: ['waiter'] }); });
+        // sitters: the terraces near the arrival points are busy (≈ 2 of 3 seats taken), one person per seat, facing the table
+        [...TR.seats].sort((a, b) => dist0(a) - dist0(b)).slice(0, 130).forEach((q, i) => { if (i % 3 !== 2) groups.push({ x: q.x, z: q.z, r: 0.01, n: 1, act: 'sit', yaw: q.yaw, y: q.y, fixedYaw: true, personas: ['local_young', 'tourist_uk', 'tourist_it', 'tourist_us', 'local_parent', 'local_elder'] }); });
         if (ST) groups.push({ x: ST.x + 4, z: -67.5, r: 2.6, n: 8, act: 'photo', look: [ST.x, ST.z], personas: ['tourist_de', 'tourist_fr', 'tourist_us'] }, { x: ST.x + 8.5, z: -66.5, r: 0.3, n: 1, act: 'guide', look: [ST.x + 4, -67.5], personas: ['tour_guide'] });
         if (caruB) groups.push({ line: [[-111, -70.2], [-105, -69.6], [-99, -69.2], [-93, -68.8]], n: 9, act: 'queue', personas: ['tourist_de', 'tourist_us', 'local_young', 'tourist_fr', 'tourist_uk'] });
         if (CA) groups.push({ x: CA.front.x + CA.front.nx * 4, z: CA.front.z + CA.front.nz * 4, r: 2.5, n: 5, act: 'photo', look: [CA.front.x, CA.front.z], personas: ['tourist_it', 'tourist_us', 'local_young'] }, { x: CA.ecx, z: CA.ecz, r: 3, n: 5, act: 'watch', personas: ['local_young', 'tourist_uk', 'tourist_fr'] });

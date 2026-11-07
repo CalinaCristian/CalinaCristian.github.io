@@ -74,7 +74,7 @@ try {
 let session = null;
 const t0 = performance.now();
 try {
-    session = await startSpot(id, { r3d, camera, input, photo, date, override: qs.get('ov') || null, walker: qs.get('walker') || '', onProgress: (t) => { $('#loading').textContent = t; } });
+    session = await startSpot(id, { r3d, camera, input, photo, date, override: qs.get('ov') || null, walker: qs.get('walker') || '', legacyGround: qs.get('ground') === 'legacy', onProgress: (t) => { $('#loading').textContent = t; } });
 } catch (e) { $('#loading').textContent = 'Failed: ' + e.message; console.error(e); throw e; }
 $('#loading').remove();
 const loadMs = Math.round(performance.now() - t0);

@@ -555,7 +555,8 @@ body.photo-mode #achv-toasts { top: auto; bottom: 120px; }
 #finale .fn-role { margin: 0; font-size: clamp(15px, 1.6vw, 19px); color: #fdba74; font-weight: 600; }
 #finale .fn-role span { color: #94a3b8; font-weight: 500; }
 #finale .fn-sum { margin: 10px 0 0; max-width: 760px; color: #cbd5e1; line-height: 1.55; font-size: 14.5px; }
-#finale .fn-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 34px; margin-top: 24px; }
+#finale .fn-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 34px; margin-top: 24px; }
+#finale .fn-col, #finale .fn-tl-body, #finale .fn-tile { min-width: 0; }
 #finale h3 { margin: 0 0 12px; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: #94a3b8; }
 #finale .fn-col h3:not(:first-child) { margin-top: 22px; }
 #finale .fn-tl { list-style: none; margin: 0; padding: 0; position: relative; }
@@ -566,7 +567,7 @@ body.photo-mode #achv-toasts { top: auto; bottom: 120px; }
 #finale .fn-tl-row b { font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 #finale .fn-tl-row time { margin-left: auto; flex: none; font-size: 12.5px; color: var(--c); font-weight: 700; font-variant-numeric: tabular-nums; }
 #finale .fn-tl-body > span { display: block; font-size: 13px; color: #a8b3c4; margin-top: 1px; }
-#finale .fn-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+#finale .fn-tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
 #finale .fn-tile { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: 10px 12px; display: grid; gap: 2px; }
 #finale .fn-tile .fn-ti { font-size: 16px; }
 #finale .fn-tile b { font-size: 19px; font-variant-numeric: tabular-nums; }
@@ -586,8 +587,9 @@ body.photo-mode #achv-toasts { top: auto; bottom: 120px; }
 @media (max-width: 760px) {
     #finale { padding: 10px; align-items: stretch; }
     #finale .fn-wrap { padding: 22px 18px 18px; max-height: calc(100vh - 20px); border-radius: 18px; }
-    #finale .fn-grid { grid-template-columns: 1fr; gap: 18px; }
-    #finale .fn-tiles { grid-template-columns: repeat(3, 1fr); gap: 7px; }
+    #finale .fn-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+    #finale .fn-tl-row { flex-direction: column; align-items: flex-start; gap: 0; } #finale .fn-tl-row b { white-space: normal; } #finale .fn-tl-row time { margin-left: 0; }
+    #finale .fn-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
     #finale .fn-tile { padding: 8px; } #finale .fn-tile b { font-size: 15px; }
     #finale .fn-actions { display: grid; grid-template-columns: 1fr 1fr; }
     #finale .fn-act { justify-content: center; padding: 11px 10px; font-size: 13px; }

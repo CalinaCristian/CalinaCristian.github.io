@@ -129,7 +129,7 @@ export class Ground {
      * change, fading over ~`reach` m — no mound or trench where a curated street meets the raw lots.
      * Called once by SceneContext.osmBackdrop() (before buildings are placed); idempotent.
      */
-    settle({ reach = 9, min = 0.08 } = {}) {
+    settle({ reach = 14, min = 0.08 } = {}) {
         if (this._settled) return; this._settled = true;
         this.base(0, 0); const c = this.c; if (!c || !this.mods.length) return; const t0 = performance.now();
         const { nx, nz, d, x0, z0 } = c, N = nx * nz, R = new Float32Array(N), Wt = new Float32Array(N); let any = false;

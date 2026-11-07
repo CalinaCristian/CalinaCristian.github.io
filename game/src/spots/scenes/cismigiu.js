@@ -24,19 +24,42 @@ export default {
         const month = new Date().getMonth(), winter = month === 11 || month <= 1;
         if (lake) { ctx.skipAreas.add('w16292044'); let s = 0; for (const [x, z] of lake) s += g.heightAt(x, z); level = s / lake.length - 1.1; ctx.water(level, polyBox(lake), [lake], { color: '#3f5a52', depth: 1.6 }); }
         const b = new GeoBatch(), signs = [];
-        // lake edge: stone kerb + low railing; weeping willows leaning over the water
-        if (lake) { const L = [...lake, lake[0]];
-            const lw = offsetPolyline(L, polyArea(lake) > 0 ? -1.4 : 1.4); railing(b, lw, (x, z) => g.heightAt(x, z), { h: 0.7, post: 2.6, color: '#2a2e2c', r: 0.025 });
-            for (let i = 1; i < lw.length; i++) { const [ax, az] = lw[i - 1], [bx, bz] = lw[i]; ctx.collider({ wall: true, ax, az, bx, bz, y0a: level - 3, y1a: level + 4, y0b: level - 3, y1b: level + 4, x: (ax + bx) / 2, z: (az + bz) / 2, r: Math.hypot(bx - ax, bz - az) / 2 + 0.5 }); }
-            for (let i = 0; i < L.length; i += 6) { const [x, z] = L[i], o = offsetPolyline(L.slice(Math.max(0, i - 1), i + 2), polyArea(lake) > 0 ? -4.5 : 4.5)[Math.min(1, i)] || [x, z]; if (r() < 0.55) ctx.trees.push({ x: o[0], z: o[1], kind: 'broad', s: 1.3 + r() * 0.4, sy: 0.85, sx: 1.25, c: r.pick(['#8aa04a', '#94a852', '#7d9640']) }); }
+        // footbridges over the lake (OSM bridge ways), note 35: smooth arched decks (walkable surface follows the arch), white
+        // stone fascia girders, continuous cast-iron railings; the lakeside railing opens where a bridge or a path meets the shore
+        const bridges = lake ? d.ways.filter((w) => w.bridge && w.bridge !== 'no' && ['footway', 'path', 'pedestrian'].includes(w.k) && w.pts.some(([x, z]) => inPoly(x, z, lake) || distPolyline(x, z, [...lake, lake[0]]).d < 8)) : [];
+        const shorePaths = d.ways.filter((w) => ['footway', 'path', 'pedestrian', 'steps'].includes(w.k) && !(w.bridge && w.bridge !== 'no'));
+        for (const w of bridges) {
+            const pts = w.pts, Ltot = (() => { let L = 0; for (let k = 1; k < pts.length; k++) L += Math.hypot(pts[k][0] - pts[k - 1][0], pts[k][1] - pts[k - 1][1]); return L; })(); if (Ltot < 2) continue;
+            const ya = g.heightAt(...pts[0]), yb = g.heightAt(...pts[pts.length - 1]), rise = Math.min(1.6, 0.5 + Ltot * 0.06), W = 2.8;
+            const samp = []; { let acc = 0; for (let k = 1; k < pts.length; k++) { const [ax, az] = pts[k - 1], [bx, bz] = pts[k], L = Math.hypot(bx - ax, bz - az); const n = Math.max(1, Math.ceil(L / 0.6)); for (let q = (k === 1 ? 0 : 1); q <= n; q++) { const t = q / n; samp.push({ x: ax + (bx - ax) * t, z: az + (bz - az) * t, s: acc + L * t }); } acc += L; } }
+            const yAtS = (sv) => { const t = Math.max(0, Math.min(1, sv / Ltot)); return ya + (yb - ya) * t + Math.sin(t * Math.PI) * rise + 0.06; };
+            samp.forEach((q, k) => { const a = samp[Math.max(0, k - 1)], c = samp[Math.min(samp.length - 1, k + 1)], dx = c.x - a.x, dz = c.z - a.z, L = Math.hypot(dx, dz) || 1; q.nx = -dz / L; q.nz = dx / L; q.y = yAtS(q.s); });
+            // deck ribbon (top + both fascias down to a shallow arch soffit)
+            for (let k = 1; k < samp.length; k++) {
+                const A = samp[k - 1], B = samp[k], hw = W / 2;
+                const P = (q, sd, dy) => [q.x + q.nx * sd * hw, q.y + dy, q.z + q.nz * sd * hw];
+                b.quad(P(A, 1, 0), P(B, 1, 0), P(B, -1, 0), P(A, -1, 0), '#b9ada0', 'stone'); b.quad(P(A, -1, 0), P(B, -1, 0), P(B, 1, 0), P(A, 1, 0), '#b9ada0', 'stone');
+                const dA = 0.35 + (1 - Math.sin(Math.max(0, Math.min(1, A.s / Ltot)) * Math.PI)) * 0.25, dB = 0.35 + (1 - Math.sin(Math.max(0, Math.min(1, B.s / Ltot)) * Math.PI)) * 0.25;
+                for (const sd of [-1, 1]) { const a0 = P(A, sd * 1.04, 0.08), b0 = P(B, sd * 1.04, 0.08), a1 = P(A, sd * 1.04, -dA), b1 = P(B, sd * 1.04, -dB); b.quad(a1, b1, b0, a0, '#eeeae1', 'stone'); b.quad(a0, b0, b1, a1, '#eeeae1', 'stone'); }
+                b.quad(P(A, -1.04, -dA), P(B, -1.04, -dB), P(B, 1.04, -dB), P(A, 1.04, -dA), '#cfc8bb', 'stone');
+            }
+            for (const sd of [-1, 1]) {
+                const rp = samp.map((q) => [q.x + q.nx * sd * (W / 2 - 0.08), q.z + q.nz * sd * (W / 2 - 0.08)]), yOf = (x, z) => { let bi = 0, bd = 1e9; rp.forEach(([px, pz], k) => { const dd = (px - x) ** 2 + (pz - z) ** 2; if (dd < bd) { bd = dd; bi = k; } }); return samp[bi].y; };
+                railing(b, rp, yOf, { h: 1.05, post: 1.2, color: '#1f2a26', r: 0.025 });
+                for (let k = 1; k < rp.length; k++) { const [ax, az] = rp[k - 1], [bx, bz] = rp[k]; ctx.collider({ wall: true, ax, az, bx, bz, y0a: level - 2, y1a: samp[k - 1].y + 1.1, y0b: level - 2, y1b: samp[k].y + 1.1, x: (ax + bx) / 2, z: (az + bz) / 2, r: Math.hypot(bx - ax, bz - az) / 2 + 0.5 }); }
+            }
+            const deck = [...samp.map((q) => [q.x + q.nx * (W / 2 - 0.1), q.z + q.nz * (W / 2 - 0.1)]), ...samp.map((q) => [q.x - q.nx * (W / 2 - 0.1), q.z - q.nz * (W / 2 - 0.1)]).reverse()];
+            g.addPoly(deck, (x, z) => { let bi = 0, bd = 1e9; samp.forEach((q, k) => { const dd = (q.x - x) ** 2 + (q.z - z) ** 2; if (dd < bd) { bd = dd; bi = k; } }); return samp[bi].y; }, level - 2);
+            w._samp = samp;
         }
-        // footbridges over the lake (OSM bridge ways): deck, railings, walkable
-        for (const w of d.ways) { if (!(w.bridge && w.bridge !== 'no') || w.k !== 'footway' || !lake || !w.pts.some(([x, z]) => inPoly(x, z, lake) || distPolyline(x, z, [...lake, lake[0]]).d < 8)) continue;
-            const [a0, a1] = [w.pts[0], w.pts[w.pts.length - 1]], ya = g.heightAt(...a0), yb = g.heightAt(...a1), L = Math.hypot(a1[0] - a0[0], a1[1] - a0[1]), ang = Math.atan2(a1[0] - a0[0], a1[1] - a0[1]), W = 2.6;
-            const deckY = (x, z) => { const t = Math.max(0, Math.min(1, ((x - a0[0]) * (a1[0] - a0[0]) + (z - a0[1]) * (a1[1] - a0[1])) / (L * L))); return ya + (yb - ya) * t + Math.sin(t * Math.PI) * 0.9 + 0.1; };
-            for (let k = 0; k < 12; k++) { const t = (k + 0.5) / 12, x = a0[0] + (a1[0] - a0[0]) * t, z = a0[1] + (a1[1] - a0[1]) * t; b.box(x, deckY(x, z) - 0.25, z, W, 0.25, L / 12 + 0.05, '#7a5a3c', 'wood', ang); }
-            for (const s of [-1, 1]) { const off = offsetPolyline([a0, a1], s * W / 2); railing(b, off, deckY, { h: 1.0, post: 1.6, color: '#3a2a1e', r: 0.03 }); ctx.collider({ wall: true, ax: off[0][0], az: off[0][1], bx: off[1][0], bz: off[1][1], y0a: level - 2, y1a: ya + 2.2, y0b: level - 2, y1b: yb + 2.2, x: (a0[0] + a1[0]) / 2, z: (a0[1] + a1[1]) / 2, r: L / 2 + 1 }); }
-            const deck = [...offsetPolyline([a0, a1], -W / 2 + 0.2), ...offsetPolyline([a0, a1], W / 2 - 0.2).reverse()]; g.addPoly(deck, deckY, level - 2);
+        // lake edge: low railing (posts + rails) with openings at bridge heads and paths reaching the shore; weeping willows
+        if (lake) { const L = [...lake, lake[0]];
+            const lw = offsetPolyline(L, polyArea(lake) > 0 ? -1.4 : 1.4);
+            const open = (x, z) => bridges.some((w) => distPolyline(x, z, w.pts).d < 2.6) || shorePaths.some((w) => { const e0 = w.pts[0], e1 = w.pts[w.pts.length - 1]; return [e0, e1].some(([ex, ez]) => Math.hypot(ex - x, ez - z) < 2.2) && distPolyline(x, z, w.pts).d < 1.8; });
+            let run = []; const flush = () => { if (run.length >= 2) { railing(b, run, (x, z) => g.heightAt(x, z), { h: 0.7, post: 2.6, color: '#2a2e2c', r: 0.025 }); for (let i = 1; i < run.length; i++) { const [ax, az] = run[i - 1], [bx, bz] = run[i]; ctx.collider({ wall: true, ax, az, bx, bz, y0a: level - 3, y1a: level + 4, y0b: level - 3, y1b: level + 4, x: (ax + bx) / 2, z: (az + bz) / 2, r: Math.hypot(bx - ax, bz - az) / 2 + 0.5 }); } } run = []; };
+            for (let i = 0; i < lw.length; i++) { const [x, z] = lw[i]; if (open(x, z)) { flush(); continue; } if (i > 0 && open((x + lw[i - 1][0]) / 2, (z + lw[i - 1][1]) / 2)) flush(); run.push([x, z]); }
+            flush();
+            for (let i = 0; i < L.length; i += 6) { const [x, z] = L[i], o = offsetPolyline(L.slice(Math.max(0, i - 1), i + 2), polyArea(lake) > 0 ? -4.5 : 4.5)[Math.min(1, i)] || [x, z]; if (r() < 0.55 && !bridges.some((w) => distPolyline(o[0], o[1], w.pts).d < 5)) ctx.trees.push({ x: o[0], z: o[1], kind: 'broad', s: 1.3 + r() * 0.4, sy: 0.85, sx: 1.25, c: r.pick(['#8aa04a', '#94a852', '#7d9640']) }); }
         }
         // rowing boats (summer) moored at the landing + drifting; in winter the rink is up (OSM ice_rink area)
         const boats = [];

@@ -3315,8 +3315,28 @@ export async function buildWorld(city, renderer, opts = {}) {
         mapEnds.forEach((m, k) => {
             const { ix, iz, px, pz, y, kind, edge: e } = m, c = cellOf(m.x, m.z), ang = Math.atan2(px, pz), face = Math.atan2(ix, iz); // signs face the driver coming toward the edge
             // lateral positions relative to the middle of the asphalt, `half` = half its width (barriers stop at the kerbs)
+            // (play-test note 6) the barrier spans every lane at the cut: widen l0…l1 over any carriageway / pad that the
+            // probe line (1 m inside) still finds beyond the edge's own asphalt (merging lanes, a junction mouth)
+            { const on = (l) => onRibbon(m.x + ix * 1 + px * l, m.z + iz * 1 + pz * l, 0);
+              let l1 = m.l1; while (l1 < m.l1 + 12 && on(l1 + 0.5)) l1 += 0.5; let l0 = m.l0; while (l0 > m.l0 - 12 && on(l0 - 0.5)) l0 -= 0.5;
+              m.l0 = l0; m.l1 = l1; }
             const half = (m.l1 - m.l0) / 2, lc = (m.l0 + m.l1) / 2;
             const at = (d, l) => [m.x + ix * d + px * (lc + l), m.z + iz * d + pz * (lc + l)];
+            // the road visibly continues past the closure (note 6): a dug-up roadworks strip, then plain asphalt with kerbs and a
+            // dashed centre line running out of the district (≈ 400 m, until it would re-enter the map) into the backdrop city
+            { const asp = rgb(ASPHALT), kerbC = rgb('#a7a39b'), dug = rgb('#6b5a48'), dash = rgb('#d9d9d4'), wS = Math.max(1.5, m.edge.sidewalk || 2);
+              const strip = (d0, d1, l0, l1, col, yy) => { const [ax, az] = at(-d0, l0), [bx, bz] = at(-d1, l0), [cx2, cz2] = at(-d1, l1), [dx, dz] = at(-d0, l1); cellOf((ax + cx2) / 2, (az + cz2) / 2).solid.face4([ax, yy, az], [bx, yy, bz], [cx2, yy, cz2], [dx, yy, dz], col, [0, 1, 0]); };
+              let dEnd = 0;
+              for (let d = 2; d < 400; d += 20) { const [qx, qz] = at(-(d + 20), 0); if ((dmask && dmask.at(qx, qz)) || buildingAt(qx, qz)) break; dEnd = d + 20; }
+              for (let d = 0.6; d < dEnd; d += 20) {
+                  const d1 = Math.min(dEnd, d + 20);
+                  strip(d, d1, -half, half, asp, y - 0.02);
+                  strip(d, d1, -half - wS, -half, kerbC, y + 0.1); strip(d, d1, half, half + wS, kerbC, y + 0.1);
+                  if (d < 25) strip(d, Math.min(d1, 22), -half * 0.6, half * 0.2, dug, y - 0.005); // the dug-up roadworks strip
+                  else if (kind !== 'small') for (let q = d; q < d1 - 3; q += 9) strip(q, q + 3, -0.08, 0.08, dash, y - 0.01);
+              }
+              if (dEnd > 30) for (let j = 0; j < 4; j++) { const [x, z] = at(-(4 + j * 5), -half * 0.6 + (j % 2) * 0.4); c.solid.geo(coneG, x, y, z, 0, 1, 1, 1, [255, 255, 255]); }
+            }
             // the closing barrier line (RO red-white boards / US type III barricade: orange-white rails)
             const segs = Math.max(2, Math.round(half * 2 / 1.2)), cA = US ? orange : red;
             for (let j = 0; j < segs; j++) {
@@ -3361,7 +3381,10 @@ export async function buildWorld(city, renderer, opts = {}) {
             // which district this road heads toward (a later chapter's district → "opens in Chapter n")
             let leadsTo = null, best = Math.cos(45 * Math.PI / 180);
             for (const o of others) { const dx = o.x - m.x, dz = o.z - m.z, L = Math.hypot(dx, dz) || 1, cs = (-ix * dx - iz * dz) / L; if (cs > best) { best = cs; leadsTo = o.id; } }
-            closures.push({ x: m.x, z: m.z, heading: m.heading, edge: e, node: m.node, kind, leadsTo });
+            // roadworks crew spot (gameplay places the instanced worker there): behind the barrier on the closed asphalt, off the
+            // driver's sight line to the kerb signs (the sign plate no longer sits in front of the worker's head — note 6)
+            const [wx, wz] = at(-2.5, half * 0.35);
+            closures.push({ x: m.x, z: m.z, heading: m.heading, edge: e, node: m.node, kind, leadsTo, l0: m.l0, l1: m.l1, worker: { x: wx, z: wz, y, yaw: Math.atan2(ix, iz) } });
         });
     }
     // road signs: speed limits where the limit changes, one-way at one-way entries, no-entry at one-way exits

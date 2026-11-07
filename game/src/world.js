@@ -226,7 +226,8 @@ function nightAtlas(atlas) {
     for (let k = 0, p = 0; k < W * H; k++, p += 4) {
         const r = d[p], g = d[p + 1], b = d[p + 2], t = tileAt(k % W, k / W | 0), shop = t === 6 || t === 14;
         const lum = 0.3 * r + 0.59 * g + 0.11 * b;
-        glass[k] = shop ? (b > r + 25 && lum > 60 ? 2 : 0) : (lum < 120 && b >= r + 6 ? 1 : 0);
+        const fy = ((k / W | 0) % S) / S; // (0 = top of the cell: the shop texture's coloured sign band is the top ~14 %)
+        glass[k] = shop ? (fy < 0.15 && lum > 40 ? 3 : b > r + 25 && lum > 60 ? 2 : 0) : (lum < 120 && b >= r + 6 ? 1 : 0);
     }
     let nc = 0; const stack = [];
     for (let k = 0; k < W * H; k++) {
@@ -234,7 +235,7 @@ function nightAtlas(atlas) {
         const rv = Math.floor(Math.random() * 255); comp[k] = nc; stack.push(k);
         while (stack.length) {
             const q = stack.pop(), x = q % W, y = q / W | 0, p = q * 4;
-            o[p] = 255; o[p + 1] = rv; o[p + 2] = glass[q] === 2 ? 255 : 0; o[p + 3] = 255;
+            o[p] = glass[q] === 3 ? 0 : 255; o[p + 1] = rv; o[p + 2] = glass[q] === 2 ? 255 : glass[q] === 3 ? 128 : 0; o[p + 3] = 255;
             for (const n of [x > 0 ? q - 1 : -1, x < W - 1 ? q + 1 : -1, y > 0 ? q - W : -1, y < H - 1 ? q + W : -1]) if (n >= 0 && glass[n] && comp[n] < 0) { comp[n] = nc; stack.push(n); }
         }
         nc++;
@@ -253,11 +254,12 @@ function solidMaterial(atlas) {
     // TV-blue, shopfronts always lit and brighter. One material, no extra draw calls.
     const m = new THREE.MeshStandardMaterial({ vertexColors: true, map: atlas, roughness: 0.92, metalness: 0, emissive: new THREE.Color(1, 1, 1), emissiveIntensity: 0 });
     m.userData.nightEmissive = 1.2;
+    m.userData.uClosed = { value: 0 }; // share of shops closed (shutters down), set by world from the local hour
     let night = null; try { night = nightAtlas(atlas); } catch (e) { console.warn('[world] night atlas', e); }
     m.onBeforeCompile = (sh) => {
-        sh.uniforms.nightMap = { value: night };
+        sh.uniforms.nightMap = { value: night }; sh.uniforms.uClosed = m.userData.uClosed;
         sh.vertexShader = 'attribute float tile;\nvarying float vTile;\n' + sh.vertexShader.replace('#include <uv_vertex>', '#include <uv_vertex>\n\tvTile = tile;');
-        sh.fragmentShader = 'varying float vTile;\nuniform sampler2D nightMap;\n' + sh.fragmentShader.replace('#include <map_fragment>', `
+        sh.fragmentShader = 'varying float vTile;\nuniform sampler2D nightMap;\nuniform float uClosed;\n' + sh.fragmentShader.replace('#include <map_fragment>', `
 #ifdef USE_MAP
     if (vTile > -0.5) {
         vec2 cellSz = vec2(0.25, 0.25);
@@ -266,6 +268,12 @@ function solidMaterial(atlas) {
         vec2 auv = (cellId + 0.006 + f * 0.988) * cellSz;
         vec4 sampledDiffuseColor = textureGrad(map, auv, dFdx(vMapUv) * cellSz, dFdy(vMapUv) * cellSz);
         diffuseColor *= sampledDiffuseColor;
+        if (uClosed > 0.001 && (abs(vTile - 6.0) < 0.1 || abs(vTile - 14.0) < 0.1)) { // closed shops: roller shutters over the glass
+            float nb = textureGrad(nightMap, auv, dFdx(vMapUv) * cellSz, dFdy(vMapUv) * cellSz).b;
+            float sid = floor(vMapUv.x * 4.0);
+            float hc = fract(sin(dot(vec2(sid, floor(vMapUv.y) + vTile * 3.1), vec2(41.3, 289.1))) * 15731.743);
+            if (nb > 0.75 && hc < uClosed) diffuseColor.rgb = vec3(0.32, 0.33, 0.34) * (0.85 + 0.15 * step(0.5, fract(vMapUv.y * 22.0)));
+        }
     }
 #endif`).replace('#include <metalnessmap_fragment>', `#include <metalnessmap_fragment>
     if (vTile > -0.5 && (abs(vTile - 4.0) < 0.1 || abs(vTile - 12.0) < 0.1)) { metalnessFactor = 0.55; roughnessFactor = 0.16; }`).replace('#include <emissivemap_fragment>', `
@@ -279,14 +287,24 @@ function solidMaterial(atlas) {
         // once a facade tile covers only a few pixels, the per-window pattern fades to its average glow (no speckle)
         vec2 cellK = vec2(floor(vMapUv.x / 2.5), floor(vMapUv.y));
         float h = fract(sin(dot(cellK + vec2(floor(nm.g * 2.99) * 7.0, vTile), vec2(12.9898, 78.233))) * 43758.5453);
-        float shop = step(0.5, nm.b), lit = max(shop, step(h, 0.42));
+        float shop = step(0.75, nm.b), sign = step(0.25, nm.b) * (1.0 - shop), lit = max(shop, step(h, 0.42));
         float h2 = fract(h * 13.7);
         vec3 col = h2 > 0.93 ? vec3(0.55, 0.68, 1.0) : mix(vec3(1.0, 0.6, 0.3), vec3(1.0, 0.82, 0.58), h2);
+        if (shop + sign > 0.5) { // shops: interior tint per shop (supermarket cool white, café warm, pharmacy green, bank blue, …)
+            float sid = floor(vMapUv.x * 4.0);
+            float hs = fract(sin(dot(vec2(sid, floor(vMapUv.y) + vTile * 3.1), vec2(127.1, 311.7))) * 43758.5453);
+            float hc = fract(sin(dot(vec2(sid, floor(vMapUv.y) + vTile * 3.1), vec2(41.3, 289.1))) * 15731.743);
+            vec3 tint = hs < 0.25 ? vec3(0.82, 0.92, 1.0) : hs < 0.5 ? vec3(1.0, 0.58, 0.28) : hs < 0.62 ? vec3(0.55, 1.0, 0.62) : hs < 0.74 ? vec3(0.5, 0.66, 1.0) : vec3(1.0, 0.8, 0.6);
+            float closed = step(hc, uClosed);
+            col = shop * tint * (0.85 + 0.3 * fract(hs * 7.3)) * (1.0 - 0.96 * closed)
+                + sign * texture(map, auv2).rgb * 1.5 * (1.0 - 0.6 * closed); // brand band brighter than the glass
+            lit = 1.0; nm.r = 1.0;
+        }
         float far = smoothstep(0.12, 0.45, max(length(dFdx(vMapUv)), length(dFdy(vMapUv)))); // facade tiles per pixel
         float mask = mix(step(0.5, nm.r), nm.r, far);
-        lit = mix(lit, mix(0.42, 1.0, shop), far);
-        col = mix(col, vec3(1.0, 0.74, 0.47), far);
-        totalEmissiveRadiance *= mask * lit * col * mix(1.0, 0.75, shop);
+        lit = mix(lit, mix(0.42, 1.0, max(shop, sign)), far);
+        col = mix(col, shop + sign > 0.5 ? col : vec3(1.0, 0.74, 0.47), far);
+        totalEmissiveRadiance *= mask * lit * col;
     } else totalEmissiveRadiance *= 0.0;
 #else
     totalEmissiveRadiance *= 0.0;
@@ -3073,7 +3091,21 @@ export async function buildWorld(city, renderer, opts = {}) {
     // The viewer is world.camera if set, else the widest perspective camera found in the scene.
     const _v = new THREE.Vector3();
     let viewerCam = null, lastCull = null;
+    // shops closing at night: the share of shutters down follows the district's local hour (render's simulated clock;
+    // a fixed 'night' look counts as 23:00, 'dusk' as 19:00): 0 until 21:00, ~55 % at 23:00, ~70 % 00–06, open by 07:30
+    let closedT = 0;
+    const closedShare = () => {
+        const r3 = globalThis.game?.r3d, ov = r3?.clock?.override;
+        let h = null;
+        if (ov) h = { night: 23, dusk: 19, sunset: 18.5, dawn: 6.5, day: 12 }[ov] ?? 12;
+        else { const d = r3?.simDate || new Date(); try { const f = new Intl.DateTimeFormat('en-GB', { timeZone: city.timeZone || 'UTC', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' }).formatToParts(d); h = +f.find(x => x.type === 'hour').value + +f.find(x => x.type === 'minute').value / 60; } catch { h = d.getHours(); } }
+        if (h >= 21) return clamp((h - 21) / 2, 0, 1) * 0.55 + clamp((h - 23) / 1, 0, 1) * 0.15;
+        if (h < 6) return 0.7;
+        if (h < 7.5) return 0.7 * (1 - (h - 6) / 1.5);
+        return 0;
+    };
     cellsGroup.updateMatrixWorld = function (force) {
+        { const now = performance.now(); if (now - closedT > 2000) { closedT = now; solidMat.userData.uClosed.value = closedShare(); } }
         const cam = world.camera || viewerCam || (viewerCam = findCamera(this));
         if (cam) {
             cam.getWorldPosition(_v);

@@ -721,16 +721,16 @@ async function visitSpot(H, id) {
 }
 
 // ---------------------------------------------------------------- the Bellevue finale at legal speed (spec 10: ≤ 3 min)
-SCENARIOS.push({
-    id: 'fin', title: 'Bellevue finale (13:00): drive the chapter route at legal speed from the start to the UiPath door; time ≤ 180 s, no junction gridlock', city: 'bucharest',
-    async run(H) {
-        const g = H.g; const idx = (g.chapters || []).findIndex(c => c.id === 'uipath-bel');
-        if (idx < 0) { H.note('no uipath-bel chapter: skipped'); return { skipped: true }; }
+/** a whole chapter route at legal speed from the start (13:00): time, resets, junction stalls; `fin` = the Bellevue finale (≤ 180 s) */
+async function driveChapter(H, chId, limit = null) {
+        const g = H.g; const idx = (g.chapters || []).findIndex(c => c.id === chId);
+        if (idx < 0) { H.note(`no ${chId} chapter: skipped`); return { skipped: true }; }
         const prevHour = g.clock.trafficHour; g.clock.trafficHour = 13;
         await g.enterChapter(idx, { initial: true }); H.lampSet = null;
         g.traffic.setHour(13, true); H.refuelInstant(); g.navManual = false; g.autoRoute(true);
         await H.run(1);
-        const stop = g.stops.find(s => s.id === 'uipath-bel'); const o = stop?.poiRef; if (!o) return { skipped: 'no door' };
+        const ch = g.chapters[idx], stop = g.stops.find(s => s.id === ch.stop);
+        const o = stop?.poiRef || (g.objective ? { x: g.objective.doorX ?? g.objective.x, z: g.objective.doorZ ?? g.objective.z } : null); if (!o) return { skipped: 'no goal' };
         const res = { route: g.nav.route ? Math.round(g.nav.route.total) : null, via: g.nav.route ? [...new Set(g.nav.route.legs.map(l => roadName(l.e)))].slice(0, 8) : null };
         // junction watch: NPCs standing still inside a junction box for > 20 s
         const stuckIn = new Map(); let worst = 0, worstAt = null;
@@ -746,16 +746,19 @@ SCENARIOS.push({
         };
         const t0 = H.scT;
         const origStep = H.stepOnce.bind(H); H.stepOnce = (dt) => { origStep(dt); if (H.mon.steps % 15 === 0) watch(); };
-        try { res.drive = await H.driveTo(o.doorX ?? o.x, o.doorZ ?? o.z, { label: 'bellevue finale', arriveR: 9, timeout: 300, stop: true }); }
+        try { res.drive = await H.driveTo(o.doorX ?? o.x, o.doorZ ?? o.z, { label: `${chId} chapter drive`, arriveR: stop ? 9 : 25, timeout: 300, stop: !!stop }); }
         finally { H.stepOnce = origStep; }
         res.seconds = r1(H.scT - t0); res.junctionStillMax = r1(worst); res.junctionStillAt = worstAt;
-        res.shot = await H.shot('fin-arrived');
-        if (res.seconds > 180) H.issue('finale-too-long', 'medium', `Bellevue finale took ${res.seconds} s at legal speed (spec ≤ 180 s)`, {}, { key: 'fin-time' });
+        res.shot = await H.shot(`drive-${chId}-arrived`);
+        if (!res.drive?.ok) H.issue('chapter-drive-failed', 'medium', `chapter ${chId}: the legal-speed drive from the start did not arrive (${res.drive?.reason}, ${res.drive?.resets} resets, ${res.drive?.remaining} m left)`, {}, { shot: true, key: 'chd:' + chId });
+        if (limit && res.seconds > limit) H.issue('finale-too-long', 'medium', `${chId} took ${res.seconds} s at legal speed (spec ≤ ${limit} s)`, {}, { key: 'fin-time' });
         if (worst > 45) H.issue('junction-gridlock', 'high', `an NPC stood ${r1(worst)} s at a signalised junction on the finale route (${worstAt?.road}, ${worstAt?.why})`, worstAt || {}, { shot: true, key: 'fin-grid' });
         g.clock.trafficHour = prevHour;
         return res;
-    },
-});
+}
+SCENARIOS.push({ id: 'fin', title: 'Bellevue finale (13:00): the chapter route at legal speed; ≤ 180 s, no junction gridlock', city: 'bucharest', run: (H) => driveChapter(H, 'uipath-bel', 180) });
+for (const id of ['rosetti', 'upb', 'gts', 'luxoft', 'db', 'arnia', 'uipath-buc', 'otopeni', 'seatac', 'uipath-bel'])
+    SCENARIOS.push({ id: 'drive:' + id, group: 'drive', title: `Chapter ${id}: the whole route at legal speed from the start (13:00)`, city: 'bucharest', run: (H) => driveChapter(H, id, id === 'uipath-bel' ? 180 : null) });
 
 // ---------------------------------------------------------------- free roam (spec 10, R10.10)
 SCENARIOS.push({

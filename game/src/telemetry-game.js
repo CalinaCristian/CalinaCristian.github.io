@@ -7,7 +7,8 @@
  * flight_taken, seattle_arrived, finale_reached, fast_travel, map_opened, refuel, fine, reset_used,
  * headlights_toggle, achievement, weather_source, stuck_detected, context_lost, perf_summary, game_exit;
  * chapters / on foot / photo / tourist spots (spec 21): chapter_start, chapter_complete, chapter_select, free_drive,
- * boundary_hit, on_foot, photo_taken, spot_enter, spot_leave, spot_plaque, spot_challenge.
+ * boundary_hit, on_foot, photo_taken, spot_enter, spot_leave, spot_plaque, spot_challenge; free roam: free_roam_start;
+ * achievements.js sends completion_milestone {pct: 25|50|75|100}.
  * No personal data; positions are rounded to 50 m and only sent with stuck reports. The new events are coarse:
  * ids from fixed lists (chapter / district / spot ids, filter names, counts, minutes), never free text or coordinates.
  * Events that other modules send themselves (photo.js photo_taken, spots/* spot_*) pass through `coarse()` below,

@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tourist spots — dev bench</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+    html, body { margin: 0; height: 100%; background: #111; overflow: hidden; font: 12px/1.4 system-ui, sans-serif; color: #eee; }
+    canvas#gl { display: block; width: 100vw; height: 100vh; }
+    #dev { position: fixed; top: 8px; right: 8px; background: rgba(0,0,0,.6); padding: 8px 10px; border-radius: 8px; z-index: 40; max-width: 360px; }
+    #dev select, #dev button, #dev input { font: inherit; }
+    #dev .row { margin: 3px 0; }
+    #stats { white-space: pre; margin-top: 6px; font: 11px/1.35 ui-monospace, monospace; opacity: .9; }
+    #loading { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; font: 600 16px system-ui; background: #15181c; z-index: 50; }
+    body.noui #dev, body.noui #spot-ui { display: none !important; }
+    body.nodev #dev { display: none !important; }
+    body.nohud #spot-ui .sp-card, body.nohud #spot-ui .sp-help, body.nohud #spot-ui .sp-prompt { display: none !important; }
+</style>
+</head>
+<body>
+<canvas id="gl"></canvas>
+<div id="loading">Loading…</div>
+<div id="dev">
+    <div class="row">spot <select id="spot"></select> <button id="respawn">spawn</button></div>
+    <div class="row" id="spawns"></div>
+    <div class="row">look <select id="ov"><option value="">real clock</option><option>day</option><option>sunset</option><option>dusk</option><option>night</option><option>dawn</option></select>
+        hour <input id="hour" type="number" min="0" max="24" step="0.5" style="width:52px" placeholder="now"></div>
+    <div class="row">weather <select id="weather"><option value="">real</option><option>clear</option><option>cloudy</option><option>drizzle</option><option>rain</option><option>snow</option><option>fog</option><option>storm</option></select>
+        season <select id="season"><option value="">date</option><option>spring</option><option>summer</option><option>autumn</option><option>winter</option></select></div>
+    <div class="row">quality <select id="q"><option>auto</option><option>ultra</option><option>high</option><option>medium</option><option>low</option></select>
+        walker <select id="walker"><option value="">onfoot.js</option><option value="local">local</option></select></div>
+    <div id="stats"></div>
+</div>
+<script type="module">
+import * as THREE from '../vendor/three.module.min.js';
+import { Renderer3D } from '../src/render.js';
+import { Input } from '../src/input.js';
+import { SPOTS_ALL as SPOTS, startSpot, spotById, auditSpot } from '../src/spots/index.js';
+
+const qs = new URLSearchParams(location.search), $ = (s) => document.querySelector(s);
+globalThis.__spotsLegacy = qs.get('legacy') === '1'; // dev A/B: the pre-round-5 core behaviour (ground, footprints, clipping, crowd placement)
+const id = qs.get('id') || 'fremont-troll';
+if (qs.get('ui') === '0') document.body.classList.add('noui');
+if (qs.get('hud') === '0') document.body.classList.add('nohud');
+if (qs.get('dev') === '0') document.body.classList.add('nodev'); // screenshots of the player's UI without the dev panel
+for (const s of SPOTS) $('#spot').append(new Option(`${s.city === 'bucharest' ? '🇷🇴 ' : ''}${s.name} (${s.id})${s.ready ? '' : ' · in review'}`, s.id));
+for (const [k, el] of [['id', '#spot'], ['ov', '#ov'], ['weather', '#weather'], ['season', '#season'], ['q', '#q'], ['walker', '#walker'], ['hour', '#hour']]) {
+    if (qs.has(k)) $(el).value = qs.get(k);
+    $(el).onchange = () => { const p = new URLSearchParams(location.search); p.set(k, $(el).value); location.search = p; };
+}
+$('#spot').value = id;
+
+const canvas = $('#gl');
+const r3d = new Renderer3D(canvas, { quality: qs.get('q') || 'auto' });
+const camera = new THREE.PerspectiveCamera(qs.has('fov') ? +qs.get('fov') : 72, innerWidth / innerHeight, 0.1, 9000);
+const input = new Input(); input.bindLook(canvas); input.lookAllowed = true;
+const resize = () => { r3d.resize(innerWidth, innerHeight); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); };
+addEventListener('resize', resize); resize();
+
+// date: real now, or ?hour=H (local time at the spot) / ?date=ISO
+let date = new Date();
+if (qs.get('date')) date = new Date(qs.get('date'));
+if (qs.get('hour')) { // set the wall-clock hour at the spot (its city's time zone) by offsetting from now
+    const tz = spotById(id)?.city === 'bucharest' ? 'Europe/Bucharest' : 'America/Los_Angeles', h = +qs.get('hour');
+    const parts = new Intl.DateTimeFormat('en-US', { timeZone: tz, hour: 'numeric', minute: 'numeric', hourCycle: 'h23' }).formatToParts(date);
+    const cur = +parts.find((p) => p.type === 'hour').value + +parts.find((p) => p.type === 'minute').value / 60;
+    date = new Date(+date + (h - cur) * 3600e3);
+}
+let photo = null;
+try {
+    const { PhotoMode } = await import('../src/photo.js');
+    photo = new PhotoMode({ renderer: r3d.renderer, getScene: () => session?.spot.scene, getCamera: () => camera, input,
+        canOpen: () => !!session && !session.ui.panelOpen, getInfo: () => session?.photoInfo(), onPhoto: (meta) => session?.onPhoto(meta) });
+} catch (e) { console.warn('[spots dev] photo mode unavailable', e); }
+
+let session = null;
+const t0 = performance.now();
+try {
+    session = await startSpot(id, { r3d, camera, input, photo, date, override: qs.get('ov') || null, walker: qs.get('walker') || '', legacyGround: qs.get('ground') === 'legacy' || qs.get('legacy') === '1', onProgress: (t) => { $('#loading').textContent = t; } });
+} catch (e) { $('#loading').textContent = 'Failed: ' + e.message; console.error(e); throw e; }
+$('#loading').remove();
+const loadMs = Math.round(performance.now() - t0);
+const entry = spotById(id);
+$('#respawn').onclick = () => session.teleport(session.spot.entry.id === id ? id : id);
+for (const sid of session.spot.data.members) { if (session.spot.data.members.length < 2) break; const b = document.createElement('button'); b.textContent = sid; b.onclick = () => session.teleport(sid); $('#spawns').append(b, ' '); }
+if (qs.get('weather')) r3d.setWeather(qs.get('weather'), { instant: true });
+if (qs.get('season')) r3d.setSeason(qs.get('season'));
+
+// free camera for screenshots: ?cam=x,y,z,yawDeg,pitchDeg  (yaw = compass bearing; y absolute) or setCam() from Playwright
+let free = null;
+const setCam = (x, y, z, bearing, pitch = 0, fov = null) => {
+    if (!free) { free = new THREE.Object3D(); free.rotation.order = 'YXZ'; session.spot.scene.add(free); }
+    session.ctl.exit?.(); free.add(camera); camera.position.set(0, 0, 0); camera.rotation.set(0, 0, 0);
+    free.position.set(x, y, z); free.rotation.set(pitch * Math.PI / 180, -bearing * Math.PI / 180, 0);
+    if (fov) { camera.fov = fov; camera.updateProjectionMatrix(); }
+};
+const walkTo = (x, z, bearing, pitch = 0) => { // walker pose (eye height above ground)
+    if (free) { free.remove(camera); free = null; const s = session.spot.spawn; session.ctl.enter(s.x, s.z, s.heading, s.y); }
+    session.ctl.teleport(x, z, -bearing * Math.PI / 180); session.ctl.pitch = pitch * Math.PI / 180; session.ctl.place?.();
+};
+if (qs.get('cam')) { const c = qs.get('cam').split(',').map(Number); setCam(...c); }
+if (qs.get('at')) { const c = qs.get('at').split(',').map(Number); walkTo(...c); }
+
+const clock = new THREE.Clock();
+let frames = 0;
+const manual = qs.get('manual') === '1'; // screenshots: no rAF loop, spotDev.step(n, dt) renders on demand
+const tick = (dt) => {
+    session.update(free ? 0 : dt);
+    if (free) { session.spot.crowd?.update(dt, null, camera); for (const f of session.spot.updaters) f(dt, session, session.ctl.position); session.ui.update(camera); }
+    r3d.frame(dt);
+    frames++;
+    if (frames % 15 === 0) {
+        const st = r3d.stats, p = session.ctl.position, w = r3d.weather;
+        $('#stats').textContent = `${entry.name}\nload ${loadMs} ms (build ${session.spot.timing.build}, finish ${session.spot.timing.finish})\nscene tris ${session.spot.tris.toLocaleString()} · drawn ${st.triangles.toLocaleString()} · calls ${st.drawCalls}\nfps ${st.fps} · ${st.quality} · walker ${session.walkerKind}\npos ${p.x.toFixed(1)}, ${p.y.toFixed(1)}, ${p.z.toFixed(1)} · bearing ${((-session.ctl.heading * 180 / Math.PI) % 360 + 360).toFixed(0) % 360}°\nsun ${r3d.sunElevation?.toFixed(1)}° ${r3d.phase} · ${w ? w.label + ' ' + (w.tempC ?? '') + '°C · ' + w.source + ' · ' + (w.season || '') : ''}`;
+    }
+};
+const loop = () => { tick(Math.min(0.1, clock.getDelta())); requestAnimationFrame(loop); };
+if (!manual) requestAnimationFrame(loop);
+const step = (n = 1, dt = 1 / 30) => { for (let i = 0; i < n; i++) tick(dt); return r3d.stats; };
+window.spotDev = { session, r3d, camera, THREE, setCam, walkTo, loadMs, ready: true, photo, step, audit: (o) => auditSpot(session.spot, o) };
+// automated runs (harness:spots, Playwright): audit once and surface findings as one page error so the harness reports them
+if ((navigator.webdriver && qs.get('audit') !== '0') || qs.get('audit') === '1') {
+    const a = window.spotDev.auditResult = auditSpot(session.spot), f = Object.entries(a.counts);
+    console.info('[spots-audit]', JSON.stringify(a.counts), a.ms + ' ms');
+    if (f.length) setTimeout(() => { throw new Error(`[spots-audit] ${id}: ${f.map(([k, n]) => `${k} ${n}`).join(', ')} — e.g. ${JSON.stringify(Object.values(a.findings)[0].samples[0])} (spotDev.audit() for details)`); }, 0);
+}
+</script>
+</body>
+</html>

@@ -943,6 +943,21 @@ export class Renderer3D {
             flat.set([x, z, y + 7.7 * k, y], i * 4);
         }
         this.lamps = flat;
+        // dense lamp areas (squares, boulevards with lamps every few metres) must not add up to a uniform flood: each
+        // lamp's pool / light is scaled by 1/√(lamps within 14 m); a per-lamp tint mixes sodium and LED stock
+        {
+            const dens = this._lampDens = new Float32Array(n), tint = this._lampTint = new Float32Array(n * 3), cell = new Map(), C = 14;
+            for (let i = 0; i < n; i++) { const k = Math.floor(flat[i * 4] / C) + ',' + Math.floor(flat[i * 4 + 1] / C); (cell.get(k) || cell.set(k, []).get(k)).push(i); }
+            const us = (this.clock?.lon ?? this._wxPlace?.().lon ?? 26) < 0, c = new THREE.Color();
+            for (let i = 0; i < n; i++) {
+                const x = flat[i * 4], z = flat[i * 4 + 1], cx = Math.floor(x / C), cz = Math.floor(z / C); let m = 0;
+                for (let a = -1; a <= 1; a++) for (let b = -1; b <= 1; b++) for (const j of cell.get((cx + a) + ',' + (cz + b)) || []) if ((flat[j * 4] - x) ** 2 + (flat[j * 4 + 1] - z) ** 2 < C * C) m++;
+                dens[i] = 1 / Math.sqrt(Math.max(1, m));
+                const hsh = Math.abs(Math.sin(x * 12.9898 + z * 78.233) * 43758.5453) % 1;
+                c.set(hsh < (us ? 0.15 : 0.45) ? '#ffad5c' : us ? '#f2f0ff' : '#ffe0b8'); // sodium | LED (US cooler)
+                tint[i * 3] = c.r; tint[i * 3 + 1] = c.g; tint[i * 3 + 2] = c.b;
+            }
+        }
         const head = o.headMaterial || o.headMesh?.material || null;
         if (this._lampHead && this._lampHead !== head && this._lampHead.emissive) this._lampHead.emissiveIntensity = 0;
         this._lampHead = head;
@@ -954,7 +969,7 @@ export class Renderer3D {
             g.fillStyle = gr; g.fillRect(0, 0, 128, 128);
             const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace;
             const geo = new THREE.PlaneGeometry(1, 1); geo.rotateX(-Math.PI / 2);
-            const mat = new THREE.MeshBasicMaterial({ map: tex, color: new THREE.Color('#ffc98a').multiplyScalar(0.55), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, fog: false, polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -4 });
+            const mat = new THREE.MeshBasicMaterial({ map: tex, color: new THREE.Color(0.5, 0.5, 0.5), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, fog: false, polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -4 });
             this._discs = new THREE.InstancedMesh(geo, mat, MAX_DISCS);
             this._discs.count = 0; this._discs.frustumCulled = false; this._discs.renderOrder = 2; this._discs.userData.shared = true;
             this._discs.instanceColor = new THREE.InstancedBufferAttribute(new Float32Array(MAX_DISCS * 3), 3);
@@ -1016,7 +1031,7 @@ export class Renderer3D {
             // more candidates than discs: fade the far end out before the cut-off so the last discs never pop
             this._discFarT = near.length > MAX_DISCS ? Math.min(LAMP_RANGE, Math.sqrt(near[MAX_DISCS].d2) - 10) : LAMP_RANGE;
             for (let k = 0; k < n; k++) {
-                const i = list[k], r = (L[i + 2] - L[i + 3]) * 1.9;
+                const i = list[k], r = (L[i + 2] - L[i + 3]) * (1.1 + 0.6 * (this._lampDens?.[i / 4] ?? 1)); // tighter pools where lamps are dense
                 m.makeScale(r, 1, r).setPosition(L[i], L[i + 3] + 0.22, L[i + 1]);
                 D.setMatrixAt(k, m);
             }
@@ -1037,7 +1052,7 @@ export class Renderer3D {
             sl.w = sl.target > sl.w ? Math.min(1, sl.w + step) : Math.max(0, sl.w - step);
             const i = sl.lamp * 4, d = Math.hypot(L[i] - cx, L[i + 1] - cz);
             const k = sm(sl.w, 0, 1) * (1 - sm(d, LAMP_LIGHT_NEAR, LAMP_LIGHT_FAR));
-            sl.light.intensity = LAMP_LIGHT_I * k * lk;
+            sl.light.intensity = LAMP_LIGHT_I * k * lk * (0.35 + 0.65 * (this._lampDens?.[sl.lamp] ?? 1));
             real[sl.lamp] = k * lk;
             if (sl.w <= 0 && sl.target <= 0) { real[sl.lamp] = 0; sl.lamp = -1; sl.light.intensity = 0; }
         }
@@ -1046,7 +1061,8 @@ export class Renderer3D {
         for (let k = 0; k < list.length; k++) {
             const i = list[k], d = Math.hypot(L[i] - cx, L[i + 1] - cz);
             const f = (1 - sm(d, far * 0.65, far)) * nk * (1 - 0.35 * real[i / 4]);
-            D.setColorAt(k, col.setScalar(f));
+            const li = i / 4, td = this._lampTint, dd = this._lampDens ? this._lampDens[li] : 1;
+            D.setColorAt(k, td ? col.setRGB(td[li * 3], td[li * 3 + 1], td[li * 3 + 2]).multiplyScalar(f * dd * 1.25) : col.setScalar(f));
         }
         if (D.instanceColor) D.instanceColor.needsUpdate = true;
         D.visible = list.length > 0;
@@ -1077,6 +1093,7 @@ export class Renderer3D {
             const i = id * 4;
             sl.lamp = id; sl.w = 0; sl.target = 1; sl.light.intensity = 0;
             sl.light.position.set(L[i], L[i + 2] - 0.4, L[i + 1]);
+            if (this._lampTint) sl.light.color.setRGB(this._lampTint[id * 3], this._lampTint[id * 3 + 1], this._lampTint[id * 3 + 2]);
             owner.set(id, sl); added++;
         }
     }

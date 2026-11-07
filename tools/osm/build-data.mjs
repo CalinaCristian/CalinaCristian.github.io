@@ -46,6 +46,11 @@
 //    lines: [[kind, widthDm, name, delta], ...]     runways / taxiways / rivers drawn as ribbons
 //    places: [[name, x, z, rank], ...]               rank 0 city, 1 suburb, 2 quarter, 3 neighbourhood
 //    lamps: [x, z, heightDm, ...]                    highway=street_lamp nodes (height 0 = unknown)
+//    roadInfo: [osmLayer, flags, widthDm, maxheightDm, placement, bridgeStructure, ...]   6 per road (same order as `roads`):
+//                                                    the raw OSM layer (roads[] keeps the bridge/tunnel-adjusted one), flags 1 covered,
+//                                                    2 tunnel=building_passage, 4 bridge, 8 has `level`, 16 *_link ramp, 32 layer tagged;
+//                                                    OSM width / maxheight (clearance under a deck) in dm (0 unknown); placement and
+//                                                    bridge:structure|bridge:name as string indices
 //    buildingInfo: [type, startYear, architect, material, hSrc, ...]   one 5-tuple per building (district builds): OSM `building`
 //                                                    value (string index, -1 for yes/none), start_date year (0 unknown), architect and
 //                                                    building:material (string index), hSrc: 0 OSM height/levels, 1 research, 2 default
@@ -69,6 +74,7 @@ import { distPointSeg, pointInPolygon, polyArea, polyCentroid, simplifyIdx, simp
 import { buildCorridor } from './corridors.mjs';
 import { CITIES as GAME_CITIES } from '../../game/src/cities.js';
 import { LANDMARKS } from '../../game/src/landmarks.js';
+import { speciesFromOSM } from '../../game/src/trees.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(HERE, '..', '..');
@@ -596,6 +602,7 @@ function buildCity(cityId, did = null) {
         return i;
     };
     const outRoads = [];
+    const roadInfo = []; // per output road: [osmLayer, flags, widthDm, maxheightDm, placement, bridgeStructure] (vertical / placement hints, see header)
     const turnLanes = []; // [roadIndex, forward 'left|through;right|…' string, backward string, …] (OSM turn:lanes → painted arrows)
     let segCount = 0;
     for (const r of roads) {
@@ -611,6 +618,9 @@ function buildCity(cityId, did = null) {
         r.keptIds = ids;
         { const t = r.tags || {}; const fw = t['turn:lanes:forward'] || (r.oneway ? t['turn:lanes'] : '') || '', bw = r.oneway ? '' : (t['turn:lanes:backward'] || '');
           if (/left|right|through/.test(fw + bw)) turnLanes.push(outRoads.length, S(fw), S(bw)); }
+        { const t = r.tags || {}; const lay = parseInt(t.layer); const dm = (v) => { const n = num(v); return isFinite(n) && n > 0 && n < 100 ? Math.round(n * 10) : 0; };
+          const f = (t.covered && t.covered !== 'no' ? 1 : 0) | (t.tunnel === 'building_passage' ? 2 : 0) | (/^(yes|viaduct|aqueduct|boardwalk|cantilever|covered|movable|trestle)$/.test(t.bridge || '') ? 4 : 0) | (t.level != null ? 8 : 0) | (r.cls.endsWith('_link') ? 16 : 0) | (t.layer != null ? 32 : 0);
+          roadInfo.push(isFinite(lay) ? lay : 0, f, dm(t.width), dm(t.maxheight || t['maxheight:physical']), S(t.placement || t['placement:forward'] || ''), S(t['bridge:structure'] || t['bridge:name'] || '')); }
         outRoads.push([S(r.name), ROAD_CLASSES.indexOf(r.cls), r.lf, r.oneway ? 0 : r.lb, Math.round(r.median * 10), Math.round(r.laneW * 10), Math.round(r.sidewalk * 10), r.maxspeed, r.flags, r.layer, ...ids.map(idxOf)]);
     }
     log('graph nodes', outNodes.length / 2, 'segments', segCount);
@@ -787,6 +797,7 @@ function buildCity(cityId, did = null) {
     const RE_BIGROAD = /^(trunk|primary|secondary)$/;
 
     const researchBrands = {};
+    const streetTrees = {}; // street name → species keys (trees.js speciesFromOSM) from the research notes; [] = researched as treeless
     // ---- field research (game/research/<city>-<district>.json, spec 20): fill missing height / levels / facade and roof
     //      colours / roof shape on the OSM tags of the researched buildings (OSM tags win where present)
     if (ds) {
@@ -822,6 +833,14 @@ function buildCity(cityId, did = null) {
                 const sg = b.sign || {}; const key = (b.brand || b.brand_key || '').toLowerCase().trim();
                 if (!key || !/^#[0-9a-f]{6}$/i.test(sg.bg || '') || !/^#[0-9a-f]{6}$/i.test(sg.fg || '')) continue;
                 researchBrands[key] = [sg.bg, sg.fg, /^#[0-9a-f]{6}$/i.test(sg.accent || '') ? sg.accent : sg.fg];
+            }
+            // per-street tree notes (streets[].research.trees text + streets[].trees.genus): baked here so world.js no longer
+            // fetches the whole dossier at runtime (same parsing world.js did)
+            for (const st of rj?.streets || []) {
+                const txt = String(st.research?.trees || ''), gen = st.trees?.genus || {}, out = [];
+                for (const g of Object.keys(gen)) { const k = speciesFromOSM(g); if (k && !out.includes(k)) out.push(k); }
+                for (const w of txt.split(/[^\p{L}]+/u)) { const k = speciesFromOSM(w); if (k && k !== 'conifer' && !out.includes(k)) out.push(k); }
+                if (st.name && (out.length || /no (street )?trees|treeless|none/i.test(txt))) streetTrees[st.name] = out;
             }
         }
     }
@@ -1223,11 +1242,12 @@ function buildCity(cityId, did = null) {
         bounds: [minX, minZ, maxX, maxZ],
         classes: ROAD_CLASSES, styles: STYLES, roofs: ROOFS, poiKinds: POI_KINDS, areaKinds: AREA_KINDS, lineKinds: LINE_KINDS, furnKinds: FURN_KINDS,
         strings,
-        nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, buildings: outB, buildingInfo: outBInfo, pois: outP, areas: outA, lines: outLines, places, lamps,
+        nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, roadInfo, buildings: outB, buildingInfo: outBInfo, pois: outP, areas: outA, lines: outLines, places, lamps,
         trees: outTrees, treeInfo: outTreeInfo, furniture: outFurn, backdrop,
         corridor: { areaKm2: +cor.areaKm2.toFixed(2), legs: cor.legs.map(l => [l.label, l.km]) },
     };
     if (Object.keys(researchBrands).length) doc.brands = researchBrands;
+    if (ds) doc.streetTrees = streetTrees;
     if (turnLanes.length) doc.turnLanes = turnLanes;
     if (ds) { // district boundary (game metres): the polygons and the corridor field are the same margin() → sample its outline
         doc.district = { id: did, name: ds.district.name, bbox: ds.district.bbox, areaKm2: +cor.areaKm2.toFixed(2),

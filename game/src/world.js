@@ -1083,6 +1083,56 @@ export async function buildWorld(city, renderer, opts = {}) {
                 profileStats0 = { ...(profileStats0 || {}), goreBefore: g0, goreAfter: g1 >= g0 || c1 > c0 ? g0 : g1, goreCross: [c0, c1] };
             }
         }
+        // ---- (2026-11-07, world-visual) decks by OSM layer (data.roadInfo raw layer): a bridge chain that passes over a
+        //      street is lifted to ≈ 5.5 m per level (Pasajul Basarab's upper level ≈ 11 m, Podul Barbu Văcărescu ≈ 5.5 m),
+        //      the climb spread over the whole chain + the approach ramps (≤ 8 %); at-grade junction nodes stay at grade.
+        //      y = min(max-of-cones from the deck targets, min-of-cones from the ground nodes): Lipschitz by construction.
+        let deckStats = null;
+        if (data.roadInfo) {
+            const RI = data.roadInfo, rawLayer = (e) => { const v = RI[e.road * 6]; return Number.isFinite(v) ? v : e.layer; };
+            const G = MAXG * 0.98, PER = 5.5;
+            // deck chains: connected bridge edges with raw layer ≥ 1; a chain counts when any of its edges passes over a road
+            const isDeck = (e) => !e.virtual && e.bridge && rawLayer(e) >= 1;
+            const chainOf = new Map(); let nc = 0;
+            for (const e of edges) {
+                if (!isDeck(e) || chainOf.has(e)) continue;
+                const st = [e]; chainOf.set(e, nc);
+                while (st.length) { const f = st.pop(); for (const n of [f.a, f.b]) for (const g of n.edges) if (isDeck(g) && !chainOf.has(g)) { chainOf.set(g, nc); st.push(g); } }
+                nc++;
+            }
+            const live = new Set(); for (const e of edges) if (chainOf.has(e) && (e.over?.length || crossings.some(c => c.u === e))) live.add(chainOf.get(e));
+            for (const o of overlaps) for (const [u, f] of [[o.e, o.f], [o.f, o.e]]) if (chainOf.has(u) && !f.bridge && !f.tunnel) live.add(chainOf.get(u));
+            const target = new Map();
+            for (const [e, k] of chainOf) { if (!live.has(k)) continue; const t = Math.min(3, rawLayer(e)) * PER; for (const n of [e.a, e.b]) target.set(n, Math.max(target.get(n) ?? 0, t)); }
+            if (target.size) {
+                // ground nodes: junctions with an at-grade street (non-bridge, non-link, raw layer 0, not a tunnel), and
+                // nodes that are hard (minor streets, river bridges)
+                const atGrade = (e) => !e.virtual && !e.bridge && !e.tunnel && !/_link$/.test(e.type) && rawLayer(e) <= 0;
+                const ground = [];
+                for (const n of nodeArr) {
+                    if (!n.edges.length || target.has(n)) continue;
+                    const g = n.edges.filter(atGrade).length;
+                    if ((g >= 1 && n.edges.length >= 3) || (g >= 2 && n.edges.every(atGrade)) || hard.has(n)) ground.push(n);
+                }
+                const dijk = (seeds, sgn) => { // max-plus (sgn 1: max(t − G d)) or min-plus (sgn −1: min(G d))
+                    const best = new Map(), heap = [];
+                    const push = (n, v) => { heap.push([v, n]); let i = heap.length - 1; while (i > 0) { const p = (i - 1) >> 1; if (heap[p][0] >= heap[i][0]) break; [heap[p], heap[i]] = [heap[i], heap[p]]; i = p; } };
+                    const pop = () => { const top = heap[0], last = heap.pop(); if (heap.length) { heap[0] = last; let i = 0; for (;;) { let c = 2 * i + 1; if (c >= heap.length) break; if (c + 1 < heap.length && heap[c + 1][0] > heap[c][0]) c++; if (heap[c][0] <= heap[i][0]) break; [heap[c], heap[i]] = [heap[i], heap[c]]; i = c; } } return top; };
+                    for (const [n, v] of seeds) { best.set(n, v * sgn); push(n, v * sgn); }
+                    while (heap.length) { const [v, n] = pop(); if (v < best.get(n)) continue; for (const e of n.edges) { if (e.virtual) continue; const o = e.a === n ? e.b : e.a, nv = v - G * e.len; if (sgn > 0 && nv <= 0) continue; if (nv > (best.get(o) ?? -Infinity)) { best.set(o, nv); push(o, nv); } } }
+                    return best;
+                };
+                const up = dijk([...target], 1), lim = dijk(ground.map(n => [n, 0]), -1); // lim: −G·d
+                let raised = 0, maxY = 0;
+                for (const [n, u] of up) {
+                    if (ground.includes(n)) continue;
+                    const cap = lim.has(n) ? -lim.get(n) : Infinity, y = Math.min(u, cap);
+                    if (y > n.y + 0.05) { n.y = y; raised++; maxY = Math.max(maxY, y); }
+                }
+                deckStats = { chains: live.size, targets: target.size, ground: ground.length, raised, maxY: +maxY.toFixed(1) };
+                profileStats0 = { ...(profileStats0 || {}), deck: deckStats };
+            }
+        }
         let residual = 0; for (const e of edges) if (!e.virtual) residual = Math.max(residual, Math.abs(e.b.y - e.a.y) - MAXG * e.len);
         for (const e of edges) { e.ya = e.a.y; e.yb = e.b.y; }
         let cBad = 0, oBad = 0;

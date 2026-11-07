@@ -40,6 +40,7 @@ Source: `game/FEEDBACK.md` "Round 4 play-test" notes 1–27 (+ any that follow),
 | 36 | spots | Blank green signboards (no text) — readable plaques on both faces, no empty signs. |
 | 55 | spots/landmarks (+ render) | Space Needle underside flickers (coplanar discs / depth precision); proper underside beams + elevators; consider near-plane/log depth on foot. |
 | 54 | spots (+ render) | Chihuly Glasshouse: real glass, sculpture as translucent glass forms, no floating slab, night lighting; full fidelity pass. |
+| 58 | spots (+ render) | Kerry Park: the real postcard view — elevation, slope, Space Needle foreground, 3D lit downtown skyline at real scale, Elliott Bay + ferries + cranes, Rainier when clear, nothing blocking. |
 | 53 | spots | Pike Place full fidelity pass from references (arcade + stalls, sign + clock, Post Alley, Gum Wall, paving and slope, crowds, night). |
 | 51, 52 | spots Pike Place signs tilted/floating/overlapping across upper floors; indoor market shops get no outer-facade signs (or a directory board), one non-overlapping sign per shopfront, upright at fascia height. |
 | 50 | spots (+ render) | Pike Place: Rachel inside the fish counter, broken plaque stand, old blocky vendors, blown-out floor under arcade lights; no prop–prop intersections (detector). |

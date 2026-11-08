@@ -1,0 +1,359 @@
+{
+  "schemaVersion": 1,
+  "id": "waterfront",
+  "city": "seattle",
+  "name": "Waterfront: Great Wheel & Pier 57",
+  "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+  "updatedAt": "2026-11-08T19:35:04.585Z",
+  "status": "needs_review",
+  "sources": [
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Seattle_Great_Wheel"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Pier_57_(Seattle)"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Seattle_Aquarium"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Overlook_Walk"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_Great_Wheel_Ferris_Wheel.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_Great_Wheel_Washington1.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_Great_Wheel_ticket_booth.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_-_Overlook_Walk_01.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_-_Overlook_Walk_and_skyline_01.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Downtown_Seattle_Waterfront_from_Overlook_Walk_July_2025_-_01.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_Aquarium_booth_on_Overlook_Walk_01.jpg"
+    },
+    {
+      "label": "Seattle Great Wheel (2012)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/1809238334"
+    },
+    {
+      "label": "Pier 57 / Miners Landing (1902)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/166910699"
+    },
+    {
+      "label": "Seattle Aquarium (1977, Piers 59/60) + Ocean Pavilion (Aug 2024)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/relation/16051213"
+    },
+    {
+      "label": "Seattle Aquarium (1977, Piers 59/60) + Ocean Pavilion (Aug 2024)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/1256939021"
+    },
+    {
+      "label": "Overlook Walk (2024)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/1256939020"
+    },
+    {
+      "label": "Waterfront Fountain (James FitzGerald & Margaret Tomkins)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/13025976571"
+    }
+  ],
+  "improvements": [
+    "The Great Wheel ride now requires three full visible turns before completion; early departure does not award it and cancellation restores the saved shore pose.",
+    "All source buildings remain represented through exact geometry, including pier context previously affected by blanket exclusions."
+  ],
+  "remainingGaps": [
+    "The native Pier 57 plaque approach is blocked after about 78 m; the posed activity approach faces a brick wall at very close range.",
+    "Six visitors remain below or sunk into the local deck surface; pier deck seams also require physical z-fighting repair.",
+    "Promenade, Miners Landing frontages, pier outlines and Overlook Walk need complete matched current references; the captured scene remains simplified.",
+    "Raw audit findings remain for physical review: zfight 45, pedBelow 6, pedSunk 6.",
+    "78.4 m walked toward Pier 57; Native walker blocked on planned public path."
+  ],
+  "checks": [
+    {
+      "label": "Native scene load",
+      "passed": true,
+      "details": "waterfront; actual native controller; 0 thrown JavaScript errors."
+    },
+    {
+      "label": "Source solid membership",
+      "passed": true,
+      "details": "92 active source records, 90 physical volumes, 10 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+    },
+    {
+      "label": "Validated scene geometry cache",
+      "passed": true,
+      "details": "Exact source/profile/terrain signature matched."
+    },
+    {
+      "label": "Native public-path walk",
+      "passed": false,
+      "details": "78.4 m walked toward Pier 57; Native walker blocked on planned public path."
+    },
+    {
+      "label": "High scene budgets",
+      "passed": true,
+      "details": "278846 unique geometry triangles; max 517706 rendered triangles / 173 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+    },
+    {
+      "label": "Raw physical audit",
+      "passed": false,
+      "details": "zfight: 45; pedBelow: 6; pedSunk: 6"
+    },
+    {
+      "label": "Full matched scene comparison",
+      "passed": false,
+      "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+    },
+    {
+      "label": "Participatory activity controls",
+      "passed": true,
+      "details": "Desktop and touch action tests cover the complete three-turn wheel animation, no early completion, Leave and pose restoration; proof/actions-desktop.json and proof/actions-touch.json."
+    }
+  ],
+  "captures": [
+    {
+      "kind": "arrival",
+      "label": "Waterfront: Great Wheel & Pier 57 — arrival",
+      "image": "assets/spots/waterfront/arrival.webp",
+      "sha256": "c8f5340f05f3056d75b3f9545c1463e65d4209e6831065ca2ba445d0328e07a6",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:22:40.759Z",
+      "pose": {
+        "position": [
+          6,
+          5.05,
+          -6
+        ],
+        "bearing": 214.99999999999997,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6069,
+          "lon": -122.3416,
+          "elev": 0
+        },
+        "projection": {
+          "mLat": 111182.67,
+          "mLon": 75190.53
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "public-walk",
+      "label": "Waterfront: Great Wheel & Pier 57 — public walk",
+      "image": "assets/spots/waterfront/public-walk.webp",
+      "sha256": "123b0c6d2bf2e41f896a705e2558a718d1a847c908003ac2fcb04912f13f55ed",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:22:45.639Z",
+      "pose": {
+        "position": [
+          -38.104275412117666,
+          5.050003368983641,
+          58.684356869387855
+        ],
+        "bearing": 215.28160104327924,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6069,
+          "lon": -122.3416,
+          "elev": 0
+        },
+        "projection": {
+          "mLat": 111182.67,
+          "mLon": 75190.53
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "postcard",
+      "label": "Waterfront: Great Wheel & Pier 57 — postcard",
+      "image": "assets/spots/waterfront/postcard.webp",
+      "sha256": "6910d3f990af87098150bfdeaa731e4c98e8ae3524f17afc8dc480fc28efeb74",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:22:48.815Z",
+      "pose": {
+        "position": [
+          0,
+          5.05,
+          0
+        ],
+        "bearing": 214.99999999999997,
+        "pitch": 15.000000000000002,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6069,
+          "lon": -122.3416,
+          "elev": 0
+        },
+        "projection": {
+          "mLat": 111182.67,
+          "mLon": 75190.53
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "activity-approach",
+      "label": "Waterfront: Great Wheel & Pier 57 — activity approach",
+      "image": "assets/spots/waterfront/activity-approach.webp",
+      "sha256": "72715d78433b9ebbe3af8ebebe4df4c07f82a28239c1c103c879840c7b8774ef",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:22:54.075Z",
+      "pose": {
+        "position": [
+          -44.400000000000006,
+          5.13,
+          66.225
+        ],
+        "bearing": 0,
+        "pitch": -7.000000000000003,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6069,
+          "lon": -122.3416,
+          "elev": 0
+        },
+        "projection": {
+          "mLat": 111182.67,
+          "mLon": 75190.53
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    }
+  ],
+  "perf": {
+    "sceneTriangles": 361236,
+    "uniqueGeometryTriangles": 278846,
+    "geometryObjects": 128,
+    "maxRenderedTriangles": 517706,
+    "maxDrawCalls": 173
+  },
+  "sceneId": "waterfront",
+  "sourceGeometry": {
+    "membershipSHA256": "dd26114dfa78a9f347824cbfd4bdcee88d317621ca081f2a9cccb7396b5206e1",
+    "activeSourceRecords": 92,
+    "renderedVolumes": 90,
+    "literalHeights": 50,
+    "levelHeightEstimates": 0,
+    "typeHeightEstimates": 42,
+    "heroReplacements": [],
+    "missingMembers": []
+  },
+  "access": {
+    "walker": "OnFootController",
+    "arrival": {
+      "x": 6,
+      "z": -6,
+      "y": 3.4,
+      "heading": -3.7524578917878086
+    },
+    "arrivalDry": true,
+    "nearestPlaquePath": {
+      "points": [
+        [
+          6,
+          -6
+        ],
+        [
+          -42.75,
+          65.25
+        ],
+        [
+          -47.25,
+          68.25
+        ],
+        [
+          -47.25,
+          69.75
+        ],
+        [
+          9.75,
+          69.75
+        ],
+        [
+          18.705342302750967,
+          65.02917960675006
+        ]
+      ],
+      "length": 160.36326317725,
+      "target": "Pier 57"
+    },
+    "nativeWalk": {
+      "walker": "OnFootController",
+      "passed": false,
+      "steps": 962,
+      "walked": 78.3731246948697,
+      "target": "Pier 57",
+      "plannedLength": 160.36326317725,
+      "position": {
+        "x": -38.10427769360571,
+        "z": 58.68435784464927,
+        "y": 3.4,
+        "heading": 2.525812550009504
+      },
+      "error": "Native walker blocked on planned public path"
+    }
+  },
+  "rawAudit": {
+    "zfight": 45,
+    "pedBelow": 6,
+    "pedSunk": 6
+  },
+  "review": "Inspected all four GAME context views. The bay and Wheel are visible; the public approach and crowd/deck alignment remain open."
+}

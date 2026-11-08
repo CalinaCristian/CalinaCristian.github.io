@@ -1,0 +1,341 @@
+{
+  "schemaVersion": 1,
+  "id": "palace-parliament",
+  "city": "bucharest",
+  "name": "Palace of the Parliament & Piața Constituției",
+  "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+  "updatedAt": "2026-11-08T19:35:06.489Z",
+  "status": "needs_review",
+  "sources": [
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Palace_of_the_Parliament"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://ro.wikipedia.org/wiki/Palatul_Parlamentului"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/relation/2230391"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/219710325"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://zilesinopti.ro/evenimente/targul-de-craciun-bucuresti-2025/"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://adevarul.ro/stiri-interne/societate/motivul-pentru-care-o-turista-a-cazut-in-genunchi-2463901.html"
+    },
+    {
+      "label": "Ceasul \"București 1459\"",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/6049432585"
+    },
+    {
+      "label": "Bulevardul Unirii fountains (head of the axis)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/10936684801"
+    },
+    {
+      "label": "Bulevardul Unirii fountains (head of the axis)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/10936684660"
+    },
+    {
+      "label": "Curved 9-storey government blocks on Bd. Libertății",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/41474365"
+    },
+    {
+      "label": "Curved 9-storey government blocks on Bd. Libertății",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/207162869"
+    }
+  ],
+  "improvements": [
+    "The canonical source-based Palace model is retained with its real source geometry and neighbouring buildings.",
+    "Unsupported balcony/interior teleportation was replaced by three public facade camera tasks with actual aiming, shutter input and visible progress.",
+    "Source partial overlaps, thin strips and courtyard holes survive through shared exact geometry and roof profiles."
+  ],
+  "remainingGaps": [
+    "The Palace pacing handler still needs continuous actual walking verification and relocation/cancellation guards.",
+    "The activity-approach capture is the pace start and faces a tree; its placement and sight line need review.",
+    "Public fence/gate access, square markings and adjacent street paths need complete matched current comparison; six pedestrian-height findings remain.",
+    "Raw audit findings remain for physical review: badGeometry 4, zfight 55, pedBelow 6."
+  ],
+  "checks": [
+    {
+      "label": "Native scene load",
+      "passed": true,
+      "details": "buc-parliament; actual native controller; 0 thrown JavaScript errors."
+    },
+    {
+      "label": "Source solid membership",
+      "passed": true,
+      "details": "800 active source records, 809 physical volumes, 15 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+    },
+    {
+      "label": "Validated scene geometry cache",
+      "passed": true,
+      "details": "Exact source/profile/terrain signature matched."
+    },
+    {
+      "label": "Native public-path walk",
+      "passed": true,
+      "details": "114.1 m walked toward What was lost; planned endpoint reached using native movement and collision."
+    },
+    {
+      "label": "High scene budgets",
+      "passed": true,
+      "details": "475537 unique geometry triangles; max 1046697 rendered triangles / 258 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+    },
+    {
+      "label": "Raw physical audit",
+      "passed": false,
+      "details": "badGeometry: 4; zfight: 55; pedBelow: 6"
+    },
+    {
+      "label": "Full matched scene comparison",
+      "passed": false,
+      "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+    },
+    {
+      "label": "Participatory activity controls",
+      "passed": true,
+      "details": "Three facade targets pass with native desktop mouse and actual CDP touch aiming; no idle award, cancellation and 44px shutter controls were checked. Interior/balcony access remains unavailable."
+    }
+  ],
+  "captures": [
+    {
+      "kind": "arrival",
+      "label": "Palace of the Parliament & Piața Constituției — arrival",
+      "image": "assets/spots/palace-parliament/arrival.webp",
+      "sha256": "9c1780ffbcdd3edec364437fe56960b875fbb0cd5886fc0570337a6a83c28293",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:28:56.315Z",
+      "pose": {
+        "position": [
+          157.7,
+          1.3312,
+          8.8
+        ],
+        "bearing": 268,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 44.42735,
+          "lon": 26.0905,
+          "elev": 70.8
+        },
+        "projection": {
+          "mLat": 111120.59,
+          "mLon": 79628.31
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "public-walk",
+      "label": "Palace of the Parliament & Piața Constituției — public walk",
+      "image": "assets/spots/palace-parliament/public-walk.webp",
+      "sha256": "553dd2fcf60e433b2b07d670697b59ee03de064488f1a521f259fa9d81d0104e",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:28:59.987Z",
+      "pose": {
+        "position": [
+          43.578138974392054,
+          1.7874438543262925,
+          6.347148236622875
+        ],
+        "bearing": 297.05879425407767,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 44.42735,
+          "lon": 26.0905,
+          "elev": 70.8
+        },
+        "projection": {
+          "mLat": 111120.59,
+          "mLon": 79628.31
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "postcard",
+      "label": "Palace of the Parliament & Piața Constituției — postcard",
+      "image": "assets/spots/palace-parliament/postcard.webp",
+      "sha256": "fb79ce4b0eb81237a4c7fedba88a5072edb22e971d62240f6538369366dc08fa",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:29:02.063Z",
+      "pose": {
+        "position": [
+          31,
+          1.8379999999999999,
+          -10.5
+        ],
+        "bearing": 270,
+        "pitch": 14.000000000000002,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 44.42735,
+          "lon": 26.0905,
+          "elev": 70.8
+        },
+        "projection": {
+          "mLat": 111120.59,
+          "mLon": 79628.31
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "activity-approach",
+      "label": "Palace of the Parliament & Piața Constituției — activity approach",
+      "image": "assets/spots/palace-parliament/activity-approach.webp",
+      "sha256": "e0fb578c8d5b51c1f2bd84cf013bf660590fbb5731fd0aa1d3c992a687d798b8",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:29:04.223Z",
+      "pose": {
+        "position": [
+          30,
+          1.8419999999999999,
+          -146
+        ],
+        "bearing": 0,
+        "pitch": -7.000000000000003,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 44.42735,
+          "lon": 26.0905,
+          "elev": 70.8
+        },
+        "projection": {
+          "mLat": 111120.59,
+          "mLon": 79628.31
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    }
+  ],
+  "perf": {
+    "sceneTriangles": 681600,
+    "uniqueGeometryTriangles": 475537,
+    "geometryObjects": 121,
+    "maxRenderedTriangles": 1046697,
+    "maxDrawCalls": 258
+  },
+  "sceneId": "buc-parliament",
+  "sourceGeometry": {
+    "membershipSHA256": "a979d7a34930de88ff35af4556077c541ee827b11dcd5f8dcd51c52b11235fc0",
+    "activeSourceRecords": 800,
+    "renderedVolumes": 809,
+    "literalHeights": 112,
+    "levelHeightEstimates": 111,
+    "typeHeightEstimates": 577,
+    "heroReplacements": [
+      "w232332568",
+      "w1282739666",
+      "w1282739667",
+      "w1282747245",
+      "w1282747246",
+      "w1282747247",
+      "w1282747248",
+      "w1282747249",
+      "w1282747250",
+      "w1282747251",
+      "w1282747252",
+      "w1282747253",
+      "w1282747254",
+      "w1283287480",
+      "w1283287481",
+      "w1283287482",
+      "w1283287483",
+      "w1283287484",
+      "w1283287485",
+      "w1283287486",
+      "w1283287487",
+      "w1283287488",
+      "w1283287489",
+      "w232360843",
+      "w283976783",
+      "r2230391",
+      "w41474365",
+      "w207162869"
+    ],
+    "missingMembers": []
+  },
+  "access": {
+    "walker": "OnFootController",
+    "arrival": {
+      "x": 157.7,
+      "z": 8.8,
+      "y": -0.3187999999999999,
+      "heading": -4.6774823953448035
+    },
+    "arrivalDry": true,
+    "nearestPlaquePath": {
+      "points": [
+        [
+          157.7,
+          8.8
+        ],
+        [
+          43.65,
+          6.75
+        ],
+        [
+          42.9,
+          6
+        ]
+      ],
+      "length": 115.12908262076432,
+      "target": "What was lost"
+    },
+    "nativeWalk": {
+      "walker": "OnFootController",
+      "passed": true,
+      "steps": 1346,
+      "walked": 114.10151561252115,
+      "target": "What was lost",
+      "plannedLength": 115.12908262076432,
+      "position": {
+        "x": 43.57880201407509,
+        "z": 6.347484354981082,
+        "y": 0.13768479194369965,
+        "heading": 1.0985312754415182
+      },
+      "error": null
+    }
+  },
+  "rawAudit": {
+    "badGeometry": 4,
+    "zfight": 55,
+    "pedBelow": 6
+  },
+  "review": "Inspected all four GAME context views and actual desktop/touch facade exercise captures. Source-based model QA does not establish square/entry parity."
+}

@@ -67,7 +67,7 @@ function start(game) {
     installCoarseFilter(game);
     const prev = { state: game.state, city: null, visited: 0, read: 0, mapOpen: false, fast: 0, fines: 0, fuelL: 0, achv: 0, headlights: game.headlights, quality: null };
     const perf = { fps: [], calls: [], tierChanges: 0, lastTier: null };
-    let gpu = null, cityLoadStart = null, stuckFor = 0, stuckReports = 0, finaleSent = false, started = false;
+    let gpu = null, stuckFor = 0, stuckReports = 0, finaleSent = false, started = false;
 
     track('game_menu_view', { dpr: window.devicePixelRatio, mobile: !!game.touch });
 
@@ -88,6 +88,11 @@ function start(game) {
             return r;
         };
     };
+    // world loads: time loadCity itself (the city / district build), not the menu, the Explore map, a chapter card or the
+    // flight cutscene around it; world_loaded is sent on the next tick in drive / foot, so it still follows game_start
+    let loadT = 0, loadMs = null, loads = 0;
+    wrap('loadCity', () => { loadT = performance.now(); });
+    wrapAfter('loadCity', () => { if (loadT) loadMs = Math.round(performance.now() - loadT); loadT = 0; });
     // chapters (spec 10)
     const chap = { id: null, t: 0, done: false, replay: false };
     wrapAfter('enterChapter', (ok, idx) => {
@@ -139,19 +144,22 @@ function start(game) {
 
         // start + world loads
         if (!started && st !== 'menu') {
-            started = true; cityLoadStart = performance.now();
+            started = true;
             const q = (id) => document.getElementById(id)?.value;
             track('game_start', { quality: q('quality') || game.quality, time_of_day: q('timeofday') || 'real', weather: q('weather') || 'real', entry: st === 'spot' || st === 'loading' ? 'spot' : 'story' });
         }
-        if (st === 'drive' && city && city !== prev.city) {
+        if ((st === 'drive' || st === 'foot') && city && loadMs != null) {
             if (!gpu && game.renderer) gpu = gpuInfo(game.renderer);
-            track('world_loaded', { city, district: game.district || null, load_ms: cityLoadStart ? Math.round(performance.now() - cityLoadStart) : null, ...(gpu || {}) });
+            track('world_loaded', { city, district: game.district || null, load_ms: loadMs, first: loads++ === 0, ...(gpu || {}) });
+            loadMs = null;
+        }
+        if (st === 'drive' && city && city !== prev.city) {
             if (city === 'seattle') track('seattle_arrived', { minutes: minutes() });
             const w = game.r3d?.weather;
             if (w) track('weather_source', { city, source: w.source, label: w.label, season: w.season });
-            prev.city = city; cityLoadStart = null;
+            prev.city = city;
         }
-        if (prev.state !== 'flight' && st === 'flight') { track('flight_taken', { from: city, minutes: minutes() }); cityLoadStart = performance.now(); }
+        if (prev.state !== 'flight' && st === 'flight') track('flight_taken', { from: city, minutes: minutes() });
 
         // story progress
         const visited = game.visited ? [...game.visited] : [];

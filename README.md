@@ -46,6 +46,8 @@ that chapter of the CV.
   up/down keys or touch pads. Flight starts level and stays within the playable boundary plus a 150 m margin, including
   the whole Dinamo stadium. Swept movement preserves thin roof/wall collisions; return-home follows the same boundary.
   The pilot marker uses the same seasonal character system as pedestrians.
+  At Rosetti’s existing basketball court, pick up the ball, aim along its predicted dotted arc and throw. A real basket
+  unlocks a secret achievement; desktop and mobile actions are supported. Pause, map, camera, drone or leaving cancels the aim.
 - **Tourist spots (bonus).** 24 walk-only destinations across 19 scenes (each is listed in the menu once it passes a side-by-side
   review against the real place) — Bucharest's top 10 (Palace of the Parliament, People's
   Salvation Cathedral, Old Town & Cărturești Carusel, Stavropoleos & CEC, the Athenaeum, Arcul de Triumf, Herăstrău,
@@ -67,7 +69,7 @@ that chapter of the CV.
   kept in the in-game gallery, and you save (or share) only the ones you want, from the print or the gallery. Leave the
   car somewhere illegal and passers-by react — then the ticket, the clamp or the tow truck.
 - **Saves.** Progress, position and photos persist in IndexedDB; **Continue** resumes exactly where you left off.
-- **Achievements and completion %.** 115 catalogue entries (114 initially active; the cycling activity becomes active after bike use), covering story, explorer, driver, local colour, landmarks and activities,
+- **Achievements and completion %.** 116 catalogue entries (115 initially active; the cycling activity becomes active after bike use), covering story, explorer, driver, local colour, landmarks and activities,
   photographer, on foot and a few secrets) and one weighted completion score shown in the menu, map and pause screens.
 - **A living city.** Country-specific traffic (taxis, delivery vans, police; STB trams, trolleybuses and buses; King
   County Metro buses) driven by real lanes, one-ways, signals and speed limits, with traffic density by hour, rush-hour

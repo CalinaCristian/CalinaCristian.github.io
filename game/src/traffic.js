@@ -7,6 +7,7 @@ import { makeCrowd, dressFor } from './crowd.js';
 import { lanesDir, canTravel, edgeSpeed, isMotorway, turnAngle, nodeList, EdgeIndex } from './nav.js';
 import { assignSignalPhases, signalState } from './signals.js';
 import { collideBuildings } from './world.js';
+import { SharedLaneGate } from './shared-lanes.js';
 
 // ============================================================================
 //  TRAFFIC — vehicles + pedestrians on the road graph.
@@ -44,7 +45,7 @@ export function medianOf(e) {
     return e.tram ? 4.4 : (e.type === 'highway' ? 1.2 : 0);
 }
 /** lateral offset (to the right of travel) of lane `lane` (0 = innermost) */
-export function laneOffset(edge, lane, dir = 1) { return medianOf(edge) / 2 + (edge.laneW ?? 3.3) * (lane + 0.5); }
+export function laneOffset(edge, lane, dir = 1) { return edge.sharedLane ? 0 : medianOf(edge) / 2 + (edge.laneW ?? 3.3) * (lane + 0.5); }
 const tramOffset = (e) => Math.max(1.45, medianOf(e) / 4); // two 2.4 m trams side by side never touch
 const layerOf = (e) => (e.bridge ? 1 : 0) + (e.tunnel ? -1 : 0) + (e.layer | 0);
 const isJunction = (n) => n.edges.length >= 3 || n.hasLight;
@@ -189,6 +190,7 @@ export class Traffic {
         this.boxes = new Map(); // junction box reservations: node → [{v, path, inE, outE, lane, t}]
         this.stats = { updateMs: 0 };
         this._idSeq = 0;
+        this.sharedLanes = new SharedLaneGate(world.graph.edges);
         this.setupTransit();
         this.buildBusStops();
         this.spawnAll();
@@ -483,6 +485,7 @@ export class Traffic {
         for (let i = plan.length - 1; i > 0; i--) { const j = Math.floor(this.rng() * (i + 1)); [plan[i], plan[j]] = [plan[j], plan[i]]; }
         const occupied = new Map();
         const free = (e, dir, lane, s, len) => {
+            if (!this.sharedLanes.canPlace(e, dir, this.vehicles)) return false;
             const k = e.id + ':' + dir + ':' + lane; const arr = occupied.get(k) || [];
             for (const o of arr) if (Math.abs(o - s) < len + 3) return false;
             arr.push(s); occupied.set(k, arr); return true;
@@ -603,6 +606,7 @@ export class Traffic {
     }
     /** a freshly placed vehicle must not be on top of / just in front of the player, nor overlap another vehicle */
     spawnClear(v) {
+        if (!this.sharedLanes.canPlace(v.edge, v.dir, this._bulk || this.vehicles, v)) return false;
         const P = this.player;
         if (P) {
             const dx = v.x - P.x, dz = v.z - P.z, d = Math.hypot(dx, dz);
@@ -915,6 +919,7 @@ export class Traffic {
         (v._sh || (v._sh = [])).push(nx);
         if (v.hist) { v.hist.push({ e, dir: odir }); if (v.hist.length > 6) v.hist.shift(); }
         const oldLat = v.tram ? tramOffset(e) : laneOffset(e, v.laneCur) + v.latExtraCur + (v.latBlend || 0) * Math.max(0, 1 - v.s / 12);
+        this.sharedLanes.advance(v, e, odir, nx.e, nx.dir, odir > 0 ? e.b : e.a);
         v.s -= e.len;
         if (v.s < 0) v.s = 0;
         v.edge = nx.e; v.dir = nx.dir; v.layer = layerOf(nx.e);
@@ -930,7 +935,7 @@ export class Traffic {
             // lateral offset over and blend it into the new lane over the first 12 m instead of jumping sideways
             const dot = (e.nx * odir) * (nx.e.nx * nx.dir) + (e.nz * odir) * (nx.e.nz * nx.dir);
             const newLat = v.tram ? tramOffset(nx.e) : laneOffset(nx.e, v.laneCur) + v.latExtraCur;
-            v.latBlend = dot > 0.7 && !v.long ? clamp(oldLat * dot - newLat, -4, 4) : 0; // (long bodies: the path chord blends)
+            v.latBlend = dot > 0.7 && !v.long && !e.sharedLane && !nx.e.sharedLane ? clamp(oldLat * dot - newLat, -4, 4) : 0; // shared mouths use the continuous junction chord
         }
     }
     /** move a vehicle somewhere else in the city, out of sight of the player */
@@ -977,6 +982,7 @@ export class Traffic {
         if (dt <= 0) return;
         this._dt = dt;
         const all = this.vehicles;
+        this.sharedLanes.update(all, this.player, this.time);
         this.syncSignalOccupancy();
         this.grid.build(all);
         this.peds.buildGrid();
@@ -1127,6 +1133,13 @@ export class Traffic {
             const node = curDir > 0 ? curE.b : curE.a;
             const nxt = v.route[k + 1];
             const rad = node.radius ?? 6;
+            if (nxt?.e.sharedLane && this.sharedLanes.entry(curE, curDir)?.group !== this.sharedLanes.entry(nxt.e, nxt.dir)?.group) {
+                const entryDistance = D - rad - 1.6;
+                if (entryDistance < Math.max(12, v.speed * v.speed / 9 + 3) && entryDistance > -.5 && !this.sharedLanes.canEnter(v, nxt.e, nxt.dir)) {
+                    if (entryDistance < stopD) { stopD = entryDistance; stopWhy = 'shared-lane'; }
+                    break;
+                }
+            }
             if (node.hasLight && !v.isPolice) {
                 const controller = node.lightCluster || node;
                 const committed = this.boxes.get(controller)?.some(r => r.v === v && this.inBox(r, controller) && r.entered);
@@ -1225,7 +1238,8 @@ export class Traffic {
 
         // ---------------- stuck / honking ----------------
         // waiting in a red-light queue is not "stuck"
-        const redQ = waitingRed || (leader && typeof leader === 'object' && leader !== P && (leader.waitRed || leader.redQ) && gap < 12);
+        const sharedWait = stopWhy === 'shared-lane';
+        const redQ = waitingRed || sharedWait || (leader && typeof leader === 'object' && leader !== P && (leader.waitRed || leader.redQ) && gap < 12);
         v.waitRed = waitingRed; v.redQ = !!redQ;
         if (v.speed < 0.3 && desired > 1 && v.dwell === 0) {
             v.stuck += dt;
@@ -1238,7 +1252,7 @@ export class Traffic {
             // face to face / T-boned with a stopped player at a merge for 8 s: both wait for each other — move the NPC
             // back along its lane (nudge) so the player's way is free
             if (leader === P && P && (P.stillT || 0) > 8 && v.stuck > 8) { v.stuck = 0; this.nudge(v); return; }
-            if (!waitingRed && leader !== P && leader !== 'ped') {
+            if (!waitingRed && !sharedWait && leader !== P && leader !== 'ped') {
                 const dP = P ? Math.hypot(P.x - v.x, P.z - v.z) : 1e9;
                 if (v.stuck > 12 && dP > 150) { this.respawn(v); return; }
                 if (v.stuck > 14 && leader && leaderCross) { v.ghost = 2.5; v.stuck = 8; }
@@ -1515,6 +1529,7 @@ export class Traffic {
     /** squeeze past a double-parked car or a stopped player (left if possible, else right), checking oncoming traffic */
     tryBypass(v, o, isP) {
         const e = v.edge, P = this.player;
+        if (e.sharedLane) return false;
         const rx = v.rx, rz = v.rz;
         const curOff = laneOffset(e, v.laneCur) + v.latExtraCur;
         const halfW = e.halfW ?? (laneOffset(e, lanesDir(e, v.dir) - 1) + (e.laneW ?? 3.3) / 2);

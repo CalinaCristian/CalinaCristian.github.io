@@ -94,6 +94,19 @@ const mime={'.html':'text/html','.js':'text/javascript','.json':'application/jso
         const ring=data.buildingFootprints[i],x=ring.reduce((s,q)=>s+q[0],0)/ring.length,z=ring.reduce((s,q)=>s+q[1],0)/ring.length,h=data.buildingDimensions?.[i]?.[0]??data.buildings[i][1]/10;
         views.push({id:id+'-facade',label:id+' source facade and roof',kind:'source-building',sourceId:id,x:x+40,z:z+55,y:Math.max(12,h*.6),target:[x,h*.4,z],fov:70});
       }
+      const actualSignals=g.world.lights.filter(l=>g.world.district.inside(l.node.x,l.node.z)&&l.approaches.some(a=>!a.noPole&&a.y<2)).sort((a,b)=>Number(b.node.signal)-Number(a.node.signal)||b.approaches.length-a.approaches.length).slice(0,3);
+      for(const [i,light]of actualSignals.entries()){
+        const a=light.approaches.find(a=>!a.noPole&&a.y<2),e=a.edge;
+        views.push({id:'signal-'+(i+1),label:'Actual runtime traffic signal and sidewalk activity',kind:'signals-pedestrians',sourceNodeId:light.node.sourceId,sourceSignalMapped:!!light.node.signal,sourceRoadId:data.roadSourceGeometry?.[e.road]?.sourceId,x:a.x+e.dirx*10,z:a.z+e.dirz*10,y:1.7,target:[a.x,a.y+3,a.z],fov:80});
+      }
+      const lots=new Map();
+      for(const c of g.world.buildings)if(c.kind==='parked'&&c.parkingSourceId&&g.world.district.inside(c.x,c.z)){
+        const list=lots.get(c.parkingSourceId)||[];list.push(c);lots.set(c.parkingSourceId,list);
+      }
+      for(const [i,[sourceId,cars]]of [...lots].sort((a,b)=>b[1].length-a[1].length).slice(0,3).entries()){
+        const x=cars.reduce((s,c)=>s+c.x,0)/cars.length,z=cars.reduce((s,c)=>s+c.z,0)/cars.length,r=Math.max(18,...cars.map(c=>Math.hypot(c.x-x,c.z-z)));
+        views.push({id:'parking-'+(i+1),label:'Actual source parking area and complete parked car placement',kind:'parking',parkingSourceId:sourceId,parkedCars:cars.length,x:x+r*.8,z:z+r,y:Math.min(80,r*.8+12),target:[x,0,z],fov:80});
+      }
       const segments=g.world.district.flightBoundary.segments;
       for(const [tag,axis,sign] of [['west',0,-1],['east',0,1],['north',1,-1],['south',1,1]]){
         const points=segments.flatMap(s=>[[s.ax,s.az],[s.bx,s.bz]]),extreme=points.reduce((a,b)=>sign*b[axis]>sign*a[axis]?b:a)[axis];
@@ -117,7 +130,8 @@ const mime={'.html':'text/html','.js':'text/javascript','.json':'application/jso
         vqa.hideHud(true);for(const el of document.body.children)if(el!==g.renderer.domElement&&!el.contains(g.renderer.domElement))el.style.visibility='hidden';
         S.renderNow=true;try{g.drawFrame({mirror:false});g.renderer.info.reset();g.drawFrame({mirror:false});}finally{S.renderNow=false;}
         const p=window.contextProjection;
-        return {cameraY:cam.position.y,groundY:ground,perf:{...g.r3d.stats},inPlayable:g.world.district.inside(v.x,v.z),inFlightEnvelope:window.contextFlightBoundary.allowed({x:v.x,z:v.z}),distanceFromFlightDomainM:window.contextFlightBoundary.sample(v.x,v.z).distance,lat:p.lat0-v.z/p.mPerLat,lon:p.lon0+v.x/p.mPerLon};
+        const nearPeds=(g.traffic.peds?.list||[]).filter(p=>Math.hypot(p.x-v.x,p.z-v.z)<60).map(p=>({x:p.x,z:p.z,state:p.state,onRoad:p.onRoad,sourceRoadId:g.world.data.roadSourceGeometry?.[p.e?.road]?.sourceId??null}));
+        return {cameraY:cam.position.y,groundY:ground,perf:{...g.r3d.stats},inPlayable:g.world.district.inside(v.x,v.z),inFlightEnvelope:window.contextFlightBoundary.allowed({x:v.x,z:v.z}),distanceFromFlightDomainM:window.contextFlightBoundary.sample(v.x,v.z).distance,pedestriansWithin60m:nearPeds,vehiclesWithin60m:g.traffic.vehicles.filter(c=>Math.hypot(c.x-v.x,c.z-v.z)<60).length,lat:p.lat0-v.z/p.mPerLat,lon:p.lon0+v.x/p.mPerLon};
       },view);
       const image='images/'+view.id+'.jpg';await page.screenshot({path:path.join(out,image),type:'jpeg',quality:88,timeout:180000});
       results.push({...view,...observed,image,width:960,height:640,gameSourceCommit:commit,capturedAt:new Date().toISOString(),sha256:hash(fs.readFileSync(path.join(out,image)))});

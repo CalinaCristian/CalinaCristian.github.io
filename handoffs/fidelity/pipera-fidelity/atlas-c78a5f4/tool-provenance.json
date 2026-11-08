@@ -1,0 +1,31 @@
+{
+  "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+  "archivePaths": [
+    "game",
+    "public",
+    "package.json",
+    "tools"
+  ],
+  "runnerScope": "Immutable archived capture/planning/validation tools, plus external watchdog/compositor capture preload. The preload changes no served source, camera, geometry or render options.",
+  "archivedToolsSha256": {
+    "tools/aerial/capture-game-grid.cjs": "329f0d5e83d2581771f0f3d40975a0352cfa5c13b2d61189597f69026429cefd",
+    "tools/aerial/plan-game-grid.cjs": "94a7c9929559edd4deba8ba7a658e8919f0c07c49151df592f5be1be28b00aba",
+    "tools/aerial/game-grid-geometry.mjs": "ce3116ff5334d119292e474754d08f1962660408d3b4e4495c70c797636bee82",
+    "tools/aerial/validate-game-grid.py": "250ff65b15cd430bd3b7cbec6a35369043d69e0971b28abf5913a34db3b5b4a1"
+  },
+  "externalToolsSha256": {
+    "handoffs/fidelity/pipera-fidelity/atlas-capture-preload.cjs": "219f060a91bc160d845c04b6c8f8287f29c9730cd8b01f50756ddbf403a9455e",
+    "handoffs/fidelity/pipera-fidelity/pair-atlas-review.py": "a50b59390b437a0188d1eb42f927c8631a3e07b3e8c8cf57dde2de6af72b3dd2",
+    "handoffs/fidelity/pipera-fidelity/source-audit.py": "2086d2116af31449706739aee9bfd36bb85850a300d29ecd934077db40076c6e",
+    "handoffs/fidelity/pipera-fidelity/exact-footprint-audit.py": "9a3ae51f4c22be2a0e63b6cdd9b25bbe008195019c060bb8281760bc190452d1",
+    "handoffs/fidelity/pipera-fidelity/install-pipera-atlas.py": "883b36f303f1fb6d956ad612e3112c831c5c491dbe5a2119d7f3bb4b2ad92158",
+    "handoffs/fidelity/pipera-fidelity/locations.json": "7619a3288f80ad44f630dcc5fe2f6c50a072c9992d654c76f052ce99c36cbd82"
+  },
+  "sourceAuditCommands": [
+    "python3 -B handoffs/fidelity/pipera-fidelity/source-audit.py --root=<snapshot> --osm=/workspace/reality-pass/pipera/tiles --out=<output>/source-audit.json",
+    "python3 -B handoffs/fidelity/pipera-fidelity/exact-footprint-audit.py --data=<snapshot>/game/data/bucharest-pipera.json --source-audit=<output>/source-audit.json --out=<output>/exact-footprint-audit.json",
+    "node tools/osm/road-source-audit.mjs --data game/data/bucharest-pipera.json --osm /workspace/reality-pass/pipera/tiles",
+    "node tools/osm/building-geometry-check.mjs --data=game/data/bucharest-pipera.json --osm=/workspace/reality-pass/pipera/tiles --out=<output>/building-geometry-check.json"
+  ],
+  "supersededAttempt": "The earlier building-geometry invocation used space-form flags unsupported by that tool, so it checked its default Roman\u0103 dataset. Its raw output is retained under superseded/ and is not counted toward this Pipera acceptance."
+}

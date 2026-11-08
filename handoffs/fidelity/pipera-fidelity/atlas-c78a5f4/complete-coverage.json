@@ -1,0 +1,33 @@
+{
+  "complete": true,
+  "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+  "frames": 133,
+  "uniqueImageHashes": 133,
+  "sourceProjectedPlannedPoses": 133,
+  "maximumProjectionRoundTripDifferenceMetres": 3.5925040720030665e-10,
+  "poseToleranceMetres": 1e-07,
+  "matchedReferencesAtFullCoverage": 133,
+  "manualPairsReviewed": 133,
+  "identicalFinalPreviewSheets": 15,
+  "oldCapturesUnchanged": [
+    [
+      "d9a4e1978775862f548ef7f85b801ceff17db8c9",
+      20
+    ],
+    [
+      "080b18547fe16cdee7d0817df024d1a60eec6dbc",
+      11
+    ],
+    [
+      "36bd4a8e1c062946d1f1ebe4f19dc4422d65eebb",
+      133
+    ]
+  ],
+  "imageAndThumbnailHashesVerified": 266,
+  "captureErrors": [],
+  "scopes": {
+    "ring-touches": 91,
+    "core-touches": 38,
+    "outside-ring": 4
+  }
+}

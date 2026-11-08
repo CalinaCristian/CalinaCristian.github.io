@@ -199,7 +199,7 @@ function M(x = 0, y = 0, z = 0, ry = 0, sx = 1, sy = 1, sz = 1, rx = 0, rz = 0) 
 }
 
 class Builder {
-    constructor(hs = 1) { this.hs = hs; this.wall = null; this.bk = {}; this.cols = []; this.extras = []; this.fences = []; this.covers = []; this.grounds = []; this.stack = [new THREE.Matrix4()]; this.ox = 0; this.oz = 0; }
+    constructor(hs = 1) { this.hs = hs; this.wall = null; this.bk = {}; this.cols = []; this.extras = []; this.fences = []; this.covers = []; this.grounds = []; this.coverPolys = []; this.stack = [new THREE.Matrix4()]; this.ox = 0; this.oz = 0; }
     /** translate everything that follows by (dx, dz) model metres (lets a builder keep its source coordinates when its anchor moves) */
     shift(dx, dz) { this.ox = dx; this.oz = dz; return this; }
     _b(mat) { return this.bk[mat] || (this.bk[mat] = { p: [], n: [], c: [] }); }
@@ -2880,6 +2880,9 @@ function bDinamo(b) {
         let d = rayHit(ix, iz, dx, dz); if (!isFinite(d) || d > 45) d = 20; d = Math.max(4, d - 0.4);
         const sec = sector(q); prof.push({ ix, iz, dx, dz, d, sec, h: H[sec] });
     }
+    // (2026-11-08, owner: "stadium a bit broken") the sector heights jumped at every joint (steps and back wall broke into
+    // ledges): ramp them over ≈ ±19 m with a moving average round the bowl
+    { const h0s = prof.map(p => p.h), m = prof.length, Wn = 6; for (let k = 0; k < m; k++) { let sum = 0; for (let j = -Wn; j <= Wn; j++) sum += h0s[(k + j + m) % m]; prof[k].h = sum / (2 * Wn + 1); } }
     const n = prof.length, P = (pr, t, y) => [pr.ix + pr.dx * pr.d * t, y, pr.iz + pr.dz * pr.d * t];
     for (let k = 0; k < n; k++) {
         const a = prof[k], c = prof[(k + 1) % n], h0 = 1.1, ha = a.h, hc = c.h;
@@ -2941,6 +2944,7 @@ function bDinamo(b) {
         b.col(mx, mz, 1.4, 1.4);
     }
     b.colPoly([out], 24);
+    b.grounds.push(out); b.coverPolys.push(offset(out, -3)); // no trees in the bowl; OSM buildings inside the outline are the model's own
 }
 
 const A = {
@@ -3086,5 +3090,6 @@ export function buildLandmark(lm, ctx = {}) {
     const fences = lm.backdrop ? [] : b.fences.map(f => ({ ...f, ring: (f.ring || f.line).map(rot), inside: f.inside ? f.inside.map(rot) : null,
         gates: (f.gates || []).map(g => ({ ...g, x: g.x * hs * c + g.z * hs * s, z: -g.x * hs * s + g.z * hs * c })) }));
     const covers = lm.backdrop ? [] : b.covers.map(rot), grounds = lm.backdrop ? [] : b.grounds.map(g => g.map(rot)); // grounds: surfaces kept clear of trees
-    return { mesh: group, clear: hs === 1 ? lm.radiusM : lm.footprintRadius, clearM: lm.radiusM, collision, triangles: tris, authoredScale: hs, fences, covers, grounds };
+    const coverPolys = lm.backdrop ? [] : b.coverPolys.map(g => g.map(rot)); // polygons: every OSM building centred inside is the model's own
+    return { mesh: group, clear: hs === 1 ? lm.radiusM : lm.footprintRadius, clearM: lm.radiusM, collision, triangles: tris, authoredScale: hs, fences, covers, grounds, coverPolys };
 }

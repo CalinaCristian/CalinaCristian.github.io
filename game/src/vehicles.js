@@ -234,7 +234,10 @@ function buildCar(o) {
     plate(b, profileZ(o.low, (by + ty) / 2, 1) + 0.012, (by + ty) / 2 - (pS === 'us' ? 0.02 : 0), 1, pS);
     // sills, door seams, handles
     const z0 = o.wz[0] + o.wr * 1.15, z1 = o.wz[1] - o.wr * 1.15;
-    for (const s of [-1, 1]) b.add(BOX, M(s * (W / 2 + 0.004), o.wr * 0.78, (z0 + z1) / 2, 0.03, 0.1, z1 - z0), C.plastic, { r: 0.75 });
+    // (2026-11-08, owner: "some cars are broken") the sill sits on the body's lower edge: at 0.78 × wheel radius it hung
+    // below a high body (SUV: 0.42 m) as a loose bar across the wheels
+    const sillY = Math.max(o.wr * 0.78, Math.min(...o.low.map(q => q[1])) + 0.04);
+    for (const s of [-1, 1]) b.add(BOX, M(s * (W / 2 + 0.004), sillY, (z0 + z1) / 2, 0.03, 0.1, z1 - z0), C.plastic, { r: 0.75 });
     for (const z of o.seams || []) for (const s of [-1, 1]) b.add(BOX, M(s * (W / 2 + 0.003), (o.wr * 0.9 + belt) / 2, z, 0.008, belt - o.wr * 0.9, 0.008), C.seal, { r: 0.6 });
     if (o.handles) for (const z of o.handles) for (const s of [-1, 1]) b.add(BOX, M(s * (W / 2 + 0.012), belt - 0.07, z, 0.03, 0.03, 0.15), o.handleColor || '#ffffff', o.handleColor ? { r: 0.3, m: 0.6 } : PAINT);
     // side mirrors: body-coloured housing + dark arm + glass

@@ -436,6 +436,46 @@ export class SpotSession {
         this._talks = (this._talks || 0) + 1;
         try { window.dispatchEvent(new CustomEvent('dmcv:activity', { detail: { spot: this.spot.id, id: 'talk', n: this._talks } })); } catch { /* no host */ }
     }
+    /** walkable route from (ax, az) to (bx, bz) on a 1.5 m grid: cells clear of colliders and water, steps ≤ 0.65 m;
+     *  A* (8-neighbour), goal within 2.2 m — else (goal unreachable) the closest reachable point within 18 m; the result
+     *  is string-pulled to a few waypoints [[x, z], …]. null when nothing reachable. */
+    _navPath(ax, az, bx, bz) {
+        const C = 1.5, g = this.spot.ground, cols = this.spot.colliders, wy = g.waterY, M = 130;
+        const x0 = Math.min(ax, bx) - M, z0 = Math.min(az, bz) - M, nx = Math.ceil((Math.max(ax, bx) + M - x0) / C), nz = Math.ceil((Math.max(az, bz) + M - z0) / C);
+        if (nx * nz > 260000) return [[ax, az], [bx, bz]];
+        const cache = new Float32Array(nx * nz).fill(-1e9), cx = (i) => x0 + (i + 0.5) * C, cz = (j) => z0 + (j + 0.5) * C;
+        const at = (i, j) => { if (i < 0 || j < 0 || i >= nx || j >= nz) return NaN; const k = i * nz + j; let v = cache[k];
+            if (v === -1e9) { const x = cx(i), z = cz(j), h = g.heightAt(x, z), y = g.groundAt ? g.groundAt(x, z, h + 1.2) : h;
+                v = (!Number.isFinite(y) || (wy != null && y < wy + 0.03) || (cols && collide(cols, x, z, 0.32, y + 0.3))) ? NaN : y; cache[k] = v; } return v; };
+        const si = Math.floor((ax - x0) / C), sj = Math.floor((az - z0) / C);
+        const search = (R) => {
+            const gS = new Map(), prev = new Map(), H = []; let best = null, bestD = 1e9, n = 0; // binary min-heap of [f, k]
+            const push = (e) => { H.push(e); let i = H.length - 1; while (i) { const p2 = (i - 1) >> 1; if (H[p2][0] <= H[i][0]) break; [H[p2], H[i]] = [H[i], H[p2]]; i = p2; } };
+            const pop = () => { const top = H[0], last = H.pop(); if (H.length) { H[0] = last; let i = 0; for (;;) { const l = i * 2 + 1, r2 = l + 1; let m = i; if (l < H.length && H[l][0] < H[m][0]) m = l; if (r2 < H.length && H[r2][0] < H[m][0]) m = r2; if (m === i) break; [H[m], H[i]] = [H[i], H[m]]; i = m; } } return top; };
+            const done = new Set(); push([0, si * nz + sj]); gS.set(si * nz + sj, 0);
+            while (H.length && n++ < 150000) {
+                const [, k] = pop(); if (done.has(k)) continue; done.add(k);
+                const i = Math.floor(k / nz), j = k % nz, d = Math.hypot(cx(i) - bx, cz(j) - bz);
+                if (d < bestD) { bestD = d; best = k; } if (d < R) { best = k; break; }
+                const y0 = at(i, j), g0 = gS.get(k);
+                for (const [di, dj] of [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1], [-1, -1]]) {
+                    const ii = i + di, jj = j + dj, y1 = at(ii, jj); if (!Number.isFinite(y1)) continue;
+                    if (Number.isFinite(y0) && Math.abs(y1 - y0) > 0.65) continue;
+                    if (di && dj && (!Number.isFinite(at(i + di, j)) || !Number.isFinite(at(i, j + dj)))) continue; // no corner cutting
+                    const kk = ii * nz + jj, ng = g0 + (di && dj ? 1.414 : 1) * C;
+                    if (ng < (gS.get(kk) ?? 1e9)) { gS.set(kk, ng); prev.set(kk, k); push([ng + Math.hypot(cx(ii) - bx, cz(jj) - bz), kk]); }
+                }
+            }
+            return { best, bestD, prev };
+        };
+        const r = search(2.2); if (r.bestD > 45) return null; // (a stop in the lake / behind a fence: the nearest reachable point within 45 m)
+        const pts = []; for (let k = r.best; k != null; k = r.prev.get(k)) pts.push([cx(Math.floor(k / nz)), cz(k % nz)]);
+        pts.reverse(); pts[0] = [ax, az]; if (r.bestD < 2.2) pts.push([bx, bz]);
+        // string-pull: keep a waypoint only where the straight line to the next kept one is blocked
+        const clear = (p, q) => { const L = Math.hypot(q[0] - p[0], q[1] - p[1]), n2 = Math.ceil(L / 0.75); for (let t = 1; t < n2; t++) { const x = p[0] + (q[0] - p[0]) * t / n2, z = p[1] + (q[1] - p[1]) * t / n2; if (!Number.isFinite(at(Math.floor((x - x0) / C), Math.floor((z - z0) / C)))) return false; } return true; };
+        const out = [pts[0]]; let a = 0; while (a < pts.length - 1) { let b2 = pts.length - 1; while (b2 > a + 1 && !clear(pts[a], pts[b2])) b2--; out.push(pts[b2]); a = b2; }
+        return out;
+    }
     /** optional guided tour: the guide walks ahead with a flag to each stop (landmark → plaques → activities → postcard), narrates, ticks the checklist */
     startTour() {
         if (!this.guide || this.tour) return;
@@ -450,7 +490,13 @@ export class SpotSession {
         while (pool.length && stops.length < 5) { let bi = 0, bd = 1e9; pool.forEach((m, i) => { const r = Math.hypot(m.x - cx, m.z - cz), d = r + (m.kind === 'hero' && r < 150 ? -60 : 0); if (d < bd) { bd = d; bi = i; } });
             const m = pool[bi], leg = Math.hypot(m.x - cx, m.z - cz); if (stops.length && walked + leg > 350) break; pool.splice(bi, 1); walked += leg; stops.push(m); cx = m.x; cz = m.z; }
         if (post[0] && (Math.hypot(post[0].x - cx, post[0].z - cz) < 160 || !stops.length)) stops.push(post[0]); // finish at the postcard viewpoint (when it's on the way)
-        for (const m of stops) { m.done = false; const dry = this.spot.ground.nearestDry(m.x, m.z); m.tx = dry.x; m.tz = dry.z; } // the guide stops next to it
+        // (after round 6: "the tour path should account for blocking objects / tells me to go somewhere I have no access")
+        // every leg is a walkable route (grid search round fences, machinery, steps and water); a stop that can't be
+        // reached is visited from the nearest reachable point (e.g. at the fence in front of it), or dropped
+        { let px = this.guide.x, pz = this.guide.z; const kept = [];
+          for (const m of stops) { m.done = false; const dry = this.spot.ground.nearestDry(m.x, m.z); const path = this._navPath(px, pz, dry.x, dry.z);
+              if (!path) continue; const end = path[path.length - 1]; m.tx = end[0]; m.tz = end[1]; m.path = path; kept.push(m); px = m.tx; pz = m.tz; }
+          stops.length = 0; stops.push(...kept); }
         this.tour = { stops, i: 0, state: 'walk', wait: 0, said: false, t: 0 };
         this.guide.act = 'guide';
         this.guide.sayCd = 1e9; // the guide speaks only through the tour (one bubble at a time)
@@ -465,13 +511,16 @@ export class SpotSession {
     _routeLine() {
         if (this._route) { this.spot.scene.remove(this._route); this._route.geometry.dispose(); this._route = null; }
         const T = this.tour, st = T?.stops[T.i]; if (!st || T.state === 'done') { this.map?.setRoute(null); return; }
-        const a = this.guide, L = Math.hypot(st.tx - a.x, st.tz - a.z), n = Math.max(1, Math.floor(L / 1.6)), pos = [], g = this.spot.ground;
-        for (let i = 0; i < n; i += 1) { const u0 = i / n, u1 = Math.min(1, (i + 0.55) / n); for (const [u, sd] of [[u0, -0.12], [u0, 0.12], [u1, 0.12], [u1, -0.12]]) { const x = a.x + (st.tx - a.x) * u, z = a.z + (st.tz - a.z) * u, nx = -(st.tz - a.z) / (L || 1), nz = (st.tx - a.x) / (L || 1); pos.push(x + nx * sd, g.groundAt(x, z, g.heightAt(x, z) + 1) + 0.06, z + nz * sd); } }
+        const a = this.guide, g = this.spot.ground, pos = [];
+        // the remaining route of this leg (guide → waypoints → stop), dashed on the ground
+        const route = [[a.x, a.z], ...(st.path && st.path.length > 1 ? st.path.slice(st.wi ?? 1) : [[st.tx, st.tz]])];
+        for (let r = 1; r < route.length; r++) { const [px, pz] = route[r - 1], [qx, qz] = route[r], L = Math.hypot(qx - px, qz - pz), n = Math.max(1, Math.floor(L / 1.6)), nx = -(qz - pz) / (L || 1), nz = (qx - px) / (L || 1);
+            for (let i = 0; i < n; i += 1) { const u0 = i / n, u1 = Math.min(1, (i + 0.55) / n); for (const [u, sd] of [[u0, -0.12], [u0, 0.12], [u1, 0.12], [u1, -0.12]]) { const x = px + (qx - px) * u, z = pz + (qz - pz) * u; pos.push(x + nx * sd, g.groundAt(x, z, g.heightAt(x, z) + 1) + 0.06, z + nz * sd); } } }
         const idx = []; for (let q = 0; q < pos.length / 12; q++) { const b = q * 4; idx.push(b, b + 1, b + 2, b, b + 2, b + 3); }
         const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); geo.setIndex(idx);
         const m = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: '#fbbf24', transparent: true, opacity: 0.75, depthWrite: false, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }));
         m.name = 'tour-route'; m.userData.noAudit = true; m.renderOrder = 2; this.spot.scene.add(m); this._route = m;
-        this.map?.setRoute([[a.x, a.z], [st.tx, st.tz]]);
+        this.map?.setRoute(route);
     }
     _updateTour(dt, p) {
         const T = this.tour, G = this.guide; if (!T || !G || T.state === 'done') return;
@@ -495,7 +544,11 @@ export class SpotSession {
                 // keeps the player's pace: a stroll when the player is close behind, a jog when the player is ahead
                 const pv = Math.abs(p.vel ?? p.speed ?? 0), ahead = pS < dS;
                 const v = ahead ? Math.min(4.5, Math.max(2.6, pv + 0.6)) : Math.min(3.0, Math.max(1.7, Math.min(pv + 0.5, 1.4 + Math.max(0, 9 - dP) * 0.2))); // (brisker: a tour is a few minutes, not ten)
-                let dx = (st.tx - G.x) / dS, dz = (st.tz - G.z) / dS;
+                // follow the leg's route: head for the next waypoint (advanced when within 1.2 m)
+                const wp = st.path && st.path.length > 1 ? st.path : null; st.wi ??= 1;
+                if (wp) while (st.wi < wp.length - 1 && Math.hypot(wp[st.wi][0] - G.x, wp[st.wi][1] - G.z) < 1.2) st.wi++;
+                const tgx = wp ? wp[st.wi][0] : st.tx, tgz = wp ? wp[st.wi][1] : st.tz, dT = Math.hypot(tgx - G.x, tgz - G.z) || 1;
+                let dx = (tgx - G.x) / dT, dz = (tgz - G.z) / dT;
                 const cols = this.spot.colliders; let nx = G.x + dx * v * dt, nz = G.z + dz * v * dt;
                 for (const turn of [0, 0.7, -0.7, 1.4, -1.4]) { const c = Math.cos(turn), s2 = Math.sin(turn), ex = dx * c - dz * s2, ez = dx * s2 + dz * c; nx = G.x + ex * v * dt; nz = G.z + ez * v * dt; if (!collide(cols, nx, nz, 0.3, G.y + 0.3)) { dx = ex; dz = ez; break; } }
                 G.x = nx; G.z = nz; G.y = this.spot.ground.groundAt(nx, nz, G.y + 0.45); G.speed = v; G.phase += dt * v * 4.6; G.yaw = Math.atan2(dx, dz); G.tyaw = G.yaw;

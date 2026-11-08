@@ -1,0 +1,63 @@
+{
+  "finding": "Same close elevated source0775 pose reproduces summer paint depth failure: circle and box lines break into stippled fragments and halfway line is absent. Capture integrity succeeds; visibility does not.",
+  "captureIntegrityAccepted": true,
+  "fidelityAccepted": false,
+  "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+  "capturedAt": "2026-11-08T23:31:37.275Z",
+  "image": "failed-dinamo-summer-0775.jpg",
+  "sha256": "144b3d7b5c8798947a2c5dc591b89e345bf65a913ce03277512c2af2f7d640fb",
+  "pose": {
+    "x": -171.58518023710013,
+    "y": 70.12,
+    "z": 1046.9719590371544,
+    "heading": 81.32960905696643,
+    "pitch": -49.333909477034375,
+    "fov": 80,
+    "aspect": 1.5,
+    "quaternion": [
+      -0.3165691910413425,
+      -0.5921704722001023,
+      -0.271954309665235,
+      0.6893177297823141
+    ]
+  },
+  "observedConditions": {
+    "gameClockOverride": "day",
+    "rendererClockOverride": "day",
+    "seasonOverride": "summer",
+    "weatherOverride": "clear",
+    "weather": {
+      "source": "override",
+      "code": 0,
+      "kind": "clear",
+      "label": "Clear sky",
+      "icon": "\u2600\ufe0f",
+      "tempC": 22,
+      "precipMm": 0,
+      "snowCm": 0,
+      "snowfallCm": 0,
+      "windKmh": 8,
+      "windDir": 270,
+      "visibilityM": 19500,
+      "cloud": 0.1,
+      "season": "summer",
+      "updatedAt": 1794180600813,
+      "climate": null
+    },
+    "season": {
+      "season": "summer",
+      "blossom": 0,
+      "autumn": 0,
+      "bare": 0,
+      "brown": 0,
+      "fresh": 0,
+      "doy": 195
+    },
+    "sunElevation": 48
+  },
+  "staticCamera": true,
+  "controllerExercised": false,
+  "rawCapturePath": "/workspace/reality-pass/original-districts-refresh/final-0775fda/context-floreasca-summer-clear-day-retry1",
+  "rawCaptureManifestSha256": "0bd4dc277693951fb03f0295d091f1a113bd5799e11c7371cca64827404dee8a",
+  "rawFullCollectionFrames": 25
+}

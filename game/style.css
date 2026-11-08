@@ -881,7 +881,7 @@ body.touch #world-map .wm-zoom button { min-width: 44px; }
 body.touch #world-map .wm-card { bottom: 36px; }
 body.touch #world-map .wm-ctx button { margin-top: 6px; }
 @media (max-width: 600px) {
-    body.touch #hud > .bottom-left { left: 12px; bottom: 210px; }
+    body.touch #hud > .bottom-left { left: 12px; bottom: 340px; }
     body.touch #world-map .wm-card { align-items: flex-end; }
     body.touch #world-map .wm-card > .wm-go { padding: 8px; max-width: 108px; }
     body.touch #world-map .wm-ctx p { -webkit-line-clamp: 3; }
@@ -907,3 +907,11 @@ body.touch .pad.right { bottom: max(14px, env(safe-area-inset-bottom)); }
 body.touch .tpedals { bottom: max(12px, env(safe-area-inset-bottom)); }
 
 body.touch #world-map .wm-tabs, body.touch #world-map .wm-rrow { touch-action: pan-x; -webkit-overflow-scrolling: touch; }
+
+/* Keep the expanded phone map and driving actions clear of the actual instrument planes. */
+@media (max-width: 600px) and (orientation: portrait) {
+    body.touch.on-foot #minimap { width: 110px; height: 110px; }
+}
+@media (max-height: 520px) and (orientation: landscape) {
+    body.touch:not(.on-foot):not(.in-spot):not(.tmode-foot) #hud:not(.in-office) .pad.right { left: 148px; right: auto; }
+}

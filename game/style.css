@@ -915,3 +915,21 @@ body.touch #world-map .wm-tabs, body.touch #world-map .wm-rrow { touch-action: p
 @media (max-height: 520px) and (orientation: landscape) {
     body.touch:not(.on-foot):not(.in-spot):not(.tmode-foot) #hud:not(.in-office) .pad.right { left: 148px; right: auto; }
 }
+
+/* Tourist interactions use the same controller action as E, with a visible context label on phones. */
+body.touch #spot-ui .sp-prompt { padding: 0; background: none; border-radius: 12px; white-space: normal; overflow: visible; }
+body.touch #spot-ui .sp-use { display: block; width: 100%; min-height: 44px; padding: 10px 14px; border-radius: 12px; border: 1px solid rgba(251,191,36,.65); background: rgba(15,23,42,.94); color: #fff; font: 600 14px/1.3 system-ui,sans-serif; cursor: pointer; pointer-events: auto; touch-action: manipulation; }
+body.touch #spot-ui :is(.sp-plaque button, .sp-btns button, .sp-tour button, .sp-legend button, li[data-i]) { min-height: 44px; }
+body.touch #spot-ui li[data-i] { display: flex; align-items: center; white-space: normal; }
+body.touch #spot-ui .sp-card { max-height: min(42vh, 360px); overflow-y: auto; pointer-events: auto; touch-action: pan-y; }
+body.ui-modal #spot-ui :is(.sp-prompt, .sp-mini, .sp-tour-controls) { visibility: hidden !important; pointer-events: none !important; }
+@media (max-width: 600px) and (orientation: portrait) {
+    body.touch #spot-ui .sp-mini { bottom: 78px; }
+    body.touch #spot-ui .sp-prompt { left: 12px; right: 136px; bottom: 100px; transform: none; max-width: none; }
+}
+@media (max-height: 520px) and (orientation: landscape) {
+    body.touch.in-spot #hud .pad.right { left: 148px; right: auto; }
+    body.touch #spot-ui .sp-prompt { max-width: calc(100vw - 360px); }
+}
+
+body.touch #spot-ui button.sp-mini { padding: 0; color: inherit; font: inherit; }

@@ -76,24 +76,27 @@ export class SpotUI {
     constructor(root = document.body) {
         if (!document.getElementById('spot-ui-css')) { const st = document.createElement('style'); st.id = 'spot-ui-css'; st.textContent = CSS; document.head.appendChild(st); }
         const el = this.el = document.createElement('div'); el.id = 'spot-ui';
-        el.innerHTML = `<div class="sp-bubbles"></div><div class="sp-card"><b></b><span></span><div class="sp-chal"></div><div class="sp-tour"></div></div><div class="sp-mini" title="Map (M)"><canvas width="168" height="168"></canvas><b>N ↑</b></div>
+        el.innerHTML = `<div class="sp-bubbles"></div><div class="sp-card"><b></b><span></span><div class="sp-chal"></div><div class="sp-tour"></div></div><button type="button" class="sp-mini" aria-label="Open tourist map" title="Map"><canvas width="168" height="168"></canvas><b>N ↑</b></button>
             <div class="sp-cross"></div><div class="sp-prompt"></div><div class="sp-toasts"></div><div class="sp-help"></div><div class="sp-panel"></div>`;
         root.appendChild(el);
         this.$ = (s) => el.querySelector(s);
         this.bubbles = new BubbleLayer(this.$('.sp-bubbles'));
         this._prompt = null;
+        if (document.body.classList.contains('touch')) this.$('.sp-mini b').textContent = 'Map';
     }
     setTitle(name, sub) { this.$('.sp-card b').textContent = name; this.$('.sp-card span').textContent = sub || ''; }
     setHelp(t) { this.$('.sp-help').textContent = t || ''; }
     setChallenge(text, done = false) { const c = this.$('.sp-chal'); c.textContent = text ? (done ? '✅ ' : '📷 ') + text : ''; c.classList.toggle('done', !!done); }
     prompt(html) {
         if (html === this._prompt) return; this._prompt = html;
-        const p = this.$('.sp-prompt'); if (html) p.innerHTML = html; p.classList.toggle('show', !!html);
+        const p = this.$('.sp-prompt'), touch = document.body.classList.contains('touch');
+        p.innerHTML = html ? (touch ? `<button class="sp-use" data-spot-use>${html.replace(/<kbd>E<\/kbd>/g, '')}</button>` : html) : '';
+        p.classList.toggle('show', !!html);
     }
     crosshair(on) { this.$('.sp-cross').classList.toggle('show', !!on); }
     toast(title, body = '') {
         const t = document.createElement('div'); t.className = 'sp-toast'; t.innerHTML = `<b></b><span></span>`;
-        t.querySelector('b').textContent = title; t.querySelector('span').textContent = body;
+        t.querySelector('b').textContent = title; t.querySelector('span').textContent = document.body.classList.contains('touch') ? body.replace(/Press E\b/gi, 'Tap Use') : body;
         this.$('.sp-toasts').appendChild(t); requestAnimationFrame(() => t.classList.add('show'));
         setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 400); }, 4200);
     }
@@ -102,7 +105,7 @@ export class SpotUI {
     showPlaque(pl, place = '') {
         const p = this.$('.sp-panel');
         const src = pl.source_url ? `<div class="sp-src">Source: <a href="${encodeURI(pl.source_url)}" target="_blank" rel="noopener">${esc(pl.source_url)}</a></div>` : '';
-        p.innerHTML = `<div class="sp-plaque"><div class="sp-place">${esc(place)}</div><h3>${esc(pl.title)}</h3><p>${esc(pl.text)}</p>${pl.credit ? `<div class="sp-credit">${esc(pl.credit)}</div>` : ''}${src}<button data-close>Close (E)</button></div>`;
+        p.innerHTML = `<div class="sp-plaque"><div class="sp-place">${esc(place)}</div><h3>${esc(pl.title)}</h3><p>${esc(pl.text)}</p>${pl.credit ? `<div class="sp-credit">${esc(pl.credit)}</div>` : ''}${src}<button data-close>Close${document.body.classList.contains('touch') ? '' : ' (E)'}</button></div>`;
         p.classList.add('show');
         return new Promise((res) => {
             // note 21: the closing key is consumed (its keyup too, so it neither re-opens the plaque nor opens the pause
@@ -137,7 +140,7 @@ export class SpotUI {
         p.innerHTML = `<div class="sp-map"><canvas></canvas><div class="sp-tip"></div><div class="sp-side"><h3>${esc(title)}</h3>
             <div class="sp-legend">${kinds.filter(([k]) => k !== 'you').map(([k, ic, nm]) => `<button data-kind="${k}" aria-pressed="${!map.hidden.has(k)}" title="Show / hide">${ic} ${nm}</button>`).join('')}</div>
             <ul>${items.map((it, i) => `<li data-i="${i}" class="${it.done ? 'done' : ''}">${it.done ? '✓' : it.icon} ${esc(it.label)}</li>`).join('')}</ul>
-            <div class="sp-btns">${tour ? `<button data-tour>${esc(tour.label)}</button>` : ''}<button data-close>Close (M)</button></div></div></div>`;
+            <div class="sp-btns">${tour ? `<button data-tour>${esc(tour.label)}</button>` : ''}<button data-close>Close${document.body.classList.contains('touch') ? '' : ' (M)'}</button></div></div></div>`;
         const box = p.querySelector('.sp-map'), cv = p.querySelector('canvas'), tip = p.querySelector('.sp-tip');
         p.classList.add('show');
         const fit = () => { const r = box.getBoundingClientRect(), sr = p.querySelector('.sp-side').getBoundingClientRect(), dpr = Math.min(2, devicePixelRatio || 1); cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr);

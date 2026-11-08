@@ -9,6 +9,7 @@ import * as THREE from '../../vendor/three.module.min.js';
 import { GeoBatch, mat, rng, hash2, fbm2, polyArea, inPoly, centroid, polyBox, obb, distPolyline, alongPolyline, polylineLength, offsetPolyline, canvas, canvasTexture, clamp, M } from './kit.js';
 import { branchSkeleton } from '../trees.js';
 import { sourceRecord, resolveSourcePlan, sourceBuildingHeight, sourceHeroMembers } from './source-buildings.js';
+import { makeWaterMaterial } from '../water.js';
 
 // ---------------------------------------------------------------------------- palettes (Seattle defaults; scenes override)
 export const COL = {
@@ -680,8 +681,9 @@ export function bench(b, x, y, z, a, col = '#6e5a42', frame = '#2e3236') {
 export function waterPlane(y, box, { color = '#2f4f5e', name = 'water' } = {}) {
     const W = box.x1 - box.x0, H = box.z1 - box.z0;
     const g = new THREE.PlaneGeometry(W, H, 1, 1); g.rotateX(-Math.PI / 2);
-    const m = new THREE.MeshStandardMaterial({ color, roughness: 0.08, metalness: 0.35, envMapIntensity: 1.2 });
-    m.name = 'spot-water';
+    // The generic city environment contains lighting blocks. Use the shared
+    // sky-only water reflection rather than reflecting invented floating boxes.
+    const m = makeWaterMaterial({deep:color,shallow:color,roughness:.08,envIntensity:1.2,ripple:.6,foam:0});
     const mesh = new THREE.Mesh(g, m); mesh.position.set((box.x0 + box.x1) / 2, y, (box.z0 + box.z1) / 2); mesh.name = name; mesh.receiveShadow = true;
     return mesh;
 }

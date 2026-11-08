@@ -334,6 +334,12 @@ export function makeCrowd({ max = 256, city = 'bucharest', season = seasonOf(), 
             if (prop !== undefined) flags[i] = (flags[i] & ~PROP_MASK) | (prop ? (PROP_BITS[prop] || 0) : 0);
         },
         hide(i) { if (i < N) live[i] = 0; },
+        /** (2026-11-08, owner: "people with objects in hand should account for the objects") how far this person's body +
+         *  what they carry reaches from their centre (m): an open umbrella's canopy, a guitar, a flag, a bag, a phone held out */
+        reach(i) {
+            const f = flags[i] || 0, F = CROWD_FLAGS;
+            return f & F.umbrella ? 0.55 : f & F.guitar ? 0.5 : f & F.flag ? 0.45 : f & F.bag ? 0.38 : f & (F.phone | F.camera) ? 0.34 : 0.3;
+        },
         dress(i, o = null) {
             if (i >= N) return;
             o = o || dressFor(city, crowd.season, crowd.weather, rng);

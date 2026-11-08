@@ -45,6 +45,10 @@ export class Player {
         this.mirrorEnabled = true;
         scene.add(this.rig);
         this.length = 4.4; this.width = 1.8; this.radius = 1.1;
+        // (2026-11-08, owner: "the car still goes halfway into things before the collision") the body the driver sees runs
+        // 3.42 m ahead of the eye (the rig origin) to the bonnet's nose and 2.36 m back to the boot; the collision body was a
+        // 4.4 m box centred on the eye, so the visible nose went ≈ 1.2 m into a fence before anything touched
+        { const ex = this.cockpit?.userData?.extent; this.front = ex?.front ?? 2.2; this.rear = ex?.rear ?? 2.2; this.width = (ex?.half ?? 0.9) * 2; this.length = this.front + this.rear; }
         this.bob = 0; this.shake = 0; this.collisionCd = 0;
         this.maxSpeed = 36; // m/s (~130 km/h)
         this.lookBack = false;
@@ -281,8 +285,13 @@ export class Player {
                 let any = false;
                 // three 1 m circles along the axis + (2026-11-08, owner: "collision happens after part of my car went inside")
                 // four 0.4 m circles at the body's corners: the corners stuck 0.2–0.3 m out of the axis circles
-                const hl = this.length / 2 - 0.4, hw = this.width / 2 - 0.35, lx = -this.fz, lz = this.fx;
-                const SAMPLES = this._colS || (this._colS = [[1.3, 0, 1.0], [0, 0, 1.0], [-1.3, 0, 1.0], [hl, hw, 0.4], [hl, -hw, 0.4], [-hl, hw, 0.4], [-hl, -hw, 0.4]]);
+                // (circles along the axis from the boot to the nose, radius = half the width; 0.35 m circles in the corners,
+                //  the nose corners pulled in for the bonnet's taper)
+                const lx = -this.fz, lz = this.fx;
+                const SAMPLES = this._colS || (this._colS = (() => { const F = this.front, B = this.rear, R = this.width / 2, out = [], n = Math.max(3, Math.ceil((F + B - 2 * R) / (R * 1.4)) + 1);
+                    for (let k = 0; k < n; k++) out.push([F - R - (F + B - 2 * R) * k / (n - 1), 0, R]);
+                    out.push([F - 0.35, R * 0.85 - 0.35, 0.35], [F - 0.35, -(R * 0.85 - 0.35), 0.35], [-B + 0.35, R - 0.35, 0.35], [-B + 0.35, -(R - 0.35), 0.35]);
+                    return out; })());
                 for (const [o, l, rad] of SAMPLES) {
                     const px = this.x + this.fx * o + lx * l, pz = this.z + this.fz * o + lz * l;
                     let sx = 0, sz = 0, hit = null;
@@ -380,7 +389,8 @@ export class Player {
     get touching() { return (this.contactAge ?? 9) < 0.35; }
     /** SAT between the player rectangle and vehicle v → {nx, nz, pen} (normal points from v to the player) or null */
     satVehicle(v) {
-        const dx = this.x - v.x, dz = this.z - v.z;
+        const co = (this.front - this.rear) / 2; // (the body's centre sits ahead of the eye)
+        const dx = this.x + this.fx * co - v.x, dz = this.z + this.fz * co - v.z;
         const lim = (this.length + v.length) * 0.5 + 1; if (Math.abs(dx) > lim || Math.abs(dz) > lim) return null;
         const fx = this.fx, fz = this.fz, rx = -fz, rz = fx;
         // the NPC box as drawn (mesh heading; it lags the lane direction through turns)
@@ -416,11 +426,15 @@ export class Player {
         if (!this.traffic || !this.traffic.nearPeds) return;
         if (Math.abs((this.surfY ?? GROUND_Y) - GROUND_Y) > 1.5) return; // on a deck / in a tunnel: pedestrians are on another level
         this.pedCd = Math.max(0, (this.pedCd || 0) - 1 / 60);
-        const HW = 0.95, HL = 2.3, PR = 0.3, sp = Math.abs(this.speed), sx = -this.fz, sz = this.fx; // car half width / length, person radius
-        for (const p of this.traffic.nearPeds(this.x, this.z, 4)) {
+        // (2026-11-08) the body as drawn (nose `front` m ahead of the eye, boot `rear` m behind) and the person's reach
+        // (an umbrella / guitar / flag / bag they carry: crowd.reach)
+        const HW = this.width / 2 + 0.05, co = (this.front - this.rear) / 2, HL = (this.front + this.rear) / 2, sp = Math.abs(this.speed), sx = -this.fz, sz = this.fx;
+        const C = this.traffic.peds?.crowd;
+        for (const p of this.traffic.nearPeds(this.x + this.fx * co, this.z + this.fz * co, 5)) {
             if (p.state === 'down') continue;
+            const PR = p.reach || (C?.reach ? C.reach(p.i) : 0.3);
             const dx = p.x - this.x, dz = p.z - this.z;
-            const lon = dx * this.fx + dz * this.fz, lat = dx * sx + dz * sz;
+            const lon = dx * this.fx + dz * this.fz - co, lat = dx * sx + dz * sz;
             const inLon = Math.abs(lon) < HL + PR, inLat = Math.abs(lat) < HW + PR;
             if (inLon && inLat && sp > 2.2) { // the body hit them
                 const dir = Math.sign(this.speed) || 1, side = Math.sign(lat) || 1;
@@ -433,7 +447,8 @@ export class Player {
             }
             // slow, or just brushing past: step them out of the car's way (to the nearer side)
             if (Math.abs(lon) < HL + PR + 0.2 && Math.abs(lat) < HW + PR + 0.2) {
-                const side = Math.sign(lat) || 1, push = HW + PR + 0.2 - Math.abs(lat);
+                // (stepping aside at a walk's pace — a 1.4 m jump in one frame read as a teleport)
+                const side = Math.sign(lat) || 1, push = Math.min(HW + PR + 0.2 - Math.abs(lat), (sp + 2.5) / 60);
                 p.x += sx * side * push; p.z += sz * side * push;
             }
         }

@@ -4427,6 +4427,8 @@ export async function buildWorld(city, renderer, opts = {}) {
     // colour), one group per 500 m super-cell (culling + few draw calls); full lots again (the 700 k cap is gone).
     // Fallback without it: merged low-LOD props, triangle-capped.
     const parkedLots = new Map(); // super-cell key → [{kind, color, x, y, z, yaw}]
+    // (2026-11-08, owner: cars parked across a CV stop's glowing door ring) no parked car within 7 m of a stop's door
+    const stopDoors = pois.filter(p => p.interactive && p.doorX !== undefined), nearDoor = (x, z) => stopDoors.some(p => Math.hypot(p.doorX - x, p.doorZ - z) < 7);
     const useInst = typeof makeParkedCars === 'function';
     const carTris = useInst ? 260 : carKinds.reduce((s2, k) => { const pr = carProps(k, CAR_COLORS[0]); return s2 + (pr.index ? pr.index.length / 3 : 772); }, 0) / carKinds.length;
     let parked = 0; const maxParked = Math.round(Math.min(city.id === 'bucharest' ? 2600 : 2000, 195000 / Math.max(1, carTris)));
@@ -4444,7 +4446,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             for (let u = -R; u < R; u += 2.6) {
                 const x = cx + ux * u + vx * v, z = cz + uz * u + vz * v;
                 if (!inArea(a, x, z) || !inArea(a, x + vx * 2.6, z + vz * 2.6) || !inArea(a, x - vx * 2.6, z - vz * 2.6)) continue;
-                if (!rng.chance(lotFill) || buildingAt(x, z) || nearWater(x, z, 3.5)) continue; // (never on a channel quay slope / in water)
+                if (!rng.chance(lotFill) || buildingAt(x, z) || nearWater(x, z, 3.5) || nearDoor(x, z)) continue; // (never on a channel quay slope / in water)
                 const rot = ang + (row % 2 ? 0 : Math.PI) + Math.PI / 2;
                 const box = { x, z, hw: 0.95, hd: 2.3, angle: rot, r: 2.5, poly: null, h: 1.5, prop: true, kind: 'parked' };
                 if (polyOnRibbon(obbPoly({ ...box, hw: 1.3, hd: 2.7 })) || [-1.6, 0, 1.6].some(o => onRibbon(x + Math.sin(rot) * o, z + Math.cos(rot) * o, 1.2))) continue; // keep off any carriageway / lane strip
@@ -4850,7 +4852,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     let kerbParked = 0;
     if (realPass && !US && useInst) {
         const RI = data.roadInfo || [], kRng = makeRng(90127), cols = CAR_COLORS;
-        const stops = pois.filter(p => p.kind === 'busstop');
+        const stops = pois.filter(p => p.kind === 'busstop'), parkLots = areas.filter(a => a.kind === 'parking');
         const kinds = ['hatch', 'hatch', 'sedan', 'suv', 'hatch', 'sedan'];
         const pcGrid = new BoxGrid(16); for (const pc of propColl) { const r = pc.r || 0.5; pcGrid.insert(pc.x - r, pc.z - r, pc.x + r, pc.z + r, pc); }
         for (const e of edges) {
@@ -4871,7 +4873,10 @@ export async function buildWorld(city, renderer, opts = {}) {
                     if (polyOnRibbon(fp) || fp.some(([qx, qz]) => buildingAt(qx, qz)) || buildingAt(x, z) || nearWater(x, z, 2.5)) continue;
                     const ry = raisedTop(x, z); if (ry === null) continue; // (only where the sidewalk is raised: the wheels stand on it)
                     if (treeNear(x, z, 2.2) || lampNear(x, z, 1.9) || treeClear.some((q) => (x - q.x) ** 2 + (z - q.z) ** 2 < (q.r + 3) ** 2)) continue;
-                    if (stops.some(p => Math.hypot(p.x - x, p.z - z) < 14)) continue;
+                    if (stops.some(p => Math.hypot(p.x - x, p.z - z) < 14) || nearDoor(x, z)) continue;
+                    // (2026-11-08, owner: "remove the cars parked next to the parking lot — their wheels are in the road") a
+                    // street front with a car park behind the sidewalk has no kerbside parking: people park in the lot
+                    if (parkLots.some(a => [2.5, 5, 8].some(d => { const qx = x + e.nx * sd * d, qz = z + e.nz * sd * d; return inArea(a, qx, qz); }))) continue;
                     if (mapEnds.some(m => Math.hypot(m.x - x, m.z - z) < 30)) continue; // (owner: "this sign is overlapping a car": the road-closure scene at the map edge)
                     let blocked = false; pcGrid.each(x - 3, z - 3, x + 3, z + 3, (pc) => { if (!blocked && Math.hypot(pc.x - x, pc.z - z) < (pc.r || 0.5) + 1.6) blocked = true; });
                     if (blocked) continue;

@@ -3,6 +3,7 @@
 import * as THREE from '../vendor/three.module.min.js';
 
 export const BASKETBALL_RADIUS = 0.12, THROW_SPEED = 8.2, BASKETBALL_STEP = 1 / 240;
+const LOB_ANGLE = 0.4; // a natural upward release lets the player keep the hoop in view
 const R = BASKETBALL_RADIUS, STEP = BASKETBALL_STEP;
 const copy = p => ({ x: p.x, y: p.y, z: p.z });
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -78,12 +79,19 @@ export class BasketballPhysics {
     }
     score(before, h, i) {
         const p = this.pos, top = h.rim[1] + R, bottom = h.rim[1] - R;
-        const clear = t => Math.hypot(lerp(before.x, p.x, t) - h.rim[0], lerp(before.z, p.z, t) - h.rim[2]) + R < h.radius - h.wire;
+        // Only the sphere's slice at the rim plane occupies the opening. The
+        // slice grows to the full radius as the centre crosses, then shrinks;
+        // requiring a full-radius cylinder here rejected ordinary angled shots.
+        const clear = t => {
+            const dy = lerp(before.y, p.y, t) - h.rim[1], slice = Math.sqrt(Math.max(0, R * R - dy * dy));
+            return Math.hypot(lerp(before.x, p.x, t) - h.rim[0], lerp(before.z, p.z, t) - h.rim[2]) + slice < h.radius - h.wire;
+        };
         if (!this.eligible || p.y >= before.y) { this.entries.delete(i); return; }
         if (before.y >= top && p.y < top) {
             if (clear((top - before.y) / (p.y - before.y))) this.entries.add(i); else this.entries.delete(i);
         }
-        if (this.entries.has(i) && !clear(1)) this.entries.delete(i);
+        if (this.entries.has(i) && p.y >= bottom && !clear(1)) this.entries.delete(i);
+        if (this.entries.has(i) && before.y >= h.rim[1] && p.y < h.rim[1] && !clear((h.rim[1] - before.y) / (p.y - before.y))) this.entries.delete(i);
         if (this.entries.has(i) && before.y >= bottom && p.y < bottom && clear((bottom - before.y) / (p.y - before.y))) {
             this.eligible = false; this.entries.clear(); this.baskets++; this.onBasket(i);
         }
@@ -128,7 +136,9 @@ export class RosettiBasketball {
         });
         this.mesh = makeBall(); game.scene.add(this.mesh);
         const geometry = new THREE.BufferGeometry(); geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(3 * 74), 3));
-        this.arc = new THREE.Line(geometry, new THREE.LineDashedMaterial({ color: '#b8f3ff', dashSize: 0.17, gapSize: 0.11, transparent: true, opacity: 0.9, depthWrite: false }));
+        const dotCanvas = document.createElement('canvas'); dotCanvas.width = dotCanvas.height = 16;
+        const dotContext = dotCanvas.getContext('2d'); dotContext.fillStyle = 'white'; dotContext.beginPath(); dotContext.arc(8, 8, 7, 0, Math.PI * 2); dotContext.fill();
+        this.arc = new THREE.Points(geometry, new THREE.PointsMaterial({ color: '#21d9ff', size: 0.025, map: new THREE.CanvasTexture(dotCanvas), alphaTest: 0.5, depthWrite: false, fog: false, toneMapped: false }));
         this.arc.name = 'basketball-throw-preview'; this.arc.frustumCulled = false; this.arc.userData.noAudit = true; game.scene.add(this.arc); this.arc.visible = false;
         this.hands = new THREE.Group(); this.hands.name = 'basketball-hands';
         const handGeometry = new THREE.BoxGeometry(0.085, 0.055, 0.13), handMaterial = new THREE.MeshLambertMaterial({ color: '#bf967b' });
@@ -164,7 +174,10 @@ export class RosettiBasketball {
         const camera = this.game.camera; camera.updateWorldMatrix(true, false);
         const q = camera.getWorldQuaternion(new THREE.Quaternion()), eye = camera.getWorldPosition(new THREE.Vector3());
         const pos = this.local(new THREE.Vector3(0.23, -0.26, -0.55).applyQuaternion(q).add(eye));
-        const worldDir = new THREE.Vector3(0, 0, -1).applyQuaternion(q), inv = this.source.getWorldQuaternion(new THREE.Quaternion()).invert();
+        const gaze = new THREE.Vector3(0, 0, -1).applyQuaternion(q), horizontal = Math.hypot(gaze.x, gaze.z) || 1;
+        const pitch = Math.min(1.5, Math.asin(Math.max(-1, Math.min(1, gaze.y))) + LOB_ANGLE);
+        const worldDir = new THREE.Vector3(gaze.x / horizontal * Math.cos(pitch), Math.sin(pitch), gaze.z / horizontal * Math.cos(pitch));
+        const inv = this.source.getWorldQuaternion(new THREE.Quaternion()).invert();
         const dir = worldDir.applyQuaternion(inv).normalize();
         return { pos, dir, q };
     }
@@ -208,8 +221,8 @@ export class RosettiBasketball {
             this.hands.visible = true; this.hands.position.copy(this.mesh.position); this.hands.quaternion.copy(q);
             const preview = this.physics.predict(pos, dir), attr = this.arc.geometry.attributes.position;
             preview.points.forEach((p, i) => { const w = this.source.localToWorld(new THREE.Vector3(p.x, p.y, p.z)); attr.setXYZ(i, w.x, w.y, w.z); });
-            attr.needsUpdate = true; this.arc.geometry.setDrawRange(0, preview.points.length); this.arc.computeLineDistances();
-            this.arc.material.color.set(preview.baskets ? '#8bffa6' : '#b8f3ff'); this.arc.visible = true;
+            attr.needsUpdate = true; this.arc.geometry.setDrawRange(0, preview.points.length);
+            this.arc.material.color.set(preview.baskets ? '#12c83c' : '#21d9ff'); this.arc.visible = true;
         } else {
             this.arc.visible = false; this.hands.visible = this.recoil > 0;
             if (this.recoil > 0) { const { pos, q } = this.pose(); pos.y -= (0.24 - this.recoil) * 0.9; this.hands.position.copy(this.source.localToWorld(pos)); this.hands.quaternion.copy(q); }

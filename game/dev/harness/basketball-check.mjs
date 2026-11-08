@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import assert from 'node:assert/strict';
-import { BasketballPhysics, BASKETBALL_RADIUS as R, BASKETBALL_STEP as STEP } from '../../src/basketball.js';
+import * as THREE from '../../vendor/three.module.min.js';
+import { BasketballPhysics, RosettiBasketball, BASKETBALL_RADIUS as R, BASKETBALL_STEP as STEP } from '../../src/basketball.js';
 import { ACHIEVEMENTS } from '../../src/data.js';
 
 const hoop = { rim: [0, 3.045, 0], radius: 0.23, wire: 0.015, board: [0.25, 3.125, 0], normal: [-1, 0], width: 1.8, height: 1.05, thickness: 0.05 };
@@ -29,6 +30,19 @@ run('the whole ball must cross downward before the basket counts', () => {
     roll(b, 0.05); assert.equal(b.baskets, 0); assert.ok(b.pos.y > 3.045 - R);
     roll(b, 0.1); assert.equal(b.baskets, 1);
 });
+run('a physically clear angled descent passes the spherical opening', () => {
+    const b = fall({ x: -0.2, y: 3.35, z: 0 }, { x: 2, y: -2.5, z: 0 }); roll(b, 0.3); assert.equal(b.baskets, 1);
+});
+run('the visible aimed pose is the real fixed-speed release', () => {
+    const control = Object.create(RosettiBasketball.prototype), camera = new THREE.PerspectiveCamera();
+    camera.position.set(-4, 1.65, 0); camera.rotation.set(0.5, -Math.PI / 2, 0, 'YXZ');
+    Object.assign(control, { game: { camera }, source: new THREE.Group(), physics: new BasketballPhysics(court), held: true, arc: { visible: true }, available: () => true, syncMesh: () => {} });
+    const aimed = control.pose(), predicted = control.physics.predict(aimed.pos, aimed.dir);
+    assert.ok(aimed.dir.y > Math.sin(0.5), 'the lob lifts the release while leaving the hoop in view');
+    assert.equal(control.interact(), true); assert.deepEqual(control.physics.pos, { x: aimed.pos.x, y: aimed.pos.y, z: aimed.pos.z });
+    for (let i = 1; i < predicted.points.length; i++) { roll(control.physics, STEP * 8); assert.deepEqual(control.physics.pos, predicted.points[i]); }
+    assert.equal(control.held, false); assert.equal(control.arc.visible, false);
+});
 run('a side entry below the top plane cannot score', () => {
     const b = fall({ x: -0.05, y: 3.04, z: 0 }); roll(b, 0.4); assert.equal(b.baskets, 0);
 });
@@ -47,6 +61,13 @@ run('floor bounce loses energy and remains above the court', () => {
 });
 run('dropped or placed balls do not award the secret', () => {
     const b = new BasketballPhysics(court); b.launch({ x: 0, y: 3.5, z: 0 }, { x: 0, y: -1, z: 0 }, 1, false); roll(b, 0.5); assert.equal(b.baskets, 0);
+});
+run('Drop releases the held ball into gravity without scoring eligibility', () => {
+    const control = Object.create(RosettiBasketball.prototype), release = { x: -4, y: 1.4, z: 0 };
+    Object.assign(control, { physics: new BasketballPhysics(court), held: true, arc: { visible: true }, hands: { visible: true },
+        available: () => true, pose: () => ({ pos: release }), syncMesh: () => {} });
+    assert.equal(control.drop(), true); assert.equal(control.held, false); assert.equal(control.physics.eligible, false);
+    assert.deepEqual(control.physics.pos, release); roll(control.physics, 0.1); assert.ok(control.physics.pos.y < release.y); assert.equal(control.physics.baskets, 0);
 });
 run('fast frames retain swept full-ball scoring and match fine frames', () => {
     const fast = new BasketballPhysics(court), fine = new BasketballPhysics(court); fast.launch(pos, direction); fine.launch(pos, direction);

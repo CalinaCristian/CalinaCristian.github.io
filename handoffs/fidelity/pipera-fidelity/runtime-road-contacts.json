@@ -1,0 +1,301 @@
+{
+  "sourceCommit": "d000838",
+  "method": "Full source-world2m longitudinal samples at centre and90% of each side carriageway width, source-aware buildingBlocksRoad collider query; this is a point-clearance diagnostic, not vehicle driving acceptance.",
+  "errors": [],
+  "centreContacts": [],
+  "sideContacts": [
+    {
+      "key": "w176792203:24:side",
+      "sourceId": "w176792203",
+      "roadSource": "w27750597",
+      "road": 24,
+      "name": "",
+      "x": -1025.9249250473474,
+      "z": -2.5327003442112503,
+      "y": 0.24,
+      "lateral": -2.7,
+      "private": false
+    },
+    {
+      "key": "w176791388:24:side",
+      "sourceId": "w176791388",
+      "roadSource": "w27750597",
+      "road": 24,
+      "name": "",
+      "x": -1149.5308622880352,
+      "z": -16.286319876457117,
+      "y": 0.24,
+      "lateral": -2.7,
+      "private": false
+    },
+    {
+      "key": "w176790267:44:side",
+      "sourceId": "w176790267",
+      "roadSource": "w91736929",
+      "road": 44,
+      "name": "",
+      "x": -1178.3089267836824,
+      "z": 20.82087086220709,
+      "y": 0.24,
+      "lateral": -2.7,
+      "private": false
+    },
+    {
+      "key": "w176792051:84:side",
+      "sourceId": "w176792051",
+      "roadSource": "w255501683",
+      "road": 84,
+      "name": "",
+      "x": -1083.610500976611,
+      "z": -30.72741728190407,
+      "y": 0.24,
+      "lateral": -2.7,
+      "private": false
+    },
+    {
+      "key": "w176792495:84:side",
+      "sourceId": "w176792495",
+      "roadSource": "w255501683",
+      "road": 84,
+      "name": "",
+      "x": -1110.7302793152712,
+      "z": -43.488463865680245,
+      "y": 0.24,
+      "lateral": 2.7,
+      "private": false
+    },
+    {
+      "key": "w1284446119:86:side",
+      "sourceId": "w1284446119",
+      "roadSource": "w276695458",
+      "road": 86,
+      "name": "Strada Caierului",
+      "x": -1062.8228889946931,
+      "z": 171.047786503347,
+      "y": 0.24,
+      "lateral": -1.35,
+      "private": false
+    },
+    {
+      "key": "w41019897:208:side",
+      "sourceId": "w41019897",
+      "roadSource": "w51571501",
+      "road": 208,
+      "name": "",
+      "x": -259.9989398113893,
+      "z": 11.720500633251834,
+      "y": 0.24,
+      "lateral": 2.7,
+      "private": false
+    },
+    {
+      "key": "w1446245333:261:side",
+      "sourceId": "w1446245333",
+      "roadSource": "w810863455",
+      "road": 261,
+      "name": "",
+      "x": 506.1753026363828,
+      "z": 126.75927968162529,
+      "y": 0.24,
+      "lateral": -2.7,
+      "private": false
+    },
+    {
+      "key": "w938553612:354:side",
+      "sourceId": "w938553612",
+      "roadSource": "w1566299310",
+      "road": 354,
+      "name": "",
+      "x": 442.5204587694575,
+      "z": 304.0866662379523,
+      "y": 0.24,
+      "lateral": -2.7,
+      "private": false
+    },
+    {
+      "key": "w938553614:357:side",
+      "sourceId": "w938553614",
+      "roadSource": "w1566299313",
+      "road": 357,
+      "name": "",
+      "x": 362.3614664462541,
+      "z": 318.32386560861505,
+      "y": 0.24,
+      "lateral": -2.7,
+      "private": false
+    },
+    {
+      "key": "w1481582133:374:side",
+      "sourceId": "w1481582133",
+      "roadSource": "w23732746",
+      "road": 374,
+      "name": "Strada Caporal Petre Ispir",
+      "x": 1012.8698278231013,
+      "z": 820.9278513893389,
+      "y": 0.24,
+      "lateral": -2.7,
+      "private": false
+    },
+    {
+      "key": "w1481582132:374:side",
+      "sourceId": "w1481582132",
+      "roadSource": "w23732746",
+      "road": 374,
+      "name": "Strada Caporal Petre Ispir",
+      "x": 997.7222661170878,
+      "z": 826.08065396294,
+      "y": 0.24,
+      "lateral": -2.7,
+      "private": false
+    }
+  ],
+  "devCheck": {
+    "network": {
+      "scc": 85,
+      "mainNodes": 1204,
+      "nodesOutside": 88,
+      "edgesOff": 90,
+      "weakComponents": 11,
+      "laneAligned": 3
+    },
+    "blocked": 18,
+    "deadEnds": 49,
+    "samples": {
+      "blocked": [
+        {
+          "edge": 82,
+          "name": "",
+          "x": -1027,
+          "z": -3
+        },
+        {
+          "edge": 90,
+          "name": "",
+          "x": -1149,
+          "z": -17
+        },
+        {
+          "edge": 1269,
+          "name": "",
+          "x": -372,
+          "z": 30
+        },
+        {
+          "edge": 140,
+          "name": "",
+          "x": -1181,
+          "z": 20
+        },
+        {
+          "edge": 298,
+          "name": "",
+          "x": -1111,
+          "z": -43
+        },
+        {
+          "edge": 303,
+          "name": "Strada Caierului",
+          "x": -1063,
+          "z": 171
+        },
+        {
+          "edge": 1280,
+          "name": "",
+          "x": -835,
+          "z": 22
+        },
+        {
+          "edge": 1281,
+          "name": "",
+          "x": -836,
+          "z": 23
+        },
+        {
+          "edge": 1282,
+          "name": "",
+          "x": -852,
+          "z": 29
+        },
+        {
+          "edge": 1283,
+          "name": "",
+          "x": -866,
+          "z": 35
+        }
+      ],
+      "deadEnds": [
+        {
+          "node": 108,
+          "name": "",
+          "d": 14.4,
+          "x": -1085,
+          "z": 32
+        },
+        {
+          "node": 240,
+          "name": "Strada Barbu Văcărescu",
+          "d": 14.2,
+          "x": -534,
+          "z": 321
+        },
+        {
+          "node": 307,
+          "name": "",
+          "d": 5.1,
+          "x": -691,
+          "z": -39
+        },
+        {
+          "node": 330,
+          "name": "",
+          "d": 11,
+          "x": -1212,
+          "z": 31
+        },
+        {
+          "node": 409,
+          "name": "",
+          "d": 13.8,
+          "x": -593,
+          "z": -20
+        },
+        {
+          "node": 410,
+          "name": "",
+          "d": 13.9,
+          "x": -583,
+          "z": -10
+        },
+        {
+          "node": 423,
+          "name": "Strada Barbu Văcărescu",
+          "d": 13.9,
+          "x": -547,
+          "z": 325
+        },
+        {
+          "node": 437,
+          "name": "Șoseaua Pipera",
+          "d": 8.3,
+          "x": -674,
+          "z": -102
+        },
+        {
+          "node": 443,
+          "name": "",
+          "d": 14,
+          "x": -587,
+          "z": 282
+        },
+        {
+          "node": 458,
+          "name": "",
+          "d": 8.5,
+          "x": -405,
+          "z": 285
+        }
+      ]
+    }
+  },
+  "sourceStructures": 2282
+}

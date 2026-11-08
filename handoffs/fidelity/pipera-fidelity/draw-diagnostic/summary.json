@@ -1,0 +1,4869 @@
+{
+  "sourceCommit": "36bd4a8e1c062946d1f1ebe4f19dc4422d65eebb",
+  "dataSha256": "66d5fd9ffff3124db1007d8143aaef1854abad94b51053531f091f328fc93802",
+  "loaded": {
+    "key": "bucharest-pipera",
+    "city": "bucharest",
+    "district": "pipera",
+    "ms": 31418,
+    "edges": 1260,
+    "ribbons": 1665
+  },
+  "rows": [
+    {
+      "route": "db",
+      "index": 6,
+      "pose": {
+        "x": -1086.19579059203,
+        "z": 71.17433427923345,
+        "y": 0.24,
+        "heading": -1.357492638157224,
+        "camera": [
+          0,
+          0,
+          0
+        ],
+        "matrixWorld": [
+          0.21168986598677086,
+          0,
+          0.9773368920891623,
+          0,
+          0,
+          1,
+          0,
+          0,
+          -0.9773368920891623,
+          0,
+          0.21168986598677086,
+          0,
+          -1085.819495950386,
+          1.6,
+          70.78587277191265,
+          1
+        ]
+      },
+      "stats": {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 400,
+        "triangles": 1169836,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "drawCallsObserved": 400,
+      "trianglesObserved": 1169836,
+      "repeatedCompatibleStaticBatches": [
+        {
+          "camera": "main",
+          "material": {
+            "id": 48,
+            "uuid": "a51be79f-7f95-4541-aa9e-7f4c22e801cb",
+            "name": "water",
+            "type": "MeshStandardMaterial",
+            "colour": "2b3a33",
+            "vertexColors": false,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": false,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": null,
+            "defines": {
+              "STANDARD": ""
+            },
+            "userDataKeys": [
+              "envScale",
+              "waterU",
+              "hasShore"
+            ]
+          },
+          "calls": 50,
+          "triangles": 106698,
+          "objects": [
+            {
+              "id": 1134,
+              "name": "water-big -1,1",
+              "parent": "water-big",
+              "triangles": 43,
+              "geometryId": 690
+            },
+            {
+              "id": 1133,
+              "name": "water-big 0,1",
+              "parent": "water-big",
+              "triangles": 21,
+              "geometryId": 689
+            },
+            {
+              "id": 1131,
+              "name": "water-big 0,2",
+              "parent": "water-big",
+              "triangles": 18,
+              "geometryId": 687
+            },
+            {
+              "id": 1136,
+              "name": "water-big 0,3",
+              "parent": "water-big",
+              "triangles": 4,
+              "geometryId": 692
+            },
+            {
+              "id": 1128,
+              "name": "water-big -1,-3",
+              "parent": "water-big",
+              "triangles": 12,
+              "geometryId": 684
+            },
+            {
+              "id": 1127,
+              "name": "water-big -1,-4",
+              "parent": "water-big",
+              "triangles": 858,
+              "geometryId": 683
+            },
+            {
+              "id": 1132,
+              "name": "water-big 1,3",
+              "parent": "water-big",
+              "triangles": 17,
+              "geometryId": 688
+            },
+            {
+              "id": 1130,
+              "name": "water-big 1,2",
+              "parent": "water-big",
+              "triangles": 30,
+              "geometryId": 686
+            },
+            {
+              "id": 1124,
+              "name": "water-big 0,-4",
+              "parent": "water-big",
+              "triangles": 7811,
+              "geometryId": 680
+            },
+            {
+              "id": 1164,
+              "name": "water-big 1,1",
+              "parent": "water-big",
+              "triangles": 7,
+              "geometryId": 720
+            },
+            {
+              "id": 1125,
+              "name": "water-big 0,-6",
+              "parent": "water-big",
+              "triangles": 1136,
+              "geometryId": 681
+            },
+            {
+              "id": 1137,
+              "name": "water-big 2,2",
+              "parent": "water-big",
+              "triangles": 33,
+              "geometryId": 693
+            },
+            {
+              "id": 1121,
+              "name": "water-big 1,-4",
+              "parent": "water-big",
+              "triangles": 1592,
+              "geometryId": 677
+            },
+            {
+              "id": 1163,
+              "name": "water-big 2,1",
+              "parent": "water-big",
+              "triangles": 15,
+              "geometryId": 719
+            },
+            {
+              "id": 1165,
+              "name": "water-big 2,3",
+              "parent": "water-big",
+              "triangles": 6,
+              "geometryId": 721
+            },
+            {
+              "id": 1123,
+              "name": "water-big 1,-6",
+              "parent": "water-big",
+              "triangles": 206,
+              "geometryId": 679
+            },
+            {
+              "id": 1160,
+              "name": "water-big 2,0",
+              "parent": "water-big",
+              "triangles": 27,
+              "geometryId": 716
+            },
+            {
+              "id": 1118,
+              "name": "water-big 1,-5",
+              "parent": "water-big",
+              "triangles": 7550,
+              "geometryId": 674
+            },
+            {
+              "id": 1162,
+              "name": "water-big 3,0",
+              "parent": "water-big",
+              "triangles": 12,
+              "geometryId": 718
+            },
+            {
+              "id": 1158,
+              "name": "water-big 3,3",
+              "parent": "water-big",
+              "triangles": 9,
+              "geometryId": 714
+            },
+            {
+              "id": 1159,
+              "name": "water-big 3,1",
+              "parent": "water-big",
+              "triangles": 50,
+              "geometryId": 715
+            },
+            {
+              "id": 1116,
+              "name": "water-big 2,-5",
+              "parent": "water-big",
+              "triangles": 2700,
+              "geometryId": 672
+            },
+            {
+              "id": 1161,
+              "name": "water-big 3,2",
+              "parent": "water-big",
+              "triangles": 22,
+              "geometryId": 717
+            },
+            {
+              "id": 1157,
+              "name": "water-big 4,3",
+              "parent": "water-big",
+              "triangles": 3,
+              "geometryId": 713
+            },
+            {
+              "id": 1117,
+              "name": "water-big 2,-4",
+              "parent": "water-big",
+              "triangles": 4467,
+              "geometryId": 673
+            },
+            {
+              "id": 1166,
+              "name": "water-big 4,2",
+              "parent": "water-big",
+              "triangles": 4,
+              "geometryId": 722
+            },
+            {
+              "id": 1151,
+              "name": "water-big 4,4",
+              "parent": "water-big",
+              "triangles": 24,
+              "geometryId": 707
+            },
+            {
+              "id": 1114,
+              "name": "water-big 3,-5",
+              "parent": "water-big",
+              "triangles": 2292,
+              "geometryId": 670
+            },
+            {
+              "id": 1115,
+              "name": "water-big 3,-4",
+              "parent": "water-big",
+              "triangles": 11953,
+              "geometryId": 671
+            },
+            {
+              "id": 1129,
+              "name": "water-big 3,-2",
+              "parent": "water-big",
+              "triangles": 2,
+              "geometryId": 685
+            },
+            {
+              "id": 1150,
+              "name": "water-big 5,4",
+              "parent": "water-big",
+              "triangles": 82,
+              "geometryId": 706
+            },
+            {
+              "id": 1119,
+              "name": "water-big 3,-3",
+              "parent": "water-big",
+              "triangles": 2456,
+              "geometryId": 675
+            },
+            {
+              "id": 1122,
+              "name": "water-big 4,-2",
+              "parent": "water-big",
+              "triangles": 7240,
+              "geometryId": 678
+            },
+            {
+              "id": 1120,
+              "name": "water-big 4,-3",
+              "parent": "water-big",
+              "triangles": 5456,
+              "geometryId": 676
+            },
+            {
+              "id": 1152,
+              "name": "water-big 5,5",
+              "parent": "water-big",
+              "triangles": 12,
+              "geometryId": 708
+            },
+            {
+              "id": 1126,
+              "name": "water-big 4,-4",
+              "parent": "water-big",
+              "triangles": 2901,
+              "geometryId": 682
+            },
+            {
+              "id": 1146,
+              "name": "water-big 6,5",
+              "parent": "water-big",
+              "triangles": 44,
+              "geometryId": 702
+            },
+            {
+              "id": 1154,
+              "name": "water-big 6,7",
+              "parent": "water-big",
+              "triangles": 8,
+              "geometryId": 710
+            },
+            {
+              "id": 1148,
+              "name": "water-big 6,4",
+              "parent": "water-big",
+              "triangles": 33,
+              "geometryId": 704
+            },
+            {
+              "id": 1145,
+              "name": "water-big 6,6",
+              "parent": "water-big",
+              "triangles": 21,
+              "geometryId": 701
+            },
+            {
+              "id": 1149,
+              "name": "water-big 7,7",
+              "parent": "water-big",
+              "triangles": 60,
+              "geometryId": 705
+            },
+            {
+              "id": 1147,
+              "name": "water-big 7,6",
+              "parent": "water-big",
+              "triangles": 47,
+              "geometryId": 703
+            },
+            {
+              "id": 1153,
+              "name": "water-big 7,5",
+              "parent": "water-big",
+              "triangles": 53,
+              "geometryId": 709
+            },
+            {
+              "id": 1155,
+              "name": "water-big 8,7",
+              "parent": "water-big",
+              "triangles": 7,
+              "geometryId": 711
+            },
+            {
+              "id": 1156,
+              "name": "water-big 8,5",
+              "parent": "water-big",
+              "triangles": 5,
+              "geometryId": 712
+            },
+            {
+              "id": 842,
+              "name": "water -1,0",
+              "parent": "cells",
+              "triangles": 5504,
+              "geometryId": 368
+            },
+            {
+              "id": 844,
+              "name": "water 0,0",
+              "parent": "cells",
+              "triangles": 15140,
+              "geometryId": 372
+            },
+            {
+              "id": 734,
+              "name": "water 0,1",
+              "parent": "cells",
+              "triangles": 9052,
+              "geometryId": 256
+            },
+            {
+              "id": 932,
+              "name": "water 1,0",
+              "parent": "cells",
+              "triangles": 12997,
+              "geometryId": 468
+            },
+            {
+              "id": 928,
+              "name": "water 1,1",
+              "parent": "cells",
+              "triangles": 4656,
+              "geometryId": 462
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 42,
+            "uuid": "7ca55204-c6f8-425b-bbee-5a21bc5944a0",
+            "name": "",
+            "type": "MeshStandardMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": true,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": "dc22e09b-f98e-4c11-b5fa-5ee4875e824d",
+            "defines": {
+              "STANDARD": ""
+            },
+            "userDataKeys": [
+              "nightEmissive",
+              "uClosed",
+              "ownedTextures"
+            ]
+          },
+          "calls": 30,
+          "triangles": 247085,
+          "objects": [
+            {
+              "id": 876,
+              "name": "solid -3,0",
+              "parent": "cells",
+              "triangles": 20135,
+              "geometryId": 406
+            },
+            {
+              "id": 754,
+              "name": "solid -3,-1",
+              "parent": "cells",
+              "triangles": 15866,
+              "geometryId": 276
+            },
+            {
+              "id": 888,
+              "name": "detail -5,0",
+              "parent": "cells",
+              "triangles": 15544,
+              "geometryId": 418
+            },
+            {
+              "id": 883,
+              "name": "detail -5,-1",
+              "parent": "cells",
+              "triangles": 17060,
+              "geometryId": 413
+            },
+            {
+              "id": 728,
+              "name": "solid -2,1",
+              "parent": "cells",
+              "triangles": 1369,
+              "geometryId": 248
+            },
+            {
+              "id": 948,
+              "name": "detail -4,0",
+              "parent": "cells",
+              "triangles": 12880,
+              "geometryId": 484
+            },
+            {
+              "id": 725,
+              "name": "solid -2,0",
+              "parent": "cells",
+              "triangles": 16970,
+              "geometryId": 245
+            },
+            {
+              "id": 824,
+              "name": "solid -2,-1",
+              "parent": "cells",
+              "triangles": 22555,
+              "geometryId": 346
+            },
+            {
+              "id": 912,
+              "name": "solid -2,-2",
+              "parent": "cells",
+              "triangles": 1292,
+              "geometryId": 442
+            },
+            {
+              "id": 747,
+              "name": "solid -1,1",
+              "parent": "cells",
+              "triangles": 1664,
+              "geometryId": 269
+            },
+            {
+              "id": 779,
+              "name": "solid -1,0",
+              "parent": "cells",
+              "triangles": 10450,
+              "geometryId": 301
+            },
+            {
+              "id": 770,
+              "name": "solid -1,-1",
+              "parent": "cells",
+              "triangles": 6202,
+              "geometryId": 292
+            },
+            {
+              "id": 773,
+              "name": "solid -1,-2",
+              "parent": "cells",
+              "triangles": 866,
+              "geometryId": 295
+            },
+            {
+              "id": 868,
+              "name": "solid 0,2",
+              "parent": "cells",
+              "triangles": 752,
+              "geometryId": 398
+            },
+            {
+              "id": 845,
+              "name": "solid 0,1",
+              "parent": "cells",
+              "triangles": 842,
+              "geometryId": 373
+            },
+            {
+              "id": 794,
+              "name": "solid 0,0",
+              "parent": "cells",
+              "triangles": 16242,
+              "geometryId": 316
+            },
+            {
+              "id": 836,
+              "name": "solid 0,-2",
+              "parent": "cells",
+              "triangles": 2210,
+              "geometryId": 358
+            },
+            {
+              "id": 804,
+              "name": "solid 0,-1",
+              "parent": "cells",
+              "triangles": 5912,
+              "geometryId": 326
+            },
+            {
+              "id": 735,
+              "name": "solid 1,2",
+              "parent": "cells",
+              "triangles": 892,
+              "geometryId": 257
+            },
+            {
+              "id": 894,
+              "name": "solid 1,1",
+              "parent": "cells",
+              "triangles": 10488,
+              "geometryId": 424
+            },
+            {
+              "id": 854,
+              "name": "solid 1,0",
+              "parent": "cells",
+              "triangles": 19236,
+              "geometryId": 382
+            },
+            {
+              "id": 980,
+              "name": "solid 1,-2",
+              "parent": "cells",
+              "triangles": 64,
+              "geometryId": 516
+            },
+            {
+              "id": 831,
+              "name": "solid 1,-1",
+              "parent": "cells",
+              "triangles": 412,
+              "geometryId": 353
+            },
+            {
+              "id": 969,
+              "name": "solid 2,2",
+              "parent": "cells",
+              "triangles": 5456,
+              "geometryId": 505
+            },
+            {
+              "id": 987,
+              "name": "solid 2,-1",
+              "parent": "cells",
+              "triangles": 358,
+              "geometryId": 523
+            },
+            {
+              "id": 743,
+              "name": "solid 2,1",
+              "parent": "cells",
+              "triangles": 22888,
+              "geometryId": 265
+            },
+            {
+              "id": 995,
+              "name": "solid 2,0",
+              "parent": "cells",
+              "triangles": 9376,
+              "geometryId": 531
+            },
+            {
+              "id": 930,
+              "name": "solid 3,1",
+              "parent": "cells",
+              "triangles": 218,
+              "geometryId": 464
+            },
+            {
+              "id": 972,
+              "name": "solid 3,0",
+              "parent": "cells",
+              "triangles": 6942,
+              "geometryId": 508
+            },
+            {
+              "id": 914,
+              "name": "solid 3,-1",
+              "parent": "cells",
+              "triangles": 1944,
+              "geometryId": 444
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 44,
+            "uuid": "6e157b68-0c49-484a-9aff-7fcb98f9e0f6",
+            "name": "",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": true,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": "fc2199ae-2e7a-4f66-af1c-6ac6b35527c9",
+            "defines": {},
+            "userDataKeys": [
+              "wxPatch"
+            ]
+          },
+          "calls": 28,
+          "triangles": 118004,
+          "objects": [
+            {
+              "id": 875,
+              "name": "ground -3,0",
+              "parent": "cells",
+              "triangles": 12506,
+              "geometryId": 405
+            },
+            {
+              "id": 753,
+              "name": "ground -3,-1",
+              "parent": "cells",
+              "triangles": 5288,
+              "geometryId": 275
+            },
+            {
+              "id": 727,
+              "name": "ground -2,1",
+              "parent": "cells",
+              "triangles": 576,
+              "geometryId": 247
+            },
+            {
+              "id": 724,
+              "name": "ground -2,0",
+              "parent": "cells",
+              "triangles": 15980,
+              "geometryId": 244
+            },
+            {
+              "id": 820,
+              "name": "ground -2,-1",
+              "parent": "cells",
+              "triangles": 11979,
+              "geometryId": 342
+            },
+            {
+              "id": 911,
+              "name": "ground -2,-2",
+              "parent": "cells",
+              "triangles": 330,
+              "geometryId": 441
+            },
+            {
+              "id": 746,
+              "name": "ground -1,1",
+              "parent": "cells",
+              "triangles": 1174,
+              "geometryId": 268
+            },
+            {
+              "id": 776,
+              "name": "ground -1,0",
+              "parent": "cells",
+              "triangles": 11921,
+              "geometryId": 298
+            },
+            {
+              "id": 768,
+              "name": "ground -1,-1",
+              "parent": "cells",
+              "triangles": 1448,
+              "geometryId": 290
+            },
+            {
+              "id": 772,
+              "name": "ground -1,-2",
+              "parent": "cells",
+              "triangles": 336,
+              "geometryId": 294
+            },
+            {
+              "id": 867,
+              "name": "ground 0,2",
+              "parent": "cells",
+              "triangles": 174,
+              "geometryId": 397
+            },
+            {
+              "id": 843,
+              "name": "ground 0,1",
+              "parent": "cells",
+              "triangles": 80,
+              "geometryId": 369
+            },
+            {
+              "id": 790,
+              "name": "ground 0,0",
+              "parent": "cells",
+              "triangles": 18716,
+              "geometryId": 312
+            },
+            {
+              "id": 803,
+              "name": "ground 0,-1",
+              "parent": "cells",
+              "triangles": 6674,
+              "geometryId": 325
+            },
+            {
+              "id": 835,
+              "name": "ground 0,-2",
+              "parent": "cells",
+              "triangles": 668,
+              "geometryId": 357
+            },
+            {
+              "id": 733,
+              "name": "ground 1,2",
+              "parent": "cells",
+              "triangles": 320,
+              "geometryId": 253
+            },
+            {
+              "id": 893,
+              "name": "ground 1,1",
+              "parent": "cells",
+              "triangles": 4858,
+              "geometryId": 423
+            },
+            {
+              "id": 850,
+              "name": "ground 1,0",
+              "parent": "cells",
+              "triangles": 20550,
+              "geometryId": 378
+            },
+            {
+              "id": 830,
+              "name": "ground 1,-1",
+              "parent": "cells",
+              "triangles": 582,
+              "geometryId": 352
+            },
+            {
+              "id": 979,
+              "name": "ground 1,-2",
+              "parent": "cells",
+              "triangles": 104,
+              "geometryId": 515
+            },
+            {
+              "id": 1014,
+              "name": "ground 2,3",
+              "parent": "cells",
+              "triangles": 212,
+              "geometryId": 550
+            },
+            {
+              "id": 968,
+              "name": "ground 2,2",
+              "parent": "cells",
+              "triangles": 886,
+              "geometryId": 504
+            },
+            {
+              "id": 740,
+              "name": "ground 2,1",
+              "parent": "cells",
+              "triangles": 1252,
+              "geometryId": 262
+            },
+            {
+              "id": 992,
+              "name": "ground 2,0",
+              "parent": "cells",
+              "triangles": 674,
+              "geometryId": 528
+            },
+            {
+              "id": 859,
+              "name": "ground 2,-1",
+              "parent": "cells",
+              "triangles": 304,
+              "geometryId": 387
+            },
+            {
+              "id": 982,
+              "name": "ground 2,-2",
+              "parent": "cells",
+              "triangles": 60,
+              "geometryId": 518
+            },
+            {
+              "id": 929,
+              "name": "ground 3,1",
+              "parent": "cells",
+              "triangles": 218,
+              "geometryId": 463
+            },
+            {
+              "id": 813,
+              "name": "ground 3,0",
+              "parent": "cells",
+              "triangles": 134,
+              "geometryId": 335
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 54,
+            "uuid": "d9e0fabd-5993-4f4d-9779-bffe4cf9d2fd",
+            "name": "backdrop",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": true,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": "dc22e09b-f98e-4c11-b5fa-5ee4875e824d",
+            "defines": {},
+            "userDataKeys": [
+              "nightEmissive"
+            ]
+          },
+          "calls": 16,
+          "triangles": 8808,
+          "objects": [
+            {
+              "id": 922,
+              "name": "backdrop -1,1",
+              "parent": "cells",
+              "triangles": 2004,
+              "geometryId": 452
+            },
+            {
+              "id": 860,
+              "name": "backdrop -1,0",
+              "parent": "cells",
+              "triangles": 132,
+              "geometryId": 388
+            },
+            {
+              "id": 915,
+              "name": "backdrop -1,-1",
+              "parent": "cells",
+              "triangles": 156,
+              "geometryId": 445
+            },
+            {
+              "id": 1039,
+              "name": "backdrop -1,-2",
+              "parent": "cells",
+              "triangles": 384,
+              "geometryId": 611
+            },
+            {
+              "id": 871,
+              "name": "backdrop 0,0",
+              "parent": "cells",
+              "triangles": 12,
+              "geometryId": 401
+            },
+            {
+              "id": 866,
+              "name": "backdrop 0,1",
+              "parent": "cells",
+              "triangles": 960,
+              "geometryId": 396
+            },
+            {
+              "id": 834,
+              "name": "backdrop 0,-1",
+              "parent": "cells",
+              "triangles": 144,
+              "geometryId": 356
+            },
+            {
+              "id": 807,
+              "name": "backdrop 0,-2",
+              "parent": "cells",
+              "triangles": 1284,
+              "geometryId": 329
+            },
+            {
+              "id": 810,
+              "name": "backdrop 1,1",
+              "parent": "cells",
+              "triangles": 732,
+              "geometryId": 332
+            },
+            {
+              "id": 1043,
+              "name": "backdrop 1,-1",
+              "parent": "cells",
+              "triangles": 84,
+              "geometryId": 615
+            },
+            {
+              "id": 1042,
+              "name": "backdrop 1,-2",
+              "parent": "cells",
+              "triangles": 1128,
+              "geometryId": 614
+            },
+            {
+              "id": 812,
+              "name": "backdrop 1,0",
+              "parent": "cells",
+              "triangles": 204,
+              "geometryId": 334
+            },
+            {
+              "id": 1016,
+              "name": "backdrop 2,1",
+              "parent": "cells",
+              "triangles": 360,
+              "geometryId": 552
+            },
+            {
+              "id": 1040,
+              "name": "backdrop 2,0",
+              "parent": "cells",
+              "triangles": 792,
+              "geometryId": 612
+            },
+            {
+              "id": 1041,
+              "name": "backdrop 2,-1",
+              "parent": "cells",
+              "triangles": 420,
+              "geometryId": 613
+            },
+            {
+              "id": 1044,
+              "name": "backdrop 2,-2",
+              "parent": "cells",
+              "triangles": 12,
+              "geometryId": 616
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 45,
+            "uuid": "7744f939-a727-4572-9bb7-4b64547b12e6",
+            "name": "road",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": true,
+            "polygonOffset": true,
+            "polygonOffsetFactor": -1,
+            "polygonOffsetUnits": -2,
+            "map": "fc2199ae-2e7a-4f66-af1c-6ac6b35527c9",
+            "defines": {},
+            "userDataKeys": [
+              "wxPatch"
+            ]
+          },
+          "calls": 12,
+          "triangles": 2688,
+          "objects": [
+            {
+              "id": 885,
+              "name": "road -3,0",
+              "parent": "cells",
+              "triangles": 294,
+              "geometryId": 415
+            },
+            {
+              "id": 880,
+              "name": "road -3,-1",
+              "parent": "cells",
+              "triangles": 76,
+              "geometryId": 410
+            },
+            {
+              "id": 826,
+              "name": "road -2,0",
+              "parent": "cells",
+              "triangles": 444,
+              "geometryId": 348
+            },
+            {
+              "id": 821,
+              "name": "road -2,-1",
+              "parent": "cells",
+              "triangles": 370,
+              "geometryId": 343
+            },
+            {
+              "id": 777,
+              "name": "road -1,0",
+              "parent": "cells",
+              "triangles": 224,
+              "geometryId": 299
+            },
+            {
+              "id": 769,
+              "name": "road -1,-1",
+              "parent": "cells",
+              "triangles": 12,
+              "geometryId": 291
+            },
+            {
+              "id": 814,
+              "name": "road 0,-1",
+              "parent": "cells",
+              "triangles": 198,
+              "geometryId": 336
+            },
+            {
+              "id": 791,
+              "name": "road 0,0",
+              "parent": "cells",
+              "triangles": 460,
+              "geometryId": 313
+            },
+            {
+              "id": 851,
+              "name": "road 1,0",
+              "parent": "cells",
+              "triangles": 458,
+              "geometryId": 379
+            },
+            {
+              "id": 896,
+              "name": "road 1,1",
+              "parent": "cells",
+              "triangles": 82,
+              "geometryId": 426
+            },
+            {
+              "id": 741,
+              "name": "road 2,1",
+              "parent": "cells",
+              "triangles": 2,
+              "geometryId": 263
+            },
+            {
+              "id": 993,
+              "name": "road 2,0",
+              "parent": "cells",
+              "triangles": 68,
+              "geometryId": 529
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 49,
+            "uuid": "74cbecd4-a375-4b18-914a-af879b123d8d",
+            "name": "landuse",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": false,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": "fc2199ae-2e7a-4f66-af1c-6ac6b35527c9",
+            "defines": {},
+            "userDataKeys": [
+              "wxPatch"
+            ]
+          },
+          "calls": 11,
+          "triangles": 869,
+          "objects": [
+            {
+              "id": 759,
+              "name": "area -2,0",
+              "parent": "cells",
+              "triangles": 75,
+              "geometryId": 281
+            },
+            {
+              "id": 749,
+              "name": "area -2,-1",
+              "parent": "cells",
+              "triangles": 120,
+              "geometryId": 271
+            },
+            {
+              "id": 719,
+              "name": "area -1,0",
+              "parent": "cells",
+              "triangles": 140,
+              "geometryId": 239
+            },
+            {
+              "id": 765,
+              "name": "area -1,-1",
+              "parent": "cells",
+              "triangles": 42,
+              "geometryId": 287
+            },
+            {
+              "id": 799,
+              "name": "area 0,-1",
+              "parent": "cells",
+              "triangles": 114,
+              "geometryId": 321
+            },
+            {
+              "id": 730,
+              "name": "area 0,1",
+              "parent": "cells",
+              "triangles": 44,
+              "geometryId": 250
+            },
+            {
+              "id": 787,
+              "name": "area 0,0",
+              "parent": "cells",
+              "triangles": 62,
+              "geometryId": 309
+            },
+            {
+              "id": 806,
+              "name": "area 0,-2",
+              "parent": "cells",
+              "triangles": 155,
+              "geometryId": 328
+            },
+            {
+              "id": 808,
+              "name": "area 1,1",
+              "parent": "cells",
+              "triangles": 28,
+              "geometryId": 330
+            },
+            {
+              "id": 737,
+              "name": "area 1,0",
+              "parent": "cells",
+              "triangles": 74,
+              "geometryId": 259
+            },
+            {
+              "id": 857,
+              "name": "area 1,-1",
+              "parent": "cells",
+              "triangles": 15,
+              "geometryId": 385
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 51,
+            "uuid": "43a1386e-5e1f-473b-9dfe-8c335a5779a7",
+            "name": "grass",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": false,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": "fc2199ae-2e7a-4f66-af1c-6ac6b35527c9",
+            "defines": {},
+            "userDataKeys": [
+              "wxPatch"
+            ]
+          },
+          "calls": 10,
+          "triangles": 69464,
+          "objects": [
+            {
+              "id": 760,
+              "name": "grass -2,0",
+              "parent": "cells",
+              "triangles": 8884,
+              "geometryId": 282
+            },
+            {
+              "id": 750,
+              "name": "grass -2,-1",
+              "parent": "cells",
+              "triangles": 8822,
+              "geometryId": 272
+            },
+            {
+              "id": 720,
+              "name": "grass -1,0",
+              "parent": "cells",
+              "triangles": 10768,
+              "geometryId": 240
+            },
+            {
+              "id": 766,
+              "name": "grass -1,-1",
+              "parent": "cells",
+              "triangles": 8931,
+              "geometryId": 288
+            },
+            {
+              "id": 731,
+              "name": "grass 0,1",
+              "parent": "cells",
+              "triangles": 2685,
+              "geometryId": 251
+            },
+            {
+              "id": 800,
+              "name": "grass 0,-1",
+              "parent": "cells",
+              "triangles": 7858,
+              "geometryId": 322
+            },
+            {
+              "id": 788,
+              "name": "grass 0,0",
+              "parent": "cells",
+              "triangles": 9827,
+              "geometryId": 310
+            },
+            {
+              "id": 809,
+              "name": "grass 1,1",
+              "parent": "cells",
+              "triangles": 2920,
+              "geometryId": 331
+            },
+            {
+              "id": 738,
+              "name": "grass 1,0",
+              "parent": "cells",
+              "triangles": 6954,
+              "geometryId": 260
+            },
+            {
+              "id": 858,
+              "name": "grass 1,-1",
+              "parent": "cells",
+              "triangles": 1815,
+              "geometryId": 386
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 53,
+            "uuid": "de9be79d-1af2-4d7e-a22f-06ede9d1227b",
+            "name": "roofs",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": true,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": null,
+            "defines": {},
+            "userDataKeys": [
+              "wxPatch"
+            ]
+          },
+          "calls": 9,
+          "triangles": 24895,
+          "objects": [
+            {
+              "id": 761,
+              "name": "roofs -2,0",
+              "parent": "cells",
+              "triangles": 2965,
+              "geometryId": 283
+            },
+            {
+              "id": 752,
+              "name": "roofs -2,-1",
+              "parent": "cells",
+              "triangles": 3202,
+              "geometryId": 274
+            },
+            {
+              "id": 723,
+              "name": "roofs -1,0",
+              "parent": "cells",
+              "triangles": 2616,
+              "geometryId": 243
+            },
+            {
+              "id": 767,
+              "name": "roofs -1,-1",
+              "parent": "cells",
+              "triangles": 1453,
+              "geometryId": 289
+            },
+            {
+              "id": 732,
+              "name": "roofs 0,1",
+              "parent": "cells",
+              "triangles": 603,
+              "geometryId": 252
+            },
+            {
+              "id": 789,
+              "name": "roofs 0,0",
+              "parent": "cells",
+              "triangles": 1370,
+              "geometryId": 311
+            },
+            {
+              "id": 802,
+              "name": "roofs 0,-1",
+              "parent": "cells",
+              "triangles": 315,
+              "geometryId": 324
+            },
+            {
+              "id": 967,
+              "name": "roofs 1,1",
+              "parent": "cells",
+              "triangles": 2916,
+              "geometryId": 503
+            },
+            {
+              "id": 739,
+              "name": "roofs 1,0",
+              "parent": "cells",
+              "triangles": 9455,
+              "geometryId": 261
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 46,
+            "uuid": "58dd2350-5f1d-4a1f-8f93-26a381b99653",
+            "name": "junction",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": true,
+            "polygonOffset": true,
+            "polygonOffsetFactor": -2,
+            "polygonOffsetUnits": -4,
+            "map": "fc2199ae-2e7a-4f66-af1c-6ac6b35527c9",
+            "defines": {},
+            "userDataKeys": [
+              "wxPatch"
+            ]
+          },
+          "calls": 9,
+          "triangles": 1007,
+          "objects": [
+            {
+              "id": 886,
+              "name": "junction -3,0",
+              "parent": "cells",
+              "triangles": 95,
+              "geometryId": 416
+            },
+            {
+              "id": 881,
+              "name": "junction -3,-1",
+              "parent": "cells",
+              "triangles": 60,
+              "geometryId": 411
+            },
+            {
+              "id": 827,
+              "name": "junction -2,0",
+              "parent": "cells",
+              "triangles": 134,
+              "geometryId": 349
+            },
+            {
+              "id": 822,
+              "name": "junction -2,-1",
+              "parent": "cells",
+              "triangles": 137,
+              "geometryId": 344
+            },
+            {
+              "id": 778,
+              "name": "junction -1,0",
+              "parent": "cells",
+              "triangles": 106,
+              "geometryId": 300
+            },
+            {
+              "id": 815,
+              "name": "junction 0,-1",
+              "parent": "cells",
+              "triangles": 57,
+              "geometryId": 337
+            },
+            {
+              "id": 792,
+              "name": "junction 0,0",
+              "parent": "cells",
+              "triangles": 195,
+              "geometryId": 314
+            },
+            {
+              "id": 852,
+              "name": "junction 1,0",
+              "parent": "cells",
+              "triangles": 207,
+              "geometryId": 380
+            },
+            {
+              "id": 897,
+              "name": "junction 1,1",
+              "parent": "cells",
+              "triangles": 16,
+              "geometryId": 427
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 50,
+            "uuid": "de44a4ec-12c5-4aad-b154-88b0c9cb8699",
+            "name": "paved-areas",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": false,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": "fc2199ae-2e7a-4f66-af1c-6ac6b35527c9",
+            "defines": {},
+            "userDataKeys": [
+              "wxPatch"
+            ]
+          },
+          "calls": 7,
+          "triangles": 284,
+          "objects": [
+            {
+              "id": 782,
+              "name": "pave -2,0",
+              "parent": "cells",
+              "triangles": 25,
+              "geometryId": 304
+            },
+            {
+              "id": 721,
+              "name": "pave -1,0",
+              "parent": "cells",
+              "triangles": 112,
+              "geometryId": 241
+            },
+            {
+              "id": 819,
+              "name": "pave -1,-1",
+              "parent": "cells",
+              "triangles": 31,
+              "geometryId": 341
+            },
+            {
+              "id": 849,
+              "name": "pave 0,0",
+              "parent": "cells",
+              "triangles": 44,
+              "geometryId": 377
+            },
+            {
+              "id": 801,
+              "name": "pave 0,-1",
+              "parent": "cells",
+              "triangles": 61,
+              "geometryId": 323
+            },
+            {
+              "id": 901,
+              "name": "pave 0,1",
+              "parent": "cells",
+              "triangles": 6,
+              "geometryId": 431
+            },
+            {
+              "id": 966,
+              "name": "pave 1,1",
+              "parent": "cells",
+              "triangles": 5,
+              "geometryId": 502
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 47,
+            "uuid": "557175a8-eae5-4891-b5f7-1f96460f05fb",
+            "name": "markings",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": true,
+            "polygonOffset": true,
+            "polygonOffsetFactor": -4,
+            "polygonOffsetUnits": -8,
+            "map": null,
+            "defines": {},
+            "userDataKeys": [
+              "wxPatch"
+            ]
+          },
+          "calls": 6,
+          "triangles": 8146,
+          "objects": [
+            {
+              "id": 887,
+              "name": "marks -3,0",
+              "parent": "cells",
+              "triangles": 1852,
+              "geometryId": 417
+            },
+            {
+              "id": 882,
+              "name": "marks -3,-1",
+              "parent": "cells",
+              "triangles": 10,
+              "geometryId": 412
+            },
+            {
+              "id": 828,
+              "name": "marks -2,0",
+              "parent": "cells",
+              "triangles": 2974,
+              "geometryId": 350
+            },
+            {
+              "id": 823,
+              "name": "marks -2,-1",
+              "parent": "cells",
+              "triangles": 2634,
+              "geometryId": 345
+            },
+            {
+              "id": 878,
+              "name": "marks -1,0",
+              "parent": "cells",
+              "triangles": 672,
+              "geometryId": 408
+            },
+            {
+              "id": 717,
+              "name": "poi-door-guides",
+              "parent": "pois",
+              "triangles": 4,
+              "geometryId": 237
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 52,
+            "uuid": "9a48eac4-c3f7-4acd-a2bb-82577069c267",
+            "name": "sport-ground",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": false,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": "fc2199ae-2e7a-4f66-af1c-6ac6b35527c9",
+            "defines": {},
+            "userDataKeys": [
+              "wxPatch"
+            ]
+          },
+          "calls": 5,
+          "triangles": 1960,
+          "objects": [
+            {
+              "id": 874,
+              "name": "sport -2,0",
+              "parent": "cells",
+              "triangles": 406,
+              "geometryId": 404
+            },
+            {
+              "id": 926,
+              "name": "sport -1,-1",
+              "parent": "cells",
+              "triangles": 362,
+              "geometryId": 458
+            },
+            {
+              "id": 722,
+              "name": "sport -1,0",
+              "parent": "cells",
+              "triangles": 518,
+              "geometryId": 242
+            },
+            {
+              "id": 870,
+              "name": "sport 0,0",
+              "parent": "cells",
+              "triangles": 102,
+              "geometryId": 400
+            },
+            {
+              "id": 865,
+              "name": "sport 0,1",
+              "parent": "cells",
+              "triangles": 572,
+              "geometryId": 395
+            }
+          ]
+        }
+      ],
+      "memory": {
+        "heap": {
+          "usedJSHeapSize": 577172908,
+          "totalJSHeapSize": 617592920,
+          "jsHeapSizeLimit": 4395630592
+        },
+        "renderer": {
+          "geometries": 302,
+          "textures": 33
+        },
+        "programs": 54,
+        "uniqueGeometries": 524,
+        "geometryArrayBytes": 99803026
+      }
+    },
+    {
+      "route": "db",
+      "index": 8,
+      "pose": {
+        "x": -1008.3654368616759,
+        "z": 52.72511798376062,
+        "y": 0.24,
+        "heading": -1.3123270311188666,
+        "camera": [
+          0,
+          0,
+          0
+        ],
+        "matrixWorld": [
+          0.25560099397467606,
+          0,
+          0.9667823601406667,
+          0,
+          0,
+          1,
+          0,
+          0,
+          -0.9667823601406667,
+          0,
+          0.25560099397467606,
+          0,
+          -1008.007065097805,
+          1.6,
+          52.32006282842981,
+          1
+        ]
+      },
+      "stats": {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 393,
+        "triangles": 1223403,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "drawCallsObserved": 393,
+      "trianglesObserved": 1223403,
+      "repeatedCompatibleStaticBatches": [
+        {
+          "camera": "main",
+          "material": {
+            "id": 48,
+            "uuid": "a51be79f-7f95-4541-aa9e-7f4c22e801cb",
+            "name": "water",
+            "type": "MeshStandardMaterial",
+            "colour": "2b3a33",
+            "vertexColors": false,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": false,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": null,
+            "defines": {
+              "STANDARD": ""
+            },
+            "userDataKeys": [
+              "envScale",
+              "waterU",
+              "hasShore"
+            ]
+          },
+          "calls": 49,
+          "triangles": 106694,
+          "objects": [
+            {
+              "id": 1134,
+              "name": "water-big -1,1",
+              "parent": "water-big",
+              "triangles": 43,
+              "geometryId": 690
+            },
+            {
+              "id": 1133,
+              "name": "water-big 0,1",
+              "parent": "water-big",
+              "triangles": 21,
+              "geometryId": 689
+            },
+            {
+              "id": 1131,
+              "name": "water-big 0,2",
+              "parent": "water-big",
+              "triangles": 18,
+              "geometryId": 687
+            },
+            {
+              "id": 1128,
+              "name": "water-big -1,-3",
+              "parent": "water-big",
+              "triangles": 12,
+              "geometryId": 684
+            },
+            {
+              "id": 1132,
+              "name": "water-big 1,3",
+              "parent": "water-big",
+              "triangles": 17,
+              "geometryId": 688
+            },
+            {
+              "id": 1127,
+              "name": "water-big -1,-4",
+              "parent": "water-big",
+              "triangles": 858,
+              "geometryId": 683
+            },
+            {
+              "id": 1130,
+              "name": "water-big 1,2",
+              "parent": "water-big",
+              "triangles": 30,
+              "geometryId": 686
+            },
+            {
+              "id": 1124,
+              "name": "water-big 0,-4",
+              "parent": "water-big",
+              "triangles": 7811,
+              "geometryId": 680
+            },
+            {
+              "id": 1164,
+              "name": "water-big 1,1",
+              "parent": "water-big",
+              "triangles": 7,
+              "geometryId": 720
+            },
+            {
+              "id": 1137,
+              "name": "water-big 2,2",
+              "parent": "water-big",
+              "triangles": 33,
+              "geometryId": 693
+            },
+            {
+              "id": 1165,
+              "name": "water-big 2,3",
+              "parent": "water-big",
+              "triangles": 6,
+              "geometryId": 721
+            },
+            {
+              "id": 1163,
+              "name": "water-big 2,1",
+              "parent": "water-big",
+              "triangles": 15,
+              "geometryId": 719
+            },
+            {
+              "id": 1125,
+              "name": "water-big 0,-6",
+              "parent": "water-big",
+              "triangles": 1136,
+              "geometryId": 681
+            },
+            {
+              "id": 1121,
+              "name": "water-big 1,-4",
+              "parent": "water-big",
+              "triangles": 1592,
+              "geometryId": 677
+            },
+            {
+              "id": 1160,
+              "name": "water-big 2,0",
+              "parent": "water-big",
+              "triangles": 27,
+              "geometryId": 716
+            },
+            {
+              "id": 1123,
+              "name": "water-big 1,-6",
+              "parent": "water-big",
+              "triangles": 206,
+              "geometryId": 679
+            },
+            {
+              "id": 1118,
+              "name": "water-big 1,-5",
+              "parent": "water-big",
+              "triangles": 7550,
+              "geometryId": 674
+            },
+            {
+              "id": 1158,
+              "name": "water-big 3,3",
+              "parent": "water-big",
+              "triangles": 9,
+              "geometryId": 714
+            },
+            {
+              "id": 1162,
+              "name": "water-big 3,0",
+              "parent": "water-big",
+              "triangles": 12,
+              "geometryId": 718
+            },
+            {
+              "id": 1159,
+              "name": "water-big 3,1",
+              "parent": "water-big",
+              "triangles": 50,
+              "geometryId": 715
+            },
+            {
+              "id": 1157,
+              "name": "water-big 4,3",
+              "parent": "water-big",
+              "triangles": 3,
+              "geometryId": 713
+            },
+            {
+              "id": 1161,
+              "name": "water-big 3,2",
+              "parent": "water-big",
+              "triangles": 22,
+              "geometryId": 717
+            },
+            {
+              "id": 1166,
+              "name": "water-big 4,2",
+              "parent": "water-big",
+              "triangles": 4,
+              "geometryId": 722
+            },
+            {
+              "id": 1116,
+              "name": "water-big 2,-5",
+              "parent": "water-big",
+              "triangles": 2700,
+              "geometryId": 672
+            },
+            {
+              "id": 1151,
+              "name": "water-big 4,4",
+              "parent": "water-big",
+              "triangles": 24,
+              "geometryId": 707
+            },
+            {
+              "id": 1117,
+              "name": "water-big 2,-4",
+              "parent": "water-big",
+              "triangles": 4467,
+              "geometryId": 673
+            },
+            {
+              "id": 1114,
+              "name": "water-big 3,-5",
+              "parent": "water-big",
+              "triangles": 2292,
+              "geometryId": 670
+            },
+            {
+              "id": 1150,
+              "name": "water-big 5,4",
+              "parent": "water-big",
+              "triangles": 82,
+              "geometryId": 706
+            },
+            {
+              "id": 1129,
+              "name": "water-big 3,-2",
+              "parent": "water-big",
+              "triangles": 2,
+              "geometryId": 685
+            },
+            {
+              "id": 1152,
+              "name": "water-big 5,5",
+              "parent": "water-big",
+              "triangles": 12,
+              "geometryId": 708
+            },
+            {
+              "id": 1115,
+              "name": "water-big 3,-4",
+              "parent": "water-big",
+              "triangles": 11953,
+              "geometryId": 671
+            },
+            {
+              "id": 1119,
+              "name": "water-big 3,-3",
+              "parent": "water-big",
+              "triangles": 2456,
+              "geometryId": 675
+            },
+            {
+              "id": 1122,
+              "name": "water-big 4,-2",
+              "parent": "water-big",
+              "triangles": 7240,
+              "geometryId": 678
+            },
+            {
+              "id": 1120,
+              "name": "water-big 4,-3",
+              "parent": "water-big",
+              "triangles": 5456,
+              "geometryId": 676
+            },
+            {
+              "id": 1154,
+              "name": "water-big 6,7",
+              "parent": "water-big",
+              "triangles": 8,
+              "geometryId": 710
+            },
+            {
+              "id": 1146,
+              "name": "water-big 6,5",
+              "parent": "water-big",
+              "triangles": 44,
+              "geometryId": 702
+            },
+            {
+              "id": 1148,
+              "name": "water-big 6,4",
+              "parent": "water-big",
+              "triangles": 33,
+              "geometryId": 704
+            },
+            {
+              "id": 1145,
+              "name": "water-big 6,6",
+              "parent": "water-big",
+              "triangles": 21,
+              "geometryId": 701
+            },
+            {
+              "id": 1126,
+              "name": "water-big 4,-4",
+              "parent": "water-big",
+              "triangles": 2901,
+              "geometryId": 682
+            },
+            {
+              "id": 1149,
+              "name": "water-big 7,7",
+              "parent": "water-big",
+              "triangles": 60,
+              "geometryId": 705
+            },
+            {
+              "id": 1147,
+              "name": "water-big 7,6",
+              "parent": "water-big",
+              "triangles": 47,
+              "geometryId": 703
+            },
+            {
+              "id": 1153,
+              "name": "water-big 7,5",
+              "parent": "water-big",
+              "triangles": 53,
+              "geometryId": 709
+            },
+            {
+              "id": 1155,
+              "name": "water-big 8,7",
+              "parent": "water-big",
+              "triangles": 7,
+              "geometryId": 711
+            },
+            {
+              "id": 1156,
+              "name": "water-big 8,5",
+              "parent": "water-big",
+              "triangles": 5,
+              "geometryId": 712
+            },
+            {
+              "id": 842,
+              "name": "water -1,0",
+              "parent": "cells",
+              "triangles": 5504,
+              "geometryId": 368
+            },
+            {
+              "id": 734,
+              "name": "water 0,1",
+              "parent": "cells",
+              "triangles": 9052,
+              "geometryId": 256
+            },
+            {
+              "id": 844,
+              "name": "water 0,0",
+              "parent": "cells",
+              "triangles": 15140,
+              "geometryId": 372
+            },
+            {
+              "id": 932,
+              "name": "water 1,0",
+              "parent": "cells",
+              "triangles": 12997,
+              "geometryId": 468
+            },
+            {
+              "id": 928,
+              "name": "water 1,1",
+              "parent": "cells",
+              "triangles": 4656,
+              "geometryId": 462
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 42,
+            "uuid": "7ca55204-c6f8-425b-bbee-5a21bc5944a0",
+            "name": "",
+            "type": "MeshStandardMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": true,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": "dc22e09b-f98e-4c11-b5fa-5ee4875e824d",
+            "defines": {
+              "STANDARD": ""
+            },
+            "userDataKeys": [
+              "nightEmissive",
+              "uClosed",
+              "ownedTextures"
+            ]
+          },
+          "calls": 31,
+          "triangles": 263772,
+          "objects": [
+            {
+              "id": 876,
+              "name": "solid -3,0",
+              "parent": "cells",
+              "triangles": 20135,
+              "geometryId": 406
+            },
+            {
+              "id": 754,
+              "name": "solid -3,-1",
+              "parent": "cells",
+              "triangles": 15866,
+              "geometryId": 276
+            },
+            {
+              "id": 888,
+              "name": "detail -5,0",
+              "parent": "cells",
+              "triangles": 15544,
+              "geometryId": 418
+            },
+            {
+              "id": 883,
+              "name": "detail -5,-1",
+              "parent": "cells",
+              "triangles": 17060,
+              "geometryId": 413
+            },
+            {
+              "id": 948,
+              "name": "detail -4,0",
+              "parent": "cells",
+              "triangles": 12880,
+              "geometryId": 484
+            },
+            {
+              "id": 989,
+              "name": "detail -4,-1",
+              "parent": "cells",
+              "triangles": 17276,
+              "geometryId": 525
+            },
+            {
+              "id": 725,
+              "name": "solid -2,0",
+              "parent": "cells",
+              "triangles": 16970,
+              "geometryId": 245
+            },
+            {
+              "id": 824,
+              "name": "solid -2,-1",
+              "parent": "cells",
+              "triangles": 22555,
+              "geometryId": 346
+            },
+            {
+              "id": 912,
+              "name": "solid -2,-2",
+              "parent": "cells",
+              "triangles": 1292,
+              "geometryId": 442
+            },
+            {
+              "id": 747,
+              "name": "solid -1,1",
+              "parent": "cells",
+              "triangles": 1664,
+              "geometryId": 269
+            },
+            {
+              "id": 779,
+              "name": "solid -1,0",
+              "parent": "cells",
+              "triangles": 10450,
+              "geometryId": 301
+            },
+            {
+              "id": 770,
+              "name": "solid -1,-1",
+              "parent": "cells",
+              "triangles": 6202,
+              "geometryId": 292
+            },
+            {
+              "id": 868,
+              "name": "solid 0,2",
+              "parent": "cells",
+              "triangles": 752,
+              "geometryId": 398
+            },
+            {
+              "id": 773,
+              "name": "solid -1,-2",
+              "parent": "cells",
+              "triangles": 866,
+              "geometryId": 295
+            },
+            {
+              "id": 845,
+              "name": "solid 0,1",
+              "parent": "cells",
+              "triangles": 842,
+              "geometryId": 373
+            },
+            {
+              "id": 794,
+              "name": "solid 0,0",
+              "parent": "cells",
+              "triangles": 16242,
+              "geometryId": 316
+            },
+            {
+              "id": 804,
+              "name": "solid 0,-1",
+              "parent": "cells",
+              "triangles": 5912,
+              "geometryId": 326
+            },
+            {
+              "id": 836,
+              "name": "solid 0,-2",
+              "parent": "cells",
+              "triangles": 2210,
+              "geometryId": 358
+            },
+            {
+              "id": 735,
+              "name": "solid 1,2",
+              "parent": "cells",
+              "triangles": 892,
+              "geometryId": 257
+            },
+            {
+              "id": 894,
+              "name": "solid 1,1",
+              "parent": "cells",
+              "triangles": 10488,
+              "geometryId": 424
+            },
+            {
+              "id": 854,
+              "name": "solid 1,0",
+              "parent": "cells",
+              "triangles": 19236,
+              "geometryId": 382
+            },
+            {
+              "id": 980,
+              "name": "solid 1,-2",
+              "parent": "cells",
+              "triangles": 64,
+              "geometryId": 516
+            },
+            {
+              "id": 831,
+              "name": "solid 1,-1",
+              "parent": "cells",
+              "triangles": 412,
+              "geometryId": 353
+            },
+            {
+              "id": 969,
+              "name": "solid 2,2",
+              "parent": "cells",
+              "triangles": 5456,
+              "geometryId": 505
+            },
+            {
+              "id": 987,
+              "name": "solid 2,-1",
+              "parent": "cells",
+              "triangles": 358,
+              "geometryId": 523
+            },
+            {
+              "id": 743,
+              "name": "solid 2,1",
+              "parent": "cells",
+              "triangles": 22888,
+              "geometryId": 265
+            },
+            {
+              "id": 995,
+              "name": "solid 2,0",
+              "parent": "cells",
+              "triangles": 9376,
+              "geometryId": 531
+            },
+            {
+              "id": 1010,
+              "name": "solid 3,2",
+              "parent": "cells",
+              "triangles": 780,
+              "geometryId": 546
+            },
+            {
+              "id": 930,
+              "name": "solid 3,1",
+              "parent": "cells",
+              "triangles": 218,
+              "geometryId": 464
+            },
+            {
+              "id": 972,
+              "name": "solid 3,0",
+              "parent": "cells",
+              "triangles": 6942,
+              "geometryId": 508
+            },
+            {
+              "id": 914,
+              "name": "solid 3,-1",
+              "parent": "cells",
+              "triangles": 1944,
+              "geometryId": 444
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 44,
+            "uuid": "6e157b68-0c49-484a-9aff-7fcb98f9e0f6",
+            "name": "",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": true,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": "fc2199ae-2e7a-4f66-af1c-6ac6b35527c9",
+            "defines": {},
+            "userDataKeys": [
+              "wxPatch"
+            ]
+          },
+          "calls": 28,
+          "triangles": 117622,
+          "objects": [
+            {
+              "id": 875,
+              "name": "ground -3,0",
+              "parent": "cells",
+              "triangles": 12506,
+              "geometryId": 405
+            },
+            {
+              "id": 753,
+              "name": "ground -3,-1",
+              "parent": "cells",
+              "triangles": 5288,
+              "geometryId": 275
+            },
+            {
+              "id": 724,
+              "name": "ground -2,0",
+              "parent": "cells",
+              "triangles": 15980,
+              "geometryId": 244
+            },
+            {
+              "id": 820,
+              "name": "ground -2,-1",
+              "parent": "cells",
+              "triangles": 11979,
+              "geometryId": 342
+            },
+            {
+              "id": 911,
+              "name": "ground -2,-2",
+              "parent": "cells",
+              "triangles": 330,
+              "geometryId": 441
+            },
+            {
+              "id": 746,
+              "name": "ground -1,1",
+              "parent": "cells",
+              "triangles": 1174,
+              "geometryId": 268
+            },
+            {
+              "id": 776,
+              "name": "ground -1,0",
+              "parent": "cells",
+              "triangles": 11921,
+              "geometryId": 298
+            },
+            {
+              "id": 768,
+              "name": "ground -1,-1",
+              "parent": "cells",
+              "triangles": 1448,
+              "geometryId": 290
+            },
+            {
+              "id": 867,
+              "name": "ground 0,2",
+              "parent": "cells",
+              "triangles": 174,
+              "geometryId": 397
+            },
+            {
+              "id": 772,
+              "name": "ground -1,-2",
+              "parent": "cells",
+              "triangles": 336,
+              "geometryId": 294
+            },
+            {
+              "id": 843,
+              "name": "ground 0,1",
+              "parent": "cells",
+              "triangles": 80,
+              "geometryId": 369
+            },
+            {
+              "id": 790,
+              "name": "ground 0,0",
+              "parent": "cells",
+              "triangles": 18716,
+              "geometryId": 312
+            },
+            {
+              "id": 803,
+              "name": "ground 0,-1",
+              "parent": "cells",
+              "triangles": 6674,
+              "geometryId": 325
+            },
+            {
+              "id": 835,
+              "name": "ground 0,-2",
+              "parent": "cells",
+              "triangles": 668,
+              "geometryId": 357
+            },
+            {
+              "id": 733,
+              "name": "ground 1,2",
+              "parent": "cells",
+              "triangles": 320,
+              "geometryId": 253
+            },
+            {
+              "id": 893,
+              "name": "ground 1,1",
+              "parent": "cells",
+              "triangles": 4858,
+              "geometryId": 423
+            },
+            {
+              "id": 850,
+              "name": "ground 1,0",
+              "parent": "cells",
+              "triangles": 20550,
+              "geometryId": 378
+            },
+            {
+              "id": 1014,
+              "name": "ground 2,3",
+              "parent": "cells",
+              "triangles": 212,
+              "geometryId": 550
+            },
+            {
+              "id": 830,
+              "name": "ground 1,-1",
+              "parent": "cells",
+              "triangles": 582,
+              "geometryId": 352
+            },
+            {
+              "id": 979,
+              "name": "ground 1,-2",
+              "parent": "cells",
+              "triangles": 104,
+              "geometryId": 515
+            },
+            {
+              "id": 968,
+              "name": "ground 2,2",
+              "parent": "cells",
+              "triangles": 886,
+              "geometryId": 504
+            },
+            {
+              "id": 740,
+              "name": "ground 2,1",
+              "parent": "cells",
+              "triangles": 1252,
+              "geometryId": 262
+            },
+            {
+              "id": 992,
+              "name": "ground 2,0",
+              "parent": "cells",
+              "triangles": 674,
+              "geometryId": 528
+            },
+            {
+              "id": 811,
+              "name": "ground 3,2",
+              "parent": "cells",
+              "triangles": 194,
+              "geometryId": 333
+            },
+            {
+              "id": 859,
+              "name": "ground 2,-1",
+              "parent": "cells",
+              "triangles": 304,
+              "geometryId": 387
+            },
+            {
+              "id": 982,
+              "name": "ground 2,-2",
+              "parent": "cells",
+              "triangles": 60,
+              "geometryId": 518
+            },
+            {
+              "id": 929,
+              "name": "ground 3,1",
+              "parent": "cells",
+              "triangles": 218,
+              "geometryId": 463
+            },
+            {
+              "id": 813,
+              "name": "ground 3,0",
+              "parent": "cells",
+              "triangles": 134,
+              "geometryId": 335
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 54,
+            "uuid": "d9e0fabd-5993-4f4d-9779-bffe4cf9d2fd",
+            "name": "backdrop",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": true,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": "dc22e09b-f98e-4c11-b5fa-5ee4875e824d",
+            "defines": {},
+            "userDataKeys": [
+              "nightEmissive"
+            ]
+          },
+          "calls": 13,
+          "triangles": 6660,
+          "objects": [
+            {
+              "id": 915,
+              "name": "backdrop -1,-1",
+              "parent": "cells",
+              "triangles": 156,
+              "geometryId": 445
+            },
+            {
+              "id": 1039,
+              "name": "backdrop -1,-2",
+              "parent": "cells",
+              "triangles": 384,
+              "geometryId": 611
+            },
+            {
+              "id": 866,
+              "name": "backdrop 0,1",
+              "parent": "cells",
+              "triangles": 960,
+              "geometryId": 396
+            },
+            {
+              "id": 834,
+              "name": "backdrop 0,-1",
+              "parent": "cells",
+              "triangles": 144,
+              "geometryId": 356
+            },
+            {
+              "id": 807,
+              "name": "backdrop 0,-2",
+              "parent": "cells",
+              "triangles": 1284,
+              "geometryId": 329
+            },
+            {
+              "id": 810,
+              "name": "backdrop 1,1",
+              "parent": "cells",
+              "triangles": 732,
+              "geometryId": 332
+            },
+            {
+              "id": 1043,
+              "name": "backdrop 1,-1",
+              "parent": "cells",
+              "triangles": 84,
+              "geometryId": 615
+            },
+            {
+              "id": 812,
+              "name": "backdrop 1,0",
+              "parent": "cells",
+              "triangles": 204,
+              "geometryId": 334
+            },
+            {
+              "id": 1016,
+              "name": "backdrop 2,1",
+              "parent": "cells",
+              "triangles": 360,
+              "geometryId": 552
+            },
+            {
+              "id": 1042,
+              "name": "backdrop 1,-2",
+              "parent": "cells",
+              "triangles": 1128,
+              "geometryId": 614
+            },
+            {
+              "id": 1040,
+              "name": "backdrop 2,0",
+              "parent": "cells",
+              "triangles": 792,
+              "geometryId": 612
+            },
+            {
+              "id": 1041,
+              "name": "backdrop 2,-1",
+              "parent": "cells",
+              "triangles": 420,
+              "geometryId": 613
+            },
+            {
+              "id": 1044,
+              "name": "backdrop 2,-2",
+              "parent": "cells",
+              "triangles": 12,
+              "geometryId": 616
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 49,
+            "uuid": "74cbecd4-a375-4b18-914a-af879b123d8d",
+            "name": "landuse",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": false,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": "fc2199ae-2e7a-4f66-af1c-6ac6b35527c9",
+            "defines": {},
+            "userDataKeys": [
+              "wxPatch"
+            ]
+          },
+          "calls": 11,
+          "triangles": 869,
+          "objects": [
+            {
+              "id": 759,
+              "name": "area -2,0",
+              "parent": "cells",
+              "triangles": 75,
+              "geometryId": 281
+            },
+            {
+              "id": 749,
+              "name": "area -2,-1",
+              "parent": "cells",
+              "triangles": 120,
+              "geometryId": 271
+            },
+            {
+              "id": 719,
+              "name": "area -1,0",
+              "parent": "cells",
+              "triangles": 140,
+              "geometryId": 239
+            },
+            {
+              "id": 765,
+              "name": "area -1,-1",
+              "parent": "cells",
+              "triangles": 42,
+              "geometryId": 287
+            },
+            {
+              "id": 799,
+              "name": "area 0,-1",
+              "parent": "cells",
+              "triangles": 114,
+              "geometryId": 321
+            },
+            {
+              "id": 730,
+              "name": "area 0,1",
+              "parent": "cells",
+              "triangles": 44,
+              "geometryId": 250
+            },
+            {
+              "id": 787,
+              "name": "area 0,0",
+              "parent": "cells",
+              "triangles": 62,
+              "geometryId": 309
+            },
+            {
+              "id": 806,
+              "name": "area 0,-2",
+              "parent": "cells",
+              "triangles": 155,
+              "geometryId": 328
+            },
+            {
+              "id": 808,
+              "name": "area 1,1",
+              "parent": "cells",
+              "triangles": 28,
+              "geometryId": 330
+            },
+            {
+              "id": 737,
+              "name": "area 1,0",
+              "parent": "cells",
+              "triangles": 74,
+              "geometryId": 259
+            },
+            {
+              "id": 857,
+              "name": "area 1,-1",
+              "parent": "cells",
+              "triangles": 15,
+              "geometryId": 385
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 45,
+            "uuid": "7744f939-a727-4572-9bb7-4b64547b12e6",
+            "name": "road",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": true,
+            "polygonOffset": true,
+            "polygonOffsetFactor": -1,
+            "polygonOffsetUnits": -2,
+            "map": "fc2199ae-2e7a-4f66-af1c-6ac6b35527c9",
+            "defines": {},
+            "userDataKeys": [
+              "wxPatch"
+            ]
+          },
+          "calls": 11,
+          "triangles": 2612,
+          "objects": [
+            {
+              "id": 885,
+              "name": "road -3,0",
+              "parent": "cells",
+              "triangles": 294,
+              "geometryId": 415
+            },
+            {
+              "id": 826,
+              "name": "road -2,0",
+              "parent": "cells",
+              "triangles": 444,
+              "geometryId": 348
+            },
+            {
+              "id": 821,
+              "name": "road -2,-1",
+              "parent": "cells",
+              "triangles": 370,
+              "geometryId": 343
+            },
+            {
+              "id": 777,
+              "name": "road -1,0",
+              "parent": "cells",
+              "triangles": 224,
+              "geometryId": 299
+            },
+            {
+              "id": 769,
+              "name": "road -1,-1",
+              "parent": "cells",
+              "triangles": 12,
+              "geometryId": 291
+            },
+            {
+              "id": 814,
+              "name": "road 0,-1",
+              "parent": "cells",
+              "triangles": 198,
+              "geometryId": 336
+            },
+            {
+              "id": 791,
+              "name": "road 0,0",
+              "parent": "cells",
+              "triangles": 460,
+              "geometryId": 313
+            },
+            {
+              "id": 851,
+              "name": "road 1,0",
+              "parent": "cells",
+              "triangles": 458,
+              "geometryId": 379
+            },
+            {
+              "id": 896,
+              "name": "road 1,1",
+              "parent": "cells",
+              "triangles": 82,
+              "geometryId": 426
+            },
+            {
+              "id": 741,
+              "name": "road 2,1",
+              "parent": "cells",
+              "triangles": 2,
+              "geometryId": 263
+            },
+            {
+              "id": 993,
+              "name": "road 2,0",
+              "parent": "cells",
+              "triangles": 68,
+              "geometryId": 529
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 51,
+            "uuid": "43a1386e-5e1f-473b-9dfe-8c335a5779a7",
+            "name": "grass",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": false,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": "fc2199ae-2e7a-4f66-af1c-6ac6b35527c9",
+            "defines": {},
+            "userDataKeys": [
+              "wxPatch"
+            ]
+          },
+          "calls": 10,
+          "triangles": 69464,
+          "objects": [
+            {
+              "id": 760,
+              "name": "grass -2,0",
+              "parent": "cells",
+              "triangles": 8884,
+              "geometryId": 282
+            },
+            {
+              "id": 750,
+              "name": "grass -2,-1",
+              "parent": "cells",
+              "triangles": 8822,
+              "geometryId": 272
+            },
+            {
+              "id": 720,
+              "name": "grass -1,0",
+              "parent": "cells",
+              "triangles": 10768,
+              "geometryId": 240
+            },
+            {
+              "id": 766,
+              "name": "grass -1,-1",
+              "parent": "cells",
+              "triangles": 8931,
+              "geometryId": 288
+            },
+            {
+              "id": 731,
+              "name": "grass 0,1",
+              "parent": "cells",
+              "triangles": 2685,
+              "geometryId": 251
+            },
+            {
+              "id": 800,
+              "name": "grass 0,-1",
+              "parent": "cells",
+              "triangles": 7858,
+              "geometryId": 322
+            },
+            {
+              "id": 788,
+              "name": "grass 0,0",
+              "parent": "cells",
+              "triangles": 9827,
+              "geometryId": 310
+            },
+            {
+              "id": 809,
+              "name": "grass 1,1",
+              "parent": "cells",
+              "triangles": 2920,
+              "geometryId": 331
+            },
+            {
+              "id": 738,
+              "name": "grass 1,0",
+              "parent": "cells",
+              "triangles": 6954,
+              "geometryId": 260
+            },
+            {
+              "id": 858,
+              "name": "grass 1,-1",
+              "parent": "cells",
+              "triangles": 1815,
+              "geometryId": 386
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 53,
+            "uuid": "de9be79d-1af2-4d7e-a22f-06ede9d1227b",
+            "name": "roofs",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": true,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": null,
+            "defines": {},
+            "userDataKeys": [
+              "wxPatch"
+            ]
+          },
+          "calls": 9,
+          "triangles": 24895,
+          "objects": [
+            {
+              "id": 761,
+              "name": "roofs -2,0",
+              "parent": "cells",
+              "triangles": 2965,
+              "geometryId": 283
+            },
+            {
+              "id": 752,
+              "name": "roofs -2,-1",
+              "parent": "cells",
+              "triangles": 3202,
+              "geometryId": 274
+            },
+            {
+              "id": 723,
+              "name": "roofs -1,0",
+              "parent": "cells",
+              "triangles": 2616,
+              "geometryId": 243
+            },
+            {
+              "id": 767,
+              "name": "roofs -1,-1",
+              "parent": "cells",
+              "triangles": 1453,
+              "geometryId": 289
+            },
+            {
+              "id": 732,
+              "name": "roofs 0,1",
+              "parent": "cells",
+              "triangles": 603,
+              "geometryId": 252
+            },
+            {
+              "id": 789,
+              "name": "roofs 0,0",
+              "parent": "cells",
+              "triangles": 1370,
+              "geometryId": 311
+            },
+            {
+              "id": 802,
+              "name": "roofs 0,-1",
+              "parent": "cells",
+              "triangles": 315,
+              "geometryId": 324
+            },
+            {
+              "id": 967,
+              "name": "roofs 1,1",
+              "parent": "cells",
+              "triangles": 2916,
+              "geometryId": 503
+            },
+            {
+              "id": 739,
+              "name": "roofs 1,0",
+              "parent": "cells",
+              "triangles": 9455,
+              "geometryId": 261
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 46,
+            "uuid": "58dd2350-5f1d-4a1f-8f93-26a381b99653",
+            "name": "junction",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": true,
+            "polygonOffset": true,
+            "polygonOffsetFactor": -2,
+            "polygonOffsetUnits": -4,
+            "map": "fc2199ae-2e7a-4f66-af1c-6ac6b35527c9",
+            "defines": {},
+            "userDataKeys": [
+              "wxPatch"
+            ]
+          },
+          "calls": 8,
+          "triangles": 947,
+          "objects": [
+            {
+              "id": 886,
+              "name": "junction -3,0",
+              "parent": "cells",
+              "triangles": 95,
+              "geometryId": 416
+            },
+            {
+              "id": 827,
+              "name": "junction -2,0",
+              "parent": "cells",
+              "triangles": 134,
+              "geometryId": 349
+            },
+            {
+              "id": 822,
+              "name": "junction -2,-1",
+              "parent": "cells",
+              "triangles": 137,
+              "geometryId": 344
+            },
+            {
+              "id": 778,
+              "name": "junction -1,0",
+              "parent": "cells",
+              "triangles": 106,
+              "geometryId": 300
+            },
+            {
+              "id": 815,
+              "name": "junction 0,-1",
+              "parent": "cells",
+              "triangles": 57,
+              "geometryId": 337
+            },
+            {
+              "id": 792,
+              "name": "junction 0,0",
+              "parent": "cells",
+              "triangles": 195,
+              "geometryId": 314
+            },
+            {
+              "id": 852,
+              "name": "junction 1,0",
+              "parent": "cells",
+              "triangles": 207,
+              "geometryId": 380
+            },
+            {
+              "id": 897,
+              "name": "junction 1,1",
+              "parent": "cells",
+              "triangles": 16,
+              "geometryId": 427
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 50,
+            "uuid": "de44a4ec-12c5-4aad-b154-88b0c9cb8699",
+            "name": "paved-areas",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": false,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": "fc2199ae-2e7a-4f66-af1c-6ac6b35527c9",
+            "defines": {},
+            "userDataKeys": [
+              "wxPatch"
+            ]
+          },
+          "calls": 7,
+          "triangles": 284,
+          "objects": [
+            {
+              "id": 782,
+              "name": "pave -2,0",
+              "parent": "cells",
+              "triangles": 25,
+              "geometryId": 304
+            },
+            {
+              "id": 721,
+              "name": "pave -1,0",
+              "parent": "cells",
+              "triangles": 112,
+              "geometryId": 241
+            },
+            {
+              "id": 819,
+              "name": "pave -1,-1",
+              "parent": "cells",
+              "triangles": 31,
+              "geometryId": 341
+            },
+            {
+              "id": 849,
+              "name": "pave 0,0",
+              "parent": "cells",
+              "triangles": 44,
+              "geometryId": 377
+            },
+            {
+              "id": 901,
+              "name": "pave 0,1",
+              "parent": "cells",
+              "triangles": 6,
+              "geometryId": 431
+            },
+            {
+              "id": 801,
+              "name": "pave 0,-1",
+              "parent": "cells",
+              "triangles": 61,
+              "geometryId": 323
+            },
+            {
+              "id": 966,
+              "name": "pave 1,1",
+              "parent": "cells",
+              "triangles": 5,
+              "geometryId": 502
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 24,
+            "uuid": "ae7b0e86-8cfa-4393-81f1-3065f8520819",
+            "name": "landmark-masonry",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": true,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": null,
+            "defines": {},
+            "userDataKeys": [
+              "wxPatch"
+            ]
+          },
+          "calls": 5,
+          "triangles": 11109,
+          "objects": [
+            {
+              "id": 41,
+              "name": "",
+              "parent": "landmark:globalworth",
+              "triangles": 410,
+              "geometryId": 45
+            },
+            {
+              "id": 31,
+              "name": "",
+              "parent": "landmark:promenada",
+              "triangles": 715,
+              "geometryId": 31
+            },
+            {
+              "id": 29,
+              "name": "",
+              "parent": "landmark:skytower",
+              "triangles": 6144,
+              "geometryId": 22
+            },
+            {
+              "id": 35,
+              "name": "",
+              "parent": "landmark:hermes",
+              "triangles": 1802,
+              "geometryId": 38
+            },
+            {
+              "id": 37,
+              "name": "",
+              "parent": "landmark:bob",
+              "triangles": 2038,
+              "geometryId": 42
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 25,
+            "uuid": "77a7c434-242c-4499-85b6-66288568b36d",
+            "name": "",
+            "type": "MeshStandardMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": true,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": null,
+            "defines": {
+              "STANDARD": ""
+            },
+            "userDataKeys": [
+              "nightEmissive",
+              "nightGlow",
+              "dayGlow"
+            ]
+          },
+          "calls": 5,
+          "triangles": 1258,
+          "objects": [
+            {
+              "id": 40,
+              "name": "",
+              "parent": "landmark:globalworth",
+              "triangles": 324,
+              "geometryId": 44
+            },
+            {
+              "id": 32,
+              "name": "",
+              "parent": "landmark:promenada",
+              "triangles": 260,
+              "geometryId": 32
+            },
+            {
+              "id": 28,
+              "name": "",
+              "parent": "landmark:skytower",
+              "triangles": 174,
+              "geometryId": 21
+            },
+            {
+              "id": 34,
+              "name": "",
+              "parent": "landmark:hermes",
+              "triangles": 320,
+              "geometryId": 37
+            },
+            {
+              "id": 38,
+              "name": "",
+              "parent": "landmark:bob",
+              "triangles": 180,
+              "geometryId": 43
+            }
+          ]
+        }
+      ],
+      "memory": {
+        "heap": {
+          "usedJSHeapSize": 548948449,
+          "totalJSHeapSize": 553310265,
+          "jsHeapSizeLimit": 4395630592
+        },
+        "renderer": {
+          "geometries": 309,
+          "textures": 33
+        },
+        "programs": 54,
+        "uniqueGeometries": 527,
+        "geometryArrayBytes": 100113586
+      }
+    },
+    {
+      "route": "sweep-strada-barbu-v-c-rescu-run-2",
+      "index": 5,
+      "pose": {
+        "x": -657.9513440162334,
+        "z": 156.53774775485408,
+        "y": 0.24,
+        "heading": -2.4335809814024256,
+        "camera": [
+          0,
+          0,
+          0
+        ],
+        "matrixWorld": [
+          -0.7596564352812261,
+          0,
+          0.6503246115101448,
+          0,
+          0,
+          1,
+          0,
+          0,
+          -0.6503246115101448,
+          0,
+          -0.7596564352812261,
+          0,
+          -657.4308010104695,
+          1.6,
+          156.68449576727758,
+          1
+        ]
+      },
+      "stats": {
+        "fps": 12,
+        "frameMs": 0,
+        "drawCalls": 325,
+        "triangles": 1013195,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "drawCallsObserved": 325,
+      "trianglesObserved": 1013195,
+      "repeatedCompatibleStaticBatches": [
+        {
+          "camera": "main",
+          "material": {
+            "id": 48,
+            "uuid": "a51be79f-7f95-4541-aa9e-7f4c22e801cb",
+            "name": "water",
+            "type": "MeshStandardMaterial",
+            "colour": "2b3a33",
+            "vertexColors": false,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": false,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": null,
+            "defines": {
+              "STANDARD": ""
+            },
+            "userDataKeys": [
+              "envScale",
+              "waterU",
+              "hasShore"
+            ]
+          },
+          "calls": 38,
+          "triangles": 54774,
+          "objects": [
+            {
+              "id": 1140,
+              "name": "water-big -3,2",
+              "parent": "water-big",
+              "triangles": 35,
+              "geometryId": 696
+            },
+            {
+              "id": 1141,
+              "name": "water-big -2,2",
+              "parent": "water-big",
+              "triangles": 15,
+              "geometryId": 697
+            },
+            {
+              "id": 1135,
+              "name": "water-big -2,1",
+              "parent": "water-big",
+              "triangles": 41,
+              "geometryId": 691
+            },
+            {
+              "id": 1134,
+              "name": "water-big -1,1",
+              "parent": "water-big",
+              "triangles": 43,
+              "geometryId": 690
+            },
+            {
+              "id": 1133,
+              "name": "water-big 0,1",
+              "parent": "water-big",
+              "triangles": 21,
+              "geometryId": 689
+            },
+            {
+              "id": 1164,
+              "name": "water-big 1,1",
+              "parent": "water-big",
+              "triangles": 7,
+              "geometryId": 720
+            },
+            {
+              "id": 1131,
+              "name": "water-big 0,2",
+              "parent": "water-big",
+              "triangles": 18,
+              "geometryId": 687
+            },
+            {
+              "id": 1160,
+              "name": "water-big 2,0",
+              "parent": "water-big",
+              "triangles": 27,
+              "geometryId": 716
+            },
+            {
+              "id": 1163,
+              "name": "water-big 2,1",
+              "parent": "water-big",
+              "triangles": 15,
+              "geometryId": 719
+            },
+            {
+              "id": 1162,
+              "name": "water-big 3,0",
+              "parent": "water-big",
+              "triangles": 12,
+              "geometryId": 718
+            },
+            {
+              "id": 1136,
+              "name": "water-big 0,3",
+              "parent": "water-big",
+              "triangles": 4,
+              "geometryId": 692
+            },
+            {
+              "id": 1130,
+              "name": "water-big 1,2",
+              "parent": "water-big",
+              "triangles": 30,
+              "geometryId": 686
+            },
+            {
+              "id": 1132,
+              "name": "water-big 1,3",
+              "parent": "water-big",
+              "triangles": 17,
+              "geometryId": 688
+            },
+            {
+              "id": 1137,
+              "name": "water-big 2,2",
+              "parent": "water-big",
+              "triangles": 33,
+              "geometryId": 693
+            },
+            {
+              "id": 1159,
+              "name": "water-big 3,1",
+              "parent": "water-big",
+              "triangles": 50,
+              "geometryId": 715
+            },
+            {
+              "id": 1165,
+              "name": "water-big 2,3",
+              "parent": "water-big",
+              "triangles": 6,
+              "geometryId": 721
+            },
+            {
+              "id": 1161,
+              "name": "water-big 3,2",
+              "parent": "water-big",
+              "triangles": 22,
+              "geometryId": 717
+            },
+            {
+              "id": 1166,
+              "name": "water-big 4,2",
+              "parent": "water-big",
+              "triangles": 4,
+              "geometryId": 722
+            },
+            {
+              "id": 1158,
+              "name": "water-big 3,3",
+              "parent": "water-big",
+              "triangles": 9,
+              "geometryId": 714
+            },
+            {
+              "id": 1157,
+              "name": "water-big 4,3",
+              "parent": "water-big",
+              "triangles": 3,
+              "geometryId": 713
+            },
+            {
+              "id": 1151,
+              "name": "water-big 4,4",
+              "parent": "water-big",
+              "triangles": 24,
+              "geometryId": 707
+            },
+            {
+              "id": 1150,
+              "name": "water-big 5,4",
+              "parent": "water-big",
+              "triangles": 82,
+              "geometryId": 706
+            },
+            {
+              "id": 1152,
+              "name": "water-big 5,5",
+              "parent": "water-big",
+              "triangles": 12,
+              "geometryId": 708
+            },
+            {
+              "id": 1148,
+              "name": "water-big 6,4",
+              "parent": "water-big",
+              "triangles": 33,
+              "geometryId": 704
+            },
+            {
+              "id": 1146,
+              "name": "water-big 6,5",
+              "parent": "water-big",
+              "triangles": 44,
+              "geometryId": 702
+            },
+            {
+              "id": 1153,
+              "name": "water-big 7,5",
+              "parent": "water-big",
+              "triangles": 53,
+              "geometryId": 709
+            },
+            {
+              "id": 1145,
+              "name": "water-big 6,6",
+              "parent": "water-big",
+              "triangles": 21,
+              "geometryId": 701
+            },
+            {
+              "id": 1156,
+              "name": "water-big 8,5",
+              "parent": "water-big",
+              "triangles": 5,
+              "geometryId": 712
+            },
+            {
+              "id": 1154,
+              "name": "water-big 6,7",
+              "parent": "water-big",
+              "triangles": 8,
+              "geometryId": 710
+            },
+            {
+              "id": 1147,
+              "name": "water-big 7,6",
+              "parent": "water-big",
+              "triangles": 47,
+              "geometryId": 703
+            },
+            {
+              "id": 1149,
+              "name": "water-big 7,7",
+              "parent": "water-big",
+              "triangles": 60,
+              "geometryId": 705
+            },
+            {
+              "id": 864,
+              "name": "water -2,1",
+              "parent": "cells",
+              "triangles": 5168,
+              "geometryId": 394
+            },
+            {
+              "id": 924,
+              "name": "water -1,1",
+              "parent": "cells",
+              "triangles": 1456,
+              "geometryId": 456
+            },
+            {
+              "id": 842,
+              "name": "water -1,0",
+              "parent": "cells",
+              "triangles": 5504,
+              "geometryId": 368
+            },
+            {
+              "id": 844,
+              "name": "water 0,0",
+              "parent": "cells",
+              "triangles": 15140,
+              "geometryId": 372
+            },
+            {
+              "id": 932,
+              "name": "water 1,0",
+              "parent": "cells",
+              "triangles": 12997,
+              "geometryId": 468
+            },
+            {
+              "id": 734,
+              "name": "water 0,1",
+              "parent": "cells",
+              "triangles": 9052,
+              "geometryId": 256
+            },
+            {
+              "id": 928,
+              "name": "water 1,1",
+              "parent": "cells",
+              "triangles": 4656,
+              "geometryId": 462
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 42,
+            "uuid": "7ca55204-c6f8-425b-bbee-5a21bc5944a0",
+            "name": "",
+            "type": "MeshStandardMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": true,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": "dc22e09b-f98e-4c11-b5fa-5ee4875e824d",
+            "defines": {
+              "STANDARD": ""
+            },
+            "userDataKeys": [
+              "nightEmissive",
+              "uClosed",
+              "ownedTextures"
+            ]
+          },
+          "calls": 21,
+          "triangles": 158287,
+          "objects": [
+            {
+              "id": 829,
+              "name": "detail -3,0",
+              "parent": "cells",
+              "triangles": 7294,
+              "geometryId": 351
+            },
+            {
+              "id": 725,
+              "name": "solid -2,0",
+              "parent": "cells",
+              "triangles": 16970,
+              "geometryId": 245
+            },
+            {
+              "id": 879,
+              "name": "detail -2,0",
+              "parent": "cells",
+              "triangles": 13174,
+              "geometryId": 409
+            },
+            {
+              "id": 848,
+              "name": "detail -3,1",
+              "parent": "cells",
+              "triangles": 6930,
+              "geometryId": 376
+            },
+            {
+              "id": 804,
+              "name": "solid 0,-1",
+              "parent": "cells",
+              "triangles": 5912,
+              "geometryId": 326
+            },
+            {
+              "id": 779,
+              "name": "solid -1,0",
+              "parent": "cells",
+              "triangles": 10450,
+              "geometryId": 301
+            },
+            {
+              "id": 728,
+              "name": "solid -2,1",
+              "parent": "cells",
+              "triangles": 1369,
+              "geometryId": 248
+            },
+            {
+              "id": 831,
+              "name": "solid 1,-1",
+              "parent": "cells",
+              "triangles": 412,
+              "geometryId": 353
+            },
+            {
+              "id": 794,
+              "name": "solid 0,0",
+              "parent": "cells",
+              "triangles": 16242,
+              "geometryId": 316
+            },
+            {
+              "id": 747,
+              "name": "solid -1,1",
+              "parent": "cells",
+              "triangles": 1664,
+              "geometryId": 269
+            },
+            {
+              "id": 854,
+              "name": "solid 1,0",
+              "parent": "cells",
+              "triangles": 19236,
+              "geometryId": 382
+            },
+            {
+              "id": 845,
+              "name": "solid 0,1",
+              "parent": "cells",
+              "triangles": 842,
+              "geometryId": 373
+            },
+            {
+              "id": 995,
+              "name": "solid 2,0",
+              "parent": "cells",
+              "triangles": 9376,
+              "geometryId": 531
+            },
+            {
+              "id": 868,
+              "name": "solid 0,2",
+              "parent": "cells",
+              "triangles": 752,
+              "geometryId": 398
+            },
+            {
+              "id": 894,
+              "name": "solid 1,1",
+              "parent": "cells",
+              "triangles": 10488,
+              "geometryId": 424
+            },
+            {
+              "id": 972,
+              "name": "solid 3,0",
+              "parent": "cells",
+              "triangles": 6942,
+              "geometryId": 508
+            },
+            {
+              "id": 743,
+              "name": "solid 2,1",
+              "parent": "cells",
+              "triangles": 22888,
+              "geometryId": 265
+            },
+            {
+              "id": 735,
+              "name": "solid 1,2",
+              "parent": "cells",
+              "triangles": 892,
+              "geometryId": 257
+            },
+            {
+              "id": 930,
+              "name": "solid 3,1",
+              "parent": "cells",
+              "triangles": 218,
+              "geometryId": 464
+            },
+            {
+              "id": 969,
+              "name": "solid 2,2",
+              "parent": "cells",
+              "triangles": 5456,
+              "geometryId": 505
+            },
+            {
+              "id": 1010,
+              "name": "solid 3,2",
+              "parent": "cells",
+              "triangles": 780,
+              "geometryId": 546
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 44,
+            "uuid": "6e157b68-0c49-484a-9aff-7fcb98f9e0f6",
+            "name": "",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": true,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": "fc2199ae-2e7a-4f66-af1c-6ac6b35527c9",
+            "defines": {},
+            "userDataKeys": [
+              "wxPatch"
+            ]
+          },
+          "calls": 20,
+          "triangles": 78537,
+          "objects": [
+            {
+              "id": 724,
+              "name": "ground -2,0",
+              "parent": "cells",
+              "triangles": 15980,
+              "geometryId": 244
+            },
+            {
+              "id": 776,
+              "name": "ground -1,0",
+              "parent": "cells",
+              "triangles": 11921,
+              "geometryId": 298
+            },
+            {
+              "id": 727,
+              "name": "ground -2,1",
+              "parent": "cells",
+              "triangles": 576,
+              "geometryId": 247
+            },
+            {
+              "id": 830,
+              "name": "ground 1,-1",
+              "parent": "cells",
+              "triangles": 582,
+              "geometryId": 352
+            },
+            {
+              "id": 790,
+              "name": "ground 0,0",
+              "parent": "cells",
+              "triangles": 18716,
+              "geometryId": 312
+            },
+            {
+              "id": 1035,
+              "name": "ground -2,2",
+              "parent": "cells",
+              "triangles": 24,
+              "geometryId": 607
+            },
+            {
+              "id": 746,
+              "name": "ground -1,1",
+              "parent": "cells",
+              "triangles": 1174,
+              "geometryId": 268
+            },
+            {
+              "id": 923,
+              "name": "ground -1,2",
+              "parent": "cells",
+              "triangles": 12,
+              "geometryId": 453
+            },
+            {
+              "id": 850,
+              "name": "ground 1,0",
+              "parent": "cells",
+              "triangles": 20550,
+              "geometryId": 378
+            },
+            {
+              "id": 843,
+              "name": "ground 0,1",
+              "parent": "cells",
+              "triangles": 80,
+              "geometryId": 369
+            },
+            {
+              "id": 992,
+              "name": "ground 2,0",
+              "parent": "cells",
+              "triangles": 674,
+              "geometryId": 528
+            },
+            {
+              "id": 893,
+              "name": "ground 1,1",
+              "parent": "cells",
+              "triangles": 4858,
+              "geometryId": 423
+            },
+            {
+              "id": 867,
+              "name": "ground 0,2",
+              "parent": "cells",
+              "triangles": 174,
+              "geometryId": 397
+            },
+            {
+              "id": 813,
+              "name": "ground 3,0",
+              "parent": "cells",
+              "triangles": 134,
+              "geometryId": 335
+            },
+            {
+              "id": 733,
+              "name": "ground 1,2",
+              "parent": "cells",
+              "triangles": 320,
+              "geometryId": 253
+            },
+            {
+              "id": 740,
+              "name": "ground 2,1",
+              "parent": "cells",
+              "triangles": 1252,
+              "geometryId": 262
+            },
+            {
+              "id": 929,
+              "name": "ground 3,1",
+              "parent": "cells",
+              "triangles": 218,
+              "geometryId": 463
+            },
+            {
+              "id": 968,
+              "name": "ground 2,2",
+              "parent": "cells",
+              "triangles": 886,
+              "geometryId": 504
+            },
+            {
+              "id": 811,
+              "name": "ground 3,2",
+              "parent": "cells",
+              "triangles": 194,
+              "geometryId": 333
+            },
+            {
+              "id": 1014,
+              "name": "ground 2,3",
+              "parent": "cells",
+              "triangles": 212,
+              "geometryId": 550
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 49,
+            "uuid": "74cbecd4-a375-4b18-914a-af879b123d8d",
+            "name": "landuse",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": false,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": "fc2199ae-2e7a-4f66-af1c-6ac6b35527c9",
+            "defines": {},
+            "userDataKeys": [
+              "wxPatch"
+            ]
+          },
+          "calls": 9,
+          "triangles": 656,
+          "objects": [
+            {
+              "id": 749,
+              "name": "area -2,-1",
+              "parent": "cells",
+              "triangles": 120,
+              "geometryId": 271
+            },
+            {
+              "id": 765,
+              "name": "area -1,-1",
+              "parent": "cells",
+              "triangles": 42,
+              "geometryId": 287
+            },
+            {
+              "id": 799,
+              "name": "area 0,-1",
+              "parent": "cells",
+              "triangles": 114,
+              "geometryId": 321
+            },
+            {
+              "id": 719,
+              "name": "area -1,0",
+              "parent": "cells",
+              "triangles": 140,
+              "geometryId": 239
+            },
+            {
+              "id": 863,
+              "name": "area -2,1",
+              "parent": "cells",
+              "triangles": 32,
+              "geometryId": 391
+            },
+            {
+              "id": 787,
+              "name": "area 0,0",
+              "parent": "cells",
+              "triangles": 62,
+              "geometryId": 309
+            },
+            {
+              "id": 730,
+              "name": "area 0,1",
+              "parent": "cells",
+              "triangles": 44,
+              "geometryId": 250
+            },
+            {
+              "id": 737,
+              "name": "area 1,0",
+              "parent": "cells",
+              "triangles": 74,
+              "geometryId": 259
+            },
+            {
+              "id": 808,
+              "name": "area 1,1",
+              "parent": "cells",
+              "triangles": 28,
+              "geometryId": 330
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 51,
+            "uuid": "43a1386e-5e1f-473b-9dfe-8c335a5779a7",
+            "name": "grass",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": false,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": "fc2199ae-2e7a-4f66-af1c-6ac6b35527c9",
+            "defines": {},
+            "userDataKeys": [
+              "wxPatch"
+            ]
+          },
+          "calls": 9,
+          "triangles": 51808,
+          "objects": [
+            {
+              "id": 766,
+              "name": "grass -1,-1",
+              "parent": "cells",
+              "triangles": 8931,
+              "geometryId": 288
+            },
+            {
+              "id": 800,
+              "name": "grass 0,-1",
+              "parent": "cells",
+              "triangles": 7858,
+              "geometryId": 322
+            },
+            {
+              "id": 720,
+              "name": "grass -1,0",
+              "parent": "cells",
+              "triangles": 10768,
+              "geometryId": 240
+            },
+            {
+              "id": 921,
+              "name": "grass -1,1",
+              "parent": "cells",
+              "triangles": 50,
+              "geometryId": 451
+            },
+            {
+              "id": 788,
+              "name": "grass 0,0",
+              "parent": "cells",
+              "triangles": 9827,
+              "geometryId": 310
+            },
+            {
+              "id": 858,
+              "name": "grass 1,-1",
+              "parent": "cells",
+              "triangles": 1815,
+              "geometryId": 386
+            },
+            {
+              "id": 738,
+              "name": "grass 1,0",
+              "parent": "cells",
+              "triangles": 6954,
+              "geometryId": 260
+            },
+            {
+              "id": 731,
+              "name": "grass 0,1",
+              "parent": "cells",
+              "triangles": 2685,
+              "geometryId": 251
+            },
+            {
+              "id": 809,
+              "name": "grass 1,1",
+              "parent": "cells",
+              "triangles": 2920,
+              "geometryId": 331
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 54,
+            "uuid": "d9e0fabd-5993-4f4d-9779-bffe4cf9d2fd",
+            "name": "backdrop",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": true,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": "dc22e09b-f98e-4c11-b5fa-5ee4875e824d",
+            "defines": {},
+            "userDataKeys": [
+              "nightEmissive"
+            ]
+          },
+          "calls": 9,
+          "triangles": 7008,
+          "objects": [
+            {
+              "id": 1015,
+              "name": "backdrop -2,1",
+              "parent": "cells",
+              "triangles": 1812,
+              "geometryId": 551
+            },
+            {
+              "id": 860,
+              "name": "backdrop -1,0",
+              "parent": "cells",
+              "triangles": 132,
+              "geometryId": 388
+            },
+            {
+              "id": 922,
+              "name": "backdrop -1,1",
+              "parent": "cells",
+              "triangles": 2004,
+              "geometryId": 452
+            },
+            {
+              "id": 871,
+              "name": "backdrop 0,0",
+              "parent": "cells",
+              "triangles": 12,
+              "geometryId": 401
+            },
+            {
+              "id": 866,
+              "name": "backdrop 0,1",
+              "parent": "cells",
+              "triangles": 960,
+              "geometryId": 396
+            },
+            {
+              "id": 812,
+              "name": "backdrop 1,0",
+              "parent": "cells",
+              "triangles": 204,
+              "geometryId": 334
+            },
+            {
+              "id": 1040,
+              "name": "backdrop 2,0",
+              "parent": "cells",
+              "triangles": 792,
+              "geometryId": 612
+            },
+            {
+              "id": 810,
+              "name": "backdrop 1,1",
+              "parent": "cells",
+              "triangles": 732,
+              "geometryId": 332
+            },
+            {
+              "id": 1016,
+              "name": "backdrop 2,1",
+              "parent": "cells",
+              "triangles": 360,
+              "geometryId": 552
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 45,
+            "uuid": "7744f939-a727-4572-9bb7-4b64547b12e6",
+            "name": "road",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": true,
+            "polygonOffset": true,
+            "polygonOffsetFactor": -1,
+            "polygonOffsetUnits": -2,
+            "map": "fc2199ae-2e7a-4f66-af1c-6ac6b35527c9",
+            "defines": {},
+            "userDataKeys": [
+              "wxPatch"
+            ]
+          },
+          "calls": 8,
+          "triangles": 2108,
+          "objects": [
+            {
+              "id": 821,
+              "name": "road -2,-1",
+              "parent": "cells",
+              "triangles": 370,
+              "geometryId": 343
+            },
+            {
+              "id": 826,
+              "name": "road -2,0",
+              "parent": "cells",
+              "triangles": 444,
+              "geometryId": 348
+            },
+            {
+              "id": 777,
+              "name": "road -1,0",
+              "parent": "cells",
+              "triangles": 224,
+              "geometryId": 299
+            },
+            {
+              "id": 791,
+              "name": "road 0,0",
+              "parent": "cells",
+              "triangles": 460,
+              "geometryId": 313
+            },
+            {
+              "id": 851,
+              "name": "road 1,0",
+              "parent": "cells",
+              "triangles": 458,
+              "geometryId": 379
+            },
+            {
+              "id": 993,
+              "name": "road 2,0",
+              "parent": "cells",
+              "triangles": 68,
+              "geometryId": 529
+            },
+            {
+              "id": 896,
+              "name": "road 1,1",
+              "parent": "cells",
+              "triangles": 82,
+              "geometryId": 426
+            },
+            {
+              "id": 741,
+              "name": "road 2,1",
+              "parent": "cells",
+              "triangles": 2,
+              "geometryId": 263
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 53,
+            "uuid": "de9be79d-1af2-4d7e-a22f-06ede9d1227b",
+            "name": "roofs",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": true,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": null,
+            "defines": {},
+            "userDataKeys": [
+              "wxPatch"
+            ]
+          },
+          "calls": 7,
+          "triangles": 18728,
+          "objects": [
+            {
+              "id": 767,
+              "name": "roofs -1,-1",
+              "parent": "cells",
+              "triangles": 1453,
+              "geometryId": 289
+            },
+            {
+              "id": 802,
+              "name": "roofs 0,-1",
+              "parent": "cells",
+              "triangles": 315,
+              "geometryId": 324
+            },
+            {
+              "id": 723,
+              "name": "roofs -1,0",
+              "parent": "cells",
+              "triangles": 2616,
+              "geometryId": 243
+            },
+            {
+              "id": 789,
+              "name": "roofs 0,0",
+              "parent": "cells",
+              "triangles": 1370,
+              "geometryId": 311
+            },
+            {
+              "id": 732,
+              "name": "roofs 0,1",
+              "parent": "cells",
+              "triangles": 603,
+              "geometryId": 252
+            },
+            {
+              "id": 739,
+              "name": "roofs 1,0",
+              "parent": "cells",
+              "triangles": 9455,
+              "geometryId": 261
+            },
+            {
+              "id": 967,
+              "name": "roofs 1,1",
+              "parent": "cells",
+              "triangles": 2916,
+              "geometryId": 503
+            }
+          ]
+        },
+        {
+          "camera": "mirror",
+          "material": {
+            "id": 49,
+            "uuid": "74cbecd4-a375-4b18-914a-af879b123d8d",
+            "name": "landuse",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": false,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": "fc2199ae-2e7a-4f66-af1c-6ac6b35527c9",
+            "defines": {},
+            "userDataKeys": [
+              "wxPatch"
+            ]
+          },
+          "calls": 6,
+          "triangles": 646,
+          "objects": [
+            {
+              "id": 719,
+              "name": "area -1,0",
+              "parent": "cells",
+              "triangles": 140,
+              "geometryId": 239
+            },
+            {
+              "id": 799,
+              "name": "area 0,-1",
+              "parent": "cells",
+              "triangles": 114,
+              "geometryId": 321
+            },
+            {
+              "id": 765,
+              "name": "area -1,-1",
+              "parent": "cells",
+              "triangles": 42,
+              "geometryId": 287
+            },
+            {
+              "id": 759,
+              "name": "area -2,0",
+              "parent": "cells",
+              "triangles": 75,
+              "geometryId": 281
+            },
+            {
+              "id": 806,
+              "name": "area 0,-2",
+              "parent": "cells",
+              "triangles": 155,
+              "geometryId": 328
+            },
+            {
+              "id": 749,
+              "name": "area -2,-1",
+              "parent": "cells",
+              "triangles": 120,
+              "geometryId": 271
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 50,
+            "uuid": "de44a4ec-12c5-4aad-b154-88b0c9cb8699",
+            "name": "paved-areas",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": false,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": "fc2199ae-2e7a-4f66-af1c-6ac6b35527c9",
+            "defines": {},
+            "userDataKeys": [
+              "wxPatch"
+            ]
+          },
+          "calls": 5,
+          "triangles": 228,
+          "objects": [
+            {
+              "id": 721,
+              "name": "pave -1,0",
+              "parent": "cells",
+              "triangles": 112,
+              "geometryId": 241
+            },
+            {
+              "id": 801,
+              "name": "pave 0,-1",
+              "parent": "cells",
+              "triangles": 61,
+              "geometryId": 323
+            },
+            {
+              "id": 849,
+              "name": "pave 0,0",
+              "parent": "cells",
+              "triangles": 44,
+              "geometryId": 377
+            },
+            {
+              "id": 901,
+              "name": "pave 0,1",
+              "parent": "cells",
+              "triangles": 6,
+              "geometryId": 431
+            },
+            {
+              "id": 966,
+              "name": "pave 1,1",
+              "parent": "cells",
+              "triangles": 5,
+              "geometryId": 502
+            }
+          ]
+        },
+        {
+          "camera": "main",
+          "material": {
+            "id": 46,
+            "uuid": "58dd2350-5f1d-4a1f-8f93-26a381b99653",
+            "name": "junction",
+            "type": "MeshLambertMaterial",
+            "colour": "ffffff",
+            "vertexColors": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": true,
+            "polygonOffset": true,
+            "polygonOffsetFactor": -2,
+            "polygonOffsetUnits": -4,
+            "map": "fc2199ae-2e7a-4f66-af1c-6ac6b35527c9",
+            "defines": {},
+            "userDataKeys": [
+              "wxPatch"
+            ]
+          },
+          "calls": 5,
+          "triangles": 658,
+          "objects": [
+            {
+              "id": 827,
+              "name": "junction -2,0",
+              "parent": "cells",
+              "triangles": 134,
+              "geometryId": 349
+            },
+            {
+              "id": 778,
+              "name": "junction -1,0",
+              "parent": "cells",
+              "triangles": 106,
+              "geometryId": 300
+            },
+            {
+              "id": 792,
+              "name": "junction 0,0",
+              "parent": "cells",
+              "triangles": 195,
+              "geometryId": 314
+            },
+            {
+              "id": 852,
+              "name": "junction 1,0",
+              "parent": "cells",
+              "triangles": 207,
+              "geometryId": 380
+            },
+            {
+              "id": 897,
+              "name": "junction 1,1",
+              "parent": "cells",
+              "triangles": 16,
+              "geometryId": 427
+            }
+          ]
+        },
+        {
+          "camera": "OrthographicCamera:41631eb1-6d20-4003-ac32-4ab7c09ab1ec",
+          "material": {
+            "id": 4,
+            "uuid": "2dc799fa-5298-4f8d-a2b8-04d8789bcb70",
+            "name": "",
+            "type": "MeshDepthMaterial",
+            "vertexColors": false,
+            "side": 1,
+            "transparent": false,
+            "opacity": 1,
+            "depthWrite": true,
+            "polygonOffset": false,
+            "polygonOffsetFactor": 0,
+            "polygonOffsetUnits": 0,
+            "map": null,
+            "defines": {},
+            "userDataKeys": []
+          },
+          "calls": 4,
+          "triangles": 7293,
+          "objects": [
+            {
+              "id": 28,
+              "name": "",
+              "parent": "landmark:skytower",
+              "triangles": 174,
+              "geometryId": 21
+            },
+            {
+              "id": 29,
+              "name": "",
+              "parent": "landmark:skytower",
+              "triangles": 6144,
+              "geometryId": 22
+            },
+            {
+              "id": 31,
+              "name": "",
+              "parent": "landmark:promenada",
+              "triangles": 715,
+              "geometryId": 31
+            },
+            {
+              "id": 32,
+              "name": "",
+              "parent": "landmark:promenada",
+              "triangles": 260,
+              "geometryId": 32
+            }
+          ]
+        }
+      ],
+      "memory": {
+        "heap": {
+          "usedJSHeapSize": 530301388,
+          "totalJSHeapSize": 539724540,
+          "jsHeapSizeLimit": 4395630592
+        },
+        "renderer": {
+          "geometries": 331,
+          "textures": 33
+        },
+        "programs": 54,
+        "uniqueGeometries": 532,
+        "geometryArrayBytes": 100965618
+      }
+    }
+  ],
+  "errors": [],
+  "method": "Read-only renderBufferDirect hook on one true-mirror frame after actual native route pose and visible306-vehicle high fleet settle; no geometry/population/light/quality edits. Software Chromium; PR0.5, viewport1280x720. Not a hardware FPS or mobile hardware measurement.",
+  "captures": [
+    {
+      "image": "db-6.webp",
+      "sha256": "46a0771b6501532fecb4e5e48733e42a22a25c2d0142a2153ed56bdabb8c8d20",
+      "kind": "game-only",
+      "sourceCommit": "36bd4a8e1c062946d1f1ebe4f19dc4422d65eebb"
+    },
+    {
+      "image": "db-8.webp",
+      "sha256": "731d7ee829cb2d5b3009b343376e1d9dfa6eda01734faa6e1d737e9a06a8bc62",
+      "kind": "game-only",
+      "sourceCommit": "36bd4a8e1c062946d1f1ebe4f19dc4422d65eebb"
+    },
+    {
+      "image": "sweep-strada-barbu-v-c-rescu-run-2-5.webp",
+      "sha256": "647b289a66d050702b71792bfb7c35aa54830083d4218afb5c3d5ca8da095730",
+      "kind": "game-only",
+      "sourceCommit": "36bd4a8e1c062946d1f1ebe4f19dc4422d65eebb"
+    }
+  ]
+}

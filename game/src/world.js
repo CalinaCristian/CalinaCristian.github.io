@@ -5234,7 +5234,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (profile.issue) scenerySourceAudit.issues.push({ piece: ri, sourceId: profile.sourceId, reason: profile.issue });
             strip(pts, -profile.leftM, profile.rightM, bridge ? Y.road : yA, asp, heights, bridge?.coveredSegments);
             const sideM = sw > 0.5 && !/service|motorway/.test(cls) ? Math.max(1.2, sw) : 0;
-            if (sideM) { strip(pts, profile.rightM, profile.rightM + sideM, bridge ? Y.road - .02 : yS, side, heights, bridge?.coveredSegments); strip(pts, -profile.leftM - sideM, -profile.leftM, bridge ? Y.road - .02 : yS, side, heights, bridge?.coveredSegments); }
+            if (sideM) { strip(pts, profile.rightM, profile.rightM + sideM, bridge ? Y.road : yS, side, heights, bridge?.coveredSegments); strip(pts, -profile.leftM - sideM, -profile.leftM, bridge ? Y.road : yS, side, heights, bridge?.coveredSegments); }
             if (/primary|secondary|tertiary/.test(cls) && wC > 6) { // dashed centre line
                 for (let i = 0; i < pts.length - 1; i++) { if (bridge?.coveredSegments[i]) continue; const [ax, az] = pts[i], [bx, bz] = pts[i + 1], L = Math.hypot(bx - ax, bz - az); for (let d = 1; d + 3 < L; d += 9) { const f0 = d / L, f1 = (d + 3) / L; strip([[ax + (bx - ax) * f0, az + (bz - az) * f0], [ax + (bx - ax) * f1, az + (bz - az) * f1]], profile.lineOffsetM - 0.07, profile.lineOffsetM + 0.07, (bridge ? Y.road : yA) + 0.005, dash, heights ? [heights[i] + (heights[i + 1] - heights[i]) * f0, heights[i] + (heights[i + 1] - heights[i]) * f1] : null); } }
             }

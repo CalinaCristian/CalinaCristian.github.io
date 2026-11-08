@@ -7536,7 +7536,10 @@
     "remainingGaps": [
       "Current0775 water retakes retain restrained shore strips. Model-blue lake/pond colour differs from unknown-date green reference. Canopy remains more open and detailed historic roofs, green ground and surrounding buildings are approximate.",
       "Current0775 lake/cultural blocks: blue model water and source shoreline remain; crowns, facade/roof detail and actual parking occupancy differ. The large red flat TNB roof is an explicit unsupported-detail gap versus the pale stepped reference roof.",
-      "Current0775 southeast cultural blocks retain roofs/courtyards. The simplified TNB roof and adjacent historic details remain visibly approximate; no real-world parity accepted."
+      "Current0775 southeast cultural blocks retain roofs/courtyards. The simplified TNB roof and adjacent historic details remain visibly approximate; no real-world parity accepted.",
+      "Outside-detail scenery and contextual tower/podium/roof forms remain sparse or generic, including the plain SkyTower roof.",
+      "Historic facades/roof ornament and the large TNB roof remain simplified where source dimensions/detail are unsupported.",
+      "Canopy appearance and actual current parking occupancy differ from the unknown-date reference; source records and measured crowns remain retained."
     ],
     "entries": [
       {
@@ -9770,6 +9773,16 @@
       "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
       "captureType": "branch-source-snapshot",
       "note": "Entire original capture retained, including the frames superseded by current water retakes."
+    }
+  ],
+  "perspectiveCollections": [
+    {
+      "manifest": "context/summer-clear-night/manifest.json",
+      "label": "Summer Clear Night \u00b7 district context",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "frames": 9,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99"
     }
   ]
 }

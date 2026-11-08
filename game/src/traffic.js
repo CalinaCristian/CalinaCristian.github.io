@@ -8,6 +8,7 @@ import { lanesDir, canTravel, edgeSpeed, isMotorway, turnAngle, nodeList, EdgeIn
 import { assignSignalPhases, signalState } from './signals.js';
 import { collideBuildings } from './world.js';
 import { SharedLaneGate } from './shared-lanes.js';
+import { ambientTrafficAccess } from './road-access.js';
 
 // ============================================================================
 //  TRAFFIC — vehicles + pedestrians on the road graph.
@@ -50,7 +51,7 @@ const tramOffset = (e) => Math.max(1.45, medianOf(e) / 4); // two 2.4 m trams si
 const layerOf = (e) => (e.bridge ? 1 : 0) + (e.tunnel ? -1 : 0) + (e.layer | 0);
 const isJunction = (n) => n.edges.length >= 3 || n.hasLight;
 /** a road cut at the district boundary (closure at its map-end node, spec R10.9): never routed into, never spawned on */
-const closedEdge = (e) => !!(e.a.mapEnd || e.b.mapEnd);
+const closedEdge = (e) => !!(e.a.mapEnd || e.b.mapEnd || !ambientTrafficAccess(e));
 // long vehicles (buses, trams, trucks ≥ 8.5 m): the body follows the lane path — front and rear axle points on the
 // path, the junction pad crossed as the chord entry lane → exit lane — instead of pivoting on its centre (note 4:
 // an 18 m bus turning on its centre swept broadside across the junction mouth, and froze like that when stopped)
@@ -297,6 +298,7 @@ export class Traffic {
         for (let tries = 0; tries < 30; tries++) {
             let r = this.rng() * tot, hs = act[0]; for (const s of act) { r -= s.L * s.laneM; if (r <= 0) { hs = s; break; } }
             const e = hs.edges[Math.floor(this.rng() * hs.edges.length)];
+            if (closedEdge(e)) continue;
             let dir = this.rng() < 0.5 ? 1 : -1; if (!canTravel(e, dir)) dir = -dir; if (!canTravel(e, dir)) continue;
             if (v.bus && (e.len < 30)) continue;
             const lanes = lanesDir(e, dir), sp = v.long ? this.sSpan(e, dir, v.length, true) : [Math.min(3, e.len / 2), Math.max(e.len / 2, e.len - 3)]; if (!sp) continue;
@@ -350,7 +352,8 @@ export class Traffic {
         if (this.jamMax > 0.05 && budget > 0) {
             let need = this.target.moving - this.counts.moving; const cap = (this.buc ? 140 : 60) - (this._jamBuilt || 0);
             for (let i = 0; i < Math.min(need, cap, budget > 1e8 ? 400 : 2); i++) {
-                const v = this.spawn({ edge: this.vehicles[0]?.edge || this.world.graph.edges[0], dir: 1, lane: 0, s: 0, kind: this.carKind() });
+                const initialEdge = this.world.graph.edges.find(e => !closedEdge(e)); if (!initialEdge) break;
+                const v = this.spawn({ edge: initialEdge, dir: 1, lane: 0, s: 0, kind: this.carKind() });
                 this._jamBuilt = (this._jamBuilt || 0) + 1; changed = true;
                 if (!this.placeInHot(v, budget < 1e8)) { this.vehicles.pop(); v.inactive = true; v.mesh.visible = false; this.pool.push(v); }
                 else v.mesh.userData.setLights?.(this.nightLights);
@@ -868,7 +871,7 @@ export class Traffic {
         for (const n of node.edges) {
             if (n === e) continue;
             const nd = n.a === node ? 1 : -1;
-            if (!canTravel(n, nd)) continue;
+            if (!canTravel(n, nd) || !ambientTrafficAccess(n)) continue;
             if (v.tram && !n.tram) continue;
             if (!v.tram && n.tram && n.tramOnly) continue;
             if (n.type === 'service' && !v.isPolice && this.rng() < 0.8) continue;

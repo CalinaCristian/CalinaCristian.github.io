@@ -82,6 +82,7 @@ import { footprintCoverage, simpleFootprint, uncrossFootprint, bakeAssembly, bak
 import { sourceRing } from './source-footprints.mjs';
 import { parseMeasure, makeRoofProfile, roofMesh, visibleRoofMesh, roofSignature } from '../../game/src/building-roofs.js';
 import { ShapeUtils, Vector2 } from '../../game/vendor/three.module.min.js';
+import { resolveRoadAccess } from '../../game/src/road-access.js';
 import { distPointSeg, pointInPolygon, polyArea, polyCentroid, footprintMargin, simplifyIdx, simplifyRing, Grid, assembleRings } from './geom.mjs';
 import { buildCorridor } from './corridors.mjs';
 import { CITIES as GAME_CITIES } from '../../game/src/cities.js';
@@ -306,12 +307,12 @@ function buildCity(cityId, did = null) {
     for (const [id, w] of W) {
         const t = w.tags; const cls = t.highway;
         if (!ROAD_CLASSES.includes(cls)) continue;
-        if (t.area === 'yes' || t.oneway === 'reversible' || t.access === 'no' || t.motor_vehicle === 'no' || t.motorcar === 'no') continue;
-        // HOV / transit-only ramps (every lane hov=designated + bus designated, e.g. the I-405 NE 6th St direct-access ramp)
-        // (2026-11-07: every lane HOV-designated is enough — the NE 6th St HOV-only ramps carry hov:lanes=designated|designated without bus tags)
-        if (/_link$/.test(cls) && (t.hov === 'designated' || /^designated(\|designated)*$/.test(t['hov:lanes'] || ''))) continue;
-        // service roads only as connectors (pruned below unless they link the network); never parking aisles / private
-        if (cls === 'service' && (/parking_aisle|drive-through|emergency_access/.test(t.service || '') || /private|no|delivery/.test(t.access || '') || t.motor_vehicle === 'private')) continue;
+        if (t.area === 'yes') continue;
+        const access = resolveRoadAccess(t);
+        if (!ds && !access.publicDrive) continue;
+        // Districts preserve physical restricted roads; mode-specific access controls their routing separately.
+        // Legacy corridor data still excludes parking/service-only aisles from its public network.
+        if (!ds && cls === 'service' && /parking_aisle|drive-through|emergency_access/.test(t.service || '')) continue;
         if (w.nodes.some(n => !N.has(n)) || w.nodes.length < 2) continue;
         let nodes = w.nodes.slice();
         let oneway = yes(t.oneway) || t.oneway === '-1' || ((t.junction === 'roundabout' || t.junction === 'circular') && t.oneway !== 'no') || ((cls === 'motorway' || cls === 'motorway_link') && t.oneway !== 'no');
@@ -373,10 +374,10 @@ function buildCity(cityId, did = null) {
         }
         if (!name && ref) name = ref;
         if (!name && isLink) name = t.destination ? `Exit → ${t.destination.split(';')[0]}` : (country === 'US' ? 'Ramp' : 'Bretea');
-        roads.push({ id, cls, nodes, oneway, lf, lb, laneW, sharedLane, physicalSharedWidth, sidewalk, maxspeed, flags, layer, name, lat: ll0[0], tags: t, regKmh });
+        roads.push({ id, cls, nodes, oneway, lf, lb, laneW, sharedLane, physicalSharedWidth, sidewalk, maxspeed, flags, layer, name, lat: ll0[0], tags: t, regKmh, access });
     }
     // prune service ways that do not connect anything (dangling chains)
-    {
+    if (!ds) {
         let changed = true, removed = 0;
         while (changed) {
             changed = false;
@@ -398,7 +399,7 @@ function buildCity(cityId, did = null) {
     for (const r of roads) for (const n of r.nodes) if (!pos.has(n)) pos.set(n, pt(n));
 
     // ---- corridors: keep only what the story drives (+ buffers); see corridors.mjs
-    const cor = buildCorridor(roads, pos, (lat, lon) => P(lat, lon), ds ? ds.cfg : corridorConfig(cityId), log);
+    const cor = buildCorridor(roads.filter(r => r.access.publicDrive), pos, (lat, lon) => P(lat, lon), ds ? ds.cfg : corridorConfig(cityId), log);
     const M = (x, z) => cor.margin(x, z);
     const stat = { roadsBefore: roads.length };
     const cutIds = new Map(); let cutNext = -2e9;
@@ -474,10 +475,11 @@ function buildCity(cityId, did = null) {
                 }
                 flush();
             }
-            for (const r of out) if (!good.has(f(r.nodes[0])) && r.nodes.length >= 2) scenery.push({ r, pts: r.nodes.map(n => pos.get(n)), inside: true });
+            // Core source roads keep their full road profile, including restricted elevated roads.
+            // Runtime access/SCC filtering controls routing; scenery strips cannot represent bridge decks.
         }
         roads.length = 0;
-        for (const r of out) if (good.has(f(r.nodes[0]))) roads.push(r);
+        for (const r of out) if (ds || good.has(f(r.nodes[0]))) roads.push(r);
         log(`corridor roads: ${stat.roadsBefore} ways → ${out.length} clipped pieces → ${roads.length} connected`);
     }
 
@@ -674,7 +676,7 @@ function buildCity(cityId, did = null) {
         }
         return i;
     };
-    const outRoads = [], sharedLanes = {};
+    const outRoads = [], sharedLanes = {}, roadAccess = {};
     const rampLimits = []; // [roadIndex, legalKmh, …]: US ramps without a posted limit (roads[i].maxspeed = advisory; no R2-1 sign)
     const roadInfo = []; // per output road: [osmLayer, flags, widthDm, maxheightDm, placement, bridgeStructure] (vertical / placement hints, see header)
     const parking = []; // optional rows: road index, right location/orientation, left location/orientation (string indices)
@@ -714,6 +716,7 @@ function buildCity(cityId, did = null) {
           roadInfo.push(isFinite(lay) ? lay : 0, f, dm(t.width), dm(t.maxheight || t['maxheight:physical']), S(t.placement || t['placement:forward'] || ''), S(t['bridge:structure'] || t['bridge:name'] || '')); }
         if (r.regKmh) rampLimits.push(outRoads.length, r.regKmh);
         if (r.sharedLane) sharedLanes[outRoads.length] = { widthM: r.physicalSharedWidth, sourceId: 'w' + r.id, widthSource: num(r.tags.width) > 0 ? 'OSM width' : 'estimate:class single-lane width', evidence: 'OSM lanes=1; legal two-way' };
+        if (ds) roadAccess[outRoads.length] = { sourceId: 'w' + r.id, ...r.access };
         outRoads.push([S(r.name), ROAD_CLASSES.indexOf(r.cls), r.lf, r.oneway ? 0 : r.lb, Math.round(r.median * 10), Math.round(r.laneW * 10), Math.round(r.sidewalk * 10), r.maxspeed, r.flags, r.layer, ...ids.map(idxOf)]);
     }
     log('graph nodes', outNodes.length / 2, 'segments', segCount);
@@ -1815,10 +1818,11 @@ function buildCity(cityId, did = null) {
     if (Object.keys(outBuildingRoofSurfaces).length) log('source roof surface unions', Object.keys(outBuildingRoofSurfaces).length);
 
     // scenery streets: [carriagewayWidthDm, sidewalkDm, classIdx, flags (1 bridge, 2 inside-the-area fragment), delta…]
-    const outScenery = [];
+    const outScenery = [], sceneryAccess = {};
     for (const { r, pts, inside } of scenery) {
         const sp = pts.length > 2 ? simplifyIdx(pts, 0.5).map(i => pts[i]) : pts;
         const wC = r.oneway ? r.lf * r.laneW : r.median + (r.lf + r.lb) * r.laneW;
+        sceneryAccess[outScenery.length] = { sourceId: 'w' + r.id, ...r.access };
         outScenery.push([Math.round(wC * 10), Math.round(Math.min(r.sidewalk, 4) * 10), ROAD_CLASSES.indexOf(r.cls), ((r.flags & 2) ? 1 : 0) | (inside ? 2 : 0), ...delta(sp)]);
     }
     log('scenery streets', outScenery.length);
@@ -1890,6 +1894,8 @@ function buildCity(cityId, did = null) {
         if (Object.keys(aircraft).length) doc.buildingAircraft = aircraft;
         if (Object.keys(outBuildingHoleFootprints).length) doc.buildingHoleFootprints = outBuildingHoleFootprints;
         if (Object.keys(sharedLanes).length) doc.sharedLanes = sharedLanes;
+        doc.roadAccess = roadAccess;
+        doc.sceneryAccess = sceneryAccess;
     }
     if (ds) doc.streetTrees = streetTrees;
     if (turnLanes.length) doc.turnLanes = turnLanes;

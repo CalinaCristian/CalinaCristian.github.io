@@ -2178,6 +2178,15 @@ function bLincolnN(b) {
     { const q = EW(-5.8, 3.86); b.text('700', q[0], 0.55, q[1], ery, 0.6, '#2e3338', { d: 0.02 }); }
     // --- skybridges (enclosed glass boxes on light-grey steel)
     skybridge(b, [-45.4, -28.1], [-76.1, -20.8], 6.2);                                                // over Bellevue Way to Bellevue Square
+    { // (after round 6: "connects to nothing") the bridge lands in Bellevue Square's east wing across Bellevue Way: a
+      // retail block (cream cladding, glazed bridge-level lobby, shopfront base) the bridge enters at level 2
+      const ax = -45.4, az = -28.1, cx2 = -76.1, cz2 = -20.8, L = Math.hypot(cx2 - ax, cz2 - az), ux = (cx2 - ax) / L, uz = (cz2 - az) / L;
+      const ex = cx2 + ux * 9, ez = cz2 + uz * 9, ry = Math.atan2(-uz, ux);
+      b.box(ex, 0, ez, 18, 13.5, 26, '#e3dccf', { ry });                                            // the wing
+      b.box(ex - ux * 9.02, 0.4, ez - uz * 9.02, 0.1, 3.6, 22, '#3f5666', { ry, mat: 'g' });           // shopfronts facing the street
+      b.box(ex - ux * 9.04, 5.8, ez - uz * 9.04, 0.1, 5.2, 9, '#5f7f95', { ry, mat: 'g' });            // glazed bridge lobby
+      b.box(ex, 13.5, ez, 18.4, 0.6, 26.4, '#d2cabb', { ry });                                       // roof cornice
+      b.col(ex, ez, 9, 13, -ry); }
     b.prism(br8, 6.6, 11, '#8fb0c2', { mat: 'g', bottom: true, topCol: '#d9dcdd' });         // diagonal NE 8th St bridge (w1364249504)
     b.cornice(br8, 6.6, 0.5, 0.25, '#d9dcdd'); b.cornice(br8, 10.8, 0.5, 0.3, '#d9dcdd');
     b.colPoly([pod], 16);                                                                   // (skybridge spans have no collision)

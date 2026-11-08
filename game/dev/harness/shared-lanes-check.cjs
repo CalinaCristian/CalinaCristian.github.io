@@ -37,6 +37,8 @@ async function fixture() {
     const city = { id: 'bucharest', traffic: { density: 0, parkedChance: 0, chaos: 0, trams: false } };
     const traffic = new Traffic(world, city, scene, { maxVehicles: 4, maxPeds: 0 });
     if (traffic.vehicles.length) throw new Error('Fixture unexpectedly spawned ambient vehicles');
+    // Start the native two-phase controller on the crossing street's phase so a red hold is exercised.
+    if (mode === 'light') { traffic.lightState(nodes[1], edges[0]); traffic._lightPhase.get(nodes[1]).offset = traffic.cycle + 2; }
     const vehicles = [];
     const spawn = (label, edge, dir, route, s = 970) => {
         const v = traffic.spawn({ edge, dir, lane: 0, s, kind: longBodies ? 'bus' : label === 'east' ? 'hatch' : 'sedan' });
@@ -84,7 +86,7 @@ async function fixture() {
                 if (end.hasLight && before.state === 'red' && before.s < line && traffic.lightState(end, before.edge) === 'red' && (v.edge !== before.edge || v.s >= line)) report.redCrossings.push({ frame: report.frame, label });
             }
             if (traffic.vehicles.length !== report.population) throw new Error('Shared-lane fixture lost a vehicle');
-            if (report.frame % 30 === 0) report.samples.push({ seconds: report.frame / 30, player: player && { x: player.x, speed: player.speed }, vehicles: Object.fromEntries(vehicles.map(({ label, v }) => [label, { x: v.x, z: v.z, speed: v.speed, edge: v.edge.id, why: v.stopWhy }])) });
+            if (report.frame % 30 === 0) report.samples.push({ seconds: report.frame / 30, signal: mode === 'light' ? traffic.lightState(nodes[1], edges[0]) : undefined, player: player && { x: player.x, speed: player.speed }, vehicles: Object.fromEntries(vehicles.map(({ label, v }) => [label, { x: v.x, z: v.z, speed: v.speed, edge: v.edge.id, why: v.stopWhy }])) });
         }
         if (playerMesh) playerMesh.position.set(player.x, .9, player.z);
         renderer.render(scene, camera); return structuredClone(report);

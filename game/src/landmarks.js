@@ -2863,13 +2863,20 @@ function bBOB(b) {
 // glazed drum with the flag; blue-lit dome rim at night (research). Entrance on the north forecourt: canopy, flags,
 // "RECTORAT" plate. Src: game/research/bucharest-grozavesti.md (upb, w28240552 row) ; OSM w28240552
 function bPolitehnica(b) {
-    const [p] = P2.rectorat.map(pts), CON = '#b3afa6', FIN = '#c9c5bc', BR = '#8f5440', GL = '#3d4b57', SL = '#d4d0c7';
-    b.prism(offset(p, -1.2), 0, 3.8, GL, { mat: 'g', top: false });                          // recessed glazed ground floor
-    b.prism(p, 3.8, 14.6, '#55606a', { top: false, mat: 'g' });                             // glazing behind the fins
+    // Independent facade source: Mister rf's January 2024 Commons photos, including the oblique _04 view.
+    // The main storeys have red infill, pale sills and vertical concrete fins; the recessed upper storey is glazing.
+    // Heights and bay dimensions remain authoring estimates (OSM supplies five levels, no metre height).
+    const [p] = P2.rectorat.map(pts), CON = '#b3afa6', FIN = '#dedbd0', BR = '#9b624b', RED = '#b52c35', GL = '#536b78', SL = '#dedbd0';
+    const ground = offset(p, -1.2);
+    b.prism(ground, 0, 3.8, BR, { top: false });
+    b.windows(ground, 0, 3.8, 3.8, GL, { bay: 2.5, wf: 0.44, hf: 0.7, start: 0.65, mat: 'g' });
+    b.prism(p, 3.8, 14.6, RED, { top: false });
+    b.windows(p, 3.8, 14.6, 3.6, GL, { bay: 1.7, wf: 0.71, hf: 0.72, start: 0.66, mat: 'g', off: 0.08 });
+    for (const y of [3.8, 7.4, 11.0, 14.25]) b.bands(p, y, y + 0.5, 0.5, FIN, { start: 0, frac: 0.36, off: 0.18 });
     b.pilasters(p, 0, 14.6, 1.7, 0.42, 1.0, FIN, {});                                       // dense vertical fins
     b.cornice(p, 14.6, 0.8, 1.6, SL, { solid: true });                                     // projecting slab
     const up = offset(p, -2.2);
-    b.prism(up, 15.4, 19.8, BR, { topCol: CON }); b.bands(up, 15.4, 19.8, 4.4, '#46525c', { frac: 0.42, start: 1.4, mat: 'g', wall: BR, pitch: 2.4 });
+    b.prism(up, 15.4, 19.8, RED, { topCol: CON }); b.bands(up, 15.4, 19.8, 4.4, GL, { frac: 0.68, start: 0.7, mat: 'g', wall: FIN, pitch: 0.65, pierW: 0.13 });
     b.cornice(p, 19.8, 0.7, 2.2, SL, { solid: true });                                     // wide roof slab
     const [cx, cz] = centroid(p);
     b.cyl(cx, 20.5, cz, 13.5, 13.5, 1.6, '#566470', 24, { mat: 'g' });                      // glazed drum

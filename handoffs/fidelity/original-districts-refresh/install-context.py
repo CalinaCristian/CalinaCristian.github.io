@@ -35,6 +35,13 @@ for file in provenance['files']:
 for item in manifest['items']:
     assert hashlib.sha256((source / item['image']).read_bytes()).hexdigest() == item['sha256']
     assert entries[item['id']]['sha256'] == item['sha256'], 'Review is for a different image'
+    observed = item.get('observedConditions')
+    if manifest['time'] == 'night' or manifest['season'] == 'winter':
+        assert observed, 'Night/winter capture needs actual renderer condition readback'
+    if observed:
+        assert observed['rendererClockOverride'] == manifest['time']
+        assert observed['seasonOverride'] == manifest['season']
+        assert observed['weatherOverride'] == manifest['weather']
 base = root / 'game/overview/comparison-data' / a.district
 target = base / 'context' / a.condition
 assert not target.exists(), 'Preserve an existing current context collection before replacement'
@@ -56,6 +63,9 @@ for item in manifest['items']:
     item['thumbnail'] = thumbnail
     item['thumb'] = thumbnail
     item['thumbnailSha256'] = hashlib.sha256((target / thumbnail).read_bytes()).hexdigest()
+    if entries[item['id']].get('displayLabel'):
+        item['label'] = entries[item['id']]['displayLabel']
+    item['reviewNote'] = entries[item['id']]['observations']
 manifest['review'] = review
 manifest['generatedAt'] = max(item['capturedAt'] for item in manifest['items'])
 shutil.copy2(source / 'manifest.json', target / 'capture-manifest.json')
@@ -64,6 +74,11 @@ manifest['sourceCaptureManifest'] = 'capture-manifest.json'
 manifest['sourceProvenance'] = {'manifest': 'source-provenance.json', 'sha256': hashlib.sha256(a.source_provenance.read_bytes()).hexdigest(), 'filesVerified': len(provenance['files'])}
 for name in ('runtime-integrity.json', 'world-stats.json', 'source-contact-probe.json'):
     shutil.copy2(source / name, target / name)
+if (source / 'capture-validation.json').exists():
+    validation = json.loads((source / 'capture-validation.json').read_text())
+    assert not validation['failures'] and validation['frames'] == len(manifest['items'])
+    shutil.copy2(source / 'capture-validation.json', target / 'capture-validation.json')
+    manifest['captureValidation'] = 'capture-validation.json'
 manifest['runtimeIntegrity'] = 'runtime-integrity.json'
 manifest['sourceContactProbe'] = 'source-contact-probe.json'
 (target / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')

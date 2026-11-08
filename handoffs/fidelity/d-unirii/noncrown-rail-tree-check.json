@@ -1,0 +1,15 @@
+{
+  "file": "game/data/bucharest-unirii.json",
+  "sourceRailwayWays": 22,
+  "sourceRailwayLengthM": 1460,
+  "retainedTreeRecords": 15758,
+  "measuredCrownRadii": 14838,
+  "treeRetention": {
+    "policy": "all-measured",
+    "inputCrowns": 40551,
+    "retained": 14838,
+    "rejectedGeometryOrDuplicate": 3170,
+    "outsideSurveyDistrict": 22543,
+    "thinned": 0
+  }
+}

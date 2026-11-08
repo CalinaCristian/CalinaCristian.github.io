@@ -15,7 +15,7 @@ import * as THREE from '../vendor/three.module.min.js';
 import { collideBuildings } from './world.js';
 import { clamp, damp } from './util.js';
 
-const EYE = 1.65, R = 0.3, WALK = 1.7, RUN = 4.6, JUMP_V = 4.0, G = 9.8, STEP = 0.55;
+const EYE = 1.65, R = 0.3, WALK = 1.7, RUN = 4.6, JUMP_V = 4.4, G = 9.8, STEP = 0.7; // (after round 6: hills / kerbs / canal copings no longer stop you dead; a jump clears ≈ 1 m)
 
 export class OnFootController {
     constructor({ scene, camera, input, colliders = null, world = null, traffic = null, audio = null, obstacles = null, groundAt = null } = {}) {
@@ -72,9 +72,14 @@ export class OnFootController {
         const ox = this.x, oz = this.z;
         this.x += this.vx * dt; this.z += this.vz * dt;
         // ground: walk up kerbs / ramps (≤ STEP per move), a higher ledge or a deck edge is a wall
-        const gy = this.groundAt(this.x, this.z, this.y);
-        if (gy - this.y > STEP && this.jumpY + this.y < gy - 0.05) { this.x = ox; this.z = oz; }
-        else if (this.jumpY <= 0) this.y = gy; else if (gy > this.y) { this.jumpY = Math.max(0, this.jumpY - (gy - this.y)); this.y = gy; }
+        const blocked = (h) => h - this.y > STEP && this.jumpY + this.y < h - 0.15;
+        let gy = this.groundAt(this.x, this.z, this.y + this.jumpY);
+        if (blocked(gy)) { // slide along the ledge: keep the part of the move that is free (x only, then z only)
+            const tx = this.x, tz = this.z; let ok = false;
+            for (const [px, pz] of [[tx, oz], [ox, tz]]) { const h = this.groundAt(px, pz, this.y + this.jumpY); if (!blocked(h)) { this.x = px; this.z = pz; gy = h; ok = true; break; } }
+            if (!ok) { this.x = ox; this.z = oz; gy = this.y; }
+        }
+        if (this.jumpY <= 0) this.y = gy; else if (gy > this.y) { this.jumpY = Math.max(0, this.jumpY - (gy - this.y)); this.y = gy; }
         this.collide();
         this.vel = Math.hypot(this.x - ox, this.z - oz) / Math.max(dt, 1e-4);
         if ((inp.take('Space') || this.auto?.jump) && this.jumpY <= 0) { this.vy = JUMP_V; this.audio?.blip?.(330, 0.04, 0.04); if (this.auto) this.auto.jump = false; }

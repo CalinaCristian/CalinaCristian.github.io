@@ -3245,7 +3245,7 @@ export const LANDMARKS = [
     L('aviatorilor', 'bucharest', 'Monumentul Eroilor Aerului', ['Monumentul Eroilor Aerului'], 8, bAviatorilor),
     L('gara', 'bucharest', 'Gara de Nord', ['Gara de Nord'], 120, bGara),
     L('opera', 'bucharest', 'Opera Națională București', ['Opera Națională'], 70, bOpera),
-    L('politehnica', 'bucharest', 'Rectoratul Politehnicii', ['Rectorat Universitatea Politehnica din București'], 30, bPolitehnica, { cvStop: 'upb', ownSign: true, floodlit: true }),
+    L('politehnica', 'bucharest', 'Rectoratul Politehnicii', ['Rectorat Universitatea Politehnica din București'], 30, bPolitehnica, { cvStop: 'upb', ownSign: true, floodlit: true, sourceIds: ['w28240552', 'w1217715300'] }),
     L('hermes', 'bucharest', 'Hermes Business Campus', ['Hermes', 'Clădirea B+C', 'Hermes Business Campus'], 80, bHermes, { cvStop: 'luxoft', ownSign: true }),
     L('baneasaterm', 'bucharest', 'Aeroportul Băneasa (terminal 1952)', ['Aeroportul Internațional Aurel Vlaicu'], 75, bBaneasaTerm),
     L('otp', 'bucharest', 'Aeroportul Henri Coandă', ['Aeroportul Otopeni Henri Coandă - Plecări', 'Aeroportul Otopeni Henri Coandă - Sosiri', 'Terminalul Vioara'], 230, bOTP),

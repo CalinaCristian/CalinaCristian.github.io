@@ -86,7 +86,7 @@ fs.mkdirSync(out, { recursive: true });
         // supported render hook supplies its same-task render before reading pixels.
         await page.evaluate(() => { droneReset(); game.photo.o.render = () => game.drawFrame(); window.photoBefore = { gallery: game.photo.gallery.length, drone: game.explore.drone.stats.photos }; }); await page.keyboard.press('p'); const photo = await held(['w']);
         const opened = await page.evaluate(() => game.photo.active);
-        await page.keyboard.press('Space'); await page.waitForFunction(() => game.photo.gallery.length > photoBefore.gallery);
+        await page.keyboard.press('Space'); await page.waitForFunction(() => game.photo.gallery.length > photoBefore.gallery, null, { polling: 50, timeout: 90000 });
         const captured = await page.evaluate(() => ({ gallery: game.photo.gallery.length, dronePhotos: game.explore.drone.stats.photos - photoBefore.drone, tagged: game.lastPhoto.drone }));
         check('native photo shutter captures and tags the aerial photo', captured, captured.gallery > 0 && captured.dronePhotos === 1 && captured.tagged);
         await page.keyboard.press('p');

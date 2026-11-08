@@ -35,10 +35,11 @@ const mime = { '.js': 'text/javascript', '.json': 'application/json', '.html': '
                 const { Drone } = await import('./src/drone.js'), THREE = await import('./vendor/three.module.min.js');
                 const { colliderDist } = await import('./dev/harness/page/util.js');
                 const decks = w.buildings.filter(c => c.roadDeck), cases = [], errors = [];
+                const lighting = { sunDirection: game.r3d._sunLightDir?.toArray() ?? null, sunElevation: game.r3d.sunElevation, sunAzimuth: game.r3d.sunAzimuth, shadowsEnabled: game.r3d._sunShadows, scope: 'Actual native high summer clear day lighting; shadow review uses these directions only for the matching condition' };
                 let checks = 0;
                 for (const [index, deck] of decks.entries()) {
                     const p = deck.poly.reduce((p, q) => [p[0] + q[0] / 4, p[1] + q[1] / 4], [0, 0]), bottom = deck.minHeightAt(...p), top = deck.roofHeightAt(...p);
-                    const result = { index, sourceId: deck.sourceId, x: p[0], z: p[1], bottom, top, elevationSource: deck.elevationSource, checks: [] };
+                    const result = { index, sourceId: deck.sourceId, x: p[0], z: p[1], bottom, top, boundsXZ: [Math.min(...deck.poly.map(p => p[0])), Math.min(...deck.poly.map(p => p[1])), Math.max(...deck.poly.map(p => p[0])), Math.max(...deck.poly.map(p => p[1]))], y0: deck.y0, y1: deck.y1, elevationSource: deck.elevationSource, checks: [] };
                     for (const [type, y, expected] of [['under', bottom - 2.1, false], ['through', bottom + .1, true], ['above', top + .2, false], ['standing-on-top', top, false]]) {
                         const actual = !!collideBuildings([deck], ...p, .2, y, 2), qa = Number.isFinite(colliderDist(deck, ...p, y, 2, .2));
                         result.checks.push({ type, y, expected, actual, qa }); checks += 2;
@@ -65,11 +66,15 @@ const mime = { '.js': 'text/javascript', '.json': 'application/json', '.html': '
                 if (buildingControls.length < 1) errors.push({ type: 'missing actual source-building positive control' });
                 const expectedBridgePieces = data.scenery?.filter(row => row[3] & 1).length || 0, stats = w.stats.scenerySource?.bridges;
                 if (!stats || stats.bridgePieces !== expectedBridgePieces) errors.push({ type: 'source bridge piece coverage', expectedBridgePieces, actualBridgePieces: stats?.bridgePieces });
-                return { expectedBridgePieces, stats, passiveDecks: decks.length, checks, errors, cases, buildingControls, core: w.allEdges.filter(e => !e.virtual).map(e => ({ road: e.road, sourceId: data.roadSourceGeometry?.[e.road]?.sourceId, a: [e.a.x, e.a.z, e.ya], b: [e.b.x, e.b.z, e.yb], wL: e.wL, wR: e.wR, access: e.access })), frameScope: 'Native current world; production collideBuildings/shared QA/actual Drone._collide method on isolated passive slabs, not claimed flight or navigation travel' };
+                return { expectedBridgePieces, stats, lighting, passiveDecks: decks.length, checks, errors, cases, buildingControls, core: w.allEdges.filter(e => !e.virtual).map(e => ({ road: e.road, sourceId: data.roadSourceGeometry?.[e.road]?.sourceId, a: [e.a.x, e.a.z, e.ya], b: [e.b.x, e.b.z, e.yb], wL: e.wL, wR: e.wR, access: e.access })), frameScope: 'Native current world; production collideBuildings/shared QA/actual Drone._collide method on isolated passive slabs, not claimed flight or navigation travel' };
             });
             const coreSha256 = hash(Buffer.from(JSON.stringify(proof.core))); delete proof.core;
             const record = { gameSourceCommit: commit, district, capturedAt: new Date().toISOString(), coreSha256, dataSha256: hash(fs.readFileSync(path.join(root, 'game/data/' + district + '.json'))), loaded, ...proof, pageErrors: errors, consoleErrors };
             write(district + '.json', record); summaries.push({ district, bridges: proof.expectedBridgePieces, passiveDecks: proof.passiveDecks, checks: proof.checks, errors: proof.errors.length + errors.length + consoleErrors.length, unresolvedEstimatedClearanceTargets: proof.stats?.unresolved.length, coreSha256 });
+            const targetsPath = arg('pair-targets') && path.join(path.resolve(arg('pair-targets')), district + '.json');
+            const targets = targetsPath ? JSON.parse(fs.readFileSync(targetsPath)).stats.unresolved : [];
+            const profileDump = await page.evaluate(require('./scenery-bridge-native-dump.cjs'), targets);
+            write(district + '-profile-dump.json', { gameSourceCommit: commit, ...profileDump });
             console.log(JSON.stringify(summaries.at(-1)));
             await page.close();
         }

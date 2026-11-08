@@ -1,0 +1,3793 @@
+{
+  "district": "seattle-bellevue",
+  "nativeCoreSha256": "54591492ee6815d65a24c1e834468d9fa938ed9ae9c2b1ca0a13d3fede3fa6f7",
+  "coreHashMatchesNative": true,
+  "baselineStatsMatchNative": true,
+  "beforeGeometrySha256": "41348b426a4d3b71dc4cfdf0243baf2f291c74fc19af8cfd3121b5c370396f50",
+  "afterGeometrySha256": "344d6c2f42027658c8cea2388b8ba197cf2f96d03c32ad2d3ee0d2be65aab6f2",
+  "geometryUnchanged": false,
+  "changedSourceIds": [
+    "w365781624",
+    "w30614975",
+    "w30614981",
+    "w30614982",
+    "w30614990",
+    "w30614992",
+    "w30615009",
+    "w30615010",
+    "w181984969",
+    "w181984983",
+    "w365781618",
+    "w365781619",
+    "w365781620",
+    "w365781621",
+    "w365781622",
+    "w365781623",
+    "w378376411",
+    "w428073527",
+    "w428073528",
+    "w428073558",
+    "w428073560",
+    "w1031114681",
+    "w1031114177"
+  ],
+  "before": {
+    "policy": "MODEL estimate: exact source connectivity; final core ties; 5.2m road clearance, 0.4m slab, 8% approaches / 2.8% decks; river/rail-only bridges at grade",
+    "bridgePieces": 38,
+    "approachPieces": 36,
+    "coreTies": 42,
+    "crossings": 42,
+    "unresolved": [
+      {
+        "sourceId": "w30614975",
+        "lowerSourceId": "w531669522",
+        "x": 532.0040885576072,
+        "z": 125.32627313581973,
+        "requiredDisplacementM": 5.6000000000000005,
+        "actualDisplacementM": 3.5227421034983597,
+        "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+      },
+      {
+        "sourceId": "w30614981",
+        "lowerSourceId": "w111868971",
+        "x": 426.8804902659463,
+        "z": 103.34476718437864,
+        "requiredDisplacementM": 5.6000000000000005,
+        "actualDisplacementM": 5.002941317897968,
+        "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+      },
+      {
+        "sourceId": "w181984969",
+        "lowerSourceId": "w531669522",
+        "x": 530.4006031983726,
+        "z": 157.60319698908717,
+        "requiredDisplacementM": 5.6000000000000005,
+        "actualDisplacementM": 1.8982539637773055,
+        "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+      },
+      {
+        "sourceId": "w365781619",
+        "lowerSourceId": "w531669522",
+        "x": 531.5222274307471,
+        "z": 142.329303830353,
+        "requiredDisplacementM": 5.6000000000000005,
+        "actualDisplacementM": 1.8759944670505393,
+        "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+      },
+      {
+        "sourceId": "w365781621",
+        "lowerSourceId": "w111868971",
+        "x": 427.0376246196107,
+        "z": 87.6633648720601,
+        "requiredDisplacementM": 5.6000000000000005,
+        "actualDisplacementM": 5.435198431345021,
+        "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+      },
+      {
+        "sourceId": "w428073527",
+        "lowerSourceId": "w30615048",
+        "x": 470.1271536658944,
+        "z": 119.13435427259759,
+        "requiredDisplacementM": 5.6000000000000005,
+        "actualDisplacementM": 3.713648106815063,
+        "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+      },
+      {
+        "sourceId": "w428073527",
+        "lowerSourceId": "w454826562",
+        "x": 483.14373497346844,
+        "z": 124.05111783336645,
+        "requiredDisplacementM": 5.6000000000000005,
+        "actualDisplacementM": 3.3240495094949947,
+        "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+      },
+      {
+        "sourceId": "w428073527",
+        "lowerSourceId": "w623957745",
+        "x": 487.80649825714823,
+        "z": 125.812387099387,
+        "requiredDisplacementM": 5.6000000000000005,
+        "actualDisplacementM": 3.1844885916140355,
+        "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+      },
+      {
+        "sourceId": "w428073527",
+        "lowerSourceId": "w880540177",
+        "x": 457.67941737233275,
+        "z": 114.43246098924894,
+        "requiredDisplacementM": 5.6000000000000005,
+        "actualDisplacementM": 4.086220634515548,
+        "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+      },
+      {
+        "sourceId": "w428073528",
+        "lowerSourceId": "w30615048",
+        "x": 470.0556247952727,
+        "z": 102.78369517544715,
+        "requiredDisplacementM": 5.6000000000000005,
+        "actualDisplacementM": 4.194027458116673,
+        "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+      },
+      {
+        "sourceId": "w428073528",
+        "lowerSourceId": "w454826562",
+        "x": 482.5035122872375,
+        "z": 107.28105731539641,
+        "requiredDisplacementM": 5.6000000000000005,
+        "actualDisplacementM": 3.823435881476454,
+        "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+      },
+      {
+        "sourceId": "w428073528",
+        "lowerSourceId": "w623957745",
+        "x": 487.80649825714823,
+        "z": 109.19700075119253,
+        "requiredDisplacementM": 5.6000000000000005,
+        "actualDisplacementM": 3.66555833536602,
+        "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+      },
+      {
+        "sourceId": "w428073528",
+        "lowerSourceId": "w880540177",
+        "x": 457.39719848887796,
+        "z": 98.21026637008032,
+        "requiredDisplacementM": 5.6000000000000005,
+        "actualDisplacementM": 4.570887079132606,
+        "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+      }
+    ],
+    "pieces": [
+      {
+        "piece": 11,
+        "sourceId": "w30615048",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 5.204185845757044,
+        "coreTies": 0,
+        "renderedSegments": 40,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 22,
+        "sourceId": "w37691307",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 1.6974781555056144,
+        "coreTies": 0,
+        "renderedSegments": 10,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 41,
+        "sourceId": "w365781624",
+        "bridge": true,
+        "minDisplacementM": 1.6974781555056144,
+        "maxDisplacementM": 5.010883511462131,
+        "coreTies": 0,
+        "renderedSegments": 16,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 67,
+        "sourceId": "w454826562",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 4.767734836858058,
+        "coreTies": 0,
+        "renderedSegments": 35,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 69,
+        "sourceId": "w531674824",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 2.34713596847504,
+        "coreTies": 0,
+        "renderedSegments": 30,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 379,
+        "sourceId": "w29140451",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 4.231948526485777,
+        "coreTies": 0,
+        "renderedSegments": 8,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 382,
+        "sourceId": "w30614948",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 1.9323352534390943,
+        "coreTies": 0,
+        "renderedSegments": 10,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 383,
+        "sourceId": "w30614975",
+        "bridge": true,
+        "minDisplacementM": 2.935463970408554,
+        "maxDisplacementM": 3.6814129988190794,
+        "coreTies": 0,
+        "renderedSegments": 5,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 384,
+        "sourceId": "w30614980",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 4.186107579135509,
+        "coreTies": 0,
+        "renderedSegments": 8,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 385,
+        "sourceId": "w30614981",
+        "bridge": true,
+        "minDisplacementM": 4.231948526485777,
+        "maxDisplacementM": 5.380151402388492,
+        "coreTies": 0,
+        "renderedSegments": 11,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 386,
+        "sourceId": "w30614982",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 1.7581802000325655,
+        "coreTies": 0,
+        "renderedSegments": 5,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 387,
+        "sourceId": "w30614989",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 1.0048463111465877,
+        "coreTies": 1,
+        "renderedSegments": 15,
+        "alreadyRenderedCoreSegments": 1,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 388,
+        "sourceId": "w30614990",
+        "bridge": true,
+        "minDisplacementM": 4.641964780866054,
+        "maxDisplacementM": 5.087623847992637,
+        "coreTies": 0,
+        "renderedSegments": 2,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 389,
+        "sourceId": "w30614992",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 4.002726183467478,
+        "coreTies": 0,
+        "renderedSegments": 10,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 390,
+        "sourceId": "w30615009",
+        "bridge": false,
+        "minDisplacementM": 2.1850759598337275,
+        "maxDisplacementM": 3.6513094516965077,
+        "coreTies": 0,
+        "renderedSegments": 7,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 391,
+        "sourceId": "w30615010",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 1.7469851657359219,
+        "coreTies": 0,
+        "renderedSegments": 3,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 392,
+        "sourceId": "w30615035",
+        "bridge": true,
+        "minDisplacementM": 4.9889450559913975,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 3,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 393,
+        "sourceId": "w30615042",
+        "bridge": false,
+        "minDisplacementM": 5.283361396871686,
+        "maxDisplacementM": 5.597939706013629,
+        "coreTies": 0,
+        "renderedSegments": 1,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 394,
+        "sourceId": "w30615043",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 4.9889450559913975,
+        "coreTies": 0,
+        "renderedSegments": 9,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 395,
+        "sourceId": "w30615045",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 4.836107001222032,
+        "coreTies": 1,
+        "renderedSegments": 9,
+        "alreadyRenderedCoreSegments": 8,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 397,
+        "sourceId": "w37691308",
+        "bridge": true,
+        "minDisplacementM": 1.0048463111465877,
+        "maxDisplacementM": 3.4267043039848115,
+        "coreTies": 0,
+        "renderedSegments": 10,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 427,
+        "sourceId": "w48336267",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 1.863925351979911,
+        "coreTies": 0,
+        "renderedSegments": 9,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 430,
+        "sourceId": "w48995748",
+        "bridge": true,
+        "minDisplacementM": 5.575543580986198,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 18,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 459,
+        "sourceId": "w103757285",
+        "bridge": true,
+        "minDisplacementM": 0.9221378308165361,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 19,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 476,
+        "sourceId": "w160180168",
+        "bridge": true,
+        "minDisplacementM": 3.802484117037217,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 19,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 480,
+        "sourceId": "w160183267",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 26,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 482,
+        "sourceId": "w160183572",
+        "bridge": true,
+        "minDisplacementM": 5.6000000000000005,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 14,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 500,
+        "sourceId": "w172706979",
+        "bridge": true,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 0,
+        "coreTies": 0,
+        "renderedSegments": 8,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 504,
+        "sourceId": "w181984969",
+        "bridge": true,
+        "minDisplacementM": 1.7469851657359219,
+        "maxDisplacementM": 2.1850759598337275,
+        "coreTies": 0,
+        "renderedSegments": 6,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 505,
+        "sourceId": "w181984983",
+        "bridge": true,
+        "minDisplacementM": 2.4632677730938504,
+        "maxDisplacementM": 2.739988883743461,
+        "coreTies": 0,
+        "renderedSegments": 2,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 513,
+        "sourceId": "w309999156",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 2.267597284172078,
+        "coreTies": 0,
+        "renderedSegments": 6,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 514,
+        "sourceId": "w309999158",
+        "bridge": true,
+        "minDisplacementM": 5.503760924813052,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 20,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 529,
+        "sourceId": "w365781618",
+        "bridge": true,
+        "minDisplacementM": 2.935463970408554,
+        "maxDisplacementM": 3.5125208007648845,
+        "coreTies": 0,
+        "renderedSegments": 3,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 530,
+        "sourceId": "w365781619",
+        "bridge": true,
+        "minDisplacementM": 1.7581802000325655,
+        "maxDisplacementM": 2.4632677730938504,
+        "coreTies": 0,
+        "renderedSegments": 6,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 531,
+        "sourceId": "w365781620",
+        "bridge": true,
+        "minDisplacementM": 4.192760237321005,
+        "maxDisplacementM": 4.641964780866054,
+        "coreTies": 0,
+        "renderedSegments": 2,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 532,
+        "sourceId": "w365781621",
+        "bridge": true,
+        "minDisplacementM": 5.087623847992637,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 5,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 533,
+        "sourceId": "w365781622",
+        "bridge": true,
+        "minDisplacementM": 2.935463970408554,
+        "maxDisplacementM": 3.2585078542781516,
+        "coreTies": 0,
+        "renderedSegments": 2,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 534,
+        "sourceId": "w365781623",
+        "bridge": true,
+        "minDisplacementM": 2.4632677730938504,
+        "maxDisplacementM": 2.935463970408554,
+        "coreTies": 0,
+        "renderedSegments": 2,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 560,
+        "sourceId": "w378376405",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 3.8445234972867297,
+        "coreTies": 0,
+        "renderedSegments": 22,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 561,
+        "sourceId": "w378376406",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 4.973939470107656,
+        "coreTies": 0,
+        "renderedSegments": 13,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 564,
+        "sourceId": "w378376409",
+        "bridge": true,
+        "minDisplacementM": 4.914213424632402,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 26,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 565,
+        "sourceId": "w378376411",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 4.914213424632402,
+        "coreTies": 0,
+        "renderedSegments": 12,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 644,
+        "sourceId": "w427906896",
+        "bridge": true,
+        "minDisplacementM": 4.186107579135509,
+        "maxDisplacementM": 4.949790874611443,
+        "coreTies": 0,
+        "renderedSegments": 5,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 646,
+        "sourceId": "w427906930",
+        "bridge": false,
+        "minDisplacementM": 2.267597284172078,
+        "maxDisplacementM": 5.191823279367053,
+        "coreTies": 0,
+        "renderedSegments": 4,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 653,
+        "sourceId": "w428067756",
+        "bridge": false,
+        "minDisplacementM": 3.8445234972867297,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 3,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 654,
+        "sourceId": "w428067757",
+        "bridge": true,
+        "minDisplacementM": 4.973939470107656,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 7,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 669,
+        "sourceId": "w428073519",
+        "bridge": false,
+        "minDisplacementM": 3.9427426159168673,
+        "maxDisplacementM": 4.96396826757618,
+        "coreTies": 0,
+        "renderedSegments": 2,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 670,
+        "sourceId": "w428073520",
+        "bridge": false,
+        "minDisplacementM": 1.863925351979911,
+        "maxDisplacementM": 4.320121381698227,
+        "coreTies": 0,
+        "renderedSegments": 4,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 671,
+        "sourceId": "w428073521",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 3.9427426159168673,
+        "coreTies": 0,
+        "renderedSegments": 13,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 672,
+        "sourceId": "w428073522",
+        "bridge": true,
+        "minDisplacementM": 4.96396826757618,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 3,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 673,
+        "sourceId": "w428073523",
+        "bridge": true,
+        "minDisplacementM": 5.070804008749309,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 13,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 675,
+        "sourceId": "w428073527",
+        "bridge": true,
+        "minDisplacementM": 2.4632677730938504,
+        "maxDisplacementM": 4.192760237321005,
+        "coreTies": 0,
+        "renderedSegments": 18,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 676,
+        "sourceId": "w428073528",
+        "bridge": true,
+        "minDisplacementM": 3.5125208007648845,
+        "maxDisplacementM": 5.087623847992637,
+        "coreTies": 0,
+        "renderedSegments": 17,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 683,
+        "sourceId": "w428073558",
+        "bridge": true,
+        "minDisplacementM": 2.739988883743461,
+        "maxDisplacementM": 3.7758082817448257,
+        "coreTies": 0,
+        "renderedSegments": 5,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 684,
+        "sourceId": "w428073559",
+        "bridge": false,
+        "minDisplacementM": 4.767734836858058,
+        "maxDisplacementM": 5.204185845757044,
+        "coreTies": 0,
+        "renderedSegments": 1,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 685,
+        "sourceId": "w428073560",
+        "bridge": true,
+        "minDisplacementM": 3.758723929354807,
+        "maxDisplacementM": 5.246117526277382,
+        "coreTies": 0,
+        "renderedSegments": 7,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 687,
+        "sourceId": "w428073561",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 5.283361396871686,
+        "coreTies": 1,
+        "renderedSegments": 10,
+        "alreadyRenderedCoreSegments": 8,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 748,
+        "sourceId": "w513238745",
+        "bridge": true,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 0.9221378308165361,
+        "coreTies": 0,
+        "renderedSegments": 8,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 755,
+        "sourceId": "w513238758",
+        "bridge": true,
+        "minDisplacementM": 5.407638048643707,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 3,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 765,
+        "sourceId": "w531677190",
+        "bridge": false,
+        "minDisplacementM": 2.34713596847504,
+        "maxDisplacementM": 3.7758082817448257,
+        "coreTies": 0,
+        "renderedSegments": 2,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 774,
+        "sourceId": "w557619991",
+        "bridge": false,
+        "minDisplacementM": 4.836107001222032,
+        "maxDisplacementM": 5.283361396871686,
+        "coreTies": 0,
+        "renderedSegments": 1,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 803,
+        "sourceId": "w622462904",
+        "bridge": false,
+        "minDisplacementM": 4.860119219463151,
+        "maxDisplacementM": 5.283361396871686,
+        "coreTies": 0,
+        "renderedSegments": 2,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 804,
+        "sourceId": "w622462905",
+        "bridge": false,
+        "minDisplacementM": 4.414248220547399,
+        "maxDisplacementM": 4.836107001222032,
+        "coreTies": 0,
+        "renderedSegments": 2,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 805,
+        "sourceId": "w622462906",
+        "bridge": true,
+        "minDisplacementM": 5.191823279367053,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 23,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 806,
+        "sourceId": "w622462907",
+        "bridge": false,
+        "minDisplacementM": 5.204185845757044,
+        "maxDisplacementM": 5.503760924813052,
+        "coreTies": 0,
+        "renderedSegments": 1,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 983,
+        "sourceId": "w967566386",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 3.802484117037217,
+        "coreTies": 0,
+        "renderedSegments": 40,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 988,
+        "sourceId": "w973585194",
+        "bridge": true,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 0,
+        "coreTies": 0,
+        "renderedSegments": 7,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 989,
+        "sourceId": "w973585197",
+        "bridge": true,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 0,
+        "coreTies": 0,
+        "renderedSegments": 6,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 990,
+        "sourceId": "w973585223",
+        "bridge": true,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 0,
+        "coreTies": 0,
+        "renderedSegments": 7,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 991,
+        "sourceId": "w973585225",
+        "bridge": true,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 0,
+        "coreTies": 0,
+        "renderedSegments": 6,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 994,
+        "sourceId": "w981130217",
+        "bridge": true,
+        "minDisplacementM": 4.949790874611443,
+        "maxDisplacementM": 5.560017316905578,
+        "coreTies": 0,
+        "renderedSegments": 3,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 997,
+        "sourceId": "w986171220",
+        "bridge": true,
+        "minDisplacementM": 3.4267043039848115,
+        "maxDisplacementM": 3.758723929354807,
+        "coreTies": 0,
+        "renderedSegments": 2,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 1006,
+        "sourceId": "w1031114681",
+        "bridge": false,
+        "minDisplacementM": 1.9323352534390943,
+        "maxDisplacementM": 4.4149459481312565,
+        "coreTies": 0,
+        "renderedSegments": 5,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 1036,
+        "sourceId": "w1062466761",
+        "bridge": false,
+        "minDisplacementM": 4.320121381698227,
+        "maxDisplacementM": 5.070804008749309,
+        "coreTies": 0,
+        "renderedSegments": 1,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      }
+    ]
+  },
+  "after": {
+    "policy": "MODEL estimate: exact source connectivity; final core ties; 5.2m road clearance, 0.4m slab, 8% approaches / 2.8% decks; river/rail-only bridges at grade",
+    "bridgePieces": 38,
+    "approachPieces": 37,
+    "coreTies": 42,
+    "crossings": 42,
+    "unresolved": [],
+    "pieces": [
+      {
+        "piece": 11,
+        "sourceId": "w30615048",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 5.204185845757044,
+        "coreTies": 0,
+        "renderedSegments": 40,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 22,
+        "sourceId": "w37691307",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 1.6974781555056144,
+        "coreTies": 0,
+        "renderedSegments": 10,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 41,
+        "sourceId": "w365781624",
+        "bridge": true,
+        "minDisplacementM": 1.6974781555056144,
+        "maxDisplacementM": 5.50965743521982,
+        "coreTies": 0,
+        "renderedSegments": 16,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 67,
+        "sourceId": "w454826562",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 4.767734836858058,
+        "coreTies": 0,
+        "renderedSegments": 35,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 69,
+        "sourceId": "w531674824",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 2.34713596847504,
+        "coreTies": 0,
+        "renderedSegments": 30,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 379,
+        "sourceId": "w29140451",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 4.231948526485777,
+        "coreTies": 0,
+        "renderedSegments": 8,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 382,
+        "sourceId": "w30614948",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 1.9323352534390943,
+        "coreTies": 0,
+        "renderedSegments": 10,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 383,
+        "sourceId": "w30614975",
+        "bridge": true,
+        "minDisplacementM": 5.2185113081612275,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 5,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 384,
+        "sourceId": "w30614980",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 4.186107579135509,
+        "coreTies": 0,
+        "renderedSegments": 8,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 385,
+        "sourceId": "w30614981",
+        "bridge": true,
+        "minDisplacementM": 4.231948526485777,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 11,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 386,
+        "sourceId": "w30614982",
+        "bridge": false,
+        "minDisplacementM": 0.5086358976522636,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 9,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 387,
+        "sourceId": "w30614989",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 1.0048463111465877,
+        "coreTies": 1,
+        "renderedSegments": 15,
+        "alreadyRenderedCoreSegments": 1,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 388,
+        "sourceId": "w30614990",
+        "bridge": true,
+        "minDisplacementM": 5.286827901656529,
+        "maxDisplacementM": 5.50965743521982,
+        "coreTies": 0,
+        "renderedSegments": 2,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 389,
+        "sourceId": "w30614992",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 4.895467424291629,
+        "coreTies": 0,
+        "renderedSegments": 10,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 390,
+        "sourceId": "w30615009",
+        "bridge": false,
+        "minDisplacementM": 2.34713596847504,
+        "maxDisplacementM": 5.381039500329263,
+        "coreTies": 0,
+        "renderedSegments": 7,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 391,
+        "sourceId": "w30615010",
+        "bridge": false,
+        "minDisplacementM": 3.8418197999674346,
+        "maxDisplacementM": 5.490494272019503,
+        "coreTies": 0,
+        "renderedSegments": 3,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 392,
+        "sourceId": "w30615035",
+        "bridge": true,
+        "minDisplacementM": 4.9889450559913975,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 3,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 393,
+        "sourceId": "w30615042",
+        "bridge": false,
+        "minDisplacementM": 5.283361396871686,
+        "maxDisplacementM": 5.597939706013629,
+        "coreTies": 0,
+        "renderedSegments": 1,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 394,
+        "sourceId": "w30615043",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 4.9889450559913975,
+        "coreTies": 0,
+        "renderedSegments": 9,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 395,
+        "sourceId": "w30615045",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 4.836107001222032,
+        "coreTies": 1,
+        "renderedSegments": 9,
+        "alreadyRenderedCoreSegments": 8,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 397,
+        "sourceId": "w37691308",
+        "bridge": true,
+        "minDisplacementM": 1.0048463111465877,
+        "maxDisplacementM": 3.4267043039848115,
+        "coreTies": 0,
+        "renderedSegments": 10,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 427,
+        "sourceId": "w48336267",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 1.863925351979911,
+        "coreTies": 0,
+        "renderedSegments": 9,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 430,
+        "sourceId": "w48995748",
+        "bridge": true,
+        "minDisplacementM": 5.575543580986198,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 18,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 459,
+        "sourceId": "w103757285",
+        "bridge": true,
+        "minDisplacementM": 0.9221378308165361,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 19,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 476,
+        "sourceId": "w160180168",
+        "bridge": true,
+        "minDisplacementM": 3.802484117037217,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 19,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 480,
+        "sourceId": "w160183267",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 26,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 482,
+        "sourceId": "w160183572",
+        "bridge": true,
+        "minDisplacementM": 5.6000000000000005,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 14,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 500,
+        "sourceId": "w172706979",
+        "bridge": true,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 0,
+        "coreTies": 0,
+        "renderedSegments": 8,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 504,
+        "sourceId": "w181984969",
+        "bridge": true,
+        "minDisplacementM": 5.381039500329263,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 6,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 505,
+        "sourceId": "w181984983",
+        "bridge": true,
+        "minDisplacementM": 5.033063698870535,
+        "maxDisplacementM": 5.3097848095201465,
+        "coreTies": 0,
+        "renderedSegments": 2,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 513,
+        "sourceId": "w309999156",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 2.267597284172078,
+        "coreTies": 0,
+        "renderedSegments": 6,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 514,
+        "sourceId": "w309999158",
+        "bridge": true,
+        "minDisplacementM": 5.503760924813052,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 20,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 529,
+        "sourceId": "w365781618",
+        "bridge": true,
+        "minDisplacementM": 5.215295446429113,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 3,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 530,
+        "sourceId": "w365781619",
+        "bridge": true,
+        "minDisplacementM": 5.3097848095201465,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 6,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 531,
+        "sourceId": "w365781620",
+        "bridge": true,
+        "minDisplacementM": 5.375397728227476,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 2,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 532,
+        "sourceId": "w365781621",
+        "bridge": true,
+        "minDisplacementM": 5.426610693664622,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 5,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 533,
+        "sourceId": "w365781622",
+        "bridge": true,
+        "minDisplacementM": 4.895467424291629,
+        "maxDisplacementM": 5.2185113081612275,
+        "coreTies": 0,
+        "renderedSegments": 2,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 534,
+        "sourceId": "w365781623",
+        "bridge": true,
+        "minDisplacementM": 5.073686710862795,
+        "maxDisplacementM": 5.3097848095201465,
+        "coreTies": 0,
+        "renderedSegments": 2,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 560,
+        "sourceId": "w378376405",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 3.8445234972867297,
+        "coreTies": 0,
+        "renderedSegments": 22,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 561,
+        "sourceId": "w378376406",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 4.973939470107656,
+        "coreTies": 0,
+        "renderedSegments": 13,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 564,
+        "sourceId": "w378376409",
+        "bridge": true,
+        "minDisplacementM": 4.914213424632402,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 26,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 565,
+        "sourceId": "w378376411",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 4.914213424632402,
+        "coreTies": 0,
+        "renderedSegments": 15,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 644,
+        "sourceId": "w427906896",
+        "bridge": true,
+        "minDisplacementM": 4.186107579135509,
+        "maxDisplacementM": 4.949790874611443,
+        "coreTies": 0,
+        "renderedSegments": 5,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 646,
+        "sourceId": "w427906930",
+        "bridge": false,
+        "minDisplacementM": 2.267597284172078,
+        "maxDisplacementM": 5.191823279367053,
+        "coreTies": 0,
+        "renderedSegments": 4,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 653,
+        "sourceId": "w428067756",
+        "bridge": false,
+        "minDisplacementM": 3.8445234972867297,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 3,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 654,
+        "sourceId": "w428067757",
+        "bridge": true,
+        "minDisplacementM": 4.973939470107656,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 7,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 669,
+        "sourceId": "w428073519",
+        "bridge": false,
+        "minDisplacementM": 3.9427426159168673,
+        "maxDisplacementM": 4.96396826757618,
+        "coreTies": 0,
+        "renderedSegments": 2,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 670,
+        "sourceId": "w428073520",
+        "bridge": false,
+        "minDisplacementM": 1.863925351979911,
+        "maxDisplacementM": 4.320121381698227,
+        "coreTies": 0,
+        "renderedSegments": 4,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 671,
+        "sourceId": "w428073521",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 3.9427426159168673,
+        "coreTies": 0,
+        "renderedSegments": 13,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 672,
+        "sourceId": "w428073522",
+        "bridge": true,
+        "minDisplacementM": 4.96396826757618,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 3,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 673,
+        "sourceId": "w428073523",
+        "bridge": true,
+        "minDisplacementM": 5.070804008749309,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 13,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 675,
+        "sourceId": "w428073527",
+        "bridge": true,
+        "minDisplacementM": 5.3097848095201465,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 18,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 676,
+        "sourceId": "w428073528",
+        "bridge": true,
+        "minDisplacementM": 5.426610693664622,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 17,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 683,
+        "sourceId": "w428073558",
+        "bridge": true,
+        "minDisplacementM": 3.7758082817448257,
+        "maxDisplacementM": 5.033063698870535,
+        "coreTies": 0,
+        "renderedSegments": 5,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 684,
+        "sourceId": "w428073559",
+        "bridge": false,
+        "minDisplacementM": 4.767734836858058,
+        "maxDisplacementM": 5.204185845757044,
+        "coreTies": 0,
+        "renderedSegments": 1,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 685,
+        "sourceId": "w428073560",
+        "bridge": true,
+        "minDisplacementM": 3.758723929354807,
+        "maxDisplacementM": 5.426610693664622,
+        "coreTies": 0,
+        "renderedSegments": 7,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 687,
+        "sourceId": "w428073561",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 5.283361396871686,
+        "coreTies": 1,
+        "renderedSegments": 10,
+        "alreadyRenderedCoreSegments": 8,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 748,
+        "sourceId": "w513238745",
+        "bridge": true,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 0.9221378308165361,
+        "coreTies": 0,
+        "renderedSegments": 8,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 755,
+        "sourceId": "w513238758",
+        "bridge": true,
+        "minDisplacementM": 5.407638048643707,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 3,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 765,
+        "sourceId": "w531677190",
+        "bridge": false,
+        "minDisplacementM": 2.34713596847504,
+        "maxDisplacementM": 3.7758082817448257,
+        "coreTies": 0,
+        "renderedSegments": 2,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 774,
+        "sourceId": "w557619991",
+        "bridge": false,
+        "minDisplacementM": 4.836107001222032,
+        "maxDisplacementM": 5.283361396871686,
+        "coreTies": 0,
+        "renderedSegments": 1,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 803,
+        "sourceId": "w622462904",
+        "bridge": false,
+        "minDisplacementM": 4.860119219463151,
+        "maxDisplacementM": 5.283361396871686,
+        "coreTies": 0,
+        "renderedSegments": 2,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 804,
+        "sourceId": "w622462905",
+        "bridge": false,
+        "minDisplacementM": 4.414248220547399,
+        "maxDisplacementM": 4.836107001222032,
+        "coreTies": 0,
+        "renderedSegments": 2,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 805,
+        "sourceId": "w622462906",
+        "bridge": true,
+        "minDisplacementM": 5.191823279367053,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 23,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 806,
+        "sourceId": "w622462907",
+        "bridge": false,
+        "minDisplacementM": 5.204185845757044,
+        "maxDisplacementM": 5.503760924813052,
+        "coreTies": 0,
+        "renderedSegments": 1,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 983,
+        "sourceId": "w967566386",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 3.802484117037217,
+        "coreTies": 0,
+        "renderedSegments": 40,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 988,
+        "sourceId": "w973585194",
+        "bridge": true,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 0,
+        "coreTies": 0,
+        "renderedSegments": 7,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 989,
+        "sourceId": "w973585197",
+        "bridge": true,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 0,
+        "coreTies": 0,
+        "renderedSegments": 6,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 990,
+        "sourceId": "w973585223",
+        "bridge": true,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 0,
+        "coreTies": 0,
+        "renderedSegments": 7,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 991,
+        "sourceId": "w973585225",
+        "bridge": true,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 0,
+        "coreTies": 0,
+        "renderedSegments": 6,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 994,
+        "sourceId": "w981130217",
+        "bridge": true,
+        "minDisplacementM": 4.949790874611443,
+        "maxDisplacementM": 5.560017316905578,
+        "coreTies": 0,
+        "renderedSegments": 3,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 997,
+        "sourceId": "w986171220",
+        "bridge": true,
+        "minDisplacementM": 3.4267043039848115,
+        "maxDisplacementM": 3.758723929354807,
+        "coreTies": 0,
+        "renderedSegments": 2,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 1005,
+        "sourceId": "w1031114177",
+        "bridge": false,
+        "minDisplacementM": 0,
+        "maxDisplacementM": 0.5086358976522636,
+        "coreTies": 0,
+        "renderedSegments": 7,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 1006,
+        "sourceId": "w1031114681",
+        "bridge": false,
+        "minDisplacementM": 1.9323352534390943,
+        "maxDisplacementM": 5.6000000000000005,
+        "coreTies": 0,
+        "renderedSegments": 5,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      },
+      {
+        "piece": 1036,
+        "sourceId": "w1062466761",
+        "bridge": false,
+        "minDisplacementM": 4.320121381698227,
+        "maxDisplacementM": 5.070804008749309,
+        "coreTies": 0,
+        "renderedSegments": 1,
+        "alreadyRenderedCoreSegments": 0,
+        "elevationSource": "MODEL estimate; source topology and final exact core ties"
+      }
+    ],
+    "continuations": [
+      {
+        "kind": "same source way through merge",
+        "sourceNodeId": 338517222,
+        "x": 556.2377864492377,
+        "z": 150.97282200022656,
+        "nodeDegree": 3,
+        "incomingSourceId": "w30614982",
+        "approachSourceId": "w30614982"
+      },
+      {
+        "kind": "same source way through merge",
+        "sourceNodeId": 5222229732,
+        "x": 360.51934941344774,
+        "z": -733.5712188002491,
+        "nodeDegree": 3,
+        "incomingSourceId": "w378376411",
+        "approachSourceId": "w378376411"
+      }
+    ],
+    "ordering": {
+      "converged": true,
+      "iterations": 1,
+      "policy": "Crossing clearance uses the solved actual lower source profile; source layers provide ordering only, never metres. Nonconvergence retains the first constrained profile and open targets."
+    }
+  },
+  "previousUnresolvedActualPairs": [
+    {
+      "sourceId": "w30614975",
+      "lowerSourceId": "w531669522",
+      "x": 532.0040885576072,
+      "z": 125.32627313581973,
+      "upper": [
+        {
+          "kind": "passive profile",
+          "topM": 5.840000000000001
+        },
+        {
+          "kind": "passive profile",
+          "topM": 5.840000000000001
+        }
+      ],
+      "lower": [
+        {
+          "kind": "unchanged flat source scenery asphalt",
+          "topM": 0.2
+        }
+      ],
+      "clearanceCandidatesM": [
+        5.24,
+        5.24
+      ],
+      "productionBodyProbeBefore": [
+        {
+          "lowerTopM": 0.2,
+          "bodyHeightM": 2,
+          "radiusM": 0.2,
+          "matchedPassiveSlabs": 2,
+          "blocked": false
+        }
+      ],
+      "productionBodyProbeAfter": [
+        {
+          "lowerTopM": 0.2,
+          "bodyHeightM": 2,
+          "radiusM": 0.2,
+          "matchedPassiveSlabs": 2,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "sourceId": "w30614981",
+      "lowerSourceId": "w111868971",
+      "x": 426.8804902659463,
+      "z": 103.34476718437864,
+      "upper": [
+        {
+          "kind": "passive profile",
+          "topM": 5.840000000000001
+        },
+        {
+          "kind": "passive profile",
+          "topM": 5.840000000000001
+        }
+      ],
+      "lower": [
+        {
+          "kind": "unchanged flat source scenery asphalt",
+          "topM": 0.2
+        }
+      ],
+      "clearanceCandidatesM": [
+        5.24,
+        5.24
+      ],
+      "productionBodyProbeBefore": [
+        {
+          "lowerTopM": 0.2,
+          "bodyHeightM": 2,
+          "radiusM": 0.2,
+          "matchedPassiveSlabs": 2,
+          "blocked": false
+        }
+      ],
+      "productionBodyProbeAfter": [
+        {
+          "lowerTopM": 0.2,
+          "bodyHeightM": 2,
+          "radiusM": 0.2,
+          "matchedPassiveSlabs": 2,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "sourceId": "w181984969",
+      "lowerSourceId": "w531669522",
+      "x": 530.4006031983726,
+      "z": 157.60319698908717,
+      "upper": [
+        {
+          "kind": "passive profile",
+          "topM": 5.840000000000001
+        },
+        {
+          "kind": "passive profile",
+          "topM": 5.840000000000001
+        }
+      ],
+      "lower": [
+        {
+          "kind": "unchanged flat source scenery asphalt",
+          "topM": 0.2
+        }
+      ],
+      "clearanceCandidatesM": [
+        5.24,
+        5.24
+      ],
+      "productionBodyProbeBefore": [
+        {
+          "lowerTopM": 0.2,
+          "bodyHeightM": 2,
+          "radiusM": 0.2,
+          "matchedPassiveSlabs": 2,
+          "blocked": true
+        }
+      ],
+      "productionBodyProbeAfter": [
+        {
+          "lowerTopM": 0.2,
+          "bodyHeightM": 2,
+          "radiusM": 0.2,
+          "matchedPassiveSlabs": 2,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "sourceId": "w365781619",
+      "lowerSourceId": "w531669522",
+      "x": 531.5222274307471,
+      "z": 142.329303830353,
+      "upper": [
+        {
+          "kind": "passive profile",
+          "topM": 5.840000000000001
+        },
+        {
+          "kind": "passive profile",
+          "topM": 5.840000000000001
+        }
+      ],
+      "lower": [
+        {
+          "kind": "unchanged flat source scenery asphalt",
+          "topM": 0.2
+        }
+      ],
+      "clearanceCandidatesM": [
+        5.24,
+        5.24
+      ],
+      "productionBodyProbeBefore": [
+        {
+          "lowerTopM": 0.2,
+          "bodyHeightM": 2,
+          "radiusM": 0.2,
+          "matchedPassiveSlabs": 2,
+          "blocked": true
+        }
+      ],
+      "productionBodyProbeAfter": [
+        {
+          "lowerTopM": 0.2,
+          "bodyHeightM": 2,
+          "radiusM": 0.2,
+          "matchedPassiveSlabs": 2,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "sourceId": "w365781621",
+      "lowerSourceId": "w111868971",
+      "x": 427.0376246196107,
+      "z": 87.6633648720601,
+      "upper": [
+        {
+          "kind": "passive profile",
+          "topM": 5.840000000000001
+        },
+        {
+          "kind": "passive profile",
+          "topM": 5.840000000000001
+        }
+      ],
+      "lower": [
+        {
+          "kind": "unchanged flat source scenery asphalt",
+          "topM": 0.2
+        }
+      ],
+      "clearanceCandidatesM": [
+        5.24,
+        5.24
+      ],
+      "productionBodyProbeBefore": [
+        {
+          "lowerTopM": 0.2,
+          "bodyHeightM": 2,
+          "radiusM": 0.2,
+          "matchedPassiveSlabs": 2,
+          "blocked": false
+        }
+      ],
+      "productionBodyProbeAfter": [
+        {
+          "lowerTopM": 0.2,
+          "bodyHeightM": 2,
+          "radiusM": 0.2,
+          "matchedPassiveSlabs": 2,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "sourceId": "w428073527",
+      "lowerSourceId": "w30615048",
+      "x": 470.1271536658944,
+      "z": 119.13435427259759,
+      "upper": [
+        {
+          "kind": "passive profile",
+          "topM": 5.840000000000001
+        },
+        {
+          "kind": "passive profile",
+          "topM": 5.840000000000001
+        }
+      ],
+      "lower": [
+        {
+          "kind": "passive profile",
+          "topM": 0.24
+        }
+      ],
+      "clearanceCandidatesM": [
+        5.2,
+        5.2
+      ],
+      "productionBodyProbeBefore": [
+        {
+          "lowerTopM": 0.24,
+          "bodyHeightM": 2,
+          "radiusM": 0.2,
+          "matchedPassiveSlabs": 2,
+          "blocked": false
+        }
+      ],
+      "productionBodyProbeAfter": [
+        {
+          "lowerTopM": 0.24,
+          "bodyHeightM": 2,
+          "radiusM": 0.2,
+          "matchedPassiveSlabs": 2,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "sourceId": "w428073527",
+      "lowerSourceId": "w454826562",
+      "x": 483.14373497346844,
+      "z": 124.05111783336645,
+      "upper": [
+        {
+          "kind": "passive profile",
+          "topM": 5.840000000000001
+        },
+        {
+          "kind": "passive profile",
+          "topM": 5.840000000000001
+        }
+      ],
+      "lower": [
+        {
+          "kind": "passive profile",
+          "topM": 0.24
+        }
+      ],
+      "clearanceCandidatesM": [
+        5.2,
+        5.2
+      ],
+      "productionBodyProbeBefore": [
+        {
+          "lowerTopM": 0.24,
+          "bodyHeightM": 2,
+          "radiusM": 0.2,
+          "matchedPassiveSlabs": 2,
+          "blocked": false
+        }
+      ],
+      "productionBodyProbeAfter": [
+        {
+          "lowerTopM": 0.24,
+          "bodyHeightM": 2,
+          "radiusM": 0.2,
+          "matchedPassiveSlabs": 2,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "sourceId": "w428073527",
+      "lowerSourceId": "w623957745",
+      "x": 487.80649825714823,
+      "z": 125.812387099387,
+      "upper": [
+        {
+          "kind": "passive profile",
+          "topM": 5.840000000000001
+        },
+        {
+          "kind": "passive profile",
+          "topM": 5.840000000000001
+        }
+      ],
+      "lower": [
+        {
+          "kind": "unchanged flat source scenery asphalt",
+          "topM": 0.2
+        }
+      ],
+      "clearanceCandidatesM": [
+        5.24,
+        5.24
+      ],
+      "productionBodyProbeBefore": [
+        {
+          "lowerTopM": 0.2,
+          "bodyHeightM": 2,
+          "radiusM": 0.2,
+          "matchedPassiveSlabs": 2,
+          "blocked": false
+        }
+      ],
+      "productionBodyProbeAfter": [
+        {
+          "lowerTopM": 0.2,
+          "bodyHeightM": 2,
+          "radiusM": 0.2,
+          "matchedPassiveSlabs": 2,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "sourceId": "w428073527",
+      "lowerSourceId": "w880540177",
+      "x": 457.67941737233275,
+      "z": 114.43246098924894,
+      "upper": [
+        {
+          "kind": "passive profile",
+          "topM": 5.840000000000001
+        },
+        {
+          "kind": "passive profile",
+          "topM": 5.840000000000001
+        }
+      ],
+      "lower": [
+        {
+          "kind": "unchanged flat source scenery asphalt",
+          "topM": 0.2
+        }
+      ],
+      "clearanceCandidatesM": [
+        5.24,
+        5.24
+      ],
+      "productionBodyProbeBefore": [
+        {
+          "lowerTopM": 0.2,
+          "bodyHeightM": 2,
+          "radiusM": 0.2,
+          "matchedPassiveSlabs": 2,
+          "blocked": false
+        }
+      ],
+      "productionBodyProbeAfter": [
+        {
+          "lowerTopM": 0.2,
+          "bodyHeightM": 2,
+          "radiusM": 0.2,
+          "matchedPassiveSlabs": 2,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "sourceId": "w428073528",
+      "lowerSourceId": "w30615048",
+      "x": 470.0556247952727,
+      "z": 102.78369517544715,
+      "upper": [
+        {
+          "kind": "passive profile",
+          "topM": 5.840000000000001
+        },
+        {
+          "kind": "passive profile",
+          "topM": 5.840000000000001
+        }
+      ],
+      "lower": [
+        {
+          "kind": "passive profile",
+          "topM": 0.24
+        }
+      ],
+      "clearanceCandidatesM": [
+        5.2,
+        5.2
+      ],
+      "productionBodyProbeBefore": [
+        {
+          "lowerTopM": 0.24,
+          "bodyHeightM": 2,
+          "radiusM": 0.2,
+          "matchedPassiveSlabs": 2,
+          "blocked": false
+        }
+      ],
+      "productionBodyProbeAfter": [
+        {
+          "lowerTopM": 0.24,
+          "bodyHeightM": 2,
+          "radiusM": 0.2,
+          "matchedPassiveSlabs": 2,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "sourceId": "w428073528",
+      "lowerSourceId": "w454826562",
+      "x": 482.5035122872375,
+      "z": 107.28105731539641,
+      "upper": [
+        {
+          "kind": "passive profile",
+          "topM": 5.840000000000001
+        },
+        {
+          "kind": "passive profile",
+          "topM": 5.840000000000001
+        }
+      ],
+      "lower": [
+        {
+          "kind": "passive profile",
+          "topM": 0.24
+        }
+      ],
+      "clearanceCandidatesM": [
+        5.2,
+        5.2
+      ],
+      "productionBodyProbeBefore": [
+        {
+          "lowerTopM": 0.24,
+          "bodyHeightM": 2,
+          "radiusM": 0.2,
+          "matchedPassiveSlabs": 2,
+          "blocked": false
+        }
+      ],
+      "productionBodyProbeAfter": [
+        {
+          "lowerTopM": 0.24,
+          "bodyHeightM": 2,
+          "radiusM": 0.2,
+          "matchedPassiveSlabs": 2,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "sourceId": "w428073528",
+      "lowerSourceId": "w623957745",
+      "x": 487.80649825714823,
+      "z": 109.19700075119253,
+      "upper": [
+        {
+          "kind": "passive profile",
+          "topM": 5.840000000000001
+        },
+        {
+          "kind": "passive profile",
+          "topM": 5.840000000000001
+        }
+      ],
+      "lower": [
+        {
+          "kind": "unchanged flat source scenery asphalt",
+          "topM": 0.2
+        }
+      ],
+      "clearanceCandidatesM": [
+        5.24,
+        5.24
+      ],
+      "productionBodyProbeBefore": [
+        {
+          "lowerTopM": 0.2,
+          "bodyHeightM": 2,
+          "radiusM": 0.2,
+          "matchedPassiveSlabs": 2,
+          "blocked": false
+        }
+      ],
+      "productionBodyProbeAfter": [
+        {
+          "lowerTopM": 0.2,
+          "bodyHeightM": 2,
+          "radiusM": 0.2,
+          "matchedPassiveSlabs": 2,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "sourceId": "w428073528",
+      "lowerSourceId": "w880540177",
+      "x": 457.39719848887796,
+      "z": 98.21026637008032,
+      "upper": [
+        {
+          "kind": "passive profile",
+          "topM": 5.840000000000001
+        },
+        {
+          "kind": "passive profile",
+          "topM": 5.840000000000001
+        }
+      ],
+      "lower": [
+        {
+          "kind": "unchanged flat source scenery asphalt",
+          "topM": 0.2
+        }
+      ],
+      "clearanceCandidatesM": [
+        5.24,
+        5.24
+      ],
+      "productionBodyProbeBefore": [
+        {
+          "lowerTopM": 0.2,
+          "bodyHeightM": 2,
+          "radiusM": 0.2,
+          "matchedPassiveSlabs": 2,
+          "blocked": false
+        }
+      ],
+      "productionBodyProbeAfter": [
+        {
+          "lowerTopM": 0.2,
+          "bodyHeightM": 2,
+          "radiusM": 0.2,
+          "matchedPassiveSlabs": 2,
+          "blocked": false
+        }
+      ]
+    }
+  ],
+  "candidateProfiles": [
+    {
+      "piece": 41,
+      "sourceId": "w365781624",
+      "points": [
+        [
+          439.1113969218166,
+          107.42019119979466
+        ],
+        [
+          439.5241308675085,
+          117.29982599996154
+        ],
+        [
+          439.78115155179364,
+          125.22075929994101
+        ],
+        [
+          440.0381722360787,
+          133.14169259992048
+        ],
+        [
+          440.29519292036383,
+          141.06262589989996
+        ],
+        [
+          440.55221360464895,
+          148.9835591998794
+        ],
+        [
+          440.7805573200466,
+          157.8757067998998
+        ],
+        [
+          441.0089010354443,
+          166.7678543999202
+        ],
+        [
+          441.23724475084197,
+          175.6600019999406
+        ],
+        [
+          441.4655884662397,
+          184.55214959996098
+        ],
+        [
+          441.69393218163736,
+          193.44429719998138
+        ],
+        [
+          441.92227589703504,
+          202.33644480000177
+        ],
+        [
+          442.1506196124327,
+          211.22859240002217
+        ],
+        [
+          442.16938024627933,
+          219.30233220001065
+        ],
+        [
+          442.18814088012596,
+          227.37607199999914
+        ],
+        [
+          442.2069015139725,
+          235.44981179998763
+        ],
+        [
+          442.22566214781915,
+          243.52355159997612
+        ]
+      ],
+      "heights": [
+        5.50965743521982,
+        5.232786371462405,
+        5.010883511462131,
+        4.788980651461857,
+        4.567077791461583,
+        4.345174931461309,
+        4.096112720442372,
+        3.8470505094234353,
+        3.5979882984044984,
+        3.3489260873855615,
+        3.0998638763666246,
+        2.8508016653476878,
+        2.601739454328751,
+        2.3756741296229666,
+        2.1496088049171824,
+        1.9235434802113984,
+        1.6974781555056144
+      ],
+      "coveredSegments": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "bridge": true,
+      "thicknessM": 0.4
+    },
+    {
+      "piece": 383,
+      "sourceId": "w30614975",
+      "points": [
+        [
+          537.3195632296851,
+          127.29059279984784
+        ],
+        [
+          532.0040885576072,
+          125.32627313581973
+        ],
+        [
+          531.2148529609609,
+          125.0346131999372
+        ],
+        [
+          525.1101426922368,
+          122.77863360002655
+        ],
+        [
+          518.7202707876578,
+          120.4170786000666
+        ],
+        [
+          512.3303988830788,
+          118.05552360010665
+        ]
+      ],
+      "heights": [
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.409255654080614,
+        5.2185113081612275
+      ],
+      "coveredSegments": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "bridge": true,
+      "thicknessM": 0.4
+    },
+    {
+      "piece": 385,
+      "sourceId": "w30614981",
+      "points": [
+        [
+          371.8807892991096,
+          94.96229400029392
+        ],
+        [
+          379.64519031345407,
+          95.35496040014482
+        ],
+        [
+          387.4095913277986,
+          95.74762679999571
+        ],
+        [
+          395.17399234214304,
+          96.14029319984661
+        ],
+        [
+          401.43253980926255,
+          97.13492460002018
+        ],
+        [
+          407.69108727638206,
+          98.12955600019376
+        ],
+        [
+          413.9458826164123,
+          99.62428139989436
+        ],
+        [
+          420.2006779564426,
+          101.11900679959496
+        ],
+        [
+          426.8804902659463,
+          103.34476718437864
+        ],
+        [
+          429.6560374391296,
+          104.26959899969481
+        ],
+        [
+          436.05033515319366,
+          106.40022391564158
+        ],
+        [
+          439.1113969218166,
+          107.42019119979466
+        ]
+      ],
+      "heights": [
+        4.231948526485777,
+        4.449629591923931,
+        4.667310657362087,
+        4.884991722800241,
+        5.062430239160115,
+        5.239868755519988,
+        5.4199343777599935,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.50965743521982
+      ],
+      "coveredSegments": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "bridge": true,
+      "thicknessM": 0.4
+    },
+    {
+      "piece": 386,
+      "sourceId": "w30614982",
+      "points": [
+        [
+          535.4585083480488,
+          143.8159212002922
+        ],
+        [
+          542.3849343817784,
+          146.20155480027032
+        ],
+        [
+          549.311360415508,
+          148.58718840024844
+        ],
+        [
+          556.2377864492377,
+          150.97282200022656
+        ],
+        [
+          563.4981517660058,
+          153.17045730024503
+        ],
+        [
+          570.7585170827738,
+          155.36809260026348
+        ],
+        [
+          578.0188823995419,
+          157.56572790028196
+        ],
+        [
+          585.27924771631,
+          159.76336320030043
+        ],
+        [
+          590.7686091941188,
+          161.1469566002816
+        ],
+        [
+          596.2579706719275,
+          162.5305500002628
+        ]
+      ],
+      "heights": [
+        5.6000000000000005,
+        5.013939933322479,
+        4.427879866644957,
+        3.8418197999674346,
+        3.234965587782311,
+        2.628111375597197,
+        2.0212571634120735,
+        1.41440295122695,
+        0.9615194244396068,
+        0.5086358976522636
+      ],
+      "coveredSegments": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "bridge": false,
+      "thicknessM": 0.4
+    },
+    {
+      "piece": 388,
+      "sourceId": "w30614990",
+      "points": [
+        [
+          438.8412437937855,
+          91.50608880017603
+        ],
+        [
+          438.97632035780106,
+          99.46313999998534
+        ],
+        [
+          439.1113969218166,
+          107.42019119979466
+        ]
+      ],
+      "heights": [
+        5.426610693664622,
+        5.286827901656529,
+        5.50965743521982
+      ],
+      "coveredSegments": [
+        false,
+        false
+      ],
+      "bridge": true,
+      "thicknessM": 0.4
+    },
+    {
+      "piece": 389,
+      "sourceId": "w30614992",
+      "points": [
+        [
+          512.5330137299019,
+          106.52002200033016
+        ],
+        [
+          512.6680902933842,
+          97.21827359980975
+        ],
+        [
+          511.9972100252805,
+          87.77872151988994
+        ],
+        [
+          511.32632975717667,
+          78.33916943997014
+        ],
+        [
+          510.6554494890729,
+          68.89961736005034
+        ],
+        [
+          509.9845692209691,
+          59.46006528013053
+        ],
+        [
+          509.31368895286533,
+          50.02051320021073
+        ],
+        [
+          508.56701572395724,
+          40.21589250013083
+        ],
+        [
+          507.8203424950492,
+          30.411271800050926
+        ],
+        [
+          507.0736692661411,
+          20.606651099971025
+        ],
+        [
+          506.326996037233,
+          10.802030399891123
+        ]
+      ],
+      "heights": [
+        4.895467424291629,
+        4.151249095102304,
+        3.394180120474922,
+        2.6371111458475394,
+        1.8800421712201585,
+        1.1229731965927754,
+        0.36590422196539396,
+        0,
+        0,
+        0,
+        0
+      ],
+      "coveredSegments": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "bridge": false,
+      "thicknessM": 0.4
+    },
+    {
+      "piece": 390,
+      "sourceId": "w30615009",
+      "points": [
+        [
+          509.2011251497857,
+          207.50567039994596
+        ],
+        [
+          511.1822480890357,
+          199.85608440004472
+        ],
+        [
+          513.1633710282856,
+          192.2064984001435
+        ],
+        [
+          515.1444939675356,
+          184.55691240024225
+        ],
+        [
+          517.3582487667679,
+          175.37740919957113
+        ],
+        [
+          519.2493206629854,
+          170.67652559991097
+        ],
+        [
+          521.4405627018151,
+          166.80913199972574
+        ],
+        [
+          523.0839942314706,
+          164.70873719965917
+        ]
+      ],
+      "heights": [
+        2.34713596847504,
+        2.3869954241701703,
+        3.0191524379333385,
+        3.6513094516965077,
+        4.406722935599486,
+        4.812082702990122,
+        5.167684952085268,
+        5.381039500329263
+      ],
+      "coveredSegments": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "bridge": false,
+      "thicknessM": 0.4
+    },
+    {
+      "piece": 391,
+      "sourceId": "w30615010",
+      "points": [
+        [
+          535.0007488804852,
+          154.78464959976245
+        ],
+        [
+          539.8259839184176,
+          152.70648119995562
+        ],
+        [
+          546.4897610775837,
+          151.1950859996654
+        ],
+        [
+          556.2377864492377,
+          150.97282200022656
+        ]
+      ],
+      "heights": [
+        5.490494272019503,
+        5.070195886056414,
+        4.5235538226709675,
+        3.8418197999674346
+      ],
+      "coveredSegments": [
+        false,
+        false,
+        false
+      ],
+      "bridge": false,
+      "thicknessM": 0.4
+    },
+    {
+      "piece": 504,
+      "sourceId": "w181984969",
+      "points": [
+        [
+          523.0839942314706,
+          164.70873719965917
+        ],
+        [
+          524.5173066611909,
+          162.93062520020027
+        ],
+        [
+          525.5979191733152,
+          161.7081732001281
+        ],
+        [
+          528.4495355254652,
+          159.0410051997553
+        ],
+        [
+          530.4006031983726,
+          157.60319698908717
+        ],
+        [
+          531.601322019161,
+          156.71834640024989
+        ],
+        [
+          535.0007488804852,
+          154.78464959976245
+        ]
+      ],
+      "heights": [
+        5.381039500329263,
+        5.444987888691968,
+        5.490672634924935,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.490494272019503
+      ],
+      "coveredSegments": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "bridge": true,
+      "thicknessM": 0.4
+    },
+    {
+      "piece": 505,
+      "sourceId": "w181984983",
+      "points": [
+        [
+          511.3698544282127,
+          144.78276959974627
+        ],
+        [
+          511.4223842031965,
+          143.84926079989216
+        ],
+        [
+          511.90265643009633,
+          134.91424799970926
+        ]
+      ],
+      "heights": [
+        5.033063698870535,
+        5.059243295437811,
+        5.3097848095201465
+      ],
+      "coveredSegments": [
+        false,
+        false
+      ],
+      "bridge": true,
+      "thicknessM": 0.4
+    },
+    {
+      "piece": 529,
+      "sourceId": "w365781618",
+      "points": [
+        [
+          512.3303988830788,
+          118.05552360010665
+        ],
+        [
+          505.8692365700249,
+          115.72175159994495
+        ],
+        [
+          499.40807425697096,
+          113.38797959978325
+        ],
+        [
+          492.94691194391703,
+          111.05420759962155
+        ]
+      ],
+      "heights": [
+        5.2185113081612275,
+        5.215295446429113,
+        5.407647723214557,
+        5.6000000000000005
+      ],
+      "coveredSegments": [
+        false,
+        false,
+        false
+      ],
+      "bridge": true,
+      "thicknessM": 0.4
+    },
+    {
+      "piece": 530,
+      "sourceId": "w365781619",
+      "points": [
+        [
+          511.90265643009633,
+          134.91424799970926
+        ],
+        [
+          518.2662634471834,
+          137.32025579979387
+        ],
+        [
+          524.6298704642705,
+          139.72626359987848
+        ],
+        [
+          525.9611106760826,
+          140.22903381979407
+        ],
+        [
+          530.0441894061596,
+          141.77109240008534
+        ],
+        [
+          531.5222274307471,
+          142.329303830353
+        ],
+        [
+          535.4585083480488,
+          143.8159212002922
+        ]
+      ],
+      "heights": [
+        5.3097848095201465,
+        5.36966419045756,
+        5.560155514030995,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005
+      ],
+      "coveredSegments": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "bridge": true,
+      "thicknessM": 0.4
+    },
+    {
+      "piece": 531,
+      "sourceId": "w365781620",
+      "points": [
+        [
+          439.1113969218166,
+          107.42019119979466
+        ],
+        [
+          446.61565047965706,
+          110.2540571997466
+        ],
+        [
+          454.1199040374975,
+          113.08792319969854
+        ]
+      ],
+      "heights": [
+        5.50965743521982,
+        5.375397728227476,
+        5.6000000000000005
+      ],
+      "coveredSegments": [
+        false,
+        false
+      ],
+      "bridge": true,
+      "thicknessM": 0.4
+    },
+    {
+      "piece": 532,
+      "sourceId": "w365781621",
+      "points": [
+        [
+          438.8412437937855,
+          91.50608880017603
+        ],
+        [
+          432.71937578390003,
+          89.51308577803312
+        ],
+        [
+          429.4196534522357,
+          88.43884560026056
+        ],
+        [
+          427.0376246196107,
+          87.6633648720601
+        ],
+        [
+          421.35587345532144,
+          85.8136439660871
+        ],
+        [
+          419.99806311068585,
+          85.3716024003451
+        ]
+      ],
+      "heights": [
+        5.426610693664622,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.560017316905578
+      ],
+      "coveredSegments": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "bridge": true,
+      "thicknessM": 0.4
+    },
+    {
+      "piece": 533,
+      "sourceId": "w365781622",
+      "points": [
+        [
+          512.3303988830788,
+          118.05552360010665
+        ],
+        [
+          512.450466940337,
+          111.33203759970974
+        ],
+        [
+          512.5330137299019,
+          106.52002200033016
+        ]
+      ],
+      "heights": [
+        5.2185113081612275,
+        5.0302236840768195,
+        4.895467424291629
+      ],
+      "coveredSegments": [
+        false,
+        false
+      ],
+      "bridge": true,
+      "thicknessM": 0.4
+    },
+    {
+      "piece": 534,
+      "sourceId": "w365781623",
+      "points": [
+        [
+          511.90265643009633,
+          134.91424799970926
+        ],
+        [
+          512.1165276565876,
+          126.48488579990796
+        ],
+        [
+          512.3303988830788,
+          118.05552360010665
+        ]
+      ],
+      "heights": [
+        5.3097848095201465,
+        5.073686710862795,
+        5.2185113081612275
+      ],
+      "coveredSegments": [
+        false,
+        false
+      ],
+      "bridge": true,
+      "thicknessM": 0.4
+    },
+    {
+      "piece": 565,
+      "sourceId": "w378376411",
+      "points": [
+        [
+          313.37762856402816,
+          -726.1920540000863
+        ],
+        [
+          320.4466354157741,
+          -723.0803580000461
+        ],
+        [
+          326.38249997987873,
+          -724.2805835998586
+        ],
+        [
+          332.31836454398336,
+          -725.480809199671
+        ],
+        [
+          339.5224479592116,
+          -727.3811663997687
+        ],
+        [
+          346.72653137443984,
+          -729.2815235998667
+        ],
+        [
+          353.9306147896681,
+          -731.1818807999645
+        ],
+        [
+          360.51934941344774,
+          -733.5712188002491
+        ],
+        [
+          368.6276953825354,
+          -736.5051036001853
+        ],
+        [
+          376.73604135162316,
+          -739.4389884001216
+        ],
+        [
+          385.3759386142757,
+          -743.4953064001458
+        ],
+        [
+          394.0158358769283,
+          -747.5516244001699
+        ],
+        [
+          402.65573313958083,
+          -751.607942400194
+        ],
+        [
+          409.63719036599826,
+          -755.9272728001331
+        ],
+        [
+          416.61864759241575,
+          -760.2466032000723
+        ],
+        [
+          423.6001048188332,
+          -764.5659336000114
+        ]
+      ],
+      "heights": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.6531808927669732,
+        1.4167579083519555,
+        2.180334923936942,
+        2.943911939521924,
+        3.600679101225414,
+        4.257446262928912,
+        4.914213424632402
+      ],
+      "coveredSegments": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "bridge": false,
+      "thicknessM": 0.4
+    },
+    {
+      "piece": 675,
+      "sourceId": "w428073527",
+      "points": [
+        [
+          454.1199040374975,
+          113.08792319969854
+        ],
+        [
+          457.67941737233275,
+          114.43246098924894
+        ],
+        [
+          460.9118377778545,
+          115.65344570769473
+        ],
+        [
+          462.37458295072594,
+          116.20596959970007
+        ],
+        [
+          470.1271536658944,
+          119.13435427259759
+        ],
+        [
+          470.6292618639543,
+          119.3240159997016
+        ],
+        [
+          472.17686508461355,
+          119.90859338926842
+        ],
+        [
+          473.40649825714826,
+          120.37306370086345
+        ],
+        [
+          473.8023258318593,
+          120.522579963982
+        ],
+        [
+          478.8839407771827,
+          122.44206239970313
+        ],
+        [
+          479.34246955393434,
+          122.61526283750045
+        ],
+        [
+          483.14373497346844,
+          124.05111783336645
+        ],
+        [
+          487.13861969041113,
+          125.56010879970466
+        ],
+        [
+          487.80649825714823,
+          125.812387099387
+        ],
+        [
+          492.48514411507756,
+          127.5796557027509
+        ],
+        [
+          495.39329860363955,
+          128.6781551997062
+        ],
+        [
+          502.2064982571482,
+          131.25171049791052
+        ],
+        [
+          503.6479775168679,
+          131.79620159970773
+        ],
+        [
+          511.90265643009633,
+          134.91424799970926
+        ]
+      ],
+      "heights": [
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.556855161552598,
+        5.3097848095201465
+      ],
+      "coveredSegments": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "bridge": true,
+      "thicknessM": 0.4
+    },
+    {
+      "piece": 676,
+      "sourceId": "w428073528",
+      "points": [
+        [
+          492.94691194391703,
+          111.05420759962155
+        ],
+        [
+          490.06321019052615,
+          110.01233996569755
+        ],
+        [
+          487.80649825714823,
+          109.19700075119253
+        ],
+        [
+          483.9293005855618,
+          107.79618779971396
+        ],
+        [
+          482.5035122872375,
+          107.28105731539641
+        ],
+        [
+          477.51748993612466,
+          105.47963131718502
+        ],
+        [
+          475.15649825714826,
+          104.6266163299739
+        ],
+        [
+          474.9438143839489,
+          104.54977466509527
+        ],
+        [
+          474.9116892272065,
+          104.53816799980638
+        ],
+        [
+          470.1291390573137,
+          102.81025552627479
+        ],
+        [
+          470.0556247952727,
+          102.78369517544715
+        ],
+        [
+          465.89407786885124,
+          101.28014819989879
+        ],
+        [
+          462.5937596544207,
+          100.08775903370926
+        ],
+        [
+          457.39719848887796,
+          98.21026637008032
+        ],
+        [
+          456.876466510496,
+          98.0221283999912
+        ],
+        [
+          447.8588551521408,
+          94.76410860008362
+        ],
+        [
+          444.66525792044223,
+          93.61027721388584
+        ],
+        [
+          438.8412437937855,
+          91.50608880017603
+        ]
+      ],
+      "heights": [
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.6000000000000005,
+        5.426610693664622
+      ],
+      "coveredSegments": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "bridge": true,
+      "thicknessM": 0.4
+    },
+    {
+      "piece": 683,
+      "sourceId": "w428073558",
+      "points": [
+        [
+          509.8164739412343,
+          189.6578711998399
+        ],
+        [
+          510.12715003862996,
+          180.68285087982116
+        ],
+        [
+          510.43782613602565,
+          171.70783055980243
+        ],
+        [
+          510.74850223342133,
+          162.73281023978373
+        ],
+        [
+          511.059178330817,
+          153.757789919765
+        ],
+        [
+          511.3698544282127,
+          144.78276959974627
+        ]
+      ],
+      "heights": [
+        3.7758082817448257,
+        4.027259365169968,
+        4.27871044859511,
+        4.5301615320202515,
+        4.781612615445393,
+        5.033063698870535
+      ],
+      "coveredSegments": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "bridge": true,
+      "thicknessM": 0.4
+    },
+    {
+      "piece": 685,
+      "sourceId": "w428073560",
+      "points": [
+        [
+          439.0288501333181,
+          31.939336799746314
+        ],
+        [
+          439.0113402083235,
+          40.79285279976648
+        ],
+        [
+          438.99383028332886,
+          49.64636879978664
+        ],
+        [
+          438.9763203583343,
+          58.49988479980681
+        ],
+        [
+          438.9588104333397,
+          67.35340079982697
+        ],
+        [
+          438.9413005083451,
+          76.20691679984714
+        ],
+        [
+          438.92379058335047,
+          85.0604327998673
+        ],
+        [
+          438.8412437937855,
+          91.50608880017603
+        ]
+      ],
+      "heights": [
+        3.758723929354807,
+        4.006622862175236,
+        4.254521794995665,
+        4.502420727816094,
+        4.7503196606365234,
+        4.9982185934569525,
+        5.246117526277382,
+        5.426610693664622
+      ],
+      "coveredSegments": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "bridge": true,
+      "thicknessM": 0.4
+    },
+    {
+      "piece": 1005,
+      "sourceId": "w1031114177",
+      "points": [
+        [
+          596.2579706719275,
+          162.5305500002628
+        ],
+        [
+          605.2611988774182,
+          164.81431260010328
+        ],
+        [
+          614.2644270829089,
+          167.0980751999438
+        ],
+        [
+          623.2676552883995,
+          169.3818377997843
+        ],
+        [
+          632.2708834938902,
+          171.6656003996248
+        ],
+        [
+          638.9008915124523,
+          172.32127919978552
+        ],
+        [
+          645.5308995310145,
+          172.97695799994628
+        ],
+        [
+          650.191040989817,
+          172.46575080028938
+        ]
+      ],
+      "heights": [
+        0.5086358976522636,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "coveredSegments": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "bridge": false,
+      "thicknessM": 0.4
+    },
+    {
+      "piece": 1006,
+      "sourceId": "w1031114681",
+      "points": [
+        [
+          580.4164914117507,
+          142.92686520016792
+        ],
+        [
+          571.7971057753376,
+          139.7996107201039
+        ],
+        [
+          563.1777201389244,
+          136.6723562400399
+        ],
+        [
+          554.5583345025113,
+          133.54510175997586
+        ],
+        [
+          545.9389488660981,
+          130.41784727991185
+        ],
+        [
+          537.3195632296851,
+          127.29059279984784
+        ]
+      ],
+      "heights": [
+        1.9323352534390943,
+        2.665868202751272,
+        3.399401152063458,
+        4.132934101375636,
+        4.866467050687823,
+        5.6000000000000005
+      ],
+      "coveredSegments": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "bridge": false,
+      "thicknessM": 0.4
+    }
+  ]
+}

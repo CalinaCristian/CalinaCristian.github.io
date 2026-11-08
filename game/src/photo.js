@@ -1,7 +1,8 @@
 // ============================================================================
 //  PHOTO MODE — pull out a camera (P / 📷), aim with the mouse or a drag, zoom with the wheel / pinch / + −,
 //  pick a filter, shoot (Space / click / tap). The rendered frame is cropped to the viewfinder, filtered, framed
-//  as a polaroid postcard with a caption, and saved on the device (share sheet on phones, download elsewhere).
+//  as a polaroid postcard with a caption and kept in the gallery (the in-viewfinder strip + the persistent photo gallery,
+//  save.js). Nothing is downloaded until you choose to: ⬇ Save on the print / a gallery shot (share sheet on phones).
 //  Nothing is uploaded. Self-contained: it only needs to be constructed (see spec 16 for the main.js hooks).
 // ============================================================================
 import { fitText, drawFitText } from './canvasText.js';
@@ -172,7 +173,7 @@ export class PhotoMode {
                     this._renderGallery(); this._print(shot);
                     try { window.cvTelemetry?.track?.('photo_taken', { city: info.city, place: info.place, filter: this.filterId }); } catch { /* ignore */ }
                     try { this.o.onPhoto?.(shot.meta, shot); } catch (err) { console.warn('[photo] onPhoto', err); }
-                    if (!this._shareCapable()) this.save(shot);
+                    // (2026-11-08, owner) no automatic download / share: the shot is kept in the gallery; save it from there
                     resolve(shot);
                 }, 'image/jpeg', 0.9);
             };
@@ -258,7 +259,7 @@ export class PhotoMode {
             </div>
             <div class="pv-hint">Space shoot · wheel / + − zoom · F filter · G grid · V gallery · P / Esc close</div>
             <div class="pv-flash"></div>
-            <div class="pv-print"><img alt="Your photo"><div class="pv-print-actions"><button class="small-btn pv-save">⬇ Save</button><button class="small-btn pv-share">Share…</button><button class="small-btn pv-dismiss">Keep shooting</button></div></div>
+            <div class="pv-print"><img alt="Your photo"><div class="pv-print-note">Kept in your gallery</div><div class="pv-print-actions"><button class="small-btn pv-save" title="Download this photo">⬇ Save</button><button class="small-btn pv-share">Share…</button><button class="small-btn pv-dismiss">Keep shooting</button></div></div>
             <div class="pv-gallery"><div class="pv-gal-head"><span>Last ${KEEP} shots</span><button class="small-btn pv-gal-close">Close</button></div><div class="pv-gal-grid"></div></div>`;
         document.body.appendChild(r);
         const $ = (s) => r.querySelector(s);
@@ -304,7 +305,7 @@ export class PhotoMode {
     _renderGallery() {
         const g = this.q.galGrid; g.innerHTML = '';
         for (const s of this.gallery) {
-            const b = el('button', 'pv-thumb'); b.title = `Save ${s.name}`;
+            const b = el('button', 'pv-thumb'); b.title = `Save ${s.name} (download)`;
             const img = el('img'); img.src = s.url; img.alt = s.meta.place || 'photo'; b.appendChild(img);
             b.addEventListener('click', () => this.save(s, { share: this._shareCapable() }));
             g.appendChild(b);

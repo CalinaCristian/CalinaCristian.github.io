@@ -26,6 +26,7 @@ const MODES = [
     { id: 'S', name: 'Sport', h: 26 },
 ];
 const BOOST = 1.8;                // Shift: Sport + boost ≈ 47 m/s — fast enough to cross a district in half a minute
+const COLLISION_STEP = 0.35;      // no movement step skips a thin roof band, wall or the drone's collision radius
 const RANGE = { district: 800, spot: 450 };
 const CEIL_M = 120;               // EU open category: 120 m above ground; FAA recreational: 400 ft (121.9 m)
 const BATTERY_S = 10 * 60;        // ~10 min of hover; faster flight drains faster
@@ -401,6 +402,11 @@ export class Drone {
         if (u >= 1) { this.phase = 'fly'; this.pos.copy(fly0); this.c.boundary?.constrain(this.pos, this.vel); this.model.visible = false; this.t = 0; this.warn(`${MODES[this.mode].name} mode · ${this._fmtDist(this.range)} range · ${this.imperial ? '400 ft' : `${CEIL_M} m`} ceiling`, 3.5); }
     }
     _fly(dt) {
+        // Looking upward/downward uses the full mode speed too. Sweep physical
+        // collision at short intervals, including a boosted climb through a roof.
+        const maxSpeed = Math.max(this.vel.length(), this.rth ? Math.hypot(16, 6) : MODES[this.mode].h * (this.g.input.shift ? BOOST : 1));
+        const steps = Math.max(1, Math.ceil(dt * maxSpeed / COLLISION_STEP));
+        if (steps > 1) { for (let i = 0; i < steps && this.phase === 'fly'; i++) this._fly(dt / steps); return; }
         const g = this.g, c = this.c, inp = g.input, cam = g.camera, h = this.home;
         const previous = { x: this.pos.x, z: this.pos.z };
         const photo = !!g.photo?.active;

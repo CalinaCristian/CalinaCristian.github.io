@@ -66,6 +66,18 @@ fs.mkdirSync(out, { recursive: true });
         }
         await page.evaluate(() => droneReset()); await page.keyboard.press('3'); const boost = await held(['w', 'ShiftLeft'], 60);
         check('native Shift boost keeps Sport speed', boost, Math.abs(boost.speed - 46.8) < 0.1);
+        for (const kind of ['roof', 'wall']) {
+            await page.evaluate(kind => {
+                droneReset(kind === 'roof' ? Math.PI / 2 : 0, 2); const d = game.explore.drone;
+                window.droneColliders = d.c.colliders;
+                d.c.colliders = [{ x: d.home.x, z: d.home.z - (kind === 'wall' ? 1.1 : 0), hw: 4, hd: kind === 'wall' ? 0.05 : 4, angle: 0, r: 6, y0: kind === 'roof' ? d.pos.y + 0.9 : 0, y1: kind === 'roof' ? d.pos.y + 1.1 : 200 }];
+                d.vel.set(0, kind === 'roof' ? 46.8 : 0, kind === 'wall' ? -46.8 : 0);
+            }, kind);
+            const r = await held(['w', 'ShiftLeft'], 1);
+            await page.evaluate(() => { game.explore.drone.c.colliders = droneColliders; });
+            check(`native boosted motion cannot skip a thin ${kind}`, r, kind === 'roof' ? Math.hypot(r.delta[0], r.delta[2]) > 4 : r.delta[2] > -0.8);
+        }
+        await page.keyboard.press('3');
         await page.mouse.wheel(0, -100); const wheelMode = await page.evaluate(() => game.explore.drone.mode);
         check('native mouse wheel cycles speed', { mode: wheelMode }, wheelMode === 0);
         const rangeFixture = await page.evaluate(() => {

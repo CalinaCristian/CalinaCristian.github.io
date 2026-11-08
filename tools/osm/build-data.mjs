@@ -91,6 +91,7 @@ import { buildCorridor } from './corridors.mjs';
 import { CITIES as GAME_CITIES } from '../../game/src/cities.js';
 import { LANDMARKS } from '../../game/src/landmarks.js';
 import { speciesFromOSM } from '../../game/src/trees.js';
+import { resolveResearchSource } from './research-source.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(HERE, '..', '..');
@@ -948,7 +949,8 @@ function buildCity(cityId, did = null) {
             let rj = null; try { rj = JSON.parse(fs.readFileSync(rf, 'utf8')); } catch (e) { log('research: cannot parse', rf, e.message); }
             reviewedBuildingPassages.push(...(rj?.building_passages || []));
             for (const b of rj?.buildings || []) {
-                const id = parseInt(String(b.osm).replace(/^[wr]/, ''), 10); const w = W.get(id); if (!w) continue;
+                const source = resolveResearchSource(b, W, R); if (!source) continue;
+                const { id, object: w } = source;
                 const t = w.tags = { ...w.tags }, ot = b.osmTags || {};
                 t.__originalDimensions ||= Object.fromEntries(Object.entries(t).filter(([k]) => /^(height|min_height|min_level|building:levels|building:min_level|roof:)/.test(k)));
                 const set = (k, v) => { if (v == null || v === '' || t[k] != null) return false; t[k] = String(v); return true; };

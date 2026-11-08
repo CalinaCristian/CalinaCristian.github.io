@@ -720,7 +720,12 @@ export class Traffic {
             if (Math.abs(lat) > 12 || Math.abs(along) > 25) { v.x = t.x; v.z = t.z; }
             else { v.x += t.fx * along + t.rx * lat * k; v.z += t.fz * along + t.rz * lat * k; }
             const mx = v.x - ox, mz = v.z - oz;
-            if (mx * mx + mz * mz > 1e-5) v.heading = angleLerp(v.heading, Math.atan2(-mx, -mz), 1 - Math.exp(-14 * dt));
+            // (after round 6: cars 'twitched' full left / right in gentle turns) the heading follows the lane, steering only by the
+            // real lateral motion over the travelled distance (≤ 0.45 rad); a near-still car keeps the lane direction
+            const laneH = Math.atan2(-t.fx, -t.fz), fwd = mx * t.fx + mz * t.fz;
+            let tgt = laneH;
+            if (fwd > 0.02) { let dA = Math.atan2(-mx, -mz) - laneH; dA = Math.atan2(Math.sin(dA), Math.cos(dA)); tgt = laneH + clamp(dA, -0.45, 0.45); }
+            v.heading = angleLerp(v.heading, tgt, 1 - Math.exp(-10 * dt));
         }
         const e = v.edge;
         if (e.a.y !== undefined && e.b.y !== undefined) { const tt = clamp(v.dir > 0 ? v.s / e.len : 1 - v.s / e.len, 0, 1); v.y = e.a.y + (e.b.y - e.a.y) * tt + 0.24; }

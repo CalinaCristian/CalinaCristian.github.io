@@ -5,7 +5,7 @@
   "role": "research-sea-districts",
   "generated": "2026-11-06",
   "scope": "Sea-Tac Main Terminal landside (Departures upper / Arrivals lower drives, garage, skybridges, SeaTac/Airport Link station), Airport Expressway, SR-518 east to the I-5/I-405 junction.",
-  "howToUse": "Same schema as seattle-bellevue.json; WSDOT markings/furniture standards are documented in seattle-bellevue.json markings/furniture (identical state standards) \u2014 referenced, not duplicated.",
+  "howToUse": "Same schema as seattle-bellevue.json; WSDOT markings/furniture standards are documented in seattle-bellevue.json markings/furniture (identical state standards) — referenced, not duplicated.",
   "coverage": {
    "route_m": 5616,
    "routeSegmentsWithLaneCount": "30/30",
@@ -25,7 +25,7 @@
  "district": {
   "id": "seatac",
   "name": "SeaTac",
-  "proposal": "Terminal block + Airport Expressway + SR-518 corridor: (1) terminal box 47.4380\u201347.4500 \u00d7 -122.3060\u2013-122.2930 (terminal frontage, garage, station, International Blvd hotels strip); (2) 200 m band along the Airport Expressway to SR-518; (3) 200 m band along SR-518 to the I-5/I-405 interchange (lon -122.2640).",
+  "proposal": "Terminal block + Airport Expressway + SR-518 corridor: (1) terminal box 47.4380–47.4500 × -122.3060–-122.2930 (terminal frontage, garage, station, International Blvd hotels strip); (2) 200 m band along the Airport Expressway to SR-518; (3) 200 m band along SR-518 to the I-5/I-405 interchange (lon -122.2640).",
   "bbox": [
    47.437,
    -122.307,
@@ -50,22 +50,22 @@
   {
    "id": "A",
    "recommended": true,
-   "title": "Departures Drive (upper, elevated) in front of the Main Terminal \u2192 \"Return to Terminal / Exit\" \u2192 Airport Expressway north \u2192 SR-518 east \u2192 I-5 / I-405 junction (Southcenter)",
+   "title": "Departures Drive (upper, elevated) in front of the Main Terminal → \"Return to Terminal / Exit\" → Airport Expressway north → SR-518 east → I-5 / I-405 junction (Southcenter)",
    "start": {
     "lat": 47.44557,
     "lon": -122.29902,
     "heading": 200,
     "osmWay": 428095059,
-    "note": "Upper Departures Drive (layer 2, 2 lanes + kerb lane) at the north end of the terminal frontage, heading SSW past doors; skybridges 6\u21921 overhead at level 4."
+    "note": "Upper Departures Drive (layer 2, 2 lanes + kerb lane) at the north end of the terminal frontage, heading SSW past doors; skybridges 6→1 overhead at level 4."
    },
    "end": {
     "lat": 47.46195,
     "lon": -122.26779,
     "osmWay": 428266137,
-    "note": "SR-518 EB splits \"Renton (I-405 N)\" left / \"Tacoma; Portland (I-5 S)\" right \u2014 chapter waypoint (\"drive out\")."
+    "note": "SR-518 EB splits \"Renton (I-405 N)\" left / \"Tacoma; Portland (I-5 S)\" right — chapter waypoint (\"drive out\")."
    },
-   "timing": "\u2248 5\u20136 min off-peak (20 mph drives, 30\u201340 mph expressway, 60 mph SR-518)",
-   "alt": "Shorter (2.5 km) option for spec 10 limits: end at the Airport Expressway \u2192 SR-518 merge (s\u22483.9 km, lat 47.4631,-122.2879) \u2014 \"Welcome to Seattle\" sign moment, then fade.",
+   "timing": "≈ 5–6 min off-peak (20 mph drives, 30–40 mph expressway, 60 mph SR-518)",
+   "alt": "Shorter (2.5 km) option for spec 10 limits: end at the Airport Expressway → SR-518 merge (s≈3.9 km, lat 47.4631,-122.2879) — \"Welcome to Seattle\" sign moment, then fade.",
    "lengthM": 5616,
    "polyline": [
     [
@@ -689,10 +689,10 @@
     "wp-sea",
     "commons"
    ],
-   "lanes": "2\u20133 lanes southbound one-way, elevated viaduct (OSM bridge=yes, layer 2) along the terminal face; kerb lane for drop-off at the terminal doors on the right (west); 20 mph.",
-   "structure": "Concrete viaduct with the terminal's glass curtain wall and canopy on the right, the 7-level garage on the left; six enclosed pedestrian skybridges (OSM \"Skybridge 1\"\u2013\"Skybridge 6\", level 4, ~33\u201340 m long) span overhead between garage and terminal at ~70 m spacing.",
-   "signage": "Overhead white-on-blue/dark terminal-zone signs listing airlines by door (e.g. \"Alaska\", \"Delta\", \"United\", \"Southwest\") and door numbers; \"Departures\" in large letters; kerb signs \"Active loading and unloading only\" \u2014 exact airline-to-door layout changes; verify with current SEA map (gap).",
-   "exit": "At the south end the drive descends (layer 2\u21921) and splits: \"Return to Terminal / Parking\" loop vs \"Exit \u2014 International Blvd SR 99 / I-5 / I-405 / SR 509\" then joins the Airport Expressway northbound via a 1-lane ramp (way 124272635)."
+   "lanes": "2–3 lanes southbound one-way, elevated viaduct (OSM bridge=yes, layer 2) along the terminal face; kerb lane for drop-off at the terminal doors on the right (west); 20 mph.",
+   "structure": "Concrete viaduct with the terminal's glass curtain wall and canopy on the right, the 7-level garage on the left; six enclosed pedestrian skybridges (OSM \"Skybridge 1\"–\"Skybridge 6\", level 4, ~33–40 m long) span overhead between garage and terminal at ~70 m spacing.",
+   "signage": "Overhead white-on-blue/dark terminal-zone signs listing airlines by door (e.g. \"Alaska\", \"Delta\", \"United\", \"Southwest\") and door numbers; \"Departures\" in large letters; kerb signs \"Active loading and unloading only\" — exact airline-to-door layout changes; verify with current SEA map (gap).",
+   "exit": "At the south end the drive descends (layer 2→1) and splits: \"Return to Terminal / Parking\" loop vs \"Exit — International Blvd SR 99 / I-5 / I-405 / SR 509\" then joins the Airport Expressway northbound via a 1-lane ramp (way 124272635)."
   },
   {
    "id": "arrivals-drive",
@@ -711,7 +711,7 @@
    "src": [
     "osm"
    ],
-   "lanes": "3\u20135 lanes southbound under the upper drive (maxheight 12'0\" = 3.66 m posted), baggage-claim doors on the right; inner islands for shuttles/taxis/TNC (third-floor garage hosts rideshare pickup \u2014 verify).",
+   "lanes": "3–5 lanes southbound under the upper drive (maxheight 12'0\" = 3.66 m posted), baggage-claim doors on the right; inner islands for shuttles/taxis/TNC (third-floor garage hosts rideshare pickup — verify).",
    "lighting": "Dim, under-deck: continuous fluorescent/LED fixtures on the soffit of the upper drive; concrete columns between lanes."
   },
   {
@@ -730,12 +730,12 @@
    "src": [
     "osm"
    ],
-   "lanes": "3 \u2192 4 \u2192 5 lanes, 30 mph near the terminal rising to 40 mph; destination:lanes \"Terminal Parking \u00d73 | Terminal Parking; International Blvd; Rental Car Return; Cell Phone Lot\", later \"Burien | Burien; Seattle; Tacoma | Seattle; Tacoma\" at the SR-518 split.",
+   "lanes": "3 → 4 → 5 lanes, 30 mph near the terminal rising to 40 mph; destination:lanes \"Terminal Parking ×3 | Terminal Parking; International Blvd; Rental Car Return; Cell Phone Lot\", later \"Burien | Burien; Seattle; Tacoma | Seattle; Tacoma\" at the SR-518 split.",
    "context": "Runs between the garage (west) and the elevated Link 1 Line guideway / SeaTac/Airport station (east, 18 m up); the station's east pedestrian bridge crosses the expressway to International Blvd."
   },
   {
    "id": "sr518-eb",
-   "name": "SR 518 eastbound \u2014 Airport Expressway to I-5/I-405",
+   "name": "SR 518 eastbound — Airport Expressway to I-5/I-405",
    "osmWays": [
     433205294,
     1021048512,
@@ -755,7 +755,7 @@
     "wp-sr518",
     "osm"
    ],
-   "facts": "3.42-mile freeway Burien\u2013Tukwila; 38,000\u2013102,000 vehicles/day (2011), busiest between the airport and I-5; becomes I-405 east of I-5.",
+   "facts": "3.42-mile freeway Burien–Tukwila; 38,000–102,000 vehicles/day (2011), busiest between the airport and I-5; becomes I-405 east of I-5.",
    "lanes": "3 lanes EB (60 mph), asphalt with concrete bridge decks; at 51st Ave S destination:lanes \"Seattle | Renton | Tacoma; Portland; 51st Ave S; Southcenter Pkwy\"; final 2-lane split Renton (I-405 N, left) / Tacoma-Portland (I-5 S, right).",
    "context": "Link 1 Line elevated guideway parallels the freeway (OSM light_rail bridge layer 3) toward Tukwila Int'l Blvd station; Westfield Southcenter mall to the south-east at the end."
   },
@@ -829,7 +829,7 @@
     },
     {
      "osmWay": 31928843,
-     "len": 131.0,
+     "len": 131,
      "highway": "motorway_link",
      "lanes": "2",
      "oneway": "yes",
@@ -893,7 +893,7 @@
     },
     {
      "osmWay": 369422779,
-     "len": 11.0,
+     "len": 11,
      "name": "International Boulevard",
      "ref": "SR 99",
      "highway": "primary",
@@ -939,7 +939,7 @@
     },
     {
      "osmWay": 369422790,
-     "len": 54.0,
+     "len": 54,
      "highway": "motorway_link",
      "lanes": "2",
      "oneway": "yes",
@@ -981,7 +981,7 @@
     },
     {
      "osmWay": 427909557,
-     "len": 46.0,
+     "len": 46,
      "name": "International Boulevard",
      "ref": "SR 99",
      "highway": "primary",
@@ -1039,7 +1039,7 @@
     },
     {
      "osmWay": 427909563,
-     "len": 65.0,
+     "len": 65,
      "name": "International Boulevard",
      "ref": "SR 99",
      "highway": "primary",
@@ -1083,7 +1083,7 @@
     },
     {
      "osmWay": 427909595,
-     "len": 40.0,
+     "len": 40,
      "highway": "motorway_link",
      "lanes": "2",
      "oneway": "yes",
@@ -1100,7 +1100,7 @@
     },
     {
      "osmWay": 428067872,
-     "len": 138.0,
+     "len": 138,
      "name": "International Boulevard",
      "ref": "SR 99",
      "highway": "primary",
@@ -1230,7 +1230,7 @@
     },
     {
      "osmWay": 124272605,
-     "len": 294.0,
+     "len": 294,
      "name": "Arrivals Drive",
      "highway": "secondary",
      "lanes": "5",
@@ -1483,7 +1483,7 @@
     },
     {
      "osmWay": 428067861,
-     "len": 32.0,
+     "len": 32,
      "name": "International Boulevard",
      "ref": "SR 99",
      "highway": "primary",
@@ -1540,7 +1540,7 @@
     },
     {
      "osmWay": 428067867,
-     "len": 45.0,
+     "len": 45,
      "name": "International Boulevard",
      "ref": "SR 99",
      "highway": "primary",
@@ -1779,7 +1779,7 @@
     },
     {
      "osmWay": 621396741,
-     "len": 202.0,
+     "len": 202,
      "name": "International Boulevard",
      "ref": "SR 99",
      "highway": "primary",
@@ -1882,7 +1882,7 @@
     },
     {
      "osmWay": 816538581,
-     "len": 111.0,
+     "len": 111,
      "highway": "trunk_link",
      "lanes": "1",
      "oneway": "yes",
@@ -1902,7 +1902,7 @@
     },
     {
      "osmWay": 843007513,
-     "len": 28.0,
+     "len": 28,
      "name": "South 176th Street",
      "highway": "tertiary",
      "lanes": "3",
@@ -1957,7 +1957,7 @@
     },
     {
      "osmWay": 1165458667,
-     "len": 25.0,
+     "len": 25,
      "name": "Airport Expressway",
      "highway": "motorway",
      "lanes": "4",
@@ -2560,7 +2560,7 @@
     },
     {
      "osmWay": 47012132,
-     "len": 20.0,
+     "len": 20,
      "highway": "motorway_link",
      "lanes": "1",
      "oneway": "yes",
@@ -2619,7 +2619,7 @@
     },
     {
      "osmWay": 364983819,
-     "len": 211.0,
+     "len": 211,
      "name": "Klickitat Drive",
      "highway": "secondary",
      "lanes": "2",
@@ -2708,7 +2708,7 @@
     },
     {
      "osmWay": 246086198,
-     "len": 79.0,
+     "len": 79,
      "highway": "motorway_link",
      "lanes": "1",
      "oneway": "yes",
@@ -2857,7 +2857,7 @@
     },
     {
      "osmWay": 23723882,
-     "len": 173.0,
+     "len": 173,
      "highway": "motorway_link",
      "lanes": "2",
      "oneway": "yes",
@@ -2907,7 +2907,7 @@
     },
     {
      "osmWay": 65588356,
-     "len": 254.0,
+     "len": 254,
      "name": "International Boulevard",
      "ref": "SR 99",
      "highway": "primary",
@@ -2963,7 +2963,7 @@
     },
     {
      "osmWay": 124940472,
-     "len": 55.0,
+     "len": 55,
      "name": "International Boulevard",
      "ref": "SR 99",
      "highway": "primary",
@@ -3009,7 +3009,7 @@
     },
     {
      "osmWay": 364969433,
-     "len": 21.0,
+     "len": 21,
      "name": "South 160th Street",
      "highway": "secondary",
      "lanes": "4",
@@ -3077,7 +3077,7 @@
     },
     {
      "osmWay": 428045915,
-     "len": 9.0,
+     "len": 9,
      "name": "South 160th Street",
      "highway": "secondary",
      "lanes": "4",
@@ -3282,7 +3282,7 @@
     },
     {
      "osmWay": 1201636576,
-     "len": 53.0,
+     "len": 53,
      "name": "Air Cargo Road",
      "highway": "tertiary",
      "lanes": "3",
@@ -3439,7 +3439,7 @@
     },
     {
      "osmWay": 623957740,
-     "len": 145.0,
+     "len": 145,
      "ref": "SR 518",
      "highway": "motorway",
      "lanes": "3",
@@ -3484,7 +3484,7 @@
     },
     {
      "osmWay": 691339381,
-     "len": 172.0,
+     "len": 172,
      "name": "Southcenter Boulevard",
      "highway": "tertiary",
      "lanes": "1",
@@ -3881,7 +3881,7 @@
     },
     {
      "osmWay": 428056674,
-     "len": 23.0,
+     "len": 23,
      "name": "International Boulevard",
      "highway": "primary",
      "lanes": "4",
@@ -3924,7 +3924,7 @@
     },
     {
      "osmWay": 482114340,
-     "len": 18.0,
+     "len": 18,
      "name": "South 154th Street",
      "highway": "primary",
      "lanes": "3",
@@ -4233,7 +4233,7 @@
     "name": "Sea-Tac Airport Main Terminal"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "footprint": [
     [
      47.44622,
@@ -6883,7 +6883,7 @@
     47.460922,
     -122.293247
    ],
-   "footprintM2": 34117.0,
+   "footprintM2": 34117,
    "distToRouteM": 29,
    "name": "Seatac Rental Car Facility",
    "brand": null,
@@ -6895,7 +6895,7 @@
     "parking": "multi-storey"
    },
    "heightM": null,
-   "levels": 4.0,
+   "levels": 4,
    "footprint": [
     [
      47.460117,
@@ -7337,7 +7337,7 @@
     47.45941,
     -122.29649
    ],
-   "footprintM2": 349.0,
+   "footprintM2": 349,
    "distToRouteM": 42,
    "name": null,
    "brand": null,
@@ -7742,7 +7742,7 @@
     47.446468,
     -122.295957
    ],
-   "footprintM2": 476.0,
+   "footprintM2": 476,
    "distToRouteM": 51,
    "name": null,
    "brand": null,
@@ -8055,7 +8055,7 @@
     47.46317,
     -122.281658
    ],
-   "footprintM2": 301.0,
+   "footprintM2": 301,
    "distToRouteM": 52,
    "name": null,
    "brand": null,
@@ -8489,7 +8489,7 @@
     "tourism": "hotel"
    },
    "heightM": null,
-   "levels": 3.0,
+   "levels": 3,
    "footprint": [
     [
      47.464319,
@@ -8760,7 +8760,7 @@
     "tourism": "hotel"
    },
    "heightM": null,
-   "levels": 12.0,
+   "levels": 12,
    "footprint": [
     [
      47.446906,
@@ -9550,7 +9550,7 @@
     "name": "SeaTac Office Tower North"
    },
    "heightM": null,
-   "levels": 12.0,
+   "levels": 12,
    "footprint": [
     [
      47.442104,
@@ -10695,7 +10695,7 @@
     47.46431,
     -122.277661
    ],
-   "footprintM2": 182.0,
+   "footprintM2": 182,
    "distToRouteM": 99,
    "name": null,
    "brand": null,
@@ -10755,7 +10755,7 @@
     "building:levels": "2"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "footprint": [
     [
      47.442842,
@@ -10790,7 +10790,7 @@
     47.461924,
     -122.28466
    ],
-   "footprintM2": 736.0,
+   "footprintM2": 736,
    "distToRouteM": 102,
    "name": null,
    "brand": null,
@@ -10897,7 +10897,7 @@
     "name": "SeaTac Office Tower South"
    },
    "heightM": null,
-   "levels": 12.0,
+   "levels": 12,
    "footprint": [
     [
      47.441496,
@@ -11140,7 +11140,7 @@
     47.465193,
     -122.281572
    ],
-   "footprintM2": 387.0,
+   "footprintM2": 387,
    "distToRouteM": 109,
    "name": null,
    "brand": null,
@@ -11488,7 +11488,7 @@
     "parking": "multi-storey"
    },
    "heightM": null,
-   "levels": 7.0
+   "levels": 7
   },
   {
    "osm": 652154050,
@@ -11776,7 +11776,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "footprint": [
     [
      47.455632,
@@ -11844,7 +11844,7 @@
     "height": "71",
     "name": "SeaTac Control Tower"
    },
-   "heightM": 71.0,
+   "heightM": 71,
    "levels": null,
    "footprint": [
     [
@@ -13185,7 +13185,7 @@
   {
    "osm": 1037486110,
    "osmType": "way",
-   "name": "Sam Choy\u2019s Poke to the Max",
+   "name": "Sam Choy’s Poke to the Max",
    "brand": null,
    "kind": "restaurant",
    "lat": 47.446023,
@@ -13545,7 +13545,7 @@
   {
    "osm": 700704113,
    "osmType": "way",
-   "name": "Dilettante Mocha Caf\u00e9",
+   "name": "Dilettante Mocha Café",
    "brand": null,
    "kind": "cafe",
    "lat": 47.443752,
@@ -13617,7 +13617,7 @@
   {
    "osm": 700704111,
    "osmType": "way",
-   "name": "Salty\u2019s at the Sea",
+   "name": "Salty’s at the Sea",
    "brand": null,
    "kind": "restaurant",
    "lat": 47.443925,
@@ -14001,7 +14001,7 @@
   {
    "osm": 11789336638,
    "osmType": "node",
-   "name": "Natalie\u2019s Candy Jar",
+   "name": "Natalie’s Candy Jar",
    "brand": null,
    "kind": "confectionery",
    "lat": 47.448736,
@@ -14239,7 +14239,7 @@
    ],
    "facts": [
     "Opened 1949; 1973 terminal built around it; central terminal renovated/expanded 2003 by Fentress Architects.",
-    "89 gates, Concourses A\u2013D + North/South satellites linked by the SEA Underground people mover."
+    "89 gates, Concourses A–D + North/South satellites linked by the SEA Underground people mover."
    ],
    "facade": {
     "description": "Long low terminal: glass curtain wall and steel canopy on the departures level, concrete lower level; the 2003 Central Terminal is a tall glazed hall facing the airfield (not visible from the drives).",
@@ -14259,7 +14259,7 @@
    ],
    "facts": [
     "North America's largest parking structure under one roof (12,100 spaces).",
-    "Level 4 connects to the terminal via skybridges 1\u20136 and to the light-rail station via a 1,200 ft covered walkway."
+    "Level 4 connects to the terminal via skybridges 1–6 and to the light-rail station via a 1,200 ft covered walkway."
    ],
    "look": "Precast concrete decks with horizontal spandrel bands, light grey #a9a8a2, open sides, colour-coded zones"
   },
@@ -14290,7 +14290,7 @@
   },
   {
    "id": "sea-iaf",
-   "name": "International Arrivals Facility + 780\u2013900 ft aerial walkway (2022)",
+   "name": "International Arrivals Facility + 780–900 ft aerial walkway (2022)",
    "osm": [
     734002404,
     869951038
@@ -14305,7 +14305,7 @@
  "signs": [
   {
    "where": "Departures Drive exit split",
-   "legend": "\"Return to Terminal / Parking / Overheight Vehicle Parking\" (left) ; \"International Blvd SR 99 \u2014 to I-5 \u00b7 I-405 \u00b7 SR 509\" (right)",
+   "legend": "\"Return to Terminal / Parking / Overheight Vehicle Parking\" (left) ; \"International Blvd SR 99 — to I-5 · I-405 · SR 509\" (right)",
    "osmWays": [
     952961192,
     6329486
@@ -14316,7 +14316,7 @@
   },
   {
    "where": "Airport Expressway NB (gantry)",
-   "legend": "\"Terminal Parking\" (3 lanes) | \"International Blvd \u00b7 Rental Car Return \u00b7 Cell Phone Lot\" (right)",
+   "legend": "\"Terminal Parking\" (3 lanes) | \"International Blvd · Rental Car Return · Cell Phone Lot\" (right)",
    "osmWays": [
     68522640
    ],
@@ -14326,7 +14326,7 @@
   },
   {
    "where": "Airport Expressway NB before SR-518",
-   "legend": "\"518 WEST Burien\" | \"518 EAST Seattle \u00b7 Tacoma (I-5) \u00b7 Renton (I-405)\"",
+   "legend": "\"518 WEST Burien\" | \"518 EAST Seattle · Tacoma (I-5) · Renton (I-405)\"",
    "osmWays": [
     124272629,
     433205294
@@ -14337,7 +14337,7 @@
   },
   {
    "where": "SR-518 EB near 51st Ave S",
-   "legend": "\"5 NORTH Seattle\" | \"405 NORTH Renton\" | \"5 SOUTH Tacoma \u00b7 Portland \u2014 51st Ave S / Southcenter Pkwy\"",
+   "legend": "\"5 NORTH Seattle\" | \"405 NORTH Renton\" | \"5 SOUTH Tacoma · Portland — 51st Ave S / Southcenter Pkwy\"",
    "osmWays": [
     23622872,
     1442135183,
@@ -15743,7 +15743,7 @@
     {
      "osm": 37017729,
      "name": "Skybridge 1",
-     "lenM": 40.0,
+     "lenM": 40,
      "level": "4",
      "geom": [
       [
@@ -15775,7 +15775,7 @@
     {
      "osm": 37017725,
      "name": "Skybridge 5",
-     "lenM": 33.0,
+     "lenM": 33,
      "level": "4",
      "geom": [
       [
@@ -16618,7 +16618,7 @@
     ],
     "level": 0.7,
     "direction": "Departures Drive kerb",
-    "evidence": "Port of Seattle: Departures-level peak ~4:30\u20137:30 a.m.; both drives back up ~11 a.m.\u20132 p.m.",
+    "evidence": "Port of Seattle: Departures-level peak ~4:30–7:30 a.m.; both drives back up ~11 a.m.–2 p.m.",
     "src": [
      "port-peaks"
     ]
@@ -16662,7 +16662,7 @@
     ],
     "level": 0.65,
     "direction": "SR-518 EB approaching I-5/I-405 (Southcenter)",
-    "evidence": "I-405 corridor Tukwila\u2194Bellevue severely congested in peaks (e.g. Bellevue\u2192Tukwila ~17:00 up to 97% of days in 2014) and SR-518 carries up to 102,000 veh/day near I-5; queue spill-back onto SR-518 ramps is common (estimate).",
+    "evidence": "I-405 corridor Tukwila↔Bellevue severely congested in peaks (e.g. Bellevue→Tukwila ~17:00 up to 97% of days in 2014) and SR-518 carries up to 102,000 veh/day near I-5; queue spill-back onto SR-518 ramps is common (estimate).",
     "src": [
      "wsdot-dash-405",
      "wp-sr518"
@@ -16686,7 +16686,7 @@
      ]
     ],
     "level": 0.7,
-    "note": "departures-am \u2014 Departures Drive kerb"
+    "note": "departures-am — Departures Drive kerb"
    },
    {
     "lat": 47.4435,
@@ -16703,7 +16703,7 @@
      ]
     ],
     "level": 0.6,
-    "note": "arrivals-pm \u2014 Arrivals Drive kerb"
+    "note": "arrivals-pm — Arrivals Drive kerb"
    },
    {
     "lat": 47.463,
@@ -16720,22 +16720,48 @@
      ]
     ],
     "level": 0.65,
-    "note": "sr518-i5-i405 \u2014 SR-518 EB approaching I-5/I-405 (Southcenter)"
+    "note": "sr518-i5-i405 — SR-518 EB approaching I-5/I-405 (Southcenter)"
    }
   ]
  },
  "sources": {
-  "osm": "OpenStreetMap contributors (ODbL), API 0.6 /map extracts fetched 2026-11-06, bbox 47.433,-122.314 \u2013 47.473,-122.253",
+  "osm": "OpenStreetMap contributors (ODbL), API 0.6 /map extracts fetched 2026-11-06, bbox 47.433,-122.314 – 47.473,-122.253",
   "wp-sea": "https://en.wikipedia.org/wiki/Seattle%E2%80%93Tacoma_International_Airport",
   "wp-station": "https://en.wikipedia.org/wiki/SeaTac/Airport_station",
   "wp-sr518": "https://en.wikipedia.org/wiki/Washington_State_Route_518",
   "wp-i405": "https://en.wikipedia.org/wiki/Interstate_405_(Washington)",
-  "port-peaks": "https://www.portseattle.org/node/1435 and https://www.portseattle.org/node/1426 (Port of Seattle travel tips: Departures-level peak ~04:30\u201307:30; both drives back up ~11:00\u201314:00; arrivals late evening) \u2014 Port site returns 403 to this sandbox; content via search-engine summary",
+  "port-peaks": "https://www.portseattle.org/node/1435 and https://www.portseattle.org/node/1426 (Port of Seattle travel tips: Departures-level peak ~04:30–07:30; both drives back up ~11:00–14:00; arrivals late evening) — Port site returns 403 to this sandbox; content via search-engine summary",
   "wsdot-dash-405": "https://wsdot.wa.gov/about/data/Multimodal-mobility-dashboard/dashboard/central-puget-sound/interstate405-cps/severe-congestion.htm",
   "wsdot-m2010": "https://wsdot.wa.gov/publications/fulltext/Standards/english/PDF/m20.10-04_e.pdf",
   "wsdot-m2030": "https://wsdot.wa.gov/publications/fulltext/Standards/english/PDF/m20.30-05_e.pdf",
   "mutcd-3d": "https://mutcd.fhwa.dot.gov/htm/2009/part3/part3d.htm",
   "commons": "Wikimedia Commons photos in game/research/refs/seatac/ (see LICENSES.md)",
-  "bellevue-json": "game/research/seattle-bellevue.json \u2014 shared WSDOT marking/sign/furniture standards (markings section applies verbatim to SR-518 and the Airport Expressway)"
- }
+  "bellevue-json": "game/research/seattle-bellevue.json — shared WSDOT marking/sign/furniture standards (markings section applies verbatim to SR-518 and the Airport Expressway)"
+ },
+ "building_passages": [
+  {
+   "sourceRoadId": "w1185430933",
+   "buildingId": "w647567422",
+   "sharedWallNodeIds": [
+    11011541158,
+    11011541159
+   ],
+   "classificationSource": "reviewed source shared-wall-node topology",
+   "clearanceM": 3.1,
+   "clearanceSource": "estimate:3.1m covered passenger-vehicle service passage; vertical dimension untagged",
+   "reviewedAt": "2026-11-08",
+   "evidence": [
+    "https://www.openstreetmap.org/way/1185430933",
+    "https://www.openstreetmap.org/way/647567422",
+    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.29528235000001,47.4465226,-122.29328235,47.4485226&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+   ],
+   "sourceTags": {
+    "covered": "yes",
+    "highway": "service",
+    "oneway": "yes",
+    "service": "parking_aisle"
+   },
+   "note": "Original OSM covered=yes service way starts and ends at the exact original building-wall nodes, declaring a through-opening beneath the source roof. Independent Esri overhead context inspected; no vertical clearance is measurable from it. Width and clearance remain explicit class estimates where original OSM tags are absent. Source outlines, full wall-node topology, total heights and legal access stay unchanged."
+  }
+ ]
 }

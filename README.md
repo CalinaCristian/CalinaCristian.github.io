@@ -24,7 +24,8 @@ that chapter of the CV.
   from OpenStreetMap (Floreasca, Grozăvești, Unirii, Pipera, Romană & Victoriei, Otopeni, SeaTac, downtown Bellevue),
   starting on a real street a 2–3 minute drive from the office. Map montages connect the districts; leaving the
   playable area hits a GTA-style roadworks closure ("DRUM ÎNCHIS" in Bucharest, "ROAD CLOSED" in Washington) that
-  hints at the chapter where that road opens.
+  hints at the chapter where that road opens: a barrier with warning lamps, and behind it a work site with a trench cut
+  in the asphalt, its spoil heap, kerbstones on a pallet and an orange safety mesh (a mini excavator digs at some).
 - **One mode: the story, and the world map to go anywhere.** The chapters are the spine. The **World map** hub (🌍,
   pause menu, or "World map" on the title screen) has București / Seattle / Bellevue / World tabs, a high-detail globe
   with the real Otopeni → Sea-Tac great-circle route, and a "Here" tab to fast-travel by clicking a street. Jumping to
@@ -78,8 +79,9 @@ that chapter of the CV.
   or low-railed lawns in front of the blocks; cars parked on the sidewalk along both kerbs, with
   pedestrians stepping into the road to pass them; front-garden railings, walls and hedges, kerb bollards, street lamps;
   every pitch, tennis court, pool and school yard with its markings, goals, nets and fences (football pitches with mowing
-  stripes, real goals with sloping nets, corner flags, dugouts and ball-stop fences); the Piața Floreasca market hall; Liceul Rosetti's gym, sports hall and sports
-  ground; only real shops and signs. Other districts get the same pass next.
+  stripes, real goals with sloping nets, corner flags, dugouts with bucket seats on the clear side of the pitch, and
+  ball-stop fences; a sports ground mapped as one big pitch round smaller ones stays plain); the Piața Floreasca market
+  hall; Liceul Rosetti's gym, sports hall and sports ground with its basketball hoops; only real shops and signs. Other districts get the same pass next.
 - **Performance.** Adaptive quality tiers, instanced traffic/crowds/parked cars, view-range culling and a draw-call
   budget per district, so it stays smooth on laptops and phones.
 

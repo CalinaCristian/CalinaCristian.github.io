@@ -69,6 +69,10 @@ Pitfalls found the hard way (each one shipped a visible bug)
 - Roofs / facades: a centroid-fan roof only for convex outlines (L / T / U shapes get the inset hip roof); window tiles
   must end on a whole storey (the storeys above a shopfront too, archetype parapets plain), or a sliced row shows at the roof.
 - Fine wires / pickets / nets: thin two-sided strips in `c.detail` (no shadow pass), never boxes: the frame budget.
+- Flat ground layers (`area` / `grass` / `pave` / `sport`) write no depth and draw in mesh order, so a later cell's lawn paints
+  over anything crossing a cell border: markings over a ground go in a layer drawn after it (`c.sport` for pitches).
+- Do not call a `const` helper from code that runs earlier in `buildWorld` (signs run inside the building loop): use a
+  function declaration (hoisted) or define it first — `clearPortal` once broke the boot.
 
 Owner preferences (from play-test feedback)
 - Reality first: real footprints, heights, roof shapes / colours, shops, trees, parked cars; nothing empty or dead, including

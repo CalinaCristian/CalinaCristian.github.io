@@ -2628,6 +2628,28 @@ function bRosetti(b) {
             for (const sg of [-1, 1]) b.box(gm[0] + ux * sg * 1.5, 0.09, gm[1] + uz * sg * 1.5, 0.08, 2.0, 0.08, '#f4f4f4');
             b.box(gm[0], 2.05, gm[1], 0.08, 0.08, 3.08, '#f4f4f4', { ry }); }
         for (const q of [north, west]) { const qi = offset(q, -1.2); outline(qi, 0.11, '#f2f2ee'); lineQ(mid(qi[0], qi[3]), mid(qi[1], qi[2]), 0.1, 0.11, '#f2f2ee'); }
+        // basketball hoops at the ends of the red courts (2026-11-08, owner: "the hoops are gone from Rosetti"): a pole 1.2 m
+        // behind the end line, an arm, the white backboard with its target square, an orange rim and a net; none at an end
+        // that runs into the football pitch
+        const inQ = (x, z, P) => { let c = false; for (let i = 0, j = P.length - 1; i < P.length; j = i++) { const [xi, zi] = P[i], [xj, zj] = P[j]; if ((zi > z) !== (zj > z) && x < (xj - xi) * (z - zi) / (zj - zi) + xi) c = !c; } return c; };
+        for (const q of [north, west]) {
+            const L01 = Math.hypot(q[1][0] - q[0][0], q[1][1] - q[0][1]), L12 = Math.hypot(q[2][0] - q[1][0], q[2][1] - q[1][1]);
+            const ends = L01 > L12 ? [mid(q[1], q[2]), mid(q[3], q[0])] : [mid(q[0], q[1]), mid(q[2], q[3])];
+            const cx = (ends[0][0] + ends[1][0]) / 2, cz = (ends[0][1] + ends[1][1]) / 2;
+            for (const E of ends) {
+                const dx = cx - E[0], dz = cz - E[1], dl = Math.hypot(dx, dz), ux = dx / dl, uz = dz / dl, ry = Math.atan2(ux, uz);
+                if (inQ(E[0] - ux * 1.2, E[1] - uz * 1.2, turf) || inQ(E[0] + ux * 1.5, E[1] + uz * 1.5, turf)) continue;
+                const P = (t) => [E[0] + ux * t, E[1] + uz * t], [px, pz] = P(0), [ax, az] = P(1.2), [bx, bz] = P(2.4), [rx, rz] = P(2.65), [tx, tz] = P(2.43);
+                b.cyl(px, 0.09, pz, 0.07, 0.085, 3.35, '#3a3d42', 8);
+                b.box(ax, 3.2, az, 0.1, 0.1, 2.4, '#3a3d42', { ry });                                       // arm
+                b.box(bx, 2.6, bz, 1.8, 1.05, 0.05, '#f2f2f0', { ry });                                     // backboard
+                for (const [w2, h2, y2, o2] of [[0.59, 0.04, 2.9, 0], [0.59, 0.04, 3.31, 0], [0.04, 0.45, 2.9, -0.275], [0.04, 0.45, 2.9, 0.275]])
+                    b.box(tx - uz * o2, y2, tz + ux * o2, w2, h2, 0.02, '#c2410c', { ry });                 // target square
+                b.box(bx + ux * 0.1, 3.0, bz + uz * 0.1, 0.06, 0.06, 0.2, '#e8590c', { ry });               // rim bracket
+                b.cyl(rx, 3.03, rz, 0.23, 0.23, 0.03, '#e8590c', 14, { open: true });                        // rim
+                b.cyl(rx, 2.62, rz, 0.22, 0.14, 0.41, '#ededea', 8, { open: true });                         // net
+            }
+        }
         b.grounds.push(track, west); }
 }
 

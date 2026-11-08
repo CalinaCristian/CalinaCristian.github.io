@@ -1,25 +1,25 @@
 {
   "schemaVersion": 1,
   "district": "bucharest-pipera",
-  "builtFromCommit": "a52b6fbc4c4c5d09a27e36ad1567adc2f07922b6",
+  "builtFromCommit": "98251066c50a4497bc1885be6f187e72f729fd40",
   "sourceAccessDate": "2026-11-08",
   "data": "game/data/bucharest-pipera.json",
-  "dataSha256": "102463a0a5b32a6e28d2c7c2f44193e16a6cdf36a8bb6ba3e10cc180516327a5",
+  "dataSha256": "66d5fd9ffff3124db1007d8143aaef1854abad94b51053531f091f328fc93802",
   "sourceAudit": {
-    "sourceSolidRecords": 2282,
-    "exactIdentitiesPresent": 2282,
+    "sourceSolidRecords": 2283,
+    "exactIdentitiesPresent": 2283,
     "missing": [],
     "areaBelow95Percent": [],
     "literalHeightMismatch": [],
     "literalMinimumMismatch": [],
     "smallSourceRecordsBelow25M2": 3,
     "aircraftSourceRecords": 23,
-    "sourceParts": 8
+    "sourceParts": 9
   },
   "sourceSkipCount": 0,
   "sourceGeometry": {
     "file": "game/data/bucharest-pipera.json",
-    "sourceRecords": 2282,
+    "sourceRecords": 2283,
     "assemblies": [
       {
         "source": "w236041902",
@@ -64,10 +64,10 @@
       "fallback": []
     },
     "rejectedSourceBands": [],
-    "physicalUnionSurfaces": 14,
+    "physicalUnionSurfaces": 15,
     "rawSource": {
-      "sourceParts": 8,
-      "explicitHeights": 72,
+      "sourceParts": 9,
+      "explicitHeights": 73,
       "explicitMinima": 0,
       "tiles": 12
     }
@@ -291,8 +291,8 @@
     ]
   },
   "inventory": {
-    "sourceStructures": 2282,
-    "roofProfiles": 2259,
+    "sourceStructures": 2283,
+    "roofProfiles": 2260,
     "canopies": 9,
     "passageBodies": 10,
     "passageStrips": 11,
@@ -316,8 +316,8 @@
     "allAcceptedSourceIdsPresentInCoreRoadWidthCache": true
   },
   "checks": {
-    "strictIdentityAndTopology": "passed for all2282 positive-area source records, including all3 below25m²",
-    "literalDimensions": "all72 positive literal total heights exact; no source minimum-height mismatch",
+    "strictIdentityAndTopology": "passed for all2283 positive-area source records, including all3 below25m² and the part-only multipolygon",
+    "literalDimensions": "all73 positive literal total heights exact; no source minimum-height mismatch",
     "roads": "all1232 eligible visible-ring ways and6089 required source vertices represented; covered/tunnel ring exclusions explicit",
     "aircraft": "all23 source identities preserve their planform; vertical dimensions remain estimates",
     "nativePassages": "2618 pure controls pass, including finite vehicles, posts, ceilings and actual elevated-source negative controls"
@@ -340,5 +340,26 @@
     "sourceAircraftOutlinesAmongInputs": 23,
     "aircraftRoofColoursUsedByRenderer": false
   },
-  "freezeAmendment": "Exact relation research identity now preserves six reviewed facade colours and their raw provenance. All source heights, dimensions, footprints, roads and trees unchanged."
+  "freezeAmendment": "Positive part-only multipolygon r14680997 adds one source solid,371.3134m², literal total40m/levels7. Original raw relation tags retained. Exact relation research colours and provenance remain applied.",
+  "sourceAttributeConflicts": [
+    {
+      "sourceIds": [
+        "r14680997",
+        "w1102707761"
+      ],
+      "geometry": "same source footprint",
+      "rawDimensions": {
+        "r14680997": {
+          "height": "40",
+          "building:levels": "7"
+        },
+        "w1102707761": {
+          "height": "28",
+          "building:levels": "6",
+          "roof:material": "grass"
+        }
+      },
+      "resolution": "Preserve both identities and literal dimensions; derive physical union from the same source solids. No fabricated agreement or source deletion."
+    }
+  ]
 }

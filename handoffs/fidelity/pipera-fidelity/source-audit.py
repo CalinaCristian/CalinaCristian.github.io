@@ -82,11 +82,14 @@ def main():
                         'literalMinimumMatches': min_tag is None or min_tag <= 0 or abs(minimum - min_tag) < .011})
         records.append(rec)
 
+    def positive(value):
+        return value is not None and str(value) != '' and str(value).lower() not in ('no', 'false', '0')
+
     for wid, (refs, t) in ways.items():
-        if (t.get('building') and t['building'] != 'no') or (t.get('building:part') and t['building:part'] != 'no'):
+        if positive(t.get('building')) or positive(t.get('building:part')):
             record('w' + wid, refs, t)
     for rid, (members, t) in relations.items():
-        if t.get('type') != 'multipolygon' or not t.get('building') or t['building'] == 'no':
+        if t.get('type') != 'multipolygon' or not (positive(t.get('building')) or positive(t.get('building:part'))):
             continue
         outers = geom.assemble_rings([ways[w][0] for w, role in members if role != 'inner' and w in ways])
         inners = geom.assemble_rings([ways[w][0] for w, role in members if role == 'inner' and w in ways])

@@ -1,0 +1,1290 @@
+{
+  "sourceSha": "a1d1f22271b6e9e03dbe28ff29aeab78c00799ca",
+  "reviewedOn": "2026-11-08",
+  "repository": "https://github.com/CalinaCristian/CalinaCristian.github.io",
+  "counts": {
+    "districts": 8,
+    "chapters": 10,
+    "landmarks": 61,
+    "landmarkBuilders": 60,
+    "spots": 24,
+    "scenes": 19,
+    "historicalReady": 12,
+    "achievements": 112
+  },
+  "districts": [
+    {
+      "id": "grozavesti",
+      "city": "bucharest",
+      "name": "Grozăvești",
+      "label": "Grozăvești & Politehnica — Splaiul Independenței, Podul Grozăvești, Bd. Doina Cornea",
+      "landmarks": [
+        "politehnica",
+        "cathedral"
+      ],
+      "scenery": [
+        "cathedral"
+      ],
+      "chapters": [
+        {
+          "id": "upb",
+          "title": "Politehnica",
+          "year": 2013
+        }
+      ],
+      "data": "game/data/bucharest-grozavesti.json"
+    },
+    {
+      "id": "unirii",
+      "city": "bucharest",
+      "name": "Unirii",
+      "label": "Piața Unirii, Calea Călărașilor, Hala Traian",
+      "landmarks": [
+        "gts",
+        "unirea",
+        "fountains",
+        "halatraian",
+        "parliament",
+        "cathedral"
+      ],
+      "scenery": [
+        "parliament",
+        "cathedral"
+      ],
+      "chapters": [
+        {
+          "id": "gts",
+          "title": "First job",
+          "year": 2015
+        }
+      ],
+      "data": "game/data/bucharest-unirii.json"
+    },
+    {
+      "id": "romana",
+      "city": "bucharest",
+      "name": "Romană & Victoriei",
+      "label": "Piața Romană, Bd. Lascăr Catargiu, Piața Victoriei, Vasile Alecsandri",
+      "landmarks": [
+        "victoria",
+        "ase",
+        "ambasador",
+        "thelandmark",
+        "europehouse",
+        "skytower",
+        "ateneu",
+        "regal",
+        "tnb"
+      ],
+      "scenery": [
+        "skytower",
+        "ateneu",
+        "regal",
+        "tnb"
+      ],
+      "chapters": [
+        {
+          "id": "arnia",
+          "title": "Arnia",
+          "year": 2019
+        },
+        {
+          "id": "uipath-buc",
+          "title": "UiPath",
+          "year": 2020
+        }
+      ],
+      "data": "game/data/bucharest-romana.json"
+    },
+    {
+      "id": "floreasca",
+      "city": "bucharest",
+      "name": "Floreasca",
+      "label": "Calea Floreasca, Piața Floreasca, Str. Garibaldi and the streets around C.A. Rosetti",
+      "landmarks": [
+        "rosetti",
+        "dinamo",
+        "skytower",
+        "globalworth"
+      ],
+      "scenery": [
+        "skytower",
+        "globalworth"
+      ],
+      "chapters": [
+        {
+          "id": "rosetti",
+          "title": "High school",
+          "year": 2009
+        }
+      ],
+      "data": "game/data/bucharest-floreasca.json"
+    },
+    {
+      "id": "pipera",
+      "city": "bucharest",
+      "name": "Pipera",
+      "label": "Bd. Dimitrie Pompeiu, Hermes Business Campus, BOB Tower, Șos. Fabrica de Glucoză, Șos. Pipera",
+      "landmarks": [
+        "hermes",
+        "bob",
+        "globalworth",
+        "skytower",
+        "promenada"
+      ],
+      "scenery": [],
+      "chapters": [
+        {
+          "id": "luxoft",
+          "title": "Luxoft",
+          "year": 2017
+        },
+        {
+          "id": "db",
+          "title": "Deutsche Bank",
+          "year": 2017
+        }
+      ],
+      "data": "game/data/bucharest-pipera.json"
+    },
+    {
+      "id": "otopeni",
+      "city": "bucharest",
+      "name": "Otopeni",
+      "label": "DN1 at Otopeni and the Henri Coandă terminal (OTP)",
+      "landmarks": [
+        "otp"
+      ],
+      "scenery": [],
+      "chapters": [
+        {
+          "id": "otopeni",
+          "title": "Departure",
+          "year": 2022
+        }
+      ],
+      "data": "game/data/bucharest-otopeni.json"
+    },
+    {
+      "id": "seatac",
+      "city": "seattle",
+      "name": "SeaTac",
+      "label": "SeaTac — arrivals kerb, terminal loop and the Airport Expressway",
+      "landmarks": [
+        "seatac",
+        "seatower",
+        "seagarage",
+        "sealink",
+        "rainier",
+        "olympics"
+      ],
+      "scenery": [
+        "seatac",
+        "seatower",
+        "seagarage",
+        "sealink",
+        "rainier",
+        "olympics"
+      ],
+      "chapters": [
+        {
+          "id": "seatac",
+          "title": "Welcome to Seattle",
+          "year": 2022
+        }
+      ],
+      "data": "game/data/seattle-seatac.json"
+    },
+    {
+      "id": "bellevue",
+      "city": "seattle",
+      "name": "Downtown Bellevue",
+      "label": "I-405 at the NE 8th St exit, NE 8th St, Bellevue Way, Lincoln Square",
+      "landmarks": [
+        "lincoln",
+        "onelincoln",
+        "lincolnsouth",
+        "plazacenter",
+        "sonic",
+        "bellevue600",
+        "bellevuetowers",
+        "bellevuesq",
+        "rainier",
+        "olympics"
+      ],
+      "scenery": [
+        "sonic",
+        "bellevue600",
+        "bellevuetowers",
+        "rainier",
+        "olympics"
+      ],
+      "chapters": [
+        {
+          "id": "uipath-bel",
+          "title": "UiPath Bellevue",
+          "year": 2022
+        }
+      ],
+      "data": "game/data/seattle-bellevue.json"
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "parliament",
+      "city": "bucharest",
+      "name": "Palatul Parlamentului",
+      "builder": "bParliament",
+      "lat": 44.4275038,
+      "lon": 26.0874035
+    },
+    {
+      "id": "cathedral",
+      "city": "bucharest",
+      "name": "Catedrala Mântuirii Neamului",
+      "builder": "bCathedral",
+      "lat": 44.4259297,
+      "lon": 26.0822981
+    },
+    {
+      "id": "arcul",
+      "city": "bucharest",
+      "name": "Arcul de Triumf",
+      "builder": "bArcul",
+      "lat": 44.4671902,
+      "lon": 26.078127
+    },
+    {
+      "id": "casapresei",
+      "city": "bucharest",
+      "name": "Casa Presei Libere",
+      "builder": "bCasaPresei",
+      "lat": 44.4815236,
+      "lon": 26.0709515
+    },
+    {
+      "id": "grandhotel",
+      "city": "bucharest",
+      "name": "Grand Hotel Bucharest (ex-InterContinental)",
+      "builder": "bGrandHotel",
+      "lat": 44.4372925,
+      "lon": 26.1022881
+    },
+    {
+      "id": "univ",
+      "city": "bucharest",
+      "name": "Palatul Universității",
+      "builder": "bUniv",
+      "lat": 44.4355639,
+      "lon": 26.1007589
+    },
+    {
+      "id": "tnb",
+      "city": "bucharest",
+      "name": "Teatrul Național București",
+      "builder": "bTNB",
+      "lat": 44.4370273,
+      "lon": 26.1036159
+    },
+    {
+      "id": "ateneu",
+      "city": "bucharest",
+      "name": "Ateneul Român",
+      "builder": "bAteneu",
+      "lat": 44.441344,
+      "lon": 26.0973695
+    },
+    {
+      "id": "regal",
+      "city": "bucharest",
+      "name": "Palatul Regal (MNAR)",
+      "builder": "bRegal",
+      "lat": 44.4394699,
+      "lon": 26.0960493
+    },
+    {
+      "id": "victoria",
+      "city": "bucharest",
+      "name": "Palatul Victoria",
+      "builder": "bVictoria",
+      "lat": 44.4528232,
+      "lon": 26.0874287
+    },
+    {
+      "id": "cec",
+      "city": "bucharest",
+      "name": "Palatul CEC",
+      "builder": "bCEC",
+      "lat": 44.4320212,
+      "lon": 26.0964749
+    },
+    {
+      "id": "mnir",
+      "city": "bucharest",
+      "name": "Muzeul Național de Istorie a României",
+      "builder": "bMNIR",
+      "lat": 44.4313746,
+      "lon": 26.097758
+    },
+    {
+      "id": "marriott",
+      "city": "bucharest",
+      "name": "JW Marriott Grand Hotel",
+      "builder": "bMarriott",
+      "lat": 44.4257465,
+      "lon": 26.0766337
+    },
+    {
+      "id": "unirea",
+      "city": "bucharest",
+      "name": "Unirea Shopping Center",
+      "builder": "bUnirea",
+      "lat": 44.4280154,
+      "lon": 26.1048886
+    },
+    {
+      "id": "fountains",
+      "city": "bucharest",
+      "name": "Fântânile din Piața Unirii",
+      "builder": "bFountains",
+      "lat": 44.4268,
+      "lon": 26.1025
+    },
+    {
+      "id": "skytower",
+      "city": "bucharest",
+      "name": "Sky Tower",
+      "builder": "bSkyTower",
+      "lat": 44.4779551,
+      "lon": 26.1047395
+    },
+    {
+      "id": "promenada",
+      "city": "bucharest",
+      "name": "Promenada Mall",
+      "builder": "bPromenada",
+      "lat": 44.4781916,
+      "lon": 26.1034126
+    },
+    {
+      "id": "baneasasc",
+      "city": "bucharest",
+      "name": "Băneasa Shopping City",
+      "builder": "bBaneasaSC",
+      "lat": 44.507022,
+      "lon": 26.0897843
+    },
+    {
+      "id": "romexpo",
+      "city": "bucharest",
+      "name": "Romexpo",
+      "builder": "bRomexpo",
+      "lat": 44.4762793,
+      "lon": 26.065137
+    },
+    {
+      "id": "aviatorilor",
+      "city": "bucharest",
+      "name": "Monumentul Eroilor Aerului",
+      "builder": "bAviatorilor",
+      "lat": 44.4597696,
+      "lon": 26.0860782
+    },
+    {
+      "id": "gara",
+      "city": "bucharest",
+      "name": "Gara de Nord",
+      "builder": "bGara",
+      "lat": 44.4466161,
+      "lon": 26.0748974
+    },
+    {
+      "id": "opera",
+      "city": "bucharest",
+      "name": "Opera Națională București",
+      "builder": "bOpera",
+      "lat": 44.4360568,
+      "lon": 26.0795203
+    },
+    {
+      "id": "politehnica",
+      "city": "bucharest",
+      "name": "Rectoratul Politehnicii",
+      "builder": "bPolitehnica",
+      "lat": 44.438429,
+      "lon": 26.0515105
+    },
+    {
+      "id": "hermes",
+      "city": "bucharest",
+      "name": "Hermes Business Campus",
+      "builder": "bHermes",
+      "lat": 44.4810862,
+      "lon": 26.1140757
+    },
+    {
+      "id": "baneasaterm",
+      "city": "bucharest",
+      "name": "Aeroportul Băneasa (terminal 1952)",
+      "builder": "bBaneasaTerm",
+      "lat": 44.4962356,
+      "lon": 26.0814666
+    },
+    {
+      "id": "otp",
+      "city": "bucharest",
+      "name": "Aeroportul Henri Coandă",
+      "builder": "bOTP",
+      "lat": 44.5708154,
+      "lon": 26.0795884
+    },
+    {
+      "id": "ase",
+      "city": "bucharest",
+      "name": "ASE — Palatul Ion N. Angelescu",
+      "builder": "bASE",
+      "lat": 44.447807,
+      "lon": 26.0971572
+    },
+    {
+      "id": "ambasador",
+      "city": "bucharest",
+      "name": "Hotel Ambasador",
+      "builder": "bAmbasador",
+      "lat": 44.441963,
+      "lon": 26.099535
+    },
+    {
+      "id": "aro",
+      "city": "bucharest",
+      "name": "Blocul ARO / Patria",
+      "builder": "bARO",
+      "lat": 44.4424337,
+      "lon": 26.0992711
+    },
+    {
+      "id": "thelandmark",
+      "city": "bucharest",
+      "name": "The Landmark (UiPath HQ)",
+      "builder": "bTheLandmark",
+      "lat": 44.450012,
+      "lon": 26.0946079
+    },
+    {
+      "id": "europehouse",
+      "city": "bucharest",
+      "name": "Europe House",
+      "builder": "bEuropeHouse",
+      "lat": 44.4511557,
+      "lon": 26.087697
+    },
+    {
+      "id": "gts",
+      "city": "bucharest",
+      "name": "Calea Călărașilor 101 (GTS Global Intelligence)",
+      "builder": "bGTS",
+      "lat": 44.433369,
+      "lon": 26.1176015
+    },
+    {
+      "id": "dinamo",
+      "city": "bucharest",
+      "name": "Stadionul Dinamo",
+      "builder": "bDinamo",
+      "lat": 44.4551306,
+      "lon": 26.1023192
+    },
+    {
+      "id": "rosetti",
+      "city": "bucharest",
+      "name": "Liceul Teoretic C.A. Rosetti",
+      "builder": "bRosetti",
+      "lat": 44.4671565,
+      "lon": 26.106133
+    },
+    {
+      "id": "bob",
+      "city": "bucharest",
+      "name": "BOB Tower (DB Global Technology)",
+      "builder": "bBOB",
+      "lat": 44.479608,
+      "lon": 26.1147802
+    },
+    {
+      "id": "halatraian",
+      "city": "bucharest",
+      "name": "Hala Traian",
+      "builder": "bHalaTraian",
+      "lat": 44.4333566,
+      "lon": 26.120567
+    },
+    {
+      "id": "globalworth",
+      "city": "bucharest",
+      "name": "Globalworth Tower",
+      "builder": "bGlobalworth",
+      "lat": 44.4792401,
+      "lon": 26.1024141
+    },
+    {
+      "id": "spaceneedle",
+      "city": "seattle",
+      "name": "Space Needle",
+      "builder": "bSpaceNeedle",
+      "lat": 47.6205063,
+      "lon": -122.3493043
+    },
+    {
+      "id": "columbia",
+      "city": "seattle",
+      "name": "Columbia Center",
+      "builder": "bColumbia",
+      "lat": 47.6045425,
+      "lon": -122.3307183
+    },
+    {
+      "id": "smith",
+      "city": "seattle",
+      "name": "Smith Tower",
+      "builder": "bSmith",
+      "lat": 47.6019654,
+      "lon": -122.331729
+    },
+    {
+      "id": "lumen",
+      "city": "seattle",
+      "name": "Lumen Field",
+      "builder": "bLumen",
+      "lat": 47.5952,
+      "lon": -122.3316
+    },
+    {
+      "id": "tmobile",
+      "city": "seattle",
+      "name": "T-Mobile Park",
+      "builder": "bTMobile",
+      "lat": 47.5913642,
+      "lon": -122.3324281
+    },
+    {
+      "id": "greatwheel",
+      "city": "seattle",
+      "name": "Seattle Great Wheel",
+      "builder": "bGreatWheel",
+      "lat": 47.60615,
+      "lon": -122.34262
+    },
+    {
+      "id": "spheres",
+      "city": "seattle",
+      "name": "Amazon Spheres",
+      "builder": "bSpheres",
+      "lat": 47.6156773,
+      "lon": -122.3394897
+    },
+    {
+      "id": "mtbaker",
+      "city": "seattle",
+      "name": "Mount Baker Tunnel (east portal)",
+      "builder": "bMtBaker",
+      "lat": 47.5903651,
+      "lon": -122.293
+    },
+    {
+      "id": "seatac",
+      "city": "seattle",
+      "name": "Seattle-Tacoma International Airport",
+      "builder": "bSeaTac",
+      "lat": 47.4423743,
+      "lon": -122.3012208
+    },
+    {
+      "id": "seatower",
+      "city": "seattle",
+      "name": "SeaTac Control Tower",
+      "builder": "bSeaTower",
+      "lat": 47.4557242,
+      "lon": -122.3013712
+    },
+    {
+      "id": "lincoln",
+      "city": "seattle",
+      "name": "Lincoln Square North (UiPath Bellevue)",
+      "builder": "bLincolnN",
+      "lat": 47.6168559,
+      "lon": -122.2010316
+    },
+    {
+      "id": "onelincoln",
+      "city": "seattle",
+      "name": "One Lincoln Tower / Westin Bellevue",
+      "builder": "bOneLincoln",
+      "lat": 47.6159634,
+      "lon": -122.2008866
+    },
+    {
+      "id": "lincolnsouth",
+      "city": "seattle",
+      "name": "Lincoln Square South",
+      "builder": "bLincolnS",
+      "lat": 47.6147631,
+      "lon": -122.2008325
+    },
+    {
+      "id": "plazacenter",
+      "city": "seattle",
+      "name": "Plaza Center (UiPath Bellevue 2018–2025)",
+      "builder": "bPlazaCenter",
+      "lat": 47.6178822,
+      "lon": -122.1940388
+    },
+    {
+      "id": "sonic",
+      "city": "seattle",
+      "name": "Amazon Sonic",
+      "builder": "bSonic",
+      "lat": 47.6148782,
+      "lon": -122.1968365
+    },
+    {
+      "id": "bellevue600",
+      "city": "seattle",
+      "name": "Bellevue 600",
+      "builder": "bBellevue600",
+      "lat": 47.6160667,
+      "lon": -122.1942494
+    },
+    {
+      "id": "murroww",
+      "city": "seattle",
+      "name": "Murrow Bridge — west high-rise arches",
+      "builder": "bMurrow",
+      "lat": 47.5899055,
+      "lon": -122.2849997
+    },
+    {
+      "id": "murrowe",
+      "city": "seattle",
+      "name": "Murrow Bridge — east high-rise arches",
+      "builder": "bMurrow",
+      "lat": 47.5892615,
+      "lon": -122.2560025
+    },
+    {
+      "id": "seagarage",
+      "city": "seattle",
+      "name": "Sea-Tac parking garage + skybridges",
+      "builder": "bSeaGarage",
+      "lat": 47.4432823,
+      "lon": -122.2992416
+    },
+    {
+      "id": "sealink",
+      "city": "seattle",
+      "name": "SeaTac/Airport Link station",
+      "builder": "bSeaLink",
+      "lat": 47.4452089,
+      "lon": -122.2969786
+    },
+    {
+      "id": "bellevuetowers",
+      "city": "seattle",
+      "name": "Bellevue Towers",
+      "builder": "bBellevueTowers",
+      "lat": 47.6143271,
+      "lon": -122.1981129
+    },
+    {
+      "id": "bellevuesq",
+      "city": "seattle",
+      "name": "Bellevue Square",
+      "builder": "bBellevueSq",
+      "lat": 47.615653,
+      "lon": -122.2035769
+    },
+    {
+      "id": "rainier",
+      "city": "seattle",
+      "name": "Mount Rainier",
+      "builder": "bRainier",
+      "lat": 46.8529,
+      "lon": -121.7604
+    },
+    {
+      "id": "olympics",
+      "city": "seattle",
+      "name": "Olympic Mountains",
+      "builder": "bOlympics",
+      "lat": 47.7,
+      "lon": -123.15
+    }
+  ],
+  "spots": [
+    {
+      "id": "pike-place",
+      "city": "seattle",
+      "area": null,
+      "name": "Pike Place Market & the Gum Wall",
+      "scene": "pike-place",
+      "historicalReady": false
+    },
+    {
+      "id": "chihuly",
+      "city": "seattle",
+      "area": null,
+      "name": "Chihuly Garden and Glass",
+      "scene": "seattle-center",
+      "historicalReady": false
+    },
+    {
+      "id": "space-needle",
+      "city": "seattle",
+      "area": null,
+      "name": "Space Needle & Seattle Center",
+      "scene": "seattle-center",
+      "historicalReady": false
+    },
+    {
+      "id": "fremont-troll",
+      "city": "seattle",
+      "area": null,
+      "name": "Fremont Troll",
+      "scene": "fremont-troll",
+      "historicalReady": false
+    },
+    {
+      "id": "kerry-park",
+      "city": "seattle",
+      "area": null,
+      "name": "Kerry Park viewpoint",
+      "scene": "kerry-park",
+      "historicalReady": true
+    },
+    {
+      "id": "mopop",
+      "city": "seattle",
+      "area": null,
+      "name": "Museum of Pop Culture (MoPOP)",
+      "scene": "seattle-center",
+      "historicalReady": false
+    },
+    {
+      "id": "waterfront",
+      "city": "seattle",
+      "area": null,
+      "name": "Waterfront: Great Wheel & Pier 57",
+      "scene": "waterfront",
+      "historicalReady": false
+    },
+    {
+      "id": "pioneer-square",
+      "city": "seattle",
+      "area": null,
+      "name": "Pioneer Square & Smith Tower",
+      "scene": "pioneer-square",
+      "historicalReady": false
+    },
+    {
+      "id": "ballard-locks",
+      "city": "seattle",
+      "area": null,
+      "name": "Ballard Locks & fish ladder",
+      "scene": "ballard-locks",
+      "historicalReady": false
+    },
+    {
+      "id": "gas-works",
+      "city": "seattle",
+      "area": null,
+      "name": "Gas Works Park",
+      "scene": "gas-works",
+      "historicalReady": true
+    },
+    {
+      "id": "bel-lincoln-square",
+      "city": "seattle",
+      "area": "bellevue",
+      "name": "Lincoln Square & Bellevue Square (UiPath)",
+      "scene": "bel-lincoln-square",
+      "historicalReady": true
+    },
+    {
+      "id": "bel-downtown-park",
+      "city": "seattle",
+      "area": "bellevue",
+      "name": "Bellevue Downtown Park",
+      "scene": "bel-downtown-park",
+      "historicalReady": true
+    },
+    {
+      "id": "bel-botanical-garden",
+      "city": "seattle",
+      "area": "bellevue",
+      "name": "Bellevue Botanical Garden",
+      "scene": "bel-botanical-garden",
+      "historicalReady": false
+    },
+    {
+      "id": "palace-parliament",
+      "city": "bucharest",
+      "area": null,
+      "name": "Palace of the Parliament & Piața Constituției",
+      "scene": "buc-parliament",
+      "historicalReady": true
+    },
+    {
+      "id": "peoples-salvation-cathedral",
+      "city": "bucharest",
+      "area": null,
+      "name": "People's Salvation Cathedral",
+      "scene": "buc-parliament",
+      "historicalReady": true
+    },
+    {
+      "id": "old-town-lipscani",
+      "city": "bucharest",
+      "area": null,
+      "name": "Old Town: Lipscani & Cărturești Carusel",
+      "scene": "buc-old-town",
+      "historicalReady": false
+    },
+    {
+      "id": "stavropoleos-cec",
+      "city": "bucharest",
+      "area": null,
+      "name": "Stavropoleos, Caru' cu Bere & CEC Palace",
+      "scene": "buc-old-town",
+      "historicalReady": false
+    },
+    {
+      "id": "athenaeum-revolution",
+      "city": "bucharest",
+      "area": null,
+      "name": "Romanian Athenaeum & Piața Revoluției",
+      "scene": "athenaeum-revolution",
+      "historicalReady": true
+    },
+    {
+      "id": "arcul-de-triumf",
+      "city": "bucharest",
+      "area": null,
+      "name": "Arcul de Triumf",
+      "scene": "arcul-de-triumf",
+      "historicalReady": true
+    },
+    {
+      "id": "village-museum",
+      "city": "bucharest",
+      "area": null,
+      "name": "Dimitrie Gusti National Village Museum",
+      "scene": "buc-herastrau",
+      "historicalReady": true
+    },
+    {
+      "id": "herastrau-park",
+      "city": "bucharest",
+      "area": null,
+      "name": "King Michael I (Herăstrău) Park",
+      "scene": "buc-herastrau",
+      "historicalReady": true
+    },
+    {
+      "id": "spring-palace",
+      "city": "bucharest",
+      "area": null,
+      "name": "Spring Palace (Ceaușescu Mansion)",
+      "scene": "spring-palace",
+      "historicalReady": false
+    },
+    {
+      "id": "cismigiu",
+      "city": "bucharest",
+      "area": null,
+      "name": "Cișmigiu Gardens",
+      "scene": "cismigiu",
+      "historicalReady": true
+    },
+    {
+      "id": "bel-meydenbauer",
+      "city": "seattle",
+      "area": "bellevue",
+      "name": "Meydenbauer Bay Park",
+      "scene": "bel-meydenbauer",
+      "historicalReady": true
+    }
+  ],
+  "sources": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "1c3b3a65c94cc1a18f0e3ebc01ac84e10e65c5de3af0afe15447f86a18dda8e5"
+    },
+    {
+      "path": "README.md",
+      "sha256": "830ecd31ce8ebe5c5e099150b79de142af0e9de3eff2a4d384c241c795754a26"
+    },
+    {
+      "path": "specs/README.md",
+      "sha256": "1417997d51d780599730c8aa0314c4559ff97f285a127995ac791eaffab4d1cf"
+    },
+    {
+      "path": "specs/00-vision.md",
+      "sha256": "ee8653f80fa8c25f9ebdb34e72ac309ac19abaa26e01928f2095247ce2d7dd53"
+    },
+    {
+      "path": "specs/01-architecture.md",
+      "sha256": "183e85306cb7a098781bfa747caa0615a8c2bfc8265a67930402374e1408089d"
+    },
+    {
+      "path": "specs/STATUS.md",
+      "sha256": "4967b63c5ce6cb06a076f1d6e1a6635a7f6171776e1f7cf3fbbb4e51c55e2c23"
+    },
+    {
+      "path": "specs/12-buildings-streetscape.md",
+      "sha256": "b7dd9d80497b1f473ce7f20f9d963ec38d7f02ec5fa5196fa2ca69cf0ca05d37"
+    },
+    {
+      "path": "specs/13-traffic.md",
+      "sha256": "f9f828dd55fcdf1005d2637319637de70bd51b2a7c8c7b92f748ecedb95c27dc"
+    },
+    {
+      "path": "specs/15-tourist-spots.md",
+      "sha256": "4fa3bc25928a94566947043e5ba6ac6ed0289bd4ffe34dc836090346186c75df"
+    },
+    {
+      "path": "specs/18-weather-lighting.md",
+      "sha256": "733fc388cae8dd517dcb32a3e1c98e78168ab822c40076c91dc94638f6e9ddbd"
+    },
+    {
+      "path": "specs/19-qa-harness.md",
+      "sha256": "cc4922f574a8751a4dbb0aa15f90f9e9597b0636355ebe3b77cb32b649c1bb6c"
+    },
+    {
+      "path": "game/index.html",
+      "sha256": "5d4df919e6d8b982c212c1706ef83db96f72b1709f12391a7bb53fea633311a7"
+    },
+    {
+      "path": "game/data/README.md",
+      "sha256": "992873d7162cfcf3970b2fe29e24cd24925d72a4e6e57c8d0f494e346f1710f8"
+    },
+    {
+      "path": "tools/osm/build-data.mjs",
+      "sha256": "e3c76490031c962190bee394db1a4fb174609af29af87bea5f6169706267a9c7"
+    },
+    {
+      "path": "tools/aerial/README.md",
+      "sha256": "9a114ae7a0d4158d319294e90a1917bc6414e5d859c069b1743c1bdf43fe75fc"
+    },
+    {
+      "path": "game/src/main.js",
+      "sha256": "ec86fa2677bcd2ca2bbf55416c19bcc53d897474c6fb73fbe3308ca901321eb6"
+    },
+    {
+      "path": "game/src/world.js",
+      "sha256": "a40f888e98f16658a9d395ef2665bf586bb5a0fe443e0ba16e8fac098d9e928a"
+    },
+    {
+      "path": "game/src/cities.js",
+      "sha256": "54b5d54d502edc87b3cbe19a2970fb82f392fd3cc41803a2ee84ec1c202966ac"
+    },
+    {
+      "path": "game/src/geobuild.js",
+      "sha256": "28e535a8934df3d3d249f13180ce04db1b86d47318530e74344a532a2a0fb2d3"
+    },
+    {
+      "path": "game/src/buildings.js",
+      "sha256": "81e4d7ab6b391b2f5f490576cd3c924d3afd4d59013c51c6f23395d4f0f790ca"
+    },
+    {
+      "path": "game/src/archetypes.js",
+      "sha256": "3ac87643083fa98989d05279d8d174bde5932332920fc87796dcf7d976c2ecf3"
+    },
+    {
+      "path": "game/src/landmarks.js",
+      "sha256": "18bcaf7364096f99c2bc70d574f5b99ea3a9f17af23366f4c4cf0e105b7bf660"
+    },
+    {
+      "path": "game/src/render.js",
+      "sha256": "938157dfc2c95221c5a2a7ea3ebbe2705c4413b3456bf60caeb3eabf1739dd43"
+    },
+    {
+      "path": "game/src/weather.js",
+      "sha256": "a2bb0854d3fe3792f94ca9f3b2f2ecbdd9e61b497aca1d3ac5d51d02ec5875b8"
+    },
+    {
+      "path": "game/src/traffic.js",
+      "sha256": "aed7cf5a41bcfdc5783b38514e1dfe81bed61dc073a9ac325e88ff48d5b84d31"
+    },
+    {
+      "path": "game/src/signals.js",
+      "sha256": "47b7dd7a016a3e48faf9f2348121bd8c1e280d7b07fc7acd27103ab39a29b1ac"
+    },
+    {
+      "path": "game/src/crowd.js",
+      "sha256": "e674c3ac0b207ae4e8ee0bc083851d02abc93f8df3333694e2cad9bd40a93257"
+    },
+    {
+      "path": "game/src/vehicles.js",
+      "sha256": "cd1cc1577652b9e2600bf0645a18f27d04e5d7e155136a279722d79dabca859f"
+    },
+    {
+      "path": "game/src/onfoot.js",
+      "sha256": "870d0294232fb2b1e11af42906da780bd6d8a34604179ca9de657da1d08848f7"
+    },
+    {
+      "path": "game/src/input.js",
+      "sha256": "305f58955e749d1dcf0b87c2047404580805210b718892588e6fd5a82c81ece1"
+    },
+    {
+      "path": "game/src/nav.js",
+      "sha256": "f938df01c43a69d91db2216b3ab82b5f38f6f0f1177e4b97fc3ecf11e6dd3f62"
+    },
+    {
+      "path": "game/src/minimap.js",
+      "sha256": "e0913a369637d71f391a31ec84550bc808a0e4f069bc94810113de61fe694c5b"
+    },
+    {
+      "path": "game/src/worldmap.js",
+      "sha256": "3098a9d57bcd6feaa6e2176ba9652104ac00cad2780e725694dfed10f65bc6f9"
+    },
+    {
+      "path": "game/src/explore.js",
+      "sha256": "c012ecc57748ca48e2f36ecdcb65552edb9593811df7074a05da9411ed2dfd63"
+    },
+    {
+      "path": "game/src/drone.js",
+      "sha256": "7a0b74b6b8b7f18f63ce02ec8a5ab49add9d03343bab7d629c22c0486a5c75e0"
+    },
+    {
+      "path": "game/src/photo.js",
+      "sha256": "c8f18e59bab5e264d779dea69bef2668aff5d626e677edefe62869d9b744b13f"
+    },
+    {
+      "path": "game/src/save.js",
+      "sha256": "66ece4bff34ce8a3bafcc29ad74dd7a7792ceb80d0406890f27982ad052640dc"
+    },
+    {
+      "path": "game/src/achievements.js",
+      "sha256": "fb7650a3db44ce163a28fc760c6093af1f68f0580198ffd13d57c2c6a7680eb8"
+    },
+    {
+      "path": "game/src/data.js",
+      "sha256": "07b1acee851638a4e0b687e0ce63767d74fce1744cc6419f77a08754f33dd92b"
+    },
+    {
+      "path": "game/src/spots/index.js",
+      "sha256": "3c697bbbd30a8c40345542dc585571426160665db5697716d7a29690deb86346"
+    },
+    {
+      "path": "game/src/spots/osm.js",
+      "sha256": "ae95578b21c351adaabd8f27a445e4c061ea87cd18aafc6c618a0809a9cc6ced"
+    },
+    {
+      "path": "game/src/spots/tour.js",
+      "sha256": "be52ee726cf0c8608ce4957cf0682813ac199147aedb459ace4ab651a7192960"
+    },
+    {
+      "path": "game/src/spots/bike.js",
+      "sha256": "a10987d8afd5c4bed965170971efff80bd91bc79323e73307d67715e2a52a541"
+    },
+    {
+      "path": "game/src/football.js",
+      "sha256": "0fea24f051593185b93c8457c27ec13af2344ba34b442115f3472a662317df7f"
+    },
+    {
+      "path": "game/src/office.js",
+      "sha256": "a56fed9898f03633930afa6e724421c888d30dd040d5d4d3b1bed9880d359166"
+    },
+    {
+      "path": "game/src/flight.js",
+      "sha256": "e5b5a05691a3abbd684ccbd20e11e5c1370ff71bb0a540d8483045bf42f3b544"
+    },
+    {
+      "path": "game/src/globe.js",
+      "sha256": "6b5eae150fdf803a81f9b3696def2dd8e26d2c846c73b2aeb16c22e6b40d76d6"
+    },
+    {
+      "path": "game/src/trees.js",
+      "sha256": "2ed3d20166bd5603098c84d82d4268fe771cea8d73c75608ce45f619172dd55c"
+    },
+    {
+      "path": "game/src/water.js",
+      "sha256": "491a6b4d96d81c6761559d2effe878d4e76a279811c914f45592fa364ec6d4eb"
+    },
+    {
+      "path": "game/src/audio.js",
+      "sha256": "11863937c63883facc59e7549bde428e3e660e6e39ab50b3d55f4a6cf1afe611"
+    },
+    {
+      "path": "game/src/telemetry-game.js",
+      "sha256": "569a69ea462089a8f398e787db3ba99435309b099e08f651f46785a0151d41aa"
+    },
+    {
+      "path": "public/telemetry.js",
+      "sha256": "511f5c38071db591813ae89e4c5df775feaf9bbade98591a50a1a70b5ff68bd4"
+    },
+    {
+      "path": "game/src/building-parts.js",
+      "sha256": "2d7b23bbc2b5c7415e0c4dd4edef23dba8d4887e5780fdbe7c6c4e9f81cbbf00"
+    },
+    {
+      "path": "game/src/canvasText.js",
+      "sha256": "35983021a8548740d623d83aaa092fa9f95a3f58b454575b8ab4732a47db2714"
+    },
+    {
+      "path": "game/src/chapters.js",
+      "sha256": "ef88ddf04a38291e8694f2b4af6f027afad351f85e33d365a2c39f2a833297ba"
+    },
+    {
+      "path": "game/src/finale.js",
+      "sha256": "6dd47d7336285e2ca9d92e553f6f5e64080844aaf9f2883012abfcc7a327e60d"
+    },
+    {
+      "path": "game/src/geo-ne110.js",
+      "sha256": "6d9c86444680f5007b90d41e7a5d93a2d1f081dcc556b665fcbcb9cd0ecf8f36"
+    },
+    {
+      "path": "game/src/hud.js",
+      "sha256": "3edd55de5db73e2d88f3ad546a298f7a53fd0339758faf7094ef7f8519c5b62e"
+    },
+    {
+      "path": "game/src/player.js",
+      "sha256": "8f56d0a5aabf9fdb703b261b931adb031cc868625b515de272375c9235ca7729"
+    },
+    {
+      "path": "game/src/spots/backdrop.js",
+      "sha256": "212e3d374b4bf238f92b0fa150430f4da46258d960748a409b0d0cc76137b29a"
+    },
+    {
+      "path": "game/src/spots/buc.js",
+      "sha256": "260b28f44dadc4fa16458422fe7965223e3cc8a5eaa9a099d3a1576f0b5ae0a9"
+    },
+    {
+      "path": "game/src/spots/cars.js",
+      "sha256": "a1ab08bdff5624535f1085a8766aa43e1bd338d89166e93055353fffcd75224d"
+    },
+    {
+      "path": "game/src/spots/ground.js",
+      "sha256": "06e0a2e4bb27282dbf7232972861c1b061f52625e174642875ff41f981e733fd"
+    },
+    {
+      "path": "game/src/spots/kit.js",
+      "sha256": "6b98b1bf9b1121cf1be172f220a4108f2f5c954b90c008c1cdd75425268b98db"
+    },
+    {
+      "path": "game/src/spots/people.js",
+      "sha256": "ab60f1a4f6d44c537b1727b332eaa9f0c68b1c436cd55cecd7171fbebb323338"
+    },
+    {
+      "path": "game/src/spots/props.js",
+      "sha256": "3511b4e65b284df7a939189893c78f9f2126fde7556a8b8a6f1de027aca902e5"
+    },
+    {
+      "path": "game/src/spots/scenes/arcul-de-triumf.js",
+      "sha256": "e0bcc02c5a6a691c6524a2eec77bc90a7d97284e353df1dfa3ddaa405e74b3ec"
+    },
+    {
+      "path": "game/src/spots/scenes/athenaeum-revolution.js",
+      "sha256": "8885b1d7729cac0d814446fb6e96f3a5dbb740b6d458e83a6af18ed75a89069a"
+    },
+    {
+      "path": "game/src/spots/scenes/ballard-locks.js",
+      "sha256": "861e655916f000795a75f678b0e2b0b4271656ebacc2b983fa14d5f2f962ae13"
+    },
+    {
+      "path": "game/src/spots/scenes/bel-botanical-garden.js",
+      "sha256": "340b2fab64c5bd5f94e9c0507ad9142ce033e59c775d53dedbb11addc135ebb4"
+    },
+    {
+      "path": "game/src/spots/scenes/bel-common.js",
+      "sha256": "aac24c6ea7b7a2922eb89d6015fbfaee8790abfd3b8a44900d60b69134188956"
+    },
+    {
+      "path": "game/src/spots/scenes/bel-downtown-park.js",
+      "sha256": "8b2237f3dc045a934986421b06b826524a7aab2685354571fcdd225dd03a40d2"
+    },
+    {
+      "path": "game/src/spots/scenes/bel-lincoln-square.js",
+      "sha256": "0d7b554abc115c2a7002a3969c584374dd3b799fcec640da8c19d043315da837"
+    },
+    {
+      "path": "game/src/spots/scenes/bel-meydenbauer.js",
+      "sha256": "81174ac9bb8e56def5ef703f97e337e36daa5c81e4b19cd634a8b0104c9a7b5c"
+    },
+    {
+      "path": "game/src/spots/scenes/buc-herastrau.js",
+      "sha256": "9ccff9e316eef1e2b003898e5c02d7b53aea0ab615bfccaaffed92d6e38e939a"
+    },
+    {
+      "path": "game/src/spots/scenes/buc-old-town.js",
+      "sha256": "c309604df7085a123afb491b96b3a91bc81491f75731f15d4735da74d2fd2718"
+    },
+    {
+      "path": "game/src/spots/scenes/buc-parliament.js",
+      "sha256": "3598935516ab8a9005e7b019bf77764e65eef20d86e3bf2767270199481fda10"
+    },
+    {
+      "path": "game/src/spots/scenes/cismigiu.js",
+      "sha256": "ba54725b47d277306fe7ed41862dcb85203af26fc1b5554eccbcca72b291309d"
+    },
+    {
+      "path": "game/src/spots/scenes/fremont-troll.js",
+      "sha256": "c83d68321010252c0f8b333dec5a732ef94fac219725c9a03cc9ea218985b09a"
+    },
+    {
+      "path": "game/src/spots/scenes/gas-works.js",
+      "sha256": "3236d37253b88bd1f8335c9ca58666952d2101415ee1e86ea9aa705ce0e66942"
+    },
+    {
+      "path": "game/src/spots/scenes/kerry-park.js",
+      "sha256": "00420e94aa5bc621601e973ae1a974076cb663a433fb6a61534a1c29dc613329"
+    },
+    {
+      "path": "game/src/spots/scenes/pike-place.js",
+      "sha256": "6c8d4da05da4301844d3417c106a8bee549197aec4ac8366594f8e2b9d6bfc36"
+    },
+    {
+      "path": "game/src/spots/scenes/pioneer-square.js",
+      "sha256": "1bcf2495205505cf83ddeb5fcf6852a6c8e0fc27d2e850cbf4cb4cb61f89bf30"
+    },
+    {
+      "path": "game/src/spots/scenes/sea-common.js",
+      "sha256": "5b6940153a36a41b2eb6c8f10796f3d7501c4373ec4c67929c551329c70213b2"
+    },
+    {
+      "path": "game/src/spots/scenes/seattle-center.js",
+      "sha256": "073f2a4026eeb7bf609cf1e0b3903b34a887917ce7748cb8fc44755afb9aa02d"
+    },
+    {
+      "path": "game/src/spots/scenes/spring-palace.js",
+      "sha256": "814e5635f5401330ea15a061f7c3f68f40a95db3c973235ffb7c108a07ccfff6"
+    },
+    {
+      "path": "game/src/spots/scenes/waterfront.js",
+      "sha256": "20bd3cc2b06bb4d90d19632830deef891666c514f1cdfbaeb842db7c58223aae"
+    },
+    {
+      "path": "game/src/spots/sdf.js",
+      "sha256": "742037ac8d81781aa775dd43f74a6f1e0abc0d6493981538df355cdc6f64cb49"
+    },
+    {
+      "path": "game/src/spots/sound.js",
+      "sha256": "7e24d4c27e80fb9c9e2190d001c4bc59b44a3e3c4402e06aee6b79b236858817"
+    },
+    {
+      "path": "game/src/spots/ui.js",
+      "sha256": "5644cd9646e249c21a1ed21e5b0bbbb9aef71c7c44476bfe3bc4266149267be0"
+    },
+    {
+      "path": "game/src/spots/walker.js",
+      "sha256": "a6be6c51c1b63f2ea6fa72ab75513e0353c1f4d036cebdaa0057baf1b229798e"
+    },
+    {
+      "path": "game/src/transition.js",
+      "sha256": "35e0f270adb35d2462cf3a153ba4deec243d8537529520684b57198a56cda593"
+    },
+    {
+      "path": "game/src/util.js",
+      "sha256": "0a9dfc801adefd4dbf6f8485451404d92494dd9292fe0e310c9eb457f78afeb5"
+    }
+  ]
+}

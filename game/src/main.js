@@ -494,8 +494,11 @@ class Game {
                 const p = m.poi, mk = p.marker, top = mk?.userData.top; if (!mk || !top) continue;
                 const d = Math.hypot(px - m.door.x, pz - m.door.z);
                 const k = clamp((d - 25) / 140, 0, 1), e = k * k * (3 - 2 * k); // 0 at ≤ 25 m (over the door), 1 at ≥ 165 m (over the roof)
-                mk.position.set(m.door.x + (top.x - m.door.x) * e, m.door.y + 5.5 + (top.y - m.door.y - 5.5) * e + Math.sin(t * 2 + p.x) * 0.6, m.door.z + (top.z - m.door.z) * e);
-                mk.scale.setScalar(0.65 + 1.0 * e); mk.rotation.y = t; mk.visible = !p.visited; // (bigger over the roof: readable from a block away)
+                // close up it hangs 2 m out from the door (toward the street: away from the building's centre) at 4.6 m —
+                // clear of the stop's own sign / canopy lettering above the entrance
+                const ox = m.door.x - top.x, oz = m.door.z - top.z, ol = Math.hypot(ox, oz) || 1, nx0 = m.door.x + ox / ol * 2, nz0 = m.door.z + oz / ol * 2;
+                mk.position.set(nx0 + (top.x - nx0) * e, m.door.y + 4.6 + (top.y - m.door.y - 4.6) * e + Math.sin(t * 2 + p.x) * 0.5, nz0 + (top.z - nz0) * e);
+                mk.scale.setScalar(0.65 + 1.0 * e); mk.rotation.y = t; mk.visible = !p.visited && d > 10; // (within 10 m the ring + prompt mark the spot; the pin would hide the entrance sign) // (bigger over the roof: readable from a block away)
                 if (m.ring) { m.ring.visible = !p.visited && d < 300; m.ring.material.opacity = pulse; }
             } else {
                 const d = Math.hypot(px - m.st.x, pz - m.st.z), on = d < 350;

@@ -2648,8 +2648,21 @@ export async function buildWorld(city, renderer, opts = {}) {
                         if (h2 && hy >= 8.5) break;
                     }
                     if (end) {
-                        const ww = 8, hh2 = ww / (signs.get(poi.label.split(' — ')[0], '#111827', '#ffffff', poi._color || '#f97316') || s).aspect;
-                        pick = { ys: ch + hh2 / 2 + 0.25, nx: best.nx, nz: best.nz, cx: end[0] - best.nx * 0.4, cz: end[1] - best.nz * 0.4, w: ww, canopy: true, text: poi.label.split(' — ')[0] };
+                        // (round 6 note 24) the letters must not run into the model: at Lincoln Square the 8 m sign's end went
+                        // through the angled lobby glazing's mullions. Rays along the sign's face (left end → right end, at
+                        // three heights) find anything crossing it; narrower / further forward until it is clear.
+                        const asp = (signs.get(poi.label.split(' — ')[0], '#111827', '#ffffff', poi._color || '#f97316') || s).aspect, tx = best.nz, tz = -best.nx;
+                        const clearAt = (cx, cz, ww, ys0, hh0) => {
+                            for (const fy of [-0.4, 0, 0.4]) for (const fn of [-0.05, 0.05]) {
+                                o3.set(cx - tx * (ww / 2 + 0.3) + best.nx * fn, ys0 + fy * hh0, cz - tz * (ww / 2 + 0.3) + best.nz * fn); d3.set(tx, 0, tz);
+                                rc.set(o3, d3); rc.far = ww + 0.6; if (rc.intersectObject(lmk.mesh, true).some(h => h.object.isMesh && h.object.visible)) return false;
+                            }
+                            return true;
+                        };
+                        let fit = null;
+                        for (const ww of [8, 7, 6, 5, 4.2]) { for (const fwd of [-0.4, 0.15, 0.7]) { const hh2 = ww / asp, cx = end[0] + best.nx * fwd, cz = end[1] + best.nz * fwd, ys0 = ch + hh2 / 2 + 0.25; if (clearAt(cx, cz, ww, ys0, hh2)) { fit = { ww, cx, cz, ys0 }; break; } } if (fit) break; }
+                        if (!fit) { const hh2 = 4.2 / asp; fit = { ww: 4.2, cx: end[0] + best.nx * 0.7, cz: end[1] + best.nz * 0.7, ys0: ch + hh2 / 2 + 0.25 }; }
+                        pick = { ys: fit.ys0, nx: best.nx, nz: best.nz, cx: fit.cx, cz: fit.cz, w: fit.ww, canopy: true, text: poi.label.split(' — ')[0] };
                     }
                 }
             }
@@ -2659,9 +2672,20 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const { nx, nz } = best, short = signs.get(poi.label.split(' — ')[0], '#111827', '#ffffff', poi._color || '#f97316'); if (!short) continue;
                 const midX = (best.x + poi.doorX) / 2, midZ = (best.z + poi.doorZ) / 2;
                 let placed = false;
-                for (const off of [6, -6, 9, -9, 4, -4]) {
-                    const tx = nz, tz = -nx, x = midX + tx * off, z = midZ + tz * off;
-                    if (onRibbon(x, z, 1.8) || buildingAt(x, z)) continue;
+                // (round 6 note 24) clear of the model itself: Lincoln Square's lobby mullions / door frames stand 0.66 m out
+                // from its glazing and cut through a sign placed there
+                const clearOfModel = (x, z, tx, tz, W) => {
+                    for (const f of [-W / 2 - 0.3, 0, W / 2 + 0.3]) {
+                        const px = x + tx * f, pz = z + tz * f;
+                        for (const sd of [1, -1]) { o3.set(px, 1.6, pz); d3.set(nx * sd, 0, nz * sd); rc.set(o3, d3); rc.far = 1.4; if (rc.intersectObject(lmk.mesh, true).some(h => h.object.isMesh && h.object.visible)) return false; }
+                        o3.set(px, 12, pz); d3.set(0, -1, 0); rc.set(o3, d3); rc.far = 11.8;
+                        const h = rc.intersectObject(lmk.mesh, true).find(h => h.object.isMesh && h.object.visible); if (h && 12 - h.distance > 0.3 && 12 - h.distance < 3.5) return false;
+                    }
+                    return true;
+                };
+                for (const [off, out] of [[6, 0], [-6, 0], [9, 0], [-9, 0], [4, 0], [-4, 0], [6, 2], [-6, 2], [9, 2], [-9, 2], [0, 3], [12, 1], [-12, 1]]) {
+                    const tx = nz, tz = -nx, x = midX + tx * off + nx * out, z = midZ + tz * off + nz * out;
+                    if (onRibbon(x, z, 1.8) || buildingAt(x, z) || !clearOfModel(x, z, tx, tz, 3.2)) continue;
                     const c2 = cellOf(x, z), W = 3.2, H = W / short.aspect;
                     c2.solid.box(x, 0.15, z, W + 0.5, 0.35, 0.7, Math.atan2(nx, nz) + Math.PI / 2, rgb('#8a8d91')); // plinth
                     c2.solid.box(x, 0.5, z, W + 0.3, H + 0.5, 0.42, Math.atan2(nx, nz) + Math.PI / 2, rgb('#2b2f36')); // slab

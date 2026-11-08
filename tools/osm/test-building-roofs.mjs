@@ -15,8 +15,12 @@ close(profile.riseM, 5); close(profile.eavesM, 4.144); close(profile.axis[0], 0)
 const priority = makeRoofProfile({ tags: { 'roof:height': '2ft', 'roof:angle': '45', 'roof:levels': '2' }, ring: rectangle, shape: 'gabled', height: 8 });
 close(priority.riseM, 0.6096); close(priority.eavesM, 8); close(priority.totalM, 8.6096);
 const flat = makeRoofProfile({ ring: rectangle, height: 0.8, heightIsTotal: true }); close(flat.totalM, 0.8); close(flat.eavesM, 0.8);
+const zeroAngle = makeRoofProfile({ tags: { 'roof:angle': '0' }, ring: rectangle, shape: 'gabled', height: 9, heightIsTotal: true }); close(zeroAngle.riseM, 0); close(zeroAngle.eavesM, 9); assert.equal(zeroAngle.angle, 0); assert.equal(zeroAngle.riseSource, 'OSM roof:angle'); assert.equal(zeroAngle.issues, undefined);
 const across = makeRoofProfile({ tags: { 'roof:orientation': 'across', 'roof:angle': '45' }, ring: rectangle, shape: 'gabled', height: 6 }); close(across.riseM, 10);
 const hip = makeRoofProfile({ tags: { 'roof:height': '3' }, ring: rectangle, shape: 'hipped', height: 9, heightIsTotal: true }), hipMesh = roofMesh(rectangle, [], hip, triangulate); close(hipMesh.heightAt(5, 5), 9); close(hipMesh.heightAt(15, 5), 9); close(hipMesh.heightAt(1, 5), 6.6);
+const surveyedRectangle = [[0, 0], [8, 0.02], [20, 0], [20, 5], [20, 10], [14, 9.98], [0, 10], [0, 6]];
+const surveyedHip = makeRoofProfile({ tags: { 'roof:height': '3', 'roof:direction': 'N' }, ring: surveyedRectangle, shape: 'hipped', height: 9, heightIsTotal: true }), surveyedMesh = roofMesh(surveyedRectangle, [], surveyedHip, triangulate);
+for (const [x, z] of [[5, 5], [10, 5], [15, 5], [10, 1], [10, 9]]) close(surveyedMesh.heightAt(x, z), hipMesh.heightAt(x, z));
 const irregularAngle = makeRoofProfile({ tags: { 'roof:angle': '45' }, ring: [[0, 0], [20, 0], [20, 6], [6, 6], [6, 20], [0, 20]], holes: [], triangulate, shape: 'hipped', height: 9, heightIsTotal: true }); assert.ok(irregularAngle.riseM < 4, 'concave angle used bounding width instead of actual eaves distance');
 const unknown = makeRoofProfile({ tags: { 'roof:shape': 'sawtooth' }, ring: rectangle, height: 10 }); assert.ok(unknown.issues.some(s => s.includes('unsupported roof:shape'))); assert.equal(unknown.raw['roof:shape'], 'sawtooth');
 const fixtures = [

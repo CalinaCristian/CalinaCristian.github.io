@@ -1,0 +1,2302 @@
+{
+  "builderBaseCommit": "4fdacd3f14bc8b09c109b51f986889d524271907",
+  "dataSha256": "7483d9dbaa6124ddf171b7581132dfc4ec9627e418be7afc9fddfbea99db6b26",
+  "buildingRecords": 5682,
+  "dimensionProvenanceCodes": {
+    "2": 3534,
+    "0": 2080,
+    "3": 62,
+    "1": 6
+  },
+  "dimensionProvenanceCodeLegend": {
+    "0": "OSM height or levels (levels-to-metres remains an estimate)",
+    "1": "research; inspect the record source",
+    "2": "style/default estimate",
+    "3": "sanity re-estimate"
+  },
+  "profileHeightSources": {
+    "style estimate": 3596,
+    "OSM building:levels estimate": 1056,
+    "OSM height": 1024,
+    "research height": 3,
+    "research storeys estimate": 3
+  },
+  "profileRiseSources": {
+    "flat": 3678,
+    "roof:levels estimate": 141,
+    "footprint estimate": 1774,
+    "footprint estimate bounded to25% of source total band": 28,
+    "OSM roof:height": 61
+  },
+  "nativeProfileIssues": [
+    {
+      "sourceId": "r19896250",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 12.200000000000001,
+      "eavesM": 9.600000000000001,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "3",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w129316964",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 23.475782184380787,
+      "eavesM": 19.200000000000003,
+      "minimumM": 0,
+      "raw": {
+        "building:levels": "6",
+        "roof:shape": "quadruple_saltbox"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w131269866",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 9,
+      "eavesM": 6.4,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "2",
+        "roof:shape": "half-hipped",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=half-hipped"
+      ]
+    },
+    {
+      "sourceId": "w16291602",
+      "heightSource": "OSM height",
+      "totalM": 41,
+      "eavesM": 38.4,
+      "minimumM": 0.0,
+      "raw": {
+        "height": "41",
+        "building:levels": "2",
+        "roof:shape": "mixed",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=mixed"
+      ]
+    },
+    {
+      "sourceId": "w86748970",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 5.800000000000001,
+      "eavesM": 3.2,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "1",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w129316956",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 15.4,
+      "eavesM": 12.8,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "4",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w129321547",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 12.200000000000001,
+      "eavesM": 9.600000000000001,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "3",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w161118128",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 9,
+      "eavesM": 6.4,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "2",
+        "roof:shape": "half-hipped",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=half-hipped"
+      ]
+    },
+    {
+      "sourceId": "w162494329",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 12.200000000000001,
+      "eavesM": 9.600000000000001,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "3",
+        "roof:shape": "gambrel",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=gambrel"
+      ]
+    },
+    {
+      "sourceId": "w162570015",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 15.4,
+      "eavesM": 12.8,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "4",
+        "roof:shape": "gambrel",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=gambrel"
+      ]
+    },
+    {
+      "sourceId": "w162570028",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 15.4,
+      "eavesM": 12.8,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "4",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w163622177",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 15.4,
+      "eavesM": 12.8,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "4",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w163622196",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 12.200000000000001,
+      "eavesM": 9.600000000000001,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "3",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w163622203",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 12.200000000000001,
+      "eavesM": 9.600000000000001,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "3",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w163622221",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 9,
+      "eavesM": 6.4,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "2",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w163622247",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 12.200000000000001,
+      "eavesM": 9.600000000000001,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "3",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w163622309",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 9,
+      "eavesM": 6.4,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "2",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w163622313",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 9.406366447167944,
+      "eavesM": 6.4,
+      "minimumM": 0,
+      "raw": {
+        "building:levels": "2",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "0"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w164369112",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 18.6,
+      "eavesM": 16,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "5",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w164369113",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 20.35493135296303,
+      "eavesM": 16,
+      "minimumM": 0,
+      "raw": {
+        "building:levels": "5",
+        "roof:shape": "quadruple_saltbox"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w164369116",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 15.4,
+      "eavesM": 12.8,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "4",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w179319613",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 9,
+      "eavesM": 6.4,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "2",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w179319662",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 12.200000000000001,
+      "eavesM": 9.600000000000001,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "3",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w179319665",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 9,
+      "eavesM": 6.4,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "2",
+        "roof:shape": "gambrel",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=gambrel"
+      ]
+    },
+    {
+      "sourceId": "w180556776",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 15.4,
+      "eavesM": 12.8,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "4",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w180556815",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 9,
+      "eavesM": 6.4,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "2",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w180559152",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 5.800000000000001,
+      "eavesM": 3.2,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "1",
+        "roof:shape": "half-hipped",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=half-hipped"
+      ]
+    },
+    {
+      "sourceId": "w180559998",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 5.800000000000001,
+      "eavesM": 3.2,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "1",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w243836144",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 12.200000000000001,
+      "eavesM": 9.600000000000001,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "3",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w255664237",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 9,
+      "eavesM": 6.4,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "2",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w324820921",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 9,
+      "eavesM": 6.4,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "2",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w369813290",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 15.4,
+      "eavesM": 12.8,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "4",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w369963100",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 9,
+      "eavesM": 6.4,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "2",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w407698405",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 9,
+      "eavesM": 6.4,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "2",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w407755216",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 12.200000000000001,
+      "eavesM": 9.600000000000001,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "3",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w431576694",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 9,
+      "eavesM": 6.4,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "2",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w543288410",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 28.426563131892784,
+      "eavesM": 25.6,
+      "minimumM": 0,
+      "raw": {
+        "building:levels": "8",
+        "roof:shape": "many",
+        "roof:levels": "0"
+      },
+      "issues": [
+        "unsupported roof:shape=many"
+      ]
+    },
+    {
+      "sourceId": "w543288414",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 9,
+      "eavesM": 6.4,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "2",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w546434451",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 24.400000000000002,
+      "eavesM": 19.200000000000003,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "6",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "2"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w659661452",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 9,
+      "eavesM": 6.4,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "2",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w1001382935",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 15.4,
+      "eavesM": 12.8,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "4",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w1001382938",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 18.6,
+      "eavesM": 16,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "5",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w1001382941",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 15.4,
+      "eavesM": 12.8,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "4",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w1192148712",
+      "heightSource": "OSM height",
+      "totalM": 15,
+      "eavesM": 15,
+      "minimumM": 15.0,
+      "raw": {
+        "height": "15",
+        "min_height": "15"
+      },
+      "issues": [
+        "zero vertical source band: minimum height equals total height"
+      ]
+    },
+    {
+      "sourceId": "w1493065627",
+      "heightSource": "OSM height",
+      "totalM": 1,
+      "eavesM": 0,
+      "minimumM": 0.0,
+      "raw": {
+        "height": "1",
+        "roof:shape": "skillion",
+        "roof:height": "1.1",
+        "roof:direction": "320"
+      },
+      "issues": [
+        "roof rise exceeds building height band"
+      ]
+    },
+    {
+      "sourceId": "w1493065628",
+      "heightSource": "OSM height",
+      "totalM": 1,
+      "eavesM": 0,
+      "minimumM": 0.0,
+      "raw": {
+        "height": "1",
+        "roof:shape": "skillion",
+        "roof:height": "1.1",
+        "roof:direction": "150"
+      },
+      "issues": [
+        "roof rise exceeds building height band"
+      ]
+    },
+    {
+      "sourceId": "w1493065629",
+      "heightSource": "OSM height",
+      "totalM": 1,
+      "eavesM": 0,
+      "minimumM": 0.0,
+      "raw": {
+        "height": "1",
+        "roof:shape": "skillion",
+        "roof:height": "1.1",
+        "roof:direction": "235"
+      },
+      "issues": [
+        "roof rise exceeds building height band"
+      ]
+    },
+    {
+      "sourceId": "w1493111081",
+      "heightSource": "OSM height",
+      "totalM": 13,
+      "eavesM": 11.5,
+      "minimumM": 11.5,
+      "raw": {
+        "height": "13",
+        "min_height": "11.5",
+        "roof:shape": "hipped",
+        "roof:height": "2.5"
+      },
+      "issues": [
+        "roof rise exceeds building height band"
+      ]
+    },
+    {
+      "sourceId": "w1493111082",
+      "heightSource": "OSM height",
+      "totalM": 13,
+      "eavesM": 11.5,
+      "minimumM": 11.5,
+      "raw": {
+        "height": "13",
+        "min_height": "11.5",
+        "roof:shape": "hipped",
+        "roof:height": "2.5"
+      },
+      "issues": [
+        "roof rise exceeds building height band"
+      ]
+    },
+    {
+      "sourceId": "w131269864",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 8.905545545486902,
+      "eavesM": 6.4,
+      "minimumM": 0,
+      "raw": {
+        "building:levels": "2",
+        "roof:shape": "quadruple_saltbox"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w131269867",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 9.921445640349521,
+      "eavesM": 6.4,
+      "minimumM": 0,
+      "raw": {
+        "building:levels": "2",
+        "roof:shape": "many"
+      },
+      "issues": [
+        "unsupported roof:shape=many"
+      ]
+    },
+    {
+      "sourceId": "w131269868",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 12.345834949611238,
+      "eavesM": 6.4,
+      "minimumM": 0,
+      "raw": {
+        "building:levels": "2",
+        "roof:shape": "cone"
+      },
+      "issues": [
+        "unsupported roof:shape=cone"
+      ]
+    },
+    {
+      "sourceId": "w231445034",
+      "heightSource": "OSM height",
+      "totalM": 13,
+      "eavesM": 10.4,
+      "minimumM": 0.0,
+      "raw": {
+        "height": "13",
+        "building:levels": "3",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w231445061",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 9,
+      "eavesM": 6.4,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "2",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w231445067",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 9.506537573780108,
+      "eavesM": 6.4,
+      "minimumM": 0,
+      "raw": {
+        "building:levels": "2",
+        "roof:shape": "many"
+      },
+      "issues": [
+        "unsupported roof:shape=many"
+      ]
+    },
+    {
+      "sourceId": "w311433376",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 11.6,
+      "eavesM": 9,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "2",
+        "roof:shape": "many",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=many"
+      ]
+    },
+    {
+      "sourceId": "w529124240",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 12.200000000000001,
+      "eavesM": 9.600000000000001,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "3",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w969839627",
+      "heightSource": "style estimate",
+      "totalM": 21.90119795149966,
+      "eavesM": 16,
+      "minimumM": 0,
+      "raw": {
+        "roof:shape": "many",
+        "roof:levels": "0"
+      },
+      "issues": [
+        "unsupported roof:shape=many"
+      ]
+    },
+    {
+      "sourceId": "w1516914669",
+      "heightSource": "OSM height",
+      "totalM": 1,
+      "eavesM": 0,
+      "minimumM": 0.0,
+      "raw": {
+        "height": "1",
+        "roof:shape": "skillion",
+        "roof:height": "1.1",
+        "roof:direction": "265"
+      },
+      "issues": [
+        "roof rise exceeds building height band"
+      ]
+    },
+    {
+      "sourceId": "w1517383817",
+      "heightSource": "OSM height",
+      "totalM": 1,
+      "eavesM": 0,
+      "minimumM": 0.0,
+      "raw": {
+        "height": "1",
+        "roof:shape": "skillion",
+        "roof:height": "1.1",
+        "roof:direction": "63"
+      },
+      "issues": [
+        "roof rise exceeds building height band"
+      ]
+    },
+    {
+      "sourceId": "w1517503447",
+      "heightSource": "OSM height",
+      "totalM": 1,
+      "eavesM": 0,
+      "minimumM": 0.0,
+      "raw": {
+        "height": "1",
+        "roof:shape": "skillion",
+        "roof:height": "1.1",
+        "roof:direction": "245"
+      },
+      "issues": [
+        "roof rise exceeds building height band"
+      ]
+    },
+    {
+      "sourceId": "w162569989",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 12.200000000000001,
+      "eavesM": 9.600000000000001,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "3",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w162570000",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 9,
+      "eavesM": 6.4,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "2",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w162570014",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 18.317622705514076,
+      "eavesM": 16,
+      "minimumM": 0,
+      "raw": {
+        "building:levels": "5",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "0"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w171045067",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 16.746717172023697,
+      "eavesM": 12.8,
+      "minimumM": 0,
+      "raw": {
+        "building:levels": "4",
+        "roof:shape": "0"
+      },
+      "issues": [
+        "unsupported roof:shape=0"
+      ]
+    },
+    {
+      "sourceId": "w179110758",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 20,
+      "eavesM": 17.4,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "6",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w283091336",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 15.494119126837091,
+      "eavesM": 12.8,
+      "minimumM": 0,
+      "raw": {
+        "building:levels": "4",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "0"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w283091366",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 15.709116148037012,
+      "eavesM": 12.8,
+      "minimumM": 0,
+      "raw": {
+        "building:levels": "4",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "0"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w283091486",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 16.399781381803287,
+      "eavesM": 12.8,
+      "minimumM": 0,
+      "raw": {
+        "building:levels": "4",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "0"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    },
+    {
+      "sourceId": "w678184258",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 12.24504124287569,
+      "eavesM": 6.4,
+      "minimumM": 0,
+      "raw": {
+        "building:levels": "2",
+        "roof:shape": "many",
+        "roof:levels": "0"
+      },
+      "issues": [
+        "unsupported roof:shape=many"
+      ]
+    },
+    {
+      "sourceId": "w699116841",
+      "heightSource": "OSM building:levels estimate",
+      "totalM": 15.4,
+      "eavesM": 12.8,
+      "minimumM": 0.0,
+      "raw": {
+        "building:levels": "4",
+        "roof:shape": "quadruple_saltbox",
+        "roof:levels": "1"
+      },
+      "issues": [
+        "unsupported roof:shape=quadruple_saltbox"
+      ]
+    }
+  ],
+  "guessedInvalidVerticalBands": [],
+  "sourceRoadBuildingConflicts": [
+    {
+      "sourceId": "r4459194",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "r2552618",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w162494188",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w162494239",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w162494320",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w162494328",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w162494340",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w162570015",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w163622205",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w163622208",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w163622222",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w163622227",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w163622248",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w163622261",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w180559156",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w232465161",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w243836145",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w246126045",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w250450223",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w283091289",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w283091346",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w283091361",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w283091371",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w283091391",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w283091411",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w283091456",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w283091535",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w292481622",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w342604771",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w387466251",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w442917201",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w659661452",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w1187618587",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w1230166605",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w1458318540",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w72051071",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w79139872",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w171045078",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w171045133",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w171045151",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w180556787",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w180563617",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w231445031",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w231445058",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w231445059",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w231445067",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w245083597",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w245083598",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w245083618",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w245083647",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w245083668",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w245083677",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w245083680",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w245083688",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w245083690",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w246115251",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w305136042",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w305136043",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w322481858",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w324179821",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w369058096",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w384462828",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w384462835",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w384462843",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w384462868",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w384462888",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w384462891",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w384462898",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w405546984",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w437256701",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w437256702",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w472067732",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w529124236",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w529124243",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w546437471",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w559463170",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w559463174",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w559463175",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w669541531",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w678558174",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w813353254",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w969839624",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w969839628",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w1220336122",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w1448556842",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w1516914665",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w1516952164",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w1516952165",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w1517168173",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w1517168174",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w1517384034",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w1517384035",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w1520984127",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w23647615",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w29819032",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w162570003",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w162570022",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w162570132",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w162570216",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w162570217",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w162570236",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w171045068",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w171045074",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w171045081",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w171045090",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w171045104",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w171045128",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w171045146",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w171045152",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w182932596",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w182932598",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w182932599",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w206361372",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w206361374",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w206361382",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w221478941",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w229193248",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w245083611",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w245083615",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w245083640",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w245083646",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w245083653",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w245083662",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w245083681",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w245083682",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w283091282",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w283091423",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w317347463",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w319776847",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w363435531",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w422640625",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w459100713",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w459102578",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w459102579",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w459102580",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w459102582",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w522204519",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w546500248",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w546500249",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w546500252",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w546500254",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w546500262",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w546500265",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w546500268",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w583612415",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w583612419",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w583614921",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w583614933",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w583614934",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w583614938",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w699116841",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w754964651",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w913404708",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w1059582482",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w1230372370",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w1230372371",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w1449310952",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w1449310955",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w1463866299",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w1463866301",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w1463866302",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w1463866303",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w1463866305",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w1476640703",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w1476649893",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w1517237110",
+      "phase": "source-clearance",
+      "resolution": "source-footprint-preserved",
+      "dimensionNote": "Inferred road/sidewalk envelope is not evidence to alter an OSM building."
+    },
+    {
+      "sourceId": "w283091282",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w283091411",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w283091361",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w163622208",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w163622205",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w162494188",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w384462868",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "r2552618",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w529124243",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w1448556842",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w171045133",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w246115251",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w669541531",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w459102580",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w171045078",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w559463170",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w180563617",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w369058096",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w813353254",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w245083598",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w1516914666",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w559463175",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w459102582",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w206361374",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w583612419",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w171045104",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w182932599",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w546500265",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w182932596",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w171045081",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w23647615",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w245083611",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w1463866301",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w317347463",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w229193248",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w546500252",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w546500249",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w546500248",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "sourceId": "w171045152",
+      "phase": "road-ribbon-overlap",
+      "resolution": "source-footprint-preserved"
+    }
+  ],
+  "treeRetention": {
+    "policy": "all-measured",
+    "inputCrowns": 46960,
+    "retained": 18414,
+    "rejectedGeometryOrDuplicate": 3637,
+    "outsideSurveyDistrict": 24909,
+    "thinned": 0
+  },
+  "exportedTreeRecords": 18488
+}

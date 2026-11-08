@@ -398,7 +398,7 @@ export default {
         // a flat old town (bare-earth grid) — smooth the DEM noise
         const T0 = g.heightAt(0, 0); g.mod((x, z, h) => T0 + (h - T0) * 0.35);
         // most old-town buildings have no height in OSM: 2–5 storeys (uneven skyline), lantern-lit ground floors
-        for (const bd of d.buildings) if (!bd.part && !bd.h && !bd.lv && bd.k !== 'church' && bd.k !== 'roof') { const hsh = Math.abs(Math.sin(bd.poly[0][0] * 12.9898 + bd.poly[0][1] * 78.233) * 43758.5453) % 1; bd.lv = 2 + Math.floor(hsh * 4); }
+        for (const bd of d.buildings) if (!bd.part && !bd.h && !bd.lv && bd.k !== 'church' && bd.k !== 'roof') { const hsh = Math.abs(Math.sin(bd.poly[0][0] * 12.9898 + bd.poly[0][1] * 78.233) * 43758.5453) % 1; bd.estimatedLevels = 2 + Math.floor(hsh * 4); }
         const CA = buildCarusel(ctx), MA = buildManuc(ctx), CV = buildCurteaVeche(ctx), ST = buildStavropoleos(ctx);
         // CEC Palace + Post Palace (History Museum) from landmarks.js
         for (const [lmId, osmId] of [['cec', 'w973712798'], ['mnir', 'r19919941']]) { const bd = d.buildings.find((x) => x.id === osmId); if (!bd) continue; ctx.skipBuildings.add(osmId); for (const x of d.buildings) { const [cx, cz] = centroid(x.poly); if (x.part && inPoly(cx, cz, bd.poly)) ctx.skipBuildings.add(x.id); } const L2 = placeLandmark(ctx, lmId, { colliderH: 50 }); ctx.poly(bd.poly, { y0: -50, y1: 80 }); }
@@ -475,7 +475,7 @@ export default {
         ctx.plaque(PS[3], -212, -82, -Math.PI / 2, { style: 'city', credit: 'Architect Paul Gottereau (1897–1900).' });
         ctx.plaque(PS[4], -212, -32, -Math.PI / 2, { style: 'city', credit: 'Post Palace (1894–1900), architect Alexandru Săvulescu.' });
         // fun: Dracula magnets ("Nu, mersi"), light a candle at Stavropoleos, the Carusel postcard needs level 2
-        ctx.interactables.push({ x: CV.bust.x - 3, z: CV.bust.z - 3, r: 2.4, label: 'Souvenir stall: "Dracula magnet, only 10 lei!" — say "Nu, mersi"', use: (s) => bucActivity(s, 'old-town-lipscani', 'curtea-veche', '🧛 "Nu, mersi!"', 'Vlad III ruled from this court in 1459 — locals see him as a hero, not a vampire.') });
+        ctx.interactables.push({ x: CV.bust.x - 3, z: CV.bust.z - 3, r: 2.4, label: 'Read about Vlad III at Curtea Veche', use: (s) => bucActivity(s, 'old-town-lipscani', 'curtea-veche', '🏛 Curtea Veche, 1459', 'Vlad III ruled from this court in 1459.') });
         if (ST) ctx.interactables.push({ x: ST.west.x - 3.5, z: -64.5 + 1.2, r: 2.4, label: 'Light a candle (Stavropoleos)', use: (s) => { bucActivity(s, 'stavropoleos-cec', 'stavropoleos', '🕯 Candle lit', 'Quiet please — the choir sings Byzantine chant.'); s.sound.play('chime', 0.3); } });
         if (CA) ctx.challenge('old-town-lipscani', { x: CA.ecx + (CA.front.x - CA.ecx) * 0.75, z: CA.ecz + (CA.front.z - CA.ecz) * 0.75, heading: (Math.atan2(CA.ecx - CA.front.x, -(CA.ecz - CA.front.z)) * 180 / Math.PI + 360) % 360, r: 6, tol: 40, text: 'Cărturești Carusel: the white atrium and its stacked balconies (best from the level-2 balcony)' });
         if (MA) ctx.challenge('old-town-lipscani', { x: MA.gate.x + MA.gn.x * 14, z: MA.gate.z + MA.gn.z * 14, heading: (Math.atan2(-MA.gn.x, MA.gn.z) * 180 / Math.PI + 360) % 360, r: 7, tol: 30, text: "Hanul lui Manuc's gate on Str. Franceză" });

@@ -1,0 +1,119 @@
+{
+  "dataSha256": "48d8c39e95bfacc85302130cabc5e99cb3fed8806746cb8f1b248a06643fa27e",
+  "rawAuditSha256": "d3dabd636c2266506a512715bbba3e0bf7950e85e8a941731062d81e5d05a450",
+  "sourceRecords": 2416,
+  "buildingGeometryPolicy": "source",
+  "buildingSourceIds": 2416,
+  "roadGeometryPolicy": "source",
+  "preciseFootprints": 2416,
+  "courtyardBuildings": 3,
+  "courtyardRings": 5,
+  "trees": 17002,
+  "treeRetention": {
+    "policy": "all-measured",
+    "inputCrowns": 44645,
+    "retained": 17001,
+    "rejectedGeometryOrDuplicate": 2655,
+    "outsideSurveyDistrict": 24989,
+    "thinned": 0
+  },
+  "railways": 110,
+  "groups": {
+    "way-inside": {
+      "sourceRecords": 133,
+      "identitiesPresent": 133,
+      "exactIdentityMatches": 133,
+      "legacySpatialMatches": 0,
+      "legacySpatialTopologyMatches": 0,
+      "topologyMatches": 133,
+      "literalHeightMismatches": [],
+      "storeysMismatches": [],
+      "missingIds": [],
+      "geometryMismatches": [],
+      "courtyardInteriorFailures": []
+    },
+    "way-ring": {
+      "sourceRecords": 2262,
+      "identitiesPresent": 2262,
+      "exactIdentityMatches": 2262,
+      "legacySpatialMatches": 0,
+      "legacySpatialTopologyMatches": 0,
+      "topologyMatches": 2262,
+      "literalHeightMismatches": [],
+      "storeysMismatches": [],
+      "missingIds": [],
+      "geometryMismatches": [],
+      "courtyardInteriorFailures": []
+    },
+    "relation-inside": {
+      "sourceRecords": 4,
+      "identitiesPresent": 4,
+      "exactIdentityMatches": 4,
+      "legacySpatialMatches": 0,
+      "legacySpatialTopologyMatches": 0,
+      "topologyMatches": 4,
+      "literalHeightMismatches": [],
+      "storeysMismatches": [],
+      "missingIds": [],
+      "geometryMismatches": [],
+      "courtyardInteriorFailures": []
+    },
+    "relation-ring": {
+      "sourceRecords": 17,
+      "identitiesPresent": 17,
+      "exactIdentityMatches": 17,
+      "legacySpatialMatches": 0,
+      "legacySpatialTopologyMatches": 0,
+      "topologyMatches": 17,
+      "literalHeightMismatches": [],
+      "storeysMismatches": [],
+      "missingIds": [],
+      "geometryMismatches": [],
+      "courtyardInteriorFailures": []
+    }
+  },
+  "builderBaseCommit": "4fdacd3f14bc8b09c109b51f986889d524271907",
+  "researchInputs": [
+    {
+      "path": "game/research/bucharest-grozavesti.json",
+      "sha256": "fd9bd374672a7ff174b708e0ec69a082162fd2447fda53241583d466edf07359"
+    },
+    {
+      "path": "game/research/roofs-bucharest-grozavesti.json",
+      "sha256": "1fea61dacac7ee6d01321ee910d86856ddf3743b679c68924e52227d75926148"
+    },
+    {
+      "path": "game/research/trees-bucharest-grozavesti.json",
+      "sha256": "5221f4b82bf2008a46d0ee9e08d3ceca8ad5aa6185b64f8405d4acd31dddc6f0"
+    },
+    {
+      "path": "game/research/green-bucharest-grozavesti.json",
+      "sha256": "fc9eafac376bd693a2e68258d8994ca1d7bdfa43c1e10c56330bfc7e91f89266"
+    }
+  ],
+  "dataCommit": "The delivery commit containing this file; dataSha256 is authoritative.",
+  "contentSha256ExcludingGenerated": "853ca49aa9d2a29ea6534aff4580130d71e411e1786cdb906663a2cbdd204be5",
+  "treeCalibration": {
+    "inputPoints": 44645,
+    "inputPointArraySha256": "0d29c8119155e166f639f5f18aa85b23fabfc3f838d9c14acaa7e8f06dc3ac80",
+    "pointsAndRadiiUnchanged": true,
+    "source": "aerial imagery (Esri World Imagery) measured by tools/aerial/trees.py; crown positions only, no imagery stored",
+    "surveyCoverage": [
+      44.428,
+      26.038,
+      44.458,
+      26.079
+    ],
+    "coverageProvenance": null,
+    "imageryAcquisitionDate": null,
+    "retention": {
+      "policy": "all-measured",
+      "inputCrowns": 44645,
+      "retained": 17001,
+      "rejectedGeometryOrDuplicate": 2655,
+      "outsideSurveyDistrict": 24989,
+      "thinned": 0
+    },
+    "speciesAndHeights": "Estimates; independent aerial crown positions/radii are not measured tree heights/species."
+  }
+}

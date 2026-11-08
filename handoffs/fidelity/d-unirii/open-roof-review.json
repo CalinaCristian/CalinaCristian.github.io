@@ -1,0 +1,223 @@
+{
+  "district": "bucharest-unirii",
+  "reviewedAtUtc": "2026-11-08T17:19:34.583701+00:00",
+  "referencePolicy": "OSM source tags first. Independent Esri aerial used for individual plan/open-roof review only. Missing vertical and support dimensions are estimates. No Google imagery measurements and no reference imagery in git.",
+  "sourceLedger": "game/research/source-bucharest-unirii.json",
+  "reviewedCandidates": 11,
+  "enabled": 10,
+  "records": [
+    {
+      "osm": "w1177641591",
+      "lat": 44.42446856666666,
+      "lon": 26.098546855555554,
+      "sourceTags": {
+        "building": "roof",
+        "height": "4",
+        "layer": "1",
+        "roof:colour": "#00BFFF",
+        "roof:direction": "180",
+        "roof:shape": "round"
+      },
+      "sourceUrl": "https://www.openstreetmap.org/way/1177641591",
+      "topM": 4,
+      "clearanceM": 2.4,
+      "supportsEstimated": false,
+      "note": "OSM roof with literal total height4, round shape/direction/colour; curved entrance-cover surface visible in independent aerial. Clearance2.4 and supports unspecified; rise is an explicitly flagged footprint estimate, never measured from Street View."
+    },
+    {
+      "osm": "w1177642894",
+      "lat": 44.424458779999995,
+      "lon": 26.0984146,
+      "sourceTags": {
+        "building": "roof",
+        "height": "4",
+        "layer": "1",
+        "roof:colour": "#00BFFF"
+      },
+      "sourceUrl": "https://www.openstreetmap.org/way/1177642894",
+      "topM": 4,
+      "clearanceM": 3.6,
+      "supportsEstimated": false,
+      "note": "OSM roof with literal total height4; adjacent small roof surface visible. No source clearance/support measurements; estimated0.4m roof band."
+    },
+    {
+      "osm": "w1177776888",
+      "lat": 44.424548279999996,
+      "lon": 26.098670700000003,
+      "sourceTags": {
+        "building": "roof",
+        "height": "4",
+        "layer": "1",
+        "roof:colour": "#00BFFF"
+      },
+      "sourceUrl": "https://www.openstreetmap.org/way/1177776888",
+      "topM": 4,
+      "clearanceM": 3.6,
+      "supportsEstimated": false,
+      "note": "OSM roof with literal total height4; adjacent small rectangular roof visible. No source clearance/support measurements; estimated0.4m roof band."
+    },
+    {
+      "osm": "w263315803",
+      "lat": 44.43123504444444,
+      "lon": 26.1102137,
+      "sourceTags": {
+        "addr:city": "București",
+        "addr:housenumber": "12",
+        "addr:postcode": "030603",
+        "addr:street": "Bulevardul Corneliu Coposu",
+        "amenity": "fuel",
+        "brand": "OMV",
+        "brand:wikidata": "Q168238",
+        "brand:wikipedia": "en:OMV",
+        "building": "roof",
+        "compressed_air": "yes",
+        "name": "OMV",
+        "opening_hours": "24/7",
+        "operator": "OMV",
+        "phone": "+40 372 855518"
+      },
+      "sourceUrl": "https://www.openstreetmap.org/way/263315803",
+      "topM": 5.2,
+      "clearanceM": 4.8,
+      "supportsEstimated": true,
+      "note": "OSM explicitly maps OMV fuel roof, separate from adjacent shop; aerial confirms this full L-shaped pump-canopy plan. Top, clearance and support dimensions are authoring estimates."
+    },
+    {
+      "osm": "w670595374",
+      "lat": 44.43164481111111,
+      "lon": 26.110939933333334,
+      "sourceTags": {
+        "addr:city": "București",
+        "addr:housenumber": "14",
+        "addr:postcode": "030603",
+        "addr:street": "Bulevardul Corneliu Coposu",
+        "amenity": "fuel",
+        "brand": "MOL",
+        "brand:wikidata": "Q549181",
+        "brand:wikipedia": "en:MOL (company)",
+        "building": "roof",
+        "compressed_air": "yes",
+        "layer": "1",
+        "name": "MOL",
+        "opening_hours": "Mo-Su 00:00-24:00",
+        "operator": "MOL"
+      },
+      "sourceUrl": "https://www.openstreetmap.org/way/670595374",
+      "topM": 5.2,
+      "clearanceM": 4.8,
+      "supportsEstimated": true,
+      "note": "OSM explicitly maps MOL fuel roof, separate shop remains untouched; aerial confirms full notched pump-canopy plan. Top, clearance and support dimensions are authoring estimates."
+    },
+    {
+      "osm": "w1193787355",
+      "lat": 44.43386842857143,
+      "lon": 26.10278344285714,
+      "sourceTags": {
+        "building": "roof",
+        "layer": "1"
+      },
+      "sourceUrl": "https://www.openstreetmap.org/way/1193787355",
+      "topM": 4,
+      "clearanceM": 3.6,
+      "supportsEstimated": false,
+      "note": "Small OSM roof adjoining the building; aerial shows a light projecting cover partly occluded by the adjacent facade. Top/clearance are uncertain authoring estimates; no support positions inferred."
+    },
+    {
+      "osm": "w162445797",
+      "lat": 44.43202198888889,
+      "lon": 26.123788677777778,
+      "sourceTags": {
+        "addr:city": "București",
+        "amenity": "fuel",
+        "brand": "Petrom",
+        "brand:wikidata": "Q1755034",
+        "brand:wikipedia": "en:Petrom",
+        "building": "yes",
+        "name": "Petrom"
+      },
+      "sourceUrl": "https://www.openstreetmap.org/way/162445797",
+      "topM": 5.2,
+      "clearanceM": 4.8,
+      "supportsEstimated": true,
+      "note": "This individually reviewed Petrom building=yes/amenity=fuel footprint follows the isolated T-shaped pump cover visible in aerial, rather than the separate rear shop. Open classification and all vertical/support dimensions remain estimates; no other fuel building is converted by rule."
+    },
+    {
+      "osm": "w493742911",
+      "lat": 44.43714838571429,
+      "lon": 26.10491942857143,
+      "sourceTags": {
+        "addr:city": "București",
+        "addr:country": "RO",
+        "addr:housenumber": "3A",
+        "addr:postcode": "020941",
+        "addr:street": "Strada Tudor Arghezi",
+        "amenity": "fuel",
+        "brand": "Petrom",
+        "brand:wikidata": "Q1755034",
+        "brand:wikipedia": "en:Petrom",
+        "building": "yes",
+        "name": "Petrom",
+        "opening_hours": "24/7",
+        "operator": "Petrom",
+        "wheelchair": "no"
+      },
+      "sourceUrl": "https://www.openstreetmap.org/way/493742911",
+      "topM": 5.2,
+      "clearanceM": 4.8,
+      "supportsEstimated": true,
+      "note": "This individually reviewed Petrom building=yes/amenity=fuel footprint follows the long narrow pump cover visible in aerial; adjacent shop/body footprints remain untouched. Open classification and all vertical/support dimensions remain estimates."
+    },
+    {
+      "osm": "w569761223",
+      "lat": 44.43637414,
+      "lon": 26.11238216,
+      "sourceTags": {
+        "building": "roof"
+      },
+      "sourceUrl": "https://www.openstreetmap.org/way/569761223",
+      "topM": 4,
+      "clearanceM": 3.6,
+      "supportsEstimated": false,
+      "note": "OSM roof in a courtyard, independent aerial shows a detached cover. No known source minimum/support locations; top/clearance are uncertain authoring estimates."
+    },
+    {
+      "osm": "w569761226",
+      "lat": 44.43712855555556,
+      "lon": 26.11389962222222,
+      "sourceTags": {
+        "addr:city": "București",
+        "addr:country": "RO",
+        "addr:housenumber": "35",
+        "addr:postcode": "023961",
+        "addr:street": "Strada Mântuleasa",
+        "amenity": "fuel",
+        "brand": "Petrom",
+        "brand:wikidata": "Q1755034",
+        "building": "roof",
+        "compressed_air": "no",
+        "name": "Petrom Mântuleasa",
+        "opening_hours": "Mo-Su 06:00-22:00",
+        "operator": "Petrom",
+        "phone": "+40 372483789"
+      },
+      "sourceUrl": "https://www.openstreetmap.org/way/569761226",
+      "topM": 5.2,
+      "clearanceM": 4.8,
+      "supportsEstimated": true,
+      "note": "OSM Petrom fuel roof follows the separate T-shaped pump cover visible in aerial. Top, clearance and supports are explicit authoring estimates."
+    }
+  ],
+  "excluded": [
+    {
+      "osm": "w1176895995",
+      "heightM": 1.4,
+      "decision": "Retain literal source low roof; no open-canopy inference",
+      "reason": "Circular mapped roof is the central fountain disk in independent aerial, not a reviewed overhead shelter; fountain-model owner notified to inspect possible overlapping authored centre."
+    }
+  ],
+  "limitations": [
+    "Aerial plans cannot establish clearance, support location or missing height. Those remain explicit estimates.",
+    "OSM level/layer tags are not silently converted into surveyed elevation.",
+    "Scalloped/curved facade canopy details may remain simplified despite retaining the exact mapped plan."
+  ]
+}

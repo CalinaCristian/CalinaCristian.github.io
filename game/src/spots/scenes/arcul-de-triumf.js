@@ -8,6 +8,7 @@
 //  King Michael I park edge. Artists credited on the plaques (R15.7).
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
+import { photoHunt } from '../photo-hunt.js';
 import { GeoBatch, M, rng, headingFromBearing, centroid, inPoly, polyBox } from '../kit.js';
 import { bucBackdrop, placeLandmark, cityFiller, floodlight, flagpole, bucActivity } from '../buc.js';
 import { addTraffic } from '../cars.js';
@@ -67,24 +68,14 @@ export default {
             const rot = AR.lm.rotation, c = Math.cos(rot), s = Math.sin(rot), L = (u, v) => ({ x: AR.x + u * c + v * s, z: AR.z - u * s + v * c });
             const faces = { south: L(0, -9), north: L(0, 9), east: L(17, 0), west: L(-17, 0) };
             let read = new Set();
-            for (const ins of INSCRIPTIONS) { const p = faces[ins.face]; ctx.interactables.push({ x: p.x, z: p.z, r: 3.2, label: `Read the inscription (${ins.face} face)`, use: (sess) => { read.add(ins.face); sess.ui.toast(ins.ro, `${ins.en} (${read.size}/4 faces read)`); if (read.size === 4) sess.ui.toast('🏛 All four faces read', 'The roof terrace opens to visitors in the warm season: a view down Kiseleff.'); } }); }
+            for (const ins of INSCRIPTIONS) { const p = faces[ins.face]; ctx.interactables.push({ x: p.x, z: p.z, r: 3.2, label: `Read the inscription (${ins.face} face)`, use: (sess) => { read.add(ins.face); sess.ui.toast(ins.ro, `${ins.en} (${read.size}/4 faces read)`); if (read.size === 4) sess.ui.toast('🏛 All four faces read', 'Roof and museum admission varies; check the official visitor information before travelling.'); } }); }
         }
-        // activity (note 57, research `lm-arc-terrace`): internal stairs to the roof terrace and the small museum; open on weekends
-        // and Romanian public holidays, otherwise the door is shut (the toast says when it opens). On top: a walkable terrace inside
-        // the parapet, view down Kiseleff; E at the stair head to come back down.
-        if (AR) {
-            const rot = AR.lm.rotation, c = Math.cos(rot), s2 = Math.sin(rot), L = (u, v) => ({ x: AR.x + u * c + v * s2, z: AR.z - u * s2 + v * c });
-            AR.mesh.updateMatrixWorld(true); const rc = new THREE.Raycaster(new THREE.Vector3(AR.x, AR.y + 80, AR.z), new THREE.Vector3(0, -1, 0)); const hit = rc.intersectObject(AR.mesh, true)[0];
-            const top = hit ? hit.point.y : AR.y + 25.5, ring = [L(-11, -4.3), L(11, -4.3), L(11, 4.3), L(-11, 4.3)].map((q) => [q.x, q.z]);
-            ctx.ground.addPoly(ring, top + 0.02, top - 2);
-            for (let i = 0; i < 4; i++) { const [ax, az] = ring[i], [bx, bz] = ring[(i + 1) % 4]; ctx.collider({ wall: true, ax, az, bx, bz, y0a: top - 0.5, y1a: top + 1.2, y0b: top - 0.5, y1b: top + 1.2, x: (ax + bx) / 2, z: (az + bz) / 2, r: Math.hypot(bx - ax, bz - az) / 2 + 0.5 }); }
-            const door = L(13.6, 0), head = L(-9.5, 0);
-            const HOL = ['1-1', '1-2', '1-24', '5-1', '6-1', '8-15', '11-30', '12-1', '12-25', '12-26'];
-            const isOpen = (s) => { const dt = s.r3d?.simDate || new Date(); const md = `${dt.getMonth() + 1}-${dt.getDate()}`; return dt.getDay() === 0 || dt.getDay() === 6 || HOL.includes(md); };
-            ctx.interactables.push({ x: door.x, z: door.z, r: 2.6, label: (s) => (isOpen(s) ? 'Climb the stairs to the roof terrace (museum inside)' : 'Door to the roof terrace (closed today)'), use: (s) => {
-                if (!isOpen(s)) { s.ui.toast('🚪 Closed today', 'The arch opens its internal stairs, small museum and roof terrace on weekends and on public holidays (1 December: the National Day parade passes underneath).'); return; }
-                s.ctl.y = top + 0.05; s.ctl.teleport(head.x, head.z, -rot + Math.PI / 2); bucActivity(s, 'arcul-de-triumf', 'terrace', '🏛 On top of the Arc', 'Up the internal stairs past the small museum: Kiseleff runs north to Herăstrău, the city centre lies south.'); } });
-            ctx.interactables.push({ x: head.x, z: head.z, y: top, r: 2.4, label: 'Go back down the stairs', use: (s) => { s.ctl.y = ctx.ground.heightAt(door.x, door.z); s.ctl.teleport(door.x + c * 1.5, door.z - s2 * 1.5, s.ctl.heading); } });
+        if(AR){const rot=AR.lm.rotation,c=Math.cos(rot),sn=Math.sin(rot),L=(u,v)=>({x:AR.x+u*c+v*sn,z:AR.z-u*sn+v*c}),start=L(0,-17),left=L(-9,-4.8),right=L(9,-4.8);
+            photoHunt(ctx,{...start,title:'Frame the Arc memorial',unavailable:'Current museum and roof admission are not verified; interior access is unavailable.',targets:[
+                {label:'The central arch opening',x:AR.x,y:AR.y+10,z:AR.z,radius:2},
+                {label:'The western sculpted pier',...left,y:AR.y+15,radius:1.8},
+                {label:'The eastern sculpted pier',...right,y:AR.y+15,radius:1.8},
+            ],onDone:s=>bucActivity(s,'arcul-de-triumf','terrace','📷 The Arc memorial','You framed the opening and both sculpted piers from the public island.')});
         }
         // postcard: on the Kiseleff axis south of the roundabout, looking NNW through the opening (≈ 52 m from the arch)
         const pa = 160 * Math.PI / 180, px = cx + Math.sin(pa) * 56, pz = cz - Math.cos(pa) * 56;

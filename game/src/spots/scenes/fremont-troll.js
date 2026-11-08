@@ -15,6 +15,7 @@ import { meshSDF, sdfHeightmap, sdEllipsoid, sdCapsule, sdSphere, sdBox, smin, s
 import { addTraffic } from '../cars.js';
 import { bench } from '../osm.js';
 import { seaActivity } from './sea-common.js';
+import { activityFlow } from '../participation.js';
 
 // ---------------------------------------------------------------------------- site constants (local metres)
 const TX = -3.0, TZ = -50.0, TY = 4.0;           // troll base centre (OSM node n2485251324 ≈ (−1.1, −49.8); centred in its arch bay)
@@ -488,11 +489,32 @@ export default {
         ctx.plaque(PL[4], COLS[0] + 2.0, -16, 1.5, { style: 'city' });
         // ---- postcard challenge (iconic: head-on, framed by the arch)
         ctx.challenge('fremont-troll', { r: 9, tol: 30 });
-        // ---- fun: climb spots (E): hand, Beetle, head
-        const toTop = (x, z) => ({ x, z });
-        const climb = (label, x, z, tx, tz, line) => ctx.interactables.push({ kind: 'climb', x, z, r: 1.8, label, use: (s) => { seaActivity(s, 'lm-troll-climb', 'fremont-troll'); const p = toTop(tx, tz); s.ctl.teleport(p.x, p.z, s.ctl.heading); s.sound.play('whoosh', 0.6); if (line && s.spot.crowd) { const c = s.spot.crowd, k = c.peds.find((q) => Math.hypot(q.x - p.x, q.z - p.z) < 9); if (k) c._say(k, 'photographed', { force: true }); } } });
-        climb('Climb onto the hand', TX - 3.4, TZ + 5.2, TX - 3.3, TZ + 2.6, true);
-        climb('Sit on the Beetle', TX + 4.8, TZ + 4.6, TX + 4.0, TZ + 2.6, true);
+        // ---- fun: the existing sculpted heightmap is the climbing surface.
+        // Starting a challenge never relocates the visitor or grants a badge.
+        const flow = activityFlow(ctx), climbGoals = [];
+        const climb = (label, x, z, tx, tz) => {
+            const goal = { x: tx, z: tz, y: g.groundAt(tx, tz, 10) }; climbGoals.push(goal);
+            ctx.interactables.push({ kind: 'climb', x, z, r: 1.8, label, use: s => flow.begin(s, {
+                title: label, action: 'Hold the pose', lockWalker: false,
+                help: 'Walk and jump up the sculpture with the normal controls. Reach the viewpoint, then hold your pose. Leave or Esc ends the challenge.',
+                started(s, r) { r.previous = { ...s.position }; r.walked = 0; r.busy = true; },
+                update(dt, s, r) {
+                    const p = s.position, moved = Math.hypot(p.x - r.previous.x, p.z - r.previous.z);
+                    if (moved > Math.max(1, dt * 8)) { flow.cancel('relocated'); return; }
+                    r.walked += moved; r.previous = { ...p };
+                    const distance = Math.hypot(p.x - goal.x, p.z - goal.z), arrived = distance < 1.1 && Math.abs(p.y - goal.y) < .6 && r.walked > 2 && (s.ctl.jumpY||0)<.05 && Math.hypot(s.ctl.vx||0,s.ctl.vz||0)<.35;
+                    if(r.posing){if(!arrived){r.posing=false;r.button.textContent='Hold the pose';}else{r.poseTime+=dt;r.progress.value=r.poseTime/1.2;r.status.textContent='Hold still for the photo…';if(r.poseTime>=1.2)flow.complete();return;}}
+                    r.busy = !arrived; r.progress.value = arrived ? 1 : Math.min(.9, r.walked / 5);
+                    r.status.textContent = arrived ? 'You reached the viewpoint. Hold the pose!' : `${distance.toFixed(1)} m to the viewpoint · climb using the handholds and slope`;
+                    if (Math.hypot(p.x - x, p.z - z) > 18) flow.cancel('distance');
+                },
+                actioned(s,r) {r.posing=true;r.poseTime=0;r.busy=true;r.button.textContent='Hold still…';},
+                complete(s) { seaActivity(s, 'lm-troll-climb', 'fremont-troll'); s.ui.toast('📷 Troll pose', 'You climbed to the viewpoint under your own steam.'); s.sound.play('chime', .5); },
+            }) });
+        };
+        climb('Climb onto the hand', TX - 3.4, TZ + 5.2, TX - 3.3, TZ + 2.6);
+        climb('Climb onto the Beetle', TX + 4.8, TZ + 4.6, TX + 4.0, TZ + 2.6);
+        ctx.extras.trollClimb = { goals: climbGoals };
         ctx.interactables.push({ kind: 'touch', x: TX + 0.15, z: TZ + 3.2, r: 1.3, cond: (s) => s.ctl.position.y > TY + 2.6, label: 'Touch his nose', use: (s) => { s.ui.toast('👃 Boop', 'Generations of visitors polished that nose.'); s.sound.play('chime', 0.5); } });
         // ---- crowd (low–medium: trickle of tourists, a tour group, climbers, photographers)
         const hmTop = (x, z) => g.groundAt(x, z, 10);
@@ -506,8 +528,8 @@ export default {
                 [[TX + 6.6, TZ + 1], [TX + 6.6, TZ - 16.6], [TX + 6.6, TZ - 19], [19, -55], [26, -63], [27, -74], [18, -93]],
             ],
             groups: [
-                { x: TX - 3.3, z: TZ + 2.4, r: 0.4, n: 1, act: 'pose', look: [TX - 3, TZ + 14], y: hmTop, personas: ['tourist_us', 'kid', 'tourist_es'] },
-                { x: TX + 3.95, z: TZ + 2.4, r: 0.15, n: 1, act: 'sit', look: [TX + 1, TZ + 12], y: (x, z) => hmTop(x, z) - 0.02, personas: ['tourist_kr', 'local'] },
+                { x: TX - 4.7, z: TZ + .8, r: 0.1, n: 1, act: 'pose', look: [TX - 3, TZ + 14], y: hmTop, personas: ['tourist_us', 'kid', 'tourist_es'] },
+                { x: TX + 2, z: TZ + .8, r: 0.15, n: 1, act: 'sit', look: [TX + 1, TZ + 12], y: (x, z) => hmTop(x, z) - 0.02, personas: ['tourist_kr', 'local'] },
                 { x: TX - 1.5, z: TZ + 12.5, r: 1.6, n: 3, act: 'photo', look: [TX - 2, TZ + 1], personas: ['tourist_us', 'tourist_cn', 'photographer', 'tourist_in'] },
                 { x: TX + 3.5, z: TZ + 10.5, r: 2.2, n: 5, act: 'watch', look: [TX, TZ + 1], personas: ['tourist_cn', 'tourist_jp', 'tourist_de', 'tourist_es', 'tourist_ca'] },
                 { x: TX + 5.6, z: TZ + 12.5, r: 0.3, n: 1, act: 'guide', look: [TX + 3, TZ + 10], personas: ['guide'], prop: 'flag' },

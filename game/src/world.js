@@ -3,6 +3,7 @@ import { makeRng, distPointSeg, pointInPolygon, clamp, makeCanvasTexture, landma
 import { makeTextures, emitFacadeSlab } from './buildings.js';
 import { footprintCells, insetFootprint, assemblySignature, geometryRing, geometrySurface } from './building-parts.js';
 import { validRoofProfile, roofMesh, roofSignature } from './building-roofs.js';
+import { canopyGeometry } from './building-canopies.js';
 import { makeVehicle, CAR_COLORS, makeParkedCars, vehicleSize } from './vehicles.js';
 import { projector, CHAPTERS } from './cities.js';
 import { STOPS } from './data.js';
@@ -10,6 +11,7 @@ import { MeshBuilder, rgb, shadeRgb, prep, mergeProps, bakeProp, UNIT_BOX } from
 import { treeGeometries, SPECIES, defaultSpecies, buildSpeciesTrees, speciesFromOSM } from './trees.js';
 import { assignSignalPhases, signalState } from './signals.js';
 import { aircraftBody } from './building-aircraft.js';
+import { resolveParkingLayout, parkingRowPose, parkingPolygonsOverlap, parkingBodyOverlap } from './parking-layout.js';
 import { passageSolids, clipPassageWall, passageInterior, passageBaseUnknown } from './building-passages.js';
 
 // ============================================================================
@@ -1312,10 +1314,11 @@ export async function buildWorld(city, renderer, opts = {}) {
         //      cliff check (just beyond one road's edge) plus a sample just inside it (overlapping ribbons): on the other
         //      road's surface the heights must agree (one surface; the visual QA flags 0.05–2.5 m as a stacked road).
         //      Only lowering: the higher surface comes down to the lower one there (the lower one is usually held by
-        //      its ground cone), the drop spread back along the graph at the grade limit, never more than 3 m and never
-        //      under a clearance floor.
+        //      its ground cone), the drop spread back along the graph at the grade limit and never under a clearance
+        //      floor. The source layer estimate can require a longer shared-level section at a fork: allow up to 4.5 m
+        //      of lowering and follow connected branches for 120 m, retaining every clearance floor.
         {
-            const G = MAXG * 0.97, DROP = 3, wA = (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e), wS = (e, s) => wA(e, s) + e.sidewalk;
+            const G = MAXG * 0.97, DROP = 4.5, wA = (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e), wS = (e, s) => wA(e, s) + e.sidewalk;
             const live = nodeArr.filter(n => n.edges.some(e => !e.virtual)), y0 = new Map(live.map(n => [n, n.y]));
             // floors: no road comes down more than DROP m (a gore that would need a deeper sag is left as it is), none goes
             // under ground (unless already sunk), and a structure over another road keeps its clearance
@@ -1323,6 +1326,35 @@ export async function buildWorld(city, renderer, opts = {}) {
             for (const n of live) setFloor(n, Math.max(n.y - DROP, Math.min(n.y, 0)));
             for (const c of crossings) { if (c.u.L <= 0 || Math.abs(c.u.dirx * c.f.dirx + c.u.dirz * c.f.dirz) >= 0.85) continue; const tf = clamp(((c.x - c.f.a.x) * c.f.dirx + (c.z - c.f.a.z) * c.f.dirz) / c.f.len, 0, 1); for (const n of [c.u.a, c.u.b]) setFloor(n, yP(c.f, tf) + CLEAR_MIN); }
             for (const o of overlaps) { const ye = yP(o.e, o.te), yf = yP(o.f, o.tf); if (Math.abs(ye - yf) < 3) continue; const [hi, lo] = ye > yf ? [o.e, yf] : [o.f, ye]; for (const n of [hi.a, hi.b]) setFloor(n, lo + CLEAR_MIN); }
+            // Centre-line samples can miss a short overlap at the outside corner of an approach. Preserve separation
+            // over the complete asphalt footprints too: their linear height difference reaches its extrema at these
+            // intersection vertices. Clamping each floor to its original height keeps this pass lowering-only.
+            const corners = e => asphaltCorners(e, wA);
+            const inside = (p, poly) => pointInPolygon(p[0], p[1], poly) || poly.some((q, i) => { const r = poly[(i + 1) % poly.length]; return distPointSeg(p[0], p[1], q[0], q[1], r[0], r[1]).d < 1e-7; });
+            for (const e of edges) {
+                if (e.virtual) continue;
+                const A = corners(e), pad = Math.max(wA(e, 1), wA(e, -1)) * 2.5 + 17;
+                edgesInBox(Math.min(e.a.x, e.b.x) - pad, Math.min(e.a.z, e.b.z) - pad, Math.max(e.a.x, e.b.x) + pad, Math.max(e.a.z, e.b.z) + pad, f => {
+                    if (f.virtual || f.id <= e.id || shares(e, f)) return;
+                    const B = corners(f), P = A.filter(p => inside(p, B)).concat(B.filter(p => inside(p, A)));
+                    for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) {
+                        const a = A[i], b = A[(i + 1) % 4], c = B[j], d = B[(j + 1) % 4], rx = b[0] - a[0], rz = b[1] - a[1], sx = d[0] - c[0], sz = d[1] - c[1], den = rx * sz - rz * sx;
+                        if (Math.abs(den) < 1e-9) continue;
+                        const qx = c[0] - a[0], qz = c[1] - a[1], t = (qx * sz - qz * sx) / den, u = (qx * rz - qz * rx) / den;
+                        if (t >= 0 && t <= 1 && u >= 0 && u <= 1) P.push([a[0] + t * rx, a[1] + t * rz]);
+                    }
+                    if (!P.length) return;
+                    const height = (g, p) => yP(g, clamp(((p[0] - g.a.x) * g.dirx + (p[1] - g.a.z) * g.dirz) / g.len, 0, 1));
+                    const ds = P.map(p => height(e, p) - height(f, p));
+                    const hi = Math.min(...ds) >= 3 ? e : Math.max(...ds) <= -3 ? f : null;
+                    if (!hi) return;
+                    const lo = hi === e ? f : e, h = Math.max(...P.map(p => height(lo, p))) + CLEAR_MIN;
+                    // An approach may start below this floor outside the overlap. Clamping that end independently
+                    // would still let the sloping overlap dip below clearance: keep this original piece in that case.
+                    const keep = Math.min(hi.a.y, hi.b.y) < h;
+                    for (const n of [hi.a, hi.b]) setFloor(n, keep ? n.y : h);
+                });
+            }
             const heapCone = (seeds, sgn) => { // sgn −1: min-plus (v + G d), sgn +1: max-plus (v − G d); over every real edge
                 const best = new Map(), heap = [], key = (v) => sgn * v; // (max-heap on key: the best value is settled first)
                 const push = (n, v) => { heap.push([key(v), v, n]); let i = heap.length - 1; while (i > 0) { const p = (i - 1) >> 1; if (heap[p][0] >= heap[i][0]) break; [heap[p], heap[i]] = [heap[i], heap[p]]; i = p; } };
@@ -1332,11 +1364,11 @@ export async function buildWorld(city, renderer, opts = {}) {
                 return best;
             };
             const F = heapCone([...floor], 1); // the highest grade-feasible lower bound
-            const linked = new Map(); // edge → Set of edges within 80 m along the graph
+            const linked = new Map(); // edge → Set of edges within 120 m along the graph
             const linkSet = (e) => {
                 let s = linked.get(e); if (s) return s;
                 s = new Set(); const dist = new Map(), q = [[e.a, 0], [e.b, 0]];
-                while (q.length) { const [n, d] = q.shift(); if ((dist.get(n) ?? Infinity) <= d) continue; dist.set(n, d); for (const f of n.edges) { if (f.virtual) continue; s.add(f); const o = f.a === n ? f.b : f.a, nd = d + f.len; if (nd <= 80) q.push([o, nd]); } }
+                while (q.length) { const [n, d] = q.shift(); if ((dist.get(n) ?? Infinity) <= d) continue; dist.set(n, d); for (const f of n.edges) { if (f.virtual) continue; s.add(f); const o = f.a === n ? f.b : f.a, nd = d + f.len; if (nd <= 120) q.push([o, nd]); } }
                 linked.set(e, s); return s;
             };
             let fixes = 0, rounds = 0, pairs = 0;
@@ -1485,13 +1517,13 @@ export async function buildWorld(city, renderer, opts = {}) {
     };
     const areas = [];
     const waterGrid = new BoxGrid(200), parkGrid = new BoxGrid(200);
-    for (const a of data.areas) {
-        const kind = data.areaKinds[a[0]];
-        const rings = a.slice(2).map(r => undelta(r, 0));
+    for (let areaIndex = 0; areaIndex < data.areas.length; areaIndex++) {
+        const a = data.areas[areaIndex], kind = data.areaKinds[a[0]];
+        const rings = kind === 'parking' && data.parkingFootprints?.[areaIndex] || a.slice(2).map(r => undelta(r, 0));
         const outer = rings[0]; if (!outer || outer.length < 3) continue;
         let x0 = Infinity, z0 = Infinity, x1 = -Infinity, z1 = -Infinity;
         for (const [x, z] of outer) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); }
-        const area = { kind, name: str(a[1]), rings, outer, holes: rings.slice(1), x0, z0, x1, z1, size: Math.abs(signedArea(outer)) };
+        const area = { kind, areaIndex, sourceId: data.areaSourceIds?.[areaIndex] || '', parkingLayout: data.parkingLayouts?.[areaIndex] || null, name: str(a[1]), rings, outer, holes: rings.slice(1), x0, z0, x1, z1, size: Math.abs(signedArea(outer)) };
         areas.push(area);
         if (kind === 'water') waterGrid.insert(x0, z0, x1, z1, area);
         if (kind === 'park' || kind === 'forest' || kind === 'grass' || kind === 'cemetery') parkGrid.insert(x0, z0, x1, z1, area);
@@ -1791,25 +1823,26 @@ export async function buildWorld(city, renderer, opts = {}) {
     /** [colour at a, colour at b] of a carriageway (ramps fade) */
     const asphaltEnds = (e) => (US && e.type === 'motorway_link' && !e.tunnel) ? [nodeSurf(e.a), nodeSurf(e.b)] : [asphaltOf(e), asphaltOf(e)];
     const padAsphalt = (n) => { const es = n.edges.filter(f => !f.virtual); const cc = es.filter(isConcrete).length; if (cc * 2 >= es.length && cc) return concreteCol; if (es.length && es.every(f => f.tunnel)) return shadeRgb(asphaltBase, 0.85); return es.some(f => f.type === 'motorway_link') ? nodeSurf(n) : asphaltBase; };
-    const isPadNode = (n) => {
+    function isPadNode(n) {
         if (n.edges.length !== 2) return n.edges.length >= 3;
         const [e1, e2] = n.edges;
         const d1x = e1.b === n ? e1.dirx : -e1.dirx, d1z = e1.b === n ? e1.dirz : -e1.dirz; // e1 travelling into n
         const d2x = e2.a === n ? e2.dirx : -e2.dirx, d2z = e2.a === n ? e2.dirz : -e2.dirz; // e2 leaving n
         return d1x * d2x + d1z * d2z < 0.35; // sharp turn → pad
-    };
+    }
     for (const n of nodeArr) n.pad = n.edges.length ? isPadNode(n) : false;
-    const retract = (e, n) => (n.pad && (n.allEdges || n.edges).length >= 2 ? Math.min(n.radius, e.len * 0.45) : 0);
+    function retract(e, n) { return ((n.pad ?? isPadNode(n)) && (n.allEdges || n.edges).length >= 2 ? Math.min(n.radius, e.len * 0.45) : 0); }
     /**
      * corner point of edge e at node n on side s (+1 = right of a→b, -1 = left) at lateral distance w (≥0) from the centreline;
      * at degree-2 nodes the corner is mitred with the other edge (whose matching width is wOther).
      */
-    const corner = (e, n, s, w, wOtherFn) => {
+    // Hoisted: the profile clearance floor and rendered pavement use the same mitred footprint.
+    function corner(e, n, s, w, wOtherFn) {
         const out = e.a === n ? 1 : -1;
         const r = retract(e, n);
         const bx = n.x + e.dirx * out * r, bz = n.z + e.dirz * out * r;
         const px = bx + e.nx * s * w, pz = bz + e.nz * s * w;
-        if (n.pad || n.edges.length !== 2) return [px, pz];
+        if ((n.pad ?? isPadNode(n)) || n.edges.length !== 2) return [px, pz];
         const f = n.edges[0] === e ? n.edges[1] : n.edges[0];
         const same = (e.b === n && f.a === n) || (e.a === n && f.b === n);
         const sf = same ? s : -s;
@@ -1822,7 +1855,13 @@ export async function buildWorld(city, renderer, opts = {}) {
         const ix = px + e.dirx * t, iz = pz + e.dirz * t;
         if (Math.hypot(ix - n.x, iz - n.z) > Math.max(w, wf) * 2.5 + 1) return [(px + qx) / 2, (pz + qz) / 2];
         return [ix, iz];
-    };
+    }
+    function asphaltCorners(e, width) {
+        const aR = corner(e, e.a, 1, width(e, 1), width), aL = corner(e, e.a, -1, width(e, -1), width);
+        const bR = corner(e, e.b, 1, width(e, 1), width), bL = corner(e, e.b, -1, width(e, -1), width);
+        for (const [P, Q] of [[aR, bR], [aL, bL]]) if ((Q[0] - P[0]) * e.dirx + (Q[1] - P[1]) * e.dirz < 0.05) { const mx = (P[0] + Q[0]) / 2, mz = (P[1] + Q[1]) / 2; P[0] = Q[0] = mx; P[1] = Q[1] = mz; }
+        return [aR, bR, bL, aL];
+    }
     const widthAsphalt = (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e);
     const widthSide = (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e) + e.sidewalk;
     const widthKerb = (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e) + 0.28;
@@ -1890,11 +1929,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         const padPts = new Map();
         for (const e of edges) {
             if (e.virtual) continue;
-            const aR = corner(e, e.a, 1, widthAsphalt(e, 1), widthAsphalt), aL = corner(e, e.a, -1, widthAsphalt(e, -1), widthAsphalt);
-            const bR = corner(e, e.b, 1, widthAsphalt(e, 1), widthAsphalt), bL = corner(e, e.b, -1, widthAsphalt(e, -1), widthAsphalt);
-            // a mitre longer than a short edge folds that side over itself (bow-tie / flipped quad, review #22): collapse
-            // the folded side to its midpoint (a triangle) instead
-            for (const [P, Q] of [[aR, bR], [aL, bL]]) if ((Q[0] - P[0]) * e.dirx + (Q[1] - P[1]) * e.dirz < 0.05) { const mx = (P[0] + Q[0]) / 2, mz = (P[1] + Q[1]) / 2; P[0] = Q[0] = mx; P[1] = Q[1] = mz; }
+            const [aR, bR, bL, aL] = asphaltCorners(e, widthAsphalt);
             const poly = [aR, bR, bL, aL]; ribPoly.set(e, poly);
             for (const [n, p, q] of [[e.a, aR, aL], [e.b, bR, bL]]) if (n.pad) { let o = padPts.get(n); if (!o) padPts.set(n, o = []); o.push(p, q); }
         }
@@ -1911,8 +1946,11 @@ export async function buildWorld(city, renderer, opts = {}) {
         let hit = false;
         surfGrid.each(x, z, x, z, (o) => {
             if (hit || o.e === e || x < o.x0 || x > o.x1 || z < o.z0 || z > o.z1) return;
-            if (prio && o.e && markWins(e, o.e)) return;
-            if (Math.abs(o.h(x, z) - y) > maxDY || !pointInPolygon(x, z, o.poly) || polyDist(x, z, o.poly) < inset) return;
+            const dy = o.h(x, z) - y;
+            if (Math.abs(dy) > maxDY || !pointInPolygon(x, z, o.poly) || polyDist(x, z, o.poly) < inset) return;
+            // Paint belongs to the visible pavement. Class/id priority only decides nearly level overlaps;
+            // a lower ribbon cannot win that priority and leave its paint buried in the upper surface.
+            if (prio && o.e && (dy < -0.01 || (dy <= 0.01 && markWins(e, o.e)))) return;
             hit = true;
         });
         return hit;
@@ -2389,9 +2427,27 @@ export async function buildWorld(city, renderer, opts = {}) {
         const c = cellOf(n.x, n.z);
         const ly = Math.max(0, Math.min(...n.edges.map(layerY)));
         if (o.side.length >= 3) { // (sloped like the pad: a flat sidewalk hull would poke through a pad on a grade)
-            const hull = convexHull(o.side), mb = c.ground, base = mb.vc;
-            hull.forEach(([x, z]) => mb.v(x, Y.side + ly - 0.004 + padHeightAt(n, x, z), z, 0, 1, 0, x * 0.25, z * 0.25, sideCol));
-            for (let k = 1; k < hull.length - 1; k++) mb.triUp(base, base + k, base + k + 1);
+            const hull = convexHull(o.side), road = convexHull(o.road), mb = c.ground;
+            // The two hulls use different triangulations on a grade. Even a nominally lower sidewalk can then
+            // project through the carriageway. Keep its complete exterior, clipping only its overlap with the pad.
+            const clipSide = (P, a, b, keepInside) => {
+                const d = p => (b[0] - a[0]) * (p[1] - a[1]) - (b[1] - a[1]) * (p[0] - a[0]), Q = [];
+                for (let j = 0; j < P.length; j++) {
+                    const p = P[j], q = P[(j + 1) % P.length], dp = d(p), dq = d(q), ip = keepInside ? dp >= 0 : dp <= 0, iq = keepInside ? dq >= 0 : dq <= 0;
+                    if (ip) Q.push(p);
+                    if (ip !== iq) { const t = dp / (dp - dq); Q.push(p.map((v, i) => v + (q[i] - v) * t)); }
+                }
+                return Q;
+            };
+            const emit = P => { if (P.length < 3) return; const base = mb.vc; for (const [x, z, y] of P) mb.v(x, y, z, 0, 1, 0, x * 0.25, z * 0.25, sideCol); for (let j = 1; j < P.length - 1; j++) mb.triUp(base, base + j, base + j + 1); };
+            const pts = hull.map(([x, z]) => [x, z, Y.side + ly - 0.004 + padHeightAt(n, x, z)]);
+            let area = 0; for (let j = 0; j < road.length; j++) area += road[j][0] * road[(j + 1) % road.length][1] - road[(j + 1) % road.length][0] * road[j][1];
+            if (area < 0) road.reverse();
+            for (let k = 1; k < pts.length - 1; k++) {
+                let P = [pts[0], pts[k], pts[k + 1]];
+                if (road.length >= 3) for (let j = 0; j < road.length && P.length; j++) { const a = road[j], b = road[(j + 1) % road.length]; emit(clipSide(P, a, b, false)); P = clipSide(P, a, b, true); }
+                else emit(P);
+            }
         }
         if (o.road.length >= 3) {
             // (2026-11-07, world-visual) each pad corner takes the height of the approach it belongs to (a junction on
@@ -3447,15 +3503,20 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (b.canopy) {
             // Explicitly reviewed open roof: preserve its full mapped plan and its vertical collision band.
             // Dimension/support provenance stays in data.buildingCanopies; estimates are not OSM clearance tags.
-            const ring = b.ring, ccw = signedArea(ring) > 0, roofCol = rgb(b.roofColour || '#a7a8a2');
-            const { pts, tris } = triangulate(ring, b.holes);
-            if (tris.length) c.roof.flatPoly(pts, tris, b.h, roofCol, 0.1, -1);
-            for (const tri of tris) mb.face3(...tri.map(i => [pts[i][0], b.minH, pts[i][1]]), rgb('#d6d5ce'), [0, -1, 0]);
-            for (let k = 0; k < ring.length; k++) {
-                const a = ring[k], p = ring[(k + 1) % ring.length], L = Math.hypot(p[0] - a[0], p[1] - a[1]); if (L < 0.05) continue;
-                const sign = ccw ? 1 : -1;
-                mb.wall(a[0], a[1], p[0], p[1], b.minH, b.h, sign * (p[1] - a[1]) / L, -sign * (p[0] - a[0]) / L, rgb('#d6d5ce'));
-            }
+            const ring = b.ring, roofCol = rgb(b.roofColour || '#a7a8a2'), sideCol = rgb('#d6d5ce');
+            const canopy = canopyGeometry(b, triangulate), sourceRoof = canopy.native;
+            const canopyAudit = roofProfileAudit.canopies ||= { native: [], legacyFlat: [] };
+            canopyAudit[sourceRoof ? 'native' : 'legacyFlat'].push({ sourceId: data.buildingIds?.[b.i] || b.i, shape: sourceRoof ? b.roofProfile.shape : 'flat', totalM: b.h, eavesM: canopy.eavesM, minimumM: b.minH });
+            const cached = sourceRoof && data.buildingRoofSurfaces?.[b.i];
+            const valid = cached?.sources?.every(s => { const source = bRecs[s.i]; return source && !source.skip && s.signature === roofSignature(source); });
+            if (cached) { if (valid) roofProfileAudit.surfacesApplied++; else roofProfileAudit.surfacesRejected.push(data.buildingIds?.[b.i] || b.i); }
+            const unpack = face => data.buildingRoofGeometryPoints ? face.map(i => data.buildingRoofGeometryPoints[i]) : face;
+            if (sourceRoof) for (const face of valid ? cached.faces.map(unpack) : canopy.roofFaces) c.roof.face3(...face, roofCol, [0, 1, 0]);
+            else c.roof.flatPoly(canopy.triangulation.pts, canopy.triangulation.tris, b.h, roofCol, .1, -1);
+            for (const face of canopy.underside) mb.face3(...face, sideCol, [0, -1, 0]);
+            for (const wall of canopy.walls) mb.face4(...wall.vertices, sideCol, wall.normal);
+            if (valid) for (const wall of cached.walls) mb.face3(...unpack(wall.vertices), sideCol, wall.normal);
+            else if (sourceRoof) for (const [i, wall] of sourceRoof.walls.entries()) mb.face4(...wall, sideCol, sourceRoof.wallNormals[i]);
             // Structural supports are an explicit authoring estimate, placed only where their complete square is clear.
             const width = b.canopy.supportWidthM || 0.35, supports = [];
             if (b.canopy.estimateSupports) for (const p of ring) {
@@ -3472,7 +3533,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 supports.push([x, z]);
             }
             b.canopySupports = supports.length;
-            collision.push({ x: b.c[0], z: b.c[1], r: Math.max(...ring.map(p => Math.hypot(p[0] - b.c[0], p[1] - b.c[1]))), poly: ring, holes: b.holes, sourceId: data.buildingIds?.[b.i], minH: b.minH, h: b.h, angle: 0, hw: (b.x1 - b.x0) / 2, hd: (b.z1 - b.z0) / 2, canopy: true });
+            collision.push({ x: b.c[0], z: b.c[1], r: Math.max(...ring.map(p => Math.hypot(p[0] - b.c[0], p[1] - b.c[1]))), poly: ring, holes: b.holes, sourceId: data.buildingIds?.[b.i], minH: b.minH, h: b.h, ...(sourceRoof ? { y0: b.minH, y1: b.h, roofHeightAt: sourceRoof.heightAt } : {}), angle: 0, hw: (b.x1 - b.x0) / 2, hd: (b.z1 - b.z0) / 2, canopy: true });
             continue;
         }
         const brng = makeRng(b.i * 7919 + 13);
@@ -4712,7 +4773,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // colour), one group per 500 m super-cell (culling + few draw calls); full lots again (the 700 k cap is gone).
     // Fallback without it: merged low-LOD props, triangle-capped.
     const parkedLots = new Map(); // super-cell key → [{kind, color, x, y, z, yaw}]
-    const parkingOverlap = (a, b) => a.some(([x, z]) => pointInPolygon(x, z, b)) || b.some(([x, z]) => pointInPolygon(x, z, a)) || polysCross(a, b);
+    const parkingOverlap = parkingPolygonsOverlap;
     // Mapped lots can extend under the modeled pavement (the lot at the Rosetti
     // start does). Test the complete car, including intersections through its
     // edges, against sidewalk bands and junction corners; a clear centre is not
@@ -4732,28 +4793,51 @@ export async function buildWorld(city, renderer, opts = {}) {
         parkingWalks.each(Math.min(...fp.map(q => q[0])), Math.min(...fp.map(q => q[1])), Math.max(...fp.map(q => q[0])), Math.max(...fp.map(q => q[1])), p => { if (!hit && parkingOverlap(fp, p)) hit = true; });
         return hit;
     };
+    const parkingOnBuilding = fp => {
+        let hit = false;
+        bGrid.each(Math.min(...fp.map(q => q[0])), Math.min(...fp.map(q => q[1])), Math.max(...fp.map(q => q[0])), Math.max(...fp.map(q => q[1])), b => {
+            if (hit || b.skip && data.buildingGeometryPolicy !== 'source') return;
+            hit = parkingBodyOverlap(fp, { outer: b.ring, holes: b.holes, minHeightM: b.minH, maxHeightM: b.h });
+        });
+        return hit;
+    };
+    const parkingSupports = new BoxGrid(24);
+    for (const c of propColl) if (c.kind === 'canopy-support') {
+        const p = c.poly || obbPoly(c);
+        parkingSupports.insert(Math.min(...p.map(q => q[0])), Math.min(...p.map(q => q[1])), Math.max(...p.map(q => q[0])), Math.max(...p.map(q => q[1])), p);
+    }
+    const parkingOnSupport = fp => {
+        let hit = false;
+        parkingSupports.each(Math.min(...fp.map(q => q[0])), Math.min(...fp.map(q => q[1])), Math.max(...fp.map(q => q[0])), Math.max(...fp.map(q => q[1])), p => { if (!hit && parkingOverlap(fp, p)) hit = true; });
+        return hit;
+    };
     // (2026-11-08, owner: cars parked across a CV stop's glowing door ring) no parked car within 7 m of a stop's door
     const stopDoors = pois.filter(p => p.interactive && p.doorX !== undefined), nearDoor = (x, z) => stopDoors.some(p => Math.hypot(p.doorX - x, p.doorZ - z) < 7);
     const useInst = typeof makeParkedCars === 'function';
     const carTris = useInst ? 260 : carKinds.reduce((s2, k) => { const pr = carProps(k, CAR_COLORS[0]); return s2 + (pr.index ? pr.index.length / 3 : 772); }, 0) / carKinds.length;
+    const parkingClearance = { candidates: 0, retained: 0, outsideSourceLot: 0, raisedSidewalk: 0, buildingBody: 0, canopySupport: 0, measuredLots: [] };
     let parked = 0, lotSeeds = 0; const maxParked = Math.round(Math.min(city.id === 'bucharest' ? 2600 : 2000, 195000 / Math.max(1, carTris)));
     for (const a of areas) {
         if (a.kind !== 'parking' || lotSeeds >= maxParked || a.size < 120) continue;
         // orientation: longest edge
         let best = 0, ang = 0;
         for (let k = 0; k < a.outer.length; k++) { const [ax, az] = a.outer[k], [bx, bz] = a.outer[(k + 1) % a.outer.length]; const L = Math.hypot(bx - ax, bz - az); if (L > best) { best = L; ang = Math.atan2(bx - ax, bz - az); } }
+        const measured = a.parkingLayout?.sourceId === a.sourceId ? resolveParkingLayout(a.parkingLayout, a.parkingLayout.sourceTags).layout : null;
+        if (measured) parkingClearance.measuredLots.push(a.sourceId);
+        if (measured) ang = parkingRowPose(measured, 0).rowYaw;
         const ux = Math.sin(ang), uz = Math.cos(ang), vx = uz, vz = -ux; // u along rows, v across
         const cx = (a.x0 + a.x1) / 2, cz = (a.z0 + a.z1) / 2, R = Math.hypot(a.x1 - a.x0, a.z1 - a.z0) / 2;
         let lotCount = 0;
         // (2026-11-08) lots in the scenery ring outside the playable area (reality-pass districts): a light fill, frame budget
         const lotFill = realPass && dmask && !dmask.at(cx, cz) ? 0.22 : 0.72, lotMax = realPass ? 45 : 80;
         for (let v = -R, row = 0; v < R; row++) {
-            for (let u = -R; u < R; u += 2.6) {
+            const measuredRow = measured ? parkingRowPose(measured, row) : null;
+            for (let u = -R; u < R; u += measuredRow?.stallPitchM || 2.6) {
                 const x = cx + ux * u + vx * v, z = cz + uz * u + vz * v;
                 if (!inArea(a, x, z) || !inArea(a, x + vx * 2.6, z + vz * 2.6) || !inArea(a, x - vx * 2.6, z - vz * 2.6)) continue;
-                if (!rng.chance(lotFill) || buildingAt(x, z) || nearWater(x, z, 3.5) || nearDoor(x, z)) continue; // (never on a channel quay slope / in water)
-                const rot = ang + (row % 2 ? 0 : Math.PI) + Math.PI / 2;
-                const box = { x, z, hw: 0.95, hd: 2.3, angle: rot, r: 2.5, poly: null, h: 1.5, prop: true, kind: 'parked' };
+                if (!rng.chance(lotFill) || (buildingAt(x, z)?.minH ?? Infinity) <= 2.1 || nearWater(x, z, 3.5) || nearDoor(x, z)) continue; // (never on a channel quay slope / in water)
+                const rot = measuredRow?.stallYaw ?? (ang + (row % 2 ? 0 : Math.PI) + Math.PI / 2);
+                const box = { x, z, hw: 0.95, hd: 2.3, angle: rot, r: 2.5, poly: null, h: 1.5, prop: true, kind: 'parked', parkingSourceId: a.sourceId, parkingAreaIndex: a.areaIndex };
                 if (polyOnRibbon(obbPoly({ ...box, hw: 1.3, hd: 2.7 })) || [-1.6, 0, 1.6].some(o => onRibbon(x + Math.sin(rot) * o, z + Math.cos(rot) * o, 1.2))) continue; // keep off any carriageway / lane strip
                 const kind = rng.pick(carKinds), col = rng.pick(CAR_COLORS);
                 // Consume the original seed and paint choices even when rejected:
@@ -4762,10 +4846,17 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const size = vehicleSize(kind, city.id);
                 box.hw = Math.max(box.hw, size.width / 2); box.hd = Math.max(box.hd, size.length / 2); box.r = Math.hypot(box.hw, box.hd);
                 const fp = obbPoly({ ...box, hw: box.hw + 0.1, hd: box.hd + 0.1 });
-                if (parkingFits(a, fp) && !parkingOnWalk(fp)) {
+                parkingClearance.candidates++;
+                const fits = parkingFits(a, fp), walk = fits && parkingOnWalk(fp), body = fits && !walk && parkingOnBuilding(fp), support = fits && !walk && !body && parkingOnSupport(fp);
+                if (!fits) parkingClearance.outsideSourceLot++;
+                else if (walk) parkingClearance.raisedSidewalk++;
+                else if (body) parkingClearance.buildingBody++;
+                else if (support) parkingClearance.canopySupport++;
+                else {
                     if (useInst) { const k2 = Math.floor(x / (CELL * 2)) + ',' + Math.floor(z / (CELL * 2)); let L = parkedLots.get(k2); if (!L) parkedLots.set(k2, L = []); L.push({ kind, color: col, x, y: 0.12, z, yaw: rot }); }
                     else cellOf(x, z).solid.geo(carProps(kind, col), x, 0.12, z, rot, 1, 1, 1, [255, 255, 255]);
                     propColl.push(box); parked++;
+                    parkingClearance.retained++;
                 }
                 if (lotSeeds >= maxParked || lotCount > lotMax) break;
             }
@@ -5445,7 +5536,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (e.oneway) dir = 1;
         const t = clamp(ne.t, 0.15, 0.85);
         city.spawn = { edge: [e.a.id, e.b.id], t, dir };
-        const lat = e.sharedLane ? 0 : (e.median / 2 + e.laneW * 0.5) * dir;
+        const lat = (e.sharedLane ? 0 : (e.median / 2 + e.laneW * 0.5) * dir) + (e.laneCenterShiftM || 0);
         spawn = { x: e.a.x + e.dirx * e.len * t + e.nx * lat, z: e.a.z + e.dirz * e.len * t + e.nz * lat, heading: Math.atan2(-e.dirx * dir, -e.dirz * dir), edge: e, dir };
         spawn.y = Y.road + yAlong(e, spawn.x, spawn.z); // road surface at the spawn (the SeaTac departures drive is an elevated deck)
     }
@@ -5459,7 +5550,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     graph.edges = driv;
 
     setProgress(''); const phases = PHASES.splice(0);
-    const stats = { phases, railways: railStats, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, fuel: fuelLog,
+    const stats = { parkingClearance, phases, railways: railStats, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, fuel: fuelLog,
         buildingRoofProfiles: roofProfileAudit, profile: profileStats, buildingPassages: buildingPassageAudit, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, landmarkSourceReplacements, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
     console.info('[world]', city.id, stats);
 

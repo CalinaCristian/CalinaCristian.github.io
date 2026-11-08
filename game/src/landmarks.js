@@ -2,6 +2,8 @@ import * as THREE from '../vendor/three.module.min.js';
 import { makeWaterMaterial } from './water.js';
 import { LANDMARK_SOURCE_IDS } from './landmark-source-identities.js';
 import { BUCHAREST_SOURCE_MASSES } from './landmark-source-masses.js';
+import { OTP_ROOF_ZONES, OTP_ARRIVALS_PROFILE } from './landmark-otp-roofs.js';
+import { footprintCells } from './building-parts.js';
 import { US_FOOTPRINTS as U, US_SOURCE_TAGS as UT } from './landmark-us-source.js';
 import { emitUSLandmarkTerrain } from './landmark-us-terrain.js';
 import { sourceProfile, sourceSlope, sourceSurfaceText } from './landmark-us-geometry.js';
@@ -1744,19 +1746,56 @@ function bBaneasaTerm(b) {
 // Src: https://ro.wikipedia.org/wiki/Aeroportul_Internațional_Henri_Coandă ; OSM ways 771096081/82/83, 794617342
 function bOTP(b) {
     const [dep, arr, pier] = P.otp.map(pts), GL = '#4f7690', WH = '#eef0f1', CON = '#d9d6cf';
+    // Independent aerial roof zones, partitioned inside the complete source ring.
+    // No overlay faces, missing strips, new source heights or changed colliders.
+    const roofZones = (ring, y, profile) => {
+        for (const cell of footprintCells(ring, profile.zones.map(z => z.ring))) {
+            b.cap(cell.ring, y, cell.covered.length ? profile.zones[cell.covered[0]].colour : profile.base);
+        }
+    };
     // 2012 departures hall: tall glass box under a thin overhanging roof, landside canopy + signage (+z front)
     b.prism(dep, 0, 19, GL, { mat: 'g', topCol: '#c6cbcf' });
     b.pilasters(dep, 0, 19, 6, 0.3, 0.4, '#d0d6da', {});
     for (const y of [6.5, 12.8]) b.cornice(dep, y, 0.4, 0.3, '#d0d6da');
-    b.prism(offset(dep, 4), 19, 21, WH, { topCol: '#dfe2e4', bottom: true });
+    b.prism(offset(dep, 4), 19, 21, WH, { top: false, bottom: true });
+    b.cap(offset(dep, 4), 21, WH, [dep]);
+    roofZones(dep, 21, OTP_ROOF_ZONES.departures);
     b.box(-106, 13.4, 200.5, 190, 0.6, 9, WH);                                              // cantilevered canopy over the upper-level kerb
     b.text('HENRI COANDA', -106, 14.5, 196.6, 0, 2.6, '#ffffff', { mat: 'g' });
     b.text('PLECARI  DEPARTURES', -106, 10.2, 196.6, 0, 1.6, '#ffd84a', { mat: 'g' });
-    // 1970 "T1" (Sosiri): two concrete levels, deep horizontal fascia, glazed ground floor
-    b.prism(arr, 0, 14, CON, { topCol: '#c6cbcf' });
+    // 1970 "T1" (Sosiri): ten measured repeated roof bays. Nadir imagery
+    // establishes their axis/spacing, while1.2m rise is an explicit estimate.
+    // Keep the prior total14m and all colliders; clip every bay to the source.
+    const ar = OTP_ARRIVALS_PROFILE, [ax, az] = ar.axis, eaves = ar.total - ar.rise;
+    const toRoof = ([x,z]) => [x*ax+z*az,-x*az+z*ax];
+    const fromRoof = ([q,u],y) => [q*ax-u*az,y,q*az+u*ax];
+    const boundaries = [ar.centres[0]-ar.spacing/2,...ar.centres.slice(1).map((q,i)=>(q+ar.centres[i])/2),ar.centres.at(-1)+ar.spacing/2];
+    const cuts = boundaries.slice();
+    for(let i=0;i<ar.centres.length;i++)for(let s=1;s<ar.sectionsPerBay;s++)cuts.push(s<=ar.sectionsPerBay/2?boundaries[i]+(ar.centres[i]-boundaries[i])*s/(ar.sectionsPerBay/2):ar.centres[i]+(boundaries[i+1]-ar.centres[i])*(s-ar.sectionsPerBay/2)/(ar.sectionsPerBay/2));
+    const roofHeight = q => {
+        const k=ar.centres.findIndex((_,i)=>q>=boundaries[i]-1e-8&&q<=boundaries[i+1]+1e-8);
+        if(k<0)return eaves;
+        const t=q<=ar.centres[k]?(q-boundaries[k])/(ar.centres[k]-boundaries[k])/2:.5+(q-ar.centres[k])/(boundaries[k+1]-ar.centres[k])/2;
+        return eaves+ar.rise*Math.sin(Math.PI*Math.max(0,Math.min(1,t)));
+    };
+    const localArr=arr.map(toRoof), spread=bbox([localArr]), sortedCuts=[spread.x0-1,...cuts,spread.x1+1].sort((a,c)=>a-c), bands=sortedCuts.slice(1).map((q,i)=>rect(sortedCuts[i],spread.z0-1,q,spread.z1+1));
+    b.prism(arr, 0, eaves, CON, { top:false });
+    for(const cell of footprintCells(localArr,bands)){
+        const p=cell.ring.map(q=>fromRoof(q,roofHeight(q[0])));
+        for(let i=1;i+1<p.length;i++)b.tri(p[0],p[i],p[i+1],ar.colour,'m',[0,1,0]);
+    }
+    for(let i=0;i<localArr.length;i++){
+        const a=localArr[i],c=localArr[(i+1)%localArr.length],ts=[0,1];
+        if(Math.abs(c[0]-a[0])>1e-9)for(const q of cuts){const t=(q-a[0])/(c[0]-a[0]);if(t>0&&t<1)ts.push(t);}
+        ts.sort((a,c)=>a-c);
+        for(let j=1;j<ts.length;j++){
+            const p=t=>[a[0]+(c[0]-a[0])*t,a[1]+(c[1]-a[1])*t],u=p(ts[j-1]),v=p(ts[j]);
+            b.quad(fromRoof(u,eaves),fromRoof(v,eaves),fromRoof(v,roofHeight(v[0])),fromRoof(u,roofHeight(u[0])),CON,'m');
+        }
+    }
     b.prism(offset(arr, 0.05), 0.4, 5, '#3f5b6e', { mat: 'g', top: false });
     b.prism(offset(arr, 0.05), 7, 11, '#5d7e93', { mat: 'g', top: false });
-    b.cornice(arr, 11.6, 2.4, 0.9, '#e7e5df'); b.cornice(arr, 5.2, 0.9, 1.6, '#e7e5df');
+    b.cornice(arr, 11.6, eaves-11.6, 0.9, '#e7e5df'); b.cornice(arr, 5.2, 0.9, 1.6, '#e7e5df');
     b.text('SOSIRI  ARRIVALS', 158.5, 12.2, 195.6, 0, 1.6, '#2f3e4b');
     // Complete airport aggregate r16476195: exact connector outlines around the existing terminal parts.
     // One actual source courtyard (w1215078738); 12 m connector height is explicitly estimated.
@@ -1770,11 +1809,14 @@ function bOTP(b) {
     b.prism(control,20,25,'#33505f',{mat:'g',topCol:WH});
     b.colPolygon(control,{y0:20,y1:25});
     b.cyl(63,25,162,0.2,0.2,5,'#d33',6); // aerial mast height remains estimated
-    // "Vioara" pier: curved glazed finger with a white roof shell + jet bridges
+    // "Vioara" pier: dark membranes, light roof ribs and a light perimeter fascia.
     b.prism(pier, 0, 13, '#6f91a8', { mat: 'g', topCol: '#e3e6e8' });
     b.pilasters(pier, 0, 13, 8, 0.25, 0.3, '#d6dde2', {});
-    b.prism(offset(pier, 1.2), 13, 14.6, WH, { topCol: '#f2f3f4', bottom: true });
-    b.prism(BUCHAREST_SOURCE_MASSES.otp.spine,14.6,20,'#e6e9ea',{topCol:'#d2d6d8'}); // actual OSM w1321861231 spine
+    b.prism(offset(pier, 1.2), 13, 14.6, WH, { top: false, bottom: true });
+    b.cap(offset(pier, 1.2), 14.6, WH, [pier]);
+    roofZones(pier, 14.6, OTP_ROOF_ZONES.pier);
+    b.prism(BUCHAREST_SOURCE_MASSES.otp.spine,14.6,20,'#e6e9ea',{top:false}); // actual OSM w1321861231 spine
+    roofZones(BUCHAREST_SOURCE_MASSES.otp.spine, 20, OTP_ROOF_ZONES.spine);
     const bb = bbox([pier]), px = bb.x1 + 30;
     for (const z of [-170, -150, -110, -90, -45, -25]) { b.box(bb.x1 + 9, 4, z, 18, 3, 3, '#c9ced2'); b.box(bb.x1 + 18.5, 0, z, 1, 4, 1, '#7a8187'); }
     airliner(b, px, -150, Math.PI, { tail: '#1d3f8f', stripe: '#1d3f8f' });        // TAROM

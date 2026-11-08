@@ -2,6 +2,9 @@ import * as THREE from '../vendor/three.module.min.js';
 import { makeWaterMaterial } from './water.js';
 import { LANDMARK_SOURCE_IDS } from './landmark-source-identities.js';
 import { BUCHAREST_SOURCE_MASSES } from './landmark-source-masses.js';
+import { US_FOOTPRINTS as U, US_SOURCE_TAGS as UT } from './landmark-us-source.js';
+import { emitUSLandmarkTerrain } from './landmark-us-terrain.js';
+import { sourceProfile, sourceSlope, sourceSurfaceText } from './landmark-us-geometry.js';
 
 // ============================================================================
 //  Drive My CV — procedural models of the real landmarks of Bucharest and
@@ -57,14 +60,14 @@ const P = {
     mnir: [[-51.08,29.09,-50.91,35.99,-51.7,35.98,-51.64,41.88,-47.83,41.99,-45.56,42.05,-45.47,41.42,-38.96,41.54,-38.98,42.18,-33.98,42.08,-33.93,43.56,-6.28,49.73,-6.61,51.34,-2.16,52.41,-1.95,51.73,13.69,55.24,13.6,55.95,16.95,56.68,17.27,55.24,46.18,61.82,47.86,61.63,49.51,60.48,50.34,58.7,50.31,53.15,51.19,52.96,51.33,45.24,50.31,45.06,50.4,37.64,49.2,37.4,48.88,12.76,50.17,12.74,50.91,-15.57,49.29,-15.74,49.85,-39.37,50.55,-39.49,50.61,-45.07,51.71,-44.99,51.76,-53.13,50.69,-53.05,50.72,-56.93,50.41,-59.49,49.29,-61.1,47.45,-61.72,45.6,-61.71,23.02,-57.94,22.82,-59.14,18.62,-58.33,18.81,-56.99,-3.81,-53.48,-3.97,-54.65,-8.49,-54.06,-8.35,-52.86,-31.46,-49.06,-30.8,-44.54,-32.64,-44.19,-32.66,-47.37,-37.36,-47.33,-37.47,-46.52,-46.55,-46.51,-46.58,-47.27,-47.82,-47.3,-51.71,-47.34,-51.69,-41.21,-50.9,-41.16,-50.93,-34.25,-51.66,-34.25,-51.51,-28.05,-48.69,-27.87,-48.93,23,-51.79,23.05,-51.7,29.05],[-8.53,12.91,-8.45,4.73,-13.7,4.73,-13.7,5.7,-13.76,22.97,-0.97,25.93,-0.16,22.26,3.48,23.04,3.17,23.74,19.61,27.49,19.72,26.65,23.61,27.5,22.69,31.94,34.49,34.37,34.48,30.1,33.62,30,33.59,19.19,34.52,19.19,34.52,12.9,31.76,12.91,31.77,9.38,32.35,9.37,32.32,-12.7,31.77,-12.72,31.73,-15.48,34.53,-15.54,34.6,-22.37,33.61,-22.43,33.89,-32.42,34.92,-32.48,35.08,-36.9,26.66,-35.49,27.31,-31.44,23.1,-30.7,22.96,-31.35,0.63,-27.79,0.61,-27,-3.49,-26.59,-4.18,-30.97,-13.67,-29.54,-13.63,-14.41,-8.28,-14.37,-8.4,-22.64,27.14,-22.58,26.98,13.1]], // OSM source rings, centimetre projection; see research/landmark-source-bucharest.json
     marriott: [[-32.68,67.43,38.83,67.8,40.08,67.34,41.11,66.36,41.71,65.15,41.58,48.17,40.92,46.92,40.07,45.93,38.99,45.36,36.29,45.06,34.42,34.65,33.23,24.85,32.35,12.52,32.47,3.47,32.55,-10.22,33.26,-18.93,34.22,-28.03,35.08,-34.6,36.46,-43.34,39.84,-43.49,40.83,-43.73,41.81,-44.51,42.43,-45.7,42.4,-63.21,42.01,-64.16,41.22,-65.08,39.72,-65.73,31.24,-65.77,31.04,-67.19,-32.65,-67.78,-32.34,-45.4,-38.05,-45.5,-38.8,-45.51,-39.62,-45.07,-40.29,-44.43,-40.78,-43.64,-41.11,-42.57,-41.12,-39.83,-41.98,-39.84,-41.99,-35.28,-41.15,-35.28,-41.16,-32.72,-40.87,-31.57,-40.22,-30.62,-39.44,-30.13,-38.63,-30.11,-29.13,-29.91,-29.18,-24.66,-38.2,-24.69,-38.22,-18.26,-38.23,-12.98,-38.1,12.15,-38.14,16.44,-38.08,23.49,-29.07,23.49,-29.18,28.41,-38.06,28.39,-39.25,28.39,-40.24,28.89,-40.99,29.72,-41.43,30.93,-41.43,33.31,-42.46,33.32,-42.46,38.73,-41.47,38.73,-41.47,40.53,-41.25,41.33,-40.85,41.95,-40.42,42.63,-39.67,43.25,-38.62,43.59,-33.18,43.59]], // OSM source rings, centimetre projection; see research/landmark-source-bucharest.json
     unirea: [[2.1,-31.32,7.8,-34.32,4.8,-39.16,6.12,-40.56,2.54,-47.13,-3.2,-43.84,-18.61,-51.9,-19.38,-53.58,-93.37,-16.03,-92.39,-14.25,-97.86,-14.23,-101.65,-12.88,-105.03,-8.77,-106.62,-4,-108.4,-3.12,-85.74,40.27,-84.08,43.47,-82.68,45.61,-81.33,47.38,-79.51,49.14,-76.8,50.82,-74.4,51.95,-71.36,52.87,-69.45,53.09,-65.93,53.55,63.33,52.58,65.22,52.21,66.73,51.96,68.33,51.67,70.02,51.32,71.9,50.87,73.73,50.36,75.9,49.56,77.21,49,79.2,47.82,80.56,46.78,82.4,45.45,84.43,43.9,86.26,42.52,88.43,40.63,90.49,38.71,92.28,36.72,93.88,34.72,95.42,32.1,96.7,29.98,97.9,27.56,99.23,24.68,100.34,21.54,100.92,19.27,101.78,15.94,102.31,12.52,108.39,-36.58,78.53,-40.12,72.25,7.7,61.36,7.35,61.58,4.58,-23.44,4.45,-23.43,-5.52,-63.67,-5.64,-63.47,23.68,-69.06,23.87,-68.92,39.31,-74.43,29.49,-71.89,27.7,-72.12,13.41,-74.75,8.91,-68.49,5.7,-75.31,-7.19,-18.41,-36.08,-12.63,-32.65,-11.53,-34.76,-5.82,-31.68]], // OSM source rings, centimetre projection; see research/landmark-source-bucharest.json
-    skytower: [[-22.5,3,-22.5,-3,-21,-7.5,-18,-11.5,-11,-16.5,-7,-17.5,-2.5,-18,9,-17,15.5,-13.5,19,-9.5,21,-6,22.5,-0.5,21.5,3.5,17,11.5,9.5,16.5,3,18,-7.5,18,-15.5,14.5,-21,8.5]],
+    skytower: [[-22.7503,2.7274,-22.7254,-3.07,-21.133,-7.6663,-18.2945,-11.5182,-14.9184,-13.9427,-11.0213,-16.3438,-7.1653,-17.7073,-2.3395,-18.1824,3.2101,-17.9777,9.1211,-16.7417,15.466,-13.4329,19.1158,-9.6499,21.2584,-5.9316,22.7495,-0.6566,21.8312,3.6248,19.717,8.2465,17.2256,11.5792,13.4655,14.5792,9.3272,16.7073,2.917,17.9334,-2.6882,18.1815,-7.578,17.7648,-11.3456,16.752,-15.5059,14.5116,-18.7443,11.5597,-21.0269,8.2649]],
     promenada: [[-80.5,49.46,-83.43,48.56,-85.66,46.43,-86.3,43.88,-84.87,-44.35,-84.51,-46.5,-82.92,-48.8,-80.6,-50.05,80.64,-49.38,83.92,-48.45,85.78,-45.93,86.29,-43.09,85.5,44.32,84.75,47.44,82.34,49.61,79.78,50.05]], // OSM source rings, centimetre projection; see research/landmark-source-bucharest.json
     baneasasc: [[-45.65,-108.87,-57.22,-124.72,-66.98,-137.92,-53.34,-151.76,-18.29,-185.5,34.18,-133.42,32.62,-7.21,41.39,-7.07,88.93,-6.31,87.04,108.56,43.51,107.87,43.71,95.67,40.16,95.5,31.35,95.47,31.15,111.83,25.07,117,31.88,123.84,31.41,135.26,19.76,146.51,21.93,149.05,13.62,156.94,-0.51,142.13,-43.76,185.44,-86.72,141.3,-75.5,130.46,-65.16,120.72,-46.76,102.88,-52.42,95.92,-57.14,88.53,-58.98,85.65,-64.45,75.64,-69.13,65.39,-73.29,53.92,-76.4,43.71,-78.86,30.41,-88.91,30.81,-88.84,-38.87,-77.77,-38.3,-75.26,-48.33,-72.03,-60.62,-66.94,-73.54,-61.46,-84.15,-56.47,-93.13,-51.01,-101.84]], // OSM source rings, centimetre projection; see research/landmark-source-bucharest.json
     romexpo: [[-44.58,-44.07,-35.55,-51.6,-25.25,-57.34,-14.07,-61.05,-2.39,-62.62,9.38,-61.97,20.81,-59.16,31.51,-54.24,41.1,-47.44,49.23,-38.96,55.64,-29.12,60.1,-18.27,62.44,-6.81,62.63,4.88,60.64,16.39,56.77,26.9,50.36,37.56,43.6,45.24,34.32,52.63,25.08,57.63,16.27,60.71,6,62.58,-6.02,62.6,-16.29,60.76,-27.64,56.52,-36.17,51.49,-44.57,44.43,-51.88,35.59,-57.17,26.23,-60.75,16.18,-62.6,5.52,-62.59,-5.33,-60.69,-16.03,-56.98,-26.24,-51.56,-35.68]], // OSM source rings, centimetre projection; see research/landmark-source-bucharest.json
     gara: [[103.66,54.54,103.72,60.33,105.2,60.32,105.23,62.91,105.26,65.78,105.28,68.44,105.3,70.93,103.28,70.94,103.33,76.04,95.26,76.1,88.17,76.15,80.29,76.22,72.11,76.29,65.15,76.35,57.85,76.41,51.23,76.46,43.81,76.52,36.86,76.58,28.77,76.64,21.17,76.71,15.21,76.75,10.64,76.79,8.13,76.81,-0.62,76.88,-7.79,76.94,-15.99,77.17,-22.24,77.06,-26.5,77.1,-32.15,77.15,-36.49,77.18,-41.26,77.22,-48.45,77.27,-48.49,74.12,-48.53,70.04,-48.55,68.18,-48.6,62.84,-48.63,60.29,-48.65,57.05,-48.69,53.74,-46.67,53.72,-44.39,53.7,-38.9,53.66,-37.76,53.65,-36.63,53.63,-28.69,53.57,-22.24,53.52,-15.54,53.46,13.69,53.22,18.61,53.19,18.64,55.23,27.99,55.16,37.87,55.08,45.95,55.01,54.3,54.94,62.46,54.87,68.39,54.82,70.88,54.81,79.72,54.73,87.54,54.67,88.52,54.66,91.07,54.64],[33.07,-64.39,45.34,-64.49,53.59,-64.55,61.9,-64.61,78.91,-64.74,81.38,-64.81,81.4,-62.13,85.7,-62.17,85.69,-63.43,88.33,-63.45,90.23,-63.47,90.25,-61.12,94.29,-61.15,105.02,-61.24,105.32,-30.73,86.7,-30.58,87.2,20.44,96.12,20.36,96.07,14.37,101.72,14.33,101.74,16.09,106.13,16.05,106.22,25.24,105.24,25.25,105.45,45.8,106.32,45.79,106.41,54.52,103.66,54.54,91.07,54.64,88.52,54.66,87.54,54.67,79.72,54.73,70.88,54.81,70.7,36.22,69.93,-42.75,62,-42.67,53.72,-42.61,45.45,-42.55,36.9,-42.47,37.67,35.37,37.76,44.79,37.87,55.08,27.99,55.16,18.64,55.23,18.61,53.19,13.69,53.22,-15.54,53.46,-22.24,53.52,-28.69,53.57,-36.63,53.63,-37.76,53.65,-38.9,53.66,-44.39,53.7,-46.67,53.72,-48.69,53.74,-48.86,36.08,-46.78,36.06,-44.57,36.04,-39.25,36,-36.92,36.05,-28.87,35.92,-22.42,35.86,-15.72,35.81,-5.52,35.73,13.52,35.57,16.15,35.55,16.07,26.74,19.02,26.72,18.91,15.38,15.69,15.41,15.65,11.21,16.66,11.2,16.54,-0.27,15.37,-0.27,15.32,-4.84,24.37,-4.91,24.09,-32.84,19.8,-32.8,19.59,-54.44,18.47,-54.43,18.43,-58.27,18.39,-62.14,18.38,-63.23,26.09,-63.29,26.1,-62.2,29.64,-62.23,29.62,-64.39],[37.87,55.08,37.76,44.79,37.67,35.37,36.9,-42.47,45.45,-42.55,53.72,-42.61,62,-42.67,69.93,-42.75,70.7,36.22,70.88,54.81,68.39,54.82,62.46,54.87,54.3,54.94,45.95,55.01],[-48.86,26.68,-48.93,29.84,-48.86,36.08,-48.69,53.74,-48.65,57.05,-48.63,60.29,-53.37,60.33,-53.36,61.05,-66.91,61.28,-66.93,60.43,-71.53,60.53,-71.57,58.59,-87.37,58.44,-85.86,65.52,-96.45,67.68,-102.8,41.7,-105,40.39,-106.65,33.23,-105.69,31.84,-103.6,28.79,-102.64,27.4,-95.67,27.32,-94.77,27.92,-66.58,27.16,-57.72,26.92],[49.78,23.08,53.2,23.06,55.05,23.05,55.02,19.22,54.98,11.2,49.74,11.21,49.53,-36.25,58.2,-36.27,58.55,43.7,57.54,43.7,50.89,43.72,49.87,43.72,49.85,37.94,53.29,37.93,53.26,29.94,49.81,29.95],[78.91,-64.74,61.9,-64.61,53.59,-64.55,45.34,-64.49,33.07,-64.39,32.99,-72.57,32.95,-77,39.72,-77.05,46.24,-77.1,52.8,-77.15,59.25,-77.2,65.76,-77.25,72.24,-77.3,78.79,-77.35,78.83,-72.99,78.9,-65.57]], // OSM source rings, centimetre projection; see research/landmark-source-bucharest.json
     opera: [[-62.62,-56.68,-62.66,1.2,-24.75,1.21,-24.78,58.25,24.2,58.26,24.24,1.05,62.61,1.06,62.64,-58.24,44.68,-58.24,44.66,-24.79,29.94,-24.71,29.92,-31.72,-27.86,-32.13,-27.99,-24.81,-45.34,-24.82,-45.32,-56.68]], // OSM source rings, centimetre projection; see research/landmark-source-bucharest.json
     politehnica: [[-23,-24,24,-23.5,23.5,24,-24,23]],
-    hermes: [[5.5,57,6.5,-10.5,64.5,-10,64,57.5],[5,-20.5,5,-57.5,43.5,-57.5,43.5,-21],[-4,57.5,-64.5,57.5,-64,-47,-4.5,-48.5],[-28.5,-23,-46.5,-23.5,-47.5,33.5,-29,34]],
+    hermes: [[5.8273,57.0473,6.4233,-10.3554,64.8489,-9.9116,64.256,57.4839],[4.7708,-20.742,4.8546,-57.5687,43.617,-57.5246,43.5332,-20.6978],[-4.0562,57.5242,-36.4715,57.5414,-64.7523,57.4258,-64.1855,-47.1236,-4.5106,-48.3927,-4.3608,-14.5224],[-28.4819,-23.2974,-46.953,-23.5054,-47.6903,33.5317,-29.0544,33.7522]],
     baneasaterm: [[-22.85,-20.03,-24.34,-17.69,-58.51,-40.03,-58.21,-40.53,-62.57,-42.79,-55.65,-55.14,-51.21,-53.38,-50.13,-55.43,-13.98,-35.34,-15.16,-32.71,-7.84,-29.2,-3.52,-31.09,1.8,-31.85,6.31,-31.29,10.17,-29.86,14.1,-27.22,21.05,-30.4,16.61,-37.19,49.13,-53.8,51.93,-55.1,53.47,-53.55,57.19,-55.03,62.73,-44.12,59.85,-43.08,61.97,-38.3,26.38,-17.05,24.89,-19.25,23,-18.1,26.6,-12.58,32.75,-16.36,33.79,-13.78,29.46,-10.26,25.64,-5.81,22.62,-1.09,20.02,3.88,18.23,9.33,16.6,15.56,13.56,15.59,13.88,8.83,7.31,8.73,7.32,10.6,11.99,10.67,9.66,50.38,6.68,50.53,6.59,55.5,-6.42,55.33,-6.4,50.92,-6.46,44.33,-7.34,3.16,-10.73,0.74,-13.1,-1.82,-14.94,-4.78,-16.23,-8.07,-16.87,-11.54,-16.58,-16.78]], // OSM source rings, centimetre projection; see research/landmark-source-bucharest.json
     otp: [[-182.1,196.02,-204.19,195.93,-203.76,120.3,-203.28,117.65,-201.96,115.05,-200.33,112.8,-197.58,111.06,-194.72,110.44,-190.35,110.44,-177.93,110.46,-29.4,110.67,-29.51,118.2,-32.42,118.27,-32.48,122.18,-27.52,122.1,-27.62,128.07,-8.67,127.8,-8.89,136.59,-8.91,141.06,-8.92,141.33,-9.15,152.98,-9.16,161.91,-9.14,165.06,-9.13,168.23,-9.14,175.3,-9.43,188.74,-11.21,189.85,-10.4,190.4,-9.88,190.91,-9.61,191.56,-9.55,192.45,-9.75,193.52,-10.49,194.51,-11.43,195.1,-12.38,195.35,-13.33,195.36,-14.08,195.2,-14.82,194.6,-15.45,193.97,-15.78,196.15,-30.12,196.38,-58.18,195.91,-83.43,195.85,-119.19,195.94,-165.44,196.01,-169.42,196.01],[115.29,194.33,115.28,174.79,115.28,167.57,115.26,150,115.26,142.05,115.26,137.36,115.25,129.06,196.39,128.97,204.38,128.97,204.4,150.45,204.42,174.24,204.43,194.24,181.38,194.24,163.84,194.29,136.68,194.22],[-1.77,117.31,14.39,117.31,19.01,117.31,36.18,117.32,36.18,107.83,32.63,107.78,32.53,94.11,32.55,68.37,32.57,60.84,45.06,60.88,45.06,64.48,45.43,65.24,46.12,65.62,46.68,65.71,47.43,65.51,47.9,65.12,48.18,64.48,48.17,57.71,45.05,57.71,45.05,58.78,32.56,58.74,32.59,21.39,44.67,21.32,44.66,24.88,45.02,25.63,45.72,26.01,46.27,26.11,47.04,25.91,47.58,25.33,47.78,24.88,47.76,18.1,44.65,18.11,44.65,19.18,32.59,19.12,32.6,-12.91,34,-12.9,35.13,-16.98,45.23,-16.9,45.24,-13.31,45.59,-12.55,46.29,-12.17,46.84,-12.08,47.6,-12.28,48.06,-12.67,48.34,-13.32,48.33,-20.09,45.21,-20.08,45.25,-19.04,35.75,-19.11,36.67,-22.4,38.5,-33.77,39.06,-48.24,38.33,-57.53,48.77,-57.49,48.69,-53.12,48.98,-52.39,49.46,-51.77,50.12,-51.36,50.78,-51.18,51.56,-51.35,52.3,-51.8,52.82,-52.41,53.08,-53.17,53.12,-61.15,48.73,-61.17,48.73,-60.27,38.12,-60.33,36.77,-71.19,35.15,-81.98,35,-90.16,35.48,-95.6,49.05,-95.62,49.05,-91.12,49.34,-90.4,49.81,-89.78,50.47,-89.37,51.14,-89.19,51.91,-89.36,52.65,-89.8,53.17,-90.42,53.44,-91.17,53.47,-99.15,49.1,-99.17,49.09,-98.17,35.85,-98.36,37.38,-102.24,39.52,-105.81,42.68,-109.93,45.42,-114.28,46.85,-118.29,48.01,-124.66,48.81,-132.68,49.07,-138.56,49.02,-143.29,59.27,-143.26,59.25,-138.88,59.53,-138.15,60,-137.52,60.66,-137.12,61.33,-136.94,62.1,-137.11,62.84,-137.55,63.36,-138.17,63.62,-138.92,63.67,-146.9,59.29,-146.93,59.27,-146.02,49.02,-146.05,48.17,-155.72,47.05,-163,44.37,-169.27,41.64,-172.21,49.71,-180.11,50.29,-179.49,53.45,-182.54,47.88,-188.34,47.17,-188.65,46.4,-188.77,45.76,-188.62,45.04,-188.26,44.6,-187.6,44.38,-186.77,44.44,-185.96,44.77,-185.23,47.82,-182.06,39.73,-174.16,35.65,-177.29,31,-179.17,24.93,-180.33,17.84,-180.55,17.4,-191.95,18.26,-192,18.08,-196.39,10.04,-196.04,9.34,-195.71,8.73,-195.21,8.36,-194.53,8.21,-193.85,8.42,-193.09,8.89,-192.37,9.54,-191.88,10.3,-191.65,14.67,-191.85,15.12,-180.44,10.25,-180.11,5.37,-179.18,0.97,-177.63,-2.21,-175.76,-10.85,-183.58,-7.88,-186.8,-7.56,-187.54,-7.52,-188.34,-7.76,-189.17,-8.2,-189.82,-8.82,-190.15,-9.57,-190.31,-10.34,-190.17,-11.05,-189.83,-16.51,-183.92,-13.29,-180.95,-12.7,-181.58,-4.37,-174.09,-5.8,-172.34,-7.83,-169.61,-9.37,-166.56,-10.21,-163.05,-10.96,-157.96,-11.95,-146.95,-22.66,-147,-22.63,-151.39,-22.89,-152.15,-23.39,-152.77,-24.14,-153.22,-24.9,-153.4,-25.58,-153.22,-26.24,-152.83,-26.71,-152.21,-27.01,-151.48,-27.06,-143.43,-22.68,-143.41,-22.67,-144.27,-12.04,-144.23,-11.6,-131.79,-10.28,-119.55,-9.24,-115.26,-7.32,-111.61,-5.21,-108.36,-2.79,-104.81,-1.28,-101.07,-0.45,-97.91,-13.18,-98.1,-13.21,-98.91,-17.59,-98.93,-17.63,-90.88,-17.34,-90.16,-16.87,-89.53,-16.21,-89.13,-15.54,-88.95,-14.77,-89.11,-14.02,-89.56,-13.51,-90.18,-13.24,-90.93,-13.19,-95.33,-0.04,-95.2,0.07,-91.59,0.11,-86.15,-0.1,-80.21,-0.69,-73.3,-1.72,-65.4,-2.06,-60.21,-13.2,-60.27,-13.2,-61.14,-17.59,-61.16,-17.63,-53.11,-17.34,-52.38,-16.87,-51.75,-16.2,-51.35,-15.54,-51.17,-14.76,-51.34,-14.02,-51.78,-13.5,-52.4,-13.24,-53.15,-13.22,-57.54,-2.24,-57.48,-2.63,-51.8,-2.56,-44.05,-1.94,-32.7,-1.26,-24.03,-0.83,-19.62,-9.41,-19.45,-9.39,-21.51,-12.51,-21.5,-12.49,-14.72,-12.13,-13.98,-11.61,-13.64,-10.91,-13.51,-10.13,-13.69,-9.66,-14.08,-9.38,-14.73,-9.37,-17.25,-0.6,-17.4,0.1,-12.96,1.77,-12.92,1.76,33.78,1.76,34.92,1.76,36.02,1.74,68.38,1.74,94.25,1.76,107.8,-1.75,107.83]], // OSM source rings, centimetre projection; see research/landmark-source-bucharest.json
     ase: [[-18.37,-0.54,-20.11,-46.76,-44.45,-48.3,-40.32,31.74,-40.09,34.61,-39.62,36.11,-38.88,37.63,-37.5,38.59,-36.19,39.4,-34.07,40.02,-32.12,39.99,-30.61,39.25,-25.91,40.74,-22.94,41.86,-19.36,43.15,-15.02,45.02,-11.23,46.82,-7.85,48.63,-4.55,50.89,-1.03,47.03,3.58,42.33,-1.71,38.35,4.08,34.24,34.44,37.88,34.7,36.01,34.77,34.12,38.67,34.62,42.3,6.45,7.57,2.44],[0.46,14.35,0.04,19.98,2.27,23.06,15.77,24.24,16.66,16.01],[-9.82,8.57,-3.5,17.01,-3.15,9.35],[-5.36,22.96,-19.02,33.91,-11.0,36.2,-1.1,28.26],[-25.56,4.87,-17.76,5.39,-30.45,16.21,-30.68,8.66,-27.19,8.69,-25.69,7.43]],
@@ -754,7 +757,7 @@ function bCathedral(b) {
     const S = '#f4f0e7', TR = '#e3dccb', NI = '#d6cdb9', WIN = '#3e434a', GOLD = '#d2a645', GOLDR = '#b88d3a', CL = '#fbf8f1';
     b.wall = S;
     const [outer] = P.cathedral.map(pts), domesLater = [];
-    const HW = 41.4;
+    const HW = 48; // OSM primary height52 includes the4m nave roof; do not add a roof above52.
     b.prism(offset(outer, 2.5), 0, 1.4, '#cfc6b4', { topCol: '#d9d1c1' });                      // stylobate
     b.prism(outer, 1.4, HW, S, { topCol: TR });
     b.windows(outer, 1.4, 9, 7.6, '#6d6a62', { bay: 4.4, wf: 0.5, hf: 0.7, start: 1.2, arch: true, minL: 7 });     // ground-floor arcade
@@ -766,7 +769,7 @@ function bCathedral(b) {
         b.cyl(x, 1.4, z, 3.4, 3.6, HW + 4.6, S, 10);
         b.cyl(x, HW + 6, z, 3.9, 3.9, 0.8, TR, 8); domesLater.push([x, HW + 6.8, z, 3.5, 4.2, 10, 0]);
     }
-    b.roof(outer, HW, 4, GOLDR, 3, { topCol: GOLDR });
+    b.sourceRoof(outer, HW, 4, GOLDR, 3);
     const cross = (x, y, z, h) => { b.box(x, y, z, h * 0.09, h, h * 0.09, GOLD, { mat: 'g' }); b.box(x, y + h * 0.62, z, h * 0.09, h * 0.09, h * 0.52, GOLD, { mat: 'g' }); };
     // gilded ribbed hemispherical dome (slightly raised), ribs, collar; lantern when `lan` > 0
     const domeG = (x, y, z, r, h, seg, lan) => {
@@ -778,8 +781,8 @@ function bCathedral(b) {
         return y + h;
     };
     // drum: white stone polygon, tall arched windows (recessed dark) between paired colonnettes, arcaded cornice
-    const drum = (x, z, y0, y1, r, seg, winH) => {
-        const ring = ellipse(x, z, r, r, seg, Math.PI / seg), side = 2 * r * Math.sin(Math.PI / seg);
+    const drum = (x, z, y0, y1, r, seg, winH, sourceRing = null) => {
+        const ring = sourceRing || ellipse(x, z, r, r, seg, Math.PI / seg), side = 2 * r * Math.sin(Math.PI / seg);
         b.prism(ring, y0, y1, S, { top: false });
         b.cornice(ring, y0, 0.9, 0.5, TR);
         b.windows(ring, y0 + 1, y1 - 1.6, y1 - y0 - 2.6, WIN, { bay: side, wf: 0.34, hf: winH, start: (y1 - y0) * 0.12, arch: true, minL: 0.5, off: 0.05 });
@@ -790,31 +793,32 @@ function bCathedral(b) {
         }
         b.cornice(ring, y0 + ch, 0.5, 0.35, TR); b.cornice(ring, y1 - 1.2, 1.2, 0.7, TR);
     };
-    // Pantocrator tower over the crossing: square base, 16-sided lower drum, drum 71.8-97.8 m, dome to 121, lantern 127, cross 133
-    const mx = 13.5, base = rect(mx - 17, -17, mx + 17, 17);
-    b.prism(base, HW, 56, S, { topCol: GOLDR }); b.windows(base, HW, 56, 14.6, NI, { bay: 2.6, wf: 0.6, hf: 0.6, start: 4, arch: true });
-    b.cornice(base, 55, 1, 0.8, TR);
-    const low = ellipse(mx, 0, 15.6, 15.6, 16, Math.PI / 16);
-    b.prism(low, 56, 71.8, S, { topCol: GOLDR }); b.windows(low, 57, 71, 14, WIN, { bay: 6, wf: 0.3, hf: 0.42, start: 4, arch: true, minL: 0.5 }); b.cornice(low, 70.8, 1, 0.8, TR);
-    drum(mx, 0, 71.8, 97.8, 14.2, 16, 0.6);
-    const ly = domeG(mx, 97.8, 0, 14.6, 23.2, 24, 7.2);
-    cross(mx, ly, 0, 6);
+    // Mapped central parts:62.8m mansard base,71.8m lower drum,97.8m drum and127.05m crown.
+    const source=BUCHAREST_SOURCE_MASSES.cathedral, mx=14.61, mz=2.78, base=source.base;
+    b.prism(base,HW,58.8,S,{top:false});b.windows(base,HW,58.8,10.8,NI,{bay:2.6,wf:0.6,hf:0.6,start:2,arch:true});
+    b.sourceRoof(base,58.8,4,GOLDR,3,{mansard:true});
+    const low=source.lowerDrum;
+    b.prism(low,62.8,69.8,S,{top:false});b.windows(low,63,69.5,6.5,WIN,{bay:6,wf:0.3,hf:0.6,start:1,arch:true,minL:0.5});
+    b.sourceRoof(low,69.8,2,GOLDR,2,{mansard:true});
+    drum(mx,mz,71.8,97.8,14.25,16,0.6,source.drum);
+    // Keep the ribbed dome/lantern/cross detail while applying the explicit mapped127.05m envelope.
+    // Project/engineering references use differing interior-floor and ground datums; recorded in the source ledger.
+    const crownScale=(127.05-97.8)/(133.04-97.8);
+    b.push(M(0,97.8*(1-crownScale),0,0,1,crownScale,1));
+    const ly=domeG(mx,97.8,mz,14.6,23.2,24,7.2);cross(mx,ly,mz,6);b.pop();
     // four secondary towers at the corners of the crossing (≈ 62 m)
     for (const [x, z] of [[mx - 21.5, -21], [mx + 21.5, -21], [mx - 21.5, 21], [mx + 21.5, 21]]) {
         const q = rect(x - 5.2, z - 5.2, x + 5.2, z + 5.2);
-        b.prism(q, HW, 46, S, { topCol: GOLDR }); b.windows(q, HW, 46, 4.6, WIN, { bay: 3.4, wf: 0.36, hf: 0.6, start: 1, arch: true }); b.cornice(q, 45.4, 0.6, 0.6, TR);
-        drum(x, z, 46, 56.5, 4.6, 8, 0.6);
-        const y2 = domeG(x, 56.5, z, 4.9, 5.6, 12, 1.6);
+        b.prism(q, HW, 52, S, { topCol: GOLDR }); b.windows(q, HW, 52, 4, WIN, { bay: 3.4, wf: 0.36, hf: 0.6, start: 1, arch: true }); b.cornice(q, 51.4, 0.6, 0.6, TR);
+        drum(x, z, 52, 65, 4.6, 8, 0.6);
+        const y2 = domeG(x, 65, z, 4.9, 7, 12, 1.6);
         cross(x, y2, z, 3.2);
     }
-    // west bell tower (≈ 75.5 m) over the narthex
-    const bx = -48, bq = rect(bx - 10, -10, bx + 10, 10);
-    b.prism(bq, HW, 58, S, { topCol: GOLDR });
-    b.windows(bq, HW, 58, 16.6, WIN, { bay: 5, wf: 0.4, hf: 0.6, start: 4, arch: true });
-    b.cornice(bq, 57, 1, 0.8, TR);
-    drum(bx, 0, 58, 72, 7.6, 12, 0.6);
-    const by = domeG(bx, 72, 0, 8, 8.5, 16, 2.6);
-    cross(bx, by, 0, 4.5);
+    // Western source body w1282739666 height78; the conflicting height4 dome tag is not an absolute tower height.
+    const bx=-46.69,bz=-0.42,bq=source.bell;
+    b.prism(bq,HW,64.5,S,{top:false});b.windows(bq,HW,64.5,8.25,WIN,{bay:5,wf:0.4,hf:0.6,start:1,arch:true});
+    b.cornice(bq,63.5,1,0.8,TR);drum(bx,bz,64.5,78,11.4,12,0.6);
+    const by=domeG(bx,78,bz,11.4,8.5,16,2.6);cross(bx,by,bz,4.5); // dome/cross rise remains a photo-led estimate
     for (const [x, y, z, r, h, sg, lan] of domesLater) { const y2 = domeG(x, y, z, r, h, sg, lan); cross(x, y2 - 0.2, z, 2.4); }
     // west gable: semicircular pediment with a rose window above the porch
     b.geo(new THREE.CylinderGeometry(9, 9, 1.2, 16, 1, false, 0, Math.PI), S, M(-60.6, HW, 0, 0, 1, 1, 1, Math.PI / 2, Math.PI / 2));
@@ -1138,19 +1142,19 @@ function bRegal(b) {
     const S = '#e1d6bc', TR = '#d8ccb0', WIN = '#4f565a', COL = '#ebe2cd';
     b.wall = S;
     const [p] = P.regal.map(pts);
-    const top = storeys(b, p, 0, [[6.2, 0.42, 0.62, true], [5.6, 0.36, 0.62, false], [4.6, 0.34, 0.5, false]],
-        { wall: S, win: WIN, trim: TR, bay: 4.6, courses: [0], pilasters: true, pilasterFrom: 6.2, pilasterEvery: 2, pilasterW: 1, corniceOut: 1.1, corniceH: 1.3, parapet: 1.2, roofCol: '#b9b2a4', minL: 6 });
-    for (let k = 0; k < 5; k++) b.cornice(p, 0.6 + k * 1.15, 0.08, 0.06, '#cfc3a6');           // rusticated joints of the ground floor
-    b.ring(offset(p, 0.25), top - 0.1, top + 1.0, '#ddd2b8');                                  // balustraded attic (solid read)
-    b.piers(offset(p, 0.3), top - 0.1, top + 1.0, 2.2, TR);
-    // cour d'honneur: paired giant columns on pedestals along the central body and the inner faces of the wings
-    const fz = (x) => (zAt([p], x)?.[0] ?? 2);
-    for (const x of [-22, -12, -1, 10, 21, 32, 43]) for (const d of [-1.05, 1.05]) {
-        const z = fz(x + d) - 1.25;
-        b.box(x + d, 6.2, z, 1.7, 1.1, 1.7, TR); b.cyl(x + d, 7.3, z, 0.62, 0.7, 9.4, COL, 12);
-        b.cyl(x + d, 16.7, z, 0.85, 0.66, 1.1, TR, 8); b.box(x + d, 17.6, z, 1.9, 0.25, 1.9, TR);
+    // The 12 m primary outline is not a uniform facade-height instruction: the complete OSM part survey
+    // maps 4 m plinths, 14 m pilasters/columns, 15.7/16 m bodies and 18 m upper returns.
+    // Preserve those 263 explicit part boundaries and min_height bands instead of the prior uniform 19.9 m mass.
+    for (const layer of BUCHAREST_SOURCE_MASSES.regal.layers) {
+        for (const q of layer.polygons) {
+            b.prism(q.ring,layer.y0,layer.height,'#eee8aa',{holes:q.holes,top:false});
+            if(layer.height-layer.y0>3)b.windows(q.ring,layer.y0,layer.height,4.8,WIN,{bay:4.6,wf:0.36,hf:0.62,arch:layer.y0<4,minL:6});
+            b.colPolygon(q.ring,{holes:q.holes,y0:layer.y0,y1:layer.height});
+        }
+        for (const q of layer.caps) b.cap(q.ring,layer.height,layer.height>=15.7?'#c0c0c0':'#d8ccb0',q.holes);
     }
-    for (const [x0, x1] of [[-24, 0], [-2, 23], [19, 45]]) { const z = Math.min(fz(x0), fz(x1)) - 1.4; b.box((x0 + x1) / 2, 17.85, z, x1 - x0 + 2, 1.3, 2.4, TR); }
+    // Entry details from independent facade photographs; positions remain explicit modelling estimates.
+    const fz = (x) => (zAt([p], x)?.[0] ?? 2);
     // main door + iron-and-glass marquee
     const zd = fz(10); b.box(10, 0, zd - 0.15, 3.4, 5, 0.3, '#5b4a35'); b.box(10, 4.6, zd - 3, 9, 0.35, 6, '#2c3134', { mat: 'g' }); b.box(10, 4.95, zd - 3, 8.4, 0.12, 5.6, '#9db0b8', { mat: 'g' });
     for (const s2 of [-1, 1]) b.box(10 + s2 * 4.3, 0, zd - 5.6, 0.2, 4.6, 0.2, '#2c3134');
@@ -1158,7 +1162,7 @@ function bRegal(b) {
     b.prism(rect(-36, -40, 59, fz(10) - 0.5), 0, 0.06, '#c9c4b8');
     b.fence([[-55, -42], [-8, -44], [28, -44], [75, -36]], 2.4, 7, '#22272a', { post: 0.7, postCol: '#d6ccb4', base: 0.6, baseCol: '#d6ccb4', bars: 0.35 });
     b.cyl(-6, 0, -2 + fz(-6), 0.1, 0.14, 12, '#dddddd', 6); flag(b, -6, 11.8, -2 + fz(-6), 2.6);
-    b.colPolygon(p, { y1: 19.9 });
+
 }
 
 // Palatul Victoria (Government, Duiliu Marcu, 1937-52) — OSM way 23554419 + parts 1516914665 (20 m),
@@ -1507,21 +1511,25 @@ function bFountains(b) {
 // height 137, levels 37, colour #3960DA). Lens/ellipse plan, blue glass with white floor-slab lines, the glass
 // skin runs past the roof as a crown cut on a slant (≈ 125 -> 137 m), 3-level lobby podium.
 // Src: https://en.wikipedia.org/wiki/Sky_Tower_(Bucharest) (137 m, 37 floors) ; OSM way 219622660 ; game/research/bucharest-floreasca.json landmarks[skytower]
-function bSkyTower(b) {
-    const [p] = P.skytower.map(pts), GL = '#4a7fa6', LN = '#c8d4e2';   // blue-green glass (research bucharest-floreasca: skytower)
-    b.prism(offset(p, 3), 0, 9, '#2f3d4a', { mat: 'g', topCol: '#9aa6b0' });
-    b.prism(p, 9, 125, GL, { mat: 'g', topCol: '#9fb3c2' });
-    for (let y = 9 + 6.8; y < 124; y += 6.8) b.cornice(p, y, 0.3, 0.08, LN);          // every 2nd slab (budget)
-    b.pilasters(p, 9, 125, 7, 0.25, 0.15, LN, {});
-    // slanted crown: skin height varies linearly along x from 129 (west) to 137 (east)
-    const bb = bbox([p]), top = (x) => 129 + 8 * (x - bb.x0) / (bb.x1 - bb.x0), s = signedArea(p) > 0 ? 1 : -1;
+function bSkyTower(b, ctx = {}) {
+    const source = ctx.sourceBuildings?.w219622660?.[0];
+    const p = source?.ring || P.skytower.map(pts)[0], top = source?.h ?? 137;
+    const GL = source?.colour || '#3960da', LN = '#b8c8d4';
+    // OSM height137m,37levels and roof:shape=flat are authoritative. The owner's
+    // daylight photograph supports vertical glazing variation, not an invented8m crown slope.
+    b.prism(p, 0, 5, '#344754', { mat: 'g', top: false });
+    b.prism(p, 5, top, GL, { mat: 'g', topCol: source?.roofColour || '#a6a9aa' });
+    const fh = (top - 5) / 36;
+    for (let y = 5 + fh; y < top - .1; y += fh) b.cornice(p, y, .08, .035, LN);
     for (let i = 0; i < p.length; i++) {
-        const [ax, az] = p[i], [bx, bz] = p[(i + 1) % p.length];
-        b.quad([ax, 125, az], [bx, 125, bz], [bx, top(bx), bz], [ax, top(ax), az], '#6c8fc6', 'g', [s * (bz - az), 0, -s * (bx - ax)]);
-        b.quad([bx, 125, bz], [ax, 125, az], [ax, top(ax), az], [bx, top(bx), bz], '#8ea9cf', 'g', [-s * (bz - az), 0, s * (bx - ax)]);   // inner face
+        const a=p[i],q=p[(i+1)%p.length],L=Math.hypot(q[0]-a[0],q[1]-a[1]),n=Math.max(1,Math.round(L/1.5));
+        for(let j=0;j<n;j++) {
+            const f=(j+.08)/n,g=(j+.92)/n,x0=a[0]+(q[0]-a[0])*f,z0=a[1]+(q[1]-a[1])*f,x1=a[0]+(q[0]-a[0])*g,z1=a[1]+(q[1]-a[1])*g;
+            if((i+j)%4===1) b.quad([x0,5,z0],[x1,5,z1],[x1,top-.1,z1],[x0,top-.1,z0],'#a3b5c4','g',[(q[1]-a[1]),0,-(q[0]-a[0])]);
+        }
     }
-    b.cyl(5, 125, 0, 3, 3, 6, '#cfd5da', 8);
-    b.colPoly([p], 15);
+    b.pilasters(p, 5, top, 1.5, .08, .025, LN, {});
+    b.colPolygon(p, { holes: source?.holes || [], y1: top });
 }
 
 // Promenada Mall (2013, Floreasca) — 3 levels / 18 m (OSM way 240694437), glass + white fins, large planted
@@ -1685,25 +1693,26 @@ function bOpera(b) {
 // (458259608) and the smaller building 231123137 (levels unmapped: 7 assumed). Blue-green curtain walls with
 // white spandrel lines and aluminium fins, recessed glazed ground floors, rooftop plant boxes, "HERMES" sign.
 // Src: https://www.openstreetmap.org/way/533147567 (Clădirea A, 9 levels)
-function bHermes(b) {
-    // (round 5) landlord/agency photos (esop.ro listing; viewed only, not kept): 9-10 storeys, alternating horizontal bands of
-    // grey metal panels and green-tinted glass ribbons, some full-height green glass bays, double-height recessed glazed
-    // ground floor on columns, rooftop plant screens.
-    const ps = P.hermes.map(pts), H = [35, 27.5, 31.5];
-    for (let i = 0; i < 3; i++) {
-        const holes = i === 2 ? [ps[3]] : [];
-        b.prism(offset(ps[i], -1), 0, 7, '#3f5d5a', { mat: 'g', top: false });                // recessed double-height glazed GF
-        b.pilasters(ps[i], 0, 7, 8, 0.6, 0.6, '#9a9fa1', {});
-        b.prism(ps[i], 7, H[i], '#8b9094', { holes, topCol: '#9aa4ab' });                       // grey metal panel bands…
-        b.bands(ps[i], 7, H[i], 3.6, '#4d8a85', { frac: 0.55, off: 0.06, mat: 'g', start: 1.2, wall: null, holes });   // …and green glass ribbons
-        b.pilasters(ps[i], 7, H[i], 9, 1.6, 0.08, '#3f7a74', { every: 3 });                     // full-height green glass bays
-        b.cornice(ps[i], H[i], 1.1, 0.25, '#c9cdcf');
-        b.prism(offset(ps[i], -6), H[i], H[i] + 3, '#b5bcc1');
+function bHermes(b, ctx = {}) {
+    const fallback=P.hermes.map(pts), ids=['w533147567','w231123137','r6774709'];
+    const sources=ids.map(id=>ctx.sourceBuildings?.[id]?.[0]);
+    const ps=sources.map((source,i)=>source?.ring||fallback[i]);
+    const heights=[36,28,32.4];
+    // Fresh OSM gives9levels to bothA andB+C. Untagged metre heights and the
+    // smaller block's7-storey rhythm remain explicit estimates. Owner: adventum.eu/asset/hermes-business-campus/.
+    for(let i=0;i<3;i++) {
+        const source=sources[i],holes=source?.holes||(i===2?[fallback[3]]:[]),top=source?.h??heights[i];
+        const levels=source?.levels|| (i===1?7:9),gf=4.5,fh=(top-gf)/Math.max(1,levels-1);
+        b.prism(offset(ps[i],-.6),0,gf,'#3f5664',{mat:'g',top:false,holes});
+        b.pilasters(ps[i],0,gf,8,.4,.3,'#a8adb0',{});
+        b.prism(ps[i],gf,top,'#b3b6b9',{holes,topCol:source?.roofColour||'#979d9f'});
+        b.bands(ps[i],gf,top,fh,'#6d8796',{frac:.58,off:.025,mat:'g',start:.9,wall:null,holes});
+        b.pilasters(ps[i],gf,top,9,.9,.025,'#596f7d',{every:3});
+        b.cornice(ps[i],top-.15,.15,.035,'#c9cdcf');
+        b.colPolygon(ps[i],{holes,y1:top});
     }
-    b.text('HERMES', 35, 31, 57.9, 0, 2.4, '#ffffff');
-    // Luxoft (2017 CV stop): lobby door on the Pompeiu (south) face of building A, campus name on the canopy, tenant plate
-    entrance(b, nearestFacade(ps[0], 2, 89), { w: 3.6, h: 3.4, canopy: 2.6, canopyCol: '#e8ecef', canopyText: 'HERMES BUSINESS CAMPUS', canopyTextH: 0.16, canopyTextCol: '#2b4a63', plate: { w: 0.66, h: 0.36, y: 1.35, bg: '#ffffff', lines: [['LUXOFT', 0.12, '#2a3a8c'], ['A DXC COMPANY', 0.04, '#5b6b7a']] } });
-    b.colPoly(ps.slice(0, 3), 20);
+    // Source-address tenant marker, kept at the existing chapter approach.
+    entrance(b,nearestFacade(ps[0],2,89),{w:3.6,h:3.4,canopy:2.6,canopyCol:'#e8ecef',canopyText:'HERMES BUSINESS CAMPUS',canopyTextH:.16,canopyTextCol:'#2b4a63',plate:{w:.66,h:.36,y:1.35,bg:'#ffffff',lines:[['LUXOFT',.12,'#2a3a8c'],['A DXC COMPANY',.04,'#5b6b7a']]}});
 }
 
 // Aeroportul Băneasa "Aurel Vlaicu" — 1952 terminal (Art-Deco / socialist classicism): three wings
@@ -2016,30 +2025,29 @@ function bARO(b) {
 // OSM way 12903132 + building:parts 394254329..37 (heights above).
 // Src: https://en.wikipedia.org/wiki/Space_Needle (605 ft / 184 m; observation 520 ft; top house Ø 138 ft) ; OSM way 12903132
 function bSpaceNeedle(b) {
-    const W = '#f3f3ef', prof = [[18, 0], [12.5, 28], [8, 70], [6.2, 108], [7.2, 132], [10.5, 147]];
+    // OSM parts 394254329–337, 484–488 and 394956342–344; official 605 ft beacon.
+    // A continuous 1:1 top-house profile replaces the shallow stacked discs.
+    const W = '#f3f3ef', GL = '#71899a';
     for (let k = 0; k < 3; k++) {
-        const a0 = k / 3 * Math.PI * 2 + 0.3;
-        for (const s of [-1, 1]) {
-            const pt = prof.map(([r, y], i) => { const spread = (i === 0 ? 0.2 : i < 3 ? 0.13 : 0.1) * s; const a = a0 + spread * (r > 9 ? 1 : 0.8); return [Math.cos(a) * r, y, Math.sin(a) * r]; });
-            b.tube(pt, 1.5, W, { seg: 18, radial: 6 });
+        const a = k / 3 * Math.PI * 2 + Math.PI / 2, ca = Math.cos(a), sa = Math.sin(a);
+        for (const side of [-1, 1]) {
+            const line = [];
+            for (let i = 0; i <= 20; i++) { const y = i / 20 * 144, r = y < 113 ? 5.2 + 12.6 * Math.pow(1-y/113,1.55) : 5.2 + Math.pow((y-113)/31,1.35)*7.6, gap = (y < 113 ? 0.95+2.3*Math.pow(1-y/113,1.3) : 0.95+(y-113)/31*1.9)*side; line.push([ca*r-sa*gap,y,sa*r+ca*gap]); }
+            b.tube(line,0.78,W,{seg:24,radial:6});
+            b.col(ca*17.8-sa*3.25*side,sa*17.8+ca*3.25*side,1,1,0,{y0:0,y1:8});
         }
-        b.box(Math.cos(a0) * 18, 0, Math.sin(a0) * 18, 6, 1.2, 6, '#cfcfca');
-        // horizontal ties at the skyline level
-        b.tube([[Math.cos(a0) * 12.4, 30, Math.sin(a0) * 12.4], [0, 30, 0]], 0.35, W, { seg: 2, radial: 4 });
+        b.box(ca*17.8,0,sa*17.8,7,0.8,7,'#cfcfca');
+        for (const y of [30.48,60.96,92]) b.strut([ca*10,y,sa*10],[ca*4,y,sa*4],0.5,0.5,W);
     }
-    b.cyl(0, 0, 0, 3.4, 3.4, 147, '#d9d9d4', 10);                          // elevator core
-    b.cyl(0, 29.8, 0, 9, 9, 1.4, W, 16);                                   // 100-ft skyline level
-    // top house
-    b.cyl(0, 141, 0, 21, 6.5, 9, W, 24);                                   // underside
-    b.cyl(0, 150, 0, 21.4, 21, 2.4, '#71899a', 24, { mat: 'g' });          // restaurant glazing
-    b.cyl(0, 152.4, 0, 21.8, 21.8, 0.6, W, 24);
-    b.cyl(0, 153, 0, 20.4, 20.4, 3, '#71899a', 24, { mat: 'g' });          // observation deck
-    b.cyl(0, 156, 0, 23.5, 21.5, 1.2, W, 24);                               // halo ring
-    b.cyl(0, 157.2, 0, 17, 22.5, 2.4, '#e9e7e1', 24);
-    b.cone(0, 159.6, 0, 17, 5, '#e6a43c', 24);                              // "galaxy gold" roof
-    b.cyl(0, 164, 0, 3.6, 4, 3.5, W, 10);
-    b.cyl(0, 167.5, 0, 0.45, 0.9, 16.5, '#cfcfcf', 6);
-    b.col(0, 0, 14, 14);
+    b.cyl(0,0,0,4,4,141,'#d9d9d4',16);
+    const base=U.w394254333; b.prism(base,0,6.096,GL,{mat:'g'}); b.cornice(base,6.096,0.35,0.2,W);
+    b.colPolygon(base,{y1:6.45});
+    b.cyl(0,29.9,0,11.6,11.6,0.58,W,24); b.cyl(0,30.48,0,11.4,11.4,6.096,GL,24,{mat:'g'}); b.cyl(0,36.576,0,11.6,11.6,0.35,W,24);
+    b.cyl(0,60.96,0,6.4,6.4,3.048,W,24);
+    const profile=[[3.9,138.2],[6.5,141.2],[11.5,145.6],[16.8,149.2],[20.4,149.962],[21.15,152.4],[20.3,152.4],[20.3,156.058],[21.2,156.058],[21.2,157.7],[21.9,158.115],[17,158.115],[17,161.163],[22.45,162.8],[22.45,163.5],[19.2,165.6],[13,168.1],[7.2,169.8],[3.3,170.307]];
+    for(let i=0;i<profile.length-1;i++){const [r0,y0]=profile[i],[r1,y1]=profile[i+1];if(y1===y0){b.cap(ellipse(0,0,Math.max(r0,r1),Math.max(r0,r1),32),y0,W);continue;} b.cyl(0,y0,0,r1,r0,y1-y0,(i===6||i===11)?GL:W,32,{mat:(i===6||i===11)?'g':'m',open:true});}
+    for(let i=0;i<36;i++){const a=i/36*Math.PI*2,c=Math.cos(a),sn=Math.sin(a);b.strut([c*20.4,152.4,sn*20.4],[c*20.4,156.058,sn*20.4],0.1,0.1,W);}
+    b.cone(0,170.307,0,3.2,10.82,W,16); b.cyl(0,181.1274,0,0.16,0.16,2.8726,'#cfcfcf',6);
 }
 
 // Columbia Center (Chester Lindsey, 1985) — 937 ft / 286 m, 76 floors (en.wikipedia "Columbia Center"),
@@ -2048,7 +2056,7 @@ function bSpaceNeedle(b) {
 // Sky View Observatory level (73) as a lighter band.
 // Src: https://en.wikipedia.org/wiki/Columbia_Center ; OSM rel 4648083
 function bColumbia(b) {
-    const ps = P.columbia.map(pts), H = [16, 280, 286, 223, 226, 160];
+    const ps = ['w107124288','w418132525','w418132517','w418132520','w418132515','w331293871'].map(id=>U[id]), H = [16, 280, 286, 223, 226, 160];
     ps.forEach((p, i) => {
         b.prism(p, 0, H[i], i ? '#262b31' : '#2c2a2a', { mat: 'g', topCol: '#3a4047' });
         if (!i) return;
@@ -2057,28 +2065,25 @@ function bColumbia(b) {
         b.cornice(p, H[i] - 1.5, 1.5, 0.3, '#4a525a');
     });
     b.cornice(ps[2], 270, 3, 0.2, '#6f7a84');                                                  // observatory glazing
-    b.colPoly([ps[0]], 25);
+    b.colPolygon(ps[0], { y1: 16 }); for (let i=1;i<ps.length;i++) b.colPolygon(ps[i], { y1: H[i] });
 }
 // Smith Tower (1914, Gaggin & Gaggin) — 484 ft / 148 m to the tip, 38 floors (en.wikipedia "Smith Tower").
 // White glazed terra-cotta 21-storey base (OSM way 52781661, height 75) with a window grid in paired bays,
 // tower shaft to the Chinese Room (35th floor) with an arcaded balcony, pyramidal cap with dormers and the
 // glass globe (lit blue/white at night).
 function bSmith(b) {
-    const W = '#efeadd', TR = '#e2dbc9', WIN = '#4f555c';
-    b.wall = W;
-    const [p] = P.smith.map(pts);
-    b.prism(p, 0, 75, W, { topCol: '#d8d2c4' });
-    b.windows(p, 0, 75, 3.55, WIN, { bay: 2.3, wf: 0.5, hf: 0.6, start: 4.5, minL: 3 });
-    b.pilasters(p, 0, 75, 6.9, 0.5, 0.25, TR, {}); b.cornice(p, 4, 0.8, 0.5, TR); b.cornice(p, 74, 1.2, 0.8, TR);
-    const t = rect(-9, -9, 9, 9);
-    b.prism(t, 75, 124, W); b.windows(t, 75, 122, 3.5, WIN, { bay: 2.25, wf: 0.5, hf: 0.6, start: 0.8, minL: 3 });
-    b.pilasters(t, 75, 124, 4.5, 0.5, 0.25, TR, { ends: true });
-    b.cornice(t, 117.5, 0.6, 1.2, TR); b.box(0, 124, 0, 19.4, 3.5, 19.4, TR);               // balcony + Chinese Room cornice
-    b.box(0, 127.5, 0, 20, 1.2, 20, '#e4dece');
-    b.hip(0, 128.7, 0, 19, 19, 17.5, '#ece6d8');
-    for (const [x, z, ry] of [[0, 6.2, 0], [0, -6.2, Math.PI], [6.2, 0, Math.PI / 2], [-6.2, 0, -Math.PI / 2]]) b.box(x, 131, z, 3, 2.6, 1.2, '#dcd5c3', { ry });   // dormers
-    b.sphere(0, 146.8, 0, 1.2, '#cfe2ea', { mat: 'g' });
-    b.colPoly([p], 15);
+    // Exact source part: shaft eaves 141 - 27 = 114 m; roof to 141 m,
+    // small copper lantern and separate pyramidal tip to 148 m. No invented dormers.
+    const p=U.w52781661,t=U.w418140386,W='#d2cfd2',TR='#e2dbc9',WIN='#4f555c'; b.wall=W;
+    b.prism(p,0,75,W,{topCol:'#7a7869'}); b.windows(p,0,75,3.55,WIN,{bay:2.3,wf:0.5,hf:0.6,start:4.5,minL:3});
+    b.pilasters(p,0,75,6.9,0.5,0.25,TR,{}); b.cornice(p,4,0.8,0.5,TR); b.cornice(p,74,1.2,0.8,TR);
+    b.prism(t,75,114,W); b.windows(t,75,114,3.5,WIN,{bay:2.25,wf:0.5,hf:0.6,start:0.8,minL:3});
+    b.pilasters(t,75,114,4.5,0.5,0.25,TR,{ends:true}); b.cornice(t,112.8,1.2,0.6,TR);
+    const box=bbox([t]); b.hip((box.x0+box.x1)/2,114,(box.z0+box.z1)/2,box.x1-box.x0,box.z1-box.z0,27,'#9c907a');
+    const lantern=U.w418140384,lb=bbox([lantern]),cx=(lb.x0+lb.x1)/2,cz=(lb.z0+lb.z1)/2;
+    b.prism(lantern,138.7,141.1,'#637660',{mat:'g'});
+    const tip=U.w418140385,tb=bbox([tip]); b.prism(tip,141.1,142,W);b.hip((tb.x0+tb.x1)/2,142,(tb.z0+tb.z1)/2,tb.x1-tb.x0,tb.z1-tb.z0,6,W);
+    b.colPolygon(p,{y1:75}); b.colPolygon(t,{y0:75,y1:141});
 }
 
 // Lumen Field (2002, Ellerbe Becket / LMN; structure MKA) — 68,740 seats. MKA project page: roof carried by
@@ -2090,7 +2095,7 @@ function bSmith(b) {
 // Src: https://www.mka.com/projects/lumen-field/ ; https://en.wikipedia.org/wiki/Lumen_Field ; OSM pitch 163840038
 function bLumen(b) {
     const CON = '#c9c6bf', BRK = '#8a4c3c', SEAT = '#2f5a78', FX = -2, FZ = 4.5, SPAN = 219.5;
-    b.prism(rect(FX - 30, FZ - 60, FX + 30, FZ + 60), 0, 0.25, '#3f8a3a');
+    b.prism(U.w163840038,0,0.25,'#3f8a3a');
     b.box(FX, 0.25, FZ, 1, 0.05, 110, '#e8e8e8');
     const t1o = roundRect(FX, FZ, 136, 196, 30), t1i = roundRect(FX, FZ, 76, 128, 8);
     b.prism(t1o, 0, 11, BRK, { holes: [t1i], topCol: SEAT });
@@ -2101,24 +2106,33 @@ function bLumen(b) {
     b.pilasters(t2o, 0, 22, 9, 1.2, 0.5, '#cfcdc7', {});
     for (const s of [-1, 1]) {                                              // upper sideline decks
         const o = rect(FX + s * 68, FZ - 100, FX + s * 104, FZ + 100);
-        b.prism(o, 22, 38, CON, { topCol: SEAT });
-        b.bands(o, 22, 38, 5.3, '#3a3f45', { frac: 0.3, wall: false });
+        b.prism(o, 22, 26, CON, { topCol: SEAT });
+        b.bands(o, 22, 26, 4, '#3a3f45', { frac: 0.3, wall: false });
         // roof canopy, tied arch (span 219.5 m) on two towers, hangers
-        b.box(FX + s * 82, 44, FZ, 54, 1.4, 222, '#203352', { rz: s * 0.06 });                    // navy roof membrane
+        const roof=U[s<0?'w458208106':'w458208107'],roofY=sourceSlope(roof,0,26,10,true);
+        sourceProfile(b,roof,roofY,'#e7e6e1');
+        // OSM's complete round canopy contours and 36 m tagged roof top.
+        for(let i=0;i<roof.length;i++){const a=roof[i],c=roof[(i+1)%roof.length];b.quad([a[0],roofY(...a)-.7,a[1]],[c[0],roofY(...c)-.7,c[1]],[c[0],roofY(...c),c[1]],[a[0],roofY(...a),a[1]],'#d1d3d3','m');}                    // navy roof membrane
         const arch = []; for (let i = 0; i <= 12; i++) { const t = i / 12, zz = FZ - SPAN / 2 + t * SPAN; arch.push([FX + s * 106, 44 + 22 * Math.sin(Math.PI * t), zz]); }
         b.tube(arch, 1.5, '#f0f0ee', { seg: 24, radial: 6 });
         b.box(FX + s * 106, 44.6, FZ, 2, 1.6, SPAN, '#e6e6e3');                // tie
-        for (let i = 1; i < 12; i++) { const t = i / 12, zz = FZ - SPAN / 2 + t * SPAN; b.tube([[FX + s * 106, 44 + 22 * Math.sin(Math.PI * t), zz], [FX + s * 72, 45.5, zz]], 0.35, '#e6e6e3', { seg: 2, radial: 4 }); }
+        for (let i = 1; i < 12; i++) { const t = i / 12, zz = FZ - SPAN / 2 + t * SPAN; b.tube([[FX + s * 106, 44 + 22 * Math.sin(Math.PI * t), zz], [FX + s * 72, roofY(FX+s*72,zz), zz]], 0.35, '#e6e6e3', { seg: 2, radial: 4 }); }
         for (const e of [-1, 1]) { b.box(FX + s * 106, 0, FZ + e * SPAN / 2, 5, 44, 5, CON); b.box(FX + s * 106, 44, FZ + e * SPAN / 2, 6.5, 2.4, 6.5, '#9aa0a5'); }
     }
-    // roof lettering (white on the canopies, readable from the air)
-    b.text('LUMEN', FX - 82, 46.7, FZ, Math.PI / 2, 22.4, '#ffffff', { flat: true, d: 0.1 });
-    b.text('FIELD', FX + 82, 46.7, FZ, -Math.PI / 2, 9.6, '#ffffff', { flat: true, d: 0.1 });
+    // Curved canopy lettering follows the actual surface instead of floating above it.
+    for (const side of [-1, 1]) {
+        const roof = U[side < 0 ? 'w458208106' : 'w458208107'];
+        const roofY = sourceSlope(roof, 0, 26, 10, true), angle = -side * Math.PI / 2;
+        sourceSurfaceText(b, 'LUMEN', FX + side * 80, FZ, angle, 22.45, '#ffffff', roofY);
+        sourceSurfaceText(b, 'FIELD', FX + side * 96, FZ, angle, 9.65, '#94bdd6', roofY);
+    }
     // south end: video board above the end-zone deck; north end open "Hawks Nest" bleachers
     b.prism(rect(FX - 60, FZ + 100, FX + 60, FZ + 118), 22, 32, CON, { topCol: SEAT });
     b.box(FX, 34, FZ + 108, 64, 16, 3, '#1e2227'); b.box(FX, 35, FZ + 106.4, 58, 13, 0.2, '#2d5d88');
     b.prism(rect(FX - 50, FZ - 114, FX + 50, FZ - 98), 0, 14, CON, { topCol: SEAT });
-    b.col(FX, FZ, 106, 120);
+    const northBoard=U.w458208112; b.prism(northBoard,42,60,'#263843');b.colPolygon(northBoard,{y0:42,y1:60});
+    b.colPolygon(t1o, { holes: [t1i], y1: 11 }); b.colPolygon(t2o, { holes: [t2i], y1: 22 });
+    for (const side of [-1,1]) b.colPolygon(rect(FX+side*68,FZ-100,FX+side*104,FZ+100), { y0: 22, y1: 26 });
 }
 
 // T-Mobile Park (1999, NBBJ) — retractable three-panel roof that parks over the east side. All massing from
@@ -2130,7 +2144,7 @@ const TMB_FIELD = [86.5, -14.5, 76.5, 37.5, 71, 54.5, 56, 69, 13.5, 80, -36, 81,
 const TMB_DIRT = [-30.5, 28.5, -32.5, 31.5, -36.5, 32.5, -40.5, 30, -41, 27, -40, 24, -36, 22, -34, -10.5, -27.5, -13, -20, -13.5, -9.5, -11, -3, -7.5, 4, 1, 7.5, 11, 6.5, 22, 2, 32];
 // Src: https://en.wikipedia.org/wiki/T-Mobile_Park ; OSM rel 18550612 + parts 1451834508-23
 function bTMobile(b) {
-    const ring = pts(TMB_RING), field = pts(TMB_FIELD), dirt = pts(TMB_DIRT), BR = '#86463a', ST = '#3f6863', SEAT = '#1c4a63';
+    const ring = U.w1451834523, field = pts(TMB_FIELD), dirt = pts(TMB_DIRT), BR = '#86463a', ST = '#3f6863', SEAT = '#1c4a63';
     b.prism(field, 0, 0.2, '#3f8a3a', { topCol: '#3f8a3a' });
     b.prism(dirt, 0.2, 0.3, '#b48a5a');
     b.prism(rect(-20, 4, -12, 12), 0.3, 0.35, '#5a9a4a');                              // infield grass square
@@ -2140,24 +2154,25 @@ function bTMobile(b) {
     b.prism(ring, 22, 38, ST, { topCol: SEAT });
     b.bands(ring, 9, 38, 6.5, '#2f3a3d', { frac: 0.35, wall: false });
     b.cornice(ring, 9, 0.8, 0.4, '#d8d3c8');
-    // lower-bowl rakes (OSM skillion parts, simplified to stepped blocks)
-    for (const pz of [[-33, -48, -62.5, -65.5, -78, -28.5, -46, -18], [-46, -18, -48, -5, -51.5, -5.5, -56, 21.5, -86, 17, -78, -28.5], [-56, 21.5, -51, 23, -51, 32, -48.5, 38, -77, 60, -83.5, 51, -87, 40.5, -86, 17], [-35, 44.5, -36, 81, -64, 73, -77, 60, -48.5, 38, -41, 43.5], [-5, 48.5, -5, 45, 7.5, 45.5, 13.5, 80, -36, 81, -35, 48.5], [39.5, 37.5, 64, 61, 56, 69, 13.5, 80, 7.5, 45.5], [63.5, 41, 74, -13.5, 86, -11.5, 74, 45.5]]) {
-        const q = pts(pz); b.prism(q, 0, 4, '#c3bfb6', { topCol: SEAT }); b.prism(offset(q, -4), 4, 9, '#c3bfb6', { topCol: SEAT });
+    // Every mapped lower deck uses its own footprint, tagged 20 m height,
+    // skillion direction and rise (15–17 m). The previous two low blocks reached only 9 m.
+    for(const id of ['w1451834508','w1451834509',...Array.from({length:8},(_,i)=>'w'+(1451834513+i))]){
+        const q=U[id],t=UT[id],top=+t.height,rise=+t['roof:height'],base=top-rise;
+        b.prism(q,0,base,'#c3bfb6',{top:false});
+        sourceProfile(b,q,sourceSlope(q,+t['roof:direction'],base,rise),SEAT,'m',1);
+        b.colPolygon(q,{y1:top});
     }
-    // north upper deck (15-32 m) + scoreboard
-    b.prism(rect(-39, -101, 52, -83.5), 15, 32, ST, { topCol: SEAT }); b.box(6, 32, -97, 40, 12, 2, '#1e2227');
-    // roof runways (46 m) on columns + the three parked panels (round top to 66 m) over the east side
-    for (const z of [-98, 103]) { b.box(116, 42, z, 112, 4.5, 5, '#7f8f92'); for (const x of [62, 100, 136, 170]) b.box(x, 0, z, 3.5, 42, 3.5, '#7f8f92'); }
-    [[78, 66], [106, 64], [134, 62]].forEach(([x, top], i) => {
-        const r = 160, yc = top - r, n = 8, half = Math.asin(104 / r);
-        for (let k = 0; k < n; k++) {
-            const f0 = -half + k / n * 2 * half, f1 = f0 + 2 * half / n, fm = (f0 + f1) / 2, seg = 2 * r * Math.sin(half / n) + 0.5;
-            b.box(x, yc + r * Math.cos(fm) - 0.75, 2 + r * Math.sin(fm), 30, 1.5, seg, i % 2 ? '#d6d8d5' : '#c8cdca', { rx: fm });
-        }
-        b.box(x, 42, 2, 30, 4, 4, '#7f8f92');
-    });
+    const upper=U.w1451834512;b.prism(upper,15,20,ST,{top:false});sourceProfile(b,upper,sourceSlope(upper,180,20,12),SEAT,'m',1);b.colPolygon(upper,{y0:15,y1:32});
+    b.box(6,32,-97,40,12,2,'#1e2227');
+    // Actual runway contours at 46 m. The entire three-panel roof's curved
+    // footprint follows the mapped 46–66 m round roof, including its tapered east edge.
+    for(const id of ['w1451834510','w1451834511']){const q=U[id];b.prism(q,42,46,'#7f8f92');const bb=bbox([q]);for(const x of [bb.x0+2,(bb.x0+bb.x1)/2,bb.x1-2])b.box(x,0,(bb.z0+bb.z1)/2,3.5,42,3.5,'#7f8f92');}
+    const roof=U.w1451834522,roofY=sourceSlope(roof,7,46,20,true);sourceProfile(b,roof,roofY,'#c8cdca');
+    for(let i=0;i<roof.length;i++){const a=roof[i],c=roof[(i+1)%roof.length];b.strut([a[0],roofY(...a),a[1]],[c[0],roofY(...c),c[1]],.8,.8,'#7f8f92');}
+    // Longitudinal panel seams use the same curve as the membrane.
+    for(const x of [92,122,152])for(let j=0;j<16;j++){const z=-96+j*12.5,nz=z+12.5;b.strut([x,roofY(x,z)+.3,z],[x,roofY(x,nz)+.3,nz],.3,.3,'#778386');}
     b.text('T-MOBILE PARK', -78, 13, 93.6, 0.32, 2.4, '#e20074');
-    b.colPoly([ring], 24); b.col(116, -98, 56, 3); b.col(116, 103, 56, 3);
+    b.colPolygon(ring, { y1: 38 }); b.col(116, -98, 56, 3); b.col(116, 103, 56, 3);
 }
 
 // Seattle Great Wheel (2012) — 53 m tall, 42 gondolas, end of Pier 57 (OSM ticket booth way
@@ -2165,11 +2180,17 @@ function bTMobile(b) {
 // Src: https://en.wikipedia.org/wiki/Seattle_Great_Wheel (53 m, 42 gondolas)
 function bGreatWheel(b) {
     const hs = b.hs; b.hs = 1;                                             // keep the wheel round (true size)
-    const R = 25, Y = 28.5;
+    const R = 23.5, Y = 26.5; // complete envelope ≈ 53 m, as surveyed OSM n1809238334
     for (const z of [-1.8, 1.8]) b.geo(new THREE.TorusGeometry(R, 0.55, 6, 56), '#f2f2f2', M(0, Y, z));
-    for (let i = 0; i < 21; i++) { const a = i / 21 * Math.PI * 2; b.box(Math.cos(a) * R / 2, Y - 0.15, 0, R, 0.3, 0.3, '#e6e6e6', { rz: a }); }
+    for (let i = 0; i < 42; i++) { const a = i / 42 * Math.PI * 2; b.box(Math.cos(a) * R / 2, Y + Math.sin(a) * R / 2, 0, R, 0.3, 0.3, '#e6e6e6', { rz: a }); }
     b.geo(new THREE.CylinderGeometry(1.6, 1.6, 4.4, 12), '#cfcfcf', M(0, Y, 0, 0, 1, 1, 1, Math.PI / 2, 0));
-    for (let i = 0; i < 42; i++) { const a = i / 42 * Math.PI * 2; b.box(Math.cos(a) * (R + 1.6), Y + Math.sin(a) * (R + 1.6) - 1.5, 0, 2.4, 2.8, 2.6, i % 6 ? '#e9edf0' : '#c0392b'); }
+    for (let i = 0; i < 42; i++) {
+        const a = i / 42 * Math.PI * 2, x = Math.cos(a) * (R + 1.6), y = Y + Math.sin(a) * (R + 1.6) - 1.5;
+        const frame = i === 0 ? '#25292d' : '#e9edf0'; // one VIP gondola, 41 white enclosed cabins
+        b.box(x, y, 0, 2.4, 0.3, 2.6, frame); b.box(x, y + 2.55, 0, 2.4, 0.25, 2.6, frame);
+        b.box(x, y + 0.3, 0, 2.18, 2.25, 2.38, '#7c9eaf', { mat: 'g' });
+        for (const dx of [-1.1,1.1]) for (const dz of [-1.2,1.2]) b.box(x + dx,y + .3,dz,.12,2.25,.12,frame);
+    }
     for (const sx of [-1, 1]) for (const sz of [-1, 1]) b.tube([[sx * 13, 0, sz * 7], [0, Y, sz * 2.2]], 0.7, '#e2e2e2', { seg: 2, radial: 6 });
     b.box(0, 0, 0, 34, 1, 18, '#8a8173');
     b.hs = hs;
@@ -2180,33 +2201,49 @@ function bGreatWheel(b) {
 // largest Ø ~40 m (OSM way 868099742).
 // Src: https://en.wikipedia.org/wiki/The_Spheres ; OSM way 868099742
 function bSpheres(b) {
-    // A squashed sphere reads as an egg, so the spheres are kept round: built unsquashed at half
-    // size (footprint matches the 0.5 world, heights become ~12-15 m instead of 24-29 m).
-    const hs = b.hs; b.hs = 1; const k = hs, G = '#9fb5ae';
-    for (const [x, z, r, h] of [[0.5, 0, 20, 29], [2.5, -19.5, 14.5, 24], [1.5, 22, 12.5, 21]]) b.sphere(x * k, (h - r) * k, z * k, r * k, G, { detail: 2, mat: 'g' });
-    b.box(1 * k, 0, 0, 30 * k, 1.5, 60 * k, '#c9c6bf');
-    b.hs = hs;
-    b.col(1, 0, 18, 32);
+    // Individual OSM dome parts, not three intersecting complete balls. Heights
+    // 19 / 15.5 / 27.5 m and spring lines = height - roof:height.
+    const hs=b.hs;b.hs=1; const k=hs, GL='#9fb5ae', FRAME='#d5deda';
+    const parts=['w398816077','w491817110','w491817111'].map(id=>{const p=U[id],bb=bbox([p]),x=(bb.x0+bb.x1)/2,z=(bb.z0+bb.z1)/2,h=+UT[id].height,rh=+UT[id]['roof:height'];return{id,p,x,z,h,y0:h-rh,rx:(bb.x1-bb.x0)/2,rz:(bb.z1-bb.z0)/2,rh};});
+    for (const q of parts) {
+        // Full tagged footprint and an ellipsoidal dome; frame triangles follow
+        // that surface. Panel arrangement is a bounded approximation of the
+        // pentagonal hexecontahedron, never claimed as a surveyed panel layout.
+        b.prism(q.p.map(([x,z])=>[x*k,z*k]),0,q.y0*k,GL,{mat:'g'});
+        const N=24,J=8,at=(i,j)=>{const ph=j/J*Math.PI/2,a=(i+j%2*.5)/N*Math.PI*2;return[(q.x+Math.cos(a)*q.rx*Math.cos(ph))*k,(q.y0+q.rh*Math.sin(ph))*k,(q.z+Math.sin(a)*q.rz*Math.cos(ph))*k];};
+        for(let j=0;j<J;j++)for(let i=0;i<N;i++){const a=at(i,j),c=at(i+1,j),d=at(i+1,j+1),e=at(i,j+1);b.quad(a,c,d,e,GL,'g',[a[0]-q.x*k,10,a[2]-q.z*k]);if(j<J-1){b.strut(a,d,0.075*k,0.075*k,FRAME);b.strut(a,e,0.075*k,0.075*k,FRAME);}b.strut(a,c,0.075*k,0.075*k,FRAME);}
+    }
+    b.hs=hs;b.colPolygon(U.w868099742,{y1:5.3});
 }
 
-// Mount Baker Ridge Tunnel (I-90) — east portals at Lake Washington: two 1940 Art-Deco bores and
-// the 1989 bore (Ø 19.2 m, the world's largest soft-earth tunnel then). Facade only: the road
-// passes through the openings (keep them clear of collision). OSM way 481496634 (tunnel lid).
-// Src: https://en.wikipedia.org/wiki/Mount_Baker_Tunnel (1989 bore Ø 63 ft / 19.2 m) ; OSM way 481496634
+// Mount Baker Ridge Tunnel east portals. Anchor and three road-mouth centres are
+// the mapped tunnel highway endpoints (ways 4712861, 123889282, 481403971), not the
+// eastern vertex of the historic tunnel-lid footprint, which ends 330 m inland.
+// Only the facade is modelled. Concrete/Art Deco details and wall height remain
+// estimates; the historic underground polygon and nearby houses are not replaced.
+// Src: https://en.wikipedia.org/wiki/Mount_Baker_Tunnel (1989 bore Ø 63 ft / 19.2 m)
 function bMtBaker(b) {
     const CON = '#cfcabe';
-    b.archWall(78, 23, 3, [{ x: -24, w: 11, h: 10.5 }, { x: -9, w: 11, h: 10.5 }, { x: 16, w: 19.5, h: 19 }], CON, M(0, 0, 0, Math.PI / 2));
-    for (const z of [-39, -27.5, -1.5, 16.5, 39]) b.box(0.5, 0, z, 4, 25.5, 3, '#dcd7cb');
-    b.box(0, 23, 0, 4.5, 1.2, 80, '#e2ddd2');
-    // wooded ridge rising behind (west) over the bores
-    b.geo((() => { const s = new THREE.Shape([new THREE.Vector2(0, 23), new THREE.Vector2(0, 24.5), new THREE.Vector2(-60, 40), new THREE.Vector2(-90, 42), new THREE.Vector2(-90, 23)]); const g = new THREE.ExtrudeGeometry(s, { depth: 90, bevelEnabled: false }); g.translate(0, 0, -45); return g; })(), '#4d6b3c', M(-1.5, 0, 0));
-    for (const s of [-1, 1]) b.box(10, 0, s * 47, 24, 12, 2, CON, { ry: s * 0.25 });   // wing walls
-    for (const [z0, z1] of [[-40, -25.8], [-6.2, 3.5], [14.5, 18.5], [29.5, 40]]) b.col(0, (z0 + z1) / 2, 2, (z1 - z0) / 2);   // piers between the bores (openings: world z +18.5..29.5, +3.5..14.5, -25.8..-6.2)
-    // 1940 bores: carved band "SEATTLE · PORTAL TO THE PACIFIC" over the openings + low-relief Northwest-native panels
-    // (research landmarks[mt-baker-tunnel-east-portal], concrete #bdb9ae; refs/bellevue/Seattle_-_Portal_to_the_Pacific_01.jpg)
-    b.box(2.8, 11.4, 16.5, 0.4, 1.9, 27, '#c5c1b6');
-    b.text('SEATTLE  PORTAL TO THE PACIFIC', 3.0, 11.85, 16.5, Math.PI / 2, 0.95, '#8f8b80');
-    b.box(1.75, 2, 34.5, 0.5, 9, 5, '#b3afa3'); b.box(2.05, 4, 34.5, 0.3, 2.2, 2.6, '#a7a397'); b.box(2.05, 7.5, 33.8, 0.3, 1.2, 3.4, '#a7a397');
+    const openings = [{ x: -23.1, w: 11, h: 10.5 }, { x: -4.1, w: 11, h: 10.5 }, { x: 35.9, w: 19.2, h: 19.2 }];
+    b.archWall(100, 26.5, 3, openings, CON, M(0, 0, 0, Math.PI / 2));
+    // World z = -archWall local x. Exact pier intervals leave all mapped road mouths open.
+    const gaps = openings.map(q => [-q.x - q.w / 2, -q.x + q.w / 2]).sort((a,c) => a[0] - c[0]);
+    let start = -50;
+    for (const [a,z] of [...gaps,[50,50]]) {
+        if (a > start) { const centre = (start + a) / 2, width = a - start;
+            b.col(0, centre, 2, width / 2, 0, { y0: 0, y1: 26.5 });
+            b.box(0.5, 0, centre, 4, 27.5, Math.min(3,width), '#dcd7cb');
+        }
+        start = z;
+    }
+    b.box(0, 26.5, 0, 4.5, 1.2, 102, '#e2ddd2');
+    // A short procedural retaining embankment suggests the ridge without a solid
+    // ground-level extrusion over the bore approaches.
+    b.geo((() => { const s = new THREE.Shape([new THREE.Vector2(0, 27.7), new THREE.Vector2(-60, 40), new THREE.Vector2(-90, 42), new THREE.Vector2(-90, 27.7)]); const g = new THREE.ExtrudeGeometry(s, { depth: 100, bevelEnabled: false }); g.translate(0, 0, -50); return g; })(), '#4d6b3c', M(-1.5, 0, 0));
+    for (const side of [-1, 1]) b.box(10, 0, side * 52, 24, 12, 2, CON, { ry: side * 0.25 });
+    b.box(2.8, 11.4, 13.6, 0.4, 1.9, 27, '#c5c1b6');
+    b.text('SEATTLE  PORTAL TO THE PACIFIC', 3.0, 11.85, 13.6, Math.PI / 2, 0.95, '#8f8b80');
+    b.box(1.75, 2, 36.5, 0.5, 9, 5, '#b3afa3'); b.box(2.05, 4, 36.5, 0.3, 2.2, 2.6, '#a7a397'); b.box(2.05, 7.5, 35.8, 0.3, 1.2, 3.4, '#a7a397');
 }
 
 // Seattle-Tacoma International Airport — main terminal & concourses A-D (OSM way 23772634, 2 levels), the
@@ -2217,7 +2254,7 @@ const SEA_IAF = [398, -216.5, 319.5, -230, 319, -227.5, 300, -222.5, 291.5, -234
 const SEA_SSAT = [349, 113, 349, 110, 333, 111.5, 331.5, 87, 347.5, 85.5, 345, 57.5, 397.5, 54, 408.5, 209, 356.5, 213];
 // Src: https://en.wikipedia.org/wiki/Seattle–Tacoma_International_Airport ; OSM 23772634 / 23772637 / 734002404 / 869951038
 function bSeaTac(b) {
-    const [p] = P.seatac.map(pts), iaf = pts(SEA_IAF), ss = pts(SEA_SSAT), GL = '#5b7d92', WH = '#e9ebec';
+    const p=U.w23772634,iaf=U.w734002404,ss=U.w23772637, GL = '#5b7d92', WH = '#e9ebec';
     // main terminal + concourses: glass bands under a white roof edge
     b.prism(p, 0, 17, '#d7dadb', { topCol: '#c4c8ca' });
     b.windows(p, 0, 17, 8.5, GL, { bay: 12, wf: 0.92, hf: 0.55, start: 2.5, mat: 'g', minL: 14 });
@@ -2243,7 +2280,7 @@ function bSeaTac(b) {
     b.text('WELCOME TO SEATTLE', wx - 7.65, 28.6, zc, -Math.PI / 2, 2.2, '#ffffff');
     for (const [t, lv] of SEATAC_PLANES) parkAt(b, p, t, lv, 28, 40);
     airliner(b, 300, 160, -Math.PI / 2, { tail: '#01426a', stripe: '#00a3ad' }, 40);
-    b.colPoly([p], 40); b.colPoly([iaf], 30); b.colPoly([ss], 30);
+    b.colPolygon(p, { y1: 19.5 }); b.colPolygon(iaf, { y1: 36.5 }); b.colPolygon(ss, { y1: 14.6 });
     for (const z of [-150, 22]) b.col(wx, z, 7, 1.6);
 }
 
@@ -2253,36 +2290,37 @@ const SEATAC_PLANES = [
     [0.68, { tail: '#0033a0', belly: '#9aa3ad' }],    // United
 ];
 
-// SeaTac Air Traffic Control Tower (2004) — cab floor 71 m (233 ft), 82 m (269 ft) overall, OSM way 1199936807.
+// SeaTac Air Traffic Control Tower (2004) — 71 m (233 ft) overall, OSM way 1199936807.
 // Src: https://en.wikipedia.org/wiki/Seattle–Tacoma_International_Airport (tower 233 ft) ; game/research/seattle-seatac.json landmarks[sea-control-tower] ; OSM way 1199936807
 function bSeaTower(b) {
-    b.box(0, 0, 0, 30, 9, 22, '#cfcdc6'); b.bands(rect(-15, -11, 15, 11), 0, 9, 4.5, '#4c5964', { frac: 0.5 });
-    atcTower(b, 0, 0, 76.5, { r: 3.6, col: '#dedcd5' });   // atcTower: cab glass from h-5.5 (= 71 m cab floor), mast top h+5.3 (≈ 82 m)
-    b.col(0, 0, 15, 11);
+    const p=U.w1199936806; b.prism(p,0,9,'#cfcdc6');b.bands(p,0,9,4.5,'#4c5964',{frac:0.5});
+    // Tagged 71 m is the complete tower height, not an invented 71 m cab floor.
+    atcTower(b,0,0,65.7,{r:3.6,col:'#dedcd5'});
+    b.colPolygon(p,{y1:9});b.col(0,0,3.6,3.6,0,{y0:0,y1:71});
 }
 
-// Bellevue Towers (2008) — twin residential towers on a 5-level podium: South 450 ft (137 m) / 43 fl., North 430 ft
-// (131 m) / 42 fl. (Wikipedia list; OSM has the two heights swapped); blue-green glazing #7a96a8 with white slab edges,
+// Bellevue Towers (2008) — twin residential towers on a 5-level podium: North 137 m / 43 levels, South 131 m / 42 levels
+// (OSM w370237986 / w370239409); blue-green glazing #7a96a8 with white slab edges,
 // glass parapet crowns, rooftop garden on the podium between them.
 // Src: https://www.skyscrapercenter.com/complex/2787 ; game/research/seattle-bellevue.json landmarks[bellevue-towers]
 function bBellevueTowers(b) {
-    const [n, s, pod] = P.bellevuetowers.map(pts);
+    const [n,s,pod] = ['w370237986','w370239409','w118119171'].map(id=>U[id]);
     b.prism(pod, 0, 18, '#d1ccc2', { topCol: '#7f9e6b' }); b.bands(pod, 0, 18, 3.6, '#4f6573', { frac: 0.5 });
-    for (const [p, h] of [[n, 131], [s, 137]]) {          // research: South 450 ft / 43 fl., North 430 ft / 42 fl. (OSM swaps them)
-        b.prism(p, 18, h, '#7a96a8', { mat: 'g', topCol: '#c7d0d6' });
-        b.bands(p, 18, h, 3.1, '#d9e0e4', { frac: 0.12, off: 0.1 });
-        b.prism(offset(p, -2.5), h, h + 5, '#cfd6da');
-        b.ring(p, h, h + 7, '#9db7c6', { mat: 'g' });                                           // glass parapet crown
-        b.pilasters(p, 18, h, 8, 0.35, 0.35, '#dfe6ea', {});
+    for (const [p, h] of [[n, 137], [s, 131]]) {          // OSM: North 137 m/43 levels; South 131 m/42 levels, including crowns
+        b.prism(p, 18, h - 7, '#7a96a8', { mat: 'g', topCol: '#c7d0d6' });
+        b.bands(p, 18, h - 7, 3.1, '#d9e0e4', { frac: 0.12, off: 0.1 });
+        b.prism(offset(p, -2.5), h - 7, h - 2, '#cfd6da');
+        b.ring(p, h - 7, h, '#9db7c6', { mat: 'g' });                                           // glass parapet crown
+        b.pilasters(p, 18, h - 7, 8, 0.35, 0.35, '#dfe6ea', {});
     }
-    b.colPoly([pod], 25);
+    b.colPolygon(pod, { y1: 18 });
 }
 
 // Bellevue Square (1946, rebuilt as an enclosed mall 1981) — 3-level regional mall (OSM way 29234887),
 // skylit malls, main glazed entrance + lettering on Bellevue Way NE (east, model -z).
 // Src: https://en.wikipedia.org/wiki/Bellevue_Square ; OSM way 29234887
 function bBellevueSq(b) {
-    const [p] = P.bellevuesq.map(pts);
+    const p = U.w29234887;
     // round 6 note 29: one shopfront band at street level and blank cream cladding above (the old full-height glass
     // stripes read as striped boxes), the skylit spines kept on the roof inside the footprint, the lettering on the
     // entrance pavilion's face (it floated above the canopy, cut off)
@@ -2295,49 +2333,22 @@ function bBellevueSq(b) {
     b.box(0, 0, ze - 4, 30, 13, 8, '#6f8ea2', { mat: 'g' }); b.box(0, 13, ze - 4.5, 34, 1.4, 10, '#efe9df');
     b.box(0, 9.6, ze - 8.25, 24, 2.6, 0.3, '#efe9df');                            // sign fascia
     b.text('BELLEVUE SQUARE', 0, 10.15, ze - 8.45, Math.PI, 1.5, '#2e3b46');
-    b.colPoly([p], 40);
+    b.colPolygon(p, { y1: 15 });
 }
 
 // Mount Rainier — 4,392 m stratovolcano, summit 46.8529 N 121.7604 W (~90 km SE of downtown).
-// Real-size cone (base Ø ~32 km, squashed 0.5 on x/z like the rest of the city); `backdrop: true`
+// Public-domain USGS 3DEP grid, decimated to a bounded terrain mesh; `backdrop: true`
 // means the world may move it closer and pass ctx.backdropScale = distance / realDistance.
 // Src: https://en.wikipedia.org/wiki/Mount_Rainier (4,392 m, 46.8529 N 121.7604 W)
 function bRainier(b) {
-    const NA = 56, NR = 16, Rb = 16500, H = 4392, rings = [];
-    for (let j = 0; j <= NR; j++) {
-        const t = j / NR, ring = [];
-        for (let i = 0; i < NA; i++) {
-            const a = i / NA * Math.PI * 2, n = hash(i * 7.3 + j * 13.1), n2 = hash(i * 3.1 + 1.7);
-            const r = Rb * t * (1 + (n - 0.5) * 0.07 * Math.min(1, t * 3) + (n2 - 0.5) * 0.1 * Math.sin(a * 3));
-            const prof = t < 0.035 ? 1 : Math.pow(1 - (t - 0.035) / 0.965, 1.6);
-            const y = H * prof * (j === 0 ? 1 : 1 + (n - 0.5) * 0.08 * Math.sin(Math.PI * t));
-            ring.push([Math.cos(a) * r, Math.max(0, y), Math.sin(a) * r]);
-        }
-        rings.push(ring);
-    }
-    const colour = (y, i, j) => { const n = hash(i * 1.9 + j * 5.7); return y > 2300 + n * 300 ? '#f3f6f9' : y > 1500 + n * 500 ? (n > 0.4 ? '#e3e9ef' : '#8e98a3') : y > 800 ? '#6d7b88' : '#55657a'; };
-    for (let j = 0; j < NR; j++) for (let i = 0; i < NA; i++) {
-        const a = rings[j][i], bq = rings[j][(i + 1) % NA], c = rings[j + 1][(i + 1) % NA], d = rings[j + 1][i];
-        const col = colour((a[1] + c[1]) / 2, i, j), hint = [a[0] + c[0], 3000, a[2] + c[2]];
-        if (j === 0) b.tri(a, c, d, col, 'f', hint); else b.quad(a, bq, c, d, col, 'f', hint);
-    }
+    emitUSLandmarkTerrain(b,'rainier',46.8529,-121.7604);
 }
 
 // Olympic Mountains — silhouette ridge west of Puget Sound (The Brothers 2,092 m, Mt Constance
 // 2,371 m, Mt Olympus 2,432 m further west). ~80 km long backdrop band, same backdrop rules.
 // Src: https://en.wikipedia.org/wiki/Olympic_Mountains (Olympus 2,432 m, Constance 2,371 m, The Brothers 2,092 m)
 function bOlympics(b) {
-    const NX = 72, NZ = 6, L = 80000, Wd = 16000, grid = [];
-    for (let i = 0; i <= NX; i++) {
-        const x = -L / 2 + i / NX * L, row = [];
-        const crest = 1250 + 600 * Math.sin(i * 0.37) * Math.sin(i * 0.11 + 1) + 420 * (hash(i * 3.7) - 0.3) + (i % 9 === 4 ? 450 : 0);
-        for (let j = 0; j <= NZ; j++) { const t = j / NZ, prof = Math.pow(Math.sin(Math.PI * t), 1.6); row.push([x, Math.max(0, crest * prof * (0.85 + 0.3 * hash(i * 1.3 + j))), -Wd / 2 + t * Wd]); }
-        grid.push(row);
-    }
-    for (let i = 0; i < NX; i++) for (let j = 0; j < NZ; j++) {
-        const a = grid[i][j], bq = grid[i + 1][j], c = grid[i + 1][j + 1], d = grid[i][j + 1], y = (a[1] + c[1]) / 2;
-        b.quad(a, bq, c, d, y > 1500 ? '#eef2f6' : y > 1050 ? '#8b96a2' : '#5d6c7c', 'f', [0, 1, 0]);
-    }
+    emitUSLandmarkTerrain(b,'olympics',47.70,-123.15);
 }
 
 // ===========================================================================
@@ -2387,7 +2398,7 @@ const P2 = {
     rosetti: [[-16.37,-29.02,26.44,-18.43,14.67,29.01,-26.44,18.84,-23.62,7.5,5.06,14.59,11.19,-10.1,-19.2,-17.63]], // OSM source rings, centimetre projection; see research/landmark-source-bucharest.json
     rosettiHall: [[-22.53,-81.5,23,-71.22,15.92,-39.99,-29.6,-50.27]], // Fresh OSM w545176891; full source geometry.
     rosettiGym: [[-44.78,-31.92,-50.72,-5.53,-37.3,-2.52,-31.36,-28.91]], // Fresh OSM w544207404; full source geometry.
-    bob: [[-72.5,-3.5,-46,56,72.5,3.5,46,-56,-11,-30.5,-12,-30]],                                    // w55450549 BOB Tower, Pompeiu 6A, bbox centre 44.479608, 26.1147802
+    bob: [[-72.3097,-3.334,-46.0355,55.766,72.3017,3.3006,46.0355,-55.766,-10.9291,-30.528,-12.2396,-29.9501]],
     rectorat: [[-16.5,-29,28.5,-17.5,22,8.5,17,29,-28.5,17,-23.5,-4,-19,-20.5]],                     // w28240552 Rectorat UPB (5 levels), bbox centre 44.438429, 26.0515105
     halatraian: [[-10,-19.8,-14.01,17.2,10,19.79,12,1.29,14.01,-17.21,11.17,-17.53]], // OSM source rings, centimetre projection; see research/landmark-source-bucharest.json
     globalworth: [[-32.91,-25.19,-12.07,25.2,23.76,10.52,19.94,1.26,32.91,-4.06,27.92,-16.33]], // OSM source rings, centimetre projection; see research/landmark-source-bucharest.json
@@ -2438,7 +2449,7 @@ function bLincolnN(b) {
     // P2.lincoln coordinates are relative to 47.6164962, -122.2008984; this entry's anchor (A.lincoln) sits 10 m W / 40 m N of it
     // so that the suppression radius covers the tower, the podium and the uipath-bel door point but not the Paccar building.
     b.shift(10, 40);
-    const [lsn, , , pod, , br8] = P2.lincoln.map(pts);
+    const [lsn,pod,br8]=['w604028609','w161929514','w1364249504'].map(id=>U[id]);
     const BRICK = '#b57f52', STONE = '#d8cbb2', SHOP = '#33414b', DK = '#2b3034', GLOW = '#f2dcae';
     // --- retail podium (3 levels, ~16 m): storefronts at grade, brick-toned masonry + stone bands above
     b.wall = BRICK;
@@ -2459,7 +2470,6 @@ function bLincolnN(b) {
     curtainTower(b, lt, 112, 120, { glass: '#5f7385', spandrel: '#8f979d', fh: 3.95, start: 0.6, frac: 0.66 });
     b.ring(offset(lsn, -0.4), 120, 126, '#5f6163'); b.cap(offset(lsn, -0.4), 126, '#6b6e70');
     for (let y = 120.6; y < 125.6; y += 0.9) b.ring(offset(lsn, -0.25), y, y + 0.25, '#7d8083');   // louvres
-    b.box(-20, 126, -58, 12, 2.4, 9, '#8a8d90');                                            // roof plant
     // --- the UiPath / tower lobby on Bellevue Way (west, at the entrance node): double-height glazing with a warm glow,
     //     following the podium edge (-41.5,-85) -> (-45,-77.5) -> (-46,-68.5)
     const LP = [[-41.5, -85], [-45, -77.5], [-46, -68.5]];
@@ -2484,24 +2494,11 @@ function bLincolnN(b) {
     { const q = EW(-5.8, 3.86); b.text('700', q[0], 0.55, q[1], ery, 0.6, '#2e3338', { d: 0.02 }); }
     // --- skybridges (enclosed glass boxes on light-grey steel)
     skybridge(b, [-45.4, -28.1], [-76.1, -20.8], 6.2);                                                // over Bellevue Way to Bellevue Square
-    { // (after round 6: "connects to nothing") the bridge lands in Bellevue Square's east wing across Bellevue Way: a
-      // retail block (cream cladding, glazed bridge-level lobby, shopfront base) the bridge enters at level 2
-      const ax = -45.4, az = -28.1, cx2 = -76.1, cz2 = -20.8, L = Math.hypot(cx2 - ax, cz2 - az), ux = (cx2 - ax) / L, uz = (cz2 - az) / L;
-      const ex = cx2 + ux * 9, ez = cz2 + uz * 9, ry = Math.atan2(-uz, ux);
-      // (after round 6: "looks terrible" — a blank cream slab) the wing as a mall block: shopfront glazing all round at street
-      // level, the glazed bridge level, cladding with pilasters between, a cornice and the BELLEVUE SQUARE name
-      const c = Math.cos(ry), sn = Math.sin(ry), W2 = 9, D2 = 13, P = (lx, lz) => [ex + lx * c + lz * sn, ez - lx * sn + lz * c];
-      const q = [P(-W2, -D2), P(W2, -D2), P(W2, D2), P(-W2, D2)];
-      b.prism(q, 0, 13.5, '#e3dccf', { topCol: '#cbc4b7' });
-      b.bands(q, 0, 4.4, 4.4, '#3f5666', { frac: 0.82, mat: 'g', start: 0.35 });                     // shopfronts
-      b.bands(q, 5.6, 10.6, 5.0, '#5f7f95', { frac: 0.86, mat: 'g', start: 0.35 });                    // glazed bridge level
-      b.pilasters(q, 0, 13.5, 6, 0.7, 0.3, '#d3cbbb', {});
-      b.cornice(q, 13.5, 0.7, 0.5, '#d2cabb');
-      { const [tx, tz] = P(-W2 - 0.4, 0); b.text('BELLEVUE SQUARE', tx, 11.4, tz, ry - Math.PI / 2, 1.1, '#2e3b46'); }
-      b.col(ex, ez, 9, 13, -ry); }
+    // The landing remains the real Bellevue Square source footprint; do not invent
+    // a detached retail block to meet this bridge.
     b.prism(br8, 6.6, 11, '#8fb0c2', { mat: 'g', bottom: true, topCol: '#d9dcdd' });         // diagonal NE 8th St bridge (w1364249504)
     b.cornice(br8, 6.6, 0.5, 0.25, '#d9dcdd'); b.cornice(br8, 10.8, 0.5, 0.3, '#d9dcdd');
-    b.colPoly([pod], 16);                                                                   // (skybridge spans have no collision)
+    b.colPolygon(pod, { y1: 16 });                                                                   // (skybridge spans have no collision)
 }
 /** glazed skybridge box on a light steel frame between two plan points at floor height y */
 function skybridge(b, a, c, y, w = 5, h = 4.2) {
@@ -2519,7 +2516,7 @@ function skybridge(b, a, c, y, w = 5, h = 4.2) {
 // Src: game/research/seattle-bellevue.json landmarks[lincoln-square].complex ; OSM w604028611 / w328017119 / w1474737770 / w516915099
 function bOneLincoln(b) {
     b.shift(-0.89, -59.21);                                                                 // P2.lincoln coordinates -> this anchor
-    const [, one, westin, , conn] = P2.lincoln.map(pts);
+    const [one,westin,conn]=['w604028611','w328017119','w1474737770'].map(id=>U[id]);
     // --- Westin podium (2 levels) + One Lincoln Tower (137 m: hotel floors 4-~10, condos above)
     b.prism(westin, 0, 10.5, '#c9bfae', { topCol: '#7f9c6c' });
     b.prism(offset(westin, 0.12), 0, 4.8, '#37444d', { mat: 'g', top: false });
@@ -2534,7 +2531,7 @@ function bOneLincoln(b) {
     b.ring(offset(one, 0.06), 131, 137, '#76807a'); b.ring(offset(one, -0.3), 131, 137, '#76807a', { inward: true }); b.cap(offset(one, -0.3), 133, '#6b706c');
     b.text('WESTIN', -13.6, 132.2, 72, Math.atan2(-0.986, -0.164), 2.6, '#ffffff');                          // white letters, west face of the crown
     skybridge(b, [14.8, 85.9], [11.7, 108], 6.2, 5, 4.6);                                 // over NE 6th to Lincoln Square South
-    b.colPoly([westin], 16);
+    b.colPolygon(westin, { y1: 10.5 }); b.colPolygon(one, { y0: 10.5, y1: 137 }); b.colPolygon(conn, { y0: 7, y1: 15.5 });
 }
 
 // Lincoln Square South (2017, Kemper) — 400 Lincoln Square office tower 137 m / 31 fl. (blue-grey glass #6e8a9e,
@@ -2542,7 +2539,7 @@ function bOneLincoln(b) {
 // glass #6b7c86 with balcony bands, W hotel sign at the base on NE 6th St) on the 3-level podium at 500 Bellevue Way NE.
 // Src: game/research/seattle-bellevue.json (complex[]) ; OSM w1326151866 / w604028603 / w1326151868 ; skyscrapercenter.com/building/400-lincoln-square/22497
 function bLincolnS(b) {
-    const [t400, two, pod] = P2.lincolnsouth.map(pts);
+    const [t400,two,pod]=['w1326151866','w604028603','w1326151868'].map(id=>U[id]);
     b.wall = '#b9ac98';
     b.prism(pod, 0, 15.5, '#b9ac98', { topCol: '#8a8781' });
     b.prism(offset(pod, 0.15), 0, 5, '#33414b', { mat: 'g', top: false });
@@ -2556,7 +2553,7 @@ function bLincolnS(b) {
     curtainTower(b, two, 15.5, 131, { glass: '#6b7c86', spandrel: '#e2e4e2', fh: 3.0, frac: 0.78, start: 0.3 });
     b.ring(offset(two, 0.05), 131, 137, '#7c8b94', { mat: 'g' }); b.cap(offset(two, -0.3), 133, '#8e9498');
     b.box(18, 6, -85.8, 9, 3, 0.4, '#141414'); b.text('W BELLEVUE', 18, 6.8, -86.05, Math.PI, 1.2, '#f2f2f2');   // W hotel at the base on NE 6th St
-    b.colPoly([pod], 16);
+    b.colPolygon(pod, { y1: 16 });
 }
 
 // Plaza Center (10900 NE 8th St, 1982) — UiPath's Bellevue office from 2018 to Sept 2025 (Suite 400), a passing landmark
@@ -2567,7 +2564,7 @@ function bLincolnS(b) {
 // the top of the NE 8th face, and a tall black pylon with huge vertical white numerals "10900" at the west driveway.
 // Src: game/research/seattle-bellevue.json landmarks[plaza-center] ; OSM w33725899 ; refs/bellevue/Plaza_Center_Bellevue_WA.jpg
 function bPlazaCenter(b) {
-    const [p] = P2.plazacenter.map(pts), IV = '#ddd6bf', GL = '#2f3338', BK = '#1a1b1d';
+    const p = U.w33725899, IV = '#ddd6bf', GL = '#2f3338', BK = '#1a1b1d';
     b.prism(p, 5.6, 66, GL, { mat: 'g', topCol: '#8f8a7e' });
     b.prism(offset(p, -1.2), 0, 5.6, BK, { mat: 'g', top: false });                          // recessed black ground floor
     b.ring(p, 5.2, 5.6, IV); b.cap(p, 5.2, '#3a3b3d', [offset(p, -1.2)], -1);                 // soffit
@@ -2587,7 +2584,7 @@ function bPlazaCenter(b) {
     b.box(px, 0, pz, 2.4, 12, 1.6, '#151617');
     [...'10900'].forEach((ch, i) => { const y = 10.1 - i * 2.05; b.text(ch, px, y, pz + 0.8, 0, 1.75, '#f2f2f2'); b.text(ch, px - 1.2, y, pz, -Math.PI / 2, 1.75, '#f2f2f2'); });
     for (const [x, z] of [[-10, 38], [3, 38], [16, 38]]) b.box(x, 0, z, 3, 0.7, 3, '#8c867a');   // plaza planters (the world plants the street trees)
-    b.colPoly([p], 12); b.col(px, pz, 1.2, 0.8);
+    b.colPolygon(p, { y1: 68.2 }); b.col(px, pz, 1.2, 0.8);
 }
 
 // Amazon Sonic (555 108th Ave NE, ex-"555 Tower", 2023) — 183 m / 42 floors, joint tallest in Bellevue; OSM main part
@@ -2595,23 +2592,24 @@ function bPlazaCenter(b) {
 // notes "the tallest dark-glass block" seen from the Murrow bridge: dark blue-grey glass, fine mullions (estimated).
 // Src: en.wikipedia.org/wiki/List_of_tallest_buildings_in_Bellevue,_Washington (600 ft, 42 fl.) ; OSM w1214424283/w1556489725/w1214423752
 function bSonic(b) {
-    const [main, slab, base] = P2.sonic.map(pts);
+    const [main,slab,base]=['w1214424283','w1556489725','w1214423752'].map(id=>U[id]);
     b.prism(base, 0, 13, '#3d4852', { mat: 'g', topCol: '#7c8a6c' }); b.cornice(base, 12.4, 0.6, 0.3, '#c9ced2');
     curtainTower(b, main, 13, 177, { glass: '#3b4c5c', spandrel: '#44525e', mullion: '#9aa4ad', pitch: 3, mw: 0.14, fh: 4.1, frac: 0.82, start: 0.3 });
     b.ring(offset(main, 0.05), 177, 183, '#4c5d6d', { mat: 'g' }); b.cap(offset(main, -0.3), 178.5, '#6f777d');
     curtainTower(b, slab, 13, 124.8, { glass: '#3b4c5c', spandrel: '#44525e', mullion: '#9aa4ad', pitch: 3, mw: 0.14, fh: 3.9, frac: 0.82, start: 0.3 });
-    b.colPoly([base], 16);
+    b.colPolygon(base, { y1: 13 });
 }
 
-// Bellevue 600 (2025) — 183 m / 43 floors residential tower, joint tallest in Bellevue (OSM w1453402305). No facade
+// Bellevue 600 (2025) — 183 m / 43 floors office tower, joint tallest in Bellevue (OSM w1453402305). No facade
 // research: light blue-grey glass with white slab edges (estimated, low confidence).
 // Src: en.wikipedia.org/wiki/List_of_tallest_buildings_in_Bellevue,_Washington ; OSM w1453402305
 function bBellevue600(b) {
-    const [p] = P2.bellevue600.map(pts);
-    curtainTower(b, p, 0, 178, { glass: '#7b93a3', spandrel: '#e3e6e7', mullion: '#c9d0d4', pitch: 4.4, fh: 3.25, frac: 0.76, start: 6 });
-    b.prism(offset(p, 0.2), 0, 6, '#2f3a42', { mat: 'g', top: false });
-    b.ring(offset(p, 0.05), 178, 183, '#8aa1af', { mat: 'g' }); b.cap(offset(p, -0.3), 179.5, '#8e9498');
-    b.colPoly([p], 14);
+    // Complete mapped podium and the 183 m / 43-level tower. Storey heights of
+    // low podium parts are explicit 4.2 m estimates where OSM gives only levels.
+    const p=U.w1453402305;
+    for(const id of ['w1474780170','w1474780171','w1474780172','w1474780173']){const q=U[id],h=+UT[id]['building:levels']*4.2;b.prism(q,0,h,'#c4c8c7',{topCol:'#858e86'});b.bands(q,0,h,4.2,'#536b7b',{frac:.72,mat:'g'});b.colPolygon(q,{y1:h});}
+    curtainTower(b,p,0,178,{glass:'#7b93a3',spandrel:'#b5c1c7',mullion:'#c9d0d4',pitch:3.5,fh:4.05,frac:0.82,start:6});
+    b.ring(offset(p,0.05),178,183,'#8aa1af',{mat:'g'});b.cap(offset(p,-0.3),179.5,'#8e9498');b.colPolygon(p,{y1:183});
 }
 
 // Lacey V. Murrow Memorial Bridge (1940 / rebuilt 1993) — the "high-rise" through-arch spans at both ends of the
@@ -2622,7 +2620,7 @@ function bBellevue600(b) {
 // Src: game/research/seattle-bellevue.json landmarks[murrow-high-rise-arches] ; en.wikipedia.org/wiki/Lacey_V._Murrow_Memorial_Bridge ;
 //      refs/bellevue/I-90_headed_east_from_Seattle_-_west_high-rise.jpg, ..._east_high-rise.jpg, Interstate_90_bridge_over_Lake_Washington_-_east_highrise_from_the_west.jpg
 function bMurrow(b) {
-    const CR = '#d6cdb9', HG = '#3b3f43', L = 64, H = 13.5;                                  // research #c9c0ae (sunlit photo #b8a68b) — lifted for the flat shading
+    const CR = '#d6cdb9', HG = '#3b3f43', L = 68, H = 13.5;                                  // research #c9c0ae (sunlit photo #b8a68b) — lifted for the flat shading
     const zb = 11.4, zt = 9.4;                                                              // rib lateral offset at deck / at crown (lean in)
     for (const s of [-1, 1]) {
         const prof = [[-L / 2, 0, zb], [-L / 2 + 7, 9.5, zb - 1.3], [-L / 2 + 12.5, H, zt], [L / 2 - 12.5, H, zt], [L / 2 - 7, 9.5, zb - 1.3], [L / 2, 0, zb]];
@@ -2631,13 +2629,14 @@ function bMurrow(b) {
         for (let k = 0; k < 8; k++) { const x = -L / 2 + 12.5 + (k + 0.5) * (L - 25) / 8; b.strut([x, 0.6, s * (zt + 0.4)], [x, H - 0.8, s * zt], 0.35, 0.35, HG); }
         for (const x of [-L / 2 + 9.5, L / 2 - 9.5]) b.strut([x, 0.6, s * (zb - 0.6)], [x, 10.6, s * (zb - 1.6)], 0.35, 0.35, HG);
     }
-    // three flattened elliptical crown rings tie the ribs together across the road (oval hole in each)
+    // Six crown openings per span, counted on independent georeferenced aerials.
+    // The approximately 68 m longitudinal extent is an aerial estimate (±3 m); height remains estimated.
     const ringGeo = (() => {
         const sh = new THREE.Shape(), hole = new THREE.Path(), W = zt + 1, D = 3.4, w2 = W - 2.4, d2 = 1.6;
         sh.absellipse(0, 0, W, D, 0, Math.PI * 2, false, 0); hole.absellipse(0, 0, w2, d2, 0, Math.PI * 2, true, 0); sh.holes.push(hole);
         const g = new THREE.ExtrudeGeometry(sh, { depth: 1.3, bevelEnabled: false, curveSegments: 14 }); g.rotateX(Math.PI / 2); return g;
     })();
-    for (const x of [-L / 2 + 13.5, 0, L / 2 - 13.5]) b.geo(ringGeo, CR, M(x, H + 0.9, 0, Math.PI / 2));
+    for (const x of [-20, -12, -4, 4, 12, 20]) b.geo(ringGeo, CR, M(x, H + 0.9, 0, Math.PI / 2));
     for (const s of [-1, 1]) for (const x of [-L / 2, L / 2]) b.col(x, s * zb, 2.2, 1.6);
 }
 
@@ -2649,7 +2648,7 @@ function bMurrow(b) {
 // Src: game/research/seattle-seatac.json landmarks[sea-garage] ; en.wikipedia.org/wiki/Seattle–Tacoma_International_Airport ;
 //      OSM rel 15763840, w37017724-w37017729 ; Commons "SeaTacAerial.jpg" (Bernstea, CC BY-SA 4.0, reference only)
 function bSeaGarage(b) {
-    const [outer, ...holes] = P2.seagarage.map(pts), G1 = '#a9a8a2', IN = '#4a4c4f', FH = 3.05;
+    const source=U.r15763840, outer=source.find(q=>q.role==='outer').poly, holes=source.filter(q=>q.role==='inner').map(q=>q.poly), G1 = '#a9a8a2', IN = '#4a4c4f', FH = 3.05;
     b.prism(outer, 0, 7 * FH, IN, { holes, topCol: '#8d8c88', holeCol: '#77787a' });
     for (let k = 0; k <= 7; k++) { const y = k * FH; b.ring(offset(outer, 0.12), Math.max(0, y - 0.95), y + 0.05, G1); }   // spandrel at each deck edge
     b.ring(offset(outer, 0.12), 7 * FH + 0.05, 7 * FH + 1.1, '#b5b4ae');                       // roof parapet
@@ -2664,7 +2663,7 @@ function bSeaGarage(b) {
         b.strut([x0, y - 0.45, z0], [x1, y - 0.45, z1], 7, 0.9, '#e1e3e4');
         b.strut([x0, y + 4.25, z0], [x1, y + 4.25, z1], 7.3, 0.7, '#e1e3e4');
     }
-    b.colPoly([outer], 20);
+    b.colPolygon(outer, { holes, y1: 7 * FH + 1.1 });
 }
 
 // SeaTac/Airport Link light-rail station (Sound Transit 1 Line, opened 2009-12-19) — island platform elevated 60 ft
@@ -2676,7 +2675,7 @@ function bSeaGarage(b) {
 // Src: game/research/seattle-seatac.json landmarks[seatac-airport-station] ; en.wikipedia.org/wiki/SeaTac/Airport_station ; OSM w54139654 / w226892390 / w54139652
 function bSeaLink(b) {
     const CON = '#cdcac3', WH = '#f1f2f2', GL = '#6f8796';
-    const z0 = -74, z1 = 74, W = 19, yP = 15;
+    const z0 = -74, z1 = 74, W = 19, yP = 18; // Sound Transit / research: platform elevated 60 ft
     b.push(M(6, 0, 0, Math.atan2(7, 148)));                                                   // guideway axis (platform w226892390 runs 2.7° off north)
     for (let z = z0 + 6; z <= z1 - 6; z += 18.5) { b.box(0, 0, z, 2.2, yP - 1.2, 3.2, CON); b.box(0, yP - 1.6, z, 14, 1.4, 3.4, CON); }
     b.box(0, yP - 1.2, 0, W, 1.2, z1 - z0, CON);                                              // platform / guideway deck
@@ -2977,22 +2976,23 @@ function bRosetti(b) {
 // flat roof; on the south side of Pompeiu opposite Hermes; OSM entrance nodes on the north face (≈ -11.5, -30).
 // Signage: building name on the entrance canopy + a small tenant plate (no rooftop logo found in research).
 // Src: game/research/bucharest-pipera.md (db, w55450549 row; Globalworth BOB particulars) ; OSM w55450549
-function bBOB(b) {
+function bBOB(b, ctx = {}) {
     // (round 5) landlord photos (globalworth.com / bob.globalworth.com; viewed only, not kept): GF + 6 glass block with
     // DARK horizontal spandrel bands, acute "prow" corners clad in white aluminium, a white projecting slab over a dark
     // granite ground floor with tall glazed entrances, thin projecting roof edge; lobby with a "DB Global Technology" desk.
-    const q = P2.bob.map(pts)[0], p = q.slice(0, 4), GL = '#6f9aa3', SP = '#2c3336', WH = '#e8eaea';
+    const source=ctx.sourceBuildings?.w55450549?.[0],p=source?.ring||P2.bob.map(pts)[0],GL='#6f9aa3',SP='#2c3336',WH='#e8eaea';
+    const total=source?.h??28, roof=total-2.5, upper=roof-.5;
     b.prism(p, 0, 4.8, '#5a4d47', { top: false });                                            // dark granite ground floor
     b.windows(p, 0, 4.8, 4.8, '#3d4c52', { bay: 7.2, wf: 0.55, hf: 0.82, start: 0.1, minL: 6, mat: 'g', off: 0.06 });
     b.cornice(p, 4.8, 0.45, 2.4, WH, { solid: true });                                        // white projecting slab
-    curtainTower(b, p, 5.25, 27.6, { glass: GL, spandrel: SP, mullion: '#3c4447', pitch: 1.6, mw: 0.08, md: 0.12, fh: 3.75, frac: 0.7, start: 0.55 });
-    b.cornice(p, 27.6, 0.5, 1.2, WH, { solid: true });                                        // thin projecting roof edge
-    for (const k of [0, 2]) { const [x, z] = p[k]; b.cyl(x, 5.25, z, 1.6, 1.6, 22.4, WH, 6); }   // white-clad acute prows
-    { const t = offset(p, -12); b.prism(t, 28.1, 30.6, '#a3a7a8'); }                        // plant enclosure
+    curtainTower(b, p, 5.25, upper, { glass: GL, spandrel: SP, mullion: '#3c4447', pitch: 1.6, mw: 0.08, md: 0.12, fh: (upper-5.25)/6, frac: 0.7, start: 0.55 });
+    b.cornice(p, upper, 0.5, 0.25, WH, { solid: true });                                        // thin projecting roof edge
+    for (const k of [0, 2]) { const a=p[k],prev=p[(k+p.length-1)%p.length],next=p[(k+1)%p.length],toward=q=>{const L=Math.hypot(q[0]-a[0],q[1]-a[1]);return[a[0]+(q[0]-a[0])*Math.min(3/L,.3),a[1]+(q[1]-a[1])*Math.min(3/L,.3)];}; b.prism([a,toward(next),toward(prev)],5.25,upper,WH); } // white cladding stays inside the mapped acute corners
+    { const t = offset(p, -12); b.prism(t, roof, total, '#a3a7a8'); b.colPolygon(t,{y0:roof,y1:total}); }                        // plant enclosure
     const f = nearestFacade(p, -11.5, -30.2);
     entrance(b, f, { w: 4.8, h: 3.9, canopyText: null, plate: { w: 0.7, h: 0.5, y: 1.3, bg: '#ffffff', lines: [['DB', 0.14, '#0018a8'], ['GLOBAL', 0.05, '#0018a8'], ['TECHNOLOGY', 0.05, '#0018a8']] } });
     { const x = f.x + f.nx * 2.45 - f.nz * 4.2, z = f.z + f.nz * 2.45 + f.nx * 4.2, ry = Math.atan2(f.nx, f.nz); b.text('BOB', x, 4.95, z, ry, 0.5, '#2c3336', { d: 0.02 }); }   // building name on the slab edge
-    b.colPoly([p], 18);
+    b.colPolygon(p, { holes: source?.holes || [], y1: roof });
 }
 
 // Rectoratul Universității Politehnica București (1970s) — OSM w28240552 (5 levels) + dome part. From the Commons refs
@@ -3334,14 +3334,14 @@ const A = {
     seatower: [47.4557242, -122.3013712, -0.2618], bellevuetowers: [47.6143271, -122.1981129, 0],
     bellevuesq: [47.615653, -122.2035769, -1.5359],
     lumen: [47.5952, -122.3316, 0], greatwheel: [47.60615, -122.34262, -1.01],
-    mtbaker: [47.5903651, -122.2930, 0],               // east portal (east end of OSM way 481496634)
-    rainier: [46.8529, -121.7604, 0], olympics: [47.70, -123.15, Math.PI / 2],
+    mtbaker: [47.5901, -122.2885856, 0],               // actual highway tunnel mouths at the east facade
+    rainier: [46.8529, -121.7604, 0], olympics: [47.70, -123.15, 0],
     // district-era landmarks (P2 footprints): anchor = bbox centre of the OSM footprints, rotation 0 (+x east)
     lincoln: [47.6168559, -122.2010316, 0], onelincoln: [47.6159634, -122.2008866, 0], lincolnsouth: [47.6147631, -122.2008325, 0], plazacenter: [47.6178822, -122.1940388, 0],
     sonic: [47.6148782, -122.1968365, 0], bellevue600: [47.6160667, -122.1942494, 0],
     // Murrow high-rise arches: anchor ON the I-90 EB carriageway centreline (world edge 'I-90 — Lacey V. Murrow Memorial Bridge'),
     // rotation = road heading (model +x along the road): west high-rise dir (0.9995, 0.0326), east (0.9991, 0.0433)
-    murroww: [47.5899055, -122.2849997, -0.0326], murrowe: [47.5892615, -122.2560025, -0.0433],
+    murroww: [47.5898848, -122.28406, -0.0326], murrowe: [47.5892424, -122.25540, -0.0433],
     seagarage: [47.4432823, -122.2992416, 0], sealink: [47.4452089, -122.2969786, 0],
     gts: [44.433369, 26.1176015, 0], rosetti: [44.4671565, 26.106133, 0], dinamo: [44.4551306, 26.1023192, 0], bob: [44.479608, 26.1147802, 0], thelandmark: [44.450012, 26.0946079, 0], europehouse: [44.4511557, 26.087697, 0], halatraian: [44.4333566, 26.120567, 0], globalworth: [44.4792401, 26.1024141, 0],
 };
@@ -3357,9 +3357,9 @@ function L(id, city, name, osmNames, radius, fn, extra = {}) {
 }
 
 /**
- * All landmarks. footprintRadius is in WORLD metres (Seattle already halved): generic OSM buildings
- * whose centroid lies within it should be suppressed. osmNames lists the OSM `name` values of the
- * buildings these models replace (also suppress those by name).
+ * All landmarks. sourceIds enumerates the complete authored replacement scope for
+ * source-preserving districts. Radius/name fields are legacy compatibility metadata;
+ * they never authorize deletion of a neighboring source building in that policy.
  */
 export const LANDMARKS = [
     // ---- Bucharest ----
@@ -3378,7 +3378,7 @@ export const LANDMARKS = [
     L('marriott', 'bucharest', 'JW Marriott Grand Hotel', ['JW Marriott', 'JW Marriott Bucharest Grand Hotel'], 75, bMarriott),
     L('unirea', 'bucharest', 'Unirea Shopping Center', ['Unirea Shopping Center'], 115, bUnirea),
     L('fountains', 'bucharest', 'Fântânile din Piața Unirii', [], 0, bFountains),
-    L('skytower', 'bucharest', 'Sky Tower', ['Sky Tower'], 28, bSkyTower),
+    L('skytower', 'bucharest', 'Sky Tower', ['Sky Tower'], 28, bSkyTower, { sourceIds: ['w219622660'] }),
     L('promenada', 'bucharest', 'Promenada Mall', ['Promenada Mall'], 95, bPromenada),
     L('baneasasc', 'bucharest', 'Băneasa Shopping City', ['Băneasa Shopping City'], 190, bBaneasaSC),
     L('romexpo', 'bucharest', 'Romexpo', ['Romexpo'], 65, bRomexpo),
@@ -3386,7 +3386,7 @@ export const LANDMARKS = [
     L('gara', 'bucharest', 'Gara de Nord', ['Gara de Nord'], 120, bGara),
     L('opera', 'bucharest', 'Opera Națională București', ['Opera Națională'], 70, bOpera),
     L('politehnica', 'bucharest', 'Rectoratul Politehnicii', ['Rectorat Universitatea Politehnica din București'], 30, bPolitehnica, { cvStop: 'upb', ownSign: true, floodlit: true, sourceIds: ['w28240552', 'w1217715300'] }),
-    L('hermes', 'bucharest', 'Hermes Business Campus', ['Hermes', 'Clădirea B+C', 'Hermes Business Campus'], 80, bHermes, { cvStop: 'luxoft', ownSign: true }),
+    L('hermes', 'bucharest', 'Hermes Business Campus', ['Hermes', 'Clădirea B+C', 'Hermes Business Campus'], 80, bHermes, { cvStop: 'luxoft', ownSign: true, sourceIds: ['w533147567', 'w231123137', 'r6774709'] }),
     L('baneasaterm', 'bucharest', 'Aeroportul Băneasa (terminal 1952)', ['Aeroportul Internațional Aurel Vlaicu'], 75, bBaneasaTerm),
     L('otp', 'bucharest', 'Aeroportul Henri Coandă', ['Aeroportul Otopeni Henri Coandă - Plecări', 'Aeroportul Otopeni Henri Coandă - Sosiri', 'Terminalul Vioara'], 230, bOTP),
     L('ase', 'bucharest', 'ASE — Palatul Ion N. Angelescu', ['Clădirea Ion N. Angelescu', 'Academia de Studii Economice'], 0, bASE, { ownSign: true }),
@@ -3397,34 +3397,34 @@ export const LANDMARKS = [
     L('gts', 'bucharest', 'Calea Călărașilor 101 (GTS Global Intelligence)', [], 9.5, bGTS, { cvStop: 'gts', ownSign: true, floodlit: true }),
     L('dinamo', 'bucharest', 'Stadionul Dinamo', ['Stadionul Dinamo', 'Peluza Catalin Hildan', 'Peluza Cătălin Hildan'], 95, bDinamo, { floodlit: true }),
     L('rosetti', 'bucharest', 'Liceul Teoretic C.A. Rosetti', ['Liceul Teoretic C.A. Rosetti', 'Liceul Teoretic „C.A. Rosetti”', 'Liceul C.A. Rosetti'], 26, bRosetti, { cvStop: 'rosetti', ownSign: true, floodlit: true }),
-    L('bob', 'bucharest', 'BOB Tower (DB Global Technology)', ['BOB Tower'], 40, bBOB, { cvStop: 'db', ownSign: true }),
+    L('bob', 'bucharest', 'BOB Tower (DB Global Technology)', ['BOB Tower'], 40, bBOB, { cvStop: 'db', ownSign: true, sourceIds: ['w55450549'] }),
     L('halatraian', 'bucharest', 'Hala Traian', ['Hala Traian'], 12, bHalaTraian),
     L('globalworth', 'bucharest', 'Globalworth Tower', ['Globalworth Tower'], 12, bGlobalworth),
     // ---- Seattle / Bellevue (radius given in real metres, halved by L()) ----
-    L('spaceneedle', 'seattle', 'Space Needle', ['Space Needle'], 30, bSpaceNeedle),
-    L('columbia', 'seattle', 'Columbia Center', ['Columbia Center'], 50, bColumbia),
-    L('smith', 'seattle', 'Smith Tower', ['Smith Tower'], 28, bSmith),
-    L('lumen', 'seattle', 'Lumen Field', ['Lumen Field'], 140, bLumen),
-    L('tmobile', 'seattle', 'T-Mobile Park', ['T-Mobile Park'], 135, bTMobile),
-    L('greatwheel', 'seattle', 'Seattle Great Wheel', ['Seattle Great Wheel Tickets'], 30, bGreatWheel),
-    L('spheres', 'seattle', 'Amazon Spheres', ['Amazon.com The Spheres'], 36, bSpheres),
-    L('mtbaker', 'seattle', 'Mount Baker Tunnel (east portal)', [], 0, bMtBaker),
-    L('seatac', 'seattle', 'Seattle-Tacoma International Airport', ['Sea-Tac Airport Main Terminal'], 480, bSeaTac),
-    L('seatower', 'seattle', 'SeaTac Control Tower', ['SeaTac Control Tower'], 30, bSeaTower),   // r 30: also the 71 m parent outline w53199557 (centroid ~15-21 m off)
-    L('lincoln', 'seattle', 'Lincoln Square North (UiPath Bellevue)', ['Lincoln Square', 'Lincoln Square North', 'Cinemark Lincoln Square'], 72, bLincolnN, { cvStop: 'uipath-bel', hero: true }),
-    L('onelincoln', 'seattle', 'One Lincoln Tower / Westin Bellevue', ['One Lincoln Tower', 'Westin Bellevue', 'Westin'], 40, bOneLincoln),
-    L('lincolnsouth', 'seattle', 'Lincoln Square South', ['Lincoln Square South', 'Lincoln Square South Tower', '400 Lincoln Square', 'Two Lincoln Tower', 'W Bellevue'], 50, bLincolnS),
-    L('plazacenter', 'seattle', 'Plaza Center (UiPath Bellevue 2018–2025)', ['Plaza Center'], 32, bPlazaCenter, { passing: 'plaza-center' }),
-    L('sonic', 'seattle', 'Amazon Sonic', ['Amazon.com Sonic', 'Amazon Sonic', '555 Tower'], 30, bSonic),
-    L('bellevue600', 'seattle', 'Bellevue 600', ['Bellevue 600'], 12, bBellevue600),
-    L('murroww', 'seattle', 'Murrow Bridge — west high-rise arches', [], 0, bMurrow, { districtOnly: true }),
-    L('murrowe', 'seattle', 'Murrow Bridge — east high-rise arches', [], 0, bMurrow, { districtOnly: true }),
-    L('seagarage', 'seattle', 'Sea-Tac parking garage + skybridges', ['Sea-Tac Parking Garage', 'Seattle-Tacoma International Airport Parking Garage'], 80, bSeaGarage),
-    L('sealink', 'seattle', 'SeaTac/Airport Link station', ['SeaTac/Airport'], 30, bSeaLink),
-    L('bellevuetowers', 'seattle', 'Bellevue Towers', ['Bellevue Towers', 'North Tower', 'South Tower'], 55, bBellevueTowers),
-    L('bellevuesq', 'seattle', 'Bellevue Square', ['Bellevue Square Mall'], 190, bBellevueSq),
-    L('rainier', 'seattle', 'Mount Rainier', [], 0, bRainier, { backdrop: true, realDistanceKm: 87 }),
-    L('olympics', 'seattle', 'Olympic Mountains', [], 0, bOlympics, { backdrop: true, realDistanceKm: 60 }),
+    L('spaceneedle', 'seattle', 'Space Needle', ['Space Needle'], 30, bSpaceNeedle, { sourceIds: ['w12903132','w394254329','w394254330','w394254331','w394254332','w394254333','w394254334','w394254335','w394254336','w394254337','w394254484','w394254485','w394254486','w394254487','w394254488','w394956342','w394956343','w394956344'] }),
+    L('columbia', 'seattle', 'Columbia Center', ['Columbia Center'], 50, bColumbia, { sourceIds: ['r4648083','w107124288','w331293871','w418132520','w418132515','w418132517','w418132525'] }),
+    L('smith', 'seattle', 'Smith Tower', ['Smith Tower'], 28, bSmith, { sourceIds: ['w52781661','w418140384','w418140385','w418140386'] }),
+    L('lumen', 'seattle', 'Lumen Field', ['Lumen Field'], 140, bLumen, { sourceIds: ['w458208102','w458208103','w458208104','w458208105','w458208106','w458208107','w458208112'] }),
+    L('tmobile', 'seattle', 'T-Mobile Park', ['T-Mobile Park'], 135, bTMobile, { sourceIds: ['w1451834508','w1451834509','w1451834510','w1451834511','w1451834512','w1451834513','w1451834514','w1451834515','w1451834516','w1451834517','w1451834518','w1451834519','w1451834520','w1451834521','w1451834522','w1451834523'] }),
+    L('greatwheel', 'seattle', 'Seattle Great Wheel', ['Seattle Great Wheel Tickets'], 30, bGreatWheel, { sourceIds: [] }),
+    L('spheres', 'seattle', 'Amazon Spheres', ['Amazon.com The Spheres'], 36, bSpheres, { sourceIds: ['w868099742','w398816077','w491817110','w491817111'] }),
+    L('mtbaker', 'seattle', 'Mount Baker Tunnel (east portal)', [], 0, bMtBaker, { sourceIds: [] }),
+    L('seatac', 'seattle', 'Seattle-Tacoma International Airport', ['Sea-Tac Airport Main Terminal'], 480, bSeaTac, { sourceIds: ['w23772634','w23772637','w734002404','w869951038'] }),
+    L('seatower', 'seattle', 'SeaTac Control Tower', ['SeaTac Control Tower'], 30, bSeaTower, { sourceIds: ['w53199557','w1199936806','w1199936807'] }),   // r 30: also the 71 m parent outline w53199557 (centroid ~15-21 m off)
+    L('lincoln', 'seattle', 'Lincoln Square North (UiPath Bellevue)', ['Lincoln Square', 'Lincoln Square North', 'Cinemark Lincoln Square'], 72, bLincolnN, {  cvStop: 'uipath-bel', hero: true, sourceIds: ['w604028609','w161929514','w1364249504'] }),
+    L('onelincoln', 'seattle', 'One Lincoln Tower / Westin Bellevue', ['One Lincoln Tower', 'Westin Bellevue', 'Westin'], 40, bOneLincoln, { sourceIds: ['w604028611','w328017119','w1474737770'] }),
+    L('lincolnsouth', 'seattle', 'Lincoln Square South', ['Lincoln Square South', 'Lincoln Square South Tower', '400 Lincoln Square', 'Two Lincoln Tower', 'W Bellevue'], 50, bLincolnS, { sourceIds: ['w1326151866','w604028603','w1326151868'] }),
+    L('plazacenter', 'seattle', 'Plaza Center (UiPath Bellevue 2018–2025)', ['Plaza Center'], 32, bPlazaCenter, {  passing: 'plaza-center', sourceIds: ['w33725899'] }),
+    L('sonic', 'seattle', 'Amazon Sonic', ['Amazon.com Sonic', 'Amazon Sonic', '555 Tower'], 30, bSonic, { sourceIds: ['w1214423752','w1214424283','w1556489725'] }),
+    L('bellevue600', 'seattle', 'Bellevue 600', ['Bellevue 600'], 12, bBellevue600, { sourceIds: ['w1453402304','w1453402305','w1474780170','w1474780171','w1474780172','w1474780173'] }),
+    L('murroww', 'seattle', 'Murrow Bridge — west high-rise arches', [], 0, bMurrow, {  districtOnly: true, sourceIds: [] }),
+    L('murrowe', 'seattle', 'Murrow Bridge — east high-rise arches', [], 0, bMurrow, {  districtOnly: true, sourceIds: [] }),
+    L('seagarage', 'seattle', 'Sea-Tac parking garage + skybridges', ['Sea-Tac Parking Garage', 'Seattle-Tacoma International Airport Parking Garage'], 80, bSeaGarage, { sourceIds: ['r15763840','w37017724','w37017725','w37017726','w37017727','w37017728','w37017729'] }),
+    L('sealink', 'seattle', 'SeaTac/Airport Link station', ['SeaTac/Airport'], 30, bSeaLink, { sourceIds: ['w54139654'] }),
+    L('bellevuetowers', 'seattle', 'Bellevue Towers', ['Bellevue Towers', 'North Tower', 'South Tower'], 55, bBellevueTowers, { sourceIds: ['w118119171','w370237986','w370239409'] }),
+    L('bellevuesq', 'seattle', 'Bellevue Square', ['Bellevue Square Mall'], 190, bBellevueSq, { sourceIds: ['w29234887'] }),
+    L('rainier', 'seattle', 'Mount Rainier', [], 0, bRainier, {  backdrop: true, realDistanceKm: 87, sourceIds: [] }),
+    L('olympics', 'seattle', 'Olympic Mountains', [], 0, bOlympics, {  backdrop: true, realDistanceKm: 60, sourceIds: [] }),
 ];
 
 /**

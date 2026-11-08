@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "id": "murroww",
+  "city": "seattle",
+  "name": "Murrow Bridge — west high-rise arches",
+  "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+  "status": "in-progress",
+  "coordinates": {
+    "lat": 47.5898848,
+    "lon": -122.28406
+  },
+  "sourceIds": [],
+  "replacementScope": "Only the explicit source IDs represent authored replacement. Empty scope means context geometry only; never remove neighbours by radius, name or centroid.",
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/123889285",
+      "label": "OSM w123889285 · version 19 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13613015.271163905%2C6038587.511933937%2C-13612392.525355319%2C6039210.257742521&bboxSR=3857&imageSR=3857&size=1280%2C1280&format=jpg&f=image",
+      "label": "Independent georeferenced Esri aerial · privately viewed · acquisition date unknown · image not published",
+      "type": "aerial"
+    }
+  ],
+  "improvements": [
+    "Moved the west arch approximately 70 m east onto the actual span on mapped I-90 way123889285.",
+    "Measured approximately 70 m rib-seat extent (±3 m) in independent georeferenced aerial imagery; a shared 68 m span is rendered.",
+    "Replaced three crown openings with the observed six; the driving centreline stays open and the bridge deck is not replaced."
+  ],
+  "remainingGaps": [
+    "Arch height 13.5 m, rib thickness, hanger spacing, concrete finish and vertical fit to the bridge road deck remain estimates.",
+    "Only the arch structure is modelled; this record does not claim reconstruction of floating pontoons, bridge deck or seismic joints.",
+    "Aerial acquisition date is unknown and crown parallax is not converted into a height measurement.",
+    "These are isolated front/top/oblique model studies, not matched street-eye Street View/aerial comparisons. They do not establish full-world, night, weather or seasonal parity.",
+    "Integrated source-only replacement and rebuilt district performance are separate acceptance checks; the capture branch predates that shared world policy."
+  ],
+  "checks": [
+    {
+      "label": "Bucharest foot,a regression",
+      "passed": true,
+      "details": "Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. Subsequent source changes are confined to US models."
+    },
+    {
+      "label": "Current source identity and topology review",
+      "passed": true,
+      "details": "All 24 US registry entries checked; 0 explicit replacement identities for this model. Raw source versions/tags/coordinates retained. OSM geometry takes precedence over estimates."
+    },
+    {
+      "label": "Independent visual and actual model review",
+      "passed": true,
+      "details": "Actual front, top and oblique game renders inspected against source plans and independently viewed aerial context; only game renders are published. Height/facade limits and source conflicts are listed."
+    },
+    {
+      "label": "Geometry and meaningful collision checks",
+      "passed": true,
+      "details": "All61 shared geometry invariants and the US source-scope/total-height/court/pitch/portal/bridge-clearance regression checks pass. No FPS claim is inferred from geometry counts."
+    },
+    {
+      "label": "Immutable game-only capture provenance",
+      "passed": true,
+      "details": "Each lossless WebP is RGB pixel-verified against its actual game screenshot and carries its own source commit, camera pose and SHA256."
+    },
+    {
+      "label": "Complete measured visual parity",
+      "passed": false,
+      "details": "Unmeasured sections, simplified details and world integration remain open as listed; no 100% parity claim."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Isolated model study · front elevation",
+      "image": "assets/landmarks/murroww/front.webp",
+      "kind": "front",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "58360797353e51b8ed9125b06a439823131f76b827d4ad3dc4f4dfead623cec4",
+      "capturedAt": "2026-11-08T17:08:25.405Z",
+      "pose": {
+        "position": [
+          112.8783565702762,
+          6.379999923706055,
+          6.911805903340117e-15
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "quaternion": [
+          0,
+          0.7071067811865475,
+          0,
+          0.7071067811865476
+        ],
+        "projection": "perspective",
+        "fov": 45,
+        "target": [
+          0,
+          6.379999923706055,
+          0
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    },
+    {
+      "id": "top",
+      "label": "Isolated model study · orthographic north-up plan",
+      "image": "assets/landmarks/murroww/top.webp",
+      "kind": "top",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "55e54416f72b800753ad58b48155f4f52628459273b606def16a8e1a5254518c",
+      "capturedAt": "2026-11-08T17:08:27.343Z",
+      "pose": {
+        "position": [
+          0,
+          104.40866473752384,
+          0
+        ],
+        "up": [
+          0,
+          0,
+          -1
+        ],
+        "quaternion": [
+          -0.7071067811865475,
+          0,
+          0,
+          0.7071067811865476
+        ],
+        "projection": "orthographic",
+        "groundSquareM": 88.4586649282587,
+        "orientation": "north-up",
+        "target": [
+          0,
+          0,
+          0
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Isolated model study · oblique overview",
+      "image": "assets/landmarks/murroww/oblique.webp",
+      "kind": "oblique",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "070f2b9bf7cc1eba9cdc8da7b964814789f32258ce6db87406a359eac85b537f",
+      "capturedAt": "2026-11-08T17:08:30.334Z",
+      "pose": {
+        "position": [
+          58.19185024528142,
+          55.862614541084426,
+          83.1065749364343
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "quaternion": [
+          -0.2145396336164296,
+          0.2929987293442745,
+          0.0676440866458011,
+          0.929273247087327
+        ],
+        "projection": "perspective",
+        "fov": 45,
+        "target": [
+          0,
+          6.379999923706055,
+          0
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 1800,
+    "drawCalls": 2,
+    "note": "Isolated viewer frame includes ground and shadow rendering; this is neither a whole-world budget measurement nor hardware FPS."
+  }
+}

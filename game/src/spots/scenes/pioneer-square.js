@@ -7,12 +7,12 @@
 //  Tower (1914) up Yesler Way. Acorn street lamps throughout.
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
-import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, obb } from '../kit.js';
+import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly } from '../kit.js';
 import { signBoard } from '../props.js';
 import { meshSDF, sdEllipsoid, sdCapsule, sdSphere, sdBox, smin, smax, fbm3 } from '../sdf.js';
 import { seaBackdrop, seaActivity } from './sea-common.js';
-import { facadeMaterial, facadeStyle, wallGeometry } from '../osm.js';
 import { addTraffic } from '../cars.js';
+import { LANDMARKS, buildLandmark } from '../../landmarks.js';
 
 // ---------------------------------------------------------------------------- the Chief-of-All-Women pole (1940 replica)
 /**
@@ -122,23 +122,11 @@ function buildPergola(ctx) {
     return { cx, cz, y0 };
 }
 function buildSmithTower(ctx) {
-    const st = ctx.data.buildings.find((x) => x.id === 'w52781661'); if (!st) return null;
-    ctx.skipBuildings.add(st.id);
-    const g = ctx.ground, o = obb(st.poly), y0 = Math.min(...st.poly.map(([x, z]) => g.heightAt(x, z))) - 0.3;
-    const cream = '#ece6d6', b = new GeoBatch(), S = facadeStyle('concrete');
-    const wb = wallGeometry(st.poly, y0, y0 + 75, S, y0, cream); b.add(wb, 'f-concrete', null, cream);
-    b.flat(st.poly, y0 + 75, '#cfc7b6', 'roofs');
-    // the tower shaft (≈ 15 × 15 m) rising to 140.8 m, then the pyramid to 147.5 m with the glass globe
-    const tw = 15.5, cx = o.cx, cz = o.cz, sq = (s) => [[cx - s, cz - s], [cx + s, cz - s], [cx + s, cz + s], [cx - s, cz + s]].map(([x, z]) => { const dx = x - cx, dz = z - cz; return [cx + dx * Math.cos(o.angle) - dz * Math.sin(o.angle), cz + dx * Math.sin(o.angle) + dz * Math.cos(o.angle)]; });
-    const shaft = wallGeometry(sq(tw / 2), y0 + 75, y0 + 136, S, y0 + 75, cream); b.add(shaft, 'f-concrete', null, cream);
-    b.box(cx, y0 + 136, cz, tw + 1.2, 2.2, tw + 1.2, cream, 'stone', -o.angle);
-    b.add(new THREE.ConeGeometry(tw * 0.74, 9.5, 4, 1), 'paint', M(cx, y0 + 138.2 + 4.75, cz, 0, Math.PI / 4 - o.angle, 0), '#e9e3d2');
-    b.sphere(cx, y0 + 148.3, cz, 0.9, 0.9, 0.9, '#a8d0e6', 'glass', 12, 8);
-    ctx.add(b.build('smith-tower', { matOverrides: { 'f-concrete': facadeMaterial('concrete') } }));
-    ctx.poly(st.poly);
-    const sg = signBoard('SMITH TOWER', 3.6, 0.6, { bg: '#2b2b2b', fg: '#e8d9a8', font: (s) => `700 ${s}px Georgia, serif` });
-    const [px, pz] = st.poly[0]; sg.position.set(px, y0 + 4.8, pz); sg.rotation.y = Math.PI; ctx.add(sg);
-    return { cx, cz };
+    const lm=LANDMARKS.find(l=>l.id==='smith'),st=ctx.data.buildings.find(x=>x.id==='w52781661');if(!st)return null;
+    for(const id of lm.sourceIds)ctx.skipBuildings.add(id);
+    const p=ctx.ll(lm.lat,lm.lon),y0=Math.min(...st.poly.map(([x,z])=>ctx.ground.heightAt(x,z)))-.3,model=buildLandmark(lm,{realScale:true});
+    model.mesh.position.set(p.x,y0,p.z);ctx.add(model.mesh);ctx.poly(st.poly);
+    return {cx:p.x,cz:p.z};
 }
 
 export default {

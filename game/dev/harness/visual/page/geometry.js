@@ -25,6 +25,7 @@
 const ROAD_Y = 0.24;
 // Independent from game code: retain the harness's own geometry check and cover both implementations in fixtures.
 export function buildingBlocksRoad(c, x, z, roadY, bodyHeight = 2) {
+    if (c.passageSolids) return c.passageSolids.some(band => band.y0 <= roadY + bodyHeight && band.y1 >= roadY && band.polys.some(p => pip(x, z, p)));
     if (!c.poly || !pip(x, z, c.poly) || (c.holes || []).some(h => pip(x, z, h))) return false;
     if ((c.minH ?? 0) > roadY + bodyHeight || (c.h !== undefined && roadY > c.h + 0.5)) return false;
     if ((c.y0 !== undefined && roadY < c.y0) || (c.y1 !== undefined && roadY > c.y1)) return false;

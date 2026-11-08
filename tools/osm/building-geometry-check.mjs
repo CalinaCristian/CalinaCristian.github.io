@@ -12,6 +12,7 @@ import { footprintCells, footprintCoverage, exposedWall, insetFootprint, ringAre
 import { collideBuildings, buildingBlocksRoad as worldBuildingBlocksRoad } from '../../game/src/world.js';
 import { buildingBlocksRoad as harnessBuildingBlocksRoad } from '../../game/dev/harness/visual/page/geometry.js';
 import { sourceRing } from './source-footprints.mjs';
+import { parseMeasure } from '../../game/src/building-roofs.js';
 const close = (a, b, label) => assert.ok(Math.abs(a - b) < Math.max(1e-5, Math.abs(b) * 1e-8), `${label}: ${a} != ${b}`);
 const square = [[0, 0], [10, 0], [10, 10], [0, 10]];
 assert.deepEqual(sourceRing([[0,0],[.04,0],[.04,1],[0,1],[0,0]]).ring, [[0,0],[.04,0],[.04,1],[0,1]], 'a four-centimetre structural strip retains its complete positive-area footprint');
@@ -36,6 +37,10 @@ for (const check of [worldBuildingBlocksRoad, harnessBuildingBlocksRoad]) {
     assert.equal(check({ poly: square, minH: 4.8, h: 5.2 }, 5, 5, 4.8), true, 'the roof band still blocks a road at its level');
     assert.equal(check({ poly: square, minH: 1.8, h: 2.2 }, 5, 5, 0.24), true, 'a low underside does not clear the vehicle body');
     assert.equal(check({ poly: square, h: 5 }, 5, 5, 10), false, 'a deck above the roof does not touch the building');
+    const opening = { poly: square, h: 10, passageSolids: [{ y0: 0, y1: 3.34, polys: [[[0,0],[2,0],[2,10],[0,10]], [[8,0],[10,0],[10,10],[8,10]]] }, { y0: 3.34, y1: 10, polys: [square] }] };
+    assert.equal(check(opening, 5, 5, .24), false, 'the mapped low void clears the road vehicle');
+    assert.equal(check(opening, 1, 5, .24), true, 'source side posts remain a real road contact');
+    assert.equal(check(opening, 5, 5, 3.5), true, 'the upper source body remains solid');
     const court = { poly: square, holes: [[[2,2],[8,2],[8,8],[2,8]]], h: 10 };
     assert.equal(check(court, 5, 5, 0.24), false, 'a mapped courtyard passage stays open');
     assert.equal(check(court, 1, 5, 0.24), true, 'a solid courtyard wing over a road remains a finding');
@@ -53,7 +58,7 @@ for (const [key, spec] of Object.entries(data.buildingAssemblies || {})) {
     const i = +key, partRings = spec.parts.map(p => rings[p]);
     for (const p of spec.parts) { assert.ok(!used.has(p), 'part has a unique enclosing outline'); used.add(p); const dimensions = data.buildingDimensions?.[p] || [data.buildings[p][1] / 10, data.buildings[p][2] / 10]; assert.ok(dimensions[0] > dimensions[1], 'precise part band remains positive'); }
     const cells = footprintCells(rings[i], partRings), residuals = cells.filter(c => !c.covered.length).map(c => c.ring);
-    const volume = i => ({ i, ring: rings[i], holes: [], h: data.buildingDimensions?.[i]?.[0] ?? data.buildings[i][1] / 10, minH: data.buildingDimensions?.[i]?.[1] ?? data.buildings[i][2] / 10 });
+    const volume = i => ({ i, ring: rings[i], holes: [], h: data.buildingRoofProfiles?.[i]?.eavesM ?? data.buildingDimensions?.[i]?.[0] ?? data.buildings[i][1] / 10, roofProfile: data.buildingRoofProfiles?.[i], minH: data.buildingDimensions?.[i]?.[1] ?? data.buildings[i][2] / 10 });
     assert.equal(spec.geometry.signature, assemblySignature(volume(i), spec.parts.map(volume)), 'offline geometry cache matches every source vertex and height');
     assert.equal(spec.geometry.surfaces.length, spec.parts.length + spec.geometry.residuals.length + (spec.mode === 'union' ? 1 : 0));
     assert.ok(spec.geometry.surfaces.every(s => s.walls.every(w => w.every(f => f.y1 > f.y0))), 'cached wall bands never invert');
@@ -67,7 +72,7 @@ for (const [key, spec] of Object.entries(data.buildingAssemblies || {})) {
     else assert.equal(spec.geometry.residuals.length, 0, 'partial parts retain their complete source base body');
     report.assemblies.push({ source: data.buildingIds?.[i] || 'legacy-index:' + i, mode: spec.mode, parts: spec.parts.map(p => data.buildingIds?.[p] || 'legacy-index:' + p), residualArea: cov.uncovered, residualHeight: spec.residualHeightM ?? spec.residualHeightDm / 10 });
 }
-const physical = rings.map((ring, i) => ({ i, ring, holes: data.buildingHoleFootprints?.[i] || data.buildingHoles?.[i] || [], h: data.buildingDimensions?.[i]?.[0] ?? data.buildings[i][1] / 10, minH: data.buildingDimensions?.[i]?.[1] ?? data.buildings[i][2] / 10 }));
+const physical = rings.map((ring, i) => ({ i, ring, holes: data.buildingHoleFootprints?.[i] || data.buildingHoles?.[i] || [], h: data.buildingRoofProfiles?.[i]?.eavesM ?? data.buildingDimensions?.[i]?.[0] ?? data.buildings[i][1] / 10, roofProfile: data.buildingRoofProfiles?.[i], minH: data.buildingDimensions?.[i]?.[1] ?? data.buildings[i][2] / 10 }));
 for (const [key, spec] of Object.entries(data.buildingAssemblies || {})) {
     if (spec.mode === 'parts') physical[+key].suppressed = true;
     for (const r of spec.geometry.residuals) physical.push({ i: physical.length, ring: geometryRing(r.ring, data.buildingGeometryPoints), holes: [], h: r.h, minH: 0 });
@@ -120,7 +125,7 @@ const osmDir = process.argv.find(a => a.startsWith('--osm='))?.slice(6);
 if (osmDir) {
     const osm = parseFiles(fs.readdirSync(osmDir).filter(f => f.endsWith('.xml')).sort().map(f => path.join(osmDir, f)));
     const source = id => (id?.[0] === 'w' ? osm.ways : osm.rels).get(+id?.slice(1));
-    const numeric = s => s == null ? NaN : Number(String(s).replace(/\s*m$/, ''));
+    const numeric = parseMeasure;
     const rawRing = (id, index) => {
         const object = source(id); if (!object) return null;
         const chains = id[0] === 'w' ? [object.nodes] : assembleRings(object.members.filter(m => m.type === 'way' && m.role !== 'inner').map(m => osm.ways.get(m.ref)?.nodes).filter(Boolean)).rings;

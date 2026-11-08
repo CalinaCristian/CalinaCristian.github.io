@@ -46,7 +46,7 @@ scene.add(sun, sun.target);
 const ground = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshLambertMaterial({ color: '#9aa58c' }));
 if (NIGHT) ground.material.color.set('#3c4038');
 ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
-const camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 1, 2e6);
+let camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 1, 2e6);
 
 const sel = document.getElementById('sel');
 for (const l of LANDMARKS) sel.add(new Option(`${l.city.slice(0, 3)} · ${l.name}`, l.id));
@@ -86,10 +86,18 @@ function show(id) {
   const R = Math.max(size.x, size.z, size.y * 1.15) * 0.5 + 1;
   ground.scale.set(R * 40, R * 40, 1);
   const top = document.getElementById('top').checked || qs.get('view') === 'top';
+  if (top) {
+    // A model study, not a georeferenced aerial comparison: square ground coverage,
+    // x east / screen up north, independent of the landmark's authored yaw.
+    const span = +(qs.get('span') ?? Math.max(size.x, size.z) * 1.16 + 4);
+    camera = new THREE.OrthographicCamera(-span * (innerWidth / innerHeight) / 2, span * (innerWidth / innerHeight) / 2, span / 2, -span / 2, 0.5, 2e6);
+    camera.position.set(ctr.x, Math.max(100, size.y + span), ctr.z);
+    camera.up.set(0, 0, -1); camera.lookAt(ctr.x, 0, ctr.z);
+  } else if (!camera.isPerspectiveCamera) camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 1, 2e6);
   const street = !top && qs.get('view') === 'street';
   const az = THREE.MathUtils.degToRad(+(qs.get('az') ?? 35));
   camera.fov = +(qs.get('fov') ?? (street ? 62 : 45));
-  let dist, ly;
+  let dist = top ? camera.position.y : undefined, ly = top ? 0 : undefined;
   if (street) {
     dist = +(qs.get('d') ?? Math.max(Math.max(size.x, size.z) * 0.8 + 25, size.y * 1.45));
     ly = +(qs.get('ty') ?? Math.min(size.y * 0.45, Math.tan(THREE.MathUtils.degToRad(camera.fov * 0.32)) * dist));
@@ -110,7 +118,7 @@ function show(id) {
         camera.position.set(ctr.x+Math.sin(az)*dist,+(qs.get('ey')??1.3),ctr.z+Math.cos(az)*dist);camera.lookAt(ctr.x,ly,ctr.z);
       }
     }
-  } else {
+  } else if (!top) {
     const el = top ? Math.PI / 2 - 0.001 : THREE.MathUtils.degToRad(+(qs.get('el') ?? 24));
     // A top camera must clear the tallest roof before fitting its horizontal extent.
     dist = +(qs.get('d') ?? (R / Math.tan(THREE.MathUtils.degToRad(22.5)) * (top ? 1.12 : 1.25) + (top ? size.y : 0)));
@@ -128,10 +136,15 @@ function show(id) {
   renderer.render(scene, camera);
   const info = `${lm.name} — ${current.triangles} tris${extraTris ? ' (+' + extraTris + ' with)' : ''} (scale ${current.authoredScale ?? 1}), ${current.mesh.children.length} meshes, ${current.collision.length} col boxes, h=${size.y.toFixed(1)} m, ${size.x.toFixed(0)}×${size.z.toFixed(0)} m (world), ${ms.toFixed(1)} ms`;
   document.getElementById('info').textContent = info;
-  window.__stats = { id: lm.id, triangles: current.triangles, height: size.y, w: size.x, d: size.z, ms };
+  window.__stats = { id: lm.id, triangles: current.triangles, height: size.y, w: size.x, d: size.z, ms,
+    drawCalls: renderer.info.render.calls, sourceIds: lm.sourceIds || [],
+    pose: { position: camera.position.toArray(), up: camera.up.toArray(), quaternion: camera.quaternion.toArray(),
+      projection: camera.isOrthographicCamera ? 'orthographic' : 'perspective',
+      ...(top ? { groundSquareM: camera.right - camera.left, orientation: 'north-up' } : { fov: camera.fov }),
+      target: [ctr.x, top ? 0 : ly, ctr.z], frame: 'isolated landmark model, +x east / +z south, metres' } };
   // Game-only overview evidence: exact camera, model bounds and current render counters.
   window.__landmarkCapture = { ...window.__stats, name: lm.name, anchor: { lat: lm.lat, lon: lm.lon, rotation: lm.rotation },
-    view: top ? 'top' : street ? 'front' : 'oblique', camera: { position: camera.position.toArray(), quaternion: camera.quaternion.toArray(),
+    view: top ? 'top' : street ? 'front' : 'oblique', camera: { projection: camera.isOrthographicCamera ? 'orthographic' : 'perspective', position: camera.position.toArray(), quaternion: camera.quaternion.toArray(),
       fov: camera.fov, near: camera.near, far: camera.far, viewport: [innerWidth, innerHeight] },
     bounds: { min: box.min.toArray(), max: box.max.toArray() }, collision: current.collision,
     render: { triangles: renderer.info.render.triangles, calls: renderer.info.render.calls } };
@@ -140,7 +153,7 @@ function show(id) {
 sel.onchange = () => show(sel.value);
 document.getElementById('top').onchange = () => show(sel.value);
 document.getElementById('col').onchange = () => { colGroup.visible = document.getElementById('col').checked; renderer.render(scene, camera); };
-addEventListener('resize', () => { renderer.setSize(innerWidth, innerHeight); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.render(scene, camera); });
+addEventListener('resize', () => { renderer.setSize(innerWidth, innerHeight); if (camera.isOrthographicCamera) { camera.right = camera.top * innerWidth / innerHeight; camera.left = -camera.right; } else camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.render(scene, camera); });
 window.showLandmark = show;
 window.__ids = LANDMARKS.map(l => l.id);
 show(qs.get('id') || LANDMARKS[0].id);

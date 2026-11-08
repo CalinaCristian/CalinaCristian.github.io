@@ -120,6 +120,7 @@ def main():
         g0[0], g0[1] = best[1], best[2]
         print('global offset', round(g0[0] * meta['mPerPx'], 2), 'm E,', round(-g0[1] * meta['mPerPx'], 2), 'm N', file=sys.stderr)
     out = {}
+    colour_measurements = {}
     for wid, (refs, t) in ways.items():
         if t.get('building:part') and not t.get('building'):
             continue
@@ -200,12 +201,28 @@ def main():
             # A median-colour sample cannot resolve a church's domes, towers and compound metal roof. Do not flatten
             # that roof as a supposedly confident measurement; preserve OSM/landmark handling.
             shape, conf = 'unknown', 0.0
+        # Colour reliability is independent of roof shape: a grey pitched roof can be evenly sampled.
+        # Deep cast shadow, canopy contamination, tiny samples and highly mixed light reduce reliability.
+        median_luma = float(np.median(lum))
+        shadow_fraction = float(np.mean(lum < 40))
+        colour_conf = 0.9 - gfrac * 1.5 - max(0.0, spread - 0.6) * 0.25 - max(0.0, shadow_fraction - 0.1) * 0.8
+        if gfrac > 0.20 or median_luma < 50 or shadow_fraction > 0.35:
+            colour_conf = 0.0
+        if len(sub) < 30:
+            colour_conf *= 0.5
+        colour_measurements[wid] = {'hex': '#%02x%02x%02x' % tuple(int(v) for v in med),
+            'confidence': round(max(0.0, min(0.9, colour_conf)), 2), 'samplePixels': len(sub),
+            'medianLuma': round(median_luma, 1), 'shadowFraction': round(shadow_fraction, 3),
+            'vegetationFraction': round(gfrac, 3), 'lumaSpread': round(spread, 3),
+            'registrationGain': round(float(rgain), 3)}
         out[wid] = {'shape': shape, 'conf': round(conf, 2), 'colour': '#%02x%02x%02x' % tuple(int(v) for v in med),
                     'red': round(red, 1), 'facet': round(facet, 3), 'spread': round(spread, 3), 'ratio': round(ratio, 2),
                     'areaM2': round(area_m2), 'building': t.get('building'), 'levels': t.get('building:levels'),
                     'shift': [round(rdx * meta['mPerPx'], 1), round(-rdy * meta['mPerPx'], 1)], 'green': round(gfrac, 2)}
     meta_out = {'_source': 'aerial imagery (Esri World Imagery) measured by tools/aerial/roofs.py; attributes only, no imagery stored',
                 '_mosaic': {'bbox': meta['bbox'], 'z': meta['z'], 'mPerPx': round(meta['mPerPx'], 3)}}
+    meta_out['colourMeasurements'] = colour_measurements
+    meta_out['_colourPolicy'] = 'Independent median roof-pixel colour; confidence >= 0.65 may be applied even when shape is uncertain. Vegetation >20%, median luma <50 or >35% deep-shadow pixels are unusable. OSM roof colour/material always wins.'
     os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)
     if not a.full:
         out = {k: [v['shape'], v['conf'], v['colour'], v['areaM2']] for k, v in out.items()}

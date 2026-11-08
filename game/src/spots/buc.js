@@ -437,21 +437,29 @@ export function oldTownTerraces(ctx, o = {}) {
     const d = ctx.data, b = new GeoBatch(), r = rng(o.seed || 21), out = { signs: [], lamps: [], terraces: [], seats: [] };
     const streets = o.streets || d.ways.filter((w) => ['pedestrian', 'living_street'].includes(w.k));
     const awn = o.colours || ['#e9e1c8', '#2f5a3a', '#7a2230', '#d9cfb3', '#3b4a5a', '#c9b48a', '#5a3a2a'];
-    const placed = [];
-    for (const p of d.pois) {
+    const placed = [], signPlaced = [];
+    // A mapped venue is evidence for its name, not for a terrace. Reserve the
+    // activity frontages first so a neighbouring venue cannot erase their sign.
+    const priority = new Set(o.prioritySources || []);
+    const pois = [...d.pois].sort((a, c) => Number(priority.has(c.id)) - Number(priority.has(a.id)));
+    for (const p of pois) {
         const shop = !!p.shop, eat = ['restaurant', 'bar', 'cafe', 'pub', 'fast_food', 'ice_cream', 'biergarten'].includes(p.amenity);
         if (!(eat || shop) || !p.name) continue;
         if (o.inside && !o.inside(p.x, p.z)) continue;
         let best = null; for (const w of streets) { const q = distPolylineK(p.x, p.z, w.pts); if (!best || q.d < best.d) best = { ...q, w }; }
         if (!best || best.d > 28) continue;
         const f = facadeToward(d, p.x, p.z, best.cx, best.cz); if (!f) continue;
-        const half = Math.hypot(best.cx - f.x, best.cz - f.z); if (half < 2.2 || half > 16) continue;
-        if (placed.some((q) => Math.hypot(q.x - f.x, q.z - f.z) < (eat ? 7 : 4.5))) continue;
-        placed.push(f);
+        const half = Math.hypot(best.cx - f.x, best.cz - f.z); if (half > 16) continue;
         const y = ctx.ground.heightAt(f.x, f.z), tx = -f.nz, tz = f.nx, yaw = Math.atan2(f.nx, f.nz);
         // sign above the door (on the façade)
-        out.signs.push({ x: f.x + f.nx * 0.12, y: y + 3.9, z: f.z + f.nz * 0.12, yaw, w: Math.min(5.5, 1.2 + p.name.length * 0.28), h: 0.62, text: p.name, bg: r.pick(['#1d2a24', '#2a1d1a', '#1a2230', '#3b2a1e', '#0f0f10', '#5a1e22']), fg: r.pick(['#f1e6c8', '#e8c870', '#ffffff']) });
-        if (!eat) continue;
+        const signW = Math.min(5.5, 1.2 + p.name.length * 0.28);
+        if (!signPlaced.some(q => Math.hypot(q.x - f.x, q.z - f.z) < (q.w + signW) / 2 + .2)) {
+            out.signs.push({ source: p.id, x: f.x + f.nx * 0.12, y: y + 3.9, z: f.z + f.nz * 0.12, yaw, w: signW, h: 0.62, text: p.name, bg: r.pick(['#1d2a24', '#2a1d1a', '#1a2230', '#3b2a1e', '#0f0f10', '#5a1e22']), fg: r.pick(['#f1e6c8', '#e8c870', '#ffffff']) });
+            signPlaced.push({ ...f, w: signW });
+        }
+        if (!eat || p.outdoor_seating !== 'yes' || half < 2.2) continue;
+        if (placed.some((q) => Math.hypot(q.x - f.x, q.z - f.z) < 7)) continue;
+        placed.push(f);
         const depth = Math.min(o.maxDepth ?? 3.4, half * 0.62), W = 5.5 + r() * 3, col = r.pick(awn), cx = f.x + f.nx * depth / 2, cz = f.z + f.nz * depth / 2;
         // pergola: 4 posts, beams, canvas roof sloping to the street, side valance
         const P = (u, v) => [f.x + tx * u + f.nx * v, f.z + tz * u + f.nz * v];
@@ -485,7 +493,7 @@ export function oldTownTerraces(ctx, o = {}) {
         // Local x follows the facade tangent; local z follows its outward normal.
         ctx.box(cx, cz, W / 2 + 0.6, depth / 2, yaw, { prop: true, h: 0.8 });
         out.lamps.push({ x: cx, z: cz, h: 2.6, noPost: true });
-        out.terraces.push({ x: cx, z: cz, yaw, W, depth, name: p.name, f });
+        out.terraces.push({ source: p.id, x: cx, z: cz, yaw, W, depth, name: p.name, f });
     }
     out.group = b.build('terraces');
     return out;

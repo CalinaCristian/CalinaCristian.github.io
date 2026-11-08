@@ -1,0 +1,196 @@
+{
+  "schemaVersion": 1,
+  "id": "bellevuetowers",
+  "city": "seattle",
+  "name": "Bellevue Towers",
+  "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+  "status": "in-progress",
+  "coordinates": {
+    "lat": 47.6143271,
+    "lon": -122.1981129
+  },
+  "sourceIds": [
+    "w118119171",
+    "w370237986",
+    "w370239409"
+  ],
+  "replacementScope": "Only the explicit source IDs represent authored replacement. Empty scope means context geometry only; never remove neighbours by radius, name or centroid.",
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/118119171",
+      "label": "OSM w118119171 · version 11 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/370237986",
+      "label": "OSM w370237986 · version 6 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/370239409",
+      "label": "OSM w370239409 · version 6 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13603180.045971999%2C6042782.428444887%2C-13602883.36188191%2C6043079.1125349775&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+      "label": "Independent georeferenced Esri aerial · privately viewed · acquisition date unknown · image not published",
+      "type": "aerial"
+    }
+  ],
+  "improvements": [
+    "Refreshed both mapped tower outlines and the podium footprint.",
+    "Corrected north137 m / south131 m assignment and included each crown inside that total instead of adding seven extra metres.",
+    "Changed podium collision to its exact source polygon."
+  ],
+  "remainingGaps": [
+    "Individual balconies, crown facets, rooftop plant and facade bay changes remain simplified.",
+    "Podium floor-to-floor conversion and facade palette retain prior estimates.",
+    "These are isolated front/top/oblique model studies, not matched street-eye Street View/aerial comparisons. They do not establish full-world, night, weather or seasonal parity.",
+    "Integrated source-only replacement and rebuilt district performance are separate acceptance checks; the capture branch predates that shared world policy."
+  ],
+  "checks": [
+    {
+      "label": "Bucharest foot,a regression",
+      "passed": true,
+      "details": "Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. Subsequent source changes are confined to US models."
+    },
+    {
+      "label": "Current source identity and topology review",
+      "passed": true,
+      "details": "All 24 US registry entries checked; 3 explicit replacement identities for this model. Raw source versions/tags/coordinates retained. OSM geometry takes precedence over estimates."
+    },
+    {
+      "label": "Independent visual and actual model review",
+      "passed": true,
+      "details": "Actual front, top and oblique game renders inspected against source plans and independently viewed aerial context; only game renders are published. Height/facade limits and source conflicts are listed."
+    },
+    {
+      "label": "Geometry and meaningful collision checks",
+      "passed": true,
+      "details": "All61 shared geometry invariants and the US source-scope/total-height/court/pitch/portal/bridge-clearance regression checks pass. No FPS claim is inferred from geometry counts."
+    },
+    {
+      "label": "Immutable game-only capture provenance",
+      "passed": true,
+      "details": "Each lossless WebP is RGB pixel-verified against its actual game screenshot and carries its own source commit, camera pose and SHA256."
+    },
+    {
+      "label": "Complete measured visual parity",
+      "passed": false,
+      "details": "Unmeasured sections, simplified details and world integration remain open as listed; no 100% parity claim."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Isolated model study · front elevation",
+      "image": "assets/landmarks/bellevuetowers/front.webp",
+      "kind": "front",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "703eeb4a16b84b4e59fd5d3df83e0e7b3f25d54d29ebe74e399a397d99346aeb",
+      "capturedAt": "2026-11-08T17:08:48.222Z",
+      "pose": {
+        "position": [
+          1.9073486328125e-06,
+          54.800000000000004,
+          240.74235867289204
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "quaternion": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "projection": "perspective",
+        "fov": 45,
+        "target": [
+          1.9073486328125e-06,
+          54.800000000000004,
+          0
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    },
+    {
+      "id": "top",
+      "label": "Isolated model study · orthographic north-up plan",
+      "image": "assets/landmarks/bellevuetowers/top.webp",
+      "kind": "top",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "7a48e0614f363da76683abd2dd55e5ea92c4f035be83fbecbaa728afd2f966d8",
+      "capturedAt": "2026-11-08T17:08:49.552Z",
+      "pose": {
+        "position": [
+          1.9073486328125e-06,
+          252.08160690307616,
+          0
+        ],
+        "up": [
+          0,
+          0,
+          -1
+        ],
+        "quaternion": [
+          -0.7071067811865474,
+          0,
+          0,
+          0.7071067811865476
+        ],
+        "projection": "orthographic",
+        "groundSquareM": 115.08160690307616,
+        "orientation": "north-up",
+        "target": [
+          1.9073486328125e-06,
+          0,
+          0
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Isolated model study · oblique overview",
+      "image": "assets/landmarks/bellevuetowers/oblique.webp",
+      "kind": "oblique",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "cb6a2311ab15b959fe02c69e4ad2bcd23d41b73ef704a755ddd4939aa3e15fd5",
+      "capturedAt": "2026-11-08T17:08:51.022Z",
+      "pose": {
+        "position": [
+          124.10920857237338,
+          160.3345038521431,
+          177.24631611700022
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "quaternion": [
+          -0.21453963361642958,
+          0.29299872934427457,
+          0.06764408664580113,
+          0.929273247087327
+        ],
+        "projection": "perspective",
+        "fov": 45,
+        "target": [
+          1.9073486328125e-06,
+          54.800000000000004,
+          0
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 3521,
+    "drawCalls": 3,
+    "note": "Isolated viewer frame includes ground and shadow rendering; this is neither a whole-world budget measurement nor hardware FPS."
+  }
+}

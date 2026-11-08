@@ -14,6 +14,7 @@ Writes <out>.json (every building) and prints a summary + the worst cases with l
 """
 import argparse, glob, json, math, os, sys
 import xml.etree.ElementTree as ET
+import re
 
 
 def undelta(arr, start, q=0.1):
@@ -29,6 +30,37 @@ def undelta(arr, start, q=0.1):
 
 def area(p):
     return 0.5 * sum(p[i][0] * p[(i + 1) % len(p)][1] - p[(i + 1) % len(p)][0] * p[i][1] for i in range(len(p)))
+
+
+def source_ring_issue(points):
+    """Independently check literal source validity; never repair the source boundary."""
+    ring = [p for i, p in enumerate(points) if i == 0 or p != points[i - 1]]
+    if len(ring) > 1 and ring[0] == ring[-1]:
+        ring.pop()
+    if len(ring) < 3:
+        return 'fewer-than-three-distinct-vertices'
+    if abs(area(ring)) <= 1e-8:
+        return 'zero-source-area'
+    cross = lambda a, b: a[0] * b[1] - a[1] * b[0]
+    sub = lambda a, b: (a[0] - b[0], a[1] - b[1])
+    eps = 1e-8
+    edges = list(zip(ring, ring[1:] + ring[:1]))
+    for i, (a, b) in enumerate(edges):
+        for j, (c, d) in enumerate(edges[i + 1:], i + 1):
+            if j == i + 1 or (i == 0 and j == len(edges) - 1):
+                continue
+            u, v = sub(b, a), sub(d, c)
+            den = cross(u, v)
+            if abs(den) < eps:
+                continue
+            t, w = cross(sub(c, a), v) / den, cross(sub(c, a), u) / den
+            if eps < t < 1 - eps and eps < w < 1 - eps:
+                return 'self-intersecting-source-ring'
+    for i, b in enumerate(ring):
+        u, v = sub(b, ring[i - 1]), sub(ring[(i + 1) % len(ring)], b)
+        if abs(cross(u, v)) < eps and u[0] * v[0] + u[1] * v[1] < -eps:
+            return 'self-intersecting-source-ring'
+    return None
 
 
 def centroid(p):
@@ -71,6 +103,21 @@ def num(v):
         return float(str(v).replace('m', '').replace(',', '.').split(';')[0].strip())
     except Exception:  # noqa: BLE001
         return None
+
+
+def measure(v):
+    """Same strict physical-unit contract as building-roofs.js; no first-number/range guesses."""
+    if isinstance(v, (int, float)):
+        return float(v) if math.isfinite(v) else None
+    s = str(v or '').strip().lower().replace('′', "'").replace('’', "'").replace('″', '"').replace('”', '"')
+    f = re.fullmatch(r"([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*(?:ft|feet|foot|')\s*(?:(\d+(?:\.\d*)?|\.\d+)\s*(?:in|inches|inch|\"))?", s)
+    if f:
+        return float(f[1]) * .3048 + (-1 if float(f[1]) < 0 else 1) * float(f[2] or 0) * .0254
+    m = re.fullmatch(r'([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*(m|metres?|meters?|cm|mm|in|inches|inch|")?', s)
+    if not m:
+        return None
+    factor = .0254 if m[2] in ('in', 'inches', 'inch', '"') else .01 if m[2] == 'cm' else .001 if m[2] == 'mm' else 1
+    return float(m[1]) * factor
 
 
 def segment_distance(x, z, a, b):
@@ -164,7 +211,8 @@ def main():
             continue
         x0 = min(x for x, _ in ring); x1 = max(x for x, _ in ring); z0 = min(z for _, z in ring); z1 = max(z for _, z in ring)
         holes = d.get('buildingHoleFootprints', {}).get(str(i)) or [undelta(h, 0) for h in d.get('buildingHoles', {}).get(str(i), [])]
-        B.append({'i': i, 'source': source_ids[i] if i < len(source_ids) else None, 'ring': ring, 'holes': holes, 'bb': (x0, z0, x1, z1), 'h': d.get('buildingDimensions', {}).get(str(i), [b[1] / 10])[0], 'roof': roofs[b[3]], 'flags': b[5], 'levels': b[6], 'c': centroid(ring), 'area': abs(area(ring))})
+        dimensions = d.get('buildingDimensions', {}).get(str(i), [b[1] / 10, b[2] / 10])
+        B.append({'i': i, 'source': source_ids[i] if i < len(source_ids) else None, 'ring': ring, 'holes': holes, 'bb': (x0, z0, x1, z1), 'h': dimensions[0], 'minH': dimensions[1], 'roof': roofs[b[3]], 'flags': b[5], 'levels': b[6], 'c': centroid(ring), 'area': abs(area(ring))})
     by_source = {}
     for b in B:
         if b['source']:
@@ -185,11 +233,15 @@ def main():
             return {'identityPresent': False, 'matchMethod': 'source-id' if strict_identity else 'legacy-spatial'}
         e = max(boundary_error(ring, hit['ring']), boundary_error(hit['ring'], ring))
         same_holes = len(holes) == len(hit['holes']) and all(any(max(boundary_error(h, g), boundary_error(g, h)) <= .15 for g in hit['holes']) for h in holes)
-        height = num(tags.get('height'))
+        height = measure(tags.get('height'))
+        minimum = measure(tags.get('min_height'))
         levels = num(tags.get('building:levels'))
-        return {'identityPresent': True, 'matchedSource': hit['source'], 'matchMethod': 'source-id' if strict_identity else 'legacy-spatial',
+        issues = [f'unparsed OSM {k}={tags[k]}' for k in ('height', 'min_height') if tags.get(k) is not None and measure(tags[k]) is None]
+        issues += [f'nonpositive OSM height={tags["height"]}'] if height is not None and height <= 0 else []
+        return {'identityPresent': True, 'matchedSource': hit['source'], 'matchMethod': 'source-id' if strict_identity else 'legacy-spatial', 'sourceDimensionIssues': issues,
                 'boundaryErrorM': round(e, 5), 'topologyMatches': e <= .15 and same_holes,
                 'literalHeightMatches': height is None or height <= 0 or abs(hit['h'] - height) <= .011,
+                'literalMinimumMatches': minimum is None or minimum <= 0 or abs(hit['minH'] - minimum) <= .011,
                 'storeysMatch': levels is None or levels <= 0 or abs(hit['levels'] - levels) < .001}
     geometry = d.get('district', {}).get('geometry')
     grid = {}
@@ -247,8 +299,9 @@ def main():
             continue
         ring = [proj(la, lo) for la, lo in ll[:-1]]
         ar = abs(area(ring))
-        if ar <= 1e-8:
-            source_skips.append({'osm': 'w' + wid, 'reason': 'zero-source-area'})
+        issue = source_ring_issue(ring)
+        if issue:
+            source_skips.append({'osm': 'w' + wid, 'reason': issue})
             continue
         cx, cz = centroid(ring)
         c = cellOf(cx, cz)
@@ -273,7 +326,7 @@ def main():
                         dd = math.hypot(o['c'][0] - cx, o['c'][1] - cz)
                         if dd < best:
                             best, hit = dd, o
-        h_osm = num(t.get('height'))
+        h_osm = measure(t.get('height'))
         lv = num(t.get('building:levels'))
         row = {'osm': 'w' + wid, 'zone': zone, 'type': t.get('building'), 'name': t.get('name'), 'areaOSM': round(ar), 'lat': round(sum(p[0] for p in ll) / len(ll), 6), 'lon': round(sum(p[1] for p in ll) / len(ll), 6),
                'heightOSM': h_osm, 'levelsOSM': lv, 'roofLevelsOSM': num(t.get('roof:levels')) or 0, 'roofOSM': t.get('roof:shape')}
@@ -291,7 +344,7 @@ def main():
     # rings are independent source evidence; matching an outer footprint alone does not prove that its courtyard exists.
     relation_rows = []
     for rid, (members, t) in relations.items():
-        if any(s in (t.get('building', '') + ' ' + t.get('leisure', '')) for s in ('stadium', 'grandstand', 'sports_centre', 'arena')):
+        if not strict_identity and any(s in (t.get('building', '') + ' ' + t.get('leisure', '')) for s in ('stadium', 'grandstand', 'sports_centre', 'arena')):
             continue  # the builder's existing annular stand sectors do not have one outer building record
         outers = assemble_rings([ways[w][0] for w, role in members if role != 'inner' and w in ways])
         inners = assemble_rings([ways[w][0] for w, role in members if role == 'inner' and w in ways])
@@ -300,8 +353,9 @@ def main():
             if not all(n in nodes for n in refs):
                 continue
             ring = [proj(*nodes[n]) for n in refs[:-1]]; ar = abs(area(ring))
-            if ar <= 1e-8:
-                source_skips.append({'osm': 'r' + rid, 'reason': 'zero-source-area'})
+            issue = source_ring_issue(ring)
+            if issue:
+                source_skips.append({'osm': 'r' + rid, 'reason': issue})
                 continue
             cx, cz = centroid(ring); c = cellOf(cx, cz)
             holes = [h for h in inner_polys if h and all(pip(x, z, ring) for x, z in h)]
@@ -313,7 +367,7 @@ def main():
             candidates = [b for b in B if b['source'] == 'r' + rid]
             hit = min(candidates, key=lambda b: math.hypot(b['c'][0] - cx, b['c'][1] - cz)) if candidates else None
             ll = [nodes[n] for n in refs[:-1]]
-            row = {'osm': 'r' + rid, 'kind': 'relation', 'zone': zone, 'type': t.get('building'), 'name': t.get('name'), 'areaOSM': round(ar), 'lat': round(sum(p[0] for p in ll) / len(ll), 6), 'lon': round(sum(p[1] for p in ll) / len(ll), 6), 'heightOSM': num(t.get('height')), 'levelsOSM': num(t.get('building:levels')), 'roofLevelsOSM': num(t.get('roof:levels')) or 0, 'roofOSM': t.get('roof:shape'), 'holeCountOSM': len(holes), 'holeAreaOSM': round(sum(abs(area(h)) for h in holes), 1)}
+            row = {'osm': 'r' + rid, 'kind': 'relation', 'zone': zone, 'type': t.get('building'), 'name': t.get('name'), 'areaOSM': round(ar), 'lat': round(sum(p[0] for p in ll) / len(ll), 6), 'lon': round(sum(p[1] for p in ll) / len(ll), 6), 'heightOSM': measure(t.get('height')), 'levelsOSM': num(t.get('building:levels')), 'roofLevelsOSM': num(t.get('roof:levels')) or 0, 'roofOSM': t.get('roof:shape'), 'holeCountOSM': len(holes), 'holeAreaOSM': round(sum(abs(area(h)) for h in holes), 1)}
             if margin is not None:
                 row['margin'] = round(margin, 1); row['centroidMargin'] = round(centroid_margin, 1)
             row.update(match_fields(hit, ring, holes, t))
@@ -356,7 +410,7 @@ def main():
         matched = [r for r in rr if 'game' in r]
         courtyard = [r for r in rr if r['holeCountOSM']]
         kept = [r for r in courtyard if r.get('holeCountGame') == r['holeCountOSM'] and r.get('courtyardInteriorsClear')]
-        print(f"== {zone} multipolygon relations: {pct(len(matched), len(rr))} source identity matched; courtyards {pct(len(kept), len(courtyard))} count and source interior points preserved (stadium stand sectors excluded)")
+        print(f"== {zone} multipolygon relations: {pct(len(matched), len(rr))} source identity matched; courtyards {pct(len(kept), len(courtyard))} count and source interior points preserved (legacy annular sectors excluded only without source identities)")
         tagged = [r for r in matched if r['heightOSM'] or r['levelsOSM']]
         expected = lambda r: r['heightOSM'] if r['heightOSM'] else r['levelsOSM'] * 3.0 + (r['roofLevelsOSM'] * 2.6 if r['roofGame'] == 'flat' else 0)
         height_ok = [r for r in tagged if abs(r['hGame'] - expected(r)) <= max(2.5, 0.25 * expected(r))]

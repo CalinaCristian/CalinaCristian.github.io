@@ -83,6 +83,7 @@ import { sourceRing } from './source-footprints.mjs';
 import { parseMeasure, makeRoofProfile, roofMesh, visibleRoofMesh, roofSignature } from '../../game/src/building-roofs.js';
 import { ShapeUtils, Vector2 } from '../../game/vendor/three.module.min.js';
 import { resolveRoadAccess } from '../../game/src/road-access.js';
+import { sourcePassages } from './source-passages.mjs';
 import { distPointSeg, pointInPolygon, polyArea, polyCentroid, footprintMargin, simplifyIdx, simplifyRing, Grid, assembleRings } from './geom.mjs';
 import { buildCorridor } from './corridors.mjs';
 import { CITIES as GAME_CITIES } from '../../game/src/cities.js';
@@ -331,7 +332,7 @@ function buildCity(cityId, did = null) {
         // A tagged single lane may legally carry traffic in both directions. Keep both graph directions,
         // but do not turn its one physical lane into two inferred full-width lanes.
         const sharedLane = !!ds && !oneway && total === 1;
-        const physicalSharedWidth = sharedLane ? (num(t.width) > 0 ? num(t.width) : laneWidthFor(cls)) : 0;
+        const physicalSharedWidth = sharedLane ? (parseMeasure(t.width) > 0 ? parseMeasure(t.width) : laneWidthFor(cls)) : 0;
         const laneW = sharedLane ? physicalSharedWidth / 2 : laneWidthFor(cls);
         let sidewalk = SIDEWALK[cls] ?? 2;
         if (t.sidewalk === 'no' || t.sidewalk === 'none' || t.foot === 'no') sidewalk = Math.min(sidewalk, 0.8);
@@ -700,7 +701,7 @@ function buildCity(cityId, did = null) {
         r.keptIds = ids;
         { const t = r.tags || {}; const fw = t['turn:lanes:forward'] || (r.oneway ? t['turn:lanes'] : '') || '', bw = r.oneway ? '' : (t['turn:lanes:backward'] || '');
           if (/left|right|through/.test(fw + bw)) turnLanes.push(outRoads.length, S(fw), S(bw)); }
-        { const t = r.tags || {}; const lay = parseInt(t.layer); const dm = (v) => { const n = num(v); return isFinite(n) && n > 0 && n < 100 ? Math.round(n * 10) : 0; };
+        { const t = r.tags || {}; const lay = parseInt(t.layer); const dm = (v) => { const n = parseMeasure(v); return isFinite(n) && n > 0 && n < 100 ? Math.round(n * 10) : 0; };
           // kerbside parking (OSM parking:{left,right,both} or the older parking:lane:*; sides in the way's own direction,
           // swapped for oneway=-1 ways, which the build reverses): 64 / 128 parking right / left, 256 / 512 none right / left
           const pk = (sd) => t['parking:' + sd] || t['parking:lane:' + sd] || t['parking:both'] || t['parking:lane:both'] || '';
@@ -720,7 +721,7 @@ function buildCity(cityId, did = null) {
               | (pYes(pR) ? 64 : 0) | (pYes(pL) ? 128 : 0) | (pNo(pR) ? 256 : 0) | (pNo(pL) ? 512 : 0);
           roadInfo.push(isFinite(lay) ? lay : 0, f, dm(t.width), dm(t.maxheight || t['maxheight:physical']), S(t.placement || t['placement:forward'] || ''), S(t['bridge:structure'] || t['bridge:name'] || '')); }
         if (r.regKmh) rampLimits.push(outRoads.length, r.regKmh);
-        if (r.sharedLane) sharedLanes[outRoads.length] = { widthM: r.physicalSharedWidth, sourceId: 'w' + r.id, widthSource: num(r.tags.width) > 0 ? 'OSM width' : 'estimate:class single-lane width', evidence: 'OSM lanes=1; legal two-way' };
+        if (r.sharedLane) sharedLanes[outRoads.length] = { widthM: r.physicalSharedWidth, sourceId: 'w' + r.id, widthSource: parseMeasure(r.tags.width) > 0 ? 'OSM width' : 'estimate:class single-lane width', evidence: 'OSM lanes=1; legal two-way' };
         if (ds) {
             roadAccess[outRoads.length] = { sourceId: 'w' + r.id, ...r.access };
             roadSourceGeometry[outRoads.length] = { ...sourceRoadGeometry(r), preparedNodeIds: ids };
@@ -966,10 +967,10 @@ function buildCity(cityId, did = null) {
     }
     // aerial roof measurements (tools/aerial/roofs.py → game/research/roofs-<city>-<district>.json): roof shape + median
     // roof colour per OSM way, used where OSM has no roof:shape / roof:colour (OSM tags always win)
-    const aerial = new Map();
+    const aerial = new Map(), aerialColours = new Map();
     if (ds) {
         const af = path.join(REPO, 'game', 'research', `roofs-${cityId}-${did}.json`);
-        if (fs.existsSync(af)) { try { const aj = JSON.parse(fs.readFileSync(af, 'utf8')); for (const [k, v] of Object.entries(aj.roofs || {})) aerial.set(k, v); } catch (e) { log('aerial roofs: cannot parse', af, e.message); } }
+        if (fs.existsSync(af)) { try { const aj = JSON.parse(fs.readFileSync(af, 'utf8')); for (const [k, v] of Object.entries(aj.roofs || {})) aerial.set(k, v); for (const [k, v] of Object.entries(aj.colourMeasurements || {})) aerialColours.set(k, v); } catch (e) { log('aerial roofs: cannot parse', af, e.message); } }
         if (aerial.size) log(`aerial roofs: ${aerial.size} footprints measured (${af})`);
     }
     const buildings = [];
@@ -1005,7 +1006,7 @@ function buildCity(cityId, did = null) {
         const lls = []; for (const n of ids) { const ll = N.get(n); if (!ll) { buildingSourceSkips.push({ sourceId, reason: 'incomplete-source-nodes', node: n }); return; } lls.push(ll); }
         const holesLL = innerIds.map(r => r.map(n => N.get(n))).filter(r => r.length > 3 && r.every(Boolean));
         if (holesLL.length !== innerIds.length) { buildingSourceSkips.push({ sourceId, reason: 'incomplete-source-courtyard' }); return; }
-        rawBuildings.push({ lls, holesLL, t: { ...t, __id: (isRel ? 'r' : 'w') + oid }, isRel, aer: !isRel ? aerial.get(String(oid)) || null : null });
+        rawBuildings.push({ lls, holesLL, t: { ...t, __id: (isRel ? 'r' : 'w') + oid }, isRel, aer: !isRel ? aerial.get(String(oid)) || null : null, aerColour: !isRel ? aerialColours.get(String(oid)) : undefined });
     };
     const bRelWays = new Set();
     const addAnnulus = (outLL, inLL, t) => {
@@ -1029,12 +1030,12 @@ function buildCity(cityId, did = null) {
         const inners = r.members.filter(m => m.type === 'way' && m.role === 'inner' && W.has(m.ref)).map(m => { bRelWays.add(m.ref); return W.get(m.ref).nodes; });
         const inRings = inners.length ? assembleRings(inners).rings : [];
         for (const ring of assembleRings(outers).rings) {
-            // Stadiums keep their existing stand sectors. Other mapped inner rings remain courtyards, associated with
+            // Legacy corridor stadiums keep their existing stand sectors. Source districts retain the exact relation and holes, associated with
             // the containing outer only (a multipolygon can have several separate buildings).
             const lls = ring.map(n => N.get(n)); if (lls.some(x => !x)) continue;
             const contained = inRings.filter(ir => ir.length > 3 && ir.every(n => { const p = N.get(n); return p && pointInPolygon(p[1], p[0], lls.map(([la, lo]) => [lo, la])); }));
             const inner = contained.map(ir => ir.map(n => N.get(n)))[0];
-            if (inner && /stadium|grandstand|sports_centre|arena/.test(t.building + ' ' + (t.leisure || ''))) { addAnnulus(lls, inner, t); continue; }
+            if (!ds && inner && /stadium|grandstand|sports_centre|arena/.test(t.building + ' ' + (t.leisure || ''))) { addAnnulus(lls, inner, t); continue; }
             addRaw(ring, t, true, rid, contained);
         }
     }
@@ -1057,7 +1058,7 @@ function buildCity(cityId, did = null) {
     const bdCells = new Map();
     const addBackdrop = (c, realArea, local, t, la) => {
         if (realArea < 40 || /^(garage|garages|shed|hut|kiosk|roof|carport|container|toilets)$/.test(t.building)) return;
-        let h = num(t.height); const lv = num(t['building:levels']);
+        let h = parseMeasure(t.height); const lv = num(t['building:levels']);
         if (!isFinite(h)) h = isFinite(lv) ? lv * 3.1 : realArea > 1500 ? 18 : realArea > 400 ? 12 : 7;
         h = C.heightMap(Math.min(h, 250));
         const [sx, sz] = C.shape(la); const a = realArea * sx * sz;
@@ -1095,7 +1096,7 @@ function buildCity(cityId, did = null) {
         let la = 0, lo = 0; for (const [a, c] of lls) { la += a; lo += c; } la /= lls.length; lo /= lls.length;
         const local = lls.map(([a, c]) => [(c - lo) * P.mPerLon, -(a - la) * P.mPerLat]);
         const realArea = Math.abs(polyArea(local));
-        const sourcePart = ds && t['building:part'] && t['building:part'] !== 'no' && (num(t.height) > 0 || num(t['building:levels']) > 0);
+        const sourcePart = ds && t['building:part'] && t['building:part'] !== 'no' && (parseMeasure(t.height) > 0 || num(t['building:levels']) > 0);
         if (!ds && realArea < (sourcePart ? 0.05 : 12)) continue;
         const cL = polyCentroid(local);
         const cOut = P(la, lo); cOut[0] += cL[0] * C.scale; cOut[1] += cL[1] * C.scale; // approx centroid in output space
@@ -1108,7 +1109,7 @@ function buildCity(cityId, did = null) {
         const outside = mg > 0;
         if (outside) {
             if (ds && mg <= OUTER_RING) { /* retain every valid positive-area source footprint */ }
-            else { if (sourcePart && num(t.height) < 20 && !(num(t['building:levels']) >= 6)) continue; if (mg > (ds ? 0 : 30) && mg < 1700) { addBackdrop(cOut, realArea, local, t, la); if (DEBUG_DROPS && ds && mg < OUTER_RING + 150) bDropList.push({ why: 'backdrop', mg: Math.round(mg), id: t.__id, la: +la.toFixed(6), lo: +lo.toFixed(6), area: Math.round(realArea) }); } else if (mg <= 30) dropWhy('edge-belt'); continue; } // (after round 6: from 30 m past the corridor edge, not 70 — the first 70 m were a bare "dead" belt)
+            else { if (sourcePart && parseMeasure(t.height) < 20 && !(num(t['building:levels']) >= 6)) continue; if (mg > (ds ? 0 : 30) && mg < 1700) { addBackdrop(cOut, realArea, local, t, la); if (DEBUG_DROPS && ds && mg < OUTER_RING + 150) bDropList.push({ why: 'backdrop', mg: Math.round(mg), id: t.__id, la: +la.toFixed(6), lo: +lo.toFixed(6), area: Math.round(realArea) }); } else if (mg <= 30) dropWhy('edge-belt'); continue; } // (after round 6: from 30 m past the corridor edge, not 70 — the first 70 m were a bare "dead" belt)
         }
         // The exact district boundary already admits campus/courtyard buildings beyond the road buffer.
         // Keep the legacy network-distance filter only for corridor builds.
@@ -1150,14 +1151,14 @@ function buildCity(cityId, did = null) {
         let style = 'plain', defLevels = 2, roof = 0, flags = 0;
         const amen = t.amenity || '', shop = t.shop || '';
         const isOffice = b === 'office' || b === 'commercial' || !!t.office;
-        if (RELIGIOUS.test(b) || amen === 'place_of_worship') { style = 'church'; defLevels = 0; if (!isFinite(h)) h = realArea < 300 ? 11 : 16; roof = realArea < 900 ? 1 : 3; }
+        if (RELIGIOUS.test(b) || amen === 'place_of_worship') { style = 'church'; defLevels = 0; if (!isFinite(h) && !(levels > 0)) h = realArea < 300 ? 11 : 16; roof = realArea < 900 ? 1 : 3; }
         else if (SMALL.test(b)) { style = 'plain'; if (!isFinite(h) && !(levels > 0)) h = b === 'roof' || b === 'carport' ? 4 : 3; }
         else if (INDUSTRIAL.test(b)) { style = 'plain'; if (!isFinite(h) && !isFinite(levels)) h = b === 'greenhouse' ? 4 : realArea > 2000 ? 10 : 7; }
         else if (b === 'retail' || b === 'supermarket' || shop === 'supermarket' || shop === 'mall' || b === 'kiosk') { style = 'shop'; defLevels = realArea > 3000 ? 2 : 1; flags |= 1; }
         // (2026-11-08, owner: Piața Floreasca was a 15.5 m "bloc" wall) a market hall is a low shop building
         else if (amen === 'marketplace' || b === 'marketplace') { style = 'shop'; defLevels = 2; flags |= 1; }
         else if (HOUSE.test(b)) { style = 'house'; defLevels = country === 'US' ? 2 : 2; roof = ROOF_FOR_HOUSE(realArea, lls.length); }
-        else if (b === 'stadium' || b === 'grandstand') { style = 'plain'; if (!isFinite(h)) h = isFinite(levels) ? Math.min(levels * 3.2, 30) : 14; }
+        else if (b === 'stadium' || b === 'grandstand') { style = 'plain'; if (!isFinite(h)) h = levels > 0 ? (ds ? levels * 3.2 : Math.min(levels * 3.2, 30)) : 14; }
         else if (PUBLIC.test(b)) {
             style = dCentre < 2200 && country === 'RO' ? 'eclectic' : country === 'US' ? 'interwar' : 'bloc';
             defLevels = { school: 3, kindergarten: 2, university: 5, college: 4, hospital: 6, train_station: 3, stadium: 4, sports_hall: 3 }[b] || 4;
@@ -1208,7 +1209,7 @@ function buildCity(cityId, did = null) {
             else if (isOffice) { style = (isFinite(levels) && levels >= 5) ? 'glass' : 'interwar'; defLevels = 3; }
             else if (b === 'apartments' || b === 'dormitory') { style = 'bloc'; defLevels = 4; }
             else if (b === 'hotel') { style = 'glass'; defLevels = 8; }
-            else if (lu === 'industrial' || (realArea > 2500 && b === 'yes')) { style = 'plain'; if (!isFinite(h)) h = 9; }
+            else if (lu === 'industrial' || (realArea > 2500 && b === 'yes')) { style = 'plain'; if (!isFinite(h) && !(levels > 0)) h = 9; }
             else if (lu === 'commercial' || lu === 'retail') { style = 'shop'; defLevels = 1; flags |= 1; }
             else if (realArea < 320) { style = 'house'; defLevels = realArea < 90 ? 1 : 2; roof = ROOF_FOR_HOUSE(realArea, lls.length); }
             else { style = 'bloc'; defLevels = 3; }
@@ -1346,7 +1347,11 @@ function buildCity(cityId, did = null) {
         if (t.tourism || t.historic || (h > 60)) flags |= 4;
         const colour = normColour(t['building:colour'] || t['building:color']) || MATERIAL_COLOUR[(t['building:material'] || '').split(';')[0]] || '';
         let roofColour = normColour(t['roof:colour'] || t['roof:color']) || (/tile|clay/.test(t['roof:material'] || '') ? '#9c5a3c' : /metal|tin|copper/.test(t['roof:material'] || '') ? (t['roof:material'] === 'copper' ? '#6f9a86' : '#7d848a') : '');
-        if (!roofColour && rb.aer && rb.aer[0] !== 'unknown' && rb.aer[1] >= 0.5) {
+        if (!roofColour && rb.aerColour !== undefined) {
+            const measurement = rb.aerColour;
+            if (Number.isFinite(measurement.confidence) && measurement.confidence >= 0.65 && /^#[0-9a-f]{6}$/i.test(measurement.hex || '')) { roofColour = measurement.hex.toLowerCase(); aerialStats.colour++; }
+        }
+        if (!roofColour && rb.aerColour === undefined && rb.aer && rb.aer[0] !== 'unknown' && rb.aer[1] >= 0.5) {
             const v = parseInt(rb.aer[2].slice(1), 16); let rgbA = [v >> 16, (v >> 8) & 255, v & 255];
             const l = (rgbA[0] + rgbA[1] + rgbA[2]) / 3, k = roof === 0 ? 0.35 : 0.9; // (flat: mostly grey; tiles keep their hue)
             rgbA = rgbA.map(c => Math.max(0, Math.min(255, Math.round(l + (c - l) * k))));
@@ -1680,6 +1685,7 @@ function buildCity(cityId, did = null) {
         outBInfo.push(S(t.building && t.building !== 'yes' ? t.building : ''), yearOf(t.start_date || t['building:start_date'] || t.construction_date), S(t.architect || ''), S((t['building:material'] || t['building:facade:material'] || '').split(';')[0]), b.hSrc ?? 0);
     }
     const outBuildingCanopies = Object.fromEntries(buildings.flatMap((b, i) => b.canopy ? [[i, { ...b.canopy, topM: b.h, clearanceM: b.minH }]] : []));
+    const mappedPassages = ds ? sourcePassages(buildings, W, N, P, roads) : { records: {}, issues: [] };
     const outBuildingSourceIssues = Object.fromEntries(buildings.flatMap((b, i) => b.sourceIssues?.length ? [[i, b.sourceIssues]] : []));
     const outB = buildings.map(b => {
         let flags = b.flags;
@@ -1902,6 +1908,8 @@ function buildCity(cityId, did = null) {
         doc.buildingRoadConflicts = buildingRoadConflicts;
         const aircraft = Object.fromEntries(buildings.flatMap((b,i) => b.aircraft ? [[i,b.aircraft]] : []));
         if (Object.keys(aircraft).length) doc.buildingAircraft = aircraft;
+        if (Object.keys(mappedPassages.records).length) doc.buildingPassages = mappedPassages.records;
+        if (mappedPassages.issues.length) doc.buildingPassageIssues = mappedPassages.issues;
         if (Object.keys(outBuildingHoleFootprints).length) doc.buildingHoleFootprints = outBuildingHoleFootprints;
         if (Object.keys(sharedLanes).length) doc.sharedLanes = sharedLanes;
         doc.roadAccess = roadAccess;

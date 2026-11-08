@@ -33,8 +33,19 @@ for(const record of facts.landmarks){
     // Test this source solid independently; unrelated elevated details may legitimately cross a court.
     assert.equal(collideBuildings([{...collider,r:Math.hypot(collider.hw,collider.hd)}],wx,wz,0.1,Math.max(1,(collider.y0||0)+0.5)),null,`${lm.id}: source court is open`);tested=true;courts++;checks++;
    }
-   const area=Math.abs(hole.reduce((sum,a,i)=>{const b=hole[(i+1)%hole.length];return sum+a[0]*b[1]-a[1]*b[0]},0))/2;
-   if(area>4)assert(tested,`${lm.id}: walkable source courtyard has a usable interior test point`);
+   if(!tested){
+    // Thin mapped slots may have no walkable 0.5 m clearance. Test their actual triangulated interior
+    // with a correspondingly small body rather than treating their bounding rectangle as a courtyard.
+    const area=Math.abs(hole.reduce((sum,a,i)=>{const b=hole[(i+1)%hole.length];return sum+a[0]*b[1]-a[1]*b[0]},0))/2;
+    const candidates=THREE.ShapeUtils.triangulateShape(hole.map(p=>new THREE.Vector2(...p)),[]).map(face=>face.reduce((p,i)=>[p[0]+hole[i][0]/3,p[1]+hole[i][1]/3],[0,0]));
+    for(const [x,z]of candidates){
+     if(!inside([x,z],hole))continue;
+     const clear=Math.min(...hole.map((a,i)=>{const b=hole[(i+1)%hole.length],dx=b[0]-a[0],dz=b[1]-a[1],t=Math.max(0,Math.min(1,((x-a[0])*dx+(z-a[1])*dz)/(dx*dx+dz*dz||1)));return Math.hypot(x-a[0]-t*dx,z-a[1]-t*dz)}));
+     if(clear<0.00001)continue;
+     assert.equal(collideBuildings([{...collider,r:Math.hypot(collider.hw,collider.hd)}],x,z,Math.min(0.05,clear/4),Math.max(1,(collider.y0||0)+0.5)),null,`${lm.id}: narrow source slot remains clear`);tested=true;courts++;checks++;break;
+    }
+    if(area>0.01)assert(tested,`${lm.id}: nondegenerate source void has an interior probe`);
+   }
   }
  }
  for(const probe of record.massUpgrades?.heightProbes||[]){
@@ -43,7 +54,7 @@ for(const record of facts.landmarks){
   const hits=ray.intersectObject(model.mesh,true);assert(hits.length,`${lm.id}: source height probe hits geometry`);
   assert(Math.abs(hits[0].point.y-probe.height)<0.12,`${lm.id}: source ${probe.sourceId} roof ${hits[0].point.y} matches ${probe.height}`);checks++;
  }
- const expected={ateneu:41,romexpo:34,baneasasc:22,marriott:40,promenada:18.05,gara:26,globalworth:120}[lm.id];
+ const expected={cathedral:127.05,regal:18,ateneu:41,romexpo:34,baneasasc:22,marriott:40,promenada:18.05,gara:26,globalworth:120}[lm.id];
  if(expected!==undefined){assert(Math.abs(box.max.y-expected)<0.11,`${lm.id}: documented height envelope`);checks++;}
  results.push({id:lm.id,passed:true,rings:record.footprintUpgrades.length,courts,height:box.max.y,triangles:model.triangles,sourceIdentities:lm.sourceIds.length});
 }

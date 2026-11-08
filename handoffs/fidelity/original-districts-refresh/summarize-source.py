@@ -23,19 +23,24 @@ for district in ('floreasca', 'romana', 'grozavesti'):
         for zone in ('inside', 'ring'):
             records = [r for r in rows if r['zone'] == zone and (r['osm'].startswith('r')) == (kind == 'relation')]
             matched = [r for r in records if r.get('identityPresent')]
+            identities = [r for r in matched if r.get('matchMethod') == 'source-id']
             groups[kind + '-' + zone] = {
-                'sourceRecords': len(records), 'identitiesPresent': len(matched),
-                'topologyMatches': sum(bool(r.get('topologyMatches')) for r in matched),
-                'literalHeightMismatches': [r['osm'] for r in matched if r.get('literalHeightMatches') is False],
-                'storeysMismatches': [r['osm'] for r in matched if r.get('storeysMatch') is False],
-                'missingIds': [r['osm'] for r in records if not r.get('identityPresent')],
-                'geometryMismatches': [r['osm'] for r in matched if not r.get('topologyMatches')],
-                'courtyardInteriorFailures': [r['osm'] for r in matched if r.get('courtyardInteriorsClear') is False],
+                'sourceRecords': len(records), 'identitiesPresent': len(identities),
+                'exactIdentityMatches': len(identities),
+                'legacySpatialMatches': sum(r.get('matchMethod') == 'legacy-spatial' for r in matched),
+                'legacySpatialTopologyMatches': sum(bool(r.get('topologyMatches')) for r in matched if r.get('matchMethod') == 'legacy-spatial'),
+                'topologyMatches': sum(bool(r.get('topologyMatches')) for r in identities),
+                'literalHeightMismatches': [r['osm'] for r in identities if r.get('literalHeightMatches') is False],
+                'storeysMismatches': [r['osm'] for r in identities if r.get('storeysMatch') is False],
+                'missingIds': [r['osm'] for r in records if not r.get('identityPresent') or r.get('matchMethod') != 'source-id'],
+                'geometryMismatches': [r['osm'] for r in identities if not r.get('topologyMatches')],
+                'courtyardInteriorFailures': [r['osm'] for r in identities if r.get('courtyardInteriorsClear') is False],
             }
     reports[district] = {
         'dataSha256': hashlib.sha256(data_file.read_bytes()).hexdigest(),
         'rawAuditSha256': hashlib.sha256(raw.read_bytes()).hexdigest(),
         'sourceRecords': len(data['buildings']), 'buildingGeometryPolicy': data.get('buildingGeometryPolicy'),
+        'buildingSourceIds': len(data.get('buildingIds', [])),
         'roadGeometryPolicy': data.get('roadGeometryPolicy'),
         'preciseFootprints': len(data.get('buildingFootprints', {})),
         'courtyardBuildings': len(data.get('buildingHoles', {})),

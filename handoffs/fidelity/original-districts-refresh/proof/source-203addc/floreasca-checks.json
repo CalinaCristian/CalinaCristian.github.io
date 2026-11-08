@@ -1,0 +1,32 @@
+{
+  "district": "floreasca",
+  "dataSha256": "02c87689579ba2764cdc23e203f7f5b3e43b59789a905ef87a80f725153973ef",
+  "inputUnchanged": true,
+  "sourceRoot": "/workspace/fidelity-workers/original-districts-refresh",
+  "results": [
+    {
+      "check": "buildings",
+      "exitCode": 0,
+      "stdout": "floreasca-buildings.log",
+      "stderr": "floreasca-buildings.stderr",
+      "stdoutSha256": "2416ffa3cae7353249fe5e83a8d10ab1e9703d1a221d2641325518597a33c7c7",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "check": "geometry",
+      "exitCode": 0,
+      "stdout": "floreasca-geometry.json",
+      "stderr": "floreasca-geometry.stderr",
+      "stdoutSha256": "6101e331db5b1b18ad5f5bf8f4945ae990a14538b5a7c881163d0e8c37bf57cc",
+      "stderrSha256": "f6f67c17bcc5ac659e8443fe38c5b6c01f2c82a18f390b387078cc5117604197"
+    },
+    {
+      "check": "roads",
+      "exitCode": 0,
+      "stdout": "floreasca-roads.json",
+      "stderr": "floreasca-roads.stderr",
+      "stdoutSha256": "42a3045f32880c0f12d29274f9071e9756ec95acc0df91f383da62feb4214e20",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

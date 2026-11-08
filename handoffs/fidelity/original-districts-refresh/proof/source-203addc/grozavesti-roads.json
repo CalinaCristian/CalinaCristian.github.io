@@ -1,0 +1,45 @@
+{
+  "data": "bucharest-grozavesti.json",
+  "roads": 255,
+  "sourceWays": 250,
+  "preparedNodes": 1422,
+  "cutNodes": 82,
+  "expectedWhole": 156,
+  "wholeSourceVertices": 889,
+  "missingWhole": 0,
+  "privatePhysical": 17,
+  "shortSourceStubs": 17,
+  "scenery": {
+    "pieces": 944,
+    "sourceWays": 938,
+    "preparedVertices": 4731,
+    "privatePhysical": 136
+  },
+  "visibleRing": {
+    "expectedWays": 922,
+    "missingWays": 0,
+    "requiredVertices": 4939,
+    "missingVertices": 0,
+    "excludedCoveredWays": [
+      "w687431785",
+      "w225441660",
+      "w455456962",
+      "w455456968",
+      "w455458991",
+      "w779735521",
+      "w779735524",
+      "w779735525",
+      "w944216455",
+      "w710632021",
+      "w710632023",
+      "w1530476017",
+      "w687687403",
+      "w1175365033",
+      "w1295846860",
+      "w1559923420"
+    ],
+    "exclusionReason": "Covered/tunnel source ways outside the physical core are not represented as ground scenery; no elevation or open road is invented."
+  },
+  "sourceDirectionNormalizations": [],
+  "issues": []
+}

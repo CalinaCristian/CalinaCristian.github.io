@@ -1,0 +1,230 @@
+{
+  "gameSourceCommit": "203addccb0b5a8cf6224764a72a4963f782578c1",
+  "districts": {
+    "floreasca": {
+      "dataSha256": "02c87689579ba2764cdc23e203f7f5b3e43b59789a905ef87a80f725153973ef",
+      "rawAuditSha256": "da69a526d28b41fe856b92e8c7305ef9caca01e58d58b5db1d9b24aef3f8c4d3",
+      "sourceRecords": 3366,
+      "buildingGeometryPolicy": "source",
+      "buildingSourceIds": 3366,
+      "roadGeometryPolicy": "source",
+      "preciseFootprints": 3366,
+      "courtyardBuildings": 3,
+      "courtyardRings": 3,
+      "trees": 15181,
+      "treeRetention": {
+        "policy": "all-measured",
+        "inputCrowns": 28008,
+        "retained": 15181,
+        "rejectedGeometryOrDuplicate": 2654,
+        "outsideSurveyDistrict": 10173,
+        "thinned": 0
+      },
+      "railways": 6,
+      "groups": {
+        "way-inside": {
+          "sourceRecords": 537,
+          "identitiesPresent": 537,
+          "exactIdentityMatches": 537,
+          "legacySpatialMatches": 0,
+          "legacySpatialTopologyMatches": 0,
+          "topologyMatches": 537,
+          "literalHeightMismatches": [],
+          "storeysMismatches": [],
+          "missingIds": [],
+          "geometryMismatches": [],
+          "courtyardInteriorFailures": []
+        },
+        "way-ring": {
+          "sourceRecords": 2826,
+          "identitiesPresent": 2826,
+          "exactIdentityMatches": 2826,
+          "legacySpatialMatches": 0,
+          "legacySpatialTopologyMatches": 0,
+          "topologyMatches": 2826,
+          "literalHeightMismatches": [],
+          "storeysMismatches": [],
+          "missingIds": [],
+          "geometryMismatches": [],
+          "courtyardInteriorFailures": []
+        },
+        "relation-inside": {
+          "sourceRecords": 1,
+          "identitiesPresent": 1,
+          "exactIdentityMatches": 1,
+          "legacySpatialMatches": 0,
+          "legacySpatialTopologyMatches": 0,
+          "topologyMatches": 1,
+          "literalHeightMismatches": [],
+          "storeysMismatches": [],
+          "missingIds": [],
+          "geometryMismatches": [],
+          "courtyardInteriorFailures": []
+        },
+        "relation-ring": {
+          "sourceRecords": 2,
+          "identitiesPresent": 2,
+          "exactIdentityMatches": 2,
+          "legacySpatialMatches": 0,
+          "legacySpatialTopologyMatches": 0,
+          "topologyMatches": 2,
+          "literalHeightMismatches": [],
+          "storeysMismatches": [],
+          "missingIds": [],
+          "geometryMismatches": [],
+          "courtyardInteriorFailures": []
+        }
+      }
+    },
+    "romana": {
+      "dataSha256": "77eaa7912e67aae005f38fb6216a961e8defa1161ba614e7552be744a624fe0c",
+      "rawAuditSha256": "c5ba9bf63d89c3c34d89432396eb997c4770bd61367d4096584cd94df1195f96",
+      "sourceRecords": 5682,
+      "buildingGeometryPolicy": "source",
+      "buildingSourceIds": 5682,
+      "roadGeometryPolicy": "source",
+      "preciseFootprints": 5682,
+      "courtyardBuildings": 36,
+      "courtyardRings": 61,
+      "trees": 18494,
+      "treeRetention": {
+        "policy": "all-measured",
+        "inputCrowns": 46960,
+        "retained": 18420,
+        "rejectedGeometryOrDuplicate": 3631,
+        "outsideSurveyDistrict": 24909,
+        "thinned": 0
+      },
+      "railways": 18,
+      "groups": {
+        "way-inside": {
+          "sourceRecords": 810,
+          "identitiesPresent": 810,
+          "exactIdentityMatches": 810,
+          "legacySpatialMatches": 0,
+          "legacySpatialTopologyMatches": 0,
+          "topologyMatches": 810,
+          "literalHeightMismatches": [],
+          "storeysMismatches": [],
+          "missingIds": [],
+          "geometryMismatches": [],
+          "courtyardInteriorFailures": []
+        },
+        "way-ring": {
+          "sourceRecords": 4832,
+          "identitiesPresent": 4832,
+          "exactIdentityMatches": 4832,
+          "legacySpatialMatches": 0,
+          "legacySpatialTopologyMatches": 0,
+          "topologyMatches": 4832,
+          "literalHeightMismatches": [],
+          "storeysMismatches": [],
+          "missingIds": [],
+          "geometryMismatches": [],
+          "courtyardInteriorFailures": []
+        },
+        "relation-inside": {
+          "sourceRecords": 5,
+          "identitiesPresent": 5,
+          "exactIdentityMatches": 5,
+          "legacySpatialMatches": 0,
+          "legacySpatialTopologyMatches": 0,
+          "topologyMatches": 5,
+          "literalHeightMismatches": [],
+          "storeysMismatches": [],
+          "missingIds": [],
+          "geometryMismatches": [],
+          "courtyardInteriorFailures": []
+        },
+        "relation-ring": {
+          "sourceRecords": 35,
+          "identitiesPresent": 35,
+          "exactIdentityMatches": 35,
+          "legacySpatialMatches": 0,
+          "legacySpatialTopologyMatches": 0,
+          "topologyMatches": 35,
+          "literalHeightMismatches": [],
+          "storeysMismatches": [],
+          "missingIds": [],
+          "geometryMismatches": [],
+          "courtyardInteriorFailures": []
+        }
+      }
+    },
+    "grozavesti": {
+      "dataSha256": "523632a18195768063bb82cc454f9b454ea969d802daaee6f446ebf423cbc3ef",
+      "rawAuditSha256": "0f689f5cd2e4d94bc21fb6e7859248cc00b54120de28763c1af3a459bf8681bc",
+      "sourceRecords": 2416,
+      "buildingGeometryPolicy": "source",
+      "buildingSourceIds": 2416,
+      "roadGeometryPolicy": "source",
+      "preciseFootprints": 2416,
+      "courtyardBuildings": 3,
+      "courtyardRings": 5,
+      "trees": 17002,
+      "treeRetention": {
+        "policy": "all-measured",
+        "inputCrowns": 44645,
+        "retained": 17001,
+        "rejectedGeometryOrDuplicate": 2655,
+        "outsideSurveyDistrict": 24989,
+        "thinned": 0
+      },
+      "railways": 110,
+      "groups": {
+        "way-inside": {
+          "sourceRecords": 133,
+          "identitiesPresent": 133,
+          "exactIdentityMatches": 133,
+          "legacySpatialMatches": 0,
+          "legacySpatialTopologyMatches": 0,
+          "topologyMatches": 133,
+          "literalHeightMismatches": [],
+          "storeysMismatches": [],
+          "missingIds": [],
+          "geometryMismatches": [],
+          "courtyardInteriorFailures": []
+        },
+        "way-ring": {
+          "sourceRecords": 2262,
+          "identitiesPresent": 2262,
+          "exactIdentityMatches": 2262,
+          "legacySpatialMatches": 0,
+          "legacySpatialTopologyMatches": 0,
+          "topologyMatches": 2262,
+          "literalHeightMismatches": [],
+          "storeysMismatches": [],
+          "missingIds": [],
+          "geometryMismatches": [],
+          "courtyardInteriorFailures": []
+        },
+        "relation-inside": {
+          "sourceRecords": 4,
+          "identitiesPresent": 4,
+          "exactIdentityMatches": 4,
+          "legacySpatialMatches": 0,
+          "legacySpatialTopologyMatches": 0,
+          "topologyMatches": 4,
+          "literalHeightMismatches": [],
+          "storeysMismatches": [],
+          "missingIds": [],
+          "geometryMismatches": [],
+          "courtyardInteriorFailures": []
+        },
+        "relation-ring": {
+          "sourceRecords": 17,
+          "identitiesPresent": 17,
+          "exactIdentityMatches": 17,
+          "legacySpatialMatches": 0,
+          "legacySpatialTopologyMatches": 0,
+          "topologyMatches": 17,
+          "literalHeightMismatches": [],
+          "storeysMismatches": [],
+          "missingIds": [],
+          "geometryMismatches": [],
+          "courtyardInteriorFailures": []
+        }
+      }
+    }
+  }
+}

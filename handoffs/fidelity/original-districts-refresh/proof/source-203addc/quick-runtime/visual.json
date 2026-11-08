@@ -1,0 +1,3028 @@
+{
+ "generated": "2026-11-08T18:09:45.377Z",
+ "durationSec": 316,
+ "args": {
+  "city": "bucharest",
+  "route": null,
+  "district": "floreasca,romana,grozavesti",
+  "every": 40,
+  "from": 2,
+  "to": 2,
+  "aerial": false,
+  "looks": false,
+  "zEvery": 0,
+  "pr": 0.5,
+  "viewports": "none",
+  "quality": "high",
+  "far": 0,
+  "time": "day",
+  "weather": "clear",
+  "trafficEvery": 1,
+  "spots": null,
+  "spotQ": "high",
+  "traffic": false,
+  "offices": false,
+  "geometry": true,
+  "geoAll": false,
+  "jobs": 2,
+  "headed": false,
+  "port": 8123,
+  "timeout": 900,
+  "focus": 40,
+  "corridor": 70,
+  "sweep": 0,
+  "lookEvery": 200,
+  "aerialEvery": 200,
+  "size": 120,
+  "out": "/workspace/reality-pass/original-districts-refresh/after/quick-runtime",
+  "keep": false,
+  "verbose": false,
+  "root": "/workspace/reality-pass/original-districts-refresh/final-source"
+ },
+ "coverage": {
+  "complete": true,
+  "status": "complete",
+  "requiredSamples": 4,
+  "capturedSamples": 4,
+  "missingSamples": 0,
+  "errors": [],
+  "routes": [
+   {
+    "city": "bucharest",
+    "group": "bucharest-floreasca",
+    "route": "rosetti",
+    "required": 1,
+    "captured": 1,
+    "missing": 0,
+    "missingIndices": []
+   },
+   {
+    "city": "bucharest",
+    "group": "bucharest-grozavesti",
+    "route": "upb",
+    "required": 1,
+    "captured": 1,
+    "missing": 0,
+    "missingIndices": []
+   },
+   {
+    "city": "bucharest",
+    "group": "bucharest-romana",
+    "route": "arnia",
+    "required": 1,
+    "captured": 1,
+    "missing": 0,
+    "missingIndices": []
+   },
+   {
+    "city": "bucharest",
+    "group": "bucharest-romana",
+    "route": "uipath-buc",
+    "required": 1,
+    "captured": 1,
+    "missing": 0,
+    "missingIndices": []
+   }
+  ]
+ },
+ "results": [
+  {
+   "city": "bucharest",
+   "groups": [
+    {
+     "key": "bucharest-floreasca",
+     "city": "bucharest",
+     "district": "floreasca",
+     "ms": 33467,
+     "edges": 384,
+     "ribbons": 523
+    },
+    {
+     "key": "bucharest-grozavesti",
+     "city": "bucharest",
+     "district": "grozavesti",
+     "ms": 24216,
+     "edges": 801,
+     "ribbons": 1714
+    },
+    {
+     "key": "bucharest-romana",
+     "city": "bucharest",
+     "district": "romana",
+     "ms": 27276,
+     "edges": 1006,
+     "ribbons": 1320
+    }
+   ],
+   "routes": [
+    {
+     "group": "bucharest-floreasca",
+     "id": "rosetti",
+     "ok": true,
+     "label": "2009 High school",
+     "kind": "chapter",
+     "total": 1669,
+     "n": 1,
+     "from": {
+      "x": -243,
+      "z": 977.9,
+      "lat": 44.455601,
+      "lon": 26.100742,
+      "street": "Calea Floreasca"
+     },
+     "to": {
+      "x": 214.7,
+      "z": -303.3,
+      "lat": 44.467129,
+      "lon": 26.106502,
+      "street": "Strada General Giuseppe Garibaldi"
+     },
+     "base": 0,
+     "shots": [
+      {
+       "idx": 0,
+       "s": 2,
+       "x": -250,
+       "z": 976.1,
+       "street": "Calea Floreasca",
+       "flags": [],
+       "sheet": 1,
+       "perf": {
+        "calls": 303,
+        "tris": 1165518,
+        "quality": "high"
+       },
+       "perfT": {
+        "calls": 348,
+        "tris": 1255911,
+        "veh": 194,
+        "peds": 560
+       }
+      }
+     ],
+     "wallSec": 49,
+     "flagged": 0,
+     "perf": {
+      "start": {
+       "idx": 0,
+       "s": 2,
+       "street": "Calea Floreasca",
+       "x": -250,
+       "z": 976.1,
+       "calls": 303,
+       "tris": 1165518,
+       "quality": "high"
+      },
+      "worstCalls": {
+       "idx": 0,
+       "s": 2,
+       "street": "Calea Floreasca",
+       "x": -250,
+       "z": 976.1,
+       "calls": 303,
+       "tris": 1165518,
+       "quality": "high"
+      },
+      "worstTris": {
+       "idx": 0,
+       "s": 2,
+       "street": "Calea Floreasca",
+       "x": -250,
+       "z": 976.1,
+       "calls": 303,
+       "tris": 1165518,
+       "quality": "high"
+      },
+      "startT": {
+       "idx": 0,
+       "s": 2,
+       "street": "Calea Floreasca",
+       "x": -250,
+       "z": 976.1,
+       "calls": 348,
+       "tris": 1255911,
+       "veh": 194,
+       "peds": 560
+      },
+      "worstCallsT": {
+       "idx": 0,
+       "s": 2,
+       "street": "Calea Floreasca",
+       "x": -250,
+       "z": 976.1,
+       "calls": 348,
+       "tris": 1255911,
+       "veh": 194,
+       "peds": 560
+      },
+      "worstTrisT": {
+       "idx": 0,
+       "s": 2,
+       "street": "Calea Floreasca",
+       "x": -250,
+       "z": 976.1,
+       "calls": 348,
+       "tris": 1255911,
+       "veh": 194,
+       "peds": 560
+      }
+     }
+    },
+    {
+     "group": "bucharest-grozavesti",
+     "id": "upb",
+     "ok": true,
+     "label": "2013 Politehnica",
+     "kind": "chapter",
+     "total": 1573,
+     "n": 1,
+     "from": {
+      "x": 489.2,
+      "z": -815.4,
+      "lat": 44.448538,
+      "lon": 26.065355,
+      "street": "Șoseaua Orhideelor"
+     },
+     "to": {
+      "x": -298.6,
+      "z": 350.6,
+      "lat": 44.438045,
+      "lon": 26.055443,
+      "street": "(service)"
+     },
+     "base": 1,
+     "shots": [
+      {
+       "idx": 1,
+       "s": 2,
+       "x": 489.1,
+       "z": -811.4,
+       "street": "Șoseaua Orhideelor",
+       "flags": [],
+       "sheet": 1,
+       "perf": {
+        "calls": 287,
+        "tris": 1168076,
+        "quality": "high"
+       },
+       "perfT": {
+        "calls": 321,
+        "tris": 1257444,
+        "veh": 169,
+        "peds": 560
+       }
+      }
+     ],
+     "wallSec": 39,
+     "flagged": 0,
+     "perf": {
+      "start": {
+       "idx": 1,
+       "s": 2,
+       "street": "Șoseaua Orhideelor",
+       "x": 489.1,
+       "z": -811.4,
+       "calls": 287,
+       "tris": 1168076,
+       "quality": "high"
+      },
+      "worstCalls": {
+       "idx": 1,
+       "s": 2,
+       "street": "Șoseaua Orhideelor",
+       "x": 489.1,
+       "z": -811.4,
+       "calls": 287,
+       "tris": 1168076,
+       "quality": "high"
+      },
+      "worstTris": {
+       "idx": 1,
+       "s": 2,
+       "street": "Șoseaua Orhideelor",
+       "x": 489.1,
+       "z": -811.4,
+       "calls": 287,
+       "tris": 1168076,
+       "quality": "high"
+      },
+      "startT": {
+       "idx": 1,
+       "s": 2,
+       "street": "Șoseaua Orhideelor",
+       "x": 489.1,
+       "z": -811.4,
+       "calls": 321,
+       "tris": 1257444,
+       "veh": 169,
+       "peds": 560
+      },
+      "worstCallsT": {
+       "idx": 1,
+       "s": 2,
+       "street": "Șoseaua Orhideelor",
+       "x": 489.1,
+       "z": -811.4,
+       "calls": 321,
+       "tris": 1257444,
+       "veh": 169,
+       "peds": 560
+      },
+      "worstTrisT": {
+       "idx": 1,
+       "s": 2,
+       "street": "Șoseaua Orhideelor",
+       "x": 489.1,
+       "z": -811.4,
+       "calls": 321,
+       "tris": 1257444,
+       "veh": 169,
+       "peds": 560
+      }
+     }
+    },
+    {
+     "group": "bucharest-romana",
+     "id": "arnia",
+     "ok": true,
+     "label": "2019 Arnia",
+     "kind": "chapter",
+     "total": 2205,
+     "n": 1,
+     "from": {
+      "x": 622.7,
+      "z": 710.2,
+      "lat": 44.441909,
+      "lon": 26.099036,
+      "street": "Bulevardul General Gheorghe Magheru"
+     },
+     "to": {
+      "x": -254.4,
+      "z": -325.5,
+      "lat": 44.451229,
+      "lon": 26.087999,
+      "street": "Bulevardul Lascăr Catargiu"
+     },
+     "base": 2,
+     "shots": [
+      {
+       "idx": 2,
+       "s": 2,
+       "x": 630,
+       "z": 709.8,
+       "street": "Bulevardul General Gheorghe Magheru",
+       "flags": [],
+       "sheet": 1,
+       "perf": {
+        "calls": 204,
+        "tris": 918761,
+        "quality": "high"
+       },
+       "perfT": {
+        "calls": 240,
+        "tris": 967682,
+        "veh": 312,
+        "peds": 560
+       }
+      }
+     ],
+     "wallSec": 52,
+     "flagged": 0,
+     "perf": {
+      "start": {
+       "idx": 2,
+       "s": 2,
+       "street": "Bulevardul General Gheorghe Magheru",
+       "x": 630,
+       "z": 709.8,
+       "calls": 204,
+       "tris": 918761,
+       "quality": "high"
+      },
+      "worstCalls": {
+       "idx": 2,
+       "s": 2,
+       "street": "Bulevardul General Gheorghe Magheru",
+       "x": 630,
+       "z": 709.8,
+       "calls": 204,
+       "tris": 918761,
+       "quality": "high"
+      },
+      "worstTris": {
+       "idx": 2,
+       "s": 2,
+       "street": "Bulevardul General Gheorghe Magheru",
+       "x": 630,
+       "z": 709.8,
+       "calls": 204,
+       "tris": 918761,
+       "quality": "high"
+      },
+      "startT": {
+       "idx": 2,
+       "s": 2,
+       "street": "Bulevardul General Gheorghe Magheru",
+       "x": 630,
+       "z": 709.8,
+       "calls": 240,
+       "tris": 967682,
+       "veh": 312,
+       "peds": 560
+      },
+      "worstCallsT": {
+       "idx": 2,
+       "s": 2,
+       "street": "Bulevardul General Gheorghe Magheru",
+       "x": 630,
+       "z": 709.8,
+       "calls": 240,
+       "tris": 967682,
+       "veh": 312,
+       "peds": 560
+      },
+      "worstTrisT": {
+       "idx": 2,
+       "s": 2,
+       "street": "Bulevardul General Gheorghe Magheru",
+       "x": 630,
+       "z": 709.8,
+       "calls": 240,
+       "tris": 967682,
+       "veh": 312,
+       "peds": 560
+      }
+     }
+    },
+    {
+     "group": "bucharest-romana",
+     "id": "uipath-buc",
+     "ok": true,
+     "label": "2020 UiPath",
+     "kind": "chapter",
+     "total": 1458,
+     "n": 1,
+     "from": {
+      "x": -593.4,
+      "z": -839.9,
+      "lat": 44.455858,
+      "lon": 26.083733,
+      "street": "Șoseaua Pavel Dimitrievici Kiseleff"
+     },
+     "to": {
+      "x": 248.6,
+      "z": -175.8,
+      "lat": 44.449882,
+      "lon": 26.094328,
+      "street": "Strada Vasile Alecsandri"
+     },
+     "base": 3,
+     "shots": [
+      {
+       "idx": 3,
+       "s": 2,
+       "x": -582.9,
+       "z": -842.2,
+       "street": "Șoseaua Pavel Dimitrievici Kiseleff",
+       "flags": [],
+       "sheet": 1,
+       "perf": {
+        "calls": 296,
+        "tris": 1296564,
+        "quality": "high"
+       },
+       "perfT": {
+        "calls": 329,
+        "tris": 1357094,
+        "veh": 312,
+        "peds": 560
+       }
+      }
+     ],
+     "wallSec": 33,
+     "flagged": 0,
+     "perf": {
+      "start": {
+       "idx": 3,
+       "s": 2,
+       "street": "Șoseaua Pavel Dimitrievici Kiseleff",
+       "x": -582.9,
+       "z": -842.2,
+       "calls": 296,
+       "tris": 1296564,
+       "quality": "high"
+      },
+      "worstCalls": {
+       "idx": 3,
+       "s": 2,
+       "street": "Șoseaua Pavel Dimitrievici Kiseleff",
+       "x": -582.9,
+       "z": -842.2,
+       "calls": 296,
+       "tris": 1296564,
+       "quality": "high"
+      },
+      "worstTris": {
+       "idx": 3,
+       "s": 2,
+       "street": "Șoseaua Pavel Dimitrievici Kiseleff",
+       "x": -582.9,
+       "z": -842.2,
+       "calls": 296,
+       "tris": 1296564,
+       "quality": "high"
+      },
+      "startT": {
+       "idx": 3,
+       "s": 2,
+       "street": "Șoseaua Pavel Dimitrievici Kiseleff",
+       "x": -582.9,
+       "z": -842.2,
+       "calls": 329,
+       "tris": 1357094,
+       "veh": 312,
+       "peds": 560
+      },
+      "worstCallsT": {
+       "idx": 3,
+       "s": 2,
+       "street": "Șoseaua Pavel Dimitrievici Kiseleff",
+       "x": -582.9,
+       "z": -842.2,
+       "calls": 329,
+       "tris": 1357094,
+       "veh": 312,
+       "peds": 560
+      },
+      "worstTrisT": {
+       "idx": 3,
+       "s": 2,
+       "street": "Șoseaua Pavel Dimitrievici Kiseleff",
+       "x": -582.9,
+       "z": -842.2,
+       "calls": 329,
+       "tris": 1357094,
+       "veh": 312,
+       "peds": 560
+      }
+     }
+    }
+   ],
+   "sheets": [
+    {
+     "name": "bucharest-floreasca-rosetti-forward",
+     "title": "bucharest-floreasca · 2009 High school · forward view every 40 m · day",
+     "files": [
+      {
+       "file": "sheets/bucharest-floreasca-rosetti-forward-001.jpg",
+       "labels": [
+        "#0 rosetti 2 m · Calea Floreasca [building-over-road]"
+       ]
+      }
+     ]
+    },
+    {
+     "name": "bucharest-floreasca-rosetti-traffic",
+     "title": "bucharest-floreasca · 2009 High school · with traffic + pedestrians every 1 m · day",
+     "files": [
+      {
+       "file": "sheets/bucharest-floreasca-rosetti-traffic-001.jpg",
+       "labels": [
+        "#0 rosetti 2 m · Calea Floreasca · traffic"
+       ]
+      }
+     ]
+    },
+    {
+     "name": "bucharest-floreasca-geometry",
+     "title": "bucharest-floreasca · geometry findings (40 m top-down, north up)",
+     "files": [
+      {
+       "file": "sheets/bucharest-floreasca-geometry-001.jpg",
+       "labels": [
+        "building-over-road (high) · Strada Cronicarilor",
+        "building-over-road (high) · Strada Albac",
+        "building-over-road (medium) · Calea Floreasca",
+        "building-over-road (medium) · Calea Floreasca"
+       ]
+      }
+     ]
+    },
+    {
+     "name": "bucharest-grozavesti-upb-forward",
+     "title": "bucharest-grozavesti · 2013 Politehnica · forward view every 40 m · day",
+     "files": [
+      {
+       "file": "sheets/bucharest-grozavesti-upb-forward-001.jpg",
+       "labels": [
+        "#1 upb 2 m · Șoseaua Orhideelor [surface-above-road]"
+       ]
+      }
+     ]
+    },
+    {
+     "name": "bucharest-grozavesti-upb-traffic",
+     "title": "bucharest-grozavesti · 2013 Politehnica · with traffic + pedestrians every 1 m · day",
+     "files": [
+      {
+       "file": "sheets/bucharest-grozavesti-upb-traffic-001.jpg",
+       "labels": [
+        "#1 upb 2 m · Șoseaua Orhideelor · traffic"
+       ]
+      }
+     ]
+    },
+    {
+     "name": "bucharest-grozavesti-geometry",
+     "title": "bucharest-grozavesti · geometry findings (40 m top-down, north up)",
+     "files": [
+      {
+       "file": "sheets/bucharest-grozavesti-geometry-001.jpg",
+       "labels": [
+        "ribbon-stacked (high) · Șoseaua Orhideelor",
+        "surface-above-road (high) · Șoseaua Orhideelor",
+        "marking-buried (medium) · Șoseaua Orhideelor",
+        "surface-above-road (medium) · Șoseaua Orhideelor",
+        "surface-above-road (medium) · Șoseaua Orhideelor",
+        "surface-above-road (medium) · Șoseaua Orhideelor"
+       ]
+      }
+     ]
+    },
+    {
+     "name": "bucharest-romana-arnia-forward",
+     "title": "bucharest-romana · 2019 Arnia · forward view every 40 m · day",
+     "files": [
+      {
+       "file": "sheets/bucharest-romana-arnia-forward-001.jpg",
+       "labels": [
+        "#2 arnia 2 m · Bulevardul General Gheorghe Magheru"
+       ]
+      }
+     ]
+    },
+    {
+     "name": "bucharest-romana-arnia-traffic",
+     "title": "bucharest-romana · 2019 Arnia · with traffic + pedestrians every 1 m · day",
+     "files": [
+      {
+       "file": "sheets/bucharest-romana-arnia-traffic-001.jpg",
+       "labels": [
+        "#2 arnia 2 m · Bulevardul General Gheorghe Magheru · traffic"
+       ]
+      }
+     ]
+    },
+    {
+     "name": "bucharest-romana-uipath-buc-forward",
+     "title": "bucharest-romana · 2020 UiPath · forward view every 40 m · day",
+     "files": [
+      {
+       "file": "sheets/bucharest-romana-uipath-buc-forward-001.jpg",
+       "labels": [
+        "#3 uipath-buc 2 m · Șoseaua Pavel Dimitrievici Kiseleff"
+       ]
+      }
+     ]
+    },
+    {
+     "name": "bucharest-romana-uipath-buc-traffic",
+     "title": "bucharest-romana · 2020 UiPath · with traffic + pedestrians every 1 m · day",
+     "files": [
+      {
+       "file": "sheets/bucharest-romana-uipath-buc-traffic-001.jpg",
+       "labels": [
+        "#3 uipath-buc 2 m · Șoseaua Pavel Dimitrievici Kiseleff · traffic"
+       ]
+      }
+     ]
+    },
+    {
+     "name": "bucharest-romana-geometry",
+     "title": "bucharest-romana · geometry findings (40 m top-down, north up)",
+     "files": [
+      {
+       "file": "sheets/bucharest-romana-geometry-001.jpg",
+       "labels": [
+        "building-over-road (medium) · Bulevardul General Gheorghe Magheru"
+       ]
+      }
+     ]
+    }
+   ],
+   "issues": [
+    {
+     "id": 1,
+     "type": "ribbon-zfight",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-floreasca",
+     "msg": "Strada Albac [edge 2] and Strada Popasului [edge 9] overlap over 6.6 m² at the same height (Δy 0 m) → same asphalt colour (invisible unless markings cross)",
+     "x": -305.3,
+     "z": 989.1,
+     "lat": 44.4555,
+     "lon": 26.099958,
+     "street": "Strada Albac",
+     "count": 1,
+     "data": {
+      "area": 6.6,
+      "dy": 0,
+      "a": "Strada Albac [edge 2]",
+      "b": "Strada Popasului [edge 9]",
+      "edgeA": 2,
+      "edgeB": 9,
+      "surfaces": "asphalt/asphalt"
+     },
+     "seen": "rosetti #0 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 2,
+     "type": "pad-overlap",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-floreasca",
+     "msg": "Strada Albac [edge 2] runs 3.8 m² into its own junction pad (4 mm apart → z-fight at range)",
+     "x": -305.9,
+     "z": 987,
+     "lat": 44.455519,
+     "lon": 26.09995,
+     "street": "Strada Albac",
+     "count": 2,
+     "data": {
+      "area": 3.8,
+      "dy": 0,
+      "a": "Strada Albac [edge 2]",
+      "b": "junction pad (node 3, Strada Albac × Strada Popasului)",
+      "edgeA": 2,
+      "nodeB": 3
+     },
+     "seen": "rosetti #0 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 3,
+     "type": "pad-overlap",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-floreasca",
+     "msg": "Strada Popasului [edge 9] runs 3.8 m² into its own junction pad (4 mm apart → z-fight at range)",
+     "x": -302.9,
+     "z": 988,
+     "lat": 44.455509,
+     "lon": 26.099987,
+     "street": "Strada Popasului",
+     "count": 1,
+     "data": {
+      "area": 3.8,
+      "dy": 0,
+      "a": "Strada Popasului [edge 9]",
+      "b": "junction pad (node 3, Strada Albac × Strada Popasului)",
+      "edgeA": 9,
+      "nodeB": 3
+     },
+     "seen": "rosetti #0 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 4,
+     "type": "ribbon-zfight",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-floreasca",
+     "msg": "(service) [edge 399] and (service) [edge 415] overlap over 4.4 m² at the same height (Δy 0 m) → same asphalt colour (invisible unless markings cross)",
+     "x": -186.5,
+     "z": 944,
+     "lat": 44.455906,
+     "lon": 26.101453,
+     "street": "Calea Floreasca",
+     "count": 1,
+     "data": {
+      "area": 4.4,
+      "dy": 0,
+      "a": "(service) [edge 399]",
+      "b": "(service) [edge 415]",
+      "edgeA": 399,
+      "edgeB": 415,
+      "surfaces": "asphalt/asphalt"
+     },
+     "seen": "rosetti #0 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 5,
+     "type": "pad-overlap",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-floreasca",
+     "msg": "(service) [edge 399] runs 3.6 m² into its own junction pad (4 mm apart → z-fight at range)",
+     "x": -184.9,
+     "z": 946.1,
+     "lat": 44.455887,
+     "lon": 26.101472,
+     "street": "Calea Floreasca",
+     "count": 1,
+     "data": {
+      "area": 3.6,
+      "dy": 0,
+      "a": "(service) [edge 399]",
+      "b": "junction pad (node 33, (service))",
+      "edgeA": 399,
+      "nodeB": 33
+     },
+     "seen": "rosetti #0 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 6,
+     "type": "pad-overlap",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-floreasca",
+     "msg": "(service) [edge 409] runs 10.8 m² into its own junction pad (4 mm apart → z-fight at range)",
+     "x": -239.6,
+     "z": 1050.1,
+     "lat": 44.454951,
+     "lon": 26.100784,
+     "street": "Calea Floreasca",
+     "count": 1,
+     "data": {
+      "area": 10.8,
+      "dy": 0,
+      "a": "(service) [edge 409]",
+      "b": "junction pad (node 15, Strada Chile × Calea Floreasca × (service))",
+      "edgeA": 409,
+      "nodeB": 15
+     },
+     "seen": "rosetti #0 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 7,
+     "type": "pad-overlap",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-floreasca",
+     "msg": "(service) [edge 410] runs 5.2 m² into its own junction pad (4 mm apart → z-fight at range)",
+     "x": -226.3,
+     "z": 1048.2,
+     "lat": 44.454968,
+     "lon": 26.100951,
+     "street": "Calea Floreasca",
+     "count": 1,
+     "data": {
+      "area": 5.2,
+      "dy": 0,
+      "a": "(service) [edge 410]",
+      "b": "junction pad (node 50, (service))",
+      "edgeA": 410,
+      "nodeB": 50
+     },
+     "seen": "rosetti #0 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 8,
+     "type": "pad-overlap",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-floreasca",
+     "msg": "(service) [edge 415] runs 3.6 m² into its own junction pad (4 mm apart → z-fight at range)",
+     "x": -188.2,
+     "z": 945.5,
+     "lat": 44.455892,
+     "lon": 26.101432,
+     "street": "Calea Floreasca",
+     "count": 1,
+     "data": {
+      "area": 3.6,
+      "dy": 0,
+      "a": "(service) [edge 415]",
+      "b": "junction pad (node 33, (service))",
+      "edgeA": 415,
+      "nodeB": 33
+     },
+     "seen": "rosetti #0 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 9,
+     "type": "building-over-road",
+     "severity": "medium",
+     "city": "bucharest",
+     "group": "bucharest-floreasca",
+     "msg": "building footprint (h 14 m) covers 2.5 m² of (service) [edge 396]",
+     "x": -194.5,
+     "z": 974.3,
+     "lat": 44.455633,
+     "lon": 26.101352,
+     "street": "Calea Floreasca",
+     "count": 2,
+     "data": {
+      "area": 2.5,
+      "road": "(service) [edge 396]"
+     },
+     "crop": "issues/bucharest-floreasca-geo-building-over-road--194_974.jpg",
+     "seen": "rosetti #0 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 10,
+     "type": "building-over-road",
+     "severity": "medium",
+     "city": "bucharest",
+     "group": "bucharest-floreasca",
+     "msg": "building footprint (h 14 m) covers 1.4 m² of (service) [edge 393]",
+     "x": -199.9,
+     "z": 1029.8,
+     "lat": 44.455133,
+     "lon": 26.101284,
+     "street": "Calea Floreasca",
+     "count": 1,
+     "data": {
+      "area": 1.4,
+      "road": "(service) [edge 393]"
+     },
+     "crop": "issues/bucharest-floreasca-geo-building-over-road--200_1030.jpg",
+     "seen": "rosetti #0 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 11,
+     "type": "building-over-road",
+     "severity": "high",
+     "city": "bucharest",
+     "group": "bucharest-floreasca",
+     "msg": "building footprint (h 8.8 m) covers 14 m² of Strada Cronicarilor [edge 168]",
+     "x": -267,
+     "z": 965.9,
+     "lat": 44.455708,
+     "lon": 26.100439,
+     "street": "Strada Cronicarilor",
+     "count": 1,
+     "data": {
+      "area": 14,
+      "road": "Strada Cronicarilor [edge 168]"
+     },
+     "crop": "issues/bucharest-floreasca-geo-building-over-road--267_966.jpg",
+     "seen": "rosetti #0 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 12,
+     "type": "building-over-road",
+     "severity": "high",
+     "city": "bucharest",
+     "group": "bucharest-floreasca",
+     "msg": "building footprint (h 11.6 m) covers 7.6 m² of Strada Albac [edge 3]",
+     "x": -304,
+     "z": 980.7,
+     "lat": 44.455575,
+     "lon": 26.099974,
+     "street": "Strada Albac",
+     "count": 2,
+     "data": {
+      "area": 1.4,
+      "road": "junction pad (node 3, Strada Albac × Strada Popasului)"
+     },
+     "crop": "issues/bucharest-floreasca-geo-building-over-road--304_981.jpg",
+     "seen": "rosetti #0 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 13,
+     "type": "ribbon-stacked",
+     "severity": "high",
+     "city": "bucharest",
+     "group": "bucharest-grozavesti",
+     "msg": "Bretea [edge 1007, bridge] and Pasajul Basarab [edge 1140, bridge] overlap over 19.6 m² with only 0.26 m between them (spec R11.4: share one surface or ≥ 5 m clearance) → a visible stacked / stepped road surface",
+     "x": 432.5,
+     "z": -745.2,
+     "lat": 44.447906,
+     "lon": 26.064642,
+     "street": "Șoseaua Orhideelor",
+     "count": 3,
+     "data": {
+      "area": 2,
+      "dy": 0.73,
+      "a": "Bretea [edge 1006, bridge]",
+      "b": "Pasajul Basarab [edge 1139, bridge]",
+      "edgeA": 1006,
+      "edgeB": 1139
+     },
+     "crop": "issues/bucharest-grozavesti-geo-ribbon-stacked-433_-745.jpg"
+    },
+    {
+     "id": 14,
+     "type": "ribbon-zfight",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-grozavesti",
+     "msg": "Bretea [edge 1007, bridge] and Pasajul Basarab [edge 1504, bridge] overlap over 0.8 m² at the same height (Δy 0.04 m) → same asphalt colour (invisible unless markings cross)",
+     "x": 440.6,
+     "z": -750.6,
+     "lat": 44.447955,
+     "lon": 26.064743,
+     "street": "Șoseaua Orhideelor",
+     "count": 3,
+     "data": {
+      "area": 0.8,
+      "dy": 0.04,
+      "a": "Bretea [edge 1007, bridge]",
+      "b": "Pasajul Basarab [edge 1504, bridge]",
+      "edgeA": 1007,
+      "edgeB": 1504,
+      "surfaces": "asphalt/asphalt"
+     },
+     "seen": "upb #1 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 15,
+     "type": "ribbon-zfight",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-grozavesti",
+     "msg": "Exit → Giulești [edge 1009, bridge] and Pasajul Basarab [edge 1141, bridge] overlap over 12.3 m² at the same height (Δy 0 m) → same asphalt colour (invisible unless markings cross)",
+     "x": 450.7,
+     "z": -780.9,
+     "lat": 44.448227,
+     "lon": 26.064871,
+     "street": "Șoseaua Orhideelor",
+     "count": 5,
+     "data": {
+      "area": 12.3,
+      "dy": 0,
+      "a": "Exit → Giulești [edge 1009, bridge]",
+      "b": "Pasajul Basarab [edge 1141, bridge]",
+      "edgeA": 1009,
+      "edgeB": 1141,
+      "surfaces": "asphalt/asphalt"
+     },
+     "seen": "upb #1 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 16,
+     "type": "pad-overlap",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-grozavesti",
+     "msg": "Exit → Giulești [edge 1009, bridge] runs 2.8 m² into its own junction pad (4 mm apart → z-fight at range)",
+     "x": 452.4,
+     "z": -781.8,
+     "lat": 44.448235,
+     "lon": 26.064893,
+     "street": "Șoseaua Orhideelor",
+     "count": 1,
+     "data": {
+      "area": 2.8,
+      "dy": 0,
+      "a": "Exit → Giulești [edge 1009, bridge]",
+      "b": "junction pad (node 778, Exit → Giulești × Pasajul Basarab)",
+      "edgeA": 1009,
+      "nodeB": 778
+     },
+     "seen": "upb #1 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 17,
+     "type": "pad-overlap",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-grozavesti",
+     "msg": "Șoseaua Orhideelor [edge 638] runs 4.4 m² into its own junction pad (4 mm apart → z-fight at range)",
+     "x": 403.4,
+     "z": -717.4,
+     "lat": 44.447656,
+     "lon": 26.064275,
+     "street": "Șoseaua Orhideelor",
+     "count": 2,
+     "data": {
+      "area": 4.4,
+      "dy": 0,
+      "a": "Șoseaua Orhideelor [edge 638]",
+      "b": "junction pad (node 923, Șoseaua Orhideelor × Calea Giulești × Calea Plevnei)",
+      "edgeA": 638,
+      "nodeB": 923
+     }
+    },
+    {
+     "id": 18,
+     "type": "pad-overlap",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-grozavesti",
+     "msg": "Șoseaua Orhideelor [edge 647] runs 8.4 m² into its own junction pad (4 mm apart → z-fight at range)",
+     "x": 371.1,
+     "z": -749.9,
+     "lat": 44.447948,
+     "lon": 26.06387,
+     "street": "Șoseaua Orhideelor",
+     "count": 2,
+     "data": {
+      "area": 8.4,
+      "dy": 0,
+      "a": "Șoseaua Orhideelor [edge 647]",
+      "b": "junction pad (node 822, Șoseaua Orhideelor × Calea Giulești × (service))",
+      "edgeA": 647,
+      "nodeB": 822
+     }
+    },
+    {
+     "id": 19,
+     "type": "ribbon-zfight",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-grozavesti",
+     "msg": "Șoseaua Orhideelor [edge 647] and Calea Giulești [edge 652] overlap over 0.5 m² at the same height (Δy 0 m) → same asphalt colour (invisible unless markings cross)",
+     "x": 376,
+     "z": -749,
+     "lat": 44.44794,
+     "lon": 26.063931,
+     "street": "Șoseaua Orhideelor",
+     "count": 2,
+     "data": {
+      "area": 0.5,
+      "dy": 0,
+      "a": "Șoseaua Orhideelor [edge 647]",
+      "b": "Calea Giulești [edge 652]",
+      "edgeA": 647,
+      "edgeB": 652,
+      "surfaces": "asphalt/asphalt"
+     }
+    },
+    {
+     "id": 20,
+     "type": "ribbon-zfight",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-grozavesti",
+     "msg": "Bretea [edge 715] and Calea Plevnei [edge 767] overlap over 19.1 m² at the same height (Δy 0 m) → same asphalt colour (invisible unless markings cross)",
+     "x": 435.7,
+     "z": -711.6,
+     "lat": 44.447604,
+     "lon": 26.064682,
+     "street": "Bretea",
+     "count": 1,
+     "data": {
+      "area": 19.1,
+      "dy": 0,
+      "a": "Bretea [edge 715]",
+      "b": "Calea Plevnei [edge 767]",
+      "edgeA": 715,
+      "edgeB": 767,
+      "surfaces": "asphalt/asphalt"
+     }
+    },
+    {
+     "id": 21,
+     "type": "ribbon-zfight",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-grozavesti",
+     "msg": "Bretea [edge 716] and Calea Plevnei [edge 767] overlap over 2.3 m² at the same height (Δy 0 m) → same asphalt colour (invisible unless markings cross)",
+     "x": 432.9,
+     "z": -714.8,
+     "lat": 44.447632,
+     "lon": 26.064647,
+     "street": "Bretea",
+     "count": 2,
+     "data": {
+      "area": 2.3,
+      "dy": 0,
+      "a": "Bretea [edge 716]",
+      "b": "Calea Plevnei [edge 767]",
+      "edgeA": 716,
+      "edgeB": 767,
+      "surfaces": "asphalt/asphalt"
+     }
+    },
+    {
+     "id": 22,
+     "type": "ribbon-zfight",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-grozavesti",
+     "msg": "Bretea [edge 720] and Șoseaua Orhideelor [edge 783] overlap over 3.8 m² at the same height (Δy 0 m) → same asphalt colour (invisible unless markings cross)",
+     "x": 437.4,
+     "z": -740.5,
+     "lat": 44.447863,
+     "lon": 26.064703,
+     "street": "Bretea",
+     "count": 1,
+     "data": {
+      "area": 3.8,
+      "dy": 0,
+      "a": "Bretea [edge 720]",
+      "b": "Șoseaua Orhideelor [edge 783]",
+      "edgeA": 720,
+      "edgeB": 783,
+      "surfaces": "asphalt/asphalt"
+     }
+    },
+    {
+     "id": 23,
+     "type": "pad-overlap",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-grozavesti",
+     "msg": "Bretea [edge 721] runs 1.6 m² into its own junction pad (4 mm apart → z-fight at range)",
+     "x": 444.4,
+     "z": -747.1,
+     "lat": 44.447922,
+     "lon": 26.064792,
+     "street": "Bretea",
+     "count": 1,
+     "data": {
+      "area": 1.6,
+      "dy": 0,
+      "a": "Bretea [edge 721]",
+      "b": "junction pad (node 829, Șoseaua Orhideelor × Bretea)",
+      "edgeA": 721,
+      "nodeB": 829
+     },
+     "seen": "upb #1 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 24,
+     "type": "pad-overlap",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-grozavesti",
+     "msg": "Șoseaua Orhideelor [edge 781] runs 11.7 m² into its own junction pad (4 mm apart → z-fight at range)",
+     "x": 412.6,
+     "z": -726.4,
+     "lat": 44.447737,
+     "lon": 26.064391,
+     "street": "Șoseaua Orhideelor",
+     "count": 1,
+     "data": {
+      "area": 11.7,
+      "dy": 0,
+      "a": "Șoseaua Orhideelor [edge 781]",
+      "b": "junction pad (node 923, Șoseaua Orhideelor × Calea Giulești × Calea Plevnei)",
+      "edgeA": 781,
+      "nodeB": 923
+     }
+    },
+    {
+     "id": 25,
+     "type": "ribbon-zfight",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-grozavesti",
+     "msg": "Exit → Giulești [edge 1351, bridge] and Pasajul Basarab [edge 1507, bridge] overlap over 1.3 m² at the same height (Δy 0 m) → same asphalt colour (invisible unless markings cross)",
+     "x": 430.9,
+     "z": -770.9,
+     "lat": 44.448137,
+     "lon": 26.064621,
+     "street": "Șoseaua Orhideelor",
+     "count": 5,
+     "data": {
+      "area": 1.3,
+      "dy": 0,
+      "a": "Exit → Giulești [edge 1351, bridge]",
+      "b": "Pasajul Basarab [edge 1507, bridge]",
+      "edgeA": 1351,
+      "edgeB": 1507,
+      "surfaces": "asphalt/asphalt"
+     },
+     "seen": "upb #1 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 26,
+     "type": "surface-above-road",
+     "severity": "medium",
+     "city": "bucharest",
+     "group": "bucharest-grozavesti",
+     "msg": "a sidewalk / light surface (y=8.15) lies 0.04 m above Pasajul Basarab [edge 1139, bridge] (y=8.11) → a strip / slab across the carriageway",
+     "x": 429.4,
+     "z": -743.8,
+     "lat": 44.447893,
+     "lon": 26.064603,
+     "street": "Șoseaua Orhideelor",
+     "count": 1,
+     "data": {
+      "y": 8.15,
+      "surf": 8.11,
+      "what": "sidewalk / light surface"
+     },
+     "crop": "issues/bucharest-grozavesti-geo-surface-above-road-429_-744.jpg"
+    },
+    {
+     "id": 27,
+     "type": "surface-above-road",
+     "severity": "high",
+     "city": "bucharest",
+     "group": "bucharest-grozavesti",
+     "msg": "a sidewalk / light surface (y=9.89) lies 1.28 m above Exit → Giulești [edge 1012, bridge] (y=8.61) → a strip / slab across the carriageway",
+     "x": 410.6,
+     "z": -759.1,
+     "lat": 44.448031,
+     "lon": 26.064366,
+     "street": "Șoseaua Orhideelor",
+     "count": 1,
+     "data": {
+      "y": 9.89,
+      "surf": 8.61,
+      "what": "sidewalk / light surface"
+     },
+     "crop": "issues/bucharest-grozavesti-geo-surface-above-road-411_-759.jpg"
+    },
+    {
+     "id": 28,
+     "type": "surface-above-road",
+     "severity": "medium",
+     "city": "bucharest",
+     "group": "bucharest-grozavesti",
+     "msg": "a sidewalk / light surface (y=9.2) lies 0.04 m above junction pad (node 778, Exit → Giulești × Pasajul Basarab) (y=9.16) → a strip / slab across the carriageway",
+     "x": 459.3,
+     "z": -782.2,
+     "lat": 44.448238,
+     "lon": 26.064979,
+     "street": "Șoseaua Orhideelor",
+     "count": 1,
+     "data": {
+      "y": 9.2,
+      "surf": 9.16,
+      "what": "sidewalk / light surface"
+     },
+     "crop": "issues/bucharest-grozavesti-geo-surface-above-road-459_-782.jpg",
+     "seen": "upb #1 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 29,
+     "type": "surface-above-road",
+     "severity": "medium",
+     "city": "bucharest",
+     "group": "bucharest-grozavesti",
+     "msg": "a sidewalk / light surface (y=7.4) lies 0.09 m above junction pad (node 775, Pasajul Basarab × Bretea) (y=7.31) → a strip / slab across the carriageway",
+     "x": 446.8,
+     "z": -758.5,
+     "lat": 44.448025,
+     "lon": 26.064822,
+     "street": "Șoseaua Orhideelor",
+     "count": 2,
+     "data": {
+      "y": 7.4,
+      "surf": 7.31,
+      "what": "sidewalk / light surface"
+     },
+     "crop": "issues/bucharest-grozavesti-geo-surface-above-road-447_-758.jpg",
+     "seen": "upb #1 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 30,
+     "type": "marking-buried",
+     "severity": "medium",
+     "city": "bucharest",
+     "group": "bucharest-grozavesti",
+     "msg": "road marking at y=7.26 is level with Bretea [edge 1007, bridge] (surface y=7.25) → hidden / flickering markings",
+     "x": 440.5,
+     "z": -750,
+     "lat": 44.447949,
+     "lon": 26.064743,
+     "street": "Șoseaua Orhideelor",
+     "count": 7,
+     "data": {
+      "y": 7.26,
+      "surf": 7.25,
+      "other": "Bretea [edge 1007, bridge]"
+     },
+     "crop": "issues/bucharest-grozavesti-geo-marking-buried-441_-750.jpg",
+     "seen": "upb #1 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 31,
+     "type": "pad-overlap",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-romana",
+     "msg": "Strada Benjamin Franklin [edge 1034] runs 2.2 m² into its own junction pad (4 mm apart → z-fight at range)",
+     "x": 628.4,
+     "z": 731.7,
+     "lat": 44.441716,
+     "lon": 26.099107,
+     "street": "Bulevardul General Gheorghe Magheru",
+     "count": 1,
+     "data": {
+      "area": 2.2,
+      "dy": 0,
+      "a": "Strada Benjamin Franklin [edge 1034]",
+      "b": "junction pad (node 153, Strada Benjamin Franklin × Bulevardul General Gheorghe Magheru)",
+      "edgeA": 1034,
+      "nodeB": 153
+     },
+     "seen": "arnia #2 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 32,
+     "type": "pad-overlap",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-romana",
+     "msg": "Strada Monetăriei [edge 210] runs 15.1 m² into its own junction pad (4 mm apart → z-fight at range)",
+     "x": -559.2,
+     "z": -757.8,
+     "lat": 44.455119,
+     "lon": 26.084163,
+     "street": "Strada Monetăriei",
+     "count": 1,
+     "data": {
+      "area": 15.1,
+      "dy": 0,
+      "a": "Strada Monetăriei [edge 210]",
+      "b": "junction pad (node 246, Strada Monetăriei × Șoseaua Pavel Dimitrievici Kiseleff)",
+      "edgeA": 210,
+      "nodeB": 246
+     }
+    },
+    {
+     "id": 33,
+     "type": "pad-overlap",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-romana",
+     "msg": "(service) [edge 289] runs 7.6 m² into its own junction pad (4 mm apart → z-fight at range)",
+     "x": -532.1,
+     "z": -723.8,
+     "lat": 44.454813,
+     "lon": 26.084505,
+     "street": "(service)",
+     "count": 1,
+     "data": {
+      "area": 7.6,
+      "dy": 0,
+      "a": "(service) [edge 289]",
+      "b": "junction pad (node 332, (service) × Șoseaua Pavel Dimitrievici Kiseleff)",
+      "edgeA": 289,
+      "nodeB": 332
+     }
+    },
+    {
+     "id": 34,
+     "type": "pad-overlap",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-romana",
+     "msg": "(service) [edge 920] runs 23.4 m² into its own junction pad (4 mm apart → z-fight at range)",
+     "x": -617.5,
+     "z": -901.8,
+     "lat": 44.456414,
+     "lon": 26.083429,
+     "street": "(service)",
+     "count": 1,
+     "data": {
+      "area": 23.4,
+      "dy": 0,
+      "a": "(service) [edge 920]",
+      "b": "junction pad (node 710, Șoseaua Pavel Dimitrievici Kiseleff × (service))",
+      "edgeA": 920,
+      "nodeB": 710
+     },
+     "seen": "uipath-buc #3 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 35,
+     "type": "ribbon-zfight",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-romana",
+     "msg": "(service) [edge 921] and junction pad (node 710, Șoseaua Pavel Dimitrievici Kiseleff × (service)) overlap over 1.9 m² at the same height (Δy 0 m) → same asphalt colour (invisible unless markings cross)",
+     "x": -618.4,
+     "z": -899.2,
+     "lat": 44.456391,
+     "lon": 26.083419,
+     "street": "(service)",
+     "count": 1,
+     "data": {
+      "area": 1.9,
+      "dy": 0,
+      "a": "(service) [edge 921]",
+      "b": "junction pad (node 710, Șoseaua Pavel Dimitrievici Kiseleff × (service))",
+      "edgeA": 921,
+      "nodeB": 710,
+      "surfaces": "asphalt/asphalt"
+     },
+     "seen": "uipath-buc #3 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 36,
+     "type": "ribbon-zfight",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-romana",
+     "msg": "(service) [edge 931] and junction pad (node 712, Șoseaua Pavel Dimitrievici Kiseleff × (service)) overlap over 2.1 m² at the same height (Δy 0 m) → same asphalt colour (invisible unless markings cross)",
+     "x": -600.1,
+     "z": -851.7,
+     "lat": 44.455964,
+     "lon": 26.083649,
+     "street": "(service)",
+     "count": 1,
+     "data": {
+      "area": 2.1,
+      "dy": 0,
+      "a": "(service) [edge 931]",
+      "b": "junction pad (node 712, Șoseaua Pavel Dimitrievici Kiseleff × (service))",
+      "edgeA": 931,
+      "nodeB": 712,
+      "surfaces": "asphalt/asphalt"
+     },
+     "seen": "uipath-buc #3 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 37,
+     "type": "pad-overlap",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-romana",
+     "msg": "(service) [edge 932] runs 23.4 m² into its own junction pad (4 mm apart → z-fight at range)",
+     "x": -597.7,
+     "z": -850.5,
+     "lat": 44.455953,
+     "lon": 26.083678,
+     "street": "(service)",
+     "count": 2,
+     "data": {
+      "area": 23.4,
+      "dy": 0,
+      "a": "(service) [edge 932]",
+      "b": "junction pad (node 712, Șoseaua Pavel Dimitrievici Kiseleff × (service))",
+      "edgeA": 932,
+      "nodeB": 712
+     },
+     "seen": "uipath-buc #3 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 38,
+     "type": "pad-overlap",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-romana",
+     "msg": "(service) [edge 942] runs 23.1 m² into its own junction pad (4 mm apart → z-fight at range)",
+     "x": -607.4,
+     "z": -904.3,
+     "lat": 44.456437,
+     "lon": 26.083557,
+     "street": "(service)",
+     "count": 1,
+     "data": {
+      "area": 23.1,
+      "dy": 0,
+      "a": "(service) [edge 942]",
+      "b": "junction pad (node 710, Șoseaua Pavel Dimitrievici Kiseleff × (service))",
+      "edgeA": 942,
+      "nodeB": 710
+     },
+     "seen": "uipath-buc #3 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 39,
+     "type": "ribbon-zfight",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-romana",
+     "msg": "(service) [edge 952] and junction pad (node 712, Șoseaua Pavel Dimitrievici Kiseleff × (service)) overlap over 6 m² at the same height (Δy 0 m) → same asphalt colour (invisible unless markings cross)",
+     "x": -587,
+     "z": -855.5,
+     "lat": 44.455998,
+     "lon": 26.083814,
+     "street": "(service)",
+     "count": 1,
+     "data": {
+      "area": 6,
+      "dy": 0,
+      "a": "(service) [edge 952]",
+      "b": "junction pad (node 712, Șoseaua Pavel Dimitrievici Kiseleff × (service))",
+      "edgeA": 952,
+      "nodeB": 712,
+      "surfaces": "asphalt/asphalt"
+     },
+     "seen": "uipath-buc #3 (2 m, forward sheet 1)"
+    },
+    {
+     "id": 40,
+     "type": "building-over-road",
+     "severity": "medium",
+     "city": "bucharest",
+     "group": "bucharest-romana",
+     "msg": "building footprint (h 26.6 m) covers 5.4 m² of Bulevardul General Gheorghe Magheru [edge 125]",
+     "x": 662.3,
+     "z": 827.3,
+     "lat": 44.440856,
+     "lon": 26.099534,
+     "street": "Bulevardul General Gheorghe Magheru",
+     "count": 1,
+     "data": {
+      "area": 5.4,
+      "road": "Bulevardul General Gheorghe Magheru [edge 125]"
+     },
+     "crop": "issues/bucharest-romana-geo-building-over-road-662_827.jpg"
+    },
+    {
+     "id": 41,
+     "type": "canvas-text-overflow",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-romana",
+     "msg": "\"Facultatea de Antreprenoriat, Ingineria și Managementul Afacerilor\" squeezed to 55 % width by maxWidth 244 (natural 443 px) (font bold 14px \"Helvetica Neue\", Arial, sans-serif, 2048×2048 canvas, drawn by game/src/world.js:475)",
+     "count": 1,
+     "data": {
+      "text": "Facultatea de Antreprenoriat, Ingineria și Managementul Afacerilor",
+      "problems": [
+       "squeezed to 55 % width by maxWidth 244 (natural 443 px)"
+      ],
+      "src": "game/src/world.js:475",
+      "canvas": [
+       2048,
+       2048
+      ],
+      "box": [
+       1286,
+       89,
+       1530,
+       103
+      ],
+      "n": 1
+     }
+    },
+    {
+     "id": 42,
+     "type": "canvas-text-overflow",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-romana",
+     "msg": "\"Sediul Central \"Mihail Sadoveanu\" - Biblioteca Metropolitană București\" squeezed to 52 % width by maxWidth 244 (natural 473 px) (font bold 14px \"Helvetica Neue\", Arial, sans-serif, 2048×2048 canvas, drawn by game/src/world.js:475)",
+     "count": 1,
+     "data": {
+      "text": "Sediul Central \"Mihail Sadoveanu\" - Biblioteca Metropolitană București",
+      "problems": [
+       "squeezed to 52 % width by maxWidth 244 (natural 473 px)"
+      ],
+      "src": "game/src/world.js:475",
+      "canvas": [
+       2048,
+       2048
+      ],
+      "box": [
+       1542,
+       25,
+       1786,
+       39
+      ],
+      "n": 1
+     }
+    },
+    {
+     "id": 43,
+     "type": "canvas-text-overflow",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-romana",
+     "msg": "\"Muzeul Național de Istorie Naturală \"Grigore Antipa\"\" squeezed to 70 % width by maxWidth 244 (natural 348 px) (font bold 14px \"Helvetica Neue\", Arial, sans-serif, 2048×2048 canvas, drawn by game/src/world.js:475)",
+     "count": 1,
+     "data": {
+      "text": "Muzeul Național de Istorie Naturală \"Grigore Antipa\"",
+      "problems": [
+       "squeezed to 70 % width by maxWidth 244 (natural 348 px)"
+      ],
+      "src": "game/src/world.js:475",
+      "canvas": [
+       2048,
+       2048
+      ],
+      "box": [
+       1798,
+       345,
+       2042,
+       359
+      ],
+      "n": 1
+     }
+    },
+    {
+     "id": 44,
+     "type": "canvas-text-overflow",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-romana",
+     "msg": "\"Observatorul Astronomic Municipal \"Amiral Vasile Urseanu\" Bucuresti\" squeezed to 52 % width by maxWidth 244 (natural 470 px) (font bold 14px \"Helvetica Neue\", Arial, sans-serif, 2048×2048 canvas, drawn by game/src/world.js:475)",
+     "count": 1,
+     "data": {
+      "text": "Observatorul Astronomic Municipal \"Amiral Vasile Urseanu\" Bucuresti",
+      "problems": [
+       "squeezed to 52 % width by maxWidth 244 (natural 470 px)"
+      ],
+      "src": "game/src/world.js:475",
+      "canvas": [
+       2048,
+       2048
+      ],
+      "box": [
+       262,
+       409,
+       506,
+       423
+      ],
+      "n": 1
+     }
+    },
+    {
+     "id": 45,
+     "type": "canvas-text-overflow",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-romana",
+     "msg": "\"Spitalul Clinic de Urgență pentru Copii „Grigore Alexandrescu”\" squeezed to 58 % width by maxWidth 244 (natural 420 px) (font bold 14px \"Helvetica Neue\", Arial, sans-serif, 2048×2048 canvas, drawn by game/src/world.js:475)",
+     "count": 1,
+     "data": {
+      "text": "Spitalul Clinic de Urgență pentru Copii „Grigore Alexandrescu”",
+      "problems": [
+       "squeezed to 58 % width by maxWidth 244 (natural 420 px)"
+      ],
+      "src": "game/src/world.js:475",
+      "canvas": [
+       2048,
+       2048
+      ],
+      "box": [
+       1542,
+       665,
+       1785,
+       679
+      ],
+      "n": 1
+     }
+    },
+    {
+     "id": 46,
+     "type": "canvas-text-overflow",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-romana",
+     "msg": "\"Școala Națională de Studii Politice și Administrative\" squeezed to 71 % width by maxWidth 244 (natural 345 px) (font bold 14px \"Helvetica Neue\", Arial, sans-serif, 2048×2048 canvas, drawn by game/src/world.js:475)",
+     "count": 1,
+     "data": {
+      "text": "Școala Națională de Studii Politice și Administrative",
+      "problems": [
+       "squeezed to 71 % width by maxWidth 244 (natural 345 px)"
+      ],
+      "src": "game/src/world.js:475",
+      "canvas": [
+       2048,
+       2048
+      ],
+      "box": [
+       1798,
+       729,
+       2042,
+       743
+      ],
+      "n": 1
+     }
+    },
+    {
+     "id": 47,
+     "type": "canvas-text-overflow",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-romana",
+     "msg": "\"Serviciul public comunitar pentru eliberarea și evidența pașapoartelor simple\" squeezed to 48 % width by maxWidth 244 (natural 514 px) (font bold 14px \"Helvetica Neue\", Arial, sans-serif, 2048×2048 canvas, drawn by game/src/world.js:475)",
+     "count": 1,
+     "data": {
+      "text": "Serviciul public comunitar pentru eliberarea și evidența pașapoartelor simple",
+      "problems": [
+       "squeezed to 48 % width by maxWidth 244 (natural 514 px)"
+      ],
+      "src": "game/src/world.js:475",
+      "canvas": [
+       2048,
+       2048
+      ],
+      "box": [
+       262,
+       793,
+       506,
+       807
+      ],
+      "n": 1
+     }
+    },
+    {
+     "id": 48,
+     "type": "canvas-text-overflow",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-romana",
+     "msg": "\"Școala Internațională Italiană „Aldo Moro” din București\" squeezed to 65 % width by maxWidth 244 (natural 373 px) (font bold 14px \"Helvetica Neue\", Arial, sans-serif, 2048×2048 canvas, drawn by game/src/world.js:475)",
+     "count": 1,
+     "data": {
+      "text": "Școala Internațională Italiană „Aldo Moro” din București",
+      "problems": [
+       "squeezed to 65 % width by maxWidth 244 (natural 373 px)"
+      ],
+      "src": "game/src/world.js:475",
+      "canvas": [
+       2048,
+       2048
+      ],
+      "box": [
+       262,
+       1113,
+       505,
+       1127
+      ],
+      "n": 1
+     }
+    },
+    {
+     "id": 49,
+     "type": "canvas-text-overflow",
+     "severity": "low",
+     "city": "bucharest",
+     "group": "bucharest-romana",
+     "msg": "\"Biserica Voievodală \"Izvorul Tămăduirii\" Mavrogheni\" squeezed to 70 % width by maxWidth 244 (natural 351 px) (font bold 14px \"Helvetica Neue\", Arial, sans-serif, 2048×2048 canvas, drawn by game/src/world.js:475)",
+     "count": 1,
+     "data": {
+      "text": "Biserica Voievodală \"Izvorul Tămăduirii\" Mavrogheni",
+      "problems": [
+       "squeezed to 70 % width by maxWidth 244 (natural 351 px)"
+      ],
+      "src": "game/src/world.js:475",
+      "canvas": [
+       2048,
+       2048
+      ],
+      "box": [
+       1030,
+       1369,
+       1273,
+       1383
+      ],
+      "n": 1
+     }
+    }
+   ],
+   "counts": {
+    "ribbon-zfight": 24,
+    "pad-overlap": 21,
+    "building-over-road": 7,
+    "ribbon-stacked": 3,
+    "surface-above-road": 5,
+    "marking-buried": 7,
+    "canvas-text-overflow": 9
+   },
+   "cockpit": [],
+   "offices": [],
+   "errors": [],
+   "timing": {
+    "load": 85,
+    "geometry": 1,
+    "survey": 174,
+    "focus": 34
+   },
+   "mode": "chapters",
+   "geometry": {
+    "counts": {
+     "pad-overlap": 7,
+     "ribbon-zfight": 3,
+     "building-over-road": 1
+    },
+    "ms": 313,
+    "ribbons": 81,
+    "triangles": 3972,
+    "objects": 18876,
+    "buildings": 36,
+    "cells": 6
+   },
+   "captureErrors": []
+  }
+ ],
+ "issues": [
+  {
+   "id": 1,
+   "type": "ribbon-zfight",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-floreasca",
+   "msg": "Strada Albac [edge 2] and Strada Popasului [edge 9] overlap over 6.6 m² at the same height (Δy 0 m) → same asphalt colour (invisible unless markings cross)",
+   "x": -305.3,
+   "z": 989.1,
+   "lat": 44.4555,
+   "lon": 26.099958,
+   "street": "Strada Albac",
+   "count": 1,
+   "data": {
+    "area": 6.6,
+    "dy": 0,
+    "a": "Strada Albac [edge 2]",
+    "b": "Strada Popasului [edge 9]",
+    "edgeA": 2,
+    "edgeB": 9,
+    "surfaces": "asphalt/asphalt"
+   },
+   "seen": "rosetti #0 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 2,
+   "type": "pad-overlap",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-floreasca",
+   "msg": "Strada Albac [edge 2] runs 3.8 m² into its own junction pad (4 mm apart → z-fight at range)",
+   "x": -305.9,
+   "z": 987,
+   "lat": 44.455519,
+   "lon": 26.09995,
+   "street": "Strada Albac",
+   "count": 2,
+   "data": {
+    "area": 3.8,
+    "dy": 0,
+    "a": "Strada Albac [edge 2]",
+    "b": "junction pad (node 3, Strada Albac × Strada Popasului)",
+    "edgeA": 2,
+    "nodeB": 3
+   },
+   "seen": "rosetti #0 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 3,
+   "type": "pad-overlap",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-floreasca",
+   "msg": "Strada Popasului [edge 9] runs 3.8 m² into its own junction pad (4 mm apart → z-fight at range)",
+   "x": -302.9,
+   "z": 988,
+   "lat": 44.455509,
+   "lon": 26.099987,
+   "street": "Strada Popasului",
+   "count": 1,
+   "data": {
+    "area": 3.8,
+    "dy": 0,
+    "a": "Strada Popasului [edge 9]",
+    "b": "junction pad (node 3, Strada Albac × Strada Popasului)",
+    "edgeA": 9,
+    "nodeB": 3
+   },
+   "seen": "rosetti #0 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 4,
+   "type": "ribbon-zfight",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-floreasca",
+   "msg": "(service) [edge 399] and (service) [edge 415] overlap over 4.4 m² at the same height (Δy 0 m) → same asphalt colour (invisible unless markings cross)",
+   "x": -186.5,
+   "z": 944,
+   "lat": 44.455906,
+   "lon": 26.101453,
+   "street": "Calea Floreasca",
+   "count": 1,
+   "data": {
+    "area": 4.4,
+    "dy": 0,
+    "a": "(service) [edge 399]",
+    "b": "(service) [edge 415]",
+    "edgeA": 399,
+    "edgeB": 415,
+    "surfaces": "asphalt/asphalt"
+   },
+   "seen": "rosetti #0 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 5,
+   "type": "pad-overlap",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-floreasca",
+   "msg": "(service) [edge 399] runs 3.6 m² into its own junction pad (4 mm apart → z-fight at range)",
+   "x": -184.9,
+   "z": 946.1,
+   "lat": 44.455887,
+   "lon": 26.101472,
+   "street": "Calea Floreasca",
+   "count": 1,
+   "data": {
+    "area": 3.6,
+    "dy": 0,
+    "a": "(service) [edge 399]",
+    "b": "junction pad (node 33, (service))",
+    "edgeA": 399,
+    "nodeB": 33
+   },
+   "seen": "rosetti #0 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 6,
+   "type": "pad-overlap",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-floreasca",
+   "msg": "(service) [edge 409] runs 10.8 m² into its own junction pad (4 mm apart → z-fight at range)",
+   "x": -239.6,
+   "z": 1050.1,
+   "lat": 44.454951,
+   "lon": 26.100784,
+   "street": "Calea Floreasca",
+   "count": 1,
+   "data": {
+    "area": 10.8,
+    "dy": 0,
+    "a": "(service) [edge 409]",
+    "b": "junction pad (node 15, Strada Chile × Calea Floreasca × (service))",
+    "edgeA": 409,
+    "nodeB": 15
+   },
+   "seen": "rosetti #0 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 7,
+   "type": "pad-overlap",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-floreasca",
+   "msg": "(service) [edge 410] runs 5.2 m² into its own junction pad (4 mm apart → z-fight at range)",
+   "x": -226.3,
+   "z": 1048.2,
+   "lat": 44.454968,
+   "lon": 26.100951,
+   "street": "Calea Floreasca",
+   "count": 1,
+   "data": {
+    "area": 5.2,
+    "dy": 0,
+    "a": "(service) [edge 410]",
+    "b": "junction pad (node 50, (service))",
+    "edgeA": 410,
+    "nodeB": 50
+   },
+   "seen": "rosetti #0 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 8,
+   "type": "pad-overlap",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-floreasca",
+   "msg": "(service) [edge 415] runs 3.6 m² into its own junction pad (4 mm apart → z-fight at range)",
+   "x": -188.2,
+   "z": 945.5,
+   "lat": 44.455892,
+   "lon": 26.101432,
+   "street": "Calea Floreasca",
+   "count": 1,
+   "data": {
+    "area": 3.6,
+    "dy": 0,
+    "a": "(service) [edge 415]",
+    "b": "junction pad (node 33, (service))",
+    "edgeA": 415,
+    "nodeB": 33
+   },
+   "seen": "rosetti #0 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 9,
+   "type": "building-over-road",
+   "severity": "medium",
+   "city": "bucharest",
+   "group": "bucharest-floreasca",
+   "msg": "building footprint (h 14 m) covers 2.5 m² of (service) [edge 396]",
+   "x": -194.5,
+   "z": 974.3,
+   "lat": 44.455633,
+   "lon": 26.101352,
+   "street": "Calea Floreasca",
+   "count": 2,
+   "data": {
+    "area": 2.5,
+    "road": "(service) [edge 396]"
+   },
+   "crop": "issues/bucharest-floreasca-geo-building-over-road--194_974.jpg",
+   "seen": "rosetti #0 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 10,
+   "type": "building-over-road",
+   "severity": "medium",
+   "city": "bucharest",
+   "group": "bucharest-floreasca",
+   "msg": "building footprint (h 14 m) covers 1.4 m² of (service) [edge 393]",
+   "x": -199.9,
+   "z": 1029.8,
+   "lat": 44.455133,
+   "lon": 26.101284,
+   "street": "Calea Floreasca",
+   "count": 1,
+   "data": {
+    "area": 1.4,
+    "road": "(service) [edge 393]"
+   },
+   "crop": "issues/bucharest-floreasca-geo-building-over-road--200_1030.jpg",
+   "seen": "rosetti #0 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 11,
+   "type": "building-over-road",
+   "severity": "high",
+   "city": "bucharest",
+   "group": "bucharest-floreasca",
+   "msg": "building footprint (h 8.8 m) covers 14 m² of Strada Cronicarilor [edge 168]",
+   "x": -267,
+   "z": 965.9,
+   "lat": 44.455708,
+   "lon": 26.100439,
+   "street": "Strada Cronicarilor",
+   "count": 1,
+   "data": {
+    "area": 14,
+    "road": "Strada Cronicarilor [edge 168]"
+   },
+   "crop": "issues/bucharest-floreasca-geo-building-over-road--267_966.jpg",
+   "seen": "rosetti #0 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 12,
+   "type": "building-over-road",
+   "severity": "high",
+   "city": "bucharest",
+   "group": "bucharest-floreasca",
+   "msg": "building footprint (h 11.6 m) covers 7.6 m² of Strada Albac [edge 3]",
+   "x": -304,
+   "z": 980.7,
+   "lat": 44.455575,
+   "lon": 26.099974,
+   "street": "Strada Albac",
+   "count": 2,
+   "data": {
+    "area": 1.4,
+    "road": "junction pad (node 3, Strada Albac × Strada Popasului)"
+   },
+   "crop": "issues/bucharest-floreasca-geo-building-over-road--304_981.jpg",
+   "seen": "rosetti #0 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 13,
+   "type": "ribbon-stacked",
+   "severity": "high",
+   "city": "bucharest",
+   "group": "bucharest-grozavesti",
+   "msg": "Bretea [edge 1007, bridge] and Pasajul Basarab [edge 1140, bridge] overlap over 19.6 m² with only 0.26 m between them (spec R11.4: share one surface or ≥ 5 m clearance) → a visible stacked / stepped road surface",
+   "x": 432.5,
+   "z": -745.2,
+   "lat": 44.447906,
+   "lon": 26.064642,
+   "street": "Șoseaua Orhideelor",
+   "count": 3,
+   "data": {
+    "area": 2,
+    "dy": 0.73,
+    "a": "Bretea [edge 1006, bridge]",
+    "b": "Pasajul Basarab [edge 1139, bridge]",
+    "edgeA": 1006,
+    "edgeB": 1139
+   },
+   "crop": "issues/bucharest-grozavesti-geo-ribbon-stacked-433_-745.jpg"
+  },
+  {
+   "id": 14,
+   "type": "ribbon-zfight",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-grozavesti",
+   "msg": "Bretea [edge 1007, bridge] and Pasajul Basarab [edge 1504, bridge] overlap over 0.8 m² at the same height (Δy 0.04 m) → same asphalt colour (invisible unless markings cross)",
+   "x": 440.6,
+   "z": -750.6,
+   "lat": 44.447955,
+   "lon": 26.064743,
+   "street": "Șoseaua Orhideelor",
+   "count": 3,
+   "data": {
+    "area": 0.8,
+    "dy": 0.04,
+    "a": "Bretea [edge 1007, bridge]",
+    "b": "Pasajul Basarab [edge 1504, bridge]",
+    "edgeA": 1007,
+    "edgeB": 1504,
+    "surfaces": "asphalt/asphalt"
+   },
+   "seen": "upb #1 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 15,
+   "type": "ribbon-zfight",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-grozavesti",
+   "msg": "Exit → Giulești [edge 1009, bridge] and Pasajul Basarab [edge 1141, bridge] overlap over 12.3 m² at the same height (Δy 0 m) → same asphalt colour (invisible unless markings cross)",
+   "x": 450.7,
+   "z": -780.9,
+   "lat": 44.448227,
+   "lon": 26.064871,
+   "street": "Șoseaua Orhideelor",
+   "count": 5,
+   "data": {
+    "area": 12.3,
+    "dy": 0,
+    "a": "Exit → Giulești [edge 1009, bridge]",
+    "b": "Pasajul Basarab [edge 1141, bridge]",
+    "edgeA": 1009,
+    "edgeB": 1141,
+    "surfaces": "asphalt/asphalt"
+   },
+   "seen": "upb #1 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 16,
+   "type": "pad-overlap",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-grozavesti",
+   "msg": "Exit → Giulești [edge 1009, bridge] runs 2.8 m² into its own junction pad (4 mm apart → z-fight at range)",
+   "x": 452.4,
+   "z": -781.8,
+   "lat": 44.448235,
+   "lon": 26.064893,
+   "street": "Șoseaua Orhideelor",
+   "count": 1,
+   "data": {
+    "area": 2.8,
+    "dy": 0,
+    "a": "Exit → Giulești [edge 1009, bridge]",
+    "b": "junction pad (node 778, Exit → Giulești × Pasajul Basarab)",
+    "edgeA": 1009,
+    "nodeB": 778
+   },
+   "seen": "upb #1 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 17,
+   "type": "pad-overlap",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-grozavesti",
+   "msg": "Șoseaua Orhideelor [edge 638] runs 4.4 m² into its own junction pad (4 mm apart → z-fight at range)",
+   "x": 403.4,
+   "z": -717.4,
+   "lat": 44.447656,
+   "lon": 26.064275,
+   "street": "Șoseaua Orhideelor",
+   "count": 2,
+   "data": {
+    "area": 4.4,
+    "dy": 0,
+    "a": "Șoseaua Orhideelor [edge 638]",
+    "b": "junction pad (node 923, Șoseaua Orhideelor × Calea Giulești × Calea Plevnei)",
+    "edgeA": 638,
+    "nodeB": 923
+   }
+  },
+  {
+   "id": 18,
+   "type": "pad-overlap",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-grozavesti",
+   "msg": "Șoseaua Orhideelor [edge 647] runs 8.4 m² into its own junction pad (4 mm apart → z-fight at range)",
+   "x": 371.1,
+   "z": -749.9,
+   "lat": 44.447948,
+   "lon": 26.06387,
+   "street": "Șoseaua Orhideelor",
+   "count": 2,
+   "data": {
+    "area": 8.4,
+    "dy": 0,
+    "a": "Șoseaua Orhideelor [edge 647]",
+    "b": "junction pad (node 822, Șoseaua Orhideelor × Calea Giulești × (service))",
+    "edgeA": 647,
+    "nodeB": 822
+   }
+  },
+  {
+   "id": 19,
+   "type": "ribbon-zfight",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-grozavesti",
+   "msg": "Șoseaua Orhideelor [edge 647] and Calea Giulești [edge 652] overlap over 0.5 m² at the same height (Δy 0 m) → same asphalt colour (invisible unless markings cross)",
+   "x": 376,
+   "z": -749,
+   "lat": 44.44794,
+   "lon": 26.063931,
+   "street": "Șoseaua Orhideelor",
+   "count": 2,
+   "data": {
+    "area": 0.5,
+    "dy": 0,
+    "a": "Șoseaua Orhideelor [edge 647]",
+    "b": "Calea Giulești [edge 652]",
+    "edgeA": 647,
+    "edgeB": 652,
+    "surfaces": "asphalt/asphalt"
+   }
+  },
+  {
+   "id": 20,
+   "type": "ribbon-zfight",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-grozavesti",
+   "msg": "Bretea [edge 715] and Calea Plevnei [edge 767] overlap over 19.1 m² at the same height (Δy 0 m) → same asphalt colour (invisible unless markings cross)",
+   "x": 435.7,
+   "z": -711.6,
+   "lat": 44.447604,
+   "lon": 26.064682,
+   "street": "Bretea",
+   "count": 1,
+   "data": {
+    "area": 19.1,
+    "dy": 0,
+    "a": "Bretea [edge 715]",
+    "b": "Calea Plevnei [edge 767]",
+    "edgeA": 715,
+    "edgeB": 767,
+    "surfaces": "asphalt/asphalt"
+   }
+  },
+  {
+   "id": 21,
+   "type": "ribbon-zfight",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-grozavesti",
+   "msg": "Bretea [edge 716] and Calea Plevnei [edge 767] overlap over 2.3 m² at the same height (Δy 0 m) → same asphalt colour (invisible unless markings cross)",
+   "x": 432.9,
+   "z": -714.8,
+   "lat": 44.447632,
+   "lon": 26.064647,
+   "street": "Bretea",
+   "count": 2,
+   "data": {
+    "area": 2.3,
+    "dy": 0,
+    "a": "Bretea [edge 716]",
+    "b": "Calea Plevnei [edge 767]",
+    "edgeA": 716,
+    "edgeB": 767,
+    "surfaces": "asphalt/asphalt"
+   }
+  },
+  {
+   "id": 22,
+   "type": "ribbon-zfight",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-grozavesti",
+   "msg": "Bretea [edge 720] and Șoseaua Orhideelor [edge 783] overlap over 3.8 m² at the same height (Δy 0 m) → same asphalt colour (invisible unless markings cross)",
+   "x": 437.4,
+   "z": -740.5,
+   "lat": 44.447863,
+   "lon": 26.064703,
+   "street": "Bretea",
+   "count": 1,
+   "data": {
+    "area": 3.8,
+    "dy": 0,
+    "a": "Bretea [edge 720]",
+    "b": "Șoseaua Orhideelor [edge 783]",
+    "edgeA": 720,
+    "edgeB": 783,
+    "surfaces": "asphalt/asphalt"
+   }
+  },
+  {
+   "id": 23,
+   "type": "pad-overlap",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-grozavesti",
+   "msg": "Bretea [edge 721] runs 1.6 m² into its own junction pad (4 mm apart → z-fight at range)",
+   "x": 444.4,
+   "z": -747.1,
+   "lat": 44.447922,
+   "lon": 26.064792,
+   "street": "Bretea",
+   "count": 1,
+   "data": {
+    "area": 1.6,
+    "dy": 0,
+    "a": "Bretea [edge 721]",
+    "b": "junction pad (node 829, Șoseaua Orhideelor × Bretea)",
+    "edgeA": 721,
+    "nodeB": 829
+   },
+   "seen": "upb #1 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 24,
+   "type": "pad-overlap",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-grozavesti",
+   "msg": "Șoseaua Orhideelor [edge 781] runs 11.7 m² into its own junction pad (4 mm apart → z-fight at range)",
+   "x": 412.6,
+   "z": -726.4,
+   "lat": 44.447737,
+   "lon": 26.064391,
+   "street": "Șoseaua Orhideelor",
+   "count": 1,
+   "data": {
+    "area": 11.7,
+    "dy": 0,
+    "a": "Șoseaua Orhideelor [edge 781]",
+    "b": "junction pad (node 923, Șoseaua Orhideelor × Calea Giulești × Calea Plevnei)",
+    "edgeA": 781,
+    "nodeB": 923
+   }
+  },
+  {
+   "id": 25,
+   "type": "ribbon-zfight",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-grozavesti",
+   "msg": "Exit → Giulești [edge 1351, bridge] and Pasajul Basarab [edge 1507, bridge] overlap over 1.3 m² at the same height (Δy 0 m) → same asphalt colour (invisible unless markings cross)",
+   "x": 430.9,
+   "z": -770.9,
+   "lat": 44.448137,
+   "lon": 26.064621,
+   "street": "Șoseaua Orhideelor",
+   "count": 5,
+   "data": {
+    "area": 1.3,
+    "dy": 0,
+    "a": "Exit → Giulești [edge 1351, bridge]",
+    "b": "Pasajul Basarab [edge 1507, bridge]",
+    "edgeA": 1351,
+    "edgeB": 1507,
+    "surfaces": "asphalt/asphalt"
+   },
+   "seen": "upb #1 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 26,
+   "type": "surface-above-road",
+   "severity": "medium",
+   "city": "bucharest",
+   "group": "bucharest-grozavesti",
+   "msg": "a sidewalk / light surface (y=8.15) lies 0.04 m above Pasajul Basarab [edge 1139, bridge] (y=8.11) → a strip / slab across the carriageway",
+   "x": 429.4,
+   "z": -743.8,
+   "lat": 44.447893,
+   "lon": 26.064603,
+   "street": "Șoseaua Orhideelor",
+   "count": 1,
+   "data": {
+    "y": 8.15,
+    "surf": 8.11,
+    "what": "sidewalk / light surface"
+   },
+   "crop": "issues/bucharest-grozavesti-geo-surface-above-road-429_-744.jpg"
+  },
+  {
+   "id": 27,
+   "type": "surface-above-road",
+   "severity": "high",
+   "city": "bucharest",
+   "group": "bucharest-grozavesti",
+   "msg": "a sidewalk / light surface (y=9.89) lies 1.28 m above Exit → Giulești [edge 1012, bridge] (y=8.61) → a strip / slab across the carriageway",
+   "x": 410.6,
+   "z": -759.1,
+   "lat": 44.448031,
+   "lon": 26.064366,
+   "street": "Șoseaua Orhideelor",
+   "count": 1,
+   "data": {
+    "y": 9.89,
+    "surf": 8.61,
+    "what": "sidewalk / light surface"
+   },
+   "crop": "issues/bucharest-grozavesti-geo-surface-above-road-411_-759.jpg"
+  },
+  {
+   "id": 28,
+   "type": "surface-above-road",
+   "severity": "medium",
+   "city": "bucharest",
+   "group": "bucharest-grozavesti",
+   "msg": "a sidewalk / light surface (y=9.2) lies 0.04 m above junction pad (node 778, Exit → Giulești × Pasajul Basarab) (y=9.16) → a strip / slab across the carriageway",
+   "x": 459.3,
+   "z": -782.2,
+   "lat": 44.448238,
+   "lon": 26.064979,
+   "street": "Șoseaua Orhideelor",
+   "count": 1,
+   "data": {
+    "y": 9.2,
+    "surf": 9.16,
+    "what": "sidewalk / light surface"
+   },
+   "crop": "issues/bucharest-grozavesti-geo-surface-above-road-459_-782.jpg",
+   "seen": "upb #1 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 29,
+   "type": "surface-above-road",
+   "severity": "medium",
+   "city": "bucharest",
+   "group": "bucharest-grozavesti",
+   "msg": "a sidewalk / light surface (y=7.4) lies 0.09 m above junction pad (node 775, Pasajul Basarab × Bretea) (y=7.31) → a strip / slab across the carriageway",
+   "x": 446.8,
+   "z": -758.5,
+   "lat": 44.448025,
+   "lon": 26.064822,
+   "street": "Șoseaua Orhideelor",
+   "count": 2,
+   "data": {
+    "y": 7.4,
+    "surf": 7.31,
+    "what": "sidewalk / light surface"
+   },
+   "crop": "issues/bucharest-grozavesti-geo-surface-above-road-447_-758.jpg",
+   "seen": "upb #1 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 30,
+   "type": "marking-buried",
+   "severity": "medium",
+   "city": "bucharest",
+   "group": "bucharest-grozavesti",
+   "msg": "road marking at y=7.26 is level with Bretea [edge 1007, bridge] (surface y=7.25) → hidden / flickering markings",
+   "x": 440.5,
+   "z": -750,
+   "lat": 44.447949,
+   "lon": 26.064743,
+   "street": "Șoseaua Orhideelor",
+   "count": 7,
+   "data": {
+    "y": 7.26,
+    "surf": 7.25,
+    "other": "Bretea [edge 1007, bridge]"
+   },
+   "crop": "issues/bucharest-grozavesti-geo-marking-buried-441_-750.jpg",
+   "seen": "upb #1 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 31,
+   "type": "pad-overlap",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-romana",
+   "msg": "Strada Benjamin Franklin [edge 1034] runs 2.2 m² into its own junction pad (4 mm apart → z-fight at range)",
+   "x": 628.4,
+   "z": 731.7,
+   "lat": 44.441716,
+   "lon": 26.099107,
+   "street": "Bulevardul General Gheorghe Magheru",
+   "count": 1,
+   "data": {
+    "area": 2.2,
+    "dy": 0,
+    "a": "Strada Benjamin Franklin [edge 1034]",
+    "b": "junction pad (node 153, Strada Benjamin Franklin × Bulevardul General Gheorghe Magheru)",
+    "edgeA": 1034,
+    "nodeB": 153
+   },
+   "seen": "arnia #2 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 32,
+   "type": "pad-overlap",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-romana",
+   "msg": "Strada Monetăriei [edge 210] runs 15.1 m² into its own junction pad (4 mm apart → z-fight at range)",
+   "x": -559.2,
+   "z": -757.8,
+   "lat": 44.455119,
+   "lon": 26.084163,
+   "street": "Strada Monetăriei",
+   "count": 1,
+   "data": {
+    "area": 15.1,
+    "dy": 0,
+    "a": "Strada Monetăriei [edge 210]",
+    "b": "junction pad (node 246, Strada Monetăriei × Șoseaua Pavel Dimitrievici Kiseleff)",
+    "edgeA": 210,
+    "nodeB": 246
+   }
+  },
+  {
+   "id": 33,
+   "type": "pad-overlap",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-romana",
+   "msg": "(service) [edge 289] runs 7.6 m² into its own junction pad (4 mm apart → z-fight at range)",
+   "x": -532.1,
+   "z": -723.8,
+   "lat": 44.454813,
+   "lon": 26.084505,
+   "street": "(service)",
+   "count": 1,
+   "data": {
+    "area": 7.6,
+    "dy": 0,
+    "a": "(service) [edge 289]",
+    "b": "junction pad (node 332, (service) × Șoseaua Pavel Dimitrievici Kiseleff)",
+    "edgeA": 289,
+    "nodeB": 332
+   }
+  },
+  {
+   "id": 34,
+   "type": "pad-overlap",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-romana",
+   "msg": "(service) [edge 920] runs 23.4 m² into its own junction pad (4 mm apart → z-fight at range)",
+   "x": -617.5,
+   "z": -901.8,
+   "lat": 44.456414,
+   "lon": 26.083429,
+   "street": "(service)",
+   "count": 1,
+   "data": {
+    "area": 23.4,
+    "dy": 0,
+    "a": "(service) [edge 920]",
+    "b": "junction pad (node 710, Șoseaua Pavel Dimitrievici Kiseleff × (service))",
+    "edgeA": 920,
+    "nodeB": 710
+   },
+   "seen": "uipath-buc #3 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 35,
+   "type": "ribbon-zfight",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-romana",
+   "msg": "(service) [edge 921] and junction pad (node 710, Șoseaua Pavel Dimitrievici Kiseleff × (service)) overlap over 1.9 m² at the same height (Δy 0 m) → same asphalt colour (invisible unless markings cross)",
+   "x": -618.4,
+   "z": -899.2,
+   "lat": 44.456391,
+   "lon": 26.083419,
+   "street": "(service)",
+   "count": 1,
+   "data": {
+    "area": 1.9,
+    "dy": 0,
+    "a": "(service) [edge 921]",
+    "b": "junction pad (node 710, Șoseaua Pavel Dimitrievici Kiseleff × (service))",
+    "edgeA": 921,
+    "nodeB": 710,
+    "surfaces": "asphalt/asphalt"
+   },
+   "seen": "uipath-buc #3 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 36,
+   "type": "ribbon-zfight",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-romana",
+   "msg": "(service) [edge 931] and junction pad (node 712, Șoseaua Pavel Dimitrievici Kiseleff × (service)) overlap over 2.1 m² at the same height (Δy 0 m) → same asphalt colour (invisible unless markings cross)",
+   "x": -600.1,
+   "z": -851.7,
+   "lat": 44.455964,
+   "lon": 26.083649,
+   "street": "(service)",
+   "count": 1,
+   "data": {
+    "area": 2.1,
+    "dy": 0,
+    "a": "(service) [edge 931]",
+    "b": "junction pad (node 712, Șoseaua Pavel Dimitrievici Kiseleff × (service))",
+    "edgeA": 931,
+    "nodeB": 712,
+    "surfaces": "asphalt/asphalt"
+   },
+   "seen": "uipath-buc #3 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 37,
+   "type": "pad-overlap",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-romana",
+   "msg": "(service) [edge 932] runs 23.4 m² into its own junction pad (4 mm apart → z-fight at range)",
+   "x": -597.7,
+   "z": -850.5,
+   "lat": 44.455953,
+   "lon": 26.083678,
+   "street": "(service)",
+   "count": 2,
+   "data": {
+    "area": 23.4,
+    "dy": 0,
+    "a": "(service) [edge 932]",
+    "b": "junction pad (node 712, Șoseaua Pavel Dimitrievici Kiseleff × (service))",
+    "edgeA": 932,
+    "nodeB": 712
+   },
+   "seen": "uipath-buc #3 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 38,
+   "type": "pad-overlap",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-romana",
+   "msg": "(service) [edge 942] runs 23.1 m² into its own junction pad (4 mm apart → z-fight at range)",
+   "x": -607.4,
+   "z": -904.3,
+   "lat": 44.456437,
+   "lon": 26.083557,
+   "street": "(service)",
+   "count": 1,
+   "data": {
+    "area": 23.1,
+    "dy": 0,
+    "a": "(service) [edge 942]",
+    "b": "junction pad (node 710, Șoseaua Pavel Dimitrievici Kiseleff × (service))",
+    "edgeA": 942,
+    "nodeB": 710
+   },
+   "seen": "uipath-buc #3 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 39,
+   "type": "ribbon-zfight",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-romana",
+   "msg": "(service) [edge 952] and junction pad (node 712, Șoseaua Pavel Dimitrievici Kiseleff × (service)) overlap over 6 m² at the same height (Δy 0 m) → same asphalt colour (invisible unless markings cross)",
+   "x": -587,
+   "z": -855.5,
+   "lat": 44.455998,
+   "lon": 26.083814,
+   "street": "(service)",
+   "count": 1,
+   "data": {
+    "area": 6,
+    "dy": 0,
+    "a": "(service) [edge 952]",
+    "b": "junction pad (node 712, Șoseaua Pavel Dimitrievici Kiseleff × (service))",
+    "edgeA": 952,
+    "nodeB": 712,
+    "surfaces": "asphalt/asphalt"
+   },
+   "seen": "uipath-buc #3 (2 m, forward sheet 1)"
+  },
+  {
+   "id": 40,
+   "type": "building-over-road",
+   "severity": "medium",
+   "city": "bucharest",
+   "group": "bucharest-romana",
+   "msg": "building footprint (h 26.6 m) covers 5.4 m² of Bulevardul General Gheorghe Magheru [edge 125]",
+   "x": 662.3,
+   "z": 827.3,
+   "lat": 44.440856,
+   "lon": 26.099534,
+   "street": "Bulevardul General Gheorghe Magheru",
+   "count": 1,
+   "data": {
+    "area": 5.4,
+    "road": "Bulevardul General Gheorghe Magheru [edge 125]"
+   },
+   "crop": "issues/bucharest-romana-geo-building-over-road-662_827.jpg"
+  },
+  {
+   "id": 41,
+   "type": "canvas-text-overflow",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-romana",
+   "msg": "\"Facultatea de Antreprenoriat, Ingineria și Managementul Afacerilor\" squeezed to 55 % width by maxWidth 244 (natural 443 px) (font bold 14px \"Helvetica Neue\", Arial, sans-serif, 2048×2048 canvas, drawn by game/src/world.js:475)",
+   "count": 1,
+   "data": {
+    "text": "Facultatea de Antreprenoriat, Ingineria și Managementul Afacerilor",
+    "problems": [
+     "squeezed to 55 % width by maxWidth 244 (natural 443 px)"
+    ],
+    "src": "game/src/world.js:475",
+    "canvas": [
+     2048,
+     2048
+    ],
+    "box": [
+     1286,
+     89,
+     1530,
+     103
+    ],
+    "n": 1
+   }
+  },
+  {
+   "id": 42,
+   "type": "canvas-text-overflow",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-romana",
+   "msg": "\"Sediul Central \"Mihail Sadoveanu\" - Biblioteca Metropolitană București\" squeezed to 52 % width by maxWidth 244 (natural 473 px) (font bold 14px \"Helvetica Neue\", Arial, sans-serif, 2048×2048 canvas, drawn by game/src/world.js:475)",
+   "count": 1,
+   "data": {
+    "text": "Sediul Central \"Mihail Sadoveanu\" - Biblioteca Metropolitană București",
+    "problems": [
+     "squeezed to 52 % width by maxWidth 244 (natural 473 px)"
+    ],
+    "src": "game/src/world.js:475",
+    "canvas": [
+     2048,
+     2048
+    ],
+    "box": [
+     1542,
+     25,
+     1786,
+     39
+    ],
+    "n": 1
+   }
+  },
+  {
+   "id": 43,
+   "type": "canvas-text-overflow",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-romana",
+   "msg": "\"Muzeul Național de Istorie Naturală \"Grigore Antipa\"\" squeezed to 70 % width by maxWidth 244 (natural 348 px) (font bold 14px \"Helvetica Neue\", Arial, sans-serif, 2048×2048 canvas, drawn by game/src/world.js:475)",
+   "count": 1,
+   "data": {
+    "text": "Muzeul Național de Istorie Naturală \"Grigore Antipa\"",
+    "problems": [
+     "squeezed to 70 % width by maxWidth 244 (natural 348 px)"
+    ],
+    "src": "game/src/world.js:475",
+    "canvas": [
+     2048,
+     2048
+    ],
+    "box": [
+     1798,
+     345,
+     2042,
+     359
+    ],
+    "n": 1
+   }
+  },
+  {
+   "id": 44,
+   "type": "canvas-text-overflow",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-romana",
+   "msg": "\"Observatorul Astronomic Municipal \"Amiral Vasile Urseanu\" Bucuresti\" squeezed to 52 % width by maxWidth 244 (natural 470 px) (font bold 14px \"Helvetica Neue\", Arial, sans-serif, 2048×2048 canvas, drawn by game/src/world.js:475)",
+   "count": 1,
+   "data": {
+    "text": "Observatorul Astronomic Municipal \"Amiral Vasile Urseanu\" Bucuresti",
+    "problems": [
+     "squeezed to 52 % width by maxWidth 244 (natural 470 px)"
+    ],
+    "src": "game/src/world.js:475",
+    "canvas": [
+     2048,
+     2048
+    ],
+    "box": [
+     262,
+     409,
+     506,
+     423
+    ],
+    "n": 1
+   }
+  },
+  {
+   "id": 45,
+   "type": "canvas-text-overflow",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-romana",
+   "msg": "\"Spitalul Clinic de Urgență pentru Copii „Grigore Alexandrescu”\" squeezed to 58 % width by maxWidth 244 (natural 420 px) (font bold 14px \"Helvetica Neue\", Arial, sans-serif, 2048×2048 canvas, drawn by game/src/world.js:475)",
+   "count": 1,
+   "data": {
+    "text": "Spitalul Clinic de Urgență pentru Copii „Grigore Alexandrescu”",
+    "problems": [
+     "squeezed to 58 % width by maxWidth 244 (natural 420 px)"
+    ],
+    "src": "game/src/world.js:475",
+    "canvas": [
+     2048,
+     2048
+    ],
+    "box": [
+     1542,
+     665,
+     1785,
+     679
+    ],
+    "n": 1
+   }
+  },
+  {
+   "id": 46,
+   "type": "canvas-text-overflow",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-romana",
+   "msg": "\"Școala Națională de Studii Politice și Administrative\" squeezed to 71 % width by maxWidth 244 (natural 345 px) (font bold 14px \"Helvetica Neue\", Arial, sans-serif, 2048×2048 canvas, drawn by game/src/world.js:475)",
+   "count": 1,
+   "data": {
+    "text": "Școala Națională de Studii Politice și Administrative",
+    "problems": [
+     "squeezed to 71 % width by maxWidth 244 (natural 345 px)"
+    ],
+    "src": "game/src/world.js:475",
+    "canvas": [
+     2048,
+     2048
+    ],
+    "box": [
+     1798,
+     729,
+     2042,
+     743
+    ],
+    "n": 1
+   }
+  },
+  {
+   "id": 47,
+   "type": "canvas-text-overflow",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-romana",
+   "msg": "\"Serviciul public comunitar pentru eliberarea și evidența pașapoartelor simple\" squeezed to 48 % width by maxWidth 244 (natural 514 px) (font bold 14px \"Helvetica Neue\", Arial, sans-serif, 2048×2048 canvas, drawn by game/src/world.js:475)",
+   "count": 1,
+   "data": {
+    "text": "Serviciul public comunitar pentru eliberarea și evidența pașapoartelor simple",
+    "problems": [
+     "squeezed to 48 % width by maxWidth 244 (natural 514 px)"
+    ],
+    "src": "game/src/world.js:475",
+    "canvas": [
+     2048,
+     2048
+    ],
+    "box": [
+     262,
+     793,
+     506,
+     807
+    ],
+    "n": 1
+   }
+  },
+  {
+   "id": 48,
+   "type": "canvas-text-overflow",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-romana",
+   "msg": "\"Școala Internațională Italiană „Aldo Moro” din București\" squeezed to 65 % width by maxWidth 244 (natural 373 px) (font bold 14px \"Helvetica Neue\", Arial, sans-serif, 2048×2048 canvas, drawn by game/src/world.js:475)",
+   "count": 1,
+   "data": {
+    "text": "Școala Internațională Italiană „Aldo Moro” din București",
+    "problems": [
+     "squeezed to 65 % width by maxWidth 244 (natural 373 px)"
+    ],
+    "src": "game/src/world.js:475",
+    "canvas": [
+     2048,
+     2048
+    ],
+    "box": [
+     262,
+     1113,
+     505,
+     1127
+    ],
+    "n": 1
+   }
+  },
+  {
+   "id": 49,
+   "type": "canvas-text-overflow",
+   "severity": "low",
+   "city": "bucharest",
+   "group": "bucharest-romana",
+   "msg": "\"Biserica Voievodală \"Izvorul Tămăduirii\" Mavrogheni\" squeezed to 70 % width by maxWidth 244 (natural 351 px) (font bold 14px \"Helvetica Neue\", Arial, sans-serif, 2048×2048 canvas, drawn by game/src/world.js:475)",
+   "count": 1,
+   "data": {
+    "text": "Biserica Voievodală \"Izvorul Tămăduirii\" Mavrogheni",
+    "problems": [
+     "squeezed to 70 % width by maxWidth 244 (natural 351 px)"
+    ],
+    "src": "game/src/world.js:475",
+    "canvas": [
+     2048,
+     2048
+    ],
+    "box": [
+     1030,
+     1369,
+     1273,
+     1383
+    ],
+    "n": 1
+   }
+  }
+ ]
+}

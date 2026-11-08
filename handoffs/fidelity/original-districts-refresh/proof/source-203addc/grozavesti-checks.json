@@ -1,0 +1,32 @@
+{
+  "district": "grozavesti",
+  "dataSha256": "523632a18195768063bb82cc454f9b454ea969d802daaee6f446ebf423cbc3ef",
+  "inputUnchanged": true,
+  "sourceRoot": "/workspace/fidelity-workers/original-districts-refresh",
+  "results": [
+    {
+      "check": "buildings",
+      "exitCode": 0,
+      "stdout": "grozavesti-buildings.log",
+      "stderr": "grozavesti-buildings.stderr",
+      "stdoutSha256": "d2e539ee93e1f010986f881b6d5729b82e544b1c8a3f9ccee761329862291921",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "check": "geometry",
+      "exitCode": 0,
+      "stdout": "grozavesti-geometry.json",
+      "stderr": "grozavesti-geometry.stderr",
+      "stdoutSha256": "5536a67d655c65c889b28683bc6f9625ad0a05168fb40f665237d74b39bd6911",
+      "stderrSha256": "edc950a7a2c564cd42419ef283682428c42fa0cac757cd6aea26d8f9f7f881a3"
+    },
+    {
+      "check": "roads",
+      "exitCode": 0,
+      "stdout": "grozavesti-roads.json",
+      "stderr": "grozavesti-roads.stderr",
+      "stdoutSha256": "99bf9c4a328061f03ef1c821cf49b251af98fce2c067e51c43c5922159997c8b",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "gameSourceCommit": "7d3364c1c9b880cb084740f5405cfe97036aa2e3",
+  "auditorVersion": "strict source-ID/topology/literal-total+storeys audit after5e6f7bb; source roads exact-node+whole-way+600m scenery audit1657932",
+  "status": "Baseline failures retained. Old Flo lacks sourceIDs; old source roads were shortened/stitched and lack exact source policy."
+}

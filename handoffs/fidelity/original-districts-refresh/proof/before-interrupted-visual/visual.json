@@ -1,0 +1,95 @@
+{
+ "generated": "2026-11-08T17:45:45.433Z",
+ "durationSec": 629,
+ "args": {
+  "city": "bucharest",
+  "route": null,
+  "district": "floreasca,romana,grozavesti",
+  "every": 40,
+  "from": null,
+  "to": null,
+  "aerial": true,
+  "looks": true,
+  "zEvery": 3,
+  "pr": 0.5,
+  "viewports": "none",
+  "quality": "high",
+  "far": 0,
+  "time": "day",
+  "weather": "clear",
+  "trafficEvery": 200,
+  "spots": null,
+  "spotQ": "high",
+  "traffic": false,
+  "offices": true,
+  "geometry": true,
+  "geoAll": false,
+  "jobs": 2,
+  "headed": false,
+  "port": 8123,
+  "timeout": 900,
+  "focus": 40,
+  "corridor": 70,
+  "sweep": 2,
+  "lookEvery": 200,
+  "aerialEvery": 200,
+  "size": 120,
+  "out": "/workspace/reality-pass/original-districts-refresh/before/visual",
+  "keep": false,
+  "verbose": false,
+  "root": "/workspace/reality-pass/original-districts-refresh/before/source"
+ },
+ "coverage": {
+  "complete": false,
+  "status": "incomplete",
+  "requiredSamples": 0,
+  "capturedSamples": 0,
+  "missingSamples": 0,
+  "errors": [
+   {
+    "city": "bucharest",
+    "message": "page.evaluate: Target page, context or browser has been closed"
+   }
+  ],
+  "routes": []
+ },
+ "results": [
+  {
+   "city": "bucharest",
+   "mode": "?",
+   "groups": [],
+   "routes": [],
+   "sheets": [],
+   "issues": [
+    {
+     "id": 1,
+     "type": "vqa-failure",
+     "severity": "high",
+     "city": "bucharest",
+     "msg": "page.evaluate: Target page, context or browser has been closed",
+     "count": 1,
+     "data": {}
+    }
+   ],
+   "counts": {},
+   "cockpit": [],
+   "offices": [],
+   "errors": [
+    "page.evaluate: Target page, context or browser has been closed"
+   ],
+   "timing": {},
+   "captureErrors": []
+  }
+ ],
+ "issues": [
+  {
+   "id": 1,
+   "type": "vqa-failure",
+   "severity": "high",
+   "city": "bucharest",
+   "msg": "page.evaluate: Target page, context or browser has been closed",
+   "count": 1,
+   "data": {}
+  }
+ ]
+}

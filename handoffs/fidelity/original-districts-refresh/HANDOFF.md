@@ -1,0 +1,29 @@
+# Original three districts source refresh
+
+Work in progress: final capture acceptance is pending the consolidated road-width, passage, parking and bridge-profile fixes. The complete source audit and four-sample runtime smoke below are an intermediate checkpoint, not whole-world acceptance.
+
+The branch is `fidelity/original-districts-refresh`. Source datasets were rebuilt from the existing raw OSM tiles and existing independent aerial roof, canopy and green surveys. No reference images or credentials are included here. [Raw input hashes](proof/raw-tile-provenance.json) preserve the 36-tile union and full-relation fetch provenance. Imagery acquisition dates remain unknown where the original survey did not record them.
+
+| District | Source building records / exact IDs | Courtyard rings | Exported crowns | Source roads |
+|---|---:|---:|---:|---:|
+| Floreasca | 3,366 / 3,366 | 3 | 15,181 | 143 |
+| Romană | 5,682 / 5,682 | 61 | 18,494 | 297 |
+| Grozăvești | 2,416 / 2,416 | 5 | 17,002 | 255 |
+
+All three retain every valid positive-area source building, precise outer and courtyard rings, exact source road nodes, private access roads and short stubs. The original Floreasca dataset had no source building IDs; its old spatial matches are kept separate from exact identity matches. The original synthetic Dinamo stand sectors are replaced by the actual source stadium relation, including its courtyard. Source canopy inputs retain all 28,008 Floreasca, 46,960 Romană and 44,645 Grozăvești measurements; exported counts also reflect geometric duplicate/building/road rejection, without budget thinning.
+
+Source checkpoint `203addccb0b5a8cf6224764a72a4963f782578c1` passes all three independent building geometry and literal-dimension checkers and the complete core/scenery road auditors. Each source ID and complete footprint topology matches. [Before-source results](proof/before-strict-source/source-summary.json) and [checkpoint results](proof/source-203addc/source-summary.json) retain separate way/relation and inside/ring counts. The compressed raw audit rows and each check's stdout, stderr, exit code and immutable dataset hash are alongside them. The levels-to-metres heuristic remains diagnostic; literal total height and positive storey counts are checked independently. Romană's literal `height=min_height` source anomaly `w1192148712` is preserved and explicitly reported as a zero vertical source band.
+
+The [checkpoint runtime report](proof/source-203addc/quick-runtime/visual.md) captured four selected route samples, all at 2 m, with no capture/runtime errors. High quality, traffic, pedestrians and mirrors were enabled. The worst selected traffic sample used 329 draw calls and 1.36 M triangles. These four samples do not establish a full-route or whole-world budget. Raw findings remain 4 high, 7 medium and 38 low. The markdown duration header has an upstream unit-formatting error; the raw log and JSON record the actual 316 seconds. No hardware FPS conclusion is made from software GL timing.
+
+Concrete runtime defects were sent to their shared owners:
+
+- Grozăvești: Bretea `w84482671` / Basarab `w1535667122` overlap at `(432.5,-745.2)` with a 0.26 m height seam. Exit toward Giulești `w84483589` / Basarab `w1552024281` has a sidewalk/slab 1.28 m above the carriageway at `(410.6,-759.1)`. Integration QA owns the runtime road-height repair and controller continuity proof; raw XY, lanes, widths and access remain intact.
+- Floreasca: `w245345969` versus Cronicarilor `w217941264`, and `w1375031820` versus Albac `w23623402` / Popasului `w209538792`, remain source contacts. Canopy, parking and roof parallax in the original aerial pixels do not justify choosing an arbitrary narrower carriageway to clear these buildings. Any reviewed width must have independent visible curb calipers; tagged two-lane counts remain two lanes.
+- Floreasca private alley `w289331891` has literal 5 m width. Its apparent contact with building `r9146640` is rechecked after the shared positive-literal-width runtime fix; the source width always wins.
+
+Post-checkpoint roof revisions are committed separately: Floreasca `36e26ea`, Grozăvești `b234858`, Romană `ab34410`. They adopt `77c73a3`: mapped complex gabled/hipped shapes survive, and an unsourced rise cannot consume a literal low total height. Building, source ID, courtyard and crown counts are unchanged.
+
+The earlier heavy baseline visual run was stopped during competing software-GL work. [Its raw logs and partial images](proof/before-interrupted-visual/) are explicitly incomplete and establish no pass. Existing overview collections retain their original capture provenance until a complete current atlas replaces the active collection. The new 250 m north-up capture plans contain 90 Floreasca, 115 Romană and 99 Grozăvești views, covering every core/ring cell plus clearly labelled distant context. Actual landmark, sports, source-part facade and 149 m outward drone-envelope views use `capture-context.cjs`; static cameras do not exercise the drone controller.
+
+Pending final work: rebuild from the consolidated shared source freeze, rerun immutable strict source checks, complete `foot,a`, complete route visual coverage and high-quality traffic/mirror budget checks, inspect every current atlas/contact sheet, capture actual placement and reported defect locations, and install game-only overview images/manifests while preserving the historical collections. Source parity does not establish that every untagged roof/facade/height matches the real district; those estimates and remaining visual gaps stay explicit.

@@ -1,0 +1,7 @@
+{
+  "status": "incomplete",
+  "acceptance": false,
+  "reason": "Root requested stopping obsolete competing SWGL baseline after source freeze; partial raw logs and images retained. Existing historical full surveys remain separate records.",
+  "sourceCommit": "7d3364c1c9b880cb084740f5405cfe97036aa2e3",
+  "stoppedUTC": "2026-11-08T17:45:44.637941+00:00"
+}

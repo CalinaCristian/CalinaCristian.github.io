@@ -180,5 +180,22 @@
       "sha256": "5b4a8f65b7fd6866738854193f910b82c100e3c6ed1effedb800a83f6ed1fd50",
       "bytes": 3271344
     }
-  }
+  },
+  "fullRelationInputs": [
+    {
+      "file": "relation-1130828.xml",
+      "sha256": "859bb9c340a4d7b47bd71d614f0b2b1fcd71774097e9c5dd001b002cc022ad3f",
+      "bytes": 97096
+    },
+    {
+      "file": "relation-13216634.xml",
+      "sha256": "c9bd28f53d1a0e195a72fdfd13df63fa72caeb277cd77cd0693de06d0fc4883c",
+      "bytes": 112934
+    },
+    {
+      "file": "relation-21298944.xml",
+      "sha256": "c1adcc86c5d275306b74ddc9f16bdd4aca5e687f073099aeea554d855653d705",
+      "bytes": 35607
+    }
+  ]
 }

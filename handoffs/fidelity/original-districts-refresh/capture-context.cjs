@@ -24,7 +24,7 @@ const mime={'.html':'text/html','.js':'text/javascript','.json':'application/jso
     page.setDefaultTimeout(300000); page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')consoleErrors.push(m.text());});
     await page.route(/api\.open-meteo\.com/,r=>r.fulfill({json:{error:true}}));
     const base='http://127.0.0.1:'+server.address().port+'/';
-    await page.goto(base+'game/index.html?notrack&weather='+weather+'&season='+season,{waitUntil:'load',timeout:180000});
+    await page.goto(base+'game/index.html?notrack&weather='+weather+'&season='+season,{waitUntil:'domcontentloaded',timeout:180000});
     await page.waitForFunction(()=>window.game,null,{timeout:180000});
     await page.addScriptTag({url:base+'game/dev/harness/visual/page/visual.js',type:'module'});
     await page.waitForFunction(()=>window.vqa,null,{timeout:180000});

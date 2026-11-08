@@ -1,0 +1,5 @@
+{
+  "gameSourceCommit": "203addccb0b5a8cf6224764a72a4963f782578c1",
+  "status": "Complete exact-source audits and limited four-sample runtime smoke before77c73a3 roof-rise/complex-shape correction. Not final acceptance.",
+  "quickCoverage": "4/4 selected route samples, all at2metres; full routes and visual checks pending."
+}

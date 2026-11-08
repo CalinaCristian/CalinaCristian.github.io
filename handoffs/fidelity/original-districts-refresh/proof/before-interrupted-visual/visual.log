@@ -1,0 +1,16 @@
+[   0s] static server on http://127.0.0.1:32995/
+[  26s] [bucharest] loading bucharest-floreasca…
+[ 106s] [bucharest] bucharest-floreasca ready in 80.0 s (310 edges, 391 ribbons)
+[ 111s] [bucharest] route rosetti: 1697 m, 43 samples (Calea Floreasca → Strada General Giuseppe Garibaldi)
+[ 111s] [bucharest] route sweep-strada-piotr-ilici-ceaikovski: 446 m, 11 samples (Strada Piotr Ilici Ceaikovski → Calea Floreasca)
+[ 112s] [bucharest] geometry: 269 ribbons, 22227 triangles, 8937 objects, 318 buildings in 0.8 s → ribbon-zfight=22 pad-overlap=25 road-hole=2 building-over-road=1
+[ 629s] [bucharest] !! page.evaluate: Target page, context or browser has been closed
+[ 629s] !! bucharest: page.evaluate: Target page, context or browser has been closed
+    at runCity (/workspace/fidelity-workers/original-districts-refresh/game/dev/harness/visual/run.js:167:50)
+    at async run (/workspace/fidelity-workers/original-districts-refresh/game/dev/harness/visual/run.js:428:54)
+    at async main (/workspace/fidelity-workers/original-districts-refresh/game/dev/harness/visual/run.js:429:21)
+
+Visual QA: capture coverage INCOMPLETE (0/0 required samples, 1 capture/runtime errors)
+Raw detectors: 1 findings (1 high, 0 medium, 0 low) in 629 s
+  vqa-failure                  1
+Report: /workspace/reality-pass/original-districts-refresh/before/visual/visual.md

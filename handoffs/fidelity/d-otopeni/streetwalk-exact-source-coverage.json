@@ -1,0 +1,393 @@
+{
+  "district": "otopeni",
+  "sourceCommit": "4198996ab142e3496c9224478eb8cd1aced676fb",
+  "method": "Exact closed segment distance to analytic buffered source lines, circles and source polygons; no metre sampling, centroid or bounding circle.",
+  "scope": "Outdoor public motorcar source centrelines intersecting core + 600 m; source tunnels/restricted access explicit in source-plan exclusions. Full road pieces retained; camera samples every 50 m plus a boundary/short-piece control.",
+  "checkedPublicPieces": 562,
+  "representedSourcePieces": 513,
+  "fullyOutside600m": 49,
+  "unsampledIntersectingPieces": [],
+  "outside": [
+    {
+      "sourceWay": "w27447247",
+      "sourcePiece": "1",
+      "sourceGroup": "nearby",
+      "name": "Strada Polon\u0103",
+      "exactCentrelineMinMarginM": 639.1174101347302
+    },
+    {
+      "sourceWay": "w220338020",
+      "sourcePiece": "25",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 669.4714271344652
+    },
+    {
+      "sourceWay": "w220338021",
+      "sourcePiece": "26",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 670.6677341652119
+    },
+    {
+      "sourceWay": "w220338022",
+      "sourcePiece": "27",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 679.9893429787413
+    },
+    {
+      "sourceWay": "w220338025",
+      "sourcePiece": "29",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 679.9893429787413
+    },
+    {
+      "sourceWay": "w220338045",
+      "sourcePiece": "43",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 668.153439174861
+    },
+    {
+      "sourceWay": "w238370787",
+      "sourcePiece": "48",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 625.6304546011828
+    },
+    {
+      "sourceWay": "w413581695",
+      "sourcePiece": "63",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 619.7375348503435
+    },
+    {
+      "sourceWay": "w975870112",
+      "sourcePiece": "86",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 621.6186392289547
+    },
+    {
+      "sourceWay": "w975870113",
+      "sourcePiece": "87",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 610.2640556803872
+    },
+    {
+      "sourceWay": "w1384114554",
+      "sourcePiece": "107",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 656.2874232480368
+    },
+    {
+      "sourceWay": "w1485311271",
+      "sourcePiece": "112",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 671.0118085809165
+    },
+    {
+      "sourceWay": "w49681672",
+      "sourcePiece": "129",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 679.1532889125542
+    },
+    {
+      "sourceWay": "w49681673",
+      "sourcePiece": "130",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 606.6765429491159
+    },
+    {
+      "sourceWay": "w49681675",
+      "sourcePiece": "132",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 608.9702601938583
+    },
+    {
+      "sourceWay": "w49681675",
+      "sourcePiece": "133",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 675.9000220430858
+    },
+    {
+      "sourceWay": "w220338029",
+      "sourcePiece": "137",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 665.2967324904598
+    },
+    {
+      "sourceWay": "w263923935",
+      "sourcePiece": "148",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 661.0337722408287
+    },
+    {
+      "sourceWay": "w376534191",
+      "sourcePiece": "150",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 630.9964031027364
+    },
+    {
+      "sourceWay": "w376534197",
+      "sourcePiece": "153",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 603.5319479800279
+    },
+    {
+      "sourceWay": "w376534213",
+      "sourcePiece": "154",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 613.5616871540303
+    },
+    {
+      "sourceWay": "w376534215",
+      "sourcePiece": "156",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 603.6040836895909
+    },
+    {
+      "sourceWay": "w376535013",
+      "sourcePiece": "157",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 612.7194568496947
+    },
+    {
+      "sourceWay": "w376535014",
+      "sourcePiece": "158",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 653.303105853229
+    },
+    {
+      "sourceWay": "w376535015",
+      "sourcePiece": "159",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 612.7194568496947
+    },
+    {
+      "sourceWay": "w933711971",
+      "sourcePiece": "189",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 661.0337722408287
+    },
+    {
+      "sourceWay": "w955949399",
+      "sourcePiece": "191",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 675.9000220430858
+    },
+    {
+      "sourceWay": "w956218918",
+      "sourcePiece": "197",
+      "sourceGroup": "nearby",
+      "name": "Strada Petuniei",
+      "exactCentrelineMinMarginM": 650.7924945530219
+    },
+    {
+      "sourceWay": "w956218920",
+      "sourcePiece": "199",
+      "sourceGroup": "nearby",
+      "name": "Strada Mure\u0219",
+      "exactCentrelineMinMarginM": 603.9584666888406
+    },
+    {
+      "sourceWay": "w956218921",
+      "sourcePiece": "200",
+      "sourceGroup": "nearby",
+      "name": "Strada 23 August",
+      "exactCentrelineMinMarginM": 603.9584666888406
+    },
+    {
+      "sourceWay": "w956220656",
+      "sourcePiece": "201",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 600.7484258143085
+    },
+    {
+      "sourceWay": "w993100364",
+      "sourcePiece": "209",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 609.6745618554478
+    },
+    {
+      "sourceWay": "w1097438910",
+      "sourcePiece": "210",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 654.9045682058866
+    },
+    {
+      "sourceWay": "w1097438911",
+      "sourcePiece": "211",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 654.9045682058866
+    },
+    {
+      "sourceWay": "w1097438914",
+      "sourcePiece": "212",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 605.3715397665825
+    },
+    {
+      "sourceWay": "w1097441983",
+      "sourcePiece": "213",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 604.7813869262989
+    },
+    {
+      "sourceWay": "w1242366379",
+      "sourcePiece": "215",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 652.2171335867445
+    },
+    {
+      "sourceWay": "w843293725",
+      "sourcePiece": "274",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 676.825818118083
+    },
+    {
+      "sourceWay": "w843297600",
+      "sourcePiece": "276",
+      "sourceGroup": "nearby",
+      "name": "Intrarea Eugen Ionescu",
+      "exactCentrelineMinMarginM": 642.8186789163251
+    },
+    {
+      "sourceWay": "w1501280537",
+      "sourcePiece": "342",
+      "sourceGroup": "nearby",
+      "name": "Strada Simion Mehedin\u021bi",
+      "exactCentrelineMinMarginM": 660.2864523845434
+    },
+    {
+      "sourceWay": "w406543543",
+      "sourcePiece": "418",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 629.0786891504863
+    },
+    {
+      "sourceWay": "w1506838150",
+      "sourcePiece": "526",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 662.3258653088301
+    },
+    {
+      "sourceWay": "w1506838150",
+      "sourcePiece": "527",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 649.1463558291562
+    },
+    {
+      "sourceWay": "w27637480",
+      "sourcePiece": "528",
+      "sourceGroup": "nearby",
+      "name": "Calea Bucure\u0219tilor",
+      "exactCentrelineMinMarginM": 623.7055392669723
+    },
+    {
+      "sourceWay": "w267125177",
+      "sourcePiece": "531",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 609.0304770051388
+    },
+    {
+      "sourceWay": "w384972729",
+      "sourcePiece": "533",
+      "sourceGroup": "nearby",
+      "name": "Calea Bucure\u0219tilor",
+      "exactCentrelineMinMarginM": 624.4340999593932
+    },
+    {
+      "sourceWay": "w993709550",
+      "sourcePiece": "534",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 656.800472940889
+    },
+    {
+      "sourceWay": "w1267205418",
+      "sourcePiece": "537",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 613.9772747194005
+    },
+    {
+      "sourceWay": "w1267205419",
+      "sourcePiece": "538",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 641.1864768458634
+    }
+  ],
+  "sourceGeometryEquivalence": {
+    "correctedDataSha256": "5e1242d5583db482717545ca0ba99e12b45611c25dcda0c04d1ffe45e084a711",
+    "sourceFieldsIdenticalTo419": [
+      "roadSourceGeometry",
+      "roadAccess",
+      "scenerySourceGeometry",
+      "sceneryAccess"
+    ],
+    "canonicalSortedJsonSha256": {
+      "roadSourceGeometry": "abe3daa3e3c6101f8b3f6688f63d8ebedbd514bc916c80e602e75163334f9559",
+      "roadAccess": "4506029d24ffaef50382187b575c4a30ba11c785058390a10fcd8db3f6843561",
+      "scenerySourceGeometry": "220243d7d62cb7c3f4d33dfde36373d94bccc6687cd54d18b54e88ccbf4a7ecb",
+      "sceneryAccess": "b812b65dc1674fbb2761aff83cbcbaf30eefd1047d39901c15234c76a8969ad5"
+    },
+    "reason": "Tree-only corrections leave public source geometry and access unchanged; panorama candidate positions remain applicable."
+  },
+  "cameraCandidateLedger": {
+    "sha256": "21d1cab4ee8b9bb746d22ba76f727782302b1a364d32b605b9612a9a824a10fc",
+    "count": 3831
+  },
+  "metadataCoverage": {
+    "sourceCommit": "4198996ab142e3496c9224478eb8cd1aced676fb",
+    "comparisonOnly": true,
+    "dataExtraction": false,
+    "sourceScope": "All public source core and600m ring motorcar roads",
+    "candidateSamples": 3831,
+    "metadataLocations": 1274,
+    "requiredUniqueComparisons": 2465,
+    "counts": {
+      "AVAILABLE": 2465,
+      "ZERO_RESULTS": 1269,
+      "DUPLICATE_COMPARISON": 52,
+      "PUBLIC_UPLOAD": 45
+    },
+    "cameraAltitude": "Not supplied by metadata;2.5m camera-height estimate remains explicit",
+    "referenceImagesCommitted": false,
+    "elapsedSeconds": 2.6
+  }
+}

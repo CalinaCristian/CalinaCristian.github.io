@@ -1,0 +1,974 @@
+{
+  "district": "unirii",
+  "sourceCommit": "4198996ab142e3496c9224478eb8cd1aced676fb",
+  "method": "Exact closed segment distance to analytic buffered source lines, circles and source polygons; no metre sampling, centroid or bounding circle.",
+  "scope": "Outdoor public motorcar source centrelines intersecting core + 600 m; source tunnels/restricted access explicit in source-plan exclusions. Full road pieces retained; camera samples every 50 m plus a boundary/short-piece control.",
+  "checkedPublicPieces": 1344,
+  "representedSourcePieces": 1212,
+  "fullyOutside600m": 132,
+  "unsampledIntersectingPieces": [],
+  "outside": [
+    {
+      "sourceWay": "w23480339",
+      "sourcePiece": "2",
+      "sourceGroup": "nearby",
+      "name": "Strada Episcopul Chesarie",
+      "exactCentrelineMinMarginM": 618.8945416623118
+    },
+    {
+      "sourceWay": "w23480499",
+      "sourcePiece": "7",
+      "sourceGroup": "nearby",
+      "name": "Strada Gladiolelor",
+      "exactCentrelineMinMarginM": 613.3615038256478
+    },
+    {
+      "sourceWay": "w23649947",
+      "sourcePiece": "23",
+      "sourceGroup": "nearby",
+      "name": "Strada Bardului",
+      "exactCentrelineMinMarginM": 632.5492170416032
+    },
+    {
+      "sourceWay": "w23649961",
+      "sourcePiece": "25",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 622.362155407018
+    },
+    {
+      "sourceWay": "w41128445",
+      "sourcePiece": "38",
+      "sourceGroup": "nearby",
+      "name": "Strada Tismana",
+      "exactCentrelineMinMarginM": 630.4309364695972
+    },
+    {
+      "sourceWay": "w219697227",
+      "sourcePiece": "44",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 661.4513959644072
+    },
+    {
+      "sourceWay": "w219697230",
+      "sourcePiece": "45",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 613.5612458784401
+    },
+    {
+      "sourceWay": "w221172485",
+      "sourcePiece": "46",
+      "sourceGroup": "nearby",
+      "name": "Strada Valerian Prescurea",
+      "exactCentrelineMinMarginM": 608.2143819081816
+    },
+    {
+      "sourceWay": "w252210655",
+      "sourcePiece": "48",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 608.0999445992276
+    },
+    {
+      "sourceWay": "w287430327",
+      "sourcePiece": "56",
+      "sourceGroup": "nearby",
+      "name": "Strada Poiana Florilor",
+      "exactCentrelineMinMarginM": 613.3615038256478
+    },
+    {
+      "sourceWay": "w420793408",
+      "sourcePiece": "59",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 674.2089650813544
+    },
+    {
+      "sourceWay": "w420793409",
+      "sourcePiece": "60",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 616.4917621080649
+    },
+    {
+      "sourceWay": "w430899930",
+      "sourcePiece": "61",
+      "sourceGroup": "nearby",
+      "name": "Strada Bardului",
+      "exactCentrelineMinMarginM": 632.5492170416032
+    },
+    {
+      "sourceWay": "w665974420",
+      "sourcePiece": "68",
+      "sourceGroup": "nearby",
+      "name": "Strada Gramont",
+      "exactCentrelineMinMarginM": 646.8330916785213
+    },
+    {
+      "sourceWay": "w666682371",
+      "sourcePiece": "69",
+      "sourceGroup": "nearby",
+      "name": "Bulevardul Libert\u0103\u021bii",
+      "exactCentrelineMinMarginM": 666.2569077529929
+    },
+    {
+      "sourceWay": "w758566786",
+      "sourcePiece": "71",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 635.8706050224959
+    },
+    {
+      "sourceWay": "w758568876",
+      "sourcePiece": "72",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 674.8313783044836
+    },
+    {
+      "sourceWay": "w16287021",
+      "sourcePiece": "103",
+      "sourceGroup": "nearby",
+      "name": "Pasajul M\u0103r\u0103\u0219e\u0219ti",
+      "exactCentrelineMinMarginM": 643.7091838886688
+    },
+    {
+      "sourceWay": "w23649911",
+      "sourcePiece": "116",
+      "sourceGroup": "nearby",
+      "name": "Strada Potera\u0219i",
+      "exactCentrelineMinMarginM": 607.5479906005256
+    },
+    {
+      "sourceWay": "w23784114",
+      "sourcePiece": "119",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 602.8895838620491
+    },
+    {
+      "sourceWay": "w23784116",
+      "sourcePiece": "120",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 635.9784384560292
+    },
+    {
+      "sourceWay": "w45269533",
+      "sourcePiece": "123",
+      "sourceGroup": "nearby",
+      "name": "Strada T\u0103b\u0103carilor",
+      "exactCentrelineMinMarginM": 607.4823144745153
+    },
+    {
+      "sourceWay": "w205224562",
+      "sourcePiece": "140",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 676.7160099295759
+    },
+    {
+      "sourceWay": "w210831345",
+      "sourcePiece": "152",
+      "sourceGroup": "nearby",
+      "name": "Strada Nerva Traian",
+      "exactCentrelineMinMarginM": 606.0610209222978
+    },
+    {
+      "sourceWay": "w241369576",
+      "sourcePiece": "167",
+      "sourceGroup": "nearby",
+      "name": "Pasajul M\u0103r\u0103\u0219e\u0219ti",
+      "exactCentrelineMinMarginM": 648.7340781018141
+    },
+    {
+      "sourceWay": "w256961144",
+      "sourcePiece": "171",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 623.3887783531311
+    },
+    {
+      "sourceWay": "w260914190",
+      "sourcePiece": "174",
+      "sourceGroup": "nearby",
+      "name": "Aleea Dimitrie Anghel",
+      "exactCentrelineMinMarginM": 674.6955766746013
+    },
+    {
+      "sourceWay": "w293484479",
+      "sourcePiece": "177",
+      "sourceGroup": "nearby",
+      "name": "Strada Panait Cerna",
+      "exactCentrelineMinMarginM": 618.9359858701631
+    },
+    {
+      "sourceWay": "w303532747",
+      "sourcePiece": "182",
+      "sourceGroup": "nearby",
+      "name": "Aleea Apahida",
+      "exactCentrelineMinMarginM": 647.8713010533412
+    },
+    {
+      "sourceWay": "w424823432",
+      "sourcePiece": "189",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 615.6396376965788
+    },
+    {
+      "sourceWay": "w430899086",
+      "sourcePiece": "192",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 622.4457198843426
+    },
+    {
+      "sourceWay": "w661251527",
+      "sourcePiece": "197",
+      "sourceGroup": "nearby",
+      "name": "Strada T\u0103b\u0103carilor",
+      "exactCentrelineMinMarginM": 607.4823144745153
+    },
+    {
+      "sourceWay": "w661251532",
+      "sourcePiece": "200",
+      "sourceGroup": "nearby",
+      "name": "Aleea Dimitrie Anghel",
+      "exactCentrelineMinMarginM": 674.6955766746013
+    },
+    {
+      "sourceWay": "w665001428",
+      "sourcePiece": "204",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 605.1330516832732
+    },
+    {
+      "sourceWay": "w1420369621",
+      "sourcePiece": "268",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 630.7339729591419
+    },
+    {
+      "sourceWay": "w1437035998",
+      "sourcePiece": "270",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 610.7527447745031
+    },
+    {
+      "sourceWay": "w206007028",
+      "sourcePiece": "281",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 658.4040888796007
+    },
+    {
+      "sourceWay": "w389835919",
+      "sourcePiece": "282",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 667.1335627344
+    },
+    {
+      "sourceWay": "w666135205",
+      "sourcePiece": "283",
+      "sourceGroup": "nearby",
+      "name": "Strada Nerva Traian",
+      "exactCentrelineMinMarginM": 645.2918108603234
+    },
+    {
+      "sourceWay": "w1353090874",
+      "sourcePiece": "284",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 668.6914585614323
+    },
+    {
+      "sourceWay": "w23485557",
+      "sourcePiece": "305",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 617.7838804683723
+    },
+    {
+      "sourceWay": "w23485557",
+      "sourcePiece": "306",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 620.5440246216283
+    },
+    {
+      "sourceWay": "w23486221",
+      "sourcePiece": "313",
+      "sourceGroup": "nearby",
+      "name": "Strada Alexandru Beldiman",
+      "exactCentrelineMinMarginM": 649.8654916105457
+    },
+    {
+      "sourceWay": "w39725274",
+      "sourcePiece": "323",
+      "sourceGroup": "nearby",
+      "name": "Bulevardul Regina Elisabeta",
+      "exactCentrelineMinMarginM": 675.7048399924676
+    },
+    {
+      "sourceWay": "w230170457",
+      "sourcePiece": "349",
+      "sourceGroup": "nearby",
+      "name": "Bulevardul Regina Elisabeta",
+      "exactCentrelineMinMarginM": 645.7023610706863
+    },
+    {
+      "sourceWay": "w302796109",
+      "sourcePiece": "380",
+      "sourceGroup": "nearby",
+      "name": "Bulevardul Libert\u0103\u021bii",
+      "exactCentrelineMinMarginM": 664.3627472025465
+    },
+    {
+      "sourceWay": "w387423157",
+      "sourcePiece": "385",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 604.1692935503811
+    },
+    {
+      "sourceWay": "w387423160",
+      "sourcePiece": "386",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 621.1843398135665
+    },
+    {
+      "sourceWay": "w387423162",
+      "sourcePiece": "387",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 637.7917682555793
+    },
+    {
+      "sourceWay": "w406366721",
+      "sourcePiece": "391",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 620.6893319314905
+    },
+    {
+      "sourceWay": "w661261182",
+      "sourcePiece": "398",
+      "sourceGroup": "nearby",
+      "name": "Strada M.I. Brutus",
+      "exactCentrelineMinMarginM": 602.0091257117327
+    },
+    {
+      "sourceWay": "w665627954",
+      "sourcePiece": "406",
+      "sourceGroup": "nearby",
+      "name": "Splaiul Independen\u021bei",
+      "exactCentrelineMinMarginM": 630.9561305709137
+    },
+    {
+      "sourceWay": "w666682368",
+      "sourcePiece": "413",
+      "sourceGroup": "nearby",
+      "name": "Bulevardul Na\u021biunile Unite",
+      "exactCentrelineMinMarginM": 674.0581003262134
+    },
+    {
+      "sourceWay": "w666686367",
+      "sourcePiece": "414",
+      "sourceGroup": "nearby",
+      "name": "Bulevardul Libert\u0103\u021bii",
+      "exactCentrelineMinMarginM": 675.2086892082684
+    },
+    {
+      "sourceWay": "w666686368",
+      "sourcePiece": "415",
+      "sourceGroup": "nearby",
+      "name": "Bulevardul Libert\u0103\u021bii",
+      "exactCentrelineMinMarginM": 676.922596117469
+    },
+    {
+      "sourceWay": "w666686369",
+      "sourcePiece": "416",
+      "sourceGroup": "nearby",
+      "name": "Bulevardul Libert\u0103\u021bii",
+      "exactCentrelineMinMarginM": 678.3566601678643
+    },
+    {
+      "sourceWay": "w666740246",
+      "sourcePiece": "417",
+      "sourceGroup": "nearby",
+      "name": "Pia\u021ba Constitu\u021biei",
+      "exactCentrelineMinMarginM": 671.8079609456125
+    },
+    {
+      "sourceWay": "w666740247",
+      "sourcePiece": "418",
+      "sourceGroup": "nearby",
+      "name": "Pia\u021ba Constitu\u021biei",
+      "exactCentrelineMinMarginM": 610.1946156868704
+    },
+    {
+      "sourceWay": "w858544663",
+      "sourcePiece": "423",
+      "sourceGroup": "nearby",
+      "name": "Pia\u021ba Constitu\u021biei",
+      "exactCentrelineMinMarginM": 666.2569077529929
+    },
+    {
+      "sourceWay": "w972312164",
+      "sourcePiece": "425",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 648.8991273138279
+    },
+    {
+      "sourceWay": "w1138494722",
+      "sourcePiece": "439",
+      "sourceGroup": "nearby",
+      "name": "Bulevardul Libert\u0103\u021bii",
+      "exactCentrelineMinMarginM": 675.2522067726218
+    },
+    {
+      "sourceWay": "w1138494723",
+      "sourcePiece": "440",
+      "sourceGroup": "nearby",
+      "name": "Bulevardul Libert\u0103\u021bii",
+      "exactCentrelineMinMarginM": 671.8079609456125
+    },
+    {
+      "sourceWay": "w1206972198",
+      "sourcePiece": "441",
+      "sourceGroup": "nearby",
+      "name": "Bulevardul Regina Elisabeta",
+      "exactCentrelineMinMarginM": 638.927780114501
+    },
+    {
+      "sourceWay": "w1206972199",
+      "sourcePiece": "442",
+      "sourceGroup": "nearby",
+      "name": "Bulevardul Regina Elisabeta",
+      "exactCentrelineMinMarginM": 642.1523460871861
+    },
+    {
+      "sourceWay": "w1206972200",
+      "sourcePiece": "443",
+      "sourceGroup": "nearby",
+      "name": "Bulevardul Regina Elisabeta",
+      "exactCentrelineMinMarginM": 631.7775898606207
+    },
+    {
+      "sourceWay": "w1246785331",
+      "sourcePiece": "444",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 618.3956089231756
+    },
+    {
+      "sourceWay": "w1359715736",
+      "sourcePiece": "450",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 673.0366141889255
+    },
+    {
+      "sourceWay": "w231177873",
+      "sourcePiece": "587",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 611.2048123146243
+    },
+    {
+      "sourceWay": "w8316436",
+      "sourcePiece": "744",
+      "sourceGroup": "nearby",
+      "name": "Strada Ion Pillat",
+      "exactCentrelineMinMarginM": 602.4992326866228
+    },
+    {
+      "sourceWay": "w23050192",
+      "sourcePiece": "756",
+      "sourceGroup": "nearby",
+      "name": "Strada Locotenent Dumitru Ganovici",
+      "exactCentrelineMinMarginM": 604.0222154411688
+    },
+    {
+      "sourceWay": "w23050201",
+      "sourcePiece": "759",
+      "sourceGroup": "nearby",
+      "name": "Strada Verde\u021bei",
+      "exactCentrelineMinMarginM": 605.3834767519235
+    },
+    {
+      "sourceWay": "w23050202",
+      "sourcePiece": "760",
+      "sourceGroup": "nearby",
+      "name": "Strada Cezar Bolliac",
+      "exactCentrelineMinMarginM": 601.1775484897706
+    },
+    {
+      "sourceWay": "w23050889",
+      "sourcePiece": "766",
+      "sourceGroup": "nearby",
+      "name": "Strada Hiramului",
+      "exactCentrelineMinMarginM": 651.2986820639749
+    },
+    {
+      "sourceWay": "w23050890",
+      "sourcePiece": "767",
+      "sourceGroup": "nearby",
+      "name": "Strada Locotenent Alexandru P\u0103ulescu",
+      "exactCentrelineMinMarginM": 674.3976615429337
+    },
+    {
+      "sourceWay": "w23123940",
+      "sourcePiece": "769",
+      "sourceGroup": "nearby",
+      "name": "Intrarea \u0218tafetei",
+      "exactCentrelineMinMarginM": 605.6325988296236
+    },
+    {
+      "sourceWay": "w84205410",
+      "sourcePiece": "791",
+      "sourceGroup": "nearby",
+      "name": "Strada Turturelelor",
+      "exactCentrelineMinMarginM": 636.672991454155
+    },
+    {
+      "sourceWay": "w85315406",
+      "sourcePiece": "799",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 658.1881963122278
+    },
+    {
+      "sourceWay": "w85422109",
+      "sourcePiece": "802",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 655.2743606671879
+    },
+    {
+      "sourceWay": "w153964135",
+      "sourcePiece": "804",
+      "sourceGroup": "nearby",
+      "name": "Bulevardul Unirii",
+      "exactCentrelineMinMarginM": 607.4332715954839
+    },
+    {
+      "sourceWay": "w209747739",
+      "sourcePiece": "822",
+      "sourceGroup": "nearby",
+      "name": "Strada Eftimie Murgu",
+      "exactCentrelineMinMarginM": 678.6865352474742
+    },
+    {
+      "sourceWay": "w210234372",
+      "sourcePiece": "823",
+      "sourceGroup": "nearby",
+      "name": "Intrarea Patrulei",
+      "exactCentrelineMinMarginM": 601.1496021449051
+    },
+    {
+      "sourceWay": "w210831346",
+      "sourcePiece": "825",
+      "sourceGroup": "nearby",
+      "name": "Bulevardul Unirii",
+      "exactCentrelineMinMarginM": 624.2015527501485
+    },
+    {
+      "sourceWay": "w210831348",
+      "sourcePiece": "827",
+      "sourceGroup": "nearby",
+      "name": "Bulevardul Unirii",
+      "exactCentrelineMinMarginM": 627.0573601049496
+    },
+    {
+      "sourceWay": "w217515492",
+      "sourcePiece": "828",
+      "sourceGroup": "nearby",
+      "name": "Intrarea \u0218tafetei",
+      "exactCentrelineMinMarginM": 673.1306363954182
+    },
+    {
+      "sourceWay": "w218680176",
+      "sourcePiece": "830",
+      "sourceGroup": "nearby",
+      "name": "Strada Ion Pillat",
+      "exactCentrelineMinMarginM": 637.9013100952545
+    },
+    {
+      "sourceWay": "w243184555",
+      "sourcePiece": "842",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 632.6970644335694
+    },
+    {
+      "sourceWay": "w280786676",
+      "sourcePiece": "853",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 676.8655995528452
+    },
+    {
+      "sourceWay": "w280786677",
+      "sourcePiece": "854",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 666.1856249627692
+    },
+    {
+      "sourceWay": "w295553501",
+      "sourcePiece": "860",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 645.3285588738438
+    },
+    {
+      "sourceWay": "w309203647",
+      "sourcePiece": "864",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 667.2915960951343
+    },
+    {
+      "sourceWay": "w389835920",
+      "sourcePiece": "868",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 641.5168328225894
+    },
+    {
+      "sourceWay": "w533148591",
+      "sourcePiece": "880",
+      "sourceGroup": "nearby",
+      "name": "Strada Popa Nan",
+      "exactCentrelineMinMarginM": 678.6865352474742
+    },
+    {
+      "sourceWay": "w671891057",
+      "sourcePiece": "891",
+      "sourceGroup": "nearby",
+      "name": "Strada Nerva Traian",
+      "exactCentrelineMinMarginM": 608.846291339443
+    },
+    {
+      "sourceWay": "w671891058",
+      "sourcePiece": "892",
+      "sourceGroup": "nearby",
+      "name": "Strada Nerva Traian",
+      "exactCentrelineMinMarginM": 627.0573601049496
+    },
+    {
+      "sourceWay": "w751850413",
+      "sourcePiece": "897",
+      "sourceGroup": "nearby",
+      "name": "Strada Turturelelor",
+      "exactCentrelineMinMarginM": 605.1528543634391
+    },
+    {
+      "sourceWay": "w1259368421",
+      "sourcePiece": "918",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 654.391971977179
+    },
+    {
+      "sourceWay": "w1572451074",
+      "sourcePiece": "942",
+      "sourceGroup": "nearby",
+      "name": "Strada Verde\u021bei",
+      "exactCentrelineMinMarginM": 602.4992326866228
+    },
+    {
+      "sourceWay": "w23633878",
+      "sourcePiece": "962",
+      "sourceGroup": "nearby",
+      "name": "Strada O\u021betari",
+      "exactCentrelineMinMarginM": 626.9407909988317
+    },
+    {
+      "sourceWay": "w23775886",
+      "sourcePiece": "970",
+      "sourceGroup": "nearby",
+      "name": "Strada Franzelarilor",
+      "exactCentrelineMinMarginM": 620.7642546105109
+    },
+    {
+      "sourceWay": "w86551493",
+      "sourcePiece": "997",
+      "sourceGroup": "nearby",
+      "name": "Strada Silvestru",
+      "exactCentrelineMinMarginM": 673.4439134322846
+    },
+    {
+      "sourceWay": "w125077138",
+      "sourcePiece": "1002",
+      "sourceGroup": "nearby",
+      "name": "Strada Marin Serghiescu",
+      "exactCentrelineMinMarginM": 661.111538073281
+    },
+    {
+      "sourceWay": "w125135353",
+      "sourcePiece": "1009",
+      "sourceGroup": "nearby",
+      "name": "Strada Jean Louis Calderon",
+      "exactCentrelineMinMarginM": 629.1249820713037
+    },
+    {
+      "sourceWay": "w205039202",
+      "sourcePiece": "1022",
+      "sourceGroup": "nearby",
+      "name": "Calea Mo\u0219ilor",
+      "exactCentrelineMinMarginM": 621.5464798772772
+    },
+    {
+      "sourceWay": "w229477788",
+      "sourcePiece": "1036",
+      "sourceGroup": "nearby",
+      "name": "Bulevardul Nicolae B\u0103lcescu",
+      "exactCentrelineMinMarginM": 637.8132876520352
+    },
+    {
+      "sourceWay": "w230241671",
+      "sourcePiece": "1045",
+      "sourceGroup": "nearby",
+      "name": "Strada Speran\u021bei",
+      "exactCentrelineMinMarginM": 606.8813620161422
+    },
+    {
+      "sourceWay": "w256015035",
+      "sourcePiece": "1057",
+      "sourceGroup": "nearby",
+      "name": "Strada Vasile Lasc\u0103r",
+      "exactCentrelineMinMarginM": 600.6560784287575
+    },
+    {
+      "sourceWay": "w295410608",
+      "sourcePiece": "1061",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 674.8758695262069
+    },
+    {
+      "sourceWay": "w386533494",
+      "sourcePiece": "1067",
+      "sourceGroup": "nearby",
+      "name": "Strada Vasile Lasc\u0103r",
+      "exactCentrelineMinMarginM": 647.493090005291
+    },
+    {
+      "sourceWay": "w414199101",
+      "sourcePiece": "1075",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 675.5210509093644
+    },
+    {
+      "sourceWay": "w431446528",
+      "sourcePiece": "1077",
+      "sourceGroup": "nearby",
+      "name": "Strada Speran\u021bei",
+      "exactCentrelineMinMarginM": 606.8813620161422
+    },
+    {
+      "sourceWay": "w670574731",
+      "sourcePiece": "1111",
+      "sourceGroup": "nearby",
+      "name": "Strada Popa Petre",
+      "exactCentrelineMinMarginM": 613.1095054108727
+    },
+    {
+      "sourceWay": "w1021654114",
+      "sourcePiece": "1123",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 642.5776911983327
+    },
+    {
+      "sourceWay": "w1190855283",
+      "sourcePiece": "1126",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 602.7052490657294
+    },
+    {
+      "sourceWay": "w1192787714",
+      "sourcePiece": "1127",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 678.3253439470359
+    },
+    {
+      "sourceWay": "w1209340063",
+      "sourcePiece": "1128",
+      "sourceGroup": "nearby",
+      "name": "",
+      "exactCentrelineMinMarginM": 627.0183382935205
+    },
+    {
+      "sourceWay": "w1282766741",
+      "sourcePiece": "1131",
+      "sourceGroup": "nearby",
+      "name": "Strada Popa Petre",
+      "exactCentrelineMinMarginM": 621.5464798772772
+    },
+    {
+      "sourceWay": "w1282766742",
+      "sourcePiece": "1132",
+      "sourceGroup": "nearby",
+      "name": "Strada Popa Petre",
+      "exactCentrelineMinMarginM": 649.2722737220215
+    },
+    {
+      "sourceWay": "w1288780823",
+      "sourcePiece": "1133",
+      "sourceGroup": "nearby",
+      "name": "Strada Italian\u0103",
+      "exactCentrelineMinMarginM": 667.8793753464128
+    },
+    {
+      "sourceWay": "w1318111814",
+      "sourcePiece": "1138",
+      "sourceGroup": "nearby",
+      "name": "Calea Mo\u0219ilor",
+      "exactCentrelineMinMarginM": 613.1095054108727
+    },
+    {
+      "sourceWay": "w1450180310",
+      "sourcePiece": "1141",
+      "sourceGroup": "nearby",
+      "name": "Strada Ion Luca Caragiale",
+      "exactCentrelineMinMarginM": 647.493090005291
+    },
+    {
+      "sourceWay": "w4049080",
+      "sourcePiece": "1147",
+      "sourceGroup": "nearby",
+      "name": "Strada Horei",
+      "exactCentrelineMinMarginM": 678.0835474255097
+    },
+    {
+      "sourceWay": "w4049083",
+      "sourcePiece": "1148",
+      "sourceGroup": "nearby",
+      "name": "Strada C\u0103pitan Ion Vasilescu",
+      "exactCentrelineMinMarginM": 677.0391229477527
+    },
+    {
+      "sourceWay": "w15488620",
+      "sourcePiece": "1151",
+      "sourceGroup": "nearby",
+      "name": "Strada Traian",
+      "exactCentrelineMinMarginM": 662.1609738228476
+    },
+    {
+      "sourceWay": "w23050188",
+      "sourcePiece": "1158",
+      "sourceGroup": "nearby",
+      "name": "Strada Vasile Vasilievici Stroescu",
+      "exactCentrelineMinMarginM": 611.6675285548341
+    },
+    {
+      "sourceWay": "w23050893",
+      "sourcePiece": "1159",
+      "sourceGroup": "nearby",
+      "name": "Strada Duzilor",
+      "exactCentrelineMinMarginM": 634.2001651637611
+    },
+    {
+      "sourceWay": "w28877320",
+      "sourcePiece": "1171",
+      "sourceGroup": "nearby",
+      "name": "Strada Dimitrie Onciul",
+      "exactCentrelineMinMarginM": 628.0583391393859
+    },
+    {
+      "sourceWay": "w45729668",
+      "sourcePiece": "1173",
+      "sourceGroup": "nearby",
+      "name": "Strada Zece Mese",
+      "exactCentrelineMinMarginM": 626.1472933776275
+    },
+    {
+      "sourceWay": "w192679051",
+      "sourcePiece": "1185",
+      "sourceGroup": "nearby",
+      "name": "Strada Zece Mese",
+      "exactCentrelineMinMarginM": 628.0583391393859
+    },
+    {
+      "sourceWay": "w205039735",
+      "sourcePiece": "1186",
+      "sourceGroup": "nearby",
+      "name": "Strada Rumeoara",
+      "exactCentrelineMinMarginM": 664.6207753769249
+    },
+    {
+      "sourceWay": "w206009885",
+      "sourcePiece": "1188",
+      "sourceGroup": "nearby",
+      "name": "Pia\u021ba Foi\u0219orul de Foc",
+      "exactCentrelineMinMarginM": 626.1472933776275
+    },
+    {
+      "sourceWay": "w225787961",
+      "sourcePiece": "1195",
+      "sourceGroup": "nearby",
+      "name": "Strada Gheorghe Pop de B\u0103se\u0219ti",
+      "exactCentrelineMinMarginM": 662.1609738228476
+    },
+    {
+      "sourceWay": "w1292212755",
+      "sourcePiece": "1224",
+      "sourceGroup": "nearby",
+      "name": "Strada Vasile Vasilievici Stroescu",
+      "exactCentrelineMinMarginM": 677.0391229477527
+    }
+  ],
+  "sourceGeometryEquivalence": {
+    "correctedDataSha256": "9797d9f5b1a4f2593528ce6c8c4ad04ec38fb953c9770bf32f6d7d5c7c54f26c",
+    "sourceFieldsIdenticalTo419": [
+      "roadSourceGeometry",
+      "roadAccess",
+      "scenerySourceGeometry",
+      "sceneryAccess"
+    ],
+    "canonicalSortedJsonSha256": {
+      "roadSourceGeometry": "c11a823e341004109e8017f7f8a5c0f873524fbcfb1f8196cc06f28f90f9076a",
+      "roadAccess": "34b29cac5e79b3cdcc96ab85c090bcce2eeed3b2a30a7615952c4edab536f5cf",
+      "scenerySourceGeometry": "3dc6a906650c6660226cd2759c338ccb1fb4a3cb9c48ecb7649982077a21e751",
+      "sceneryAccess": "44b6e35a055b3449350ab5f2903fda66a098199c138944be2c27e2a4f0fb5472"
+    },
+    "reason": "Tree-only corrections leave public source geometry and access unchanged; panorama candidate positions remain applicable."
+  },
+  "cameraCandidateLedger": {
+    "sha256": "7d7e9c80fafede9a1de2b175df2c768cad7a80d9480cd9bdd5f099898a5bf040",
+    "count": 6774
+  },
+  "metadataCoverage": {
+    "sourceCommit": "4198996ab142e3496c9224478eb8cd1aced676fb",
+    "comparisonOnly": true,
+    "dataExtraction": false,
+    "sourceScope": "All public source core and600m ring motorcar roads",
+    "candidateSamples": 6774,
+    "metadataLocations": 2253,
+    "requiredUniqueComparisons": 6275,
+    "counts": {
+      "AVAILABLE": 6275,
+      "ZERO_RESULTS": 210,
+      "PUBLIC_UPLOAD": 231,
+      "DUPLICATE_COMPARISON": 58
+    },
+    "cameraAltitude": "Not supplied by metadata;2.5m camera-height estimate remains explicit",
+    "referenceImagesCommitted": false,
+    "elapsedSeconds": 5.5
+  }
+}

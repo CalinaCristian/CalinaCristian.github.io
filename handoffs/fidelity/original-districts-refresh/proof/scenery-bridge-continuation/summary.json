@@ -1,0 +1,498 @@
+{
+  "sourceRoot": "/workspace/reality-pass/original-districts-refresh/final-4378317/source",
+  "candidatePath": "/workspace/fidelity-workers/original-districts-refresh/game/src/scenery-bridges.js",
+  "candidateSha256": "44fa90d1e34f99b006b4beaf0db24725fcb5ec7c7c13d46fc0070747d3d7da03",
+  "scope": "CPU production core-grade reconstruction verified against actual native core hashes and complete baseline scenery stats. No renderer, source XY, data or core grade mutation. Candidate passive profiles and local paired clearance estimates need native collision/render follow-up.",
+  "districts": [
+    {
+      "district": "bucharest-floreasca",
+      "coreHashMatchesNative": true,
+      "baselineStatsMatchNative": true,
+      "geometryUnchanged": true,
+      "changedSourceIds": [],
+      "beforeUnresolved": 0,
+      "afterUnresolved": 0,
+      "minimumPreviousTargetClearanceM": null,
+      "continuationEvidence": [
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 257018571,
+          "x": 31.508880341447455,
+          "z": -1160.3847779998757,
+          "nodeDegree": 3,
+          "incomingSourceId": "w668774569",
+          "approachSourceId": "w668774569"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 3315513094,
+          "x": 308.0100307493768,
+          "z": -1126.7562348001302,
+          "nodeDegree": 4,
+          "incomingSourceId": "w668550636",
+          "approachSourceId": "w668550636"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 12801048694,
+          "x": 294.7661317253461,
+          "z": -1121.6663891998728,
+          "nodeDegree": 3,
+          "incomingSourceId": "w668549605",
+          "approachSourceId": "w668549605"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 6260760640,
+          "x": 449.23591500198046,
+          "z": -709.91121600013,
+          "nodeDegree": 3,
+          "incomingSourceId": "w668550635",
+          "approachSourceId": "w668550635"
+        }
+      ]
+    },
+    {
+      "district": "bucharest-romana",
+      "coreHashMatchesNative": true,
+      "baselineStatsMatchNative": true,
+      "geometryUnchanged": true,
+      "changedSourceIds": [],
+      "beforeUnresolved": 0,
+      "afterUnresolved": 0,
+      "minimumPreviousTargetClearanceM": null,
+      "continuationEvidence": []
+    },
+    {
+      "district": "bucharest-grozavesti",
+      "coreHashMatchesNative": true,
+      "baselineStatsMatchNative": true,
+      "geometryUnchanged": true,
+      "changedSourceIds": [],
+      "beforeUnresolved": 0,
+      "afterUnresolved": 0,
+      "minimumPreviousTargetClearanceM": null,
+      "continuationEvidence": []
+    },
+    {
+      "district": "bucharest-unirii",
+      "coreHashMatchesNative": true,
+      "baselineStatsMatchNative": true,
+      "geometryUnchanged": true,
+      "changedSourceIds": [],
+      "beforeUnresolved": 0,
+      "afterUnresolved": 0,
+      "minimumPreviousTargetClearanceM": null,
+      "continuationEvidence": []
+    },
+    {
+      "district": "bucharest-otopeni",
+      "coreHashMatchesNative": true,
+      "baselineStatsMatchNative": true,
+      "geometryUnchanged": true,
+      "changedSourceIds": [],
+      "beforeUnresolved": 0,
+      "afterUnresolved": 0,
+      "minimumPreviousTargetClearanceM": null,
+      "continuationEvidence": [
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 13780736232,
+          "x": -1308.1627892705276,
+          "z": 719.3018700001102,
+          "nodeDegree": 3,
+          "incomingSourceId": "w433374766",
+          "approachSourceId": "w433374766"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 9164319716,
+          "x": -1252.407527369107,
+          "z": 723.1470372000357,
+          "nodeDegree": 3,
+          "incomingSourceId": "w433374766",
+          "approachSourceId": "w433374766"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 2290108316,
+          "x": -1139.2314836514054,
+          "z": 727.8479207996959,
+          "nodeDegree": 3,
+          "incomingSourceId": "w433374766",
+          "approachSourceId": "w433374766"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 9173440308,
+          "x": -1100.2107313674057,
+          "z": 729.4037687997159,
+          "nodeDegree": 3,
+          "incomingSourceId": "w433374766",
+          "approachSourceId": "w433374766"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 9173444817,
+          "x": -1080.1293198262188,
+          "z": 730.1928059994609,
+          "nodeDegree": 3,
+          "incomingSourceId": "w433374766",
+          "approachSourceId": "w433374766"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 2290108322,
+          "x": -1045.0106427705628,
+          "z": 731.5930692000318,
+          "nodeDegree": 3,
+          "incomingSourceId": "w433374766",
+          "approachSourceId": "w433374766"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 7899332607,
+          "x": -1209.3895272902323,
+          "z": 1054.409302799592,
+          "nodeDegree": 3,
+          "incomingSourceId": "w28047207",
+          "approachSourceId": "w28047207"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 2290108307,
+          "x": -1199.5233045582324,
+          "z": 1054.9093967999088,
+          "nodeDegree": 3,
+          "incomingSourceId": "w28047207",
+          "approachSourceId": "w28047207"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 2290108326,
+          "x": -1148.6932229753659,
+          "z": 1056.8986595994663,
+          "nodeDegree": 3,
+          "incomingSourceId": "w28047207",
+          "approachSourceId": "w28047207"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 6524963477,
+          "x": -1102.2965967843513,
+          "z": 1058.0766587998087,
+          "nodeDegree": 3,
+          "incomingSourceId": "w28047207",
+          "approachSourceId": "w28047207"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 8849733955,
+          "x": -1089.606921244789,
+          "z": 1058.3989415996266,
+          "nodeDegree": 3,
+          "incomingSourceId": "w28047207",
+          "approachSourceId": "w28047207"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 2290108294,
+          "x": -1069.025853729031,
+          "z": 1058.9323751995432,
+          "nodeDegree": 3,
+          "incomingSourceId": "w28047207",
+          "approachSourceId": "w28047207"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 307978289,
+          "x": -1025.841301658727,
+          "z": 1060.0659215993662,
+          "nodeDegree": 3,
+          "incomingSourceId": "w28047207",
+          "approachSourceId": "w28047207"
+        }
+      ]
+    },
+    {
+      "district": "bucharest-pipera",
+      "coreHashMatchesNative": true,
+      "baselineStatsMatchNative": true,
+      "geometryUnchanged": false,
+      "changedSourceIds": [
+        "w203601453",
+        "w203601451",
+        "w229781430"
+      ],
+      "beforeUnresolved": 1,
+      "afterUnresolved": 0,
+      "minimumPreviousTargetClearanceM": 5.24,
+      "continuationEvidence": [
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 257018571,
+          "x": -699.2212350152408,
+          "z": 573.274422000032,
+          "nodeDegree": 3,
+          "incomingSourceId": "w668774569",
+          "approachSourceId": "w668774569"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 9377502808,
+          "x": -732.1275391328327,
+          "z": 505.55058119982425,
+          "nodeDegree": 3,
+          "incomingSourceId": "w668774568",
+          "approachSourceId": "w668774568"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 3315513094,
+          "x": -422.79398370053485,
+          "z": 606.9029651997776,
+          "nodeDegree": 4,
+          "incomingSourceId": "w668550636",
+          "approachSourceId": "w668550636"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 12801048694,
+          "x": -436.0343430932578,
+          "z": 611.9928108000349,
+          "nodeDegree": 3,
+          "incomingSourceId": "w668549605",
+          "approachSourceId": "w668549605"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 255381608,
+          "x": 786.1691739903487,
+          "z": 1065.366917999722,
+          "nodeDegree": 3,
+          "incomingSourceId": "w661595955",
+          "approachSourceId": "w661595955"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 255381605,
+          "x": 748.5687772508243,
+          "z": 1106.3523995993708,
+          "nodeDegree": 3,
+          "incomingSourceId": "w23583252",
+          "approachSourceId": "w23583252"
+        },
+        {
+          "kind": "source bridge mouth with named parallel approach fork",
+          "sourceNodeId": 254849900,
+          "x": -574.2042843015588,
+          "z": -191.03590800015095,
+          "nodeDegree": 3,
+          "incomingSourceId": "w119926495",
+          "approachSourceId": "w119927033",
+          "approachName": "Șoseaua Pipera",
+          "bridgeOutward": [
+            -0.7826536434503558,
+            0.6224574478579907
+          ],
+          "approachOutward": [
+            [
+              0.7518512308792026,
+              -0.6593327889809728
+            ],
+            [
+              0.8283659004453356,
+              -0.5601874105863041
+            ]
+          ]
+        },
+        {
+          "kind": "source bridge mouth with named parallel approach fork",
+          "sourceNodeId": 254849900,
+          "x": -574.2042843015588,
+          "z": -191.03590800015095,
+          "nodeDegree": 3,
+          "incomingSourceId": "w119926495",
+          "approachSourceId": "w229739784",
+          "approachName": "Șoseaua Pipera",
+          "bridgeOutward": [
+            -0.7826536434503558,
+            0.6224574478579907
+          ],
+          "approachOutward": [
+            [
+              0.7518512308792026,
+              -0.6593327889809728
+            ],
+            [
+              0.8283659004453356,
+              -0.5601874105863041
+            ]
+          ]
+        },
+        {
+          "kind": "source bridge mouth with named parallel approach fork",
+          "sourceNodeId": 567469331,
+          "x": -30.992130983685257,
+          "z": -635.030474399988,
+          "nodeDegree": 3,
+          "incomingSourceId": "w203601453",
+          "approachSourceId": "w203601451",
+          "approachName": "Șoseaua Pipera",
+          "bridgeOutward": [
+            0.748616672573105,
+            -0.6630030750649445
+          ],
+          "approachOutward": [
+            [
+              -0.7067631277756539,
+              0.7074502676632293
+            ],
+            [
+              -0.784225106460673,
+              0.6204764156652096
+            ]
+          ]
+        },
+        {
+          "kind": "source bridge mouth with named parallel approach fork",
+          "sourceNodeId": 567469331,
+          "x": -30.992130983685257,
+          "z": -635.030474399988,
+          "nodeDegree": 3,
+          "incomingSourceId": "w203601453",
+          "approachSourceId": "w229781430",
+          "approachName": "Șoseaua Pipera",
+          "bridgeOutward": [
+            0.748616672573105,
+            -0.6630030750649445
+          ],
+          "approachOutward": [
+            [
+              -0.7067631277756539,
+              0.7074502676632293
+            ],
+            [
+              -0.784225106460673,
+              0.6204764156652096
+            ]
+          ]
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 3416290352,
+          "x": 1556.3895527433644,
+          "z": 233.7105959997988,
+          "nodeDegree": 3,
+          "incomingSourceId": "w334560463",
+          "approachSourceId": "w334560463"
+        }
+      ]
+    },
+    {
+      "district": "seattle-bellevue",
+      "coreHashMatchesNative": true,
+      "baselineStatsMatchNative": true,
+      "geometryUnchanged": false,
+      "changedSourceIds": [
+        "w365781624",
+        "w30614975",
+        "w30614981",
+        "w30614982",
+        "w30614990",
+        "w30614992",
+        "w30615009",
+        "w30615010",
+        "w181984969",
+        "w181984983",
+        "w365781618",
+        "w365781619",
+        "w365781620",
+        "w365781621",
+        "w365781622",
+        "w365781623",
+        "w378376411",
+        "w428073527",
+        "w428073528",
+        "w428073558",
+        "w428073560",
+        "w1031114681",
+        "w1031114177"
+      ],
+      "beforeUnresolved": 13,
+      "afterUnresolved": 0,
+      "minimumPreviousTargetClearanceM": 5.2,
+      "continuationEvidence": [
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 338517222,
+          "x": 556.2377864492377,
+          "z": 150.97282200022656,
+          "nodeDegree": 3,
+          "incomingSourceId": "w30614982",
+          "approachSourceId": "w30614982"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 5222229732,
+          "x": 360.51934941344774,
+          "z": -733.5712188002491,
+          "nodeDegree": 3,
+          "incomingSourceId": "w378376411",
+          "approachSourceId": "w378376411"
+        }
+      ]
+    },
+    {
+      "district": "seattle-seatac",
+      "coreHashMatchesNative": true,
+      "baselineStatsMatchNative": true,
+      "geometryUnchanged": false,
+      "changedSourceIds": [
+        "w273078320",
+        "w481592458"
+      ],
+      "beforeUnresolved": 15,
+      "afterUnresolved": 15,
+      "minimumPreviousTargetClearanceM": -0.429773675046465,
+      "continuationEvidence": [
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 4745072079,
+          "x": -789.0068770024058,
+          "z": -1240.588742399844,
+          "nodeDegree": 3,
+          "incomingSourceId": "w6329914",
+          "approachSourceId": "w6329914"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 2779762261,
+          "x": -567.6585751726894,
+          "z": -1140.8811119993704,
+          "nodeDegree": 3,
+          "incomingSourceId": "w481592458",
+          "approachSourceId": "w481592458"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 1200609516,
+          "x": -878.0987404273271,
+          "z": -1112.6646971997004,
+          "nodeDegree": 3,
+          "incomingSourceId": "w104034223",
+          "approachSourceId": "w104034223"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 2779762097,
+          "x": -495.51185619771917,
+          "z": -1229.3644103997558,
+          "nodeDegree": 3,
+          "incomingSourceId": "w273078320",
+          "approachSourceId": "w273078320"
+        }
+      ]
+    }
+  ]
+}

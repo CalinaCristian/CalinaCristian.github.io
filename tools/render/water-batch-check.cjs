@@ -27,7 +27,7 @@ const root = path.resolve(__dirname, '../..');
                     const g = new T.BufferGeometry(), positions = new Float32Array([x-.4,-.4,0,x+.4,-.4,0,x+.4,.4,0,x-.4,-.4,0,x+.4,.4,0,x-.4,.4,0]);
                     if(i===4)for(let k=2;k<positions.length;k+=3)positions[k]=-.1;g.setAttribute('position', new T.BufferAttribute(positions, 3));
                     const colours = new Float32Array(18); for (let k = 0; k < 6; k++) colours[k*3+i%3] = 1;
-                    g.setAttribute('color', new T.BufferAttribute(colours, 3)); g.setAttribute('aShore', new T.BufferAttribute(new Float32Array([0,1,2,3,4,5]), 1));
+                    g.setAttribute('color', new T.BufferAttribute(colours, 3)); g.setAttribute('aFoamReliable', new T.BufferAttribute(new Float32Array([0,0,0,1,1,1]), 1)); g.setAttribute('aShore', new T.BufferAttribute(new Float32Array([0,1,2,3,4,5]), 1));
                     g.setAttribute('normal',new T.BufferAttribute(new Float32Array([0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1]),3));g.setAttribute('uv',new T.BufferAttribute(new Float32Array([0,0,1,0,1,1,0,0,1,1,0,1]),2));g.setAttribute('aSource',new T.BufferAttribute(new Uint8Array([1,2,3,4,5,6]),1,true));if(i===4)g.setIndex([3,4,5,0,1,2]);g.computeBoundingSphere(); const m = new T.Mesh(g, material); m.name = 'source-' + i; m.renderOrder = -18; m.matrixAutoUpdate = false; group.add(m);
                 }
                 return group;

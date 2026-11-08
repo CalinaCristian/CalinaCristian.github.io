@@ -1,13 +1,14 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import crypto from 'node:crypto';
 import { CEC_SOURCE_MASSES as source } from '../../src/landmark-cec-source.js';
 import { LANDMARKS, buildLandmark } from '../../src/landmarks.js';
 import { parseMeasure } from '../../src/building-roofs.js';
 import { Box3 } from '../../vendor/three.module.min.js';
 
 const bytes=fs.readFileSync(new URL('../../data/bucharest-unirii.json',import.meta.url)),data=JSON.parse(bytes);
-assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),source.sourceDatasetSha256);
+// The recorded dataset SHA identifies the source snapshot used to bake the model.
+// Unrelated district trees/roads can change later; compare the actual CEC source
+// records below so a source-volume edit still fails without rebaking the model.
 const landmark=LANDMARKS.find(l=>l.id==='cec'),built=buildLandmark(landmark,{realScale:true,floodlit:false}),volumes=source.volumes;
 assert.equal(volumes.length,162);assert.equal(built.collision.length,162);
 assert.equal(new Set(volumes.map(v=>v.sourceId)).size,161);
@@ -18,6 +19,10 @@ let literals=0;
 for(let i=0;i<volumes.length;i++){
  const v=volumes[i],actual=built.collision[i],raw=data.buildingFootprints[v.sourceIndex];
  assert.equal(v.sourceId,data.buildingIds[v.sourceIndex]);assert.ok(landmark.sourceIds.includes(v.sourceId));
+ const row=data.buildings[v.sourceIndex],dimensions=data.buildingDimensions?.[v.sourceIndex];
+ close(v.totalM,dimensions?.[0]??row[1]/10,'compiled source total');
+ close(v.minimumM,dimensions?.[1]??row[2]/10,'compiled source minimum');
+ assert.deepEqual(v.roofProfile,data.buildingRoofProfiles[v.sourceIndex],'compiled source roof profile');
  close(actual.y0,v.minimumM,'source minimum');close(actual.y1,v.totalM,'source total');
  assert.equal(actual.sourceId,v.sourceId);assert.equal(actual.poly.length,raw.length);
  for(let j=0;j<raw.length;j++){close(actual.poly[j][0]+ox,raw[j][0],'exact outer x');close(actual.poly[j][1]+oz,raw[j][1],'exact outer z');}

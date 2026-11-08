@@ -39,6 +39,12 @@
 //    buildings: [[style, heightDm, minHeightDm, roof, name, flags, levels, colour, roofColour, ...delta ring], ...]
 //    buildingHoles: { buildingIndex: [deltaRing, ...] } optional mapped courtyards; same dm coordinates, no header
 //    buildingCoveredBy: { baseIndex: coveringPartIndex } exact full-footprint, full-height ground part; both records kept
+//    buildingAssemblies: { outlineIndex: {parts:[indices], residualHeightDm, residualHeightSource, sourceCoverage, sourceOutsideArea, preparedCoverage} }
+//        conservative unique raw-source part associations; residual strips retain a source-derived ground envelope
+//    buildingDimensions: {index:[heightM,minHeightM]} sparse source precision beyond decimetres
+//    buildingFootprints: {index:[[x,z],...]} sparse precise simple rings when dm quantization folds a notch
+//    buildingUnions: {sources:[{i,signature}],surfaces:[{i,neighbours,surface}]} physical surface visibility, not parent association
+//    buildingGeometryPoints: [[x,z],...] lossless vertex table for cached residual/roof/underside rings
 //        (version 2) levels = building:levels (0 unknown), colour / roofColour = string index of '#rrggbb' (-1 none)
 //        style index into `styles`, roof index into `roofs` (flat|pyramid|gabled|dome|hipped|skillion|mansard),
 //        flags: 1 ground-floor shop band, 2 has a sign (name = sign text), 4 tall landmark-ish,
@@ -72,6 +78,7 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { parseFiles, parseInto } from './parse-osm.mjs';
+import { footprintCoverage, simpleFootprint, uncrossFootprint, bakeAssembly, bakeSurface, touchingSolids, assemblySignature } from '../../game/src/building-parts.js';
 import { distPointSeg, pointInPolygon, polyArea, polyCentroid, simplifyIdx, simplifyRing, Grid, assembleRings } from './geom.mjs';
 import { buildCorridor } from './corridors.mjs';
 import { CITIES as GAME_CITIES } from '../../game/src/cities.js';
@@ -1006,9 +1013,11 @@ function buildCity(cityId, did = null) {
     }
     for (const [id, w] of W) {
         const t = w.tags;
-        // district mode: tall building:parts (towers rising out of a podium, e.g. Lincoln Square North) are kept as buildings
-        const tallPart = ds && t['building:part'] && t['building:part'] !== 'no' && (num(t.height) >= 20 || num(t['building:levels']) >= 6);
-        const barePart = tallPart && t['building:part'] === 'yes' && !t.building && !['name', 'shop', 'office', 'amenity', 'tourism', 'leisure'].some(k => t[k]) && !Object.keys(t).some(k => k.startsWith('roof:'));
+        // Retain every explicitly dimensioned building part, including the short
+        // podiums and narrow columns supporting a tower. Tall-only filtering
+        // left the tower floating and forced its aggregate outline to act as a body.
+        const tallPart = ds && t['building:part'] && t['building:part'] !== 'no' && (num(t.height) > 0 || num(t['building:levels']) > 0);
+        const barePart = tallPart && t['building:part'] === 'yes' && !t.building && !['name', 'shop', 'office', 'amenity', 'tourism', 'leisure'].some(k => t[k]) && !t['roof:shape'] && !t['roof:height'] && !t['roof:levels'];
         if (tallPart && !t.building) t.building = 'yes';
         if (!t.building || t.building === 'no' || (t['building:part'] && !tallPart)) continue;
         if (w.nodes.length < 4 || w.nodes[0] !== w.nodes[w.nodes.length - 1]) continue;
@@ -1059,7 +1068,8 @@ function buildCity(cityId, did = null) {
         let la = 0, lo = 0; for (const [a, c] of lls) { la += a; lo += c; } la /= lls.length; lo /= lls.length;
         const local = lls.map(([a, c]) => [(c - lo) * P.mPerLon, -(a - la) * P.mPerLat]);
         const realArea = Math.abs(polyArea(local));
-        if (realArea < 12) continue;
+        const sourcePart = ds && t['building:part'] && t['building:part'] !== 'no' && (num(t.height) > 0 || num(t['building:levels']) > 0);
+        if (realArea < (sourcePart ? 0.05 : 12)) continue;
         const cL = polyCentroid(local);
         const cOut = P(la, lo); cOut[0] += cL[0] * C.scale; cOut[1] += cL[1] * C.scale; // approx centroid in output space
         const mg = M(cOut[0], cOut[1]);
@@ -1071,15 +1081,14 @@ function buildCity(cityId, did = null) {
         const outside = mg > 0;
         if (outside) {
             if (ds && mg <= OUTER_RING) { if (realArea < 25 && SMALL_OUT.test(b)) continue; }
-            else { if (mg > (ds ? 0 : 30) && mg < 1700) { addBackdrop(cOut, realArea, local, t, la); if (DEBUG_DROPS && ds && mg < OUTER_RING + 150) bDropList.push({ why: 'backdrop', mg: Math.round(mg), id: t.__id, la: +la.toFixed(6), lo: +lo.toFixed(6), area: Math.round(realArea) }); } else if (mg <= 30) dropWhy('edge-belt'); continue; } // (after round 6: from 30 m past the corridor edge, not 70 — the first 70 m were a bare "dead" belt)
+            else { if (sourcePart && num(t.height) < 20 && !(num(t['building:levels']) >= 6)) continue; if (mg > (ds ? 0 : 30) && mg < 1700) { addBackdrop(cOut, realArea, local, t, la); if (DEBUG_DROPS && ds && mg < OUTER_RING + 150) bDropList.push({ why: 'backdrop', mg: Math.round(mg), id: t.__id, la: +la.toFixed(6), lo: +lo.toFixed(6), area: Math.round(realArea) }); } else if (mg <= 30) dropWhy('edge-belt'); continue; } // (after round 6: from 30 m past the corridor edge, not 70 — the first 70 m were a bare "dead" belt)
         }
         if (!outside && !nearNetwork(cOut[0], cOut[1])) { dropWhy('far'); continue; }
         const [sx, sz] = C.shape(la);
         let ring = local.map(([x, z]) => [cOut[0] + (x - cL[0]) * sx, cOut[1] + (z - cL[1]) * sz]);
         // Thin mapped structural parts are real strips, not independent houses. The ordinary 1 m duplicate tolerance
         // folded sub-metre four-corner fins into half-area triangles; preserve their source width and tagged heights.
-        const thinPart = t.__barePart && rectOf(local).w < 1;
-        ring = simplifyRing(ring, thinPart ? 0.1 : 1.0, thinPart ? 0.05 : 0.25, 40);
+        ring = simplifyRing(ring, sourcePart ? 0.05 : 1.0, sourcePart ? 0.03 : 0.25, sourcePart ? 200 : 40);
         if (!ring) { dropWhy('simplify'); continue; }
         let holes = (rb.holesLL || []).map(h => simplifyRing(h.map(([a, c]) => [cOut[0] + ((c - lo) * P.mPerLon - cL[0]) * sx, cOut[1] + (-(a - la) * P.mPerLat - cL[1]) * sz]), 0.2, 0.1, 80)).filter(h => h && Math.abs(polyArea(h)) >= 1);
         // Keep the source courtyard in place when only a street-facing outer wall is pushed. A radial fallback scales
@@ -1198,25 +1207,25 @@ function buildCity(cityId, did = null) {
             // storey only under a flat roof — villas tagged 2 + 1 attic were walls of 3 storeys with the roof on top
             h = lv * (style === 'bloc' ? 2.9 : style === 'glass' ? 3.6 : 3.2) + ((flags & 1) ? 1 : 0) + (roof === 0 ? roofLevels * 2.6 : 0);
         }
-        h = Math.max(2.5, Math.min(h, 320));
+        h = Math.max(sourcePart ? 0.01 : 2.5, Math.min(h, 320));
         h = C.heightMap(h);
         // ---- shrink to keep clear of the road ribbons
         // (2026-11-08) a large named building (a market hall, a mall) is not shrunk away by its own service lanes running
         // into it (loading bays, building passages: Piața Floreasca was dropped); world.js keeps the same exemption
         const ownService = realArea > 1500 && !!(t.name || t.amenity || t.shop);
         if (ownService) flags |= 64;
-        const clearOK = (rg) => {
+        const clearOK = (rg, sideMargin = 1.6) => {
             for (let i = 0; i < rg.length; i++) {
                 const a = rg[i], bb = rg[(i + 1) % rg.length];
                 for (const p of [a, [(a[0] + bb[0]) / 2, (a[1] + bb[1]) / 2]]) {
                     let bad = false;
                     roadGrid.query(p[0], p[1], 20, (s) => {
-                        if (bad || (s.r.flags & 4) || s.r.layer < 0 || (ownService && s.r.cls === 'service')) return;
+                        if (bad || (s.r.flags & 4) || s.r.layer < 0 || (ownService && s.r.cls === 'service') || (minH >= 3 && s.r.layer === 0 && !(s.r.flags & 2))) return;
                         const q = distPointSeg(p[0], p[1], s.a[0], s.a[1], s.b[0], s.b[1]);
                         if (q.d > 20) return;
                         const dx = s.b[0] - s.a[0], dz = s.b[1] - s.a[1];
                         const right = (p[0] - s.a[0]) * (-dz) + (p[1] - s.a[1]) * dx > 0;
-                        const need = (right ? s.wR : s.wL) + Math.min(s.r.sidewalk, 1.6);
+                        const need = (right ? s.wR : s.wL) + Math.min(s.r.sidewalk, sideMargin);
                         if (q.d < need) bad = true;
                     });
                     if (bad) return false;
@@ -1233,7 +1242,7 @@ function buildCity(cityId, did = null) {
             const need = (x, z) => { // [push x, push z] out of every road clearance at this point, or null
                 let px = 0, pz = 0, any = false, largest = 0;
                 roadGrid.query(x, z, 20, (sg) => {
-                    if ((sg.r.flags & 4) || sg.r.layer < 0 || (ownService && sg.r.cls === 'service')) return;
+                    if ((sg.r.flags & 4) || sg.r.layer < 0 || (ownService && sg.r.cls === 'service') || (minH >= 3 && sg.r.layer === 0 && !(sg.r.flags & 2))) return;
                     const q = distPointSeg(x, z, sg.a[0], sg.a[1], sg.b[0], sg.b[1]); if (q.d > 20) return;
                     const dx = sg.b[0] - sg.a[0], dz = sg.b[1] - sg.a[1], L = Math.hypot(dx, dz) || 1;
                     const right = (x - sg.a[0]) * (-dz) + (z - sg.a[1]) * dx > 0;
@@ -1261,19 +1270,25 @@ function buildCity(cityId, did = null) {
                 }
                 if (!moved) break;
             }
+            // Repair only a folded prepared boundary, retaining every corner.
+            // A valid repair must still clear the full carriageway; an inferred
+            // sidewalk margin must not force the real building down to a sliver.
+            const quantized = rg.map(([x, z]) => [Math.round(x * 10) / 10, Math.round(z * 10) / 10]);
+            const repaired = !simpleFootprint(quantized);
+            if (repaired) rg = uncrossFootprint(quantized);
             const cg = polyCentroid(rg); let hitsOther = false;
             bGrid.query(cg[0], cg[1], 40, (o) => { if (!hitsOther && interiorOverlap(rg, o.ring, holes, o.holes)) hitsOther = true; });
-            if (!hitsOther && holesFit(rg, holes) && clearOK(rg) && Math.abs(polyArea(rg)) >= 0.55 * Math.abs(polyArea(ring)) && polyArea(rg) * polyArea(ring) > 0) { ring = rg; ok = true; c2 = cg; }
+            if (!hitsOther && simpleFootprint(rg.map(([x, z]) => [Math.round(x * 10), Math.round(z * 10)])) && holesFit(rg, holes) && clearOK(rg, repaired ? 0 : 1.6) && Math.abs(polyArea(rg)) >= 0.55 * Math.abs(polyArea(ring)) && polyArea(rg) * polyArea(ring) > 0) { ring = rg; ok = true; c2 = cg; }
         }
         while (!ok && tries < 7) { const shrink = ([x, z]) => [c2[0] + (x - c2[0]) * 0.9, c2[1] + (z - c2[1]) * 0.9]; ring = ring.map(shrink); holes = holes.map(h => h.map(shrink)); ok = clearOK(ring); tries++; }
         if (!ok) { dropWhy('road-clearance'); continue; }
-        if (Math.abs(polyArea(ring)) < 8) { dropWhy('tiny'); continue; }
+        if (Math.abs(polyArea(ring)) < (sourcePart ? 0.02 : 8)) { dropWhy('tiny'); continue; }
         // ---- overlap test against already accepted buildings (only needed where shapes were rescaled)
         if (sx !== C.scale || sz !== C.scale || tries > 0) {
             let overlap = false;
             bGrid.query(c2[0], c2[1], 40, (o) => {
                 if (overlap) return;
-                if (interiorOverlap(ring, o.ring, holes, o.holes)) overlap = true;
+                if (!sourcePart && interiorOverlap(ring, o.ring, holes, o.holes)) overlap = true;
             });
             if (overlap) { dropWhy('overlap'); continue; }
         }
@@ -1290,7 +1305,7 @@ function buildCity(cityId, did = null) {
         }
         if (measuredRoof) flags |= 16; // an OSM/aerial roof shape was actually applied; unsupported mixed/round tags are not a measurement of the fallback
         if (outside) flags |= 32; // outside the playable area (scenery ring)
-        const rec = { style, h, minH: Math.min(minH, h - 1), roof, name, brand, flags, ring, holes, sourceFootprint: footprintKey(lls, rb.holesLL || []), c: c2, area: Math.abs(polyArea(ring)), t, levels: isFinite(levels) ? Math.round(levels) : 0, colour, roofColour, la, lo,
+        const rec = { style, h, minH: Math.min(minH, h - (sourcePart ? 0.01 : 1)), roof, name, brand, flags, ring, holes, sourceRing: lls.slice(0, -1).map(([a, c]) => P(a, c)), sourceFootprint: footprintKey(lls, rb.holesLL || []), c: c2, area: Math.abs(polyArea(ring)), t, levels: isFinite(levels) ? Math.round(levels) : 0, colour, roofColour, la, lo,
             hSrc: t.__hRes === 1 ? 1 : t.__hRes === 2 ? 2 : (isFinite(num(t.height)) || isFinite(levels)) ? 0 : 2 };
         let x0 = Infinity, z0 = Infinity, x1 = -Infinity, z1 = -Infinity; for (const [x, z] of ring) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); }
         bGrid.insertBox(x0, z0, x1, z1, rec);
@@ -1604,6 +1619,12 @@ function buildCity(cityId, did = null) {
         else if (name && !addrLike(name) && !blockNo && !residential) flags |= 2;
         return [STYLES.indexOf(b.style), Math.round(b.h * 10), Math.round(Math.max(0, b.minH) * 10), b.roof, S(name), flags, b.levels || 0, S(b.colour), S(b.roofColour), ...delta(b.ring)];
     });
+    const outBuildingFootprints = Object.fromEntries(buildings.flatMap((b, i) => {
+        const quantized = b.ring.map(([x, z]) => [Math.round(x * 10) / 10, Math.round(z * 10) / 10]);
+        return !simpleFootprint(quantized) && simpleFootprint(b.ring) ? [[i, b.ring.map(p => p.map(v => +v.toFixed(4)))]] : [];
+    }));
+    const preparedRing = (b, i) => outBuildingFootprints[i] || b.ring.map(([x, z]) => [Math.round(x * 10) / 10, Math.round(z * 10) / 10]);
+    const outBuildingDimensions = Object.fromEntries(buildings.flatMap((b, i) => Math.abs(b.h - outB[i][1] / 10) > 1e-7 || Math.abs(b.minH - outB[i][2] / 10) > 1e-7 ? [[i, [+b.h.toFixed(4), +b.minH.toFixed(4)]]] : []));
     const outBuildingHoles = Object.fromEntries(buildings.flatMap((b, i) => b.holes?.length ? [[i, b.holes.map(delta)]] : []));
     if (Object.keys(outBuildingHoles).length) log('building courtyards', Object.keys(outBuildingHoles).length, 'buildings,', Object.values(outBuildingHoles).reduce((n, hs) => n + hs.length, 0), 'inner rings');
     // A building outline plus a complete mapped part can describe the same body. Keep both source records for audits,
@@ -1622,6 +1643,79 @@ function buildCity(cityId, did = null) {
         if (parts.length === 1) outBuildingCoveredBy[base.i] = parts[0].i;
     }
     if (Object.keys(outBuildingCoveredBy).length) log('building outlines covered by exact ground parts', Object.keys(outBuildingCoveredBy).length);
+    // Simple 3-D Buildings: the enclosing building is an aggregate outline when
+    // mapped parts describe its body. Match against unmodified source geometry,
+    // require unique containment and near-complete coverage, and retain every
+    // uncovered strip as a separately audited source-derived ground envelope.
+    const outBuildingAssemblies = {}, partParents = new Map();
+    const simpleBases = buildings.map((b, i) => ({ b, i })).filter(({ b, i }) => !isPart(b) && ground(b) && !b.holes.length && !outBuildingCoveredBy[i]);
+    const bounds = ring => [Math.min(...ring.map(p => p[0])), Math.min(...ring.map(p => p[1])), Math.max(...ring.map(p => p[0])), Math.max(...ring.map(p => p[1]))];
+    for (let i = 0; i < buildings.length; i++) {
+        const part = buildings[i]; if (!isPart(part) || !taggedPartHeight(part) || part.holes.length || !part.sourceRing) continue;
+        if (['layer', 'level'].some(k => part.t[k] != null && num(part.t[k]) !== 0)) continue;
+        const pb = bounds(part.sourceRing), candidates = [];
+        for (const base of simpleBases) {
+            const bb = bounds(base.b.sourceRing);
+            if (pb[0] < bb[0] - 0.001 || pb[1] < bb[1] - 0.001 || pb[2] > bb[2] + 0.001 || pb[3] > bb[3] + 0.001) continue;
+            const c = footprintCoverage(base.b.sourceRing, [part.sourceRing]);
+            if (c.outside <= 0.1) candidates.push(base.i);
+        }
+        if (candidates.length === 1) partParents.set(i, candidates[0]);
+    }
+    for (const { b: base, i } of simpleBases) {
+        const parts = [...partParents].filter(([, parent]) => parent === i).map(([p]) => p);
+        const groundParts = parts.map(p => buildings[p]).filter(ground);
+        if (!parts.length) continue;
+        const source = footprintCoverage(base.sourceRing, parts.map(p => buildings[p].sourceRing));
+        const groundCoverage = footprintCoverage(base.sourceRing, groundParts.map(p => p.sourceRing));
+        const quant = b => preparedRing(b, buildings.indexOf(b));
+        const prepared = footprintCoverage(quant(base), parts.map(p => quant(buildings[p])));
+        if (prepared.outside > Math.max(0.5, prepared.area * 0.015)) continue;
+        const complete = groundParts.length > 0 && source.uncovered <= source.area * 0.1 && prepared.uncovered <= prepared.area * 0.1 && (groundCoverage.uncovered <= groundCoverage.area * 0.1 || source.uncovered <= source.area * 0.0001);
+        if (!complete && base.roof !== 0) continue;
+        // Explicit parent metre heights remain authoritative. A storey/default
+        // estimate is not a measured mass below/around the detailed source parts.
+        const explicitHeight = base.hSrc <= 1 && isFinite(num(base.t.height));
+        const residualHeight = explicitHeight || !groundParts.length ? base.h : Math.min(...groundParts.map(p => p.h));
+        outBuildingAssemblies[i] = { mode: complete ? 'parts' : 'union', parts, residualHeightDm: Math.round(residualHeight * 10), residualHeightM: +residualHeight.toFixed(4), residualHeightSource: source.uncovered <= source.area * 0.0001 ? 'adjacent-ground-part' : explicitHeight ? 'parent-height' : 'lowest-ground-part',
+            sourceCoverage: +(1 - source.uncovered / source.area).toFixed(8), sourceOutsideArea: +source.outside.toFixed(6), preparedCoverage: +(1 - prepared.uncovered / prepared.area).toFixed(8) };
+        const volume = p => ({ i: p, ring: preparedRing(buildings[p], p), holes: [], h: buildings[p].h, minH: buildings[p].minH });
+        outBuildingAssemblies[i].geometry = bakeAssembly(volume(i), parts.map(volume), residualHeight, source.uncovered <= source.area * 0.0001, !complete);
+    }
+    if (Object.keys(outBuildingAssemblies).length) log('building outline/part assemblies', Object.keys(outBuildingAssemblies).length);
+    // Union physical surfaces independently of OSM containment. An ambiguous
+    // part is retained as its own source solid, but must not draw a duplicate
+    // coplanar face through the building it touches.
+    const physical = buildings.map((b, i) => ({ i, ring: preparedRing(b, i), holes: b.holes, h: b.h, minH: b.minH, part: !!isPart(b), assembly: false }));
+    for (const key of Object.keys(outBuildingCoveredBy)) physical[+key].suppressed = true;
+    for (const [key, spec] of Object.entries(outBuildingAssemblies)) {
+        const base = physical[+key]; base.suppressed = spec.mode === 'parts'; base.assembly = true;
+        for (const i of spec.parts) physical[i].assembly = true;
+        for (const r of spec.geometry.residuals) physical.push({ i: physical.length, ring: r.ring, holes: [], h: r.h, minH: 0, assembly: true });
+    }
+    const active = physical.filter(b => !b.suppressed && !b.holes.length), neighbours = new Map(active.map(b => [b.i, []])), spatial = new Map();
+    for (const b of active) {
+        const bb = bounds(b.ring), seen = new Set();
+        for (let x = Math.floor(bb[0] / 40); x <= Math.floor(bb[2] / 40); x++) for (let z = Math.floor(bb[1] / 40); z <= Math.floor(bb[3] / 40); z++) {
+            const key = x + ',' + z, cell = spatial.get(key) || [];
+            for (const other of cell) if (!seen.has(other.i)) { seen.add(other.i); if (touchingSolids(b, other)) { neighbours.get(b.i).push(other); neighbours.get(other.i).push(b); } }
+            cell.push(b); spatial.set(key, cell);
+        }
+    }
+    const unionBodies = active.filter(b => neighbours.get(b.i).length && (b.part || b.assembly || neighbours.get(b.i).some(p => p.part || p.assembly)));
+    const required = new Set(unionBodies.flatMap(b => [b.i, ...neighbours.get(b.i).map(p => p.i)]));
+    const outBuildingUnions = { sources: active.filter(b => required.has(b.i)).map(b => ({ i: b.i, signature: assemblySignature(b, []) })),
+        surfaces: unionBodies.map(b => ({ i: b.i, neighbours: neighbours.get(b.i).map(p => p.i), surface: bakeSurface(b, [b, ...neighbours.get(b.i)]) })) };
+    if (unionBodies.length) log('physical source-solid unions', unionBodies.length, 'locally validated surfaces');
+    // Reuse identical derived vertices without rounding. Source records and
+    // signatures remain independently readable; only the offline cap meshes
+    // use this lossless indexed representation.
+    const geometryPoints = [], pointIndex = new Map();
+    const packRing = ring => ring.map(p => { const key = p[0] + ',' + p[1]; if (!pointIndex.has(key)) { pointIndex.set(key, geometryPoints.length); geometryPoints.push(p); } return pointIndex.get(key); });
+    const packSurface = s => { s.roof = s.roof.map(packRing); s.underside = s.underside.map(packRing); };
+    for (const spec of Object.values(outBuildingAssemblies)) { spec.geometry.residuals.forEach(r => r.ring = packRing(r.ring)); spec.geometry.surfaces.forEach(packSurface); }
+    outBuildingUnions.surfaces.forEach(s => packSurface(s.surface));
+
     // scenery streets: [carriagewayWidthDm, sidewalkDm, classIdx, flags (1 bridge, 2 inside-the-area fragment), delta…]
     const outScenery = [];
     for (const { r, pts, inside } of scenery) {
@@ -1682,7 +1776,7 @@ function buildCity(cityId, did = null) {
         bounds: [minX, minZ, maxX, maxZ],
         classes: ROAD_CLASSES, styles: STYLES, roofs: ROOFS, poiKinds: POI_KINDS, areaKinds: AREA_KINDS, lineKinds: LINE_KINDS, furnKinds: FURN_KINDS,
         strings,
-        nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, roadInfo, rampLimits, vacant, buildings: outB, buildingInfo: outBInfo, ...(ds ? { buildingIds: buildings.map(b => b.t?.__id || '') } : {}), ...(Object.keys(outBuildingHoles).length ? { buildingHoles: outBuildingHoles } : {}), ...(Object.keys(outBuildingCoveredBy).length ? { buildingCoveredBy: outBuildingCoveredBy } : {}), pois: outP, areas: outA, lines: outLines, places, lamps,
+        nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, roadInfo, rampLimits, vacant, buildings: outB, ...(Object.keys(outBuildingDimensions).length ? { buildingDimensions: outBuildingDimensions } : {}), ...(Object.keys(outBuildingFootprints).length ? { buildingFootprints: outBuildingFootprints } : {}), buildingInfo: outBInfo, ...(ds ? { buildingIds: buildings.map(b => b.t?.__id || '') } : {}), ...(Object.keys(outBuildingHoles).length ? { buildingHoles: outBuildingHoles } : {}), ...(Object.keys(outBuildingCoveredBy).length ? { buildingCoveredBy: outBuildingCoveredBy } : {}), ...(Object.keys(outBuildingAssemblies).length ? { buildingAssemblies: outBuildingAssemblies } : {}), ...(unionBodies.length ? { buildingUnions: outBuildingUnions } : {}), ...(geometryPoints.length ? { buildingGeometryPoints: geometryPoints } : {}), pois: outP, areas: outA, lines: outLines, places, lamps,
         trees: outTrees, treeInfo: outTreeInfo, furniture: outFurn, backdrop, ...(ds ? { scenery: outScenery } : {}), ...(outGreen ? { green: outGreen } : {}),
         ...(parking.length ? { parking } : {}), ...(treeCoverage ? { treeCoverage } : {}),
         corridor: { areaKm2: +cor.areaKm2.toFixed(2), legs: cor.legs.map(l => [l.label, l.km]) },

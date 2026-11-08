@@ -132,12 +132,12 @@ def main():
     source_ids = d.get('buildingIds', [])
     B = []
     for i, b in enumerate(d['buildings']):
-        ring = undelta(b, 9)
+        ring = d.get('buildingFootprints', {}).get(str(i)) or undelta(b, 9)
         if len(ring) < 3:
             continue
         x0 = min(x for x, _ in ring); x1 = max(x for x, _ in ring); z0 = min(z for _, z in ring); z1 = max(z for _, z in ring)
         holes = [undelta(h, 0) for h in d.get('buildingHoles', {}).get(str(i), [])]
-        B.append({'i': i, 'source': source_ids[i] if i < len(source_ids) else None, 'ring': ring, 'holes': holes, 'bb': (x0, z0, x1, z1), 'h': b[1] / 10, 'roof': roofs[b[3]], 'flags': b[5], 'levels': b[6], 'c': centroid(ring), 'area': abs(area(ring))})
+        B.append({'i': i, 'source': source_ids[i] if i < len(source_ids) else None, 'ring': ring, 'holes': holes, 'bb': (x0, z0, x1, z1), 'h': d.get('buildingDimensions', {}).get(str(i), [b[1] / 10])[0], 'roof': roofs[b[3]], 'flags': b[5], 'levels': b[6], 'c': centroid(ring), 'area': abs(area(ring))})
     by_source = {b['source']: b for b in B if b['source']}
     geometry = d.get('district', {}).get('geometry')
     grid = {}

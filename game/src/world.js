@@ -1,6 +1,7 @@
 import * as THREE from '../vendor/three.module.min.js';
 import { makeRng, distPointSeg, pointInPolygon, clamp, makeCanvasTexture, landmarkHelpers } from './util.js';
 import { makeTextures } from './buildings.js';
+import { footprintCells, insetFootprint, assemblySignature, geometryRing, geometrySurface } from './building-parts.js';
 import { makeVehicle, CAR_COLORS, makeParkedCars, vehicleSize } from './vehicles.js';
 import { projector, CHAPTERS } from './cities.js';
 import { STOPS } from './data.js';
@@ -1829,29 +1830,8 @@ export async function buildWorld(city, renderer, opts = {}) {
     /** the outline offset inward by d (mitred), shrinking d until it is a clean polygon: { p, d } or null */
     const insetCache = new WeakMap();
     const insetRing = (r, area) => {
-        if (insetCache.has(r)) return insetCache.get(r);
-        const A0 = signedArea(r), s0 = A0 > 0 ? 1 : -1, n = r.length; let res = null;
-        const segX = (p, q, u, v) => { const d = (q[0] - p[0]) * (v[1] - u[1]) - (q[1] - p[1]) * (v[0] - u[0]); if (Math.abs(d) < 1e-9) return false; const t = ((u[0] - p[0]) * (v[1] - u[1]) - (u[1] - p[1]) * (v[0] - u[0])) / d, w = ((u[0] - p[0]) * (q[1] - p[1]) - (u[1] - p[1]) * (q[0] - p[0])) / d; return t > 1e-3 && t < 1 - 1e-3 && w > 1e-3 && w < 1 - 1e-3; };
-        for (let d = clamp(Math.sqrt(Math.abs(area)) * 0.2, 1.2, 4.5); d >= 0.8 && !res; d *= 0.6) {
-            const p = [];
-            for (let i = 0; i < n; i++) {
-                const a = r[(i - 1 + n) % n], b2 = r[i], c2 = r[(i + 1) % n];
-                const l1 = Math.hypot(b2[0] - a[0], b2[1] - a[1]) || 1, l2 = Math.hypot(c2[0] - b2[0], c2[1] - b2[1]) || 1;
-                const n1 = [-s0 * (b2[1] - a[1]) / l1, s0 * (b2[0] - a[0]) / l1], n2 = [-s0 * (c2[1] - b2[1]) / l2, s0 * (c2[0] - b2[0]) / l2]; // inward normals
-                let mx = n1[0] + n2[0], mz = n1[1] + n2[1]; const ml = Math.hypot(mx, mz); if (ml < 1e-6) { mx = n1[0]; mz = n1[1]; } else { mx /= ml; mz /= ml; }
-                const k = d / Math.max(0.35, mx * n1[0] + mz * n1[1]); p.push([b2[0] + mx * k, b2[1] + mz * k]);
-            }
-            const A1 = signedArea(p); if (Math.sign(A1) !== s0 || Math.abs(A1) < Math.abs(A0) * 0.12) continue;
-            let bad = false; for (let i = 0; i < n && !bad; i++) for (let j = i + 2; j < n && !bad; j++) { if (i === 0 && j === n - 1) continue; if (segX(p[i], p[(i + 1) % n], p[j], p[(j + 1) % n])) bad = true; }
-            if (!bad && p.some(q => !pointInPolygon(q[0], q[1], r))) bad = true;
-            for (let i = 0; i < n && !bad; i++) {
-                const j = (i + 1) % n, a = r[i], b2 = r[j], u = p[i], v = p[j];
-                if ((b2[0] - a[0]) * (v[0] - u[0]) + (b2[1] - a[1]) * (v[1] - u[1]) <= 0) { bad = true; break; }
-                for (const t of [0.25, 0.5, 0.75]) if (!pointInPolygon(u[0] + (v[0] - u[0]) * t, u[1] + (v[1] - u[1]) * t, r) || !pointInPolygon(a[0] + (u[0] - a[0]) * t, a[1] + (u[1] - a[1]) * t, r)) { bad = true; break; }
-            }
-            if (!bad) res = { p, d };
-        }
-        insetCache.set(r, res); return res;
+        if (!insetCache.has(r)) insetCache.set(r, insetFootprint(r, area));
+        return insetCache.get(r);
     };
     const polyDist = (x, z, poly) => { let d = Infinity; for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) d = Math.min(d, distPointSeg(x, z, poly[j][0], poly[j][1], poly[i][0], poly[i][1]).d); return d; };
     // ---- pass 1: every carriageway polygon (mitred at degree-2 nodes, cut back to the pad at junctions) and every
@@ -2723,12 +2703,12 @@ export async function buildWorld(city, renderer, opts = {}) {
     setProgress('Raising the buildings…'); await tick();
     const B_OFF = (data.version || 1) >= 2 ? 9 : 6;
     const bRecs = data.buildings.map((b, i) => {
-        const ring = undelta(b, B_OFF);
+        const ring = data.buildingFootprints?.[i] || undelta(b, B_OFF);
         const holes = (data.buildingHoles?.[i] || []).map(h => undelta(h, 0)).filter(h => h.length >= 3);
         let x0 = Infinity, z0 = Infinity, x1 = -Infinity, z1 = -Infinity;
         for (const [x, z] of ring) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); }
         const c = centroid(ring);
-        return { i, style: data.styles[b[0]], h: b[1] / 10, minH: b[2] / 10, roof: data.roofs[b[3]], name: str(b[4]), flags: b[5], ring, holes, c, x0, z0, x1, z1, area: Math.abs(signedArea(ring)), skip: false,
+        return { i, style: data.styles[b[0]], h: data.buildingDimensions?.[i]?.[0] ?? b[1] / 10, minH: data.buildingDimensions?.[i]?.[1] ?? b[2] / 10, roof: data.roofs[b[3]], name: str(b[4]), flags: b[5], ring, holes, c, x0, z0, x1, z1, area: Math.abs(signedArea(ring)), skip: false,
             levels: B_OFF === 9 ? b[6] : 0, colour: B_OFF === 9 ? str(b[7]) : '', roofColour: B_OFF === 9 ? str(b[8]) : '' };
     });
     // ---- (round 6 notes 10 / 46) Bucharest 'house' buildings: the village-house look (shutters, steep gable) read wrong —
@@ -2800,26 +2780,43 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (heightFixes.length) console.info('[world] height sanity:', heightFixes.length, 'buildings re-estimated', heightFixes.slice(0, 8));
     }
     // definitive check: no footprint may overlap a carriageway / junction pad (shrink toward the centroid, else drop)
-    let bShrunk = 0, bDropped = 0;
-    const laneInPoly = (ring, noService = false) => { // lane samples (as devCheck / traffic see them) inside the footprint (noService: a big named building's own service lanes don't count)
+    let bShrunk = 0, bDropped = 0; const clearanceAudit = [];
+    const laneInPoly = (ring, noService = false, b = null) => { // lane samples (as devCheck / traffic see them) inside the footprint (noService: a big named building's own service lanes don't count)
         let x0 = Infinity, z0 = Infinity, x1 = -Infinity, z1 = -Infinity; for (const [x, z] of ring) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); }
         let hit = false;
         edgesInBox(x0 - 12, z0 - 12, x1 + 12, z1 + 12, (e) => {
-            if (hit || e.virtual || e.tunnel || e.layer < 0 || (noService && e.type === 'service')) return;
+            if (hit || e.virtual || e.tunnel || e.layer < 0 || (noService && e.type === 'service') || (b && (b.minH > Math.max(e.ya, e.yb) + Y.road + 3 || Math.min(e.ya, e.yb) > b.h + 1))) return;
             for (let t = 0.03; t < 0.98 && !hit; t += Math.min(0.05, 1 / e.len)) for (const o of [0, e.wR * 0.45, e.wR * 0.85, -e.wL * 0.45, -e.wL * 0.85]) {
                 const x = e.a.x + (e.b.x - e.a.x) * t + e.nx * o, z = e.a.z + (e.b.z - e.a.z) * t + e.nz * o;
-                if (x >= x0 && x <= x1 && z >= z0 && z <= z1 && pointInPolygon(x, z, ring)) { hit = true; break; }
+                if (x >= x0 && x <= x1 && z >= z0 && z <= z1 && pointInPolygon(x, z, ring) && !b?.holes.some(h => pointInPolygon(x, z, h))) { hit = true; break; }
             }
         });
         return hit;
     };
-    const bBad = (ring, b) => (b && (b.flags & 64)) ? (polyOnRibbon(ring, (rb) => !(rb.e && rb.e.type === 'service') && !(rb.node && (rb.node.allEdges || rb.node.edges).every(q => q.type === 'service'))) || laneInPoly(ring, true)) : (polyOnRibbon(ring) || laneInPoly(ring));
+    const bBad = (ring, b) => {
+        const filter = rb => !(b.minH > rb.y + Y.road + 3 || rb.y > b.h + 1) && (!(b.flags & 64) || (!(rb.e && rb.e.type === 'service') && !(rb.node && (rb.node.allEdges || rb.node.edges).every(q => q.type === 'service'))));
+        let overlap = polyOnRibbon(ring, filter);
+        if (overlap && b.holes.length) {
+            overlap = false;
+            ribGrid.each(b.x0, b.z0, b.x1, b.z1, rb => {
+                if (overlap || !rb.block || !filter(rb)) return;
+                // The solid wing, rather than its enclosing outline, must touch
+                // a road: mapped roads through open courtyards remain open.
+                overlap = footprintCells(rb.poly, [ring, ...b.holes]).some(c => c.covered.includes(0) && c.covered.length === 1 && Math.abs(signedArea(c.ring)) > 0.02);
+            });
+        }
+        return overlap || laneInPoly(ring, !!(b.flags & 64), b);
+    };
     for (const b of bRecs) {
         if (!bBad(b.ring, b)) continue;
-        let ring = b.ring, ok = false;
-        for (let k = 0; k < 6 && !ok; k++) { ring = ring.map(([x, z]) => [b.c[0] + (x - b.c[0]) * 0.88, b.c[1] + (z - b.c[1]) * 0.88]); ok = !bBad(ring, b); }
+        let ring = b.ring, holes = b.holes, ok = false;
+        for (let k = 0; k < 6 && !ok; k++) {
+            const shrink = ([x, z]) => [b.c[0] + (x - b.c[0]) * 0.88, b.c[1] + (z - b.c[1]) * 0.88];
+            ring = ring.map(shrink); holes = holes.map(h => h.map(shrink)); ok = !bBad(ring, { ...b, holes });
+        }
         if (!ok || Math.abs(signedArea(ring)) < 8) { b.skip = true; b.dropped = true; bDropped++; continue; }
-        b.ring = ring; b.area = Math.abs(signedArea(ring)); bShrunk++;
+        clearanceAudit.push({ source: data.buildingIds?.[b.i] || b.i, before: b.area, after: Math.abs(signedArea(ring)) });
+        b.ring = ring; b.holes = holes; b.area = Math.abs(signedArea(ring)); bShrunk++;
         b.x0 = Math.min(...ring.map(p => p[0])); b.x1 = Math.max(...ring.map(p => p[0])); b.z0 = Math.min(...ring.map(p => p[1])); b.z1 = Math.max(...ring.map(p => p[1]));
     }
     // OSM 3-D outlines can have a separately mapped part over their whole footprint.
@@ -2845,7 +2842,53 @@ export async function buildWorld(city, renderer, opts = {}) {
         for (const field of ['year', 'material', 'levels']) if (!part[field]) part[field] = base[field];
         coveredOutlines.push({ outline: data.buildingIds?.[baseIndex] || baseIndex, part: data.buildingIds?.[index] || index, type: part.type, levels: part.levels, name: part.name, sign: !!(part.flags & 2) });
     }
-    const buildingIndex = index => bRecs[index]?.coveredBy ?? index;
+    const assemblyAudit = [], assemblyRejected = [];
+    const claimedParts = new Map();
+    for (const [key, spec] of Object.entries(data.buildingAssemblies || {})) for (const i of spec.parts || []) claimedParts.set(i, (claimedParts.get(i) || 0) + 1);
+    for (const [key, spec] of Object.entries(data.buildingAssemblies || {})) {
+        const base = bRecs[Number(key)], indices = spec.parts || [], parts = indices.map(i => bRecs[i]);
+        const invalid = !base || base.skip ? 'missing-or-inactive-outline' : base.holes.length ? 'unsupported-courtyard-outline' : !parts.length ? 'empty-parts' : new Set(indices).size !== indices.length ? 'duplicate-part' : parts.some((p, n) => !p || p.skip || p === base || claimedParts.get(indices[n]) !== 1) ? 'missing-inactive-or-ambiguous-part' : parts.some(p => p.holes.length) ? 'unsupported-part-courtyard' : null;
+        if (invalid) { assemblyRejected.push({ outline: data.buildingIds?.[Number(key)] || Number(key), reason: invalid }); continue; }
+        const cached = spec.geometry, keepOutline = spec.mode === 'union';
+        if (!cached || cached.signature !== assemblySignature(base, parts) || cached.surfaces?.length !== parts.length + cached.residuals.length + (keepOutline ? 1 : 0)) {
+            assemblyRejected.push({ outline: data.buildingIds?.[base.i] || base.i, reason: 'prepared-geometry-mismatch' }); continue;
+        }
+        const residualH = spec.residualHeightM ?? spec.residualHeightDm / 10;
+        const ground = parts.filter(p => p.minH === 0);
+        const residuals = cached.residuals.map((source, n) => {
+            const ring = geometryRing(source.ring, data.buildingGeometryPoints), x0 = Math.min(...ring.map(p => p[0])), x1 = Math.max(...ring.map(p => p[0])), z0 = Math.min(...ring.map(p => p[1])), z1 = Math.max(...ring.map(p => p[1]));
+            return { ...base, i: bRecs.length + n, ring, holes: [], c: centroid(ring), x0, x1, z0, z1, area: Math.abs(signedArea(ring)), h: source.h, minH: 0, roof: 'flat', levels: 0, flags: base.flags & 32, name: '', derivedFrom: base.i };
+        });
+        base.skip = !keepOutline; base.assemblyParts = indices;
+        const volumes = keepOutline ? [base, ...parts] : [...parts, ...residuals];
+        for (const [ordinal, p] of volumes.entries()) {
+            p.assemblySurface = geometrySurface(cached.surfaces[ordinal], data.buildingGeometryPoints);
+            p.assembly = volumes; p.roof = (p.flags & 16) ? p.roof : 'flat';
+            if (!p.type || p.type === 'yes') { p.type = base.type; if (p.style === 'plain' && p.area > 40 && !/glass/.test(p.material || '')) p.style = base.style; }
+            for (const field of ['year', 'material']) if (!p[field]) p[field] = base[field];
+        }
+        // The source name belongs to the whole assembly, not to each tier.
+        const primary = keepOutline ? base : ground.reduce((a, b) => a.area > b.area ? a : b);
+        if (!primary.name) { primary.name = base.name; primary.flags |= base.flags & (1 | 2 | 8); }
+        base.assemblyPrimary = primary.i;
+        bRecs.push(...residuals);
+        assemblyAudit.push({ mode: spec.mode, outline: data.buildingIds?.[base.i] || base.i, parts: indices.map(i => data.buildingIds?.[i] || i), residualArea: residuals.reduce((sum, p) => sum + p.area, 0), residualHeight: residualH, residualHeightSource: spec.residualHeightSource, residualHeights: [...new Set(residuals.map(p => p.h))].sort((a, b) => a - b), cells: residuals.length });
+    }
+    const physicalUnionAudit = [], physicalUnionRejected = [];
+    const unionSources = new Map((data.buildingUnions?.sources || []).map(s => { const b = bRecs[s.i]; return [s.i, !!b && !b.skip && !b.holes.length && s.signature === assemblySignature(b, [])]; }));
+    for (const spec of data.buildingUnions?.surfaces || []) {
+        const indices = [spec.i, ...spec.neighbours], b = bRecs[spec.i];
+        if (!indices.every(i => unionSources.get(i)) || spec.surface?.walls.length !== b?.ring.length) {
+            physicalUnionRejected.push({ source: data.buildingIds?.[b?.derivedFrom ?? spec.i] || spec.i, reason: 'prepared-geometry-mismatch' }); continue;
+        }
+        b.assembly ||= indices.map(i => bRecs[i]); b.assemblySurface = geometrySurface(spec.surface, data.buildingGeometryPoints);
+        physicalUnionAudit.push({ source: data.buildingIds?.[b.derivedFrom ?? b.i] || b.i, neighbours: spec.neighbours.length });
+    }
+    const buildingIndex = (index, x, z) => {
+        const b = bRecs[index];
+        if (b?.assemblyParts) return b.assemblyParts.find(i => { const p = bRecs[i]; return p.minH === 0 && pointInPolygon(x ?? b.c[0], z ?? b.c[1], p.ring); }) ?? b.assemblyPrimary;
+        return b?.coveredBy ?? index;
+    };
     const bGrid = new BoxGrid(32);
     for (const b of bRecs) bGrid.insert(b.x0, b.z0, b.x1, b.z1, b);
     const buildingAt = (x, z) => { let r = null; bGrid.each(x, z, x, z, (b) => { if (!r && !b.skip && x >= b.x0 && x <= b.x1 && z >= b.z0 && z <= b.z1 && pointInPolygon(x, z, b.ring) && !b.holes.some(h => pointInPolygon(x, z, h))) r = b; }); return r; };
@@ -3281,7 +3324,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         const c = cellOf(b.c[0], b.c[1]);
         const mb = c.solid;
         const brng = makeRng(b.i * 7919 + 13);
-        const AR = !b.holes.length && b.arch && ARCH ? ARCH.emit(b, c, makeRng(b.i * 7919 + 17)) : null; // archetype roofs do not yet support courtyards
+        const AR = !b.assembly && !b.holes.length && b.arch && ARCH ? ARCH.emit(b, c, makeRng(b.i * 7919 + 17)) : null; // archetype roofs do not yet support courtyards
         // (2026-11-08) Bucharest villas keep the interwar facade tiles but the villa quarter's warmer plasters (cream, ochre,
         // pale yellow, salmon, off-white, sage — Floreasca / Dorobanți), not the interwar blocks' greys
         const pal = (b.villa && VILLA_PAL) || palette[b.style] || palette.plain;
@@ -3311,7 +3354,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         const bayW = (b.style === 'glass' ? 2.4 : b.style === 'house' ? 3.6 : 3.3) * (0.88 + brng() * 0.24);
         const ring = b.ring;
         const ccw = signedArea(ring) > 0; // counter-clockwise (x right, z up) → outward normal = (dz, -dx)
-        const h = b.h, y0 = Math.max(0, b.minH) + 0.18;
+        const h = b.h, y0 = b.minH > 0 ? b.minH : 0.18;
         // (after round 6) whole storeys: the wall holds an integer number of window rows, so the top row is never sliced
         // by the eaves / roof line (it was wherever the height wasn't a multiple of the storey height)
         if (b.style !== 'church' && h - y0 > 2) { const n = Math.max(1, Math.round((h - y0) / floorH)); floorH = (h - y0) / n; }
@@ -3327,6 +3370,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (!AR) for (let k = 0; k < ring.length; k++) { // (archetype buildings: walls from archetypes.js)
             const [ax, az] = ring[k], [bx, bz] = ring[(k + 1) % ring.length];
             const L = Math.hypot(bx - ax, bz - az); if (L < 0.05) continue;
+            if (wallTop <= y0) continue;
             // outward normal: for signedArea<0 (counter-clockwise on screen with z down) the right-hand normal points out
             let nx = (bz - az) / L, nz = -(bx - ax) / L;
             if (!ccw) { nx = -nx; nz = -nz; }
@@ -3334,6 +3378,14 @@ export async function buildWorld(city, renderer, opts = {}) {
             // (after round 6) whole window bays per wall, restarting at every corner: windows were sliced at the corners of
             // narrow houses (the bays ran on round the perimeter); a wall too short for a bay shows plain wall
             const nbay = Math.round(L / bayW), u0 = k * 5, u1 = nbay > 0 ? u0 + nbay / gc : u0 + 0.02 / gc;
+            if (b.assembly) {
+                for (const face of b.assemblySurface.walls[k]) {
+                    const lerp = t => [ax + (bx - ax) * t, az + (bz - az) * t];
+                    const a = lerp(face.t0), p = lerp(face.t1);
+                    mb.wall(a[0], a[1], p[0], p[1], face.y0, face.y1, nx, nz, wallCol, u0 + (u1 - u0) * face.t0, u0 + (u1 - u0) * face.t1, (face.y0 - y0) / (floorH * gr), (face.y1 - y0) / (floorH * gr), tile);
+                }
+                continue;
+            }
             if (shop && !(b.shopFaces && !b.shopFaces[k])) { // (researched shopfronts: street faces only)
                 // (district worlds: the shopfront's frame / piers take a light tint of the building's plaster, so a unit in
                 //  an old house reads as windows in a rendered wall, not an aluminium curtain)
@@ -3362,7 +3414,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             wallTris += shop ? 4 : 2;
             perim += L;
         }
-        if (!AR) addDetail(b, h > 40 ? mb : c.detail, brng, wallCol, h, y0, shop, yShop, floorH, ccw); // (cornices / balconies / mullions: near LOD only, except towers' silhouettes)
+        if (!AR && !b.assembly) addDetail(b, h > 40 ? mb : c.detail, brng, wallCol, h, y0, shop, yShop, floorH, ccw); // (cornices / balconies / mullions: near LOD only, except towers' silhouettes)
         for (const hole of b.holes) {
             const ccwHole = signedArea(hole) > 0;
             for (let i = 0; i < hole.length; i++) {
@@ -3397,12 +3449,21 @@ export async function buildWorld(city, renderer, opts = {}) {
         const flatRoofCol = b.roofColour ? rgb(b.roofColour) : rgb(roofCols.flat[Math.floor(brng() * roofCols.flat.length)]);
         const pitchCol = b.roofColour ? rgb(b.roofColour) : rgb(roofCols.pitched[Math.floor(brng() * roofCols.pitched.length)]);
         const quad4 = ring.length === 4 || (ring.length === 5 && Math.hypot(ring[0][0] - ring[4][0], ring[0][1] - ring[4][1]) < 0.3);
-        if (b.holes.length) {
+        if (b.assembly) for (const underside of b.assemblySurface.underside) {
+            const { pts, tris } = triangulate(underside);
+            for (const tri of tris) mb.face3(...tri.map(i => [pts[i][0], b.minH, pts[i][1]]), shadeRgb(wallCol, 0.75), [0, -1, 0]);
+        }
+        if (b.assembly && b.roof === 'flat') {
+            for (const roof of b.assemblySurface.roof) {
+                const { pts, tris } = triangulate(roof);
+                if (tris.length) rmb.flatPoly(pts, tris, h, flatRoofCol, 0.1, -1);
+            }
+        } else if (b.holes.length) {
             // Preserve the source courtyard before applying any generic roof style:
             // neither a centroid fan nor rooftop clutter may bridge its opening.
             const { pts, tris } = triangulate(ring, b.holes);
             if (tris.length) rmb.flatPoly(pts, tris, h, b.roofColour ? rgb(b.roofColour) : flatRoofCol, 0.1, -1);
-        } else if (AR && !AR.roof) { /* (archetypes.js: flat roof, parapet, plant) */ } else if ((b.roof === 'hipped' || b.roof === 'skillion') && quad4) {
+        } else if (AR && !AR.roof) { /* (archetypes.js: flat roof, parapet, plant) */ } else if ((b.roof === 'hipped' || b.roof === 'skillion') && quad4 && convexRing(ring)) {
             let [p0, p1, p2, p3] = ring;
             if (Math.hypot(p1[0] - p0[0], p1[1] - p0[1]) < Math.hypot(p2[0] - p1[0], p2[1] - p1[1])) [p0, p1, p2, p3] = [p1, p2, p3, p0];
             const P = (p, y = h) => [p[0], y, p[1]];
@@ -3446,7 +3507,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const pa = [a[0], h, a[1]], pb = [bb[0], h, bb[1]];
                 rmb.face3(pa, pb, apex, pitchCol, [(a[0] + bb[0]) / 2 - b.c[0], 0.5, (a[1] + bb[1]) / 2 - b.c[1]]);
             }
-        } else if ((pitched || b.roof === 'hipped') && ring.length <= 24 && insetRing(ring, b.area)) {
+        } else if ((pitched || b.roof === 'hipped') && insetRing(ring, b.area)) {
             // (2026-11-08, owner: "multiple roofs seem incomplete") an L / T / U footprint: the centroid fan crossed itself
             // (holes, backwards faces). A hip roof that rises from the eaves to an inset copy of the outline, flat between.
             const inner = insetRing(ring, b.area), d = inner.d, rise = d * 0.62;
@@ -3457,6 +3518,20 @@ export async function buildWorld(city, renderer, opts = {}) {
             }
             const { pts, tris } = triangulate(inner.p);
             if (tris.length) rmb.flatPoly(pts, tris, h + rise, shadeRgb(pitchCol, 0.9), 0.1, -1);
+        } else if ((pitched || b.roof === 'hipped') && !insetRing(ring, b.area)) {
+            // A very short/re-entrant source edge can prevent a valid mitred
+            // inset. Subdivide the footprint triangulation and lift its interior
+            // by distance to the true eaves; all shared edges stay watertight.
+            const { pts, tris } = triangulate(ring);
+            const P = p => [p[0], h + Math.min(6, polyDist(p[0], p[1], ring) * 0.62), p[1]];
+            for (const tri of tris) {
+                const points = tri.map(i => pts[i]), centre = [points.reduce((s, p) => s + p[0], 0) / 3, points.reduce((s, p) => s + p[1], 0) / 3];
+                for (let j = 0; j < 3; j++) {
+                    const a = points[j], z = points[(j + 1) % 3], mid = [(a[0] + z[0]) / 2, (a[1] + z[1]) / 2];
+                    rmb.face3(P(a), P(mid), P(centre), pitchCol, [0, 1, 0]);
+                    rmb.face3(P(mid), P(z), P(centre), pitchCol, [0, 1, 0]);
+                }
+            }
         } else {
             const mansard = ((b.roof === 'mansard' && b.area < 6000) || (b.roof === 'flat' && !(b.flags & 16) && b.style === 'eclectic' && b.area > 120 && b.area < 2500 && h > 10)) && insetRing(ring, b.area);
             if (mansard) { // slate mansard roof: sloped ring up to an inset flat top
@@ -3476,7 +3551,8 @@ export async function buildWorld(city, renderer, opts = {}) {
             // parapet line + rooftop clutter on large flat roofs
             if (b.area > 250 && h > 9 && b.style !== 'house') {
                 const s = Math.sqrt(b.area) * 0.18;
-                mb.box(b.c[0] + (brng() - 0.5) * s, h, b.c[1] + (brng() - 0.5) * s, clamp(s, 2, 7), 2.2, clamp(s * 0.8, 2, 6), brng() * 3, shadeRgb(flatRoofCol, 1.15));
+                const x = b.c[0] + (brng() - 0.5) * s, z = b.c[1] + (brng() - 0.5) * s, w = clamp(s, 2, 7), d = clamp(s * 0.8, 2, 6), angle = brng() * 3;
+                if (pointInPolygon(x, z, ring) && polyDist(x, z, ring) > Math.hypot(w, d) / 2) mb.box(x, h, z, w, 2.2, d, angle, shadeRgb(flatRoofCol, 1.15));
             }
             if (b.roof === 'dome') { const r = clamp(Math.sqrt(b.area) * 0.28, 3, 14); rmb.geo(props().sphere, b.c[0], h, b.c[1], 0, r, r * 0.9, r, rgb(b.style === 'church' ? '#7a8a8f' : '#8c9aa3')); }
         }
@@ -3485,9 +3561,9 @@ export async function buildWorld(city, renderer, opts = {}) {
             mb.box(b.c[0], h, b.c[1], r * 2, r * 2.4, r * 2, 0, wallCol, tile);
             mb.geo(props().sphere, b.c[0], h + r * 2.4, b.c[1], 0, r * 1.05, r * 1.4, r * 1.05, rgb('#6f8f86'));
         }
-        if (h >= 5 && b.style !== 'church' && !AR && !(b.flags & 32)) addNearDetail(b, c.detail, brng, wallCol, h, y0, shop, yShop, floorH, bayW, ccw, flatRoofCol); // (flags 32: the scenery ring outside the playable area — no street-level clutter)
+        if (!b.assembly && h >= 5 && b.style !== 'church' && !AR && !(b.flags & 32)) addNearDetail(b, c.detail, brng, wallCol, h, y0, shop, yShop, floorH, bayW, ccw, flatRoofCol); // (flags 32: the scenery ring outside the playable area — no street-level clutter)
         // collision
-        collision.push({ x: b.c[0], z: b.c[1], r: Math.max(...ring.map(([x, z]) => Math.hypot(x - b.c[0], z - b.c[1]))), poly: ring, holes: b.holes, sourceId: data.buildingIds?.[b.i], angle: 0, hw: (b.x1 - b.x0) / 2, hd: (b.z1 - b.z0) / 2, h, poi: b.cv || undefined });
+        collision.push({ x: b.c[0], z: b.c[1], r: Math.max(...ring.map(([x, z]) => Math.hypot(x - b.c[0], z - b.c[1]))), poly: ring, holes: b.holes, sourceId: data.buildingIds?.[b.derivedFrom ?? b.i], derived: b.derivedFrom !== undefined, minH: b.minH, angle: 0, hw: (b.x1 - b.x0) / 2, hd: (b.z1 - b.z0) / 2, h, poi: b.cv || undefined });
         // facade sign
         if ((b.flags & 2) && b.name && (b.cvSign || b.area < 20000) && !AR?.signed) addFacadeSign(b, h, shop, wallCol);
     }
@@ -3608,7 +3684,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (!pointInPolygon(x, z, ring)) continue;
                 // Keep the entire largest plant box on a courtyard building's roof wings.
                 // A centre-only test leaves HVAC floating over an inner opening.
-                if (b.holes.length && (polyDist(x, z, ring) < 2.1 || b.holes.some(hole => pointInPolygon(x, z, hole) || polyDist(x, z, hole) < 2.1))) continue;
+                if (polyDist(x, z, ring) < 2.1 || b.holes.some(hole => pointInPolygon(x, z, hole) || polyDist(x, z, hole) < 2.1)) continue;
                 const r = brng();
                 if (r < 0.45) db.box(x, yTop, z, 1.8, 1.2, 1.2, brng() * 3, rgb('#a9adb1'));                      // HVAC
                 else if (r < 0.6 && !US && st === 'bloc') db.box(x, yTop, z, 2.2, 2.6, 2.2, 0, rgb('#8d8f8c'));   // water tank / machine room
@@ -3864,7 +3940,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const fuelLog = []; // fuel forecourts: where the canopy went (or why not) — world.stats.fuel
     for (const r of data.pois) {
         const kind = data.poiKinds[r[0]];
-        const x = r[1] / 10, z = r[2] / 10, name = str(r[3]), brand = str(r[4]), sub = str(r[5]), bIdx = buildingIndex(r[6]);
+        const x = r[1] / 10, z = r[2] / 10, name = str(r[3]), brand = str(r[4]), sub = str(r[5]), bIdx = buildingIndex(r[6], x, z);
         const ks = KIND_STYLE[kind] || KIND_STYLE.landmark;
         const label = name || brand || (kind === 'busstop' ? (sub.startsWith('tram') ? (US ? 'Streetcar stop' : 'Stație tramvai') : (US ? 'Bus stop' : 'Stație autobuz')) : kind === 'metro' ? (US ? 'Link station' : 'Metrou') : kind);
         const poi = { id: 'osm' + pois.length, kind, sub, label, brand, x, z, doorX: x, doorZ: z, color: ks.color, icon: sub.startsWith('cafe') ? '☕' : ks.icon, visited: false, h: 4, w: 4, d: 4, interactive: false, building: bIdx };
@@ -4006,7 +4082,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     }
     // vacant shop units (data.vacant, world-data Request): a plain 'DE ÎNCHIRIAT' / 'FOR LEASE' board over the unit
     { const V = data.vacant || []; let vac = 0;
-      for (let i = 0; i + 2 < V.length; i += 3) { const bi = buildingIndex(V[i + 2]); if (bi >= 0 && bRecs[bi]) { addUnitSign(bRecs[bi], V[i] / 10, V[i + 1] / 10, US ? 'FOR LEASE' : 'DE ÎNCHIRIAT', 'vacant'); vac++; } }
+      for (let i = 0; i + 2 < V.length; i += 3) { const bi = buildingIndex(V[i + 2], V[i] / 10, V[i + 1] / 10); if (bi >= 0 && bRecs[bi]) { addUnitSign(bRecs[bi], V[i] / 10, V[i + 1] / 10, US ? 'FOR LEASE' : 'DE ÎNCHIRIAT', 'vacant'); vac++; } }
       vacantUnits = vac; }
     /** a double/single sided sign quad at (x,z) rotated `ang` (local +z = facing), centre height y */
     function addSignQuad(c, x, z, ang, sd, w, h, y, s, thick = 0.1) {
@@ -5146,7 +5222,7 @@ export async function buildWorld(city, renderer, opts = {}) {
 
     setProgress(''); const phases = PHASES.splice(0);
     const stats = { phases, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, fuel: fuelLog,
-        profile: profileStats, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
+        profile: profileStats, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
     console.info('[world]', city.id, stats);
 
     /** calls cb(height) for every drivable surface (carriageway + shoulder + sidewalk, junction pads) covering (x, z) */
@@ -5401,6 +5477,7 @@ function collideOne(b, x, z, radius, y) {
         if (r.d > 1e-4) { nx = (x - r.cx) / r.d; nz = (z - r.cz) / r.d; } else { nx = b.nx; nz = b.nz; }
         return { nx, nz, pen: radius - r.d };
     }
+    if (b.minH > (y ?? 0.24) + 2) return null; // mapped passage: body fits below the source underside
     if (b.yMax !== undefined && (y ?? 0.24) > b.yMax) return null; // e.g. bridge piers: only for traffic below the deck
     if (b.prop && b.hw === b.r) { // small circle (tree trunk, post…)
         const dx = x - b.x, dz = z - b.z, d = Math.hypot(dx, dz);

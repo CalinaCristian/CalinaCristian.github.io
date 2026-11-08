@@ -1,0 +1,377 @@
+{
+  "schemaVersion": 1,
+  "district": "bucharest-otopeni",
+  "reviewedAt": "2026-11-08",
+  "sourceHierarchy": "positive literal OSM width/lane tags win; independent aerial carriageway calipers are reviewed estimates; source node XY is never changed",
+  "method": "Human review of original Esri World Imagery pixels at zoom19, normal calipers across the travel surface. Higher-resolution checks supplement the full district zoom18 mosaic. Values are manually bounded estimates, not automatic collision clearance. RGB imagery remains private and is not committed. Unknown acquisition date and canopy/shadow uncertainty are explicit. Signed left/right extents refer to original OSM node order, before any oneway=-1 reversal. No Google imagery is used as input.",
+  "scope": "four source ways implicated by native59 building-over-road findings; not a blanket district road-width survey",
+  "nativeBaseline": "59f953ff63eff92cd00da3f36dc093d8bff317d9",
+  "nativeFindingsPreserved": {
+    "w1097438891": [
+      128
+    ],
+    "w1119708243": [
+      129,
+      130
+    ],
+    "w27245927": [
+      131
+    ],
+    "w1244012654": [
+      132
+    ]
+  },
+  "rows": [
+    {
+      "sourceRoadId": "w1097438891",
+      "decision": "apply independently measured carriageway width",
+      "rawTags": {
+        "access": "private",
+        "highway": "service",
+        "service": "driveway"
+      },
+      "sourceNodeOrder": [
+        "10048596703",
+        "10048596704",
+        "10048596705",
+        "10048596706",
+        "10048596707",
+        "10048596708"
+      ],
+      "measurement": {
+        "metresPerPixel": 0.21275700534481262,
+        "calipers": [
+          {
+            "a": [
+              374.936,
+              292
+            ],
+            "b": [
+              378.618,
+              307
+            ]
+          },
+          {
+            "a": [
+              430.585,
+              286
+            ],
+            "b": [
+              430.232,
+              300
+            ]
+          },
+          {
+            "a": [
+              480.616,
+              286
+            ],
+            "b": [
+              480.264,
+              300
+            ]
+          }
+        ],
+        "mosaicSha256": "db1af0aae06597fa14f1ed50b2da88723eff56005966d9e6074176e62f9993c9",
+        "mosaic": {
+          "z": 19,
+          "px0": 76827904,
+          "py0": 48514048,
+          "w": 1024,
+          "h": 768
+        },
+        "scope": "travel carriageway excluding parking and sidewalks",
+        "acquisitionDate": "unknown",
+        "accessedAt": "2026-11-08"
+      },
+      "caliperObservations": [
+        {
+          "at": [
+            380,
+            312.627
+          ],
+          "widthM": 3.2861,
+          "leftM": -1.2327,
+          "rightM": 4.5188,
+          "centreLineInsideTravelSurface": false
+        },
+        {
+          "at": [
+            430,
+            309.198
+          ],
+          "widthM": 2.9795,
+          "leftM": -1.9575,
+          "rightM": 4.9371,
+          "centreLineInsideTravelSurface": false
+        },
+        {
+          "at": [
+            480,
+            310.458
+          ],
+          "widthM": 2.9795,
+          "leftM": -2.2257,
+          "rightM": 5.2052,
+          "centreLineInsideTravelSurface": false
+        }
+      ],
+      "applied": {
+        "widthM": 2.98,
+        "uncertaintyM": 0.85,
+        "physicalSingleLane": true
+      },
+      "note": "Narrow private gravel drive, one physical vehicle track. Excludes the broad pale northern parking/forecourt apron and vegetated shoulders. The mapped centre line sits approximately 1–2 m south of the identifiable travel strip at central calipers. Width is measured independently; source XY stays exact. A nonnegative constant left/right pair cannot faithfully fit that offset, so no asymmetric extents are applied."
+    },
+    {
+      "sourceRoadId": "w27245927",
+      "decision": "apply independently measured carriageway width",
+      "rawTags": {
+        "hgv": "no",
+        "highway": "residential",
+        "lanes": "2",
+        "maxspeed": "RO:urban",
+        "maxweight": "3.5",
+        "name": "Strada Mărășești",
+        "smoothness": "excellent",
+        "source:maxweight": "sign",
+        "surface": "asphalt",
+        "surface_survey": "2019OCT_IonutPaduretu"
+      },
+      "sourceNodeOrder": [
+        "299021718",
+        "6266997497",
+        "8849748080",
+        "299022367",
+        "8849748079",
+        "4148848922",
+        "6279730264",
+        "299021720"
+      ],
+      "measurement": {
+        "metresPerPixel": 0.21276029596824333,
+        "calipers": [
+          {
+            "a": [
+              300.297,
+              271
+            ],
+            "b": [
+              299.579,
+              299
+            ]
+          },
+          {
+            "a": [
+              600.366,
+              276
+            ],
+            "b": [
+              599.648,
+              304
+            ]
+          },
+          {
+            "a": [
+              1340.336,
+              296
+            ],
+            "b": [
+              1339.599,
+              325
+            ]
+          },
+          {
+            "a": [
+              2320.409,
+              318
+            ],
+            "b": [
+              2319.723,
+              345
+            ]
+          }
+        ],
+        "mosaicSha256": "55de1e59190f8a2fb6bfe40044708c95dcac4ad309d04ffe3d22b8785b7e3e8a",
+        "mosaic": {
+          "z": 19,
+          "px0": 76828160,
+          "py0": 48514560,
+          "w": 2816,
+          "h": 768
+        },
+        "scope": "travel carriageway excluding parking and sidewalks",
+        "acquisitionDate": "unknown",
+        "accessedAt": "2026-11-08"
+      },
+      "caliperObservations": [
+        {
+          "at": [
+            300,
+            282.59
+          ],
+          "widthM": 5.9592,
+          "leftM": 3.4925,
+          "rightM": 2.4668,
+          "centreLineInsideTravelSurface": true
+        },
+        {
+          "at": [
+            600,
+            290.28
+          ],
+          "widthM": 5.9592,
+          "leftM": 2.9199,
+          "rightM": 3.0393,
+          "centreLineInsideTravelSurface": true
+        },
+        {
+          "at": [
+            1340,
+            309.214
+          ],
+          "widthM": 6.172,
+          "leftM": 3.3598,
+          "rightM": 2.8123,
+          "centreLineInsideTravelSurface": true
+        },
+        {
+          "at": [
+            2320,
+            334.111
+          ],
+          "widthM": 5.7464,
+          "leftM": 2.3176,
+          "rightM": 3.4288,
+          "centreLineInsideTravelSurface": true
+        }
+      ],
+      "applied": {
+        "widthM": 5.96,
+        "uncertaintyM": 1.1
+      },
+      "note": "Strada Mărășești retains its explicit two lanes. Measures the two live travel lanes between visible kerb parking bands; excludes parked-car bands, sidewalks and property forecourts. The full approximately 530 m source way was inspected; local centre-line offset and roadside parking vary, so constant asymmetric extents are not asserted."
+    },
+    {
+      "sourceRoadId": "w1244012654",
+      "decision": "apply independently measured carriageway width",
+      "rawTags": {
+        "highway": "service",
+        "service": "driveway",
+        "surface": "asphalt"
+      },
+      "sourceNodeOrder": [
+        "11563735205",
+        "10241105574",
+        "10241105571",
+        "11563735206"
+      ],
+      "measurement": {
+        "metresPerPixel": 0.21273799182602654,
+        "calipers": [
+          {
+            "a": [
+              200.333,
+              399
+            ],
+            "b": [
+              199.503,
+              426
+            ]
+          },
+          {
+            "a": [
+              350.45,
+              400
+            ],
+            "b": [
+              349.611,
+              427
+            ]
+          },
+          {
+            "a": [
+              480.451,
+              404
+            ],
+            "b": [
+              479.674,
+              429
+            ]
+          }
+        ],
+        "mosaicSha256": "4f5a3d1a5981fcdbb17d9a84dd9a3977ec528ba192f8ba534f6208ee9514101a",
+        "mosaic": {
+          "z": 19,
+          "px0": 76827392,
+          "py0": 48511232,
+          "w": 1024,
+          "h": 768
+        },
+        "scope": "travel carriageway excluding parking and sidewalks",
+        "acquisitionDate": "unknown",
+        "accessedAt": "2026-11-08"
+      },
+      "caliperObservations": [
+        {
+          "at": [
+            200,
+            409.833
+          ],
+          "widthM": 5.7466,
+          "leftM": 2.3056,
+          "rightM": 3.441,
+          "centreLineInsideTravelSurface": true
+        },
+        {
+          "at": [
+            350,
+            414.474
+          ],
+          "widthM": 5.7467,
+          "leftM": 3.0806,
+          "rightM": 2.6661,
+          "centreLineInsideTravelSurface": true
+        },
+        {
+          "at": [
+            480,
+            418.513
+          ],
+          "widthM": 5.321,
+          "leftM": 3.089,
+          "rightM": 2.232,
+          "centreLineInsideTravelSurface": true
+        }
+      ],
+      "applied": {
+        "widthM": 5.75,
+        "uncertaintyM": 0.8,
+        "leftM": 3.08,
+        "rightM": 2.67
+      },
+      "note": "Asphalt housing access drive. Excludes the perpendicular white-lined parking bays and private entrance aprons on both sides. The original source way runs eastward: its measured left side is north and right side south. Side extents are medians of independent local normal calipers, with the stated uncertainty; no source node is moved."
+    },
+    {
+      "sourceRoadId": "w1119708243",
+      "decision": "no width override: insufficient visible carriageway",
+      "rawTags": {
+        "highway": "service",
+        "service": "driveway"
+      },
+      "sourceNodeOrder": [
+        "10241105565",
+        "10241105564",
+        "10241105563",
+        "10241105562"
+      ],
+      "evidence": [
+        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+      ],
+      "acquisitionDate": "unknown",
+      "accessedAt": "2026-11-08",
+      "note": "The north–south source way beside the house w312546938 is largely under dense tree cover. A light narrow strip beside the western wall cannot be confidently separated into pedestrian path, vehicle track or roof parallax. The western coach/parking forecourt and eastern house access are separate surfaces; their widths must not be assigned to this way. No width, lane-count or centre-line change is justified from this imagery. Native building-road findings #129/#130 remain a source/visibility gap until better independent evidence exists."
+    }
+  ],
+  "acceptance": "measurements prepared for final source rebuild; no assertion that all source conflicts or native findings have cleared"
+}

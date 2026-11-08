@@ -1,7 +1,7 @@
 {
   "district": "bucharest-otopeni",
   "reviewedAt": "2026-11-08",
-  "dataSha256": "94ce69292e2fc559d43daebefa06199c0f838ef3b5c47c074d2ef4db20fb10bc",
+  "dataSha256": "e6b36d6c87b94f7887cddb240de0dc40ea662913c60290c09be45953ccd4ff91",
   "sourcePolicy": "OSM source geometry, precise output parkingFootprints; no aesthetic shrink or centre movement.",
   "scope": "Every valid positive-area closed source parking way and source multipolygon outer whose whole footprint intersects the playable analytic core or600m ring. Underground parking is not painted as a ground lot. Multi-storey bodies are checked through exact building IDs.",
   "counts": {

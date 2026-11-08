@@ -39721,6 +39721,7 @@
 "kind": "relation",
 "zone": "inside",
 "type": "transportation",
+"isPart": false,
 "name": "Aeroportul Interna\u021bional Henri Coand\u0103",
 "areaOSM": 41654,
 "lat": 44.570644,

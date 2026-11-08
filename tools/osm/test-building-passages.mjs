@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import { pointInPolygon } from './geom.mjs';
 import assert from 'node:assert/strict';
 import { passageSolids, clipPassageWall, passageInterior } from '../../game/src/building-passages.js';
 import { collideBuildings } from '../../game/src/world.js';
@@ -50,4 +52,31 @@ assert(collideBuildings([qb],2,0,.3,4),'review preserves source body above its e
 assert.equal(collideBuildings([qb],2,0,.3,11),null,'space above source total height remains clear');checks++;
 const bad=sourcePassages(qBuildings,qWays,qNodes,(lat,lon)=>[lon,lat],[],[{...review,sharedWallNodeIds:[11,777]}]);
 assert.equal(Object.keys(bad.records).length,0);assert.equal(bad.issues[0].reason,'invalid-reviewed-source-opening');checks+=2;
-console.log(JSON.stringify({passed:true,checks,ceilingAreaM2:80,interiorWallMetres:40},null,2));
+// Real source walls are oblique and stepped. Their way endpoints are on the walls,
+// unlike a synthetic rectangle with a road already extending5m beyond each mouth.
+const fixture=JSON.parse(fs.readFileSync(new URL('./fixtures/pipera-passages.json',import.meta.url)));
+const immutableSource=JSON.stringify({nodes:fixture.nodes,bodies:fixture.bodies,ways:fixture.ways});
+const actual=sourcePassages(fixture.bodies,new Map(fixture.ways),new Map(fixture.nodes),(z,x)=>[x,z],fixture.roads,fixture.reviews);
+assert.deepEqual(actual.issues,[]);checks++;
+let actualSourcePositions=0,sourcePosts=0,sourceUpper=0;
+for(const [i,openings]of Object.entries(actual.records)){
+    const s=fixture.bodies[i],ps=openings.map(p=>({...p,ceilingM:.24+p.clearanceM}));
+    const c={...s,x:0,z:0,r:1e7,poly:s.ring,passageSolids:passageSolids(s.ring,s.holes,s.minH,s.h,ps)};
+    const solid=p=>pointInPolygon(...p,s.ring)&&!s.holes.some(h=>pointInPolygon(...p,h));
+    for(const p of ps){
+        const[a,b]=p.sourceCentreline,dx=b[0]-a[0],dz=b[1]-a[1],len=Math.hypot(dx,dz),nx=-dz/len,nz=dx/len;
+        for(let t=-.8/len;t<1+.8/len;t+=.1/len){const q=[a[0]+dx*t,a[1]+dz*t];assert.equal(collideBuildings([c],...q,.8,.24),null,'finite vehicle clears real source mouth '+s.t.__id);actualSourcePositions++;checks++;}
+        for(const t of[.25,.5,.75]){
+            const q=[a[0]+dx*t,a[1]+dz*t];
+            if(solid(q)&&s.h>p.ceilingM+.3){assert(collideBuildings([c],...q,.15,p.ceilingM+.05,.2),'actual source upper body stays solid '+s.t.__id);sourceUpper++;checks++;}
+            for(const sign of[-1,1]){const post=[q[0]+nx*(p.widthM/2+.1)*sign,q[1]+nz*(p.widthM/2+.1)*sign];if(solid(post)&&!ps.some(p=>pointInPolygon(...post,p.ring))){assert(collideBuildings([c],...post,.2,.24),'actual source side post remains solid '+s.t.__id);sourcePosts++;checks++;}}
+        }
+        assert.equal(collideBuildings([c],a[0],a[1],.2,s.h+.1),null,'above the source total is clear');checks++;
+    }
+}
+assert(actualSourcePositions>2000&&sourceUpper>10&&sourcePosts>10,'actual source fixtures exercise finite bodies, posts and upper floors');checks++;
+assert.equal(JSON.stringify({nodes:fixture.nodes,bodies:fixture.bodies,ways:fixture.ways}),immutableSource,'no source coordinates, source dimensions or tags changed');checks++;
+const nearby={ring:[[25.5,-1],[30,-1],[30,1],[25.5,1]],holes:[],minH:0,h:10,t:{__id:'w1000'}};
+const near=sourcePassages([{ring,holes,minH:0,h:10,t:{__id:'w99'}},nearby],ways,nodes,(lat,lon)=>[lon,lat],[]);
+assert.equal(near.records[1],undefined,'a round mouth touching nearby frontage never invents a passage through that neighbour');checks++;
+console.log(JSON.stringify({passed:true,checks,actualSourcePositions,sourcePosts,sourceUpper,ceilingAreaM2:80,interiorWallMetres:40},null,2));

@@ -15,6 +15,8 @@ assert.equal(parkingBearingYaw(90),Math.PI/2);
 const car=[[-1,-2.5],[1,-2.5],[1,2.5],[-1,2.5]],thinBuilding={outer:[[-3,-.1],[3,-.1],[3,.1],[-3,.1]]};
 assert.ok(parkingBodyOverlap(car,thinBuilding),'thin body crossing whole car is rejected even if no car corner lies inside');
 assert.equal(parkingBodyOverlap(car,{...thinBuilding,minHeightM:3}),false,'mapped clear underside is not a ground obstruction');
+assert.ok(parkingBodyOverlap(car,{outer:[[-.13,-.13],[.13,-.13],[.13,.13],[-.13,.13]],maxHeightM:3}), 'a narrow support beneath a clear roof still rejects the whole parked car');
+assert.equal(parkingBodyOverlap(car,{outer:[[1.2,-.13],[1.46,-.13],[1.46,.13],[1.2,.13]],maxHeightM:3}),false,'a clear canopy with supports outside the car remains usable');
 assert.equal(parkingBodyOverlap(car,{outer:[[-5,-5],[5,-5],[5,5],[-5,5]],holes:[[[-2,-3],[2,-3],[2,3],[-2,3]]]}),false,'whole car inside a source courtyard remains allowed');
 assert.ok(parkingBodyOverlap(car,{outer:[[-5,-5],[5,-5],[5,5],[-5,5]],holes:[[[-.5,-3],[2,-3],[2,3],[-.5,3]]]}),'crossing a courtyard boundary remains rejected');
 assert.ok(parkingPolygonsOverlap(car,[[-3,-.1],[3,-.1],[3,.1],[-3,.1]]),'sidewalk crossing middle of the whole car is rejected');
@@ -26,5 +28,5 @@ const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'parking-source-fixture-'));try{
  fs.writeFileSync(path.join(tmp,'tiles/sea_fixture.xml'),'<osm version="0.6">'+[...nodes].map(([id,[lat,lon]])=>`<node id="${id}" lat="${lat}" lon="${lon}"/>`).join('')+ways.join('')+'</osm>');
  execFileSync(process.execPath,[path.join(tmp,'tools/osm/build-data.mjs'),'--tiles',path.join(tmp,'tiles'),'--city','seattle','--district','seatac,bellevue'],{stdio:'pipe'});
  for(const[d,entry]of Object.entries(fixture.districts)){const data=JSON.parse(fs.readFileSync(path.join(tmp,`game/data/seattle-${d}.json`))),p=data.proj;for(const w of entry.ways){const i=data.areaSourceIds.indexOf('w'+w.id);assert.ok(i>=0,'exact source area identity remains');const rings=data.parkingFootprints[i];assert.equal(rings[0].length,w.nodeIds.length-1,'every source parking vertex remains without simplification');for(let j=0;j<rings[0].length;j++){const[la,lo]=w.coordinates[j],expected=[(lo-p.lon0)*p.mPerLon,-(la-p.lat0)*p.mPerLat];assert.ok(Math.hypot(rings[0][j][0]-expected[0],rings[0][j][1]-expected[1])<1e-8,'literal projected source lot geometry remains exact');}const measurement=entry.measurements.lots['w'+w.id];assert.equal(!!data.parkingLayouts?.[i],!measurement.mixed,'only independently reliable measured source lot changes angle');}}
- console.log(JSON.stringify({actualSourceLots:4,measuredLots:2,mixedNegativeControls:2,orientationAndFullCarCases:16,sourceLotVerticesRetained:true,issues:0}));
+ console.log(JSON.stringify({actualSourceLots:4,measuredLots:2,mixedNegativeControls:2,orientationAndFullCarCases:18,sourceLotVerticesRetained:true,issues:0}));
 }finally{fs.rmSync(tmp,{recursive:true,force:true});}

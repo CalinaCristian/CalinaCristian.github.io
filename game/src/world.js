@@ -4147,6 +4147,11 @@ export async function buildWorld(city, renderer, opts = {}) {
                 fuelLog.push({ name: brand || name, x: Math.round(x), z: Math.round(z), canopy: true, source: data.buildingIds?.[sourceCanopy.i], sourceFootprint: true, topM: sourceCanopy.h, clearanceM: sourceCanopy.minH, topSource: sourceCanopy.canopy.topSource, clearanceSource: sourceCanopy.canopy.clearanceSource, supports: sourceCanopy.canopySupports || 0, supportSource: sourceCanopy.canopy.supportSource });
                 continue;
             }
+            if (data.buildingGeometryPolicy === 'source') {
+                poi.h = sourceCanopy?.h || 4;
+                fuelLog.push({ name: brand || name, x: Math.round(x), z: Math.round(z), canopy: false, sourceFootprint: false, reason: 'No reviewed mapped canopy at this source POI; canopy/pumps/pylon dimensions and fuel grades are unknown' });
+                continue;
+            }
             // canopy on pillars + pumps + pylon sign
             const fx = x, fz = z, pyl = { e, ne, side }; // the mapped station anchor never moves to fit decoration
             { // the forecourt (canopy 10 × 16 m + apron 14 × 22 m) must stay off every carriageway AND every building footprint

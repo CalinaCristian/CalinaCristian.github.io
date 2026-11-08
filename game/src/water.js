@@ -111,6 +111,8 @@ export function makeWaterMaterial(o = {}) {
     };
     m.customProgramCacheKey = () => 'water2' + (m.userData.hasShore ? 's' : '');
     MATS.add(m);
+    // Tourist scene cleanup calls Material.dispose directly through disposeTree.
+    m.addEventListener('dispose', () => MATS.delete(m));
     return m;
 }
 

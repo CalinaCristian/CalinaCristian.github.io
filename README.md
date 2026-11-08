@@ -66,6 +66,7 @@ that chapter of the CV.
   Reused landmark collisions preserve their exact polygons, courtyard holes and raised volume bands in tourist scenes.
   Narrow desktop windows keep the keyboard-help footer above the lower HUD; touch screens use their dedicated action buttons.
   Source-backed tourist activities can declare a narrow drone launch/approach area outside their original scene focus. The same 150 m flight margin applies; this does not open an entire park or lake.
+  Disposing a tourist water material removes it from shared environment updates, so later travel does not retain retired water materials.
   The overview includes separate shareable evidence views for every landmark and tourist destination, with game captures, source links and explicit remaining estimates.
   District galleries retain dated historical collections separately from current surveys. Game-only street, weather and drone context has its own gallery and exact camera metadata; only square north-up surveys are paired with aerial imagery. Available collections load inline, and official aerial images keep their original 15-minute browser cache expiry across reloads.
 - **Offices you can talk in.** Each CV stop is a distinct interior (a 2009 classroom, the Politehnica rectorate,

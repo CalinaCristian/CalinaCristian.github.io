@@ -147,7 +147,10 @@ export default {
             g.addBox(mx, mz, W / 2, step / 2 + 0.06, -yaw, l0[1] - 2, (l0[1] + l1[1]) / 2);
             for (const [p, q] of [[L, Lh], [R, Rh]]) ctx.collider({ wall: true, ax: p[i][0], az: p[i][2], bx: p[i + 1][0], bz: p[i + 1][2], y0a: p[i][1] - 3, y1a: q[i][1] + 0.05, y0b: p[i + 1][1] - 3, y1b: q[i + 1][1] + 0.05, nx: 0, nz: 1, y: p[i][1], intended: true }); // pier railing (rendered mesh infill; deck height for the audit)
             if (i % 2 === 0) for (const [p, q] of [[L, Lh], [R, Rh]]) b.rod([p[i][0], p[i][1], p[i][2]], [q[i][0], q[i][1], q[i][2]], 0.035, '#aeb4b8', 'steel', 6);   // posts every 3 m
-            if (i % 10 === 6 && i < ns - 3) bench(b, mx, l0[1], mz, yaw + Math.PI / 2, '#6b5038', '#2b2f33');
+            // benches along the railing, facing out over the water, alternating sides (after round 6: they stood crosswise
+            // in the middle of the walkway)
+            if (i % 10 === 6 && i < ns - 3) { const E = (i / 10 | 0) % 2 ? L : R, ex = E[i][0] - mx, ez = E[i][2] - mz, el = Math.hypot(ex, ez) || 1, off = W / 2 - 0.75;
+                const bx2 = mx + ex / el * off, bz2 = mz + ez / el * off; bench(b, bx2, l0[1], bz2, Math.atan2(ex, ez) + Math.PI / 2, '#6b5038', '#2b2f33'); ctx.box(bx2, bz2, 0.9, 0.3, Math.atan2(ex, ez) + Math.PI / 2, { prop: true, h: 0.45, y: l0[1] }); }
             if (i % 9 === 4 && deckY(i * step) < DECK + 0.2) { const o = L[i], dx = o[0] - R[i][0], dz = o[2] - R[i][2], dl = Math.hypot(dx, dz) || 1; const px = o[0] + dx / dl * 0.55, pz = o[2] + dz / dl * 0.55; b.cyl(px, LAKE_Y - 2, pz, 0.32, 2 + DECK - LAKE_Y + 1.4, '#9a9c9a', 'steel', 12); b.cyl(px, DECK - 0.2, pz, 0.42, 0.5, '#2b2d2e', 'rubber', 12); } // pipe piles (outer side)
         }
         // top rails + mesh infill + LED strip under the rails (lit at night)

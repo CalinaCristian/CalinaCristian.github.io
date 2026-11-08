@@ -20,7 +20,7 @@ fs.mkdirSync(out, { recursive: true });
         const page = await context.newPage(); page.on('pageerror', e => report.errors.push(e.message)); page.on('console', m => { if (m.type() === 'error') report.consoleErrors.push(m.text()); });
         await page.addInitScript(() => { window.requestAnimationFrame = () => 0; });
         await page.goto(`http://127.0.0.1:${server.address().port}/game/`); await page.waitForFunction(() => window.game, null, { timeout: 90000 });
-        for (const id of option('districts', 'floreasca,grozavesti,unirii,romana,pipera,otopeni,seatac,bellevue').split(',')) {
+        for (const id of option('districts', 'floreasca,grozavesti,unirii,romana,pipera,otopeni,seatac,bellevue').split(',').filter(id => id && id !== 'none')) {
             const fixture = await page.evaluate(async id => {
                 const g = game; await g.startFreeRoam(id, { tod: 'noon', weather: 'clear', season: 'summer' }); g.audio.setMuted(true); g.exitCar(); g.r3d.setQuality('high');
                 const d = g.explore.drone, b = d.ctx().boundary;
@@ -64,7 +64,6 @@ fs.mkdirSync(out, { recursive: true });
             const center = [(lo[0] + hi[0]) / 2, (lo[1] + hi[1]) / 2, (lo[2] + hi[2]) / 2];
             const pitch = f.source.localToWorld(new THREE.Vector3(...f.pitch.center)); Object.assign(g.foot, { x: pitch.x, z: pitch.z, y: pitch.y, heading: 0 });
             if (!d.deploy()) throw new Error(d.canDeploy().reason); d.t = 3; d._lift(0.05);
-            // Reinstall the view helper for the newly deployed controller context.
             window.stadiumBounds = { lo, hi, center };
             const area = g.world.district.flightBoundary.landmarkAreas?.find(a => a.id === 'dinamo');
             const corners = [];
@@ -76,8 +75,9 @@ fs.mkdirSync(out, { recursive: true });
             const evidence = await page.evaluate(side => {
                 const { lo, hi, center } = stadiumBounds, d = game.explore.drone;
                 const x = side === 'east' ? hi[0] + 149.999 : side === 'west' ? lo[0] - 149.999 : center[0], z = side === 'south' ? hi[2] + 149.999 : side === 'north' ? lo[2] - 149.999 : center[2];
-                // The helper resolves the current drone after the district replacement.
-                const g = game; d.pos.set(x, 110, z); d.vel.set(0, 0, 0); g.camera.position.copy(d.pos); g.camera.lookAt(...center); g.camera.updateMatrixWorld(true); d.proxy.x = x; d.proxy.z = z; d._hudUpdate(0.1); g.updateClock(0);
+                const g = game, dx = center[0] - x, dz = center[2] - z;
+                d.pos.set(x, 110, z); d.vel.set(0, 0, 0); d.yaw = Math.atan2(-dx, -dz); d.gimbal = Math.atan2(center[1] - 110, Math.hypot(dx, dz));
+                g.camera.position.copy(d.pos); g.camera.quaternion.copy(d._droneQuat(false)); g.camera.updateMatrixWorld(true); d.proxy.x = x; d.proxy.z = z; d._hudUpdate(0.1); g.updateClock(0);
                 for (let i = 0; i < 3; i++) { g.renderer.info.reset(); g.drawFrame({ mirror: true }); }
                 const projected = []; for (const px of [lo[0], hi[0]]) for (const py of [lo[1], hi[1]]) for (const pz of [lo[2], hi[2]]) { const p = d.pos.clone().set(px, py, pz).project(g.camera); projected.push({ x: p.x, y: p.y, z: p.z }); }
                 return { position: d.pos.toArray(), outside: d.c.boundary.sample(x, z).distance, allowed: d.c.boundary.allowed(d.pos), range: Math.hypot(x - d.home.x, z - d.home.z), wholeModelInFrame: projected.every(p => Math.abs(p.x) < 1 && Math.abs(p.y) < 1 && p.z > -1 && p.z < 1), projected, stats: { ...g.r3d.stats } };

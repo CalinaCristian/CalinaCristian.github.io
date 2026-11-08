@@ -1584,20 +1584,84 @@
     {
       "id": "murroww",
       "coordinates": {
-        "lat": 47.5899055,
-        "lon": -122.2849997
+        "lat": 47.5898848,
+        "lon": -122.28406
       },
       "sourceIds": [],
-      "sources": []
+      "sources": [
+        {
+          "id": "w123889285",
+          "version": 19,
+          "timestamp": "2026-08-24T18:08:16Z",
+          "tags": {
+            "access:lanes": "no|yes|yes|yes",
+            "bicycle": "no",
+            "bridge": "yes",
+            "bus:lanes": "designated|||",
+            "destination:lanes": "none|none|none|none;West Mercer Way",
+            "foot": "no",
+            "hgv": "designated",
+            "hgv:national_network": "yes",
+            "highway": "motorway",
+            "horse": "no",
+            "hov:lanes": "designated|||",
+            "hov:minimum": "2",
+            "lanes": "4",
+            "layer": "1",
+            "maxspeed": "60 mph",
+            "name": "Lacey V. Murrow Memorial Bridge",
+            "old_ref": "US 10;PSH 2",
+            "oneway": "yes",
+            "ref": "I 90",
+            "source:hgv:national_network": "https://www.ecfr.gov/current/title-23/chapter-I/subchapter-G/part-658;https://hepgis-usdot.hub.arcgis.com/apps/usdot::national-network-conventional-combination-trucks-map",
+            "surface": "concrete",
+            "toll": "no",
+            "turn:lanes": "none|none|none|through;slight_right"
+          },
+          "url": "https://www.openstreetmap.org/way/123889285"
+        }
+      ]
     },
     {
       "id": "murrowe",
       "coordinates": {
-        "lat": 47.5892615,
-        "lon": -122.2560025
+        "lat": 47.5892424,
+        "lon": -122.2554
       },
       "sourceIds": [],
-      "sources": []
+      "sources": [
+        {
+          "id": "w123889285",
+          "version": 19,
+          "timestamp": "2026-08-24T18:08:16Z",
+          "tags": {
+            "access:lanes": "no|yes|yes|yes",
+            "bicycle": "no",
+            "bridge": "yes",
+            "bus:lanes": "designated|||",
+            "destination:lanes": "none|none|none|none;West Mercer Way",
+            "foot": "no",
+            "hgv": "designated",
+            "hgv:national_network": "yes",
+            "highway": "motorway",
+            "horse": "no",
+            "hov:lanes": "designated|||",
+            "hov:minimum": "2",
+            "lanes": "4",
+            "layer": "1",
+            "maxspeed": "60 mph",
+            "name": "Lacey V. Murrow Memorial Bridge",
+            "old_ref": "US 10;PSH 2",
+            "oneway": "yes",
+            "ref": "I 90",
+            "source:hgv:national_network": "https://www.ecfr.gov/current/title-23/chapter-I/subchapter-G/part-658;https://hepgis-usdot.hub.arcgis.com/apps/usdot::national-network-conventional-combination-trucks-map",
+            "surface": "concrete",
+            "toll": "no",
+            "turn:lanes": "none|none|none|through;slight_right"
+          },
+          "url": "https://www.openstreetmap.org/way/123889285"
+        }
+      ]
     },
     {
       "id": "seagarage",

@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "reviewDate": "2026-11-08",
+  "provider": "Esri World Imagery live mosaic",
+  "landmarks": [
+    {
+      "id": "murroww",
+      "source": {
+        "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13613015.271163905%2C6038587.511933937%2C-13612392.525355319%2C6039210.257742521&bboxSR=3857&imageSR=3857&size=1280%2C1280&format=jpg&f=image",
+        "lat": 47.5899055,
+        "lon": -122.2849997,
+        "groundSquareM": 420,
+        "pixels": 1280
+      },
+      "observations": {
+        "ribSeatApproxPixelX": [
+          749,
+          961
+        ],
+        "visibleCrownApproxPixelCentre": [
+          855,
+          669
+        ],
+        "crownOpenings": 6
+      },
+      "measurements": {
+        "archLengthM": 69.6,
+        "lengthUncertaintyM": 3,
+        "longitudinalShiftEastM": 70.5
+      },
+      "authored": {
+        "lat": 47.5898848,
+        "lon": -122.28406,
+        "lengthM": 68,
+        "crownOpenings": 6
+      },
+      "limits": [
+        "Aerial acquisition date is unknown.",
+        "Crown height and projected north/south position have oblique-image parallax; do not infer height from these pixels.",
+        "Anchor latitude is interpolated on OSM highway way123889285, whose roadway takes precedence over the displaced crown in the image.",
+        "Only numerical measurements are published; no reference imagery is stored in the repository."
+      ]
+    },
+    {
+      "id": "murrowe",
+      "source": {
+        "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13609631.629257647%2C6038636.904544735%2C-13609320.26018471%2C6038948.273617674&bboxSR=3857&imageSR=3857&size=1024%2C1024&format=jpg&f=image",
+        "lat": 47.5892615,
+        "lon": -122.2560025,
+        "groundSquareM": 210,
+        "pixels": 1024
+      },
+      "observations": {
+        "ribSeatApproxPixelX": [
+          571,
+          893
+        ],
+        "visibleCrownApproxPixelCentre": [
+          732,
+          555
+        ],
+        "crownOpenings": 6
+      },
+      "measurements": {
+        "archLengthM": 66.0,
+        "lengthUncertaintyM": 3,
+        "longitudinalShiftEastM": 45.1
+      },
+      "authored": {
+        "lat": 47.5892424,
+        "lon": -122.2554,
+        "lengthM": 68,
+        "crownOpenings": 6
+      },
+      "limits": [
+        "Aerial acquisition date is unknown.",
+        "Crown height and projected north/south position have oblique-image parallax; do not infer height from these pixels.",
+        "Anchor latitude is interpolated on OSM highway way123889285, whose roadway takes precedence over the displaced crown in the image.",
+        "Only numerical measurements are published; no reference imagery is stored in the repository."
+      ]
+    }
+  ]
+}

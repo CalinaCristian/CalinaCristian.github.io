@@ -31,5 +31,6 @@ for(const [lat,lon]of [[47.5904232,-122.2885833],[47.5900628,-122.2885891],[47.5
     assert.equal(collideBuildings(models.get('mtbaker').collision,x,z,1,1),null,'All three mapped road mouths remain clear');checks++;
 }
 assert(collideBuildings(models.get('mtbaker').collision,0,-16,.3,1),'Inter-bore concrete pier retains collision');checks++;
+for (const id of ['murroww','murrowe']) { assert.equal(collideBuildings(models.get(id).collision,0,0,1,1),null,'Bridge arch replacement leaves the driving centreline open');checks++; }
 const known=new Map();for(const lm of sea)for(const id of lm.sourceIds){assert(!known.has(id),`${id} owned twice`);known.set(id,lm.id);checks++;}
 console.log(JSON.stringify({passed:true,checks,landmarks:24,sourceIdentities:known.size,heights:Object.fromEntries([...models.keys()].map(id=>[id,maxY(id)])),notes:['No claim of measured hardware FPS.','Three isolated views are model studies, not matched Street View comparisons.']},null,2));

@@ -1,0 +1,761 @@
+{
+  "task": "Mobile controls, modal layering, cockpit framing and tourist interaction parity",
+  "date": "2026-11-08",
+  "base": "65ba08d639d4367288e1647cacd34bbb44e683c5",
+  "browser": "System Chromium via Playwright touch contexts; this does not claim physical iPhone or iOS WebKit validation",
+  "controls_commits": [
+    "dfbe11f889a2aa4d2359d4108543692b2d682387",
+    "d27805a",
+    "55b4d40"
+  ],
+  "controller_checks": [
+    {
+      "name": "Here tap marks without moving",
+      "value": true
+    },
+    {
+      "name": "Fuel refusal preserves position and tank",
+      "value": true
+    },
+    {
+      "name": "Clamp disables explicit fast travel",
+      "value": true
+    },
+    {
+      "name": "Explicit phone Fast travel moves with fuel cost",
+      "value": true
+    },
+    {
+      "name": "Car reset preserves fuel and progress exactly",
+      "value": true
+    },
+    {
+      "name": "Run has an explicit touch toggle",
+      "value": true
+    },
+    {
+      "name": "Foot reset preserves fuel and progress exactly",
+      "value": true
+    },
+    {
+      "name": "Modal cancels held touch input",
+      "value": true
+    },
+    {
+      "name": "Drone has up/down/home/modes/go-here/photo/land controls",
+      "value": true
+    },
+    {
+      "name": "Spot modal hides floating launchers",
+      "value": true
+    },
+    {
+      "name": "No page errors",
+      "value": true
+    }
+  ],
+  "tourist_checks": [
+    {
+      "name": "Context label 390",
+      "value": true
+    },
+    {
+      "name": "Real Use opens plaque 390",
+      "value": true
+    },
+    {
+      "name": "Modal hides launcher 390",
+      "value": true
+    },
+    {
+      "name": "Map close phone label 390",
+      "value": true
+    },
+    {
+      "name": "Map starts actual tour 390",
+      "value": true
+    },
+    {
+      "name": "Skip uses actual tour state 390",
+      "value": true
+    },
+    {
+      "name": "End uses actual tour state 390",
+      "value": true
+    },
+    {
+      "name": "Context label 844",
+      "value": true
+    },
+    {
+      "name": "Real Use opens plaque 844",
+      "value": true
+    },
+    {
+      "name": "Modal hides launcher 844",
+      "value": true
+    },
+    {
+      "name": "Map close phone label 844",
+      "value": true
+    },
+    {
+      "name": "Map starts actual tour 844",
+      "value": true
+    },
+    {
+      "name": "Skip uses actual tour state 844",
+      "value": true
+    },
+    {
+      "name": "End uses actual tour state 844",
+      "value": true
+    },
+    {
+      "name": "Stair context is explicit",
+      "value": true
+    },
+    {
+      "name": "Touch stair action changes actual floor",
+      "value": true
+    },
+    {
+      "name": "No page errors",
+      "value": true
+    }
+  ],
+  "tourist_test_setup": "Actual old-town-lipscani SpotSession, controller and existing interaction/tour callbacks. No CSS overrides. World render calls frozen for DOM/hit testing; no fake activity completion.",
+  "logic": {
+    "command": "npm run harness -- --scenario=foot,a --city=bucharest",
+    "high": 0,
+    "medium": 0,
+    "low": 2,
+    "low_types": [
+      "perf-traffic-update",
+      "perf-fps"
+    ],
+    "note": "Software GL and shared-machine performance observations, not a device performance benchmark"
+  },
+  "cockpit_capture": "Actual static game render at 0.5 renderer pixel ratio. The comparison sheet includes only game pixels, no external reference imagery.",
+  "cockpit_baseline": [
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "fov": 92,
+      "nav_height_px": 103,
+      "gauge_height_px": 72,
+      "issues": [
+        "hud-covers-cockpit"
+      ]
+    },
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "fov": 72,
+      "nav_height_px": 82,
+      "gauge_height_px": 53,
+      "issues": [
+        "hud-covers-cockpit"
+      ]
+    },
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "fov": 72,
+      "nav_height_px": 151,
+      "gauge_height_px": 97,
+      "issues": []
+    }
+  ],
+  "cockpit_final": [
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "fov": 89,
+      "nav_height_px": 108,
+      "gauge_height_px": 76,
+      "nav_outside": 0,
+      "gauge_outside": 0,
+      "nav_occluded": 0,
+      "gauge_occluded": 0,
+      "ui_findings": 0,
+      "phone_buttons_reachable": true
+    },
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "fov": 69,
+      "nav_height_px": 87,
+      "gauge_height_px": 56,
+      "nav_outside": 0,
+      "gauge_outside": 0,
+      "nav_occluded": 0,
+      "gauge_occluded": 0,
+      "ui_findings": 0,
+      "phone_buttons_reachable": true
+    },
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "fov": 72,
+      "nav_height_px": 151,
+      "gauge_height_px": 97,
+      "nav_outside": 0,
+      "gauge_outside": 0,
+      "nav_occluded": 0,
+      "gauge_occluded": 0,
+      "ui_findings": 0,
+      "phone_buttons_reachable": null
+    }
+  ],
+  "page_errors": {
+    "controls": [],
+    "tourist": [],
+    "cockpit": []
+  },
+  "rapid_map_tap": "Tourist minimap is a native button. This avoids the existing 320ms double-tap compatibility-click suppression that applied to the previous div/canvas.",
+  "tourist_hit_boxes": [
+    {
+      "name": "spot-context-390x844",
+      "data": {
+        "#spot-ui .sp-use": {
+          "text": "Read: Cărturești Carusel",
+          "box": [
+            12,
+            700,
+            242,
+            44
+          ],
+          "visible": true,
+          "inert": false,
+          "reachable": true
+        },
+        "#spot-ui .sp-mini": {
+          "text": "Map",
+          "box": [
+            266,
+            654,
+            112,
+            112
+          ],
+          "visible": true,
+          "inert": false,
+          "reachable": true
+        },
+        "#spot-ui .sp-plaque [data-close]": null,
+        "#spot-ui .sp-btns [data-close]": null,
+        "#spot-ui [data-tour]": null,
+        "#spot-ui [data-tour-skip]": null,
+        "#spot-ui [data-tour-end]": null,
+        "#pause-btn": {
+          "text": "⏸",
+          "box": [
+            230,
+            400,
+            44,
+            44
+          ],
+          "visible": true,
+          "inert": false,
+          "reachable": true
+        },
+        "#touch .pad.right": {
+          "text": "⤒Run📣↶Use🚶🧭",
+          "box": [
+            226,
+            784,
+            154,
+            46
+          ],
+          "visible": true,
+          "inert": false,
+          "reachable": true
+        }
+      }
+    },
+    {
+      "name": "spot-plaque-touch-390x844",
+      "data": {
+        "#spot-ui .sp-use": null,
+        "#spot-ui .sp-mini": {
+          "text": "Map",
+          "box": [
+            266,
+            654,
+            112,
+            112
+          ],
+          "visible": false,
+          "inert": true,
+          "reachable": false
+        },
+        "#spot-ui .sp-plaque [data-close]": {
+          "text": "Close",
+          "box": [
+            41,
+            534.53125,
+            69.09375,
+            44
+          ],
+          "visible": true,
+          "inert": false,
+          "reachable": true
+        },
+        "#spot-ui .sp-btns [data-close]": null,
+        "#spot-ui [data-tour]": null,
+        "#spot-ui [data-tour-skip]": null,
+        "#spot-ui [data-tour-end]": null,
+        "#pause-btn": {
+          "text": "⏸",
+          "box": [
+            230,
+            400,
+            44,
+            44
+          ],
+          "visible": false,
+          "inert": true,
+          "reachable": false
+        },
+        "#touch .pad.right": {
+          "text": "⤒Run📣↶Use🚶🧭",
+          "box": [
+            226,
+            784,
+            154,
+            46
+          ],
+          "visible": false,
+          "inert": false,
+          "reachable": false
+        }
+      }
+    },
+    {
+      "name": "spot-map-touch-390x844",
+      "data": {
+        "#spot-ui .sp-use": null,
+        "#spot-ui .sp-mini": {
+          "text": "Map",
+          "box": [
+            266,
+            654,
+            112,
+            112
+          ],
+          "visible": false,
+          "inert": true,
+          "reachable": false
+        },
+        "#spot-ui .sp-plaque [data-close]": null,
+        "#spot-ui .sp-btns [data-close]": {
+          "text": "Close",
+          "box": [
+            286.015625,
+            1457.0625,
+            58.4375,
+            44
+          ],
+          "visible": true,
+          "inert": false,
+          "reachable": false
+        },
+        "#spot-ui [data-tour]": {
+          "text": "🚩 Short guided tour · up to 3 stops",
+          "box": [
+            28,
+            1457.0625,
+            252.015625,
+            44
+          ],
+          "visible": true,
+          "inert": false,
+          "reachable": false
+        },
+        "#spot-ui [data-tour-skip]": null,
+        "#spot-ui [data-tour-end]": null,
+        "#pause-btn": {
+          "text": "⏸",
+          "box": [
+            230,
+            400,
+            44,
+            44
+          ],
+          "visible": false,
+          "inert": true,
+          "reachable": false
+        },
+        "#touch .pad.right": {
+          "text": "⤒Run📣↶Use🚶🧭",
+          "box": [
+            226,
+            784,
+            154,
+            46
+          ],
+          "visible": false,
+          "inert": false,
+          "reachable": false
+        }
+      }
+    },
+    {
+      "name": "spot-tour-touch-390x844",
+      "data": {
+        "#spot-ui .sp-use": {
+          "text": "Read: Cărturești Carusel",
+          "box": [
+            12,
+            700,
+            242,
+            44
+          ],
+          "visible": true,
+          "inert": false,
+          "reachable": true
+        },
+        "#spot-ui .sp-mini": {
+          "text": "Map",
+          "box": [
+            266,
+            654,
+            112,
+            112
+          ],
+          "visible": true,
+          "inert": false,
+          "reachable": true
+        },
+        "#spot-ui .sp-plaque [data-close]": null,
+        "#spot-ui .sp-btns [data-close]": null,
+        "#spot-ui [data-tour]": null,
+        "#spot-ui [data-tour-skip]": {
+          "text": "Skip stop",
+          "box": [
+            25,
+            185.28125,
+            72.625,
+            44
+          ],
+          "visible": true,
+          "inert": false,
+          "reachable": true
+        },
+        "#spot-ui [data-tour-end]": {
+          "text": "End tour",
+          "box": [
+            103.625,
+            185.28125,
+            69.296875,
+            44
+          ],
+          "visible": true,
+          "inert": false,
+          "reachable": true
+        },
+        "#pause-btn": {
+          "text": "⏸",
+          "box": [
+            230,
+            400,
+            44,
+            44
+          ],
+          "visible": true,
+          "inert": false,
+          "reachable": true
+        },
+        "#touch .pad.right": {
+          "text": "⤒Run📣↶Use🚶🧭",
+          "box": [
+            226,
+            784,
+            154,
+            46
+          ],
+          "visible": true,
+          "inert": false,
+          "reachable": true
+        }
+      }
+    },
+    {
+      "name": "spot-context-844x390",
+      "data": {
+        "#spot-ui .sp-use": {
+          "text": "Read: Cărturești Carusel",
+          "box": [
+            322.3984375,
+            283.609375,
+            199.203125,
+            44
+          ],
+          "visible": true,
+          "inert": false,
+          "reachable": true
+        },
+        "#spot-ui .sp-mini": {
+          "text": "Map",
+          "box": [
+            664,
+            210,
+            168,
+            168
+          ],
+          "visible": true,
+          "inert": false,
+          "reachable": true
+        },
+        "#spot-ui .sp-plaque [data-close]": null,
+        "#spot-ui .sp-btns [data-close]": null,
+        "#spot-ui [data-tour]": null,
+        "#spot-ui [data-tour-skip]": null,
+        "#spot-ui [data-tour-end]": null,
+        "#pause-btn": {
+          "text": "⏸",
+          "box": [
+            690,
+            56,
+            44,
+            44
+          ],
+          "visible": true,
+          "inert": false,
+          "reachable": true
+        },
+        "#touch .pad.right": {
+          "text": "⤒Run📣↶Use🚶🧭",
+          "box": [
+            148,
+            330,
+            154,
+            46
+          ],
+          "visible": true,
+          "inert": false,
+          "reachable": true
+        }
+      }
+    },
+    {
+      "name": "spot-plaque-touch-844x390",
+      "data": {
+        "#spot-ui .sp-use": null,
+        "#spot-ui .sp-mini": {
+          "text": "Map",
+          "box": [
+            664,
+            210,
+            168,
+            168
+          ],
+          "visible": false,
+          "inert": true,
+          "reachable": false
+        },
+        "#spot-ui .sp-plaque [data-close]": {
+          "text": "Close",
+          "box": [
+            187,
+            267.03125,
+            69.09375,
+            44
+          ],
+          "visible": true,
+          "inert": false,
+          "reachable": true
+        },
+        "#spot-ui .sp-btns [data-close]": null,
+        "#spot-ui [data-tour]": null,
+        "#spot-ui [data-tour-skip]": null,
+        "#spot-ui [data-tour-end]": null,
+        "#pause-btn": {
+          "text": "⏸",
+          "box": [
+            690,
+            56,
+            44,
+            44
+          ],
+          "visible": false,
+          "inert": true,
+          "reachable": false
+        },
+        "#touch .pad.right": {
+          "text": "⤒Run📣↶Use🚶🧭",
+          "box": [
+            148,
+            330,
+            154,
+            46
+          ],
+          "visible": false,
+          "inert": false,
+          "reachable": false
+        }
+      }
+    },
+    {
+      "name": "spot-map-touch-844x390",
+      "data": {
+        "#spot-ui .sp-use": null,
+        "#spot-ui .sp-mini": {
+          "text": "Map",
+          "box": [
+            664,
+            210,
+            168,
+            168
+          ],
+          "visible": false,
+          "inert": true,
+          "reachable": false
+        },
+        "#spot-ui .sp-plaque [data-close]": null,
+        "#spot-ui .sp-btns [data-close]": {
+          "text": "Close",
+          "box": [
+            578,
+            1122.5,
+            58.4375,
+            44
+          ],
+          "visible": true,
+          "inert": false,
+          "reachable": false
+        },
+        "#spot-ui [data-tour]": {
+          "text": "🚩 Short guided tour · up to 3 stops",
+          "box": [
+            578,
+            1068.5,
+            230,
+            50
+          ],
+          "visible": true,
+          "inert": false,
+          "reachable": false
+        },
+        "#spot-ui [data-tour-skip]": null,
+        "#spot-ui [data-tour-end]": null,
+        "#pause-btn": {
+          "text": "⏸",
+          "box": [
+            690,
+            56,
+            44,
+            44
+          ],
+          "visible": false,
+          "inert": true,
+          "reachable": false
+        },
+        "#touch .pad.right": {
+          "text": "⤒Run📣↶Use🚶🧭",
+          "box": [
+            148,
+            330,
+            154,
+            46
+          ],
+          "visible": false,
+          "inert": false,
+          "reachable": false
+        }
+      }
+    },
+    {
+      "name": "spot-tour-touch-844x390",
+      "data": {
+        "#spot-ui .sp-use": {
+          "text": "Read: Cărturești Carusel",
+          "box": [
+            322.3984375,
+            283.609375,
+            199.203125,
+            44
+          ],
+          "visible": true,
+          "inert": false,
+          "reachable": true
+        },
+        "#spot-ui .sp-mini": {
+          "text": "Map",
+          "box": [
+            664,
+            210,
+            168,
+            168
+          ],
+          "visible": true,
+          "inert": false,
+          "reachable": true
+        },
+        "#spot-ui .sp-plaque [data-close]": null,
+        "#spot-ui .sp-btns [data-close]": null,
+        "#spot-ui [data-tour]": null,
+        "#spot-ui [data-tour-skip]": {
+          "text": "Skip stop",
+          "box": [
+            25,
+            185.28125,
+            72.625,
+            44
+          ],
+          "visible": true,
+          "inert": false,
+          "reachable": false
+        },
+        "#spot-ui [data-tour-end]": {
+          "text": "End tour",
+          "box": [
+            103.625,
+            185.28125,
+            69.296875,
+            44
+          ],
+          "visible": true,
+          "inert": false,
+          "reachable": false
+        },
+        "#pause-btn": {
+          "text": "⏸",
+          "box": [
+            690,
+            56,
+            44,
+            44
+          ],
+          "visible": true,
+          "inert": false,
+          "reachable": true
+        },
+        "#touch .pad.right": {
+          "text": "⤒Run📣↶Use🚶🧭",
+          "box": [
+            148,
+            330,
+            154,
+            46
+          ],
+          "visible": true,
+          "inert": false,
+          "reachable": true
+        }
+      }
+    }
+  ]
+}

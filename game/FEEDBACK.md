@@ -179,3 +179,4 @@ Known gaps: Politehnica's door is at the Bd. Doina Cornea gate (~230 m from the 
 44. Night: the roads / sidewalks are far too dark (nearly black ground under lit buildings).
 45. Some businesses appear only as a sign on a pole (Mega Image, Help Net) instead of a shop in a building.
 46. Floreasca: most buildings are pitched-roof village houses — the real district is mostly 4–10 storey blocks and interwar villas.
+47. Some shop signs are cut by a black bar across the text (fascia sign overlapped by another slab).

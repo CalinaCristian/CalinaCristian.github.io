@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101a20">
+  <meta name="description" content="Explore 195 Romană and Victoriei game captures beside live Esri aerial imagery, plus four published-baseline views.">
+  <title>Romană aerial comparisons · Drive My CV</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="gallery.js"></script>
+</head>
+<body>
+  <header class="topbar shell">
+    <a href="/" class="brand"><span class="brand-mark">C</span> Cristian Calina <span class="brand-divider">/</span> <span class="muted">Drive My CV</span></a>
+    <a class="game-link" href="/game/">Open the game <span aria-hidden="true">↗</span></a>
+  </header>
+  <main class="shell">
+    <section class="intro">
+      <p class="eyebrow"><span class="live-dot"></span> BUCHAREST · ROMANĂ & VICTORIEI</p>
+      <h1>The game. The real city.</h1>
+      <p class="lede">Explore the whole aerial survey, one location at a time. Game captures on the left, live Esri imagery on the right.</p>
+      <div class="facts"><span><strong>195</strong> survey locations</span><span><strong>250 × 250 m</strong> per view</span><span><strong>↑ N</strong> north up</span></div>
+    </section>
+
+    <nav class="datasets" aria-label="Capture collection">
+      <button type="button" data-dataset="atlas" aria-pressed="true">Whole district <span>195</span></button>
+      <button type="button" data-dataset="published" aria-pressed="false">Published baseline <span>4</span></button>
+    </nav>
+    <p id="collection-note" class="collection-note"></p>
+
+    <form id="filters" class="filters" role="search" autocomplete="off">
+      <label class="search-label">Find a location<input id="search" type="search" placeholder="Tile, row, coordinates or place…" aria-label="Search tile, row, coordinates or place"></label>
+      <label>Coverage<select id="scope"><option value="all">All coverage · 195</option><option value="core-touches">Core · 30</option><option value="ring-touches">Scenery ring · 83</option><option value="outside-ring">Outside ring · 82</option></select></label>
+      <label>Grid row<select id="row"><option value="all">All 15 rows</option></select></label>
+      <button type="button" id="reset" class="quiet-button">Reset filters</button>
+    </form>
+
+    <div class="workspace">
+      <aside class="index-panel" aria-label="Spatial tile index">
+        <div class="panel-title"><h2 id="index-title">District index</h2><span>↑ NORTH</span></div>
+        <p id="index-description" class="muted small">15 rows × 13 columns. Select any square.</p>
+        <div id="spatial-index" class="spatial-index"></div>
+        <div id="legend" class="legend"><span><i class="core"></i> Core</span><span><i class="ring"></i> 600 m ring</span><span><i class="outside"></i> Outside</span></div>
+        <p class="small muted coverage-note">Coverage describes where each tile intersects the playable core or its 600 m scenery ring. Tiles beyond the ring are included in the complete survey.</p>
+      </aside>
+
+      <section class="viewer" aria-label="Selected comparison">
+        <div class="viewer-heading"><div><p id="tile-id" class="eyebrow"></p><h2 id="tile-title">Loading comparisons…</h2></div><span id="scope-badge" class="badge"></span></div>
+        <div id="empty" class="empty" hidden>No locations match these filters. Try another tile, row or coordinate.</div>
+        <div id="comparison-content">
+          <div class="pair">
+            <figure class="image-card">
+              <figcaption><span><i class="image-dot game-dot"></i> GAME CAPTURE</span><button type="button" class="zoom-button" data-zoom="game" aria-label="Enlarge game capture">⛶</button></figcaption>
+              <button type="button" class="image-button" data-zoom="game" aria-label="Enlarge game capture"><img id="game-image" alt="" width="640" height="640" decoding="async"><span class="image-hint">Click to enlarge</span></button>
+              <p class="image-credit">Original game capture · <a id="source-link" target="_blank" rel="noopener"></a></p>
+            </figure>
+            <figure class="image-card">
+              <figcaption><span><i class="image-dot aerial-dot"></i> LIVE AERIAL <span class="provider">/ ESRI</span></span><button type="button" class="zoom-button" data-zoom="aerial" aria-label="Enlarge live aerial image">⛶</button></figcaption>
+              <button type="button" class="image-button" data-zoom="aerial" aria-label="Enlarge live aerial image"><img id="aerial-image" alt="" width="640" height="640" decoding="async"><span id="aerial-status" class="image-status">Loading live imagery…</span><span class="image-hint">Click to enlarge</span></button>
+              <p class="image-credit">Esri, Maxar, Earthstar Geographics, and the GIS User Community</p>
+            </figure>
+          </div>
+          <div class="pose-details"><span id="coordinates"></span><span>250 m square · north up · same centre</span></div>
+          <div class="viewer-actions"><div class="external-links"><a id="maps-link" target="_blank" rel="noopener">Map ↗</a><a id="streetview-link" target="_blank" rel="noopener">Street View ↗</a><a id="aerial-link" target="_blank" rel="noopener">Open aerial ↗</a></div><div class="pager"><button type="button" id="previous" aria-label="Previous location">←</button><span id="position"></span><button type="button" id="next" aria-label="Next location">→</button></div></div>
+          <p class="imagery-note">Aerial imagery is requested live from Esri. Its acquisition date is unknown and it may differ from the imagery used during the original review. Ground extents use the same coordinates and 250 m square; building lean, terrain and capture timing can differ.</p>
+        </div>
+      </section>
+    </div>
+
+    <section class="gallery" aria-labelledby="gallery-title">
+      <div class="gallery-heading"><div><p class="eyebrow">BROWSE THE CAPTURES</p><h2 id="gallery-title">All 195 survey locations</h2></div><p class="small muted"><kbd>←</kbd> <kbd>→</kbd> move between locations · click an image to zoom</p></div>
+      <div id="thumbnails" class="thumbnails"></div>
+    </section>
+    <section class="provenance"><h2>What you’re comparing</h2><p>The whole-district collection contains 195 historical game captures: 192 from <a href="https://github.com/calinacristian/calinacristian.github.io/commit/b10d8d3684b702fa529076bb92e3f0c1948d85cd" target="_blank" rel="noopener">b10d8d3</a> and three targeted captures from <a href="https://github.com/calinacristian/calinacristian.github.io/commit/ce54c6b548b155c3bafe9a120d24627d0b38346f" target="_blank" rel="noopener">ce54c6b</a>. These document the historical survey, not later game fixes. The separate four-view collection records published baseline <a href="https://github.com/calinacristian/calinacristian.github.io/commit/58129abe74a93be2ef52d3c3bf40682768531bc3" target="_blank" rel="noopener">58129ab</a>.</p><p>Game originals retain their original quality. Thumbnails are derived from those game images. All aerial images come directly from the official Esri service when viewed. Street View links open Google Maps at the selected coordinates. <a href="manifest.json">View the source manifest ↗</a></p></section>
+    <p id="load-error" class="empty" hidden>The comparison manifest could not load. Please reload this page.</p>
+  </main>
+  <footer class="shell footer"><a href="/">Cristian Calina</a><span>Drive My CV · Aerial comparisons · November 2026</span><a href="/game/">Back to the game ↗</a></footer>
+
+  <dialog id="zoom-dialog" aria-labelledby="zoom-title"><div class="zoom-toolbar"><h2 id="zoom-title">Full image</h2><div><button type="button" id="zoom-out" aria-label="Zoom out">−</button><button type="button" id="zoom-in" aria-label="Zoom in">+</button><button type="button" id="zoom-close">Close <span aria-hidden="true">×</span></button></div></div><div id="zoom-scroll" class="zoom-scroll"><img id="zoom-image" alt=""></div><p id="zoom-caption"></p></dialog>
+  <noscript><p class="shell empty">Enable JavaScript to browse the comparison gallery. The <a href="manifest.json">source manifest</a> lists all 199 captures.</p></noscript>
+</body>
+</html>

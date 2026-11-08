@@ -3374,8 +3374,29 @@ export async function buildWorld(city, renderer, opts = {}) {
             const off = sideW + shoulderOf(e) + Math.max(1.5, Math.min(e.sidewalk, 4) * 0.8);
             const px = ne.cx + e.nx * off * side, pz = ne.cz + e.nz * off * side;
             if (onRibbon(px, pz, 1.2) || buildingAt(px, pz)) continue;
+            // (round 6 note 45) a business is a shop, not a sign on a stick: the fascia goes on the nearest building's street
+            // front when one stands within ~18 m (the OSM point sits beside its unit), else a small single-storey pavilion
+            if (sub !== 'atm') {
+                let nb = null, nd = 18;
+                bGrid.each(x - 18, z - 18, x + 18, z + 18, (o) => { if (o.skip || o.cv || o.h < 3 || (o.minH || 0) > 0.5) return; const d = pointInPolygon(x, z, o.ring) ? 0 : polyDist(x, z, o.ring); if (d < nd) { nd = d; nb = o; } });
+                if (nb) { addUnitSign(nb, x, z, brand || name, kind); continue; }
+            }
             const s = signs.get((brand || name).slice(0, 22), st[0], st[1], st[2]);
             if (!s) continue;
+            {
+                const pvOff = off + 4.5, vx = ne.cx + e.nx * pvOff * side, vz = ne.cz + e.nz * pvOff * side, W2 = 4, D2 = 3, fAng = Math.atan2(-e.nx * side, -e.nz * side); // (local +z faces the street, x runs along it)
+                const fp = obbPoly({ x: vx, z: vz, hw: W2, hd: D2, angle: fAng });
+                if (!polyOnRibbon(fp) && !buildingAt(vx, vz) && !fp.some(([qx, qz]) => buildingAt(qx, qz))) {
+                    const wallC = rgb(US ? '#d6d0c4' : '#e4e0d6'), fx = -e.nx * side, fz = -e.nz * side; // facing the street
+                    c.solid.box(vx, 0, vz, W2 * 2, 3.4, D2 * 2, fAng, wallC);                                // pavilion body
+                    c.solid.box(vx, 3.4, vz, W2 * 2 + 0.3, 0.25, D2 * 2 + 0.3, fAng, rgb('#5b5f66'));     // flat roof edge
+                    const gx = vx + fx * (D2 + 0.02), gz = vz + fz * (D2 + 0.02);
+                    c.solid.box(gx, 0.4, gz, W2 * 1.6, 2.1, 0.06, fAng, rgb('#5d7f93'));                   // shopfront glazing
+                    addSignQuad(c, vx + fx * D2, vz + fz * D2, Math.atan2(fx, fz), 1, Math.min(W2 * 1.7, 6.5), Math.min(W2 * 1.7, 6.5) / s.aspect, 2.95, s, 0.06);
+                    propColl.push({ x: vx, z: vz, r: Math.hypot(W2, D2), hw: W2, hd: D2, angle: fAng, poly: fp, h: 3.6, kind: 'kiosk' });
+                    continue;
+                }
+            }
             c.solid.box(px, 0.18, pz, 0.14, 3.6, 0.14, roadAng, rgb('#4b5563')); addPropColl(px, pz, 0.2, 'pylon');
             for (const sd of [1, -1]) addSignQuad(c, px, pz, roadAng, sd, 2.2, 2.2 / s.aspect, 3.4, s, 0.08);
         }

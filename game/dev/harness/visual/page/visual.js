@@ -8,6 +8,7 @@ import * as THREE from '../../../../vendor/three.module.min.js';
 import { geometryDetectors, makeCorridor, ribbonModel } from './geometry.js';
 import { polyMask, analyseRoad, skyColour, zfightDiff } from './pixels.js';
 import { uiChecks } from './ui.js';
+import { planStreetSweeps, sweepSampleDistances } from './street-sweeps.js';
 
 const g = window.game;
 const SEV = { high: 0, medium: 1, low: 2 };
@@ -21,7 +22,7 @@ const laneOff = (e, lane = 0) => (e.median ?? (e.tram ? 4.4 : 0)) / 2 + (e.laneW
 const S = {
     opts: { quality: 'medium', far: 0, time: 'day', weather: 'clear', traffic: false, trafficSteps: 12, every: 40, lookEvery: 200, aerialEvery: 200, zEvery: 3, aerial: true, looks: true, size: 120, pr: 0.5 },
     issues: [], byKey: new Map(), routes: new Map(), sheets: new Map(), masks: new Map(), log: [], counts: {}, renderNow: false,
-    model: null, corridorPts: [], cityKey: null, focus: 0,
+    model: null, corridorPts: [], cityKey: null, focus: 0, sweepPlanning: [], plannedSweeps: new Map(),
 };
 const note = (m) => { S.log.push(m); if (S.log.length > 4000) S.log.shift(); };
 
@@ -159,7 +160,7 @@ async function loadGroup(key, opts = {}) {
     takeOver();
     const { groups: gs } = await groups(null);
     const gr = gs.find(x => x.key === key); if (!gr) throw new Error('unknown group ' + key);
-    S.cityKey = key; S.model = null; S.corridorPts = []; S.routes.clear(); S.masks.clear();
+    S.cityKey = key; S.model = null; S.corridorPts = []; S.routes.clear(); S.masks.clear(); S.sweepPlanning = []; S.plannedSweeps.clear();
     g.state = 'loading';
     if (!g.started) { g.started = true; document.querySelector('#menu')?.classList.remove('show'); document.querySelector('#hud')?.classList.add('show'); g.startTime = performance.now(); }
     g.clock.override = S.opts.time || 'day'; g.weatherOverride = S.opts.weather || 'clear';
@@ -183,6 +184,7 @@ async function loadGroup(key, opts = {}) {
 function distId() { const d = g.world?.district; return d == null ? null : typeof d === 'string' ? d : (d.id ?? null); }
 function doorOf(p) { return p ? { x: p.doorX ?? p.x, z: p.doorZ ?? p.z } : null; }
 async function plans() {
+    S.sweepPlanning = []; S.plannedSweeps.clear();
     const W = g.world, out = [];
     const chs = await chaptersList();
     if (chs && distId()) {
@@ -199,20 +201,23 @@ async function plans() {
         }
         // free-roam sweep of the district's main streets (longest named primary/secondary/tertiary/trunk roads)
         const byName = new Map();
-        for (const e of W.graph.edges) { if (!e.name || !/^(trunk|primary|secondary|tertiary)/.test(e.type || '')) continue; let a = byName.get(e.name); if (!a) byName.set(e.name, a = { len: 0, edges: [] }); a.len += e.len; a.edges.push(e); }
+        for (const e of W.graph.edges) { if (!e.name || e.virtual || !/^(trunk|primary|secondary|tertiary)/.test(e.type || '')) continue; let a = byName.get(e.name); if (!a) byName.set(e.name, a = { len: 0, edges: [] }); if (e.publicDrive !== false && (canTravel(e, 1) || canTravel(e, -1))) a.len += e.len; a.edges.push(e); }
         // skip streets the chapter routes already drive along (≥ 60 % of their length within 25 m of a chapter route)
         const chPts = [];
         for (const sp of out) { try { const r = g.nav.compute(sp.from.x, sp.from.z, sp.to.x, sp.to.z, sp.from.heading); for (const p of r?.points || []) chPts.push(p); } catch { /* ignore */ } }
         const covered = (e) => chPts.some(p => Math.hypot(p[0] - (e.a.x + e.b.x) / 2, p[1] - (e.a.z + e.b.z) / 2) < 25 + e.len / 2);
-        const top = [...byName.entries()].filter(([, o]) => o.edges.filter(covered).reduce((t, e) => t + e.len, 0) < 0.6 * o.len).sort((a, b) => b[1].len - a[1].len).slice(0, S.opts.sweep ?? 2);
+        const top = [...byName.entries()].filter(([, o]) => o.len > 0 && o.edges.filter(e => e.publicDrive !== false && (canTravel(e, 1) || canTravel(e, -1)) && covered(e)).reduce((t, e) => t + e.len, 0) < 0.6 * o.len).sort((a, b) => b[1].len - a[1].len).slice(0, S.opts.sweep ?? 2);
         for (const [name, o] of top) {
-            const ns = o.edges.flatMap(e => [e.a, e.b]); let best = null, bd = 0;
-            for (const p of ns) for (const q of ns) { const d = Math.hypot(p.x - q.x, p.z - q.z); if (d > bd) { bd = d; best = [p, q]; } }
-            if (!best || bd < 150) continue;
-            // drive the street in the direction the router actually follows it (one-way streets: the other way detours)
-            const share = (p, q) => { try { const r = g.nav.compute(p.x, p.z, q.x, q.z, null); if (!r?.legs?.length) return 0; let on = 0, all = 0; for (const L of r.legs) { all += L.e.len; if (L.e.name === name) on += L.e.len; } return all ? on / all : 0; } catch { return 0; } };
-            if (share(best[1], best[0]) > share(best[0], best[1]) + 0.05) best = [best[1], best[0]];
-            out.push({ id: 'sweep-' + name.toLowerCase().replace(/[^\w]+/g, '-').replace(/^-|-$/g, ''), label: 'main street: ' + name, kind: 'sweep', from: { x: best[0].x, z: best[0].z, heading: null }, to: { x: best[1].x, z: best[1].z, label: name } });
+            const planned = planStreetSweeps({ name, edges: o.edges, route: (p, q) => g.nav.compute(p.x, p.z, q.x, q.z, null, p.y == null ? null : .24 + p.y), sourceId: e => W.data.roadSourceGeometry?.[e.road]?.sourceId ?? e.road ?? e.id });
+            S.sweepPlanning.push(planned.diagnostics);
+            if (planned.diagnostics.status !== 'complete') note(`source sweep ${name}: ${planned.diagnostics.uncovered.length} directed edges lack verified routes`);
+            const prefix = 'sweep-' + name.toLowerCase().replace(/[^\w]+/g, '-').replace(/^-|-$/g, '');
+            planned.diagnostics.routePrefix = prefix;
+            for (const [i, run] of planned.runs.entries()) {
+                const id = i === 0 ? prefix : prefix + '-run-' + (i + 1);
+                S.plannedSweeps.set(id, run.route);
+                out.push({ id, label: 'main street: ' + name + ` · legal run ${i + 1}/${planned.runs.length}`, kind: 'sweep', from: { ...run.from, heading: null }, to: { ...run.to, label: name }, sourceStreet: name, sourceComponent: run.component, sourceRoadIds: run.sourceRoadIds, verifiedRouteMetres: run.routeMetres, requestedStreetMetres: run.requestedStreetMetres, endpointInset: run.endpointInset });
+            }
         }
         return out;
     }
@@ -230,8 +235,8 @@ async function plans() {
 /** compute + sample a route; returns a summary (samples stay in the page) */
 function sampleRoute(spec) {
     const every = S.opts.every;
-    let route = null;
-    try { route = g.nav.compute(spec.from.x, spec.from.z, spec.to.x, spec.to.z, spec.from.heading); } catch (e) { note('compute ' + spec.id + ': ' + e.message); }
+    let route = spec.kind === 'sweep' ? S.plannedSweeps.get(spec.id) : null;
+    try { route ||= g.nav.compute(spec.from.x, spec.from.z, spec.to.x, spec.to.z, spec.from.heading); } catch (e) { note('compute ' + spec.id + ': ' + e.message); }
     if (!route || !route.points || route.points.length < 2) { issue('route-missing', 'high', `no route for ${spec.id} (${spec.label})`, { x: spec.from.x, z: spec.from.z }); return { id: spec.id, ok: false }; }
     const P = route.points, L = route.legs || [];
     // lane-centre polyline (right-hand lane 0), mid-points between legs
@@ -256,7 +261,8 @@ function sampleRoute(spec) {
     const dirAt = (s) => { const a = at(Math.max(0, s - 3)), b = at(Math.min(total, s + 3)); const dx = b.x - a.x, dz = b.z - a.z, l = Math.hypot(dx, dz) || 1; return [dx / l, dz / l]; };
     const samples = [];
     const lo = S.opts.from ?? 0, hi = Math.min(S.opts.to ?? Infinity, spec.kind === 'sweep' ? (S.opts.sweepMax ?? 2000) : Infinity);
-    for (let s = spec.kind === 'sweep' ? 42 : 2; s < total - 4; s += every) { // (sweeps start at a map end: skip the closure itself)
+    const distances = spec.kind === 'sweep' ? sweepSampleDistances(total, every, { from: lo, to: hi, max: S.opts.sweepMax ?? 2000 }) : Array.from({ length: Math.max(0, Math.ceil((total - 6) / every)) }, (_, i) => 2 + i * every);
+    for (const s of distances) { // Short legal components retain a midpoint view instead of disappearing.
         if (s < lo || s > hi) continue;
         const p = at(s), [fx, fz] = dirAt(s);
         samples.push({ s, x: p.x, z: p.z, y: p.y, fx, fz, heading: Math.atan2(-fx, -fz), edge: p.leg?.e || null, dir: p.leg?.dir || 1 });
@@ -266,7 +272,7 @@ function sampleRoute(spec) {
     for (let k = 0; k < dense.length; k += 5) S.corridorPts.push([dense[k][0], dense[k][1]]);
     const r = { spec, route, total, at, dirAt, samples, dense, base: S.routeBase || 0 };
     S.routes.set(spec.id, r);
-    return { id: spec.id, ok: true, label: spec.label, kind: spec.kind, total: Math.round(total), n: samples.length, from: where(spec.from.x, spec.from.z), to: where(spec.to.x, spec.to.z) };
+    return { id: spec.id, ok: true, label: spec.label, kind: spec.kind, total: Math.round(total), n: samples.length, from: where(spec.from.x, spec.from.z), to: where(spec.to.x, spec.to.z), sourceStreet: spec.sourceStreet, sourceComponent: spec.sourceComponent, sourceRoadIds: spec.sourceRoadIds, endpointInset: spec.endpointInset };
 }
 
 // ------------------------------------------------------------------ geometry (corridor of all sampled routes)

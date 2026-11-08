@@ -102,7 +102,7 @@ const INIT = () => {
 
 // ---------------------------------------------------------------- one city in one page
 async function runCity(browser, base, city, ctxOut) {
-    const res = { city, groups: [], routes: [], sheets: [], issues: [], counts: {}, cockpit: [], offices: [], errors: [], log: [], timing: {} };
+    const res = { city, groups: [], routes: [], sheets: [], issues: [], counts: {}, cockpit: [], offices: [], errors: [], log: [], timing: {}, sweepPlanning: [] };
     const ctx = await browser.newContext({ viewport: { width: 1280, height: 720 }, deviceScaleFactor: 1 });
     await ctx.route(/api\.open-meteo\.com/, (route) => route.fulfill({ status: 200, contentType: 'application/json', body: '{"error":true,"reason":"visual QA: live weather disabled"}' }));
     const page = await ctx.newPage();
@@ -140,6 +140,12 @@ async function runCity(browser, base, city, ctxOut) {
         res.groups.push(info);
         const plans = await page.evaluate(() => window.vqa.plans());
         const sel = A.route ? A.route.split(',') : null;
+        const planning = await page.evaluate(() => window.vqa.S.sweepPlanning);
+        for (const diagnostic of planning) {
+            const requested = !sel || sel.some(s => s === 'all' || s !== 'none' && diagnostic.routePrefix.includes(s));
+            res.sweepPlanning.push({ group: gr.key, requested, ...diagnostic });
+            if (requested) log(`[${city}] source sweep ${diagnostic.name}: ${diagnostic.coveredDirectedEdges}/${diagnostic.requiredDirectedEdges} directed edges in ${diagnostic.components.length} components, ${diagnostic.status}`);
+        }
         const chosen = plans.filter(p => !sel || sel.some(s => s === 'all' || p.id === s || (s !== 'none' && p.id.includes(s))));
         if (!chosen.length && A.route !== 'none') { const msg = `no route matches --route=${A.route}. Available: ${plans.map(p => p.id).join(', ')}`; log(`[${city}] ${msg}`); res.errors.push(msg); continue; }
         const routes = [];
@@ -314,6 +320,7 @@ function captureCoverage(results) {
     if (!results.length) errors.push({ city: 'all', message: 'No requested survey results were produced' });
     for (const result of results) {
         for (const error of result.errors || []) errors.push({ city: result.city, message: String(error) });
+        for (const plan of result.sweepPlanning || []) if (plan.requested && plan.status !== 'complete') errors.push({ city: result.city, message: `${plan.group}/${plan.name}: source sweep planning ${plan.status}; ${plan.uncovered.length} required directed source edges have no verified capture route` });
         for (const line of new Set([...(result.captureErrors || []), ...(result.log || []).filter(line => /save failed /i.test(line))])) errors.push({ city: result.city, message: String(line) });
         for (const route of result.routes || []) {
             const required = Number.isInteger(route.n) && route.n >= 0 ? route.n : 0;
@@ -337,7 +344,7 @@ function writeReport(results) {
     const byType = {}; for (const it of issues) { (byType[it.type] ||= []).push(it); }
     const L = [];
     L.push(`# Visual QA — ${new Date().toISOString().slice(0, 16).replace('T', ' ')} UTC`, '');
-    L.push(`Run: \`${process.argv.slice(2).join(' ') || '(defaults)'}\` · ${Math.round((Date.now() - t0) / 60)} min · quality ${A.quality}, ${A.time}, ${A.weather}, far ${A.far > 0 ? A.far + ' m' : 'game'},${A.trafficEvery ? ` traffic shots every ${A.trafficEvery} m,` : ''} forward every ${A.every} m, looks/aerial every ${A.lookEvery}/${A.aerialEvery} m, z-fight test every ${A.zEvery || '–'} sample(s).`, '');
+    L.push(`Run: \`${process.argv.slice(2).join(' ') || '(defaults)'}\` · ${Math.round((Date.now() - t0) / 60000)} min · quality ${A.quality}, ${A.time}, ${A.weather}, far ${A.far > 0 ? A.far + ' m' : 'game'},${A.trafficEvery ? ` traffic shots every ${A.trafficEvery} m,` : ''} forward every ${A.every} m, looks/aerial every ${A.lookEvery}/${A.aerialEvery} m, z-fight test every ${A.zEvery || '–'} sample(s).`, '');
     L.push(`Capture coverage: **${coverage.complete ? 'COMPLETE' : 'INCOMPLETE'}** — ${coverage.capturedSamples}/${coverage.requiredSamples} required route samples captured; ${coverage.missingSamples} missing; ${coverage.errors.length} capture/runtime errors.`, '');
     if (!coverage.complete) L.push('This run is incomplete and cannot establish a passing visual review or frame-budget result. Detector severities below remain the raw findings; a tool timeout is not itself a game defect.', '');
     for (const route of coverage.routes.filter(route => route.missing)) L.push(`- Missing route samples: \`${route.group || route.city}/${route.route}\` ${route.captured}/${route.required} captured (indices ${route.missingIndices.slice(0, 20).join(', ')}${route.missingIndices.length > 20 ? ', …' : ''}).`);
@@ -353,6 +360,10 @@ function writeReport(results) {
     for (const r of results) {
         L.push(`## ${r.city} (${r.mode})`, '');
         for (const g of r.groups) L.push(`- world \`${g.key}\`${g.district ? ` district ${g.district}` : ''}: ${g.edges} edges, ${g.ribbons} ribbons, loaded in ${(g.ms / 1000).toFixed(1)} s`);
+        for (const p of (r.sweepPlanning || []).filter(p => p.requested)) {
+            const original = p.originalFarthestPair;
+            L.push(`- Source sweep **${p.name}**: ${p.coveredDirectedEdges}/${p.requiredDirectedEdges} legal directed source edges covered by verified routes in ${p.components.length} actual source-node components (${p.status}). Original farthest pair: forward ${original?.forward.reachable ? 'reachable' : 'unreachable'}, reverse ${original?.reverse.reachable ? 'reachable' : 'unreachable'}. All original-pair diagnostics, access exclusions and uncovered source IDs remain in visual.json.`);
+        }
         L.push(`- time: ${Object.entries(r.timing).map(([k, v]) => `${k} ${v} s`).join(', ')}`);
         if (r.errors.length) L.push(`- page errors (${r.errors.length}): ${r.errors.slice(0, 5).map(e => '`' + e.replace(/`/g, "'").slice(0, 160) + '`').join('; ')}`);
         L.push('', '| route | length | samples | flagged | wall |', '|---|---|---|---|---|');

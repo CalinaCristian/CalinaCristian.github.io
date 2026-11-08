@@ -12,7 +12,7 @@ import { treeGeometries, SPECIES, defaultSpecies, buildSpeciesTrees, speciesFrom
 import { assignSignalPhases, signalState } from './signals.js';
 import { aircraftBody } from './building-aircraft.js';
 import { resolveParkingLayout, parkingRowPose, parkingPolygonsOverlap, parkingBodyOverlap } from './parking-layout.js';
-import { passageSolids, clipPassageWall, passageInterior } from './building-passages.js';
+import { passageSolids, clipPassageWall, passageInterior, passageBaseUnknown } from './building-passages.js';
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -2890,10 +2890,11 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         if (heightFixes.length) console.info('[world] height sanity:', heightFixes.length, 'buildings re-estimated', heightFixes.slice(0, 8));
     }
-    const buildingPassageAudit=[];
+    const buildingPassageAudit=(data.buildingPassageIssues||[]).map(i=>({...i,accepted:false}));
     const configurePassages=b=>{
         b.passages=[];b.passageSolids=null;
         for(const source of data.buildingPassages?.[b.derivedFrom??b.i]||[]){
+            if(passageBaseUnknown(source.tags)){buildingPassageAudit.push({source:data.buildingIds?.[b.derivedFrom??b.i],road:source.sourceRoadId,accepted:false,reason:'absolute-passage-base-unknown',baseUnknown:true,tags:source.tags});continue;}
             const mid=centroid(source.ring),indices=new Set(source.roadIndices||[]);
             const ne=nearestEdge(mid[0],mid[1],e=>!e.virtual&&(indices.has(e.road)||data.roadAccess?.[e.road]?.sourceId===source.sourceRoadId),100);
             const roadY=ne?Y.road+yAlong(ne.edge,mid[0],mid[1]):Y.road,ceilingM=roadY+source.clearanceM,top=b.roofProfile?.eavesM??b.h;

@@ -2760,6 +2760,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const palette = PALETTES[country], roofCols = ROOF_COL[country];
     const collision = [];
     const propColl = []; // small circles for street furniture (trees, posts, shelters…)
+    const treeClear = []; // (after round 6) {x, z, r}: no trees here (fuel forecourts)
     const addPropColl = (x, z, r, kind = 'prop') => propColl.push({ x, z, r, hw: r, hd: r, angle: 0, poly: null, h: 3, prop: true, kind });
     for (const [x, z] of lmSignColl) addPropColl(x, z, 1.4, 'sign');
     let wallTris = 0;
@@ -3312,8 +3313,11 @@ export async function buildWorld(city, renderer, opts = {}) {
             const ca = Math.cos(roadAng), sa = Math.sin(roadAng);
             const L2W = (lx, lz) => [fx + lx * ca + lz * sa, fz - lx * sa + lz * ca];
             const canopyCol = rgb('#f3f4f6');
-            c.solid.box(fx, 5.0, fz, 10, 0.9, 16, roadAng, canopyCol);
-            c.solid.box(fx, 5.0, fz, 10.05, 0.5, 16.05, roadAng, rgb(bs[0]));
+            treeClear.push({ x: fx, z: fz, r: 14 }); // the forecourt + shop stay clear of trees (they covered it)
+            // (after round 6) canopy: a brand-coloured fascia all round with an accent stripe, a light underside
+            c.solid.box(fx, 4.95, fz, 10, 0.1, 16, roadAng, canopyCol);
+            c.solid.box(fx, 5.0, fz, 10.1, 0.85, 16.1, roadAng, rgb(bs[0]));
+            c.solid.box(fx, 5.02, fz, 10.14, 0.12, 16.14, roadAng, rgb(bs[2] || bs[1]));
             for (const [lx, lz] of [[-3.5, -6], [3.5, -6], [-3.5, 6], [3.5, 6]]) { const [px, pz] = L2W(lx, lz); c.solid.box(px, 0.2, pz, 0.45, 4.8, 0.45, roadAng, rgb('#d1d5db')); addPropColl(px, pz, 0.35, 'fuel'); }
             for (const [lx, lz] of [[-1.6, -3.5], [1.6, -3.5], [-1.6, 3.5], [1.6, 3.5]]) { const [px, pz] = L2W(lx, lz); c.solid.box(px, 0.2, pz, 0.9, 1.7, 0.6, roadAng, rgb('#e5e7eb')); c.solid.box(px, 1.5, pz, 0.92, 0.35, 0.62, roadAng, rgb(bs[0])); addPropColl(px, pz, 0.55, 'fuel'); }
             c.ground.flatFan([L2W(-7, -11), L2W(7, -11), L2W(7, 11), L2W(-7, 11)], Y.parking + 0.003, rgb('#77787b'), 0.15);
@@ -3488,6 +3492,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         // and a crown hanging below 4.4 m may not reach over one (else it is dropped, never left in a lane)
         const collR = 0.3 * Math.max(0.6, sz * 1.4);
         if (onRibbon(x, z, collR + 0.3)) return false;
+        if (treeClear.some((q) => (x - q.x) ** 2 + (z - q.z) ** 2 < q.r * q.r)) return false;
         if ((shape.cy - shape.ry * 0.8) * sz < 4.4 && onRibbon(x, z, R * sh * 0.9)) { if (kind === 'street' || kind === 'garden') return false; sh = Math.max(0.3, sh * 0.6); }
         treeList.push({ x, z, s: sz, species, con: !!isCon, dec: dec ?? (isCon ? 0 : 1), kind, sh }); treeGrid.insert(x, z, x, z, treeList[treeList.length - 1]);
         addPropColl(x, z, collR, 'tree');

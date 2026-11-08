@@ -258,5 +258,24 @@
       "sha256": "d1d1acea33cf6f710903c0a29c1de46d9f9059fccd949a35a0d41a05c0e434a6",
       "rawSha256": "5d1616968bbc63f4300ff090345c2421acbc991e7666aa1a68eaac2847d120f9"
     }
-  ]
+  ],
+  "servedSnapshotVerification": {
+    "files": 1647,
+    "allBytesEqualGitArchive": true,
+    "manifest": "served-source-verification.json",
+    "manifestSha256": "f31e0dc4c0457f1beb53fed0c5a25a67bbafd1351ad88506e38ca14ea2fc7d3d",
+    "note": "Independent current audit of retained immutable source against actual143dca git archive. Recovered prior metadata retained separately."
+  },
+  "captureTools": {
+    "originalSevenToolSha256": "c86947665a7cb3b0495a40bb379c0142527e9e74974af97b6c7048e25def5ab8",
+    "completeSeaTacToolSha256": "4cd566718541d27bad5552ea19f6020d6ee700919e9892f654aff9db314e1a33",
+    "toolDifference": "Only optional pair-target parsing was moved before browser launch and accepts native stats or CPU before stats; served source and all queries are unchanged.",
+    "seaTacPairTargets": {
+      "path": "proof/scenery-bridge-continuation/seattle-seatac.json",
+      "sha256": "c8862dc5ee76b37b8e5eb66e48def5d2963e7330fe4fcffe4f3d660bde1a1fe5",
+      "count": 15
+    },
+    "originalSevenToolCommitContainingExactBytes": "ed6638844e8e97566deb5ce96c9474bd4ce36db3",
+    "completeSeaTacToolCommitContainingExactBytes": "516b7e46f5c420389f634849b71c7cfa99b01cd6"
+  }
 }

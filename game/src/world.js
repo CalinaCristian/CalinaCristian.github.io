@@ -5529,7 +5529,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (e.oneway) dir = 1;
         const t = clamp(ne.t, 0.15, 0.85);
         city.spawn = { edge: [e.a.id, e.b.id], t, dir };
-        const lat = e.sharedLane ? 0 : (e.median / 2 + e.laneW * 0.5) * dir;
+        const lat = (e.sharedLane ? 0 : (e.median / 2 + e.laneW * 0.5) * dir) + (e.laneCenterShiftM || 0);
         spawn = { x: e.a.x + e.dirx * e.len * t + e.nx * lat, z: e.a.z + e.dirz * e.len * t + e.nz * lat, heading: Math.atan2(-e.dirx * dir, -e.dirz * dir), edge: e, dir };
         spawn.y = Y.road + yAlong(e, spawn.x, spawn.z); // road surface at the spawn (the SeaTac departures drive is an elevated deck)
     }

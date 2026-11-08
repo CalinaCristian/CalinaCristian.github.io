@@ -113,10 +113,13 @@ Developer pages: `game/dev/spots.html?id=<spot>`, `game/dev/landmarks.html`, `ga
   review report (`game/dev/harness/visual/README.md`).
 - `node game/dev/harness/football-check.mjs` — deterministic drone-football checks (contact, both goals, post/crossbar
   rebounds, resets and invalid approaches).
+- `node game/dev/harness/courtyard-check.mjs` — mapped courtyard openings and inner/outer wall collision checks.
 - District reality passes combine OSM footprints with aerial roof/canopy/green-ground measurements and local-only
   game-versus-imagery comparisons. See `tools/aerial/README.md` and `tools/osm/README.md`; OSM tile downloads accept
   `--bbox minlat,minlon,maxlat,maxlon` to limit a pass to the district and its scenery ring. Romană & Victoriei is the
   next pass after Floreasca; street-level acceptance requires the Street View comparison review.
+  Street-walk comparisons use official Google panoramas by default (`--pano-provider=any` permits public uploads);
+  mapped underpass/bridge grades determine the comparison camera's height.
 - `node game/dev/harness/viewpoints.js --district=<id> --walk --streetview` — reality check: walks every drivable street of
   a district (both sidewalks) and puts each game frame next to Google Street View from the same spot; `--topdown=250
   --mosaic=<path>` compares the whole district from above with aerial imagery (dev only; nothing from Street View goes

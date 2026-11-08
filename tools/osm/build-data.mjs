@@ -37,6 +37,7 @@
 //               2048 lit, 4096 lit=no
 //    trams: [delta, ...]                             railway=tram centre lines
 //    buildings: [[style, heightDm, minHeightDm, roof, name, flags, levels, colour, roofColour, ...delta ring], ...]
+//    buildingHoles: { buildingIndex: [deltaRing, ...] } optional mapped courtyards; same dm coordinates, no header
 //        (version 2) levels = building:levels (0 unknown), colour / roofColour = string index of '#rrggbb' (-1 none)
 //        style index into `styles`, roof index into `roofs` (flat|pyramid|gabled|dome|hipped|skillion|mansard),
 //        flags: 1 ground-floor shop band, 2 has a sign (name = sign text), 4 tall landmark-ish,
@@ -947,8 +948,8 @@ function buildCity(cityId, did = null) {
         const b = poly[(i + 1) % poly.length];
         return distPointSeg(p[0], p[1], a[0], a[1], b[0], b[1]).d > 0.05;
     });
-    const interiorOverlap = (a, b) => {
-        if (a.some(p => strictInside(p, b)) || b.some(p => strictInside(p, a))) return true;
+    const solidAt = (x, z, ring, holes = []) => pointInPolygon(x, z, ring) && !holes.some(h => pointInPolygon(x, z, h));
+    const ringsCross = (a, b) => {
         const side = (p, q, r) => ((q[0] - p[0]) * (r[1] - p[1]) - (q[1] - p[1]) * (r[0] - p[0])) / Math.max(1e-9, Math.hypot(q[0] - p[0], q[1] - p[1]));
         for (let i = 0; i < a.length; i++) for (let j = 0; j < b.length; j++) {
             const p = a[i], q = a[(i + 1) % a.length], r = b[j], s = b[(j + 1) % b.length];
@@ -957,10 +958,12 @@ function buildCity(cityId, did = null) {
         }
         return false;
     };
+    const interiorOverlap = (a, b, ah = [], bh = []) => a.some(p => strictInside(p, b) && !bh.some(h => pointInPolygon(p[0], p[1], h))) || b.some(p => strictInside(p, a) && !ah.some(h => pointInPolygon(p[0], p[1], h))) || ringsCross(a, b);
     const rawBuildings = [];
-    const addRaw = (ids, t, isRel, oid = '') => {
+    const addRaw = (ids, t, isRel, oid = '', innerIds = []) => {
         const lls = []; for (const n of ids) { const ll = N.get(n); if (!ll) return; lls.push(ll); }
-        rawBuildings.push({ lls, t: { ...t, __id: (isRel ? 'r' : 'w') + oid }, isRel, aer: !isRel ? aerial.get(String(oid)) || null : null });
+        const holesLL = innerIds.map(r => r.map(n => N.get(n))).filter(r => r.length > 3 && r.every(Boolean));
+        rawBuildings.push({ lls, holesLL, t: { ...t, __id: (isRel ? 'r' : 'w') + oid }, isRel, aer: !isRel ? aerial.get(String(oid)) || null : null });
     };
     const bRelWays = new Set();
     const addAnnulus = (outLL, inLL, t) => {
@@ -984,12 +987,13 @@ function buildCity(cityId, did = null) {
         const inners = r.members.filter(m => m.type === 'way' && m.role === 'inner' && W.has(m.ref)).map(m => { bRelWays.add(m.ref); return W.get(m.ref).nodes; });
         const inRings = inners.length ? assembleRings(inners).rings : [];
         for (const ring of assembleRings(outers).rings) {
-            // (after round 6) a stadium / arena with its pitch as the inner ring: the format has no holes, so the bowl is
-            // built as ~28 stand sectors between the outer wall and the pitch — not a solid block roofed over the pitch
+            // Stadiums keep their existing stand sectors. Other mapped inner rings remain courtyards, associated with
+            // the containing outer only (a multipolygon can have several separate buildings).
             const lls = ring.map(n => N.get(n)); if (lls.some(x => !x)) continue;
-            const inner = inRings.map(ir => ir.map(n => N.get(n))).find(ir => ir.every(Boolean) && ir.length > 3);
+            const contained = inRings.filter(ir => ir.length > 3 && ir.every(n => { const p = N.get(n); return p && pointInPolygon(p[1], p[0], lls.map(([la, lo]) => [lo, la])); }));
+            const inner = contained.map(ir => ir.map(n => N.get(n)))[0];
             if (inner && /stadium|grandstand|sports_centre|arena/.test(t.building + ' ' + (t.leisure || ''))) { addAnnulus(lls, inner, t); continue; }
-            addRaw(ring, t, true, rid);
+            addRaw(ring, t, true, rid, contained);
         }
     }
     for (const [id, w] of W) {
@@ -1065,6 +1069,11 @@ function buildCity(cityId, did = null) {
         let ring = local.map(([x, z]) => [cOut[0] + (x - cL[0]) * sx, cOut[1] + (z - cL[1]) * sz]);
         ring = simplifyRing(ring, 1.0, 0.25, 40);
         if (!ring) { dropWhy('simplify'); continue; }
+        let holes = (rb.holesLL || []).map(h => simplifyRing(h.map(([a, c]) => [cOut[0] + ((c - lo) * P.mPerLon - cL[0]) * sx, cOut[1] + (-(a - la) * P.mPerLat - cL[1]) * sz]), 0.2, 0.1, 80)).filter(h => h && Math.abs(polyArea(h)) >= 1);
+        // Keep the source courtyard in place when only a street-facing outer wall is pushed. A radial fallback scales
+        // both outlines together. Never accept a clearance correction that folds an inner ring through an outer wall.
+        const holesFit = (outer, inner) => inner.every(h => h.every((p, i) => { const q = h[(i + 1) % h.length]; return [p, [(p[0] + q[0]) / 2, (p[1] + q[1]) / 2]].every(v => pointInPolygon(v[0], v[1], outer)); }) && !ringsCross(h, outer));
+        if (holes.length && !holesFit(ring, holes)) { dropWhy('invalid-courtyard'); continue; }
         // ---- style & height
         const levels = num(t['building:levels']);
         const roofLevels = num(t['roof:levels']) || 0;
@@ -1207,7 +1216,7 @@ function buildCity(cityId, did = null) {
         // its centre (the audit found 18 such footprints kept at 35–53 % of their real area west of Calea Floreasca)
         if (!ok) {
             const need = (x, z) => { // [push x, push z] out of every road clearance at this point, or null
-                let px = 0, pz = 0, any = false;
+                let px = 0, pz = 0, any = false, largest = 0;
                 roadGrid.query(x, z, 20, (sg) => {
                     if ((sg.r.flags & 4) || sg.r.layer < 0 || (ownService && sg.r.cls === 'service')) return;
                     const q = distPointSeg(x, z, sg.a[0], sg.a[1], sg.b[0], sg.b[1]); if (q.d > 20) return;
@@ -1216,7 +1225,12 @@ function buildCity(cityId, did = null) {
                     const want = (right ? sg.wR : sg.wL) + Math.min(sg.r.sidewalk, 1.6);
                     if (q.d >= want) return;
                     const nx = (right ? -dz : dz) / L, nz = (right ? dx : -dx) / L, k = want - q.d + 0.05;
-                    px += nx * k; pz += nz * k; any = true;
+                    // Adjacent segments of the same road can both contain this
+                    // corner. Adding their normals doubles one clearance and
+                    // needlessly cuts the footprint; resolve the deepest hit,
+                    // then let the next pass handle any independent constraint.
+                    if (k > largest) { px = nx * k; pz = nz * k; largest = k; }
+                    any = true;
                 });
                 return any ? [px, pz] : null;
             };
@@ -1233,10 +1247,10 @@ function buildCity(cityId, did = null) {
                 if (!moved) break;
             }
             const cg = polyCentroid(rg); let hitsOther = false;
-            bGrid.query(cg[0], cg[1], 40, (o) => { if (!hitsOther && interiorOverlap(rg, o.ring)) hitsOther = true; });
-            if (!hitsOther && clearOK(rg) && Math.abs(polyArea(rg)) >= 0.55 * Math.abs(polyArea(ring)) && polyArea(rg) * polyArea(ring) > 0) { ring = rg; ok = true; c2 = cg; }
+            bGrid.query(cg[0], cg[1], 40, (o) => { if (!hitsOther && interiorOverlap(rg, o.ring, holes, o.holes)) hitsOther = true; });
+            if (!hitsOther && holesFit(rg, holes) && clearOK(rg) && Math.abs(polyArea(rg)) >= 0.55 * Math.abs(polyArea(ring)) && polyArea(rg) * polyArea(ring) > 0) { ring = rg; ok = true; c2 = cg; }
         }
-        while (!ok && tries < 7) { ring = ring.map(([x, z]) => [c2[0] + (x - c2[0]) * 0.9, c2[1] + (z - c2[1]) * 0.9]); ok = clearOK(ring); tries++; }
+        while (!ok && tries < 7) { const shrink = ([x, z]) => [c2[0] + (x - c2[0]) * 0.9, c2[1] + (z - c2[1]) * 0.9]; ring = ring.map(shrink); holes = holes.map(h => h.map(shrink)); ok = clearOK(ring); tries++; }
         if (!ok) { dropWhy('road-clearance'); continue; }
         if (Math.abs(polyArea(ring)) < 8) { dropWhy('tiny'); continue; }
         // ---- overlap test against already accepted buildings (only needed where shapes were rescaled)
@@ -1244,7 +1258,7 @@ function buildCity(cityId, did = null) {
             let overlap = false;
             bGrid.query(c2[0], c2[1], 40, (o) => {
                 if (overlap) return;
-                if (interiorOverlap(ring, o.ring)) overlap = true;
+                if (interiorOverlap(ring, o.ring, holes, o.holes)) overlap = true;
             });
             if (overlap) { dropWhy('overlap'); continue; }
         }
@@ -1261,7 +1275,7 @@ function buildCity(cityId, did = null) {
         }
         if (measuredRoof) flags |= 16; // an OSM/aerial roof shape was actually applied; unsupported mixed/round tags are not a measurement of the fallback
         if (outside) flags |= 32; // outside the playable area (scenery ring)
-        const rec = { style, h, minH: Math.min(minH, h - 1), roof, name, brand, flags, ring, c: c2, area: Math.abs(polyArea(ring)), t, levels: isFinite(levels) ? Math.round(levels) : 0, colour, roofColour, la, lo,
+        const rec = { style, h, minH: Math.min(minH, h - 1), roof, name, brand, flags, ring, holes, c: c2, area: Math.abs(polyArea(ring)), t, levels: isFinite(levels) ? Math.round(levels) : 0, colour, roofColour, la, lo,
             hSrc: t.__hRes === 1 ? 1 : t.__hRes === 2 ? 2 : (isFinite(num(t.height)) || isFinite(levels)) ? 0 : 2 };
         let x0 = Infinity, z0 = Infinity, x1 = -Infinity, z1 = -Infinity; for (const [x, z] of ring) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); }
         bGrid.insertBox(x0, z0, x1, z1, rec);
@@ -1280,7 +1294,7 @@ function buildCity(cityId, did = null) {
                 for (let s2 = 0; s2 <= L; s2 += 2) {
                     for (const o of [0, wr * 0.8, -wl * 0.8]) {
                         const x = a[0] + (b[0] - a[0]) * s2 / L + nx * o, z = a[1] + (b[1] - a[1]) * s2 / L + nz * o;
-                        bGrid.query(x, z, 0, (bb) => { if (r.cls === 'service' && (bb.flags & 64)) return; if (!drop.has(bb) && pointInPolygon(x, z, bb.ring)) { drop.add(bb); hits++; } });
+                        bGrid.query(x, z, 0, (bb) => { if (r.cls === 'service' && (bb.flags & 64)) return; if (!drop.has(bb) && solidAt(x, z, bb.ring, bb.holes)) { drop.add(bb); hits++; } });
                     }
                 }
             }
@@ -1348,7 +1362,7 @@ function buildCity(cityId, did = null) {
         if (!nearNetwork(x, z, k[0] === 'landmark' || k[0] === 'airport' || k[0] === 'park' ? 700 : BUFFER)) return;
         const key = k[0] + '|' + name + '|' + Math.round(x / 15) + '|' + Math.round(z / 15);
         if (poiSeen.has(key)) return; poiSeen.add(key);
-        if (bIdx < 0) bGrid.query(x, z, 1, (o) => { if (bIdx < 0 && pointInPolygon(x, z, o.ring)) bIdx = buildings.indexOf(o); });
+        if (bIdx < 0) bGrid.query(x, z, 1, (o) => { if (bIdx < 0 && solidAt(x, z, o.ring, o.holes)) bIdx = buildings.indexOf(o); });
         pois.push({ kind: k[0], sub: k[1], x, z, name: st.name, brand: st.brand, op: t.operator || '', cuisine: t.cuisine || '', bIdx, osm, inside: (t.level != null && !/^0(;0)*$/.test(String(t.level))) || t.location === 'indoor' });
     };
     for (const [id, t] of ntags) { const p = pt(id); if (p) addPoi(t, p[0], p[1], -1, 'node/' + id); }
@@ -1380,7 +1394,7 @@ function buildCity(cityId, did = null) {
                 const [x, z] = P(e.lat, e.lon); const brand = e.brand || '';
                 if (M(x, z) > 0) continue;
                 if (pois.some(p => Math.hypot(p.x - x, p.z - z) < 80 && brand && (p.brand === brand || p.name === brand))) continue;
-                let bIdx = -1; bGrid.query(x, z, 1, (o) => { if (bIdx < 0 && pointInPolygon(x, z, o.ring)) bIdx = buildings.indexOf(o); });
+                let bIdx = -1; bGrid.query(x, z, 1, (o) => { if (bIdx < 0 && solidAt(x, z, o.ring, o.holes)) bIdx = buildings.indexOf(o); });
                 if (bIdx < 0) { let bd = 40; bGrid.query(x, z, 40, (o) => { const d = Math.hypot(o.c[0] - x, o.c[1] - z); if (d < bd && o.area > 150) { bd = d; bIdx = buildings.indexOf(o); } }); }
                 pois.push({ kind: KIND(e.category || ''), sub: e.category || 'shop', x, z, name: e.name || brand, brand, op: '', cuisine: '', bIdx, osm: 'locator', inside: false });
                 bizAdded++;
@@ -1396,7 +1410,7 @@ function buildCity(cityId, did = null) {
         for (const i of [...drop].sort((a, b) => b - a)) { pois.splice(i, 1); bizDropped++; }
         try {
             const gd = JSON.parse(fs.readFileSync(path.join(REPO, 'game', 'research', 'businesses-gamediff.json'), 'utf8'))[`${cityId}-${did}`];
-            for (const c of gd?.closed || []) { const [x, z] = P(c.lat, c.lon); if (M(x, z) > 0) continue; let bIdx = -1; bGrid.query(x, z, 1, (o) => { if (bIdx < 0 && pointInPolygon(x, z, o.ring)) bIdx = buildings.indexOf(o); }); vacant.push(Math.round(x * 10), Math.round(z * 10), bIdx); }
+            for (const c of gd?.closed || []) { const [x, z] = P(c.lat, c.lon); if (M(x, z) > 0) continue; let bIdx = -1; bGrid.query(x, z, 1, (o) => { if (bIdx < 0 && solidAt(x, z, o.ring, o.holes)) bIdx = buildings.indexOf(o); }); vacant.push(Math.round(x * 10), Math.round(z * 10), bIdx); }
         } catch { /* no gamediff */ }
         log(`businesses: +${bizAdded} locator-only, −${bizDropped} stale, ${vacant.length / 3} vacant units`);
     }
@@ -1452,7 +1466,7 @@ function buildCity(cityId, did = null) {
             const noTreeAreas = areaRings.filter(a => /^(pitch|parking|water|apron|runway|clay|turf|hard|pool|track)$/.test(a.kind));
             const naGrid = new Grid(100); for (const a of noTreeAreas) { let x0 = Infinity, z0 = Infinity, x1 = -Infinity, z1 = -Infinity; for (const [x, z] of a.rings[0]) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); } naGrid.insertBox(x0, z0, x1, z1, a); }
             const inNoTree = (x, z) => { let f = false; naGrid.query(x, z, 0, (a) => { if (!f && pointInPolygon(x, z, a.rings[0])) f = true; }); return f; };
-            const inBuilding = (x, z) => { let f = false; bGrid.query(x, z, 0, (o) => { if (!f && pointInPolygon(x, z, o.ring)) f = true; }); return f; };
+            const inBuilding = (x, z) => { let f = false; bGrid.query(x, z, 0, (o) => { if (!f && solidAt(x, z, o.ring, o.holes)) f = true; }); return f; };
             const RINGT = OUTER_RING + 40; let added = 0, skipped = 0, thinned = 0;
             for (const [lat, lon, cr] of tj.trees) {
                 const [x, z] = P(lat, lon), mg = M(x, z);
@@ -1575,6 +1589,8 @@ function buildCity(cityId, did = null) {
         else if (name && !addrLike(name) && !blockNo && !residential) flags |= 2;
         return [STYLES.indexOf(b.style), Math.round(b.h * 10), Math.round(Math.max(0, b.minH) * 10), b.roof, S(name), flags, b.levels || 0, S(b.colour), S(b.roofColour), ...delta(b.ring)];
     });
+    const outBuildingHoles = Object.fromEntries(buildings.flatMap((b, i) => b.holes?.length ? [[i, b.holes.map(delta)]] : []));
+    if (Object.keys(outBuildingHoles).length) log('building courtyards', Object.keys(outBuildingHoles).length, 'buildings,', Object.values(outBuildingHoles).reduce((n, hs) => n + hs.length, 0), 'inner rings');
     // scenery streets: [carriagewayWidthDm, sidewalkDm, classIdx, flags (1 bridge, 2 inside-the-area fragment), delta…]
     const outScenery = [];
     for (const { r, pts, inside } of scenery) {
@@ -1635,7 +1651,7 @@ function buildCity(cityId, did = null) {
         bounds: [minX, minZ, maxX, maxZ],
         classes: ROAD_CLASSES, styles: STYLES, roofs: ROOFS, poiKinds: POI_KINDS, areaKinds: AREA_KINDS, lineKinds: LINE_KINDS, furnKinds: FURN_KINDS,
         strings,
-        nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, roadInfo, rampLimits, vacant, buildings: outB, buildingInfo: outBInfo, ...(ds ? { buildingIds: buildings.map(b => b.t?.__id || '') } : {}), pois: outP, areas: outA, lines: outLines, places, lamps,
+        nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, roadInfo, rampLimits, vacant, buildings: outB, buildingInfo: outBInfo, ...(ds ? { buildingIds: buildings.map(b => b.t?.__id || '') } : {}), ...(Object.keys(outBuildingHoles).length ? { buildingHoles: outBuildingHoles } : {}), pois: outP, areas: outA, lines: outLines, places, lamps,
         trees: outTrees, treeInfo: outTreeInfo, furniture: outFurn, backdrop, ...(ds ? { scenery: outScenery } : {}), ...(outGreen ? { green: outGreen } : {}),
         ...(parking.length ? { parking } : {}), ...(treeCoverage ? { treeCoverage } : {}),
         corridor: { areaKm2: +cor.areaKm2.toFixed(2), legs: cor.legs.map(l => [l.label, l.km]) },

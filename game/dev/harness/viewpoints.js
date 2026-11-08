@@ -31,6 +31,7 @@
 //   --streetview                           fetch Street View (key: $GOOGLE_MAPS_KEY, or injected by the network proxy);
 //                                          images are cached in --cache (default <out>/sv-cache) and never committed
 //     --radius=20                          pano snap radius (m)
+//     --pano-provider=google|any            street walks use Google imagery by default; public uploads can differ in eye height / lighting
 //   --topdown=<tile m> --mosaic=<path>     top-down tiles over the district (straight down, north up) + the same ground
 //                                          cropped from the mosaic (<path>.jpg + <path>.json)
 //   --season=summer|autumn|winter|spring|auto   (default summer with --streetview / --walk: most panos are summer shots)
@@ -66,7 +67,16 @@ function serve() {
     });
 }
 function fetchBuf(url) {
-    return new Promise((res, rej) => https.get(url, (r) => { const b = []; r.on('data', (d) => b.push(d)); r.on('end', () => res({ status: r.statusCode, type: r.headers['content-type'] || '', buf: Buffer.concat(b) })); }).on('error', rej));
+    return new Promise((res, rej) => {
+        // Native network errors can include the request URL (and its API key). Keep diagnostics code-only.
+        const fail = (e) => { clearTimeout(timer); rej(new Error(`Street View request failed (${String(e.code || 'NETWORK').replace(/[^A-Z0-9_]/g, '')})`)); };
+        const req = https.get(url, (r) => {
+            const b = []; r.on('data', (d) => b.push(d)); r.on('error', fail);
+            r.on('end', () => { clearTimeout(timer); res({ status: r.statusCode, type: r.headers['content-type'] || '', buf: Buffer.concat(b) }); });
+        });
+        const timer = setTimeout(() => req.destroy(Object.assign(new Error('timeout'), { code: 'ETIMEDOUT' })), 30000);
+        req.on('error', fail);
+    });
 }
 const KEY = process.env.GOOGLE_MAPS_KEY || ''; // (no env key: the network proxy may inject X-Goog-Api-Key)
 const svq = (o) => Object.entries(o).map(([k, v]) => `${k}=${encodeURIComponent(v)}`).join('&') + (KEY ? '&key=' + KEY : '');
@@ -85,7 +95,7 @@ async function svImage(v, file) {
     if (fs.existsSync(ck)) { fs.copyFileSync(ck, file); return { cached: true }; }
     const res = await fetchBuf(`https://maps.googleapis.com/maps/api/streetview?${svq(q)}`);
     if (res.status === 200 && /image/.test(res.type)) { fs.writeFileSync(ck, res.buf); fs.copyFileSync(ck, file); return { cached: false }; }
-    return { error: `HTTP ${res.status} ${res.buf.toString().slice(0, 160)}` };
+    return { error: `HTTP ${res.status}` };
 }
 
 /** in the page: poses every `every` m along both sidewalks of every drivable street */
@@ -173,21 +183,22 @@ function topdownPoses(o) {
         const wp = await page.evaluate(walkPoses, { every: A.every, streets: A.streets, headings: String(A.headings) });
         console.log(`walk: ${wp.length} poses on ${new Set(wp.map(p => p.street)).size} streets`);
         // snap to Street View panos (metadata is free); one view per (pano, side, kind)
-        const seen = new Set(); let nPano = 0, nNone = 0;
+        const seen = new Set(); let nPano = 0, nNone = 0, nPublic = 0;
         for (const v of wp) {
             if (A.streetview || A.eye === 'pano') {
                 let m = null; try { m = await svMeta(v.clat, v.clon, A.radius); } catch (e) { m = { status: 'ERR ' + e.message }; }
+                if (m.status === 'OK' && A['pano-provider'] !== 'any' && !/\bGoogle\b/.test(m.copyright || '')) { nPublic++; m = { status: 'PUBLIC_UPLOAD' }; }
                 if (m.status !== 'OK') { nNone++; if (A.eye === 'pano') continue; }
                 else {
                     const key = m.pano_id + v.side + v.kind; if (seen.has(key)) continue; seen.add(key); nPano++;
-                    v.pano = m.pano_id; v.date = m.date; v.plat = m.location.lat; v.plon = m.location.lng;
+                    v.pano = m.pano_id; v.date = m.date; v.copyright = m.copyright; v.plat = m.location.lat; v.plon = m.location.lng;
                     if (A.eye === 'pano') { v.lat = +v.plat.toFixed(7); v.lon = +v.plon.toFixed(7); v.h = 2.5; }
                 }
             }
             views.push(v);
             if (views.length >= A.max) { console.log(`walk: capped at --max=${A.max} poses`); break; }
         }
-        if (A.streetview || A.eye === 'pano') console.log(`walk: ${nPano} pano matches, ${nNone} poses without a pano within ${A.radius} m`);
+        if (A.streetview || A.eye === 'pano') console.log(`walk: ${nPano} pano matches, ${nNone} poses without a usable pano within ${A.radius} m (${nPublic} public-upload matches excluded)`);
     }
     if (A.topdown) views.push(...await page.evaluate(topdownPoses, { district: A.district, size: A.topdown }));
     if (A.only) views = views.filter(v => String(A.only).split(',').some(s => v.id.includes(s)));
@@ -212,7 +223,15 @@ function topdownPoses(o) {
             if (g.player?.rig) g.player.rig.visible = false;
             g.scene.add(cam);
             if (g.world) g.world.camera = cam; // (distance culling follows this camera: with a narrow fov the world picked a wider one elsewhere)
-            const gy = (g.world.groundAt?.(p.x, p.z)) ?? 0;
+            let gy = (g.world.groundAt?.(p.x, p.z)) ?? 0;
+            // A panorama on a named underpass ramp stands above that road, below the flat ground plane.
+            if ((v.pitch ?? 0) > -80 && v.street) {
+                const ne = g.world.nearestEdge?.(p.x, p.z, e => !e.virtual && e.name === v.street, 50), e = ne?.edge;
+                if (e && ne.d <= Math.max(e.wR, e.wL) + 2 && (e.tunnel || e.bridge || Math.abs(e.ya) > 0.01 || Math.abs(e.yb) > 0.01)) {
+                    const y = e.ya + (e.yb - e.ya) * ne.t, surface = g.world.roadHeight(p.x, p.z, { edge: e, y });
+                    if (Number.isFinite(surface)) gy = surface;
+                }
+            }
             cam.position.set(p.x, (Number.isFinite(gy) ? gy : 0) + (v.h ?? 2.6), p.z);
             const yaw = -(v.heading ?? 0) * Math.PI / 180; // game: x east, z south, camera looks −z (north) at yaw 0
             cam.rotation.set((v.pitch ?? 0) * Math.PI / 180, yaw, 0, 'YXZ');

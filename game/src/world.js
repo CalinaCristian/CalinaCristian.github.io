@@ -2608,10 +2608,11 @@ export async function buildWorld(city, renderer, opts = {}) {
     const B_OFF = (data.version || 1) >= 2 ? 9 : 6;
     const bRecs = data.buildings.map((b, i) => {
         const ring = undelta(b, B_OFF);
+        const holes = (data.buildingHoles?.[i] || []).map(h => undelta(h, 0)).filter(h => h.length >= 3);
         let x0 = Infinity, z0 = Infinity, x1 = -Infinity, z1 = -Infinity;
         for (const [x, z] of ring) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); }
         const c = centroid(ring);
-        return { i, style: data.styles[b[0]], h: b[1] / 10, minH: b[2] / 10, roof: data.roofs[b[3]], name: str(b[4]), flags: b[5], ring, c, x0, z0, x1, z1, area: Math.abs(signedArea(ring)), skip: false,
+        return { i, style: data.styles[b[0]], h: b[1] / 10, minH: b[2] / 10, roof: data.roofs[b[3]], name: str(b[4]), flags: b[5], ring, holes, c, x0, z0, x1, z1, area: Math.abs(signedArea(ring)), skip: false,
             levels: B_OFF === 9 ? b[6] : 0, colour: B_OFF === 9 ? str(b[7]) : '', roofColour: B_OFF === 9 ? str(b[8]) : '' };
     });
     // ---- (round 6 notes 10 / 46) Bucharest 'house' buildings: the village-house look (shutters, steep gable) read wrong —
@@ -2707,7 +2708,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     }
     const bGrid = new BoxGrid(32);
     for (const b of bRecs) bGrid.insert(b.x0, b.z0, b.x1, b.z1, b);
-    const buildingAt = (x, z) => { let r = null; bGrid.each(x, z, x, z, (b) => { if (!r && !b.skip && x >= b.x0 && x <= b.x1 && z >= b.z0 && z <= b.z1 && pointInPolygon(x, z, b.ring)) r = b; }); return r; };
+    const buildingAt = (x, z) => { let r = null; bGrid.each(x, z, x, z, (b) => { if (!r && !b.skip && x >= b.x0 && x <= b.x1 && z >= b.z0 && z <= b.z1 && pointInPolygon(x, z, b.ring) && !b.holes.some(h => pointInPolygon(x, z, h))) r = b; }); return r; };
 
     // landmarks (another module; optional)
     let LANDMARKS = [], buildLandmarkFn = null;
@@ -2758,7 +2759,12 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const dB = Math.hypot(b.c[0] - p.x, b.c[1] - p.z);
                 // (2026-11-08) a name match only counts near the model: the school's name reached its sports hall (a POI sign)
                 // 65 m away and hid it
-                if ((nm && names.some(n => nm.includes(n)) && dB < R + 25) || dB < R) b.skip = true;
+                const namedMatch = nm && names.some(n => nm.includes(n));
+                // A scenery landmark's radius is only a coarse clearing hint.
+                // Keep other named OSM buildings in the detailed ring (e.g.
+                // Sala Palatului behind the Royal Palace), not covered by it.
+                const namedNeighbour = (b.flags & 32) && nm && !namedMatch;
+                if ((namedMatch && dB < R + 25) || (dB < R && !namedNeighbour)) b.skip = true;
                 else if (nm && names.some(n => nm.includes(n)) && (lm.ownSign || lm.cvStop)) { b.flags &= ~2; b.name = ''; } // (its name only: the model carries the sign)
             });
             for (const cb of res.collision || []) {
@@ -3147,7 +3153,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         const c = cellOf(b.c[0], b.c[1]);
         const mb = c.solid;
         const brng = makeRng(b.i * 7919 + 13);
-        const AR = b.arch && ARCH ? ARCH.emit(b, c, makeRng(b.i * 7919 + 17)) : null; // archetype walls / detail / flat roof (b.h may change)
+        const AR = !b.holes.length && b.arch && ARCH ? ARCH.emit(b, c, makeRng(b.i * 7919 + 17)) : null; // archetype roofs do not yet support courtyards
         // (2026-11-08) Bucharest villas keep the interwar facade tiles but the villa quarter's warmer plasters (cream, ochre,
         // pale yellow, salmon, off-white, sage — Floreasca / Dorobanți), not the interwar blocks' greys
         const pal = (b.villa && VILLA_PAL) || palette[b.style] || palette.plain;
@@ -3229,6 +3235,16 @@ export async function buildWorld(city, renderer, opts = {}) {
             perim += L;
         }
         if (!AR) addDetail(b, h > 40 ? mb : c.detail, brng, wallCol, h, y0, shop, yShop, floorH, ccw); // (cornices / balconies / mullions: near LOD only, except towers' silhouettes)
+        for (const hole of b.holes) {
+            const ccwHole = signedArea(hole) > 0;
+            for (let i = 0; i < hole.length; i++) {
+                const a = hole[i], p = hole[(i + 1) % hole.length], length = Math.hypot(p[0] - a[0], p[1] - a[1]);
+                if (length < 0.05) continue;
+                const sign = ccwHole ? -1 : 1, nx = sign * (p[1] - a[1]) / length, nz = -sign * (p[0] - a[0]) / length;
+                const [columns, rows] = TILE_GRID[tile] || [1, 1];
+                mb.wall(a[0], a[1], p[0], p[1], y0, wallTop, nx, nz, wallCol, 0, Math.max(1, Math.round(length / bayW)) / columns, 0, (wallTop - y0) / (floorH * rows), tile);
+            }
+        }
         // (2026-11-08, owner: the Piața Floreasca service lane ran into a blank wall) where a large named building's own
         // service lane meets its wall: a dark portal (loading bay / building passage) with a concrete frame
         if (b.flags & 64) edgesInBox(b.x0 - 2, b.z0 - 2, b.x1 + 2, b.z1 + 2, (e) => {
@@ -3252,7 +3268,12 @@ export async function buildWorld(city, renderer, opts = {}) {
         const flatRoofCol = b.roofColour ? rgb(b.roofColour) : rgb(roofCols.flat[Math.floor(brng() * roofCols.flat.length)]);
         const pitchCol = b.roofColour ? rgb(b.roofColour) : rgb(roofCols.pitched[Math.floor(brng() * roofCols.pitched.length)]);
         const quad4 = ring.length === 4 || (ring.length === 5 && Math.hypot(ring[0][0] - ring[4][0], ring[0][1] - ring[4][1]) < 0.3);
-        if (AR && !AR.roof) { /* (archetypes.js: flat roof, parapet, plant) */ } else if ((b.roof === 'hipped' || b.roof === 'skillion') && quad4) {
+        if (b.holes.length) {
+            // Preserve the source courtyard before applying any generic roof style:
+            // neither a centroid fan nor rooftop clutter may bridge its opening.
+            const { pts, tris } = triangulate(ring, b.holes);
+            if (tris.length) rmb.flatPoly(pts, tris, h, b.roofColour ? rgb(b.roofColour) : flatRoofCol, 0.1, -1);
+        } else if (AR && !AR.roof) { /* (archetypes.js: flat roof, parapet, plant) */ } else if ((b.roof === 'hipped' || b.roof === 'skillion') && quad4) {
             let [p0, p1, p2, p3] = ring;
             if (Math.hypot(p1[0] - p0[0], p1[1] - p0[1]) < Math.hypot(p2[0] - p1[0], p2[1] - p1[1])) [p0, p1, p2, p3] = [p1, p2, p3, p0];
             const P = (p, y = h) => [p[0], y, p[1]];
@@ -3337,7 +3358,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         if (h >= 5 && b.style !== 'church' && !AR && !(b.flags & 32)) addNearDetail(b, c.detail, brng, wallCol, h, y0, shop, yShop, floorH, bayW, ccw, flatRoofCol); // (flags 32: the scenery ring outside the playable area — no street-level clutter)
         // collision
-        collision.push({ x: b.c[0], z: b.c[1], r: Math.max(...ring.map(([x, z]) => Math.hypot(x - b.c[0], z - b.c[1]))), poly: ring, angle: 0, hw: (b.x1 - b.x0) / 2, hd: (b.z1 - b.z0) / 2, h, poi: b.cv || undefined });
+        collision.push({ x: b.c[0], z: b.c[1], r: Math.max(...ring.map(([x, z]) => Math.hypot(x - b.c[0], z - b.c[1]))), poly: ring, holes: b.holes, sourceId: data.buildingIds?.[b.i], angle: 0, hw: (b.x1 - b.x0) / 2, hd: (b.z1 - b.z0) / 2, h, poi: b.cv || undefined });
         // facade sign
         if ((b.flags & 2) && b.name && (b.cvSign || b.area < 20000) && !AR?.signed) addFacadeSign(b, h, shop, wallCol);
     }
@@ -3999,7 +4020,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const vegetation = { treeCrownMeshes: [], treeTrunkMeshes: [], deciduousMask: null, grassMaterials: [], groundMaterials: [], roofMaterials: [], trees: treeList };
     {
         // (2026-11-08) district worlds carry the measured canopy (thousands of real trees): fewer full-detail near trees
-        const T = buildSpeciesTrees(treeList, { rng, cull: distId ? 480 : 550, chunk: 500, near: distId ? 60 : 95, maxNear: distId ? 110 : 240, farLayer: 2 }); // (layer 2: main view only — not the rear-view mirror pass) // (far chunks drawn to ≈ 1 km) // (≈ 1.2 km view range for trees)
+        const T = buildSpeciesTrees(treeList, { rng, cull: distId ? 480 : 550, chunk: distId ? 250 : 500, near: distId ? 60 : 95, maxNear: distId ? 110 : 240, farLayer: 2 }); // smaller district chunks cull off-screen trees precisely; no trees or LOD geometry are removed
         vegetation.treeCrownMeshes.push(...T.crownMeshes); vegetation.treeTrunkMeshes.push(...T.trunkMeshes);
         vegetation.update = T.update;
         vegetation.deciduousMask = new Float32Array(treeList.map(t => t.dec));
@@ -4557,11 +4578,31 @@ export async function buildWorld(city, renderer, opts = {}) {
     }
     // low-poly backdrop: building masses beyond the corridors (so the horizon is not empty)
     let backdropCount = 0;
+    const ringGeometry = data.district?.geometry || (distCfg?.bands ? {
+        pieces: distCfg.bands.map(b => ({ r: b.r, pts: b.line.map(([lat, lon]) => { const p = city.proj(lat, lon); return [p.x, p.z]; }) })),
+        circles: (distCfg.circles || []).map(c => ({ ...city.proj(c.lat, c.lon), r: c.r })), polys: [],
+    } : null);
+    const sceneryMargin = (x, z) => {
+        let margin = Infinity;
+        for (const c of ringGeometry?.circles || []) margin = Math.min(margin, Math.hypot(x - c.x, z - c.z) - c.r);
+        for (const p of ringGeometry?.pieces || []) for (let i = 1; i < p.pts.length; i++) {
+            const a = p.pts[i - 1], b = p.pts[i];
+            margin = Math.min(margin, distPointSeg(x, z, a[0], a[1], b[0], b[1]).d - p.r);
+        }
+        for (const p of ringGeometry?.polys || []) {
+            let distance = Infinity;
+            for (let i = 0; i < p.length; i++) { const a = p[i], b = p[(i + 1) % p.length]; distance = Math.min(distance, distPointSeg(x, z, a[0], a[1], b[0], b[1]).d); }
+            margin = Math.min(margin, pointInPolygon(x, z, p) ? -distance : distance);
+        }
+        return margin;
+    };
+    const touchesDetailedRing = (x, z, w, d) => realPass && ringGeometry && sceneryMargin(x, z) <= (distCfg?.outerRing ?? 600) + Math.hypot(w, d) / 2;
     {
         const bd = data.backdrop || [], pal = PALETTES[country];
         for (let i = 0; i + 5 < bd.length; i += 6) {
             const x = bd[i] / 10, z = bd[i + 1] / 10, w = bd[i + 2] / 10, d = bd[i + 3] / 10, h = bd[i + 4] / 10, rot = -bd[i + 5] * Math.PI / 180;
             const box = { x, z, hw: w / 2, hd: d / 2, angle: rot, r: Math.hypot(w, d) / 2, poly: null, h, kind: 'backdrop' };
+            if (touchesDetailedRing(x, z, w, d)) continue;
             if (polyOnRibbon(obbPoly({ ...box, hw: w / 2 + 2, hd: d / 2 + 2 }))) continue;
             const st = h > 30 ? 'glass' : h > 14 ? 'bloc' : US ? 'house' : 'bloc';
             const colr = shadeRgb(rgb(rng.pick(pal[st])), 0.9);
@@ -4587,7 +4628,9 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const trees = US ? hr.chance(0.55) : hr.chance(0.15);
                 const w = hr.range(30, 70), d = hr.range(14, 40), h = trees ? hr.range(10, 22) : US ? hr.range(6, ring === 0 ? 30 : 14) : hr.range(12, ring === 0 ? 36 : 28);
                 const col = trees ? hr.pick(woods) : shadeRgb(rgb(hr.pick(pal[h > 20 ? 'bloc' : US ? 'house' : 'plain'] || pal.plain)), 0.85);
-                horizon.box(x, -0.2, z, w, h, d, a + hr.range(-0.4, 0.4), col);
+                const rotation = a + hr.range(-0.4, 0.4);
+                if (touchesDetailedRing(x, z, w, d)) continue;
+                horizon.box(x, -0.2, z, w, h, d, rotation, col);
             }
         }
     }
@@ -4716,7 +4759,41 @@ export async function buildWorld(city, renderer, opts = {}) {
     }
     for (const m of vegetation.treeCrownMeshes.concat(vegetation.treeTrunkMeshes)) { cellsGroup.add(m); tris += (m.userData.always ? m.instanceMatrix.count : m.count) * (m.geometry.index.count / 3); }
     { const hMat = new THREE.MeshLambertMaterial({ vertexColors: true }); hMat.name = 'horizon'; const hm = addMesh(horizon, hMat, false, 'horizon'); if (hm) { hm.userData.always = true; hm.frustumCulled = true; } }
-    const waterMesh = addMesh(bigWater, waterMat, false, 'water-big'); if (waterMesh) shoreFoam(waterMesh);
+    let waterMesh = addMesh(bigWater, waterMat, false, 'water-big'); if (waterMesh) shoreFoam(waterMesh);
+    if (distId && waterMesh && (waterMesh.geometry.index?.count || waterMesh.geometry.attributes.position.count) > 15000) {
+        // A single lake/river mesh spanning the district defeats frustum culling:
+        // the mirror submitted all 60k water triangles even when it saw no water.
+        // Partition after shoreline calculation, preserving every triangle and
+        // attribute (including shore distance) so chunk edges add no foam seams.
+        const source = waterMesh.geometry, position = source.attributes.position, index = source.index;
+        const chunks = new Map(), count = index ? index.count : position.count;
+        const vertex = i => index ? index.getX(i) : i;
+        for (let i = 0; i < count; i += 3) {
+            const a = vertex(i), b = vertex(i + 1), c = vertex(i + 2);
+            const x = (position.getX(a) + position.getX(b) + position.getX(c)) / 3;
+            const z = (position.getZ(a) + position.getZ(b) + position.getZ(c)) / 3;
+            const key = Math.floor(x / 500) + ',' + Math.floor(z / 500);
+            let vertices = chunks.get(key); if (!vertices) chunks.set(key, vertices = []);
+            vertices.push(a, b, c);
+        }
+        if (chunks.size > 1) {
+            const parent = new THREE.Group(); parent.name = 'water-big';
+            for (const [key, vertices] of chunks) {
+                const geometry = new THREE.BufferGeometry();
+                for (const [name, attribute] of Object.entries(source.attributes)) {
+                    const size = attribute.itemSize, array = new attribute.array.constructor(vertices.length * size);
+                    vertices.forEach((v, i) => { for (let c = 0; c < size; c++) array[i * size + c] = attribute.array[v * size + c]; });
+                    geometry.setAttribute(name, new THREE.BufferAttribute(array, size, attribute.normalized));
+                }
+                geometry.computeBoundingSphere();
+                const mesh = new THREE.Mesh(geometry, waterMat); mesh.name = 'water-big ' + key;
+                mesh.receiveShadow = true; mesh.renderOrder = -18; mesh.matrixAutoUpdate = false;
+                parent.add(mesh);
+            }
+            parent.userData.triangles = count / 3; parent.userData.chunks = chunks.size;
+            waterMesh.removeFromParent(); source.dispose(); cellsGroup.add(parent); waterMesh = parent;
+        }
+    }
     if (waterMesh) { waterMesh.userData.always = true; waterMesh.renderOrder = -18; }
     // distance culling: cells beyond the fog are hidden (three.js only frustum-culls, and the camera far plane is 5 km).
     // The viewer is world.camera if set, else the widest perspective camera found in the scene.
@@ -5079,10 +5156,11 @@ function collideOne(b, x, z, radius, y) {
     }
     if (b.poly) {
         const poly = b.poly;
-        const inside = pointInPolygon(x, z, poly);
+        const holes = b.holes || [];
+        const inside = pointInPolygon(x, z, poly) && !holes.some(h => pointInPolygon(x, z, h));
         let bd = Infinity, bnx = 0, bnz = 0;
-        for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
-            const r = distPointSeg(x, z, poly[j][0], poly[j][1], poly[i][0], poly[i][1]);
+        for (const boundary of [poly, ...holes]) for (let i = 0, j = boundary.length - 1; i < boundary.length; j = i++) {
+            const r = distPointSeg(x, z, boundary[j][0], boundary[j][1], boundary[i][0], boundary[i][1]);
             if (r.d < bd) { bd = r.d; if (r.d > 1e-5) { bnx = (x - r.cx) / r.d; bnz = (z - r.cz) / r.d; } else { bnx = 0; bnz = 0; } }
         }
         if (inside) return { nx: -bnx, nz: -bnz, pen: radius + bd };

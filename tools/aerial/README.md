@@ -31,6 +31,15 @@ node --max-old-space-size=8000 tools/osm/build-data.mjs --tiles $S/tiles --distr
 Calibrate on crops, not on counts: draw the footprint (and its registered shift) over the imagery with the label and
 look at 80 random buildings of the district (that is how the thresholds above were set for Floreasca, 2026-11-08).
 
+Romană calibration found grey sheet-metal pitched roofs larger than the Floreasca villas. Strong lit/shaded halves on a
+grey or mixed roof now remain low confidence rather than being confidently called flat; roof plant and cast shadows can
+produce the same signal. OSM roof tags retain priority. Keep `--full` measurements and the reviewed crops in scratch when
+calibrating; the compact game research file stores only the measured attributes.
+
+Tree surveys record `_coverage: [south, west, north, east]` for the image pixels actually measured, intersected with an
+optional `trees.py --bbox` crop. The builder copies it to `data.treeCoverage`, allowing the world to suppress inferred
+street rows only inside measured coverage. Older survey files without `_coverage` leave that coverage unknown.
+
 How the builder uses them (district mode, OSM tags always win): `roofs` → `roof:shape` / `roof:colour` and the villa vs
 block decision in the villa quarter (tiled & small → villa 1–3 storeys; dark flat → 1950s–60s bloc P+3; light flat &
 compact → newer 4–6-storey block; deterministic per OSM id); `trees` → `data.trees` (+ `treeInfo` leaf bit 32), off

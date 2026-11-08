@@ -2859,6 +2859,8 @@ function bDinamo(b) {
     // stadium frame: u along the pitch's long axis (toward the south end), v across (toward the east)
     const [p0, p1] = [pitchC[1], pitchC[2]], al = Math.hypot(p1[0] - p0[0], p1[1] - p0[1]);
     const ux = (p1[0] - p0[0]) / al, uz = (p1[1] - p0[1]) / al, vx = uz, vz = -ux; // u ≈ south, v ≈ east (x east, z south)
+    // Shared with the drone football activity: use this model's exact pitch frame.
+    b.footballPitch = { center: [cx, 0.16, cz], axis: [ux, uz], halfLength: 52.06, halfWidth: 32.5, goalHalfWidth: 3.66, goalHeight: 2.34 };
     const W = (u, v) => [cx + ux * u + vx * v, cz + uz * u + vz * v];
     const RED = '#c8102e', WHITE = '#eeeeea', GREY = '#bdbbb5', CON = '#a9a69f', CON2 = '#8f8c85', TRACK = '#b5543f', APRON = '#3f7a68', GRASS = '#3f8a3a', GRASS2 = '#4a9a43';
     // capsule (400 m track) sampled by arc length: half-straight A, radius r; returns [{u, v, nu, nv}]
@@ -3118,6 +3120,7 @@ export function buildLandmark(lm, ctx = {}) {
     const { group, tris } = b.finish({ floodlit: !!lm.floodlit && ctx.floodlit !== false && !(lm.city === 'seattle' && !ctx.realScale) });
     group.name = 'landmark:' + lm.id;
     group.userData.landmark = lm.id;
+    if (b.footballPitch) group.userData.footballPitch = b.footballPitch;
     group.rotation.y = lm.rotation;
     let k = 1;
     if (lm.backdrop) { k = ctx.backdropScale ?? 1; group.scale.setScalar(k); }

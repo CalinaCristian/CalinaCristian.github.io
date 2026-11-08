@@ -142,8 +142,14 @@ def main():
             continue
         out.append([round(la, 6), round(lo, 6), round(min(rr * 1.15, 9.0), 1)])  # (edge distance underestimates the crown)
     out.sort()
+    north, west = latlon(0, 0)
+    south, east = latlon(tree.shape[1], tree.shape[0])
+    coverage = [south, west, north, east]
+    if bb:
+        coverage = [max(south, bb[0]), max(west, bb[1]), min(north, bb[2]), min(east, bb[3])]
     meta_out = {'_source': 'aerial imagery (Esri World Imagery) measured by tools/aerial/trees.py; crown positions only, no imagery stored',
                 '_format': 'trees: [[lat, lon, crown radius m], ...]', '_mosaic': {'bbox': meta['bbox'], 'z': meta['z']},
+                '_coverage': [round(v, 7) for v in coverage],
                 'canopyShare': round(float(tree.mean()), 3)}
     with open(a.out, 'w') as f:
         f.write(json.dumps(meta_out, separators=(',', ':'))[:-1] + ',"trees":[\n')

@@ -58,6 +58,22 @@ def num(v):
         return None
 
 
+def segment_distance(x, z, a, b):
+    dx, dz = b[0] - a[0], b[1] - a[1]
+    t = max(0, min(1, ((x - a[0]) * dx + (z - a[1]) * dz) / max(1e-12, dx * dx + dz * dz)))
+    return math.hypot(x - a[0] - t * dx, z - a[1] - t * dz)
+
+
+def geometry_margin(x, z, geometry):
+    values = [math.hypot(x - c['x'], z - c['z']) - c['r'] for c in geometry.get('circles', [])]
+    for piece in geometry.get('pieces', []):
+        values += [segment_distance(x, z, a, b) - piece['r'] for a, b in zip(piece['pts'][:-1], piece['pts'][1:])]
+    for polygon in geometry.get('polys', []):
+        distance = min(segment_distance(x, z, a, b) for a, b in zip(polygon, polygon[1:] + polygon[:1]))
+        values.append(-distance if pip(x, z, polygon) else distance)
+    return min(values, default=float('inf'))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--data', required=True)
@@ -71,13 +87,16 @@ def main():
     lat0, lon0, mLat, mLon = P['lat0'], P['lon0'], P['mPerLat'], P['mPerLon']
     proj = lambda la, lo: ((lo - lon0) * mLon * P.get('scale', 1), -(la - lat0) * mLat * P.get('scale', 1))
     roofs = d['roofs']
+    source_ids = d.get('buildingIds', [])
     B = []
     for i, b in enumerate(d['buildings']):
         ring = undelta(b, 9)
         if len(ring) < 3:
             continue
         x0 = min(x for x, _ in ring); x1 = max(x for x, _ in ring); z0 = min(z for _, z in ring); z1 = max(z for _, z in ring)
-        B.append({'i': i, 'ring': ring, 'bb': (x0, z0, x1, z1), 'h': b[1] / 10, 'roof': roofs[b[3]], 'flags': b[5], 'levels': b[6], 'c': centroid(ring), 'area': abs(area(ring))})
+        B.append({'i': i, 'source': source_ids[i] if i < len(source_ids) else None, 'ring': ring, 'bb': (x0, z0, x1, z1), 'h': b[1] / 10, 'roof': roofs[b[3]], 'flags': b[5], 'levels': b[6], 'c': centroid(ring), 'area': abs(area(ring))})
+    by_source = {b['source']: b for b in B if b['source']}
+    geometry = d.get('district', {}).get('geometry')
     grid = {}
     G = 30.0
     for o in B:
@@ -130,14 +149,18 @@ def main():
             continue
         cx, cz = centroid(ring)
         c = cellOf(cx, cz)
-        zone = 'inside' if c in inside else 'ring' if c in near else None
+        margin = geometry_margin(cx, cz, geometry) if geometry else None
+        zone = ('inside' if margin <= 0 else 'ring' if margin <= a.ring else None) if geometry else ('inside' if c in inside else 'ring' if c in near else None)
         if not zone:
             continue
-        hit = None
+        hit = by_source.get('w' + wid)
+        candidates = []
         for o in grid.get((int(math.floor(cx / G)), int(math.floor(cz / G))), []):
             x0, z0, x1, z1 = o['bb']
             if x0 <= cx <= x1 and z0 <= cz <= z1 and pip(cx, cz, o['ring']):
-                hit = o; break
+                candidates.append(o)
+        if not hit and candidates:
+            hit = min(candidates, key=lambda o: (abs(math.log(max(o['area'], 1e-9) / ar)), math.hypot(o['c'][0] - cx, o['c'][1] - cz)))
         if not hit:  # nearest game centroid within 8 m (shrunk footprints)
             best = 8.0
             for dx in (-1, 0, 1):
@@ -149,7 +172,9 @@ def main():
         h_osm = num(t.get('height'))
         lv = num(t.get('building:levels'))
         row = {'osm': 'w' + wid, 'zone': zone, 'type': t.get('building'), 'name': t.get('name'), 'areaOSM': round(ar), 'lat': round(sum(p[0] for p in ll) / len(ll), 6), 'lon': round(sum(p[1] for p in ll) / len(ll), 6),
-               'heightOSM': h_osm, 'levelsOSM': lv, 'roofOSM': t.get('roof:shape')}
+               'heightOSM': h_osm, 'levelsOSM': lv, 'roofLevelsOSM': num(t.get('roof:levels')) or 0, 'roofOSM': t.get('roof:shape')}
+        if margin is not None:
+            row['margin'] = round(margin, 1)
         if hit:
             row.update({'game': hit['i'], 'dist': round(math.hypot(hit['c'][0] - cx, hit['c'][1] - cz), 1), 'areaKept': round(hit['area'] / ar, 2), 'hGame': hit['h'], 'roofGame': hit['roof']})
         r = aer.get(wid)
@@ -172,7 +197,7 @@ def main():
         tagged = [r for r in M if r['heightOSM'] or r['levelsOSM']]
         if tagged:
             def want(r):
-                return r['heightOSM'] if r['heightOSM'] else r['levelsOSM'] * 3.0
+                return r['heightOSM'] if r['heightOSM'] else r['levelsOSM'] * 3.0 + (r['roofLevelsOSM'] * 2.6 if r['roofGame'] == 'flat' else 0)
             bad = [r for r in tagged if abs(r['hGame'] - want(r)) > max(2.5, 0.25 * want(r))]
             print('  height (OSM-tagged) within ±25 % / 2.5 m:', pct(len(tagged) - len(bad), len(tagged)))
             for r in sorted(bad, key=lambda r: -abs(r['hGame'] - want(r)))[:6]:

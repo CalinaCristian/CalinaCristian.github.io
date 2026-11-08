@@ -1,10 +1,12 @@
 // A mapped two-way street can have one physical lane. Reserve its continuous
 // narrow section before entry; graph directions remain legal in both directions.
 export class SharedLaneGate {
-    constructor(edges) {
+    constructor(edges, bodySizes = []) {
         this.byEdge = new Map(); this.groups = []; this.tails = new Map(); this.serial = 0; this.time = 0;
         const narrow = edges.filter(e => e.sharedLane && !e.oneway && !e.virtual);
         const candidates = new Set(narrow);
+        const clearance = sizes => Math.max(1.6, ...sizes.map(s => (s.length + s.width) / 2 + .6));
+        const roadClearance = clearance(bodySizes.filter(s => s.transit !== 'tram')), railClearance = clearance(bodySizes);
         const adjacent = node => node.edges.filter(e => candidates.has(e));
         for (const first of narrow) {
             if (this.byEdge.has(first)) continue;
@@ -16,6 +18,7 @@ export class SharedLaneGate {
                 found.add(edge); group.edges.push(edge);
                 for (const node of [edge.a, edge.b]) { nodes.add(node); for (const next of adjacent(node)) if (!found.has(next)) pending.push(next); }
             }
+            group.bodyClearance = group.edges.some(e => e.tram) ? railClearance : roadClearance;
             const ends = [...nodes].filter(n => adjacent(n).length === 1);
             // A wider side road (including a private driveway) is an entry to the
             // same bottleneck, not a place where opposing bodies can pass.
@@ -35,8 +38,33 @@ export class SharedLaneGate {
         }
     }
     entry(edge, dir) { const info = this.byEdge.get(edge); return info && { group: info.group, sign: info.sign * dir }; }
-    canPlace(edge, dir, vehicles, self = null) {
-        const target = this.entry(edge, dir); if (!target) return true;
+    mouthClearance(from, dir, to) {
+        const target = this.byEdge.get(to); if (!target) return 1.6;
+        const node = dir > 0 ? from.b : from.a, fx = -from.dirx * dir, fz = -from.dirz * dir;
+        // A bus turning out can sweep past the centreline mouth before it aligns
+        // with its own feeder lane. Keep the opposing queue outside that body
+        // envelope from the outset, even if the bus has not arrived yet.
+        const turns = node.edges.some(edge => {
+            if (this.byEdge.get(edge)?.group !== target.group) return false;
+            const entering = edge.b === node ? 1 : -1;
+            return (edge.dirx * fx + edge.dirz * fz) * entering < .95;
+        });
+        return turns ? target.group.bodyClearance : 1.6;
+    }
+    canPlace(edge, dir, vehicles, self = null, pose = self) {
+        const target = this.entry(edge, dir);
+        if (!target) {
+            // Do not seed/relocate a queue head inside the reserved turning
+            // envelope. It could not make room without backing up in view.
+            if (pose) {
+                const node = dir > 0 ? edge.b : edge.a;
+                for (const next of node.edges) if (this.byEdge.has(next)) {
+                    const clearance = this.mouthClearance(edge, dir, next);
+                    if (clearance > 1.6 && edge.len - pose.s - pose.length / 2 < (node.radius || 3) + clearance + .5) return false;
+                }
+            }
+            return true;
+        }
         const { group, sign } = target;
         const conflicts = direction => group.exclusive || direction !== sign;
         const playerDirection = this.player ? group.occupants.get(this.player) : undefined;

@@ -46,9 +46,10 @@ async function fixture() {
         vehicles.push({ label, v, exit: v.route.at(-1).e }); return v;
     };
     spawn('west', edges[0], 1, [[1, 1], [2, -1], [3, 1]]);
-    spawn('east', edges[3], -1, [[2, 1], [1, -1], [0, -1]]);
+    spawn('east', edges[3], -1, [[2, 1], [1, -1], [0, -1]], mode === 'batch' ? 930 : 970);
     if (mode === 'narrow') spawn('third', edges[5], -1, [[4, -1], [2, -1], [3, 1]]);
-    if (mode === 'platoon') spawn('follower', edges[0], 1, [[1, 1], [2, -1], [3, 1]], 945);
+    if (mode === 'platoon' || mode === 'batch') spawn('follower', edges[0], 1, [[1, 1], [2, -1], [3, 1]], 945);
+    if (mode === 'batch') spawn('late', edges[0], 1, [[1, 1], [2, -1], [3, 1]], 920);
     if (mode === 'cycle') vehicles[0].v.route = [[4, 1], [5, 1], [6, 1], [3, 1]].map(([id, dir]) => ({ e: edges[id], dir }));
     const player = mode === 'player' ? { x: 40, z: 0, fx: -1, fz: 0, y: .24, front: 3.42, rear: 2.36, length: 5.78, width: 1.8, speed: 0 } : null;
     traffic.player = player;
@@ -56,7 +57,7 @@ async function fixture() {
     if (playerMesh) scene.add(playerMesh);
     const renderer = new THREE.WebGLRenderer({ antialias: true }); renderer.setSize(960, 360); document.body.append(renderer.domElement);
     const camera = new THREE.PerspectiveCamera(40, 960 / 360, .1, 500); camera.position.set(40, 95, 140); camera.lookAt(40, 0, 15);
-    const report = { mode, longBodies, bodyLengths: vehicles.map(({ v }) => v.length), samples: [], contacts: [], playerContacts: [], offRoad: [], conflicts: [], teleports: [], ghosts: [], redCrossings: [], stoppedSlides: [], traversed: Object.fromEntries(vehicles.map(({ label }) => [label, false])), clearFrames: {}, lightWaitFrames: 0, waitFrames: Object.fromEntries(vehicles.map(({ label }) => [label, 0])), population: vehicles.length, updateMs: [], fixture: 'Native Traffic controller on controlled shared-lane topology; no source-world fidelity claim', frame: 0 };
+    const report = { mode, longBodies, bodyLengths: vehicles.map(({ v }) => v.length), samples: [], contacts: [], playerContacts: [], offRoad: [], conflicts: [], teleports: [], ghosts: [], redCrossings: [], stoppedSlides: [], traversed: Object.fromEntries(vehicles.map(({ label }) => [label, false])), clearFrames: {}, compatibleFrames: 0, lightWaitFrames: 0, waitFrames: Object.fromEntries(vehicles.map(({ label }) => [label, 0])), population: vehicles.length, updateMs: [], fixture: 'Native Traffic controller on controlled shared-lane topology; no source-world fidelity claim', frame: 0 };
     const support = (v, x, z) => Math.abs(-Math.sin(v.heading) * x - Math.cos(v.heading) * z) * v.length / 2 + Math.abs(Math.cos(v.heading) * x - Math.sin(v.heading) * z) * v.width / 2;
     window.stepShared = count => {
         for (let i = 0; i < count; i++) {
@@ -69,7 +70,10 @@ async function fixture() {
                 const overlap = Math.min(...axes.map(([x,z]) => support(v,x,z) + support(o,x,z) - Math.abs((v.x-o.x)*x+(v.z-o.z)*z)));
                 if (overlap > .001) report.contacts.push({ frame: report.frame, overlap, a, b });
                 const current = traffic.sharedLanes.entry(v.edge, v.dir), other = traffic.sharedLanes.entry(o.edge, o.dir);
-                if (current && other?.group === current.group && (current.group.exclusive || current.sign !== other.sign)) report.conflicts.push({ frame: report.frame, a, b });
+                if (current && other?.group === current.group) {
+                    if (current.group.exclusive || current.sign !== other.sign) report.conflicts.push({ frame: report.frame, a, b });
+                    else report.compatibleFrames++;
+                }
             }
             for (const { label, v, exit } of vehicles) {
                 const before = old.get(v), moved = Math.hypot(v.x - before.x, v.z - before.z);
@@ -120,6 +124,7 @@ async function fixture() {
         for (const traversed of Object.values(final.traversed)) assert.equal(traversed, true);
         assert.equal(final.playerContacts.length, 0); assert.equal(final.ghosts.length, 0); assert.equal(final.redCrossings.length, 0);
         if (final.mode === 'light') assert.ok(final.lightWaitFrames > 30, 'native timed lights actually stop a vehicle');
+        if (final.mode === 'batch') { assert.ok(final.compatibleFrames > 30, 'same-direction platoon really shares the corridor'); assert.ok(final.clearFrames.east < final.clearFrames.late, 'opposite queue closes the batch'); }
         if (final.mode === 'platoon') assert.ok(final.clearFrames.east < final.clearFrames.follower, 'opposite waiter clears before the next same-direction batch');
         assert.ok(Object.values(final.waitFrames).reduce((a, b) => a + b, 0) > 30);
         console.log('PASS ' + final.mode + ': ' + final.population + ' native Traffic vehicles traverse; no contacts/conflicts/ghosts/teleports/stationary slides/red entries.');

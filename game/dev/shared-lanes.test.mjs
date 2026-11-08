@@ -127,3 +127,22 @@ test('tail lifetime follows successful relocation generation, never a failed res
     gate.update([west, east], null, 1000); assert.equal(gate.canEnter(east, edges[2], 1), false);
     west._moveGeneration = 1; gate.update([west, east], null, 1001); assert.equal(gate.canEnter(east, edges[2], 1), true);
 });
+
+test('compatible through traffic can form a same-direction platoon until an opposite request arrives', () => {
+    const { gate, edges, west, east } = graph(), follower = { ...west }, late = { ...west };
+    west.edge = edges[1]; west.s = 20;
+    gate.update([west, east, follower, late], null, 0);
+    assert.equal(gate.canEnter(follower, edges[1], 1), true);
+    assert.equal(gate.canEnter(east, edges[2], 1), false);
+    assert.equal(gate.canEnter(late, edges[1], 1), false);
+    assert.equal(gate.canEnter(follower, edges[1], 1), true);
+});
+
+test('turning exits leave a full fleet body envelope beyond the opposing queue mouth', () => {
+    const { nodes, edges } = graph(); nodes.push({ x: 80, z: 40, edges: [] }); addBranch(nodes, edges, 5, 3, true);
+    const gate = new SharedLaneGate(edges, [{ length: 18.3, width: 2.59, transit: 'bus' }]);
+    assert.equal(gate.mouthClearance(edges[0], 1, edges[1]), 1.6, 'straight opposing lanes need no turn setback');
+    assert.ok(gate.mouthClearance(edges[3], -1, edges[2]) >= (18.3 + 2.59) / 2 + .6);
+    assert.equal(gate.canPlace(edges[3], -1, [], null, { s: 15, length: 4.4 }), false, 'fresh queues cannot start inside the outgoing turn envelope');
+    assert.equal(gate.canPlace(edges[3], -1, [], null, { s: 2, length: 4.4 }), true);
+});

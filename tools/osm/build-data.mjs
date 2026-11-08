@@ -1134,7 +1134,7 @@ function buildCity(cityId, did = null) {
         const amen = t.amenity || '', shop = t.shop || '';
         const isOffice = b === 'office' || b === 'commercial' || !!t.office;
         if (RELIGIOUS.test(b) || amen === 'place_of_worship') { style = 'church'; defLevels = 0; if (!isFinite(h)) h = realArea < 300 ? 11 : 16; roof = realArea < 900 ? 1 : 3; }
-        else if (SMALL.test(b)) { style = 'plain'; if (!isFinite(h)) h = b === 'roof' || b === 'carport' ? 4 : 3; }
+        else if (SMALL.test(b)) { style = 'plain'; if (!isFinite(h) && !(levels > 0)) h = b === 'roof' || b === 'carport' ? 4 : 3; }
         else if (INDUSTRIAL.test(b)) { style = 'plain'; if (!isFinite(h) && !isFinite(levels)) h = b === 'greenhouse' ? 4 : realArea > 2000 ? 10 : 7; }
         else if (b === 'retail' || b === 'supermarket' || shop === 'supermarket' || shop === 'mall' || b === 'kiosk') { style = 'shop'; defLevels = realArea > 3000 ? 2 : 1; flags |= 1; }
         // (2026-11-08, owner: Piața Floreasca was a 15.5 m "bloc" wall) a market hall is a low shop building

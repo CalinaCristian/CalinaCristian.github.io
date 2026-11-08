@@ -14,6 +14,7 @@ import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, hash2, headingFromBearing, centroid, polyBox, inPoly, offsetPolyline, distPolyline, canvas, canvasTexture, fitDraw, obb, polyArea } from '../kit.js';
 import { bucBackdrop, classicFacade, classicWalls, balustradeMaterial, palisade, osmPoly, cityFiller, placeLandmark, signAtlas, oldTownTerraces, floodlight, shopfrontFacade, bucActivity } from '../buc.js';
 import { wallGeometry } from '../osm.js';
+import { buildSecretWcpBar } from './wcp-secret-bar.js';
 
 function simplify(pts, tol) { if (pts.length < 4) return pts; const dist = (p, a, b) => { const dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz) || 1; return Math.abs((p[0] - a[0]) * dz - (p[1] - a[1]) * dx) / L; }; let md = 0, mi = 0; for (let i = 1; i < pts.length - 1; i++) { const dd = dist(pts[i], pts[0], pts[pts.length - 1]); if (dd > md) { md = dd; mi = i; } } if (md <= tol) return [pts[0], pts[pts.length - 1]]; return [...simplify(pts.slice(0, mi + 1), tol).slice(0, -1), ...simplify(pts.slice(mi), tol)]; }
 const simplifyRing = (p, tol) => { const s2 = simplify([...p, p[0]], tol); s2.pop(); return s2.length >= 3 ? s2 : p; };
@@ -403,6 +404,7 @@ export default {
         const caruB = d.buildings.find((x) => x.id === 'w1456401783');
         if (caruB) { ctx.skipBuildings.add(caruB.id); const b = new GeoBatch(), y = Math.min(...caruB.poly.map(([x, z]) => g.heightAt(x, z))) - 0.2; const fac = classicFacade('caru', [{ t: 'arch', w: 0.36, top: 0.1, bottom: 0.06, rustic: true }, { t: 'arch2', w: 0.34, pil: true }, { t: 'arch', w: 0.26, pil: true, top: 0.3 }, { t: 'small', w: 0.24 }], { bay: 3.2, floor: 4.2, lit: 0.85 }); classicWalls(b, fac, caruB.poly, y, y + 15.5, '#c9b79a', y); b.flat(caruB.poly, y + 15.5, '#6b5f55', 'roofs'); const o = obb(caruB.poly); b.add(new THREE.ConeGeometry(4.5, 5, 4), 'roofs', M(-111, y + 18, -73.5, 0, Math.PI / 4, 0, 1, 1, 0.35), '#5a4f46'); ctx.poly(caruB.poly, { y0: y - 1, y1: y + 22 }); ctx.add(b.build('caru-cu-bere', { matOverrides: { [fac.key]: fac.mat } })); void o; }
         const OT = oldTownFronts(ctx);
+        const WB = buildSecretWcpBar(ctx, CA);
         // ground: shared-surface grey granite setts over every pedestrian street (no kerbs), slab bands
         ctx.terrainOpts = { bg: '#8f8b84', bgMask: 'cobble', innerPx: 2048, innerStep: 3, outerStep: 16, outerPad: 700 };
         bucBackdrop(ctx, { lampStyle: 'lantern', lampColor: '#191b1c', lampH: 4.4, lampPad: 15, treeLod: { cap: 1600, max: 400 }, lampOpts: { spacing: 24, kinds: ['pedestrian', 'living_street'] }, streetTreeOpts: { kinds: ['primary', 'secondary', 'tertiary'], prob: 0.5 }, style: (bd) => (bd.k === 'church' ? 'eclectic' : undefined) });
@@ -452,7 +454,7 @@ export default {
         if (MA) ctx.challenge('old-town-lipscani', { x: MA.gate.x + MA.gn.x * 14, z: MA.gate.z + MA.gn.z * 14, heading: (Math.atan2(-MA.gn.x, MA.gn.z) * 180 / Math.PI + 360) % 360, r: 7, tol: 30, text: "Hanul lui Manuc's gate on Str. Franceză" });
         ctx.challenge('stavropoleos-cec', { view: ST ? [ST.x, ST.z] : null, r: 7, tol: 30 });
         // crowd: busy lanes, waiters at every terrace, a tour at Stavropoleos, the Caru' cu Bere queue
-        const groups = [];
+        const groups = [...WB.groups];
         // waiters at the terraces nearest the arrival points, turned toward their tables (talking, not standing stiff)
         const SP0 = { x: 128, z: -56.5 }, dist0 = (q) => Math.min(Math.hypot(q.x - SP0.x, q.z - SP0.z), Math.hypot(q.x + 92, q.z + 67.5));
         [...TR.terraces].sort((a, b) => dist0(a) - dist0(b)).slice(0, 16).forEach((t) => { groups.push({ x: t.x + Math.sin(t.yaw) * (t.depth / 2 + 0.5), z: t.z + Math.cos(t.yaw) * (t.depth / 2 + 0.5), r: 0.2, n: 1, act: 'talk', yaw: t.yaw + Math.PI, personas: ['waiter'] }); });

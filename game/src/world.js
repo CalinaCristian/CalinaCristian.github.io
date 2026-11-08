@@ -5107,6 +5107,14 @@ export async function buildWorld(city, renderer, opts = {}) {
         walls.splice(0, walls.length, ...retained);
     }
     // ---- collision list with spatial query
+    const insideDistrict = (x, z) => dmask ? !!(dmask.at(x, z) || landmarkPlayAreas.some(p => pointInPolygon(x, z, p))) : true;
+    const flightBoundary = dmask ? {
+        inside: insideDistrict,
+        segments: walls.filter(w => w.kind === 'boundary').map(({ ax, az, bx, bz }) => ({ ax, az, bx, bz }))
+            .concat(landmarkPlayAreas.flatMap(poly => poly.map((a, i) => {
+                const b = poly[(i + 1) % poly.length]; return { ax: a[0], az: a[1], bx: b[0], bz: b[1] };
+            }))),
+    } : null;
     const allColl = collision.concat(collisionBoxes, propColl, pierColl, walls);
     const collGrid = new BoxGrid(32);
     for (const b of allColl) collGrid.insert(b.x - b.r, b.z - b.r, b.x + b.r, b.z + b.r, b);
@@ -5177,7 +5185,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         treeSpots: treeList,
         /** chapters: the loaded district {id, name, label, bbox, center, landmarks, congestion, areaKm2, ends:[{x,z,node,edge}] (road-closed
          *  barriers where roads leave the map; node.mapEnd = true), inside(x, z) (the drivable area)} — null for the legacy corridor maps */
-        district: distId ? { id: distId, ...distCfg, areaKm2: data.district?.areaKm2, ends: mapEnds, inside: (x, z) => (dmask ? dmask.at(x, z) || landmarkPlayAreas.some(p => pointInPolygon(x, z, p)) : true) } : null,
+        district: distId ? { id: distId, ...distCfg, areaKm2: data.district?.areaKm2, ends: mapEnds, inside: insideDistrict, flightBoundary } : null,
         /** district edge closures (spec R10.9) {x, z, heading, edge, node, kind: 'small'|'boulevard'|'highway', leadsTo: districtId|null}; also walls of kind 'closure' (soft) */
         closures,
         /** x/z scale of the world relative to reality (Bucharest 0.7, Seattle 0.5); lane widths, heights, vehicles are real size */

@@ -22,6 +22,9 @@ the next agent needs, add it here (short, imperative) or in the relevant spec, a
   the finding counts with a run on the previous commit, and keep the perf table under **1.5 M triangles / 400 draw calls**.
 - When you keep editing while a harness runs, run it from a snapshot: `git worktree add /tmp/wt HEAD` (the static server
   serves files live). Every harness browser is started with `--mute-audio`; keep it that way.
+- **README.md always reflects the latest game**: when a change adds, removes or changes a player-facing feature, a control,
+  a mode, a district / landmark, a dev tool or a data source / credit, update README.md in the same commit (and the
+  relevant spec). A feature change without its README update is not done.
 - Commit and push as you go on the assigned branch; no PR unless asked.
 
 ## District reality pass — how to make a district match reality (learned on Floreasca, 2026-11-08)

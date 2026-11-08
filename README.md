@@ -62,6 +62,7 @@ that chapter of the CV.
   the boat along a short return course. Idle time grants no progress. Pause, map, photo mode, drone launch or leaving
   cancels an unfinished activity and restores the walker safely to shore. A hidden sports room reached through Carusel retains the World Cup Predictions Easter egg;
   a second TV shows an actual Dinamo drone goal as a hint. The real Starbucks street frontage stays in place.
+  The overview includes separate shareable evidence views for every landmark and tourist destination, with game captures, source links and explicit remaining estimates.
 - **Offices you can talk in.** Each CV stop is a distinct interior (a 2009 classroom, the Politehnica rectorate,
   turnstile lobbies, the UiPath robot floor…) with a teacher, professor or manager who answers A–D questions about that
   chapter of the CV.

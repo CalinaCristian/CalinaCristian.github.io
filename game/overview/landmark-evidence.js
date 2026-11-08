@@ -2,26 +2,29 @@
 import { aerialURL, createAerialCache } from './comparison-viewer.js';
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const https = value => { try { const u = new URL(value); return u.protocol === 'https:' ? u.href : null; } catch { return null; } };
-const asset = value => typeof value === 'string' && /^assets\/landmarks\/[a-zA-Z0-9_/-]+\.(?:png|jpe?g|webp)$/.test(value) ? value : null;
+const asset = value => typeof value === 'string' && /^assets\/(?:landmarks|spots)\/[a-zA-Z0-9_/-]+\.(?:png|jpe?g|webp)$/.test(value) ? value : null;
 const commit = sha => /^[a-f0-9]{40}$/.test(sha || '') ? `<a href="https://github.com/CalinaCristian/CalinaCristian.github.io/commit/${sha}">${sha.slice(0, 7)}</a>` : 'Source revision unavailable';
 const list = values => `<ul>${(values || []).map(value => `<li>${esc(value)}</li>`).join('')}</ul>`;
 
-export function mountLandmarkEvidence(root, inventory) {
+export const mountLandmarkEvidence = (root, inventory) => mountEvidence(root, inventory.landmarks, 'landmark');
+export const mountSpotEvidence = (root, inventory) => mountEvidence(root, inventory.spots, 'spot');
+function mountEvidence(root, entries, kind) {
+    const noun = kind === 'spot' ? 'Tourist destination' : 'Landmark', anchor = `${kind}-evidence`;
     const cache = createAerialCache();
-    root.innerHTML = `<label>Landmark<select aria-label="Landmark evidence">${inventory.landmarks.map(lm => `<option value="${esc(lm.id)}">${esc(lm.name)} · ${lm.city === 'bucharest' ? 'Bucharest' : 'Washington'}</option>`).join('')}</select></label><div class="lm-evidence" aria-live="polite"></div>`;
+    root.innerHTML = `<label>${noun}<select aria-label="${noun} evidence">${entries.map(lm => `<option value="${esc(lm.id)}">${esc(lm.name)} · ${lm.city === 'bucharest' ? 'Bucharest' : 'Washington'}</option>`).join('')}</select></label><div class="lm-evidence" aria-live="polite"></div>`;
     const select = root.querySelector('select'), body = root.querySelector('.lm-evidence');
     let request = 0;
     async function show(id, { navigate = true } = {}) {
-        const lm = inventory.landmarks.find(value => value.id === id); if (!lm) return;
+        const lm = entries.find(value => value.id === id); if (!lm) return;
         const ticket = ++request; select.value = id;
-        if (navigate) { const url = new URL(location.href); url.searchParams.set('landmark', id); url.hash = 'landmark-evidence'; history.pushState(null, '', url); }
+        if (navigate) { const url = new URL(location.href); url.searchParams.set(kind, id); url.hash = anchor; history.pushState(null, '', url); }
         body.innerHTML = `<h4>${esc(lm.name)}</h4><p role="status">Loading dedicated evidence…</p>`;
         let record;
         try {
             if (!lm.evidence) throw new Error('No reviewed evidence record has been published for this entry.');
             const response = await fetch(lm.evidence); if (!response.ok) throw new Error(`Evidence HTTP ${response.status}`);
             record = await response.json();
-            if (record.schemaVersion !== 1 || record.id !== id || record.city !== lm.city) throw new Error('Evidence identity does not match this landmark.');
+            if (record.schemaVersion !== 1 || record.id !== id || record.city !== lm.city) throw new Error(`Evidence identity does not match this ${kind}.`);
         } catch (error) {
             if (ticket !== request) return;
             body.innerHTML = `<h4>${esc(lm.name)}</h4><p class="notice">${esc(error.message)} Catalogue membership is not fidelity acceptance.</p>`; return;
@@ -34,10 +37,10 @@ export function mountLandmarkEvidence(root, inventory) {
           <p>Game source: ${commit(record.sourceCommit)}. ${esc(record.updatedAt || '')} Review coverage describes the evidence available; it does not establish exact visual parity.</p>
           ${record.improvements?.length ? `<h5>Source-led changes</h5>${list(record.improvements)}` : ''}
           ${gaps.length ? `<h5>Remaining gaps and estimates</h5>${list(gaps)}` : ''}
-          <div class="lm-captures">${captures.map((capture, i) => `<figure><a href="${esc(capture.image)}" target="_blank" rel="noopener"><img src="${esc(capture.image)}" alt="${esc(capture.label || lm.name + ' game capture')}" loading="lazy" decoding="async"></a><figcaption>${esc(capture.label || capture.kind)} · game capture · ${commit(capture.sourceCommit || record.sourceCommit)}${capture.capturedAt ? `<br>${esc(capture.capturedAt)}` : ''}</figcaption>${capture.kind === 'top' && capture.comparison?.orientation === 'north-up' && [capture.comparison.lat, capture.comparison.lon, capture.comparison.size].every(Number.isFinite) ? `<div class="lm-aerial" data-aerial="${i}"><p role="status">Loading live aerial for this ground square…</p></div>` : '<p class="lm-caption">Model/view study. Reference links below; this is not a matched Street View photograph.</p>'}</figure>`).join('')}</div>
+          <div class="lm-captures">${captures.map((capture, i) => `<figure><a href="${esc(capture.image)}" target="_blank" rel="noopener"><img src="${esc(capture.image)}" alt="${esc(capture.label || lm.name + ' game capture')}" loading="lazy" decoding="async"></a><figcaption>${esc(capture.label || capture.kind)} · game capture · ${commit(capture.sourceCommit || record.sourceCommit)}${capture.capturedAt ? `<br>${esc(capture.capturedAt)}` : ''}</figcaption>${capture.kind === 'top' && capture.comparison?.orientation === 'north-up' && [capture.comparison.lat, capture.comparison.lon, capture.comparison.size].every(Number.isFinite) ? `<div class="lm-aerial" data-aerial="${i}"><p role="status">Loading live aerial for this ground square…</p></div>` : `<p class="lm-caption">${kind === 'spot' ? 'Scene/view' : 'Model/view'} study. Reference links below; this is not a matched Street View photograph.</p>`}</figure>`).join('')}</div>
           ${record.perf ? `<p class="notice">${Number.isFinite(record.perf.triangles) ? `${record.perf.triangles.toLocaleString()} triangles. ` : ''}${Number.isFinite(record.perf.drawCalls) ? `${record.perf.drawCalls} draw calls. ` : ''}${esc(record.perf.note || 'Focused capture; not a full district traffic budget.')}</p>` : ''}
           ${record.checks?.length ? `<details><summary>Verification checks</summary><ul>${record.checks.map(check => `<li>${check.passed === true ? 'Passed' : check.passed === false ? 'Open' : 'Recorded'}: ${esc(check.label)}${check.details ? ` · ${esc(typeof check.details === 'string' ? check.details : JSON.stringify(check.details))}` : ''}</li>`).join('')}</ul></details>` : ''}
-          <details open><summary>Sources and independent references</summary><ul>${sources || '<li>No independently linked reference published yet.</li>'}</ul><p>Street View is comparison-only. Reference imagery is not copied into the game or this site. Live aerial images stay in the browser for15minutes, including reloads where storage is available; acquisition dates may differ.</p></details></article>`;
+          <details open><summary>Sources and independent references</summary><ul>${sources || '<li>No independently linked reference published yet.</li>'}</ul><p>Street View is comparison-only. Reference imagery is not copied into the game or this site. Live aerial images stay in the browser for 15 minutes, including reloads where storage is available; acquisition dates may differ.</p></details></article>`;
         for (const target of body.querySelectorAll('[data-aerial]')) {
             const capture = captures[Number(target.dataset.aerial)], url = aerialURL(capture.comparison);
             cache.get(url).then(image => {
@@ -47,9 +50,9 @@ export function mountLandmarkEvidence(root, inventory) {
         }
     }
     select.addEventListener('change', () => show(select.value));
-    const fromLocation = () => { const id = new URL(location.href).searchParams.get('landmark'); if (id) show(id, { navigate: false }); };
+    const fromLocation = () => { const id = new URL(location.href).searchParams.get(kind) || entries.find(entry => entry.evidence)?.id || entries[0]?.id; if (id) show(id, { navigate: false }); };
     addEventListener('popstate', fromLocation);
-    const initial = new URL(location.href).searchParams.get('landmark') || inventory.landmarks.find(lm => lm.evidence)?.id || inventory.landmarks[0]?.id;
+    const initial = new URL(location.href).searchParams.get(kind) || entries.find(lm => lm.evidence)?.id || entries[0]?.id;
     if (initial) show(initial, { navigate: false });
     return { show, dispose() { request++; cache.dispose(); removeEventListener('popstate', fromLocation); root.replaceChildren(); } };
 }

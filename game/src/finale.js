@@ -4,8 +4,8 @@
  * aligned, company colour + icon), skills as tags, contact buttons with icons, trip stats as tiles, actions.
  *
  * showFinale({ profile, stops, stats: { minutes, distanceKm, chapters: [done, total], achievements: [n, total],
- *   completion (0–100), photos, fines?: string }, actions: { cv?, explore?, spots?, replay?, close? } (callbacks; a missing
- *   one hides its button), onAction }) → Promise<string> (the action id chosen: 'cv' | 'explore' | 'spots' | 'replay' |
+ *   completion (0–100), photos, fines?: string }, actions: { cv?, worldmap?, spots?, replay?, close? } (callbacks; a missing
+ *   one hides its button), onAction }) → Promise<string> (the action id chosen: 'cv' | 'worldmap' | 'spots' | 'replay' |
  *   'close'). Only CV content from data.js is shown; Escape / the ✕ closes.
  */
 import { ACHIEVEMENTS } from './data.js';
@@ -64,7 +64,7 @@ export function showFinale({ profile, stops = [], stats = {}, actions = {}, onAc
         </section>
         <footer class="fn-actions">
             ${cvLink || actions.cv ? `<a class="fn-act primary" data-act="cv" ${cvLink ? `href="${esc(cvLink.url)}" target="_blank" rel="noopener"` : ''}>${ICON.cv}<span>Download CV</span></a>` : ''}
-            ${act('explore', 'Explore', '<span class="fn-e">🧭</span>')}
+            ${act('worldmap', 'World map', '<span class="fn-e">🌍</span>')}
             ${act('spots', 'Tourist spots', '<span class="fn-e">🏛️</span>')}
             ${act('replay', 'Replay the story', '<span class="fn-e">↺</span>')}
         </footer>

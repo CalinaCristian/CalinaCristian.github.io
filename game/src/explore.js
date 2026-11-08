@@ -1,15 +1,16 @@
 // ============================================================================
-//  EXPLORE (notes 75 + 76, explore lane) — one game, two modes over the same world:
-//  Story (chapters, objectives, cards) ↔ Explore (every district + tourist spot unlocked, no objectives /
-//  cards, time / weather / season panel, fast travel, the drone; driving still possible). Switch in place
-//  from the pause menu; the world-map hub (worldmap.js) jumps anywhere; the drone lives in drone.js.
-//
-//  Explore in a district reuses the game's free-roam state (game.freeRoam: no objective, no story progress,
-//  conditions panel), so offices, closures and achievements keep working; free roam is folded into Explore.
+//  WORLD MAP · FREE ROAM · DRONE host (notes 74–76; one mode since 2026-11-08, owner: "we can delete explore").
+//  The chapters are the spine. The world-map hub (worldmap.js) goes anywhere, for everyone: a jump lands in free
+//  roam (game.freeRoam: objective hidden, no chapter cards, conditions panel) or in a tourist spot; the story waits,
+//  and the "📖 Resume story · Chapter N" chip (or pause → Resume story) brings the objective, nav and cards back
+//  where the player left them. "Here" fast travel (hub), the drone (drone.js), K (time / weather / season) and the
+//  tourist spots are there in every state. There is no separate Explore mode, title entry or mode switch any more;
+//  the module keeps its name (explore.js / game.explore) so the hooks and saves did not churn.
 //
 //  main.js:  import { initExplore } from './explore.js';  …  initExplore(window.game);
-//  API (game.explore): active · enterExplore(where?) · exitExplore() · openWorldMap(tab?) · closeWorldMap()
-//                      deployDrone() · landDrone() · jump(key) · fastTravelTo(x, z) · drone · map · stats()
+//  API (game.explore): active (= roaming: off the story via the world map) · roam(where?) · resumeStory()
+//                      openWorldMap(tab?) · closeWorldMap() · deployDrone() · landDrone() · jump(key)
+//                      fastTravelTo(x, z) · renderChip() · drone · map · stats() — enterExplore / exitExplore = aliases
 //  Hooks: `game.explore.hooks` (abortDrone, afterLeaveSpot, beforeChapter, afterFreeRoam, onPhoto, frame, afterFrame),
 //  called by main.js — explore no longer wraps Game methods (spec 10).
 // ============================================================================
@@ -43,7 +44,7 @@ export function initExplore(game) {
     const drone = api.drone = new Drone(game, { onEvent: (d) => { if (d.type === 'deploy') { game.hud?.prompt?.(null); } }, onGoHere: (x, z) => footTravel(x, z, null, { strict: true }) });
     const map = api.map = new WorldMap({
         items, here, current: () => { const c = currentPlace(); return { key: c.key, region: c.region }; },
-        mode: () => (api.active ? 'explore' : 'story'),
+        mode: () => (api.active ? 'roam' : 'story'),
         thumb: (k) => load().thumbs?.[k] || null,
         recent: () => load().recent || [],
         onGo: (it) => jump(it),
@@ -52,13 +53,13 @@ export function initExplore(game) {
             if (map.startMode && game.state === 'menu' && !busy) setActive(false);
             if (['drive', 'foot', 'spot'].includes(game.state)) game.returnFocus?.();
         },
-        canConditions: () => api.active && ['drive', 'foot'].includes(game.state) && !!game.world,
+        canConditions: () => ['drive', 'foot'].includes(game.state) && !!game.world,
         onConditions: () => { game.buildConditions?.(); game.toggleConditions?.(true, { any: true }); },
     });
 
     function setActive(on) {
-        api.active = !!on; document.body.classList.toggle('explore', api.active);
-        renderBar();
+        api.active = !!on; document.body.classList.toggle('roaming', api.active);
+        renderBar(); renderChip();
     }
     function toast(title, body, cls = 'intro') {
         try { if (game.state === 'spot' && game.spot?.ui?.toast) game.spot.ui.toast(title, body); else game.hud.toast(title, body, cls); } catch { /* ignore */ }
@@ -104,13 +105,13 @@ export function initExplore(game) {
         return null;
     }
 
-    // ------------------------------------------------------------------ mode switches
-    /** the loaded district becomes Explore (the free-roam state: no objective, conditions panel) */
+    // ------------------------------------------------------------------ free roam ⇄ story
+    /** the loaded district becomes free roam (objective hidden, conditions panel); the story waits in `story` */
     function makeRoam() {
         const g = game; if (!g.world || !g.district) return false;
         if (!g.freeRoam) {
             story = { chapterIdx: g.chapterIdx, chapterDone: g.chapterDone, weather: g.weatherOverride ?? null };
-            g.freeRoam = { district: g.district, tod: 'now', weather: g.weatherOverride || 'live', explore: true };
+            g.freeRoam = { district: g.district, tod: 'now', weather: g.weatherOverride || 'live', viaMap: true };
             g.ch = null; g.chapter = null; g.chapterIdx = -1; g.chapterDone = false; g.navManual = false;
             try { g.nav?.clear?.(); } catch { /* ignore */ }
             g.buildConditions?.(); document.body.classList.add('free-roam');
@@ -118,13 +119,12 @@ export function initExplore(game) {
         }
         return true;
     }
-    async function enterExplore(where = null) {
+    /** go somewhere off the story: a place (key / id / item) → jump there; from the title menu → the hub to pick a start;
+     *  in game → the hub (the old in-place "Switch to Explore" is gone) */
+    async function roam(where = null) {
         if (where) { const it = typeof where === 'string' ? items().find((i) => i.key === where || i.id === where) : where; if (it) return jump(it); }
         if (game.state === 'menu') { await game.loadSpotsModule?.(); setActive(true); openWorldMap(null, { startMode: true }); return true; }
-        setActive(true);
-        if (['drive', 'foot', 'office'].includes(game.state)) makeRoam();
-        toast('🧭 Explore', `Every district and tourist spot unlocked, no objectives. ${game.touch ? '🌍 map' : 'M'} → world map · ${game.touch ? '🚁' : 'G'} on foot → drone · pause → Switch to Story.`);
-        window.cvTelemetry?.track?.('explore_enter', { from: game.state, district: game.district || null, spot: game.spotId || null });
+        await openWorldMap();
         return true;
     }
     function storyIdx() {
@@ -134,8 +134,8 @@ export function initExplore(game) {
         let i = ch.findIndex((c, k) => !P.done.has(c.id) && (k === 0 || P.reached.has(c.id)));
         if (i < 0) i = ch.length - 1; return i;
     }
-    /** back to Story: in place when the chapter is in this district, else the montage / flight to its start */
-    async function exitExplore() {
+    /** back to the story: in place when the chapter is in this district, else the montage / flight to its start */
+    async function resumeStory() {
         if (busy) return false;
         const idx = storyIdx(), ch = game.chapters?.[idx]; if (!ch) { setActive(false); return false; }
         busy = true;
@@ -160,14 +160,14 @@ export function initExplore(game) {
                 await transition({ fromCity: g.city?.id, toCity: ch.city, from: g.district, to: ch.district, title: ch.title, caption: ch.intro, kicker: `Story · ${ch.year}` });
                 await g.enterChapter(idx);
             }
-            window.cvTelemetry?.track?.('explore_exit', { chapter: ch.id });
+            window.cvTelemetry?.track?.('story_resume', { chapter: ch.id, from: game.district || null });
             return true;
-        } finally { busy = false; renderBar(); }
+        } finally { busy = false; renderBar(); renderChip(); }
     }
 
     // ------------------------------------------------------------------ transitions + jumps
     /** the montage map (same city) or the flight (other city) — the game's own cutscenes */
-    async function transition({ fromCity, toCity, from, to, fromItem = null, toItem = null, title = '', caption = '', kicker = 'Explore' }) {
+    async function transition({ fromCity, toCity, from, to, fromItem = null, toItem = null, title = '', caption = '', kicker = 'World map' }) {
         const g = game, prev = g.state;
         g.photo?.close?.(); g.state = 'montage'; g.input.lookAllowed = false; g.input.releaseLock(); g.hud.prompt(null); g.hud.setNavLine?.(''); g.audio.stopEngine?.();
         try {
@@ -221,7 +221,7 @@ export function initExplore(game) {
             } else if (game.state === 'menu') {
                 await game.startFreeRoam(it.id, opts);
             } else if (game.district === it.id && game.world) {
-                makeRoam(); toast(`🧭 ${it.name}`, 'You are already here.');
+                makeRoam(); toast(`🗺️ ${it.name}`, 'You are already here.');
             } else {
                 makeRoam();
                 await transition({ fromCity: cur.city, toCity: it.city, from: cur.mapKey, to: it.id, toItem: it, title: it.name, caption: it.sub });
@@ -234,9 +234,8 @@ export function initExplore(game) {
         } catch (e) { console.error('[explore] jump', e); return false; }
         finally { busy = false; }
     }
-    /** "Here" tab: click a point → fast travel inside the current district / spot (Explore) */
+    /** "Here" tab: click a point → fast travel inside the current district / spot (everyone) */
     async function fastTravelTo(x, z, pin = null) {
-        if (!api.active) return false;
         drone.abort();
         return footTravel(x, z, pin);
     }
@@ -296,15 +295,15 @@ export function initExplore(game) {
 
     // ------------------------------------------------------------------ hooks the Game calls (main.js: `this.explore?.hooks?.<name>?.(…)`)
     // (explore no longer wraps Game methods: main.js renders the pause items (worldmap / drone / drone-land /
-    //  explore-mode), sends M to the hub while exploring, and uses the Explore wording itself)
+    //  resume-story), sends M to the hub while roaming, and uses the free-roam wording itself)
     api.hooks = {
         /** before any place-changing action (enterSpot, loadCity, fastTravel, enterOffice, toMainMenu, leaveSpot, startFreeRoam, pause actions) */
         abortDrone: () => drone.abort(),
-        /** leaving a spot entered from the menu while exploring: back to the hub, not the title menu; in a district: stay in Explore */
-        afterLeaveSpot: () => { if (!jumping && api.active) { if (game.state === 'menu') setTimeout(() => openWorldMap(null, { startMode: true }), 50); else if (['drive', 'foot'].includes(game.state)) makeRoam(); } },
-        /** any chapter entry is Story */
-        beforeChapter: () => { drone.abort(); if (api.active) setActive(false); story = null; },
-        /** any free-roam start is Explore (note 76) */
+        /** leaving a spot entered from the title menu's hub: back to the hub, not the title menu; in a district: stay in free roam */
+        afterLeaveSpot: () => { if (!jumping && api.active) { if (game.state === 'menu') setTimeout(() => openWorldMap(null, { startMode: true }), 50); else if (['drive', 'foot'].includes(game.state)) makeRoam(); } renderChip(); },
+        /** any chapter entry is the story */
+        beforeChapter: () => { drone.abort(); if (api.active) setActive(false); story = null; renderChip(); },
+        /** any free-roam start is roaming (note 76) */
         afterFreeRoam: (districtId) => { setActive(true); if (!thumbDue) scheduleThumb('district:' + districtId); },
         /** after the game's photo bookkeeping: drone photos are flagged */
         onPhoto: () => { if (drone.active) { drone.onPhoto(); if (game.lastPhoto) game.lastPhoto.drone = true; } },
@@ -357,21 +356,34 @@ export function initExplore(game) {
             return;
         }
         if (e.code === 'KeyG' && (st === 'foot' || st === 'spot')) { stop(); api.deployDrone(); }
-        else if (e.code === 'KeyM' && api.active && st !== 'spot') { stop(); openWorldMap(); } // (in a spot M is the spot map; the world map is the 🌍 button)
+        else if (e.code === 'KeyM' && api.active && st !== 'spot') { stop(); openWorldMap(); } // (roaming: M = the hub; story: M = the district map, 🌍 = the hub; spot: M = the spot map)
     }, true);
     { let wt = 0; window.addEventListener('wheel', (e) => { if (!drone.flying || game.photo?.active || game._pauseOpen || map.isOpen) return; const n = performance.now(); if (n - wt < 220) return; wt = n; drone.cycleMode(e.deltaY < 0 ? 1 : -1); }, { passive: true }); }
 
-    // ------------------------------------------------------------------ HUD bar (🌍 map · 🚁 drone) + main-menu entry
+    // ------------------------------------------------------------------ HUD bar (🌍 world map · 🚁 drone), the resume chip
     const bar = document.createElement('div'); bar.id = 'explore-bar';
-    bar.innerHTML = '<button data-x="map" title="World map (M)">🌍</button><button data-x="drone" title="Deploy drone (G)">🚁</button>';
+    bar.innerHTML = '<button data-x="map" title="World map">🌍</button><button data-x="drone" title="Deploy drone (G)">🚁</button>';
     bar.addEventListener('click', (e) => { const b = e.target.closest('[data-x]'); if (!b) return; e.preventDefault(); b.blur(); if (b.dataset.x === 'map') openWorldMap(); else if (drone.active) drone.land(); else api.deployDrone(); });
     document.body.appendChild(bar);
-    function renderBar() { bar.classList.toggle('show-map', api.active); }
-    // (the title-menu entry #explore-start is in index.html; main.js calls game.explore.enterExplore())
+    function renderBar() { bar.classList.add('show-map'); } // (the 🌍 hub button: everyone, every state)
+    // "📖 Resume story · Chapter N": while roaming (a world-map jump left the story); story complete → the chapter list
+    const chip = document.createElement('button'); chip.id = 'story-chip'; chip.type = 'button'; chip.hidden = true;
+    chip.addEventListener('click', (e) => { e.preventDefault(); chip.blur(); if (storyComplete()) game.togglePause?.(true, 'chapters'); else resumeStory(); });
+    (document.querySelector('#hud .top-left') || document.body).appendChild(chip); // (under the chapter / objective / progress lines)
+    function storyComplete() { const ch = game.chapters, P = game.progress; return !!(ch?.length && P?.done && ch.every((c) => P.done.has(c.id))); }
+    function renderChip() {
+        const ch = game.chapters, on = api.active && !!ch?.length && game.state !== 'menu';
+        chip.hidden = !on; document.body.classList.toggle('story-waiting', on);
+        if (!on) return;
+        if (storyComplete()) { chip.innerHTML = '📖 <span>Chapters</span><small>story complete · replay one</small>'; return; }
+        const i = storyIdx(), c = ch[i];
+        chip.innerHTML = `📖 <span>Resume story</span><small>Chapter ${i + 1}${c ? ' · ' + esc(c.title) : ''}</small>`;
+    }
+    // (the title-menu entry #worldmap-start is in index.html; main.js calls game.explore.roam())
 
     // ------------------------------------------------------------------ API
     Object.assign(api, {
-        enterExplore, exitExplore, jump, fastTravelTo,
+        roam, resumeStory, enterExplore: roam, exitExplore: resumeStory, jump, fastTravelTo, renderChip,
         openWorldMap: (tab = null) => openWorldMap(tab),
         closeWorldMap: () => map.close(),
         deployDrone: () => { if (!['foot', 'spot'].includes(game.state)) { toast('🚁 Drone', game.state === 'drive' ? 'Get out of the car first (Enter), then G.' : 'Only on foot, outdoors.', 'warn'); return false; } return drone.deploy(); },
@@ -379,6 +391,6 @@ export function initExplore(game) {
         items, here: () => here(), current: () => currentPlace(),
         stats: () => ({ ...(load().drone || {}), recent: load().recent || [] }),
     });
-    renderBar();
+    renderBar(); renderChip();
     return api;
 }

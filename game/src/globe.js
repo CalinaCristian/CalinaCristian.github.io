@@ -1,5 +1,5 @@
 // ============================================================================
-//  GLOBE (round 5, globe lane — owner note 83): one shared, high-fidelity world view for the Explore hub's
+//  GLOBE (round 5, globe lane — owner note 83): one shared, high-fidelity world view for the world-map hub's
 //  World tab (worldmap.js `_drawWorld`) and the OTP → SEA flight cut-scene (flight.js `playFlight`).
 //
 //  Canvas 2D, orthographic, drawn in device pixels:
@@ -521,7 +521,7 @@ export const PLACES = {
 const ease = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
 const wrapLon = (l) => ((((l + 180) % 360) + 360) % 360) - 180;
 /**
- * The Explore hub's World tab. The hub owns pan / zoom (its `views.world` = { cx, cy, s, fit }: pan in degrees, s = CSS px
+ * The world-map hub's World tab. The hub owns pan / zoom (its `views.world` = { cx, cy, s, fit }: pan in degrees, s = CSS px
  * per degree at the centre); this turns them into a rotation (east–west drags scaled by 1 / cos(lat) so the surface follows
  * the finger), animates intro / focus, draws, and returns hit boxes (CSS px) with `go()` = fly to the city, then pick(tab).
  */

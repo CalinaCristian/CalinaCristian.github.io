@@ -6,7 +6,8 @@ export const lanesDir = (e, dir) => dir > 0 ? (e.lanesF ?? e.lanes ?? 1) : (e.on
 export const canTravel = (e, dir) => lanesDir(e, dir) > 0;
 export const edgeSpeed = (e) => e.maxspeed ?? e.speed ?? 13;
 export const medianOf = (e) => e.median != null ? e.median : (e.tram ? 4.4 : 0);
-export const laneOff = (e, lane) => medianOf(e) / 2 + (e.laneW ?? 3.3) * (lane + 0.5);
+// Travel-relative offset: callers multiply by dir to obtain the canonical +n coordinate.
+export const laneOff = (e, lane = 0, dir = 1) => (e.sharedLane ? 0 : medianOf(e) / 2 + (e.laneW ?? 3.3) * (lane + 0.5)) + dir * (e.laneCenterShiftM || 0);
 export const isMotorway = (e) => /^(highway|motorway|motorway_link|trunk|trunk_link|ramp)$/.test(e.type || '');
 export const roadName = (e) => !e ? '' : (e.name || e.ref || (e.type ? `(${e.type})` : 'Unnamed road'));
 /** carriageway half-width on side (+1 = right of a→b = +n, -1 = left) */

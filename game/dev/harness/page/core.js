@@ -200,7 +200,7 @@ export class Harness {
             const ss = s ?? edge.len / 2;
             const along = d > 0 ? ss : edge.len - ss;
             const sx = d > 0 ? edge.a.x : edge.b.x, sz = d > 0 ? edge.a.z : edge.b.z;
-            const lat = laneOff(edge, Math.min(lane, Math.max(0, lanesDir(edge, d) - 1)));
+            const lat = laneOff(edge, Math.min(lane, Math.max(0, lanesDir(edge, d) - 1)), d);
             pose = { x: sx + edge.dirx * d * along + edge.nx * d * lat, z: sz + edge.dirz * d * along + edge.nz * d * lat, heading: Math.atan2(-edge.dirx * d, -edge.dirz * d), edge, dir: d };
         } else if (typeof g.lanePose === 'function') pose = g.lanePose(x, z, heading ?? g.player.heading);
         else if (typeof g.roadPose === 'function') pose = g.roadPose(x, z);
@@ -254,7 +254,7 @@ export class Harness {
             const lanes = Math.max(1, lanesDir(e, dir));
             // stopping at a kerb-side door: the kerb lane over the last ~110 m (a player pulls over to the right)
             const kerb = this.ap?.o?.stop && route.cum && route.total - route.cum[i] < 110;
-            const off = laneOff(e, kerb ? lanes - 1 : clamp(lane, 0, lanes - 1)) + (i <= 2 ? shift : 0);
+            const off = laneOff(e, kerb ? lanes - 1 : clamp(lane, 0, lanes - 1), dir) + (i <= 2 ? shift : 0);
             const ox = e.nx * dir * off, oz = e.nz * dir * off;
             segs.push([P[i][0] + ox, P[i][1] + oz, P[i + 1][0] + ox, P[i + 1][1] + oz, L[i]]);
         }

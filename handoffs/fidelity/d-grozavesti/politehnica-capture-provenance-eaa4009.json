@@ -1,0 +1,114 @@
+{
+  "gameSourceCommit": "eaa40092c58da321aae036e508c63f341167d2e9",
+  "archiveMethod": "git archive sourceCommit game public package.json; immutable local server",
+  "captures": [
+    {
+      "id": "front",
+      "gameSourceCommit": "eaa40092c58da321aae036e508c63f341167d2e9",
+      "capturedAt": "2026-11-08T16:40:53.361Z",
+      "sourceJpegSHA256": "378049583d878fbe54eeafab5b5c37b04cd1432028b2c705a913640513bb98a1",
+      "webpSHA256": "68e6fda796699859a87ba29484485f1ad35cf13ad725a66a7021e361076bc201",
+      "conversion": "Lossless WebP; decoded RGB pixels verified identical to captured JPEG.",
+      "pose": {
+        "lat": 44.4389,
+        "lon": 26.0515,
+        "heading": 180,
+        "pitch": 0,
+        "h": 15,
+        "fov": 100,
+        "x": -612,
+        "z": 256,
+        "cameraBaseY": 0,
+        "cameraY": 15
+      },
+      "perf": {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 342,
+        "triangles": 529422,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "renderer": {
+        "width": 1280,
+        "height": 720
+      }
+    },
+    {
+      "id": "top",
+      "gameSourceCommit": "eaa40092c58da321aae036e508c63f341167d2e9",
+      "capturedAt": "2026-11-08T16:33:48.747Z",
+      "sourceJpegSHA256": "0476f03a0543ebd635c99df929e5686c3702a78a88d3c580faf6c514fcb73b00",
+      "webpSHA256": "8e273d874bbd273264d32bdb368d34217d7482b87022d7aa1b25e8ea32b32342",
+      "conversion": "Lossless WebP; decoded RGB pixels verified identical to captured JPEG.",
+      "pose": {
+        "lat": 44.438429,
+        "lon": 26.0515105,
+        "heading": 0,
+        "pitch": -90,
+        "h": 85,
+        "fov": 65,
+        "x": -611,
+        "z": 308,
+        "cameraBaseY": 0,
+        "cameraY": 85
+      },
+      "perf": {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 101,
+        "triangles": 345755,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "renderer": {
+        "width": 720,
+        "height": 720
+      }
+    },
+    {
+      "id": "oblique",
+      "gameSourceCommit": "eaa40092c58da321aae036e508c63f341167d2e9",
+      "capturedAt": "2026-11-08T16:33:51.677Z",
+      "sourceJpegSHA256": "3a9a6290a39ce25a623434198d494929335886eb900ede1b3ff243133e90bb87",
+      "webpSHA256": "0b0d2e5b758618c4283b96c912d27a5878e6d5208cc27226675c63ccf54c011b",
+      "conversion": "Lossless WebP; decoded RGB pixels verified identical to captured JPEG.",
+      "pose": {
+        "lat": 44.4389,
+        "lon": 26.0521,
+        "heading": 223,
+        "pitch": -12,
+        "h": 32,
+        "fov": 65,
+        "x": -564,
+        "z": 256,
+        "cameraBaseY": 0,
+        "cameraY": 32
+      },
+      "perf": {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 121,
+        "triangles": 418473,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "renderer": {
+        "width": 1280,
+        "height": 720
+      }
+    }
+  ]
+}

@@ -1,0 +1,233 @@
+{
+  "schemaVersion": 1,
+  "id": "gts",
+  "city": "bucharest",
+  "name": "Calea Călărașilor 101 (GTS Global Intelligence)",
+  "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.433369,
+    "lon": 26.1176015
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/245117704",
+      "label": "OpenStreetMap w245117704 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {
+        "building:levels": "1"
+      }
+    },
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "label": "Esri World Imagery — private outline/roof comparison; no imagery published",
+      "type": "aerial"
+    }
+  ],
+  "sourceIds": [
+    "w245117704"
+  ],
+  "sourceLedger": "../../../../research/landmark-source-bucharest.json",
+  "reviewedAt": "2026-11-08",
+  "improvements": [
+    "Verified the mapped one-level building identity and retained the previously researched canted-corner facade.",
+    "Ground collision follows the authored polygon rather than filled strips."
+  ],
+  "remainingGaps": [
+    "One level is mapped, but the 9.55 m mansard/ornament height and detailed facade proportions remain estimated.",
+    "No new independent exterior photograph was found; Street View was used only as a visual comparison, with no attributes extracted.",
+    "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity."
+  ],
+  "checks": [
+    {
+      "label": "Full source boundary and replacement-identity checks",
+      "passed": true,
+      "details": "tools/landmarks/bucharest-source-check.mjs: 0 authored source rings; explicit replacement IDs match the source ledger. Entire 33-model check passes 306 checks."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs: all 61 models pass finite geometry, normals and triangle accounting; dedicated concave courtyard, roof and height-band checks pass."
+    },
+    {
+      "label": "Mandatory foot / driving regression",
+      "passed": true,
+      "details": "Immutable production ef21d14: npm run harness -- --scenario=foot,a --city=bucharest completed 0 high / 0 medium / 1 low (software-GL FPS only). Both scenario screenshots inspected."
+    },
+    {
+      "label": "Published game studies inspected",
+      "passed": true,
+      "details": "Front, top and oblique game-only studies inspected against source outlines and available independent reference photographs. Remaining shape discrepancies are listed explicitly."
+    },
+    {
+      "label": "Matched exterior Street View comparison",
+      "passed": true,
+      "details": "Private exterior visual comparison inspected. No Street View attributes were extracted and no Google imagery is published. Actual pano pose was not independently metadata-verified."
+    },
+    {
+      "label": "Complete district / traffic / mirror budget",
+      "passed": false,
+      "details": "These are isolated model studies. Paired Romana samples had unchanged findings and world-only peak1.13M triangles/296 calls, with an Arnia capture timeout; traffic and mirror budget and all tourist-scene placements require the district lanes."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study",
+      "kind": "front",
+      "image": "assets/landmarks/gts/front.webp",
+      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "sha256": "8ac353e98634aec7a7454dc4a6a52b7f74cc21ab69707de3b78823f64cdce5b4",
+      "capturedAt": "2026-11-08T16:50:52.838959Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=gts&clean=1&fountains=on&view=street&az=0",
+        "anchor": {
+          "lat": 44.433369,
+          "lon": 26.1176015,
+          "rotation": 0
+        },
+        "camera": {
+          "position": [
+            -3.6634654998779297,
+            1.3,
+            41.91126184463501
+          ],
+          "quaternion": [
+            0.0299456594911484,
+            0,
+            0,
+            0.9995515281753313
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 999.6328887939453,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -14.8909912109375,
+            -2.3841858265427618e-08,
+            -23.683910369873047
+          ],
+          "max": [
+            7.564060211181641,
+            9.550000190734863,
+            7.543145179748535
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "top",
+      "label": "Top model study (perspective)",
+      "kind": "top",
+      "image": "assets/landmarks/gts/top.webp",
+      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "sha256": "9585d54745791e32d61fcacccde8d0664e5f1ffe4f25825119dcec67087434d5",
+      "capturedAt": "2026-11-08T16:51:00.310879Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=gts&clean=1&fountains=on&view=top&az=0",
+        "anchor": {
+          "lat": 44.433369,
+          "lon": 26.1176015,
+          "rotation": 0
+        },
+        "camera": {
+          "position": [
+            -3.6634654998779297,
+            54.471609540308165,
+            -8.01591096736474
+          ],
+          "quaternion": [
+            -0.7067531394223399,
+            0,
+            0,
+            0.7074602461740636
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 1089.4327355224857,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -14.8909912109375,
+            -2.3841858265427618e-08,
+            -23.683910369873047
+          ],
+          "max": [
+            7.564060211181641,
+            9.550000190734863,
+            7.543145179748535
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/gts/oblique.webp",
+      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "sha256": "f75ae88a081b2f3bd96f744151e5f26cfafb780a5de840983f6e75777d60eac7",
+      "capturedAt": "2026-11-08T16:51:03.870839Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=gts&clean=1&fountains=on&view=oblique&az=35&el=28",
+        "anchor": {
+          "lat": 44.433369,
+          "lon": 26.1176015,
+          "rotation": 0
+        },
+        "camera": {
+          "position": [
+            21.727182717754918,
+            27.357311379859198,
+            28.19122104684032
+          ],
+          "quaternion": [
+            -0.230725012590546,
+            0.2917735521254029,
+            0.07274731703388737,
+            0.9253874813879795
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 1002.715101820258,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -14.8909912109375,
+            -2.3841858265427618e-08,
+            -23.683910369873047
+          ],
+          "max": [
+            7.564060211181641,
+            9.550000190734863,
+            7.543145179748535
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 7200,
+    "drawCalls": 3,
+    "note": "Isolated development viewer render, including its ground/shadow work; excludes district world, traffic and mirrors."
+  }
+}

@@ -60,38 +60,68 @@ export function auditOfficeTexts(stops) {
 // ============================================================================
 const C3 = (c) => new THREE.Color(c);
 const BOXG = new THREE.BoxGeometry(1, 1, 1);
-/** painted view out of the window (1024×512): sky, the city's skyline type, street trees */
-function paintView(ctx, w, h, kind) {
-    const night = false; void night;
+/** the outside conditions for the painted view (after round 6: "windows should reflect the time, weather and every
+ *  condition"): night 0..1, dusk 0..1 (low sun), overcast 0..1, rain / snow flags — from the renderer when there is one */
+function viewConditions() {
+    const r = globalThis.game?.r3d, el = r?.sunElevation ?? 30, k = String(r?.weather?.kind || '').toLowerCase(), cl = r?.weather?.cloud ?? 0.3;
+    const sm = (a, b2, x) => { const t = Math.max(0, Math.min(1, (x - a) / (b2 - a))); return t * t * (3 - 2 * t); };
+    return { night: sm(3, -7, el), dusk: Math.max(0, 1 - Math.abs(el - 2) / 9), overcast: Math.max(sm(0.55, 1, cl), /rain|drizzle|storm|snow|fog|overcast/.test(k) ? 0.75 : 0), rain: /rain|drizzle|storm|shower/.test(k), snow: /snow/.test(k) };
+}
+/** painted view out of the window (1024×512): sky, the city's skyline type, street trees — lit for the time of day and
+ *  the weather (dusk / night sky with stars, lit windows and street lamps at night, grey veil + streaks in rain, snow) */
+function paintView(ctx, w, h, kind, C = viewConditions()) {
+    const mix = (a, b2, t) => { const A = C3(a), B = C3(b2); return '#' + A.lerp(B, Math.max(0, Math.min(1, t))).getHexString(); };
     const sky = ctx.createLinearGradient(0, 0, 0, h * 0.7);
-    if (kind === 'bellevue') { sky.addColorStop(0, '#7fa6cf'); sky.addColorStop(1, '#d9e4ee'); }
-    else { sky.addColorStop(0, '#8fb8e6'); sky.addColorStop(1, '#e8eef4'); }
+    let top = kind === 'bellevue' ? '#7fa6cf' : '#8fb8e6', hor = kind === 'bellevue' ? '#d9e4ee' : '#e8eef4';
+    top = mix(top, '#8a929c', C.overcast); hor = mix(hor, '#c4c8cc', C.overcast);
+    top = mix(top, '#3b4a7a', C.dusk * (1 - C.night)); hor = mix(hor, '#f2a36b', C.dusk * (1 - C.night) * (1 - C.overcast * 0.6));
+    top = mix(top, '#070b1c', C.night); hor = mix(hor, '#1d2440', C.night);
+    sky.addColorStop(0, top); sky.addColorStop(1, hor);
     ctx.fillStyle = sky; ctx.fillRect(0, 0, w, h);
     let seed = kind.length * 977; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    if (C.night > 0.5 && C.overcast < 0.6) { ctx.fillStyle = 'rgba(255,255,255,0.8)'; for (let i = 0; i < 90; i++) ctx.fillRect(rnd() * w, rnd() * h * 0.45, 1.5, 1.5); }
+    const blocks = []; // [x, y, w, h, glass] for the lit windows at night
     if (kind === 'bellevue') { // Cascades on the horizon + glass towers + trees
-        ctx.fillStyle = '#9fb0c4'; ctx.beginPath(); ctx.moveTo(0, h * 0.55);
+        ctx.fillStyle = C.snow ? '#e4e8ee' : '#9fb0c4'; ctx.beginPath(); ctx.moveTo(0, h * 0.55);
         for (let x = 0; x <= w; x += 32) ctx.lineTo(x, h * (0.5 - 0.06 * Math.abs(Math.sin(x * 0.011)) - 0.03 * rnd())); ctx.lineTo(w, h); ctx.lineTo(0, h); ctx.fill();
         for (let i = 0; i < 9; i++) {
             const bw = 60 + rnd() * 80, bx = rnd() * (w - bw), bh = h * (0.35 + rnd() * 0.45), by = h * 0.8 - bh;
             const g = ctx.createLinearGradient(bx, 0, bx + bw, 0); g.addColorStop(0, '#5f7894'); g.addColorStop(1, '#8aa3bd');
             ctx.fillStyle = g; ctx.fillRect(bx, by, bw, bh);
             ctx.fillStyle = 'rgba(255,255,255,0.12)'; for (let y = by + 6; y < by + bh; y += 10) ctx.fillRect(bx, y, bw, 2);
+            blocks.push([bx, by, bw, bh, true]);
         }
-        ctx.fillStyle = '#2f4a32'; for (let x = 0; x < w; x += 18) { ctx.beginPath(); ctx.arc(x + rnd() * 10, h * 0.86 + rnd() * 10, 16 + rnd() * 10, 0, 7); ctx.fill(); }
-        ctx.fillStyle = '#5b6066'; ctx.fillRect(0, h * 0.9, w, h * 0.1);
-        return;
+    } else {
+        // Bucharest: socialist-era blocks (rosetti / upb / gts), glass office towers (pipera), mixed (romana)
+        const towers = kind === 'pipera', mixed = kind === 'romana';
+        for (let i = 0; i < 12; i++) {
+            const glass = towers ? rnd() < 0.8 : mixed ? rnd() < 0.35 : false;
+            const bw = 70 + rnd() * 90, bx = rnd() * (w - bw), bh = h * (glass ? 0.35 + rnd() * 0.45 : 0.2 + rnd() * 0.3), by = h * 0.82 - bh;
+            ctx.fillStyle = glass ? '#6f8aa6' : ['#c9b9a2', '#b8ab96', '#d6cbb8', '#a99a86'][i % 4]; ctx.fillRect(bx, by, bw, bh);
+            if (glass) { ctx.fillStyle = 'rgba(255,255,255,0.15)'; for (let y = by + 5; y < by + bh; y += 9) ctx.fillRect(bx, y, bw, 2); }
+            else { ctx.fillStyle = 'rgba(40,45,55,0.55)'; for (let y = by + 10; y < by + bh - 8; y += 18) for (let x = bx + 8; x < bx + bw - 10; x += 16) ctx.fillRect(x, y, 9, 10); }
+            if (C.snow) { ctx.fillStyle = '#f2f4f7'; ctx.fillRect(bx - 2, by - 3, bw + 4, 4); }
+            blocks.push([bx, by, bw, bh, glass]);
+        }
     }
-    // Bucharest: socialist-era blocks (rosetti / upb / gts), glass office towers (pipera), mixed (romana)
-    const towers = kind === 'pipera', mixed = kind === 'romana';
-    for (let i = 0; i < 12; i++) {
-        const glass = towers ? rnd() < 0.8 : mixed ? rnd() < 0.35 : false;
-        const bw = 70 + rnd() * 90, bx = rnd() * (w - bw), bh = h * (glass ? 0.35 + rnd() * 0.45 : 0.2 + rnd() * 0.3), by = h * 0.82 - bh;
-        ctx.fillStyle = glass ? '#6f8aa6' : ['#c9b9a2', '#b8ab96', '#d6cbb8', '#a99a86'][i % 4]; ctx.fillRect(bx, by, bw, bh);
-        if (glass) { ctx.fillStyle = 'rgba(255,255,255,0.15)'; for (let y = by + 5; y < by + bh; y += 9) ctx.fillRect(bx, y, bw, 2); }
-        else { ctx.fillStyle = 'rgba(40,45,55,0.55)'; for (let y = by + 10; y < by + bh - 8; y += 18) for (let x = bx + 8; x < bx + bw - 10; x += 16) ctx.fillRect(x, y, 9, 10); }
+    const treeY = kind === 'bellevue' ? 0.86 : 0.8, treeC = kind === 'bellevue' ? '#2f4a32' : '#3f6b3a';
+    const month = (globalThis.game?.nowDate?.() || new Date()).getMonth(), bare = month === 11 || month <= 1, autumn = month >= 9 && month <= 10;
+    ctx.fillStyle = C.snow ? '#e8ecf0' : bare ? '#6b5a48' : autumn ? '#b0782f' : treeC;
+    for (let x = 0; x < w; x += kind === 'bellevue' ? 18 : 22) { ctx.beginPath(); ctx.arc(x + rnd() * 12, h * treeY + rnd() * 12, (bare ? 12 : 20) + rnd() * 12, 0, 7); ctx.fill(); }
+    ctx.fillStyle = C.snow ? '#d9dde2' : C.rain ? '#4a4d50' : '#6a6d70'; ctx.fillRect(0, h * 0.88, w, h * 0.12);
+    if (kind !== 'bellevue') { ctx.fillStyle = '#d9d9d2'; for (let x = 0; x < w; x += 60) ctx.fillRect(x, h * 0.94, 30, 3); }
+    // weather veil, then night: everything darkened, lit windows, street lamps, car lights on the wet / dry road
+    if (C.overcast > 0) { ctx.fillStyle = `rgba(150,156,162,${0.22 * C.overcast})`; ctx.fillRect(0, 0, w, h); }
+    if (C.night > 0) {
+        ctx.save(); ctx.globalCompositeOperation = 'multiply'; ctx.fillStyle = mix('#ffffff', '#1a2140', C.night); ctx.fillRect(0, h * 0.25, w, h * 0.75); ctx.restore();
+        ctx.globalAlpha = C.night;
+        for (const [bx, by, bw, bh, glass] of blocks) for (let y = by + 8; y < by + bh - 8; y += glass ? 10 : 18) for (let x = bx + 6; x < bx + bw - 8; x += glass ? 12 : 16) if (rnd() < 0.32) { ctx.fillStyle = rnd() < 0.8 ? '#ffd58a' : '#bcd4ff'; ctx.fillRect(x, y, glass ? 10 : 9, glass ? 6 : 10); }
+        for (let x = 30; x < w; x += 120) { const gl = ctx.createRadialGradient(x, h * 0.86, 0, x, h * 0.86, 46); gl.addColorStop(0, 'rgba(255,200,120,0.55)'); gl.addColorStop(1, 'rgba(255,200,120,0)'); ctx.fillStyle = gl; ctx.fillRect(x - 46, h * 0.8, 92, h * 0.2); ctx.fillStyle = '#fff1c9'; ctx.fillRect(x - 3, h * 0.84, 6, 3); }
+        for (let i = 0; i < 6; i++) { const x = rnd() * w; ctx.fillStyle = rnd() < 0.5 ? '#fff6d8' : '#ff3b30'; ctx.fillRect(x, h * 0.915, 5, 2.5); ctx.fillRect(x + 12, h * 0.915, 5, 2.5); }
+        ctx.globalAlpha = 1;
     }
-    ctx.fillStyle = '#3f6b3a'; for (let x = 0; x < w; x += 22) { ctx.beginPath(); ctx.arc(x + rnd() * 12, h * 0.8 + rnd() * 12, 20 + rnd() * 12, 0, 7); ctx.fill(); }
-    ctx.fillStyle = '#6a6d70'; ctx.fillRect(0, h * 0.88, w, h * 0.12); ctx.fillStyle = '#d9d9d2'; for (let x = 0; x < w; x += 60) ctx.fillRect(x, h * 0.94, 30, 3);
+    if (C.rain) { ctx.strokeStyle = `rgba(210,220,235,${0.28 + 0.2 * (1 - C.night)})`; ctx.lineWidth = 1; for (let i = 0; i < 260; i++) { const x = rnd() * w, y = rnd() * h; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x - 3, y + 14); ctx.stroke(); } }
+    if (C.snow) { ctx.fillStyle = 'rgba(255,255,255,0.85)'; for (let i = 0; i < 220; i++) { ctx.beginPath(); ctx.arc(rnd() * w, rnd() * h, 1 + rnd() * 1.6, 0, 7); ctx.fill(); } }
 }
 const tex = (w, h, draw) => { const t = makeCanvasTexture(w, h, draw); return t; };
 const parquet = (base = '#8a5a34') => tex(256, 256, (ctx) => {

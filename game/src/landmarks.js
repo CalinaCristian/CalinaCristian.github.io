@@ -458,7 +458,7 @@ class Builder {
     }
 
     // ---- collision (model frame, unscaled metres) ----
-    col(x, z, hw, hd, angle = 0) { this.cols.push({ x: x + this.ox, z: z + this.oz, hw, hd, angle }); }
+    col(x, z, hw, hd, angle = 0, bands = {}) { this.cols.push({ x: x + this.ox, z: z + this.oz, hw, hd, angle, ...bands }); }
     colSeg(x0, z0, x1, z1, hw) { const dx = x1 - x0, dz = z1 - z0, L = Math.hypot(dx, dz); this.col((x0 + x1) / 2, (z0 + z1) / 2, L / 2, hw, -Math.atan2(dz, dx)); }
     /** cover polygon(s) with axis-aligned strips (fills courtyards, good enough for a car) */
     colPoly(list, strip = 24) {
@@ -2899,7 +2899,8 @@ function bDinamo(b) {
     for (let k = 0; k <= 8; k++) { const r = RI + k * 1.22; b.prism(poly(capsule(r + 0.05, 4)), 0.16, 0.2, '#f4f1ec', { holes: [poly(capsule(r - 0.05, 4))], top: true }); }
     b.prism(poly(capsule(RI)), 0, 0.15, TRACK, { holes: [pitchRect] });                     // the D zones (jumps, throws)
     for (let i = 0; i < 18; i++) { const u0 = -PL - PM + i * (2 * PL + 2 * PM) / 18, u1 = u0 + (2 * PL + 2 * PM) / 18; b.prism([W(u0, -PW - PM), W(u1, -PW - PM), W(u1, PW + PM), W(u0, PW + PM)], 0, 0.16, i % 2 ? GRASS : GRASS2); }
-    const line = (u0, v0, u1, v1, w = 0.12) => { const L = Math.hypot(u1 - u0, v1 - v0), nu = -(v1 - v0) / L * w / 2, nv = (u1 - u0) / L * w / 2; b.prism([W(u0 + nu, v0 + nv), W(u1 + nu, v1 + nv), W(u1 - nu, v1 - nv), W(u0 - nu, v0 - nv)], 0.16, 0.21, '#f7f7f2'); };
+    // Paint is a flat cap, not a 5 cm kerb through the football's lower half.
+    const line = (u0, v0, u1, v1, w = 0.12) => { const L = Math.hypot(u1 - u0, v1 - v0), nu = -(v1 - v0) / L * w / 2, nv = (u1 - u0) / L * w / 2; b.cap([W(u0 + nu, v0 + nv), W(u1 + nu, v1 + nv), W(u1 - nu, v1 - nv), W(u0 - nu, v0 - nv)], 0.162, '#f7f7f2'); };
     line(-PL, -PW, PL, -PW); line(-PL, PW, PL, PW); line(-PL, -PW, -PL, PW); line(PL, -PW, PL, PW); line(0, -PW, 0, PW);
     for (const s of [-1, 1]) { const g = s * PL; line(g, -20.16, g - s * 16.5, -20.16); line(g - s * 16.5, -20.16, g - s * 16.5, 20.16); line(g - s * 16.5, 20.16, g, 20.16);
         line(g, -9.16, g - s * 5.5, -9.16); line(g - s * 5.5, -9.16, g - s * 5.5, 9.16); line(g - s * 5.5, 9.16, g, 9.16);
@@ -2915,6 +2916,16 @@ function bDinamo(b) {
     { const n = 40; for (let i = 0; i < n; i++) { const a0 = i / n * Math.PI * 2, a1 = (i + 1) / n * Math.PI * 2; line(Math.cos(a0) * 9.15, Math.sin(a0) * 9.15, Math.cos(a1) * 9.15, Math.sin(a1) * 9.15); } }
     // ---- the bowl: terraces from the apron's outer edge up to the OSM outline, profile by sector
     const inner = capsule(RA + 2.5, 3.2);
+    // The open bowl is also a playable ground. World clips only artificial
+    // district-edge walls against this ring; physical stands stay collidable.
+    b.footballPitch.playArea = poly(inner);
+    const standBox = (corners, bands) => {
+        const [a, c] = corners, dx = c[0] - a[0], dz = c[1] - a[1], angle = -Math.atan2(dz, dx), co = Math.cos(angle), si = Math.sin(angle);
+        const q = corners.map(([x, z]) => [x * co - z * si, x * si + z * co]);
+        const x0 = Math.min(...q.map(p => p[0])), x1 = Math.max(...q.map(p => p[0])), z0 = Math.min(...q.map(p => p[1])), z1 = Math.max(...q.map(p => p[1]));
+        const x = (x0 + x1) / 2, z = (z0 + z1) / 2;
+        b.col(x * co + z * si, -x * si + z * co, (x1 - x0) / 2, (z1 - z0) / 2, angle, bands);
+    };
     const rayHit = (px, pz, dx, dz) => { let best = Infinity; for (let i = 0; i < out.length; i++) { const [ax, az] = out[i], [bx, bz] = out[(i + 1) % out.length], ex = bx - ax, ez = bz - az, den = dx * ez - dz * ex; if (Math.abs(den) < 1e-9) continue; const t = ((ax - px) * ez - (az - pz) * ex) / den, s2 = ((ax - px) * dz - (az - pz) * dx) / den; if (t > 0 && s2 >= 0 && s2 <= 1 && t < best) best = t; } return best; };
     const sector = (q) => {
         if (q.u < -A - 4) return 'N';                                    // north curve: Peluza Cătălin Hildan
@@ -2942,6 +2953,7 @@ function bDinamo(b) {
     const n = prof.length, P = (pr, t, y) => [pr.ix + pr.dx * pr.d * t, y, pr.iz + pr.dz * pr.d * t];
     for (let k = 0; k < n; k++) {
         const a = prof[k], c = prof[(k + 1) % n], h0 = 1.1, ha = a.h, hc = c.h;
+        standBox([P(a, 0, 0), P(c, 0, 0), P(c, 1, 0), P(a, 1, 0)].map(p => [p[0], p[2]]), { h: Math.max(ha, hc) + 1.1 });
         const grass = !seatCol(a.sec, k, 0, T);
         if (grass) { // grass embankment with a low wall at the track
             b.quad(P(a, 0, h0 * 0.6), P(c, 0, h0 * 0.6), P(c, 1, hc), P(a, 1, ha), '#5f8a4a', 'm', [0, 1, 0]);
@@ -2968,6 +2980,7 @@ function bDinamo(b) {
             const a = mid[i], c = mid[i + 1], yb = a.h + 6.2, yf = a.h + 4.6;
             const back = (p) => [p.ix + p.dx * (p.d + 0.6), 0, p.iz + p.dz * (p.d + 0.6)], front = (p) => [p.ix + p.dx * p.d * 0.22, 0, p.iz + p.dz * p.d * 0.22];
             const ba = back(a), bc = back(c), fa = front(a), fc = front(c);
+            standBox([fa, fc, bc, ba].map(p => [p[0], p[2]]), { y0: yf - 0.5, y1: yb });
             b.quad([ba[0], yb, ba[2]], [bc[0], yb, bc[2]], [fc[0], yf, fc[2]], [fa[0], yf, fa[2]], '#d9dcdf', 'm', [0, 1, 0]);
             b.quad([ba[0], yb - 0.5, ba[2]], [fa[0], yf - 0.5, fa[2]], [fc[0], yf - 0.5, fc[2]], [bc[0], yb - 0.5, bc[2]], '#8c9196', 'm', [0, -1, 0]);
             b.quad([fa[0], yf - 0.5, fa[2]], [fa[0], yf, fa[2]], [fc[0], yf, fc[2]], [fc[0], yf - 0.5, fc[2]], RED, 'm', [-a.dx, 0, -a.dz]); // red fascia
@@ -2997,9 +3010,8 @@ function bDinamo(b) {
         const hx = mx - dx * 1.2, hz = mz - dz * 1.2;
         b.box(hx, Hm, hz, 9, 5.5, 0.5, '#5d636a', { ry, rx: 0 });
         for (let i = 0; i < 4; i++) for (let j = 0; j < 3; j++) b.box(hx - dx * 0.3 + Math.cos(ry) * (i - 1.5) * 2.1, Hm + 0.5 + j * 1.7, hz - dz * 0.3 - Math.sin(ry) * (i - 1.5) * 2.1, 1.6, 1.2, 0.2, '#fff6dd', { ry, mat: 'e' });
-        b.col(mx, mz, 1.4, 1.4);
+        b.col(mx, mz, 1.4, 1.4, 0, { h: Hm + 6 });
     }
-    b.colPoly([out], 24);
     b.grounds.push(out); b.coverPolys.push(offset(out, -3)); // no trees in the bowl; OSM buildings inside the outline are the model's own
 }
 
@@ -3138,7 +3150,7 @@ export function buildLandmark(lm, ctx = {}) {
     const c = Math.cos(lm.rotation), s = Math.sin(lm.rotation);
     const collision = lm.backdrop ? [] : b.cols.map(q => {
         const x = q.x * hs, z = q.z * hs;
-        return { x: x * c + z * s, z: -x * s + z * c, hw: q.hw * hs, hd: q.hd * hs, angle: lm.rotation + q.angle };
+        return { ...q, x: x * c + z * s, z: -x * s + z * c, hw: q.hw * hs, hd: q.hd * hs, angle: lm.rotation + q.angle };
     });
     // fences the world draws (it knows the streets): {ring|line in world axes relative to the anchor, closed, gates, style}
     //  `inside`: the grounds polygon (the fence is kept on its side of a street); `covers`: points of OSM buildings the model

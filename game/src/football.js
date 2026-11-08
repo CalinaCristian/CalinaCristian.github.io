@@ -116,6 +116,15 @@ function ballMesh() {
     return mesh;
 }
 
+function contactMesh() {
+    const geometry = new THREE.CircleGeometry(0.2, 20), colors = [];
+    for (let i = 0; i < geometry.attributes.position.count; i++) colors.push(0, 0, 0, i === 0 ? 1 : 0);
+    geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 4));
+    const mesh = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.32, depthWrite: false }));
+    mesh.name = 'dinamo-football-contact'; mesh.rotation.x = -Math.PI / 2; mesh.userData.noAudit = true;
+    return mesh;
+}
+
 export function createDinamoFootball(game) {
     const landmark = game.world?.landmarks?.find(l => l.id === 'dinamo');
     let source = null; landmark?.mesh?.traverse(o => { if (o.userData.footballPitch) source = o; });
@@ -126,7 +135,7 @@ export function createDinamoFootball(game) {
 export class DinamoFootball {
     constructor(game, source) {
         this.game = game; this.source = source; this.pitch = source.userData.footballPitch;
-        this.mesh = ballMesh(); game.scene.add(this.mesh); this.previousDrone = null; this.disposed = false;
+        this.mesh = ballMesh(); this.contact = contactMesh(); game.scene.add(this.mesh, this.contact); this.previousDrone = null; this.disposed = false;
         this.physics = new FootballPhysics(this.pitch, () => {
             game.hud?.achievement?.('dinamo-drone-goal');
             game.hud?.toast?.('⚽ Goal!', 'A finish from the drone. Back to the centre spot…', 'intro');
@@ -154,11 +163,20 @@ export class DinamoFootball {
         const world = this.source.localToWorld(new THREE.Vector3(c[0] + ux * p.u + uz * p.v, c[1] + p.h, c[2] + uz * p.u - ux * p.v));
         const prev = this.mesh.position.clone(), delta = world.clone().sub(prev);
         this.mesh.position.copy(world);
+        // A regulation-size winter ball stays findable against snow without a
+        // marker, glow, or oversized silhouette. Clear conditions use white.
+        const winter = (this.game.r3d?.weather?.snowDepthCm || 0) > 0 || this.game.wxKind === 'snow';
+        if (winter !== this.winter) { this.winter = winter; this.mesh.material.color.set(winter ? '#ff982b' : '#ffffff'); }
+        this.contact.position.copy(this.source.localToWorld(new THREE.Vector3(c[0] + ux * p.u + uz * p.v, c[1] + 0.003, c[2] + uz * p.u - ux * p.v)));
+        const height = Math.max(0, p.h - BALL_RADIUS);
+        this.contact.material.opacity = 0.32 * Math.max(0, 1 - height / 0.8);
+        this.contact.scale.setScalar(1 + Math.min(height, 0.8) * 0.3);
         if (prev.lengthSq() && delta.lengthSq() < 4) { const axis = new THREE.Vector3(delta.z, 0, -delta.x).normalize(); this.mesh.rotateOnWorldAxis(axis, Math.hypot(delta.x, delta.z) / BALL_RADIUS); }
     }
     reset() { this.physics.reset(); this.previousDrone = null; this.syncMesh(); }
     dispose() {
         if (this.disposed) return;
-        this.disposed = true; this.previousDrone = null; this.physics.reset(); this.mesh.removeFromParent(); this.mesh.geometry.dispose(); this.mesh.material.dispose();
+        this.disposed = true; this.previousDrone = null; this.physics.reset();
+        for (const mesh of [this.mesh, this.contact]) { mesh.removeFromParent(); mesh.geometry.dispose(); mesh.material.dispose(); }
     }
 }

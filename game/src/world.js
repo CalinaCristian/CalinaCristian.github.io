@@ -34,6 +34,7 @@ const TILE = { interwar: 0, eclectic: 1, civic: 2, bloc: 3, glass: 4, house: 5, 
  *  came out at half / a quarter of their real size — the "tiny window dots") */
 const TILE_GRID = { 0: [2, 2], 1: [3, 2], 2: [4, 2], 3: [4, 2], 4: [4, 2], 5: [3, 1], 6: [1, 1], 7: [1, 1], 8: [3, 2], 9: [3, 2], 10: [2, 2], 11: [4, 2], 12: [2, 4], 13: [2, 1], 14: [1, 1], 15: [4, 1] };
 const GRASSY = new Set(['park', 'grass', 'forest', 'scrub', 'pitch', 'cemetery', 'turf']);
+const SPORT_KINDS = new Set(['pitch', 'turf', 'clay', 'hard', 'track']); // (drawn in the 'sport' ground layer)
 const PAVED = new Set(['parking', 'apron', 'runway', 'clay', 'hard', 'pool']); // (courts / pools over the park or yard they sit in; track stays in the first-drawn area layer, under its infield pitch)
 const AREA_Y = { track: Y.pitch - 0.012, clay: Y.pitch + 0.004, turf: Y.pitch, hard: Y.pitch + 0.004, pool: Y.pitch + 0.006, yard: Y.landuse + 0.01, residential: Y.landuse, industrial: Y.landuse, commercial: Y.landuse, retail: Y.landuse, railway: Y.landuse, construction: Y.landuse, cemetery: Y.grass, grass: Y.grass, scrub: Y.grass, forest: Y.forest, park: Y.park, pitch: Y.pitch, parking: Y.parking, apron: Y.parking, runway: Y.parking + 0.01, water: Y.water };
 const TRAFFIC_MUL = { motorway: 0.6, motorway_link: 0.3, trunk: 1.2, trunk_link: 0.35, primary: 1.8, primary_link: 0.4, secondary: 1.3, secondary_link: 0.3, tertiary: 0.9, tertiary_link: 0.25, residential: 0.3, unclassified: 0.35, living_street: 0.08, service: 0.04 };
@@ -1463,7 +1464,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (chan) { a.channel = true; channelAreas.push(a); }
         } else {
             const cc = cellOf((a.x0 + a.x1) / 2, (a.z0 + a.z1) / 2);
-            (GRASSY.has(a.kind) ? cc.grass : PAVED.has(a.kind) ? cc.pave : cc.area).flatPoly(pts, tris, y, col, 0.1);
+            (SPORT_KINDS.has(a.kind) ? cc.sport : GRASSY.has(a.kind) ? cc.grass : PAVED.has(a.kind) ? cc.pave : cc.area).flatPoly(pts, tris, y, col, 0.1); // (sports grounds: own layer + weather)
         }
     }
     // sports grounds (2026-11-08): line markings, goals, tennis nets and court fences, basketball hoops, pool copings on
@@ -2811,9 +2812,9 @@ export async function buildWorld(city, renderer, opts = {}) {
     const buildingAt = (x, z) => { let r = null; bGrid.each(x, z, x, z, (b) => { if (!r && !b.skip && x >= b.x0 && x <= b.x1 && z >= b.z0 && z <= b.z1 && pointInPolygon(x, z, b.ring)) r = b; }); return r; };
 
     // landmarks (another module; optional)
-    let LANDMARKS = [], buildLandmarkFn = null;
+    let LANDMARKS = [], buildLandmarkFn = null, landmarkSurfaceMats = [];
     let SEA_SCALE = 0.5;
-    try { const mod = await import('./landmarks.js'); LANDMARKS = (mod.LANDMARKS || []).filter(l => l.city === city.id); buildLandmarkFn = mod.buildLandmark || null; SEA_SCALE = mod.SEA_SCALE || 0.5; } catch (err) { LANDMARKS = []; }
+    try { const mod = await import('./landmarks.js'); landmarkSurfaceMats = mod.landmarkSurfaceMaterials?.() || []; LANDMARKS = (mod.LANDMARKS || []).filter(l => l.city === city.id); buildLandmarkFn = mod.buildLandmark || null; SEA_SCALE = mod.SEA_SCALE || 0.5; } catch (err) { LANDMARKS = []; }
     // a district only builds its own landmarks (+ distant backdrops such as Rainier)
     // (a landmark the district lists explicitly may stand outside it, up to ~2.5 km: skyline landmarks seen down an
     //  avenue, e.g. the Parliament / People's Salvation Cathedral at the west end of Bd. Unirii seen from Piața Unirii)
@@ -4561,6 +4562,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const areaMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: noise, depthWrite: false }); areaMat.name = 'landuse';
     const paveMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: noise, depthWrite: false }); paveMat.name = 'paved-areas';
     const grassMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: noise, depthWrite: false }); grassMat.name = 'grass';
+    const sportMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: noise, depthWrite: false }); sportMat.name = 'sport-ground'; // (own weather: a dusting, not buried like a lawn)
     const roofMat = new THREE.MeshLambertMaterial({ vertexColors: true }); roofMat.name = 'roofs';
     const backdropMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: atlas, emissive: new THREE.Color('#ffc98a'), emissiveIntensity: 0 }); backdropMat.name = 'backdrop';
     // (after round 6) the distant city keeps its lights on at night: a procedural window grid on the walls (≈ 38 % lit,
@@ -4821,7 +4823,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             case 'pave': { const m = addSuper(o, paveMat, false, 'pave'); if (m) m.renderOrder = -19; break; }
             // (2026-11-08, owner: a band across a pitch) pitch stripes / court lines draw after every grass / paved mesh: these
             // layers do not write depth, so a neighbouring cell's lawn drawn later painted over the part of a pitch in its cell
-            case 'sport': { const m = addSuper(o, grassMat, false, 'sport'); if (m) m.renderOrder = -18.9; break; }
+            case 'sport': { const m = addSuper(o, sportMat, false, 'sport'); if (m) m.renderOrder = -18.9; break; }
             case 'roof': addSuper(o, roofMat, true, 'roofs'); break;
             case 'backdrop': { const m = addSuper(o, backdropMat, true, 'backdrop'); if (m) m.userData.cull = cullR + 600 + CELL * (o.K - 1) * 0.71; break; }
             case 'ground': { const m = addSuper(o, groundMat, false, 'ground'); if (m) m.renderOrder = 1; break; }
@@ -4944,6 +4946,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     vegetation.grassMaterials.push(grassMat);
     vegetation.groundMaterials.push(groundPlaneMat, areaMat, paveMat);
     vegetation.roofMaterials.push(roofMat);
+    vegetation.sportMaterials = [sportMat, ...landmarkSurfaceMats];
     ground.position.set((bounds.minX + bounds.maxX) / 2, -0.3, (bounds.minZ + bounds.maxZ) / 2);
     ground.renderOrder = -20; // far horizon filler only; the city's ground is per cell
     ground.receiveShadow = true; ground.name = 'ground';

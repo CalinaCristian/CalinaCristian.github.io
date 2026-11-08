@@ -84,6 +84,9 @@ const P = {
 //  Shared materials (one set for all landmarks -> few programs / draw calls)
 // ---------------------------------------------------------------------------
 let MATS = null;
+/** (2026-11-08, owner: "account for weather?") the matte landmark material: the renderer gives its up-facing surfaces (roofs,
+ *  stands, courts, the stadium pitch) the same snow / wet look as the streets */
+export function landmarkSurfaceMaterials() { const M = materials(); return [M.m, M.fl, M.nb].filter(Boolean); }
 function materials() {
     if (MATS) return MATS;
     MATS = {
@@ -93,7 +96,7 @@ function materials() {
         f: new THREE.MeshLambertMaterial({ vertexColors: true, fog: false }),                       // far backdrops (mountains)
         e: new THREE.MeshBasicMaterial({ vertexColors: true }),                                     // self-lit: lobby glow, lit signage
     };
-    MATS.w.name = 'landmark-water'; MATS.f.name = 'landmark-backdrop'; MATS.e.name = 'landmark-glow';
+    MATS.m.name = 'landmark-masonry'; MATS.w.name = 'landmark-water'; MATS.f.name = 'landmark-backdrop'; MATS.e.name = 'landmark-glow';
     // (after round 6) glass at night: lit office floors behind the panes (≈ 30 % of panes, warm / cool, mullions, some blinds),
     // averaged to an even glow where panes get sub-pixel — glass towers (Hermes, Sky Tower, Bellevue) were dark stripes
     { const g = MATS.g; g.emissive = new THREE.Color('#ffe2b8'); g.emissiveIntensity = 0; g.userData.nightEmissive = 0.85; g.userData.nightGlow = 0.85; g.userData.dayGlow = 0;

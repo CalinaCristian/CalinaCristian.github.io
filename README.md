@@ -61,8 +61,9 @@ that chapter of the CV.
   turn-by-turn navigation on the car's screen and fast travel.
 - **Real light and weather.** Sun and moon from each place's real position and local time, street lights,
   headlights, lit windows and shops at night, live weather (Open-Meteo, with a 1991–2020 climate fallback) with rain,
-  snow and fog, weather-driven visibility, and seasons (autumn colours, bare winter trees, the Unirii fountains drained
-  in winter).
+  snow and fog, weather-driven visibility (snow settles on streets, roofs, lawns, sports grounds and the landmarks
+  alike — pitches and courts get a dusting their lines still show through), and seasons (autumn colours, bare winter
+  trees, the Unirii fountains drained in winter).
 - **Landmarks and buildings.** 61 hand-modelled landmarks (e.g. every CV-stop building — the GTS house on Calea
   Călărașilor, Liceul C.A. Rosetti with its sports hall, sports ground and fenced yard, the Politehnica rectorate, Hermes Business Campus, BOB Tower, Europe House, The
   Landmark, Lincoln Square — plus Hala Traian, the Parliament, Victoria Palace, Sky Tower, Stadionul Dinamo with its
@@ -116,8 +117,8 @@ Developer pages: `game/dev/spots.html?id=<spot>`, `game/dev/landmarks.html`, `ga
   review report (`game/dev/harness/visual/README.md`).
 - `node game/dev/harness/viewpoints.js --district=<id> --walk --streetview` — reality check: walks every drivable street of
   a district (both sidewalks) and puts each game frame next to Google Street View from the same spot; `--topdown=250
-  --mosaic=<path>` compares the whole district from above with aerial imagery (dev only; nothing from Street View goes
-  into the game).
+  --mosaic=<path>` compares the whole district from above with aerial imagery, `--weather=snow|rain|fog` renders any pose
+  in that weather (dev only; nothing from Street View goes into the game).
 - `tools/aerial/` (roof survey, tree crowns, green ground from an aerial mosaic) and `tools/osm/building-audit.py`
   (every OSM footprint matched, heights and roofs checked) — the district reality-pass pipeline (`tools/aerial/README.md`).
 

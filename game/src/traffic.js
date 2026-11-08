@@ -191,7 +191,7 @@ export class Traffic {
         this.boxes = new Map(); // junction box reservations: node → [{v, path, inE, outE, lane, t}]
         this.stats = { updateMs: 0 };
         this._idSeq = 0;
-        this.sharedLanes = new SharedLaneGate(world.graph.edges);
+        this.sharedLanes = new SharedLaneGate(world.graph.edges, (VEH.VEHICLE_KINDS || []).map(kind => VEH.vehicleSize(kind, city.id)));
         this.setupTransit();
         this.buildBusStops();
         this.spawnAll();
@@ -488,7 +488,7 @@ export class Traffic {
         for (let i = plan.length - 1; i > 0; i--) { const j = Math.floor(this.rng() * (i + 1)); [plan[i], plan[j]] = [plan[j], plan[i]]; }
         const occupied = new Map();
         const free = (e, dir, lane, s, len) => {
-            if (!this.sharedLanes.canPlace(e, dir, this.vehicles)) return false;
+            if (!this.sharedLanes.canPlace(e, dir, this.vehicles, null, { s, length: len })) return false;
             const k = e.id + ':' + dir + ':' + lane; const arr = occupied.get(k) || [];
             for (const o of arr) if (Math.abs(o - s) < len + 3) return false;
             arr.push(s); occupied.set(k, arr); return true;
@@ -1137,9 +1137,9 @@ export class Traffic {
             const nxt = v.route[k + 1];
             const rad = node.radius ?? 6;
             if (nxt?.e.sharedLane && this.sharedLanes.entry(curE, curDir)?.group !== this.sharedLanes.entry(nxt.e, nxt.dir)?.group) {
-                const entryDistance = D - rad - 1.6;
-                if (entryDistance < Math.max(12, v.speed * v.speed / 9 + 3) && entryDistance > -.5 && !this.sharedLanes.canEnter(v, nxt.e, nxt.dir)) {
-                    if (entryDistance < stopD) { stopD = entryDistance; stopWhy = 'shared-lane'; }
+                const entryDistance = D - rad - this.sharedLanes.mouthClearance(curE, curDir, nxt.e);
+                if (entryDistance < Math.max(12, v.speed * v.speed / 9 + 3) && D - rad - 1.6 > -.5 && !this.sharedLanes.canEnter(v, nxt.e, nxt.dir)) {
+                    if (entryDistance < stopD) { stopD = Math.max(0, entryDistance); stopWhy = 'shared-lane'; }
                     break;
                 }
             }

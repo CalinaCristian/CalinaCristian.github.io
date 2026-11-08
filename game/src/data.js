@@ -387,7 +387,6 @@ export const ACHIEVEMENTS = [
     { id: 'mountain-out', cat: 'secret', hidden: true, icon: '🏔️', title: 'The Mountain is out', desc: 'Got the Kerry Park postcard with Mount Rainier showing.' },
     { id: 'peacock', cat: 'secret', hidden: true, icon: '🦚', title: 'Peacock', desc: 'Photographed a peacock fanning its tail in the Spring Palace garden.' },
     { id: 'potato', cat: 'secret', hidden: true, icon: '🥔', title: 'The impaled potato', desc: 'Read about the Memorial of Rebirth in Piața Revoluției, nicknamed "the impaled potato" by locals.' },
-    { id: 'wcp-bar', cat: 'secret', hidden: true, activity: 'old-town-lipscani:wcp-bar', live: true, icon: '⚽', title: 'Hidden project', desc: 'Found the football bar on Lipscani and browsed World Cup Predictions, a project by Cristian.' },
     { id: 'vlad', cat: 'secret', hidden: true, icon: '🏰', title: 'Not a vampire', desc: 'Read the Curtea Veche plaque: Vlad III dated a document from his "fortress of Bucharest" in 1459.' },
 ];
 /* end achievements */

@@ -1,0 +1,11 @@
+# BEFORE419 full native visual survey
+
+This is **before evidence**, captured from immutable `4198996ab142e3496c9224478eb8cd1aced676fb`. It is not the final district renderer and is not a fidelity acceptance. The exact GAME-only contact sheets, raw report (gzip), capture log, per-sheet actual review observations and hashes are retained. No external reference imagery is included.
+
+Required route coverage is complete: **260/260 samples, zero missing or capture/runtime errors**. All 132 contact sheets and the focused Grozăvești UPB #78 z-fight crop were actually inspected; `actual-review.json` retains SHA/time/observations. The requested source streets cover all143 directed edges: Glinka12, Eliade14, Grozăvești27, Splai26, Hunedoara43, Bastiliei21. Unreachable original route-pair diagnostics are preserved in the raw report; legal reachable routes were used without source joins.
+
+The 427 unique raw findings remain: 188 pad overlaps, 132 ribbon z-fights, 62 building-over-road candidates, 11 surface-above-road flags and the remaining categories in `summary.json`. Repeated sample-occurrence counts in the markdown are not unique finding counts. Source building contacts need exact carriageway/body/passages classification; top-down source primitive checks do not clear them.
+
+Concrete open cases include the dark bridge underside/z-fight at Grozăvești UPB #78 (x77.7,z−117.9), the tight body/road relationship at Romană Bastiliei #248 (x394,z−180.2), angular facade patterns on Romană tower views, and the blank office close-up harness aim despite visible real entrance signs. The narrow portrait HUD defect was subsequently patched by the parent; all other findings remain raw evidence until scoped current proof resolves them. Explicit district boundary barriers are gameplay closures, not claimed surveyed roadworks.
+
+The generic survey used the automatic November season, high quality, clear day and actual world/traffic/mirror route captures. Observed route counts stay within 1.5M triangles/400 calls (peak reported about1.47M/355); this is software-rendered count evidence, not a hardware FPS claim. Current matched 250m summer north-up atlas and separate perspective contexts are captured and reviewed independently.

@@ -1,0 +1,191 @@
+{
+  "gameSourceCommit": "4198996ab142e3496c9224478eb8cd1aced676fb",
+  "evidenceType": "BEFORE: full native game visual route survey",
+  "coverage": {
+    "complete": true,
+    "status": "complete",
+    "requiredSamples": 260,
+    "capturedSamples": 260,
+    "missingSamples": 0,
+    "errors": [],
+    "routes": [
+      {
+        "city": "bucharest",
+        "group": "bucharest-floreasca",
+        "route": "rosetti",
+        "required": 42,
+        "captured": 42,
+        "missing": 0,
+        "missingIndices": []
+      },
+      {
+        "city": "bucharest",
+        "group": "bucharest-floreasca",
+        "route": "sweep-strada-mihail-ivanovici-glinka",
+        "required": 3,
+        "captured": 3,
+        "missing": 0,
+        "missingIndices": []
+      },
+      {
+        "city": "bucharest",
+        "group": "bucharest-floreasca",
+        "route": "sweep-strada-mihail-ivanovici-glinka-run-2",
+        "required": 3,
+        "captured": 3,
+        "missing": 0,
+        "missingIndices": []
+      },
+      {
+        "city": "bucharest",
+        "group": "bucharest-floreasca",
+        "route": "sweep-bulevardul-mircea-eliade",
+        "required": 3,
+        "captured": 3,
+        "missing": 0,
+        "missingIndices": []
+      },
+      {
+        "city": "bucharest",
+        "group": "bucharest-floreasca",
+        "route": "sweep-bulevardul-mircea-eliade-run-2",
+        "required": 3,
+        "captured": 3,
+        "missing": 0,
+        "missingIndices": []
+      },
+      {
+        "city": "bucharest",
+        "group": "bucharest-grozavesti",
+        "route": "upb",
+        "required": 40,
+        "captured": 40,
+        "missing": 0,
+        "missingIndices": []
+      },
+      {
+        "city": "bucharest",
+        "group": "bucharest-grozavesti",
+        "route": "sweep-oseaua-groz-ve-ti",
+        "required": 8,
+        "captured": 8,
+        "missing": 0,
+        "missingIndices": []
+      },
+      {
+        "city": "bucharest",
+        "group": "bucharest-grozavesti",
+        "route": "sweep-oseaua-groz-ve-ti-run-2",
+        "required": 7,
+        "captured": 7,
+        "missing": 0,
+        "missingIndices": []
+      },
+      {
+        "city": "bucharest",
+        "group": "bucharest-grozavesti",
+        "route": "sweep-splaiul-independen-ei",
+        "required": 6,
+        "captured": 6,
+        "missing": 0,
+        "missingIndices": []
+      },
+      {
+        "city": "bucharest",
+        "group": "bucharest-grozavesti",
+        "route": "sweep-splaiul-independen-ei-run-2",
+        "required": 6,
+        "captured": 6,
+        "missing": 0,
+        "missingIndices": []
+      },
+      {
+        "city": "bucharest",
+        "group": "bucharest-romana",
+        "route": "arnia",
+        "required": 55,
+        "captured": 55,
+        "missing": 0,
+        "missingIndices": []
+      },
+      {
+        "city": "bucharest",
+        "group": "bucharest-romana",
+        "route": "uipath-buc",
+        "required": 37,
+        "captured": 37,
+        "missing": 0,
+        "missingIndices": []
+      },
+      {
+        "city": "bucharest",
+        "group": "bucharest-romana",
+        "route": "sweep-bulevardul-iancu-de-hunedoara",
+        "required": 15,
+        "captured": 15,
+        "missing": 0,
+        "missingIndices": []
+      },
+      {
+        "city": "bucharest",
+        "group": "bucharest-romana",
+        "route": "sweep-bulevardul-iancu-de-hunedoara-run-2",
+        "required": 15,
+        "captured": 15,
+        "missing": 0,
+        "missingIndices": []
+      },
+      {
+        "city": "bucharest",
+        "group": "bucharest-romana",
+        "route": "sweep-bulevardul-iancu-de-hunedoara-run-3",
+        "required": 3,
+        "captured": 3,
+        "missing": 0,
+        "missingIndices": []
+      },
+      {
+        "city": "bucharest",
+        "group": "bucharest-romana",
+        "route": "sweep-strada-c-derea-bastiliei",
+        "required": 11,
+        "captured": 11,
+        "missing": 0,
+        "missingIndices": []
+      },
+      {
+        "city": "bucharest",
+        "group": "bucharest-romana",
+        "route": "sweep-strada-c-derea-bastiliei-run-2",
+        "required": 3,
+        "captured": 3,
+        "missing": 0,
+        "missingIndices": []
+      }
+    ]
+  },
+  "uniqueRawFindings": 427,
+  "uniqueFindingTypes": {
+    "ribbon-zfight": 132,
+    "pad-overlap": 188,
+    "surface-above-road": 11,
+    "building-over-road": 62,
+    "cockpit-screen-offscreen": 2,
+    "hud-offscreen": 1,
+    "hud-overlap": 3,
+    "hud-covers-cockpit": 1,
+    "ribbon-stacked": 5,
+    "ribbon-gap": 1,
+    "road-hole": 3,
+    "marking-floating": 1,
+    "lifted-nonbridge": 4,
+    "zfight": 1,
+    "road-sky-hole": 3,
+    "canvas-text-overflow": 9
+  },
+  "actualReviewedSheets": 132,
+  "actualReviewLedgerEntries": 133,
+  "captureErrors": [],
+  "runtimeErrors": [],
+  "note": "Coverage complete does not mean visual acceptance. All427 raw findings retained, including source building contacts. Current atlas/context render release4378317 is separate. This collection predates passive source bridges and water material fixes."
+}

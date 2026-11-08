@@ -2956,11 +2956,26 @@ export async function buildWorld(city, renderer, opts = {}) {
     const lmGrounds = []; // (2026-11-08) a landmark's own surfaces (sports grounds): no measured / generated trees on them
     const collisionBoxes = [];
     const lmGroup = new THREE.Group(); lmGroup.name = 'landmarks'; group.add(lmGroup);
+    const sourceBuildingRecs = new Map();
+    if (data.buildingGeometryPolicy === 'source') for (const b of bRecs) {
+        if (b.i >= data.buildings.length) continue; // derived residuals do not invent additional source identities
+        const sourceId = data.buildingIds?.[b.i];
+        if (sourceId) { const list = sourceBuildingRecs.get(sourceId) || []; list.push(b); sourceBuildingRecs.set(sourceId, list); }
+    }
     for (const lm of LANDMARKS) {
         try {
             let p = city.proj(lm.lat, lm.lon);
             // district worlds (1:1): realScale models (contract 01: lk = scale / authoredScale, R = radiusM · scale)
             const ctx = { THREE, rng: makeRng(Math.floor(Math.abs(lm.lat * 1e4 + lm.lon * 1e4))), helpers: landmarkHelpers, proj: city.proj, scale: data.proj.scale, US, realScale: !!distId };
+            if (data.buildingGeometryPolicy === 'source') {
+                const c = Math.cos(lm.rotation || 0), s = Math.sin(lm.rotation || 0), scale = data.proj.scale;
+                const local = ([x, z]) => { const dx = (x - p.x) / scale, dz = (z - p.z) / scale; return [dx * c - dz * s, dx * s + dz * c]; };
+                ctx.sourceBuildings = Object.fromEntries((lm.sourceIds || []).map(sourceId => [sourceId, (sourceBuildingRecs.get(sourceId) || []).map(b => ({
+                    sourceId, ring: b.ring.map(local), holes: b.holes.map(h => h.map(local)), h: b.h, minH: b.minH, levels: b.levels, roof: b.roof,
+                    colour: b.colour, roofColour: b.roofColour, heightSourceCode: data.buildingInfo?.[b.i * 5 + 4],
+                    provenance: 'precise district source geometry; inverse landmark yaw and projection scale; dimensions retain their recorded source/estimate code',
+                }))]));
+            }
             if (lm.backdrop) {
                 // real position is beyond the far plane: pull it in along the same bearing from the map centre and shrink it
                 const cx = (bx0 + bx1) / 2, cz = (bz0 + bz1) / 2;

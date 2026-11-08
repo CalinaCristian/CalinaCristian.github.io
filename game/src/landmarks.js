@@ -1,5 +1,8 @@
 import * as THREE from '../vendor/three.module.min.js';
 import { makeWaterMaterial } from './water.js';
+import { US_FOOTPRINTS as U, US_SOURCE_TAGS as UT } from './landmark-us-source.js';
+import { emitUSLandmarkTerrain } from './landmark-us-terrain.js';
+import { sourceProfile, sourceSlope } from './landmark-us-geometry.js';
 
 // ============================================================================
 //  Drive My CV — procedural models of the real landmarks of Bucharest and
@@ -1928,30 +1931,29 @@ function bARO(b) {
 // OSM way 12903132 + building:parts 394254329..37 (heights above).
 // Src: https://en.wikipedia.org/wiki/Space_Needle (605 ft / 184 m; observation 520 ft; top house Ø 138 ft) ; OSM way 12903132
 function bSpaceNeedle(b) {
-    const W = '#f3f3ef', prof = [[18, 0], [12.5, 28], [8, 70], [6.2, 108], [7.2, 132], [10.5, 147]];
+    // OSM parts 394254329–337, 484–488 and 394956342–344; official 605 ft beacon.
+    // A continuous 1:1 top-house profile replaces the shallow stacked discs.
+    const W = '#f3f3ef', GL = '#71899a';
     for (let k = 0; k < 3; k++) {
-        const a0 = k / 3 * Math.PI * 2 + 0.3;
-        for (const s of [-1, 1]) {
-            const pt = prof.map(([r, y], i) => { const spread = (i === 0 ? 0.2 : i < 3 ? 0.13 : 0.1) * s; const a = a0 + spread * (r > 9 ? 1 : 0.8); return [Math.cos(a) * r, y, Math.sin(a) * r]; });
-            b.tube(pt, 1.5, W, { seg: 18, radial: 6 });
+        const a = k / 3 * Math.PI * 2 + Math.PI / 2, ca = Math.cos(a), sa = Math.sin(a);
+        for (const side of [-1, 1]) {
+            const line = [];
+            for (let i = 0; i <= 20; i++) { const y = i / 20 * 144, r = y < 113 ? 5.2 + 12.6 * Math.pow(1-y/113,1.55) : 5.2 + Math.pow((y-113)/31,1.35)*7.6, gap = (y < 113 ? 0.95+2.3*Math.pow(1-y/113,1.3) : 0.95+(y-113)/31*1.9)*side; line.push([ca*r-sa*gap,y,sa*r+ca*gap]); }
+            b.tube(line,0.78,W,{seg:24,radial:6});
+            b.col(ca*17.8-sa*3.25*side,sa*17.8+ca*3.25*side,1,1,0,{y0:0,y1:8});
         }
-        b.box(Math.cos(a0) * 18, 0, Math.sin(a0) * 18, 6, 1.2, 6, '#cfcfca');
-        // horizontal ties at the skyline level
-        b.tube([[Math.cos(a0) * 12.4, 30, Math.sin(a0) * 12.4], [0, 30, 0]], 0.35, W, { seg: 2, radial: 4 });
+        b.box(ca*17.8,0,sa*17.8,7,0.8,7,'#cfcfca');
+        for (const y of [30.48,60.96,92]) b.strut([ca*10,y,sa*10],[ca*4,y,sa*4],0.5,0.5,W);
     }
-    b.cyl(0, 0, 0, 3.4, 3.4, 147, '#d9d9d4', 10);                          // elevator core
-    b.cyl(0, 29.8, 0, 9, 9, 1.4, W, 16);                                   // 100-ft skyline level
-    // top house
-    b.cyl(0, 141, 0, 21, 6.5, 9, W, 24);                                   // underside
-    b.cyl(0, 150, 0, 21.4, 21, 2.4, '#71899a', 24, { mat: 'g' });          // restaurant glazing
-    b.cyl(0, 152.4, 0, 21.8, 21.8, 0.6, W, 24);
-    b.cyl(0, 153, 0, 20.4, 20.4, 3, '#71899a', 24, { mat: 'g' });          // observation deck
-    b.cyl(0, 156, 0, 23.5, 21.5, 1.2, W, 24);                               // halo ring
-    b.cyl(0, 157.2, 0, 17, 22.5, 2.4, '#e9e7e1', 24);
-    b.cone(0, 159.6, 0, 17, 5, '#e6a43c', 24);                              // "galaxy gold" roof
-    b.cyl(0, 164, 0, 3.6, 4, 3.5, W, 10);
-    b.cyl(0, 167.5, 0, 0.45, 0.9, 16.5, '#cfcfcf', 6);
-    b.col(0, 0, 14, 14);
+    b.cyl(0,0,0,4,4,141,'#d9d9d4',16);
+    const base=U.w394254333; b.prism(base,0,6.096,GL,{mat:'g'}); b.cornice(base,6.096,0.35,0.2,W);
+    b.colPolygon(base,{y1:6.45});
+    b.cyl(0,29.9,0,11.6,11.6,0.58,W,24); b.cyl(0,30.48,0,11.4,11.4,6.096,GL,24,{mat:'g'}); b.cyl(0,36.576,0,11.6,11.6,0.35,W,24);
+    b.cyl(0,60.96,0,6.4,6.4,3.048,W,24);
+    const profile=[[3.9,138.2],[6.5,141.2],[11.5,145.6],[16.8,149.2],[20.4,149.962],[21.15,152.4],[20.3,152.4],[20.3,156.058],[21.2,156.058],[21.2,157.7],[21.9,158.115],[17,158.115],[17,161.163],[22.45,162.8],[22.45,163.5],[19.2,165.6],[13,168.1],[7.2,169.8],[3.3,170.307]];
+    for(let i=0;i<profile.length-1;i++){const [r0,y0]=profile[i],[r1,y1]=profile[i+1];if(y1===y0){b.cap(ellipse(0,0,Math.max(r0,r1),Math.max(r0,r1),32),y0,W);continue;} b.cyl(0,y0,0,r1,r0,y1-y0,(i===6||i===11)?GL:W,32,{mat:(i===6||i===11)?'g':'m',open:true});}
+    for(let i=0;i<36;i++){const a=i/36*Math.PI*2,c=Math.cos(a),sn=Math.sin(a);b.strut([c*20.4,152.4,sn*20.4],[c*20.4,156.058,sn*20.4],0.1,0.1,W);}
+    b.cone(0,170.307,0,3.2,10.82,W,16); b.cyl(0,181.1274,0,0.16,0.16,2.8726,'#cfcfcf',6);
 }
 
 // Columbia Center (Chester Lindsey, 1985) — 937 ft / 286 m, 76 floors (en.wikipedia "Columbia Center"),
@@ -1960,7 +1962,7 @@ function bSpaceNeedle(b) {
 // Sky View Observatory level (73) as a lighter band.
 // Src: https://en.wikipedia.org/wiki/Columbia_Center ; OSM rel 4648083
 function bColumbia(b) {
-    const ps = P.columbia.map(pts), H = [16, 280, 286, 223, 226, 160];
+    const ps = ['w107124288','w418132525','w418132517','w418132520','w418132515','w331293871'].map(id=>U[id]), H = [16, 280, 286, 223, 226, 160];
     ps.forEach((p, i) => {
         b.prism(p, 0, H[i], i ? '#262b31' : '#2c2a2a', { mat: 'g', topCol: '#3a4047' });
         if (!i) return;
@@ -1969,28 +1971,25 @@ function bColumbia(b) {
         b.cornice(p, H[i] - 1.5, 1.5, 0.3, '#4a525a');
     });
     b.cornice(ps[2], 270, 3, 0.2, '#6f7a84');                                                  // observatory glazing
-    b.colPoly([ps[0]], 25);
+    b.colPolygon(ps[0], { y1: 16 }); for (let i=1;i<ps.length;i++) b.colPolygon(ps[i], { y1: H[i] });
 }
 // Smith Tower (1914, Gaggin & Gaggin) — 484 ft / 148 m to the tip, 38 floors (en.wikipedia "Smith Tower").
 // White glazed terra-cotta 21-storey base (OSM way 52781661, height 75) with a window grid in paired bays,
 // tower shaft to the Chinese Room (35th floor) with an arcaded balcony, pyramidal cap with dormers and the
 // glass globe (lit blue/white at night).
 function bSmith(b) {
-    const W = '#efeadd', TR = '#e2dbc9', WIN = '#4f555c';
-    b.wall = W;
-    const [p] = P.smith.map(pts);
-    b.prism(p, 0, 75, W, { topCol: '#d8d2c4' });
-    b.windows(p, 0, 75, 3.55, WIN, { bay: 2.3, wf: 0.5, hf: 0.6, start: 4.5, minL: 3 });
-    b.pilasters(p, 0, 75, 6.9, 0.5, 0.25, TR, {}); b.cornice(p, 4, 0.8, 0.5, TR); b.cornice(p, 74, 1.2, 0.8, TR);
-    const t = rect(-9, -9, 9, 9);
-    b.prism(t, 75, 124, W); b.windows(t, 75, 122, 3.5, WIN, { bay: 2.25, wf: 0.5, hf: 0.6, start: 0.8, minL: 3 });
-    b.pilasters(t, 75, 124, 4.5, 0.5, 0.25, TR, { ends: true });
-    b.cornice(t, 117.5, 0.6, 1.2, TR); b.box(0, 124, 0, 19.4, 3.5, 19.4, TR);               // balcony + Chinese Room cornice
-    b.box(0, 127.5, 0, 20, 1.2, 20, '#e4dece');
-    b.hip(0, 128.7, 0, 19, 19, 17.5, '#ece6d8');
-    for (const [x, z, ry] of [[0, 6.2, 0], [0, -6.2, Math.PI], [6.2, 0, Math.PI / 2], [-6.2, 0, -Math.PI / 2]]) b.box(x, 131, z, 3, 2.6, 1.2, '#dcd5c3', { ry });   // dormers
-    b.sphere(0, 146.8, 0, 1.2, '#cfe2ea', { mat: 'g' });
-    b.colPoly([p], 15);
+    // Exact source part: shaft eaves 141 - 27 = 114 m; roof to 141 m,
+    // small copper lantern and separate pyramidal tip to 148 m. No invented dormers.
+    const p=U.w52781661,t=U.w418140386,W='#d2cfd2',TR='#e2dbc9',WIN='#4f555c'; b.wall=W;
+    b.prism(p,0,75,W,{topCol:'#7a7869'}); b.windows(p,0,75,3.55,WIN,{bay:2.3,wf:0.5,hf:0.6,start:4.5,minL:3});
+    b.pilasters(p,0,75,6.9,0.5,0.25,TR,{}); b.cornice(p,4,0.8,0.5,TR); b.cornice(p,74,1.2,0.8,TR);
+    b.prism(t,75,114,W); b.windows(t,75,114,3.5,WIN,{bay:2.25,wf:0.5,hf:0.6,start:0.8,minL:3});
+    b.pilasters(t,75,114,4.5,0.5,0.25,TR,{ends:true}); b.cornice(t,112.8,1.2,0.6,TR);
+    const box=bbox([t]); b.hip((box.x0+box.x1)/2,114,(box.z0+box.z1)/2,box.x1-box.x0,box.z1-box.z0,27,'#9c907a');
+    const lantern=U.w418140384,lb=bbox([lantern]),cx=(lb.x0+lb.x1)/2,cz=(lb.z0+lb.z1)/2;
+    b.prism(lantern,138.7,141.1,'#637660',{mat:'g'});
+    const tip=U.w418140385,tb=bbox([tip]); b.prism(tip,141.1,142,W);b.hip((tb.x0+tb.x1)/2,142,(tb.z0+tb.z1)/2,tb.x1-tb.x0,tb.z1-tb.z0,6,W);
+    b.colPolygon(p,{y1:75}); b.colPolygon(t,{y0:75,y1:141});
 }
 
 // Lumen Field (2002, Ellerbe Becket / LMN; structure MKA) — 68,740 seats. MKA project page: roof carried by
@@ -2002,7 +2001,7 @@ function bSmith(b) {
 // Src: https://www.mka.com/projects/lumen-field/ ; https://en.wikipedia.org/wiki/Lumen_Field ; OSM pitch 163840038
 function bLumen(b) {
     const CON = '#c9c6bf', BRK = '#8a4c3c', SEAT = '#2f5a78', FX = -2, FZ = 4.5, SPAN = 219.5;
-    b.prism(rect(FX - 30, FZ - 60, FX + 30, FZ + 60), 0, 0.25, '#3f8a3a');
+    b.prism(U.w163840038,0,0.25,'#3f8a3a');
     b.box(FX, 0.25, FZ, 1, 0.05, 110, '#e8e8e8');
     const t1o = roundRect(FX, FZ, 136, 196, 30), t1i = roundRect(FX, FZ, 76, 128, 8);
     b.prism(t1o, 0, 11, BRK, { holes: [t1i], topCol: SEAT });
@@ -2016,21 +2015,28 @@ function bLumen(b) {
         b.prism(o, 22, 38, CON, { topCol: SEAT });
         b.bands(o, 22, 38, 5.3, '#3a3f45', { frac: 0.3, wall: false });
         // roof canopy, tied arch (span 219.5 m) on two towers, hangers
-        b.box(FX + s * 82, 44, FZ, 54, 1.4, 222, '#203352', { rz: s * 0.06 });                    // navy roof membrane
+        const roof=U[s<0?'w458208106':'w458208107'],roofY=sourceSlope(roof,0,26,10,true);
+        sourceProfile(b,roof,roofY,'#203352');
+        // OSM's complete round canopy contours and 36 m tagged roof top.
+        for(let i=0;i<roof.length;i++){const a=roof[i],c=roof[(i+1)%roof.length];b.quad([a[0],roofY(...a)-.7,a[1]],[c[0],roofY(...c)-.7,c[1]],[c[0],roofY(...c),c[1]],[a[0],roofY(...a),a[1]],'#d1d3d3','m');}                    // navy roof membrane
         const arch = []; for (let i = 0; i <= 12; i++) { const t = i / 12, zz = FZ - SPAN / 2 + t * SPAN; arch.push([FX + s * 106, 44 + 22 * Math.sin(Math.PI * t), zz]); }
         b.tube(arch, 1.5, '#f0f0ee', { seg: 24, radial: 6 });
         b.box(FX + s * 106, 44.6, FZ, 2, 1.6, SPAN, '#e6e6e3');                // tie
-        for (let i = 1; i < 12; i++) { const t = i / 12, zz = FZ - SPAN / 2 + t * SPAN; b.tube([[FX + s * 106, 44 + 22 * Math.sin(Math.PI * t), zz], [FX + s * 72, 45.5, zz]], 0.35, '#e6e6e3', { seg: 2, radial: 4 }); }
+        for (let i = 1; i < 12; i++) { const t = i / 12, zz = FZ - SPAN / 2 + t * SPAN; b.tube([[FX + s * 106, 44 + 22 * Math.sin(Math.PI * t), zz], [FX + s * 72, roofY(FX+s*72,zz), zz]], 0.35, '#e6e6e3', { seg: 2, radial: 4 }); }
         for (const e of [-1, 1]) { b.box(FX + s * 106, 0, FZ + e * SPAN / 2, 5, 44, 5, CON); b.box(FX + s * 106, 44, FZ + e * SPAN / 2, 6.5, 2.4, 6.5, '#9aa0a5'); }
     }
     // roof lettering (white on the canopies, readable from the air)
-    b.text('LUMEN', FX - 82, 46.7, FZ, Math.PI / 2, 22.4, '#ffffff', { flat: true, d: 0.1 });
-    b.text('FIELD', FX + 82, 46.7, FZ, -Math.PI / 2, 9.6, '#ffffff', { flat: true, d: 0.1 });
+    b.text('LUMEN', FX-82,36.15,FZ,Math.PI/2,12,'#ffffff',{flat:true,d:.1});
+    b.text('FIELD',FX-98,36.15,FZ,Math.PI/2,4.2,'#94bdd6',{flat:true,d:.1});
+    b.text('LUMEN',FX+78,36.15,FZ,-Math.PI/2,12,'#ffffff',{flat:true,d:.1});
+    b.text('FIELD',FX+94,36.15,FZ,-Math.PI/2,4.2,'#94bdd6',{flat:true,d:.1});
     // south end: video board above the end-zone deck; north end open "Hawks Nest" bleachers
     b.prism(rect(FX - 60, FZ + 100, FX + 60, FZ + 118), 22, 32, CON, { topCol: SEAT });
     b.box(FX, 34, FZ + 108, 64, 16, 3, '#1e2227'); b.box(FX, 35, FZ + 106.4, 58, 13, 0.2, '#2d5d88');
     b.prism(rect(FX - 50, FZ - 114, FX + 50, FZ - 98), 0, 14, CON, { topCol: SEAT });
-    b.col(FX, FZ, 106, 120);
+    const northBoard=U.w458208112; b.prism(northBoard,42,60,'#263843');b.colPolygon(northBoard,{y0:42,y1:60});
+    b.colPolygon(t1o, { holes: [t1i], y1: 11 }); b.colPolygon(t2o, { holes: [t2i], y1: 22 });
+    for (const side of [-1,1]) b.colPolygon(rect(FX+side*68,FZ-100,FX+side*104,FZ+100), { y0: 22, y1: 46 });
 }
 
 // T-Mobile Park (1999, NBBJ) — retractable three-panel roof that parks over the east side. All massing from
@@ -2042,7 +2048,7 @@ const TMB_FIELD = [86.5, -14.5, 76.5, 37.5, 71, 54.5, 56, 69, 13.5, 80, -36, 81,
 const TMB_DIRT = [-30.5, 28.5, -32.5, 31.5, -36.5, 32.5, -40.5, 30, -41, 27, -40, 24, -36, 22, -34, -10.5, -27.5, -13, -20, -13.5, -9.5, -11, -3, -7.5, 4, 1, 7.5, 11, 6.5, 22, 2, 32];
 // Src: https://en.wikipedia.org/wiki/T-Mobile_Park ; OSM rel 18550612 + parts 1451834508-23
 function bTMobile(b) {
-    const ring = pts(TMB_RING), field = pts(TMB_FIELD), dirt = pts(TMB_DIRT), BR = '#86463a', ST = '#3f6863', SEAT = '#1c4a63';
+    const ring = U.w1451834523, field = pts(TMB_FIELD), dirt = pts(TMB_DIRT), BR = '#86463a', ST = '#3f6863', SEAT = '#1c4a63';
     b.prism(field, 0, 0.2, '#3f8a3a', { topCol: '#3f8a3a' });
     b.prism(dirt, 0.2, 0.3, '#b48a5a');
     b.prism(rect(-20, 4, -12, 12), 0.3, 0.35, '#5a9a4a');                              // infield grass square
@@ -2052,24 +2058,25 @@ function bTMobile(b) {
     b.prism(ring, 22, 38, ST, { topCol: SEAT });
     b.bands(ring, 9, 38, 6.5, '#2f3a3d', { frac: 0.35, wall: false });
     b.cornice(ring, 9, 0.8, 0.4, '#d8d3c8');
-    // lower-bowl rakes (OSM skillion parts, simplified to stepped blocks)
-    for (const pz of [[-33, -48, -62.5, -65.5, -78, -28.5, -46, -18], [-46, -18, -48, -5, -51.5, -5.5, -56, 21.5, -86, 17, -78, -28.5], [-56, 21.5, -51, 23, -51, 32, -48.5, 38, -77, 60, -83.5, 51, -87, 40.5, -86, 17], [-35, 44.5, -36, 81, -64, 73, -77, 60, -48.5, 38, -41, 43.5], [-5, 48.5, -5, 45, 7.5, 45.5, 13.5, 80, -36, 81, -35, 48.5], [39.5, 37.5, 64, 61, 56, 69, 13.5, 80, 7.5, 45.5], [63.5, 41, 74, -13.5, 86, -11.5, 74, 45.5]]) {
-        const q = pts(pz); b.prism(q, 0, 4, '#c3bfb6', { topCol: SEAT }); b.prism(offset(q, -4), 4, 9, '#c3bfb6', { topCol: SEAT });
+    // Every mapped lower deck uses its own footprint, tagged 20 m height,
+    // skillion direction and rise (15–17 m). The previous two low blocks reached only 9 m.
+    for(const id of ['w1451834508','w1451834509',...Array.from({length:8},(_,i)=>'w'+(1451834513+i))]){
+        const q=U[id],t=UT[id],top=+t.height,rise=+t['roof:height'],base=top-rise;
+        b.prism(q,0,base,'#c3bfb6',{top:false});
+        sourceProfile(b,q,sourceSlope(q,+t['roof:direction'],base,rise),SEAT,'m',1);
+        b.colPolygon(q,{y1:top});
     }
-    // north upper deck (15-32 m) + scoreboard
-    b.prism(rect(-39, -101, 52, -83.5), 15, 32, ST, { topCol: SEAT }); b.box(6, 32, -97, 40, 12, 2, '#1e2227');
-    // roof runways (46 m) on columns + the three parked panels (round top to 66 m) over the east side
-    for (const z of [-98, 103]) { b.box(116, 42, z, 112, 4.5, 5, '#7f8f92'); for (const x of [62, 100, 136, 170]) b.box(x, 0, z, 3.5, 42, 3.5, '#7f8f92'); }
-    [[78, 66], [106, 64], [134, 62]].forEach(([x, top], i) => {
-        const r = 160, yc = top - r, n = 8, half = Math.asin(104 / r);
-        for (let k = 0; k < n; k++) {
-            const f0 = -half + k / n * 2 * half, f1 = f0 + 2 * half / n, fm = (f0 + f1) / 2, seg = 2 * r * Math.sin(half / n) + 0.5;
-            b.box(x, yc + r * Math.cos(fm) - 0.75, 2 + r * Math.sin(fm), 30, 1.5, seg, i % 2 ? '#d6d8d5' : '#c8cdca', { rx: fm });
-        }
-        b.box(x, 42, 2, 30, 4, 4, '#7f8f92');
-    });
+    const upper=U.w1451834512;b.prism(upper,15,20,ST,{top:false});sourceProfile(b,upper,sourceSlope(upper,180,20,12),SEAT,'m',1);b.colPolygon(upper,{y0:15,y1:32});
+    b.box(6,32,-97,40,12,2,'#1e2227');
+    // Actual runway contours at 46 m. The entire three-panel roof's curved
+    // footprint follows the mapped 46–66 m round roof, including its tapered east edge.
+    for(const id of ['w1451834510','w1451834511']){const q=U[id];b.prism(q,42,46,'#7f8f92');const bb=bbox([q]);for(const x of [bb.x0+2,(bb.x0+bb.x1)/2,bb.x1-2])b.box(x,0,(bb.z0+bb.z1)/2,3.5,42,3.5,'#7f8f92');}
+    const roof=U.w1451834522,roofY=sourceSlope(roof,7,46,20,true);sourceProfile(b,roof,roofY,'#c8cdca');
+    for(let i=0;i<roof.length;i++){const a=roof[i],c=roof[(i+1)%roof.length];b.strut([a[0],roofY(...a),a[1]],[c[0],roofY(...c),c[1]],.8,.8,'#7f8f92');}
+    // Longitudinal panel seams use the same curve as the membrane.
+    for(const x of [92,122,152])for(let j=0;j<16;j++){const z=-96+j*12.5,nz=z+12.5;b.strut([x,roofY(x,z)+.3,z],[x,roofY(x,nz)+.3,nz],.3,.3,'#778386');}
     b.text('T-MOBILE PARK', -78, 13, 93.6, 0.32, 2.4, '#e20074');
-    b.colPoly([ring], 24); b.col(116, -98, 56, 3); b.col(116, 103, 56, 3);
+    b.colPolygon(ring, { y1: 38 }); b.col(116, -98, 56, 3); b.col(116, 103, 56, 3);
 }
 
 // Seattle Great Wheel (2012) — 53 m tall, 42 gondolas, end of Pier 57 (OSM ticket booth way
@@ -2077,9 +2084,9 @@ function bTMobile(b) {
 // Src: https://en.wikipedia.org/wiki/Seattle_Great_Wheel (53 m, 42 gondolas)
 function bGreatWheel(b) {
     const hs = b.hs; b.hs = 1;                                             // keep the wheel round (true size)
-    const R = 25, Y = 28.5;
+    const R = 23.5, Y = 26.5; // complete envelope ≈ 53 m, as surveyed OSM n1809238334
     for (const z of [-1.8, 1.8]) b.geo(new THREE.TorusGeometry(R, 0.55, 6, 56), '#f2f2f2', M(0, Y, z));
-    for (let i = 0; i < 21; i++) { const a = i / 21 * Math.PI * 2; b.box(Math.cos(a) * R / 2, Y - 0.15, 0, R, 0.3, 0.3, '#e6e6e6', { rz: a }); }
+    for (let i = 0; i < 42; i++) { const a = i / 42 * Math.PI * 2; b.box(Math.cos(a) * R / 2, Y - 0.15, 0, R, 0.3, 0.3, '#e6e6e6', { rz: a }); }
     b.geo(new THREE.CylinderGeometry(1.6, 1.6, 4.4, 12), '#cfcfcf', M(0, Y, 0, 0, 1, 1, 1, Math.PI / 2, 0));
     for (let i = 0; i < 42; i++) { const a = i / 42 * Math.PI * 2; b.box(Math.cos(a) * (R + 1.6), Y + Math.sin(a) * (R + 1.6) - 1.5, 0, 2.4, 2.8, 2.6, i % 6 ? '#e9edf0' : '#c0392b'); }
     for (const sx of [-1, 1]) for (const sz of [-1, 1]) b.tube([[sx * 13, 0, sz * 7], [0, Y, sz * 2.2]], 0.7, '#e2e2e2', { seg: 2, radial: 6 });
@@ -2092,13 +2099,19 @@ function bGreatWheel(b) {
 // largest Ø ~40 m (OSM way 868099742).
 // Src: https://en.wikipedia.org/wiki/The_Spheres ; OSM way 868099742
 function bSpheres(b) {
-    // A squashed sphere reads as an egg, so the spheres are kept round: built unsquashed at half
-    // size (footprint matches the 0.5 world, heights become ~12-15 m instead of 24-29 m).
-    const hs = b.hs; b.hs = 1; const k = hs, G = '#9fb5ae';
-    for (const [x, z, r, h] of [[0.5, 0, 20, 29], [2.5, -19.5, 14.5, 24], [1.5, 22, 12.5, 21]]) b.sphere(x * k, (h - r) * k, z * k, r * k, G, { detail: 2, mat: 'g' });
-    b.box(1 * k, 0, 0, 30 * k, 1.5, 60 * k, '#c9c6bf');
-    b.hs = hs;
-    b.col(1, 0, 18, 32);
+    // Individual OSM dome parts, not three intersecting complete balls. Heights
+    // 19 / 15.5 / 27.5 m and spring lines = height - roof:height.
+    const hs=b.hs;b.hs=1; const k=hs, GL='#9fb5ae', FRAME='#d5deda';
+    const parts=['w398816077','w491817110','w491817111'].map(id=>{const p=U[id],bb=bbox([p]),x=(bb.x0+bb.x1)/2,z=(bb.z0+bb.z1)/2,h=+UT[id].height,rh=+UT[id]['roof:height'];return{id,p,x,z,h,y0:h-rh,rx:(bb.x1-bb.x0)/2,rz:(bb.z1-bb.z0)/2,rh};});
+    for (const q of parts) {
+        // Full tagged footprint and an ellipsoidal dome; frame triangles follow
+        // that surface. Panel arrangement is a bounded approximation of the
+        // pentagonal hexecontahedron, never claimed as a surveyed panel layout.
+        b.prism(q.p.map(([x,z])=>[x*k,z*k]),0,q.y0*k,GL,{mat:'g'});
+        const N=24,J=8,at=(i,j)=>{const ph=j/J*Math.PI/2,a=(i+j%2*.5)/N*Math.PI*2;return[(q.x+Math.cos(a)*q.rx*Math.cos(ph))*k,(q.y0+q.rh*Math.sin(ph))*k,(q.z+Math.sin(a)*q.rz*Math.cos(ph))*k];};
+        for(let j=0;j<J;j++)for(let i=0;i<N;i++){const a=at(i,j),c=at(i+1,j),d=at(i+1,j+1),e=at(i,j+1);b.quad(a,c,d,e,GL,'g',[a[0]-q.x*k,10,a[2]-q.z*k]);if(j<J-1){b.strut(a,d,0.075*k,0.075*k,FRAME);b.strut(a,e,0.075*k,0.075*k,FRAME);}b.strut(a,c,0.075*k,0.075*k,FRAME);}
+    }
+    b.hs=hs;b.colPolygon(U.w868099742,{y1:5.3});
 }
 
 // Mount Baker Ridge Tunnel (I-90) — east portals at Lake Washington: two 1940 Art-Deco bores and
@@ -2129,7 +2142,7 @@ const SEA_IAF = [398, -216.5, 319.5, -230, 319, -227.5, 300, -222.5, 291.5, -234
 const SEA_SSAT = [349, 113, 349, 110, 333, 111.5, 331.5, 87, 347.5, 85.5, 345, 57.5, 397.5, 54, 408.5, 209, 356.5, 213];
 // Src: https://en.wikipedia.org/wiki/Seattle–Tacoma_International_Airport ; OSM 23772634 / 23772637 / 734002404 / 869951038
 function bSeaTac(b) {
-    const [p] = P.seatac.map(pts), iaf = pts(SEA_IAF), ss = pts(SEA_SSAT), GL = '#5b7d92', WH = '#e9ebec';
+    const p=U.w23772634,iaf=U.w734002404,ss=U.w23772637, GL = '#5b7d92', WH = '#e9ebec';
     // main terminal + concourses: glass bands under a white roof edge
     b.prism(p, 0, 17, '#d7dadb', { topCol: '#c4c8ca' });
     b.windows(p, 0, 17, 8.5, GL, { bay: 12, wf: 0.92, hf: 0.55, start: 2.5, mat: 'g', minL: 14 });
@@ -2155,7 +2168,7 @@ function bSeaTac(b) {
     b.text('WELCOME TO SEATTLE', wx - 7.65, 28.6, zc, -Math.PI / 2, 2.2, '#ffffff');
     for (const [t, lv] of SEATAC_PLANES) parkAt(b, p, t, lv, 28, 40);
     airliner(b, 300, 160, -Math.PI / 2, { tail: '#01426a', stripe: '#00a3ad' }, 40);
-    b.colPoly([p], 40); b.colPoly([iaf], 30); b.colPoly([ss], 30);
+    b.colPolygon(p, { y1: 19.5 }); b.colPolygon(iaf, { y1: 36.5 }); b.colPolygon(ss, { y1: 14.6 });
     for (const z of [-150, 22]) b.col(wx, z, 7, 1.6);
 }
 
@@ -2168,33 +2181,34 @@ const SEATAC_PLANES = [
 // SeaTac Air Traffic Control Tower (2004) — cab floor 71 m (233 ft), 82 m (269 ft) overall, OSM way 1199936807.
 // Src: https://en.wikipedia.org/wiki/Seattle–Tacoma_International_Airport (tower 233 ft) ; game/research/seattle-seatac.json landmarks[sea-control-tower] ; OSM way 1199936807
 function bSeaTower(b) {
-    b.box(0, 0, 0, 30, 9, 22, '#cfcdc6'); b.bands(rect(-15, -11, 15, 11), 0, 9, 4.5, '#4c5964', { frac: 0.5 });
-    atcTower(b, 0, 0, 76.5, { r: 3.6, col: '#dedcd5' });   // atcTower: cab glass from h-5.5 (= 71 m cab floor), mast top h+5.3 (≈ 82 m)
-    b.col(0, 0, 15, 11);
+    const p=U.w1199936806; b.prism(p,0,9,'#cfcdc6');b.bands(p,0,9,4.5,'#4c5964',{frac:0.5});
+    // Tagged 71 m is the complete tower height, not an invented 71 m cab floor.
+    atcTower(b,0,0,65.7,{r:3.6,col:'#dedcd5'});
+    b.colPolygon(p,{y1:9});b.col(0,0,3.6,3.6,0,{y0:0,y1:71});
 }
 
-// Bellevue Towers (2008) — twin residential towers on a 5-level podium: South 450 ft (137 m) / 43 fl., North 430 ft
-// (131 m) / 42 fl. (Wikipedia list; OSM has the two heights swapped); blue-green glazing #7a96a8 with white slab edges,
+// Bellevue Towers (2008) — twin residential towers on a 5-level podium: North 137 m / 43 levels, South 131 m / 42 levels
+// (OSM w370237986 / w370239409); blue-green glazing #7a96a8 with white slab edges,
 // glass parapet crowns, rooftop garden on the podium between them.
 // Src: https://www.skyscrapercenter.com/complex/2787 ; game/research/seattle-bellevue.json landmarks[bellevue-towers]
 function bBellevueTowers(b) {
-    const [n, s, pod] = P.bellevuetowers.map(pts);
+    const [n,s,pod] = ['w370237986','w370239409','w118119171'].map(id=>U[id]);
     b.prism(pod, 0, 18, '#d1ccc2', { topCol: '#7f9e6b' }); b.bands(pod, 0, 18, 3.6, '#4f6573', { frac: 0.5 });
-    for (const [p, h] of [[n, 131], [s, 137]]) {          // research: South 450 ft / 43 fl., North 430 ft / 42 fl. (OSM swaps them)
-        b.prism(p, 18, h, '#7a96a8', { mat: 'g', topCol: '#c7d0d6' });
-        b.bands(p, 18, h, 3.1, '#d9e0e4', { frac: 0.12, off: 0.1 });
-        b.prism(offset(p, -2.5), h, h + 5, '#cfd6da');
-        b.ring(p, h, h + 7, '#9db7c6', { mat: 'g' });                                           // glass parapet crown
-        b.pilasters(p, 18, h, 8, 0.35, 0.35, '#dfe6ea', {});
+    for (const [p, h] of [[n, 137], [s, 131]]) {          // OSM: North 137 m/43 levels; South 131 m/42 levels, including crowns
+        b.prism(p, 18, h - 7, '#7a96a8', { mat: 'g', topCol: '#c7d0d6' });
+        b.bands(p, 18, h - 7, 3.1, '#d9e0e4', { frac: 0.12, off: 0.1 });
+        b.prism(offset(p, -2.5), h - 7, h - 2, '#cfd6da');
+        b.ring(p, h - 7, h, '#9db7c6', { mat: 'g' });                                           // glass parapet crown
+        b.pilasters(p, 18, h - 7, 8, 0.35, 0.35, '#dfe6ea', {});
     }
-    b.colPoly([pod], 25);
+    b.colPolygon(pod, { y1: 18 });
 }
 
 // Bellevue Square (1946, rebuilt as an enclosed mall 1981) — 3-level regional mall (OSM way 29234887),
 // skylit malls, main glazed entrance + lettering on Bellevue Way NE (east, model -z).
 // Src: https://en.wikipedia.org/wiki/Bellevue_Square ; OSM way 29234887
 function bBellevueSq(b) {
-    const [p] = P.bellevuesq.map(pts);
+    const p = U.w29234887;
     // round 6 note 29: one shopfront band at street level and blank cream cladding above (the old full-height glass
     // stripes read as striped boxes), the skylit spines kept on the roof inside the footprint, the lettering on the
     // entrance pavilion's face (it floated above the canopy, cut off)
@@ -2207,7 +2221,7 @@ function bBellevueSq(b) {
     b.box(0, 0, ze - 4, 30, 13, 8, '#6f8ea2', { mat: 'g' }); b.box(0, 13, ze - 4.5, 34, 1.4, 10, '#efe9df');
     b.box(0, 9.6, ze - 8.25, 24, 2.6, 0.3, '#efe9df');                            // sign fascia
     b.text('BELLEVUE SQUARE', 0, 10.15, ze - 8.45, Math.PI, 1.5, '#2e3b46');
-    b.colPoly([p], 40);
+    b.colPolygon(p, { y1: 15 });
 }
 
 // Mount Rainier — 4,392 m stratovolcano, summit 46.8529 N 121.7604 W (~90 km SE of downtown).
@@ -2215,41 +2229,14 @@ function bBellevueSq(b) {
 // means the world may move it closer and pass ctx.backdropScale = distance / realDistance.
 // Src: https://en.wikipedia.org/wiki/Mount_Rainier (4,392 m, 46.8529 N 121.7604 W)
 function bRainier(b) {
-    const NA = 56, NR = 16, Rb = 16500, H = 4392, rings = [];
-    for (let j = 0; j <= NR; j++) {
-        const t = j / NR, ring = [];
-        for (let i = 0; i < NA; i++) {
-            const a = i / NA * Math.PI * 2, n = hash(i * 7.3 + j * 13.1), n2 = hash(i * 3.1 + 1.7);
-            const r = Rb * t * (1 + (n - 0.5) * 0.07 * Math.min(1, t * 3) + (n2 - 0.5) * 0.1 * Math.sin(a * 3));
-            const prof = t < 0.035 ? 1 : Math.pow(1 - (t - 0.035) / 0.965, 1.6);
-            const y = H * prof * (j === 0 ? 1 : 1 + (n - 0.5) * 0.08 * Math.sin(Math.PI * t));
-            ring.push([Math.cos(a) * r, Math.max(0, y), Math.sin(a) * r]);
-        }
-        rings.push(ring);
-    }
-    const colour = (y, i, j) => { const n = hash(i * 1.9 + j * 5.7); return y > 2300 + n * 300 ? '#f3f6f9' : y > 1500 + n * 500 ? (n > 0.4 ? '#e3e9ef' : '#8e98a3') : y > 800 ? '#6d7b88' : '#55657a'; };
-    for (let j = 0; j < NR; j++) for (let i = 0; i < NA; i++) {
-        const a = rings[j][i], bq = rings[j][(i + 1) % NA], c = rings[j + 1][(i + 1) % NA], d = rings[j + 1][i];
-        const col = colour((a[1] + c[1]) / 2, i, j), hint = [a[0] + c[0], 3000, a[2] + c[2]];
-        if (j === 0) b.tri(a, c, d, col, 'f', hint); else b.quad(a, bq, c, d, col, 'f', hint);
-    }
+    emitUSLandmarkTerrain(b,'rainier',46.8529,-121.7604);
 }
 
 // Olympic Mountains — silhouette ridge west of Puget Sound (The Brothers 2,092 m, Mt Constance
 // 2,371 m, Mt Olympus 2,432 m further west). ~80 km long backdrop band, same backdrop rules.
 // Src: https://en.wikipedia.org/wiki/Olympic_Mountains (Olympus 2,432 m, Constance 2,371 m, The Brothers 2,092 m)
 function bOlympics(b) {
-    const NX = 72, NZ = 6, L = 80000, Wd = 16000, grid = [];
-    for (let i = 0; i <= NX; i++) {
-        const x = -L / 2 + i / NX * L, row = [];
-        const crest = 1250 + 600 * Math.sin(i * 0.37) * Math.sin(i * 0.11 + 1) + 420 * (hash(i * 3.7) - 0.3) + (i % 9 === 4 ? 450 : 0);
-        for (let j = 0; j <= NZ; j++) { const t = j / NZ, prof = Math.pow(Math.sin(Math.PI * t), 1.6); row.push([x, Math.max(0, crest * prof * (0.85 + 0.3 * hash(i * 1.3 + j))), -Wd / 2 + t * Wd]); }
-        grid.push(row);
-    }
-    for (let i = 0; i < NX; i++) for (let j = 0; j < NZ; j++) {
-        const a = grid[i][j], bq = grid[i + 1][j], c = grid[i + 1][j + 1], d = grid[i][j + 1], y = (a[1] + c[1]) / 2;
-        b.quad(a, bq, c, d, y > 1500 ? '#eef2f6' : y > 1050 ? '#8b96a2' : '#5d6c7c', 'f', [0, 1, 0]);
-    }
+    emitUSLandmarkTerrain(b,'olympics',47.70,-123.15);
 }
 
 // ===========================================================================
@@ -2350,7 +2337,7 @@ function bLincolnN(b) {
     // P2.lincoln coordinates are relative to 47.6164962, -122.2008984; this entry's anchor (A.lincoln) sits 10 m W / 40 m N of it
     // so that the suppression radius covers the tower, the podium and the uipath-bel door point but not the Paccar building.
     b.shift(10, 40);
-    const [lsn, , , pod, , br8] = P2.lincoln.map(pts);
+    const [lsn,pod,br8]=['w604028609','w161929514','w1364249504'].map(id=>U[id]);
     const BRICK = '#b57f52', STONE = '#d8cbb2', SHOP = '#33414b', DK = '#2b3034', GLOW = '#f2dcae';
     // --- retail podium (3 levels, ~16 m): storefronts at grade, brick-toned masonry + stone bands above
     b.wall = BRICK;
@@ -2371,7 +2358,6 @@ function bLincolnN(b) {
     curtainTower(b, lt, 112, 120, { glass: '#5f7385', spandrel: '#8f979d', fh: 3.95, start: 0.6, frac: 0.66 });
     b.ring(offset(lsn, -0.4), 120, 126, '#5f6163'); b.cap(offset(lsn, -0.4), 126, '#6b6e70');
     for (let y = 120.6; y < 125.6; y += 0.9) b.ring(offset(lsn, -0.25), y, y + 0.25, '#7d8083');   // louvres
-    b.box(-20, 126, -58, 12, 2.4, 9, '#8a8d90');                                            // roof plant
     // --- the UiPath / tower lobby on Bellevue Way (west, at the entrance node): double-height glazing with a warm glow,
     //     following the podium edge (-41.5,-85) -> (-45,-77.5) -> (-46,-68.5)
     const LP = [[-41.5, -85], [-45, -77.5], [-46, -68.5]];
@@ -2396,24 +2382,11 @@ function bLincolnN(b) {
     { const q = EW(-5.8, 3.86); b.text('700', q[0], 0.55, q[1], ery, 0.6, '#2e3338', { d: 0.02 }); }
     // --- skybridges (enclosed glass boxes on light-grey steel)
     skybridge(b, [-45.4, -28.1], [-76.1, -20.8], 6.2);                                                // over Bellevue Way to Bellevue Square
-    { // (after round 6: "connects to nothing") the bridge lands in Bellevue Square's east wing across Bellevue Way: a
-      // retail block (cream cladding, glazed bridge-level lobby, shopfront base) the bridge enters at level 2
-      const ax = -45.4, az = -28.1, cx2 = -76.1, cz2 = -20.8, L = Math.hypot(cx2 - ax, cz2 - az), ux = (cx2 - ax) / L, uz = (cz2 - az) / L;
-      const ex = cx2 + ux * 9, ez = cz2 + uz * 9, ry = Math.atan2(-uz, ux);
-      // (after round 6: "looks terrible" — a blank cream slab) the wing as a mall block: shopfront glazing all round at street
-      // level, the glazed bridge level, cladding with pilasters between, a cornice and the BELLEVUE SQUARE name
-      const c = Math.cos(ry), sn = Math.sin(ry), W2 = 9, D2 = 13, P = (lx, lz) => [ex + lx * c + lz * sn, ez - lx * sn + lz * c];
-      const q = [P(-W2, -D2), P(W2, -D2), P(W2, D2), P(-W2, D2)];
-      b.prism(q, 0, 13.5, '#e3dccf', { topCol: '#cbc4b7' });
-      b.bands(q, 0, 4.4, 4.4, '#3f5666', { frac: 0.82, mat: 'g', start: 0.35 });                     // shopfronts
-      b.bands(q, 5.6, 10.6, 5.0, '#5f7f95', { frac: 0.86, mat: 'g', start: 0.35 });                    // glazed bridge level
-      b.pilasters(q, 0, 13.5, 6, 0.7, 0.3, '#d3cbbb', {});
-      b.cornice(q, 13.5, 0.7, 0.5, '#d2cabb');
-      { const [tx, tz] = P(-W2 - 0.4, 0); b.text('BELLEVUE SQUARE', tx, 11.4, tz, ry - Math.PI / 2, 1.1, '#2e3b46'); }
-      b.col(ex, ez, 9, 13, -ry); }
+    // The landing remains the real Bellevue Square source footprint; do not invent
+    // a detached retail block to meet this bridge.
     b.prism(br8, 6.6, 11, '#8fb0c2', { mat: 'g', bottom: true, topCol: '#d9dcdd' });         // diagonal NE 8th St bridge (w1364249504)
     b.cornice(br8, 6.6, 0.5, 0.25, '#d9dcdd'); b.cornice(br8, 10.8, 0.5, 0.3, '#d9dcdd');
-    b.colPoly([pod], 16);                                                                   // (skybridge spans have no collision)
+    b.colPolygon(pod, { y1: 16 });                                                                   // (skybridge spans have no collision)
 }
 /** glazed skybridge box on a light steel frame between two plan points at floor height y */
 function skybridge(b, a, c, y, w = 5, h = 4.2) {
@@ -2431,7 +2404,7 @@ function skybridge(b, a, c, y, w = 5, h = 4.2) {
 // Src: game/research/seattle-bellevue.json landmarks[lincoln-square].complex ; OSM w604028611 / w328017119 / w1474737770 / w516915099
 function bOneLincoln(b) {
     b.shift(-0.89, -59.21);                                                                 // P2.lincoln coordinates -> this anchor
-    const [, one, westin, , conn] = P2.lincoln.map(pts);
+    const [one,westin,conn]=['w604028611','w328017119','w1474737770'].map(id=>U[id]);
     // --- Westin podium (2 levels) + One Lincoln Tower (137 m: hotel floors 4-~10, condos above)
     b.prism(westin, 0, 10.5, '#c9bfae', { topCol: '#7f9c6c' });
     b.prism(offset(westin, 0.12), 0, 4.8, '#37444d', { mat: 'g', top: false });
@@ -2446,7 +2419,7 @@ function bOneLincoln(b) {
     b.ring(offset(one, 0.06), 131, 137, '#76807a'); b.ring(offset(one, -0.3), 131, 137, '#76807a', { inward: true }); b.cap(offset(one, -0.3), 133, '#6b706c');
     b.text('WESTIN', -13.6, 132.2, 72, Math.atan2(-0.986, -0.164), 2.6, '#ffffff');                          // white letters, west face of the crown
     skybridge(b, [14.8, 85.9], [11.7, 108], 6.2, 5, 4.6);                                 // over NE 6th to Lincoln Square South
-    b.colPoly([westin], 16);
+    b.colPolygon(westin, { y1: 10.5 }); b.colPolygon(one, { y0: 10.5, y1: 137 }); b.colPolygon(conn, { y0: 7, y1: 15.5 });
 }
 
 // Lincoln Square South (2017, Kemper) — 400 Lincoln Square office tower 137 m / 31 fl. (blue-grey glass #6e8a9e,
@@ -2454,7 +2427,7 @@ function bOneLincoln(b) {
 // glass #6b7c86 with balcony bands, W hotel sign at the base on NE 6th St) on the 3-level podium at 500 Bellevue Way NE.
 // Src: game/research/seattle-bellevue.json (complex[]) ; OSM w1326151866 / w604028603 / w1326151868 ; skyscrapercenter.com/building/400-lincoln-square/22497
 function bLincolnS(b) {
-    const [t400, two, pod] = P2.lincolnsouth.map(pts);
+    const [t400,two,pod]=['w1326151866','w604028603','w1326151868'].map(id=>U[id]);
     b.wall = '#b9ac98';
     b.prism(pod, 0, 15.5, '#b9ac98', { topCol: '#8a8781' });
     b.prism(offset(pod, 0.15), 0, 5, '#33414b', { mat: 'g', top: false });
@@ -2468,7 +2441,7 @@ function bLincolnS(b) {
     curtainTower(b, two, 15.5, 131, { glass: '#6b7c86', spandrel: '#e2e4e2', fh: 3.0, frac: 0.78, start: 0.3 });
     b.ring(offset(two, 0.05), 131, 137, '#7c8b94', { mat: 'g' }); b.cap(offset(two, -0.3), 133, '#8e9498');
     b.box(18, 6, -85.8, 9, 3, 0.4, '#141414'); b.text('W BELLEVUE', 18, 6.8, -86.05, Math.PI, 1.2, '#f2f2f2');   // W hotel at the base on NE 6th St
-    b.colPoly([pod], 16);
+    b.colPolygon(pod, { y1: 16 });
 }
 
 // Plaza Center (10900 NE 8th St, 1982) — UiPath's Bellevue office from 2018 to Sept 2025 (Suite 400), a passing landmark
@@ -2479,7 +2452,7 @@ function bLincolnS(b) {
 // the top of the NE 8th face, and a tall black pylon with huge vertical white numerals "10900" at the west driveway.
 // Src: game/research/seattle-bellevue.json landmarks[plaza-center] ; OSM w33725899 ; refs/bellevue/Plaza_Center_Bellevue_WA.jpg
 function bPlazaCenter(b) {
-    const [p] = P2.plazacenter.map(pts), IV = '#ddd6bf', GL = '#2f3338', BK = '#1a1b1d';
+    const p = U.w33725899, IV = '#ddd6bf', GL = '#2f3338', BK = '#1a1b1d';
     b.prism(p, 5.6, 66, GL, { mat: 'g', topCol: '#8f8a7e' });
     b.prism(offset(p, -1.2), 0, 5.6, BK, { mat: 'g', top: false });                          // recessed black ground floor
     b.ring(p, 5.2, 5.6, IV); b.cap(p, 5.2, '#3a3b3d', [offset(p, -1.2)], -1);                 // soffit
@@ -2499,7 +2472,7 @@ function bPlazaCenter(b) {
     b.box(px, 0, pz, 2.4, 12, 1.6, '#151617');
     [...'10900'].forEach((ch, i) => { const y = 10.1 - i * 2.05; b.text(ch, px, y, pz + 0.8, 0, 1.75, '#f2f2f2'); b.text(ch, px - 1.2, y, pz, -Math.PI / 2, 1.75, '#f2f2f2'); });
     for (const [x, z] of [[-10, 38], [3, 38], [16, 38]]) b.box(x, 0, z, 3, 0.7, 3, '#8c867a');   // plaza planters (the world plants the street trees)
-    b.colPoly([p], 12); b.col(px, pz, 1.2, 0.8);
+    b.colPolygon(p, { y1: 68.2 }); b.col(px, pz, 1.2, 0.8);
 }
 
 // Amazon Sonic (555 108th Ave NE, ex-"555 Tower", 2023) — 183 m / 42 floors, joint tallest in Bellevue; OSM main part
@@ -2507,23 +2480,24 @@ function bPlazaCenter(b) {
 // notes "the tallest dark-glass block" seen from the Murrow bridge: dark blue-grey glass, fine mullions (estimated).
 // Src: en.wikipedia.org/wiki/List_of_tallest_buildings_in_Bellevue,_Washington (600 ft, 42 fl.) ; OSM w1214424283/w1556489725/w1214423752
 function bSonic(b) {
-    const [main, slab, base] = P2.sonic.map(pts);
+    const [main,slab,base]=['w1214424283','w1556489725','w1214423752'].map(id=>U[id]);
     b.prism(base, 0, 13, '#3d4852', { mat: 'g', topCol: '#7c8a6c' }); b.cornice(base, 12.4, 0.6, 0.3, '#c9ced2');
     curtainTower(b, main, 13, 177, { glass: '#3b4c5c', spandrel: '#44525e', mullion: '#9aa4ad', pitch: 3, mw: 0.14, fh: 4.1, frac: 0.82, start: 0.3 });
     b.ring(offset(main, 0.05), 177, 183, '#4c5d6d', { mat: 'g' }); b.cap(offset(main, -0.3), 178.5, '#6f777d');
     curtainTower(b, slab, 13, 124.8, { glass: '#3b4c5c', spandrel: '#44525e', mullion: '#9aa4ad', pitch: 3, mw: 0.14, fh: 3.9, frac: 0.82, start: 0.3 });
-    b.colPoly([base], 16);
+    b.colPolygon(base, { y1: 13 });
 }
 
 // Bellevue 600 (2025) — 183 m / 43 floors residential tower, joint tallest in Bellevue (OSM w1453402305). No facade
 // research: light blue-grey glass with white slab edges (estimated, low confidence).
 // Src: en.wikipedia.org/wiki/List_of_tallest_buildings_in_Bellevue,_Washington ; OSM w1453402305
 function bBellevue600(b) {
-    const [p] = P2.bellevue600.map(pts);
-    curtainTower(b, p, 0, 178, { glass: '#7b93a3', spandrel: '#e3e6e7', mullion: '#c9d0d4', pitch: 4.4, fh: 3.25, frac: 0.76, start: 6 });
-    b.prism(offset(p, 0.2), 0, 6, '#2f3a42', { mat: 'g', top: false });
-    b.ring(offset(p, 0.05), 178, 183, '#8aa1af', { mat: 'g' }); b.cap(offset(p, -0.3), 179.5, '#8e9498');
-    b.colPoly([p], 14);
+    // Complete mapped podium and the 183 m / 43-level tower. Storey heights of
+    // low podium parts are explicit 4.2 m estimates where OSM gives only levels.
+    const p=U.w1453402305;
+    for(const id of ['w1474780170','w1474780171','w1474780172','w1474780173']){const q=U[id],h=+UT[id]['building:levels']*4.2;b.prism(q,0,h,'#c4c8c7',{topCol:'#858e86'});b.bands(q,0,h,4.2,'#536b7b',{frac:.72,mat:'g'});b.colPolygon(q,{y1:h});}
+    curtainTower(b,p,0,178,{glass:'#7b93a3',spandrel:'#b5c1c7',mullion:'#c9d0d4',pitch:3.5,fh:4.05,frac:0.82,start:6});
+    b.ring(offset(p,0.05),178,183,'#8aa1af',{mat:'g'});b.cap(offset(p,-0.3),179.5,'#8e9498');b.colPolygon(p,{y1:183});
 }
 
 // Lacey V. Murrow Memorial Bridge (1940 / rebuilt 1993) — the "high-rise" through-arch spans at both ends of the
@@ -2561,7 +2535,7 @@ function bMurrow(b) {
 // Src: game/research/seattle-seatac.json landmarks[sea-garage] ; en.wikipedia.org/wiki/Seattle–Tacoma_International_Airport ;
 //      OSM rel 15763840, w37017724-w37017729 ; Commons "SeaTacAerial.jpg" (Bernstea, CC BY-SA 4.0, reference only)
 function bSeaGarage(b) {
-    const [outer, ...holes] = P2.seagarage.map(pts), G1 = '#a9a8a2', IN = '#4a4c4f', FH = 3.05;
+    const source=U.r15763840, outer=source.find(q=>q.role==='outer').poly, holes=source.filter(q=>q.role==='inner').map(q=>q.poly), G1 = '#a9a8a2', IN = '#4a4c4f', FH = 3.05;
     b.prism(outer, 0, 7 * FH, IN, { holes, topCol: '#8d8c88', holeCol: '#77787a' });
     for (let k = 0; k <= 7; k++) { const y = k * FH; b.ring(offset(outer, 0.12), Math.max(0, y - 0.95), y + 0.05, G1); }   // spandrel at each deck edge
     b.ring(offset(outer, 0.12), 7 * FH + 0.05, 7 * FH + 1.1, '#b5b4ae');                       // roof parapet
@@ -2576,7 +2550,7 @@ function bSeaGarage(b) {
         b.strut([x0, y - 0.45, z0], [x1, y - 0.45, z1], 7, 0.9, '#e1e3e4');
         b.strut([x0, y + 4.25, z0], [x1, y + 4.25, z1], 7.3, 0.7, '#e1e3e4');
     }
-    b.colPoly([outer], 20);
+    b.colPolygon(outer, { holes, y1: 7 * FH + 1.1 });
 }
 
 // SeaTac/Airport Link light-rail station (Sound Transit 1 Line, opened 2009-12-19) — island platform elevated 60 ft
@@ -2588,7 +2562,7 @@ function bSeaGarage(b) {
 // Src: game/research/seattle-seatac.json landmarks[seatac-airport-station] ; en.wikipedia.org/wiki/SeaTac/Airport_station ; OSM w54139654 / w226892390 / w54139652
 function bSeaLink(b) {
     const CON = '#cdcac3', WH = '#f1f2f2', GL = '#6f8796';
-    const z0 = -74, z1 = 74, W = 19, yP = 15;
+    const z0 = -74, z1 = 74, W = 19, yP = 18; // Sound Transit / research: platform elevated 60 ft
     b.push(M(6, 0, 0, Math.atan2(7, 148)));                                                   // guideway axis (platform w226892390 runs 2.7° off north)
     for (let z = z0 + 6; z <= z1 - 6; z += 18.5) { b.box(0, 0, z, 2.2, yP - 1.2, 3.2, CON); b.box(0, yP - 1.6, z, 14, 1.4, 3.4, CON); }
     b.box(0, yP - 1.2, 0, W, 1.2, z1 - z0, CON);                                              // platform / guideway deck
@@ -3247,7 +3221,7 @@ const A = {
     bellevuesq: [47.615653, -122.2035769, -1.5359],
     lumen: [47.5952, -122.3316, 0], greatwheel: [47.60615, -122.34262, -1.01],
     mtbaker: [47.5903651, -122.2930, 0],               // east portal (east end of OSM way 481496634)
-    rainier: [46.8529, -121.7604, 0], olympics: [47.70, -123.15, Math.PI / 2],
+    rainier: [46.8529, -121.7604, 0], olympics: [47.70, -123.15, 0],
     // district-era landmarks (P2 footprints): anchor = bbox centre of the OSM footprints, rotation 0 (+x east)
     lincoln: [47.6168559, -122.2010316, 0], onelincoln: [47.6159634, -122.2008866, 0], lincolnsouth: [47.6147631, -122.2008325, 0], plazacenter: [47.6178822, -122.1940388, 0],
     sonic: [47.6148782, -122.1968365, 0], bellevue600: [47.6160667, -122.1942494, 0],
@@ -3268,9 +3242,9 @@ function L(id, city, name, osmNames, radius, fn, extra = {}) {
 }
 
 /**
- * All landmarks. footprintRadius is in WORLD metres (Seattle already halved): generic OSM buildings
- * whose centroid lies within it should be suppressed. osmNames lists the OSM `name` values of the
- * buildings these models replace (also suppress those by name).
+ * All landmarks. sourceIds enumerates the complete authored replacement scope for
+ * source-preserving districts. Radius/name fields are legacy compatibility metadata;
+ * they never authorize deletion of a neighboring source building in that policy.
  */
 export const LANDMARKS = [
     // ---- Bucharest ----
@@ -3312,30 +3286,30 @@ export const LANDMARKS = [
     L('halatraian', 'bucharest', 'Hala Traian', ['Hala Traian'], 12, bHalaTraian),
     L('globalworth', 'bucharest', 'Globalworth Tower', ['Globalworth Tower'], 12, bGlobalworth),
     // ---- Seattle / Bellevue (radius given in real metres, halved by L()) ----
-    L('spaceneedle', 'seattle', 'Space Needle', ['Space Needle'], 30, bSpaceNeedle),
-    L('columbia', 'seattle', 'Columbia Center', ['Columbia Center'], 50, bColumbia),
-    L('smith', 'seattle', 'Smith Tower', ['Smith Tower'], 28, bSmith),
-    L('lumen', 'seattle', 'Lumen Field', ['Lumen Field'], 140, bLumen),
-    L('tmobile', 'seattle', 'T-Mobile Park', ['T-Mobile Park'], 135, bTMobile),
-    L('greatwheel', 'seattle', 'Seattle Great Wheel', ['Seattle Great Wheel Tickets'], 30, bGreatWheel),
-    L('spheres', 'seattle', 'Amazon Spheres', ['Amazon.com The Spheres'], 36, bSpheres),
-    L('mtbaker', 'seattle', 'Mount Baker Tunnel (east portal)', [], 0, bMtBaker),
-    L('seatac', 'seattle', 'Seattle-Tacoma International Airport', ['Sea-Tac Airport Main Terminal'], 480, bSeaTac),
-    L('seatower', 'seattle', 'SeaTac Control Tower', ['SeaTac Control Tower'], 30, bSeaTower),   // r 30: also the 71 m parent outline w53199557 (centroid ~15-21 m off)
-    L('lincoln', 'seattle', 'Lincoln Square North (UiPath Bellevue)', ['Lincoln Square', 'Lincoln Square North', 'Cinemark Lincoln Square'], 72, bLincolnN, { cvStop: 'uipath-bel', hero: true }),
-    L('onelincoln', 'seattle', 'One Lincoln Tower / Westin Bellevue', ['One Lincoln Tower', 'Westin Bellevue', 'Westin'], 40, bOneLincoln),
-    L('lincolnsouth', 'seattle', 'Lincoln Square South', ['Lincoln Square South', 'Lincoln Square South Tower', '400 Lincoln Square', 'Two Lincoln Tower', 'W Bellevue'], 50, bLincolnS),
-    L('plazacenter', 'seattle', 'Plaza Center (UiPath Bellevue 2018–2025)', ['Plaza Center'], 32, bPlazaCenter, { passing: 'plaza-center' }),
-    L('sonic', 'seattle', 'Amazon Sonic', ['Amazon.com Sonic', 'Amazon Sonic', '555 Tower'], 30, bSonic),
-    L('bellevue600', 'seattle', 'Bellevue 600', ['Bellevue 600'], 12, bBellevue600),
-    L('murroww', 'seattle', 'Murrow Bridge — west high-rise arches', [], 0, bMurrow, { districtOnly: true }),
-    L('murrowe', 'seattle', 'Murrow Bridge — east high-rise arches', [], 0, bMurrow, { districtOnly: true }),
-    L('seagarage', 'seattle', 'Sea-Tac parking garage + skybridges', ['Sea-Tac Parking Garage', 'Seattle-Tacoma International Airport Parking Garage'], 80, bSeaGarage),
-    L('sealink', 'seattle', 'SeaTac/Airport Link station', ['SeaTac/Airport'], 30, bSeaLink),
-    L('bellevuetowers', 'seattle', 'Bellevue Towers', ['Bellevue Towers', 'North Tower', 'South Tower'], 55, bBellevueTowers),
-    L('bellevuesq', 'seattle', 'Bellevue Square', ['Bellevue Square Mall'], 190, bBellevueSq),
-    L('rainier', 'seattle', 'Mount Rainier', [], 0, bRainier, { backdrop: true, realDistanceKm: 87 }),
-    L('olympics', 'seattle', 'Olympic Mountains', [], 0, bOlympics, { backdrop: true, realDistanceKm: 60 }),
+    L('spaceneedle', 'seattle', 'Space Needle', ['Space Needle'], 30, bSpaceNeedle, { sourceIds: ['w12903132','w394254329','w394254330','w394254331','w394254332','w394254333','w394254334','w394254335','w394254336','w394254337','w394254484','w394254485','w394254486','w394254487','w394254488','w394956342','w394956343','w394956344'] }),
+    L('columbia', 'seattle', 'Columbia Center', ['Columbia Center'], 50, bColumbia, { sourceIds: ['r4648083','w107124288','w331293871','w418132520','w418132515','w418132517','w418132525'] }),
+    L('smith', 'seattle', 'Smith Tower', ['Smith Tower'], 28, bSmith, { sourceIds: ['w52781661','w418140384','w418140385','w418140386'] }),
+    L('lumen', 'seattle', 'Lumen Field', ['Lumen Field'], 140, bLumen, { sourceIds: ['w458208102','w458208103','w458208104','w458208105','w458208106','w458208107','w458208112'] }),
+    L('tmobile', 'seattle', 'T-Mobile Park', ['T-Mobile Park'], 135, bTMobile, { sourceIds: ['w1451834508','w1451834509','w1451834510','w1451834511','w1451834512','w1451834513','w1451834514','w1451834515','w1451834516','w1451834517','w1451834518','w1451834519','w1451834520','w1451834521','w1451834522','w1451834523'] }),
+    L('greatwheel', 'seattle', 'Seattle Great Wheel', ['Seattle Great Wheel Tickets'], 30, bGreatWheel, { sourceIds: [] }),
+    L('spheres', 'seattle', 'Amazon Spheres', ['Amazon.com The Spheres'], 36, bSpheres, { sourceIds: ['w868099742','w398816077','w491817110','w491817111'] }),
+    L('mtbaker', 'seattle', 'Mount Baker Tunnel (east portal)', [], 0, bMtBaker, { sourceIds: [] }),
+    L('seatac', 'seattle', 'Seattle-Tacoma International Airport', ['Sea-Tac Airport Main Terminal'], 480, bSeaTac, { sourceIds: ['w23772634','w23772637','w734002404','w869951038'] }),
+    L('seatower', 'seattle', 'SeaTac Control Tower', ['SeaTac Control Tower'], 30, bSeaTower, { sourceIds: ['w53199557','w1199936806','w1199936807'] }),   // r 30: also the 71 m parent outline w53199557 (centroid ~15-21 m off)
+    L('lincoln', 'seattle', 'Lincoln Square North (UiPath Bellevue)', ['Lincoln Square', 'Lincoln Square North', 'Cinemark Lincoln Square'], 72, bLincolnN, {  cvStop: 'uipath-bel', hero: true, sourceIds: ['w604028609','w161929514','w1364249504'] }),
+    L('onelincoln', 'seattle', 'One Lincoln Tower / Westin Bellevue', ['One Lincoln Tower', 'Westin Bellevue', 'Westin'], 40, bOneLincoln, { sourceIds: ['w604028611','w328017119','w1474737770'] }),
+    L('lincolnsouth', 'seattle', 'Lincoln Square South', ['Lincoln Square South', 'Lincoln Square South Tower', '400 Lincoln Square', 'Two Lincoln Tower', 'W Bellevue'], 50, bLincolnS, { sourceIds: ['w1326151866','w604028603','w1326151868'] }),
+    L('plazacenter', 'seattle', 'Plaza Center (UiPath Bellevue 2018–2025)', ['Plaza Center'], 32, bPlazaCenter, {  passing: 'plaza-center', sourceIds: ['w33725899'] }),
+    L('sonic', 'seattle', 'Amazon Sonic', ['Amazon.com Sonic', 'Amazon Sonic', '555 Tower'], 30, bSonic, { sourceIds: ['w1214423752','w1214424283','w1556489725'] }),
+    L('bellevue600', 'seattle', 'Bellevue 600', ['Bellevue 600'], 12, bBellevue600, { sourceIds: ['w1453402304','w1453402305','w1474780170','w1474780171','w1474780172','w1474780173'] }),
+    L('murroww', 'seattle', 'Murrow Bridge — west high-rise arches', [], 0, bMurrow, {  districtOnly: true, sourceIds: [] }),
+    L('murrowe', 'seattle', 'Murrow Bridge — east high-rise arches', [], 0, bMurrow, {  districtOnly: true, sourceIds: [] }),
+    L('seagarage', 'seattle', 'Sea-Tac parking garage + skybridges', ['Sea-Tac Parking Garage', 'Seattle-Tacoma International Airport Parking Garage'], 80, bSeaGarage, { sourceIds: ['r15763840','w37017724','w37017725','w37017726','w37017727','w37017728','w37017729'] }),
+    L('sealink', 'seattle', 'SeaTac/Airport Link station', ['SeaTac/Airport'], 30, bSeaLink, { sourceIds: ['w54139654'] }),
+    L('bellevuetowers', 'seattle', 'Bellevue Towers', ['Bellevue Towers', 'North Tower', 'South Tower'], 55, bBellevueTowers, { sourceIds: ['w118119171','w370237986','w370239409'] }),
+    L('bellevuesq', 'seattle', 'Bellevue Square', ['Bellevue Square Mall'], 190, bBellevueSq, { sourceIds: ['w29234887'] }),
+    L('rainier', 'seattle', 'Mount Rainier', [], 0, bRainier, {  backdrop: true, realDistanceKm: 87, sourceIds: [] }),
+    L('olympics', 'seattle', 'Olympic Mountains', [], 0, bOlympics, {  backdrop: true, realDistanceKm: 60, sourceIds: [] }),
 ];
 
 /**

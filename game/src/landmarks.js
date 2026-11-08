@@ -1,4 +1,5 @@
 import * as THREE from '../vendor/three.module.min.js';
+import { makeWaterMaterial } from './water.js';
 
 // ============================================================================
 //  Drive My CV — procedural models of the real landmarks of Bucharest and
@@ -475,8 +476,8 @@ class Builder {
             g.setAttribute('color', new THREE.Float32BufferAttribute(b.c, 3));
             g.computeBoundingSphere(); g.computeBoundingBox();
             const mesh = new THREE.Mesh(g, k === 'fw' ? fountainMaterials().water : MT[k]);
-            if (k === 'fw') { mesh.onBeforeRender = (r) => fountainTick(r); mesh.renderOrder = 1; }
-            mesh.castShadow = k !== 'w' && k !== 'f' && k !== 'e' && k !== 'fw'; mesh.receiveShadow = k !== 'f' && k !== 'e';
+            if (k === 'fw') { mesh.onBeforeRender = (r) => fountainTick(r); mesh.renderOrder = 1; FOUNTAIN_WATER.add(mesh); }
+            mesh.castShadow = k !== 'w' && k !== 'f' && k !== 'e' && k !== 'fw'; mesh.receiveShadow = k !== 'f' && k !== 'e' && k !== 'fw';
             group.add(mesh);
             tris += b.p.length / 9;
         }
@@ -1240,7 +1241,17 @@ function fountainTick(renderer) {
         if ((r3d?.weather?.season || r3d?._season?.season) === 'winter') on = show = false;
     }
     FU.uOn.value = on ? 1 : 0; FU.uShow.value = show ? 1 : 0;
+    // basins (round 6 note 5): hold still, reflective water out of the jet season and are drained only in winter
+    // (or ?fountains=off); running jets stir the surface; underwater lights only while the fountains run
+    const mo = (st.date || r3d?.simDate || new Date()).getMonth() + 1;
+    const drained = st.mode ? st.mode === 'off' : ((r3d?.weather?.season || r3d?._season?.season) === 'winter' || mo === 12 || mo <= 2);
+    const W = FMATS?.water; if (W) {
+        for (const m of FOUNTAIN_WATER) m.visible = !drained;
+        const U = W.userData.waterU; U.uWRipple.value = on ? 2.4 : 0.5; U.uWWave.value = on ? 0.9 : 0.25;
+        if (show) W.emissive.setHSL((FU.uTime.value * 0.12) % 1, 0.75, 0.45); else W.emissive.set(on ? '#2f86b0' : '#000000');
+    }
 }
+const FOUNTAIN_WATER = new Set();
 let FMATS = null;
 function fountainMaterials() {
     if (FMATS) return FMATS;
@@ -1277,22 +1288,10 @@ vec3 hue = 0.55 + 0.45 * cos(6.2832 * (uTime * 0.12 + sd * 0.35 + vec3(0.0, 0.33
 totalEmissiveRadiance *= mix(vec3(0.75, 0.9, 1.0), hue * 1.3, uShow) * a * uOn;`);
     };
     jet.customProgramCacheKey = () => 'landmark-fountain-jets';
-    // basin water surface: translucent, gentle animated ripple shading, drained (invisible) when off, underwater glow at night
-    const water = new THREE.MeshLambertMaterial({ vertexColors: true, transparent: true, opacity: 0.78, depthWrite: false, emissive: new THREE.Color('#5ec4ff'), emissiveIntensity: 0 });
-    water.name = 'landmark-fountain-water'; water.userData.nightEmissive = 0.55;
-    water.onBeforeCompile = (sh) => {
-        Object.assign(sh.uniforms, FU);
-        sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\n' + head + 'varying vec2 vW;')
-            .replace('#include <begin_vertex>', '#include <begin_vertex>\nvW = (modelMatrix * vec4(position, 1.0)).xz;');
-        sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\n' + head + 'varying vec2 vW;')
-            .replace('#include <color_fragment>', `#include <color_fragment>
-float rp = sin(vW.x * 1.7 + uTime * 1.6) * sin(vW.y * 2.1 - uTime * 1.3) + 0.5 * sin((vW.x + vW.y) * 4.3 + uTime * 3.1);
-diffuseColor.rgb *= 0.92 + 0.12 * rp; diffuseColor.a *= uOn;`)
-            .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
-vec3 hue2 = 0.55 + 0.45 * cos(6.2832 * (uTime * 0.12 + vW.x * 0.004 + vec3(0.0, 0.33, 0.67)));
-totalEmissiveRadiance *= mix(vec3(1.0), hue2 * 1.2, uShow) * uOn;`);
-    };
-    water.customProgramCacheKey = () => 'landmark-fountain-water';
+    // basin water surface: the shared reflective water (sky / façades in the Fresnel reflection, ripple normals),
+    // shallow turquoise-tiled basins; drained (hidden) in winter, stirred while the jets run (fountainTick)
+    const water = makeWaterMaterial({ deep: '#2a5c64', shallow: '#4c8f96', transparent: true, opacity: 0.9, ripple: 0.5, wave: 0.25, foam: 0, roughness: 0.05 });
+    water.name = 'landmark-fountain-water'; water.emissive = new THREE.Color('#000000'); water.userData.nightEmissive = 0.35;
     FMATS = { jet, water };
     return FMATS;
 }
@@ -1316,7 +1315,7 @@ function bFountains(b) {
         const ns = plaza ? 12 : 8, outer = rot(ellipse(0, 0, rx, rz, ns)), inner = rot(ellipse(0, 0, rx - 0.7, rz - 0.7, ns));
         b.ring(outer, 0, 0.6, '#a5a29b'); b.ring(inner, 0.35, 0.6, '#a5a29b', { inward: true }); b.lip(inner, outer, 0.6, '#b4b1a9', 1);   // granite kerb
         b.ring(inner, 0.12, 0.35, '#8fb9bf', { inward: true });                                // inner basin wall (visible when drained)
-        b.cap(inner, 0.12, '#79aab0', [], 1);                                                   // pale turquoise tiled bottom (reads dry when drained)
+        b.cap(inner, 0.12, '#6f8f93', [], 1);                                                   // weathered tiled bottom (seen when drained)
         b.cap(inner, 0.35, '#4fb0c0', [], 1, 'fw');                                             // water surface (own material)
         const jets = oval ? [-7, 0, 7] : plaza ? [-rx * 0.4, rx * 0.4] : [0];
         for (const j of jets) {

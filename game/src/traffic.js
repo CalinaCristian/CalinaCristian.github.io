@@ -2012,7 +2012,7 @@ class Pedestrians {
         const clothes = traffic.buc ? CLOTHES_B : CLOTHES_S;
         for (let i = 0; i < count; i++) {
             const p = { i, x: 0, z: 0, heading: 0, speed: this.rng.range(1.05, 1.6), state: 'walk', legs: [], waitT: 0, phase: this.rng() * 6, downT: 0, onRoad: false, scale: this.rng.range(0.92, 1.1), get bubbleY() { return 0.2 + 1.95 * this.scale; } }; // (bubbleY: chat bubbles sit just above the head, not at the 2.6 m driver height)
-            if (stops.length && i < count * 0.1) {
+            if (stops.length && i < Math.min(count * 0.1, stops.length * 3)) { // (≤ 3 per stop at the start: they piled up)
                 const st = stops[i % stops.length]; const sx = st.x ?? st.doorX, sz = st.z ?? st.doorZ;
                 const a = this.rng() * 6.28, r = this.rng.range(0.4, 2.2);
                 p.state = 'stand'; p.x = sx + Math.cos(a) * r; p.z = sz + Math.sin(a) * r;
@@ -2043,6 +2043,9 @@ class Pedestrians {
             for (let tries = 0; tries < 40; tries++) {
                 const st = this.stops[Math.floor(this.rng() * this.stops.length)]; const sx = st.x ?? st.doorX, sz = st.z ?? st.doorZ;
                 const d = Math.hypot(sx - P.x, sz - P.z); if (d < rMin || d > rMax) continue;
+                // (2026-11-08, owner: "stuck people") at most 4 waiting at a stop: a dozen squeezed between the kerb and the
+                // shelter stood inside each other
+                if (this.list.filter(o => o !== p && o.state === 'stand' && Math.hypot(o.x - sx, o.z - sz) < 4).length >= 4) continue;
                 const a = this.rng() * 6.28, r = this.rng.range(0.4, 2.2); p.x = sx + Math.cos(a) * r; p.z = sz + Math.sin(a) * r; this.kerbClamp(p);
                 if (this.inWater(p.x, p.z)) continue; // (never on water: the Dâmbovița channel, fountain basins)
                 return;
@@ -2075,7 +2078,15 @@ class Pedestrians {
         }
     }
     ok(e) { return !isMotorway(e) && !e.tunnel && !e.bridge && e.len > 4 && (e.sidewalk ?? 1) > 0 && e.type !== 'dn' && e.type !== 'service'; }
-    off(e) { return (e.halfW ?? 6) + 1.5; }
+    // (2026-11-08, owner: "people not even walking on it") district worlds: the walking line is the middle of that side's own
+    // sidewalk — halfW (the wider half) put the line metres past the sidewalk on the narrow side of asymmetric streets
+    off(e, side = 0) {
+        if (!side || !this.t.world?.district) return (e.halfW ?? 6) + 1.5;
+        const w = (side > 0 ? e.wR : e.wL) ?? e.halfW ?? 6, sw = e.sidewalk ?? 3;
+        return w + (sw > 0.3 ? clamp(sw * 0.55, 0.9, 1.6) : 1.5);
+    }
+    /** how far a walker may drift past its line and still be on the sidewalk (districts; else the legacy 3 m) */
+    maxOut(e, side) { if (!this.t.world?.district || !(e.sidewalk > 0.3)) return 3; const w = (side > 0 ? e.wR : e.wL) ?? e.halfW ?? 6; return Math.max(0.2, w + e.sidewalk - 0.35 - this.off(e, side)); }
     inset(node) { return node.edges.length >= 3 ? (node.radius ?? 6) + 1.2 : 0; }
 
     // ------------------------------------------------------------------ static obstacles on the sidewalks (note 38)
@@ -2142,7 +2153,7 @@ class Pedestrians {
     sideObs(e, side) {
         let m = this._side.get(e); if (!m) this._side.set(e, m = [null, null]);
         const k = side > 0 ? 1 : 0; if (m[k]) return m[k];
-        const out = [], seen = new Set(), base = this.off(e), hw = e.halfW ?? 6, R = PED_R;
+        const out = [], seen = new Set(), base = this.off(e, side), hw = (this.t.world?.district ? (side > 0 ? e.wR : e.wL) : null) ?? e.halfW ?? 6, R = PED_R;
         const W = this.t.world.buildings;
         const inBuilding = (x, z) => { let hit = false; W?.query?.(x, z, 0.5, (c) => { if (!hit && c.poly && !c.prop && pointInPoly(x, z, c.poly)) hit = true; }); return hit; };
         for (let s = 0; s <= e.len + 4.9; s += 5) {
@@ -2174,7 +2185,7 @@ class Pedestrians {
     dodgeAt(p) {
         if (!this.obsGrid || !p.e) return 0;
         const list = this.sideObs(p.e, p.side); if (!list.length) return 0;
-        const R = PED_R, base = this.off(p.e) + (p.walkOff || 0), s = p.s;
+        const R = PED_R, base = this.off(p.e, p.side) + (p.walkOff || 0), s = p.s;
         let lo = 0, hi = list.length; while (lo < hi) { const mid = (lo + hi) >> 1; if (list[mid].s < s - 7) lo = mid + 1; else hi = mid; }
         let best = 0;
         for (let i = lo; i < list.length && list[i].s < s + 7; i++) {
@@ -2198,14 +2209,15 @@ class Pedestrians {
         return n;
     }
     placeWalk(p) {
-        const e = p.e, dg = this.dodgeAt(p), o = (this.off(e) + (p.walkOff || 0) + dg) * p.side;
+        if ((p.walkOff || 0) > this.maxOut(p.e, p.side)) p.walkOff = this.maxOut(p.e, p.side); // (stay on the sidewalk)
+        const e = p.e, dg = this.dodgeAt(p), o = (this.off(e, p.side) + (p.walkOff || 0) + dg) * p.side;
         p.onDodge = dg < -0.05; // (stepping round a parked car on the road side: not "lost in a carriageway")
         p.x = e.a.x + e.dirx * p.s + e.nx * o; p.z = e.a.z + e.dirz * p.s + e.nz * o;
         p.heading = Math.atan2(-e.dirx * p.dir, -e.dirz * p.dir);
     }
     /** sidewalk point on edge g at distance d from node, on side `side` */
     sidePoint(g, node, d, side) {
-        const fromA = g.a === node; const s = fromA ? d : g.len - d; const o = this.off(g) * side;
+        const fromA = g.a === node; const s = fromA ? d : g.len - d; const o = this.off(g, side) * side;
         return { x: g.a.x + g.dirx * s + g.nx * o, z: g.a.z + g.dirz * s + g.nz * o, s };
     }
     buildGrid() { this.grid.build(this.list); }
@@ -2363,8 +2375,12 @@ class Pedestrians {
                 const sp = p.speed * (leg.cross ? 1.25 : 1);
                 p.onRoad = !!leg.cross;
                 if (leg.cross) this.crossCount.set(leg.node, (this.crossCount.get(leg.node) || 0) + 1);
-                if (d < sp * dt + 0.05) {
-                    p.x = leg.x; p.z = leg.z; p.legs.shift();
+                // (2026-11-08, owner: "stuck people randomly") a turning point that cannot be reached (the kerb clamp / an
+                // obstacle pushes the walker back every frame: walking on the spot in a clump): no headway for 2.5 s → skip it
+                if (!leg.cross) { if (p.legBest === undefined || d < p.legBest - 0.15) { p.legBest = d; p.legStall = 0; } else p.legStall = (p.legStall || 0) + dt; }
+                const stalled = !leg.cross && p.legStall > 2.5;
+                if (d < sp * dt + 0.05 || stalled) {
+                    if (!stalled) { p.x = leg.x; p.z = leg.z; } p.legs.shift(); p.legBest = undefined; p.legStall = 0;
                     if (!p.legs.length) { p.state = 'walk'; p.onRoad = false; p.e = p.next.e; p.dir = p.next.dir; p.side = p.next.side; p.s = p.next.s; this.placeWalk(p); }
                 } else {
                     p.x += dx / d * sp * dt; p.z += dz / d * sp * dt; p.heading = Math.atan2(-dx, -dz);
@@ -2379,7 +2395,7 @@ class Pedestrians {
                     p.roadHits = (p.roadHits || 0) + 1;
                     if (p.roadHits === 1) { p.dir = -p.dir; p.s = os; }
                     else if (p.roadHits === 2) { p.side = -p.side; this.placeWalk(p); }
-                    else { p.roadHits = 0; if (T.large) this.relocate(p, 120, 420, true); else { p.state = 'stand'; this.kerbClamp(p); } }
+                    else { p.roadHits = 0; if (T.large) this.relocate(p, 120, 420, true); else this.relocate(p, 30, 200, true); } // (standing them at the kerb piled them up on one spot)
                 } else p.roadHits = 0;
                 // never in water / a fountain basin (+ 1 m rim; world-visual request, note 17): walkers cross to the other
                 // sidewalk, anyone else is moved back onto a sidewalk around the player

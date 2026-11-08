@@ -199,7 +199,7 @@ function M(x = 0, y = 0, z = 0, ry = 0, sx = 1, sy = 1, sz = 1, rx = 0, rz = 0) 
 }
 
 class Builder {
-    constructor(hs = 1) { this.hs = hs; this.wall = null; this.bk = {}; this.cols = []; this.extras = []; this.fences = []; this.covers = []; this.grounds = []; this.stack = [new THREE.Matrix4()]; this.ox = 0; this.oz = 0; }
+    constructor(hs = 1) { this.hs = hs; this.wall = null; this.bk = {}; this.cols = []; this.extras = []; this.fences = []; this.covers = []; this.grounds = []; this.coverPolys = []; this.stack = [new THREE.Matrix4()]; this.ox = 0; this.oz = 0; }
     /** translate everything that follows by (dx, dz) model metres (lets a builder keep its source coordinates when its anchor moves) */
     shift(dx, dz) { this.ox = dx; this.oz = dz; return this; }
     _b(mat) { return this.bk[mat] || (this.bk[mat] = { p: [], n: [], c: [] }); }
@@ -2414,7 +2414,7 @@ function entrance(b, f, o = {}) {
     { const [cx, cz] = at(0, 0.2); b.box(cx, y, cz, w, h, 0.08, o.door || '#7e959e', { ry, mat: o.doorMat || 'g' }); }
     if (o.canopy) { const [cx, cz] = at(0, o.canopy / 2); b.box(cx, y + h + 0.35, cz, w + 1.6, 0.25, o.canopy, o.canopyCol || '#3c3f42', { ry }); if (o.canopyText) { const [tx, tz] = at(0, o.canopy + 0.02); b.text(o.canopyText, tx, y + h + 0.37, tz, ry, o.canopyTextH || 0.2, o.canopyTextCol || '#f2f2f2', { d: 0.01 }); } }
     if (o.plate) {
-        const pw = o.plate.w ?? 0.8, ph = o.plate.h ?? 0.55, side = o.plate.side ?? 1, u = side * (w / 2 + 0.55 + pw / 2), yb = y + (o.plate.y ?? 1.35);
+        const pw = o.plate.w ?? 0.8, ph = o.plate.h ?? 0.55, side = o.plate.side ?? 1, u = side * (w / 2 + (o.plate.gap ?? 0.55) + pw / 2), yb = y + (o.plate.y ?? 1.35);
         const [cx, cz] = at(u, 0.04); b.box(cx, yb, cz, pw, ph, 0.05, o.plate.bg || '#1f3350', { ry });
         let yy = yb + ph - 0.07;
         for (const [t, th, tc] of o.plate.lines) { yy -= th; const [tx, tz] = at(u, 0.07); b.text(t, tx, yy, tz, ry, th, tc || '#f4f4f4', { d: 0.005 }); yy -= th * 0.45; }
@@ -2543,8 +2543,17 @@ function bRosetti(b) {
     b.cap(hi, y1, '#a52d33'); b.lip(p, lo, y0, '#d9d4c8', -1);
     const f = nearestFacade(p, 40, 7.4);                                                    // on the Garibaldi (east) face, level with the address node
     { const x = f.x + f.nx * 1.6, z = f.z + f.nz * 1.6, ry = Math.atan2(f.nx, f.nz); b.box(x, 0, z, 4.2, 3.4, 3.2, W, { ry }); b.box(x + f.nx * 0.2, 3.4, z + f.nz * 0.2, 4.8, 0.25, 3.8, '#e9e6de', { ry }); }   // entrance porch
-    entrance(b, { x: f.x + f.nx * 3.2, z: f.z + f.nz * 3.2, nx: f.nx, nz: f.nz }, { w: 1.8, h: 2.5, frame: '#ece9e2', door: '#7a8a92', plate: { w: 1.2, h: 0.7, y: 1.2, bg: '#1d4f91', lines: [['LICEUL TEORETIC', 0.08, '#ffffff'], ['C.A. ROSETTI', 0.13, '#ffffff']] } });
-    { const x = f.x + f.nx * 3.4 - f.nz * 1.6, z = f.z + f.nz * 3.4 + f.nx * 1.6; b.cyl(x, 2.6, z, 0.03, 0.03, 1.8, '#d8d8d8', 5, { rz: 0.5 }); flag(b, x + 0.4, 4.4, z, 1.1); }
+    entrance(b, { x: f.x + f.nx * 3.2, z: f.z + f.nz * 3.2, nx: f.nx, nz: f.nz }, { w: 1.8, h: 2.5, frame: '#ece9e2', door: '#7a8a92', plate: { w: 0.85, h: 0.55, y: 1.2, gap: 0.25, bg: '#1d4f91', lines: [['LICEUL TEORETIC', 0.07, '#ffffff'], ['C.A. ROSETTI', 0.1, '#ffffff']] } }); // (owner: "sign goes outside": inside the porch face)
+    { // the national flag on a pole slanting out from the porch front (owner: "flag is also broken": it lay on the canopy)
+        const tx = -f.nz, tz = f.nx, B = [f.x + f.nx * 3.25 + tx * 1.55, 3.0, f.z + f.nz * 3.25 + tz * 1.55], T = [B[0] + f.nx * 1.3, 4.6, B[2] + f.nz * 1.3];
+        b.box(B[0] - f.nx * 0.05, 2.85, B[2] - f.nz * 0.05, 0.12, 0.3, 0.12, '#b9bcbe'); b.strut(B, T, 0.025, 0.02, '#d9dcde');
+        // (owner's sketch) the flag hangs from the top of the pole and runs away from it at right angles: its hoist along the
+        // pole's top 0.62 m, blue at the pole, then yellow, then red
+        const dl = Math.hypot(T[0] - B[0], T[1] - B[1], T[2] - B[2]), D = [(T[0] - B[0]) / dl, (T[1] - B[1]) / dl, (T[2] - B[2]) / dl];
+        const hD = Math.hypot(D[0], D[2]), F = [D[0] / hD * D[1], -hD, D[2] / hD * D[1]];                       // ⟂ to the pole, outward and down
+        const H = 0.62, Lf = 0.95, at = (u, v) => [T[0] - D[0] * (0.04 + u) + F[0] * v, T[1] - D[1] * (0.04 + u) + F[1] * v, T[2] - D[2] * (0.04 + u) + F[2] * v];
+        ['#002b7f', '#fcd116', '#ce1126'].forEach((col, i) => { const v0 = i * Lf / 3, v1 = v0 + Lf / 3, a = at(0, v0), c2 = at(0, v1), d2 = at(H, v1), e2 = at(H, v0);
+            b.quad(a, c2, d2, e2, col, 'm', [-tz, 0, tx]); b.quad(e2, d2, c2, a, col, 'm', [tz, 0, -tx]); }); }
     // steel fire-escape stair on the Garibaldi face, north of the entrance: landings at each floor, flights between, cage rails
     { const e = nearestFacade(p, 30, -6), ry = Math.atan2(e.nx, e.nz), tx = -e.nz, tz = e.nx, o = 1.25;
         const at = (u, v) => [e.x + e.nx * v + tx * u, e.z + e.nz * v + tz * u];
@@ -2882,6 +2891,9 @@ function bDinamo(b) {
         let d = rayHit(ix, iz, dx, dz); if (!isFinite(d) || d > 45) d = 20; d = Math.max(4, d - 0.4);
         const sec = sector(q); prof.push({ ix, iz, dx, dz, d, sec, h: H[sec] });
     }
+    // (2026-11-08, owner: "stadium a bit broken") the sector heights jumped at every joint (steps and back wall broke into
+    // ledges): ramp them over ≈ ±19 m with a moving average round the bowl
+    { const h0s = prof.map(p => p.h), m = prof.length, Wn = 6; for (let k = 0; k < m; k++) { let sum = 0; for (let j = -Wn; j <= Wn; j++) sum += h0s[(k + j + m) % m]; prof[k].h = sum / (2 * Wn + 1); } }
     const n = prof.length, P = (pr, t, y) => [pr.ix + pr.dx * pr.d * t, y, pr.iz + pr.dz * pr.d * t];
     for (let k = 0; k < n; k++) {
         const a = prof[k], c = prof[(k + 1) % n], h0 = 1.1, ha = a.h, hc = c.h;
@@ -2943,6 +2955,7 @@ function bDinamo(b) {
         b.col(mx, mz, 1.4, 1.4);
     }
     b.colPoly([out], 24);
+    b.grounds.push(out); b.coverPolys.push(offset(out, -3)); // no trees in the bowl; OSM buildings inside the outline are the model's own
 }
 
 const A = {
@@ -3089,5 +3102,6 @@ export function buildLandmark(lm, ctx = {}) {
     const fences = lm.backdrop ? [] : b.fences.map(f => ({ ...f, ring: (f.ring || f.line).map(rot), inside: f.inside ? f.inside.map(rot) : null,
         gates: (f.gates || []).map(g => ({ ...g, x: g.x * hs * c + g.z * hs * s, z: -g.x * hs * s + g.z * hs * c })) }));
     const covers = lm.backdrop ? [] : b.covers.map(rot), grounds = lm.backdrop ? [] : b.grounds.map(g => g.map(rot)); // grounds: surfaces kept clear of trees
-    return { mesh: group, clear: hs === 1 ? lm.radiusM : lm.footprintRadius, clearM: lm.radiusM, collision, triangles: tris, authoredScale: hs, fences, covers, grounds };
+    const coverPolys = lm.backdrop ? [] : b.coverPolys.map(g => g.map(rot)); // polygons: every OSM building centred inside is the model's own
+    return { mesh: group, clear: hs === 1 ? lm.radiusM : lm.footprintRadius, clearM: lm.radiusM, collision, triangles: tris, authoredScale: hs, fences, covers, grounds, coverPolys };
 }

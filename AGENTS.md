@@ -66,6 +66,9 @@ Pitfalls found the hard way (each one shipped a visible bug)
 - Sidewalks in `realPass` districts are raised to the kerb's height (road + 0.13): anything standing on a sidewalk must use
   `raisedTop(x, z)` / `liftOnSide(...)` (props are authored at `Y.side`); physics and the crowd follow `surfacesAt` /
   `world.walkTop`. Cells are merged into meshes before the kerb parking pass: geometry added there must be its own mesh.
+- Edges can be asymmetric (wL ≠ wR: two-way roads with different lane counts, lane-aligned one-way chains): use the side's
+  own width, never `halfW`, for anything placed on one side (walkers' lines put people metres off the sidewalk).
+- Anything a car or walker can hit needs a collider (`propColl` / `addPropColl`): fences, hedges and bollards once had none.
 - Roofs / facades: a centroid-fan roof only for convex outlines (L / T / U shapes get the inset hip roof); window tiles
   must end on a whole storey (the storeys above a shopfront too, archetype parapets plain), or a sliced row shows at the roof.
 - Fine wires / pickets / nets: thin two-sided strips in `c.detail` (no shadow pass), never boxes: the frame budget.

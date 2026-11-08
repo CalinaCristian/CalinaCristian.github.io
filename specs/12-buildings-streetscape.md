@@ -120,6 +120,13 @@ What the builder / world now do (so the next district gets it for free)
   ball-stop fences and deeper goals, villa plaster palette, plain balconies on low blocks, lighter ring parking lots.
 - Landmarks: model big sports venues from their OSM outline + aerial layout (Stadionul Dinamo `bDinamo`: track, terraced bowl
   following the outline, sector profiles, covered main stand, masts, scoreboard).
+- Play-test round 2 (2026-11-08): front-garden boundaries chosen per plot from the building behind (blocks: none or a
+  0.7 m railing; villas: railing on a plinth / plastered wall with a railing / hedge / rarely a solid wall), continuous
+  (no random gaps); raised sidewalks end in a 1 m slope, not a ledge; district walkers follow each side's own sidewalk
+  (`off(e, side)`, `maxOut`); one-way chains keep the left kerb where the narrowest neighbour puts it and extra lanes widen
+  the right (`laneAligned`), wider-than-tagged one-way carriageways are marked evenly (the bus line on the last divider);
+  Dinamo: sector heights ramped (no ledges), no trees / OSM boxes in the bowl (`grounds`, `coverPolys`); pitch goals with
+  round posts and a sloping fine net, corner flags with arcs; solid garden fences, hedges, bollards, sports fences.
 - Landmark grounds (2026-11-08, Rosetti): a landmark can hand the world `fences` (`line`/`ring`, `inside` = the grounds
   polygon, `gates`, `style` 'bars' | 'mesh', `h`, `plinth: 'arches'`), `covers` (points: the OSM buildings it replaces) and
   `grounds` (its own surfaces: no trees there). The world keeps every fence point off carriageways and sidewalks on the

@@ -497,7 +497,8 @@ function props() {
     // traffic light pole + housing (housing faces +x = toward incoming traffic after rotation)
     const tlight = mergeProps([bakeProp(pole, { y: 2.4, sy: 4.8, sx: 1.4, sz: 1.4, color: '#2f3237' }), bakeProp(box, { y: 4.1, x: 0.1, sx: 0.36, sy: 1.25, sz: 0.48, color: '#1c1e22' }),
         ...[0, 1, 2].map(i => bakeProp(new THREE.CylinderGeometry(0.15, 0.15, 0.04, 8), { x: 0.3, y: 4.5 - i * 0.38, rz: Math.PI / 2, color: '#3a3d42' }))]);
-    PROPS = { tree, tree2, conifer, lamp, tlight, box: UNIT_BOX, sphere: prep(new THREE.SphereGeometry(1, 12, 6, 0, Math.PI * 2, 0, Math.PI / 2)) };
+    const cylY = prep(new THREE.CylinderGeometry(1, 1, 1, 8)), cylZ = prep(new THREE.CylinderGeometry(1, 1, 1, 8).rotateX(Math.PI / 2)); // (unit, centred; cylZ lies along z)
+    PROPS = { tree, tree2, conifer, lamp, tlight, box: UNIT_BOX, sphere: prep(new THREE.SphereGeometry(1, 12, 6, 0, Math.PI * 2, 0, Math.PI / 2)), cylY, cylZ };
     return PROPS;
 }
 
@@ -746,6 +747,26 @@ export async function buildWorld(city, renderer, opts = {}) {
             computeSCC();
             sccInfo.twoWayFixups = flipped;
         }
+    }
+
+    // (2026-11-08, owner: "markings seem wrong here", Calea Floreasca) OSM changes a one-way street's lane count every few
+    // dozen metres (3, 4, 3, 3, 4 …) and every segment was centred on the way: at each change both kerbs and every lane line
+    // jumped 1.75 m sideways. District worlds: along a named one-way chain the left kerb stays where the narrowest
+    // neighbouring segment puts it and the extra lanes widen the right side (a turn bay); lane i keeps its position
+    // (traffic lanes are counted from the left: median/2 + laneW·(i + ½)).
+    if (distId) {
+        let aligned = 0;
+        const nextOf = (e) => e.b.edges.filter(f => f !== e && f.a === e.b && f.oneway && !f.virtual && f.name === e.name);
+        const prevOf = (e) => e.a.edges.filter(f => f !== e && f.b === e.a && f.oneway && !f.virtual && f.name === e.name);
+        for (const e of edges) {
+            if (!e.oneway || e.virtual || !e.name || e.madeTwoWay) continue;
+            let base = e.lanesF, f = e;
+            for (let k = 0; k < 4; k++) { const n2 = prevOf(f); if (n2.length !== 1) break; f = n2[0]; base = Math.min(base, f.lanesF); }
+            f = e; for (let k = 0; k < 4; k++) { const n2 = nextOf(f); if (n2.length !== 1) break; f = n2[0]; base = Math.min(base, f.lanesF); }
+            if (base >= e.lanesF || Math.abs(e.laneW * e.lanesF - (e.wL + e.wR)) > 0.05) continue;
+            e.wL = base * e.laneW / 2; e.wR = e.lanesF * e.laneW - e.wL; e.median = -2 * e.wL; e.halfW = Math.max(e.wL, e.wR); aligned++;
+        }
+        if (aligned) { for (const n of nodeArr) if (n.edges.length) n.radius = Math.max(...n.edges.map(e => e.halfW)) + 0.5; sccInfo.laneAligned = aligned; }
     }
 
     // refine tram flag per edge using the actual tram geometry
@@ -1472,7 +1493,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             const R = minRect(a.outer); if (!R || a.size / R.A < 0.8) continue;
             const { cx, cz, ux, uz, hl, hw } = R, vx = -uz, vz = ux;
             const P = (u, v) => [cx + ux * u + vx * v, cz + uz * u + vz * v];
-            const c = cellOf((a.x0 + a.x1) / 2, (a.z0 + a.z1) / 2), base = AREA_Y[a.kind] ?? Y.pitch, yL = base + 0.006; // (same cell = same mesh as the area polygon: the lines draw after it)
+            const c = cellOf((a.x0 + a.x1) / 2, (a.z0 + a.z1) / 2), base = AREA_Y[a.kind] ?? Y.pitch, yL = base + 0.016; // (lines 1.2 cm over the mowing stripes: 3 mm z-fought them away at a distance) // (same cell = same mesh as the area polygon: the lines draw after it)
             const layer = GRASSY.has(a.kind) ? c.grass : c.pave;
             const line = (u0, v0, u1, v1, w = 0.1) => { const L = Math.hypot(u1 - u0, v1 - v0); if (L < 0.05) return; const nu = -(v1 - v0) / L * w / 2, nv = (u1 - u0) / L * w / 2; const [ax, az] = P(u0 + nu, v0 + nv), [bx, bz] = P(u1 + nu, v1 + nv), [qx, qz] = P(u1 - nu, v1 - nv), [rx, rz] = P(u0 - nu, v0 - nv); layer.flatQuad(ax, az, bx, bz, qx, qz, rx, rz, yL, W, 0.1); };
             const rect = (hu, hv) => { line(-hu, -hv, hu, -hv); line(-hu, hv, hu, hv); line(-hu, -hv, -hu, hv); line(hu, -hv, hu, hv); };
@@ -1530,7 +1551,13 @@ export async function buildWorld(city, renderer, opts = {}) {
                     layer.flatQuad(x0, z0, x1, z1, x2, z2, x3, z3, base + 0.003, k % 2 ? c1 : c2, 0.1); }
                 const q = [P(-hl, -hw), P(hl, -hw), P(hl, hw), P(-hl, hw)];
                 lmGrounds.push({ p: q, x0: Math.min(...q.map(v => v[0])), x1: Math.max(...q.map(v => v[0])), z0: Math.min(...q.map(v => v[1])), z1: Math.max(...q.map(v => v[1])) });
-                for (const [su, sv] of [[-1, -1], [1, -1], [1, 1], [-1, 1]]) { const [fx, fz] = P(su * HL, sv * HW); c.detail.box(fx, base, fz, 0.04, 1.5, 0.04, 0, POST); c.detail.box(fx + 0.2, base + 1.2, fz, 0.4, 0.3, 0.02, ang, rgb('#e8b923')); }
+                for (const [su, sv] of [[-1, -1], [1, -1], [1, 1], [-1, 1]]) { // corner flags: a pole with the flag hanging from its top, the 1 m arc
+                    const [fx, fz] = P(su * HL, sv * HW); c.detail.geo(props().cylY, fx, base + 0.75, fz, 0, 0.022, 1.5, 0.022, POST);
+                    const dl = Math.SQRT1_2, dx = (ux * -su + vx * -sv) * dl, dz = (uz * -su + vz * -sv) * dl, FL = rgb('#e8b923'); // (toward the pitch, diagonally)
+                    const q = [[fx, base + 1.5, fz], [fx + dx * 0.45, base + 1.47, fz + dz * 0.45], [fx + dx * 0.45, base + 1.17, fz + dz * 0.45], [fx, base + 1.2, fz]];
+                    c.detail.face4(q[0], q[1], q[2], q[3], FL, [-dz, 0, dx]); c.detail.face4(q[0], q[3], q[2], q[1], FL, [dz, 0, -dx]);
+                    for (let k = 0; k < 8; k++) { const a0 = k / 8 * Math.PI / 2, a1 = (k + 1) / 8 * Math.PI / 2; line(su * (HL - Math.cos(a0)), sv * (HW - Math.sin(a0)), su * (HL - Math.cos(a1)), sv * (HW - Math.sin(a1))); }
+                }
                 if (hw > 15) for (const sd of [-1, 1]) { const [dx, dz] = P(sd * 6, -(hw + 0.4 > HW + 2.5 ? HW + 2.2 : hw + 1.2)); // dugouts: a bench under a curved perspex-ish roof
                     c.solid.box(dx, base, dz, 4.0, 0.08, 1.2, ang, rgb('#cfd2d4')); c.solid.box(dx, base + 1.95, dz, 4.1, 0.08, 1.4, ang, rgb('#2f6fb0'));
                     for (const t of [-1.95, 1.95]) { const [ex, ez] = P(sd * 6 + t, -(hw + 0.4 > HW + 2.5 ? HW + 2.2 : hw + 1.2)); c.solid.box(ex, base, ez, 0.06, 1.95, 1.3, ang, rgb('#2f6fb0')); }
@@ -1544,18 +1571,43 @@ export async function buildWorld(city, renderer, opts = {}) {
             rect(HL, HW); line(0, -HW, 0, HW);
             const rc = Math.min(9.15, HW * 0.27), n = 36; for (let k = 0; k < n; k++) { const a0 = k / n * 6.283, a1 = (k + 1) / n * 6.283; line(Math.cos(a0) * rc, Math.sin(a0) * rc, Math.cos(a1) * rc, Math.sin(a1) * rc); }
             const bd = Math.min(16.5, HL * 0.3), bw = Math.min(20.16, HW * 0.6), gw = HL > 40 ? 3.66 : HL > 22 ? 2.5 : 1.5, gh = HL > 40 ? 2.44 : 2;
+            // goals (2026-11-08, owner: "a bit more details on goal post"): round white posts and crossbar, a net that runs
+            // from the crossbar back over a short top and slopes to a ground bar (≈ 2 m deep), side nets, rear stanchions,
+            // a fine thin mesh (two-sided strips in the detail layer)
+            const POSTC = rgb('#f6f6f4'), NETC = rgb('#e6e8e8'), PR = gh > 2.3 ? 0.06 : 0.05;
+            const V3 = (u, v, y) => { const [x, z] = P(u, v); return [x, base + y, z]; };
+            const strand = (a, b2, side, w = 0.018) => { // a thin quad from a to b2, widened along `side` (unit, in the net's plane), both faces
+                const sx = side[0] * w / 2, sy = side[1] * w / 2, sz = side[2] * w / 2;
+                const q = [[a[0] - sx, a[1] - sy, a[2] - sz], [b2[0] - sx, b2[1] - sy, b2[2] - sz], [b2[0] + sx, b2[1] + sy, b2[2] + sz], [a[0] + sx, a[1] + sy, a[2] + sz]];
+                const dx = b2[0] - a[0], dy = b2[1] - a[1], dz = b2[2] - a[2], nx = dy * side[2] - dz * side[1], ny = dz * side[0] - dx * side[2], nz = dx * side[1] - dy * side[0];
+                c.detail.face4(q[0], q[1], q[2], q[3], NETC, [nx, ny, nz]); c.detail.face4(q[0], q[3], q[2], q[1], NETC, [-nx, -ny, -nz]);
+            };
+            const goal = (g, sg) => {
+                const top = 0.8, D = Math.min(2.0, gh * 0.85), uT = g + sg * top, uB = g + sg * D; // net: crossbar → top (0.8 m) → slope → ground bar at D
+                const VD = [vx, 0, vz], ryV = Math.atan2(vx, vz);
+                for (const v of [-gw, gw]) { const [px, , pz] = V3(g + sg * PR, v, 0); c.detail.geo(props().cylY, px, base + gh / 2, pz, 0, PR, gh, PR, POSTC); }
+                { const [tx, , tz] = V3(g + sg * PR, 0, 0); c.detail.geo(props().cylZ, tx, base + gh - PR, tz, ryV, PR, PR, gw * 2 + PR * 2, POSTC); }
+                { const [bx, , bz] = V3(uB, 0, 0); c.detail.geo(props().cylZ, bx, base + 0.03, bz, ryV, 0.025, 0.025, gw * 2, POSTC); }   // ground bar
+                for (const v of [-gw, gw]) { // rear stanchion (crossbar end → top corner → ground) + ground side bar
+                    const a = V3(g + sg * PR, v, gh - 0.05), m2 = V3(uT, v, gh - 0.1), f = V3(uB, v, 0.03), gf = V3(g, v, 0.03);
+                    const sd = [0, 0, 0]; const UD = [ux, 0, uz];
+                    strand(a, m2, [0, 1, 0], 0.05); strand(m2, f, VD, 0.05); strand(gf, f, [0, 1, 0], 0.04); void sd; void UD; }
+                // back net: across (v) every 0.12 m, the top + slope as strands along the net, rungs across every 0.15 m
+                const slopeL = Math.hypot(D - top, gh - 0.1), nS = Math.round(slopeL / 0.15), nT = Math.round(top / 0.15);
+                const SL = [ux * sg * (D - top) / slopeL, -(gh - 0.1) / slopeL, uz * sg * (D - top) / slopeL];
+                for (let v = -gw; v <= gw + 0.001; v += 0.12) { strand(V3(g + sg * PR, v, gh - 0.08), V3(uT, v, gh - 0.1), VD); strand(V3(uT, v, gh - 0.1), V3(uB, v, 0.03), VD); }
+                for (let k = 1; k <= nT; k++) { const u = g + sg * top * k / nT; strand(V3(u, -gw, gh - 0.09), V3(u, gw, gh - 0.09), [ux, 0, uz]); }
+                for (let k = 1; k < nS; k++) { const t = k / nS, u = uT + sg * (D - top) * t, y = gh - 0.1 - (gh - 0.13) * t; strand(V3(u, -gw, y), V3(u, gw, y), SL); }
+                for (const v of [-gw, gw]) { // side nets: verticals every 0.15 m under the top / slope, horizontals every 0.15 m
+                    for (let u2 = 0.15; u2 < D; u2 += 0.15) { const yTop = u2 <= top ? gh - 0.1 : gh - 0.1 - (gh - 0.13) * (u2 - top) / (D - top); strand(V3(g + sg * u2, v, 0.03), V3(g + sg * u2, v, yTop), [ux, 0, uz]); }
+                    for (let y = 0.15; y < gh - 0.1; y += 0.15) { const uEnd = y >= gh - 0.1 ? top : top + (D - top) * (gh - 0.1 - y) / (gh - 0.13); strand(V3(g + sg * PR, v, y), V3(g + sg * Math.min(D, uEnd), v, y), [0, 1, 0]); }
+                }
+            };
             for (const sg of [-1, 1]) {
                 const g = sg * HL; line(g, -bw, g - sg * bd, -bw); line(g - sg * bd, -bw, g - sg * bd, bw); line(g - sg * bd, bw, g, bw);
-                for (const v of [-gw, gw]) { const [px, pz] = P(g + sg * 0.05, v); c.detail.box(px, base, pz, 0.1, gh, 0.1, 0, POST); sportsColl.push({ x: px, z: pz, r: 0.08, hw: 0.08, hd: 0.08, angle: 0, poly: null, h: 3, prop: true, kind: 'post' }); }
-                const [tx, tz] = P(g + sg * 0.05, 0); c.detail.box(tx, base + gh - 0.1, tz, 0.1, 0.1, gw * 2 + 0.1, ang + Math.PI / 2, POST);
-                // the net: a see-through mesh of thin strands at the back (a solid panel read as a white wall)
-                const NETC = rgb('#e2e4e4'), nd = g + sg * Math.min(1.4, gh * 0.6);
-                for (let v = -gw; v <= gw + 0.01; v += 0.3) { const [mx, mz] = P(nd, v); c.detail.box(mx, base, mz, 0.025, gh * 0.9, 0.025, 0, NETC); }
-                for (let y = 0.3; y < gh * 0.9; y += 0.3) { const [mx, mz] = P(nd, 0); c.detail.box(mx, base + y, mz, 0.025, 0.025, gw * 2, ang + Math.PI / 2, NETC); }
-                for (const v of [-gw, gw]) { // side frames + side nets, the top bars back to the net (a goal with depth, not a flat gate)
-                    const [ax2, az2] = P(g + sg * 0.05, v), [bx2, bz2] = P(nd, v), dL = Math.hypot(bx2 - ax2, bz2 - az2);
-                    c.detail.box((ax2 + bx2) / 2, base + gh - 0.08, (az2 + bz2) / 2, 0.05, 0.05, dL, ang, POST); c.detail.box((ax2 + bx2) / 2, base, (az2 + bz2) / 2, 0.05, 0.05, dL, ang, POST);
-                    for (let t = 0.3; t < dL; t += 0.3) { const [sx2, sz2] = P(g + sg * (0.05 + t), v); c.detail.box(sx2, base, sz2, 0.02, gh * 0.95, 0.02, 0, NETC); } }
+                if (HL > 22) { const b6 = Math.min(9.16, gw + 5.5), d6 = Math.min(5.5, bd * 0.33); line(g, -b6, g - sg * d6, -b6); line(g - sg * d6, -b6, g - sg * d6, b6); line(g - sg * d6, b6, g, b6); } // goal area
+                goal(g, sg);
+                for (const v of [-gw, gw]) { const [px, pz] = P(g + sg * 0.05, v); sportsColl.push({ x: px, z: pz, r: 0.08, hw: 0.08, hd: 0.08, angle: 0, poly: null, h: 3, prop: true, kind: 'post' }); }
             }
             pitchesDressed++;
         }
@@ -1892,7 +1944,12 @@ export async function buildWorld(city, renderer, opts = {}) {
                         //          a driveway, a median, a pad between two corners is never paved over), 0.8 m pieces near them
                         const swq = (o0, o1, w0, w1) => {
                             c.ground.flatQuad(o0[0], o0[1], o1[0], o1[1], w1[0], w1[1], w0[0], w0[1], top, sideCol, 0.25);
-                            c.ground.wall(w0[0], w0[1], w1[0], w1[1], Y.landuse - 0.02, top, e.nx * s, e.nz * s, shadeRgb(sideCol, 0.8));
+                            // (owner: "not smooth at all the transition") a 1 m slope down to the ground behind, not a 0.34 m ledge
+                            // (a vertical face where the slope would land on another surface)
+                            // (owner, again: "still feels like it's floating") 2.4 m long (≈ 8°), the sidewalk's own paving colour
+                            const SL = 2.4, f0 = [w0[0] + e.nx * s * SL, w0[1] + e.nz * s * SL], f1 = [w1[0] + e.nx * s * SL, w1[1] + e.nz * s * SL];
+                            if (!cov(f0) && !cov(f1) && !cov(lp(f0, f1, 0.5)) && !cov(lp(w0, f0, 0.5)) && !cov(lp(w1, f1, 0.5))) c.ground.face4([w0[0], top, w0[1]], [w1[0], top, w1[1]], [f1[0], Y.landuse + 0.01, f1[1]], [f0[0], Y.landuse + 0.01, f0[1]], sideCol, [e.nx * s * 0.34, SL, e.nz * s * 0.34]);
+                            else c.ground.wall(w0[0], w0[1], w1[0], w1[1], Y.landuse - 0.02, top, e.nx * s, e.nz * s, shadeRgb(sideCol, 0.8));
                             raisedPieces++;
                         };
                         const clear = (o0, o1, w0, w1, fs) => { for (const f of fs) { const p1 = lp(o0, o1, f), p2 = lp(w0, w1, f); if (cov(p1) || cov(p2) || cov(lp(p1, p2, 0.5))) return false; } return true; };
@@ -1924,11 +1981,14 @@ export async function buildWorld(city, renderer, opts = {}) {
             const m = markProxy(c.marks, e), hw = 0.07;
             const minor = e.type === 'residential' || e.type === 'living_street' || e.type === 'unclassified' || e.type === 'service';
             const med2 = e.median / 2;
+            // a one-way carriageway built wider than its lane count is marked evenly over its real width (see the dividers)
+            const Wc = e.wL + e.wR, nEff = e.oneway ? Math.round(Wc / e.laneW) : 0, evenLanes = e.oneway && nEff > e.lanesF && Wc - e.lanesF * e.laneW > e.laneW * 0.7;
             // bus lanes (outermost lane each way)
             if (e.busLane && !/motorway|trunk/.test(e.type)) {
                 if (realPass) { // (2026-11-08, Street View walk of Calea Floreasca) plain asphalt behind a wide solid line, not red paint (red only on the boulevards that have it)
                     const wl = rgb('#ecebe6');
-                    if (e.lanesF > 1) { const o = med2 + e.laneW * (e.lanesF - 1); band(m, e, s0, s1, o - 0.13, o + 0.13, yM - 0.002, wl); }
+                    if (evenLanes) { const o = -e.wL + Wc * (nEff - 1) / nEff; band(m, e, s0, s1, o - 0.13, o + 0.13, yM - 0.002, wl); } // (on the last divider of the evenly marked lanes)
+                    else if (e.lanesF > 1) { const o = med2 + e.laneW * (e.lanesF - 1); band(m, e, s0, s1, o - 0.13, o + 0.13, yM - 0.002, wl); }
                     if (e.lanesB > 1) { const o = -(med2 + e.laneW * (e.lanesB - 1)); band(m, e, s0, s1, o - 0.13, o + 0.13, yM - 0.002, wl); }
                 } else {
                     if (e.lanesF > 1) band(m, e, s0, s1, med2 + e.laneW * (e.lanesF - 1), med2 + e.laneW * e.lanesF, yM - 0.004, busCol);
@@ -1955,9 +2015,8 @@ export async function buildWorld(city, renderer, opts = {}) {
             // (2026-11-08, owner: "some roads still don't have proper lines", Calea Floreasca by PAUL) a one-way carriageway
             // built wider than its lane count (lanes tag < the real width) left a whole unmarked lane: mark the lanes evenly
             // over the real width instead
-            const Wc = e.wL + e.wR, nEff = e.oneway ? Math.round(Wc / e.laneW) : 0;
-            if (e.oneway && nEff > e.lanesF && Wc - e.lanesF * e.laneW > e.laneW * 0.7) {
-                for (let i = 1; i < nEff; i++) dashLine(m, e, s0, s1, -e.wL + Wc * i / nEff, yM, white, dash[0], dash[1], hw);
+            if (evenLanes) {
+                for (let i = 1; i < nEff; i++) if (!(e.busLane && realPass && i === nEff - 1)) dashLine(m, e, s0, s1, -e.wL + Wc * i / nEff, yM, white, dash[0], dash[1], hw);
             } else if (!minor || e.lanesF > 1 || e.lanesB > 1) {
                 for (let i = 1; i < e.lanesF; i++) dashLine(m, e, s0, s1, med2 + e.laneW * i, yM, white, dash[0], dash[1], hw * (/motorway/.test(e.type) ? 1.4 : 1));
                 for (let i = 1; i < e.lanesB; i++) dashLine(m, e, s0, s1, -(med2 + e.laneW * i), yM, white, dash[0], dash[1], hw);
@@ -2232,7 +2291,9 @@ export async function buildWorld(city, renderer, opts = {}) {
             mb.triUp(base, base + 1, base + 2); mb.triUp(base, base + 2, base + 3);
             const tn = (a, b, away) => { const mx = (a[0] + b[0]) / 2 - n.x, mz = (a[1] + b[1]) / 2 - n.z, l = Math.hypot(mx, mz) || 1; return away ? [mx / l, mz / l] : [-mx / l, -mz / l]; };
             { const [nx, nz] = tn(q[3], q[0], false); mb.wall(q[3][0], q[3][1], q[0][0], q[0][1], Y.road - 0.01 + padHeightAt(n, cx, cz), hy(cx, cz), nx, nz, shadeRgb(kerbCol, 0.85)); }   // kerb face toward the pad
-            { const [nx, nz] = tn(q[1], q[2], true); mb.wall(q[1][0], q[1][1], q[2][0], q[2][1], Y.landuse - 0.02 + padHeightAt(n, cx, cz), hy(cx, cz), nx, nz, shadeRgb(sideCol, 0.8)); }   // back face
+            { const [nx, nz] = tn(q[1], q[2], true), f1 = [q[1][0] + nx * 2.4, q[1][1] + nz * 2.4], f2 = [q[2][0] + nx * 2.4, q[2][1] + nz * 2.4], yg = Y.landuse + 0.01 + padHeightAt(n, cx, cz); // back: a 2.4 m slope (a face where it would land on a road)
+              if (![f1, f2].some(([x, z]) => coveredByOther(x, z, null, padHeightAt(n, x, z), 0.02))) mb.face4([q[1][0], hy(q[1][0], q[1][1]), q[1][1]], [q[2][0], hy(q[2][0], q[2][1]), q[2][1]], [f2[0], yg, f2[1]], [f1[0], yg, f1[1]], sideCol, [nx * 0.34, 2.4, nz * 0.34]);
+              else mb.wall(q[1][0], q[1][1], q[2][0], q[2][1], Y.landuse - 0.02 + padHeightAt(n, cx, cz), hy(cx, cz), nx, nz, shadeRgb(sideCol, 0.8)); }
             const cp = { p: q, n, x0: Math.min(...q.map(v => v[0])), x1: Math.max(...q.map(v => v[0])), z0: Math.min(...q.map(v => v[1])), z1: Math.max(...q.map(v => v[1])) };
             cornerPolys.push(cp); cornerGrid.insert(cp.x0, cp.z0, cp.x1, cp.z1, cp);
         }
@@ -2777,6 +2838,10 @@ export async function buildWorld(city, renderer, opts = {}) {
             const toW = ([x, z]) => [p.x + x * lk, p.z + z * lk];
             for (const f of res.fences || []) landmarkFences.push({ ...f, ring: f.ring.map(toW), inside: f.inside ? f.inside.map(toW) : (f.closed ? f.ring.map(toW) : null), gates: (f.gates || []).map(g => ({ ...g, x: p.x + g.x * lk, z: p.z + g.z * lk, w: (g.w || 4) * lk })) });
             for (const g of res.grounds || []) { const q = g.map(toW); lmGrounds.push({ p: q, x0: Math.min(...q.map(v => v[0])), x1: Math.max(...q.map(v => v[0])), z0: Math.min(...q.map(v => v[1])), z1: Math.max(...q.map(v => v[1])) }); }
+            for (const g of res.coverPolys || []) { // every OSM building centred inside (a stadium's own stands / boxes)
+                const q = g.map(toW), x0 = Math.min(...q.map(v => v[0])), x1 = Math.max(...q.map(v => v[0])), z0 = Math.min(...q.map(v => v[1])), z1 = Math.max(...q.map(v => v[1]));
+                bGrid.each(x0, z0, x1, z1, (b) => { if (!b.skip && pointInPolygon(b.c[0], b.c[1], q)) b.skip = true; });
+            }
             for (const pt of res.covers || []) { // OSM buildings the model replaces (e.g. a school's sports hall)
                 const [cx, cz] = toW(pt);
                 bGrid.each(cx, cz, cx, cz, (b) => { if (!b.skip && cx >= b.x0 && cx <= b.x1 && cz >= b.z0 && cz <= b.z1 && pointInPolygon(cx, cz, b.ring)) b.skip = true; });
@@ -3572,8 +3637,11 @@ export async function buildWorld(city, renderer, opts = {}) {
     /** (play-test note 10a) a business inside a building: its own ground-floor fascia (brand colours + name) over its
      *  unit, on the street wall nearest to the mapped point, + a projecting blade sign; lit at night with the signs */
     let unitSigns = 0, vacantUnits = 0;
+    const normName = (t) => String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
     function addUnitSign(b, x, z, text, kind) {
         if (b.skip || b.cv || (b.minH || 0) > 0.5 || b.h < 3) return;
+        // (2026-11-08, owner: "Poke House duplicated") the building's own name sign already names this business
+        if ((b.flags & 2) && b.name) { const a = normName(b.name), c2 = normName(text); if (a && c2 && (a.includes(c2) || c2.includes(a) || a.split(' ')[0] === c2.split(' ')[0])) return; }
         const ring = b.ring, ccw = signedArea(ring) > 0;
         let best = null, bd = Infinity;
         for (let k = 0; k < ring.length; k++) {
@@ -3600,7 +3668,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         mbS.tri(i0, i1, i2); mbS.tri(i0, i2, i3);
         cc.solid.box(mx - nx * 0.07, y - 0.1, mz - nz * 0.07, 0.1, hh + 0.2, w + 0.5, Math.atan2(tx, tz), rgb(bs[0])); // fascia board
         const ex = mx + tx * (w / 2 + 0.7) + nx * 0.5, ez = mz + tz * (w / 2 + 0.7) + nz * 0.5;
-        if (tc + w / 2 + 1.3 < L) { // projecting blade sign (both faces), on a bracket
+        if (tc + w / 2 + 1.3 < L && (b.flags & 1)) { // projecting blade sign (both faces), on a bracket — shopfronts only (owner: a stray plate on a blank wall)
             cc.solid.box(ex - nx * 0.25, y + hh + 0.75, ez - nz * 0.25, 0.04, 0.04, 0.7, Math.atan2(nx, nz), rgb('#2b2b2b'));
             const cross = kind === 'pharmacy' ? signs.get('✚', '#15803d', '#ffffff', null, true) : null; // (category style: green cross)
             if (cross) addSignQuad(cc, ex, ez, Math.atan2(tx, tz), 1, 0.8, 0.8, y + hh + 0.45, cross, 0.08);
@@ -3654,12 +3722,11 @@ export async function buildWorld(city, renderer, opts = {}) {
             const sb = cellOf(b.c[0], b.c[1]).solid, bg = rgb(st[0]), pad = 0.12, tx = -nz, tz = nx; // tx/tz: along the wall
             const cx0 = (ax + bx) / 2 + nx * 0.06, cz0 = (az + bz) / 2 + nz * 0.06, bw2 = Math.min(L * 0.96, w + 0.8);
             sb.box(cx0, y - pad, cz0, 0.1, hh + pad * 2, bw2, Math.atan2(tx, tz), bg);
-            if (L > 4 && (b.flags & 8 || shop)) {
-                const ex = (ax + bx) / 2 + tx * (bw2 / 2 + 0.6) * (L > bw2 + 2 ? 1 : 0) + nx * 0.55, ez = (az + bz) / 2 + tz * (bw2 / 2 + 0.6) * (L > bw2 + 2 ? 1 : 0) + nz * 0.55;
+            if (L > bw2 + 2 && shop) { // (2026-11-08, owner: "still broken signs") shopfronts only, and the bracket only with its blade
+                const ex = (ax + bx) / 2 + tx * (bw2 / 2 + 0.6) + nx * 0.55, ez = (az + bz) / 2 + tz * (bw2 / 2 + 0.6) + nz * 0.55;
                 const bh = 0.75, by = y + hh + 0.35;
-                sb.box(ex - nx * 0.45, by + bh / 2 - 0.03, ez - nz * 0.45, 0.04, 0.04, 1.0, Math.atan2(nx, nz), rgb('#2b2b2b')); // bracket
                 const bladeS = signs.get(b.name.slice(0, 14), st[0], st[1], st[2]);
-                if (bladeS && L > bw2 + 2) addSignQuad(cellOf(b.c[0], b.c[1]), ex, ez, Math.atan2(tx, tz), 1, 0.8, Math.min(0.8, 0.8 / bladeS.aspect * 1.6), by, bladeS, 0.06);
+                if (bladeS) { sb.box(ex - nx * 0.45, by + bh / 2 - 0.03, ez - nz * 0.45, 0.04, 0.04, 1.0, Math.atan2(nx, nz), rgb('#2b2b2b')); addSignQuad(cellOf(b.c[0], b.c[1]), ex, ez, Math.atan2(tx, tz), 1, 0.8, Math.min(0.8, 0.8 / bladeS.aspect * 1.6), by, bladeS, 0.06); }
             }
         }
         if (cvp) { // coloured band at the top of the CV building
@@ -4461,7 +4528,18 @@ export async function buildWorld(city, renderer, opts = {}) {
             for (const sd of [1, -1]) {
                 const w = (sd > 0 ? e.wR : e.wL) + shoulderOf(e), o = w + e.sidewalk + 0.12;
                 const s0 = retract(e, e.a) + 4, s1 = e.len - retract(e, e.b) - 4; if (s1 - s0 < 6) continue;
-                let kind = kindsF[Math.floor(fRng() * kindsF.length)], run = null, nextGap = s0 + 12 + fRng() * 20;
+                let run = null;
+                // (2026-11-08, owner: "some of these fences don't make sense and they are not continuous") one boundary per plot,
+                // chosen from the building behind it: apartment blocks keep open lawns (none, or a low railing); villas a
+                // railing on a plinth, a plastered wall topped by a railing, a hedge, rarely a solid wall. No random gaps.
+                const plotOf = (x, z) => { const ix = x + e.nx * sd * 7, iz = z + e.nz * sd * 7; let best = null, bd = 22;
+                    bGrid.each(ix - 22, iz - 22, ix + 22, iz + 22, (b) => { if (b.skip || b.area < 25) return; const d2 = polyDist(ix, iz, b.ring); if (d2 < bd) { bd = d2; best = b; } }); return best; };
+                const hash01 = (n) => { const x = Math.sin(n * 12.9898 + 78.233) * 43758.5453; return x - Math.floor(x); }; // (deterministic per building)
+                const kindOf = (b) => { if (!b) return null; const hh = hash01(b.i * 7919 + 17);
+                    if (b.style === 'bloc' || b.h > 10.5 || b.area > 450) return hh < 0.55 ? null : ['low', '#2f3a33'];
+                    const tone = ['#2f3a33', '#1f2326', '#4a4f55', '#26292c'][Math.floor(hash01(b.i * 104729 + 3) * 4)], plaster = ['#d8cfbf', '#c9c2b4', '#e6dfd2', '#bfb8aa'][Math.floor(hash01(b.i * 1299709 + 5) * 4)];
+                    return hh < 0.5 ? ['rail', tone] : hh < 0.72 ? ['hedge', '#355e2e'] : hh < 0.92 ? ['wallrail', plaster, tone] : ['wall', plaster]; };
+                let curPlot = undefined;
                 const ok = (sAl) => {
                     const x = e.a.x + e.dirx * sAl + e.nx * o * sd, z = e.a.z + e.dirz * sAl + e.nz * o * sd;
                     if (onRibbon(x, z, 0.3) || buildingAt(x, z) || nearWater(x, z, 0.5)) return null;
@@ -4481,10 +4559,27 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const flushRun = () => {
                     if (!run || run.pts.length < 2) { run = null; return; }
                     const [k, hex] = run.kind, col = rgb(hex), pts = run.pts;
+                    // (2026-11-08, owner: "some of them end abruptly") no stubs under 6 m; railings / walls end on a pier
+                    let runL = 0; for (let i = 0; i < pts.length - 1; i++) runL += Math.hypot(pts[i + 1][0] - pts[i][0], pts[i + 1][1] - pts[i][1]);
+                    if (runL < 6) { run = null; return; }
+                    if (k !== 'hedge') for (const q of [pts[0], pts[pts.length - 1]]) { const cq = cellOf(q[0], q[1]), v0 = cq.solid.vc; cq.solid.box(q[0], Y.side, q[1], k === 'low' ? 0.12 : 0.42, k === 'low' ? 0.8 : 1.75, k === 'low' ? 0.12 : 0.42, 0, k === 'wall' || k === 'wallrail' ? shadeRgb(col, 0.95) : k === 'low' ? col : rgb('#cfc8b8')); liftOnSide(cq, v0, null, q[0], q[1], 0.6); }
                     for (let i = 0; i < pts.length - 1; i++) {
                         const [ax, az] = pts[i], [bx, bz] = pts[i + 1], L = Math.hypot(bx - ax, bz - az); if (L < 0.2) continue;
                         const mx = (ax + bx) / 2, mz = (az + bz) / 2, ang = Math.atan2(bx - ax, bz - az), c = cellOf(mx, mz), v0s = c.solid.vc, v0d = c.detail.vc;
-                        if (k === 'wall') { c.solid.box(mx, Y.side, mz, 0.22, 1.75, L + 0.02, ang, col); c.solid.box(mx, Y.side + 1.75, mz, 0.3, 0.07, L + 0.02, ang, shadeRgb(col, 0.82)); }
+                        if (k === 'wall') { c.solid.box(mx, Y.side, mz, 0.22, 1.6, L + 0.02, ang, col); c.solid.box(mx, Y.side + 1.6, mz, 0.3, 0.07, L + 0.02, ang, shadeRgb(col, 0.82)); }
+                        else if (k === 'low') { // a low railing round a block's lawn: two rails on posts
+                            c.solid.box(mx, Y.side, mz, 0.12, 0.1, L + 0.02, ang, plinth);
+                            c.detail.box(mx, Y.side + 0.68, mz, 0.04, 0.04, L, ang, col); c.detail.box(mx, Y.side + 0.35, mz, 0.03, 0.03, L, ang, col);
+                            c.detail.box(ax, Y.side, az, 0.05, 0.72, 0.05, ang, col); }
+                        else if (k === 'wallrail') { // a plastered wall with a coping, an iron railing on top, piers every few metres
+                            const rc = rgb(run.kind[2] || '#26292c');
+                            c.solid.box(mx, Y.side, mz, 0.3, 0.9, L + 0.02, ang, col); c.solid.box(mx, Y.side + 0.9, mz, 0.36, 0.06, L + 0.02, ang, shadeRgb(col, 0.85));
+                            c.solid.box(mx, Y.side + 1.58, mz, 0.04, 0.04, L, ang, rc);
+                            const nP = Math.max(1, Math.round(L / 0.18)), ux = (bx - ax) / L, uz = (bz - az) / L, pnx = -uz, pnz = ux;
+                            for (let j = 1; j < nP; j++) { const f = j / nP, px = ax + (bx - ax) * f, pz = az + (bz - az) * f;
+                                c.detail.wall(px - ux * 0.012, pz - uz * 0.012, px + ux * 0.012, pz + uz * 0.012, Y.side + 0.96, Y.side + 1.6, pnx, pnz, rc);
+                                c.detail.wall(px + ux * 0.012, pz + uz * 0.012, px - ux * 0.012, pz - uz * 0.012, Y.side + 0.96, Y.side + 1.6, -pnx, -pnz, rc); }
+                            if (i % 2 === 0) c.solid.box(ax, Y.side, az, 0.42, 1.75, 0.42, ang, shadeRgb(col, 0.95)); }
                         else if (k === 'hedge') { // a clipped hedge: uneven, rounded top, mottled greens (a flat green box read as a painted fence)
                             const ux = (bx - ax) / L, uz = (bz - az) / L, n2 = Math.max(1, Math.round(L / 0.9));
                             for (let j = 0; j < n2; j++) { const f = (j + 0.5) / n2, px = ax + (bx - ax) * f, pz = az + (bz - az) * f, hh2 = 1.25 + fRng() * 0.35, ww = 0.75 + fRng() * 0.25;
@@ -4503,15 +4598,17 @@ export async function buildWorld(city, renderer, opts = {}) {
                         }
                         liftOnSide(c, v0s, v0d, mx, mz, 0.6); // (on the raised sidewalk's back edge)
                         // (2026-11-08, owner: "I shouldn't be able to drive into this") solid: walls, hedges and railings collide
-                        { const hwC = k === 'hedge' ? 0.45 : 0.15; propColl.push({ x: mx, z: mz, hw: hwC, hd: L / 2 + 0.05, angle: ang, r: Math.hypot(hwC, L / 2 + 0.05), poly: null, h: k === 'wall' ? 1.8 : k === 'hedge' ? 1.5 : 1.6, prop: true, kind: 'fence' }); }
+                        { const hwC = k === 'hedge' ? 0.45 : 0.15; propColl.push({ x: mx, z: mz, hw: hwC, hd: L / 2 + 0.05, angle: ang, r: Math.hypot(hwC, L / 2 + 0.05), poly: null, h: k === 'low' ? 0.8 : k === 'hedge' ? 1.5 : 1.7, prop: true, kind: 'fence' }); }
                         fenceM += L;
                     }
                     run = null;
                 };
                 for (let sAl = s0; sAl <= s1; sAl += 2) {
-                    if (sAl >= nextGap) { flushRun(); sAl += 2.5 + fRng() * 1.5; nextGap = sAl + 15 + fRng() * 20; if (fRng() < 0.35) kind = kindsF[Math.floor(fRng() * kindsF.length)]; continue; }
                     const p = ok(sAl);
-                    if (!p) { flushRun(); continue; }
+                    if (!p) { flushRun(); curPlot = undefined; continue; }
+                    const pl = plotOf(p[0], p[1]);
+                    if (pl !== curPlot) { if (run) { run.pts.push(p); flushRun(); } curPlot = pl; } // (the next plot's boundary starts where this one ends: continuous)
+                    const kind = kindOf(pl); if (!kind) { flushRun(); continue; }
                     if (!run) run = { kind, pts: [] };
                     run.pts.push(p);
                 }
@@ -4737,6 +4834,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                     const ry = raisedTop(x, z); if (ry === null) continue; // (only where the sidewalk is raised: the wheels stand on it)
                     if (treeNear(x, z, 2.2) || lampNear(x, z, 1.9) || treeClear.some((q) => (x - q.x) ** 2 + (z - q.z) ** 2 < (q.r + 3) ** 2)) continue;
                     if (stops.some(p => Math.hypot(p.x - x, p.z - z) < 14)) continue;
+                    if (mapEnds.some(m => Math.hypot(m.x - x, m.z - z) < 30)) continue; // (owner: "this sign is overlapping a car": the road-closure scene at the map edge)
                     let blocked = false; pcGrid.each(x - 3, z - 3, x + 3, z + 3, (pc) => { if (!blocked && Math.hypot(pc.x - x, pc.z - z) < (pc.r || 0.5) + 1.6) blocked = true; });
                     if (blocked) continue;
                     pcGrid.insert(x - 2.4, z - 2.4, x + 2.4, z + 2.4, box);

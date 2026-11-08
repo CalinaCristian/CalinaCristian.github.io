@@ -31,6 +31,7 @@ import { save } from './save.js'; // progression, note 73
 import { createDinamoFootball } from './football.js';
 import { createRosettiBasketball } from './basketball.js';
 import { initExplore } from './explore.js'; // world-map hub, free roam ⇄ story (resume chip), drone — hooks listed in spec 10 (one mode since 2026-11-08)
+import { chapterWaypointReached } from './chapter-waypoint.js';
 const { makeVehicle } = VEHICLES;
 
 const $ = (s) => document.querySelector(s);
@@ -781,7 +782,8 @@ class Game {
         this.over = over;
         this.updateEnforcement(dt, over, overKmh);
         // ---- navigation ----
-        const nv = this.navInfo = this.nav.update(player, dt);
+        const waypointNavigation = { destination: this.nav.dest, manual: this.navManual };
+        const nv = this.navInfo = waypointNavigation.info = this.nav.update(player, dt);
         if (nv && nv.arrived && this.navManual) { hud.toast('🏁 You have arrived', this.nav.dest?.label || ''); this.navManual = false; this.nav.clear(); this.autoRoute(true); }
         if (nv && nv.rerouted) this.audio.blip(520, 0.06, 0.06);
         // objective text
@@ -805,7 +807,7 @@ class Game {
         // ---- "you are passing …" captions (e.g. Plaza Center, UiPath Bellevue 2022–2025, on the way to Lincoln Square) ----
         if (this.frame % 15 === 0) this.checkPassing(player);
         // ---- chapter waypoint (e.g. drive out of SeaTac to the I-5 junction) ----
-        if (this.ch?.waypoint && !this.chapterDone && this.objective?.waypoint && (Math.hypot(this.objective.x - player.x, this.objective.z - player.z) < 30 || (this.navInfo && !this.navManual && this.navInfo.remaining < 25))) this.completeChapter();
+        if (chapterWaypointReached(this, player, waypointNavigation)) this.completeChapter();
         // ---- interactions (office > airport > refuel > tow) ----
         let prompt = null;
         for (const { stop, poi } of this.stopPois) {

@@ -110,7 +110,10 @@ async function run(){
  if(process.env.PROBE_CHECKS&&result.fetchStages.some(s=>s.oldWorld||s.navWorld||s.trafficWorld||s.playerWorld))throw Error('An outgoing world was retained at replacement fetch');
  if(cdp){await cdp.send('Runtime.discardConsoleEntries');await cdp.send('HeapProfiler.collectGarbage');result.retiredWorlds=await page.evaluate(()=>window.__retiredWorlds.map(w=>({district:w.district,alive:!!w.ref.deref()})));}
  if(process.env.PROBE_CHECKS&&result.retiredWorlds?.some(w=>w.alive))throw Error('A retired district remained reachable after garbage collection');
- await page.screenshot({path:out.replace(/\.json$/,'.png'),timeout:120000});
+ // Capture the actual canvas in the same JS task as its draw: no external-font wait,
+ // no blank preserveDrawingBuffer=false read on a later task, and no added world mutation.
+ const capture=await page.evaluate(()=>{game.r3d.frame(1/60);return game.renderer.domElement.toDataURL('image/png')});
+ fs.writeFileSync(out.replace(/\.json$/,'.png'),Buffer.from(capture.split(',')[1],'base64'));
  if(result.errors.length||result.lost.length)throw Error('Browser error or WebGL context loss');
  result.complete=true;
  }catch(e){result.fatal=String(e.stack||e);console.error(result.fatal);process.exitCode=1}finally{result.complete??=false;fs.writeFileSync(out,JSON.stringify(result,null,2));await browser?.close();server.close()}

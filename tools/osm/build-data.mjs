@@ -1139,6 +1139,8 @@ function buildCity(cityId, did = null) {
         const literalMinimum = parseMeasure(t.min_height);
         let minH = literalMinimum > 0 ? literalMinimum : (num(t['building:min_level']) > 0 ? num(t['building:min_level']) * 3.2 : 0);
         const sourceIssues = [];
+        if (Number.isFinite(h) && h > 0 && literalMinimum === h) sourceIssues.push('zero vertical source band: height equals min_height=' + t.height);
+        else if (Number.isFinite(h) && h > 0 && literalMinimum > h) sourceIssues.push('minimum height exceeds literal total height');
         if (Number.isFinite(h) && h <= 0) { sourceIssues.push('nonpositive OSM height=' + t.height); h = NaN; }
         if (t.height != null && !Number.isFinite(parseMeasure(t.height))) sourceIssues.push('invalid height measure=' + t.height);
         if (t.min_height != null && !(literalMinimum >= 0)) sourceIssues.push('invalid minimum height=' + t.min_height);

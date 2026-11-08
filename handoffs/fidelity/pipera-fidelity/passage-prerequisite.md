@@ -1,9 +1,9 @@
-# Mapped building passage prerequisite
+# Source passage contract
 
-Only explicit `tunnel=building_passage` source ways declare an opening. A source width or physical max-height wins; legal max-height and untagged dimensions remain separately labelled estimates. All source outer/inner rings and total-height records remain unchanged. Generic service roads never manufacture passage geometry.
+Mapped `tunnel=building_passage` ways define ground openings only when their raw ordering supplies no elevated/underground ambiguity. Explicit nonzero or unsupported layer/level, bridge or elevated/underground location is retained as unresolved metadata unless an independent absolute base datum exists; levels are never converted to metres. Actual SeaTac/Bellevue elevated source counterexamples are negative controls.
 
-The physical representation cuts the low void, rather than lifting the entire source building. Outer and courtyard wall faces are clipped at that void; source sideposts and upper storeys remain. Shared ceilings/interior faces are emitted once across overlapping source records and overlapping source line segments. Archetype/near-detail guesses cannot cover a mapped opening.
+One Pipera no-tunnel road, w1566299321, has an independently reviewed exact shared-wall-node through-access declaration for w1132411166. Original tags remain unchanged; width/clearance are explicit estimates. Ordinary service/garage approaches do not manufacture openings.
 
-Pure controls:119 checks, including whole finite vehicles through both mouths, doorposts, an upper-storey hit, flight above the body, independent short/tall envelopes, courtyard interiors/sidewalls, unchanged source coordinates, overlapping-source ceiling ownership, overlapping-segment wall ownership, tagged dimensions and a non-passage service-road negative control. `/workspace/reality-pass/pipera/audits/passage-fixtures.json` preserves the result.
+Passage corridors sweep the unchanged source line with the source/reviewed width and finite round mouths. The body keeps sideposts, ceilings and upper storeys; no whole-body lift or source footprint shrink is used. Mapped courtyards and source roof heights remain intact.
 
-The Pipera source build declares9 source buildings with mapped passages, including Tunel Carwash and the former missing G10/bridge buildings. This prerequisite alone is not final district acceptance; immutable browser/controller and final source-policy road integration remain required. Reference images stay private.
+2618 pure controls cover actual finite vehicles, all10 Pipera bodies, sideposts, upper bands, courtyard boundaries, raw-coordinate immutability and three actual elevated-source counterexamples. This prerequisite is separate from frozen browser/controller and district road-clearance acceptance. Raw failed prototypes and source imagery remain private.

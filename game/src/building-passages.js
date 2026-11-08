@@ -2,6 +2,11 @@
 // Source outlines/heights remain intact; only the reviewed low opening is cut.
 import { footprintCells } from './building-parts.js';
 
+export function passageBaseUnknown(tags={}) {
+    const nonzeroOrUnknown=k=>tags[k]!=null&&!String(tags[k]).split(';').every(v=>v.trim()!==''&&Number.isFinite(Number(v))&&Number(v)===0);
+    return nonzeroOrUnknown('layer')||nonzeroOrUnknown('level')||(tags.bridge!=null&&tags.bridge!=='no')||/^(elevated|underground|overground)$/.test(tags.location||'');
+}
+
 const inside=(p,r)=>{let yes=false;for(let i=0,j=r.length-1;i<r.length;j=i++){const a=r[i],b=r[j];if((a[1]>p[1])!==(b[1]>p[1])&&p[0]<(b[0]-a[0])*(p[1]-a[1])/(b[1]-a[1])+a[0])yes=!yes;}return yes;};
 const cross=(a,b)=>a[0]*b[1]-a[1]*b[0];
 const boundary=(p,ring)=>ring.some((a,i)=>{const b=ring[(i+1)%ring.length],dx=b[0]-a[0],dz=b[1]-a[1],t=Math.max(0,Math.min(1,((p[0]-a[0])*dx+(p[1]-a[1])*dz)/(dx*dx+dz*dz||1)));return Math.hypot(p[0]-a[0]-t*dx,p[1]-a[1]-t*dz)<1e-6;});

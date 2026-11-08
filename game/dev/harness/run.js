@@ -134,7 +134,7 @@ async function openGame() {
         try { await page.screenshot({ path: path.join(SHOTS, file), type: 'jpeg', quality: 70, timeout: 15000 }); return 'shots/' + file; } catch (e) { return null; }
     });
     await page.exposeFunction('harnessLog', (line) => { if (args.verbose || / ISSUE high /.test(line)) log('  ' + line); });
-    await page.goto(base + 'game/index.html', { waitUntil: 'load' });
+    await page.goto(base + 'game/index.html', { waitUntil: 'domcontentloaded', timeout: 60000 });
     try { await page.waitForFunction(() => window.game, null, { timeout: 30000 }); }
     catch (e) {
         const errs = await page.evaluate(() => window.__harnessErrors || []).catch(() => []);

@@ -80,6 +80,7 @@ import { fileURLToPath } from 'node:url';
 import { parseFiles, parseInto } from './parse-osm.mjs';
 import { footprintCoverage, simpleFootprint, uncrossFootprint, bakeAssembly, bakeSurface, touchingSolids, assemblySignature } from '../../game/src/building-parts.js';
 import { sourceRing } from './source-footprints.mjs';
+import { sourcePartHeightReview } from './source-height-review.mjs';
 import { parseMeasure, makeRoofProfile, roofMesh, visibleRoofMesh, roofSignature } from '../../game/src/building-roofs.js';
 import { ShapeUtils, Vector2 } from '../../game/vendor/three.module.min.js';
 import { resolveRoadAccess } from '../../game/src/road-access.js';
@@ -91,6 +92,7 @@ import { buildCorridor } from './corridors.mjs';
 import { CITIES as GAME_CITIES } from '../../game/src/cities.js';
 import { LANDMARKS } from '../../game/src/landmarks.js';
 import { speciesFromOSM } from '../../game/src/trees.js';
+import { resolveResearchSource } from './research-source.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(HERE, '..', '..');
@@ -948,8 +950,11 @@ function buildCity(cityId, did = null) {
             let rj = null; try { rj = JSON.parse(fs.readFileSync(rf, 'utf8')); } catch (e) { log('research: cannot parse', rf, e.message); }
             reviewedBuildingPassages.push(...(rj?.building_passages || []));
             for (const b of rj?.buildings || []) {
-                const id = parseInt(String(b.osm).replace(/^[wr]/, ''), 10); const w = W.get(id); if (!w) continue;
+                const source = resolveResearchSource(b, W, R); if (!source) continue;
+                const { id, object: w } = source;
+                const originalTags = Object.fromEntries(Object.entries(w.tags).filter(([k]) => !k.startsWith('__')));
                 const t = w.tags = { ...w.tags }, ot = b.osmTags || {};
+                t.__originalTags ||= originalTags;
                 t.__originalDimensions ||= Object.fromEntries(Object.entries(t).filter(([k]) => /^(height|min_height|min_level|building:levels|building:min_level|roof:)/.test(k)));
                 const set = (k, v) => { if (v == null || v === '' || t[k] != null) return false; t[k] = String(v); return true; };
                 let ch = false;
@@ -961,7 +966,15 @@ function buildCity(cityId, did = null) {
                 const hex = (v) => (typeof v === 'string' && /^#[0-9a-f]{6}$/i.test(v)) ? v : null;
                 const roofShape = (v) => (typeof v === 'string' && /^(flat|gabled|hipped|pyramidal|dome|skillion|mansard|round|gambrel)$/.test(v)) ? v : null;
                 let hr = 0; // 1 = researched height / storeys, 2 = only the research estimate
-                if (set('height', rs.height_m ?? b.heightM ?? b.height ?? ot.height)) { ch = true; hr = rs.height_source === 'estimate' ? 2 : 1; }
+                let heightReviewAllowed = true;
+                if (rs.height_source_part) {
+                    const ref = rs.height_source_part, part = /^w\d+$/.test(ref.sourceId || '') ? W.get(+ref.sourceId.slice(1)) : null;
+                    const rawPart = part && { ...part.tags, ...(part.tags.__originalDimensions || {}), height: part.tags.__originalDimensions ? part.tags.__originalDimensions.height : part.tags.height };
+                    const proof = part && sourcePartHeightReview({ parentTags: t.__originalDimensions, parentRing: w.nodes.map(pt), partTags: rawPart, partRing: part.nodes.map(pt), review: ref });
+                    heightReviewAllowed = !!proof && rs.height_m === proof.heightM && rs.height_source === 'estimate';
+                    if (!heightReviewAllowed) log(`research: rejected source-part height guard for ${b.osm}`);
+                }
+                if (heightReviewAllowed && set('height', rs.height_m ?? b.heightM ?? b.height ?? ot.height)) { ch = true; hr = rs.height_source === 'estimate' ? 2 : 1; }
                 if (set('building:levels', rs.storeys ?? b.levels ?? b.building_levels ?? ot['building:levels'])) { ch = true; hr = hr || 1; }
                 if (t.height == null && t['building:levels'] == null && set('height', b.heightEstM ?? b.height_est_m)) { ch = true; hr = hr || 2; }
                 if (t['building:levels'] == null && t.height == null && set('building:levels', b.levelsEst)) { ch = true; hr = hr || 2; }
@@ -1050,7 +1063,12 @@ function buildCity(cityId, did = null) {
         }
     };
     for (const [rid, r] of R) {
-        const t = r.tags; if (t.type !== 'multipolygon' || !t.building) continue;
+        const original = r.tags;
+        const positive = value => value != null && value !== '' && !/^(no|false|0)$/i.test(String(value));
+        const positiveBuilding = positive(original.building), positivePart = ds && positive(original['building:part']);
+        if (original.type !== 'multipolygon' || (ds ? !positiveBuilding && !positivePart : !original.building)) continue;
+        const barePart = positivePart && original['building:part'] === 'yes' && !positiveBuilding && !['name', 'shop', 'office', 'amenity', 'tourism', 'leisure'].some(k => original[k]) && !original['roof:shape'] && !original['roof:height'] && !original['roof:levels'];
+        const t = ds ? { ...original, ...(positivePart && !positiveBuilding ? { building: 'yes' } : {}), ...(barePart ? { __barePart: true } : {}), __sourceTags: original.__originalTags || Object.fromEntries(Object.entries(original).filter(([k]) => !k.startsWith('__'))) } : original;
         const outers = r.members.filter(m => m.type === 'way' && m.role !== 'inner' && W.has(m.ref)).map(m => { bRelWays.add(m.ref); return W.get(m.ref).nodes; });
         const inners = r.members.filter(m => m.type === 'way' && m.role === 'inner' && W.has(m.ref)).map(m => { bRelWays.add(m.ref); return W.get(m.ref).nodes; });
         const inRings = inners.length ? assembleRings(inners).rings : [];
@@ -1167,6 +1185,7 @@ function buildCity(cityId, did = null) {
         if (Number.isFinite(h) && h <= 0) { sourceIssues.push('nonpositive OSM height=' + t.height); h = NaN; }
         if (t.height != null && !Number.isFinite(parseMeasure(t.height))) sourceIssues.push('invalid height measure=' + t.height);
         if (t.min_height != null && !(literalMinimum >= 0)) sourceIssues.push('invalid minimum height=' + t.min_height);
+        if (t['building:min_levels'] != null) sourceIssues.push('unsupported minimum-level tag building:min_levels=' + t['building:min_levels'] + '; no physical minimum derived from this key');
         const canopy = t.__canopy ? { ...t.__canopy, topSource: parseMeasure(t.height) > 0 ? 'OSM height' : 'estimate', clearanceSource: literalMinimum > 0 || num(t['building:min_level']) > 0 ? 'OSM minimum' : 'estimate', supportSource: 'estimate' } : null;
         if (canopy) {
             if (!Number.isFinite(h) && !(levels > 0)) h = canopy.topM;
@@ -1714,6 +1733,7 @@ function buildCity(cityId, did = null) {
     const outBuildingCanopies = Object.fromEntries(buildings.flatMap((b, i) => b.canopy ? [[i, { ...b.canopy, topM: b.h, clearanceM: b.minH }]] : []));
     const mappedPassages = ds ? sourcePassages(buildings, W, N, P, roads, reviewedBuildingPassages) : { records: {}, issues: [] };
     const outBuildingSourceIssues = Object.fromEntries(buildings.flatMap((b, i) => b.sourceIssues?.length ? [[i, b.sourceIssues]] : []));
+    const outBuildingSourceTags = Object.fromEntries(buildings.flatMap(b => b.t?.__sourceTags ? [[b.t.__id, b.t.__sourceTags]] : []));
     const outB = buildings.map(b => {
         let flags = b.flags;
         let name = b.name;
@@ -1934,7 +1954,7 @@ function buildCity(cityId, did = null) {
         bounds: [minX, minZ, maxX, maxZ],
         classes: ROAD_CLASSES, styles: STYLES, roofs: ROOFS, poiKinds: POI_KINDS, areaKinds: AREA_KINDS, lineKinds: LINE_KINDS, furnKinds: FURN_KINDS,
         strings, ...(Object.keys(outBuildingRoofSurfaces).length ? { buildingRoofSurfaces: outBuildingRoofSurfaces, buildingRoofGeometryPoints: roofGeometryPoints } : {}),
-        nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, roadInfo, rampLimits, vacant, buildings: outB, ...(ds ? { buildingRoofProfiles: outBuildingRoofProfiles } : {}), ...(Object.keys(outBuildingDimensions).length ? { buildingDimensions: outBuildingDimensions } : {}), ...(Object.keys(outBuildingFootprints).length ? { buildingFootprints: outBuildingFootprints } : {}), buildingInfo: outBInfo, ...(Object.keys(outBuildingCanopies).length ? { buildingCanopies: outBuildingCanopies } : {}), ...(Object.keys(outBuildingSourceIssues).length ? { buildingSourceIssues: outBuildingSourceIssues } : {}), ...(ds ? { buildingIds: buildings.map(b => b.t?.__id || '') } : {}), ...(Object.keys(outBuildingHoles).length ? { buildingHoles: outBuildingHoles } : {}), ...(Object.keys(outBuildingCoveredBy).length ? { buildingCoveredBy: outBuildingCoveredBy } : {}), ...(Object.keys(outBuildingAssemblies).length ? { buildingAssemblies: outBuildingAssemblies } : {}), ...(unionBodies.length ? { buildingUnions: outBuildingUnions } : {}), ...(geometryPoints.length ? { buildingGeometryPoints: geometryPoints } : {}), pois: outP, areas: outA, ...(ds ? { areaSourceIds: areaRings.map(a => a.sourceId || '') } : {}), ...(Object.keys(parkingFootprints).length ? { parkingFootprints } : {}), ...(Object.keys(parkingLayouts).length ? { parkingLayouts } : {}), ...(parkingLayoutAudit.length ? { parkingLayoutAudit } : {}), lines: outLines, places, lamps,
+        nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, roadInfo, rampLimits, vacant, buildings: outB, ...(ds ? { buildingRoofProfiles: outBuildingRoofProfiles } : {}), ...(Object.keys(outBuildingDimensions).length ? { buildingDimensions: outBuildingDimensions } : {}), ...(Object.keys(outBuildingFootprints).length ? { buildingFootprints: outBuildingFootprints } : {}), buildingInfo: outBInfo, ...(Object.keys(outBuildingSourceTags).length ? { buildingSourceTags: outBuildingSourceTags } : {}), ...(Object.keys(outBuildingCanopies).length ? { buildingCanopies: outBuildingCanopies } : {}), ...(Object.keys(outBuildingSourceIssues).length ? { buildingSourceIssues: outBuildingSourceIssues } : {}), ...(ds ? { buildingIds: buildings.map(b => b.t?.__id || '') } : {}), ...(Object.keys(outBuildingHoles).length ? { buildingHoles: outBuildingHoles } : {}), ...(Object.keys(outBuildingCoveredBy).length ? { buildingCoveredBy: outBuildingCoveredBy } : {}), ...(Object.keys(outBuildingAssemblies).length ? { buildingAssemblies: outBuildingAssemblies } : {}), ...(unionBodies.length ? { buildingUnions: outBuildingUnions } : {}), ...(geometryPoints.length ? { buildingGeometryPoints: geometryPoints } : {}), pois: outP, areas: outA, ...(ds ? { areaSourceIds: areaRings.map(a => a.sourceId || '') } : {}), ...(Object.keys(parkingFootprints).length ? { parkingFootprints } : {}), ...(Object.keys(parkingLayouts).length ? { parkingLayouts } : {}), ...(parkingLayoutAudit.length ? { parkingLayoutAudit } : {}), lines: outLines, places, lamps,
         ...(rawRailways.length ? { railways: rawRailways.map(r => ({ id: r.id, nodeIds: r.nodeIds, tags: r.tags, points: delta(r.pts) })) } : {}),
         ...(outTreeCrownRadii.some(r => r > 0) ? { treeCrownRadii: outTreeCrownRadii } : {}), ...(treeRetention ? { treeRetention } : {}),
         trees: outTrees, treeInfo: outTreeInfo, furniture: outFurn, backdrop, ...(ds ? { scenery: outScenery } : {}), ...(outGreen ? { green: outGreen } : {}),

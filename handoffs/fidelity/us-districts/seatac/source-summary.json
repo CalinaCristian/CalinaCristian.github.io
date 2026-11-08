@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "district": "seatac",
   "date": "2026-11-08",
-  "sourceCommit": "469759fa7dcf5f3eefae6598abeb697790298425",
+  "sourceCommit": "c1c995989cb76c45be045b9f2d6c57cb78895af8",
   "dataset": "game/data/seattle-seatac.json",
-  "datasetSha256": "da58fc931f0dd36a1934af9d32fe3f1441530a80cb0f3e53e0a53fa4cb9e08a0",
+  "datasetSha256": "3c36cd6dc569eb172936f730464d263943380354c8bc444c254f9de6f62c6171",
   "coverage": "Every whole positive-area building or building:part intersecting the exact configured core or 600 m source ring. Multipolygon inner rings retained; named model exclusions are exact source IDs.",
   "buildingAudit": {
     "core": {
@@ -12,8 +12,10 @@
       "sourceIdentitiesPresent": 169,
       "exactTopology": 169,
       "literalHeightMatches": 169,
+      "literalMinimumMatches": 169,
       "mappedStoreysMatches": 169,
       "relationBodies": 2,
+      "partOnlyRelationBodies": 0,
       "maximumBoundaryErrorM": 7e-05
     },
     "ring": {
@@ -21,8 +23,10 @@
       "sourceIdentitiesPresent": 1689,
       "exactTopology": 1689,
       "literalHeightMatches": 1689,
+      "literalMinimumMatches": 1689,
       "mappedStoreysMatches": 1689,
       "relationBodies": 8,
+      "partOnlyRelationBodies": 0,
       "maximumBoundaryErrorM": 7e-05
     }
   },
@@ -151,7 +155,7 @@
     "sourceDirectionNormalizations": [],
     "issues": []
   },
-  "retainedBuildingRoadConflicts": 77,
+  "retainedBuildingRoadConflicts": 69,
   "conflictPolicy": "Raw detections remain visible for source/access/layer/width classification; no source body or road was removed or moved to clear a default ribbon.",
   "remainingGates": [
     "Full route visual findings classification",
@@ -168,12 +172,34 @@
   },
   "placesScope": "Every compiled POI matched independently to an original OSM node/polygon centroid or explicit official locator within 0.08 m output quantization tolerance. This does not claim every nearby-ring trading unit is rendered.",
   "parkingAdditiveAudit": "parking-runtime.json",
-  "buildPrerequisiteCommit": "4fdacd3",
+  "buildPrerequisiteCommit": "5519dab",
   "strictDimensionAudit": {
     "literalPositiveHeightFailures": 0,
     "literalMinimumFailures": 0,
     "mappedStoreyFailures": 0,
     "sourceDimensionIssues": 0,
     "provenanceNote": "Literal heights/minima and storey counts are source facts; storey-derived metre estimates are not literal OSM heights."
-  }
+  },
+  "openSourceCanopies": {
+    "records": 15,
+    "sourceClassification": "literal original OSM building=roof/carport or building:part=roof",
+    "allFootprintsCoveredByIndependentAerial": true,
+    "verticalDimensions": "Explicit estimates unless original positive source height/min_height wins. No layer-to-metres conversion.",
+    "legalClearanceLowerBounds": [],
+    "nativeParkingProof": "../parking-canopy-runtime.json"
+  },
+  "reviewedRoadCandidates": "road-conflict-review.json",
+  "unresolvedPassageDatums": {
+    "count": 9,
+    "ledger": "unresolved-passage-datums.json",
+    "policy": "Original relative layer/level retained; no physical metre datum is inferred and no ground opening is cut."
+  },
+  "roofShapeReview": {
+    "independentlyConfidentShapeThreshold": 0.5,
+    "sourcePriorityDifferences": [],
+    "unexplainedConfidentShapeDifferences": 0,
+    "note": "Explicit OSM roof shape wins. Unsupported quadruple_saltbox remains a reported profile issue; it is not asserted to be an exact native shape. Uncertain aerial shapes and estimated rise/pitch remain estimates."
+  },
+  "nonstandardMinimumUncertainties": [],
+  "sourceRelationTagRecords": 10
 }

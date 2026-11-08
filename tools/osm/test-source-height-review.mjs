@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import { sourcePartHeightReview } from './source-height-review.mjs';
+const evidence=JSON.parse(fs.readFileSync(new URL('../../handoffs/fidelity/d-unirii/canopy-parent-source-overlap.json',import.meta.url)));
+const parent=evidence.rows.find(r=>r.sourceId==='w1053336774'),part=evidence.rows.find(r=>r.sourceId==='w1177642893');
+const input={parentTags:{building:'yes'},parentRing:parent.ring,partTags:{'building:part':'yes',height:'1'},partRing:part.ring,review:{sourceId:part.sourceId,heightM:1}};
+const proof=sourcePartHeightReview(input);assert(proof);assert.equal(proof.heightM,1);assert.equal(proof.coverage.uncovered,0);assert.equal(proof.kind,'source-part-derived estimate');
+for(const tags of[{height:'1'},{height:'0'},{'building:levels':'4'},{'building:levels':'0'},{min_height:'2'},{'roof:levels':'1'}])assert.equal(sourcePartHeightReview({...input,parentTags:{...input.parentTags,...tags}}),null,'a mapped parent dimension must reject the optional estimate');
+for(const tags of[{'building:part':'yes',height:'2'},{'building:part':'yes'}, {'building:part':'yes',height:'1',min_height:'.5'}])assert.equal(sourcePartHeightReview({...input,partTags:tags}),null,'changed literal part height/minimum must fail closed');
+assert.equal(sourcePartHeightReview({...input,partRing:part.ring.map(([x,z])=>[x+2,z])}),null,'changed source coverage must fail closed');
+assert.equal(sourcePartHeightReview({...input,parentHoles:[[[0,0],[1,0],[0,1]]]}),null,'unreviewed courtyard association must fail closed');
+console.log('Reviewed source-part height guard passed: exact complete source coverage; raw height/levels, part dimension, topology and courtyard negative controls.');

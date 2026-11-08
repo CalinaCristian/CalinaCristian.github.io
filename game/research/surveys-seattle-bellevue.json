@@ -9457,9 +9457,7 @@
       "publicUploadExcluded": 6
     },
     "sourceWalk": {
-      "sourceCommit": "a9f77967c37fdf004ebd154609ec3b2f6cd013e9",
       "candidatePoses": 432,
-      "matchedUniqueGooglePanosAndViews": 426,
       "unavailableWithin20m": 0,
       "publicUploadMatchesExcluded": 0,
       "duplicateViewsOmitted": 6,
@@ -9472,7 +9470,12 @@
       ],
       "scope": "Compiled public drivable non-virtual, non-tunnel streets excluding service, motorway, motorway_link and trunk_link; not an indoor/airfield/private or complete nearby-ring walk. Metadata availability is separate from image comparison completion.",
       "comparisonImagesComplete": false,
-      "referenceImagesTracked": false
+      "referenceImagesTracked": false,
+      "matchedViewPoses": 426,
+      "uniquePanoramas": 131,
+      "metadataSourceCommit": "a9f77967c37fdf004ebd154609ec3b2f6cd013e9",
+      "comparisonSourceCommit": null,
+      "finalCameraValidation": "pending consolidated final runtime checkpoint"
     }
   },
   "remainingUncertainty": [
@@ -9483,7 +9486,7 @@
   ],
   "sourceWorld": {
     "buildPrerequisiteCommit": "4fdacd3",
-    "datasetSha256": "c90b1982a8395b2f04049276ed1978ab9df01cacfbe6b672b90180c94beebfaf",
+    "datasetSha256": "24c27cbd160167836c254a1b6eafbeeb569df9744faf936d52892a9747a9fe46",
     "buildingCount": 1188,
     "roadRows": 305,
     "treeRetention": {
@@ -9579,6 +9582,12 @@
     },
     "sourceSkips": [],
     "buildingRoadConflictCount": 40,
-    "conflictPolicy": "Retain original source geometry; browser checks distinguish mapped building passages/elevated roads from width-estimate conflicts."
+    "conflictPolicy": "Retain original source geometry; browser checks distinguish mapped building passages/elevated roads from width-estimate conflicts.",
+    "sourceCommit": "c1c995989cb76c45be045b9f2d6c57cb78895af8",
+    "unresolvedPassageVerticalDatums": 2,
+    "roadConflictCandidateReview": "handoffs/fidelity/us-districts/bellevue/road-conflict-review.json",
+    "eligibleBuildingBodies": 1197,
+    "sourceRelationTagRecords": 21,
+    "nonstandardMinimumUncertainties": 8
   }
 }

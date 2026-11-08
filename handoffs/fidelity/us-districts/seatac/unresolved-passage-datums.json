@@ -1,0 +1,499 @@
+{
+  "schemaVersion": 1,
+  "district": "seatac",
+  "sourceCommit": "c1c995989cb76c45be045b9f2d6c57cb78895af8",
+  "datasetSha256": "3c36cd6dc569eb172936f730464d263943380354c8bc444c254f9de6f62c6171",
+  "reviewDate": "2026-11-08",
+  "records": [
+    {
+      "sourceRoadId": "w906096010",
+      "reason": "absolute-passage-base-unknown",
+      "baseUnknown": true,
+      "status": "unsupported without a physical vertical datum",
+      "classificationSource": "OSM tunnel=building_passage",
+      "buildingIds": [
+        "r15763840"
+      ],
+      "sourceNodeIds": [
+        3509537869,
+        13683396594,
+        8394508318,
+        8394508319,
+        8394508320,
+        8394508321,
+        8394508322,
+        8394508323,
+        10902652794,
+        8394508324,
+        8394508325,
+        8394508326,
+        8394508327,
+        8394508328,
+        8394508329,
+        14215729332,
+        4604964852
+      ],
+      "sourceCentreline": [
+        [
+          -1038.975987007102,
+          645.8213916005388
+        ],
+        [
+          -1041.2418637186797,
+          644.1321852005397
+        ],
+        [
+          -1116.6782442333488,
+          643.6987704002125
+        ],
+        [
+          -1116.7083555510678,
+          661.768833600547
+        ],
+        [
+          -1116.7083555510678,
+          680.3723304000087
+        ],
+        [
+          -1067.4612942475324,
+          680.8168584004655
+        ],
+        [
+          -1067.6645456477522,
+          699.3870156003271
+        ],
+        [
+          -1115.827599487728,
+          698.9758272002598
+        ],
+        [
+          -1115.8351273168905,
+          709.155518399985
+        ],
+        [
+          -1115.9781560795325,
+          720.3687371999434
+        ],
+        [
+          -1067.4763499069268,
+          720.1242468002449
+        ],
+        [
+          -1067.626906499801,
+          736.4050848002009
+        ],
+        [
+          -1115.616820258346,
+          736.3828583999413
+        ],
+        [
+          -1115.9555725909759,
+          771.4005516001278
+        ],
+        [
+          -1068.5076625631407,
+          809.118752400287
+        ],
+        [
+          -1069.2604455243022,
+          875.5423488003031
+        ],
+        [
+          -1069.0647219543148,
+          885.3330780002207
+        ]
+      ],
+      "tags": {
+        "access": "no",
+        "highway": "service",
+        "layer": "1",
+        "level": "3",
+        "oneway": "yes",
+        "rideshare": "designated",
+        "tunnel": "building_passage"
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/906096010"
+      ],
+      "dimensionNote": "Relative source layer/level/bridge ordering does not establish metres above local ground. No ground void is cut; source identities and complete horizontal geometry are retained for review."
+    },
+    {
+      "sourceRoadId": "w909581584",
+      "reason": "absolute-passage-base-unknown",
+      "baseUnknown": true,
+      "status": "unsupported without a physical vertical datum",
+      "classificationSource": "OSM tunnel=building_passage",
+      "buildingIds": [
+        "r15763840"
+      ],
+      "sourceNodeIds": [
+        10837713017,
+        8394491316
+      ],
+      "sourceCentreline": [
+        [
+          -954.8826024422831,
+          581.6760012002983
+        ],
+        [
+          -966.4152374035999,
+          571.5296496001731
+        ]
+      ],
+      "tags": {
+        "access": "no",
+        "highway": "service",
+        "layer": "1",
+        "oneway": "yes",
+        "rideshare": "designated",
+        "tunnel": "building_passage"
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/909581584"
+      ],
+      "dimensionNote": "Relative source layer/level/bridge ordering does not establish metres above local ground. No ground void is cut; source identities and complete horizontal geometry are retained for review."
+    },
+    {
+      "sourceRoadId": "w1202709961",
+      "reason": "absolute-passage-base-unknown",
+      "baseUnknown": true,
+      "status": "unsupported without a physical vertical datum",
+      "classificationSource": "OSM tunnel=building_passage",
+      "buildingIds": [
+        "r15763840"
+      ],
+      "sourceNodeIds": [
+        3509537869,
+        11149569865,
+        13683396599,
+        8394508317
+      ],
+      "sourceCentreline": [
+        [
+          -1038.975987007102,
+          645.8213916005388
+        ],
+        [
+          -1035.362628794168,
+          640.1981124003648
+        ],
+        [
+          -1021.3156987428706,
+          626.4621972001426
+        ],
+        [
+          -1002.5337638681984,
+          608.1143040005095
+        ]
+      ],
+      "tags": {
+        "access": "no",
+        "highway": "service",
+        "layer": "1",
+        "level": "3",
+        "rideshare": "designated",
+        "tunnel": "building_passage"
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/1202709961"
+      ],
+      "dimensionNote": "Relative source layer/level/bridge ordering does not establish metres above local ground. No ground void is cut; source identities and complete horizontal geometry are retained for review."
+    },
+    {
+      "sourceRoadId": "w1493252870",
+      "reason": "absolute-passage-base-unknown",
+      "baseUnknown": true,
+      "status": "unsupported without a physical vertical datum",
+      "classificationSource": "OSM tunnel=building_passage",
+      "buildingIds": [
+        "r15763840"
+      ],
+      "sourceNodeIds": [
+        3509537869,
+        13683396592,
+        13683396593
+      ],
+      "sourceCentreline": [
+        [
+          -1038.975987007102,
+          645.8213916005388
+        ],
+        [
+          -1045.8714789284334,
+          649.6221059999449
+        ],
+        [
+          -1067.3709602922358,
+          670.9149972000389
+        ]
+      ],
+      "tags": {
+        "access": "no",
+        "highway": "service",
+        "layer": "1",
+        "level": "3",
+        "oneway": "yes",
+        "rideshare": "designated",
+        "tunnel": "building_passage"
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/1493252870"
+      ],
+      "dimensionNote": "Relative source layer/level/bridge ordering does not establish metres above local ground. No ground void is cut; source identities and complete horizontal geometry are retained for review."
+    },
+    {
+      "sourceRoadId": "w1493252871",
+      "reason": "absolute-passage-base-unknown",
+      "baseUnknown": true,
+      "status": "unsupported without a physical vertical datum",
+      "classificationSource": "OSM tunnel=building_passage",
+      "buildingIds": [
+        "r15763840"
+      ],
+      "sourceNodeIds": [
+        8414390365,
+        10821997081,
+        8414390364,
+        8414390363,
+        8394491315,
+        8414390361,
+        8394491316,
+        8394508317
+      ],
+      "sourceCentreline": [
+        [
+          -1090.383535407524,
+          569.0402928002989
+        ],
+        [
+          -1090.180284008374,
+          569.5626132000857
+        ],
+        [
+          -1089.2694166262456,
+          569.7293112004544
+        ],
+        [
+          -1086.303451759782,
+          569.7070848001947
+        ],
+        [
+          -1081.4705851508786,
+          569.7515375999245
+        ],
+        [
+          -1077.4808354573636,
+          569.8071036005739
+        ],
+        [
+          -966.4152374035999,
+          571.5296496001731
+        ],
+        [
+          -1002.5337638681984,
+          608.1143040005095
+        ]
+      ],
+      "tags": {
+        "access": "no",
+        "highway": "service",
+        "layer": "1",
+        "level": "3",
+        "oneway": "yes",
+        "rideshare": "designated",
+        "tunnel": "building_passage"
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/1493252871"
+      ],
+      "dimensionNote": "Relative source layer/level/bridge ordering does not establish metres above local ground. No ground void is cut; source identities and complete horizontal geometry are retained for review."
+    },
+    {
+      "sourceRoadId": "w1493252872",
+      "reason": "absolute-passage-base-unknown",
+      "baseUnknown": true,
+      "status": "unsupported without a physical vertical datum",
+      "classificationSource": "OSM tunnel=building_passage",
+      "buildingIds": [
+        "r15763840"
+      ],
+      "sourceNodeIds": [
+        8394508319,
+        13683396595,
+        13683396593,
+        8394508321
+      ],
+      "sourceCentreline": [
+        [
+          -1116.7083555510678,
+          661.768833600547
+        ],
+        [
+          -1067.2881541671713,
+          662.2133616002144
+        ],
+        [
+          -1067.3709602922358,
+          670.9149972000389
+        ],
+        [
+          -1067.4612942475324,
+          680.8168584004655
+        ]
+      ],
+      "tags": {
+        "access": "no",
+        "highway": "service",
+        "layer": "1",
+        "level": "3",
+        "oneway": "yes",
+        "rideshare": "designated",
+        "tunnel": "building_passage"
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/1493252872"
+      ],
+      "dimensionNote": "Relative source layer/level/bridge ordering does not establish metres above local ground. No ground void is cut; source identities and complete horizontal geometry are retained for review."
+    },
+    {
+      "sourceRoadId": "w1493252873",
+      "reason": "absolute-passage-base-unknown",
+      "baseUnknown": true,
+      "status": "unsupported without a physical vertical datum",
+      "classificationSource": "OSM tunnel=building_passage",
+      "buildingIds": [
+        "r15763840"
+      ],
+      "sourceNodeIds": [
+        8394508317,
+        13683396596,
+        13683396597,
+        13683396598,
+        13683396599
+      ],
+      "sourceCentreline": [
+        [
+          -1002.5337638681984,
+          608.1143040005095
+        ],
+        [
+          -1099.8083780782301,
+          606.7029276005984
+        ],
+        [
+          -1106.749036978814,
+          614.2154507999508
+        ],
+        [
+          -1106.7866761267653,
+          625.27308480046
+        ],
+        [
+          -1021.3156987428706,
+          626.4621972001426
+        ]
+      ],
+      "tags": {
+        "access": "no",
+        "highway": "service",
+        "layer": "1",
+        "level": "3",
+        "oneway": "yes",
+        "rideshare": "designated",
+        "tunnel": "building_passage"
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/1493252873"
+      ],
+      "dimensionNote": "Relative source layer/level/bridge ordering does not establish metres above local ground. No ground void is cut; source identities and complete horizontal geometry are retained for review."
+    },
+    {
+      "sourceRoadId": "w1562262127",
+      "reason": "absolute-passage-base-unknown",
+      "baseUnknown": true,
+      "status": "unsupported without a physical vertical datum",
+      "classificationSource": "OSM tunnel=building_passage",
+      "buildingIds": [
+        "r15763840"
+      ],
+      "sourceNodeIds": [
+        8414390365,
+        14215729330,
+        14215729331,
+        14215729332
+      ],
+      "sourceCentreline": [
+        [
+          -1090.383535407524,
+          569.0402928002989
+        ],
+        [
+          -1216.3768195780642,
+          693.7526232000232
+        ],
+        [
+          -1215.985372438089,
+          722.6358300003787
+        ],
+        [
+          -1069.2604455243022,
+          875.5423488003031
+        ]
+      ],
+      "tags": {
+        "highway": "service",
+        "layer": "1",
+        "level": "3",
+        "motor_vehicle": "private",
+        "oneway": "yes",
+        "tunnel": "building_passage"
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/1562262127"
+      ],
+      "dimensionNote": "Relative source layer/level/bridge ordering does not establish metres above local ground. No ground void is cut; source identities and complete horizontal geometry are retained for review."
+    },
+    {
+      "sourceRoadId": "w1562297012",
+      "reason": "absolute-passage-base-unknown",
+      "baseUnknown": true,
+      "status": "unsupported without a physical vertical datum",
+      "classificationSource": "OSM tunnel=building_passage",
+      "buildingIds": [
+        "r15763840"
+      ],
+      "sourceNodeIds": [
+        4604964850,
+        8414390362,
+        8414390365
+      ],
+      "sourceCentreline": [
+        [
+          -1084.3085769130246,
+          563.6948436002131
+        ],
+        [
+          -1089.7737812100743,
+          568.0289916003253
+        ],
+        [
+          -1090.383535407524,
+          569.0402928002989
+        ]
+      ],
+      "tags": {
+        "highway": "service",
+        "layer": "1",
+        "level": "3",
+        "motor_vehicle": "private",
+        "oneway": "yes",
+        "tunnel": "building_passage"
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/1562297012"
+      ],
+      "dimensionNote": "Relative source layer/level/bridge ordering does not establish metres above local ground. No ground void is cut; source identities and complete horizontal geometry are retained for review."
+    }
+  ],
+  "note": "These are unresolved relative-elevation source facts, not deleted source roads or evidence that literal source height validation failed. Original source nodes/tags/precise horizontal geometry and source bodies remain retained."
+}

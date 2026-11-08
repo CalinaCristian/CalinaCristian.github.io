@@ -4,6 +4,8 @@ import { Traffic, laneOffset } from '../src/traffic.js';
 import { roadSideWidth, roadWidthAt } from '../src/nav.js';
 import { SharedLaneGate } from '../src/shared-lanes.js';
 import * as THREE from '../vendor/three.module.min.js';
+import { Harness } from './harness/page/core.js';
+import { laneOff } from './harness/page/util.js';
 
 const close = (a, b) => assert(Math.abs(a - b) < 1e-8, `${a} != ${b}`);
 function edge(a, b, extra = {}) {
@@ -13,6 +15,24 @@ function edge(a, b, extra = {}) {
     a.edges.push(e); b.edges.push(e); return e;
 }
 const node = x => ({ x, z: 0, edges: [], radius: 3 });
+test('QA controller paths and placements use measured forward, reverse and shared lane centres', () => {
+    const placed = [], g = { player: { place: (...args) => placed.push(args) }, traffic: { setPlayer() {} }, nav: {} }, H = new Harness(g);
+    const e = edge(node(0), node(100));
+    for (const [dir, lane, expected] of [[1, 0, 8.5], [-1, 0, 5.5], [-1, 1, 2.5], [-1, 2, -.5]]) {
+        const pose = H.placeOnRoad(0, 0, null, { edge: e, dir, lane, s: 50 });
+        close(pose.x, 50); close(pose.z, expected); close(placed.at(-1)[1], expected);
+        const points = dir > 0 ? [[0, 0], [100, 0]] : [[100, 0], [0, 0]];
+        const path = H.buildPath({ points, legs: [{ e, dir }] }, lane);
+        for (const p of path.pts) close(p[1], expected);
+    }
+    const shared = edge(node(0), node(100), { sharedLane: true, lanesF: 1, lanesB: 1, laneCenterShiftM: 1, wR: 3, wL: 1 });
+    for (const dir of [1, -1]) {
+        const pose = H.placeOnRoad(0, 0, null, { edge: shared, dir, s: 50 });
+        close(pose.z, 1); close(laneOff(shared, 0, dir) * dir, 1);
+    }
+    close(laneOff({ laneW: 3, median: 0 }, 0, 1), 1.5);
+    close(laneOff({ laneW: 3, median: 0 }, 0, -1), 1.5);
+});
 const traffic = () => Object.create(Traffic.prototype);
 function vehicle(e, dir, lane = 0, long = false) {
     return { edge: e, dir, s: 50, lane, laneCur: lane, latExtraCur: 0, lateralExtra: 0, speed: 0,

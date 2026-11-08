@@ -4,12 +4,12 @@ import path from 'node:path';
 import { createHash } from 'node:crypto';
 const root=path.resolve(new URL('../..',import.meta.url).pathname),input=process.argv[2];if(!input)throw Error('Pass the completed tourist-context-capture output directory');
 const notes=JSON.parse(await fs.readFile(path.join(root,'handoffs/fidelity/tourist-context-activities/review-notes.json'),'utf8'));
-const summary=JSON.parse(await fs.readFile(path.join(input,'summary.json'),'utf8'));if(summary.records.length!==24||summary.records.some(r=>r.error))throw Error('All 24 destinations must finish before export');
+const summary=JSON.parse(await fs.readFile(path.join(input,'summary.json'),'utf8')),selected=process.argv.find(a=>a.startsWith('--spots='))?.slice(8).split(','),items=selected?summary.records.filter(r=>selected.includes(r.id)):summary.records;if(items.some(r=>r.error)||(!selected&&items.length!==24)||(selected&&selected.some(id=>!items.some(r=>r.id===id))))throw Error('All requested destinations must finish before export; a partial refresh requires --spots=id,...');
 const evidence=path.join(root,'game/overview/evidence/spots');await fs.mkdir(evidence,{recursive:true});
 // Read complete URL-valued dossier fields. The capture's older text scanner
 // stopped at ')' and truncated several valid Wikipedia / Commons page names.
 function publicReferences(entry){const refs=new Map();const visit=(v)=>{if(typeof v==='string'&&/^https?:\/\/\S+$/.test(v)){try{const u=new URL(v);if(!u.searchParams.has('key')&&!u.searchParams.has('token'))refs.set(u.href,{label:'Existing spot dossier reference',type:u.hostname.includes('openstreetmap.org')?'OSM source':'Public reference',url:u.href});}catch{}}else if(Array.isArray(v))v.forEach(visit);else if(v&&typeof v==='object')Object.values(v).forEach(visit);};visit(entry);return refs;}
-for(const item of summary.records){
+for(const item of items){
  const r=JSON.parse(await fs.readFile(path.join(input,item.id+'.json'),'utf8')),n=notes[item.id];if(!n)throw Error('Missing explicit review notes: '+item.id);
  const c=r.sourceGeometry.consumer||{},raw=r.audit.counts||{},warnings=Object.entries(raw).filter(([,v])=>v>0),missing=(c.sourceIds||[]).filter(id=>!new Set([...(r.sourceGeometry.physicalMembership||[]).map(v=>v.source),...(c.assemblies||[]).map(a=>a.source)]).has(id));
  const data=JSON.parse(await fs.readFile(path.join(root,'game/data/spots',r.sceneId+'.json'),'utf8')),refs=publicReferences(data.spots[r.id]);for(const s of r.sourceReferences.filter(s=>/openstreetmap.org\/(node|way|relation)\/\d+$/.test(s.url)))refs.set(s.url,{label:s.label,type:'OSM source',url:s.url});for(const s of n.sources||[])refs.set(s.url,s);const sourceRefs=[...refs.values()];
@@ -28,4 +28,4 @@ for(const item of summary.records){
  const record={schemaVersion:1,id:r.id,city:r.city,name:r.name,sourceCommit:r.capture.revision,updatedAt:new Date().toISOString(),status:'needs_review',sources:sourceRefs,improvements:n.improvements,remainingGaps:gaps,checks,captures,perf:r.performance,sceneId:r.sceneId,sourceGeometry:{membershipSHA256:r.sourceGeometry.membershipSHA256,activeSourceRecords:c.sourceRecords,renderedVolumes:c.renderedVolumes,literalHeights:c.literalHeights,levelHeightEstimates:c.levelHeightEstimates,typeHeightEstimates:c.typeHeightEstimates,heroReplacements:c.heroReplacements||r.sourceGeometry.heroReplacements,missingMembers:missing},access:r.access,rawAudit:raw,review:n.review||'Game context views inspected; unresolved source, access and physical findings remain explicit.'};
  await fs.writeFile(path.join(evidence,r.id+'.json'),JSON.stringify(record,null,2)+'\n');
 }
-console.log(`Exported ${summary.records.length} destination records and their GAME-only images.`);
+console.log(`Exported ${items.length} destination records and their GAME-only images.`);

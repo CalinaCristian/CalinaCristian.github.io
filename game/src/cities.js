@@ -126,7 +126,7 @@ const BUC_DISTRICTS = {
             { r: 130, chapter: 'rosetti', line: [[44.454951, 26.100726], [44.458072, 26.100564], [44.465921, 26.102013], [44.465668, 26.104509], [44.465449, 26.106037], [44.467042, 26.106528], [44.467090, 26.106300]] },
         ],
         circles: [{ lat: 44.467090, lon: 26.106300, r: 200, name: 'rosetti door' }, { lat: 44.455600, lon: 26.100710, r: 110, name: 'rosetti start' }, { lat: 44.467090, lon: 26.106300, r: 120, name: 'rosetti building' }],
-        landmarks: ['rosetti', 'skytower', 'globalworth'],
+        landmarks: ['rosetti', 'dinamo', 'skytower', 'globalworth'],
         scenery: ['skytower', 'globalworth'], // background only (round 5, notes 9/18): built and visible, but no marker / label / route — not reachable in this district
         congestion: [ // from game/research/bucharest-floreasca.json traffic.hotspots
             { lat: 44.47100, lon: 26.10350, radius: 200, hours: [[8,  10],  [17,  19.5]], level: 0.70, note: 'Calea Floreasca N (towards Barbu Văcărescu / Sky Tower)' },

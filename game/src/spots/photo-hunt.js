@@ -15,6 +15,7 @@ export function photoHunt(ctx, { x, z, title, targets, unavailable, onDone }) {
     const opaque = m => m && m.depthTest!==false && !(m.transparent&&m.opacity<.95);
     const visible = object => { for(let p=object;p;p=p.parent)if(!p.visible)return false;return true; };
     const sight = (s,target) => {
+        const started=performance.now();
         s.camera.getWorldPosition(origin);toward.set(target.x-origin.x,target.y-origin.y,target.z-origin.z);
         const distance=toward.length(),tolerance=target.surfaceTolerance??Math.max(.8,(target.radius||2)*1.5);
         ray.set(origin,toward.normalize());ray.near=.08;ray.far=Math.max(.08,distance-tolerance);
@@ -26,7 +27,7 @@ export function photoHunt(ctx, { x, z, title, targets, unavailable, onDone }) {
         });
         const surface=target.surface,p=hit?.point;
         const onFeature=!!(p&&surface&&p.y>=surface.bottom&&p.y<=surface.top&&!surface.holes?.some(h=>inPoly(p.x,p.z,h))&&(inPoly(p.x,p.z,surface.poly)||distPolyline(p.x,p.z,[...surface.poly,surface.poly[0]]).d<.15));
-        guide.visibility={label:target.label,clear:!hit||onFeature,targetDistance:distance,surfaceTolerance:tolerance,hitDistance:hit?.distance??null,hitPoint:p?.toArray()||null,sourceSurface:onFeature?surface.source:null,blocker:hit?.object.name||null};
+        guide.visibility={label:target.label,clear:!hit||onFeature,targetDistance:distance,surfaceTolerance:tolerance,hitDistance:hit?.distance??null,hitPoint:p?.toArray()||null,sourceSurface:onFeature?surface.source:null,blocker:hit?.object.name||null,raycastMs:performance.now()-started,meshCount:occluders.length};
         return !hit||onFeature;
     };
     const guide = { targets, captures: [], ring };

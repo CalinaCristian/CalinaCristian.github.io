@@ -1,0 +1,148 @@
+{
+  "district": "unirii",
+  "city": "bucharest",
+  "recordedAt": "2026-11-08T16:53:44.800166+00:00",
+  "hierarchy": [
+    "explicit valid OSM tags",
+    "independently measured Esri aerial attributes",
+    "explicitly labelled estimates"
+  ],
+  "osm": {
+    "provider": "OpenStreetMap contributors",
+    "license": "ODbL",
+    "files": [
+      {
+        "file": "buc_44.4150_26.0850_44.4250_26.1010.xml",
+        "url": "https://api.openstreetmap.org/api/0.6/map?bbox=26.08500,44.41500,26.10100,44.42500",
+        "sha256": "daf81dafc0137aa729fa3324c7ae7ccfc0b7ae4957b8b1ce2cc7e445fa934dd2",
+        "bytes": 5341424,
+        "retrievedAt": "2026-11-08T16:49:13.014115+00:00",
+        "provider": "OpenStreetMap API 0.6",
+        "license": "ODbL"
+      },
+      {
+        "file": "buc_44.4150_26.1010_44.4250_26.1170.xml",
+        "url": "https://api.openstreetmap.org/api/0.6/map?bbox=26.10100,44.41500,26.11700,44.42500",
+        "sha256": "310d04660f9c91e97f19932a0ef284b4ce53564b496fa21b21f46a25dcc6c7b1",
+        "bytes": 5228197,
+        "retrievedAt": "2026-11-08T16:49:16.735882+00:00",
+        "provider": "OpenStreetMap API 0.6",
+        "license": "ODbL"
+      },
+      {
+        "file": "buc_44.4150_26.1170_44.4250_26.1330.xml",
+        "url": "https://api.openstreetmap.org/api/0.6/map?bbox=26.11700,44.41500,26.13300,44.42500",
+        "sha256": "74e070ccb66c970c73a276ad1a8a28d4b0f5df8da367a9a45ee5071262f6a9c0",
+        "bytes": 3541990,
+        "retrievedAt": "2026-11-08T16:49:19.838559+00:00",
+        "provider": "OpenStreetMap API 0.6",
+        "license": "ODbL"
+      },
+      {
+        "file": "buc_44.4250_26.0850_44.4350_26.1010.xml",
+        "url": "https://api.openstreetmap.org/api/0.6/map?bbox=26.08500,44.42500,26.10100,44.43500",
+        "sha256": "659269a337ceceee3a81ad5b354f9f3ad2cceff1c082e9e432ae51a939d27a71",
+        "bytes": 8598218,
+        "retrievedAt": "2026-11-08T16:49:24.341699+00:00",
+        "provider": "OpenStreetMap API 0.6",
+        "license": "ODbL"
+      },
+      {
+        "file": "buc_44.4250_26.1010_44.4350_26.1170.xml",
+        "url": "https://api.openstreetmap.org/api/0.6/map?bbox=26.10100,44.42500,26.11700,44.43500",
+        "sha256": "65a3f8f4137aa75bf521f67e4ffb26bbaf6a686426294c4bc2ff960d7697cd49",
+        "bytes": 8330219,
+        "retrievedAt": "2026-11-08T16:49:28.529422+00:00",
+        "provider": "OpenStreetMap API 0.6",
+        "license": "ODbL"
+      },
+      {
+        "file": "buc_44.4250_26.1170_44.4350_26.1330.xml",
+        "url": "https://api.openstreetmap.org/api/0.6/map?bbox=26.11700,44.42500,26.13300,44.43500",
+        "sha256": "1453e5f61cc1fbabcd4d2a2d99139e9c1941f74e3844952e21c03eac4a8b241e",
+        "bytes": 5799006,
+        "retrievedAt": "2026-11-08T16:49:30.645455+00:00",
+        "provider": "OpenStreetMap API 0.6",
+        "license": "ODbL"
+      },
+      {
+        "file": "buc_44.4350_26.0850_44.4450_26.1010.xml",
+        "url": "https://api.openstreetmap.org/api/0.6/map?bbox=26.08500,44.43500,26.10100,44.44500",
+        "sha256": "e0c803c1d5130a815e1387bb5c54372441366558d17d68922d731f0836a66082",
+        "bytes": 6616105,
+        "retrievedAt": "2026-11-08T16:49:34.441583+00:00",
+        "provider": "OpenStreetMap API 0.6",
+        "license": "ODbL"
+      },
+      {
+        "file": "buc_44.4350_26.1010_44.4450_26.1170.xml",
+        "url": "https://api.openstreetmap.org/api/0.6/map?bbox=26.10100,44.43500,26.11700,44.44500",
+        "sha256": "e2bb639a0bec459fcb28baba37a6fb652cb5e30ddcf692f3a9c445d771887219",
+        "bytes": 6574477,
+        "retrievedAt": "2026-11-08T16:49:37.876368+00:00",
+        "provider": "OpenStreetMap API 0.6",
+        "license": "ODbL"
+      },
+      {
+        "file": "buc_44.4350_26.1170_44.4450_26.1330.xml",
+        "url": "https://api.openstreetmap.org/api/0.6/map?bbox=26.11700,44.43500,26.13300,44.44500",
+        "sha256": "aa2ab53720bad126f75d274aae60c0d666aa5b9206b1b9a8666776bbb007f8cd",
+        "bytes": 5884264,
+        "retrievedAt": "2026-11-08T16:49:40.009028+00:00",
+        "provider": "OpenStreetMap API 0.6",
+        "license": "ODbL"
+      }
+    ]
+  },
+  "aerial": {
+    "provider": "Esri World Imagery",
+    "officialUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+    "attribution": "Esri, Maxar, Earthstar Geographics, and the GIS User Community",
+    "acquisitionDate": null,
+    "acquisitionDateNote": "Provider imagery date is unknown; retrieval date is not acquisition date.",
+    "retrievedDate": "2026-11-08",
+    "surveyBbox": [
+      44.417,
+      26.089,
+      44.442,
+      26.132
+    ],
+    "zoom": 18,
+    "metresPerPixel": 0.42644238868906365,
+    "dimensions": [
+      8192,
+      6912
+    ],
+    "referenceImageryCommitted": false
+  },
+  "streetView": {
+    "usage": "visual comparison only; no extraction into data; no imagery publication",
+    "coverage": "pending full final source walk"
+  },
+  "acceptance": "Source and visual pass in progress; acquisition coverage alone does not establish parity.",
+  "measurements": {
+    "roofFootprints": 8930,
+    "individualRoofCropsReviewed": 80,
+    "calibrationRecord": "handoffs/fidelity/d-unirii/roof-calibration.json",
+    "treeCandidateCrowns": 40574,
+    "treeSurveyCoverageWgs84": [
+      44.4161262,
+      26.0884094,
+      44.4426047,
+      26.1323547
+    ],
+    "greenGrid": {
+      "width": 1024,
+      "height": 864,
+      "cellM": 3.412,
+      "vegetatedCellShare": 0.388
+    },
+    "limitations": "Candidate crowns retain survey positions/radii. Final source-aware exclusions and native rendering are audited after the shared roof/geometry prerequisite lands. No perf-driven thinning is accepted."
+  },
+  "measuredCrownRetention": {
+    "policy": "all-measured",
+    "budgetThinningPermitted": false,
+    "geometryAndDuplicateExclusions": "Source-aware roads, building solids, water, pitches, parking and duplicate mapped crowns only; output accounting must list every exclusion category.",
+    "sourceRows": 40574
+  }
+}

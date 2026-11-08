@@ -65,3 +65,15 @@ assert.equal(collideBuildings([{ ...collider, minH: 6, y0: 6 }], 10, 5, 0.35, 5.
 assert.ok(collideBuildings([{ ...collider, minH: 6, y0: 6 }], 10, 5, 0.35, 5.8 - 0.35, 0.7), 'drone intersects source underside');
 assert.ok(collideBuildings([{ ...collider, minH: 1.9, y0: 1.9 }], 10, 5, 0.45, 0.24), 'car/foot body intersects low overhead solid');
 console.log('roof source-solid fixtures: overlap clipping, equal-plane ownership, elevated parts and cache signature passed');
+
+const zeroSourceBand=makeRoofProfile({tags:{height:'15',min_height:'15','roof:shape':'flat'},ring:[[0,0],[10,0],[10,10],[0,10]],height:15,minHeight:15,heightIsTotal:true});
+assert.equal(zeroSourceBand.totalM,15);assert.equal(zeroSourceBand.eavesM,15);assert.equal(zeroSourceBand.riseM,0);assert(zeroSourceBand.issues.some(s=>s.startsWith('zero vertical source band')));
+
+const literalLow=makeRoofProfile({tags:{height:'3','building:levels':'1'},ring:[[0,0],[20,0],[20,10],[0,10]],height:3,minHeight:0,shape:'hipped',heightIsTotal:true});
+assert.equal(literalLow.totalM,3);assert.equal(literalLow.eavesM,2.25);assert.equal(literalLow.riseM,.75);assert(literalLow.riseSource.includes('25%'));
+const attic=makeRoofProfile({tags:{'building:levels':'1','roof:levels':'1'},ring:[[0,0],[20,0],[20,10],[0,10]],height:3.2,minHeight:0,shape:'hipped',heightIsTotal:false});
+assert.equal(attic.eavesM,3.2);assert.equal(attic.riseM,2.6);assert.equal(attic.totalM,5.800000000000001);assert.equal(attic.riseSource,'roof:levels estimate');
+const literalRoof=makeRoofProfile({tags:{height:'3','roof:height':'2'},ring:[[0,0],[20,0],[20,10],[0,10]],height:3,minHeight:0,shape:'hipped',heightIsTotal:true});
+assert.equal(literalRoof.riseM,2);assert.equal(literalRoof.eavesM,1);assert.equal(literalRoof.riseSource,'OSM roof:height');
+
+for(const[minimum,band]of[[46,6.4],[12,7.2]]){const p=makeRoofProfile({tags:{min_height:String(minimum)},ring:[[0,0],[10,0],[10,10],[0,10]],height:band,minHeight:minimum,shape:'flat',heightIsTotal:false,heightSource:'style estimate'});assert.equal(p.eavesM,minimum+band);assert.equal(p.totalM,minimum+band);assert(p.issues.some(s=>s.includes('positive body')));assert(p.heightSource.includes('above source minimum'));}

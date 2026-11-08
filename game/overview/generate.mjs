@@ -34,17 +34,31 @@ const spotBlock = spotsSource.split('export const SPOTS_ALL = [')[1].split('\n];
 const spots = [...spotBlock.matchAll(/\{ id: '([^']+)', city: '([^']+)', (?:area: '([^']+)', )?name: '((?:\\.|[^'])+)', .*?scene: '([^']+)'/g)].map(m=>({id:m[1],city:m[2],area:m[3]||null,name:m[4].replace(/\\'/g,"'"),scene:m[5]}));
 const readyBlock = spotsSource.split('export const READY = new Set([')[1].split(']);')[0];
 const ready = [...readyBlock.matchAll(/'([a-z][a-z-]+)'/g)].map(m=>m[1]);
-for(const s of spots) s.historicalReady = ready.includes(s.id);
+for (const spot of spots) {
+    spot.historicalReady = ready.includes(spot.id);
+    const recordPath = `evidence/spots/${spot.id}.json`, full = resolve(root, 'game/overview', recordPath);
+    if (!existsSync(full)) { if (strictEvidence) throw new Error(`Missing dedicated destination evidence: ${spot.id}`); continue; }
+    const record = JSON.parse(readFileSync(full, 'utf8'));
+    if (record.schemaVersion !== 1 || record.id !== spot.id || record.city !== spot.city || record.name !== spot.name) throw new Error(`Destination evidence identity: ${recordPath}`);
+    if (strictEvidence && (!record.sources?.length || !record.captures?.length || !record.checks?.length)) throw new Error(`Incomplete destination evidence: ${recordPath}`);
+    for (const capture of record.captures || []) {
+        if (!/^assets\/spots\/[a-zA-Z0-9_/-]+\.(?:png|jpe?g|webp)$/.test(capture.image || '') || !capture.image.startsWith(`assets/spots/${spot.id}/`)) throw new Error(`Unsafe/missing game capture path in ${recordPath}`);
+        const bytes = readFileSync(resolve(root, 'game/overview', capture.image));
+        if (createHash('sha256').update(bytes).digest('hex') !== capture.sha256) throw new Error(`Capture hash mismatch: ${capture.image}`);
+        if (!/^[a-f0-9]{40}$/.test(capture.sourceCommit || record.sourceCommit || '')) throw new Error(`Missing capture source: ${capture.image}`);
+    }
+    spot.evidence = recordPath;
+}
 const districts = Object.entries(CITIES).flatMap(([city,c])=>Object.entries(c.districts).map(([id,d])=>({id,city,name:d.name,label:d.label,landmarks:d.landmarks,scenery:d.scenery||[],chapters:CHAPTERS.filter(x=>x.city===city && x.district===id).map(x=>({id:x.id,title:x.title,year:x.year})),data:`game/data/${city}-${id}.json`})));
 const paths = ['AGENTS.md','README.md','specs/README.md','specs/00-vision.md','specs/01-architecture.md','specs/STATUS.md','specs/12-buildings-streetscape.md','specs/13-traffic.md','specs/15-tourist-spots.md','specs/18-weather-lighting.md','specs/19-qa-harness.md','game/index.html','game/data/README.md','tools/osm/build-data.mjs','tools/aerial/README.md','game/src/main.js','game/src/world.js','game/src/cities.js','game/src/geobuild.js','game/src/buildings.js','game/src/archetypes.js','game/src/landmarks.js','game/src/render.js','game/src/weather.js','game/src/traffic.js','game/src/signals.js','game/src/crowd.js','game/src/vehicles.js','game/src/onfoot.js','game/src/input.js','game/src/nav.js','game/src/minimap.js','game/src/worldmap.js','game/src/explore.js','game/src/drone.js','game/src/photo.js','game/src/save.js','game/src/achievements.js','game/src/data.js','game/src/spots/index.js','game/src/spots/osm.js','game/src/spots/tour.js','game/src/spots/bike.js','game/src/football.js','game/src/office.js','game/src/flight.js','game/src/globe.js','game/src/trees.js','game/src/water.js','game/src/audio.js','game/src/telemetry-game.js','public/telemetry.js'];
-const walk = dir => readdirSync(resolve(root,dir),{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(`${dir}/${e.name}`):e.name.endsWith('.js')?[`${dir}/${e.name}`]:[]);
-const allPaths = [...new Set([...paths,...walk('game/src')])];
+const walk = (dir, pattern = /\.js$/) => readdirSync(resolve(root,dir),{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(`${dir}/${e.name}`,pattern):pattern.test(e.name)?[`${dir}/${e.name}`]:[]);
+const allPaths = [...new Set([...paths,...walk('game/src'),...walk('game/overview',/\.(?:js|mjs|css|html|json)$/).filter(p=>p!=='game/overview/inventory.json')])];
 const sources = allPaths.map(path=>({path,sha256:createHash('sha256').update(read(path)).digest('hex')}));
 for (const source of sources) {
     const committed = execFileSync('git',['show',`${sourceSha}:${source.path}`],{cwd:root,maxBuffer:20*1024*1024});
     if(createHash('sha256').update(committed).digest('hex') !== source.sha256) throw new Error(`Source ${source.path} differs from ${sourceSha}. Commit game/docs changes before pinning provenance.`);
 }
 const comparisonLocations = JSON.parse(read('game/overview/comparison-data/catalog.json')).locations.map(place=>place.id);
-const data = {comparisonLocations,sourceSha,reviewedOn:'2026-11-08',repository:'https://github.com/CalinaCristian/CalinaCristian.github.io',counts:{districts:districts.length,chapters:CHAPTERS.length,landmarks:landmarks.length,landmarkBuilders:new Set(landmarks.map(x=>x.builder)).size,landmarkEvidence:landmarks.filter(lm=>lm.evidence).length,spots:spots.length,scenes:new Set(spots.map(s=>s.scene)).size,historicalReady:ready.length,achievements:[...read('game/src/data.js').split('export const ACHIEVEMENTS = [')[1].split('\n];')[0].matchAll(/\{ id: '/g)].length},districts,landmarks,spots,sources};
+const data = {comparisonLocations,sourceSha,reviewedOn:'2026-11-08',repository:'https://github.com/CalinaCristian/CalinaCristian.github.io',counts:{districts:districts.length,chapters:CHAPTERS.length,landmarks:landmarks.length,landmarkBuilders:new Set(landmarks.map(x=>x.builder)).size,landmarkEvidence:landmarks.filter(lm=>lm.evidence).length,spots:spots.length,spotEvidence:spots.filter(s=>s.evidence).length,scenes:new Set(spots.map(s=>s.scene)).size,historicalReady:ready.length,achievements:[...read('game/src/data.js').split('export const ACHIEVEMENTS = [')[1].split('\n];')[0].matchAll(/\{ id: '/g)].length},districts,landmarks,spots,sources};
 writeFileSync(resolve(root,'game/overview/inventory.json'),JSON.stringify(data,null,2)+'\n');
 process.stdout.write(JSON.stringify(data.counts)+'\n');

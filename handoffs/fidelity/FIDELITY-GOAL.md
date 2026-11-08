@@ -4,6 +4,12 @@ Owner-authorized scope (2026-11-08): reference comparisons for the game, remaini
 
 The native `/goal` control is not exposed to this session. This file is the tracked goal, not a claim that an external background goal was registered. Root monitors live workers through integration and acceptance.
 
+## Current integration checkpoint
+
+Six source/gameplay/QA workers remain active on isolated branches. Master is still `df9b2e2`; no final game release has been pushed. The staging branch contains the completed gameplay fixes, new source-preserving geometry and individual landmark studies. Combined syntax (128 modules) and focused pure checks pass after updating a legacy test fixture to construct the actual shared-road reservation gate. New independent source inputs and eight rebuilt datasets are being consolidated before the final browser freeze.
+
+Open integration gates: finite-body passage mouths, measured asymmetric road extents and their consumers, bridge/junction ribbon clearance, remaining airport road-width findings, all-district current captures, tourist source context and native activities, final evolved high/mirror render budgets and repeated mobile transitions. Final overview instances and telemetry/release verification are still pending. Historical proof below records earlier snapshots, not final acceptance.
+
 ## Current reported failures
 
 1. Dinamo football difficult to find from the air; compare the real running scene, including snow and pitch markings.

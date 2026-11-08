@@ -1,0 +1,1252 @@
+{
+  "district": "bucharest-otopeni",
+  "measuredAtUtc": "2026-11-08T17:54:57.400509+00:00",
+  "provider": "Esri World Imagery",
+  "officialUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+  "imageryAcquisitionDate": null,
+  "imageryRetrievedDate": "2026-11-08",
+  "sourceMosaicMetadataSha256": "ea5b746677679d670c7e88baee1e035104f4463be61923f6cecbbfc923dead57",
+  "metresPerPixel": 0.42546720768414037,
+  "referenceImageryCommitted": false,
+  "records": [
+    {
+      "sourceId": "w771096081",
+      "sourceUrl": "https://www.openstreetmap.org/way/771096081",
+      "sourceTags": {
+        "aeroway": "terminal",
+        "building:part": "transportation",
+        "internet_access": "wlan",
+        "max_level": "2",
+        "min_level": "0",
+        "name": "Aeroportul Otopeni Henri Coandă - Sosiri",
+        "name:en": "Henri Coandă International Airport - Arrivals",
+        "year_of_construction": "1970"
+      },
+      "classification": "Parallel curved/sawtooth roof bays; precise vertical profile remains unmeasured",
+      "medianVisibleRoofRgb": [
+        148,
+        155,
+        140
+      ],
+      "medianVisibleRoofHex": "#949b8c",
+      "interquartileRgb": [
+        [
+          107,
+          119,
+          106
+        ],
+        [
+          178,
+          179,
+          162
+        ]
+      ],
+      "interiorPixelCount": 28041,
+      "method": "Independent z18 Esri image. Exact mapped footprint mask, eroded3pixels (~1.28m), source image pixel values with brightness35..235 and saturation<0.28 to exclude dark shadow/vegetation/bright equipment. Pixel colour is an observation under unknown acquisition lighting, not calibrated material reflectance. No Google imagery measurement.",
+      "referenceImageryCommitted": false
+    },
+    {
+      "sourceId": "w771096082",
+      "sourceUrl": "https://www.openstreetmap.org/way/771096082",
+      "sourceTags": {
+        "aeroway": "terminal",
+        "building:part": "transportation",
+        "max_level": "2",
+        "min_level": "0",
+        "name": "Aeroportul Otopeni Henri Coandă - Plecări",
+        "name:en": "Henri Coandă International Airport - Departures",
+        "year_of_construction": "1998"
+      },
+      "classification": "Mapped terminal roof with separate light roof areas and dark membrane; rooftop plant remains an approximation",
+      "medianVisibleRoofRgb": [
+        132,
+        139,
+        126
+      ],
+      "medianVisibleRoofHex": "#848b7e",
+      "interquartileRgb": [
+        [
+          78,
+          95,
+          87
+        ],
+        [
+          182,
+          186,
+          172
+        ]
+      ],
+      "interiorPixelCount": 51958,
+      "method": "Independent z18 Esri image. Exact mapped footprint mask, eroded3pixels (~1.28m), source image pixel values with brightness35..235 and saturation<0.28 to exclude dark shadow/vegetation/bright equipment. Pixel colour is an observation under unknown acquisition lighting, not calibrated material reflectance. No Google imagery measurement.",
+      "referenceImageryCommitted": false
+    },
+    {
+      "sourceId": "w771096083",
+      "sourceUrl": "https://www.openstreetmap.org/way/771096083",
+      "sourceTags": {
+        "aeroway": "terminal",
+        "building:part": "transportation",
+        "internet_access": "wlan",
+        "name": "Terminalul Vioara",
+        "name:en": "The Finger",
+        "year_of_construction": "2011"
+      },
+      "classification": "Mapped terminal roof with separate light roof areas and dark membrane; rooftop plant remains an approximation",
+      "medianVisibleRoofRgb": [
+        111,
+        126,
+        115
+      ],
+      "medianVisibleRoofHex": "#6f7e73",
+      "interquartileRgb": [
+        [
+          83,
+          102,
+          94
+        ],
+        [
+          145,
+          155,
+          143
+        ]
+      ],
+      "interiorPixelCount": 52643,
+      "method": "Independent z18 Esri image. Exact mapped footprint mask, eroded3pixels (~1.28m), source image pixel values with brightness35..235 and saturation<0.28 to exclude dark shadow/vegetation/bright equipment. Pixel colour is an observation under unknown acquisition lighting, not calibrated material reflectance. No Google imagery measurement.",
+      "referenceImageryCommitted": false
+    }
+  ],
+  "methodLimit": "Whole-footprint medians mix plant, roof ribs and membrane; they are observations only and are not applied as a blanket roof material. Roof zone boundaries are traced in independent Esri pixels with approximately1.7m plan uncertainty; image date and photometric calibration are unknown. All model total/base heights, colliders, source footprints and courtyard topology remain unchanged; arrivals roof eaves/rise are explicitly estimated.",
+  "zones": {
+    "departures": [
+      {
+        "id": "departures-north-hall",
+        "kind": "light roof",
+        "mosaicPixelRing": [
+          [
+            3737.5,
+            1635.5
+          ],
+          [
+            3933.5,
+            1615.5
+          ],
+          [
+            3947.5,
+            1626
+          ],
+          [
+            3953,
+            1671.5
+          ],
+          [
+            3764.5,
+            1687
+          ],
+          [
+            3747.5,
+            1704
+          ],
+          [
+            3739.5,
+            1696
+          ]
+        ],
+        "wgs84Ring": [
+          [
+            44.57248065692666,
+            26.076873242855072
+          ],
+          [
+            44.572557085157406,
+            26.07792466878891
+          ],
+          [
+            44.572516960348786,
+            26.077999770641327
+          ],
+          [
+            44.57234308585821,
+            26.07802927494049
+          ],
+          [
+            44.57228385377017,
+            26.077018082141876
+          ],
+          [
+            44.57221888947524,
+            26.07692688703537
+          ],
+          [
+            44.57224946091719,
+            26.07688397169113
+          ]
+        ],
+        "modelRing": [
+          [
+            -206.5519,
+            194.7998
+          ],
+          [
+            -206.2853,
+            110.988
+          ],
+          [
+            -201.2282,
+            105.5308
+          ],
+          [
+            -181.7664,
+            105.2232
+          ],
+          [
+            -183.6002,
+            185.6622
+          ],
+          [
+            -177.1759,
+            193.6091
+          ],
+          [
+            -180.9104,
+            196.6387
+          ]
+        ],
+        "colourSample": {
+          "rgb": [
+            252,
+            251,
+            229
+          ],
+          "hex": "#fcfbe5",
+          "pixels": 2539,
+          "quartilesRgb": [
+            [
+              250,
+              247,
+              225
+            ],
+            [
+              253,
+              253,
+              233
+            ]
+          ]
+        },
+        "boundaryUncertaintyM": 1.7
+      },
+      {
+        "id": "departures-central-hall",
+        "kind": "light roof",
+        "mosaicPixelRing": [
+          [
+            3778.5,
+            1728
+          ],
+          [
+            3934.5,
+            1712.5
+          ],
+          [
+            3947.5,
+            1817.5
+          ],
+          [
+            3785,
+            1835.5
+          ]
+        ],
+        "wgs84Ring": [
+          [
+            44.572127175052955,
+            26.077093183994293
+          ],
+          [
+            44.572186407300556,
+            26.07793003320694
+          ],
+          [
+            44.571785155411156,
+            26.077999770641327
+          ],
+          [
+            44.571716369095014,
+            26.077128052711487
+          ]
+        ],
+        "modelRing": [
+          [
+            -165.6611,
+            181.5587
+          ],
+          [
+            -165.2723,
+            114.8699
+          ],
+          [
+            -120.3465,
+            114.0299
+          ],
+          [
+            -119.9684,
+            183.5797
+          ]
+        ],
+        "colourSample": {
+          "rgb": [
+            252,
+            251,
+            231
+          ],
+          "hex": "#fcfbe7",
+          "pixels": 2462,
+          "quartilesRgb": [
+            [
+              247,
+              244,
+              224
+            ],
+            [
+              253,
+              253,
+              236
+            ]
+          ]
+        },
+        "boundaryUncertaintyM": 1.7
+      }
+    ],
+    "finger": [
+      {
+        "id": "finger-longitudinal-82",
+        "kind": "light roof strip",
+        "mosaicPixelRing": [
+          [
+            4297,
+            2037
+          ],
+          [
+            4684,
+            1999.461
+          ],
+          [
+            4684,
+            2003.461
+          ],
+          [
+            4297,
+            2041
+          ]
+        ],
+        "wgs84Ring": [
+          [
+            44.57094633894741,
+            26.079874634742737
+          ],
+          [
+            44.57108979461698,
+            26.081950664520264
+          ],
+          [
+            44.57107450859322,
+            26.081950664520264
+          ],
+          [
+            44.570931052885946,
+            26.079874634742737
+          ]
+        ],
+        "modelRing": [
+          [
+            -12.0997,
+            -24.0956
+          ],
+          [
+            -10.7497,
+            -189.4946
+          ],
+          [
+            -9.0603,
+            -189.3171
+          ],
+          [
+            -10.4102,
+            -23.918
+          ]
+        ],
+        "colourSample": {
+          "rgb": [
+            223,
+            233,
+            221
+          ],
+          "hex": "#dfe9dd",
+          "pixels": 175,
+          "quartilesRgb": [
+            [
+              209,
+              218,
+              206
+            ],
+            [
+              234,
+              241,
+              230
+            ]
+          ]
+        },
+        "boundaryUncertaintyM": 1.7
+      },
+      {
+        "id": "finger-longitudinal-105",
+        "kind": "light roof strip",
+        "mosaicPixelRing": [
+          [
+            4297,
+            2060
+          ],
+          [
+            4684,
+            2022.461
+          ],
+          [
+            4684,
+            2026.461
+          ],
+          [
+            4297,
+            2064
+          ]
+        ],
+        "wgs84Ring": [
+          [
+            44.57085844403911,
+            26.079874634742737
+          ],
+          [
+            44.57100189992549,
+            26.081950664520264
+          ],
+          [
+            44.570986613878624,
+            26.081950664520264
+          ],
+          [
+            44.57084315795455,
+            26.079874634742737
+          ]
+        ],
+        "modelRing": [
+          [
+            -2.3852,
+            -23.0748
+          ],
+          [
+            -1.0353,
+            -188.4738
+          ],
+          [
+            0.6542,
+            -188.2963
+          ],
+          [
+            -0.6957,
+            -22.8972
+          ]
+        ],
+        "colourSample": {
+          "rgb": [
+            229,
+            236,
+            225
+          ],
+          "hex": "#e5ece1",
+          "pixels": 172,
+          "quartilesRgb": [
+            [
+              218,
+              228,
+              217
+            ],
+            [
+              237,
+              243,
+              232
+            ]
+          ]
+        },
+        "boundaryUncertaintyM": 1.7
+      },
+      {
+        "id": "finger-longitudinal-127",
+        "kind": "light roof strip",
+        "mosaicPixelRing": [
+          [
+            4297,
+            2082
+          ],
+          [
+            4684,
+            2044.461
+          ],
+          [
+            4684,
+            2048.461
+          ],
+          [
+            4297,
+            2086
+          ]
+        ],
+        "wgs84Ring": [
+          [
+            44.57077437052427,
+            26.079874634742737
+          ],
+          [
+            44.57091782661803,
+            26.081950664520264
+          ],
+          [
+            44.57090254054906,
+            26.081950664520264
+          ],
+          [
+            44.57075908441761,
+            26.079874634742737
+          ]
+        ],
+        "modelRing": [
+          [
+            6.9069,
+            -22.0983
+          ],
+          [
+            8.2568,
+            -187.4974
+          ],
+          [
+            9.9463,
+            -187.3198
+          ],
+          [
+            8.5964,
+            -21.9208
+          ]
+        ],
+        "colourSample": {
+          "rgb": [
+            223,
+            231,
+            214
+          ],
+          "hex": "#dfe7d6",
+          "pixels": 171,
+          "quartilesRgb": [
+            [
+              179,
+              183,
+              169
+            ],
+            [
+              241,
+              246,
+              232
+            ]
+          ]
+        },
+        "boundaryUncertaintyM": 1.7
+      },
+      {
+        "id": "finger-longitudinal-150",
+        "kind": "light roof strip",
+        "mosaicPixelRing": [
+          [
+            4297,
+            2105
+          ],
+          [
+            4684,
+            2067.461
+          ],
+          [
+            4684,
+            2071.461
+          ],
+          [
+            4297,
+            2109
+          ]
+        ],
+        "wgs84Ring": [
+          [
+            44.57068647535609,
+            26.079874634742737
+          ],
+          [
+            44.57082993166664,
+            26.081950664520264
+          ],
+          [
+            44.57081464557458,
+            26.081950664520264
+          ],
+          [
+            44.570671189226324,
+            26.079874634742737
+          ]
+        ],
+        "modelRing": [
+          [
+            16.6214,
+            -21.0775
+          ],
+          [
+            17.9712,
+            -186.4766
+          ],
+          [
+            19.6607,
+            -186.299
+          ],
+          [
+            18.3109,
+            -20.9
+          ]
+        ],
+        "colourSample": {
+          "rgb": [
+            230,
+            235,
+            224
+          ],
+          "hex": "#e6ebe0",
+          "pixels": 169,
+          "quartilesRgb": [
+            [
+              199,
+              206,
+              195
+            ],
+            [
+              238,
+              243,
+              231
+            ]
+          ]
+        },
+        "boundaryUncertaintyM": 1.7
+      },
+      {
+        "id": "finger-longitudinal-173",
+        "kind": "light roof strip",
+        "mosaicPixelRing": [
+          [
+            4297,
+            2128
+          ],
+          [
+            4684,
+            2090.4610000000002
+          ],
+          [
+            4684,
+            2094.4610000000002
+          ],
+          [
+            4297,
+            2132
+          ]
+        ],
+        "wgs84Ring": [
+          [
+            44.570598580055076,
+            26.079874634742737
+          ],
+          [
+            44.570742036582416,
+            26.081950664520264
+          ],
+          [
+            44.57072675046726,
+            26.081950664520264
+          ],
+          [
+            44.5705832939022,
+            26.079874634742737
+          ]
+        ],
+        "modelRing": [
+          [
+            26.3359,
+            -20.0567
+          ],
+          [
+            27.6857,
+            -185.4558
+          ],
+          [
+            29.3752,
+            -185.2782
+          ],
+          [
+            28.0254,
+            -19.8792
+          ]
+        ],
+        "colourSample": {
+          "rgb": [
+            227,
+            236,
+            223
+          ],
+          "hex": "#e3ecdf",
+          "pixels": 175,
+          "quartilesRgb": [
+            [
+              216,
+              226,
+              213
+            ],
+            [
+              236,
+              244,
+              231
+            ]
+          ]
+        },
+        "boundaryUncertaintyM": 1.7
+      },
+      {
+        "id": "finger-mid-cross",
+        "kind": "roof cross strip",
+        "mosaicPixelRing": [
+          [
+            4427,
+            2061
+          ],
+          [
+            4440,
+            2060
+          ],
+          [
+            4444,
+            2110
+          ],
+          [
+            4431,
+            2112
+          ]
+        ],
+        "wgs84Ring": [
+          [
+            44.570854622518354,
+            26.08057200908661
+          ],
+          [
+            44.57085844403911,
+            26.080641746520996
+          ],
+          [
+            44.57066736769326,
+            26.080663204193115
+          ],
+          [
+            44.57065972462637,
+            26.080593466758728
+          ]
+        ],
+        "modelRing": [
+          [
+            3.8167,
+            -78.0311
+          ],
+          [
+            3.9723,
+            -83.5756
+          ],
+          [
+            25.2685,
+            -83.0488
+          ],
+          [
+            25.5353,
+            -77.4599
+          ]
+        ],
+        "colourSample": {
+          "rgb": [
+            140,
+            154,
+            141
+          ],
+          "hex": "#8c9a8d",
+          "pixels": 670,
+          "quartilesRgb": [
+            [
+              131,
+              145,
+              133
+            ],
+            [
+              162,
+              174,
+              163
+            ]
+          ]
+        },
+        "boundaryUncertaintyM": 1.7
+      },
+      {
+        "id": "finger-head-cross",
+        "kind": "roof cross strip",
+        "mosaicPixelRing": [
+          [
+            4537,
+            2015
+          ],
+          [
+            4550,
+            2014
+          ],
+          [
+            4561,
+            2133
+          ],
+          [
+            4547,
+            2134
+          ]
+        ],
+        "wgs84Ring": [
+          [
+            44.57103041221366,
+            26.081162095069885
+          ],
+          [
+            44.57103423372288,
+            26.081231832504272
+          ],
+          [
+            44.57057947236336,
+            26.0812908411026
+          ],
+          [
+            44.570575650824274,
+            26.081215739250183
+          ]
+        ],
+        "modelRing": [
+          [
+            -10.7219,
+            -126.6118
+          ],
+          [
+            -10.5663,
+            -132.1562
+          ],
+          [
+            40.1846,
+            -131.5286
+          ],
+          [
+            39.9845,
+            -125.5611
+          ]
+        ],
+        "colourSample": {
+          "rgb": [
+            220,
+            222,
+            207
+          ],
+          "hex": "#dcdecf",
+          "pixels": 1543,
+          "quartilesRgb": [
+            [
+              193,
+              192,
+              173
+            ],
+            [
+              242,
+              242,
+              231
+            ]
+          ]
+        },
+        "boundaryUncertaintyM": 1.7
+      }
+    ]
+  },
+  "membraneSamples": [
+    {
+      "id": "departures-south-membrane",
+      "kind": "dark membrane sample",
+      "mosaicPixelRing": [
+        [
+          3929,
+          1916
+        ],
+        [
+          3947,
+          1914
+        ],
+        [
+          3949,
+          2007
+        ],
+        [
+          3933,
+          2009
+        ]
+      ],
+      "wgs84Ring": [
+        [
+          44.57140874040784,
+          26.077900528907776
+        ],
+        [
+          44.5714163833763,
+          26.077997088432312
+        ],
+        [
+          44.57106098428035,
+          26.07800781726837
+        ],
+        [
+          44.571053341265184,
+          26.077921986579895
+        ]
+      ],
+      "modelRing": [
+        [
+          -79.5663,
+          126.2286
+        ],
+        [
+          -79.6108,
+          118.5243
+        ],
+        [
+          -40.2419,
+          121.8057
+        ],
+        [
+          -40.1085,
+          128.6638
+        ]
+      ],
+      "colourSample": {
+        "rgb": [
+          77,
+          97,
+          87
+        ],
+        "hex": "#4d6157",
+        "pixels": 1641,
+        "quartilesRgb": [
+          [
+            71,
+            91,
+            83
+          ],
+          [
+            95,
+            110,
+            98
+          ]
+        ]
+      },
+      "boundaryUncertaintyM": 1.7
+    },
+    {
+      "id": "finger-west-membrane",
+      "kind": "dark membrane sample",
+      "mosaicPixelRing": [
+        [
+          4100,
+          2086
+        ],
+        [
+          4177,
+          2079
+        ],
+        [
+          4177,
+          2094
+        ],
+        [
+          4100,
+          2101
+        ]
+      ],
+      "wgs84Ring": [
+        [
+          44.57075908441761,
+          26.07881784439087
+        ],
+        [
+          44.57078583510163,
+          26.079230904579163
+        ],
+        [
+          44.57072851219223,
+          26.079230904579163
+        ],
+        [
+          44.570701761481835,
+          26.07881784439087
+        ]
+      ],
+      "modelRing": [
+        [
+          -0.1618,
+          61.4265
+        ],
+        [
+          0.3049,
+          28.5384
+        ],
+        [
+          6.6404,
+          29.2042
+        ],
+        [
+          6.1737,
+          62.0922
+        ]
+      ],
+      "colourSample": {
+        "rgb": [
+          49,
+          67,
+          67
+        ],
+        "hex": "#314343",
+        "pixels": 1065,
+        "quartilesRgb": [
+          [
+            45,
+            64,
+            63
+          ],
+          [
+            52,
+            71,
+            70
+          ]
+        ]
+      },
+      "boundaryUncertaintyM": 1.7
+    },
+    {
+      "id": "finger-east-membrane",
+      "kind": "dark membrane sample",
+      "mosaicPixelRing": [
+        [
+          4587,
+          2036
+        ],
+        [
+          4632,
+          2032
+        ],
+        [
+          4633,
+          2040
+        ],
+        [
+          4588,
+          2044
+        ]
+      ],
+      "wgs84Ring": [
+        [
+          44.57095016046215,
+          26.081430315971375
+        ],
+        [
+          44.57096544651859,
+          26.081671714782715
+        ],
+        [
+          44.57093487440169,
+          26.081677079200745
+        ],
+        [
+          44.57091958833721,
+          26.081435680389404
+        ]
+      ],
+      "modelRing": [
+        [
+          0.3707,
+          -146.8339
+        ],
+        [
+          0.6819,
+          -166.0501
+        ],
+        [
+          4.1053,
+          -166.1182
+        ],
+        [
+          3.7941,
+          -146.9019
+        ]
+      ],
+      "colourSample": {
+        "rgb": [
+          102,
+          122,
+          110
+        ],
+        "hex": "#667a6e",
+        "pixels": 370,
+        "quartilesRgb": [
+          [
+            95,
+            115,
+            105
+          ],
+          [
+            110,
+            127,
+            118
+          ]
+        ]
+      },
+      "boundaryUncertaintyM": 1.7
+    }
+  ],
+  "explicitOsmRoofMaterialOrColour": {
+    "w771096081": null,
+    "w771096082": null,
+    "w771096083": null,
+    "w1321861231": null
+  },
+  "sourceColourConflicts": [],
+  "appliedMaterialNote": "Separate sampled membrane RGB and white-hall/strip RGB are used as material colour estimates under the game lighting. Source OSM explicit colour/material takes precedence; none is present on these four source parts.",
+  "arrivalsRoofProfile": {
+    "sourceId": "w771096081",
+    "sourceUrl": "https://www.openstreetmap.org/way/771096081",
+    "sourceRoofShapeTag": null,
+    "bayCountObserved": 10,
+    "axisMethod": "Parallel curved roof ridges tracked on the independent z18 Esri image. Two separated roof strips show ten repeating bright ridges and corresponding dark troughs; roof plant obscures some spans. The image row intercepts at local x40 are17,39,60,81,102,124,145,167,188,210; slope dy/dx=-0.097. Coordinates are measurements of image-visible ridges, not surveyed eave positions.",
+    "ridgeLocalPixelIntercepts": [
+      17,
+      39,
+      60,
+      81,
+      102,
+      124,
+      145,
+      167,
+      188,
+      210
+    ],
+    "localCropMosaicPixelOrigin": [
+      3805,
+      2360
+    ],
+    "ridgeWgs84Centres": [
+      [
+        44.56966925108917,
+        26.07777178287506
+      ],
+      [
+        44.56958517585531,
+        26.07777178287506
+      ],
+      [
+        44.56950492210963,
+        26.07777178287506
+      ],
+      [
+        44.56942466825321,
+        26.07777178287506
+      ],
+      [
+        44.56934441428607,
+        26.07777178287506
+      ],
+      [
+        44.56926033858267,
+        26.07777178287506
+      ],
+      [
+        44.56918008438878,
+        26.07777178287506
+      ],
+      [
+        44.56909600844784,
+        26.07777178287506
+      ],
+      [
+        44.569015754027205,
+        26.07777178287506
+      ],
+      [
+        44.56893167784873,
+        26.07777178287506
+      ]
+    ],
+    "crossAxisModelUnit": [
+      0.999966717854402,
+      0.008158626323997756
+    ],
+    "alongAxisModelUnit": [
+      0.008158626323997756,
+      -0.999966717854402
+    ],
+    "ridgeModelCoordinatesM": [
+      112.89490671888782,
+      122.19485122700766,
+      131.0720835240944,
+      139.94932807042508,
+      148.82658486442776,
+      158.12658131059945,
+      167.00386318627508,
+      176.3038859079985,
+      185.18119286534707,
+      194.4812418618363
+    ],
+    "medianSpacingM": 8.877306957348566,
+    "spacingRangeM": [
+      8.87723229708675,
+      9.300048996489238
+    ],
+    "axisBearingDegrees": 84.46880238515527,
+    "planUncertaintyM": 1.7,
+    "riseM": 1.2,
+    "riseSource": "Explicit visual estimate; nadir pixels cannot measure roof rise. Preserve prior unmapped total14m/base0m; eaves12.8m is derived from that estimate.",
+    "sourceBoundaryConflict": "The northern image ridge lies approximately5–6m outside the exact mapped part outline, consistent with roof/eave mismatch, ortho parallax or acquisition/source date differences. Do not expand/move source geometry to fit imagery; all ten measured bay domains are clipped to the complete OSM ring.",
+    "imageryProvider": "Esri World Imagery",
+    "imageryAcquisitionDate": null,
+    "imageryRetrievedDate": "2026-11-08",
+    "referenceImageryCommitted": false,
+    "crownColourSample": {
+      "rgb": [
+        187,
+        188,
+        171
+      ],
+      "hex": "#bbbcab",
+      "pixelCount": 891,
+      "quartilesRgb": [
+        [
+          178,
+          180,
+          164
+        ],
+        [
+          193,
+          194,
+          178
+        ]
+      ],
+      "method": "Independent image crest strips at measured ridge intercepts39..210; local x50..82, +/-1image pixel about tracked crest; no Google data."
+    }
+  }
+}

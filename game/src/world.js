@@ -384,7 +384,12 @@ function solidMaterial(atlas) {
             float hf = fract(sin(dot(vec2(fl, run * 0.37 + floor(vMapUv.x / 9.0)), vec2(12.9898, 78.233))) * 43758.5453);
             float fv = fract(vMapUv.y * (abs(vTile - 12.0) < 0.1 ? 4.0 : 2.0));
             lit = step(hf, 0.28) * smoothstep(0.08, 0.2, fv) * (1.0 - smoothstep(0.8, 0.92, fv));
-            col = mix(vec3(0.85, 0.9, 1.0), vec3(1.0, 0.86, 0.66), step(0.75, fract(hf * 9.1))) * 0.4;
+            // (after round 6: lit floors read as solid white slabs) panes between mullions, some with blinds down or dark
+            // desks, ceiling lights brighter at the top of the floor, dimmer overall
+            { float px2 = vMapUv.x * 4.0, pf = fract(px2), pid = fract(sin(dot(vec2(floor(px2), fl), vec2(39.3, 11.7))) * 24634.63);
+              float mull = smoothstep(0.02, 0.07, pf) * (1.0 - smoothstep(0.93, 0.98, pf));
+              lit *= mull * (pid < 0.18 ? 0.15 : pid < 0.35 ? 0.55 : 1.0) * (0.55 + 0.45 * smoothstep(0.3, 0.85, fv)); }
+            col = mix(vec3(0.78, 0.84, 0.92), vec3(1.0, 0.82, 0.6), step(0.6, fract(hf * 9.1))) * 0.26;
             mask = 1.0; lit = mix(lit, 0.24, far) + 0.03;
         }
         totalEmissiveRadiance *= mask * lit * col;
@@ -397,7 +402,7 @@ function solidMaterial(atlas) {
         // (the tile id is an interpolated varying: 7.99999 picked the wrong atlas cell on some pixels — the 'TV static' on
         //  windows; round it once per fragment)
         sh.fragmentShader = sh.fragmentShader.replace('void main() {', 'void main() {\n\tfloat vTile = floor(vTileRaw + 0.5);'); }; }
-    m.customProgramCacheKey = () => 'osm-solid-atlas-pbr3';
+    m.customProgramCacheKey = () => 'osm-solid-atlas-pbr4';
     return m;
 }
 
@@ -2248,7 +2253,12 @@ export async function buildWorld(city, renderer, opts = {}) {
     //      with a solid wall across it (kind 'end'); the inside-mask outline is an invisible wall (kind 'boundary')
     const mapEnds = [];
     if (data.district) {
-        for (const i of data.district.ends || []) {
+        // (after round 6) the boundary cuts + every other dead end of a through road (a road whose continuation was dropped:
+        // "the road stops without indication") — service lanes / living streets / short stubs are left as they are
+        const endIdx = new Set(data.district.ends || []);
+        nodeArr.forEach((n, i) => { if (!n || endIdx.has(i)) return; const real = n.edges.filter(f => !f.virtual); if (real.length !== 1) return; const e = real[0];
+            if (/service|living_street|track|path|footway|pedestrian|parking/.test(e.type || '') || (e.len || 0) < 25) return; endIdx.add(i); });
+        for (const i of endIdx) {
             const n = nodeArr[i]; const real = n ? n.edges.filter(f => !f.virtual) : []; if (real.length !== 1) continue; // (a U-turn connector may join a cut dual carriageway)
             const e = real[0];
             const out = e.a === n ? 1 : -1; // into the edge (= into the map)
@@ -2787,6 +2797,9 @@ export async function buildWorld(city, renderer, opts = {}) {
         const ring = b.ring;
         const ccw = signedArea(ring) > 0; // counter-clockwise (x right, z up) → outward normal = (dz, -dx)
         const h = b.h, y0 = Math.max(0, b.minH) + 0.18;
+        // (after round 6) whole storeys: the wall holds an integer number of window rows, so the top row is never sliced
+        // by the eaves / roof line (it was wherever the height wasn't a multiple of the storey height)
+        if (b.style !== 'church' && h - y0 > 2) { const n = Math.max(1, Math.round((h - y0) / floorH)); floorH = (h - y0) / n; }
         const shop = (b.flags & 1) && b.minH <= 0 && h > 6;
         const yShop = y0 + (b.gfh || 4.2); // (researched ground-floor height)
         const pitched = b.roof === 'gabled' || b.roof === 'pyramid';
@@ -2799,7 +2812,9 @@ export async function buildWorld(city, renderer, opts = {}) {
             let nx = (bz - az) / L, nz = -(bx - ax) / L;
             if (!ccw) { nx = -nx; nz = -nz; }
             const [gc, gr] = TILE_GRID[tile] || [1, 1];
-            const u0 = perim / (bayW * gc), u1 = (perim + L) / (bayW * gc);
+            // (after round 6) whole window bays per wall, restarting at every corner: windows were sliced at the corners of
+            // narrow houses (the bays ran on round the perimeter); a wall too short for a bay shows plain wall
+            const nbay = Math.round(L / bayW), u0 = k * 5, u1 = nbay > 0 ? u0 + nbay / gc : u0 + 0.02 / gc;
             if (shop && !(b.shopFaces && !b.shopFaces[k])) { // (researched shopfronts: street faces only)
                 mb.wall(ax, az, bx, bz, y0, yShop, nx, nz, rgb('#ffffff'), perim / 16, (perim + L) / 16, 0, 1, TILE.shop + (b.i % 2) * 8);
                 mb.wall(ax, az, bx, bz, yShop, wallTop, nx, nz, wallCol, u0, u1, 0, (wallTop - yShop) / (floorH * gr), tile);

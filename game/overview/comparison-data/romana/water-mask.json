@@ -1,0 +1,169 @@
+{
+  "district": "bucharest-romana",
+  "dataSha256": "c9c3c8878a30cf229ac50d0ec9acef5e4ad358589e368dbe5923f3cd46eddc68",
+  "posesSha256": "04f8c0a86f8c612545b09eb7c5136dba25ac767c8c012ec18de10b55d50c1c77",
+  "totalFrames": 116,
+  "waterReviewFrames": 13,
+  "unaffectedFrames": 103,
+  "tiles": [
+    {
+      "id": "aerial-r04-c04",
+      "sourceWaterIds": [
+        "w1092796819"
+      ],
+      "groundBoundsXZ": [
+        -750,
+        -1000,
+        -500,
+        -750
+      ]
+    },
+    {
+      "id": "aerial-r04-c05",
+      "sourceWaterIds": [
+        "w1092796819"
+      ],
+      "groundBoundsXZ": [
+        -500,
+        -1000,
+        -250,
+        -750
+      ]
+    },
+    {
+      "id": "aerial-r10-c10",
+      "sourceWaterIds": [
+        "w227645333"
+      ],
+      "groundBoundsXZ": [
+        750,
+        500,
+        1000,
+        750
+      ]
+    },
+    {
+      "id": "aerial-r10-c11",
+      "sourceWaterIds": [
+        "w227645333"
+      ],
+      "groundBoundsXZ": [
+        1000,
+        500,
+        1250,
+        750
+      ]
+    },
+    {
+      "id": "aerial-r12-c06",
+      "sourceWaterIds": [
+        "w16292044"
+      ],
+      "groundBoundsXZ": [
+        -250,
+        1000,
+        0,
+        1250
+      ]
+    },
+    {
+      "id": "aerial-r12-c07",
+      "sourceWaterIds": [
+        "w16292044"
+      ],
+      "groundBoundsXZ": [
+        0,
+        1000,
+        250,
+        1250
+      ]
+    },
+    {
+      "id": "aerial-r12-c08",
+      "sourceWaterIds": [
+        "w175449008"
+      ],
+      "groundBoundsXZ": [
+        250,
+        1000,
+        500,
+        1250
+      ]
+    },
+    {
+      "id": "aerial-r12-c09",
+      "sourceWaterIds": [
+        "w175449008"
+      ],
+      "groundBoundsXZ": [
+        500,
+        1000,
+        750,
+        1250
+      ]
+    },
+    {
+      "id": "aerial-r13-c07",
+      "sourceWaterIds": [
+        "w16292044"
+      ],
+      "groundBoundsXZ": [
+        0,
+        1250,
+        250,
+        1500
+      ]
+    },
+    {
+      "id": "aerial-r13-c08",
+      "sourceWaterIds": [
+        "w178195083"
+      ],
+      "groundBoundsXZ": [
+        250,
+        1250,
+        500,
+        1500
+      ]
+    },
+    {
+      "id": "aerial-r13-c09",
+      "sourceWaterIds": [
+        "w178195083",
+        "w995893629"
+      ],
+      "groundBoundsXZ": [
+        500,
+        1250,
+        750,
+        1500
+      ]
+    },
+    {
+      "id": "aerial-r13-c10",
+      "sourceWaterIds": [
+        "w163755399",
+        "w493742507",
+        "w1180708390"
+      ],
+      "groundBoundsXZ": [
+        750,
+        1250,
+        1000,
+        1500
+      ]
+    },
+    {
+      "id": "aerial-r13-c11",
+      "sourceWaterIds": [
+        "w1171514002"
+      ],
+      "groundBoundsXZ": [
+        1000,
+        1250,
+        1250,
+        1500
+      ]
+    }
+  ]
+}

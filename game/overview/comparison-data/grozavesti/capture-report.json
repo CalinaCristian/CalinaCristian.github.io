@@ -1,0 +1,56 @@
+{
+  "startedAt": "2026-11-08T21:54:04.466Z",
+  "endedAt": "2026-11-08T22:45:44.496Z",
+  "elapsedSeconds": 728.711,
+  "source": null,
+  "loaded": {
+    "key": "bucharest-grozavesti",
+    "city": "bucharest",
+    "district": "grozavesti",
+    "ms": 32506,
+    "edges": 801,
+    "ribbons": 1714
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failedRequests": [],
+  "traffic": false,
+  "quality": "high",
+  "weather": "clear",
+  "season": "summer",
+  "time": "day",
+  "mirror": false,
+  "frameCounts": 100,
+  "coverageClaim": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+  "scopeCounts": {
+    "ring-touches": 72,
+    "core-touches": 23,
+    "outside-ring": 5
+  },
+  "validation": {
+    "framesVerified": 100,
+    "failures": [],
+    "mixedSourceProvenancePreserved": true
+  },
+  "perfMaxima": {
+    "triangles": 711417,
+    "drawCalls": 120,
+    "note": "Separate maxima; world-only high north-up, traffic/mirror disabled. No hardware FPS or driving-budget claim."
+  },
+  "sourceSnapshots": [
+    {
+      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "treeSha256": "397f0afa1691f0edf844186d2336a0218d9d055765677789a89aa8a8b6a5c7de",
+      "manifest": "provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/manifest.json",
+      "manifestSha256": "fed96a2d9376961fe566b752e869f2cdf9337aa870a87b2f2eba5eef03008dda",
+      "frames": 100
+    },
+    {
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "treeSha256": "66f9f028f585068faa58be093124c55da842e4a17da3e2142c0cc629b708b3f3",
+      "manifest": "provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/manifest.json",
+      "manifestSha256": "2ec17090452c2a61241a46b0c585667fe3f8389f3c5b455db091210c31b5a92a",
+      "frames": 19
+    }
+  ]
+}

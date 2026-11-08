@@ -1,0 +1,11 @@
+{
+  "frames": 116,
+  "failures": [],
+  "sourceCounts": {
+    "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 103,
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 13
+  },
+  "baselineValidationSha256": "b1c0af573745eb9abaf7daefd1d1d76edd3ef2400d9423aaa8fdcc318e7e92ad",
+  "recaptureValidationSha256": "118514357d5cbf3ab6f2c204d2b4caa40d5b2d59b18b9cd5e3028f9d4881c70c",
+  "manifestSha256": "da0e2aade81b4fae64ce00ba81f85c74746f0b5ee6f969f495c04a4bb24bcd03"
+}

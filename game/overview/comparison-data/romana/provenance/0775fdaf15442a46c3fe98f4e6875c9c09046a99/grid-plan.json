@@ -1,0 +1,35 @@
+{
+  "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+  "city": "bucharest",
+  "district": "romana",
+  "grid": {
+    "x0": -1500,
+    "z0": -1750,
+    "columns": 12,
+    "rows": 14,
+    "sizeMetres": 250
+  },
+  "counts": {
+    "water-recapture": 13
+  },
+  "locations": [
+    {
+      "id": "uipath-buc-start",
+      "label": "uipath-buc chapter start",
+      "kind": "chapter-start",
+      "lat": 44.456,
+      "lon": 26.0842,
+      "tileId": "aerial-r04-c04"
+    },
+    {
+      "id": "tnb",
+      "label": "Teatrul Na\u021bional Bucure\u0219ti",
+      "kind": "landmark",
+      "lat": 44.4370273,
+      "lon": 26.1036159,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "aerial-r13-c10"
+    }
+  ],
+  "coverage": "Conservative source-water render recapture subset; merge with original frozen dry frames to retain the complete district atlas."
+}

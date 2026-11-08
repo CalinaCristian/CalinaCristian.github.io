@@ -12,7 +12,7 @@
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, headingFromBearing, alongPolyline, polylineLength, lerp, smooth, inPoly, polyBox, distPolyline } from '../kit.js';
 import { signBoard } from '../props.js';
-import { activityBlocked } from '../participation.js';
+import { activityBlocked, onActivityCancel } from '../participation.js';
 import { makeWaterMaterial } from '../../water.js';
 import { emitActivity, seasonal, waterPoly, fairyLights, gableRoof, glowText, nightLit } from './bel-common.js';
 
@@ -114,6 +114,7 @@ export default {
         // ---------------------------------------------------------------- activities (note 57)
         // 1) cross the ravine suspension bridge (end to end)
         let crossing = null, crossed = false;
+        onActivityCancel(ctx, () => { crossing = null; });
         const span = Math.hypot(bridge.B.x - bridge.A.x, bridge.B.z - bridge.A.z);
         ctx.extras.botanicalBridge = { A: bridge.A, B: bridge.B, debug: () => crossing && { ...crossing } };
         ctx.onUpdate((dt, s, p) => {

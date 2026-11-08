@@ -14,7 +14,8 @@
 //  Activities (note 57): walk the half-mile loop (timer + steps); toss a coin.
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
-import { GeoBatch, rng, headingFromBearing, smooth, lerp, clamp, inPoly, polyBox, canvas, canvasTexture } from '../kit.js';
+import { GeoBatch, rng, headingFromBearing, smooth, lerp, clamp, inPoly, polyBox, canvas, canvasTexture, distPolyline } from '../kit.js';
+import { coinDrop } from '../coin-drop.js';
 import { meshSDF, sdCapsule, sdEllipsoid, smin, smax, noise3 } from '../sdf.js';
 import { seattleBackdrop } from '../backdrop.js';
 import { addTraffic } from '../cars.js';
@@ -182,9 +183,12 @@ export default {
         addTraffic(ctx, { lanes: [{ pts: [[134, 300], [138, 120], [140, 20], [142, -150]], n: 4, speed: 9 }, { pts: [[-300, -60], [-140, -60], [-30, -58], [120, -58]], n: 3, speed: 8 }] });
         // ---------------------------------------------------------------- activities (note 57)
         // 1) the half-mile loop: walk the full promenade ring (timer + steps), any direction
-        const loop = { acc: 0, last: null, t0: 0, marks: 0, done: false };
+        const loop = { acc: 0, last: null, previous:null, armed:false, t0: 0, marks: 0, done: false };
         ctx.onUpdate((dt, s, pl2) => {
-            if (!pl2 || loop.done) return; const rr = Math.hypot(pl2.x - C.x, pl2.z - C.z);
+            if (!pl2 || loop.done || !loop.armed) return;
+            const previous=loop.previous;loop.previous={x:pl2.x,z:pl2.z};
+            if(!s.ctl.active || previous && Math.hypot(pl2.x-previous.x,pl2.z-previous.z)>Math.max(1,dt*6)){loop.acc=0;loop.marks=0;loop.last=null;return;}
+            const rr = Math.hypot(pl2.x - C.x, pl2.z - C.z);
             if (rr < R - 12 || rr > R + 26) { loop.last = null; return; }
             const a = ang(pl2.x, pl2.z);
             if (loop.last === null) { loop.last = a; if (!loop.t0) loop.t0 = s.t; return; }
@@ -193,11 +197,15 @@ export default {
             if (q > loop.marks && q < 4) { loop.marks = q; s.ui.toast(`🚶 Loop ${q}/4`, `${Math.round(Math.abs(loop.acc) * (R + 8))} m of the half-mile promenade`); }
             if (Math.abs(loop.acc) >= TAU) { loop.done = true; const secs = Math.round(s.t - loop.t0), m = Math.round(TAU * (R + 8)); emitActivity(s, 'bel-downtown-park', 'loop', '🏁 Half a mile round', `${m} m in ${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')} — about ${Math.round(m / 0.75)} steps.`); }
         });
-        { const st = { x: C.x + Math.cos(A_N + 0.35) * (R + 8), z: C.z + Math.sin(A_N + 0.35) * (R + 8) }; ctx.interactables.push({ kind: 'activity', x: st.x, z: st.z, r: 3, label: 'Walk the half-mile loop (promenade ring)', use: (s) => { loop.acc = 0; loop.marks = 0; loop.last = null; loop.t0 = s.t; s.ui.toast('🚶 Half-mile loop', 'Follow the promenade all the way round the canal — the timer runs from here.'); } }); }
+        { const st = { x: C.x + Math.cos(A_N + 0.35) * (R + 8), z: C.z + Math.sin(A_N + 0.35) * (R + 8) }; ctx.interactables.push({ kind: 'activity', x: st.x, z: st.z, r: 3, label: 'Walk the half-mile loop (promenade ring)', use: (s) => { loop.armed=true;loop.previous=null;loop.acc = 0; loop.marks = 0; loop.last = null; loop.t0 = s.t; s.ui.toast('🚶 Half-mile loop', 'Follow the promenade all the way round the canal — the timer runs from here. Travel or a discontinuous position change resets the loop.'); } }); }
         // 2) toss a coin into the reflecting pool
-        const pc = pool.length ? { x: (pb.x0 + pb.x1) / 2, z: (pb.z0 + pb.z1) / 2 } : { x: -120, z: 150 };
         const coinAt = { x: C.x + Math.cos(2.15) * (R + 7), z: C.z + Math.sin(2.15) * (R + 7) };
-        ctx.interactables.push({ kind: 'coin', x: coinAt.x, z: coinAt.z, r: 8, label: 'Toss a coin into the reflecting pool', use: (s) => { s.sound.play('coin'); s.ui.toast('🪙 Plink', 'Make a wish — the waterfall behind is 240 ft wide.'); } });
+        let coinTarget=null,coinDistance=Infinity;
+        for(let x=pb.x0+1;x<pb.x1;x+=2)for(let z=pb.z0+1;z<pb.z1;z+=2){if(!inPoly(x,z,pool)||distPolyline(x,z,[...pool,pool[0]]).d<1.5)continue;const d=Math.hypot(x-coinAt.x,z-coinAt.z);if(d<coinDistance){coinDistance=d;coinTarget=new THREE.Vector3(x,POOL_Y+.025,z);}}
+        if(coinTarget){const toss=coinDrop(ctx,coinTarget,{title:'Reflecting-pool coin practice',action:'Toss the virtual coin',arc:1,water:true,
+            help:'Try a virtual coin toss beside the mapped reflecting pool. Release it and watch the arc and ripple. The game prop disappears; no money is left in the real pool. Leave or Esc puts it away.',
+            onDone:s=>s.ui.toast('🪙 Coin practice complete','You watched the virtual coin land and make a ripple in the mapped reflecting pool.')});ctx.extras.downtownCoin=toss;
+            ctx.interactables.push({kind:'coin',x:coinAt.x,z:coinAt.z,r:3,source:'w1326469177',label:'Toss a virtual coin beside the pool',use:s=>toss.start(s)});}
         // ---------------------------------------------------------------- plaques, postcard, crowd, sound, spawn
         const PL = sp.plaques, onRing = (a, off) => ({ x: C.x + Math.cos(a) * (R + off), z: C.z + Math.sin(a) * (R + off) });
         const face = (p) => Math.atan2(C.x - p.x, C.z - p.z) + Math.PI;

@@ -2348,7 +2348,7 @@ class Pedestrians {
             else if (p.state === 'walk') {
                 if (!p.e) { p.state = 'stand'; continue; }
                 p.s += p.speed * dt * p.dir;
-                if (p.walkOff) { const k = Math.min(Math.abs(p.walkOff), 0.35 * dt); p.walkOff -= Math.sign(p.walkOff) * k; } // drift back to the sidewalk line
+                if (p.walkOff && !(p.passT > 0)) { const k = Math.min(Math.abs(p.walkOff), 0.35 * dt); p.walkOff -= Math.sign(p.walkOff) * k; } // drift back to the sidewalk line
                 const e = p.e;
                 const endNode = p.dir > 0 ? e.b : e.a;
                 const ins = Math.min(this.inset(endNode), e.len * 0.45);
@@ -2361,8 +2361,20 @@ class Pedestrians {
                 if (!leg) { p.state = 'walk'; continue; }
                 if (leg.cross && !leg.started) {
                     p.state = 'wait'; p.waitT += dt;
-                    if (this.safeToCross(leg, p.waitT, p)) { leg.started = true; leg.sx = p.x; leg.sz = p.z; leg.len = Math.hypot(leg.x - p.x, leg.z - p.z); p.state = 'legs'; p.waitT = 0; p.crossT = 0; }
-                    else {
+                    // (a full queue at this kerb — six already waiting: a crowd piled up at one corner): walk on instead
+                    if (!leg.slot && this.list.filter(o => o !== p && o.state === 'wait' && Math.abs(o.x - p.x) < 3.5 && Math.abs(o.z - p.z) < 3.5).length >= 6) {
+                        const e0 = p.e, s0 = clamp(p.s, 0, e0.len), o0 = this.off(e0, p.side) * p.side; // (walk back to the sidewalk they came along)
+                        p.legs = [{ x: e0.a.x + e0.dirx * s0 + e0.nx * o0, z: e0.a.z + e0.dirz * s0 + e0.nz * o0 }]; p.next = { e: e0, dir: -p.dir, side: p.side, s: s0 };
+                        p.state = 'legs'; p.waitT = 0; p.legBest = undefined; p.legStall = 0; continue;
+                    }
+                    if (!leg.slot) this.waitSlot(p, leg);
+                    if (this.safeToCross(leg, p.waitT, p)) {
+                        p.shuffle = false; leg.started = true; leg.sx = p.x; leg.sz = p.z; leg.len = Math.hypot(leg.x - p.x, leg.z - p.z); p.state = 'legs'; p.waitT = 0; p.crossT = 0;
+                    } else {
+                        // step to the queue spot (a few small steps, walking animation)
+                        const sl = leg.slot, sx = sl.x - p.x, sz = sl.z - p.z, sd = Math.hypot(sx, sz);
+                        if (sd > 0.08 && p.waitT > 3) { sl.x = p.x; sl.z = p.z; } // (someone stands in the way: wait here)
+                        p.shuffle = sd > 0.08 && p.waitT <= 3; if (p.shuffle) { const k = Math.min(sd, 0.9 * dt) / sd; p.x += sx * k; p.z += sz * k; }
                         p.heading = Math.atan2(-(leg.x - p.x), -(leg.z - p.z));
                         // waiting at the kerb: never in a carriageway (a push by a car, a corner inside another road)
                         if ((p.i + this._fr) % 30 === 0) this.kerbClamp(p);
@@ -2432,7 +2444,7 @@ class Pedestrians {
                 }
             }
         }
-        this.separate();
+        this.separate(dt);
         if (this._fr % 15 === 0) this.countObstacleOverlaps();
         this.writeMatrices(dt);
     }
@@ -2442,9 +2454,10 @@ class Pedestrians {
      * pass on their right), anyone else is moved directly; someone talking to the walker / an officer / a reacting
      * passer-by holds their spot and the other one makes room.
      */
-    separate() {
+    separate(dt = 1 / 30) {
         const D = PED_R * 2, grid = this.grid;
         const fixed = (p) => p.talkT > 0 || !!p.agent || !!p.react;
+        for (const p of this.list) { p._ov = 0; if (p.passT > 0) p.passT -= dt; }
         for (const p of this.list) {
             if (p.state === 'down') continue;
             grid.query(p.x, p.z, D, (q) => {
@@ -2453,22 +2466,93 @@ class Pedestrians {
                 if (d < 1e-3) { const a = (p.i * 2.399) % 6.283; dx = Math.cos(a); dz = Math.sin(a); } else { dx /= d; dz /= d; }
                 const fp = fixed(p), fq = fixed(q); if (fp && fq) return;
                 const ov = D - d, kp = fq ? 1 : fp ? 0 : 0.5, kq = 1 - kp;
+                if (ov > 0.15) { p._ov = Math.max(p._ov, ov); q._ov = Math.max(q._ov, ov); }
                 this.sepPush(p, -dx * ov * kp, -dz * ov * kp, q);
                 this.sepPush(q, dx * ov * kq, dz * ov * kq, p);
             });
         }
+        // (2026-11-08, owner: "people still get stuck in each other ... they eventually respawn/despawn but it looks bad")
+        // still inside someone after 2 s (pinned between a facade and the kerb, a pile at a corner): walkers step past on the
+        // other sidewalk line, anyone else steps to the nearest free spot; after 8 s and out of the player's sight, moved
+        // elsewhere (a last resort: a person vanishing in view looks worse than a short overlap)
+        const P = this.t.player;
+        for (const p of this.list) {
+            if (p.state === 'down') continue;
+            if (!p._ov) { p.ovT = Math.max(0, (p.ovT || 0) - dt * 2); if (p.ovT < 0.5) p.unpiled = false; continue; }
+            p.ovT = (p.ovT || 0) + dt;
+            if (p.ovT > 2 && !p.unpiled && !fixed(p)) {
+                p.unpiled = true;
+                if (p.state === 'walk' && p.e) { p.s += p.dir * 0.7; p.walkOff = (p.walkOff || 0) > 0.4 ? 0 : Math.min(0.8, this.maxOut(p.e, p.side)); p.passT = 2; this.placeWalk(p); }
+                else this.unpile(p, 1.2);
+            }
+            if (p.ovT > 8 && P && !fixed(p)) {
+                const dx = p.x - P.x, dz = p.z - P.z, d = Math.hypot(dx, dz);
+                if (d > 70 || (d > 25 && dx * (P.fx || 0) + dz * (P.fz || 0) < 0)) {
+                    p.ovT = 0; p.unpiled = false; this.relocate(p, this.t.large ? 120 : 30, this.t.large ? 420 : 200, true);
+                    this.t.stats.pedUnclump = (this.t.stats.pedUnclump || 0) + 1;
+                }
+            }
+        }
+    }
+    /**
+     * (2026-11-08, owner: a dozen walkers piled into one spot at a corner) everyone waiting to cross used to stand on the
+     * same kerb point: each gets a free spot of a small queue grid there (along the kerb, then rows back from it), ≥ 0.7 m
+     * from the others, and crosses on a parallel line (the far end shifted by the same amount along the kerb)
+     */
+    waitSlot(p, leg) {
+        const cx = leg.x - p.x, cz = leg.z - p.z, cl = Math.hypot(cx, cz) || 1, ux = cx / cl, uz = cz / cl, tx = -uz, tz = ux;
+        const LAT = [0, 0.8, -0.8, 1.6, -1.6, 2.4, -2.4], BACK = [0, 0.75, 1.5, 2.25];
+        let pick = null;
+        for (const b of BACK) {
+            for (const l of LAT) {
+                const x = p.x + tx * l - ux * b, z = p.z + tz * l - uz * b;
+                if (this.list.some(o => o !== p && o.state !== 'down' && Math.hypot((o.state === 'wait' && o.legs[0]?.slot ? o.legs[0].slot.x : o.x) - x, (o.state === 'wait' && o.legs[0]?.slot ? o.legs[0].slot.z : o.z) - z) < 0.7 && Math.abs(o.x - x) < 3 && Math.abs(o.z - z) < 3)) continue;
+                if (this.roadAt(x, z, 0.35) || this.obsDepth(x, z) > 0 || this.inWater(x, z)) continue;
+                pick = { x, z, l }; break;
+            }
+            if (pick) break;
+        }
+        leg.slot = pick || { x: p.x, z: p.z, l: 0 };
+        if (leg.slot.l) { // cross on a parallel line: the far end moves along the kerb by the same amount
+            const q = { x: leg.x + tx * leg.slot.l, z: leg.z + tz * leg.slot.l };
+            if (!this.roadAt(q.x, q.z, 0.35) && !(this.obsDepth(q.x, q.z) > 0)) { leg.x = q.x; leg.z = q.z; }
+        }
+    }
+    /** the free spot nearest to p (>= 0.7 m from everyone, off the carriageway, clear of obstacles) within r; moves p there */
+    unpile(p, r) {
+        let best = null;
+        for (let ring = 1; ring <= 3 && !best; ring++) {
+            const rr = r * ring / 3, n = 6 + ring * 2;
+            for (let k = 0; k < n; k++) {
+                const a = (k / n + p.i * 0.137) * 6.2832, x = p.x + Math.cos(a) * rr, z = p.z + Math.sin(a) * rr;
+                if (this.near(x, z, 0.7).some(o => o !== p)) continue;
+                if (this.roadAt(x, z, 0.4) || this.obsDepth(x, z) > 0 || this.inWater(x, z)) continue;
+                best = { x, z }; break;
+            }
+        }
+        if (best) { p.x = best.x; p.z = best.z; }
+        return !!best;
     }
     sepPush(p, px, pz, other) {
         if (!px && !pz) return;
         if (p.state === 'walk' && p.e) {
             const e = p.e, k = Math.hypot(px, pz);
             let o = (px * e.nx + pz * e.nz) * p.side; // lateral share, in walkOff units (+ = away from the road)
+            const head = other.state === 'walk' && other.e === e && other.dir !== p.dir;
             if (Math.abs(o) < k * 0.5) { // (mostly along the line: one behind / in front of the other) → step aside
-                const head = other.state === 'walk' && other.e === e && other.dir !== p.dir;
+                // (the two always step to opposite sides: chosen by index parity both often went the same way and stayed
+                // inside each other)
                 const right = p.side * p.dir > 0 ? 1 : -1; // walking on the road's right: their right is away from the road
-                o = k * (head ? right : (p.i & 1 ? 1 : -1));
+                const lat = ((other.x - p.x) * e.nx + (other.z - p.z) * e.nz) * p.side; // where the other one is, across the line
+                o = k * (head ? right : Math.abs(lat) > 0.04 ? -Math.sign(lat) : (p.i < other.i ? 1 : -1));
+                // the one behind (same way) also holds back: nobody walks through the one in front
+                if (!head) p.s += px * e.dirx + pz * e.dirz;
             }
-            p.walkOff = clamp((p.walkOff || 0) + o, -0.6, 3);
+            const before = p.walkOff || 0, hi = Math.max(-0.6, Math.min(3, this.maxOut(e, p.side)));
+            p.walkOff = clamp(before + o, -0.6, hi);
+            // no room on that side (the facade / the kerb): step the other way past them instead
+            if (Math.abs(p.walkOff - before) < Math.abs(o) * 0.3) p.walkOff = clamp(before - o, -0.6, hi);
+            p.passT = 1.2; // (no drifting back onto the line while passing)
             this.placeWalk(p);
         } else { p.x += px; p.z += pz; }
     }
@@ -2511,6 +2595,10 @@ class Pedestrians {
             legs.push({ x: P2.x, z: P2.z });
             // every kerb point of the plan (corner, crossing ends, next sidewalk) outside all carriageways: at
             // tight / skewed junctions a sidewalk-line point can fall inside another road
+            // (2026-11-08) everyone turning at a corner aimed at the same point and piled up round it: each walker aims at
+            // their own point within ~0.5 m of it (the crossing end gets its queue spot / parallel line in waitSlot)
+            const dS = (this.rng() - 0.5) * 1.2, s2 = clamp(P2.s + dS, 0, g.len); legs[legs.length - 1].x += g.dirx * (s2 - P2.s); legs[legs.length - 1].z += g.dirz * (s2 - P2.s); P2.s = s2; // (the last point slides along the line only: no snap onto it)
+            for (let k = 0; k < legs.length - 1; k++) if (!legs[k].cross) { const L = legs[k], a = (p.i * 2.399 + this.rng() * 1.5) % 6.2832, r = 0.15 + this.rng() * 0.4; L.x += Math.cos(a) * r; L.z += Math.sin(a) * r; }
             for (const L of legs) { const q = { x: L.x, z: L.z }; if (this.kerbClamp(q)) { L.x = q.x; L.z = q.z; } if (this.obsClamp(q)) { L.x = q.x; L.z = q.z; } }
 
             p.legs = legs; p.state = 'legs'; p.next = { e: g, dir: og, side: useA ? 1 : -1, s: P2.s };
@@ -2580,7 +2668,7 @@ class Pedestrians {
         for (const p of this.list) {
             const s = p.scale;
             if (p.state === 'down') { C.set(p.i, { x: p.x, y: footY(p), z: p.z, scale: s, down: true, fallDir: p.fallDir }); continue; }
-            const talking = p.talkT > 0, moving = !talking && (p.agent || p.react ? !!p.moving : p.state === 'walk' || p.state === 'legs');
+            const talking = p.talkT > 0, moving = !talking && (p.agent || p.react ? !!p.moving : p.state === 'walk' || p.state === 'legs' || (p.state === 'wait' && p.shuffle));
             const bob = moving ? Math.abs(Math.sin(p.phase)) * 0.03 : 0;
             C.set(p.i, { x: p.x, y: footY(p) + bob, z: p.z, yaw: p.heading, phase: p.phase, amp: moving ? 1 : 0, scale: s, pose: talking ? (p.talkWave > 0 ? 4 : 7) : moving ? 0 : (p.pose || 0), prop: moving || talking ? null : (p.prop || null) });
         }

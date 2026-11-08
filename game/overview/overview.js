@@ -17,7 +17,7 @@ function compareLink(location,label,{lat,lon,targetLabel,scope='core'}={}) {
   return `<a href="?${esc(params.toString())}#comparisons" data-compare-location="${esc(location)}" data-compare-scope="${esc(scope)}"${extra}>${esc(label)}</a>`;
 }
 let viewer, landmarkEvidence, spotEvidence;
-const contextReady = import('./perspective-viewer.js').then(({mountPerspectiveViewer}) => mountPerspectiveViewer($('#perspective-viewer'))).catch(() => null);
+const contextReady = import('./perspective-viewer.js').then(({mountPerspectiveViewer}) => mountPerspectiveViewer($('#perspective-viewer'),{onLocation:id=>comparisonReady.then(control=>control?.setLocation(id))})).catch(() => null);
 const comparisonReady=import('./comparison-viewer.js').then(async ({mountComparisonViewer})=>{
   viewer=await mountComparisonViewer($('#comparison-viewer'),{baseURL:new URL('./comparison-data/',import.meta.url),onLocation:id=>contextReady.then(control=>control?.show(id))});
   return viewer;

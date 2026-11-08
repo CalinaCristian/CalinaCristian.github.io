@@ -1,6 +1,6 @@
 // Street/drone context is game-only evidence. It must never inherit the aerial
 // viewer's north-up, equal-ground-square or matched-reference labels.
-export async function mountPerspectiveViewer(element, { baseURL = new URL('./comparison-data/', import.meta.url) } = {}) {
+export async function mountPerspectiveViewer(element, { baseURL = new URL('./comparison-data/', import.meta.url), onLocation = () => {} } = {}) {
   const base = new URL(baseURL, document.baseURI), cache = new Map();
   let sequence = 0, selected = '', disposed = false;
   const node = (tag, text, className) => { const el = document.createElement(tag); if (text !== undefined) el.textContent = text; if (className) el.className = className; return el; };
@@ -20,7 +20,7 @@ export async function mountPerspectiveViewer(element, { baseURL = new URL('./com
     catalog = await get(new URL('catalog.json', base));
     for (const place of catalog.locations) { const option = node('option', place.label); option.value = place.id; select.append(option); }
   } catch { content.append(node('p', 'Street and drone context collections are unavailable in this copy.', 'notice')); return controller; }
-  select.addEventListener('change', () => show(select.value));
+  select.addEventListener('change', () => { show(select.value); onLocation(select.value); });
   await show(new URL(location.href).searchParams.get('compareLocation') || catalog.locations[0]?.id);
   return controller;
 

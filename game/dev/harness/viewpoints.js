@@ -211,6 +211,7 @@ function topdownPoses(o) {
             const g = window.game, S = window.vqa.S, p = g.city.proj(v.lat, v.lon), cam = g.camera;
             if (g.player?.rig) g.player.rig.visible = false;
             g.scene.add(cam);
+            if (g.world) g.world.camera = cam; // (distance culling follows this camera: with a narrow fov the world picked a wider one elsewhere)
             const gy = (g.world.groundAt?.(p.x, p.z)) ?? 0;
             cam.position.set(p.x, (Number.isFinite(gy) ? gy : 0) + (v.h ?? 2.6), p.z);
             const yaw = -(v.heading ?? 0) * Math.PI / 180; // game: x east, z south, camera looks −z (north) at yaw 0

@@ -58,6 +58,7 @@ export const ACTIVITIES = [
     ['herastrau-park', 'boat', 'Boat on Lake Herăstrău'], ['village-museum', 'farmhouse', 'Step into a farmhouse'],
     ['old-town-lipscani', 'wcp-bar', 'Hidden project'],
     ['old-town-lipscani', 'carusel', 'Climb Cărturești Carusel'], ['old-town-lipscani', 'curtea-veche', 'Old Princely Court'],
+    ['old-town-lipscani', 'dristor-shaorma', 'Eat a shaorma at Dristor Kebap'], ['old-town-lipscani', 'shoteria-shot', 'Pour, toast and drink at Shoteria'],
     ['palace-parliament', 'balcony', 'The balcony view'], ['palace-parliament', 'pace', 'Pace the esplanade'], ['peoples-salvation-cathedral', 'candle', 'Light a candle'], ['stavropoleos-cec', 'stavropoleos', 'Stavropoleos courtyard'],
     ['bel-meydenbauer', 'pier-end', 'Walk to the end of the pier'], ['bel-meydenbauer', 'kayak', 'Kayak on Meydenbauer Bay'], ['bel-downtown-park', 'loop', 'Walk the park loop'],
     ['bel-botanical-garden', 'bridge', 'Cross the suspension bridge'], ['bel-botanical-garden', 'plants', 'Garden plants'], ['bel-lincoln-square', 'badge-in', 'Badge in at UiPath'],
@@ -418,6 +419,7 @@ export class SpotSession {
     }
     async openMap() {
         if (this.ui.panelOpen || !this.map) return;
+        this.spot.ctx.extras.venueActivities?.cancel('map');
         if (this.input) { this.input.lookAllowed = false; this.input.releaseLock?.(); }
         this._refreshMarkers();
         const ICONS = { hero: '⭐', plaque: '📜', postcard: '📷', bike: '🚲', activity: '🎯' }, items = [], groups = new Map();
@@ -648,7 +650,7 @@ export class SpotSession {
         } catch (e) { if (!this._mapErr) { this._mapErr = true; console.warn('[spots] map/tour', e); } }
         if (!photo && !panel && this.input?.take?.('KeyM')) this.openMap(); // (G is the drone everywhere — round 6 note 14)
         // interactions (nearest within reach)
-        if (!photo && !panel) {
+        if (!photo && !panel && !this.spot.ctx.extras.venueActivities?.active) {
             let best = null, bd = 1e9;
             for (const it of this.spot.interactables) { if (it.cond && !it.cond(this)) continue; const d = Math.hypot(p.x - it.x, p.z - it.z); if (d < (it.r || 2) && d < bd && Math.abs((it.y ?? p.y) - p.y) < 3) { bd = d; best = it; } }
             this.ui.prompt(best ? `<kbd>E</kbd>${escapeHtml(typeof best.label === 'function' ? best.label(this) : best.label)}` : null);
@@ -681,12 +683,14 @@ export class SpotSession {
     /** move the walker to another spawn of the same scene (seattle-center: space-needle / chihuly / mopop) */
     teleport(spotId) {
         const s = this.spot.spawns[spotId], entry = spotById(spotId); if (!s || !entry) return;
+        this.spot.ctx.extras.venueActivities?.cancel('teleport');
         this.endTour(); this.ctl.teleport(s.x, s.z, s.heading);
         Object.assign(this.spot, { id: spotId, name: entry.name, entry, spawn: s });
         this.ui.setTitle(this.spot.name, `${placeLabel(this.spot)} · walk-only bonus`);
         this._updateChallengeText(); this._refreshMarkers();
     }
     dispose() {
+        this.spot?.ctx?.extras?.venueActivities?.cancel('exit');
         this.ctl?.exit(); this.ui?.dispose(); this.sound?.dispose(); this.spot?.dispose();
         this.r3d.setLamps?.([]);
         window.cvTelemetry?.track?.('spot_exit', { id: this.spot.id, seconds: Math.round(this.t) });

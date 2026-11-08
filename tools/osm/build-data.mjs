@@ -85,6 +85,7 @@ import { ShapeUtils, Vector2 } from '../../game/vendor/three.module.min.js';
 import { resolveRoadAccess } from '../../game/src/road-access.js';
 import { sourcePassages } from './source-passages.mjs';
 import { validRoadWidthReview, reviewedSingleLane, resolveRoadWidth } from '../../game/src/road-widths.js';
+import { resolveParkingLayout } from '../../game/src/parking-layout.js';
 import { distPointSeg, pointInPolygon, polyArea, polyCentroid, footprintMargin, simplifyIdx, simplifyRing, Grid, assembleRings } from './geom.mjs';
 import { buildCorridor } from './corridors.mjs';
 import { CITIES as GAME_CITIES } from '../../game/src/cities.js';
@@ -802,7 +803,7 @@ function buildCity(cityId, did = null) {
     };
     const areaRings = []; // {kind, name, rings:[outer, ...holes] in output coords}
     const ringPts = (ids) => { const pts = []; for (const n of ids) { const p = pt(n); if (!p) return null; pts.push(p); } return pts; };
-    const pushArea = (kind, name, outerIds, holesIds) => {
+    const pushArea = (kind, name, outerIds, holesIds, sourceId = '', sourceTags = {}) => {
         const outer = ringPts(outerIds); if (!outer) return;
         const tol = kind === 'water' ? 1.5 : 1.0;
         const so = simplifyRing(outer, tol, tol * 0.6, 2000); if (!so) return;
@@ -819,9 +820,10 @@ function buildCity(cityId, did = null) {
         if (!near && A > 2e4) for (const c of cor.circles) if (pointInPolygon(c.x, c.z, so)) { near = true; break; }
         if (!near && A > 2e4) for (const pc of cor.pieces) { for (let i = 0; i < pc.pts.length && !near; i += 15) near = pointInPolygon(pc.pts[i][0], pc.pts[i][1], so); if (near) break; }
         if (!near && !(kind === 'water' && A > 1e5)) return;
-        const holes = [];
-        for (const h of holesIds || []) { const hp = ringPts(h); if (!hp) continue; const sh = simplifyRing(hp, tol, tol * 0.6, 2000); if (sh && Math.abs(polyArea(sh)) > 20) holes.push(sh); }
-        areaRings.push({ kind, name: name || '', rings: [so, ...holes] });
+        const holes = [], rawHoles = [];
+        for (const h of holesIds || []) { const hp = ringPts(h); if (!hp) continue; if (Math.abs(polyArea(hp)) > 0) rawHoles.push(hp); const sh = simplifyRing(hp, tol, tol * 0.6, 2000); if (sh && Math.abs(polyArea(sh)) > 20) holes.push(sh); }
+        const openRing = r => r.length > 1 && r[0][0] === r.at(-1)[0] && r[0][1] === r.at(-1)[1] ? r.slice(0, -1) : r;
+        areaRings.push({ kind, name: name || '', rings: [so, ...holes], sourceId, sourceTags, ...(ds && kind === 'parking' ? { sourceParkingRings: [outer, ...rawHoles].map(openRing) } : {}) });
     };
     const relWays = new Set();
     for (const [id, r] of R) {
@@ -833,7 +835,7 @@ function buildCity(cityId, did = null) {
         for (const ring of o.rings) {
             const op = ringPts(ring); if (!op) continue;
             const holes = i2.rings.filter(h => { const hp = pt(h[0]); return hp && pointInPolygon(hp[0], hp[1], op); });
-            pushArea(kind, t.name, ring, holes);
+            pushArea(kind, t.name, ring, holes, 'r' + id, t);
         }
         if (o.open.length && kind === 'water') log('  water relation with open rings', id, t.name, o.open.length);
     }
@@ -842,7 +844,7 @@ function buildCity(cityId, did = null) {
         if (w.nodes.length < 4 || w.nodes[0] !== w.nodes[w.nodes.length - 1]) continue;
         const kind = areaKindOf(t); if (!kind) continue;
         if (relWays.has(id) && Object.keys(t).length <= 1) continue;
-        pushArea(kind, t.name, w.nodes, null);
+        pushArea(kind, t.name, w.nodes, null, 'w' + id, t);
     }
     // coastline (Puget Sound): chain ways (land left, water right) and close them clockwise around a box
     {
@@ -1905,6 +1907,19 @@ function buildCity(cityId, did = null) {
     log('backdrop boxes', backdrop.length / 6);
     const outP = pois.map(p => [POI_KINDS.indexOf(p.kind), Math.round(p.x * 10), Math.round(p.z * 10), S(p.name), S(p.brand), S(p.sub + (p.cuisine ? ':' + p.cuisine : '')), p.bIdx]);
     const outA = areaRings.map(a => [AREA_KINDS.indexOf(a.kind), S(a.name), ...a.rings.map(delta)]);
+    const parkingLayouts = {}, parkingLayoutAudit = [], parkingFootprints = Object.fromEntries(areaRings.flatMap((a,i) => a.sourceParkingRings ? [[i,a.sourceParkingRings]] : []));
+    if (ds) {
+        const file = path.join(REPO, 'game', 'research', `parking-layouts-${cityId}-${did}.json`);
+        let measurements = {};
+        try { if (fs.existsSync(file)) measurements = JSON.parse(fs.readFileSync(file, 'utf8')).lots || {}; } catch (e) { throw new Error(`Invalid parking layout research: ${e.message}`); }
+        for (let i = 0; i < areaRings.length; i++) {
+            const a = areaRings[i], record = measurements[a.sourceId];
+            if (a.kind !== 'parking' || !record) continue;
+            const result = resolveParkingLayout(record, a.sourceTags);
+            parkingLayoutAudit.push({ sourceId: a.sourceId, areaIndex: i, applied: !!result.layout, reason: result.reason });
+            if (result.layout) parkingLayouts[i] = { sourceId: a.sourceId, ...result.layout };
+        }
+    }
     const outT = [];
     for (const pl of tramLines) { // clip to the corridors
         let run = [];
@@ -1919,7 +1934,7 @@ function buildCity(cityId, did = null) {
         bounds: [minX, minZ, maxX, maxZ],
         classes: ROAD_CLASSES, styles: STYLES, roofs: ROOFS, poiKinds: POI_KINDS, areaKinds: AREA_KINDS, lineKinds: LINE_KINDS, furnKinds: FURN_KINDS,
         strings, ...(Object.keys(outBuildingRoofSurfaces).length ? { buildingRoofSurfaces: outBuildingRoofSurfaces, buildingRoofGeometryPoints: roofGeometryPoints } : {}),
-        nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, roadInfo, rampLimits, vacant, buildings: outB, ...(ds ? { buildingRoofProfiles: outBuildingRoofProfiles } : {}), ...(Object.keys(outBuildingDimensions).length ? { buildingDimensions: outBuildingDimensions } : {}), ...(Object.keys(outBuildingFootprints).length ? { buildingFootprints: outBuildingFootprints } : {}), buildingInfo: outBInfo, ...(Object.keys(outBuildingCanopies).length ? { buildingCanopies: outBuildingCanopies } : {}), ...(Object.keys(outBuildingSourceIssues).length ? { buildingSourceIssues: outBuildingSourceIssues } : {}), ...(ds ? { buildingIds: buildings.map(b => b.t?.__id || '') } : {}), ...(Object.keys(outBuildingHoles).length ? { buildingHoles: outBuildingHoles } : {}), ...(Object.keys(outBuildingCoveredBy).length ? { buildingCoveredBy: outBuildingCoveredBy } : {}), ...(Object.keys(outBuildingAssemblies).length ? { buildingAssemblies: outBuildingAssemblies } : {}), ...(unionBodies.length ? { buildingUnions: outBuildingUnions } : {}), ...(geometryPoints.length ? { buildingGeometryPoints: geometryPoints } : {}), pois: outP, areas: outA, lines: outLines, places, lamps,
+        nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, roadInfo, rampLimits, vacant, buildings: outB, ...(ds ? { buildingRoofProfiles: outBuildingRoofProfiles } : {}), ...(Object.keys(outBuildingDimensions).length ? { buildingDimensions: outBuildingDimensions } : {}), ...(Object.keys(outBuildingFootprints).length ? { buildingFootprints: outBuildingFootprints } : {}), buildingInfo: outBInfo, ...(Object.keys(outBuildingCanopies).length ? { buildingCanopies: outBuildingCanopies } : {}), ...(Object.keys(outBuildingSourceIssues).length ? { buildingSourceIssues: outBuildingSourceIssues } : {}), ...(ds ? { buildingIds: buildings.map(b => b.t?.__id || '') } : {}), ...(Object.keys(outBuildingHoles).length ? { buildingHoles: outBuildingHoles } : {}), ...(Object.keys(outBuildingCoveredBy).length ? { buildingCoveredBy: outBuildingCoveredBy } : {}), ...(Object.keys(outBuildingAssemblies).length ? { buildingAssemblies: outBuildingAssemblies } : {}), ...(unionBodies.length ? { buildingUnions: outBuildingUnions } : {}), ...(geometryPoints.length ? { buildingGeometryPoints: geometryPoints } : {}), pois: outP, areas: outA, ...(ds ? { areaSourceIds: areaRings.map(a => a.sourceId || '') } : {}), ...(Object.keys(parkingFootprints).length ? { parkingFootprints } : {}), ...(Object.keys(parkingLayouts).length ? { parkingLayouts } : {}), ...(parkingLayoutAudit.length ? { parkingLayoutAudit } : {}), lines: outLines, places, lamps,
         ...(rawRailways.length ? { railways: rawRailways.map(r => ({ id: r.id, nodeIds: r.nodeIds, tags: r.tags, points: delta(r.pts) })) } : {}),
         ...(outTreeCrownRadii.some(r => r > 0) ? { treeCrownRadii: outTreeCrownRadii } : {}), ...(treeRetention ? { treeRetention } : {}),
         trees: outTrees, treeInfo: outTreeInfo, furniture: outFurn, backdrop, ...(ds ? { scenery: outScenery } : {}), ...(outGreen ? { green: outGreen } : {}),

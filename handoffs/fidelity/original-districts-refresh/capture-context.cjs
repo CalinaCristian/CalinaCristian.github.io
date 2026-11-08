@@ -122,23 +122,25 @@ const mime={'.html':'text/html','.js':'text/javascript','.json':'application/jso
     if(arg('only'))views=views.filter(v=>arg('only').split(',').some(token=>v.id.includes(token)));
     const results=[];
     for(const view of views){
-      const observed=await page.evaluate(v=>{
-        const g=game,S=vqa.S,cam=g.camera;
+      const observed=await page.evaluate(async v=>{
+        const THREE=await import('./vendor/three.module.min.js'),g=game,S=vqa.S,cam=g.camera;
         g.player.place(v.x,v.z,0);g.traffic.setPlayer(g.player);for(let i=0;i<30;i++)g.traffic.update(1/30);g.traffic.peds?.writeMatrices?.();
         g.scene.add(cam);g.world.camera=cam;if(g.player.rig)g.player.rig.visible=false;
         const ground=g.world.groundAt?.(v.x,v.z)||0;cam.position.set(v.x,ground+v.y,v.z);cam.lookAt(...v.target);cam.fov=v.fov;cam.aspect=1.5;cam.updateProjectionMatrix();cam.updateMatrixWorld(true);
         vqa.hideHud(true);for(const el of document.body.children)if(el!==g.renderer.domElement&&!el.contains(g.renderer.domElement))el.style.visibility='hidden';
         S.renderNow=true;try{g.drawFrame({mirror:false});g.renderer.info.reset();g.drawFrame({mirror:false});}finally{S.renderNow=false;}
         const p=window.contextProjection;
+        const direction=cam.getWorldDirection(new THREE.Vector3());
+        const heading=(Math.atan2(direction.x,-direction.z)*180/Math.PI+360)%360,pitch=Math.asin(Math.max(-1,Math.min(1,direction.y)))*180/Math.PI;
         const nearPeds=(g.traffic.peds?.list||[]).filter(p=>Math.hypot(p.x-v.x,p.z-v.z)<60).map(p=>({x:p.x,z:p.z,state:p.state,onRoad:p.onRoad,sourceRoadId:g.world.data.roadSourceGeometry?.[p.e?.road]?.sourceId??null}));
-        return {cameraY:cam.position.y,groundY:ground,perf:{...g.r3d.stats},inPlayable:g.world.district.inside(v.x,v.z),inFlightEnvelope:window.contextFlightBoundary.allowed({x:v.x,z:v.z}),distanceFromFlightDomainM:window.contextFlightBoundary.sample(v.x,v.z).distance,pedestriansWithin60m:nearPeds,vehiclesWithin60m:g.traffic.vehicles.filter(c=>Math.hypot(c.x-v.x,c.z-v.z)<60).length,lat:p.lat0-v.z/p.mPerLat,lon:p.lon0+v.x/p.mPerLon};
+        return {cameraY:cam.position.y,groundY:ground,heading,pitch,aspect:cam.aspect,pose:{x:cam.position.x,y:cam.position.y,z:cam.position.z,heading,pitch,fov:cam.fov,aspect:cam.aspect,quaternion:cam.quaternion.toArray()},perf:{...g.r3d.stats},inPlayable:g.world.district.inside(v.x,v.z),inFlightEnvelope:window.contextFlightBoundary.allowed({x:v.x,z:v.z}),distanceFromFlightDomainM:window.contextFlightBoundary.sample(v.x,v.z).distance,pedestriansWithin60m:nearPeds,vehiclesWithin60m:g.traffic.vehicles.filter(c=>Math.hypot(c.x-v.x,c.z-v.z)<60).length,lat:p.lat0-v.z/p.mPerLat,lon:p.lon0+v.x/p.mPerLon};
       },view);
       const image='images/'+view.id+'.jpg';await page.screenshot({path:path.join(out,image),type:'jpeg',quality:88,timeout:180000});
-      results.push({...view,...observed,image,width:960,height:640,gameSourceCommit:commit,capturedAt:new Date().toISOString(),sha256:hash(fs.readFileSync(path.join(out,image)))});
+      results.push({...view,...observed,image,width:960,height:640,gameSourceCommit:commit,capturedAt:new Date().toISOString(),sha256:hash(fs.readFileSync(path.join(out,image))),captureType:'game-perspective-context',comparisonCompatible:false,staticCamera:true,controllerExercised:false,condition:{season,weather,time,quality:'high',traffic:true,mirror:false}});
       write('progress.json',{captured:results.length,total:views.length,last:view.id});console.log('capture',results.length+'/'+views.length,view.id);
     }
     write('world-stats.json',await page.evaluate(()=>game.world.stats));
-    write('manifest.json',{gameSourceCommit:commit,district,season,weather,time,quality:'high',traffic:true,mirror:false,scope:'Game-only static cameras in the complete running district. Outward envelope poses do not exercise the drone controller. Counts are per camera and are separate from full driving/mirror budget acceptance.',loaded,pageErrors:errors,consoleErrors,items:results});
+    write('manifest.json',{schemaVersion:1,captureType:'game-perspective-context',comparisonCompatible:false,gameSourceCommit:commit,district,season,weather,time,quality:'high',traffic:true,mirror:false,scope:'Game-only static cameras in the complete running district. Outward envelope poses do not exercise the drone controller. Counts are per camera and are separate from full driving/mirror budget acceptance.',loaded,pageErrors:errors,consoleErrors,items:results});
     if(errors.length||consoleErrors.length)process.exitCode=1;
   } finally {await browser.close();await new Promise(resolve=>server.close(resolve));}
 })().catch(error=>{console.error(error);process.exitCode=1;});

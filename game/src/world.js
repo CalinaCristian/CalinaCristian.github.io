@@ -592,8 +592,10 @@ export async function buildWorld(city, renderer, opts = {}) {
     const roads = data.roads.map((r, ri) => {
         const cls = data.classes[r[1]];
         const flags = r[8];
+        const shared = data.sharedLanes?.[ri];
         return {
-            index: ri, name: str(r[0]), type: cls, lanesF: r[2], lanesB: r[3], median: r[4] / 10, laneW: r[5] / 10, sidewalk: r[6] / 10,
+            index: ri, name: str(r[0]), type: cls, lanesF: r[2], lanesB: r[3], median: shared ? 0 : r[4] / 10, laneW: shared ? shared.widthM / 2 : r[5] / 10, sidewalk: r[6] / 10,
+            sharedLane: !!shared, sharedLaneWidthM: shared?.widthM, sharedLaneSource: shared,
             maxspeed: r[7] / 3.6, flags, layer: r[9], ids: r.slice(10),
             oneway: !!(flags & 1), bridge: !!(flags & 2), tunnel: !!(flags & 4), roundabout: !!(flags & 8), busLane: !!(flags & 16),
             tram: !!(flags & 32), toll: !!(flags & 64), unpaved: !!(flags & 128), tramMedian: !!(flags & 256),
@@ -618,6 +620,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 name: rd.name || unnamed, type: rd.type, road: rd.index,
                 lanesF: rd.lanesF, lanesB: rd.oneway ? 0 : rd.lanesB, lanes: Math.max(rd.lanesF, rd.oneway ? 0 : rd.lanesB), oneway: rd.oneway,
                 laneW: rd.laneW, median, wR, wL, halfW: Math.max(wR, wL), sidewalk: rd.sidewalk,
+                sharedLane: rd.sharedLane, sharedLaneWidthM: rd.sharedLaneWidthM, sharedLaneSource: rd.sharedLaneSource,
                 maxspeed: rd.maxspeed, speed: rd.maxspeed, tram: rd.tram, tramMedian: rd.tramMedian, bridge: rd.bridge, tunnel: rd.tunnel, toll: rd.toll,
                 busLane: rd.busLane, roundabout: rd.roundabout, unpaved: rd.unpaved, layer: rd.layer, trafficMul: TRAFFIC_MUL[rd.type] ?? 0.5,
                 bikeLane: rd.bikeLane, cycleTrack: rd.cycleTrack, lit: rd.lit, unlit: rd.unlit,
@@ -2071,7 +2074,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 for (let i = 1; i < e.lanesB; i++) dashLine(m, e, s0, s1, -(med2 + e.laneW * i), yM, white, dash[0], dash[1], hw);
             }
             // centre
-            if (!e.oneway) {
+            if (!e.oneway && !e.sharedLane) {
                 const cc = US ? yellow : white;
                 if (e.median > 0.5) {
                     // median: tram bed or concrete divider
@@ -2228,7 +2231,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             const last = nodeArr[rd.ids[rd.ids.length - 1]], first = nodeArr[rd.ids[0]];
             for (const [end, lanes, fwd] of [[last, fw, true], [first, bw, false]]) {
                 if (!lanes.some(l => /left|right/.test(l)) || end.mapEnd || (end.allEdges || end.edges).length < 3) continue;
-                const e = es.find(f => f.b === end || f.a === end); if (!e || e.type === 'service') continue;
+                const e = es.find(f => f.b === end || f.a === end); if (!e || e.type === 'service' || e.sharedLane) continue;
                 const dirSign = e.b === end ? 1 : -1; // travel toward `end`
                 const n = dirSign > 0 ? e.lanesF : e.lanesB; if (!n || lanes.length !== n) continue;
                 const sStop = dirSign > 0 ? e.len - retract(e, e.b) - 9 : retract(e, e.a) + 9; if (sStop < 6 || sStop > e.len - 6) continue;
@@ -5292,7 +5295,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (e.oneway) dir = 1;
         const t = clamp(ne.t, 0.15, 0.85);
         city.spawn = { edge: [e.a.id, e.b.id], t, dir };
-        const lat = (e.median / 2 + e.laneW * 0.5) * dir;
+        const lat = e.sharedLane ? 0 : (e.median / 2 + e.laneW * 0.5) * dir;
         spawn = { x: e.a.x + e.dirx * e.len * t + e.nx * lat, z: e.a.z + e.dirz * e.len * t + e.nz * lat, heading: Math.atan2(-e.dirx * dir, -e.dirz * dir), edge: e, dir };
         spawn.y = Y.road + yAlong(e, spawn.x, spawn.z); // road surface at the spawn (the SeaTac departures drive is an elevated deck)
     }

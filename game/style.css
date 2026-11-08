@@ -837,3 +837,10 @@ body[data-mode=spot] .pad button[data-btn=foot], body[data-mode=spot] .pad butto
 #map-tip.show { display: block; }
 #map-route-hint { margin-top: 10px; color: #93c5fd; font: 600 13px system-ui, sans-serif; }
 #map-route-hint:empty { display: none; }
+/* hold-F fast travel ring (after round 6) */
+#ft-hold { position: fixed; left: 50%; top: 58%; transform: translate(-50%, -50%); z-index: 40; display: none; flex-direction: column; align-items: center; gap: 6px; pointer-events: none; font: 600 12px system-ui, sans-serif; color: #f1f5f9; text-shadow: 0 1px 3px rgba(0,0,0,.8); }
+#ft-hold.on { display: flex; }
+#ft-hold svg { width: 52px; height: 52px; transform: rotate(-90deg); }
+#ft-hold circle { fill: none; stroke-width: 4; }
+#ft-hold .bg { stroke: rgba(15,23,42,.55); }
+#ft-hold .fg { stroke: #fbbf24; stroke-dasharray: 113.1; stroke-dashoffset: 113.1; stroke-linecap: round; }

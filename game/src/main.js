@@ -691,7 +691,7 @@ class Game {
             if (Math.abs(player.speed) < 6) this.resetToRoad();
             else hud.toast('🛟 Slow down first', 'Reset to the road works below ~20 km/h.', 'warn');
         }
-        if (input.take('KeyF')) { this.fastTravelToObjective(); if (this.state !== 'drive') return; }
+        if (this.holdToTravel(input, dt)) { this.fastTravelToObjective(); if (this.state !== 'drive') return; }
         if (input.take('Enter') || input.take('NumpadEnter')) { if (this.exitCar()) return; }
         hud.update(dt, this.camera, city.id);
         this.audio.engine(empty ? player.speed * 0.3 : player.speed, empty ? 0 : input.throttle, dt);
@@ -787,7 +787,7 @@ class Game {
         const st = this.r3d.stats;
         const perf = st ? ` · ${st.quality}${st.fps ? ` · ${st.fps} fps` : ''}` : '';
         const lookTxt = input.lookMode === 'lock' ? (input.locked ? 'mouse look (Esc frees)' : 'click to look') : input.lookMode === 'hold' ? 'right-drag look' : '';
-        hud.setHint(this.touch ? perf.trim() : `W/S drive · A/D steer · Space brake · H horn · C look back${lookTxt ? ' · ' + lookTxt : ''} · M map & nav · F fast travel · R reset · N mini-map · L lights · E enter/refuel · Enter get out${DEV ? ' · B colliders' : ''}` + perf);
+        hud.setHint(this.touch ? perf.trim() : `W/S drive · A/D steer · Space brake · H horn · C look back${lookTxt ? ' · ' + lookTxt : ''} · M map & nav · hold F fast travel · R reset · N mini-map · L lights · E enter/refuel · Enter get out${DEV ? ' · B colliders' : ''}` + perf);
         // ---- HUD fuel / trip ----
         const frac = this.fuel / TANK_L;
         const fuelText = us ? `${Math.round(frac * 100)}% · ${(this.fuel / GAL).toFixed(1)} gal` : `${Math.round(frac * 100)}% · ${this.fuel.toFixed(1)} L`;
@@ -2364,6 +2364,20 @@ class Game {
     }
 
     // ---------------------------------------------------------------------------------- fast travel
+    /** (after round 6) F is held, not tapped: a ring fills for 1.2 s next to the screen centre and the jump happens only
+     *  when it completes; letting go earlier cancels (no accidental fast travel). Returns true on the frame it completes. */
+    holdToTravel(input, dt) {
+        input.take('KeyF');
+        const held = !!input.keys?.has?.('KeyF') && !!this.objective && !this.chapterDone, HOLD = 1.2;
+        let el = this._ftRing || document.getElementById('ft-hold');
+        if (el) this._ftRing = el;
+        if (!el) { el = this._ftRing = document.createElement('div'); el.id = 'ft-hold'; el.innerHTML = '<svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" class="bg"/><circle cx="22" cy="22" r="18" class="fg"/></svg><span></span>'; document.body.appendChild(el); }
+        if (!held) { if (this._ftT) { this._ftT = 0; el.classList.remove('on'); } return false; }
+        this._ftT = (this._ftT || 0) + dt; el.classList.add('on'); el.querySelector('span').textContent = 'Hold F · fast travel';
+        el.querySelector('.fg').style.strokeDashoffset = String(113.1 * (1 - Math.min(1, this._ftT / HOLD)));
+        if (this._ftT < HOLD) return false;
+        this._ftT = 0; el.classList.remove('on'); input.keys.delete?.('KeyF'); return true;
+    }
     fastTravelToObjective() {
         if (this.navManual && this.nav.dest) return this.fastTravel({ ...this.nav.dest });
         const o = this.objective;
@@ -2519,7 +2533,7 @@ class Game {
             this.hud.toast('✅ ' + stop.short + ' unlocked', `${this.visited.size}/${STOPS.length} chapters of the CV discovered`);
             this.updateObjective();
             if (stop.id === 'uipath-bel') setTimeout(() => this.finale(), 1200);
-            else if (this.objective) setTimeout(() => this.hud.toast('⏩ Press F to fast-travel to the next stop', `${this.objectivePlain} · or drive there yourself`, 'intro'), 1600);
+            else if (this.objective) setTimeout(() => this.hud.toast('⏩ Hold F to fast-travel to the next stop', `${this.objectivePlain} · or drive there yourself`, 'intro'), 1600);
         } else if (o.read.size === 0) this.hud.toast('💬 Nobody asked', 'Walk up to your host and press E to talk.');
         this.input.flush();
         this.player.speed = 0;

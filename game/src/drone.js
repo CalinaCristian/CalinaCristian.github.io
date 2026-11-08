@@ -283,7 +283,10 @@ export class Drone {
         if (inp.take('KeyN') && g.opts) { g.opts.minimap = !g.opts.minimap; g.saveOpt?.('minimap', g.opts.minimap); g.applyOpts?.(); } // N: minimap on / off here too (after round 6)
         { // H: tap = return home (flown back + landing animation); hold ≥ 0.6 s = land right here, no animation (round 6 note 18)
             const held = inp.keys?.has?.('KeyH'); inp.take('KeyH');
-            if (held) { this._hHold = (this._hHold || 0) + dtT; if (this._hHold >= 0.6 && !this._hQuick) { this._hQuick = true; this.quickLand(); return true; } }
+            // (after round 6) the hold shows a progress ring (same as hold-F fast travel); a short tap still returns home
+            let ring = document.getElementById('ft-hold'); if (!ring) { ring = document.createElement('div'); ring.id = 'ft-hold'; ring.innerHTML = '<svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" class="bg"/><circle cx="22" cy="22" r="18" class="fg"/></svg><span></span>'; document.body.appendChild(ring); }
+            if (held && (this._hHold || 0) > 0.12 && !this._hQuick) { ring.classList.add('on'); ring.querySelector('span').textContent = 'Hold H · land here'; ring.querySelector('.fg').style.strokeDashoffset = String(113.1 * (1 - Math.min(1, this._hHold / 0.8))); } else ring.classList.remove('on');
+            if (held) { this._hHold = (this._hHold || 0) + dtT; if (this._hHold >= 0.8 && !this._hQuick) { this._hQuick = true; ring.classList.remove('on'); this.quickLand(); return true; } }
             else if (this._hHold) { const tap = !this._hQuick; this._hHold = 0; this._hQuick = false; if (tap) this.returnHome(false); }
         }
         const w = c.walker;

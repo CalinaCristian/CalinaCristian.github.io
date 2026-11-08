@@ -1060,7 +1060,7 @@ class Game {
     routeToCar() {
         if (!this.foot?.active) return;
         const door = this.carDoor(), F = this.foot;
-        this.navManual = true; this.nav.setDestination({ x: door.x, z: door.z, label: 'Your car' }, { x: F.x, z: F.z, heading: F.heading });
+        this.setNavDest({ x: door.x, z: door.z, label: 'Your car' }, true);
         this.hud.toast('🚗 Route to your car', `${fmtDist(Math.hypot(door.x - F.x, door.z - F.z), this.city.units)} · the blue line on the map`);
     }
     /** call the car: it drives itself to the nearest lane spot next to the player (on foot, > 25 m away) */

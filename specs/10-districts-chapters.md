@@ -2,6 +2,12 @@
 
 Owner roles: **world** (district data, CHAPTERS, boundaries), **gameplay** (chapter flow, transitions, chapter select).
 
+## Current map and conditions behavior (owner, 2026-11-08)
+
+Map selection marks a destination and sets any available local driving/walking route; it does not move the player in Story, free roam or a tourist scene. Remote districts/spots retain a destination without inventing a route through unloaded areas. Hold F for 1.2 s or choose the explicitly labelled Fast travel action to move. A brief F press cancels; fuel, clamp, legal-landing and transit checks still apply. Selecting/Clearing a mark preserves the chapter and its objective; choosing the car route replaces a remote mark. On-foot district travel returns to the parked car before driving travel. The explicit drone T action remains separate.
+
+Pause → Settings → Time, weather & season and K work in driving and on-foot play. Chosen local hour/preset, weather and season follow district/city changes, story resume/chapter entry and Continue; Live/Auto follows the destination. The panel highlights the effective selections, including story play. Continue preserves a finite empty tank instead of silently refilling it.
+
 ## Why
 Trips between story points were too long; districts keep a good amount of driving but in about 1 km² each, sized by drive time. The 0.7/0.5 scale squeeze also caused overlapping parallel roads.
 

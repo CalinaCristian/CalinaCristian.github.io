@@ -28,24 +28,30 @@ that chapter of the CV.
   in the asphalt, its spoil heap, kerbstones on a pallet and an orange safety mesh (a mini excavator digs at some).
 - **One mode: the story, and the world map to go anywhere.** The chapters are the spine. The **World map** hub (🌍,
   pause menu, or "World map" on the title screen) has București / Seattle / Bellevue / World tabs, a high-detail globe
-  with the real Otopeni → Sea-Tac great-circle route, and a "Here" tab to fast-travel by clicking a street. Jumping to
+  with the real Otopeni → Sea-Tac great-circle route, and a "Here" tab to mark a destination and set a navigation route.
+  Selecting a map pin or search result keeps you in place; hold `F` for 1.2 seconds or choose **Fast travel** to move.
+  Remote marks retain the destination without drawing a local route across unloaded areas. Travelling to
   another district or a tourist spot leaves the story for free roam (no objective); a **📖 Resume story · Chapter N**
   chip brings the objective, navigation and chapter cards back where you left them. Change the **time of day, weather
   and season live** with `K`, the ☀️ conditions panel, or **Pause → Settings → Time, weather & season**. Selected conditions
-  follow world-map district travel (also on phones).
+  follow district and story travel, changes of city and Continue (also on phones).
 - **Drone.** On foot (districts and spots), G deploys a drone with its own camera HUD, rotor sound, Cine / Normal / Sport
   speeds, real EU / FAA limits (120 m / 400 ft ceiling, ~800 m range, 10-minute battery with return-home) and photo mode;
   T flies you to the spot under it, G lands it back in your hand. There are hidden interactions to discover with it,
   including a kickable football on the Dinamo pitch that rewards a drone-assisted goal with a secret achievement.
-- **Tourist spots (bonus).** 24 small walk-only scenes (each is listed in the menu once it passes a side-by-side
+  The open stadium bowl is traversable; physical stands and roofs retain collision. The size-5 ball uses amber/black
+  panels in snow and a small contact shadow.
+- **Tourist spots (bonus).** 24 walk-only destinations across 19 scenes (each is listed in the menu once it passes a side-by-side
   review against the real place) — Bucharest's top 10 (Palace of the Parliament, People's
   Salvation Cathedral, Old Town & Cărturești Carusel, Stavropoleos & CEC, the Athenaeum, Arcul de Triumf, Herăstrău,
   the Village Museum, the Spring Palace, Cișmigiu), Seattle's top 10 (Pike Place, the Space Needle, Chihuly Garden and
   Glass, MoPOP, the Fremont Troll, Kerry Park, the waterfront, Pioneer Square, the Ballard Locks, Gas Works Park) and
   4 in Bellevue. Each has crowds chatting in culture-researched lines (Romanian with English underneath), info plaques,
-  a spot map with objectives, an optional guided tour, a postcard photo challenge and real activities — ride the Space
+  a spot map with objectives, an optional short guided tour, a postcard photo challenge and activities — ride the Space
   Needle elevator to the revolving Loupe, catch a fish at Pike Place, row in Cișmigiu, climb the Arc de Triumf terrace,
-  rent a bike in Herăstrău, and more. Somewhere on Lipscani there is a football bar with a hidden project.
+  rent a bike in Herăstrău, and more. Short tours select an available activity first and use at most three stops / 180 m
+  of walkable route, with **Skip** and **End tour** controls. Activities and postcards require participation; narration
+  alone never completes them. The fictional football bar on Lipscani has been removed, preserving the real café building.
 - **Offices you can talk in.** Each CV stop is a distinct interior (a 2009 classroom, the Politehnica rectorate,
   turnstile lobbies, the UiPath robot floor…) with a teacher, professor or manager who answers A–D questions about that
   chapter of the CV.
@@ -54,15 +60,15 @@ that chapter of the CV.
   kept in the in-game gallery, and you save (or share) only the ones you want, from the print or the gallery. Leave the
   car somewhere illegal and passers-by react — then the ticket, the clamp or the tow truck.
 - **Saves.** Progress, position and photos persist in IndexedDB; **Continue** resumes exactly where you left off.
-- **Achievements and completion %.** 113 achievements (story, explorer, driver, local colour, landmarks and activities,
+- **Achievements and completion %.** 112 achievements (story, explorer, driver, local colour, landmarks and activities,
   photographer, on foot and a few secrets) and one weighted completion score shown in the menu, map and pause screens.
 - **A living city.** Country-specific traffic (taxis, delivery vans, police; STB trams, trolleybuses and buses; King
   County Metro buses) driven by real lanes, one-ways, signals and speed limits, with traffic density by hour, rush-hour
   standstills at real hotspots (Piața Victoriei, Piața Unirii, Bd. Dimitrie Pompeiu, I-405), honking and angry chat
   bubbles in Bucharest, pedestrians dressed for the season and weather (their umbrellas, guitars and bags take up room:
   people pass each other and you, on foot, round them; a car knocks them over and they get up and walk back), fuel and
-  the gas stations mapped in OpenStreetMap (a district without one burns no fuel; no invented stations), speed
-  cameras, turn-by-turn navigation on the car's screen and fast travel. The car collides with its whole visible body
+  the gas stations mapped in OpenStreetMap (driving and fast travel in a district without one burn no fuel; no invented
+  stations), mapped speed/red-light cameras, turn-by-turn navigation on the car's screen and fast travel. The car collides with its whole visible body
   (bonnet to boot).
 - **Real light and weather.** Sun and moon from each place's real position and local time, street lights,
   headlights, lit windows and shops at night, live weather (Open-Meteo, with a 1991–2020 climate fallback) with rain,
@@ -75,7 +81,8 @@ that chapter of the CV.
   track, terraces, covered main stand and floodlight masts, the SeaTac garage and tower);
   every other building comes from OSM footprints with researched heights, facade colours and styles by era. ~600
   researched non-residential buildings get their real type (curtain-wall offices, malls, supermarkets, hotels, parking
-  garages, schools, warehouses), fuel stations get full forecourts, shops carry their real brands at their real
+  garages, schools, warehouses), fuel stations keep their sourced locations with canopy decoration only where it fits,
+  shops carry their researched brands at their
   addresses, and street trees are species-specific. The Dâmbovița runs in its concrete channel.
 - **Floreasca, rebuilt street by street against reality.** Every real building footprint in the playable area and in a
   600 m ring around it (real streets too — no empty belt or lonely boxes past the closures); roof shapes and colours,
@@ -129,6 +136,11 @@ Developer pages: `game/dev/spots.html?id=<spot>`, `game/dev/landmarks.html`, `ga
 - `node game/dev/harness/football-check.mjs` — deterministic drone-football checks (contact, both goals, post/crossbar
   rebounds, resets and invalid approaches).
 - `node game/dev/harness/courtyard-check.mjs` — mapped courtyard openings and inner/outer wall collision checks.
+- `node game/dev/harness/conditions-check.cjs` — Settings, conditions across travel/Continue, and mirror/headlight controls
+  (`game/dev/harness/conditions-check.md`).
+- `node game/dev/harness/map-waypoints-check.cjs` — map marking, held-F travel, fuel checks, and desktop/touch interactions.
+- `node game/dev/signals.test.mjs` — conflicting approaches, junction clearance and pedestrian recovery regression checks.
+- `node tools/tourist-tour-check.mjs` — walkable short tours, real participation, pause/skip/end and shared-scene entrances.
 - District reality passes combine OSM footprints with aerial roof/canopy/green-ground measurements and local-only
   game-versus-imagery comparisons. See `tools/aerial/README.md` and `tools/osm/README.md`; OSM tile downloads accept
   `--bbox minlat,minlon,maxlat,maxlon` to limit a pass to the district and its scenery ring. Romană & Victoriei has been

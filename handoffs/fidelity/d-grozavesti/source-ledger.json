@@ -115,15 +115,18 @@
     "streetView": "Official Google panoramas for visual side-by-side comparison only; no extraction into game data. GOOGLE_MAPS_KEY supplied only through environment.",
     "sourceGeometry": "Playable analytic band/circles and full 600m Euclidean ring; standard western tile gap supplemented to longitude26.029.",
     "roofAuditCrops": 7,
-    "roofManualTotal": 87
+    "roofManualTotal": 87,
+    "fullFootprintRingAudit": "source-audit-summary.json",
+    "sourceBuildingRecords": 2401
   },
   "limits": [
     "Imagery acquisition date unknown",
-    "1664 building heights remain default/sanity estimates; 677 records have positive OSM height/levels",
+    "1705 building heights remain default/sanity estimates; 696 records have positive OSM height/levels",
     "Facade colours outside independently reviewed landmark remain estimated",
-    "55 source way footprints cross600m while their centres are outside; exactedgeadmission fix pending",
+    "Complete source-footprint600m coverage does not imply visual parity; fullcomparison and shared road H/M acceptance remain open",
     "Compound roofs are simplified envelopes; mixed roof classes retained uncertain",
     "OMV roof top5.2m/clearance4.8m/thickness0.4m/support layout are explicitly estimated, not sourced dimensions",
-    "OSM w779735509 height=0 is a source anomaly; fallback is not a measured height"
+    "OSM w779735509 height=0 is a source anomaly; fallback is not a measured height",
+    "Farther context is limited and approximate; no parity claim beyond600m"
   ]
 }

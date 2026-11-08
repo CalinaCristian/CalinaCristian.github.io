@@ -1,0 +1,323 @@
+{
+  "schema": 1,
+  "reviewedUTC": "2026-11-08",
+  "dataSHA256": "e3ec6e6a39bc22df9d1bcb4a2e810fb0159370a49a0617ad1aef3a41cd8e85ce",
+  "membership": "Exact full solid source footprint intersection with analytic core and600m ring; not centroid coverage.",
+  "sourceRecords": 2401,
+  "sourceIdMissing": 0,
+  "previousSourceRecords": 2341,
+  "newSourceIds": [
+    "w1157633115",
+    "w1210973134",
+    "w1299551211",
+    "w1418753742",
+    "w1463055887",
+    "w1465185426",
+    "w1465185432",
+    "w1465275393",
+    "w1465275394",
+    "w1465275395",
+    "w1465285367",
+    "w1465285368",
+    "w1527767916",
+    "w153448179",
+    "w156598214",
+    "w156598385",
+    "w156820755",
+    "w156977285",
+    "w166324278",
+    "w170929774",
+    "w170929787",
+    "w170929790",
+    "w170956148",
+    "w220262775",
+    "w225611017",
+    "w229652838",
+    "w244033697",
+    "w244035569",
+    "w247017514",
+    "w247037134",
+    "w247050124",
+    "w285077439",
+    "w285077440",
+    "w313918739",
+    "w353929955",
+    "w387598380",
+    "w388016861",
+    "w460242683",
+    "w539570127",
+    "w539570173",
+    "w539570182",
+    "w539570189",
+    "w539570392",
+    "w539570396",
+    "w539570427",
+    "w539570487",
+    "w542156684",
+    "w543578228",
+    "w563561953",
+    "w563561977",
+    "w605392688",
+    "w620563443",
+    "w620595692",
+    "w624301145",
+    "w860438633",
+    "w860438634",
+    "w860440284"
+  ],
+  "lostSourceIds": [],
+  "heightSources": {
+    "2": 1653,
+    "0": 696,
+    "3": 52
+  },
+  "sourceGeometry": {
+    "file": "game/data/bucharest-grozavesti.json",
+    "sourceRecords": 2401,
+    "assemblies": [
+      {
+        "source": "r21310465",
+        "mode": "parts",
+        "parts": [
+          "w858882315"
+        ],
+        "residualArea": 0,
+        "residualHeight": 11.6
+      },
+      {
+        "source": "r21310465",
+        "mode": "parts",
+        "parts": [
+          "w858882316"
+        ],
+        "residualArea": 0.7416666666686069,
+        "residualHeight": 11.6
+      },
+      {
+        "source": "r21310465",
+        "mode": "parts",
+        "parts": [
+          "w858882314"
+        ],
+        "residualArea": 0,
+        "residualHeight": 11.6
+      },
+      {
+        "source": "r18184857",
+        "mode": "union",
+        "parts": [
+          "w620563443"
+        ],
+        "residualArea": 2616.414999999921,
+        "residualHeight": 3
+      },
+      {
+        "source": "r18184858",
+        "mode": "parts",
+        "parts": [
+          "w1326314034"
+        ],
+        "residualArea": 0,
+        "residualHeight": 20
+      },
+      {
+        "source": "r18184858",
+        "mode": "parts",
+        "parts": [
+          "w570331926"
+        ],
+        "residualArea": 0,
+        "residualHeight": 8
+      },
+      {
+        "source": "w244033697",
+        "mode": "union",
+        "parts": [
+          "w1319614200"
+        ],
+        "residualArea": 76453.07028470488,
+        "residualHeight": 14
+      },
+      {
+        "source": "w452377551",
+        "mode": "union",
+        "parts": [
+          "w1556371735",
+          "w1556371736"
+        ],
+        "residualArea": 935.109999999986,
+        "residualHeight": 21.6
+      },
+      {
+        "source": "w452377556",
+        "mode": "union",
+        "parts": [
+          "w1217824301",
+          "w1556371738",
+          "w1556371751"
+        ],
+        "residualArea": 940.1749999999884,
+        "residualHeight": 4
+      },
+      {
+        "source": "w1501541319",
+        "mode": "union",
+        "parts": [
+          "w1501541320"
+        ],
+        "residualArea": 690.8134320144309,
+        "residualHeight": 10
+      },
+      {
+        "source": "w915636715",
+        "mode": "parts",
+        "parts": [
+          "w1185313196",
+          "w1185313197",
+          "w1455947200"
+        ],
+        "residualArea": 0.9480952380690724,
+        "residualHeight": 5.8
+      },
+      {
+        "source": "w1217960368",
+        "mode": "parts",
+        "parts": [
+          "w1217766912",
+          "w1217960369"
+        ],
+        "residualArea": 0,
+        "residualHeight": 8.7
+      },
+      {
+        "source": "w1217960370",
+        "mode": "parts",
+        "parts": [
+          "w44786439",
+          "w1217960371"
+        ],
+        "residualArea": 1.079998730274383,
+        "residualHeight": 11.6
+      },
+      {
+        "source": "w1559344858",
+        "mode": "parts",
+        "parts": [
+          "w661134294",
+          "w740780913",
+          "w925541090"
+        ],
+        "residualArea": 2.225000000011619,
+        "residualHeight": 64
+      },
+      {
+        "source": "w23557062",
+        "mode": "union",
+        "parts": [
+          "w1185174945",
+          "w1185174946",
+          "w1185174947",
+          "w1185174948",
+          "w1185174949"
+        ],
+        "residualArea": 25630.359401937894,
+        "residualHeight": 8
+      },
+      {
+        "source": "w314067059",
+        "mode": "parts",
+        "parts": [
+          "w1182682081",
+          "w1182682082",
+          "w1182682083",
+          "w1182764570"
+        ],
+        "residualArea": 0.08277027029544115,
+        "residualHeight": 2.5
+      },
+      {
+        "source": "w153452101",
+        "mode": "union",
+        "parts": [
+          "w1331408022"
+        ],
+        "residualArea": 1485.3349999999996,
+        "residualHeight": 10
+      },
+      {
+        "source": "w79134335",
+        "mode": "union",
+        "parts": [
+          "w621440628"
+        ],
+        "residualArea": 1046.0699999998906,
+        "residualHeight": 14
+      },
+      {
+        "source": "w243438246",
+        "mode": "union",
+        "parts": [
+          "w1558562973",
+          "w1558562975"
+        ],
+        "residualArea": 1003.4699999998847,
+        "residualHeight": 14
+      },
+      {
+        "source": "w423683661",
+        "mode": "union",
+        "parts": [
+          "w1331395972",
+          "w1331395973"
+        ],
+        "residualArea": 6211.870000000054,
+        "residualHeight": 12
+      },
+      {
+        "source": "w1097527674",
+        "mode": "union",
+        "parts": [
+          "w1331395961",
+          "w1331395962",
+          "w1331395963",
+          "w1331395964",
+          "w1331395966"
+        ],
+        "residualArea": 1088.5248495859269,
+        "residualHeight": 20
+      }
+    ],
+    "roofs": {
+      "checked": 1016,
+      "inset": 1016,
+      "fallback": []
+    },
+    "physicalUnionSurfaces": 141,
+    "rawSource": {
+      "sourceParts": 91,
+      "explicitHeights": 177,
+      "explicitMinima": 26,
+      "tiles": 16
+    }
+  },
+  "rawAuditSHA256": "13a8703daaba4c7b7931e1fe195971fd01e8ac40703a04d20aee66eb700612a1",
+  "rawAuditScratch": "/workspace/reality-pass/grozavesti/source-audit-edge.json",
+  "rawAuditLog": "== inside: 115 OSM footprints ≥ 25 m² (112 ≥ 40 m², not sheds/garages)\n  matched      112/112 (100.0 %)\n  area kept    median 1.00, < 0.6 for 0\n  centroid off median 0.0 m, > 3 m for 0\n  height (OSM-tagged) within ±25 % / 2.5 m: 72/72 (100.0 %)\n  roof flat/pitched agrees with the aerial survey: 79/79 (100.0 %)\n== ring: 2164 OSM footprints ≥ 25 m² (2134 ≥ 40 m², not sheds/garages)\n  matched      2134/2134 (100.0 %)\n  area kept    median 1.00, < 0.6 for 0\n  centroid off median 0.0 m, > 3 m for 0\n  height (OSM-tagged) within ±25 % / 2.5 m: 506/506 (100.0 %)\n  roof flat/pitched agrees with the aerial survey: 1529/1529 (100.0 %)\n== inside multipolygon relations: 4/4 (100.0 %) source identity matched; courtyards 1/1 (100.0 %) count and source interior points preserved (stadium stand sectors excluded)\n  relation height (OSM-tagged) within ±25 % / 2.5 m: 1/1 (100.0 %)\n== ring multipolygon relations: 17/17 (100.0 %) source identity matched; courtyards 2/2 (100.0 %) count and source interior points preserved (stadium stand sectors excluded)\n  relation height (OSM-tagged) within ±25 % / 2.5 m: 8/8 (100.0 %)\nwrote /workspace/reality-pass/grozavesti/source-audit-edge.json\n",
+  "regressionFixtures": [
+    {
+      "fixture": "game/data/bucharest-floreasca.json",
+      "checked": 3160,
+      "oldCentroidAdmission": 3160,
+      "exactFootprintAdmission": 3160,
+      "lost": []
+    },
+    {
+      "fixture": "game/data/bucharest-romana.json",
+      "checked": 5552,
+      "oldCentroidAdmission": 5552,
+      "exactFootprintAdmission": 5552,
+      "lost": []
+    }
+  ],
+  "acceptance": "Source geometry agreement only. Many heights/facades/support details remain estimates; complete street visual parity and shared road H/M acceptance remain open."
+}

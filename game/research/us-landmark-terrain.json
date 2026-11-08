@@ -80,5 +80,6 @@
     "Distant-view decimated elevation grid, not a ground navigation mesh.",
     "Grid sampling can miss narrow summits; no synthetic peak or unsupported measurement is added.",
     "Snow colour is a procedural altitude treatment, not a measured seasonal snow extent."
-  ]
+  ],
+  "surfaceInterpolation": "Retained neighbouring pixel-centre samples are joined by planar triangles, including the one-cell strip between adjacent Olympics tiles; no measured sample is moved and no synthetic peak is added."
 }

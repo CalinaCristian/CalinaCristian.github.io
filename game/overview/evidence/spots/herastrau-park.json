@@ -4,7 +4,7 @@
   "city": "bucharest",
   "name": "King Michael I (Herăstrău) Park",
   "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-  "updatedAt": "2026-11-08T19:35:07.078Z",
+  "updatedAt": "2026-11-08T21:13:31.868629+00:00",
   "status": "needs_review",
   "sources": [
     {
@@ -26,19 +26,31 @@
       "label": "Grădina Japoneză",
       "type": "OSM source",
       "url": "https://www.openstreetmap.org/way/28342074"
+    },
+    {
+      "label": "Mapped I'Velo bicycle rental",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/2858053385"
+    },
+    {
+      "label": "Mapped Debarcader Herastrau",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/141706786"
     }
   ],
   "improvements": [
     "Source buildings, thin parts and roofs remain represented without generic radius exclusions; the native short plaque approach completes within the high scene budgets.",
-    "The shared Village Museum activity uses actual source household porches instead of an invented interior."
+    "The shared Village Museum activity uses actual source household porches instead of an invented interior.",
+    "The mapped public launch now runs an input-driven paddling course with visible oars/paddle, progress, no idle award and restoration to the same shore pose after cancellation. Shared sky-only water reflections replace the false reflected lighting boxes.",
+    "I'Velo now uses mapped station n2858053385 and animated wheels/crank. Desktop/touch proof travels36.68m with9s pedalling; early dismount does not award, valid explicit dismount does. This proof predates the new canonical Arc instance."
   ],
   "remainingGaps": [
-    "The bike dock is still placed near the spawn rather than at a mapped I'Velo location, awards at start and lacks complete mode-cancellation handling.",
-    "The boat trigger is not at the mapped Debarcader Herăstrău marina; its route and operating calendar need correction and simulation-date handling.",
     "Large park tours should remain short and optional; completing distant boat/bike access is not proved by this nearby plaque walk.",
     "The shared scene's first activity-approach image is a Village Museum porch, not a park rental location.",
     "Lake edge, Japanese garden, bust alley and Nymph context require complete matched current references.",
-    "Raw audit findings remain for physical review: zfight 4."
+    "Raw audit findings remain for physical review: zfight 4.",
+    "The mapped launch and bike station are far from the entry; continuous public arrival walks to them remain unproved. Shore coverage across the lake is incomplete in the outward boat view.",
+    "Bike braking and completed-save reload require focused follow-up; the dock display spacing and short bike challenge are explicit estimates."
   ],
   "checks": [
     {
@@ -75,6 +87,16 @@
       "label": "Full matched scene comparison",
       "passed": false,
       "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+    },
+    {
+      "label": "Actual desktop and touch paddling",
+      "passed": true,
+      "details": "Sources864d706/2565355: 27 explicit strokes complete the round trip; idle/early Leave does not award; Esc/map/photo/pause/conditions/travel/visibility cancel without completing. Accepted drone deployment cancellation passes at Meydenbauer; Herastrau deployment is rejected at its bank. Initial test pose beside mapped launch, not a long arrival-route claim."
+    },
+    {
+      "label": "Boat completion reload persistence",
+      "passed": false,
+      "details": "Activity completion was observed in the actual host; this focused boat test has not yet reloaded its completed save."
     }
   ],
   "captures": [
@@ -200,6 +222,40 @@
           "width": 1280,
           "height": 720
         }
+      }
+    },
+    {
+      "kind": "activity",
+      "label": "Actual touch paddling after explicit stroke input",
+      "image": "assets/spots/herastrau-park/paddling-touch.webp",
+      "sha256": "dcd728b480ff66da96f3fbaf0114b9ca99c381d722f8a73cdda13d03d4ddbd79",
+      "sourceCommit": "2565355",
+      "capturedAt": "2026-11-08T21:13:31.868629+00:00",
+      "pose": {
+        "position": [
+          -223.26315639001402,
+          -3.2420120725922534,
+          -514
+        ],
+        "bearing": 90,
+        "pitch": -6.875493541569878
+      }
+    },
+    {
+      "kind": "activity",
+      "label": "Actual desktop paddling after explicit stroke input",
+      "image": "assets/spots/herastrau-park/paddling-desktop.webp",
+      "sha256": "0be549b82e7d56b187e05aa32735f7e7d132ba61db087ca7a8a8949c0332f6f2",
+      "sourceCommit": "864d706",
+      "capturedAt": "2026-11-08T21:13:31.868629+00:00",
+      "pose": {
+        "position": [
+          -223.26315639001402,
+          -3.2420120725922534,
+          -514
+        ],
+        "bearing": 90,
+        "pitch": -6.875493541569878
       }
     }
   ],

@@ -45,9 +45,9 @@ that chapter of the CV.
   turnstile lobbies, the UiPath robot floor…) with a teacher, professor or manager who answers A–D questions about that
   chapter of the CV.
 - **On foot and photo mode.** Get out of the car anywhere, walk/run/jump, enter offices on foot, find your car again
-  (distance chip, walking route, key fob, call it to the kerb); pull out a camera, frame a shot with filters, save it to
-  your device and keep it in the in-game gallery. Leave the car somewhere illegal and passers-by react — then the
-  ticket, the clamp or the tow truck.
+  (distance chip, walking route, key fob, call it to the kerb); pull out a camera and frame a shot with filters — it is
+  kept in the in-game gallery, and you save (or share) only the ones you want, from the print or the gallery. Leave the
+  car somewhere illegal and passers-by react — then the ticket, the clamp or the tow truck.
 - **Saves.** Progress, position and photos persist in IndexedDB; **Continue** resumes exactly where you left off.
 - **Achievements and completion %.** 112 achievements (story, explorer, driver, local colour, landmarks and activities,
   photographer, on foot and a few secrets) and one weighted completion score shown in the menu, map and pause screens.
@@ -60,13 +60,20 @@ that chapter of the CV.
   headlights, lit windows and shops at night, live weather (Open-Meteo, with a 1991–2020 climate fallback) with rain,
   snow and fog, weather-driven visibility, and seasons (autumn colours, bare winter trees, the Unirii fountains drained
   in winter).
-- **Landmarks and buildings.** 60 hand-modelled landmarks (e.g. every CV-stop building — the GTS house on Calea
+- **Landmarks and buildings.** 61 hand-modelled landmarks (e.g. every CV-stop building — the GTS house on Calea
   Călărașilor, Liceul C.A. Rosetti, the Politehnica rectorate, Hermes Business Campus, BOB Tower, Europe House, The
-  Landmark, Lincoln Square — plus Hala Traian, the Parliament, Victoria Palace, Sky Tower, the SeaTac garage and tower);
+  Landmark, Lincoln Square — plus Hala Traian, the Parliament, Victoria Palace, Sky Tower, Stadionul Dinamo with its
+  track, terraces, covered main stand and floodlight masts, the SeaTac garage and tower);
   every other building comes from OSM footprints with researched heights, facade colours and styles by era. ~600
   researched non-residential buildings get their real type (curtain-wall offices, malls, supermarkets, hotels, parking
   garages, schools, warehouses), fuel stations get full forecourts, shops carry their real brands at their real
   addresses, and street trees are species-specific. The Dâmbovița runs in its concrete channel.
+- **Floreasca, rebuilt street by street against reality.** Every real building footprint in the playable area and in a
+  600 m ring around it (real streets too — no empty belt or lonely boxes past the closures); roof shapes and colours,
+  tree crowns and gardens measured on aerial imagery; villas vs 1950s–60s blocks decided from those measurements; cars
+  parked along both kerbs, front-garden railings, walls and hedges, kerb bollards, street lamps; every pitch, tennis
+  court, pool and school yard with its markings, goals, nets and fences; the Piața Floreasca market hall; only real shops
+  and signs. Other districts get the same pass next.
 - **Performance.** Adaptive quality tiers, instanced traffic/crowds/parked cars, view-range culling and a draw-call
   budget per district, so it stays smooth on laptops and phones.
 
@@ -99,12 +106,21 @@ Developer pages: `game/dev/spots.html?id=<spot>`, `game/dev/landmarks.html`, `ga
   invisible walls, people inside props, lamps on roads…).
 - `npm run harness:visual` — visual QA: route surveys from the driver's seat, defect detectors, contact sheets and a
   review report (`game/dev/harness/visual/README.md`).
+- `node game/dev/harness/viewpoints.js --district=<id> --walk --streetview` — reality check: walks every drivable street of
+  a district (both sidewalks) and puts each game frame next to Google Street View from the same spot; `--topdown=250
+  --mosaic=<path>` compares the whole district from above with aerial imagery (dev only; nothing from Street View goes
+  into the game).
+- `tools/aerial/` (roof survey, tree crowns, green ground from an aerial mosaic) and `tools/osm/building-audit.py`
+  (every OSM footprint matched, heights and roofs checked) — the district reality-pass pipeline (`tools/aerial/README.md`).
 
 The work is planned spec-first in [`specs/`](specs/) (requirements, contracts, ownership and a status board).
 
 ## Data, credits and privacy
 - Map data © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors (ODbL); built offline by
   `tools/osm/` into `game/data/*.json`.
+- Roof shapes / colours, tree positions and green ground in the rebuilt districts are measurements taken offline from
+  Esri World Imagery (Esri, Maxar, Earthstar Geographics, and the GIS User Community); no imagery is stored or shipped.
+  Google Street View is used only in a dev tool for side-by-side visual comparison; nothing from it is in the game.
 - Weather by [Open-Meteo](https://open-meteo.com/) (CC BY 4.0). Coastlines and borders on the globe from
   [Natural Earth](https://www.naturalearthdata.com/) 1:50m (public domain); night-side city lights from NASA Earth
   Observatory's Black Marble 2016 (public domain).

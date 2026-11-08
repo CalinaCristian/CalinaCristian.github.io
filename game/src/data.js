@@ -361,6 +361,8 @@ export const ACHIEVEMENTS = [
     { id: 'lm-palace-balcony', cat: 'landmarks', activity: 'palace-parliament:balcony', live: true, icon: '🏛️', title: 'Balcony over the boulevard', desc: 'Took the Palace of the Parliament tour out to the balcony over Bd. Unirii.' },
     { id: 'lm-cathedral-dome', cat: 'landmarks', activity: 'peoples-salvation-cathedral:candle', live: true, icon: '🕯️', title: 'Under the great dome', desc: 'Lit a candle in the People\'s Salvation Cathedral.' },
     { id: 'lm-carusel-top', cat: 'landmarks', activity: 'old-town-lipscani:carusel', live: true, icon: '📚', title: 'Top of the Carusel', desc: 'Climbed to the top floor of Cărturești Carusel.' },
+    { id: 'lm-dristor-shaorma', cat: 'landmarks', activity: 'old-town-lipscani:dristor-shaorma', live: true, icon: '🥙', title: 'Poftă bună!', desc: 'Finished a shaorma at Dristor Kebap on Strada Franceză 17.' },
+    { id: 'lm-shoteria-shot', cat: 'landmarks', activity: 'old-town-lipscani:shoteria-shot', live: true, icon: '🥂', title: 'Noroc!', desc: 'Poured, raised and finished a shot at Shoteria on Strada Șelari 17.' },
     { id: 'lm-curtea-veche', cat: 'landmarks', activity: 'old-town-lipscani:curtea-veche', live: true, icon: '🏰', title: 'At Vlad\'s court', desc: 'Visited the ruins of Curtea Veche, the Old Princely Court.' },
     { id: 'lm-stavropoleos', cat: 'landmarks', activity: 'stavropoleos-cec:stavropoleos', live: true, icon: '⛪', title: 'Quiet courtyard', desc: 'Lit a candle at Stavropoleos (1724).' },
     { id: 'lm-ateneu-concert', cat: 'landmarks', activity: 'athenaeum-revolution:concert-hall', live: true, icon: '🎻', title: 'Under the dome', desc: 'Sat in on a rehearsal in the Romanian Athenaeum\'s domed hall.' },

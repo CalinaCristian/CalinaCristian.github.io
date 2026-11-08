@@ -12,9 +12,11 @@
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, hash2, headingFromBearing, centroid, polyBox, inPoly, offsetPolyline, distPolyline, canvas, canvasTexture, fitDraw, obb, polyArea } from '../kit.js';
-import { bucBackdrop, classicFacade, classicWalls, balustradeMaterial, palisade, osmPoly, cityFiller, placeLandmark, signAtlas, oldTownTerraces, floodlight, shopfrontFacade, bucActivity } from '../buc.js';
+import { bucBackdrop, classicFacade, classicWalls, balustradeMaterial, palisade, osmPoly, cityFiller, placeLandmark, signAtlas, oldTownTerraces, facadeToward, floodlight, shopfrontFacade, bucActivity } from '../buc.js';
 import { wallGeometry } from '../osm.js';
 import { buildSecretWcpBar } from './wcp-secret-bar.js';
+import { createVenueActivities } from '../venue-activities.js';
+import { collide } from '../walker.js';
 
 function simplify(pts, tol) { if (pts.length < 4) return pts; const dist = (p, a, b) => { const dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz) || 1; return Math.abs((p[0] - a[0]) * dz - (p[1] - a[1]) * dx) / L; }; let md = 0, mi = 0; for (let i = 1; i < pts.length - 1; i++) { const dd = dist(pts[i], pts[0], pts[pts.length - 1]); if (dd > md) { md = dd; mi = i; } } if (md <= tol) return [pts[0], pts[pts.length - 1]]; return [...simplify(pts.slice(0, mi + 1), tol).slice(0, -1), ...simplify(pts.slice(mi), tol)]; }
 const simplifyRing = (p, tol) => { const s2 = simplify([...p, p[0]], tol); s2.pop(); return s2.length >= 3 ? s2 : p; };
@@ -418,6 +420,30 @@ export default {
         const inside = (x, z) => Object.values(d.spots).some((s) => inPoly(x, z, s.extent.polygon));
         const TR = oldTownTerraces(ctx, { inside, seed: 3 });
         ctx.add(TR.group); ctx.lampPoints.push(...TR.lamps.filter((_, i) => i % 2 === 0));
+        // Real OSM POIs, on their existing street-facing footprint. Camera-held props only:
+        // no invented kiosk/interior, source footprint, terrace or collision changes.
+        const VA = createVenueActivities(ctx);
+        for (const [source, kind, address, label] of [
+            ['n1731040881', 'shaorma', 'Strada Franceză 17', 'Eat a shaorma at Dristor Kebap'],
+            ['n10775253367', 'shot', 'Strada Șelari 17', 'Pour a shot at Shoteria'],
+        ]) {
+            const poi = d.pois.find(p => p.id === source); if (!poi) continue;
+            let street = null;
+            for (const w of d.ways) { if (!['pedestrian', 'living_street'].includes(w.k)) continue; const q = distPolyline(poi.x, poi.z, w.pts); if (!street || q.d < street.d) street = q; }
+            const f = street && facadeToward(d, poi.x, poi.z, street.cx, street.cz); if (!f) continue;
+            // Find the clear street approach beyond existing terrace collision, without
+            // changing any footprint or moving its furniture. Both sources face Șelari.
+            let approach = null;
+            for (let distance = 5.2; distance <= 8; distance += .4) {
+                const x = f.x + f.nx * distance, z = f.z + f.nz * distance;
+                if (!collide(ctx.colliders, x, z, .45, g.heightAt(x, z) + .3)) { approach = { x, z }; break; }
+            }
+            if (!approach) continue;
+            const { x, z } = approach;
+            ctx.interactables.push({ x, z, y: g.heightAt(x, z), r: 2.6, label, source,
+                cond: s => !VA.active && s.spot.id === 'old-town-lipscani',
+                use: s => VA.start(s, kind, { name: poi.name, address }) });
+        }
         const signs = [...TR.signs];
         if (caruB) signs.push({ x: -111, y: g.heightAt(-111, -71.5) + 5.4, z: -71.4, yaw: 0, w: 6.2, h: 1.0, text: "CARU' CU BERE", bg: '#2a1d14', fg: '#e8c870', font: (q) => `700 ${q}px "Times New Roman", serif` });
         // Hanul cu Tei (Lipscani 63–65 → Blănari 14, 1833): the arched gateways of the inn's passage, painted lettering over the arch

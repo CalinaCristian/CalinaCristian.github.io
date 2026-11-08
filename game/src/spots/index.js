@@ -142,7 +142,7 @@ class SceneContext {
         const d = this.data, ex = [...this.exclude, ...(o.exclude || [])];
         this.ground.settle?.(o.settle);
         paintOSM(this.painter, d, { skipWays: this.skipWays, skipAreas: this.skipAreas, skipBuildings: this.skipBuildings, ...o.paint });
-        const B = buildBuildings(d, this.ground, { skip: this.skipBuildings, exclude: ex, urban: o.urban ?? true, style: o.style, filter: o.filter, shopStyle: o.shopStyle });
+        const B = buildBuildings(d, this.ground, { skip: this.skipBuildings, preserveSources:o.preserveSources, exclude: ex, urban: o.urban ?? true, style: o.style, filter: o.filter, shopStyle: o.shopStyle });
         this.add(B.group); this.colliders.push(...B.colliders); this.extras.buildings = B;
         if (o.trees !== false) {
             this.trees.push(...d.trees.filter(([x, z]) => !ex.some((p) => inPoly(x, z, p))).map(([x, z, lt]) => ({ x, z, kind: lt === 'needleleaved' ? 'con' : 'broad' })));

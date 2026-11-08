@@ -298,6 +298,10 @@ export function buildingHeight(b) { return sourceBuildingHeight(b); }
  */
 export function buildBuildings(data, ground, o = {}) {
     const started=performance.now(),skip=sourceHeroMembers(data.buildings,o.skip||new Set()),urban=o.urban??true,records=[],batch=new GeoBatch(),colliders=[],mats={},members=[];
+    // A scene can retain a newly discovered source volume while its canonical
+    // replacement coverage is still being compared. Parent containment alone
+    // does not verify a recently restored relation's authored mass.
+    for(const id of o.preserveSources||[])skip.delete(id);
     for(const [i,b]of data.buildings.entries()){
         if(skip.has(b.id)||!b.poly||b.poly.length<3||Math.abs(polyArea(b.poly))<1e-8)continue;
         const [cx,cz]=centroid(b.poly);if(o.filter&&!o.filter(b))continue;

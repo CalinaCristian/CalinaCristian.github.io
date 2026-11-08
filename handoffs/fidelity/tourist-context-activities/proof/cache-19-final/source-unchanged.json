@@ -1,0 +1,121 @@
+{
+  "sourceCommit": "09766dc7a870657b76e3114c15a12f55e5c373cb",
+  "scenes": [
+    {
+      "file": "game/data/spots/fremont-troll.json",
+      "buildings": 211,
+      "sourceSHA256": "8d6f744870b1dda27a9912e54f7ed8e079385f0e7c7dba257bf0f6b4f135cfbc",
+      "cacheChanged": false
+    },
+    {
+      "file": "game/data/spots/pike-place.json",
+      "buildings": 148,
+      "sourceSHA256": "49d54723cdaf769914cdad3a64fd5d2b7c84526a50c6186a779954331bcacdf5",
+      "cacheChanged": false
+    },
+    {
+      "file": "game/data/spots/seattle-center.json",
+      "buildings": 114,
+      "sourceSHA256": "970c4e3919ab4dc98eca1468577c4a2ace6410f20199880e35ec5766e134702d",
+      "cacheChanged": false
+    },
+    {
+      "file": "game/data/spots/kerry-park.json",
+      "buildings": 134,
+      "sourceSHA256": "0e30a1378d8c64322bcd3976b7ce721207886f919bb1b498b902c26ceb2adf2c",
+      "cacheChanged": false
+    },
+    {
+      "file": "game/data/spots/waterfront.json",
+      "buildings": 92,
+      "sourceSHA256": "efb345c4f8b3ad5a8e9002ea152f96dcae3d33d732400657cbe5c162a7d4bd45",
+      "cacheChanged": false
+    },
+    {
+      "file": "game/data/spots/pioneer-square.json",
+      "buildings": 157,
+      "sourceSHA256": "d1d99e06fe467fc3b980b0c679a0f97010f68ebd17e85368f01564e1ffda8b70",
+      "cacheChanged": false
+    },
+    {
+      "file": "game/data/spots/ballard-locks.json",
+      "buildings": 107,
+      "sourceSHA256": "a18d3aca30c9a73cca2e9f4399dca13b691439c910d96f7e8ad5bfc5c5b873ad",
+      "cacheChanged": true
+    },
+    {
+      "file": "game/data/spots/gas-works.json",
+      "buildings": 57,
+      "sourceSHA256": "25bc2a6e0cc9b4c973e4522fbef4bcef558fbcce35c1a7f2f4bb49ce534e3b7e",
+      "cacheChanged": false
+    },
+    {
+      "file": "game/data/spots/bel-lincoln-square.json",
+      "buildings": 97,
+      "sourceSHA256": "2f9f3b01372460811dff9e682f7c85e1b8b4204895fe203649d610fb6d6afe5e",
+      "cacheChanged": false
+    },
+    {
+      "file": "game/data/spots/bel-downtown-park.json",
+      "buildings": 100,
+      "sourceSHA256": "a290982b8b15256c482780c05b29f276fbc4850f61f32547588abcb46412c321",
+      "cacheChanged": false
+    },
+    {
+      "file": "game/data/spots/bel-botanical-garden.json",
+      "buildings": 81,
+      "sourceSHA256": "cafa11d645291461211aacae0f5733bb039fadf27487117111de14274f539bf1",
+      "cacheChanged": false
+    },
+    {
+      "file": "game/data/spots/bel-meydenbauer.json",
+      "buildings": 65,
+      "sourceSHA256": "e529f9c4acc80362b180baebe59b28d678888ee82a41b3ee8c9dd82782d3a274",
+      "cacheChanged": false
+    },
+    {
+      "file": "game/data/spots/buc-parliament.json",
+      "buildings": 828,
+      "sourceSHA256": "617b9cdb42b9c51b6424bd5dea8ddb2673d58905197bfff62a951948d019d9b2",
+      "cacheChanged": false
+    },
+    {
+      "file": "game/data/spots/buc-old-town.json",
+      "buildings": 1818,
+      "sourceSHA256": "86f94ea1ab7da964542e69047be5979380e62c9ac9c538a1ea5d13718bd947b5",
+      "cacheChanged": true
+    },
+    {
+      "file": "game/data/spots/athenaeum-revolution.json",
+      "buildings": 862,
+      "sourceSHA256": "f86626827d5bc20a09596b633bc5f0e1df7c65e0a655120524decc595239994a",
+      "cacheChanged": false
+    },
+    {
+      "file": "game/data/spots/arcul-de-triumf.json",
+      "buildings": 318,
+      "sourceSHA256": "9026ab1a5113cf77d6a9966e51bc404d32c0999c59f2bf99e35421ce1564d127",
+      "cacheChanged": false
+    },
+    {
+      "file": "game/data/spots/buc-herastrau.json",
+      "buildings": 411,
+      "sourceSHA256": "b254d0f33d4437d19b761fd207eceffb121e6f4d2f48f3aed9851cd866df7908",
+      "cacheChanged": true
+    },
+    {
+      "file": "game/data/spots/spring-palace.json",
+      "buildings": 325,
+      "sourceSHA256": "f2857a3782025bd247e7ff891d2f11fb7bfaef94607389ce3f9d28d670204d6b",
+      "cacheChanged": false
+    },
+    {
+      "file": "game/data/spots/cismigiu.json",
+      "buildings": 756,
+      "sourceSHA256": "a1c6c68829472a9e7d01f0c82b9923c2c6395f207c2639a7d10b56d57d881a3f",
+      "cacheChanged": false
+    }
+  ],
+  "runtimeFilesVerified": 302,
+  "allSourceFieldsUnchanged": true
+}

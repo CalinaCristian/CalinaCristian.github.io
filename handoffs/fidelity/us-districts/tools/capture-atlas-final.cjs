@@ -54,20 +54,20 @@ function sourceFiles(dir,rel=''){return fs.readdirSync(dir,{withFileTypes:true})
         const originalFar=cam.far;cam.far=Math.max(originalFar,v.h+200);cam.updateProjectionMatrix();cam.updateMatrixWorld(true);
         const fog=g.scene.fog;g.scene.fog=null;
         // First frame warms camera-distance culling/shadows; second records the settled frame.
-        S.renderNow=true;let perf;try{
+        S.renderNow=true;let perf,imageDataUrl;try{
           g.drawFrame({mirror:false});g.renderer.info.reset();const t=performance.now();g.drawFrame({mirror:false});
-          const s=g.r3d.stats||{};perf={drawCalls:s.drawCalls??g.renderer.info.render.calls,triangles:s.triangles??g.renderer.info.render.triangles,renderMs:performance.now()-t,quality:s.quality||'high'};
+          const s=g.r3d.stats||{};perf={drawCalls:s.drawCalls??g.renderer.info.render.calls,triangles:s.triangles??g.renderer.info.render.triangles,renderMs:performance.now()-t,quality:s.quality||'high'};const captureCanvas=document.createElement('canvas');captureCanvas.width=g.renderer.domElement.width;captureCanvas.height=g.renderer.domElement.height;captureCanvas.getContext('2d').drawImage(g.renderer.domElement,0,0);imageDataUrl=captureCanvas.toDataURL('image/jpeg',.88);
         }finally{S.renderNow=false;g.scene.fog=fog;cam.far=originalFar;cam.updateProjectionMatrix();}
-        return {x:p.x,z:p.z,cameraBaseY:gy,cameraY:cam.position.y,perf,traffic:{enabled:traffic,visible:!!g.traffic?.group?.visible,vehicleCount:g.traffic?.vehicles?.length??null},renderer:{width:g.renderer.domElement.width,height:g.renderer.domElement.height,pixelRatio:g.renderer.getPixelRatio()},season:g.season?.id??g.season??'summer',weather:'clear',time:'day'};
+        return {x:p.x,z:p.z,imageDataUrl,cameraBaseY:gy,cameraY:cam.position.y,perf,traffic:{enabled:traffic,visible:!!g.traffic?.group?.visible,vehicleCount:g.traffic?.vehicles?.length??null},renderer:{width:g.renderer.domElement.width,height:g.renderer.domElement.height,pixelRatio:g.renderer.getPixelRatio()},season:g.season?.id??g.season??'summer',weather:'clear',time:'day'};
       },{v,traffic});
       const image=`images/${v.id}.jpg`,thumbnail=`thumbs/${v.id}.jpg`;
-      await page.screenshot({path:path.join(out,image),type:'jpeg',quality:88});
+      fs.writeFileSync(path.join(out,image),Buffer.from(pose.imageDataUrl.split(',')[1],'base64'));delete pose.imageDataUrl;
       const row={...v,...pose,capturedAt,gamePath:image,image,thumbnail,sha256:hash(fs.readFileSync(path.join(out,image))),width,height:width,captureWallMs:Date.now()-tf,dataset:'atlas'};
       rows.push(row);write('capture-progress.json',{startedAt,completed:rows.length,total:poses.length,elapsedSeconds:(Date.now()-t0)/1000,last:row.id});
       if(rows.length%10===0||rows.length===poses.length)console.log(`capture ${rows.length}/${poses.length} elapsed ${Math.round((Date.now()-t0)/1000)}s ${v.id}`);
     }
     const endedAt=new Date().toISOString();
-    const report={startedAt,endedAt,elapsedSeconds:(Date.now()-t0)/1000,source:sourceIdentity.treeSha256,loaded,pageErrors:errors,consoleErrors,failedRequests,traffic,quality:'high',weather:'clear',season:'summer',time:'day',mirror:false,frameCounts:rows.length,coverageClaim:plan.coverage,scopeCounts:plan.counts};write('capture-report.json',report);
+    const report={startedAt,endedAt,elapsedSeconds:(Date.now()-t0)/1000,source:sourceIdentity.treeSha256,captureToolSha256:hash(fs.readFileSync(__filename)),sourceDatasetSha256:hash(fs.readFileSync(path.join(root,'game/data/'+city+'-'+district+'.json'))),loaded,pageErrors:errors,consoleErrors,failedRequests,traffic,quality:'high',weather:'clear',season:'summer',time:'day',mirror:false,captureMethod:'Native WebGL canvas copied after two settled frames; actual source RGB pixel equivalence controls retained.',frameCounts:rows.length,coverageClaim:plan.coverage,scopeCounts:plan.counts};write('capture-report.json',report);
     const manifest={schemaVersion:1,title:`${district} aerial comparisons`,generatedDate:endedAt.slice(0,10),generatedAt:endedAt,defaultTile:plan.locations.find(l=>l.kind==='chapter-start')?.tileId||rows.find(r=>r.scope==='core-touches')?.id||rows[0].id,tileMetres:poses[0].size,orientation:'north-up',atlasScopeCounts:plan.counts,publishedBaseline:plan.gameSourceCommit,gameSourceCommit:plan.gameSourceCommit,capture:report,locations:plan.locations,coverage:plan.coverage,boundarySource:'boundary-source.json',items:rows};write('manifest.json',manifest);
     console.log('complete',JSON.stringify({frames:rows.length,elapsedSeconds:report.elapsedSeconds,pageErrors:errors.length,consoleErrors:consoleErrors.length,source:plan.gameSourceCommit}));
     if(errors.length||consoleErrors.length)process.exitCode=1;

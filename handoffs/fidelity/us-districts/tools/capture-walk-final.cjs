@@ -252,11 +252,11 @@ function topdownPoses(o) {
             const far0 = cam.far; if (v.pitch <= -80) cam.far = Math.max(far0, (v.h || 0) + 200);
             cam.updateProjectionMatrix(); cam.updateMatrixWorld(true);
             const fog = g.scene.fog; if (v.pitch <= -80) g.scene.fog = null;
-            S.renderNow = true; let perf; try { g.drawFrame({mirror:false});g.renderer.info.reset();g.drawFrame({mirror:false});perf={triangles:g.r3d.stats.triangles,drawCalls:g.r3d.stats.drawCalls}; } finally { S.renderNow = false; g.scene.fog = fog; cam.far = far0; cam.updateProjectionMatrix(); }
-            return { x: Math.round(p.x), z: Math.round(p.z), cameraBaseY: gy, cameraY: cam.position.y, cameraSourceEdge, cameraLevelAmbiguity, sourceRoadId:v.sourceRoadId, perf, captureSettings:{quality:g.r3d.stats.quality||g.quality,traffic:!!g.traffic?.group?.visible,mirror:false,fog:'normal',far:cam.far,seasonOverride:g.r3d._seasonOverride,appliedSeason:g.r3d._season?.season,renderer:{width:g.renderer.domElement.width,height:g.renderer.domElement.height,pixelRatio:g.renderer.getPixelRatio()}} };
+            S.renderNow = true; let perf,imageDataUrl; try { g.drawFrame({mirror:false});g.renderer.info.reset();g.drawFrame({mirror:false});perf={triangles:g.r3d.stats.triangles,drawCalls:g.r3d.stats.drawCalls};const captureCanvas=document.createElement('canvas');captureCanvas.width=g.renderer.domElement.width;captureCanvas.height=g.renderer.domElement.height;captureCanvas.getContext('2d').drawImage(g.renderer.domElement,0,0);imageDataUrl=captureCanvas.toDataURL('image/jpeg',.85); } finally { S.renderNow = false; g.scene.fog = fog; cam.far = far0; cam.updateProjectionMatrix(); }
+            return { x: Math.round(p.x), z: Math.round(p.z), cameraBaseY: gy, imageDataUrl, cameraY: cam.position.y, cameraSourceEdge, cameraLevelAmbiguity, sourceRoadId:v.sourceRoadId, perf, captureSettings:{quality:g.r3d.stats.quality||g.quality,traffic:!!g.traffic?.group?.visible,mirror:false,fog:'normal',far:cam.far,seasonOverride:g.r3d._seasonOverride,appliedSeason:g.r3d._season?.season,method:'Native WebGL canvas copied after two settled frames; actual source RGB pixel equivalence controls retained.',renderer:{width:g.renderer.domElement.width,height:g.renderer.domElement.height,pixelRatio:g.renderer.getPixelRatio()}} };
         }, v);
         const file = path.join(A.out, v.id + '.jpg');
-        await page.screenshot({ path: file, type: 'jpeg', quality: 85 });
+        fs.writeFileSync(file,Buffer.from(r.imageDataUrl.split(',')[1],'base64'));delete r.imageDataUrl;
         let sv = null, satF = null;
         if (A.streetview && v.pitch > -80) {
             try { const res = await svImage(v, path.join(A.out, v.id + '-sv.jpg')); if (res.error) console.log(`street view ${v.id}: ${res.error}`); else { sv = v.id + '-sv.jpg'; if (res.cached) svCached++; else svFetched++; } } catch (e) { console.log('street view: ' + e.message); }

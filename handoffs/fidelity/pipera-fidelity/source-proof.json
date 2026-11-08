@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
   "district": "bucharest-pipera",
-  "builtFromCommit": "64f8bb9",
+  "builtFromCommit": "a52b6fbc4c4c5d09a27e36ad1567adc2f07922b6",
   "sourceAccessDate": "2026-11-08",
   "data": "game/data/bucharest-pipera.json",
-  "dataSha256": "0ce11f59ecc0e6a2376de785a211a9b239ec8bb0a54a4606014b43d9845eb2a6",
+  "dataSha256": "102463a0a5b32a6e28d2c7c2f44193e16a6cdf36a8bb6ba3e10cc180516327a5",
   "sourceAudit": {
     "sourceSolidRecords": 2282,
     "exactIdentitiesPresent": 2282,
@@ -336,6 +336,9 @@
     "rejectedOrUncertain": 531,
     "minimumConfidence": 0.65,
     "roofColourRecordsChanged": 1916,
-    "sourceGeometryAndDimensionsUnchangedFrom": "d000838"
-  }
+    "sourceGeometryAndDimensionsUnchangedFrom": "d000838",
+    "sourceAircraftOutlinesAmongInputs": 23,
+    "aircraftRoofColoursUsedByRenderer": false
+  },
+  "freezeAmendment": "Exact relation research identity now preserves six reviewed facade colours and their raw provenance. All source heights, dimensions, footprints, roads and trees unchanged."
 }

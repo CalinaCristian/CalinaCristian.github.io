@@ -61,7 +61,7 @@ export const ACTIVITIES = [
     ['old-town-lipscani', 'dristor-shaorma', 'Eat a shaorma at Dristor Kebap'], ['old-town-lipscani', 'shoteria-shot', 'Pour, toast and drink at Shoteria'],
     ['palace-parliament', 'balcony', 'Frame the Palace facade'], ['palace-parliament', 'pace', 'Pace the esplanade'], ['peoples-salvation-cathedral', 'candle', 'Light a candle'], ['stavropoleos-cec', 'stavropoleos', 'Stavropoleos courtyard'],
     ['bel-meydenbauer', 'pier-end', 'Walk to the end of the pier'], ['bel-meydenbauer', 'kayak', 'Kayak on Meydenbauer Bay'], ['bel-downtown-park', 'loop', 'Walk the park loop'],
-    ['bel-botanical-garden', 'bridge', 'Cross the suspension bridge'], ['bel-botanical-garden', 'plants', 'Garden plants'], ['bel-lincoln-square', 'badge-in', 'Frame Lincoln Square'],
+    ['bel-botanical-garden', 'bridge', 'Cross the suspension bridge'], ['bel-lincoln-square', 'badge-in', 'Frame Lincoln Square'],
 ].map(([spot, id, title]) => ({ spot, id, title }));
 /**
  * Review gate (owner note 61): a spot is listed in SPOTS (game menu, world map, explore pins, achievements) only once

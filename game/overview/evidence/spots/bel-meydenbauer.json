@@ -1,0 +1,266 @@
+{
+  "schemaVersion": 1,
+  "id": "bel-meydenbauer",
+  "city": "seattle",
+  "name": "Meydenbauer Bay Park",
+  "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+  "updatedAt": "2026-11-08T19:35:04.987Z",
+  "status": "needs_review",
+  "sources": [
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Meydenbauer_Bay_Park"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikivoyage.org/wiki/Bellevue"
+    },
+    {
+      "label": "City of Bellevue — Meydenbauer Bay Park",
+      "type": "Official reference",
+      "url": "https://bellevuewa.gov/city-government/departments/parks/parks-and-trails/parks/meydenbauer-beach-park"
+    }
+  ],
+  "improvements": [
+    "Source buildings, lake outline and pier context retain explicit geometry membership; exact roof profiles preserve valid surrounding volumes.",
+    "The native short shore-plaque approach completes within the captured high-quality budgets."
+  ],
+  "remainingGaps": [
+    "Kayaking still follows an automatic camera loop and lacks the required input-driven paddling and complete cancellation contract.",
+    "The May 15–September 30 rental dates are unverified and must not be presented as confirmed operating dates.",
+    "Stone skipping still produces a message without a visible stone trajectory or player challenge.",
+    "Pier rail/deck joins, pavilion details, hillside buildings and boathouse placement need matched official/aerial comparisons; remaining pier z-fighting needs physical repair.",
+    "Raw audit findings remain for physical review: zfight 28."
+  ],
+  "checks": [
+    {
+      "label": "Native scene load",
+      "passed": true,
+      "details": "bel-meydenbauer; actual native controller; 0 thrown JavaScript errors."
+    },
+    {
+      "label": "Source solid membership",
+      "passed": true,
+      "details": "61 active source records, 61 physical volumes, 0 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+    },
+    {
+      "label": "Validated scene geometry cache",
+      "passed": true,
+      "details": "Exact source/profile/terrain signature matched."
+    },
+    {
+      "label": "Native public-path walk",
+      "passed": true,
+      "details": "38.0 m walked toward First park; planned endpoint reached using native movement and collision."
+    },
+    {
+      "label": "High scene budgets",
+      "passed": true,
+      "details": "371071 unique geometry triangles; max 1015078 rendered triangles / 155 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+    },
+    {
+      "label": "Raw physical audit",
+      "passed": false,
+      "details": "zfight: 28"
+    },
+    {
+      "label": "Full matched scene comparison",
+      "passed": false,
+      "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+    }
+  ],
+  "captures": [
+    {
+      "kind": "arrival",
+      "label": "Meydenbauer Bay Park — arrival",
+      "image": "assets/spots/bel-meydenbauer/arrival.webp",
+      "sha256": "050346fb376e6c6916401f9f1935a95a2b2bc2dfb2b0f9aa9670aeaba2d0a0f5",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:26:45.205Z",
+      "pose": {
+        "position": [
+          22,
+          4.650899735713793,
+          -21
+        ],
+        "bearing": 188.63255494203824,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6106,
+          "lon": -122.2108,
+          "elev": 5.7
+        },
+        "projection": {
+          "mLat": 111182.74,
+          "mLon": 75185.23
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "public-walk",
+      "label": "Meydenbauer Bay Park — public walk",
+      "image": "assets/spots/bel-meydenbauer/public-walk.webp",
+      "sha256": "bf22be25ded8707a5b654e85a57915a6c210c297d4e58ef387dffa9114ffe122",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:26:52.525Z",
+      "pose": {
+        "position": [
+          33.626750924340406,
+          2.285101769949373,
+          15.349133079022645
+        ],
+        "bearing": 162.2624373683973,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6106,
+          "lon": -122.2108,
+          "elev": 5.7
+        },
+        "projection": {
+          "mLat": 111182.74,
+          "mLon": 75185.23
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "postcard",
+      "label": "Meydenbauer Bay Park — postcard",
+      "image": "assets/spots/bel-meydenbauer/postcard.webp",
+      "sha256": "3ee339817c57b6cb29c66ae9e0f09ca94b55a1210cf82cb3d3e2030c934d3c64",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:26:58.501Z",
+      "pose": {
+        "position": [
+          44.09012130325257,
+          1.9118533669243232,
+          28.351514994392115
+        ],
+        "bearing": 248.08461040089054,
+        "pitch": 1.0000000000000002,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6106,
+          "lon": -122.2108,
+          "elev": 5.7
+        },
+        "projection": {
+          "mLat": 111182.74,
+          "mLon": 75185.23
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "activity-approach",
+      "label": "Meydenbauer Bay Park — activity approach",
+      "image": "assets/spots/bel-meydenbauer/activity-approach.webp",
+      "sha256": "3be0535c0d5c46ca942a754dfb89d4a63f0f777e6ff43ce2a58697f5c08d5992",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:27:04.809Z",
+      "pose": {
+        "position": [
+          -60.66936977772769,
+          1.7199999999999998,
+          46.29294254819657
+        ],
+        "bearing": 0,
+        "pitch": -7.000000000000003,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6106,
+          "lon": -122.2108,
+          "elev": 5.7
+        },
+        "projection": {
+          "mLat": 111182.74,
+          "mLon": 75185.23
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    }
+  ],
+  "perf": {
+    "sceneTriangles": 603224,
+    "uniqueGeometryTriangles": 371071,
+    "geometryObjects": 114,
+    "maxRenderedTriangles": 1015078,
+    "maxDrawCalls": 155
+  },
+  "sceneId": "bel-meydenbauer",
+  "sourceGeometry": {
+    "membershipSHA256": "b651846c05a59cc920995e3bd35a5ab137397c09874e47c8480d16f82d1bd7ac",
+    "activeSourceRecords": 61,
+    "renderedVolumes": 61,
+    "literalHeights": 14,
+    "levelHeightEstimates": 0,
+    "typeHeightEstimates": 47,
+    "heroReplacements": [
+      "w688203355",
+      "w819159071",
+      "w698374975",
+      "w819159076"
+    ],
+    "missingMembers": []
+  },
+  "access": {
+    "walker": "OnFootController",
+    "arrival": {
+      "x": 22,
+      "z": -21,
+      "y": 3.000899735713793,
+      "heading": 2.9909261469919177
+    },
+    "arrivalDry": true,
+    "nearestPlaquePath": {
+      "points": [
+        [
+          22,
+          -21
+        ],
+        [
+          33.844788599687455,
+          16.03079217097396
+        ]
+      ],
+      "length": 38.87902501068092,
+      "target": "First park"
+    },
+    "nativeWalk": {
+      "walker": "OnFootController",
+      "passed": true,
+      "steps": 450,
+      "walked": 38.033973002984574,
+      "target": "First park",
+      "plannedLength": 38.87902501068092,
+      "position": {
+        "x": 33.626524357232796,
+        "z": 15.34842475405728,
+        "y": 0.6349855474646342,
+        "heading": -2.832013784389615
+      },
+      "error": null
+    }
+  },
+  "rawAudit": {
+    "zfight": 28
+  },
+  "review": "Inspected all four GAME context views. Native shore access and source preservation pass; the kayak and stone activities remain material unfinished work."
+}

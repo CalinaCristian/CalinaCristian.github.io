@@ -1,0 +1,105 @@
+[
+  {
+    "district": "floreasca",
+    "compilerSourceCommit": "38a7b36bfcfc88292a9c29a65ab342959778c6f6",
+    "changedFields": [
+      "buildingPassageIssues",
+      "buildingPassages"
+    ],
+    "beforePassageBodies": 9,
+    "afterPassageBodies": 8,
+    "beforePassageRecords": 11,
+    "afterPassageRecords": 10,
+    "retainedUnknownBaseRecords": [
+      {
+        "sourceRoadId": "w1205054012",
+        "reason": "absolute-passage-base-unknown",
+        "baseUnknown": true,
+        "status": "unsupported without a physical vertical datum",
+        "classificationSource": "OSM tunnel=building_passage",
+        "buildingIds": [
+          "w96139223"
+        ],
+        "sourceNodeIds": [
+          11168042236,
+          11168042235
+        ],
+        "sourceCentreline": [
+          [
+            -296.7205403395331,
+            1289.2534452000034
+          ],
+          [
+            -296.7523193414793,
+            1300.5889091998113
+          ]
+        ],
+        "tags": {
+          "highway": "footway",
+          "layer": "-1",
+          "surface": "asphalt",
+          "tunnel": "building_passage"
+        },
+        "evidence": [
+          "https://www.openstreetmap.org/way/1205054012"
+        ],
+        "dimensionNote": "Relative source layer/level/bridge ordering does not establish metres above local ground. No ground void is cut; source identities and complete horizontal geometry are retained for review."
+      }
+    ]
+  },
+  {
+    "district": "romana",
+    "compilerSourceCommit": "38a7b36bfcfc88292a9c29a65ab342959778c6f6",
+    "changedFields": [
+      "buildingPassageIssues",
+      "buildingPassages"
+    ],
+    "beforePassageBodies": 29,
+    "afterPassageBodies": 28,
+    "beforePassageRecords": 32,
+    "afterPassageRecords": 31,
+    "retainedUnknownBaseRecords": [
+      {
+        "sourceId": "w1527152258",
+        "sourceRoadId": "w1327357666",
+        "reason": "mapped-passage-clearance-incompatible-with-source-body",
+        "bodyTopM": 0.1,
+        "clearanceM": 3.1
+      },
+      {
+        "sourceRoadId": "w1205054012",
+        "reason": "absolute-passage-base-unknown",
+        "baseUnknown": true,
+        "status": "unsupported without a physical vertical datum",
+        "classificationSource": "OSM tunnel=building_passage",
+        "buildingIds": [
+          "w96139223"
+        ],
+        "sourceNodeIds": [
+          11168042236,
+          11168042235
+        ],
+        "sourceCentreline": [
+          [
+            704.5122363178814,
+            -499.97175479938005
+          ],
+          [
+            704.4804485527642,
+            -488.6362907995723
+          ]
+        ],
+        "tags": {
+          "highway": "footway",
+          "layer": "-1",
+          "surface": "asphalt",
+          "tunnel": "building_passage"
+        },
+        "evidence": [
+          "https://www.openstreetmap.org/way/1205054012"
+        ],
+        "dimensionNote": "Relative source layer/level/bridge ordering does not establish metres above local ground. No ground void is cut; source identities and complete horizontal geometry are retained for review."
+      }
+    ]
+  }
+]

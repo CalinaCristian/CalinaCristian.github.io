@@ -1,0 +1,269 @@
+{
+  "schemaVersion": 1,
+  "id": "bel-botanical-garden",
+  "city": "seattle",
+  "name": "Bellevue Botanical Garden",
+  "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+  "updatedAt": "2026-11-08T19:35:04.949Z",
+  "status": "needs_review",
+  "sources": [
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Bellevue_Botanical_Garden"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://bellevuewa.gov/city-government/departments/parks/parks-and-trails/parks/bellevue-botanical-garden"
+    },
+    {
+      "label": "Ravine Experience suspension bridge",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/210457899"
+    },
+    {
+      "label": "Bellevue Botanical Garden",
+      "type": "Official reference",
+      "url": "https://bellevuebotanical.org/"
+    }
+  ],
+  "improvements": [
+    "Exact source building outlines, holes and roofs replace inset/jitter/drop heuristics; the native short plaque approach completes and the high scene budget passes."
+  ],
+  "remainingGaps": [
+    "Planting colours, individual garden beds, bridge grade and ravine terrain remain simplified estimates requiring complete official/source comparisons.",
+    "The bridge and plant activities have not received a full participation, native touch, mode-cancellation and persistence review.",
+    "The actual touch-joystick crossing and accessible route through the garden remain unverified."
+  ],
+  "checks": [
+    {
+      "label": "Native scene load",
+      "passed": true,
+      "details": "bel-botanical-garden; actual native controller; 0 thrown JavaScript errors."
+    },
+    {
+      "label": "Source solid membership",
+      "passed": true,
+      "details": "78 active source records, 78 physical volumes, 0 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+    },
+    {
+      "label": "Validated scene geometry cache",
+      "passed": true,
+      "details": "Exact source/profile/terrain signature matched."
+    },
+    {
+      "label": "Native public-path walk",
+      "passed": true,
+      "details": "24.5 m walked toward From a gift; planned endpoint reached using native movement and collision."
+    },
+    {
+      "label": "High scene budgets",
+      "passed": true,
+      "details": "221825 unique geometry triangles; max 1094201 rendered triangles / 161 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+    },
+    {
+      "label": "Raw physical audit",
+      "passed": true,
+      "details": "No raw audit warnings in this scene pass."
+    },
+    {
+      "label": "Full matched scene comparison",
+      "passed": false,
+      "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+    }
+  ],
+  "captures": [
+    {
+      "kind": "arrival",
+      "label": "Bellevue Botanical Garden — arrival",
+      "image": "assets/spots/bel-botanical-garden/arrival.webp",
+      "sha256": "ef46f3ca39e6c80425bc01723360978da63fb2e3d77e2953024cec3519ab4a10",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:26:02.604Z",
+      "pose": {
+        "position": [
+          0,
+          1.4627897643018513,
+          3
+        ],
+        "bearing": 180,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6088,
+          "lon": -122.1793,
+          "elev": 69.3
+        },
+        "projection": {
+          "mLat": 111182.71,
+          "mLon": 75187.81
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "public-walk",
+      "label": "Bellevue Botanical Garden — public walk",
+      "image": "assets/spots/bel-botanical-garden/public-walk.webp",
+      "sha256": "6e3cce80005a12b5638a15c9d43559700b94fde05d27a324a3c05744a21a2c58",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:26:07.685Z",
+      "pose": {
+        "position": [
+          0.9640533234406992,
+          3.0655954141506396,
+          -21.601185410949302
+        ],
+        "bearing": 18.556661533070496,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6088,
+          "lon": -122.1793,
+          "elev": 69.3
+        },
+        "projection": {
+          "mLat": 111182.71,
+          "mLon": 75187.81
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "postcard",
+      "label": "Bellevue Botanical Garden — postcard",
+      "image": "assets/spots/bel-botanical-garden/postcard.webp",
+      "sha256": "53fda633417eb11b84c6b1da1fe9b98a93e0e28d590c073cefe24225059a8d38",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:26:11.429Z",
+      "pose": {
+        "position": [
+          200.080744013379,
+          -18.85424937027438,
+          229.410791060295
+        ],
+        "bearing": 234.70111176729986,
+        "pitch": -6.000000000000003,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6088,
+          "lon": -122.1793,
+          "elev": 69.3
+        },
+        "projection": {
+          "mLat": 111182.71,
+          "mLon": 75187.81
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "activity-approach",
+      "label": "Bellevue Botanical Garden — activity approach",
+      "image": "assets/spots/bel-botanical-garden/activity-approach.webp",
+      "sha256": "8420a0a367be1600ffd3a0d2dbc2f2c1b46762c5c75f8f97a4292fd73b1e94b5",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:26:15.793Z",
+      "pose": {
+        "position": [
+          196,
+          -19.560462376540528,
+          236.3
+        ],
+        "bearing": 0,
+        "pitch": -7.000000000000003,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6088,
+          "lon": -122.1793,
+          "elev": 69.3
+        },
+        "projection": {
+          "mLat": 111182.71,
+          "mLon": 75187.81
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    }
+  ],
+  "perf": {
+    "sceneTriangles": 639790,
+    "uniqueGeometryTriangles": 221825,
+    "geometryObjects": 107,
+    "maxRenderedTriangles": 1094201,
+    "maxDrawCalls": 161
+  },
+  "sceneId": "bel-botanical-garden",
+  "sourceGeometry": {
+    "membershipSHA256": "45798acbe34742fff94fe91fee3a80e669911e1166414895c62def0749930e78",
+    "activeSourceRecords": 78,
+    "renderedVolumes": 78,
+    "literalHeights": 21,
+    "levelHeightEstimates": 0,
+    "typeHeightEstimates": 57,
+    "heroReplacements": [
+      "r19675678",
+      "r19659543",
+      "w32121769"
+    ],
+    "missingMembers": []
+  },
+  "access": {
+    "walker": "OnFootController",
+    "arrival": {
+      "x": 0,
+      "z": 3,
+      "y": -0.18721023569814868,
+      "heading": -3.141592653589793
+    },
+    "arrivalDry": true,
+    "nearestPlaquePath": {
+      "points": [
+        [
+          0,
+          3
+        ],
+        [
+          0.75,
+          -21.549999999999997
+        ],
+        [
+          1.2000000000000004,
+          -22.3
+        ]
+      ],
+      "length": 25.43609632427609,
+      "target": "From a gift"
+    },
+    "nativeWalk": {
+      "walker": "OnFootController",
+      "passed": true,
+      "steps": 292,
+      "walked": 24.515684165657966,
+      "target": "From a gift",
+      "plannedLength": 25.43609632427609,
+      "position": {
+        "x": 0.9638209644664399,
+        "z": -21.600479206207403,
+        "y": 1.4156943541452671,
+        "heading": -0.32387484193025884
+      },
+      "error": null
+    }
+  },
+  "rawAudit": {},
+  "review": "Inspected all four GAME context captures; the bridge and public paths are visible and the raw audit is clear in this pass. This is not full scene parity."
+}

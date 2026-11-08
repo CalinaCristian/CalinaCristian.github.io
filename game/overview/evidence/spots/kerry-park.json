@@ -1,0 +1,335 @@
+{
+  "schemaVersion": 1,
+  "id": "kerry-park",
+  "city": "seattle",
+  "name": "Kerry Park viewpoint",
+  "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+  "updatedAt": "2026-11-08T19:35:04.554Z",
+  "status": "needs_review",
+  "sources": [
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Changing_Form"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Kerry_Park"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_Kerry_Park_Skyline.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://creativecommons.org/licenses/by/4.0"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Space_Needle_and_Seattle_skyline_from_Kerry_Park_with_waxing_gibbous_moon,_27_June_2026.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_Skyline_Kerry_Park.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://creativecommons.org/licenses/by/2.0"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Kerry_Park_view_of_Seattle,_Mt_Rainier_(28356722347).jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://creativecommons.org/licenses/by-sa/3.0"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Kerry_Park_sign,_Seattle.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_-_tourists_at_Kerry_Park_01.jpg"
+    },
+    {
+      "label": "Changing Form (Doris Totten Chase, 1971)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/693337510"
+    },
+    {
+      "label": "Viewing terrace + railing",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/49734702"
+    },
+    {
+      "label": "Viewing terrace + railing",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/693337509"
+    },
+    {
+      "label": "Stairs down to Bayview-Kinnear Park",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/50329131"
+    }
+  ],
+  "improvements": [
+    "Source footprints, thin building-part strips and courtyard holes are preserved, including the residential context around the viewpoint.",
+    "Literal source heights and explicit estimates use the shared roof profiles instead of shrinking and jittering neighbouring buildings."
+  ],
+  "remainingGaps": [
+    "The skyline, Mount Rainier visibility and nearby residential heights need matched independent viewpoints; most nearby height values are still type estimates.",
+    "The activity approach is close to crowds and trees and has not had a full native touch-flow review.",
+    "Two remaining degenerate meshes require identification and repair; the scene is not a clean physical-audit pass.",
+    "Raw audit findings remain for physical review: badGeometry 2, zfight 21."
+  ],
+  "checks": [
+    {
+      "label": "Native scene load",
+      "passed": true,
+      "details": "kerry-park; actual native controller; 0 thrown JavaScript errors."
+    },
+    {
+      "label": "Source solid membership",
+      "passed": true,
+      "details": "134 active source records, 134 physical volumes, 0 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+    },
+    {
+      "label": "Validated scene geometry cache",
+      "passed": true,
+      "details": "Exact source/profile/terrain signature matched."
+    },
+    {
+      "label": "Native public-path walk",
+      "passed": true,
+      "details": "12.4 m walked toward Changing Form; planned endpoint reached using native movement and collision."
+    },
+    {
+      "label": "High scene budgets",
+      "passed": true,
+      "details": "283638 unique geometry triangles; max 922148 rendered triangles / 150 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+    },
+    {
+      "label": "Raw physical audit",
+      "passed": false,
+      "details": "badGeometry: 2; zfight: 21"
+    },
+    {
+      "label": "Full matched scene comparison",
+      "passed": false,
+      "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+    }
+  ],
+  "captures": [
+    {
+      "kind": "arrival",
+      "label": "Kerry Park viewpoint — arrival",
+      "image": "assets/spots/kerry-park/arrival.webp",
+      "sha256": "e5b78596246e89ff0a8397f52098c75e0aba7b651c09e7b60603fe6bd67d9a23",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:22:02.263Z",
+      "pose": {
+        "position": [
+          2,
+          1.7999999999999998,
+          4.5
+        ],
+        "bearing": 141,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6295,
+          "lon": -122.3601,
+          "elev": 103
+        },
+        "projection": {
+          "mLat": 111183.11,
+          "mLon": 75158.14
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "public-walk",
+      "label": "Kerry Park viewpoint — public walk",
+      "image": "assets/spots/kerry-park/public-walk.webp",
+      "sha256": "82815413a96f9f6066d54ed724ec69fce1f0ece46f0d54fccdc7769e52f1c8d2",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:22:10.019Z",
+      "pose": {
+        "position": [
+          13.952585629571143,
+          1.800177573008715,
+          2.4096614880060274
+        ],
+        "bearing": 57.67578232751532,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6295,
+          "lon": -122.3601,
+          "elev": 103
+        },
+        "projection": {
+          "mLat": 111183.11,
+          "mLon": 75158.14
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "postcard",
+      "label": "Kerry Park viewpoint — postcard",
+      "image": "assets/spots/kerry-park/postcard.webp",
+      "sha256": "244e02bc36493d00f7482379940df0e2f237445fc40359039a156385386a7849",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:22:15.903Z",
+      "pose": {
+        "position": [
+          12.8,
+          1.7999999999999998,
+          4.4
+        ],
+        "bearing": 143,
+        "pitch": 1,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6295,
+          "lon": -122.3601,
+          "elev": 103
+        },
+        "projection": {
+          "mLat": 111183.11,
+          "mLon": 75158.14
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "activity-approach",
+      "label": "Kerry Park viewpoint — activity approach",
+      "image": "assets/spots/kerry-park/activity-approach.webp",
+      "sha256": "83b9404c48d93a34fbc678cfddc81ded0804293183e53f3e281296554da19bdb",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:22:21.871Z",
+      "pose": {
+        "position": [
+          9.4,
+          1.7999999999999998,
+          4
+        ],
+        "bearing": 0,
+        "pitch": -7.000000000000003,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6295,
+          "lon": -122.3601,
+          "elev": 103
+        },
+        "projection": {
+          "mLat": 111183.11,
+          "mLon": 75158.14
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    }
+  ],
+  "perf": {
+    "sceneTriangles": 695751,
+    "uniqueGeometryTriangles": 283638,
+    "geometryObjects": 104,
+    "maxRenderedTriangles": 922148,
+    "maxDrawCalls": 150
+  },
+  "sceneId": "kerry-park",
+  "sourceGeometry": {
+    "membershipSHA256": "61ff245672770e3a9189d64a9e3b82763e5f4e0c4cf7caa5049e4d7ead1249ce",
+    "activeSourceRecords": 134,
+    "renderedVolumes": 134,
+    "literalHeights": 5,
+    "levelHeightEstimates": 0,
+    "typeHeightEstimates": 129,
+    "heroReplacements": [],
+    "missingMembers": []
+  },
+  "access": {
+    "walker": "OnFootController",
+    "arrival": {
+      "x": 2,
+      "z": 4.5,
+      "y": 0.15,
+      "heading": -2.4609142453120048
+    },
+    "arrivalDry": true,
+    "nearestPlaquePath": {
+      "points": [
+        [
+          2,
+          4.5
+        ],
+        [
+          11.75,
+          4.25
+        ],
+        [
+          14.6,
+          2
+        ]
+      ],
+      "length": 13.384320132638642,
+      "target": "Changing Form"
+    },
+    "nativeWalk": {
+      "walker": "OnFootController",
+      "passed": true,
+      "steps": 149,
+      "walked": 12.352724508207361,
+      "target": "Changing Form",
+      "plannedLength": 13.384320132638642,
+      "position": {
+        "x": 13.95195719499541,
+        "z": 2.4100591397313287,
+        "y": 0.15,
+        "heading": -1.0066323002787005
+      },
+      "error": null
+    }
+  },
+  "rawAudit": {
+    "badGeometry": 2,
+    "zfight": 21
+  },
+  "review": "Inspected all four GAME context views; the lawn, benches, rail and skyline are visible, with unresolved source and physical details retained."
+}

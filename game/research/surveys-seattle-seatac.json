@@ -13833,9 +13833,7 @@
       "publicUploadExcluded": 12
     },
     "sourceWalk": {
-      "sourceCommit": "a9f77967c37fdf004ebd154609ec3b2f6cd013e9",
       "candidatePoses": 786,
-      "matchedUniqueGooglePanosAndViews": 762,
       "unavailableWithin20m": 16,
       "publicUploadMatchesExcluded": 8,
       "duplicateViewsOmitted": 8,
@@ -13848,7 +13846,12 @@
       ],
       "scope": "Compiled public drivable non-virtual, non-tunnel streets excluding service, motorway, motorway_link and trunk_link; not an indoor/airfield/private or complete nearby-ring walk. Metadata availability is separate from image comparison completion.",
       "comparisonImagesComplete": false,
-      "referenceImagesTracked": false
+      "referenceImagesTracked": false,
+      "matchedViewPoses": 762,
+      "uniquePanoramas": 223,
+      "metadataSourceCommit": "a9f77967c37fdf004ebd154609ec3b2f6cd013e9",
+      "comparisonSourceCommit": null,
+      "finalCameraValidation": "pending consolidated final runtime checkpoint"
     }
   },
   "remainingUncertainty": [
@@ -13859,7 +13862,7 @@
   ],
   "sourceWorld": {
     "buildPrerequisiteCommit": "4fdacd3",
-    "datasetSha256": "da58fc931f0dd36a1934af9d32fe3f1441530a80cb0f3e53e0a53fa4cb9e08a0",
+    "datasetSha256": "b1991067b87c2a85c222d40a10fb535e8c3a1e81d1d17bf2236c49e3df5a2169",
     "buildingCount": 1858,
     "roadRows": 732,
     "treeRetention": {
@@ -13976,6 +13979,9 @@
     },
     "sourceSkips": [],
     "buildingRoadConflictCount": 77,
-    "conflictPolicy": "Retain original source geometry; browser checks distinguish mapped building passages/elevated roads from width-estimate conflicts."
+    "conflictPolicy": "Retain original source geometry; browser checks distinguish mapped building passages/elevated roads from width-estimate conflicts.",
+    "sourceCommit": "4881e6ca5fae3f5d118f5ed55165287f282852bd",
+    "unresolvedPassageVerticalDatums": 9,
+    "roadConflictCandidateReview": "handoffs/fidelity/us-districts/seatac/road-conflict-review.json"
   }
 }

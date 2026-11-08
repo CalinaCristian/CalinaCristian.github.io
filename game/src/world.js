@@ -13,6 +13,7 @@ import { assignSignalPhases, signalState } from './signals.js';
 import { aircraftBody } from './building-aircraft.js';
 import { resolveParkingLayout, parkingRowPose, parkingPolygonsOverlap, parkingBodyOverlap } from './parking-layout.js';
 import { passageSolids, clipPassageWall, passageInterior, passageBaseUnknown } from './building-passages.js';
+import { scenerySourceProfile } from './scenery-source.js';
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -1307,6 +1308,80 @@ export async function buildWorld(city, renderer, opts = {}) {
             finalStats = { ramps: elig.size, liveDecks: live.size, ground: groundN.size, lowered, raised, overheadCaps: overhead.size, maxY: +maxY.toFixed(1) };
             profileStats0 = { ...(profileStats0 || {}), final: finalStats };
         }
+        // A source tunnel can continue through an untagged, already depressed approach. Its overlapping ground
+        // carriageway still needs headroom; the bridge-only crossing pass cannot classify this layer-zero ramp.
+        {
+            const region = new Set(edges.filter(e => !e.virtual && e.tunnel)), queue = [...region].flatMap(e => [e.a, e.b]);
+            const visited = new Set();
+            while (queue.length) {
+                const n = queue.pop(); if (visited.has(n)) continue; visited.add(n);
+                const real = n.edges.filter(e => !e.virtual); if (real.length > 2) continue;
+                for (const e of real) {
+                    if (region.has(e) || e.bridge || Math.max(e.a.y, e.b.y) >= -0.05) continue;
+                    region.add(e); queue.push(e.a === n ? e.b : e.a);
+                }
+            }
+            const caps = new Map(), width = (e, side) => (side > 0 ? e.wR : e.wL) + shoulderOf(e);
+            // A very short mapped bend can have intersecting inner mitres. Build a real, flat turning pad
+            // across that local bend, with the approach grade carried back through the existing trench.
+            // Independent per-edge corner collapse otherwise leaves both a crack and two different surfaces.
+            const tight = new Set();
+            for (const e of region) {
+                if (e.tunnel || e.a.sourceId == null || e.b.sourceId == null) continue;
+                for (const side of [1, -1]) {
+                    const a = corner(e, e.a, side, width(e, side), width), b = corner(e, e.b, side, width(e, side), width);
+                    if ((b[0] - a[0]) * e.dirx + (b[1] - a[1]) * e.dirz >= 0.05) continue;
+                    for (const n of [e.a, e.b]) if (n.edges.filter(f => !f.virtual).length === 2) { tight.add(n); n.shortBendPad = true; }
+                }
+            }
+            const bendGroups = [];
+            for (const n of tight) {
+                const nodes = new Set();
+                for (const e of n.edges) if (region.has(e)) { nodes.add(e.a); nodes.add(e.b); }
+                for (let i = bendGroups.length - 1; i >= 0; i--) if ([...nodes].some(p => bendGroups[i].has(p))) {
+                    for (const p of bendGroups.splice(i, 1)[0]) nodes.add(p);
+                }
+                bendGroups.push(nodes);
+            }
+            const footprint = e => asphaltCorners(e, width);
+            const contains = (p, P) => pointInPolygon(p[0], p[1], P) || P.some((a, i) => { const b = P[(i + 1) % P.length]; return distPointSeg(p[0], p[1], a[0], a[1], b[0], b[1]).d < 1e-7; });
+            const height = (e, p) => yP(e, clamp(((p[0] - e.a.x) * e.dirx + (p[1] - e.a.z) * e.dirz) / e.len, 0, 1));
+            let constraints = 0;
+            for (const e of region) {
+                if (e.tunnel) continue;
+                const A = footprint(e), pad = Math.max(width(e, 1), width(e, -1)) * 2.5 + 17;
+                edgesInBox(Math.min(e.a.x, e.b.x) - pad, Math.min(e.a.z, e.b.z) - pad, Math.max(e.a.x, e.b.x) + pad, Math.max(e.a.z, e.b.z) + pad, f => {
+                    if (f.virtual || region.has(f) || f.bridge || shares(e, f) || Math.min(f.a.y, f.b.y) < -0.05) return;
+                    const B = footprint(f), P = A.filter(p => contains(p, B)).concat(B.filter(p => contains(p, A)));
+                    for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) {
+                        const a = A[i], b = A[(i + 1) % 4], c = B[j], d = B[(j + 1) % 4], rx = b[0] - a[0], rz = b[1] - a[1], sx = d[0] - c[0], sz = d[1] - c[1], den = rx * sz - rz * sx;
+                        if (Math.abs(den) < 1e-9) continue;
+                        const qx = c[0] - a[0], qz = c[1] - a[1], t = (qx * sz - qz * sx) / den, u = (qx * rz - qz * rx) / den;
+                        if (t >= 0 && t <= 1 && u >= 0 && u <= 1) P.push([a[0] + t * rx, a[1] + t * rz]);
+                    }
+                    if (P.length < 3 || P.every(p => height(f, p) - height(e, p) >= CLEAR_MIN)) return;
+                    constraints++;
+                    const ceiling = Math.min(...P.map(p => height(f, p))) - CLEAR_MIN;
+                    for (const n of [e.a, e.b]) caps.set(n, Math.min(caps.get(n) ?? Infinity, ceiling));
+                });
+            }
+            for (const nodes of bendGroups) {
+                const level = Math.min(...[...nodes].map(n => Math.min(n.y, caps.get(n) ?? Infinity)));
+                for (const n of nodes) caps.set(n, level);
+            }
+            const before = new Map([...region].flatMap(e => [e.a, e.b]).map(n => [n, n.y]));
+            const pending = [...caps];
+            while (pending.length) {
+                const [n, cap] = pending.pop(); if (n.y <= cap) continue; n.y = cap;
+                for (const e of n.edges) if (region.has(e)) { const o = e.a === n ? e.b : e.a, limit = cap + MAXG * e.len; if (o.y > limit) pending.push([o, limit]); }
+            }
+            let residual = 0, lowered = 0, maxDrop = 0;
+            for (const e of edges) if (!e.virtual) residual = Math.max(residual, Math.abs(e.a.y - e.b.y) - MAXG * e.len);
+            for (const [n, y] of before) { if (n.y < y - 0.001) lowered++; maxDrop = Math.max(maxDrop, y - n.y); }
+            const kept = residual < 0.001;
+            if (!kept) { for (const [n, y] of before) n.y = y; for (const n of tight) delete n.shortBendPad; }
+            profileStats0 = { ...(profileStats0 || {}), tunnelApproach: { constraints, turningPads: kept ? tight.size : 0, lowered: kept ? lowered : 0, maxDrop: kept ? maxDrop : 0, kept } };
+        }
         // ---- (round 6) gores: where a deck / ramp merges into (or splits from) a near-parallel road it is connected to,
         //      their surfaces touch or overlap for the last metres before the node — no room for a barrier there (the
         //      wall-cut rule opens it so neither lane is blocked). If they are at different heights the car drops off one
@@ -1824,6 +1899,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const asphaltEnds = (e) => (US && e.type === 'motorway_link' && !e.tunnel) ? [nodeSurf(e.a), nodeSurf(e.b)] : [asphaltOf(e), asphaltOf(e)];
     const padAsphalt = (n) => { const es = n.edges.filter(f => !f.virtual); const cc = es.filter(isConcrete).length; if (cc * 2 >= es.length && cc) return concreteCol; if (es.length && es.every(f => f.tunnel)) return shadeRgb(asphaltBase, 0.85); return es.some(f => f.type === 'motorway_link') ? nodeSurf(n) : asphaltBase; };
     function isPadNode(n) {
+        if (n.shortBendPad) return true;
         if (n.edges.length !== 2) return n.edges.length >= 3;
         const [e1, e2] = n.edges;
         const d1x = e1.b === n ? e1.dirx : -e1.dirx, d1z = e1.b === n ? e1.dirz : -e1.dirz; // e1 travelling into n
@@ -3179,7 +3255,7 @@ export async function buildWorld(city, renderer, opts = {}) {
 
     dressSports(); // (sports-ground markings / goals / nets — after the landmarks, so their own grounds are skipped)
     // CV POIs (offices, schools, airports)
-    const pois = [];
+    const pois = [], poiDoorGuides = new MeshBuilder();
     const poiGroup = new THREE.Group(); poiGroup.name = 'pois'; group.add(poiGroup);
     const drivable = (e) => e.drivable && !/motorway|trunk_link/.test(e.type) && !e.tunnel && e.type !== 'service';
     const kerbPoint = (x, z, re, radius = 350, anyRoad = false) => {
@@ -3263,7 +3339,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         poiGroup.add(marker);
         poi.marker = marker; if (p.passing) marker.visible = false; // a passing landmark (caption) has no stop marker / door mat
         // door mat / entrance plaza at the kerb
-        if (!p.passing) cellOf(door.x, door.z).marks.flatFan([[door.x - 1.2, door.z - 1.2], [door.x + 1.2, door.z - 1.2], [door.x + 1.2, door.z + 1.2], [door.x - 1.2, door.z + 1.2]], Y.road + Y.mark + 0.01, rgb(p.color || '#f97316'));
+        if (!p.passing) poiDoorGuides.flatFan([[door.x - 1.2, door.z - 1.2], [door.x + 1.2, door.z - 1.2], [door.x + 1.2, door.z + 1.2], [door.x - 1.2, door.z + 1.2]], Y.road + Y.mark + 0.01, rgb(p.color || '#f97316'));
         pois.push(poi);
     }
     // keep the marker colour in sync when main.js assigns poi.color later
@@ -5126,6 +5202,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // (data.scenery from build-data: carriageway width, sidewalk, class, flags, polyline) as flat asphalt + sidewalk strips,
     // below the drivable ribbons (no traffic, no markings beyond a centre dash on two-way main streets)
     let sceneryStreets = 0;
+    const scenerySourceAudit = { precisePieces: 0, literalWidthPieces: 0, reviewedWidthPieces: 0, estimatedWidthPieces: 0, fallbackPieces: 0, resolvedWidths: [], issues: [] };
     {
         const SC = data.scenery || [], asp = rgb(ASPHALT), side = rgb(US ? '#a4a29d' : '#9d9a92'), dash = rgb('#cfcfca');
         const yA = Y.side + 0.05, yS = Y.side + 0.03;
@@ -5139,15 +5216,19 @@ export async function buildWorld(city, renderer, opts = {}) {
                 c.ground.flatQuad(ax + n0x * l0, az + n0z * l0, bx + n1x * l0, bz + n1z * l0, bx + n1x * l1, bz + n1z * l1, ax + n0x * l1, az + n0z * l1, y, col);
             }
         };
-        for (const r of SC) {
-            const wC = r[0] / 10, sw = r[1] / 10, cls = data.classes[r[2]] || 'residential', fl = r[3];
-            const pts = undelta(r, 4); if (pts.length < 2) continue;
+        for (const [ri, r] of SC.entries()) {
+            const sw = r[1] / 10, cls = data.classes[r[2]] || 'residential', fl = r[3];
             if (fl & 1) continue; // (bridges in the ring: skipped, no decks out there)
-            const hw = Math.max(2.2, wC / 2);
-            strip(pts, -hw, hw, yA, asp);
-            if (sw > 0.5 && !/service|motorway/.test(cls)) { strip(pts, hw, hw + Math.max(1.2, sw), yS, side); strip(pts, -hw - Math.max(1.2, sw), -hw, yS, side); }
+            const profile = scenerySourceProfile(data, ri, undelta(r, 4)), pts = profile.points, wC = profile.widthM;
+            if (pts.length < 2) continue;
+            scenerySourceAudit[profile.precise ? 'precisePieces' : 'fallbackPieces']++;
+            scenerySourceAudit[profile.widthSource === 'OSM width' ? 'literalWidthPieces' : profile.review ? 'reviewedWidthPieces' : 'estimatedWidthPieces']++;
+            if (profile.rawWidth || profile.review) scenerySourceAudit.resolvedWidths.push({ piece: ri, sourceId: profile.sourceId, widthM: profile.widthM, leftM: profile.leftM, rightM: profile.rightM, widthSource: profile.widthSource, rawWidth: profile.rawWidth, review: profile.review });
+            if (profile.issue) scenerySourceAudit.issues.push({ piece: ri, sourceId: profile.sourceId, reason: profile.issue });
+            strip(pts, -profile.leftM, profile.rightM, yA, asp);
+            if (sw > 0.5 && !/service|motorway/.test(cls)) { strip(pts, profile.rightM, profile.rightM + Math.max(1.2, sw), yS, side); strip(pts, -profile.leftM - Math.max(1.2, sw), -profile.leftM, yS, side); }
             if (/primary|secondary|tertiary/.test(cls) && wC > 6) { // dashed centre line
-                for (let i = 0; i < pts.length - 1; i++) { const [ax, az] = pts[i], [bx, bz] = pts[i + 1], L = Math.hypot(bx - ax, bz - az); for (let d = 1; d + 3 < L; d += 9) { const f0 = d / L, f1 = (d + 3) / L; strip([[ax + (bx - ax) * f0, az + (bz - az) * f0], [ax + (bx - ax) * f1, az + (bz - az) * f1]], -0.07, 0.07, yA + 0.005, dash); } }
+                for (let i = 0; i < pts.length - 1; i++) { const [ax, az] = pts[i], [bx, bz] = pts[i + 1], L = Math.hypot(bx - ax, bz - az); for (let d = 1; d + 3 < L; d += 9) { const f0 = d / L, f1 = (d + 3) / L; strip([[ax + (bx - ax) * f0, az + (bz - az) * f0], [ax + (bx - ax) * f1, az + (bz - az) * f1]], profile.lineOffsetM - 0.07, profile.lineOffsetM + 0.07, yA + 0.005, dash); } }
             }
             sceneryStreets++;
         }
@@ -5241,6 +5322,13 @@ export async function buildWorld(city, renderer, opts = {}) {
     }
     const cellsGroup = new THREE.Group(); cellsGroup.name = 'cells'; group.add(cellsGroup);
     let tris = 0;
+    // Destination guides are gameplay markers, including at doors reached from a sidewalk.
+    // Keep their exact paint/material while batching them separately from physical carriageway markings.
+    if (!poiDoorGuides.empty) {
+        const m = new THREE.Mesh(poiDoorGuides.build(), marksMat);
+        m.name = 'poi-door-guides'; m.receiveShadow = true; m.renderOrder = 4;
+        m.matrixAutoUpdate = false; m.updateMatrix(); poiGroup.add(m); tris += poiDoorGuides.ic / 3;
+    }
     const addMesh = (mb, mat, cast, name) => {
         if (mb.empty) return null;
         const m = new THREE.Mesh(mb.build(), mat);
@@ -5552,6 +5640,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     setProgress(''); const phases = PHASES.splice(0);
     const stats = { parkingClearance, phases, railways: railStats, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, fuel: fuelLog,
         buildingRoofProfiles: roofProfileAudit, profile: profileStats, buildingPassages: buildingPassageAudit, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, landmarkSourceReplacements, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
+    stats.scenerySource = scenerySourceAudit;
     console.info('[world]', city.id, stats);
 
     /** calls cb(height) for every drivable surface (carriageway + shoulder + sidewalk, junction pads) covering (x, z) */

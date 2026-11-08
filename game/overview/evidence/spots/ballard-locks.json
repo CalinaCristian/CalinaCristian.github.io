@@ -1,0 +1,332 @@
+{
+  "schemaVersion": 1,
+  "id": "ballard-locks",
+  "city": "seattle",
+  "name": "Ballard Locks & fish ladder",
+  "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+  "updatedAt": "2026-11-08T19:35:04.662Z",
+  "status": "needs_review",
+  "sources": [
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Ballard_Locks"
+    },
+    {
+      "label": "Large lock (1917)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/164115502"
+    },
+    {
+      "label": "Large lock (1917)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/472179860"
+    },
+    {
+      "label": "Small lock",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/164115503"
+    },
+    {
+      "label": "Fish ladder (rebuilt 1976) + viewing room",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/3413278212"
+    },
+    {
+      "label": "Fish ladder (rebuilt 1976) + viewing room",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/3211770269"
+    },
+    {
+      "label": "Administration Building (1915), Operating Houses (1914), Control Tower (1969)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/51475867"
+    },
+    {
+      "label": "Administration Building (1915), Operating Houses (1914), Control Tower (1969)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/285289605"
+    },
+    {
+      "label": "Administration Building (1915), Operating Houses (1914), Control Tower (1969)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/285289606"
+    },
+    {
+      "label": "Administration Building (1915), Operating Houses (1914), Control Tower (1969)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/223562285"
+    },
+    {
+      "label": "Carl S. English Jr. Botanical Garden (1917)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/51475864"
+    },
+    {
+      "label": "U.S. Army Corps of Engineers — Chittenden Locks",
+      "type": "Official reference",
+      "url": "https://www.nws.usace.army.mil/Missions/Civil-Works/Locks-and-Dams/Chittenden-Locks/"
+    }
+  ],
+  "improvements": [
+    "Lock observation now requires identifying four visible water/boat stages using explicit controls; visitors do not operate the real lock equipment.",
+    "Source buildings retain exact footprints, courtyard holes and shared native roofs. Mathematical capsule-pole degenerates were removed without dropping boats."
+  ],
+  "remainingGaps": [
+    "The native plaque route fails to complete and leaves the walker about six metres below the lock-wall top. Ground, walkway and route grade must be reconciled using actual public paths.",
+    "The public-walk capture shows visitors overhead along a wall. A clean raw audit is insufficient to accept this access geometry.",
+    "Gate/walkway widths, fish-ladder placement, garden paths and water datums need matched source and official reference comparisons.",
+    "126.7 m walked toward Lakes lowered; planned endpoint reached using native movement and collision."
+  ],
+  "checks": [
+    {
+      "label": "Native scene load",
+      "passed": true,
+      "details": "ballard-locks; actual native controller; 0 thrown JavaScript errors."
+    },
+    {
+      "label": "Source solid membership",
+      "passed": true,
+      "details": "107 active source records, 107 physical volumes, 0 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+    },
+    {
+      "label": "Validated scene geometry cache",
+      "passed": true,
+      "details": "Exact source/profile/terrain signature matched."
+    },
+    {
+      "label": "Native public-path walk",
+      "passed": false,
+      "details": "126.7 m walked toward Lakes lowered; planned endpoint reached using native movement and collision."
+    },
+    {
+      "label": "High scene budgets",
+      "passed": true,
+      "details": "252188 unique geometry triangles; max 712008 rendered triangles / 149 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+    },
+    {
+      "label": "Raw physical audit",
+      "passed": true,
+      "details": "No raw audit warnings in this scene pass."
+    },
+    {
+      "label": "Full matched scene comparison",
+      "passed": false,
+      "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+    },
+    {
+      "label": "Participatory activity controls",
+      "passed": true,
+      "details": "Desktop and touch controls require all four animated lockage stages and reject idle/early completion; proof/actions-desktop.json and proof/actions-touch.json."
+    }
+  ],
+  "captures": [
+    {
+      "kind": "arrival",
+      "label": "Ballard Locks & fish ladder — arrival",
+      "image": "assets/spots/ballard-locks/arrival.webp",
+      "sha256": "c410a3b0177b69d6c8f44423e7b750e9e75594af0d89336cf3204209791aafc8",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:24:01.178Z",
+      "pose": {
+        "position": [
+          0,
+          1.8598590035364024,
+          0
+        ],
+        "bearing": 180,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6664,
+          "lon": -122.397,
+          "elev": 8.5
+        },
+        "projection": {
+          "mLat": 111183.83,
+          "mLon": 75105.22
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "public-walk",
+      "label": "Ballard Locks & fish ladder — public walk",
+      "image": "assets/spots/ballard-locks/public-walk.webp",
+      "sha256": "45942d6f6855d7daf6dfd4377fdbe368c72ca29718c7b274a146b268f58b5999",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:24:09.254Z",
+      "pose": {
+        "position": [
+          -47.34706224565024,
+          -4.450232640619449,
+          44.028680037884115
+        ],
+        "bearing": 107.14848442899381,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6664,
+          "lon": -122.397,
+          "elev": 8.5
+        },
+        "projection": {
+          "mLat": 111183.83,
+          "mLon": 75105.22
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "postcard",
+      "label": "Ballard Locks & fish ladder — postcard",
+      "image": "assets/spots/ballard-locks/postcard.webp",
+      "sha256": "b8bc26e8cabcf2e68a8a7bef233d5e8b2400ae51620fa39d4d7b02a870050011",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:24:14.554Z",
+      "pose": {
+        "position": [
+          91.97229627058839,
+          2.25,
+          100.50567922767456
+        ],
+        "bearing": 289.99999999999994,
+        "pitch": -10,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6664,
+          "lon": -122.397,
+          "elev": 8.5
+        },
+        "projection": {
+          "mLat": 111183.83,
+          "mLon": 75105.22
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "activity-approach",
+      "label": "Ballard Locks & fish ladder — activity approach",
+      "image": "assets/spots/ballard-locks/activity-approach.webp",
+      "sha256": "b458ee66ad08ce272f2b2c3a10b8da802cdf1200f1022ebb3b2e8257cf9d81a6",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:24:19.426Z",
+      "pose": {
+        "position": [
+          1.871466679641416,
+          2.274430234259533,
+          68.5070013727009
+        ],
+        "bearing": 0,
+        "pitch": -7.000000000000003,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6664,
+          "lon": -122.397,
+          "elev": 8.5
+        },
+        "projection": {
+          "mLat": 111183.83,
+          "mLon": 75105.22
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    }
+  ],
+  "perf": {
+    "sceneTriangles": 460381,
+    "uniqueGeometryTriangles": 252188,
+    "geometryObjects": 65,
+    "maxRenderedTriangles": 712008,
+    "maxDrawCalls": 149
+  },
+  "sceneId": "ballard-locks",
+  "sourceGeometry": {
+    "membershipSHA256": "0f40f8a30d285596a57159ca20781a1fcbb5af4fefc28f3701adadf0848fe52d",
+    "activeSourceRecords": 107,
+    "renderedVolumes": 107,
+    "literalHeights": 12,
+    "levelHeightEstimates": 0,
+    "typeHeightEstimates": 95,
+    "heroReplacements": [],
+    "missingMembers": []
+  },
+  "access": {
+    "walker": "OnFootController",
+    "arrival": {
+      "x": 0,
+      "z": 0,
+      "y": 0.2098590035364024,
+      "heading": -3.141592653589793
+    },
+    "arrivalDry": true,
+    "nearestPlaquePath": {
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          -80.4074398235195,
+          27.75
+        ],
+        [
+          -81.9074398235195,
+          29.25
+        ],
+        [
+          -80.4074398235195,
+          30.75
+        ],
+        [
+          -80.4074398235195,
+          32.25
+        ],
+        [
+          -81.9074398235195,
+          33.75
+        ],
+        [
+          -36.907439823519496,
+          47.25
+        ],
+        [
+          -33.15743982351949,
+          49.684825781289824
+        ]
+      ],
+      "length": 144.37772157486745,
+      "target": "Lakes lowered"
+    },
+    "nativeWalk": {
+      "walker": "OnFootController",
+      "passed": false,
+      "steps": 1500,
+      "walked": 126.67018602085682,
+      "target": "Lakes lowered",
+      "plannedLength": 144.37772157486745,
+      "position": {
+        "x": -47.34777286255439,
+        "z": 44.02846076516273,
+        "y": -6.1,
+        "heading": -1.8700938418078188
+      },
+      "error": null
+    }
+  },
+  "rawAudit": {},
+  "review": "Inspected all four GAME context captures. Native grade failure is retained explicitly although this pass has no raw audit warnings."
+}

@@ -1,0 +1,342 @@
+{
+  "sourceCommit": "1b73d42",
+  "summary": {
+    "cases": 5,
+    "crossings": 5,
+    "sourceControls": 5,
+    "highMedium": 0,
+    "pass": true
+  },
+  "errors": [],
+  "districts": [
+    {
+      "district": "seatac",
+      "issues": [
+        {
+          "id": 1,
+          "type": "perf-traffic-update",
+          "severity": "low",
+          "scenario": "native-covered-source-opening",
+          "city": "seattle",
+          "t": 2.2,
+          "msg": "traffic.update averaging 8.9 ms (> 8 ms budget) on this machine",
+          "x": -698.8,
+          "z": 282.4,
+          "lat": 47.447459,
+          "lon": -122.294283,
+          "street": "(service)",
+          "edge": 1507,
+          "count": 1,
+          "data": {
+            "updateMs": 8.9,
+            "vehicles": 149
+          }
+        }
+      ],
+      "results": [
+        {
+          "sourceRoadId": "w1185430933",
+          "edge": 1508,
+          "sourceLayer": 0,
+          "sourceLengthM": 10.002018810092522,
+          "start": {
+            "x": -698.7341980118247,
+            "z": 270.51747402475377,
+            "y": 0.24
+          },
+          "end": {
+            "x": -698.8089372715235,
+            "z": 284.7035607466961,
+            "y": 0.24
+          },
+          "distanceM": 14.18628360210696,
+          "maxSourceProgressM": 12.085681463887333,
+          "maxDeviationM": 3.5169783751953787e-13,
+          "ok": true,
+          "steps": 61,
+          "sourceControls": [
+            {
+              "sourceId": "w647567422",
+              "opening": {
+                "x": -698.7342419153008,
+                "z": 270.5258072424354,
+                "y": 0.24,
+                "s": 0.20833333333334228,
+                "speed": 0.25,
+                "clear": true
+              },
+              "post": {
+                "x": -704.9436000000001,
+                "z": 277.77456003567164,
+                "y": 0.05,
+                "solid": true
+              },
+              "ceiling": {
+                "x": -698.7342419153008,
+                "z": 270.5258072424354,
+                "y": 3.3899999999999997,
+                "solid": true
+              },
+              "roof": {
+                "y": 4.199999999999999,
+                "belowSolid": true,
+                "aboveClear": true
+              }
+            }
+          ],
+          "perf": {
+            "triangles": 815919,
+            "drawCalls": 251
+          }
+        }
+      ]
+    },
+    {
+      "district": "bellevue",
+      "issues": [
+        {
+          "id": 1,
+          "type": "perf-traffic-update",
+          "severity": "low",
+          "scenario": "native-covered-source-opening",
+          "city": "seattle",
+          "t": 2,
+          "msg": "traffic.update averaging 10.7 ms (> 8 ms budget) on this machine",
+          "x": -352.6,
+          "z": -345.8,
+          "lat": 47.617612,
+          "lon": -122.199699,
+          "street": "(service)",
+          "edge": 532,
+          "count": 1,
+          "data": {
+            "updateMs": 10.7,
+            "vehicles": 149
+          }
+        }
+      ],
+      "results": [
+        {
+          "sourceRoadId": "w513188426",
+          "edge": 644,
+          "sourceLayer": 0,
+          "sourceLengthM": 8.11305594962495,
+          "start": {
+            "x": -352.55186704836836,
+            "z": -355.0779011523219,
+            "y": 0.24
+          },
+          "end": {
+            "x": -352.677354847476,
+            "z": -342.74505523581263,
+            "y": 0.24
+          },
+          "distanceM": 12.333484324718782,
+          "maxSourceProgressM": 10.395288751850305,
+          "maxDeviationM": 7.451331218710777e-14,
+          "ok": true,
+          "steps": 56,
+          "sourceControls": [
+            {
+              "sourceId": "w33115668",
+              "opening": {
+                "x": -352.5519518363838,
+                "z": -355.0695682503402,
+                "y": 0.24,
+                "s": 0.2083333333332939,
+                "speed": 0.25,
+                "clear": true
+              },
+              "post": {
+                "x": -355.87795,
+                "z": -349.182325,
+                "y": 0.05,
+                "solid": true
+              },
+              "ceiling": {
+                "x": -352.5519518363838,
+                "z": -355.0695682503402,
+                "y": 3.3899999999999997,
+                "solid": true
+              },
+              "roof": {
+                "y": 7.200000000000001,
+                "belowSolid": true,
+                "aboveClear": true
+              }
+            }
+          ],
+          "perf": {
+            "triangles": 595429,
+            "drawCalls": 300
+          }
+        },
+        {
+          "sourceRoadId": "w816498788",
+          "edge": 782,
+          "sourceLayer": 0,
+          "sourceLengthM": 11.181453173574617,
+          "start": {
+            "x": -377.3257906612574,
+            "z": -263.4635077719893,
+            "y": 0.24
+          },
+          "end": {
+            "x": -377.58979431875036,
+            "z": -279.19607322449644,
+            "y": 0.24
+          },
+          "distanceM": 15.734780381326908,
+          "maxSourceProgressM": 13.510329868979193,
+          "maxDeviationM": 1.5000000000000382,
+          "ok": true,
+          "steps": 65,
+          "sourceControls": [
+            {
+              "sourceId": "w33115737",
+              "opening": {
+                "x": -377.3259304808434,
+                "z": -263.4718399322691,
+                "y": 0.24,
+                "s": 0.2083333333333241,
+                "speed": 0.25,
+                "clear": true
+              },
+              "post": {
+                "x": -385.6736,
+                "z": -271.49915755420267,
+                "y": 0.05,
+                "solid": true
+              },
+              "ceiling": {
+                "x": -377.3259304808434,
+                "z": -263.4718399322691,
+                "y": 3.3899999999999997,
+                "solid": true
+              },
+              "roof": {
+                "y": 14.4,
+                "belowSolid": true,
+                "aboveClear": true
+              }
+            }
+          ],
+          "perf": {
+            "triangles": 636489,
+            "drawCalls": 291
+          }
+        },
+        {
+          "sourceRoadId": "w816498790",
+          "edge": 784,
+          "sourceLayer": 0,
+          "sourceLengthM": 11.182145651603015,
+          "start": {
+            "x": -373.82206801220786,
+            "z": -263.5352062231334,
+            "y": 0.24
+          },
+          "end": {
+            "x": -374.13885278241736,
+            "z": -279.2667974032378,
+            "y": 0.24
+          },
+          "distanceM": 15.734780381326408,
+          "maxSourceProgressM": 13.510329868978754,
+          "maxDeviationM": 1.5000000000000697,
+          "ok": true,
+          "steps": 65,
+          "sourceControls": [
+            {
+              "sourceId": "w33115737",
+              "opening": {
+                "x": -373.82223578532074,
+                "z": -263.5435378674265,
+                "y": 0.24,
+                "s": 0.20833333333327786,
+                "speed": 0.25,
+                "clear": true
+              },
+              "post": {
+                "x": -385.6736,
+                "z": -271.49915755420267,
+                "y": 0.05,
+                "solid": true
+              },
+              "ceiling": {
+                "x": -373.82223578532074,
+                "z": -263.5435378674265,
+                "y": 3.3899999999999997,
+                "solid": true
+              },
+              "roof": {
+                "y": 14.4,
+                "belowSolid": true,
+                "aboveClear": true
+              }
+            }
+          ],
+          "perf": {
+            "triangles": 635075,
+            "drawCalls": 292
+          }
+        },
+        {
+          "sourceRoadId": "w816498786",
+          "edge": 780,
+          "sourceLayer": 0,
+          "sourceLengthM": 11.191807565629311,
+          "start": {
+            "x": -380.92678864961124,
+            "z": -263.3786652861967,
+            "y": 0.24
+          },
+          "end": {
+            "x": -381.11669542431,
+            "z": -279.11229961096427,
+            "y": 0.24
+          },
+          "distanceM": 15.734780381326635,
+          "maxSourceProgressM": 13.510329868979039,
+          "maxDeviationM": 1.5000000000000362,
+          "ok": true,
+          "steps": 65,
+          "sourceControls": [
+            {
+              "sourceId": "w33115737",
+              "opening": {
+                "x": -380.92688922657624,
+                "z": -263.38699801256433,
+                "y": 0.24,
+                "s": 0.20833333333333243,
+                "speed": 0.25,
+                "clear": true
+              },
+              "post": {
+                "x": -385.6736,
+                "z": -271.49915755420267,
+                "y": 0.05,
+                "solid": true
+              },
+              "ceiling": {
+                "x": -380.92688922657624,
+                "z": -263.38699801256433,
+                "y": 3.3899999999999997,
+                "solid": true
+              },
+              "roof": {
+                "y": 14.4,
+                "belowSolid": true,
+                "aboveClear": true
+              }
+            }
+          ],
+          "perf": {
+            "triangles": 638527,
+            "drawCalls": 291
+          }
+        }
+      ]
+    }
+  ]
+}

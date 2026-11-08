@@ -4,6 +4,7 @@ const fs=require('fs'),path=require('path'),crypto=require('crypto'),cp=require(
 const out=process.env.OUT,root=process.env.GAME_SOURCE_ROOT,port=process.env.PORT||8192,ids=(process.env.SPOTS||'fremont-troll,mopop').split(',');
 fs.mkdirSync(out,{recursive:true});
 const revision=cp.execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim();
+const scriptSHA256=crypto.createHash('sha256').update(fs.readFileSync(__filename)).digest('hex');
 (async()=>{const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--mute-audio','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});try{
  const context=await browser.newContext({viewport:{width:1280,height:720}});await context.route(/api\.open-meteo\.com/,r=>r.fulfill({json:{error:true}}));
  const page=await context.newPage();page.setDefaultTimeout(300000);
@@ -51,10 +52,9 @@ const revision=cp.execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'ut
    s.ctl.auto=null;s.input.keys?.clear?.();for(let k=0;k<8;k++)s.update(.05);
    return{passed:!error&&Math.hypot(s.position.x-goal[0],s.position.z-goal[1])<1.2,error,walker:s.walkerKind,start,goal,target:nearest.title,staticPath,staticLength:staticPath&&pathLength(staticPath),position:{...s.position},walked,steps,simulationSeconds:steps*.05,detours,events,trace,populationBefore:population,populationAfter:S.crowd.peds.length,colliderCountBefore:colliderCount,colliderCountAfter:S.colliders.length,sourceBuildingRecordsUnchanged:footprint===JSON.stringify(S.data.buildings),sourceGeometry:S.ctx.extras.buildings.sourceGeometry,sourceMembers:S.ctx.extras.buildings.sourceMembers.map(v=>({source:v.source,volume:v.volume,minHeight:v.minHeight,top:v.top}))};
   });
-  await page.evaluate(()=>spotDev.step(.1,.05));
-  const frame=await page.evaluate(()=>({image:document.querySelector('#gl').toDataURL('image/webp',.85),triangles:spotDev.r3d.stats.triangles,drawCalls:spotDev.r3d.stats.drawCalls}));
+  const frame=await page.evaluate(()=>{spotDev.step(.1,.05);const c=spotDev.camera,p=new spotDev.THREE.Vector3(),dir=new spotDev.THREE.Vector3();c.getWorldPosition(p);c.getWorldDirection(dir);return{image:document.querySelector('#gl').toDataURL('image/webp',.85),pose:{position:[p.x,p.y,p.z],bearing:(Math.atan2(dir.x,-dir.z)*180/Math.PI+360)%360,pitch:Math.asin(dir.y)*180/Math.PI},triangles:spotDev.r3d.stats.triangles,drawCalls:spotDev.r3d.stats.drawCalls};});
   fs.writeFileSync(path.join(out,id+'.webp'),Buffer.from(frame.image.split(',')[1],'base64'));delete frame.image;
-  fs.writeFileSync(path.join(out,id+'.json'),JSON.stringify({revision,id,method:'Actual OnFootController automatic walking and legal sidesteps. Dynamic pedestrian circles are temporary planner buffers only; scene colliders/population/source records remain intact. No dev walkTo/teleport during travel.',...result,frame,errors},null,2)+'\n');
+  fs.writeFileSync(path.join(out,id+'.json'),JSON.stringify({revision,id,captureScriptSha256:scriptSHA256,method:'Actual OnFootController automatic walking and legal sidesteps. Dynamic pedestrian circles are temporary planner buffers only; scene colliders/population/source records remain intact. No dev walkTo/teleport during travel.',...result,frame,errors},null,2)+'\n');
   console.log(id,JSON.stringify({passed:result.passed,walked:result.walked,steps:result.steps,detours:result.detours,error:result.error}));
  }
  await context.close();

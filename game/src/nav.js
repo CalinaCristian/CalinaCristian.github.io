@@ -463,6 +463,13 @@ export class CarScreen {
             ctx.strokeStyle = '#3b9bff'; ctx.lineWidth = 7 / scale; ctx.stroke();
         }
         // POIs (fuel etc.)
+        ctx.save();
+        // The map sits between the translucent header and footer. Clip markers
+        // here so an off-map glyph cannot show through either banner.
+        const poiTransform = ctx.getTransform();
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.beginPath(); ctx.rect(0, 74, W, Math.max(0, H - 74 - 54)); ctx.clip();
+        ctx.setTransform(poiTransform);
         ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
         for (const q of info.pois || []) {
             if (Math.abs(q.x - p.x) > R || Math.abs(q.z - p.z) > R) continue;
@@ -473,6 +480,7 @@ export class CarScreen {
             ctx.font = '11px sans-serif'; ctx.fillStyle = '#fff'; ctx.fillText(q.icon || '•', 0, 1);
             ctx.restore();
         }
+        ctx.restore();
         // destination pin
         if (info.dest) {
             ctx.save(); ctx.translate(info.dest.x, info.dest.z); ctx.rotate(-p.heading); ctx.scale(1 / scale, 1 / scale);

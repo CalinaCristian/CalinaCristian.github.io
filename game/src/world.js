@@ -5494,6 +5494,12 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
     }
     if (waterMesh) { waterMesh.userData.always = true; waterMesh.renderOrder = -18; }
+    if (waterMesh?.isGroup) {
+        // Group order precedes mesh order in Three's opaque sort. Keep this group
+        // neutral so land draws first; small water/shore meshes still overlay it.
+        waterMesh.renderOrder = 0;
+        for (const mesh of waterMesh.children) mesh.renderOrder = -18.1;
+    }
     if (waterMesh?.isGroup) batchWaterChunks(waterMesh);
     // distance culling: cells beyond the fog are hidden (three.js only frustum-culls, and the camera far plane is 5 km).
     // The viewer is world.camera if set, else the widest perspective camera found in the scene.

@@ -32,6 +32,37 @@ def area(p):
     return 0.5 * sum(p[i][0] * p[(i + 1) % len(p)][1] - p[(i + 1) % len(p)][0] * p[i][1] for i in range(len(p)))
 
 
+def source_ring_issue(points):
+    """Independently check literal source validity; never repair the source boundary."""
+    ring = [p for i, p in enumerate(points) if i == 0 or p != points[i - 1]]
+    if len(ring) > 1 and ring[0] == ring[-1]:
+        ring.pop()
+    if len(ring) < 3:
+        return 'fewer-than-three-distinct-vertices'
+    if abs(area(ring)) <= 1e-8:
+        return 'zero-source-area'
+    cross = lambda a, b: a[0] * b[1] - a[1] * b[0]
+    sub = lambda a, b: (a[0] - b[0], a[1] - b[1])
+    eps = 1e-8
+    edges = list(zip(ring, ring[1:] + ring[:1]))
+    for i, (a, b) in enumerate(edges):
+        for j, (c, d) in enumerate(edges[i + 1:], i + 1):
+            if j == i + 1 or (i == 0 and j == len(edges) - 1):
+                continue
+            u, v = sub(b, a), sub(d, c)
+            den = cross(u, v)
+            if abs(den) < eps:
+                continue
+            t, w = cross(sub(c, a), v) / den, cross(sub(c, a), u) / den
+            if eps < t < 1 - eps and eps < w < 1 - eps:
+                return 'self-intersecting-source-ring'
+    for i, b in enumerate(ring):
+        u, v = sub(b, ring[i - 1]), sub(ring[(i + 1) % len(ring)], b)
+        if abs(cross(u, v)) < eps and u[0] * v[0] + u[1] * v[1] < -eps:
+            return 'self-intersecting-source-ring'
+    return None
+
+
 def centroid(p):
     a = area(p)
     if abs(a) < 1e-9:
@@ -268,8 +299,9 @@ def main():
             continue
         ring = [proj(la, lo) for la, lo in ll[:-1]]
         ar = abs(area(ring))
-        if ar <= 1e-8:
-            source_skips.append({'osm': 'w' + wid, 'reason': 'zero-source-area'})
+        issue = source_ring_issue(ring)
+        if issue:
+            source_skips.append({'osm': 'w' + wid, 'reason': issue})
             continue
         cx, cz = centroid(ring)
         c = cellOf(cx, cz)
@@ -321,8 +353,9 @@ def main():
             if not all(n in nodes for n in refs):
                 continue
             ring = [proj(*nodes[n]) for n in refs[:-1]]; ar = abs(area(ring))
-            if ar <= 1e-8:
-                source_skips.append({'osm': 'r' + rid, 'reason': 'zero-source-area'})
+            issue = source_ring_issue(ring)
+            if issue:
+                source_skips.append({'osm': 'r' + rid, 'reason': issue})
                 continue
             cx, cz = centroid(ring); c = cellOf(cx, cz)
             holes = [h for h in inner_polys if h and all(pip(x, z, ring) for x, z in h)]

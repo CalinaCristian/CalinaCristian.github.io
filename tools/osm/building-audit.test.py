@@ -14,6 +14,9 @@ spec.loader.exec_module(audit_module)
 for value, expected in [('5 ft',1.524),("5' 10\"",1.778),('90cm',.9),('18mm',.018),('12 inches',.3048),('12-15m',None),('3;4',None),('unknown',None),(0,0)]:
     actual = audit_module.measure(value)
     assert actual is None if expected is None else math.isclose(actual, expected, abs_tol=1e-10), f'strict source units: {value}'
+assert audit_module.source_ring_issue([(0,0),(4,4),(0,4),(3,0)]) == 'self-intersecting-source-ring'
+assert audit_module.source_ring_issue([(0,0),(2,0),(1,0),(1,1),(0,1)]) == 'self-intersecting-source-ring'
+assert audit_module.source_ring_issue([(0,0),(.04,0),(.04,1),(0,1)]) is None
 with tempfile.TemporaryDirectory() as tmp:
     tmp = Path(tmp)
     # Metres use a synthetic uncompressed projection, avoiding geodetic rounding.

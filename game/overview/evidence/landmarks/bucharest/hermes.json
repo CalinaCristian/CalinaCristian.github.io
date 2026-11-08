@@ -1,0 +1,256 @@
+{
+  "schemaVersion": 1,
+  "id": "hermes",
+  "city": "bucharest",
+  "name": "Hermes Business Campus",
+  "sourceCommit": "2235dbfce4286c2f6f24add87ab8e5622a5df306",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.4810862,
+    "lon": 26.1140757
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/533147567",
+      "label": "OpenStreetMap w533147567; retrieved2026-11-08",
+      "type": "osm",
+      "facts": {
+        "addr:city": "Bucure\u0219ti",
+        "addr:housenumber": "5-7",
+        "addr:postcode": "020337",
+        "addr:street": "Bulevardul Dimitrie Pompeiu",
+        "building": "commercial",
+        "building:levels": "9",
+        "name": "Cl\u0103direa A"
+      }
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/231123137",
+      "label": "OpenStreetMap w231123137; retrieved2026-11-08",
+      "type": "osm",
+      "facts": {
+        "addr:city": "Bucure\u0219ti",
+        "addr:street": "Bulevardul Dimitrie Pompeiu",
+        "building": "yes"
+      }
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/458259608",
+      "label": "OpenStreetMap w458259608; retrieved2026-11-08",
+      "type": "osm",
+      "facts": {}
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/321641496",
+      "label": "OpenStreetMap w321641496; retrieved2026-11-08",
+      "type": "osm",
+      "facts": {}
+    },
+    {
+      "url": "https://adventum.eu/asset/hermes-business-campus/",
+      "label": "Official owner exterior/reference; privately inspected, no reference imagery published",
+      "type": "official"
+    }
+  ],
+  "sourceIds": [
+    "w533147567",
+    "w231123137",
+    "r6774709"
+  ],
+  "sourceLedger": "../../../../research/landmark-source-bucharest-pipera.json",
+  "reviewedAt": "2026-11-08",
+  "improvements": [
+    "Preserved all three source records and the mapped B+C courtyard through facade, roof and exact collision geometry.",
+    "Removed unsupported rooftop lettering and large invented roof-service blocks.",
+    "Used the current owner exterior photograph for facade comparison; mapped dimensions and parts retain priority."
+  ],
+  "remainingGaps": [
+    "Untagged total heights and the4.5m ground-storey band remain explicit estimates from independent storey/reference information.",
+    "Curtain-wall bays, service details and courtyard landscape remain simplified.",
+    "Published images are isolated model studies; complete district placement, traffic and mirror checks are recorded separately."
+  ],
+  "checks": [
+    {
+      "label": "Exact source rings and courtyard collision",
+      "passed": true,
+      "details": "tools/landmarks/pipera-check.mjs:102 controls pass across the three models; all61 landmark geometry fixtures finite."
+    },
+    {
+      "label": "Owner references and all three game studies inspected",
+      "passed": true,
+      "details": "Front, perspective top and oblique side images inspected against exact mapped outlines and independently sourced owner references; no imagery-derived measurements from Street View."
+    },
+    {
+      "label": "Published capture provenance",
+      "passed": true,
+      "details": "Immutable game source 2235dbfce4286c2f6f24add87ab8e5622a5df306; actual published WebP SHA256, source identity and perspective camera metadata retained; no external reference image included."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study",
+      "kind": "front",
+      "image": "assets/landmarks/hermes/front.webp",
+      "sourceCommit": "2235dbfce4286c2f6f24add87ab8e5622a5df306",
+      "sha256": "7f13189c6268a78bc433c49c64f6141bc94519520feac2d769e061839329280a",
+      "capturedAt": "2026-11-08T17:38:56.413Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=hermes&clean=1&fountains=on&view=street&az=-65.99900842111953",
+        "anchor": {
+          "lat": 44.4810862,
+          "lon": 26.1140757,
+          "rotation": -1.1519
+        },
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            -175.9223415490615,
+            1.3,
+            78.38218998169
+          ],
+          "quaternion": [
+            0.032523353270033584,
+            -0.5442221029992208,
+            0.02112051245491679,
+            0.8380444248682881
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 3833.570064417625,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -80.99807857199303,
+            0,
+            -82.96600274715954
+          ],
+          "max": [
+            79.36474881848204,
+            36,
+            83.79897991904008
+          ]
+        },
+        "frame": "Isolated landmark; perspective camera, +x east/+z south; metres"
+      },
+      "render": {
+        "triangles": 2124,
+        "calls": 3
+      }
+    },
+    {
+      "id": "top",
+      "label": "Perspective top model study",
+      "kind": "top",
+      "image": "assets/landmarks/hermes/top.webp",
+      "sourceCommit": "2235dbfce4286c2f6f24add87ab8e5622a5df306",
+      "sha256": "fddb259d6c49458f07d6c71965038c6f688c644c9e865c3133f576fff19b36a5",
+      "capturedAt": "2026-11-08T17:38:56.413Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=hermes&clean=1&fountains=on&view=top&az=0",
+        "anchor": {
+          "lat": 44.4810862,
+          "lon": 26.1140757,
+          "rotation": -1.1519
+        },
+        "camera": {
+          "projection": "orthographic",
+          "position": [
+            -0.816664876755496,
+            233.44737989279153,
+            0.4164885859402716
+          ],
+          "quaternion": [
+            -0.7071067811865475,
+            0,
+            0,
+            0.7071067811865476
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 4668.94759785583,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -80.99807857199303,
+            0,
+            -82.96600274715954
+          ],
+          "max": [
+            79.36474881848204,
+            36,
+            83.79897991904008
+          ]
+        },
+        "frame": "Isolated landmark; perspective camera, +x east/+z south; metres"
+      },
+      "render": {
+        "triangles": 2124,
+        "calls": 3
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique side model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/hermes/oblique.webp",
+      "sourceCommit": "2235dbfce4286c2f6f24add87ab8e5622a5df306",
+      "sha256": "d3d796ff6af69aed8cd1bdc2d73cdff6e9e894d4c57545527b85b3ea0c80c2de",
+      "capturedAt": "2026-11-08T17:38:56.413Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=hermes&clean=1&fountains=on&view=oblique&az=-30.999008421119527&el=28",
+        "anchor": {
+          "lat": 44.4810862,
+          "lon": 26.1140757,
+          "rotation": -1.1519
+        },
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            -116.61432816547638,
+            133.94938127495035,
+            193.14371876759327
+          ],
+          "quaternion": [
+            -0.23312386532279036,
+            -0.25929216343677597,
+            -0.06464879726257895,
+            0.9350087541888256
+          ],
+          "fov": 45,
+          "near": 0.5092933875079992,
+          "far": 5092.9338750799925,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -80.99807857199303,
+            0,
+            -82.96600274715954
+          ],
+          "max": [
+            79.36474881848204,
+            36,
+            83.79897991904008
+          ]
+        },
+        "frame": "Isolated landmark; perspective camera, +x east/+z south; metres"
+      },
+      "render": {
+        "triangles": 2124,
+        "calls": 3
+      }
+    }
+  ]
+}

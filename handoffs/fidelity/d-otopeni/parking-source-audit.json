@@ -1,0 +1,1016 @@
+{
+  "district": "bucharest-otopeni",
+  "reviewedAt": "2026-11-08",
+  "dataSha256": "e6b36d6c87b94f7887cddb240de0dc40ea662913c60290c09be45953ccd4ff91",
+  "sourcePolicy": "OSM source geometry, precise output parkingFootprints; no aesthetic shrink or centre movement.",
+  "scope": "Every valid positive-area closed source parking way and source multipolygon outer whose whole footprint intersects the playable analytic core or600m ring. Underground parking is not painted as a ground lot. Multi-storey bodies are checked through exact building IDs.",
+  "counts": {
+    "requiredSourceRecords": 44,
+    "core": 10,
+    "nearby": 34,
+    "classification": {
+      "surface": 43,
+      "building": 1
+    },
+    "outputParkingAreas": 45,
+    "additionalOutsideRequiredRing": 2
+  },
+  "errors": [],
+  "additionalOutsideRequiredRing": [
+    {
+      "sourceId": "w376534196",
+      "areaIndex": 18,
+      "minimumDistanceM": 603.7203394648664,
+      "note": "Additional source parking area outside the exact600m required ring, retained by the generic640m ground-area admission padding."
+    },
+    {
+      "sourceId": "w406776776",
+      "areaIndex": 100,
+      "minimumDistanceM": 606.1467062779709,
+      "note": "Additional source parking area outside the exact600m required ring, retained by the generic640m ground-area admission padding."
+    }
+  ],
+  "records": [
+    {
+      "sourceId": "w220338046",
+      "sourceUrl": "https://www.openstreetmap.org/way/220338046",
+      "scope": "nearby-ring",
+      "areaM2": 666.1634125328856,
+      "sourceVertexCount": 10,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 412.43381861336957,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "amenity": "parking",
+        "parking": "surface"
+      },
+      "outputAreaIndices": [
+        8
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w413592031",
+      "sourceUrl": "https://www.openstreetmap.org/way/413592031",
+      "scope": "core",
+      "areaM2": 477.59609315230045,
+      "sourceVertexCount": 4,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": -118.33414186472163,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "access": "customers",
+        "addr:city": "Otopeni",
+        "amenity": "parking",
+        "fee": "no",
+        "parking": "surface"
+      },
+      "outputAreaIndices": [
+        9
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w956222496",
+      "sourceUrl": "https://www.openstreetmap.org/way/956222496",
+      "scope": "nearby-ring",
+      "areaM2": 460.68890146294143,
+      "sourceVertexCount": 4,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 541.4393841458428,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "amenity": "parking",
+        "parking": "surface"
+      },
+      "outputAreaIndices": [
+        10
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w1097438919",
+      "sourceUrl": "https://www.openstreetmap.org/way/1097438919",
+      "scope": "core",
+      "areaM2": 165.50817987706978,
+      "sourceVertexCount": 4,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": -104.1755727768703,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "access": "private",
+        "amenity": "parking",
+        "parking": "surface"
+      },
+      "outputAreaIndices": [
+        12
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w1119708244",
+      "sourceUrl": "https://www.openstreetmap.org/way/1119708244",
+      "scope": "nearby-ring",
+      "areaM2": 1921.28103597858,
+      "sourceVertexCount": 4,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 187.12543187937723,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "amenity": "parking"
+      },
+      "outputAreaIndices": [
+        13
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w376534194",
+      "sourceUrl": "https://www.openstreetmap.org/way/376534194",
+      "scope": "nearby-ring",
+      "areaM2": 583.4317981122877,
+      "sourceVertexCount": 10,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 439.86397940610095,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "amenity": "parking"
+      },
+      "outputAreaIndices": [
+        17
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w376535012",
+      "sourceUrl": "https://www.openstreetmap.org/way/376535012",
+      "scope": "nearby-ring",
+      "areaM2": 993.7004728834145,
+      "sourceVertexCount": 7,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 592.3726571826664,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "amenity": "parking",
+        "parking": "surface"
+      },
+      "outputAreaIndices": [
+        20
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w376536504",
+      "sourceUrl": "https://www.openstreetmap.org/way/376536504",
+      "scope": "nearby-ring",
+      "areaM2": 433.58341826733886,
+      "sourceVertexCount": 12,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 508.97917533314285,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "amenity": "parking"
+      },
+      "outputAreaIndices": [
+        21
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w376536506",
+      "sourceUrl": "https://www.openstreetmap.org/way/376536506",
+      "scope": "nearby-ring",
+      "areaM2": 1342.623259731714,
+      "sourceVertexCount": 9,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 356.4463534879206,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "amenity": "parking",
+        "parking": "surface"
+      },
+      "outputAreaIndices": [
+        22
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w956217444",
+      "sourceUrl": "https://www.openstreetmap.org/way/956217444",
+      "scope": "nearby-ring",
+      "areaM2": 629.6755434339575,
+      "sourceVertexCount": 4,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 370.7973518513513,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "amenity": "parking",
+        "parking": "surface",
+        "surface": "asphalt"
+      },
+      "outputAreaIndices": [
+        24
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w956217501",
+      "sourceUrl": "https://www.openstreetmap.org/way/956217501",
+      "scope": "nearby-ring",
+      "areaM2": 1003.2207086462913,
+      "sourceVertexCount": 9,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 495.723039789302,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "amenity": "parking",
+        "parking": "surface"
+      },
+      "outputAreaIndices": [
+        25
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w956475685",
+      "sourceUrl": "https://www.openstreetmap.org/way/956475685",
+      "scope": "nearby-ring",
+      "areaM2": 193.80376415804494,
+      "sourceVertexCount": 4,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 444.1851533778239,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "amenity": "parking",
+        "parking": "surface"
+      },
+      "outputAreaIndices": [
+        26
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w956477986",
+      "sourceUrl": "https://www.openstreetmap.org/way/956477986",
+      "scope": "nearby-ring",
+      "areaM2": 882.9586692731245,
+      "sourceVertexCount": 11,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 31.301516147617804,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "amenity": "parking",
+        "parking": "surface"
+      },
+      "outputAreaIndices": [
+        27
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w1088359179",
+      "sourceUrl": "https://www.openstreetmap.org/way/1088359179",
+      "scope": "nearby-ring",
+      "areaM2": 414.74650446106534,
+      "sourceVertexCount": 6,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 573.9875598323531,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "access": "private",
+        "amenity": "parking",
+        "parking": "surface"
+      },
+      "outputAreaIndices": [
+        28
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w1097441980",
+      "sourceUrl": "https://www.openstreetmap.org/way/1097441980",
+      "scope": "nearby-ring",
+      "areaM2": 356.1085647423897,
+      "sourceVertexCount": 4,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 598.715075467865,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "access": "private",
+        "amenity": "parking"
+      },
+      "outputAreaIndices": [
+        29
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w1322339483",
+      "sourceUrl": "https://www.openstreetmap.org/way/1322339483",
+      "scope": "nearby-ring",
+      "areaM2": 2467.6974511883745,
+      "sourceVertexCount": 4,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 63.454960812543504,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "access": "yes",
+        "amenity": "parking",
+        "capacity": "100",
+        "fee": "yes",
+        "opening_hours": "24/7",
+        "operator": "Autentic Sky Team Parking",
+        "operator:type": "private",
+        "parking": "surface",
+        "phone": "+40 726 500 370",
+        "surface": "gravel",
+        "website": "https://skyteamparking.ro/"
+      },
+      "outputAreaIndices": [
+        32
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w28047404",
+      "sourceUrl": "https://www.openstreetmap.org/way/28047404",
+      "scope": "nearby-ring",
+      "areaM2": 26819.319876378868,
+      "sourceVertexCount": 61,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 194.2275275774001,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "access": "private",
+        "amenity": "parking",
+        "parking": "surface"
+      },
+      "outputAreaIndices": [
+        37
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w118166548",
+      "sourceUrl": "https://www.openstreetmap.org/way/118166548",
+      "scope": "nearby-ring",
+      "areaM2": 6621.982936260552,
+      "sourceVertexCount": 19,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 165.46692532326625,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "amenity": "parking",
+        "parking": "surface"
+      },
+      "outputAreaIndices": [
+        39
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w216626541",
+      "sourceUrl": "https://www.openstreetmap.org/way/216626541",
+      "scope": "nearby-ring",
+      "areaM2": 5969.732358491368,
+      "sourceVertexCount": 4,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 98.09854217238095,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "access": "private",
+        "amenity": "parking",
+        "name": "Țiriac Auto Rulate",
+        "parking": "surface"
+      },
+      "outputAreaIndices": [
+        41
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w216626542",
+      "sourceUrl": "https://www.openstreetmap.org/way/216626542",
+      "scope": "nearby-ring",
+      "areaM2": 7301.702483738074,
+      "sourceVertexCount": 7,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 55.75245659090302,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "access": "private",
+        "amenity": "parking",
+        "name": "Țiriac Auto Rulate",
+        "parking": "surface"
+      },
+      "outputAreaIndices": [
+        42
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w233940746",
+      "sourceUrl": "https://www.openstreetmap.org/way/233940746",
+      "scope": "nearby-ring",
+      "areaM2": 6631.847311990292,
+      "sourceVertexCount": 11,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 180.33677423165193,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "amenity": "parking",
+        "parking": "surface"
+      },
+      "outputAreaIndices": [
+        43
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w703061295",
+      "sourceUrl": "https://www.openstreetmap.org/way/703061295",
+      "scope": "nearby-ring",
+      "areaM2": 1806.1168422905976,
+      "sourceVertexCount": 6,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 176.3916242740837,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "access": "yes",
+        "amenity": "parking",
+        "parking": "surface",
+        "surface": "concrete"
+      },
+      "outputAreaIndices": [
+        48
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w917939710",
+      "sourceUrl": "https://www.openstreetmap.org/way/917939710",
+      "scope": "nearby-ring",
+      "areaM2": 11006.248966833577,
+      "sourceVertexCount": 10,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 305.69099170427046,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "access": "private",
+        "amenity": "parking",
+        "parking": "surface"
+      },
+      "outputAreaIndices": [
+        49
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w936804565",
+      "sourceUrl": "https://www.openstreetmap.org/way/936804565",
+      "scope": "core",
+      "areaM2": 2886.289606134931,
+      "sourceVertexCount": 8,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": -123.8726070325751,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "access": "yes",
+        "amenity": "parking",
+        "fee": "yes",
+        "name": "Parking Autopeni",
+        "parking": "surface",
+        "start_date": "2021",
+        "surface": "asphalt",
+        "website": "https://parcareautopeni.ro/"
+      },
+      "outputAreaIndices": [
+        50
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w1119708251",
+      "sourceUrl": "https://www.openstreetmap.org/way/1119708251",
+      "scope": "core",
+      "areaM2": 1556.7238332187553,
+      "sourceVertexCount": 6,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": -99.2141204058099,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "amenity": "parking",
+        "fee": "yes",
+        "parking": "surface"
+      },
+      "outputAreaIndices": [
+        51
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w1244012652",
+      "sourceUrl": "https://www.openstreetmap.org/way/1244012652",
+      "scope": "core",
+      "areaM2": 33611.88323377632,
+      "sourceVertexCount": 20,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": -110.93690950368305,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "access": "customers",
+        "amenity": "parking",
+        "capacity": "1490",
+        "capacity:disabled": "30",
+        "fee": "yes",
+        "name": "Parcare în Otopeni SRL",
+        "operator": "SC Parcare în Otopeni SRL",
+        "operator:type": "business",
+        "parking": "surface",
+        "payment:cash": "yes",
+        "payment:contactless": "yes",
+        "payment:credit_cards": "yes",
+        "payment:debit_cards": "yes",
+        "surface": "gravel"
+      },
+      "outputAreaIndices": [
+        52
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w1322188639",
+      "sourceUrl": "https://www.openstreetmap.org/way/1322188639",
+      "scope": "nearby-ring",
+      "areaM2": 487.5939999577531,
+      "sourceVertexCount": 4,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 271.53312653812867,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "access": "customers",
+        "amenity": "parking",
+        "parking": "surface",
+        "surface": "asphalt"
+      },
+      "outputAreaIndices": [
+        56
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w23585062",
+      "sourceUrl": "https://www.openstreetmap.org/way/23585062",
+      "scope": "core",
+      "areaM2": 8355.75432459249,
+      "sourceVertexCount": 14,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": -95.44210274785364,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "access": "private",
+        "amenity": "parking",
+        "fee": "yes",
+        "name": "Parcare Angajați și Taxi",
+        "name:en": "Staff and Taxy Parking",
+        "opening_hours": "24/7",
+        "operator": "Compania Națională Aeroporturi București",
+        "operator:type": "public",
+        "parking": "surface",
+        "ref": "P6",
+        "surface": "concrete_plates"
+      },
+      "outputAreaIndices": [
+        69
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w110663816",
+      "sourceUrl": "https://www.openstreetmap.org/way/110663816",
+      "scope": "core",
+      "areaM2": 14806.961434834651,
+      "sourceVertexCount": 22,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": -74.19955471731768,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "access": "yes",
+        "amenity": "parking",
+        "charge": "10 RON/30 min",
+        "fee": "yes",
+        "name": "Departures Parking",
+        "old_name": "Long Term Parking",
+        "opening_hours": "24/7",
+        "operator": "Compania Națională Aeroporturi București",
+        "operator:type": "government",
+        "parking": "surface",
+        "ref": "P3",
+        "surface": "asphalt"
+      },
+      "outputAreaIndices": [
+        70
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w180050595",
+      "sourceUrl": "https://www.openstreetmap.org/way/180050595",
+      "scope": "nearby-ring",
+      "areaM2": 8483.043535203658,
+      "sourceVertexCount": 40,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 44.930614965499075,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "access": "yes",
+        "amenity": "parking",
+        "brand": "multiple",
+        "charge": "100 RON/24h",
+        "fee": "yes",
+        "name": "Long Term and Rental Car Parking",
+        "name:ro": "Parcare pe Termen Lung și Închiriere Auto",
+        "note": "Long Term and Rental Car Parking (Autonom, Enterprise, Europcar, Hertz)",
+        "opening_hours": "24/7",
+        "operator": "Compania Națională Aeroporturi București",
+        "operator:type": "public",
+        "parking": "surface",
+        "surface": "concrete:plates"
+      },
+      "outputAreaIndices": [
+        71
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w406474433",
+      "sourceUrl": "https://www.openstreetmap.org/way/406474433",
+      "scope": "core",
+      "areaM2": 783.9385570956711,
+      "sourceVertexCount": 5,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": -66.66868956646314,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "amenity": "parking",
+        "name": "Parcare Salonul Oficial",
+        "name:en": "VIP Terminal Parking"
+      },
+      "outputAreaIndices": [
+        86
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w406776753",
+      "sourceUrl": "https://www.openstreetmap.org/way/406776753",
+      "scope": "nearby-ring",
+      "areaM2": 1934.7287595409434,
+      "sourceVertexCount": 4,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 541.1239653725899,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "amenity": "parking"
+      },
+      "outputAreaIndices": [
+        99
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w406904953",
+      "sourceUrl": "https://www.openstreetmap.org/way/406904953",
+      "scope": "core",
+      "areaM2": 3278.9653212871854,
+      "sourceVertexCount": 5,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": -90.62023625125082,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "access": "yes",
+        "amenity": "parking",
+        "fee": "yes",
+        "name": "Parcare pe Termen Lung",
+        "name:en": "Long Term Parking",
+        "name:ru": "Парковка аэропорта",
+        "opening_hours": "24/7",
+        "operator": "Compania Națională Aeroporturi București",
+        "operator:type": "public",
+        "parking": "surface",
+        "ref": "P5",
+        "surface": "concrete:plates"
+      },
+      "outputAreaIndices": [
+        101
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w406906457",
+      "sourceUrl": "https://www.openstreetmap.org/way/406906457",
+      "scope": "nearby-ring",
+      "areaM2": 2381.5004193485365,
+      "sourceVertexCount": 10,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 295.8898942839589,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "amenity": "parking",
+        "name:ru": "Придомовая Мини - Парковка",
+        "opening_hours": "24/7"
+      },
+      "outputAreaIndices": [
+        102
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w406906466",
+      "sourceUrl": "https://www.openstreetmap.org/way/406906466",
+      "scope": "nearby-ring",
+      "areaM2": 1645.7518557858712,
+      "sourceVertexCount": 4,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 294.22855435992915,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "amenity": "parking",
+        "name:ru": "Mini Private Parking"
+      },
+      "outputAreaIndices": [
+        103
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w567051443",
+      "sourceUrl": "https://www.openstreetmap.org/way/567051443",
+      "scope": "core",
+      "areaM2": 253.17603656495157,
+      "sourceVertexCount": 4,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": -113.17986909291542,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "amenity": "parking",
+        "parking": "street_side"
+      },
+      "outputAreaIndices": [
+        111
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w708675561",
+      "sourceUrl": "https://www.openstreetmap.org/way/708675561",
+      "scope": "nearby-ring",
+      "areaM2": 1210.8213162432075,
+      "sourceVertexCount": 4,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 330.6473088189158,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "amenity": "parking",
+        "parking": "street_side"
+      },
+      "outputAreaIndices": [
+        112
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w708675562",
+      "sourceUrl": "https://www.openstreetmap.org/way/708675562",
+      "scope": "nearby-ring",
+      "areaM2": 1016.6825786118861,
+      "sourceVertexCount": 4,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 348.65087325336344,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "amenity": "parking",
+        "parking": "street_side"
+      },
+      "outputAreaIndices": [
+        113
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w943848787",
+      "sourceUrl": "https://www.openstreetmap.org/way/943848787",
+      "scope": "nearby-ring",
+      "areaM2": 804.3231972682406,
+      "sourceVertexCount": 11,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 300.9802752240053,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "access": "yes",
+        "amenity": "parking",
+        "fee": "yes",
+        "parking": "surface"
+      },
+      "outputAreaIndices": [
+        114
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w943848791",
+      "sourceUrl": "https://www.openstreetmap.org/way/943848791",
+      "scope": "nearby-ring",
+      "areaM2": 20784.11384562867,
+      "sourceVertexCount": 16,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 131.7599584084914,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "access": "private",
+        "amenity": "parking",
+        "name:ru": "Частная/служебная парковка",
+        "opening_hours": "24/7",
+        "parking": "surface"
+      },
+      "outputAreaIndices": [
+        115
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w1088926791",
+      "sourceUrl": "https://www.openstreetmap.org/way/1088926791",
+      "scope": "nearby-ring",
+      "areaM2": 5596.285953365848,
+      "sourceVertexCount": 7,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 332.0460208619264,
+      "mode": "building",
+      "status": "complete-source-building-retained",
+      "sourceTags": {
+        "access": "yes",
+        "amenity": "parking",
+        "building": "yes",
+        "building:levels": "5",
+        "capacity": "1500",
+        "fee": "yes",
+        "name": "Olimpia Parking",
+        "parking": "multi-storey",
+        "phone": "+40759594332",
+        "start_date": "2022-09",
+        "surface": "concrete",
+        "website": "https://www.olimpiaparking.com/"
+      },
+      "outputAreaIndices": [],
+      "exactParkingRingMatches": 0,
+      "completeBuildingIdentityPresent": true
+    },
+    {
+      "sourceId": "w1088996078",
+      "sourceUrl": "https://www.openstreetmap.org/way/1088996078",
+      "scope": "nearby-ring",
+      "areaM2": 1370.9408347541466,
+      "sourceVertexCount": 7,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 122.36259765263023,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "access": "private",
+        "amenity": "parking",
+        "parking": "surface"
+      },
+      "outputAreaIndices": [
+        116
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w1321861242",
+      "sourceUrl": "https://www.openstreetmap.org/way/1321861242",
+      "scope": "nearby-ring",
+      "areaM2": 3868.2681231694005,
+      "sourceVertexCount": 5,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 83.47417130323572,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "access": "private",
+        "amenity": "parking",
+        "parking": "surface",
+        "surface": "compacted"
+      },
+      "outputAreaIndices": [
+        120
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    },
+    {
+      "sourceId": "w1323265868",
+      "sourceUrl": "https://www.openstreetmap.org/way/1323265868",
+      "scope": "nearby-ring",
+      "areaM2": 18103.708113471832,
+      "sourceVertexCount": 14,
+      "sourceHoleCount": 0,
+      "sourceMinimumDistanceM": 317.3276979278929,
+      "mode": "surface",
+      "status": "exact-source-parking-rings",
+      "sourceTags": {
+        "access": "yes",
+        "amenity": "parking",
+        "fee": "yes",
+        "parking": "surface",
+        "surface": "asphalt"
+      },
+      "outputAreaIndices": [
+        132
+      ],
+      "exactParkingRingMatches": 1,
+      "completeBuildingIdentityPresent": false
+    }
+  ]
+}

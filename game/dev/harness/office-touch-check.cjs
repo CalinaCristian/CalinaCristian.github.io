@@ -19,7 +19,7 @@ fs.mkdirSync(out, { recursive: true });
             await context.route(/api\.open-meteo\.com/, r => r.fulfill({ json: { error: true } }));
             const page = await context.newPage(); page.on('pageerror', e => report.errors.push(e.message));
             await page.addInitScript(() => { window.requestAnimationFrame = () => 0; });
-            await page.goto(`http://127.0.0.1:${server.address().port}/game/`);
+            await page.goto(`http://127.0.0.1:${server.address().port}/game/`, { waitUntil: 'domcontentloaded', timeout: 60000 });
             await page.waitForFunction(() => window.game?.achievements, null, { timeout: 90000 });
             // A genuine menu touch is the positive control; leave its rendered panel in the DOM after closing.
             await page.locator('#achv-menu').tap();

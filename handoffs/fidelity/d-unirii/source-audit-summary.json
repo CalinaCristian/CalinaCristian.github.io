@@ -1,11 +1,11 @@
 {
   "district": "bucharest-unirii",
   "generated": "2026-11-08",
-  "codePrerequisite": "rootc7ff57c integrated as aebc4ab, including efad elevated passage guard and af3 guarded source-part parent input; final combined-root native acceptance remains separate",
+  "codePrerequisite": "root9afb80e +5519dab (local1292f1a), typed research resolution plus positive part-only multipolygon retention; final combined-root native acceptance remains separate",
   "dataFile": "game/data/bucharest-unirii.json",
-  "dataSha256": "b2a0e154da3c6cb2a79cb934a6701344b6ddcf9ec439a8358ec106c5a2d88f30",
+  "dataSha256": "37302734909c4996b7c63423e839bbdb7380e49b4b268fa6578584050d21da47",
   "sourceIdentityPolicy": "source",
-  "buildingRecords": 6181,
+  "buildingRecords": 6188,
   "positiveAreaSourceCoverage": {
     "inside": {
       "waysAndParts": {
@@ -31,19 +31,19 @@
         "topologyMatches": 5408
       },
       "relationOuters": {
-        "source": 59,
-        "identitiesPresent": 59,
-        "topologyMatches": 59
+        "source": 66,
+        "identitiesPresent": 66,
+        "topologyMatches": 66
       },
       "courtyards": {
-        "buildings": 52,
-        "sourceInnerRings": 77,
-        "preserved": 52
+        "buildings": 57,
+        "sourceInnerRings": 82,
+        "preserved": 57
       }
     }
   },
   "literalDimensions": {
-    "literalHeights": 1030,
+    "literalHeights": 1036,
     "literalMinimums": 430,
     "heightMismatches": [],
     "minimumMismatches": [],
@@ -168,8 +168,8 @@
       }
     ]
   },
-  "sourceRoofProfiles": 6181,
-  "sourceRoofCaches": 2683,
+  "sourceRoofProfiles": 6188,
+  "sourceRoofCaches": 2699,
   "sourceOpenRoofs": 10,
   "roads": {
     "data": "bucharest-unirii.json",
@@ -1457,7 +1457,7 @@
   },
   "buildingGeometry": {
     "file": "game/data/bucharest-unirii.json",
-    "sourceRecords": 6181,
+    "sourceRecords": 6188,
     "assemblies": [
       {
         "source": "w75681207",
@@ -1948,6 +1948,8 @@
         "source": "w973712798",
         "mode": "union",
         "parts": [
+          "r13104229",
+          "r13104229",
           "w657898053",
           "w657898056",
           "w657898065",
@@ -2096,7 +2098,7 @@
           "w657898246",
           "w657898247"
         ],
-        "residualArea": 384.05309324395785,
+        "residualArea": 360.9946306891361,
         "residualHeight": 16.7
       },
       {
@@ -2640,10 +2642,10 @@
         "status": "retained literal XML contradiction; invalid physical band"
       }
     ],
-    "physicalUnionSurfaces": 2135,
+    "physicalUnionSurfaces": 2137,
     "rawSource": {
-      "sourceParts": 1659,
-      "explicitHeights": 1030,
+      "sourceParts": 1666,
+      "explicitHeights": 1036,
       "explicitMinima": 430,
       "tiles": 9
     }
@@ -2696,5 +2698,52 @@
       "buildingPassageIssues"
     ],
     "note": "Otopeni is byte-identical. Unirii retains all source geometry and records, but withdraws one unsupported ground void for layer-1 footwayw1106897137 and records its unknown absolute base."
+  },
+  "relationPartRebuild": {
+    "date": "2026-11-08",
+    "previousBuildings": 6181,
+    "retainedAllPreviousIds": true,
+    "newOuterRecords": 7,
+    "newSourceIdentities": [
+      "r13104090",
+      "r13104091",
+      "r13104092",
+      "r13104229",
+      "r13104230",
+      "r13104231"
+    ],
+    "changedFields": [
+      "strings",
+      "buildingRoofSurfaces",
+      "buildingRoofGeometryPoints",
+      "vacant",
+      "buildings",
+      "buildingRoofProfiles",
+      "buildingDimensions",
+      "buildingFootprints",
+      "buildingInfo",
+      "buildingSourceTags",
+      "buildingCanopies",
+      "buildingSourceIssues",
+      "buildingIds",
+      "buildingHoles",
+      "buildingAssemblies",
+      "buildingUnions",
+      "buildingGeometryPoints",
+      "pois",
+      "areas",
+      "buildingPassages",
+      "buildingHoleFootprints"
+    ],
+    "notes": [
+      "Six part-only multipolygon relations produce seven outer records and five additional holes. r13104229 has two disjoint outers, both retained. Every previous source identity remains.",
+      "r13104092 explicitly maps roof:shape=dome; its absent height/rise remain source-marked estimates."
+    ]
+  },
+  "previousOuterRetention": {
+    "baseline": "1d6295c",
+    "match": "exact source ID plus complete precise outer ring (multi-outer relations matched separately)",
+    "allPreviousOutersPresent": true,
+    "allPreviousTotalAndMinimumBandsUnchanged": true
   }
 }

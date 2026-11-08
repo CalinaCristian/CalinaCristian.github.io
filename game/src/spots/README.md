@@ -154,4 +154,4 @@ entry. The animated Needle elevator uses the shared Leave/mode cancellation flow
 instant open-air-deck visit award are retired. Kerry Park's city-lights activity requires an actual dusk/night capture.
 Palace pacing counts continuous walking along its public-frontage game course; its endpoints are UI waypoints without
 invented marker posts. Botanical Garden trail notes are explicitly virtual at mapped rooms and add no physical plant-label
-hardware; its suspension-bridge award requires continuous walking on the existing bridge deck.
+hardware or reading-count award; its suspension-bridge award requires continuous walking on the existing bridge deck.

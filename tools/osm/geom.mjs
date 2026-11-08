@@ -126,3 +126,32 @@ export function assembleRings(wayNodeLists) {
     }
     return { rings, open };
 }
+
+
+/** Exact minimum edge distance. Intersections, including collinear contact, have distance zero. */
+export function distSegmentSegment(a, b, c, d) {
+    const cross = (p, q, r) => (q[0] - p[0]) * (r[1] - p[1]) - (q[1] - p[1]) * (r[0] - p[0]);
+    const overlap = Math.max(Math.min(a[0], b[0]), Math.min(c[0], d[0])) <= Math.min(Math.max(a[0], b[0]), Math.max(c[0], d[0])) + 1e-9 && Math.max(Math.min(a[1], b[1]), Math.min(c[1], d[1])) <= Math.min(Math.max(a[1], b[1]), Math.max(c[1], d[1])) + 1e-9;
+    if (overlap && cross(a, b, c) * cross(a, b, d) <= 0 && cross(c, d, a) * cross(c, d, b) <= 0) return 0;
+    return Math.min(distPointSeg(...a, ...c, ...d).d, distPointSeg(...b, ...c, ...d).d, distPointSeg(...c, ...a, ...b).d, distPointSeg(...d, ...a, ...b).d);
+}
+
+/** Minimum footprint distance to the district union (buffered lines, circles and polygons).
+ * A nonpositive value means contact/overlap; negative penetration depth is not an interior distance field.
+ * The actual source edges and holes are tested, never a centroid or bounding-radius admission proxy. */
+export function footprintMargin(outer, geometry, holes = []) {
+    const rings = [outer, ...holes], edges = rings.flatMap(r => r.map((a, i) => [a, r[(i + 1) % r.length]]));
+    const solid = p => pointInPolygon(...p, outer) && !holes.some(h => pointInPolygon(...p, h));
+    const lineDistance = (a, b) => solid(a) || solid(b) ? 0 : Math.min(...edges.map(([c, d]) => distSegmentSegment(a, b, c, d)));
+    let margin = Infinity;
+    for (const p of geometry.pieces || []) for (let i = 1; i < p.pts.length; i++) margin = Math.min(margin, lineDistance(p.pts[i - 1], p.pts[i]) - p.r);
+    for (const c of geometry.circles || []) {
+        const p = [c.x, c.z], distance = solid(p) ? 0 : Math.min(...edges.map(([a, b]) => distPointSeg(...p, ...a, ...b).d));
+        margin = Math.min(margin, distance - c.r);
+    }
+    for (const polygon of geometry.polys || []) {
+        if (polygon.some(solid) || rings.some(r => r.some(p => pointInPolygon(...p, polygon)))) { margin = Math.min(margin, 0); continue; }
+        for (let i = 0; i < polygon.length; i++) margin = Math.min(margin, lineDistance(polygon[i], polygon[(i + 1) % polygon.length]));
+    }
+    return margin;
+}

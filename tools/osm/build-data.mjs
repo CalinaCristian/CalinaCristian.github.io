@@ -79,7 +79,7 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { parseFiles, parseInto } from './parse-osm.mjs';
 import { footprintCoverage, simpleFootprint, uncrossFootprint, bakeAssembly, bakeSurface, touchingSolids, assemblySignature } from '../../game/src/building-parts.js';
-import { distPointSeg, pointInPolygon, polyArea, polyCentroid, simplifyIdx, simplifyRing, Grid, assembleRings } from './geom.mjs';
+import { distPointSeg, pointInPolygon, polyArea, polyCentroid, footprintMargin, simplifyIdx, simplifyRing, Grid, assembleRings } from './geom.mjs';
 import { buildCorridor } from './corridors.mjs';
 import { CITIES as GAME_CITIES } from '../../game/src/cities.js';
 import { LANDMARKS } from '../../game/src/landmarks.js';
@@ -1075,7 +1075,7 @@ function buildCity(cityId, did = null) {
         if (realArea < (sourcePart ? 0.05 : 12)) continue;
         const cL = polyCentroid(local);
         const cOut = P(la, lo); cOut[0] += cL[0] * C.scale; cOut[1] += cL[1] * C.scale; // approx centroid in output space
-        const mg = M(cOut[0], cOut[1]);
+        const mg = ds ? footprintMargin(lls.slice(0, -1).map(([a, c]) => P(a, c)), cor, (rb.holesLL || []).map(h => h.slice(0, -1).map(([a, c]) => P(a, c)))) : M(cOut[0], cOut[1]);
         const dropWhy = (why) => { bDrops[why] = (bDrops[why] || 0) + 1; if (DEBUG_DROPS) bDropList.push({ why, id: t.__id, la: +la.toFixed(6), lo: +lo.toFixed(6), area: Math.round(realArea), building: b, levels: t['building:levels'], name: t.name }); };
         // (2026-11-08) district mode: every real footprint up to OUTER_RING m beyond the playable area is a full building
         // (real outline, height, roof shape and colour; flag 32 = outside the playable area: no shops / signs / near

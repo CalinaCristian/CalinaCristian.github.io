@@ -3,7 +3,7 @@
 
 Compares a built district (game/data/<city>-<district>.json) with the raw OSM footprints and, when present, the aerial
 roof survey (game/research/roofs-<city>-<district>.json):
-  * coverage   every OSM building (centroid inside the playable area or the scenery ring) has a game building there
+  * coverage   every OSM building whose solid source footprint intersects the playable area or the scenery ring has a game building there
   * position   game centroid vs OSM centroid (m), footprint area kept (game / OSM)
   * height     OSM height / building:levels vs the game height (tagged buildings must match; untagged = estimates)
   * roof       game roof shape vs the aerial class (confident measurements only)
@@ -87,6 +87,33 @@ def geometry_margin(x, z, geometry):
         distance = min(segment_distance(x, z, a, b) for a, b in zip(polygon, polygon[1:] + polygon[:1]))
         values.append(-distance if pip(x, z, polygon) else distance)
     return min(values, default=float('inf'))
+
+
+def segment_segment_distance(a, b, c, d):
+    cross = lambda p, q, r: (q[0]-p[0])*(r[1]-p[1])-(q[1]-p[1])*(r[0]-p[0])
+    overlap = max(min(a[0],b[0]),min(c[0],d[0])) <= min(max(a[0],b[0]),max(c[0],d[0]))+1e-9 and max(min(a[1],b[1]),min(c[1],d[1])) <= min(max(a[1],b[1]),max(c[1],d[1]))+1e-9
+    if overlap and cross(a,b,c)*cross(a,b,d) <= 0 and cross(c,d,a)*cross(c,d,b) <= 0:
+        return 0
+    return min(segment_distance(*a,c,d),segment_distance(*b,c,d),segment_distance(*c,a,b),segment_distance(*d,a,b))
+
+
+def geometry_footprint_margin(outer, geometry, holes=None):
+    """Exact edge distance to the authored union; negative means capsule overlap, not penetration depth."""
+    holes = holes or []
+    rings = [outer] + holes
+    edges = [(a,r[(i+1)%len(r)]) for r in rings for i,a in enumerate(r)]
+    solid = lambda p: pip(*p,outer) and not any(pip(*p,h) for h in holes)
+    line_distance = lambda a,b: 0 if solid(a) or solid(b) else min(segment_segment_distance(a,b,c,d) for c,d in edges)
+    values = [line_distance(a,b)-p['r'] for p in geometry.get('pieces',[]) for a,b in zip(p['pts'][:-1],p['pts'][1:])]
+    for c in geometry.get('circles',[]):
+        point = (c['x'],c['z'])
+        values.append((0 if solid(point) else min(segment_distance(*point,a,b) for a,b in edges))-c['r'])
+    for polygon in geometry.get('polys',[]):
+        if any(solid(p) for p in polygon) or any(pip(*p,polygon) for r in rings for p in r):
+            values.append(0)
+        else:
+            values.extend(line_distance(a,b) for a,b in zip(polygon,polygon[1:]+polygon[:1]))
+    return min(values,default=float('inf'))
 
 
 def assemble_rings(chains):
@@ -196,7 +223,8 @@ def main():
             continue
         cx, cz = centroid(ring)
         c = cellOf(cx, cz)
-        margin = geometry_margin(cx, cz, geometry) if geometry else None
+        centroid_margin = geometry_margin(cx, cz, geometry) if geometry else None
+        margin = geometry_footprint_margin(ring, geometry) if geometry else None
         zone = ('inside' if margin <= 0 else 'ring' if margin <= a.ring else None) if geometry else ('inside' if c in inside else 'ring' if c in near else None)
         if not zone:
             continue
@@ -222,6 +250,7 @@ def main():
                'heightOSM': h_osm, 'levelsOSM': lv, 'roofLevelsOSM': num(t.get('roof:levels')) or 0, 'roofOSM': t.get('roof:shape')}
         if margin is not None:
             row['margin'] = round(margin, 1)
+            row['centroidMargin'] = round(centroid_margin, 1)
         if hit:
             row.update({'game': hit['i'], 'dist': round(math.hypot(hit['c'][0] - cx, hit['c'][1] - cz), 1), 'areaKept': round(hit['area'] / ar, 2), 'hGame': hit['h'], 'roofGame': hit['roof']})
         r = aer.get(wid)
@@ -244,15 +273,18 @@ def main():
             if ar < 25:
                 continue
             cx, cz = centroid(ring); c = cellOf(cx, cz)
-            margin = geometry_margin(cx, cz, geometry) if geometry else None
+            holes = [h for h in inner_polys if h and all(pip(x, z, ring) for x, z in h)]
+            centroid_margin = geometry_margin(cx, cz, geometry) if geometry else None
+            margin = geometry_footprint_margin(ring, geometry, holes) if geometry else None
             zone = ('inside' if margin <= 0 else 'ring' if margin <= a.ring else None) if geometry else ('inside' if c in inside else 'ring' if c in near else None)
             if not zone:
                 continue
-            holes = [h for h in inner_polys if h and all(pip(x, z, ring) for x, z in h)]
             candidates = [b for b in B if b['source'] == 'r' + rid]
             hit = min(candidates, key=lambda b: math.hypot(b['c'][0] - cx, b['c'][1] - cz)) if candidates else None
             ll = [nodes[n] for n in refs[:-1]]
             row = {'osm': 'r' + rid, 'kind': 'relation', 'zone': zone, 'type': t.get('building'), 'name': t.get('name'), 'areaOSM': round(ar), 'lat': round(sum(p[0] for p in ll) / len(ll), 6), 'lon': round(sum(p[1] for p in ll) / len(ll), 6), 'heightOSM': num(t.get('height')), 'levelsOSM': num(t.get('building:levels')), 'roofLevelsOSM': num(t.get('roof:levels')) or 0, 'roofOSM': t.get('roof:shape'), 'holeCountOSM': len(holes), 'holeAreaOSM': round(sum(abs(area(h)) for h in holes), 1)}
+            if margin is not None:
+                row['margin'] = round(margin, 1); row['centroidMargin'] = round(centroid_margin, 1)
             if hit:
                 gh = hit['holes']; source_area = sum(abs(area(h)) for h in holes)
                 row.update({'game': hit['i'], 'dist': round(math.hypot(hit['c'][0] - cx, hit['c'][1] - cz), 1), 'areaKept': round(hit['area'] / ar, 2), 'hGame': hit['h'], 'roofGame': hit['roof'], 'holeCountGame': len(gh), 'holeAreaGame': round(sum(abs(area(h)) for h in gh), 1), 'holeAreaKept': round(sum(abs(area(h)) for h in gh) / source_area, 2) if source_area else None, 'courtyardInteriorsClear': all(any(pip(*interior_point(h), g) for g in gh) for h in holes)})

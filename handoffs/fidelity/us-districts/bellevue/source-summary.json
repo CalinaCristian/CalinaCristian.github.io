@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "district": "bellevue",
   "date": "2026-11-08",
-  "sourceCommit": "4aebdc1c78477f0e5f2377d84e66c9c580475a06",
+  "sourceCommit": "4881e6ca5fae3f5d118f5ed55165287f282852bd",
   "dataset": "game/data/seattle-bellevue.json",
-  "datasetSha256": "fa17346171f32f395f30ce8cbfd10b8742e61a4e0f58840be793c3189e4f42d8",
+  "datasetSha256": "40387e74a2121abd3d6ad10752f15a2d5d2fbd26f7569fe73c055609d2f54d95",
   "coverage": "Every whole positive-area building or building:part intersecting the exact configured core or 600 m source ring. Multipolygon inner rings retained; named model exclusions are exact source IDs.",
   "buildingAudit": {
     "core": {
@@ -30,10 +30,11 @@
   "sourceIssues": {},
   "roofHeightProvenance": {
     "OSM building:levels estimate": 245,
-    "style estimate": 887,
+    "style estimate": 886,
     "OSM height": 24,
     "research estimate": 25,
-    "research height": 7
+    "research height": 7,
+    "research storeys estimate": 1
   },
   "nativeUnitsInThisDataset": [],
   "nativeUnitsNote": "This snapshot has no unit-bearing literal building height/min-height/roof-height strings. Strict imperial ft/in parsing is covered by shared native-profile regression fixtures; this dataset does not demonstrate a unit-bearing source example.",
@@ -148,7 +149,7 @@
   },
   "placesScope": "Every compiled POI matched independently to an original OSM node/polygon centroid or explicit official locator within 0.08 m output quantization tolerance. This does not claim every nearby-ring trading unit is rendered.",
   "parkingAdditiveAudit": "parking-runtime.json",
-  "buildPrerequisiteCommit": "4fdacd3",
+  "buildPrerequisiteCommit": "352dc65",
   "strictDimensionAudit": {
     "literalPositiveHeightFailures": 0,
     "literalMinimumFailures": 0,
@@ -169,5 +170,39 @@
       }
     ],
     "nativeParkingProof": "../parking-canopy-runtime.json"
+  },
+  "reviewedRoadCandidates": "road-conflict-review.json",
+  "unresolvedPassageDatums": {
+    "count": 2,
+    "ledger": "unresolved-passage-datums.json",
+    "policy": "Original relative layer/level retained; no physical metre datum is inferred and no ground opening is cut."
+  },
+  "roofShapeReview": {
+    "independentlyConfidentShapeThreshold": 0.5,
+    "sourcePriorityDifferences": [
+      {
+        "osm": "w103453919",
+        "roofGame": "gabled",
+        "roofAerial": "flat",
+        "roofConf": 0.9,
+        "roofOSM": "quadruple_saltbox"
+      },
+      {
+        "osm": "w393282358",
+        "roofGame": "gabled",
+        "roofAerial": "flat",
+        "roofConf": 0.75,
+        "roofOSM": "gabled"
+      },
+      {
+        "osm": "w393282361",
+        "roofGame": "gabled",
+        "roofAerial": "flat",
+        "roofConf": 0.9,
+        "roofOSM": "gabled"
+      }
+    ],
+    "unexplainedConfidentShapeDifferences": 0,
+    "note": "Explicit OSM roof shape wins. Unsupported quadruple_saltbox remains a reported profile issue; it is not asserted to be an exact native shape. Uncertain aerial shapes and estimated rise/pitch remain estimates."
   }
 }

@@ -1,0 +1,382 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "59f953ff63eff92cd00da3f36dc093d8bff317d9",
+  "district": "bucharest-otopeni",
+  "dataSha256": "a27a950b979d140769494499bd717ed1821c9ada461518611a12ac57e25d1ea1",
+  "nativeProfiles": {
+    "supplied": 1208,
+    "applied": 1208,
+    "rejected": [],
+    "uncertain": [],
+    "surfacesApplied": 74,
+    "surfacesRejected": [
+      "w1215078739",
+      "w1215078740",
+      "w1215078741",
+      "w1282750652",
+      "w1321861230",
+      "w1321861232",
+      "w1321861233",
+      "w1325276784",
+      "w1325276785",
+      "w1325276786",
+      "w1325276787",
+      "w1325276788",
+      "w1325276789",
+      "w1325276790",
+      "w1325276791",
+      "w1325276792",
+      "w1325276793",
+      "w1325276794",
+      "w1325276795",
+      "w1325276796",
+      "w1325276797",
+      "w1325276798",
+      "w1325276799",
+      "w1325276800",
+      "w1325276801",
+      "w1325276802",
+      "w1325276803",
+      "w1325276804",
+      "w1325276805",
+      "w1325276806",
+      "w1325276807",
+      "w1325276808",
+      "w1325276809",
+      "w1325276811"
+    ]
+  },
+  "roofCacheAccounting": {
+    "supplied": 115,
+    "applied": 74,
+    "runtimeRejected": 34,
+    "notVisited": 7,
+    "sourceSignatureComparisons": 424,
+    "sourceSignatureMismatches": []
+  },
+  "runtimeRejectedRows": [
+    {
+      "sourceId": "w1215078739",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096082",
+        "w771096081",
+        "w771096083"
+      ]
+    },
+    {
+      "sourceId": "w1215078740",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096082",
+        "w771096081"
+      ]
+    },
+    {
+      "sourceId": "w1215078741",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096081"
+      ]
+    },
+    {
+      "sourceId": "w1282750652",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w794617342"
+      ]
+    },
+    {
+      "sourceId": "w1321861230",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083",
+        "w1321861231"
+      ]
+    },
+    {
+      "sourceId": "w1321861232",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083"
+      ]
+    },
+    {
+      "sourceId": "w1321861233",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083"
+      ]
+    },
+    {
+      "sourceId": "w1325276784",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083"
+      ]
+    },
+    {
+      "sourceId": "w1325276785",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083",
+        "w1321861231"
+      ]
+    },
+    {
+      "sourceId": "w1325276786",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083"
+      ]
+    },
+    {
+      "sourceId": "w1325276787",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083"
+      ]
+    },
+    {
+      "sourceId": "w1325276788",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083"
+      ]
+    },
+    {
+      "sourceId": "w1325276789",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083",
+        "w1321861231"
+      ]
+    },
+    {
+      "sourceId": "w1325276790",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083",
+        "w1321861231"
+      ]
+    },
+    {
+      "sourceId": "w1325276791",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083"
+      ]
+    },
+    {
+      "sourceId": "w1325276792",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083",
+        "w1321861231"
+      ]
+    },
+    {
+      "sourceId": "w1325276793",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083",
+        "w1321861231"
+      ]
+    },
+    {
+      "sourceId": "w1325276794",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083",
+        "w1321861231"
+      ]
+    },
+    {
+      "sourceId": "w1325276795",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083",
+        "w1321861231"
+      ]
+    },
+    {
+      "sourceId": "w1325276796",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083",
+        "w1321861231"
+      ]
+    },
+    {
+      "sourceId": "w1325276797",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083",
+        "w1321861231"
+      ]
+    },
+    {
+      "sourceId": "w1325276798",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083",
+        "w1321861231"
+      ]
+    },
+    {
+      "sourceId": "w1325276799",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083",
+        "w1321861231"
+      ]
+    },
+    {
+      "sourceId": "w1325276800",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083"
+      ]
+    },
+    {
+      "sourceId": "w1325276801",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083"
+      ]
+    },
+    {
+      "sourceId": "w1325276802",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083"
+      ]
+    },
+    {
+      "sourceId": "w1325276803",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083"
+      ]
+    },
+    {
+      "sourceId": "w1325276804",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083"
+      ]
+    },
+    {
+      "sourceId": "w1325276805",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083"
+      ]
+    },
+    {
+      "sourceId": "w1325276806",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083"
+      ]
+    },
+    {
+      "sourceId": "w1325276807",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083"
+      ]
+    },
+    {
+      "sourceId": "w1325276808",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083"
+      ]
+    },
+    {
+      "sourceId": "w1325276809",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083"
+      ]
+    },
+    {
+      "sourceId": "w1325276811",
+      "classification": "runtime visibility cache rejected because a dependency is replaced by an exact-source landmark",
+      "replacedDependencies": [
+        "r16476195",
+        "w771096083"
+      ]
+    }
+  ],
+  "notVisited": [
+    {
+      "sourceId": "r16476195",
+      "classification": "source body replaced by exact OTP landmark"
+    },
+    {
+      "sourceId": "w917838072",
+      "classification": "reviewed canopy uses earlier canopy renderer branch"
+    },
+    {
+      "sourceId": "w406473919",
+      "classification": "reviewed canopy uses earlier canopy renderer branch"
+    },
+    {
+      "sourceId": "w406473986",
+      "classification": "reviewed canopy uses earlier canopy renderer branch"
+    },
+    {
+      "sourceId": "w771096081",
+      "classification": "source body replaced by exact OTP landmark"
+    },
+    {
+      "sourceId": "w771096083",
+      "classification": "source body replaced by exact OTP landmark"
+    },
+    {
+      "sourceId": "w1215062623",
+      "classification": "reviewed canopy uses earlier canopy renderer branch"
+    }
+  ],
+  "notes": [
+    "This classifies historical59f953f runtime counts; it is not a final combined-freeze pass.",
+    "All34 runtime cache rejections depend on exact source IDs replaced by the OTP model. The full source roof is rendered as fallback; no source body is dropped to hide cache rejection.",
+    "The7 nonvisited entries are3 exact-model replacement bodies and4 reviewed canopies using their explicit branch. The branch currently flattens pitched/round profiles; root was notified as an open rendering issue.",
+    "Profile/roof signature equality is checked independently against original data before runtime source replacements. No detector, counter or source data was changed for this classification."
+  ]
+}

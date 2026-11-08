@@ -1,0 +1,372 @@
+{
+  "schemaVersion": 1,
+  "id": "mopop",
+  "city": "seattle",
+  "name": "Museum of Pop Culture (MoPOP)",
+  "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+  "updatedAt": "2026-11-08T19:35:04.724Z",
+  "status": "needs_review",
+  "sources": [
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Museum_of_Pop_Culture"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://www.mopop.org/building"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Seattle_Center_Monorail"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Museum_of_Pop_Culture_Seattle_Washington1.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:View_of_Museum_of_Pop_Culture_of_Seattle_Center_monorail_0127.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_Museum_of_Pop_Culture_buiobuione_03.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_(WA,_USA),_Museum_of_Pop_Culture,_Fassade_--_2022_--_1582.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Close-up_of_Exterieur_wall_of_the_Museum_of_Pop-Culture_(formerly_knows_as_EMP)_Seattle,_USA_01.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://creativecommons.org/licenses/by/2.0"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Museum_of_Pop_Culture_in_Seattle_(6248401525).jpg"
+    },
+    {
+      "label": "MoPOP (2000, Frank O. Gehry)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/161587742"
+    },
+    {
+      "label": "MoPOP (2000, Frank O. Gehry)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/1092469435"
+    },
+    {
+      "label": "Monorail passage through MoPOP",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/161609433"
+    },
+    {
+      "label": "Grass Blades (John Fleming, 2002)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/1362384591"
+    },
+    {
+      "label": "Typewriter Eraser, Scale X (Oldenburg & van Bruggen)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/8533332630"
+    },
+    {
+      "label": "Chris Cornell in Performance (Nick Marra, 2018)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/6140930665"
+    }
+  ],
+  "improvements": [
+    "Seven source parts previously removed by a generic scenery mask are preserved; source geometry now has explicit membership and cache validation.",
+    "The monorail, sculpted shell and valid viewpoints remain in the scene."
+  ],
+  "remainingGaps": [
+    "Actual arrival and postcard views show large rectangular source parts obscuring the existing sculpted shell. The museum needs a unified source-part model that represents every real volume; deleting those parts is not an acceptable fix.",
+    "The native plaque walk is blocked and ends beside a building and visitor.",
+    "The shared scene's first activity approach is the Space Needle entrance, not the MoPOP monorail viewpoint.",
+    "The existing monorail handler can award on a single click while the train happens to pass; it needs real participation and cancellation coverage.",
+    "Raw audit findings remain for physical review: zfight 53, phantom 1, pedBelow 3.",
+    "41.1 m walked toward Paul Allen; Native walker blocked on planned public path."
+  ],
+  "checks": [
+    {
+      "label": "Native scene load",
+      "passed": true,
+      "details": "seattle-center; actual native controller; 0 thrown JavaScript errors."
+    },
+    {
+      "label": "Source solid membership",
+      "passed": true,
+      "details": "93 active source records, 92 physical volumes, 4 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+    },
+    {
+      "label": "Validated scene geometry cache",
+      "passed": true,
+      "details": "Exact source/profile/terrain signature matched."
+    },
+    {
+      "label": "Native public-path walk",
+      "passed": false,
+      "details": "41.1 m walked toward Paul Allen; Native walker blocked on planned public path."
+    },
+    {
+      "label": "High scene budgets",
+      "passed": true,
+      "details": "371210 unique geometry triangles; max 1333870 rendered triangles / 274 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+    },
+    {
+      "label": "Raw physical audit",
+      "passed": false,
+      "details": "zfight: 53; phantom: 1; pedBelow: 3"
+    },
+    {
+      "label": "Full matched scene comparison",
+      "passed": false,
+      "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+    }
+  ],
+  "captures": [
+    {
+      "kind": "arrival",
+      "label": "Museum of Pop Culture (MoPOP) — arrival",
+      "image": "assets/spots/mopop/arrival.webp",
+      "sha256": "75ede8b1eee4ab6255cbd177b16a0e1be05be4268c9d4ed6c33067565b1ce996",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:25:06.318Z",
+      "pose": {
+        "position": [
+          143.1,
+          -6.075864601135253,
+          -121.6
+        ],
+        "bearing": 250,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6205063,
+          "lon": -122.3493043,
+          "elev": 40.5
+        },
+        "projection": {
+          "mLat": 111182.94,
+          "mLon": 75171.03
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "public-walk",
+      "label": "Museum of Pop Culture (MoPOP) — public walk",
+      "image": "assets/spots/mopop/public-walk.webp",
+      "sha256": "a25b1d21124668ed9a62acecb20c6390d43d04f51481e08ead12820d0908984a",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:25:08.734Z",
+      "pose": {
+        "position": [
+          117.14153549586382,
+          -7.014505506273661,
+          -153.10037193125157
+        ],
+        "bearing": 319.76060412078664,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6205063,
+          "lon": -122.3493043,
+          "elev": 40.5
+        },
+        "projection": {
+          "mLat": 111182.94,
+          "mLon": 75171.03
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "postcard",
+      "label": "Museum of Pop Culture (MoPOP) — postcard",
+      "image": "assets/spots/mopop/postcard.webp",
+      "sha256": "3b61aa65460d9e845fb8d0882022e36b57dcbe08253cb336cc423de8f413510c",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:25:10.934Z",
+      "pose": {
+        "position": [
+          158.2,
+          -6.532275688648223,
+          -138.3
+        ],
+        "bearing": 234.99999999999997,
+        "pitch": 12.000000000000002,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6205063,
+          "lon": -122.3493043,
+          "elev": 40.5
+        },
+        "projection": {
+          "mLat": 111182.94,
+          "mLon": 75171.03
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "activity-approach",
+      "label": "Museum of Pop Culture (MoPOP) — activity approach",
+      "image": "assets/spots/mopop/activity-approach.webp",
+      "sha256": "8677141a96ee2c46a48049ffc8e81b8a02f4434f3a7f2ac493ac43006e302ee4",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:25:13.838Z",
+      "pose": {
+        "position": [
+          -0.7,
+          3.15,
+          22.9
+        ],
+        "bearing": 0,
+        "pitch": -7.000000000000003,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6205063,
+          "lon": -122.3493043,
+          "elev": 40.5
+        },
+        "projection": {
+          "mLat": 111182.94,
+          "mLon": 75171.03
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    }
+  ],
+  "perf": {
+    "sceneTriangles": 1015025,
+    "uniqueGeometryTriangles": 371210,
+    "geometryObjects": 154,
+    "maxRenderedTriangles": 1333870,
+    "maxDrawCalls": 274
+  },
+  "sceneId": "seattle-center",
+  "sourceGeometry": {
+    "membershipSHA256": "aecc84822279658c32334c058655e1f050b07d2b9337079de529e845312d1d4b",
+    "activeSourceRecords": 93,
+    "renderedVolumes": 92,
+    "literalHeights": 55,
+    "levelHeightEstimates": 0,
+    "typeHeightEstimates": 38,
+    "heroReplacements": [
+      "w12903132",
+      "w329416207",
+      "w161587742",
+      "w1092469435",
+      "r19745997",
+      "w394254329",
+      "w394254331",
+      "w394254332",
+      "w394254333",
+      "w394254334",
+      "w394254335",
+      "w394254336",
+      "w394254337",
+      "w394254484",
+      "w394254485",
+      "w394254486",
+      "w394254487",
+      "w394254488",
+      "w394956342",
+      "w394956343",
+      "w394956344"
+    ],
+    "missingMembers": []
+  },
+  "access": {
+    "walker": "OnFootController",
+    "arrival": {
+      "x": 143.1,
+      "z": -121.6,
+      "y": -7.725864601135253,
+      "heading": -4.363323129985824
+    },
+    "arrivalDry": true,
+    "nearestPlaquePath": {
+      "points": [
+        [
+          143.1,
+          -121.6
+        ],
+        [
+          107.94999999999999,
+          -163.95
+        ],
+        [
+          95.94999999999999,
+          -165.45
+        ],
+        [
+          50.949999999999996,
+          -150.45
+        ],
+        [
+          47.949999999999996,
+          -147.45
+        ],
+        [
+          36.699999999999996,
+          -122.69999999999999
+        ]
+      ],
+      "length": 145.99380609513395,
+      "target": "Paul Allen"
+    },
+    "nativeWalk": {
+      "walker": "OnFootController",
+      "passed": false,
+      "steps": 521,
+      "walked": 41.056603503921224,
+      "target": "Paul Allen",
+      "plannedLength": 145.99380609513395,
+      "position": {
+        "x": 117.141512070918,
+        "z": -153.1003579597109,
+        "y": -8.664504007297603,
+        "heading": 0.7023099471057115
+      },
+      "error": "Native walker blocked on planned public path"
+    }
+  },
+  "rawAudit": {
+    "zfight": 53,
+    "phantom": 1,
+    "pedBelow": 3
+  },
+  "review": "Inspected all four GAME context images. This is a material scene-fidelity gap despite passing geometry budgets and an existing sculpted model."
+}

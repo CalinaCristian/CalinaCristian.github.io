@@ -1,0 +1,245 @@
+{
+  "schemaVersion": 1,
+  "district": "bellevue",
+  "reviewDate": "2026-11-08",
+  "primaryService": "https://services1.arcgis.com/EYzEZbDhXZjURPbP/arcgis/rest/services/Bellevue_Permit/FeatureServer/0",
+  "officialGISItem": "https://www.arcgis.com/home/item.html?id=3085ee4a101c4380ba39a6663ccf1184",
+  "sourceType": "City of Bellevue original permit records",
+  "records": [
+    {
+      "sourceId": "w30108150",
+      "aboveGradeStoreys": 5,
+      "previousResearchStoreys": null,
+      "sourcePriority": "Positive literal original OSM dimensions win; source footprint and topology remain exact.",
+      "match": {
+        "basis": "Exact original OSM street address 11405 Northeast 2nd Place and Hampton hotel identity.",
+        "permitPointWithinSourceFootprint": true,
+        "permitPointDistanceToSourceFootprintM": 0
+      },
+      "officialRecord": {
+        "ObjectId": 271118,
+        "PERMITNUMBER": "12 105017 BB",
+        "PERMITTYPE": "BB",
+        "PERMITSTATUS": "Closed",
+        "SITEADDRESS": "11405 NE 2nd Pl",
+        "PROJECTNAME": "Hampton Inn & Suites Hotel",
+        "PROJECTDESCRIPTION": "Construction of a new 5 story, 128 room hotel with indoor pool and spa and on grade parking.",
+        "FINALEDDATE": 1431068400000,
+        "ISSUEDDATE": 1373353200000,
+        "NOTICEOFDECISION": null
+      },
+      "permitPointWGS84": {
+        "lat": 47.61184006521137,
+        "lon": -122.18676751142985
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/30108150",
+        "https://services1.arcgis.com/EYzEZbDhXZjURPbP/arcgis/rest/services/Bellevue_Permit/FeatureServer/0/query?f=pjson&objectIds=271118&outFields=ObjectId%2CPERMITNUMBER%2CPERMITTYPE%2CPERMITSTATUS%2CSITEADDRESS%2CPROJECTNAME%2CPROJECTDESCRIPTION%2CFINALEDDATE&outSR=4326"
+      ],
+      "heightStatus": "Storey count is a documented permit fact. Metre height remains a storey-spacing estimate, not a literal OSM or surveyed physical height."
+    },
+    {
+      "sourceId": "w103922257",
+      "aboveGradeStoreys": 20,
+      "previousResearchStoreys": null,
+      "sourcePriority": "Positive literal original OSM dimensions win; source footprint and topology remain exact.",
+      "match": {
+        "basis": "Exact original OSM street address 10710 NE 10th St and Ashton identity.",
+        "permitPointWithinSourceFootprint": true,
+        "permitPointDistanceToSourceFootprintM": 0
+      },
+      "officialRecord": {
+        "ObjectId": 366966,
+        "PERMITNUMBER": "06 120954 BB",
+        "PERMITTYPE": "BB",
+        "PERMITSTATUS": "Closed",
+        "SITEADDRESS": "10710 NE 10th St",
+        "PROJECTNAME": "The Ashton Bellevue ( formerly Vue Hanover)",
+        "PROJECTDESCRIPTION": "Construct a 20-story residential apartment building with residential amenity use and main-level retail use.  ",
+        "FINALEDDATE": 1255330800000,
+        "ISSUEDDATE": 1182754800000,
+        "NOTICEOFDECISION": null
+      },
+      "permitPointWGS84": {
+        "lat": 47.619740880506704,
+        "lon": -122.19698993097055
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/103922257",
+        "https://services1.arcgis.com/EYzEZbDhXZjURPbP/arcgis/rest/services/Bellevue_Permit/FeatureServer/0/query?f=pjson&objectIds=366966&outFields=ObjectId%2CPERMITNUMBER%2CPERMITTYPE%2CPERMITSTATUS%2CSITEADDRESS%2CPROJECTNAME%2CPROJECTDESCRIPTION%2CFINALEDDATE&outSR=4326"
+      ],
+      "heightStatus": "Storey count is a documented permit fact. Metre height remains a storey-spacing estimate, not a literal OSM or surveyed physical height."
+    },
+    {
+      "sourceId": "w106468030",
+      "aboveGradeStoreys": 20,
+      "previousResearchStoreys": null,
+      "sourcePriority": "Positive literal original OSM dimensions win; source footprint and topology remain exact.",
+      "match": {
+        "basis": "Exact original OSM street address 1020 108th Avenue NE and Ten20 / 1020 Residential Tower identity.",
+        "permitPointWithinSourceFootprint": true,
+        "permitPointDistanceToSourceFootprintM": 0
+      },
+      "officialRecord": {
+        "ObjectId": 374539,
+        "PERMITNUMBER": "06 102793 BB",
+        "PERMITTYPE": "BB",
+        "PERMITSTATUS": "Closed",
+        "SITEADDRESS": "1020 108th Ave NE",
+        "PROJECTNAME": "1020 Residential Tower",
+        "PROJECTDESCRIPTION": "Above-grade phase II construction of a mixed-use, 20-story high-rise residential tower, including 129 dwelling units, retail, theater & support facilities.  ",
+        "FINALEDDATE": 1242198000000,
+        "ISSUEDDATE": 1171008000000,
+        "NOTICEOFDECISION": null
+      },
+      "permitPointWGS84": {
+        "lat": 47.61984621584332,
+        "lon": -122.19597883360204
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/106468030",
+        "https://services1.arcgis.com/EYzEZbDhXZjURPbP/arcgis/rest/services/Bellevue_Permit/FeatureServer/0/query?f=pjson&objectIds=374539&outFields=ObjectId%2CPERMITNUMBER%2CPERMITTYPE%2CPERMITSTATUS%2CSITEADDRESS%2CPROJECTNAME%2CPROJECTDESCRIPTION%2CFINALEDDATE&outSR=4326"
+      ],
+      "heightStatus": "Storey count is a documented permit fact. Metre height remains a storey-spacing estimate, not a literal OSM or surveyed physical height."
+    },
+    {
+      "sourceId": "w1474755841",
+      "aboveGradeStoreys": 21,
+      "previousResearchStoreys": null,
+      "sourcePriority": "Positive literal original OSM dimensions win; source footprint and topology remain exact.",
+      "match": {
+        "basis": "Exact original OSM street address 380 106th Avenue Northeast and Four106 identity; closed above-grade construction permit, below-grade parking explicitly excluded.",
+        "permitPointWithinSourceFootprint": true,
+        "permitPointDistanceToSourceFootprintM": 0
+      },
+      "officialRecord": {
+        "ObjectId": 86009,
+        "PERMITNUMBER": "21 134046 BB",
+        "PERMITTYPE": "BB",
+        "PERMITSTATUS": "Closed",
+        "SITEADDRESS": "380 106th Ave NE",
+        "PROJECTNAME": "Four106 Above Grade - Above Grade",
+        "PROJECTDESCRIPTION": "Construction of a 21 story Class-A commercial office building in downtown Bellevue.  8 levels of below grade parking (on separate permit).",
+        "FINALEDDATE": 1760079600000,
+        "ISSUEDDATE": 1689577200000,
+        "NOTICEOFDECISION": null
+      },
+      "permitPointWGS84": {
+        "lat": 47.61333105983827,
+        "lon": -122.19852501069226
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/1474755841",
+        "https://services1.arcgis.com/EYzEZbDhXZjURPbP/arcgis/rest/services/Bellevue_Permit/FeatureServer/0/query?f=pjson&objectIds=86009&outFields=ObjectId%2CPERMITNUMBER%2CPERMITTYPE%2CPERMITSTATUS%2CSITEADDRESS%2CPROJECTNAME%2CPROJECTDESCRIPTION%2CFINALEDDATE&outSR=4326"
+      ],
+      "heightStatus": "Storey count is a documented permit fact. Metre height remains a storey-spacing estimate, not a literal OSM or surveyed physical height."
+    },
+    {
+      "sourceId": "w674014478",
+      "aboveGradeStoreys": 8,
+      "previousResearchStoreys": null,
+      "sourcePriority": "Positive literal original OSM dimensions win; source footprint and topology remain exact.",
+      "match": {
+        "basis": "Exact original OSM street address 10961 Northeast 2nd Place; Evergreen Plaza project is current Cerasa Apartments on this source footprint.",
+        "permitPointWithinSourceFootprint": true,
+        "permitPointDistanceToSourceFootprintM": 0
+      },
+      "officialRecord": {
+        "ObjectId": 210106,
+        "PERMITNUMBER": "15 115339 BB",
+        "PERMITTYPE": "BB",
+        "PERMITSTATUS": "Closed",
+        "SITEADDRESS": "10961 NE 2nd Pl",
+        "PROJECTNAME": "Evergreen Plaza Apartments - Residential ",
+        "PROJECTDESCRIPTION": "8 story residential multi-family apartment building.",
+        "FINALEDDATE": 1547193600000,
+        "ISSUEDDATE": 1467270000000,
+        "NOTICEOFDECISION": null
+      },
+      "permitPointWGS84": {
+        "lat": 47.61221272760214,
+        "lon": -122.19460302651831
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/674014478",
+        "https://services1.arcgis.com/EYzEZbDhXZjURPbP/arcgis/rest/services/Bellevue_Permit/FeatureServer/0/query?f=pjson&objectIds=210106&outFields=ObjectId%2CPERMITNUMBER%2CPERMITTYPE%2CPERMITSTATUS%2CSITEADDRESS%2CPROJECTNAME%2CPROJECTDESCRIPTION%2CFINALEDDATE&outSR=4326"
+      ],
+      "heightStatus": "Storey count is a documented permit fact. Metre height remains a storey-spacing estimate, not a literal OSM or surveyed physical height."
+    },
+    {
+      "sourceId": "r4547843",
+      "aboveGradeStoreys": 25,
+      "previousResearchStoreys": null,
+      "sourcePriority": "Positive literal original OSM dimensions win; source footprint and topology remain exact.",
+      "match": {
+        "basis": "Original source City Center Plaza body contains the official permit point for 555 110th Ave NE / City Center II; one source body, no nearby tower substitution.",
+        "permitPointWithinSourceFootprint": true,
+        "permitPointDistanceToSourceFootprintM": 0
+      },
+      "officialRecord": {
+        "ObjectId": 369025,
+        "PERMITNUMBER": "06 116528 BB",
+        "PERMITTYPE": "BB",
+        "PERMITSTATUS": "Closed",
+        "SITEADDRESS": "555 110th Ave NE",
+        "PROJECTNAME": "City Center II",
+        "PROJECTDESCRIPTION": "Construct (25) story office building.",
+        "FINALEDDATE": 1265788800000,
+        "ISSUEDDATE": 1175238000000,
+        "NOTICEOFDECISION": null
+      },
+      "permitPointWGS84": {
+        "lat": 47.614905270032054,
+        "lon": -122.19414631623957
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/relation/4547843",
+        "https://services1.arcgis.com/EYzEZbDhXZjURPbP/arcgis/rest/services/Bellevue_Permit/FeatureServer/0/query?f=pjson&objectIds=369025&outFields=ObjectId%2CPERMITNUMBER%2CPERMITTYPE%2CPERMITSTATUS%2CSITEADDRESS%2CPROJECTNAME%2CPROJECTDESCRIPTION%2CFINALEDDATE&outSR=4326"
+      ],
+      "heightStatus": "Storey count is a documented permit fact. Metre height remains a storey-spacing estimate, not a literal OSM or surveyed physical height."
+    }
+  ],
+  "controlsAndExclusions": [
+    {
+      "sourceIds": [
+        "w604031691"
+      ],
+      "permitObjectId": 279994,
+      "decision": "Original OSM source height76m and storeys22 retain priority over permit description26stories; no source dimensions overwritten."
+    },
+    {
+      "sourceIds": [
+        "r10335341"
+      ],
+      "permitObjectIds": [
+        98371,
+        120450,
+        193930
+      ],
+      "decision": "One relation represents distinct seven-storey west and23-storey east bodies. A single relation-wide count would misassign one body; no forced research count applied."
+    },
+    {
+      "sourceIds": [
+        "w100354134",
+        "w100354135"
+      ],
+      "permitObjectId": 389023,
+      "decision": "Description19storey towers atop3storey townhome base is ambiguous as a total per exact source body; no count forced."
+    },
+    {
+      "sourceIds": [
+        "w99043186"
+      ],
+      "permitObjectId": 205057,
+      "decision": "Nearby Metro112phaseII address288111thAveNE differs from source317112thAveNE. No nearest-neighbour substitution."
+    },
+    {
+      "sourceIds": [
+        "w418863779"
+      ],
+      "permitObjectId": 229605,
+      "decision": "Four-storey east garage extension does not establish all CityHall building volumes. No blanket count applied."
+    }
+  ],
+  "limitation": "This targets six demonstrably unsupported height defaults with exact official source matches. Other missing vertical dimensions remain explicit estimates; this is not full surveyed height coverage."
+}

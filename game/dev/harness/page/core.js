@@ -480,9 +480,9 @@ export class Harness {
                 const px = P.x + P.fx * o, pz = P.z + P.fz * o;
                 W.buildings.query(px, pz, 1.5, (c) => {
                     if (!solidFor(P, c, px, pz)) return;
-                    if (c.poly) { if (pip(px, pz, c.poly)) this.issue('clipping', 'high', `car body inside a building footprint${c.poi ? ' (CV building)' : ''}`, { kind: colliderKind(c, this.lampSet) }, { shot: true }); }
+                    if (c.poly) { if (pointInCollider(c, px, pz, 0, P.surfY ?? P.y ?? 0.24, P.bodyHeight ?? 2)) this.issue('clipping', 'high', `car body inside a building footprint${c.poi ? ' (CV building)' : ''}`, { kind: colliderKind(c, this.lampSet) }, { shot: true }); }
                     else {
-                        const d = colliderDist(c, px, pz);
+                        const d = colliderDist(c, px, pz, P.surfY ?? P.y ?? 0.24, P.bodyHeight ?? 2);
                         // the player resolves a 1.0 m circle around each sample point: d < 0.4 = the object is inside the car body
                         if (d < 0.4) this.issue('clipping', c.prop ? 'medium' : 'high', `car passes through a ${colliderKind(c, this.lampSet)} (no collision response, overlap ${r2(1 - d)} m)`, { kind: colliderKind(c, this.lampSet), x: c.x, z: c.z }, { shot: true, key: 'c:' + Math.round(c.x * 2) + ',' + Math.round(c.z * 2) });
                     }
@@ -586,7 +586,7 @@ export class Harness {
             for (const o of [-1, 0.5, 2, 3.5, 5]) for (const lat of [-1.2, 0, 1.2]) {
                 if (what) break;
                 const x = P.x + P.fx * (2.2 + o) - P.fz * lat, z = P.z + P.fz * (2.2 + o) + P.fx * lat;
-                W.buildings.query(x, z, 2, (c) => { if (!what && solidFor(P, c, x, z) && colliderDist(c, x, z) < 1.1) { what = colliderKind(c, this.lampSet); coll = c; } });
+                W.buildings.query(x, z, 2, (c) => { if (!what && solidFor(P, c, x, z, 1.1) && colliderDist(c, x, z, P.surfY ?? P.y ?? 0.24, P.bodyHeight ?? 2, 1.1) < 1.1) { what = colliderKind(c, this.lampSet); coll = c; } });
             }
         }
         if (!what && g.traffic?.nearPeds) for (const p of g.traffic.nearPeds(P.x + P.fx * 3, P.z + P.fz * 3, r)) { what = 'pedestrian'; break; }
@@ -657,7 +657,7 @@ export function ribbonHits(e, W, lamps) {
         const step = 3, s0 = Math.min(e.len / 2, ra + 1), s1 = Math.max(e.len / 2, e.len - rb - 1);
         for (let s = s0; s <= s1; s += step) for (const lat of [wR * 0.6, 0, -wL * 0.6]) {
             const x = e.a.x + e.dirx * s + e.nx * lat, z = e.a.z + e.dirz * s + e.nz * lat;
-            if (pointInCollider(c, x, z, 0.05)) { cnt++; if (!hit) hit = { x, z }; }
+            if (pointInCollider(c, x, z, 0.05, 0.24 + (yAlong(e, x, z) ?? 0), 2)) { cnt++; if (!hit) hit = { x, z }; }
         }
         if (hit) out.push({ kind: colliderKind(c, lamps), x: hit.x, z: hit.z, depth: cnt * 1.0, samples: cnt, cx: c.x, cz: c.z, base: c.minH ?? base, solid: true });
     });

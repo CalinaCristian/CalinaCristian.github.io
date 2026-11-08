@@ -1,0 +1,507 @@
+{
+  "schemaVersion": 1,
+  "id": "pike-place",
+  "city": "seattle",
+  "name": "Pike Place Market & the Gum Wall",
+  "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+  "updatedAt": "2026-11-08T19:35:04.232Z",
+  "status": "needs_review",
+  "sources": [
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Pike_Place_Market"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Pike_Place_Fish_Market"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://www.pikeplacemarket.org/pike-place-market-clock-upgrade/"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://www.kiro7.com/news/local/pike-place-market-sign-clock-undergoing-restoration/3SQ5SGFAP5GCTNGZ4RNAO7SFWI/"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Rachel_(Gerber)"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Gum_Wall"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Original_Starbucks"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Victor_Steinbrueck_Park"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Public_Market_Center_Sign,_Seattle,_United_States_(Unsplash).jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Public_Market_Center_sign_at_Pike_Place.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Pike_Place_Market_clock_at_4%CB%9038.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://creativecommons.org/licenses/by/2.0"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Pike_Place_Market_at_night.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Back_of_Pike_Place_%27Public_Market_Center%27_sign_01.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://creativecommons.org/licenses/by-sa/3.0"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Pike_Place_Market_Entrance.JPG"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Pine_Street_entrance_at_Pike_Place_Market_(0286).jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Gum_wall,_Seattle,_Washington,_Estados_Unidos,_2017-09-02,_DD_19-21_HDR.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:The_Gum_Wall,_Seattle,_Washington,_2025.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_Gum_Wall_Close_Up.JPG"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Gum_Wall_in_2022.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Pike_Place_Fish_0.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:02_Pike_Place_Fish_Market_main_sign.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Justin_preparing_to_catch_a_fish_Pike_Place_Fish_Market_Seattle.JPG"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Starbucks_Seattle_PikePlace_1912.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Original_Starbucks_(2021).jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Original_Starbucks_sign.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Pike_Place_Market_-_Leland_Hotel.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://creativecommons.org/licenses/by-sa/2.0"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Pike_Place_Market_veggie_stalls.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Buiobuione_Fish_market_at_Pike_Place_in_Seattle.jpg"
+    },
+    {
+      "label": "Main Arcade (incl. 1900 Leland Hotel, 1907/1914 Goodwin & Willatsen)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/231357660"
+    },
+    {
+      "label": "Main Arcade (incl. 1900 Leland Hotel, 1907/1914 Goodwin & Willatsen)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/1271653801"
+    },
+    {
+      "label": "Main Arcade (incl. 1900 Leland Hotel, 1907/1914 Goodwin & Willatsen)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/1271653800"
+    },
+    {
+      "label": "\"PUBLIC MARKET CENTER\" neon sign and clock",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/4217400413"
+    },
+    {
+      "label": "Rachel the Piggy Bank (Georgia Gerber, 1986)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/3559896932"
+    },
+    {
+      "label": "Gum Wall (Market Theater, Post Alley)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/2443738130"
+    },
+    {
+      "label": "Gum Wall (Market Theater, Post Alley)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/2397493563"
+    },
+    {
+      "label": "Original Starbucks (1912 Pike Place)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/2397461017"
+    },
+    {
+      "label": "Corner Market (1912) & Sanitary Market (1910/1942) east of Pike Place",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/206858876"
+    },
+    {
+      "label": "Corner Market (1912) & Sanitary Market (1910/1942) east of Pike Place",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/206858888"
+    },
+    {
+      "label": "Corner Market (1912) & Sanitary Market (1910/1942) east of Pike Place",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/relation/5402577"
+    },
+    {
+      "label": "MarketFront (2017) + viewpoints over Elliott Bay",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/184870424"
+    },
+    {
+      "label": "MarketFront (2017) + viewpoints over Elliott Bay",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/12223598541"
+    },
+    {
+      "label": "MarketFront (2017) + viewpoints over Elliott Bay",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/12223870944"
+    },
+    {
+      "label": "Victor Steinbrueck Park + two Haida-style poles (James Bender)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/14026690"
+    },
+    {
+      "label": "Victor Steinbrueck Park + two Haida-style poles (James Bender)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/3211770167"
+    },
+    {
+      "label": "Victor Steinbrueck Park + two Haida-style poles (James Bender)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/3211770169"
+    }
+  ],
+  "improvements": [
+    "Exact source building outlines, inner rings and uncovered building-part strips now survive the tourist renderer; no scenery mask removes a building.",
+    "Rachel now receives a visible player-triggered coin arc and awards completion after the drop; idle time and cancellation do not award it."
+  ],
+  "remainingGaps": [
+    "The full-size postcard shows PUBLIC MARKET CENTER lettering and clock. Arcade soffits, market roof edges and surrounding frontage proportions still need matched independent street and aerial comparisons.",
+    "Nearby crowds can obscure the market approach; the tilted-sign audit finding still needs physical inspection.",
+    "Fish and gum-wall handlers have not received the same complete participation and cancellation review as Rachel.",
+    "Raw audit findings remain for physical review: zfight 35, signTilted 1."
+  ],
+  "checks": [
+    {
+      "label": "Native scene load",
+      "passed": true,
+      "details": "pike-place; actual native controller; 0 thrown JavaScript errors."
+    },
+    {
+      "label": "Source solid membership",
+      "passed": true,
+      "details": "143 active source records, 159 physical volumes, 15 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+    },
+    {
+      "label": "Validated scene geometry cache",
+      "passed": true,
+      "details": "Exact source/profile/terrain signature matched."
+    },
+    {
+      "label": "Native public-path walk",
+      "passed": true,
+      "details": "16.6 m walked toward Since 1907; planned endpoint reached using native movement and collision."
+    },
+    {
+      "label": "High scene budgets",
+      "passed": true,
+      "details": "443345 unique geometry triangles; max 860166 rendered triangles / 269 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+    },
+    {
+      "label": "Raw physical audit",
+      "passed": false,
+      "details": "zfight: 35; signTilted: 1"
+    },
+    {
+      "label": "Full matched scene comparison",
+      "passed": false,
+      "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+    },
+    {
+      "label": "Participatory activity controls",
+      "passed": true,
+      "details": "Native desktop and 390px touch Rachel tests cover idle, mid-arc visibility, Leave/cancel, completed drop and 44px controls; proof/actions-desktop.json and proof/actions-touch.json."
+    }
+  ],
+  "captures": [
+    {
+      "kind": "arrival",
+      "label": "Pike Place Market & the Gum Wall — arrival",
+      "image": "assets/spots/pike-place/arrival.webp",
+      "sha256": "2c92ed7331a941a4b4f586029d9ab1fc78db0d925cd853e468cce1a82d28c196",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:20:11.416Z",
+      "pose": {
+        "position": [
+          -9.5,
+          0.5303293773326112,
+          13.5
+        ],
+        "bearing": 240,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.60897,
+          "lon": -122.33987,
+          "elev": 36.8
+        },
+        "projection": {
+          "mLat": 111182.71,
+          "mLon": 75187.56
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "public-walk",
+      "label": "Pike Place Market & the Gum Wall — public walk",
+      "image": "assets/spots/pike-place/public-walk.webp",
+      "sha256": "54412c1c1368aef7f0ff803f054bd0cb0bba9bf9a98b98f415243d4dd8e3e6a5",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:20:14.716Z",
+      "pose": {
+        "position": [
+          -24.213151128615642,
+          -1.3486624699647949,
+          21.415667391579
+        ],
+        "bearing": 247.3254819038906,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.60897,
+          "lon": -122.33987,
+          "elev": 36.8
+        },
+        "projection": {
+          "mLat": 111182.71,
+          "mLon": 75187.56
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "postcard",
+      "label": "Pike Place Market & the Gum Wall — postcard",
+      "image": "assets/spots/pike-place/postcard.webp",
+      "sha256": "7f0e40d105fc45c50bf95de6d448d26c4700611c4e86c0195da3c21d3c042d7d",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:20:17.924Z",
+      "pose": {
+        "position": [
+          -19.622449085792063,
+          -0.4748124068135158,
+          17.0575347537532
+        ],
+        "bearing": 228.99999999999997,
+        "pitch": 12.000000000000002,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.60897,
+          "lon": -122.33987,
+          "elev": 36.8
+        },
+        "projection": {
+          "mLat": 111182.71,
+          "mLon": 75187.56
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "activity-approach",
+      "label": "Pike Place Market & the Gum Wall — activity approach",
+      "image": "assets/spots/pike-place/activity-approach.webp",
+      "sha256": "28a9eecd3fdc2f53d67e29d3714f9d97adb0325c00b9845be2f173bc69704e78",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:20:22.740Z",
+      "pose": {
+        "position": [
+          -42.70290129230073,
+          -6.971728574014949,
+          62.07085476008709
+        ],
+        "bearing": 0,
+        "pitch": -7.000000000000003,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.60897,
+          "lon": -122.33987,
+          "elev": 36.8
+        },
+        "projection": {
+          "mLat": 111182.71,
+          "mLon": 75187.56
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    }
+  ],
+  "perf": {
+    "sceneTriangles": 500766,
+    "uniqueGeometryTriangles": 443345,
+    "geometryObjects": 162,
+    "maxRenderedTriangles": 860166,
+    "maxDrawCalls": 269
+  },
+  "sceneId": "pike-place",
+  "sourceGeometry": {
+    "membershipSHA256": "f7f343a9d33b3b3a1fe61757e8f6ea611c66cc32b62a8a8478ec3fbc0401c759",
+    "activeSourceRecords": 143,
+    "renderedVolumes": 159,
+    "literalHeights": 105,
+    "levelHeightEstimates": 0,
+    "typeHeightEstimates": 38,
+    "heroReplacements": [
+      "w231357660",
+      "w1271653801",
+      "w1271653800",
+      "w1275882970",
+      "w1275882966"
+    ],
+    "missingMembers": []
+  },
+  "access": {
+    "walker": "OnFootController",
+    "arrival": {
+      "x": -9.5,
+      "z": 13.5,
+      "y": -1.1196706226673887,
+      "heading": -4.1887902047863905
+    },
+    "arrivalDry": true,
+    "nearestPlaquePath": {
+      "points": [
+        [
+          -9.5,
+          13.5
+        ],
+        [
+          -24.894846254612066,
+          21.700468774464213
+        ]
+      ],
+      "length": 17.442734284627104,
+      "target": "Since 1907"
+    },
+    "nativeWalk": {
+      "walker": "OnFootController",
+      "passed": true,
+      "steps": 201,
+      "walked": 16.64264200874494,
+      "target": "Since 1907",
+      "plannedLength": 17.442734284627104,
+      "position": {
+        "x": -24.212464931941252,
+        "z": 21.415380701905722,
+        "y": -2.9984815664170466,
+        "heading": 1.966541323875042
+      },
+      "error": null
+    }
+  },
+  "rawAudit": {
+    "zfight": 35,
+    "signTilted": 1
+  },
+  "review": "Inspected arrival, native public-path walk, postcard and activity approach at clean 94ef228; also inspected the full-size postcard. Existing Starbucks frontage is retained; the secret room remains the owner's explicit fiction exception."
+}

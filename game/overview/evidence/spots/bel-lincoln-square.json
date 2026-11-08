@@ -1,0 +1,403 @@
+{
+  "schemaVersion": 1,
+  "id": "bel-lincoln-square",
+  "city": "seattle",
+  "name": "Lincoln Square & Bellevue Square (UiPath)",
+  "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+  "updatedAt": "2026-11-08T19:35:04.845Z",
+  "status": "needs_review",
+  "sources": [
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://www.geekwire.com/2025/uipath-hires-former-f5-executive-as-cmo-relocates-bellevue-offices-to-lincoln-square/"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Lincoln_Square_(Bellevue)"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://www.businesswire.com/news/home/20180403005065/en/"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://www.cppinvestments.com/wp-content/uploads/migrated/documents/451/CPPIB_release_-_Lincoln_Square_Sept_10_2015_kYQ62NU.pdf"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Bellevue_Square"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Bellevue_Arts_Museum"
+    },
+    {
+      "label": "Lincoln Square North office tower (2005), 700 Bellevue Way NE — UiPath Bellevue, Suite 2000",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/604028609"
+    },
+    {
+      "label": "UiPath Bellevue entrance / lobby / signage",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/7945526075"
+    },
+    {
+      "label": "One Lincoln Tower (Westin Bellevue hotel + condominiums, 2005)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/604028611"
+    },
+    {
+      "label": "One Lincoln Tower (Westin Bellevue hotel + condominiums, 2005)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/328017119"
+    },
+    {
+      "label": "Lincoln Square retail podium (2005) + Chihuly glass",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/161929514"
+    },
+    {
+      "label": "Lincoln Square retail podium (2005) + Chihuly glass",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/11212853758"
+    },
+    {
+      "label": "Lincoln Square retail podium (2005) + Chihuly glass",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/11214221844"
+    },
+    {
+      "label": "Lincoln Square South (2017): office tower + W Bellevue/Avalon tower + podium",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/1326151866"
+    },
+    {
+      "label": "Lincoln Square South (2017): office tower + W Bellevue/Avalon tower + podium",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/1326151868"
+    },
+    {
+      "label": "Lincoln Square South (2017): office tower + W Bellevue/Avalon tower + podium",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/1326151818"
+    },
+    {
+      "label": "Bellevue Square (1946; Kemper Development)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/29234887"
+    },
+    {
+      "label": "Bellevue Square (1946; Kemper Development)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/33106348"
+    },
+    {
+      "label": "Bellevue Square (1946; Kemper Development)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/497738386"
+    },
+    {
+      "label": "Bellevue Square (1946; Kemper Development)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/497739259"
+    },
+    {
+      "label": "Skybridges",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/43872832"
+    },
+    {
+      "label": "Skybridges",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/43872826"
+    },
+    {
+      "label": "Skybridges",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/1222676052"
+    },
+    {
+      "label": "Skybridges",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/29234890"
+    },
+    {
+      "label": "Skybridges",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/497738385"
+    },
+    {
+      "label": "Skybridges",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/516915099"
+    },
+    {
+      "label": "Bellevue Arts Museum building (2001, Steven Holl) — sale to KidsQuest Children's Museum announced Oct 2025",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/33613449"
+    }
+  ],
+  "improvements": [
+    "Unverified Suite 2000 interior, elevator, physical directory and private-office teleport claims were removed; the real source office address and building remain.",
+    "Three public facade/skybridge camera tasks require actual mouse or touch aiming and explicit shutter input.",
+    "Source towers, elevated parts and literal heights remain represented by exact volumes and shared roofs."
+  ],
+  "remainingGaps": [
+    "The three-target public camera exercise passed; its final skybridge framing still needs a full-size independent visibility/source comparison.",
+    "Crowds stand close to the public plaque endpoint; nearby entrances, plaza edges and skybridge access need whole-scene comparison.",
+    "Private office and suite access remain unavailable because they have not been verified; four raw phantom findings require physical review.",
+    "Raw audit findings remain for physical review: zfight 33, phantom 4."
+  ],
+  "checks": [
+    {
+      "label": "Native scene load",
+      "passed": true,
+      "details": "bel-lincoln-square; actual native controller; 0 thrown JavaScript errors."
+    },
+    {
+      "label": "Source solid membership",
+      "passed": true,
+      "details": "82 active source records, 77 physical volumes, 9 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+    },
+    {
+      "label": "Validated scene geometry cache",
+      "passed": true,
+      "details": "Exact source/profile/terrain signature matched."
+    },
+    {
+      "label": "Native public-path walk",
+      "passed": true,
+      "details": "45.9 m walked toward UiPath in Bellevue; planned endpoint reached using native movement and collision."
+    },
+    {
+      "label": "High scene budgets",
+      "passed": true,
+      "details": "231546 unique geometry triangles; max 371314 rendered triangles / 244 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+    },
+    {
+      "label": "Raw physical audit",
+      "passed": false,
+      "details": "zfight: 33; phantom: 4"
+    },
+    {
+      "label": "Full matched scene comparison",
+      "passed": false,
+      "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+    },
+    {
+      "label": "Participatory activity controls",
+      "passed": true,
+      "details": "Native desktop mouse and actual CDP touch camera drags align all three targets and operate 44px shutter controls; cancellation clears incomplete progress. Separate portable photo-hunt results are recorded in ROUND-3.md."
+    }
+  ],
+  "captures": [
+    {
+      "kind": "arrival",
+      "label": "Lincoln Square & Bellevue Square (UiPath) — arrival",
+      "image": "assets/spots/bel-lincoln-square/arrival.webp",
+      "sha256": "44bce21b1c7340025976dfe141af2411516e69ca0670f017c7cd934335f88183",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:25:24.734Z",
+      "pose": {
+        "position": [
+          -3,
+          1.712446380779147,
+          -3
+        ],
+        "bearing": 135,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.61755,
+          "lon": -122.20195,
+          "elev": 49.5
+        },
+        "projection": {
+          "mLat": 111182.88,
+          "mLon": 75175.27
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "public-walk",
+      "label": "Lincoln Square & Bellevue Square (UiPath) — public walk",
+      "image": "assets/spots/bel-lincoln-square/public-walk.webp",
+      "sha256": "df11385a600598a39c4fd512ba89659831070298146ac5f63bb58bb16043f05e",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:25:27.182Z",
+      "pose": {
+        "position": [
+          27.874839448737855,
+          0.9128293067946849,
+          30.584473367410865
+        ],
+        "bearing": 93.04503342578147,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.61755,
+          "lon": -122.20195,
+          "elev": 49.5
+        },
+        "projection": {
+          "mLat": 111182.88,
+          "mLon": 75175.27
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "postcard",
+      "label": "Lincoln Square & Bellevue Square (UiPath) — postcard",
+      "image": "assets/spots/bel-lincoln-square/postcard.webp",
+      "sha256": "135a41851c2075de577c44125490b48ab840555ca95c5f917dfbc261f3f676fc",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:25:29.433Z",
+      "pose": {
+        "position": [
+          -2,
+          1.6365544399246572,
+          2
+        ],
+        "bearing": 145,
+        "pitch": 18.000000000000004,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.61755,
+          "lon": -122.20195,
+          "elev": 49.5
+        },
+        "projection": {
+          "mLat": 111182.88,
+          "mLon": 75175.27
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "activity-approach",
+      "label": "Lincoln Square & Bellevue Square (UiPath) — activity approach",
+      "image": "assets/spots/bel-lincoln-square/activity-approach.webp",
+      "sha256": "101de037530bd2ea1cf0d0d689b042f1ecee7184765254809cabe1b229a0face",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:25:31.561Z",
+      "pose": {
+        "position": [
+          -2,
+          1.5911212239414452,
+          6
+        ],
+        "bearing": 0,
+        "pitch": -7.000000000000003,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.61755,
+          "lon": -122.20195,
+          "elev": 49.5
+        },
+        "projection": {
+          "mLat": 111182.88,
+          "mLon": 75175.27
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    }
+  ],
+  "perf": {
+    "sceneTriangles": 284991,
+    "uniqueGeometryTriangles": 231546,
+    "geometryObjects": 108,
+    "maxRenderedTriangles": 371314,
+    "maxDrawCalls": 244
+  },
+  "sceneId": "bel-lincoln-square",
+  "sourceGeometry": {
+    "membershipSHA256": "7dd5bac6e13d07294fa793c46817a448bc6c0092935c23e7adf88e0ffc06cfed",
+    "activeSourceRecords": 82,
+    "renderedVolumes": 77,
+    "literalHeights": 55,
+    "levelHeightEstimates": 0,
+    "typeHeightEstimates": 27,
+    "heroReplacements": [
+      "w161929514",
+      "w604028609",
+      "w1364249504",
+      "w328017119",
+      "w604028611",
+      "w1474737770",
+      "w604028603",
+      "w1326151866",
+      "w1326151868",
+      "w1391221517",
+      "w29234887",
+      "w33106348",
+      "w497738386",
+      "w497739259",
+      "w497733469"
+    ],
+    "missingMembers": []
+  },
+  "access": {
+    "walker": "OnFootController",
+    "arrival": {
+      "x": -3,
+      "z": -3,
+      "y": 0.06244638077914703,
+      "heading": -2.356194490192345
+    },
+    "arrivalDry": true,
+    "nearestPlaquePath": {
+      "points": [
+        [
+          -3,
+          -3
+        ],
+        [
+          28.599999999999998,
+          30.6
+        ]
+      ],
+      "length": 46.12504742544987,
+      "target": "UiPath in Bellevue"
+    },
+    "nativeWalk": {
+      "walker": "OnFootController",
+      "passed": true,
+      "steps": 595,
+      "walked": 45.904960396566466,
+      "target": "UiPath in Bellevue",
+      "plannedLength": 46.12504742544987,
+      "position": {
+        "x": 27.874099968375177,
+        "z": 30.58440446069874,
+        "y": -0.7372845077433102,
+        "heading": -1.6239421859080656
+      },
+      "error": null
+    }
+  },
+  "rawAudit": {
+    "zfight": 33,
+    "phantom": 4
+  },
+  "review": "Inspected all four GAME context captures and the earlier touch exercise. This verifies public participation, not a private UiPath interior."
+}

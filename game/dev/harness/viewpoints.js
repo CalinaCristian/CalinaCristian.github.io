@@ -33,6 +33,7 @@
 //     --radius=20                          pano snap radius (m)
 //   --topdown=<tile m> --mosaic=<path>     top-down tiles over the district (straight down, north up) + the same ground
 //                                          cropped from the mosaic (<path>.jpg + <path>.json)
+//   --weather=clear|cloudy|rain|snow|fog|storm   (default clear)
 //   --season=summer|autumn|winter|spring|auto   (default summer with --streetview / --walk: most panos are summer shots)
 //   --stats                                print the world's build stats (always written to <out>/world-stats.json)
 //   --time=day|dusk|night --quality=high --w=1280 --hgt=720 --traffic --out=<dir> --only=<id substring>
@@ -155,11 +156,11 @@ function topdownPoses(o) {
     await page.addInitScript(() => { try { localStorage.setItem('dmcv:minimap', '0'); localStorage.setItem('dmcv:lookHintShown', '1'); } catch { /* */ } });
     // season: Street View in Bucharest is mostly shot in summer — compare like with like (--season=auto keeps the date's)
     const season = A.season && A.season !== 'auto' ? String(A.season) : (A.season === 'auto' ? '' : (A.streetview || A.walk ? 'summer' : ''));
-    await page.goto(base + 'game/index.html?weather=clear' + (season ? '&season=' + encodeURIComponent(season) : ''), { waitUntil: 'load' });
+    await page.goto(base + 'game/index.html?weather=' + encodeURIComponent(A.weather || 'clear') + (season ? '&season=' + encodeURIComponent(season) : ''), { waitUntil: 'load' });
     await page.waitForFunction(() => window.game, null, { timeout: 90000 }).catch(() => { throw new Error('the game did not boot: ' + errors.slice(0, 3).join(' | ')); });
     await page.addScriptTag({ url: base + 'game/dev/harness/visual/page/visual.js?v=' + Date.now(), type: 'module' });
     await page.waitForFunction(() => window.vqa, null, { timeout: 30000 });
-    await page.evaluate((o) => window.vqa.setOpts(o), { quality: A.quality, time: A.time, weather: 'clear', pr: 1, far: 0, traffic: !!A.traffic });
+    await page.evaluate((o) => window.vqa.setOpts(o), { quality: A.quality, time: A.time, weather: A.weather || 'clear', pr: 1, far: 0, traffic: !!A.traffic });
     const t0 = Date.now();
     const info = await page.evaluate((k) => window.vqa.loadGroup(k), `${A.city}-${A.district}`);
     console.log('loaded', JSON.stringify(info), Math.round((Date.now() - t0) / 1000) + ' s');

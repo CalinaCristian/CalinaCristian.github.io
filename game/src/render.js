@@ -486,8 +486,9 @@ export class Renderer3D {
         this._wxData = null; this._wxSource = null; this._wxNext = 0; this._wxLoc = ''; this._wxBusy = false; this._wxGen = 0;
         this._wxT = null; this._wx = null; this._wet = 0; this._wipers = false; this._wxInstant = true;
         this._flash = 0; this._thunderT = 8; this._hemiBase = 0.6; this._cloudOff = new THREE.Vector2();
-        this._surfU = { road: makeSurfU(), ground: makeSurfU(), grass: makeSurfU(), roof: makeSurfU() };
+        this._surfU = { road: makeSurfU(), ground: makeSurfU(), grass: makeSurfU(), roof: makeSurfU(), sport: makeSurfU() };
         this._surfU.road.uPuddle.value = 1; this._surfU.ground.uPuddle.value = 0.35; this._surfU.roof.uPuddle.value = 0; this._surfU.road.uSnowFlat.value = 1;
+        this._surfU.sport.uSnowFlat.value = 1; this._surfU.sport.uPuddle.value = 0.2; // (sports surfaces / landmark grounds: an even dusting, the lines still read)
         this._treeU = { broad: makeTreeU(), con: makeTreeU() }; this._treeU.con.uEver.value = 1;
         this._crowns = []; this._season = null; this._seasonT = 0; this._seasonKey = '';
         // street lamps
@@ -788,10 +789,11 @@ export class Renderer3D {
      */
     setVegetation(v) {
         const sc = this.scene; if (!sc) return;
-        const cats = { road: new Set(), ground: new Set(), grass: new Set(), roof: new Set() }, crowns = new Set(v?.treeCrownMeshes || []);
+        const cats = { road: new Set(), ground: new Set(), grass: new Set(), roof: new Set(), sport: new Set() }, crowns = new Set(v?.treeCrownMeshes || []);
         for (const m of v?.grassMaterials || []) cats.grass.add(m);
         for (const m of v?.groundMaterials || []) cats.ground.add(m);
         for (const m of v?.roofMaterials || []) cats.roof.add(m);
+        for (const m of v?.sportMaterials || []) cats.sport.add(m); // (pitches / courts, landmark masonry: the same weather as the streets)
         sc.traverse((o) => {
             if (!o.isMesh || !o.material || Array.isArray(o.material)) return;
             const m = o.material, n = m.name || '', on = o.name || '';
@@ -933,7 +935,7 @@ export class Renderer3D {
             const tc = U.uSeasonTint.value;
             U.uWxOn.value = snow > 0.002 || w > 0.002 || tc.r !== 1 || tc.g !== 1 || tc.b !== 1 ? 1 : 0;
         };
-        set(S.road, sc * 0.5, wet); set(S.ground, sc, wet * 0.75); set(S.grass, sc, wet * 0.35); set(S.roof, sc * 1.05, wet * 0.5);
+        set(S.road, sc * 0.5, wet); set(S.ground, sc, wet * 0.75); set(S.grass, sc, wet * 0.35); set(S.roof, sc * 1.05, wet * 0.5); set(S.sport, sc * 1.1, wet * 0.6);
         this._treeU.broad.uSnow.value = sc; this._treeU.con.uSnow.value = sc;
         if (Math.abs((this._vehSnow ?? -1) - sc) > 0.005) { this._vehSnow = sc; setVehicleSnow?.(sc > 0.005 ? sc : 0); } // white caps on cars (cockpit-ui)
     }

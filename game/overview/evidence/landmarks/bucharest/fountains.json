@@ -1,0 +1,237 @@
+{
+  "schemaVersion": 1,
+  "id": "fountains",
+  "city": "bucharest",
+  "name": "Fântânile din Piața Unirii",
+  "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.4268,
+    "lon": 26.1025
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/1177217423",
+      "label": "OpenStreetMap w1177217423 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {
+        "natural": "water"
+      }
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Pia%C8%9Ba_Unirii",
+      "label": "Independent historical and architectural reference",
+      "type": "independent"
+    },
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "label": "Esri World Imagery — private outline/roof comparison; no imagery published",
+      "type": "aerial"
+    }
+  ],
+  "sourceIds": [],
+  "sourceLedger": "../../../../research/landmark-source-bucharest.json",
+  "reviewedAt": "2026-11-08",
+  "improvements": [
+    "Refreshed all 43 existing basin outlines from OSM at centimetre precision.",
+    "Added the previously omitted mapped basin w413969309, for 44 source water outlines.",
+    "Kept each source basin shape rather than replacing it with an oval or circle."
+  ],
+  "remainingGaps": [
+    "Nozzle positions, spray patterns and 2–15 m jet heights are procedural estimates; mapped basin outlines do not verify individual jets.",
+    "The published studies force fountains=on to show water geometry; ordinary gameplay still uses its season/time schedule.",
+    "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity."
+  ],
+  "checks": [
+    {
+      "label": "Full source boundary and replacement-identity checks",
+      "passed": true,
+      "details": "tools/landmarks/bucharest-source-check.mjs: 44 authored source rings; explicit replacement IDs match the source ledger. Entire 33-model check passes 306 checks."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs: all 61 models pass finite geometry, normals and triangle accounting; dedicated concave courtyard, roof and height-band checks pass."
+    },
+    {
+      "label": "Mandatory foot / driving regression",
+      "passed": true,
+      "details": "Immutable production ef21d14: npm run harness -- --scenario=foot,a --city=bucharest completed 0 high / 0 medium / 1 low (software-GL FPS only). Both scenario screenshots inspected."
+    },
+    {
+      "label": "Published game studies inspected",
+      "passed": true,
+      "details": "Front, top and oblique game-only studies inspected against source outlines and available independent reference photographs. Remaining shape discrepancies are listed explicitly."
+    },
+    {
+      "label": "Matched exterior Street View comparison",
+      "passed": false,
+      "details": "Requested outdoor panorama did not reliably provide a matched visible exterior (wrong nearby view, indoor imagery, occlusion or unavailable coverage); this is not treated as an exterior pass."
+    },
+    {
+      "label": "Complete district / traffic / mirror budget",
+      "passed": false,
+      "details": "These are isolated model studies. Paired Romana samples had unchanged findings and world-only peak1.13M triangles/296 calls, with an Arnia capture timeout; traffic and mirror budget and all tourist-scene placements require the district lanes."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study",
+      "kind": "front",
+      "image": "assets/landmarks/fountains/front.webp",
+      "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+      "sha256": "56d1214d91c01deac0404dd72b9c9e9e5ed42c0be56931032785ee648efcfd1d",
+      "capturedAt": "2026-11-08T17:06:38.124471Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=fountains&clean=1&fountains=on&view=street&az=0&d=160&tx=0&tz=0&ty=5&ey=2",
+        "anchor": {
+          "lat": 44.4268,
+          "lon": 26.1025,
+          "rotation": 0
+        },
+        "camera": {
+          "position": [
+            0,
+            2,
+            160
+          ],
+          "quaternion": [
+            0.009373764318637685,
+            0,
+            0,
+            0.9999560653061206
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 13696.800537109375,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -783.8262939453125,
+            0,
+            -67.83000183105469
+          ],
+          "max": [
+            583.853759765625,
+            14.700000762939453,
+            73.89901733398438
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "top",
+      "label": "Top model study (perspective)",
+      "kind": "top",
+      "image": "assets/landmarks/fountains/top.webp",
+      "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+      "sha256": "a81ba883d8eeeb2ad6ded4b7e7f7892aec6fe94ebd43f3e350db437ad6e37543",
+      "capturedAt": "2026-11-08T17:06:45.684386Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=fountains&clean=1&fountains=on&view=top&az=0",
+        "anchor": {
+          "lat": 44.4268,
+          "lon": 26.1025,
+          "rotation": 0
+        },
+        "camera": {
+          "position": [
+            -99.98626708984375,
+            1866.4511581342504,
+            4.9009595317496375
+          ],
+          "quaternion": [
+            -0.70675313942234,
+            0,
+            0,
+            0.7074602461740636
+          ],
+          "fov": 45,
+          "near": 3.7329041827204366,
+          "far": 37329.04182720436,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -783.8262939453125,
+            0,
+            -67.83000183105469
+          ],
+          "max": [
+            583.853759765625,
+            14.700000762939453,
+            73.89901733398438
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/fountains/oblique.webp",
+      "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+      "sha256": "5d6d6032461f9eac92b21364f9a25835539a0c025a15d1c976a919b45b505228",
+      "capturedAt": "2026-11-08T17:06:55.288278Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=fountains&clean=1&fountains=on&view=oblique&az=35&el=35&d=320&tx=0&tz=0",
+        "anchor": {
+          "lat": 44.4268,
+          "lon": 26.1025,
+          "rotation": 0
+        },
+        "camera": {
+          "position": [
+            150.35081932574533,
+            189.4244599375105,
+            214.72322293210698
+          ],
+          "quaternion": [
+            -0.286788218175523,
+            0.28678821817552314,
+            0.09042397785550411,
+            0.9095760221444958
+          ],
+          "fov": 45,
+          "near": 0.64,
+          "far": 13696.800537109375,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -783.8262939453125,
+            0,
+            -67.83000183105469
+          ],
+          "max": [
+            583.853759765625,
+            14.700000762939453,
+            73.89901733398438
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 33854,
+    "drawCalls": 5,
+    "note": "Isolated development viewer render, including its ground/shadow work; excludes district world, traffic and mirrors."
+  }
+}

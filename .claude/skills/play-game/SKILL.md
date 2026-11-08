@@ -1,15 +1,23 @@
 ---
 name: play-game
-description: Let the owner play Drive My CV from a cloud session. Use whenever the owner asks to run, open, play or "give me a link to" the game. Ports in the cloud container are NOT reachable by the owner; the game is played through a private claude.ai artifact.
+description: Let the owner play Drive My CV from a cloud session. Use whenever the owner asks to run, open, play or "give me a link to" the game. Ports in the cloud container are NOT reachable by the owner; the latest game is live at https://cristiancalina.com/game/ (GitHub Pages from master).
 ---
 
 # Play Drive My CV from a cloud session
 
-## What does NOT work
-- Starting `python3 -m http.server` / `report_preview_port`: the owner cannot open ports of the cloud container. Don't offer this as the way to play.
-- cristiancalina.com: GitHub Pages serves `master` (no deploy workflow). Merging to `master` makes changes public, so only do it when the owner explicitly asks.
+## The way to play: https://cristiancalina.com/game/
+GitHub Pages ("pages build and deployment") serves `master`. The owner wants it always on the latest version:
+after finishing work, push it to `master`, watch the Pages run (`mcp__github__actions_list` → `list_workflow_runs`)
+and check `curl -s -o /dev/null -w "%{http_code}" https://cristiancalina.com/game/index.html` returns 200.
+`_config.yml` keeps `game/dev`, `game/research`, `specs` and `tools` out of the Pages build — with them the
+deploy timed out in "syncing_files" (340 files); keep new dev-only folders in that list.
+Commits: author Cristian Calina <cristycalina@gmail.com>, no Claude / Co-Authored-By lines in messages.
 
-## What works: the private game artifact
+## What does NOT work
+- Starting `python3 -m http.server` / `report_preview_port`: the owner cannot open ports of the cloud container.
+- The artifact below can't be kept current: publishing requires reading every file in full (the game is ~18 MB).
+
+## Old private artifact (outdated, round-4 build)
 The game is published as a private artifact (owner only):
 
 **https://claude.ai/artifact/R1zhqsKq8vRpqQQ3KLX19L** ("Drive My CV — Cristian-Florin Călina")

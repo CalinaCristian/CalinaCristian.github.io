@@ -230,6 +230,22 @@ class Game {
             if (!this._mapRaf) this._mapRaf = requestAnimationFrame(() => { this._mapRaf = 0; this.redrawMap(); });
         });
         $('#map-close')?.addEventListener('click', () => this.toggleMap(false));
+        // (round 6 note 51) hover tooltip: the nearest listed place / station under the pointer
+        { const tip = document.createElement('div'); tip.id = 'map-tip'; $('#bigmap-wrap')?.appendChild(tip);
+            bm.addEventListener('pointerleave', () => tip.classList.remove('show'));
+            bm.addEventListener('pointermove', (e) => {
+                const mv = this.mapView; if (!mv || this._drag) { tip.classList.remove('show'); return; }
+                const r = bm.getBoundingClientRect(), sx = bm.width / r.width, px = (e.clientX - r.left) * sx, py = (e.clientY - r.top) * sx;
+                const x = (px - bm.width / 2) / mv.scale + mv.cx, z = (py - bm.height / 2) / mv.scale + mv.cz, lim = 16 * sx / mv.scale;
+                let best = null, bd = lim;
+                for (const it of this.navItems || []) { const d = Math.hypot((it.x ?? it.nx) - x, (it.z ?? it.nz) - z); if (d < bd) { bd = d; best = { label: `${it.icon || ''} ${String(it.label).replace(/ ✓$/, '')}`, x: it.x ?? it.nx, z: it.z ?? it.nz }; } }
+                for (const st of this.stations || []) { const d = Math.hypot(st.x - x, st.z - z); if (d < bd) { bd = d; best = { label: `⛽ ${st.brand}`, x: st.x, z: st.z }; } }
+                if (!best) { tip.classList.remove('show'); return; }
+                const P = this.state === 'foot' && this.foot ? this.foot : this.player;
+                tip.textContent = `${best.label.trim()} · ${fmtDist(Math.hypot(best.x - P.x, best.z - P.z), this.city.units)}`;
+                const wr = $('#bigmap-wrap').getBoundingClientRect(); tip.style.left = `${e.clientX - wr.left + 14}px`; tip.style.top = `${e.clientY - wr.top + 12}px`; tip.classList.add('show');
+            });
+        }
         // the legend rows (minimap.js) and the list checkboxes share one filter: either one re-renders the list + map
         addEventListener('dmcv:mapfilter', () => { if (this.mapOpen) { this.buildNavList(); this.redrawMap(); } });
         $('#navlist')?.addEventListener('toggle', (e) => { const d = e.target; if (d?.dataset?.group) { (this._navOpen || (this._navOpen = {}))[d.dataset.group] = d.open; const sm = d.querySelector('summary small'); if (sm) sm.textContent = sm.textContent.replace(/ ›$/, '') + (d.open ? '' : ' ›'); } }, true);
@@ -249,7 +265,11 @@ class Game {
             const idx = +b.dataset.nav;
             if (idx < 0) { this.navManual = false; this.autoRoute(true); }
             else { const it = this.navItems[idx]; if (it) { this.setNavDest({ x: it.nx ?? it.x, z: it.nz ?? it.z, label: it.label }, true); if (it.walk && this.state === 'drive') this.hud.toast(`${it.icon} ${it.label}`, `The route ends on the nearest street: park there and walk the last ${fmtDist(it.walk, this.city.units)} (Enter).`); } }
-            this.toggleMap(false);
+            // (round 6 note 51) stay on the map: the route and the destination show; frame them, then M / Close to drive
+            { const mv = this.mapView, P = this.player, d = this.nav.dest; if (mv && d) { mv.cx = (P.x + d.x) / 2; mv.cz = (P.z + d.z) / 2; } }
+            this.redrawMap(); this.buildNavList();
+            const hint = $('#map-route-hint') || (() => { const h = document.createElement('div'); h.id = 'map-route-hint'; $('#bigmap-wrap .map-hint')?.before(h); return h; })();
+            hint.textContent = this.nav.route ? `🧭 Route set: ${this.nav.dest?.label || 'destination'} · ${fmtDist(this.nav.route.total, this.city.units)} — press M or Close to drive` : '';
         });
     }
 
@@ -1224,6 +1244,7 @@ class Game {
 
     // ---------------------------------------------------------------------------------- big map + nav panel
     toggleMap(open) {
+        if (open) { const h = document.getElementById('map-route-hint'); if (h) h.textContent = ''; }
         if (open && this.explore?.active) { this.explore.openWorldMap(); return; } // M in Explore: the hub (its "Here" tab is the local map)
         const was = this.mapOpen; this.mapOpen = open;
         $('#bigmap-wrap').classList.toggle('show', open);

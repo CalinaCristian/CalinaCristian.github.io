@@ -77,6 +77,15 @@
       }
     },
     {
+      "manifest": "game/overview/comparison-data/romana/context/winter-snow-day/manifest.json",
+      "kind": "perspective",
+      "frames": 9,
+      "verifiedImageHashes": 18,
+      "sourceCounts": {
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 9
+      }
+    },
+    {
       "manifest": "game/overview/comparison-data/grozavesti/manifest.json",
       "kind": "current",
       "frames": 100,

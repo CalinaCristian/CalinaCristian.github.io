@@ -2899,11 +2899,14 @@ export async function buildWorld(city, renderer, opts = {}) {
                 else if (nm && names.some(n => nm.includes(n)) && (lm.ownSign || lm.cvStop)) { b.flags &= ~2; b.name = ''; } // (its name only: the model carries the sign)
             });
             for (const cb of res.collision || []) {
+                const baseY = res.mesh.position.y || 0.12, bands = { h: cb.h === undefined ? 20 : cb.h + baseY };
+                if (cb.y0 !== undefined) bands.y0 = cb.y0 + baseY;
+                if (cb.y1 !== undefined) bands.y1 = cb.y1 + baseY;
                 if (cf !== 1) { // axis-aligned bounds of the rotated box, squashed N–S
                     const a = cb.angle || 0, ex = Math.abs(cb.hw * Math.cos(a)) + Math.abs(cb.hd * Math.sin(a)), ez = Math.abs(cb.hw * Math.sin(a)) + Math.abs(cb.hd * Math.cos(a));
                     const hw = ex * lk, hd = ez * lk * cf;
-                    collisionBoxes.push({ x: p.x + cb.x * lk, z: p.z + cb.z * lk * cf, hw, hd, angle: 0, r: Math.hypot(hw, hd), h: 20, poly: null, landmark: lm.id });
-                } else collisionBoxes.push({ x: p.x + cb.x * lk, z: p.z + cb.z * lk, hw: cb.hw * lk, hd: cb.hd * lk, angle: cb.angle || 0, r: Math.hypot(cb.hw, cb.hd) * lk, h: 20, poly: null, landmark: lm.id });
+                    collisionBoxes.push({ x: p.x + cb.x * lk, z: p.z + cb.z * lk * cf, hw, hd, angle: 0, r: Math.hypot(hw, hd), ...bands, poly: null, landmark: lm.id });
+                } else collisionBoxes.push({ x: p.x + cb.x * lk, z: p.z + cb.z * lk, hw: cb.hw * lk, hd: cb.hd * lk, angle: cb.angle || 0, r: Math.hypot(cb.hw, cb.hd) * lk, ...bands, poly: null, landmark: lm.id });
             }
             const toW = ([x, z]) => [p.x + x * lk, p.z + z * lk];
             for (const f of res.fences || []) landmarkFences.push({ ...f, ring: f.ring.map(toW), inside: f.inside ? f.inside.map(toW) : (f.closed ? f.ring.map(toW) : null), gates: (f.gates || []).map(g => ({ ...g, x: p.x + g.x * lk, z: p.z + g.z * lk, w: (g.w || 4) * lk })) });
@@ -5099,6 +5102,35 @@ export async function buildWorld(city, renderer, opts = {}) {
     const sky = buildSky(env);
     group.add(sky);
 
+    // Mapped stadium interiors must not be cut by the artificial driving-mask boundary.
+    const landmarkPlayAreas = [];
+    for (const lm of landmarks) if (lm.id === 'dinamo') lm.mesh?.traverse(source => {
+        const area = source.userData.footballPitch?.playArea; if (!area?.length) return;
+        landmarkPlayAreas.push(area.map(([x, z]) => { const p = source.localToWorld(new THREE.Vector3(x, 0, z)); return [p.x, p.z]; }));
+    });
+    if (landmarkPlayAreas.length) {
+        const retained = [];
+        for (const w of walls) {
+            if (w.kind !== 'boundary') { retained.push(w); continue; }
+            const dx = w.bx - w.ax, dz = w.bz - w.az, cuts = [0, 1];
+            for (const poly of landmarkPlayAreas) for (let i = 0; i < poly.length; i++) {
+                const a = poly[i], b = poly[(i + 1) % poly.length], ex = b[0] - a[0], ez = b[1] - a[1], den = dx * ez - dz * ex;
+                if (Math.abs(den) < 1e-9) continue;
+                const rx = a[0] - w.ax, rz = a[1] - w.az, t = (rx * ez - rz * ex) / den, u = (rx * dz - rz * dx) / den;
+                if (t > 0 && t < 1 && u >= 0 && u <= 1) cuts.push(t);
+            }
+            cuts.sort((a, b) => a - b);
+            for (let i = 1; i < cuts.length; i++) {
+                const a = cuts[i - 1], b = cuts[i], m = (a + b) / 2; if (b - a < 1e-7) continue;
+                if (landmarkPlayAreas.some(p => pointInPolygon(w.ax + dx * m, w.az + dz * m, p))) continue;
+                const ax = w.ax + dx * a, az = w.az + dz * a, bx = w.ax + dx * b, bz = w.az + dz * b;
+                const lerp = (v0, v1, t) => v0 + (v1 - v0) * t;
+                retained.push({ ...w, ax, az, bx, bz, x: (ax + bx) / 2, z: (az + bz) / 2, r: Math.hypot(bx - ax, bz - az) / 2 + 0.3,
+                    y0a: lerp(w.y0a, w.y0b, a), y0b: lerp(w.y0a, w.y0b, b), y1a: lerp(w.y1a, w.y1b, a), y1b: lerp(w.y1a, w.y1b, b) });
+            }
+        }
+        walls.splice(0, walls.length, ...retained);
+    }
     // ---- collision list with spatial query
     const allColl = collision.concat(collisionBoxes, propColl, pierColl, walls);
     const collGrid = new BoxGrid(32);
@@ -5170,7 +5202,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         treeSpots: treeList,
         /** chapters: the loaded district {id, name, label, bbox, center, landmarks, congestion, areaKm2, ends:[{x,z,node,edge}] (road-closed
          *  barriers where roads leave the map; node.mapEnd = true), inside(x, z) (the drivable area)} — null for the legacy corridor maps */
-        district: distId ? { id: distId, ...distCfg, areaKm2: data.district?.areaKm2, ends: mapEnds, inside: (x, z) => (dmask ? dmask.at(x, z) : true) } : null,
+        district: distId ? { id: distId, ...distCfg, areaKm2: data.district?.areaKm2, ends: mapEnds, inside: (x, z) => (dmask ? dmask.at(x, z) || landmarkPlayAreas.some(p => pointInPolygon(x, z, p)) : true) } : null,
         /** district edge closures (spec R10.9) {x, z, heading, edge, node, kind: 'small'|'boulevard'|'highway', leadsTo: districtId|null}; also walls of kind 'closure' (soft) */
         closures,
         /** x/z scale of the world relative to reality (Bucharest 0.7, Seattle 0.5); lane widths, heights, vehicles are real size */

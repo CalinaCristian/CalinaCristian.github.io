@@ -13862,7 +13862,7 @@
   ],
   "sourceWorld": {
     "buildPrerequisiteCommit": "4fdacd3",
-    "datasetSha256": "b1991067b87c2a85c222d40a10fb535e8c3a1e81d1d17bf2236c49e3df5a2169",
+    "datasetSha256": "3c36cd6dc569eb172936f730464d263943380354c8bc444c254f9de6f62c6171",
     "buildingCount": 1858,
     "roadRows": 732,
     "treeRetention": {
@@ -13980,8 +13980,11 @@
     "sourceSkips": [],
     "buildingRoadConflictCount": 77,
     "conflictPolicy": "Retain original source geometry; browser checks distinguish mapped building passages/elevated roads from width-estimate conflicts.",
-    "sourceCommit": "4881e6ca5fae3f5d118f5ed55165287f282852bd",
+    "sourceCommit": "c1c995989cb76c45be045b9f2d6c57cb78895af8",
     "unresolvedPassageVerticalDatums": 9,
-    "roadConflictCandidateReview": "handoffs/fidelity/us-districts/seatac/road-conflict-review.json"
+    "roadConflictCandidateReview": "handoffs/fidelity/us-districts/seatac/road-conflict-review.json",
+    "eligibleBuildingBodies": 1858,
+    "sourceRelationTagRecords": 10,
+    "nonstandardMinimumUncertainties": 0
   }
 }

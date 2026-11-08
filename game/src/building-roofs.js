@@ -55,6 +55,10 @@ export function makeRoofProfile({ tags = {}, ring, holes = [], triangulate, shap
         const mesh = roofMesh(ring, holes, { shape, axis, low, high, eavesM: 0, riseM: 1 }, triangulate);
         rise = mesh.runM * Math.tan(angle * Math.PI / 180);
     }
+    if (heightIsTotal && riseSource === 'footprint estimate' && rise > Math.max(0, height - minHeight) * .25) {
+        rise = Math.max(0, height - minHeight) * .25;
+        riseSource = 'footprint estimate bounded to25% of source total band';
+    }
     let totalM = heightIsTotal ? height : height + rise, eavesM = heightIsTotal ? height - rise : height;
     if (eavesM < minHeight) { issues.push('roof rise exceeds building height band'); eavesM = minHeight; rise = Math.max(0, totalM - eavesM); }
     // Preserve the literal top. An inconsistent minimum remains an explicit source issue.

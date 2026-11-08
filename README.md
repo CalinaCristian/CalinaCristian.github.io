@@ -158,6 +158,8 @@ Developer pages: `game/dev/spots.html?id=<spot>`, `game/dev/landmarks.html`, `ga
   (every OSM footprint matched, heights and roofs checked) — the district reality-pass pipeline (`tools/aerial/README.md`).
   Its game-only grid planner/capture/validator can archive a published commit, cover the exact playable mask plus 600 m
   source scenery ring, and record each square frame's source SHA, pose, capture time, image hash and render counts.
+  District builds retain source buildings throughout the playable boundary, including campus buildings beyond the
+  drivable-road buffer; only legacy corridor builds apply the extra road-distance filter.
 
 The work is planned spec-first in [`specs/`](specs/) (requirements, contracts, ownership and a status board).
 

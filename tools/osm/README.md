@@ -111,5 +111,7 @@ the area the build did not keep and why (`far`, `simplify`, `road-clearance`, `t
 ("Georges Bizet 10"), block numbers and residential names no longer become shop signs. OSM `parking:*` tags reach
 world.js through `roadInfo` permission bits and optional `parking` location/orientation rows; mapped diagonal street-side bays
 are not interchangeable with parallel sidewalk parking. New builds retain source `buildingIds` and exact district geometry
-for the independent footprint/height auditor. Check the result street by street against Street View:
+for the independent footprint/height auditor, and keep buildings throughout that geometry, including campuses beyond the
+drivable-road buffer. The legacy corridor network-distance filter does not apply inside an explicitly selected district.
+Check the result street by street against Street View:
 `node game/dev/harness/viewpoints.js --district=<id> --walk --streetview` (`game/dev/harness/README.md`).

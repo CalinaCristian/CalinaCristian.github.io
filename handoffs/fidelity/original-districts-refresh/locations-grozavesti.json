@@ -1,0 +1,25 @@
+[
+  {
+    "id": "upb-start",
+    "label": "upb chapter start",
+    "kind": "chapter-start",
+    "lat": 44.44849,
+    "lon": 26.0654
+  },
+  {
+    "id": "politehnica",
+    "label": "Rectoratul Politehnicii",
+    "kind": "landmark",
+    "lat": 44.438429,
+    "lon": 26.0515105,
+    "source": "Actual immutable landmark source anchor; not a radius-based replacement."
+  },
+  {
+    "id": "cathedral",
+    "label": "Catedrala Mântuirii Neamului",
+    "kind": "skyline",
+    "lat": 44.4259297,
+    "lon": 26.0822981,
+    "source": "Actual immutable landmark source anchor; not a radius-based replacement."
+  }
+]

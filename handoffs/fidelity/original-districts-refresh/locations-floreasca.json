@@ -1,0 +1,41 @@
+[
+  {
+    "id": "rosetti-start",
+    "label": "rosetti chapter start",
+    "kind": "chapter-start",
+    "lat": 44.4556,
+    "lon": 26.10071
+  },
+  {
+    "id": "rosetti",
+    "label": "Liceul Teoretic C.A. Rosetti",
+    "kind": "landmark",
+    "lat": 44.4671565,
+    "lon": 26.106133,
+    "source": "Actual immutable landmark source anchor; not a radius-based replacement."
+  },
+  {
+    "id": "dinamo",
+    "label": "Stadionul Dinamo",
+    "kind": "landmark",
+    "lat": 44.4551306,
+    "lon": 26.1023192,
+    "source": "Actual immutable landmark source anchor; not a radius-based replacement."
+  },
+  {
+    "id": "skytower",
+    "label": "Sky Tower",
+    "kind": "skyline",
+    "lat": 44.4779551,
+    "lon": 26.1047395,
+    "source": "Actual immutable landmark source anchor; not a radius-based replacement."
+  },
+  {
+    "id": "globalworth",
+    "label": "Globalworth Tower",
+    "kind": "skyline",
+    "lat": 44.4792401,
+    "lon": 26.1024141,
+    "source": "Actual immutable landmark source anchor; not a radius-based replacement."
+  }
+]

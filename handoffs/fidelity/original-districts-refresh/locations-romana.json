@@ -1,0 +1,88 @@
+[
+  {
+    "id": "arnia-start",
+    "label": "arnia chapter start",
+    "kind": "chapter-start",
+    "lat": 44.4418,
+    "lon": 26.0988
+  },
+  {
+    "id": "uipath-buc-start",
+    "label": "uipath-buc chapter start",
+    "kind": "chapter-start",
+    "lat": 44.456,
+    "lon": 26.0842
+  },
+  {
+    "id": "victoria",
+    "label": "Palatul Victoria",
+    "kind": "landmark",
+    "lat": 44.4528232,
+    "lon": 26.0874287,
+    "source": "Actual immutable landmark source anchor; not a radius-based replacement."
+  },
+  {
+    "id": "ase",
+    "label": "ASE — Palatul Ion N. Angelescu",
+    "kind": "landmark",
+    "lat": 44.447807,
+    "lon": 26.0971572,
+    "source": "Actual immutable landmark source anchor; not a radius-based replacement."
+  },
+  {
+    "id": "ambasador",
+    "label": "Hotel Ambasador",
+    "kind": "landmark",
+    "lat": 44.441963,
+    "lon": 26.099535,
+    "source": "Actual immutable landmark source anchor; not a radius-based replacement."
+  },
+  {
+    "id": "thelandmark",
+    "label": "The Landmark (UiPath HQ)",
+    "kind": "landmark",
+    "lat": 44.450012,
+    "lon": 26.0946079,
+    "source": "Actual immutable landmark source anchor; not a radius-based replacement."
+  },
+  {
+    "id": "europehouse",
+    "label": "Europe House",
+    "kind": "landmark",
+    "lat": 44.4511557,
+    "lon": 26.087697,
+    "source": "Actual immutable landmark source anchor; not a radius-based replacement."
+  },
+  {
+    "id": "skytower",
+    "label": "Sky Tower",
+    "kind": "skyline",
+    "lat": 44.4779551,
+    "lon": 26.1047395,
+    "source": "Actual immutable landmark source anchor; not a radius-based replacement."
+  },
+  {
+    "id": "ateneu",
+    "label": "Ateneul Român",
+    "kind": "landmark",
+    "lat": 44.441344,
+    "lon": 26.0973695,
+    "source": "Actual immutable landmark source anchor; not a radius-based replacement."
+  },
+  {
+    "id": "regal",
+    "label": "Palatul Regal (MNAR)",
+    "kind": "landmark",
+    "lat": 44.4394699,
+    "lon": 26.0960493,
+    "source": "Actual immutable landmark source anchor; not a radius-based replacement."
+  },
+  {
+    "id": "tnb",
+    "label": "Teatrul Național București",
+    "kind": "landmark",
+    "lat": 44.4370273,
+    "lon": 26.1036159,
+    "source": "Actual immutable landmark source anchor; not a radius-based replacement."
+  }
+]

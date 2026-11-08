@@ -23,6 +23,8 @@ Sent by `game/src/telemetry-game.js` (observes `window.game`, wraps a few game m
 | `spot_challenge` | the postcard photo challenge is completed | `id`, `first` (first time in this browser) |
 | `parking_event` | the player's car left illegally: detected / ticket / clamp / tow / cleared (round 5, note 8) | `type`, `reason` (rule id), `city`, `district` |
 | `free_roam_start` | free roam started from the menu / map | `district`, `tod`, `weather` |
+| `worldmap_jump` | a place picked on the world-map hub (explore.js) | `to` (`district:<id>` \| `spot:<id>`), `from` (current place key or null) |
+| `story_resume` | (2026-11-08) "📖 Resume story" (chip / pause): back from free roam to the story | `chapter`, `from` (district or null) |
 | `free_roam_start` | a district is opened from the free-roam menu | `district`, `tod` (preset id), `weather` (picker value) |
 | `completion_milestone` | overall completion crosses 25 / 50 / 75 / 100 % (achievements.js) | `pct` (25 \| 50 \| 75 \| 100) |
 
@@ -36,3 +38,4 @@ Opt-in "🎮 Play my CV — discover my career interactively" CTA (pill + card f
 ## Progress log
 - 2026-11-07 04:12 UTC (gameplay, grant this round): events above implemented in `game/src/telemetry-game.js`; verified with a capturing `cvTelemetry` stub in Playwright: `chapter_select {id:'luxoft', source:'menu'}`, `chapter_start {id:'luxoft', n:4, district:'pipera', …}`, `chapter_complete {id:'luxoft', minutes:0.9, …}`, `chapter_start {id:'db', n:5, district:'pipera'}`, `on_foot {action:'enter', district:'floreasca'}`, `spot_enter {id:'fremont-troll', city:'seattle', from:'foot'}`, `spot_leave {id:'fremont-troll', seconds:9}`; no free text or coordinates in any of them. Existing events unchanged.
 - 2026-11-08: `world_loaded.load_ms` now times `game.loadCity` (see the note above). PostHog showed median 8 ms / p90 132 s with the old timer. Verified in the browser with a capturing `cvTelemetry` stub: story start `world_loaded {district:'floreasca', load_ms:3107, first:true}` right after `game_start`; then 4 s on a card + `enterChapter(upb)` → `world_loaded {district:'grozavesti', load_ms:1581, first:false}` (the call took 1612 ms, so the card wait is no longer counted). PostHog dashboards: see the "Game health and performance" dashboard in project 338182; its load-time tile filters on `first` being set, so old events are excluded.
+- 2026-11-08 (gameplay, one mode — Explore deleted): `explore_enter` is gone (a world-map jump is `worldmap_jump`, a free-roam start `free_roam_start`); `explore_exit` is renamed `story_resume` (props `chapter`, `from`). PostHog: old `explore_*` events stay in history; dashboards on them should read `story_resume` from now on.

@@ -25,10 +25,12 @@ that chapter of the CV.
   starting on a real street a 2–3 minute drive from the office. Map montages connect the districts; leaving the
   playable area hits a GTA-style roadworks closure ("DRUM ÎNCHIS" in Bucharest, "ROAD CLOSED" in Washington) that
   hints at the chapter where that road opens.
-- **One game, two modes: Story and Explore.** Switch in place from the pause menu at any time. Explore unlocks every
-  district and tourist spot with no objectives; the **World map** hub (M) has București / Seattle / Bellevue / World tabs,
-  a high-detail globe with the real Otopeni → Sea-Tac great-circle route, and a "Here" tab to fast-travel by clicking a
-  street. Change the **time of day, weather and season live** from the ☀️ conditions panel (also on phones).
+- **One mode: the story, and the world map to go anywhere.** The chapters are the spine. The **World map** hub (🌍,
+  pause menu, or "World map" on the title screen) has București / Seattle / Bellevue / World tabs, a high-detail globe
+  with the real Otopeni → Sea-Tac great-circle route, and a "Here" tab to fast-travel by clicking a street. Jumping to
+  another district or a tourist spot leaves the story for free roam (no objective); a **📖 Resume story · Chapter N**
+  chip brings the objective, navigation and chapter cards back where you left them. Change the **time of day, weather
+  and season live** with `K` or the ☀️ conditions panel (also on phones).
 - **Drone.** On foot (districts and spots), G deploys a drone with its own camera HUD, rotor sound, Cine / Normal / Sport
   speeds, real EU / FAA limits (120 m / 400 ft ceiling, ~800 m range, 10-minute battery with return-home) and photo mode;
   T flies you to the spot under it, G lands it back in your hand.
@@ -85,12 +87,12 @@ that chapter of the CV.
 | Drive | `W`/`S` throttle & reverse · `A`/`D` steer · `Space` brake · `H` horn | steering wheel (left thumb), analog pedals, horn |
 | Look | click the view and move the mouse (`Esc` frees the cursor) · `C` look back | drag the right half |
 | Car | `L` headlights · `E` enter office / refuel · `R` reset to the road · `F` fast travel · `U` U-turn at a closure | buttons |
-| Map | `M` map & navigation (click to drop a waypoint; in Explore: world map) · `N` mini-map | 🧭 |
+| Map | `M` map & navigation (click to drop a waypoint; in free roam: the world map) · `N` mini-map · 🌍 world map | 🧭 🌍 |
 | On foot | `Enter` get out / back in · `W`/`A`/`S`/`D` walk · `Shift` run · `Space` jump · `L` key fob · `T` call the car | 🚶 + thumbstick |
 | Drone | `G` deploy / land · `WASD` fly · `Space`/`E` up · `Q`/`C` down · `1` `2` `3` speed · `T` go here · `H` home | 🚁 + stick |
 | Spots | `E` read / interact · `G` spot map | buttons |
 | Camera | `P` photo mode | 📷 |
-| Explore | `K` time / weather / season panel · `Esc` pause → Switch to Story / Explore | ☀️ |
+| World | `K` time / weather / season panel · `Esc` pause → World map, Resume story (in free roam), Chapters, Tourist spots | ☀️ 📖 |
 
 ## Run it locally
 ```bash
@@ -102,7 +104,7 @@ testing: `?hour=8.5` (traffic hour), `?jam=1`, `?season=winter`, `?fountains=on`
 Developer pages: `game/dev/spots.html?id=<spot>`, `game/dev/landmarks.html`, `game/dev/render.html`.
 
 ## Tests and QA
-- `npm run harness` — logic harness (Playwright + software GL): drives every chapter, Explore, on foot, the tourist
+- `npm run harness` — logic harness (Playwright + software GL): drives every chapter, free roam, on foot, the tourist
   spots, rush hour and the finale; checks placement, routing, overlaps, timings and page errors.
 - `npm run harness:spots` — loads every tourist spot, walks from the spawn and runs the spot audit (z-fighting,
   invisible walls, people inside props, lamps on roads…).

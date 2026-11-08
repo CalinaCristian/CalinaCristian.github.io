@@ -600,9 +600,16 @@ body.photo-mode #achv-toasts { top: auto; bottom: 120px; }
     #finale .fn-actions { display: grid; grid-template-columns: 1fr 1fr; margin: 14px -16px 0; padding: 10px 16px 12px; border-radius: 0 0 16px 16px; }
     #finale .fn-act { justify-content: center; padding: 10px 8px; font-size: 13px; }
 }
-/* ===== explore lane (notes 74 / 75 / 76): main-menu entry, HUD bar, world-map hub, drone HUD, warp flash ===== */
-#explore-start { display: inline-flex; align-items: center; gap: 8px; }
-#explore-start small { font-weight: 400; opacity: .75; font-size: 12px; }
+/* ===== explore lane (notes 74 / 75 / 76; one mode since 2026-11-08): main-menu World map entry, HUD bar, resume-story
+   chip, world-map hub, drone HUD, warp flash ===== */
+#worldmap-start { display: inline-flex; align-items: center; gap: 8px; }
+#worldmap-start small { font-weight: 400; opacity: .75; font-size: 12px; }
+#story-chip { display: inline-flex; justify-self: start; align-items: center; gap: 8px; margin-top: 2px; padding: 8px 14px; border-radius: 999px; border: 1px solid rgba(251,191,36,.55); background: rgba(15,23,42,.82); color: #fde68a; font-family: inherit; font-weight: 600; font-size: 14px; line-height: 1.2; cursor: pointer; pointer-events: auto; box-shadow: 0 8px 24px rgba(0,0,0,.35); backdrop-filter: blur(8px); }
+#story-chip[hidden] { display: none; }
+#story-chip small { font-weight: 400; color: #e2e8f0; opacity: .8; font-size: 12px; }
+#story-chip:hover { background: rgba(30,41,59,.92); border-color: #fbbf24; }
+body:not(.playing) #story-chip, body.photo-mode #story-chip, body.paused #story-chip, body.wm-open #story-chip, body.in-office #story-chip, body.drone-mode #story-chip, body.finale-open #story-chip, body.cond-open #story-chip { display: none; }
+@media (max-width: 600px) { #story-chip { margin-top: 6px; padding: 6px 11px; font-size: 13px; } #story-chip small { display: none; } }
 #explore-bar { display: none; position: fixed; z-index: 30; right: 320px; top: 20px; gap: 8px; }
 body.playing #explore-bar { display: flex; }
 #explore-bar button { width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(148,163,184,.4); background: rgba(15,23,42,.72); color: #e2e8f0; font-size: 18px; cursor: pointer; display: none; }

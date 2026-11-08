@@ -1,0 +1,237 @@
+{
+  "district": "bucharest-otopeni",
+  "generated": "2026-11-08",
+  "codePrerequisite": "b7b4642 integrated source builder/consumers, merged locally as7c0b737; four reviewed widths3501b63+9a9b253; combined-root native acceptance pending",
+  "dataFile": "game/data/bucharest-otopeni.json",
+  "dataSha256": "94ce69292e2fc559d43daebefa06199c0f838ef3b5c47c074d2ef4db20fb10bc",
+  "sourceIdentityPolicy": "source",
+  "buildingRecords": 1208,
+  "positiveAreaSourceCoverage": {
+    "inside": {
+      "waysAndParts": {
+        "source": 151,
+        "identitiesPresent": 151,
+        "topologyMatches": 151
+      },
+      "relationOuters": {
+        "source": 1,
+        "identitiesPresent": 1,
+        "topologyMatches": 1
+      },
+      "courtyards": {
+        "buildings": 1,
+        "sourceInnerRings": 1,
+        "preserved": 1
+      }
+    },
+    "ring": {
+      "waysAndParts": {
+        "source": 1056,
+        "identitiesPresent": 1056,
+        "topologyMatches": 1056
+      },
+      "relationOuters": {
+        "source": 0,
+        "identitiesPresent": 0,
+        "topologyMatches": 0
+      },
+      "courtyards": {
+        "buildings": 0,
+        "sourceInnerRings": 0,
+        "preserved": 0
+      }
+    }
+  },
+  "literalDimensions": {
+    "literalHeights": 81,
+    "literalMinimums": 22,
+    "heightMismatches": [],
+    "minimumMismatches": [],
+    "contradictoryLiteralBands": [],
+    "nonpositiveHeights": [],
+    "unparsedLiteralMeasures": []
+  },
+  "sourceRoofProfiles": 1208,
+  "sourceRoofCaches": 115,
+  "sourceOpenRoofs": 10,
+  "roads": {
+    "data": "bucharest-otopeni.json",
+    "roads": 177,
+    "sourceWays": 172,
+    "preparedNodes": 950,
+    "cutNodes": 52,
+    "expectedWhole": 128,
+    "wholeSourceVertices": 689,
+    "missingWhole": 0,
+    "privatePhysical": 61,
+    "shortSourceStubs": 11,
+    "scenery": {
+      "pieces": 539,
+      "sourceWays": 534,
+      "preparedVertices": 2990,
+      "privatePhysical": 93
+    },
+    "visibleRing": {
+      "expectedWays": 593,
+      "missingWays": 0,
+      "requiredVertices": 3403,
+      "missingVertices": 0,
+      "excludedCoveredWays": [
+        "w319077389",
+        "w34757600",
+        "w406389375",
+        "w406482207",
+        "w715831819",
+        "w885163907",
+        "w885163908",
+        "w943852845",
+        "w1101514917",
+        "w1215866454",
+        "w1218703858",
+        "w1218703859",
+        "w1324738713",
+        "w1324738714",
+        "w1395443535"
+      ],
+      "exclusionReason": "Covered/tunnel source ways outside the physical core are not represented as ground scenery; no elevation or open road is invented."
+    },
+    "sourceDirectionNormalizations": [],
+    "issues": []
+  },
+  "railAndCrowns": {
+    "file": "game/data/bucharest-otopeni.json",
+    "sourceRailwayWays": 5,
+    "sourceRailwayLengthM": 1675,
+    "retainedTreeRecords": 15066,
+    "measuredCrownRadii": 15053,
+    "treeRetention": {
+      "policy": "all-measured",
+      "inputCrowns": 31433,
+      "retained": 15053,
+      "rejectedGeometryOrDuplicate": 1978,
+      "outsideSurveyDistrict": 14402,
+      "thinned": 0
+    }
+  },
+  "notes": [
+    "This audit establishes raw source identity, topology and literal dimensions, not measured visual parity of missing heights, facade detail or unsupported roof topology.",
+    "All source input crowns are accounted for without budget thinning. Geometry/duplicate exclusions are reported together by the current generic builder.",
+    "Legacy percentage height heuristic in raw building-audit logs ignores pitched roof rise; it is not the literal dimension gate. Literal source values are audited independently here.",
+    "Contradictory literal source height/min_height bands remain retained and explicitly flagged; no invented source correction is applied."
+  ],
+  "acceptanceStatus": "strict source checks passed; final combined-freeze native and full visual comparisons pending",
+  "reviewedWidths": [
+    {
+      "sourceId": "w27245927",
+      "widthM": 5.96,
+      "widthSource": "independent aerial measurement"
+    },
+    {
+      "sourceId": "w1097438891",
+      "widthM": 2.98,
+      "widthSource": "independent aerial measurement"
+    },
+    {
+      "sourceId": "w1119708243",
+      "widthM": 2.98,
+      "widthSource": "independent aerial measurement"
+    },
+    {
+      "sourceId": "w1244012654",
+      "widthM": 5.75,
+      "widthSource": "independent aerial measurement",
+      "leftM": 3.08,
+      "rightM": 2.67,
+      "laneCenterShiftM": -0.20500000000000007
+    }
+  ],
+  "sharedPhysicalLanes": {
+    "12": {
+      "widthM": 2.98,
+      "sourceId": "w1097438891",
+      "widthSource": "independent aerial measurement",
+      "evidence": "individually reviewed aerial physical single lane; raw legal lane counts absent",
+      "classificationSource": "independent aerial measurement"
+    },
+    "18": {
+      "widthM": 2.98,
+      "sourceId": "w1119708243",
+      "widthSource": "independent aerial measurement",
+      "evidence": "individually reviewed aerial physical single lane; raw legal lane counts absent",
+      "classificationSource": "independent aerial measurement"
+    },
+    "42": {
+      "widthM": 3,
+      "sourceId": "w303683586",
+      "widthSource": "estimate:class single-lane width",
+      "evidence": "OSM lanes=1; legal two-way",
+      "classificationSource": "OSM lanes=1"
+    }
+  },
+  "geometryAudit": {
+    "file": "game/data/bucharest-otopeni.json",
+    "sourceRecords": 1208,
+    "assemblies": [
+      {
+        "source": "w303678264",
+        "mode": "union",
+        "parts": [
+          "w303678273"
+        ],
+        "residualArea": 685.9915913200093,
+        "residualHeight": 16
+      },
+      {
+        "source": "w303678275",
+        "mode": "union",
+        "parts": [
+          "w1322657298"
+        ],
+        "residualArea": 1862.7867626250081,
+        "residualHeight": 12
+      },
+      {
+        "source": "w42346888",
+        "mode": "union",
+        "parts": [
+          "w1322657318",
+          "w1322657320",
+          "w1322657321"
+        ],
+        "residualArea": 7273.886196234991,
+        "residualHeight": 10
+      },
+      {
+        "source": "w276419887",
+        "mode": "union",
+        "parts": [
+          "w1322657319"
+        ],
+        "residualArea": 466.56321596005,
+        "residualHeight": 12
+      },
+      {
+        "source": "w1215048759",
+        "mode": "parts",
+        "parts": [
+          "w217927380"
+        ],
+        "residualArea": 0,
+        "residualHeight": 6
+      }
+    ],
+    "roofs": {
+      "checked": 576,
+      "inset": 576,
+      "fallback": []
+    },
+    "rejectedSourceBands": [],
+    "physicalUnionSurfaces": 59,
+    "rawSource": {
+      "sourceParts": 49,
+      "explicitHeights": 81,
+      "explicitMinima": 22,
+      "tiles": 6
+    }
+  }
+}

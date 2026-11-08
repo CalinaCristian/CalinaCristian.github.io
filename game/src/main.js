@@ -1871,6 +1871,7 @@ class Game {
     updateSpot(dt) {
         const s = this.spot; if (!s) return;
         const inp = this.input, hud = this.hud;
+        if (this.photo?.active || hud.panelOpen || this._pauseOpen || this.explore?.drone?.active) s.spot?.ctx?.extras?.venueActivities?.cancel('mode');
         // Esc / M pause — but not the Esc / M that closed the camera, a plaque or the pause panel itself (marked at keydown)
         const busy = !!(this.photo?.active || s.ui?.panelOpen || hud.panelOpen);
         if (busy) { inp.take('Escape'); inp.take('KeyM'); }
@@ -1887,6 +1888,7 @@ class Game {
     /** pause panel in a spot: resume, other entrances of the same scene, leave */
     spotPause() {
         const s = this.spot, e = this.spotEntry || {}; if (!s) return;
+        s.spot?.ctx?.extras?.venueActivities?.cancel('pause');
         const esc = (t) => String(t ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
         const R = this.spotReturn || { state: 'menu' };
         const back = R.state === 'menu' ? 'Back to the menu' : this.ch ? `Back to ${this.chapterDone ? 'free drive' : `chapter ${this.chapterIdx + 1}`}` : 'Back to the drive';
@@ -1972,6 +1974,7 @@ class Game {
         const el = document.getElementById('pause-menu');
         if (open && !['drive', 'foot', 'office', 'spot'].includes(this.state) && !(this.state === 'menu' && view === 'settings')) return;
         if (open) {
+            this.spot?.spot?.ctx?.extras?.venueActivities?.cancel('pause');
             if (this.photo?.active) this.photo.close();
             if (this.mapOpen) this.toggleMap(false);
             if (this.condOpen) this.toggleConditions(false);

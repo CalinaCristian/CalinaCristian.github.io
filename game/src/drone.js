@@ -210,7 +210,9 @@ export class Drone {
     // ------------------------------------------------------------------ deploy / land / abort
     deploy() {
         const chk = this.canDeploy(); if (!chk.ok) { this.toast('🚁 Can\'t take off here', chk.reason, 'warn'); return false; }
-        const g = this.g, c = this.c = this.ctx(), w = c.walker, cam = g.camera;
+        const g = this.g;
+        g.spot?.spot?.ctx?.extras?.venueActivities?.cancel('drone');
+        const c = this.c = this.ctx(), w = c.walker, cam = g.camera;
         this.active = true; this.phase = 'lift'; this.t = 0; this.pt = 0; this.battery = 1; this.recT = 0; this.rth = false; this.rthPath = null; this.autoRth = false; this.maxD = 0; this.maxAlt = 0; this.dist = 0;
         this.home = { x: w.x, z: w.z, y: w.y || 0, heading: w.heading, pitch: w.pitch || 0 };
         this.yaw = w.heading; this.gimbal = -0.18; this.vel.set(0, 0, 0); this.tiltP = this.tiltR = 0;

@@ -6,12 +6,17 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { parseFiles } from './parse-osm.mjs';
-import { assembleRings } from './geom.mjs';
+import { assembleRings, footprintMargin, polyCentroid } from './geom.mjs';
 import * as THREE from '../../game/vendor/three.module.min.js';
 import { footprintCells, footprintCoverage, exposedWall, insetFootprint, ringArea, simpleFootprint, assemblySignature, touchingSolids, geometryRing } from '../../game/src/building-parts.js';
 import { collideBuildings } from '../../game/src/world.js';
 const close = (a, b, label) => assert.ok(Math.abs(a - b) < Math.max(1e-5, Math.abs(b) * 1e-8), `${label}: ${a} != ${b}`);
 const square = [[0, 0], [10, 0], [10, 10], [0, 10]];
+close(footprintMargin([[-20,-1],[20,-1],[20,1],[-20,1]], {pieces:[{pts:[[0,-20],[0,20]],r:2}]}), -2, 'crossing edges enter a band despite distant vertices');
+close(footprintMargin(square, {circles:[{x:5,z:5,r:1}]}), -1, 'contained circle intersects the source footprint');
+close(footprintMargin(square, {circles:[{x:5,z:5,r:1}]}, [[[2,2],[8,2],[8,8],[2,8]]]), 2, 'a core circle inside a courtyard does not touch the building');
+close(footprintMargin(square, {polys:[[[20,0],[30,0],[30,10],[20,10]]]}), 10, 'polygon edge gap is exact');
+assert.ok(footprintMargin(square, {polys:[[[-1,4],[11,4],[11,6],[-1,6]]]}) <= 0, 'crossing source/core edges intersect without contained vertices');
 close(footprintCoverage(square, [[[0, 0], [9.999, 0], [9.999, 10], [0, 10]]]).uncovered, 0.01, 'sub-centimetre gap survives subdivision');
 close(footprintCoverage(square, [square, square]).uncovered, 0, 'overlapping parts count once');
 close(footprintCoverage(square, [[[9, 0], [11, 0], [11, 10], [9, 10]]]).outside, 10, 'outside area is exact');
@@ -106,12 +111,12 @@ if (osmDir) {
         const candidates = chains.filter(r => r?.length >= 4 && r.every(n => osm.nodes.has(n))).map(r => r.slice(0, -1).map(n => { const [la, lo] = osm.nodes.get(n); return [(lo - data.proj.lon0) * data.proj.mPerLon * data.proj.scale, -(la - data.proj.lat0) * data.proj.mPerLat * data.proj.scale]; }));
         if (candidates.length <= 1) return candidates[0] || null;
         // A relation can contain several separate outer buildings with the same source ID. Match its prepared outer.
-        const centre = r => r.reduce((a, p) => [a[0] + p[0] / r.length, a[1] + p[1] / r.length], [0, 0]);
+        const centre = polyCentroid;
         const c = centre(rings[index]);
         return candidates.sort((a, b) => { const p = centre(a), q = centre(b); return Math.hypot(p[0] - c[0], p[1] - c[1]) - Math.hypot(q[0] - c[0], q[1] - c[1]); })[0];
     };
     const box = r => [Math.min(...r.map(p => p[0])), Math.min(...r.map(p => p[1])), Math.max(...r.map(p => p[0])), Math.max(...r.map(p => p[1]))];
-    const sourceBases = data.buildingIds.flatMap((id, i) => { const t = source(id)?.tags, ring = rawRing(id, i); return t && !t['building:part'] && !data.buildingHoles?.[i] && ring && simpleFootprint(ring) ? [{ i, ring, box: box(ring) }] : []; });
+    const sourceBases = data.buildingIds.flatMap((id, i) => { const t = source(id)?.tags, ring = rawRing(id, i); return t && !t['building:part'] && !(data.buildingDimensions?.[i]?.[1] ?? data.buildings[i][2] / 10) && !data.buildingCoveredBy?.[i] && !data.buildingHoles?.[i] && ring && simpleFootprint(ring) ? [{ i, ring, box: box(ring) }] : []; });
     let explicitHeights = 0, explicitMinima = 0, sourceParts = 0;
     data.buildingIds.forEach((id, i) => {
         const t = source(id)?.tags; if (!t) return;

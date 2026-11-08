@@ -1,0 +1,81 @@
+{
+  "project": 338182,
+  "dashboard": 1094323,
+  "description": "Release-aware game diagnostics. V2 tables cover the last 7 days and label their denominators; legacy charts remain historical. Resource counts are not RAM/VRAM. An interrupted load does not establish an OS crash. Anonymous identities live in memory, so cross-visit retention is unavailable.",
+  "insights": [
+    {
+      "key": "load-outcomes",
+      "name": "Health v2 · Load attempts and first frames",
+      "description": "Unique attempts per original release/destination/device, not users. Requested, built and rendered are separate outcomes. An interrupted breadcrumb is not a confirmed crash. Its original release is used when known; older breadcrumbs stay unknown. Outcomes can fall outside their request time window.",
+      "sql": "SELECT if(event = 'load_interrupted', properties.attempt_release_id, properties.release_id) AS release, properties.destination AS district, properties.mobile AS mobile, uniqExactIf(properties.attempt_id, event = 'load_started') AS requested, uniqExactIf(properties.attempt_id, event = 'load_completed') AS built, uniqExactIf(properties.attempt_id, event = 'scene_first_frame') AS rendered, uniqExactIf(properties.attempt_id, event = 'load_failed') AS failed, uniqExactIf(properties.attempt_id, event = 'load_interrupted') AS interrupted FROM events WHERE timestamp >= now() - INTERVAL 7 DAY AND properties.telemetry_schema = 2 AND event IN ('load_started','load_completed','scene_first_frame','load_failed','load_interrupted') GROUP BY release, district, mobile ORDER BY requested DESC LIMIT 200"
+    },
+    {
+      "key": "load-latency",
+      "name": "Health v2 · Build versus playable latency",
+      "description": "Successful first-frame events only, split by cold/warm load, release and destination. Build time excludes the first rendered frame; playable latency includes it. Failed and interrupted attempts are in the separate outcome table.",
+      "sql": "SELECT properties.release_id AS release, properties.destination AS district, properties.mobile AS mobile, properties.first AS first_load, count() AS successful_frames, round(quantile(0.5)(toFloat(properties.build_ms)), 1) AS build_p50_ms, round(quantile(0.9)(toFloat(properties.build_ms)), 1) AS build_p90_ms, round(quantile(0.5)(toFloat(properties.first_frame_ms)), 1) AS playable_p50_ms, round(quantile(0.9)(toFloat(properties.first_frame_ms)), 1) AS playable_p90_ms FROM events WHERE timestamp >= now() - INTERVAL 7 DAY AND properties.telemetry_schema = 2 AND event = 'scene_first_frame' GROUP BY release, district, mobile, first_load ORDER BY successful_frames DESC LIMIT 200"
+    },
+    {
+      "key": "frames-budget",
+      "name": "Health v2 · Frame tails and budget breaches by mode",
+      "description": "Each row aggregates periodic mode-specific summaries, not entire visits. Tail percentiles are medians of bounded per-summary reservoirs. Breach rate divides actual over-budget rendered frames by observed rendered frames; it includes PMREM work counted by the renderer. Hidden-tab waits are excluded.",
+      "sql": "SELECT properties.release_id AS release, properties.district AS district, properties.spot_id AS spot, properties.mobile AS mobile, properties.quality_tier AS quality, properties.game_mode AS mode, count() AS summaries, sum(toFloat(properties.frames_observed)) AS observed_frames, sum(toFloat(properties.budget_exceeded_frames)) AS over_budget_frames, round(100 * sum(toFloat(properties.budget_exceeded_frames)) / nullIf(sum(toFloat(properties.frames_observed)), 0), 2) AS over_budget_pct, round(quantile(0.5)(toFloat(properties.frame_p95_ms)), 1) AS median_summary_p95_ms, round(quantile(0.5)(toFloat(properties.frame_p99_ms)), 1) AS median_summary_p99_ms, max(toFloat(properties.max_frame_ms)) AS worst_interval_ms, max(toFloat(properties.max_draw_calls)) AS max_calls, max(toFloat(properties.max_triangles)) AS max_triangles FROM events WHERE timestamp >= now() - INTERVAL 7 DAY AND properties.telemetry_schema = 2 AND event = 'perf_summary' GROUP BY release, district, spot, mobile, quality, mode ORDER BY over_budget_frames DESC, summaries DESC LIMIT 200"
+    },
+    {
+      "key": "actions",
+      "name": "Health v2 · First headlight response and shader churn",
+      "description": "Actual rendered responses to native actions, split by first/repeated action per page visit. Response time includes waiting for the next real frame; shader-program delta measures new cached programs, not total compile time. Hidden-tab actions are cancelled. No synthetic performance events are sent by the harness.",
+      "sql": "SELECT properties.release_id AS release, properties.district AS district, properties.mobile AS mobile, properties.source AS input, properties.first AS first_action, count() AS responses, round(quantile(0.5)(toFloat(properties.response_ms)), 1) AS response_p50_ms, round(quantile(0.9)(toFloat(properties.response_ms)), 1) AS response_p90_ms, max(toFloat(properties.response_ms)) AS response_max_ms, max(toFloat(properties.added_programs)) AS max_new_programs FROM events WHERE timestamp >= now() - INTERVAL 7 DAY AND properties.telemetry_schema = 2 AND event = 'ui_action_frame' AND properties.action = 'headlights' GROUP BY release, district, mobile, input, first_action ORDER BY responses DESC LIMIT 200"
+    },
+    {
+      "key": "releases-resources",
+      "name": "Health v2 · Scene release resources",
+      "description": "Before/after scene-release counters at real transitions. Shared cached assets may remain allocated intentionally. Texture, geometry and program counts are not browser RAM, GPU bytes, or proof of a memory leak; compare repeated visits and releases.",
+      "sql": "SELECT properties.release_id AS release, properties.district AS district, properties.mobile AS mobile, count() AS scene_releases, max(toFloat(properties.before_textures)) AS max_before_textures, max(toFloat(properties.textures)) AS max_after_textures, max(toFloat(properties.before_geometries)) AS max_before_geometries, max(toFloat(properties.geometries)) AS max_after_geometries, max(toFloat(properties.programs)) AS max_programs FROM events WHERE timestamp >= now() - INTERVAL 7 DAY AND properties.telemetry_schema = 2 AND event = 'scene_released' GROUP BY release, district, mobile ORDER BY scene_releases DESC LIMIT 200"
+    },
+    {
+      "key": "recovery-errors",
+      "name": "Health v2 · Recovery and error signals",
+      "description": "Event counts by release/place/device. Continue results expose success and whether a prior load failed or was interrupted. Breadcrumb interruption is explicitly unconfirmed; no inferred crash count is shown. Office option and achievements-open events help investigate unwanted modal activation without recording text.",
+      "sql": "SELECT properties.release_id AS release, properties.district AS district, properties.mobile AS mobile, event, properties.success AS recovery_success, properties.after_load_failure AS after_failure, properties.office_talking AS during_dialogue, count() AS events FROM events WHERE timestamp >= now() - INTERVAL 7 DAY AND properties.telemetry_schema = 2 AND event IN ('load_interrupted','load_failed','continue_result','context_lost','context_restored','$exception','render_stall','office_dialogue_action','overlay_open_requested') GROUP BY release, district, mobile, event, recovery_success, after_failure, during_dialogue ORDER BY events DESC LIMIT 200"
+    },
+    {
+      "key": "activities",
+      "name": "Health v2 · Animated activity attempts",
+      "description": "Started/stepped/cancelled are unique transient attempts. Completion is a real scene-event count, with no assumed attempt conversion rate for older activities lacking an attempt ID. Cancellation reasons are a fixed list. Watching the secret TV is not an achievement completion.",
+      "sql": "SELECT properties.release_id AS release, properties.spot_id AS spot, properties.activity_id AS activity, uniqExactIf(properties.activity_attempt_id, event = 'activity_started') AS started_attempts, uniqExactIf(properties.activity_attempt_id, event = 'activity_step') AS progressed_attempts, uniqExactIf(properties.activity_attempt_id, event = 'activity_cancelled') AS cancelled_attempts, countIf(event = 'activity_completed') AS scene_completions FROM events WHERE timestamp >= now() - INTERVAL 7 DAY AND properties.telemetry_schema = 2 AND event IN ('activity_started','activity_step','activity_cancelled','activity_completed') GROUP BY release, spot, activity ORDER BY started_attempts DESC, scene_completions DESC LIMIT 200"
+    }
+  ],
+  "existing": [
+    {
+      "id": 7188427,
+      "name": "Historical FPS · median of periodic summaries",
+      "description": "Each observation is a periodic performance summary, not an entire session. V1 sampled driving at 1 Hz; v2 uses actual frame intervals and isolates modes. Do not combine these schemas for release comparisons; use the Health v2 tables."
+    },
+    {
+      "id": 7188428,
+      "name": "Historical FPS by GPU · periodic summaries",
+      "description": "Median of periodic summary FPS, split by GPU. Not whole-visit or hardware benchmark FPS. Separate telemetry schemas and quality/modes before comparing releases."
+    },
+    {
+      "id": 7188429,
+      "name": "Historical FPS by tier/device · periodic summaries",
+      "description": "Median of periodic summary FPS. Quality setting, resolved tier, DPR, mode and schema affect comparisons; use v2 release/mode tables for diagnostics."
+    },
+    {
+      "id": 7164285,
+      "name": "Retention · unavailable with memory-only identities",
+      "description": "Historical starter template. Anonymous identity is intentionally memory-only, so this chart cannot measure repeat visits or cross-day retention. No persistent visitor tracking has been added."
+    },
+    {
+      "id": 7188419,
+      "name": "Observed page-exit duration",
+      "description": "Durations from game_exit/pagehide only. Browser or OS termination may omit this event, so this excludes unobserved exits and is not a complete session-duration distribution."
+    },
+    {
+      "id": 7188416,
+      "name": "Chapter start/completion event visitors",
+      "description": "Independent anonymous visitor counts per chapter/event in the selected time window, not a paired conversion rate. Memory-only identity does not measure repeat visitors across reloads; the ordered story funnel is separate."
+    }
+  ]
+}

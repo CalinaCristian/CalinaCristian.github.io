@@ -35,7 +35,7 @@ export class GameHealth {
             this.recoveryExpected = previous?.stage === 'failed';
             if (previous && !previous.ended && (previous.loading || previous.awaiting_frame || previous.contextLost)) {
                 this.recoveryExpected = true;
-                this.send('load_interrupted', { attempt_id: previous.attempt, destination: previous.destination, prior_stage: previous.stage, age_ms: Date.now() - previous.updated, context_lost: !!previous.contextLost, navigation_type: performance.getEntriesByType('navigation')[0]?.type || 'unknown', confirmed_crash: false });
+                this.send('load_interrupted', { attempt_id: previous.attempt, destination: previous.destination, attempt_release_id: previous.release || 'unknown-prior-release', attempt_source_commit: previous.source || null, mobile: previous.mobile ?? null, prior_stage: previous.stage, age_ms: Date.now() - previous.updated, context_lost: !!previous.contextLost, navigation_type: performance.getEntriesByType('navigation')[0]?.type || 'unknown', confirmed_crash: false });
             }
             safe(() => sessionStorage.removeItem(KEY));
         }
@@ -68,7 +68,7 @@ export class GameHealth {
     }
     currentContext() {
         const g = this.g, rs = g.r3d?.stats, mode = this.pending ? 'loading' : g.explore?.drone?.active ? 'drone' : g.photo?.active ? 'photo' : g._pauseOpen ? 'pause' : g.mapOpen || document.body.classList.contains('wm-open') ? 'map' : g.condOpen ? 'conditions' : g.achievements?.isOpen ? 'achievements' : g.hud?.panelOpen ? g.office?.talking ? 'dialogue' : 'panel' : g.spot?.ui?.panelOpen ? 'spot_panel' : g._controlsModal ? 'ui' : g.state || 'unknown';
-        return { ...this.conditions, game_mode: mode, city: g.state === 'spot' ? g.spotEntry?.city || null : g.city?.id || null, district: g.district || null, spot_id: g.spotId || null, scene_id: g.spotEntry?.scene || null, chapter: g.chapter || null, play_mode: g.freeRoam ? 'free_roam' : 'story', quality_setting: g.quality || null, quality_tier: rs?.quality || null, render_pixel_ratio: rs?.pixelRatio ?? null, weather_kind: g.wxKind || g.r3d?.weather?.kind || null, season: g.r3d?._seasonOverride || g.r3d?.weather?.season || null };
+        return { ...this.conditions, mobile: !!g.touch, game_mode: mode, city: g.state === 'spot' ? g.spotEntry?.city || null : g.city?.id || null, district: g.district || null, spot_id: g.spotId || null, scene_id: g.spotEntry?.scene || null, chapter: g.chapter || null, play_mode: g.freeRoam ? 'free_roam' : 'story', quality_setting: g.quality || null, quality_tier: rs?.quality || null, render_pixel_ratio: rs?.pixelRatio ?? null, weather_kind: g.wxKind || g.r3d?.weather?.kind || null, season: g.r3d?._seasonOverride || g.r3d?.weather?.season || null };
     }
     resourceCounts() {
         const r = this.g.renderer, memory = r?.info?.memory || {}, c = r?.domElement;
@@ -88,7 +88,7 @@ export class GameHealth {
         if (!this.enabled()) return;
         safe(() => {
             const old = readPending(sessionStorage) || {};
-            sessionStorage.setItem(KEY, JSON.stringify({ v: 2, ...old, updated: Date.now(), attempt: this.pending?.id || old.attempt || null, loading: !!this.pending, destination: this.pending?.district || old.destination || null, stage: this.pending?.stage || old.stage || 'playable', ...extra }));
+            sessionStorage.setItem(KEY, JSON.stringify({ v: 2, ...old, updated: Date.now(), release: document.querySelector('meta[name="game-release"]')?.content || 'unversioned', source: document.querySelector('meta[name="game-source"]')?.content || null, mobile: !!this.g.touch, attempt: this.pending?.id || old.attempt || null, loading: !!this.pending, destination: this.pending?.district || old.destination || null, stage: this.pending?.stage || old.stage || 'playable', ...extra }));
         });
     }
     observe(obj, name, before, after, failed) {

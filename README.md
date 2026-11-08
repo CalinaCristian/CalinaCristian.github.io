@@ -42,7 +42,9 @@ that chapter of the CV.
   including a kickable football on the Dinamo pitch that rewards a drone-assisted goal with a secret achievement.
   The open stadium bowl is traversable; physical stands and roofs retain collision. The size-5 ball uses amber/black
   panels in snow and a small contact shadow.
-  Flight stays within the playable boundary plus a 20 m margin, with return-home paths following that boundary.
+  Mouse/touch look sets the flight direction: W/S follow the full viewing pitch and A/D strafe. There are no separate
+  up/down keys or touch pads. Flight starts level and stays within the playable boundary plus a 150 m margin, including
+  the whole Dinamo stadium. Swept movement preserves thin roof/wall collisions; return-home follows the same boundary.
   The pilot marker uses the same seasonal character system as pedestrians.
 - **Tourist spots (bonus).** 24 walk-only destinations across 19 scenes (each is listed in the menu once it passes a side-by-side
   review against the real place) — Bucharest's top 10 (Palace of the Parliament, People's
@@ -65,7 +67,7 @@ that chapter of the CV.
   kept in the in-game gallery, and you save (or share) only the ones you want, from the print or the gallery. Leave the
   car somewhere illegal and passers-by react — then the ticket, the clamp or the tow truck.
 - **Saves.** Progress, position and photos persist in IndexedDB; **Continue** resumes exactly where you left off.
-- **Achievements and completion %.** 113 catalogue entries (112 initially active; the cycling activity becomes active after bike use), covering story, explorer, driver, local colour, landmarks and activities,
+- **Achievements and completion %.** 115 catalogue entries (114 initially active; the cycling activity becomes active after bike use), covering story, explorer, driver, local colour, landmarks and activities,
   photographer, on foot and a few secrets) and one weighted completion score shown in the menu, map and pause screens.
 - **A living city.** Country-specific traffic (taxis, delivery vans, police; STB trams, trolleybuses and buses; King
   County Metro buses) driven by real lanes, one-ways, signals and speed limits, with traffic density by hour, rush-hour
@@ -120,7 +122,7 @@ that chapter of the CV.
 | Car | `L` headlights · `E` enter office / refuel · `R` reset to the road · `F` fast travel · `U` U-turn at a closure | buttons |
 | Map | `M` map & navigation (click to drop a waypoint; in free roam: the world map) · `N` mini-map · 🌍 world map | 🧭 🌍 |
 | On foot | `Enter` get out / back in · `W`/`A`/`S`/`D` walk · `Shift` run · `Space` jump · `T` call the car | 🚶 + thumbstick |
-| Drone | `G` deploy / land · `WASD` fly · `Space`/`E` up · `Q`/`C` down · `1` `2` `3` speed · `T` go here · `H` home | 🚁 + stick |
+| Drone | `G` deploy / land · mouse look + `WASD` fly (W/S follow pitch, A/D strafe) · `1` `2` `3` speed · `T` go here · `H` home | 🚁 + stick |
 | Spots | `E` read / interact · `G` spot map | buttons |
 | Camera | `P` photo mode | 📷 |
 | World | `K` time / weather / season panel · `Esc` pause → World map, Resume story (in free roam), Chapters, Tourist spots | ☀️ 📖 |
@@ -196,3 +198,5 @@ The work is planned spec-first in [`specs/`](specs/) (requirements, contracts, o
   Interrupted loads are labelled as possible interruptions, not confirmed operating-system crashes.
   Before a master deployment, commit runtime changes, run `node tools/telemetry/stamp-release.mjs --write`, commit its
   release metadata, and verify with the same command without `--write`. Diagnostics then include the runtime fingerprint.
+  Dashboard definitions and reproducible validation live in [tools/telemetry](tools/telemetry/README.md). Seven health tables
+  distinguish requests, build/first-frame outcomes, frame tails, resources, first headlight responses, recovery and activities.

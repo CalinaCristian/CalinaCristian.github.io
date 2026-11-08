@@ -34,9 +34,9 @@
 
     function trackingAllowed() {
         if (params.has('notrack')) return false;
-        if (params.get('track') === '1') return true;
         var dnt = navigator.doNotTrack === '1' || window.doNotTrack === '1' || navigator.globalPrivacyControl === true;
         if (dnt) return false;
+        if (params.get('track') === '1') return true;
         return CONFIG.productionHosts.indexOf(location.hostname) !== -1;
     }
 

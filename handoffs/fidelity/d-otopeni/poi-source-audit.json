@@ -1,0 +1,2102 @@
+{
+  "district": "bucharest-otopeni",
+  "reviewedAt": "2026-11-08",
+  "dataSha256": "94ce69292e2fc559d43daebefa06199c0f838ef3b5c47c074d2ef4db20fb10bc",
+  "scope": "Every emitted POI anchor. Independently matches exact raw OSM tagged node or way polygon centroid, or an existing reviewed non-low-confidence official-locator research record, within only the0.1m output-coordinate quantization bound. Does not infer current trading status, opening location or facade geometry from this match.",
+  "sourcePolicy": "OSM tags and recorded official locators; no Street View extraction. Source district fuel geometry requires its separately reviewed mapped canopy and is not inferred from this POI.",
+  "counts": {
+    "outputPOIs": 72,
+    "classification": {
+      "exact-quantized-source-anchor": 72
+    },
+    "fuelPOIs": 4
+  },
+  "errors": [],
+  "records": [
+    {
+      "index": 0,
+      "kind": "busstop",
+      "name": "ICSITMUA",
+      "brand": "",
+      "subtype": "bus_stop",
+      "outputXZ": [
+        -591.2,
+        561.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2522849382",
+          "sourceUrl": "https://www.openstreetmap.org/node/2522849382",
+          "xy": [
+            -591.1961212900384,
+            561.6055619994867
+          ],
+          "tags": {
+            "bus": "yes",
+            "highway": "bus_stop",
+            "name": "ICSITMUA",
+            "public_transport": "platform"
+          },
+          "distanceM": 0.006780872307910068
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 1,
+      "kind": "busstop",
+      "name": "ICSITMUA",
+      "brand": "",
+      "subtype": "bus_stop",
+      "outputXZ": [
+        -618.2,
+        578.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2522849385",
+          "sourceUrl": "https://www.openstreetmap.org/node/2522849385",
+          "xy": [
+            -618.2013370474989,
+            578.4753996000088
+          ],
+          "tags": {
+            "bus": "yes",
+            "highway": "bus_stop",
+            "name": "ICSITMUA",
+            "public_transport": "platform"
+          },
+          "distanceM": 0.0246367078916917
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 2,
+      "kind": "busstop",
+      "name": "Aeroportul Henri Coandă",
+      "brand": "",
+      "subtype": "bus_stop",
+      "outputXZ": [
+        -582.7,
+        -388.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2522857232",
+          "sourceUrl": "https://www.openstreetmap.org/node/2522857232",
+          "xy": [
+            -582.7495560089836,
+            -388.52858519995084
+          ],
+          "tags": {
+            "bus": "yes",
+            "highway": "bus_stop",
+            "name": "Aeroportul Henri Coandă",
+            "public_transport": "platform"
+          },
+          "distanceM": 0.05720936708801066
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 3,
+      "kind": "shop",
+      "name": "Frescia Store",
+      "brand": "",
+      "subtype": "convenience:italian",
+      "outputXZ": [
+        -644.1,
+        -262.2
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n12238896056",
+          "sourceUrl": "https://www.openstreetmap.org/node/12238896056",
+          "xy": [
+            -644.1358614312014,
+            -262.1937276002169
+          ],
+          "tags": {
+            "cuisine": "italian",
+            "name": "Frescia Store",
+            "shop": "convenience"
+          },
+          "distanceM": 0.03640584083428622
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 4,
+      "kind": "shop",
+      "name": "Urban Auotmobile",
+      "brand": "",
+      "subtype": "car",
+      "outputXZ": [
+        -691.1,
+        -249
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n12238896057",
+          "sourceUrl": "https://www.openstreetmap.org/node/12238896057",
+          "xy": [
+            -691.0797298800524,
+            -249.013472400171
+          ],
+          "tags": {
+            "name": "Urban Auotmobile",
+            "shop": "car"
+          },
+          "distanceM": 0.024338926210092312
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 5,
+      "kind": "shop",
+      "name": "Zoe Auto Rent",
+      "brand": "",
+      "subtype": "car_rental",
+      "outputXZ": [
+        -669,
+        -255.2
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n12238896058",
+          "sourceUrl": "https://www.openstreetmap.org/node/12238896058",
+          "xy": [
+            -669.0472807246933,
+            -255.1924116005214
+          ],
+          "tags": {
+            "amenity": "car_rental",
+            "name": "Zoe Auto Rent"
+          },
+          "distanceM": 0.04788580931939676
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 6,
+      "kind": "busstop",
+      "name": "Aeroport Henri Coandă Plecări",
+      "brand": "",
+      "subtype": "bus_stop",
+      "outputXZ": [
+        -9.7,
+        -688.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2521966062",
+          "sourceUrl": "https://www.openstreetmap.org/node/2521966062",
+          "xy": [
+            -9.68380864624237,
+            -688.3849476004673
+          ],
+          "tags": {
+            "bus": "yes",
+            "highway": "bus_stop",
+            "name": "Aeroport Henri Coandă Plecări",
+            "public_transport": "platform"
+          },
+          "distanceM": 0.022107344214004156
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 7,
+      "kind": "busstop",
+      "name": "Aeroportul Henri Coandă",
+      "brand": "",
+      "subtype": "bus_stop",
+      "outputXZ": [
+        -554.4,
+        -437.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2522857233",
+          "sourceUrl": "https://www.openstreetmap.org/node/2522857233",
+          "xy": [
+            -554.3881311784531,
+            -437.4155520003387
+          ],
+          "tags": {
+            "bus": "yes",
+            "highway": "bus_stop",
+            "name": "Aeroportul Henri Coandă",
+            "public_transport": "platform"
+          },
+          "distanceM": 0.019563579412956143
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 8,
+      "kind": "shop",
+      "name": "Swiss",
+      "brand": "",
+      "subtype": "ticket",
+      "outputXZ": [
+        11.1,
+        -661.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n4836899526",
+          "sourceUrl": "https://www.openstreetmap.org/node/4836899526",
+          "xy": [
+            11.095535049600974,
+            -661.6910412004277
+          ],
+          "tags": {
+            "name": "Swiss",
+            "shop": "ticket"
+          },
+          "distanceM": 0.01000978880116327
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 9,
+      "kind": "shop",
+      "name": "Tarom",
+      "brand": "",
+      "subtype": "ticket",
+      "outputXZ": [
+        10.3,
+        -668.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n4836899626",
+          "sourceUrl": "https://www.openstreetmap.org/node/4836899626",
+          "xy": [
+            10.29449928139045,
+            -668.4700931998946
+          ],
+          "tags": {
+            "name": "Tarom",
+            "shop": "ticket"
+          },
+          "distanceM": 0.030408462601190338
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 10,
+      "kind": "shop",
+      "name": "Air France/KLM",
+      "brand": "",
+      "subtype": "ticket",
+      "outputXZ": [
+        9.5,
+        -675.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n4836899627",
+          "sourceUrl": "https://www.openstreetmap.org/node/4836899627",
+          "xy": [
+            9.477601418288444,
+            -675.5158620001096
+          ],
+          "tags": {
+            "name": "Air France/KLM",
+            "shop": "ticket"
+          },
+          "distanceM": 0.027446302304045857
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 11,
+      "kind": "shop",
+      "name": "Rotana",
+      "brand": "",
+      "subtype": "ticket",
+      "outputXZ": [
+        8.7,
+        -683
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n4836899628",
+          "sourceUrl": "https://www.openstreetmap.org/node/4836899628",
+          "xy": [
+            8.692427744405869,
+            -682.961706000262
+          ],
+          "tags": {
+            "name": "Rotana",
+            "shop": "ticket"
+          },
+          "distanceM": 0.03903548988699938
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 12,
+      "kind": "shop",
+      "name": "Menzies",
+      "brand": "",
+      "subtype": "ticket",
+      "outputXZ": [
+        6.6,
+        -701.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n4836899629",
+          "sourceUrl": "https://www.openstreetmap.org/node/4836899629",
+          "xy": [
+            6.622424422070039,
+            -701.3540520004145
+          ],
+          "tags": {
+            "name": "Menzies",
+            "shop": "ticket"
+          },
+          "distanceM": 0.051128009653025386
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 13,
+      "kind": "shop",
+      "name": "Best Value Express",
+      "brand": "",
+      "subtype": "gift",
+      "outputXZ": [
+        100.2,
+        -609.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n4836899646",
+          "sourceUrl": "https://www.openstreetmap.org/node/4836899646",
+          "xy": [
+            100.23257466720116,
+            -609.6256992000101
+          ],
+          "tags": {
+            "level": "1",
+            "name": "Best Value Express",
+            "shop": "gift"
+          },
+          "distanceM": 0.04149165969715476
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 14,
+      "kind": "food",
+      "name": "Lavazza",
+      "brand": "Lavazza",
+      "subtype": "cafe:coffee_shop",
+      "outputXZ": [
+        22.8,
+        -643.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n4836901424",
+          "sourceUrl": "https://www.openstreetmap.org/node/4836901424",
+          "xy": [
+            22.833484923851227,
+            -643.3987139998646
+          ],
+          "tags": {
+            "amenity": "cafe",
+            "brand": "Lavazza",
+            "cuisine": "coffee_shop",
+            "level": "0",
+            "name": "Lavazza"
+          },
+          "distanceM": 0.0335096093929862
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 15,
+      "kind": "shop",
+      "name": "Turkish Airlines",
+      "brand": "",
+      "subtype": "ticket",
+      "outputXZ": [
+        7.2,
+        -696.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n4836902822",
+          "sourceUrl": "https://www.openstreetmap.org/node/4836902822",
+          "xy": [
+            7.185528773952509,
+            -696.0641688001884
+          ],
+          "tags": {
+            "name": "Turkish Airlines",
+            "shop": "ticket"
+          },
+          "distanceM": 0.03864312698598715
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 16,
+      "kind": "shop",
+      "name": "GlobeGround",
+      "brand": "",
+      "subtype": "ticket",
+      "outputXZ": [
+        11.8,
+        -654.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n4836903521",
+          "sourceUrl": "https://www.openstreetmap.org/node/4836903521",
+          "xy": [
+            11.809329298866901,
+            -654.4563480003739
+          ],
+          "tags": {
+            "name": "GlobeGround",
+            "shop": "ticket"
+          },
+          "distanceM": 0.04463779663815525
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 17,
+      "kind": "busstop",
+      "name": "Aeroport Henri Coandă Sosiri",
+      "brand": "",
+      "subtype": "bus_stop",
+      "outputXZ": [
+        26.3,
+        -475
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n6887156363",
+          "sourceUrl": "https://www.openstreetmap.org/node/6887156363",
+          "xy": [
+            26.323145697132286,
+            -475.02262079998894
+          ],
+          "tags": {
+            "bus": "yes",
+            "highway": "bus_stop",
+            "level": "0",
+            "name": "Aeroport Henri Coandă Sosiri",
+            "public_transport": "platform"
+          },
+          "distanceM": 0.03236392880784466
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 18,
+      "kind": "landmark",
+      "name": "Capela Creștin-Ortodoxă",
+      "brand": "",
+      "subtype": "place_of_worship",
+      "outputXZ": [
+        51.8,
+        -679.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n8770186683",
+          "sourceUrl": "https://www.openstreetmap.org/node/8770186683",
+          "xy": [
+            51.75008305924106,
+            -679.4610480004143
+          ],
+          "tags": {
+            "amenity": "place_of_worship",
+            "level": "1",
+            "name": "Capela Creștin-Ortodoxă"
+          },
+          "distanceM": 0.06331634264909425
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 19,
+      "kind": "landmark",
+      "name": "Aeroport Henri Coandă",
+      "brand": "",
+      "subtype": "station",
+      "outputXZ": [
+        -134.8,
+        -448.2
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9337642827",
+          "sourceUrl": "https://www.openstreetmap.org/node/9337642827",
+          "xy": [
+            -134.78814737097468,
+            -448.21758240022984
+          ],
+          "tags": {
+            "name": "Aeroport Henri Coandă",
+            "public_transport": "station",
+            "railway": "station"
+          },
+          "distanceM": 0.021204377205068976
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 20,
+      "kind": "shop",
+      "name": "Relay",
+      "brand": "",
+      "subtype": "gift",
+      "outputXZ": [
+        38.2,
+        -609
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11257028028",
+          "sourceUrl": "https://www.openstreetmap.org/node/11257028028",
+          "xy": [
+            38.24350965685836,
+            -608.9589072001143
+          ],
+          "tags": {
+            "level": "1",
+            "name": "Relay",
+            "shop": "gift"
+          },
+          "distanceM": 0.05984737623640431
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 21,
+      "kind": "pharmacy",
+      "name": "2M pharma",
+      "brand": "",
+      "subtype": "pharmacy",
+      "outputXZ": [
+        57.6,
+        -585.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11257028029",
+          "sourceUrl": "https://www.openstreetmap.org/node/11257028029",
+          "xy": [
+            57.64285113799899,
+            -585.5433948004835
+          ],
+          "tags": {
+            "amenity": "pharmacy",
+            "level": "1",
+            "name": "2M pharma"
+          },
+          "distanceM": 0.06098629958286356
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 22,
+      "kind": "bank",
+      "name": "BRD",
+      "brand": "BRD",
+      "subtype": "bank",
+      "outputXZ": [
+        59.1,
+        -570.9
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11257028031",
+          "sourceUrl": "https://www.openstreetmap.org/node/11257028031",
+          "xy": [
+            59.10216382490497,
+            -570.8850840005371
+          ],
+          "tags": {
+            "amenity": "bank",
+            "brand": "BRD",
+            "level": "1",
+            "name": "BRD"
+          },
+          "distanceM": 0.015072132503299814
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 23,
+      "kind": "bank",
+      "name": "",
+      "brand": "Euronet",
+      "subtype": "atm",
+      "outputXZ": [
+        36,
+        -439.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11257054216",
+          "sourceUrl": "https://www.openstreetmap.org/node/11257054216",
+          "xy": [
+            35.99902329578803,
+            -439.44926760041574
+          ],
+          "tags": {
+            "amenity": "atm",
+            "brand": "Euronet",
+            "level": "1"
+          },
+          "distanceM": 0.04927728078785086
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 24,
+      "kind": "bank",
+      "name": "",
+      "brand": "Euronet",
+      "subtype": "atm",
+      "outputXZ": [
+        32.2,
+        -477.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11257054217",
+          "sourceUrl": "https://www.openstreetmap.org/node/11257054217",
+          "xy": [
+            32.1762585396477,
+            -477.5008644005229
+          ],
+          "tags": {
+            "amenity": "atm",
+            "brand": "Euronet",
+            "level": "1"
+          },
+          "distanceM": 0.023757191078157425
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 25,
+      "kind": "bank",
+      "name": "",
+      "brand": "CEC Bank",
+      "subtype": "atm",
+      "outputXZ": [
+        32.4,
+        -473.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11257054219",
+          "sourceUrl": "https://www.openstreetmap.org/node/11257054219",
+          "xy": [
+            32.43798309760856,
+            -473.6112444000779
+          ],
+          "tags": {
+            "amenity": "atm",
+            "brand": "CEC Bank",
+            "level": "1"
+          },
+          "distanceM": 0.03961252626446511
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 26,
+      "kind": "bank",
+      "name": "",
+      "brand": "Euronet",
+      "subtype": "atm",
+      "outputXZ": [
+        50.1,
+        -437
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11257054223",
+          "sourceUrl": "https://www.openstreetmap.org/node/11257054223",
+          "xy": [
+            50.12421838090544,
+            -436.9932504001415
+          ],
+          "tags": {
+            "amenity": "atm",
+            "brand": "Euronet",
+            "level": "1"
+          },
+          "distanceM": 0.025141341888027396
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 27,
+      "kind": "bank",
+      "name": "",
+      "brand": "BRD",
+      "subtype": "atm",
+      "outputXZ": [
+        36.4,
+        -436.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11257054224",
+          "sourceUrl": "https://www.openstreetmap.org/node/11257054224",
+          "xy": [
+            36.40350670382749,
+            -436.08196800054714
+          ],
+          "tags": {
+            "amenity": "atm",
+            "brand": "BRD",
+            "level": "1"
+          },
+          "distanceM": 0.018369811539660965
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 28,
+      "kind": "bank",
+      "name": "",
+      "brand": "Euronet",
+      "subtype": "atm",
+      "outputXZ": [
+        44.5,
+        -485.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11257054226",
+          "sourceUrl": "https://www.openstreetmap.org/node/11257054226",
+          "xy": [
+            44.548692190678835,
+            -485.5468212005815
+          ],
+          "tags": {
+            "amenity": "atm",
+            "brand": "Euronet",
+            "level": "1"
+          },
+          "distanceM": 0.06755112328450867
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 29,
+      "kind": "food",
+      "name": "Gaia's Cafe",
+      "brand": "",
+      "subtype": "cafe",
+      "outputXZ": [
+        50,
+        -426.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11257054227",
+          "sourceUrl": "https://www.openstreetmap.org/node/11257054227",
+          "xy": [
+            50.03697686139731,
+            -426.6913140005671
+          ],
+          "tags": {
+            "amenity": "cafe",
+            "level": "1",
+            "name": "Gaia's Cafe"
+          },
+          "distanceM": 0.037983349838365876
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 30,
+      "kind": "shop",
+      "name": "Press & GO",
+      "brand": "",
+      "subtype": "kiosk",
+      "outputXZ": [
+        43.2,
+        -495.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11257054230",
+          "sourceUrl": "https://www.openstreetmap.org/node/11257054230",
+          "xy": [
+            43.208345211655114,
+            -495.68205960057685
+          ],
+          "tags": {
+            "level": "1",
+            "name": "Press & GO",
+            "shop": "kiosk"
+          },
+          "distanceM": 0.019786371295171464
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 31,
+      "kind": "bank",
+      "name": "",
+      "brand": "Raiffeisen Bank",
+      "subtype": "atm",
+      "outputXZ": [
+        49.8,
+        -440
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11257054231",
+          "sourceUrl": "https://www.openstreetmap.org/node/11257054231",
+          "xy": [
+            49.799045445069254,
+            -440.0382672001921
+          ],
+          "tags": {
+            "amenity": "atm",
+            "brand": "Raiffeisen Bank",
+            "level": "1"
+          },
+          "distanceM": 0.0382791037729021
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 32,
+      "kind": "bank",
+      "name": "",
+      "brand": "Euronet",
+      "subtype": "atm",
+      "outputXZ": [
+        41.1,
+        -510.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11257054233",
+          "sourceUrl": "https://www.openstreetmap.org/node/11257054233",
+          "xy": [
+            41.09868665335853,
+            -510.2736912005338
+          ],
+          "tags": {
+            "amenity": "atm",
+            "brand": "Euronet",
+            "level": "1"
+          },
+          "distanceM": 0.026341560484423196
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 33,
+      "kind": "shop",
+      "name": "Hertz",
+      "brand": "Hertz",
+      "subtype": "car_rental",
+      "outputXZ": [
+        59.1,
+        -547.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11257087450",
+          "sourceUrl": "https://www.openstreetmap.org/node/11257087450",
+          "xy": [
+            59.07837068327217,
+            -547.4362320005166
+          ],
+          "tags": {
+            "amenity": "car_rental",
+            "brand": "Hertz",
+            "level": "1",
+            "name": "Hertz"
+          },
+          "distanceM": 0.04219698097672681
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 34,
+      "kind": "shop",
+      "name": "Autonom",
+      "brand": "",
+      "subtype": "car_rental",
+      "outputXZ": [
+        56.2,
+        -547.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11257087451",
+          "sourceUrl": "https://www.openstreetmap.org/node/11257087451",
+          "xy": [
+            56.15974530917843,
+            -547.3917791999971
+          ],
+          "tags": {
+            "amenity": "car_rental",
+            "level": "1",
+            "name": "Autonom"
+          },
+          "distanceM": 0.04108554107988553
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 35,
+      "kind": "shop",
+      "name": "Alamo",
+      "brand": "Alamo",
+      "subtype": "car_rental",
+      "outputXZ": [
+        57.1,
+        -547.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11257087452",
+          "sourceUrl": "https://www.openstreetmap.org/node/11257087452",
+          "xy": [
+            57.12733306910037,
+            -547.4140056002569
+          ],
+          "tags": {
+            "amenity": "car_rental",
+            "brand": "Alamo",
+            "level": "1",
+            "name": "Alamo"
+          },
+          "distanceM": 0.030712432417554163
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 36,
+      "kind": "shop",
+      "name": "SIXT",
+      "brand": "SIXT",
+      "subtype": "car_rental",
+      "outputXZ": [
+        60,
+        -547.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11257087453",
+          "sourceUrl": "https://www.openstreetmap.org/node/11257087453",
+          "xy": [
+            60.01423425425643,
+            -547.4806848002465
+          ],
+          "tags": {
+            "amenity": "car_rental",
+            "brand": "SIXT",
+            "level": "1",
+            "name": "SIXT"
+          },
+          "distanceM": 0.023993560297565247
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 37,
+      "kind": "shop",
+      "name": "Avis",
+      "brand": "Avis",
+      "subtype": "car_rental",
+      "outputXZ": [
+        58.1,
+        -547.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11257087454",
+          "sourceUrl": "https://www.openstreetmap.org/node/11257087454",
+          "xy": [
+            58.10285187632715,
+            -547.4584583999867
+          ],
+          "tags": {
+            "amenity": "car_rental",
+            "brand": "Avis",
+            "level": "1",
+            "name": "Avis"
+          },
+          "distanceM": 0.04163937715969239
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 38,
+      "kind": "shop",
+      "name": "okmobility",
+      "brand": "",
+      "subtype": "car_rental",
+      "outputXZ": [
+        61.1,
+        -547.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11257087455",
+          "sourceUrl": "https://www.openstreetmap.org/node/11257087455",
+          "xy": [
+            61.05320143907678,
+            -547.5362508001062
+          ],
+          "tags": {
+            "amenity": "car_rental",
+            "level": "1",
+            "name": "okmobility"
+          },
+          "distanceM": 0.05919650169416621
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 39,
+      "kind": "bank",
+      "name": "UniCredit Bank",
+      "brand": "Alpha Bank",
+      "subtype": "atm",
+      "outputXZ": [
+        39.3,
+        -495.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11594858570",
+          "sourceUrl": "https://www.openstreetmap.org/node/11594858570",
+          "xy": [
+            39.2507526530228,
+            -495.41534280061853
+          ],
+          "tags": {
+            "amenity": "atm",
+            "brand": "Alpha Bank",
+            "name": "UniCredit Bank"
+          },
+          "distanceM": 0.0515819999138568
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 40,
+      "kind": "bank",
+      "name": "BRD Bank",
+      "brand": "BRD",
+      "subtype": "atm",
+      "outputXZ": [
+        35.6,
+        -472.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11594858571",
+          "sourceUrl": "https://www.openstreetmap.org/node/11594858571",
+          "xy": [
+            35.56281569937445,
+            -472.2554340000266
+          ],
+          "tags": {
+            "amenity": "atm",
+            "brand": "BRD",
+            "name": "BRD Bank"
+          },
+          "distanceM": 0.05804136944148788
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 41,
+      "kind": "bank",
+      "name": "Raiffeisenbank",
+      "brand": "Raiffeisen Bank",
+      "subtype": "atm",
+      "outputXZ": [
+        30.1,
+        -473.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11594858572",
+          "sourceUrl": "https://www.openstreetmap.org/node/11594858572",
+          "xy": [
+            30.08246207567906,
+            -473.6779236000675
+          ],
+          "tags": {
+            "amenity": "atm",
+            "brand": "Raiffeisen Bank",
+            "name": "Raiffeisenbank"
+          },
+          "distanceM": 0.028194790715051224
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 42,
+      "kind": "bank",
+      "name": "UniCredit Bank",
+      "brand": "UniCredit Bank",
+      "subtype": "atm",
+      "outputXZ": [
+        49,
+        -544.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11594858573",
+          "sourceUrl": "https://www.openstreetmap.org/node/11594858573",
+          "xy": [
+            49.00594072388182,
+            -544.1467247999778
+          ],
+          "tags": {
+            "amenity": "atm",
+            "brand": "UniCredit Bank",
+            "name": "UniCredit Bank"
+          },
+          "distanceM": 0.047100946202891465
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 43,
+      "kind": "landmark",
+      "name": "Decebal",
+      "brand": "",
+      "subtype": "artwork",
+      "outputXZ": [
+        244.5,
+        -644.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n12593112638",
+          "sourceUrl": "https://www.openstreetmap.org/node/12593112638",
+          "xy": [
+            244.49832345674608,
+            -644.0877324000202
+          ],
+          "tags": {
+            "level": "2",
+            "name": "Decebal",
+            "tourism": "artwork"
+          },
+          "distanceM": 0.012381631820882602
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 44,
+      "kind": "landmark",
+      "name": "Art Safari",
+      "brand": "",
+      "subtype": "museum",
+      "outputXZ": [
+        285.5,
+        -632
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n12593422548",
+          "sourceUrl": "https://www.openstreetmap.org/node/12593422548",
+          "xy": [
+            285.53356173251103,
+            -632.0410236005868
+          ],
+          "tags": {
+            "level": "1",
+            "name": "Art Safari",
+            "tourism": "museum"
+          },
+          "distanceM": 0.053003072498145176
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 45,
+      "kind": "landmark",
+      "name": "Art Safari",
+      "brand": "",
+      "subtype": "museum",
+      "outputXZ": [
+        223.3,
+        -624.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n12593422571",
+          "sourceUrl": "https://www.openstreetmap.org/node/12593422571",
+          "xy": [
+            223.29070321151224,
+            -624.8063304005329
+          ],
+          "tags": {
+            "level": "1",
+            "name": "Art Safari",
+            "tourism": "museum"
+          },
+          "distanceM": 0.011247410683995675
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 46,
+      "kind": "shop",
+      "name": "Ferremo Trendy",
+      "brand": "",
+      "subtype": "furniture",
+      "outputXZ": [
+        -556.9,
+        783.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w259171763",
+          "sourceUrl": "https://www.openstreetmap.org/way/259171763",
+          "xy": [
+            -556.9116939454731,
+            783.6705793628266
+          ],
+          "tags": {
+            "name": "Ferremo Trendy",
+            "shop": "furniture"
+          },
+          "distanceM": 0.03165947334397078
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 47,
+      "kind": "shop",
+      "name": "Mega Image",
+      "brand": "Mega Image",
+      "subtype": "supermarket",
+      "outputXZ": [
+        -572.5,
+        1057.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w312547018",
+          "sourceUrl": "https://www.openstreetmap.org/way/312547018",
+          "xy": [
+            -572.4550567276741,
+            1057.6488005995782
+          ],
+          "tags": {
+            "brand": "Mega Image",
+            "name": "Mega Image",
+            "shop": "supermarket"
+          },
+          "distanceM": 0.06634301957672982
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 48,
+      "kind": "shop",
+      "name": "Gazprom",
+      "brand": "",
+      "subtype": "convenience",
+      "outputXZ": [
+        -566.9,
+        748.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w918040927",
+          "sourceUrl": "https://www.openstreetmap.org/way/918040927",
+          "xy": [
+            -566.880418284502,
+            748.2842326407847
+          ],
+          "tags": {
+            "name": "Gazprom",
+            "shop": "convenience"
+          },
+          "distanceM": 0.025140668218416058
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 49,
+      "kind": "fuel",
+      "name": "Gazprom",
+      "brand": "Gazprom",
+      "subtype": "fuel",
+      "outputXZ": [
+        -581.2,
+        749.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w918040928",
+          "sourceUrl": "https://www.openstreetmap.org/way/918040928",
+          "xy": [
+            -581.2428854807348,
+            749.8322797733294
+          ],
+          "tags": {
+            "amenity": "fuel",
+            "brand": "Gazprom",
+            "name": "Gazprom"
+          },
+          "distanceM": 0.05367632833991427
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 50,
+      "kind": "hotel",
+      "name": "Ramada",
+      "brand": "Ramada",
+      "subtype": "hotel",
+      "outputXZ": [
+        -547,
+        526.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w259171710",
+          "sourceUrl": "https://www.openstreetmap.org/way/259171710",
+          "xy": [
+            -547.0356111962304,
+            526.759794085088
+          ],
+          "tags": {
+            "brand": "Ramada",
+            "name": "Ramada",
+            "tourism": "hotel"
+          },
+          "distanceM": 0.053709150904423
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 51,
+      "kind": "hotel",
+      "name": "Casa Românească",
+      "brand": "",
+      "subtype": "hotel",
+      "outputXZ": [
+        -594.9,
+        -458.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w303678255",
+          "sourceUrl": "https://www.openstreetmap.org/way/303678255",
+          "xy": [
+            -594.9348297480173,
+            -458.7717009228355
+          ],
+          "tags": {
+            "name": "Casa Românească",
+            "tourism": "hotel"
+          },
+          "distanceM": 0.04487704441369253
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 52,
+      "kind": "hotel",
+      "name": "Vienna House Easy Airport Bucharest",
+      "brand": "Vienna House",
+      "subtype": "hotel",
+      "outputXZ": [
+        -640.5,
+        -323.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w303678262",
+          "sourceUrl": "https://www.openstreetmap.org/way/303678262",
+          "xy": [
+            -640.5168734169131,
+            -323.3659802086942
+          ],
+          "tags": {
+            "brand": "Vienna House",
+            "name": "Vienna House Easy Airport Bucharest",
+            "tourism": "hotel"
+          },
+          "distanceM": 0.03797444402239151
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 53,
+      "kind": "office",
+      "name": "Novomatic Romania",
+      "brand": "",
+      "subtype": "company",
+      "outputXZ": [
+        -697.9,
+        -165.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w303678264",
+          "sourceUrl": "https://www.openstreetmap.org/way/303678264",
+          "xy": [
+            -697.9150157736905,
+            -165.56600392484424
+          ],
+          "tags": {
+            "name": "Novomatic Romania",
+            "office": "company"
+          },
+          "distanceM": 0.0371645877889138
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 54,
+      "kind": "fuel",
+      "name": "Rompetrol",
+      "brand": "Rompetrol",
+      "subtype": "fuel",
+      "outputXZ": [
+        -567,
+        469
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w312547071",
+          "sourceUrl": "https://www.openstreetmap.org/way/312547071",
+          "xy": [
+            -567.0073868493754,
+            468.95914516783233
+          ],
+          "tags": {
+            "amenity": "fuel",
+            "brand": "Rompetrol",
+            "name": "Rompetrol"
+          },
+          "distanceM": 0.04151725972584221
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 55,
+      "kind": "food",
+      "name": "Casa Românească",
+      "brand": "",
+      "subtype": "restaurant",
+      "outputXZ": [
+        -614.1,
+        -446.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w495066823",
+          "sourceUrl": "https://www.openstreetmap.org/way/495066823",
+          "xy": [
+            -614.0975067852485,
+            -446.05134402736826
+          ],
+          "tags": {
+            "amenity": "restaurant",
+            "name": "Casa Românească"
+          },
+          "distanceM": 0.048719809036369355
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 56,
+      "kind": "shop",
+      "name": "hei",
+      "brand": "hei",
+      "subtype": "convenience",
+      "outputXZ": [
+        -548.3,
+        469.2
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w918040920",
+          "sourceUrl": "https://www.openstreetmap.org/way/918040920",
+          "xy": [
+            -548.3414867937885,
+            469.19722520335336
+          ],
+          "tags": {
+            "brand": "hei",
+            "name": "hei",
+            "shop": "convenience"
+          },
+          "distanceM": 0.041579484788553014
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 57,
+      "kind": "hotel",
+      "name": "Ibis Styles",
+      "brand": "Ibis Styles",
+      "subtype": "hotel",
+      "outputXZ": [
+        -535.2,
+        358.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w918040921",
+          "sourceUrl": "https://www.openstreetmap.org/way/918040921",
+          "xy": [
+            -535.2105970099865,
+            358.59244299333267
+          ],
+          "tags": {
+            "brand": "Ibis Styles",
+            "name": "Ibis Styles",
+            "tourism": "hotel"
+          },
+          "distanceM": 0.013015566465704512
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 58,
+      "kind": "fuel",
+      "name": "Rompetrol",
+      "brand": "Rompetrol",
+      "subtype": "fuel",
+      "outputXZ": [
+        -639.8,
+        406.2
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w918040922",
+          "sourceUrl": "https://www.openstreetmap.org/way/918040922",
+          "xy": [
+            -639.7753681251371,
+            406.21632536790327
+          ],
+          "tags": {
+            "amenity": "fuel",
+            "brand": "Rompetrol",
+            "name": "Rompetrol"
+          },
+          "distanceM": 0.02955075119918928
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 59,
+      "kind": "shop",
+      "name": "hei",
+      "brand": "hei",
+      "subtype": "convenience",
+      "outputXZ": [
+        -658.7,
+        401.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w918040923",
+          "sourceUrl": "https://www.openstreetmap.org/way/918040923",
+          "xy": [
+            -658.6840606551694,
+            401.5168070267215
+          ],
+          "tags": {
+            "brand": "hei",
+            "name": "hei",
+            "shop": "convenience"
+          },
+          "distanceM": 0.023163308503876823
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 60,
+      "kind": "shop",
+      "name": "Speli-Singur.ro",
+      "brand": "",
+      "subtype": "car_wash",
+      "outputXZ": [
+        -635.5,
+        446.2
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w1244020417",
+          "sourceUrl": "https://www.openstreetmap.org/way/1244020417",
+          "xy": [
+            -635.4631797213826,
+            446.17008323174315
+          ],
+          "tags": {
+            "amenity": "car_wash",
+            "name": "Speli-Singur.ro"
+          },
+          "distanceM": 0.04744202715308626
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 61,
+      "kind": "shop",
+      "name": "Viva",
+      "brand": "Viva",
+      "subtype": "convenience",
+      "outputXZ": [
+        -522.8,
+        -230.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w244429094",
+          "sourceUrl": "https://www.openstreetmap.org/way/244429094",
+          "xy": [
+            -522.8405926858085,
+            -230.54569389074604
+          ],
+          "tags": {
+            "brand": "Viva",
+            "name": "Viva",
+            "shop": "convenience"
+          },
+          "distanceM": 0.06112035497818986
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 62,
+      "kind": "fuel",
+      "name": "OMV",
+      "brand": "OMV",
+      "subtype": "fuel",
+      "outputXZ": [
+        -539.4,
+        -229.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w244429098",
+          "sourceUrl": "https://www.openstreetmap.org/way/244429098",
+          "xy": [
+            -539.4072295320537,
+            -229.73490100991384
+          ],
+          "tags": {
+            "amenity": "fuel",
+            "brand": "OMV",
+            "name": "OMV"
+          },
+          "distanceM": 0.035641922320819405
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 63,
+      "kind": "landmark",
+      "name": "Monumentul Eroilor Jandarmi",
+      "brand": "",
+      "subtype": "memorial",
+      "outputXZ": [
+        -199.1,
+        -408.2
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w565845891",
+          "sourceUrl": "https://www.openstreetmap.org/way/565845891",
+          "xy": [
+            -199.0557911955641,
+            -408.15592789999295
+          ],
+          "tags": {
+            "highway": "pedestrian",
+            "historic": "memorial",
+            "name": "Monumentul Eroilor Jandarmi"
+          },
+          "distanceM": 0.06242410102422083
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 64,
+      "kind": "airport",
+      "name": "Aeroportul Otopeni Henri Coandă - Sosiri",
+      "brand": "",
+      "subtype": "terminal",
+      "outputXZ": [
+        61.2,
+        -470.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w771096081",
+          "sourceUrl": "https://www.openstreetmap.org/way/771096081",
+          "xy": [
+            61.22911149514089,
+            -470.41544471757754
+          ],
+          "tags": {
+            "aeroway": "terminal",
+            "name": "Aeroportul Otopeni Henri Coandă - Sosiri"
+          },
+          "distanceM": 0.03295479404257828
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 65,
+      "kind": "airport",
+      "name": "Aeroportul Otopeni Henri Coandă - Plecări",
+      "brand": "",
+      "subtype": "terminal",
+      "outputXZ": [
+        40.7,
+        -738
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w771096082",
+          "sourceUrl": "https://www.openstreetmap.org/way/771096082",
+          "xy": [
+            40.73679948867258,
+            -737.9505503044419
+          ],
+          "tags": {
+            "aeroway": "terminal",
+            "name": "Aeroportul Otopeni Henri Coandă - Plecări"
+          },
+          "distanceM": 0.06163987960203168
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 66,
+      "kind": "airport",
+      "name": "Terminalul Vioara",
+      "brand": "",
+      "subtype": "terminal",
+      "outputXZ": [
+        258.9,
+        -633.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w771096083",
+          "sourceUrl": "https://www.openstreetmap.org/way/771096083",
+          "xy": [
+            258.92214976789086,
+            -633.8137868195389
+          ],
+          "tags": {
+            "aeroway": "terminal",
+            "name": "Terminalul Vioara"
+          },
+          "distanceM": 0.026090009785729357
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 67,
+      "kind": "food",
+      "name": "Vivo Fusion Food Bar",
+      "brand": "",
+      "subtype": "restaurant",
+      "outputXZ": [
+        157.6,
+        -629.9
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w1360350035",
+          "sourceUrl": "https://www.openstreetmap.org/way/1360350035",
+          "xy": [
+            157.57255750687034,
+            -629.8874597231339
+          ],
+          "tags": {
+            "amenity": "restaurant",
+            "level": "1",
+            "name": "Vivo Fusion Food Bar"
+          },
+          "distanceM": 0.030171989875517013
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 68,
+      "kind": "shop",
+      "name": "Aelia Duty Free",
+      "brand": "",
+      "subtype": "department_store",
+      "outputXZ": [
+        101,
+        -607.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w1360350051",
+          "sourceUrl": "https://www.openstreetmap.org/way/1360350051",
+          "xy": [
+            100.9873826297279,
+            -607.5440766328194
+          ],
+          "tags": {
+            "level": "1",
+            "name": "Aelia Duty Free",
+            "shop": "department_store"
+          },
+          "distanceM": 0.04584700200970503
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 69,
+      "kind": "shop",
+      "name": "Gioleia",
+      "brand": "",
+      "subtype": "confectionery",
+      "outputXZ": [
+        154.2,
+        -618.2
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w1360350054",
+          "sourceUrl": "https://www.openstreetmap.org/way/1360350054",
+          "xy": [
+            154.18707523807035,
+            -618.24001679196
+          ],
+          "tags": {
+            "level": "1",
+            "name": "Gioleia",
+            "shop": "confectionery"
+          },
+          "distanceM": 0.04205226640388337
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 70,
+      "kind": "shop",
+      "name": "Relay",
+      "brand": "Relay",
+      "subtype": "convenience",
+      "outputXZ": [
+        140.2,
+        -627.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w1360350063",
+          "sourceUrl": "https://www.openstreetmap.org/way/1360350063",
+          "xy": [
+            140.1601028301087,
+            -627.3386736246774
+          ],
+          "tags": {
+            "brand": "Relay",
+            "level": "1",
+            "name": "Relay",
+            "shop": "convenience"
+          },
+          "distanceM": 0.05556467772809709
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 71,
+      "kind": "food",
+      "name": "Hot Dog",
+      "brand": "",
+      "subtype": "fast_food",
+      "outputXZ": [
+        146.5,
+        -627.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w1360350066",
+          "sourceUrl": "https://www.openstreetmap.org/way/1360350066",
+          "xy": [
+            146.45482775765493,
+            -627.763273370556
+          ],
+          "tags": {
+            "amenity": "fast_food",
+            "level": "1",
+            "name": "Hot Dog"
+          },
+          "distanceM": 0.05821835439785412
+        }
+      ],
+      "locatorMatches": []
+    }
+  ]
+}

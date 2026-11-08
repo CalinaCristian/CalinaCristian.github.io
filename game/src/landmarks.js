@@ -1645,14 +1645,23 @@ function bASE(b) {
 // Hotel Ambasador (1937-39, Arghir Culina) — interwar modernist stepped hotel on Bd. Magheru (~13 floors).
 // Src: https://en.wikipedia.org/wiki/Hotel_Ambasador_(Bucharest)
 function bAmbasador(b) {
+    // (after round 6, owner: "looks weird") interwar modernist slab stepping back in tiers over Magheru: cream render,
+    // regular punched windows (glazed: lit rooms at night), a cornice line at every setback, the red vertical AMBASADOR
+    // sign on the front corner and the name on the roof. The upper tiers are insets of the real footprint (the old
+    // bounding-box tiers hung over the notch in the plan).
     b.wall = '#e9e3d4';
-    const [p] = P.ambasador.map(pts), S = '#e9e3d4', bb = bbox([p]), cx = (bb.x0 + bb.x1) / 2, cz = (bb.z0 + bb.z1) / 2;
-    b.prism(p, 0, 25, S); b.bands(p, 0, 25, 3.3, '#4a4f55', { frac: 0.5 });
-    const t1 = rect(bb.x0 + 6, bb.z0 + 4, bb.x1 - 6, bb.z1 - 8), t2 = rect(cx - 9, cz - 7, cx + 9, cz + 5);
-    b.prism(t1, 25, 38, S); b.bands(t1, 25, 38, 3.3, '#4a4f55', { frac: 0.5 });
-    b.prism(t2, 38, 46, S); b.bands(t2, 38, 46, 3.3, '#4a4f55', { frac: 0.5 });
+    const [p] = P.ambasador.map(pts), S = '#e9e3d4', T = '#d8d1c0', GL = '#38424c', bb = bbox([p]), cx = (bb.x0 + bb.x1) / 2, cz = (bb.z0 + bb.z1) / 2;
+    const tiers = [[p, 0, 25], [rect(-18, -11, 20, 15), 25, 34], [rect(cx - 13, cz - 9, cx + 13, cz + 7), 34, 40.5], [rect(cx - 8, cz - 6, cx + 8, cz + 4), 40.5, 46]];
+    for (const [q, y0, y1] of tiers) {
+        b.prism(q, y0, y1, S, { topCol: '#bdb6a8' });
+        b.windows(q, y0 + (y0 ? 0.4 : 4.2), y1 - 0.3, 3.1, GL, { bay: 2.9, wf: 0.46, hf: 0.52, start: 0.6, minL: 3, mat: 'g', off: 0.06 });
+        b.cornice(q, y1, 0.55, 0.45, T);
+    }
+    b.prism(offset(p, 0.05), 0, 4.2, '#cfc6b3', { top: false });                                       // ground floor: shopfront base
+    b.windows(p, 0.4, 3.8, 3.8, '#2c3238', { bay: 4.2, wf: 0.78, hf: 0.82, start: 0.1, minL: 4, mat: 'g', off: 0.08 });
     b.box(cx, 46, cz - 1, 6, 3, 6, S); b.cyl(cx, 49, cz - 1, 0.2, 0.2, 5, '#bbb', 6);
-    b.box(cx + 12, 8, bb.z0 - 0.8, 2.2, 22, 0.8, '#b52b2b');                  // vertical "AMBASADOR" sign
+    b.box(cx + 12, 8, bb.z0 - 0.9, 2.2, 22, 0.8, '#b52b2b');                                          // vertical "AMBASADOR" sign
+    b.text('AMBASADOR', cx, 46.6, cz + 4.05, Math.PI, 1.3, '#d22b2b');                                  // name on the roof crown
     b.colPoly([p], 15);
 }
 
@@ -2772,7 +2781,7 @@ export const LANDMARKS = [
     L('baneasaterm', 'bucharest', 'Aeroportul Băneasa (terminal 1952)', ['Aeroportul Internațional Aurel Vlaicu'], 75, bBaneasaTerm),
     L('otp', 'bucharest', 'Aeroportul Henri Coandă', ['Aeroportul Otopeni Henri Coandă - Plecări', 'Aeroportul Otopeni Henri Coandă - Sosiri', 'Terminalul Vioara'], 230, bOTP),
     L('ase', 'bucharest', 'ASE — Palatul Ion N. Angelescu', ['Clădirea Ion N. Angelescu', 'Academia de Studii Economice'], 60, bASE),
-    L('ambasador', 'bucharest', 'Hotel Ambasador', ['Hotel Ambasador'], 30, bAmbasador),
+    L('ambasador', 'bucharest', 'Hotel Ambasador', ['Hotel Ambasador'], 30, bAmbasador, { floodlit: true }),
     L('aro', 'bucharest', 'Blocul ARO / Patria', ['Bl. ARO/Patria', 'Hanul Elias - Patria'], 32, bARO),
     L('thelandmark', 'bucharest', 'The Landmark (UiPath HQ)', ['The Landmark Corp B'], 25, bTheLandmark, { cvStop: 'uipath-buc', ownSign: true }),
     L('europehouse', 'bucharest', 'Europe House', ['Europe House'], 24, bEuropeHouse, { cvStop: 'arnia', ownSign: true }),

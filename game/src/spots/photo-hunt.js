@@ -17,8 +17,11 @@ export function photoHunt(ctx, { x, z, title, targets, unavailable, onDone }) {
         const distance=toward.length(),tolerance=target.surfaceTolerance??Math.max(.8,(target.radius||2)*1.5);
         ray.set(origin,toward.normalize());ray.near=.08;ray.far=Math.max(.08,distance-tolerance);
         ctx.scene.updateMatrixWorld(true);
-        const hit=ray.intersectObjects(occluders.filter(visible),false)[0];
-        guide.visibility={clear:!hit,targetDistance:distance,surfaceTolerance:tolerance,hitDistance:hit?.distance??null,blocker:hit?.object.name||null};
+        const hit=ray.intersectObjects(occluders.filter(visible),false).find(h=>{
+            const g=s.guide;if(!g)return true;let crowd=false;for(let p=h.object;p;p=p.parent)if(p.name==='crowd')crowd=true;
+            return !(crowd&&Math.hypot(h.point.x-g.x,h.point.z-g.z)<.9&&h.point.y>=g.y-.1&&h.point.y<=g.y+3.4);
+        });
+        guide.visibility={label:target.label,clear:!hit,targetDistance:distance,surfaceTolerance:tolerance,hitDistance:hit?.distance??null,blocker:hit?.object.name||null};
         return !hit;
     };
     const guide = { targets, captures: [], ring };
@@ -26,7 +29,7 @@ export function photoHunt(ctx, { x, z, title, targets, unavailable, onDone }) {
     ctx.interactables.push({ kind:'photo-hunt',x,z,r:3,label:title,use:s=>flow.begin(s,{
         title,action:'Frame the detail',lockWalker:false,
         help:`${unavailable} Move along the public paths for a clear view, look with the mouse or swipe, centre the gold ring, then take each of ${targets.length} pictures.`,
-        started(s,r){r.step=0;r.flash=0;r.sightAt=-Infinity;guide.captures=[];r.busy=true;ring.visible=true;occluders=[];ctx.scene.traverse(o=>{if(!o.isMesh)return;const materials=Array.isArray(o.material)?o.material:[o.material];if(materials.every(m=>m.depthTest===false||(m.transparent&&m.opacity<.95)))return;if(!o.geometry.boundingBox)o.geometry.computeBoundingBox();occluders.push(o);});},
+        started(s,r){r.step=0;r.flash=0;r.sightAt=-Infinity;guide.captures=[];r.busy=true;ring.visible=true;occluders=[];ctx.scene.traverse(o=>{if(!o.isMesh)return;for(let p=o;p;p=p.parent)if(['visitor-photo-guide','visitor-candle','virtual-handheld-candle-holder','activity-coin'].includes(p.name))return;const materials=Array.isArray(o.material)?o.material:[o.material];if(materials.every(m=>m.depthTest===false||(m.transparent&&m.opacity<.95)))return;if(!o.geometry.boundingBox)o.geometry.computeBoundingBox();occluders.push(o);});},
         update(dt,s,r){
             const target=targets[r.step];if(!target)return;
             ring.position.set(target.x,target.y,target.z);ring.quaternion.copy(s.camera.getWorldQuaternion(new THREE.Quaternion()));

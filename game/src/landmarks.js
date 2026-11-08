@@ -3,6 +3,7 @@ import { makeWaterMaterial } from './water.js';
 import { LANDMARK_SOURCE_IDS } from './landmark-source-identities.js';
 import { BUCHAREST_SOURCE_MASSES } from './landmark-source-masses.js';
 import { OTP_ROOF_ZONES, OTP_ARRIVALS_PROFILE } from './landmark-otp-roofs.js';
+import { CEC_SOURCE_MASSES } from './landmark-cec-source.js';
 import { footprintCells } from './building-parts.js';
 import { US_FOOTPRINTS as U, US_SOURCE_TAGS as UT } from './landmark-us-source.js';
 import { emitUSLandmarkTerrain } from './landmark-us-terrain.js';
@@ -1204,56 +1205,43 @@ function bVictoria(b) {
 
 }
 
-// Palatul CEC (Paul Gottereau, 1897-1900) — eclectic, ≈ 58 x 60 m (OSM way 973712798); glass-and-iron dome over the
-// banking hall (top ≈ 40 m), the Calea Victoriei corner (+x) entrance pavilion = a monumental semicircular arch
-// whose archivolt crowns the pavilion, flanked by paired composite columns, a glazed recess behind it (door, balcony,
-// clock in the tympanum); four corner pavilions with pediments under square-plan (cloister) zinc domes with lanterns.
-// Warm limestone/stucco (research #E2D9C6), zinc-grey domes #8d9799 (Commons "Bucharest CEC building 02").
-// Src: https://en.wikipedia.org/wiki/CEC_Palace ; OSM way 973712798
+// Palatul CEC (Paul Gottereau,1897–1900): exact44×60m OSM parent/part complex.
+// 162 source volumes include the seven relation outers introduced by the part-only audit.
+// Literal total heights reach37.5m; nine absent totals and unmapped roof rises remain estimates.
+// Full source provenance and unsupported raw roof forms: research/landmark-cec-source-assemblies.json.
 function bCEC(b) {
-    const S = '#e2d6bb', TR = '#d6c8a8', MT = '#8d9799', WIN = '#4a4943', COL = '#ece4d0';
+    const S = '#e2d6bb', TR = '#d6c8a8', WIN = '#4a4943', COL = '#ece4d0';
     b.wall = S;
-    const [p] = P.cec.map(pts);
-    storeys(b, p, 0, [[6.5, 0.45, 0.68, true], [5.4, 0.4, 0.62, true], [4.6, 0.38, 0.55, false]], { wall: S, win: WIN, trim: TR, bay: 4.4, courses: [0, 1], pilasters: true, pilasterEvery: 1, pilasterW: 0.8, corniceOut: 0.9, parapet: 1, minL: 5 });
-    for (let k = 0; k < 4; k++) b.cornice(p, 0.8 + k * 1.4, 0.1, 0.07, '#cbbd9d');           // rusticated ground floor
-    // central glass-and-iron dome on a drum with a balustrade
-    b.cyl(0, 17.6, 0, 11, 11.5, 4.5, S, 20); b.windows(ellipse(0, 0, 11.3, 11.3, 10), 17.6, 22, 4.4, WIN, { bay: 7, wf: 0.35, hf: 0.6, arch: true, minL: 3 });
-    b.cyl(0, 22, 0, 11.7, 11.7, 0.5, TR, 20); b.cyl(0, 22.5, 0, 11.5, 11.5, 0.9, '#d9cdb0', 20, { open: true });
-    b.geo(new THREE.LatheGeometry([[11, 0], [10.4, 4], [8.4, 8.2], [5.2, 11.4], [1.6, 12.8], [0.01, 13]].map(([a, c]) => new THREE.Vector2(a, c)), 20), '#a9bcc2', M(0, 22.1, 0), 'g');
-    for (let i = 0; i < 16; i++) { const a = i / 16 * Math.PI * 2; b.tube([[Math.cos(a) * 11.15, 22.1, Math.sin(a) * 11.15], [Math.cos(a) * 10.5, 26.1, Math.sin(a) * 10.5], [Math.cos(a) * 8.5, 30.3, Math.sin(a) * 8.5], [Math.cos(a) * 1.7, 34.9, Math.sin(a) * 1.7]], 0.16, '#5d6668', { seg: 4, radial: 3, mat: 'g' }); }
-    for (const [r, y] of [[10.75, 25.6], [8.9, 29.8]]) b.geo(new THREE.TorusGeometry(r, 0.14, 3, 20), '#5d6668', M(0, y, 0, 0, 1, 1, 1, Math.PI / 2), 'g');
-    b.cyl(0, 35, 0, 1.6, 1.8, 2.6, MT, 8); b.dome(0, 37.6, 0, 1.7, 1.4, MT, 8); b.cone(0, 38.9, 0, 0.4, 1.6, MT, 6);
-    // entrance pavilion (+x): crowning archivolt, deep arch with a glazed recess, paired columns, small dome behind
-    const xf = xAt([p], 0)?.[1] ?? 22;
-    b.box(xf - 5.7, 0, 0, 7, 16, 18, S);
-    for (const sg of [-1, 1]) b.box(xf - 1.2, 0, sg * 7, 2.1, 16, 4, S);
-    b.box(xf - 1.2, 15.2, 0, 2.1, 0.8, 10.2, S);
-    b.archWall(18.2, 16, 1.6, [{ x: 0, w: 10, h: 15.4 }], TR, M(xf + 0.6, 0, 0, Math.PI / 2));
-    { const sh = new THREE.Shape(); sh.absarc(0, 0, 9.1, 0, Math.PI, false); sh.lineTo(9.1, 0); const g = new THREE.ExtrudeGeometry(sh, { depth: 2.2, bevelEnabled: false, curveSegments: 16 }); g.translate(0, 0, -1.1); b.geo(g, S, M(xf + 0.3, 10.6, 0, Math.PI / 2)); }   // archivolt / crowning half-disc
-    b.geo(new THREE.TorusGeometry(9.2, 0.45, 4, 20, Math.PI), TR, M(xf + 0.9, 10.6, 0, Math.PI / 2));
-    b.geo(new THREE.TorusGeometry(5.2, 0.35, 4, 16, Math.PI), TR, M(xf + 1.4, 10.4, 0, Math.PI / 2));
-    // recess: door, two storeys of windows, balcony, clock and relief in the tympanum
-    const xr = xf - 2.2;
-    b.box(xr, 0, 0, 0.3, 5.8, 3.6, '#4a3a2a'); b.box(xr + 0.2, 0, 0, 0.3, 6.4, 4.4, TR);
-    for (const z of [-2.8, 2.8]) b.box(xr + 0.05, 7.4, z, 0.25, 3.2, 1.8, WIN);
-    b.box(xr + 0.6, 6.6, 0, 1.2, 0.3, 9, TR); b.fence([[xr + 1.15, -4.4], [xr + 1.15, 4.4]], 1, 1.1, '#2e3335', { post: 0.08 });
-    b.cyl(xr + 0.2, 12.4, 0, 1.1, 1.1, 0.3, '#f1ece0', 16, { rz: Math.PI / 2 }); b.cyl(xr + 0.3, 12.4, 0, 0.95, 0.95, 0.12, '#e9e3d4', 16, { rz: Math.PI / 2 });
-    b.box(xr + 0.35, 12.3, 0, 0.1, 0.8, 0.1, '#222'); b.box(xr + 0.35, 12.35, 0.2, 0.1, 0.1, 0.5, '#222');
-    for (const z of [-2.6, 2.6]) b.box(xr + 0.3, 11.4, z, 0.5, 2.2, 1.6, '#d9ccb0');
-    for (const z of [-6.8, -5.3, 5.3, 6.8]) { b.box(xf + 1.9, 1.2, z, 1.3, 1, 1.3, TR); b.cyl(xf + 1.9, 2.2, z, 0.48, 0.55, 10.4, COL, 10); b.box(xf + 1.9, 12.6, z, 1.25, 0.9, 1.25, '#cfc0a0'); }
-    b.box(xf + 1.9, 0, 0, 1.6, 1.2, 16, '#cfc6b3'); b.box(xf + 1.6, 13.5, 0, 2.6, 1.4, 18.4, TR);
-    for (let i = 0; i < 5; i++) b.box(xf + 3 - i * 0.4, i * 0.24, 0, 1.6, 0.24, 9, '#d3cab8');            // entrance steps
-    b.cyl(xf - 6, 16, 0, 4.6, 4.8, 5, S, 16); b.dome(xf - 6, 21, 0, 4.6, 5.4, MT, 16, { mat: 'g' });
-    b.cyl(xf - 6, 26.3, 0, 0.8, 0.9, 1.4, S, 8); b.cone(xf - 6, 27.7, 0, 0.8, 2.6, MT, 8);
-    // corner pavilions: attic with pediments, square-plan zinc cloister domes, lanterns + finials
-    const bb = bbox([p]);
-    for (const [x, z] of [[bb.x0 + 4.5, bb.z0 + 4.5], [bb.x1 - 4.5, bb.z0 + 4.5], [bb.x0 + 4.5, bb.z1 - 4.5], [bb.x1 - 4.5, bb.z1 - 4.5]]) {
-        b.box(x, 16.4, z, 7.6, 4.4, 7.6, S); b.box(x, 20.8, z, 8.2, 0.45, 8.2, TR);
-        for (const r2 of [0, Math.PI / 2]) for (const sg of [-1, 1]) { const ox = r2 ? 0 : sg * 3.85, oz = r2 ? sg * 3.85 : 0; b.pediment(x + ox, 18.6, z + oz, 4.6, 1.5, 0.5, TR, r2 ? 0 : Math.PI / 2); }
-        b.geo(new THREE.LatheGeometry([[5.2, 0], [5, 1.4], [4.2, 2.9], [2.7, 4.3], [0.9, 5], [0.01, 5.1]].map(([a, c]) => new THREE.Vector2(a, c)), 4), MT, M(x, 21.25, z, Math.PI / 4), 'g');
-        b.cyl(x, 26, z, 0.8, 1, 1.6, '#d9cdb0', 8); b.dome(x, 27.6, z, 0.9, 0.9, MT, 8, { mat: 'g' }); b.cone(x, 28.4, z, 0.22, 1.8, MT, 6);
+    const source = CEC_SOURCE_MASSES;
+    // Exact source masses replace the old uniform slab and guessed dome bodies.
+    // Body bands are physical unions; source-native roof clipping removes coplanar overlap.
+    for (const f of source.walls) b.quad(...f.vertices, f.colour, f.material, f.normal);
+    for (const f of source.roofs) b.tri(...f.vertices, f.colour, f.material, [0, 1, 0]);
+    for (const f of source.roofWalls) b.tri(...f.vertices, f.colour, f.material, f.normal);
+    const outerOrdinals = new Map();
+    for (const v of source.volumes) {
+        const outer = outerOrdinals.get(v.sourceId) || 0; outerOrdinals.set(v.sourceId, outer + 1);
+        b.colPolygon(v.ring, { holes: v.holes, y0: v.minimumM, y1: v.totalM });
+        Object.assign(b.cols[b.cols.length - 1], { sourceId: v.sourceId, sourceOuter: outer, sourceHeight: v.roofProfile.heightSource });
     }
-    b.colPolygon(p, { y1: 17.6 });
+    b.sourceMassAudit = { sourceDatasetSha256: source.sourceDatasetSha256, sourceVolumes: source.volumes.map(v => ({ sourceId: v.sourceId, sourceIndex: v.sourceIndex, totalM: v.totalM, minimumM: v.minimumM, holes: v.holes.length, heightSource: v.roofProfile.heightSource })), roofIssues: source.volumes.filter(v => v.roofProfile.issues?.length).map(v => ({ sourceId: v.sourceId, issues: v.roofProfile.issues })) };
+
+    // Facade ornament remains explicitly modelled rather than a second structural mass.
+    // Its lower-storey placement is an estimate; every source solid above remains intact.
+    const [p] = P.cec.map(pts);
+    b.windows(p, 0.5, 12.3, 6, WIN, { bay: 4.4, wf: 0.45, hf: 0.62, arch: true, minL: 5 });
+    for (const y of [0.8, 2.2, 6.5, 12.3]) b.cornice(p, y, 0.1, 0.07, '#cbbd9d');
+    const xf = xAt([p], 0)?.[1] ?? 22, xr = xf - 2.2;
+    b.geo(new THREE.TorusGeometry(7.3, 0.32, 4, 20, Math.PI), TR, M(xf + 0.08, 10.5, 0, Math.PI / 2));
+    b.geo(new THREE.TorusGeometry(5.2, 0.26, 4, 16, Math.PI), TR, M(xf + 0.12, 10.4, 0, Math.PI / 2));
+    b.box(xr, 0, 0, 0.3, 5.8, 3.6, '#4a3a2a');
+    for (const z of [-2.8, 2.8]) b.box(xr + 0.05, 7.4, z, 0.25, 3.2, 1.8, WIN);
+    b.box(xr + 0.6, 6.6, 0, 1.2, 0.3, 9, TR);
+    b.fence([[xr + 1.15, -4.4], [xr + 1.15, 4.4]], 1, 1.1, '#2e3335', { post: 0.08 });
+    b.cyl(xr + 0.2, 12.4, 0, 1.1, 1.1, 0.3, '#f1ece0', 16, { rz: Math.PI / 2 });
+    b.box(xr + 0.35, 12.3, 0, 0.1, 0.8, 0.1, '#222');
+    b.box(xr + 0.35, 12.35, 0.2, 0.1, 0.1, 0.5, '#222');
+    for (const z of [-6.8, -5.3, 5.3, 6.8]) b.cyl(xf + 0.08, 2.2, z, 0.38, 0.42, 10.4, COL, 10);
 }
 
 // Muzeul Național de Istorie a României (Palatul Poștelor, Alexandru Săvulescu, 1894-1900) — ≈ 22 m,
@@ -3493,6 +3481,7 @@ export function buildLandmark(lm, ctx = {}) {
     const { group, tris } = b.finish({ floodlit: !!lm.floodlit && ctx.floodlit !== false && !(lm.city === 'seattle' && !ctx.realScale) });
     group.name = 'landmark:' + lm.id;
     group.userData.landmark = lm.id;
+    if (b.sourceMassAudit) group.userData.sourceMassAudit = b.sourceMassAudit;
     if (b.footballPitch) group.userData.footballPitch = b.footballPitch;
     if (b.basketballCourt) group.userData.basketballCourt = b.basketballCourt;
     group.rotation.y = lm.rotation;

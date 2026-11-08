@@ -145,7 +145,8 @@ function show(id) {
   // Game-only overview evidence: exact camera, model bounds and current render counters.
   window.__landmarkCapture = { ...window.__stats, name: lm.name, anchor: { lat: lm.lat, lon: lm.lon, rotation: lm.rotation },
     view: top ? 'top' : street ? 'front' : 'oblique', camera: { projection: camera.isOrthographicCamera ? 'orthographic' : 'perspective', position: camera.position.toArray(), quaternion: camera.quaternion.toArray(),
-      fov: camera.fov, near: camera.near, far: camera.far, viewport: [innerWidth, innerHeight] },
+      fov: camera.fov, near: camera.near, far: camera.far, viewport: [innerWidth, innerHeight], up: camera.up.toArray(),
+      ...(camera.isOrthographicCamera ? { left: camera.left, right: camera.right, top: camera.top, bottom: camera.bottom, zoom: camera.zoom, groundSquareM: (camera.right-camera.left)/camera.zoom, groundWidthM: (camera.right-camera.left)/camera.zoom, groundDepthM: (camera.top-camera.bottom)/camera.zoom, orientation: 'north-up' } : {}) },
     bounds: { min: box.min.toArray(), max: box.max.toArray() }, collision: current.collision,
     render: { triangles: renderer.info.render.triangles, calls: renderer.info.render.calls } };
   if (!top && !qs.get('view')) history.replaceState(null, '', '?id=' + lm.id);

@@ -191,6 +191,14 @@
     }
   },
   "finding": "The untagged parent height12.8 estimate masks a literal1m part covering100% of its source footprint and an independent4m round roof. No literal source dimension requires that estimated tall block.",
-  "status": "reported to parent; source-part-derived parent-height correction pending coordination; no source rings/IDs dropped",
-  "imagery": "Independent Esri crop confirms a low portico roof; source roof colour is explicitly cyan and wins over the grey aerial appearance. Reference imagery remains private; no Google imagery extraction."
+  "status": "approved narrowly by parent; guarded research input ready for compilation and native proof; old12.8m baseline retained above",
+  "imagery": "Independent Esri crop confirms a low portico roof; source roof colour is explicitly cyan and wins over the grey aerial appearance. Reference imagery remains private; no Google imagery extraction.",
+  "resolution": {
+    "parentTotalM": 1,
+    "classification": "derived source-part estimate, not a literal parent height or aerial field measurement",
+    "independentRoofTotalM": 4,
+    "partTotalM": 1,
+    "sourceRingsAndIdentities": "all3 retained unchanged",
+    "guard": "Opt-in reviewed source part: original parent dimensions absent, source part literal height1 and ground minimum, complete source coverage and only.1% tolerated outside, no unreviewed holes; fail closed on source changes"
+  }
 }

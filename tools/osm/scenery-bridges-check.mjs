@@ -45,6 +45,43 @@ assert.ok(out.stats.crossings > 0); assert.equal(out.stats.unresolved.length, 0)
 assert.ok(out.stats.approachPieces > 0); assert.equal(JSON.stringify(f.data), before); assert.equal(out.profiles.has(3), false); checks += 3;
 for (const p of out.profiles.values()) for (let i = 1; i < p.points.length; i++) { assert.ok(Math.abs(p.heights[i] - p.heights[i - 1]) <= Math.hypot(p.points[i][0] - p.points[i - 1][0], p.points[i][1] - p.points[i - 1][1]) * .080001); checks++; }
 
+// A degree-three link merge cannot ground-cap the middle of the same actual source way.
+const mergeRows = [
+    { id: 'w1', points: [[0, 0], [100, 0]], ids: [1, 2], tags: { bridge: 'yes', layer: '1', name: 'Deck' } },
+    { id: 'w2', points: [[-200, 0], [-50, 0], [0, 0]], ids: [3, 4, 1], tags: { name: 'Deck' } },
+    { id: 'w3', points: [[-50, -100], [-50, 0]], ids: [5, 4], tags: {}, cls: 1 },
+    { id: 'w4', points: [[20, -50], [20, 50]], ids: [6, 7], tags: { name: 'Lower road' } },
+];
+out = resolve(fixture(mergeRows));
+assert.equal(out.stats.unresolved.length, 0); assert.ok(out.stats.continuations.some(c => c.kind === 'same source way through merge' && c.sourceNodeId === 4)); checks += 2;
+// A real named transverse cross-street still supplies the original ground cap at this junction.
+out = resolve(fixture(mergeRows.map((r, i) => i === 2 ? { ...r, cls: 0, tags: { name: 'Actual cross street' } } : r)));
+assert.ok(out.stats.unresolved.length > 0); checks++;
+
+// A bridge alias may differ from the two mapped, parallel carriageway approach names.
+const forkRows = [
+    { id: 'w1', points: [[0, 0], [100, 0]], ids: [1, 2], tags: { bridge: 'yes', layer: '1', name: 'River bridge' } },
+    { id: 'w2', points: [[-150, -8], [0, 0]], ids: [3, 1], tags: { name: 'Main Street', oneway: 'yes' } },
+    { id: 'w3', points: [[0, 0], [-150, 8]], ids: [1, 4], tags: { name: 'Main Street', oneway: 'yes' } },
+    { id: 'w4', points: [[20, -50], [20, 50]], ids: [5, 6], tags: { name: 'Lower road' } },
+];
+out = resolve(fixture(forkRows));
+assert.equal(out.stats.unresolved.length, 0); assert.equal(out.stats.continuations.filter(c => c.kind.includes('parallel approach fork')).length, 2); checks += 2;
+// Neither different names, a transverse arm, another class nor an elevated approach proves a fork.
+for (const replacement of [
+    { tags: { name: 'Side Street' } },
+    { points: [[0, 0], [0, 150]] },
+    { cls: 1 },
+    { tags: { name: 'Main Street', layer: '2' } },
+]) {
+    out = resolve(fixture(forkRows.map((r, i) => i === 2 ? { ...r, ...replacement } : r)));
+    assert.ok(out.stats.unresolved.length > 0); assert.equal(out.stats.continuations.some(c => c.kind.includes('parallel approach fork')), false); checks += 2;
+}
+// Literal core source constraints retain precedence even when the real fork is recognised.
+const fixed = { sourceId: 'w1', road: 0, a: { x: 0, z: 0, y: 0, sourceId: 1 }, b: { x: 100, z: 0, y: 0, sourceId: 2 }, ya: 0, yb: 0, wL: 3.5, wR: 3.5, bridge: true, layer: 1 };
+out = resolve(fixture(forkRows, [fixed]));
+assert.ok(out.profiles.get(0).heights.every(y => y === 0)); assert.ok(out.stats.unresolved.length > 0); checks += 2;
+
 // Exercise the actual production collision function and shared QA queries at every part of a slope.
 const band = sceneryDeckBand([0, 0], [100, 0], 2, 10), poly = [[0, -3], [100, -3], [100, 3], [0, 3]];
 const deck = { x: 50, z: 0, r: 51, poly, roadDeck: true, y0: 1.84, y1: 10.24, h: 10.24, roofHeightAt: (x, z, r) => band(x, z, r).top, minHeightAt: (x, z, r) => band(x, z, r).bottom };

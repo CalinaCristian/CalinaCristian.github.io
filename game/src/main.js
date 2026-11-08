@@ -19,6 +19,7 @@ import { playFlight } from './flight.js';
 import { Navigator, CarScreen, canTravel, edgeSpeed, isMotorway, roadName, fmtDist, stepText, stepArrow, lanesDir } from './nav.js';
 import { isTouch, clamp, angleDiff, signTexture } from './util.js';
 import { Renderer3D } from './render.js';
+import { disposeDistrictScene } from './sceneResources.js';
 import { PhotoMode } from './photo.js';
 import { OnFootController } from './onfoot.js';
 import * as VEHICLES from './vehicles.js';
@@ -333,17 +334,42 @@ class Game {
     }
 
     // ----------------------------------------------------------------------------------
+    /** Release the outgoing district before fetching/building its replacement. The cockpit and render rig survive. */
+    disposeCity() {
+        this.endFoot();
+        this.football?.dispose(); this.football = null;
+        const retained = [this.player?.rig, this.carBody, this.foot?.rig, ...this.r3d.releaseScene()];
+        // Free crowd instance attributes before its module teardown detaches them from the wrapper geometry.
+        disposeDistrictScene(this.scene, { retained, landmarks: this.world?.landmarks || [] });
+        this.traffic?.dispose?.(); this.crew?.dispose?.(); this.crew = null;
+        this.renderer.renderLists.dispose(); // cached render items otherwise retain the outgoing scene's objects
+        if (this.player) Object.assign(this.player, { scene: null, world: null, traffic: null, bounds: null, supportEdge: null, softZones: [], _rhWorld: null, _wallSrc: null, _walls: null, _surf: null, _own: null });
+        if (this.foot) Object.assign(this.foot, { scene: null, world: null, traffic: null, colliders: null });
+        if (this.achievements) Object.assign(this.achievements, { drivePrev: null, walkPrev: null, _zw: null, _zebras: null });
+        for (const mm of [this.minimap, this.bigmap]) if (mm && mm.canvas?.__mm === mm) mm.canvas.__mm = null;
+        for (const s of STOPS) s.poiRef = null;
+        for (const key of ['world', 'scene', 'nav', 'traffic', 'minimap', 'bigmap', 'props', 'airport', 'objective', 'prevEdgeInfo', 'navInfo', '_passWorld', '_passList', '_outside', 'clamp']) this[key] = null;
+        for (const key of ['stopPois', 'stations', 'cameras', 'actionMarks', 'closures', 'workers']) this[key] = [];
+    }
+    /** A failed replacement has no street scene to resume; keep the last stable save available through Continue. */
+    cityLoadFailed(error) {
+        console.error('[world] district load failed', error);
+        this.disposeCity();
+        this.city = null; this.district = null; this.freeRoam = null; this.started = false; this.state = 'menu';
+        this.input.lookAllowed = false; this.input.releaseLock(); this.input.flush(); this.audio.stopEngine?.();
+        $('#loading').classList.remove('show'); $('#hud').classList.remove('show'); $('#menu').classList.add('show');
+        const resume = $('#continue'); if (resume) resume.hidden = !save.hasSession();
+        document.body.classList.remove('playing', 'free-roam');
+    }
     /** load a city: the old continuous map, or with `{ district, start }` one chapter district (spec 10) */
     async loadCity(id, { district = null, start = null } = {}) {
         this.explore?.hooks?.abortDrone?.();
-        this.football?.dispose(); this.football = null;
-        this.clamp = null; // (a new district: the clamp stays with the old one)
         const city = CITIES[id];
+        if (!city || (district && !city.districts?.[district])) throw new Error(`unknown district ${id}:${district}`);
+        this.disposeCity();
         this.city = city;
         this.chapter = null; this.ch = null; this.chapterIdx = -1; this.chapterDone = false; this.district = district;
-        this.endFoot();
         this.clock.timeZone = city.timeZone || TIME_ZONES[id] || 'UTC';
-        if (this.scene) { this.scene.traverse(o => { if (o.geometry && !o.userData.shared) o.geometry.dispose?.(); }); }
         const scene = this.scene = new THREE.Scene();
         const env = city.env;
         // lighting, sky, fog and weather are owned by Renderer3D (set up after the world exists)
@@ -359,7 +385,6 @@ class Game {
         this.nav = new Navigator(world);
         // traffic
         const hi = !(this.quality === 'low' || this.quality === 'medium' || this.touch);
-        try { this.traffic?.dispose?.(); } catch (e) { console.warn('[traffic] dispose', e); } // (its instanced crowd would stay registered)
         this.traffic = new Traffic(world, city, scene, {
             // pool size at the rush-hour peak; the live count follows the local hour (traffic.setHour)
             maxVehicles: hi ? (id === 'bucharest' ? 480 : 125) : (id === 'bucharest' ? 170 : 50),
@@ -382,7 +407,7 @@ class Game {
             this.player = new Player(scene, this.camera);
             this.player.onCollide = (s, what, v) => this.onCollide(s, what, v);
             this.setupScreen();
-        } else { scene.add(this.player.rig); }
+        } else { scene.add(this.player.rig); this.player.scene = scene; }
         this.player.world = world; this.player.traffic = this.traffic; this.player.bounds = world.bounds;
         this.traffic.setPlayer(this.player);
         this.placeSpawn(city, world);
@@ -2053,6 +2078,7 @@ ${['drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa="conditi
         }
         this._transit = true;
         try {
+            await save.saveSession('before-travel'); // before changing destination/conditions or releasing the stable scene
             this.freeRoam = { district: d.id, tod, weather, season };
             this.applyRoamTime(tod, CITIES[d.city].timeZone || TIME_ZONES[d.city]);
             this.weatherOverride = weather === 'live' ? null : (WEATHER_OVERRIDES.includes(weather) ? weather : null);
@@ -2063,7 +2089,8 @@ ${['drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa="conditi
             $('#loading').classList.remove('show');
             this.freeRoam = { district: d.id, tod, weather, season }; // (loadCity resets the chapter state)
             this.enterRoam(d);
-        } finally { this._transit = false; }
+        } catch (error) { this.cityLoadFailed(error); return false; }
+        finally { this._transit = false; }
         this.explore?.hooks?.afterFreeRoam?.(d.id); // (a free-roam start is roaming: the resume-story chip shows)
         return true;
     }
@@ -2174,6 +2201,7 @@ ${['drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa="conditi
     }
     /** load (or reuse) the chapter's district, put the car at its start, set the objective */
     async enterChapter(idx, { initial = false } = {}) {
+        await save.saveSession('before-chapter');
         this.explore?.hooks?.beforeChapter?.(); // (any chapter entry is Story)
         const ch = this.chapters[idx]; if (!ch) return false;
         const conditions = this.travelConditions();
@@ -2183,8 +2211,9 @@ ${['drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa="conditi
         if (!same) {
             $('#loading').classList.add('show');
             await new Promise(r => setTimeout(r, 30));
-            await this.loadCity(ch.city, { district: ch.district, start: ch.start });
-            $('#loading').classList.remove('show');
+            try { await this.loadCity(ch.city, { district: ch.district, start: ch.start }); }
+            catch (error) { this.cityLoadFailed(error); return false; }
+            finally { $('#loading').classList.remove('show'); }
         }
         // world.spawn is the chapter start when the world built this district for it; otherwise place it here
         const builtFor = !same && this.world.district?.id === ch.district;

@@ -291,6 +291,7 @@ function solidMaterial(atlas) {
     m.userData.nightEmissive = 1.2;
     m.userData.uClosed = { value: 0 }; // share of shops closed (shutters down), set by world from the local hour
     let night = null, win = null; try { ({ night, win } = nightAtlas(atlas)); } catch (e) { console.warn('[world] night atlas', e); }
+    m.userData.ownedTextures = [night, win].filter(Boolean); // shader-closure textures belong to this district material
     m.onBeforeCompile = (sh) => {
         sh.uniforms.nightMap = { value: night }; sh.uniforms.winMap = { value: win }; sh.uniforms.uClosed = m.userData.uClosed;
         sh.vertexShader = 'attribute float tile;\nvarying float vTileRaw;\nvarying float vWY;\n' + sh.vertexShader.replace('#include <uv_vertex>', '#include <uv_vertex>\n\tvTileRaw = tile;').replace('#include <begin_vertex>', '#include <begin_vertex>\n\tvWY = (modelMatrix * vec4(transformed, 1.0)).y;');

@@ -28,6 +28,27 @@ The profile path suppresses guessed rooftop plants, poles/cupolas and overshooti
 
 Romană is rebuilt privately using `/workspace/reality-pass/romana/tiles`; final all-district generated JSON belongs to root and district owners. No reference imagery belongs in git. Further actual browser, reference-image and mandatory foot/a results are appended in the evidence commit.
 
+### Browser and source evidence, 2026-11-08
+
+Private evidence: `/workspace/reality-pass/native-roof-profiles/`. The final immutable browser snapshot is `candidate-barrel`, archived from `c6d243d`, with its independently rebuilt Romană JSON. Subsequent `cf8c842` changes only the builder's small-building fallback: positive mapped levels now reach the normal levels estimate before a generic 3/4m roof default. The Unirii owner verifies source `w406473986` (two levels, 6.4m estimate and reviewed 5.8m clearance) during final district rebuilds.
+
+| Check | Result |
+| --- | --- |
+| Actual browser, final source profiles | 5,694 supplied/applied; zero rejected; 72 profiles retain explicit tag issues, with further estimated dimensions identified by their source fields |
+| Actual browser, final source roof caches | 1,856 applied; zero rejected |
+| High quality, full traffic, normal mirrors | Six Arnia/UiPath route frames; maximum 1,268,132 triangles and 331 calls (limits 1,500,000/400) |
+| Browser errors | Zero page errors and zero console errors |
+| Independent raw XML dimension audit | All 1,024 positive literal heights and 496 positive literal minimum heights in the rebuilt profile set agree; zero mismatches |
+| Mandatory `foot,a` | Zero high, zero medium; two low software-rendering/performance findings |
+| Actual drone flights | Four altitude/mode cases pass, no page/console errors; 150m boundary, stop and return behavior retained |
+| Football / drone boundary fixtures | 13/13 and 9/9 |
+
+`browser-barrel/results.json` records source profiles, precise rings, local roof collision probes and the six renderer counts. The five source examples are `w1526701232`, `w1526701233`, concave `w76256178`, two-courtyard `r2230393` and round `w1493880907`. All tested positions above each source total are clear, tested positions inside each actual roof solid collide, and both courtyard probes remain clear. The literal 9m/3m examples peak at 9m with 6m eaves; the literal 16m/1m round example has 15m eaves and its mapped 15m minimum. Foot/a ran against the earlier immutable `candidate-source` with the same collision API; later helper changes add roof topology without changing that API or legacy corridor data. Results are `logic/latest.json`, `drone/results.json`, `pure-fixtures.log`, `football.log` and `drone-boundary.log`.
+
+Top, south and north views of all five source cases were inspected in `inspected-source-contact-sheet.jpg`; the tower initially obscured the northern view of the 9m examples, so the clear northeast angle was recaptured and inspected in `browser-clear-angle`. Independent Esri World Imagery crops were fetched for the literal-height site, concave source, courtyard source and round source; acquisition dates are unknown. The courtyard openings and barrel building footprint can be compared, but tree/shadow cover prevents an exact visual roof judgment at the literal-height site. Its narrow projecting roofs are mapped gabled parts `w1526701235`–`w1526701239` and remain present. These references support source-led review, not a blanket claim of measured roof parity. No Street View data, meshes or copyrighted reference images are committed.
+
+The private final JSON is 19.46MB and is intentionally excluded from this branch; root/district workers regenerate all eight final districts with the complete prerequisites. Existing JSON continues through the legacy no-profile path.
+
 ## Root documentation requests
 
 Update README/spec01/spec12/data README in the integration commit: source height now includes the roof; native pitched courtyard/concave roofs retain their openings; literal imperial dimensions are converted; roof metadata/uncertainty and visibility cache fields are optional and backward compatible; the collision API gains optional `bodyHeight`. Keep source estimates explicit and avoid declaring unmeasured complex-ridge topology complete.

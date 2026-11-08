@@ -84,7 +84,6 @@ import { parseMeasure, makeRoofProfile, roofMesh, visibleRoofMesh, roofSignature
 import { ShapeUtils, Vector2 } from '../../game/vendor/three.module.min.js';
 import { resolveRoadAccess } from '../../game/src/road-access.js';
 import { sourcePassages } from './source-passages.mjs';
-import { resolveParkingLayout } from '../../game/src/parking-layout.js';
 import { validRoadWidthReview, reviewedSingleLane, resolveRoadWidth } from '../../game/src/road-widths.js';
 import { resolveParkingLayout } from '../../game/src/parking-layout.js';
 import { distPointSeg, pointInPolygon, polyArea, polyCentroid, footprintMargin, simplifyIdx, simplifyRing, Grid, assembleRings } from './geom.mjs';

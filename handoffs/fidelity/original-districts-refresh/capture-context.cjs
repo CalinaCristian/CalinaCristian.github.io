@@ -30,6 +30,28 @@ const mime={'.html':'text/html','.js':'text/javascript','.json':'application/jso
     await page.waitForFunction(()=>window.vqa,null,{timeout:180000});
     const loaded=await page.evaluate(o=>vqa.loadGroup('bucharest-'+o.district,{quality:'high',pr:1,traffic:true,time:o.time,weather:o.weather}),{district,time,weather});
     console.log('loaded',district,JSON.stringify(loaded));
+    const contacts=await page.evaluate(async()=>{
+      const {buildingBlocksRoad}=await import('./src/world.js'),w=game.world,data=w.data,hits=[];
+      let edges=0,points=0,publicEdges=0,privateEdges=0;
+      for(const e of w.allEdges){
+        if(e.virtual)continue;
+        const source=data.roadSourceGeometry?.[e.road];if(!source)continue;
+        edges++;if(e.publicDrive===false)privateEdges++;else publicEdges++;
+        const count=Math.max(2,Math.ceil(e.len/2.5));
+        for(let i=0;i<count;i++){
+          const t=(i+.5)/count,roadY=.24+e.ya+(e.yb-e.ya)*t;
+          for(const [side,offset]of [['centre',0],['right',e.wR*.9],['left',-e.wL*.9]]){
+            const x=e.a.x+(e.b.x-e.a.x)*t+e.nx*offset,z=e.a.z+(e.b.z-e.a.z)*t+e.nz*offset;points++;
+            w.buildings.query(x,z,.01,c=>{
+              if(c.sourceId&&c.poly&&buildingBlocksRoad(c,x,z,roadY))hits.push({sourceRoadId:source.sourceId,sourceBuildingId:c.sourceId,edge:e.id,road:e.road,side,t,x,z,roadY,publicDrive:e.publicDrive!==false,derived:!!c.derived,widthM:e.wL+e.wR,widthSource:e.roadWidthSource??null});
+            });
+          }
+        }
+      }
+      return {method:'Every source physical edge, including private and mapped passages, sampled at <=2.5 m and both 90% carriageway widths; actual runtime buildingBlocksRoad includes source holes, roof height and mapped passage solids. Sidewalks and broad clearance envelopes are not road samples.',edges,publicEdges,privateEdges,points,hits};
+    });
+    write('source-contact-probe.json',{gameSourceCommit:commit,district,...contacts});
+    console.log('source contact probe',contacts.edges,'edges',contacts.points,'points',contacts.hits.length,'raw source hits');
     let views=await page.evaluate(async district=>{
       const THREE=await import('./vendor/three.module.min.js'), g=game, data=await(await fetch('./data/bucharest-'+district+'.json')).json();
       const {createFlightBoundary}=await import('./src/drone-boundary.js');

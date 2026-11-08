@@ -21,7 +21,7 @@ export class GameHealth {
     constructor(game, { gpu = () => ({}) } = {}) {
         this.g = game; this.gpu = gpu; this.frames = []; this.resources = []; this.frameCount = 0;
         this.budgetFrames = 0; this.longFrames = 0; this.longest = 0; this.lastFrame = 0; this.contextKey = null;
-        this.summaryAt = performance.now(); this.loadIndex = 0; this.actionCount = 0; this.anomalyCount = 0;
+        this.summaryAt = performance.now(); this.loadIndex = 0; this.actionCount = 0; this.anomalyCount = 0; this.actionsSeen = new Set();
         this.context = null; this.pending = null; this.awaitingFrame = null; this.lastHeartbeat = 0; this.conditions = {};
         this.enabled = () => !!window.cvTelemetry && window.cvTelemetry.enabled !== false && navigator.doNotTrack !== '1' && !navigator.globalPrivacyControl;
         this.send = (event, props, final = false) => {
@@ -160,7 +160,7 @@ export class GameHealth {
         this.frameResources = this.resourceCounts();
         if (this.action) {
             const a = this.action; this.action = null;
-            this.send('ui_action_frame', { action: a.name, source: a.source, response_ms: Math.round(now - a.at), render_ms: +renderMs.toFixed(1), added_programs: Math.max(0, (this.resourceCounts().programs || 0) - a.programs) });
+            this.send('ui_action_frame', { action: a.name, source: a.source, first: a.first, response_ms: Math.round(now - a.at), render_ms: +renderMs.toFixed(1), added_programs: Math.max(0, (this.resourceCounts().programs || 0) - a.programs) });
         }
         if (now - this.lastHeartbeat > 15000) { this.lastHeartbeat = now; this.write({ ended: false }); }
     }
@@ -185,8 +185,9 @@ export class GameHealth {
         });
         const begin = (name, source) => {
             if (!this.enabled() || this.actionCount++ > 150) return;
-            this.action = { name, source, at: performance.now(), programs: this.resourceCounts().programs || 0 };
-            this.send('ui_action', { action: name, source }); this.write({ last_action: name });
+            const first = !this.actionsSeen.has(name); this.actionsSeen.add(name);
+            this.action = { name, source, first, at: performance.now(), programs: this.resourceCounts().programs || 0 };
+            this.send('ui_action', { action: name, source, first }); this.write({ last_action: name });
         };
         addEventListener('keydown', e => { if (!e.repeat && e.code === 'KeyL' && this.currentContext().game_mode === 'drive') begin('headlights', 'keyboard'); }, true);
         document.addEventListener('click', e => {

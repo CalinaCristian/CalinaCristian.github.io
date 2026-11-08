@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import { pointInPolygon } from './geom.mjs';
 import assert from 'node:assert/strict';
-import { passageSolids, clipPassageWall, passageInterior } from '../../game/src/building-passages.js';
+import { passageSolids, clipPassageWall, passageInterior, passageBaseUnknown } from '../../game/src/building-passages.js';
 import { collideBuildings } from '../../game/src/world.js';
 import { ringArea } from '../../game/src/building-parts.js';
 import { sourcePassages } from './source-passages.mjs';
@@ -79,4 +79,17 @@ assert.equal(JSON.stringify({nodes:fixture.nodes,bodies:fixture.bodies,ways:fixt
 const nearby={ring:[[25.5,-1],[30,-1],[30,1],[25.5,1]],holes:[],minH:0,h:10,t:{__id:'w1000'}};
 const near=sourcePassages([{ring,holes,minH:0,h:10,t:{__id:'w99'}},nearby],ways,nodes,(lat,lon)=>[lon,lat],[]);
 assert.equal(near.records[1],undefined,'a round mouth touching nearby frontage never invents a passage through that neighbour');checks++;
-console.log(JSON.stringify({passed:true,checks,actualSourcePositions,sourcePosts,sourceUpper,ceilingAreaM2:80,interiorWallMetres:40},null,2));
+for(const t of[{}, {layer:'0'}, {level:'0'}, {level:'0;0'}, {bridge:'no'}, {covered:'yes'}]){assert.equal(passageBaseUnknown(t),false,'zero/absent ordering does not create an unsupported elevated base');checks++;}
+for(const t of[{layer:'1'}, {layer:'-1'}, {level:'3'}, {level:'0;1'}, {level:'G'}, {layer:'unknown'}, {bridge:'yes'}, {location:'underground'}]){assert.equal(passageBaseUnknown(t),true,'relative ordering cannot become metres above ground');checks++;}
+const elevated=JSON.parse(fs.readFileSync(new URL('./fixtures/elevated-passages.json',import.meta.url)));
+let elevatedSourceCases=0;
+for(const c of elevated.cases){
+    const sourceSnapshot=JSON.stringify(c),p=c.proj,project=(la,lo)=>[(lo-p.lon0)*p.mPerLon,-(la-p.lat0)*p.mPerLat];
+    const out=sourcePassages(c.bodies,new Map([[+c.sourceRoadId.slice(1),c.way]]),new Map(c.nodes),project,[]);
+    assert.deepEqual(out.records,{},'no fabricated ground opening for actual elevated source '+c.sourceRoadId);checks++;
+    assert.equal(out.issues.length,1);assert.equal(out.issues[0].reason,'absolute-passage-base-unknown');assert.equal(out.issues[0].baseUnknown,true);checks+=3;
+    assert.deepEqual(out.issues[0].tags,c.way.tags);assert.deepEqual(out.issues[0].sourceNodeIds,c.way.nodes);assert.deepEqual(out.issues[0].sourceCentreline,c.way.nodes.map(n=>project(...new Map(c.nodes).get(n))));checks+=3;
+    for(const id of c.expectedBodyIds){assert(out.issues[0].buildingIds.includes(id),'elevated source body identity retained '+id);checks++;}
+    assert.equal(JSON.stringify(c),sourceSnapshot,'actual source layer/level/access/geometry retained without conversion');checks++;elevatedSourceCases++;
+}
+console.log(JSON.stringify({passed:true,checks,actualSourcePositions,sourcePosts,sourceUpper,elevatedSourceCases,ceilingAreaM2:80,interiorWallMetres:40},null,2));

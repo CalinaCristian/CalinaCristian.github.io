@@ -187,3 +187,7 @@ Known gaps: Politehnica's door is at the Bd. Doina Cornea gate (~230 m from the 
 52. Road surface sometimes missing (black void next to the barrier) on highways, bridges and roads.
 53. SeaTac chapter: start at the arrivals kerb, drive 1–2 km, then continue to Bellevue as now — spawning straight onto the highway makes SeaTac pointless as a location (and that's where most SeaTac road bugs are).
 54. Pedestrians walking along deck barriers in tight clumps, overlapping each other.
+55. People: body parts poke through the clothes (coat / sleeves / hands) and the heads look crude (flat face on a thin neck); give the characters more care.
+56. Drone mode: the stop / station markers should be visible, and waypoints can be set while flying.
+57. "New story" does not reset everything.
+58. Window interiors (the rooms seen through windows) break up up close: jagged sawtooth edges and the room shape bends as you move.

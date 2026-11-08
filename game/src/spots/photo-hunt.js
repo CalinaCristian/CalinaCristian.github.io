@@ -14,7 +14,7 @@ export function photoHunt(ctx, { x, z, title, targets, unavailable, onDone }) {
     ctx.extras.photoHunt=guide;
     ctx.interactables.push({ kind:'photo-hunt',x,z,r:3,label:title,use:s=>flow.begin(s,{
         title,action:'Frame the detail',lockWalker:false,
-        help:`${unavailable} Try this outdoor camera challenge: look with the mouse or swipe, centre the gold ring, then take each of three pictures.`,
+        help:`${unavailable} Try this outdoor camera challenge: look with the mouse or swipe, centre the gold ring, then take each of ${targets.length} pictures.`,
         started(s,r){r.step=0;r.flash=0;guide.captures=[];r.busy=true;ring.visible=true;},
         update(dt,s,r){
             const target=targets[r.step];if(!target)return;

@@ -73,7 +73,7 @@ export default {
         if (lowerPlaza.length) g.flatten(lowerPlaza, POOL_Y + 0.45, 4);
         g.flatten([[-98, 125.5], [-86, 125.5], [-86, 138], [-98, 138]], POOL_Y + 0.45, 3); // viewing apron at the waterfall's east end (postcard)
         // ---------------------------------------------------------------- water: canal pieces between weirs, upper pool, reflecting pool
-        const canalMat = makeWaterMaterial({ deep: '#2a4744', shallow: '#4d6a62', ripple: 0.5, wave: 0.25, flow: [0.15, 0.05], envIntensity: 1.2 });
+        const canalMat = makeWaterMaterial({ deep: '#2a4744', shallow: '#4d6a62', ripple: 0.5, wave: 0.25, flow: [0.15, 0.05], envIntensity: 1.2, foam: 0 }); // (a calm 4.6 m channel: no surf foam — round 6 note 33 'jagged strip')
         canalMat.userData.hasShore = true;
         const cpos = [], csh = [], cidx = [], wb = new GeoBatch();
         const cuts = [...new Set([...W['-1'].map((s) => A_N - s), ...W['1'].map((s) => A_N + s)])];
@@ -89,8 +89,8 @@ export default {
         // weir lips (granite sills + white spill)
         const spillM = nightLit('#d8ecf0', 0.05, { base: '#eaf4f6', name: 'weir-spill', roughness: 0.2 });
         for (const c of cuts) { const lv = level(c + 0.002) ?? TOP, lv2 = level(c - 0.002) ?? TOP, hi = Math.max(lv, lv2), x = C.x + Math.cos(c) * R, z = C.z + Math.sin(c) * R; wb.box(x, hi - 0.25, z, 2 * HW + 0.2, 0.3, 0.35, '#8f7d76', 'stone', -c); const sp2 = new THREE.Mesh(new THREE.BoxGeometry(2 * HW, Math.max(0.06, Math.abs(lv - lv2)) + 0.04, 0.08), spillM); sp2.position.set(x, (lv + lv2) / 2, z); sp2.rotation.y = -c; ctx.add(sp2); }
-        if (upper.length) waterPoly(ctx, upper, UPPER_Y, { deep: '#2a4744', shallow: '#4d6a62', cell: 1.5, name: 'upper-pool' });
-        if (pool.length) waterPoly(ctx, pool, POOL_Y, { deep: '#1f3a3b', shallow: '#3f5c55', cell: 2, ripple: 0.4, wave: 0.2, envIntensity: 1.4, name: 'reflecting-pool' });
+        if (upper.length) waterPoly(ctx, upper, UPPER_Y, { deep: '#2a4744', shallow: '#4d6a62', cell: 1.5, foam: 0, name: 'upper-pool' });
+        if (pool.length) waterPoly(ctx, pool, POOL_Y, { deep: '#1f3a3b', shallow: '#3f5c55', cell: 2, ripple: 0.4, wave: 0.2, envIntensity: 1.4, foam: 0, name: 'reflecting-pool' });
         // granite coping both sides of the canal + around the pools
         const COP = '#b8a197';
         for (let i = 0; i < 360; i++) { const a = i / 360 * TAU, lv = level(a); if (lv === null) continue; const y = bankY(a); for (const rr of [R - HW - 0.35, R + HW + 0.35]) wb.box(C.x + Math.cos(a) * rr, y - 0.35, C.z + Math.sin(a) * rr, 0.7, 0.38, rr * TAU / 360 + 0.04, COP, 'stone', -a); }

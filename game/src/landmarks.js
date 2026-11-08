@@ -1874,13 +1874,18 @@ function bBellevueTowers(b) {
 // Src: https://en.wikipedia.org/wiki/Bellevue_Square ; OSM way 29234887
 function bBellevueSq(b) {
     const [p] = P.bellevuesq.map(pts);
-    b.prism(p, 0, 15, '#e3dccf', { topCol: '#cbc4b7' }); b.bands(p, 0, 15, 5, '#5a7486', { frac: 0.35, mat: 'g', start: 2 });
-    b.box(0, 15, 0, 300, 2.5, 14, '#cbd6dc', { mat: 'g' });                 // skylit mall spine
-    b.box(-20, 15, 0, 14, 2.5, 200, '#cbd6dc', { mat: 'g' });
-    // main entrance on Bellevue Way NE (model -z = east): glazed pavilion + lettering
+    // round 6 note 29: one shopfront band at street level and blank cream cladding above (the old full-height glass
+    // stripes read as striped boxes), the skylit spines kept on the roof inside the footprint, the lettering on the
+    // entrance pavilion's face (it floated above the canopy, cut off)
+    b.prism(p, 0, 15, '#e3dccf', { topCol: '#cbc4b7' }); b.bands(p, 0, 5, 5, '#3f5666', { frac: 0.78, mat: 'g', start: 0.4 });
+    b.bands(p, 13.2, 15, 1.8, '#d2cabb', { frac: 0.5, start: 0.3 });             // cornice line
+    b.box(15, 15, 0, 230, 1.6, 10, '#cbd6dc', { mat: 'g' });                  // skylit mall spines (low glazed ridges)
+    b.box(-20, 15, 0, 10, 1.6, 190, '#cbd6dc', { mat: 'g' });
+    // main entrance on Bellevue Way NE (model -z = east): glazed pavilion, canopy and the name on its face
     const ze = zAt([p], 0)?.[0] ?? -126;
     b.box(0, 0, ze - 4, 30, 13, 8, '#6f8ea2', { mat: 'g' }); b.box(0, 13, ze - 4.5, 34, 1.4, 10, '#efe9df');
-    b.text('BELLEVUE SQUARE', 0, 15.6, ze - 0.2, Math.PI, 3, '#2e3b46');
+    b.box(0, 9.6, ze - 8.25, 24, 2.6, 0.3, '#efe9df');                            // sign fascia
+    b.text('BELLEVUE SQUARE', 0, 10.15, ze - 8.45, Math.PI, 1.5, '#2e3b46');
     b.colPoly([p], 40);
 }
 

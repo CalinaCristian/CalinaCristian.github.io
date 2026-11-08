@@ -50,6 +50,14 @@ export default {
             const [la, lo] = llOf(x, z); return lerp(h, seaHeight(la, lo) - E, smooth(-30, 25, out));
         });
         g.flatten([[-30, -3], [61, -3], [61, 10.4], [-30, 10.4]], 0.15, 2);
+        // W Highland Dr is level with the terrace (round 6 note 30: on the raw DEM the street stood ~2 m above the
+        // sidewalk like a wall): the street corridor (sidewalks included) is graded to the terrace in front of the park
+        // and eases back to the DEM over ~45 m along the street and ~10 m into the gardens north of it
+        g.mod((x, z, h) => {
+            if (z > -2.9 || z < -28) return h;
+            const kx = 1 - smooth(0, 45, Math.max(-35 - x, x - 66, 0)), kz = 1 - smooth(-17, -28, z);
+            return lerp(h, 0.15, kx * kz);
+        });
         const OUTER = 360;
         ctx.terrainOpts = { bg: '#5f6a52', innerPx: 2048, outerPad: OUTER, skirtY: -112, skirtColor: '#1f333c' };
         ctx.osmBackdrop({ paint: {}, style: (b) => (b.k === 'apartments' ? 'apartment' : 'house'), streetTreeOpts: { spacing: 10, prob: 0.8 }, urban: false });
@@ -58,6 +66,13 @@ export default {
         railing(b, [[-27, 8.4], [-25, 10], [-23, 10], [4, 11]], y0, { h: 1.2, color: '#2a2e31' });
         railing(b, [[22, 11], [54, 11], [58, 10], [59, 7]], y0, { h: 1.2, color: '#2a2e31' });
         b.box(13, -0.2, 11.6, 18, 0.7, 0.4, '#9c968a', 'stone');
+        // retaining wall under the railing (note 31: the slope met the terrace as torn terrain strips): concrete from the
+        // terrace edge down below the hillside
+        for (const L of [[[-27, 8.4], [-25, 10], [-23, 10], [4, 11]], [[22, 11], [54, 11], [58, 10], [59, 7]]]) for (let i = 1; i < L.length; i++) {
+            const [ax, az] = L[i - 1], [bx, bz] = L[i], len = Math.hypot(bx - ax, bz - az), nx = (bz - az) / len, nz = -(bx - ax) / len, mx = (ax + bx) / 2 - nx * 0.3, mz = (az + bz) / 2 - nz * 0.3;
+            b.box(mx, -7, mz, len + 0.4, 7.1, 0.35, '#8f8b82', 'stone', Math.atan2(-(bz - az), bx - ax));
+        }
+        b.box(13, -7, 11.75, 18, 7, 0.35, '#8f8b82', 'stone');
         for (const [x0, z0, x1, z1] of [[-27, 8.4, 4, 11], [4, 11, 22, 11], [22, 11, 59, 7]]) ctx.collider({ wall: true, ax: x0, az: z0, bx: x1, bz: z1, y0a: -5, y1a: 1.4, y0b: -5, y1b: 1.4, nx: 0, nz: -1 });
         for (const [x, z] of d.furniture.bench || []) { bench(b, x, y0(x, z), z, Math.PI); ctx.box(x, z, 0.9, 0.3, Math.PI, { prop: true, h: 0.45 }); }
         ctx.add(b.build('terrace'));
@@ -91,9 +106,10 @@ export default {
             personas: { tourist_us: 4, local: 3, photographer: 2, tourist_cn: 1.5, tourist_kr: 1, tourist_jp: 1, tourist_de: 1, tourist_es: 1, tourist_ca: 1, tourist_in: 1, kid: 1 },
             walkers: 10, paths: [[[-122, -3], [-25, -2]], [[-25, -2], [-25, 7], [-23, 9], [54, 9], [56, 7], [56, -2]], [[-25, -18], [57, -17]], [[57, -17], [58, -98]], [[-25, -18], [-25, -99]]],
             groups: [
-                { x: -6, z: 9.2, r: 2.5, n: 4, act: 'photo', look: [800, 1000], personas: ['photographer', 'tourist_us', 'tourist_cn', 'tourist_kr', 'tourist_jp'] },
-                { x: 30, z: 9.6, r: 4, n: 6, act: 'watch', look: [800, 1000], personas: ['tourist_us', 'tourist_de', 'tourist_es', 'local'] },
-                { x: -14, z: 8.9, r: 2.5, n: 3, act: 'watch', look: [700, 1000], personas: ['local', 'tourist_ca'] },
+                // (lines along the railing, on the terrace side: round 6 note 31 had visitors spawned outside it)
+                { line: [[-10, 9.3], [-1, 9.6]], spacing: 2.4, n: 4, act: 'photo', look: [800, 1000], personas: ['photographer', 'tourist_us', 'tourist_cn', 'tourist_kr', 'tourist_jp'] },
+                { line: [[25, 9.8], [50, 9.8]], spacing: 4.6, n: 6, act: 'watch', look: [800, 1000], personas: ['tourist_us', 'tourist_de', 'tourist_es', 'local'] },
+                { line: [[-19, 8.9], [-13, 9.2]], spacing: 2.6, n: 3, act: 'watch', look: [700, 1000], personas: ['local', 'tourist_ca'] },
                 { x: cf.x - 1.3, z: cf.z - 0.5, r: 0.4, n: 2, act: 'pose', look: [cf.x - 6, cf.z - 4], personas: ['kid', 'tourist_us'] },
                 { x: cf.x - 5.5, z: cf.z - 4.5, r: 0.5, n: 1, act: 'photo', look: [cf.x, cf.z], personas: ['tourist_us'] },
                 { x: 24, z: 7.3, r: 0.2, n: 1, act: 'sit', look: [24, 20], personas: ['local'] },

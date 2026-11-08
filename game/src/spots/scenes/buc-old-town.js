@@ -247,7 +247,10 @@ function buildCarusel(ctx) {
     ctx.extras.caruselFloor = () => ctx.painter.poly(innerP, '#ebe8e1', 'slab');
     ctx.add(iw.build('carusel-interior', { castShadow: false }));
     ctx.add(shelves.build('carusel-shelves', { castShadow: false, matOverrides: { shelf } }));
-    ctx.add(b.build('carusel', { matOverrides: { [fac.key]: fac.mat } }));
+    const shell=b.build('carusel', { matOverrides: { [fac.key]: fac.mat } });
+    // The same estimated shell encloses the modeled interior. Its real walls
+    // and roof must remain visible from the galleries as well as the street.
+    const insideMaterials=new Map();shell.traverse(o=>{if(!o.isMesh)return;const inward=m=>{if(!insideMaterials.has(m)){const copy=m.clone();copy.side=THREE.DoubleSide;insideMaterials.set(m,copy);}return insideMaterials.get(m);};o.material=Array.isArray(o.material)?o.material.map(inward):inward(o.material);});ctx.add(shell);
     for (let k = 0; k < LV.length; k++) ctx.lampPoints.push({ x: ecx, z: ecz, h: LV[k] + 3.6 - (ctx.ground.heightAt(ecx, ecz) - y0), noPost: true });
     const climb={previous:null,distance:0,ascent:0,done:false};
     ctx.onUpdate((dt,s,pl)=>{if(!pl||climb.done)return;const previous=climb.previous;climb.previous={x:pl.x,y:pl.y,z:pl.z};if(!previous)return;

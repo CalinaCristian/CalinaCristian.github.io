@@ -24,7 +24,7 @@ let browser;
     page.on('console', m => { if (m.type() === 'error' && m.text().includes('[explore]')) report.errors.push(m.text()); });
     // Fixed steps exercise the real Input/Game handlers without variable wall-clock physics.
     await page.addInitScript(() => { window.__testRAF = window.requestAnimationFrame; window.requestAnimationFrame = () => 0; });
-    await page.goto(`http://127.0.0.1:${server.address().port}/game/`);
+    await page.goto(`http://127.0.0.1:${server.address().port}/game/`, { waitUntil: 'domcontentloaded', timeout: 60000 });
     await page.waitForFunction(() => window.game, null, { polling: 50, timeout: 90000 });
     await page.evaluate(() => { window.requestAnimationFrame = window.__testRAF; });
     const shot = async (name) => {

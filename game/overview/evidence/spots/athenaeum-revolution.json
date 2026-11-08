@@ -1,0 +1,362 @@
+{
+  "schemaVersion": 1,
+  "id": "athenaeum-revolution",
+  "city": "bucharest",
+  "name": "Romanian Athenaeum & Piața Revoluției",
+  "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+  "updatedAt": "2026-11-08T19:35:07.291Z",
+  "status": "needs_review",
+  "sources": [
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Romanian_Athenaeum"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://ro.wikipedia.org/wiki/Ateneul_Rom%C3%A2n"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Royal_Palace_of_Bucharest"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Central_University_Library_of_Bucharest"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Memorial_of_Rebirth"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Revolution_Square,_Bucharest"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://visitbucharest.today/study-what-information-did-foreign-tourists-search-for-online-about-bucharest-in-2024/"
+    },
+    {
+      "label": "Ateneul Român",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/16291602"
+    },
+    {
+      "label": "Grădina Ateneului",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/23556716"
+    },
+    {
+      "label": "Royal Palace / Muzeul Național de Artă al României (Calea Victoriei 49-53)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/232472401"
+    },
+    {
+      "label": "Biblioteca Centrală Universitară \"Carol I\"",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/relation/19896250"
+    },
+    {
+      "label": "Memorialul Renașterii",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/1393030628"
+    }
+  ],
+  "improvements": [
+    "Canonical Athenaeum and Royal Palace models retain source-context buildings, source footprints and shared exact roof geometry.",
+    "The unmodelled interior concert was relabelled as exterior history rather than claiming an actual visit inside."
+  ],
+  "remainingGaps": [
+    "The actual full-size frontal postcard largely hides the dome behind the pediment. Model/pose proportions need independent matched verification; isolated model records do not resolve this view.",
+    "Exterior history remains a series of passive Next clicks and is not an equivalent participatory concert activity.",
+    "The one-leu collection-box claim is unverified as a current physical collection point; retain the historical campaign only with honest game framing.",
+    "Garden paths, revolution-square memorials and public entries need complete current source/reference comparisons; one phantom finding remains.",
+    "Raw audit findings remain for physical review: zfight 11, phantom 1."
+  ],
+  "checks": [
+    {
+      "label": "Native scene load",
+      "passed": true,
+      "details": "athenaeum-revolution; actual native controller; 0 thrown JavaScript errors."
+    },
+    {
+      "label": "Source solid membership",
+      "passed": true,
+      "details": "808 active source records, 830 physical volumes, 13 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+    },
+    {
+      "label": "Validated scene geometry cache",
+      "passed": true,
+      "details": "Exact source/profile/terrain signature matched."
+    },
+    {
+      "label": "Native public-path walk",
+      "passed": true,
+      "details": "21.9 m walked toward The 1919 vote; planned endpoint reached using native movement and collision."
+    },
+    {
+      "label": "High scene budgets",
+      "passed": true,
+      "details": "227775 unique geometry triangles; max 729793 rendered triangles / 125 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+    },
+    {
+      "label": "Raw physical audit",
+      "passed": false,
+      "details": "zfight: 11; phantom: 1"
+    },
+    {
+      "label": "Full matched scene comparison",
+      "passed": false,
+      "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+    }
+  ],
+  "captures": [
+    {
+      "kind": "arrival",
+      "label": "Romanian Athenaeum & Piața Revoluției — arrival",
+      "image": "assets/spots/athenaeum-revolution/arrival.webp",
+      "sha256": "d47fb01241a5936ae2f0b2241439aece3c8a74afa6997b756ca1b536623802f3",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:30:47.926Z",
+      "pose": {
+        "position": [
+          -63.61344211498177,
+          1.6581371237833644,
+          -16.219071310558114
+        ],
+        "bearing": 46.86832685960144,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 44.44085,
+          "lon": 26.09765,
+          "elev": 86.4
+        },
+        "projection": {
+          "mLat": 111120.85,
+          "mLon": 79609.98
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "public-walk",
+      "label": "Romanian Athenaeum & Piața Revoluției — public walk",
+      "image": "assets/spots/athenaeum-revolution/public-walk.webp",
+      "sha256": "19eb2f23f50096cb598a05278d0713cd334b7dfe9276adc196ed08223ee62666",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:30:51.074Z",
+      "pose": {
+        "position": [
+          -82.1811119783555,
+          1.6356552918979466,
+          -4.394142446761031
+        ],
+        "bearing": 237.50873984348962,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 44.44085,
+          "lon": 26.09765,
+          "elev": 86.4
+        },
+        "projection": {
+          "mLat": 111120.85,
+          "mLon": 79609.98
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "postcard",
+      "label": "Romanian Athenaeum & Piața Revoluției — postcard",
+      "image": "assets/spots/athenaeum-revolution/postcard.webp",
+      "sha256": "0abef1135b195e9a0c0a70af626a8bc33adc50a1751ca47246834e46568412ac",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:30:53.474Z",
+      "pose": {
+        "position": [
+          -72.21742551762745,
+          1.7174466099528327,
+          -28.50611609793468
+        ],
+        "bearing": 62.12344556265924,
+        "pitch": 12,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 44.44085,
+          "lon": 26.09765,
+          "elev": 86.4
+        },
+        "projection": {
+          "mLat": 111120.85,
+          "mLon": 79609.98
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "activity-approach",
+      "label": "Romanian Athenaeum & Piața Revoluției — activity approach",
+      "image": "assets/spots/athenaeum-revolution/activity-approach.webp",
+      "sha256": "671fa4c35a7cbd3e05a6bc606cee0bd2a0e73f7696fe66197edb80e449a7451f",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:30:57.438Z",
+      "pose": {
+        "position": [
+          -48.303495676889085,
+          1.6539479921763778,
+          -32.70622093886922
+        ],
+        "bearing": 0,
+        "pitch": -7.000000000000003,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 44.44085,
+          "lon": 26.09765,
+          "elev": 86.4
+        },
+        "projection": {
+          "mLat": 111120.85,
+          "mLon": 79609.98
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    }
+  ],
+  "perf": {
+    "sceneTriangles": 416570,
+    "uniqueGeometryTriangles": 227775,
+    "geometryObjects": 69,
+    "maxRenderedTriangles": 729793,
+    "maxDrawCalls": 125
+  },
+  "sceneId": "athenaeum-revolution",
+  "sourceGeometry": {
+    "membershipSHA256": "2ab7d50615df6792a4101004b5e9b4b885c2843a08d799a0692276fc95049f16",
+    "activeSourceRecords": 808,
+    "renderedVolumes": 830,
+    "literalHeights": 221,
+    "levelHeightEstimates": 289,
+    "typeHeightEstimates": 298,
+    "heroReplacements": [
+      "w16291602",
+      "w1192148712",
+      "w1493065626",
+      "w1493065627",
+      "w1493065628",
+      "w1493065629",
+      "w1493065630",
+      "w1493111079",
+      "w1493111080",
+      "w1493111081",
+      "w1493111082",
+      "w1493111083",
+      "w1493111084",
+      "w1493112469",
+      "w1493204404",
+      "w1493204405",
+      "w232472401",
+      "w1476782271",
+      "w1476782272",
+      "w1476782274",
+      "w1476790706",
+      "w1476795653",
+      "w1476795658",
+      "w1476812769",
+      "w1477382120",
+      "w1478822229",
+      "w1478822230",
+      "w1478822231",
+      "w1478822232",
+      "w1478822233",
+      "w1478822234",
+      "w1492310375",
+      "w1492310386",
+      "w1492310387",
+      "w1492785691",
+      "w1492785692",
+      "w1492785693",
+      "w1492785694",
+      "w1492785695",
+      "w1492785696",
+      "w1492790103",
+      "w1492847189",
+      "w1492880806",
+      "w1492883156",
+      "w1492883157",
+      "w1494286948",
+      "r19896250",
+      "w224624034",
+      "w995893622",
+      "w1454571061",
+      "w1476782273",
+      "w1476784157",
+      "w1476785348",
+      "w1492883155"
+    ],
+    "missingMembers": []
+  },
+  "access": {
+    "walker": "OnFootController",
+    "arrival": {
+      "x": -63.61344211498177,
+      "z": -16.219071310558114,
+      "y": 0.008137123783364522,
+      "heading": -0.8180066186009393
+    },
+    "arrivalDry": true,
+    "nearestPlaquePath": {
+      "points": [
+        [
+          -63.61344211498177,
+          -16.219071310558114
+        ],
+        [
+          -82.8,
+          -4
+        ]
+      ],
+      "length": 22.747081288984294,
+      "target": "The 1919 vote"
+    },
+    "nativeWalk": {
+      "walker": "OnFootController",
+      "passed": true,
+      "steps": 260,
+      "walked": 21.883973002983993,
+      "target": "The 1919 vote",
+      "plannedLength": 22.747081288984294,
+      "position": {
+        "x": -82.18048470578019,
+        "z": -4.394541928959709,
+        "y": -0.014475123883439606,
+        "heading": 2.1378757946480507
+      },
+      "error": null
+    }
+  },
+  "rawAudit": {
+    "zfight": 11,
+    "phantom": 1
+  },
+  "review": "Inspected all four GAME context captures and the full-size postcard; the short native plaque walk succeeds but scene and activity fidelity remain open."
+}

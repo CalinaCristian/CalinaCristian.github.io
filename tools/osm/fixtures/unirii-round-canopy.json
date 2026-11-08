@@ -1,0 +1,81 @@
+{
+  "sourceId": "w1177641591",
+  "sourceUrl": "https://www.openstreetmap.org/way/1177641591",
+  "sourceAccessedAt": "2026-11-08",
+  "rawTags": {
+    "building": "roof",
+    "height": "4",
+    "layer": "1",
+    "roof:colour": "#00BFFF",
+    "roof:direction": "180",
+    "roof:shape": "round"
+  },
+  "ring": [
+    [
+      -840.7758,
+      578.0198
+    ],
+    [
+      -836.7534,
+      586.3435
+    ],
+    [
+      -835.6484,
+      588.6329
+    ],
+    [
+      -829.0027,
+      585.4545
+    ],
+    [
+      -826.2204,
+      584.1209
+    ],
+    [
+      -821.0532,
+      581.6538
+    ],
+    [
+      -822.2138,
+      579.2089
+    ],
+    [
+      -826.284,
+      570.9629
+    ]
+  ],
+  "holes": [],
+  "height": 4.0,
+  "minimum": 2.4,
+  "clearanceProvenance": "reviewed open_canopy estimate; OSM has no literal min_height",
+  "profile": {
+    "version": 1,
+    "shape": "round",
+    "totalM": 4,
+    "eavesM": 2.4,
+    "riseM": 1.6,
+    "heightSource": "OSM height",
+    "riseSource": "footprint estimate",
+    "axis": [
+      1.2246467991473532e-16,
+      1
+    ],
+    "low": 570.9628763998667,
+    "high": 588.6328643994741,
+    "direction": 180,
+    "raw": {
+      "height": "4",
+      "roof:shape": "round",
+      "roof:direction": "180"
+    },
+    "originalOSM": {
+      "height": "4",
+      "roof:colour": "#00BFFF",
+      "roof:direction": "180",
+      "roof:shape": "round"
+    },
+    "issues": [
+      "roof rise exceeds building height band"
+    ]
+  }
+}

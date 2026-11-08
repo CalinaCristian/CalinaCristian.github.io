@@ -1,0 +1,313 @@
+{
+  "schemaVersion": 1,
+  "id": "gas-works",
+  "city": "seattle",
+  "name": "Gas Works Park",
+  "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+  "updatedAt": "2026-11-08T19:35:04.688Z",
+  "status": "needs_review",
+  "sources": [
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Gas_Works_Park"
+    },
+    {
+      "label": "Gas generator towers (1906–1956 plant)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/4835090"
+    },
+    {
+      "label": "Gas generator towers (1906–1956 plant)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/425465783"
+    },
+    {
+      "label": "Gas generator towers (1906–1956 plant)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/449626310"
+    },
+    {
+      "label": "Gas generator towers (1906–1956 plant)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/449626314"
+    },
+    {
+      "label": "Kite Hill + Gas Works Memorial Sundial (Charles Greening)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/191328703"
+    },
+    {
+      "label": "Kite Hill + Gas Works Memorial Sundial (Charles Greening)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/31096103"
+    }
+  ],
+  "improvements": [
+    "The kite activity now requires letting out line, steadying the visible kite and reeling it in, with progress and animated response; idle time does not award it.",
+    "Source footprints, building parts and roofs retain exact membership; terrain and source-height assumptions are explicit."
+  ],
+  "remainingGaps": [
+    "The industrial structures, play barn, hill paths and lake edge need independent matched whole-scene comparisons.",
+    "The activity approach has a dense cluster of visitors and does not itself show the flying kite; the separate action capture proves its animation.",
+    "One degenerate mesh and remaining roof z-fighting require repair.",
+    "Raw audit findings remain for physical review: badGeometry 1, zfight 21."
+  ],
+  "checks": [
+    {
+      "label": "Native scene load",
+      "passed": true,
+      "details": "gas-works; actual native controller; 0 thrown JavaScript errors."
+    },
+    {
+      "label": "Source solid membership",
+      "passed": true,
+      "details": "35 active source records, 34 physical volumes, 1 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+    },
+    {
+      "label": "Validated scene geometry cache",
+      "passed": true,
+      "details": "Exact source/profile/terrain signature matched."
+    },
+    {
+      "label": "Native public-path walk",
+      "passed": true,
+      "details": "36.9 m walked toward Last gasworks; planned endpoint reached using native movement and collision."
+    },
+    {
+      "label": "High scene budgets",
+      "passed": true,
+      "details": "417648 unique geometry triangles; max 769408 rendered triangles / 130 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+    },
+    {
+      "label": "Raw physical audit",
+      "passed": false,
+      "details": "badGeometry: 1; zfight: 21"
+    },
+    {
+      "label": "Full matched scene comparison",
+      "passed": false,
+      "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+    },
+    {
+      "label": "Participatory activity controls",
+      "passed": true,
+      "details": "Three input-driven kite phases, visible animation, cancellation and no idle award pass at desktop and 390px touch sizes; proof/actions-desktop.json and proof/actions-touch.json."
+    }
+  ],
+  "captures": [
+    {
+      "kind": "arrival",
+      "label": "Gas Works Park — arrival",
+      "image": "assets/spots/gas-works/arrival.webp",
+      "sha256": "0d5b50f1ae76da0b8893452e8d3dc0dae5b58ebca3a95321e619cbce2ad4e823",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:24:43.306Z",
+      "pose": {
+        "position": [
+          0,
+          2.021743539907038,
+          0
+        ],
+        "bearing": 160,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6456,
+          "lon": -122.3356,
+          "elev": 10.9
+        },
+        "projection": {
+          "mLat": 111183.42,
+          "mLon": 75135.05
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "public-walk",
+      "label": "Gas Works Park — public walk",
+      "image": "assets/spots/gas-works/public-walk.webp",
+      "sha256": "f8aece875787ec1ab3e17efc29045bf1b090484fb19962fb1dcef5f47a4d8f81",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:24:46.714Z",
+      "pose": {
+        "position": [
+          36.727981322011324,
+          1.3600018473140207,
+          1.4789889054733902
+        ],
+        "bearing": 137.76590062479,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6456,
+          "lon": -122.3356,
+          "elev": 10.9
+        },
+        "projection": {
+          "mLat": 111183.42,
+          "mLon": 75135.05
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "postcard",
+      "label": "Gas Works Park — postcard",
+      "image": "assets/spots/gas-works/postcard.webp",
+      "sha256": "a4e35286269f57c09f5db5ea11036c3ce4d47a0552622ba182a2a345da35df59",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:24:48.978Z",
+      "pose": {
+        "position": [
+          82.6,
+          -1.3286201715469361,
+          100.1
+        ],
+        "bearing": 330,
+        "pitch": 12.000000000000002,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6456,
+          "lon": -122.3356,
+          "elev": 10.9
+        },
+        "projection": {
+          "mLat": 111183.42,
+          "mLon": 75135.05
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "activity-approach",
+      "label": "Gas Works Park — activity approach",
+      "image": "assets/spots/gas-works/activity-approach.webp",
+      "sha256": "580c866b4855dbbe7b7daf0b1efcd495af661e05624c596f8350e69b42465135",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:24:51.174Z",
+      "pose": {
+        "position": [
+          -58,
+          13.183120286320987,
+          35
+        ],
+        "bearing": 0,
+        "pitch": -7.000000000000003,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6456,
+          "lon": -122.3356,
+          "elev": 10.9
+        },
+        "projection": {
+          "mLat": 111183.42,
+          "mLon": 75135.05
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    }
+  ],
+  "perf": {
+    "sceneTriangles": 678895,
+    "uniqueGeometryTriangles": 417648,
+    "geometryObjects": 86,
+    "maxRenderedTriangles": 769408,
+    "maxDrawCalls": 130
+  },
+  "sceneId": "gas-works",
+  "sourceGeometry": {
+    "membershipSHA256": "cedbf9f6b4734887be08e69f626328735b002c7c705b49f15d08b30a27e6498a",
+    "activeSourceRecords": 35,
+    "renderedVolumes": 34,
+    "literalHeights": 14,
+    "levelHeightEstimates": 0,
+    "typeHeightEstimates": 21,
+    "heroReplacements": [
+      "w191328736",
+      "w191328732",
+      "w191328724",
+      "w191328731",
+      "w191328734",
+      "w191328729",
+      "w986412515",
+      "w449626306",
+      "w449626307",
+      "w449626308",
+      "w449626309",
+      "w449626311",
+      "w449626312",
+      "w449626313",
+      "w449626315",
+      "w406480498",
+      "w406480499",
+      "w406480500",
+      "w406480501",
+      "w406480502",
+      "w406480503",
+      "w406480507"
+    ],
+    "missingMembers": []
+  },
+  "access": {
+    "walker": "OnFootController",
+    "arrival": {
+      "x": 0,
+      "z": 0,
+      "y": 0.3717435399070379,
+      "heading": -2.792526803190927
+    },
+    "arrivalDry": true,
+    "nearestPlaquePath": {
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          36.75,
+          0.75
+        ],
+        [
+          37.2,
+          2
+        ]
+      ],
+      "length": 38.08618529008718,
+      "target": "Last gasworks"
+    },
+    "nativeWalk": {
+      "walker": "OnFootController",
+      "passed": true,
+      "steps": 438,
+      "walked": 36.905249180710335,
+      "target": "Last gasworks",
+      "plannedLength": 38.08618529008718,
+      "position": {
+        "x": 36.7274799972958,
+        "z": 1.478440391369158,
+        "y": -0.2897809194975688,
+        "heading": -2.404468562877899
+      },
+      "error": null
+    }
+  },
+  "rawAudit": {
+    "badGeometry": 1,
+    "zfight": 21
+  },
+  "review": "Inspected all four GAME context views; the source-native lawn and industrial silhouette remain visible with unresolved physical and comparison findings."
+}

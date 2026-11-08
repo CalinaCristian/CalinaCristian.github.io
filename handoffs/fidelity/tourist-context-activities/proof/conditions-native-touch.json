@@ -1,0 +1,118 @@
+{
+  "touch": true,
+  "menu": {
+    "state": "menu",
+    "selected": {
+      "tod": "h14.25",
+      "weather": "storm",
+      "season": "winter"
+    },
+    "hostTz": "Europe/Bucharest",
+    "hour": null,
+    "wx": null,
+    "season": "winter"
+  },
+  "seattle": {
+    "state": "spot",
+    "selected": {
+      "tod": "h14.25",
+      "weather": "storm",
+      "season": "winter"
+    },
+    "tz": "America/Los_Angeles",
+    "hostTz": "America/Los_Angeles",
+    "hour": 14.25,
+    "override": null,
+    "wx": "storm",
+    "kind": "storm",
+    "season": "winter"
+  },
+  "bucharest": {
+    "state": "spot",
+    "selected": {
+      "tod": "h14.25",
+      "weather": "storm",
+      "season": "winter"
+    },
+    "tz": "Europe/Bucharest",
+    "hostTz": "Europe/Bucharest",
+    "hour": 14.25,
+    "override": null,
+    "wx": "storm",
+    "kind": "storm",
+    "season": "winter"
+  },
+  "cancellation": {
+    "active": false,
+    "walker": true,
+    "award": false,
+    "position": {
+      "x": -742,
+      "z": 192.6,
+      "y": 14.862269686084337,
+      "heading": -0.5467888408892434
+    },
+    "t": 0.05
+  },
+  "named": {
+    "state": "spot",
+    "selected": {
+      "tod": "golden",
+      "weather": "rain",
+      "season": "summer"
+    },
+    "tz": "Europe/Bucharest",
+    "hostTz": "Europe/Bucharest",
+    "hour": 21.233333333333334,
+    "override": "sunset",
+    "wx": "rain",
+    "kind": "rain",
+    "season": "summer"
+  },
+  "namedSeattle": {
+    "state": "spot",
+    "selected": {
+      "tod": "golden",
+      "weather": "rain",
+      "season": "summer"
+    },
+    "tz": "America/Los_Angeles",
+    "hostTz": "America/Los_Angeles",
+    "hour": 11.233333333333333,
+    "override": "sunset",
+    "wx": "rain",
+    "kind": "rain",
+    "season": "summer"
+  },
+  "menuReturn": {
+    "state": "menu",
+    "selected": {
+      "tod": "golden",
+      "weather": "rain",
+      "season": "summer"
+    },
+    "tz": "America/Los_Angeles",
+    "hostTz": "America/Los_Angeles",
+    "hour": 11.233333333333333,
+    "override": "sunset",
+    "wx": "rain",
+    "kind": "rain",
+    "season": "summer"
+  },
+  "live": {
+    "state": "spot",
+    "selected": {
+      "tod": "now",
+      "weather": "live",
+      "season": "auto"
+    },
+    "tz": "America/Los_Angeles",
+    "hostTz": "America/Los_Angeles",
+    "hour": 11.233333333333333,
+    "override": null,
+    "wx": null,
+    "kind": "overcast",
+    "season": null
+  },
+  "errors": []
+}

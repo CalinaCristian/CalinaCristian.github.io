@@ -1,0 +1,7045 @@
+{
+  "district": "bucharest-unirii",
+  "reviewedAt": "2026-11-08",
+  "dataSha256": "37302734909c4996b7c63423e839bbdb7380e49b4b268fa6578584050d21da47",
+  "scope": "Every emitted POI anchor. Independently matches exact raw OSM tagged node or way polygon centroid, or an existing reviewed non-low-confidence official-locator research record, within only the0.1m output-coordinate quantization bound. Does not infer current trading status, opening location or facade geometry from this match.",
+  "sourcePolicy": "OSM tags and recorded official locators; no Street View extraction. Source district fuel geometry requires its separately reviewed mapped canopy and is not inferred from this POI.",
+  "counts": {
+    "outputPOIs": 246,
+    "classification": {
+      "exact-quantized-source-anchor": 246
+    },
+    "fuelPOIs": 2
+  },
+  "errors": [],
+  "records": [
+    {
+      "index": 0,
+      "kind": "shop",
+      "name": "AFC service center",
+      "brand": "",
+      "subtype": "mobile_phone",
+      "outputXZ": [
+        -345.1,
+        543.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n5183790451",
+          "sourceUrl": "https://www.openstreetmap.org/node/5183790451",
+          "xy": [
+            -345.1024547515234,
+            543.546611999282
+          ],
+          "tags": {
+            "name": "AFC service center",
+            "shop": "mobile_phone"
+          },
+          "distanceM": 0.046676592443228845
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 1,
+      "kind": "shop",
+      "name": "La Tati",
+      "brand": "",
+      "subtype": "bakery",
+      "outputXZ": [
+        -502.7,
+        524.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n6938993986",
+          "sourceUrl": "https://www.openstreetmap.org/node/6938993986",
+          "xy": [
+            -502.74842315138386,
+            524.7097379994622
+          ],
+          "tags": {
+            "name": "La Tati",
+            "shop": "bakery"
+          },
+          "distanceM": 0.04939261304557203
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 2,
+      "kind": "landmark",
+      "name": "Bustul lui Barbu Constantinescu",
+      "brand": "",
+      "subtype": "memorial",
+      "outputXZ": [
+        -572.1,
+        553
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n10726686133",
+          "sourceUrl": "https://www.openstreetmap.org/node/10726686133",
+          "xy": [
+            -572.0837131712088,
+            552.9594923995219
+          ],
+          "tags": {
+            "historic": "memorial",
+            "name": "Bustul lui Barbu Constantinescu"
+          },
+          "distanceM": 0.04365920851972003
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 3,
+      "kind": "shop",
+      "name": "Froo",
+      "brand": "Froo",
+      "subtype": "convenience",
+      "outputXZ": [
+        -420.4,
+        548.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n13503309729",
+          "sourceUrl": "https://www.openstreetmap.org/node/13503309729",
+          "xy": [
+            -420.4316462475002,
+            548.5364387999499
+          ],
+          "tags": {
+            "brand": "Froo",
+            "name": "Froo",
+            "shop": "convenience"
+          },
+          "distanceM": 0.048262522961778735
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 4,
+      "kind": "landmark",
+      "name": "Domnița Bălașa",
+      "brand": "",
+      "subtype": "artwork",
+      "outputXZ": [
+        -721.8,
+        139.2
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n921821381",
+          "sourceUrl": "https://www.openstreetmap.org/node/921821381",
+          "xy": [
+            -721.8358564172912,
+            139.20394319930207
+          ],
+          "tags": {
+            "name": "Domnița Bălașa",
+            "tourism": "artwork"
+          },
+          "distanceM": 0.036072586290709585
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 5,
+      "kind": "busstop",
+      "name": "Piața Unirii 1",
+      "brand": "",
+      "subtype": "bus_stop",
+      "outputXZ": [
+        -642.8,
+        249.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n1668620624",
+          "sourceUrl": "https://www.openstreetmap.org/node/1668620624",
+          "xy": [
+            -642.8499080527723,
+            249.5802455996876
+          ],
+          "tags": {
+            "bus": "yes",
+            "highway": "bus_stop",
+            "name": "Piața Unirii 1",
+            "public_transport": "platform"
+          },
+          "distanceM": 0.0536754139549161
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 6,
+      "kind": "busstop",
+      "name": "Piața Unirii",
+      "brand": "",
+      "subtype": "tram_stop",
+      "outputXZ": [
+        -694.4,
+        341.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2389982916",
+          "sourceUrl": "https://www.openstreetmap.org/node/2389982916",
+          "xy": [
+            -694.3545336015518,
+            341.7420131996296
+          ],
+          "tags": {
+            "name": "Piața Unirii",
+            "public_transport": "stop_position",
+            "railway": "tram_stop",
+            "tram": "yes"
+          },
+          "distanceM": 0.06190559208153261
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 7,
+      "kind": "shop",
+      "name": "Zizi Mall",
+      "brand": "",
+      "subtype": "clothes",
+      "outputXZ": [
+        -657,
+        220.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2455062349",
+          "sourceUrl": "https://www.openstreetmap.org/node/2455062349",
+          "xy": [
+            -656.9602198831849,
+            220.28585039926472
+          ],
+          "tags": {
+            "name": "Zizi Mall",
+            "shop": "clothes"
+          },
+          "distanceM": 0.04222166380890218
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 8,
+      "kind": "office",
+      "name": "hotspot Wi-Fi Digi, RATB Regina Maria",
+      "brand": "",
+      "subtype": "telecommunication",
+      "outputXZ": [
+        -698.4,
+        343.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n3096589729",
+          "sourceUrl": "https://www.openstreetmap.org/node/3096589729",
+          "xy": [
+            -698.4167135144555,
+            343.2756347993899
+          ],
+          "tags": {
+            "name": "hotspot Wi-Fi Digi, RATB Regina Maria",
+            "office": "telecommunication"
+          },
+          "distanceM": 0.029546650676985857
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 9,
+      "kind": "bank",
+      "name": "Banca Transilvania",
+      "brand": "Banca Transilvania",
+      "subtype": "bank",
+      "outputXZ": [
+        -658.4,
+        241
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n3718543194",
+          "sourceUrl": "https://www.openstreetmap.org/node/3718543194",
+          "xy": [
+            -658.4467710449028,
+            241.0119683998422
+          ],
+          "tags": {
+            "amenity": "bank",
+            "brand": "Banca Transilvania",
+            "name": "Banca Transilvania"
+          },
+          "distanceM": 0.04827808235714931
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 10,
+      "kind": "pharmacy",
+      "name": "Help Net",
+      "brand": "Help Net",
+      "subtype": "pharmacy",
+      "outputXZ": [
+        -657.6,
+        229.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n6228250431",
+          "sourceUrl": "https://www.openstreetmap.org/node/6228250431",
+          "xy": [
+            -657.6359249567444,
+            229.68761759937468
+          ],
+          "tags": {
+            "amenity": "pharmacy",
+            "brand": "Help Net",
+            "name": "Help Net"
+          },
+          "distanceM": 0.03799903107091475
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 11,
+      "kind": "pharmacy",
+      "name": "Dr. Max",
+      "brand": "Dr. Max",
+      "subtype": "pharmacy",
+      "outputXZ": [
+        -655.5,
+        199.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n6939489489",
+          "sourceUrl": "https://www.openstreetmap.org/node/6939489489",
+          "xy": [
+            -655.4736687211845,
+            199.4930531994873
+          ],
+          "tags": {
+            "amenity": "pharmacy",
+            "brand": "Dr. Max",
+            "name": "Dr. Max"
+          },
+          "distanceM": 0.027232228726711976
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 12,
+      "kind": "bank",
+      "name": "BCR",
+      "brand": "BCR",
+      "subtype": "bank",
+      "outputXZ": [
+        -659.6,
+        257.2
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n7411821210",
+          "sourceUrl": "https://www.openstreetmap.org/node/7411821210",
+          "xy": [
+            -659.607393877161,
+            257.18167439928925
+          ],
+          "tags": {
+            "amenity": "bank",
+            "brand": "BCR",
+            "name": "BCR"
+          },
+          "distanceM": 0.019760998478859784
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 13,
+      "kind": "shop",
+      "name": "Luca",
+      "brand": "Luca",
+      "subtype": "bakery",
+      "outputXZ": [
+        -656.2,
+        209.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n7411821211",
+          "sourceUrl": "https://www.openstreetmap.org/node/7411821211",
+          "xy": [
+            -656.2050200950059,
+            209.73942359999168
+          ],
+          "tags": {
+            "brand": "Luca",
+            "name": "Luca",
+            "shop": "bakery"
+          },
+          "distanceM": 0.039741937423495445
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 14,
+      "kind": "shop",
+      "name": "Matei",
+      "brand": "",
+      "subtype": "bakery",
+      "outputXZ": [
+        -654.5,
+        186.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9159258048",
+          "sourceUrl": "https://www.openstreetmap.org/node/9159258048",
+          "xy": [
+            -654.5356310896914,
+            186.3572507999609
+          ],
+          "tags": {
+            "name": "Matei",
+            "shop": "bakery"
+          },
+          "distanceM": 0.05565131316131714
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 15,
+      "kind": "shop",
+      "name": "Fornetti",
+      "brand": "Fornetti",
+      "subtype": "bakery",
+      "outputXZ": [
+        -654.9,
+        191.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9159258049",
+          "sourceUrl": "https://www.openstreetmap.org/node/9159258049",
+          "xy": [
+            -654.8933573050555,
+            191.39153039956895
+          ],
+          "tags": {
+            "brand": "Fornetti",
+            "name": "Fornetti",
+            "shop": "bakery"
+          },
+          "distanceM": 0.010763806370771815
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 16,
+      "kind": "office",
+      "name": "Incognito Concept",
+      "brand": "",
+      "subtype": "company",
+      "outputXZ": [
+        -718.8,
+        415.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9164563328",
+          "sourceUrl": "https://www.openstreetmap.org/node/9164563328",
+          "xy": [
+            -718.7514614933316,
+            415.5781139994085
+          ],
+          "tags": {
+            "name": "Incognito Concept",
+            "office": "company"
+          },
+          "distanceM": 0.053244564525276795
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 17,
+      "kind": "landmark",
+      "name": "Șerban Cantacuzino",
+      "brand": "",
+      "subtype": "artwork",
+      "outputXZ": [
+        -720.5,
+        460.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9411250346",
+          "sourceUrl": "https://www.openstreetmap.org/node/9411250346",
+          "xy": [
+            -720.476496798908,
+            460.5976871996112
+          ],
+          "tags": {
+            "name": "Șerban Cantacuzino",
+            "tourism": "artwork"
+          },
+          "distanceM": 0.02361672092417073
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 18,
+      "kind": "landmark",
+      "name": "Alexandru Ioan Cuza",
+      "brand": "",
+      "subtype": "artwork",
+      "outputXZ": [
+        -788.7,
+        509
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9411250347",
+          "sourceUrl": "https://www.openstreetmap.org/node/9411250347",
+          "xy": [
+            -788.7227092295476,
+            508.99567319981225
+          ],
+          "tags": {
+            "name": "Alexandru Ioan Cuza",
+            "tourism": "artwork"
+          },
+          "distanceM": 0.023117748733569744
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 19,
+      "kind": "shop",
+      "name": "Coriolan",
+      "brand": "",
+      "subtype": "jewelry",
+      "outputXZ": [
+        -674.8,
+        466.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9411250629",
+          "sourceUrl": "https://www.openstreetmap.org/node/9411250629",
+          "xy": [
+            -674.7511369967795,
+            466.5765887999928
+          ],
+          "tags": {
+            "name": "Coriolan",
+            "shop": "jewelry"
+          },
+          "distanceM": 0.05418189152756565
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 20,
+      "kind": "bank",
+      "name": "Raiffeisen Bank",
+      "brand": "Raiffeisen Bank",
+      "subtype": "bank",
+      "outputXZ": [
+        -694.1,
+        259.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n10000060581",
+          "sourceUrl": "https://www.openstreetmap.org/node/10000060581",
+          "xy": [
+            -694.1398978723333,
+            259.1264843999066
+          ],
+          "tags": {
+            "amenity": "bank",
+            "brand": "Raiffeisen Bank",
+            "name": "Raiffeisen Bank"
+          },
+          "distanceM": 0.04788803248345234
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 21,
+      "kind": "shop",
+      "name": "Shop&Go",
+      "brand": "Shop&Go",
+      "subtype": "convenience",
+      "outputXZ": [
+        -738.4,
+        259.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n10000060582",
+          "sourceUrl": "https://www.openstreetmap.org/node/10000060582",
+          "xy": [
+            -738.3628075696506,
+            259.2931823994857
+          ],
+          "tags": {
+            "brand": "Shop&Go",
+            "name": "Shop&Go",
+            "shop": "convenience"
+          },
+          "distanceM": 0.037812121760949086
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 22,
+      "kind": "food",
+      "name": "M1 Kebap",
+      "brand": "",
+      "subtype": "fast_food:kebab",
+      "outputXZ": [
+        -656.1,
+        216.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n13283748301",
+          "sourceUrl": "https://www.openstreetmap.org/node/13283748301",
+          "xy": [
+            -656.0857780232179,
+            216.79630559954686
+          ],
+          "tags": {
+            "amenity": "fast_food",
+            "cuisine": "kebab",
+            "name": "M1 Kebap"
+          },
+          "distanceM": 0.014693985786666695
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 23,
+      "kind": "shop",
+      "name": "La Doi Pași Extra",
+      "brand": "La Doi Pași",
+      "subtype": "convenience",
+      "outputXZ": [
+        -712.1,
+        259.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n14125548801",
+          "sourceUrl": "https://www.openstreetmap.org/node/14125548801",
+          "xy": [
+            -712.1375012438822,
+            259.6043519999635
+          ],
+          "tags": {
+            "brand": "La Doi Pași",
+            "name": "La Doi Pași Extra",
+            "shop": "convenience"
+          },
+          "distanceM": 0.03775292301784801
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 24,
+      "kind": "food",
+      "name": "McDonald's",
+      "brand": "McDonald's",
+      "subtype": "fast_food:burger",
+      "outputXZ": [
+        -378.5,
+        132.9
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n125285209",
+          "sourceUrl": "https://www.openstreetmap.org/node/125285209",
+          "xy": [
+            -378.4663864428909,
+            132.91387200002188
+          ],
+          "tags": {
+            "amenity": "fast_food",
+            "brand": "McDonald's",
+            "cuisine": "burger",
+            "level": "0",
+            "name": "McDonald's"
+          },
+          "distanceM": 0.036363492765878545
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 25,
+      "kind": "metro",
+      "name": "Piața Unirii 2",
+      "brand": "",
+      "subtype": "subway_entrance",
+      "outputXZ": [
+        -380.6,
+        240.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n125359780",
+          "sourceUrl": "https://www.openstreetmap.org/node/125359780",
+          "xy": [
+            -380.6206932069041,
+            240.26738399982696
+          ],
+          "tags": {
+            "name": "Piața Unirii 2",
+            "railway": "subway_entrance"
+          },
+          "distanceM": 0.03862657478036416
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 26,
+      "kind": "metro",
+      "name": "Piața Unirii 2",
+      "brand": "",
+      "subtype": "subway_entrance",
+      "outputXZ": [
+        -474.1,
+        69.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n125382767",
+          "sourceUrl": "https://www.openstreetmap.org/node/125382767",
+          "xy": [
+            -474.058780674671,
+            69.56863199965625
+          ],
+          "tags": {
+            "name": "Piața Unirii 2",
+            "railway": "subway_entrance"
+          },
+          "distanceM": 0.05179753108153791
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 27,
+      "kind": "busstop",
+      "name": "Piața Corneliu Coposu",
+      "brand": "",
+      "subtype": "tram_stop",
+      "outputXZ": [
+        130.1,
+        -242.9
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n129534992",
+          "sourceUrl": "https://www.openstreetmap.org/node/129534992",
+          "xy": [
+            130.12489822667007,
+            -242.89009920046993
+          ],
+          "tags": {
+            "name": "Piața Corneliu Coposu",
+            "public_transport": "stop_position",
+            "railway": "tram_stop",
+            "tram": "yes"
+          },
+          "distanceM": 0.026794542777385036
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 28,
+      "kind": "food",
+      "name": "KFC",
+      "brand": "KFC",
+      "subtype": "fast_food:chicken",
+      "outputXZ": [
+        -352.1,
+        97.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n286860947",
+          "sourceUrl": "https://www.openstreetmap.org/node/286860947",
+          "xy": [
+            -352.07414121633684,
+            97.11825479943056
+          ],
+          "tags": {
+            "amenity": "fast_food",
+            "brand": "KFC",
+            "cuisine": "chicken",
+            "name": "KFC"
+          },
+          "distanceM": 0.03165303136809172
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 29,
+      "kind": "metro",
+      "name": "Piața Unirii 1",
+      "brand": "",
+      "subtype": "station",
+      "outputXZ": [
+        -559.7,
+        241.2
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n305109987",
+          "sourceUrl": "https://www.openstreetmap.org/node/305109987",
+          "xy": [
+            -559.7302345319946,
+            241.21200599981094
+          ],
+          "tags": {
+            "name": "Piața Unirii 1",
+            "public_transport": "station",
+            "railway": "station",
+            "station": "subway",
+            "subway": "yes"
+          },
+          "distanceM": 0.03253107677883038
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 30,
+      "kind": "food",
+      "name": "The Harp",
+      "brand": "",
+      "subtype": "restaurant:pub",
+      "outputXZ": [
+        -473.6,
+        453.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n327226173",
+          "sourceUrl": "https://www.openstreetmap.org/node/327226173",
+          "xy": [
+            -473.5579639731614,
+            453.75195599936495
+          ],
+          "tags": {
+            "amenity": "restaurant",
+            "cuisine": "pub",
+            "name": "The Harp"
+          },
+          "distanceM": 0.06383771259528664
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 31,
+      "kind": "bank",
+      "name": "ING",
+      "brand": "ING",
+      "subtype": "bank",
+      "outputXZ": [
+        -200.8,
+        -45.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n510598710",
+          "sourceUrl": "https://www.openstreetmap.org/node/510598710",
+          "xy": [
+            -200.80364892263225,
+            -45.49744080025957
+          ],
+          "tags": {
+            "amenity": "bank",
+            "brand": "ING",
+            "name": "ING"
+          },
+          "distanceM": 0.004456920426424626
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 32,
+      "kind": "bank",
+      "name": "BRD",
+      "brand": "BRD",
+      "subtype": "bank",
+      "outputXZ": [
+        -452.8,
+        58.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n647187505",
+          "sourceUrl": "https://www.openstreetmap.org/node/647187505",
+          "xy": [
+            -452.75419717839753,
+            58.37763959995752
+          ],
+          "tags": {
+            "amenity": "bank",
+            "brand": "BRD",
+            "name": "BRD"
+          },
+          "distanceM": 0.05096946102136278
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 33,
+      "kind": "food",
+      "name": "Restaurant Horoscop",
+      "brand": "",
+      "subtype": "restaurant",
+      "outputXZ": [
+        -422.4,
+        484.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n929357076",
+          "sourceUrl": "https://www.openstreetmap.org/node/929357076",
+          "xy": [
+            -422.3951656966526,
+            484.42438799930926
+          ],
+          "tags": {
+            "amenity": "restaurant",
+            "name": "Restaurant Horoscop"
+          },
+          "distanceM": 0.02486252197915472
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 34,
+      "kind": "landmark",
+      "name": "Sinagoga Bet Hamirdaș",
+      "brand": "",
+      "subtype": "place_of_worship",
+      "outputXZ": [
+        -212.1,
+        -257.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n950781677",
+          "sourceUrl": "https://www.openstreetmap.org/node/950781677",
+          "xy": [
+            -212.09984785828303,
+            -257.09276880061924
+          ],
+          "tags": {
+            "amenity": "place_of_worship",
+            "name": "Sinagoga Bet Hamirdaș"
+          },
+          "distanceM": 0.007232799705969871
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 35,
+      "kind": "landmark",
+      "name": "Anton Pann",
+      "brand": "",
+      "subtype": "artwork",
+      "outputXZ": [
+        349.1,
+        -160.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n998425774",
+          "sourceUrl": "https://www.openstreetmap.org/node/998425774",
+          "xy": [
+            349.10103889233613,
+            -160.8302304001337
+          ],
+          "tags": {
+            "name": "Anton Pann",
+            "tourism": "artwork"
+          },
+          "distanceM": 0.030248246057069036
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 36,
+      "kind": "shop",
+      "name": "Mega Image",
+      "brand": "Mega Image",
+      "subtype": "supermarket",
+      "outputXZ": [
+        -353.3,
+        139
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n1439628129",
+          "sourceUrl": "https://www.openstreetmap.org/node/1439628129",
+          "xy": [
+            -353.26656193449935,
+            139.03724519972295
+          ],
+          "tags": {
+            "brand": "Mega Image",
+            "name": "Mega Image",
+            "shop": "supermarket"
+          },
+          "distanceM": 0.0500530631113487
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 37,
+      "kind": "shop",
+      "name": "Spălătorie Unirea Etaj 7",
+      "brand": "",
+      "subtype": "car_wash",
+      "outputXZ": [
+        -296.7,
+        97.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n1439628952",
+          "sourceUrl": "https://www.openstreetmap.org/node/1439628952",
+          "xy": [
+            -296.6901735979678,
+            97.5294431994979
+          ],
+          "tags": {
+            "amenity": "car_wash",
+            "name": "Spălătorie Unirea Etaj 7"
+          },
+          "distanceM": 0.03103965485586277
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 38,
+      "kind": "landmark",
+      "name": "Monumentul Sfânta Vineri",
+      "brand": "",
+      "subtype": "memorial",
+      "outputXZ": [
+        -138.4,
+        -17.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n1439641175",
+          "sourceUrl": "https://www.openstreetmap.org/node/1439641175",
+          "xy": [
+            -138.3843990673588,
+            -17.43661080003872
+          ],
+          "tags": {
+            "historic": "memorial",
+            "name": "Monumentul Sfânta Vineri"
+          },
+          "distanceM": 0.03979622819754153
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 39,
+      "kind": "bank",
+      "name": "CEC Bank",
+      "brand": "CEC Bank",
+      "subtype": "bank",
+      "outputXZ": [
+        -82,
+        3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n1439641536",
+          "sourceUrl": "https://www.openstreetmap.org/node/1439641536",
+          "xy": [
+            -81.96700016006628,
+            3.0005639995310673
+          ],
+          "tags": {
+            "amenity": "bank",
+            "brand": "CEC Bank",
+            "name": "CEC Bank"
+          },
+          "distanceM": 0.033004659233544134
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 40,
+      "kind": "bank",
+      "name": "First Bank",
+      "brand": "",
+      "subtype": "bank",
+      "outputXZ": [
+        -307.4,
+        287.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n1563413172",
+          "sourceUrl": "https://www.openstreetmap.org/node/1563413172",
+          "xy": [
+            -307.4140105890362,
+            287.5207103992857
+          ],
+          "tags": {
+            "amenity": "bank",
+            "name": "First Bank"
+          },
+          "distanceM": 0.025004344496796962
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 41,
+      "kind": "busstop",
+      "name": "Bulevardul I.C. Brătianu",
+      "brand": "",
+      "subtype": "bus_stop",
+      "outputXZ": [
+        -335,
+        351.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n1668620613",
+          "sourceUrl": "https://www.openstreetmap.org/node/1668620613",
+          "xy": [
+            -335.0225249481103,
+            351.0993276000097
+          ],
+          "tags": {
+            "bus": "yes",
+            "highway": "bus_stop",
+            "name": "Bulevardul I.C. Brătianu",
+            "public_transport": "platform"
+          },
+          "distanceM": 0.022534981897444326
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 42,
+      "kind": "busstop",
+      "name": "Bulevardul I.C. Brătianu",
+      "brand": "",
+      "subtype": "bus_stop",
+      "outputXZ": [
+        -312.3,
+        323.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n1668620614",
+          "sourceUrl": "https://www.openstreetmap.org/node/1668620614",
+          "xy": [
+            -312.3426828903602,
+            323.3607803996068
+          ],
+          "tags": {
+            "bus": "yes",
+            "highway": "bus_stop",
+            "name": "Bulevardul I.C. Brătianu",
+            "public_transport": "platform"
+          },
+          "distanceM": 0.05796556033110723
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 43,
+      "kind": "shop",
+      "name": "Trored Anticariat",
+      "brand": "",
+      "subtype": "books",
+      "outputXZ": [
+        -341.2,
+        21.2
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n1814904301",
+          "sourceUrl": "https://www.openstreetmap.org/node/1814904301",
+          "xy": [
+            -341.191314796312,
+            21.23732519944474
+          ],
+          "tags": {
+            "name": "Trored Anticariat",
+            "shop": "books"
+          },
+          "distanceM": 0.03832236000942245
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 44,
+      "kind": "landmark",
+      "name": "Bustul lui Mircea Vulcănescu",
+      "brand": "",
+      "subtype": "artwork",
+      "outputXZ": [
+        584.1,
+        -531.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n1977859584",
+          "sourceUrl": "https://www.openstreetmap.org/node/1977859584",
+          "xy": [
+            584.087415066041,
+            -531.0887148005709
+          ],
+          "tags": {
+            "name": "Bustul lui Mircea Vulcănescu",
+            "tourism": "artwork"
+          },
+          "distanceM": 0.0169037359453165
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 45,
+      "kind": "food",
+      "name": "Il Re Del Mare",
+      "brand": "",
+      "subtype": "restaurant:italian",
+      "outputXZ": [
+        605.8,
+        -504.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n1977859588",
+          "sourceUrl": "https://www.openstreetmap.org/node/1977859588",
+          "xy": [
+            605.8371689635622,
+            -504.31701600041185
+          ],
+          "tags": {
+            "amenity": "restaurant",
+            "cuisine": "italian",
+            "name": "Il Re Del Mare"
+          },
+          "distanceM": 0.040878797955798525
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 46,
+      "kind": "shop",
+      "name": "Librăria Sophia",
+      "brand": "",
+      "subtype": "books",
+      "outputXZ": [
+        -540.6,
+        477
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2077821792",
+          "sourceUrl": "https://www.openstreetmap.org/node/2077821792",
+          "xy": [
+            -540.6117556856385,
+            477.04522319993606
+          ],
+          "tags": {
+            "name": "Librăria Sophia",
+            "shop": "books"
+          },
+          "distanceM": 0.04672615923963719
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 47,
+      "kind": "busstop",
+      "name": "Piața Unirii 2",
+      "brand": "",
+      "subtype": "bus_stop",
+      "outputXZ": [
+        -511.1,
+        434.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2148890286",
+          "sourceUrl": "https://www.openstreetmap.org/node/2148890286",
+          "xy": [
+            -511.08741870640966,
+            434.28162960003885
+          ],
+          "tags": {
+            "bus": "yes",
+            "highway": "bus_stop",
+            "name": "Piața Unirii 2",
+            "public_transport": "platform"
+          },
+          "distanceM": 0.02226568083710112
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 48,
+      "kind": "metro",
+      "name": "Piața Unirii 2",
+      "brand": "",
+      "subtype": "subway_entrance",
+      "outputXZ": [
+        -385.4,
+        179.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2383773382",
+          "sourceUrl": "https://www.openstreetmap.org/node/2383773382",
+          "xy": [
+            -385.42217396489343,
+            179.1114443997772
+          ],
+          "tags": {
+            "name": "Piața Unirii 2",
+            "railway": "subway_entrance"
+          },
+          "distanceM": 0.024953136182791713
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 49,
+      "kind": "shop",
+      "name": "Librăria Bizantină",
+      "brand": "",
+      "subtype": "books",
+      "outputXZ": [
+        -556.5,
+        485.9
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2394580762",
+          "sourceUrl": "https://www.openstreetmap.org/node/2394580762",
+          "xy": [
+            -556.5424964790578,
+            485.86910399960993
+          ],
+          "tags": {
+            "name": "Librăria Bizantină",
+            "shop": "books"
+          },
+          "distanceM": 0.05254058976081538
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 50,
+      "kind": "busstop",
+      "name": "Piața Sfânta Vineri",
+      "brand": "",
+      "subtype": "bus_stop",
+      "outputXZ": [
+        -215.4,
+        -26.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2395202281",
+          "sourceUrl": "https://www.openstreetmap.org/node/2395202281",
+          "xy": [
+            -215.3670806258392,
+            -26.83837800014868
+          ],
+          "tags": {
+            "bus": "yes",
+            "highway": "bus_stop",
+            "name": "Piața Sfânta Vineri",
+            "public_transport": "platform"
+          },
+          "distanceM": 0.05056239799050902
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 51,
+      "kind": "busstop",
+      "name": "Matei Basarab",
+      "brand": "",
+      "subtype": "bus_stop",
+      "outputXZ": [
+        202.6,
+        -150.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2395268954",
+          "sourceUrl": "https://www.openstreetmap.org/node/2395268954",
+          "xy": [
+            202.61612841380995,
+            -150.72833160052798
+          ],
+          "tags": {
+            "bus": "yes",
+            "highway": "bus_stop",
+            "name": "Matei Basarab",
+            "public_transport": "platform"
+          },
+          "distanceM": 0.032600695092324765
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 52,
+      "kind": "hotel",
+      "name": "Hotel Horoscop",
+      "brand": "",
+      "subtype": "hotel",
+      "outputXZ": [
+        -427.6,
+        475.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2451022754",
+          "sourceUrl": "https://www.openstreetmap.org/node/2451022754",
+          "xy": [
+            -427.63386738462543,
+            475.73386559961455
+          ],
+          "tags": {
+            "name": "Hotel Horoscop",
+            "tourism": "hotel"
+          },
+          "distanceM": 0.04789445248271406
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 53,
+      "kind": "shop",
+      "name": "Telekom",
+      "brand": "Telekom",
+      "subtype": "mobile_phone",
+      "outputXZ": [
+        -331.4,
+        38.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2451994413",
+          "sourceUrl": "https://www.openstreetmap.org/node/2451994413",
+          "xy": [
+            -331.42936385109437,
+            38.66282279935359
+          ],
+          "tags": {
+            "brand": "Telekom",
+            "name": "Telekom",
+            "shop": "mobile_phone"
+          },
+          "distanceM": 0.047374887852077364
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 54,
+      "kind": "food",
+      "name": "Toka",
+      "brand": "",
+      "subtype": "restaurant",
+      "outputXZ": [
+        611.9,
+        -382.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2479038675",
+          "sourceUrl": "https://www.openstreetmap.org/node/2479038675",
+          "xy": [
+            611.8787672684292,
+            -382.54968360035883
+          ],
+          "tags": {
+            "amenity": "restaurant",
+            "name": "Toka"
+          },
+          "distanceM": 0.05403044544117943
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 55,
+      "kind": "hotel",
+      "name": "X Hostel",
+      "brand": "",
+      "subtype": "hostel",
+      "outputXZ": [
+        -103.6,
+        -148.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2596212155",
+          "sourceUrl": "https://www.openstreetmap.org/node/2596212155",
+          "xy": [
+            -103.58956251425283,
+            -148.7501820003107
+          ],
+          "tags": {
+            "name": "X Hostel",
+            "tourism": "hostel"
+          },
+          "distanceM": 0.05089964834619473
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 56,
+      "kind": "landmark",
+      "name": "Muzeul de Istorie a Evreilor din România \"sef rabin Dr. Moses Rosen\"",
+      "brand": "",
+      "subtype": "museum",
+      "outputXZ": [
+        -82.6,
+        145.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2634651874",
+          "sourceUrl": "https://www.openstreetmap.org/node/2634651874",
+          "xy": [
+            -82.59500840491059,
+            145.69405199934064
+          ],
+          "tags": {
+            "name": "Muzeul de Istorie a Evreilor din România \"sef rabin Dr. Moses Rosen\"",
+            "tourism": "museum"
+          },
+          "distanceM": 0.007764968343796474
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 57,
+      "kind": "landmark",
+      "name": "Muzeul Holocaustului",
+      "brand": "",
+      "subtype": "museum",
+      "outputXZ": [
+        -47.1,
+        15.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2634652441",
+          "sourceUrl": "https://www.openstreetmap.org/node/2634652441",
+          "xy": [
+            -47.06087100643655,
+            15.336215999972154
+          ],
+          "tags": {
+            "name": "Muzeul Holocaustului",
+            "tourism": "museum"
+          },
+          "distanceM": 0.05331675900944906
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 58,
+      "kind": "office",
+      "name": "Inspectoratul de Stat în Construcții",
+      "brand": "",
+      "subtype": "government",
+      "outputXZ": [
+        152.2,
+        -316.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2673012460",
+          "sourceUrl": "https://www.openstreetmap.org/node/2673012460",
+          "xy": [
+            152.22442886829106,
+            -316.35946440070103
+          ],
+          "tags": {
+            "name": "Inspectoratul de Stat în Construcții",
+            "office": "government"
+          },
+          "distanceM": 0.047327628469079765
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 59,
+      "kind": "bank",
+      "name": "Alpha Bank",
+      "brand": "Alpha Bank",
+      "subtype": "bank",
+      "outputXZ": [
+        -123.6,
+        -94.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2690048045",
+          "sourceUrl": "https://www.openstreetmap.org/node/2690048045",
+          "xy": [
+            -123.64607899210198,
+            -94.39552079998768
+          ],
+          "tags": {
+            "amenity": "bank",
+            "brand": "Alpha Bank",
+            "name": "Alpha Bank"
+          },
+          "distanceM": 0.0462961850035722
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 60,
+      "kind": "pharmacy",
+      "name": "Farmacia Dona",
+      "brand": "Farmacia Dona",
+      "subtype": "pharmacy",
+      "outputXZ": [
+        -245.7,
+        -18.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2690055639",
+          "sourceUrl": "https://www.openstreetmap.org/node/2690055639",
+          "xy": [
+            -245.71816263631987,
+            -18.50347800066163
+          ],
+          "tags": {
+            "amenity": "pharmacy",
+            "brand": "Farmacia Dona",
+            "level": "0",
+            "name": "Farmacia Dona"
+          },
+          "distanceM": 0.01849264304232195
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 61,
+      "kind": "hospital",
+      "name": "Art Implant",
+      "brand": "",
+      "subtype": "clinic",
+      "outputXZ": [
+        24.1,
+        -185.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2690812689",
+          "sourceUrl": "https://www.openstreetmap.org/node/2690812689",
+          "xy": [
+            24.07894903330189,
+            -185.53487400061584
+          ],
+          "tags": {
+            "amenity": "clinic",
+            "name": "Art Implant"
+          },
+          "distanceM": 0.04073498641068762
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 62,
+      "kind": "bank",
+      "name": "Patria Bank",
+      "brand": "",
+      "subtype": "bank",
+      "outputXZ": [
+        -140.9,
+        -80.9
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2690812691",
+          "sourceUrl": "https://www.openstreetmap.org/node/2690812691",
+          "xy": [
+            -140.9043815182827,
+            -80.89298280012378
+          ],
+          "tags": {
+            "amenity": "bank",
+            "name": "Patria Bank"
+          },
+          "distanceM": 0.008272774417598371
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 63,
+      "kind": "bank",
+      "name": "Garanti BBVA",
+      "brand": "Garanti BBVA",
+      "subtype": "bank",
+      "outputXZ": [
+        -211.3,
+        -64.2
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2690812695",
+          "sourceUrl": "https://www.openstreetmap.org/node/2690812695",
+          "xy": [
+            -211.33669859883977,
+            -64.21206960023017
+          ],
+          "tags": {
+            "amenity": "bank",
+            "brand": "Garanti Bankası",
+            "name": "Garanti Bankası"
+          },
+          "distanceM": 0.03863240099343814
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 64,
+      "kind": "shop",
+      "name": "Art Estetic",
+      "brand": "",
+      "subtype": "beauty",
+      "outputXZ": [
+        30.3,
+        -189.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2690812697",
+          "sourceUrl": "https://www.openstreetmap.org/node/2690812697",
+          "xy": [
+            30.279536767407855,
+            -189.59119200063995
+          ],
+          "tags": {
+            "name": "Art Estetic",
+            "shop": "beauty"
+          },
+          "distanceM": 0.02227834690561232
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 65,
+      "kind": "shop",
+      "name": "BikeXpert",
+      "brand": "",
+      "subtype": "bicycle",
+      "outputXZ": [
+        -91.9,
+        -112.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2719765244",
+          "sourceUrl": "https://www.openstreetmap.org/node/2719765244",
+          "xy": [
+            -91.94358683450231,
+            -112.30999920008333
+          ],
+          "tags": {
+            "level": "0",
+            "name": "BikeXpert",
+            "shop": "bicycle"
+          },
+          "distanceM": 0.04471908031520669
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 66,
+      "kind": "shop",
+      "name": "Sex Shop Erotica",
+      "brand": "",
+      "subtype": "erotic",
+      "outputXZ": [
+        -246.3,
+        53.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2725099364",
+          "sourceUrl": "https://www.openstreetmap.org/node/2725099364",
+          "xy": [
+            -246.34617088116417,
+            53.77677479988691
+          ],
+          "tags": {
+            "name": "Sex Shop Erotica",
+            "shop": "erotic"
+          },
+          "distanceM": 0.05168326796718522
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 67,
+      "kind": "landmark",
+      "name": "Anca Poterașu Gallery",
+      "brand": "",
+      "subtype": "arts_centre",
+      "outputXZ": [
+        513.4,
+        -559.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2749532010",
+          "sourceUrl": "https://www.openstreetmap.org/node/2749532010",
+          "xy": [
+            513.3927654275503,
+            -559.3162428003709
+          ],
+          "tags": {
+            "amenity": "arts_centre",
+            "name": "Anca Poterașu Gallery"
+          },
+          "distanceM": 0.017781102396072467
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 68,
+      "kind": "office",
+      "name": "hotspot Wi-Fi Digi, Metrou Piața Unirii 1",
+      "brand": "",
+      "subtype": "telecommunication",
+      "outputXZ": [
+        -581.2,
+        229.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n3096367529",
+          "sourceUrl": "https://www.openstreetmap.org/node/3096367529",
+          "xy": [
+            -581.2017569284889,
+            229.0541651998685
+          ],
+          "tags": {
+            "name": "hotspot Wi-Fi Digi, Metrou Piața Unirii 1",
+            "office": "telecommunication"
+          },
+          "distanceM": 0.045868460850670804
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 69,
+      "kind": "busstop",
+      "name": "Piața Unirii 5",
+      "brand": "",
+      "subtype": "bus_stop",
+      "outputXZ": [
+        -399.3,
+        169.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n3402859193",
+          "sourceUrl": "https://www.openstreetmap.org/node/3402859193",
+          "xy": [
+            -399.3019511232766,
+            169.731903599927
+          ],
+          "tags": {
+            "bus": "yes",
+            "highway": "bus_stop",
+            "name": "Piața Unirii 5",
+            "public_transport": "platform"
+          },
+          "distanceM": 0.03196320650909113
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 70,
+      "kind": "food",
+      "name": "Lunch Time",
+      "brand": "",
+      "subtype": "fast_food",
+      "outputXZ": [
+        -319.2,
+        -39
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n3462280483",
+          "sourceUrl": "https://www.openstreetmap.org/node/3462280483",
+          "xy": [
+            -319.21102622647896,
+            -39.007332000221
+          ],
+          "tags": {
+            "amenity": "fast_food",
+            "name": "Lunch Time"
+          },
+          "distanceM": 0.01324144620524415
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 71,
+      "kind": "shop",
+      "name": "Sfinx",
+      "brand": "",
+      "subtype": "florist",
+      "outputXZ": [
+        -268.8,
+        -13
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n3462280487",
+          "sourceUrl": "https://www.openstreetmap.org/node/3462280487",
+          "xy": [
+            -268.7954782666025,
+            -13.03578360072649
+          ],
+          "tags": {
+            "name": "Sfinx",
+            "shop": "florist"
+          },
+          "distanceM": 0.036068159834829944
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 72,
+      "kind": "shop",
+      "name": "Stello",
+      "brand": "",
+      "subtype": "florist",
+      "outputXZ": [
+        -299.9,
+        -29.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n3462280488",
+          "sourceUrl": "https://www.openstreetmap.org/node/3462280488",
+          "xy": [
+            -299.86996217935786,
+            -29.53888560012146
+          ],
+          "tags": {
+            "name": "Stello",
+            "shop": "florist"
+          },
+          "distanceM": 0.04913614317113618
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 73,
+      "kind": "shop",
+      "name": "Mini market",
+      "brand": "",
+      "subtype": "convenience",
+      "outputXZ": [
+        -274.4,
+        5.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n3503479426",
+          "sourceUrl": "https://www.openstreetmap.org/node/3503479426",
+          "xy": [
+            -274.3839566986751,
+            5.701071599503848
+          ],
+          "tags": {
+            "level": "0",
+            "name": "Mini market",
+            "shop": "convenience"
+          },
+          "distanceM": 0.016079049813272524
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 74,
+      "kind": "bank",
+      "name": "Banca Transilvania",
+      "brand": "Banca Transilvania",
+      "subtype": "bank",
+      "outputXZ": [
+        -226.1,
+        -31.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n3711838133",
+          "sourceUrl": "https://www.openstreetmap.org/node/3711838133",
+          "xy": [
+            -226.05911973128568,
+            -31.30588440024013
+          ],
+          "tags": {
+            "amenity": "bank",
+            "brand": "Banca Transilvania",
+            "name": "Banca Transilvania"
+          },
+          "distanceM": 0.04130160452501686
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 75,
+      "kind": "shop",
+      "name": "Zoomserie",
+      "brand": "",
+      "subtype": "pastry",
+      "outputXZ": [
+        -113,
+        -34.2
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n3723247228",
+          "sourceUrl": "https://www.openstreetmap.org/node/3723247228",
+          "xy": [
+            -113.00173671565312,
+            -34.18420320071155
+          ],
+          "tags": {
+            "level": "0",
+            "name": "Zoomserie",
+            "shop": "pastry"
+          },
+          "distanceM": 0.015891980651241984
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 76,
+      "kind": "shop",
+      "name": "Avon",
+      "brand": "Avon",
+      "subtype": "cosmetics",
+      "outputXZ": [
+        -634.2,
+        486.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n3734658572",
+          "sourceUrl": "https://www.openstreetmap.org/node/3734658572",
+          "xy": [
+            -634.2406304682662,
+            486.5914619993654
+          ],
+          "tags": {
+            "brand": "Avon",
+            "name": "Avon",
+            "shop": "cosmetics"
+          },
+          "distanceM": 0.04151785647603319
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 77,
+      "kind": "shop",
+      "name": "Cargus Ship & Go",
+      "brand": "",
+      "subtype": "post_office",
+      "outputXZ": [
+        -88.6,
+        -128.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n3756820806",
+          "sourceUrl": "https://www.openstreetmap.org/node/3756820806",
+          "xy": [
+            -88.59685935260906,
+            -128.3130072007409
+          ],
+          "tags": {
+            "amenity": "post_office",
+            "name": "Cargus Ship & Go"
+          },
+          "distanceM": 0.013380991635461567
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 78,
+      "kind": "shop",
+      "name": "Dentall Pro",
+      "brand": "",
+      "subtype": "dentist",
+      "outputXZ": [
+        -5.7,
+        -71.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n3875082433",
+          "sourceUrl": "https://www.openstreetmap.org/node/3875082433",
+          "xy": [
+            -5.683872089502994,
+            -71.32451760043469
+          ],
+          "tags": {
+            "amenity": "dentist",
+            "name": "Dentall Pro"
+          },
+          "distanceM": 0.029346588014190364
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 79,
+      "kind": "shop",
+      "name": "Iris",
+      "brand": "",
+      "subtype": "florist",
+      "outputXZ": [
+        -212,
+        -36.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n4036022289",
+          "sourceUrl": "https://www.openstreetmap.org/node/4036022289",
+          "xy": [
+            -211.99650472930594,
+            -36.517975200346825
+          ],
+          "tags": {
+            "name": "Iris",
+            "shop": "florist"
+          },
+          "distanceM": 0.0183118744188917
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 80,
+      "kind": "pharmacy",
+      "name": "Farmacia 2NA",
+      "brand": "",
+      "subtype": "pharmacy",
+      "outputXZ": [
+        88.3,
+        -323.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n4048745546",
+          "sourceUrl": "https://www.openstreetmap.org/node/4048745546",
+          "xy": [
+            88.28682996539541,
+            -323.64972360061455
+          ],
+          "tags": {
+            "amenity": "pharmacy",
+            "name": "Farmacia 2NA"
+          },
+          "distanceM": 0.05143817910423119
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 81,
+      "kind": "shop",
+      "name": "Amanet Cashbook",
+      "brand": "",
+      "subtype": "pawnbroker",
+      "outputXZ": [
+        -30.9,
+        -100
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n4092211384",
+          "sourceUrl": "https://www.openstreetmap.org/node/4092211384",
+          "xy": [
+            -30.851898712272703,
+            -100.04102640042146
+          ],
+          "tags": {
+            "name": "Amanet Cashbook",
+            "shop": "pawnbroker"
+          },
+          "distanceM": 0.06322103615542753
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 82,
+      "kind": "shop",
+      "name": "Pet Shop Boys",
+      "brand": "",
+      "subtype": "pet",
+      "outputXZ": [
+        -41.1,
+        -93
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n4092211386",
+          "sourceUrl": "https://www.openstreetmap.org/node/4092211386",
+          "xy": [
+            -41.05902005902049,
+            -93.039710400726
+          ],
+          "tags": {
+            "name": "Pet Shop Boys",
+            "shop": "pet"
+          },
+          "distanceM": 0.05706374933794011
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 83,
+      "kind": "shop",
+      "name": "Dental Class",
+      "brand": "",
+      "subtype": "dentist",
+      "outputXZ": [
+        -463.5,
+        1.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n4108864189",
+          "sourceUrl": "https://www.openstreetmap.org/node/4108864189",
+          "xy": [
+            -463.4939331125592,
+            1.2557915996721363
+          ],
+          "tags": {
+            "amenity": "dentist",
+            "name": "Dental Class"
+          },
+          "distanceM": 0.04462274961012537
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 84,
+      "kind": "shop",
+      "name": "Grilly's Corner",
+      "brand": "",
+      "subtype": "deli",
+      "outputXZ": [
+        171.3,
+        -331.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n4339114989",
+          "sourceUrl": "https://www.openstreetmap.org/node/4339114989",
+          "xy": [
+            171.2872614143852,
+            -331.40673720045515
+          ],
+          "tags": {
+            "name": "Grilly's Corner",
+            "shop": "deli"
+          },
+          "distanceM": 0.014410462637928823
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 85,
+      "kind": "shop",
+      "name": "stampile ok",
+      "brand": "",
+      "subtype": "copyshop",
+      "outputXZ": [
+        -80.9,
+        -65.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n4697328193",
+          "sourceUrl": "https://www.openstreetmap.org/node/4697328193",
+          "xy": [
+            -80.9176699280494,
+            -65.74569119999049
+          ],
+          "tags": {
+            "name": "stampile ok",
+            "shop": "copyshop"
+          },
+          "distanceM": 0.04898889786310354
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 86,
+      "kind": "shop",
+      "name": "Megapan",
+      "brand": "",
+      "subtype": "bakery",
+      "outputXZ": [
+        -219.4,
+        -35.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n4997248578",
+          "sourceUrl": "https://www.openstreetmap.org/node/4997248578",
+          "xy": [
+            -219.37361423848103,
+            -35.606692799962815
+          ],
+          "tags": {
+            "name": "Megapan",
+            "shop": "bakery"
+          },
+          "distanceM": 0.02722135158802288
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 87,
+      "kind": "shop",
+      "name": "Berezka",
+      "brand": "",
+      "subtype": "convenience",
+      "outputXZ": [
+        -161.5,
+        -71.2
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n4997248581",
+          "sourceUrl": "https://www.openstreetmap.org/node/4997248581",
+          "xy": [
+            -161.51736099790332,
+            -71.2022724005854
+          ],
+          "tags": {
+            "level": "0",
+            "name": "Berezka",
+            "shop": "convenience"
+          },
+          "distanceM": 0.017509084859573632
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 88,
+      "kind": "shop",
+      "name": "Victoria Gold",
+      "brand": "",
+      "subtype": "jewelry",
+      "outputXZ": [
+        -325.3,
+        35
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n4997248597",
+          "sourceUrl": "https://www.openstreetmap.org/node/4997248597",
+          "xy": [
+            -325.29237188879694,
+            34.97324039966699
+          ],
+          "tags": {
+            "name": "Victoria Gold",
+            "shop": "jewelry"
+          },
+          "distanceM": 0.027825604944166634
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 89,
+      "kind": "shop",
+      "name": "Oftaprax",
+      "brand": "",
+      "subtype": "optician",
+      "outputXZ": [
+        -304.2,
+        21.9
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n4997248598",
+          "sourceUrl": "https://www.openstreetmap.org/node/4997248598",
+          "xy": [
+            -304.16267676457335,
+            21.904117199340533
+          ],
+          "tags": {
+            "name": "Oftaprax",
+            "shop": "optician"
+          },
+          "distanceM": 0.03754963692397221
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 90,
+      "kind": "shop",
+      "name": "AnaPan",
+      "brand": "",
+      "subtype": "bakery",
+      "outputXZ": [
+        -105.7,
+        -103.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n4997248607",
+          "sourceUrl": "https://www.openstreetmap.org/node/4997248607",
+          "xy": [
+            -105.74386927826603,
+            -103.11938280007197
+          ],
+          "tags": {
+            "level": "0",
+            "name": "AnaPan",
+            "shop": "bakery"
+          },
+          "distanceM": 0.04796046824430212
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 91,
+      "kind": "bank",
+      "name": "Patria Bank",
+      "brand": "",
+      "subtype": "bank",
+      "outputXZ": [
+        -195.1,
+        -105
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n4997248609",
+          "sourceUrl": "https://www.openstreetmap.org/node/4997248609",
+          "xy": [
+            -195.12772630439352,
+            -104.98640040056983
+          ],
+          "tags": {
+            "amenity": "bank",
+            "name": "Patria Bank"
+          },
+          "distanceM": 0.030881986010995986
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 92,
+      "kind": "bank",
+      "name": "Intesa Sanpolo",
+      "brand": "",
+      "subtype": "bank",
+      "outputXZ": [
+        -332.1,
+        465.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n5076769421",
+          "sourceUrl": "https://www.openstreetmap.org/node/5076769421",
+          "xy": [
+            -332.1209678674648,
+            465.83200439997756
+          ],
+          "tags": {
+            "amenity": "bank",
+            "name": "Intesa Sanpolo"
+          },
+          "distanceM": 0.03826137848985001
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 93,
+      "kind": "hotel",
+      "name": "Central Guesthouse Bucharest",
+      "brand": "",
+      "subtype": "hotel",
+      "outputXZ": [
+        -107.5,
+        -160.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n5157140564",
+          "sourceUrl": "https://www.openstreetmap.org/node/5157140564",
+          "xy": [
+            -107.52455088382186,
+            -160.66353240055457
+          ],
+          "tags": {
+            "name": "Central Guesthouse Bucharest",
+            "tourism": "hotel"
+          },
+          "distanceM": 0.04396170726604873
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 94,
+      "kind": "metro",
+      "name": "Piața Unirii 1",
+      "brand": "",
+      "subtype": "subway_entrance",
+      "outputXZ": [
+        -421.3,
+        456.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n5172764453",
+          "sourceUrl": "https://www.openstreetmap.org/node/5172764453",
+          "xy": [
+            -421.26634075001624,
+            456.0968411999197
+          ],
+          "tags": {
+            "name": "Piața Unirii 1",
+            "railway": "subway_entrance"
+          },
+          "distanceM": 0.033807146099861164
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 95,
+      "kind": "metro",
+      "name": "Piața Unirii 2",
+      "brand": "",
+      "subtype": "subway_entrance",
+      "outputXZ": [
+        -434.4,
+        183.9
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n5172764457",
+          "sourceUrl": "https://www.openstreetmap.org/node/5172764457",
+          "xy": [
+            -434.3829686489562,
+            183.93457319928666
+          ],
+          "tags": {
+            "highway": "elevator",
+            "level": "-1;0",
+            "name": "Piața Unirii 2",
+            "railway": "subway_entrance"
+          },
+          "distanceM": 0.03854053745462471
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 96,
+      "kind": "food",
+      "name": "Alouette",
+      "brand": "",
+      "subtype": "restaurant:bistro",
+      "outputXZ": [
+        -521.5,
+        490.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n5183798829",
+          "sourceUrl": "https://www.openstreetmap.org/node/5183798829",
+          "xy": [
+            -521.4773778964716,
+            490.103233199343
+          ],
+          "tags": {
+            "amenity": "restaurant",
+            "cuisine": "bistro",
+            "name": "Alouette"
+          },
+          "distanceM": 0.022851983415927934
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 97,
+      "kind": "busstop",
+      "name": "Piața Unirii",
+      "brand": "",
+      "subtype": "bus_stop",
+      "outputXZ": [
+        -351.2,
+        79.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n5249487741",
+          "sourceUrl": "https://www.openstreetmap.org/node/5249487741",
+          "xy": [
+            -351.2394467138208,
+            79.8483419997606
+          ],
+          "tags": {
+            "bus": "yes",
+            "highway": "bus_stop",
+            "name": "Piața Unirii",
+            "public_transport": "platform"
+          },
+          "distanceM": 0.06239384722965676
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 98,
+      "kind": "busstop",
+      "name": "Piața Sfânta Vineri",
+      "brand": "",
+      "subtype": "bus_stop",
+      "outputXZ": [
+        -128.2,
+        31.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n5252141807",
+          "sourceUrl": "https://www.openstreetmap.org/node/5252141807",
+          "xy": [
+            -128.19317666370438,
+            31.583714399538678
+          ],
+          "tags": {
+            "bus": "yes",
+            "highway": "bus_stop",
+            "name": "Piața Sfânta Vineri",
+            "public_transport": "platform"
+          },
+          "distanceM": 0.01765725631543161
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 99,
+      "kind": "metro",
+      "name": "Piața Unirii 2",
+      "brand": "",
+      "subtype": "station",
+      "outputXZ": [
+        -391,
+        216.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n5916881059",
+          "sourceUrl": "https://www.openstreetmap.org/node/5916881059",
+          "xy": [
+            -391.02655134005937,
+            216.28509839988996
+          ],
+          "tags": {
+            "name": "Piața Unirii 2",
+            "public_transport": "station",
+            "railway": "station",
+            "station": "subway",
+            "subway": "yes"
+          },
+          "distanceM": 0.03044718943988408
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 100,
+      "kind": "office",
+      "name": "Ambasada Statului Israel",
+      "brand": "",
+      "subtype": "diplomatic",
+      "outputXZ": [
+        -352.5,
+        483.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n5924885487",
+          "sourceUrl": "https://www.openstreetmap.org/node/5924885487",
+          "xy": [
+            -352.4954632035094,
+            483.8353883995329
+          ],
+          "tags": {
+            "level": "5",
+            "name": "Ambasada Statului Israel",
+            "office": "diplomatic"
+          },
+          "distanceM": 0.03567802326219219
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 101,
+      "kind": "shop",
+      "name": "Stephanus",
+      "brand": "",
+      "subtype": "books",
+      "outputXZ": [
+        -544.1,
+        451.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n6053541301",
+          "sourceUrl": "https://www.openstreetmap.org/node/6053541301",
+          "xy": [
+            -544.1174725967708,
+            451.6515611992984
+          ],
+          "tags": {
+            "name": "Stephanus",
+            "shop": "books"
+          },
+          "distanceM": 0.05149377682130834
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 102,
+      "kind": "landmark",
+      "name": "Ruinele Bisericii Sf. Anton",
+      "brand": "",
+      "subtype": "attraction",
+      "outputXZ": [
+        -483.3,
+        -22.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n6164403872",
+          "sourceUrl": "https://www.openstreetmap.org/node/6164403872",
+          "xy": [
+            -483.2960665040214,
+            -22.748720400524604
+          ],
+          "tags": {
+            "name": "Ruinele Bisericii Sf. Anton",
+            "tourism": "attraction"
+          },
+          "distanceM": 0.048878930204044074
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 103,
+      "kind": "landmark",
+      "name": "La Vulturul De Mare Cu Peștele În Ghiare",
+      "brand": "",
+      "subtype": "attraction",
+      "outputXZ": [
+        -348.2,
+        -102.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n6166124910",
+          "sourceUrl": "https://www.openstreetmap.org/node/6166124910",
+          "xy": [
+            -348.16300126112543,
+            -102.59706240028521
+          ],
+          "tags": {
+            "name": "La Vulturul De Mare Cu Peștele În Ghiare",
+            "tourism": "attraction"
+          },
+          "distanceM": 0.037115174395280226
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 104,
+      "kind": "shop",
+      "name": "FotoTapet 3D.ro",
+      "brand": "",
+      "subtype": "home_decoration",
+      "outputXZ": [
+        -84.8,
+        -63.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n6181180785",
+          "sourceUrl": "https://www.openstreetmap.org/node/6181180785",
+          "xy": [
+            -84.79701199763898,
+            -63.08963640053719
+          ],
+          "tags": {
+            "name": "FotoTapet 3D.ro",
+            "shop": "home_decoration"
+          },
+          "distanceM": 0.010785747629863235
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 105,
+      "kind": "shop",
+      "name": "MoneyGram",
+      "brand": "MoneyGram",
+      "subtype": "money_transfer",
+      "outputXZ": [
+        -417.3,
+        512
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n6227450135",
+          "sourceUrl": "https://www.openstreetmap.org/node/6227450135",
+          "xy": [
+            -417.33135238044724,
+            511.99623719934334
+          ],
+          "tags": {
+            "amenity": "money_transfer",
+            "brand": "MoneyGram",
+            "name": "MoneyGram"
+          },
+          "distanceM": 0.03157737209600688
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 106,
+      "kind": "shop",
+      "name": "New Yorker",
+      "brand": "New Yorker",
+      "subtype": "clothes",
+      "outputXZ": [
+        -336.8,
+        87.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n6323286815",
+          "sourceUrl": "https://www.openstreetmap.org/node/6323286815",
+          "xy": [
+            -336.7634591964976,
+            87.76094039984008
+          ],
+          "tags": {
+            "brand": "New Yorker",
+            "name": "New Yorker",
+            "shop": "clothes"
+          },
+          "distanceM": 0.053487219831048656
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 107,
+      "kind": "food",
+      "name": "Chopstix",
+      "brand": "Chopstix",
+      "subtype": "fast_food:chinese",
+      "outputXZ": [
+        -374,
+        183.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n6323313080",
+          "sourceUrl": "https://www.openstreetmap.org/node/6323313080",
+          "xy": [
+            -373.98288454309704,
+            183.76787519970753
+          ],
+          "tags": {
+            "amenity": "fast_food",
+            "brand": "Chopstix",
+            "cuisine": "chinese",
+            "name": "Chopstix"
+          },
+          "distanceM": 0.036399748059960935
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 108,
+      "kind": "food",
+      "name": "O",
+      "brand": "",
+      "subtype": "bar",
+      "outputXZ": [
+        40,
+        -309.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n6388075686",
+          "sourceUrl": "https://www.openstreetmap.org/node/6388075686",
+          "xy": [
+            39.99379088391027,
+            -309.65820480056385
+          ],
+          "tags": {
+            "amenity": "bar",
+            "name": "O"
+          },
+          "distanceM": 0.04225389708088737
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 109,
+      "kind": "landmark",
+      "name": "Serviciul Stare Civilă Sector 3",
+      "brand": "",
+      "subtype": "townhall",
+      "outputXZ": [
+        216.6,
+        -174.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n6866461382",
+          "sourceUrl": "https://www.openstreetmap.org/node/6866461382",
+          "xy": [
+            216.61514764369872,
+            -174.11050440055877
+          ],
+          "tags": {
+            "amenity": "townhall",
+            "name": "Serviciul Stare Civilă Sector 3"
+          },
+          "distanceM": 0.018433489651248306
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 110,
+      "kind": "shop",
+      "name": "Antiquariat",
+      "brand": "",
+      "subtype": "books",
+      "outputXZ": [
+        41.9,
+        -205.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n6945377486",
+          "sourceUrl": "https://www.openstreetmap.org/node/6945377486",
+          "xy": [
+            41.94141138996931,
+            -205.58308680037803
+          ],
+          "tags": {
+            "name": "Antiquariat",
+            "shop": "books"
+          },
+          "distanceM": 0.044732086254085694
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 111,
+      "kind": "shop",
+      "name": "Shop&Go",
+      "brand": "Shop&Go",
+      "subtype": "convenience",
+      "outputXZ": [
+        -187,
+        -96.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n6945449587",
+          "sourceUrl": "https://www.openstreetmap.org/node/6945449587",
+          "xy": [
+            -187.0113159501328,
+            -96.47368920058415
+          ],
+          "tags": {
+            "brand": "Shop&Go",
+            "name": "Shop&Go",
+            "shop": "convenience"
+          },
+          "distanceM": 0.02864103512984835
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 112,
+      "kind": "landmark",
+      "name": "Dimitar Hadjvasilev (Bulgaria)",
+      "brand": "",
+      "subtype": "memorial",
+      "outputXZ": [
+        16.7,
+        -230.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n6945692385",
+          "sourceUrl": "https://www.openstreetmap.org/node/6945692385",
+          "xy": [
+            16.654142695411597,
+            -230.6322396001483
+          ],
+          "tags": {
+            "historic": "memorial",
+            "name": "Dimitar Hadjvasilev (Bulgaria)"
+          },
+          "distanceM": 0.05605608086404061
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 113,
+      "kind": "landmark",
+      "name": "Secția 10 Biroul pentru Centrul Vechi",
+      "brand": "",
+      "subtype": "police",
+      "outputXZ": [
+        -196.2,
+        -235.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n7010960875",
+          "sourceUrl": "https://www.openstreetmap.org/node/7010960875",
+          "xy": [
+            -196.24860177948318,
+            -235.42202880005777
+          ],
+          "tags": {
+            "amenity": "police",
+            "name": "Secția 10 Biroul pentru Centrul Vechi"
+          },
+          "distanceM": 0.05336104385146511
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 114,
+      "kind": "bank",
+      "name": "",
+      "brand": "Euronet",
+      "subtype": "atm",
+      "outputXZ": [
+        -119.1,
+        -34.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n7071986573",
+          "sourceUrl": "https://www.openstreetmap.org/node/7071986573",
+          "xy": [
+            -119.13077920640386,
+            -34.50648600052958
+          ],
+          "tags": {
+            "amenity": "atm",
+            "brand": "Euronet"
+          },
+          "distanceM": 0.03145517047674858
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 115,
+      "kind": "bank",
+      "name": "",
+      "brand": "Euronet",
+      "subtype": "atm",
+      "outputXZ": [
+        -427,
+        470.9
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n7072636090",
+          "sourceUrl": "https://www.openstreetmap.org/node/7072636090",
+          "xy": [
+            -426.99790966823446,
+            470.9107367993155
+          ],
+          "tags": {
+            "amenity": "atm",
+            "brand": "Euronet"
+          },
+          "distanceM": 0.010938388657913245
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 116,
+      "kind": "shop",
+      "name": "Froo",
+      "brand": "Froo",
+      "subtype": "convenience",
+      "outputXZ": [
+        -73.9,
+        -70.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n7106580120",
+          "sourceUrl": "https://www.openstreetmap.org/node/7106580120",
+          "xy": [
+            -73.87443822016316,
+            -70.56882000028958
+          ],
+          "tags": {
+            "brand": "Froo",
+            "level": "0",
+            "name": "Froo",
+            "shop": "convenience"
+          },
+          "distanceM": 0.04031869256770576
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 117,
+      "kind": "landmark",
+      "name": "Monumentul Victimelor Pogromului",
+      "brand": "",
+      "subtype": "memorial",
+      "outputXZ": [
+        -6.9,
+        7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n7128900790",
+          "sourceUrl": "https://www.openstreetmap.org/node/7128900790",
+          "xy": [
+            -6.908090693569745,
+            7.0457687994253035
+          ],
+          "tags": {
+            "historic": "memorial",
+            "name": "Monumentul Victimelor Pogromului"
+          },
+          "distanceM": 0.04647840706471315
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 118,
+      "kind": "food",
+      "name": "20 grams",
+      "brand": "",
+      "subtype": "cafe",
+      "outputXZ": [
+        575.6,
+        -404.9
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n7175249087",
+          "sourceUrl": "https://www.openstreetmap.org/node/7175249087",
+          "xy": [
+            575.645076382038,
+            -404.86498920055635
+          ],
+          "tags": {
+            "amenity": "cafe",
+            "name": "20 grams"
+          },
+          "distanceM": 0.057075706700129576
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 119,
+      "kind": "food",
+      "name": "Emozia",
+      "brand": "",
+      "subtype": "cafe",
+      "outputXZ": [
+        -482.8,
+        37
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n7179035086",
+          "sourceUrl": "https://www.openstreetmap.org/node/7179035086",
+          "xy": [
+            -482.8111487453227,
+            37.02918240000372
+          ],
+          "tags": {
+            "amenity": "cafe",
+            "name": "Emozia"
+          },
+          "distanceM": 0.0312395101153624
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 120,
+      "kind": "landmark",
+      "name": "Leul Ierusalimului",
+      "brand": "",
+      "subtype": "artwork",
+      "outputXZ": [
+        32.1,
+        25.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n7350336938",
+          "sourceUrl": "https://www.openstreetmap.org/node/7350336938",
+          "xy": [
+            32.084066787321284,
+            25.282529999338976
+          ],
+          "tags": {
+            "name": "Leul Ierusalimului",
+            "tourism": "artwork"
+          },
+          "distanceM": 0.023644622842444445
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 121,
+      "kind": "shop",
+      "name": "SBT Fashion",
+      "brand": "",
+      "subtype": "clothes",
+      "outputXZ": [
+        -334.7,
+        -77.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n7364590273",
+          "sourceUrl": "https://www.openstreetmap.org/node/7364590273",
+          "xy": [
+            -334.7204450327257,
+            -77.14783440057747
+          ],
+          "tags": {
+            "name": "SBT Fashion",
+            "shop": "clothes"
+          },
+          "distanceM": 0.052020469449647236
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 122,
+      "kind": "food",
+      "name": "Roll Master",
+      "brand": "",
+      "subtype": "fast_food:sushi",
+      "outputXZ": [
+        -485.7,
+        43.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n7622689038",
+          "sourceUrl": "https://www.openstreetmap.org/node/7622689038",
+          "xy": [
+            -485.68090794006395,
+            43.74155519948113
+          ],
+          "tags": {
+            "amenity": "fast_food",
+            "cuisine": "sushi",
+            "name": "Roll Master"
+          },
+          "distanceM": 0.04573118582015377
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 123,
+      "kind": "shop",
+      "name": "Patiseria Tineretului",
+      "brand": "",
+      "subtype": "bakery",
+      "outputXZ": [
+        -490.7,
+        55.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n7622689039",
+          "sourceUrl": "https://www.openstreetmap.org/node/7622689039",
+          "xy": [
+            -490.7208728416293,
+            55.54377360000558
+          ],
+          "tags": {
+            "name": "Patiseria Tineretului",
+            "shop": "bakery"
+          },
+          "distanceM": 0.04849539746336381
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 124,
+      "kind": "shop",
+      "name": "Fx Auto",
+      "brand": "",
+      "subtype": "car_repair",
+      "outputXZ": [
+        421.6,
+        -380.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n7715933706",
+          "sourceUrl": "https://www.openstreetmap.org/node/7715933706",
+          "xy": [
+            421.58431960792933,
+            -380.44928880029227
+          ],
+          "tags": {
+            "name": "Fx Auto",
+            "shop": "car_repair"
+          },
+          "distanceM": 0.051722920738717884
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 125,
+      "kind": "hotel",
+      "name": "Piata Uniri Cozy Inn",
+      "brand": "",
+      "subtype": "hotel",
+      "outputXZ": [
+        -115.6,
+        -172.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n7942218162",
+          "sourceUrl": "https://www.openstreetmap.org/node/7942218162",
+          "xy": [
+            -115.61711282372498,
+            -172.43241120068942
+          ],
+          "tags": {
+            "name": "Piata Uniri Cozy Inn",
+            "tourism": "hotel"
+          },
+          "distanceM": 0.03665153019959245
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 126,
+      "kind": "shop",
+      "name": "DHL-Express",
+      "brand": "DHL",
+      "subtype": "post_office",
+      "outputXZ": [
+        -84.9,
+        -123.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n7942218168",
+          "sourceUrl": "https://www.openstreetmap.org/node/7942218168",
+          "xy": [
+            -84.8844561835227,
+            -123.56767080056127
+          ],
+          "tags": {
+            "amenity": "post_office",
+            "brand": "DHL",
+            "level": "0",
+            "name": "DHL-Express"
+          },
+          "distanceM": 0.03587181856316582
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 127,
+      "kind": "shop",
+      "name": "Cofetarie Agapitos",
+      "brand": "",
+      "subtype": "pastry",
+      "outputXZ": [
+        -60.5,
+        -79.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n7942333216",
+          "sourceUrl": "https://www.openstreetmap.org/node/7942333216",
+          "xy": [
+            -60.46367987766773,
+            -79.75943640030093
+          ],
+          "tags": {
+            "name": "Cofetarie Agapitos",
+            "shop": "pastry"
+          },
+          "distanceM": 0.0544477447354567
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 128,
+      "kind": "busstop",
+      "name": "Sfânta Vineri",
+      "brand": "",
+      "subtype": "bus_stop",
+      "outputXZ": [
+        -185.1,
+        -82.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n8403206528",
+          "sourceUrl": "https://www.openstreetmap.org/node/8403206528",
+          "xy": [
+            -185.06369544407374,
+            -82.37103840002439
+          ],
+          "tags": {
+            "bus": "yes",
+            "highway": "bus_stop",
+            "name": "Sfânta Vineri",
+            "public_transport": "platform"
+          },
+          "distanceM": 0.046441307627476044
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 129,
+      "kind": "busstop",
+      "name": "Piața Sfânta Vineri",
+      "brand": "",
+      "subtype": "bus_stop",
+      "outputXZ": [
+        -121.2,
+        48
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n8403206529",
+          "sourceUrl": "https://www.openstreetmap.org/node/8403206529",
+          "xy": [
+            -121.21354072734425,
+            47.95345799974413
+          ],
+          "tags": {
+            "bus": "yes",
+            "highway": "bus_stop",
+            "name": "Piața Sfânta Vineri",
+            "public_transport": "platform",
+            "tram": "yes"
+          },
+          "distanceM": 0.048471734906320355
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 130,
+      "kind": "shop",
+      "name": "Superbet",
+      "brand": "Superbet",
+      "subtype": "bookmaker",
+      "outputXZ": [
+        -511.1,
+        52.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n8628417559",
+          "sourceUrl": "https://www.openstreetmap.org/node/8628417559",
+          "xy": [
+            -511.0715197633163,
+            52.78769999938345
+          ],
+          "tags": {
+            "brand": "Superbet",
+            "name": "Superbet",
+            "shop": "bookmaker"
+          },
+          "distanceM": 0.03102279640406049
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 131,
+      "kind": "shop",
+      "name": "Superbet",
+      "brand": "Superbet",
+      "subtype": "bookmaker",
+      "outputXZ": [
+        -345.8,
+        48.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n8628417649",
+          "sourceUrl": "https://www.openstreetmap.org/node/8628417649",
+          "xy": [
+            -345.8338061253448,
+            48.25351439930242
+          ],
+          "tags": {
+            "brand": "Superbet",
+            "name": "Superbet",
+            "shop": "bookmaker"
+          },
+          "distanceM": 0.0574783888347693
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 132,
+      "kind": "food",
+      "name": "Level Up",
+      "brand": "",
+      "subtype": "restaurant:regional;fast_food",
+      "outputXZ": [
+        -244.2,
+        -129
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9236453174",
+          "sourceUrl": "https://www.openstreetmap.org/node/9236453174",
+          "xy": [
+            -244.24751041741285,
+            -128.99091239997693
+          ],
+          "tags": {
+            "amenity": "restaurant",
+            "cuisine": "regional;fast_food",
+            "name": "Level Up"
+          },
+          "distanceM": 0.04837172972846818
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 133,
+      "kind": "shop",
+      "name": "Emre Baklava",
+      "brand": "",
+      "subtype": "pastry",
+      "outputXZ": [
+        -488.3,
+        50
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9252733279",
+          "sourceUrl": "https://www.openstreetmap.org/node/9252733279",
+          "xy": [
+            -488.33603140558677,
+            49.97606039969125
+          ],
+          "tags": {
+            "name": "Emre Baklava",
+            "shop": "pastry"
+          },
+          "distanceM": 0.04325929555020466
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 134,
+      "kind": "food",
+      "name": "RO dog",
+      "brand": "",
+      "subtype": "fast_food",
+      "outputXZ": [
+        -346.9,
+        42.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9253180506",
+          "sourceUrl": "https://www.openstreetmap.org/node/9253180506",
+          "xy": [
+            -346.9387826573411,
+            42.66357479951799
+          ],
+          "tags": {
+            "amenity": "fast_food",
+            "name": "RO dog"
+          },
+          "distanceM": 0.05320610623410132
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 135,
+      "kind": "shop",
+      "name": "Sephora",
+      "brand": "Sephora",
+      "subtype": "cosmetics",
+      "outputXZ": [
+        -369.4,
+        235.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9255719431",
+          "sourceUrl": "https://www.openstreetmap.org/node/9255719431",
+          "xy": [
+            -369.41193845713707,
+            235.6220664000265
+          ],
+          "tags": {
+            "brand": "Sephora",
+            "name": "Sephora",
+            "shop": "cosmetics"
+          },
+          "distanceM": 0.025088897324204145
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 136,
+      "kind": "shop",
+      "name": "Douglas",
+      "brand": "Douglas",
+      "subtype": "perfumery",
+      "outputXZ": [
+        -350.7,
+        166.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9336831437",
+          "sourceUrl": "https://www.openstreetmap.org/node/9336831437",
+          "xy": [
+            -350.69888265486026,
+            166.26458519967923
+          ],
+          "tags": {
+            "brand": "Douglas",
+            "name": "Douglas",
+            "shop": "perfumery"
+          },
+          "distanceM": 0.03543242218536551
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 137,
+      "kind": "food",
+      "name": "The Harp Bakery",
+      "brand": "",
+      "subtype": "cafe:pub",
+      "outputXZ": [
+        -443.3,
+        459.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9411250343",
+          "sourceUrl": "https://www.openstreetmap.org/node/9411250343",
+          "xy": [
+            -443.34202297727967,
+            459.3641219994091
+          ],
+          "tags": {
+            "amenity": "cafe",
+            "cuisine": "pub",
+            "name": "The Harp Bakery"
+          },
+          "distanceM": 0.055255420963413564
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 138,
+      "kind": "food",
+      "name": "Trattoria L'Oroscopo",
+      "brand": "",
+      "subtype": "restaurant:italian",
+      "outputXZ": [
+        -504,
+        453.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9411250344",
+          "sourceUrl": "https://www.openstreetmap.org/node/9411250344",
+          "xy": [
+            -504.00443964107245,
+            453.28520159943787
+          ],
+          "tags": {
+            "amenity": "restaurant",
+            "cuisine": "italian",
+            "name": "Trattoria L'Oroscopo"
+          },
+          "distanceM": 0.015450018512927974
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 139,
+      "kind": "shop",
+      "name": "Fastprint",
+      "brand": "",
+      "subtype": "copyshop",
+      "outputXZ": [
+        -511.2,
+        452.2
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9411250630",
+          "sourceUrl": "https://www.openstreetmap.org/node/9411250630",
+          "xy": [
+            -511.1748628922934,
+            452.2294475997345
+          ],
+          "tags": {
+            "name": "Fastprint",
+            "shop": "copyshop"
+          },
+          "distanceM": 0.038717377416052495
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 140,
+      "kind": "food",
+      "name": "Amore Rotondo Pizza",
+      "brand": "",
+      "subtype": "restaurant:pizza",
+      "outputXZ": [
+        30.1,
+        -133
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9420725761",
+          "sourceUrl": "https://www.openstreetmap.org/node/9420725761",
+          "xy": [
+            30.064901037907024,
+            -132.96943800067123
+          ],
+          "tags": {
+            "amenity": "restaurant",
+            "cuisine": "pizza",
+            "name": "Amore Rotondo Pizza"
+          },
+          "distanceM": 0.046540014428187115
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 141,
+      "kind": "shop",
+      "name": "Megapan",
+      "brand": "",
+      "subtype": "bakery",
+      "outputXZ": [
+        -375.4,
+        167.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9456264958",
+          "sourceUrl": "https://www.openstreetmap.org/node/9456264958",
+          "xy": [
+            -375.3978904617422,
+            167.69818799985
+          ],
+          "tags": {
+            "name": "Megapan",
+            "shop": "bakery"
+          },
+          "distanceM": 0.0027809164325183692
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 142,
+      "kind": "shop",
+      "name": "Montrek",
+      "brand": "",
+      "subtype": "outdoor",
+      "outputXZ": [
+        -394.4,
+        -9.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9507949646",
+          "sourceUrl": "https://www.openstreetmap.org/node/9507949646",
+          "xy": [
+            -394.3971272363102,
+            -9.335088000120379
+          ],
+          "tags": {
+            "name": "Montrek",
+            "shop": "outdoor"
+          },
+          "distanceM": 0.03520540475076106
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 143,
+      "kind": "food",
+      "name": "Smokin'Pig",
+      "brand": "",
+      "subtype": "fast_food",
+      "outputXZ": [
+        -270.6,
+        80.9
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9558235773",
+          "sourceUrl": "https://www.openstreetmap.org/node/9558235773",
+          "xy": [
+            -270.57615987244077,
+            80.87075639986404
+          ],
+          "tags": {
+            "amenity": "fast_food",
+            "name": "Smokin'Pig"
+          },
+          "distanceM": 0.03772982680789847
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 144,
+      "kind": "pharmacy",
+      "name": "Beneva",
+      "brand": "",
+      "subtype": "pharmacy",
+      "outputXZ": [
+        -501.4,
+        53.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9651466964",
+          "sourceUrl": "https://www.openstreetmap.org/node/9651466964",
+          "xy": [
+            -501.42086141862245,
+            53.7434351994973
+          ],
+          "tags": {
+            "amenity": "pharmacy",
+            "name": "Beneva"
+          },
+          "distanceM": 0.04818521912694767
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 145,
+      "kind": "shop",
+      "name": "El Studio Unirii",
+      "brand": "",
+      "subtype": "beauty",
+      "outputXZ": [
+        -98.5,
+        -53.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9843135501",
+          "sourceUrl": "https://www.openstreetmap.org/node/9843135501",
+          "xy": [
+            -98.50190078397229,
+            -53.6989824005571
+          ],
+          "tags": {
+            "name": "El Studio Unirii",
+            "shop": "beauty"
+          },
+          "distanceM": 0.0021560353279822466
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 146,
+      "kind": "shop",
+      "name": "Piese auto Dacia",
+      "brand": "",
+      "subtype": "car_parts",
+      "outputXZ": [
+        -22.7,
+        -105.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9843226357",
+          "sourceUrl": "https://www.openstreetmap.org/node/9843226357",
+          "xy": [
+            -22.6798420577501,
+            -105.63096600020589
+          ],
+          "tags": {
+            "name": "Piese auto Dacia",
+            "shop": "car_parts"
+          },
+          "distanceM": 0.03694909747885109
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 147,
+      "kind": "shop",
+      "name": "Gelato Experience",
+      "brand": "",
+      "subtype": "confectionery",
+      "outputXZ": [
+        20.3,
+        -137.9
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9843232908",
+          "sourceUrl": "https://www.openstreetmap.org/node/9843232908",
+          "xy": [
+            20.263202735520874,
+            -137.85924600017026
+          ],
+          "tags": {
+            "name": "Gelato Experience",
+            "shop": "confectionery"
+          },
+          "distanceM": 0.05490835250915634
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 148,
+      "kind": "shop",
+      "name": "Medident",
+      "brand": "",
+      "subtype": "dentist",
+      "outputXZ": [
+        -70.5,
+        -129
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9843242562",
+          "sourceUrl": "https://www.openstreetmap.org/node/9843242562",
+          "xy": [
+            -70.52771073798749,
+            -129.04647840062628
+          ],
+          "tags": {
+            "amenity": "dentist",
+            "name": "Medident"
+          },
+          "distanceM": 0.05411216799009966
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 149,
+      "kind": "hotel",
+      "name": "Hotel Marina",
+      "brand": "",
+      "subtype": "hotel",
+      "outputXZ": [
+        178.6,
+        -142.9
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9843243333",
+          "sourceUrl": "https://www.openstreetmap.org/node/9843243333",
+          "xy": [
+            178.60872462329843,
+            -142.94909160042766
+          ],
+          "tags": {
+            "name": "Hotel Marina",
+            "tourism": "hotel"
+          },
+          "distanceM": 0.04986084921306954
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 150,
+      "kind": "shop",
+      "name": "Complet Dental",
+      "brand": "",
+      "subtype": "dentist",
+      "outputXZ": [
+        91.2,
+        -103.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9843258625",
+          "sourceUrl": "https://www.openstreetmap.org/node/9843258625",
+          "xy": [
+            91.15658916041906,
+            -103.70838240063796
+          ],
+          "tags": {
+            "amenity": "dentist",
+            "name": "Complet Dental"
+          },
+          "distanceM": 0.044212731577879055
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 151,
+      "kind": "shop",
+      "name": "Annabella",
+      "brand": "Annabella",
+      "subtype": "convenience",
+      "outputXZ": [
+        -177.9,
+        -86.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9990622882",
+          "sourceUrl": "https://www.openstreetmap.org/node/9990622882",
+          "xy": [
+            -177.94891849283226,
+            -86.08284719997073
+          ],
+          "tags": {
+            "brand": "Annabella",
+            "name": "Annabella",
+            "shop": "convenience"
+          },
+          "distanceM": 0.05183857144852246
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 152,
+      "kind": "shop",
+      "name": "DentaLife",
+      "brand": "",
+      "subtype": "dentist",
+      "outputXZ": [
+        -330.4,
+        512.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9999021742",
+          "sourceUrl": "https://www.openstreetmap.org/node/9999021742",
+          "xy": [
+            -330.3720841475308,
+            512.7741611997482
+          ],
+          "tags": {
+            "amenity": "dentist",
+            "name": "DentaLife"
+          },
+          "distanceM": 0.03803864373938752
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 153,
+      "kind": "shop",
+      "name": "MaxBet",
+      "brand": "",
+      "subtype": "casino",
+      "outputXZ": [
+        -435.2,
+        466
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9999021744",
+          "sourceUrl": "https://www.openstreetmap.org/node/9999021744",
+          "xy": [
+            -435.185865265568,
+            465.98758919942685
+          ],
+          "tags": {
+            "amenity": "casino",
+            "name": "MaxBet"
+          },
+          "distanceM": 0.018810068801825675
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 154,
+      "kind": "bank",
+      "name": "Vista Bank",
+      "brand": "",
+      "subtype": "bank",
+      "outputXZ": [
+        -447.5,
+        29
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n9999044806",
+          "sourceUrl": "https://www.openstreetmap.org/node/9999044806",
+          "xy": [
+            -447.52344496197134,
+            29.038791599804796
+          ],
+          "tags": {
+            "amenity": "bank",
+            "name": "Vista Bank"
+          },
+          "distanceM": 0.04532609024891542
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 155,
+      "kind": "food",
+      "name": "Wok pe Loc",
+      "brand": "",
+      "subtype": "restaurant:asian",
+      "outputXZ": [
+        -448.7,
+        -3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n10038068865",
+          "sourceUrl": "https://www.openstreetmap.org/node/10038068865",
+          "xy": [
+            -448.7476635657557,
+            -3.0116772004505776
+          ],
+          "tags": {
+            "amenity": "restaurant",
+            "cuisine": "asian",
+            "name": "Wok pe Loc"
+          },
+          "distanceM": 0.04907313430904384
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 156,
+      "kind": "busstop",
+      "name": "Piața Unirii 4",
+      "brand": "",
+      "subtype": "bus_stop",
+      "outputXZ": [
+        -398.1,
+        190.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n10299316645",
+          "sourceUrl": "https://www.openstreetmap.org/node/10299316645",
+          "xy": [
+            -398.0936314623032,
+            190.3135499996058
+          ],
+          "tags": {
+            "bus": "yes",
+            "highway": "bus_stop",
+            "name": "Piața Unirii 4",
+            "public_transport": "platform"
+          },
+          "distanceM": 0.014971999255702636
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 157,
+      "kind": "busstop",
+      "name": "Piața Unirii 3",
+      "brand": "",
+      "subtype": "bus_stop",
+      "outputXZ": [
+        -485.2,
+        440.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n10299316647",
+          "sourceUrl": "https://www.openstreetmap.org/node/10299316647",
+          "xy": [
+            -485.16419229546096,
+            440.4827951998594
+          ],
+          "tags": {
+            "bus": "yes",
+            "highway": "bus_stop",
+            "name": "Piața Unirii 3",
+            "public_transport": "platform"
+          },
+          "distanceM": 0.0397265258011726
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 158,
+      "kind": "food",
+      "name": "5 to go",
+      "brand": "5 to go",
+      "subtype": "cafe:coffee_shop",
+      "outputXZ": [
+        -146.2,
+        -78.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n10539882353",
+          "sourceUrl": "https://www.openstreetmap.org/node/10539882353",
+          "xy": [
+            -146.23847686368592,
+            -78.42585240050934
+          ],
+          "tags": {
+            "amenity": "cafe",
+            "brand": "5 to go",
+            "cuisine": "coffee_shop",
+            "name": "5 to go"
+          },
+          "distanceM": 0.046355319556666955
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 159,
+      "kind": "shop",
+      "name": "Nootka",
+      "brand": "",
+      "subtype": "outdoor",
+      "outputXZ": [
+        -371.3,
+        -0.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n10735107308",
+          "sourceUrl": "https://www.openstreetmap.org/node/10735107308",
+          "xy": [
+            -371.34366002038513,
+            -0.10001880037918909
+          ],
+          "tags": {
+            "name": "Nootka",
+            "shop": "outdoor"
+          },
+          "distanceM": 0.04366002443292058
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 160,
+      "kind": "landmark",
+      "name": "Decebal",
+      "brand": "",
+      "subtype": "memorial",
+      "outputXZ": [
+        -469.6,
+        102.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n10864893638",
+          "sourceUrl": "https://www.openstreetmap.org/node/10864893638",
+          "xy": [
+            -469.5673293033305,
+            102.59706239949557
+          ],
+          "tags": {
+            "historic": "memorial",
+            "name": "Decebal"
+          },
+          "distanceM": 0.03280249864866747
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 161,
+      "kind": "landmark",
+      "name": "Teatrul de Comedie - Sala Nouă",
+      "brand": "",
+      "subtype": "theatre",
+      "outputXZ": [
+        -174.2,
+        -131.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n10948504680",
+          "sourceUrl": "https://www.openstreetmap.org/node/10948504680",
+          "xy": [
+            -174.20471743812405,
+            -131.6803068006095
+          ],
+          "tags": {
+            "amenity": "theatre",
+            "name": "Teatrul de Comedie - Sala Nouă"
+          },
+          "distanceM": 0.02025034134745466
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 162,
+      "kind": "shop",
+      "name": "ARCADIA TRADE S.R.L.",
+      "brand": "",
+      "subtype": "deli",
+      "outputXZ": [
+        208.3,
+        -347.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11187795292",
+          "sourceUrl": "https://www.openstreetmap.org/node/11187795292",
+          "xy": [
+            208.26820261740866,
+            -347.09857560063494
+          ],
+          "tags": {
+            "level": "0",
+            "name": "ARCADIA TRADE S.R.L.",
+            "shop": "deli"
+          },
+          "distanceM": 0.03182927038453614
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 163,
+      "kind": "shop",
+      "name": "DAILY FLOWERS",
+      "brand": "",
+      "subtype": "florist",
+      "outputXZ": [
+        214.9,
+        -352.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11188733300",
+          "sourceUrl": "https://www.openstreetmap.org/node/11188733300",
+          "xy": [
+            214.93780916711995,
+            -352.4884776004506
+          ],
+          "tags": {
+            "level": "0",
+            "name": "DAILY FLOWERS",
+            "shop": "florist"
+          },
+          "distanceM": 0.03952592579155874
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 164,
+      "kind": "landmark",
+      "name": "Corneliu Coposu",
+      "brand": "",
+      "subtype": "memorial",
+      "outputXZ": [
+        152.8,
+        -294.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11190283307",
+          "sourceUrl": "https://www.openstreetmap.org/node/11190283307",
+          "xy": [
+            152.7649929269692,
+            -294.06638519997364
+          ],
+          "tags": {
+            "historic": "memorial",
+            "name": "Corneliu Coposu"
+          },
+          "distanceM": 0.048532977891310454
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 165,
+      "kind": "shop",
+      "name": "THE BARBER",
+      "brand": "",
+      "subtype": "hairdresser",
+      "outputXZ": [
+        12.6,
+        -180.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11190304924",
+          "sourceUrl": "https://www.openstreetmap.org/node/11190304924",
+          "xy": [
+            12.591962782507895,
+            -180.27833039998967
+          ],
+          "tags": {
+            "name": "THE BARBER",
+            "shop": "hairdresser"
+          },
+          "distanceM": 0.023112084060585313
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 166,
+      "kind": "shop",
+      "name": "MoneyGram",
+      "brand": "MoneyGram",
+      "subtype": "money_transfer",
+      "outputXZ": [
+        -78.2,
+        -67.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11190619791",
+          "sourceUrl": "https://www.openstreetmap.org/node/11190619791",
+          "xy": [
+            -78.20690016226472,
+            -67.60159560035848
+          ],
+          "tags": {
+            "amenity": "money_transfer",
+            "brand": "MoneyGram",
+            "level": "0",
+            "name": "MoneyGram"
+          },
+          "distanceM": 0.007082243979373606
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 167,
+      "kind": "food",
+      "name": "AVRAHAM KOSHER",
+      "brand": "",
+      "subtype": "restaurant",
+      "outputXZ": [
+        -51,
+        -86.2
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11190619792",
+          "sourceUrl": "https://www.openstreetmap.org/node/11190619792",
+          "xy": [
+            -50.99585937600557,
+            -86.23843200020963
+          ],
+          "tags": {
+            "amenity": "restaurant",
+            "level": "0",
+            "name": "AVRAHAM KOSHER"
+          },
+          "distanceM": 0.03865440993180259
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 168,
+      "kind": "bank",
+      "name": "AZAD Exchange",
+      "brand": "",
+      "subtype": "bureau_de_change",
+      "outputXZ": [
+        -268.5,
+        2.2
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11191204148",
+          "sourceUrl": "https://www.openstreetmap.org/node/11191204148",
+          "xy": [
+            -268.54904465147985,
+            2.1670739992665062
+          ],
+          "tags": {
+            "amenity": "bureau_de_change",
+            "level": "0",
+            "name": "AZAD Exchange"
+          },
+          "distanceM": 0.05907198458729519
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 169,
+      "kind": "shop",
+      "name": "Carne Mântuleasa",
+      "brand": "",
+      "subtype": "butcher",
+      "outputXZ": [
+        196.7,
+        -341.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11192754942",
+          "sourceUrl": "https://www.openstreetmap.org/node/11192754942",
+          "xy": [
+            196.66197429482665,
+            -341.73090000028935
+          ],
+          "tags": {
+            "level": "0",
+            "name": "Carne Mântuleasa",
+            "shop": "butcher"
+          },
+          "distanceM": 0.04899759455128826
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 170,
+      "kind": "shop",
+      "name": "Himalaya",
+      "brand": "",
+      "subtype": "outdoor",
+      "outputXZ": [
+        -385.2,
+        -43.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11262555687",
+          "sourceUrl": "https://www.openstreetmap.org/node/11262555687",
+          "xy": [
+            -385.207538235675,
+            -43.7304420001409
+          ],
+          "tags": {
+            "level": "0;1",
+            "name": "Himalaya",
+            "shop": "outdoor"
+          },
+          "distanceM": 0.03136144718710908
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 171,
+      "kind": "busstop",
+      "name": "Alexandru Sihleanu",
+      "brand": "",
+      "subtype": "tram_stop",
+      "outputXZ": [
+        370.2,
+        -365.2
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11360886993",
+          "sourceUrl": "https://www.openstreetmap.org/node/11360886993",
+          "xy": [
+            370.2386834881064,
+            -365.2464312002993
+          ],
+          "tags": {
+            "name": "Alexandru Sihleanu",
+            "public_transport": "stop_position",
+            "railway": "tram_stop",
+            "tram": "yes"
+          },
+          "distanceM": 0.06043400212888221
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 172,
+      "kind": "busstop",
+      "name": "Piața Sfântul Ștefan",
+      "brand": "",
+      "subtype": "tram_stop",
+      "outputXZ": [
+        582,
+        -400.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11360886994",
+          "sourceUrl": "https://www.openstreetmap.org/node/11360886994",
+          "xy": [
+            581.980805130743,
+            -400.68642600068296
+          ],
+          "tags": {
+            "name": "Piața Sfântul Ștefan",
+            "public_transport": "stop_position",
+            "railway": "tram_stop",
+            "tram": "yes"
+          },
+          "distanceM": 0.023509497299037396
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 173,
+      "kind": "busstop",
+      "name": "Mântuleasa",
+      "brand": "",
+      "subtype": "tram_stop",
+      "outputXZ": [
+        241.3,
+        -381.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11360905562",
+          "sourceUrl": "https://www.openstreetmap.org/node/11360905562",
+          "xy": [
+            241.27440809341212,
+            -381.3050052000269
+          ],
+          "tags": {
+            "name": "Mântuleasa",
+            "public_transport": "stop_position",
+            "railway": "tram_stop",
+            "tram": "yes"
+          },
+          "distanceM": 0.02607676571419055
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 174,
+      "kind": "metro",
+      "name": "Piața Unirii 2",
+      "brand": "",
+      "subtype": "subway_entrance",
+      "outputXZ": [
+        -454.3,
+        72.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11522875661",
+          "sourceUrl": "https://www.openstreetmap.org/node/11522875661",
+          "xy": [
+            -454.28844516911306,
+            72.41361119973806
+          ],
+          "tags": {
+            "name": "Piața Unirii 2",
+            "railway": "subway_entrance"
+          },
+          "distanceM": 0.017854379718577427
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 175,
+      "kind": "bank",
+      "name": "Bitcoin ATM - Shitcoins.club",
+      "brand": "",
+      "subtype": "atm",
+      "outputXZ": [
+        -389.7,
+        -38.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11559666181",
+          "sourceUrl": "https://www.openstreetmap.org/node/11559666181",
+          "xy": [
+            -389.71488855010887,
+            -38.14050240035647
+          ],
+          "tags": {
+            "amenity": "atm",
+            "level": "-0.5",
+            "name": "Bitcoin ATM - Shitcoins.club"
+          },
+          "distanceM": 0.043152211518994725
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 176,
+      "kind": "shop",
+      "name": "Dulciurile Mătușii",
+      "brand": "",
+      "subtype": "confectionery",
+      "outputXZ": [
+        254.1,
+        -440.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11760641666",
+          "sourceUrl": "https://www.openstreetmap.org/node/11760641666",
+          "xy": [
+            254.0730571338742,
+            -440.8273044007268
+          ],
+          "tags": {
+            "name": "Dulciurile Mătușii",
+            "shop": "confectionery"
+          },
+          "distanceM": 0.0383594621198263
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 177,
+      "kind": "shop",
+      "name": "Hair Story by Amelie",
+      "brand": "",
+      "subtype": "hairdresser",
+      "outputXZ": [
+        251.1,
+        -381.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11760644116",
+          "sourceUrl": "https://www.openstreetmap.org/node/11760644116",
+          "xy": [
+            251.08405586734494,
+            -381.4383636000061
+          ],
+          "tags": {
+            "name": "Hair Story by Amelie",
+            "shop": "hairdresser"
+          },
+          "distanceM": 0.04154492955284022
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 178,
+      "kind": "landmark",
+      "name": "Teatrul Roșu",
+      "brand": "",
+      "subtype": "theatre",
+      "outputXZ": [
+        -338.5,
+        -99.2
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n11876487093",
+          "sourceUrl": "https://www.openstreetmap.org/node/11876487093",
+          "xy": [
+            -338.46464608743395,
+            -99.17419680055693
+          ],
+          "tags": {
+            "amenity": "theatre",
+            "name": "Teatrul Roșu"
+          },
+          "distanceM": 0.04376875866673798
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 179,
+      "kind": "food",
+      "name": "Zest Pasta",
+      "brand": "",
+      "subtype": "fast_food:pizza",
+      "outputXZ": [
+        -251.5,
+        -87.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n12033934169",
+          "sourceUrl": "https://www.openstreetmap.org/node/12033934169",
+          "xy": [
+            -251.45768102608474,
+            -87.73871400036998
+          ],
+          "tags": {
+            "amenity": "fast_food",
+            "cuisine": "pizza",
+            "name": "Zest Pasta"
+          },
+          "distanceM": 0.05735563946018686
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 180,
+      "kind": "shop",
+      "name": "Luca",
+      "brand": "Luca",
+      "subtype": "bakery",
+      "outputXZ": [
+        -372.5,
+        200.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n12269022952",
+          "sourceUrl": "https://www.openstreetmap.org/node/12269022952",
+          "xy": [
+            -372.5201817954543,
+            200.32654319975185
+          ],
+          "tags": {
+            "brand": "Luca",
+            "name": "Luca",
+            "shop": "bakery"
+          },
+          "distanceM": 0.03334435965533722
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 181,
+      "kind": "food",
+      "name": "C.T W. Bubble ea",
+      "brand": "",
+      "subtype": "cafe:bubble_tea",
+      "outputXZ": [
+        -370.9,
+        218.9
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n12269022953",
+          "sourceUrl": "https://www.openstreetmap.org/node/12269022953",
+          "xy": [
+            -370.88259067604406,
+            218.93004000000303
+          ],
+          "tags": {
+            "amenity": "cafe",
+            "cuisine": "bubble_tea",
+            "name": "C.T W. Bubble ea"
+          },
+          "distanceM": 0.03472011176226107
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 182,
+      "kind": "landmark",
+      "name": "Bustul lui August Treboniu Laurian",
+      "brand": "",
+      "subtype": "artwork",
+      "outputXZ": [
+        256,
+        -108.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n12493379680",
+          "sourceUrl": "https://www.openstreetmap.org/node/12493379680",
+          "xy": [
+            255.99682922585802,
+            -108.58707720000712
+          ],
+          "tags": {
+            "name": "Bustul lui August Treboniu Laurian",
+            "tourism": "artwork"
+          },
+          "distanceM": 0.013306110187255407
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 183,
+      "kind": "busstop",
+      "name": "Piața Unirii",
+      "brand": "",
+      "subtype": "bus_stop",
+      "outputXZ": [
+        -320.5,
+        448.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n12578281904",
+          "sourceUrl": "https://www.openstreetmap.org/node/12578281904",
+          "xy": [
+            -320.53063848797615,
+            448.6176575993777
+          ],
+          "tags": {
+            "bus": "yes",
+            "highway": "bus_stop",
+            "name": "Piața Unirii",
+            "public_transport": "platform"
+          },
+          "distanceM": 0.03536251915867132
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 184,
+      "kind": "shop",
+      "name": "Stanleybet",
+      "brand": "Stanleybet",
+      "subtype": "bookmaker",
+      "outputXZ": [
+        -256.4,
+        -23.2
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n12759899758",
+          "sourceUrl": "https://www.openstreetmap.org/node/12759899758",
+          "xy": [
+            -256.41020174176634,
+            -23.15990880059195
+          ],
+          "tags": {
+            "brand": "Stanleybet",
+            "name": "Stanleybet",
+            "shop": "bookmaker"
+          },
+          "distanceM": 0.04136882648859653
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 185,
+      "kind": "shop",
+      "name": "Dent estet",
+      "brand": "",
+      "subtype": "dentist",
+      "outputXZ": [
+        -324.3,
+        461.9
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n13138050829",
+          "sourceUrl": "https://www.openstreetmap.org/node/13138050829",
+          "xy": [
+            -324.25099112832675,
+            461.89793159980275
+          ],
+          "tags": {
+            "amenity": "dentist",
+            "name": "Dent estet"
+          },
+          "distanceM": 0.04905250026311131
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 186,
+      "kind": "shop",
+      "name": "First Copy",
+      "brand": "",
+      "subtype": "copyshop",
+      "outputXZ": [
+        -543.4,
+        480.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n13248674624",
+          "sourceUrl": "https://www.openstreetmap.org/node/13248674624",
+          "xy": [
+            -543.4020201660427,
+            480.823711199872
+          ],
+          "tags": {
+            "name": "First Copy",
+            "shop": "copyshop"
+          },
+          "distanceM": 0.0237971021388857
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 187,
+      "kind": "shop",
+      "name": "Shop&Go",
+      "brand": "Shop&Go",
+      "subtype": "convenience",
+      "outputXZ": [
+        -62.2,
+        44.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n13276538913",
+          "sourceUrl": "https://www.openstreetmap.org/node/13276538913",
+          "xy": [
+            -62.22846254041263,
+            44.708403599724846
+          ],
+          "tags": {
+            "brand": "Shop&Go",
+            "name": "Shop&Go",
+            "shop": "convenience"
+          },
+          "distanceM": 0.029677208343706397
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 188,
+      "kind": "metro",
+      "name": "Piața Unirii 1",
+      "brand": "",
+      "subtype": "subway_entrance",
+      "outputXZ": [
+        -447.5,
+        414.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n13371504630",
+          "sourceUrl": "https://www.openstreetmap.org/node/13371504630",
+          "xy": [
+            -447.4518997188986,
+            414.31120919960654
+          ],
+          "tags": {
+            "highway": "elevator",
+            "name": "Piața Unirii 1",
+            "railway": "subway_entrance"
+          },
+          "distanceM": 0.049389099990333696
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 189,
+      "kind": "landmark",
+      "name": "Gongul Thaliei din Piața Timpului",
+      "brand": "",
+      "subtype": "artwork",
+      "outputXZ": [
+        -394.5,
+        -109.2
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n13456671055",
+          "sourceUrl": "https://www.openstreetmap.org/node/13456671055",
+          "xy": [
+            -394.5481671940025,
+            -109.1760768005731
+          ],
+          "tags": {
+            "name": "Gongul Thaliei din Piața Timpului",
+            "tourism": "artwork"
+          },
+          "distanceM": 0.0537810194110464
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 190,
+      "kind": "food",
+      "name": "Zano",
+      "brand": "",
+      "subtype": "fast_food:kebab",
+      "outputXZ": [
+        -448.4,
+        17.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n13564793220",
+          "sourceUrl": "https://www.openstreetmap.org/node/13564793220",
+          "xy": [
+            -448.3581394644874,
+            17.058761999571345
+          ],
+          "tags": {
+            "amenity": "fast_food",
+            "cuisine": "kebab",
+            "name": "Zano"
+          },
+          "distanceM": 0.058761187128519674
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 191,
+      "kind": "food",
+      "name": "Bulgust",
+      "brand": "",
+      "subtype": "restaurant",
+      "outputXZ": [
+        586.8,
+        -404.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n13574625919",
+          "sourceUrl": "https://www.openstreetmap.org/node/13574625919",
+          "xy": [
+            586.82998271773,
+            -404.44268760035914
+          ],
+          "tags": {
+            "amenity": "restaurant",
+            "name": "Bulgust"
+          },
+          "distanceM": 0.05216507056357015
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 192,
+      "kind": "landmark",
+      "name": "Atelierul de Grafică Liviu Acasandrei",
+      "brand": "",
+      "subtype": "arts_centre",
+      "outputXZ": [
+        -189.1,
+        -244.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n13607930365",
+          "sourceUrl": "https://www.openstreetmap.org/node/13607930365",
+          "xy": [
+            -189.0861279995265,
+            -244.79045640056776
+          ],
+          "tags": {
+            "amenity": "arts_centre",
+            "level": "2",
+            "name": "Atelierul de Grafică Liviu Acasandrei"
+          },
+          "distanceM": 0.01683783499325072
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 193,
+      "kind": "food",
+      "name": "Noodle Pack",
+      "brand": "",
+      "subtype": "restaurant:noodle",
+      "outputXZ": [
+        -377,
+        113.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n13625505056",
+          "sourceUrl": "https://www.openstreetmap.org/node/13625505056",
+          "xy": [
+            -376.97983528117294,
+            113.82139439958391
+          ],
+          "tags": {
+            "amenity": "restaurant",
+            "cuisine": "noodle",
+            "name": "Noodle Pack"
+          },
+          "distanceM": 0.02939959555726096
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 194,
+      "kind": "food",
+      "name": "Cheesy Pasta",
+      "brand": "",
+      "subtype": "fast_food:pasta",
+      "outputXZ": [
+        -362.3,
+        102.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n13625505057",
+          "sourceUrl": "https://www.openstreetmap.org/node/13625505057",
+          "xy": [
+            -362.2653636202737,
+            102.33034559953725
+          ],
+          "tags": {
+            "amenity": "fast_food",
+            "cuisine": "pasta",
+            "name": "Cheesy Pasta"
+          },
+          "distanceM": 0.046049258537130926
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 195,
+      "kind": "shop",
+      "name": "Fornetti",
+      "brand": "Fornetti",
+      "subtype": "bakery",
+      "outputXZ": [
+        -332.8,
+        356.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n14216490524",
+          "sourceUrl": "https://www.openstreetmap.org/node/14216490524",
+          "xy": [
+            -332.76487505512,
+            356.3114183993267
+          ],
+          "tags": {
+            "brand": "Fornetti",
+            "name": "Fornetti",
+            "shop": "bakery"
+          },
+          "distanceM": 0.03693428753892631
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 196,
+      "kind": "busstop",
+      "name": "Piața Sfânta Vineri",
+      "brand": "",
+      "subtype": "bus_stop",
+      "outputXZ": [
+        -129.4,
+        54.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n14323767613",
+          "sourceUrl": "https://www.openstreetmap.org/node/14323767613",
+          "xy": [
+            -129.3935468531311,
+            54.57692519976186
+          ],
+          "tags": {
+            "bus": "yes",
+            "highway": "bus_stop",
+            "name": "Piața Sfânta Vineri",
+            "public_transport": "platform"
+          },
+          "distanceM": 0.023960165077512453
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 197,
+      "kind": "busstop",
+      "name": "Piața Sfânta Vineri",
+      "brand": "",
+      "subtype": "bus_stop",
+      "outputXZ": [
+        -116.9,
+        -25.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n14323767614",
+          "sourceUrl": "https://www.openstreetmap.org/node/14323767614",
+          "xy": [
+            -116.88902825650693,
+            -25.315869600518226
+          ],
+          "tags": {
+            "bus": "yes",
+            "highway": "bus_stop",
+            "name": "Piața Sfânta Vineri",
+            "public_transport": "platform"
+          },
+          "distanceM": 0.019293091403034892
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 198,
+      "kind": "landmark",
+      "name": "Teatrul Coquette",
+      "brand": "",
+      "subtype": "theatre",
+      "outputXZ": [
+        703.7,
+        -386.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n1726032613",
+          "sourceUrl": "https://www.openstreetmap.org/node/1726032613",
+          "xy": [
+            703.7349099167653,
+            -386.8171524004815
+          ],
+          "tags": {
+            "amenity": "theatre",
+            "name": "Teatrul Coquette"
+          },
+          "distanceM": 0.03889610688535859
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 199,
+      "kind": "landmark",
+      "name": "Incubator 107",
+      "brand": "",
+      "subtype": "arts_centre",
+      "outputXZ": [
+        922.2,
+        -477.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n1741344816",
+          "sourceUrl": "https://www.openstreetmap.org/node/1741344816",
+          "xy": [
+            922.2102338809218,
+            -477.76758120048123
+          ],
+          "tags": {
+            "amenity": "arts_centre",
+            "name": "Incubator 107",
+            "tourism": "attraction"
+          },
+          "distanceM": 0.033995747983528855
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 200,
+      "kind": "food",
+      "name": "La Conu Iancu",
+      "brand": "",
+      "subtype": "restaurant",
+      "outputXZ": [
+        871.2,
+        -440
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2387341337",
+          "sourceUrl": "https://www.openstreetmap.org/node/2387341337",
+          "xy": [
+            871.2382229192739,
+            -440.0271540000622
+          ],
+          "tags": {
+            "amenity": "restaurant",
+            "name": "La Conu Iancu"
+          },
+          "distanceM": 0.0468863655788239
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 201,
+      "kind": "shop",
+      "name": "Frizerie",
+      "brand": "",
+      "subtype": "hairdresser",
+      "outputXZ": [
+        803.2,
+        -393.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2396942475",
+          "sourceUrl": "https://www.openstreetmap.org/node/2396942475",
+          "xy": [
+            803.1668988606841,
+            -393.673996800068
+          ],
+          "tags": {
+            "name": "Frizerie",
+            "shop": "hairdresser"
+          },
+          "distanceM": 0.04209337038913133
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 202,
+      "kind": "food",
+      "name": "Shaormeria Baneasa",
+      "brand": "",
+      "subtype": "fast_food",
+      "outputXZ": [
+        858.7,
+        -370.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2567699408",
+          "sourceUrl": "https://www.openstreetmap.org/node/2567699408",
+          "xy": [
+            858.6701085508412,
+            -370.5029748001358
+          ],
+          "tags": {
+            "amenity": "fast_food",
+            "name": "Shaormeria Baneasa"
+          },
+          "distanceM": 0.03003911065036941
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 203,
+      "kind": "food",
+      "name": "Tripoli",
+      "brand": "",
+      "subtype": "restaurant",
+      "outputXZ": [
+        685.7,
+        -382
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n2567699480",
+          "sourceUrl": "https://www.openstreetmap.org/node/2567699480",
+          "xy": [
+            685.7452560170457,
+            -381.99402360018246
+          ],
+          "tags": {
+            "amenity": "restaurant",
+            "name": "Tripoli"
+          },
+          "distanceM": 0.04564892587579185
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 204,
+      "kind": "food",
+      "name": "Trei",
+      "brand": "",
+      "subtype": "restaurant",
+      "outputXZ": [
+        692.8,
+        -398.2
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n5396036261",
+          "sourceUrl": "https://www.openstreetmap.org/node/5396036261",
+          "xy": [
+            692.772588782121,
+            -398.1748428005491
+          ],
+          "tags": {
+            "amenity": "restaurant",
+            "name": "Trei"
+          },
+          "distanceM": 0.03720563868311982
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 205,
+      "kind": "shop",
+      "name": "Jade Palace",
+      "brand": "",
+      "subtype": "massage",
+      "outputXZ": [
+        684.2,
+        -383.9
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n5488312323",
+          "sourceUrl": "https://www.openstreetmap.org/node/5488312323",
+          "xy": [
+            684.1712606691616,
+            -383.9388336000101
+          ],
+          "tags": {
+            "name": "Jade Palace",
+            "shop": "massage"
+          },
+          "distanceM": 0.048311464755170896
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 206,
+      "kind": "food",
+      "name": "PengYou",
+      "brand": "",
+      "subtype": "restaurant:chinese",
+      "outputXZ": [
+        866.7,
+        -466.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n10630928720",
+          "sourceUrl": "https://www.openstreetmap.org/node/10630928720",
+          "xy": [
+            866.6990747192182,
+            -466.2765324004346
+          ],
+          "tags": {
+            "amenity": "restaurant",
+            "cuisine": "chinese",
+            "name": "PengYou"
+          },
+          "distanceM": 0.023485833472306993
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 207,
+      "kind": "shop",
+      "name": "iiana",
+      "brand": "",
+      "subtype": "clothes",
+      "outputXZ": [
+        694.8,
+        -403.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n13706032501",
+          "sourceUrl": "https://www.openstreetmap.org/node/13706032501",
+          "xy": [
+            694.8156029456105,
+            -403.06465080004807
+          ],
+          "tags": {
+            "level": "0",
+            "name": "iiana",
+            "shop": "clothes"
+          },
+          "distanceM": 0.03863958914079438
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 208,
+      "kind": "food",
+      "name": "Green Tea",
+      "brand": "",
+      "subtype": "cafe",
+      "outputXZ": [
+        767.6,
+        -494.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n13763738501",
+          "sourceUrl": "https://www.openstreetmap.org/node/13763738501",
+          "xy": [
+            767.5532667478731,
+            -494.74855080072274
+          ],
+          "tags": {
+            "amenity": "cafe",
+            "name": "Green Tea"
+          },
+          "distanceM": 0.06738825643375745
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 209,
+      "kind": "landmark",
+      "name": "Teatrul Metronom",
+      "brand": "",
+      "subtype": "theatre",
+      "outputXZ": [
+        940.7,
+        -470.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n14206144401",
+          "sourceUrl": "https://www.openstreetmap.org/node/14206144401",
+          "xy": [
+            940.7086539539802,
+            -470.78849160025584
+          ],
+          "tags": {
+            "amenity": "theatre",
+            "name": "Teatrul Metronom"
+          },
+          "distanceM": 0.014399103588822145
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 210,
+      "kind": "landmark",
+      "name": "Biserica Ortodoxă Popa Soare",
+      "brand": "",
+      "subtype": "place_of_worship",
+      "outputXZ": [
+        760.4,
+        -689.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "n905726832",
+          "sourceUrl": "https://www.openstreetmap.org/node/905726832",
+          "xy": [
+            760.4305403250848,
+            -689.7296448003888
+          ],
+          "tags": {
+            "amenity": "place_of_worship",
+            "name": "Biserica Ortodoxă Popa Soare"
+          },
+          "distanceM": 0.04256202117354013
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 211,
+      "kind": "school",
+      "name": "Facultatea de Teologie Ortodoxă \"Justinian Patriarhul\"",
+      "brand": "",
+      "subtype": "university",
+      "outputXZ": [
+        -609.9,
+        539.2
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w79641030",
+          "sourceUrl": "https://www.openstreetmap.org/way/79641030",
+          "xy": [
+            -609.9291548610643,
+            539.171152599881
+          ],
+          "tags": {
+            "amenity": "university",
+            "name": "Facultatea de Teologie Ortodoxă \"Justinian Patriarhul\""
+          },
+          "distanceM": 0.04101436842505567
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 212,
+      "kind": "landmark",
+      "name": "Biserica Ortodoxă „Sfântul Spiridon Nou”",
+      "brand": "",
+      "subtype": "place_of_worship",
+      "outputXZ": [
+        -437.9,
+        647
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w75677194",
+          "sourceUrl": "https://www.openstreetmap.org/way/75677194",
+          "xy": [
+            -437.94973123298615,
+            646.9552152499509
+          ],
+          "tags": {
+            "amenity": "place_of_worship",
+            "name": "Biserica Ortodoxă „Sfântul Spiridon Nou”"
+          },
+          "distanceM": 0.06692435559109575
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 213,
+      "kind": "landmark",
+      "name": "Secția 14",
+      "brand": "",
+      "subtype": "police",
+      "outputXZ": [
+        -212.9,
+        532.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w79304630",
+          "sourceUrl": "https://www.openstreetmap.org/way/79304630",
+          "xy": [
+            -212.88543933987737,
+            532.4271063716301
+          ],
+          "tags": {
+            "amenity": "police",
+            "name": "Secția 14"
+          },
+          "distanceM": 0.030769598732462565
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 214,
+      "kind": "landmark",
+      "name": "Biserica „Sfânta Ecaterina”",
+      "brand": "",
+      "subtype": "place_of_worship",
+      "outputXZ": [
+        -581.9,
+        572.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w232296621",
+          "sourceUrl": "https://www.openstreetmap.org/way/232296621",
+          "xy": [
+            -581.865337260372,
+            572.6981464336477
+          ],
+          "tags": {
+            "amenity": "place_of_worship",
+            "name": "Biserica „Sfânta Ecaterina”"
+          },
+          "distanceM": 0.03471226334794936
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 215,
+      "kind": "landmark",
+      "name": "Biserica Baptistă \"Agapia\" București",
+      "brand": "",
+      "subtype": "place_of_worship",
+      "outputXZ": [
+        -324,
+        599.2
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w1327349116",
+          "sourceUrl": "https://www.openstreetmap.org/way/1327349116",
+          "xy": [
+            -323.95983906307396,
+            599.176628882292
+          ],
+          "tags": {
+            "amenity": "place_of_worship",
+            "name": "Biserica Baptistă \"Agapia\" București"
+          },
+          "distanceM": 0.046466224267754035
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 216,
+      "kind": "park",
+      "name": "Parcul Tribunalului",
+      "brand": "",
+      "subtype": "park",
+      "outputXZ": [
+        -832.3,
+        189.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w23485109",
+          "sourceUrl": "https://www.openstreetmap.org/way/23485109",
+          "xy": [
+            -832.3109445503608,
+            189.259105422911
+          ],
+          "tags": {
+            "leisure": "park",
+            "name": "Parcul Tribunalului"
+          },
+          "distanceM": 0.042333788135354974
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 217,
+      "kind": "landmark",
+      "name": "Biserica Domnița Bălașa",
+      "brand": "",
+      "subtype": "place_of_worship",
+      "outputXZ": [
+        -694.9,
+        161.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w78564921",
+          "sourceUrl": "https://www.openstreetmap.org/way/78564921",
+          "xy": [
+            -694.8622713558486,
+            161.27217476912065
+          ],
+          "tags": {
+            "amenity": "place_of_worship",
+            "name": "Biserica Domnița Bălașa"
+          },
+          "distanceM": 0.046879569782457366
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 218,
+      "kind": "park",
+      "name": "Piața Bibescu",
+      "brand": "",
+      "subtype": "park",
+      "outputXZ": [
+        -633.7,
+        455.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w197737927",
+          "sourceUrl": "https://www.openstreetmap.org/way/197737927",
+          "xy": [
+            -633.7042123094238,
+            455.78221651140456
+          ],
+          "tags": {
+            "leisure": "park",
+            "name": "Piața Bibescu"
+          },
+          "distanceM": 0.018275557920524838
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 219,
+      "kind": "shop",
+      "name": "Unirea Shopping Center",
+      "brand": "",
+      "subtype": "mall",
+      "outputXZ": [
+        -340.4,
+        188.9
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w23492027",
+          "sourceUrl": "https://www.openstreetmap.org/way/23492027",
+          "xy": [
+            -340.42159876448403,
+            188.91608353547983
+          ],
+          "tags": {
+            "name": "Unirea Shopping Center",
+            "shop": "mall"
+          },
+          "distanceM": 0.026929291501417735
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 220,
+      "kind": "landmark",
+      "name": "Biserica „Sfântul Nicolae\" - Udricani",
+      "brand": "",
+      "subtype": "place_of_worship",
+      "outputXZ": [
+        100.1,
+        6.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w76256918",
+          "sourceUrl": "https://www.openstreetmap.org/way/76256918",
+          "xy": [
+            100.07514098472468,
+            6.2630255413606175
+          ],
+          "tags": {
+            "amenity": "place_of_worship",
+            "name": "Biserica „Sfântul Nicolae\" - Udricani"
+          },
+          "distanceM": 0.044554250438465885
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 221,
+      "kind": "landmark",
+      "name": "Biserica Ortodoxă \"Sfântul Stelian Lucaci\"",
+      "brand": "",
+      "subtype": "place_of_worship",
+      "outputXZ": [
+        356.7,
+        -148
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w76257283",
+          "sourceUrl": "https://www.openstreetmap.org/way/76257283",
+          "xy": [
+            356.71743108757096,
+            -147.95780647902447
+          ],
+          "tags": {
+            "amenity": "place_of_worship",
+            "name": "Biserica Ortodoxă \"Sfântul Stelian Lucaci\""
+          },
+          "distanceM": 0.045652338671959926
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 222,
+      "kind": "landmark",
+      "name": "Biserica Ortodoxă Sfântul Mina - Vergu",
+      "brand": "",
+      "subtype": "place_of_worship",
+      "outputXZ": [
+        117.6,
+        -288.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w76257689",
+          "sourceUrl": "https://www.openstreetmap.org/way/76257689",
+          "xy": [
+            117.61472803696849,
+            -288.3280659131008
+          ],
+          "tags": {
+            "amenity": "place_of_worship",
+            "name": "Biserica Ortodoxă Sfântul Mina - Vergu"
+          },
+          "distanceM": 0.03169559198255712
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 223,
+      "kind": "landmark",
+      "name": "Biserica „Sfântul Ștefan” - Călărași",
+      "brand": "",
+      "subtype": "place_of_worship",
+      "outputXZ": [
+        537.7,
+        -419.9
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w76893897",
+          "sourceUrl": "https://www.openstreetmap.org/way/76893897",
+          "xy": [
+            537.7151063827934,
+            -419.94667138921534
+          ],
+          "tags": {
+            "amenity": "place_of_worship",
+            "name": "Biserica „Sfântul Ștefan” - Călărași"
+          },
+          "distanceM": 0.04905528893391312
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 224,
+      "kind": "landmark",
+      "name": "Templul Unirea Sfântă",
+      "brand": "",
+      "subtype": "place_of_worship",
+      "outputXZ": [
+        -77.4,
+        152.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w79870930",
+          "sourceUrl": "https://www.openstreetmap.org/way/79870930",
+          "xy": [
+            -77.4278940931808,
+            152.7257237340871
+          ],
+          "tags": {
+            "amenity": "place_of_worship",
+            "name": "Templul Unirea Sfântă"
+          },
+          "distanceM": 0.03794457707977413
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 225,
+      "kind": "landmark",
+      "name": "Sinagoga Mare",
+      "brand": "",
+      "subtype": "place_of_worship",
+      "outputXZ": [
+        -31,
+        15.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w81580271",
+          "sourceUrl": "https://www.openstreetmap.org/way/81580271",
+          "xy": [
+            -30.95126710547644,
+            15.63627239953044
+          ],
+          "tags": {
+            "amenity": "place_of_worship",
+            "historic": "synagogue",
+            "name": "Sinagoga Mare"
+          },
+          "distanceM": 0.06075016029888642
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 226,
+      "kind": "landmark",
+      "name": "Teatrul Evreiesc de Stat",
+      "brand": "",
+      "subtype": "theatre",
+      "outputXZ": [
+        137.9,
+        35.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w82950585",
+          "sourceUrl": "https://www.openstreetmap.org/way/82950585",
+          "xy": [
+            137.8967249502438,
+            35.73469653398729
+          ],
+          "tags": {
+            "amenity": "theatre",
+            "name": "Teatrul Evreiesc de Stat"
+          },
+          "distanceM": 0.034850759269155145
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 227,
+      "kind": "school",
+      "name": "Liceul Tehnologic Unirea",
+      "brand": "",
+      "subtype": "school",
+      "outputXZ": [
+        165.3,
+        -417.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w83488919",
+          "sourceUrl": "https://www.openstreetmap.org/way/83488919",
+          "xy": [
+            165.29060075669682,
+            -417.0795016001435
+          ],
+          "tags": {
+            "amenity": "school",
+            "name": "Liceul Tehnologic Unirea"
+          },
+          "distanceM": 0.02255061354710829
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 228,
+      "kind": "landmark",
+      "name": "Biserica „Sfântul Anton - Curtea Veche”",
+      "brand": "",
+      "subtype": "place_of_worship",
+      "outputXZ": [
+        -551.6,
+        -44
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w150803286",
+          "sourceUrl": "https://www.openstreetmap.org/way/150803286",
+          "xy": [
+            -551.6182844948391,
+            -44.00537483377764
+          ],
+          "tags": {
+            "amenity": "place_of_worship",
+            "name": "Biserica „Sfântul Anton - Curtea Veche”"
+          },
+          "distanceM": 0.019058110862808755
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 229,
+      "kind": "shop",
+      "name": "Avbs Broker Credite",
+      "brand": "Avbs Broker",
+      "subtype": "money_lender",
+      "outputXZ": [
+        52.2,
+        -92.9
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w162494240",
+          "sourceUrl": "https://www.openstreetmap.org/way/162494240",
+          "xy": [
+            52.15250747230997,
+            -92.91190860020245
+          ],
+          "tags": {
+            "brand": "Avbs Broker",
+            "name": "Avbs Broker Credite",
+            "shop": "money_lender"
+          },
+          "distanceM": 0.048962791435641945
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 230,
+      "kind": "hotel",
+      "name": "Hotel Dacia",
+      "brand": "",
+      "subtype": "hotel",
+      "outputXZ": [
+        158.7,
+        -139.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w162494318",
+          "sourceUrl": "https://www.openstreetmap.org/way/162494318",
+          "xy": [
+            158.66001811472734,
+            -139.7249808762105
+          ],
+          "tags": {
+            "name": "Hotel Dacia",
+            "tourism": "hotel"
+          },
+          "distanceM": 0.04714440927831098
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 231,
+      "kind": "park",
+      "name": "Parcul Sfânta Vineri",
+      "brand": "",
+      "subtype": "park",
+      "outputXZ": [
+        -27.6,
+        98.8
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w184169674",
+          "sourceUrl": "https://www.openstreetmap.org/way/184169674",
+          "xy": [
+            -27.647476998919327,
+            98.8266774412863
+          ],
+          "tags": {
+            "leisure": "park",
+            "name": "Parcul Sfânta Vineri"
+          },
+          "distanceM": 0.05445871188312664
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 232,
+      "kind": "park",
+      "name": "Parcul Sfântul Ștefan",
+      "brand": "",
+      "subtype": "park",
+      "outputXZ": [
+        580.2,
+        -491.2
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w187032317",
+          "sourceUrl": "https://www.openstreetmap.org/way/187032317",
+          "xy": [
+            580.2021324935473,
+            -491.20239925880486
+          ],
+          "tags": {
+            "leisure": "park",
+            "name": "Parcul Sfântul Ștefan"
+          },
+          "distanceM": 0.0032099799908845168
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 233,
+      "kind": "landmark",
+      "name": "Biserica Baptistă Sfânta Treime",
+      "brand": "",
+      "subtype": "place_of_worship",
+      "outputXZ": [
+        609,
+        -293.5
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w230249035",
+          "sourceUrl": "https://www.openstreetmap.org/way/230249035",
+          "xy": [
+            609.0129828093817,
+            -293.50516860054864
+          ],
+          "tags": {
+            "amenity": "place_of_worship",
+            "name": "Biserica Baptistă Sfânta Treime"
+          },
+          "distanceM": 0.013973824496998266
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 234,
+      "kind": "fuel",
+      "name": "OMV",
+      "brand": "OMV",
+      "subtype": "fuel",
+      "outputXZ": [
+        95.6,
+        -171.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w263315803",
+          "sourceUrl": "https://www.openstreetmap.org/way/263315803",
+          "xy": [
+            95.64955977718583,
+            -171.09191437964225
+          ],
+          "tags": {
+            "amenity": "fuel",
+            "brand": "OMV",
+            "name": "OMV"
+          },
+          "distanceM": 0.05021502535376387
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 235,
+      "kind": "landmark",
+      "name": "Brigada de Poliție Rutieră Bucuresti",
+      "brand": "",
+      "subtype": "police",
+      "outputXZ": [
+        297.1,
+        -175.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w304074624",
+          "sourceUrl": "https://www.openstreetmap.org/way/304074624",
+          "xy": [
+            297.12630889787005,
+            -175.5550221016887
+          ],
+          "tags": {
+            "amenity": "police",
+            "name": "Brigada de Poliție Rutieră Bucuresti"
+          },
+          "distanceM": 0.05210728781692535
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 236,
+      "kind": "landmark",
+      "name": "Brigada Rutieră București",
+      "brand": "",
+      "subtype": "police",
+      "outputXZ": [
+        271.4,
+        -147.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w304074627",
+          "sourceUrl": "https://www.openstreetmap.org/way/304074627",
+          "xy": [
+            271.3877998507435,
+            -147.38240032260276
+          ],
+          "tags": {
+            "amenity": "police",
+            "name": "Brigada Rutieră București"
+          },
+          "distanceM": 0.021414767950363397
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 237,
+      "kind": "park",
+      "name": "Piața August Treboniu Laurian",
+      "brand": "",
+      "subtype": "park",
+      "outputXZ": [
+        255.3,
+        -108
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w328078288",
+          "sourceUrl": "https://www.openstreetmap.org/way/328078288",
+          "xy": [
+            255.2670190885278,
+            -107.96159810791349
+          ],
+          "tags": {
+            "leisure": "park",
+            "name": "Piața August Treboniu Laurian"
+          },
+          "distanceM": 0.0506206068450559
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 238,
+      "kind": "shop",
+      "name": "Carrefour",
+      "brand": "Carrefour",
+      "subtype": "supermarket",
+      "outputXZ": [
+        -236.5,
+        98.9
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w405564542",
+          "sourceUrl": "https://www.openstreetmap.org/way/405564542",
+          "xy": [
+            -236.54210360513414,
+            98.93635184837781
+          ],
+          "tags": {
+            "brand": "Carrefour",
+            "name": "Carrefour",
+            "shop": "supermarket"
+          },
+          "distanceM": 0.05562526805126335
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 239,
+      "kind": "fuel",
+      "name": "MOL",
+      "brand": "MOL",
+      "subtype": "fuel",
+      "outputXZ": [
+        155.3,
+        -215.3
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w670595374",
+          "sourceUrl": "https://www.openstreetmap.org/way/670595374",
+          "xy": [
+            155.3378224321132,
+            -215.31137282482896
+          ],
+          "tags": {
+            "amenity": "fuel",
+            "brand": "MOL",
+            "name": "MOL"
+          },
+          "distanceM": 0.03949528472548062
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 240,
+      "kind": "food",
+      "name": "The Clique Bistro",
+      "brand": "",
+      "subtype": "restaurant:bar",
+      "outputXZ": [
+        -273.7,
+        371.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w693861074",
+          "sourceUrl": "https://www.openstreetmap.org/way/693861074",
+          "xy": [
+            -273.7122263607556,
+            371.6254079994441
+          ],
+          "tags": {
+            "amenity": "restaurant",
+            "cuisine": "bar",
+            "name": "The Clique Bistro"
+          },
+          "distanceM": 0.02819663691077108
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 241,
+      "kind": "food",
+      "name": "Exotique Lounge",
+      "brand": "",
+      "subtype": "restaurant",
+      "outputXZ": [
+        -321,
+        370.1
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w787816882",
+          "sourceUrl": "https://www.openstreetmap.org/way/787816882",
+          "xy": [
+            -320.9925426759328,
+            370.10764375562974
+          ],
+          "tags": {
+            "amenity": "restaurant",
+            "name": "Exotique Lounge"
+          },
+          "distanceM": 0.010678889566350514
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 242,
+      "kind": "landmark",
+      "name": "Monument Barbu Catargiu",
+      "brand": "",
+      "subtype": "artwork",
+      "outputXZ": [
+        -628,
+        460.9
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w800348490",
+          "sourceUrl": "https://www.openstreetmap.org/way/800348490",
+          "xy": [
+            -628.0416251794909,
+            460.9028830584656
+          ],
+          "tags": {
+            "name": "Monument Barbu Catargiu",
+            "tourism": "artwork"
+          },
+          "distanceM": 0.04172490375980764
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 243,
+      "kind": "landmark",
+      "name": "Biserica Ortodoxă \"Sfântul Gheorghe Vechi\"",
+      "brand": "",
+      "subtype": "place_of_worship",
+      "outputXZ": [
+        -304.8,
+        -126.4
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w993673075",
+          "sourceUrl": "https://www.openstreetmap.org/way/993673075",
+          "xy": [
+            -304.79271411951584,
+            -126.41991807932742
+          ],
+          "tags": {
+            "amenity": "place_of_worship",
+            "name": "Biserica Ortodoxă \"Sfântul Gheorghe Vechi\""
+          },
+          "distanceM": 0.021208817471106905
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 244,
+      "kind": "landmark",
+      "name": "Templul Coral",
+      "brand": "",
+      "subtype": "place_of_worship",
+      "outputXZ": [
+        -184.4,
+        -148.6
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w1130933459",
+          "sourceUrl": "https://www.openstreetmap.org/way/1130933459",
+          "xy": [
+            -184.44739989334707,
+            -148.589079904021
+          ],
+          "tags": {
+            "amenity": "place_of_worship",
+            "historic": "synagogue",
+            "name": "Templul Coral",
+            "tourism": "attraction"
+          },
+          "distanceM": 0.04864152943219959
+        }
+      ],
+      "locatorMatches": []
+    },
+    {
+      "index": 245,
+      "kind": "landmark",
+      "name": "Biserica Ortodoxă  \"Sfântul Ioan Piaţă\"",
+      "brand": "",
+      "subtype": "place_of_worship",
+      "outputXZ": [
+        -368.7,
+        32.7
+      ],
+      "classification": "exact-quantized-source-anchor",
+      "sourceMatches": [
+        {
+          "sourceId": "w1151976895",
+          "sourceUrl": "https://www.openstreetmap.org/way/1151976895",
+          "xy": [
+            -368.70672630061165,
+            32.74379838784366
+          ],
+          "tags": {
+            "amenity": "place_of_worship",
+            "name": "Biserica Ortodoxă  \"Sfântul Ioan Piaţă\""
+          },
+          "distanceM": 0.044311870843171806
+        }
+      ],
+      "locatorMatches": []
+    }
+  ]
+}

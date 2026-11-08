@@ -9,6 +9,7 @@ import { GeoBatch, M, rng, smooth, lerp, headingFromBearing, centroid, polyBox, 
 import { seaBackdrop, seaWater, mirrorAbout } from './sea-common.js';
 import { seaActivity } from './sea-common.js';
 import { bench } from '../osm.js';
+import { activityFlow } from '../participation.js';
 
 const KITE = { x: -58, z: 31, h: 9.5, r: 34 };
 
@@ -166,15 +167,27 @@ export default {
         const sail = new THREE.Mesh(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0.7, 0), new THREE.Vector3(0.45, 0, 0), new THREE.Vector3(0, -0.9, 0), new THREE.Vector3(-0.45, 0, 0)]).setIndex([0, 1, 2, 0, 2, 3]), new THREE.MeshStandardMaterial({ color: '#e53935', side: THREE.DoubleSide })); sail.geometry.computeVertexNormals(); kite.add(sail);
         const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]), new THREE.LineBasicMaterial({ color: '#f5f5f5' }));
         ctx.add(kite, line); line.visible = false;
-        let flying = false;
-        ctx.interactables.push({ kind: 'kite', x: KITE.x, z: KITE.z, r: 9, label: () => (flying ? 'Reel the kite in' : 'Fly a kite'), use: (s) => { flying = !flying; kite.visible = line.visible = flying; if (flying) { seaActivity(s, 'lm-gasworks-kite', 'gas-works'); const w = s.r3d.weather; s.ui.toast('🪁 Up it goes', w ? `Wind ${Math.round(w.windKmh ?? 10)} km/h — ${(w.windKmh ?? 10) > 12 ? 'great kite weather' : 'a gentle breeze'}.` : 'Catch the breeze.'); } } });
-        ctx.onUpdate((dt, s, pl) => {
-            if (!flying || !pl) return;
-            const w = s.r3d.weather, wind = Math.max(4, w?.windKmh ?? 10), dir = ((w?.windDir ?? 200) + 180) * Math.PI / 180, L = 8 + wind * 1.4, t = s.t;
-            const kx = pl.x + Math.sin(dir) * L * 0.7 + Math.sin(t * 0.9) * 2, kz = pl.z - Math.cos(dir) * L * 0.7 + Math.cos(t * 0.7) * 1.5, ky = pl.y + 1.4 + L * 0.7 + Math.sin(t * 1.3) * 1.2;
-            kite.position.set(kx, ky, kz); kite.lookAt(pl.x, pl.y + 1.4, pl.z); kite.rotateZ(Math.sin(t * 2) * 0.3);
-            const pa = line.geometry.attributes.position; pa.setXYZ(0, pl.x, pl.y + 1.3, pl.z); pa.setXYZ(1, kx, ky, kz); pa.needsUpdate = true; line.geometry.computeBoundingSphere();
-        });
+        const flow = activityFlow(ctx);
+        const labels = ['Let out the line', 'Steady the kite', 'Reel it in'];
+        const hideKite = () => { kite.visible = line.visible = false; };
+        ctx.extras.kite = { object:kite, line };
+        ctx.interactables.push({ kind:'kite',x:KITE.x,z:KITE.z,r:9,label:'Fly a kite on Kite Hill',use:s => {
+            if ((s.r3d.weather?.windKmh ?? 10) < 4) { s.ui.toast('🪁 Waiting for a breeze','The kite needs a little wind. Try again when the breeze picks up.'); return; }
+            const p=s.position,dir=((s.r3d.weather?.windDir??200)+180)*Math.PI/180,L=Math.min(20,8+(s.r3d.weather?.windKmh??10)*.45);
+            flow.begin(s,{
+                title:'Kite Hill',focus:{x:p.x+Math.sin(dir)*L*.7,y:p.y+1.4+L*.7,z:p.z-Math.cos(dir)*L*.7},action:labels[0],help:'Let out the line, hold the kite in the breeze, then bring it back. Each action moves the kite; Leave or Esc packs it away.',
+                started(s,r) { r.stage=0;r.length=.7;r.top=Math.min(20,8+(s.r3d.weather?.windKmh??10)*.45);kite.visible=line.visible=true;r.status.textContent='Ready to launch'; },
+                actioned(s,r) { r.busy=true;r.t=0;r.from=r.length;r.to=r.stage===2?.7:r.top; },
+                update(dt,s,r) {
+                    if(r.busy){r.t+=dt;const t=Math.min(1,r.t/2.2);r.length=lerp(r.from,r.to,smooth(0,1,t));r.progress.value=(r.stage+t)/3;
+                        if(t===1){if(r.stage===2){flow.complete();return;}r.stage++;r.busy=false;r.button.textContent=labels[r.stage];r.status.textContent=r.stage===1?'Airborne · steady the line':'Steady · bring the kite home';}}
+                    const pl=s.position,w=s.r3d.weather,dir=((w?.windDir??200)+180)*Math.PI/180,L=r.length,t=s.t;
+                    const sway=Math.min(1,L/8),kx=pl.x+Math.sin(dir)*L*.7+Math.sin(t*.9)*sway,kz=pl.z-Math.cos(dir)*L*.7+Math.cos(t*.7)*sway,ky=pl.y+1.4+L*.7+Math.sin(t*1.3)*sway*.5;
+                    kite.position.set(kx,ky,kz);kite.lookAt(pl.x,pl.y+1.4,pl.z);kite.rotateZ(Math.sin(t*2)*.3*sway);
+                    const pa=line.geometry.attributes.position;pa.setXYZ(0,pl.x,pl.y+1.3,pl.z);pa.setXYZ(1,kx,ky,kz);pa.needsUpdate=true;line.geometry.computeBoundingSphere();
+                },cancel:hideKite,complete(s){hideKite();seaActivity(s,'lm-gasworks-kite','gas-works');s.ui.toast('🪁 Back in hand','Launched, steadied and reeled in on Kite Hill.');},
+            });
+        }});
         // crowd: kite flyers + picnics on the hill, joggers, photographers at the Prow facing the skyline
         ctx.crowdCfg = {
             personas: { local: 4, tech: 2, tourist_us: 3, photographer: 1.5, kid: 2, tourist_cn: 1, tourist_kr: 1, tourist_jp: 1, tourist_de: 1, tourist_es: 1, tourist_in: 1, tourist_ca: 1 },

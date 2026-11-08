@@ -42,7 +42,7 @@ async function setup(page, base) {
         const nativeRAF = requestAnimationFrame.bind(window);
         window.requestAnimationFrame = callback => callback.name === 'bound loop' ? 0 : nativeRAF(callback);
     });
-    await page.goto(base + '/game/', { waitUntil: 'load' });
+    await page.goto(base + '/game/', { waitUntil: 'domcontentloaded', timeout: 60000 });
     await ready(page);
     await page.selectOption('#quality', 'low');
     await page.selectOption('#lookmode', 'off');
@@ -198,7 +198,7 @@ async function mainFixture(page) {
     await page.selectOption('[data-set="look"]', 'hold');
     await page.click('[data-pa="resume"]');
     await page.evaluate(async () => { game.fuel = 11.25; await game.save.saveSession('conditions-story-reload'); });
-    await page.reload({ waitUntil: 'load' }); await ready(page);
+    await page.reload({ waitUntil: 'domcontentloaded', timeout: 60000 }); await ready(page);
     check('reload exposes Continue', await page.locator('#continue').isVisible(), true);
     await page.click('#continue'); await page.waitForFunction(() => game.state === 'drive' && !game.save._restoring);
     s = await read(page);
@@ -217,7 +217,7 @@ async function titleAndRoamSave(page) {
     check('title Sunset/snow follows explore jump', [(await read(page)).conditions, (await read(page)).override], [{ tod: 'golden', weather: 'snow', season: 'auto' }, 'sunset']);
     await key(page, 'k'); await page.click('[data-season="winter"]'); await hour(page, 21.25); await key(page, 'Escape');
     await page.evaluate(async () => { game.fuel = 0; await game.save.saveSession('conditions-empty-tank-reload'); });
-    await page.reload({ waitUntil: 'load' }); await ready(page);
+    await page.reload({ waitUntil: 'domcontentloaded', timeout: 60000 }); await ready(page);
     await page.click('#continue'); await page.waitForFunction(() => game.state === 'drive' && !game.save._restoring);
     let s = await read(page);
     check('free roam Continue restores local 21:15/snow/Winter', [s.freeRoam, s.hour, s.conditions], [true, 21.25, { tod: 'h21.25', weather: 'snow', season: 'winter' }]);
@@ -280,7 +280,7 @@ async function accessFixture(page) {
     await key(page, 'Escape'); await jump(page, 'resume');
     await key(page, 'k'); await liveTime(page, 'Live after cross-city Resume story', 12); await key(page, 'Escape');
     await page.evaluate(() => game.save.saveSession('conditions-live-title-access'));
-    await page.reload({ waitUntil: 'load' }); await ready(page);
+    await page.reload({ waitUntil: 'domcontentloaded', timeout: 60000 }); await ready(page);
     await titleConditions(page); await page.click('[data-tod="night"]'); await page.click('[data-season="summer"]');
     await key(page, 'Escape'); await key(page, 'Escape'); await page.click('#continue'); await page.waitForFunction(() => game.state === 'drive' && !game.save._restoring);
     await key(page, 'k');

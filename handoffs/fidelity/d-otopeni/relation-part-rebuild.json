@@ -1,0 +1,30 @@
+{
+  "district": "otopeni",
+  "sourcePrerequisites": [
+    "9afb80e",
+    "5519dab"
+  ],
+  "dataSha256": "e6b36d6c87b94f7887cddb240de0dc40ea662913c60290c09be45953ccd4ff91",
+  "counts": {
+    "date": "2026-11-08",
+    "previousBuildings": 1208,
+    "retainedAllPreviousIds": true,
+    "newOuterRecords": 0,
+    "newSourceIdentities": [],
+    "changedFields": [
+      "buildingRoofSurfaces",
+      "buildingRoofProfiles",
+      "buildingSourceTags"
+    ],
+    "notes": [
+      "No part-only multipolygon is present in this source scope. Geometry, dimensions, roads, trees and all other visual fields remain byte-identical. The typed research resolver adds originalOSM:{} for r16476195, its full raw source tag ledger, and matching sources provenance to40 dependent roof caches."
+    ]
+  },
+  "records": [],
+  "previousOuterRetention": {
+    "baseline": "1d6295c",
+    "match": "exact source ID plus complete precise outer ring (multi-outer relations matched separately)",
+    "allPreviousOutersPresent": true,
+    "allPreviousTotalAndMinimumBandsUnchanged": true
+  }
+}

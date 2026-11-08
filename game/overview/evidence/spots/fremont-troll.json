@@ -1,0 +1,347 @@
+{
+  "schemaVersion": 1,
+  "id": "fremont-troll",
+  "city": "seattle",
+  "name": "Fremont Troll",
+  "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+  "updatedAt": "2026-11-08T19:35:04.502Z",
+  "status": "needs_review",
+  "sources": [
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Fremont_Troll"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikivoyage.org/wiki/Seattle/Fremont"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Aurora_Bridge"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Fremont_troll.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://creativecommons.org/licenses/by-sa/2.0"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Fremont_randoms_-_Flickr_-_eliduke_(1).jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://creativecommons.org/licenses/by-sa/3.0"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Troll_Ave_Fremont_Seattle_USA.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Troll_Avenue_and_36th_Street_signs.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Troll_Eye_Apartments.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Fremont_Troll_plaque.jpg"
+    },
+    {
+      "label": "The Troll (1990; Steve Badanes, Will Martin, Donna Walter, Ross Whitehead)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/2485251324"
+    },
+    {
+      "label": "Aurora Bridge / George Washington Memorial Bridge (1932, SR 99)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/370645739"
+    },
+    {
+      "label": "Aurora Bridge / George Washington Memorial Bridge (1932, SR 99)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/378090317"
+    },
+    {
+      "label": "Troll's Knoll Park + P-Patch",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/295288784"
+    },
+    {
+      "label": "Troll's Knoll Park + P-Patch",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/554528163"
+    },
+    {
+      "label": "Moss Turtle (Michiko Tanaka, 2020)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/11849109533"
+    }
+  ],
+  "improvements": [
+    "Hand and Beetle challenges require actual walking/jumping, a grounded landing and a held pose; they no longer teleport the player to a target.",
+    "Two posed visitors moved to adjacent sculpture surfaces to clear the playable hand and Beetle targets, preserving visitor counts.",
+    "Source buildings and bridge-context geometry retain exact polygons and shared roof profiles."
+  ],
+  "remainingGaps": [
+    "The native short plaque walk becomes blocked by the crowd near The bridge above; its endpoint view is too close to a visitor.",
+    "A complete matched under-bridge comparison is still missing. The available Street View sample was on the bridge deck and was rejected as unsuitable.",
+    "Touch buttons were exercised, but the climb movement in that harness still used keyboard input; a complete touch-joystick climb remains unverified.",
+    "The sculpture, Beetle and bridge materials still need an independent whole-scene comparison, including retaining walls and hillside paths.",
+    "Raw audit findings remain for physical review: zfight 72.",
+    "5.3 m walked toward The bridge above; Native walker blocked on planned public path."
+  ],
+  "checks": [
+    {
+      "label": "Native scene load",
+      "passed": true,
+      "details": "fremont-troll; actual native controller; 0 thrown JavaScript errors."
+    },
+    {
+      "label": "Source solid membership",
+      "passed": true,
+      "details": "211 active source records, 209 physical volumes, 2 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+    },
+    {
+      "label": "Validated scene geometry cache",
+      "passed": true,
+      "details": "Exact source/profile/terrain signature matched."
+    },
+    {
+      "label": "Native public-path walk",
+      "passed": false,
+      "details": "5.3 m walked toward The bridge above; Native walker blocked on planned public path."
+    },
+    {
+      "label": "High scene budgets",
+      "passed": true,
+      "details": "253228 unique geometry triangles; max 626276 rendered triangles / 211 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+    },
+    {
+      "label": "Raw physical audit",
+      "passed": false,
+      "details": "zfight: 72"
+    },
+    {
+      "label": "Full matched scene comparison",
+      "passed": false,
+      "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+    },
+    {
+      "label": "Participatory activity controls",
+      "passed": true,
+      "details": "Native walk/jump/grounded-pose completion, no early award and cancellation pass in the activity harness; both UI sizes have 44px controls. Touch joystick movement is explicitly not proven."
+    }
+  ],
+  "captures": [
+    {
+      "kind": "arrival",
+      "label": "Fremont Troll — arrival",
+      "image": "assets/spots/fremont-troll/arrival.webp",
+      "sha256": "ea9668ede734ddb979f38ea084f1a0014de328396981b81a94f91ee2d6dc1bdd",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:21:35.572Z",
+      "pose": {
+        "position": [
+          -1.2,
+          1.5254334632679825,
+          0
+        ],
+        "bearing": 2,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6506,
+          "lon": -122.34722,
+          "elev": 33.1
+        },
+        "projection": {
+          "mLat": 111183.52,
+          "mLon": 75127.88
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "public-walk",
+      "label": "Fremont Troll — public walk",
+      "image": "assets/spots/fremont-troll/public-walk.webp",
+      "sha256": "88fd976a51af5701b949594fa7ffb8b1b34d17efabe0da691c46bed045949e63",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:21:37.796Z",
+      "pose": {
+        "position": [
+          -4.4560260133680565,
+          1.972400065477881,
+          -4.055834873724496
+        ],
+        "bearing": 319.2097622665532,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6506,
+          "lon": -122.34722,
+          "elev": 33.1
+        },
+        "projection": {
+          "mLat": 111183.52,
+          "mLon": 75127.88
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "postcard",
+      "label": "Fremont Troll — postcard",
+      "image": "assets/spots/fremont-troll/postcard.webp",
+      "sha256": "61ae5c78aa238da573dcd3d999d7300fc4123ed9910acc0964e77254f3136330",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:21:40.408Z",
+      "pose": {
+        "position": [
+          -2.3,
+          3.9139801597100585,
+          -27.8
+        ],
+        "bearing": 4,
+        "pitch": 8,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6506,
+          "lon": -122.34722,
+          "elev": 33.1
+        },
+        "projection": {
+          "mLat": 111183.52,
+          "mLon": 75127.88
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "activity-approach",
+      "label": "Fremont Troll — activity approach",
+      "image": "assets/spots/fremont-troll/activity-approach.webp",
+      "sha256": "fe70a9a58d2122ab71d133df67fab3986745bd3769590518ad74aa272d44629a",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:21:43.508Z",
+      "pose": {
+        "position": [
+          -6.4,
+          5.026409563264192,
+          -40.8
+        ],
+        "bearing": 0,
+        "pitch": -7.000000000000003,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6506,
+          "lon": -122.34722,
+          "elev": 33.1
+        },
+        "projection": {
+          "mLat": 111183.52,
+          "mLon": 75127.88
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    }
+  ],
+  "perf": {
+    "sceneTriangles": 341547,
+    "uniqueGeometryTriangles": 253228,
+    "geometryObjects": 99,
+    "maxRenderedTriangles": 626276,
+    "maxDrawCalls": 211
+  },
+  "sceneId": "fremont-troll",
+  "sourceGeometry": {
+    "membershipSHA256": "234d43f2e27ab25d4b05b730492a1b00e5ff58c9c7bb9bb330f1b8a07a1eeb6a",
+    "activeSourceRecords": 211,
+    "renderedVolumes": 209,
+    "literalHeights": 27,
+    "levelHeightEstimates": 0,
+    "typeHeightEstimates": 184,
+    "heroReplacements": [],
+    "missingMembers": []
+  },
+  "access": {
+    "walker": "OnFootController",
+    "arrival": {
+      "x": -1.2,
+      "z": 0,
+      "y": -0.12456653673201748,
+      "heading": -0.03490658503988659
+    },
+    "arrivalDry": true,
+    "nearestPlaquePath": {
+      "points": [
+        [
+          -1.2,
+          0
+        ],
+        [
+          -14.05300601607513,
+          -15.165115357998758
+        ],
+        [
+          -16.303006016075134,
+          -15.915115357998756
+        ]
+      ],
+      "length": 22.25085529601037,
+      "target": "The bridge above"
+    },
+    "nativeWalk": {
+      "walker": "OnFootController",
+      "passed": false,
+      "steps": 98,
+      "walked": 5.324842751367419,
+      "target": "The bridge above",
+      "plannedLength": 22.25085529601037,
+      "position": {
+        "x": -4.456047176203369,
+        "z": -4.055815139061301,
+        "y": 0.3224487664210697,
+        "heading": 0.7119239511198758
+      },
+      "error": "Native walker blocked on planned public path"
+    }
+  },
+  "rawAudit": {
+    "zfight": 72
+  },
+  "review": "Inspected all four GAME context captures, including the now clear hand-side activity approach. Native movement failures and raw physical warnings remain open."
+}

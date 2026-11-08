@@ -288,6 +288,44 @@ class Builder {
     /** mansard-ish roof: inset prism */
     roof(p, y, h, col, inset = 2, o = {}) { const q = offset(p, -inset); this.prism(q, y, y + h, col, { holes: (o.holes || []).map(x => offset(x, inset)), topCol: o.topCol }); }
 
+    /** Pitched surface over the complete source outline, with open courts and shared subdivision edges.
+     * Eaves/rise are explicit authoring estimates where OSM has no roof:height; no centroid fan or inset-box roof. */
+    sourceRoof(p, y, h, col, inset = 2, { holes = [], mansard = false } = {}) {
+        const contour = p.map(q => new THREE.Vector2(...q)), rings = holes.map(r => r.map(q => new THREE.Vector2(...q)));
+        const all = contour.concat(...rings), points = all.map(q => [q.x, q.y]);
+        let faces = THREE.ShapeUtils.triangulateShape(contour, rings);
+        for (let pass = 0; pass < 10; pass++) {
+            const mids = new Map(), next = [];
+            for (const f of faces) for (let i = 0; i < 3; i++) {
+                const a = f[i], c = f[(i + 1) % 3], key = a < c ? `${a},${c}` : `${c},${a}`;
+                if (mids.has(key) || Math.hypot(points[a][0] - points[c][0], points[a][1] - points[c][1]) <= 4) continue;
+                mids.set(key, points.length); points.push([(points[a][0] + points[c][0]) / 2, (points[a][1] + points[c][1]) / 2]);
+            }
+            if (!mids.size) break;
+            for (const f of faces) {
+                const mid = f.map((a, i) => { const c = f[(i + 1) % 3]; return mids.get(a < c ? `${a},${c}` : `${c},${a}`); });
+                const n = mid.filter(i => i !== undefined).length;
+                if (!n) { next.push(f); continue; }
+                if (n === 3) { next.push([f[0], mid[0], mid[2]], [mid[0], f[1], mid[1]], [mid[2], mid[1], f[2]], mid); continue; }
+                const k = n === 1 ? mid.findIndex(i => i !== undefined) : mid.findIndex(i => i === undefined), a = f[k], c = f[(k + 1) % 3], d = f[(k + 2) % 3];
+                if (n === 1) next.push([a, mid[k], d], [mid[k], c, d]);
+                else { const u = mid[(k + 1) % 3], v = mid[(k + 2) % 3]; next.push([d, v, u], [a, c, v], [c, u, v]); }
+            }
+            faces = next;
+        }
+        const vertex = ([x, z]) => {
+            let distance = Infinity;
+            for (const ring of [p, ...holes]) for (let i = 0; i < ring.length; i++) {
+                const a = ring[i], c = ring[(i + 1) % ring.length], dx = c[0] - a[0], dz = c[1] - a[1];
+                const t = Math.max(0, Math.min(1, ((x - a[0]) * dx + (z - a[1]) * dz) / (dx * dx + dz * dz || 1)));
+                distance = Math.min(distance, Math.hypot(x - a[0] - t * dx, z - a[1] - t * dz));
+            }
+            const t = Math.min(1, distance / inset), rise = mansard ? (t < 0.45 ? t / 0.45 * 0.8 : 0.8 + (t - 0.45) / 0.55 * 0.2) : t;
+            return [x, y + h * rise, z];
+        };
+        for (const f of faces) this.tri(...f.map(i => vertex(points[i])), col, 'm', [0, 1, 0]);
+    }
+
     // ---- THREE geometry based primitives (respect the frame stack) ----
     geo(g, col, m, mat = 'm') {
         let gg = g.index ? g.toNonIndexed() : g.clone();
@@ -460,6 +498,13 @@ class Builder {
     // ---- collision (model frame, unscaled metres) ----
     col(x, z, hw, hd, angle = 0, bands = {}) { this.cols.push({ x: x + this.ox, z: z + this.oz, hw, hd, angle, ...bands }); }
     colSeg(x0, z0, x1, z1, hw) { const dx = x1 - x0, dz = z1 - z0, L = Math.hypot(dx, dz); this.col((x0 + x1) / 2, (z0 + z1) / 2, L / 2, hw, -Math.atan2(dz, dx)); }
+    /** Exact model-space solid, including open mapped courtyards; bounds only accelerate queries. */
+    colPolygon(p, { holes = [], y0 = 0, y1 = 20 } = {}) {
+        const shift = q => q.map(([x, z]) => [x + this.ox, z + this.oz]);
+        const poly = shift(p), bb = bbox([poly]);
+        this.cols.push({ x: (bb.x0 + bb.x1) / 2, z: (bb.z0 + bb.z1) / 2, hw: (bb.x1 - bb.x0) / 2, hd: (bb.z1 - bb.z0) / 2,
+            angle: 0, h: y1, y0, y1, poly, holes: holes.map(shift) });
+    }
     /** cover polygon(s) with axis-aligned strips (fills courtyards, good enough for a car) */
     colPoly(list, strip = 24) {
         const bb = bbox(list), n = Math.max(1, Math.round((bb.x1 - bb.x0) / strip)), w = (bb.x1 - bb.x0) / n;
@@ -1209,7 +1254,7 @@ function bMNIR(b) {
     for (const z of [-36, 36]) { b.box(xf + 3, 0, z, 10, 24.5, 14, S); b.windows(rect(xf - 2, z - 7, xf + 8, z + 7), 0, 23, 6.5, WIN, { bay: 4.6, wf: 0.4, hf: 0.6, arch: true, minL: 4 }); b.hip(xf + 3, 24.5, z, 10, 14, 4, '#8f9599'); }
     // Trajan's Column replica (cast, 1967) in the courtyard
     const [hx, hz] = centroid(hole); b.cyl(hx, 0, hz, 2, 2, 3, '#d9d1c1', 8); b.cyl(hx, 3, hz, 1.6, 1.8, 24, '#d6cdb9', 10); b.box(hx, 27, hz, 2.4, 1.2, 2.4, '#d9d1c1');
-    b.colPoly([p], 20);
+    b.colPolygon(p, { holes: [hole], y1: 19.2 });
 }
 
 // JW Marriott Bucharest Grand Hotel (ex-Casa Republicii annex, 1980s, opened 2000) — 9 levels / 40 m

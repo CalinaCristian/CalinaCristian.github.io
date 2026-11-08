@@ -298,7 +298,6 @@ function place(sm) {
     P.speed = 0; P.steer = 0; P.steerVisual = 0; P.shake = 0; P.lookBack = false;
     try { P.resetLook?.(); } catch { /* ignore */ }
     P.updateRig?.(0);
-    P.camHolder.rotation.set(0, 0, 0);
     try { g.traffic?.setPlayer?.(P); } catch { /* ignore */ }
 }
 function stepGame() {

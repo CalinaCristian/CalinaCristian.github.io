@@ -82,7 +82,8 @@ export function makeWaterMaterial(o = {}) {
                 normal = normalize((viewMatrix * vec4(wNw, 0.0)).xyz);
                 // body colour: shallow near the shore, deep away from it and for steep views
                 float wNv = clamp(dot(normal, normalize(vViewPosition)), 0.0, 1.0);
-                float wEdge = 1.0 - smoothstep(0.0, 6.0, vWShore);
+                // Coarse faces without a defensible interpolated shoreline band also lack a defensible shallow tint.
+                float wEdge = (1.0 - smoothstep(0.0, 6.0, vWShore)) * clamp(vWFoamReliable, 0.0, 1.0);
                 diffuseColor.rgb = mix(uWDeep, uWShallow, wEdge * 0.8) * (0.75 + 0.25 * (1.0 - wNv));
                 diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.82, 0.85, 0.85), wFoam);`)
             .replace('#include <roughnessmap_fragment>', `#include <roughnessmap_fragment>
@@ -110,6 +111,8 @@ export function makeWaterMaterial(o = {}) {
     };
     m.customProgramCacheKey = () => 'water2' + (m.userData.hasShore ? 's' : '');
     MATS.add(m);
+    // Tourist scene cleanup calls Material.dispose directly through disposeTree.
+    m.addEventListener('dispose', () => MATS.delete(m));
     return m;
 }
 

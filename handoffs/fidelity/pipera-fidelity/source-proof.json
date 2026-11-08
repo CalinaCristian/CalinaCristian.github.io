@@ -4,7 +4,7 @@
   "builtFromCommit": "98251066c50a4497bc1885be6f187e72f729fd40",
   "sourceAccessDate": "2026-11-08",
   "data": "game/data/bucharest-pipera.json",
-  "dataSha256": "66d5fd9ffff3124db1007d8143aaef1854abad94b51053531f091f328fc93802",
+  "dataSha256": "def0b7515341ac654650799a5f819a2a7a80c627e865c06845c41688c7f2cbb9",
   "sourceAudit": {
     "sourceSolidRecords": 2283,
     "exactIdentitiesPresent": 2283,
@@ -361,5 +361,10 @@
       },
       "resolution": "Preserve both identities and literal dimensions; derive physical union from the same source solids. No fabricated agreement or source deletion."
     }
-  ]
+  ],
+  "areaSourceTagAugmentation": {
+    "proof": "area-source-tags/area-source-tags-proof.json",
+    "existingFieldsUnchanged": true,
+    "populatedSourceIdentities": 23
+  }
 }

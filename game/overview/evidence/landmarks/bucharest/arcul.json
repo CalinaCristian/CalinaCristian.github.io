@@ -1,0 +1,262 @@
+{
+  "schemaVersion": 1,
+  "id": "arcul",
+  "city": "bucharest",
+  "name": "Arcul de Triumf",
+  "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.4671902,
+    "lon": 26.078127
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/217851530",
+      "label": "OpenStreetMap w217851530 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {}
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Arcul_de_Triumf",
+      "label": "Independent historical and architectural reference",
+      "type": "independent"
+    },
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "label": "Esri World Imagery — private outline/roof comparison; no imagery published",
+      "type": "aerial"
+    }
+  ],
+  "sourceIds": [
+    "w1190798203",
+    "w1191615159",
+    "w1191615160",
+    "w1191615161",
+    "w1191615162",
+    "w1191615163",
+    "w1191615164",
+    "w1191615165",
+    "w1191615166",
+    "w1191615167",
+    "w1191615168",
+    "w1191615169",
+    "w1191615170",
+    "w1191615171",
+    "w1191615172",
+    "w1191615173",
+    "w1191615174",
+    "w1191615175",
+    "w1191615176",
+    "w1191615177",
+    "w1191615178",
+    "w1191615179",
+    "w1191615180",
+    "w1191724086",
+    "w1479986586",
+    "w1479986587",
+    "w1479986591",
+    "w217851530"
+  ],
+  "sourceLedger": "../../../../research/landmark-source-bucharest.json",
+  "reviewedAt": "2026-11-08",
+  "improvements": [
+    "Retained the complete mapped plinth outline at centimetre precision.",
+    "The monumental opening retains separate pier collision instead of a solid rectangular collider."
+  ],
+  "remainingGaps": [
+    "Relief sculpture, pier mouldings and arch curvature are simplified; source map has no height tag, so the documented 27 m body and decorative flag remain separately interpreted.",
+    "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity."
+  ],
+  "checks": [
+    {
+      "label": "Full source boundary and replacement-identity checks",
+      "passed": true,
+      "details": "tools/landmarks/bucharest-source-check.mjs: 1 authored source rings; explicit replacement IDs match the source ledger. Entire 33-model check passes 306 checks."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs: all 61 models pass finite geometry, normals and triangle accounting; dedicated concave courtyard, roof and height-band checks pass."
+    },
+    {
+      "label": "Mandatory foot / driving regression",
+      "passed": true,
+      "details": "Immutable production ef21d14: npm run harness -- --scenario=foot,a --city=bucharest completed 0 high / 0 medium / 1 low (software-GL FPS only). Both scenario screenshots inspected."
+    },
+    {
+      "label": "Published game studies inspected",
+      "passed": true,
+      "details": "Front, top and oblique game-only studies inspected against source outlines and available independent reference photographs. Remaining shape discrepancies are listed explicitly."
+    },
+    {
+      "label": "Matched exterior Street View comparison",
+      "passed": true,
+      "details": "Private exterior visual comparison inspected. No Street View attributes were extracted and no Google imagery is published. Actual pano pose was not independently metadata-verified."
+    },
+    {
+      "label": "Complete district / traffic / mirror budget",
+      "passed": false,
+      "details": "These are isolated model studies. Paired Romana samples had unchanged findings and world-only peak1.13M triangles/296 calls, with an Arnia capture timeout; traffic and mirror budget and all tourist-scene placements require the district lanes."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study",
+      "kind": "front",
+      "image": "assets/landmarks/arcul/front.webp",
+      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "sha256": "ebb15712e3716b23906f995cedbfb298b0d51cef9a18972db615ab5b588ec9a7",
+      "capturedAt": "2026-11-08T16:47:32.733469Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=arcul&clean=1&fountains=on&view=street&az=-159.99846429028239",
+        "anchor": {
+          "lat": 44.4671902,
+          "lon": 26.078127,
+          "rotation": -2.7925
+        },
+        "camera": {
+          "position": [
+            -20.878379509351955,
+            1.3,
+            -57.358092732965275
+          ],
+          "quaternion": [
+            -0.019535329043032023,
+            0.9785546214419931,
+            -0.11078167476211769,
+            -0.17255910381836828
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 1220.7960571528681,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -22.524876786027125,
+            0,
+            -18.939048616457498
+          ],
+          "max": [
+            22.524876786027125,
+            34,
+            18.939048616457498
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "top",
+      "label": "Top model study (perspective)",
+      "kind": "top",
+      "image": "assets/landmarks/arcul/top.webp",
+      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "sha256": "e67835629857e7f256663774e3975f0613267b0530634d36ce7001dffb642c58",
+      "capturedAt": "2026-11-08T16:47:33.633460Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=arcul&clean=1&fountains=on&view=top&az=0",
+        "anchor": {
+          "lat": 44.4671902,
+          "lon": 26.078127,
+          "rotation": -2.7925
+        },
+        "camera": {
+          "position": [
+            0,
+            97.60931697610177,
+            0.09760934951254899
+          ],
+          "quaternion": [
+            -0.7067531394223399,
+            0,
+            0,
+            0.7074602461740636
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 1952.1873156156119,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -22.524876786027125,
+            0,
+            -18.939048616457498
+          ],
+          "max": [
+            22.524876786027125,
+            34,
+            18.939048616457498
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/arcul/oblique.webp",
+      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "sha256": "b58c46183caadbceb8348ed7fa56f6bc6fbd32b60d775193eb041f1e2005b2f5",
+      "capturedAt": "2026-11-08T16:47:34.881446Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=arcul&clean=1&fountains=on&view=oblique&az=-124.99846429028239&el=28",
+        "anchor": {
+          "lat": 44.4671902,
+          "lon": 26.078127,
+          "rotation": -2.7925
+        },
+        "camera": {
+          "position": [
+            -51.347659501349995,
+            46.92900486710093,
+            -35.95196723195008
+          ],
+          "quaternion": [
+            0.1117099756070572,
+            0.8606568161629702,
+            0.21458584510728385,
+            -0.44804424025053924
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 1419.8519147495667,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -22.524876786027125,
+            0,
+            -18.939048616457498
+          ],
+          "max": [
+            22.524876786027125,
+            34,
+            18.939048616457498
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 4190,
+    "drawCalls": 2,
+    "note": "Isolated development viewer render, including its ground/shadow work; excludes district world, traffic and mirrors."
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "schemaVersion": 1,
+  "id": "greatwheel",
+  "city": "seattle",
+  "name": "Seattle Great Wheel",
+  "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+  "status": "in-progress",
+  "coordinates": {
+    "lat": 47.60615,
+    "lon": -122.34262
+  },
+  "sourceIds": [],
+  "replacementScope": "Only the explicit source IDs represent authored replacement. Empty scope means context geometry only; never remove neighbours by radius, name or centroid.",
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/node/1809238334",
+      "label": "OSM n1809238334 · version 14 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13619214.567969648%2C6041484.154761014%2C-13619021.753460286%2C6041676.969270376&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+      "label": "Independent georeferenced Esri aerial · privately viewed · acquisition date unknown · image not published",
+      "type": "aerial"
+    }
+  ],
+  "improvements": [
+    "Adjusted rim/hub geometry so the complete cabin envelope is approximately 53 m, retaining 42 cabins.",
+    "Corrected spoke centres so all 42 spokes radiate from the hub.",
+    "Replaced solid red gondola cubes with framed glazed white cabins and one dark VIP cabin; the separate ticket office is not claimed as replaced."
+  ],
+  "remainingGaps": [
+    "Cabin shape, suspension offsets, A-frame connections and support deck are simplified; the registry wheel remains static.",
+    "The tourist waterfront has a separately animated framed-cabin wheel; this study does not verify its ride mechanics or lighting.",
+    "These are isolated front/top/oblique model studies, not matched street-eye Street View/aerial comparisons. They do not establish full-world, night, weather or seasonal parity.",
+    "Integrated source-only replacement and rebuilt district performance are separate acceptance checks; the capture branch predates that shared world policy."
+  ],
+  "checks": [
+    {
+      "label": "Bucharest foot,a regression",
+      "passed": true,
+      "details": "Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. Subsequent source changes are confined to US models."
+    },
+    {
+      "label": "Current source identity and topology review",
+      "passed": true,
+      "details": "All 24 US registry entries checked; 0 explicit replacement identities for this model. Raw source versions/tags/coordinates retained. OSM geometry takes precedence over estimates."
+    },
+    {
+      "label": "Independent visual and actual model review",
+      "passed": true,
+      "details": "Actual front, top and oblique game renders inspected against source plans and independently viewed aerial context; only game renders are published. Height/facade limits and source conflicts are listed."
+    },
+    {
+      "label": "Geometry and meaningful collision checks",
+      "passed": true,
+      "details": "All61 shared geometry invariants and the US source-scope/total-height/court/pitch/portal/bridge-clearance regression checks pass. No FPS claim is inferred from geometry counts."
+    },
+    {
+      "label": "Immutable game-only capture provenance",
+      "passed": true,
+      "details": "Each lossless WebP is RGB pixel-verified against its actual game screenshot and carries its own source commit, camera pose and SHA256."
+    },
+    {
+      "label": "Complete measured visual parity",
+      "passed": false,
+      "details": "Unmeasured sections, simplified details and world integration remain open as listed; no 100% parity claim."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Isolated model study · front elevation",
+      "image": "assets/landmarks/greatwheel/front.webp",
+      "kind": "front",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "ca97161de61465852cfcf4329d5d37be312216207cefe0b515a35101ed457bd5",
+      "capturedAt": "2026-11-08T17:05:29.702Z",
+      "pose": {
+        "position": [
+          -80.7678602122838,
+          21.258897936344148,
+          50.46936046595293
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "quaternion": [
+          0,
+          -0.484809620246337,
+          0,
+          0.874619707139396
+        ],
+        "projection": "perspective",
+        "fov": 45,
+        "target": [
+          0,
+          21.258897936344148,
+          0
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    },
+    {
+      "id": "top",
+      "label": "Isolated model study · orthographic north-up plan",
+      "image": "assets/landmarks/greatwheel/top.webp",
+      "kind": "top",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "250e157fffd8f4e70083aa05aa780687594a5153b419510d90e6731a47052b42",
+      "capturedAt": "2026-11-08T17:05:33.787Z",
+      "pose": {
+        "position": [
+          0,
+          119.92278703546081,
+          0
+        ],
+        "up": [
+          0,
+          0,
+          -1
+        ],
+        "quaternion": [
+          -0.7071067811865474,
+          0,
+          0,
+          0.7071067811865476
+        ],
+        "projection": "orthographic",
+        "groundSquareM": 66.77554219460045,
+        "orientation": "north-up",
+        "target": [
+          0,
+          0,
+          0
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Isolated model study · oblique overview",
+      "image": "assets/landmarks/greatwheel/oblique.webp",
+      "kind": "oblique",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "1adeda679431ac9e329633fa67668061f726106b7596cbb7a48174158a64dec7",
+      "capturedAt": "2026-11-08T17:05:40.367Z",
+      "pose": {
+        "position": [
+          -36.17649938375969,
+          63.00924165556159,
+          77.58075328828244
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "quaternion": [
+          -0.21961881615333448,
+          -0.21089228065496057,
+          -0.04868831935715532,
+          0.951273603707016
+        ],
+        "projection": "perspective",
+        "fov": 45,
+        "target": [
+          0,
+          21.258897936344148,
+          0
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 5532,
+    "drawCalls": 3,
+    "note": "Isolated viewer frame includes ground and shadow rendering; this is neither a whole-world budget measurement nor hardware FPS."
+  }
+}

@@ -1,0 +1,379 @@
+{
+  "generated": "2026-11-08T17:08:32.128Z",
+  "durationSec": 152,
+  "args": {
+    "city": "seattle",
+    "route": "seatac,sweep-bellevue-way-northeast",
+    "district": "bellevue,seatac",
+    "every": 1000,
+    "from": 0,
+    "to": 400,
+    "aerial": false,
+    "looks": false,
+    "zEvery": 0,
+    "pr": 0.5,
+    "viewports": "none",
+    "quality": "high",
+    "far": 0,
+    "time": "day",
+    "weather": "clear",
+    "trafficEvery": 1,
+    "spots": null,
+    "spotQ": "high",
+    "traffic": true,
+    "offices": false,
+    "geometry": false,
+    "geoAll": false,
+    "jobs": 2,
+    "headed": false,
+    "port": 8123,
+    "timeout": 120,
+    "focus": 40,
+    "corridor": 70,
+    "sweep": 2,
+    "lookEvery": 200,
+    "aerialEvery": 200,
+    "size": 120,
+    "out": "/workspace/reality-pass/us-landmarks/world-baseline",
+    "keep": false,
+    "verbose": false,
+    "root": "/workspace/reality-pass/us-landmarks/qa-baseline"
+  },
+  "results": [
+    {
+      "city": "seattle",
+      "groups": [
+        {
+          "key": "seattle-seatac",
+          "city": "seattle",
+          "district": "seatac",
+          "ms": 41700,
+          "edges": 1332,
+          "ribbons": 1662
+        },
+        {
+          "key": "seattle-bellevue",
+          "city": "seattle",
+          "district": "bellevue",
+          "ms": 17661,
+          "edges": 630,
+          "ribbons": 688
+        }
+      ],
+      "routes": [
+        {
+          "group": "seattle-seatac",
+          "id": "seatac",
+          "ok": true,
+          "label": "2022 Welcome to Seattle",
+          "kind": "chapter",
+          "total": 1896,
+          "n": 1,
+          "from": {
+            "x": -1208.6,
+            "z": 778.2,
+            "lat": 47.442997,
+            "lon": -122.301055,
+            "street": "Departures Drive"
+          },
+          "to": {
+            "x": -1146.5,
+            "z": -444.5,
+            "lat": 47.454,
+            "lon": -122.30023,
+            "street": "Airport Expressway"
+          },
+          "base": 0,
+          "shots": [
+            {
+              "idx": 0,
+              "s": 2,
+              "x": -1211.4,
+              "z": 783.8,
+              "street": "Departures Drive",
+              "flags": [
+                "not-asphalt"
+              ],
+              "sheet": 1,
+              "perf": {
+                "calls": 192,
+                "tris": 337174,
+                "quality": "high"
+              },
+              "perfT": null
+            }
+          ],
+          "wallSec": 41,
+          "flagged": 1,
+          "perf": {
+            "start": {
+              "idx": 0,
+              "s": 2,
+              "street": "Departures Drive",
+              "x": -1211.4,
+              "z": 783.8,
+              "calls": 192,
+              "tris": 337174,
+              "quality": "high"
+            },
+            "worstCalls": {
+              "idx": 0,
+              "s": 2,
+              "street": "Departures Drive",
+              "x": -1211.4,
+              "z": 783.8,
+              "calls": 192,
+              "tris": 337174,
+              "quality": "high"
+            },
+            "worstTris": {
+              "idx": 0,
+              "s": 2,
+              "street": "Departures Drive",
+              "x": -1211.4,
+              "z": 783.8,
+              "calls": 192,
+              "tris": 337174,
+              "quality": "high"
+            },
+            "startT": null,
+            "worstCallsT": null,
+            "worstTrisT": null
+          }
+        },
+        {
+          "group": "seattle-bellevue",
+          "id": "sweep-bellevue-way-northeast",
+          "ok": true,
+          "label": "main street: Bellevue Way Northeast",
+          "kind": "sweep",
+          "total": 448,
+          "n": 1,
+          "from": {
+            "x": -494.4,
+            "z": -51.2,
+            "lat": 47.614961,
+            "lon": -122.201588,
+            "street": "Bellevue Way Northeast"
+          },
+          "to": {
+            "x": -498.8,
+            "z": -499.4,
+            "lat": 47.618994,
+            "lon": -122.201647,
+            "street": "Bellevue Way Northeast"
+          },
+          "base": 1,
+          "shots": [
+            {
+              "idx": 1,
+              "s": 42,
+              "x": -499.2,
+              "z": -93.1,
+              "street": "Bellevue Way Northeast",
+              "flags": [
+                "sky 12%"
+              ],
+              "sheet": 1,
+              "perf": {
+                "calls": 283,
+                "tris": 420361,
+                "quality": "high"
+              },
+              "perfT": null
+            }
+          ],
+          "wallSec": 22,
+          "flagged": 1,
+          "perf": {
+            "start": {
+              "idx": 1,
+              "s": 42,
+              "street": "Bellevue Way Northeast",
+              "x": -499.2,
+              "z": -93.1,
+              "calls": 283,
+              "tris": 420361,
+              "quality": "high"
+            },
+            "worstCalls": {
+              "idx": 1,
+              "s": 42,
+              "street": "Bellevue Way Northeast",
+              "x": -499.2,
+              "z": -93.1,
+              "calls": 283,
+              "tris": 420361,
+              "quality": "high"
+            },
+            "worstTris": {
+              "idx": 1,
+              "s": 42,
+              "street": "Bellevue Way Northeast",
+              "x": -499.2,
+              "z": -93.1,
+              "calls": 283,
+              "tris": 420361,
+              "quality": "high"
+            },
+            "startT": null,
+            "worstCallsT": null,
+            "worstTrisT": null
+          }
+        }
+      ],
+      "sheets": [
+        {
+          "name": "seattle-seatac-seatac-forward",
+          "title": "seattle-seatac · 2022 Welcome to Seattle · forward view every 1000 m · day, traffic",
+          "files": [
+            {
+              "file": "sheets/seattle-seatac-seatac-forward-001.jpg",
+              "labels": [
+                "#0 seatac 2 m · Departures Drive [not-asphalt]"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "seattle-bellevue-sweep-bellevue-way-northeast-forward",
+          "title": "seattle-bellevue · main street: Bellevue Way Northeast · forward view every 1000 m · day, traffic",
+          "files": [
+            {
+              "file": "sheets/seattle-bellevue-sweep-bellevue-way-northeast-forward-001.jpg",
+              "labels": [
+                "#1 sweep-bellevue-way-northeast 42 m · Bellevue Way Northeast [sky 12%]"
+              ]
+            }
+          ]
+        }
+      ],
+      "issues": [
+        {
+          "id": 1,
+          "type": "road-not-asphalt",
+          "severity": "medium",
+          "city": "seattle",
+          "group": "seattle-seatac",
+          "msg": "only 0 % of the lane ahead looks like asphalt (100 % saturated colour: grass / wall / building / slab over the road?)",
+          "x": -1197.5,
+          "z": 798.1,
+          "lat": 47.442818,
+          "lon": -122.300907,
+          "street": "Departures Drive",
+          "count": 1,
+          "data": {
+            "route": "seatac",
+            "sample": 0
+          },
+          "box": [
+            271,
+            188,
+            392,
+            231
+          ],
+          "crop": "issues/seattle-seatac-seatac-0-road-not-asphalt.jpg",
+          "frame": "frames/seattle-seatac-seatac-0000.jpg",
+          "seen": "seatac #0 (2 m, forward sheet 1)"
+        },
+        {
+          "id": 2,
+          "type": "road-sky-hole",
+          "severity": "high",
+          "city": "seattle",
+          "group": "seattle-bellevue",
+          "msg": "12 % of the lane ahead is sky-coloured — a hole in the road surface",
+          "x": -499.8,
+          "z": -113.1,
+          "lat": 47.615517,
+          "lon": -122.201661,
+          "street": "Bellevue Way Northeast",
+          "count": 1,
+          "data": {
+            "frac": 0.124,
+            "route": "sweep-bellevue-way-northeast",
+            "sample": 1
+          },
+          "box": [
+            298,
+            202,
+            355,
+            206
+          ],
+          "crop": "issues/seattle-bellevue-sweep-bellevue-way-northeast-1-road-sky-hole.jpg",
+          "frame": "frames/seattle-bellevue-sweep-bellevue-way-northeast-0001.jpg",
+          "seen": "sweep-bellevue-way-northeast #1 (42 m, forward sheet 1)"
+        }
+      ],
+      "counts": {
+        "road-not-asphalt": 1,
+        "road-sky-hole": 1
+      },
+      "cockpit": [],
+      "offices": [],
+      "errors": [],
+      "timing": {
+        "load": 60,
+        "survey": 63
+      },
+      "mode": "chapters"
+    }
+  ],
+  "issues": [
+    {
+      "id": 1,
+      "type": "road-not-asphalt",
+      "severity": "medium",
+      "city": "seattle",
+      "group": "seattle-seatac",
+      "msg": "only 0 % of the lane ahead looks like asphalt (100 % saturated colour: grass / wall / building / slab over the road?)",
+      "x": -1197.5,
+      "z": 798.1,
+      "lat": 47.442818,
+      "lon": -122.300907,
+      "street": "Departures Drive",
+      "count": 1,
+      "data": {
+        "route": "seatac",
+        "sample": 0
+      },
+      "box": [
+        271,
+        188,
+        392,
+        231
+      ],
+      "crop": "issues/seattle-seatac-seatac-0-road-not-asphalt.jpg",
+      "frame": "frames/seattle-seatac-seatac-0000.jpg",
+      "seen": "seatac #0 (2 m, forward sheet 1)"
+    },
+    {
+      "id": 2,
+      "type": "road-sky-hole",
+      "severity": "high",
+      "city": "seattle",
+      "group": "seattle-bellevue",
+      "msg": "12 % of the lane ahead is sky-coloured — a hole in the road surface",
+      "x": -499.8,
+      "z": -113.1,
+      "lat": 47.615517,
+      "lon": -122.201661,
+      "street": "Bellevue Way Northeast",
+      "count": 1,
+      "data": {
+        "frac": 0.124,
+        "route": "sweep-bellevue-way-northeast",
+        "sample": 1
+      },
+      "box": [
+        298,
+        202,
+        355,
+        206
+      ],
+      "crop": "issues/seattle-bellevue-sweep-bellevue-way-northeast-1-road-sky-hole.jpg",
+      "frame": "frames/seattle-bellevue-sweep-bellevue-way-northeast-0001.jpg",
+      "seen": "sweep-bellevue-way-northeast #1 (42 m, forward sheet 1)"
+    }
+  ]
+}

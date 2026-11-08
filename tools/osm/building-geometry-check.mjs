@@ -12,6 +12,7 @@ import { footprintCells, footprintCoverage, exposedWall, insetFootprint, ringAre
 import { collideBuildings, buildingBlocksRoad as worldBuildingBlocksRoad } from '../../game/src/world.js';
 import { buildingBlocksRoad as harnessBuildingBlocksRoad } from '../../game/dev/harness/visual/page/geometry.js';
 import { sourceRing } from './source-footprints.mjs';
+import { parseMeasure } from '../../game/src/building-roofs.js';
 const close = (a, b, label) => assert.ok(Math.abs(a - b) < Math.max(1e-5, Math.abs(b) * 1e-8), `${label}: ${a} != ${b}`);
 const square = [[0, 0], [10, 0], [10, 10], [0, 10]];
 assert.deepEqual(sourceRing([[0,0],[.04,0],[.04,1],[0,1],[0,0]]).ring, [[0,0],[.04,0],[.04,1],[0,1]], 'a four-centimetre structural strip retains its complete positive-area footprint');
@@ -120,7 +121,7 @@ const osmDir = process.argv.find(a => a.startsWith('--osm='))?.slice(6);
 if (osmDir) {
     const osm = parseFiles(fs.readdirSync(osmDir).filter(f => f.endsWith('.xml')).sort().map(f => path.join(osmDir, f)));
     const source = id => (id?.[0] === 'w' ? osm.ways : osm.rels).get(+id?.slice(1));
-    const numeric = s => s == null ? NaN : Number(String(s).replace(/\s*m$/, ''));
+    const numeric = parseMeasure;
     const rawRing = (id, index) => {
         const object = source(id); if (!object) return null;
         const chains = id[0] === 'w' ? [object.nodes] : assembleRings(object.members.filter(m => m.type === 'way' && m.role !== 'inner').map(m => osm.ways.get(m.ref)?.nodes).filter(Boolean)).rings;

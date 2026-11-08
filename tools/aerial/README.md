@@ -43,7 +43,7 @@ street rows and park/garden fills only inside measured coverage. Older survey fi
 ## Published-source game capture grid
 
 `plan-game-grid.cjs`, `capture-game-grid.cjs` and `validate-game-grid.py` produce **game images only**. They never fetch
-reference imagery. The planner supports uncompressed 1:1 districts defined by bands and circles. It intersects square
+reference imagery. The planner supports uncompressed 1:1 districts defined by bands, circles, polygons or a bbox. It uses the builder's exact solid-footprint distance, preferring generated `district.geometry`; a routed district without that geometry is rejected. It intersects square
 tiles with the exact runtime drive-mask cells, then measures rectangle-to-source-capsule/circle distances for the 600 m
 ring. It retains every touched tile, including partial boundary tiles, and adds four optional far corners plus any
 explicitly sourced skyline locations. Capture coverage is not a claim that the world matches reality perfectly.
@@ -79,3 +79,5 @@ block decision in the villa quarter (tiled & small → villa 1–3 storeys; dark
 compact → newer 4–6-storey block; deterministic per OSM id); `trees` → `data.trees` (+ `treeInfo` leaf bit 32), off
 carriageways, scenery streets, buildings, pitches, parking and water; `green` → `data.green`, drawn as grass under
 everything paved. Game-vs-imagery check: `node game/dev/harness/viewpoints.js --district=<id> --topdown=250 --mosaic=$S/flo18`.
+
+Roof colour can be measured independently of shape. `roofs.py` now emits optional `colourMeasurements[osmWayId]` objects without changing the existing four-slot roof array (`[shape, shapeConfidence, medianColour, areaM2]`). Each object records the raw median `hex`, independent `confidence`, sample pixel count, median luma, fraction of pixels in deep shadow, vegetation contamination, luma spread and registration gain. The quality rule rejects >20% vegetation, median luma <50 or >35% deep shadow, penalizes mixed light and tiny samples, and caps confidence at 0.9. The builder applies independent colours at confidence >=0.65; explicit OSM roof colours and materials always take priority. An explicitly unreliable colour record cannot fall back to its older shape confidence to force a colour. Files without the optional map preserve their legacy behaviour. `node tools/osm/roof-colour-check.mjs` exercises the actual builder with uncertain shape/reliable colour, unreliable canopy/shadow, OSM colour/material overrides and legacy files.

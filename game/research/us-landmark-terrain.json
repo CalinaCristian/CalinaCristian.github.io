@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "license": "USGS public-domain elevation data",
+  "capturedDate": "2026-11-08",
+  "tiles": [
+    {
+      "id": "rainier",
+      "tile": "rainier",
+      "source": "USGS 3D Elevation Program (3DEP) ImageServer, None raster function, F32 elevation metres",
+      "url": "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer",
+      "downloadSha256": "d30e62fded0772d7bad7a5de92e73bc68b5c7b05a37b83692fccffa6aad44423",
+      "returnedOriginPixelEdge": {
+        "west": -121.97,
+        "north": 47.065000000000005
+      },
+      "returnedPixelDegrees": [
+        0.004329896907216513,
+        0.004329896907216513
+      ],
+      "returnedSize": [
+        97,
+        97
+      ],
+      "retainedStep": 2,
+      "elevationRangeM": [
+        345,
+        4297
+      ]
+    },
+    {
+      "id": "olympics",
+      "tile": "olympics-west",
+      "source": "USGS 3D Elevation Program (3DEP) ImageServer, None raster function, F32 elevation metres",
+      "url": "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer",
+      "downloadSha256": "2aab31c162bcadd7b81e959f19385320cd018e619e920a26a8d4004fd5a91d9b",
+      "returnedOriginPixelEdge": {
+        "west": -123.9,
+        "north": 48.1
+      },
+      "returnedPixelDegrees": [
+        0.015151515151515152,
+        0.012244897959183702
+      ],
+      "returnedSize": [
+        33,
+        49
+      ],
+      "retainedStep": 1,
+      "elevationRangeM": [
+        74,
+        2111
+      ]
+    },
+    {
+      "id": "olympics",
+      "tile": "olympics-east",
+      "source": "USGS 3D Elevation Program (3DEP) ImageServer, None raster function, F32 elevation metres",
+      "url": "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer",
+      "downloadSha256": "1501c00c2d991d9e3014c6289bb8e3a96c588a4f4a934f894c9a9ff2a387ddda",
+      "returnedOriginPixelEdge": {
+        "west": -123.4,
+        "north": 48.1
+      },
+      "returnedPixelDegrees": [
+        0.015151515151515152,
+        0.012244897959183702
+      ],
+      "returnedSize": [
+        33,
+        49
+      ],
+      "retainedStep": 1,
+      "elevationRangeM": [
+        0,
+        1986
+      ]
+    }
+  ],
+  "limitations": [
+    "Distant-view decimated elevation grid, not a ground navigation mesh.",
+    "Grid sampling can miss narrow summits; no synthetic peak or unsupported measurement is added.",
+    "Snow colour is a procedural altitude treatment, not a measured seasonal snow extent."
+  ],
+  "surfaceInterpolation": "Retained neighbouring pixel-centre samples are joined by planar triangles, including the one-cell strip between adjacent Olympics tiles; no measured sample is moved and no synthetic peak is added."
+}

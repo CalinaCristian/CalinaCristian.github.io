@@ -162,7 +162,7 @@ Developer pages: `game/dev/spots.html?id=<spot>`, `game/dev/landmarks.html`, `ga
   reviewed across 1,144 official Street View pairs and 195 aerial tiles; local evidence and remaining fidelity limits
   are recorded in `specs/12-buildings-streetscape.md` and `specs/19-qa-harness.md`.
   The [game overview](https://cristiancalina.com/game/overview/) documents the spec-driven AI workflow, architecture,
-  generation, simulation, controls and fidelity coverage. Its embedded viewer includes 199 Romană and 90 Floreasca
+  generation, simulation, controls and fidelity coverage. Its embedded viewer includes 199 Romană, 90 Floreasca and 99 Grozăvești
   game captures beside live Esri World Imagery, grouped by playable district, nearby scenery and distant context.
   Capture commits and imagery limits are labelled; live aerials are cached in the browser for 15 minutes across reloads.
   The former separate comparison page is removed without a redirect.

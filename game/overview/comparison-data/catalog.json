@@ -10,6 +10,11 @@
       "id": "floreasca",
       "label": "Floreasca",
       "manifest": "floreasca/manifest.json"
+    },
+    {
+      "id": "grozavesti",
+      "label": "Grozăvești & Politehnica",
+      "manifest": "grozavesti/manifest.json"
     }
   ]
 }

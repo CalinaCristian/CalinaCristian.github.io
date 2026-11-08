@@ -1,0 +1,11 @@
+{
+  "sourceCommit": "e29276d19d24a161e66c72cc9088d2f92b3b0c28",
+  "verifiedAt": "2026-11-08T17:13:23.155Z",
+  "inputHashes": {
+    "game/src/landmarks.js": "12b0bfea1f092d49fcec5c08c291a2b004caa861c6dc714fce5de7b7d8f95621",
+    "game/src/landmark-us-source.js": "6d4fbf9b8d6a0e2f8ac37bf20602a53844e3f18268a1578d01e7dde647f9b888",
+    "game/src/landmark-us-geometry.js": "5314a5e92a86b9a9612c3de013927a5d281d0c051944562347d39086930848aa",
+    "game/src/landmark-us-terrain.js": "cfca62d53bfeaf34f736b6ce345045dbbe50337544111fb6b676c4d237042879",
+    "game/dev/landmarks.html": "93138b7c52936e9c75112abe182ad08c67c8af7c613f4fc79c4ce2dc89041095"
+  }
+}

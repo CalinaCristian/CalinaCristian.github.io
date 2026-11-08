@@ -100,6 +100,8 @@ Washington) are completed with `/api/0.6/relation/<id>/full`, cached in `tools/o
 
 Data © OpenStreetMap contributors, ODbL.
 
+District source roads retain physical restricted roads and service aisles. `roadAccess` resolves the OSM motorcar hierarchy independently of physical geometry; restricted rows never enter the public runtime graph, and destination/customer streets are available only for selected endpoints. Raw conditional/HOV/reversible restrictions remain explicit and unresolved. `node tools/osm/road-access-check.mjs` verifies precedence, endpoint routing and an isolated builder fixture, including a private elevated trunk, a specifically public service road, parking/customer access, a footway and a runway.
+
 ## District reality data (2026-11-08)
 
 District builds also read the aerial measurements in `game/research/` (see `tools/aerial/README.md`):
@@ -130,3 +132,7 @@ Road-overlap developer audits use each solid body's vertical band and courtyard 
 
 
 District rebuilds optionally export source `railways` for rail, disused and abandoned ways touching the exact600m source ring, preserving full node IDs and raw tags. Tram rendering stays in its existing field. Run `node tools/osm/rail-tree-check.mjs --data=game/data/<district>.json --osm=<tiles>` to verify every selected source way, exact tags, full node order, coordinate quantization and measured-crown accounting. `_retention: "all-measured"` disables the legacy small-ring crown thinning for a reviewed survey; `treeCrownRadii` carries the independent radius measurement into the renderer. Tree heights and untagged species remain estimates. New data fields gate all new rendering; no old dataset is mutated by runtime defaults.
+
+Run `node tools/osm/road-source-check.mjs` for actual builder fixtures at all eight district masks: near parallel main roads, a five-metre private stub, an unjoined nearby dead end and a crossing elevated source road must retain exact original coordinates, node identities and topology. It also checks that a tempting virtual border connector cannot enter car or foot GPS routes. Audit each rebuilt dataset independently against its raw source with `node tools/osm/road-source-audit.mjs --data game/data/seattle-seatac.json --osm /path/to/raw/xml/tiles`. A source way wholly inside the core must retain every source vertex; clipping may add only exact boundary cuts on its original segments. The audit reports private physical rows and short source ways rather than dropping either.
+
+`node tools/osm/positive-levels-check.mjs` compiles three actual OSM SeaTac source ways whose positive mapped levels previously became an unconditional9m default, and checks literal imperial height, untagged estimates, religious levels and source grandstand levels. Positive levels now reach normal estimated storey spacing; known positive heights continue to override that estimate.

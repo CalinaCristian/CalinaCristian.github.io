@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "id": "sealink",
+  "city": "seattle",
+  "name": "SeaTac/Airport Link station",
+  "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+  "status": "in-progress",
+  "coordinates": {
+    "lat": 47.4452089,
+    "lon": -122.2969786
+  },
+  "sourceIds": [
+    "w54139654"
+  ],
+  "replacementScope": "Only the explicit source IDs represent authored replacement. Empty scope means context geometry only; never remove neighbours by radius, name or centroid.",
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/54139654",
+      "label": "OSM w54139654 · version 18 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/226892390",
+      "label": "OSM w226892390 · version 16 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/54139652",
+      "label": "OSM w54139652 · version 5 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13614229.6071309%2C6014856.470115978%2C-13613845.159484848%2C6015240.917762032&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+      "label": "Independent georeferenced Esri aerial · privately viewed · acquisition date unknown · image not published",
+      "type": "aerial"
+    }
+  ],
+  "improvements": [
+    "Retained the mapped station/guideway alignment and changed the elevated platform from 15 m to the published approximately 60 ft / 18 m.",
+    "Declared only the actual station building w54139654 for replacement; platform and public pedestrian links remain separate source context."
+  ],
+  "remainingGaps": [
+    "Canopy profile, truss sections, concourse height, platform width and approximate west bridge are not newly surveyed.",
+    "Exact platform edge/rail alignment and all pedestrian walkable height transitions require integrated game review.",
+    "These are isolated front/top/oblique model studies, not matched street-eye Street View/aerial comparisons. They do not establish full-world, night, weather or seasonal parity.",
+    "Integrated source-only replacement and rebuilt district performance are separate acceptance checks; the capture branch predates that shared world policy."
+  ],
+  "checks": [
+    {
+      "label": "Bucharest foot,a regression",
+      "passed": true,
+      "details": "Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. Subsequent source changes are confined to US models."
+    },
+    {
+      "label": "Current source identity and topology review",
+      "passed": true,
+      "details": "All 24 US registry entries checked; 1 explicit replacement identities for this model. Raw source versions/tags/coordinates retained. OSM geometry takes precedence over estimates."
+    },
+    {
+      "label": "Independent visual and actual model review",
+      "passed": true,
+      "details": "Actual front, top and oblique game renders inspected against source plans and independently viewed aerial context; only game renders are published. Height/facade limits and source conflicts are listed."
+    },
+    {
+      "label": "Geometry and meaningful collision checks",
+      "passed": true,
+      "details": "All61 shared geometry invariants and the US source-scope/total-height/court/pitch/portal/bridge-clearance regression checks pass. No FPS claim is inferred from geometry counts."
+    },
+    {
+      "label": "Immutable game-only capture provenance",
+      "passed": true,
+      "details": "Each lossless WebP is RGB pixel-verified against its actual game screenshot and carries its own source commit, camera pose and SHA256."
+    },
+    {
+      "label": "Complete measured visual parity",
+      "passed": false,
+      "details": "Unmeasured sections, simplified details and world integration remain open as listed; no 100% parity claim."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Isolated model study · front elevation",
+      "image": "assets/landmarks/sealink/front.webp",
+      "kind": "front",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "2170e775f6d792a34074a9667f7cc4edaa0088dac599f04e2b0c1be12a202c4f",
+      "capturedAt": "2026-11-08T17:08:41.570Z",
+      "pose": {
+        "position": [
+          240.60089122682282,
+          11.85999984741211,
+          1.3926535931994378e-14
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "quaternion": [
+          0,
+          0.7071067811865475,
+          0,
+          0.7071067811865476
+        ],
+        "projection": "perspective",
+        "fov": 45,
+        "target": [
+          13.163299560546875,
+          11.85999984741211,
+          0
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    },
+    {
+      "id": "top",
+      "label": "Isolated model study · orthographic north-up plan",
+      "image": "assets/landmarks/sealink/top.webp",
+      "kind": "top",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "e4dd0d8908bf14a4fd3358259ac864d13edd0216e9f063efad4bdac2aacc2db7",
+      "capturedAt": "2026-11-08T17:08:43.778Z",
+      "pose": {
+        "position": [
+          13.163299560546875,
+          206.17955589294434,
+          0
+        ],
+        "up": [
+          0,
+          0,
+          -1
+        ],
+        "quaternion": [
+          -0.7071067811865475,
+          0,
+          0,
+          0.7071067811865476
+        ],
+        "projection": "orthographic",
+        "groundSquareM": 176.52955627441406,
+        "orientation": "north-up",
+        "target": [
+          13.163299560546875,
+          0,
+          0
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Isolated model study · oblique overview",
+      "image": "assets/landmarks/sealink/oblique.webp",
+      "kind": "oblique",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "d830615c5806f18cabc84974dea92f95ec5e52c459096b8488bf85398d6d2047",
+      "capturedAt": "2026-11-08T17:08:46.288Z",
+      "pose": {
+        "position": [
+          130.41353845954694,
+          111.56207772910341,
+          167.45069497364366
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "quaternion": [
+          -0.21453963361642958,
+          0.29299872934427457,
+          0.06764408664580113,
+          0.929273247087327
+        ],
+        "projection": "perspective",
+        "fov": 45,
+        "target": [
+          13.163299560546875,
+          11.85999984741211,
+          0
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 1572,
+    "drawCalls": 3,
+    "note": "Isolated viewer frame includes ground and shadow rendering; this is neither a whole-world budget measurement nor hardware FPS."
+  }
+}

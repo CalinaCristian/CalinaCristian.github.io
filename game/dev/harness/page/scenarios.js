@@ -616,7 +616,7 @@ export const SCENARIOS = [
             // park ~120 m before the door along the driving route
             const r0 = g.nav.compute(door.x + 300, door.z + 300, door.x, door.z);
             const route = g.nav.compute(P.x, P.z, door.x, door.z) || r0;
-            if (route && route.total > 140 && g.poseAlongRoute) { const p = g.poseAlongRoute(route, route.total - 120); P.place(p.x, p.z, p.heading, p.edge); g.traffic.setPlayer(P); g.traffic.clearAround(p.x, p.z, 15); }
+            if (route && route.total > 140 && g.poseAlongRoute) { const p = g.poseAlongRoute(route, route.total - 120); P.place(p.x, p.z, p.heading, p.edge); g.traffic.setPlayer(P); g.traffic.clearAround(p.x, p.z, 15); H.mon.prevRH = undefined; H.mon.skipH = 3; }
             else H.placeOnRoad(door.x + 60, door.z);
             H.setControls(0, 0, true); await H.run(1);
             H.press('Enter'); await H.run(0.3);

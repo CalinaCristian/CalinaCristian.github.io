@@ -25,6 +25,13 @@
    "source": "Explicit original OSM roof/carport classification; all source footprints inspected in independent Esri aerial context",
    "dimensionStatus": "Unsourced vertical bands and supports remain estimates. Literal source height/min_height wins; layer is never a metre height. Legal maxheight is only a lower bound on clear underside.",
    "imagesTracked": false
+  },
+  "officialPermitHeightReview": {
+   "date": "2026-11-08",
+   "records": 6,
+   "primaryService": "https://services1.arcgis.com/EYzEZbDhXZjURPbP/arcgis/rest/services/Bellevue_Permit/FeatureServer/0",
+   "selection": "Closed original construction permits with unambiguous source address/identity match; no proposed/canceled project substituted. All underground levels excluded.",
+   "originalOSMWins": true
   }
  },
  "district": {
@@ -32209,6 +32216,84 @@
     ],
     "reviewedAt": "2026-11-08",
     "imageryDate": "unknown"
+   }
+  },
+  {
+   "osm": "w30108150",
+   "research": {
+    "storeys": 5,
+    "storeys_source": "official closed original construction permit",
+    "dimensionNote": "Above-grade storey count from the City of Bellevue original closed construction permit; this is not an aerial or Street View count. Metres per storey and any unsourced roof rise remain estimates. Positive literal OSM height, minimum and mapped storeys always win. Exact original OSM street address 11405 Northeast 2nd Place and Hampton hotel identity.",
+    "evidence": [
+     "https://www.openstreetmap.org/way/30108150",
+     "https://services1.arcgis.com/EYzEZbDhXZjURPbP/arcgis/rest/services/Bellevue_Permit/FeatureServer/0/query?f=pjson&objectIds=271118&outFields=ObjectId%2CPERMITNUMBER%2CPERMITTYPE%2CPERMITSTATUS%2CSITEADDRESS%2CPROJECTNAME%2CPROJECTDESCRIPTION%2CFINALEDDATE&outSR=4326"
+    ],
+    "reviewedAt": "2026-11-08"
+   }
+  },
+  {
+   "osm": "w103922257",
+   "research": {
+    "storeys": 20,
+    "storeys_source": "official closed original construction permit",
+    "dimensionNote": "Above-grade storey count from the City of Bellevue original closed construction permit; this is not an aerial or Street View count. Metres per storey and any unsourced roof rise remain estimates. Positive literal OSM height, minimum and mapped storeys always win. Exact original OSM street address 10710 NE 10th St and Ashton identity.",
+    "evidence": [
+     "https://www.openstreetmap.org/way/103922257",
+     "https://services1.arcgis.com/EYzEZbDhXZjURPbP/arcgis/rest/services/Bellevue_Permit/FeatureServer/0/query?f=pjson&objectIds=366966&outFields=ObjectId%2CPERMITNUMBER%2CPERMITTYPE%2CPERMITSTATUS%2CSITEADDRESS%2CPROJECTNAME%2CPROJECTDESCRIPTION%2CFINALEDDATE&outSR=4326"
+    ],
+    "reviewedAt": "2026-11-08"
+   }
+  },
+  {
+   "osm": "w106468030",
+   "research": {
+    "storeys": 20,
+    "storeys_source": "official closed original construction permit",
+    "dimensionNote": "Above-grade storey count from the City of Bellevue original closed construction permit; this is not an aerial or Street View count. Metres per storey and any unsourced roof rise remain estimates. Positive literal OSM height, minimum and mapped storeys always win. Exact original OSM street address 1020 108th Avenue NE and Ten20 / 1020 Residential Tower identity.",
+    "evidence": [
+     "https://www.openstreetmap.org/way/106468030",
+     "https://services1.arcgis.com/EYzEZbDhXZjURPbP/arcgis/rest/services/Bellevue_Permit/FeatureServer/0/query?f=pjson&objectIds=374539&outFields=ObjectId%2CPERMITNUMBER%2CPERMITTYPE%2CPERMITSTATUS%2CSITEADDRESS%2CPROJECTNAME%2CPROJECTDESCRIPTION%2CFINALEDDATE&outSR=4326"
+    ],
+    "reviewedAt": "2026-11-08"
+   }
+  },
+  {
+   "osm": "w1474755841",
+   "research": {
+    "storeys": 21,
+    "storeys_source": "official closed original construction permit",
+    "dimensionNote": "Above-grade storey count from the City of Bellevue original closed construction permit; this is not an aerial or Street View count. Metres per storey and any unsourced roof rise remain estimates. Positive literal OSM height, minimum and mapped storeys always win. Exact original OSM street address 380 106th Avenue Northeast and Four106 identity; closed above-grade construction permit, below-grade parking explicitly excluded.",
+    "evidence": [
+     "https://www.openstreetmap.org/way/1474755841",
+     "https://services1.arcgis.com/EYzEZbDhXZjURPbP/arcgis/rest/services/Bellevue_Permit/FeatureServer/0/query?f=pjson&objectIds=86009&outFields=ObjectId%2CPERMITNUMBER%2CPERMITTYPE%2CPERMITSTATUS%2CSITEADDRESS%2CPROJECTNAME%2CPROJECTDESCRIPTION%2CFINALEDDATE&outSR=4326"
+    ],
+    "reviewedAt": "2026-11-08"
+   }
+  },
+  {
+   "osm": "w674014478",
+   "research": {
+    "storeys": 8,
+    "storeys_source": "official closed original construction permit",
+    "dimensionNote": "Above-grade storey count from the City of Bellevue original closed construction permit; this is not an aerial or Street View count. Metres per storey and any unsourced roof rise remain estimates. Positive literal OSM height, minimum and mapped storeys always win. Exact original OSM street address 10961 Northeast 2nd Place; Evergreen Plaza project is current Cerasa Apartments on this source footprint.",
+    "evidence": [
+     "https://www.openstreetmap.org/way/674014478",
+     "https://services1.arcgis.com/EYzEZbDhXZjURPbP/arcgis/rest/services/Bellevue_Permit/FeatureServer/0/query?f=pjson&objectIds=210106&outFields=ObjectId%2CPERMITNUMBER%2CPERMITTYPE%2CPERMITSTATUS%2CSITEADDRESS%2CPROJECTNAME%2CPROJECTDESCRIPTION%2CFINALEDDATE&outSR=4326"
+    ],
+    "reviewedAt": "2026-11-08"
+   }
+  },
+  {
+   "osm": "r4547843",
+   "research": {
+    "storeys": 25,
+    "storeys_source": "official closed original construction permit",
+    "dimensionNote": "Above-grade storey count from the City of Bellevue original closed construction permit; this is not an aerial or Street View count. Metres per storey and any unsourced roof rise remain estimates. Positive literal OSM height, minimum and mapped storeys always win. Original source City Center Plaza body contains the official permit point for 555 110th Ave NE / City Center II; one source body, no nearby tower substitution.",
+    "evidence": [
+     "https://www.openstreetmap.org/relation/4547843",
+     "https://services1.arcgis.com/EYzEZbDhXZjURPbP/arcgis/rest/services/Bellevue_Permit/FeatureServer/0/query?f=pjson&objectIds=369025&outFields=ObjectId%2CPERMITNUMBER%2CPERMITTYPE%2CPERMITSTATUS%2CSITEADDRESS%2CPROJECTNAME%2CPROJECTDESCRIPTION%2CFINALEDDATE&outSR=4326"
+    ],
+    "reviewedAt": "2026-11-08"
    }
   }
  ],

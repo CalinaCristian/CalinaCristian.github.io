@@ -10,6 +10,13 @@
 // ============================================================================
 import * as THREE from '../vendor/three.module.min.js';
 import { collideBuildings } from './world.js';
+import { createFlightBoundary, polygonFlightSource } from './drone-boundary.js';
+
+const flightBoundaries = new WeakMap();
+function flightBoundary(scene, source) {
+    if (!flightBoundaries.has(scene)) flightBoundaries.set(scene, createFlightBoundary(source));
+    return flightBoundaries.get(scene);
+}
 
 const DEG = Math.PI / 180;
 const MODES = [
@@ -158,12 +165,12 @@ export class Drone {
         const g = this.g;
         if (g.state === 'spot' && g.spot?.ctl && g.spot.spot) {
             const s = g.spot, sp = s.spot;
-            return { kind: 'spot', scene: sp.scene, walker: s.ctl, session: s, colliders: sp.colliders, units: sp.units === 'mph' ? 'imperial' : 'metric',
+            return { kind: 'spot', scene: sp.scene, walker: s.ctl, session: s, colliders: sp.colliders, boundary: flightBoundary(sp, polygonFlightSource((sp.data?.members || []).map(id => sp.data.spots?.[id]?.extent?.polygon).filter(p => p?.length >= 3))), units: sp.units === 'mph' ? 'imperial' : 'metric',
                 groundAt: (x, z, y) => { try { const h = sp.groundAt(x, z, y); return Number.isFinite(h) ? h : sp.ground?.heightAt?.(x, z) ?? 0; } catch { return 0; } } };
         }
         if (g.state === 'foot' && g.foot?.active && g.world) {
             const w = g.world;
-            return { kind: 'district', scene: g.scene, walker: g.foot, colliders: w.buildings, bounds: w.bounds, units: g.city?.units === 'mph' ? 'imperial' : 'metric',
+            return { kind: 'district', scene: g.scene, walker: g.foot, colliders: w.buildings, boundary: flightBoundary(w, w.district?.flightBoundary), units: g.city?.units === 'mph' ? 'imperial' : 'metric',
                 groundAt: (x, z, y) => { try { const h = w.roadHeight?.(x, z, { y }); return Number.isFinite(h) ? Math.max(0, h - 0.24) : 0; } catch { return 0; } } };
         }
         return null;
@@ -176,6 +183,7 @@ export class Drone {
         if (g.state === 'drive') return { ok: false, reason: 'Get out of the car first (Enter).' };
         const c = this.ctx(); if (!c) return { ok: false, reason: 'Only on foot, in a district or a tourist spot.' };
         if (g.photo?.active || g.hud?.panelOpen || g._pauseOpen || c.session?.ui?.panelOpen) return { ok: false, reason: 'Close the panel first.' };
+        if (c.boundary && !c.boundary.allowed(c.walker)) return { ok: false, reason: 'Outside the flight area: walk back within 20 m of the playable area.' };
         if (this.covered(c)) return { ok: false, reason: 'Something is overhead (a roof, a bridge or tree crowns): step out under open sky.' };
         return { ok: true };
     }
@@ -193,7 +201,7 @@ export class Drone {
     deploy() {
         const chk = this.canDeploy(); if (!chk.ok) { this.toast('🚁 Can\'t take off here', chk.reason, 'warn'); return false; }
         const g = this.g, c = this.c = this.ctx(), w = c.walker, cam = g.camera;
-        this.active = true; this.phase = 'lift'; this.t = 0; this.pt = 0; this.battery = 1; this.recT = 0; this.rth = false; this.autoRth = false; this.maxD = 0; this.maxAlt = 0; this.dist = 0;
+        this.active = true; this.phase = 'lift'; this.t = 0; this.pt = 0; this.battery = 1; this.recT = 0; this.rth = false; this.rthPath = null; this.autoRth = false; this.maxD = 0; this.maxAlt = 0; this.dist = 0;
         this.home = { x: w.x, z: w.z, y: w.y || 0, heading: w.heading, pitch: w.pitch || 0 };
         this.yaw = w.heading; this.gimbal = -0.18; this.vel.set(0, 0, 0); this.tiltP = this.tiltR = 0;
         this.range = RANGE[c.kind]; this.imperial = c.units === 'imperial';
@@ -222,7 +230,18 @@ export class Drone {
         return true;
     }
     /** H / ⌂: fly back over you and land */
-    returnHome(auto = false) { if (!this.active || this.phase !== 'fly') return; this.rth = true; this.autoRth = auto; this.warn(auto ? 'Battery low — returning home' : 'Returning home', 2.5); }
+    returnHome(auto = false) {
+        if (!this.active || this.phase !== 'fly') return;
+        const dock = this._returnDock(), boundary = this.c.boundary;
+        this.rthPath = boundary ? boundary.route(this.pos, dock, { home: this.home, range: this.range }) : [{ x: dock.x, z: dock.z }];
+        if (!this.rthPath) { this.rth = false; this.warn('No safe route home — fly back toward the playable area', 3, 'hot'); return; }
+        this.rthAltitude = Math.max(this.pos.y, this.home.y + 30);
+        this.rth = true; this.autoRth = auto; this.warn(auto ? 'Battery low — returning home' : 'Returning home', 2.5);
+    }
+    _returnDock() {
+        const h = this.home, dock = new THREE.Vector3(h.x - Math.sin(h.heading) * 2.4, h.y + EYE + 2.6, h.z - Math.cos(h.heading) * 2.4);
+        this.c.boundary?.project(dock); return dock;
+    }
     /** G / ⤓: come back and land in your hand (RTH, then the dock animation) */
     land() { if (!this.active) return; if (this.phase === 'fly') this.returnHome(false); else if (this.phase === 'lift') { this.phase = 'fly'; this.returnHome(false); } }
     /** T / ⇩: scout-and-travel — you are moved (on foot) to walkable ground under the drone, then it lands in your hand */
@@ -367,10 +386,11 @@ export class Drone {
         this.homeMk.visible = cam.position.distanceTo(eye) > 2.5;
         for (const f of this.homeMk.userData.figure) f.visible = this.homeMk.visible;
         if (this.t > 2.2) document.body.classList.remove('drone-lift');
-        if (u >= 1) { this.phase = 'fly'; this.pos.copy(fly0); this.model.visible = false; this.t = 0; this.warn(`${MODES[this.mode].name} mode · ${this._fmtDist(this.range)} range · ${this.imperial ? '400 ft' : `${CEIL_M} m`} ceiling`, 3.5); }
+        if (u >= 1) { this.phase = 'fly'; this.pos.copy(fly0); this.c.boundary?.constrain(this.pos, this.vel); this.model.visible = false; this.t = 0; this.warn(`${MODES[this.mode].name} mode · ${this._fmtDist(this.range)} range · ${this.imperial ? '400 ft' : `${CEIL_M} m`} ceiling`, 3.5); }
     }
     _fly(dt) {
         const g = this.g, c = this.c, inp = g.input, cam = g.camera, h = this.home;
+        const previous = { x: this.pos.x, z: this.pos.z };
         const photo = !!g.photo?.active;
         // look: yaw + gimbal tilt
         const lk = inp.takeLook();
@@ -398,33 +418,49 @@ export class Drone {
         // return home: climb to a safe height, fly over you, descend in front of you
         const dHome = Math.hypot(this.pos.x - h.x, this.pos.z - h.z), gy0 = c.groundAt(this.pos.x, this.pos.z, this.pos.y);
         if (this.rth) {
-            const dock = new THREE.Vector3(h.x - Math.sin(h.heading) * 2.4, h.y + EYE + 2.6, h.z - Math.cos(h.heading) * 2.4);
-            const dx = dock.x - this.pos.x, dz = dock.z - this.pos.z, dd = Math.hypot(dx, dz);
-            const safe = Math.max(h.y + 30, gy0 + 30);
+            const dock = this._returnDock();
+            // Each leg was certified against the buffered playable shape. Slow at bends
+            // instead of cutting across a concavity with the old straight-line return.
+            const path = this.rthPath || [{ x: dock.x, z: dock.z }];
+            while (path.length > 1 && Math.hypot(path[0].x - this.pos.x, path[0].z - this.pos.z) < 0.8) path.shift();
+            const target = path[0] || dock, dx = target.x - this.pos.x, dz = target.z - this.pos.z, dd = Math.hypot(dx, dz);
+            const remaining = path.length > 1 ? Infinity : dd;
+            const safe = Math.max(this.rthAltitude || h.y + 30, gy0 + 30);
             const sp = Math.min(16, dd * 0.9 + 1.2);
-            if (dd > 25 && this.pos.y < safe - 1) { tx = 0; tz = 0; ty = 6; }
-            else { tx = dd > 0.01 ? dx / dd * sp : 0; tz = dd > 0.01 ? dz / dd * sp : 0; ty = clamp((dd > 25 ? safe : dock.y) - this.pos.y, -6, 6); }
+            if (remaining > 25 && this.pos.y < safe - 1) { tx = 0; tz = 0; ty = 6; }
+            else { tx = dd > 0.01 ? dx / dd * sp : 0; tz = dd > 0.01 ? dz / dd * sp : 0; ty = clamp((remaining > 25 ? safe : dock.y) - this.pos.y, -6, 6); }
             const wantYaw = dd > 4 ? Math.atan2(-dx, -dz) : h.heading + Math.PI; // face you on the last metres
             let dy = wantYaw - this.yaw; dy = Math.atan2(Math.sin(dy), Math.cos(dy)); this.yaw += dy * Math.min(1, dt * 2.5);
             this.gimbal = lerp(this.gimbal, dd > 25 ? -0.35 : -0.25, Math.min(1, dt * 2));
-            if (dd < 0.8 && Math.abs(dock.y - this.pos.y) < 0.6) { this._startDock(); return; }
+            if (path.length <= 1 && dd < 0.8 && Math.abs(dock.y - this.pos.y) < 0.6) { this._startDock(); return; }
         }
         // inertia
         const k = 1 - Math.exp(-(this.rth ? 3 : 2.2) * dt);
         this.vel.x += (tx - this.vel.x) * k; this.vel.z += (tz - this.vel.z) * k; this.vel.y += (ty - this.vel.y) * (1 - Math.exp(-3.5 * dt));
         const nx = this.pos.x + this.vel.x * dt, nz = this.pos.z + this.vel.z * dt; let ny = this.pos.y + this.vel.y * dt;
         this.pos.x = nx; this.pos.z = nz;
-        // limits: range around you, altitude ceiling, ground, district bounds
+        // limits: range around you, altitude ceiling, ground, then the playable flight area
         const rd = Math.hypot(this.pos.x - h.x, this.pos.z - h.z);
         if (rd > this.range) { const s = this.range / rd; this.pos.x = h.x + (this.pos.x - h.x) * s; this.pos.z = h.z + (this.pos.z - h.z) * s; const ux = (this.pos.x - h.x) / this.range, uz = (this.pos.z - h.z) / this.range, vr = this.vel.x * ux + this.vel.z * uz; if (vr > 0) { this.vel.x -= ux * vr; this.vel.z -= uz * vr; } this.warn(`Max range ${this._fmtDist(this.range)} — press H to return home`, 1.2, 'hot'); }
         else if (rd > this.range * 0.9) this.warn('Approaching max range', 0.6);
-        const b = c.bounds; if (b) { this.pos.x = clamp(this.pos.x, b.minX + 20, b.maxX - 20); this.pos.z = clamp(this.pos.z, b.minZ + 20, b.maxZ - 20); }
         const gy = c.groundAt(this.pos.x, this.pos.z, ny);
         const ceil = gy + (this.imperial ? 121.9 : CEIL_M);
         if (ny > ceil) { ny = ceil; if (this.vel.y > 0) this.vel.y = 0; this.warn(this.imperial ? 'Altitude limit 400 ft (FAA recreational ceiling)' : `Altitude limit ${CEIL_M} m (EU open category)`, 1.2); }
         if (ny < gy + 0.6) { ny = gy + 0.6; if (this.vel.y < 0) this.vel.y = 0; }
         this.pos.y = ny;
-        this._collide(c);
+        this._collide(c, !!c.boundary);
+        // The geofence runs after physical pushes, and at every height (including above
+        // the driving-mask walls). Projection removes outward speed, preserving slides.
+        if (c.boundary?.constrain(this.pos, this.vel, previous)) this.warn('Flight area edge · 20 m beyond the playable area', 0.6);
+        const finalRange = Math.hypot(this.pos.x - h.x, this.pos.z - h.z);
+        if (finalRange > this.range) {
+            // Keep the corrected step inside both the range disk and the flight domain.
+            let lo = 0, hi = 1;
+            for (let i = 0; i < 18; i++) { const t = (lo + hi) / 2, x = previous.x + (this.pos.x - previous.x) * t, z = previous.z + (this.pos.z - previous.z) * t; if (Math.hypot(x - h.x, z - h.z) <= this.range) lo = t; else hi = t; }
+            this.pos.x = previous.x + (this.pos.x - previous.x) * lo; this.pos.z = previous.z + (this.pos.z - previous.z) * lo;
+            const ux = (this.pos.x - h.x) / this.range, uz = (this.pos.z - h.z) / this.range, outward = this.vel.x * ux + this.vel.z * uz;
+            if (outward > 0) { this.vel.x -= ux * outward; this.vel.z -= uz * outward; }
+        }
         // body tilt into the motion (pitch forward / roll sideways), the gimbal keeps the camera level
         const vf = this.vel.x * fx + this.vel.z * fz, vr2 = this.vel.x * rx + this.vel.z * rz;
         this.tiltP = lerp(this.tiltP, clamp(-vf / 30, -0.45, 0.45), Math.min(1, dt * 4));
@@ -435,16 +471,17 @@ export class Drone {
         const sp = Math.hypot(this.vel.x, this.vel.z);
         this.battery = Math.max(0, this.battery - dt / BATTERY_S * (1 + sp / 40 + Math.abs(this.vel.y) / 12));
         if (this.battery < RTH_LOW && !this.rth) this.returnHome(true);
-        if (this.battery <= 0.02 && this.rth) { this.warn('Battery empty — landing', 2, 'hot'); this._startDock(); return; }
+        if (this.battery <= 0.02 && this.rth) this.warn('Battery reserve — returning to land', 2, 'hot');
         this.recT += dt; this.dist += sp * dt;
         this.maxD = Math.max(this.maxD, rd); this.maxAlt = Math.max(this.maxAlt, this.pos.y - gy);
         this.homeMk.visible = true; for (const f of this.homeMk.userData.figure) f.visible = true;
         void dHome;
     }
-    _collide(c) {
+    _collide(c, flightBoundary = false) {
         const C = c.colliders; if (!C) return;
         const y = this.pos.y, one = [null];
         const test = (b) => {
+            if (flightBoundary && b.kind === 'boundary') return; // replaced by the height-independent 20m flight domain
             let top;
             if (b.wall) top = Math.max(b.y1a ?? 0, b.y1b ?? 0);
             else if (b.y1 !== undefined) top = b.y1;

@@ -1,0 +1,2748 @@
+{
+  "schema": 1,
+  "gameSourceCommit": "10d9b98b9e8020ff8791de5466d4565824d876da",
+  "capture": {
+    "startedAt": "2026-11-08T14:27:25.055Z",
+    "endedAt": "2026-11-08T14:33:13.147Z",
+    "elapsedSeconds": 348.091,
+    "source": "5bf13a5068bfa553414c8b1ccd7c9967c399e74110a28d46dce9ae1f20b17758",
+    "loaded": {
+      "key": "bucharest-grozavesti",
+      "city": "bucharest",
+      "district": "grozavesti",
+      "ms": 22912,
+      "edges": 994,
+      "ribbons": 1137
+    },
+    "pageErrors": [],
+    "consoleErrors": [],
+    "failedRequests": [],
+    "traffic": false,
+    "quality": "high",
+    "weather": "clear",
+    "season": "summer",
+    "time": "day",
+    "mirror": false,
+    "frameCounts": 99,
+    "coverageClaim": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+    "scopeCounts": {
+      "ring-touches": 73,
+      "core-touches": 22,
+      "outside-ring": 4
+    },
+    "validation": {
+      "framesVerified": 99,
+      "sourceFilesVerified": 921,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "failedRequests": 0,
+      "failures": []
+    },
+    "perfMaxima": {
+      "triangles": 612361,
+      "drawCalls": 133,
+      "note": "World-only high-quality top-down captures, moving traffic hidden, mirror excluded. Separate maxima need not occur in one frame; not a driving frame-budget acceptance test."
+    }
+  },
+  "validation": {
+    "frames": 99,
+    "sourceFilesVerified": 921,
+    "scopeCounts": {
+      "ring-touches": 73,
+      "core-touches": 22,
+      "outside-ring": 4
+    },
+    "failures": [],
+    "imageMetrics": "Raw validation retains every image metric outside git.",
+    "movedUnusedFirstAttemptFrames": [],
+    "manifestSha256": "189c02032d87a9fbed6623d3095c13b6f04516b2dbb37c46b3730a6399e4373d"
+  },
+  "manifestSHA256": "189c02032d87a9fbed6623d3095c13b6f04516b2dbb37c46b3730a6399e4373d",
+  "sourceTreeSHA256": "5bf13a5068bfa553414c8b1ccd7c9967c399e74110a28d46dce9ae1f20b17758",
+  "sourceFilesVerified": 921,
+  "reference": {
+    "provider": "Esri World Imagery / Maxar / Earthstar / GIS Community",
+    "downloadedUTC": "2026-11-08",
+    "acquisitionDate": null,
+    "mosaicSHA256": "f587d960f925d4e5d5b9e6149797aecf4bad6482617bc4c8b43a172149f8b795",
+    "use": "Local side-by-side comparison only. No reference imagery committed or published.",
+    "wholeAreaReview": "All99game/aerialpairs inspected in17contacts; macro source correspondence review is not object-by-object 3D parity.",
+    "localBoundaryContacts": "/workspace/reality-pass/grozavesti/atlas-10d9b98/local-comparison-boundaries",
+    "boundaryOverlay": "Core blue,600m orange, sampled2m for display only; outside-ring portions are limited context."
+  },
+  "items": [
+    {
+      "id": "aerial-r01-c07",
+      "scope": "ring-touches",
+      "lat": 44.45582225101681,
+      "lon": 26.060772741063925,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:27:57.683Z",
+      "sha256": "539ba577c616a405f7d8619b510f693ce498a5919b8a3f4df35d12b7bc09fdad",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.45469746247706,
+        26.0592,
+        44.45694703955657,
+        26.06234548212785
+      ],
+      "perf": {
+        "drawCalls": 66,
+        "triangles": 118616,
+        "renderMs": 175.89999999990687,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r01-c08",
+      "scope": "ring-touches",
+      "lat": 44.45582225101681,
+      "lon": 26.063918223191774,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:28:09.176Z",
+      "sha256": "eff9811a0908ec70ed779c34e4854f7547d04b42596c7c5403742e3a8c4ceca1",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.45469746247706,
+        26.06234548212785,
+        44.45694703955657,
+        26.065490964255698
+      ],
+      "perf": {
+        "drawCalls": 77,
+        "triangles": 132338,
+        "renderMs": 9.599999999627471,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r01-c09",
+      "scope": "ring-touches",
+      "lat": 44.45582225101681,
+      "lon": 26.06706370531962,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:28:12.348Z",
+      "sha256": "c77d0afa25d7b64314963e3112ba7c952ba9f956c74317bcd91cf1059e759181",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.45469746247706,
+        26.065490964255698,
+        44.45694703955657,
+        26.068636446383543
+      ],
+      "perf": {
+        "drawCalls": 67,
+        "triangles": 117206,
+        "renderMs": 3.1999999997206032,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r01-c10",
+      "scope": "ring-touches",
+      "lat": 44.45582225101681,
+      "lon": 26.070209187447468,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:28:15.251Z",
+      "sha256": "0e2bf87d217df65a7806248ae8894f2ff09a5fe3abb74df86103c77b7dd26c71",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.45469746247706,
+        26.068636446383543,
+        44.45694703955657,
+        26.071781928511392
+      ],
+      "perf": {
+        "drawCalls": 51,
+        "triangles": 99040,
+        "renderMs": 3.5,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r02-c05",
+      "scope": "ring-touches",
+      "lat": 44.4535726739373,
+      "lon": 26.054481776808228,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:28:18.087Z",
+      "sha256": "1c00a2fd13bc0748f0788ba9b623378234be0f2cb007b0ee3dc039be527e6f5b",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.45244788539755,
+        26.052909035744303,
+        44.45469746247706,
+        26.056054517872152
+      ],
+      "perf": {
+        "drawCalls": 58,
+        "triangles": 132591,
+        "renderMs": 6.2000000001862645,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r02-c06",
+      "scope": "ring-touches",
+      "lat": 44.4535726739373,
+      "lon": 26.057627258936076,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:28:21.544Z",
+      "sha256": "afc100570acf8490c0362f4786f29640e3cfd4ed040a432b2baabd3df608522e",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.45244788539755,
+        26.056054517872152,
+        44.45469746247706,
+        26.0592
+      ],
+      "perf": {
+        "drawCalls": 80,
+        "triangles": 164458,
+        "renderMs": 10.200000000186265,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r02-c07",
+      "scope": "ring-touches",
+      "lat": 44.4535726739373,
+      "lon": 26.060772741063925,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:28:25.112Z",
+      "sha256": "9df1100a281b0e4626edfe925a085cd388b57a67e361f4cef2ca4eae4be3e9d2",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.45244788539755,
+        26.0592,
+        44.45469746247706,
+        26.06234548212785
+      ],
+      "perf": {
+        "drawCalls": 91,
+        "triangles": 227108,
+        "renderMs": 5.400000000372529,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r02-c08",
+      "scope": "ring-touches",
+      "lat": 44.4535726739373,
+      "lon": 26.063918223191774,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:28:28.496Z",
+      "sha256": "ea0a5ba1af001a1e65e9245ae6c5de15b087ee767cb10e2ce59fd3f360c5c794",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.45244788539755,
+        26.06234548212785,
+        44.45469746247706,
+        26.065490964255698
+      ],
+      "perf": {
+        "drawCalls": 90,
+        "triangles": 215978,
+        "renderMs": 2.1000000000931323,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r02-c09",
+      "scope": "ring-touches",
+      "lat": 44.4535726739373,
+      "lon": 26.06706370531962,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:28:32.546Z",
+      "sha256": "92e359a5d1e6e99f670bd6c27a9bfdd3b1acb36a6505d1d68562b716075961d1",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.45244788539755,
+        26.065490964255698,
+        44.45469746247706,
+        26.068636446383543
+      ],
+      "perf": {
+        "drawCalls": 86,
+        "triangles": 195804,
+        "renderMs": 11.799999999813735,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r02-c10",
+      "scope": "ring-touches",
+      "lat": 44.4535726739373,
+      "lon": 26.070209187447468,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:28:37.573Z",
+      "sha256": "de5cf0a423e64c226cc048bd8f80b341f463567b32d5d0be8339a3a4bb99716b",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.45244788539755,
+        26.068636446383543,
+        44.45469746247706,
+        26.071781928511392
+      ],
+      "perf": {
+        "drawCalls": 76,
+        "triangles": 184149,
+        "renderMs": 2.7000000001862645,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r02-c11",
+      "scope": "ring-touches",
+      "lat": 44.4535726739373,
+      "lon": 26.073354669575316,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:28:40.860Z",
+      "sha256": "2e235432eb54803e6a30ad3e34b81f75e3161f4ff0d4004f8a4ee6a8e9f3f596",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.45244788539755,
+        26.071781928511392,
+        44.45469746247706,
+        26.07492741063924
+      ],
+      "perf": {
+        "drawCalls": 59,
+        "triangles": 135242,
+        "renderMs": 4.699999999720603,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r03-c04",
+      "scope": "ring-touches",
+      "lat": 44.45132309685779,
+      "lon": 26.051336294680382,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:28:43.338Z",
+      "sha256": "4b687e609b0bcd63e81ccd7b31a38a675e93a10a8692529580015eaa1cada0cd",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.450198308318036,
+        26.049763553616458,
+        44.45244788539755,
+        26.052909035744303
+      ],
+      "perf": {
+        "drawCalls": 64,
+        "triangles": 130398,
+        "renderMs": 3.2999999998137355,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r03-c05",
+      "scope": "ring-touches",
+      "lat": 44.45132309685779,
+      "lon": 26.054481776808228,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:28:46.851Z",
+      "sha256": "873399f67cdb6e29a7daa90e98cfcfc9ec5f8481b1785f7df6cb4e8e75c028b0",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.450198308318036,
+        26.052909035744303,
+        44.45244788539755,
+        26.056054517872152
+      ],
+      "perf": {
+        "drawCalls": 81,
+        "triangles": 188752,
+        "renderMs": 13.700000000186265,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r03-c06",
+      "scope": "ring-touches",
+      "lat": 44.45132309685779,
+      "lon": 26.057627258936076,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:28:50.584Z",
+      "sha256": "02de5358c891763d2677ef38612fd389e8fcf4657f1f0fbcfb2fc626531309b0",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.450198308318036,
+        26.056054517872152,
+        44.45244788539755,
+        26.0592
+      ],
+      "perf": {
+        "drawCalls": 100,
+        "triangles": 272691,
+        "renderMs": 7.899999999906868,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r03-c07",
+      "scope": "ring-touches",
+      "lat": 44.45132309685779,
+      "lon": 26.060772741063925,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:28:55.778Z",
+      "sha256": "5f6b2d038a2bbce27ed48a99c734541d9772a7d1a6d6b4231256b1cc3854597b",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.450198308318036,
+        26.0592,
+        44.45244788539755,
+        26.06234548212785
+      ],
+      "perf": {
+        "drawCalls": 103,
+        "triangles": 321723,
+        "renderMs": 2.3000000002793968,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r03-c08",
+      "scope": "ring-touches",
+      "lat": 44.45132309685779,
+      "lon": 26.063918223191774,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:28:58.478Z",
+      "sha256": "dde94e90dd91c324e075bf846a5089d1d9dc28a96390e0d50fd1a9cdf037630d",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.450198308318036,
+        26.06234548212785,
+        44.45244788539755,
+        26.065490964255698
+      ],
+      "perf": {
+        "drawCalls": 99,
+        "triangles": 356706,
+        "renderMs": 2.7000000001862645,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r03-c09",
+      "scope": "ring-touches",
+      "lat": 44.45132309685779,
+      "lon": 26.06706370531962,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:29:01.588Z",
+      "sha256": "0f90733876605e9ed3b9087b71f0016f3a3c29496903ab64e036f60146fe305a",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.450198308318036,
+        26.065490964255698,
+        44.45244788539755,
+        26.068636446383543
+      ],
+      "perf": {
+        "drawCalls": 101,
+        "triangles": 343715,
+        "renderMs": 3.2999999998137355,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r03-c10",
+      "scope": "ring-touches",
+      "lat": 44.45132309685779,
+      "lon": 26.070209187447468,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:29:03.786Z",
+      "sha256": "02120753ea958df7c2e0cb8a0daaa23f99d6aac0c322ec4cb633eceb39838000",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.450198308318036,
+        26.068636446383543,
+        44.45244788539755,
+        26.071781928511392
+      ],
+      "perf": {
+        "drawCalls": 97,
+        "triangles": 270382,
+        "renderMs": 2.3999999999068677,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r03-c11",
+      "scope": "ring-touches",
+      "lat": 44.45132309685779,
+      "lon": 26.073354669575316,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:29:05.779Z",
+      "sha256": "18a9f214dec6ffb99680f8319aff12af1bc20eab8c85f50ee0d7c018a5f9b2e1",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.450198308318036,
+        26.071781928511392,
+        44.45244788539755,
+        26.07492741063924
+      ],
+      "perf": {
+        "drawCalls": 84,
+        "triangles": 214348,
+        "renderMs": 5.899999999906868,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r04-c04",
+      "scope": "ring-touches",
+      "lat": 44.44907351977828,
+      "lon": 26.051336294680382,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:29:10.398Z",
+      "sha256": "9b350ad368aa58dcf34f293f4d0026c3ea5595d43fa364677249eb55869e6c55",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.447948731238526,
+        26.049763553616458,
+        44.450198308318036,
+        26.052909035744303
+      ],
+      "perf": {
+        "drawCalls": 80,
+        "triangles": 181692,
+        "renderMs": 4.100000000093132,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r04-c05",
+      "scope": "ring-touches",
+      "lat": 44.44907351977828,
+      "lon": 26.054481776808228,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:29:12.340Z",
+      "sha256": "fa0b8050e1a0bc1a1822cb8b5d327fb2457bef0f69a3445da8e1a7ebdc0e83ef",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.447948731238526,
+        26.052909035744303,
+        44.450198308318036,
+        26.056054517872152
+      ],
+      "perf": {
+        "drawCalls": 91,
+        "triangles": 255619,
+        "renderMs": 3.3000000002793968,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r04-c06",
+      "scope": "ring-touches",
+      "lat": 44.44907351977828,
+      "lon": 26.057627258936076,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:29:15.392Z",
+      "sha256": "9d226a68205ba98e2469ebdef420d5f3c2025500ee3fc0f800ad158341606183",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.447948731238526,
+        26.056054517872152,
+        44.450198308318036,
+        26.0592
+      ],
+      "perf": {
+        "drawCalls": 106,
+        "triangles": 400176,
+        "renderMs": 2.6999999997206032,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r04-c07",
+      "scope": "core-touches",
+      "lat": 44.44907351977828,
+      "lon": 26.060772741063925,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:29:20.604Z",
+      "sha256": "b1ea5de830b6fe3566de1bb9b5b82baf465838a6eaf7c52bae319b480ea2b4d7",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.447948731238526,
+        26.0592,
+        44.450198308318036,
+        26.06234548212785
+      ],
+      "perf": {
+        "drawCalls": 105,
+        "triangles": 431795,
+        "renderMs": 4.5,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r04-c08",
+      "scope": "core-touches",
+      "lat": 44.44907351977828,
+      "lon": 26.063918223191774,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:29:24.781Z",
+      "sha256": "a00b3886a56aa647c9cb276dbe16343e4935f79ebbfbe09257f48899434d56a7",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.447948731238526,
+        26.06234548212785,
+        44.450198308318036,
+        26.065490964255698
+      ],
+      "perf": {
+        "drawCalls": 107,
+        "triangles": 487861,
+        "renderMs": 2.7000000001862645,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r04-c09",
+      "scope": "core-touches",
+      "lat": 44.44907351977828,
+      "lon": 26.06706370531962,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:29:28.479Z",
+      "sha256": "4e2152a3630cf3cd5a500124f4e5c228c209edb8dbbe8f78dac4a019a0e52676",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.447948731238526,
+        26.065490964255698,
+        44.450198308318036,
+        26.068636446383543
+      ],
+      "perf": {
+        "drawCalls": 105,
+        "triangles": 408670,
+        "renderMs": 19.200000000186265,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r04-c10",
+      "scope": "ring-touches",
+      "lat": 44.44907351977828,
+      "lon": 26.070209187447468,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:29:31.845Z",
+      "sha256": "65e209063de15df5325e2c424c83da21295d8f8441383794d4d25a96876e3644",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.447948731238526,
+        26.068636446383543,
+        44.450198308318036,
+        26.071781928511392
+      ],
+      "perf": {
+        "drawCalls": 97,
+        "triangles": 257899,
+        "renderMs": 3.6000000000931323,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r04-c11",
+      "scope": "ring-touches",
+      "lat": 44.44907351977828,
+      "lon": 26.073354669575316,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:29:34.591Z",
+      "sha256": "aace6dc34ee226e89dc23ddcdf77f7e1d7413479e4cb5ccf55b52eb118b82816",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.447948731238526,
+        26.071781928511392,
+        44.450198308318036,
+        26.07492741063924
+      ],
+      "perf": {
+        "drawCalls": 84,
+        "triangles": 197737,
+        "renderMs": 29.700000000186265,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r05-c04",
+      "scope": "ring-touches",
+      "lat": 44.44682394269878,
+      "lon": 26.051336294680382,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:29:38.377Z",
+      "sha256": "1c46b3c4bf51ad554ea81ad85afa9a19911b312dd1728145f8e092dd94f966df",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.44569915415902,
+        26.049763553616458,
+        44.447948731238526,
+        26.052909035744303
+      ],
+      "perf": {
+        "drawCalls": 89,
+        "triangles": 243627,
+        "renderMs": 3.2000000001862645,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r05-c05",
+      "scope": "ring-touches",
+      "lat": 44.44682394269878,
+      "lon": 26.054481776808228,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:29:40.803Z",
+      "sha256": "8143cdc5bf5444c373969193ad9df3b753399e2fde787c16e377d84159dd73df",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.44569915415902,
+        26.052909035744303,
+        44.447948731238526,
+        26.056054517872152
+      ],
+      "perf": {
+        "drawCalls": 99,
+        "triangles": 338045,
+        "renderMs": 7.300000000279397,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r05-c06",
+      "scope": "core-touches",
+      "lat": 44.44682394269878,
+      "lon": 26.057627258936076,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:29:44.753Z",
+      "sha256": "c5683e30544656d7452ef7011a8c31e1d34eeb675262a8d610ef744db17c61f3",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.44569915415902,
+        26.056054517872152,
+        44.447948731238526,
+        26.0592
+      ],
+      "perf": {
+        "drawCalls": 117,
+        "triangles": 561634,
+        "renderMs": 9.199999999720603,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r05-c07",
+      "scope": "core-touches",
+      "lat": 44.44682394269878,
+      "lon": 26.060772741063925,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:29:48.935Z",
+      "sha256": "9891a8f90da997ee788f2dd90252c8e21dfabc87e131527cea0e1b99114fb39e",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.44569915415902,
+        26.0592,
+        44.447948731238526,
+        26.06234548212785
+      ],
+      "perf": {
+        "drawCalls": 123,
+        "triangles": 611388,
+        "renderMs": 6.7000000001862645,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r05-c08",
+      "scope": "core-touches",
+      "lat": 44.44682394269878,
+      "lon": 26.063918223191774,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:29:52.136Z",
+      "sha256": "adda4f6f1622d0814f0f2d9c04c248761302460152c812434779aefaf6c9d4d7",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.44569915415902,
+        26.06234548212785,
+        44.447948731238526,
+        26.065490964255698
+      ],
+      "perf": {
+        "drawCalls": 117,
+        "triangles": 567022,
+        "renderMs": 4.800000000279397,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r05-c09",
+      "scope": "core-touches",
+      "lat": 44.44682394269878,
+      "lon": 26.06706370531962,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:29:54.766Z",
+      "sha256": "b23264607a0c1200bca378d0ee55dc4f82bd44f1b492686e807b38492a0010d0",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.44569915415902,
+        26.065490964255698,
+        44.447948731238526,
+        26.068636446383543
+      ],
+      "perf": {
+        "drawCalls": 100,
+        "triangles": 434344,
+        "renderMs": 15.299999999813735,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r05-c10",
+      "scope": "ring-touches",
+      "lat": 44.44682394269878,
+      "lon": 26.070209187447468,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:29:58.295Z",
+      "sha256": "883ee7bf991b0dacf1cd5062a1099048627db6255bc552b591a54a7c15eb4a95",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.44569915415902,
+        26.068636446383543,
+        44.447948731238526,
+        26.071781928511392
+      ],
+      "perf": {
+        "drawCalls": 95,
+        "triangles": 266090,
+        "renderMs": 7.899999999906868,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r05-c11",
+      "scope": "ring-touches",
+      "lat": 44.44682394269878,
+      "lon": 26.073354669575316,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:00.603Z",
+      "sha256": "e02a988bafd6f09fe7397299adc92d2a40fbc2475e6c4be959140ca50515a8df",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.44569915415902,
+        26.071781928511392,
+        44.447948731238526,
+        26.07492741063924
+      ],
+      "perf": {
+        "drawCalls": 79,
+        "triangles": 190755,
+        "renderMs": 9.5,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r06-c02",
+      "scope": "ring-touches",
+      "lat": 44.44457436561927,
+      "lon": 26.045045330424685,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:02.071Z",
+      "sha256": "8c3d9bd507078a3c3118ecbdd516a1918716dbe8e340d0fb6f233e78b018a7bf",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.44344957707951,
+        26.04347258936076,
+        44.44569915415902,
+        26.04661807148861
+      ],
+      "perf": {
+        "drawCalls": 79,
+        "triangles": 212996,
+        "renderMs": 1.5,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r06-c03",
+      "scope": "ring-touches",
+      "lat": 44.44457436561927,
+      "lon": 26.048190812552534,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:04.941Z",
+      "sha256": "4443138e82c24b1cee4dafb886208f2b6a170f08342f04fb1e38b655b87efde8",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.44344957707951,
+        26.04661807148861,
+        44.44569915415902,
+        26.049763553616458
+      ],
+      "perf": {
+        "drawCalls": 95,
+        "triangles": 238548,
+        "renderMs": 6,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r06-c04",
+      "scope": "ring-touches",
+      "lat": 44.44457436561927,
+      "lon": 26.051336294680382,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:08.775Z",
+      "sha256": "720ea2caea238c518b10f45717cba0c8d5c86b153c09ec49299ed9fb93a4998f",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.44344957707951,
+        26.049763553616458,
+        44.44569915415902,
+        26.052909035744303
+      ],
+      "perf": {
+        "drawCalls": 96,
+        "triangles": 338305,
+        "renderMs": 7.5,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r06-c05",
+      "scope": "ring-touches",
+      "lat": 44.44457436561927,
+      "lon": 26.054481776808228,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:13.393Z",
+      "sha256": "df9e61aaae60173c4c9e4111b14b0f14a0455e4497adf5936d9d643260fb0b9f",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.44344957707951,
+        26.052909035744303,
+        44.44569915415902,
+        26.056054517872152
+      ],
+      "perf": {
+        "drawCalls": 104,
+        "triangles": 373492,
+        "renderMs": 5.899999999906868,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r06-c06",
+      "scope": "core-touches",
+      "lat": 44.44457436561927,
+      "lon": 26.057627258936076,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:17.055Z",
+      "sha256": "15791927f2b62810a7df0236fc588a14cdaf56513464d412df030ce78b7d6d8c",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.44344957707951,
+        26.056054517872152,
+        44.44569915415902,
+        26.0592
+      ],
+      "perf": {
+        "drawCalls": 122,
+        "triangles": 580512,
+        "renderMs": 7.7000000001862645,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r06-c07",
+      "scope": "core-touches",
+      "lat": 44.44457436561927,
+      "lon": 26.060772741063925,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:19.357Z",
+      "sha256": "cd62bfceb978cb28162ca822b473acfd509ad8d61382c29a09af9d6a46f314ab",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.44344957707951,
+        26.0592,
+        44.44569915415902,
+        26.06234548212785
+      ],
+      "perf": {
+        "drawCalls": 126,
+        "triangles": 612361,
+        "renderMs": 2.2000000001862645,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r06-c08",
+      "scope": "core-touches",
+      "lat": 44.44457436561927,
+      "lon": 26.063918223191774,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:21.728Z",
+      "sha256": "2ee99fee93d5a699ccde22147052bde95466af19a7f757f11dc5315961da739f",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.44344957707951,
+        26.06234548212785,
+        44.44569915415902,
+        26.065490964255698
+      ],
+      "perf": {
+        "drawCalls": 117,
+        "triangles": 505945,
+        "renderMs": 4.399999999906868,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r06-c09",
+      "scope": "ring-touches",
+      "lat": 44.44457436561927,
+      "lon": 26.06706370531962,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:23.355Z",
+      "sha256": "ec42f7af0a23f212c4aea4551f8dcd039cb694b0bf95f82aa706d24dde7b2932",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.44344957707951,
+        26.065490964255698,
+        44.44569915415902,
+        26.068636446383543
+      ],
+      "perf": {
+        "drawCalls": 101,
+        "triangles": 378939,
+        "renderMs": 2.2999999998137355,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r06-c10",
+      "scope": "ring-touches",
+      "lat": 44.44457436561927,
+      "lon": 26.070209187447468,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:24.963Z",
+      "sha256": "6caf9d30bfd8769d016ed5a741ee088790ec065b3c07ebaff1de16eec682866a",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.44344957707951,
+        26.068636446383543,
+        44.44569915415902,
+        26.071781928511392
+      ],
+      "perf": {
+        "drawCalls": 95,
+        "triangles": 215337,
+        "renderMs": 5.800000000279397,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r06-c11",
+      "scope": "ring-touches",
+      "lat": 44.44457436561927,
+      "lon": 26.073354669575316,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:26.379Z",
+      "sha256": "4697420df94293bcda70c664d18905a295fb6ec87461ab9b05979c8e4baee1be",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.44344957707951,
+        26.071781928511392,
+        44.44569915415902,
+        26.07492741063924
+      ],
+      "perf": {
+        "drawCalls": 74,
+        "triangles": 159839,
+        "renderMs": 3.5,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r07-c01",
+      "scope": "ring-touches",
+      "lat": 44.44232478853976,
+      "lon": 26.041899848296836,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:27.810Z",
+      "sha256": "4f18be64ff23a2f8e1c0589238c906c1864fe5150b230bbd5de1a6978c86a586",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.4412,
+        26.040327107232912,
+        44.44344957707951,
+        26.04347258936076
+      ],
+      "perf": {
+        "drawCalls": 67,
+        "triangles": 127245,
+        "renderMs": 3.7999999998137355,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r07-c02",
+      "scope": "ring-touches",
+      "lat": 44.44232478853976,
+      "lon": 26.045045330424685,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:28.935Z",
+      "sha256": "c66b210f5cce28b998a84c422dd68474bd18fa007d39d3906fcc8693b9dd8599",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.4412,
+        26.04347258936076,
+        44.44344957707951,
+        26.04661807148861
+      ],
+      "perf": {
+        "drawCalls": 100,
+        "triangles": 238582,
+        "renderMs": 1.6999999997206032,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r07-c03",
+      "scope": "ring-touches",
+      "lat": 44.44232478853976,
+      "lon": 26.048190812552534,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:30.509Z",
+      "sha256": "09d7994c1f8a5e9fbc41db191aae089b54bcdbd2776f29cf00ff6f0979f60cf1",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.4412,
+        26.04661807148861,
+        44.44344957707951,
+        26.049763553616458
+      ],
+      "perf": {
+        "drawCalls": 107,
+        "triangles": 276497,
+        "renderMs": 2.2999999998137355,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r07-c04",
+      "scope": "ring-touches",
+      "lat": 44.44232478853976,
+      "lon": 26.051336294680382,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:32.034Z",
+      "sha256": "13dc3e254ed1f046cf1348fe563ff9fb4e8c66275c128aabe79bcb03aab4f41f",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.4412,
+        26.049763553616458,
+        44.44344957707951,
+        26.052909035744303
+      ],
+      "perf": {
+        "drawCalls": 104,
+        "triangles": 371833,
+        "renderMs": 3,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r07-c05",
+      "scope": "ring-touches",
+      "lat": 44.44232478853976,
+      "lon": 26.054481776808228,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:33.929Z",
+      "sha256": "d352556388ad59e0ca766d33115ac59fd2d4c6e51d31f2bf634c4fcc8e99754d",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.4412,
+        26.052909035744303,
+        44.44344957707951,
+        26.056054517872152
+      ],
+      "perf": {
+        "drawCalls": 113,
+        "triangles": 414165,
+        "renderMs": 2.7999999998137355,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r07-c06",
+      "scope": "core-touches",
+      "lat": 44.44232478853976,
+      "lon": 26.057627258936076,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:35.809Z",
+      "sha256": "47f658be903e5d8676a472248bb094e2a3aadbafeede1d31bf57086bbbcc7442",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.4412,
+        26.056054517872152,
+        44.44344957707951,
+        26.0592
+      ],
+      "perf": {
+        "drawCalls": 129,
+        "triangles": 563329,
+        "renderMs": 2,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r07-c07",
+      "scope": "core-touches",
+      "lat": 44.44232478853976,
+      "lon": 26.060772741063925,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:37.870Z",
+      "sha256": "e9cc7174f031e3a0ec8135056e52753ca364cb09981fae830c97ed3747da5323",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.4412,
+        26.0592,
+        44.44344957707951,
+        26.06234548212785
+      ],
+      "perf": {
+        "drawCalls": 133,
+        "triangles": 565894,
+        "renderMs": 3.2999999998137355,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r07-c08",
+      "scope": "core-touches",
+      "lat": 44.44232478853976,
+      "lon": 26.063918223191774,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:39.980Z",
+      "sha256": "686c3705cbadcee89c3f1c6e9017c856ebce48e9d6f564028b6431fbf272bc1d",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.4412,
+        26.06234548212785,
+        44.44344957707951,
+        26.065490964255698
+      ],
+      "perf": {
+        "drawCalls": 109,
+        "triangles": 434017,
+        "renderMs": 4.400000000372529,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r07-c09",
+      "scope": "ring-touches",
+      "lat": 44.44232478853976,
+      "lon": 26.06706370531962,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:41.962Z",
+      "sha256": "9f665b31bd64e89f89bfeeee25770a9e4da39741c4d7a7871dd6b24ee38fbfff",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.4412,
+        26.065490964255698,
+        44.44344957707951,
+        26.068636446383543
+      ],
+      "perf": {
+        "drawCalls": 89,
+        "triangles": 336245,
+        "renderMs": 1.7000000001862645,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r07-c10",
+      "scope": "ring-touches",
+      "lat": 44.44232478853976,
+      "lon": 26.070209187447468,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:43.564Z",
+      "sha256": "ea5f4b718cc8dd9663afe950eab750ddb803b90989f8cfebfb57262fa4bbd479",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.4412,
+        26.068636446383543,
+        44.44344957707951,
+        26.071781928511392
+      ],
+      "perf": {
+        "drawCalls": 87,
+        "triangles": 228403,
+        "renderMs": 2.3000000002793968,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r08-c01",
+      "scope": "ring-touches",
+      "lat": 44.44007521146025,
+      "lon": 26.041899848296836,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:44.962Z",
+      "sha256": "74ce3a308014c283507df0f41664a46fcee03575ff600f878ecc06cfdbb9815a",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43895042292049,
+        26.040327107232912,
+        44.4412,
+        26.04347258936076
+      ],
+      "perf": {
+        "drawCalls": 81,
+        "triangles": 144163,
+        "renderMs": 2.2000000001862645,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r08-c02",
+      "scope": "ring-touches",
+      "lat": 44.44007521146025,
+      "lon": 26.045045330424685,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:46.158Z",
+      "sha256": "858576fe0d4ab17fe9c5fccb595aaf0b3288d9a80b4ed5c360cc09ea713fb652",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43895042292049,
+        26.04347258936076,
+        44.4412,
+        26.04661807148861
+      ],
+      "perf": {
+        "drawCalls": 106,
+        "triangles": 245704,
+        "renderMs": 2.2999999998137355,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r08-c03",
+      "scope": "ring-touches",
+      "lat": 44.44007521146025,
+      "lon": 26.048190812552534,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:47.800Z",
+      "sha256": "fc23cf5685243d5112ba60b6cbc92da405dba82d0699d88784408e1d49e77b4a",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43895042292049,
+        26.04661807148861,
+        44.4412,
+        26.049763553616458
+      ],
+      "perf": {
+        "drawCalls": 111,
+        "triangles": 297134,
+        "renderMs": 3.900000000372529,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r08-c04",
+      "scope": "core-touches",
+      "lat": 44.44007521146025,
+      "lon": 26.051336294680382,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:49.756Z",
+      "sha256": "baa8ff3f2354b0a70b3825ab9c25cf163c8a98b45cefcdb353ef4f70d6e8252c",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43895042292049,
+        26.049763553616458,
+        44.4412,
+        26.052909035744303
+      ],
+      "perf": {
+        "drawCalls": 113,
+        "triangles": 456671,
+        "renderMs": 3.900000000372529,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r08-c05",
+      "scope": "core-touches",
+      "lat": 44.44007521146025,
+      "lon": 26.054481776808228,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:51.957Z",
+      "sha256": "dd3d8f38c7f6f1535b78eb1f526966f7fe994d616224edb84c203db7ae3e2192",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43895042292049,
+        26.052909035744303,
+        44.4412,
+        26.056054517872152
+      ],
+      "perf": {
+        "drawCalls": 117,
+        "triangles": 499224,
+        "renderMs": 4.400000000372529,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r08-c06",
+      "scope": "core-touches",
+      "lat": 44.44007521146025,
+      "lon": 26.057627258936076,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:54.370Z",
+      "sha256": "fc3501305e30c59189dd20c7a113e1263035de1d93388f88f68a028124890412",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43895042292049,
+        26.056054517872152,
+        44.4412,
+        26.0592
+      ],
+      "perf": {
+        "drawCalls": 124,
+        "triangles": 598254,
+        "renderMs": 3.1999999997206032,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r08-c07",
+      "scope": "core-touches",
+      "lat": 44.44007521146025,
+      "lon": 26.060772741063925,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:56.879Z",
+      "sha256": "0dffbee6bf7f7d895e3d6af71c0be35c5807208a7666494090e4a1b1b0960631",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43895042292049,
+        26.0592,
+        44.4412,
+        26.06234548212785
+      ],
+      "perf": {
+        "drawCalls": 124,
+        "triangles": 549780,
+        "renderMs": 2.6999999997206032,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r08-c08",
+      "scope": "ring-touches",
+      "lat": 44.44007521146025,
+      "lon": 26.063918223191774,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:30:59.208Z",
+      "sha256": "4dcdf4a566946c0cd8510025f819ede26bb48a388b44da28f4fa9e704169cedd",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43895042292049,
+        26.06234548212785,
+        44.4412,
+        26.065490964255698
+      ],
+      "perf": {
+        "drawCalls": 102,
+        "triangles": 433105,
+        "renderMs": 3.6000000000931323,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r08-c09",
+      "scope": "ring-touches",
+      "lat": 44.44007521146025,
+      "lon": 26.06706370531962,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:31:01.314Z",
+      "sha256": "203816f0f2df6674f719c96254f1083a5ac31836059788310624463f2be69431",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43895042292049,
+        26.065490964255698,
+        44.4412,
+        26.068636446383543
+      ],
+      "perf": {
+        "drawCalls": 98,
+        "triangles": 363177,
+        "renderMs": 1.5,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r08-c10",
+      "scope": "ring-touches",
+      "lat": 44.44007521146025,
+      "lon": 26.070209187447468,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:31:03.025Z",
+      "sha256": "855493d10c5cbae6fd20ed5f788d4e3d09eff993d91240b63995832c3641bc77",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43895042292049,
+        26.068636446383543,
+        44.4412,
+        26.071781928511392
+      ],
+      "perf": {
+        "drawCalls": 70,
+        "triangles": 184006,
+        "renderMs": 2.1000000000931323,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r09-c01",
+      "scope": "ring-touches",
+      "lat": 44.43782563438074,
+      "lon": 26.041899848296836,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:31:04.239Z",
+      "sha256": "04e158563768f77d6cfa5be71d7a2ae709a403efa6f3905cbf40c541cc147cf1",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43670084584098,
+        26.040327107232912,
+        44.43895042292049,
+        26.04347258936076
+      ],
+      "perf": {
+        "drawCalls": 82,
+        "triangles": 155110,
+        "renderMs": 1.6000000000931323,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r09-c02",
+      "scope": "ring-touches",
+      "lat": 44.43782563438074,
+      "lon": 26.045045330424685,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:31:05.572Z",
+      "sha256": "63ccc3a7563e879beb809e5169d8d8451a2d65d7c7dc682008708134cfe74bf6",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43670084584098,
+        26.04347258936076,
+        44.43895042292049,
+        26.04661807148861
+      ],
+      "perf": {
+        "drawCalls": 104,
+        "triangles": 224355,
+        "renderMs": 2.5,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r09-c03",
+      "scope": "ring-touches",
+      "lat": 44.43782563438074,
+      "lon": 26.048190812552534,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:31:08.328Z",
+      "sha256": "5519d40a6c8c18d3eca6e2faba0eecec10e0619f9ff840c8321701c01ead1ca3",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43670084584098,
+        26.04661807148861,
+        44.43895042292049,
+        26.049763553616458
+      ],
+      "perf": {
+        "drawCalls": 103,
+        "triangles": 257061,
+        "renderMs": 2.1999999997206032,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r09-c04",
+      "scope": "core-touches",
+      "lat": 44.43782563438074,
+      "lon": 26.051336294680382,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:31:11.340Z",
+      "sha256": "8c28057943a68dee31c5aad8088b8f9a67ccf3b69a820e2daf4feb64a326eaac",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43670084584098,
+        26.049763553616458,
+        44.43895042292049,
+        26.052909035744303
+      ],
+      "perf": {
+        "drawCalls": 114,
+        "triangles": 354798,
+        "renderMs": 7.899999999906868,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r09-c05",
+      "scope": "core-touches",
+      "lat": 44.43782563438074,
+      "lon": 26.054481776808228,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:31:15.656Z",
+      "sha256": "c98a5e085b945fefd882f2df26b5f83f8ecb7df0d26444a4ff110a382c28c325",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43670084584098,
+        26.052909035744303,
+        44.43895042292049,
+        26.056054517872152
+      ],
+      "perf": {
+        "drawCalls": 112,
+        "triangles": 427044,
+        "renderMs": 3.7999999998137355,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r09-c06",
+      "scope": "core-touches",
+      "lat": 44.43782563438074,
+      "lon": 26.057627258936076,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:31:19.539Z",
+      "sha256": "64aaf674a6adaebc3f08a13130776722824f6d5712fcd4037ccd574e3d789d0c",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43670084584098,
+        26.056054517872152,
+        44.43895042292049,
+        26.0592
+      ],
+      "perf": {
+        "drawCalls": 108,
+        "triangles": 459007,
+        "renderMs": 9.5,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r09-c07",
+      "scope": "ring-touches",
+      "lat": 44.43782563438074,
+      "lon": 26.060772741063925,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:31:22.798Z",
+      "sha256": "a252009a7c5a4d0cf2f02ad50c7f9cf8cb1c05090f6e45709b0698c2d7333afa",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43670084584098,
+        26.0592,
+        44.43895042292049,
+        26.06234548212785
+      ],
+      "perf": {
+        "drawCalls": 106,
+        "triangles": 396203,
+        "renderMs": 1.2000000001862645,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r09-c08",
+      "scope": "ring-touches",
+      "lat": 44.43782563438074,
+      "lon": 26.063918223191774,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:31:25.557Z",
+      "sha256": "af1fd58b618799dd3a77f1049a82ff599c93c6a9e5e0b1c2a7473844e818c175",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43670084584098,
+        26.06234548212785,
+        44.43895042292049,
+        26.065490964255698
+      ],
+      "perf": {
+        "drawCalls": 94,
+        "triangles": 384024,
+        "renderMs": 1.7999999998137355,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r09-c09",
+      "scope": "ring-touches",
+      "lat": 44.43782563438074,
+      "lon": 26.06706370531962,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:31:28.658Z",
+      "sha256": "0a595c9039d0e26330271ea3ad3b0c4d2f29a21fde70d136045f6656d5fd9528",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43670084584098,
+        26.065490964255698,
+        44.43895042292049,
+        26.068636446383543
+      ],
+      "perf": {
+        "drawCalls": 77,
+        "triangles": 254158,
+        "renderMs": 2.2999999998137355,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r10-c01",
+      "scope": "ring-touches",
+      "lat": 44.435576057301226,
+      "lon": 26.041899848296836,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:31:32.053Z",
+      "sha256": "dfbb47f7f9eabeaf4eda7cc9cdbd28393c9eb806ef9adb0297efef76e3b7cb42",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43445126876148,
+        26.040327107232912,
+        44.43670084584098,
+        26.04347258936076
+      ],
+      "perf": {
+        "drawCalls": 64,
+        "triangles": 121483,
+        "renderMs": 5.399999999906868,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r10-c02",
+      "scope": "ring-touches",
+      "lat": 44.435576057301226,
+      "lon": 26.045045330424685,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:31:34.475Z",
+      "sha256": "70f8efa9d5743b4f82fae44f7f8975e0648c953f0b74ef62111d5b6a4650946c",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43445126876148,
+        26.04347258936076,
+        44.43670084584098,
+        26.04661807148861
+      ],
+      "perf": {
+        "drawCalls": 97,
+        "triangles": 203916,
+        "renderMs": 11,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r10-c03",
+      "scope": "ring-touches",
+      "lat": 44.435576057301226,
+      "lon": 26.048190812552534,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:31:37.945Z",
+      "sha256": "5b3d937898a1108d0eeb6329626500340e5f13efd49a2c7f776b74114d62e07e",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43445126876148,
+        26.04661807148861,
+        44.43670084584098,
+        26.049763553616458
+      ],
+      "perf": {
+        "drawCalls": 97,
+        "triangles": 217524,
+        "renderMs": 13.700000000186265,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r10-c04",
+      "scope": "ring-touches",
+      "lat": 44.435576057301226,
+      "lon": 26.051336294680382,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:31:41.079Z",
+      "sha256": "bb65af5b0d5d8330a66c96107b820b1954a7fb92b7864260ce1fb1b1d5ab9c06",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43445126876148,
+        26.049763553616458,
+        44.43670084584098,
+        26.052909035744303
+      ],
+      "perf": {
+        "drawCalls": 97,
+        "triangles": 239119,
+        "renderMs": 14.5,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r10-c05",
+      "scope": "core-touches",
+      "lat": 44.435576057301226,
+      "lon": 26.054481776808228,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:31:43.880Z",
+      "sha256": "7f7486a0e11612f7f31860fbd0a815557b72bf72c0d14c168975a530328e8e79",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43445126876148,
+        26.052909035744303,
+        44.43670084584098,
+        26.056054517872152
+      ],
+      "perf": {
+        "drawCalls": 102,
+        "triangles": 307763,
+        "renderMs": 3.2999999998137355,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r10-c06",
+      "scope": "core-touches",
+      "lat": 44.435576057301226,
+      "lon": 26.057627258936076,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:31:47.545Z",
+      "sha256": "ef184ddcfd029cd86370eeed85f83349a0057d7956574a74521545ad2b85e59c",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43445126876148,
+        26.056054517872152,
+        44.43670084584098,
+        26.0592
+      ],
+      "perf": {
+        "drawCalls": 99,
+        "triangles": 335615,
+        "renderMs": 1.7999999998137355,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r10-c07",
+      "scope": "ring-touches",
+      "lat": 44.435576057301226,
+      "lon": 26.060772741063925,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:31:52.799Z",
+      "sha256": "5cb2247203e23b484c186b74aec739c1a5ff07c948fea406543b36f9829f7485",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43445126876148,
+        26.0592,
+        44.43670084584098,
+        26.06234548212785
+      ],
+      "perf": {
+        "drawCalls": 101,
+        "triangles": 334051,
+        "renderMs": 1.099999999627471,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r10-c08",
+      "scope": "ring-touches",
+      "lat": 44.435576057301226,
+      "lon": 26.063918223191774,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:31:57.897Z",
+      "sha256": "f0de57eac1aef69529fc347f9d3ba6cdde5120f95c2357f5835f1ab60adc0ac2",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43445126876148,
+        26.06234548212785,
+        44.43670084584098,
+        26.065490964255698
+      ],
+      "perf": {
+        "drawCalls": 80,
+        "triangles": 294876,
+        "renderMs": 2.1000000000931323,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r10-c09",
+      "scope": "ring-touches",
+      "lat": 44.435576057301226,
+      "lon": 26.06706370531962,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:32:03.862Z",
+      "sha256": "b26adf5ef613bca65f8ae2d30664e37634b2674e6f3d8fddc2acbc83f26e4114",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43445126876148,
+        26.065490964255698,
+        44.43670084584098,
+        26.068636446383543
+      ],
+      "perf": {
+        "drawCalls": 60,
+        "triangles": 183415,
+        "renderMs": 1.5,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r11-c02",
+      "scope": "ring-touches",
+      "lat": 44.43332648022172,
+      "lon": 26.045045330424685,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:32:09.998Z",
+      "sha256": "8ab51f77bc542299fc14f165287d44bcf280647d23bf1d27d7ea2c29e1d5755f",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43220169168197,
+        26.04347258936076,
+        44.43445126876148,
+        26.04661807148861
+      ],
+      "perf": {
+        "drawCalls": 71,
+        "triangles": 132015,
+        "renderMs": 33.10000000009313,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r11-c03",
+      "scope": "ring-touches",
+      "lat": 44.43332648022172,
+      "lon": 26.048190812552534,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:32:17.179Z",
+      "sha256": "b6f4318cf05c38548a17833aa8ae3c412914beca37845a31b8de1df36ec04770",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43220169168197,
+        26.04661807148861,
+        44.43445126876148,
+        26.049763553616458
+      ],
+      "perf": {
+        "drawCalls": 84,
+        "triangles": 148749,
+        "renderMs": 13.199999999720603,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r11-c04",
+      "scope": "ring-touches",
+      "lat": 44.43332648022172,
+      "lon": 26.051336294680382,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:32:22.188Z",
+      "sha256": "b561053198b9ae70cff9320f9f8b291fb23cb7e4446b8c6cafbdc7d491d73337",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43220169168197,
+        26.049763553616458,
+        44.43445126876148,
+        26.052909035744303
+      ],
+      "perf": {
+        "drawCalls": 95,
+        "triangles": 170644,
+        "renderMs": 5.7999999998137355,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r11-c05",
+      "scope": "ring-touches",
+      "lat": 44.43332648022172,
+      "lon": 26.054481776808228,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:32:27.239Z",
+      "sha256": "c7c8cfaeed626b0b4c9499e3d2ff24660d1c96d86fae50a27375dd1ec263d021",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43220169168197,
+        26.052909035744303,
+        44.43445126876148,
+        26.056054517872152
+      ],
+      "perf": {
+        "drawCalls": 98,
+        "triangles": 200994,
+        "renderMs": 4.399999999906868,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r11-c06",
+      "scope": "ring-touches",
+      "lat": 44.43332648022172,
+      "lon": 26.057627258936076,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:32:32.382Z",
+      "sha256": "22565df1f6288f3897b3e3f3e25a01698bf9089722136ce6243de5a76c309e09",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43220169168197,
+        26.056054517872152,
+        44.43445126876148,
+        26.0592
+      ],
+      "perf": {
+        "drawCalls": 90,
+        "triangles": 203243,
+        "renderMs": 10.5,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r11-c07",
+      "scope": "ring-touches",
+      "lat": 44.43332648022172,
+      "lon": 26.060772741063925,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:32:37.739Z",
+      "sha256": "c62fed51327ab0cc79643972afd7638c56b9d7c191416771cc057340b762bb2d",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43220169168197,
+        26.0592,
+        44.43445126876148,
+        26.06234548212785
+      ],
+      "perf": {
+        "drawCalls": 96,
+        "triangles": 218884,
+        "renderMs": 2.8999999999068677,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r11-c08",
+      "scope": "ring-touches",
+      "lat": 44.43332648022172,
+      "lon": 26.063918223191774,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:32:42.080Z",
+      "sha256": "1588b638f85f0493d9d9753d08b9bdb504517479c55cc806dbe727f1a836cac6",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.43220169168197,
+        26.06234548212785,
+        44.43445126876148,
+        26.065490964255698
+      ],
+      "perf": {
+        "drawCalls": 62,
+        "triangles": 139967,
+        "renderMs": 1.8999999999068677,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r12-c03",
+      "scope": "ring-touches",
+      "lat": 44.43107690314221,
+      "lon": 26.048190812552534,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:32:45.140Z",
+      "sha256": "e51dc14923e7c9b885c4db436cfc6c8683bea8631e1519972d312d8b884f9b4f",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.42995211460246,
+        26.04661807148861,
+        44.43220169168197,
+        26.049763553616458
+      ],
+      "perf": {
+        "drawCalls": 66,
+        "triangles": 81690,
+        "renderMs": 1.7000000001862645,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r12-c04",
+      "scope": "ring-touches",
+      "lat": 44.43107690314221,
+      "lon": 26.051336294680382,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:32:47.535Z",
+      "sha256": "c83206e4dd808fd5009b19abc89f980e2289bb118c7d89fdaa1957980e7f777d",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.42995211460246,
+        26.049763553616458,
+        44.43220169168197,
+        26.052909035744303
+      ],
+      "perf": {
+        "drawCalls": 69,
+        "triangles": 99955,
+        "renderMs": 6.800000000279397,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r12-c05",
+      "scope": "ring-touches",
+      "lat": 44.43107690314221,
+      "lon": 26.054481776808228,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:32:50.250Z",
+      "sha256": "dc255ec67f7e5b8a84a69e4738d4ae64fd6e89a6cb873b0fd2497180187b7dcf",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.42995211460246,
+        26.052909035744303,
+        44.43220169168197,
+        26.056054517872152
+      ],
+      "perf": {
+        "drawCalls": 83,
+        "triangles": 122385,
+        "renderMs": 3.7999999998137355,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r12-c06",
+      "scope": "ring-touches",
+      "lat": 44.43107690314221,
+      "lon": 26.057627258936076,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:32:53.893Z",
+      "sha256": "788ba84c781a565eb8e58faa305e13314916168220f9bf0da2f34332867e0c8a",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.42995211460246,
+        26.056054517872152,
+        44.43220169168197,
+        26.0592
+      ],
+      "perf": {
+        "drawCalls": 83,
+        "triangles": 145426,
+        "renderMs": 2.2999999998137355,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "aerial-r12-c07",
+      "scope": "ring-touches",
+      "lat": 44.43107690314221,
+      "lon": 26.060772741063925,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:32:56.885Z",
+      "sha256": "c2b5fb21632a10739e86dd32bf4824f45b445b60d4c40fb2df02b72e96a258c8",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.42995211460246,
+        26.0592,
+        44.43220169168197,
+        26.06234548212785
+      ],
+      "perf": {
+        "drawCalls": 83,
+        "triangles": 127236,
+        "renderMs": 4.7000000001862645,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "context-northwest",
+      "scope": "outside-ring",
+      "lat": 44.45582225101681,
+      "lon": 26.041899848296836,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:32:59.835Z",
+      "sha256": "f10ebea61a1dc222890a695703ac04ad26adb9608e338df89e8c30f5d6a95a46",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.45469746247706,
+        26.040327107232912,
+        44.45694703955657,
+        26.04347258936076
+      ],
+      "perf": {
+        "drawCalls": 33,
+        "triangles": 41949,
+        "renderMs": 9.400000000372529,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "context-northeast",
+      "scope": "outside-ring",
+      "lat": 44.45582225101681,
+      "lon": 26.073354669575316,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:33:03.288Z",
+      "sha256": "d35626945982a434f65c9a7e7f3a443616470621a4c4477d063e1d19ad776a4c",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.45469746247706,
+        26.071781928511392,
+        44.45694703955657,
+        26.07492741063924
+      ],
+      "perf": {
+        "drawCalls": 43,
+        "triangles": 93454,
+        "renderMs": 19.899999999906868,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "context-southwest",
+      "scope": "outside-ring",
+      "lat": 44.43107690314221,
+      "lon": 26.041899848296836,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:33:06.033Z",
+      "sha256": "b9bbc680feea3ab9c624bfe62ab23f4d85eb3f41cd41029a84aadd98ada538b2",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.42995211460246,
+        26.040327107232912,
+        44.43220169168197,
+        26.04347258936076
+      ],
+      "perf": {
+        "drawCalls": 39,
+        "triangles": 68290,
+        "renderMs": 4.5,
+        "quality": "high"
+      }
+    },
+    {
+      "id": "context-southeast",
+      "scope": "outside-ring",
+      "lat": 44.43107690314221,
+      "lon": 26.073354669575316,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "capturedAt": "2026-11-08T14:33:10.529Z",
+      "sha256": "1d39f3efe99d2f26d28855f990f2b1863d061bde016653c3cbfd0b9645fe40d0",
+      "width": 640,
+      "height": 640,
+      "boundsWgs84": [
+        44.42995211460246,
+        26.071781928511392,
+        44.43220169168197,
+        26.07492741063924
+      ],
+      "perf": {
+        "drawCalls": 37,
+        "triangles": 51986,
+        "renderMs": 6.7000000001862645,
+        "quality": "high"
+      }
+    }
+  ]
+}

@@ -1475,7 +1475,20 @@ function buildCity(cityId, did = null) {
     // ---- trees (natural=tree nodes + tree_row ways) and street furniture, inside the corridors, off the carriageway
     const onCarriageway = (x, z, extra) => !!nearestRoad(x, z, 25, null) && (() => { let bad = false; roadGrid.query(x, z, 20, (s) => { if (bad || (s.r.flags & 4)) return; const q = distPointSeg(x, z, s.a[0], s.a[1], s.b[0], s.b[1]); const dx = s.b[0] - s.a[0], dz = s.b[1] - s.a[1]; const right = (x - s.a[0]) * (-dz) + (z - s.a[1]) * dx > 0; if (q.d < (right ? s.wR : s.wL) + extra) bad = true; }); return bad; })();
     const CONIFER = /^(Pinus|Picea|Abies|Thuja|Pseudotsuga|Cedrus|Taxus|Juniperus|Tsuga|Larix|Sequoia|Chamaecyparis|Cupressus)/i;
-    const outTrees = [], outTreeInfo = []; const treeSeen = new Set();
+    // Preserve complete OSM railway ways which touch the required source ring; rendering remains data-gated.
+    const rawRailways = [];
+    if (ds) for (const [id, w] of W) {
+        const t = w.tags; if (!['rail', 'narrow_gauge', 'light_rail', 'disused', 'abandoned'].includes(t.railway)) continue;
+        const pts = w.nodes.map(pt); if (pts.length < 2 || pts.some(p => !p)) continue;
+        if (!pts.slice(1).some((p, i) => footprintMargin([pts[i], p], cor) <= OUTER_RING)) continue;
+        rawRailways.push({ id: 'w' + id, nodeIds: [...w.nodes], tags: Object.fromEntries(Object.entries(t).filter(([k]) => !k.startsWith('__'))), pts });
+    }
+    const railGrid = new Grid(40);
+    for (const r of rawRailways) if (r.tags.railway === 'rail' && !(r.tags.tunnel && r.tags.tunnel !== 'no') && !(r.tags.bridge && r.tags.bridge !== 'no') && (r.tags.layer == null || num(r.tags.layer) === 0)) for (let i = 1; i < r.pts.length; i++) {
+        const a = r.pts[i - 1], b = r.pts[i]; railGrid.insertBox(Math.min(a[0], b[0]), Math.min(a[1], b[1]), Math.max(a[0], b[0]), Math.max(a[1], b[1]), { a, b });
+    }
+    const onMappedRail = (x, z) => { let hit = false; railGrid.query(x, z, 1.3, r => { if (distPointSeg(x, z, ...r.a, ...r.b).d < 1.3) hit = true; }); return hit; };
+    const outTrees = [], outTreeInfo = [], outTreeCrownRadii = []; const treeSeen = new Set();
     const circCm = (v) => { if (v == null) return 0; const n = num(v); if (!isFinite(n) || n <= 0) return 0; const cm = /cm/.test(v) ? n : n < 20 ? n * 100 : n; return Math.min(2000, Math.round(cm)); };
     const addTree = (x, z, t, row = false) => {
         if (M(x, z) > 0 || onCarriageway(x, z, 0.9)) return;
@@ -1488,6 +1501,7 @@ function buildCity(cityId, did = null) {
         const lt = t.leaf_type === 'broadleaved' ? 1 : (t.leaf_type === 'needleleaved' || con) ? 2 : 0;
         const lc = t.leaf_cycle === 'deciduous' ? 4 : t.leaf_cycle === 'evergreen' ? 8 : 0;
         outTreeInfo.push(S(taxon.trim()), circCm(t.circumference), lt + lc + (row ? 16 : 0));
+        outTreeCrownRadii.push(Math.max(0, Math.round((num(t.diameter_crown || t['crown:diameter']) || 0) * 5)));
     };
     for (const [id, t] of ntags) if (t.natural === 'tree') { const p = pt(id); if (p) addTree(p[0], p[1], t); }
     for (const w of W.values()) {
@@ -1499,7 +1513,7 @@ function buildCity(cityId, did = null) {
     // OSM maps almost no single trees in Bucharest's residential quarters, so the playable area and the scenery ring
     // get their real canopy. Mapped OSM trees win (dedup), trunks stay off carriageways, scenery streets, buildings,
     // pitches, parking lots and water. treeInfo leaf bits: 1 broadleaved + 4 deciduous (the local default) + 32 aerial.
-    let treeCoverage = null;
+    let treeCoverage = null, treeRetention = null;
     if (ds) {
         const tf = path.join(REPO, 'game', 'research', `trees-${cityId}-${did}.json`);
         let tj = null; if (fs.existsSync(tf)) { try { tj = JSON.parse(fs.readFileSync(tf, 'utf8')); } catch (e) { log('aerial trees: cannot parse', tf, e.message); } }
@@ -1513,18 +1527,20 @@ function buildCity(cityId, did = null) {
             const naGrid = new Grid(100); for (const a of noTreeAreas) { let x0 = Infinity, z0 = Infinity, x1 = -Infinity, z1 = -Infinity; for (const [x, z] of a.rings[0]) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); } naGrid.insertBox(x0, z0, x1, z1, a); }
             const inNoTree = (x, z) => { let f = false; naGrid.query(x, z, 0, (a) => { if (!f && pointInPolygon(x, z, a.rings[0])) f = true; }); return f; };
             const inBuilding = (x, z) => { let f = false; bGrid.query(x, z, 0, (o) => { if (!f && solidAt(x, z, o.ring, o.holes)) f = true; }); return f; };
-            const RINGT = OUTER_RING + 40; let added = 0, skipped = 0, thinned = 0;
+            const retainAll = tj._retention === 'all-measured';
+            const RINGT = OUTER_RING + 40; let added = 0, skipped = 0, thinned = 0, outside = 0;
             for (const [lat, lon, cr] of tj.trees) {
                 const [x, z] = P(lat, lon), mg = M(x, z);
-                if (mg > RINGT) continue;
-                // the scenery ring keeps its bigger crowns only (frame budget: ≈ 85 triangles a tree, drawn to ~550 m)
-                if (mg > 0 && (cr < (mg > 100 ? 3.0 : 2.2) || (mg > 100 && hash01(lat * 1e7 + lon) > 0.6))) { thinned++; continue; }
-                if (onCarriageway(x, z, 0.9) || onScenery(x, z) || inNoTree(x, z) || inBuilding(x, z)) { skipped++; continue; }
+                if (mg > RINGT) { outside++; continue; }
+                // Legacy surveys keep their old policy; explicitly reviewed surveys retain every valid measured crown.
+                if (!retainAll && mg > 0 && (cr < (mg > 100 ? 3.0 : 2.2) || (mg > 100 && hash01(lat * 1e7 + lon) > 0.6))) { thinned++; continue; }
+                if (onCarriageway(x, z, 0.9) || onScenery(x, z) || onMappedRail(x, z) || inNoTree(x, z) || inBuilding(x, z)) { skipped++; continue; }
                 const key = Math.round(x / 1.5) + ',' + Math.round(z / 1.5); if (treeSeen.has(key)) { skipped++; continue; } treeSeen.add(key);
                 const h = Math.max(5, Math.min(22, 2.3 * cr + 2.5));
                 outTrees.push(Math.round(x * 10), Math.round(z * 10), Math.round(h * 10) * 2);
-                outTreeInfo.push(-1, 0, 1 + 4 + 32); added++;
+                outTreeInfo.push(-1, 0, 1 + 4 + 32); outTreeCrownRadii.push(Math.round(cr * 10)); added++;
             }
+            treeRetention = { policy: retainAll ? 'all-measured' : 'legacy-ring-thinning', inputCrowns: tj.trees.length, retained: added, rejectedGeometryOrDuplicate: skipped, outsideSurveyDistrict: outside, thinned };
             log(`aerial trees: ${added} added (${skipped} on streets / buildings / pitches / duplicates, ${thinned} small ring crowns thinned) from ${tf}`);
         }
     }
@@ -1795,6 +1811,8 @@ function buildCity(cityId, did = null) {
         classes: ROAD_CLASSES, styles: STYLES, roofs: ROOFS, poiKinds: POI_KINDS, areaKinds: AREA_KINDS, lineKinds: LINE_KINDS, furnKinds: FURN_KINDS,
         strings,
         nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, roadInfo, rampLimits, vacant, buildings: outB, ...(Object.keys(outBuildingDimensions).length ? { buildingDimensions: outBuildingDimensions } : {}), ...(Object.keys(outBuildingFootprints).length ? { buildingFootprints: outBuildingFootprints } : {}), buildingInfo: outBInfo, ...(Object.keys(outBuildingCanopies).length ? { buildingCanopies: outBuildingCanopies } : {}), ...(Object.keys(outBuildingSourceIssues).length ? { buildingSourceIssues: outBuildingSourceIssues } : {}), ...(ds ? { buildingIds: buildings.map(b => b.t?.__id || '') } : {}), ...(Object.keys(outBuildingHoles).length ? { buildingHoles: outBuildingHoles } : {}), ...(Object.keys(outBuildingCoveredBy).length ? { buildingCoveredBy: outBuildingCoveredBy } : {}), ...(Object.keys(outBuildingAssemblies).length ? { buildingAssemblies: outBuildingAssemblies } : {}), ...(unionBodies.length ? { buildingUnions: outBuildingUnions } : {}), ...(geometryPoints.length ? { buildingGeometryPoints: geometryPoints } : {}), pois: outP, areas: outA, lines: outLines, places, lamps,
+        ...(rawRailways.length ? { railways: rawRailways.map(r => ({ id: r.id, nodeIds: r.nodeIds, tags: r.tags, points: delta(r.pts) })) } : {}),
+        ...(outTreeCrownRadii.some(r => r > 0) ? { treeCrownRadii: outTreeCrownRadii } : {}), ...(treeRetention ? { treeRetention } : {}),
         trees: outTrees, treeInfo: outTreeInfo, furniture: outFurn, backdrop, ...(ds ? { scenery: outScenery } : {}), ...(outGreen ? { green: outGreen } : {}),
         ...(parking.length ? { parking } : {}), ...(treeCoverage ? { treeCoverage } : {}),
         corridor: { areaKm2: +cor.areaKm2.toFixed(2), legs: cor.legs.map(l => [l.label, l.km]) },

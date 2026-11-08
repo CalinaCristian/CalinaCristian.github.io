@@ -11,10 +11,9 @@
 //  No photo textures (no freedom of panorama in Romania): all modelled.
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
-import { GeoBatch, M, rng, hash2, headingFromBearing, centroid, polyBox, inPoly, offsetPolyline, distPolyline, canvas, canvasTexture, fitDraw, obb, polyArea, flatGeometry } from '../kit.js';
+import { GeoBatch, M, rng, hash2, headingFromBearing, centroid, polyBox, inPoly, offsetPolyline, distPolyline, canvas, canvasTexture, fitDraw, obb, polyArea } from '../kit.js';
 import { bucBackdrop, classicFacade, classicWalls, balustradeMaterial, palisade, osmPoly, cityFiller, placeLandmark, signAtlas, oldTownTerraces, floodlight, shopfrontFacade, bucActivity } from '../buc.js';
 import { wallGeometry } from '../osm.js';
-import { dressFor } from '../../crowd.js';
 
 function simplify(pts, tol) { if (pts.length < 4) return pts; const dist = (p, a, b) => { const dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz) || 1; return Math.abs((p[0] - a[0]) * dz - (p[1] - a[1]) * dx) / L; }; let md = 0, mi = 0; for (let i = 1; i < pts.length - 1; i++) { const dd = dist(pts[i], pts[0], pts[pts.length - 1]); if (dd > md) { md = dd; mi = i; } } if (md <= tol) return [pts[0], pts[pts.length - 1]]; return [...simplify(pts.slice(0, mi + 1), tol).slice(0, -1), ...simplify(pts.slice(mi), tol)]; }
 const simplifyRing = (p, tol) => { const s2 = simplify([...p, p[0]], tol); s2.pop(); return s2.length >= 3 ? s2 : p; };
@@ -56,14 +55,7 @@ function ironRailMaterial() { // wrought-iron balcony railing: bars, a scroll ba
     IRON = new THREE.MeshStandardMaterial({ map: t, alphaTest: 0.5, side: THREE.DoubleSide, roughness: 0.5, metalness: 0.6, color: '#ffffff' }); IRON.name = 'ot-iron'; IRON.userData.shared = true;
     return IRON;
 }
-/** keep only the outward quad of a 2-point wallGeometry (it builds a→b and b→a; the inner duplicate z-fights) */
-function oneSided(g, A, B) {
-    const P = g.attributes.position, ix = g.index.array, keep = [];
-    for (let t = 0; t < ix.length; t += 3) { const a = ix[t]; const nx = g.attributes.normal.getX(a), nz = g.attributes.normal.getZ(a); const ox = B[1] - A[1], oz = -(B[0] - A[0]); if (nx * ox + nz * oz > 0) keep.push(ix[t], ix[t + 1], ix[t + 2]); }
-    if (keep.length) g.setIndex(keep); void P; return g;
-}
-function oldTownFronts(ctx, { exclude = [], bar = null } = {}) {
-    let barInfo = null;
+function oldTownFronts(ctx, { exclude = [] } = {}) {
     const d = ctx.data, g = ctx.ground, b = new GeoBatch(), mats = {}, r = rng(41);
     const ways = d.ways.filter((w) => ['pedestrian', 'living_street', 'footway', 'residential'].includes(w.k) && OT_NAMES.test(w.name || ''));
     const exts = Object.values(d.spots).map((s) => s.extent.polygon);
@@ -87,17 +79,7 @@ function oldTownFronts(ctx, { exclude = [], bar = null } = {}) {
         const base = gmin - 0.4, GF = 4.4, top = gmax + GF + (lv - 1) * 3.7;
         const v = Math.floor(hash2(cz * 0.11, cx * 0.17) * facs.length), fac = facs[v], col = OT_COLS[Math.floor(hash2(cx, cz) * OT_COLS.length)];
         const row = /^(yes|retail|commercial)$/.test(bd.k || 'yes') ? [0, 0, 1, 2, 2, 0, 1][Math.floor(hs * 7)] : 3;
-        // note 79: one compact Lipscani building becomes the hidden football bar (walk-in ground floor with a real doorway)
-        let door = null;
-        if (bar && !barInfo) { const o2 = obb(p); if (o2 && o2.len >= 10 && o2.wid >= 8 && Math.abs(polyArea(p)) / (o2.len * o2.wid) > 0.82 && cx > bar.x0 && cx < bar.x1) {
-            const lips = ways.filter((w) => /Lipscani/.test(w.name || '') && w.k === 'pedestrian');
-            for (let i = 0; i < p.length && !door; i++) { const [ax, az] = p[i], [bx, bz] = p[(i + 1) % p.length], L = Math.hypot(bx - ax, bz - az), mx = (ax + bx) / 2, mz = (az + bz) / 2; if (L < 7) continue; const nx0 = (bz - az) / L, nz0 = -(bx - ax) / L; if (!lips.some((w) => { const q = distPolyline(mx, mz, w.pts); return q.d < 9 && (q.cx - mx) * nx0 + (q.cz - mz) * nz0 > 0.5; })) continue; /* the edge FACING Lipscani */ door = { i, a: [ax, az], b: [bx, bz], L, mx, mz, ux: (bx - ax) / L, uz: (bz - az) / L, nx: (bz - az) / L, nz: -(bx - ax) / L }; } } }
-        if (door) {
-            const d0 = [door.mx - door.ux * 1.0, door.mz - door.uz * 1.0], d1 = [door.mx + door.ux * 1.0, door.mz + door.uz * 1.0];
-            for (let i = 0; i < p.length; i++) { const A = p[i], B = p[(i + 1) % p.length]; const segs = i === door.i ? [[A, d0], [d1, B]] : [[A, B]]; for (const [P0, P1] of segs) { const gw = oneSided(wallGeometry([P0, P1], base, gmax + GF, shop.S, gmax - 2 * GF, col), P0, P1); b.add(gw, shop.key, null, col); } }
-            b.add(oneSided(wallGeometry([d0, d1], gmax + 2.7, gmax + GF, shop.S, gmax - 3 * GF, col), d0, d1), shop.key, null, col);
-            barInfo = { bd, p, gmax, GF, top, door, col };
-        } else b.add(wallGeometry(p, base, gmax + GF, shop.S, gmax - row * GF, col), shop.key, null, col);
+        b.add(wallGeometry(p, base, gmax + GF, shop.S, gmax - row * GF, col), shop.key, null, col);
         b.add(wallGeometry(p, gmax + GF, top, fac.S, gmax + GF, col), fac.key, null, col);
         const light = '#f2ede2';
         b.prism(grow(p, 0.16), gmax + GF - 0.22, gmax + GF + 0.12, light, 'stone');                       // string course
@@ -124,149 +106,14 @@ function oldTownFronts(ctx, { exclude = [], bar = null } = {}) {
                 for (const [uu, s] of [[u0, 1], [u1, -1]]) rails.quad(P(uu, 0.02, yb), P(uu, D, yb), P(uu, D, yb + 1.0), P(uu, 0.02, yb + 1.0), '#ffffff', 'iron', [0, 0, D / 1.6, 0, D / 1.6, 1, 0, 1]);
             }
         }
-        if (barInfo?.bd === bd) { ringWalls(ctx, p, base - 1, top + 1, [{ x: barInfo.door.mx, z: barInfo.door.mz, w: 2.0 }]); } else ctx.poly(p, { y0: base - 1, y1: top + 1 });
+        ctx.poly(p, { y0: base - 1, y1: top + 1 });
         built.push({ bd, p, inner: grow(p, -0.4), top, gmax, GF, lv });
     }
     // OSM footprints that overlap a rebuilt front (duplicate / overlapping ways) would z-fight with it: drop them
     for (const x of d.buildings) { if (x.part || ctx.skipBuildings.has(x.id)) continue; const [qx, qz] = centroid(x.poly); if (built.some((B) => inPoly(qx, qz, B.p) || x.poly.filter(([vx, vz]) => inPoly(vx, vz, B.inner)).length >= 2)) ctx.skipBuildings.add(x.id); }
     ctx.add(b.build('old-town-fronts', { matOverrides: mats }));
     ctx.add(rails.build('old-town-balconies', { castShadow: true, matOverrides: { iron: ironRailMaterial() } }));
-    return { built, ways, bar: barInfo };
-}
-
-// ---------------------------------------------------------------------------- note 79: the hidden football bar + World Cup Predictions kiosk
-// Not a real venue: a World Cup–themed sports bar inside one Lipscani building, showcasing the owner's own project World Cup
-// Predictions (previews captured from the live site into game/assets/wcp/). Generic football only: no official logos or trophy.
-const WCP_URL = 'https://wcpredictions.cristiancalina.com/';
-const WCP_PAGES = ['home', 'matches', 'standings', 'bracket', 'today', 'guide'];
-const NATIONS = [['#002b7f', '#fcd116', '#ce1126'], ['#000000', '#dd0000', '#ffce00'], ['#0055a4', '#ffffff', '#ef4135'], ['#009246', '#ffffff', '#ce2b37'], ['#74acdf', '#ffffff', '#74acdf'], ['#009c3b', '#ffdf00', '#002776'], ['#c60b1e', '#ffc400', '#c60b1e'], ['#ff6600', '#ffffff', '#21468b'], ['#006600', '#ff0000', '#ffcc00'], ['#ffffff', '#cf142b', '#ffffff'], ['#000000', '#ffd700', '#e00000'], ['#006847', '#ffffff', '#ce1126']];
-function pitchCanvas() {
-    const c = canvas(512, 288), x = c.getContext('2d');
-    const P = Array.from({ length: 22 }, (_, i) => ({ x: 60 + (i % 11) * 36 + (i < 11 ? 0 : 20), y: 50 + ((i * 37) % 190), t: i < 11 ? 0 : 1 })), ball = { x: 256, y: 144, vx: 2.4, vy: 1.3 };
-    let score = [0, 0], tm = 0;
-    const draw = (t) => {
-        x.fillStyle = '#2f7d32'; x.fillRect(0, 0, 512, 288); for (let i = 0; i < 8; i++) { x.fillStyle = i % 2 ? '#2b752e' : '#338537'; x.fillRect(16 + i * 60, 16, 60, 256); }
-        x.strokeStyle = 'rgba(255,255,255,0.85)'; x.lineWidth = 2; x.strokeRect(16, 16, 480, 256); x.beginPath(); x.moveTo(256, 16); x.lineTo(256, 272); x.stroke(); x.beginPath(); x.arc(256, 144, 36, 0, 7); x.stroke(); x.strokeRect(16, 84, 60, 120); x.strokeRect(436, 84, 60, 120);
-        ball.x += ball.vx; ball.y += ball.vy; if (ball.y < 22 || ball.y > 266) ball.vy *= -1; if (ball.x < 20 || ball.x > 492) { if (ball.y > 110 && ball.y < 178) score[ball.x < 20 ? 1 : 0]++; ball.x = 256; ball.y = 144; ball.vx = (Math.random() < 0.5 ? -1 : 1) * (1.8 + Math.random()); ball.vy = (Math.random() - 0.5) * 3; }
-        for (const p of P) { p.x += (ball.x - p.x) * 0.012 + Math.sin(t * 1.3 + p.y) * 0.6; p.y += (ball.y - p.y) * 0.01 + Math.cos(t + p.x) * 0.5; x.fillStyle = p.t ? '#f2f2f2' : '#c8102e'; x.beginPath(); x.arc(p.x, p.y, 4.5, 0, 7); x.fill(); }
-        x.fillStyle = '#ffffff'; x.beginPath(); x.arc(ball.x, ball.y, 3, 0, 7); x.fill();
-        x.fillStyle = 'rgba(0,0,0,0.65)'; x.fillRect(12, 6, 150, 22); x.fillStyle = '#fff'; x.font = '700 15px Helvetica, Arial'; x.fillText(`RED ${score[0]} – ${score[1]} WHT  ${String(Math.floor(tm / 60) % 90).padStart(2, '0')}'`, 18, 22);
-    };
-    draw(0);
-    return { c, step(dt, t) { tm += dt * 6; draw(t); } };
-}
-// note 84: the kiosk opens a panel about the project (facts only from the site's own home / guide pages), with a screenshot
-// carousel and "Open the site"; same panel container + close rules as the spot plaques (Esc / E / Close, focus back to the game)
-const WCP_CAPS = { home: 'Home — the 2026 tournament at a glance', matches: 'Matches — every fixture, pick the outcome', standings: 'Standings — the World leaderboard and your groups', bracket: 'Bracket — groups through to the final', today: 'Today — the matchday board with live results', guide: 'Guide — how picks and points work' };
-let WCP_CSS = false;
-function wcpPanel(s, onSeen) {
-    const ui = s.ui, p = ui.$('.sp-panel'); if (!p || ui.panelOpen) return;
-    if (!WCP_CSS) { WCP_CSS = true; const st = document.createElement('style'); st.textContent = `
-#spot-ui .wcp{width:min(760px,calc(100vw - 24px));max-height:calc(100vh - 24px);overflow:auto;background:linear-gradient(165deg,#0f2a1a,#0b1d13);border:2px solid #f4d35e;border-radius:12px;padding:18px 20px;color:#eef3ea;box-shadow:0 20px 60px rgba(0,0,0,.6);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-#spot-ui .wcp h3{margin:0;font-size:24px;color:#f4d35e} #spot-ui .wcp .wcp-sub{margin:4px 0 12px;opacity:.9}
-#spot-ui .wcp h4{margin:12px 0 6px;font-size:15px;text-transform:uppercase;letter-spacing:1px;color:#f4d35e}
-#spot-ui .wcp ul{margin:0 0 6px 18px;padding:0} #spot-ui .wcp li{margin:0 0 5px}
-#spot-ui .wcp .wcp-car{position:relative;margin-top:10px;background:#000;border-radius:8px;overflow:hidden;touch-action:pan-y}
-#spot-ui .wcp .wcp-car img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#0b0f0c}
-#spot-ui .wcp .wcp-cap{font-size:13px;opacity:.85;margin:6px 2px 0;text-align:center}
-#spot-ui .wcp .wcp-nav{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:0;background:rgba(0,0,0,.55);color:#fff;font:700 20px system-ui;cursor:pointer}
-#spot-ui .wcp .wcp-prev{left:8px} #spot-ui .wcp .wcp-next{right:8px}
-#spot-ui .wcp .wcp-dots{display:flex;gap:6px;justify-content:center;margin-top:6px} #spot-ui .wcp .wcp-dots span{width:8px;height:8px;border-radius:50%;background:#4b5b50} #spot-ui .wcp .wcp-dots span.on{background:#f4d35e}
-#spot-ui .wcp .wcp-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px} #spot-ui .wcp .wcp-btns a,#spot-ui .wcp .wcp-btns button{font:700 15px system-ui;border-radius:8px;padding:10px 16px;cursor:pointer;text-decoration:none;border:0}
-#spot-ui .wcp .wcp-open{background:#f4d35e;color:#0f2a1a} #spot-ui .wcp .wcp-close{background:#2c3e33;color:#eef3ea}
-@media (max-width:480px){#spot-ui .wcp{padding:14px 14px;font-size:14px} #spot-ui .wcp h3{font-size:20px}}`; document.head.appendChild(st); }
-    if (s.input) { s.input.lookAllowed = false; s.input.releaseLock?.(); }
-    const url = (n) => new URL(`../../../assets/wcp/${n}.webp`, import.meta.url).href;
-    p.innerHTML = `<div class="wcp" role="dialog" aria-label="World Cup Predictions"><h3>World Cup Predictions</h3>
-<div class="wcp-sub">A side project by Cristian, built for fun — a World Cup 2026 prediction game to play with friends.</div>
-<h4>How it works</h4><ul>
-<li>Build as many fun prediction sets as you like, then submit one official set per edition — to the World leaderboard or to your private groups.</li>
-<li>Every saved pick is a "contract": its points are frozen from the odds when you save, so harder correct picks pay more (a 64 % favourite: +10 / −9; a 12 % underdog: +38 / −2).</li>
-<li>Private groups use reusable invite links and the same scoring as World.</li>
-<li>Picks stay hidden until you submit them to that scope, and become a read-only archive after the tournament.</li>
-<li>The whole 2026 tournament: 48 teams, 104 matches, from the groups to the final bracket, a matchday board with live results, an AI forecast, in Romanian and English.</li></ul>
-<div class="wcp-car"><img alt=""><button class="wcp-nav wcp-prev" aria-label="Previous">‹</button><button class="wcp-nav wcp-next" aria-label="Next">›</button></div>
-<div class="wcp-cap"></div><div class="wcp-dots">${WCP_PAGES.map(() => '<span></span>').join('')}</div>
-<div class="wcp-btns"><a class="wcp-open" href="${WCP_URL}" target="_blank" rel="noopener">Open the site ↗</a><button class="wcp-close" data-close>Close</button></div></div>`;
-    let i = 0; const img = p.querySelector('.wcp-car img'), cap = p.querySelector('.wcp-cap'), dots = [...p.querySelectorAll('.wcp-dots span')];
-    const show = (k) => { i = (k + WCP_PAGES.length) % WCP_PAGES.length; img.src = url(WCP_PAGES[i]); img.alt = WCP_CAPS[WCP_PAGES[i]]; cap.textContent = `${i + 1} / ${WCP_PAGES.length} · ${WCP_CAPS[WCP_PAGES[i]]}`; dots.forEach((d, j) => d.classList.toggle('on', j === i)); };
-    show(0); p.classList.add('show'); onSeen?.();
-    p.querySelector('.wcp-prev').onclick = () => show(i - 1); p.querySelector('.wcp-next').onclick = () => show(i + 1);
-    { const car = p.querySelector('.wcp-car'); let x0 = null; car.addEventListener('pointerdown', (e) => { x0 = e.clientX; }); car.addEventListener('pointerup', (e) => { if (x0 !== null && Math.abs(e.clientX - x0) > 40) show(i + (e.clientX < x0 ? 1 : -1)); x0 = null; }); }
-    p.querySelector('.wcp-open').addEventListener('click', () => onSeen?.());
-    const swallowUp = (e) => { e.preventDefault(); e.stopPropagation(); window.removeEventListener('keyup', swallowUp, true); };
-    const close = (e) => { if (!p.classList.contains('show')) return; p.classList.remove('show'); window.removeEventListener('keydown', key, true); if (e?.type === 'keydown') window.addEventListener('keyup', swallowUp, true); document.activeElement?.blur?.(); p.innerHTML = ''; ui._closePanel = null; if (s.input) { s.input.lookAllowed = true; s.input.flush?.(); s.input.keys?.clear?.(); } s.returnFocus?.(); };
-    const key = (e) => { if (['Escape', 'KeyE'].includes(e.code)) { e.preventDefault(); e.stopPropagation(); close(e); } else if (e.code === 'ArrowLeft' || e.code === 'ArrowRight') { e.preventDefault(); e.stopPropagation(); show(i + (e.code === 'ArrowRight' ? 1 : -1)); } };
-    p.querySelector('[data-close]').onclick = () => close(); p.onclick = (e) => { if (e.target === p) close(); };
-    setTimeout(() => window.addEventListener('keydown', key, true), 120);
-    ui._closePanel = close;
-}
-function buildWcpBar(ctx, B) {
-    const g = ctx.ground, { p, gmax, door } = B, y = gmax + 0.03, H = 4.1, b = new GeoBatch();
-    // the bar is one room ≈ 10 m deep behind the street front (a real Lipscani bar), not the whole building: a back wall closes it
-    const o = obb(p), D = Math.max(6, Math.min(10.5, Math.max(o.wid, o.len) - 1)), RW = door.L / 2 - 0.3;
-    const Q = (u, v) => [door.mx + door.ux * u - door.nx * v, door.mz + door.uz * u - door.nz * v];
-    let inner = [Q(-RW, 0.3), Q(RW, 0.3), Q(RW, D), Q(-RW, D)]; if (polyArea(inner) < 0) inner = inner.reverse();
-    { const [ax, az] = Q(-RW, D), [bx, bz] = Q(RW, D); wallSeg(ctx, ax, az, bx, bz, y - 1, y + H); }
-    // floor (walkable), ceiling, warm dark-red interior walls with a wood dado
-    let floorP = [Q(-RW, -0.12), Q(RW, -0.12), Q(RW, D), Q(-RW, D)]; if (polyArea(floorP) < 0) floorP = floorP.reverse(); // floor runs out under the threshold (no grass strip in the doorway)
-    b.flat(floorP, y, '#5a3a24', 'wood'); g.addPoly(floorP, y, y - 2);
-    { const cg = flatGeometry(inner, y + H); const idx = cg.index.array; for (let i = 0; i < idx.length; i += 3) { const t = idx[i]; idx[i] = idx[i + 1]; idx[i + 1] = t; } cg.computeVertexNormals(); b.add(cg, 'paint', null, '#2a2220'); cg.dispose(); }
-    const inward = (geo) => { const ix = geo.index.array; for (let i = 0; i < ix.length; i += 3) { const t = ix[i]; ix[i] = ix[i + 1]; ix[i + 1] = t; } geo.computeVertexNormals(); return geo; }; // wallGeometry faces outward: flip to face into the room
-    b.add(inward(wallGeometry(inner, y, y + H, { bay: 3, floor: 4 }, y, '#9a4434')), 'paint', null, '#9a4434'); b.add(inward(wallGeometry(grow(inner, -0.03), y, y + 1.0, { bay: 3, floor: 4 }, y, '#4a2e1c')), 'wood', null, '#4a2e1c');
-    // local frame: u along the street front, v inward
-    ctx.extras.wcpDoor = { mx: door.mx, mz: door.mz, nx: door.nx, nz: door.nz, y };
-    const ux = door.ux, uz = door.uz, vx = -door.nx, vz = -door.nz, depth = D - 0.3, half = door.L / 2 - 0.6;
-    const P = (u, v) => [door.mx + ux * u + vx * v, door.mz + uz * u + vz * v], yaw = Math.atan2(ux, uz);
-    // bar counter along the back wall, taps, bottle shelves, stools
-    const cv = depth - 1.6; { const [x, z] = P(0, cv); b.box(x, y, z, 0.7, 1.08, door.L * 0.62, '#3b2416', 'wood', yaw); b.box(x, y + 1.08, z, 0.82, 0.06, door.L * 0.64, '#1d1a17', 'stone', yaw); ctx.box(x, z, door.L * 0.31, 0.4, Math.atan2(vx, vz) + Math.PI / 2, { prop: true, h: 1.1 });
-        for (let k = -3; k <= 3; k++) { const [tx, tz] = P(k * 0.35, cv + 0.15); b.cyl(tx, y + 1.14, tz, 0.03, 0.42, '#c9c9c9', 'chrome', 8); b.box(tx, y + 1.5, tz, 0.07, 0.14, 0.05, NATIONS[(k + 6) % NATIONS.length][0], 'paint', yaw); }
-        const [sx, sz] = P(0, depth - 0.25); for (const hh of [1.3, 1.8, 2.3]) { b.box(sx, y + hh, sz, 0.3, 0.04, door.L * 0.62, '#3b2416', 'wood', yaw); for (let k = 0; k < 26; k++) { const [bx, bz] = P(-door.L * 0.29 + k * door.L * 0.58 / 25, depth - 0.25); b.cyl(bx, y + hh + 0.04, bz, 0.035, 0.26, ['#2e5a2e', '#6b3a1a', '#d8d0b0', '#3a2a5a', '#8a1a1a'][k % 5], 'glass', 6); } }
-        for (let k = -2; k <= 2; k++) { const [qx, qz] = P(k * door.L * 0.13, cv - 0.75); b.cyl(qx, y, qz, 0.03, 0.75, '#222', 'metal', 6); b.cyl(qx, y + 0.75, qz, 0.2, 0.06, '#5a1e22', 'fabric', 10); } }
-    // high tables, scarves and flags of many nations, bunting across the ceiling
-    for (const [u, v] of [[-half * 0.6, 1.8], [half * 0.6, 1.8], [-half * 0.6, 3.6], [half * 0.6, 3.6]]) { if (v > cv - 1.2) continue; const [x, z] = P(u, v); b.cyl(x, y, z, 0.05, 1.05, '#1e1f21', 'metal', 6); b.cyl(x, y + 1.05, z, 0.38, 0.04, '#3b2416', 'wood', 12); ctx.circle(x, z, 0.4, 1.1); }
-    NATIONS.forEach((n, i) => { const side = i % 2 ? 1 : -1, v = 0.8 + (i >> 1) * Math.max(0.6, (depth - 1.6) / 6); const [x, z] = P(side * (door.L / 2 - 0.36), v); for (let k = 0; k < 3; k++) b.box(x, y + 2.3 + k * 0.42, z, 0.03, 0.42, 1.0, n[k], 'fabric', yaw); });
-    for (let row = 0; row < 3; row++) { const v = 1.2 + row * (depth - 2) / 3, n = 16; for (let k = 0; k < n; k++) { const u = -half + k * (half * 2) / (n - 1), [x, z] = P(u, v), col = NATIONS[(k + row * 5) % NATIONS.length][k % 3]; b.add(new THREE.ConeGeometry(0.12, 0.26, 3), 'fabric', M(x, y + H - 0.32, z, Math.PI, yaw, 0), col); } }
-    for (let k = 0; k < 5; k++) { const [x, z] = P(-half + 0.3 + k * 0.5, cv - 0.02); b.box(x, y + 1.6, z, 0.18, 0.9, 0.02, NATIONS[k * 2][k % 2], 'fabric', yaw); } // scarves hung on the bar front
-    // TVs: three screens on the side walls + one over the bar, all showing the same animated generic match
-    const pc = pitchCanvas(), tvTex = canvasTexture(pc.c), tvMat = new THREE.MeshBasicMaterial({ map: tvTex, color: new THREE.Color(0.8, 0.8, 0.8), toneMapped: false }); tvMat.name = 'wcp-tv';
-    const tvs = [];
-    const tv = (u, v, ry, w = 1.6) => { const [x, z] = P(u, v); b.box(x, y + 2.1, z, w + 0.08, w * 0.5625 + 0.08, 0.06, '#111', 'plastic', ry); const m = new THREE.Mesh(new THREE.PlaneGeometry(w, w * 0.5625), tvMat); m.position.set(x + Math.sin(ry) * 0.035, y + 2.1 + (w * 0.5625 + 0.08) / 2, z + Math.cos(ry) * 0.035); m.rotation.y = ry; ctx.add(m); tvs.push(m); };
-    tv(0, depth - 0.3, yaw + Math.PI, 1.9); tv(-(door.L / 2 - 0.32), Math.min(depth * 0.45, 3.2), yaw + Math.PI / 2, 1.5); tv(door.L / 2 - 0.32, Math.min(depth * 0.45, 3.2), yaw - Math.PI / 2, 1.5);
-    let acc = 0; ctx.onUpdate((dt, s) => { const pp = s.position; if (Math.hypot(pp.x - door.mx, pp.z - door.mz) > 40) return; acc += dt; if (acc < 0.08) return; pc.step(acc, s.t); acc = 0; tvTex.needsUpdate = true; });
-    // the World Cup Predictions kiosk (owner's project): a standing screen cycling through the site previews; E = next page
-    const kv = Math.min(1.6, depth * 0.3), [kx, kz] = P(-(half - 0.5), kv), kyaw = yaw + Math.PI / 2 * 0 + Math.atan2(0, 1) + Math.PI * 0 + (Math.PI / 2); void kyaw;
-    const kioskYaw = Math.atan2(ux, uz) + Math.PI / 2; // faces +u (into the room from the left wall)
-    b.box(kx, y, kz, 0.6, 0.9, 0.5, '#1d1f22', 'plastic', kioskYaw); b.box(kx, y + 0.9, kz, 0.12, 0.6, 0.12, '#1d1f22', 'metal', kioskYaw);
-    const tl = new THREE.TextureLoader(), pages = WCP_PAGES.map((n) => { const t = tl.load(new URL(`../../../assets/wcp/${n}.webp`, import.meta.url).href); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; });
-    const kMat = new THREE.MeshBasicMaterial({ map: pages[0], color: new THREE.Color(0.82, 0.82, 0.82), toneMapped: false }); kMat.name = 'wcp-kiosk'; // readable: unlit, ~0.82 white, under the bloom threshold
-    const kScr = new THREE.Mesh(new THREE.PlaneGeometry(1.28, 0.8), kMat); const fx = Math.sin(kioskYaw), fz = Math.cos(kioskYaw);
-    b.box(kx, y + 1.45, kz, 1.38, 0.9, 0.08, '#111', 'plastic', kioskYaw); kScr.position.set(kx + fx * 0.045, y + 1.9, kz + fz * 0.045); kScr.rotation.y = kioskYaw; kScr.name = 'wcp-kiosk-screen'; ctx.add(kScr);
-    let page = 0, auto = 0; const show = (i) => { page = (i + pages.length) % pages.length; kMat.map = pages[page]; kMat.needsUpdate = true; };
-    ctx.onUpdate((dt) => { auto += dt; if (auto > 5) { auto = 0; show(page + 1); } });
-    const sg = signAtlas([{ x: kx + fx * 0.05, y: y + 2.5, z: kz + fz * 0.05, yaw: kioskYaw, w: 1.38, h: 0.22, text: 'WORLD CUP PREDICTIONS', bg: '#0f2a1a', fg: '#f1e6c8', border: false, font: (q) => `700 ${q}px Helvetica, Arial, sans-serif` },
-        { x: door.mx + door.nx * 0.14, y: gmax + 3.4, z: door.mz + door.nz * 0.14, yaw: Math.atan2(door.nx, door.nz), w: 3.6, h: 0.6, text: 'GOLAZO · football bar', bg: '#0f2a1a', fg: '#f4d35e' }], { name: 'wcp-signs', night: 1.0 }); if (sg) ctx.add(sg);
-    const kp = { x: kx + fx * 1.0, z: kz + fz * 1.0 };
-    const seen = (s) => { if (!s._wcpSeen) { s._wcpSeen = true; bucActivity(s, 'old-town-lipscani', 'wcp-bar', '⚽ Hidden project', 'World Cup Predictions — a side project by Cristian.'); } };
-    ctx.interactables.push({ hidden: true, x: kp.x, z: kp.z, r: 1.8, label: 'World Cup Predictions — look at the screen', use: (s) => { auto = -6; wcpPanel(s, () => seen(s)); } });
-    ctx.extras.openWcp = (s) => wcpPanel(s, () => seen(s)); // dev / screenshots
-    ctx.plaque({ title: 'A project by Cristian — World Cup Predictions', text: 'Not a real bar: a nod to the author\'s side project World Cup Predictions — a web app to predict every match of the tournament with friends, with live standings, the knockout bracket and a daily view. Browse it on the screen, or open the site.', source: WCP_URL, source_url: WCP_URL }, kx + ux * 1.9 + fx * 0.3, kz + uz * 1.9 + fz * 0.3, kioskYaw, { style: 'city', y });
-    // warm pendant lights, chants
-    for (const [u, v] of [[-half * 0.5, depth * 0.35], [half * 0.5, depth * 0.35], [0, depth * 0.7]]) { const [x, z] = P(u, v); b.rod([x, y + H, z], [x, y + H - 0.7, z], 0.01, '#111', 'metal', 3); b.sphere(x, y + H - 0.78, z, 0.22, 0.16, 0.22, '#ffcf8a', 'glow', 10, 6); }
-    for (const v of [0.6, D - 0.5]) { const [x, z] = P(0, v); b.box(x, y + H - 0.12, z, 0.08, 0.06, door.L - 1.2, '#ffd9a0', 'glow', yaw); } // warm LED strips under the ceiling
-    // Romanian supporters (owner, note 79): a "TRICOLORII" banner in blue-yellow-red over the screen wall
-    { const [x, z] = P(0, depth - 0.12); for (let k = 0; k < 3; k++) { const [bx, bz] = P((k - 1) * 0.9, depth - 0.12); b.box(bx, y + 3.15, bz, 0.9, 0.6, 0.02, ['#002b7f', '#fcd116', '#ce1126'][k], 'fabric', yaw); } void x; void z;
-      const bs = signAtlas([{ x: P(0, depth - 0.16)[0], y: y + 3.45, z: P(0, depth - 0.16)[1], yaw: yaw + Math.PI, w: 2.4, h: 0.36, text: 'HAI ROMÂNIA! · TRICOLORII', bg: '#fcd116', fg: '#002b7f', border: false, font: (q) => `800 ${q}px Helvetica, Arial, sans-serif` }], { name: 'wcp-banner', night: 0.6 }); if (bs) ctx.add(bs); }
-    ctx.add(b.build('wcp-bar', { castShadow: false }));
-    for (const v of [D * 0.3, D * 0.7]) { const [x, z] = P(0, v); ctx.lampPoints.push({ x, z, h: H - 0.9 + (y - g.heightAt(x, z)), noPost: true }); }
-    ctx.sound('crowd', door.mx + vx * depth / 2, door.mz + vz * depth / 2, 14, 1.0);
-    // fans: watching the screens, sitting at the bar, a group at the high tables
-    const [fx0, fz0] = P(0, Math.min(depth * 0.35, cv - 1.8)), [tvx, tvz] = P(0, depth);
-    return { door, groups: [
-        ...[[-half * 0.22, 2.7], [half * 0.22, Math.min(4.9, cv - 2.2)], [0, Math.min(6.4, cv - 1.4)]].map(([u, v]) => { const [gx, gz] = P(u, v); return { x: gx, z: gz, r: 0.55, n: 3, act: 'watch', look: [tvx, tvz], fixedYaw: true, y, personas: ['fan_ro'] }; }), // three groups round the high tables, all facing the screen over the bar
-        ...[-1, 1].map((k) => { const [qx, qz] = P(k * door.L * 0.13, cv - 0.75); return { x: qx, z: qz, r: 0.01, n: 1, act: 'sit', yaw: yaw + Math.PI / 2 * 0 + Math.atan2(vx, vz) - yaw, y, fixedYaw: true, personas: ['fan_ro'] }; }),
-        { x: door.mx + vx * 0.9 + ux * (half - 0.4), z: door.mz + vz * 0.9 + uz * (half - 0.4), r: 0.6, n: 2, act: 'talk', y, personas: ['fan_ro'] },
-    ] };
+    return { built, ways };
 }
 
 // ---------------------------------------------------------------------------- festoon string lights (note 25)
@@ -555,16 +402,7 @@ export default {
         // Caru' cu Bere (Str. Stavropoleos 5): neo-Gothic front, sign, queue
         const caruB = d.buildings.find((x) => x.id === 'w1456401783');
         if (caruB) { ctx.skipBuildings.add(caruB.id); const b = new GeoBatch(), y = Math.min(...caruB.poly.map(([x, z]) => g.heightAt(x, z))) - 0.2; const fac = classicFacade('caru', [{ t: 'arch', w: 0.36, top: 0.1, bottom: 0.06, rustic: true }, { t: 'arch2', w: 0.34, pil: true }, { t: 'arch', w: 0.26, pil: true, top: 0.3 }, { t: 'small', w: 0.24 }], { bay: 3.2, floor: 4.2, lit: 0.85 }); classicWalls(b, fac, caruB.poly, y, y + 15.5, '#c9b79a', y); b.flat(caruB.poly, y + 15.5, '#6b5f55', 'roofs'); const o = obb(caruB.poly); b.add(new THREE.ConeGeometry(4.5, 5, 4), 'roofs', M(-111, y + 18, -73.5, 0, Math.PI / 4, 0, 1, 1, 0.35), '#5a4f46'); ctx.poly(caruB.poly, { y0: y - 1, y1: y + 22 }); ctx.add(b.build('caru-cu-bere', { matOverrides: { [fac.key]: fac.mat } })); void o; }
-        const OT = oldTownFronts(ctx, { bar: { x0: 225, x1: 300 } });
-        const WB = OT.bar ? buildWcpBar(ctx, OT.bar) : null;
-        if (WB) { // the fans: yellow national-team shirts (some blue / red), tricolour scarves; chants in Romanian with English glosses
-            const dl = (spL.dialogue = spL.dialogue || { lines: [], personas: [] }); dl.lines = dl.lines || [];
-            if (!dl.lines.some((l) => l.p === 'fan_ro')) for (const [orig, text, c] of [['Hai România!', 'Come on, Romania!', 'spot'], ['Olé, olé, olé, Tricolorii!', 'Olé, olé, olé, the Tricolours!', 'spot'], ['Gooool! Ce gol, frate!', 'Goal! What a goal, man!', 'spot'], ['Hai, mă, trage odată!', 'Come on, just shoot!', 'idle'], ['Arbitrul n-a văzut nimic!', 'The referee saw nothing!', 'idle'], ['Ia loc, meciul abia a început!', 'Grab a seat, the match has just started!', 'greeting'], ['Noroc! Hai la încă o bere după repriză.', 'Cheers! Another beer at half-time.', 'greeting']]) dl.lines.push({ p: 'fan_ro', ctx: c, text, orig, lang: 'ro' });
-            if (!dl.lines.some((l) => /football bar/.test(l.text))) dl.lines.push({ p: 'local_young', ctx: 'spot', text: 'There is a little football bar down Lipscani — they show every match, the fans sing.', orig: 'E un bar mic de fotbal pe Lipscani — dau toate meciurile, fanii cântă.', lang: 'ro' });
-            let dressed = false;
-            ctx.onUpdate((dt, s) => { if (dressed) return; const C = s.spot.crowd; if (!C?.cr) return; dressed = true; const rr = rng(79);
-                C.peds.forEach((q, i) => { if (q.persona !== 'fan_ro') return; const o = dressFor('bucharest', 'summer', null, rr); o.top = rr() < 0.7 ? '#fcd116' : rr() < 0.5 ? '#002b7f' : '#ce1126'; o.acc = rr.pick(['#002b7f', '#ce1126', '#fcd116']); o.flags = (o.flags || 0) & ~(1 | 2 | 4); C.cr.dress(i, o); }); });
-        }
+        const OT = oldTownFronts(ctx);
         // ground: shared-surface grey granite setts over every pedestrian street (no kerbs), slab bands
         ctx.terrainOpts = { bg: '#8f8b84', bgMask: 'cobble', innerPx: 2048, innerStep: 3, outerStep: 16, outerPad: 700 };
         bucBackdrop(ctx, { lampStyle: 'lantern', lampColor: '#191b1c', lampH: 4.4, lampPad: 15, treeLod: { cap: 1600, max: 400 }, lampOpts: { spacing: 24, kinds: ['pedestrian', 'living_street'] }, streetTreeOpts: { kinds: ['primary', 'secondary', 'tertiary'], prob: 0.5 }, style: (bd) => (bd.k === 'church' ? 'eclectic' : undefined) });
@@ -624,7 +462,6 @@ export default {
         if (caruB) groups.push({ line: [[-111, -70.2], [-105, -69.6], [-99, -69.2], [-93, -68.8]], n: 9, act: 'queue', personas: ['tourist_de', 'tourist_us', 'local_young', 'tourist_fr', 'tourist_uk'] });
         if (CA) groups.push({ x: CA.front.x + CA.front.nx * 4, z: CA.front.z + CA.front.nz * 4, r: 2.5, n: 5, act: 'photo', look: [CA.front.x, CA.front.z], personas: ['tourist_it', 'tourist_us', 'local_young'] }, { x: CA.ecx, z: CA.ecz, r: 3, n: 5, act: 'watch', personas: ['local_young', 'tourist_uk', 'tourist_fr'] });
         groups.push({ x: CV.bust.x - 3, z: CV.bust.z - 3.5, r: 0.3, n: 1, act: 'watch', personas: ['vendor'] }, { x: CV.bust.x + 2, z: CV.bust.z - 4, r: 2, n: 4, act: 'photo', look: [CV.bust.x, CV.bust.z], personas: ['tourist_uk', 'tourist_it', 'tourist_us'] });
-        if (WB) groups.push(...WB.groups);
         groups.push({ x: 60, z: -66, r: 0.3, n: 1, act: 'perform', personas: ['busker'], prop: 'guitar' }, { x: 62, z: -62, r: 2.5, n: 4, act: 'watch', look: [60, -66], personas: ['local_young', 'tourist_uk'] });
         if (MA) groups.push({ x: MA.gate.x + MA.gn.x * 2.5 + MA.gn.z * 2.6, z: MA.gate.z + MA.gn.z * 2.5 - MA.gn.x * 2.6, r: 0.3, n: 1, act: 'watch', yaw: Math.atan2(MA.gn.x, MA.gn.z), personas: ['waiter'] });
         ctx.crowdCfg = {

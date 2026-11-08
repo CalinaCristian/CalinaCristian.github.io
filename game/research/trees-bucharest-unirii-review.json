@@ -1,0 +1,714 @@
+{
+  "schemaVersion": 1,
+  "district": "unirii",
+  "sourceInput": "game/research/trees-bucharest-unirii.json",
+  "rawInputSha256": "b48751f17b334ce318fc7152703c121b6ab6426db7fe39292520f3346d339e50",
+  "rawCandidateCount": 40574,
+  "remainingCandidateCount": 40551,
+  "excludedCount": 23,
+  "affectedCompiledBeforeCount": 6,
+  "reviewedAt": "2026-11-08",
+  "provider": "Esri World Imagery",
+  "officialEndpoint": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+  "acquisitionDate": null,
+  "accessedAt": "2026-11-08",
+  "mosaicSha256": "79c9a539fbd7f0326fddbefc88ecb22c7a8b7229057912d071e4678fd58bdc29",
+  "mosaicMetadata": {
+    "z": 18,
+    "px0": 38417664,
+    "py0": 24286976,
+    "w": 8192,
+    "h": 6912,
+    "bbox": [
+      44.417,
+      26.089,
+      44.442,
+      26.132
+    ],
+    "mPerPx": 0.42644238868906365,
+    "attribution": "Esri, Maxar, Earthstar Geographics, and the GIS User Community"
+  },
+  "method": "Manual inspection of exact georeferenced 40 m ground crops centred on individual automatic candidate positions, plus full registered atlas context. Selection regions only choose review candidates; exclusions are explicit raw candidate IDs. RGB yellow selection only selects controls, never automatically rejects. Every promoted negative crop was inspected; uncertain vegetation, all actual crowns and all OSM tree records remain. No performance thinning.",
+  "imageryCommitted": false,
+  "rawRetention": "Every excluded raw candidate remains below, with its original index, coordinate and crown radius. Original input hash and mosaic hash retain provenance. The active trees array removes only these explicitly reviewed false detections.",
+  "inspectedPrivateSheets": [
+    {
+      "id": "unirii-01",
+      "sha256": "0ffe4e71a775cd1c7c108a6b213ec9373ef295a0f18945153328ab8e779586e7"
+    }
+  ],
+  "positiveAndAmbiguousControls": [
+    {
+      "rawInputIndex": 679,
+      "rawCandidate": [
+        44.416544,
+        26.105753,
+        3.5
+      ],
+      "classification": "retained actual or ambiguous crown/vegetation; no deletion promoted"
+    },
+    {
+      "rawInputIndex": 795,
+      "rawCandidate": [
+        44.416628,
+        26.103596,
+        4.4
+      ],
+      "classification": "retained actual or ambiguous crown/vegetation; no deletion promoted"
+    },
+    {
+      "rawInputIndex": 6340,
+      "rawCandidate": [
+        44.42,
+        26.122565,
+        7.7
+      ],
+      "classification": "retained actual or ambiguous crown/vegetation; no deletion promoted"
+    },
+    {
+      "rawInputIndex": 10282,
+      "rawCandidate": [
+        44.422536,
+        26.096054,
+        3.1
+      ],
+      "classification": "retained actual or ambiguous crown/vegetation; no deletion promoted"
+    },
+    {
+      "rawInputIndex": 13215,
+      "rawCandidate": [
+        44.424153,
+        26.117029,
+        3.5
+      ],
+      "classification": "retained actual or ambiguous crown/vegetation; no deletion promoted"
+    },
+    {
+      "rawInputIndex": 23239,
+      "rawCandidate": [
+        44.430689,
+        26.089531,
+        3.5
+      ],
+      "classification": "retained actual or ambiguous crown/vegetation; no deletion promoted"
+    },
+    {
+      "rawInputIndex": 24712,
+      "rawCandidate": [
+        44.431707,
+        26.105881,
+        4.0
+      ],
+      "classification": "retained actual or ambiguous crown/vegetation; no deletion promoted"
+    },
+    {
+      "rawInputIndex": 25294,
+      "rawCandidate": [
+        44.432144,
+        26.091526,
+        2.2
+      ],
+      "classification": "retained actual or ambiguous crown/vegetation; no deletion promoted"
+    },
+    {
+      "rawInputIndex": 28468,
+      "rawCandidate": [
+        44.434496,
+        26.116439,
+        3.5
+      ],
+      "classification": "retained actual or ambiguous crown/vegetation; no deletion promoted"
+    },
+    {
+      "rawInputIndex": 32906,
+      "rawCandidate": [
+        44.437415,
+        26.124431,
+        4.2
+      ],
+      "classification": "retained actual or ambiguous crown/vegetation; no deletion promoted"
+    }
+  ],
+  "exclusions": [
+    {
+      "rawInputIndex": 430,
+      "rawCandidate": [
+        44.416391,
+        26.113424,
+        4.0
+      ],
+      "classification": "reviewed non-crown",
+      "reason": "Roof, bridge/path deck, bare paved yard, park surface or yellow road paint at the candidate centre; exact aerial crop has no canopy there. Actual and ambiguous yellow/brown crowns retained.",
+      "privateReviewSheet": "unirii-01.jpg",
+      "sheetSha256": "0ffe4e71a775cd1c7c108a6b213ec9373ef295a0f18945153328ab8e779586e7",
+      "centreMosaicPixel": [
+        4663.05497315526,
+        6842.881163135171
+      ],
+      "reviewCropMosaicPixels": [
+        4616.155320281909,
+        6795.9815102618195,
+        4709.9546260286115,
+        6889.780816008522
+      ],
+      "cropGroundSideM": 40,
+      "officialSourceTile": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/94897/150087",
+      "compiledBeforeIndex": null
+    },
+    {
+      "rawInputIndex": 867,
+      "rawCandidate": [
+        44.416666,
+        26.130483,
+        2.2
+      ],
+      "classification": "reviewed non-crown",
+      "reason": "Roof, bridge/path deck, bare paved yard, park surface or yellow road paint at the candidate centre; exact aerial crop has no canopy there. Actual and ambiguous yellow/brown crowns retained.",
+      "privateReviewSheet": "unirii-01.jpg",
+      "sheetSha256": "0ffe4e71a775cd1c7c108a6b213ec9373ef295a0f18945153328ab8e779586e7",
+      "centreMosaicPixel": [
+        7843.083059199154,
+        6771.110464118421
+      ],
+      "reviewCropMosaicPixels": [
+        7796.183406325803,
+        6724.21081124507,
+        7889.982712072506,
+        6818.0101169917725
+      ],
+      "cropGroundSideM": 40,
+      "officialSourceTile": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/94897/150099",
+      "compiledBeforeIndex": null
+    },
+    {
+      "rawInputIndex": 1521,
+      "rawCandidate": [
+        44.41705,
+        26.128927,
+        3.1
+      ],
+      "classification": "reviewed non-crown",
+      "reason": "Roof, bridge/path deck, bare paved yard, park surface or yellow road paint at the candidate centre; exact aerial crop has no canopy there. Actual and ambiguous yellow/brown crowns retained.",
+      "privateReviewSheet": "unirii-01.jpg",
+      "sheetSha256": "0ffe4e71a775cd1c7c108a6b213ec9373ef295a0f18945153328ab8e779586e7",
+      "centreMosaicPixel": [
+        7553.023635908961,
+        6670.891905136406
+      ],
+      "reviewCropMosaicPixels": [
+        7506.12398303561,
+        6623.992252263055,
+        7599.923288782313,
+        6717.791558009758
+      ],
+      "cropGroundSideM": 40,
+      "officialSourceTile": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/94897/150098",
+      "compiledBeforeIndex": null
+    },
+    {
+      "rawInputIndex": 3065,
+      "rawCandidate": [
+        44.417954,
+        26.098543,
+        2.9
+      ],
+      "classification": "reviewed non-crown",
+      "reason": "Roof, bridge/path deck, bare paved yard, park surface or yellow road paint at the candidate centre; exact aerial crop has no canopy there. Actual and ambiguous yellow/brown crowns retained.",
+      "privateReviewSheet": "unirii-01.jpg",
+      "sheetSha256": "0ffe4e71a775cd1c7c108a6b213ec9373ef295a0f18945153328ab8e779586e7",
+      "centreMosaicPixel": [
+        1889.0355143100023,
+        6434.95811573416
+      ],
+      "reviewCropMosaicPixels": [
+        1842.1358614366507,
+        6388.0584628608085,
+        1935.935167183354,
+        6481.857768607511
+      ],
+      "cropGroundSideM": 40,
+      "officialSourceTile": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/94896/150076",
+      "compiledBeforeIndex": null
+    },
+    {
+      "rawInputIndex": 5210,
+      "rawCandidate": [
+        44.419264,
+        26.128262,
+        2.2
+      ],
+      "classification": "reviewed non-crown",
+      "reason": "Roof, bridge/path deck, bare paved yard, park surface or yellow road paint at the candidate centre; exact aerial crop has no canopy there. Actual and ambiguous yellow/brown crowns retained.",
+      "privateReviewSheet": "unirii-01.jpg",
+      "sheetSha256": "0ffe4e71a775cd1c7c108a6b213ec9373ef295a0f18945153328ab8e779586e7",
+      "centreMosaicPixel": [
+        7429.058651022613,
+        6093.05643915385
+      ],
+      "reviewCropMosaicPixels": [
+        7382.158998149262,
+        6046.156786280499,
+        7475.9583038959645,
+        6139.9560920272015
+      ],
+      "cropGroundSideM": 40,
+      "officialSourceTile": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/94894/150098",
+      "compiledBeforeIndex": null
+    },
+    {
+      "rawInputIndex": 5235,
+      "rawCandidate": [
+        44.419287,
+        26.111439,
+        3.1
+      ],
+      "classification": "reviewed non-crown",
+      "reason": "Roof, bridge/path deck, bare paved yard, park surface or yellow road paint at the candidate centre; exact aerial crop has no canopy there. Actual and ambiguous yellow/brown crowns retained.",
+      "privateReviewSheet": "unirii-01.jpg",
+      "sheetSha256": "0ffe4e71a775cd1c7c108a6b213ec9373ef295a0f18945153328ab8e779586e7",
+      "centreMosaicPixel": [
+        4293.024153597653,
+        6087.053516864777
+      ],
+      "reviewCropMosaicPixels": [
+        4246.1245007243015,
+        6040.153863991425,
+        4339.923806471004,
+        6133.953169738128
+      ],
+      "cropGroundSideM": 40,
+      "officialSourceTile": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/94894/150085",
+      "compiledBeforeIndex": null
+    },
+    {
+      "rawInputIndex": 6347,
+      "rawCandidate": [
+        44.420008,
+        26.111096,
+        4.0
+      ],
+      "classification": "reviewed non-crown",
+      "reason": "Roof, bridge/path deck, bare paved yard, park surface or yellow road paint at the candidate centre; exact aerial crop has no canopy there. Actual and ambiguous yellow/brown crowns retained.",
+      "privateReviewSheet": "unirii-01.jpg",
+      "sheetSha256": "0ffe4e71a775cd1c7c108a6b213ec9373ef295a0f18945153328ab8e779586e7",
+      "centreMosaicPixel": [
+        4229.084319286048,
+        5898.87375561893
+      ],
+      "reviewCropMosaicPixels": [
+        4182.184666412697,
+        5851.974102745578,
+        4275.9839721594,
+        5945.773408492281
+      ],
+      "cropGroundSideM": 40,
+      "officialSourceTile": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/94894/150085",
+      "compiledBeforeIndex": null
+    },
+    {
+      "rawInputIndex": 9705,
+      "rawCandidate": [
+        44.422176,
+        26.125,
+        3.1
+      ],
+      "classification": "reviewed non-crown",
+      "reason": "Roof, bridge/path deck, bare paved yard, park surface or yellow road paint at the candidate centre; exact aerial crop has no canopy there. Actual and ambiguous yellow/brown crowns retained.",
+      "privateReviewSheet": "unirii-01.jpg",
+      "sheetSha256": "0ffe4e71a775cd1c7c108a6b213ec9373ef295a0f18945153328ab8e779586e7",
+      "centreMosaicPixel": [
+        6820.977777779102,
+        5333.015500314534
+      ],
+      "reviewCropMosaicPixels": [
+        6774.078124905751,
+        5286.115847441182,
+        6867.877430652454,
+        5379.915153187885
+      ],
+      "cropGroundSideM": 40,
+      "officialSourceTile": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/94891/150095",
+      "compiledBeforeIndex": null
+    },
+    {
+      "rawInputIndex": 12023,
+      "rawCandidate": [
+        44.423532,
+        26.130021,
+        2.2
+      ],
+      "classification": "reviewed non-crown",
+      "reason": "Roof, bridge/path deck, bare paved yard, park surface or yellow road paint at the candidate centre; exact aerial crop has no canopy there. Actual and ambiguous yellow/brown crowns retained.",
+      "privateReviewSheet": "unirii-01.jpg",
+      "sheetSha256": "0ffe4e71a775cd1c7c108a6b213ec9373ef295a0f18945153328ab8e779586e7",
+      "centreMosaicPixel": [
+        7756.960017070174,
+        4979.082419246435
+      ],
+      "reviewCropMosaicPixels": [
+        7710.060364196823,
+        4932.182766373084,
+        7803.859669943526,
+        5025.982072119787
+      ],
+      "cropGroundSideM": 40,
+      "officialSourceTile": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/94890/150099",
+      "compiledBeforeIndex": null
+    },
+    {
+      "rawInputIndex": 12064,
+      "rawCandidate": [
+        44.423555,
+        26.098704,
+        2.8
+      ],
+      "classification": "reviewed non-crown",
+      "reason": "Roof, bridge/path deck, bare paved yard, park surface or yellow road paint at the candidate centre; exact aerial crop has no canopy there. Actual and ambiguous yellow/brown crowns retained.",
+      "privateReviewSheet": "unirii-01.jpg",
+      "sheetSha256": "0ffe4e71a775cd1c7c108a6b213ec9373ef295a0f18945153328ab8e779586e7",
+      "centreMosaicPixel": [
+        1919.0480896010995,
+        4973.079058721662
+      ],
+      "reviewCropMosaicPixels": [
+        1872.1484367277478,
+        4926.17940584831,
+        1965.9477424744512,
+        5019.978711595013
+      ],
+      "cropGroundSideM": 40,
+      "officialSourceTile": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/94890/150076",
+      "compiledBeforeIndex": 3354
+    },
+    {
+      "rawInputIndex": 14455,
+      "rawCandidate": [
+        44.424881,
+        26.11102,
+        2.2
+      ],
+      "classification": "reviewed non-crown",
+      "reason": "Roof, bridge/path deck, bare paved yard, park surface or yellow road paint at the candidate centre; exact aerial crop has no canopy there. Actual and ambiguous yellow/brown crowns retained.",
+      "privateReviewSheet": "unirii-01.jpg",
+      "sheetSha256": "0ffe4e71a775cd1c7c108a6b213ec9373ef295a0f18945153328ab8e779586e7",
+      "centreMosaicPixel": [
+        4214.916892446578,
+        4626.968280188739
+      ],
+      "reviewCropMosaicPixels": [
+        4168.017239573226,
+        4580.068627315388,
+        4261.816545319929,
+        4673.867933062091
+      ],
+      "cropGroundSideM": 40,
+      "officialSourceTile": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/94889/150085",
+      "compiledBeforeIndex": 4414
+    },
+    {
+      "rawInputIndex": 15916,
+      "rawCandidate": [
+        44.425831,
+        26.090775,
+        2.2
+      ],
+      "classification": "reviewed non-crown",
+      "reason": "Roof, bridge/path deck, bare paved yard, park surface or yellow road paint at the candidate centre; exact aerial crop has no canopy there. Actual and ambiguous yellow/brown crowns retained.",
+      "privateReviewSheet": "unirii-01.jpg",
+      "sheetSha256": "0ffe4e71a775cd1c7c108a6b213ec9373ef295a0f18945153328ab8e779586e7",
+      "centreMosaicPixel": [
+        440.9753599986434,
+        4378.995700620115
+      ],
+      "reviewCropMosaicPixels": [
+        394.07570712529173,
+        4332.096047746763,
+        487.87501287199507,
+        4425.895353493466
+      ],
+      "cropGroundSideM": 40,
+      "officialSourceTile": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/94888/150070",
+      "compiledBeforeIndex": null
+    },
+    {
+      "rawInputIndex": 16035,
+      "rawCandidate": [
+        44.4259,
+        26.090786,
+        4.0
+      ],
+      "classification": "reviewed non-crown",
+      "reason": "Roof, bridge/path deck, bare paved yard, park surface or yellow road paint at the candidate centre; exact aerial crop has no canopy there. Actual and ambiguous yellow/brown crowns retained.",
+      "privateReviewSheet": "unirii-01.jpg",
+      "sheetSha256": "0ffe4e71a775cd1c7c108a6b213ec9373ef295a0f18945153328ab8e779586e7",
+      "centreMosaicPixel": [
+        443.025908626616,
+        4360.984903648496
+      ],
+      "reviewCropMosaicPixels": [
+        396.12625575326433,
+        4314.085250775144,
+        489.92556149996767,
+        4407.884556521847
+      ],
+      "cropGroundSideM": 40,
+      "officialSourceTile": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/94888/150070",
+      "compiledBeforeIndex": null
+    },
+    {
+      "rawInputIndex": 16341,
+      "rawCandidate": [
+        44.426061,
+        26.088501,
+        2.2
+      ],
+      "classification": "reviewed non-crown",
+      "reason": "Roof, bridge/path deck, bare paved yard, park surface or yellow road paint at the candidate centre; exact aerial crop has no canopy there. Actual and ambiguous yellow/brown crowns retained.",
+      "privateReviewSheet": "unirii-01.jpg",
+      "sheetSha256": "0ffe4e71a775cd1c7c108a6b213ec9373ef295a0f18945153328ab8e779586e7",
+      "centreMosaicPixel": [
+        17.071035735309124,
+        4318.959628045559
+      ],
+      "reviewCropMosaicPixels": [
+        -29.82861713804256,
+        4272.0599751722075,
+        63.97068860866081,
+        4365.85928091891
+      ],
+      "cropGroundSideM": 40,
+      "officialSourceTile": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/94887/150069",
+      "compiledBeforeIndex": null
+    },
+    {
+      "rawInputIndex": 22676,
+      "rawCandidate": [
+        44.430298,
+        26.109046,
+        2.2
+      ],
+      "classification": "reviewed non-crown",
+      "reason": "Roof, bridge/path deck, bare paved yard, park surface or yellow road paint at the candidate centre; exact aerial crop has no canopy there. Actual and ambiguous yellow/brown crowns retained.",
+      "privateReviewSheet": "unirii-01.jpg",
+      "sheetSha256": "0ffe4e71a775cd1c7c108a6b213ec9373ef295a0f18945153328ab8e779586e7",
+      "centreMosaicPixel": [
+        3846.9366215094924,
+        3212.9485000520945
+      ],
+      "reviewCropMosaicPixels": [
+        3800.0369686361405,
+        3166.0488471787426,
+        3893.8362743828443,
+        3259.8481529254464
+      ],
+      "cropGroundSideM": 40,
+      "officialSourceTile": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/94883/150084",
+      "compiledBeforeIndex": null
+    },
+    {
+      "rawInputIndex": 24204,
+      "rawCandidate": [
+        44.431363,
+        26.096483,
+        2.2
+      ],
+      "classification": "reviewed non-crown",
+      "reason": "Roof, bridge/path deck, bare paved yard, park surface or yellow road paint at the candidate centre; exact aerial crop has no canopy there. Actual and ambiguous yellow/brown crowns retained.",
+      "privateReviewSheet": "unirii-01.jpg",
+      "sheetSha256": "0ffe4e71a775cd1c7c108a6b213ec9373ef295a0f18945153328ab8e779586e7",
+      "centreMosaicPixel": [
+        1505.0236814245582,
+        2934.9321495443583
+      ],
+      "reviewCropMosaicPixels": [
+        1458.1240285512065,
+        2888.0324966710064,
+        1551.9233342979098,
+        2981.83180241771
+      ],
+      "cropGroundSideM": 40,
+      "officialSourceTile": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/94882/150074",
+      "compiledBeforeIndex": 9802
+    },
+    {
+      "rawInputIndex": 25343,
+      "rawCandidate": [
+        44.432182,
+        26.096225,
+        2.2
+      ],
+      "classification": "reviewed non-crown",
+      "reason": "Roof, bridge/path deck, bare paved yard, park surface or yellow road paint at the candidate centre; exact aerial crop has no canopy there. Actual and ambiguous yellow/brown crowns retained.",
+      "privateReviewSheet": "unirii-01.jpg",
+      "sheetSha256": "0ffe4e71a775cd1c7c108a6b213ec9373ef295a0f18945153328ab8e779586e7",
+      "centreMosaicPixel": [
+        1456.9289955571294,
+        2721.130214292556
+      ],
+      "reviewCropMosaicPixels": [
+        1410.0293426837777,
+        2674.230561419204,
+        1503.828648430481,
+        2768.029867165908
+      ],
+      "cropGroundSideM": 40,
+      "officialSourceTile": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/94881/150074",
+      "compiledBeforeIndex": 10449
+    },
+    {
+      "rawInputIndex": 25435,
+      "rawCandidate": [
+        44.432244,
+        26.094026,
+        3.5
+      ],
+      "classification": "reviewed non-crown",
+      "reason": "Roof, bridge/path deck, bare paved yard, park surface or yellow road paint at the candidate centre; exact aerial crop has no canopy there. Actual and ambiguous yellow/brown crowns retained.",
+      "privateReviewSheet": "unirii-01.jpg",
+      "sheetSha256": "0ffe4e71a775cd1c7c108a6b213ec9373ef295a0f18945153328ab8e779586e7",
+      "centreMosaicPixel": [
+        1047.005684621632,
+        2704.9448420107365
+      ],
+      "reviewCropMosaicPixels": [
+        1000.1060317482804,
+        2658.0451891373846,
+        1093.9053374949838,
+        2751.8444948840884
+      ],
+      "cropGroundSideM": 40,
+      "officialSourceTile": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/94881/150073",
+      "compiledBeforeIndex": null
+    },
+    {
+      "rawInputIndex": 25683,
+      "rawCandidate": [
+        44.432412,
+        26.113102,
+        2.9
+      ],
+      "classification": "reviewed non-crown",
+      "reason": "Roof, bridge/path deck, bare paved yard, park surface or yellow road paint at the candidate centre; exact aerial crop has no canopy there. Actual and ambiguous yellow/brown crowns retained.",
+      "privateReviewSheet": "unirii-01.jpg",
+      "sheetSha256": "0ffe4e71a775cd1c7c108a6b213ec9373ef295a0f18945153328ab8e779586e7",
+      "centreMosaicPixel": [
+        4603.029822580516,
+        2661.0876179225743
+      ],
+      "reviewCropMosaicPixels": [
+        4556.130169707165,
+        2614.1879650492224,
+        4649.929475453868,
+        2707.987270795926
+      ],
+      "cropGroundSideM": 40,
+      "officialSourceTile": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/94881/150086",
+      "compiledBeforeIndex": 10665
+    },
+    {
+      "rawInputIndex": 27633,
+      "rawCandidate": [
+        44.433876,
+        26.118906,
+        3.9
+      ],
+      "classification": "reviewed non-crown",
+      "reason": "Roof, bridge/path deck, bare paved yard, park surface or yellow road paint at the candidate centre; exact aerial crop has no canopy there. Actual and ambiguous yellow/brown crowns retained.",
+      "privateReviewSheet": "unirii-01.jpg",
+      "sheetSha256": "0ffe4e71a775cd1c7c108a6b213ec9373ef295a0f18945153328ab8e779586e7",
+      "centreMosaicPixel": [
+        5684.973841071129,
+        2278.8979001939297
+      ],
+      "reviewCropMosaicPixels": [
+        5638.074188197777,
+        2231.998247320578,
+        5731.87349394448,
+        2325.7975530672816
+      ],
+      "cropGroundSideM": 40,
+      "officialSourceTile": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/94879/150091",
+      "compiledBeforeIndex": 11729
+    },
+    {
+      "rawInputIndex": 29831,
+      "rawCandidate": [
+        44.435408,
+        26.09791,
+        2.9
+      ],
+      "classification": "reviewed non-crown",
+      "reason": "Roof, bridge/path deck, bare paved yard, park surface or yellow road paint at the candidate centre; exact aerial crop has no canopy there. Actual and ambiguous yellow/brown crowns retained.",
+      "privateReviewSheet": "unirii-01.jpg",
+      "sheetSha256": "0ffe4e71a775cd1c7c108a6b213ec9373ef295a0f18945153328ab8e779586e7",
+      "centreMosaicPixel": [
+        1771.0357617810369,
+        1878.9459490329027
+      ],
+      "reviewCropMosaicPixels": [
+        1724.1361089076852,
+        1832.046296159551,
+        1817.9354146543885,
+        1925.8456019062544
+      ],
+      "cropGroundSideM": 40,
+      "officialSourceTile": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/94878/150075",
+      "compiledBeforeIndex": null
+    },
+    {
+      "rawInputIndex": 37497,
+      "rawCandidate": [
+        44.440487,
+        26.125301,
+        2.8
+      ],
+      "classification": "reviewed non-crown",
+      "reason": "Roof, bridge/path deck, bare paved yard, park surface or yellow road paint at the candidate centre; exact aerial crop has no canopy there. Actual and ambiguous yellow/brown crowns retained.",
+      "privateReviewSheet": "unirii-01.jpg",
+      "sheetSha256": "0ffe4e71a775cd1c7c108a6b213ec9373ef295a0f18945153328ab8e779586e7",
+      "centreMosaicPixel": [
+        6877.088244624436,
+        552.9205743297935
+      ],
+      "reviewCropMosaicPixels": [
+        6830.1885917510845,
+        506.0209214564418,
+        6923.987897497787,
+        599.8202272031451
+      ],
+      "cropGroundSideM": 40,
+      "officialSourceTile": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/94873/150095",
+      "compiledBeforeIndex": null
+    },
+    {
+      "rawInputIndex": 39597,
+      "rawCandidate": [
+        44.441911,
+        26.119668,
+        4.0
+      ],
+      "classification": "reviewed non-crown",
+      "reason": "Roof, bridge/path deck, bare paved yard, park surface or yellow road paint at the candidate centre; exact aerial crop has no canopy there. Actual and ambiguous yellow/brown crowns retained.",
+      "privateReviewSheet": "unirii-01.jpg",
+      "sheetSha256": "0ffe4e71a775cd1c7c108a6b213ec9373ef295a0f18945153328ab8e779586e7",
+      "centreMosaicPixel": [
+        5827.020936533809,
+        181.1219493225217
+      ],
+      "reviewCropMosaicPixels": [
+        5780.121283660457,
+        134.22229644917002,
+        5873.92058940716,
+        228.02160219587336
+      ],
+      "cropGroundSideM": 40,
+      "officialSourceTile": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/94871/150091",
+      "compiledBeforeIndex": null
+    }
+  ],
+  "remainingGaps": [
+    "This is a bounded review of airport airside and yellow-marking candidates, not a new manual census of every automatically extracted crown.",
+    "Aerial acquisition date is unknown. Ambiguous shrubs, vegetation strips and possible crowns remain unchanged; no source-tree parity claim follows from candidate counts."
+  ],
+  "rawOrderedCandidatesSha256": "76cb06fdb25e64876d7634f7683baf1cb9fcc77cfb6d1b6f51e9cb07bbc593bc"
+}

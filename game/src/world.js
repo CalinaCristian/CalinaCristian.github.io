@@ -14,6 +14,7 @@ import { aircraftBody } from './building-aircraft.js';
 import { resolveParkingLayout, parkingRowPose, parkingPolygonsOverlap, parkingBodyOverlap } from './parking-layout.js';
 import { passageSolids, clipPassageWall, passageInterior, passageBaseUnknown } from './building-passages.js';
 import { scenerySourceProfile } from './scenery-source.js';
+import { batchWaterChunks } from './water-batch.js';
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -5493,6 +5494,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
     }
     if (waterMesh) { waterMesh.userData.always = true; waterMesh.renderOrder = -18; }
+    if (waterMesh?.isGroup) batchWaterChunks(waterMesh);
     // distance culling: cells beyond the fog are hidden (three.js only frustum-culls, and the camera far plane is 5 km).
     // The viewer is world.camera if set, else the widest perspective camera found in the scene.
     const _v = new THREE.Vector3();

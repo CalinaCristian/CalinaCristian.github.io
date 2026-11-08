@@ -1,0 +1,35 @@
+{
+  "id": "Arrivals-Drive-50-R-right",
+  "lat": 47.4447219,
+  "lon": -122.300094,
+  "clat": 47.4447521,
+  "clon": -122.3001131,
+  "heading": 314,
+  "pitch": 6,
+  "fov": 90,
+  "h": 2.5,
+  "cameraBaseY": 0,
+  "cameraY": 2.5,
+  "sourceRoadId": "w428095058",
+  "sourceLayer": 0,
+  "captureSettings": {
+    "quality": "high",
+    "traffic": false,
+    "mirror": false,
+    "fog": "normal",
+    "far": 5000,
+    "seasonOverride": "summer",
+    "appliedSeason": "summer",
+    "method": "Native WebGL canvas copied after two settled frames; actual source RGB pixel equivalence controls retained.",
+    "renderer": {
+      "width": 640,
+      "height": 400,
+      "pixelRatio": 1
+    }
+  },
+  "capturedAt": "2026-11-08T21:49:11.739Z",
+  "imageSha256": "865e854489079b57587cd4e27d1a5a2163026e091943d3ec96310ff8470a9150",
+  "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+  "image": "before-landside.jpg",
+  "finding": "Procedural aircraft visible in public terminal forecourt. Retained as exact before evidence; source properties come from independent aerial/OSM review only."
+}

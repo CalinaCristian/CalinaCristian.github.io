@@ -95,6 +95,8 @@ that chapter of the CV.
   Călărașilor, Liceul C.A. Rosetti with its sports hall, sports ground and fenced yard, the Politehnica rectorate, Hermes Business Campus, BOB Tower, Europe House, The
   Landmark, Lincoln Square — plus Hala Traian, the Parliament, Victoria Palace, Sky Tower, Stadionul Dinamo with its
   track, terraces, covered main stand and floodlight masts, the SeaTac garage and tower);
+  SeaTac keeps four representative airside aircraft at independently measured aerial positions, bearings and plan dimensions;
+  their generic vertical shapes and details remain estimates.
   every other building comes from OSM footprints with researched heights, facade colours and styles by era. ~600
   researched non-residential buildings get their real type (curtain-wall offices, malls, supermarkets, hotels, parking
   garages, schools, warehouses), fuel stations keep their sourced locations with canopy decoration only where it fits,

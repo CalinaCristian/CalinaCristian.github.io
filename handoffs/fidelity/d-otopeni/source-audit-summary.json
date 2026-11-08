@@ -1,7 +1,7 @@
 {
   "district": "bucharest-otopeni",
   "generated": "2026-11-08",
-  "codePrerequisite": "root aa3a3c1 plus small-roof levels priority cf8c842; final combined-root browser acceptance remains separate",
+  "codePrerequisite": "root source freeze 09f5c3b; final combined-root browser acceptance remains separate",
   "dataFile": "game/data/bucharest-otopeni.json",
   "dataSha256": "a27a950b979d140769494499bd717ed1821c9ada461518611a12ac57e25d1ea1",
   "sourceIdentityPolicy": "source",
@@ -65,6 +65,37 @@
     "missingWhole": 0,
     "privatePhysical": 61,
     "shortSourceStubs": 11,
+    "scenery": {
+      "pieces": 539,
+      "sourceWays": 534,
+      "preparedVertices": 2990,
+      "privatePhysical": 93
+    },
+    "visibleRing": {
+      "expectedWays": 593,
+      "missingWays": 0,
+      "requiredVertices": 3403,
+      "missingVertices": 0,
+      "excludedCoveredWays": [
+        "w319077389",
+        "w34757600",
+        "w406389375",
+        "w406482207",
+        "w715831819",
+        "w885163907",
+        "w885163908",
+        "w943852845",
+        "w1101514917",
+        "w1215866454",
+        "w1218703858",
+        "w1218703859",
+        "w1324738713",
+        "w1324738714",
+        "w1395443535"
+      ],
+      "exclusionReason": "Covered/tunnel source ways outside the physical core are not represented as ground scenery; no elevation or open road is invented."
+    },
+    "sourceDirectionNormalizations": [],
     "issues": []
   },
   "railAndCrowns": {
@@ -88,5 +119,5 @@
     "Legacy percentage height heuristic in raw building-audit logs ignores pitched roof rise; it is not the literal dimension gate. Literal source values are audited independently here.",
     "Contradictory literal source height/min_height bands remain retained and explicitly flagged; no invented source correction is applied."
   ],
-  "acceptanceStatus": "source identity/literal dimension checkpoint; browser comparisons, native profile checker update and final combined-source acceptance pending"
+  "acceptanceStatus": "Source identity, topology, literal dimensions and road vertices verified against root09f5c3b; final browser coverage and visual parity remain pending."
 }

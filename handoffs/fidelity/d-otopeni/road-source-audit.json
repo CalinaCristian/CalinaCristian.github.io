@@ -9,5 +9,36 @@
   "missingWhole": 0,
   "privatePhysical": 61,
   "shortSourceStubs": 11,
+  "scenery": {
+    "pieces": 539,
+    "sourceWays": 534,
+    "preparedVertices": 2990,
+    "privatePhysical": 93
+  },
+  "visibleRing": {
+    "expectedWays": 593,
+    "missingWays": 0,
+    "requiredVertices": 3403,
+    "missingVertices": 0,
+    "excludedCoveredWays": [
+      "w319077389",
+      "w34757600",
+      "w406389375",
+      "w406482207",
+      "w715831819",
+      "w885163907",
+      "w885163908",
+      "w943852845",
+      "w1101514917",
+      "w1215866454",
+      "w1218703858",
+      "w1218703859",
+      "w1324738713",
+      "w1324738714",
+      "w1395443535"
+    ],
+    "exclusionReason": "Covered/tunnel source ways outside the physical core are not represented as ground scenery; no elevation or open road is invented."
+  },
+  "sourceDirectionNormalizations": [],
   "issues": []
 }

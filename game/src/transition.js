@@ -1,5 +1,16 @@
 import { drawFitText } from './canvasText.js';
 import { drawGlobe, drawPlane } from './flight.js';
+/** a small top-down car (heading = direction of travel in canvas radians) for drives across town (after round 6) */
+function drawCar(ctx, x, y, hd, dpr) {
+    ctx.save(); ctx.translate(x, y); ctx.rotate(hd); const s = dpr;
+    ctx.fillStyle = '#fa4616'; ctx.strokeStyle = 'rgba(15,23,42,0.85)'; ctx.lineWidth = 1.2 * s;
+    const rr = (x0, y0, w, h, r) => { ctx.beginPath(); ctx.moveTo(x0 + r, y0); ctx.arcTo(x0 + w, y0, x0 + w, y0 + h, r); ctx.arcTo(x0 + w, y0 + h, x0, y0 + h, r); ctx.arcTo(x0, y0 + h, x0, y0, r); ctx.arcTo(x0, y0, x0 + w, y0, r); ctx.closePath(); };
+    ctx.fillStyle = '#0f172a'; for (const [wx, wy] of [[-6, -6.4], [4, -6.4], [-6, 4.6], [4, 4.6]]) ctx.fillRect(wx * s, wy * s, 3.4 * s, 1.8 * s); // wheels
+    ctx.fillStyle = '#fa4616'; rr(-9 * s, -5 * s, 18 * s, 10 * s, 3 * s); ctx.fill(); ctx.stroke();                                      // body
+    ctx.fillStyle = '#bfdbfe'; rr(1.5 * s, -3.6 * s, 3.6 * s, 7.2 * s, 1.2 * s); ctx.fill(); rr(-6 * s, -3.4 * s, 2.6 * s, 6.8 * s, 1 * s); ctx.fill(); // windscreens
+    ctx.fillStyle = '#fef3c7'; ctx.fillRect(8 * s, -4 * s, 1.2 * s, 2 * s); ctx.fillRect(8 * s, 2 * s, 1.2 * s, 2 * s);                    // headlights
+    ctx.restore();
+}
 
 /**
  * Cinematic chapter transition (note 16, cockpit-ui). Full-screen overlay: a stylised night-map of the city (district
@@ -105,7 +116,7 @@ export function playChapterTransition(o = {}) {
             const path = (w, style) => { ctx.strokeStyle = style; ctx.lineWidth = w; ctx.beginPath(); ctx.moveTo(P[0][0], P[0][1]); let rem = left; let head = P[0]; for (let i = 1; i < P.length && rem > 0; i++) { const f = Math.min(1, rem / segL[i - 1]); head = [P[i - 1][0] + (P[i][0] - P[i - 1][0]) * f, P[i - 1][1] + (P[i][1] - P[i - 1][1]) * f]; ctx.lineTo(head[0], head[1]); rem -= segL[i - 1]; } ctx.stroke(); return head; };
             path(9 * dpr, 'rgba(250,70,22,0.25)'); const head = path(3.2 * dpr, '#ff7a45');
             const hd = (() => { let i = 1, rem = left; while (i < P.length - 1 && rem > segL[i - 1]) { rem -= segL[i - 1]; i++; } return Math.atan2(P[i][1] - P[i - 1][1], P[i][0] - P[i - 1][0]); })();
-            if (k > 0 && k < 1) drawPlane(ctx, head[0], head[1], hd, 0.55 * dpr); // (a small car-arrow would read as a plane on phones; keep the marker light)
+            if (k > 0 && k < 1) (o.globe ? drawPlane(ctx, head[0], head[1], hd, 0.55 * dpr) : drawCar(ctx, head[0], head[1], hd, dpr)); // a plane only after a flight; across town it's a drive
             for (const [i, p] of [[0, P[0]], [P.length - 1, P[P.length - 1]]]) { const end = i > 0; if (end && k < 0.98) continue; ctx.fillStyle = end ? '#fa4616' : '#60a5fa'; ctx.beginPath(); ctx.arc(p[0], p[1], 6 * dpr, 0, 7); ctx.fill(); ctx.strokeStyle = '#fff'; ctx.lineWidth = 2 * dpr; ctx.stroke(); }
             for (const v of o.via || []) if (v.label && v.hi) { const [x, y] = toXY(v, zin); ctx.fillStyle = '#e2e8f0'; ctx.textAlign = 'left'; drawFitText(ctx, v.label, x + 10 * dpr, y - 10 * dpr, 180 * dpr, { maxSize: Math.round(12 * dpr), minSize: 8, font: (s) => `600 ${s}px system-ui, sans-serif`, label: 'transition via' }); }
         } else { const [x, y] = toXY(B, zin); const pulse = 1 + 0.3 * Math.sin(T / 180); ctx.fillStyle = '#fa4616'; ctx.beginPath(); ctx.arc(x, y, 7 * dpr * pulse, 0, 7); ctx.fill(); }

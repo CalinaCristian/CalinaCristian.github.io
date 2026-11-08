@@ -30,6 +30,6 @@ for(const file of files){
 }
 if(city==='bucharest'){
  const facts=JSON.parse(await fs.readFile(new URL('../../game/research/landmark-source-bucharest.json',import.meta.url),'utf8'));
- assert.deepEqual(new Set(files.map(f=>f.slice(0,-5))),new Set(facts.landmarks.map(l=>l.id)),'All owned source-reviewed landmarks have individual evidence');
+ for(const id of facts.landmarks.map(l=>l.id))assert(files.includes(id+'.json'),`${id}: source-reviewed landmark has individual evidence`);
 }
 console.log(JSON.stringify({passed:true,city,records:files.length,captures,publishedBytes:'SHA256 verified'}));

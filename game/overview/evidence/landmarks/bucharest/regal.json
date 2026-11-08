@@ -3,7 +3,7 @@
   "id": "regal",
   "city": "bucharest",
   "name": "Palatul Regal (MNAR)",
-  "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+  "sourceCommit": "f75e7c4bd8f598a4476db05a7db155dd6590b50e",
   "status": "reviewed-with-gaps",
   "coordinates": {
     "lat": 44.4394699,
@@ -301,18 +301,19 @@
   "reviewedAt": "2026-11-08",
   "improvements": [
     "Refreshed the complete palace perimeter, preserving the cour d’honneur recess.",
-    "Source polygon collision retains the actual open forecourt."
+    "Source polygon collision retains the actual open forecourt.",
+    "Applied the complete source-part profile pass: Complete 263 mapped building-part solids at their explicit height/min_height, unioned in vertical intervals. Only the source primary residual uses its12m height; broad18m and15.7m parts,4m plinth,14m columns and elevated trim retain their actual source boundaries."
   ],
   "remainingGaps": [
-    "Material part-profile discrepancy remains: the source primary body is 12 m with many mapped parts; the existing decorative mass is about 19.9 m.",
-    "Individual mapped palace-part profiles have not yet replaced the uniform classical mass.",
+    "Mapped hip roof rises remain represented by their exact outer height envelopes; decorative curvature is simplified.",
+    "Main entry door/marquee and rail details remain independent-photo estimates.",
     "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity."
   ],
   "checks": [
     {
       "label": "Full source boundary and replacement-identity checks",
       "passed": true,
-      "details": "tools/landmarks/bucharest-source-check.mjs: 1 authored source rings; explicit replacement IDs match the source ledger. Entire 33-model check passes 306 checks."
+      "details": "tools/landmarks/bucharest-source-check.mjs: source ring and replacement identities retained; full33-model check passes451 checks, including direct source-height probes and narrow source-void collision tests."
     },
     {
       "label": "Finite geometry and collision regression",
@@ -322,7 +323,7 @@
     {
       "label": "Mandatory foot / driving regression",
       "passed": true,
-      "details": "Immutable production ef21d14: npm run harness -- --scenario=foot,a --city=bucharest completed 0 high / 0 medium / 1 low (software-GL FPS only). Both scenario screenshots inspected."
+      "details": "Immutable production f75e7c4: npm run harness -- --scenario=foot,a --city=bucharest completed0 high /0 medium /2 low (shared-machine traffic-update21.5ms and software-GL FPS). Both scenario screenshots inspected."
     },
     {
       "label": "Published game studies inspected",
@@ -346,9 +347,9 @@
       "label": "Street-height model study",
       "kind": "front",
       "image": "assets/landmarks/regal/front.webp",
-      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
-      "sha256": "a30e29c02c3370eb8e4a494ad542120ffbe2e690ef0a2d29bfd591a77eff5d69",
-      "capturedAt": "2026-11-08T16:48:00.841162Z",
+      "sourceCommit": "f75e7c4bd8f598a4476db05a7db155dd6590b50e",
+      "sha256": "2e129188d60af3a289fcf0d6eaac5613fbb6229fdf1dc794e522e530aa44f90e",
+      "capturedAt": "2026-11-08T17:22:47.201888Z",
       "pose": {
         "viewerRoute": "/game/dev/landmarks.html?id=regal&clean=1&fountains=on&view=street&az=116.99756084741468",
         "anchor": {
@@ -358,19 +359,19 @@
         },
         "camera": {
           "position": [
-            212.12865042675344,
+            231.47425017067647,
             1.3,
-            -107.84956371725578
+            -117.88471608790167
           ],
           "quaternion": [
-            0.008411239520569947,
-            0.8525185639231725,
-            -0.013725239618129374,
-            0.5224490090080796
+            0.0068606018837948915,
+            0.8525555448964043,
+            -0.01119494987027716,
+            0.5224716720603989
           ],
           "fov": 62,
           "near": 0.3,
-          "far": 4753.532984591588,
+          "far": 5177.67222059185,
           "viewport": [
             960,
             720
@@ -378,14 +379,14 @@
         },
         "bounds": {
           "min": [
-            -96.43376831102373,
+            -94.85628531176361,
             0,
-            -132.87854419713082
+            -131.83179684142866
           ],
           "max": [
-            97.13899220201154,
-            19.899999618530273,
-            132.96726733984343
+            96.46080634942925,
+            18,
+            131.10412478310826
           ]
         },
         "isolatedModel": true,
@@ -397,9 +398,9 @@
       "label": "Top model study (perspective)",
       "kind": "top",
       "image": "assets/landmarks/regal/top.webp",
-      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
-      "sha256": "aea518dc5cd6f279bc4f92caad242841b6eeb92270d0982cfdae4d010df0eda1",
-      "capturedAt": "2026-11-08T16:48:02.189147Z",
+      "sourceCommit": "f75e7c4bd8f598a4476db05a7db155dd6590b50e",
+      "sha256": "52a14da40400fd78228396e795130da8b31b5b124629c6e38ab3210917783eaf",
+      "capturedAt": "2026-11-08T17:22:48.449875Z",
       "pose": {
         "viewerRoute": "/game/dev/landmarks.html?id=regal&clean=1&fountains=on&view=top&az=0",
         "anchor": {
@@ -409,19 +410,19 @@
         },
         "camera": {
           "position": [
-            0.35261194549390495,
-            382.016523479128,
-            0.4263782221743062
+            0.8022605188328171,
+            376.18247319031764,
+            0.012346569424310117
           ],
           "quaternion": [
-            -0.70675313942234,
+            -0.7067531394223397,
             0,
             0,
             0.7074602461740636
           ],
           "fov": 45,
-          "near": 0.7640334289749388,
-          "far": 7640.334289749388,
+          "near": 0.7523653225632652,
+          "far": 7523.653225632652,
           "viewport": [
             960,
             720
@@ -429,14 +430,14 @@
         },
         "bounds": {
           "min": [
-            -96.43376831102373,
+            -94.85628531176361,
             0,
-            -132.87854419713082
+            -131.83179684142866
           ],
           "max": [
-            97.13899220201154,
-            19.899999618530273,
-            132.96726733984343
+            96.46080634942925,
+            18,
+            131.10412478310826
           ]
         },
         "isolatedModel": true,
@@ -448,9 +449,9 @@
       "label": "Oblique model study",
       "kind": "oblique",
       "image": "assets/landmarks/regal/oblique.webp",
-      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
-      "sha256": "e0930a30f69012a58a77dc0982fc50fe6aa003e6a0e1f20afa7776bec056b8ec",
-      "capturedAt": "2026-11-08T16:48:03.397134Z",
+      "sourceCommit": "f75e7c4bd8f598a4476db05a7db155dd6590b50e",
+      "sha256": "1a107a800c8e65e4c91607e622f8a88fd655dec1ba5adf78d9a0878ada585d08",
+      "capturedAt": "2026-11-08T17:22:49.729861Z",
       "pose": {
         "viewerRoute": "/game/dev/landmarks.html?id=regal&clean=1&fountains=on&view=oblique&az=151.99756084741466&el=28",
         "anchor": {
@@ -460,9 +461,9 @@
         },
         "camera": {
           "position": [
-            167.89301269680038,
-            197.6960489996595,
-            -315.0209460719787
+            166.52249421479362,
+            194.87474749408193,
+            -312.0062588597389
           ],
           "quaternion": [
             -0.058531200054340156,
@@ -471,8 +472,8 @@
             0.23475582119491972
           ],
           "fov": 45,
-          "near": 0.808296238546739,
-          "far": 8082.96238546739,
+          "near": 0.7995148689322156,
+          "far": 7995.148689322155,
           "viewport": [
             960,
             720
@@ -480,14 +481,14 @@
         },
         "bounds": {
           "min": [
-            -96.43376831102373,
+            -94.85628531176361,
             0,
-            -132.87854419713082
+            -131.83179684142866
           ],
           "max": [
-            97.13899220201154,
-            19.899999618530273,
-            132.96726733984343
+            96.46080634942925,
+            18,
+            131.10412478310826
           ]
         },
         "isolatedModel": true,
@@ -496,7 +497,7 @@
     }
   ],
   "perf": {
-    "triangles": 13521,
+    "triangles": 26540,
     "drawCalls": 3,
     "note": "Isolated development viewer render, including its ground/shadow work; excludes district world, traffic and mirrors."
   }

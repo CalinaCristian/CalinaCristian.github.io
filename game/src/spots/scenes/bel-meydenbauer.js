@@ -58,7 +58,7 @@ function boat(b, x, y, z, yaw, kind, r) {
         b.rod([bx0, by0 + 0.12, bz0], [bx1, by1 + 0.12, bz1], 0.16, ['#1d4f8a', '#2b6f8f', '#1f3b5e'][Math.floor(r() * 3)], 'fabric', 6); // sail cover
         const [fx, fy, fz] = C(0, 0.85, L * 0.5); b.rod([mx, my + mh, mz], [fx, fy, fz], 0.012, '#9aa0a4', 'steel', 3); // forestay
         const [sx, sy, sz] = C(0, 0.9, -L * 0.5); b.rod([mx, my + mh, mz], [sx, sy, sz], 0.012, '#9aa0a4', 'steel', 3);
-        return { light: [mx, my + mh + 0.1, mz] };
+        return { light: [mx, my + mh + 0.1, mz], body:{x,z,angle:yaw,hw:W/2,hd:L/2} };
     }
     const L = 7 + r() * 5, W = L * 0.36;
     const hc = r() < 0.8 ? '#f5f5f2' : '#e9e3d6', sc = ['#1f3b5e', '#7a1f22', '#2b2f33'][Math.floor(r() * 3)];
@@ -67,7 +67,7 @@ function boat(b, x, y, z, yaw, kind, r) {
     const [gx, gy, gz] = C(0, 1.4, -L * 0.05); b.box(gx, gy, gz, W * 0.8, 0.45, L * 0.24, '#22292e', 'darkglass', yaw);
     if (L > 9.5) { const [fx, fy, fz] = C(0, 2.05, -L * 0.1); b.box(fx, fy, fz, W * 0.6, 0.12, L * 0.24, '#ece9e2', 'paint', yaw); b.rod(C(-W * 0.28, 2.17, -L * 0.2), C(-W * 0.28, 2.9, -L * 0.15), 0.025, '#c9ccce', 'chrome', 4); }
     const [ax, ay, az] = C(0, 2.3, -L * 0.15); b.rod([ax, ay - 0.25, az], [ax, ay + 0.5, az], 0.03, '#c9ccce', 'chrome', 4);
-    return { light: [ax, ay + 0.55, az] };
+    return { light: [ax, ay + 0.55, az], body:{x,z,angle:yaw,hw:W/2,hd:L/2} };
 }
 /** wire-mesh railing infill texture (galvanised diamond mesh, alpha) */
 let MESH_MAT = null;
@@ -218,7 +218,7 @@ export default {
             ctx.poly(rei);
         }
         // marina docks (OSM w819169611) + moored boats in the slips
-        const dock = area('w819169611'), boats = new GeoBatch(), anchorLights = [];
+        const dock = area('w819169611'), boats = new GeoBatch(), anchorLights = [], mooredBodies=[];
         if (dock) {
             ctx.skipAreas.add('w819169611');
             const dy = LAKE_Y + 0.42;
@@ -234,13 +234,13 @@ export default {
                     if (inPoly(x, z, dock) || sdf(x, z) < 3 || placed.some((p) => Math.hypot(p[0] - x, p[1] - z) < 7.5)) continue;
                     let clear = true; for (let q = -4; q <= 4; q += 2) { const px = x + tx * q, pz = z + tz * q; if (inPoly(px, pz, dock)) { clear = false; break; } } if (!clear) continue;
                     if (r() < 0.18) continue;
-                    placed.push([x, z]); const res = boat(boats, x, LAKE_Y, z, Math.atan2(tx, tz) + (r() < 0.5 ? Math.PI : 0), r() < 0.55 ? 'sail' : 'motor', r); anchorLights.push(res.light);
-                    ctx.circle(x, z, 1.6, 3);
+                    placed.push([x, z]); const res = boat(boats, x, LAKE_Y, z, Math.atan2(tx, tz) + (r() < 0.5 ? Math.PI : 0), r() < 0.55 ? 'sail' : 'motor', r); anchorLights.push(res.light);mooredBodies.push(res.body);
+                    ctx.box(x,z,res.body.hw,res.body.hd,res.body.angle,{prop:true,y:LAKE_Y,h:3});
                 }
             }
         }
         // a few boats on mooring buoys out in the bay
-        for (const [x, z, k] of [[-120, 150, 'sail'], [-170, 95, 'sail'], [-60, 175, 'motor'], [-220, 160, 'sail']]) if (sdf(x, z) > 8) { const res = boat(boats, x, LAKE_Y, z, r() * 6.28, k, r); anchorLights.push(res.light); }
+        for (const [x, z, k] of [[-120, 150, 'sail'], [-170, 95, 'sail'], [-60, 175, 'motor'], [-220, 160, 'sail']]) if (sdf(x, z) > 8) { const res = boat(boats, x, LAKE_Y, z, r() * 6.28, k, r); anchorLights.push(res.light);mooredBodies.push(res.body);ctx.box(x,z,res.body.hw,res.body.hd,res.body.angle,{prop:true,y:LAKE_Y,h:3}); }
         ctx.add(boats.build('marina-boats'));
         ctx.add(pb.build('meydenbauer-buildings'));
         if (anchorLights.length) { const al = new GeoBatch(); for (const [x, y, z] of anchorLights) al.sphere(x, y, z, 0.07, 0.07, 0.07, '#ffffff', 'paint', 6, 4); ctx.add(al.build('anchor-lights', { matOverrides: { paint: nightLit('#fff4dc', 3, { base: '#dddddd', name: 'anchor-lights' }) } })); }
@@ -308,9 +308,10 @@ export default {
         const launch = { x: 58, z: 51.3 }, sourcePier = d.areas.find(a=>a.id==='w819169611');
         const pierLine0=way('w688415225'), swimming=area('w737163174');
         const nearPoly=(x,z,p,margin)=>p&&(inPoly(x,z,p)||distPolyline(x,z,[...p,p[0]]).d<margin);
+        const nearBoat=(x,z,b)=>{const dx=x-b.x,dz=z-b.z,c=Math.cos(b.angle),s=Math.sin(b.angle);return Math.abs(dx*c-dz*s)<b.hw+2.5&&Math.abs(dx*s+dz*c)<b.hd+2.5;};
         const course=shortWaterRoute(lakePoly,launch,{reach:20,clearance:1.2,avoid:(x,z)=>
             d.buildings.some(b=>nearPoly(x,z,b.poly,1.5))||nearPoly(x,z,sourcePier?.poly,1.2)||nearPoly(x,z,swimming,2)||
-            (pierLine0&&distPolyline(x,z,pierLine0).d<6)||ctx.colliders.some(c=>c.prop&&c.hw===c.r&&Math.hypot(x-c.x,z-c.z)<c.r+1.4)});
+            (pierLine0&&distPolyline(x,z,pierLine0).d<6)||mooredBodies.some(b=>nearBoat(x,z,b))||ctx.colliders.some(c=>c.prop&&c.hw===c.r&&Math.hypot(x-c.x,z-c.z)<c.r+1.4)});
         const put=course?{x:course[0][0],z:course[0][1]}:launch;
         if(course&&sourcePier&&inPoly(launch.x,launch.z,sourcePier.poly)){
             const kay=new GeoBatch();kay.add(hullGeo(4.3,.66,.32,.12),'plastic',null,'#f0a21c');kay.box(0,.28,-.3,.42,.06,.9,'#1f1f1f','rubber');

@@ -65,3 +65,6 @@ assert.equal(collideBuildings([{ ...collider, minH: 6, y0: 6 }], 10, 5, 0.35, 5.
 assert.ok(collideBuildings([{ ...collider, minH: 6, y0: 6 }], 10, 5, 0.35, 5.8 - 0.35, 0.7), 'drone intersects source underside');
 assert.ok(collideBuildings([{ ...collider, minH: 1.9, y0: 1.9 }], 10, 5, 0.45, 0.24), 'car/foot body intersects low overhead solid');
 console.log('roof source-solid fixtures: overlap clipping, equal-plane ownership, elevated parts and cache signature passed');
+
+const zeroSourceBand=makeRoofProfile({tags:{height:'15',min_height:'15','roof:shape':'flat'},ring:[[0,0],[10,0],[10,10],[0,10]],height:15,minHeight:15,heightIsTotal:true});
+assert.equal(zeroSourceBand.totalM,15);assert.equal(zeroSourceBand.eavesM,15);assert.equal(zeroSourceBand.riseM,0);assert(zeroSourceBand.issues.some(s=>s.startsWith('zero vertical source band')));

@@ -55,10 +55,21 @@ export function makeRoofProfile({ tags = {}, ring, holes = [], triangulate, shap
         const mesh = roofMesh(ring, holes, { shape, axis, low, high, eavesM: 0, riseM: 1 }, triangulate);
         rise = mesh.runM * Math.tan(angle * Math.PI / 180);
     }
+    if ((!heightIsTotal || heightSource === 'research estimate') && height <= minHeight) {
+        height = minHeight + Math.max(.01, height);
+        heightIsTotal = false;
+        heightSource += ' above source minimum';
+        issues.push('total height absent or estimated below source minimum; positive body above source minimum is estimated');
+    }
+    if (heightIsTotal && riseSource === 'footprint estimate' && rise > Math.max(0, height - minHeight) * .25) {
+        rise = Math.max(0, height - minHeight) * .25;
+        riseSource = 'footprint estimate bounded to25% of source total band';
+    }
     let totalM = heightIsTotal ? height : height + rise, eavesM = heightIsTotal ? height - rise : height;
     if (eavesM < minHeight) { issues.push('roof rise exceeds building height band'); eavesM = minHeight; rise = Math.max(0, totalM - eavesM); }
     // Preserve the literal top. An inconsistent minimum remains an explicit source issue.
     if (minHeight > totalM) issues.push('minimum height exceeds total height');
+    else if (totalM > 0 && minHeight === totalM) issues.push('zero vertical source band: minimum height equals total height');
     const raw = Object.fromEntries(['height', 'min_height', 'building:levels', 'building:min_level', 'roof:shape', 'roof:height', 'roof:angle', 'roof:direction', 'roof:orientation', 'roof:levels'].filter(k => tags[k] != null).map(k => [k, tags[k]]));
     return { version: 1, shape, totalM, eavesM, riseM: rise, heightSource, riseSource, axis, low, high, ...(direction !== null ? { direction } : {}), ...(orientation ? { orientation } : {}), ...(angle >= 0 && angle < 90 ? { angle } : {}), raw, ...(tags.__originalDimensions ? { originalOSM: tags.__originalDimensions } : {}), ...(issues.length ? { issues } : {}) };
 }

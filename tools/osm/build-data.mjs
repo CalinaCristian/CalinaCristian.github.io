@@ -85,6 +85,7 @@ import { ShapeUtils, Vector2 } from '../../game/vendor/three.module.min.js';
 import { resolveRoadAccess } from '../../game/src/road-access.js';
 import { sourcePassages } from './source-passages.mjs';
 import { resolveParkingLayout } from '../../game/src/parking-layout.js';
+import { validRoadWidthReview, reviewedSingleLane, resolveRoadWidth } from '../../game/src/road-widths.js';
 import { distPointSeg, pointInPolygon, polyArea, polyCentroid, footprintMargin, simplifyIdx, simplifyRing, Grid, assembleRings } from './geom.mjs';
 import { buildCorridor } from './corridors.mjs';
 import { CITIES as GAME_CITIES } from '../../game/src/cities.js';
@@ -284,6 +285,19 @@ function buildCity(cityId, did = null) {
     log(`parsed nodes=${N.size} ways=${W.size} rels=${R.size}`);
     const P = makeProj(C);
     const country = C.country;
+    const roadWidthReviews=new Map(),roadWidthIssues=[];
+    if(ds){
+        const file=path.join(REPO,'game','research',`${cityId}-${did}.json`);
+        if(fs.existsSync(file)){
+            const research=JSON.parse(fs.readFileSync(file,'utf8'));
+            for(const review of research.road_widths||[]){
+                if(!validRoadWidthReview(review)||!W.has(+review.sourceRoadId.slice(1))){roadWidthIssues.push({sourceRoadId:review.sourceRoadId,reason:'invalid-or-unmatched-road-width-review'});continue;}
+                if(roadWidthReviews.has(+review.sourceRoadId.slice(1))){roadWidthIssues.push({sourceRoadId:review.sourceRoadId,reason:'duplicate-road-width-review'});continue;}
+                roadWidthReviews.set(+review.sourceRoadId.slice(1),review);
+            }
+        }
+    }
+
 
     // ---- complete interesting multipolygons with missing members (e.g. Lake Washington)
     for (const [id, r] of R) {
@@ -332,8 +346,9 @@ function buildCity(cityId, did = null) {
         lf = Math.min(lf, 6); lb = Math.min(lb, 6);
         // A tagged single lane may legally carry traffic in both directions. Keep both graph directions,
         // but do not turn its one physical lane into two inferred full-width lanes.
-        const sharedLane = !!ds && !oneway && total === 1;
-        const physicalSharedWidth = sharedLane ? (parseMeasure(t.width) > 0 ? parseMeasure(t.width) : laneWidthFor(cls)) : 0;
+        const widthReview=roadWidthReviews.get(id);
+        const sharedLane = !!ds && !oneway && (total === 1 || reviewedSingleLane(t,widthReview));
+        const physicalSharedWidth = sharedLane ? (parseMeasure(t.width) > 0 ? parseMeasure(t.width) : widthReview?.widthM ?? laneWidthFor(cls)) : 0;
         const laneW = sharedLane ? physicalSharedWidth / 2 : laneWidthFor(cls);
         let sidewalk = SIDEWALK[cls] ?? 2;
         if (t.sidewalk === 'no' || t.sidewalk === 'none' || t.foot === 'no') sidewalk = Math.min(sidewalk, 0.8);
@@ -376,7 +391,7 @@ function buildCity(cityId, did = null) {
         }
         if (!name && ref) name = ref;
         if (!name && isLink) name = t.destination ? `Exit → ${t.destination.split(';')[0]}` : (country === 'US' ? 'Ramp' : 'Bretea');
-        roads.push({ id, cls, nodes, oneway, lf, lb, laneW, sharedLane, physicalSharedWidth, sidewalk, maxspeed, flags, layer, name, lat: ll0[0], tags: t, regKmh, access });
+        roads.push({ id, cls, nodes, oneway, lf, lb, laneW, sharedLane, physicalSharedWidth, sidewalk, maxspeed, flags, layer, name, lat: ll0[0], tags: t, regKmh, access, widthReview });
     }
     // prune service ways that do not connect anything (dangling chains)
     if (!ds) {
@@ -524,6 +539,11 @@ function buildCity(cityId, did = null) {
         r.median = 0;
         if (!r.sharedLane && !r.oneway && r.tram && centre / n > 0.4 && r.lf + r.lb >= 2) { r.median = 6.5; r.flags |= 256; }
         else if (!r.sharedLane && !r.oneway && /motorway|trunk/.test(r.cls) && !r.cls.endsWith('_link')) r.median = 3;
+        if(ds){
+            r.widthProfile=resolveRoadWidth(r.tags,r.widthReview,{lanes:r.lf+r.lb,medianM:r.median,sharedLane:r.sharedLane,defaultSharedWidth:r.physicalSharedWidth||laneWidthFor(r.cls)});
+            if(r.widthProfile){r.median=r.widthProfile.medianM;r.laneW=r.widthProfile.laneWidthM;if(r.sharedLane)r.physicalSharedWidth=r.widthProfile.widthM;if(!r.median)r.flags&=~256;}
+        }
+
         if (r.tram) r.flags |= 32;
     }
 
@@ -679,7 +699,7 @@ function buildCity(cityId, did = null) {
         }
         return i;
     };
-    const outRoads = [], sharedLanes = {}, roadAccess = {}, roadSourceGeometry = {};
+    const outRoads = [], sharedLanes = {}, roadAccess = {}, roadSourceGeometry = {}, roadWidths = {};
     const sourceRoadGeometry = (r) => {
         const source = W.get(r.id);
         return { sourceId: 'w' + r.id, nodeIds: source.nodes, wgs84: source.nodes.map(id => N.get(id)), projected: source.nodes.map(pt), tags: source.tags };
@@ -722,8 +742,9 @@ function buildCity(cityId, did = null) {
               | (pYes(pR) ? 64 : 0) | (pYes(pL) ? 128 : 0) | (pNo(pR) ? 256 : 0) | (pNo(pL) ? 512 : 0);
           roadInfo.push(isFinite(lay) ? lay : 0, f, dm(t.width), dm(t.maxheight || t['maxheight:physical']), S(t.placement || t['placement:forward'] || ''), S(t['bridge:structure'] || t['bridge:name'] || '')); }
         if (r.regKmh) rampLimits.push(outRoads.length, r.regKmh);
-        if (r.sharedLane) sharedLanes[outRoads.length] = { widthM: r.physicalSharedWidth, sourceId: 'w' + r.id, widthSource: parseMeasure(r.tags.width) > 0 ? 'OSM width' : 'estimate:class single-lane width', evidence: 'OSM lanes=1; legal two-way' };
+        if (r.sharedLane) sharedLanes[outRoads.length] = { widthM: r.physicalSharedWidth, sourceId: 'w' + r.id, widthSource: r.widthProfile?.source || (parseMeasure(r.tags.width) > 0 ? 'OSM width' : 'estimate:class single-lane width'), evidence: r.tags.lanes==='1' ? 'OSM lanes=1; legal two-way' : 'individually reviewed aerial physical single lane; raw legal lane counts absent', classificationSource: r.tags.lanes==='1' ? 'OSM lanes=1' : 'independent aerial measurement' };
         if (ds) {
+            if(r.widthProfile)roadWidths[outRoads.length]={sourceId:'w'+r.id,...r.widthProfile};
             roadAccess[outRoads.length] = { sourceId: 'w' + r.id, ...r.access };
             roadSourceGeometry[outRoads.length] = { ...sourceRoadGeometry(r), preparedNodeIds: ids };
         }
@@ -916,6 +937,7 @@ function buildCity(cityId, did = null) {
     const RE_BIGROAD = /^(trunk|primary|secondary)$/;
 
     const researchBrands = {};
+    const reviewedBuildingPassages = [];
     const streetTrees = {}; // street name → species keys (trees.js speciesFromOSM) from the research notes; [] = researched as treeless
     // ---- field research (game/research/<city>-<district>.json, spec 20): fill missing height / levels / facade and roof
     //      colours / roof shape on the OSM tags of the researched buildings (OSM tags win where present)
@@ -924,6 +946,7 @@ function buildCity(cityId, did = null) {
         let applied = 0;
         if (fs.existsSync(rf)) {
             let rj = null; try { rj = JSON.parse(fs.readFileSync(rf, 'utf8')); } catch (e) { log('research: cannot parse', rf, e.message); }
+            reviewedBuildingPassages.push(...(rj?.building_passages || []));
             for (const b of rj?.buildings || []) {
                 const id = parseInt(String(b.osm).replace(/^[wr]/, ''), 10); const w = W.get(id); if (!w) continue;
                 const t = w.tags = { ...w.tags }, ot = b.osmTags || {};
@@ -1139,6 +1162,8 @@ function buildCity(cityId, did = null) {
         const literalMinimum = parseMeasure(t.min_height);
         let minH = literalMinimum > 0 ? literalMinimum : (num(t['building:min_level']) > 0 ? num(t['building:min_level']) * 3.2 : 0);
         const sourceIssues = [];
+        if (Number.isFinite(h) && h > 0 && literalMinimum === h) sourceIssues.push('zero vertical source band: height equals min_height=' + t.height);
+        else if (Number.isFinite(h) && h > 0 && literalMinimum > h) sourceIssues.push('minimum height exceeds literal total height');
         if (Number.isFinite(h) && h <= 0) { sourceIssues.push('nonpositive OSM height=' + t.height); h = NaN; }
         if (t.height != null && !Number.isFinite(parseMeasure(t.height))) sourceIssues.push('invalid height measure=' + t.height);
         if (t.min_height != null && !(literalMinimum >= 0)) sourceIssues.push('invalid minimum height=' + t.min_height);
@@ -1188,8 +1213,8 @@ function buildCity(cityId, did = null) {
                 if (villaZone && !(lvTag && levels >= 5) && !(b === 'apartments' && realArea > 900)) {
                     if (aTile && realArea < 520) { // tiled villa: 1–3 storeys, the roof the aerial survey saw
                         style = 'house'; defLevels = lvTag ? levels : realArea < 90 ? 1 : realArea < 140 ? (hv < 0.55 ? 1 : 2) : hv < 0.55 ? 2 : 3;
-                        roof = aer[0] === 'gabled' && lls.length <= 6 ? 2 : (lls.length <= 6 ? 4 : 1); rb.roofKnown = true;
-                    } else if (aTile) { style = 'bloc'; defLevels = lvTag ? levels : 4; roof = lls.length <= 6 ? 4 : 1; rb.roofKnown = true; } // big tiled interwar block
+                        roof = aer[0] === 'gabled' && (ds || lls.length <= 6) ? 2 : (ds || lls.length <= 6 ? 4 : 1); rb.roofKnown = true;
+                    } else if (aTile) { style = 'bloc'; defLevels = lvTag ? levels : 4; roof = ds || lls.length <= 6 ? 4 : 1; rb.roofKnown = true; } // big tiled interwar block
                     else if (aFlat && realArea >= 140) { // flat-roofed block: dark bitumen = 1950s–60s bloc (P+3), light membrane = newer boutique block
                         const light = lumHex(aer[2]) > 150;
                         style = 'bloc'; roof = 0; rb.roofKnown = true;
@@ -1228,15 +1253,15 @@ function buildCity(cityId, did = null) {
             if (!rb.roofKnown && style !== 'church' && style !== 'glass') {
                 const a0 = rb.aer[0];
                 if (a0 === 'flat') { if (roof !== 0) aerialStats.shape++; roof = 0; measuredRoof = true; }
-                else if ((a0 === 'hipped' || a0 === 'gabled') && (realArea < 1500 || ring.length === 4)) { const r = a0 === 'gabled' && lls.length <= 6 ? 2 : lls.length <= 6 ? 4 : 1; if (roof !== r) aerialStats.shape++; roof = r; measuredRoof = true; }
+                else if ((a0 === 'hipped' || a0 === 'gabled') && (realArea < 1500 || ring.length === 4)) { const r = a0 === 'gabled' && (ds || lls.length <= 6) ? 2 : ds || lls.length <= 6 ? 4 : 1; if (roof !== r) aerialStats.shape++; roof = r; measuredRoof = true; }
             }
         }
         if (t['roof:shape']) {
             const rs = t['roof:shape'];
             const setRoof = (value) => { roof = value; measuredRoof = true; };
             if (/mansard|gambrel/.test(rs)) setRoof(6);
-            else if (/hipped|half-hipped/.test(rs)) setRoof(lls.length <= 6 ? 4 : 1);
-            else if (/gabled|saltbox/.test(rs)) setRoof(lls.length <= 6 ? 2 : 1);
+            else if (/hipped|half-hipped/.test(rs)) setRoof(ds || lls.length <= 6 ? 4 : 1);
+            else if (/gabled|saltbox/.test(rs)) setRoof(ds || lls.length <= 6 ? 2 : 1);
             else if (/skillion|lean_to/.test(rs)) setRoof(5);
             else if (/pyramidal|cone/.test(rs)) setRoof(1);
             else if (/dome|onion/.test(rs)) setRoof(3);
@@ -1687,7 +1712,7 @@ function buildCity(cityId, did = null) {
         outBInfo.push(S(t.building && t.building !== 'yes' ? t.building : ''), yearOf(t.start_date || t['building:start_date'] || t.construction_date), S(t.architect || ''), S((t['building:material'] || t['building:facade:material'] || '').split(';')[0]), b.hSrc ?? 0);
     }
     const outBuildingCanopies = Object.fromEntries(buildings.flatMap((b, i) => b.canopy ? [[i, { ...b.canopy, topM: b.h, clearanceM: b.minH }]] : []));
-    const mappedPassages = ds ? sourcePassages(buildings, W, N, P, roads) : { records: {}, issues: [] };
+    const mappedPassages = ds ? sourcePassages(buildings, W, N, P, roads, reviewedBuildingPassages) : { records: {}, issues: [] };
     const outBuildingSourceIssues = Object.fromEntries(buildings.flatMap((b, i) => b.sourceIssues?.length ? [[i, b.sourceIssues]] : []));
     const outB = buildings.map(b => {
         let flags = b.flags;
@@ -1928,6 +1953,8 @@ function buildCity(cityId, did = null) {
         if (Object.keys(outBuildingHoleFootprints).length) doc.buildingHoleFootprints = outBuildingHoleFootprints;
         if (Object.keys(sharedLanes).length) doc.sharedLanes = sharedLanes;
         doc.roadAccess = roadAccess;
+        if(Object.keys(roadWidths).length)doc.roadWidths=roadWidths;
+        if(roadWidthIssues.length)doc.roadWidthIssues=roadWidthIssues;
         doc.roadGeometryPolicy = 'source';
         doc.roadNodePositions = roadNodePositions;
         doc.roadNodeIds = roadNodeIds;

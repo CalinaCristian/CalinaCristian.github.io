@@ -1,0 +1,70 @@
+{
+  "input": "/workspace/fidelity-workers/pipera-fidelity/game/data/bucharest-pipera.json",
+  "inputSha256": "429b5811270d0bf274bde565d65f30e919937ba551c6130acbf1c16f32dca943",
+  "geometryPolicy": "source",
+  "scope": "source road segments before renderer height subdivision and SCC classification",
+  "sharedRoads": [
+    {
+      "road": 18,
+      "name": "Strada Lăculeț",
+      "widthM": 3,
+      "sourceId": "w23731469",
+      "widthSource": "estimate:class single-lane width",
+      "evidence": "OSM lanes=1; legal two-way"
+    },
+    {
+      "road": 20,
+      "name": "",
+      "widthM": 3,
+      "sourceId": "w23731494",
+      "widthSource": "estimate:class single-lane width",
+      "evidence": "OSM lanes=1; legal two-way"
+    },
+    {
+      "road": 86,
+      "name": "Strada Caierului",
+      "widthM": 3,
+      "sourceId": "w276695458",
+      "widthSource": "estimate:class single-lane width",
+      "evidence": "OSM lanes=1; legal two-way"
+    }
+  ],
+  "previousGroupCount": 3,
+  "connectedGroupCount": 2,
+  "groups": [
+    {
+      "exclusive": false,
+      "lengthM": 127.23281718968516,
+      "segmentCount": 3,
+      "sources": [
+        "w23731469"
+      ],
+      "sideEntries": []
+    },
+    {
+      "exclusive": false,
+      "lengthM": 150.69535385478102,
+      "segmentCount": 6,
+      "sources": [
+        "w23731494",
+        "w276695458"
+      ],
+      "sideEntries": [
+        {
+          "node": 67,
+          "sourceId": 257012812,
+          "x": -1093.0961134080812,
+          "z": 174.52169279983647,
+          "branches": [
+            {
+              "sourceId": "w23731500",
+              "name": "Strada Țintea",
+              "publicDrive": true,
+              "throughAccess": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

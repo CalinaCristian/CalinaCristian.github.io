@@ -9,7 +9,7 @@
 //  Local frame: x east, z south; origin = Space Needle centre (OSM w12903132).
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
-import { GeoBatch, M, rng, canvas, canvasTexture, inPoly, clamp, lerp, smooth, headingFromBearing, polyBox, alongPolyline, polylineLength, centroid, offsetPolyline } from '../kit.js';
+import { GeoBatch, M, rng, canvas, canvasTexture, inPoly, clamp, lerp, smooth, headingFromBearing, polyBox, alongPolyline, polylineLength, centroid, offsetPolyline, compactTriangles, capsuleGeometry } from '../kit.js';
 import { meshSDF, sdEllipsoid, sdCapsule, sdBox, sdSphere, smin, smax, noise3, fbm3 } from '../sdf.js';
 import { signBoard, railing } from '../props.js';
 import { seaNeedle, seaBackdrop, seaActivity } from './sea-common.js';
@@ -23,6 +23,7 @@ const MONO_Y = 7.6; // guideway top above the plaza (≈ 2nd-floor level at MoPO
 // ---------------------------------------------------------------------------- Space Needle + base pavilion + elevator ride to the deck
 function buildNeedle(ctx) {
     const g = ctx.ground, y = NEEDLE.y;
+    ctx.skipBuildings.add('w12903132');
     // round-5 model (sea-common): one lathe top house, recessed glass bands, radial underside beams, 3 gold elevator
     // cabs running on the core, Loupe glass floor, open-air deck with tilted glass barriers (note 55)
     const n = seaNeedle({ detail: 1, visitorGlass: true }); n.position.set(NEEDLE.x, y, NEEDLE.z); ctx.add(n);
@@ -121,6 +122,7 @@ function glassForms(n, colors, { seed = 1, shape = 'tear' } = {}) {
     m.onBeforeCompile = (sh) => { sh.uniforms.uNight = GU.uNight; sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nuniform float uNight;').replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\n { float fr = abs(dot(normalize(vViewPosition), normal)); totalEmissiveRadiance = diffuseColor.rgb * (0.28 + 0.5 * fr + uNight * 0.9); }'); };
     m.customProgramCacheKey = () => 'spotGlass2';
     m.userData.glassNight = GU.uNight;
+    compactTriangles(g);
     const im = new THREE.InstancedMesh(g, m, n); im.castShadow = false; im.receiveShadow = false;
     const r = rng(seed), col = new THREE.Color();
     for (let i = 0; i < n; i++) im.setColorAt(i, col.set(colors[Math.floor(r() * colors.length)]));
@@ -133,7 +135,7 @@ function buildChihuly(ctx) {
     const bb = polyBox(gh.poly), cx = (bb.x0 + bb.x1) / 2, cz = (bb.z0 + bb.z1) / 2, W = bb.x1 - bb.x0, D = bb.z1 - bb.z0, y0 = g.heightAt(cx, cz);
     // Glasshouse: steel frame, clear glass walls, gambrel roof (ridge along z, the long side), 12.2 m tall
     const H = 12.2, eave = 7.4, kneeH = 10.4, b = new GeoBatch(), steel = '#5a6166';
-    const glass = new THREE.MeshStandardMaterial({ color: '#dceff4', transparent: true, opacity: 0.22, roughness: 0.02, metalness: 0.0, envMapIntensity: 2.2, depthWrite: false, side: THREE.DoubleSide, emissive: new THREE.Color('#ffe3b8'), emissiveIntensity: 0 }); glass.userData.nightEmissive = 0.08; glass.name = 'spot-glasshouse';
+    const glass = new THREE.MeshStandardMaterial({ color: '#dceff4', transparent: true, opacity: 0.22, roughness: 0.02, metalness: 0.0, envMapIntensity: 2.2, depthWrite: false, side: THREE.DoubleSide, emissive: new THREE.Color('#ffe3b8'), emissiveIntensity: 0 }); glass.userData.nightEmissive = 0.08; glass.name = 'spot-glasshouse'; glass.forceSinglePass = true;
     const prof = (u) => { const a = Math.abs(u) / (W / 2); return a > 0.72 ? eave + (1 - a) / 0.28 * (kneeH - eave) : kneeH + (0.72 - a) / 0.72 * (H - kneeH); }; // gambrel section height at offset u
     const gGeo = new THREE.BufferGeometry(), pos = [];
     const us = [-W / 2, -W / 2 * 0.72, 0, W / 2 * 0.72, W / 2];
@@ -295,7 +297,7 @@ function buildMonorail(ctx) {
     ctx.add(b.build('monorail-guideway'));
     // train: 4 articulated cars (red livery on this line), straddling the north beam
     const train = new THREE.Group(); train.name = 'monorail-train';
-    const carG = new THREE.CapsuleGeometry(1.45, 8.6, 6, 14); carG.rotateZ(Math.PI / 2); carG.scale(1, 1.05, 0.98);
+    const carG = capsuleGeometry(1.45, 8.6, 6, 14); carG.rotateZ(Math.PI / 2); carG.scale(1, 1.05, 0.98); compactTriangles(carG);
     const red = new THREE.MeshStandardMaterial({ color: '#c8102e', metalness: 0.3, roughness: 0.35 }), win = new THREE.MeshStandardMaterial({ color: '#1a2630', metalness: 0.6, roughness: 0.1 }), white = new THREE.MeshStandardMaterial({ color: '#eef0f0', roughness: 0.5 });
     const cars = [];
     for (let i = 0; i < 4; i++) {

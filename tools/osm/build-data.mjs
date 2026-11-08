@@ -80,6 +80,7 @@ import { fileURLToPath } from 'node:url';
 import { parseFiles, parseInto } from './parse-osm.mjs';
 import { footprintCoverage, simpleFootprint, uncrossFootprint, bakeAssembly, bakeSurface, touchingSolids, assemblySignature } from '../../game/src/building-parts.js';
 import { sourceRing } from './source-footprints.mjs';
+import { sourcePartHeightReview } from './source-height-review.mjs';
 import { parseMeasure, makeRoofProfile, roofMesh, visibleRoofMesh, roofSignature } from '../../game/src/building-roofs.js';
 import { ShapeUtils, Vector2 } from '../../game/vendor/three.module.min.js';
 import { resolveRoadAccess } from '../../game/src/road-access.js';
@@ -91,6 +92,7 @@ import { buildCorridor } from './corridors.mjs';
 import { CITIES as GAME_CITIES } from '../../game/src/cities.js';
 import { LANDMARKS } from '../../game/src/landmarks.js';
 import { speciesFromOSM } from '../../game/src/trees.js';
+import { resolveResearchSource } from './research-source.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(HERE, '..', '..');
@@ -948,7 +950,8 @@ function buildCity(cityId, did = null) {
             let rj = null; try { rj = JSON.parse(fs.readFileSync(rf, 'utf8')); } catch (e) { log('research: cannot parse', rf, e.message); }
             reviewedBuildingPassages.push(...(rj?.building_passages || []));
             for (const b of rj?.buildings || []) {
-                const id = parseInt(String(b.osm).replace(/^[wr]/, ''), 10); const w = W.get(id); if (!w) continue;
+                const source = resolveResearchSource(b, W, R); if (!source) continue;
+                const { id, object: w } = source;
                 const t = w.tags = { ...w.tags }, ot = b.osmTags || {};
                 t.__originalDimensions ||= Object.fromEntries(Object.entries(t).filter(([k]) => /^(height|min_height|min_level|building:levels|building:min_level|roof:)/.test(k)));
                 const set = (k, v) => { if (v == null || v === '' || t[k] != null) return false; t[k] = String(v); return true; };
@@ -961,7 +964,15 @@ function buildCity(cityId, did = null) {
                 const hex = (v) => (typeof v === 'string' && /^#[0-9a-f]{6}$/i.test(v)) ? v : null;
                 const roofShape = (v) => (typeof v === 'string' && /^(flat|gabled|hipped|pyramidal|dome|skillion|mansard|round|gambrel)$/.test(v)) ? v : null;
                 let hr = 0; // 1 = researched height / storeys, 2 = only the research estimate
-                if (set('height', rs.height_m ?? b.heightM ?? b.height ?? ot.height)) { ch = true; hr = rs.height_source === 'estimate' ? 2 : 1; }
+                let heightReviewAllowed = true;
+                if (rs.height_source_part) {
+                    const ref = rs.height_source_part, part = /^w\d+$/.test(ref.sourceId || '') ? W.get(+ref.sourceId.slice(1)) : null;
+                    const rawPart = part && { ...part.tags, ...(part.tags.__originalDimensions || {}), height: part.tags.__originalDimensions ? part.tags.__originalDimensions.height : part.tags.height };
+                    const proof = part && sourcePartHeightReview({ parentTags: t.__originalDimensions, parentRing: w.nodes.map(pt), partTags: rawPart, partRing: part.nodes.map(pt), review: ref });
+                    heightReviewAllowed = !!proof && rs.height_m === proof.heightM && rs.height_source === 'estimate';
+                    if (!heightReviewAllowed) log(`research: rejected source-part height guard for ${b.osm}`);
+                }
+                if (heightReviewAllowed && set('height', rs.height_m ?? b.heightM ?? b.height ?? ot.height)) { ch = true; hr = rs.height_source === 'estimate' ? 2 : 1; }
                 if (set('building:levels', rs.storeys ?? b.levels ?? b.building_levels ?? ot['building:levels'])) { ch = true; hr = hr || 1; }
                 if (t.height == null && t['building:levels'] == null && set('height', b.heightEstM ?? b.height_est_m)) { ch = true; hr = hr || 2; }
                 if (t['building:levels'] == null && t.height == null && set('building:levels', b.levelsEst)) { ch = true; hr = hr || 2; }

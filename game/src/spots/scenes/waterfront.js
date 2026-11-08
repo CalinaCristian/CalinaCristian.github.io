@@ -12,6 +12,7 @@ import { signBoard } from '../props.js';
 import { seaWheel, seaWater, seaBackdrop, mirrorAbout, seaActivity } from './sea-common.js';
 import { makeCrowd } from '../../crowd.js';
 import { addTraffic } from '../cars.js';
+import { activityFlow } from '../participation.js';
 
 const DECK_Y = 3.4;
 
@@ -57,24 +58,40 @@ export default {
           for (const [w, h, x, y, z, ry] of [[2.2, 2.2, 0, 0, -0.96, 0], [2.2, 2.2, 0, 0, 0.96, 0], [1.9, 2.2, -1.11, 0, 0, Math.PI / 2], [1.9, 2.2, 1.11, 0, 0, Math.PI / 2]]) { const pane = new THREE.Mesh(new THREE.PlaneGeometry(w, h), gm); pane.position.set(x, y - 0.1, z); pane.rotation.y = ry; pane.renderOrder = 5; cabin.add(pane); } }
         ctx.add(cabin);
         const riders = makeCrowd({ max: 2, city: 'seattle', castShadow: false }); riders.object.visible = false; ctx.add(riders.object);
+        (ctx.extras.sceneCleanups ||= []).push(() => riders.dispose());
         let ride = null; const v3 = new THREE.Vector3();
-        ctx.onUpdate((dt, s) => {
-            wheel.update(dt, s.nightK, s.t);
+        ctx.onUpdate((dt, s) => wheel.update(dt, s.nightK, s.t));
+        const flow = activityFlow(ctx);
+        const end = s => {
             if (!ride) return;
-            ride.t += dt; wheel.speed = 4; // a 12-minute ride (3 turns) compressed ×4
-            wheel.cabLocal(ride.i, v3); wheel.group.localToWorld(v3);
-            cabin.position.copy(v3); cabin.rotation.y = 2.27;
-            for (let k = 0; k < 2; k++) riders.set(k, { x: v3.x + Math.sin(2.27) * 0.0 + Math.cos(2.27) * 0.75 * (k ? 1 : 1), y: v3.y - 1.62, z: v3.z - Math.sin(2.27) * 0.75 + (k ? 0.45 : -0.45) * Math.cos(2.27), yaw: 2.27 - Math.PI / 2, pose: k ? 'photo' : 'sit', prop: k ? 'phone' : null });
-            const lk = s.input?.takeLook?.() || { dx: 0, dy: 0 }; ride.heading -= lk.dx * 0.0024; ride.pitch = clamp(ride.pitch - lk.dy * 0.0024, -1.2, 1.0);
-            s.ctl.rig.position.set(v3.x - Math.cos(2.27) * 0.6, v3.y - 0.55, v3.z + Math.sin(2.27) * 0.6); s.ctl.rig.rotation.set(ride.pitch, ride.heading, 0, 'YXZ');
-            if (ride.t > 3 * 90) end(s, true);
-        });
-        const end = (s, full) => { wheel.speed = 1; wheel.hide = -1; cabin.visible = false; riders.object.visible = false; s.ctl.active = true; s.ctl.teleport(ride.back.x, ride.back.z, ride.back.heading); ride = null;
-            if (full) seaActivity(s, 'lm-great-wheel', 'waterfront', '🎡 Three turns over Elliott Bay', '175 ft up — the West Coast\'s tallest Ferris wheel when it opened in 2012.'); };
+            wheel.speed = 1; wheel.hide = -1; cabin.visible = false; riders.object.visible = false;
+            s.ctl.y = ride.back.y; s.ctl.teleport(ride.back.x, ride.back.z, ride.back.heading); ride = null;
+        };
         const booth = d.buildings.find((x) => x.id === 'w429553385'); const [bx, bz] = booth ? centroid(booth.poly) : [-47, 64];
-        ctx.interactables.push({ kind: 'ride', x: bx + 3, z: bz - 2, r: 3.5, label: 'Ride the Seattle Great Wheel (3 turns, ≈ 4 min)', cond: () => !ride,
-            use: (s) => { const p = s.ctl.position; let best = 0, by = 1e9; for (let i = 0; i < 42; i++) { wheel.cabLocal(i, v3); if (v3.y < by) { by = v3.y; best = i; } } wheel.hide = best; ride = { i: best, t: 0, heading: 2.27 + Math.PI / 2 + 0.6, pitch: 0.05, back: { x: p.x, z: p.z, heading: s.ctl.heading } }; cabin.visible = true; riders.object.visible = true; s.ctl.active = false; s.sound.play('chime'); s.ui.toast('🎡 Doors closed', 'Enclosed, heated gondolas; 42 of them. Look around (E: get off early).'); } });
-        ctx.interactables.push({ kind: 'ride', x: gw.x, z: gw.z, r: 120, label: 'Get off the wheel', cond: () => !!ride, use: (s) => end(s, ride.t > 60) });
+        ctx.extras.wheelRide = { active: () => !!ride, turns: () => ride ? (wheel.angle() - ride.angle) / (Math.PI * 2) : 0 };
+        ctx.interactables.push({ kind: 'ride', x: bx + 3, z: bz - 2, r: 3.5, label: 'Ride the Seattle Great Wheel (3 turns, ≈ 4½ min)', cond: () => !ride,
+            use: s => flow.begin(s, {
+                title: 'Seattle Great Wheel', cameraRide: true,
+                help: 'Three turns over Elliott Bay, with free look. Leave or Esc returns to the pier early; a completed ride earns the postcard badge.',
+                started(s,r) {
+                    const p = s.position; let best = 0, by = Infinity;
+                    for (let i = 0; i < 42; i++) { wheel.cabLocal(i,v3); if (v3.y < by) { by = v3.y; best = i; } }
+                    wheel.hide = best; wheel.speed = 4;
+                    ride = { i: best, angle: wheel.angle(), heading: 2.27 + Math.PI / 2 + .6, pitch: .05, back: { x:p.x,z:p.z,y:p.y,heading:s.ctl.heading } };
+                    cabin.visible = true; riders.object.visible = true; r.button.hidden = true; s.sound.play('chime');
+                },
+                update(dt,s,r) {
+                    if (!ride) return;
+                    wheel.cabLocal(ride.i,v3); wheel.group.localToWorld(v3); cabin.position.copy(v3); cabin.rotation.y = 2.27;
+                    for (let k=0;k<2;k++) riders.set(k,{x:v3.x+Math.cos(2.27)*.75,y:v3.y-1.62,z:v3.z-Math.sin(2.27)*.75+(k?.45:-.45)*Math.cos(2.27),yaw:2.27-Math.PI/2,pose:k?'photo':'sit',prop:k?'phone':null});
+                    const lk=s.input?.takeLook?.()||{dx:0,dy:0}; ride.heading-=lk.dx*.0024; ride.pitch=clamp(ride.pitch-lk.dy*.0024,-1.2,1);
+                    s.ctl.rig.position.set(v3.x-Math.cos(2.27)*.6,v3.y-.55,v3.z+Math.sin(2.27)*.6); s.ctl.rig.rotation.set(ride.pitch,ride.heading,0,'YXZ');
+                    const turns=(wheel.angle()-ride.angle)/(Math.PI*2); r.progress.value=turns/3; r.status.textContent=`${Math.min(3,turns).toFixed(1)} / 3 turns`;
+                    if(turns>=3)flow.complete();
+                },
+                cancel:end,
+                complete(s) { end(s); seaActivity(s,'lm-great-wheel','waterfront','🎡 Three turns over Elliott Bay','175 ft up — the West Coast\'s tallest Ferris wheel when it opened in 2012.'); },
+            }) });
         // Miners Landing / Pier 57 sign, ticket booth sign, Aquarium sign
         const sg = signBoard('MINERS LANDING  •  PIER 57', 9, 1.1, { bg: '#7a3b22', fg: '#f6e7c8', font: (s) => `700 ${s}px Georgia, serif` });
         { const p57 = d.buildings.find((x) => x.id === 'w166910699'); if (p57) { const bb = polyBox(p57.poly); sg.position.set(bb.x1 - 2, DECK_Y + 7.5, (bb.z0 + bb.z1) / 2); sg.rotation.y = Math.PI / 2 + 0.55; ctx.add(sg); } }

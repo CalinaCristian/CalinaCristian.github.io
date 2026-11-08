@@ -1,0 +1,4225 @@
+{
+  "schemaVersion": 1,
+  "district": "bellevue",
+  "reviewedAt": "2026-11-08",
+  "geometryCaptureCommit": "4aebdc1c78477f0e5f2377d84e66c9c580475a06",
+  "scope": "Every source road candidate from every retained source-building road-envelope conflict, including restricted physical streets and mapped covered ways. Raw broad-phase candidates are not narrow-phase collisions.",
+  "rawBuildingConflictRecords": 38,
+  "uniqueSourceBuildings": 29,
+  "reviewedUniqueSourceRoadCandidates": 47,
+  "aerialContactSheetsInspected": 8,
+  "independentUniformWidthsApplied": 0,
+  "widthEvidenceLimit": "No reliable single uniform carriageway width is asserted from these context crops. This is an explicit remaining measurement gap, not measured-width parity. No road or building was moved, shrunk, deleted or fabricated to clear an estimate.",
+  "candidateEnvelopeCaveat": "Estimated max-sided class envelopes and inferred sidewalk widths only find candidates. They are not independent pavement measurements and may overreach an asymmetric street or a separated level.",
+  "referenceImageryTracked": false,
+  "sourceBuildingConflicts": [
+    {
+      "sourceBuildingId": "w33725872",
+      "buildingIndex": 170,
+      "sourceBuildingRowHeightM": 32.4,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "source-clearance",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w592232752",
+          "name": "112th Avenue Northeast",
+          "class": "secondary",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "foot": "yes",
+            "hgv": "designated",
+            "highway": "secondary",
+            "lanes": "4",
+            "maxspeed": "30 mph",
+            "name": "112th Avenue Northeast",
+            "oneway": "yes",
+            "sidewalk:left": "no",
+            "sidewalk:right": "separate",
+            "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+            "surface": "asphalt",
+            "turn:lanes": "left|slight_left||"
+          },
+          "estimatedEnvelopeHalfWidthM": 7.3,
+          "inferredSidewalkM": 3.5,
+          "nearestBoundarySampleM": 7.805704959840278
+        }
+      ],
+      "cropBoxPx": [
+        3976.231000699103,
+        2105.2084654103965,
+        4141.053532894701,
+        2270.0309976059943
+      ],
+      "cropGroundSpanM": 66.34784967031699
+    },
+    {
+      "sourceBuildingId": "w33725899",
+      "buildingIndex": 171,
+      "sourceBuildingRowHeightM": 68.0,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "source-clearance",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w402083657",
+          "name": "110th Avenue Northeast",
+          "class": "tertiary",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "cycleway:both": "no",
+            "highway": "tertiary",
+            "lanes": "4",
+            "lanes:backward": "1",
+            "lanes:forward": "3",
+            "maxspeed": "30 mph",
+            "name": "110th Avenue Northeast",
+            "sidewalk:both": "separate",
+            "surface": "asphalt",
+            "turn:lanes:forward": "left|through|right"
+          },
+          "estimatedEnvelopeHalfWidthM": 10.8,
+          "inferredSidewalkM": 3.0,
+          "nearestBoundarySampleM": 11.450245908324764
+        }
+      ],
+      "cropBoxPx": [
+        3494.033888832666,
+        2041.2784657813609,
+        3682.3468256266788,
+        2229.5914025753736
+      ],
+      "cropGroundSpanM": 75.80370386834016
+    },
+    {
+      "sourceBuildingId": "w40044642",
+      "buildingIndex": 176,
+      "sourceBuildingRowHeightM": 10.8,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "source-clearance",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w436495006",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 2.5625369728719853
+        }
+      ],
+      "cropBoxPx": [
+        3522.0868794834128,
+        2324.219705894578,
+        3683.5610590679685,
+        2485.6938854791338
+      ],
+      "cropGroundSpanM": 65.0
+    },
+    {
+      "sourceBuildingId": "w44336587",
+      "buildingIndex": 188,
+      "sourceBuildingRowHeightM": 18.0,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "source-clearance",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w6450855",
+          "name": "Northeast 9th Street",
+          "class": "residential",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "residential",
+            "name": "Northeast 9th Street",
+            "sidewalk:both": "separate",
+            "surface": "asphalt"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 2.5,
+          "nearestBoundarySampleM": 4.875056126200881
+        }
+      ],
+      "cropBoxPx": [
+        3734.5167803680524,
+        1746.8053362704813,
+        4040.698843038641,
+        2052.98739894107
+      ],
+      "cropGroundSpanM": 123.25087592822668
+    },
+    {
+      "sourceBuildingId": "w99043577",
+      "buildingIndex": 228,
+      "sourceBuildingRowHeightM": 46.8,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "source-clearance",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w592232752",
+          "name": "112th Avenue Northeast",
+          "class": "secondary",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "foot": "yes",
+            "hgv": "designated",
+            "highway": "secondary",
+            "lanes": "4",
+            "maxspeed": "30 mph",
+            "name": "112th Avenue Northeast",
+            "oneway": "yes",
+            "sidewalk:left": "no",
+            "sidewalk:right": "separate",
+            "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+            "surface": "asphalt",
+            "turn:lanes": "left|slight_left||"
+          },
+          "estimatedEnvelopeHalfWidthM": 7.3,
+          "inferredSidewalkM": 3.5,
+          "nearestBoundarySampleM": 7.61655429594031
+        }
+      ],
+      "cropBoxPx": [
+        3957.472021425143,
+        1873.467046122998,
+        4225.709598107263,
+        2141.7046228051186
+      ],
+      "cropGroundSpanM": 107.97665935938574
+    },
+    {
+      "sourceBuildingId": "w387927271",
+      "buildingIndex": 350,
+      "sourceBuildingRowHeightM": 9.7,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "source-clearance",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w1278996306",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "service",
+            "oneway": "yes"
+          },
+          "estimatedEnvelopeHalfWidthM": 1.8,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 0.4855249191582208
+        }
+      ],
+      "cropBoxPx": [
+        4952.419056175266,
+        2361.6221327576673,
+        5113.8932357598205,
+        2523.096312342223
+      ],
+      "cropGroundSpanM": 65.0
+    },
+    {
+      "sourceBuildingId": "w1474780189",
+      "buildingIndex": 483,
+      "sourceBuildingRowHeightM": 7.4,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "source-clearance",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w820174335",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "service",
+            "service": "driveway"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 6.310593788030624e-05
+        }
+      ],
+      "cropBoxPx": [
+        3768.926271888416,
+        2302.511007951561,
+        3930.400451472972,
+        2463.985187536117
+      ],
+      "cropGroundSpanM": 65.0
+    },
+    {
+      "sourceBuildingId": "w33106348",
+      "buildingIndex": 500,
+      "sourceBuildingRowHeightM": 10.8,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "source-clearance",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w513490800",
+          "name": "Northeast 8th Street",
+          "class": "secondary",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "secondary",
+            "lanes": "4",
+            "lit": "yes",
+            "maxspeed": "30 mph",
+            "name": "Northeast 8th Street",
+            "oneway": "yes",
+            "sidewalk:both": "separate",
+            "surface": "asphalt",
+            "turn:lanes": "left|left||"
+          },
+          "estimatedEnvelopeHalfWidthM": 7.3,
+          "inferredSidewalkM": 3.5,
+          "nearestBoundarySampleM": 8.757311025627587
+        }
+      ],
+      "cropBoxPx": [
+        1827.5836943443865,
+        2272.168311536312,
+        2148.412725901231,
+        2592.997343093157
+      ],
+      "cropGroundSpanM": 129.14688345126297
+    },
+    {
+      "sourceBuildingId": "w33115668",
+      "buildingIndex": 503,
+      "sourceBuildingRowHeightM": 7.2,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "source-clearance",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w513188427",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "oneway": "yes",
+            "service": "drive-through"
+          },
+          "estimatedEnvelopeHalfWidthM": 1.8,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 3.2043266878346955e-05
+        },
+        {
+          "sourceId": "w360674604",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "oneway": "yes",
+            "service": "drive-through"
+          },
+          "estimatedEnvelopeHalfWidthM": 1.8,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 4.987170362865553e-05
+        },
+        {
+          "sourceId": "w513188426",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "covered": "yes",
+            "highway": "service",
+            "oneway": "yes",
+            "service": "drive-through"
+          },
+          "estimatedEnvelopeHalfWidthM": 1.8,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 2.153323801977627e-05
+        }
+      ],
+      "cropBoxPx": [
+        2486.0099317459276,
+        2101.890983788285,
+        2647.4841113304833,
+        2263.365163372841
+      ],
+      "cropGroundSpanM": 65.0
+    },
+    {
+      "sourceBuildingId": "w33115737",
+      "buildingIndex": 504,
+      "sourceBuildingRowHeightM": 14.4,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "source-clearance",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w593998061",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 3.6477712601123376e-05
+        },
+        {
+          "sourceId": "w593998063",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 3.9585260342649234e-05
+        },
+        {
+          "sourceId": "w816498788",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "covered": "yes",
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 2.4368395010551376e-05
+        },
+        {
+          "sourceId": "w816498790",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "covered": "yes",
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 3.549605527207219e-05
+        },
+        {
+          "sourceId": "w593998065",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 4.198705168221258e-05
+        },
+        {
+          "sourceId": "w816498786",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "covered": "yes",
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 3.41591925020868e-05
+        },
+        {
+          "sourceId": "w593998068",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 2.3557115262754467
+        },
+        {
+          "sourceId": "w816498785",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 4.248507548710996e-05
+        },
+        {
+          "sourceId": "w816498787",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 5.636140214936149e-05
+        },
+        {
+          "sourceId": "w816498789",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 4.405336993529719e-05
+        }
+      ],
+      "cropBoxPx": [
+        2426.459981581185,
+        2306.9771014358735,
+        2587.9341611657405,
+        2468.451281020429
+      ],
+      "cropGroundSpanM": 65.0
+    },
+    {
+      "sourceBuildingId": "w33723996",
+      "buildingIndex": 511,
+      "sourceBuildingRowHeightM": 7.2,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "source-clearance",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w344681144",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 3.0696317062496337
+        },
+        {
+          "sourceId": "w743695059",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 3.0696317062496337
+        }
+      ],
+      "cropBoxPx": [
+        1673.0921380911022,
+        2066.960045190528,
+        1839.965050259605,
+        2233.832957359031
+      ],
+      "cropGroundSpanM": 67.17321195784625
+    },
+    {
+      "sourceBuildingId": "w33725909",
+      "buildingIndex": 531,
+      "sourceBuildingRowHeightM": 4.5,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "source-clearance",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w656577799",
+          "name": "Northeast 9th Place",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "service",
+            "name": "Northeast 9th Place",
+            "oneway": "no"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 2.527379315937016
+        },
+        {
+          "sourceId": "w1375412467",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "service",
+            "oneway": "yes",
+            "surface": "asphalt"
+          },
+          "estimatedEnvelopeHalfWidthM": 1.8,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 1.7984846274319037
+        },
+        {
+          "sourceId": "w1375412468",
+          "name": "Northeast 9th Place",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "service",
+            "name": "Northeast 9th Place",
+            "oneway": "yes"
+          },
+          "estimatedEnvelopeHalfWidthM": 1.8,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 1.9752551718124634
+        },
+        {
+          "sourceId": "w513503505",
+          "name": "Northeast 8th Street",
+          "class": "primary",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "hgv": "designated",
+            "highway": "primary",
+            "lanes": "4",
+            "maxspeed": "30 mph",
+            "name": "Northeast 8th Street",
+            "oneway": "yes",
+            "sidewalk:both": "separate",
+            "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+            "surface": "asphalt",
+            "turn:lanes": "left|||right"
+          },
+          "estimatedEnvelopeHalfWidthM": 7.3,
+          "inferredSidewalkM": 4.0,
+          "nearestBoundarySampleM": 7.803499538334128
+        },
+        {
+          "sourceId": "w513503506",
+          "name": "Northeast 8th Street",
+          "class": "primary",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "cycleway:right": "no",
+            "hgv": "designated",
+            "highway": "primary",
+            "lanes": "4",
+            "lit": "yes",
+            "maxspeed": "30 mph",
+            "name": "Northeast 8th Street",
+            "oneway": "yes",
+            "sidewalk:both": "separate",
+            "smoothness": "excellent",
+            "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+            "surface": "asphalt",
+            "turn:lanes": "left|||"
+          },
+          "estimatedEnvelopeHalfWidthM": 7.3,
+          "inferredSidewalkM": 4.0,
+          "nearestBoundarySampleM": 8.007504356353593
+        },
+        {
+          "sourceId": "w816523047",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 1.6034537955790245e-05
+        },
+        {
+          "sourceId": "w816523048",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "service": "parking_aisle",
+            "tunnel": "building_passage"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 1.4707308923519725e-05
+        },
+        {
+          "sourceId": "w816523049",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 2.31792060262165e-05
+        }
+      ],
+      "cropBoxPx": [
+        2703.9534334531054,
+        2068.408105559647,
+        2883.9419738566503,
+        2248.396645963192
+      ],
+      "cropGroundSpanM": 72.45279187254908
+    },
+    {
+      "sourceBuildingId": "w34040324",
+      "buildingIndex": 536,
+      "sourceBuildingRowHeightM": 52.0,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "source-clearance",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w593998061",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 2.970691751669601
+        }
+      ],
+      "cropBoxPx": [
+        2444.899973191321,
+        2375.4863920733333,
+        2635.447396259755,
+        2566.0338151417673
+      ],
+      "cropGroundSpanM": 76.70317651598613
+    },
+    {
+      "sourceBuildingId": "w55480164",
+      "buildingIndex": 542,
+      "sourceBuildingRowHeightM": 28.8,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "source-clearance",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w1545964017",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "service"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 2.650533436924424
+        }
+      ],
+      "cropBoxPx": [
+        3187.362721500907,
+        2433.039099100966,
+        3348.8369010854626,
+        2594.5132786855215
+      ],
+      "cropGroundSpanM": 65.0
+    },
+    {
+      "sourceBuildingId": "w161929514",
+      "buildingIndex": 558,
+      "sourceBuildingRowHeightM": 10.6,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "source-clearance",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w427906774",
+          "name": "Bellevue Way Northeast",
+          "class": "primary",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "hgv": "designated",
+            "highway": "primary",
+            "lanes": "4",
+            "maxspeed": "30 mph",
+            "name": "Bellevue Way Northeast",
+            "oneway": "yes",
+            "sidewalk:both": "separate",
+            "surface": "asphalt",
+            "turn:lanes": "left|||"
+          },
+          "estimatedEnvelopeHalfWidthM": 7.3,
+          "inferredSidewalkM": 4.0,
+          "nearestBoundarySampleM": 8.010499778892514
+        }
+      ],
+      "cropBoxPx": [
+        2141.3291738666594,
+        2280.2985435053706,
+        2477.5890509076416,
+        2616.558420546353
+      ],
+      "cropGroundSpanM": 135.35843355202516
+    },
+    {
+      "sourceBuildingId": "w344681127",
+      "buildingIndex": 732,
+      "sourceBuildingRowHeightM": 7.4,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "source-clearance",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w1063028569",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "service",
+            "service": "driveway"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 2.243678648303539
+        }
+      ],
+      "cropBoxPx": [
+        1962.7124841064215,
+        2002.0360675826669,
+        2156.9715042337775,
+        2196.295087710023
+      ],
+      "cropGroundSpanM": 78.19724701970776
+    },
+    {
+      "sourceBuildingId": "w418863777",
+      "buildingIndex": 766,
+      "sourceBuildingRowHeightM": 6.4,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "source-clearance",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w1216414023",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "service"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 8.800095429251087e-06
+        },
+        {
+          "sourceId": "w1472634061",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "covered": "yes",
+            "highway": "service"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 4.86222646371887e-05
+        },
+        {
+          "sourceId": "w1472634060",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "service"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 1.107049037874627
+        }
+      ],
+      "cropBoxPx": [
+        2998.699216858484,
+        2332.676119580865,
+        3203.242265776731,
+        2537.219168499112
+      ],
+      "cropGroundSpanM": 82.33699167193488
+    },
+    {
+      "sourceBuildingId": "w418863778",
+      "buildingIndex": 767,
+      "sourceBuildingRowHeightM": 6.4,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "source-clearance",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w1216414023",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "service"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 2.7068747163174085
+        },
+        {
+          "sourceId": "w1472634061",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "covered": "yes",
+            "highway": "service"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 1.5045794238046628
+        }
+      ],
+      "cropBoxPx": [
+        3019.9659193344414,
+        2351.536419969052,
+        3183.746481500566,
+        2515.3169821351767
+      ],
+      "cropGroundSpanM": 65.92841386893986
+    },
+    {
+      "sourceBuildingId": "w604031694",
+      "buildingIndex": 793,
+      "sourceBuildingRowHeightM": 47.0,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "source-clearance",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w1215911152",
+          "name": "",
+          "class": "service",
+          "layer": 1,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "service",
+            "horse": "no",
+            "layer": "1",
+            "service": "driveway",
+            "surface": "asphalt"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 8.258113029338574e-06
+        }
+      ],
+      "cropBoxPx": [
+        1864.2615676894784,
+        1771.7782246172428,
+        2048.4289361685514,
+        1955.9455930963159
+      ],
+      "cropGroundSpanM": 74.13494208138228
+    },
+    {
+      "sourceBuildingId": "w656577798",
+      "buildingIndex": 818,
+      "sourceBuildingRowHeightM": 68.4,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "source-clearance",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w862758189",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "service"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 5.5682808205347495e-05
+        }
+      ],
+      "cropBoxPx": [
+        2959.5503146350384,
+        1930.1649696500972,
+        3150.731681207195,
+        2121.3463362222537
+      ],
+      "cropGroundSpanM": 76.95836485537254
+    },
+    {
+      "sourceBuildingId": "w1215907937",
+      "buildingIndex": 1082,
+      "sourceBuildingRowHeightM": 90.0,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "source-clearance",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w1221905229",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "service",
+            "service": "driveway"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 4.3662790138634015e-05
+        },
+        {
+          "sourceId": "w1221905228",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "service",
+            "service": "driveway"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 2.2731839796451607e-05
+        }
+      ],
+      "cropBoxPx": [
+        1674.225315050222,
+        1906.3491786792874,
+        2010.6864555412903,
+        2242.810319170356
+      ],
+      "cropGroundSpanM": 135.4394503702512
+    },
+    {
+      "sourceBuildingId": "w1223091246",
+      "buildingIndex": 1084,
+      "sourceBuildingRowHeightM": 7.4,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "source-clearance",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w1225324171",
+          "name": "Avenue Square Northeast",
+          "class": "residential",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "residential",
+            "lanes": "2",
+            "name": "Avenue Square Northeast",
+            "oneway": "no",
+            "surface": "concrete"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 2.5,
+          "nearestBoundarySampleM": 0.027801205126183635
+        },
+        {
+          "sourceId": "w1225324172",
+          "name": "Avenue Square Northeast",
+          "class": "residential",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "residential",
+            "lanes": "2",
+            "maxspeed": "5 mph",
+            "name": "Avenue Square Northeast",
+            "oneway": "no",
+            "surface": "paving_stones"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 2.5,
+          "nearestBoundarySampleM": 0.5890392859171036
+        }
+      ],
+      "cropBoxPx": [
+        1911.0117317456752,
+        1856.547350924462,
+        2143.3157118242234,
+        2088.8513310030103
+      ],
+      "cropGroundSpanM": 93.51190849183834
+    },
+    {
+      "sourceBuildingId": "w1223091250",
+      "buildingIndex": 1088,
+      "sourceBuildingRowHeightM": 7.4,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "source-clearance",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w1221905229",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "service",
+            "service": "driveway"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 0.011150388223654127
+        },
+        {
+          "sourceId": "w1221905228",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "service",
+            "service": "driveway"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 7.717599738721858e-05
+        }
+      ],
+      "cropBoxPx": [
+        1674.225315050222,
+        1906.3491786792874,
+        2010.6864555412903,
+        2242.810319170356
+      ],
+      "cropGroundSpanM": 135.4394503702512
+    },
+    {
+      "sourceBuildingId": "w1223667609",
+      "buildingIndex": 1094,
+      "sourceBuildingRowHeightM": 4.2,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "source-clearance",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w1225324171",
+          "name": "Avenue Square Northeast",
+          "class": "residential",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "residential",
+            "lanes": "2",
+            "name": "Avenue Square Northeast",
+            "oneway": "no",
+            "surface": "concrete"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 2.5,
+          "nearestBoundarySampleM": 4.82232724612119
+        }
+      ],
+      "cropBoxPx": [
+        2022.6883961493036,
+        1882.642471970979,
+        2184.1625757338593,
+        2044.1166515555346
+      ],
+      "cropGroundSpanM": 65.0
+    },
+    {
+      "sourceBuildingId": "w1364249504",
+      "buildingIndex": 1165,
+      "sourceBuildingRowHeightM": 4.2,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "source-clearance",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w513503500",
+          "name": "Northeast 8th Street",
+          "class": "primary",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "hgv": "designated",
+            "highway": "primary",
+            "lanes": "5",
+            "maxheight": "default",
+            "maxspeed": "30 mph",
+            "name": "Northeast 8th Street",
+            "oneway": "yes",
+            "sidewalk:both": "separate",
+            "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+            "surface": "asphalt",
+            "turn:lanes": "left|left|||right"
+          },
+          "estimatedEnvelopeHalfWidthM": 9.05,
+          "inferredSidewalkM": 4.0,
+          "nearestBoundarySampleM": 3.8588286062249733
+        },
+        {
+          "sourceId": "w513503501",
+          "name": "Northeast 8th Street",
+          "class": "primary",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "hgv": "designated",
+            "highway": "primary",
+            "lanes": "5",
+            "maxspeed": "30 mph",
+            "name": "Northeast 8th Street",
+            "oneway": "yes",
+            "sidewalk:both": "separate",
+            "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+            "surface": "asphalt",
+            "turn:lanes": "left||||"
+          },
+          "estimatedEnvelopeHalfWidthM": 9.05,
+          "inferredSidewalkM": 4.0,
+          "nearestBoundarySampleM": 3.7444215971885284
+        },
+        {
+          "sourceId": "w853070958",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "service",
+            "oneway": "yes"
+          },
+          "estimatedEnvelopeHalfWidthM": 1.8,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 0.7969026322273379
+        },
+        {
+          "sourceId": "w427906901",
+          "name": "Northeast 8th Street",
+          "class": "primary",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "cycleway:right": "no",
+            "hgv": "designated",
+            "highway": "primary",
+            "lanes": "2",
+            "lit": "yes",
+            "maxheight": "default",
+            "maxspeed": "30 mph",
+            "name": "Northeast 8th Street",
+            "oneway": "yes",
+            "sidewalk:both": "separate",
+            "smoothness": "excellent",
+            "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+            "surface": "asphalt"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.8,
+          "inferredSidewalkM": 4.0,
+          "nearestBoundarySampleM": 1.8369964867615072
+        },
+        {
+          "sourceId": "w427906925",
+          "name": "Northeast 8th Street",
+          "class": "primary",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "cycleway:right": "no",
+            "hgv": "designated",
+            "highway": "primary",
+            "lanes": "2",
+            "maxspeed": "30 mph",
+            "name": "Northeast 8th Street",
+            "oneway": "yes",
+            "sidewalk:both": "separate",
+            "smoothness": "excellent",
+            "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+            "surface": "asphalt"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.8,
+          "inferredSidewalkM": 4.0,
+          "nearestBoundarySampleM": 3.7219321335423583
+        }
+      ],
+      "cropBoxPx": [
+        2259.5956955822185,
+        2159.1988724283874,
+        2427.0836872542277,
+        2326.6868641003966
+      ],
+      "cropGroundSpanM": 67.42080676111932
+    },
+    {
+      "sourceBuildingId": "w387927271",
+      "buildingIndex": 350,
+      "sourceBuildingRowHeightM": 9.7,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "road-ribbon-overlap",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w1278996306",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "service",
+            "oneway": "yes"
+          },
+          "estimatedEnvelopeHalfWidthM": 1.8,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 0.4855249191582208
+        }
+      ],
+      "cropBoxPx": [
+        4952.419056175266,
+        2361.6221327576673,
+        5113.8932357598205,
+        2523.096312342223
+      ],
+      "cropGroundSpanM": 65.0
+    },
+    {
+      "sourceBuildingId": "w604028613",
+      "buildingIndex": 788,
+      "sourceBuildingRowHeightM": 7.4,
+      "sourceBuildingRowMinHeightM": 3.2,
+      "phase": "road-ribbon-overlap",
+      "matchedRoadCandidates": [],
+      "cropBoxPx": [
+        2134.965206253331,
+        2000.7710753138995,
+        2296.4393858378867,
+        2162.245254898455
+      ],
+      "cropGroundSpanM": 65.0
+    },
+    {
+      "sourceBuildingId": "w33115668",
+      "buildingIndex": 503,
+      "sourceBuildingRowHeightM": 7.2,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "road-ribbon-overlap",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w513188427",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "oneway": "yes",
+            "service": "drive-through"
+          },
+          "estimatedEnvelopeHalfWidthM": 1.8,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 3.2043266878346955e-05
+        },
+        {
+          "sourceId": "w360674604",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "oneway": "yes",
+            "service": "drive-through"
+          },
+          "estimatedEnvelopeHalfWidthM": 1.8,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 4.987170362865553e-05
+        },
+        {
+          "sourceId": "w513188426",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "covered": "yes",
+            "highway": "service",
+            "oneway": "yes",
+            "service": "drive-through"
+          },
+          "estimatedEnvelopeHalfWidthM": 1.8,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 2.153323801977627e-05
+        }
+      ],
+      "cropBoxPx": [
+        2486.0099317459276,
+        2101.890983788285,
+        2647.4841113304833,
+        2263.365163372841
+      ],
+      "cropGroundSpanM": 65.0
+    },
+    {
+      "sourceBuildingId": "w1364249504",
+      "buildingIndex": 1165,
+      "sourceBuildingRowHeightM": 4.2,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "road-ribbon-overlap",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w513503500",
+          "name": "Northeast 8th Street",
+          "class": "primary",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "hgv": "designated",
+            "highway": "primary",
+            "lanes": "5",
+            "maxheight": "default",
+            "maxspeed": "30 mph",
+            "name": "Northeast 8th Street",
+            "oneway": "yes",
+            "sidewalk:both": "separate",
+            "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+            "surface": "asphalt",
+            "turn:lanes": "left|left|||right"
+          },
+          "estimatedEnvelopeHalfWidthM": 9.05,
+          "inferredSidewalkM": 4.0,
+          "nearestBoundarySampleM": 3.8588286062249733
+        },
+        {
+          "sourceId": "w513503501",
+          "name": "Northeast 8th Street",
+          "class": "primary",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "hgv": "designated",
+            "highway": "primary",
+            "lanes": "5",
+            "maxspeed": "30 mph",
+            "name": "Northeast 8th Street",
+            "oneway": "yes",
+            "sidewalk:both": "separate",
+            "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+            "surface": "asphalt",
+            "turn:lanes": "left||||"
+          },
+          "estimatedEnvelopeHalfWidthM": 9.05,
+          "inferredSidewalkM": 4.0,
+          "nearestBoundarySampleM": 3.7444215971885284
+        },
+        {
+          "sourceId": "w853070958",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "service",
+            "oneway": "yes"
+          },
+          "estimatedEnvelopeHalfWidthM": 1.8,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 0.7969026322273379
+        },
+        {
+          "sourceId": "w427906901",
+          "name": "Northeast 8th Street",
+          "class": "primary",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "cycleway:right": "no",
+            "hgv": "designated",
+            "highway": "primary",
+            "lanes": "2",
+            "lit": "yes",
+            "maxheight": "default",
+            "maxspeed": "30 mph",
+            "name": "Northeast 8th Street",
+            "oneway": "yes",
+            "sidewalk:both": "separate",
+            "smoothness": "excellent",
+            "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+            "surface": "asphalt"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.8,
+          "inferredSidewalkM": 4.0,
+          "nearestBoundarySampleM": 1.8369964867615072
+        },
+        {
+          "sourceId": "w427906925",
+          "name": "Northeast 8th Street",
+          "class": "primary",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "cycleway:right": "no",
+            "hgv": "designated",
+            "highway": "primary",
+            "lanes": "2",
+            "maxspeed": "30 mph",
+            "name": "Northeast 8th Street",
+            "oneway": "yes",
+            "sidewalk:both": "separate",
+            "smoothness": "excellent",
+            "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+            "surface": "asphalt"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.8,
+          "inferredSidewalkM": 4.0,
+          "nearestBoundarySampleM": 3.7219321335423583
+        }
+      ],
+      "cropBoxPx": [
+        2259.5956955822185,
+        2159.1988724283874,
+        2427.0836872542277,
+        2326.6868641003966
+      ],
+      "cropGroundSpanM": 67.42080676111932
+    },
+    {
+      "sourceBuildingId": "w1474737770",
+      "buildingIndex": 1167,
+      "sourceBuildingRowHeightM": 10.8,
+      "sourceBuildingRowMinHeightM": 6.4,
+      "phase": "road-ribbon-overlap",
+      "matchedRoadCandidates": [],
+      "cropBoxPx": [
+        2243.0699486248195,
+        2523.200170163065,
+        2442.882336784154,
+        2723.0125583224
+      ],
+      "cropGroundSpanM": 80.43270610677244
+    },
+    {
+      "sourceBuildingId": "w33115737",
+      "buildingIndex": 504,
+      "sourceBuildingRowHeightM": 14.4,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "road-ribbon-overlap",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w593998061",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 3.6477712601123376e-05
+        },
+        {
+          "sourceId": "w593998063",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 3.9585260342649234e-05
+        },
+        {
+          "sourceId": "w816498788",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "covered": "yes",
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 2.4368395010551376e-05
+        },
+        {
+          "sourceId": "w816498790",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "covered": "yes",
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 3.549605527207219e-05
+        },
+        {
+          "sourceId": "w593998065",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 4.198705168221258e-05
+        },
+        {
+          "sourceId": "w816498786",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "covered": "yes",
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 3.41591925020868e-05
+        },
+        {
+          "sourceId": "w593998068",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 2.3557115262754467
+        },
+        {
+          "sourceId": "w816498785",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 4.248507548710996e-05
+        },
+        {
+          "sourceId": "w816498787",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 5.636140214936149e-05
+        },
+        {
+          "sourceId": "w816498789",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 4.405336993529719e-05
+        }
+      ],
+      "cropBoxPx": [
+        2426.459981581185,
+        2306.9771014358735,
+        2587.9341611657405,
+        2468.451281020429
+      ],
+      "cropGroundSpanM": 65.0
+    },
+    {
+      "sourceBuildingId": "w33725909",
+      "buildingIndex": 531,
+      "sourceBuildingRowHeightM": 4.5,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "road-ribbon-overlap",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w656577799",
+          "name": "Northeast 9th Place",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "service",
+            "name": "Northeast 9th Place",
+            "oneway": "no"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 2.527379315937016
+        },
+        {
+          "sourceId": "w1375412467",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "service",
+            "oneway": "yes",
+            "surface": "asphalt"
+          },
+          "estimatedEnvelopeHalfWidthM": 1.8,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 1.7984846274319037
+        },
+        {
+          "sourceId": "w1375412468",
+          "name": "Northeast 9th Place",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "service",
+            "name": "Northeast 9th Place",
+            "oneway": "yes"
+          },
+          "estimatedEnvelopeHalfWidthM": 1.8,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 1.9752551718124634
+        },
+        {
+          "sourceId": "w513503505",
+          "name": "Northeast 8th Street",
+          "class": "primary",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "hgv": "designated",
+            "highway": "primary",
+            "lanes": "4",
+            "maxspeed": "30 mph",
+            "name": "Northeast 8th Street",
+            "oneway": "yes",
+            "sidewalk:both": "separate",
+            "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+            "surface": "asphalt",
+            "turn:lanes": "left|||right"
+          },
+          "estimatedEnvelopeHalfWidthM": 7.3,
+          "inferredSidewalkM": 4.0,
+          "nearestBoundarySampleM": 7.803499538334128
+        },
+        {
+          "sourceId": "w513503506",
+          "name": "Northeast 8th Street",
+          "class": "primary",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "cycleway:right": "no",
+            "hgv": "designated",
+            "highway": "primary",
+            "lanes": "4",
+            "lit": "yes",
+            "maxspeed": "30 mph",
+            "name": "Northeast 8th Street",
+            "oneway": "yes",
+            "sidewalk:both": "separate",
+            "smoothness": "excellent",
+            "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+            "surface": "asphalt",
+            "turn:lanes": "left|||"
+          },
+          "estimatedEnvelopeHalfWidthM": 7.3,
+          "inferredSidewalkM": 4.0,
+          "nearestBoundarySampleM": 8.007504356353593
+        },
+        {
+          "sourceId": "w816523047",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 1.6034537955790245e-05
+        },
+        {
+          "sourceId": "w816523048",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "service": "parking_aisle",
+            "tunnel": "building_passage"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 1.4707308923519725e-05
+        },
+        {
+          "sourceId": "w816523049",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": false,
+          "rawTags": {
+            "highway": "service",
+            "service": "parking_aisle"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 2.31792060262165e-05
+        }
+      ],
+      "cropBoxPx": [
+        2703.9534334531054,
+        2068.408105559647,
+        2883.9419738566503,
+        2248.396645963192
+      ],
+      "cropGroundSpanM": 72.45279187254908
+    },
+    {
+      "sourceBuildingId": "w604028603",
+      "buildingIndex": 785,
+      "sourceBuildingRowHeightM": 137.0,
+      "sourceBuildingRowMinHeightM": 12.8,
+      "phase": "road-ribbon-overlap",
+      "matchedRoadCandidates": [],
+      "cropBoxPx": [
+        2240.835850296542,
+        2804.0381460376084,
+        2470.89746674709,
+        3034.0997624881566
+      ],
+      "cropGroundSpanM": 92.60926488531872
+    },
+    {
+      "sourceBuildingId": "w656577798",
+      "buildingIndex": 818,
+      "sourceBuildingRowHeightM": 68.4,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "road-ribbon-overlap",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w862758189",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "service"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 5.5682808205347495e-05
+        }
+      ],
+      "cropBoxPx": [
+        2959.5503146350384,
+        1930.1649696500972,
+        3150.731681207195,
+        2121.3463362222537
+      ],
+      "cropGroundSpanM": 76.95836485537254
+    },
+    {
+      "sourceBuildingId": "w344681127",
+      "buildingIndex": 732,
+      "sourceBuildingRowHeightM": 7.4,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "road-ribbon-overlap",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w1063028569",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "service",
+            "service": "driveway"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 2.243678648303539
+        }
+      ],
+      "cropBoxPx": [
+        1962.7124841064215,
+        2002.0360675826669,
+        2156.9715042337775,
+        2196.295087710023
+      ],
+      "cropGroundSpanM": 78.19724701970776
+    },
+    {
+      "sourceBuildingId": "w1223091246",
+      "buildingIndex": 1084,
+      "sourceBuildingRowHeightM": 7.4,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "road-ribbon-overlap",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w1225324171",
+          "name": "Avenue Square Northeast",
+          "class": "residential",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "residential",
+            "lanes": "2",
+            "name": "Avenue Square Northeast",
+            "oneway": "no",
+            "surface": "concrete"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 2.5,
+          "nearestBoundarySampleM": 0.027801205126183635
+        },
+        {
+          "sourceId": "w1225324172",
+          "name": "Avenue Square Northeast",
+          "class": "residential",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "residential",
+            "lanes": "2",
+            "maxspeed": "5 mph",
+            "name": "Avenue Square Northeast",
+            "oneway": "no",
+            "surface": "paving_stones"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 2.5,
+          "nearestBoundarySampleM": 0.5890392859171036
+        }
+      ],
+      "cropBoxPx": [
+        1911.0117317456752,
+        1856.547350924462,
+        2143.3157118242234,
+        2088.8513310030103
+      ],
+      "cropGroundSpanM": 93.51190849183834
+    },
+    {
+      "sourceBuildingId": "w1223091251",
+      "buildingIndex": 1089,
+      "sourceBuildingRowHeightM": 7.2,
+      "sourceBuildingRowMinHeightM": 3.2,
+      "phase": "road-ribbon-overlap",
+      "matchedRoadCandidates": [],
+      "cropBoxPx": [
+        1911.0117317456752,
+        1856.547350924462,
+        2143.3157118242234,
+        2088.8513310030103
+      ],
+      "cropGroundSpanM": 93.51190849183834
+    },
+    {
+      "sourceBuildingId": "w418863777",
+      "buildingIndex": 766,
+      "sourceBuildingRowHeightM": 6.4,
+      "sourceBuildingRowMinHeightM": 0.0,
+      "phase": "road-ribbon-overlap",
+      "matchedRoadCandidates": [
+        {
+          "sourceId": "w1216414023",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "service"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 8.800095429251087e-06
+        },
+        {
+          "sourceId": "w1472634061",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "covered": "yes",
+            "highway": "service"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 4.86222646371887e-05
+        },
+        {
+          "sourceId": "w1472634060",
+          "name": "",
+          "class": "service",
+          "layer": 0,
+          "publicDrive": true,
+          "throughAccess": true,
+          "rawTags": {
+            "highway": "service"
+          },
+          "estimatedEnvelopeHalfWidthM": 3.3,
+          "inferredSidewalkM": 1.0,
+          "nearestBoundarySampleM": 1.107049037874627
+        }
+      ],
+      "cropBoxPx": [
+        2998.699216858484,
+        2332.676119580865,
+        3203.242265776731,
+        2537.219168499112
+      ],
+      "cropGroundSpanM": 82.33699167193488
+    }
+  ],
+  "sourceRoadReviews": [
+    {
+      "sourceId": "w592232752",
+      "name": "112th Avenue Northeast",
+      "class": "secondary",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "foot": "yes",
+        "hgv": "designated",
+        "highway": "secondary",
+        "lanes": "4",
+        "maxspeed": "30 mph",
+        "name": "112th Avenue Northeast",
+        "oneway": "yes",
+        "sidewalk:left": "no",
+        "sidewalk:right": "separate",
+        "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+        "surface": "asphalt",
+        "turn:lanes": "left|slight_left||"
+      },
+      "estimatedEnvelopeHalfWidthM": 7.3,
+      "inferredSidewalkM": 3.5,
+      "nearestBoundarySampleM": 7.805704959840278,
+      "cropBoxPx": [
+        3991.322872486231,
+        2035.8212186585042,
+        4289.4290501807955,
+        2333.9273963530686
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w33725872",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Source lane/access topology retained. Intersections, shadow, roof parallax or local widening make this crop insufficient to assert one uniform exact carriageway width."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/592232752",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w402083657",
+      "name": "110th Avenue Northeast",
+      "class": "tertiary",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "cycleway:both": "no",
+        "highway": "tertiary",
+        "lanes": "4",
+        "lanes:backward": "1",
+        "lanes:forward": "3",
+        "maxspeed": "30 mph",
+        "name": "110th Avenue Northeast",
+        "sidewalk:both": "separate",
+        "surface": "asphalt",
+        "turn:lanes:forward": "left|through|right"
+      },
+      "estimatedEnvelopeHalfWidthM": 10.8,
+      "inferredSidewalkM": 3.0,
+      "nearestBoundarySampleM": 11.450245908324764,
+      "cropBoxPx": [
+        3511.259573715073,
+        1996.2453609148833,
+        3809.3657514096376,
+        2294.3515386094477
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w33725899",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Literal OSM four-lane split is three forward and one backward. Physical side extents must use the asymmetric split; a max-sided envelope is only a broad candidate test."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/402083657",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w436495006",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": false,
+      "rawTags": {
+        "highway": "service",
+        "service": "parking_aisle"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 2.5625369728719853,
+      "cropBoxPx": [
+        3446.948081925777,
+        2293.831576157627,
+        3745.0542596203413,
+        2591.9377538521912
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w40044642",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/436495006",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w6450855",
+      "name": "Northeast 9th Street",
+      "class": "residential",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "highway": "residential",
+        "name": "Northeast 9th Street",
+        "sidewalk:both": "separate",
+        "surface": "asphalt"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 2.5,
+      "nearestBoundarySampleM": 4.875056126200881,
+      "cropBoxPx": [
+        3736.239822881562,
+        1895.9974578360889,
+        4034.3460005761262,
+        2194.1036355306533
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w44336587",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Source lane/access topology retained. Intersections, shadow, roof parallax or local widening make this crop insufficient to assert one uniform exact carriageway width."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/6450855",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w1278996306",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "highway": "service",
+        "oneway": "yes"
+      },
+      "estimatedEnvelopeHalfWidthM": 1.8,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 0.4855249191582208,
+      "cropBoxPx": [
+        4904.478042600942,
+        2266.758036475894,
+        5202.584220295506,
+        2564.8642141704586
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w387927271",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/1278996306",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w820174335",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "highway": "service",
+        "service": "driveway"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 6.310593788030624e-05,
+      "cropBoxPx": [
+        3719.85746219222,
+        2203.2359573508475,
+        4017.963639886784,
+        2501.342135045412
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w1474780189",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/820174335",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w513490800",
+      "name": "Northeast 8th Street",
+      "class": "secondary",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "highway": "secondary",
+        "lanes": "4",
+        "lit": "yes",
+        "maxspeed": "30 mph",
+        "name": "Northeast 8th Street",
+        "oneway": "yes",
+        "sidewalk:both": "separate",
+        "surface": "asphalt",
+        "turn:lanes": "left|left||"
+      },
+      "estimatedEnvelopeHalfWidthM": 7.3,
+      "inferredSidewalkM": 3.5,
+      "nearestBoundarySampleM": 8.757311025627587,
+      "cropBoxPx": [
+        1818.119415968922,
+        2120.2940707395646,
+        2116.2255936634865,
+        2418.400248434129
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w33106348",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Source lane/access topology retained. Intersections, shadow, roof parallax or local widening make this crop insufficient to assert one uniform exact carriageway width."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/513490800",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w513188427",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": false,
+      "rawTags": {
+        "highway": "service",
+        "oneway": "yes",
+        "service": "drive-through"
+      },
+      "estimatedEnvelopeHalfWidthM": 1.8,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 3.2043266878346955e-05,
+      "cropBoxPx": [
+        2384.1860137305084,
+        2037.6403006802175,
+        2682.292191425073,
+        2335.746478374782
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w33115668",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/513188427",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w360674604",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": false,
+      "rawTags": {
+        "highway": "service",
+        "oneway": "yes",
+        "service": "drive-through"
+      },
+      "estimatedEnvelopeHalfWidthM": 1.8,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 4.987170362865553e-05,
+      "cropBoxPx": [
+        2383.9809588680837,
+        2057.828249443588,
+        2682.087136562648,
+        2355.9344271381524
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w33115668",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/360674604",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w513188426",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": false,
+      "rawTags": {
+        "covered": "yes",
+        "highway": "service",
+        "oneway": "yes",
+        "service": "drive-through"
+      },
+      "estimatedEnvelopeHalfWidthM": 1.8,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 2.153323801977627e-05,
+      "cropBoxPx": [
+        2384.1428461394135,
+        2041.890214886782,
+        2682.249023833978,
+        2339.9963925813463
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w33115668",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Source declares covered/tunnel geometry; overhead imagery cannot establish hidden carriageway boundaries or absolute vertical clearance.",
+          "Ground covered way has two exact shared source wall nodes; individually reviewed existing passage API preserves outline and explicit clearance estimate. Actual vehicle traversal passed.",
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/513188426",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w593998061",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": false,
+      "rawTags": {
+        "highway": "service",
+        "service": "parking_aisle"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 3.6477712601123376e-05,
+      "cropBoxPx": [
+        2327.646795811397,
+        2267.4493940959546,
+        2625.7529735059616,
+        2565.555571790519
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w33115737",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/593998061",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w593998063",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": false,
+      "rawTags": {
+        "highway": "service",
+        "service": "parking_aisle"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 3.9585260342649234e-05,
+      "cropBoxPx": [
+        2318.959926191983,
+        2268.555566218016,
+        2617.0661038865474,
+        2566.6617439125803
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w33115737",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/593998063",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w816498788",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": false,
+      "rawTags": {
+        "covered": "yes",
+        "highway": "service",
+        "service": "parking_aisle"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 2.4368395010551376e-05,
+      "cropBoxPx": [
+        2318.626912968499,
+        2249.0212102199766,
+        2616.733090663063,
+        2547.127387914541
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w33115737",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Source declares covered/tunnel geometry; overhead imagery cannot establish hidden carriageway boundaries or absolute vertical clearance.",
+          "Ground covered way has two exact shared source wall nodes; individually reviewed existing passage API preserves outline and explicit clearance estimate. Actual vehicle traversal passed.",
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/816498788",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w816498790",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": false,
+      "rawTags": {
+        "covered": "yes",
+        "highway": "service",
+        "service": "parking_aisle"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 3.549605527207219e-05,
+      "cropBoxPx": [
+        2327.2743118314866,
+        2248.906722128657,
+        2625.380489526051,
+        2547.0128998232212
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w33115737",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Source declares covered/tunnel geometry; overhead imagery cannot establish hidden carriageway boundaries or absolute vertical clearance.",
+          "Ground covered way has two exact shared source wall nodes; individually reviewed existing passage API preserves outline and explicit clearance estimate. Actual vehicle traversal passed.",
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/816498790",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w593998065",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": false,
+      "rawTags": {
+        "highway": "service",
+        "service": "parking_aisle"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 4.198705168221258e-05,
+      "cropBoxPx": [
+        2309.9934363069806,
+        2267.89186295521,
+        2608.099614001545,
+        2565.9980406497743
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w33115737",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/593998065",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w816498786",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": false,
+      "rawTags": {
+        "covered": "yes",
+        "highway": "service",
+        "service": "parking_aisle"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 3.41591925020868e-05,
+      "cropBoxPx": [
+        2309.7600259392384,
+        2249.044281877843,
+        2607.866203633803,
+        2547.1504595724073
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w33115737",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Source declares covered/tunnel geometry; overhead imagery cannot establish hidden carriageway boundaries or absolute vertical clearance.",
+          "Ground covered way has two exact shared source wall nodes; individually reviewed existing passage API preserves outline and explicit clearance estimate. Actual vehicle traversal passed.",
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/816498786",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w593998068",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": false,
+      "rawTags": {
+        "highway": "service",
+        "service": "parking_aisle"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 2.3557115262754467,
+      "cropBoxPx": [
+        2295.9270255791816,
+        2249.273851167676,
+        2594.033203273746,
+        2547.3800288622406
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w33115737",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/593998068",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w816498785",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": false,
+      "rawTags": {
+        "highway": "service",
+        "service": "parking_aisle"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 4.248507548710996e-05,
+      "cropBoxPx": [
+        2309.6392506363663,
+        2239.020741515127,
+        2607.7454283309307,
+        2537.1269192096916
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w33115737",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/816498785",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w816498787",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": false,
+      "rawTags": {
+        "highway": "service",
+        "service": "parking_aisle"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 5.636140214936149e-05,
+      "cropBoxPx": [
+        2318.456609713179,
+        2238.8548153604243,
+        2616.5627874077436,
+        2536.9609930549886
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w33115737",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/816498787",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w816498789",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": false,
+      "rawTags": {
+        "highway": "service",
+        "service": "parking_aisle"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 4.405336993529719e-05,
+      "cropBoxPx": [
+        2327.0689139257047,
+        2238.6888892094466,
+        2625.175091620269,
+        2536.795066904011
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w33115737",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/816498789",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w344681144",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": false,
+      "rawTags": {
+        "highway": "service",
+        "service": "parking_aisle"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 3.0696317062496337,
+      "cropBoxPx": [
+        1608.3143391351077,
+        1964.6039382780764,
+        1906.4205168296721,
+        2262.710115972641
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w33723996",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/344681144",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w743695059",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": false,
+      "rawTags": {
+        "highway": "service",
+        "service": "parking_aisle"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 3.0696317062496337,
+      "cropBoxPx": [
+        1596.4483451529268,
+        1964.5417351613614,
+        1894.5545228474912,
+        2262.647912855926
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w33723996",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/743695059",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w656577799",
+      "name": "Northeast 9th Place",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "highway": "service",
+        "name": "Northeast 9th Place",
+        "oneway": "no"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 2.527379315937016,
+      "cropBoxPx": [
+        2688.04003684063,
+        1942.2311203594181,
+        2986.1462145351943,
+        2240.3372980539825
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w33725909",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/656577799",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w1375412467",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "highway": "service",
+        "oneway": "yes",
+        "surface": "asphalt"
+      },
+      "estimatedEnvelopeHalfWidthM": 1.8,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 1.7984846274319037,
+      "cropBoxPx": [
+        2687.2339654921416,
+        2007.1566185097072,
+        2985.340143186706,
+        2305.2627962042716
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w33725909",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/1375412467",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w1375412468",
+      "name": "Northeast 9th Place",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "highway": "service",
+        "name": "Northeast 9th Place",
+        "oneway": "yes"
+      },
+      "estimatedEnvelopeHalfWidthM": 1.8,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 1.9752551718124634,
+      "cropBoxPx": [
+        2688.04003684063,
+        1942.2311203594181,
+        2986.1462145351943,
+        2240.3372980539825
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w33725909",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/1375412468",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w513503505",
+      "name": "Northeast 8th Street",
+      "class": "primary",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "hgv": "designated",
+        "highway": "primary",
+        "lanes": "4",
+        "maxspeed": "30 mph",
+        "name": "Northeast 8th Street",
+        "oneway": "yes",
+        "sidewalk:both": "separate",
+        "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+        "surface": "asphalt",
+        "turn:lanes": "left|||right"
+      },
+      "estimatedEnvelopeHalfWidthM": 7.3,
+      "inferredSidewalkM": 4.0,
+      "nearestBoundarySampleM": 7.803499538334128,
+      "cropBoxPx": [
+        2639.0258926975403,
+        2098.5426419938776,
+        2937.1320703921047,
+        2396.648819688442
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w33725909",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Source lane/access topology retained. Intersections, shadow, roof parallax or local widening make this crop insufficient to assert one uniform exact carriageway width."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/513503505",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w513503506",
+      "name": "Northeast 8th Street",
+      "class": "primary",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "cycleway:right": "no",
+        "hgv": "designated",
+        "highway": "primary",
+        "lanes": "4",
+        "lit": "yes",
+        "maxspeed": "30 mph",
+        "name": "Northeast 8th Street",
+        "oneway": "yes",
+        "sidewalk:both": "separate",
+        "smoothness": "excellent",
+        "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+        "surface": "asphalt",
+        "turn:lanes": "left|||"
+      },
+      "estimatedEnvelopeHalfWidthM": 7.3,
+      "inferredSidewalkM": 4.0,
+      "nearestBoundarySampleM": 8.007504356353593,
+      "cropBoxPx": [
+        2686.2318257841143,
+        2098.784809582201,
+        2984.3380034786787,
+        2396.8909872767654
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w33725909",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Source lane/access topology retained. Intersections, shadow, roof parallax or local widening make this crop insufficient to assert one uniform exact carriageway width."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/513503506",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w816523047",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": false,
+      "rawTags": {
+        "highway": "service",
+        "service": "parking_aisle"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 1.6034537955790245e-05,
+      "cropBoxPx": [
+        2627.492928434429,
+        2027.1591490398023,
+        2925.5991061289933,
+        2325.2653267343667
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w33725909",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/816523047",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w816523048",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": false,
+      "rawTags": {
+        "highway": "service",
+        "service": "parking_aisle",
+        "tunnel": "building_passage"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 1.4707308923519725e-05,
+      "cropBoxPx": [
+        2627.4758065047536,
+        2006.571885951129,
+        2925.581984199318,
+        2304.6780636456933
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w33725909",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Source declares covered/tunnel geometry; overhead imagery cannot establish hidden carriageway boundaries or absolute vertical clearance.",
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/816523048",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w816523049",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": false,
+      "rawTags": {
+        "highway": "service",
+        "service": "parking_aisle"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 2.31792060262165e-05,
+      "cropBoxPx": [
+        2627.4556457309845,
+        1982.3307076248202,
+        2925.561823425549,
+        2280.4368853193846
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w33725909",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/816523049",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w1545964017",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "highway": "service"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 2.650533436924424,
+      "cropBoxPx": [
+        3118.3860471232656,
+        2397.9773761930737,
+        3416.49222481783,
+        2696.083553887638
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w55480164",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/1545964017",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w427906774",
+      "name": "Bellevue Way Northeast",
+      "class": "primary",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "hgv": "designated",
+        "highway": "primary",
+        "lanes": "4",
+        "maxspeed": "30 mph",
+        "name": "Bellevue Way Northeast",
+        "oneway": "yes",
+        "sidewalk:both": "separate",
+        "surface": "asphalt",
+        "turn:lanes": "left|||"
+      },
+      "estimatedEnvelopeHalfWidthM": 7.3,
+      "inferredSidewalkM": 4.0,
+      "nearestBoundarySampleM": 8.010499778892514,
+      "cropBoxPx": [
+        2024.1385794303242,
+        2248.2877625266883,
+        2322.2447571248886,
+        2546.3939402212527
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w161929514",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Source lane/access topology retained. Intersections, shadow, roof parallax or local widening make this crop insufficient to assert one uniform exact carriageway width."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/427906774",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w1063028569",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "highway": "service",
+        "service": "driveway"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 2.243678648303539,
+      "cropBoxPx": [
+        1918.0852648413602,
+        1867.447418917236,
+        2216.1914425359246,
+        2165.5535966118005
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w344681127",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/1063028569",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w1216414023",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "highway": "service"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 8.800095429251087e-06,
+      "cropBoxPx": [
+        2977.9503293226335,
+        2350.2184894348356,
+        3276.056507017198,
+        2648.3246671294
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w418863777",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/1216414023",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w1472634061",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "covered": "yes",
+        "highway": "service"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 4.86222646371887e-05,
+      "cropBoxPx": [
+        2959.1225646997664,
+        2349.4994816223953,
+        3257.2287423943308,
+        2647.6056593169596
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w418863777",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Source declares covered/tunnel geometry; overhead imagery cannot establish hidden carriageway boundaries or absolute vertical clearance.",
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/1472634061",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w1472634060",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "highway": "service"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 1.107049037874627,
+      "cropBoxPx": [
+        2956.953166928408,
+        2349.556950677452,
+        3255.0593446229723,
+        2647.663128372016
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w418863777",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/1472634060",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w1215911152",
+      "name": "",
+      "class": "service",
+      "layer": 1,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "highway": "service",
+        "horse": "no",
+        "layer": "1",
+        "service": "driveway",
+        "surface": "asphalt"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 8.258113029338574e-06,
+      "cropBoxPx": [
+        1776.105140485135,
+        1765.487407353041,
+        2074.2113181796994,
+        2063.5935850476053
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w604031694",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Relative layer/level is source ordering, not metres. Absolute passage base cannot be inferred from it.",
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/1215911152",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w862758189",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "highway": "service"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 5.5682808205347495e-05,
+      "cropBoxPx": [
+        2914.2668440400485,
+        1813.540917102513,
+        3212.373021734613,
+        2111.6470947970774
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w656577798",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/862758189",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w1221905229",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "highway": "service",
+        "service": "driveway"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 4.3662790138634015e-05,
+      "cropBoxPx": [
+        1745.9620757403645,
+        1812.7778317260418,
+        2044.068253434929,
+        2110.884009420606
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w1215907937",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/1221905229",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w1221905228",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "highway": "service",
+        "service": "driveway"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 2.2731839796451607e-05,
+      "cropBoxPx": [
+        1740.3323877046678,
+        1793.9169909546945,
+        2038.4385653992322,
+        2092.023168649259
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w1215907937",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/1221905228",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w1225324171",
+      "name": "Avenue Square Northeast",
+      "class": "residential",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "highway": "residential",
+        "lanes": "2",
+        "name": "Avenue Square Northeast",
+        "oneway": "no",
+        "surface": "concrete"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 2.5,
+      "nearestBoundarySampleM": 0.027801205126183635,
+      "cropBoxPx": [
+        1972.6595466009203,
+        1826.8543082925353,
+        2270.7657242954847,
+        2124.9604859870997
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w1223091246",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Source lane/access topology retained. Intersections, shadow, roof parallax or local widening make this crop insufficient to assert one uniform exact carriageway width."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/1225324171",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w1225324172",
+      "name": "Avenue Square Northeast",
+      "class": "residential",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "highway": "residential",
+        "lanes": "2",
+        "maxspeed": "5 mph",
+        "name": "Avenue Square Northeast",
+        "oneway": "no",
+        "surface": "paving_stones"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.3,
+      "inferredSidewalkM": 2.5,
+      "nearestBoundarySampleM": 0.5890392859171036,
+      "cropBoxPx": [
+        1782.6855374279294,
+        1819.1385202783022,
+        2080.7917151224938,
+        2117.2446979728666
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w1223091246",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Source lane/access topology retained. Intersections, shadow, roof parallax or local widening make this crop insufficient to assert one uniform exact carriageway width."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/1225324172",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w513503500",
+      "name": "Northeast 8th Street",
+      "class": "primary",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "hgv": "designated",
+        "highway": "primary",
+        "lanes": "5",
+        "maxheight": "default",
+        "maxspeed": "30 mph",
+        "name": "Northeast 8th Street",
+        "oneway": "yes",
+        "sidewalk:both": "separate",
+        "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+        "surface": "asphalt",
+        "turn:lanes": "left|left|||right"
+      },
+      "estimatedEnvelopeHalfWidthM": 9.05,
+      "inferredSidewalkM": 4.0,
+      "nearestBoundarySampleM": 3.8588286062249733,
+      "cropBoxPx": [
+        2195.1999961680594,
+        2097.955170758334,
+        2493.306173862624,
+        2396.0613484528985
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w1364249504",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Source lane/access topology retained. Intersections, shadow, roof parallax or local widening make this crop insufficient to assert one uniform exact carriageway width."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/513503500",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w513503501",
+      "name": "Northeast 8th Street",
+      "class": "primary",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "hgv": "designated",
+        "highway": "primary",
+        "lanes": "5",
+        "maxspeed": "30 mph",
+        "name": "Northeast 8th Street",
+        "oneway": "yes",
+        "sidewalk:both": "separate",
+        "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+        "surface": "asphalt",
+        "turn:lanes": "left||||"
+      },
+      "estimatedEnvelopeHalfWidthM": 9.05,
+      "inferredSidewalkM": 4.0,
+      "nearestBoundarySampleM": 3.7444215971885284,
+      "cropBoxPx": [
+        2200.8693737855974,
+        2097.980005141613,
+        2498.975551480162,
+        2396.0861828361776
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w1364249504",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Source lane/access topology retained. Intersections, shadow, roof parallax or local widening make this crop insufficient to assert one uniform exact carriageway width."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/513503501",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w853070958",
+      "name": "",
+      "class": "service",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "highway": "service",
+        "oneway": "yes"
+      },
+      "estimatedEnvelopeHalfWidthM": 1.8,
+      "inferredSidewalkM": 1.0,
+      "nearestBoundarySampleM": 0.7969026322273379,
+      "cropBoxPx": [
+        2214.1878774410907,
+        2092.472327370462,
+        2512.294055135655,
+        2390.5785050650265
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w1364249504",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Parking/forecourt/service paving and local turn flares do not establish a uniform carriageway width for the complete original way. Untagged width remains an estimate."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/853070958",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w427906901",
+      "name": "Northeast 8th Street",
+      "class": "primary",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "cycleway:right": "no",
+        "hgv": "designated",
+        "highway": "primary",
+        "lanes": "2",
+        "lit": "yes",
+        "maxheight": "default",
+        "maxspeed": "30 mph",
+        "name": "Northeast 8th Street",
+        "oneway": "yes",
+        "sidewalk:both": "separate",
+        "smoothness": "excellent",
+        "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+        "surface": "asphalt"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.8,
+      "inferredSidewalkM": 4.0,
+      "nearestBoundarySampleM": 1.8369964867615072,
+      "cropBoxPx": [
+        2198.7977769302997,
+        2127.5179381708476,
+        2496.903954624864,
+        2425.624115865412
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w1364249504",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Source lane/access topology retained. Intersections, shadow, roof parallax or local widening make this crop insufficient to assert one uniform exact carriageway width."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/427906901",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    },
+    {
+      "sourceId": "w427906925",
+      "name": "Northeast 8th Street",
+      "class": "primary",
+      "layer": 0,
+      "publicDrive": true,
+      "throughAccess": true,
+      "rawTags": {
+        "cycleway:right": "no",
+        "hgv": "designated",
+        "highway": "primary",
+        "lanes": "2",
+        "maxspeed": "30 mph",
+        "name": "Northeast 8th Street",
+        "oneway": "yes",
+        "sidewalk:both": "separate",
+        "smoothness": "excellent",
+        "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+        "surface": "asphalt"
+      },
+      "estimatedEnvelopeHalfWidthM": 3.8,
+      "inferredSidewalkM": 4.0,
+      "nearestBoundarySampleM": 3.7219321335423583,
+      "cropBoxPx": [
+        2201.897972181705,
+        2127.4288750554297,
+        2500.0041498762694,
+        2425.535052749994
+      ],
+      "cropGroundSpanM": 120,
+      "cropDimensions": [
+        600,
+        600
+      ],
+      "mosaicMetresPerPixel": 0.40254113795303664,
+      "completeCrop": true,
+      "sourceBuildingContext": "w1364249504",
+      "review": {
+        "inspected": true,
+        "widthAppliedM": null,
+        "widthStatus": "No independent uniform carriageway width asserted from this crop; original OSM width wins if present, otherwise an explicit runtime/class estimate remains.",
+        "notes": [
+          "Source lane/access topology retained. Intersections, shadow, roof parallax or local widening make this crop insufficient to assert one uniform exact carriageway width."
+        ],
+        "evidence": [
+          "https://www.openstreetmap.org/way/427906925",
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+        ],
+        "imageryDate": "unknown"
+      }
+    }
+  ]
+}

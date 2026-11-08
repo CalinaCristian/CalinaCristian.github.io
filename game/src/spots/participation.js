@@ -5,7 +5,7 @@ const CSS = `.sp-participation{position:absolute;left:16px;bottom:24px;box-sizin
 export function activityBlocked(s) {
     const g = globalThis.game;
     return document.hidden || s.ui.panelOpen || s.host.photo?.active || s.host.explore?.drone?.active ||
-        g?.pauseOpen || g?.hud?.panelOpen || (g?.spot === s && g.state !== 'spot');
+        g?.pauseOpen || g?.condOpen || g?.hud?.panelOpen || (g?.spot === s && g.state !== 'spot');
 }
 
 export function activityFlow(ctx) {
@@ -27,6 +27,7 @@ export function activityFlow(ctx) {
             if (run || s.ctl.active === false || activityBlocked(s) || ctx.extras.venueActivities?.active) return false;
             if (!document.getElementById('sp-participation-css')) { const st = document.createElement('style'); st.id = 'sp-participation-css'; st.textContent = CSS; document.head.append(st); }
             const ui = document.createElement('section'); ui.className = 'sp-participation'; ui.setAttribute('aria-label', opts.title);
+            ui.addEventListener('touchstart', e => e.stopPropagation(), { passive: true });
             ui.innerHTML = '<h2></h2><p data-help></p><p data-status aria-live="polite"></p><progress max="1" value="0"></progress><nav><button type="button" data-action></button><button type="button" data-leave>Leave</button></nav>';
             ui.querySelector('h2').textContent = opts.title; ui.querySelector('[data-help]').textContent = opts.help || '';
             const button = ui.querySelector('[data-action]'); button.textContent = opts.action || 'Continue';
@@ -36,7 +37,9 @@ export function activityFlow(ctx) {
             ui.querySelector('[data-leave]').onclick = () => api.cancel('leave');
             s.endTour?.(); s.input?.releaseLock?.(); s.input?.take?.('KeyE'); s.ui.prompt(null);
             if (opts.lockWalker !== false) s.ctl.active = false;
-            s.ui.el.append(ui); opts.started?.(s, run); return true;
+            s.ui.el.append(ui);
+            if(opts.focus){const dx=opts.focus.x-p.x,dz=opts.focus.z-p.z;s.ctl.heading=Math.atan2(-dx,-dz);s.ctl.pitch=Math.atan2(opts.focus.y-p.y-1.65,Math.hypot(dx,dz));s.ctl.place?.();}
+            opts.started?.(s, run); return true;
         },
         dispose() { api.cancel('exit'); window.removeEventListener('keydown', key, true); window.removeEventListener('keyup', key, true); document.removeEventListener('visibilitychange', visibility); },
     };

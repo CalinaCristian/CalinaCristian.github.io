@@ -1,0 +1,322 @@
+{
+  "schemaVersion": 1,
+  "id": "peoples-salvation-cathedral",
+  "city": "bucharest",
+  "name": "People's Salvation Cathedral",
+  "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+  "updatedAt": "2026-11-08T19:35:06.730Z",
+  "status": "needs_review",
+  "sources": [
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/People%27s_Salvation_Cathedral"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/232332568"
+    },
+    {
+      "label": "Mapped cathedral piazza relation 16698908",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/relation/16698908"
+    },
+    {
+      "label": "Paraclisul Catedralei (temporary wooden chapel/annex)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/224624283"
+    },
+    {
+      "label": "Romanian Patriarchate cathedral",
+      "type": "Official reference",
+      "url": "https://catedralaneamului.ro/"
+    }
+  ],
+  "improvements": [
+    "The piazza now follows OSM pedestrian multipolygon relation 16698908, including the church inner ring, instead of an invented 23,760 m² rectangle.",
+    "Six mapped retaining-wall ways keep their actual source gaps, and the valid western building w1223607029 is restored.",
+    "Candle participation requires a visible lighting phase and an explicit animated placement; idle/cancel does not award it."
+  ],
+  "remainingGaps": [
+    "Restoring the western building exposes the old postcard pose inside that real building. The viewpoint must move to the actual public piazza; the source building must remain.",
+    "Arrival and the native plaque route remain outside the mapped piazza; the native route does not complete. Spawn, public approach and game plaques need source-led relocation.",
+    "The candle pavilion/rack is still an explicitly estimated unverified physical structure; its location and existence need verification or replacement by an honest temporary game visualization.",
+    "Street boundary fences/gates and plaza ground finish are incomplete. The shared scene's first activity approach is at the Palace, not the cathedral.",
+    "The available May 2025 comparison shows the real southern fence and trees, but it is not a complete post-consecration matched scene comparison.",
+    "Raw audit findings remain for physical review: badGeometry 4, zfight 55, pedBelow 6.",
+    "125.7 m walked toward 127 metres; planned endpoint reached using native movement and collision."
+  ],
+  "checks": [
+    {
+      "label": "Native scene load",
+      "passed": true,
+      "details": "buc-parliament; actual native controller; 0 thrown JavaScript errors."
+    },
+    {
+      "label": "Source solid membership",
+      "passed": true,
+      "details": "800 active source records, 809 physical volumes, 15 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+    },
+    {
+      "label": "Validated scene geometry cache",
+      "passed": true,
+      "details": "Exact source/profile/terrain signature matched."
+    },
+    {
+      "label": "Native public-path walk",
+      "passed": false,
+      "details": "125.7 m walked toward 127 metres; planned endpoint reached using native movement and collision."
+    },
+    {
+      "label": "High scene budgets",
+      "passed": true,
+      "details": "475537 unique geometry triangles; max 965567 rendered triangles / 277 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+    },
+    {
+      "label": "Raw physical audit",
+      "passed": false,
+      "details": "badGeometry: 4; zfight: 55; pedBelow: 6"
+    },
+    {
+      "label": "Full matched scene comparison",
+      "passed": false,
+      "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+    },
+    {
+      "label": "Participatory activity controls",
+      "passed": true,
+      "details": "Native desktop and touch tests cover the two visible candle phases, 44px controls, cancellation and completion-only award; the pavilion's physical-source gap remains separate."
+    }
+  ],
+  "captures": [
+    {
+      "kind": "arrival",
+      "label": "People's Salvation Cathedral — arrival",
+      "image": "assets/spots/peoples-salvation-cathedral/arrival.webp",
+      "sha256": "96b02e8bbaefec1f7561282b938363223d0322e70e67586d045cefa930abd3ec",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:29:18.791Z",
+      "pose": {
+        "position": [
+          -746,
+          16.86744096772628,
+          208
+        ],
+        "bearing": 62,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 44.42735,
+          "lon": 26.0905,
+          "elev": 70.8
+        },
+        "projection": {
+          "mLat": 111120.59,
+          "mLon": 79628.31
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "public-walk",
+      "label": "People's Salvation Cathedral — public walk",
+      "image": "assets/spots/peoples-salvation-cathedral/public-walk.webp",
+      "sha256": "24d79f31e730d1f0290eb0e1baa11bbe82857f43de08872058874ac0fd088d26",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:29:21.483Z",
+      "pose": {
+        "position": [
+          -683.1864540302798,
+          16.699428156495404,
+          213.48822768380066
+        ],
+        "bearing": 279.0838319453165,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 44.42735,
+          "lon": 26.0905,
+          "elev": 70.8
+        },
+        "projection": {
+          "mLat": 111120.59,
+          "mLon": 79628.31
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "postcard",
+      "label": "People's Salvation Cathedral — postcard",
+      "image": "assets/spots/peoples-salvation-cathedral/postcard.webp",
+      "sha256": "041dd679a940fc49d8cb5aaf397639e30d72f5aad12a96f39e59dcb9245c0962",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:29:23.979Z",
+      "pose": {
+        "position": [
+          -756.7813442581357,
+          16.906229773573497,
+          196.5913229106827
+        ],
+        "bearing": 70,
+        "pitch": 16,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 44.42735,
+          "lon": 26.0905,
+          "elev": 70.8
+        },
+        "projection": {
+          "mLat": 111120.59,
+          "mLon": 79628.31
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "kind": "activity-approach",
+      "label": "People's Salvation Cathedral — activity approach",
+      "image": "assets/spots/peoples-salvation-cathedral/activity-approach.webp",
+      "sha256": "74f5679dfa02adaa490f6d0d649953be6a7d7be289fca22b710eca7292783477",
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "capturedAt": "2026-11-08T19:29:25.855Z",
+      "pose": {
+        "position": [
+          30,
+          1.8419999999999999,
+          -146
+        ],
+        "bearing": 0,
+        "pitch": -7.000000000000003,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 44.42735,
+          "lon": 26.0905,
+          "elev": 70.8
+        },
+        "projection": {
+          "mLat": 111120.59,
+          "mLon": 79628.31
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      }
+    }
+  ],
+  "perf": {
+    "sceneTriangles": 681600,
+    "uniqueGeometryTriangles": 475537,
+    "geometryObjects": 121,
+    "maxRenderedTriangles": 965567,
+    "maxDrawCalls": 277
+  },
+  "sceneId": "buc-parliament",
+  "sourceGeometry": {
+    "membershipSHA256": "a979d7a34930de88ff35af4556077c541ee827b11dcd5f8dcd51c52b11235fc0",
+    "activeSourceRecords": 800,
+    "renderedVolumes": 809,
+    "literalHeights": 112,
+    "levelHeightEstimates": 111,
+    "typeHeightEstimates": 577,
+    "heroReplacements": [
+      "w232332568",
+      "w1282739666",
+      "w1282739667",
+      "w1282747245",
+      "w1282747246",
+      "w1282747247",
+      "w1282747248",
+      "w1282747249",
+      "w1282747250",
+      "w1282747251",
+      "w1282747252",
+      "w1282747253",
+      "w1282747254",
+      "w1283287480",
+      "w1283287481",
+      "w1283287482",
+      "w1283287483",
+      "w1283287484",
+      "w1283287485",
+      "w1283287486",
+      "w1283287487",
+      "w1283287488",
+      "w1283287489",
+      "w232360843",
+      "w283976783",
+      "r2230391",
+      "w41474365",
+      "w207162869"
+    ],
+    "missingMembers": []
+  },
+  "access": {
+    "walker": "OnFootController",
+    "arrival": {
+      "x": -746,
+      "z": 208,
+      "y": 15.217440967726281,
+      "heading": -1.0821041362364843
+    },
+    "arrivalDry": true,
+    "nearestPlaquePath": {
+      "points": [
+        [
+          -746,
+          208
+        ],
+        [
+          -692.75,
+          217.75
+        ],
+        [
+          -652.25,
+          219.25
+        ],
+        [
+          -652.25,
+          217.75
+        ],
+        [
+          -700,
+          210.8
+        ]
+      ],
+      "length": 144.4161501693788,
+      "target": "127 metres"
+    },
+    "nativeWalk": {
+      "walker": "OnFootController",
+      "passed": false,
+      "steps": 1500,
+      "walked": 125.7341791422745,
+      "target": "127 metres",
+      "plannedLength": 144.4161501693788,
+      "position": {
+        "x": -683.1857196792315,
+        "z": 213.488345095251,
+        "y": 15.049498728632024,
+        "heading": 1.4122535506512823
+      },
+      "error": null
+    }
+  },
+  "rawAudit": {
+    "badGeometry": 4,
+    "zfight": 55,
+    "pedBelow": 6
+  },
+  "review": "Inspected all four GAME context views, including the obstructed postcard. The source preservation fix is correct, but access and the viewpoint need the next production correction."
+}

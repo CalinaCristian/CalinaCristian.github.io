@@ -12,7 +12,8 @@ import { treeGeometries, SPECIES, defaultSpecies, buildSpeciesTrees, speciesFrom
 import { assignSignalPhases, signalState } from './signals.js';
 import { aircraftBody } from './building-aircraft.js';
 import { resolveParkingLayout, parkingRowPose, parkingPolygonsOverlap, parkingBodyOverlap } from './parking-layout.js';
-import { passageSolids, clipPassageWall, passageInterior } from './building-passages.js';
+import { passageSolids, clipPassageWall, passageInterior, passageBaseUnknown } from './building-passages.js';
+import { scenerySourceProfile } from './scenery-source.js';
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -2965,10 +2966,11 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         if (heightFixes.length) console.info('[world] height sanity:', heightFixes.length, 'buildings re-estimated', heightFixes.slice(0, 8));
     }
-    const buildingPassageAudit=[];
+    const buildingPassageAudit=(data.buildingPassageIssues||[]).map(i=>({...i,accepted:false}));
     const configurePassages=b=>{
         b.passages=[];b.passageSolids=null;
         for(const source of data.buildingPassages?.[b.derivedFrom??b.i]||[]){
+            if(passageBaseUnknown(source.tags)){buildingPassageAudit.push({source:data.buildingIds?.[b.derivedFrom??b.i],road:source.sourceRoadId,accepted:false,reason:'absolute-passage-base-unknown',baseUnknown:true,tags:source.tags});continue;}
             const mid=centroid(source.ring),indices=new Set(source.roadIndices||[]);
             const ne=nearestEdge(mid[0],mid[1],e=>!e.virtual&&(indices.has(e.road)||data.roadAccess?.[e.road]?.sourceId===source.sourceRoadId),100);
             const roadY=ne?Y.road+yAlong(ne.edge,mid[0],mid[1]):Y.road,ceilingM=roadY+source.clearanceM,top=b.roofProfile?.eavesM??b.h;
@@ -5200,6 +5202,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // (data.scenery from build-data: carriageway width, sidewalk, class, flags, polyline) as flat asphalt + sidewalk strips,
     // below the drivable ribbons (no traffic, no markings beyond a centre dash on two-way main streets)
     let sceneryStreets = 0;
+    const scenerySourceAudit = { precisePieces: 0, literalWidthPieces: 0, reviewedWidthPieces: 0, estimatedWidthPieces: 0, fallbackPieces: 0, resolvedWidths: [], issues: [] };
     {
         const SC = data.scenery || [], asp = rgb(ASPHALT), side = rgb(US ? '#a4a29d' : '#9d9a92'), dash = rgb('#cfcfca');
         const yA = Y.side + 0.05, yS = Y.side + 0.03;
@@ -5213,15 +5216,19 @@ export async function buildWorld(city, renderer, opts = {}) {
                 c.ground.flatQuad(ax + n0x * l0, az + n0z * l0, bx + n1x * l0, bz + n1z * l0, bx + n1x * l1, bz + n1z * l1, ax + n0x * l1, az + n0z * l1, y, col);
             }
         };
-        for (const r of SC) {
-            const wC = r[0] / 10, sw = r[1] / 10, cls = data.classes[r[2]] || 'residential', fl = r[3];
-            const pts = undelta(r, 4); if (pts.length < 2) continue;
+        for (const [ri, r] of SC.entries()) {
+            const sw = r[1] / 10, cls = data.classes[r[2]] || 'residential', fl = r[3];
             if (fl & 1) continue; // (bridges in the ring: skipped, no decks out there)
-            const hw = Math.max(2.2, wC / 2);
-            strip(pts, -hw, hw, yA, asp);
-            if (sw > 0.5 && !/service|motorway/.test(cls)) { strip(pts, hw, hw + Math.max(1.2, sw), yS, side); strip(pts, -hw - Math.max(1.2, sw), -hw, yS, side); }
+            const profile = scenerySourceProfile(data, ri, undelta(r, 4)), pts = profile.points, wC = profile.widthM;
+            if (pts.length < 2) continue;
+            scenerySourceAudit[profile.precise ? 'precisePieces' : 'fallbackPieces']++;
+            scenerySourceAudit[profile.widthSource === 'OSM width' ? 'literalWidthPieces' : profile.review ? 'reviewedWidthPieces' : 'estimatedWidthPieces']++;
+            if (profile.rawWidth || profile.review) scenerySourceAudit.resolvedWidths.push({ piece: ri, sourceId: profile.sourceId, widthM: profile.widthM, leftM: profile.leftM, rightM: profile.rightM, widthSource: profile.widthSource, rawWidth: profile.rawWidth, review: profile.review });
+            if (profile.issue) scenerySourceAudit.issues.push({ piece: ri, sourceId: profile.sourceId, reason: profile.issue });
+            strip(pts, -profile.leftM, profile.rightM, yA, asp);
+            if (sw > 0.5 && !/service|motorway/.test(cls)) { strip(pts, profile.rightM, profile.rightM + Math.max(1.2, sw), yS, side); strip(pts, -profile.leftM - Math.max(1.2, sw), -profile.leftM, yS, side); }
             if (/primary|secondary|tertiary/.test(cls) && wC > 6) { // dashed centre line
-                for (let i = 0; i < pts.length - 1; i++) { const [ax, az] = pts[i], [bx, bz] = pts[i + 1], L = Math.hypot(bx - ax, bz - az); for (let d = 1; d + 3 < L; d += 9) { const f0 = d / L, f1 = (d + 3) / L; strip([[ax + (bx - ax) * f0, az + (bz - az) * f0], [ax + (bx - ax) * f1, az + (bz - az) * f1]], -0.07, 0.07, yA + 0.005, dash); } }
+                for (let i = 0; i < pts.length - 1; i++) { const [ax, az] = pts[i], [bx, bz] = pts[i + 1], L = Math.hypot(bx - ax, bz - az); for (let d = 1; d + 3 < L; d += 9) { const f0 = d / L, f1 = (d + 3) / L; strip([[ax + (bx - ax) * f0, az + (bz - az) * f0], [ax + (bx - ax) * f1, az + (bz - az) * f1]], profile.lineOffsetM - 0.07, profile.lineOffsetM + 0.07, yA + 0.005, dash); } }
             }
             sceneryStreets++;
         }
@@ -5633,6 +5640,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     setProgress(''); const phases = PHASES.splice(0);
     const stats = { parkingClearance, phases, railways: railStats, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, fuel: fuelLog,
         buildingRoofProfiles: roofProfileAudit, profile: profileStats, buildingPassages: buildingPassageAudit, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, landmarkSourceReplacements, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
+    stats.scenerySource = scenerySourceAudit;
     console.info('[world]', city.id, stats);
 
     /** calls cb(height) for every drivable surface (carriageway + shoulder + sidewalk, junction pads) covering (x, z) */

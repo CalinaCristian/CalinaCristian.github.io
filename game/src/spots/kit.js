@@ -200,6 +200,7 @@ export class GeoBatch {
             g.setAttribute('color', new THREE.Float32BufferAttribute(b.col, 3));
             if (b.hasUv) g.setAttribute('uv', new THREE.Float32BufferAttribute(b.uv, 2));
             g.setIndex(b.n > 65535 ? new THREE.Uint32BufferAttribute(b.idx, 1) : new THREE.Uint16BufferAttribute(b.idx, 1));
+            compactTriangles(g);
             g.computeBoundingSphere();
             const m = matOverrides[b.key] || mat(b.key, b.opts || undefined);
             const mesh = new THREE.Mesh(g, m); mesh.name = name + ':' + b.key;
@@ -209,6 +210,35 @@ export class GeoBatch {
         this.parts.clear();
         return grp;
     }
+}
+
+/** Remove only zero-area triangles and their unreferenced vertices. Caps often
+ * retain collinear source vertices that earcut never uses; those vertices have
+ * zero normals. Every nonzero triangle and each of its attributes survives. */
+export function compactTriangles(g) {
+    const p=g.attributes.position;if(!p)return g;
+    const index=g.index?.array, count=index?.length??p.count, kept=[],used=new Set(),fallback=new Map();
+    for(let k=0;k<count;k+=3){const a=index?index[k]:k,b=index?index[k+1]:k+1,c=index?index[k+2]:k+2;
+        const ux=p.getX(b)-p.getX(a),uy=p.getY(b)-p.getY(a),uz=p.getZ(b)-p.getZ(a),vx=p.getX(c)-p.getX(a),vy=p.getY(c)-p.getY(a),vz=p.getZ(c)-p.getZ(a),n=[uy*vz-uz*vy,uz*vx-ux*vz,ux*vy-uy*vx],L=Math.hypot(...n);
+        if(L===0)continue;
+        if(!Number.isFinite(L))throw new Error('Non-finite tourist geometry');
+        kept.push(a,b,c);for(const i of[a,b,c]){used.add(i);if(!fallback.has(i))fallback.set(i,n.map(x=>x/L));}
+    }
+    const ids=[...used].sort((a,b)=>a-b),map=new Map(ids.map((v,i)=>[v,i]));
+    if(ids.length!==p.count||kept.length!==count){
+        for(const [name,attr]of Object.entries(g.attributes)){const array=new attr.array.constructor(ids.length*attr.itemSize);ids.forEach((old,i)=>{for(let j=0;j<attr.itemSize;j++)array[i*attr.itemSize+j]=attr.array[old*attr.itemSize+j];});g.setAttribute(name,new THREE.BufferAttribute(array,attr.itemSize,attr.normalized));}
+        g.setIndex(kept.map(i=>map.get(i)));
+    }
+    const normal=g.attributes.normal;if(normal)ids.forEach((old,i)=>{if(Math.hypot(normal.getX(i),normal.getY(i),normal.getZ(i))===0)normal.setXYZ(i,...fallback.get(old));});
+    return g;
+}
+
+/** Capsule poles are on the axis. sin(PI) leaves microscopic rings in Three's
+ * generated primitive; put those poles exactly on that axis before compacting. */
+export function capsuleGeometry(radius,length,caps,radial) {
+    const g=new THREE.CapsuleGeometry(radius,length,caps,radial),p=g.attributes.position;
+    for(let i=0;i<p.count;i++)if(Math.hypot(p.getX(i),p.getZ(i))<radius*1e-7)p.setXYZ(i,0,p.getY(i),0);
+    return compactTriangles(g);
 }
 
 /** prism geometry: walls (u = metres along the perimeter, v = metres up) + top cap; o.bottom adds a bottom cap; o.noTop */

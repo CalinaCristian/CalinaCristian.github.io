@@ -89,6 +89,7 @@ that chapter of the CV.
   hall; Liceul Rosetti's gym, sports hall and sports ground with its basketball hoops; only real shops and signs.
 - **Romană & Victoriei reality pass.** Sourced buildings and streets continue through a 600 m scenery ring, with aerial
   roof, tree-crown and green-ground measurements, mapped courtyard openings, and parking-side/orientation metadata.
+  Fully covering OSM building parts render once while their outline records remain available for source audits.
   Civic buildings keep their identity, apartment blocks retain their upper floors, and the Louis Blanc office uses its
   published eight above-ground storeys. The full district has local Street View and aerial comparison reports. Complex
   roofs, detailed historic facades, canopy shape and covered footbridges still need further modelling.

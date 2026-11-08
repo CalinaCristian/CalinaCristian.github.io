@@ -2808,6 +2808,30 @@ export async function buildWorld(city, renderer, opts = {}) {
         b.ring = ring; b.area = Math.abs(signedArea(ring)); bShrunk++;
         b.x0 = Math.min(...ring.map(p => p[0])); b.x1 = Math.max(...ring.map(p => p[0])); b.z0 = Math.min(...ring.map(p => p[1])); b.z1 = Math.max(...ring.map(p => p[1]));
     }
+    // OSM 3-D outlines can have a separately mapped part over their whole footprint.
+    // Keep both source records for audits, but draw/collide only the complete part.
+    // Recheck after runtime clearance: an altered or dropped part cannot erase its outline.
+    const coveredOutlines = [];
+    const coveredBy = data.buildingCoveredBy || {}, targetCounts = new Map();
+    for (const value of Object.values(coveredBy)) if (Number.isInteger(value)) targetCounts.set(value, (targetCounts.get(value) || 0) + 1);
+    const ringKey = ring => {
+        const pts = ring.map(([x, z]) => Math.round(x * 1e4) + ',' + Math.round(z * 1e4)), keys = [];
+        for (const seq of [pts, [...pts].reverse()]) for (let i = 0; i < seq.length; i++) keys.push(seq.slice(i).concat(seq.slice(0, i)).join(';'));
+        return keys.sort()[0] || '';
+    };
+    const footprintKey = b => ringKey(b.ring) + '|' + b.holes.map(ringKey).sort().join('|');
+    for (const [key, index] of Object.entries(coveredBy)) {
+        const baseIndex = Number(key), base = bRecs[baseIndex], part = bRecs[index];
+        if (!Number.isInteger(baseIndex) || !Number.isInteger(index) || baseIndex === index || !base || !part || base.skip || part.skip || targetCounts.get(index) !== 1 || Object.hasOwn(coveredBy, index)) continue;
+        if (part.minH > 0 || part.h + 1e-6 < base.h || footprintKey(base) !== footprintKey(part)) continue;
+        base.skip = true; base.coveredBy = index;
+        if (!part.name) { part.name = base.name; part.flags |= base.flags & (2 | 8); }
+        part.flags |= base.flags & 1; // a sourced ground-floor tenant remains on the complete building
+        if (!part.type || part.type === 'yes') part.type = base.type;
+        for (const field of ['year', 'material', 'levels']) if (!part[field]) part[field] = base[field];
+        coveredOutlines.push({ outline: data.buildingIds?.[baseIndex] || baseIndex, part: data.buildingIds?.[index] || index, type: part.type, levels: part.levels, name: part.name, sign: !!(part.flags & 2) });
+    }
+    const buildingIndex = index => bRecs[index]?.coveredBy ?? index;
     const bGrid = new BoxGrid(32);
     for (const b of bRecs) bGrid.insert(b.x0, b.z0, b.x1, b.z1, b);
     const buildingAt = (x, z) => { let r = null; bGrid.each(x, z, x, z, (b) => { if (!r && !b.skip && x >= b.x0 && x <= b.x1 && z >= b.z0 && z <= b.z1 && pointInPolygon(x, z, b.ring) && !b.holes.some(h => pointInPolygon(x, z, h))) r = b; }); return r; };
@@ -3172,7 +3196,8 @@ export async function buildWorld(city, renderer, opts = {}) {
     // ---- extrude buildings
     // (round 5, note 77) non-residential archetypes from the research building specs: game/src/archetypes.js
     let ARCH = null;
-    try { ARCH = (await import('./archetypes.js')).createArchetypes({ city, distId, data, US, CELL, proj: (la, lo) => city.proj(la, lo), bGrid, buildingAt, nearestEdge, onRibbon, signs, addSignQuad, brandStyle, triangulate, pointInPolygon, signedArea, TILE, TILE_GRID }); ARCH.match(bRecs); }
+    const archetypeData = coveredOutlines.length && data.buildingSpec ? { ...data, buildingSpec: data.buildingSpec.map(row => row.length === 17 ? [buildingIndex(row[0]), ...row.slice(1)] : row) } : data;
+    try { ARCH = (await import('./archetypes.js')).createArchetypes({ city, distId, data: archetypeData, US, CELL, proj: (la, lo) => city.proj(la, lo), bGrid, buildingAt, nearestEdge, onRibbon, signs, addSignQuad, brandStyle, triangulate, pointInPolygon, signedArea, TILE, TILE_GRID }); ARCH.match(bRecs); }
     catch (err) { console.warn('[arch] archetypes unavailable', err); ARCH = null; }
     const palette = PALETTES[country], roofCols = ROOF_COL[country];
     const collision = [];
@@ -3842,7 +3867,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const fuelLog = []; // fuel forecourts: where the canopy went (or why not) — world.stats.fuel
     for (const r of data.pois) {
         const kind = data.poiKinds[r[0]];
-        const x = r[1] / 10, z = r[2] / 10, name = str(r[3]), brand = str(r[4]), sub = str(r[5]), bIdx = r[6];
+        const x = r[1] / 10, z = r[2] / 10, name = str(r[3]), brand = str(r[4]), sub = str(r[5]), bIdx = buildingIndex(r[6]);
         const ks = KIND_STYLE[kind] || KIND_STYLE.landmark;
         const label = name || brand || (kind === 'busstop' ? (sub.startsWith('tram') ? (US ? 'Streetcar stop' : 'Stație tramvai') : (US ? 'Bus stop' : 'Stație autobuz')) : kind === 'metro' ? (US ? 'Link station' : 'Metrou') : kind);
         const poi = { id: 'osm' + pois.length, kind, sub, label, brand, x, z, doorX: x, doorZ: z, color: ks.color, icon: sub.startsWith('cafe') ? '☕' : ks.icon, visited: false, h: 4, w: 4, d: 4, interactive: false, building: bIdx };
@@ -4021,7 +4046,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     }
     // vacant shop units (data.vacant, world-data Request): a plain 'DE ÎNCHIRIAT' / 'FOR LEASE' board over the unit
     { const V = data.vacant || []; let vac = 0;
-      for (let i = 0; i + 2 < V.length; i += 3) { const bi = V[i + 2]; if (bi >= 0 && bRecs[bi]) { addUnitSign(bRecs[bi], V[i] / 10, V[i + 1] / 10, US ? 'FOR LEASE' : 'DE ÎNCHIRIAT', 'vacant'); vac++; } }
+      for (let i = 0; i + 2 < V.length; i += 3) { const bi = buildingIndex(V[i + 2]); if (bi >= 0 && bRecs[bi]) { addUnitSign(bRecs[bi], V[i] / 10, V[i + 1] / 10, US ? 'FOR LEASE' : 'DE ÎNCHIRIAT', 'vacant'); vac++; } }
       vacantUnits = vac; }
     /** a double/single sided sign quad at (x,z) rotated `ang` (local +z = facing), centre height y */
     function addSignQuad(c, x, z, ang, sd, w, h, y, s, thick = 0.1) {
@@ -5109,7 +5134,7 @@ export async function buildWorld(city, renderer, opts = {}) {
 
     setProgress(''); const phases = PHASES.splice(0);
     const stats = { phases, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, fuel: fuelLog,
-        profile: profileStats, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingsDropped: bDropped, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
+        profile: profileStats, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
     console.info('[world]', city.id, stats);
 
     /** calls cb(height) for every drivable surface (carriageway + shoulder + sidewalk, junction pads) covering (x, z) */

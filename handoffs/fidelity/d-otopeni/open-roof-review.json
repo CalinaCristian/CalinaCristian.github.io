@@ -1,0 +1,232 @@
+{
+  "district": "bucharest-otopeni",
+  "reviewedAtUtc": "2026-11-08T17:19:34.645329+00:00",
+  "referencePolicy": "OSM source tags first. Independent Esri aerial used for individual plan/open-roof review only. Missing vertical and support dimensions are estimates. No Google imagery measurements and no reference imagery in git.",
+  "sourceLedger": "game/research/source-bucharest-otopeni.json",
+  "reviewedCandidates": 10,
+  "enabled": 10,
+  "records": [
+    {
+      "osm": "w918040928",
+      "lat": 44.55825994,
+      "lon": 26.069648360000002,
+      "sourceTags": {
+        "addr:city": "Otopeni",
+        "addr:country": "RO",
+        "addr:housenumber": "280A",
+        "addr:postcode": "075100",
+        "addr:street": "Calea Bucureștilor",
+        "amenity": "fuel",
+        "brand": "Gazprom",
+        "brand:wikidata": "Q102673",
+        "brand:wikipedia": "en:Gazprom",
+        "building": "roof",
+        "min_height": "3",
+        "name": "Gazprom",
+        "operator": "NIS Petrol SRL"
+      },
+      "sourceUrl": "https://www.openstreetmap.org/way/918040928",
+      "topM": 4,
+      "clearanceM": 3,
+      "supportsEstimated": true,
+      "note": "OSM Gazprom fuel roof has literal min_height3; independent aerial confirms separate canopy plan. Total4 and supports are estimates; literal minimum stays3."
+    },
+    {
+      "osm": "w312547071",
+      "lat": 44.56078664285714,
+      "lon": 26.06981537142857,
+      "sourceTags": {
+        "addr:city": "Otopeni",
+        "addr:country": "RO",
+        "addr:housenumber": "216-218",
+        "addr:postcode": "075100",
+        "addr:street": "Calea Bucureștilor",
+        "amenity": "fuel",
+        "brand": "Rompetrol",
+        "brand:wikidata": "Q1788862",
+        "brand:wikipedia": "en:Rompetrol",
+        "building": "roof",
+        "compressed_air": "yes",
+        "contact:email": "infoline@rompetrol.com",
+        "contact:facebook": "https://www.facebook.com/Rompetrol.Romania",
+        "contact:instagram": "https://www.instagram.com/rompetrol",
+        "contact:phone": "+40 372 784 955",
+        "contact:website": "https://www.rompetrol.ro/",
+        "min_height": "3",
+        "name": "Rompetrol",
+        "opening_hours": "24/7",
+        "operator": "Rompetrol",
+        "tiktok": "https://www.tiktok.com/@rompetrol.romania",
+        "wheelchair": "limited"
+      },
+      "sourceUrl": "https://www.openstreetmap.org/way/312547071",
+      "topM": 4,
+      "clearanceM": 3,
+      "supportsEstimated": true,
+      "note": "OSM Rompetrol fuel roof has literal min_height3; independent aerial confirms separate canopy plan. Total4 and supports are estimates; literal minimum stays3."
+    },
+    {
+      "osm": "w917838072",
+      "lat": 44.57079108571429,
+      "lon": 26.06510321428571,
+      "sourceTags": {
+        "building": "carport",
+        "height": "4"
+      },
+      "sourceUrl": "https://www.openstreetmap.org/way/917838072",
+      "topM": 4,
+      "clearanceM": 3.6,
+      "supportsEstimated": false,
+      "note": "OSM carport has literal total height4; aerial shows full elongated parking cover. Clearance3.6 is estimated, no inferred supports."
+    },
+    {
+      "osm": "w918040922",
+      "lat": 44.56135607142857,
+      "lon": 26.06887345714286,
+      "sourceTags": {
+        "addr:city": "Otopeni",
+        "addr:country": "RO",
+        "addr:housenumber": "253A",
+        "addr:postcode": "075100",
+        "addr:street": "Calea Bucureștilor",
+        "amenity": "fuel",
+        "brand": "Rompetrol",
+        "brand:wikidata": "Q1788862",
+        "brand:wikipedia": "en:Rompetrol",
+        "building": "roof",
+        "min_height": "3",
+        "name": "Rompetrol"
+      },
+      "sourceUrl": "https://www.openstreetmap.org/way/918040922",
+      "topM": 4,
+      "clearanceM": 3,
+      "supportsEstimated": true,
+      "note": "OSM Rompetrol fuel roof has literal min_height3; independent aerial confirms separate canopy plan. Total4 and supports are estimates; literal minimum stays3."
+    },
+    {
+      "osm": "w1244020417",
+      "lat": 44.56099158,
+      "lon": 26.06895272,
+      "sourceTags": {
+        "addr:city": "Otopeni",
+        "addr:country": "RO",
+        "addr:housenumber": "1",
+        "addr:postcode": "075100",
+        "addr:street": "Strada Nicolae Grigorescu",
+        "amenity": "car_wash",
+        "automated": "no",
+        "building": "roof",
+        "name": "Speli-Singur.ro",
+        "opening_hours": "24/7",
+        "self_service": "yes",
+        "website": "https://speli-singur.ro/",
+        "wheelchair": "limited"
+      },
+      "sourceUrl": "https://www.openstreetmap.org/way/1244020417",
+      "topM": 4,
+      "clearanceM": 3.6,
+      "supportsEstimated": true,
+      "note": "OSM self-service car-wash roof, aerial shows separate elongated bay cover. Top, clearance and support positions are estimates, not an invented fuel station."
+    },
+    {
+      "osm": "w244429098",
+      "lat": 44.56708596,
+      "lon": 26.070224239999998,
+      "sourceTags": {
+        "addr:city": "Otopeni",
+        "addr:housenumber": "224D",
+        "addr:postcode": "075100",
+        "addr:street": "Calea Bucureștilor",
+        "amenity": "fuel",
+        "brand": "OMV",
+        "brand:wikidata": "Q168238",
+        "brand:wikipedia": "en:MOL (company)",
+        "building": "roof",
+        "compressed_air": "yes",
+        "layer": "1",
+        "name": "OMV",
+        "opening_hours": "24/7",
+        "operator": "OMV Petrom",
+        "phone": "+40 372 427526",
+        "website": "https://www.omv.ro/",
+        "wheelchair": "limited"
+      },
+      "sourceUrl": "https://www.openstreetmap.org/way/244429098",
+      "topM": 5.2,
+      "clearanceM": 4.8,
+      "supportsEstimated": true,
+      "note": "OSM OMV fuel roof, aerial confirms separate pump cover with nearby shop remaining untouched. Vertical/support dimensions are estimates."
+    },
+    {
+      "osm": "w406473919",
+      "lat": 44.569458411111114,
+      "lon": 26.07821571111111,
+      "sourceTags": {
+        "building": "roof",
+        "layer": "1"
+      },
+      "sourceUrl": "https://www.openstreetmap.org/way/406473919",
+      "topM": 7,
+      "clearanceM": 6.4,
+      "supportsEstimated": false,
+      "note": "OSM roof at terminal front; aerial shows long scalloped covered frontage. Total/clearance are uncertain estimates; the roof outline is retained, shape detail is a known remaining gap and no supports are inferred."
+    },
+    {
+      "osm": "w406473986",
+      "lat": 44.571144765,
+      "lon": 26.076938339999998,
+      "sourceTags": {
+        "building": "roof",
+        "building:levels": "2",
+        "layer": "1",
+        "min_level": "1"
+      },
+      "sourceUrl": "https://www.openstreetmap.org/way/406473986",
+      "topM": 6.4,
+      "clearanceM": 5.8,
+      "supportsEstimated": false,
+      "note": "OSM roof with building:levels2/min_level1, aerial shows projecting entrance covers at northern terminal. Level indexing alone is not a literal min_height; total/clearance remain uncertain estimates and no supports are inferred."
+    },
+    {
+      "osm": "w1215048760",
+      "lat": 44.56917373333333,
+      "lon": 26.077014005555554,
+      "sourceTags": {
+        "building": "roof",
+        "building:levels": "1",
+        "height": "6",
+        "layer": "1",
+        "level": "1",
+        "min_height": "5",
+        "min_level": "1"
+      },
+      "sourceUrl": "https://www.openstreetmap.org/way/1215048760",
+      "topM": 6,
+      "clearanceM": 5,
+      "supportsEstimated": false,
+      "note": "OSM roof height6/min_height5, independent aerial shows cars and ramps on an open parking top deck. Keep exact literal5–6 slab; no invented canopy supports or residential wall box."
+    },
+    {
+      "osm": "w1215062623",
+      "lat": 44.57191194285714,
+      "lon": 26.076865742857144,
+      "sourceTags": {
+        "building": "roof",
+        "layer": "1",
+        "level": "2",
+        "min_level": "1"
+      },
+      "sourceUrl": "https://www.openstreetmap.org/way/1215062623",
+      "topM": 9.6,
+      "clearanceM": 9,
+      "supportsEstimated": false,
+      "note": "OSM roof level2/min_level1 at north terminal, aerial shows a long projecting cover beside the station approach. Level metadata does not measure absolute elevation; total/clearance remain uncertain estimates, no supports inferred."
+    }
+  ],
+  "excluded": [],
+  "limitations": [
+    "Aerial plans cannot establish clearance, support location or missing height. Those remain explicit estimates.",
+    "OSM level/layer tags are not silently converted into surveyed elevation.",
+    "Scalloped/curved facade canopy details may remain simplified despite retaining the exact mapped plan."
+  ]
+}

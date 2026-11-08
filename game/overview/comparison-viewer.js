@@ -5,7 +5,7 @@ const itemScope = item => ({'core-touches':'core','ring-touches':'nearby','outsi
 const normalize = value => String(value).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 const paramNames = ['compareLocation','compareTile','compareScope','compareRow','compareQuery','compareBaseline','compareLat','compareLon','compareLabel'];
 
-/** Official live imagery, matched to a north-up ground square. No reference imagery is cached. */
+/** Official live imagery, matched to a north-up ground square. Browser-only caching is handled by the viewer. */
 export function aerialURL(item, aerial = {}) {
   const radians = item.lat * Math.PI / 180, radius = 6378137;
   const x = radius * item.lon * Math.PI / 180;
@@ -15,6 +15,72 @@ export function aerialURL(item, aerial = {}) {
   return `${aerial.endpoint || 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export'}?${params}`;
 }
 
+// Official imagery stays on the visitor's device: persistent 15-minute records,
+// plus a bounded memory front. Reloads keep the original timestamp, not a new TTL.
+function createAerialCache({ttl = 15 * 60 * 1000, limit = 96} = {}) {
+  const entries = new Map(), cacheName='dmcv-comparison-aerial-v1', timestampHeader='x-cv-fetched-at';
+  let closed=false, storagePromise;
+  const validTimestamp=response=>{
+    const value=Number(response?.headers.get(timestampHeader));
+    return Number.isFinite(value)&&value>0&&value<=Date.now()&&Date.now()-value<ttl ? value : null;
+  };
+  const safeURL=url=>{
+    const value=new URL(url);
+    return value.protocol==='https:'&&value.hostname==='server.arcgisonline.com'&&value.pathname==='/ArcGIS/rest/services/World_Imagery/MapServer/export'&&!value.username&&!value.password&&[...value.searchParams.keys()].every(key=>['bbox','bboxSR','imageSR','size','format','f'].includes(key));
+  };
+  async function pruneExpired(cache) {
+    const requests=await cache.keys();
+    await Promise.all(requests.map(async request=>{const response=await cache.match(request);if(!validTimestamp(response))await cache.delete(request);}));
+  }
+  async function storage() {
+    if(!storagePromise)storagePromise=(async()=>{
+      try {if(!globalThis.caches)return null;const cache=await caches.open(cacheName);await pruneExpired(cache);return cache;}catch{return null;}
+    })();
+    return storagePromise;
+  }
+  function release(key,entry) {
+    entries.delete(key);entry.controller.abort();
+    if(entry.objectURL)URL.revokeObjectURL(entry.objectURL);
+  }
+  return {
+    get(url) {
+      if(closed)return Promise.reject(new Error('Comparison viewer disposed'));
+      let entry=entries.get(url);
+      if(entry&&(entry.pending||entry.expiresAt>Date.now())) {entries.delete(url);entries.set(url,entry);return entry.promise;}
+      if(entry)release(url,entry);
+      entry={controller:new AbortController(),pending:true,objectURL:null,expiresAt:0};entries.set(url,entry);
+      entry.promise=(async()=>{
+        try {
+          const cache=safeURL(url)?await storage():null;
+          let blob,fetchedAt;
+          if(cache)try {
+            const saved=await cache.match(url);fetchedAt=validTimestamp(saved);
+            if(saved&&fetchedAt)blob=await saved.blob();
+            else if(saved)await cache.delete(url);
+          }catch{/* Storage restrictions must not stop live imagery. */}
+          if(!blob) {
+            const response=await fetch(url,{mode:'cors',credentials:'omit',cache:'no-store',signal:entry.controller.signal});
+            if(!response.ok||!/^image\//i.test(response.headers.get('content-type')||''))throw new Error('Live aerial request failed');
+            blob=await response.blob();if(!blob.size)throw new Error('Live aerial response was empty');fetchedAt=Date.now();
+            if(cache) {
+              const record=()=>new Response(blob,{status:200,headers:{'content-type':blob.type||'image/jpeg',[timestampHeader]:String(fetchedAt)}});
+              try {await cache.put(url,record());}catch{
+                try {await pruneExpired(cache);await cache.put(url,record());}catch{/* Quota or denied storage: retain the memory result. */}
+              }
+            }
+          }
+          if(closed||entry.controller.signal.aborted)throw new Error('Live aerial request ended');
+          entry.objectURL=URL.createObjectURL(blob);entry.pending=false;entry.expiresAt=fetchedAt+ttl;
+          return entry.objectURL;
+        }catch(error){if(entries.get(url)===entry)release(url,entry);throw error;}
+      })();
+      while(entries.size>limit){const[key,oldest]=entries.entries().next().value;release(key,oldest);}
+      return entry.promise;
+    },
+    dispose(){closed=true;for(const[key,entry]of entries)release(key,entry);}
+  };
+}
+
 /** Mount within an overview section. Resolves to {dispose(), setLocation(id, options), setState(options)}. */
 export async function mountComparisonViewer(element, {baseURL = new URL('./comparison-data/', import.meta.url)} = {}) {
   const root = document.createElement('div');
@@ -22,13 +88,15 @@ export async function mountComparisonViewer(element, {baseURL = new URL('./compa
   root.innerHTML = '<p class="cv-message" role="status">Loading comparison locations…</p>';
   element.replaceChildren(root);
   const abort = new AbortController(), listenerOptions = {signal:abort.signal};
+  const aerialCache=createAerialCache();
+  let aerialRequest=0;
   let disposed = false, current, visible = [], state, manifest, collectionItems = [], zoomScale = 1, zoomWidth = 640;
   const manifests = new Map();
   const $ = selector => root.querySelector(`[data-cv="${selector}"]`);
   const listen = (target, event, handler) => target.addEventListener(event,handler,listenerOptions);
   const base = new URL(baseURL, document.baseURI);
   let catalog, setLocationHandler = async () => {};
-  const controller = {dispose() {disposed = true; abort.abort(); $('dialog')?.close(); root.remove();}, setLocation(id, options = {}) {return setLocationHandler({location:id,...options});}, setState(options) {return setLocationHandler(options);}};
+  const controller = {dispose() {disposed = true; aerialCache.dispose();abort.abort(); $('dialog')?.close(); root.remove();}, setLocation(id, options = {}) {return setLocationHandler({location:id,...options});}, setState(options) {return setLocationHandler(options);}};
   try {
     const getJSON = async url => {const response = await fetch(url,{signal:abort.signal}); if(!response.ok) throw new Error(`Comparison data: HTTP ${response.status}`); return response.json();};
     catalog = await getJSON(new URL('catalog.json',base));
@@ -174,7 +242,7 @@ export async function mountComparisonViewer(element, {baseURL = new URL('./compa
     function renderSelection() {
       current = visible.find(item=>item.id===state.tile) || visible.find(item=>item.id===manifest.defaultTile) || visible[0];
       $('empty').hidden = Boolean(current); $('content').hidden = !current; $('badge').hidden = !current;
-      if(!current) {state.tile='';$('tile-id').textContent = 'NO MATCHES';$('tile-title').textContent = 'No locations found';$('game-image').removeAttribute('src');$('aerial-image').removeAttribute('src');}
+      if(!current) {aerialRequest++;state.tile='';$('tile-id').textContent = 'NO MATCHES';$('tile-title').textContent = 'No locations found';$('game-image').removeAttribute('src');$('aerial-image').removeAttribute('src');}
       else {
         state.tile = current.id;
         $('tile-id').textContent = current.id; $('tile-title').textContent = current.label;
@@ -182,9 +250,15 @@ export async function mountComparisonViewer(element, {baseURL = new URL('./compa
         const game = $('game-image'); game.src = current.image; game.alt = `Game capture: ${current.label}, north up, ${current.size} m square`;
         const url = aerialURL(current,manifest.aerial), aerial = $('aerial-image');
         $('aerial-status').hidden = false; $('aerial-status').textContent = 'Loading live imagery…';
-        aerial.onload = ()=>{$('aerial-status').hidden = true;};
-        aerial.onerror = ()=>{$('aerial-status').hidden = false;$('aerial-status').textContent = 'Live aerial could not load. Open aerial to retry at Esri.';};
-        aerial.alt = `Live Esri aerial: ${current.label}, north up, ${current.size} m square`; aerial.src = url;
+        const request=++aerialRequest;
+        aerial.onload=null;aerial.onerror=null;aerial.removeAttribute('src');
+        aerial.alt = `Live Esri aerial: ${current.label}, north up, ${current.size} m square`;
+        const failed=()=>{if(!disposed && request===aerialRequest){$('aerial-status').hidden=false;$('aerial-status').textContent='Live aerial could not load. Select this tile again to retry, or open aerial at Esri.';}};
+        aerialCache.get(url).then(objectURL=>{
+          if(disposed || request!==aerialRequest)return;
+          aerial.onload=()=>{if(request===aerialRequest)$('aerial-status').hidden=true;};aerial.onerror=failed;aerial.src=objectURL;
+          if(aerial.complete && aerial.naturalWidth)$('aerial-status').hidden=true;
+        }).catch(failed);
         $('aerial-link').href = url;
         $('source-link').textContent = current.gameSourceCommit.slice(0,7); $('source-link').href = sourceRoot + current.gameSourceCommit;
         $('capture-type').textContent = current.captureType === 'historical-survey' ? 'historical survey' : current.captureType === 'published-baseline' ? 'published baseline' : 'source capture';
@@ -217,7 +291,7 @@ export async function mountComparisonViewer(element, {baseURL = new URL('./compa
       $('target-note').hidden=!state.label;$('target-note').textContent=state.label?`District evidence for ${state.label}; no dedicated landmark pair.${Number.isFinite(state.lat)&&Number.isFinite(state.lon)?' Showing the nearest district survey tile.':''}`:'';
       $('scope-note').textContent = state.baseline ? 'Baseline views are selected locations, not a full district survey.' : state.scope==='core' ? 'Tiles intersect the playable area. Driving follows the loaded street network, with road closures at district edges; a tile is not entirely driveable.' : state.scope==='nearby' ? 'Nearby scenery surrounds the playable area by approximately 600 m. Its roads are scenery, not a continuous driving network.' : state.scope==='distant' ? 'Distant background beyond the detailed scenery ring. Visibility depends on camera height, position and weather. These images also expose remaining quality gaps.' : 'The complete survey includes playable streets, nearby scenery and distant background. These areas have different detail and driving coverage.';
       $('coverage-note').textContent = manifest.coverageNote || 'Scopes describe tile intersections with the playable area and its scenery ring.';
-      $('review-note').textContent = `${manifest.reviewNote || 'The survey records visual evidence, not a claim of exact visual parity.'} Game cameras use perspective, so elevated roofs project larger than their ground footprints. Reference imagery is requested live from the official Esri service; acquisition date, season and registration can differ. No aerial or Street View images are stored here.`;
+      $('review-note').textContent = `${manifest.reviewNote || 'The survey records visual evidence, not a claim of exact visual parity.'} Game cameras use perspective, so elevated roofs project larger than their ground footprints. Reference imagery is requested live from the official Esri service; acquisition date, season and registration can differ. Live aerials are cached in your browser for 15 minutes, including reloads when browser storage is available. If storage is unavailable, reuse lasts while this page remains open. No aerial or Street View images are stored in the repository.`;
       const rows = [...new Set(collectionItems.map(x=>x.row).filter(Number.isInteger))].sort((a,b)=>a-b);
       if(!rows.includes(Number(state.row))) state.row='all';
       const row = $('row'); row.replaceChildren();
@@ -227,7 +301,7 @@ export async function mountComparisonViewer(element, {baseURL = new URL('./compa
     }
     function move(delta) {if(visible.length>1) selectTile(visible[(visible.indexOf(current)+delta+visible.length)%visible.length].id);}
     function openZoom(kind) {
-      if(!current) return;
+      if(!current || (kind==='aerial' && !$('aerial-status').hidden)) return;
       const img=kind==='game'?$('game-image'):$('aerial-image'); $('zoom-image').src=img.src;$('zoom-image').alt=img.alt;
       $('zoom-title').textContent=`${current.label} · ${kind==='game'?'Game capture':'Live Esri aerial'}`;
       $('zoom-caption').textContent=kind==='game'?`Original ${current.width} × ${current.height} · source ${current.gameSourceCommit} · ${current.size} m square, north up`:`${manifest.aerial?.attribution || 'Esri World Imagery'} · acquisition date unknown · ${current.size} m square, north up`;

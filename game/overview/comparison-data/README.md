@@ -50,6 +50,18 @@ edges. Scenery roads do not form a continuous driving network. Visibility depend
 on camera position, height and weather; no tile is categorically “out of view.”
 Review coverage is not a claim of exact game/reality parity.
 
+Live aerial requests use a 15-minute browser cache, including across reloads
+when CacheStorage is available. Exact export extent/size URLs are keys; in-flight
+requests are shared, and failures are removed so they can be retried. Persistent
+records keep their original fetch timestamp through reloads and expire after
+15 minutes without extending the TTL on reuse. All requested district views can
+remain for their TTL; expired records are purged on opening the cache and before
+retrying a quota failure. The memory front holds at most 96 least-recently-used
+images and revokes Blob URLs on expiry, eviction and viewer disposal. Disposal
+does not erase valid persistent records. Storage API/quota failures fall back to
+memory; that fallback ends when the page reloads. No reference cache is stored
+on the website server or in git, and offline availability is not promised.
+
 Reference aerials are requested live from the official Esri World Imagery
 MapServer export service. The request is a north-up EPSG:3857 square, adjusted
 for latitude to match the 250 m ground extent. No aerial or Street View imagery

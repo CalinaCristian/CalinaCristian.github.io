@@ -868,10 +868,34 @@ function buildCity(cityId, did = null) {
         rawBuildings.push({ lls, t, isRel });
     };
     const bRelWays = new Set();
+    const addAnnulus = (outLL, inLL, t) => {
+        let cla = 0, clo = 0; for (const [a, c] of inLL) { cla += a; clo += c; } cla /= inLL.length; clo /= inLL.length;
+        const mLo = 111320 * Math.cos(cla * Math.PI / 180), loc = (ll) => [(ll[1] - clo) * mLo, -(ll[0] - cla) * 111320], back = ([x, z]) => [cla - z / 111320, clo + x / mLo];
+        const O = outLL.map(loc), I = inLL.map(loc);
+        const hit = (poly, a) => { const dx = Math.cos(a), dz = Math.sin(a); let best = Infinity;
+            for (let i = 0; i < poly.length - 1; i++) { const [x1, z1] = poly[i], [x2, z2] = poly[i + 1], ex = x2 - x1, ez = z2 - z1, den = dx * ez - dz * ex; if (Math.abs(den) < 1e-9) continue;
+                const tt = (x1 * ez - z1 * ex) / den, u = (x1 * dz - z1 * dx) / den; if (tt > 0 && u >= 0 && u <= 1 && tt < best) best = tt; }
+            return isFinite(best) ? [dx * best, dz * best] : null; };
+        const n = 28, tags = { ...t, building: 'stadium' };
+        for (let k = 0; k < n; k++) {
+            const a0 = k / n * Math.PI * 2, a1 = (k + 1) / n * Math.PI * 2, o0 = hit(O, a0), o1 = hit(O, a1), i0 = hit(I, a0), i1 = hit(I, a1);
+            if (!o0 || !o1 || !i0 || !i1) continue;
+            const q = [o0, o1, i1, i0, o0].map(back); rawBuildings.push({ lls: q, t: tags, isRel: true });
+        }
+    };
     for (const [, r] of R) {
         const t = r.tags; if (t.type !== 'multipolygon' || !t.building) continue;
         const outers = r.members.filter(m => m.type === 'way' && m.role !== 'inner' && W.has(m.ref)).map(m => { bRelWays.add(m.ref); return W.get(m.ref).nodes; });
-        for (const ring of assembleRings(outers).rings) addRaw(ring, t, true);
+        const inners = r.members.filter(m => m.type === 'way' && m.role === 'inner' && W.has(m.ref)).map(m => { bRelWays.add(m.ref); return W.get(m.ref).nodes; });
+        const inRings = inners.length ? assembleRings(inners).rings : [];
+        for (const ring of assembleRings(outers).rings) {
+            // (after round 6) a stadium / arena with its pitch as the inner ring: the format has no holes, so the bowl is
+            // built as ~28 stand sectors between the outer wall and the pitch — not a solid block roofed over the pitch
+            const lls = ring.map(n => N.get(n)); if (lls.some(x => !x)) continue;
+            const inner = inRings.map(ir => ir.map(n => N.get(n))).find(ir => ir.every(Boolean) && ir.length > 3);
+            if (inner && /stadium|grandstand|sports_centre|arena/.test(t.building + ' ' + (t.leisure || ''))) { addAnnulus(lls, inner, t); continue; }
+            addRaw(ring, t, true);
+        }
     }
     for (const [id, w] of W) {
         const t = w.tags;
@@ -937,6 +961,7 @@ function buildCity(cityId, did = null) {
         else if (INDUSTRIAL.test(b)) { style = 'plain'; if (!isFinite(h)) h = b === 'greenhouse' ? 4 : realArea > 2000 ? 10 : 7; }
         else if (b === 'retail' || b === 'supermarket' || shop === 'supermarket' || shop === 'mall' || b === 'kiosk') { style = 'shop'; defLevels = realArea > 3000 ? 2 : 1; flags |= 1; }
         else if (HOUSE.test(b)) { style = 'house'; defLevels = country === 'US' ? 2 : 2; roof = ROOF_FOR_HOUSE(realArea, lls.length); }
+        else if (b === 'stadium' || b === 'grandstand') { style = 'plain'; if (!isFinite(h)) h = isFinite(levels) ? Math.min(levels * 3.2, 30) : 14; }
         else if (PUBLIC.test(b)) {
             style = dCentre < 2200 && country === 'RO' ? 'eclectic' : country === 'US' ? 'interwar' : 'bloc';
             defLevels = { school: 3, kindergarten: 2, university: 5, college: 4, hospital: 6, train_station: 3, stadium: 4, sports_hall: 3 }[b] || 4;
@@ -953,8 +978,9 @@ function buildCity(cityId, did = null) {
                 else if (realArea < 110 && !(isFinite(levels) && levels > 2)) { style = 'house'; defLevels = 2; roof = ROOF_FOR_HOUSE(realArea, lls.length); }
                 else { style = 'eclectic'; defLevels = 4; }
             } else {
-                const villaZone = la > 44.455 && la < 44.478 && lo > 26.072 && lo < 26.102;
-                if (b === 'apartments' || (isFinite(levels) && levels >= 5) || realArea > 520) { style = 'bloc'; defLevels = realArea > 520 || b === 'apartments' ? (realArea > 900 ? 10 : 8) : 5; }
+                const villaZone = la > 44.455 && la < 44.478 && lo > 26.072 && lo < 26.112; // (to 26.112: Garibaldi / the composer streets around C.A. Rosetti)
+                if (villaZone && realArea < 420 && !(isFinite(levels) && levels >= 5)) { style = 'house'; defLevels = isFinite(levels) ? levels : (b === 'apartments' ? 3 : 2); roof = ROOF_FOR_HOUSE(realArea, lls.length); } // villas OSM tags as apartments
+                else if (b === 'apartments' || (isFinite(levels) && levels >= 5) || realArea > 520) { style = 'bloc'; defLevels = realArea > 520 || b === 'apartments' ? (realArea > 900 ? 10 : 8) : 5; }
                 else if (realArea < 170 || (villaZone && realArea < 420)) { style = 'house'; defLevels = 2; roof = ROOF_FOR_HOUSE(realArea, lls.length); }
                 else if (lu === 'industrial') { style = 'plain'; defLevels = 2; }
                 else { style = 'bloc'; defLevels = 4; }

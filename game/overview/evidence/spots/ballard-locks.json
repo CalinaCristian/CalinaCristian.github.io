@@ -3,8 +3,8 @@
   "id": "ballard-locks",
   "city": "seattle",
   "name": "Ballard Locks & fish ladder",
-  "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-  "updatedAt": "2026-11-08T19:35:04.662Z",
+  "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+  "updatedAt": "2026-11-08T20:12:56.740Z",
   "status": "needs_review",
   "sources": [
     {
@@ -66,17 +66,40 @@
       "label": "U.S. Army Corps of Engineers — Chittenden Locks",
       "type": "Official reference",
       "url": "https://www.nws.usace.army.mil/Missions/Civil-Works/Locks-and-Dams/Chittenden-Locks/"
+    },
+    {
+      "label": "Mapped public north bank/access source",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/60973303"
+    },
+    {
+      "label": "Mapped public north bank/access source",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/472179831"
+    },
+    {
+      "label": "Mapped public north bank/access source",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/60973302"
+    },
+    {
+      "label": "Mapped public north bank/access source",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/1305390459"
     }
   ],
   "improvements": [
     "Lock observation now requires identifying four visible water/boat stages using explicit controls; visitors do not operate the real lock equipment.",
-    "Source buildings retain exact footprints, courtyard holes and shared native roofs. Mathematical capsule-pole degenerates were removed without dropping boats."
+    "Source buildings retain exact footprints, courtyard holes and shared native roofs. Mathematical capsule-pole degenerates were removed without dropping boats.",
+    "Mapped north-bank public ways w60973303/w472179831 and mapped western access/steps retain exact XY and now connect at the existing coping grade. Width/grade are explicit unmeasured estimates.",
+    "The fourth board reader and lock-observation point follow the mapped path bend. All4 boards, observation and postcard are reached in one continuous native walk; source membership remains unchanged."
   ],
   "remainingGaps": [
-    "The native plaque route fails to complete and leaves the walker about six metres below the lock-wall top. Ground, walkway and route grade must be reconciled using actual public paths.",
-    "The public-walk capture shows visitors overhead along a wall. A clean raw audit is insufficient to accept this access geometry.",
     "Gate/walkway widths, fish-ladder placement, garden paths and water datums need matched source and official reference comparisons.",
-    "126.7 m walked toward Lakes lowered; planned endpoint reached using native movement and collision."
+    "The public path grade 0.6m, width 3.2m and western steps width 2.6m are estimates aligned with the existing authored coping, not field or aerial height/width measurements.",
+    "The context harness180m planning bound returns no route; the independently bounded native 181m plan completes.",
+    "The changed terrain signature invalidates the old source-geometry cache; 107 volumes are correctly recomputed. Final cache rebake remains pending.",
+    "Raw post-walk audit reports 1phantom on the unchanged long south lock wall. Direct native mesh rays confirm its handrail; the auditor excludes long triangle boxes above 120m. Raw finding is retained for owner review."
   ],
   "checks": [
     {
@@ -91,23 +114,23 @@
     },
     {
       "label": "Validated scene geometry cache",
-      "passed": true,
-      "details": "Exact source/profile/terrain signature matched."
+      "passed": false,
+      "details": "The changed mapped path grade correctly invalidates the old cache; 107 exact source volumes were recomputed with 0 dropped / 0 inset. Final cache rebake remains pending."
     },
     {
       "label": "Native public-path walk",
-      "passed": false,
-      "details": "126.7 m walked toward Lakes lowered; planned endpoint reached using native movement and collision."
+      "passed": true,
+      "details": "180.5m actual native walking from the garden to Lakes lowered at y 0.6. A continuous six-target walk reaches all 4 plaques, lock observation and postcard at walkway grade; the 180m context-planner limit alone returns no path."
     },
     {
       "label": "High scene budgets",
       "passed": true,
-      "details": "252188 unique geometry triangles; max 712008 rendered triangles / 149 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+      "details": "252187 unique geometry triangles; max 720111 rendered triangles/235 calls across context and actual public walks. Software GL is not a hardware frame-rate benchmark."
     },
     {
       "label": "Raw physical audit",
-      "passed": true,
-      "details": "No raw audit warnings in this scene pass."
+      "passed": false,
+      "details": "phantom 1. Raw counts retain both initial context and post-walk observations; see explicit proof scopes."
     },
     {
       "label": "Full matched scene comparison",
@@ -125,9 +148,10 @@
       "kind": "arrival",
       "label": "Ballard Locks & fish ladder — arrival",
       "image": "assets/spots/ballard-locks/arrival.webp",
-      "sha256": "c410a3b0177b69d6c8f44423e7b750e9e75594af0d89336cf3204209791aafc8",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:24:01.178Z",
+      "sha256": "a343e142766061947309d6c6fbb666b00c8e376927d8f374db353d962be219b7",
+      "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+      "capturedAt": "2026-11-08T20:09:40.683Z",
+      "placement": "Posed native ground camera; separate actual walking proof recorded",
       "pose": {
         "position": [
           0,
@@ -156,16 +180,17 @@
       "kind": "public-walk",
       "label": "Ballard Locks & fish ladder — public walk",
       "image": "assets/spots/ballard-locks/public-walk.webp",
-      "sha256": "45942d6f6855d7daf6dfd4377fdbe368c72ca29718c7b274a146b268f58b5999",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:24:09.254Z",
+      "sha256": "331570d311f620df23b6318aa5bcdbcff86125bf4904a11855d0be5cf5b5b008",
+      "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+      "capturedAt": "2026-11-08T20:07:31.196Z",
+      "placement": "Actual native walk endpoint; no XYZ writes during the walk",
       "pose": {
         "position": [
-          -47.34706224565024,
-          -4.450232640619449,
-          44.028680037884115
+          -33.35672477195162,
+          2.250025005914649,
+          49.6065374023543
         ],
-        "bearing": 107.14848442899381,
+        "bearing": 111.44720418924828,
         "pitch": 0,
         "coordinateSystem": "scene-local metres, x east / y up / z south",
         "origin": {
@@ -187,9 +212,10 @@
       "kind": "postcard",
       "label": "Ballard Locks & fish ladder — postcard",
       "image": "assets/spots/ballard-locks/postcard.webp",
-      "sha256": "b8bc26e8cabcf2e68a8a7bef233d5e8b2400ae51620fa39d4d7b02a870050011",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:24:14.554Z",
+      "sha256": "e8815e4e0df69185f67040385a71054306c6eec5bfcf257a1a554ed86eb1457f",
+      "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+      "capturedAt": "2026-11-08T20:09:47.295Z",
+      "placement": "Posed native ground camera; separate actual walking proof recorded",
       "pose": {
         "position": [
           91.97229627058839,
@@ -218,14 +244,15 @@
       "kind": "activity-approach",
       "label": "Ballard Locks & fish ladder — activity approach",
       "image": "assets/spots/ballard-locks/activity-approach.webp",
-      "sha256": "b458ee66ad08ce272f2b2c3a10b8da802cdf1200f1022ebb3b2e8257cf9d81a6",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:24:19.426Z",
+      "sha256": "d0196feddd4becb50f5e47ddba719e60006a0495e351ba0d300b5a4dea240bbc",
+      "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+      "capturedAt": "2026-11-08T20:09:53.027Z",
+      "placement": "Posed native ground camera; separate actual walking proof recorded",
       "pose": {
         "position": [
-          1.871466679641416,
-          2.274430234259533,
-          68.5070013727009
+          2.6248532322724225,
+          2.25,
+          66.88388093671279
         ],
         "bearing": 0,
         "pitch": -7.000000000000003,
@@ -247,11 +274,11 @@
     }
   ],
   "perf": {
-    "sceneTriangles": 460381,
-    "uniqueGeometryTriangles": 252188,
+    "sceneTriangles": 460380,
+    "uniqueGeometryTriangles": 252187,
     "geometryObjects": 65,
-    "maxRenderedTriangles": 712008,
-    "maxDrawCalls": 149
+    "maxRenderedTriangles": 720111,
+    "maxDrawCalls": 235
   },
   "sceneId": "ballard-locks",
   "sourceGeometry": {
@@ -280,53 +307,85 @@
           0
         ],
         [
+          -96.9074398235195,
+          12.75
+        ],
+        [
+          -99.9074398235195,
+          23.25
+        ],
+        [
+          -86.4074398235195,
+          27.75
+        ],
+        [
           -80.4074398235195,
           27.75
         ],
         [
-          -81.9074398235195,
-          29.25
-        ],
-        [
-          -80.4074398235195,
-          30.75
-        ],
-        [
-          -80.4074398235195,
+          -69.9074398235195,
           32.25
         ],
         [
-          -81.9074398235195,
-          33.75
-        ],
-        [
-          -36.907439823519496,
-          47.25
+          -62.407439823519496,
+          38.25
         ],
         [
           -33.15743982351949,
           49.684825781289824
         ]
       ],
-      "length": 144.37772157486745,
+      "length": 181.32704883329833,
       "target": "Lakes lowered"
+    },
+    "captureProvenance": {
+      "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+      "servedFrom": "Immutable git archive of the stated source commit",
+      "captureWorktreeDirty": true,
+      "dirtyReason": "Only untracked generated tools/aerial/__pycache__ existed in the capture metadata worktree; served archive contains tracked source only."
+    },
+    "staticPlannerAttempt": {
+      "walker": "OnFootController",
+      "arrival": {
+        "x": 0,
+        "z": 0,
+        "y": 0.2098590035364024,
+        "heading": -3.141592653589793
+      },
+      "arrivalDry": true,
+      "nearestPlaquePath": null
     },
     "nativeWalk": {
       "walker": "OnFootController",
-      "passed": false,
-      "steps": 1500,
-      "walked": 126.67018602085682,
+      "passed": true,
+      "steps": 2127,
+      "walked": 180.51152950759646,
       "target": "Lakes lowered",
-      "plannedLength": 144.37772157486745,
+      "plannedLength": 181.32704883329833,
       "position": {
-        "x": -47.34777286255439,
-        "z": 44.02846076516273,
-        "y": -6.1,
-        "heading": -1.8700938418078188
+        "x": -33.35672477195162,
+        "z": 49.6065374023543,
+        "y": 0.6,
+        "heading": -1.9451206552448
       },
-      "error": null
+      "error": null,
+      "waypointTolerance": 0.35,
+      "stepLimit": 2891,
+      "plannerMaxLength": 450,
+      "readOnlyCrowdObstacles": false,
+      "proof": "../../../../handoffs/fidelity/remaining-ro-districts/tourist-public-paths/ballard-locks-native-targets.json"
     }
   },
-  "rawAudit": {},
-  "review": "Inspected all four GAME context captures. Native grade failure is retained explicitly although this pass has no raw audit warnings."
+  "rawAudit": {
+    "phantom": 1
+  },
+  "review": "Refreshed GAME context and six actual public-walk endpoints inspected. All 107 source buildings / 713 colliders / 450 trees / 55 people retained, source membership hash unchanged; no XYZ writes during the continuous walk. Estimated grade, pending cache and raw long-wall finding remain explicit. Full matched source comparison remains open.",
+  "publicPathProof": {
+    "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+    "priorSourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+    "membershipUnchanged": true,
+    "proofDirectory": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths",
+    "runtimeSourceChanged": true,
+    "allSceneBodiesRetained": true
+  }
 }

@@ -344,7 +344,7 @@ def main():
     # rings are independent source evidence; matching an outer footprint alone does not prove that its courtyard exists.
     relation_rows = []
     for rid, (members, t) in relations.items():
-        if any(s in (t.get('building', '') + ' ' + t.get('leisure', '')) for s in ('stadium', 'grandstand', 'sports_centre', 'arena')):
+        if not strict_identity and any(s in (t.get('building', '') + ' ' + t.get('leisure', '')) for s in ('stadium', 'grandstand', 'sports_centre', 'arena')):
             continue  # the builder's existing annular stand sectors do not have one outer building record
         outers = assemble_rings([ways[w][0] for w, role in members if role != 'inner' and w in ways])
         inners = assemble_rings([ways[w][0] for w, role in members if role == 'inner' and w in ways])
@@ -410,7 +410,7 @@ def main():
         matched = [r for r in rr if 'game' in r]
         courtyard = [r for r in rr if r['holeCountOSM']]
         kept = [r for r in courtyard if r.get('holeCountGame') == r['holeCountOSM'] and r.get('courtyardInteriorsClear')]
-        print(f"== {zone} multipolygon relations: {pct(len(matched), len(rr))} source identity matched; courtyards {pct(len(kept), len(courtyard))} count and source interior points preserved (stadium stand sectors excluded)")
+        print(f"== {zone} multipolygon relations: {pct(len(matched), len(rr))} source identity matched; courtyards {pct(len(kept), len(courtyard))} count and source interior points preserved (legacy annular sectors excluded only without source identities)")
         tagged = [r for r in matched if r['heightOSM'] or r['levelsOSM']]
         expected = lambda r: r['heightOSM'] if r['heightOSM'] else r['levelsOSM'] * 3.0 + (r['roofLevelsOSM'] * 2.6 if r['roofGame'] == 'flat' else 0)
         height_ok = [r for r in tagged if abs(r['hGame'] - expected(r)) <= max(2.5, 0.25 * expected(r))]

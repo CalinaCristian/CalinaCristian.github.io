@@ -44,7 +44,7 @@ const comp = (page) => page.evaluate(() => { const c = window.game.achievements.
 async function runSave() {
     const dir = fs.mkdtempSync(path.join(require('os').tmpdir(), 'dmcv-save-'));
     const openCtx = async () => {
-        const c = await chromium.launchPersistentContext(dir, { args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'], viewport: { width: 1280, height: 720 }, deviceScaleFactor: 1 });
+        const c = await chromium.launchPersistentContext(dir, { args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--mute-audio'], viewport: { width: 1280, height: 720 }, deviceScaleFactor: 1 });
         await c.route(/api\.open-meteo\.com/, (r) => r.fulfill({ status: 200, contentType: 'application/json', body: '{}' }));
         c.setDefaultNavigationTimeout(180000); c.setDefaultTimeout(60000);
         return c;
@@ -105,7 +105,7 @@ async function runSave() {
 
 (async () => {
     if (ONLY_SAVE) { await runSave(); const fail = results.filter(r => !r.ok).length + (errors.length ? 1 : 0); console.log(`\n${results.length - results.filter(r => !r.ok).length}/${results.length} passed${errors.length ? ' · errors: ' + errors.join(' | ').slice(0, 400) : ''}`); process.exit(fail ? 1 : 0); }
-    const browser = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
+    const browser = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--mute-audio'] });
     const ctx = await browser.newContext({ viewport: { width: 1280, height: 720 }, deviceScaleFactor: 1 });
     await ctx.route(/api\.open-meteo\.com/, (r) => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ current: { temperature_2m: 12, weather_code: 3, cloud_cover: 80, precipitation: 0, visibility: 20000, wind_speed_10m: 10, is_day: 1, snowfall: 0 } }) }));
     let page = await newPage(ctx);

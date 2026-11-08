@@ -138,3 +138,24 @@ Add new streets for `b` to `STREETS`. Add the scenario id to `FULL` in `run.js` 
 - Collider kinds are taken from `collider.kind` when the world sets it, else inferred from the radius.
 - The autopilot is a reasonable driver, not a perfect one: `traffic-blockage`, `autopilot-no-progress` and
   some `drive-failed` results can be the harness's fault — check the screenshot before filing a game bug.
+
+## Reality comparison: viewpoints and the Street View street walk (`viewpoints.js`, 2026-11-08)
+
+Renders a district world from real poses next to Google Street View (same spot, heading, camera height, fov) or, for
+top-down poses, next to an aerial mosaic crop. Any `--city` / `--district`. Street View is used for **visual comparison
+only** (Google's terms): nothing from it goes into the game data; images are cached in the output folder, never committed.
+
+```sh
+# walk every drivable street: a stop every 25 m on both sidewalks, facade + along-street views, snapped to the nearest pano
+node game/dev/harness/viewpoints.js --city=bucharest --district=floreasca --walk --streetview --out=/tmp/walk
+node game/dev/harness/viewpoints.js --district=floreasca --walk --streets='Georges Bizet' --every=50 --streetview --max=24
+node game/dev/harness/viewpoints.js --district=floreasca --walk --dry --max=5000          # count poses / panos, fetch no images
+node game/dev/harness/viewpoints.js --district=floreasca --views=game/dev/harness/views/floreasca.json --streetview
+node game/dev/harness/viewpoints.js --district=floreasca --topdown=250 --mosaic=/tmp/flo18  # game vs aerial tiles
+```
+
+Key: `$GOOGLE_MAPS_KEY` (or injected by the network proxy). Pano lookups use the free metadata endpoint; images cost
+money, so `--max` caps the poses (default 400) and `--dry` lists them first. `--eye=pano` (default) puts the game camera
+where the Street View camera stood (2.5 m); `--eye=sidewalk` stands on the sidewalk at 1.7 m. `--season` defaults to
+summer with Street View (most panos are summer shots). Output: `<out>/index.html` grouped by street, `poses.json`,
+`world-stats.json` (buildings, trees, kerbside cars, fences, fuel forecourts …).

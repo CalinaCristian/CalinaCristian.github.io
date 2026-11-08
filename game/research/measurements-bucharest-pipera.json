@@ -10,7 +10,7 @@
   "sourceCommitAtSurveyStart": "734a4854b0eb799185ecbc420485782150c003db",
   "osm": {
     "provider": "OpenStreetMap API0.6 map",
-    "attribution": "© OpenStreetMap contributors, ODbL",
+    "attribution": "\u00a9 OpenStreetMap contributors, ODbL",
     "accessDate": "2026-11-08",
     "tiles": [
       {
@@ -140,5 +140,31 @@
     "/workspace/reality-pass/pipera/aerial/canopy-review.jpg",
     "/workspace/reality-pass/pipera/aerial/trees-debug.jpg",
     "/workspace/reality-pass/pipera/audits/"
+  ],
+  "reviewedSourceOpenings": [
+    {
+      "buildingId": "w1132411166",
+      "sourceRoadId": "w1566299321",
+      "sharedWallNodeIds": [
+        14261939675,
+        14261939676
+      ],
+      "classificationSource": "reviewed source shared-wall-node topology",
+      "reviewedAt": "2026-11-08",
+      "clearanceM": 3.1,
+      "clearanceSource": "estimate:3.1m motor-vehicle through-access clearance",
+      "evidence": [
+        "https://www.openstreetmap.org/way/1132411166",
+        "https://www.openstreetmap.org/way/1566299321",
+        "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+      ],
+      "note": "Individually reviewed: the mapped service way crosses the building between two exact shared wall nodes, with connecting approaches on both sides. Independent north-up Esri aerial crop confirms the roof footprint and adjacent access context. OSM does not contain a tunnel tag here; raw highway=service,surface=concrete stay unchanged. Only the low opening is represented; width follows source lanes/class estimate and3.1m clearance is explicitly estimated, not measured from Street View. Source roof height, complete outer ring and side posts remain intact.",
+      "privateReviewCrop": "/workspace/reality-pass/pipera/aerial/review-w1132411166.jpg",
+      "privateReviewCropSha256": "6ee4051f1d4c71376440dd5f186e0c3b27129e97202b45a41b8addd559bc5aaa",
+      "aerialAcquisitionDate": "unknown",
+      "aerialAccessDate": "2026-11-08",
+      "metreHeightMeasured": false,
+      "sourceRoadNodesUnchanged": true
+    }
   ]
 }

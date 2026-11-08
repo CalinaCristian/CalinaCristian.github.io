@@ -1312,10 +1312,11 @@ export async function buildWorld(city, renderer, opts = {}) {
         //      cliff check (just beyond one road's edge) plus a sample just inside it (overlapping ribbons): on the other
         //      road's surface the heights must agree (one surface; the visual QA flags 0.05–2.5 m as a stacked road).
         //      Only lowering: the higher surface comes down to the lower one there (the lower one is usually held by
-        //      its ground cone), the drop spread back along the graph at the grade limit, never more than 3 m and never
-        //      under a clearance floor.
+        //      its ground cone), the drop spread back along the graph at the grade limit and never under a clearance
+        //      floor. The source layer estimate can require a longer shared-level section at a fork: allow up to 4.5 m
+        //      of lowering and follow connected branches for 120 m, retaining every clearance floor.
         {
-            const G = MAXG * 0.97, DROP = 3, wA = (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e), wS = (e, s) => wA(e, s) + e.sidewalk;
+            const G = MAXG * 0.97, DROP = 4.5, wA = (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e), wS = (e, s) => wA(e, s) + e.sidewalk;
             const live = nodeArr.filter(n => n.edges.some(e => !e.virtual)), y0 = new Map(live.map(n => [n, n.y]));
             // floors: no road comes down more than DROP m (a gore that would need a deeper sag is left as it is), none goes
             // under ground (unless already sunk), and a structure over another road keeps its clearance
@@ -1323,6 +1324,35 @@ export async function buildWorld(city, renderer, opts = {}) {
             for (const n of live) setFloor(n, Math.max(n.y - DROP, Math.min(n.y, 0)));
             for (const c of crossings) { if (c.u.L <= 0 || Math.abs(c.u.dirx * c.f.dirx + c.u.dirz * c.f.dirz) >= 0.85) continue; const tf = clamp(((c.x - c.f.a.x) * c.f.dirx + (c.z - c.f.a.z) * c.f.dirz) / c.f.len, 0, 1); for (const n of [c.u.a, c.u.b]) setFloor(n, yP(c.f, tf) + CLEAR_MIN); }
             for (const o of overlaps) { const ye = yP(o.e, o.te), yf = yP(o.f, o.tf); if (Math.abs(ye - yf) < 3) continue; const [hi, lo] = ye > yf ? [o.e, yf] : [o.f, ye]; for (const n of [hi.a, hi.b]) setFloor(n, lo + CLEAR_MIN); }
+            // Centre-line samples can miss a short overlap at the outside corner of an approach. Preserve separation
+            // over the complete asphalt footprints too: their linear height difference reaches its extrema at these
+            // intersection vertices. Clamping each floor to its original height keeps this pass lowering-only.
+            const corners = e => asphaltCorners(e, wA);
+            const inside = (p, poly) => pointInPolygon(p[0], p[1], poly) || poly.some((q, i) => { const r = poly[(i + 1) % poly.length]; return distPointSeg(p[0], p[1], q[0], q[1], r[0], r[1]).d < 1e-7; });
+            for (const e of edges) {
+                if (e.virtual) continue;
+                const A = corners(e), pad = Math.max(wA(e, 1), wA(e, -1)) * 2.5 + 17;
+                edgesInBox(Math.min(e.a.x, e.b.x) - pad, Math.min(e.a.z, e.b.z) - pad, Math.max(e.a.x, e.b.x) + pad, Math.max(e.a.z, e.b.z) + pad, f => {
+                    if (f.virtual || f.id <= e.id || shares(e, f)) return;
+                    const B = corners(f), P = A.filter(p => inside(p, B)).concat(B.filter(p => inside(p, A)));
+                    for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) {
+                        const a = A[i], b = A[(i + 1) % 4], c = B[j], d = B[(j + 1) % 4], rx = b[0] - a[0], rz = b[1] - a[1], sx = d[0] - c[0], sz = d[1] - c[1], den = rx * sz - rz * sx;
+                        if (Math.abs(den) < 1e-9) continue;
+                        const qx = c[0] - a[0], qz = c[1] - a[1], t = (qx * sz - qz * sx) / den, u = (qx * rz - qz * rx) / den;
+                        if (t >= 0 && t <= 1 && u >= 0 && u <= 1) P.push([a[0] + t * rx, a[1] + t * rz]);
+                    }
+                    if (!P.length) return;
+                    const height = (g, p) => yP(g, clamp(((p[0] - g.a.x) * g.dirx + (p[1] - g.a.z) * g.dirz) / g.len, 0, 1));
+                    const ds = P.map(p => height(e, p) - height(f, p));
+                    const hi = Math.min(...ds) >= 3 ? e : Math.max(...ds) <= -3 ? f : null;
+                    if (!hi) return;
+                    const lo = hi === e ? f : e, h = Math.max(...P.map(p => height(lo, p))) + CLEAR_MIN;
+                    // An approach may start below this floor outside the overlap. Clamping that end independently
+                    // would still let the sloping overlap dip below clearance: keep this original piece in that case.
+                    const keep = Math.min(hi.a.y, hi.b.y) < h;
+                    for (const n of [hi.a, hi.b]) setFloor(n, keep ? n.y : h);
+                });
+            }
             const heapCone = (seeds, sgn) => { // sgn −1: min-plus (v + G d), sgn +1: max-plus (v − G d); over every real edge
                 const best = new Map(), heap = [], key = (v) => sgn * v; // (max-heap on key: the best value is settled first)
                 const push = (n, v) => { heap.push([key(v), v, n]); let i = heap.length - 1; while (i > 0) { const p = (i - 1) >> 1; if (heap[p][0] >= heap[i][0]) break; [heap[p], heap[i]] = [heap[i], heap[p]]; i = p; } };
@@ -1332,11 +1362,11 @@ export async function buildWorld(city, renderer, opts = {}) {
                 return best;
             };
             const F = heapCone([...floor], 1); // the highest grade-feasible lower bound
-            const linked = new Map(); // edge → Set of edges within 80 m along the graph
+            const linked = new Map(); // edge → Set of edges within 120 m along the graph
             const linkSet = (e) => {
                 let s = linked.get(e); if (s) return s;
                 s = new Set(); const dist = new Map(), q = [[e.a, 0], [e.b, 0]];
-                while (q.length) { const [n, d] = q.shift(); if ((dist.get(n) ?? Infinity) <= d) continue; dist.set(n, d); for (const f of n.edges) { if (f.virtual) continue; s.add(f); const o = f.a === n ? f.b : f.a, nd = d + f.len; if (nd <= 80) q.push([o, nd]); } }
+                while (q.length) { const [n, d] = q.shift(); if ((dist.get(n) ?? Infinity) <= d) continue; dist.set(n, d); for (const f of n.edges) { if (f.virtual) continue; s.add(f); const o = f.a === n ? f.b : f.a, nd = d + f.len; if (nd <= 120) q.push([o, nd]); } }
                 linked.set(e, s); return s;
             };
             let fixes = 0, rounds = 0, pairs = 0;
@@ -1791,25 +1821,26 @@ export async function buildWorld(city, renderer, opts = {}) {
     /** [colour at a, colour at b] of a carriageway (ramps fade) */
     const asphaltEnds = (e) => (US && e.type === 'motorway_link' && !e.tunnel) ? [nodeSurf(e.a), nodeSurf(e.b)] : [asphaltOf(e), asphaltOf(e)];
     const padAsphalt = (n) => { const es = n.edges.filter(f => !f.virtual); const cc = es.filter(isConcrete).length; if (cc * 2 >= es.length && cc) return concreteCol; if (es.length && es.every(f => f.tunnel)) return shadeRgb(asphaltBase, 0.85); return es.some(f => f.type === 'motorway_link') ? nodeSurf(n) : asphaltBase; };
-    const isPadNode = (n) => {
+    function isPadNode(n) {
         if (n.edges.length !== 2) return n.edges.length >= 3;
         const [e1, e2] = n.edges;
         const d1x = e1.b === n ? e1.dirx : -e1.dirx, d1z = e1.b === n ? e1.dirz : -e1.dirz; // e1 travelling into n
         const d2x = e2.a === n ? e2.dirx : -e2.dirx, d2z = e2.a === n ? e2.dirz : -e2.dirz; // e2 leaving n
         return d1x * d2x + d1z * d2z < 0.35; // sharp turn → pad
-    };
+    }
     for (const n of nodeArr) n.pad = n.edges.length ? isPadNode(n) : false;
-    const retract = (e, n) => (n.pad && (n.allEdges || n.edges).length >= 2 ? Math.min(n.radius, e.len * 0.45) : 0);
+    function retract(e, n) { return ((n.pad ?? isPadNode(n)) && (n.allEdges || n.edges).length >= 2 ? Math.min(n.radius, e.len * 0.45) : 0); }
     /**
      * corner point of edge e at node n on side s (+1 = right of a→b, -1 = left) at lateral distance w (≥0) from the centreline;
      * at degree-2 nodes the corner is mitred with the other edge (whose matching width is wOther).
      */
-    const corner = (e, n, s, w, wOtherFn) => {
+    // Hoisted: the profile clearance floor and rendered pavement use the same mitred footprint.
+    function corner(e, n, s, w, wOtherFn) {
         const out = e.a === n ? 1 : -1;
         const r = retract(e, n);
         const bx = n.x + e.dirx * out * r, bz = n.z + e.dirz * out * r;
         const px = bx + e.nx * s * w, pz = bz + e.nz * s * w;
-        if (n.pad || n.edges.length !== 2) return [px, pz];
+        if ((n.pad ?? isPadNode(n)) || n.edges.length !== 2) return [px, pz];
         const f = n.edges[0] === e ? n.edges[1] : n.edges[0];
         const same = (e.b === n && f.a === n) || (e.a === n && f.b === n);
         const sf = same ? s : -s;
@@ -1822,7 +1853,13 @@ export async function buildWorld(city, renderer, opts = {}) {
         const ix = px + e.dirx * t, iz = pz + e.dirz * t;
         if (Math.hypot(ix - n.x, iz - n.z) > Math.max(w, wf) * 2.5 + 1) return [(px + qx) / 2, (pz + qz) / 2];
         return [ix, iz];
-    };
+    }
+    function asphaltCorners(e, width) {
+        const aR = corner(e, e.a, 1, width(e, 1), width), aL = corner(e, e.a, -1, width(e, -1), width);
+        const bR = corner(e, e.b, 1, width(e, 1), width), bL = corner(e, e.b, -1, width(e, -1), width);
+        for (const [P, Q] of [[aR, bR], [aL, bL]]) if ((Q[0] - P[0]) * e.dirx + (Q[1] - P[1]) * e.dirz < 0.05) { const mx = (P[0] + Q[0]) / 2, mz = (P[1] + Q[1]) / 2; P[0] = Q[0] = mx; P[1] = Q[1] = mz; }
+        return [aR, bR, bL, aL];
+    }
     const widthAsphalt = (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e);
     const widthSide = (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e) + e.sidewalk;
     const widthKerb = (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e) + 0.28;
@@ -1890,11 +1927,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         const padPts = new Map();
         for (const e of edges) {
             if (e.virtual) continue;
-            const aR = corner(e, e.a, 1, widthAsphalt(e, 1), widthAsphalt), aL = corner(e, e.a, -1, widthAsphalt(e, -1), widthAsphalt);
-            const bR = corner(e, e.b, 1, widthAsphalt(e, 1), widthAsphalt), bL = corner(e, e.b, -1, widthAsphalt(e, -1), widthAsphalt);
-            // a mitre longer than a short edge folds that side over itself (bow-tie / flipped quad, review #22): collapse
-            // the folded side to its midpoint (a triangle) instead
-            for (const [P, Q] of [[aR, bR], [aL, bL]]) if ((Q[0] - P[0]) * e.dirx + (Q[1] - P[1]) * e.dirz < 0.05) { const mx = (P[0] + Q[0]) / 2, mz = (P[1] + Q[1]) / 2; P[0] = Q[0] = mx; P[1] = Q[1] = mz; }
+            const [aR, bR, bL, aL] = asphaltCorners(e, widthAsphalt);
             const poly = [aR, bR, bL, aL]; ribPoly.set(e, poly);
             for (const [n, p, q] of [[e.a, aR, aL], [e.b, bR, bL]]) if (n.pad) { let o = padPts.get(n); if (!o) padPts.set(n, o = []); o.push(p, q); }
         }
@@ -1911,8 +1944,11 @@ export async function buildWorld(city, renderer, opts = {}) {
         let hit = false;
         surfGrid.each(x, z, x, z, (o) => {
             if (hit || o.e === e || x < o.x0 || x > o.x1 || z < o.z0 || z > o.z1) return;
-            if (prio && o.e && markWins(e, o.e)) return;
-            if (Math.abs(o.h(x, z) - y) > maxDY || !pointInPolygon(x, z, o.poly) || polyDist(x, z, o.poly) < inset) return;
+            const dy = o.h(x, z) - y;
+            if (Math.abs(dy) > maxDY || !pointInPolygon(x, z, o.poly) || polyDist(x, z, o.poly) < inset) return;
+            // Paint belongs to the visible pavement. Class/id priority only decides nearly level overlaps;
+            // a lower ribbon cannot win that priority and leave its paint buried in the upper surface.
+            if (prio && o.e && (dy < -0.01 || (dy <= 0.01 && markWins(e, o.e)))) return;
             hit = true;
         });
         return hit;
@@ -2389,9 +2425,27 @@ export async function buildWorld(city, renderer, opts = {}) {
         const c = cellOf(n.x, n.z);
         const ly = Math.max(0, Math.min(...n.edges.map(layerY)));
         if (o.side.length >= 3) { // (sloped like the pad: a flat sidewalk hull would poke through a pad on a grade)
-            const hull = convexHull(o.side), mb = c.ground, base = mb.vc;
-            hull.forEach(([x, z]) => mb.v(x, Y.side + ly - 0.004 + padHeightAt(n, x, z), z, 0, 1, 0, x * 0.25, z * 0.25, sideCol));
-            for (let k = 1; k < hull.length - 1; k++) mb.triUp(base, base + k, base + k + 1);
+            const hull = convexHull(o.side), road = convexHull(o.road), mb = c.ground;
+            // The two hulls use different triangulations on a grade. Even a nominally lower sidewalk can then
+            // project through the carriageway. Keep its complete exterior, clipping only its overlap with the pad.
+            const clipSide = (P, a, b, keepInside) => {
+                const d = p => (b[0] - a[0]) * (p[1] - a[1]) - (b[1] - a[1]) * (p[0] - a[0]), Q = [];
+                for (let j = 0; j < P.length; j++) {
+                    const p = P[j], q = P[(j + 1) % P.length], dp = d(p), dq = d(q), ip = keepInside ? dp >= 0 : dp <= 0, iq = keepInside ? dq >= 0 : dq <= 0;
+                    if (ip) Q.push(p);
+                    if (ip !== iq) { const t = dp / (dp - dq); Q.push(p.map((v, i) => v + (q[i] - v) * t)); }
+                }
+                return Q;
+            };
+            const emit = P => { if (P.length < 3) return; const base = mb.vc; for (const [x, z, y] of P) mb.v(x, y, z, 0, 1, 0, x * 0.25, z * 0.25, sideCol); for (let j = 1; j < P.length - 1; j++) mb.triUp(base, base + j, base + j + 1); };
+            const pts = hull.map(([x, z]) => [x, z, Y.side + ly - 0.004 + padHeightAt(n, x, z)]);
+            let area = 0; for (let j = 0; j < road.length; j++) area += road[j][0] * road[(j + 1) % road.length][1] - road[(j + 1) % road.length][0] * road[j][1];
+            if (area < 0) road.reverse();
+            for (let k = 1; k < pts.length - 1; k++) {
+                let P = [pts[0], pts[k], pts[k + 1]];
+                if (road.length >= 3) for (let j = 0; j < road.length && P.length; j++) { const a = road[j], b = road[(j + 1) % road.length]; emit(clipSide(P, a, b, false)); P = clipSide(P, a, b, true); }
+                else emit(P);
+            }
         }
         if (o.road.length >= 3) {
             // (2026-11-07, world-visual) each pad corner takes the height of the approach it belongs to (a junction on

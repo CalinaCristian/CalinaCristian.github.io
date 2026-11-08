@@ -409,7 +409,7 @@ export default {
         for (const bd of d.buildings) if (!bd.part && !bd.h && !bd.lv && bd.k !== 'church' && bd.k !== 'roof') { const hsh = Math.abs(Math.sin(bd.poly[0][0] * 12.9898 + bd.poly[0][1] * 78.233) * 43758.5453) % 1; bd.estimatedLevels = 2 + Math.floor(hsh * 4); }
         const CA = buildCarusel(ctx), MA = buildManuc(ctx), CV = buildCurteaVeche(ctx), ST = buildStavropoleos(ctx);
         // CEC Palace + Post Palace (History Museum) from landmarks.js
-        for (const [lmId, osmId] of [['cec', 'w973712798'], ['mnir', 'r19919941']]) { const bd = d.buildings.find((x) => x.id === osmId); if (!bd) continue; ctx.skipBuildings.add(osmId); const L2 = placeLandmark(ctx, lmId, { colliderH: 50 }); for(const sourceId of L2?.lm.sourceIds||[])ctx.skipBuildings.add(sourceId);
+        for (const [lmId, osmId] of [['cec', 'w973712798'], ['mnir', 'r19919941']]) { const bd = d.buildings.find((x) => x.id === osmId); if (!bd) continue; ctx.skipBuildings.add(osmId); const L2 = placeLandmark(ctx, lmId); for(const sourceId of L2?.lm.sourceIds||[])ctx.skipBuildings.add(sourceId);
             // r13104229 is one real relation with two prepared outer records.
             // Canonical CEC now includes both exact outer volumes and all holes.
             if(lmId==='cec')for(const sourceId of ['r13104229_0','r13104229_1'])ctx.skipBuildings.add(sourceId);

@@ -1,8 +1,9 @@
 // Read-only page.evaluate payload for an already-loaded native world. No GL/world allocation.
-module.exports = async function sceneryBridgeNativeDump() {
+module.exports = async function sceneryBridgeNativeDump(extraTargets = []) {
     const w = game.world, data = w.data;
     const { scenerySourceProfile } = await import('./src/scenery-source.js');
     const { sceneryBridgeProfiles } = await import('./src/scenery-bridges.js');
+    const { collideBuildings } = await import('./src/world.js');
     const unpack = row => { let x = 0, z = 0; const p = []; for (let i = 4; i < row.length; i += 2) { x += row[i]; z += row[i + 1]; p.push([x / 10, z / 10]); } return p; };
     const profiles = (data.scenery || []).map((r, i) => scenerySourceProfile(data, i, unpack(r)));
     const estimated = sceneryBridgeProfiles(data, profiles, w.allEdges);
@@ -56,9 +57,16 @@ module.exports = async function sceneryBridgeNativeDump() {
             poly: c.poly, elevationSource: c.elevationSource,
         })),
     });
+    const pair = p => {
+        const upper = atSource(p.sourceId, p.x, p.z), lower = atSource(p.lowerSourceId, p.x, p.z);
+        const lowerTops = [...new Set([...lower.core, ...lower.scenery].map(q => q.renderedTopM))];
+        const slabs = decks.filter(c => c.sourceId === p.sourceId);
+        return { ...p, upper, lower, clearanceCandidatesM: upper.passiveBands.flatMap(b => lowerTops.map(y => b.bottomM - y)),
+            productionBodyQueries: lowerTops.map(y => ({ lowerTopM: y, bodyHeightM: 2, radiusM: .2, blocked: !!collideBuildings(slabs, p.x, p.z, .2, y, 2) })) };
+    };
     return { scope: 'Read-only exact current native core/source profile dump. Rendered lower tops and actual passive local underside/top bands are retained separately; no inferred pair is silently selected as physical acceptance.',
         district: w.district.id, core, scenery,
         recomputedStatsMatchNative: JSON.stringify(estimated.stats) === JSON.stringify(w.stats.scenerySource?.bridges),
         nativeStats: w.stats.scenerySource?.bridges,
-        unresolvedPairs: estimated.stats.unresolved.map(p => ({ ...p, upper: atSource(p.sourceId, p.x, p.z), lower: atSource(p.lowerSourceId, p.x, p.z) })) };
+        unresolvedPairs: estimated.stats.unresolved.map(pair), requestedPairs: extraTargets.map(pair) };
 };

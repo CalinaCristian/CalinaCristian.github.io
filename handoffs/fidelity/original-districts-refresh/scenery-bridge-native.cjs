@@ -71,7 +71,9 @@ const mime = { '.js': 'text/javascript', '.json': 'application/json', '.html': '
             const coreSha256 = hash(Buffer.from(JSON.stringify(proof.core))); delete proof.core;
             const record = { gameSourceCommit: commit, district, capturedAt: new Date().toISOString(), coreSha256, dataSha256: hash(fs.readFileSync(path.join(root, 'game/data/' + district + '.json'))), loaded, ...proof, pageErrors: errors, consoleErrors };
             write(district + '.json', record); summaries.push({ district, bridges: proof.expectedBridgePieces, passiveDecks: proof.passiveDecks, checks: proof.checks, errors: proof.errors.length + errors.length + consoleErrors.length, unresolvedEstimatedClearanceTargets: proof.stats?.unresolved.length, coreSha256 });
-            const profileDump = await page.evaluate(require('./scenery-bridge-native-dump.cjs'));
+            const targetsPath = arg('pair-targets') && path.join(path.resolve(arg('pair-targets')), district + '.json');
+            const targets = targetsPath ? JSON.parse(fs.readFileSync(targetsPath)).stats.unresolved : [];
+            const profileDump = await page.evaluate(require('./scenery-bridge-native-dump.cjs'), targets);
             write(district + '-profile-dump.json', { gameSourceCommit: commit, ...profileDump });
             console.log(JSON.stringify(summaries.at(-1)));
             await page.close();

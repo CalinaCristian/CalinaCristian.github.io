@@ -75,3 +75,5 @@ const attic=makeRoofProfile({tags:{'building:levels':'1','roof:levels':'1'},ring
 assert.equal(attic.eavesM,3.2);assert.equal(attic.riseM,2.6);assert.equal(attic.totalM,5.800000000000001);assert.equal(attic.riseSource,'roof:levels estimate');
 const literalRoof=makeRoofProfile({tags:{height:'3','roof:height':'2'},ring:[[0,0],[20,0],[20,10],[0,10]],height:3,minHeight:0,shape:'hipped',heightIsTotal:true});
 assert.equal(literalRoof.riseM,2);assert.equal(literalRoof.eavesM,1);assert.equal(literalRoof.riseSource,'OSM roof:height');
+
+for(const[minimum,band]of[[46,6.4],[12,7.2]]){const p=makeRoofProfile({tags:{min_height:String(minimum)},ring:[[0,0],[10,0],[10,10],[0,10]],height:band,minHeight:minimum,shape:'flat',heightIsTotal:false,heightSource:'style estimate'});assert.equal(p.eavesM,minimum+band);assert.equal(p.totalM,minimum+band);assert(p.issues.some(s=>s.includes('positive body')));assert(p.heightSource.includes('above source minimum'));}

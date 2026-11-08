@@ -2,6 +2,12 @@
 export const FLIGHT_GRACE = 150;
 const CAP = FLIGHT_GRACE - 0.001;
 const point = p => ({ x: p.x, z: p.z });
+/** Source-backed scene activities can extend their original member focus areas. */
+export function spotFlightSource(spot) {
+    const members = (spot.data?.members || []).map(id => spot.data.spots?.[id]?.extent?.polygon);
+    const extra = spot.ctx?.extras?.droneFlightAreas;
+    return polygonFlightSource([...members, ...(Array.isArray(extra) ? extra : [])].filter(poly => Array.isArray(poly) && poly.length >= 3 && poly.every(p => Array.isArray(p) && Number.isFinite(p[0]) && Number.isFinite(p[1]))));
+}
 export function polygonFlightSource(polygons) {
     const inside = (x, z) => polygons.some(poly => {
         let yes = false;

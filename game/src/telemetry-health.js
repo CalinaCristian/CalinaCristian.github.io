@@ -47,7 +47,13 @@ export class GameHealth {
         });
         game.renderer?.domElement?.addEventListener('webglcontextrestored', () => this.send('context_restored', this.resourceCounts()));
         addEventListener('pagehide', () => { this.flush(true); this.write({ ended: true }); }, { once: true });
-        document.addEventListener('visibilitychange', () => { this.lastFrame = 0; if (document.hidden) this.flush(true); });
+        document.addEventListener('visibilitychange', () => {
+            this.lastFrame = 0;
+            if (document.hidden) {
+                if (this.action) this.send('ui_action_cancelled', { action: this.action.name, reason: 'hidden' });
+                this.action = null; this.flush(true);
+            }
+        });
         const supported = globalThis.PerformanceObserver?.supportedEntryTypes || [];
         if (this.enabled()) this.send('diagnostics_ready', { long_tasks_supported: supported.includes('longtask'), storage_available: this.storageAvailable(), sampled_frame_times: true });
         if (this.enabled() && supported.includes('longtask')) safe(() => {

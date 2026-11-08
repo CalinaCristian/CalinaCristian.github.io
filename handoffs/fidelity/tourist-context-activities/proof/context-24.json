@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+  "snapshotDirty": false,
+  "records": 24,
+  "captures": 96,
+  "checks": {
+    "Native scene load": {
+      "passed": 24,
+      "total": 24
+    },
+    "Source solid membership": {
+      "passed": 24,
+      "total": 24
+    },
+    "Validated scene geometry cache": {
+      "passed": 24,
+      "total": 24
+    },
+    "Native public-path walk": {
+      "passed": 18,
+      "total": 24
+    },
+    "High scene budgets": {
+      "passed": 24,
+      "total": 24
+    },
+    "Raw physical audit": {
+      "passed": 3,
+      "total": 24
+    },
+    "Full matched scene comparison": {
+      "passed": 0,
+      "total": 24
+    }
+  },
+  "failedNativePaths": [
+    "ballard-locks",
+    "cismigiu",
+    "fremont-troll",
+    "mopop",
+    "peoples-salvation-cathedral",
+    "waterfront"
+  ],
+  "maxUniqueTriangles": 601426,
+  "maxRenderedTriangles": 1341596,
+  "maxDrawCalls": 302,
+  "imageDecodeAndSHA256Check": {
+    "passed": true,
+    "images": 96,
+    "dimensions": [
+      1280,
+      720
+    ]
+  },
+  "hardwareFrameRateClaim": false,
+  "allStatus": "needs_review"
+}

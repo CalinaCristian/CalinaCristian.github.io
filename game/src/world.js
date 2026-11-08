@@ -117,7 +117,7 @@ const brandStyle = (name) => {
     return null;
 };
 
-const shoulderOf = (e) => (/motorway|trunk/.test(e.type) ? (e.type.endsWith('_link') ? 0.6 : 1.2) : 0.15);
+const shoulderOf = (e) => (e.roadWidthSource && (e.roadWidthSource.source === 'OSM width' || e.roadWidthSource.review)) ? 0 : (/motorway|trunk/.test(e.type) ? (e.type.endsWith('_link') ? 0.6 : 1.2) : 0.15);
 const AWNING = ['#b91c1c', '#1f4e79', '#14532d', '#7c2d12', '#374151', '#6b21a8', '#0f766e', '#a16207'].map(rgb);
 const PHASES = [];
 let _phaseT = 0, _phaseName = '';
@@ -600,7 +600,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         return {
             index: ri, name: str(r[0]), type: cls, lanesF: r[2], lanesB: r[3], median: shared ? 0 : width ? ((flags & 1) ? -width.widthM : width.medianM) : r[4] / 10, laneW: shared ? shared.widthM / 2 : width?.laneWidthM ?? r[5] / 10, sidewalk: r[6] / 10,
             sharedLane: !!shared, sharedLaneWidthM: shared?.widthM, sharedLaneSource: shared,
-            roadWidthSource: width || null, access: data.roadAccess?.[ri] || null,
+            roadWidthSource: width || null, laneCenterShiftM: width?.laneCenterShiftM || 0, access: data.roadAccess?.[ri] || null,
             maxspeed: r[7] / 3.6, flags, layer: r[9], ids: r.slice(10),
             oneway: !!(flags & 1), bridge: !!(flags & 2), tunnel: !!(flags & 4), roundabout: !!(flags & 8), busLane: !!(flags & 16),
             tram: !!(flags & 32), toll: !!(flags & 64), unpaved: !!(flags & 128), tramMedian: !!(flags & 256),
@@ -618,15 +618,15 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (len < 0.05) continue;
             const dirx = dx / len, dirz = dz / len;
             const median = rd.median;
-            const wR = median / 2 + rd.lanesF * rd.laneW;
-            const wL = rd.oneway ? rd.lanesF * rd.laneW / 2 : median / 2 + rd.lanesB * rd.laneW;
+            const wR = rd.roadWidthSource?.rightM ?? median / 2 + rd.lanesF * rd.laneW;
+            const wL = rd.roadWidthSource?.leftM ?? (rd.oneway ? rd.lanesF * rd.laneW / 2 : median / 2 + rd.lanesB * rd.laneW);
             const e = {
                 id: edges.length, a, b, dirx, dirz, len, nx: -dirz, nz: dirx,
                 name: rd.name || unnamed, type: rd.type, road: rd.index,
                 lanesF: rd.lanesF, lanesB: rd.oneway ? 0 : rd.lanesB, lanes: Math.max(rd.lanesF, rd.oneway ? 0 : rd.lanesB), oneway: rd.oneway,
                 laneW: rd.laneW, median, wR, wL, halfW: Math.max(wR, wL), sidewalk: rd.sidewalk,
                 sharedLane: rd.sharedLane, sharedLaneWidthM: rd.sharedLaneWidthM, sharedLaneSource: rd.sharedLaneSource,
-                roadWidthSource: rd.roadWidthSource, access: rd.access, publicDrive: rd.access?.publicDrive !== false, throughAccess: rd.access?.throughAccess !== false,
+                roadWidthSource: rd.roadWidthSource, laneCenterShiftM: rd.laneCenterShiftM, access: rd.access, publicDrive: rd.access?.publicDrive !== false, throughAccess: rd.access?.throughAccess !== false,
                 maxspeed: rd.maxspeed, speed: rd.maxspeed, tram: rd.tram, tramMedian: rd.tramMedian, bridge: rd.bridge, tunnel: rd.tunnel, toll: rd.toll,
                 busLane: rd.busLane, roundabout: rd.roundabout, unpaved: rd.unpaved, layer: rd.layer, trafficMul: TRAFFIC_MUL[rd.type] ?? 0.5,
                 bikeLane: rd.bikeLane, cycleTrack: rd.cycleTrack, lit: rd.lit, unlit: rd.unlit,
@@ -785,7 +785,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         const nextOf = (e) => e.b.edges.filter(f => f !== e && f.a === e.b && f.oneway && !f.virtual && f.name === e.name);
         const prevOf = (e) => e.a.edges.filter(f => f !== e && f.b === e.a && f.oneway && !f.virtual && f.name === e.name);
         for (const e of edges) {
-            if (!e.oneway || e.virtual || !e.name || e.madeTwoWay) continue;
+            if (!e.oneway || e.virtual || !e.name || e.madeTwoWay || e.roadWidthSource?.leftM != null) continue;
             let base = e.lanesF, f = e;
             for (let k = 0; k < 4; k++) { const n2 = prevOf(f); if (n2.length !== 1) break; f = n2[0]; base = Math.min(base, f.lanesF); }
             f = e; for (let k = 0; k < 4; k++) { const n2 = nextOf(f); if (n2.length !== 1) break; f = n2[0]; base = Math.min(base, f.lanesF); }
@@ -2067,7 +2067,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (s1 - s0 > 1 && !e.unpaved && e.type !== 'service') {
             const m = markProxy(c.marks, e), hw = 0.07;
             const minor = e.type === 'residential' || e.type === 'living_street' || e.type === 'unclassified' || e.type === 'service';
-            const med2 = e.median / 2;
+            const med2 = e.median / 2, shift = e.laneCenterShiftM || 0;
             // a one-way carriageway built wider than its lane count is marked evenly over its real width (see the dividers)
             const Wc = e.wL + e.wR, nEff = e.oneway ? Math.round(Wc / e.laneW) : 0, evenLanes = e.oneway && nEff > e.lanesF && Wc - e.lanesF * e.laneW > e.laneW * 0.7;
             // bus lanes (outermost lane each way)
@@ -2075,11 +2075,11 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (realPass) { // (2026-11-08, Street View walk of Calea Floreasca) plain asphalt behind a wide solid line, not red paint (red only on the boulevards that have it)
                     const wl = rgb('#ecebe6');
                     if (evenLanes) { const o = -e.wL + Wc * (nEff - 1) / nEff; band(m, e, s0, s1, o - 0.13, o + 0.13, yM - 0.002, wl); } // (on the last divider of the evenly marked lanes)
-                    else if (e.lanesF > 1) { const o = med2 + e.laneW * (e.lanesF - 1); band(m, e, s0, s1, o - 0.13, o + 0.13, yM - 0.002, wl); }
-                    if (e.lanesB > 1) { const o = -(med2 + e.laneW * (e.lanesB - 1)); band(m, e, s0, s1, o - 0.13, o + 0.13, yM - 0.002, wl); }
+                    else if (e.lanesF > 1) { const o = shift + med2 + e.laneW * (e.lanesF - 1); band(m, e, s0, s1, o - 0.13, o + 0.13, yM - 0.002, wl); }
+                    if (e.lanesB > 1) { const o = shift - (med2 + e.laneW * (e.lanesB - 1)); band(m, e, s0, s1, o - 0.13, o + 0.13, yM - 0.002, wl); }
                 } else {
-                    if (e.lanesF > 1) band(m, e, s0, s1, med2 + e.laneW * (e.lanesF - 1), med2 + e.laneW * e.lanesF, yM - 0.004, busCol);
-                    if (e.lanesB > 1) band(m, e, s0, s1, -(med2 + e.laneW * (e.lanesB - 1)), -(med2 + e.laneW * e.lanesB), yM - 0.004, busCol);
+                    if (e.lanesF > 1) band(m, e, s0, s1, shift + med2 + e.laneW * (e.lanesF - 1), shift + med2 + e.laneW * e.lanesF, yM - 0.004, busCol);
+                    if (e.lanesB > 1) band(m, e, s0, s1, shift - (med2 + e.laneW * (e.lanesB - 1)), shift - (med2 + e.laneW * e.lanesB), yM - 0.004, busCol);
                 }
             }
             // surface texture: transverse joints on concrete motorways (US, ~4.6 m panels); patched asphalt (repair
@@ -2105,21 +2105,21 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (evenLanes) {
                 for (let i = 1; i < nEff; i++) if (!(e.busLane && realPass && i === nEff - 1)) dashLine(m, e, s0, s1, -e.wL + Wc * i / nEff, yM, white, dash[0], dash[1], hw);
             } else if (!minor || e.lanesF > 1 || e.lanesB > 1) {
-                for (let i = 1; i < e.lanesF; i++) dashLine(m, e, s0, s1, med2 + e.laneW * i, yM, white, dash[0], dash[1], hw * (/motorway/.test(e.type) ? 1.4 : 1));
-                for (let i = 1; i < e.lanesB; i++) dashLine(m, e, s0, s1, -(med2 + e.laneW * i), yM, white, dash[0], dash[1], hw);
+                for (let i = 1; i < e.lanesF; i++) dashLine(m, e, s0, s1, shift + med2 + e.laneW * i, yM, white, dash[0], dash[1], hw * (/motorway/.test(e.type) ? 1.4 : 1));
+                for (let i = 1; i < e.lanesB; i++) dashLine(m, e, s0, s1, shift - (med2 + e.laneW * i), yM, white, dash[0], dash[1], hw);
             }
             // centre
             if (!e.oneway && !e.sharedLane) {
                 const cc = US ? yellow : white;
                 if (e.median > 0.5) {
                     // median: tram bed or concrete divider
-                    band(m, e, s0, s1, -med2 + 0.15, med2 - 0.15, yM - 0.006, e.tramMedian ? ballastCol : rgb('#8d8a84'));
-                    solidLine(m, e, s0, s1, med2, yM, cc, hw); solidLine(m, e, s0, s1, -med2, yM, cc, hw);
-                } else if (US && !minor) { solidLine(m, e, s0, s1, 0.13, yM, cc, 0.06); solidLine(m, e, s0, s1, -0.13, yM, cc, 0.06); }
+                    band(m, e, s0, s1, shift - med2 + 0.15, shift + med2 - 0.15, yM - 0.006, e.tramMedian ? ballastCol : rgb('#8d8a84'));
+                    solidLine(m, e, s0, s1, shift + med2, yM, cc, hw); solidLine(m, e, s0, s1, shift - med2, yM, cc, hw);
+                } else if (US && !minor) { solidLine(m, e, s0, s1, shift + (0.13), yM, cc, 0.06); solidLine(m, e, s0, s1, shift + (-0.13), yM, cc, 0.06); }
                 else if (!US && !minor) {
-                    if (e.lanesF + e.lanesB >= 4) { solidLine(m, e, s0, s1, 0.12, yM, cc, 0.06); solidLine(m, e, s0, s1, -0.12, yM, cc, 0.06); }
-                    else if (e.lanesF + e.lanesB >= 3) solidLine(m, e, s0, s1, 0, yM, cc, hw);
-                    else dashLine(m, e, s0, s1, 0, yM, cc, dash[0], dash[1], hw);
+                    if (e.lanesF + e.lanesB >= 4) { solidLine(m, e, s0, s1, shift + (0.12), yM, cc, 0.06); solidLine(m, e, s0, s1, shift + (-0.12), yM, cc, 0.06); }
+                    else if (e.lanesF + e.lanesB >= 3) solidLine(m, e, s0, s1, shift + (0), yM, cc, hw);
+                    else dashLine(m, e, s0, s1, shift + (0), yM, cc, dash[0], dash[1], hw);
                 }
             }
             // edge lines
@@ -2135,8 +2135,8 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (!incoming) continue;
                 const r = retract(e, end) + 0.8;
                 const s = atA ? r : e.len - r;
-                const wIn = atA ? -(med2 + e.lanesB * e.laneW) : med2 + e.lanesF * e.laneW;
-                const o0 = atA ? -Math.max(0, med2) : (e.oneway ? med2 : Math.max(0, med2));
+                const wIn = atA ? -e.wL : e.wR;
+                const o0 = shift + (atA ? -Math.max(0, med2) : (e.oneway ? med2 : Math.max(0, med2)));
                 if (end.giveWay && !end.hasLight) { for (let k = 0; k < 6; k++) { const oo = o0 + (wIn - o0) * (k + 0.5) / 6; band(m, e, s - 0.25, s + 0.25, oo - 0.25, oo + 0.25, yM + 0.002, white); } }
                 else band(m, e, s - 0.25, s + 0.25, o0, wIn, yM + 0.002, white);
             }
@@ -2273,7 +2273,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const c = cellOf(e.a.x + e.dirx * sStop, e.a.z + e.dirz * sStop), mb = markProxy(c.marks, e), v0 = c.marks.vc;
                 const med2 = e.median / 2;
                 lanes.forEach((k, j) => { // j = 0 is the leftmost lane in the travel direction
-                    const lat = dirSign > 0 ? med2 + e.laneW * (j + 0.5) : -(Math.max(0, med2) + e.laneW * (j + 0.5));
+                    const lat = (e.laneCenterShiftM || 0) + (dirSign > 0 ? med2 + e.laneW * (j + 0.5) : -(Math.max(0, med2) + e.laneW * (j + 0.5)));
                     if (k && k !== 'none') arrow(mb, e, sStop, lat, dirSign, k.split(';'), Y.road + Y.mark + 0.003);
                 });
                 if (Math.abs(e.ya) > 0.01 || Math.abs(e.yb) > 0.01) displace(c.marks, v0, (x, z) => yAlong(e, x, z));
@@ -2550,10 +2550,10 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (/^(motorway|trunk)$/.test(e.type) && !e.oneway && e.median > 0.5 && !e.tramMedian && t1 - t0 > 0.05) {
                 const c = cellOf((e.a.x + e.b.x) / 2, (e.a.z + e.b.z) / 2), v0 = c.solid.vc;
                 const s0 = t0 * e.len, s1 = t1 * e.len;
-                for (const sd of [1, -1]) { const o = 0.3 * sd; c.solid.wall(e.a.x + e.dirx * s0 + e.nx * o, e.a.z + e.dirz * s0 + e.nz * o, e.a.x + e.dirx * s1 + e.nx * o, e.a.z + e.dirz * s1 + e.nz * o, Y.road, Y.road + 0.8, e.nx * sd, e.nz * sd, rgb('#b9b6ae')); }
-                c.solid.flatQuad(e.a.x + e.dirx * s0 + e.nx * 0.3, e.a.z + e.dirz * s0 + e.nz * 0.3, e.a.x + e.dirx * s1 + e.nx * 0.3, e.a.z + e.dirz * s1 + e.nz * 0.3, e.a.x + e.dirx * s1 - e.nx * 0.3, e.a.z + e.dirz * s1 - e.nz * 0.3, e.a.x + e.dirx * s0 - e.nx * 0.3, e.a.z + e.dirz * s0 - e.nz * 0.3, Y.road + 0.8, rgb('#cfccc4'), 0, -1);
+                for (const sd of [1, -1]) { const o = (e.laneCenterShiftM || 0) + 0.3 * sd; c.solid.wall(e.a.x + e.dirx * s0 + e.nx * o, e.a.z + e.dirz * s0 + e.nz * o, e.a.x + e.dirx * s1 + e.nx * o, e.a.z + e.dirz * s1 + e.nz * o, Y.road, Y.road + 0.8, e.nx * sd, e.nz * sd, rgb('#b9b6ae')); }
+                c.solid.flatQuad(e.a.x + e.dirx * s0 + e.nx * ((e.laneCenterShiftM || 0) + 0.3), e.a.z + e.dirz * s0 + e.nz * ((e.laneCenterShiftM || 0) + 0.3), e.a.x + e.dirx * s1 + e.nx * ((e.laneCenterShiftM || 0) + 0.3), e.a.z + e.dirz * s1 + e.nz * ((e.laneCenterShiftM || 0) + 0.3), e.a.x + e.dirx * s1 + e.nx * ((e.laneCenterShiftM || 0) - 0.3), e.a.z + e.dirz * s1 + e.nz * ((e.laneCenterShiftM || 0) - 0.3), e.a.x + e.dirx * s0 + e.nx * ((e.laneCenterShiftM || 0) - 0.3), e.a.z + e.dirz * s0 + e.nz * ((e.laneCenterShiftM || 0) - 0.3), Y.road + 0.8, rgb('#cfccc4'), 0, -1);
                 if (Math.abs(e.ya) > 0.01 || Math.abs(e.yb) > 0.01) displace(c.solid, v0, (x, z) => yAlong(e, x, z));
-                add(e, 1, 0, 'guard', t0, t1);
+                add(e, 1, e.laneCenterShiftM || 0, 'guard', t0, t1);
             }
         }
         // final rule: no wall piece may stand on another carriageway / junction pad at its own height band (junction

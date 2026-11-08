@@ -180,3 +180,8 @@ Known gaps: Politehnica's door is at the Bd. Doina Cornea gate (~230 m from the 
 45. Some businesses appear only as a sign on a pole (Mega Image, Help Net) instead of a shop in a building.
 46. Floreasca: most buildings are pitched-roof village houses — the real district is mostly 4–10 storey blocks and interwar villas.
 47. Some shop signs are cut by a black bar across the text (fascia sign overlapped by another slab).
+48. Pedestrian umbrellas are misplaced: the shaft stands beside / behind the person, not in the hand.
+49. Honking next to pedestrians: some of them should react, with culture-specific lines (Bucharest / Seattle).
+50. Pedestrians taking a photo with a phone raise both hands; a phone photo should be one-handed.
+51. Full map: hovering an icon should show a tooltip with what it is; 'Go' should mark the destination and show the route without closing the map.
+52. Road surface sometimes missing (black void next to the barrier) on highways, bridges and roads.

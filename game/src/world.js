@@ -5337,7 +5337,8 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (e.tunnel || e.layer < 0 || e.virtual) continue; // virtual U-turn connectors have no carriageway
                 for (let t = 0.1; t < 0.95; t += 0.2) for (const o of [0, e.wR * 0.7, -e.wL * 0.7]) {
                     const x = e.a.x + (e.b.x - e.a.x) * t + e.nx * o, z = e.a.z + (e.b.z - e.a.z) * t + e.nz * o;
-                    let hit = null; allColl.query(x, z, 0.5, (c) => { if (!hit && c.poly && pointInPolygon(x, z, c.poly)) hit = c; });
+                    const roadY = Y.road + e.ya + (e.yb - e.ya) * t;
+                    let hit = null; allColl.query(x, z, 0.5, (c) => { if (!hit && buildingBlocksRoad(c, x, z, roadY)) hit = c; });
                     if (hit) { blocked.push({ edge: e.id, name: e.name, x: Math.round(x), z: Math.round(z) }); t = 2; break; }
                 }
             }
@@ -5532,6 +5533,14 @@ function buildSky(env) {
 // ---------------------------------------------------------------------------
 //  Collision: real footprints (polygon) + oriented boxes (landmarks)
 // ---------------------------------------------------------------------------
+/** Point check for developer road-overlap audits, including a two-metre vehicle body above its road. */
+export function buildingBlocksRoad(c, x, z, roadY, bodyHeight = 2) {
+    if (!c.poly || !pointInPolygon(x, z, c.poly) || (c.holes || []).some(h => pointInPolygon(x, z, h))) return false;
+    if ((c.minH ?? 0) > roadY + bodyHeight || (c.h !== undefined && roadY > c.h + 0.5)) return false;
+    if ((c.y0 !== undefined && roadY < c.y0) || (c.y1 !== undefined && roadY > c.y1)) return false;
+    return true;
+}
+
 function collideOne(b, x, z, radius, y) {
     if (!b.wall) {
         const height = y ?? 0.24;

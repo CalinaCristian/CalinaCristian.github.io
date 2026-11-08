@@ -161,9 +161,6 @@ export default {
         ctx.lampOpts = { style: 'acorn', color: '#1c2a24', h: 4.6 };
         // Occidental Square: big London plane trees on the brick square
         { const sq = d.areas.find((a) => a.id === 'w174692555'); if (sq) { const bb = polyBox(sq.poly), r = rng(6); for (let i = 0; i < 26; i++) { const x = bb.x0 + 5 + r() * (bb.x1 - bb.x0 - 10), z = bb.z0 + 5 + r() * (bb.z1 - bb.z0 - 10); ctx.trees.push({ x, z, kind: 'broad', s: 1.25 + r() * 0.35 }); } ctx.painter.poly(sq.poly, '#9a5a44', 'brick'); } }
-        // storefront signs
-        const signs = [['UNDERGROUND TOUR', -13, -2, Math.PI / 2, '#3a1f12', '#f3d38a'], ["MERCHANT'S CAFE", 52, 12, -Math.PI / 2, '#1d3a2b', '#f2ead2']];
-        for (const [t, x, z, yaw, bg, fg] of signs) { const s2 = signBoard(t, 3.4, 0.55, { bg, fg, font: (q) => `700 ${q}px Georgia, serif`, glow: 0.05, night: 1.2 }); s2.position.set(x, g.heightAt(x, z) + 3.6, z); s2.rotation.y = yaw; ctx.add(s2); }
         ctx.extras.seaBackdrop = seaBackdrop(ctx, { clear: 330, rainier: false, olympics: false, bay: false, ferries: false, cranes: false, midrise: 500, midClear: 420, midBox: [47.596, -122.34, 47.612, -122.318] });
         addTraffic(ctx, { lanes: [{ pts: [[6, 272], [5, 179], [5, 85], [5, 30], [6, -8], [5, -84], [0, -94], [-12, -106], [-56, -178]], n: 3, speed: 8 }, { pts: [[-56, -178], [-12, -106], [-2, -84], [-2, -8], [-3, 85], [-4, 178], [-3, 248]].map(([x, z]) => [x - 1, z]), n: 3, speed: 8 }, { pts: [[-97, -9], [-2, -8], [45, -8], [151, -8], [247, -7]], n: 2, speed: 8 }] });
         // plaques around Pioneer Place

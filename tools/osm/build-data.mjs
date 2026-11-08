@@ -540,7 +540,7 @@ function buildCity(cityId, did = null) {
         if (!r.sharedLane && !r.oneway && r.tram && centre / n > 0.4 && r.lf + r.lb >= 2) { r.median = 6.5; r.flags |= 256; }
         else if (!r.sharedLane && !r.oneway && /motorway|trunk/.test(r.cls) && !r.cls.endsWith('_link')) r.median = 3;
         if(ds){
-            r.widthProfile=resolveRoadWidth(r.tags,r.widthReview,{lanes:r.lf+r.lb,medianM:r.median,sharedLane:r.sharedLane,defaultSharedWidth:r.physicalSharedWidth||laneWidthFor(r.cls)});
+            r.widthProfile=resolveRoadWidth(r.tags,r.widthReview,{lanes:r.lf+r.lb,lanesF:r.lf,lanesB:r.lb,oneway:r.oneway,reverse:r.tags.oneway==='-1',medianM:r.median,sharedLane:r.sharedLane,defaultSharedWidth:r.physicalSharedWidth||laneWidthFor(r.cls),defaultLaneWidth:r.laneW});
             if(r.widthProfile){r.median=r.widthProfile.medianM;r.laneW=r.widthProfile.laneWidthM;if(r.sharedLane)r.physicalSharedWidth=r.widthProfile.widthM;if(!r.median)r.flags&=~256;}
         }
 
@@ -1246,14 +1246,14 @@ function buildCity(cityId, did = null) {
         if (t.__barePart && style === 'house') { style = 'plain'; roof = 0; }
         if (b === 'hotel' && country === 'RO' && style !== 'glass') defLevels = Math.max(defLevels, 7);
         let measuredRoof = !!rb.roofKnown && !t['roof:shape'];
-        // aerial roof survey: shape where neither OSM nor the style rules above decided it (pitched only for footprints a
-        // simple roof can cover), colour where OSM has none (flat roofs desaturated: the imagery has a green cast)
+        // Reviewed independent roof shape overrides a style estimate at any source area/plan complexity.
+        // Native profiles clip to the full source boundary and holes; explicit OSM roof tags still win below.
         if (rb.aer && !t['roof:shape'] && rb.aer[1] >= 0.5) {
             aerialStats.used++;
-            if (!rb.roofKnown && style !== 'church' && style !== 'glass') {
+            if (!rb.roofKnown) {
                 const a0 = rb.aer[0];
                 if (a0 === 'flat') { if (roof !== 0) aerialStats.shape++; roof = 0; measuredRoof = true; }
-                else if ((a0 === 'hipped' || a0 === 'gabled') && (realArea < 1500 || ring.length === 4)) { const r = a0 === 'gabled' && (ds || lls.length <= 6) ? 2 : ds || lls.length <= 6 ? 4 : 1; if (roof !== r) aerialStats.shape++; roof = r; measuredRoof = true; }
+                else if (a0 === 'hipped' || a0 === 'gabled') { const r = a0 === 'gabled' && (ds || lls.length <= 6) ? 2 : ds || lls.length <= 6 ? 4 : 1; if (roof !== r) aerialStats.shape++; roof = r; measuredRoof = true; }
             }
         }
         if (t['roof:shape']) {

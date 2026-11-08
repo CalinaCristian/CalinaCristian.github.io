@@ -28,7 +28,14 @@ for(const lm of LANDMARKS.filter(l=>city==='all'||l.city===city)){
   if(pose.position){assert(pose.position.length===3&&pose.position.every(Number.isFinite));assert(pose.quaternion.length===4&&Math.abs(Math.hypot(...pose.quaternion)-1)<1e-6);}
   else assert([pose.lat,pose.lon,pose.heading,pose.pitch,pose.cameraY].every(Number.isFinite),'World pose needs exact geographic/camera metadata');
   if(pose.projection==='orthographic'){assert(pose.groundSquareM>0);assert.equal(pose.orientation,'north-up');assert.deepEqual(pose.up,[0,0,-1]);}
-  assert(!c.comparison,'Published model studies currently do not claim a matched world aerial pair');captures++;
+  if(c.comparison){
+   assert.equal(c.kind,'top');assert.equal(c.comparison.orientation,'north-up');assert([c.comparison.lat,c.comparison.lon,c.comparison.size].every(Number.isFinite));assert(c.comparison.size>0);
+   assert.equal(c.width,c.height,'Matched ground square requires a square image');
+   assert([pose.lat,pose.lon,pose.cameraY,pose.cameraBaseY,pose.fov].every(Number.isFinite),'Matched aerial needs the actual geographic perspective pose');
+   assert(Math.abs(pose.lat-c.comparison.lat)<1e-8&&Math.abs(pose.lon-c.comparison.lon)<1e-8);assert.equal(pose.pitch,-90);assert(Math.abs(pose.heading%360)<1e-8);
+   const groundSquareM=2*(pose.cameraY-pose.cameraBaseY)*Math.tan(pose.fov*Math.PI/360);assert(Math.abs(groundSquareM-c.comparison.size)<1e-6,'Aerial ground square agrees with the recorded camera');
+  }
+  captures++;
  }
  records++;
 }

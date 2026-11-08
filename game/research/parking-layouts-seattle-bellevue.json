@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "district": "bellevue",
+  "sourcePriority": "Explicit OSM parking orientation/layout wins; independently measured compatible angles apply only at confidence >=0.75. Google imagery provides no attributes.",
+  "scope": "Targeted correction of reviewed clear diagonal surface lots; every other lot retains an explicitly estimated layout, not a claim of measured stall orientation.",
+  "lots": {
+    "w956124492": {
+      "rowBearingDeg": 90.32,
+      "stallBearingDeg": 34.76,
+      "confidence": 0.82,
+      "coverage": "Uniform principal rows visible within the original source lot; source polygon and buildings remain unchanged. Occupancy, individual stall positions, spacing and vehicle front/rear headings remain explicit runtime estimates.",
+      "evidence": {
+        "provider": "Esri World Imagery",
+        "sourceUrl": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+        "osmUrl": "https://www.openstreetmap.org/way/956124492",
+        "reviewedDate": "2026-11-08",
+        "imageryDate": "unknown",
+        "mosaicZoom": 18,
+        "mosaicOriginPx": [
+          10772224,
+          23431936
+        ],
+        "mosaicSizePx": [
+          6912,
+          4864
+        ],
+        "metresPerPixel": 0.40254113795303664,
+        "cropBoxPx": [
+          953,
+          3574,
+          1094,
+          3714
+        ],
+        "pixelCoordinateFrame": "Native local mosaic pixels; x east/right, y south/down. Samples follow visible row alignments and repeated long axes of vehicles/bay stripes; orientation is axial and does not establish vehicle front/rear direction.",
+        "rowSamplesPx": [
+          [
+            [
+              994.947,
+              3635.6
+            ],
+            [
+              1047.294,
+              3635.425
+            ]
+          ],
+          [
+            [
+              1010.81,
+              3633.85
+            ],
+            [
+              1047.294,
+              3634.375
+            ]
+          ]
+        ],
+        "stallSamplesPx": [
+          [
+            [
+              993.009,
+              3639.625
+            ],
+            [
+              998.649,
+              3631.925
+            ]
+          ],
+          [
+            [
+              1009.4,
+              3639.275
+            ],
+            [
+              1014.688,
+              3630.875
+            ]
+          ],
+          [
+            [
+              1043.592,
+              3638.925
+            ],
+            [
+              1049.409,
+              3631.05
+            ]
+          ]
+        ],
+        "sampleMaximumDeviationDeg": {
+          "row": 0.51,
+          "stall": 2.76
+        },
+        "referenceImagesTracked": false
+      }
+    },
+    "w345607324": {
+      "mixed": true,
+      "confidence": 0.4,
+      "reason": "Several incompatible parking orientations or unclear rows within one source lot; one uniform angle would overstate the evidence.",
+      "evidence": {
+        "sourceUrl": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+        "osmUrl": "https://www.openstreetmap.org/way/345607324",
+        "reviewedDate": "2026-11-08",
+        "imageryDate": "unknown",
+        "referenceImagesTracked": false
+      }
+    }
+  }
+}

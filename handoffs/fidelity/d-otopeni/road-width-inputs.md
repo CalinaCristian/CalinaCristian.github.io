@@ -1,0 +1,9 @@
+Three reviewed road-width inputs are ready for the combined source rebuild. The independently measured travel surfaces are w1097438891 at 2.98 m (one physical vehicle track, no source lane tags), w27245927 at 5.96 m (its explicit two lanes remain), and w1244012654 at 5.75 m (3.08 m left / 2.67 m right in the original eastward source direction). Literal OSM widths and placement tags retain priority. The measured bounds exclude parking bays, forecourts and sidewalks.
+
+The fourth investigated way, w1119708243, is too obscured by tree cover for a defensible vehicle-width measurement. It receives no override. Its native building-road findings remain an explicit evidence gap. The private drive w1097438891 also has a mapped centre-line offset relative to the visible gravel strip; no source node is moved and no artificial side extents are used to erase that discrepancy.
+
+`road-width-measurements.json` retains original tags/node order, exact pixel calipers, metre scale, image hashes, official source URLs, unknown imagery date, uncertainty, decisions and the native finding IDs. Only measurements are committed; all reference imagery remains private. The source-way extent was inspected rather than selecting a width from collision clearance.
+
+Validation: the production width resolver accepts all three input records; calipers are inside their declared private mosaics; asymmetric extents sum to the measured total; the explicit two-lane way has no single-lane override; the obscured way has no width record. Final source compilation and native captures remain pending, so these inputs do not establish that the earlier raw detector findings have cleared.
+
+Parent documentation notes: list reviewed aerial road carriageway widths as estimates, not literal source tags. Preserve the canopy-obscured way and centre-line mismatch in the remaining source gaps. The district-wide road survey is not complete merely because these four reported locations were investigated.

@@ -1,0 +1,32 @@
+{
+  "district": "romana",
+  "dataSha256": "22f1ca34ea7f7c65761347573390063be58fdf3fb03d4492bd7ed7a5fdc4f5f3",
+  "inputUnchanged": true,
+  "sourceRoot": "/workspace/fidelity-workers/original-districts-refresh",
+  "results": [
+    {
+      "check": "buildings",
+      "exitCode": 0,
+      "stdout": "romana-buildings.log",
+      "stderr": "romana-buildings.stderr",
+      "stdoutSha256": "51345cf303dc3be6769757871428439876fbb15f381266755f58c94a3dfb3fd4",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "check": "geometry",
+      "exitCode": 0,
+      "stdout": "romana-geometry.json",
+      "stderr": "romana-geometry.stderr",
+      "stdoutSha256": "8c5a7471dbe91b32b047e913499865dd9738199aa92b3dff27872961e6c1dfde",
+      "stderrSha256": "fbf4b3e7b83255fc174f7fba36d42db9275d2429b7eae4d3631252a2c9041161"
+    },
+    {
+      "check": "roads",
+      "exitCode": 1,
+      "stdout": "romana-roads.json",
+      "stderr": "romana-roads.stderr",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e7f2fdb58b117b5600ce8b544f5440daccacea2a86b52fd440e6d6d63462ea24"
+    }
+  ]
+}

@@ -650,7 +650,7 @@ table a {
 .compact th,.compact td {
   padding:11px 13px
 }
-.table-wrap td small {
+.table-wrap :is(td,th) small {
   display:block;
   font-size:10px;
   line-height:1.7;
@@ -1452,8 +1452,8 @@ section.search-match {
 }
 
 /* Dedicated landmark evidence stays inside the overview. */
-#landmark-evidence-viewer>label{display:grid;gap:8px;font-size:14px;font-weight:650}
-#landmark-evidence-viewer select{width:100%;max-width:100%;padding:12px;border:1px solid var(--line);background:white;color:var(--ink);font:inherit;border-radius:8px;min-height:48px}
+:is(#landmark-evidence-viewer,#spot-evidence-viewer)>label{display:grid;gap:8px;font-size:14px;font-weight:650}
+:is(#landmark-evidence-viewer,#spot-evidence-viewer) select{width:100%;max-width:100%;padding:12px;border:1px solid var(--line);background:white;color:var(--ink);font:inherit;border-radius:8px;min-height:48px}
 .lm-heading{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-top:24px}
 .lm-evidence h4{font-size:28px;line-height:1.3;margin:8px 0}
 .lm-evidence h5{font-size:17px;margin:24px 0 8px}

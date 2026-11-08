@@ -1,0 +1,333 @@
+{
+  "schemaVersion": 1,
+  "district": "bucharest-pipera",
+  "builtFromCommit": "3e8550102adf3bc4bf29d0feb3d83debe4be0222",
+  "sourceAccessDate": "2026-11-08",
+  "data": "game/data/bucharest-pipera.json",
+  "dataSha256": "d762b8d5654d53abf733cae4fdb7d3aa8a494d7a3aa72f368e7912d18d6bbea3",
+  "sourceAudit": {
+    "sourceSolidRecords": 2282,
+    "exactIdentitiesPresent": 2282,
+    "missing": [],
+    "areaBelow95Percent": [],
+    "literalHeightMismatch": [],
+    "literalMinimumMismatch": [],
+    "smallSourceRecordsBelow25M2": 3,
+    "aircraftSourceRecords": 23,
+    "sourceParts": 8
+  },
+  "sourceSkipCount": 0,
+  "sourceGeometry": {
+    "file": "game/data/bucharest-pipera.json",
+    "sourceRecords": 2282,
+    "assemblies": [
+      {
+        "source": "w236041902",
+        "mode": "union",
+        "parts": [
+          "w1289605664"
+        ],
+        "residualArea": 1295.1341619050036,
+        "residualHeight": 80
+      },
+      {
+        "source": "w237911115",
+        "mode": "union",
+        "parts": [
+          "w289666722"
+        ],
+        "residualArea": 861.9032051300455,
+        "residualHeight": 65
+      },
+      {
+        "source": "w764534288",
+        "mode": "union",
+        "parts": [
+          "w1104992266"
+        ],
+        "residualArea": 890.0803752550055,
+        "residualHeight": 55
+      },
+      {
+        "source": "w1289605665",
+        "mode": "union",
+        "parts": [
+          "w1289605670"
+        ],
+        "residualArea": 557.1892173899978,
+        "residualHeight": 40
+      }
+    ],
+    "roofs": {
+      "checked": 894,
+      "inset": 894,
+      "fallback": []
+    },
+    "rejectedSourceBands": [],
+    "physicalUnionSurfaces": 14,
+    "rawSource": {
+      "sourceParts": 8,
+      "explicitHeights": 72,
+      "explicitMinima": 0,
+      "tiles": 12
+    }
+  },
+  "sourceRoads": {
+    "data": "bucharest-pipera.json",
+    "roads": 387,
+    "sourceWays": 382,
+    "preparedNodes": 1674,
+    "cutNodes": 108,
+    "expectedWhole": 278,
+    "wholeSourceVertices": 1181,
+    "missingWhole": 0,
+    "privatePhysical": 25,
+    "shortSourceStubs": 64,
+    "scenery": {
+      "pieces": 1048,
+      "sourceWays": 1043,
+      "preparedVertices": 5253,
+      "privatePhysical": 153
+    },
+    "visibleRing": {
+      "expectedWays": 1232,
+      "missingWays": 0,
+      "requiredVertices": 6089,
+      "missingVertices": 0,
+      "excludedCoveredWays": [
+        "w669742137",
+        "w669742138",
+        "w48272349",
+        "w467560480",
+        "w467560481",
+        "w467560865",
+        "w467560867",
+        "w668515452",
+        "w668523278",
+        "w764616770",
+        "w764616771",
+        "w1284446130",
+        "w1339943929",
+        "w1553027402",
+        "w661582576",
+        "w668951012",
+        "w845495214",
+        "w1077935488",
+        "w1566299306",
+        "w1566299309",
+        "w1566299312",
+        "w1566299315",
+        "w1566299319"
+      ],
+      "exclusionReason": "Covered/tunnel source ways outside the physical core are not represented as ground scenery; no elevation or open road is invented."
+    },
+    "sourceDirectionNormalizations": [],
+    "issues": []
+  },
+  "aircraft": {
+    "count": 23,
+    "aircraft": [
+      {
+        "source": "w1469721743",
+        "heightM": 4.5,
+        "faces": 114,
+        "planVertices": 24,
+        "dimensionSource": "estimate"
+      },
+      {
+        "source": "w1469721744",
+        "heightM": 4.5,
+        "faces": 114,
+        "planVertices": 24,
+        "dimensionSource": "estimate"
+      },
+      {
+        "source": "w1469721745",
+        "heightM": 4.5,
+        "faces": 114,
+        "planVertices": 24,
+        "dimensionSource": "estimate"
+      },
+      {
+        "source": "w1471899522",
+        "heightM": 4.1,
+        "faces": 114,
+        "planVertices": 18,
+        "dimensionSource": "estimate"
+      },
+      {
+        "source": "w1471899523",
+        "heightM": 4.1,
+        "faces": 114,
+        "planVertices": 18,
+        "dimensionSource": "estimate"
+      },
+      {
+        "source": "w1471899524",
+        "heightM": 4.1,
+        "faces": 114,
+        "planVertices": 18,
+        "dimensionSource": "estimate"
+      },
+      {
+        "source": "w1471899525",
+        "heightM": 4.1,
+        "faces": 114,
+        "planVertices": 18,
+        "dimensionSource": "estimate"
+      },
+      {
+        "source": "w1471899526",
+        "heightM": 4.1,
+        "faces": 114,
+        "planVertices": 18,
+        "dimensionSource": "estimate"
+      },
+      {
+        "source": "w1471899527",
+        "heightM": 4.1,
+        "faces": 114,
+        "planVertices": 18,
+        "dimensionSource": "estimate"
+      },
+      {
+        "source": "w1471899528",
+        "heightM": 4.1,
+        "faces": 114,
+        "planVertices": 18,
+        "dimensionSource": "estimate"
+      },
+      {
+        "source": "w1471899529",
+        "heightM": 4.1,
+        "faces": 114,
+        "planVertices": 18,
+        "dimensionSource": "estimate"
+      },
+      {
+        "source": "w1471899530",
+        "heightM": 4.1,
+        "faces": 114,
+        "planVertices": 18,
+        "dimensionSource": "estimate"
+      },
+      {
+        "source": "w1471899532",
+        "heightM": 3.9,
+        "faces": 114,
+        "planVertices": 18,
+        "dimensionSource": "estimate"
+      },
+      {
+        "source": "w1471899533",
+        "heightM": 3.9,
+        "faces": 114,
+        "planVertices": 18,
+        "dimensionSource": "estimate"
+      },
+      {
+        "source": "w1471899535",
+        "heightM": 4.7,
+        "faces": 114,
+        "planVertices": 22,
+        "dimensionSource": "estimate"
+      },
+      {
+        "source": "w1472421011",
+        "heightM": 3.7,
+        "faces": 114,
+        "planVertices": 21,
+        "dimensionSource": "estimate"
+      },
+      {
+        "source": "w1472421012",
+        "heightM": 3.7,
+        "faces": 114,
+        "planVertices": 21,
+        "dimensionSource": "estimate"
+      },
+      {
+        "source": "w1472421013",
+        "heightM": 3.7,
+        "faces": 114,
+        "planVertices": 21,
+        "dimensionSource": "estimate"
+      },
+      {
+        "source": "w1472421014",
+        "heightM": 3.8,
+        "faces": 114,
+        "planVertices": 21,
+        "dimensionSource": "estimate"
+      },
+      {
+        "source": "w1472421015",
+        "heightM": 3.8,
+        "faces": 114,
+        "planVertices": 21,
+        "dimensionSource": "estimate"
+      },
+      {
+        "source": "w1472421016",
+        "heightM": 3.8,
+        "faces": 114,
+        "planVertices": 21,
+        "dimensionSource": "estimate"
+      },
+      {
+        "source": "w1472421017",
+        "heightM": 3.9,
+        "faces": 114,
+        "planVertices": 18,
+        "dimensionSource": "estimate"
+      },
+      {
+        "source": "w1472421018",
+        "heightM": 3.7,
+        "faces": 114,
+        "planVertices": 21,
+        "dimensionSource": "estimate"
+      }
+    ]
+  },
+  "inventory": {
+    "sourceStructures": 2282,
+    "roofProfiles": 2259,
+    "canopies": 9,
+    "passageBodies": 10,
+    "passageStrips": 11,
+    "pois": 260,
+    "areas": 276,
+    "parkingLayouts": 7,
+    "measuredTrees": {
+      "policy": "all-measured",
+      "inputCrowns": 47585,
+      "retained": 21527,
+      "rejectedGeometryOrDuplicate": 2146,
+      "outsideSurveyDistrict": 23912,
+      "thinned": 0
+    },
+    "builderRoadConflictRecords": 116
+  },
+  "widthReview": {
+    "acceptedAerialCalipers": 0,
+    "acceptedGeometryConstrainedEstimates": 7,
+    "ledger": "game/research/road-widths-bucharest-pipera.json",
+    "allAcceptedSourceIdsPresentInCoreRoadWidthCache": true
+  },
+  "checks": {
+    "strictIdentityAndTopology": "passed for all2282 positive-area source records, including all3 below25m²",
+    "literalDimensions": "all72 positive literal total heights exact; no source minimum-height mismatch",
+    "roads": "all1232 eligible visible-ring ways and6089 required source vertices represented; covered/tunnel ring exclusions explicit",
+    "aircraft": "all23 source identities preserve their planform; vertical dimensions remain estimates",
+    "nativePassages": "2618 pure controls pass, including finite vehicles, posts, ceilings and actual elevated-source negative controls"
+  },
+  "remainingGaps": [
+    "w27750597 is a through-way beside w176792203 with0.785266m mapped centreline-to-source-solid gap at(-1036.8654905,-3.8351653). No defensible constant aerial lateral caliper was obtained; source graph, access and footprints remain unchanged.",
+    "w276695458 terminal apron approaches source private garage w1284446119; terminal-door/stop behaviour remains an explicit finding, not a through-passage.",
+    "The116 builder conflict rows preserve source diagnostics; they are not116 verified runtime collisions. Prior actual probe had25 carriageway-side contacts before the accepted width estimates and finite mouth caps. Final frozen live probe/visual/performance review remains pending.",
+    "Full final official street comparison and250m north-up game capture grid remain pending; successful1562 baseline official comparison pairs and all raw detector failures stay private.",
+    "Untyped vertical dimensions, roof rise/direction, measured roof class unknowns and aerial acquisition date retain their recorded uncertainty."
+  ],
+  "evidencePolicy": "No reference imagery or Street View-derived geometry/height/colour is published. Raw reference imagery, failed runs and full audit files remain in private workspace."
+}

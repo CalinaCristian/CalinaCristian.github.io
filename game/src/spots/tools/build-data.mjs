@@ -17,7 +17,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
-import { BUC_CACHE } from './fetch-buc.mjs';
+import { BUC_CACHE, positiveBuildingTag } from './fetch-buc.mjs';
 import { parseMeasure } from '../../building-roofs.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../..');
@@ -184,7 +184,7 @@ function buildScene(sceneId) {
             const lv = num(b['building:levels']);
             const o = {
                 id: b.id, poly, h: parseMeasure(b.height_m ?? b.height), lv, minH: parseMeasure(b.min_height), minLv: num(b['building:min_level']),
-                k: b.building || (b['building:part'] ? 'part' : 'yes'), part: !!b['building:part'],
+                k: positiveBuildingTag(b.building) ? b.building : (positiveBuildingTag(b['building:part']) ? 'part' : 'yes'), part: positiveBuildingTag(b['building:part']),
                 roof: b['roof:shape'] || null, roofH: parseMeasure(b['roof:height']), rc: b['roof:colour'] || null, c: b['building:colour'] || null,
                 mat: b['building:material'] || null, name: b.name || null, backdrop,
             };

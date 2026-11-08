@@ -229,7 +229,7 @@
       "label": "Actual touch paddling after explicit stroke input",
       "image": "assets/spots/bel-meydenbauer/paddling-touch.webp",
       "sha256": "224b9585bb99fa6fe69c42ae45d373c1a33021e25ad94811708b3492d16ad3bd",
-      "sourceCommit": "2565355",
+      "sourceCommit": "25653554feab401720cee0eee56f8f6b7e94f5a3",
       "capturedAt": "2026-11-08T21:13:31.868629+00:00",
       "pose": {
         "position": [
@@ -246,7 +246,7 @@
       "label": "Actual desktop paddling after explicit stroke input",
       "image": "assets/spots/bel-meydenbauer/paddling-desktop.webp",
       "sha256": "2e39ff70d1e0e2f16af087ac712702b02f3797a5978bad6556614d5be1693540",
-      "sourceCommit": "864d706",
+      "sourceCommit": "864d706b23a7e78446f891f85dc488ad341470cc",
       "capturedAt": "2026-11-08T21:13:31.868629+00:00",
       "pose": {
         "position": [

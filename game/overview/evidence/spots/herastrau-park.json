@@ -229,7 +229,7 @@
       "label": "Actual touch paddling after explicit stroke input",
       "image": "assets/spots/herastrau-park/paddling-touch.webp",
       "sha256": "dcd728b480ff66da96f3fbaf0114b9ca99c381d722f8a73cdda13d03d4ddbd79",
-      "sourceCommit": "2565355",
+      "sourceCommit": "25653554feab401720cee0eee56f8f6b7e94f5a3",
       "capturedAt": "2026-11-08T21:13:31.868629+00:00",
       "pose": {
         "position": [
@@ -246,7 +246,7 @@
       "label": "Actual desktop paddling after explicit stroke input",
       "image": "assets/spots/herastrau-park/paddling-desktop.webp",
       "sha256": "0be549b82e7d56b187e05aa32735f7e7d132ba61db087ca7a8a8949c0332f6f2",
-      "sourceCommit": "864d706",
+      "sourceCommit": "864d706b23a7e78446f891f85dc488ad341470cc",
       "capturedAt": "2026-11-08T21:13:31.868629+00:00",
       "pose": {
         "position": [

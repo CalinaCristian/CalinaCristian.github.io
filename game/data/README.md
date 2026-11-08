@@ -63,3 +63,8 @@ The maps only contain what the story drives: travel-time routes on the drivable 
 story order (+ the centre / north loops in Bucharest, the SR-520 alternative and a downtown loop in Seattle),
 buffered by 300 m (450 m around stops and landmarks, 600 m in the historic centre of Bucharest). Roads, buildings,
 POIs, lamps, trees and furniture outside are dropped; parks / water may extend 600 m further for scenery.
+
+
+Optional `buildingCanopies` is an object keyed by building index. It marks only an explicitly reviewed open roof, keeping the corresponding `buildingIds` identity and complete mapped footprint. `topM` and `clearanceM` agree with that building's height/minHeight band; `classificationSource`, `evidence`, `topSource`, `clearanceSource`, `supportSource` and `dimensionNote` record provenance. Values marked `estimate` are authoring choices, not OSM metre tags. `estimateSupports` optionally adds narrow estimated supports only where their full footprints clear roads and neighbouring buildings; `supportWidthM` is their width. Runtime draws the source roof slab and colliding supports, keeps the roof band collidable, and omits the guessed fuel-canopy/pump template for that source record. Neither `amenity=fuel` nor OSM `layer` alone enables this field. OSM positive height/minimum tags take precedence over estimated dimensions.
+
+Optional `buildingSourceIssues` maps building indices to source anomalies such as a nonpositive OSM height. A nonpositive height is not treated as a valid measured dimension; its fallback remains an estimate. Positive literal heights, including structures below 2.5m, are retained.

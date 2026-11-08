@@ -6,6 +6,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { parseFiles } from './parse-osm.mjs';
+import { assembleRings } from './geom.mjs';
 import * as THREE from '../../game/vendor/three.module.min.js';
 import { footprintCells, footprintCoverage, exposedWall, insetFootprint, ringArea, simpleFootprint, assemblySignature, touchingSolids, geometryRing } from '../../game/src/building-parts.js';
 import { collideBuildings } from '../../game/src/world.js';
@@ -99,28 +100,46 @@ if (osmDir) {
     const osm = parseFiles(fs.readdirSync(osmDir).filter(f => f.endsWith('.xml')).sort().map(f => path.join(osmDir, f)));
     const source = id => (id?.[0] === 'w' ? osm.ways : osm.rels).get(+id?.slice(1));
     const numeric = s => s == null ? NaN : Number(String(s).replace(/\s*m$/, ''));
-    const rawRing = id => source(id)?.nodes?.slice(0, -1).map(n => { const [la, lo] = osm.nodes.get(n); return [(lo - data.proj.lon0) * data.proj.mPerLon * data.proj.scale, -(la - data.proj.lat0) * data.proj.mPerLat * data.proj.scale]; });
+    const rawRing = (id, index) => {
+        const object = source(id); if (!object) return null;
+        const chains = id[0] === 'w' ? [object.nodes] : assembleRings(object.members.filter(m => m.type === 'way' && m.role !== 'inner').map(m => osm.ways.get(m.ref)?.nodes).filter(Boolean)).rings;
+        const candidates = chains.filter(r => r?.length >= 4 && r.every(n => osm.nodes.has(n))).map(r => r.slice(0, -1).map(n => { const [la, lo] = osm.nodes.get(n); return [(lo - data.proj.lon0) * data.proj.mPerLon * data.proj.scale, -(la - data.proj.lat0) * data.proj.mPerLat * data.proj.scale]; }));
+        if (candidates.length <= 1) return candidates[0] || null;
+        // A relation can contain several separate outer buildings with the same source ID. Match its prepared outer.
+        const centre = r => r.reduce((a, p) => [a[0] + p[0] / r.length, a[1] + p[1] / r.length], [0, 0]);
+        const c = centre(rings[index]);
+        return candidates.sort((a, b) => { const p = centre(a), q = centre(b); return Math.hypot(p[0] - c[0], p[1] - c[1]) - Math.hypot(q[0] - c[0], q[1] - c[1]); })[0];
+    };
     const box = r => [Math.min(...r.map(p => p[0])), Math.min(...r.map(p => p[1])), Math.max(...r.map(p => p[0])), Math.max(...r.map(p => p[1]))];
-    const sourceBases = data.buildingIds.flatMap((id, i) => { const t = source(id)?.tags, ring = rawRing(id); return t && !t['building:part'] && !data.buildingHoles?.[i] && ring && simpleFootprint(ring) ? [{ i, ring, box: box(ring) }] : []; });
+    const sourceBases = data.buildingIds.flatMap((id, i) => { const t = source(id)?.tags, ring = rawRing(id, i); return t && !t['building:part'] && !data.buildingHoles?.[i] && ring && simpleFootprint(ring) ? [{ i, ring, box: box(ring) }] : []; });
     let explicitHeights = 0, explicitMinima = 0, sourceParts = 0;
     data.buildingIds.forEach((id, i) => {
         const t = source(id)?.tags; if (!t) return;
         const h = data.buildingDimensions?.[i]?.[0] ?? data.buildings[i][1] / 10, minH = data.buildingDimensions?.[i]?.[1] ?? data.buildings[i][2] / 10;
-        if (t['building:part'] && t['building:part'] !== 'no') {
-            sourceParts++;
-            if (Number.isFinite(numeric(t.height)) && numeric(t.height) > 0) { close(h, numeric(t.height), 'literal part height ' + id); explicitHeights++; }
-            if (Number.isFinite(numeric(t.min_height)) && numeric(t.min_height) < h) { close(minH, numeric(t.min_height), 'literal part minimum ' + id); explicitMinima++; }
+        if (t['building:part'] && t['building:part'] !== 'no') sourceParts++;
+        if (Number.isFinite(numeric(t.height)) && numeric(t.height) > 0) { close(h, numeric(t.height), 'literal height ' + id); explicitHeights++; }
+        if (Number.isFinite(numeric(t.min_height)) && numeric(t.min_height) < h) { close(minH, numeric(t.min_height), 'literal minimum ' + id); explicitMinima++; }
+        if (Number.isFinite(numeric(t.height)) && numeric(t.height) <= 0) assert.ok(data.buildingSourceIssues?.[i]?.some(v => v.startsWith('nonpositive OSM height=')), 'nonpositive height remains a source anomaly: ' + id);
+        const canopy = data.buildingCanopies?.[i];
+        if (canopy) {
+            assert.ok(canopy.evidence?.length && canopy.classificationSource, 'canopy classification has an explicit source record');
+            close(h, canopy.topM, 'canopy roof top ' + id); close(minH, canopy.clearanceM, 'canopy underside ' + id);
+            assert.ok(h > minH && minH > 0, 'canopy remains a positive roof band');
+            const body = { x: 0, z: 0, r: 1e6, poly: rings[i], minH, h };
+            const c = rings[i][0];
+            assert.equal(collideBuildings([body], c[0], c[1], 0.1, 0.24), null, 'open canopy keeps ground passage');
+            assert.ok(collideBuildings([body], c[0], c[1], 0.1, minH), 'canopy roof band remains collidable');
         }
     });
     for (const [key, spec] of Object.entries(data.buildingAssemblies || {})) {
         const parent = source(data.buildingIds[key]); assert.ok(parent && !parent.tags?.['building:part']);
         for (const i of spec.parts) {
             assert.ok(source(data.buildingIds[i])?.tags?.['building:part'], 'assembly members are real OSM parts');
-            const ring = rawRing(data.buildingIds[i]), b = box(ring);
+            const ring = rawRing(data.buildingIds[i], i), b = box(ring);
             const candidates = sourceBases.filter(p => b[0] >= p.box[0] - 0.001 && b[1] >= p.box[1] - 0.001 && b[2] <= p.box[2] + 0.001 && b[3] <= p.box[3] + 0.001 && footprintCoverage(p.ring, [ring]).outside <= 0.1);
             assert.deepEqual(candidates.map(p => p.i), [+key], 'raw XML geometry has one unambiguous parent: ' + data.buildingIds[i]);
         }
-        const cov = footprintCoverage(rawRing(data.buildingIds[key]), spec.parts.map(i => rawRing(data.buildingIds[i])));
+        const cov = footprintCoverage(rawRing(data.buildingIds[key], +key), spec.parts.map(i => rawRing(data.buildingIds[i], i)));
         close(cov.outside, spec.sourceOutsideArea, 'recorded raw outside area');
         assert.ok(Math.abs((1 - cov.uncovered / cov.area) - spec.sourceCoverage) < 1e-7, 'raw coverage record remains reproducible');
     }

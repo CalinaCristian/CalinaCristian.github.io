@@ -14,6 +14,8 @@ import { meshSDF, sdEllipsoid, sdCapsule, sdBox, sdSphere, smin, smax, noise3, f
 import { signBoard, railing } from '../props.js';
 import { seaNeedle, seaBackdrop, seaActivity } from './sea-common.js';
 import { addTraffic } from '../cars.js';
+import { photoHunt } from '../photo-hunt.js';
+import { activityFlow } from '../participation.js';
 import { polyCollider, facadeMaterial } from '../osm.js';
 
 const NEEDLE = { x: 0.3, z: 0.7, y: 1.5 };
@@ -91,8 +93,9 @@ function buildNeedle(ctx) {
     // OSM w1136496123: the public approach ends at (-0.7, 18.9),
     // between the south leg pair, outside the pavilion's actual footprint.
     const door = { x: -0.7, z: 18.9 };
-    const cab = N.elevators[0];
+    const cab = N.elevators[0], flow = activityFlow(ctx);
     let ride = null;
+    ctx.extras.needleElevator = { debug: () => ride && { t: ride.t, speed: ride.speed, y0: ride.y0, y1: ride.y1 } };
     const done = (s, id, title, text) => seaActivity(s, id, 'space-needle', title, text);
     ctx.onUpdate((dt, s) => {
         if (!ride) return;
@@ -102,23 +105,34 @@ function buildNeedle(ctx) {
         const ca = Math.cos(cab.a), sa = Math.sin(cab.a), px = NEEDLE.x + ca * 6.6, pz = NEEDLE.z + sa * 6.6;
         const lk = s.input?.takeLook?.() || { dx: 0, dy: 0 }; ride.heading -= lk.dx * 0.0024; ride.pitch = clamp(ride.pitch - lk.dy * 0.0024, -1.3, 1.2);
         s.ctl.rig?.position.set(px, yy + 1.62, pz); s.ctl.rig?.rotation.set(ride.pitch, ride.heading, 0, 'YXZ');
-        if (k >= 1) {
-            const up = ride.y1 > ride.y0; ride = null; cab.pinned = false; s.ctl.active = true;
-            if (up) { s.ctl.y = LOUPE_Y; s.ctl.teleport(NEEDLE.x + ca * 17.4, NEEDLE.z + sa * 17.4, Math.atan2(-ca, -sa)); s.ctl.place?.(); done(s, 'lm-needle-up', '🛗 The Loupe, 500 ft up', 'You are on The Loupe — the world\'s first revolving glass floor. Look down! Stairs lead up to the open-air deck.'); }
-            else { s.ctl.y = y; s.ctl.teleport(door.x, door.z + 1.6, 0); s.ctl.place?.(); }
-        }
+        if (flow.run) { flow.run.progress.value = k; flow.run.status.textContent = `${Math.round(k * 100)}% · ${ride.speed > 1 ? 'Accelerated game ride' : 'Elevator moving'}`; }
+        if (k >= 1) flow.complete();
     });
-    const startRide = (s, up) => { const p = s.ctl.position; ride = { t: 0, speed: 1, y0: up ? y + 1.2 : LOUPE_Y - 1.4, y1: up ? LOUPE_Y - 1.4 : y + 1.2, heading: Math.atan2(Math.cos(cab.a), Math.sin(cab.a)) + Math.PI, pitch: up ? -0.05 : 0.1 }; void p; s.ctl.active = false; s.sound.play('whoosh'); s.ui.toast(up ? '🛗 Going up' : '🛗 Going down', 'The gold elevator cabs climb the outside of the core at 10 mph (E: hurry up).'); };
-    ctx.interactables.push({ kind: 'activity', x: door.x, z: door.z, y, r: 3, label: 'Ride the elevator to The Loupe (41 s)', cond: (s) => !ride && Math.abs(s.ctl.position.y - y) < 1.2, use: (s) => startRide(s, true) });
-    ctx.interactables.push({ kind: 'ride', x: door.x, z: door.z, r: 40, label: 'Hurry the elevator (×4)', noTour: true, cond: () => !!ride && ride.speed === 1, use: () => { ride.speed = 4; } });
-    // on the Loupe: look down through the glass floor (achievement), stairs up to the deck; on the deck: the 360° view
+    const startRide = (s, up) => {
+        const origin = { ...s.position, heading: s.ctl.heading, pitch: s.ctl.pitch }, ca = Math.cos(cab.a), sa = Math.sin(cab.a);
+        flow.begin(s, { title: up ? 'Ride to The Loupe' : 'Return to the plaza', action: 'Hurry the game ride (×4)', cameraRide: true,
+            help: 'Look around while the gold cab moves. Leave returns you to your starting floor without completing the ride.',
+            started(s) { ride = { t: 0, speed: 1, y0: up ? y + 1.2 : LOUPE_Y - 1.4, y1: up ? LOUPE_Y - 1.4 : y + 1.2, heading: Math.atan2(Math.cos(cab.a), Math.sin(cab.a)) + Math.PI, pitch: up ? -.05 : .1 }; s.sound.play('whoosh'); },
+            actioned(s, r) { if (ride) ride.speed = 4; r.busy = true; r.button.textContent = 'Enjoy the view'; },
+            cancel(s) { ride = null; cab.pinned = false; s.ctl.enter(origin.x, origin.z, origin.heading, origin.y); s.ctl.pitch = origin.pitch; s.ctl.place?.(); },
+            complete(s) {
+                ride = null; cab.pinned = false;
+                if (up) { s.ctl.y = LOUPE_Y; s.ctl.teleport(NEEDLE.x + ca * 17.4, NEEDLE.z + sa * 17.4, Math.atan2(-ca, -sa)); s.ctl.place?.(); done(s, 'lm-needle-up', '🛗 The Loupe, 500 ft up', 'You are on The Loupe. Look down through the revolving glass floor.'); }
+                else { s.ctl.y = y; s.ctl.teleport(door.x, door.z + 1.6, 0); s.ctl.place?.(); }
+            },
+        });
+    };
+    ctx.interactables.push({ kind: 'activity', x: door.x, z: door.z, y, r: 3, label: 'Ride the elevator to The Loupe (41 s)', cond: s => s.spot.entry.id === 'space-needle' && !ride && Math.abs(s.ctl.position.y - y) < 1.2, use: s => startRide(s, true) });
+    // On the Loupe, manually frame the downward view through the glass.
     const onLevel = (s, yy) => Math.abs(s.ctl.position.y - yy) < 1.2;
-    ctx.interactables.push({ kind: 'activity', x: NEEDLE.x, z: NEEDLE.z + 17.6, y: LOUPE_Y, r: 3.2, label: 'Look down through the glass floor', cond: (s) => !ride && onLevel(s, LOUPE_Y),
-        use: (s) => { s.ctl.pitch = -1.25; done(s, 'lm-needle-loupe', '👀 500 ft straight down', 'The Loupe\'s glass floor turns once every 45 minutes; you can see the base, the elevators and the cars on 5th Ave.'); } });
-    ctx.interactables.push({ kind: 'stairs', x: NEEDLE.x - 15.6, z: NEEDLE.z, y: LOUPE_Y, r: 2.6, label: 'Take the stairs up to the open-air deck', cond: (s) => !ride && onLevel(s, LOUPE_Y),
-        use: (s) => { s.ctl.y = DECK_Y; s.ctl.teleport(NEEDLE.x - 19.2, NEEDLE.z, -Math.PI / 2); s.ctl.place?.(); done(s, 'lm-needle-360', '🌬️ The open-air deck, 520 ft', 'Lean on the tilted glass: downtown and Mt Rainier to the south, Elliott Bay and the Olympics west, Lake Union north-east.'); } });
-    ctx.interactables.push({ kind: 'stairs', x: NEEDLE.x - 18.4, z: NEEDLE.z, y: DECK_Y, r: 2.4, label: 'Back down to The Loupe', cond: (s) => !ride && onLevel(s, DECK_Y), use: (s) => { s.ctl.y = LOUPE_Y; s.ctl.teleport(NEEDLE.x - 16.6, NEEDLE.z, -Math.PI / 2); s.ctl.place?.(); } });
-    ctx.interactables.push({ kind: 'ride', x: NEEDLE.x + Math.cos(cab.a) * 16.4, z: NEEDLE.z + Math.sin(cab.a) * 16.4, y: LOUPE_Y, r: 3, label: 'Ride the elevator back down', cond: (s) => !ride && onLevel(s, LOUPE_Y), use: (s) => startRide(s, false) });
+    ctx.extras.loupeLook = photoHunt(ctx, { x: NEEDLE.x, z: NEEDLE.z + 17.6, y: LOUPE_Y, r: 3.2, spot: 'space-needle',
+        cond: s => !ride && onLevel(s, LOUPE_Y), title: 'Look down through the glass floor',
+        unavailable: 'The floor below you rotates at its real slow speed.',
+        targets: [{ label: 'The view beneath the revolving glass', x: NEEDLE.x + 1, z: NEEDLE.z + 18.1, y: LOUPE_Y - .04, radius: .18, minDistance: .6, maxDistance: 5, surfaceTolerance: .15, holdSeconds: .75 }],
+        onDone: s => done(s, 'lm-needle-loupe', '👀 Through The Loupe', 'You aimed down through the revolving glass and captured the view. The floor turns once every 45 minutes.') });
+    // No stair access is advertised: the retained model has no walkable stairs
+    // between these levels. The former instant deck-visit award is retired.
+    ctx.interactables.push({ kind: 'ride', x: NEEDLE.x + Math.cos(cab.a) * 16.4, z: NEEDLE.z + Math.sin(cab.a) * 16.4, y: LOUPE_Y, r: 3, label: 'Ride the elevator back down', cond: s => s.spot.entry.id === 'space-needle' && !ride && onLevel(s, LOUPE_Y), use: s => startRide(s, false) });
     return { DECK_Y, LOUPE_Y };
 }
 
@@ -324,6 +338,7 @@ function buildMonorail(ctx) {
     const cars = [];
     for (let i = 0; i < 4; i++) {
         const c = new THREE.Group(), body = new THREE.Mesh(carG, red), band = new THREE.Mesh(new THREE.BoxGeometry(11.2, 0.9, 2.95), win), skirt = new THREE.Mesh(new THREE.BoxGeometry(10.8, 0.9, 2.6), white);
+        c.name = i === 0 ? 'monorail-leading-car' : `monorail-car-${i + 1}`;
         band.position.y = 0.35; skirt.position.y = -1.25; body.castShadow = true; c.add(body, band, skirt); train.add(c); cars.push(c);
     }
     ctx.add(train);
@@ -353,7 +368,7 @@ export default {
         const needle = buildNeedle(ctx);
         const chi = buildChihuly(ctx);
         const mop = buildMoPOP(ctx);
-        buildMonorail(ctx);
+        const monorail = buildMonorail(ctx);
         ctx.osmBackdrop({ paint: {}, style: (b) => MOPOP_PARTS.has(b.id) ? MOPOP_METAL : undefined,
             streetTreeOpts: { spacing: 12, prob: 0.7 }, areaTreeOpts: { conifer: 0.4 } });
         const P = ctx.painter;
@@ -376,11 +391,18 @@ export default {
         // ---- challenges
         ctx.challenge('space-needle', { r: 16, tol: 45, pitch: 60, cond: (s) => s.camera.getWorldDirection(new THREE.Vector3()).y > 0.42, condHint: 'Look straight up the legs.' });
         ctx.challenge('chihuly', { x: chi.cx - 2.5, z: chi.cz + 7, heading: 60, r: 12, tol: 80, pitch: 38, cond: (s) => s.camera.getWorldDirection(new THREE.Vector3()).y > 0.3, condHint: 'Stand inside the Glasshouse and look up through the sculpture.' });
-        // ---- activities (note 57): look up under the Glasshouse sculpture; watch the Monorail pass through MoPOP
-        ctx.interactables.push({ kind: 'activity', x: chi.cx, z: chi.cz, r: 5, label: 'Look up at the suspended sculpture',
-            use: (s) => { s.ctl.pitch = 1.05; seaActivity(s, 'lm-chihuly-glasshouse', 'chihuly', '🌺 Under the Glasshouse', 'About 100 ft of red, orange, yellow and amber blown-glass forms hang from the ridge — Dale Chihuly.'); } });
-        ctx.interactables.push({ kind: 'activity', x: mop.bb.x0 - 8, z: mop.cz + 6, r: 6, label: 'Watch the Monorail pass through MoPOP',
-            use: (s) => { const t = s.spot.ctx.extras.trainPos; if (t && Math.hypot(t.x - mop.cx, t.z - mop.cz) < 70) seaActivity(s, 'lm-mopop-monorail', 'mopop', '🚝 Through the building', 'The 1962 ALWEG Monorail runs right through Gehry\'s MoPOP on its way to Westlake Center.'); else s.ui.toast('🚝 Wait for it…', 'The train follows a shortened scene loop — watch for it in the gap between the blue and silver masses.'); } });
+        // Visitor exercises use actual looking and shutters. Their guide rings
+        // are temporary game aids, not invented museum hardware.
+        ctx.extras.chihulyFraming = photoHunt(ctx, { x: chi.cx + 3, z: chi.cz, spot: 'chihuly', title: 'Frame the suspended sculpture',
+            unavailable: 'Dale Chihuly’s suspended forms are modelled from public descriptions.',
+            targets: [.2, .5, .8].map((t, i) => ({ label: ['North hanging forms', 'Central hanging forms', 'South hanging forms'][i], x: chi.cx - 1, y: chi.y0 + chi.H - 4.6, z: lerp(chi.bb.z0 + 3, chi.bb.z1 - 3, t), radius: .65, surfaceTolerance: 1.2, holdSeconds: .35 })),
+            onDone: s => seaActivity(s, 'lm-chihuly-glasshouse', 'chihuly', '🌺 Glasshouse details framed', 'You framed three parts of Dale Chihuly’s suspended sculpture using your own camera view.') });
+        const lead = monorail.cars[0];
+        ctx.extras.monorailFraming = photoHunt(ctx, { x: 29.6, z: -85.7, spot: 'mopop', title: 'Frame the Monorail passing MoPOP',
+            unavailable: 'Watch from mapped public pedestrian way w394955940. The animated train follows a shortened scene loop.',
+            targets: [{ label: 'The moving leading car at the museum passage', get x() { return lead.position.x; }, get y() { return lead.position.y + .35; }, get z() { return lead.position.z; }, radius: 1.1, featureName: 'monorail-leading-car', surfaceTolerance: .5, holdSeconds: .6,
+                available: () => lead.position.x > 49 && lead.position.x < 100 && lead.position.z > -93 && lead.position.z < -70, waitHint: 'Wait for the train at the passage' }],
+            onDone: s => seaActivity(s, 'lm-mopop-monorail', 'mopop', '🚝 Monorail framed in motion', 'You tracked the moving train at MoPOP and captured it from the public path.') });
         ctx.challenge('mopop', { view: [mop.cx, mop.cz], r: 30, tol: 40, cond: (s) => { const t = s.spot.ctx.extras.trainPos; return t && Math.hypot(t.x - mop.cx, t.z - mop.cz) < 70; }, condHint: 'Wait for the Monorail to pass through the building.' });
         // ---- spawns (research)
         for (const id of ['space-needle', 'chihuly', 'mopop']) { const sp = S[id].spawn; ctx.spawns[id] = { x: sp.x, z: sp.z, heading: headingFromBearing(sp.heading_deg) }; }

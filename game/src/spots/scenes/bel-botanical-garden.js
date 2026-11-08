@@ -12,6 +12,7 @@
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, headingFromBearing, alongPolyline, polylineLength, lerp, smooth, inPoly, polyBox, distPolyline } from '../kit.js';
 import { signBoard } from '../props.js';
+import { activityBlocked } from '../participation.js';
 import { makeWaterMaterial } from '../../water.js';
 import { emitActivity, seasonal, waterPoly, fairyLights, gableRoof, glowText, nightLit } from './bel-common.js';
 
@@ -42,7 +43,7 @@ function suspensionBridge(ctx, pts) {
     ctx.add(b.build('ravine-bridge'));
     // gentle sway while someone walks on it
     ctx.onUpdate((dt, s, pl) => { if (!pl) return; const on = Math.hypot(pl.x - (A.x + B.x) / 2, pl.z - (A.z + B.z) / 2) < L / 2 + 1; const amp = on ? 0.03 * Math.min(1, pl.speed) : 0.006; for (const p of deck.children) { const t = p.userData.t; p.position.y = yAt(t) + Math.sin(s.t * 3 + t * 6) * amp * Math.sin(Math.PI * t); p.rotation.z = Math.sin(s.t * 2.2) * amp * 0.6; } });
-    return { A, B, yaw };
+    return { A, B, yaw, yAt };
 }
 
 export default {
@@ -112,16 +113,31 @@ export default {
             fairyLights(ctx, lanterns, { color: '#ffd38a', size: 0.5, twinkle: 0.05, name: 'yao-lanterns' }); }
         // ---------------------------------------------------------------- activities (note 57)
         // 1) cross the ravine suspension bridge (end to end)
-        let crossFrom = null, crossed = false;
-        ctx.onUpdate((dt, s, pl) => { if (crossed || !pl) return; const dA = Math.hypot(pl.x - bridge.A.x, pl.z - bridge.A.z), dB = Math.hypot(pl.x - bridge.B.x, pl.z - bridge.B.z); if (dA < 3) { if (crossFrom === 'B') { crossed = true; } else crossFrom = 'A'; } if (dB < 3) { if (crossFrom === 'A') crossed = true; else crossFrom = 'B'; } if (crossed) emitActivity(s, 'bel-botanical-garden', 'bridge', '🌉 Across the ravine', 'The Ravine Experience suspension bridge on the Lost Meadow Trail — 15 m above the creek.'); });
+        let crossing = null, crossed = false;
+        const span = Math.hypot(bridge.B.x - bridge.A.x, bridge.B.z - bridge.A.z);
+        ctx.extras.botanicalBridge = { A: bridge.A, B: bridge.B, debug: () => crossing && { ...crossing } };
+        ctx.onUpdate((dt, s, p) => {
+            if (crossed || !p) return;
+            const A = bridge.A, B = bridge.B, t = Math.max(0, Math.min(1, ((p.x - A.x) * (B.x - A.x) + (p.z - A.z) * (B.z - A.z)) / (span * span)));
+            const dA = Math.hypot(p.x - A.x, p.z - A.z), dB = Math.hypot(p.x - B.x, p.z - B.z);
+            if (!s.ctl.active || activityBlocked(s) || Math.abs(p.y - bridge.yAt(t)) > .8 || distPolyline(p.x, p.z, [[A.x, A.z], [B.x, B.z]]).d > 3) { crossing = null; return; }
+            if (crossing) {
+                const delta = Math.hypot(p.x - crossing.previous.x, p.z - crossing.previous.z);
+                if (delta > Math.max(1, dt * 6)) { crossing = null; return; }
+                crossing.walked += delta; crossing.previous = { x: p.x, z: p.z };
+                if ((crossing.from === 'A' ? dB : dA) < 3 && crossing.walked >= span - 6) {
+                    crossed = true; crossing = null;
+                    emitActivity(s, 'bel-botanical-garden', 'bridge', '🌉 Across the ravine', 'You walked the modelled suspension bridge continuously from one end to the other.');
+                }
+            } else if (dA < 3 || dB < 3) crossing = { from: dA < dB ? 'A' : 'B', walked: 0, previous: { x: p.x, z: p.z } };
+        });
         ctx.interactables.push({ kind: 'activity', x: bridge.A.x, z: bridge.A.z, r: 3, label: 'Cross the ravine suspension bridge', use: (s) => s.ui.toast('🌉 Ravine Experience', 'Walk across to the far end — it sways a little.') });
-        // 2) read five plant labels (real garden rooms from OSM)
+        // 2) virtual trail notes at mapped garden rooms. Source names do not
+        // establish specimen labels or physical sign hardware at these points.
         const LABELS = [['Perennial Border', 'r19655849', 'Northwest Perennial Alliance border — hardy geraniums, asters, sedums'], ['Yao Garden', 'w32121704', 'Japanese maple (Acer palmatum) — sister city Yao, Japan'], ['Fuchsia Garden', 'r19658437', 'Hardy fuchsias (Fuchsia magellanica)'], ['Rhododendron Glen', 'r19675946', 'Rhododendrons — Washington\'s state flower is the coast rhododendron'], ['Native Discovery Garden', 'r19676251', 'Sword fern (Polystichum munitum) and Oregon grape'], ['Waterwise Garden', 'r19674922', 'Drought-tolerant lavender, rockrose and grasses'], ['Rock Garden', 'r19795610', 'Alpine plants among granite boulders']];
-        const read = new Set(), lb = new GeoBatch();
-        for (const [name, id, text] of LABELS) { const p = area(id); if (!p) continue; let best = null; for (const w of d.ways) { if (!['footway', 'path'].includes(w.k)) continue; for (const [x, z] of w.pts) if (inPoly(x + 1.2, z, p) || Math.hypot(x - cen(p).x, z - cen(p).z) < 25) { const dd = Math.hypot(x - cen(p).x, z - cen(p).z); if (!best || dd < best.d) best = { x: x + 1.2, z, d: dd }; } } const q = best || cen(p), y = g.heightAt(q.x, q.z);
-            lb.box(q.x, y, q.z, 0.06, 0.7, 0.06, '#3a3a36', 'metal'); lb.box(q.x, y + 0.7, q.z, 0.4, 0.04, 0.28, '#2f3a2b', 'metal', 0, -0.5); ctx.circle(q.x, q.z, 0.1, 0.8);
-            ctx.interactables.push({ kind: 'plant', x: q.x, z: q.z, r: 2, label: `Read the plant label: ${name}`, use: (s) => { read.add(name); s.ui.toast(`🌿 ${name} (${read.size}/5)`, text); if (read.size === 5) emitActivity(s, 'bel-botanical-garden', 'plants', '🌿 Five plants named', 'You read five labels across the garden rooms — 53 acres, free, dawn to dusk.'); } }); }
-        ctx.add(lb.build('plant-labels'));
+        const read = new Set();
+        for (const [name, id, text] of LABELS) { const p = area(id); if (!p) continue; let best = null; for (const w of d.ways) { if (!['footway', 'path'].includes(w.k)) continue; for (const [x, z] of w.pts) if (inPoly(x + 1.2, z, p) || Math.hypot(x - cen(p).x, z - cen(p).z) < 25) { const dd = Math.hypot(x - cen(p).x, z - cen(p).z); if (!best || dd < best.d) best = { x: x + 1.2, z, d: dd }; } } const q = best || cen(p);
+            ctx.interactables.push({ kind: 'plant', x: q.x, z: q.z, r: 2, source: id, label: `Virtual garden trail note: ${name}`, use: (s) => { read.add(name); s.ui.toast(`🌿 Virtual trail: ${name} (${read.size}/5)`, text); if (read.size === 5) emitActivity(s, 'bel-botanical-garden', 'plants', '🌿 Five virtual trail notes', 'You visited five mapped garden rooms and recorded their virtual guide notes. These notes do not claim physical specimen labels.'); } }); }
         // plaques
         const PL = sp.plaques, pbo = area('r19655849') ? cen(area('r19655849')) : { x: -70, z: -17 };
         ctx.plaque(PL[0], vc.x + 4, vc.z + 4, Math.PI); ctx.plaque(PL[1], pbo.x + 14, pbo.z - 8, 0.4); ctx.plaque(PL[2], yg.x - 20, yg.z, -Math.PI / 2); ctx.plaque(PL[3], vc.x - 3, vc.z + 4, Math.PI);

@@ -20,3 +20,13 @@ node game/dev/harness/integration-asymmetric-poses.cjs SNAPSHOT_ROOT /tmp/asymme
 ```
 
 Chromium launches are muted and use SwiftShader. No physical hardware FPS or iPhone equivalence is claimed. Mandatory all-eight-source logic, native UI, evolving population soak and repeated-world memory checks remain pending the final integration freeze. Root owns README/spec consolidation and deployment.
+
+## QA lane placement follow-up
+
+The controller's explicit-edge placement, autopilot paths, elevated-road audit samples and visual capture poses now use the same signed shift and shared physical centre. This is a test-fixture correction: no detector tolerance or runtime surface changed. The visual planner dependency is original-districts commit `f5eaf47` (local cherry-pick `28bf5f6`), which retains unreachable source endpoints as diagnostics.
+
+The combined command below passes **25 Node tests**, including the planner's separate **31 internal controls**. The added controller test checks the measured centres 8.5, 5.5, 2.5 and −0.5 m on an unequal-direction road, plus the single +1 m shared centre in both directions. It exercises actual `Harness.placeOnRoad` and `Harness.buildPath`, with absent-shift legacy controls.
+
+```sh
+node --test game/dev/integration-asymmetric-lanes.test.mjs game/dev/shared-lanes.test.mjs game/dev/vehicle-lanes.test.mjs game/dev/harness/visual/street-sweeps.test.mjs
+```

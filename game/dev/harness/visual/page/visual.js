@@ -9,6 +9,7 @@ import { geometryDetectors, makeCorridor, ribbonModel } from './geometry.js';
 import { polyMask, analyseRoad, skyColour, zfightDiff } from './pixels.js';
 import { uiChecks } from './ui.js';
 import { planStreetSweeps, sweepSampleDistances } from './street-sweeps.js';
+import { laneOff } from '../../page/util.js';
 
 const g = window.game;
 const SEV = { high: 0, medium: 1, low: 2 };
@@ -17,7 +18,6 @@ const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const nameOf = (e) => !e ? '' : (e.name || e.ref || (e.type ? `(${e.type})` : 'unnamed road'));
 const canTravel = (e, d) => d > 0 ? (e.lanesF ?? e.lanes ?? 1) > 0 : !e.oneway && (e.lanesB ?? e.lanes ?? 1) > 0;
-const laneOff = (e, lane = 0) => (e.median ?? (e.tram ? 4.4 : 0)) / 2 + (e.laneW ?? 3.3) * (lane + 0.5);
 
 const S = {
     opts: { quality: 'medium', far: 0, time: 'day', weather: 'clear', traffic: false, trafficSteps: 12, every: 40, lookEvery: 200, aerialEvery: 200, zEvery: 3, aerial: true, looks: true, size: 120, pr: 0.5 },
@@ -243,7 +243,7 @@ function sampleRoute(spec) {
     const segs = [];
     for (let i = 0; i < P.length - 1; i++) {
         const leg = L[i]; let ox = 0, oz = 0;
-        if (leg?.e) { const off = laneOff(leg.e, 0); ox = leg.e.nx * leg.dir * off; oz = leg.e.nz * leg.dir * off; }
+        if (leg?.e) { const off = laneOff(leg.e, 0, leg.dir); ox = leg.e.nx * leg.dir * off; oz = leg.e.nz * leg.dir * off; }
         segs.push([P[i][0] + ox, P[i][1] + oz, P[i + 1][0] + ox, P[i + 1][1] + oz, leg]);
     }
     const pts = [[segs[0][0], segs[0][1]]], legOf = [];

@@ -10,6 +10,7 @@ import { polyMask, analyseRoad, skyColour, zfightDiff } from './pixels.js';
 import { uiChecks } from './ui.js';
 import { planStreetSweeps, sweepSampleDistances } from './street-sweeps.js';
 import { laneOff } from '../../page/util.js';
+import { frameOfficeSign } from './office-sign-frame.js';
 
 const g = window.game;
 const SEV = { high: 0, medium: 1, low: 2 };
@@ -573,11 +574,16 @@ async function offices() {
             const c = grab(g.renderer.domElement.width, g.renderer.domElement.height);
             const sh = sheet(`offices-${g.city.id}`, { title: `${g.city.id} · office lobbies (entrance view + lobby sign close-up)` });
             await sh.add(c, `${stop.id} · ${stop.company || ''}`, `${stop.role || ''} · ${stop.period || ''}`);
-            // close-up of the lobby sign (back wall, ~8 m away): text cut / overflowing the sign shows here
+            // Use the actual sign plane: Rosetti's scaled sign is on a side wall.
+            let framed;
             try {
-                if (o.camRig) { o.camRig.position.set(0, 1.75, -9); o.camRig.rotation.set(0.12, 0, 0); o.camRig.updateMatrixWorld(true); S.renderNow = true; try { o.render(); } finally { S.renderNow = false; } }
+                framed = frameOfficeSign(o);
+                if (!framed.proof.fits) throw new Error('Actual sign corners do not fit the viewport');
+                S.renderNow = true; try { o.render(); } finally { S.renderNow = false; }
                 await sh.add(grab(g.renderer.domElement.width, g.renderer.domElement.height), `${stop.id} · lobby sign close-up`, `${stop.company || ''}`);
-            } catch (e) { note('office sign ' + stop.id + ': ' + e.message); }
+                (S.officeSignFrames ||= []).push({ stop: stop.id, ...framed.proof });
+            } catch (e) { note('office sign ' + stop.id + ': ' + e.message); issue('office-sign-capture', 'medium', 'Actual office sign close-up is incomplete: ' + e.message, { stop: stop.id }, { key: 'office-sign|' + stop.id }); }
+            finally { framed?.restore(); }
             g.leaveOffice();
             out.push(stop.id);
         } catch (e) { note('office ' + stop.id + ': ' + e.message); try { if (g.state === 'office') g.leaveOffice(); } catch { /* ignore */ } }

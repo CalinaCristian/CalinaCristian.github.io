@@ -57,6 +57,10 @@ Pitfalls found the hard way (each one shipped a visible bug)
 - Frame budget: measured trees dominate (≈ 85 triangles each, near LOD far more), parked cars ≈ 260 each; keep both inside
   the culling radii set for districts in world.js and thin the scenery ring, not the playable streets.
 - Do not use a variable before it is defined in `buildWorld` (TDZ error = the game does not boot): `data` is loaded after `distId`.
+- OSM grounds / landuse polygons are often drawn to the street centre line: anything built along their edge (fences, hedges)
+  must be snapped to the property line on the grounds' side (`inside`), never to the nearest side (the Rosetti fence jumped
+  Garibaldi). The largest building inside a named amenity gets its name as a sign: drop it when a landmark carries the sign.
+- Fine wires / pickets / nets: thin two-sided strips in `c.detail` (no shadow pass), never boxes: the frame budget.
 
 Owner preferences (from play-test feedback)
 - Reality first: real footprints, heights, roof shapes / colours, shops, trees, parked cars; nothing empty or dead, including

@@ -113,6 +113,14 @@ What the builder / world now do (so the next district gets it for free)
   fences / hoops / pool copings, villa plaster palette, plain balconies on low blocks, lighter ring parking lots.
 - Landmarks: model big sports venues from their OSM outline + aerial layout (Stadionul Dinamo `bDinamo`: track, terraced bowl
   following the outline, sector profiles, covered main stand, masts, scoreboard).
+- Landmark grounds (2026-11-08, Rosetti): a landmark can hand the world `fences` (`line`/`ring`, `inside` = the grounds
+  polygon, `gates`, `style` 'bars' | 'mesh', `h`, `plinth: 'arches'`), `covers` (points: the OSM buildings it replaces) and
+  `grounds` (its own surfaces: no trees there). The world keeps every fence point off carriageways and sidewalks on the
+  grounds' side of the street (OSM drew the Rosetti grounds' east edge on the Garibaldi centre line, so the fence had jumped
+  the street). Rosetti now: salmon spandrel bands + wide windows, fire-escape stair, the sports hall (w545176891, ≈ 12.5 m
+  from the aerial, yellow cladding, dark flat roof), the unmapped sports ground measured on the aerial (turf pitch, two red
+  courts, blue surround), welded mesh on Garibaldi / Verdi (tall by the sports ground), bars on a painted plinth on Bizet;
+  the school's OSM name no longer puts a second sign on the hall.
 
 Floreasca facts measured / observed (for whoever continues here)
 - Core around 44.4645, 26.1045: long 4-storey (P+3) flat-roofed 1950s–60s blocks with dark bitumen roofs, plain balconies; red-

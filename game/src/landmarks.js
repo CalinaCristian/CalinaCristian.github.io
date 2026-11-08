@@ -199,7 +199,7 @@ function M(x = 0, y = 0, z = 0, ry = 0, sx = 1, sy = 1, sz = 1, rx = 0, rz = 0) 
 }
 
 class Builder {
-    constructor(hs = 1) { this.hs = hs; this.wall = null; this.bk = {}; this.cols = []; this.extras = []; this.stack = [new THREE.Matrix4()]; this.ox = 0; this.oz = 0; }
+    constructor(hs = 1) { this.hs = hs; this.wall = null; this.bk = {}; this.cols = []; this.extras = []; this.fences = []; this.covers = []; this.grounds = []; this.stack = [new THREE.Matrix4()]; this.ox = 0; this.oz = 0; }
     /** translate everything that follows by (dx, dz) model metres (lets a builder keep its source coordinates when its anchor moves) */
     shift(dx, dz) { this.ox = dx; this.oz = dz; return this; }
     _b(mat) { return this.bk[mat] || (this.bk[mat] = { p: [], n: [], c: [] }); }
@@ -2081,6 +2081,7 @@ const P2 = {
     // CV-stop buildings (round 5), OSM API geometry 2026-11-07, model frame = bbox centre (+x east, +z south)
     gts: [[7,-9.5,4,-10,4,-11.5,1.5,-11.5,1.5,-13.5,-2.5,-15,-6.82,12.81,-5.81,14.11,3.5,15]],   // street-west corner canted at 45° (photos)                       // w245117704 Calea Călărașilor 101 (LMI B-II-m-B-18379), bbox centre 44.433441, 26.1176015
     rosetti: [[-16.5,-29,26.5,-18.5,14.5,29,-26.5,19,-23.5,7.5,5,14.5,11,-10,-19,-17.5]],            // w28240279 Liceul C.A. Rosetti, Garibaldi 11 (3 levels), bbox centre 44.4671565, 26.106133
+    rosettiHall: [[-22.5,-81.5,23,-71.2,15.9,-40,-29.6,-50.3]],                                      // w545176891 the school's sports hall (OSM building=yes, no tags), same frame
     bob: [[-72.5,-3.5,-46,56,72.5,3.5,46,-56,-11,-30.5,-12,-30]],                                    // w55450549 BOB Tower, Pompeiu 6A, bbox centre 44.479608, 26.1147802
     rectorat: [[-16.5,-29,28.5,-17.5,22,8.5,17,29,-28.5,17,-23.5,-4,-19,-20.5]],                     // w28240552 Rectorat UPB (5 levels), bbox centre 44.438429, 26.0515105
     halatraian: [[-10,-20,-14,17,10,20,12,1.5,14,-17]], // w35147215 (anchor 44.4333566, 26.120567)
@@ -2523,18 +2524,18 @@ function bGTS(b) {
 // Src: game/research/bucharest-floreasca.md (rosetti, w28240279 row) ; OSM w28240279
 function bRosetti(b) {
     // (round 5) public photo of the school (bucharest.ro listing; viewed only, not kept): 3 storeys, beige textured render,
-    // wide white PVC windows each sitting on an ORANGE spandrel panel, low red standing-seam hipped roof with eaves,
-    // small entrance porch with a flat canopy, asphalt yard with court markings.
-    const [p] = P2.rosetti.map(pts), W = '#e3d7b5', OR = '#e58b3a', FR = '#f6f6f2', GL = '#4c5660', RF = '#b8333a';
+    // wide white PVC windows, low red standing-seam hipped roof with eaves, small entrance porch with a flat canopy.
+    // (2026-11-08, owner: "use Street View and model it perfectly", compared side by side on Garibaldi / Bizet / Verdi)
+    // the facade reads as horizontal bands: wide white windows in rows, muted salmon spandrels between the rows and under
+    // the ground-floor windows, cream piers and frieze; a steel fire-escape stair on the Garibaldi face.
+    const [p] = P2.rosetti.map(pts), W = '#e9e0c6', SA = '#f0cfbd', FR = '#f6f6f2', GL = '#4c5660', RF = '#b8333a', ST = '#b4babb';
     b.wall = W;
     b.prism(p, 0, 11.3, W, { top: false });
     b.prism(offset(p, 0.06), 0, 0.55, '#a7a49b', { top: false });                             // plinth
-    // (after round 6, owner: "looks bad") no orange panel under every window: cream render with string courses between the
-    // floors, white frames, a soft terracotta band at the plinth only
-    for (const y of [3.75, 7.35]) b.prism(offset(p, 0.05), y, y + 0.22, '#d6c9a4', { top: false });               // string courses
-    b.prism(offset(p, 0.07), 0.55, 1.05, '#c78a63', { top: false });                                             // terracotta base band
-    b.windows(p, 1.35, 11.3, 3.6, FR, { bay: 3.4, wf: 0.36, hf: 0.42, start: 0, minL: 4, off: 0.08 });          // white frames
-    b.windows(p, 1.35, 11.3, 3.6, GL, { bay: 3.4, wf: 0.3, hf: 0.36, start: 0.1, minL: 4, off: 0.11, mat: 'g' }); // glazing
+    for (const [y0, y1] of [[0.55, 1.2], [3.15, 4.8], [6.75, 8.4]]) b.prism(offset(p, 0.04), y0, y1, SA, { top: false });   // salmon spandrels
+    b.windows(p, 1.2, 11.3, 3.6, FR, { bay: 3.2, wf: 0.8, hf: 0.54, start: 0, minL: 4, off: 0.08 });            // white frames
+    b.windows(p, 1.2, 11.3, 3.6, GL, { bay: 3.2, wf: 0.74, hf: 0.48, start: 0.1, minL: 4, off: 0.11, mat: 'g' }); // glazing
+    b.windows(p, 1.2, 11.3, 3.6, FR, { bay: 1.07, wf: 0.07, hf: 0.48, start: 0.1, minL: 4, off: 0.13 });         // mullions (3 lights per window)
     // low red standing-seam hipped roof with eaves (over the U plan)
     const lo = offset(p, 0.6), hi = offset(p, -4.6), y0 = 11.3, y1 = 13.4;
     for (let i = 0; i < lo.length; i++) { const j = (i + 1) % lo.length; b.quad([lo[i][0], y0, lo[i][1]], [lo[j][0], y0, lo[j][1]], [hi[j][0], y1, hi[j][1]], [hi[i][0], y1, hi[i][1]], RF, 'm', [lo[i][0] - hi[i][0], 1.5, lo[i][1] - hi[i][1]]); }
@@ -2543,28 +2544,64 @@ function bRosetti(b) {
     { const x = f.x + f.nx * 1.6, z = f.z + f.nz * 1.6, ry = Math.atan2(f.nx, f.nz); b.box(x, 0, z, 4.2, 3.4, 3.2, W, { ry }); b.box(x + f.nx * 0.2, 3.4, z + f.nz * 0.2, 4.8, 0.25, 3.8, '#e9e6de', { ry }); }   // entrance porch
     entrance(b, { x: f.x + f.nx * 3.2, z: f.z + f.nz * 3.2, nx: f.nx, nz: f.nz }, { w: 1.8, h: 2.5, frame: '#ece9e2', door: '#7a8a92', plate: { w: 1.2, h: 0.7, y: 1.2, bg: '#1d4f91', lines: [['LICEUL TEORETIC', 0.08, '#ffffff'], ['C.A. ROSETTI', 0.13, '#ffffff']] } });
     { const x = f.x + f.nx * 3.4 - f.nz * 1.6, z = f.z + f.nz * 3.4 + f.nx * 1.6; b.cyl(x, 2.6, z, 0.03, 0.03, 1.8, '#d8d8d8', 5, { rz: 0.5 }); flag(b, x + 0.4, 4.4, z, 1.1); }
+    // steel fire-escape stair on the Garibaldi face, north of the entrance: landings at each floor, flights between, cage rails
+    { const e = nearestFacade(p, 30, -6), ry = Math.atan2(e.nx, e.nz), tx = -e.nz, tz = e.nx, o = 1.25;
+        const at = (u, v) => [e.x + e.nx * v + tx * u, e.z + e.nz * v + tz * u];
+        for (const t of [0.04, 0.96]) { for (const u of [-1.3, 1.3]) { const [x, z] = at(u, o + (t - 0.5) * 2.3); b.box(x, 0, z, 0.07, 11.1, 0.07, ST, { ry }); } }
+        for (let k = 1; k <= 3; k++) { const y = k * 3.6 - 0.1, [x, z] = at(0, o); b.box(x, y, z, 2.7, 0.08, 2.3, ST, { ry }); const [rx, rz] = at(0, o + 1.12); b.box(rx, y + 1.0, rz, 2.7, 0.05, 0.05, ST, { ry }); }
+        for (let k = 0; k < 3; k++) { const ya = k * 3.6, yb = ya + 3.5, u0 = k % 2 ? 1.2 : -1.2, [x, z] = at(0, o - 0.45), sl = Math.atan2(yb - ya, 2.4);
+            b.box(x, (ya + yb) / 2 - 0.05, z, 2.4 / Math.cos(sl), 0.08, 0.9, ST, { ry, rz: (u0 > 0 ? 1 : -1) * sl });
+            const [hx, hz] = at(0, o - 0.02); b.box(hx, (ya + yb) / 2 + 0.95, hz, 2.4 / Math.cos(sl), 0.05, 0.05, ST, { ry, rz: (u0 > 0 ? 1 : -1) * sl }); } }   // flights + handrails
     b.colPoly([p], 8);
-    // school grounds (OSM w253216276): fenced yard — iron bars on a low concrete plinth, the gate on Garibaldi in front of
-    // the entrance — with an asphalt sports court north of the building (research: "school yard with fence and gate on
-    // Garibaldi"; OSM has no barrier mapped). Owner note after round 6.
+    // the school's sports hall (OSM w545176891, building=yes without tags; the world hides that footprint): one tall
+    // volume measured on the aerial imagery (south facade seen obliquely: ≈ 12.5 m, scaled on the school's 11.3 m wall;
+    // dark flat roof #52615c; yellow cladding over a grey band), a salmon single-storey entrance block on the yard side.
+    { const [h] = P2.rosettiHall.map(pts), HY = '#e2c64a', HG = '#c9cbc6', HL = '#8e9494';
+        b.prism(h, 0, 12.3, HG, { top: false });
+        b.prism(offset(h, 0.05), 7.4, 12.1, HY, { top: false });                                 // yellow cladding
+        for (let y = 4.4; y < 7.2; y += 0.32) b.prism(offset(h, 0.06), y, y + 0.12, HL, { top: false });   // louvre slats
+        b.prism(offset(h, 0.12), 12.1, 12.5, '#a9adab', { top: false }); b.cap(h, 12.45, '#52615c');   // flashing + dark flat roof
+        for (let i = 0; i < h.length; i++) { const [ax, az] = h[i], [bx, bz] = h[(i + 1) % h.length], L = Math.hypot(bx - ax, bz - az), n = Math.round(L / 1.2);   // cladding seams
+            const ux = (bx - ax) / L, uz = (bz - az) / L, nx = uz, nz = -ux, ry = Math.atan2(ux, uz);
+            for (let k = 1; k < n; k++) { const x = ax + ux * L * k / n + nx * 0.1, z = az + uz * L * k / n + nz * 0.1; b.box(x, 7.4, z, 0.04, 4.7, 0.04, '#cdb23d', { ry }); } }
+        const g = nearestFacade(h, 40, -60), ry = Math.atan2(g.nx, g.nz), tx = -g.nz, tz = g.nx;   // east face (the yard on Garibaldi)
+        { const x = g.x + g.nx * 2.4, z = g.z + g.nz * 2.4; b.box(x, 0, z, 13, 4.2, 4.8, SA, { ry }); b.box(x, 4.2, z, 13.4, 0.3, 5.1, '#d9d4c8', { ry });
+            b.box(x + g.nx * 2.42, 0.6, z + g.nz * 2.42, 12.2, 2.0, 0.04, '#4f5a60', { ry, mat: 'g' }); }   // salmon entrance block with its glazing
+        entrance(b, { x: g.x + g.nx * 4.85 + tx * 3.5, z: g.z + g.nz * 4.85 + tz * 3.5, nx: g.nx, nz: g.nz }, { w: 1.8, h: 2.4, frame: '#e9e6de', door: '#5f6b72' });
+        b.colPoly([h], 12); }
+    b.covers.push([-3.3, -60.7]);                                                            // the hall's OSM footprint
+    // school grounds (OSM w253216276): drawn by the world (it knows the streets), always kept on the grounds' side of a street
+    // (OSM draws the east edge on the Garibaldi centre line; 2026-11-08, owner: "the fence is on the street"). Compared with
+    // Street View: welded-mesh panels on Garibaldi and Verdi, black bars on a painted plinth along Bizet; the gate on Garibaldi
+    // in front of the entrance. The invented asphalt court is gone (the hall stands there).
     const G = pts([-32.1, 33.3, -29.3, 20.5, -61.1, 12.4, -56.6, -5.2, -78.1, -10.1, -71.1, -37, -45.8, -31.2, -34.3, -74.7, -28.7, -94.3, -8.8, -89.6, -1.2, -121.5, 53.8, -156.9, 67.7, -154.4, 60.2, -119.4, 24.1, 46]);
-    const gx = f.x + f.nx * 12, gz = f.z + f.nz * 12; // the gate: where the entrance axis meets the fence
-    for (let i = 0; i < G.length; i++) {
-        const [ax, az] = G[i], [bx, bz] = G[(i + 1) % G.length], L = Math.hypot(bx - ax, bz - az), ux = (bx - ax) / L, uz = (bz - az) / L, ry = Math.atan2(-uz, ux);
-        // gap for the gate (5 m) on the segment closest to the entrance axis
-        const t0 = Math.max(0, Math.min(L, (gx - ax) * ux + (gz - az) * uz)), dg = Math.hypot(ax + ux * t0 - gx, az + uz * t0 - gz);
-        const runs = dg < 9 ? [[0, t0 - 2.5], [t0 + 2.5, L]] : [[0, L]];
-        for (const [s0, s1] of runs) { if (s1 - s0 < 0.5) continue; const l = s1 - s0, cx = ax + ux * (s0 + l / 2), cz = az + uz * (s0 + l / 2);
-            b.box(cx, 0, cz, l, 0.45, 0.28, '#a9a59c', { ry });                                                     // plinth
-            b.box(cx, 1.95, cz, l, 0.06, 0.06, '#2e3438', { ry }); b.box(cx, 0.75, cz, l, 0.05, 0.05, '#2e3438', { ry });   // rails
-            for (let t = s0 + 0.2; t < s1; t += 0.42) b.box(ax + ux * t, 0.45, az + uz * t, 0.035, 1.6, 0.035, '#2e3438', { ry });
-            for (let t = s0; t <= s1 + 0.01; t += 2.6) b.box(ax + ux * Math.min(t, s1), 0, az + uz * Math.min(t, s1), 0.12, 2.1, 0.12, '#2e3438', { ry }); // posts
-            b.colSeg(ax + ux * s0, az + uz * s0, ax + ux * s1, az + uz * s1, 0.2); }
-        if (dg < 9) for (const sg of [-1, 1]) { const px = ax + ux * (t0 + sg * 2.5), pz = az + uz * (t0 + sg * 2.5); b.box(px, 0, pz, 0.45, 2.4, 0.45, '#cfc8b8', { ry }); } // gate pillars
-    }
-    { const cx = 12, cz = -78, ry = -0.21; b.box(cx, 0.02, cz, 30, 0.04, 17, '#4a4d50', { ry });                           // asphalt court
-      for (const [w, d, dx, dz] of [[28, 0.12, 0, -7.5], [28, 0.12, 0, 7.5], [0.12, 15, -14, 0], [0.12, 15, 14, 0], [0.12, 15, 0, 0]]) { const c = Math.cos(ry), sn = Math.sin(ry); b.box(cx + dx * c + dz * sn, 0.05, cz - dx * sn + dz * c, w, 0.02, d, '#f1efe8', { ry }); }
-      for (const sg of [-1, 1]) { const c = Math.cos(ry), sn = Math.sin(ry), x = cx + sg * 13.2 * c, z = cz - sg * 13.2 * sn; b.box(x, 0, z, 0.12, 3.05, 0.12, '#d9d9d9', { ry }); b.box(x - sg * 0.5 * c, 2.9, z + sg * 0.5 * sn, 0.05, 1.05, 1.8, '#f4f4f4', { ry }); } } // basketball posts + boards
+    const gx = f.x + f.nx * 12, gz = f.z + f.nz * 12, M = [50.5, -75]; // the gate: where the entrance axis meets the fence; M: Garibaldi, level with the hall
+    b.fences.push({ line: [G[9], G[10], G[11], G[12], G[13], M], inside: G, style: 'mesh', h: 3.6 });                 // tall: round the sports ground
+    b.fences.push({ line: [M, G[14]], inside: G, gates: [{ x: gx, z: gz, w: 5 }], style: 'mesh' });                     // the school front
+    b.fences.push({ line: [G[14], G[0]], inside: G, style: 'bars', plinth: 'arches' });                                // Bizet
+    b.fences.push({ line: G.slice(0, 10), inside: G, style: 'mesh' });                                                 // the neighbours
+    // the sports ground between the hall and Verdi (not mapped in OSM; measured on the aerial mosaic, 2026-11-08): a blue
+    // tartan surround, an artificial-turf mini-football pitch (≈ 22 × 39 m) with a red court at its north end, and a second
+    // red court to the west of it
+    { const lineQ = (a, c, w, y, col) => { const dx = c[0] - a[0], dz = c[1] - a[1], L = Math.hypot(dx, dz) || 1, nx = -dz / L * w / 2, nz = dx / L * w / 2;
+            b.quad([a[0] + nx, y, a[1] + nz], [c[0] + nx, y, c[1] + nz], [c[0] - nx, y, c[1] - nz], [a[0] - nx, y, a[1] - nz], col, 'm', [0, 1, 0]); };
+        const outline = (q, y, col, w = 0.1) => { for (let i = 0; i < q.length; i++) lineQ(q[i], q[(i + 1) % q.length], w, y, col); };
+        const mid = (a, c, t = 0.5) => [a[0] + (c[0] - a[0]) * t, a[1] + (c[1] - a[1]) * t];
+        const turf = pts([28.8, -127.7, 50.9, -122.6, 43.3, -84.8, 21.2, -89.9]), north = pts([30.8, -143.6, 55.3, -137.2, 50.9, -122.6, 28.8, -127.7]);
+        const west = pts([0.8, -119, 19.8, -115.6, 19.4, -91, 0.4, -94.6]);
+        const track = offset([north[0], north[1], turf[2], turf[3]], 3.2);
+        b.cap(track, 0.06, '#3f6fb0'); b.cap(turf, 0.09, '#3f8a3a'); b.cap(north, 0.09, '#c4553d'); b.cap(west, 0.07, '#c4553d');
+        const tin = offset(turf, -0.9); outline(tin, 0.12, '#f2f2ee');
+        const h0 = mid(tin[0], tin[3]), h1 = mid(tin[1], tin[2]); lineQ(h0, h1, 0.1, 0.12, '#f2f2ee');                    // halfway line
+        { const cx = (h0[0] + h1[0]) / 2, cz = (h0[1] + h1[1]) / 2; for (let k = 0; k < 20; k++) { const a0 = k / 20 * Math.PI * 2, a1 = (k + 1) / 20 * Math.PI * 2; lineQ([cx + 3 * Math.cos(a0), cz + 3 * Math.sin(a0)], [cx + 3 * Math.cos(a1), cz + 3 * Math.sin(a1)], 0.1, 0.12, '#f2f2ee'); } }
+        for (const [e0, e1, s0, s1] of [[tin[0], tin[1], tin[3], tin[2]], [tin[3], tin[2], tin[0], tin[1]]]) {             // penalty areas (6 m deep, 12 m wide)
+            const L = Math.hypot(e1[0] - e0[0], e1[1] - e0[1]), a = mid(e0, e1, 0.5 - 6 / L), c = mid(e0, e1, 0.5 + 6 / L), d0 = mid(e0, s0, 6 / Math.hypot(s0[0] - e0[0], s0[1] - e0[1])), dz = [d0[0] - e0[0], d0[1] - e0[1]];
+            const a2 = [a[0] + dz[0], a[1] + dz[1]], c2 = [c[0] + dz[0], c[1] + dz[1]]; lineQ(a, a2, 0.1, 0.12, '#f2f2ee'); lineQ(a2, c2, 0.1, 0.12, '#f2f2ee'); lineQ(c2, c, 0.1, 0.12, '#f2f2ee');
+            const gm = mid(e0, e1), ux = (e1[0] - e0[0]) / L, uz = (e1[1] - e0[1]) / L, ry = Math.atan2(ux, uz);           // a small goal on the goal line
+            for (const sg of [-1, 1]) b.box(gm[0] + ux * sg * 1.5, 0.09, gm[1] + uz * sg * 1.5, 0.08, 2.0, 0.08, '#f4f4f4');
+            b.box(gm[0], 2.05, gm[1], 0.08, 0.08, 3.08, '#f4f4f4', { ry }); }
+        for (const q of [north, west]) { const qi = offset(q, -1.2); outline(qi, 0.11, '#f2f2ee'); lineQ(mid(qi[0], qi[3]), mid(qi[1], qi[2]), 0.1, 0.11, '#f2f2ee'); }
+        b.grounds.push(track, west); }
 }
 
 // BOB / "BOB Tower" (Globalworth, Bd. Dimitrie Pompeiu 6A, 2008; DB Global Technology 2017 CV stop) — OSM w55450549;
@@ -3024,5 +3061,12 @@ export function buildLandmark(lm, ctx = {}) {
         const x = q.x * hs, z = q.z * hs;
         return { x: x * c + z * s, z: -x * s + z * c, hw: q.hw * hs, hd: q.hd * hs, angle: lm.rotation + q.angle };
     });
-    return { mesh: group, clear: hs === 1 ? lm.radiusM : lm.footprintRadius, clearM: lm.radiusM, collision, triangles: tris, authoredScale: hs };
+    // fences the world draws (it knows the streets): {ring|line in world axes relative to the anchor, closed, gates, style}
+    //  `inside`: the grounds polygon (the fence is kept on its side of a street); `covers`: points of OSM buildings the model
+    //  replaces (the world hides the footprint under each point, e.g. the school's sports hall)
+    const rot = ([x0, z0]) => { const x = x0 * hs, z = z0 * hs; return [x * c + z * s, -x * s + z * c]; };
+    const fences = lm.backdrop ? [] : b.fences.map(f => ({ ...f, ring: (f.ring || f.line).map(rot), inside: f.inside ? f.inside.map(rot) : null,
+        gates: (f.gates || []).map(g => ({ ...g, x: g.x * hs * c + g.z * hs * s, z: -g.x * hs * s + g.z * hs * c })) }));
+    const covers = lm.backdrop ? [] : b.covers.map(rot), grounds = lm.backdrop ? [] : b.grounds.map(g => g.map(rot)); // grounds: surfaces kept clear of trees
+    return { mesh: group, clear: hs === 1 ? lm.radiusM : lm.footprintRadius, clearM: lm.radiusM, collision, triangles: tris, authoredScale: hs, fences, covers, grounds };
 }

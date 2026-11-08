@@ -61,7 +61,7 @@ that chapter of the CV.
   snow and fog, weather-driven visibility, and seasons (autumn colours, bare winter trees, the Unirii fountains drained
   in winter).
 - **Landmarks and buildings.** 61 hand-modelled landmarks (e.g. every CV-stop building — the GTS house on Calea
-  Călărașilor, Liceul C.A. Rosetti, the Politehnica rectorate, Hermes Business Campus, BOB Tower, Europe House, The
+  Călărașilor, Liceul C.A. Rosetti with its sports hall, sports ground and fenced yard, the Politehnica rectorate, Hermes Business Campus, BOB Tower, Europe House, The
   Landmark, Lincoln Square — plus Hala Traian, the Parliament, Victoria Palace, Sky Tower, Stadionul Dinamo with its
   track, terraces, covered main stand and floodlight masts, the SeaTac garage and tower);
   every other building comes from OSM footprints with researched heights, facade colours and styles by era. ~600

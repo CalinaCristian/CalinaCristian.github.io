@@ -1,5 +1,5 @@
 {
-  "gameSourceCommit": "4198996ab142e3496c9224478eb8cd1aced676fb",
+  "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
   "city": "bucharest",
   "district": "unirii",
   "bbox": [
@@ -20,7 +20,7 @@
     "citiesPath": "game/src/cities.js",
     "citiesSha256": "54b5d54d502edc87b3cbe19a2970fb82f392fd3cc41803a2ee84ec1c202966ac",
     "dataPath": "game/data/bucharest-unirii.json",
-    "dataSha256": "37302734909c4996b7c63423e839bbdb7380e49b4b268fa6578584050d21da47",
+    "dataSha256": "9797d9f5b1a4f2593528ce6c8c4ad04ec38fb953c9770bf32f6d7d5c7c54f26c",
     "dataGenerated": "2026-11-08"
   },
   "analyticCore": {

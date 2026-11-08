@@ -1,6 +1,6 @@
 {
-  "gameSourceCommit": "4198996ab142e3496c9224478eb8cd1aced676fb",
-  "sourceRoot": "/workspace/reality-pass/remaining-ro/source-4198996",
+  "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+  "sourceRoot": "/workspace/reality-pass/remaining-ro/source-0775fda",
   "delivery": "git archive of recorded immutable source commit; capture tool is outside the served archive",
   "files": [
     {
@@ -25,7 +25,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "5f5fea1162cf806ff77725fc8f126055b04c7f84a6d797bbec788059f0e5c0e1"
+      "sha256": "4c59ae4daa729018d94ba13b2c9934668ddb2dda7c4059ed176fa653ef4ebd55"
     },
     {
       "path": "_config.yml",
@@ -69,7 +69,7 @@
     },
     {
       "path": "game/data/README.md",
-      "sha256": "7888882814ce8312517e3f95477cda4fc67b2297049b099aa48efc5e3301c094"
+      "sha256": "5ad54678e83ad16e6eb32d30fb1f123bf2d6e4dfc34365ae65f123afcae7b7c9"
     },
     {
       "path": "game/data/bucharest-floreasca.json",
@@ -81,11 +81,11 @@
     },
     {
       "path": "game/data/bucharest-otopeni.json",
-      "sha256": "e6b36d6c87b94f7887cddb240de0dc40ea662913c60290c09be45953ccd4ff91"
+      "sha256": "5e1242d5583db482717545ca0ba99e12b45611c25dcda0c04d1ffe45e084a711"
     },
     {
       "path": "game/data/bucharest-pipera.json",
-      "sha256": "66d5fd9ffff3124db1007d8143aaef1854abad94b51053531f091f328fc93802"
+      "sha256": "def0b7515341ac654650799a5f819a2a7a80c627e865c06845c41688c7f2cbb9"
     },
     {
       "path": "game/data/bucharest-romana.json",
@@ -93,7 +93,7 @@
     },
     {
       "path": "game/data/bucharest-unirii.json",
-      "sha256": "37302734909c4996b7c63423e839bbdb7380e49b4b268fa6578584050d21da47"
+      "sha256": "9797d9f5b1a4f2593528ce6c8c4ad04ec38fb953c9770bf32f6d7d5c7c54f26c"
     },
     {
       "path": "game/data/bucharest.json",
@@ -165,7 +165,7 @@
     },
     {
       "path": "game/data/spots/buc-old-town.json",
-      "sha256": "c3af97b7e00065583d6882fd033e3fe9699200cd29a4fa5922f18daf1fa8d4d0"
+      "sha256": "c2f698ad1ec8df8401e32e70380a964d146719d427f8aa0ab943a9559090d145"
     },
     {
       "path": "game/data/spots/buc-parliament.json",
@@ -285,7 +285,7 @@
     },
     {
       "path": "game/dev/harness/headlights-check.cjs",
-      "sha256": "629b2b89ed0b37957f32d22169b1a21d403f92b5fcf53906ccdfd155c780e3fb"
+      "sha256": "dad2efd63c77cc3843f024b729eb7471e2f8a8b43063cf440988adb65a117f96"
     },
     {
       "path": "game/dev/harness/integration-asymmetric-check.cjs",
@@ -296,6 +296,14 @@
       "sha256": "ed14673268ec4c0cb77787309a9379ee058f1c8a3ffe2e7ddcf7a6343d8a3f82"
     },
     {
+      "path": "game/dev/harness/integration-browser-bounds.cjs",
+      "sha256": "8596445d6206d665278b89b53a6e29f136e50f8d39db9a6d908ea9e7d2d0a8d0"
+    },
+    {
+      "path": "game/dev/harness/integration-final-soak.cjs",
+      "sha256": "856f70236756ff6b1455acbc2ebfeb5a3152fbd393a15d14d5ef9de3a6f3046e"
+    },
+    {
       "path": "game/dev/harness/integration-passage-audits.test.mjs",
       "sha256": "ce4fbd2c14346622b1a37df48904c9343f1bcdf6694a1596c28f1b40b10f73c9"
     },
@@ -304,12 +312,24 @@
       "sha256": "e9fef65d8ad5047a37ba218940524901f85b5005d0537e4d93ed48b096151958"
     },
     {
+      "path": "game/dev/harness/integration-transitions.cjs",
+      "sha256": "ab7504bc70962be59152cac4c32aeb373e5584270766a89a75929fda6af9abbd"
+    },
+    {
+      "path": "game/dev/harness/integration-ui-check.cjs",
+      "sha256": "fda0a0b1364b7442ffa470ebf7dda63bba121ae28573fd57cd748dad809d4f45"
+    },
+    {
+      "path": "game/dev/harness/landmark-cec-source.test.mjs",
+      "sha256": "dcdd668b6299b535af1e8b2431364af16300da4a1df60ac75be3804f56f2194e"
+    },
+    {
       "path": "game/dev/harness/lipscani-activities-check.cjs",
       "sha256": "64125f2b61ef83af180484ba0f58cbfe71ff8a3b67d5324b03ee936d0d793dc8"
     },
     {
       "path": "game/dev/harness/map-waypoints-check.cjs",
-      "sha256": "744f01089c49ca70aee5feb3a37f97311474579b17f00a615fd66d88ad63411a"
+      "sha256": "a53976d46aaf7bfcf9f8b5db28739c30f8c47394dbea7977042b75ef36bbc226"
     },
     {
       "path": "game/dev/harness/minimap-lifecycle.test.mjs",
@@ -317,7 +337,7 @@
     },
     {
       "path": "game/dev/harness/office-touch-check.cjs",
-      "sha256": "dc037ee5dcec3bca8a278a6ee1c31d46ecdde1cdb972c1cdc05682c06d6947c4"
+      "sha256": "5a9355fcc82c2a949f610b51ef3fd3dbffd2272065b7f0f3f47e6d8c35803eeb"
     },
     {
       "path": "game/dev/harness/old-town-terraces-check.mjs",
@@ -345,7 +365,7 @@
     },
     {
       "path": "game/dev/harness/page/util.js",
-      "sha256": "a10920563feae9d27cab71e551d72e3fcd8dbcdf86bdeb6f267207117f6b6a82"
+      "sha256": "87dcb3416d4cb022502f1c6e37044eb65dc69df623df12a5ebd8bbc31b775b56"
     },
     {
       "path": "game/dev/harness/pmrem-check.cjs",
@@ -384,6 +404,10 @@
       "sha256": "44a115257e7f0f9d8e1fc3c81f86b27dcbe553d99c3f5efe21983692ea120407"
     },
     {
+      "path": "game/dev/harness/source-tree-centres.test.mjs",
+      "sha256": "babad67d3d0086cd14d8356e9ba011eb2b29abc050dc17e312f75cb0d96ae3fd"
+    },
+    {
       "path": "game/dev/harness/taxi-signs-check.cjs",
       "sha256": "2d76269c88611c8d19319875f8333b1870e0ecb1d72b1507b928c5ffc1c0befb"
     },
@@ -401,15 +425,23 @@
     },
     {
       "path": "game/dev/harness/tourist-actions-check.cjs",
-      "sha256": "9d5f37ae62be6111ce5f8e8dcc279aa05b7f7cb63e387e473aecd10c108f7a74"
+      "sha256": "a7e87c4cf7e67dd35b1001c343147a88bcec655ce27abf02feefe16aa2b8fbda"
+    },
+    {
+      "path": "game/dev/harness/tourist-bike-check.cjs",
+      "sha256": "9caacf0724bb638780764f4ac829f2bc27f02a54b6b866453f29166ce6803f01"
+    },
+    {
+      "path": "game/dev/harness/tourist-cathedral-forecourt-check.cjs",
+      "sha256": "0487af49df728548ea57d1fa4c0631c1e7303bc145075c1defac8a6eacb857fd"
     },
     {
       "path": "game/dev/harness/tourist-conditions-check.cjs",
-      "sha256": "4140ccf93c4eeaccd21ae710b455663269b9f889aaca1a00a0d7c7165e34d54d"
+      "sha256": "8c8f6cf66b3ae826559b718d82eadd4c71e9a09816fd81b96505fa82cb1865a1"
     },
     {
       "path": "game/dev/harness/tourist-context-capture.cjs",
-      "sha256": "17a2fa752dc387d8f0ba871945e8dd8567dbb1db2a5675cf30f7f75a93677175"
+      "sha256": "b01b4e4d49e66248a183187ea134e513e6e9109c2974804272cac52a379e05b9"
     },
     {
       "path": "game/dev/harness/tourist-context-check.mjs",
@@ -425,7 +457,15 @@
     },
     {
       "path": "game/dev/harness/tourist-photo-hunt-check.cjs",
-      "sha256": "a413c6c716967751fd29fec50aca6f8a2ba260adc572965bcc7725350ef5cfd7"
+      "sha256": "e58d4162f388eaa69e2f354debf9c791b1e9d4fc08014d795d6fdb0002957a48"
+    },
+    {
+      "path": "game/dev/harness/tourist-relation-parts-check.mjs",
+      "sha256": "c09f34a51e5a7910a28a68d9aa324fe4b21126b6f0ea1fdbd762d827350d1e85"
+    },
+    {
+      "path": "game/dev/harness/tourist-rides-check.cjs",
+      "sha256": "0c68337558016d7783b22218f110b8b571c8dda04c7e809359a4cc84a305d204"
     },
     {
       "path": "game/dev/harness/tourist-source-bake.cjs",
@@ -489,7 +529,7 @@
     },
     {
       "path": "game/dev/harness/visual/page/visual.js",
-      "sha256": "9b3fe2670d99d72bd6b03224c12cb1490e74a595602500b07f2969698698cc22"
+      "sha256": "66832141310d6baa66aefb5169c278c3ee111b6668af667fbadf27ae6912161c"
     },
     {
       "path": "game/dev/harness/visual/run.js",
@@ -717,15 +757,15 @@
     },
     {
       "path": "game/overview/assets/landmarks/cec/front.webp",
-      "sha256": "3f373f4de7a5933f6576e679275e20e54bc533d826d5ff48ec496a903c53f8ba"
+      "sha256": "d95a1e61b9bfccba67f3e0a7bd8fe9db86fb73edf7ef7ebba45cd5a3575d7b66"
     },
     {
       "path": "game/overview/assets/landmarks/cec/oblique.webp",
-      "sha256": "50eac5580c620b9021b89cec4e5916087c2302aae7126365f3ae28eb80c7a15d"
+      "sha256": "722e774288990e2796901ead0319cfbad623f9ba87873a0b145f5a8a84c36672"
     },
     {
       "path": "game/overview/assets/landmarks/cec/top.webp",
-      "sha256": "26aaefa7d9cf7b59118ec396d4663542f4941665a3f45c8a850ea677cad9fa88"
+      "sha256": "fdb0e5ba2fd3545282f9cbf72a196226e5bccea4196a8d2a98e2721a98b03a35"
     },
     {
       "path": "game/overview/assets/landmarks/columbia/front.webp",
@@ -1125,11 +1165,11 @@
     },
     {
       "path": "game/overview/assets/landmarks/seatac/front.webp",
-      "sha256": "43c3567d42ec390cca6e5c6805906e74e2da832139ea0ca5ba5ea8190c6cf7f7"
+      "sha256": "1898cf0c893f688424c8ea6231a69ff66a1bd2cb420e1b9cd269280471c6453c"
     },
     {
       "path": "game/overview/assets/landmarks/seatac/oblique.webp",
-      "sha256": "cf8fb213bd1d10351ba3499544f61c4e56006a388056c532dc9d36d681f97346"
+      "sha256": "185f63b97b8a6740b02f4e5c73081fec77940df1832592326144a278d8f104a8"
     },
     {
       "path": "game/overview/assets/landmarks/seatac/top.webp",
@@ -1313,19 +1353,19 @@
     },
     {
       "path": "game/overview/assets/spots/ballard-locks/activity-approach.webp",
-      "sha256": "b458ee66ad08ce272f2b2c3a10b8da802cdf1200f1022ebb3b2e8257cf9d81a6"
+      "sha256": "d0196feddd4becb50f5e47ddba719e60006a0495e351ba0d300b5a4dea240bbc"
     },
     {
       "path": "game/overview/assets/spots/ballard-locks/arrival.webp",
-      "sha256": "c410a3b0177b69d6c8f44423e7b750e9e75594af0d89336cf3204209791aafc8"
+      "sha256": "a343e142766061947309d6c6fbb666b00c8e376927d8f374db353d962be219b7"
     },
     {
       "path": "game/overview/assets/spots/ballard-locks/postcard.webp",
-      "sha256": "b8bc26e8cabcf2e68a8a7bef233d5e8b2400ae51620fa39d4d7b02a870050011"
+      "sha256": "e8815e4e0df69185f67040385a71054306c6eec5bfcf257a1a554ed86eb1457f"
     },
     {
       "path": "game/overview/assets/spots/ballard-locks/public-walk.webp",
-      "sha256": "45942d6f6855d7daf6dfd4377fdbe368c72ca29718c7b274a146b268f58b5999"
+      "sha256": "331570d311f620df23b6318aa5bcdbcff86125bf4904a11855d0be5cf5b5b008"
     },
     {
       "path": "game/overview/assets/spots/bel-botanical-garden/activity-approach.webp",
@@ -1384,6 +1424,14 @@
       "sha256": "050346fb376e6c6916401f9f1935a95a2b2bc2dfb2b0f9aa9670aeaba2d0a0f5"
     },
     {
+      "path": "game/overview/assets/spots/bel-meydenbauer/paddling-desktop.webp",
+      "sha256": "2e39ff70d1e0e2f16af087ac712702b02f3797a5978bad6556614d5be1693540"
+    },
+    {
+      "path": "game/overview/assets/spots/bel-meydenbauer/paddling-touch.webp",
+      "sha256": "224b9585bb99fa6fe69c42ae45d373c1a33021e25ad94811708b3492d16ad3bd"
+    },
+    {
       "path": "game/overview/assets/spots/bel-meydenbauer/postcard.webp",
       "sha256": "3ee339817c57b6cb29c66ae9e0f09ca94b55a1210cf82cb3d3e2030c934d3c64"
     },
@@ -1409,19 +1457,19 @@
     },
     {
       "path": "game/overview/assets/spots/cismigiu/activity-approach.webp",
-      "sha256": "275d81d79d9ed5e6732c7feae02ea763470622e5e7abe9987ea5f04ffc1e52ae"
+      "sha256": "c1962e728ea4e9e378be29566430394200f8a8f66d2364d851db74d76588d0c5"
     },
     {
       "path": "game/overview/assets/spots/cismigiu/arrival.webp",
-      "sha256": "340e452694b71a45d7463f19887fd7c2f7adf8280ced951cc1cfc81ee0d95d8c"
+      "sha256": "8fa7345761c2310b17e64527f22d93c7f3b77ae4b0fe9922dabd234c4b0298f7"
     },
     {
       "path": "game/overview/assets/spots/cismigiu/postcard.webp",
-      "sha256": "5cda60dc99e86db2c2c9c297c5626c86427e0c85157546285fc78785a570facf"
+      "sha256": "78a93f140180c88587e1a2f181470b157f3e393d6f4259329f70269fc1fcc91b"
     },
     {
       "path": "game/overview/assets/spots/cismigiu/public-walk.webp",
-      "sha256": "7bdebd24f04dfc4186041fe4231be7c168128d2d24babd1f61b108721da9b2e4"
+      "sha256": "90337c9fb5afb10b2f42d1c1c85a0c4df546d21d4e4b0d7348e11f56a1add8d9"
     },
     {
       "path": "game/overview/assets/spots/fremont-troll/activity-approach.webp",
@@ -1429,15 +1477,15 @@
     },
     {
       "path": "game/overview/assets/spots/fremont-troll/arrival.webp",
-      "sha256": "ea9668ede734ddb979f38ea084f1a0014de328396981b81a94f91ee2d6dc1bdd"
+      "sha256": "aaff8f7e6500978624d20b5777e9171c334dd8aafcb10511dd4178c5530bb52d"
     },
     {
       "path": "game/overview/assets/spots/fremont-troll/postcard.webp",
-      "sha256": "61ae5c78aa238da573dcd3d999d7300fc4123ed9910acc0964e77254f3136330"
+      "sha256": "3d12c2376175a104daa83cb3b8dcaaf42415831d3d1a508cfd0e693ab6df444a"
     },
     {
       "path": "game/overview/assets/spots/fremont-troll/public-walk.webp",
-      "sha256": "88fd976a51af5701b949594fa7ffb8b1b34d17efabe0da691c46bed045949e63"
+      "sha256": "b4d3a5108c3827cc5e572f8b8d5d75e4b64cd628893767ab6def353aff55f612"
     },
     {
       "path": "game/overview/assets/spots/gas-works/activity-approach.webp",
@@ -1462,6 +1510,14 @@
     {
       "path": "game/overview/assets/spots/herastrau-park/arrival.webp",
       "sha256": "51ceb757568067a1fab660bd44113f5205cc849f599329780eab757c94e40f84"
+    },
+    {
+      "path": "game/overview/assets/spots/herastrau-park/paddling-desktop.webp",
+      "sha256": "0be549b82e7d56b187e05aa32735f7e7d132ba61db087ca7a8a8949c0332f6f2"
+    },
+    {
+      "path": "game/overview/assets/spots/herastrau-park/paddling-touch.webp",
+      "sha256": "dcd728b480ff66da96f3fbaf0114b9ca99c381d722f8a73cdda13d03d4ddbd79"
     },
     {
       "path": "game/overview/assets/spots/herastrau-park/postcard.webp",
@@ -1489,19 +1545,19 @@
     },
     {
       "path": "game/overview/assets/spots/mopop/activity-approach.webp",
-      "sha256": "8677141a96ee2c46a48049ffc8e81b8a02f4434f3a7f2ac493ac43006e302ee4"
+      "sha256": "381f32978e3e7ca6de423dc06c955dfc68d6d67b8f68d2ddd86887086695f51f"
     },
     {
       "path": "game/overview/assets/spots/mopop/arrival.webp",
-      "sha256": "75ede8b1eee4ab6255cbd177b16a0e1be05be4268c9d4ed6c33067565b1ce996"
+      "sha256": "da810006b2cb48d1dbeeab2e8c2fdbaba1362b60a2e4597a2256db9740fc8273"
     },
     {
       "path": "game/overview/assets/spots/mopop/postcard.webp",
-      "sha256": "3b61aa65460d9e845fb8d0882022e36b57dcbe08253cb336cc423de8f413510c"
+      "sha256": "0bb6d511ad87c889843e00ad47ee06d96daed79f88ae9f52e124aea075d0f6e4"
     },
     {
       "path": "game/overview/assets/spots/mopop/public-walk.webp",
-      "sha256": "a25b1d21124668ed9a62acecb20c6390d43d04f51481e08ead12820d0908984a"
+      "sha256": "8d981ac44dea805ab969a15fded8ee31bb003826483ea990ea11b694f0487828"
     },
     {
       "path": "game/overview/assets/spots/old-town-lipscani/activity-approach.webp",
@@ -1537,19 +1593,19 @@
     },
     {
       "path": "game/overview/assets/spots/peoples-salvation-cathedral/activity-approach.webp",
-      "sha256": "74f5679dfa02adaa490f6d0d649953be6a7d7be289fca22b710eca7292783477"
+      "sha256": "41b95685d899e921eb997365f1eef28d7fcf4aaa3a691b8c9d0b71d2d2d3f0ec"
     },
     {
       "path": "game/overview/assets/spots/peoples-salvation-cathedral/arrival.webp",
-      "sha256": "96b02e8bbaefec1f7561282b938363223d0322e70e67586d045cefa930abd3ec"
+      "sha256": "29b44fd607e10c6919d05035ef7e4eafe99ab0a395fa087bfae253380960c9ed"
     },
     {
       "path": "game/overview/assets/spots/peoples-salvation-cathedral/postcard.webp",
-      "sha256": "041dd679a940fc49d8cb5aaf397639e30d72f5aad12a96f39e59dcb9245c0962"
+      "sha256": "3370ce37183509f76143b37cfa370cc6667230a78fe84c931b84a8e510b1b628"
     },
     {
       "path": "game/overview/assets/spots/peoples-salvation-cathedral/public-walk.webp",
-      "sha256": "24d79f31e730d1f0290eb0e1baa11bbe82857f43de08872058874ac0fd088d26"
+      "sha256": "57cb31dfde03baace862947ffd7b923803b7a850df326445079a4808064191f9"
     },
     {
       "path": "game/overview/assets/spots/pike-place/activity-approach.webp",
@@ -1649,11 +1705,11 @@
     },
     {
       "path": "game/overview/assets/spots/waterfront/activity-approach.webp",
-      "sha256": "72715d78433b9ebbe3af8ebebe4df4c07f82a28239c1c103c879840c7b8774ef"
+      "sha256": "68e18dec4bcf0d6b66e7881ec4dbf6a9eb88e534d934ac3cec77986d93f0643b"
     },
     {
       "path": "game/overview/assets/spots/waterfront/arrival.webp",
-      "sha256": "c8f5340f05f3056d75b3f9545c1463e65d4209e6831065ca2ba445d0328e07a6"
+      "sha256": "e86e8cdbc8681689b2e72d1a418322178025335be38761567b71c7948537fdbd"
     },
     {
       "path": "game/overview/assets/spots/waterfront/postcard.webp",
@@ -1661,7 +1717,7 @@
     },
     {
       "path": "game/overview/assets/spots/waterfront/public-walk.webp",
-      "sha256": "123b0c6d2bf2e41f896a705e2558a718d1a847c908003ac2fcb04912f13f55ed"
+      "sha256": "5593786385c6abe3d982e8425133031839d8453e340a459c714c9ee0e1f3a2c6"
     },
     {
       "path": "game/overview/comparison-data/README.md",
@@ -4865,7 +4921,7 @@
     },
     {
       "path": "game/overview/comparison-viewer.js",
-      "sha256": "521780a3e29a7ba04d4a0c271b57b6f4f7df5c35fe4c6be3c592a3187cf1b130"
+      "sha256": "a2f628aa03eb098bee9b0ddf0a77576fcd0b9c599607a357f66eeb788507289f"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/ambasador.json",
@@ -4913,7 +4969,7 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/cec.json",
-      "sha256": "bdf894786fc1ae667cdd643f159f988332bb4909561c82fc7feba393f44212b9"
+      "sha256": "bbbffb40a859347f41233847d05f54d68131a261e8821a531bf87172944a1391"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/dinamo.json",
@@ -5085,7 +5141,7 @@
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/seatac.json",
-      "sha256": "f6c2d614e22dd7688cbf9608746e2ce49b703fffaa7364d9ca491a047d1757bf"
+      "sha256": "e478617276711d15bd152981fc5fbce5fdd1e73f9493d5b08b2e020373f0145e"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/seatower.json",
@@ -5121,7 +5177,7 @@
     },
     {
       "path": "game/overview/evidence/spots/ballard-locks.json",
-      "sha256": "5d8cd8235742af11a5f7ec5bff786272fd30bf3d4580c1954b007311debabc01"
+      "sha256": "f3a66a7002aa6582e59717bb95a74b427a94947236fafe69f6b94b8ae624579c"
     },
     {
       "path": "game/overview/evidence/spots/bel-botanical-garden.json",
@@ -5137,7 +5193,7 @@
     },
     {
       "path": "game/overview/evidence/spots/bel-meydenbauer.json",
-      "sha256": "e28779a3355bdf7136609f2afa489e4d50b0d70c5659c7572eaca41a504907c1"
+      "sha256": "3c0133af78873153b771b797d49c1e007adfc6363b690e6ec43decc8cdd17886"
     },
     {
       "path": "game/overview/evidence/spots/chihuly.json",
@@ -5145,11 +5201,11 @@
     },
     {
       "path": "game/overview/evidence/spots/cismigiu.json",
-      "sha256": "f56bb58f79e74527391cf34e07df6fac6d84cebc992e83a1f9e5276e4d8a925c"
+      "sha256": "8c311007103e45a8b6c0b6f54a40ce365be50735edafb7c76e530a8e853d36b4"
     },
     {
       "path": "game/overview/evidence/spots/fremont-troll.json",
-      "sha256": "4b22fb5393fe7ac5f7a2d995a99df2d04b2c617f4b00e40141996fdf3e46d963"
+      "sha256": "103fa1305d581468b902c15d58ce52b8b299e47f12d1d188717fff1f90349df9"
     },
     {
       "path": "game/overview/evidence/spots/gas-works.json",
@@ -5157,7 +5213,7 @@
     },
     {
       "path": "game/overview/evidence/spots/herastrau-park.json",
-      "sha256": "9d9e2b5bc4dc17e47ee16374be0cad25ecbed3358abe300cbaf477472e9033cd"
+      "sha256": "875cac315401dbd4c092f3d1cb4ed57aeb92f091817b08ec44883fbdef051e79"
     },
     {
       "path": "game/overview/evidence/spots/kerry-park.json",
@@ -5165,7 +5221,7 @@
     },
     {
       "path": "game/overview/evidence/spots/mopop.json",
-      "sha256": "63b1bcb95440aa336e3df4fbf461e89725960eb49195cbdb6ab2ea4955fcfe4d"
+      "sha256": "b466f9a705fdc3a81b9e561ea162409fab58ed4180a046c637f9da7493452b21"
     },
     {
       "path": "game/overview/evidence/spots/old-town-lipscani.json",
@@ -5177,7 +5233,7 @@
     },
     {
       "path": "game/overview/evidence/spots/peoples-salvation-cathedral.json",
-      "sha256": "8d49d83e1559593645147b8579916279bd144a5d6860403e01fa45a1dedb377c"
+      "sha256": "3a0fdc2908e45db6862e708116a3a6e52288df6be53dc08bfaf9c744679f6e1b"
     },
     {
       "path": "game/overview/evidence/spots/pike-place.json",
@@ -5205,19 +5261,19 @@
     },
     {
       "path": "game/overview/evidence/spots/waterfront.json",
-      "sha256": "c59c18c4650b92b7489fc51c6f4507e4d2bbd614bb0bc4998358acf4cbe1d862"
+      "sha256": "b1f188c97c2932e6cf19fb7df4697eed6736bfab537c68def3a10ed43209bbea"
     },
     {
       "path": "game/overview/generate.mjs",
-      "sha256": "00d193bfc293cfd68f88d7b84afff02b4ec0ceea376b350632406fd3bd95eeee"
+      "sha256": "bff9a07a4ade9b5ca0e4ef2f6ddb77ef421a937af4d48e7000b04f23c65fbbd4"
     },
     {
       "path": "game/overview/index.html",
-      "sha256": "51e43ac03a279d9c8cd0f9f9e326565012a8b71715ccd57bddf68e0832375212"
+      "sha256": "34a6fadb8ffb7827f316e50f8cc9c139bc0cebf42d02c442c3985cab2d3ef160"
     },
     {
       "path": "game/overview/inventory.json",
-      "sha256": "eba35994a8163dcf5f588a6e86e1b2fba0c154376b632f5f774c610d7abbc57d"
+      "sha256": "8b3b30a1459147018a01fa5ec1c18c1ac331fa97317e1704f7097f7d96778f83"
     },
     {
       "path": "game/overview/landmark-evidence.js",
@@ -5225,11 +5281,15 @@
     },
     {
       "path": "game/overview/overview.js",
-      "sha256": "11dee987441aeb0e6ab2939aeb4ba564343576dd2283587af6fd6888c165bfba"
+      "sha256": "1672ff3da312cbffc3ec05f67c54fe63b28e3f390f0e1f4ba24a2ab62b9be838"
+    },
+    {
+      "path": "game/overview/perspective-viewer.js",
+      "sha256": "7dc73e944bd61f0fce3b660f7b69d4064ba4814478ce463baf41bf9e762437ce"
     },
     {
       "path": "game/overview/style.css",
-      "sha256": "1eca158c5d7d6840ca65dfc24de55a6566ef8664eca4e8a5c471d23bcff952a6"
+      "sha256": "68cd02e207124decb7b37cddb0ed77455cfd82edcf8a816c25e37ec95c3b1540"
     },
     {
       "path": "game/research/activities.json",
@@ -5444,6 +5504,10 @@
       "sha256": "e4f2a5f17b2125ee34528904713f23457012652b41827ee1d170f19251682d8d"
     },
     {
+      "path": "game/research/landmark-cec-source-assemblies.json",
+      "sha256": "8df885701915ba94cf42fdb2b2f199d8ee9a21f0758a80f7a65c1dcde2334230"
+    },
+    {
       "path": "game/research/landmark-politehnica-measurements.json",
       "sha256": "59cc512f5fd1bac356708a6ccadcc6bcd56b467833037bc5a9a345f311909583"
     },
@@ -5582,6 +5646,10 @@
     {
       "path": "game/research/osm/sea-spots/waterfront.terrain.json",
       "sha256": "61067e25a85dff6194a5f83b61cdf103a982486bfac4e3ad1ec3c2e673128238"
+    },
+    {
+      "path": "game/research/osm/spot-part-relations.json",
+      "sha256": "e8b2a7ed4c177a50692816fc17c1f6153e3a3d677582cfeea88097031149e6e7"
     },
     {
       "path": "game/research/parking-layouts-seattle-bellevue.json",
@@ -5888,8 +5956,12 @@
       "sha256": "5221f4b82bf2008a46d0ee9e08d3ceca8ad5aa6185b64f8405d4acd31dddc6f0"
     },
     {
+      "path": "game/research/trees-bucharest-otopeni-review.json",
+      "sha256": "3af1b2b0ad1701587d1c3d373dfaae16ec7ac50621c3fc64f70900a54c498ac2"
+    },
+    {
       "path": "game/research/trees-bucharest-otopeni.json",
-      "sha256": "1770ef2b3523b77825b6e8ed582279bc338f4a3f36ebfc8c001df3f973985dac"
+      "sha256": "b13b804ed1cb8074f3cb337bda2b439c4270ffcda7cdf06e2207d9a3a95c95ec"
     },
     {
       "path": "game/research/trees-bucharest-pipera.json",
@@ -5900,8 +5972,12 @@
       "sha256": "05436536b32f9193b92e5ca948ec080639507217891608598520feab500aa94e"
     },
     {
+      "path": "game/research/trees-bucharest-unirii-review.json",
+      "sha256": "b6be5367c41e8a68655db4f88a46f127977f11d06b6677c6b2fb2c93cb0c2909"
+    },
+    {
       "path": "game/research/trees-bucharest-unirii.json",
-      "sha256": "b48751f17b334ce318fc7152703c121b6ab6426db7fe39292520f3346d339e50"
+      "sha256": "f17ffe8c52ae752ce6e72fb6492721485e1c908c0ca9e566269bf94bfc2889cf"
     },
     {
       "path": "game/research/trees-seattle-bellevue.json",
@@ -5985,15 +6061,15 @@
     },
     {
       "path": "game/src/data.js",
-      "sha256": "5f9f29ab1b4ca2890fab1a6df96749e59235bf1b7aa75d5a4421160e626be738"
+      "sha256": "7e2a063e88db8f9544fe7d4da060b8f57b1079b2f1693a7c1e6af51041b44d46"
     },
     {
       "path": "game/src/drone-boundary.js",
-      "sha256": "b29a2f92e3c5158c0029f0ae29a59413ec661dfacadba87481e995bf7c833a84"
+      "sha256": "85aa59ed69fd380d4fbe93be315b47ab8c66f47e0e09da26291321842f3caea4"
     },
     {
       "path": "game/src/drone.js",
-      "sha256": "7ea183e8e4c5977f6b2a0a0f644e47838ae09bb4754c442e75e18d5364288eb1"
+      "sha256": "ea06c8e76fc810a4ee3b1bf8c0ec6073d39d97fee362fd2e3bb5981e6fd2b4eb"
     },
     {
       "path": "game/src/explore.js",
@@ -6032,12 +6108,16 @@
       "sha256": "e14ff4e1be7dbbfaf7cb07395340515e01820ab36cba24a40d60001ff5511d00"
     },
     {
+      "path": "game/src/landmark-cec-source.js",
+      "sha256": "4891822203ad126ab75511e2196965848db37cfdfabadef54b13cea4ffbe4356"
+    },
+    {
       "path": "game/src/landmark-otp-roofs.js",
       "sha256": "f071c4b256efe77dae8eaf64e0d4c2a04af9f01b4447686bd2cd91f77950b8a6"
     },
     {
       "path": "game/src/landmark-source-identities.js",
-      "sha256": "274db9b06c8b0e54bf678bda442a42c2bc9b89a09822c73e72a6c6500db02f7c"
+      "sha256": "4f93c8853d3f1ae65badd1940f4f7286bc6538353defb94a0268f7fed699adfc"
     },
     {
       "path": "game/src/landmark-source-masses.js",
@@ -6057,7 +6137,7 @@
     },
     {
       "path": "game/src/landmarks.js",
-      "sha256": "23a9bb9d5a1dffc087d31409697d800bfff4764abb7402cb3d842e05fc16c032"
+      "sha256": "a4cd79da5560a63694478dac73cf7c7279acf581346575995c9e08857ac50875"
     },
     {
       "path": "game/src/main.js",
@@ -6116,6 +6196,10 @@
       "sha256": "7f1cf9c55cbfbfa9cf9df4438de27a49ece7b765bb34ba478757024183f5c809"
     },
     {
+      "path": "game/src/scenery-bridges.js",
+      "sha256": "44fa90d1e34f99b006b4beaf0db24725fcb5ec7c7c13d46fc0070747d3d7da03"
+    },
+    {
       "path": "game/src/scenery-source.js",
       "sha256": "c00801c1705325e205bd00fbcc223c16391661f58669514516753621e19b6ff2"
     },
@@ -6128,6 +6212,10 @@
       "sha256": "47b7dd7a016a3e48faf9f2348121bd8c1e280d7b07fc7acd27103ab39a29b1ac"
     },
     {
+      "path": "game/src/source-tree-centres.js",
+      "sha256": "8eb56bfa815c80da5c2a74866ee04789309b9d0df84dc95f40c1b3bed530277e"
+    },
+    {
       "path": "game/src/spots/README.md",
       "sha256": "b42a49014b6c115f1dd9cca17c4f985e2326ae544e8cfe41567ad6e1ed5330a3"
     },
@@ -6137,15 +6225,15 @@
     },
     {
       "path": "game/src/spots/bike.js",
-      "sha256": "a10987d8afd5c4bed965170971efff80bd91bc79323e73307d67715e2a52a541"
+      "sha256": "0fb51793b9cba6cfbb3454c842b7bce4ffe2e1ac40dc8049313faa51b9fe179b"
     },
     {
       "path": "game/src/spots/buc.js",
-      "sha256": "857cbfa4f4b5d1e77793f4c67b6e4e66fa33ba6bae6f40306ea7a8f0f5e5e88e"
+      "sha256": "a3bc1af2b957edf41099574c79bc05a56fe443b56156ce5d81461daafcde741d"
     },
     {
       "path": "game/src/spots/candle-light.js",
-      "sha256": "b96834110bb0f1ee459fea00d3412f050cb857152148296d383d397ea454b508"
+      "sha256": "779e0a236692496c744e89ce89000f7b41effd7b08a2ee2dc8391daae4248262"
     },
     {
       "path": "game/src/spots/cars.js",
@@ -6172,8 +6260,12 @@
       "sha256": "382f5353be67766e36183babd4a321dc4e709c709429167fc461968a033cffcc"
     },
     {
+      "path": "game/src/spots/landmark-colliders.js",
+      "sha256": "3cc9d9a55cde442e481eaf94bacb85ce8477749a141d657a7a5f80f33db7bd70"
+    },
+    {
       "path": "game/src/spots/osm.js",
-      "sha256": "5eeb4e93079dee86979a3d0ab57007dcb5fe9ff6d99d825f48bccacc92f262e9"
+      "sha256": "b9363596caa86464459d327b5ac23c759517a7995a937fbb876ac1d75422c695"
     },
     {
       "path": "game/src/spots/participation.js",
@@ -6197,11 +6289,11 @@
     },
     {
       "path": "game/src/spots/scenes/athenaeum-revolution.js",
-      "sha256": "acc23e6de347a0cdc525f39d415053e01c9122dfc01d451003859fcb5bf716c6"
+      "sha256": "9e2d303de14eb1017e12742137ebc9757c69c5af842dfddb2fc98000964c72c8"
     },
     {
       "path": "game/src/spots/scenes/ballard-locks.js",
-      "sha256": "253ece25a01b5aa704cd2b7113a89fc0e6a76a18b56f60144d0e5d01ea17cf0d"
+      "sha256": "a31f33db47739348ea371029eed186667502b37ea94f5b77fce115b11341a116"
     },
     {
       "path": "game/src/spots/scenes/bel-botanical-garden.js",
@@ -6221,11 +6313,11 @@
     },
     {
       "path": "game/src/spots/scenes/bel-meydenbauer.js",
-      "sha256": "81174ac9bb8e56def5ef703f97e337e36daa5c81e4b19cd634a8b0104c9a7b5c"
+      "sha256": "d5d7cf37056ba492d498f653480b27ac3f19f8730bb1aed2c1a595ec27a32010"
     },
     {
       "path": "game/src/spots/scenes/buc-herastrau.js",
-      "sha256": "cff50ce04585f6ed54f2cfc6e144cdb1a44ef82e2d5a6907e25e6af8b7383b92"
+      "sha256": "87ee42ef078c33c6f4a35283971198cc1d458e9daaa6b4db15c0487dceb3635d"
     },
     {
       "path": "game/src/spots/scenes/buc-old-town.js",
@@ -6233,7 +6325,7 @@
     },
     {
       "path": "game/src/spots/scenes/buc-parliament.js",
-      "sha256": "9ee003d4ecde5a09ea6c1659d6ff08d537d3985bf0747e353df9ed7e08b86d08"
+      "sha256": "b88a74cc1c1cd48c007d01ed62225e0905f137fe460cd2c268731546874963f3"
     },
     {
       "path": "game/src/spots/scenes/cismigiu.js",
@@ -6269,11 +6361,11 @@
     },
     {
       "path": "game/src/spots/scenes/seattle-center.js",
-      "sha256": "9536de5fbc0b18e1cd759c89b769cb55a8f08878a64eb072008345bd86997d99"
+      "sha256": "b083f230d4796a0947a368190c123c8e534f6fd75b6012cac601c81d21dde6b9"
     },
     {
       "path": "game/src/spots/scenes/spring-palace.js",
-      "sha256": "47235e54b6cf5386a5bbe4d34bf92932b362561dc64a0c95c6f6f7c857db042a"
+      "sha256": "a43a9dd6dcd739debfcfd17b8ce96d3d7ea0a782d5a19f07dc0d5246aeee8c88"
     },
     {
       "path": "game/src/spots/scenes/waterfront.js",
@@ -6300,12 +6392,20 @@
       "sha256": "bad4641e649dc25603ad9df16bc0162c2a34d3f727963cc1171dc6d1a0d724fa"
     },
     {
+      "path": "game/src/spots/stone-skipping.js",
+      "sha256": "c27ba42cef47f6128eac7d88b428fe198a8e193f3aae7a057f22e73930485d3d"
+    },
+    {
+      "path": "game/src/spots/tools/apply-part-relations.mjs",
+      "sha256": "53505918a8aa25e4e13856a9acba5e6391192fd11c0319919dda293a387d6da5"
+    },
+    {
       "path": "game/src/spots/tools/build-data.mjs",
-      "sha256": "1366fb90fdce6dc0d65868c5e95f8ab67fd941c96a85cfe67b954ceab4c0e8e7"
+      "sha256": "79d287ffce5508323894d993a07045883dd27b8b4dad31b0b33941767b86bed2"
     },
     {
       "path": "game/src/spots/tools/fetch-buc.mjs",
-      "sha256": "6134f07ef770f7308d4d07eb704325e46c15abe8667ec7bb640a5dffb5826d40"
+      "sha256": "ecb32a093275eb126c4e79c524cc0e1e9bbbb14e33862287343461115e6500b3"
     },
     {
       "path": "game/src/spots/tour.js",
@@ -6313,7 +6413,7 @@
     },
     {
       "path": "game/src/spots/ui.js",
-      "sha256": "042bc226531f21eeb99731d516f2795cc0bf83133dd66f02cc71dc98561ebc92"
+      "sha256": "65f78bad07cf6ac65b427928fefb079f988a3cb510ebeef2abd10eef6896fc87"
     },
     {
       "path": "game/src/spots/venue-activities.js",
@@ -6356,8 +6456,20 @@
       "sha256": "73700e9368a66f3e0dec08735f1b1c1a5bb2f57290746b31d4be28ad025bc6df"
     },
     {
+      "path": "game/src/water-batch.js",
+      "sha256": "cd1a0fb7e59ff1c621eadc77acbd58c61d81cce09c5dbf9b74125268b41b5543"
+    },
+    {
+      "path": "game/src/water-channel.js",
+      "sha256": "b7a645b3beb86c3e74ea681e1a20c39a6675536243342cf1cdff0d8d86e70504"
+    },
+    {
+      "path": "game/src/water-shore.js",
+      "sha256": "6705b456454df3ac85ada90a96ff66280706ad306de401dea25896b8d379315e"
+    },
+    {
       "path": "game/src/water.js",
-      "sha256": "491a6b4d96d81c6761559d2effe878d4e76a279811c914f45592fa364ec6d4eb"
+      "sha256": "7a7cea86bdb0dc2cf135b95c9cd7aec81d16e8e48a4bf0b125449d91931df3ae"
     },
     {
       "path": "game/src/weather.js",
@@ -6365,7 +6477,7 @@
     },
     {
       "path": "game/src/world.js",
-      "sha256": "cd2df80f94a42d07ba45446b511702dc7cd9b826222977901f24ef28cf138163"
+      "sha256": "4428c43c84bd6fc43b26b415e8cfa1093073e7978630a4694603984a4fbd5cc5"
     },
     {
       "path": "game/src/worldmap.js",
@@ -6373,7 +6485,7 @@
     },
     {
       "path": "game/style.css",
-      "sha256": "8b2fd3641ced223a3c11afc33a3f4a19764d2a7f52b522d3e2f0d08319142d26"
+      "sha256": "46b8f2dd66d363ad322b08152d166b3a44b72dccd4b4506f28f980a9c421d120"
     },
     {
       "path": "game/vendor/addons/CopyShader.js",
@@ -6457,7 +6569,7 @@
     },
     {
       "path": "handoffs/fidelity/FIDELITY-GOAL.md",
-      "sha256": "0fc36009ee3b336277b04bf564bc64f198da2569e967e7089f852ee3cc6a6057"
+      "sha256": "3053263b024ca9492f2c14fef99fb470406fc63f983aa4c747e3ed049dacc073"
     },
     {
       "path": "handoffs/fidelity/MOBILE-TRANSITION-CRASH.md",
@@ -6486,6 +6598,18 @@
     {
       "path": "handoffs/fidelity/building-geometry/HANDOFF.md",
       "sha256": "8a0d9e6679d96ace572daccc586ebf0e22291a017a3e7091aa1b755433f39d99"
+    },
+    {
+      "path": "handoffs/fidelity/cockpit-native-pose/README.md",
+      "sha256": "cef2a747133b023f1da6fa071f625adff4117677bba56800a4e112c62058ee4b"
+    },
+    {
+      "path": "handoffs/fidelity/cockpit-native-pose/native-and-forced-pose.json",
+      "sha256": "6d83d117ce0bdaf359e62b179827512e8ebc71bd12ae3189240b5a02a43bd830"
+    },
+    {
+      "path": "handoffs/fidelity/cockpit-native-pose/replay.cjs",
+      "sha256": "ddbd8d6ee399ecfb3bb30569f0d4610a35356bfccf97af1a781701b050484cd2"
     },
     {
       "path": "handoffs/fidelity/combined-render-budget/EVIDENCE.json",
@@ -7648,8 +7772,16 @@
       "sha256": "c2cd504ec11f00936c3d85b8355bc31ff886b4fe5d762d9d577b6af9dd59061c"
     },
     {
+      "path": "handoffs/fidelity/d-otopeni/atlas-paired-review-4198996.json",
+      "sha256": "7343cb75726f788168ca9e907af9cf6715c34f1aeb2abea3ee575642153deaca"
+    },
+    {
       "path": "handoffs/fidelity/d-otopeni/baseline-source-summary.json",
       "sha256": "b63afeed52610582fc6ed144862e2b01c056e164e8a3cb1e94bb440051ba74d6"
+    },
+    {
+      "path": "handoffs/fidelity/d-otopeni/noncrown-rail-tree-check.json",
+      "sha256": "5e8b234469c2ac70f123f76b3caf00bb3e4ef671ca5e2963d8ec18706cd67655"
     },
     {
       "path": "handoffs/fidelity/d-otopeni/open-roof-review.json",
@@ -7712,6 +7844,10 @@
       "sha256": "d86d2849335ae9bb62c3cf8d4e3480b4b7d9377e63cac34843f678f8ae89ddb9"
     },
     {
+      "path": "handoffs/fidelity/d-unirii/atlas-paired-review-4198996.json",
+      "sha256": "5ccf45dad6b4d761e4388c42896def4b5d5e95997b0ce67a65581664fb5b682f"
+    },
+    {
       "path": "handoffs/fidelity/d-unirii/baseline-source-summary.json",
       "sha256": "1dc3ebe1aa4243e60d3e6b978638ba52d307f28102a8a59f8c0d9c8374612497"
     },
@@ -7742,6 +7878,10 @@
     {
       "path": "handoffs/fidelity/d-unirii/native-portico/top.png",
       "sha256": "a9194dbdc990fca9d91910201d2d6fb9c2898f21189bbffbb4a749c4e797eda9"
+    },
+    {
+      "path": "handoffs/fidelity/d-unirii/noncrown-rail-tree-check.json",
+      "sha256": "1f8d9a5ef1262ac7fc74556c14cad56d08b01b2d32f129362dbed91c18f32b09"
     },
     {
       "path": "handoffs/fidelity/d-unirii/open-roof-review.json",
@@ -7928,6 +8068,66 @@
       "sha256": "4fd39d8b5c2e6af9b6d4f29469612ec0c6820f790f997166397eedc4daa5480d"
     },
     {
+      "path": "handoffs/fidelity/integration-final-acceptance/HANDOFF.md",
+      "sha256": "19a5c00dc581c6b4cb393dfc34e0ed98076afbdf3e4b32103b8eba30437b8693"
+    },
+    {
+      "path": "handoffs/fidelity/integration-final-acceptance/proof/incomplete/initial-condition-not-settled.json.gz",
+      "sha256": "cf0ec4ffb73c723c5bcfca41d0843206791bacdaff447bb057e148ea8c306bbc"
+    },
+    {
+      "path": "handoffs/fidelity/integration-final-acceptance/proof/incomplete/manifest.json",
+      "sha256": "a55ad5fc5cf47269e2cd0092388d333d051ed51b2a4f249dd9414a86b15d3724"
+    },
+    {
+      "path": "handoffs/fidelity/integration-final-acceptance/proof/incomplete/native-population-diagnostic-only.json.gz",
+      "sha256": "e219061ee3a4639a87581e8e6e68468397dfb3be411ce70c9fd5d7c12cbac5bd"
+    },
+    {
+      "path": "handoffs/fidelity/integration-final-acceptance/proof/incomplete/old640-assumption-and-font-timeout.json.gz",
+      "sha256": "e8bb8951c9475b4216e11ec542b8ebc0dabc9b1b1f31c254aa827b83e389b1b9"
+    },
+    {
+      "path": "handoffs/fidelity/integration-final-acceptance/proof/incomplete/queued-frame-readback-timeout.json.gz",
+      "sha256": "8246592d98d45636fc1e10dd5439dde4869ae43e73ddfd9f0a081744c1a453e0"
+    },
+    {
+      "path": "handoffs/fidelity/integration-final-acceptance/proof/soak-4198996/assessment.json",
+      "sha256": "8c119087b1057b6ed17749516cd6b144282fbcc4af6ae426a7d6eb7914f6a23f"
+    },
+    {
+      "path": "handoffs/fidelity/integration-final-acceptance/proof/soak-4198996/evolved-final.jpg",
+      "sha256": "c1e120eee09c800c3aebf660a63ebc3fa466837368e570116be096be98083c5e"
+    },
+    {
+      "path": "handoffs/fidelity/integration-final-acceptance/proof/soak-4198996/integration-browser-bounds.cjs",
+      "sha256": "8596445d6206d665278b89b53a6e29f136e50f8d39db9a6d908ea9e7d2d0a8d0"
+    },
+    {
+      "path": "handoffs/fidelity/integration-final-acceptance/proof/soak-4198996/minute-0.jpg",
+      "sha256": "e14f41d350bfe30ee8258309e77d34be44ab0c40afc186b8ac0e21e7a742959d"
+    },
+    {
+      "path": "handoffs/fidelity/integration-final-acceptance/proof/soak-4198996/minute-15.jpg",
+      "sha256": "c67da7f79a7c36c918048259fe3d3539c9572a75e488c883142e414caca07209"
+    },
+    {
+      "path": "handoffs/fidelity/integration-final-acceptance/proof/soak-4198996/profile.json.gz",
+      "sha256": "70bde2a3f783a54a6a70e4196c70733b3cf412a60a9e4033aac0c333e6d1247d"
+    },
+    {
+      "path": "handoffs/fidelity/integration-final-acceptance/proof/soak-4198996/runner.cjs",
+      "sha256": "856f70236756ff6b1455acbc2ebfeb5a3152fbd393a15d14d5ef9de3a6f3046e"
+    },
+    {
+      "path": "handoffs/fidelity/integration-final-acceptance/proof/soak-4198996/source-manifest.json",
+      "sha256": "c6d64f43d938f3c8266e363aae707ad0a07d9aae691161b1f4bcc1b76f71168f"
+    },
+    {
+      "path": "handoffs/fidelity/integration-final-acceptance/verify-soak.cjs",
+      "sha256": "fcdcb9ae4282194b18e0dea1348ece4a3f130d50ab64f0594b9289a2302a209e"
+    },
+    {
       "path": "handoffs/fidelity/integration-groz-seams/HANDOFF.md",
       "sha256": "2779f9b84ee59282c6d23766a6dac17c854c74de38fae4a7ffb48b268ecfc557"
     },
@@ -8090,6 +8290,66 @@
     {
       "path": "handoffs/fidelity/integration-groz-seams/verify.cjs",
       "sha256": "3317dcc24840ccfbaad770630fb1940749b8888ff3c637c158b2e3ea51745238"
+    },
+    {
+      "path": "handoffs/fidelity/integration-native-controls/HANDOFF.md",
+      "sha256": "9ea47c344a40044bc252461ee9585f44f6b5014948ce3fede7f1065fa8beefbc"
+    },
+    {
+      "path": "handoffs/fidelity/integration-native-controls/proof/conditions/foot-footer-k.jpg",
+      "sha256": "a68172948730dbf83eda8e80c2f48d0ad93accaa4477fff03d80bb82782f210c"
+    },
+    {
+      "path": "handoffs/fidelity/integration-native-controls/proof/conditions/report.json.gz",
+      "sha256": "675aa6e39a9c8d038c07b90a657e882ce94aa997e4b9f6c037ef9aa0e2ffa01e"
+    },
+    {
+      "path": "handoffs/fidelity/integration-native-controls/proof/conditions/story-live-continue-winter.jpg",
+      "sha256": "973a8689f991dbe1344eb59a22b25c517a9ed61bee318072611bb1d60aae5fd5"
+    },
+    {
+      "path": "handoffs/fidelity/integration-native-controls/proof/conditions/title-settings-night-snow-winter.jpg",
+      "sha256": "ee5cffe5bff73ced85459561c7a91b4e2b895463ff6671486a832b9f67fa6f8e"
+    },
+    {
+      "path": "handoffs/fidelity/integration-native-controls/proof/conditions/title-touch-390.jpg",
+      "sha256": "dfae6ae7a9af1857468fb6b4622de6465c5c8cca299fed753db1ad13d43f5328"
+    },
+    {
+      "path": "handoffs/fidelity/integration-native-controls/proof/conditions/title-touch-844.jpg",
+      "sha256": "aa27ba2eee1e2280a7d1b8dba2264d9eb7db038c527e01e1225f34d27eff69eb"
+    },
+    {
+      "path": "handoffs/fidelity/integration-native-controls/proof/freeze-compatibility.json",
+      "sha256": "e7b6376bd14e3147887c342584551b395df73216b38fb97c8a12a970ee68bcdd"
+    },
+    {
+      "path": "handoffs/fidelity/integration-native-controls/proof/office/390x844-rosetti.png",
+      "sha256": "dab169a385bb7092538410b0a66ec8e1bf8b71c022f304033851c4a73547c962"
+    },
+    {
+      "path": "handoffs/fidelity/integration-native-controls/proof/office/440x756-rosetti.png",
+      "sha256": "d1c8a3f064234a8dda8a4b856475a34fc31cdf31fea2a72b0fb3ea0bab9f8e06"
+    },
+    {
+      "path": "handoffs/fidelity/integration-native-controls/proof/office/844x390-rosetti.png",
+      "sha256": "b0d1fea5675b9b1c505695cd30b1643d43202ed522e593c6261ffbe0e43c8c2a"
+    },
+    {
+      "path": "handoffs/fidelity/integration-native-controls/proof/office/956x352-rosetti.png",
+      "sha256": "60228374c99e5a1656fc7fab988445385bc8d7d7d33da382c0e752205c479e00"
+    },
+    {
+      "path": "handoffs/fidelity/integration-native-controls/proof/office/report.json.gz",
+      "sha256": "878933b205e590e3ad401442bc9cec44902cb64e17c9cc755a04a8de47c252ab"
+    },
+    {
+      "path": "handoffs/fidelity/integration-native-controls/proof/source-manifest.json",
+      "sha256": "fdec24d0d85526bed58ade9619cad9a175485c826e176e3f2f5193b4f7814834"
+    },
+    {
+      "path": "handoffs/fidelity/integration-native-controls/verify.cjs",
+      "sha256": "2ac3880d25e3261f5d76e01b1050f310bf8bcf374cdfa27c8cfb6c5e8e783d85"
     },
     {
       "path": "handoffs/fidelity/integration-otopeni-grade/HANDOFF.md",
@@ -8648,6 +8908,30 @@
       "sha256": "9bc130fa736475539ae4d4b9f02815920f40b3157fc217949399a55f6eb7f65e"
     },
     {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/mandatory-95df/README.md",
+      "sha256": "3e21fa8b0f8965a052be32e2a41ada1c83b70e5a7a54ab535a50a7a90001d89e"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/mandatory-95df/latest.json",
+      "sha256": "70eb73f971a4f80c2f716ee08d64c308abdd7cec8849ff81efda15ede7831431"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/mandatory-95df/latest.md",
+      "sha256": "f15ac7ffa1c95fdaf6423716dcec8a7c544462a8f4a891a024bc105eaa2e8361"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/mandatory-95df/run.log",
+      "sha256": "c1fe418859827c0a8d9859390593863d1fd2f524a8ddd2aabe9a5e21782cc3c3"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/mandatory-95df/shots/200342-bucharest-foot-out.jpg",
+      "sha256": "4749ec22e4a14d747f5c95046daddc6ec160fec39ec9b897dd5bcd32558077cb"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/mandatory-95df/shots/200342-bucharest-scenario-a-spawn.jpg",
+      "sha256": "793448fa04a56610e6f53fa1be9b257ee4c10090d99ec236a47555e0d409d9ad"
+    },
+    {
       "path": "handoffs/fidelity/original-districts-refresh/proof/rebuild-03c/floreasca/REPRODUCE.md",
       "sha256": "1930e815216375bfb6395c8f72cb728e06f5095d3bc18f09a0582e2a5561f89e"
     },
@@ -9104,6 +9388,118 @@
       "sha256": "0a62a2a483b2dff5d67a79065f84e6d257249e8eadaf8f85f5779e206be895b6"
     },
     {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridge-continuation/README.md",
+      "sha256": "0fbf8574e5fbf48f6cc5d0ba662dacb9932137d0c3c1045b8b40a3aa46f40e5a"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridge-continuation/bucharest-floreasca.json",
+      "sha256": "4246087630c10b8ca835d4773fe964f387962b3ba468f4f2a5f6a8eb5c0ca754"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridge-continuation/bucharest-grozavesti.json",
+      "sha256": "c23c00b80945700319ccfdfbf735489df6d07df94f48b1e7abacbc78606004a4"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridge-continuation/bucharest-otopeni.json",
+      "sha256": "30faccaa12355776690d41b7650fbc894496ef064f3c636571a59ccb0009dd16"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridge-continuation/bucharest-pipera.json",
+      "sha256": "6a17359dd2e10fd5117e835399984c76a7410f99251f2701869c8ead54af454f"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridge-continuation/bucharest-romana.json",
+      "sha256": "d16b167ddc22c064ea4a428d5c8efbd8bcbdd83e8dac2cdaef68dbd7e1374f40"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridge-continuation/bucharest-unirii.json",
+      "sha256": "535d752353e1fe24f7ebbbc8b365c152c2a4381e90c5e9ab739fe60888a8b217"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridge-continuation/pure-check.json",
+      "sha256": "ac6199f669bfd1cb91934f09b31c29b3dc42ff35b136342def3d626df857512b"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridge-continuation/seattle-bellevue.json",
+      "sha256": "490af61710e6c3efdf0c3acb886c57ffdbffaae4372b36c7437a489f68ce3b3e"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridge-continuation/seattle-seatac.json",
+      "sha256": "c8862dc5ee76b37b8e5eb66e48def5d2963e7330fe4fcffe4f3d660bde1a1fe5"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridge-continuation/summary.json",
+      "sha256": "76037fd7a704dadca943fa7470a0107522f862728907ec0b652742eaa76f6e2b"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridges/HANDOFF.md",
+      "sha256": "1e995486d62d2e9067f09326d10e874cf7439547e72f72b6a647979bd870c766"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridges/native-bf32/README.md",
+      "sha256": "98d4f9ee786b927a46d5ec91b5d42560dc06488431a57b9344bc9709e9909be4"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridges/native-bf32/bridge-recapture-mask.json.gz",
+      "sha256": "1b668bc2655855c3e9a50ec129f68bf36f2a8dfd9da4dd80edf1121ea5433a6a"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridges/native-bf32/bucharest-floreasca.json.gz",
+      "sha256": "c4ad6382b18df1f5366aaf91d730ba22116bc5f60cbbb0137bdebeadde9de304"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridges/native-bf32/bucharest-grozavesti.json.gz",
+      "sha256": "74e9cd1100e8129273a09d2a7b43c5ec2c015f6bf477547b8c0e3673e1ba67ce"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridges/native-bf32/bucharest-otopeni.json.gz",
+      "sha256": "428f3da9991593f8769dcaed78bbcd4d4ed30afd2c5844bd7074d92665af1ab8"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridges/native-bf32/bucharest-pipera.json.gz",
+      "sha256": "ccb1e6706a8d0374849b112a6c9860d1b792bfcb46ad25ae8fcc9fe921efbc69"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridges/native-bf32/bucharest-romana.json.gz",
+      "sha256": "4001012f5600a598dae9c19dd3f82399cb242c91d7db7a9f818cad844b96d39a"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridges/native-bf32/bucharest-unirii.json.gz",
+      "sha256": "7ff3cbd0d1fee9a42bb97fb9533888e208e8fe0ef21b936fc510354c828c1922"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridges/native-bf32/geometry-release-to-render-release.diff",
+      "sha256": "a7a3ba0bd9f91ee5e31c5c77780583db31228434e8654c3f606502eb15c6a9a3"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridges/native-bf32/provenance.json",
+      "sha256": "a6b6621b7dd208e92050be371eca90d1e644347bfb69bb6a6c8cb738aaab3e44"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridges/native-bf32/seattle-bellevue.json.gz",
+      "sha256": "5561a6e2b5cca6207ef0e59d6232428d106f5cc34a5a1eda8c92e3079bac9404"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridges/native-bf32/seattle-seatac.json.gz",
+      "sha256": "b05bf5b79f04e3653e2a0f9841144cce9e52f2c766b74d398a0be8b800e32c70"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridges/native-bf32/summary.json.gz",
+      "sha256": "04b769cd2b4923577766675e6d49f907c733ea436fbe4dcf1c34c1a2d344ad5e"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridges/passage-regression.txt",
+      "sha256": "132090876d38f901f059028c4b636b0f60bad7a558ed90fb08eeec0f81e58f61"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridges/pure-controls.json",
+      "sha256": "f3212f8f659ca4baa3b3f7ac35178e6106bf3fc38d2c82ff0e6d99feb25b93d3"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridges/source-regression.json",
+      "sha256": "418743a9fb4b2c5ead5446c747da0023c168a19ebb05769ebe65763d965567c7"
+    },
+    {
       "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-source-runtime/README.md",
       "sha256": "8e178144703b656a36f671c269b5783bdaf00b6e3eeea230578b81e294a91a85"
     },
@@ -9118,6 +9514,110 @@
     {
       "path": "handoffs/fidelity/original-districts-refresh/proof/street-sweep-planner/README.md",
       "sha256": "e7779079a4cb909d1de82896a1558cf21754549078664daf0748bfb405346ef6"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/tourist-public-context/README.md",
+      "sha256": "b73cb31c263f2a6c5768d1034c834653ede8989cbfcd5353f64537fc2aa4e09e"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/tourist-public-context/fremont-troll/after-context.json",
+      "sha256": "6f403a37f5d8e311d0d39e2fea593c59a00a405a40c630ae43f67c65c63dec78"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/tourist-public-context/fremont-troll/before/activity-approach.webp",
+      "sha256": "fe70a9a58d2122ab71d133df67fab3986745bd3769590518ad74aa272d44629a"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/tourist-public-context/fremont-troll/before/arrival.webp",
+      "sha256": "ea9668ede734ddb979f38ea084f1a0014de328396981b81a94f91ee2d6dc1bdd"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/tourist-public-context/fremont-troll/before/postcard.webp",
+      "sha256": "61ae5c78aa238da573dcd3d999d7300fc4123ed9910acc0964e77254f3136330"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/tourist-public-context/fremont-troll/before/public-walk.webp",
+      "sha256": "88fd976a51af5701b949594fa7ffb8b1b34d17efabe0da691c46bed045949e63"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/tourist-public-context/fremont-troll/before-context.json",
+      "sha256": "70235112657d6f25f9b706a8ebb0f099c361f5dd2f206e7bbfbf4cacc22d4b8d"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/tourist-public-context/fremont-troll/native-public-walk.json",
+      "sha256": "249afdd30a9e2ec0ee30f888d6396f8401697087bfe0393f12d0ec619a99341c"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/tourist-public-context/mopop/after-context.json",
+      "sha256": "7503129919a91a27c9a226e7f65f963b6522bf069a1484fe6e9d39bf1ba9da7c"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/tourist-public-context/mopop/before/activity-approach.webp",
+      "sha256": "8677141a96ee2c46a48049ffc8e81b8a02f4434f3a7f2ac493ac43006e302ee4"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/tourist-public-context/mopop/before/arrival.webp",
+      "sha256": "75ede8b1eee4ab6255cbd177b16a0e1be05be4268c9d4ed6c33067565b1ce996"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/tourist-public-context/mopop/before/postcard.webp",
+      "sha256": "3b61aa65460d9e845fb8d0882022e36b57dcbe08253cb336cc423de8f413510c"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/tourist-public-context/mopop/before/public-walk.webp",
+      "sha256": "a25b1d21124668ed9a62acecb20c6390d43d04f51481e08ead12820d0908984a"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/tourist-public-context/mopop/before-context.json",
+      "sha256": "bdef507a12688f0cac118424e7f6d5e31341c0d93d9a9018eac65e96cfd3ef5a"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/tourist-public-context/mopop/native-public-walk.json",
+      "sha256": "45f0dd5800052c85eb1148c4fffaf18d4a0d49b63164c1c5a3c3a4e80892f50e"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/proof/tourist-public-context/summary.json",
+      "sha256": "229ad9116e2058319297a9217facd3d5eb60e0e7b5ad3978c88e420bd70ee006"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/scenery-bridge-impact.mjs",
+      "sha256": "ff681519e9861c124a943da916ca900b9183bc919c14252912348d17f3995e25"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/scenery-bridge-native.cjs",
+      "sha256": "107b2112b5d2469ce7e80379adc72a58a4c984000dc84b8bf629064faa387301"
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh/tourist-public-walk.cjs",
+      "sha256": "583b9fc7c286ab49dd6d3a6185e64908a690e5c633e046a8a7df5a98ec77527d"
+    },
+    {
+      "path": "handoffs/fidelity/overview-browser-check/README.md",
+      "sha256": "d7db093770ebf556b4ab7b898e6b7245085e697507095529b5cc6828eb78d0ce"
+    },
+    {
+      "path": "handoffs/fidelity/overview-browser-check/desktop.png",
+      "sha256": "c1272adf5d9376a4e188d3809a97bb7f5ae9ba9ee25ebb697d119dbe64f444d5"
+    },
+    {
+      "path": "handoffs/fidelity/overview-browser-check/mobile.png",
+      "sha256": "9a434d425ff5b6b04c96b603dd26e518ff4323d856d6016b7c98b16357180d11"
+    },
+    {
+      "path": "handoffs/fidelity/overview-browser-check/replay.cjs",
+      "sha256": "0b95d6ebcd4f6a37d5183fff451ff7190da1c5b12c7c71446abddeac62f73253"
+    },
+    {
+      "path": "handoffs/fidelity/overview-browser-check/result.json",
+      "sha256": "dfc3675c3727f5873da19a3612468420589485433369e65f5c47a5925d5e2889"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/area-source-tags/area-source-tags-proof.json",
+      "sha256": "84cf429d264aff868d26e8c6e23ced2699373892ae32ab368b129ce13514d910"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/area-source-tags/water-channel-tag-impact.json",
+      "sha256": "be328d8213ecd58a9834f32272d50a16977bc80d082081d39edd4289c805e6f0"
     },
     {
       "path": "handoffs/fidelity/pipera-fidelity/delivery.md",
@@ -9145,11 +9645,275 @@
     },
     {
       "path": "handoffs/fidelity/pipera-fidelity/source-proof.json",
-      "sha256": "5acbcf126037cc862267d68fb766d04166221b55e0d759a65283d71b76ffd5e3"
+      "sha256": "619caf356bb8cfd93d284f8c2c7f0db4b84623141c9b108b8428cb0fb72a16f2"
     },
     {
       "path": "handoffs/fidelity/pipera-fidelity/source-records.json",
-      "sha256": "08876d684f91ca10e38a715630ac77e44dd5de44fc031a15dd6efc84f385f6c6"
+      "sha256": "c003c567b24b63a9e8b693921f4be05d7af520db7a1772df0dc52dd5710f6796"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/README.md",
+      "sha256": "66669a897ee47a4d28a3fccaa07b6fc5a91dca735654abb38c33bc6f047fef6e"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/artifacts.json",
+      "sha256": "afaa3ce60df84ad6cce3d8b6ae5b8023895582bb44dc93d808df5a611e4d6d7b"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/batch-final-attributes.json",
+      "sha256": "9cb46c31be0ecebcaecb9265512fb857af932bffba63aa82d4702a5e53283594"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/exact-batch/after-db-6.webp",
+      "sha256": "ddcf51fc2d8418dc37471dc85fca1903276f26db65117f9274eb883b9298d828"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/exact-batch/after-db-8.webp",
+      "sha256": "8d937dcd44f2391ae7880ba7fee311cd59f594fcddc4cbecf6794526f2fa74fe"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/exact-batch/after-sweep-strada-barbu-v-c-rescu-run-2-5.webp",
+      "sha256": "6952ef2c4be82bfd5a0a98e243c121eae5501d94b5e9f4cc4c5fbabaea41c17a"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/exact-batch/before-db-6.webp",
+      "sha256": "ddcf51fc2d8418dc37471dc85fca1903276f26db65117f9274eb883b9298d828"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/exact-batch/before-db-8.webp",
+      "sha256": "8d937dcd44f2391ae7880ba7fee311cd59f594fcddc4cbecf6794526f2fa74fe"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/exact-batch/before-sweep-strada-barbu-v-c-rescu-run-2-5.webp",
+      "sha256": "6952ef2c4be82bfd5a0a98e243c121eae5501d94b5e9f4cc4c5fbabaea41c17a"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/exact-batch/comparison.json",
+      "sha256": "8c5f82b1c436725fa0d217fa524933fa83302b30d91db0627b6d3c98acdb815d"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/group-order/bucharest-pipera-lake-interior-after.webp",
+      "sha256": "b2d0e431086f514e36959afc55fad1a7555bad379a5b2eff415eb0c12f2c652b"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/group-order/bucharest-pipera-lake-interior-before.webp",
+      "sha256": "6cfa18807c796d335edc05c848048858e1bde03fef038a0a096d382d7cc42626"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/group-order/bucharest-pipera-mapped-dry-island-after.webp",
+      "sha256": "0abe884199109a8cc408c61a6e76edb725fa5bcbe5e49a34700ebe9cce80b613"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/group-order/bucharest-pipera-mapped-dry-island-before.webp",
+      "sha256": "548317720fe08158db6006c89ec99430818dc0cf0ef32fa71a94ba9a42a7fdce"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/group-order/bucharest-pipera-shore-and-road-after.webp",
+      "sha256": "049d7ea7155d387203fda8b7953f395bd1e93b1c111b31fbb3333290229691e1"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/group-order/bucharest-pipera-shore-and-road-before.webp",
+      "sha256": "69ca5248f6336034d4e716f7ab978f341470428987b15e51023cf2179b9a059e"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/group-order/seattle-bellevue-lake-interior-after.webp",
+      "sha256": "98a16136b030c546ed83aef3fd3af6af3d64c3172d7485195e79c60d37f595b3"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/group-order/seattle-bellevue-lake-interior-before.webp",
+      "sha256": "157682e1647749b96bb779d9530f9af05d2d86db7ecff5ee4042d1952c22ccc2"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/group-order/seattle-bellevue-mapped-dry-island-after.webp",
+      "sha256": "81dd01f85fd999f2c21b52fade4b026e7035bfe9657fcdae13044568fe34e28c"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/group-order/seattle-bellevue-mapped-dry-island-before.webp",
+      "sha256": "a6965cf3d7d261dca91881f86092498b8643fed5fdb33e141fec4c599933c536"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/group-order/summary.json",
+      "sha256": "19b30681fcdbaaf91cc26a69c2e025fcd13bd802f78a0acbae334d8aa9b21fa0"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/literal-tags/after.json",
+      "sha256": "171bd177161de9f14a60680854599ede7ec96e62884dc2e44210d6d029cce14f"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/literal-tags/before.json",
+      "sha256": "f9f5cfae0532d5b7c970d867e63eed431a5d7df6017309fe5f82a9f3713a8259"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/literal-tags/mapped-lake-after.webp",
+      "sha256": "7cce32b035b47b7025753aa33366e7aac6f726cae49c1d6977d8895c37a64b28"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/literal-tags/mapped-lake-before.webp",
+      "sha256": "5d77f1c835e0d750bfd582df7f252748133845355b1c51bf0863cc7c82fac095"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/literal-tags/nearby-road-after.webp",
+      "sha256": "05fda3f6e12cb997ef899f5412efb5fab19214db6aea709d9767544c77078114"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/literal-tags/nearby-road-before.webp",
+      "sha256": "530bc01c942093ffa19470cf1b3a54e7c435bf4b9271e6a30b48858e09169113"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/literal-tags/proof.json",
+      "sha256": "63504d7b3fef67a997fd78e999fe1bd46bc9e0c8e6d63fc7e3e7caf49d85f4a4"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/literal-tags/shore-context-after.webp",
+      "sha256": "cab27245e7c6c9dadd20828dde984e04070f093251e6ad4ad3dd7b488d973764"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/literal-tags/shore-context-before.webp",
+      "sha256": "2eec90bd19018a7e346efb3c57b03575650fb04698e28e86d0365cac24370f38"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/literal-tags-probe.cjs",
+      "sha256": "c012e13b55f248d4e939b1d0c591b4b460d7388feb20ee471a08e4b37f1d973f"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/shallow-tint/README.md",
+      "sha256": "0bd4c516fc5fb08a9850b7bd210a3f5273513113786dd2aa22eaa329774414f0"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/shallow-tint/actual-tei-seam-after.webp",
+      "sha256": "8b7782e67bc9e00ee7efdb03be5d93018732e2ea1079572d13ffa0fac4b3d747"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/shallow-tint/actual-tei-seam-before.webp",
+      "sha256": "bd17640ab5ebbfd1518c8f80208314407698e046d0d127b2a491835f68d10a38"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/shallow-tint/atlas-water-mask.py",
+      "sha256": "f8c753e008586b22af4607723078eb3937eb1371c2804750603f9746c16da49a"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/shallow-tint/atlas-water-recapture-mask.json",
+      "sha256": "e4964c87a173b7da27c3318cb17ecb188f59ef9dbe693dc2e9d5d04634599f34"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/shallow-tint/classify-retained-images.py",
+      "sha256": "00b0a7a3f52b8d9163f320ca34bfef813f9883a7b7cac73abf4ac820f7b16a94"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/shallow-tint/corrected-source-mask.json",
+      "sha256": "580907a8c32eb9e1da7f903c9b562fdec13fbfcb6fc8420db7bf4f8f1560dbca"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/shallow-tint/floreasca-source-water-after.webp",
+      "sha256": "7172966ee85b9f556372d1be61efd9d2e22df19c7f367280d2285db0c6a99faa"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/shallow-tint/floreasca-source-water-before.webp",
+      "sha256": "7172966ee85b9f556372d1be61efd9d2e22df19c7f367280d2285db0c6a99faa"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/shallow-tint/gpu-controls.json",
+      "sha256": "c0a199c0e189234bc006006427ef256831c54ee007dd499dcba6b44484fe5ca9"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/shallow-tint/images.json",
+      "sha256": "58e8ebe0df592101e692b9af0c291e30010dd288422fa39c6aabb70b895db46d"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/shallow-tint/native-probe.cjs",
+      "sha256": "6b34d78763dc2b2fa8fabacb4389bede080a78943edccd1b8ef0b9294dd4852a"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/shallow-tint/proof.json",
+      "sha256": "8fdf65c8f6fc2ee9011b30984b16fc135d2858919537b86c245400624e41c513"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/shallow-tint/tei-east-shore-after.webp",
+      "sha256": "db2949c1031280481c4ead99ed45117940fae80e05cb79915ec156bfc74e855c"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/shallow-tint/tei-east-shore-before.webp",
+      "sha256": "c7afa418eabe80509930b61f892415d861560433a4297fba0251606c634aedf4"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/source-foam/bucharest-pipera-lake-interior-after.webp",
+      "sha256": "2f24d8a7eec790a7492ce6d9a33057938a95da8c16f4fb33774453974b1fe25f"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/source-foam/bucharest-pipera-lake-interior-before.webp",
+      "sha256": "f8ccc2af790d2fe1575ddf59b14b79a8ab5a4539f6650fb25d5812ea43269cd2"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/source-foam/bucharest-pipera-mapped-dry-island-after.webp",
+      "sha256": "4f557c3996f8c7423c1d60007aeb886110151f579fc43b8eeec0a52205009768"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/source-foam/bucharest-pipera-mapped-dry-island-before.webp",
+      "sha256": "ab846c00f78de94e26c58e7b094488dca0a64e54bd90b3538f63fd68b14202f7"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/source-foam/bucharest-pipera-shore-and-peninsula-after.webp",
+      "sha256": "15f278e4b44aacba999495dcaad6469f5a8a043a3897e8f8216db052ee7b26fd"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/source-foam/bucharest-pipera-shore-and-peninsula-before.webp",
+      "sha256": "9fff93090fe9dc7b24d77c9c8f1cc777f84a50d75bd5338b73327677462918b7"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/source-foam/bucharest-pipera-source-road-positive-after.webp",
+      "sha256": "a4953ea23946db848154e5d5f44ca14e12ae17ba25d405f810f944b57cb57351"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/source-foam/bucharest-pipera-source-road-positive-before.webp",
+      "sha256": "a4953ea23946db848154e5d5f44ca14e12ae17ba25d405f810f944b57cb57351"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/source-foam/seattle-bellevue-lake-interior-after.webp",
+      "sha256": "fd5251363b4c1ae8d800dc4134e0999ec9a11b87ab46c1a16de82d39c10af04c"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/source-foam/seattle-bellevue-lake-interior-before.webp",
+      "sha256": "48eaf70d418b5a308e12730c54d7bc8c7ba3ce6899d28789f76dc6cc54ce2cc2"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/source-foam/seattle-bellevue-mapped-dry-island-after.webp",
+      "sha256": "09a54794f1b2b8cd78b61d551f6e29b8b0355a5aa70264d1162cdb3436dbffc3"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/source-foam/seattle-bellevue-mapped-dry-island-before.webp",
+      "sha256": "e05e6d36309583b2d3748cc95922fd4c53ecd6ed17eb6bda0ecfdc831213bce5"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/source-foam/seattle-bellevue-source-road-positive-after.webp",
+      "sha256": "e8a4bd74edc285f1c6721e33957c615b8fad6f5357c3167333f3d94f48fd68be"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/source-foam/seattle-bellevue-source-road-positive-before.webp",
+      "sha256": "1d780019b7b49578d2c32739085e83ad4be8845eb3a4607bc538a08c0b27851a"
+    },
+    {
+      "path": "handoffs/fidelity/pipera-fidelity/water-render/source-foam/summary.json",
+      "sha256": "b936c19624992566e12fd37b06b454bb9f8531deea96866ccdca46c04abb8186"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/cec-source-masses/HANDOFF.md",
+      "sha256": "6704c45e495c2d6af67d00317fbee2584ebe3a40e1563315222508b383e769f4"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/cec-source-masses/bake.py",
+      "sha256": "01ccc0501a70eb3818314cb3c8f5821d3a4c3bdc495869f329caa35744246622"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/cec-source-masses/native-studies.json",
+      "sha256": "64cf700405bf27a0975e96e9730b9b28859792ab818373dbff972b39cc52f131"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/cec-source-masses/prepare.mjs",
+      "sha256": "694a9f67971ed217eb4f8af9f5e0ed5b509728abcb16289f920af149105bed8b"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/cec-source-masses/source-unit.log",
+      "sha256": "154a1bea24bfc192f3562418ca01ab69a520de9183511d7bf67d731496974f00"
     },
     {
       "path": "handoffs/fidelity/remaining-ro-districts/nav-poi-clip/HANDOFF.md",
@@ -9196,6 +9960,162 @@
       "sha256": "6c26472692bfd26da8cbd053e157299a68dcd1bfbeb353a38b74f888cc75d392"
     },
     {
+      "path": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/HANDOFF.md",
+      "sha256": "e31e624695ea496fbc650275df1a7af6413279684ecb5978de93797336c1169c"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/REVIEWED-NONCROWNS.md",
+      "sha256": "989287d743af578ebce203a23ac5ad19d47f75760420640bf6e18e25fb51da05"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/after-unirii-water-edge-0.jpg",
+      "sha256": "c37a86321b2e540e194e89ec912c9696057d2fd2b2d1188474ef0c2b8c1f05cb"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/after-unirii-water-edge-1.jpg",
+      "sha256": "60a73328c4daaeab8eb4221d589257ebc599d5e23188a5a72eaea6890c89458e"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/after-unirii-water-edge-2.jpg",
+      "sha256": "f5108a2fd85d57b23672a20959b2961d73fd9f476ce5cbd26fb0a45862327319"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/baseline-4198996/otopeni.json",
+      "sha256": "e100b1eec597775cc1f2f2ec304dcec8e224d85573ccecdb1bd8b471405ae4be"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/baseline-4198996/unirii.json",
+      "sha256": "295ce63ac3ed93b05c6b95c3335bfc580d966fab1c109c8fd849dddc078022f5"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/before-unirii-water-edge-0.jpg",
+      "sha256": "6fae1f2c489342207cea01246fe2b19038609dc7d6daff9137cc18cdb7939180"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/before-unirii-water-edge-1.jpg",
+      "sha256": "a0bf7d82a943ad8d9fb16c9cc7f9d85e16b9aed9a86961efcf97208ea31233cf"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/before-unirii-water-edge-2.jpg",
+      "sha256": "ddd3874aecb5f6aab6f10bfb7cf2c66b17888b1ee0043f4ae3ee7d8cc54a8ed5"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/native-proof.json",
+      "sha256": "f1f38241b92deccc4e49fb3bd9e19a1d93661dd540ed39eb37534f090e0a3b0b"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/reviewed-noncrowns-check.log",
+      "sha256": "01ddd7b95a432f54ac774df3db999e4be7bb14ccd7a6a6a15f622c47ae33a1b5"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/reviewed-noncrowns-check.py",
+      "sha256": "aa0f9e59c735b2beed38c50a430e04e5f91f96c90d5a30c5f2f3918e27814aa8"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/HANDOFF.md",
+      "sha256": "0644d69ab86aec0da32094dd1436bde824831ed6ecafc5323fa29e1c4234e0b2"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/ballard-before-native.json",
+      "sha256": "7e45a3027d2a2d9d0b4e4f2146a33bd1625d18d79638a569f203acf88aa75a39"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/ballard-before-native.png",
+      "sha256": "c758ba50c5cf9f92ed043ad256d6f84f31e369f13980f26fadafa18b69d86ca8"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/ballard-locks-0-plaque.webp",
+      "sha256": "331570d311f620df23b6318aa5bcdbcff86125bf4904a11855d0be5cf5b5b008"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/ballard-locks-1-plaque.webp",
+      "sha256": "f88d3eb0453f901c58077db76fe5894c1c3c3bee5947bad6fbdb540645900091"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/ballard-locks-2-plaque.webp",
+      "sha256": "8ef372cbe3ec5719cf4f3250932a0ea82d38718fd95ddf80873364616a847404"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/ballard-locks-3-plaque.webp",
+      "sha256": "acdc22696f16e48f0050a73045f8db801921e42b3a60e63d7fc5c8460db93595"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/ballard-locks-4-lockage.webp",
+      "sha256": "4d41f768580c69d6fd37c8c6097556d17adcf7b62ef3b947091e891b8a6c5c92"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/ballard-locks-5-postcard.webp",
+      "sha256": "607bed3c9819c335dd5950f01decafe4edcf6cf53f28328acc2630f9a0fb79ba"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/ballard-locks-context-native.json",
+      "sha256": "a685fedcc04587e21cf570e41e8f17fae06878b10d8fa76c26b300d293d43a01"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/ballard-locks-prior-record.json",
+      "sha256": "5d8cd8235742af11a5f7ec5bff786272fd30bf3d4580c1954b007311debabc01"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/ballard-native-targets.json",
+      "sha256": "512697fe382429660760443d2486bce31b04899fe7ecfc39f48bc853aac61cab"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/ballard-wall-rays.json",
+      "sha256": "890a5f1a121918d021f70fd30ee2d23e55b61306b8632dba25aa0053e1548d60"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/cismigiu-before-native.json",
+      "sha256": "58dc7dbcb9a5077a742dc497854165b22316173090fe694bbcbe0808f23f11a5"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/cismigiu-context-native.json",
+      "sha256": "e9453c747872ff19cf04aa8b22f4b63921feb66f0f15d8b56e3ed37bf8ca201a"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/cismigiu-prior-record.json",
+      "sha256": "f56bb58f79e74527391cf34e07df6fac6d84cebc992e83a1f9e5276e4d8a925c"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/manifest.json",
+      "sha256": "62869177ec8b5a6c524f7853faecfad9451b9891c86dcc7e94b33509039a26ee"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/native-targets-probe.cjs",
+      "sha256": "a363de6a4433261d27b809c7b580e484f693ca9058ddcaef7a46f12ae33a32df"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/native-wall-probe.cjs",
+      "sha256": "100a66460e2e9554968c8a9791fe3dfd0c04b898ab1e0183e0f194bab9ad7c5b"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/waterfront-0-plaque.webp",
+      "sha256": "5593786385c6abe3d982e8425133031839d8453e340a459c714c9ee0e1f3a2c6"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/waterfront-1-plaque.webp",
+      "sha256": "7124e8392a1b2d25da5f34ba78ecc7eccda25214ea260f5bc0d5eb532bb73223"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/waterfront-2-plaque.webp",
+      "sha256": "7a8e5269beb810c0c388d66e44054e1849cef7b59f9b1ba48f6a39c637c9c728"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/waterfront-context-native.json",
+      "sha256": "62734652a7e1edb1bbb9e4aa27c5a8715ec037caf78ee32b40373e7bb176e3d9"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/waterfront-native-targets.json",
+      "sha256": "9d5d20bd9167b278f4f010bcc08000572dc979e93914e3883dd53af0f71424bb"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/waterfront-prior-record.json",
+      "sha256": "c59c18c4650b92b7489fc51c6f4507e4d2bbd614bb0bc4998358acf4cbe1d862"
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/waterfront-static-queue-block.png",
+      "sha256": "250d8b43d5cabf87f29929aa29f903e11abcd7df383f8eeafae26558219d19d0"
+    },
+    {
       "path": "handoffs/fidelity/root-integration/README.md",
       "sha256": "027c2d2d16a11a1826d9d89ec003f65b9bac94b1cc0f15a14593b62661e89ca0"
     },
@@ -9210,6 +10130,34 @@
     {
       "path": "handoffs/fidelity/root-integration/overview-browser.json",
       "sha256": "2ca7aa8aa862c3c062a2b48f461cfc7eabe46dab60c81512787825258e81ac91"
+    },
+    {
+      "path": "handoffs/fidelity/root-public-activities-924aaa0/README.md",
+      "sha256": "7974f39134bc7eac07ad328999cd129e4dc2247d7da82f47c7eafb2b13bbcf47"
+    },
+    {
+      "path": "handoffs/fidelity/root-public-activities-924aaa0/desktop/athenaeum-revolution.webp",
+      "sha256": "dcdb9ac02edaf1957ee97c65c4dae3b77fb7cf32659765bd39d6809625ef7ae5"
+    },
+    {
+      "path": "handoffs/fidelity/root-public-activities-924aaa0/desktop/results.json",
+      "sha256": "9be2766b74926d3fb3adb536a2a911f24b0df2291c7932e54cb9d0e25b0bb4c7"
+    },
+    {
+      "path": "handoffs/fidelity/root-public-activities-924aaa0/desktop/spring-palace.webp",
+      "sha256": "3ae94174e357fabf0c2d05f50c1ecdf115cc504957f37d38ed81ea9ee9aecc92"
+    },
+    {
+      "path": "handoffs/fidelity/root-public-activities-924aaa0/touch/athenaeum-revolution.webp",
+      "sha256": "b76827f5c5ea7b1594ffe4cbdbad2ccb08116fca6019abc98056cc2307f40669"
+    },
+    {
+      "path": "handoffs/fidelity/root-public-activities-924aaa0/touch/results.json",
+      "sha256": "aa7088a5d52278cd2e17f6069c8f3794d3157f5c598813b562edab043e943966"
+    },
+    {
+      "path": "handoffs/fidelity/root-public-activities-924aaa0/touch/spring-palace.webp",
+      "sha256": "e90135b9f541dc4efa6b72decf9abebc14708c6fe3189854f7d2ca7347edc5c1"
     },
     {
       "path": "handoffs/fidelity/rosetti-basketball-results.json",
@@ -9324,12 +10272,24 @@
       "sha256": "4159591d7519f980aceded64bee90e4bf50425f15e073d2c1d58b972f4945768"
     },
     {
+      "path": "handoffs/fidelity/tourist-context-activities/ACTIVITY-SOURCES.md",
+      "sha256": "f7fea63d67eb86ed70d4add198f51ff18033ee41239b6becf70c7ff72b1b5d74"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/CATHEDRAL-FORECOURT.md",
+      "sha256": "b4877fafbcc3a1c26b07d75783b35e8ca8de30144928a61f29fce0a6ee55e3eb"
+    },
+    {
       "path": "handoffs/fidelity/tourist-context-activities/CONTEXT-24.md",
       "sha256": "8f71f0c58dcad3bccf13c028e0fceb13b4536711d70c52b6a9f0625c4a48e015"
     },
     {
       "path": "handoffs/fidelity/tourist-context-activities/HANDOFF.md",
       "sha256": "fe68b27bed954cb460b77fa503c9c90827f12874bddd907088db736e43e6f02f"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/PARK-PARTICIPATION-PROOF.md",
+      "sha256": "bbb0fbe67db7173a0c52449dbbc04f8861b34481fdf399030ee81e5cd22050a8"
     },
     {
       "path": "handoffs/fidelity/tourist-context-activities/ROUND-3.md",
@@ -9356,6 +10316,54 @@
       "sha256": "d714a91af57d54c287fd9357c6e753f377c093645a4e60db59d7f7203241ef48"
     },
     {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/cathedral-context.json",
+      "sha256": "a72312d0ef2932cf8f41facbebf3e1f3b4b233120daddda5e049064cb92d868b"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/cathedral-forecourt/desktop/arrival.webp",
+      "sha256": "a12bdea018a2abe91a3b809066efa388f82c81b2b42097e387276f485e0701fd"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/cathedral-forecourt/desktop/candle-light.webp",
+      "sha256": "d189330a53e4b9a69b35a645252bbfb5b43b0457538bba4680b5da1e295b28d8"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/cathedral-forecourt/desktop/candle-placement.webp",
+      "sha256": "8d4ea9d99eddc38ba0c5149c034090475f8aa4242f8d1e868672e3a89298bda2"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/cathedral-forecourt/desktop/public-walk.webp",
+      "sha256": "4c9136acfe380b542fad4475278087723ce62c84258dbbd8366236c65343351c"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/cathedral-forecourt/desktop/results.json",
+      "sha256": "8c64e8bc7b875bfd10c3e8f1277c1afe50a58f6ecdbb3671c28e50e81dc1eba3"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/cathedral-forecourt/touch/arrival.webp",
+      "sha256": "7e37ea409e2c42c68e7e487d481be02d19722e4cd686796ffea12bc9c6715fdc"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/cathedral-forecourt/touch/candle-light.webp",
+      "sha256": "55fef468934eb6558763f5cdf608fd1af127575fdb404706029d700b9bb95cba"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/cathedral-forecourt/touch/candle-placement.webp",
+      "sha256": "7492fe671565abc37680250d4bfa8b240e78684e2d72d81fe5a909630ac3c537"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/cathedral-forecourt/touch/public-walk.webp",
+      "sha256": "14e904f71e328fcd0140021520bec502f65eada6f1c3c854f08bf701b1fd7d2c"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/cathedral-forecourt/touch/results.json",
+      "sha256": "20234bd4b5dc4cff3d3c7ceb62773b62176aeaba4b4bab761d380164ef238cea"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/cathedral-logic.json",
+      "sha256": "42036856e06cbb4a4a494d65112a814bbd9cc42ef7f42090904b94b37be1d2ea"
+    },
+    {
       "path": "handoffs/fidelity/tourist-context-activities/proof/conditions-native-desktop.json",
       "sha256": "8b6a43c220918ac384627a088d79d03a69ba163b26573144ac4d01db42105879"
     },
@@ -9372,6 +10380,70 @@
       "sha256": "bf1dfb7093218f48d483730b5514e38525e0da04234400811d2135147571f442"
     },
     {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/park-participation/bike-f07-desktop/bike-completed-distance.webp",
+      "sha256": "dc73bea38104b1d3ee8eb8a9e65ad1a8e3036a02ed8fafc0b2407910c59e7dc3"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/park-participation/bike-f07-desktop/bike-pedalling.webp",
+      "sha256": "a7e727f2be91cb67438df0effb1b2f969531902bebcd96580a98ff6ba7760cc4"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/park-participation/bike-f07-desktop/results.json",
+      "sha256": "8112b1e9354f51ff85f56df8dd97a78ea4ab1070b5e7ab44b47f38f93939d971"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/park-participation/bike-f07-touch/bike-completed-distance.webp",
+      "sha256": "87dd9ad3cca80230bfbc3ae4051a13f477138bc14f1dbb7898f63da57897a658"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/park-participation/bike-f07-touch/bike-pedalling.webp",
+      "sha256": "6b4d6591beca13e30d4e1bbc08291ba9d75e54cd88f3200a58b84bd778636686"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/park-participation/bike-f07-touch/results.json",
+      "sha256": "a2fe8a6eb6f474f9feaf51b80444040644f2e392bf6c0af6f70eceb065b12d38"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/park-participation/mandatory-foot-a-2565355.json",
+      "sha256": "02bbfd84ab83f56615832ca122c3a024c239402747dbe85d7392f2b0237d123c"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/park-participation/rides-2565355-touch/bel-meydenbauer-stroke.webp",
+      "sha256": "224b9585bb99fa6fe69c42ae45d373c1a33021e25ad94811708b3492d16ad3bd"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/park-participation/rides-2565355-touch/herastrau-park-stroke.webp",
+      "sha256": "dcd728b480ff66da96f3fbaf0114b9ca99c381d722f8a73cdda13d03d4ddbd79"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/park-participation/rides-2565355-touch/results.json",
+      "sha256": "7eaaf12534112ce1652efda9547986efc0bb2a5a64531fde533cd90254e4a58a"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/park-participation/rides-864d706-desktop/bel-meydenbauer-stroke.webp",
+      "sha256": "2e39ff70d1e0e2f16af087ac712702b02f3797a5978bad6556614d5be1693540"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/park-participation/rides-864d706-desktop/herastrau-park-stroke.webp",
+      "sha256": "0be549b82e7d56b187e05aa32735f7e7d132ba61db087ca7a8a8949c0332f6f2"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/park-participation/rides-864d706-desktop/results.json",
+      "sha256": "16e8eff49a7d21d040d971898ddb0c2f1fd1d7df7d42dabb12a2550afc9848c3"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/park-participation/rides-f07-desktop/bel-meydenbauer-stroke.webp",
+      "sha256": "30caf4026f81d3241a4b409a7afc3bc11620d221087c44a795198065bbbd9304"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/park-participation/rides-f07-desktop/herastrau-park-stroke.webp",
+      "sha256": "89d174f20a3728136fccc7a0d191f13aa00e7d1466ac5edff0c79d60ed04e335"
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/park-participation/rides-f07-desktop/results.json",
+      "sha256": "8d3d3c4e73cc46d35299108c5615b7e5475dbdb1cfa2ac40f7ff7e5591254f92"
+    },
+    {
       "path": "handoffs/fidelity/tourist-context-activities/proof/photo-hunt-desktop.json",
       "sha256": "e7897d5dace56308c4e688e21ec09182648e4986dad952921ee1c52309744df7"
     },
@@ -9380,12 +10452,16 @@
       "sha256": "5a22008fcd68a874452c320c621d8816c205fdf941a651e9feb3e368f8aaa21b"
     },
     {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/raw-relation-parts-19.json",
+      "sha256": "ecf8a7b75ac78a526fc05ff16169640dd912bfbb86163e889293ffb23259a19e"
+    },
+    {
       "path": "handoffs/fidelity/tourist-context-activities/proof/source-buildings-19.json",
       "sha256": "34086ba1d6582fe1ddfe6890960dc5fe16ccb51322ad2d28c2c2fb20adf0c691"
     },
     {
       "path": "handoffs/fidelity/tourist-context-activities/review-notes.json",
-      "sha256": "6ff6cd7268969c126377b22b36b9f2c8d9af7a400c272c9f1941f6bf20061354"
+      "sha256": "2d37aa833151c68ce5577f76d7dfdf434f775e4e53134a07ea3326f2f6a454eb"
     },
     {
       "path": "handoffs/fidelity/tourist-context-activities/round-1-evidence.json",
@@ -9540,6 +10616,10 @@
       "sha256": "0d05bd32ef7dc8663cf18a539148331c03f4f80544852e435c2e6208e14a32bc"
     },
     {
+      "path": "handoffs/fidelity/us-districts/SEATAC-FACADE.md",
+      "sha256": "b5d0c7589b58e303cf6cacc677a011f69b2290151ce143da58e22cca25f6688b"
+    },
+    {
       "path": "handoffs/fidelity/us-districts/bellevue/SOURCE-AUDIT.md",
       "sha256": "4483fd3eb5cce956e4f5d6936eee777097cb2120093b43893f8963ff2626e086"
     },
@@ -9630,6 +10710,18 @@
     {
       "path": "handoffs/fidelity/us-districts/seatac/building-source-audit.json",
       "sha256": "1c3aee825f99d1cfc18c900cd665079761e8ff7182cfc51bb7526fa3039bd491"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/seatac/facade-game-images/after.jpg",
+      "sha256": "5db577fb1581ac6b8308161a0a0f3b99b631c5cfa0b7df6fe51fb22447005f87"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/seatac/facade-game-images/before.jpg",
+      "sha256": "e8f30c3a261b260941a855e5a1dec8906e824d14de0e4886dd339712308d154b"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/seatac/facade-native-after.json",
+      "sha256": "0e810e3218f57bf11af9d9ff592c06e481df03f0b8e0751205b86c96dba7fd3c"
     },
     {
       "path": "handoffs/fidelity/us-districts/seatac/open-roof-review.json",
@@ -9801,7 +10893,7 @@
     },
     {
       "path": "specs/01-architecture.md",
-      "sha256": "00a79d0b110c819f2011f655d77c428cbfd728acfcfbbdae064441f5e0f03306"
+      "sha256": "2aedeeeac378a6cf4dd1eba20d8772b9c807dab2806d051c3f901b0ba44f119b"
     },
     {
       "path": "specs/10-districts-chapters.md",
@@ -9825,7 +10917,7 @@
     },
     {
       "path": "specs/15-tourist-spots.md",
-      "sha256": "98d5c881c65c3d1d3a0b65e7919c44961cfca0a3282911f7fdc9f7dc9995f557"
+      "sha256": "23202eecaa8b200b1ea106dcb62ea87bb3c04f6ff05858e6efd66b33f2e70e7f"
     },
     {
       "path": "specs/16-photo-mode.md",
@@ -9833,7 +10925,7 @@
     },
     {
       "path": "specs/17-cockpit-ui.md",
-      "sha256": "22fab90744b296535087c9371992a49b78ecce878eb6e5a037a1fe1656be5bc4"
+      "sha256": "87fd8bf16e8ffd784490d0c7c17f9a3d8f306f4ba449cfcc0fafbc789cf72966"
     },
     {
       "path": "specs/18-weather-lighting.md",
@@ -9869,7 +10961,7 @@
     },
     {
       "path": "specs/STATUS.md",
-      "sha256": "d6205d73d429c74711c8886183d0f132376cecb85b791e1ccdcb1c4318c4f894"
+      "sha256": "7c484d42c3b5062a91c154df67f251eae8a061f6f53276f963389abe52549fa1"
     },
     {
       "path": "tools/aerial/README.md",
@@ -9932,6 +11024,10 @@
       "sha256": "9eb22835c856d72227360f2fbb67241262450b6c02c90a4040c22e87261bb371"
     },
     {
+      "path": "tools/landmarks/seatac-facade-check.mjs",
+      "sha256": "90e9cdb4f6ca3ab944e76f948b068623f3b2a4d55e71a103bd9126035aabcddf"
+    },
+    {
       "path": "tools/landmarks/us-source-check.mjs",
       "sha256": "3dd8fd6f55d9c2944de2b1b0bafee658798de140219bb55bab31efc266c45b4a"
     },
@@ -9944,8 +11040,12 @@
       "sha256": "b2c98f056024353c136163638a36fd51ccfabfd067ee1061b9af6dd9832601fa"
     },
     {
+      "path": "tools/osm/area-source-tags.py",
+      "sha256": "497358598de0e8b2f2e38134af1b521c0465e413837cc2a3f568f526f9c4c902"
+    },
+    {
       "path": "tools/osm/build-data.mjs",
-      "sha256": "a44433e2652be973720a52461f2618ad460eca378a8c959bc79546ff4da2554b"
+      "sha256": "ef09da0cacc110f23dc11a463772e47507f535e0d09b142d30fce4beabb1c84d"
     },
     {
       "path": "tools/osm/building-audit.py",
@@ -10076,6 +11176,10 @@
       "sha256": "3049eed96decc15af22a09c2474c495bf2cfc3302fda36753ce595252fa11f94"
     },
     {
+      "path": "tools/osm/scenery-bridges-check.mjs",
+      "sha256": "90ddec99f19a43b8cc9b885a00f64db5952e5ebe97f8b53a9e89649ca9809b2c"
+    },
+    {
       "path": "tools/osm/scenery-source-check.mjs",
       "sha256": "bc08533a3616b43ca38c80e07e50d1542be81935253fccf747b12df5359542c2"
     },
@@ -10112,8 +11216,36 @@
       "sha256": "1efcf42b36de5514b1fdfe756674787a3eceed1270d2662e7d589c4e1abf7319"
     },
     {
+      "path": "tools/render/water-batch-check.cjs",
+      "sha256": "912273c6553bc03c83661afdebdeb72547ee9394b4e8439c68cf5f09701cee36"
+    },
+    {
+      "path": "tools/render/water-batch-source-check.cjs",
+      "sha256": "0cc57e848771aada91c097a5b76bd74999083b2ac2063741c2636b4c92eef11d"
+    },
+    {
+      "path": "tools/render/water-channel-check.mjs",
+      "sha256": "8dca7d09528a6bbda1b01d84d0a4bd7c9e50cc1af6be4abdfe01fe60e194ae52"
+    },
+    {
+      "path": "tools/render/water-foam-check.cjs",
+      "sha256": "2bf92e62d21a9c8cbe0d5f1bd0f6a93a176771aa1929dc4742dcac5cd517f4e0"
+    },
+    {
+      "path": "tools/render/water-lifecycle-check.mjs",
+      "sha256": "f89a05dd064d6efca8a30b238c2e408b566dac321fc618b5137563de1daa0267"
+    },
+    {
+      "path": "tools/render/water-shore-check.mjs",
+      "sha256": "b25f502fc8d72c950b4461967cb3564033a33a364bbc59f08c12043823b7a173"
+    },
+    {
       "path": "tools/spots/export-context-evidence.mjs",
-      "sha256": "f6bf28563eae81f38b405277cffa407452e96140a08b5eed99c29f7225079642"
+      "sha256": "21f52fdbfb7e1c573d097e4cf8b35dc4dc6bb96b5004c2bff9974e225434292c"
+    },
+    {
+      "path": "tools/spots/landmark-colliders-check.mjs",
+      "sha256": "561f9d836db0b7888c4222d2c6498d89028b34b98d6bbb7084d42846d6fe437b"
     },
     {
       "path": "tools/telemetry/README.md",
@@ -10136,5 +11268,5 @@
       "sha256": "4383c2dd2e8bd149ca618864223ecbd41c164ba01abeb35080b5c4e18e6c284a"
     }
   ],
-  "treeSha256": "5eb8aab2daa82fd4febc7d3ec0f954c146d8c37fd6425eae16cc3696a598e055"
+  "treeSha256": "b7e132441e0dab1e6158541c3dde25d7b620ca2ff7f263531048647dcfbc4e9c"
 }

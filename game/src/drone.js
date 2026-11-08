@@ -509,7 +509,7 @@ export class Drone {
             if (b.y0 !== undefined && y < b.y0 - 0.4) return;
             if (b.yMax !== undefined) return; // bridge piers etc.: only for traffic below the deck
             one[0] = b;
-            const r = collideBuildings(one, this.pos.x, this.pos.z, 0.35, y);
+            const r = collideBuildings(one, this.pos.x, this.pos.z, 0.35, y - 0.35, 0.7);
             if (r) { this.pos.x += r.px * 1.01; this.pos.z += r.pz * 1.01; const l = Math.hypot(r.px, r.pz) || 1, nx = r.px / l, nz = r.pz / l, vn = this.vel.x * nx + this.vel.z * nz; if (vn < 0) { this.vel.x -= nx * vn; this.vel.z -= nz * vn; } }
         };
         try { if (C.query) C.query(this.pos.x, this.pos.z, 2, test); else for (const b of C) test(b); } catch { /* ignore */ }

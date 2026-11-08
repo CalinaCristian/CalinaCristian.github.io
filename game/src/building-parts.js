@@ -155,7 +155,7 @@ export function uncrossFootprint(ring) {
 // Exact cache identity. Runtime validation is linear in source vertices; planar
 // subdivision belongs in the offline data build, not the game loading path.
 export function assemblySignature(base, parts) {
-    return JSON.stringify([base, ...parts].map(b => [b.i, Math.round(b.h * 1e4), Math.round(b.minH * 1e4), b.ring.map(p => p.map(v => Math.round(v * 1e4))), (b.holes || []).map(r => r.map(p => p.map(v => Math.round(v * 1e4))))]));
+    return JSON.stringify([base, ...parts].map(b => [b.i, Math.round((b.roofProfile?.eavesM ?? b.h) * 1e4), Math.round(b.minH * 1e4), b.ring.map(p => p.map(v => Math.round(v * 1e4))), (b.holes || []).map(r => r.map(p => p.map(v => Math.round(v * 1e4))))]));
 }
 export function bakeAssembly(base, parts, residualHeight, adjacentGround, keepOutline = false) {
     const ground = parts.filter(p => p.minH === 0);

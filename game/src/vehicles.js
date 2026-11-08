@@ -933,7 +933,10 @@ function getTaxiSign() {
     });
     const dark = new THREE.MeshBasicMaterial({ color: '#c9a800' });
     const face = new THREE.MeshBasicMaterial({ map: tex, color: new THREE.Color(1.25, 1.25, 1.25) });
-    taxiSign = { geo: new THREE.BoxGeometry(0.8, 0.22, 0.24), mats: [dark, dark, dark, dark, face, face] };
+    const geo = new THREE.BoxGeometry(0.8, 0.22, 0.24);
+    // BoxGeometry makes six material groups; contiguous faces share the same two materials.
+    geo.clearGroups(); geo.addGroup(0, 24, 0); geo.addGroup(24, 12, 1);
+    taxiSign = { geo, mats: [dark, face] };
     return taxiSign;
 }
 const POLICE_LAMP = new THREE.BoxGeometry(0.42, 0.1, 0.22);
@@ -958,6 +961,7 @@ function policeLamps(grp, bar) {
 // ---------------------------------------------------------------------------
 const LIVE = new Set();            // WeakRef<Group> of instanced vehicles
 const SCENE_POOLS = new WeakMap(); // Scene → Map<key, Pool>
+const TAXI_SIGN_POOLS = new WeakMap(); // Scene → shared-template signs, owned instance buffers
 const FLEET_OPTS = { near: 70, nearBig: 140, far: 1200, margin: 8 };
 export const fleetStats = { instances: 0, near: 0, far: 0, culled: 0, pools: 0, ms: 0 };
 class Pool {
@@ -981,6 +985,21 @@ class Pool {
         this.mesh = mesh; this.cap = cap;
     }
 }
+class TaxiSignPool {
+    constructor(scene) { this.scene = scene; this.cap = 0; this.n = 0; this.mesh = null; this.grow(16); }
+    grow(cap) {
+        const old = this.mesh, sign = getTaxiSign();
+        const mesh = new THREE.InstancedMesh(sign.geo, sign.mats, cap);
+        mesh.name = 'fleet-taxi-signs'; mesh.userData.shared = true;
+        mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage); mesh.frustumCulled = false; mesh.count = 0;
+        // Geometry/materials belong to getTaxiSign's cache; only this instance buffer belongs to the scene.
+        if (old) { mesh.instanceMatrix.array.set(old.instanceMatrix.array); old.removeFromParent(); old.dispose(); }
+        this.scene.add(mesh); this.mesh = mesh; this.cap = cap;
+    }
+    add(matrix) { if (this.n === this.cap) this.grow(this.cap * 2); this.mesh.setMatrixAt(this.n++, matrix); }
+    finish() { this.mesh.count = this.n; this.mesh.visible = this.n > 0; if (this.n) this.mesh.instanceMatrix.needsUpdate = true; }
+}
+const _extraMatrix = new THREE.Matrix4(), _extraSphere = new THREE.Sphere();
 const _fr = new THREE.Frustum(), _pm = new THREE.Matrix4(), _sp = new THREE.Sphere(), _cp = new THREE.Vector3(), _col = new THREE.Color();
 function fleetBeforeRender(renderer, scene, camera) {
     if (!LIVE.size || !camera) return;
@@ -988,6 +1007,7 @@ function fleetBeforeRender(renderer, scene, camera) {
     let pools = SCENE_POOLS.get(scene);
     if (!pools) SCENE_POOLS.set(scene, pools = new Map());
     for (const p of pools.values()) p.n = 0;
+    let signs = TAXI_SIGN_POOLS.get(scene); if (signs) signs.n = 0;
     _pm.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse); _fr.setFromProjectionMatrix(_pm);
     _cp.setFromMatrixPosition(camera.matrixWorld);
     const now = t0 / 1000;
@@ -1013,6 +1033,17 @@ function fleetBeforeRender(renderer, scene, camera) {
         if (d > FLEET_OPTS.far || !_fr.intersectsSphere(_sp)) { nCull++; if (u._extras) for (const x of u._extras) x.visible = false; continue; }
         const near = d < (m.length > 7 ? FLEET_OPTS.nearBig : FLEET_OPTS.near);
         if (u._extras) for (const x of u._extras) x.visible = near;
+        if (near && u._taxiSign && camera.layers.test(u._taxiSign.layers)) {
+            const sign = u._taxiSign;
+            _extraMatrix.multiplyMatrices(g.matrixWorld, sign.matrix);
+            if (!sign.geometry.boundingSphere) sign.geometry.computeBoundingSphere();
+            _extraSphere.copy(sign.geometry.boundingSphere).applyMatrix4(_extraMatrix);
+            // The old child mesh was also frustum-culled independently of its parent vehicle.
+            if (_fr.intersectsSphere(_extraSphere)) {
+                if (!signs) { signs = new TaxiSignPool(scene); TAXI_SIGN_POOLS.set(scene, signs); }
+                signs.add(_extraMatrix);
+            }
+        }
         const key = m.key + (near ? '' : '|far');
         let p = pools.get(key);
         if (!p) { p = new Pool(near ? m.geo : m.far, near || m.length > 7); pools.set(key, p); }
@@ -1029,6 +1060,7 @@ function fleetBeforeRender(renderer, scene, camera) {
         mesh.count = p.n; mesh.visible = p.n > 0;
         if (p.n) { mesh.instanceMatrix.needsUpdate = true; p.paint.needsUpdate = true; p.lb.needsUpdate = true; }
     }
+    signs?.finish();
     Object.assign(fleetStats, { instances: nNear + nFar, near: nNear, far: nFar, culled: nCull, pools: pools.size, ms: Math.round((performance.now() - t0) * 100) / 100 });
 }
 // other instanced renderers (crowd.js) that cull / fill per render call: fn(renderer, scene, camera)
@@ -1070,7 +1102,9 @@ export function makeVehicle(kind, color, opts = {}) {
     if (m.taxiSign) {
         const s = getTaxiSign();
         const sign = new THREE.Mesh(s.geo, s.mats); sign.userData.shared = true;
-        sign.position.set(0, 1.66, 0.35); grp.add(sign); extras.push(sign);
+        sign.position.set(0, 1.66, 0.35);
+        if (opts.instanced) { sign.updateMatrix(); u._taxiSign = sign; }
+        else { grp.add(sign); extras.push(sign); }
     }
     if (m.bar) extras.push(...policeLamps(grp, m.bar));
     if (opts.instanced) {

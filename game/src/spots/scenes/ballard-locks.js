@@ -123,7 +123,9 @@ export default {
             big.water.position.y = level; small.water.position.y = level;
             boats.forEach((bt, i) => { bt.position.y = level + 0.05 + Math.sin(s.t * 0.8 + i) * 0.04; bt.rotation.z = Math.sin(s.t * 0.6 + i * 2) * 0.02; });
         });
-        const [tx, tz] = fromAx(108, -16);
+        // The public observation point sits on the existing north-wall deck.
+        // The former point was outside that deck on the coarse, lowered DEM.
+        const [tx, tz] = fromAx(108, -LARGE.w / 2 - 1.6);
         const flow=activityFlow(ctx),stages=[['fill','The boats are rising'],['high','They reached lake level'],['drain','The boats are descending'],['low','Back at sea level']];
         ctx.extras.lockage={debug:()=>({phase,timer,level})};
         ctx.interactables.push({kind:'lockage',x:tx,z:tz,r:4,label:'Watch a lock cycle from the public walkway',use:s=>flow.begin(s,{
@@ -139,7 +141,13 @@ export default {
         addTraffic(ctx, { lanes: [{ pts: [[-142, -119], [-99, -126], [-63, -131], [32, -148], [56, -157], [69, -167]], n: 2, speed: 9 }] });
         // plaques on the north lock wall walkway + visitor centre
         const PL = sp.plaques;
-        PL.forEach((pl, i) => { const [x, z] = fromAx(40 + i * 30, -LARGE.w / 2 - 4.5); ctx.plaque(pl, x, z, YAW + Math.PI / 2, { credit: i === 0 ? 'U.S. Army Corps of Engineers; opened 1917.' : null }); });
+        PL.forEach((pl, i) => {
+            // Keep the reader on the rendered 3.2m north-wall walkway. These
+            // informational boards face outwards from its chamber-side edge;
+            // their +1.2m reading pose falls near the centre of the same deck.
+            const [x, z] = fromAx(40 + i * 30, -LARGE.w / 2 - 0.6);
+            ctx.plaque(pl, x, z, YAW + Math.PI / 2, { y: WALL_TOP, credit: i === 0 ? 'U.S. Army Corps of Engineers; opened 1917.' : null });
+        });
         { const [cx, cz] = fromAx(205, -LARGE.w / 2 - 1.8); ctx.challenge('ballard-locks', { x: cx, z: cz, heading: 290, pitch: -10, r: 16, tol: 35 }); } // on the north lock wall, looking down the chamber full of boats
         // crowd: people along the lock walls watching boats, the garden, the fish ladder windows
         const wallLine = (t) => [fromAx(10, t), fromAx(LEN - 10, t)];

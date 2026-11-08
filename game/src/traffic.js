@@ -2165,6 +2165,9 @@ export class Pedestrians {
             if (p.state === 'walk') this.placeWalk(p); else this.clearObstacles(p);
             if (this.inWater(p.x, p.z) && p.e) { p.side = -p.side; p.state = 'walk'; this.placeWalk(p); } // (spawned on water: the other sidewalk; the periodic check moves the rest)
         }
+        // Resolve crossing street mouths before these bodies are admitted to the
+        // visible crowd. Live recovery keeps its normal walking-speed limit.
+        for (const p of this.list) this.admitInitialWalk(p);
         this._m = new THREE.Matrix4(); this._q = new THREE.Quaternion(); this._p = new THREE.Vector3(); this._s = new THREE.Vector3(); this._e = new THREE.Euler(0, 0, 0, 'YXZ');
         this.buildGrid();
         this.writeMatrices(0);
@@ -2312,6 +2315,37 @@ export class Pedestrians {
     }
     admit(p) {
         return this.spaceLoad(p.e, p.side, p) < this.walkSpace(p.e, p.side).cells.length && this.freeWalkPoint(p.x, p.z, this.reach(p)) && this.freePersonalSpace(p) && this.freeVehiclePoint(p.x, p.z, Math.max(this.reach(p), PED_R + 0.4));
+    }
+    /** A source sidewalk line can end inside a crossing street's carriageway.
+     * Pick a clear existing sidewalk slot before first visibility, without
+     * drawing another random number or changing a live person's physical pose. */
+    admitInitialWalk(p) {
+        if (p.live || p.state !== 'walk' || !p.e) return false;
+        const radius = this.reach(p), vehicleRadius = Math.max(radius, PED_R + 0.4);
+        if (this.freeWalkPoint(p.x, p.z, radius) && this.freeVehiclePoint(p.x, p.z, vehicleRadius)) return false;
+        const edges = [...new Set([p.e, ...this.t.index.near(p.x, p.z, 60, [])])].filter(e => this.ok(e));
+        const candidates = [];
+        for (const e of edges) for (const side of [p.side, -p.side]) {
+            for (const slot of this.walkSpace(e, side).cells) {
+                candidates.push({ e, side, slot, distance: Math.hypot(slot.x - p.x, slot.z - p.z) });
+            }
+        }
+        candidates.sort((a, b) => a.distance - b.distance);
+        for (const { e, side, slot } of candidates) {
+            const trial = { ...p, e, side, s: slot.s, walkOff: slot.u - this.off(e, side),
+                dodge: 0, dodgeEdge: e, dodgeFrame: undefined, recovery: null, legs: [], next: null };
+            this.placeWalk(trial);
+            if (!this.freeWalkPoint(trial.x, trial.z, radius) || !this.freeVehiclePoint(trial.x, trial.z, vehicleRadius)) continue;
+            if (this.list.some(o => o !== p && !o.hidden && Math.hypot(o.x - trial.x, o.z - trial.z) < radius + this.reach(o) + 0.35)) continue;
+            for (const key of ['e', 'side', 's', 'walkOff', 'dodge', 'dodgeEdge', 'dodgeFrame',
+                'recovery', 'legs', 'next', 'x', 'z', 'heading', 'onDodge']) p[key] = trial[key];
+            this.stats.initialWalkRepairs = (this.stats.initialWalkRepairs || 0) + 1;
+            return true;
+        }
+        // Preserve the actor and its source pose if nearby physical capacity is
+        // genuinely exhausted; keep that exceptional admission observable.
+        this.stats.initialWalkUnresolved = (this.stats.initialWalkUnresolved || 0) + 1;
+        return false;
     }
     /** A blocked recovery must not keep aiming through a pole or a crowd.
      * Change its route from its physical pose; normal walking supplies every step. */
@@ -2795,8 +2829,10 @@ export class Pedestrians {
                 if (lg && !lg.cross && Math.hypot(lg.x - p.x, lg.z - p.z) < 1.2) { lg.x = p.x; lg.z = p.z; }
             }
             // vehicles are obstacles (never overlap); a walker blocked for long turns back
-            // (a crossing blocked for a while by a car standing on it: walk around it — the push slides them along its side)
-            if (this.avoidVehicles(p, ox, oz, moved && !(p.onRoad && (p.blockT || 0) > 2.5))) {
+            // Keep refusing steps deeper into a stopped body while the crossing
+            // timeout prepares its smooth return. Penetration-reducing escape
+            // remains allowed by avoidVehicles' previous-pose comparison.
+            if (this.avoidVehicles(p, ox, oz, moved)) {
                 if (p.state === 'walk') p.s = os;
                 p.blockT = (p.blockT || 0) + dt;
                 if (p.blockT > 3 && p.state === 'walk') { p.dir = -p.dir; p.blockT = 0; p.heading += Math.PI; }

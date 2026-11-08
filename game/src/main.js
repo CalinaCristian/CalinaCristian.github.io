@@ -27,6 +27,7 @@ import { initAchievements } from './achievements.js'; // spec 23 (progression): 
 import { showFinale } from './finale.js'; // cockpit-ui, note 71
 import { playChapterTransition } from './transition.js'; // cockpit-ui, note 16
 import { save } from './save.js'; // progression, note 73
+import { createDinamoFootball } from './football.js';
 import { initExplore } from './explore.js'; // explore lane (notes 74–76): Explore mode, world-map hub, drone — hooks listed in spec 10
 const { makeVehicle } = VEHICLES;
 
@@ -336,6 +337,7 @@ class Game {
     /** load a city: the old continuous map, or with `{ district, start }` one chapter district (spec 10) */
     async loadCity(id, { district = null, start = null } = {}) {
         this.explore?.hooks?.abortDrone?.();
+        this.football?.dispose(); this.football = null;
         this.clamp = null; // (a new district: the clamp stays with the old one)
         const city = CITIES[id];
         this.city = city;
@@ -350,6 +352,7 @@ class Game {
         try { VEHICLES.setFleetCity?.(id); } catch { /* older vehicles.js */ } // plates / police livery of parked props + the player's exterior car
         const world = this.world = await buildWorld(city, this.renderer, district ? { district, start } : {});
         scene.add(world.group);
+        this.football = createDinamoFootball(this);
         // layer 2 = main view only (the rear-view mirror camera renders layer 0): far backdrop / horizon masses
         this.camera.layers.enable(2);
         world.group.traverse(o => { if (o.isMesh && /^(backdrop|horizon)$/.test(o.material?.name || '')) o.layers.set(2); });
@@ -548,7 +551,9 @@ class Game {
             const brand = p.brand || p.label || p.name || BRANDS[city.id][0];
             return { x: p.doorX ?? p.x, z: p.doorZ ?? p.z, brand, price: P.brands[brand] ?? P.def, poi: p };
         });
-        if (!this.stations.length) {
+        // Districts depict real places: no mapped fuel means no invented branded
+        // forecourt. Keep synthetic facilities only for the legacy corridor game.
+        if (!this.stations.length && !world.district) {
             const edges = this.spreadEdges(e => !isMotorway(e) || city.id === 'seattle', city.id === 'bucharest' ? 5 : 3);
             edges.forEach((e, i) => {
                 const dir = canTravel(e, 1) ? 1 : -1; const t = 0.5;
@@ -565,7 +570,12 @@ class Game {
     setupCameras(city, world) {
         const real = world.pois.filter(p => p.kind === 'camera' || p.kind === 'speed_camera');
         this.cameras = real.map(p => ({ x: p.x ?? p.doorX, z: p.z ?? p.doorZ, cd: 0, lastD: 1e9 }));
-        if (!this.cameras.length) {
+        // OSM highway=speed_camera normally lives on the road graph, not in
+        // the amenity POI list. Keep those real enforcement locations.
+        for (const n of Object.values(world.graph.nodes || {})) if (n.speedCamera && !this.cameras.some(c => Math.hypot(c.x - n.x, c.z - n.z) < 5)) {
+            this.cameras.push({ x: n.x, z: n.z, cd: 0, lastD: 1e9 });
+        }
+        if (!this.cameras.length && !world.district) {
             const edges = this.spreadEdges(e => edgeSpeed(e) >= 13 && e.len > 25 && !e.tunnel && !e.roundabout, city.id === 'bucharest' ? 6 : 4);
             for (const e of edges) {
                 const cx = (e.a.x + e.b.x) / 2, cz = (e.a.z + e.b.z) / 2;
@@ -637,6 +647,7 @@ class Game {
             if (this.state === 'office') this.office?.render(); else if (this.state === 'spot') this.r3d.frame(); else if (this.scene) this.drawFrame();
             return;
         }
+        if ((this.state === 'drive' || this.state === 'foot') && !this.photo?.active && !this.mapOpen && !this.hud?.panelOpen) this.football?.update(dt);
         if (this.state === 'drive') this.updateDrive(dt);
         else if (this.state === 'office') this.updateOffice(dt);
         else if (this.state === 'foot') this.updateFoot(dt);

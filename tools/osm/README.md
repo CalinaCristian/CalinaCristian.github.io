@@ -11,6 +11,9 @@ The game itself has no build step and no dependencies; these tools only need Nod
 # 1. download the raw tiles (OSM API 0.6 `map` calls, ~550 MB, resumable; be gentle with the API)
 node tools/osm/fetch-tiles.mjs --out /some/dir/tiles
 
+# limit the existing region grid to tiles intersecting a district and its scenery ring
+node tools/osm/fetch-tiles.mjs --out /some/dir/tiles --only buc --bbox 44.4327,26.0722,44.4642,26.1112
+
 # 2. build both cities (≈40 s). Writes game/data/*.json
 node --max-old-space-size=8000 tools/osm/build-data.mjs --tiles /some/dir/tiles
 #    or a single city

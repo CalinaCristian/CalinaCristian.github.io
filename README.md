@@ -31,7 +31,8 @@ that chapter of the CV.
   street. Change the **time of day, weather and season live** from the ☀️ conditions panel (also on phones).
 - **Drone.** On foot (districts and spots), G deploys a drone with its own camera HUD, rotor sound, Cine / Normal / Sport
   speeds, real EU / FAA limits (120 m / 400 ft ceiling, ~800 m range, 10-minute battery with return-home) and photo mode;
-  T flies you to the spot under it, G lands it back in your hand.
+  T flies you to the spot under it, G lands it back in your hand. There are hidden interactions to discover with it,
+  including a kickable football on the Dinamo pitch that rewards a drone-assisted goal with a secret achievement.
 - **Tourist spots (bonus).** 24 small walk-only scenes (each is listed in the menu once it passes a side-by-side
   review against the real place) — Bucharest's top 10 (Palace of the Parliament, People's
   Salvation Cathedral, Old Town & Cărturești Carusel, Stavropoleos & CEC, the Athenaeum, Arcul de Triumf, Herăstrău,
@@ -106,6 +107,12 @@ Developer pages: `game/dev/spots.html?id=<spot>`, `game/dev/landmarks.html`, `ga
   invisible walls, people inside props, lamps on roads…).
 - `npm run harness:visual` — visual QA: route surveys from the driver's seat, defect detectors, contact sheets and a
   review report (`game/dev/harness/visual/README.md`).
+- `node game/dev/harness/football-check.mjs` — deterministic drone-football checks (contact, both goals, post/crossbar
+  rebounds, resets and invalid approaches).
+- District reality passes combine OSM footprints with aerial roof/canopy/green-ground measurements and local-only
+  game-versus-imagery comparisons. See `tools/aerial/README.md` and `tools/osm/README.md`; OSM tile downloads accept
+  `--bbox minlat,minlon,maxlat,maxlon` to limit a pass to the district and its scenery ring. Romană & Victoriei is the
+  next pass after Floreasca; street-level acceptance requires the Street View comparison review.
 - `node game/dev/harness/viewpoints.js --district=<id> --walk --streetview` — reality check: walks every drivable street of
   a district (both sidewalks) and puts each game frame next to Google Street View from the same spot; `--topdown=250
   --mosaic=<path>` compares the whole district from above with aerial imagery (dev only; nothing from Street View goes
@@ -118,6 +125,9 @@ The work is planned spec-first in [`specs/`](specs/) (requirements, contracts, o
 ## Data, credits and privacy
 - Map data © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors (ODbL); built offline by
   `tools/osm/` into `game/data/*.json`.
+- Aerial roof, tree-crown and vegetation measurements: Esri World Imagery (Esri, Maxar, Earthstar Geographics and the GIS
+  User Community). Only measurements are stored in the game; reference imagery stays in local research output. Google
+  Street View is used only for visual comparison, never as a source for game data or committed imagery.
 - Roof shapes / colours, tree positions and green ground in the rebuilt districts are measurements taken offline from
   Esri World Imagery (Esri, Maxar, Earthstar Geographics, and the GIS User Community); no imagery is stored or shipped.
   Google Street View is used only in a dev tool for side-by-side visual comparison; nothing from it is in the game.

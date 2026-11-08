@@ -382,6 +382,7 @@ export const ACHIEVEMENTS = [
     { id: 'tours-sea', cat: 'landmarks', live: true, icon: '🧭', title: 'Seattle & Bellevue, guided', desc: 'Finished the guided tour of every Seattle and Bellevue tourist spot.', target: 14 },
     { id: 'landmarks-all', cat: 'landmarks', icon: '🏅', title: 'Done it all', desc: 'Did every landmark activity in the game.' },
     // ---- Secrets (hidden)
+    { id: 'dinamo-drone-goal', cat: 'secret', hidden: true, icon: '⚽', title: 'Air striker', desc: 'Scored at Stadionul Dinamo by nudging the football into a goal with the drone.' },
     { id: 'troll-night', cat: 'secret', hidden: true, icon: '🧌', title: 'Under the bridge', desc: 'Visited the Fremont Troll at night, under the north end of the Aurora Bridge.' },
     { id: 'mountain-out', cat: 'secret', hidden: true, icon: '🏔️', title: 'The Mountain is out', desc: 'Got the Kerry Park postcard with Mount Rainier showing.' },
     { id: 'peacock', cat: 'secret', hidden: true, icon: '🦚', title: 'Peacock', desc: 'Photographed a peacock fanning its tail in the Spring Palace garden.' },

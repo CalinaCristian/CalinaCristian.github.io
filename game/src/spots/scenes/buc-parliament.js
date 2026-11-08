@@ -418,14 +418,16 @@ export default {
         if (C) CPL.forEach((pl, i) => ctx.plaque(pl, -730, 130 + i * 11, -Math.PI / 2, { style: 'park', y: C.PY }));
         // Pace a game course along the public east frontage. The endpoints
         // are UI waypoints; no unsourced permanent marker posts are added.
-        const mA = { x: 30, z: -150 }, mB = { x: 22, z: 140 }, paceMetres = Math.hypot(mB.x - mA.x, mB.z - mA.z); let pace = null;
+        const paceWay = d.ways.find(w => w.id === 'w1364200823');
+        if (paceWay?.pts.length >= 4) {
+        const mA = { x: paceWay.pts[2][0], z: paceWay.pts[2][1] }, mB = { x: paceWay.pts[3][0], z: paceWay.pts[3][1] }, paceMetres = Math.hypot(mB.x - mA.x, mB.z - mA.z); let pace = null;
         onActivityCancel(ctx, () => { pace = null; });
-        ctx.extras.palacePace = { start: mA, end: mB, debug: () => pace && { ...pace, previous: { ...pace.previous } } };
+        ctx.extras.palacePace = { start: mA, end: mB, source: paceWay.id, corridorHalfWidthEstimate: 3, debug: () => pace && { ...pace, previous: { ...pace.previous } } };
         ctx.onUpdate((dt, s, p) => {
             if (!pace) return;
             if (!p || s.spot.entry.id !== 'palace-parliament' || !s.ctl.active || activityBlocked(s)) { pace = null; return; }
             const delta = Math.hypot(p.x - pace.previous.x, p.z - pace.previous.z);
-            if (delta > Math.max(1, dt * 6) || distPolyline(p.x, p.z, [[mA.x, mA.z], [mB.x, mB.z]]).d > 18) { pace = null; return; }
+            if (delta > Math.max(1, dt * 6) || distPolyline(p.x, p.z, [[mA.x, mA.z], [mB.x, mB.z]]).d > 3) { pace = null; return; }
             pace.walked += delta; pace.previous = { x: p.x, z: p.z };
         });
         ctx.interactables.push({ x: mA.x, z: mA.z, r: 2, cond: s => s.spot.entry.id === 'palace-parliament', label: 'Pace the Palace: start the public frontage course', use: s => {
@@ -437,6 +439,7 @@ export default {
             const sec = s.t - pace.t, metres = Math.round(pace.walked); pace = null;
             bucActivity(s, 'palace-parliament', 'pace', `⏱ ${sec.toFixed(0)} s for ${metres} game metres`, 'You walked continuously along the public east frontage. This course is a game exercise, not a surveyed building dimension.');
         } });
+        }
         // Balcony geometry remains; a visitor does not teleport through the
         // unmodelled halls. The public square supplies three real facade views.
         {const pt=P.portico;photoHunt(ctx,{x:44,z:-16,title:'Frame the Palace facade',unavailable:'Interior and balcony access require an organised visit; they are unavailable in this scene.',targets:[

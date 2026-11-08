@@ -2365,7 +2365,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             }
             return { w: best, l: len };
         };
-        const villaZone = (x, z) => { if (US) return false; const ll = city.proj.inverse ? city.proj.inverse(x, z) : null; return !!ll && ll.lat > 44.447 && ll.lat < 44.48 && ll.lon > 26.07 && ll.lon < 26.103; };
+        const villaZone = (x, z) => { if (US) return false; const ll = city.proj.inverse ? city.proj.inverse(x, z) : null; return !!ll && ll.lat > 44.447 && ll.lat < 44.48 && ll.lon > 26.07 && ll.lon < 26.112; }; // (to 26.112: Garibaldi / the composer streets)
         for (const b of bRecs) {
             if (b.levels > 0 || b.style === 'church' || b.style === 'glass' || b.minH > 0 || /^(bl(oc)?\.?\s|bloc\b|block\b)/i.test(b.name || '')) continue; // (a named apartment block keeps its storeys)
             const named = INST.test(b.name || '');
@@ -3383,6 +3383,14 @@ export async function buildWorld(city, renderer, opts = {}) {
             }
             const s = signs.get((brand || name).slice(0, 22), st[0], st[1], st[2]);
             if (!s) continue;
+            if (sub === 'atm' || kind === 'bank') { // (after round 6) a free-standing ATM: a slim branded booth, never a shop pavilion
+                const fx = -e.nx * side, fz = -e.nz * side, fAng = Math.atan2(-e.nx * side, -e.nz * side);
+                c.solid.box(px, 0, pz, 1.0, 2.25, 0.7, fAng, rgb('#3a3f46'));
+                c.solid.box(px + fx * 0.36, 0.95, pz + fz * 0.36, 0.55, 0.4, 0.04, fAng, rgb('#5d7f93'));                  // screen
+                addSignQuad(c, px + fx * 0.36, pz + fz * 0.36, Math.atan2(fx, fz), 1, 0.95, Math.min(0.5, 0.95 / s.aspect), 1.95, s, 0.02);
+                addPropColl(px, pz, 0.6, 'pylon'); continue;
+            }
+            if (kind === 'hotel') { c.solid.box(px, 0.18, pz, 0.14, 3.6, 0.14, roadAng, rgb('#4b5563')); addPropColl(px, pz, 0.2, 'pylon'); for (const sd of [1, -1]) addSignQuad(c, px, pz, roadAng, sd, 2.2, 2.2 / s.aspect, 3.4, s, 0.08); continue; }
             {
                 const pvOff = off + 4.5, vx = ne.cx + e.nx * pvOff * side, vz = ne.cz + e.nz * pvOff * side, W2 = 4, D2 = 3, fAng = Math.atan2(-e.nx * side, -e.nz * side); // (local +z faces the street, x runs along it)
                 const fp = obbPoly({ x: vx, z: vz, hw: W2, hd: D2, angle: fAng });
@@ -3392,7 +3400,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                     c.solid.box(vx, 3.4, vz, W2 * 2 + 0.3, 0.25, D2 * 2 + 0.3, fAng, rgb('#5b5f66'));     // flat roof edge
                     const gx = vx + fx * (D2 + 0.02), gz = vz + fz * (D2 + 0.02);
                     c.solid.box(gx, 0.4, gz, W2 * 1.6, 2.1, 0.06, fAng, rgb('#5d7f93'));                   // shopfront glazing
-                    addSignQuad(c, vx + fx * D2, vz + fz * D2, Math.atan2(fx, fz), 1, Math.min(W2 * 1.7, 6.5), Math.min(W2 * 1.7, 6.5) / s.aspect, 2.95, s, 0.06);
+                    { const sh = 0.72, sw = Math.min(W2 * 1.8, sh * s.aspect); addSignQuad(c, vx + fx * D2, vz + fz * D2, Math.atan2(fx, fz), 1, sw, sw / s.aspect, 2.95, s, 0.06); } // fascia band over the glazing, not a billboard
                     propColl.push({ x: vx, z: vz, r: Math.hypot(W2, D2), hw: W2, hd: D2, angle: fAng, poly: fp, h: 3.6, kind: 'kiosk' });
                     continue;
                 }
@@ -3882,9 +3890,22 @@ export async function buildWorld(city, renderer, opts = {}) {
     // shoreline foam / shallow tint / wet edges (water.js): every water mesh is re-tessellated (≤ 6 m edges) and gets
     // its per-vertex distance to the shore; all-or-nothing, since the shared material then expects `aShore` everywhere
     let shoreTris = 0;
+    // rivers running underground (OSM tunnel=yes): the Dambovita is covered under Piata Unirii, but its riverbank polygon
+    // is mapped straight across the square — water triangles over the covered stretch are dropped (after round 6)
+    const COVERED = US ? [] : [{ r: 34, pts: [[44.4288061, 26.1010674], [44.4285939, 26.1013182], [44.4262866, 26.1035491], [44.4261682, 26.1037764], [44.4261085, 26.1040376], [44.4260752, 26.1043771]] }]
+        .map((c) => ({ r: c.r, pts: c.pts.map(([la, lo]) => { const q = city.proj(la, lo); return [q.x, q.z]; }) }));
+    const coveredAt = (x, z) => COVERED.some((c) => { for (let i = 1; i < c.pts.length; i++) { const [ax, az] = c.pts[i - 1], [bx, bz] = c.pts[i], dx = bx - ax, dz = bz - az, L2 = dx * dx + dz * dz || 1, t = Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / L2)); if (Math.hypot(x - ax - dx * t, z - az - dz * t) < c.r) return true; } return false; });
+    const dropCovered = (g) => {
+        if (!COVERED.length) return g; const P = g.attributes.position; if (g.index || P.count % 3) return g;
+        const keep = []; for (let i = 0; i < P.count; i += 3) { const x = (P.getX(i) + P.getX(i + 1) + P.getX(i + 2)) / 3, z = (P.getZ(i) + P.getZ(i + 1) + P.getZ(i + 2)) / 3; if (!coveredAt(x, z)) keep.push(i); }
+        if (keep.length * 3 === P.count) return g;
+        const out = new THREE.BufferGeometry();
+        for (const k of Object.keys(g.attributes)) { const A = g.attributes[k], n = A.itemSize, arr = new A.array.constructor(keep.length * 3 * n); keep.forEach((i, j) => { for (let v = 0; v < 3; v++) for (let c = 0; c < n; c++) arr[(j * 3 + v) * n + c] = A.array[(i + v) * n + c]; }); out.setAttribute(k, new THREE.BufferAttribute(arr, n)); }
+        g.dispose(); return out;
+    };
     const shoreFoam = (m) => {
         if (!WATER_API || !m.geometry) return;
-        try { const g2 = WATER_API.subdivideWater(m.geometry, 6, 60000); const sd = WATER_API.computeShoreDistance(g2, { maxD: 30, material: waterMat });
+        try { const g2 = dropCovered(WATER_API.subdivideWater(m.geometry, 6, 60000)); const sd = WATER_API.computeShoreDistance(g2, { maxD: 30, material: waterMat });
             // (after round 6) a big lake that hit the triangle cap keeps only shore vertices: distance 0 everywhere read as
             // salt-and-pepper foam over the whole of Lake Floreasca — such a mesh gets calm open water instead
             { let near = 0; for (let i = 0; i < sd.length; i++) if (sd[i] < 1.5) near++; if (near > sd.length * 0.6 && sd.length > 200) sd.fill(30); }

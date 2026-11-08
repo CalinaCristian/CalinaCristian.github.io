@@ -30,6 +30,7 @@ const NAMED = { ultra: 0, high: 1, medium: 3, low: 5 };
 const AUTO_MAX = 1, AUTO_MIN = 5; // auto never enables 'ultra' (GTAO doubles the draw calls)
 const SHADOW_SPAN = 160; // metres covered by the sun's shadow map (tier.span overrides: fewer casters, sharper texels on cheaper tiers)
 const LAMP_RANGE = 150;  // light-pool discs drawn within this distance (m)
+const DISC_GAIN = 7;     // light-pool disc: lit surface × (1 + gain × falloff × lamp colour) at the pool centre
 const MAX_DISCS = 220;
 // street-lamp real lights (PointLight pool): assignment is hysteretic and every change fades, so nothing pops
 const LAMP_LIGHT_I = 55;         // candela at full weight
@@ -398,20 +399,22 @@ function patchCrowns(mat, U) {
                 g = mix(g, bc * 0.8, uBlossom * dec * step(0.55, h) * 0.85);
                 float b = clamp(uBare * 1.25 - h * 0.25, 0.0, 1.0) * dec;
                 if (b > 0.0) {
-                    // leaves fall in clumps: a coarse 3-D mask keeps solid, fully leafed patches (no dots, no tint) where
-                    // the mask is above the bare fraction; only where the leaves are gone the branch/twig lattice shows:
-                    // ridges of 3-D noise (|n - 0.5| small) kept, the rest sky; ridge width widens with the screen-space
-                    // derivative so distant crowns become an even twig haze, partial coverage dithered (IGN)
+                    // leaves fall in clumps: a coarse 3-D mask keeps solid, fully leafed patches where the mask is above
+                    // the bare fraction; where the leaves are gone the crown becomes a soft see-through twig haze (round 6
+                    // note 21: the old dithered ridge lattice read as see-through scribbles with holes). The haze is alpha
+                    // (render switches bare broadleaf crowns to blended; instances are drawn far → near): densest where the crown faces the
+                    // viewer, thinning to a fuzzy outline; the branches inside are real geometry (trees.js branchSkeleton)
                     vec3 cp = vCrownL * (0.9 + 0.2 * h) + h * 11.0;
                     float leaf = crN(cp * 0.7 + 5.3) * 0.75 + crN(cp * 2.1 + 1.7) * 0.25;
                     float gone = smoothstep(leaf - 0.04, leaf + 0.04, b * 1.15 - 0.05); // 0 = leaves still on
                     if (gone > 0.0) {
-                        float r1 = abs(crN(cp * 1.5) - 0.5), r2 = abs(crN(cp * 4.4 + 3.7) - 0.5);
-                        float f1 = fwidth(r1) + 1e-3, f2 = fwidth(r2) + 1e-3;
-                        float cov = max(1.0 - smoothstep(0.032 - f1, 0.032 + f1, r1), 0.8 * (1.0 - smoothstep(0.026 - f2, 0.026 + f2, r2)));
-                        float ign = fract(52.9829189 * fract(dot(gl_FragCoord.xy, vec2(0.06711056, 0.00583715))));
-                        if (mix(1.0, cov, gone) < ign) discard;
-                        g = mix(g, vec3(0.115, 0.095, 0.08) * (0.85 + 0.3 * h) * (0.9 + 0.15 * cov), gone); // dark bark: no lit 'scribbles' at night
+                        float tw = crN(cp * 1.6) * 0.6 + crN(cp * 4.3 + 3.7) * 0.4;
+                        float facing = abs(dot(normalize(vNormal), normalize(vViewPosition)));
+                        float haze = (0.045 + 0.17 * smoothstep(0.15, 0.8, facing)) * (0.35 + 1.3 * tw * tw);
+                        float a = mix(1.0, haze, gone);
+                        if (a < 0.02) discard;
+                        diffuseColor.a *= a;
+                        g = mix(g, vec3(0.24, 0.205, 0.175) * (0.85 + 0.3 * h), gone); // grey-brown twigs
                     }
                 }
                 diffuseColor.rgb = g;
@@ -836,9 +839,14 @@ export class Renderer3D {
         const t = weatherTargets(w);
         t.fogDens = 3.912 / Math.max(150, t.visibilityM); // Koschmieder: 2 % contrast left at the visibility distance
         this._wxT = t;
-        if (!this._wx || this._wxInstant) {
+        // a fresh place / load snaps to the weather instead of easing in; the climatology placeholder shown while the
+        // live request runs keeps that window open (round 6 note 33: climatology said rain, the ground loaded fully
+        // wet, then the live — dry — weather arrived and the ground visibly dried over a minute)
+        const now = performance.now();
+        if (!this._wx || this._wxInstant || (source === 'live' && now < (this._wxSnapUntil ?? 0))) {
             this._wx = { ...t };
             this._wet = t.rain > 0.1 ? 1 : 0;
+            this._wxSnapUntil = this._wxInstant && source === 'climate' ? now + 15000 : 0;
             this._wxInstant = false;
         }
         this._publishWeather();
@@ -862,7 +870,11 @@ export class Renderer3D {
         g.setRGB((1 + 0.9 * b) * (1 - 0.05 * f) * (1 + 0.25 * a), (1 - 0.15 * b) * (1 + 0.12 * f), (1 - 0.55 * b) * (1 - 0.2 * f) * (1 - 0.3 * a));
         const B = this._treeU.broad;
         B.uBare.value = st.bare; B.uAutumn.value = st.autumn; B.uBlossom.value = st.blossom; B.uFresh.value = st.fresh;
-        for (const c of this._crowns) if (!c.userData.conifer) c.castShadow = st.bare < 0.6; // leafless crowns: no blob shadows
+        for (const c of this._crowns) if (!c.userData.conifer) {
+            c.castShadow = st.bare < 0.6; // leafless crowns: no blob shadows
+            const tr = st.bare > 0.02, m = c.material; // bare crowns: blended twig haze (see patchCrowns)
+            if (m.transparent !== tr) { m.transparent = tr; m.needsUpdate = true; } // (depth write stays on: tree builders draw crowns far → near)
+        }
         const key = st.season;
         if (key !== this._seasonKey) { this._seasonKey = key; if (this.weather) { this.weather.season = key; try { this.onWeatherChange?.(this.weather); } catch { /* ignore */ } } }
     }
@@ -976,13 +988,18 @@ export class Renderer3D {
         this._lampHead = head;
         if (this._lampHead?.color && !this._lampHead.emissive) this._lampHead.userData.dayColor ??= '#' + this._lampHead.color.getHexString();
         if (!this._discs) {
+            // light pools multiply the lit surface (out = dst × (1 + pool)): a lamp lights asphalt, paving and grass by
+            // their own albedo — round 6 note 27: the old additive white disc made the same glowing blob on dark grass.
+            // The falloff lives in RGB (opaque black canvas): the blend factors ignore alpha.
             const c = document.createElement('canvas'); c.width = c.height = 128;
             const g = c.getContext('2d'), gr = g.createRadialGradient(64, 64, 0, 64, 64, 64);
-            gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.35, 'rgba(255,255,255,0.55)'); gr.addColorStop(0.7, 'rgba(255,255,255,0.15)'); gr.addColorStop(1, 'rgba(255,255,255,0)');
+            g.fillStyle = '#000'; g.fillRect(0, 0, 128, 128);
+            gr.addColorStop(0, 'rgb(255,255,255)'); gr.addColorStop(0.3, 'rgb(190,190,190)'); gr.addColorStop(0.65, 'rgb(80,80,80)'); gr.addColorStop(1, 'rgb(0,0,0)');
             g.fillStyle = gr; g.fillRect(0, 0, 128, 128);
-            const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace;
+            const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.NoColorSpace;
             const geo = new THREE.PlaneGeometry(1, 1); geo.rotateX(-Math.PI / 2);
-            const mat = new THREE.MeshBasicMaterial({ map: tex, color: new THREE.Color(0.5, 0.5, 0.5), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, fog: false, polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -4 });
+            const mat = new THREE.MeshBasicMaterial({ map: tex, color: new THREE.Color(DISC_GAIN, DISC_GAIN, DISC_GAIN), transparent: true, depthWrite: false, fog: false, toneMapped: false, polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -4,
+                blending: THREE.CustomBlending, blendEquation: THREE.AddEquation, blendSrc: THREE.DstColorFactor, blendDst: THREE.OneFactor });
             this._discs = new THREE.InstancedMesh(geo, mat, MAX_DISCS);
             this._discs.count = 0; this._discs.frustumCulled = false; this._discs.renderOrder = 2; this._discs.userData.shared = true;
             this._discs.instanceColor = new THREE.InstancedBufferAttribute(new Float32Array(MAX_DISCS * 3), 3);

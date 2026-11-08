@@ -406,30 +406,31 @@ export class Player {
         else this.speed *= 1 - damp * k;
         if (Math.abs(this.speed) < 0.05) this.speed = 0;
     }
-    /** pedestrians: knocked over when hit at speed, nudged aside when slow */
+    /** pedestrians: knocked over when the car body actually hits them above walking pace, nudged aside otherwise
+     *  (round 6 note 11: only "on the road" pedestrians could fall, and a 3 s cooldown let the car pass through the rest) */
     collidePeds() {
         if (!this.traffic || !this.traffic.nearPeds) return;
         if (Math.abs((this.surfY ?? GROUND_Y) - GROUND_Y) > 1.5) return; // on a deck / in a tunnel: pedestrians are on another level
         this.pedCd = Math.max(0, (this.pedCd || 0) - 1 / 60);
+        const HW = 0.95, HL = 2.3, PR = 0.3, sp = Math.abs(this.speed), sx = -this.fz, sz = this.fx; // car half width / length, person radius
         for (const p of this.traffic.nearPeds(this.x, this.z, 4)) {
             if (p.state === 'down') continue;
-            for (const o of [1.4, 0, -1.4]) {
-                const cx = this.x + this.fx * o, cz = this.z + this.fz * o;
-                const dx = p.x - cx, dz = p.z - cz; const d = Math.hypot(dx, dz);
-                if (d > 1.25 || d < 1e-4) continue;
-                const sp = Math.abs(this.speed);
-                // only a pedestrian actually on the carriageway (crossing / standing in the road) can be knocked down: one on
-                // the sidewalk next to a car hugging the kerb is just brushed aside (that fined the player dozens of times)
-                if (sp > 2.2 && p.onRoad && this.pedCd <= 0) {
-                    this.pedCd = 3;
-                    const nx = dx / d * 0.5 + this.fx * Math.sign(this.speed) * 0.5, nz = dz / d * 0.5 + this.fz * Math.sign(this.speed) * 0.5;
-                    if (this.traffic.peds.knock(p, nx, nz, sp)) {
-                        this.shake = clamp(sp / 15, 0.2, 0.8);
-                        this.onCollide(sp, 'pedestrian', p);
-                        this.speed *= 0.7;
-                    }
-                } else { p.x = cx + dx / d * 1.25; p.z = cz + dz / d * 1.25; }
-                break;
+            const dx = p.x - this.x, dz = p.z - this.z;
+            const lon = dx * this.fx + dz * this.fz, lat = dx * sx + dz * sz;
+            const inLon = Math.abs(lon) < HL + PR, inLat = Math.abs(lat) < HW + PR;
+            if (inLon && inLat && sp > 2.2) { // the body hit them
+                const dir = Math.sign(this.speed) || 1, side = Math.sign(lat) || 1;
+                const nx = this.fx * dir * 0.7 + sx * side * 0.5, nz = this.fz * dir * 0.7 + sz * side * 0.5;
+                if (this.traffic.peds.knock(p, nx, nz, sp)) {
+                    if (this.pedCd <= 0) { this.pedCd = 1.5; this.shake = clamp(sp / 15, 0.2, 0.8); this.onCollide(sp, 'pedestrian', p); }
+                    this.speed *= 0.85;
+                }
+                continue;
+            }
+            // slow, or just brushing past: step them out of the car's way (to the nearer side)
+            if (Math.abs(lon) < HL + PR + 0.2 && Math.abs(lat) < HW + PR + 0.2) {
+                const side = Math.sign(lat) || 1, push = HW + PR + 0.2 - Math.abs(lat);
+                p.x += sx * side * push; p.z += sz * side * push;
             }
         }
     }

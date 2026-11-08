@@ -86,6 +86,12 @@ export class Input {
 
     /** wire the on-screen touch buttons */
     bindTouch(root) {
+        { // (round 6 note 38) iOS ignores user-scalable=no: block pinch / double-tap zoom outside the scrolling panels
+            const scrolls = (t) => t && t.closest && t.closest('#navpanel, .panel-inner, .pv-gallery, #cond-panel, #menu, #pause-menu, #achv-panel, #save-gallery, .dlg, #finale, .wm-list, .sp-panel');
+            for (const ev of ['gesturestart', 'gesturechange']) document.addEventListener(ev, (e) => e.preventDefault(), { passive: false });
+            document.addEventListener('touchmove', (e) => { if (e.touches.length > 1 || !scrolls(e.target)) e.preventDefault(); }, { passive: false });
+            let lastEnd = 0; document.addEventListener('touchend', (e) => { const n = performance.now(); if (n - lastEnd < 320 && !scrolls(e.target) && !(e.target.closest && e.target.closest('button, a, input, select, label'))) e.preventDefault(); lastEnd = n; }, { passive: false });
+        }
         const bind = (sel, down, up) => {
             const el = root.querySelector(sel); if (!el) return;
             const d = (e) => { e.preventDefault(); down(); el.classList.add('active'); };

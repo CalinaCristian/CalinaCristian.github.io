@@ -375,6 +375,7 @@ class Game {
         for (const s of this.stops) { s.poiRef = world.pois.find(p => p.id === s.poi && p.interactive !== false); if (s.poiRef) { s.poiRef.visited = this.visited.has(s.id); s.poiRef.color = s.color; s.poiRef.icon = s.icon; } }
         this.stopPois = this.stops.filter(s => s.poiRef).map(s => ({ stop: s, poi: s.poiRef }));
         this.airport = world.pois.find(p => p.id === AIRPORTS[city.id].poi && p.interactive !== false) || world.pois.find(p => p.id === AIRPORTS[city.id].poi);
+        this.buildActionMarkers();
         this.leftAirport = false;
         this.prevEdgeInfo = null;
         this.navManual = false; this.navInfo = null;
@@ -453,6 +454,54 @@ class Game {
             for (let i = 0; i < cands.length; i++) { const [x, z] = mid(cands[i]); md[i] = Math.min(md[i], Math.hypot(x - cx, z - cz)); }
         }
         return chosen;
+    }
+    /** (round 6 note 4) where to act: a glowing ring on the ground at every stop's door and every fuel station's
+     *  forecourt entry, and a pin above it. A stop's pin floats over the rooftop from afar and comes down to the door
+     *  as you get close (it used to stay 8 m above the roof, out of view right when you needed it). */
+    buildActionMarkers() {
+        const ringMesh = (color, r) => {
+            const m = new THREE.Mesh(new THREE.RingGeometry(r - 0.55, r, 40), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.8, depthWrite: false, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -4 }));
+            m.rotation.x = -Math.PI / 2; m.renderOrder = 3; m.userData.noAudit = true; return m;
+        };
+        const ground = (x, z) => { try { return this.world.roadHeight?.(x, z, { y: 0.24 }) ?? 0.24; } catch { return 0.24; } };
+        this.actionMarks = [];
+        for (const sp of this.stopPois || []) {
+            const p = sp.poi; if (!p?.marker || p.passing) continue;
+            const dx = p.doorX ?? p.x, dz = p.doorZ ?? p.z, gy = ground(dx, dz);
+            const ring = ringMesh(p.color || '#f97316', 3.2); ring.position.set(dx, gy + 0.06, dz); this.props.add(ring);
+            p.marker.userData.top = { x: p.marker.position.x, z: p.marker.position.z, y: (p.h ?? 20) + 8 };
+            this.actionMarks.push({ kind: 'stop', poi: p, ring, door: { x: dx, z: dz, y: gy } });
+        }
+        if (this.airport?.marker) {
+            const p = this.airport; p.marker.userData.top = { x: p.marker.position.x, z: p.marker.position.z, y: (p.h ?? 20) + 8 };
+            this.actionMarks.push({ kind: 'stop', poi: p, ring: null, door: { x: p.doorX ?? p.x, z: p.doorZ ?? p.z, y: ground(p.doorX ?? p.x, p.doorZ ?? p.z) } });
+        }
+        for (const st of this.stations || []) {
+            const gy = ground(st.x, st.z), g = new THREE.Group();
+            const ring = ringMesh('#22c55e', 4.2); ring.position.set(st.x, gy + 0.06, st.z);
+            const pin = new THREE.Mesh(new THREE.ConeGeometry(0.9, 1.8, 12), new THREE.MeshBasicMaterial({ color: '#22c55e' })); pin.rotation.x = Math.PI; pin.position.y = 5.2;
+            const halo = new THREE.Mesh(new THREE.TorusGeometry(1.2, 0.14, 8, 24), new THREE.MeshBasicMaterial({ color: '#ffffff' })); halo.rotation.x = Math.PI / 2; halo.position.y = 6.5;
+            g.add(pin, halo); g.position.set(st.x, gy, st.z); g.userData.noAudit = true;
+            this.props.add(ring, g);
+            this.actionMarks.push({ kind: 'fuel', st, ring, pin: g });
+        }
+    }
+    updateActionMarkers(px, pz) {
+        const t = performance.now() / 1000, pulse = 0.55 + 0.35 * Math.sin(t * 3);
+        for (const m of this.actionMarks || []) {
+            if (m.kind === 'stop') {
+                const p = m.poi, mk = p.marker, top = mk?.userData.top; if (!mk || !top) continue;
+                const d = Math.hypot(px - m.door.x, pz - m.door.z);
+                const k = clamp((d - 25) / 140, 0, 1), e = k * k * (3 - 2 * k); // 0 at ≤ 25 m (over the door), 1 at ≥ 165 m (over the roof)
+                mk.position.set(m.door.x + (top.x - m.door.x) * e, m.door.y + 5.5 + (top.y - m.door.y - 5.5) * e + Math.sin(t * 2 + p.x) * 0.6, m.door.z + (top.z - m.door.z) * e);
+                mk.scale.setScalar(0.65 + 1.0 * e); mk.rotation.y = t; mk.visible = !p.visited; // (bigger over the roof: readable from a block away)
+                if (m.ring) { m.ring.visible = !p.visited && d < 300; m.ring.material.opacity = pulse; }
+            } else {
+                const d = Math.hypot(px - m.st.x, pz - m.st.z), on = d < 350;
+                m.ring.visible = on; m.pin.visible = on; m.ring.material.opacity = pulse;
+                m.pin.children[0].position.y = 5.2 + Math.sin(t * 2 + m.st.x) * 0.3; m.pin.rotation.y = t;
+            }
+        }
     }
     setupStations(city, world) {
         const P = PRICES[city.id];
@@ -611,10 +660,7 @@ class Game {
         // (sun follow / shadows / rain are handled inside Renderer3D.frame())
         // horn
         if (input.take('KeyH')) this.playerHonk();
-        // markers bob
-        const t = performance.now() / 1000;
-        for (const sp of this.stopPois) { const p = sp.poi; if (p.marker) { p.marker.position.y = (p.h ?? 20) + 8 + Math.sin(t * 2 + p.x) * 0.6; p.marker.rotation.y = t; p.marker.visible = !p.visited; } }
-        if (this.airport?.marker) { const p = this.airport; p.marker.position.y = (p.h ?? 20) + 8 + Math.sin(t * 2) * 0.6; p.marker.rotation.y = t; }
+        this.updateActionMarkers(player.x, player.z); // stop pins come down to the door as you get close; station markers
         // street / district
         const ne = this.nav.index.nearest(player.x, player.z, 200);
         const onRoad = ne && ne.d < (ne.edge.halfW ?? 6) + (ne.edge.sidewalk ?? 2) + 6;
@@ -1298,7 +1344,7 @@ class Game {
         // the parked car: drawn by the shared fleet InstancedMeshes (the classic per-car meshes of the new models render as a grey veil over the view on foot)
         if (!this.carBody) { this.carBody = makeVehicle('hatch', '#1e3a8a', { instanced: true, city: this.city.id }); this.carBody.userData.parked = true; }
         this.carBody.position.set(P.x, P.surfY ?? 0.24, P.z); this.carBody.rotation.set(0, P.heading, 0);
-        this.scene.add(this.carBody); P.rig.visible = false;
+        this.scene.add(this.carBody); this.setDriveRigShown(false);
         const len = this.carBody.userData.length || 4.2, wid = this.carBody.userData.width || 1.8;
         this.carBox = { x: P.x, z: P.z, fx: P.fx, fz: P.fz, length: len, width: wid };
         if (!this.foot) this.foot = new OnFootController({ scene: this.scene, camera: this.camera, input: this.input, audio: this.audio });
@@ -1315,6 +1361,23 @@ class Game {
         if (!this.flags.footToast) { this.flags.footToast = true; this.hud.toast('🚶 On foot', 'WASD walk · Shift run · Space jump · mouse look · Enter at the driver\'s door to get back in · E enters offices.', 'intro'); }
         this.input.flush();
         return true;
+    }
+    /** the HUD minimap centred on any position (walker, drone — round 6 note 43) */
+    drawMiniAt(x, z, heading, scale = 0.3) {
+        if (!this.opts.minimap || !this.minimap) return;
+        const fx = -Math.sin(heading), fz = -Math.cos(heading);
+        this.minimap.draw({ cx: x, cz: z, scale, heading, player: { x, z, heading, fx, fz }, pois: this.world.pois, objective: this.objective });
+        this.drawRouteOverlay(this.minimap.ctx, $('#minimap'), { cx: x, cz: z, scale, heading });
+    }
+    /** (round 6 note 37) hide / show the driven car's own meshes without hiding its headlight spot lights: a change in the
+     *  number of visible lights makes three.js recompile every material — a 3–5 s freeze on every "get out" at night */
+    setDriveRigShown(on) {
+        const rig = this.player?.rig; if (!rig) return;
+        rig.visible = true;
+        rig.traverse((o) => {
+            if (o.isLight) { if (!on) { o.userData._int ??= o.intensity; o.intensity = 0; } else if (o.userData._int != null) { o.intensity = o.userData._int; o.userData._int = null; } return; }
+            if (o.isMesh || o.isLine || o.isPoints || o.isSprite) { if (!on) { if (o.userData._vis == null) o.userData._vis = o.visible; o.visible = false; } else if (o.userData._vis != null) { o.visible = o.userData._vis; o.userData._vis = null; } }
+        });
     }
     /** how close the car must stop to an office door: 11 m, or more when the door stands back from a wide road (a car in
      *  the inner lane next to a kerb-side door on a 4-lane carriageway is ~13 m away) — kerb offset + 5 m, capped at 16 m */
@@ -1396,7 +1459,7 @@ class Game {
     endFoot() {
         if (this.foot?.active) this.foot.exit();
         if (this.carBody?.parent) this.carBody.parent.remove(this.carBody);
-        this.carBox = null; if (this.player) this.player.rig.visible = true;
+        this.carBox = null; if (this.player) this.setDriveRigShown(true);
         if (this.traffic) this.traffic.walker = null;
         document.body.classList.remove('on-foot'); document.getElementById('car-finder')?.classList.remove('show');
         if (this.nav?.walking) { this.nav.walking = false; if (this.nav.dest && this.player) this.nav.reroute(this.player); }
@@ -1424,6 +1487,7 @@ class Game {
         if (this.carBody) this.carBody.userData.setLights?.(((this.clock.date?.getTime?.() ?? performance.now()) / 400 | 0) % 2 === 0);
         // R: back to the nearest sidewalk
         if (input.take('KeyR')) { const ne = this.nav.index.nearest(F.x, F.z, 200); if (ne) { const e = ne.edge, sd = (F.x - ne.cx) * e.nx + (F.z - ne.cz) * e.nz >= 0 ? 1 : -1, off = (e.halfW ?? 4) + 1.5; F.teleport(ne.cx + e.nx * sd * off, ne.cz + e.nz * sd * off); } }
+        this.updateActionMarkers(F.x, F.z);
         hud.update(dt, this.camera, city.id);
         this.stats.time += dt;
         // find the car (note 7): L = key fob (beep + flash), T = call the car, HUD chip / map marker
@@ -1465,10 +1529,7 @@ class Game {
         hud.prompt(prompt);
         const lookTxt = input.lookMode === 'lock' ? (input.locked ? 'mouse look (Esc frees)' : 'click to look') : input.lookMode === 'hold' ? 'right-drag look' : 'A/D turn';
         hud.setHint(this.touch ? '' : `On foot · WASD walk · Shift run · Space jump · ${lookTxt} · Enter at the car: get in · V back to car · T call car · E office · R sidewalk · M map · G drone`);
-        if (this.opts.minimap && this.frame % 2 === 0) {
-            this.minimap.draw({ cx: F.x, cz: F.z, scale: 0.3, heading: F.heading, player: { x: F.x, z: F.z, heading: F.heading, fx: F.fx, fz: F.fz }, pois: world.pois, objective: this.objective });
-            this.drawRouteOverlay(this.minimap.ctx, $('#minimap'), { cx: F.x, cz: F.z, scale: 0.3, heading: F.heading });
-        }
+        if (this.opts.minimap && this.frame % 2 === 0) this.drawMiniAt(F.x, F.z, F.heading, 0.3);
         this.drawFrame();
     }
 

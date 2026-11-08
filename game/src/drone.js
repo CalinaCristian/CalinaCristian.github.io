@@ -292,6 +292,7 @@ export class Drone {
             g.updateClock?.(dt); if (g.frame % 30 === 0) g.pollWeather?.();
             try { g.traffic?.setHour(g.trafficHours()); g.traffic?.update(dt); } catch (e) { console.warn('[drone] traffic', e); }
             if (g.carBody) g.carBody.userData.setLights?.(((g.clock.date?.getTime?.() ?? performance.now()) / 400 | 0) % 2 === 0);
+            if (g.frame % 2 === 0) try { g.drawMiniAt?.(this.pos.x, this.pos.z, this.yaw, 0.2); } catch { /* no minimap */ } // the minimap follows the drone (round 6 note 43)
         }
         if (this.phase === 'lift') this._lift(dt);
         else if (this.phase === 'fly') { for (let i = 0; i < steps && this.phase === 'fly'; i++) this._fly(dtT / steps); }

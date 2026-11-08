@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import { spawnDriveBudget } from './harness/page/scenarios.js';
+const no = { hasLight: false }, cluster = { phaseCount: 3 }, light = { id: 1, hasLight: true, lightCluster: cluster };
+const T = { cycle: 11, lightState() { throw new Error('source cluster should already describe actual phases'); } };
+const route = { legs: [{ e: { a: no, b: no }, dir: 1 }, { e: { a: no, b: light }, dir: 1 }] };
+assert.equal(spawnDriveBudget(route, 1, T).timeout, 40, 'a later light cannot relax an unsignalised test segment');
+const budget = spawnDriveBudget(route, 2, T);
+assert.equal(budget.signalCycle, 33); assert.equal(budget.crossing, 10); assert.equal(budget.timeout, 83);
+route.legs.push({ e: { a: light, b: no }, dir: -1 });
+assert.equal(spawnDriveBudget(route, 3, T).signals.length, 1, 'split pads count their actual controller once');
+cluster.phaseCount = 9;
+assert.equal(spawnDriveBudget(route, 3, T).timeout, 90, 'a bounded gate still fails a stuck drive');
+assert.equal(spawnDriveBudget(route, 3, T, 1.1).timeout, 88, 'pre-drive setup is included in the 90s scenario cap');
+assert.equal(spawnDriveBudget(null, 0, T).timeout, 40);
+console.log('PASS: source-controller signal/crossing time budget; strict unsignalised deadline; controller deduplication and 90s cap');

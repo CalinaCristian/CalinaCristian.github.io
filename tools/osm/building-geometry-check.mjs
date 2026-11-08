@@ -11,8 +11,13 @@ import * as THREE from '../../game/vendor/three.module.min.js';
 import { footprintCells, footprintCoverage, exposedWall, insetFootprint, ringArea, simpleFootprint, assemblySignature, touchingSolids, geometryRing } from '../../game/src/building-parts.js';
 import { collideBuildings, buildingBlocksRoad as worldBuildingBlocksRoad } from '../../game/src/world.js';
 import { buildingBlocksRoad as harnessBuildingBlocksRoad } from '../../game/dev/harness/visual/page/geometry.js';
+import { sourceRing } from './source-footprints.mjs';
 const close = (a, b, label) => assert.ok(Math.abs(a - b) < Math.max(1e-5, Math.abs(b) * 1e-8), `${label}: ${a} != ${b}`);
 const square = [[0, 0], [10, 0], [10, 10], [0, 10]];
+assert.deepEqual(sourceRing([[0,0],[.04,0],[.04,1],[0,1],[0,0]]).ring, [[0,0],[.04,0],[.04,1],[0,1]], 'a four-centimetre structural strip retains its complete positive-area footprint');
+assert.deepEqual(sourceRing([[0,0],[2,0],[2,1],[0,1],[0,0]]).ring, [[0,0],[2,0],[2,1],[0,1]], 'a two-square-metre source building is not a minimum-area casualty');
+assert.equal(sourceRing([[0,0],[1,0],[2,0],[0,0]]).reason, 'zero-source-area');
+assert.equal(sourceRing([[0,0],[4,4],[0,4],[3,0],[0,0]]).reason, 'self-intersecting-source-ring');
 close(footprintMargin([[-20,-1],[20,-1],[20,1],[-20,1]], {pieces:[{pts:[[0,-20],[0,20]],r:2}]}), -2, 'crossing edges enter a band despite distant vertices');
 close(footprintMargin(square, {circles:[{x:5,z:5,r:1}]}), -1, 'contained circle intersects the source footprint');
 close(footprintMargin(square, {circles:[{x:5,z:5,r:1}]}, [[[2,2],[8,2],[8,8],[2,8]]]), 2, 'a core circle inside a courtyard does not touch the building');
@@ -41,7 +46,7 @@ assert.ok(collideBuildings([raised], 5, 5, 0.4, 9), 'the upper source volume col
 const file = process.argv.find(a => a.startsWith('--data='))?.slice(7) || 'game/data/bucharest-romana.json';
 const data = JSON.parse(fs.readFileSync(file));
 const rings = data.buildings.map((b, i) => { let x = 0, z = 0; const r = []; for (let j = 9; j < b.length; j += 2) { x += b[j]; z += b[j + 1]; r.push([x / 10, z / 10]); } return data.buildingFootprints?.[i] || r; });
-rings.forEach((r, i) => assert.ok(simpleFootprint(r), `source footprint ${data.buildingIds[i]} stays simple after preparation`));
+rings.forEach((r, i) => assert.ok(simpleFootprint(r), `source footprint ${data.buildingIds?.[i] || 'legacy-index:' + i} stays simple after preparation`));
 const report = { file, sourceRecords: data.buildings.length, assemblies: [], roofs: { checked: 0, inset: 0, fallback: [] } };
 const used = new Set();
 for (const [key, spec] of Object.entries(data.buildingAssemblies || {})) {
@@ -60,9 +65,9 @@ for (const [key, spec] of Object.entries(data.buildingAssemblies || {})) {
     assert.ok(spec.residualHeightDm >= 0 && !data.buildingHoles?.[i]);
     if (spec.mode === 'parts') close(spec.geometry.residuals.reduce((sum, p) => sum + Math.abs(ringArea(geometryRing(p.ring, data.buildingGeometryPoints))), 0), cov.uncovered, 'cached residuals leave no void');
     else assert.equal(spec.geometry.residuals.length, 0, 'partial parts retain their complete source base body');
-    report.assemblies.push({ source: data.buildingIds[i], mode: spec.mode, parts: spec.parts.map(p => data.buildingIds[p]), residualArea: cov.uncovered, residualHeight: spec.residualHeightM ?? spec.residualHeightDm / 10 });
+    report.assemblies.push({ source: data.buildingIds?.[i] || 'legacy-index:' + i, mode: spec.mode, parts: spec.parts.map(p => data.buildingIds?.[p] || 'legacy-index:' + p), residualArea: cov.uncovered, residualHeight: spec.residualHeightM ?? spec.residualHeightDm / 10 });
 }
-const physical = rings.map((ring, i) => ({ i, ring, holes: data.buildingHoles?.[i] || [], h: data.buildingDimensions?.[i]?.[0] ?? data.buildings[i][1] / 10, minH: data.buildingDimensions?.[i]?.[1] ?? data.buildings[i][2] / 10 }));
+const physical = rings.map((ring, i) => ({ i, ring, holes: data.buildingHoleFootprints?.[i] || data.buildingHoles?.[i] || [], h: data.buildingDimensions?.[i]?.[0] ?? data.buildings[i][1] / 10, minH: data.buildingDimensions?.[i]?.[1] ?? data.buildings[i][2] / 10 }));
 for (const [key, spec] of Object.entries(data.buildingAssemblies || {})) {
     if (spec.mode === 'parts') physical[+key].suppressed = true;
     for (const r of spec.geometry.residuals) physical.push({ i: physical.length, ring: geometryRing(r.ring, data.buildingGeometryPoints), holes: [], h: r.h, minH: 0 });
@@ -92,7 +97,7 @@ for (let i = 0; i < rings.length; i++) {
     } else {
         const tris = THREE.ShapeUtils.triangulateShape(r.map(p => new THREE.Vector2(...p)), []);
         close(tris.reduce((s, t) => s + Math.abs(ringArea(t.map(j => r[j]))), 0), area, 'fallback pitched triangulation covers footprint');
-        report.roofs.fallback.push(data.buildingIds[i]);
+        report.roofs.fallback.push(data.buildingIds?.[i] || 'legacy-index:' + i);
     }
 }
 if (process.argv.includes('--baseline')) {

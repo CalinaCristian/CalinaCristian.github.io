@@ -149,7 +149,7 @@ def main():
     ap.add_argument('--osm', nargs='+', required=True)
     ap.add_argument('--roofs', default=None)
     ap.add_argument('--out', default=None)
-    ap.add_argument('--ring', type=float, default=350, help='scenery ring width (m) to include beyond the playable area')
+    ap.add_argument('--ring', type=float, default=600, help='scenery ring width (m) to include beyond the playable area')
     a = ap.parse_args()
     d = json.load(open(a.data))
     S, P = d['strings'], d['proj']
@@ -163,9 +163,34 @@ def main():
         if len(ring) < 3:
             continue
         x0 = min(x for x, _ in ring); x1 = max(x for x, _ in ring); z0 = min(z for _, z in ring); z1 = max(z for _, z in ring)
-        holes = [undelta(h, 0) for h in d.get('buildingHoles', {}).get(str(i), [])]
+        holes = d.get('buildingHoleFootprints', {}).get(str(i)) or [undelta(h, 0) for h in d.get('buildingHoles', {}).get(str(i), [])]
         B.append({'i': i, 'source': source_ids[i] if i < len(source_ids) else None, 'ring': ring, 'holes': holes, 'bb': (x0, z0, x1, z1), 'h': d.get('buildingDimensions', {}).get(str(i), [b[1] / 10])[0], 'roof': roofs[b[3]], 'flags': b[5], 'levels': b[6], 'c': centroid(ring), 'area': abs(area(ring))})
-    by_source = {b['source']: b for b in B if b['source']}
+    by_source = {}
+    for b in B:
+        if b['source']:
+            by_source.setdefault(b['source'], []).append(b)
+    strict_identity = bool(source_ids)
+    source_skips = []
+
+    def source_match(source, ring, holes):
+        candidates = by_source.get(source, [])
+        c = centroid(ring)
+        return min(candidates, key=lambda b: math.dist(b['c'], c)) if candidates else None
+
+    def boundary_error(source, prepared):
+        return max((min(segment_distance(*p, a, b) for a, b in zip(prepared, prepared[1:] + prepared[:1])) for p in source), default=float('inf'))
+
+    def match_fields(hit, ring, holes, tags):
+        if not hit:
+            return {'identityPresent': False, 'matchMethod': 'source-id' if strict_identity else 'legacy-spatial'}
+        e = max(boundary_error(ring, hit['ring']), boundary_error(hit['ring'], ring))
+        same_holes = len(holes) == len(hit['holes']) and all(any(max(boundary_error(h, g), boundary_error(g, h)) <= .15 for g in hit['holes']) for h in holes)
+        height = num(tags.get('height'))
+        levels = num(tags.get('building:levels'))
+        return {'identityPresent': True, 'matchedSource': hit['source'], 'matchMethod': 'source-id' if strict_identity else 'legacy-spatial',
+                'boundaryErrorM': round(e, 5), 'topologyMatches': e <= .15 and same_holes,
+                'literalHeightMatches': height is None or height <= 0 or abs(hit['h'] - height) <= .011,
+                'storeysMatch': levels is None or levels <= 0 or abs(hit['levels'] - levels) < .001}
     geometry = d.get('district', {}).get('geometry')
     grid = {}
     G = 30.0
@@ -212,14 +237,18 @@ def main():
     aer = json.load(open(a.roofs))['roofs'] if a.roofs and os.path.exists(a.roofs) else {}
     rows = []
     for wid, (refs, t) in ways.items():
-        if not t.get('building') or t.get('building') == 'no':
+        if not ((t.get('building') and t['building'] != 'no') or (t.get('building:part') and t['building:part'] != 'no')):
+            continue
+        if len(refs) < 4 or refs[0] != refs[-1] or any(r not in nodes for r in refs):
+            source_skips.append({'osm': 'w' + wid, 'reason': 'unclosed-or-incomplete-source-way'})
             continue
         ll = [nodes[r] for r in refs if r in nodes]
         if len(ll) < 4:
             continue
         ring = [proj(la, lo) for la, lo in ll[:-1]]
         ar = abs(area(ring))
-        if ar < 25:
+        if ar <= 1e-8:
+            source_skips.append({'osm': 'w' + wid, 'reason': 'zero-source-area'})
             continue
         cx, cz = centroid(ring)
         c = cellOf(cx, cz)
@@ -228,15 +257,15 @@ def main():
         zone = ('inside' if margin <= 0 else 'ring' if margin <= a.ring else None) if geometry else ('inside' if c in inside else 'ring' if c in near else None)
         if not zone:
             continue
-        hit = by_source.get('w' + wid)
+        hit = source_match('w' + wid, ring, [])
         candidates = []
         for o in grid.get((int(math.floor(cx / G)), int(math.floor(cz / G))), []):
             x0, z0, x1, z1 = o['bb']
             if x0 <= cx <= x1 and z0 <= cz <= z1 and pip(cx, cz, o['ring']):
                 candidates.append(o)
-        if not hit and candidates:
+        if not strict_identity and not hit and candidates:
             hit = min(candidates, key=lambda o: (abs(math.log(max(o['area'], 1e-9) / ar)), math.hypot(o['c'][0] - cx, o['c'][1] - cz)))
-        if not hit:  # nearest game centroid within 8 m (shrunk footprints)
+        if not strict_identity and not hit:  # Legacy data lacks source identities; never use this for a source-identity build.
             best = 8.0
             for dx in (-1, 0, 1):
                 for dz in (-1, 0, 1):
@@ -251,6 +280,7 @@ def main():
         if margin is not None:
             row['margin'] = round(margin, 1)
             row['centroidMargin'] = round(centroid_margin, 1)
+        row.update(match_fields(hit, ring, [], t))
         if hit:
             row.update({'game': hit['i'], 'dist': round(math.hypot(hit['c'][0] - cx, hit['c'][1] - cz), 1), 'areaKept': round(hit['area'] / ar, 2), 'hGame': hit['h'], 'roofGame': hit['roof']})
         r = aer.get(wid)
@@ -270,7 +300,8 @@ def main():
             if not all(n in nodes for n in refs):
                 continue
             ring = [proj(*nodes[n]) for n in refs[:-1]]; ar = abs(area(ring))
-            if ar < 25:
+            if ar <= 1e-8:
+                source_skips.append({'osm': 'r' + rid, 'reason': 'zero-source-area'})
                 continue
             cx, cz = centroid(ring); c = cellOf(cx, cz)
             holes = [h for h in inner_polys if h and all(pip(x, z, ring) for x, z in h)]
@@ -285,6 +316,7 @@ def main():
             row = {'osm': 'r' + rid, 'kind': 'relation', 'zone': zone, 'type': t.get('building'), 'name': t.get('name'), 'areaOSM': round(ar), 'lat': round(sum(p[0] for p in ll) / len(ll), 6), 'lon': round(sum(p[1] for p in ll) / len(ll), 6), 'heightOSM': num(t.get('height')), 'levelsOSM': num(t.get('building:levels')), 'roofLevelsOSM': num(t.get('roof:levels')) or 0, 'roofOSM': t.get('roof:shape'), 'holeCountOSM': len(holes), 'holeAreaOSM': round(sum(abs(area(h)) for h in holes), 1)}
             if margin is not None:
                 row['margin'] = round(margin, 1); row['centroidMargin'] = round(centroid_margin, 1)
+            row.update(match_fields(hit, ring, holes, t))
             if hit:
                 gh = hit['holes']; source_area = sum(abs(area(h)) for h in holes)
                 row.update({'game': hit['i'], 'dist': round(math.hypot(hit['c'][0] - cx, hit['c'][1] - cz), 1), 'areaKept': round(hit['area'] / ar, 2), 'hGame': hit['h'], 'roofGame': hit['roof'], 'holeCountGame': len(gh), 'holeAreaGame': round(sum(abs(area(h)) for h in gh), 1), 'holeAreaKept': round(sum(abs(area(h)) for h in gh) / source_area, 2) if source_area else None, 'courtyardInteriorsClear': all(any(pip(*interior_point(h), g) for g in gh) for h in holes)})
@@ -294,9 +326,11 @@ def main():
         return f"{n}/{tot} ({100 * n / max(1, tot):.1f} %)"
     for zone in ('inside', 'ring'):
         R = [r for r in rows if r['zone'] == zone]
+        exact = [r for r in R if r.get('identityPresent')]
+        print(f"== {zone}: ALL valid positive-area way/part source identities {pct(len(exact), len(R))}; topology {pct(sum(r.get('topologyMatches', False) for r in exact), len(exact))}")
         big = [r for r in R if r['areaOSM'] >= 40 and r['type'] not in ('garage', 'garages', 'shed', 'roof', 'carport', 'kiosk')]
         miss = [r for r in big if 'game' not in r]
-        print(f"== {zone}: {len(R)} OSM footprints ≥ 25 m² ({len(big)} ≥ 40 m², not sheds/garages)")
+        print(f"== {zone}: {sum(r['areaOSM'] >= 25 for r in R)} OSM footprints ≥ 25 m² ({len(big)} ≥ 40 m², not sheds/garages; legacy comparison subset)")
         print('  matched     ', pct(len(big) - len(miss), len(big)))
         M = [r for r in big if 'game' in r]
         if M:
@@ -332,6 +366,7 @@ def main():
                 print(f"    COURTYARD {r['osm']} source={r['holeCountOSM']} game={r.get('holeCountGame', 0)} @ {r['lat']},{r['lon']}")
     if a.out:
         json.dump(rows + relation_rows, open(a.out + '.json', 'w'), indent=0)
+        json.dump(source_skips, open(a.out + '-source-skips.json', 'w'), indent=1)
         print('wrote', a.out + '.json')
 
 

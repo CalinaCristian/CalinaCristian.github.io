@@ -493,9 +493,9 @@ export default {
         if(CV.church){const ru=d.buildings.find(b=>b.id==='w658220894'),edge=ru?distPolyline(CV.bust.x-3,CV.bust.z-3,[...ru.poly,ru.poly[0]]):null;
             const targets=[{label:'Vlad III bust',x:CV.bust.x,y:gy(CV.bust.x,CV.bust.z)+2.65,z:CV.bust.z,radius:.4},
                 {label:'Old Court church tower',...CV.church.tower,radius:1.6,surfaceTolerance:4}];
-            if(edge)targets.push({label:'Mapped Old Court brick wall',x:edge.cx,y:Math.min(...ru.poly.map(([x,z])=>gy(x,z)))+.9,z:edge.cz,radius:1.2});
+            if(edge)targets.push({label:'Old Court brick remains',x:edge.cx,y:Math.min(...ru.poly.map(([x,z])=>gy(x,z)))+.9,z:edge.cz,radius:1.2});
             ctx.extras.curteaVecheVisit=photoHunt(ctx,{x:CV.bust.x-3,z:CV.bust.z-3,title:'Frame the Old Court details',targets,
-                unavailable:'Explore these source-backed features from the public street. Current access inside the excavations has not been verified.',
+                unavailable:'Explore these historic details from the public street. Current access inside the excavations has not been verified.',
                 onDone:s=>bucActivity(s,'old-town-lipscani','curtea-veche','🏛 Old Court details framed','You framed the bust, church and mapped court remains from outside. This does not claim admission inside the excavations.')});}
         if (ST) {const candle=candleLight(ctx,new THREE.Vector3(),{title:'A virtual candle at Stavropoleos',portable:true,focus:new THREE.Vector3(ST.x,gy(ST.x,ST.z)+6,ST.z),
             onDone:s=>bucActivity(s,'stavropoleos-cec','stavropoleos','🕯 Candle practice completed','You lit and placed a temporary virtual candle in a handheld holder. This does not locate a real rack or imply current interior access.')});

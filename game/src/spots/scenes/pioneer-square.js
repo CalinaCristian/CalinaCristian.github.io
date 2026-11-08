@@ -169,7 +169,7 @@ export default {
             {label:'The cast-iron pergola',x:per.cx,y:per.y0+4.6,z:per.cz,radius:1.4},
             {label:'The Chief Seattle bust',x:cs.x,y:g.heightAt(cs.x,cs.z)+2.25,z:cs.z,radius:.5},
             ...(smith?[{label:'The white terracotta Smith Tower',x:smith.cx,y:smith.y0+40,z:smith.cz,radius:5,maxDistance:300,surfaceTolerance:2,surface:smith.surface}]:[])],
-            onDone:s=>seaActivity(s,'lm-underground','pioneer-square','🏛 Public square details framed','You framed three source-backed outdoor features. A ticketed Underground interior has not been entered or simulated.')});
+            onDone:s=>seaActivity(s,'lm-underground','pioneer-square','🏛 Public square details framed','You framed three outdoor details in Pioneer Square. A ticketed Underground interior has not been entered or simulated.')});
         ctx.extras.pioneerContext={removedUnverifiedUndergroundRoom:true};
         ctx.challenge('pioneer-square', { r: 10, tol: 30 });
         ctx.crowdCfg = {

@@ -1,0 +1,15 @@
+{
+  "sourceCommit": "c4a492e151ca209e6c11a66aa3a499ee8c6b6ede",
+  "frames": 107,
+  "reviewedPrivateContactSheets": 18,
+  "reviewedAtUtc": "2026-11-08T18:33:41.789626+00:00",
+  "reference": "Independent Esri World Imagery; unknown acquisition date, retrieved2026-11-08; no reference images committed.",
+  "scope": "All107 historical250m frames reviewed at contact-sheet scale, including26 core-touching/77 ring-touching/4 context frames. Terminal roofs additionally reviewed full resolution.",
+  "findings": [
+    "Terminal white/dark roof zoning corrected in ff8864f.",
+    "Flat arrivals roof corrected to measured ten-bay axis/spacing in59f953f; rise remains estimated.",
+    "Ground seasonal colour, roof/HVAC and fa\u00e7ade detail are approximations. Some source parking/works areas differ from imagery of unknown acquisition date; current OSM geometry takes precedence.",
+    "Outer portions of southern tiles and optional far-corner views extend outside private mosaic coverage; those portions are outside the required600m boundary, and are not treated as a complete reference comparison."
+  ],
+  "acceptanceStatus": "Historical review only. Fresh59f953f atlas/Street View/runtime budget gates remain separate."
+}

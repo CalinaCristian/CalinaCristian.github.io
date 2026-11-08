@@ -1,0 +1,18 @@
+{
+  "sourceCommit": "d35d3d5",
+  "sourceSnapshot": "/workspace/reality-pass/remaining-ro/source-d35d3d5",
+  "result": {
+    "high": 0,
+    "medium": 0,
+    "low": 2
+  },
+  "scenarioIds": [
+    "foot",
+    "a"
+  ],
+  "limitations": [
+    "Software GL FPS and traffic-update timing are retained as low findings.",
+    "This run precedes the OTP-only roof colour/shape change; its unchanged source IDs/colliders are checked separately, and final district captures remain a separate gate."
+  ],
+  "imagePolicy": "Game-only; both screenshots visually inspected. No reference imagery."
+}

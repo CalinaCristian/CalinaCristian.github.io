@@ -1449,6 +1449,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // the pitch / turf / clay / hard / pool areas — they were flat coloured patches. The court is fitted with the
     // smallest-area rectangle of its outline (skipped when the outline is not rectangular enough); everything is visual.
     let pitchesDressed = 0;
+    const sportsColl = []; // (colliders of the sports dressing: it runs before propColl exists — merged in below)
     const dressSports = () => { // (run after the landmarks are built: a ground inside a landmark — the Dinamo pitch — is the model's own)
         const W = rgb('#f4f4ef'), POST = rgb('#ededea'), FENCE = rgb('#2f4a3a'), NET = rgb('#2a2d30');
         const minRect = (pts) => {
@@ -1498,7 +1499,8 @@ export async function buildWorld(city, renderer, opts = {}) {
                     for (let t = 0; t <= L; t += 3) { const f = t / L; c.detail.box(ax + (bx - ax) * f, base, az + (bz - az) * f, 0.06, 3, 0.06, 0, FENCE); }
                     const mx = (ax + bx) / 2, mz = (az + bz) / 2, an = Math.atan2(bx - ax, bz - az);
                     c.detail.box(mx, base + 2.95, mz, 0.05, 0.05, L, an, FENCE); c.detail.box(mx, base + 1.5, mz, 0.04, 0.04, L, an, FENCE);
-                    c.solid.box(mx, base, mz, 0.04, 0.12, L, an, FENCE); }
+                    c.solid.box(mx, base, mz, 0.04, 0.12, L, an, FENCE);
+                    sportsColl.push({ x: mx, z: mz, hw: 0.1, hd: L / 2, angle: an, r: Math.hypot(0.1, L / 2), poly: null, h: 3, prop: true, kind: 'fence' }); } // (solid)
                 pitchesDressed++; continue;
             }
             if (a.kind === 'hard') { // basketball / multi-sport: outline, centre line and circle, hoops at both ends
@@ -1506,7 +1508,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const n = 24, r = Math.min(1.8, hw * 0.25); for (let k = 0; k < n; k++) { const a0 = k / n * 6.283, a1 = (k + 1) / n * 6.283; line(Math.cos(a0) * r, Math.sin(a0) * r, Math.cos(a1) * r, Math.sin(a1) * r, 0.06); }
                 for (const sg of [-1, 1]) { // pole behind the end line, arm, backboard (with its target square), orange rim and a net
                     const [px, pz] = P(sg * (hl + 0.2), 0), [bx, bz] = P(sg * (hl - 1.2), 0), [ax2, az2] = P(sg * (hl - 0.5), 0);
-                    c.solid.box(px, base, pz, 0.14, 3.5, 0.14, ang, rgb('#3a3d42'));
+                    c.solid.box(px, base, pz, 0.14, 3.5, 0.14, ang, rgb('#3a3d42')); sportsColl.push({ x: px, z: pz, r: 0.1, hw: 0.1, hd: 0.1, angle: 0, poly: null, h: 3, prop: true, kind: 'post' });
                     c.solid.box(ax2, base + 3.3, az2, 0.1, 0.1, 1.4, ang, rgb('#3a3d42'));
                     c.solid.box(bx, base + 2.9, bz, 0.06, 1.05, 1.8, ang + Math.PI / 2, rgb('#f2f2f0'));
                     const [qx, qz] = P(sg * (hl - 1.24), 0); c.detail.box(qx, base + 3.05, qz, 0.02, 0.45, 0.59, ang + Math.PI / 2, rgb('#c2410c'));
@@ -1532,17 +1534,19 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (hw > 15) for (const sd of [-1, 1]) { const [dx, dz] = P(sd * 6, -(hw + 0.4 > HW + 2.5 ? HW + 2.2 : hw + 1.2)); // dugouts: a bench under a curved perspex-ish roof
                     c.solid.box(dx, base, dz, 4.0, 0.08, 1.2, ang, rgb('#cfd2d4')); c.solid.box(dx, base + 1.95, dz, 4.1, 0.08, 1.4, ang, rgb('#2f6fb0'));
                     for (const t of [-1.95, 1.95]) { const [ex, ez] = P(sd * 6 + t, -(hw + 0.4 > HW + 2.5 ? HW + 2.2 : hw + 1.2)); c.solid.box(ex, base, ez, 0.06, 1.95, 1.3, ang, rgb('#2f6fb0')); }
-                    c.solid.box(dx, base + 0.45, dz, 3.6, 0.06, 0.45, ang, rgb('#c23b3b')); }
+                    c.solid.box(dx, base + 0.45, dz, 3.6, 0.06, 0.45, ang, rgb('#c23b3b'));
+                    sportsColl.push({ x: dx, z: dz, hw: 2.05, hd: 0.7, angle: ang + Math.PI / 2, r: 2.2, poly: null, h: 2, prop: true, kind: 'furniture' }); }
                 if (hl > 22) for (const sg of [-1, 1]) { const fu = sg * (hl + 0.3), fw = Math.min(hw, 24); // ball-stop fence behind the goal: posts + a few wires
                     for (let v = -fw; v <= fw + 0.01; v += 4) { const [px, pz] = P(fu, v); c.detail.box(px, base, pz, 0.08, 6, 0.08, 0, FENCE); }
-                    for (const y of [1, 2.5, 4, 5.9]) { const [mx, mz] = P(fu, 0); c.detail.box(mx, base + y, mz, 0.03, 0.03, fw * 2, ang + Math.PI / 2, FENCE); } }
+                    for (const y of [1, 2.5, 4, 5.9]) { const [mx, mz] = P(fu, 0); c.detail.box(mx, base + y, mz, 0.03, 0.03, fw * 2, ang + Math.PI / 2, FENCE); }
+                    { const [mx, mz] = P(fu, 0), an2 = ang + Math.PI / 2; sportsColl.push({ x: mx, z: mz, hw: 0.1, hd: fw, angle: an2, r: Math.hypot(0.1, fw), poly: null, h: 6, prop: true, kind: 'fence' }); } }
             }
             rect(HL, HW); line(0, -HW, 0, HW);
             const rc = Math.min(9.15, HW * 0.27), n = 36; for (let k = 0; k < n; k++) { const a0 = k / n * 6.283, a1 = (k + 1) / n * 6.283; line(Math.cos(a0) * rc, Math.sin(a0) * rc, Math.cos(a1) * rc, Math.sin(a1) * rc); }
             const bd = Math.min(16.5, HL * 0.3), bw = Math.min(20.16, HW * 0.6), gw = HL > 40 ? 3.66 : HL > 22 ? 2.5 : 1.5, gh = HL > 40 ? 2.44 : 2;
             for (const sg of [-1, 1]) {
                 const g = sg * HL; line(g, -bw, g - sg * bd, -bw); line(g - sg * bd, -bw, g - sg * bd, bw); line(g - sg * bd, bw, g, bw);
-                for (const v of [-gw, gw]) { const [px, pz] = P(g + sg * 0.05, v); c.detail.box(px, base, pz, 0.1, gh, 0.1, 0, POST); }
+                for (const v of [-gw, gw]) { const [px, pz] = P(g + sg * 0.05, v); c.detail.box(px, base, pz, 0.1, gh, 0.1, 0, POST); sportsColl.push({ x: px, z: pz, r: 0.08, hw: 0.08, hd: 0.08, angle: 0, poly: null, h: 3, prop: true, kind: 'post' }); }
                 const [tx, tz] = P(g + sg * 0.05, 0); c.detail.box(tx, base + gh - 0.1, tz, 0.1, 0.1, gw * 2 + 0.1, ang + Math.PI / 2, POST);
                 // the net: a see-through mesh of thin strands at the back (a solid panel read as a white wall)
                 const NETC = rgb('#e2e4e4'), nd = g + sg * Math.min(1.4, gh * 0.6);
@@ -3063,6 +3067,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const propColl = []; // small circles for street furniture (trees, posts, shelters…)
     const treeClear = []; // (after round 6) {x, z, r}: no trees here (fuel forecourts)
     const addPropColl = (x, z, r, kind = 'prop') => propColl.push({ x, z, r, hw: r, hd: r, angle: 0, poly: null, h: 3, prop: true, kind });
+    propColl.push(...sportsColl); // (pitch / court fences, dugouts, goal and hoop posts)
     // ---- landmark ground fences (2026-11-08, owner: "the Rosetti fence is on the street"): the model's fence line follows the
     //      OSM grounds, which the game's wider road + sidewalk ribbons overlap (Rosetti: OSM draws the grounds' east edge on
     //      the Garibaldi centre line). Every point that falls on a carriageway or sidewalk is moved out to the property line
@@ -4459,6 +4464,8 @@ export async function buildWorld(city, renderer, opts = {}) {
                                 c.detail.wall(px + ux * 0.015, pz + uz * 0.015, px - ux * 0.015, pz - uz * 0.015, Y.side + 0.45, Y.side + 1.57, -pnx, -pnz, col); }
                         }
                         liftOnSide(c, v0s, v0d, mx, mz, 0.6); // (on the raised sidewalk's back edge)
+                        // (2026-11-08, owner: "I shouldn't be able to drive into this") solid: walls, hedges and railings collide
+                        { const hwC = k === 'hedge' ? 0.45 : 0.15; propColl.push({ x: mx, z: mz, hw: hwC, hd: L / 2 + 0.05, angle: ang, r: Math.hypot(hwC, L / 2 + 0.05), poly: null, h: k === 'wall' ? 1.8 : k === 'hedge' ? 1.5 : 1.6, prop: true, kind: 'fence' }); }
                         fenceM += L;
                     }
                     run = null;
@@ -4496,6 +4503,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                     if (onRibbon(x, z, 0.15) || buildingAt(x, z)) continue;
                     const c = cellOf(x, z), v0d = c.detail.vc; c.detail.box(x, Y.side, z, 0.11, 0.85, 0.11, 0, bc); c.detail.box(x, Y.side + 0.85, z, 0.13, 0.05, 0.13, 0, cap); bollards++;
                     liftOnSide(c, c.solid.vc, v0d, x, z);
+                    addPropColl(x, z, 0.1, 'bollard'); // (owner: "I can drive through this") solid, like the OSM bollards
                 }
             }
         }

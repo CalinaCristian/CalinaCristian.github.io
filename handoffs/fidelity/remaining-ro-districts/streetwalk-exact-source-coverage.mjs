@@ -1,7 +1,10 @@
 import fs from 'node:fs';
-import {footprintMargin} from '/workspace/fidelity-workers/remaining-ro-districts/tools/osm/geom.mjs';
+import path from 'node:path';
+import {footprintMargin} from '../../../tools/osm/geom.mjs';
+const args=Object.fromEntries(process.argv.slice(2).map(v=>v.replace(/^--/,'').split('=')));
+const root=path.resolve(args['evidence-root']||'/workspace/reality-pass/remaining-ro');
 for(const district of ['unirii','otopeni']){
- const root='/workspace/reality-pass/remaining-ro',p=`${root}/${district}/full-source-streetwalk-4198996`,d=JSON.parse(fs.readFileSync(`${root}/source-4198996/game/data/bucharest-${district}.json`)),b=JSON.parse(fs.readFileSync(`${root}/${district}/atlas-4198996/boundary-source.json`)),s=JSON.parse(fs.readFileSync(p+'/source-candidates.json')),keys=new Set(s.map(v=>v.sourceGroup+':'+v.sourcePiece)),missing=[],outside=[];
+ const p=`${root}/${district}/full-source-streetwalk-4198996`,d=JSON.parse(fs.readFileSync(`${root}/source-4198996/game/data/bucharest-${district}.json`)),b=JSON.parse(fs.readFileSync(`${root}/${district}/atlas-4198996/boundary-source.json`)),s=JSON.parse(fs.readFileSync(p+'/source-candidates.json')),keys=new Set(s.map(v=>v.sourceGroup+':'+v.sourcePiece)),missing=[],outside=[];
  let checked=0,represented=0;
  for(const[group,source,access]of[['core',d.roadSourceGeometry,d.roadAccess],['nearby',d.scenerySourceGeometry,d.sceneryAccess]])for(const[index,row]of Object.entries(source)){
   if(!access[index]?.publicDrive||row.tags?.tunnel&&row.tags.tunnel!=='no')continue;checked++;

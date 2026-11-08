@@ -2117,8 +2117,8 @@ function bLumen(b) {
     for (const side of [-1, 1]) {
         const roof = U[side < 0 ? 'w458208106' : 'w458208107'];
         const roofY = sourceSlope(roof, 0, 26, 10, true), angle = -side * Math.PI / 2;
-        sourceSurfaceText(b, 'LUMEN', FX + side * 80, FZ, angle, 12, '#ffffff', roofY);
-        sourceSurfaceText(b, 'FIELD', FX + side * 96, FZ, angle, 4.2, '#94bdd6', roofY);
+        sourceSurfaceText(b, 'LUMEN', FX + side * 80, FZ, angle, 22.45, '#ffffff', roofY);
+        sourceSurfaceText(b, 'FIELD', FX + side * 96, FZ, angle, 9.65, '#94bdd6', roofY);
     }
     // south end: video board above the end-zone deck; north end open "Hawks Nest" bleachers
     b.prism(rect(FX - 60, FZ + 100, FX + 60, FZ + 118), 22, 32, CON, { topCol: SEAT });
@@ -2176,9 +2176,15 @@ function bGreatWheel(b) {
     const hs = b.hs; b.hs = 1;                                             // keep the wheel round (true size)
     const R = 23.5, Y = 26.5; // complete envelope ≈ 53 m, as surveyed OSM n1809238334
     for (const z of [-1.8, 1.8]) b.geo(new THREE.TorusGeometry(R, 0.55, 6, 56), '#f2f2f2', M(0, Y, z));
-    for (let i = 0; i < 42; i++) { const a = i / 42 * Math.PI * 2; b.box(Math.cos(a) * R / 2, Y - 0.15, 0, R, 0.3, 0.3, '#e6e6e6', { rz: a }); }
+    for (let i = 0; i < 42; i++) { const a = i / 42 * Math.PI * 2; b.box(Math.cos(a) * R / 2, Y + Math.sin(a) * R / 2, 0, R, 0.3, 0.3, '#e6e6e6', { rz: a }); }
     b.geo(new THREE.CylinderGeometry(1.6, 1.6, 4.4, 12), '#cfcfcf', M(0, Y, 0, 0, 1, 1, 1, Math.PI / 2, 0));
-    for (let i = 0; i < 42; i++) { const a = i / 42 * Math.PI * 2; b.box(Math.cos(a) * (R + 1.6), Y + Math.sin(a) * (R + 1.6) - 1.5, 0, 2.4, 2.8, 2.6, i % 6 ? '#e9edf0' : '#c0392b'); }
+    for (let i = 0; i < 42; i++) {
+        const a = i / 42 * Math.PI * 2, x = Math.cos(a) * (R + 1.6), y = Y + Math.sin(a) * (R + 1.6) - 1.5;
+        const frame = i === 0 ? '#25292d' : '#e9edf0'; // one VIP gondola, 41 white enclosed cabins
+        b.box(x, y, 0, 2.4, 0.3, 2.6, frame); b.box(x, y + 2.55, 0, 2.4, 0.25, 2.6, frame);
+        b.box(x, y + 0.3, 0, 2.18, 2.25, 2.38, '#7c9eaf', { mat: 'g' });
+        for (const dx of [-1.1,1.1]) for (const dz of [-1.2,1.2]) b.box(x + dx,y + .3,dz,.12,2.25,.12,frame);
+    }
     for (const sx of [-1, 1]) for (const sz of [-1, 1]) b.tube([[sx * 13, 0, sz * 7], [0, Y, sz * 2.2]], 0.7, '#e2e2e2', { seg: 2, radial: 6 });
     b.box(0, 0, 0, 34, 1, 18, '#8a8173');
     b.hs = hs;

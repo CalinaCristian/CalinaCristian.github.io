@@ -1946,8 +1946,9 @@ export async function buildWorld(city, renderer, opts = {}) {
                             c.ground.flatQuad(o0[0], o0[1], o1[0], o1[1], w1[0], w1[1], w0[0], w0[1], top, sideCol, 0.25);
                             // (owner: "not smooth at all the transition") a 1 m slope down to the ground behind, not a 0.34 m ledge
                             // (a vertical face where the slope would land on another surface)
-                            const SL = 1.0, f0 = [w0[0] + e.nx * s * SL, w0[1] + e.nz * s * SL], f1 = [w1[0] + e.nx * s * SL, w1[1] + e.nz * s * SL];
-                            if (!cov(f0) && !cov(f1) && !cov(lp(f0, f1, 0.5))) c.ground.face4([w0[0], top, w0[1]], [w1[0], top, w1[1]], [f1[0], Y.landuse + 0.01, f1[1]], [f0[0], Y.landuse + 0.01, f0[1]], shadeRgb(sideCol, 0.9), [e.nx * s * 0.34, SL, e.nz * s * 0.34]);
+                            // (owner, again: "still feels like it's floating") 2.4 m long (≈ 8°), the sidewalk's own paving colour
+                            const SL = 2.4, f0 = [w0[0] + e.nx * s * SL, w0[1] + e.nz * s * SL], f1 = [w1[0] + e.nx * s * SL, w1[1] + e.nz * s * SL];
+                            if (!cov(f0) && !cov(f1) && !cov(lp(f0, f1, 0.5)) && !cov(lp(w0, f0, 0.5)) && !cov(lp(w1, f1, 0.5))) c.ground.face4([w0[0], top, w0[1]], [w1[0], top, w1[1]], [f1[0], Y.landuse + 0.01, f1[1]], [f0[0], Y.landuse + 0.01, f0[1]], sideCol, [e.nx * s * 0.34, SL, e.nz * s * 0.34]);
                             else c.ground.wall(w0[0], w0[1], w1[0], w1[1], Y.landuse - 0.02, top, e.nx * s, e.nz * s, shadeRgb(sideCol, 0.8));
                             raisedPieces++;
                         };
@@ -2290,8 +2291,8 @@ export async function buildWorld(city, renderer, opts = {}) {
             mb.triUp(base, base + 1, base + 2); mb.triUp(base, base + 2, base + 3);
             const tn = (a, b, away) => { const mx = (a[0] + b[0]) / 2 - n.x, mz = (a[1] + b[1]) / 2 - n.z, l = Math.hypot(mx, mz) || 1; return away ? [mx / l, mz / l] : [-mx / l, -mz / l]; };
             { const [nx, nz] = tn(q[3], q[0], false); mb.wall(q[3][0], q[3][1], q[0][0], q[0][1], Y.road - 0.01 + padHeightAt(n, cx, cz), hy(cx, cz), nx, nz, shadeRgb(kerbCol, 0.85)); }   // kerb face toward the pad
-            { const [nx, nz] = tn(q[1], q[2], true), f1 = [q[1][0] + nx, q[1][1] + nz], f2 = [q[2][0] + nx, q[2][1] + nz], yg = Y.landuse + 0.01 + padHeightAt(n, cx, cz); // back: a 1 m slope (a face where it would land on a road)
-              if (![f1, f2].some(([x, z]) => coveredByOther(x, z, null, padHeightAt(n, x, z), 0.02))) mb.face4([q[1][0], hy(q[1][0], q[1][1]), q[1][1]], [q[2][0], hy(q[2][0], q[2][1]), q[2][1]], [f2[0], yg, f2[1]], [f1[0], yg, f1[1]], shadeRgb(sideCol, 0.9), [nx * 0.34, 1, nz * 0.34]);
+            { const [nx, nz] = tn(q[1], q[2], true), f1 = [q[1][0] + nx * 2.4, q[1][1] + nz * 2.4], f2 = [q[2][0] + nx * 2.4, q[2][1] + nz * 2.4], yg = Y.landuse + 0.01 + padHeightAt(n, cx, cz); // back: a 2.4 m slope (a face where it would land on a road)
+              if (![f1, f2].some(([x, z]) => coveredByOther(x, z, null, padHeightAt(n, x, z), 0.02))) mb.face4([q[1][0], hy(q[1][0], q[1][1]), q[1][1]], [q[2][0], hy(q[2][0], q[2][1]), q[2][1]], [f2[0], yg, f2[1]], [f1[0], yg, f1[1]], sideCol, [nx * 0.34, 2.4, nz * 0.34]);
               else mb.wall(q[1][0], q[1][1], q[2][0], q[2][1], Y.landuse - 0.02 + padHeightAt(n, cx, cz), hy(cx, cz), nx, nz, shadeRgb(sideCol, 0.8)); }
             const cp = { p: q, n, x0: Math.min(...q.map(v => v[0])), x1: Math.max(...q.map(v => v[0])), z0: Math.min(...q.map(v => v[1])), z1: Math.max(...q.map(v => v[1])) };
             cornerPolys.push(cp); cornerGrid.insert(cp.x0, cp.z0, cp.x1, cp.z1, cp);
@@ -3615,8 +3616,11 @@ export async function buildWorld(city, renderer, opts = {}) {
     /** (play-test note 10a) a business inside a building: its own ground-floor fascia (brand colours + name) over its
      *  unit, on the street wall nearest to the mapped point, + a projecting blade sign; lit at night with the signs */
     let unitSigns = 0, vacantUnits = 0;
+    const normName = (t) => String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
     function addUnitSign(b, x, z, text, kind) {
         if (b.skip || b.cv || (b.minH || 0) > 0.5 || b.h < 3) return;
+        // (2026-11-08, owner: "Poke House duplicated") the building's own name sign already names this business
+        if ((b.flags & 2) && b.name) { const a = normName(b.name), c2 = normName(text); if (a && c2 && (a.includes(c2) || c2.includes(a) || a.split(' ')[0] === c2.split(' ')[0])) return; }
         const ring = b.ring, ccw = signedArea(ring) > 0;
         let best = null, bd = Infinity;
         for (let k = 0; k < ring.length; k++) {
@@ -3643,7 +3647,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         mbS.tri(i0, i1, i2); mbS.tri(i0, i2, i3);
         cc.solid.box(mx - nx * 0.07, y - 0.1, mz - nz * 0.07, 0.1, hh + 0.2, w + 0.5, Math.atan2(tx, tz), rgb(bs[0])); // fascia board
         const ex = mx + tx * (w / 2 + 0.7) + nx * 0.5, ez = mz + tz * (w / 2 + 0.7) + nz * 0.5;
-        if (tc + w / 2 + 1.3 < L) { // projecting blade sign (both faces), on a bracket
+        if (tc + w / 2 + 1.3 < L && (b.flags & 1)) { // projecting blade sign (both faces), on a bracket — shopfronts only (owner: a stray plate on a blank wall)
             cc.solid.box(ex - nx * 0.25, y + hh + 0.75, ez - nz * 0.25, 0.04, 0.04, 0.7, Math.atan2(nx, nz), rgb('#2b2b2b'));
             const cross = kind === 'pharmacy' ? signs.get('✚', '#15803d', '#ffffff', null, true) : null; // (category style: green cross)
             if (cross) addSignQuad(cc, ex, ez, Math.atan2(tx, tz), 1, 0.8, 0.8, y + hh + 0.45, cross, 0.08);
@@ -3697,12 +3701,11 @@ export async function buildWorld(city, renderer, opts = {}) {
             const sb = cellOf(b.c[0], b.c[1]).solid, bg = rgb(st[0]), pad = 0.12, tx = -nz, tz = nx; // tx/tz: along the wall
             const cx0 = (ax + bx) / 2 + nx * 0.06, cz0 = (az + bz) / 2 + nz * 0.06, bw2 = Math.min(L * 0.96, w + 0.8);
             sb.box(cx0, y - pad, cz0, 0.1, hh + pad * 2, bw2, Math.atan2(tx, tz), bg);
-            if (L > 4 && (b.flags & 8 || shop)) {
-                const ex = (ax + bx) / 2 + tx * (bw2 / 2 + 0.6) * (L > bw2 + 2 ? 1 : 0) + nx * 0.55, ez = (az + bz) / 2 + tz * (bw2 / 2 + 0.6) * (L > bw2 + 2 ? 1 : 0) + nz * 0.55;
+            if (L > bw2 + 2 && shop) { // (2026-11-08, owner: "still broken signs") shopfronts only, and the bracket only with its blade
+                const ex = (ax + bx) / 2 + tx * (bw2 / 2 + 0.6) + nx * 0.55, ez = (az + bz) / 2 + tz * (bw2 / 2 + 0.6) + nz * 0.55;
                 const bh = 0.75, by = y + hh + 0.35;
-                sb.box(ex - nx * 0.45, by + bh / 2 - 0.03, ez - nz * 0.45, 0.04, 0.04, 1.0, Math.atan2(nx, nz), rgb('#2b2b2b')); // bracket
                 const bladeS = signs.get(b.name.slice(0, 14), st[0], st[1], st[2]);
-                if (bladeS && L > bw2 + 2) addSignQuad(cellOf(b.c[0], b.c[1]), ex, ez, Math.atan2(tx, tz), 1, 0.8, Math.min(0.8, 0.8 / bladeS.aspect * 1.6), by, bladeS, 0.06);
+                if (bladeS) { sb.box(ex - nx * 0.45, by + bh / 2 - 0.03, ez - nz * 0.45, 0.04, 0.04, 1.0, Math.atan2(nx, nz), rgb('#2b2b2b')); addSignQuad(cellOf(b.c[0], b.c[1]), ex, ez, Math.atan2(tx, tz), 1, 0.8, Math.min(0.8, 0.8 / bladeS.aspect * 1.6), by, bladeS, 0.06); }
             }
         }
         if (cvp) { // coloured band at the top of the CV building
@@ -4518,6 +4521,10 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const flushRun = () => {
                     if (!run || run.pts.length < 2) { run = null; return; }
                     const [k, hex] = run.kind, col = rgb(hex), pts = run.pts;
+                    // (2026-11-08, owner: "some of them end abruptly") no stubs under 6 m; railings / walls end on a pier
+                    let runL = 0; for (let i = 0; i < pts.length - 1; i++) runL += Math.hypot(pts[i + 1][0] - pts[i][0], pts[i + 1][1] - pts[i][1]);
+                    if (runL < 6) { run = null; return; }
+                    if (k !== 'hedge') for (const q of [pts[0], pts[pts.length - 1]]) { const cq = cellOf(q[0], q[1]), v0 = cq.solid.vc; cq.solid.box(q[0], Y.side, q[1], k === 'low' ? 0.12 : 0.42, k === 'low' ? 0.8 : 1.75, k === 'low' ? 0.12 : 0.42, 0, k === 'wall' || k === 'wallrail' ? shadeRgb(col, 0.95) : k === 'low' ? col : rgb('#cfc8b8')); liftOnSide(cq, v0, null, q[0], q[1], 0.6); }
                     for (let i = 0; i < pts.length - 1; i++) {
                         const [ax, az] = pts[i], [bx, bz] = pts[i + 1], L = Math.hypot(bx - ax, bz - az); if (L < 0.2) continue;
                         const mx = (ax + bx) / 2, mz = (az + bz) / 2, ang = Math.atan2(bx - ax, bz - az), c = cellOf(mx, mz), v0s = c.solid.vc, v0d = c.detail.vc;
@@ -4756,6 +4763,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                     const ry = raisedTop(x, z); if (ry === null) continue; // (only where the sidewalk is raised: the wheels stand on it)
                     if (treeNear(x, z, 2.2) || lampNear(x, z, 1.9) || treeClear.some((q) => (x - q.x) ** 2 + (z - q.z) ** 2 < (q.r + 3) ** 2)) continue;
                     if (stops.some(p => Math.hypot(p.x - x, p.z - z) < 14)) continue;
+                    if (mapEnds.some(m => Math.hypot(m.x - x, m.z - z) < 30)) continue; // (owner: "this sign is overlapping a car": the road-closure scene at the map edge)
                     let blocked = false; pcGrid.each(x - 3, z - 3, x + 3, z + 3, (pc) => { if (!blocked && Math.hypot(pc.x - x, pc.z - z) < (pc.r || 0.5) + 1.6) blocked = true; });
                     if (blocked) continue;
                     pcGrid.insert(x - 2.4, z - 2.4, x + 2.4, z + 2.4, box);

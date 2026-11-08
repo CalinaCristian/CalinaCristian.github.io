@@ -549,16 +549,34 @@ class Game {
             return { x: p.doorX ?? p.x, z: p.doorZ ?? p.z, brand, price: P.brands[brand] ?? P.def, poi: p };
         });
         if (!this.stations.length) {
-            const edges = this.spreadEdges(e => !isMotorway(e) || city.id === 'seattle', city.id === 'bucharest' ? 5 : 3);
-            edges.forEach((e, i) => {
-                const dir = canTravel(e, 1) ? 1 : -1; const t = 0.5;
-                const cx = e.a.x + (e.b.x - e.a.x) * t, cz = e.a.z + (e.b.z - e.a.z) * t;
-                const rx = e.nx * dir, rz = e.nz * dir; const hw = e.halfW ?? 6, sw = e.sidewalk ?? 2;
-                const brand = BRANDS[city.id][i % BRANDS[city.id].length];
-                const st = { x: cx + rx * (hw + 1.5), z: cz + rz * (hw + 1.5), brand, price: P.brands[brand] ?? P.def, fallback: true };
-                this.props.add(buildStationMesh(cx + rx * (hw + sw + 7), cz + rz * (hw + sw + 7), Math.atan2(rx, rz), brand));
-                this.stations.push(st);
-            });
+            // no mapped fuel station: a few fallback stations spread over the map — (2026-11-08, owner: "this Petrom is still
+            // inside buildings") only where the whole forecourt (canopy 12 × 8 m, shop behind it, pylon) is free of buildings
+            // and carriageways: several spots along each street and both sides are tried, then the next street
+            const want = city.id === 'bucharest' ? 5 : 3, W = this.world;
+            const edges = this.spreadEdges(e => (!isMotorway(e) || city.id === 'seattle') && e.len > 30, want * 24);
+            const blocked = (x, z) => {
+                if (W.onRibbon?.(x, z, 0.5)) return true;
+                let hit = false; const test = (b) => { if (hit || b.prop || b.soft) return; if (b.poly) { let c = false; const P2 = b.poly; for (let i = 0, j = P2.length - 1; i < P2.length; j = i++) { const [xi, zi] = P2[i], [xj, zj] = P2[j]; if ((zi > z) !== (zj > z) && x < (xj - xi) * (z - zi) / (zj - zi) + xi) c = !c; } if (c) hit = true; }
+                    else if (b.hw > 0 && b.hd > 0) { const a = b.angle || 0, dx = x - b.x, dz = z - b.z, lx = dx * Math.cos(a) - dz * Math.sin(a), lz = dx * Math.sin(a) + dz * Math.cos(a); if (Math.abs(lx) < b.hw && Math.abs(lz) < b.hd) hit = true; } }; // (landmark boxes)
+                if (W.buildings?.query) W.buildings.query(x, z, 1, test); return hit;
+            };
+            const fits = (x, z, ang) => { const ca = Math.cos(ang), sa = Math.sin(ang);
+                for (let lx = -7; lx <= 7.01; lx += 2.33) for (let lz = -11; lz <= 6.01; lz += 2.43) { const px = x + lx * ca + lz * sa, pz = z - lx * sa + lz * ca; if (blocked(px, pz)) return false; }
+                return true; };
+            for (const e of edges) {
+                if (this.stations.length >= want) break;
+                const hw0 = e.halfW ?? 6, sw = e.sidewalk ?? 2; let placed = null;
+                search: for (let k = 0; k <= 20; k += 4) for (const t of [0.5, 0.35, 0.65, 0.25, 0.75, 0.15, 0.85]) for (const sd of [1, -1]) { // (set back up to 20 m further where the lot is free)
+                    const dir = (canTravel(e, 1) ? 1 : -1) * sd, rx = e.nx * dir, rz = e.nz * dir, hw = (dir > 0 ? e.wR : e.wL) ?? hw0;
+                    const cx = e.a.x + (e.b.x - e.a.x) * t, cz = e.a.z + (e.b.z - e.a.z) * t, ang = Math.atan2(rx, rz);
+                    const mx = cx + rx * (hw + sw + 7 + k), mz = cz + rz * (hw + sw + 7 + k);
+                    if (this.stations.some(s => Math.hypot(s.x - mx, s.z - mz) < 250) || !fits(mx, mz, ang)) continue;
+                    placed = { cx, cz, rx, rz, hw, mx, mz, ang }; break search; }
+                if (!placed) continue;
+                const brand = BRANDS[city.id][this.stations.length % BRANDS[city.id].length];
+                this.props.add(buildStationMesh(placed.mx, placed.mz, placed.ang, brand));
+                this.stations.push({ x: placed.cx + placed.rx * (placed.hw + 1.5), z: placed.cz + placed.rz * (placed.hw + 1.5), brand, price: P.brands[brand] ?? P.def, fallback: true });
+            }
         }
         for (const s of this.stations) { s.icon = '⛽'; s.color = '#0f766e'; }
     }

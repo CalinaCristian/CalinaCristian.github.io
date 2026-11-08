@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "ec18335fe2d4ec8881ae0076cafd17ba31d1c171",
+  "files": {
+    "drivecv-integrated-61-model-geometry.log": {
+      "bytes": 5558,
+      "sha256": "fadaf0cdbbf624e13edefe464a299825be828a7efb0e48e9aecf8d20d77c451e"
+    },
+    "drivecv-integrated-car-screen-retry.log": {
+      "bytes": 267,
+      "sha256": "11880e8df71875e8f71ab78062d60029fdb35f8d7b1d29517cc54db78fb3d598"
+    },
+    "drivecv-integrated-us-source.log": {
+      "bytes": 1352,
+      "sha256": "245c4238b00433a3aa8c05bd1d77a91684b449058225a3bdfd5704f925a896c7"
+    },
+    "drivecv-integrated-bucharest-source.log": {
+      "bytes": 6279,
+      "sha256": "d744e7d5d0adf998cd3684c3af2d5b5537e4a9621b5f37caf384ab473d2446c5"
+    },
+    "drivecv-integrated-tourist-geometry.log": {
+      "bytes": 2553,
+      "sha256": "9dd694118b18d62c3da6714b3445f373564a3c4d8e504166b44607b6d50f4126"
+    },
+    "drivecv-integrated-landmark-evidence.log": {
+      "bytes": 616,
+      "sha256": "d96f360ce6e3205a1b3dd1b8bcfa8a0b2cf74248d23e939485ad221438281cd3"
+    },
+    "README.md": {
+      "bytes": 1043,
+      "sha256": "3feece4a6d815683913c7f3c57f8575cddb7bc8bba00a0d58ce923cf051a2262"
+    },
+    "drivecv-integrated-ball-checks.log": {
+      "bytes": 3109,
+      "sha256": "1798d4e42ed812b6ec3eb9c43b79f8c8c39c6fd30e811f399a166223feb927ce"
+    },
+    "drivecv-integrated-unit-tests.log": {
+      "bytes": 8372,
+      "sha256": "74ec32b09757fc9ed5d8f7da5b64c0a8ec58bdfd35e3be89a6b215eac76ea243"
+    },
+    "drivecv-integrated-telemetry-privacy.log": {
+      "bytes": 471,
+      "sha256": "600917dfe9078e0da03ac0970d55e88d80d2b9c70a3e7329673da2aaf0135ba4"
+    },
+    "car-screen-pixels/result.json": {
+      "bytes": 1321,
+      "sha256": "7aee0f9ebda3fab0ed2655d7cc8c37b096c13ae061f7557e6212012238c2ad60"
+    },
+    "car-screen-pixels/partial-top.png": {
+      "bytes": 18895,
+      "sha256": "fafa5860413fe738835abc303685a1f70b828a4fb3a9fdd958ce16432b0da550"
+    },
+    "car-screen-pixels/outside-top.png": {
+      "bytes": 18311,
+      "sha256": "538d9c36b30f3bee1f7333be22bbfb2e76c6b98cc3e9af1552ec935b511fdb30"
+    },
+    "car-screen-pixels/outside-bottom.png": {
+      "bytes": 18311,
+      "sha256": "538d9c36b30f3bee1f7333be22bbfb2e76c6b98cc3e9af1552ec935b511fdb30"
+    },
+    "car-screen-pixels/inside.png": {
+      "bytes": 19192,
+      "sha256": "5118e2aa7bca70c6b1a34e8d2a6943b84e6c307f38c2d70e9f7d845ffdcdc673"
+    },
+    "car-screen-pixels/native-top-overflow.png": {
+      "bytes": 18311,
+      "sha256": "538d9c36b30f3bee1f7333be22bbfb2e76c6b98cc3e9af1552ec935b511fdb30"
+    },
+    "car-screen-pixels/empty.png": {
+      "bytes": 18311,
+      "sha256": "538d9c36b30f3bee1f7333be22bbfb2e76c6b98cc3e9af1552ec935b511fdb30"
+    }
+  },
+  "runtimeSources": {
+    "game/src/achievements.js": "fb7650a3db44ce163a28fc760c6093af1f68f0580198ffd13d57c2c6a7680eb8",
+    "game/src/archetypes.js": "3ac87643083fa98989d05279d8d174bde5932332920fc87796dcf7d976c2ecf3",
+    "game/src/audio.js": "11863937c63883facc59e7549bde428e3e660e6e39ab50b3d55f4a6cf1afe611",
+    "game/src/building-parts.js": "0039e752969e9cfc1a0477641a9a5bb7b31eb6c8886843d88d79848362633b30",
+    "game/src/buildings.js": "634c8a5149d9de9761c62f445c6318dcb3087b41980b574a5afa6d02dfa7cfe4",
+    "game/src/canvasText.js": "35983021a8548740d623d83aaa092fa9f95a3f58b454575b8ab4732a47db2714",
+    "game/src/chapters.js": "ef88ddf04a38291e8694f2b4af6f027afad351f85e33d365a2c39f2a833297ba",
+    "game/src/cities.js": "54b5d54d502edc87b3cbe19a2970fb82f392fd3cc41803a2ee84ec1c202966ac",
+    "game/src/crowd.js": "e674c3ac0b207ae4e8ee0bc083851d02abc93f8df3333694e2cad9bd40a93257",
+    "game/src/data.js": "7e2a063e88db8f9544fe7d4da060b8f57b1079b2f1693a7c1e6af51041b44d46",
+    "game/src/drone-boundary.js": "85aa59ed69fd380d4fbe93be315b47ab8c66f47e0e09da26291321842f3caea4",
+    "game/src/drone.js": "ea06c8e76fc810a4ee3b1bf8c0ec6073d39d97fee362fd2e3bb5981e6fd2b4eb",
+    "game/src/explore.js": "2f8abf2e4b3e14f1002f0088322b9e59e713f1865bba60644d200030cf653993",
+    "game/src/finale.js": "6dd47d7336285e2ca9d92e553f6f5e64080844aaf9f2883012abfcc7a327e60d",
+    "game/src/flight.js": "e5b5a05691a3abbd684ccbd20e11e5c1370ff71bb0a540d8483045bf42f3b544",
+    "game/src/football.js": "0fea24f051593185b93c8457c27ec13af2344ba34b442115f3472a662317df7f",
+    "game/src/geo-ne110.js": "6d9c86444680f5007b90d41e7a5d93a2d1f081dcc556b665fcbcb9cd0ecf8f36",
+    "game/src/geobuild.js": "28e535a8934df3d3d249f13180ce04db1b86d47318530e74344a532a2a0fb2d3",
+    "game/src/globe.js": "6b5eae150fdf803a81f9b3696def2dd8e26d2c846c73b2aeb16c22e6b40d76d6",
+    "game/src/hud.js": "8ee4cbc9e0aea279a72a0f923e7554cb8115d7fffb9c9820ed08d7e0b39beb18",
+    "game/src/input.js": "e14ff4e1be7dbbfaf7cb07395340515e01820ab36cba24a40d60001ff5511d00",
+    "game/src/landmarks.js": "1fbe64af340374ed49e3ae93f7cc6fb88547251fc5d4f2e4eb48e0006ccc35ec",
+    "game/src/main.js": "6183dfb0110fd7139f8b825838798667d225a7cddeb78f8b395bc21701dae84c",
+    "game/src/minimap.js": "cca958895b0b56e9c3819fba0d89752458482a37227e49ed2ba52ad5639c691b",
+    "game/src/nav.js": "7d1553ad46fa656ee7773d82bf5ef9b8a2af4bb0fb29d8c0131ed9154bac8617",
+    "game/src/office.js": "a56fed9898f03633930afa6e724421c888d30dd040d5d4d3b1bed9880d359166",
+    "game/src/onfoot.js": "870d0294232fb2b1e11af42906da780bd6d8a34604179ca9de657da1d08848f7",
+    "game/src/photo.js": "c8f18e59bab5e264d779dea69bef2668aff5d626e677edefe62869d9b744b13f",
+    "game/src/player.js": "543faf7c4dab9ff9f50d2933586965652376b9b2f1f1fa172d550b2030882a2e",
+    "game/src/render.js": "c886535e571144de5fd007294350b2b803138125d68f61f9a5992ca298fba587",
+    "game/src/save.js": "66ece4bff34ce8a3bafcc29ad74dd7a7792ceb80d0406890f27982ad052640dc",
+    "game/src/signals.js": "47b7dd7a016a3e48faf9f2348121bd8c1e280d7b07fc7acd27103ab39a29b1ac",
+    "game/src/telemetry-game.js": "bbe9df1036d7fdb06bd666027011d90a0d1c66fa322d32efee19130e933966ef",
+    "game/src/traffic.js": "d2090be8a2f94b8431af00994f0764ee38637c9ccfe44d99392ec54551d8645c",
+    "game/src/transition.js": "35e0f270adb35d2462cf3a153ba4deec243d8537529520684b57198a56cda593",
+    "game/src/trees.js": "2ed3d20166bd5603098c84d82d4268fe771cea8d73c75608ce45f619172dd55c",
+    "game/src/util.js": "0a9dfc801adefd4dbf6f8485451404d92494dd9292fe0e310c9eb457f78afeb5",
+    "game/src/vehicles.js": "73700e9368a66f3e0dec08735f1b1c1a5bb2f57290746b31d4be28ad025bc6df",
+    "game/src/water.js": "7a7cea86bdb0dc2cf135b95c9cd7aec81d16e8e48a4bf0b125449d91931df3ae",
+    "game/src/weather.js": "a2bb0854d3fe3792f94ca9f3b2f2ecbdd9e61b497aca1d3ac5d51d02ec5875b8",
+    "game/src/world.js": "1154543c41891ef05eb94b56ad904f9f06a81f41dabac439d577b018a0f8beb2",
+    "game/src/worldmap.js": "cda4829131f34395b661cecf73564c08dc980ab10f9464d1c1f1ecd02b7b5f8b",
+    "game/src/landmark-seatac-aircraft.js": "23bd2be82947f78042858f2632a0f41a76ce30fe606fc3150d6c1ad08e51d1c5",
+    "game/src/road-widths.js": "c965c1368db011832786b39f0809d704c09880749dc161ddd09cd6e3d0d48b7f",
+    "game/src/landmark-source-masses.js": "b5009b0f96ee984cc674793d7170a5c49763fb91d87e168c2847c1218d68e2b9",
+    "game/src/water-channel.js": "b7a645b3beb86c3e74ea681e1a20c39a6675536243342cf1cdff0d8d86e70504",
+    "game/src/scenery-source.js": "c00801c1705325e205bd00fbcc223c16391661f58669514516753621e19b6ff2",
+    "game/src/landmark-source-identities.js": "4f93c8853d3f1ae65badd1940f4f7286bc6538353defb94a0268f7fed699adfc",
+    "game/src/road-access.js": "258dde26c230058ef2578fe259e7780aafdee863fcb5dfbcdc8f08f71ce070ee",
+    "game/src/scenery-bridges.js": "88330b555975decb91ab1ffc79bcbd377d007f83ab20580a043ad0423252a907",
+    "game/src/landmark-cec-source.js": "4891822203ad126ab75511e2196965848db37cfdfabadef54b13cea4ffbe4356",
+    "game/src/building-aircraft.js": "44ee8c66eee7d1f5aea8d126610791fdf51ee9d2539a3b3eafa83e695e789e4a",
+    "game/src/progressive-pmrem.js": "4b306f8bb4449be00c9dd654e7da6ba6607fec581d3a4360e9f772e11a2306a1",
+    "game/src/chapter-waypoint.js": "0cba46e17b79cb869de2c5087b925f837dd02954d026e5aaaa55c509c9dac63a",
+    "game/src/landmark-us-geometry.js": "5314a5e92a86b9a9612c3de013927a5d281d0c051944562347d39086930848aa",
+    "game/src/water-batch.js": "cd1a0fb7e59ff1c621eadc77acbd58c61d81cce09c5dbf9b74125268b41b5543",
+    "game/src/water-shore.js": "6705b456454df3ac85ada90a96ff66280706ad306de401dea25896b8d379315e",
+    "game/src/basketball.js": "a84a93eb1257da5fb4cb1d931612c48b0ddaf29cfab3d133b99e06178a824795",
+    "game/src/cell-frustum.js": "a928c8ec59db19d3217a9dc482defc19dde6ad50cd1f5a0aaa9a43e50fb2ea4b",
+    "game/src/sceneResources.js": "7f1cf9c55cbfbfa9cf9df4438de27a49ece7b765bb34ba478757024183f5c809",
+    "game/src/landmark-otp-roofs.js": "f071c4b256efe77dae8eaf64e0d4c2a04af9f01b4447686bd2cd91f77950b8a6",
+    "game/src/source-tree-centres.js": "8eb56bfa815c80da5c2a74866ee04789309b9d0df84dc95f40c1b3bed530277e",
+    "game/src/building-passages.js": "6bd606c4b3a62ffc3af3b4e8b4be65c5880fe7546ab7fc6ad5b521168045fe5d",
+    "game/src/shared-lanes.js": "0581d1f237c0b371843e3c7f7af0c80cb5b14bf3794148905ec1948c8255b4e9",
+    "game/src/telemetry-health.js": "05805123b81c5aa14649512c551a1a4d3eca76746e95d0c5b63c89362734c0f1",
+    "game/src/landmark-us-terrain.js": "cfca62d53bfeaf34f736b6ce345045dbbe50337544111fb6b676c4d237042879",
+    "game/src/landmark-us-source.js": "6d4fbf9b8d6a0e2f8ac37bf20602a53844e3f18268a1578d01e7dde647f9b888",
+    "game/src/building-roofs.js": "a82db31d1197b3953c9f4718dbc44b2972a90e25d9c2c07c683e6ab5386fa8ac",
+    "game/src/building-canopies.js": "a0566c635e2eb30fa4a305f73391eb17be941d45cf126a7989450b06b3d3a29d",
+    "game/src/parking-layout.js": "b5c127c33e1c80e72a6cece698f831949ad637498ed7d7beb1252f30c6b4f0d9",
+    "game/src/spots/backdrop.js": "263637b1ec0dd171dd1c3ffc92846c66a0a859c609daf4f8d652a711e982c2c7",
+    "game/src/spots/bike.js": "0fb51793b9cba6cfbb3454c842b7bce4ffe2e1ac40dc8049313faa51b9fe179b",
+    "game/src/spots/buc.js": "a3bc1af2b957edf41099574c79bc05a56fe443b56156ce5d81461daafcde741d",
+    "game/src/spots/cars.js": "b9f617e5c0b3909a185085c6bd2444e22e91e237198ba9089d26a48d91fa3ece",
+    "game/src/spots/ground.js": "06e0a2e4bb27282dbf7232972861c1b061f52625e174642875ff41f981e733fd",
+    "game/src/spots/index.js": "0725f88f8993a4abbc4baf464b340589e8969bdbe8d191461eb5b9eb22c9b0c5",
+    "game/src/spots/kit.js": "382f5353be67766e36183babd4a321dc4e709c709429167fc461968a033cffcc",
+    "game/src/spots/osm.js": "c678348f28dba835d35b7e427d3587d57005a8a4f35beecc22eebeb7a8bcfe0d",
+    "game/src/spots/people.js": "ab60f1a4f6d44c537b1727b332eaa9f0c68b1c436cd55cecd7171fbebb323338",
+    "game/src/spots/props.js": "3511b4e65b284df7a939189893c78f9f2126fde7556a8b8a6f1de027aca902e5",
+    "game/src/spots/sdf.js": "742037ac8d81781aa775dd43f74a6f1e0abc0d6493981538df355cdc6f64cb49",
+    "game/src/spots/sound.js": "7e24d4c27e80fb9c9e2190d001c4bc59b44a3e3c4402e06aee6b79b236858817",
+    "game/src/spots/tour.js": "be52ee726cf0c8608ce4957cf0682813ac199147aedb459ace4ab651a7192960",
+    "game/src/spots/ui.js": "65f78bad07cf6ac65b427928fefb079f988a3cb510ebeef2abd10eef6896fc87",
+    "game/src/spots/walker.js": "d40b53c0c0acd9bc89989354e35ca72588aef507d44671f2e2597024086476bb",
+    "game/src/spots/coin-drop.js": "f2d113a95f53ec8cc1f28ed45b3467eafee3f11672a211c45e6767b095ae6c7c",
+    "game/src/spots/candle-light.js": "779e0a236692496c744e89ce89000f7b41effd7b08a2ee2dc8391daae4248262",
+    "game/src/spots/participation.js": "3eb99d5bb6499ab10964b8e180c5492302b655c59589c8bae57fe76f912a3e02",
+    "game/src/spots/water-route.js": "0c9421c2001c50156c31048e877bd9bcd99e2629d9c84f992bf5dbc18f8a7665",
+    "game/src/spots/photo-hunt.js": "a192c66380f1bf68eb017bcfdaa313995ff441d5ada4bb1f69dee1e2f8cdb70c",
+    "game/src/spots/landmark-colliders.js": "3cc9d9a55cde442e481eaf94bacb85ce8477749a141d657a7a5f80f33db7bd70",
+    "game/src/spots/source-landmark.js": "bad4641e649dc25603ad9df16bc0162c2a34d3f727963cc1171dc6d1a0d724fa",
+    "game/src/spots/stone-skipping.js": "c27ba42cef47f6128eac7d88b428fe198a8e193f3aae7a057f22e73930485d3d",
+    "game/src/spots/chess-opening.js": "b9853f70194c5a93f15eb65aeb8ada26e956c7a2dd89c1ea608673dac94ec0cf",
+    "game/src/spots/source-buildings.js": "4d51ef45abbedb9f4b04627cb97c4b388ccd332e1737486005d4a327e2182362",
+    "game/src/spots/venue-activities.js": "9618aeaa726bcdce18a488a7960323ac695f7c010fe009ca8e8e74b66466344c",
+    "game/src/spots/scenes/arcul-de-triumf.js": "eb39b2462fc55dbac23c799c151137e9f703483062f10a75148aa75ac5521925",
+    "game/src/spots/scenes/athenaeum-revolution.js": "3b25c24129a903acabfdfb6259bd7874b7e012d8380a628a5600cf5fe7409c4a",
+    "game/src/spots/scenes/ballard-locks.js": "a31f33db47739348ea371029eed186667502b37ea94f5b77fce115b11341a116",
+    "game/src/spots/scenes/bel-botanical-garden.js": "340b2fab64c5bd5f94e9c0507ad9142ce033e59c775d53dedbb11addc135ebb4",
+    "game/src/spots/scenes/bel-common.js": "4e750a6845b41f25b05c6516ba6bbef0fcc00d0184777ea01be3c010c8610ae3",
+    "game/src/spots/scenes/bel-downtown-park.js": "fd7b7094fbdb25af3f0f8e1d27a16b48bfc43c1db0d0642f7cbcf715009dd1a0",
+    "game/src/spots/scenes/bel-lincoln-square.js": "66b77149667fc526c177bdcb9a35e5a80d19a468b482f7c3ef9699196937e46b",
+    "game/src/spots/scenes/bel-meydenbauer.js": "d5d7cf37056ba492d498f653480b27ac3f19f8730bb1aed2c1a595ec27a32010",
+    "game/src/spots/scenes/buc-herastrau.js": "3fc5bbe4e91ef21d802f4830a6069bec000f22da5ee0875601c428bb8ed07e22",
+    "game/src/spots/scenes/buc-old-town.js": "bd4e6aa41d99cf5556de793eaf530df31d6a45b7b478310c07ffa7f291912c51",
+    "game/src/spots/scenes/buc-parliament.js": "b88a74cc1c1cd48c007d01ed62225e0905f137fe460cd2c268731546874963f3",
+    "game/src/spots/scenes/cismigiu.js": "76a8ad5fddba0d399017fb077330841c2240cbc5ae70081a7b978e80b93415f2",
+    "game/src/spots/scenes/dinamo-hint-tv.js": "c1dbe2057ebb1fedb92a5c72adf409790f08806606b36e6996d0ff1b254ab8d8",
+    "game/src/spots/scenes/fremont-troll.js": "9b6061ea59ad0669b68a41c092d1bf2937be86dd21849cc8de3d649139c61369",
+    "game/src/spots/scenes/gas-works.js": "c1252dbf3ed3b000700fc84b60915656857963bc8e500ca808561b110755989a",
+    "game/src/spots/scenes/kerry-park.js": "00420e94aa5bc621601e973ae1a974076cb663a433fb6a61534a1c29dc613329",
+    "game/src/spots/scenes/pike-place.js": "45442a87f29354a10d8cdad31db03bd285626dbee002a81301e07172a3a44fff",
+    "game/src/spots/scenes/pioneer-square.js": "eebc54feb03198f589d7598063ec137b0b856fa89547d35cc5d466ed9574e543",
+    "game/src/spots/scenes/sea-common.js": "a638c73412fe6cf5377644cedea0321fe532f61718b6666687063abb10cbf675",
+    "game/src/spots/scenes/seattle-center.js": "b083f230d4796a0947a368190c123c8e534f6fd75b6012cac601c81d21dde6b9",
+    "game/src/spots/scenes/spring-palace.js": "a43a9dd6dcd739debfcfd17b8ce96d3d7ea0a782d5a19f07dc0d5246aeee8c88",
+    "game/src/spots/scenes/waterfront.js": "fdfaf185454b32efac9e631043f221a0712c36a8f25981953828ced912efc0cf",
+    "game/src/spots/scenes/wcp-secret-bar.js": "c298b4063de196db9666d55bfbafd3524fb4b40fcf581979ca9d66b5a087f12d"
+  }
+}

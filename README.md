@@ -181,6 +181,8 @@ Developer pages: `game/dev/spots.html?id=<spot>`, `game/dev/landmarks.html`, `ga
   preserve each frame's original source revision; full historical surveys remain selectable with distinct labels.
   Separate street-level collections show successive groups of game captures inline and link to original reference
   panoramas. Camera/conditions metadata distinguishes static survey poses from actual controller tests.
+  `python3 tools/fidelity/archive-evidence.py` checks that published capture revisions remain available; its explicit
+  `--write-tag=<name>` mode preserves task/capture history under one immutable archive tag before branch cleanup.
   Capture commits and imagery limits are labelled; live aerials are cached in the browser for 15 minutes across reloads.
   The former separate comparison page is removed without a redirect.
   Street-walk comparisons use official Google panoramas by default (`--pano-provider=any` permits public uploads);

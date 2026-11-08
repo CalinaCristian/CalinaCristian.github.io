@@ -1,0 +1,107 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+browserType.launch: Executable doesn't exist at /home/agent/.cache/ms-playwright/chromium_headless_shell-1234/chrome-headless-shell-linux64/chrome-headless-shell
+╔════════════════════════════════════════════════════════════╗
+║ Looks like Playwright was just installed or updated.       ║
+║ Please run the following command to download new browsers: ║
+║                                                            ║
+║     npx playwright install                                 ║
+║                                                            ║
+║ <3 Playwright Team                                         ║
+╚════════════════════════════════════════════════════════════╝
+    at /workspace/CalinaCristian.github.io/game/dev/harness/car-screen-poi.test.mjs:25:28 {
+  log: [],
+  name: 'Error'
+}
+
+Node.js v24.22.1
+✖ game/dev/harness/car-screen-poi.test.mjs (5213.906754ms)
+(node:254993) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/chapter-waypoint.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+SeaTac manual arrival, actual waypoint, verified route, free roam and chapter guards: 9 passed
+✔ game/dev/harness/chapter-waypoint.test.mjs (318.854495ms)
+(node:254995) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ back-wall desktop uses the sign front, fits both dimensions and restores the camera (81.487479ms)
+✔ Rosetti side-wall uses the sign front, fits both dimensions and restores the camera (13.097045ms)
+✔ portrait width uses the sign front, fits both dimensions and restores the camera (4.304822ms)
+✔ tall portrait sign uses the sign front, fits both dimensions and restores the camera (4.949716ms)
+✔ the former Rosetti forward-wall pose cannot face the actual side-wall sign (0.745577ms)
+✔ missing sign fails explicitly without changing the camera (1.315128ms)
+✔ portrait framing stays inside the opposite actual room boundary (4.726776ms)
+✔ an actual room partition selects a closer clear view without hiding it (15.21531ms)
+(node:255013) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/dev/harness/page/util.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ an opening stays clear while its posts and ceiling remain solid at the same source building (8.415606ms)
+✔ above-ground openings carry the body height without accepting an entire building (0.390761ms)
+✔ actual roof height and source underside bound point and body checks (0.248453ms)
+✔ courtyard holes retain their boundary distance and ordinary walls stay audited (0.883186ms)
+(node:255029) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/landmark-cec-source.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"sourceVolumes":162,"newRelationOuters":7,"rawHoles":5,"literalHeights":153,"estimatedTotals":9,"modelColliders":162,"modelTriangles":24156,"duplicateRoofTriangles":0,"maximumHeight":37.5,"uncertainProfiles":56}
+✔ game/dev/harness/landmark-cec-source.test.mjs (8572.04647ms)
+(node:255036) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/minimap.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ one permanent legend listener routes to the current map with the existing coordinates and event behavior (24.031668ms)
+(node:255044) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ district disposal preserves the cockpit and cached landmark material, but frees its own maps (16.700298ms)
+✔ fleet and crowd wrappers release instance attributes without disposing cached model attributes (17.085146ms)
+✔ tree templates survive, while instance buffers and the water registry are released (11.442537ms)
+(node:255051) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/source-tree-centres.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Source-bank, coarse-cell, exact-water, exact-duplicate and legacy controls passed.
+✔ game/dev/harness/source-tree-centres.test.mjs (290.269249ms)
+(node:255058) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/telemetry-health.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ reload breadcrumbs reject stale, malformed and future records without requiring working storage (4.528457ms)
+✔ frame percentiles expose real stalls rather than averaging smoothed FPS values (6.563977ms)
+✔ diagnostic wrappers preserve values and the original sync/async exception when observers fail (1.749415ms)
+(node:255065) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/nav.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "passed": true,
+  "checks": 31,
+  "realSplai": {
+    "physicalComponents": 2,
+    "directedSourceEdges": 26,
+    "verifiedRuns": 2,
+    "captureSamples": 12,
+    "originalFarthestPairStillUnreachable": true
+  }
+}
+✔ game/dev/harness/visual/street-sweeps.test.mjs (1310.144367ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 23
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9607.91284
+
+✖ failing tests:
+
+test at game/dev/harness/car-screen-poi.test.mjs:1:1
+✖ game/dev/harness/car-screen-poi.test.mjs (5213.906754ms)
+  'test failed'

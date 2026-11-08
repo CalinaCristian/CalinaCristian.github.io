@@ -218,6 +218,7 @@ async function runCity(browser, base, city, ctxOut) {
     res.sheets = await page.evaluate(() => window.vqa.flushSheets()).catch(e => { res.errors.push(e.message); return []; });
     res.issues = await page.evaluate(() => window.vqa.issues()).catch(() => []);
     res.counts = await page.evaluate(() => window.vqa.counts()).catch(() => ({}));
+    res.officeSignFrames = await page.evaluate(() => window.vqa.S.officeSignFrames || []).catch(() => []);
     res.log = await page.evaluate(() => window.vqa.log()).catch(() => []);
     const errs = await page.evaluate(() => window.__harnessErrors || []).catch(() => []);
     for (const e of errs) res.errors.push(`${e.kind}: ${e.msg}`.slice(0, 300));

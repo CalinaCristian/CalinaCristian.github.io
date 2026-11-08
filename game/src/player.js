@@ -498,7 +498,7 @@ export class Player {
         // camera bob + shake + look-back + mouse look
         const s = this.shake, d = dt || 0.016, L = this.look;
         const bobY = Math.sin(this.bob) * 0.004 * clamp(Math.abs(this.speed) / 10, 0, 1);
-        const pv = this.cockpit?.userData.viewFor?.(this.camera.aspect) || null; // portrait phones: eye / yaw / FOV per aspect (cockpit-ui, R17.1)
+        const pv = this.cockpit?.userData.viewFor?.(this.camera.aspect, document.body.classList.contains('touch')) || null; // portrait phones: eye / yaw / FOV per aspect (cockpit-ui, R17.1)
         this.camHolder.position.y = 1.36 + (pv?.eye.y || 0) + bobY + (Math.random() - 0.5) * s * 0.08;
         if (this.mirror) this.mirror.visible = this.driveRigShown && this.mirrorEnabled && !this.lookBack;
         L.baseYaw = damp(L.baseYaw, (this.lookBack ? Math.PI : 0) + this.steerVisual * 0.06, 10, d);

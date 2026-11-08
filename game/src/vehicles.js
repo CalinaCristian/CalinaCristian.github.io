@@ -1613,12 +1613,13 @@ export function makeCockpit() {
      * Driving view per viewport aspect (camera = player.js camHolder child). Landscape: the layout above (eye at EYE, FOV 72).
      * Portrait phones (aspect < 1): the eye moves back / up / toward the centre, the view turns 9° right and the vertical FOV
      * opens to ~92° so the cluster AND the nav screen sit in the lower third, between the top HUD cards and the touch pad.
+     * Touch uses 3° less vertical FOV in either orientation for slightly larger instruments; desktop stays unchanged.
      * → { fov (vertical, °, at rest; add the speed zoom on top), yaw (rad, + = left), pitch (rad), eye: Vector3 offset }
      */
     const _pv = { fov: 72, yaw: 0, pitch: 0, eye: new THREE.Vector3() };
-    g.userData.viewFor = (aspect = 16 / 9) => {
+    g.userData.viewFor = (aspect = 16 / 9, touch = false) => {
         const a = THREE.MathUtils.clamp((1 - aspect) / (1 - 390 / 844), 0, 1);
-        _pv.fov = 72 + 20 * a; _pv.yaw = -9 * D2R * a; _pv.pitch = 0; _pv.eye.set(0.07 * a, 0.05 * a, 0.2 * a);
+        _pv.fov = 72 + 20 * a - (touch ? 3 : 0); _pv.yaw = -9 * D2R * a; _pv.pitch = 0; _pv.eye.set(0.07 * a, 0.05 * a, 0.2 * a);
         return _pv;
     };
     g.userData.windshield = { origin: cowl.clone(), u: new THREE.Vector3(1, 0, 0), s: sAxis.clone(), len: wsLen, halfW0, halfW1, wipers: wiperDefs };

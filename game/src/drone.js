@@ -83,11 +83,11 @@ class RotorSound {
             const out = ctx.createGain(); out.gain.value = 0; out.connect(a.master || ctx.destination);
             // blade-pass buzz: two detuned saws through a band-pass, a soft square an octave up
             const o1 = ctx.createOscillator(), o2 = ctx.createOscillator(), o3 = ctx.createOscillator();
-            o1.type = 'sawtooth'; o2.type = 'sawtooth'; o3.type = 'square';
+            o1.type = 'triangle'; o2.type = 'triangle'; o3.type = 'sine'; // (soft hum — round 6: the saw/square buzz was grating)
             o1.frequency.value = 40; o2.frequency.value = 40; o3.frequency.value = 80;
             const bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 420; bp.Q.value = 0.8;
-            const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 2400;
-            const g3 = ctx.createGain(); g3.gain.value = 0.15;
+            const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 900;
+            const g3 = ctx.createGain(); g3.gain.value = 0.06;
             o1.connect(bp); o2.connect(bp); o3.connect(g3).connect(bp); bp.connect(lp).connect(out);
             // a slow wobble (rotors drifting in and out of phase)
             const lfo = ctx.createOscillator(), lg = ctx.createGain(); lfo.frequency.value = 3.1; lg.gain.value = 3; lfo.connect(lg); lg.connect(o2.frequency);
@@ -104,11 +104,11 @@ class RotorSound {
     /** spin 0..1 (rotor speed), load 0..1 (speed / climb), wind 0..1 */
     set(spin, load, wind) {
         const n = this.n; if (!n) return; const t = n.ctx.currentTime;
-        const f = 95 + spin * (125 + load * 110); // blade-pass ~200–330 Hz in flight
+        const f = 70 + spin * (80 + load * 70); // blade-pass ~150–220 Hz in flight (lower, less whiny)
         n.o1.frequency.setTargetAtTime(f, t, 0.12); n.o2.frequency.setTargetAtTime(f * 1.013, t, 0.12); n.o3.frequency.setTargetAtTime(f * 2, t, 0.12);
-        n.bp.frequency.setTargetAtTime(380 + load * 520, t, 0.2);
-        n.out.gain.setTargetAtTime(0.22 * spin * (0.75 + 0.25 * load), t, 0.15);
-        n.ng.gain.setTargetAtTime(0.05 * spin * load + 0.08 * wind * spin, t, 0.25);
+        n.bp.frequency.setTargetAtTime(260 + load * 280, t, 0.2);
+        n.out.gain.setTargetAtTime(0.075 * spin * (0.75 + 0.25 * load), t, 0.15); // (was 0.22: too loud)
+        n.ng.gain.setTargetAtTime(0.1 * spin * load + 0.12 * wind * spin + 0.04 * spin, t, 0.25); // (air rush carries the motion)
         n.nf.frequency.setTargetAtTime(500 + load * 900 + wind * 300, t, 0.3);
     }
     stop() {

@@ -41,9 +41,9 @@ const sdk = `(() => {
             else if (url.hostname === 'api.open-meteo.com') await route.fulfill({ json: { error: true } });
             else { network.external.push(url.origin); await route.abort(); }
         });
-        const page = await context.newPage(); page.setDefaultTimeout(300000);
+        const page = await context.newPage(); page.setDefaultTimeout(300000); require('./integration-browser-bounds.cjs').boundEvaluations(page);
         page.on('pageerror', error => (/diagnostic pre-SDK fixture/.test(error.message) ? report.expectedErrors : report.errors).push(error.message));
-        await page.goto('https://cristiancalina.com/game/', { waitUntil: 'domcontentloaded' });
+        await page.goto('https://cristiancalina.com/game/', { waitUntil: 'domcontentloaded', timeout: 60000 });
         await page.waitForFunction(() => window.game?.health);
         if (!dnt && !gpc && !holdSdk) await page.waitForFunction(() => window.__sdkReady);
         return { page, context, network, release };
@@ -93,7 +93,11 @@ const sdk = `(() => {
         report.events = await page.evaluate(() => __healthEvents);
         report.network = main.network;
         check('fixture sent no events to an external service', contexts.length === 6 && main.network.external.length === 0);
+        report.complete = true;
+    } catch (error) {
+        report.fatal = error.stack || String(error); report.complete = false; throw error;
     } finally {
+        report.complete ??= false;
         for (const context of contexts) await context.close().catch(() => {}); await browser.close();
         fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
     }

@@ -3,13 +3,17 @@
 const fs = require('fs'), path = require('path'), http = require('http'), crypto = require('crypto');
 const { chromium } = require('playwright');
 const arg = k => process.argv.find(s => s.startsWith('--' + k + '='))?.slice(k.length + 3);
-const root = path.resolve(arg('root')), out = path.resolve(arg('out')), district = arg('district'), commit = arg('commit');
-const season = arg('season') || 'summer', weather = arg('weather') || 'clear', time = arg('time') || 'day';
+const root = path.resolve(arg('root')), baseOut = path.resolve(arg('out')), district = arg('district'), commit = arg('commit');
+let out=baseOut,season = arg('season') || 'summer', weather = arg('weather') || 'clear', time = arg('time') || 'day';
+const knownConditions={'summer-clear-day':{season:'summer',weather:'clear',time:'day'},'summer-clear-night':{season:'summer',weather:'clear',time:'night'},'winter-snow-day':{season:'winter',weather:'snow',time:'day'}};
+const phases=arg('conditions')?arg('conditions').split(',').map(name=>{if(!knownConditions[name])throw Error('Unknown condition '+name);return{name,...knownConditions[name]};}):[{name:null,season,weather,time}];
+if(new Set(phases.map(p=>p.name)).size!==phases.length)throw Error('Duplicate condition output folders');
 if (!/^[a-f0-9]{40}$/.test(commit)) throw Error('Provide the complete immutable source commit');
 const hash = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 const captureToolSha256=hash(fs.readFileSync(__filename));
 const write = (name, value) => fs.writeFileSync(path.join(out, name), JSON.stringify(value, null, 2) + '\n');
-fs.mkdirSync(out, {recursive:true}); fs.mkdirSync(path.join(out,'images'), {recursive:true});
+if(fs.existsSync(baseOut)&&fs.readdirSync(baseOut).length)throw Error('Capture output already exists; preserve the prior attempt');
+fs.mkdirSync(baseOut, {recursive:true});
 const mime={'.html':'text/html','.js':'text/javascript','.json':'application/json','.css':'text/css','.jpg':'image/jpeg','.png':'image/png','.svg':'image/svg+xml','.webp':'image/webp','.bin':'application/octet-stream'};
 (async () => {
   const server=http.createServer((req,res)=>{
@@ -21,7 +25,11 @@ const mime={'.html':'text/html','.js':'text/javascript','.json':'application/jso
   await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
   const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',headless:true,args:['--mute-audio','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
   try {
-    const page=await browser.newPage({viewport:{width:960,height:640}}), errors=[], consoleErrors=[];
+    const batch=[];
+    for(const phase of phases){
+    ({season,weather,time}=phase);out=phase.name?path.join(baseOut,phase.name):baseOut;
+    fs.mkdirSync(path.join(out,'images'),{recursive:true});
+    const page=await browser.newPage({viewport:{width:960,height:640}}), errors=[], consoleErrors=[], validationFailures=[];
     page.setDefaultTimeout(300000); page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')consoleErrors.push(m.text());});
     await page.route(/api\.open-meteo\.com/,r=>r.fulfill({json:{error:true}}));
     const base='http://127.0.0.1:'+server.address().port+'/';
@@ -152,6 +160,7 @@ const mime={'.html':'text/html','.js':'text/javascript','.json':'application/jso
     for(const view of views){
       const observed=await page.evaluate(async v=>{
         const THREE=await import('./vendor/three.module.min.js'),g=game,S=vqa.S,cam=g.camera;
+        if(v.assertNativeClip&&(cam.near!==.2||cam.far!==5000))throw Error('Native camera clipping changed: '+cam.near+'/'+cam.far);
         g.player.place(v.x,v.z,0);g.traffic.setPlayer(g.player);for(let i=0;i<30;i++)g.traffic.update(1/30);g.traffic.peds?.writeMatrices?.();
         g.scene.add(cam);g.world.camera=cam;if(g.player.rig)g.player.rig.visible=false;
         const ground=v.kind==='street'?g.world.roadHeight(v.x,v.z):0;cam.position.set(v.x,Number.isFinite(v.absoluteY)?v.absoluteY:ground+v.y,v.z);cam.lookAt(...v.target);cam.fov=v.fov;cam.aspect=1.5;cam.updateProjectionMatrix();cam.updateMatrixWorld(true);
@@ -161,14 +170,19 @@ const mime={'.html':'text/html','.js':'text/javascript','.json':'application/jso
         const direction=cam.getWorldDirection(new THREE.Vector3());
         const heading=(Math.atan2(direction.x,-direction.z)*180/Math.PI+360)%360,pitch=Math.asin(Math.max(-1,Math.min(1,direction.y)))*180/Math.PI;
         const nearPeds=(g.traffic.peds?.list||[]).filter(p=>Math.hypot(p.x-v.x,p.z-v.z)<60).map(p=>({x:p.x,z:p.z,state:p.state,onRoad:p.onRoad,sourceRoadId:g.world.data.roadSourceGeometry?.[p.e?.road]?.sourceId??null}));
-        return {cameraY:cam.position.y,groundY:ground,heading,pitch,aspect:cam.aspect,pose:{x:cam.position.x,y:cam.position.y,z:cam.position.z,heading,pitch,fov:cam.fov,aspect:cam.aspect,quaternion:cam.quaternion.toArray()},observedConditions:{gameClockOverride:g.clock.override,rendererClockOverride:g.r3d.clock?.override,seasonOverride:g.r3d._seasonOverride,weatherOverride:g.r3d._wxOverride,weather:g.r3d.weather,season:g.r3d._season,sunElevation:g.r3d.sunElevation},perf:{...g.r3d.stats},inPlayable:g.world.district.inside(v.x,v.z),inFlightEnvelope:window.contextFlightBoundary.allowed({x:v.x,z:v.z}),distanceFromFlightDomainM:window.contextFlightBoundary.sample(v.x,v.z).distance,pedestriansWithin60m:nearPeds,vehiclesWithin60m:g.traffic.vehicles.filter(c=>Math.hypot(c.x-v.x,c.z-v.z)<60).length,lat:p.lat0-v.z/p.mPerLat,lon:p.lon0+v.x/p.mPerLon};
-      },view);
+        return {cameraY:cam.position.y,groundY:ground,heading,pitch,aspect:cam.aspect,pose:{x:cam.position.x,y:cam.position.y,z:cam.position.z,heading,pitch,fov:cam.fov,aspect:cam.aspect,near:cam.near,far:cam.far,quaternion:cam.quaternion.toArray()},observedConditions:{gameClockOverride:g.clock.override,rendererClockOverride:g.r3d.clock?.override,seasonOverride:g.r3d._seasonOverride,weatherOverride:g.r3d._wxOverride,weather:g.r3d.weather,season:g.r3d._season,sunElevation:g.r3d.sunElevation},perf:{...g.r3d.stats},inPlayable:g.world.district.inside(v.x,v.z),inFlightEnvelope:window.contextFlightBoundary.allowed({x:v.x,z:v.z}),distanceFromFlightDomainM:window.contextFlightBoundary.sample(v.x,v.z).distance,pedestriansWithin60m:nearPeds,vehiclesWithin60m:g.traffic.vehicles.filter(c=>Math.hypot(c.x-v.x,c.z-v.z)<60).length,lat:p.lat0-v.z/p.mPerLat,lon:p.lon0+v.x/p.mPerLon};
+      },{...view,assertNativeClip:arg('native-clip')==='true'});
+      if(arg('native-clip')==='true'&&(observed.pose.near!==.2||observed.pose.far!==5000))validationFailures.push({id:view.id,type:'Native camera clip changed during drawFrame',expected:{near:.2,far:5000},actual:{near:observed.pose.near,far:observed.pose.far}});
       const image='images/'+view.id+'.jpg';await page.screenshot({path:path.join(out,image),type:'jpeg',quality:88,timeout:180000});
       results.push({...view,...observed,image,width:960,height:640,gameSourceCommit:commit,capturedAt:new Date().toISOString(),sha256:hash(fs.readFileSync(path.join(out,image))),captureType:'game-perspective-context',comparisonCompatible:false,staticCamera:true,controllerExercised:false,condition:{season,weather,time,quality:'high',traffic:true,mirror:false}});
       write('progress.json',{captured:results.length,total:views.length,last:view.id});console.log('capture',results.length+'/'+views.length,view.id);
     }
     write('world-stats.json',await page.evaluate(()=>game.world.stats));
-    write('manifest.json',{schemaVersion:1,captureType:'game-perspective-context',comparisonCompatible:false,gameSourceCommit:commit,captureTool:{name:'capture-context.cjs',sha256:captureToolSha256},district,season,weather,time,quality:'high',traffic:true,mirror:false,scope:'Game-only static cameras in the complete running district. Outward envelope poses do not exercise the drone controller. Counts are per camera and are separate from full driving/mirror budget acceptance.',loaded,pageErrors:errors,consoleErrors,items:results});
-    if(errors.length||consoleErrors.length)process.exitCode=1;
+    write('manifest.json',{schemaVersion:1,captureType:'game-perspective-context',comparisonCompatible:false,gameSourceCommit:commit,captureTool:{name:'capture-context.cjs',sha256:captureToolSha256},district,season,weather,time,quality:'high',traffic:true,mirror:false,scope:'Game-only static cameras in the complete running district. Outward envelope poses do not exercise the drone controller. Counts are per camera and are separate from full driving/mirror budget acceptance.',loaded,pageErrors:errors,consoleErrors,validationFailures,items:results});
+    if(errors.length||consoleErrors.length||validationFailures.length)process.exitCode=1;
+    batch.push({condition:phase.name,frames:results.length,pageErrors:errors,consoleErrors,validationFailures});
+    await page.close();
+    }
+    if(phases.length>1)fs.writeFileSync(path.join(baseOut,'batch-summary.json'),JSON.stringify({gameSourceCommit:commit,oneBrowser:true,conditions:batch},null,2)+'\n');
   } finally {await browser.close();await new Promise(resolve=>server.close(resolve));}
 })().catch(error=>{console.error(error);process.exitCode=1;});

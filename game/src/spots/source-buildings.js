@@ -123,7 +123,8 @@ export function resolveSourcePlan(records, cache) {
     const byId=new Map(records.map(r=>[r.i,r]));
     if(cache?.version===SOURCE_BUILDING_VERSION&&cache.signature===sourcePlanSignature(records)&&Array.isArray(cache.volumes)&&cache.volumes.every(v=>Number.isFinite(v.datum)&&byId.get(v.owner)?.source.id===v.source)) {
         const volumes=unpackSourceVolumes(cache).map(v=>{const owner=byId.get(v.owner);owner.datum=v.datum;return{...v,source:owner.source,owner,ring:v.residual?v.ring:owner.ring,holes:v.residual?[]:owner.holes};});
-        return {volumes,stats:cache.stats,cacheHit:true,geometryCache:cache};
+        const stats={...cache.stats,literalHeights:records.filter(r=>r.profile.heightSource==='OSM height').length,levelHeightEstimates:records.filter(r=>r.profile.heightSource==='building:levels estimate').length,typeHeightEstimates:records.filter(r=>!['OSM height','building:levels estimate'].includes(r.profile.heightSource)).length};
+        return {volumes,stats,cacheHit:true,geometryCache:cache};
     }
     const plan=sourceBuildingPlan(records);return {...plan,cacheHit:false,geometryCache:packSourcePlan(records,plan)};
 }

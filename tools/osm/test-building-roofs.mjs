@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import * as THREE from '../../game/vendor/three.module.min.js';
-import { parseMeasure, makeRoofProfile, parseRoofDirection, validRoofProfile, roofMesh } from '../../game/src/building-roofs.js';
+import { collideBuildings } from '../../game/src/world.js';
+import { parseMeasure, makeRoofProfile, parseRoofDirection, validRoofProfile, roofMesh, visibleRoofMesh, roofSignature } from '../../game/src/building-roofs.js';
 const close = (a, b, epsilon = 1e-7) => assert.ok(Math.abs(a - b) < epsilon, `${a} != ${b}`);
 const triangulate = (outer, holes = []) => ({ pts: outer.concat(...holes), tris: THREE.ShapeUtils.triangulateShape(outer.map(p => new THREE.Vector2(...p)), holes.map(r => r.map(p => new THREE.Vector2(...p)))) });
 for (const [raw, metres] of [['10', 10], ['10 m', 10], ["10ft", 3.048], ["10' 6\"", 3.2004], ['6 in', 0.1524], ['80 cm', 0.8], ['35mm', 0.035], ['2.5 metres', 2.5], ['-2 ft', -0.6096]]) close(parseMeasure(raw), metres);
@@ -15,6 +16,8 @@ const priority = makeRoofProfile({ tags: { 'roof:height': '2ft', 'roof:angle': '
 close(priority.riseM, 0.6096); close(priority.eavesM, 8); close(priority.totalM, 8.6096);
 const flat = makeRoofProfile({ ring: rectangle, height: 0.8, heightIsTotal: true }); close(flat.totalM, 0.8); close(flat.eavesM, 0.8);
 const across = makeRoofProfile({ tags: { 'roof:orientation': 'across', 'roof:angle': '45' }, ring: rectangle, shape: 'gabled', height: 6 }); close(across.riseM, 10);
+const hip = makeRoofProfile({ tags: { 'roof:height': '3' }, ring: rectangle, shape: 'hipped', height: 9, heightIsTotal: true }), hipMesh = roofMesh(rectangle, [], hip, triangulate); close(hipMesh.heightAt(5, 5), 9); close(hipMesh.heightAt(15, 5), 9); close(hipMesh.heightAt(1, 5), 6.6);
+const irregularAngle = makeRoofProfile({ tags: { 'roof:angle': '45' }, ring: [[0, 0], [20, 0], [20, 6], [6, 6], [6, 20], [0, 20]], holes: [], triangulate, shape: 'hipped', height: 9, heightIsTotal: true }); assert.ok(irregularAngle.riseM < 4, 'concave angle used bounding width instead of actual eaves distance');
 const unknown = makeRoofProfile({ tags: { 'roof:shape': 'sawtooth' }, ring: rectangle, height: 10 }); assert.ok(unknown.issues.some(s => s.includes('unsupported roof:shape'))); assert.equal(unknown.raw['roof:shape'], 'sawtooth');
 const fixtures = [
     { name: 'rectangle', ring: rectangle, holes: [], area: 200 },
@@ -39,3 +42,20 @@ for (const fixture of fixtures) for (const shape of ['flat', 'gabled', 'skillion
     if (shape === 'hipped') assert.ok(mesh.faces.some(t => t.some(v => v[1] > p.eavesM + 1)), `${fixture.name}: roof flattened`);
 }
 console.log('building roof fixtures: strict units, total/eaves, height priority, direction/orientation, L/U/courtyard and thin part passed');
+const body = (i, ring, height, shape, minimum = 0) => { const roofProfile = makeRoofProfile({ tags: { 'roof:height': shape === 'flat' ? 0 : 3 }, ring, shape, height, minHeight: minimum, heightIsTotal: true }); return { i, ring, holes: [], h: height, minH: minimum, roofProfile, mesh: roofMesh(ring, [], roofProfile, triangulate) }; };
+const lower = body(0, rectangle, 9, 'gabled'), higher = body(1, [[5, -2], [15, -2], [15, 12], [5, 12]], 12, 'flat');
+const clipped = visibleRoofMesh(lower.mesh, lower, [higher]);
+let clippedArea = 0;
+for (const [a, b, c] of clipped.faces) { const x = (a[0] + b[0] + c[0]) / 3; assert.ok(x <= 5 + 1e-7 || x >= 15 - 1e-7, 'hidden lower roof still drawn'); clippedArea += Math.abs((b[0] - a[0]) * (c[2] - a[2]) - (b[2] - a[2]) * (c[0] - a[0])) / 2; }
+close(clippedArea, 100);
+const identical = body(2, rectangle, 9, 'gabled'); assert.equal(visibleRoofMesh(identical.mesh, identical, [lower]).faces.length, 0); close(visibleRoofMesh(lower.mesh, lower, [identical]).faces.reduce((sum, [a, b, c]) => sum + Math.abs((b[0] - a[0]) * (c[2] - a[2]) - (b[2] - a[2]) * (c[0] - a[0])) / 2, 0), 200);
+const overhead = body(3, rectangle, 15, 'flat', 12); close(visibleRoofMesh(lower.mesh, lower, [overhead]).faces.reduce((sum, [a, b, c]) => sum + Math.abs((b[0] - a[0]) * (c[2] - a[2]) - (b[2] - a[2]) * (c[0] - a[0])) / 2, 0), 200);
+assert.equal(roofSignature(lower), roofSignature({ ...lower, h: 9.00000001 })); assert.notEqual(roofSignature(lower), roofSignature({ ...lower, roofProfile: { ...lower.roofProfile, riseM: 2 } }));
+const collider = { x: 10, z: 5, r: 12, poly: rectangle, holes: [], minH: 0, h: 9, y0: 0, y1: 9, roofHeightAt: lower.mesh.heightAt };
+assert.ok(collideBuildings([collider], 10, 5, 0.35, 8 - 0.35, 0.7), 'drone should hit actual ridge');
+assert.equal(collideBuildings([collider], 10, 1, 0.35, 8 - 0.35, 0.7), null, 'drone blocked by imaginary total-height roof box');
+assert.equal(collideBuildings([collider], 10, -0.1, 0.35, 8 - 0.35, 0.7), null, 'drone blocked above eaves outside footprint');
+assert.equal(collideBuildings([{ ...collider, minH: 6, y0: 6 }], 10, 5, 0.35, 5.2 - 0.35, 0.7), null, 'drone below source underside');
+assert.ok(collideBuildings([{ ...collider, minH: 6, y0: 6 }], 10, 5, 0.35, 5.8 - 0.35, 0.7), 'drone intersects source underside');
+assert.ok(collideBuildings([{ ...collider, minH: 1.9, y0: 1.9 }], 10, 5, 0.45, 0.24), 'car/foot body intersects low overhead solid');
+console.log('roof source-solid fixtures: overlap clipping, equal-plane ownership, elevated parts and cache signature passed');

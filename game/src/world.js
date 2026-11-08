@@ -2,6 +2,7 @@ import * as THREE from '../vendor/three.module.min.js';
 import { makeRng, distPointSeg, pointInPolygon, clamp, makeCanvasTexture, landmarkHelpers } from './util.js';
 import { makeTextures, emitFacadeSlab } from './buildings.js';
 import { footprintCells, insetFootprint, assemblySignature, geometryRing, geometrySurface } from './building-parts.js';
+import { validRoofProfile, roofMesh, roofSignature } from './building-roofs.js';
 import { makeVehicle, CAR_COLORS, makeParkedCars, vehicleSize } from './vehicles.js';
 import { projector, CHAPTERS } from './cities.js';
 import { STOPS } from './data.js';
@@ -2756,9 +2757,12 @@ export async function buildWorld(city, renderer, opts = {}) {
         let x0 = Infinity, z0 = Infinity, x1 = -Infinity, z1 = -Infinity;
         for (const [x, z] of ring) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); }
         const c = centroid(ring);
+        const sourceHeight = data.buildingDimensions?.[i]?.[0] ?? b[1] / 10, minimum = data.buildingDimensions?.[i]?.[1] ?? b[2] / 10;
+        const roofProfile = validRoofProfile(data.buildingRoofProfiles?.[i], sourceHeight, minimum) ? data.buildingRoofProfiles[i] : null;
         return { i, style: data.styles[b[0]], h: data.buildingDimensions?.[i]?.[0] ?? b[1] / 10, minH: data.buildingDimensions?.[i]?.[1] ?? b[2] / 10, roof: data.roofs[b[3]], name: str(b[4]), flags: b[5], ring, holes, c, x0, z0, x1, z1, area: Math.abs(signedArea(ring)), skip: false,
-            canopy: data.buildingCanopies?.[i] || null, levels: B_OFF === 9 ? b[6] : 0, colour: B_OFF === 9 ? str(b[7]) : '', roofColour: B_OFF === 9 ? str(b[8]) : '' };
+            roofProfile, canopy: data.buildingCanopies?.[i] || null, levels: B_OFF === 9 ? b[6] : 0, colour: B_OFF === 9 ? str(b[7]) : '', roofColour: B_OFF === 9 ? str(b[8]) : '' };
     });
+    const roofProfileAudit = { supplied: Object.keys(data.buildingRoofProfiles || {}).length, applied: bRecs.filter(b => b.roofProfile).length, rejected: bRecs.filter(b => data.buildingRoofProfiles?.[b.i] && !b.roofProfile).map(b => data.buildingIds?.[b.i] || b.i), uncertain: bRecs.filter(b => b.roofProfile?.issues?.length).map(b => ({ source: data.buildingIds?.[b.i] || b.i, issues: b.roofProfile.issues })), surfacesApplied: 0, surfacesRejected: [] };
     // ---- (round 6 notes 10 / 46) Bucharest 'house' buildings: the village-house look (shutters, steep gable) read wrong —
     //      in Floreasca / Romană they are interwar villas (plaster, low hipped roof), and a lone house among office towers
     //      (Pipera, Bd. Dimitrie Pompeiu) reads as a low commercial block. Seattle keeps its wooden houses.
@@ -2767,8 +2771,8 @@ export async function buildWorld(city, renderer, opts = {}) {
         for (const b of bRecs) {
             if (b.style !== 'house') continue;
             let n = 0; for (const t of tall) if (Math.hypot(t.c[0] - b.c[0], t.c[1] - b.c[1]) < 70 && ++n >= 3) break;
-            if (n >= 3 && !(b.flags & 16)) { b.style = 'plain'; b.roof = 'flat'; }
-            else { b.style = 'interwar'; b.villa = true; if (!(b.flags & 16) && (b.roof === 'gabled' || b.roof === 'pitched')) b.roof = 'hipped'; } // (flags 16: roof shape measured — OSM / aerial survey — kept)
+            if (n >= 3 && !(b.flags & 16) && !b.roofProfile) { b.style = 'plain'; b.roof = 'flat'; }
+            else { b.style = 'interwar'; b.villa = true; if (!b.roofProfile && !(b.flags & 16) && (b.roof === 'gabled' || b.roof === 'pitched')) b.roof = 'hipped'; } // (flags 16: roof shape measured — OSM / aerial survey — kept)
         }
     }
     // ---- facade style from data.buildingInfo (world-data: OSM type, start_date year, architect, material, height source)
@@ -2811,7 +2815,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         };
         const villaZone = (x, z) => { if (US) return false; const ll = city.proj.inverse ? city.proj.inverse(x, z) : null; return !!ll && ll.lat > 44.447 && ll.lat < 44.48 && ll.lon > 26.07 && ll.lon < 26.112; }; // (to 26.112: Garibaldi / the composer streets)
         for (const b of bRecs) {
-            if (b.levels > 0 || b.style === 'church' || b.style === 'glass' || b.minH > 0 || /^(bl(oc)?\.?\s|bloc\b|block\b)/i.test(b.name || '')) continue; // (a named apartment block keeps its storeys)
+            if (b.roofProfile || b.levels > 0 || b.style === 'church' || b.style === 'glass' || b.minH > 0 || /^(bl(oc)?\.?\s|bloc\b|block\b)/i.test(b.name || '')) continue; // (a named apartment block keeps its storeys)
             const named = INST.test(b.name || '');
             const isDef = DEF.has(Math.round(b.h * 10) / 10);
             if (!isDef && !(named && b.h > 18)) continue;
@@ -2909,13 +2913,13 @@ export async function buildWorld(city, renderer, opts = {}) {
         const ground = parts.filter(p => p.minH === 0);
         const residuals = cached.residuals.map((source, n) => {
             const ring = geometryRing(source.ring, data.buildingGeometryPoints), x0 = Math.min(...ring.map(p => p[0])), x1 = Math.max(...ring.map(p => p[0])), z0 = Math.min(...ring.map(p => p[1])), z1 = Math.max(...ring.map(p => p[1]));
-            return { ...base, i: bRecs.length + n, ring, holes: [], c: centroid(ring), x0, x1, z0, z1, area: Math.abs(signedArea(ring)), h: source.h, minH: 0, roof: 'flat', levels: 0, flags: base.flags & 32, name: '', derivedFrom: base.i };
+            return { ...base, i: bRecs.length + n, ring, holes: [], c: centroid(ring), x0, x1, z0, z1, area: Math.abs(signedArea(ring)), h: source.h, minH: 0, roof: 'flat', roofProfile: null, levels: 0, flags: base.flags & 32, name: '', derivedFrom: base.i };
         });
         base.skip = !keepOutline; base.assemblyParts = indices;
         const volumes = keepOutline ? [base, ...parts] : [...parts, ...residuals];
         for (const [ordinal, p] of volumes.entries()) {
             p.assemblySurface = geometrySurface(cached.surfaces[ordinal], data.buildingGeometryPoints);
-            p.assembly = volumes; p.roof = (p.flags & 16) ? p.roof : 'flat';
+            p.assembly = volumes; p.roof = p.roofProfile ? p.roofProfile.shape : (p.flags & 16) ? p.roof : 'flat';
             if (!p.type || p.type === 'yes') { p.type = base.type; if (p.style === 'plain' && p.area > 40 && !/glass/.test(p.material || '')) p.style = base.style; }
             for (const field of ['year', 'material']) if (!p[field]) p[field] = base[field];
         }
@@ -3433,7 +3437,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             continue;
         }
         const brng = makeRng(b.i * 7919 + 13);
-        const AR = !b.assembly && !b.holes.length && b.arch && ARCH ? ARCH.emit(b, c, makeRng(b.i * 7919 + 17)) : null; // archetype roofs do not yet support courtyards
+        const AR = !b.roofProfile && !b.assembly && !b.holes.length && b.arch && ARCH ? ARCH.emit(b, c, makeRng(b.i * 7919 + 17)) : null; // archetype roofs do not yet support courtyards
         // (2026-11-08) Bucharest villas keep the interwar facade tiles but the villa quarter's warmer plasters (cream, ochre,
         // pale yellow, salmon, off-white, sage — Floreasca / Dorobanți), not the interwar blocks' greys
         const pal = (b.villa && VILLA_PAL) || palette[b.style] || palette.plain;
@@ -3459,11 +3463,11 @@ export async function buildWorld(city, renderer, opts = {}) {
         // facade texture: base tile or its variant (atlas rows 2–3), slightly varied bay width per building
         const tile = (darkGlass ? TILE.glass : (TILE[b.style] ?? 7)) + (brng() < 0.5 ? 8 : 0);
         let floorH = b.style === 'bloc' ? 2.9 : b.style === 'glass' ? 3.6 : b.style === 'eclectic' || b.style === 'church' ? 3.7 : 3.2;
-        if (b.levels > 0 && b.style !== 'church') floorH = clamp((b.h - Math.max(0, b.minH)) / b.levels, 2.6, 5.5); // real floor count from building:levels
+        if (b.levels > 0 && b.style !== 'church') floorH = clamp(((b.roofProfile?.eavesM ?? b.h) - Math.max(0, b.minH)) / b.levels, 2.6, 5.5); // real floor count from building:levels
         const bayW = (b.style === 'glass' ? 2.4 : b.style === 'house' ? 3.6 : 3.3) * (0.88 + brng() * 0.24);
         const ring = b.ring;
         const ccw = signedArea(ring) > 0; // counter-clockwise (x right, z up) → outward normal = (dz, -dx)
-        const h = b.h, y0 = b.minH > 0 ? b.minH : 0.18;
+        const h = b.roofProfile?.eavesM ?? b.h, y0 = b.minH > 0 ? b.minH : Math.min(0.18, h);
         // (after round 6) whole storeys: the wall holds an integer number of window rows, so the top row is never sliced
         // by the eaves / roof line (it was wherever the height wasn't a multiple of the storey height)
         if (b.style !== 'church' && h - y0 > 2) { const n = Math.max(1, Math.round((h - y0) / floorH)); floorH = (h - y0) / n; }
@@ -3562,7 +3566,22 @@ export async function buildWorld(city, renderer, opts = {}) {
             const { pts, tris } = triangulate(underside);
             for (const tri of tris) mb.face3(...tri.map(i => [pts[i][0], b.minH, pts[i][1]]), shadeRgb(wallCol, 0.75), [0, -1, 0]);
         }
-        if (b.assembly && b.roof === 'flat') {
+        const sourceRoof = b.roofProfile ? roofMesh(ring, b.holes, b.roofProfile, triangulate) : null;
+        if (sourceRoof) {
+            const cached = data.buildingRoofSurfaces?.[b.i], valid = cached?.sources?.every(s => { const source = bRecs[s.i]; return source && !source.skip && s.signature === roofSignature(source); });
+            if (cached) { if (valid) roofProfileAudit.surfacesApplied++; else roofProfileAudit.surfacesRejected.push(data.buildingIds?.[b.i] || b.i); }
+            const unpack = face => data.buildingRoofGeometryPoints ? face.map(i => data.buildingRoofGeometryPoints[i]) : face;
+            const visibleFaces = valid ? cached.faces.map(unpack) : sourceRoof.faces;
+            for (const face of visibleFaces) rmb.face3(...face, b.roofProfile.shape === 'flat' ? flatRoofCol : pitchCol, [0, 1, 0]);
+            if (valid) for (const face of cached.walls) mb.face3(...unpack(face.vertices), wallCol, face.normal);
+            else for (const [i, face] of sourceRoof.walls.entries()) {
+                mb.face4(...face, wallCol, sourceRoof.wallNormals[i]);
+            }
+            if (!b.assembly && b.minH > 0) {
+                const underside = triangulate(ring, b.holes);
+                for (const tri of underside.tris) mb.face3(...tri.map(i => [underside.pts[i][0], b.minH, underside.pts[i][1]]), shadeRgb(wallCol, 0.75), [0, -1, 0]);
+            }
+        } else if (b.assembly && b.roof === 'flat') {
             for (const roof of b.assemblySurface.roof) {
                 const { pts, tris } = triangulate(roof);
                 if (tris.length) rmb.flatPoly(pts, tris, h, flatRoofCol, 0.1, -1);
@@ -3665,14 +3684,14 @@ export async function buildWorld(city, renderer, opts = {}) {
             }
             if (b.roof === 'dome') { const r = clamp(Math.sqrt(b.area) * 0.28, 3, 14); rmb.geo(props().sphere, b.c[0], h, b.c[1], 0, r, r * 0.9, r, rgb(b.style === 'church' ? '#7a8a8f' : '#8c9aa3')); }
         }
-        if (b.style === 'church' && b.area > 120 && !b.holes.length) { // a generic centroid cupola cannot span a courtyard
+        if (!b.roofProfile && b.style === 'church' && b.area > 120 && !b.holes.length) { // a generic centroid cupola cannot span a courtyard
             const r = clamp(Math.sqrt(b.area) * 0.12, 1.5, 4);
             mb.box(b.c[0], h, b.c[1], r * 2, r * 2.4, r * 2, 0, wallCol, tile);
             mb.geo(props().sphere, b.c[0], h + r * 2.4, b.c[1], 0, r * 1.05, r * 1.4, r * 1.05, rgb('#6f8f86'));
         }
         if (!b.assembly && h >= 5 && b.style !== 'church' && !AR && !(b.flags & 32)) addNearDetail(b, c.detail, brng, wallCol, h, y0, shop, yShop, floorH, bayW, ccw, flatRoofCol); // (flags 32: the scenery ring outside the playable area — no street-level clutter)
         // collision
-        collision.push({ x: b.c[0], z: b.c[1], r: Math.max(...ring.map(([x, z]) => Math.hypot(x - b.c[0], z - b.c[1]))), poly: ring, holes: b.holes, sourceId: data.buildingIds?.[b.derivedFrom ?? b.i], derived: b.derivedFrom !== undefined, minH: b.minH, angle: 0, hw: (b.x1 - b.x0) / 2, hd: (b.z1 - b.z0) / 2, h, poi: b.cv || undefined });
+        collision.push({ x: b.c[0], z: b.c[1], r: Math.max(...ring.map(([x, z]) => Math.hypot(x - b.c[0], z - b.c[1]))), poly: ring, holes: b.holes, sourceId: data.buildingIds?.[b.derivedFrom ?? b.i], derived: b.derivedFrom !== undefined, minH: b.minH, angle: 0, hw: (b.x1 - b.x0) / 2, hd: (b.z1 - b.z0) / 2, h: sourceRoof ? b.h : h, ...(sourceRoof ? { y0: b.minH, y1: b.h, roofHeightAt: sourceRoof.heightAt } : {}), poi: b.cv || undefined });
         // facade sign
         if ((b.flags & 2) && b.name && (b.cvSign || b.area < 20000) && !AR?.signed) addFacadeSign(b, h, shop, wallCol);
     }
@@ -3743,7 +3762,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                     const [x0, z0] = P(0, 0.25), [x1, z1] = P(L, 0.25);
                     db.wall(x0, z0, x1, z1, y - 0.35, y, nx, nz, mixRgb(wallCol, [245, 242, 236], 0.5)); db.flatQuad(ax, az, bx, bz, x1, z1, x0, z0, y, [240, 238, 232], 0, -1);
                 }
-                if (brng() < 0.25 && L > 10) { const [x, z] = P(L * 0.5, 0.3); db.box(x, yTop, z, 0.06, 4, 0.06, 0, rgb('#cfcfcf')); } // flag pole
+                if (!b.roofProfile && brng() < 0.25 && L > 10) { const [x, z] = P(L * 0.5, 0.3); db.box(x, yTop, z, 0.06, 4, 0.06, 0, rgb('#cfcfcf')); } // flag pole
             } else if (st === 'bloc') {
                 const ACC = ['#c0564a', '#4f7fa8', '#d99a3a', '#6c9a5a', '#8d6a9e', '#d7d2c4', '#3f6f78'].map(rgb);
                 const accent = ACC[Math.floor(brng() * ACC.length)];
@@ -3786,7 +3805,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             }
         }
         // rooftop: parapet + plant (flat roofs only)
-        if (!pitched && b.area > 60) {
+        if (!b.roofProfile && !pitched && b.area > 60) {
             const pc = shadeRgb(wallCol, 0.92);
             for (let k = 0; k < n; k++) { const [ax, az] = ring[k], [bx, bz] = ring[(k + 1) % n]; if (Math.hypot(bx - ax, bz - az) < 0.5) continue; db.wall(ax, az, bx, bz, yTop, yTop + 0.9, 0, 1, pc); db.wall(bx, bz, ax, az, yTop, yTop + 0.9, 0, 1, shadeRgb(pc, 0.8)); }
             const nUnits = Math.min(6, Math.floor(b.area / 250));
@@ -3863,7 +3882,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                     mb.wall(x - E.ux * 0.14, z - E.uz * 0.14, x + E.ux * 0.14, z + E.uz * 0.14, y0, h, E.nx, E.nz, fin);
                 }
             }
-            strip(h - 0.2, 1.2, 0.05, rgb('#2b3a48'));
+            strip(h - 0.2, b.roofProfile ? 0.2 : 1.2, 0.05, rgb('#2b3a48'));
         }
         if (shop) awnings();
         function awnings() {
@@ -5386,7 +5405,8 @@ export async function buildWorld(city, renderer, opts = {}) {
 
     setProgress(''); const phases = PHASES.splice(0);
     const stats = { phases, railways: railStats, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, fuel: fuelLog,
-        profile: profileStats, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, landmarkSourceReplacements, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
+        buildingRoofProfiles: roofProfileAudit, profile: profileStats, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, landmarkSourceReplacements, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
+
     console.info('[world]', city.id, stats);
 
     /** calls cb(height) for every drivable surface (carriageway + shoulder + sidewalk, junction pads) covering (x, z) */
@@ -5635,10 +5655,15 @@ export function buildingBlocksRoad(c, x, z, roadY, bodyHeight = 2) {
     return true;
 }
 
-function collideOne(b, x, z, radius, y) {
+function collideOne(b, x, z, radius, y, bodyHeight = 2) {
     if (!b.wall) {
         const height = y ?? 0.24;
-        if ((b.y0 !== undefined && height < b.y0) || (b.y1 !== undefined && height > b.y1)) return null;
+        if ((b.y0 !== undefined && (b.roofHeightAt ? height + bodyHeight < b.y0 : height < b.y0)) || (b.y1 !== undefined && height > b.y1)) return null;
+    }
+    if (b.roofHeightAt) {
+        const top = b.roofHeightAt(x, z, radius);
+        // The same triangulated roof drives collision; the full total-height box is only broad phase.
+        if (top === null || (y ?? 0.24) > top) return null;
     }
     if (b.wall) { // wall segment, active only for bodies within its height band
         const r = distPointSeg(x, z, b.ax, b.az, b.bx, b.bz);
@@ -5650,7 +5675,7 @@ function collideOne(b, x, z, radius, y) {
         if (r.d > 1e-4) { nx = (x - r.cx) / r.d; nz = (z - r.cz) / r.d; } else { nx = b.nx; nz = b.nz; }
         return { nx, nz, pen: radius - r.d };
     }
-    if (b.minH > (y ?? 0.24) + 2) return null; // mapped passage: body fits below the source underside
+    if (b.minH > (y ?? 0.24) + bodyHeight) return null; // mapped passage: body fits below the source underside
     if (b.yMax !== undefined && (y ?? 0.24) > b.yMax) return null; // e.g. bridge piers: only for traffic below the deck
     if (b.prop && b.hw === b.r) { // small circle (tree trunk, post…)
         const dx = x - b.x, dz = z - b.z, d = Math.hypot(dx, dz);
@@ -5690,12 +5715,12 @@ function collideOne(b, x, z, radius, y) {
  * guard rails) and bridge piers only collide with bodies at their level. Without `y` the body is assumed on the
  * ground (0.24): railings of elevated decks are then ignored (so cars under a bridge are never blocked).
  */
-export function collideBuildings(buildings, x, z, radius, y) {
+export function collideBuildings(buildings, x, z, radius, y, bodyHeight = 2) {
     let px = 0, pz = 0, hit = null;
     const test = (b) => {
         const dx = x - b.x, dz = z - b.z;
         if (dx * dx + dz * dz > (b.r + radius) * (b.r + radius)) return;
-        const r = collideOne(b, x, z, radius, y);
+        const r = collideOne(b, x, z, radius, y, bodyHeight);
         if (r && r.pen > 0) { px += r.nx * r.pen; pz += r.nz * r.pen; hit = b; }
     };
     if (buildings.query) buildings.query(x, z, radius + 2, test); else for (const b of buildings) test(b);

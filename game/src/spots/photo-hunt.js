@@ -1,5 +1,6 @@
 import * as THREE from '../../vendor/three.module.min.js';
 import { activityFlow } from './participation.js';
+import { inPoly, distPolyline } from './kit.js';
 
 // A visitor camera exercise from the public approach. The rings are game
 // guides, not new site fixtures, and no interior access is implied.
@@ -21,8 +22,10 @@ export function photoHunt(ctx, { x, z, title, targets, unavailable, onDone }) {
             const g=s.guide;if(!g)return true;let crowd=false;for(let p=h.object;p;p=p.parent)if(p.name==='crowd')crowd=true;
             return !(crowd&&Math.hypot(h.point.x-g.x,h.point.z-g.z)<.9&&h.point.y>=g.y-.1&&h.point.y<=g.y+3.4);
         });
-        guide.visibility={label:target.label,clear:!hit,targetDistance:distance,surfaceTolerance:tolerance,hitDistance:hit?.distance??null,blocker:hit?.object.name||null};
-        return !hit;
+        const surface=target.surface,p=hit?.point;
+        const onFeature=!!(p&&surface&&p.y>=surface.bottom&&p.y<=surface.top&&!surface.holes?.some(h=>inPoly(p.x,p.z,h))&&(inPoly(p.x,p.z,surface.poly)||distPolyline(p.x,p.z,[...surface.poly,surface.poly[0]]).d<.15));
+        guide.visibility={label:target.label,clear:!hit||onFeature,targetDistance:distance,surfaceTolerance:tolerance,hitDistance:hit?.distance??null,hitPoint:p?.toArray()||null,sourceSurface:onFeature?surface.source:null,blocker:hit?.object.name||null};
+        return !hit||onFeature;
     };
     const guide = { targets, captures: [], ring };
     ctx.extras.photoHunt=guide;

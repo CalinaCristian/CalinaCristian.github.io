@@ -18,9 +18,11 @@ const sdk = `(() => {
 })();`;
 (async () => {
     const browser = await chromium.launch({ headless: true, args: ['--mute-audio', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
-    const report = { root, checks: [], errors: [], expectedErrors: [], network: { sdkRequests: 0, externalRequests: [] } };
+    const report = { root, checks: [], errors: [], expectedErrors: [], consoleErrors: [], expectedConsoleErrors: [], network: { sdkRequests: 0, externalRequests: [] } };
     const check = (name, ok, details) => { report.checks.push({ name, ok: !!ok, details }); console.log(`${ok ? 'PASS' : 'FAIL'} ${name}`); };
     const contexts = [];
+    let failureContext = null, injectedDestinationFailure = false;
+    const unexpectedConsole = () => { const expected = new Set(report.expectedConsoleErrors.map(e => e.index)); return report.consoleErrors.filter(e => !expected.has(e.index)); };
     async function fixture({ dnt = false, gpc = false, blockedStorage = false, pending = false, holdSdk = false } = {}) {
         const context = await browser.newContext({ viewport: { width: 640, height: 360 }, deviceScaleFactor: 1 }); contexts.push(context);
         let release; const gate = new Promise(resolve => release = resolve); if (!holdSdk) release();
@@ -42,6 +44,17 @@ const sdk = `(() => {
             else { network.external.push(url.origin); await route.abort(); }
         });
         const page = await context.newPage(); page.setDefaultTimeout(300000); require('./integration-browser-bounds.cjs').boundEvaluations(page);
+        page.on('console', message => {
+            if (message.type() === 'error') {
+                const row = { index: report.consoleErrors.length, fixture: contexts.indexOf(context) + 1, text: message.text(), location: message.location() };
+                report.consoleErrors.push(row);
+                const intended503 = injectedDestinationFailure && context === failureContext && (
+                    (row.text.startsWith('Failed to load resource:') && /status of 503/.test(row.text) && row.location.url === 'https://cristiancalina.com/game/data/bucharest-grozavesti.json') ||
+                    (row.text.startsWith('[world] district load failed') && /JSON|SyntaxError/.test(row.text) && /intentional|Unexpected token.*i/i.test(row.text)));
+                if (intended503) report.expectedConsoleErrors.push({ ...row, reason: 'Explicit HTTP503/non-JSON Grozavesti destination fixture' });
+            }
+            for (const argument of message.args()) argument.dispose().catch(() => {});
+        });
         page.on('pageerror', error => (/diagnostic pre-SDK fixture/.test(error.message) ? report.expectedErrors : report.errors).push(error.message));
         await page.goto('https://cristiancalina.com/game/', { waitUntil: 'domcontentloaded', timeout: 60000 });
         await page.waitForFunction(() => window.game?.health);
@@ -68,6 +81,7 @@ const sdk = `(() => {
         events = await page.evaluate(() => __healthEvents);
         check('performance summaries isolate pause and driving with sampled frame tails', ['drive', 'pause'].every(mode => events.some(e => e.event === 'perf_summary' && e.props.game_mode === mode && e.props.frame_p95_ms > 0 && e.props.frames_observed >= e.props.samples)), events.filter(e => e.event === 'perf_summary'));
         await page.evaluate(async () => { game.fuel = 0; await game.save.saveSession('diagnostic-fixture'); });
+        failureContext = main.context; injectedDestinationFailure = true;
         await page.route('**/game/data/bucharest-grozavesti.json', route => route.fulfill({ status: 503, body: 'intentional diagnostic fixture' }));
         await page.evaluate(() => game.startFreeRoam('grozavesti'));
         events = await page.evaluate(() => __healthEvents);
@@ -76,6 +90,7 @@ const sdk = `(() => {
         await page.locator('#continue').click();
         await page.waitForFunction(() => game.state === 'drive' && game.district === 'floreasca' && __healthEvents.some(e => e.event === 'continue_result'));
         check('real Continue reports recovery and keeps empty fuel', await page.evaluate(() => game.fuel === 0 && __healthEvents.some(e => e.event === 'continue_result' && e.props.success && e.props.after_load_failure)));
+        injectedDestinationFailure = false;
         const resumed = await fixture({ pending: true });
         check('startup identifies a pending first frame without claiming an OS crash', await resumed.page.evaluate(() => __healthEvents.some(e => e.event === 'load_interrupted' && e.props.attempt_id === 'interrupted-fixture' && e.props.prior_stage === 'built' && e.props.confirmed_crash === false)));
         const denied = await fixture({ blockedStorage: true });
@@ -93,13 +108,16 @@ const sdk = `(() => {
         report.events = await page.evaluate(() => __healthEvents);
         report.network = main.network;
         check('fixture sent no events to an external service', contexts.length === 6 && main.network.external.length === 0);
+        report.unexpectedConsoleErrors = unexpectedConsole();
+        check('all browser console errors belong to the explicit failed-destination fixture', report.unexpectedConsoleErrors.length === 0, { expected: report.expectedConsoleErrors, unexpected: report.unexpectedConsoleErrors });
         report.complete = true;
     } catch (error) {
         report.fatal = error.stack || String(error); report.complete = false; throw error;
     } finally {
         report.complete ??= false;
         for (const context of contexts) await context.close().catch(() => {}); await browser.close();
+        report.unexpectedConsoleErrors = unexpectedConsole();
         fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
     }
-    if (report.errors.length || report.checks.some(c => !c.ok)) process.exitCode = 1;
+    if (report.errors.length || report.unexpectedConsoleErrors.length || report.checks.some(c => !c.ok)) process.exitCode = 1;
 })().catch(error => { console.error(error); process.exitCode = 1; });

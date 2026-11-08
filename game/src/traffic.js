@@ -2158,9 +2158,12 @@ class Pedestrians {
                 }
                 const need = hu + R + 0.08, uIn = ou - need, uOut = ou + need;
                 const at = (u) => [e.a.x + e.dirx * os + e.nx * u * side, e.a.z + e.dirz * os + e.nz * u * side];
-                const okIn = uIn >= hw + 0.45 && this.obsDepth(...at(uIn)) < 0.02;
+                // (2026-11-08, owner: "people get stuck on parked cars — they should go on the road to avoid them, then back
+                //  on the sidewalk") a parked car may be passed on the carriageway side, up to ≈ 1.6 m into the lane
+                const parked = o.kind === 'parked';
+                const okIn = (uIn >= hw + 0.45 || (parked && uIn >= hw - 1.6)) && this.obsDepth(...at(uIn)) < 0.02;
                 const pOut = at(uOut), okOut = !inBuilding(pOut[0], pOut[1]) && this.obsDepth(pOut[0], pOut[1]) < 0.02;
-                out.push({ s: os, u: ou, hs, hu, okIn, okOut });
+                out.push({ s: os, u: ou, hs, hu, okIn, okOut, parked });
             });
         }
         out.sort((a, b) => a.s - b.s);
@@ -2179,7 +2182,7 @@ class Pedestrians {
             const w = ds <= 0.1 ? 1 : ds >= 1.8 ? 0 : 1 - (ds - 0.1) / 1.7; if (w <= 0) continue;
             const need = o.hu + R + 0.08; if (Math.abs(base - o.u) >= need) continue;
             const cin = o.u - need, cout = o.u + need;
-            const tgt = o.okIn && o.okOut ? (Math.abs(cin - base) <= Math.abs(cout - base) ? cin : cout) : o.okIn ? cin : cout;
+            const tgt = o.parked && o.okIn ? cin : o.okIn && o.okOut ? (Math.abs(cin - base) <= Math.abs(cout - base) ? cin : cout) : o.okIn ? cin : cout; // (round a parked car: on the road side)
             const sh = (tgt - base) * w; if (Math.abs(sh) > Math.abs(best)) best = sh;
         }
         return best;
@@ -2195,7 +2198,8 @@ class Pedestrians {
         return n;
     }
     placeWalk(p) {
-        const e = p.e; const o = (this.off(e) + (p.walkOff || 0) + this.dodgeAt(p)) * p.side;
+        const e = p.e, dg = this.dodgeAt(p), o = (this.off(e) + (p.walkOff || 0) + dg) * p.side;
+        p.onDodge = dg < -0.05; // (stepping round a parked car on the road side: not "lost in a carriageway")
         p.x = e.a.x + e.dirx * p.s + e.nx * o; p.z = e.a.z + e.dirz * p.s + e.nz * o;
         p.heading = Math.atan2(-e.dirx * p.dir, -e.dirz * p.dir);
     }
@@ -2370,7 +2374,7 @@ class Pedestrians {
             // never loiter in a carriageway (except while crossing): checked a few peds per frame
             if (!p.onRoad && (p.i + this._fr) % 30 === 0) {
                 if (p.state !== 'walk') this.kerbClamp(p);
-                else if (this.inCarriageway(p)) {
+                else if (!p.onDodge && this.inCarriageway(p)) {
                     // the sidewalk line runs through another road here: turn back, then switch sides / move away
                     p.roadHits = (p.roadHits || 0) + 1;
                     if (p.roadHits === 1) { p.dir = -p.dir; p.s = os; }
@@ -2553,12 +2557,16 @@ class Pedestrians {
     writeMatrices() {
         const C = this.crowd;
         const wx = this.t.weatherKind ?? globalThis.game?.wxKind; if (wx !== undefined && wx !== C.weather) C.setWeather(wx);
+        // feet on the raised sidewalk where the district has one (world.walkTop, 2026-11-08), else the legacy 0.2 m;
+        // re-sampled when the walker has moved ≥ 0.5 m
+        const wt = this.t.world?.walkTop;
+        const footY = (p) => { if (!wt) return 0.2; if (p._fyx === undefined || Math.abs(p.x - p._fyx) + Math.abs(p.z - p._fyz) > 0.5) { const h = wt(p.x, p.z); p._fy = h === null ? 0.2 : h + 0.01; p._fyx = p.x; p._fyz = p.z; } return p._fy; };
         for (const p of this.list) {
             const s = p.scale;
-            if (p.state === 'down') { C.set(p.i, { x: p.x, y: 0.2, z: p.z, scale: s, down: true, fallDir: p.fallDir }); continue; }
+            if (p.state === 'down') { C.set(p.i, { x: p.x, y: footY(p), z: p.z, scale: s, down: true, fallDir: p.fallDir }); continue; }
             const talking = p.talkT > 0, moving = !talking && (p.agent || p.react ? !!p.moving : p.state === 'walk' || p.state === 'legs');
             const bob = moving ? Math.abs(Math.sin(p.phase)) * 0.03 : 0;
-            C.set(p.i, { x: p.x, y: 0.2 + bob, z: p.z, yaw: p.heading, phase: p.phase, amp: moving ? 1 : 0, scale: s, pose: talking ? (p.talkWave > 0 ? 4 : 7) : moving ? 0 : (p.pose || 0), prop: moving || talking ? null : (p.prop || null) });
+            C.set(p.i, { x: p.x, y: footY(p) + bob, z: p.z, yaw: p.heading, phase: p.phase, amp: moving ? 1 : 0, scale: s, pose: talking ? (p.talkWave > 0 ? 4 : 7) : moving ? 0 : (p.pose || 0), prop: moving || talking ? null : (p.prop || null) });
         }
     }
     dispose() { this.crowd.dispose(); }

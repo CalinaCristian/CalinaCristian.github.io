@@ -1,6 +1,18 @@
 // Physical openings require explicit OSM tags or individually reviewed shared-wall-node source topology.
 import { footprintCells, ringArea } from '../../game/src/building-parts.js';
 import { parseMeasure } from '../../game/src/building-roofs.js';
+import { edgeCuts } from '../../game/src/building-passages.js';
+import { pointInPolygon } from './geom.mjs';
+
+// A mapped passage describes a vehicle corridor, including the finite-width mouths.
+// Sweep its source centreline by half its width; round caps retain a clear transition
+// through an oblique/corner source wall without extending a new tunnel along a wing.
+function sweptPassageRing(a,b,width,seam=.0001,capSegments=12){
+    const len=Math.hypot(b[0]-a[0],b[1]-a[1]),angle=Math.atan2(b[1]-a[1],b[0]-a[0]),u=[(b[0]-a[0])/len,(b[1]-a[1])/len],r=width/2;
+    const aa=[a[0]-u[0]*seam,a[1]-u[1]*seam],bb=[b[0]+u[0]*seam,b[1]+u[1]*seam],ring=[];
+    for(const [c,start]of[[bb,angle+Math.PI/2],[aa,angle-Math.PI/2]])for(let k=0;k<=capSegments;k++){const q=start-Math.PI*k/capSegments;ring.push([c[0]+Math.cos(q)*r,c[1]+Math.sin(q)*r]);}
+    return ring;
+}
 
 export function sourcePassages(buildings, ways, nodes, project, roads, reviewed = []) {
     const records={},issues=[],reviewByWay=new Map();
@@ -26,14 +38,14 @@ export function sourcePassages(buildings, ways, nodes, project, roads, reviewed 
             const a=ps[segment-1],b=ps[segment],dx=b[0]-a[0],dz=b[1]-a[1],len=Math.hypot(dx,dz);if(len<.01)continue;
             // A 0.1mm longitudinal overlap absorbs the source-building 4-decimal representation error at shared wall nodes.
             // Keep full road precision and the literal lateral width; never move/shrink the source building.
-            const seam=.0001,ux=dx/len,uz=dz/len,nx=-uz*width/2,nz=ux*width/2;
-            const aa=[a[0]-ux*seam,a[1]-uz*seam],bbp=[b[0]+ux*seam,b[1]+uz*seam];
-            const ring=[[aa[0]+nx,aa[1]+nz],[bbp[0]+nx,bbp[1]+nz],[bbp[0]-nx,bbp[1]-nz],[aa[0]-nx,aa[1]-nz]];
+            const seam=.0001,ring=sweptPassageRing(a,b,width,seam);
             const bb=[Math.min(...ring.map(p=>p[0])),Math.min(...ring.map(p=>p[1])),Math.max(...ring.map(p=>p[0])),Math.max(...ring.map(p=>p[1]))];
-            const record={sourceRoadId:'w'+id,sourceSegment:segment-1,sourceNodeIds:w.nodes.slice(segment-1,segment+1),roadIndices:rs.map(r=>r.outIndex).filter(Number.isInteger),ring,sourceCentreline:[a,b],longitudinalSeamOverlapM:seam,classificationSource:review?.classificationSource||'OSM tunnel=building_passage',...(review?{reviewedAt:review.reviewedAt,sharedWallNodeIds:review.sharedWallNodeIds,reviewNote:review.note}:{}),widthM:width,widthSource:sourceWidth>0?'OSM width':'estimate:source lane count and class lane width',clearanceM:clearance,clearanceSource:physical>0?'OSM maxheight:physical':legal>0?'estimate:legal maxheight plus0.2m':review?.clearanceSource||'estimate:3.1m motor-vehicle passage clearance',...(legal>0?{legalMaxheightM:legal}:{}),tags:{...tags},evidence:review?.evidence||['https://www.openstreetmap.org/way/'+id],dimensionNote:'An explicit building_passage tag or individually reviewed exact shared-wall-node through-access declares this opening. Untagged width/vertical clearance are explicit estimates, never inferred building minimum heights. The complete building outline and source total height remain intact.'};
+            const record={sourceRoadId:'w'+id,sourceSegment:segment-1,sourceNodeIds:w.nodes.slice(segment-1,segment+1),roadIndices:rs.map(r=>r.outIndex).filter(Number.isInteger),ring,sourceCentreline:[a,b],longitudinalSeamOverlapM:seam,mouthGeometry:{type:'source centreline swept by half width',radiusM:width/2,capSegments:12,interpretation:'finite-width vehicle corridor; round end-cap approximation, not a longer source road'},classificationSource:review?.classificationSource||'OSM tunnel=building_passage',...(review?{reviewedAt:review.reviewedAt,sharedWallNodeIds:review.sharedWallNodeIds,reviewNote:review.note}:{}),widthM:width,widthSource:sourceWidth>0?'OSM width':'estimate:source lane count and class lane width',clearanceM:clearance,clearanceSource:physical>0?'OSM maxheight:physical':legal>0?'estimate:legal maxheight plus0.2m':review?.clearanceSource||'estimate:3.1m motor-vehicle passage clearance',...(legal>0?{legalMaxheightM:legal}:{}),tags:{...tags},evidence:review?.evidence||['https://www.openstreetmap.org/way/'+id],dimensionNote:'An explicit building_passage tag or individually reviewed exact shared-wall-node through-access declares this opening. Untagged width/vertical clearance are explicit estimates, never inferred building minimum heights. The complete building outline and source total height remain intact.'};
             buildings.forEach((body,i)=>{
                 if(body.aircraft||body.canopy||(review&&body.t.__id!==review.buildingId))return;
                 const b=bounds[i];if(b[0]>bb[2]||b[2]<bb[0]||b[1]>bb[3]||b[3]<bb[1])return;
+                const cuts=edgeCuts(a,b,[body.ring,...body.holes]);
+                if(!cuts.slice(1).some((hi,j)=>{const t=(cuts[j]+hi)/2,p=[a[0]+dx*t,a[1]+dz*t];return pointInPolygon(...p,body.ring)&&!body.holes.some(h=>pointInPolygon(...p,h));}))return; // a nearby frontage is not a passage through this body
                 const cells=footprintCells(ring,[body.ring,...body.holes]);
                 if(!cells.some(c=>c.covered.includes(0)&&c.covered.length===1&&Math.abs(ringArea(c.ring))>1e-5))return;
                 if(body.minH>clearance+2)return; // an already elevated source body does not need a ground opening

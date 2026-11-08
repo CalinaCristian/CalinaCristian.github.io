@@ -5,7 +5,7 @@
   "role": "research-sea-districts",
   "generated": "2026-11-06",
   "scope": "Sea-Tac Main Terminal landside (Departures upper / Arrivals lower drives, garage, skybridges, SeaTac/Airport Link station), Airport Expressway, SR-518 east to the I-5/I-405 junction.",
-  "howToUse": "Same schema as seattle-bellevue.json; WSDOT markings/furniture standards are documented in seattle-bellevue.json markings/furniture (identical state standards) — referenced, not duplicated.",
+  "howToUse": "Same schema as seattle-bellevue.json; WSDOT markings/furniture standards are documented in seattle-bellevue.json markings/furniture (identical state standards) \u2014 referenced, not duplicated.",
   "coverage": {
    "route_m": 5616,
    "routeSegmentsWithLaneCount": "30/30",
@@ -13,12 +13,19 @@
    "buildingsWithHeightOrLevels": 11,
    "businessesListed": 144,
    "landmarks": 5
+  },
+  "sourceRoofReview": {
+   "date": "2026-11-08",
+   "records": 15,
+   "source": "Explicit original OSM roof/carport classification; all source footprints inspected in independent Esri aerial context",
+   "dimensionStatus": "Unsourced vertical bands and supports remain estimates. Literal source height/min_height wins; layer is never a metre height. Legal maxheight is only a lower bound on clear underside.",
+   "imagesTracked": false
   }
  },
  "district": {
   "id": "seatac",
   "name": "SeaTac",
-  "proposal": "Terminal block + Airport Expressway + SR-518 corridor: (1) terminal box 47.4380–47.4500 × -122.3060–-122.2930 (terminal frontage, garage, station, International Blvd hotels strip); (2) 200 m band along the Airport Expressway to SR-518; (3) 200 m band along SR-518 to the I-5/I-405 interchange (lon -122.2640).",
+  "proposal": "Terminal block + Airport Expressway + SR-518 corridor: (1) terminal box 47.4380\u201347.4500 \u00d7 -122.3060\u2013-122.2930 (terminal frontage, garage, station, International Blvd hotels strip); (2) 200 m band along the Airport Expressway to SR-518; (3) 200 m band along SR-518 to the I-5/I-405 interchange (lon -122.2640).",
   "bbox": [
    47.437,
    -122.307,
@@ -43,22 +50,22 @@
   {
    "id": "A",
    "recommended": true,
-   "title": "Departures Drive (upper, elevated) in front of the Main Terminal → \"Return to Terminal / Exit\" → Airport Expressway north → SR-518 east → I-5 / I-405 junction (Southcenter)",
+   "title": "Departures Drive (upper, elevated) in front of the Main Terminal \u2192 \"Return to Terminal / Exit\" \u2192 Airport Expressway north \u2192 SR-518 east \u2192 I-5 / I-405 junction (Southcenter)",
    "start": {
     "lat": 47.44557,
     "lon": -122.29902,
     "heading": 200,
     "osmWay": 428095059,
-    "note": "Upper Departures Drive (layer 2, 2 lanes + kerb lane) at the north end of the terminal frontage, heading SSW past doors; skybridges 6→1 overhead at level 4."
+    "note": "Upper Departures Drive (layer 2, 2 lanes + kerb lane) at the north end of the terminal frontage, heading SSW past doors; skybridges 6\u21921 overhead at level 4."
    },
    "end": {
     "lat": 47.46195,
     "lon": -122.26779,
     "osmWay": 428266137,
-    "note": "SR-518 EB splits \"Renton (I-405 N)\" left / \"Tacoma; Portland (I-5 S)\" right — chapter waypoint (\"drive out\")."
+    "note": "SR-518 EB splits \"Renton (I-405 N)\" left / \"Tacoma; Portland (I-5 S)\" right \u2014 chapter waypoint (\"drive out\")."
    },
-   "timing": "≈ 5–6 min off-peak (20 mph drives, 30–40 mph expressway, 60 mph SR-518)",
-   "alt": "Shorter (2.5 km) option for spec 10 limits: end at the Airport Expressway → SR-518 merge (s≈3.9 km, lat 47.4631,-122.2879) — \"Welcome to Seattle\" sign moment, then fade.",
+   "timing": "\u2248 5\u20136 min off-peak (20 mph drives, 30\u201340 mph expressway, 60 mph SR-518)",
+   "alt": "Shorter (2.5 km) option for spec 10 limits: end at the Airport Expressway \u2192 SR-518 merge (s\u22483.9 km, lat 47.4631,-122.2879) \u2014 \"Welcome to Seattle\" sign moment, then fade.",
    "lengthM": 5616,
    "polyline": [
     [
@@ -682,10 +689,10 @@
     "wp-sea",
     "commons"
    ],
-   "lanes": "2–3 lanes southbound one-way, elevated viaduct (OSM bridge=yes, layer 2) along the terminal face; kerb lane for drop-off at the terminal doors on the right (west); 20 mph.",
-   "structure": "Concrete viaduct with the terminal's glass curtain wall and canopy on the right, the 7-level garage on the left; six enclosed pedestrian skybridges (OSM \"Skybridge 1\"–\"Skybridge 6\", level 4, ~33–40 m long) span overhead between garage and terminal at ~70 m spacing.",
-   "signage": "Overhead white-on-blue/dark terminal-zone signs listing airlines by door (e.g. \"Alaska\", \"Delta\", \"United\", \"Southwest\") and door numbers; \"Departures\" in large letters; kerb signs \"Active loading and unloading only\" — exact airline-to-door layout changes; verify with current SEA map (gap).",
-   "exit": "At the south end the drive descends (layer 2→1) and splits: \"Return to Terminal / Parking\" loop vs \"Exit — International Blvd SR 99 / I-5 / I-405 / SR 509\" then joins the Airport Expressway northbound via a 1-lane ramp (way 124272635)."
+   "lanes": "2\u20133 lanes southbound one-way, elevated viaduct (OSM bridge=yes, layer 2) along the terminal face; kerb lane for drop-off at the terminal doors on the right (west); 20 mph.",
+   "structure": "Concrete viaduct with the terminal's glass curtain wall and canopy on the right, the 7-level garage on the left; six enclosed pedestrian skybridges (OSM \"Skybridge 1\"\u2013\"Skybridge 6\", level 4, ~33\u201340 m long) span overhead between garage and terminal at ~70 m spacing.",
+   "signage": "Overhead white-on-blue/dark terminal-zone signs listing airlines by door (e.g. \"Alaska\", \"Delta\", \"United\", \"Southwest\") and door numbers; \"Departures\" in large letters; kerb signs \"Active loading and unloading only\" \u2014 exact airline-to-door layout changes; verify with current SEA map (gap).",
+   "exit": "At the south end the drive descends (layer 2\u21921) and splits: \"Return to Terminal / Parking\" loop vs \"Exit \u2014 International Blvd SR 99 / I-5 / I-405 / SR 509\" then joins the Airport Expressway northbound via a 1-lane ramp (way 124272635)."
   },
   {
    "id": "arrivals-drive",
@@ -704,7 +711,7 @@
    "src": [
     "osm"
    ],
-   "lanes": "3–5 lanes southbound under the upper drive (maxheight 12'0\" = 3.66 m posted), baggage-claim doors on the right; inner islands for shuttles/taxis/TNC (third-floor garage hosts rideshare pickup — verify).",
+   "lanes": "3\u20135 lanes southbound under the upper drive (maxheight 12'0\" = 3.66 m posted), baggage-claim doors on the right; inner islands for shuttles/taxis/TNC (third-floor garage hosts rideshare pickup \u2014 verify).",
    "lighting": "Dim, under-deck: continuous fluorescent/LED fixtures on the soffit of the upper drive; concrete columns between lanes."
   },
   {
@@ -723,12 +730,12 @@
    "src": [
     "osm"
    ],
-   "lanes": "3 → 4 → 5 lanes, 30 mph near the terminal rising to 40 mph; destination:lanes \"Terminal Parking ×3 | Terminal Parking; International Blvd; Rental Car Return; Cell Phone Lot\", later \"Burien | Burien; Seattle; Tacoma | Seattle; Tacoma\" at the SR-518 split.",
+   "lanes": "3 \u2192 4 \u2192 5 lanes, 30 mph near the terminal rising to 40 mph; destination:lanes \"Terminal Parking \u00d73 | Terminal Parking; International Blvd; Rental Car Return; Cell Phone Lot\", later \"Burien | Burien; Seattle; Tacoma | Seattle; Tacoma\" at the SR-518 split.",
    "context": "Runs between the garage (west) and the elevated Link 1 Line guideway / SeaTac/Airport station (east, 18 m up); the station's east pedestrian bridge crosses the expressway to International Blvd."
   },
   {
    "id": "sr518-eb",
-   "name": "SR 518 eastbound — Airport Expressway to I-5/I-405",
+   "name": "SR 518 eastbound \u2014 Airport Expressway to I-5/I-405",
    "osmWays": [
     433205294,
     1021048512,
@@ -748,7 +755,7 @@
     "wp-sr518",
     "osm"
    ],
-   "facts": "3.42-mile freeway Burien–Tukwila; 38,000–102,000 vehicles/day (2011), busiest between the airport and I-5; becomes I-405 east of I-5.",
+   "facts": "3.42-mile freeway Burien\u2013Tukwila; 38,000\u2013102,000 vehicles/day (2011), busiest between the airport and I-5; becomes I-405 east of I-5.",
    "lanes": "3 lanes EB (60 mph), asphalt with concrete bridge decks; at 51st Ave S destination:lanes \"Seattle | Renton | Tacoma; Portland; 51st Ave S; Southcenter Pkwy\"; final 2-lane split Renton (I-405 N, left) / Tacoma-Portland (I-5 S, right).",
    "context": "Link 1 Line elevated guideway parallels the freeway (OSM light_rail bridge layer 3) toward Tukwila Int'l Blvd station; Westfield Southcenter mall to the south-east at the end."
   },
@@ -11989,6 +11996,505 @@
      -122.301143
     ]
    ]
+  },
+  {
+   "osm": "w276667216",
+   "osmTags": {
+    "addr:city": "Seatac",
+    "addr:housenumber": "2841",
+    "addr:postcode": "98188",
+    "addr:state": "WA",
+    "addr:street": "South 188th Street",
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/276667216",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.29684947142859,47.43315088571429,-122.29484947142858,47.435150885714286&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w276667217",
+   "osmTags": {
+    "addr:city": "Seatac",
+    "addr:housenumber": "2841",
+    "addr:postcode": "98188",
+    "addr:state": "WA",
+    "addr:street": "South 188th Street",
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/276667217",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.29710694285713,47.433303585714285,-122.29510694285712,47.43530358571428&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w364221558",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 3.2,
+     "clearanceM": 2.85,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/364221558",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.29866364285714,47.443072542857145,-122.29666364285713,47.44507254285714&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w364221559",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 3.2,
+     "clearanceM": 2.85,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/364221559",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.29835853999998,47.44289914,-122.29635853999997,47.44489914&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w469766789",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/469766789",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.29708326000001,47.444617980000004,-122.29508326,47.44661798&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "partly obscured by shadow/tree/adjacent structure",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w647214513",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 3.2,
+     "clearanceM": 2.85,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/647214513",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.29598984,47.44067844,-122.29398984,47.442678439999995&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "partly obscured by shadow/tree/adjacent structure",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w647566517",
+   "osmTags": {
+    "addr:city": "Seatac",
+    "addr:housenumber": "17400",
+    "addr:postcode": "98188",
+    "addr:state": "WA",
+    "addr:street": "International Boulevard",
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 3.2,
+     "clearanceM": 2.85,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/647566517",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.29695720000001,47.44546759999999,-122.2949572,47.44746759999999&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w1167138987",
+   "osmTags": {
+    "aeroway": "terminal",
+    "building": "roof"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 3.2,
+     "clearanceM": 2.85,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/1167138987",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.30025589999998,47.439598428125,-122.29825589999997,47.441598428125&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w433205179",
+   "osmTags": {
+    "addr:city": "Seatac",
+    "addr:housenumber": "16850",
+    "addr:postcode": "98188",
+    "addr:state": "WA",
+    "addr:street": "International Boulevard",
+    "amenity": "fuel",
+    "brand": "76",
+    "brand:wikidata": "Q1658320",
+    "building": "roof",
+    "check_date": "2024-06-16",
+    "level": "1",
+    "name": "76",
+    "source": "survey",
+    "website": "https://www.76.com/station/U76-PANJABI-CORP-0000802994/"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/433205179",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.2964487777778,47.44996223333334,-122.29444877777779,47.45196223333333&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w439263875",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 3.2,
+     "clearanceM": 2.85,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/439263875",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.29564582,47.4594152,-122.29364582,47.4614152&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w439265090",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/439265090",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.29450782727274,47.458493736363636,-122.29250782727273,47.46049373636363&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w647566814",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/647566814",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.29687100000001,47.4493806,-122.294871,47.45138059999999&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w647569414",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/647569414",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.29662963999999,47.44954266,-122.29462963999998,47.451542659999994&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w737770102",
+   "osmTags": {
+    "addr:city": "Tukwila",
+    "addr:housenumber": "15838",
+    "addr:postcode": "98188",
+    "addr:state": "WA",
+    "addr:street": "International Boulevard",
+    "amenity": "fuel",
+    "building": "roof",
+    "layer": "1",
+    "name": "Alliance Auto Gas"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/737770102",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.29172092000002,47.45964072,-122.28972092000001,47.46164072&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w865527423",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/865527423",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.30461073636364,47.45390977272728,-122.30261073636363,47.455909772727274&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
   }
  ],
  "businesses": [
@@ -12679,7 +13185,7 @@
   {
    "osm": 1037486110,
    "osmType": "way",
-   "name": "Sam Choy’s Poke to the Max",
+   "name": "Sam Choy\u2019s Poke to the Max",
    "brand": null,
    "kind": "restaurant",
    "lat": 47.446023,
@@ -13039,7 +13545,7 @@
   {
    "osm": 700704113,
    "osmType": "way",
-   "name": "Dilettante Mocha Café",
+   "name": "Dilettante Mocha Caf\u00e9",
    "brand": null,
    "kind": "cafe",
    "lat": 47.443752,
@@ -13111,7 +13617,7 @@
   {
    "osm": 700704111,
    "osmType": "way",
-   "name": "Salty’s at the Sea",
+   "name": "Salty\u2019s at the Sea",
    "brand": null,
    "kind": "restaurant",
    "lat": 47.443925,
@@ -13495,7 +14001,7 @@
   {
    "osm": 11789336638,
    "osmType": "node",
-   "name": "Natalie’s Candy Jar",
+   "name": "Natalie\u2019s Candy Jar",
    "brand": null,
    "kind": "confectionery",
    "lat": 47.448736,
@@ -13733,7 +14239,7 @@
    ],
    "facts": [
     "Opened 1949; 1973 terminal built around it; central terminal renovated/expanded 2003 by Fentress Architects.",
-    "89 gates, Concourses A–D + North/South satellites linked by the SEA Underground people mover."
+    "89 gates, Concourses A\u2013D + North/South satellites linked by the SEA Underground people mover."
    ],
    "facade": {
     "description": "Long low terminal: glass curtain wall and steel canopy on the departures level, concrete lower level; the 2003 Central Terminal is a tall glazed hall facing the airfield (not visible from the drives).",
@@ -13753,7 +14259,7 @@
    ],
    "facts": [
     "North America's largest parking structure under one roof (12,100 spaces).",
-    "Level 4 connects to the terminal via skybridges 1–6 and to the light-rail station via a 1,200 ft covered walkway."
+    "Level 4 connects to the terminal via skybridges 1\u20136 and to the light-rail station via a 1,200 ft covered walkway."
    ],
    "look": "Precast concrete decks with horizontal spandrel bands, light grey #a9a8a2, open sides, colour-coded zones"
   },
@@ -13784,7 +14290,7 @@
   },
   {
    "id": "sea-iaf",
-   "name": "International Arrivals Facility + 780–900 ft aerial walkway (2022)",
+   "name": "International Arrivals Facility + 780\u2013900 ft aerial walkway (2022)",
    "osm": [
     734002404,
     869951038
@@ -13799,7 +14305,7 @@
  "signs": [
   {
    "where": "Departures Drive exit split",
-   "legend": "\"Return to Terminal / Parking / Overheight Vehicle Parking\" (left) ; \"International Blvd SR 99 — to I-5 · I-405 · SR 509\" (right)",
+   "legend": "\"Return to Terminal / Parking / Overheight Vehicle Parking\" (left) ; \"International Blvd SR 99 \u2014 to I-5 \u00b7 I-405 \u00b7 SR 509\" (right)",
    "osmWays": [
     952961192,
     6329486
@@ -13810,7 +14316,7 @@
   },
   {
    "where": "Airport Expressway NB (gantry)",
-   "legend": "\"Terminal Parking\" (3 lanes) | \"International Blvd · Rental Car Return · Cell Phone Lot\" (right)",
+   "legend": "\"Terminal Parking\" (3 lanes) | \"International Blvd \u00b7 Rental Car Return \u00b7 Cell Phone Lot\" (right)",
    "osmWays": [
     68522640
    ],
@@ -13820,7 +14326,7 @@
   },
   {
    "where": "Airport Expressway NB before SR-518",
-   "legend": "\"518 WEST Burien\" | \"518 EAST Seattle · Tacoma (I-5) · Renton (I-405)\"",
+   "legend": "\"518 WEST Burien\" | \"518 EAST Seattle \u00b7 Tacoma (I-5) \u00b7 Renton (I-405)\"",
    "osmWays": [
     124272629,
     433205294
@@ -13831,7 +14337,7 @@
   },
   {
    "where": "SR-518 EB near 51st Ave S",
-   "legend": "\"5 NORTH Seattle\" | \"405 NORTH Renton\" | \"5 SOUTH Tacoma · Portland — 51st Ave S / Southcenter Pkwy\"",
+   "legend": "\"5 NORTH Seattle\" | \"405 NORTH Renton\" | \"5 SOUTH Tacoma \u00b7 Portland \u2014 51st Ave S / Southcenter Pkwy\"",
    "osmWays": [
     23622872,
     1442135183,
@@ -16112,7 +16618,7 @@
     ],
     "level": 0.7,
     "direction": "Departures Drive kerb",
-    "evidence": "Port of Seattle: Departures-level peak ~4:30–7:30 a.m.; both drives back up ~11 a.m.–2 p.m.",
+    "evidence": "Port of Seattle: Departures-level peak ~4:30\u20137:30 a.m.; both drives back up ~11 a.m.\u20132 p.m.",
     "src": [
      "port-peaks"
     ]
@@ -16156,7 +16662,7 @@
     ],
     "level": 0.65,
     "direction": "SR-518 EB approaching I-5/I-405 (Southcenter)",
-    "evidence": "I-405 corridor Tukwila↔Bellevue severely congested in peaks (e.g. Bellevue→Tukwila ~17:00 up to 97% of days in 2014) and SR-518 carries up to 102,000 veh/day near I-5; queue spill-back onto SR-518 ramps is common (estimate).",
+    "evidence": "I-405 corridor Tukwila\u2194Bellevue severely congested in peaks (e.g. Bellevue\u2192Tukwila ~17:00 up to 97% of days in 2014) and SR-518 carries up to 102,000 veh/day near I-5; queue spill-back onto SR-518 ramps is common (estimate).",
     "src": [
      "wsdot-dash-405",
      "wp-sr518"
@@ -16180,7 +16686,7 @@
      ]
     ],
     "level": 0.7,
-    "note": "departures-am — Departures Drive kerb"
+    "note": "departures-am \u2014 Departures Drive kerb"
    },
    {
     "lat": 47.4435,
@@ -16197,7 +16703,7 @@
      ]
     ],
     "level": 0.6,
-    "note": "arrivals-pm — Arrivals Drive kerb"
+    "note": "arrivals-pm \u2014 Arrivals Drive kerb"
    },
    {
     "lat": 47.463,
@@ -16214,22 +16720,22 @@
      ]
     ],
     "level": 0.65,
-    "note": "sr518-i5-i405 — SR-518 EB approaching I-5/I-405 (Southcenter)"
+    "note": "sr518-i5-i405 \u2014 SR-518 EB approaching I-5/I-405 (Southcenter)"
    }
   ]
  },
  "sources": {
-  "osm": "OpenStreetMap contributors (ODbL), API 0.6 /map extracts fetched 2026-11-06, bbox 47.433,-122.314 – 47.473,-122.253",
+  "osm": "OpenStreetMap contributors (ODbL), API 0.6 /map extracts fetched 2026-11-06, bbox 47.433,-122.314 \u2013 47.473,-122.253",
   "wp-sea": "https://en.wikipedia.org/wiki/Seattle%E2%80%93Tacoma_International_Airport",
   "wp-station": "https://en.wikipedia.org/wiki/SeaTac/Airport_station",
   "wp-sr518": "https://en.wikipedia.org/wiki/Washington_State_Route_518",
   "wp-i405": "https://en.wikipedia.org/wiki/Interstate_405_(Washington)",
-  "port-peaks": "https://www.portseattle.org/node/1435 and https://www.portseattle.org/node/1426 (Port of Seattle travel tips: Departures-level peak ~04:30–07:30; both drives back up ~11:00–14:00; arrivals late evening) — Port site returns 403 to this sandbox; content via search-engine summary",
+  "port-peaks": "https://www.portseattle.org/node/1435 and https://www.portseattle.org/node/1426 (Port of Seattle travel tips: Departures-level peak ~04:30\u201307:30; both drives back up ~11:00\u201314:00; arrivals late evening) \u2014 Port site returns 403 to this sandbox; content via search-engine summary",
   "wsdot-dash-405": "https://wsdot.wa.gov/about/data/Multimodal-mobility-dashboard/dashboard/central-puget-sound/interstate405-cps/severe-congestion.htm",
   "wsdot-m2010": "https://wsdot.wa.gov/publications/fulltext/Standards/english/PDF/m20.10-04_e.pdf",
   "wsdot-m2030": "https://wsdot.wa.gov/publications/fulltext/Standards/english/PDF/m20.30-05_e.pdf",
   "mutcd-3d": "https://mutcd.fhwa.dot.gov/htm/2009/part3/part3d.htm",
   "commons": "Wikimedia Commons photos in game/research/refs/seatac/ (see LICENSES.md)",
-  "bellevue-json": "game/research/seattle-bellevue.json — shared WSDOT marking/sign/furniture standards (markings section applies verbatim to SR-518 and the Airport Expressway)"
+  "bellevue-json": "game/research/seattle-bellevue.json \u2014 shared WSDOT marking/sign/furniture standards (markings section applies verbatim to SR-518 and the Airport Expressway)"
  }
 }

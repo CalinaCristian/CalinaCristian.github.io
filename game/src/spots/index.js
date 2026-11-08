@@ -54,14 +54,14 @@ export const DEV_SPOTS = [
  * `game.emit('activity', { spot, id })` / `dmcv:activity` when one is completed. Scene lanes: ask spots-core to add yours.
  */
 export const ACTIVITIES = [
-    ['cismigiu', 'rowboat', 'Row a boat on the lake'], ['cismigiu', 'chess', 'Watch the chess players'], ['cismigiu', 'rotunda', 'Visit the Writers\' Rotunda'],
+    ['cismigiu', 'rowboat', 'Row a boat on the lake'], ['cismigiu', 'chess', 'Play a chess opening'], ['cismigiu', 'rotunda', 'Visit the Writers\' Rotunda'],
     ['herastrau-park', 'boat', 'Boat on Lake Herăstrău'], ['village-museum', 'farmhouse', 'Step into a farmhouse'],
     ['old-town-lipscani', 'wcp-bar', 'Hidden project'],
     ['old-town-lipscani', 'carusel', 'Climb Cărturești Carusel'], ['old-town-lipscani', 'curtea-veche', 'Old Princely Court'],
     ['old-town-lipscani', 'dristor-shaorma', 'Eat a shaorma at Dristor Kebap'], ['old-town-lipscani', 'shoteria-shot', 'Pour, toast and drink at Shoteria'],
-    ['palace-parliament', 'balcony', 'The balcony view'], ['palace-parliament', 'pace', 'Pace the esplanade'], ['peoples-salvation-cathedral', 'candle', 'Light a candle'], ['stavropoleos-cec', 'stavropoleos', 'Stavropoleos courtyard'],
+    ['palace-parliament', 'balcony', 'Frame the Palace facade'], ['palace-parliament', 'pace', 'Pace the esplanade'], ['peoples-salvation-cathedral', 'candle', 'Light a candle'], ['stavropoleos-cec', 'stavropoleos', 'Stavropoleos courtyard'],
     ['bel-meydenbauer', 'pier-end', 'Walk to the end of the pier'], ['bel-meydenbauer', 'kayak', 'Kayak on Meydenbauer Bay'], ['bel-downtown-park', 'loop', 'Walk the park loop'],
-    ['bel-botanical-garden', 'bridge', 'Cross the suspension bridge'], ['bel-botanical-garden', 'plants', 'Garden plants'], ['bel-lincoln-square', 'badge-in', 'Badge in at UiPath'],
+    ['bel-botanical-garden', 'bridge', 'Cross the suspension bridge'], ['bel-botanical-garden', 'plants', 'Garden plants'], ['bel-lincoln-square', 'badge-in', 'Frame Lincoln Square'],
 ].map(([spot, id, title]) => ({ spot, id, title }));
 /**
  * Review gate (owner note 61): a spot is listed in SPOTS (game menu, world map, explore pins, achievements) only once
@@ -337,8 +337,10 @@ export class SpotSession {
         const { spot, host } = this, r3d = this.r3d, cam = this.camera;
         cam.near = 0.25; // on foot: render's depth-precision test (note 55) cam.far = Math.max(cam.far, 9000); cam.updateProjectionMatrix();
         const T = [performance.now()];
+        if (host.season !== undefined) r3d.setSeason(host.season === 'auto' ? null : host.season);
         r3d.setScene(spot.scene, cam, spot.env, { units: spot.units, vegetation: spot.vegetation,
-            clock: { date: host.date || new Date(), lat: spot.clock.lat, lon: spot.clock.lon, timeZone: spot.clock.timeZone, timeScale: host.timeScale ?? 1, override: host.override ?? null } }); T.push(performance.now());
+            ...(host.weather !== undefined ? { weather: host.weather === 'live' ? null : host.weather } : {}),
+            clock: { date: host.date || new Date(), lat: spot.clock.lat, lon: spot.clock.lon, timeZone: host.timeZone ?? spot.clock.timeZone, timeScale: host.timeScale ?? 1, override: host.override ?? null } }); T.push(performance.now());
         r3d.setLamps(spot.lamps, { headMesh: spot.lampHeadMesh }); T.push(performance.now());
         r3d.setHeadlights?.(false);
         // walker: the game's OnFootController (spec 14) when present, else the local fallback
@@ -581,6 +583,20 @@ export class SpotSession {
         const done = this.checkChallenge();
         const st = this.tour?.stops[this.tour.i]; if (done && st?.kind === 'postcard' && st.id === done) st.participated = true;
         return { people: n, postcard: done };
+    }
+    /** Host conditions setters call this after changing their destination-local
+     * clock. The renderer advances that clock; session.update never resets it. */
+    setConditions(conditions = {}) {
+        this.cancelActivities('conditions');
+        const { host, spot, r3d } = this;
+        for (const key of ['date', 'override', 'timeScale', 'timeZone', 'weather', 'season']) {
+            if (Object.prototype.hasOwnProperty.call(conditions, key)) host[key] = conditions[key];
+        }
+        r3d.setClock({ date: 'date' in conditions ? (host.date || new Date()) : (r3d.simDate || host.date || new Date()), lat: spot.clock.lat, lon: spot.clock.lon,
+            timeZone: host.timeZone ?? spot.clock.timeZone, timeScale: host.timeScale ?? 1, override: host.override ?? null });
+        if ('season' in conditions) r3d.setSeason(conditions.season === 'auto' ? null : conditions.season);
+        if ('weather' in conditions) r3d.setWeather(conditions.weather === 'live' ? null : conditions.weather, { instant: true });
+        this.condT = 0;
     }
     /** info for PhotoMode.getInfo while in a spot */
     photoInfo() { const sp = this.spot; return { place: sp.name, city: sp.city, timeZone: sp.clock.timeZone, night: !!this.r3d.nightLights, sub: placeLabel(sp) }; }

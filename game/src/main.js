@@ -869,9 +869,9 @@ class Game {
         const c = this.clock; c.date = this.nowDate();
         const h = c.override ? OVERRIDE_HOURS[c.override] : localHours(c.date, c.timeZone);
         c.hours = h;
-        if (this.r3d && this.scene) {
+        if (this.r3d && (this.scene || this.state === 'spot')) {
             this.r3d.setClock({ date: c.date, override: c.override || null });
-            this.syncHeadlights();
+            if (this.state !== 'spot') this.syncHeadlights();
         }
         const ph = this.renderer3d?.phase;
         this.phase = typeof ph === 'string' ? (ph === 'sunset' ? 'dusk' : ph) : phaseFromHours(h);
@@ -1850,7 +1850,9 @@ class Game {
         const mod = await this.loadSpotsModule();
         const entry = mod?.SPOTS?.find(s => s.id === id) || mod?.SPOTS_ALL?.find(s => s.id === id); // (menus list the reviewed SPOTS; the API / harness can open any)
         if (!entry) { this.hud.toast('🏛️ Not available', 'This tourist spot is not ready yet.', 'warn'); return false; }
+        const conditions = this.travelConditions();
         this._spotBusy = true;
+        this.applyRoamTime(conditions.tod, CITIES[entry.city]?.timeZone || TIME_ZONES[entry.city]);
         this.audio.init(); this.audio.resume();
         this.photo?.close?.(); if (this.mapOpen) this.toggleMap(false);
         if (!this.spotReturn) {
@@ -1870,7 +1872,9 @@ class Game {
         try {
             this.spot = await mod.startSpot(id, { r3d: this.r3d, camera: this.camera, input: this.input, photo: this.photo, audio: this.audio, hud: this.hud,
                 returnFocus: () => this.returnFocus(), onTour: (t) => this.onSpotTour(t),
-                date: this.nowDate(), override: this.clock.override || null, onProgress: (t) => { if (lp && t) lp.textContent = String(t); } });
+                date: this.nowDate(), override: this.clock.override || null, timeZone: this.clock.timeZone,
+                weather: conditions.weather, season: conditions.season,
+                onProgress: (t) => { if (lp && t) lp.textContent = String(t); } });
         } catch (e) {
             console.error('[spots] start', e);
             this.spot = null; this._spotBusy = false; ld?.classList.remove('show'); if (lp) lp.textContent = this._loadingText;
@@ -1886,6 +1890,7 @@ class Game {
     }
     /** back to where the player was: the menu, or the chapter / free drive with the car (or the walker) where it was */
     leaveSpot() {
+        const conditions = this.travelConditions();
         this.explore?.hooks?.abortDrone?.();
         this.photo?.close?.();
         if (this.hud.panelOpen) this.hud.closePanel();
@@ -1897,6 +1902,7 @@ class Game {
         this.input.releaseLock(); this.input.flush(); this.hud.prompt(null);
         const toGame = this.world && this.player && ['drive', 'foot'].includes(R.state);
         if (toGame) {
+            this.applyRoamTime(conditions.tod, this.city.timeZone || TIME_ZONES[this.city.id]);
             this.attachWorldRender();
             this.syncHeadlights(true);
             if (typeof this.r3d.setWeather === 'function') { try { this.r3d.setWeather(this.weatherOverride); } catch { /* ignore */ } }
@@ -1905,6 +1911,7 @@ class Game {
             $('#hud').classList.add('show');
             this.input.lookAllowed = true; this.frameClock.getDelta();
         } else {
+            this._menuTod = conditions.tod;
             this.state = 'menu'; this.input.lookAllowed = false;
             $('#hud').classList.remove('show'); $('#menu').classList.add('show'); document.body.classList.remove('playing');
             this.renderMenuSpots();
@@ -1914,6 +1921,11 @@ class Game {
     updateSpot(dt) {
         const s = this.spot; if (!s) return;
         const inp = this.input, hud = this.hud;
+        if (inp.take('KeyK')) { this.buildConditions(); this.toggleConditions(); }
+        if (this.condOpen) {
+            if (inp.take('Escape')) this.toggleConditions(false);
+            inp.lookAllowed = false; inp.flush(); this.updateClock(0); this.r3d.frame(); return;
+        }
         if (this.photo?.active || hud.panelOpen || this._pauseOpen || this.explore?.drone?.active) {
             if (typeof s.cancelActivities === 'function') s.cancelActivities('mode');
             else s.spot?.ctx?.extras?.venueActivities?.cancel('mode');
@@ -1989,7 +2001,7 @@ class Game {
         if (st === 'foot' && this.carBody?.parent) items.push(['car-route', '🚗', 'Walk back to the car'], ['car-return', '🚶', 'Return to the car'], ['car-call', '📲', 'Call the car']);
         if (this.chapters) items.push(['chapters', '📖', 'Chapters']);
         if (this.spotsMod?.SPOTS?.length) items.push(['spots', '🏛️', 'Tourist spots']);
-        if (st === 'drive' || st === 'foot') items.push(['conditions', '☀️', 'Time, weather & season']);
+        if (['drive', 'foot', 'spot'].includes(st)) items.push(['conditions', '☀️', 'Time, weather & season']);
         if (this.achievements?.open) { let pct = null; try { pct = this.achievements.completion?.().pct; } catch { /* ignore */ } items.push(['achievements', '🏆', `Achievements${pct != null ? ` · ${pct} %` : ''}`]); }
         if (ex && !droneOn && (st === 'foot' || st === 'spot')) items.push(['drone', '🚁', 'Deploy drone']);
         if (this.photo && st !== 'office' && st !== 'drive') items.push(['photo', '📷', 'Photo mode']);
@@ -2050,7 +2062,7 @@ class Game {
         else if (view === 'settings') {
             const q = this.quality, u = this.loadStr('units', 'auto'), sens = this.input.sens ?? 1, vol = this.audio.volume ?? 1;
             body = `<div class="pm-set">
-${['menu', 'drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa="conditions">☀️ Time, weather & season</button>' : ''}
+${['menu', 'drive', 'foot', 'spot'].includes(this.state) ? '<button class="btn" data-pa="conditions">☀️ Time, weather & season</button>' : ''}
 <label>Graphics quality <select data-set="quality">${['auto', 'ultra', 'high', 'medium', 'low'].map(x => `<option value="${x}"${x === q ? ' selected' : ''}>${x[0].toUpperCase() + x.slice(1)}</option>`).join('')}</select></label>
 <label>Mouse / touch look sensitivity <input type="range" data-set="sens" min="0.3" max="2.5" step="0.05" value="${sens}"></label>
 <label class="cb"><input type="checkbox" data-set="invert"${this.input.invertY ? ' checked' : ''}> Invert vertical look</label>
@@ -2240,10 +2252,12 @@ ${['menu', 'drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa=
     }
     toggleConditions(open = !this.condOpen, { any = false } = {}) {
         const el = document.getElementById('cond-panel'); if (!el) { this.condOpen = false; return; }
-        if (open && !['menu', 'drive', 'foot'].includes(this.state)) return;
+        if (open && !['menu', 'drive', 'foot', 'spot'].includes(this.state)) return;
         if (open && this.mapOpen) this.toggleMap(false);
         this.condOpen = !!open; el.classList.toggle('show', this.condOpen); document.body.classList.toggle('cond-open', this.condOpen);
         if (this.condOpen) {
+            if (typeof this.spot?.cancelActivities === 'function') this.spot.cancelActivities('conditions');
+            else this.spot?.spot?.ctx?.extras?.venueActivities?.cancel('conditions');
             this.input.releaseLock(); this.input.lookAllowed = false; this.input.flush();
             if (this.player) this.player.speed *= 0.2;
             if (this.state === 'menu') $('#menu').inert = true;
@@ -2257,7 +2271,10 @@ ${['menu', 'drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa=
         const h0 = localHours(new Date(), c.timeZone); c.offsetMs = (((h - h0) % 24 + 24) % 24) * 3600e3;
         if (this.state === 'menu') this._menuTod = 'h' + h;
         if (this.freeRoam) this.freeRoam.tod = 'h' + h;
-        this.updateClock(0); this.traffic?.setHour(this.trafficHours(), true); this.syncConditions();
+        this.updateClock(0);
+        if (this.state === 'spot') this.spot?.setConditions?.({ date: this.nowDate(), override: c.override, timeZone: c.timeZone });
+        else this.traffic?.setHour(this.trafficHours(), true);
+        this.syncConditions();
     }
     setRoamTime(tod) {
         if (/^h\d/.test(tod)) return this.setRoamHour(Number(tod.slice(1)));
@@ -2266,16 +2283,25 @@ ${['menu', 'drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa=
         const c = this.clock; c.offsetMs = 0; c.override = tod === 'golden' ? 'sunset' : ['dusk', 'night', 'day'].includes(tod) ? tod : null;
         if (this.state === 'menu') this._menuTod = tod;
         if (this.freeRoam) this.freeRoam.tod = tod;
-        this.updateClock(0); this.traffic?.setHour(this.trafficHours(), true); this.syncConditions();
+        this.updateClock(0);
+        if (this.state === 'spot') this.spot?.setConditions?.({ date: this.nowDate(), override: c.override, timeZone: c.timeZone });
+        else this.traffic?.setHour(this.trafficHours(), true);
+        this.syncConditions();
     }
     setRoamWeather(w) {
         if (this.freeRoam) this.freeRoam.weather = w;
         if (this.state === 'menu') this.weatherOverride = WEATHER_OVERRIDES.includes(w) ? w : null; // no live request before a place is loaded
         else this.setWeatherOverride(w === 'live' ? null : w);
+        if (this.state === 'spot') this.spot?.setConditions?.({ weather: w });
         if (this.traffic && w !== 'live') this.traffic.weatherKind = w;
         this.syncConditions();
     }
-    setRoamSeason(s) { if (this.freeRoam) this.freeRoam.season = s; this.r3d.setSeason?.(s === 'auto' ? null : s); this.syncConditions(); }
+    setRoamSeason(s) {
+        if (this.freeRoam) this.freeRoam.season = s;
+        if (this.state === 'spot' && typeof this.spot?.setConditions === 'function') this.spot.setConditions({ season: s });
+        else this.r3d.setSeason?.(s === 'auto' ? null : s);
+        this.syncConditions();
+    }
     syncConditions() {
         const selected = this.travelConditions(), tod = ({ 'h6.5': 'dawn', 'h8.5': 'rush', 'h12.5': 'noon' })[selected.tod] || selected.tod;
         const time = $('#timeofday'), value = ({ now: 'real', golden: 'sunset' })[tod] || tod;
@@ -2298,7 +2324,7 @@ ${['menu', 'drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa=
                 const on = b.dataset[key] === value; b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on));
             }
         }
-        el.querySelector('[data-cond-note]').textContent = this.state === 'menu' ? 'Applies to New story and world-map starts · Continue restores saved conditions' : 'Traffic follows the hour · game paused';
+        el.querySelector('[data-cond-note]').textContent = this.state === 'menu' ? 'Applies to New story and world-map starts · Continue restores saved conditions' : this.state === 'spot' ? 'Local scene conditions · activity paused' : 'Traffic follows the hour · game paused';
     }
     // ---------------------------------------------------------------------------------- chapters (spec 10)
     renderMenuChapters() {

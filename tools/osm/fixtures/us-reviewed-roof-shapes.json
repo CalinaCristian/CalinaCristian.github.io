@@ -1,0 +1,653 @@
+{
+  "source": "Original OSM ways and courtyard relation retained verbatim. First two aerial records are independent Esri visual roof classifications, reviewed 2026-11-08, imagery acquisition date unknown. Last two aerial records are deliberately conflicting regression inputs, not real-world measurements. No Google attributes.",
+  "aerial": {
+    "roofs": {
+      "31538842": [
+        "hipped",
+        0.9,
+        "#999999",
+        100
+      ],
+      "111868853": [
+        "gabled",
+        0.85,
+        "#a8877b",
+        2264
+      ],
+      "192567190": [
+        "flat",
+        0.9,
+        "#999999",
+        100
+      ],
+      "210912230": [
+        "hipped",
+        0.58,
+        "#7e6757",
+        315
+      ]
+    }
+  },
+  "expected": {
+    "w111868853": "gabled",
+    "w210912230": "hipped",
+    "w31538842": "flat",
+    "w192567190": "gabled"
+  },
+  "nodes": [
+    {
+      "id": 1273631792,
+      "coordinates": [
+        47.6154442,
+        -122.1831251
+      ]
+    },
+    {
+      "id": 1273631802,
+      "coordinates": [
+        47.6154421,
+        -122.1821323
+      ]
+    },
+    {
+      "id": 1273631799,
+      "coordinates": [
+        47.6150763,
+        -122.182134
+      ]
+    },
+    {
+      "id": 1273631786,
+      "coordinates": [
+        47.6150769,
+        -122.1823842
+      ]
+    },
+    {
+      "id": 1273631778,
+      "coordinates": [
+        47.615226,
+        -122.1823835
+      ]
+    },
+    {
+      "id": 1273631803,
+      "coordinates": [
+        47.6152269,
+        -122.1828028
+      ]
+    },
+    {
+      "id": 1273631771,
+      "coordinates": [
+        47.6151691,
+        -122.182803
+      ]
+    },
+    {
+      "id": 1273631783,
+      "coordinates": [
+        47.6151698,
+        -122.1831264
+      ]
+    },
+    {
+      "id": 2209433766,
+      "coordinates": [
+        47.623866,
+        -122.1907504
+      ]
+    },
+    {
+      "id": 2209433765,
+      "coordinates": [
+        47.623866,
+        -122.1903811
+      ]
+    },
+    {
+      "id": 2209433757,
+      "coordinates": [
+        47.6237639,
+        -122.1903811
+      ]
+    },
+    {
+      "id": 2209433758,
+      "coordinates": [
+        47.6237639,
+        -122.1907504
+      ]
+    },
+    {
+      "id": 2985009871,
+      "coordinates": [
+        47.6105408,
+        -122.1985332
+      ]
+    },
+    {
+      "id": 14090535015,
+      "coordinates": [
+        47.610412,
+        -122.1985233
+      ]
+    },
+    {
+      "id": 7700536230,
+      "coordinates": [
+        47.610403,
+        -122.198523
+      ]
+    },
+    {
+      "id": 2986971588,
+      "coordinates": [
+        47.6104041,
+        -122.1984554
+      ]
+    },
+    {
+      "id": 2986971586,
+      "coordinates": [
+        47.6103125,
+        -122.1984467
+      ]
+    },
+    {
+      "id": 352930711,
+      "coordinates": [
+        47.6103172,
+        -122.1982838
+      ]
+    },
+    {
+      "id": 7700536229,
+      "coordinates": [
+        47.6104888,
+        -122.1982969
+      ]
+    },
+    {
+      "id": 2985009870,
+      "coordinates": [
+        47.6105498,
+        -122.1983
+      ]
+    },
+    {
+      "id": 2031158512,
+      "coordinates": [
+        47.6102571,
+        -122.2042698
+      ]
+    },
+    {
+      "id": 7853507259,
+      "coordinates": [
+        47.6102576,
+        -122.2043727
+      ]
+    },
+    {
+      "id": 2031158514,
+      "coordinates": [
+        47.610258,
+        -122.2044728
+      ]
+    },
+    {
+      "id": 2031158585,
+      "coordinates": [
+        47.6104068,
+        -122.2044721
+      ]
+    },
+    {
+      "id": 2031158565,
+      "coordinates": [
+        47.6104057,
+        -122.204271
+      ]
+    },
+    {
+      "id": 5446252630,
+      "coordinates": [
+        47.618156,
+        -122.1927349
+      ]
+    },
+    {
+      "id": 385629521,
+      "coordinates": [
+        47.6181629,
+        -122.1934315
+      ]
+    },
+    {
+      "id": 5446252628,
+      "coordinates": [
+        47.6181256,
+        -122.1934324
+      ]
+    },
+    {
+      "id": 5003893677,
+      "coordinates": [
+        47.618126,
+        -122.1934744
+      ]
+    },
+    {
+      "id": 385629524,
+      "coordinates": [
+        47.6176202,
+        -122.1934869
+      ]
+    },
+    {
+      "id": 385629526,
+      "coordinates": [
+        47.6176199,
+        -122.1934446
+      ]
+    },
+    {
+      "id": 7658248554,
+      "coordinates": [
+        47.6175853,
+        -122.1934453
+      ]
+    },
+    {
+      "id": 7658248555,
+      "coordinates": [
+        47.617585,
+        -122.1934317
+      ]
+    },
+    {
+      "id": 385629528,
+      "coordinates": [
+        47.6175434,
+        -122.1934324
+      ]
+    },
+    {
+      "id": 385629530,
+      "coordinates": [
+        47.6175374,
+        -122.1928614
+      ]
+    },
+    {
+      "id": 5623617696,
+      "coordinates": [
+        47.6175546,
+        -122.1928616
+      ]
+    },
+    {
+      "id": 5623617698,
+      "coordinates": [
+        47.6175536,
+        -122.1927189
+      ]
+    },
+    {
+      "id": 5623617697,
+      "coordinates": [
+        47.6175837,
+        -122.1927202
+      ]
+    },
+    {
+      "id": 5446252629,
+      "coordinates": [
+        47.6175838,
+        -122.1926924
+      ]
+    },
+    {
+      "id": 7658248546,
+      "coordinates": [
+        47.6176031,
+        -122.1926922
+      ]
+    },
+    {
+      "id": 7658248547,
+      "coordinates": [
+        47.6176033,
+        -122.1927089
+      ]
+    },
+    {
+      "id": 7658248548,
+      "coordinates": [
+        47.6177181,
+        -122.1927036
+      ]
+    },
+    {
+      "id": 7658248549,
+      "coordinates": [
+        47.6177182,
+        -122.192725
+      ]
+    },
+    {
+      "id": 7658248550,
+      "coordinates": [
+        47.6177558,
+        -122.1927239
+      ]
+    },
+    {
+      "id": 7658248551,
+      "coordinates": [
+        47.6177555,
+        -122.1927068
+      ]
+    },
+    {
+      "id": 7658248552,
+      "coordinates": [
+        47.6178713,
+        -122.1927036
+      ]
+    },
+    {
+      "id": 7658248553,
+      "coordinates": [
+        47.6178714,
+        -122.1927143
+      ]
+    },
+    {
+      "id": 7658248545,
+      "coordinates": [
+        47.6180674,
+        -122.1927146
+      ]
+    },
+    {
+      "id": 7658248544,
+      "coordinates": [
+        47.6180673,
+        -122.1926909
+      ]
+    },
+    {
+      "id": 7658248543,
+      "coordinates": [
+        47.6181469,
+        -122.1926906
+      ]
+    },
+    {
+      "id": 7658248542,
+      "coordinates": [
+        47.6181471,
+        -122.1927345
+      ]
+    },
+    {
+      "id": 5446252627,
+      "coordinates": [
+        47.6179856,
+        -122.1932687
+      ]
+    },
+    {
+      "id": 5446252626,
+      "coordinates": [
+        47.6179833,
+        -122.1929008
+      ]
+    },
+    {
+      "id": 5446252625,
+      "coordinates": [
+        47.6179625,
+        -122.1929013
+      ]
+    },
+    {
+      "id": 5446252624,
+      "coordinates": [
+        47.6179627,
+        -122.1929467
+      ]
+    },
+    {
+      "id": 5446252623,
+      "coordinates": [
+        47.6177709,
+        -122.1929514
+      ]
+    },
+    {
+      "id": 5446252622,
+      "coordinates": [
+        47.6177704,
+        -122.1929071
+      ]
+    },
+    {
+      "id": 5446252621,
+      "coordinates": [
+        47.6177522,
+        -122.1929075
+      ]
+    },
+    {
+      "id": 5446252420,
+      "coordinates": [
+        47.6177551,
+        -122.1932299
+      ]
+    },
+    {
+      "id": 5446252419,
+      "coordinates": [
+        47.6179675,
+        -122.1932227
+      ]
+    },
+    {
+      "id": 5446252418,
+      "coordinates": [
+        47.6179679,
+        -122.193269
+      ]
+    }
+  ],
+  "ways": [
+    {
+      "id": 111868853,
+      "nodes": [
+        1273631792,
+        1273631802,
+        1273631799,
+        1273631786,
+        1273631778,
+        1273631803,
+        1273631771,
+        1273631783,
+        1273631792
+      ],
+      "tags": {
+        "addr:city": "Bellevue",
+        "addr:housenumber": "605",
+        "addr:postcode": "98005",
+        "addr:street": "119th Avenue Northeast",
+        "building": "yes",
+        "name": "Mutual Materials",
+        "shop": "hardware"
+      }
+    },
+    {
+      "id": 210912230,
+      "nodes": [
+        2209433766,
+        2209433765,
+        2209433757,
+        2209433758,
+        2209433766
+      ],
+      "tags": {
+        "addr:city": "Bellevue",
+        "addr:housenumber": "1418",
+        "addr:postcode": "98004",
+        "addr:state": "WA",
+        "addr:street": "112th Avenue Northeast",
+        "building": "commercial"
+      }
+    },
+    {
+      "id": 31538842,
+      "nodes": [
+        2985009871,
+        14090535015,
+        7700536230,
+        2986971588,
+        2986971586,
+        352930711,
+        7700536229,
+        2985009870,
+        2985009871
+      ],
+      "tags": {
+        "building": "retail",
+        "building:levels": "2",
+        "roof:shape": "flat"
+      }
+    },
+    {
+      "id": 192567190,
+      "nodes": [
+        2031158512,
+        7853507259,
+        2031158514,
+        2031158585,
+        2031158565,
+        2031158512
+      ],
+      "tags": {
+        "addr:housenumber": "10138",
+        "addr:state": "WA",
+        "addr:street": "Main Street",
+        "building": "retail",
+        "building:levels": "2",
+        "roof:shape": "gabled"
+      }
+    },
+    {
+      "id": 33725894,
+      "nodes": [
+        5446252630,
+        385629521,
+        5446252628,
+        5003893677,
+        385629524,
+        385629526,
+        7658248554,
+        7658248555,
+        385629528,
+        385629530,
+        5623617696,
+        5623617698,
+        5623617697,
+        5446252629,
+        7658248546,
+        7658248547,
+        7658248548,
+        7658248549,
+        7658248550,
+        7658248551,
+        7658248552,
+        7658248553,
+        7658248545,
+        7658248544,
+        7658248543,
+        7658248542,
+        5446252630
+      ],
+      "tags": {
+        "addr:state": "WA"
+      }
+    },
+    {
+      "id": 565517512,
+      "nodes": [
+        5446252627,
+        5446252626,
+        5446252625,
+        5446252624,
+        5446252623,
+        5446252622,
+        5446252621,
+        5446252420,
+        5446252419,
+        5446252418,
+        5446252627
+      ],
+      "tags": {
+        "addr:state": "WA"
+      }
+    }
+  ],
+  "relation": {
+    "id": 8064670,
+    "members": [
+      {
+        "type": "way",
+        "ref": 33725894,
+        "role": "outer"
+      },
+      {
+        "type": "way",
+        "ref": 565517512,
+        "role": "inner"
+      }
+    ],
+    "tags": {
+      "addr:housenumber": "11010",
+      "addr:postcode": "98004",
+      "addr:street": "Northeast 8th Street",
+      "brand": "Courtyard",
+      "brand:wikidata": "Q1053170",
+      "building": "yes",
+      "building:levels": "5",
+      "name": "Courtyard",
+      "official_name": "Courtyard by Marriott",
+      "tourism": "hotel",
+      "type": "multipolygon",
+      "url": "http://www.marriott.com/hotels/travel/bvudt-courtyard-seattle-bellevue-downtown/",
+      "wheelchair": "yes"
+    }
+  },
+  "measurementRoles": {
+    "111868853": {
+      "role": "independent measurement",
+      "shape": "gabled",
+      "confidence": 0.85,
+      "referenceURL": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.1840,47.6144,-122.1813,47.6161&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image",
+      "riseAngleDirection": "unmeasured estimates"
+    },
+    "210912230": {
+      "role": "independent measurement",
+      "shape": "hipped",
+      "confidence": 0.58,
+      "referenceURL": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.1912,47.6233,-122.1900,47.6244&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image",
+      "riseAngleDirection": "unmeasured estimates"
+    },
+    "31538842": {
+      "role": "deliberately conflicting test input; not independent measurement"
+    },
+    "192567190": {
+      "role": "deliberately conflicting test input; not independent measurement"
+    }
+  }
+}

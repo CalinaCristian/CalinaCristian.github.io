@@ -650,7 +650,7 @@ table a {
 .compact th,.compact td {
   padding:11px 13px
 }
-.table-wrap td small {
+.table-wrap :is(td,th) small {
   display:block;
   font-size:10px;
   line-height:1.7;

@@ -3884,14 +3884,37 @@ export async function buildWorld(city, renderer, opts = {}) {
     let shoreTris = 0;
     const shoreFoam = (m) => {
         if (!WATER_API || !m.geometry) return;
-        try { const g2 = WATER_API.subdivideWater(m.geometry, 6, 60000); WATER_API.computeShoreDistance(g2, { maxD: 30, material: waterMat }); m.geometry.dispose(); m.geometry = g2; shoreTris += g2.attributes.position.count / 3; }
+        try { const g2 = WATER_API.subdivideWater(m.geometry, 6, 60000); const sd = WATER_API.computeShoreDistance(g2, { maxD: 30, material: waterMat });
+            // (after round 6) a big lake that hit the triangle cap keeps only shore vertices: distance 0 everywhere read as
+            // salt-and-pepper foam over the whole of Lake Floreasca — such a mesh gets calm open water instead
+            { let near = 0; for (let i = 0; i < sd.length; i++) if (sd[i] < 1.5) near++; if (near > sd.length * 0.6 && sd.length > 200) sd.fill(30); }
+            m.geometry.dispose(); m.geometry = g2; shoreTris += g2.attributes.position.count / 3; }
         catch (err) { console.warn('shore foam failed', err); }
     };
     const areaMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: noise, depthWrite: false }); areaMat.name = 'landuse';
     const paveMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: noise, depthWrite: false }); paveMat.name = 'paved-areas';
     const grassMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: noise, depthWrite: false }); grassMat.name = 'grass';
     const roofMat = new THREE.MeshLambertMaterial({ vertexColors: true }); roofMat.name = 'roofs';
-    const backdropMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: atlas }); backdropMat.name = 'backdrop';
+    const backdropMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: atlas, emissive: new THREE.Color('#ffc98a'), emissiveIntensity: 0 }); backdropMat.name = 'backdrop';
+    // (after round 6) the distant city keeps its lights on at night: a procedural window grid on the walls (≈ 38 % lit,
+    // warm, per-window brightness), averaged into an even glow where the cells get sub-pixel (no shimmer); render.js eases
+    // emissiveIntensity to userData.nightEmissive at night
+    backdropMat.userData.nightEmissive = 0.9;
+    backdropMat.onBeforeCompile = (sh) => {
+        sh.vertexShader = 'varying vec3 vBW;\nvarying vec3 vBN;\n' + sh.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\n\tvBW = (modelMatrix * vec4(transformed, 1.0)).xyz; vBN = normalize(mat3(modelMatrix) * objectNormal);');
+        sh.fragmentShader = 'varying vec3 vBW;\nvarying vec3 vBN;\n' + sh.fragmentShader.replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+        {   float wall = 1.0 - smoothstep(0.3, 0.6, abs(vBN.y));
+            vec2 tg = normalize(vec2(-vBN.z, vBN.x) + 1e-5);
+            vec2 cell = vec2(dot(vBW.xz, tg), vBW.y - 1.0) / vec2(3.2, 3.0);
+            vec2 id = floor(cell), f = fract(cell);
+            float h = fract(sin(dot(id + floor(vBW.xz * 0.03) * 17.0, vec2(12.9898, 78.233))) * 43758.5453);
+            float win = step(0.22, f.x) * step(f.x, 0.78) * step(0.28, f.y) * step(f.y, 0.82);
+            float lit = step(h, 0.38) * (0.6 + 0.8 * fract(h * 37.0));
+            float fw = length(fwidth(cell));
+            float m = mix(win * lit, 0.31 * 0.38, smoothstep(0.35, 0.9, fw));
+            totalEmissiveRadiance *= wall * m * step(0.0, cell.y); }`);
+    };
+    backdropMat.customProgramCacheKey = () => 'backdrop-night1';
     const signTex = signs.textures();
     const signMats = signTex.map(t => new THREE.MeshBasicMaterial({ map: t, color: '#e8e8e8', alphaTest: 0.5 }));
     // low-poly backdrop: building masses beyond the corridors (so the horizon is not empty)

@@ -61,15 +61,18 @@ export function makeWaterMaterial(o = {}) {
                         float fi = float(i), ang = fi * 1.07 + 0.4, lam = 3.4 * pow(0.7, fi);
                         vec2 dir = vec2(cos(ang), sin(ang)); float k = 6.2832 / lam, w = sqrt(9.81 * k);
                         float amp = 0.0035 * lam * uWWave; // slope ≈ 0.022 per wave: calm river / lake chop
-                        g += dir * (amp * k * cos(dot(dir, q) * k - w * t + fi * 1.7));
+                        float fw = 1.0 - smoothstep(lam * 0.12, lam * 0.4, fade); // (each wave fades out before it aliases)
+                        g += dir * (amp * k * cos(dot(dir, q) * k - w * t + fi * 1.7)) * fw;
                     }
-                    g += (wNg(q * 1.7 + t * 0.15) * 0.03 + wNg(q * 4.3 - t * 0.21) * 0.015) * uWRipple;
-                    return g * fade; }`)
+                    // the noise octaves (0.6 m / 0.23 m) fade out by their own size: from the drone they read as salt-and-
+                    // pepper sparkle over Lake Floreasca (after round 6)
+                    g += (wNg(q * 1.7 + t * 0.15) * 0.03 * (1.0 - smoothstep(0.07, 0.22, fade)) + wNg(q * 4.3 - t * 0.21) * 0.015 * (1.0 - smoothstep(0.03, 0.09, fade))) * uWRipple;
+                    return g; }`)
             .replace('#include <normal_fragment_maps>', `#include <normal_fragment_maps>
                 // ripple normal (world → view); fade with the screen-space footprint so far water stays calm, no shimmer
                 float wFp = length(fwidth(vWWorld.xz));
                 float wFade = 1.0 - smoothstep(0.08, 0.6, wFp);
-                vec2 wS = wSlope(vWWorld.xz, uWTime, wFade);
+                vec2 wS = wSlope(vWWorld.xz, uWTime, wFp); // (per-octave fades from the pixel footprint)
                 vec3 wNw = normalize(vec3(-wS.x, 1.0, -wS.y));
                 normal = normalize((viewMatrix * vec4(wNw, 0.0)).xyz);
                 // body colour: shallow near the shore, deep away from it and for steep views

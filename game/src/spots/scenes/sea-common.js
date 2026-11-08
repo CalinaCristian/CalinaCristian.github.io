@@ -561,7 +561,7 @@ export function seaNeedle({ detail = 1, cabs = true, visitorGlass = false } = {}
     // Clear visitor glazing transmits light; it is not a luminous panel or an
     // opaque shadow caster. Keep structural members casting their real shadows.
     glass.userData.nightEmissive = visitorGlass ? 0 : 0.55; glass.name = 'needle-glass';
-    const barrier = new THREE.MeshStandardMaterial({ color: '#9fb6c2', roughness: 0.04, metalness: 0.2, transparent: true, opacity: 0.28, side: THREE.DoubleSide, depthWrite: false }); barrier.name = 'needle-barrier';
+    const barrier = new THREE.MeshStandardMaterial({ color: '#9fb6c2', roughness: 0.04, metalness: 0.2, transparent: true, opacity: 0.28, side: THREE.DoubleSide, depthWrite: false }); barrier.name = 'needle-barrier'; barrier.forceSinglePass = true;
     const add = (geo, m, name) => { const me = new THREE.Mesh(geo, m); me.name = name; me.castShadow = detail >= 1 && !(visitorGlass && m.transparent); me.receiveShadow = detail >= 1; grp.add(me); return me; };
     const b = new GeoBatch();
     // ---- legs: three pairs; leg centre radius r(y) and pair half-gap d(y)

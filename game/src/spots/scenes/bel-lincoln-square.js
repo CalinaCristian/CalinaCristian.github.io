@@ -9,12 +9,11 @@
 //  holiday lights in the trees (late Nov – early Jan), the remaining skybridges
 //  (Bellevue Square ↔ garage, Bellevue Place), the Bellevue Square pylon.
 //  UiPath (Lincoln Square North, 700 Bellevue Way NE, Suite 2000, since Sept
-//  2025 — the game's final CV chapter): street lobby entrance + tenant
-//  directory; badge in and ride up to an illustrative open-plan floor at level
-//  20 with the view west over Bellevue Square to Lake Washington (the real
-//  suite is not public — owner to confirm the look).
+//  2025 — the game's final CV chapter). The office is private. The visitor
+//  activity frames the documented tower and skybridge from the sidewalk.
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
+import { photoHunt } from '../photo-hunt.js';
 import { GeoBatch, rng, headingFromBearing, polyBox, inPoly, distPolyline } from '../kit.js';
 import { signBoard, shopfrontSigns } from '../props.js';
 import { seattleBackdrop } from '../backdrop.js';
@@ -80,36 +79,15 @@ export default {
         }
         let season = false; seasonal(ctx, [11, 20], [1, 6], (on) => { season = on; });
         fairyLights(ctx, holiday, { on: () => season, name: 'bellevue-collection-holiday-lights' });
-        // ---------------------------------------------------------------- UiPath: street lobby (landmark entrance) + tenant directory + badge reader
-        const ue = sp.structures.find((s) => s.id === 'uipath-entrance'), ey = g.heightAt(ue.x, ue.z), yawE = -Math.PI / 2;
-        const dir = signBoard('700 BELLEVUE WAY NE  ·  Suite 2000  UiPath', 1.0, 1.6, { bg: '#1e2124', fg: '#eef0f2', maxLines: 6, font: (s) => `600 ${s}px "Helvetica Neue", Arial, sans-serif`, glow: 0.05, night: 1.0, ppm: 300,
-            draw: (x, w, h) => { x.fillStyle = '#fa4616'; x.fillRect(w * 0.08, h * 0.86, w * 0.84, h * 0.04); } });
-        dir.position.set(ue.x - 4.2, ey + 1.05, ue.z + 6.2); dir.rotation.y = yawE; ctx.add(dir); ctx.box(ue.x - 4.2, ue.z + 6.2, 0.5, 0.15, 0, { prop: true, h: 1.9 });
-        // illustrative UiPath floor (level 20 ≈ 80 m) inside Lincoln Square North: floor, ceiling, inner glazing, desks, reception wall
-        const tower = d.buildings.find((x) => x.id === 'w604028609')?.poly;
-        let floor = null;
-        if (tower) {
-            const ty = LMS.lincoln?.y ?? g.heightAt(55, 58), FY = ty + 9 + 18 * 3.95, tb = polyBox(tower), cx = (tb.x0 + tb.x1) / 2, cz = (tb.z0 + tb.z1) / 2;
-            const inner = tower.map(([x, z]) => [cx + (x - cx) * 0.97, cz + (z - cz) * 0.97]);
-            const fb = new GeoBatch();
-            fb.prism(inner, FY - 0.3, FY, '#5b6168', 'fabric'); fb.prism(inner, FY + 3.1, FY + 3.35, '#e9eaeb', 'paint', { bottom: true });
-            for (let i = 0; i < inner.length; i++) { const [ax, az] = inner[i], [qx, qz] = inner[(i + 1) % inner.length], L = Math.hypot(qx - ax, qz - az), ya = Math.atan2(qx - ax, qz - az); for (let t = 0; t < L; t += 3.1) fb.box(ax + (qx - ax) * t / L, FY, az + (qz - az) * t / L, 0.12, 3.1, 0.12, '#3b4148', 'metal', ya); ctx.collider({ wall: true, ax, az, bx: qx, bz: qz, y0a: FY - 1, y1a: FY + 3, y0b: FY - 1, y1b: FY + 3, nx: 0, nz: 1 }); }
-            const iglass = new THREE.MeshStandardMaterial({ color: '#c6d6df', transparent: true, opacity: 0.16, roughness: 0.05, metalness: 0.2, side: THREE.DoubleSide, depthWrite: false });
-            { const pos = [], idx = []; inner.forEach(([x, z], i) => { pos.push(x, FY, z, x, FY + 3.1, z); const j = (i + 1) % inner.length; idx.push(i * 2, j * 2, j * 2 + 1, i * 2, j * 2 + 1, i * 2 + 1); }); const gg = new THREE.BufferGeometry(); gg.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); gg.setIndex(idx); gg.computeVertexNormals(); const m = new THREE.Mesh(gg, iglass); m.name = 'suite-glazing'; ctx.add(m); }
-            for (let k = 0; k < 10; k++) { const x = cx - 14 + (k % 5) * 6.5, z = cz + (k < 5 ? 8 : 16); fb.box(x, FY, z, 3.2, 0.74, 1.5, '#d9d4cb', 'wood'); fb.box(x - 0.6, FY + 0.74, z - 0.3, 0.6, 0.38, 0.04, '#1b1e22', 'darkglass'); fb.box(x + 0.6, FY + 0.74, z - 0.3, 0.6, 0.38, 0.04, '#1b1e22', 'darkglass'); ctx.box(x, z, 1.6, 0.75, 0, { prop: true, h: 0.75, y: FY }); }
-            fb.box(cx + 2, FY, cz - 6, 12, 3.1, 1.2, '#273139', 'paint'); // core / reception wall (elevators behind)
-            ctx.box(cx + 2, cz - 6, 6, 0.6, 0, { y0: FY - 1, y1: FY + 3.2 });
-            ctx.add(fb.build('uipath-floor'));
-            g.addPoly(inner, FY, FY - 2);
-            const logo = glowText('UiPath', 3.2, 0.9, { fg: '#fa4616', font: (s) => `700 ${s}px "Helvetica Neue", Arial, sans-serif`, night: 1.4, day: 0.5 }); logo.position.set(cx + 2, FY + 1.9, cz - 5.38); ctx.add(logo);
-            const tag = glowText('Suite 2000 · Bellevue product & engineering hub', 4.5, 0.25, { fg: '#e9edf0', night: 1, day: 0.4 }); tag.position.set(cx + 2, FY + 1.2, cz - 5.38); ctx.add(tag);
-            const lights = nightLit('#fff6e8', 1.4, { base: '#f4f4f2', day: 0.6, name: 'suite-ceiling' }); for (let k = 0; k < 6; k++) { const m = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.04, 0.6), lights); m.position.set(cx - 12 + (k % 3) * 12, FY + 3.08, cz + 4 + Math.floor(k / 3) * 12); ctx.add(m); }
-            floor = { y: FY, at: { x: cx + 2, z: cz - 3 }, view: { x: tb.x0 + 3, z: cz } };
-        }
-        ctx.interactables.push({ kind: 'badge', x: ue.x - 2.6, z: ue.z, r: 3, label: 'Badge in at UiPath — elevator to Suite 2000',
-            use: (s) => { s.sound.play('chime'); emitActivity(s, 'bel-lincoln-square', 'badge-in', '🪪 Badge accepted', 'UiPath Bellevue — product & engineering hub since Sept 2025. Final chapter: Principal Engineer (2025).'); window.cvTelemetry?.track?.('spot_uipath_badge', {});
-                if (floor) { s.ctl.y = floor.y + 0.5; s.ctl.teleport(floor.view.x + 4, floor.at.z + 6, headingFromBearing(270)); s.ui.toast('🛗 Level 20', 'Looking west over Bellevue Square to Lake Washington and Seattle. (Illustrative floor — the real suite is not public.)'); } } });
-        if (floor) ctx.interactables.push({ kind: 'elevator', x: floor.at.x, z: floor.at.z, r: 2.5, y: floor.y, label: 'Elevator down to the lobby', use: (s) => { s.ctl.y = ey + 1; s.ctl.teleport(ue.x - 4, ue.z, headingFromBearing(270)); } });
+        // The office address is documented; its private floor and physical
+        // tenant-directory design are not. Keep the activity on the sidewalk.
+        const ue = sp.structures.find(s => s.id === 'uipath-entrance');
+        const tower = LMS.lincoln, towerSource=d.buildings.find(b=>b.id==='w604028609'), towerBounds=towerSource&&polyBox(towerSource.poly), tx=towerBounds?(towerBounds.x0+towerBounds.x1)/2:tower?.x, tz=towerBounds?(towerBounds.z0+towerBounds.z1)/2:tower?.z;
+        if(tower)photoHunt(ctx,{x:-2,z:2,title:'Lincoln Square camera challenge',unavailable:'Suite 2000 is private; interior access is unavailable.',targets:[
+            {label:'Lincoln Square North: the office tower',x:tx,y:tower.y+60,z:tz,radius:9},
+            {label:'The west end of the Bellevue Way skybridge',x:3,y:g.heightAt(3,96.4)+8.25,z:96.4,radius:2},
+            {label:'Lincoln Square North: the crown',x:tx,y:tower.y+123,z:tz,radius:7},
+        ],onDone:s=>emitActivity(s,'bel-lincoln-square','badge-in','📷 Lincoln Square details','You framed the office tower, public skybridge and crown from the public approach.')});
         // ---------------------------------------------------------------- Bellevue Collection wayfinding pylon, Bellevue Square entrance
         const pyl = signBoard('THE BELLEVUE COLLECTION', 0.9, 3.2, { bg: '#1d2b36', fg: '#e8e3d6', maxLines: 4, font: (s) => `600 ${s}px Georgia, serif`, ppm: 220, night: 0.8 }); pyl.position.set(4, g.heightAt(4, 40) + 1.7, 40); pyl.rotation.y = Math.PI / 2; ctx.add(pyl); ctx.box(4, 40, 0.2, 0.5, 0, { prop: true, h: 3.4 });
         ctx.add(b.build('lincoln-streetscape'));

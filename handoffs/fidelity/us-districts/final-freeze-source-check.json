@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+  "checkedAt": "2026-11-08T21:41:08.430043+00:00",
+  "scope": "Every whole eligible source building body in exact core plus 600 m ring and all physical/core/scenery source road geometry. Independent source facts only; not photographic identity or measured physical heights for untagged bodies.",
+  "tools": {
+    "tools/osm/building-audit.py": "019718cb78983377677f200355385da88892c2ea3f8dc2f1f89e82fff6bbab4d",
+    "tools/osm/road-source-audit.mjs": "39286aad9e1068cbeb32ca2d1d58a664b29791660beebdbc004e8b396785f146",
+    "tools/osm/road-audit-geometry.mjs": "db99e87b240ff90c63072589b597f325a8ee0cf3afa5af900871f59802bc03e8"
+  },
+  "districts": [
+    {
+      "district": "seatac",
+      "datasetSha256": "3c36cd6dc569eb172936f730464d263943380354c8bc444c254f9de6f62c6171",
+      "bodies": 1858,
+      "relations": 10,
+      "buildingFailures": {
+        "identityPresent": 0,
+        "topologyMatches": 0,
+        "literalHeightMatches": 0,
+        "literalMinimumMatches": 0,
+        "storeysMatch": 0
+      },
+      "maximumBoundaryErrorM": 7e-05,
+      "physicalRoads": 732,
+      "sceneryPieces": 850,
+      "roadIssues": [],
+      "visibleRingMissingWays": 0,
+      "visibleRingMissingVertices": 0,
+      "sourceBuildingLedgerSha256": "1941f950e66eef054161a5455171054e658ac95c9cfd2ff26c44b4a80ad3119e",
+      "sourceRoadLedgerSha256": "15d316a66904d7692c51c9cefcdf6e456f6972ef1e956c6568a0f0eeecad3317",
+      "building-source-auditPath": "handoffs/fidelity/us-districts/seatac/building-source-audit.json",
+      "building-source-auditSha256": "1c3aee825f99d1cfc18c900cd665079761e8ff7182cfc51bb7526fa3039bd491",
+      "road-source-extended-auditPath": "handoffs/fidelity/us-districts/seatac/road-source-extended-audit.json",
+      "road-source-extended-auditSha256": "15d316a66904d7692c51c9cefcdf6e456f6972ef1e956c6568a0f0eeecad3317"
+    },
+    {
+      "district": "bellevue",
+      "datasetSha256": "24c27cbd160167836c254a1b6eafbeeb569df9744faf936d52892a9747a9fe46",
+      "bodies": 1197,
+      "relations": 23,
+      "buildingFailures": {
+        "identityPresent": 0,
+        "topologyMatches": 0,
+        "literalHeightMatches": 0,
+        "literalMinimumMatches": 0,
+        "storeysMatch": 0
+      },
+      "maximumBoundaryErrorM": 7e-05,
+      "physicalRoads": 305,
+      "sceneryPieces": 1704,
+      "roadIssues": [],
+      "visibleRingMissingWays": 0,
+      "visibleRingMissingVertices": 0,
+      "sourceBuildingLedgerSha256": "a46000ee2b86ce3e8ab1cf33c0d556e9f0d653ab2f1e21531628e2d45db0d973",
+      "sourceRoadLedgerSha256": "5b106820049a176630216d4c65c25b9848378345cf5029801ef1ba2121167546",
+      "building-source-auditPath": "handoffs/fidelity/us-districts/bellevue/building-source-audit.json",
+      "building-source-auditSha256": "e63c68d498bf03feccffe90d3fdf9cd06c085552c9078dd45450dfbf804b5787",
+      "road-source-extended-auditPath": "handoffs/fidelity/us-districts/bellevue/road-source-extended-audit.json",
+      "road-source-extended-auditSha256": "5b106820049a176630216d4c65c25b9848378345cf5029801ef1ba2121167546"
+    }
+  ],
+  "replayCommands": [
+    "python3 tools/osm/building-audit.py --data <frozen-root>/game/data/seattle-<district>.json --osm <raw-OSM-tiles> --roofs game/research/roofs-seattle-<district>.json --out <output>",
+    "node tools/osm/road-source-audit.mjs --data <frozen-root>/game/data/seattle-<district>.json --osm <raw-OSM-directory>"
+  ]
+}

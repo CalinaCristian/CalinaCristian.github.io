@@ -2409,7 +2409,10 @@ function bRosetti(b) {
     b.wall = W;
     b.prism(p, 0, 11.3, W, { top: false });
     b.prism(offset(p, 0.06), 0, 0.55, '#a7a49b', { top: false });                             // plinth
-    for (const [y0, h] of [[0.35, 1.0], [3.95, 1.0], [7.55, 1.0]]) b.windows(p, y0, y0 + 3.6, 3.6, OR, { bay: 3.4, wf: 0.36, hf: h / 3.6, start: 0, minL: 4, off: 0.06 });   // orange spandrel panels
+    // (after round 6, owner: "looks bad") no orange panel under every window: cream render with string courses between the
+    // floors, white frames, a soft terracotta band at the plinth only
+    for (const y of [3.75, 7.35]) b.prism(offset(p, 0.05), y, y + 0.22, '#d6c9a4', { top: false });               // string courses
+    b.prism(offset(p, 0.07), 0.55, 1.05, '#c78a63', { top: false });                                             // terracotta base band
     b.windows(p, 1.35, 11.3, 3.6, FR, { bay: 3.4, wf: 0.36, hf: 0.42, start: 0, minL: 4, off: 0.08 });          // white frames
     b.windows(p, 1.35, 11.3, 3.6, GL, { bay: 3.4, wf: 0.3, hf: 0.36, start: 0.1, minL: 4, off: 0.11, mat: 'g' }); // glazing
     // low red standing-seam hipped roof with eaves (over the U plan)
@@ -2421,6 +2424,27 @@ function bRosetti(b) {
     entrance(b, { x: f.x + f.nx * 3.2, z: f.z + f.nz * 3.2, nx: f.nx, nz: f.nz }, { w: 1.8, h: 2.5, frame: '#ece9e2', door: '#7a8a92', plate: { w: 1.2, h: 0.7, y: 1.2, bg: '#1d4f91', lines: [['LICEUL TEORETIC', 0.08, '#ffffff'], ['C.A. ROSETTI', 0.13, '#ffffff']] } });
     { const x = f.x + f.nx * 3.4 - f.nz * 1.6, z = f.z + f.nz * 3.4 + f.nx * 1.6; b.cyl(x, 2.6, z, 0.03, 0.03, 1.8, '#d8d8d8', 5, { rz: 0.5 }); flag(b, x + 0.4, 4.4, z, 1.1); }
     b.colPoly([p], 8);
+    // school grounds (OSM w253216276): fenced yard — iron bars on a low concrete plinth, the gate on Garibaldi in front of
+    // the entrance — with an asphalt sports court north of the building (research: "school yard with fence and gate on
+    // Garibaldi"; OSM has no barrier mapped). Owner note after round 6.
+    const G = pts([-32.1, 33.3, -29.3, 20.5, -61.1, 12.4, -56.6, -5.2, -78.1, -10.1, -71.1, -37, -45.8, -31.2, -34.3, -74.7, -28.7, -94.3, -8.8, -89.6, -1.2, -121.5, 53.8, -156.9, 67.7, -154.4, 60.2, -119.4, 24.1, 46]);
+    const gx = f.x + f.nx * 12, gz = f.z + f.nz * 12; // the gate: where the entrance axis meets the fence
+    for (let i = 0; i < G.length; i++) {
+        const [ax, az] = G[i], [bx, bz] = G[(i + 1) % G.length], L = Math.hypot(bx - ax, bz - az), ux = (bx - ax) / L, uz = (bz - az) / L, ry = Math.atan2(-uz, ux);
+        // gap for the gate (5 m) on the segment closest to the entrance axis
+        const t0 = Math.max(0, Math.min(L, (gx - ax) * ux + (gz - az) * uz)), dg = Math.hypot(ax + ux * t0 - gx, az + uz * t0 - gz);
+        const runs = dg < 9 ? [[0, t0 - 2.5], [t0 + 2.5, L]] : [[0, L]];
+        for (const [s0, s1] of runs) { if (s1 - s0 < 0.5) continue; const l = s1 - s0, cx = ax + ux * (s0 + l / 2), cz = az + uz * (s0 + l / 2);
+            b.box(cx, 0, cz, l, 0.45, 0.28, '#a9a59c', { ry });                                                     // plinth
+            b.box(cx, 1.95, cz, l, 0.06, 0.06, '#2e3438', { ry }); b.box(cx, 0.75, cz, l, 0.05, 0.05, '#2e3438', { ry });   // rails
+            for (let t = s0 + 0.2; t < s1; t += 0.42) b.box(ax + ux * t, 0.45, az + uz * t, 0.035, 1.6, 0.035, '#2e3438', { ry });
+            for (let t = s0; t <= s1 + 0.01; t += 2.6) b.box(ax + ux * Math.min(t, s1), 0, az + uz * Math.min(t, s1), 0.12, 2.1, 0.12, '#2e3438', { ry }); // posts
+            b.colSeg(ax + ux * s0, az + uz * s0, ax + ux * s1, az + uz * s1, 0.2); }
+        if (dg < 9) for (const sg of [-1, 1]) { const px = ax + ux * (t0 + sg * 2.5), pz = az + uz * (t0 + sg * 2.5); b.box(px, 0, pz, 0.45, 2.4, 0.45, '#cfc8b8', { ry }); } // gate pillars
+    }
+    { const cx = 12, cz = -78, ry = -0.21; b.box(cx, 0.02, cz, 30, 0.04, 17, '#4a4d50', { ry });                           // asphalt court
+      for (const [w, d, dx, dz] of [[28, 0.12, 0, -7.5], [28, 0.12, 0, 7.5], [0.12, 15, -14, 0], [0.12, 15, 14, 0], [0.12, 15, 0, 0]]) { const c = Math.cos(ry), sn = Math.sin(ry); b.box(cx + dx * c + dz * sn, 0.05, cz - dx * sn + dz * c, w, 0.02, d, '#f1efe8', { ry }); }
+      for (const sg of [-1, 1]) { const c = Math.cos(ry), sn = Math.sin(ry), x = cx + sg * 13.2 * c, z = cz - sg * 13.2 * sn; b.box(x, 0, z, 0.12, 3.05, 0.12, '#d9d9d9', { ry }); b.box(x - sg * 0.5 * c, 2.9, z + sg * 0.5 * sn, 0.05, 1.05, 1.8, '#f4f4f4', { ry }); } } // basketball posts + boards
 }
 
 // BOB / "BOB Tower" (Globalworth, Bd. Dimitrie Pompeiu 6A, 2008; DB Global Technology 2017 CV stop) — OSM w55450549;

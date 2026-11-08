@@ -77,6 +77,9 @@ export const SPOTS = SPOTS_ALL.filter((s) => s.ready || showAll);
 export const spotById = (id) => SPOTS_ALL.find((s) => s.id === id) || DEV_SPOTS.find((s) => s.id === id) || null;
 
 const DATA_URL = (scene) => new URL(`../../data/spots/${scene}.json`, import.meta.url).href;
+// extra city-wide crowd lines + culture tips shared with the city on foot (data/dialogue.json, after round 6)
+let _extraTalk = null;
+export const extraDialogue = () => (_extraTalk ??= fetch(new URL('../../data/dialogue.json', import.meta.url).href).then((r) => (r.ok ? r.json() : {})).catch(() => ({})));
 const STORE = 'dmcv.spots.v1';
 export function spotProgress() { try { return JSON.parse(localStorage.getItem(STORE) || '{}'); } catch { return {}; } }
 function saveProgress(p) { try { localStorage.setItem(STORE, JSON.stringify(p)); } catch { /* private mode */ } }
@@ -191,10 +194,13 @@ export async function loadSpot(id, renderer = null, opts = {}) {
     const entry = spotById(id); if (!entry) throw new Error('unknown spot ' + id);
     const sceneId = entry.scene || id;
     opts.onProgress?.('Loading ' + entry.name + '…');
-    const [data, mod] = await Promise.all([
+    const [data, mod, xtra] = await Promise.all([
         opts.data ? Promise.resolve(opts.data) : fetch(DATA_URL(sceneId)).then((r) => { if (!r.ok) throw new Error(`spot data ${sceneId}: HTTP ${r.status}`); return r.json(); }),
-        import(`./scenes/${sceneId}.js`),
+        import(`./scenes/${sceneId}.js`), extraDialogue(),
     ]);
+    { const X = xtra?.[data.city === 'bucharest' ? 'bucharest' : 'seattle']; if (X && !data._xtra) { data._xtra = true; // (spot JSONs are cached by the host: merge once)
+        data.dialogueGeneral = { ...(data.dialogueGeneral || {}), lines: [...(data.dialogueGeneral?.lines || []), ...(X.lines || []).filter((l) => l.ctx !== 'street' && l.src !== 'spots')] };
+        data.talkTips = X.culture || []; } } // (player-facing tips: the spots' own `culture` notes are writing guidance for the lines)
     const tFetch = performance.now();
     const ctx = new SceneContext(data, id);
     if (opts.legacyGround) { ctx.ground.pendingConform = null; ctx.ground._settled = true; } // dev A/B: the pre-round-5 raw DEM ground
@@ -388,6 +394,16 @@ export class SpotSession {
             this._guideIt = { kind: 'guide', x: this.guide.x, z: this.guide.z, r: 2.6, label: (s) => (s.tour?.state === 'done' ? 'Thanks for the tour!' : s.tour ? 'Tour guide — follow the flag' : 'Join the free guided tour'), use: (s) => { if (!s.tour) s.startTour(); } };
             S.interactables.push(this._guideIt);
         }
+        // E — talk to people (after round 6): the nearest person in front of the player within reach stops, turns and
+        // answers (greeting → this place → a local custom as a tip → small talk), see Crowd.talkTo
+        if (S.crowd) {
+            const talk = { kind: 'talk', r: 2.6, ped: null, get x() { return this.ped ? this.ped.x : 1e9; }, get z() { return this.ped ? this.ped.z : 1e9; },
+                cond: (s) => { const c = s.ctl, fx = -Math.sin(c.heading), fz = -Math.cos(c.heading); let best = null, bd = 2.4;
+                    for (const q of S.crowd.peds) { if (q.hidden || q.driven || q === s.guide) continue; const dx = q.x - c.x, dz = q.z - c.z, d = Math.hypot(dx, dz); if (d < bd && d > 0.2 && (dx * fx + dz * fz) / d > 0.35 && Math.abs((q.y ?? c.y) - c.y) < 1.6) { bd = d; best = q; } }
+                    talk.ped = best; return !!best; },
+                label: () => `Talk to ${Crowd.whoLabel(talk.ped)}`, use: (s) => s.talkTo(talk.ped) };
+            S.interactables.push(talk);
+        }
         this._refreshMarkers();
     }
     _refreshMarkers() {
@@ -408,6 +424,15 @@ export class SpotSession {
         await this.ui.showMap(this.map, { title: this.spot.name, items, tour: this.guide && !this.tour ? { label: '🚩 Start the guided tour', run: () => this.startTour() } : null });
         if (this.input) { this.input.lookAllowed = true; this.input.flush?.(); this.input.keys?.clear?.(); }
         this.returnFocus();
+    }
+    /** E on a person: their answer in a bubble, a local custom as a tip now and then */
+    talkTo(ped) {
+        if (!ped || !this.spot.crowd) return;
+        const D = this.spot.ctx.data, cult = D.talkTips || [], { line, tip } = this.spot.crowd.talkTo(ped, this.ctl, cult);
+        if (tip) { let n = String(tip.note || ''); if (n.length > 230) n = n.slice(0, n.lastIndexOf('. ', 230) > 80 ? n.lastIndexOf('. ', 230) + 1 : 230) + (n.lastIndexOf('. ', 230) > 80 ? '' : '…'); this.ui.toast('💬 Local tip — ' + tip.topic, n); }
+        else if (!line) this.ui.toast('💬', 'They smile and nod.');
+        this._talks = (this._talks || 0) + 1;
+        try { window.dispatchEvent(new CustomEvent('dmcv:activity', { detail: { spot: this.spot.id, id: 'talk', n: this._talks } })); } catch { /* no host */ }
     }
     /** optional guided tour: the guide walks ahead with a flag to each stop (landmark → plaques → activities → postcard), narrates, ticks the checklist */
     startTour() {

@@ -1,0 +1,1145 @@
+{
+"_about": "Extra crowd dialogue (after round 6): city-wide lines {p, ctx: greeting|idle|spot|street, text, orig?, lang?, when?, wx?, season?} and culture tips, used by spot crowds (merged into dialogueGeneral) and by city pedestrians (E to talk, ambient chatter on foot).",
+"seattle": {
+"lines": [
+{
+"p": "local",
+"ctx": "greeting",
+"text": "Hey there!"
+},
+{
+"p": "local",
+"ctx": "greeting",
+"text": "Morning! Coffee yet?",
+"when": "morning"
+},
+{
+"p": "local",
+"ctx": "greeting",
+"text": "Evening — stay dry out there.",
+"when": "evening"
+},
+{
+"p": "local",
+"ctx": "greeting",
+"text": "Oh hi! Sorry, didn't see you there."
+},
+{
+"p": "tech",
+"ctx": "greeting",
+"text": "Hey — sorry, on a call in five."
+},
+{
+"p": "tech",
+"ctx": "greeting",
+"text": "Hi! Are you here for the meetup?"
+},
+{
+"p": "tourist_us",
+"ctx": "greeting",
+"text": "Hi! Do you know where the Space Needle is from here?"
+},
+{
+"p": "kid",
+"ctx": "greeting",
+"text": "Hi! Do you have a dog?"
+},
+{
+"p": "staff",
+"ctx": "greeting",
+"text": "Welcome! Let me know if you need directions."
+},
+{
+"p": "tourist_cn",
+"ctx": "greeting",
+"text": "Thank you, hello!",
+"orig": "你好！",
+"lang": "zh"
+},
+{
+"p": "tourist_jp",
+"ctx": "greeting",
+"text": "Hello! Excuse me.",
+"orig": "こんにちは！すみません。",
+"lang": "ja"
+},
+{
+"p": "tourist_es",
+"ctx": "greeting",
+"text": "Hi! Do you know a good place for coffee?",
+"orig": "¡Hola! ¿Sabes de algún buen sitio para un café?",
+"lang": "es"
+},
+{
+"p": "tourist_de",
+"ctx": "greeting",
+"text": "Hello! Lovely weather — for Seattle.",
+"orig": "Hallo! Schönes Wetter — für Seattle.",
+"lang": "de"
+},
+{
+"p": "tourist_in",
+"ctx": "greeting",
+"text": "Hello! Are you also visiting?",
+"orig": "नमस्ते! आप भी घूमने आए हैं?",
+"lang": "hi"
+},
+{
+"p": "tourist_kr",
+"ctx": "greeting",
+"text": "Hello! Nice to meet you.",
+"orig": "안녕하세요! 반가워요.",
+"lang": "ko"
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "It's not raining, it's just… Seattle."
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "Real Seattleites don't use umbrellas. Hoods only."
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "Mountain's out today — Rainier!"
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "Traffic on 405 was brutal this morning.",
+"when": "morning"
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "I've lived here ten years and still get lost in the Pike Place levels."
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "Summer here is the best-kept secret. Don't tell anyone.",
+"season": "summer"
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "The light rail finally goes to Bellevue — game changer."
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "Grabbing teriyaki for lunch. It's a Seattle thing."
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "Big Seahawks game Sunday — you watching?"
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "My ferry's at six, I can't miss it.",
+"when": "evening"
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "The drizzle keeps everything so green.",
+"wx": "rain"
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "Snow day! The whole city just stops.",
+"wx": "snow"
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "It's cold, but at least it's sunny.",
+"wx": "cold"
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "Compost goes in the green bin, recycling in the blue — they check!"
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "You can see the Olympics across the Sound on a clear day."
+},
+{
+"p": "tech",
+"ctx": "idle",
+"text": "Standup ran long again…"
+},
+{
+"p": "tech",
+"ctx": "idle",
+"text": "We ship on Thursday. Hopefully."
+},
+{
+"p": "tech",
+"ctx": "idle",
+"text": "Our team moved to Bellevue — the commute over 520 is way better now."
+},
+{
+"p": "tech",
+"ctx": "idle",
+"text": "Have you tried the new AI tools? Everyone at work is automating everything."
+},
+{
+"p": "tech",
+"ctx": "idle",
+"text": "Hybrid schedule: Tuesday to Thursday in the office."
+},
+{
+"p": "tech",
+"ctx": "idle",
+"text": "Lunch walk around the block, then back to code review."
+},
+{
+"p": "tech",
+"ctx": "idle",
+"text": "I'm in RPA — robots do the boring stuff so people don't have to."
+},
+{
+"p": "tourist_us",
+"ctx": "idle",
+"text": "First time in the Pacific Northwest — the trees are unreal."
+},
+{
+"p": "tourist_us",
+"ctx": "idle",
+"text": "We're doing Pike Place, the Needle and the ferry tomorrow."
+},
+{
+"p": "tourist_us",
+"ctx": "idle",
+"text": "Everyone here is so polite… and so quiet."
+},
+{
+"p": "kid",
+"ctx": "idle",
+"text": "Can we get a donut at the market?"
+},
+{
+"p": "kid",
+"ctx": "idle",
+"text": "I saw a seaplane land on the lake!"
+},
+{
+"p": "staff",
+"ctx": "idle",
+"text": "Busy day — cruise ship's in."
+},
+{
+"p": "staff",
+"ctx": "idle",
+"text": "Restrooms are just around the corner."
+},
+{
+"p": "tourist_cn",
+"ctx": "idle",
+"text": "This city has so many coffee shops!",
+"orig": "这个城市咖啡店好多啊！",
+"lang": "zh"
+},
+{
+"p": "tourist_cn",
+"ctx": "idle",
+"text": "Let's take a photo with the mountain behind.",
+"orig": "我们和后面的山合个影吧。",
+"lang": "zh"
+},
+{
+"p": "tourist_jp",
+"ctx": "idle",
+"text": "The first Starbucks is near here, right?",
+"orig": "スタバ1号店ってこの近くですよね？",
+"lang": "ja"
+},
+{
+"p": "tourist_jp",
+"ctx": "idle",
+"text": "The air is so clean.",
+"orig": "空気がとてもきれい。",
+"lang": "ja"
+},
+{
+"p": "tourist_es",
+"ctx": "idle",
+"text": "Bring a jacket, they said. They were right.",
+"orig": "Trae chaqueta, me dijeron. Tenían razón.",
+"lang": "es"
+},
+{
+"p": "tourist_es",
+"ctx": "idle",
+"text": "The seafood here is incredible.",
+"orig": "El marisco aquí es increíble.",
+"lang": "es"
+},
+{
+"p": "tourist_de",
+"ctx": "idle",
+"text": "So much nature right in the middle of the city.",
+"orig": "So viel Natur mitten in der Stadt.",
+"lang": "de"
+},
+{
+"p": "tourist_de",
+"ctx": "idle",
+"text": "Everyone waits for the walk signal here. Even at night.",
+"orig": "Hier warten alle auf Grün. Sogar nachts.",
+"lang": "de"
+},
+{
+"p": "tourist_in",
+"ctx": "idle",
+"text": "My cousin works at a tech company in Redmond.",
+"orig": "मेरा चचेरा भाई रेडमंड की एक टेक कंपनी में काम करता है।",
+"lang": "hi"
+},
+{
+"p": "tourist_in",
+"ctx": "idle",
+"text": "It's so quiet compared to home!",
+"orig": "घर के मुकाबले यहाँ कितनी शांति है!",
+"lang": "hi"
+},
+{
+"p": "tourist_kr",
+"ctx": "idle",
+"text": "The coffee is really good here.",
+"orig": "여기 커피 진짜 맛있어요.",
+"lang": "ko"
+},
+{
+"p": "tourist_ca",
+"ctx": "idle",
+"text": "Vancouver's just three hours north, eh."
+},
+{
+"p": "local",
+"ctx": "street",
+"text": "Walk signal's on — let's go."
+},
+{
+"p": "local",
+"ctx": "street",
+"text": "Watch out, bikes come fast down this hill."
+},
+{
+"p": "local",
+"ctx": "street",
+"text": "The bus is late again. Classic."
+},
+{
+"p": "local",
+"ctx": "street",
+"text": "Parking downtown costs more than my lunch."
+},
+{
+"p": "tech",
+"ctx": "street",
+"text": "Running late — the light rail was packed."
+},
+{
+"p": "local",
+"ctx": "street",
+"text": "Don't jaywalk here, they actually ticket you."
+},
+{
+"p": "local",
+"ctx": "street",
+"text": "Ooh, food truck Friday!"
+},
+{
+"p": "local",
+"ctx": "street",
+"text": "Is that the 545 to Redmond?"
+},
+{
+"p": "local",
+"ctx": "greeting",
+"text": "Morning.",
+"src": "spots"
+},
+{
+"p": "local",
+"ctx": "greeting",
+"text": "Hey, how's it going?",
+"src": "spots"
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "Supposed to clear up later. Probably won't.",
+"src": "spots"
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "Need another coffee. Third one's the charm.",
+"src": "spots"
+},
+{
+"p": "tech",
+"ctx": "idle",
+"text": "Standup got moved again.",
+"src": "spots"
+},
+{
+"p": "tech",
+"ctx": "idle",
+"text": "I'll grab lunch after the sync.",
+"src": "spots"
+},
+{
+"p": "tech",
+"ctx": "greeting",
+"text": "Hey. Are you new on the team?",
+"src": "spots"
+},
+{
+"p": "tech",
+"ctx": "idle",
+"text": "Taking the light rail home tonight.",
+"src": "spots"
+},
+{
+"p": "kid",
+"ctx": "idle",
+"text": "Can we get a hot chocolate?",
+"src": "spots"
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "The mountain's out today!",
+"src": "spots"
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "If you can see Rainier, it's going to rain. If you can't, it's raining.",
+"src": "spots"
+},
+{
+"p": "local",
+"ctx": "greeting",
+"text": "Nice day for it.",
+"src": "spots"
+}
+],
+"culture": [
+{
+"topic": "Tipping",
+"note": "In restaurants and bars a 18–22 % tip is expected (it is most of the server's pay); baristas and cab drivers usually get a dollar or two or 10–15 %."
+},
+{
+"topic": "The \"Seattle Freeze\"",
+"note": "Locals are friendly but reserved: small talk is polite and short, and people value personal space — it is not rudeness, just the local style."
+},
+{
+"topic": "Crossing the street",
+"note": "Pedestrians wait for the walk signal, even on empty streets; jaywalking was decriminalised in 2023 but crossing on red is still frowned upon."
+},
+{
+"topic": "Rain",
+"note": "It drizzles more than it pours (≈ 150 days of light rain a year, but less total rain than New York or Miami); most locals wear a hood instead of carrying an umbrella."
+},
+{
+"topic": "Coffee",
+"note": "Seattle is a coffee city: Starbucks was born at Pike Place in 1971, and independent espresso bars are on almost every block."
+},
+{
+"topic": "Recycling & compost",
+"note": "Seattle sorts waste three ways — recycling (blue), compost (green: food scraps and napkins) and garbage — and food waste in the garbage is not allowed."
+},
+{
+"topic": "Ferries",
+"note": "Washington State Ferries is the largest ferry system in the US; commuters ride to Bainbridge and Bremerton from Colman Dock on the waterfront."
+},
+{
+"topic": "\"The Mountain is out\"",
+"note": "Locals say it on clear days when Mount Rainier (4,392 m, ≈ 90 km south-east) appears over the city — it is hidden by clouds most of the year."
+},
+{
+"topic": "Sports",
+"note": "Seahawks (NFL) fans are the \"12th Man\"; the Mariners play baseball at T-Mobile Park and the Kraken play hockey at Climate Pledge Arena."
+},
+{
+"topic": "Bellevue",
+"note": "Across Lake Washington, Bellevue grew from a strawberry-farming town into a tech hub with its own skyline; the 2 Line light rail now links it to Redmond and Seattle."
+},
+{
+"topic": "Outdoors",
+"note": "On weekends locals head to the Cascades or the Olympics to hike and ski — talking about trails and mountain passes is a safe small-talk topic."
+},
+{
+"topic": "Native heritage",
+"note": "Seattle is named after Chief Si'ahl of the Duwamish and Suquamish peoples; you will see Coast Salish art across the city, including at the waterfront and the airport."
+}
+]
+},
+"bucharest": {
+"lines": [
+{
+"p": "local",
+"ctx": "street",
+"text": "Traffic on Calea Victoriei again…",
+"orig": "Iar e trafic pe Calea Victoriei…",
+"lang": "ro"
+},
+{
+"p": "local",
+"ctx": "street",
+"text": "Is the 41 coming? I've been waiting a quarter of an hour.",
+"orig": "Vine 41-ul? Îl aștept de-un sfert de oră.",
+"lang": "ro"
+},
+{
+"p": "local",
+"ctx": "street",
+"text": "Watch the scooters, they come from every direction!",
+"orig": "Atenție la trotinete, vin din toate părțile!",
+"lang": "ro"
+},
+{
+"p": "local",
+"ctx": "street",
+"text": "Cars parked on the sidewalk… as usual.",
+"orig": "Mașinile parcate pe trotuar… ca de obicei.",
+"lang": "ro"
+},
+{
+"p": "local",
+"ctx": "street",
+"text": "Shawarma after work?",
+"orig": "Hai la o shaorma după muncă?",
+"lang": "ro",
+"when": "evening"
+},
+{
+"p": "local_young",
+"ctx": "street",
+"text": "I'm in a hurry, I've got a meeting at ten!",
+"orig": "Mă grăbesc, am ședință la zece!",
+"lang": "ro",
+"when": "morning"
+},
+{
+"p": "local_elder",
+"ctx": "street",
+"text": "In my day there weren't this many cars.",
+"orig": "Pe vremea mea nu erau atâtea mașini.",
+"lang": "ro"
+},
+{
+"p": "local",
+"ctx": "street",
+"text": "The metro is faster, trust me.",
+"orig": "Metroul e mai rapid, crede-mă.",
+"lang": "ro"
+},
+{
+"p": "tech",
+"ctx": "street",
+"text": "I have a call with the Seattle client tonight.",
+"orig": "Am call cu clientul din Seattle diseară.",
+"lang": "ro",
+"when": "day"
+},
+{
+"p": "tech",
+"ctx": "street",
+"text": "Lunch in Floreasca?",
+"orig": "Mergem la prânz în Floreasca?",
+"lang": "ro"
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "It's raining and the underpass flooded again.",
+"orig": "Plouă și iar s-a inundat pasajul.",
+"lang": "ro",
+"wx": "rain"
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "It's so hot, it's unbearable!",
+"orig": "Ce cald e, nu se mai poate!",
+"lang": "ro",
+"wx": "hot"
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "Snow! Tomorrow nothing will move.",
+"orig": "Ninge! Mâine nu mai circulă nimic.",
+"lang": "ro",
+"wx": "snow"
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "Cold enough to freeze your ears off.",
+"orig": "Frig de-ți îngheață urechile.",
+"lang": "ro",
+"wx": "cold"
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "Have you seen how nice the Old Town is in the evening?",
+"orig": "Ai văzut ce frumos e Centrul Vechi seara?",
+"lang": "ro"
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "On Sunday we're going to the countryside, to the grandparents.",
+"orig": "Duminică mergem la țară, la bunici.",
+"lang": "ro"
+},
+{
+"p": "local_young",
+"ctx": "idle",
+"text": "I work in IT, like half the city.",
+"orig": "Lucrez în IT, ca jumătate din oraș.",
+"lang": "ro"
+},
+{
+"p": "local_young",
+"ctx": "idle",
+"text": "This weekend we're going to the mountains, to Brașov.",
+"orig": "Weekendul ăsta mergem la munte, la Brașov.",
+"lang": "ro"
+},
+{
+"p": "local_elder",
+"ctx": "idle",
+"text": "Long life to you, dear, good health!",
+"orig": "Să trăiți, maică, sănătate!",
+"lang": "ro"
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "The mărțișor is given on March 1st, don't forget!",
+"orig": "Mărțișorul se dă pe 1 martie, nu uita!",
+"lang": "ro",
+"season": "march"
+},
+{
+"p": "local",
+"ctx": "idle",
+"text": "The holidays are coming — cozonac and sarmale!",
+"orig": "Vin sărbătorile — cozonac și sarmale!",
+"lang": "ro",
+"season": "xmas"
+},
+{
+"p": "local",
+"ctx": "greeting",
+"text": "Hi! How are you?",
+"orig": "Salut! Ce mai faci?",
+"lang": "ro"
+},
+{
+"p": "local",
+"ctx": "greeting",
+"text": "Good evening!",
+"orig": "Bună seara!",
+"lang": "ro",
+"when": "evening"
+},
+{
+"p": "local",
+"ctx": "greeting",
+"text": "Good morning!",
+"orig": "Bună dimineața!",
+"lang": "ro",
+"when": "morning"
+},
+{
+"p": "local_young",
+"ctx": "greeting",
+"text": "Hey, hi!",
+"orig": "Hei, salut!",
+"lang": "ro"
+},
+{
+"p": "tech",
+"ctx": "idle",
+"text": "Finally finished the sprint.",
+"orig": "Am terminat sprintul, în sfârșit.",
+"lang": "ro"
+},
+{
+"p": "tech",
+"ctx": "idle",
+"text": "We build automations with software robots — RPA.",
+"orig": "Facem automatizări cu roboți software — RPA.",
+"lang": "ro"
+},
+{
+"p": "local_elder",
+"ctx": "greeting",
+"text": "Good day!",
+"orig": "Bună ziua!",
+"lang": "ro",
+"when": "day",
+"src": "spots"
+},
+{
+"p": "local_elder",
+"ctx": "greeting",
+"text": "Good day, young man.",
+"orig": "Ziua bună, tinere.",
+"lang": "ro",
+"when": "day",
+"src": "spots"
+},
+{
+"p": "local_elder",
+"ctx": "greeting",
+"text": "Kiss your hand... oh, sorry, good day!",
+"orig": "Sărut mâna... a, pardon, bună ziua!",
+"lang": "ro",
+"when": "day",
+"src": "spots"
+},
+{
+"p": "local_elder",
+"ctx": "greeting",
+"text": "How are you? Come to see the city?",
+"orig": "Ce mai faceți? Ați venit să vedeți orașul?",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_elder",
+"ctx": "idle",
+"text": "In my day there were only old houses here.",
+"orig": "Pe vremea mea aici erau numai case vechi.",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_elder",
+"ctx": "idle",
+"text": "So hot today, what a heatwave!",
+"orig": "Ce cald e azi, mamă, ce caniculă!",
+"lang": "ro",
+"wx": "hot",
+"src": "spots"
+},
+{
+"p": "local_elder",
+"ctx": "idle",
+"text": "The pension barely buys a loaf of bread.",
+"orig": "Pensia nu ajunge nici de-o pâine.",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_elder",
+"ctx": "idle",
+"text": "The doctor told me to walk every day.",
+"orig": "Mi-a zis doctorul să merg pe jos zilnic.",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_elder",
+"ctx": "idle",
+"text": "Tomorrow I'm going to the market, maybe I'll find good tomatoes.",
+"orig": "Mâine merg la piață, poate găsesc roșii bune.",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_elder",
+"ctx": "idle",
+"text": "These young people only look at their phones.",
+"orig": "Tinerii ăștia numai în telefon se uită.",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_elder",
+"ctx": "idle",
+"text": "My granddaughter is calling, let's see how she is.",
+"orig": "Sună nepoata, să vedem ce mai face.",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_elder",
+"ctx": "idle",
+"text": "God help us keep our health.",
+"orig": "Doamne-ajută să ținem sănătatea.",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_young",
+"ctx": "greeting",
+"text": "Hi!",
+"orig": "Salut!",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_young",
+"ctx": "greeting",
+"text": "Hey, how are you?",
+"orig": "Hey, ce faci?",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_young",
+"ctx": "greeting",
+"text": "Need help? Can I help you with something?",
+"orig": "Need help? Pot să te ajut cu ceva?",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_young",
+"ctx": "greeting",
+"text": "Welcome to Bucharest!",
+"orig": "Bun venit în București!",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_young",
+"ctx": "idle",
+"text": "Are we going to the Old Town tonight?",
+"orig": "Mergem diseară în Centrul Vechi?",
+"lang": "ro",
+"when": "evening",
+"src": "spots"
+},
+{
+"p": "local_young",
+"ctx": "idle",
+"text": "Exams next week, I'm dead.",
+"orig": "Am sesiune săptămâna viitoare, sunt mort.",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_young",
+"ctx": "idle",
+"text": "I'm taking a Bolt, not the 336 bus again.",
+"orig": "Iau un Bolt, nu mai merg cu 336.",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_young",
+"ctx": "idle",
+"text": "Did you see the traffic on Magheru?",
+"orig": "Ai văzut ce trafic e pe Magheru?",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_young",
+"ctx": "idle",
+"text": "Let's grab a shawarma after.",
+"orig": "Hai la o shaorma după.",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_young",
+"ctx": "idle",
+"text": "Found a great specialty coffee place here.",
+"orig": "Am găsit o cafenea de specialitate super aici.",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_young",
+"ctx": "idle",
+"text": "The forecast says rain, but I don't believe it.",
+"orig": "Meteo zice că plouă, dar nu cred.",
+"lang": "ro",
+"wx": "rain",
+"src": "spots"
+},
+{
+"p": "local_parent",
+"ctx": "greeting",
+"text": "Hi!",
+"orig": "Bună!",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_parent",
+"ctx": "greeting",
+"text": "Say \"good day\", sweetie.",
+"orig": "Spune \"bună ziua\", puiule.",
+"lang": "ro",
+"when": "day",
+"src": "spots"
+},
+{
+"p": "local_parent",
+"ctx": "greeting",
+"text": "Hello there!",
+"orig": "Salutare!",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_parent",
+"ctx": "idle",
+"text": "Don't run, Matei, a bike will hit you!",
+"orig": "Nu alerga, Matei, că te lovește bicicleta!",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_parent",
+"ctx": "idle",
+"text": "We get an ice cream and then go home.",
+"orig": "Luăm o înghețată și mergem acasă.",
+"lang": "ro",
+"season": "summer",
+"src": "spots"
+},
+{
+"p": "local_parent",
+"ctx": "idle",
+"text": "Next time we come with the grandparents.",
+"orig": "Data viitoare venim cu bunicii.",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_parent",
+"ctx": "idle",
+"text": "I told you to bring your jacket!",
+"orig": "Ți-am zis să iei geaca!",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_parent",
+"ctx": "idle",
+"text": "Ten more minutes and we leave.",
+"orig": "Mai stăm zece minute și plecăm.",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "kid",
+"ctx": "greeting",
+"text": "Hi! Where are you from?",
+"orig": "Bună! Tu de unde ești?",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "kid",
+"ctx": "greeting",
+"text": "Hello! I speak English!",
+"src": "spots"
+},
+{
+"p": "kid",
+"ctx": "idle",
+"text": "Can we stay a bit longer, please!",
+"orig": "Mai stăm puțin, te rog!",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "kid",
+"ctx": "idle",
+"text": "Mum, I'm thirsty!",
+"orig": "Mami, mi-e sete!",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "kid",
+"ctx": "idle",
+"text": "Let's play hide and seek!",
+"orig": "Hai să ne jucăm de-a v-ați ascunselea!",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "kid",
+"ctx": "idle",
+"text": "I'm the fastest!",
+"orig": "Eu sunt cel mai rapid!",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "kid",
+"ctx": "idle",
+"text": "Look, a pigeon!",
+"orig": "Uite un porumbel!",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "kid",
+"ctx": "idle",
+"text": "I want ice cream!",
+"orig": "Vreau înghețată!",
+"lang": "ro",
+"season": "summer",
+"src": "spots"
+},
+{
+"p": "kid",
+"ctx": "idle",
+"text": "Who gets to the fountain first?",
+"orig": "Cine ajunge primul la fântână?",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_elder",
+"ctx": "idle",
+"text": "Traffic on the boulevard again.",
+"orig": "Iar e trafic pe bulevard.",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_elder",
+"ctx": "idle",
+"text": "The metro is faster, trust me.",
+"orig": "Metroul e mai rapid, crede-mă.",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_elder",
+"ctx": "idle",
+"text": "Is the 41 coming? I've been waiting ten minutes.",
+"orig": "Vine 41? De zece minute aștept.",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_elder",
+"ctx": "idle",
+"text": "So cold! My ears are freezing.",
+"orig": "Ce ger! Îmi îngheață urechile.",
+"lang": "ro",
+"wx": "cold",
+"src": "spots"
+},
+{
+"p": "local_elder",
+"ctx": "idle",
+"text": "I'm hungry, I'll grab a covrig.",
+"orig": "Mi-e foame, iau un covrig.",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_elder",
+"ctx": "idle",
+"text": "They've dug up this street again.",
+"orig": "Iar au spart strada asta.",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_elder",
+"ctx": "idle",
+"text": "Friday, almost weekend, we'll survive.",
+"orig": "Vineri e weekend, rezistăm.",
+"lang": "ro",
+"src": "spots"
+},
+{
+"p": "local_elder",
+"ctx": "idle",
+"text": "Eh, it'll do.",
+"orig": "Las' că merge și-așa.",
+"lang": "ro",
+"src": "spots"
+}
+],
+"culture": [
+{
+"topic": "Greetings",
+"note": "\"Bună ziua\" (good day) is the safe greeting with strangers and \"Salut\" with friends; with older people use the formal \"dumneavoastră\"."
+},
+{
+"topic": "Time of day",
+"note": "Bună dimineața in the morning, bună ziua during the day, bună seara in the evening — and \"noapte bună\" only when saying goodbye at night."
+},
+{
+"topic": "Mărțișor",
+"note": "On 1 March people give women a mărțișor, a small trinket on a red-and-white string, to welcome spring; it is worn for the whole month."
+},
+{
+"topic": "Food",
+"note": "Try mici (grilled minced-meat rolls), sarmale (cabbage rolls), ciorbă de burtă (tripe soup) and papanași (doughnuts with sour cream and jam); covrigi are sold hot from street windows."
+},
+{
+"topic": "Churches",
+"note": "People often cross themselves when passing a church. Inside, dress modestly, speak quietly and ask before photographing a service."
+},
+{
+"topic": "Hospitality",
+"note": "Romanians insist when they offer food or drink — a first \"no\" is often taken as politeness and the offer comes again."
+},
+{
+"topic": "Taxis",
+"note": "Use Bolt, Uber or a marked taxi with prices on the door; ignore drivers who approach you at the airport or in the Old Town."
+},
+{
+"topic": "Crossing the street",
+"note": "Do not assume a car will stop at a zebra crossing — catch the driver's eye first. Locals joke about sidewalk parking and buses, but they cross carefully."
+},
+{
+"topic": "Vlad the Impaler",
+"note": "Many Romanians see Vlad Țepeș as a national hero who fought the Ottomans — not as Count Dracula. His Old Princely Court ruins are in the Old Town."
+},
+{
+"topic": "Tipping",
+"note": "About 10 % is usual in restaurants (leave it in cash or tell the waiter); for taxis people round up."
+},
+{
+"topic": "Language",
+"note": "Romanian is a Romance language, close to Italian; young people usually speak English and many older people speak French."
+},
+{
+"topic": "Metro",
+"note": "The Bucharest Metro (opened in 1979) is the fastest way across the city; the M2 line runs under the main north–south boulevards."
+},
+{
+"topic": "Name days",
+"note": "Romanians celebrate name days as much as birthdays — on St Andrew, St George or St Mary's day you will hear \"La mulți ani!\" (Many happy returns!)."
+},
+{
+"topic": "Parliament Palace",
+"note": "The Palace of the Parliament, built under Ceaușescu in the 1980s, is one of the heaviest buildings in the world; locals talk about that era with dark irony."
+}
+]
+}
+}

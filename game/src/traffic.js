@@ -2314,6 +2314,11 @@ class Pedestrians {
                 continue;
             }
             if (p.agent || p.react) { this.updateActor(p, dt); continue; } // reacting to the player's parked car / the officer
+            if (p.talkT > 0) { // in a conversation with the walker (E to talk): stands, faces them, gestures
+                p.talkT -= dt; p.talkWave = (p.talkWave || 0) - dt; const W = p.talkTo; if (W) p.heading = Math.atan2(-(W.x - p.x), -(W.z - p.z));
+                if (p.talkT <= 0) { p.talkTo = null; if (p.state === 'walk' && p.e) this.placeWalk(p); }
+                continue;
+            }
             const ox = p.x, oz = p.z, os = p.s;
             let moved = false;
             if (p.state === 'stand') { /* waits at the stop */ }
@@ -2507,9 +2512,9 @@ class Pedestrians {
         for (const p of this.list) {
             const s = p.scale;
             if (p.state === 'down') { C.set(p.i, { x: p.x, y: 0.2, z: p.z, scale: s, down: true, fallDir: p.fallDir }); continue; }
-            const moving = p.agent || p.react ? !!p.moving : p.state === 'walk' || p.state === 'legs';
+            const talking = p.talkT > 0, moving = !talking && (p.agent || p.react ? !!p.moving : p.state === 'walk' || p.state === 'legs');
             const bob = moving ? Math.abs(Math.sin(p.phase)) * 0.03 : 0;
-            C.set(p.i, { x: p.x, y: 0.2 + bob, z: p.z, yaw: p.heading, phase: p.phase, amp: moving ? 1 : 0, scale: s, pose: moving ? 0 : (p.pose || 0), prop: moving ? null : (p.prop || null) });
+            C.set(p.i, { x: p.x, y: 0.2 + bob, z: p.z, yaw: p.heading, phase: p.phase, amp: moving ? 1 : 0, scale: s, pose: talking ? (p.talkWave > 0 ? 4 : 7) : moving ? 0 : (p.pose || 0), prop: moving || talking ? null : (p.prop || null) });
         }
     }
     dispose() { this.crowd.dispose(); }

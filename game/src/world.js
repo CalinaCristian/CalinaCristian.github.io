@@ -5416,6 +5416,10 @@ function buildSky(env) {
 //  Collision: real footprints (polygon) + oriented boxes (landmarks)
 // ---------------------------------------------------------------------------
 function collideOne(b, x, z, radius, y) {
+    if (!b.wall) {
+        const height = y ?? 0.24;
+        if ((b.y0 !== undefined && height < b.y0) || (b.y1 !== undefined && height > b.y1)) return null;
+    }
     if (b.wall) { // wall segment, active only for bodies within its height band
         const r = distPointSeg(x, z, b.ax, b.az, b.bx, b.bz);
         if (r.d >= radius) return null;

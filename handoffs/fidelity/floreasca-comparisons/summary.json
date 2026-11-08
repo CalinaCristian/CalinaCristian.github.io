@@ -1,0 +1,117 @@
+{
+  "gameSourceCommit": "df9b2e2ced83b8b30bcc8e34cf809a434b25bc27",
+  "artifactDirectory": "/workspace/reality-pass/floreasca-comparisons",
+  "manifestSha256": "2e60028650e0017dc29d693d4aeb4e74c003b5bdd151266dfd4356a2c9b2d45a",
+  "boundarySourceSha256": "0312d241700b05b3c6a53a84ab1aece7b4bbda1241d34c4934b7ae878af35de2",
+  "sourceAssetTreeSha256": "f766e8c52ece3518f7e95ab03a24a04d2cb1bb69a4a12fea744a812dbc0ceb91",
+  "sourceIdentity": {
+    "citiesPath": "game/src/cities.js",
+    "citiesSha256": "d963ccecb859b7ce2c68978e5b555e6a38788d9f06bd9e61605b72f75c98ab4a",
+    "dataPath": "game/data/bucharest-floreasca.json",
+    "dataSha256": "b6dfd47b1a73109c3edb279826650bc3eef2dcde33b40e4c94167d830bab3dca",
+    "dataGenerated": "2026-11-08"
+  },
+  "scopeCounts": {
+    "ring-touches": 64,
+    "core-touches": 20,
+    "outside-ring": 6
+  },
+  "defaultTile": "aerial-r09-c04",
+  "capture": {
+    "startedAt": "2026-11-08T12:56:00.681Z",
+    "endedAt": "2026-11-08T13:00:19.099Z",
+    "elapsedSeconds": 258.418,
+    "source": "f766e8c52ece3518f7e95ab03a24a04d2cb1bb69a4a12fea744a812dbc0ceb91",
+    "loaded": {
+      "key": "bucharest-floreasca",
+      "city": "bucharest",
+      "district": "floreasca",
+      "ms": 13002,
+      "edges": 310,
+      "ribbons": 391
+    },
+    "pageErrors": [],
+    "consoleErrors": [],
+    "failedRequests": [],
+    "traffic": false,
+    "quality": "high",
+    "weather": "clear",
+    "season": "summer",
+    "time": "day",
+    "mirror": false,
+    "frameCounts": 90,
+    "coverageClaim": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+    "scopeCounts": {
+      "ring-touches": 64,
+      "core-touches": 20,
+      "outside-ring": 6
+    },
+    "validation": {
+      "framesVerified": 90,
+      "sourceFilesVerified": 317,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "failedRequests": 0,
+      "failures": []
+    },
+    "perfMaxima": {
+      "triangles": 820036,
+      "drawCalls": 121,
+      "note": "World-only high-quality top-down captures, moving traffic hidden, mirror excluded. Separate maxima need not occur in one frame; not a driving frame-budget acceptance test."
+    },
+    "localizedRetakes": [
+      {
+        "ids": [
+          "context-skytower",
+          "context-globalworth"
+        ],
+        "startedAt": "2026-11-08T13:02:46.081Z",
+        "endedAt": "2026-11-08T13:03:04.396Z",
+        "elapsedSeconds": 18.315,
+        "source": "f766e8c52ece3518f7e95ab03a24a04d2cb1bb69a4a12fea744a812dbc0ceb91",
+        "loaded": {
+          "key": "bucharest-floreasca",
+          "city": "bucharest",
+          "district": "floreasca",
+          "ms": 10352,
+          "edges": 310,
+          "ribbons": 391
+        },
+        "pageErrors": [],
+        "consoleErrors": [],
+        "failedRequests": [],
+        "traffic": false,
+        "quality": "high",
+        "weather": "clear",
+        "season": "summer",
+        "time": "day",
+        "mirror": false,
+        "frameCounts": 2,
+        "coverageClaim": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+        "scopeCounts": {
+          "outside-ring": 2
+        }
+      }
+    ]
+  },
+  "review": {
+    "status": "All 90 game frames inspected across 8 contact sheets; six 640-pixel target views checked for spawn/Dinamo, Rosetti/parking, lake, market and composer streets. The two centered skyline retakes are included in the final sheet review.",
+    "framesReviewed": 90,
+    "contactSheetsReviewed": 8,
+    "targetedDetailFrames": 6,
+    "purpose": "Capture integrity and complete playable-plus-ring coverage. Detailed agreement with live reference imagery remains available for visual review in the overview viewer.",
+    "limitations": [
+      "All frames show published source df9b2e2ced83b8b30bcc8e34cf809a434b25bc27. Later working changes are excluded.",
+      "20 cells touch the exact runtime playable mask; 64 additional cells touch the exact source 600 m ring. Boundary cells include land beyond that ring, where simplified masses and sparse ground remain visible.",
+      "Six optional distant-context frames are separate from the full 84-cell playable-plus-ring survey. Sky Tower and Globalworth frames are centered on their source anchors; the other four are grid corner context.",
+      "Moving traffic is hidden; static parked cars remain visible. Mirror rendering is excluded. Render counts describe these aerial frames only.",
+      "The game uses modeled roofs, facades, canopy and ground. Coverage and source hashes do not score fidelity or mark the reality pass complete.",
+      "The camera is perspective, pitched straight down: 250 m is the ground-plane span; elevated rooftops project larger than their ground footprints.",
+      "Reference delivery and its acquisition-date, season and registration limits are recorded by the live provider viewer; these tools cache no reference imagery."
+    ]
+  },
+  "sourceOnlyBranch": "fidelity/floreasca-comparisons",
+  "targetPublicPath": "game/overview/comparison-data/floreasca/",
+  "referenceImagesIncluded": false,
+  "gameOrWorldDataEdited": false
+}

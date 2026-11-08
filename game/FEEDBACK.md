@@ -168,3 +168,14 @@ Known gaps: Politehnica's door is at the Bd. Doina Cornea gate (~230 m from the 
 33. Rain: loading a location sometimes shows the ground fully wet, then it dries; Bellevue Downtown Park canal water is broken (jagged strip).
 34. Meydenbauer Bay: people standing in the water.
 35. Better-looking maps of Bucharest, Seattle and Bellevue (Explore world map).
+36. Mobile UI should be context based: show the buttons for the current mode (car / on foot / drone); no photo button while driving.
+37. Big lag when getting out of the car.
+38. Mobile: dragging to move the camera (driving or walking) zooms the page instead.
+39. Landing page: the floating translucent bubbles (canvas.js) look odd over the new road background.
+40. Snow: while driving, the snowflakes move with the car.
+41. Floreasca, Str. Johann Strauss: balconies render as solid black slabs and a pure-black pole stands in front of the Lukoil sign.
+42. The C.A. Rosetti high school is completely dark at night (no lit windows, a black block).
+43. Show the minimap in drone mode.
+44. Night: the roads / sidewalks are far too dark (nearly black ground under lit buildings).
+45. Some businesses appear only as a sign on a pole (Mega Image, Help Net) instead of a shop in a building.
+46. Floreasca: most buildings are pitched-roof village houses — the real district is mostly 4–10 storey blocks and interwar villas.

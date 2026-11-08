@@ -909,6 +909,7 @@ function buildCity(cityId, did = null) {
             for (const b of rj?.buildings || []) {
                 const id = parseInt(String(b.osm).replace(/^[wr]/, ''), 10); const w = W.get(id); if (!w) continue;
                 const t = w.tags = { ...w.tags }, ot = b.osmTags || {};
+                t.__originalDimensions ||= Object.fromEntries(Object.entries(t).filter(([k]) => /^(height|min_height|min_level|building:levels|building:min_level|roof:)/.test(k)));
                 const set = (k, v) => { if (v == null || v === '' || t[k] != null) return false; t[k] = String(v); return true; };
                 let ch = false;
                 // `research: {height_m, storeys, facade_hex, roof}` = the hand-researched key buildings (CV stops, landmarks): they beat the estimates
@@ -920,7 +921,7 @@ function buildCity(cityId, did = null) {
                 const roofShape = (v) => (typeof v === 'string' && /^(flat|gabled|hipped|pyramidal|dome|skillion|mansard|round|gambrel)$/.test(v)) ? v : null;
                 let hr = 0; // 1 = researched height / storeys, 2 = only the research estimate
                 if (set('height', rs.height_m ?? b.heightM ?? b.height ?? ot.height)) { ch = true; hr = rs.height_source === 'estimate' ? 2 : 1; }
-                if (set('building:levels', rs.storeys ?? b.levels ?? b.building_levels ?? ot['building:levels'])) { ch = true; hr = 1; }
+                if (set('building:levels', rs.storeys ?? b.levels ?? b.building_levels ?? ot['building:levels'])) { ch = true; hr = hr || 1; }
                 if (t.height == null && t['building:levels'] == null && set('height', b.heightEstM ?? b.height_est_m)) { ch = true; hr = hr || 2; }
                 if (t['building:levels'] == null && t.height == null && set('building:levels', b.levelsEst)) { ch = true; hr = hr || 2; }
                 if (hr) t.__hRes = hr;

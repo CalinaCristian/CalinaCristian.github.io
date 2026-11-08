@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "id": "olympics",
+  "city": "seattle",
+  "name": "Olympic Mountains",
+  "sourceCommit": "e29276d19d24a161e66c72cc9088d2f92b3b0c28",
+  "status": "in-progress",
+  "coordinates": {
+    "lat": 47.7,
+    "lon": -123.15
+  },
+  "sourceIds": [],
+  "replacementScope": "Only the explicit source IDs represent authored replacement. Empty scope means context geometry only; never remove neighbours by radius, name or centroid.",
+  "sources": [
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13783288.114870725%2C5982797.029258728%2C-13634702.467512554%2C6131382.6766169&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+      "label": "Independent georeferenced Esri aerial · privately viewed · acquisition date unknown · image not published",
+      "type": "aerial"
+    },
+    {
+      "url": "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer",
+      "label": "USGS 3DEP public-domain bare-earth elevation · exact export provenance in research ledger",
+      "type": "dem"
+    }
+  ],
+  "improvements": [
+    "Replaced the invented ridge band with two georeferenced public-domain USGS 3DEP elevation grids.",
+    "Corrected authored yaw so east/north geography is preserved and both tourist backdrop paths reuse the terrain at its real angular size.",
+    "Recorded exact requested/returned tile extents and raw-file hashes; joined their measured pixel-centre edges to remove the artificial one-cell gap."
+  ],
+  "remainingGaps": [
+    "The two33 × 49 grids omit fine peaks and are a bounded portion of the Olympics rather than the full horizon.",
+    "The highest sampled elevation is below some published named summits; no synthetic summit was inserted.",
+    "Snow/rock colour and atmospheric visibility remain procedural rather than a dated seasonal observation.",
+    "These are isolated front/top/oblique model studies, not matched street-eye Street View/aerial comparisons. They do not establish full-world, night, weather or seasonal parity.",
+    "Integrated source-only replacement and rebuilt district performance are separate acceptance checks; the capture branch predates that shared world policy."
+  ],
+  "checks": [
+    {
+      "label": "Bucharest foot,a regression",
+      "passed": true,
+      "details": "Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. Subsequent source changes are confined to US models."
+    },
+    {
+      "label": "Current source identity and topology review",
+      "passed": true,
+      "details": "All 24 US registry entries checked; 0 explicit replacement identities for this model. Raw source versions/tags/coordinates retained. OSM geometry takes precedence over estimates."
+    },
+    {
+      "label": "Independent visual and actual model review",
+      "passed": true,
+      "details": "Actual front, top and oblique game renders inspected against source plans and independently viewed aerial context; only game renders are published. Height/facade limits and source conflicts are listed."
+    },
+    {
+      "label": "Geometry and meaningful collision checks",
+      "passed": true,
+      "details": "All61 shared geometry invariants and the US source-scope/total-height/court/pitch/portal/bridge-clearance regression checks pass. No FPS claim is inferred from geometry counts."
+    },
+    {
+      "label": "Immutable game-only capture provenance",
+      "passed": true,
+      "details": "Each lossless WebP is RGB pixel-verified against its actual game screenshot and carries its own source commit, camera pose and SHA256."
+    },
+    {
+      "label": "Complete measured visual parity",
+      "passed": false,
+      "details": "Unmeasured sections, simplified details and world integration remain open as listed; no 100% parity claim."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Isolated model study · front elevation",
+      "image": "assets/landmarks/olympics/front.webp",
+      "kind": "front",
+      "sourceCommit": "e29276d19d24a161e66c72cc9088d2f92b3b0c28",
+      "sha256": "b7fa1acbfaadcf7189411cf3624c887f2555761b8634b1ff083b9a00286cf631",
+      "capturedAt": "2026-11-08T17:13:26.105Z",
+      "pose": {
+        "position": [
+          92605.4542480562,
+          844.4000000000001,
+          -11113.199218749993
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "quaternion": [
+          0,
+          0.7071067811865475,
+          0,
+          0.7071067811865476
+        ],
+        "projection": "perspective",
+        "fov": 45,
+        "target": [
+          -18729.9384765625,
+          844.4000000000001,
+          -11113.19921875
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    },
+    {
+      "id": "top",
+      "label": "Isolated model study · orthographic north-up plan",
+      "image": "assets/landmarks/olympics/top.webp",
+      "kind": "top",
+      "sourceCommit": "e29276d19d24a161e66c72cc9088d2f92b3b0c28",
+      "sha256": "34aca20669001387019f8e03873320531d9d41d3d8cafa7fe14847dcadfcef34",
+      "capturedAt": "2026-11-08T17:13:26.944Z",
+      "pose": {
+        "position": [
+          -18729.9384765625,
+          87705.144609375,
+          -11113.19921875
+        ],
+        "up": [
+          0,
+          0,
+          -1
+        ],
+        "quaternion": [
+          -0.7071067811865475,
+          0,
+          0,
+          0.7071067811865476
+        ],
+        "projection": "orthographic",
+        "groundSquareM": 85594.144609375,
+        "orientation": "north-up",
+        "target": [
+          -18729.9384765625,
+          0,
+          -11113.19921875
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Isolated model study · oblique overview",
+      "image": "assets/landmarks/olympics/oblique.webp",
+      "kind": "oblique",
+      "sourceCommit": "e29276d19d24a161e66c72cc9088d2f92b3b0c28",
+      "sha256": "5e6f41052a84767d68c44f5f351c93fdafdafc7d22ddeed669130ec53389438d",
+      "capturedAt": "2026-11-08T17:13:27.627Z",
+      "pose": {
+        "position": [
+          38666.47211342518,
+          49650.6237869034,
+          70857.3701594929
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "quaternion": [
+          -0.21453963361642955,
+          0.2929987293442745,
+          0.06764408664580109,
+          0.929273247087327
+        ],
+        "projection": "perspective",
+        "fov": 45,
+        "target": [
+          -18729.9384765625,
+          844.4000000000001,
+          -11113.19921875
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 6240,
+    "drawCalls": 2,
+    "note": "Isolated viewer frame includes ground and shadow rendering; this is neither a whole-world budget measurement nor hardware FPS."
+  }
+}

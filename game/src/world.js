@@ -5702,10 +5702,11 @@ function buildSky(env) {
 // ---------------------------------------------------------------------------
 /** Point check for developer road-overlap audits, including a two-metre vehicle body above its road. */
 export function buildingBlocksRoad(c, x, z, roadY, bodyHeight = 2) {
+    if (c.roofHeightAt && roadY > (c.roofHeightAt(x, z) ?? c.h)) return false;
     if (c.passageSolids) return c.passageSolids.some(band => band.y0 <= roadY + bodyHeight && band.y1 >= roadY && band.polys.some(p => pointInPolygon(x, z, p)));
     if (!c.poly || !pointInPolygon(x, z, c.poly) || (c.holes || []).some(h => pointInPolygon(x, z, h))) return false;
     if ((c.minH ?? 0) > roadY + bodyHeight || (c.h !== undefined && roadY > c.h + 0.5)) return false;
-    if ((c.y0 !== undefined && roadY < c.y0) || (c.y1 !== undefined && roadY > c.y1)) return false;
+    if ((c.y0 !== undefined && roadY + bodyHeight < c.y0) || (c.y1 !== undefined && roadY > c.y1)) return false;
     return true;
 }
 

@@ -969,10 +969,10 @@ function buildCity(cityId, did = null) {
     }
     // aerial roof measurements (tools/aerial/roofs.py → game/research/roofs-<city>-<district>.json): roof shape + median
     // roof colour per OSM way, used where OSM has no roof:shape / roof:colour (OSM tags always win)
-    const aerial = new Map();
+    const aerial = new Map(), aerialColours = new Map();
     if (ds) {
         const af = path.join(REPO, 'game', 'research', `roofs-${cityId}-${did}.json`);
-        if (fs.existsSync(af)) { try { const aj = JSON.parse(fs.readFileSync(af, 'utf8')); for (const [k, v] of Object.entries(aj.roofs || {})) aerial.set(k, v); } catch (e) { log('aerial roofs: cannot parse', af, e.message); } }
+        if (fs.existsSync(af)) { try { const aj = JSON.parse(fs.readFileSync(af, 'utf8')); for (const [k, v] of Object.entries(aj.roofs || {})) aerial.set(k, v); for (const [k, v] of Object.entries(aj.colourMeasurements || {})) aerialColours.set(k, v); } catch (e) { log('aerial roofs: cannot parse', af, e.message); } }
         if (aerial.size) log(`aerial roofs: ${aerial.size} footprints measured (${af})`);
     }
     const buildings = [];
@@ -1008,7 +1008,7 @@ function buildCity(cityId, did = null) {
         const lls = []; for (const n of ids) { const ll = N.get(n); if (!ll) { buildingSourceSkips.push({ sourceId, reason: 'incomplete-source-nodes', node: n }); return; } lls.push(ll); }
         const holesLL = innerIds.map(r => r.map(n => N.get(n))).filter(r => r.length > 3 && r.every(Boolean));
         if (holesLL.length !== innerIds.length) { buildingSourceSkips.push({ sourceId, reason: 'incomplete-source-courtyard' }); return; }
-        rawBuildings.push({ lls, holesLL, t: { ...t, __id: (isRel ? 'r' : 'w') + oid }, isRel, aer: !isRel ? aerial.get(String(oid)) || null : null });
+        rawBuildings.push({ lls, holesLL, t: { ...t, __id: (isRel ? 'r' : 'w') + oid }, isRel, aer: !isRel ? aerial.get(String(oid)) || null : null, aerColour: !isRel ? aerialColours.get(String(oid)) : undefined });
     };
     const bRelWays = new Set();
     const addAnnulus = (outLL, inLL, t) => {
@@ -1153,14 +1153,14 @@ function buildCity(cityId, did = null) {
         let style = 'plain', defLevels = 2, roof = 0, flags = 0;
         const amen = t.amenity || '', shop = t.shop || '';
         const isOffice = b === 'office' || b === 'commercial' || !!t.office;
-        if (RELIGIOUS.test(b) || amen === 'place_of_worship') { style = 'church'; defLevels = 0; if (!isFinite(h)) h = realArea < 300 ? 11 : 16; roof = realArea < 900 ? 1 : 3; }
-        else if (SMALL.test(b)) { style = 'plain'; if (!isFinite(h)) h = b === 'roof' || b === 'carport' ? 4 : 3; }
+        if (RELIGIOUS.test(b) || amen === 'place_of_worship') { style = 'church'; defLevels = 0; if (!isFinite(h) && !(levels > 0)) h = realArea < 300 ? 11 : 16; roof = realArea < 900 ? 1 : 3; }
+        else if (SMALL.test(b)) { style = 'plain'; if (!isFinite(h) && !(levels > 0)) h = b === 'roof' || b === 'carport' ? 4 : 3; }
         else if (INDUSTRIAL.test(b)) { style = 'plain'; if (!isFinite(h) && !isFinite(levels)) h = b === 'greenhouse' ? 4 : realArea > 2000 ? 10 : 7; }
         else if (b === 'retail' || b === 'supermarket' || shop === 'supermarket' || shop === 'mall' || b === 'kiosk') { style = 'shop'; defLevels = realArea > 3000 ? 2 : 1; flags |= 1; }
         // (2026-11-08, owner: Piața Floreasca was a 15.5 m "bloc" wall) a market hall is a low shop building
         else if (amen === 'marketplace' || b === 'marketplace') { style = 'shop'; defLevels = 2; flags |= 1; }
         else if (HOUSE.test(b)) { style = 'house'; defLevels = country === 'US' ? 2 : 2; roof = ROOF_FOR_HOUSE(realArea, lls.length); }
-        else if (b === 'stadium' || b === 'grandstand') { style = 'plain'; if (!isFinite(h)) h = isFinite(levels) ? Math.min(levels * 3.2, 30) : 14; }
+        else if (b === 'stadium' || b === 'grandstand') { style = 'plain'; if (!isFinite(h)) h = levels > 0 ? (ds ? levels * 3.2 : Math.min(levels * 3.2, 30)) : 14; }
         else if (PUBLIC.test(b)) {
             style = dCentre < 2200 && country === 'RO' ? 'eclectic' : country === 'US' ? 'interwar' : 'bloc';
             defLevels = { school: 3, kindergarten: 2, university: 5, college: 4, hospital: 6, train_station: 3, stadium: 4, sports_hall: 3 }[b] || 4;
@@ -1211,7 +1211,7 @@ function buildCity(cityId, did = null) {
             else if (isOffice) { style = (isFinite(levels) && levels >= 5) ? 'glass' : 'interwar'; defLevels = 3; }
             else if (b === 'apartments' || b === 'dormitory') { style = 'bloc'; defLevels = 4; }
             else if (b === 'hotel') { style = 'glass'; defLevels = 8; }
-            else if (lu === 'industrial' || (realArea > 2500 && b === 'yes')) { style = 'plain'; if (!isFinite(h)) h = 9; }
+            else if (lu === 'industrial' || (realArea > 2500 && b === 'yes')) { style = 'plain'; if (!isFinite(h) && !(levels > 0)) h = 9; }
             else if (lu === 'commercial' || lu === 'retail') { style = 'shop'; defLevels = 1; flags |= 1; }
             else if (realArea < 320) { style = 'house'; defLevels = realArea < 90 ? 1 : 2; roof = ROOF_FOR_HOUSE(realArea, lls.length); }
             else { style = 'bloc'; defLevels = 3; }
@@ -1349,7 +1349,11 @@ function buildCity(cityId, did = null) {
         if (t.tourism || t.historic || (h > 60)) flags |= 4;
         const colour = normColour(t['building:colour'] || t['building:color']) || MATERIAL_COLOUR[(t['building:material'] || '').split(';')[0]] || '';
         let roofColour = normColour(t['roof:colour'] || t['roof:color']) || (/tile|clay/.test(t['roof:material'] || '') ? '#9c5a3c' : /metal|tin|copper/.test(t['roof:material'] || '') ? (t['roof:material'] === 'copper' ? '#6f9a86' : '#7d848a') : '');
-        if (!roofColour && rb.aer && rb.aer[0] !== 'unknown' && rb.aer[1] >= 0.5) {
+        if (!roofColour && rb.aerColour !== undefined) {
+            const measurement = rb.aerColour;
+            if (Number.isFinite(measurement.confidence) && measurement.confidence >= 0.65 && /^#[0-9a-f]{6}$/i.test(measurement.hex || '')) { roofColour = measurement.hex.toLowerCase(); aerialStats.colour++; }
+        }
+        if (!roofColour && rb.aerColour === undefined && rb.aer && rb.aer[0] !== 'unknown' && rb.aer[1] >= 0.5) {
             const v = parseInt(rb.aer[2].slice(1), 16); let rgbA = [v >> 16, (v >> 8) & 255, v & 255];
             const l = (rgbA[0] + rgbA[1] + rgbA[2]) / 3, k = roof === 0 ? 0.35 : 0.9; // (flat: mostly grey; tiles keep their hue)
             rgbA = rgbA.map(c => Math.max(0, Math.min(255, Math.round(l + (c - l) * k))));

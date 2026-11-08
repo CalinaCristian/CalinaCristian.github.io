@@ -385,8 +385,28 @@ function buildCity(cityId, did = null) {
     const cutIds = new Map(); let cutNext = -2e9;
     {
         const out = [];
+        // (after round 6) overpasses are never cut mid-span: a bridge / viaduct with any node in the playable area is kept
+        // whole, plus ~150 m of the at-grade road beyond each end, so its decks come down to the ground (Pasajul Basarab at
+        // the Politehnica start ended in mid-air at the band edge). Those extra pieces end in ordinary closures.
+        const forced = new Set();
+        if (ds) {
+            const isBr = (r) => r.tags && (r.tags.bridge && r.tags.bridge !== 'no' || (+r.tags.layer || 0) >= 1);
+            const byNode = new Map(); for (const r of roads) for (const n of r.nodes) { let a = byNode.get(n); if (!a) byNode.set(n, a = []); a.push(r); }
+            const done = new Set(), queue = [];
+            for (const r of roads) if (isBr(r) && r.nodes.some(n => M(...pos.get(n)) <= 0)) queue.push(r);
+            while (queue.length) { // whole connected bridge chains
+                const r = queue.pop(); if (done.has(r)) continue; done.add(r); for (const n of r.nodes) forced.add(n);
+                for (const n of [r.nodes[0], r.nodes[r.nodes.length - 1]]) for (const q of byNode.get(n) || []) {
+                    if (done.has(q)) continue;
+                    if (isBr(q)) { queue.push(q); continue; }
+                    // the approach beyond the end: walk away from n up to 150 m
+                    const fwd = q.nodes[0] === n ? q.nodes : q.nodes[q.nodes.length - 1] === n ? [...q.nodes].reverse() : null; if (!fwd) continue;
+                    let L = 0; forced.add(fwd[0]); for (let i = 1; i < fwd.length && L < 150; i++) { const a = pos.get(fwd[i - 1]), b = pos.get(fwd[i]); L += Math.hypot(b[0] - a[0], b[1] - a[1]); forced.add(fwd[i]); }
+                }
+            }
+        }
         for (const r of roads) {
-            const mg = r.nodes.map(n => M(...pos.get(n)));
+            const mg = r.nodes.map(n => (forced.has(n) ? -1 : M(...pos.get(n))));
             let run = [];
             const flush = () => { if (run.length >= 2) out.push({ ...r, nodes: run }); run = []; };
             // district mode: cut exactly at the boundary (a new node where the way crosses it → a clean road end)

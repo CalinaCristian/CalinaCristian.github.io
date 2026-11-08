@@ -97,11 +97,14 @@ async function run(){
   if(!result.resourceOwnership.retainedDetached||!result.resourceOwnership.sceneEmpty||!result.resourceOwnership.wrapperOwnedOnly)throw Error('Resource detachment check failed');
   const asset='**/data/bucharest-grozavesti.json';let failedFetches=0;
   await page.route(asset,r=>{failedFetches++;return r.fulfill({status:200,contentType:'application/json',body:'{ invalid JSON'});});
+  const injectedConsoleStart=result.consoleErrors.length;
   result.failedTravel=await page.evaluate(async()=>{
    const g=game;g.fuel=0;const before=g.save.capture();const ok=await g.startFreeRoam('grozavesti');
    return {ok,before,state:g.state,generation:window.__generation,loading:document.querySelector('#loading').classList.contains('show'),saved:g.save.session,continueVisible:!document.querySelector('#continue').hidden};
   });
   await page.unroute(asset);
+  result.expectedConsoleErrors=result.consoleErrors.slice(injectedConsoleStart).map((text,index)=>({index:injectedConsoleStart+index,text,reason:'Explicit malformed destination JSON fixture'}));
+  if(result.expectedConsoleErrors.length!==1||!result.expectedConsoleErrors.every(e=>e.text.startsWith('[world] district load failed')&&/JSON|SyntaxError|position|property/i.test(e.text)))throw Error('Malformed destination produced unexpected console errors');
   if(result.failedTravel.ok!==false||result.failedTravel.state!=='menu'||result.failedTravel.loading||!result.failedTravel.continueVisible||result.failedTravel.saved.district!==result.failedTravel.before.district||result.failedTravel.saved.fuel!==0||failedFetches!==1)throw Error('Failed travel did not preserve the stable session');
   result.continue=await page.evaluate(async()=>{const g=game,ok=await g.save.restore();g.r3d.frame(1/60);return{ok,state:g.state,district:g.district,fuel:g.fuel,x:g.player.x,z:g.player.z,generation:window.__generation}});
   if(!result.continue.ok||result.continue.district!==result.failedTravel.before.district||result.continue.fuel!==0||result.continue.generation!==result.failedTravel.generation)throw Error('Continue failed after rejected destination');
@@ -118,7 +121,9 @@ async function run(){
  if(process.env.PROBE_CHECKS&&result.retiredWorlds?.some(w=>w.alive))throw Error('A retired district remained reachable after garbage collection');
  await page.evaluate(()=>game.r3d.frame(1/60));
  await require('./integration-browser-bounds.cjs').captureViewport(page,out.replace(/\.json$/,'.png'));
- if(result.errors.length||result.lost.length)throw Error('Browser error or WebGL context loss');
+ const expectedConsoleIndices=new Set((result.expectedConsoleErrors||[]).map(e=>e.index));
+ result.unexpectedConsoleErrors=result.consoleErrors.filter((_,index)=>!expectedConsoleIndices.has(index));
+ if(result.errors.length||result.lost.length||result.unexpectedConsoleErrors.length)throw Error('Browser error, unexpected console error or WebGL context loss');
  result.complete=true;
  }catch(e){result.fatal=String(e.stack||e);console.error(result.fatal);process.exitCode=1}finally{result.complete??=false;fs.writeFileSync(out,JSON.stringify(result,null,2));await browser?.close();server.close()}
 }

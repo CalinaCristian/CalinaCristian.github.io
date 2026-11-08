@@ -140,9 +140,9 @@ function check(name, pass, details) { report.checks.push({ name, pass: !!pass, d
         await page.locator('#spot-ui [data-tour-end]').tap(); await page.waitForFunction(() => !game.spot.tour);
         check(label + ': End returns to free walking', await page.evaluate(() => game.state === 'spot' && !game.spot.tour && !game.spot.ui.panelOpen));
     }
-    check('no unexpected browser JavaScript exceptions', report.errors.length === 0, report.errors);
+    check('no unexpected browser JavaScript exceptions or console errors', report.errors.length === 0 && report.consoleErrors.length === 0, { exceptions: report.errors, consoleErrors: report.consoleErrors });
     report.complete = true;
 })().catch(e => { report.failure = e.stack; process.exitCode = 1; }).finally(async () => {
     report.complete ??= false; persist(); await browser?.close(); await new Promise(resolve => server.close(resolve));
-    if (report.checks.some(c => !c.pass) || report.errors.length) process.exitCode = 1;
+    if (report.checks.some(c => !c.pass) || report.errors.length || report.consoleErrors.length) process.exitCode = 1;
 });

@@ -8,7 +8,7 @@ const { chromium } = require('playwright');
 const root = path.resolve(process.argv.find(a => a.startsWith('--root='))?.slice(7) || path.join(__dirname, '../../..'));
 const out = path.resolve(process.argv.find(a => a.startsWith('--out='))?.slice(6) || '/tmp/map-waypoints-check');
 fs.mkdirSync(out, { recursive: true });
-const report = { checks: [], errors: [] };
+const report = { checks: [], errors: [], consoleErrors: [] };
 const check = (name, value, detail) => { console.log((value ? 'PASS ' : 'FAIL ') + name); report.checks.push({ name, pass: !!value, detail }); assert.ok(value, name + ': ' + JSON.stringify(detail)); };
 const server = http.createServer((req, res) => {
     let f = path.join(root, decodeURIComponent(req.url.split('?')[0])); if (f.endsWith('/')) f += 'index.html';
@@ -21,7 +21,7 @@ let browser;
     const context = await browser.newContext({ viewport: { width: 1280, height: 720 } });
     await context.route(/api\.open-meteo\.com/, r => r.fulfill({ json: { error: true } }));
     const page = await context.newPage(); page.setDefaultTimeout(180000); require('./integration-browser-bounds.cjs').boundEvaluations(page); page.on('pageerror', e => report.errors.push(e.message));
-    page.on('console', m => { if (m.type() === 'error' && m.text().includes('[explore]')) report.errors.push(m.text()); });
+    page.on('console', m => { if (m.type() === 'error') report.consoleErrors.push(m.text()); });
     // Fixed steps exercise the real Input/Game handlers without variable wall-clock physics.
     await page.addInitScript(() => { window.__testRAF = window.requestAnimationFrame; window.requestAnimationFrame = () => 0; });
     await page.goto(`http://127.0.0.1:${server.address().port}/game/`, { waitUntil: 'domcontentloaded', timeout: 60000 });
@@ -119,7 +119,7 @@ let browser;
         await shot(`mobile-${viewport.width}-mark.png`);
         await page.locator('[data-clear]').click(); await page.keyboard.press('m');
     }
-    check('No browser exceptions', report.errors.length === 0, report.errors);
+    check('No browser exceptions or console errors', report.errors.length === 0 && report.consoleErrors.length === 0, { exceptions: report.errors, consoleErrors: report.consoleErrors });
     report.complete = true;
 })().catch(e => { report.failure = e.stack; process.exitCode = 1; }).finally(async () => {
     report.complete ??= false;

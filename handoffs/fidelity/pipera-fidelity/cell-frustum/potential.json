@@ -1,0 +1,63 @@
+{
+  "kind": "unchanged native-frame metadata probe; potential savings only, not optimized rendering proof",
+  "source": {
+    "game/src/world.js": "4428c43c84bd6fc43b26b415e8cfa1093073e7978630a4694603984a4fbd5cc5",
+    "game/src/render.js": "c886535e571144de5fd007294350b2b803138125d68f61f9a5992ca298fba587",
+    "game/src/traffic.js": "d2090be8a2f94b8431af00994f0764ee38637c9ccfe44d99392ec54551d8645c",
+    "game/src/player.js": "543faf7c4dab9ff9f50d2933586965652376b9b2f1f1fa172d550b2030882a2e",
+    "game/src/progressive-pmrem.js": "4b306f8bb4449be00c9dd654e7da6ba6607fec581d3a4360e9f772e11a2306a1",
+    "game/data/bucharest-romana.json": "c9c3c8878a30cf229ac50d0ec9acef5e4ad358589e368dbe5923f3cd46eddc68"
+  },
+  "scope": "1280x720/full high/native far/actual hour8 population/true mirror at source Kiseleff hotspot; explicit QA player placement only, no NPC placements/population cuts. Complete logical frame counters, not hardware FPS.",
+  "initialPopulation": {
+    "counts": {
+      "moving": 618,
+      "parked": 9,
+      "active": 631,
+      "pool": 0
+    },
+    "target": {
+      "moving": 618,
+      "parked": 9
+    },
+    "base": {
+      "moving": 478,
+      "parked": 9
+    },
+    "maxVehicles": 480,
+    "pose": {
+      "x": -505.7,
+      "z": -657.7,
+      "heading": -2.742850639662979,
+      "sourceId": "w1372391887"
+    }
+  },
+  "people": 560,
+  "frame": {
+    "label": "condition-settle-0",
+    "logical": {
+      "calls": 351,
+      "triangles": 1532195
+    },
+    "stats": {
+      "fps": 0,
+      "frameMs": 0,
+      "drawCalls": 448,
+      "triangles": 1544868,
+      "pixelRatio": 1,
+      "shadows": 4096,
+      "post": "full",
+      "quality": "high",
+      "auto": false,
+      "level": 1
+    }
+  },
+  "offFrustumSolidRoofTriangles": {
+    "mirror": 52954,
+    "shadow": 68670,
+    "main": 38195
+  },
+  "totalPotential": 159819,
+  "rawPath": "/tmp/drivecv-cell-probe-output-v2/report.json",
+  "rawSha256": "bedec8f5972f69b11a05f96ceb0cdc0863321b2632afa0880bbd1a3eeb6f604f"
+}

@@ -17,6 +17,7 @@ import { passageSolids, clipPassageWall, passageInterior, passageBaseUnknown } f
 import { scenerySourceProfile } from './scenery-source.js';
 import { sceneryBridgeProfiles, sceneryDeckBand } from './scenery-bridges.js';
 import { batchWaterChunks } from './water-batch.js';
+import { cullMergedCells } from './cell-frustum.js';
 import { waterChannelDecision } from './water-channel.js';
 
 // ============================================================================
@@ -5390,7 +5391,12 @@ export async function buildWorld(city, renderer, opts = {}) {
     for (const c of cells.values()) {
         for (const layer of ['area', 'grass', 'pave', 'sport', 'roof', 'backdrop', 'ground', 'road', 'pad', 'marks', 'water', 'solid', 'detail']) {
             if (c[layer].empty) continue;
-            const o = superOf(c, layer); if (!o.mb) o.mb = c[layer]; else o.mb.append(c[layer]);
+            const o = superOf(c, layer);
+            if (layer === 'solid' || layer === 'roof') {
+                const mb = c[layer], box = new THREE.Box3().setFromArray(mb.p.subarray(0, mb.vc * 3));
+                (o.parts ||= []).push({ start: o.mb?.ic || 0, count: mb.ic, bounds: [...box.min.toArray(), ...box.max.toArray()] });
+            }
+            if (!o.mb) o.mb = c[layer]; else o.mb.append(c[layer]);
         }
         c.signs.forEach((mb, k) => { if (!mb || mb.empty) return; const o = superOf(c, 'signs', k); if (!o.mb) o.mb = mb; else o.mb.append(mb); });
         if (c.spill && !c.spill.empty) { const o = superOf(c, 'spill'); if (!o.mb) o.mb = c.spill; else o.mb.append(c.spill); }
@@ -5398,6 +5404,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const addSuper = (o, mat, cast, name) => {
         cx = o.I * o.K + o.K / 2 - 0.5; cz = o.J * o.K + o.K / 2 - 0.5; // (addMesh centres at (cx + 0.5) · CELL)
         const m = addMesh(o.mb, mat, cast, `${name} ${o.I},${o.J}`); if (!m) return null;
+        if (o.parts) cullMergedCells(m, o.parts);
         const extra = CELL * (o.K - 1) * 0.71; m.userData.cull = (m.userData.cull || cullR) + extra;
         return m;
     };

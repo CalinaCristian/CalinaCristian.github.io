@@ -4,7 +4,7 @@ Work in progress: final capture acceptance is pending the consolidated road-widt
 
 The branch is `fidelity/original-districts-refresh`. Source datasets were rebuilt from the existing raw OSM tiles and existing independent aerial roof, canopy and green surveys. No reference images or credentials are included here. [Raw input hashes](proof/raw-tile-provenance.json) preserve the 36-tile union and full-relation fetch provenance. Imagery acquisition dates remain unknown where the original survey did not record them.
 
-| District | Source building records / exact IDs | Courtyard rings | Exported crowns | Source roads |
+| District | Source building records / exact IDs | Courtyard rings | Exported trees | Source roads |
 |---|---:|---:|---:|---:|
 | Floreasca | 3,366 / 3,366 | 3 | 15,181 | 143 |
 | Romană | 5,682 / 5,682 | 61 | 18,494 | 297 |
@@ -23,6 +23,8 @@ Concrete runtime defects were sent to their shared owners:
 - Floreasca private alley `w289331891` has literal 5 m width. Its apparent contact with building `r9146640` is rechecked after the shared positive-literal-width runtime fix; the source width always wins.
 
 Post-checkpoint roof revisions are committed separately: Floreasca `36e26ea`, Grozăvești `b234858`, Romană `ab34410`. They adopt `77c73a3`: mapped complex gabled/hipped shapes survive, and an unsourced rise cannot consume a literal low total height. Building, source ID, courtyard and crown counts are unchanged.
+
+The [post-roof estimate inventory](proof/source-ab34410/estimates.json) retains every native-profile issue and height/rise provenance count. It exposed two faulty guesses in Grozăvești: `w1559344855` has literal `min_height=46` but an estimated total of 6.4 m; `w1331434735` has literal `min_height=12` but an estimated total of 7.2 m. The shared roof owner is fixing these by estimating a positive body above the mapped minimum only when no positive total height is sourced. Literal source contradictions remain reported. Unsupported saltbox, quadruple-saltbox, half-hipped and mixed roof shapes remain explicit limitations; a complete source-ID audit does not certify those roof geometries.
 
 The earlier heavy baseline visual run was stopped during competing software-GL work. [Its raw logs and partial images](proof/before-interrupted-visual/) are explicitly incomplete and establish no pass. Existing overview collections retain their original capture provenance until a complete current atlas replaces the active collection. The new 250 m north-up capture plans contain 90 Floreasca, 115 Romană and 99 Grozăvești views, covering every core/ring cell plus clearly labelled distant context. Actual landmark, sports, source-part facade and 149 m outward drone-envelope views use `capture-context.cjs`; static cameras do not exercise the drone controller.
 

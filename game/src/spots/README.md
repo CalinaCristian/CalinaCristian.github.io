@@ -129,3 +129,9 @@ the `max` trees within `near` m of the camera at full detail, the rest low-poly.
 Rules (spec 15): artworks are modelled in 3-D from the research description (no photo textures) and credited on a
 plaque; dialogue comes from the research (`spots[].dialogue`, translation under non-English lines); keep
 deep water / dangerous structures unwalkable (Gas Works towers are fenced).
+
+Old Town terrace furniture requires explicit OSM `outdoor_seating=yes`. A venue's name alone supplies a façade sign,
+not a canopy, tables or seating. Dristor's mapped terrace remains; Shoteria's `outdoor_seating=no` frontage carries its
+name and the three-action drink interaction without generated outdoor furniture. Sign colours remain procedural estimates.
+Tourist floor probes honour `userData.noFloor` and visibility on ancestors, so unnamed vehicle parts never lift a person
+onto a car roof. Traffic starts at its lane pose before crowd placement, and initial guides keep clear of postcard cameras.

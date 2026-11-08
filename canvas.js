@@ -2,10 +2,13 @@ class Utils {
     static RADIUS_DIVIDER = 10000;
     static COUNT_DIVIDER = 15000;
     static MOUSE_COLLISION_TIMEOUT = 100;
-    static MIN_RADIUS = 75;
-    static MAX_RADIUS = 120;
-    static MIN_BALLS = 10;
-    static MAX_BALLS = 200;
+    // (round 6 note 39) small glowing city lights drifting over the road background instead of big grey bubbles
+    static MIN_RADIUS = 1.6;
+    static MAX_RADIUS = 4.2;
+    static MOUSE_RADIUS = 90;
+    static MIN_BALLS = 24;
+    static MAX_BALLS = 90;
+    static COLORS = ['rgba(251, 191, 36, 0.85)', 'rgba(96, 165, 250, 0.8)', 'rgba(250, 70, 22, 0.75)', 'rgba(226, 232, 240, 0.7)', 'rgba(56, 189, 248, 0.75)'];
 
     static GenerateRandomPosition = (canvas, radius) => ({
         x: Math.floor(Math.random() * (canvas.width - radius * 2)) + radius,
@@ -13,8 +16,8 @@ class Utils {
     })
 
     static GenerateRandomNonNulLVelocity = () => {
-        const velocity = Math.floor(Math.random() * 5) - 2.5;
-        return velocity === 0 ? 1 : velocity;
+        const velocity = (Math.random() * 0.9 + 0.25) * (Math.random() < 0.5 ? -1 : 1);
+        return velocity;
     }
 
     static GenerateRandomVelocity = () => ({
@@ -22,10 +25,7 @@ class Utils {
         y: Utils.GenerateRandomNonNulLVelocity()
     })
 
-    static GenerateRadius = (canvas) => {
-        const radius = Math.min(Math.max(canvas.height * canvas.width / Utils.RADIUS_DIVIDER, Utils.MIN_RADIUS), Utils.MAX_RADIUS);
-        return radius;
-    }
+    static GenerateRadius = () => Utils.MIN_RADIUS + Math.random() * (Utils.MAX_RADIUS - Utils.MIN_RADIUS)
 
     static GenerateRandomBall = (canvas) => {
         const radius = Utils.GenerateRadius(canvas);
@@ -34,12 +34,12 @@ class Utils {
             position: Utils.GenerateRandomPosition(canvas, radius),
             velocity: Utils.GenerateRandomVelocity(),
             radius,
-            color: 'rgb(255, 255, 255, 1)'
+            color: Utils.COLORS[Math.floor(Math.random() * Utils.COLORS.length)]
         }
     }
 
     static GetBallsCount = (canvas) => {
-        return Math.min(Math.max(canvas.height * canvas.width / Utils.COUNT_DIVIDER / 2, Utils.MIN_BALLS), Utils.MAX_BALLS);
+        return Math.round(Math.min(Math.max(canvas.height * canvas.width / 24000, Utils.MIN_BALLS), Utils.MAX_BALLS));
     }
 }
 
@@ -89,7 +89,6 @@ class BallGame {
         this.balls = this.balls.filter(ball => {
             return ball.position.x - ball.radius > 0 && ball.position.x + ball.radius < this.canvas.width && ball.position.y - ball.radius > 0 && ball.position.y + ball.radius < this.canvas.height;
         }).map(ball => {
-            ball.updateRadius(Utils.GenerateRadius(this.canvas));
             return ball;
         });
 
@@ -134,13 +133,13 @@ class BallGame {
 
 class Mouse {
     constructor(canvas, x, y) {
-        this.radius = Utils.GenerateRadius(canvas);
+        this.radius = Utils.MOUSE_RADIUS;
         this.x = x;
         this.y = y;
     }
 
-    updateRadius = (canvas) => {
-        this.radius = Utils.GenerateRadius(canvas);
+    updateRadius = () => {
+        this.radius = Utils.MOUSE_RADIUS;
     }
 
     updatePosition = (x, y) => {
@@ -218,11 +217,10 @@ class Ball {
     }
 
     draw = () => {
-        this.ctx.beginPath();
-        this.ctx.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI);
-        this.ctx.fillStyle = this.color;
-
-        this.ctx.fill();
+        // a soft glow + a bright core (headlights / city lights in the distance)
+        const { x, y } = this.position, r = this.radius, g = this.ctx.createRadialGradient(x, y, 0, x, y, r * 4);
+        g.addColorStop(0, this.color); g.addColorStop(0.25, this.color.replace(/[\d.]+\)$/, '0.35)')); g.addColorStop(1, this.color.replace(/[\d.]+\)$/, '0)'));
+        this.ctx.beginPath(); this.ctx.arc(x, y, r * 4, 0, 2 * Math.PI); this.ctx.fillStyle = g; this.ctx.fill();
     }
 }
 

@@ -1,0 +1,10 @@
+{
+  "label": "evolved-cloud-49",
+  "phase": "after-one-pixel-readback",
+  "at": 5325777.199999999,
+  "programs": 71,
+  "memory": {
+    "geometries": 245,
+    "textures": 34
+  }
+}

@@ -1195,7 +1195,7 @@ const faceEyeEuler = (p) => { const n = EYE.clone().sub(p).normalize(); return n
 // block starts ~41° right of centre at 16:9. Wheel rim top 27.5° (hub 44°, below the view), cluster above the
 // rim, screen right of the rim and left of the HUD, everything below the windshield's bottom edge (rain overlay).
 const CLUSTER = { az: 0, el: 20.6, dist: 0.75, w: 0.33, h: 0.33 * GAUGE_H / GAUGE_W, tilt: 18 };
-const SCREEN = { az: 27, el: 20.5, dist: 0.86, w: 0.34, h: 0.2125, yaw: 8, tilt: 16 }; // integrated in the centre stack: parallel to the dash, 8° toward the driver, 16° back-tilt
+const SCREEN = { az: 22, el: 20.5, dist: 0.86, w: 0.34, h: 0.2125, yaw: 0, tilt: 16 }; // integrated in the centre stack on the car's centreline, square to the dash (not turned toward the driver: after round 6), 16° back-tilt
 const WHEEL = { pos: new THREE.Vector3(-0.3, 0.89, -0.945), tilt: -0.42, r: 0.178, tube: 0.02 };
 const B_Z = 0.1; // front door rear edge / B-pillar (z, cockpit space): beside the front seat back, in view when looking 90° to the side
 const MIRROR = { pos: new THREE.Vector3(0.0, 1.655, -1.125), w: 0.27, h: 0.09 };

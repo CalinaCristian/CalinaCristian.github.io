@@ -6,7 +6,7 @@ const {execFileSync}=require('child_process'),{chromium}=require('playwright');
 const root=path.resolve(process.argv[2]||''),out=path.resolve(process.argv[3]||''),sourceCommit=process.argv[4];
 if(!/^[0-9a-f]{40}$/.test(sourceCommit||''))throw Error('Immutable root, output directory and full source commit required');
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
-const files=['game/data/seattle-seatac.json','game/src/landmarks.js','game/src/landmark-seatac-aircraft.js','game/src/landmark-us-source.js','game/src/landmark-us-geometry.js','game/src/landmark-us-terrain.js'];
+const files=['game/data/seattle-seatac.json','game/research/landmarks-seatac-aircraft.json','game/src/world.js','game/src/landmarks.js','game/src/landmark-seatac-aircraft.js','game/src/landmark-us-source.js','game/src/landmark-us-geometry.js','game/src/landmark-us-terrain.js'];
 const inputHashes={};for(const file of files){const served=fs.readFileSync(path.join(root,file));if(!served.equals(execFileSync('git',['show',sourceCommit+':'+file],{maxBuffer:32*1024*1024})))throw Error('Source archive mismatch: '+file);inputHashes[file]=hash(served);}
 if(process.argv.includes('--verify-only')){console.log(JSON.stringify({passed:true,sourceCommit,inputHashes,mode:'Source bytes only; no native browser gate claimed'},null,2));process.exit(0);}
 const research=JSON.parse(fs.readFileSync(path.join(root,'game/research/landmarks-seatac-aircraft.json')));

@@ -2,16 +2,17 @@
 //  Hiram M. Chittenden (Ballard) Locks: the large lock (251.5 × 24.4 m) and
 //  the small lock (45.7 × 9.1 m) side by side between Salmon Bay (lake level)
 //  and Shilshole Bay (tidal), miter gates you walk across, boats rising and
-//  falling (operate a lockage!), the spillway dam with tainter gates, the fish
+//  falling, the spillway dam with tainter gates, the fish
 //  ladder on the south bank, the 1915 buildings with red tile roofs and the
 //  Carl S. English Jr. Botanical Garden on the north bank.
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
-import { GeoBatch, M, rng, clamp, lerp, smooth, headingFromBearing, polyBox, inPoly } from '../kit.js';
+import { GeoBatch, M, rng, clamp, lerp, smooth, headingFromBearing, polyBox, inPoly, capsuleGeometry } from '../kit.js';
 import { signBoard } from '../props.js';
 import { addTraffic } from '../cars.js';
 import { waterMaterial, worldUV } from './sea-common.js';
 import { seaActivity } from './sea-common.js';
+import { activityFlow } from '../participation.js';
 
 // lock axis from the west (sea) gate to the east (lake) gate — OSM lock_gate ways
 const A = [-105, 42], B = [131, 130];
@@ -24,7 +25,7 @@ const LARGE = { s0: 0, s1: LEN, t: 0, w: 24.4 }, SMALL = { s0: 62, s1: 108, t: 2
 
 function boat(color, len = 12) {
     const g = new THREE.Group(); g.name = 'boat';
-    const hull = new THREE.Mesh(new THREE.CapsuleGeometry(len * 0.13, len * 0.72, 4, 10), new THREE.MeshStandardMaterial({ color, roughness: 0.5 }));
+    const hull = new THREE.Mesh(capsuleGeometry(len * 0.13, len * 0.72, 4, 10), new THREE.MeshStandardMaterial({ color, roughness: 0.5 }));
     hull.rotation.x = Math.PI / 2; hull.scale.set(1, 1, 0.55); hull.position.y = 0.2; g.add(hull);
     const cabin = new THREE.Mesh(new THREE.BoxGeometry(len * 0.2, len * 0.11, len * 0.3), new THREE.MeshStandardMaterial({ color: '#f2f2ee', roughness: 0.5 })); cabin.position.set(0, len * 0.1, -len * 0.05); g.add(cabin);
     const mast = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.08, len * 0.9, 6), cabin.material); mast.position.set(0, len * 0.45, len * 0.1); if (len < 13) g.add(mast);
@@ -98,7 +99,7 @@ export default {
             ctx.add(b.build('spillway-fishladder'));
         }
         // 1915 buildings: buff walls, red tile hipped roofs
-        for (const bd of d.buildings) if (/Administration|Operating House|Control Tower|Visitor Center|Machine Shop|Office and Shop|Mechanics|Warehouse No|Steel Shop|Gatehouse/.test(bd.name || '')) { bd.roof = 'hipped'; bd.rc = '#a2452d'; bd.c = '#d9ccad'; bd.h = bd.h || (/Administration/.test(bd.name) ? 11 : 7); }
+        for (const bd of d.buildings) if (/Administration|Operating House|Control Tower|Visitor Center|Machine Shop|Office and Shop|Mechanics|Warehouse No|Steel Shop|Gatehouse/.test(bd.name || '')) { bd.estimatedRoof = 'hipped'; bd.rc = '#a2452d'; bd.c = '#d9ccad'; bd.estimatedHeight = /Administration/.test(bd.name) ? 11 : 7; }
         ctx.terrainOpts = { bg: '#5f7a3c', innerPx: 2048, skirtY: SEA - 0.2, skirtColor: '#36525a' };
         ctx.osmBackdrop({ paint: {}, urban: false, style: (bd) => (bd.rc === '#a2452d' ? 'apartment' : undefined), areaTreeOpts: { conifer: 0.5, density: 1 / 70 } });
         // Carl S. English Jr. Botanical Garden: specimen trees + beds
@@ -109,7 +110,8 @@ export default {
         ctx.lampOpts = { style: 'acorn', color: '#1f2a26', h: 4.2 };
         // boats in the large lock, rising and falling with the water
         const boats = [['#1f3b57', 11], ['#e8e4d8', 14], ['#7a2c2c', 9], ['#f2f2ee', 18], ['#2d5a3a', 10]].map(([c, l], i) => { const bt = boat(c, l); const [x, z] = fromAx(30 + i * 42, (i % 2 ? 6 : -6)); bt.position.set(x, SEA, z); bt.rotation.y = YAW; ctx.add(bt); return bt; });
-        // lockage cycle: fill (sea → lake), hold, drain; E at the control tower runs one immediately
+        // An ambient, shortened lock cycle. Visitors observe from the public
+        // walkway; the activity never gives them control of operating equipment.
         let level = SEA, phase = 'low', timer = 20;
         const runLockage = () => { phase = 'fill'; timer = 0; };
         ctx.onUpdate((dt, s) => {
@@ -122,8 +124,16 @@ export default {
             boats.forEach((bt, i) => { bt.position.y = level + 0.05 + Math.sin(s.t * 0.8 + i) * 0.04; bt.rotation.z = Math.sin(s.t * 0.6 + i * 2) * 0.02; });
         });
         const [tx, tz] = fromAx(108, -16);
-        ctx.interactables.push({ kind: 'lockage', x: tx, z: tz, r: 4, label: () => (phase === 'low' ? 'Operate a lockage: close the gates, open the fill valves' : phase === 'high' ? 'Drain the chamber to sea level' : 'Lockage in progress…'),
-            use: (s) => { if (phase === 'low') { runLockage(); seaActivity(s, 'lm-locks-lockage', 'ballard-locks'); s.ui.toast('🚢 Filling', 'Boats rise up to 26 ft in 10–15 minutes (here: 25 s).'); } else if (phase === 'high') { phase = 'drain'; timer = 0; } s.sound.play('bell'); } });
+        const flow=activityFlow(ctx),stages=[['fill','The boats are rising'],['high','They reached lake level'],['drain','The boats are descending'],['low','Back at sea level']];
+        ctx.extras.lockage={debug:()=>({phase,timer,level})};
+        ctx.interactables.push({kind:'lockage',x:tx,z:tz,r:4,label:'Watch a lock cycle from the public walkway',use:s=>flow.begin(s,{
+            title:'Watch the Ballard Locks',focus:{x:fromAx(108,0)[0],z:fromAx(108,0)[1],y:level+1.5},action:stages[0][1],lockWalker:false,
+            help:'Watch the boats and water through a shortened cycle. Identify each stage when you see it; Leave or Esc ends the visit.',
+            started(s,r){r.stage=0;r.busy=true;},
+            actioned(s,r){r.stage++;if(r.stage===stages.length){flow.complete();return;}r.busy=true;r.button.textContent=stages[r.stage][1];},
+            update(dt,s,r){r.busy=phase!==stages[r.stage][0]||timer<3;r.status.textContent=`${phase==='fill'?'Filling':phase==='drain'?'Draining':phase==='high'?'At lake level':'At sea level'} · ${Math.round((level-SEA)/(LAKE-SEA)*100)}% of the rise`;r.progress.value=r.stage/4;if(Math.hypot(s.position.x-tx,s.position.z-tz)>14)flow.cancel('distance');},
+            complete(s){seaActivity(s,'lm-locks-lockage','ballard-locks');s.ui.toast('🚢 Lock cycle observed','You watched the boats rise to lake level and return to sea level.');s.sound.play('bell');},
+        })});
         // signage
         const sg = signBoard('HIRAM M. CHITTENDEN LOCKS', 6.5, 0.9, { bg: '#1e3a2b', fg: '#f1ead4', font: (q) => `700 ${q}px Georgia, serif` }); sg.position.set(55, g.heightAt(55, -140) + 2.2, -140); sg.rotation.y = Math.PI; ctx.add(sg);
         addTraffic(ctx, { lanes: [{ pts: [[-142, -119], [-99, -126], [-63, -131], [32, -148], [56, -157], [69, -167]], n: 2, speed: 9 }] });

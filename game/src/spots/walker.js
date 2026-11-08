@@ -36,8 +36,8 @@ function collideOne(b, x, z, radius, y) {
     }
     if (b.prop && b.hw === b.r) { const dx = x - b.x, dz = z - b.z, d = Math.hypot(dx, dz); if (d >= b.r + radius) return null; return d > 1e-4 ? { nx: dx / d, nz: dz / d, pen: b.r + radius - d } : { nx: 1, nz: 0, pen: b.r + radius }; }
     if (b.poly) {
-        const p = b.poly, inside = inPoly(x, z, p); let bd = 1e9, nx = 0, nz = 0;
-        for (let i = 0, j = p.length - 1; i < p.length; j = i++) { const r = distSeg(x, z, p[j][0], p[j][1], p[i][0], p[i][1]); if (r.d < bd) { bd = r.d; nx = r.d > 1e-5 ? (x - r.cx) / r.d : 0; nz = r.d > 1e-5 ? (z - r.cz) / r.d : 0; } }
+        const p = b.poly, holes = b.holes || [], inside = inPoly(x, z, p) && !holes.some(h => inPoly(x, z, h)); let bd = 1e9, nx = 0, nz = 0;
+        for (const ring of [p, ...holes]) for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) { const r = distSeg(x, z, ring[j][0], ring[j][1], ring[i][0], ring[i][1]); if (r.d < bd) { bd = r.d; nx = r.d > 1e-5 ? (x - r.cx) / r.d : 0; nz = r.d > 1e-5 ? (z - r.cz) / r.d : 0; } }
         if (inside) return { nx: -nx, nz: -nz, pen: radius + bd };
         return bd < radius ? { nx, nz, pen: radius - bd } : null;
     }

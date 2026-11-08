@@ -18,6 +18,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { BUC_CACHE } from './fetch-buc.mjs';
+import { parseMeasure } from '../../building-roofs.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../..');
 const RES = path.join(ROOT, 'game/research');
@@ -182,11 +183,13 @@ function buildScene(sceneId) {
             if (poly.length < 3 || Math.abs(polyArea(poly)) < 2) continue;
             const lv = num(b['building:levels']);
             const o = {
-                id: b.id, poly, h: num(b.height_m ?? b.height), lv, minH: num(b.min_height), minLv: num(b['building:min_level']),
+                id: b.id, poly, h: parseMeasure(b.height_m ?? b.height), lv, minH: parseMeasure(b.min_height), minLv: num(b['building:min_level']),
                 k: b.building || (b['building:part'] ? 'part' : 'yes'), part: !!b['building:part'],
-                roof: b['roof:shape'] || null, roofH: num(b['roof:height']), rc: b['roof:colour'] || null, c: b['building:colour'] || null,
+                roof: b['roof:shape'] || null, roofH: parseMeasure(b['roof:height']), rc: b['roof:colour'] || null, c: b['building:colour'] || null,
                 mat: b['building:material'] || null, name: b.name || null, backdrop,
             };
+            const roofTags = Object.fromEntries(Object.entries(b).filter(([k]) => k.startsWith('roof:')));
+            if (Object.keys(roofTags).length) o.roofTags = roofTags;
             if (b.amenity) o.amenity = b.amenity; if (b.shop) o.shop = b.shop; if (b.tourism) o.tourism = b.tourism;
             if (b.layer) o.layer = num(b.layer);
             if (b.holes) o.holes = b.holes.map((h) => cleanPoly(h.map(([la, lo]) => P.xy(la, lo))));

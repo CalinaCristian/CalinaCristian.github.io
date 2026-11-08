@@ -239,6 +239,7 @@ def main():
         issues = [f'unparsed OSM {k}={tags[k]}' for k in ('height', 'min_height') if tags.get(k) is not None and measure(tags[k]) is None]
         issues += [f'nonpositive OSM height={tags["height"]}'] if height is not None and height <= 0 else []
         return {'identityPresent': True, 'matchedSource': hit['source'], 'matchMethod': 'source-id' if strict_identity else 'legacy-spatial', 'sourceDimensionIssues': issues,
+                **({'unsupportedMinimumTags': {'building:min_levels': tags['building:min_levels']}} if 'building:min_levels' in tags else {}),
                 'boundaryErrorM': round(e, 5), 'topologyMatches': e <= .15 and same_holes,
                 'literalHeightMatches': height is None or height <= 0 or abs(hit['h'] - height) <= .011,
                 'literalMinimumMatches': minimum is None or minimum <= 0 or abs(hit['minH'] - minimum) <= .011,
@@ -283,7 +284,8 @@ def main():
                 el.clear()
             elif el.tag == 'relation':
                 t = {x.get('k'): x.get('v') for x in el.iter('tag')}
-                if t.get('type') == 'multipolygon' and t.get('building') and t.get('building') != 'no':
+                positive = lambda value: value is not None and str(value) != '' and str(value).lower() not in ('no', 'false', '0')
+                if t.get('type') == 'multipolygon' and (positive(t.get('building')) or positive(t.get('building:part'))):
                     relations[el.get('id')] = ([(m.get('ref'), m.get('role')) for m in el.iter('member') if m.get('type') == 'way'], t)
                 el.clear()
     aer = json.load(open(a.roofs))['roofs'] if a.roofs and os.path.exists(a.roofs) else {}
@@ -367,7 +369,7 @@ def main():
             candidates = [b for b in B if b['source'] == 'r' + rid]
             hit = min(candidates, key=lambda b: math.hypot(b['c'][0] - cx, b['c'][1] - cz)) if candidates else None
             ll = [nodes[n] for n in refs[:-1]]
-            row = {'osm': 'r' + rid, 'kind': 'relation', 'zone': zone, 'type': t.get('building'), 'name': t.get('name'), 'areaOSM': round(ar), 'lat': round(sum(p[0] for p in ll) / len(ll), 6), 'lon': round(sum(p[1] for p in ll) / len(ll), 6), 'heightOSM': measure(t.get('height')), 'levelsOSM': num(t.get('building:levels')), 'roofLevelsOSM': num(t.get('roof:levels')) or 0, 'roofOSM': t.get('roof:shape'), 'holeCountOSM': len(holes), 'holeAreaOSM': round(sum(abs(area(h)) for h in holes), 1)}
+            row = {'osm': 'r' + rid, 'kind': 'relation', 'zone': zone, 'type': t.get('building') or t.get('building:part'), 'isPart': positive(t.get('building:part')), 'name': t.get('name'), 'areaOSM': round(ar), 'lat': round(sum(p[0] for p in ll) / len(ll), 6), 'lon': round(sum(p[1] for p in ll) / len(ll), 6), 'heightOSM': measure(t.get('height')), 'levelsOSM': num(t.get('building:levels')), 'roofLevelsOSM': num(t.get('roof:levels')) or 0, 'roofOSM': t.get('roof:shape'), 'holeCountOSM': len(holes), 'holeAreaOSM': round(sum(abs(area(h)) for h in holes), 1)}
             if margin is not None:
                 row['margin'] = round(margin, 1); row['centroidMargin'] = round(centroid_margin, 1)
             row.update(match_fields(hit, ring, holes, t))

@@ -212,7 +212,7 @@ def main():
         x0 = min(x for x, _ in ring); x1 = max(x for x, _ in ring); z0 = min(z for _, z in ring); z1 = max(z for _, z in ring)
         holes = d.get('buildingHoleFootprints', {}).get(str(i)) or [undelta(h, 0) for h in d.get('buildingHoles', {}).get(str(i), [])]
         dimensions = d.get('buildingDimensions', {}).get(str(i), [b[1] / 10, b[2] / 10])
-        B.append({'i': i, 'source': source_ids[i] if i < len(source_ids) else None, 'ring': ring, 'holes': holes, 'bb': (x0, z0, x1, z1), 'h': dimensions[0], 'minH': dimensions[1], 'roof': roofs[b[3]], 'flags': b[5], 'levels': b[6], 'c': centroid(ring), 'area': abs(area(ring))})
+        B.append({'i': i, 'source': source_ids[i] if i < len(source_ids) else None, 'ring': ring, 'holes': holes, 'bb': (x0, z0, x1, z1), 'h': dimensions[0], 'eaves': d.get('buildingRoofProfiles', {}).get(str(i), {}).get('eavesM', dimensions[0]), 'minH': dimensions[1], 'roof': roofs[b[3]], 'flags': b[5], 'levels': b[6], 'c': centroid(ring), 'area': abs(area(ring))})
     by_source = {}
     for b in B:
         if b['source']:
@@ -335,7 +335,7 @@ def main():
             row['centroidMargin'] = round(centroid_margin, 1)
         row.update(match_fields(hit, ring, [], t))
         if hit:
-            row.update({'game': hit['i'], 'dist': round(math.hypot(hit['c'][0] - cx, hit['c'][1] - cz), 1), 'areaKept': round(hit['area'] / ar, 2), 'hGame': hit['h'], 'roofGame': hit['roof']})
+            row.update({'game': hit['i'], 'dist': round(math.hypot(hit['c'][0] - cx, hit['c'][1] - cz), 1), 'areaKept': round(hit['area'] / ar, 2), 'hGame': hit['h'], 'hEavesGame': hit['eaves'], 'levelsGame': hit['levels'], 'roofGame': hit['roof']})
         r = aer.get(wid)
         if r:
             row['roofAerial'] = r[0]; row['roofConf'] = r[1]
@@ -373,11 +373,23 @@ def main():
             row.update(match_fields(hit, ring, holes, t))
             if hit:
                 gh = hit['holes']; source_area = sum(abs(area(h)) for h in holes)
-                row.update({'game': hit['i'], 'dist': round(math.hypot(hit['c'][0] - cx, hit['c'][1] - cz), 1), 'areaKept': round(hit['area'] / ar, 2), 'hGame': hit['h'], 'roofGame': hit['roof'], 'holeCountGame': len(gh), 'holeAreaGame': round(sum(abs(area(h)) for h in gh), 1), 'holeAreaKept': round(sum(abs(area(h)) for h in gh) / source_area, 2) if source_area else None, 'courtyardInteriorsClear': all(any(pip(*interior_point(h), g) for g in gh) for h in holes)})
+                row.update({'game': hit['i'], 'dist': round(math.hypot(hit['c'][0] - cx, hit['c'][1] - cz), 1), 'areaKept': round(hit['area'] / ar, 2), 'hGame': hit['h'], 'hEavesGame': hit['eaves'], 'levelsGame': hit['levels'], 'roofGame': hit['roof'], 'holeCountGame': len(gh), 'holeAreaGame': round(sum(abs(area(h)) for h in gh), 1), 'holeAreaKept': round(sum(abs(area(h)) for h in gh) / source_area, 2) if source_area else None, 'courtyardInteriorsClear': all(any(pip(*interior_point(h), g) for g in gh) for h in holes)})
             relation_rows.append(row)
     # ---- summary
     def pct(n, tot):
         return f"{n}/{tot} ({100 * n / max(1, tot):.1f} %)"
+    def print_dimensions(matches, label=''):
+        literal = [r for r in matches if r['heightOSM'] is not None and r['heightOSM'] > 0]
+        literal_ok = [r for r in literal if abs(r['hGame'] - r['heightOSM']) <= .011]
+        print(f'  {label}literal positive OSM total heights exact within0.011m:', pct(len(literal_ok), len(literal)))
+        levels = [r for r in matches if r['levelsOSM'] is not None and r['levelsOSM'] > 0]
+        levels_ok = [r for r in levels if abs(r['levelsGame'] - r['levelsOSM']) <= .001]
+        print(f'  {label}literal positive OSM storey counts exact:', pct(len(levels_ok), len(levels)))
+        estimates = [r for r in levels if not (r['heightOSM'] is not None and r['heightOSM'] > 0)]
+        expected = lambda r: r['levelsOSM'] * 3.0 + (r['roofLevelsOSM'] * 2.6 if r['roofGame'] == 'flat' else 0)
+        rough_ok = [r for r in estimates if abs(r['hEavesGame'] - expected(r)) <= max(2.5, .25 * expected(r))]
+        print(f'  {label}levels-only metre ESTIMATES: eaves within ±25%/2.5m of generic3m/storey (diagnostic, not source-tag fidelity):', pct(len(rough_ok), len(estimates)))
+
     for zone in ('inside', 'ring'):
         R = [r for r in rows if r['zone'] == zone]
         exact = [r for r in R if r.get('identityPresent')]
@@ -390,14 +402,7 @@ def main():
         if M:
             ak = sorted(r['areaKept'] for r in M); print(f"  area kept    median {ak[len(ak) // 2]:.2f}, < 0.6 for {sum(1 for v in ak if v < 0.6)}")
             ds = sorted(r['dist'] for r in M); print(f"  centroid off median {ds[len(ds) // 2]:.1f} m, > 3 m for {sum(1 for v in ds if v > 3)}")
-        tagged = [r for r in M if r['heightOSM'] or r['levelsOSM']]
-        if tagged:
-            def want(r):
-                return r['heightOSM'] if r['heightOSM'] else r['levelsOSM'] * 3.0 + (r['roofLevelsOSM'] * 2.6 if r['roofGame'] == 'flat' else 0)
-            bad = [r for r in tagged if abs(r['hGame'] - want(r)) > max(2.5, 0.25 * want(r))]
-            print('  height (OSM-tagged) within ±25 % / 2.5 m:', pct(len(tagged) - len(bad), len(tagged)))
-            for r in sorted(bad, key=lambda r: -abs(r['hGame'] - want(r)))[:6]:
-                print(f"    {r['osm']} {r['name'] or ''} OSM {r['heightOSM'] or ''} m / {r['levelsOSM'] or ''} lv → game {r['hGame']} m @ {r['lat']},{r['lon']}")
+        print_dimensions([r for r in R if 'game' in r])
         conf = [r for r in M if r.get('roofConf', 0) >= 0.5 and r.get('roofAerial') in ('flat', 'hipped', 'gabled') and not r['roofOSM']]
         if conf:
             pitched = lambda s: s in ('hipped', 'gabled', 'pyramid', 'skillion', 'mansard', 'dome')
@@ -411,10 +416,7 @@ def main():
         courtyard = [r for r in rr if r['holeCountOSM']]
         kept = [r for r in courtyard if r.get('holeCountGame') == r['holeCountOSM'] and r.get('courtyardInteriorsClear')]
         print(f"== {zone} multipolygon relations: {pct(len(matched), len(rr))} source identity matched; courtyards {pct(len(kept), len(courtyard))} count and source interior points preserved (legacy annular sectors excluded only without source identities)")
-        tagged = [r for r in matched if r['heightOSM'] or r['levelsOSM']]
-        expected = lambda r: r['heightOSM'] if r['heightOSM'] else r['levelsOSM'] * 3.0 + (r['roofLevelsOSM'] * 2.6 if r['roofGame'] == 'flat' else 0)
-        height_ok = [r for r in tagged if abs(r['hGame'] - expected(r)) <= max(2.5, 0.25 * expected(r))]
-        print('  relation height (OSM-tagged) within ±25 % / 2.5 m:', pct(len(height_ok), len(tagged)))
+        print_dimensions(matched, 'relation ')
         for r in courtyard:
             if r not in kept:
                 print(f"    COURTYARD {r['osm']} source={r['holeCountOSM']} game={r.get('holeCountGame', 0)} @ {r['lat']},{r['lon']}")

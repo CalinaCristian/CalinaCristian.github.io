@@ -299,7 +299,7 @@ export async function loadSpot(id, renderer = null, opts = {}) {
         lamps: lamps.lamps, lampHeadMesh: lamps.headMesh, vegetation, crowd, interactables: ctx.interactables, challenges: ctx.challenges,
         updaters: ctx.updaters, nightHooks: ctx.nightHooks, sounds: ctx.sounds, ctx, tris,
         timing: { fetch: Math.round(tFetch - t0), build: Math.round(tBuild - tFetch), finish: Math.round(performance.now() - tBuild), total: Math.round(performance.now() - t0) },
-        dispose() { crowd?.dispose(); disposeTree(ctx.scene); ctx.scene.clear(); },
+        dispose() { ctx.extras.participation?.dispose(); for (const clean of ctx.extras.sceneCleanups || []) clean(); crowd?.dispose(); disposeTree(ctx.scene); ctx.scene.clear(); },
     };
     void renderer; // (programs compile on the first frame, after Renderer3D added its lights)
     console.info(`[spots] ${id} (${sceneId}): ${tris.toLocaleString()} tris, ${ctx.colliders.length} colliders, ${crowd?.count || 0} people, ${ctx.plaques.length} plaques — ${res.timing.total} ms (fetch ${res.timing.fetch}, build ${res.timing.build}, finish ${res.timing.finish})`);
@@ -367,6 +367,7 @@ export class SpotSession {
         window.cvTelemetry?.track?.('spot_enter', { id: spot.id, scene: spot.sceneId, city: spot.city });
     }
     get position() { return this.ctl.position; }
+    cancelActivities(reason = 'cancel') { this.spot.ctx.extras.venueActivities?.cancel(reason); this.spot.ctx.extras.participation?.cancel(reason); }
     // ------------------------------------------------------------------ spot map + objectives + guided tour (notes 32/33/67)
     /** everything worth finding in this scene: { kind, x, z, label, done, icon? } (landmarks, plaques, postcard, activities, entrances) */
     objectives() {
@@ -426,7 +427,7 @@ export class SpotSession {
     }
     async openMap() {
         if (this.ui.panelOpen || !this.map) return;
-        this.spot.ctx.extras.venueActivities?.cancel('map');
+        this.cancelActivities('map');
         if (this.input) { this.input.lookAllowed = false; this.input.releaseLock?.(); }
         this._refreshMarkers();
         const ICONS = { hero: '⭐', plaque: '📜', postcard: '📷', bike: '🚲', activity: '🎯' }, items = [], groups = new Map();
@@ -657,7 +658,7 @@ export class SpotSession {
         } catch (e) { if (!this._mapErr) { this._mapErr = true; console.warn('[spots] map/tour', e); } }
         if (!photo && !panel && this.input?.take?.('KeyM')) this.openMap(); // (G is the drone everywhere — round 6 note 14)
         // interactions (nearest within reach)
-        if (!photo && !panel && !this.spot.ctx.extras.venueActivities?.active) {
+        if (!photo && !panel && !this.spot.ctx.extras.venueActivities?.active && !this.spot.ctx.extras.participation?.active) {
             let best = null, bd = 1e9;
             for (const it of this.spot.interactables) { if (it.cond && !it.cond(this)) continue; const d = Math.hypot(p.x - it.x, p.z - it.z); if (d < (it.r || 2) && d < bd && Math.abs((it.y ?? p.y) - p.y) < 3) { bd = d; best = it; } }
             this.ui.prompt(best ? `<kbd>E</kbd>${escapeHtml(typeof best.label === 'function' ? best.label(this) : best.label)}` : null);
@@ -690,14 +691,14 @@ export class SpotSession {
     /** move the walker to another spawn of the same scene (seattle-center: space-needle / chihuly / mopop) */
     teleport(spotId) {
         const s = this.spot.spawns[spotId], entry = spotById(spotId); if (!s || !entry) return;
-        this.spot.ctx.extras.venueActivities?.cancel('teleport');
+        this.cancelActivities('teleport');
         this.endTour(); this.ctl.teleport(s.x, s.z, s.heading);
         Object.assign(this.spot, { id: spotId, name: entry.name, entry, spawn: s });
         this.ui.setTitle(this.spot.name, `${placeLabel(this.spot)} · walk-only bonus`);
         this._updateChallengeText(); this._refreshMarkers();
     }
     dispose() {
-        this.spot?.ctx?.extras?.venueActivities?.cancel('exit');
+        this.cancelActivities('exit');
         this.ctl?.exit(); this.ui?.dispose(); this.sound?.dispose(); this.spot?.dispose();
         this.r3d.setLamps?.([]);
         window.cvTelemetry?.track?.('spot_exit', { id: this.spot.id, seconds: Math.round(this.t) });

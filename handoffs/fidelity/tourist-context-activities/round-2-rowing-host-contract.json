@@ -1,0 +1,216 @@
+{
+  "hostContractPatch": true,
+  "initial": {
+    "source": "n473428602",
+    "landing": {
+      "id": "n473428602",
+      "x": -10.2,
+      "z": 97.7,
+      "name": "Debarcader",
+      "tourism": "attraction"
+    },
+    "approach": {
+      "x": -16.039442855671236,
+      "z": 100.80608662535704
+    },
+    "triangles": 540413,
+    "path": {
+      "points": [
+        [
+          -0.8630312298909688,
+          -71.07983521630418
+        ],
+        [
+          -21.28944285567124,
+          -74.82983521630416
+        ],
+        [
+          -22.78944285567124,
+          -76.32983521630416
+        ],
+        [
+          -34.78944285567124,
+          -61.32983521630416
+        ],
+        [
+          -33.28944285567124,
+          -55.32983521630416
+        ],
+        [
+          -24.28944285567124,
+          84.17016478369584
+        ],
+        [
+          -16.039442855671236,
+          100.80608662535704
+        ]
+      ],
+      "length": 206.64238764088157
+    }
+  },
+  "idle": {
+    "distance": 0,
+    "length": 48,
+    "velocity": 0,
+    "strokes": 0
+  },
+  "stroke": {
+    "distance": 0.25309730292880595,
+    "length": 48,
+    "velocity": 1.6327842148004428,
+    "strokes": 1
+  },
+  "frames": [
+    {
+      "name": "rowboat-stroke",
+      "triangles": 995521,
+      "calls": 219
+    },
+    {
+      "name": "rowboat-mobile-390",
+      "triangles": 977140,
+      "calls": 103
+    },
+    {
+      "name": "rowboat-mobile-844",
+      "triangles": 982860,
+      "calls": 123
+    }
+  ],
+  "restore": {
+    "before": {
+      "x": -16.039442855671236,
+      "z": 100.80608662535704,
+      "y": -0.5444117424854934,
+      "heading": -1.5707963267948966
+    },
+    "after": {
+      "x": -16.039442855671236,
+      "z": 100.80608662535704,
+      "y": -0.5444117424854934,
+      "heading": -1.5707963267948966
+    },
+    "walker": true
+  },
+  "cancels": {
+    "escape": {
+      "active": false,
+      "walker": true,
+      "award": false
+    },
+    "map": {
+      "active": false,
+      "walker": true,
+      "award": false
+    },
+    "photo": {
+      "active": false,
+      "walker": true,
+      "award": false
+    },
+    "pause": {
+      "active": false,
+      "walker": true,
+      "award": false
+    },
+    "teleport": {
+      "active": false,
+      "walker": true,
+      "award": false
+    },
+    "hidden": {
+      "active": false,
+      "walker": true,
+      "award": false
+    }
+  },
+  "mobile": [
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "bounds": {
+        "box": {
+          "x": 16,
+          "y": 108,
+          "width": 358,
+          "height": 215.765625,
+          "top": 108,
+          "right": 374,
+          "bottom": 323.765625,
+          "left": 16
+        },
+        "buttons": [
+          {
+            "x": 31,
+            "y": 266.765625,
+            "width": 118.875,
+            "height": 44,
+            "top": 266.765625,
+            "right": 149.875,
+            "bottom": 310.765625,
+            "left": 31
+          },
+          {
+            "x": 157.875,
+            "y": 266.765625,
+            "width": 68.890625,
+            "height": 44,
+            "top": 266.765625,
+            "right": 226.765625,
+            "bottom": 310.765625,
+            "left": 157.875
+          }
+        ]
+      }
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "bounds": {
+        "box": {
+          "x": 16,
+          "y": 108,
+          "width": 390,
+          "height": 215.765625,
+          "top": 108,
+          "right": 406,
+          "bottom": 323.765625,
+          "left": 16
+        },
+        "buttons": [
+          {
+            "x": 31,
+            "y": 266.765625,
+            "width": 118.875,
+            "height": 44,
+            "top": 266.765625,
+            "right": 149.875,
+            "bottom": 310.765625,
+            "left": 31
+          },
+          {
+            "x": 157.875,
+            "y": 266.765625,
+            "width": 68.890625,
+            "height": 44,
+            "top": 266.765625,
+            "right": 226.765625,
+            "bottom": 310.765625,
+            "left": 157.875
+          }
+        ]
+      }
+    }
+  ],
+  "complete": {
+    "strokes": 30,
+    "active": false,
+    "award": true,
+    "walker": true
+  },
+  "errors": []
+}

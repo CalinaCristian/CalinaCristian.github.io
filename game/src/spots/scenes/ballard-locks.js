@@ -7,7 +7,7 @@
 //  Carl S. English Jr. Botanical Garden on the north bank.
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
-import { GeoBatch, M, rng, clamp, lerp, smooth, headingFromBearing, polyBox, inPoly, capsuleGeometry } from '../kit.js';
+import { GeoBatch, M, rng, clamp, lerp, smooth, headingFromBearing, polyBox, inPoly, capsuleGeometry, distSeg } from '../kit.js';
 import { signBoard } from '../props.js';
 import { addTraffic } from '../cars.js';
 import { waterMaterial, worldUV } from './sea-common.js';
@@ -92,6 +92,14 @@ export default {
         // uses the authored coping elevation; neither height nor width is a
         // field measurement. No deck is extended across a chamber or courtyard.
         const northWalks = ['w60973303', 'w472179831'].map(id => d.ways.find(w => w.id === id)).filter(Boolean);
+        const publicBankPoint = (x, z) => {
+            let nearest = null;
+            for (const way of northWalks) for (let i = 1; i < way.pts.length; i++) {
+                const a = way.pts[i - 1], b = way.pts[i], p = distSeg(x, z, ...a, ...b);
+                if (!nearest || p.d < nearest.d) nearest = p;
+            }
+            return nearest ? [nearest.cx, nearest.cz] : [x, z];
+        };
         const westSteps = d.ways.find(w => w.id === 'w60973302');
         const westLink = d.ways.find(w => w.id === 'w1305390459');
         for (const walk of northWalks) g.corridor(walk.pts, 3.2, 2.5, () => WALL_TOP);
@@ -139,7 +147,8 @@ export default {
             big.water.position.y = level; small.water.position.y = level;
             boats.forEach((bt, i) => { bt.position.y = level + 0.05 + Math.sin(s.t * 0.8 + i) * 0.04; bt.rotation.z = Math.sin(s.t * 0.6 + i * 2) * 0.02; });
         });
-        const [tx, tz] = fromAx(108, -16);
+        // Observe from the actual mapped public bank path, outside the coping.
+        const [tx, tz] = publicBankPoint(...fromAx(108, -16));
         const flow=activityFlow(ctx),stages=[['fill','The boats are rising'],['high','They reached lake level'],['drain','The boats are descending'],['low','Back at sea level']];
         ctx.extras.lockage={debug:()=>({phase,timer,level})};
         ctx.interactables.push({kind:'lockage',x:tx,z:tz,r:4,label:'Watch a lock cycle from the public walkway',use:s=>flow.begin(s,{
@@ -158,7 +167,14 @@ export default {
         PL.forEach((pl, i) => {
             // The original reader positions align with the mapped public bank
             // path, outside the operating wall. Attach boards to that grade.
-            const [x, z] = fromAx(40 + i * 30, -LARGE.w / 2 - 4.5);
+            let [x, z] = fromAx(40 + i * 30, -LARGE.w / 2 - 4.5);
+            if (i === 3) {
+                // The mapped path bends around the operating house here. Keep
+                // this authored board's reader on that bend, not its low verge.
+                const yaw = YAW + Math.PI / 2;
+                const p = publicBankPoint(x + Math.sin(yaw) * 1.2, z + Math.cos(yaw) * 1.2);
+                x = p[0] - Math.sin(yaw) * 1.2; z = p[1] - Math.cos(yaw) * 1.2;
+            }
             ctx.plaque(pl, x, z, YAW + Math.PI / 2, { y: WALL_TOP, credit: i === 0 ? 'U.S. Army Corps of Engineers; opened 1917.' : null });
         });
         { const [cx, cz] = fromAx(205, -LARGE.w / 2 - 1.8); ctx.challenge('ballard-locks', { x: cx, z: cz, heading: 290, pitch: -10, r: 16, tol: 35 }); } // on the north lock wall, looking down the chamber full of boats

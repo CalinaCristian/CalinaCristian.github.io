@@ -20,3 +20,10 @@ export function sourceSlope(p, directionDegrees, bottom, rise, round = false) {
     return (x,z) => { const t=Math.max(0,Math.min(1,(x*ux+z*uz-lo)/(hi-lo||1)));
         return bottom+rise*(round?Math.sqrt(Math.max(0,1-(t*2-1)**2)):t); };
 }
+
+// Reuse the registry font while mapping every letter vertex onto a source roof.
+export function sourceSurfaceText(b, text, x, z, rotation, height, colour, yAt) {
+    const lift = q => [q[0], yAt(q[0], q[2]) + 0.16, q[2]];
+    return b.text.call({ quad(a,c,d,e,col,mat) { b.quad(lift(a),lift(c),lift(d),lift(e),col,mat,[0,1,0]); } },
+        text, x, 0, z, rotation, height, colour, { flat: true, d: 0 });
+}

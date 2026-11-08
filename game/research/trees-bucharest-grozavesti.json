@@ -1,4 +1,4 @@
-{"_source":"aerial imagery (Esri World Imagery) measured by tools/aerial/trees.py; crown positions only, no imagery stored","_format":"trees: [[lat, lon, crown radius m], ...]","_mosaic":{"bbox":[44.428,26.038,44.458,26.079],"z":18},"_coverage":[44.428,26.038,44.458,26.079],"canopyShare":0.319,"trees":[
+{"_source":"aerial imagery (Esri World Imagery) measured by tools/aerial/trees.py; crown positions only, no imagery stored","_format":"trees: [[lat, lon, crown radius m], ...]","_mosaic":{"bbox":[44.428,26.038,44.458,26.079],"z":18},"_coverage":[44.428,26.038,44.458,26.079],"canopyShare":0.319,"_retention":"all-measured","_retentionNote":"Retain every measured crown in the source input. No frame-budget thinning in this district; geometry conflicts/duplicates/outsideROI are counted separately. Runtime crown radius uses the independent aerial measurement; heights/species remain estimates.","trees":[
 [44.428007,26.040285,4.4],
 [44.428007,26.040457,3.1],
 [44.428007,26.040575,3.5],

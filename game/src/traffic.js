@@ -1609,6 +1609,16 @@ export class Traffic {
             if (v.speed < 0.2 && !v.parked && this.rng.chance(0.25)) v.speed = 1.5;
         }
         this.peds.scare(px, pz, 20);
+        // (round 6 note 49) the nearest pedestrians answer back — city-specific lines (data.js PHRASES.<city>.pedHonked)
+        { const now = performance.now(); if (!(this._pedHonkT > now)) {
+            const L = (PHRASES[this.city.id] || PHRASES.bucharest)?.pedHonked;
+            const peds = (this.peds.near(px, pz, 18) || []).filter(p => p.state !== 'down').sort((a, b) => Math.hypot(a.x - px, a.z - pz) - Math.hypot(b.x - px, b.z - pz));
+            let said = 0;
+            for (const p of peds) { if (said >= 2 || !L?.length) break; if (this.rng.chance(0.55)) continue;
+                const it = L[Math.floor(this.rng() * L.length)], line = typeof it === 'string' ? { t: it } : it;
+                if (this.say(p, line, 'mad', 1)) { said++; reacted++; } }
+            if (said) this._pedHonkT = now + 2500;
+        } }
         return reacted;
     }
 

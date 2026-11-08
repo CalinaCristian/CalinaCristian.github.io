@@ -6,6 +6,13 @@ const arg = k => process.argv.find(s => s.startsWith('--' + k + '='))?.slice(k.l
 const root = path.resolve(arg('root')), out = path.resolve(arg('out')), commit = arg('commit');
 const districts = (arg('districts') || 'bucharest-unirii,bucharest-otopeni,bucharest-floreasca,bucharest-grozavesti,bucharest-romana,bucharest-pipera,seattle-bellevue,seattle-seatac').split(',');
 if (!/^[a-f0-9]{40}$/.test(commit)) throw Error('Provide complete immutable source commit');
+const pairTargets = new Map();
+if (arg('pair-targets')) for (const district of districts) {
+    const record = JSON.parse(fs.readFileSync(path.join(path.resolve(arg('pair-targets')), district + '.json')));
+    const targets = record.stats?.unresolved ?? record.before?.unresolved;
+    if (!Array.isArray(targets)) throw Error(district + ': pair targets require native stats or CPU before stats');
+    pairTargets.set(district, targets);
+}
 fs.mkdirSync(out, { recursive: true });
 const hash = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 const write = (name, object) => fs.writeFileSync(path.join(out, name), JSON.stringify(object, null, 2) + '\n');
@@ -70,8 +77,7 @@ const mime = { '.js': 'text/javascript', '.json': 'application/json', '.html': '
             const coreSha256 = hash(Buffer.from(JSON.stringify(proof.core))); delete proof.core;
             const record = { gameSourceCommit: commit, district, capturedAt: new Date().toISOString(), coreSha256, dataSha256: hash(fs.readFileSync(path.join(root, 'game/data/' + district + '.json'))), loaded, ...proof, pageErrors: errors, consoleErrors };
             write(district + '.json', record); summaries.push({ district, bridges: proof.expectedBridgePieces, passiveDecks: proof.passiveDecks, checks: proof.checks, errors: proof.errors.length + errors.length + consoleErrors.length, unresolvedEstimatedClearanceTargets: proof.stats?.unresolved.length, coreSha256 });
-            const targetsPath = arg('pair-targets') && path.join(path.resolve(arg('pair-targets')), district + '.json');
-            const targets = targetsPath ? JSON.parse(fs.readFileSync(targetsPath)).stats.unresolved : [];
+            const targets = pairTargets.get(district) || [];
             const profileDump = await page.evaluate(require('./scenery-bridge-native-dump.cjs'), targets);
             write(district + '-profile-dump.json', { gameSourceCommit: commit, ...profileDump });
             console.log(JSON.stringify(summaries.at(-1)));

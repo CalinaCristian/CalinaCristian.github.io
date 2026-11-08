@@ -9,6 +9,7 @@
 // ============================================================================
 import * as THREE from '../../vendor/three.module.min.js';
 import { activityFlow } from './participation.js';
+import { translatedLandmarkCollider } from './landmark-colliders.js';
 import { GeoBatch, M, rng, hash2, canvas, canvasTexture, fitDraw, polyArea, centroid, inPoly, polyBox, offsetPolyline, polylineLength, alongPolyline } from './kit.js';
 import { wallGeometry, polyCollider } from './osm.js';
 import { LANDMARKS, buildLandmark } from '../landmarks.js';
@@ -299,7 +300,7 @@ export function placeLandmark(ctx, id, { y = null, collide = true, colliderH = 6
     const p = ctx.ll(lm.lat, lm.lon), yy = y ?? ctx.ground.heightAt(p.x, p.z);
     r.mesh.position.set(p.x, yy, p.z); ctx.add(r.mesh);
     r.mesh.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
-    if (collide) for (const c of r.collision) ctx.box(p.x + c.x, p.z + c.z, c.hw, c.hd, c.angle, { y0: yy - 1, y1: yy + colliderH });
+    if (collide) for (const c of r.collision) ctx.collider(translatedLandmarkCollider(c, p, yy, colliderH, id));
     return { mesh: r.mesh, x: p.x, z: p.z, y: yy, lm, tris: r.triangles };
 }
 
@@ -582,22 +583,4 @@ export function boatRide(ctx, boat, path, y, { speed = 1.6, eye = 0.72, title = 
             });
         },
     };
-}
-/**
- * Read sourced history from a public entrance. Each fact needs an explicit
- * Next/Finish action; waiting alone cannot complete the visit. No interior is
- * claimed or entered. Returns the interactable.
- */
-export function narratedVisit(ctx, { x, z, r = 7, label, steps, spot, id, title, body }) {
-    const flow = activityFlow(ctx);
-    const show = run => { const [heading, text] = steps[run.step]; run.status.textContent = `${heading} · ${text}`; run.progress.value = run.step / steps.length; run.button.textContent = run.step === steps.length - 1 ? 'Finish reading' : 'Next fact'; };
-    const it = { x, z, r: 2.6, label, cond: () => !flow.active, use: s => flow.begin(s, {
-        title: 'Entrance history', help: 'Read from the public entrance. The interior is described here; this visit stays outdoors.', action: 'Next fact',
-        started(s, run) { run.step = 0; show(run); },
-        actioned(s, run) { if (++run.step === steps.length) { flow.complete(); return; } show(run); },
-        update(dt, s) { if (Math.hypot(s.position.x - x, s.position.z - z) > r) flow.cancel('distance'); },
-        complete: s => bucActivity(s, spot, id, title, body),
-    }) };
-    ctx.interactables.push(it);
-    return it;
 }

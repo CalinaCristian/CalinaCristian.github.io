@@ -12,7 +12,8 @@
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, offsetPolyline, polyArea, obb } from '../kit.js';
-import { bucBackdrop, classicFacade, classicWalls, osmPoly, cityFiller, placeLandmark, signAtlas, balustrade, balustradeMaterial, flagpole, floodlight, narratedVisit } from '../buc.js';
+import { bucBackdrop, classicFacade, classicWalls, osmPoly, cityFiller, placeLandmark, signAtlas, balustrade, balustradeMaterial, flagpole, floodlight, bucActivity } from '../buc.js';
+import { photoHunt } from '../photo-hunt.js';
 import { bench } from '../osm.js';
 import { addTraffic } from '../cars.js';
 
@@ -56,13 +57,12 @@ export default {
         const at = d.buildings.find((x) => x.id === 'w16291602');
         if (at) { ctx.skipBuildings.add(at.id); for (const x of d.buildings) { const [cx, cz] = centroid(x.poly); if (x.part && inPoly(cx, cz, grow(at.poly, 2))) ctx.skipBuildings.add(x.id); } }
         const AT = placeLandmark(ctx, 'ateneu', { colliderH: 45 });
-        if (at) ctx.poly(at.poly, { y0: -50, y1: 60 });
         // (the frieze 'ATHENEUL ROMAN' and the gold roundels are in the landmarks.js model since its 2026-11-07 fix)
         const garden = osmPoly(d, 'w23556716');
         // Eminescu statue (bronze, seated poet) in the garden
         { const e = d.pois.find((p) => p.id === 'n1911337561') || { x: -69.3, z: -24.3 }, y = g.heightAt(e.x, e.z); b.box(e.x, y, e.z, 1.3, 2.6, 1.3, '#a9a397', 'stone'); b.cyl(e.x, y + 2.6, e.z, 0.42, 1.55, '#2f3a33', 'bronze', 10, 0.75); b.sphere(e.x, y + 4.35, e.z, 0.22, 0.27, 0.24, '#2f3a33', 'bronze', 10, 8); ctx.circle(e.x, e.z, 1.3, 4); }
         // ---- Piața Revoluției
-        const rg = d.buildings.find((x) => x.id === 'w232472401'); if (rg) { ctx.skipBuildings.add(rg.id); for (const x of d.buildings) { const [cx, cz] = centroid(x.poly); if (x.part && inPoly(cx, cz, rg.poly)) ctx.skipBuildings.add(x.id); } const RG = placeLandmark(ctx, 'regal', { colliderH: 30 }); ctx.poly(rg.poly, { y0: -50, y1: 60 }); }
+        const rg = d.buildings.find((x) => x.id === 'w232472401'); if (rg) { ctx.skipBuildings.add(rg.id); for (const x of d.buildings) { const [cx, cz] = centroid(x.poly); if (x.part && inPoly(cx, cz, rg.poly)) ctx.skipBuildings.add(x.id); } placeLandmark(ctx, 'regal', { colliderH: 30 }); }
         // Central University Library (eclectic, three storeys, domed corner pavilions)
         const bcu = d.buildings.find((x) => x.id === 'r19896250');
         const fBCU = classicFacade('bcu', [{ t: 'portal', w: 0.42, rustic: true }, { t: 'arch', w: 0.34, pil: 'pair', rail: true }, { t: 'pediment', w: 0.32, pil: 'pair' }, { t: 'small', w: 0.26, dentils: true }], { bay: 4.4, floor: 5.2, lit: 0.4 });
@@ -99,11 +99,15 @@ export default {
         if (balcony) ctx.plaque(PL[3], balcony.x, balcony.z + 4, -Math.PI / 2, { style: 'bronze' });
         ctx.plaque(PL[4], MEM.x - 12, MEM.z + 4, Math.PI / 2, { style: 'city', credit: 'Memorial of Rebirth (2005), sculptor Alexandru Ghilduș.' });
         ctx.plaque(PL[5], carol.x + 5, carol.z + 4, Math.PI * 0.75, { style: 'bronze', credit: 'After Ivan Meštrović (1930); recreated by Florin Codre (2010).' });
-        // fun: give one leu for the Athenaeum (donation box by the steps)
-        if (AT) { const q = local(AT, 31.5, 0); ctx.interactables.push({ x: q.x, z: q.z, r: 2.6, label: 'Give one leu for the Athenaeum', use: (s) => { const P = s.progress; P.lei = (P.lei || 0) + 1; try { localStorage.setItem('dmcv.spots.v1', JSON.stringify(P)); } catch { /* */ } s.ui.toast('🪙 "Dați un leu pentru Ateneu!"', `You gave ${P.lei} leu — the 1880s campaign raised the money for the hall this way.`); s.sound.play('coin', 0.6); } }); }
-        // activity (note 57, `lm-ateneu-concert`): sit in on a rehearsal in the domed hall (interior narrated, not modelled)
-        if (AT) { const q = local(AT, 28, 6); narratedVisit(ctx, { x: q.x, z: q.z, r: 9, label: 'Read about the concert hall at the entrance', spot: 'athenaeum-revolution', id: 'concert-hall', title: '🎻 Athenaeum history read', body: 'The George Enescu Philharmonic rehearses here; the hall seats about 800 under a 41 m dome.', steps: [
-            ['🎻 The foyer', 'Marble columns, a spiral of four stairs up to the round hall.'], ['🎻 The round hall', 'Red velvet, gilded ribs; the orchestra tunes to the oboe\'s A.'], ['🎨 The fresco', 'Costin Petrescu\'s 75 m ring runs from Trajan\'s conquest of Dacia to the 1918 Great Union.'] ] }); }
+        // Frame visible exterior details from the garden. The historic fundraising
+        // campaign belongs on the plaques; no current donation box is verified.
+        if (AT) { const start = local(AT, 76, -8), column = local(AT, 26.2, -12), frieze = local(AT, 27.2, 0), dome = local(AT, -4, 0);
+            photoHunt(ctx, { ...start, title: 'Frame the Athenaeum', unavailable: 'The concert hall interior is not modelled; this visit stays in the public garden.', targets: [
+                { label: 'An Ionic portico column', ...column, y: AT.y + 9, radius: 1.4 },
+                { label: 'ATHENEUL ROMAN above the portico', ...frieze, y: AT.y + 15.3, radius: 1.2 },
+                { label: 'The ribbed dome', ...dome, y: AT.y + 38, radius: 2.2 },
+            ], onDone: s => bucActivity(s, 'athenaeum-revolution', 'concert-hall', '📷 Athenaeum details', 'You framed the Ionic portico, inscription and dome from the garden.') });
+        }
         if (balcony) ctx.interactables.push({ x: balcony.x, z: balcony.z, r: 4, label: 'Stand below the balcony (21 December 1989)', use: (s) => { s.ui.toast('21 December 1989', 'Ceaușescu\'s last speech from this balcony was booed by the crowd; he fled by helicopter from the roof the next day.'); s.sound.play('crowd', 0.6); } });
         // postcard: from the garden in front of the portico, looking back at the portico and the dome (the research point
         // lies at the building's south side; the portico faces the garden / Calea Victoriei)

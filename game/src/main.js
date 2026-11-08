@@ -1383,6 +1383,7 @@ class Game {
 
     // ---------------------------------------------------------------------------------- big map + nav panel
     toggleMap(open) {
+        if (open) this.basketball?.cancel('map');
         if (open) { this._ftT = 0; this._ftRing?.classList.remove('on'); }
         if (open) { const h = document.getElementById('map-route-hint'); if (h) h.textContent = ''; }
         if (open && this.explore?.active) { this.explore.openWorldMap(); return; } // M while roaming: the hub (its "Here" tab is the local map); in the story M is this district map
@@ -1630,6 +1631,7 @@ class Game {
     }
     /** leave on-foot mode (silently): the car becomes the camera again */
     endFoot() {
+        this.basketball?.cancel('leave-foot');
         if (this.foot?.active) this.foot.exit();
         if (this.carBody?.parent) this.carBody.parent.remove(this.carBody);
         this.carBox = null; if (this.player) this.setDriveRigShown(true);
@@ -2014,6 +2016,7 @@ class Game {
         if (open && !['drive', 'foot', 'office', 'spot'].includes(this.state) && !(this.state === 'menu' && view === 'settings')) return;
         if (open) {
             this.spot?.spot?.ctx?.extras?.venueActivities?.cancel('pause');
+            this.basketball?.cancel('pause');
             if (this.photo?.active) this.photo.close();
             if (this.mapOpen) this.toggleMap(false);
             if (this.condOpen) this.toggleConditions(false);
@@ -2618,6 +2621,7 @@ ${['menu', 'drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa=
 
     // ----------------------------------------------------------------------------------
     enterOffice(stop) {
+        this.basketball?.cancel('office');
         this.explore?.hooks?.abortDrone?.();
         this.photo?.close?.();
         if (this.state === 'foot') { this.officeFromFoot = true; this.foot.exit(); }

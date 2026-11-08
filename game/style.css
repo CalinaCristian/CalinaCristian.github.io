@@ -943,5 +943,6 @@ body.touch #spot-ui button.sp-mini { padding: 0; color: inherit; font: inherit; 
 #basketball-controls button{min-width:88px;min-height:44px;padding:9px 13px;border:1px solid #8cb8cc;border-radius:8px;background:#234b63;color:white;font:600 15px system-ui,sans-serif;touch-action:manipulation}
 #basketball-controls button:disabled{opacity:.45}
 #basketball-controls button[hidden]{display:none}
-@media(max-height:500px){#basketball-controls{top:12%;padding:5px 9px;font-size:12px}#basketball-controls .basketball-help{margin-bottom:3px}}
+@media(max-width:600px) and (orientation:portrait){#basketball-controls{top:26%}}
+@media(max-height:500px){#basketball-controls{top:auto;bottom:76px;width:280px;padding:5px 9px;font-size:12px}#basketball-controls .basketball-help{margin-bottom:3px}}
 /* end Rosetti basketball */

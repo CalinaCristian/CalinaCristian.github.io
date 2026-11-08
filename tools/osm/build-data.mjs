@@ -86,6 +86,7 @@ import { resolveRoadAccess } from '../../game/src/road-access.js';
 import { sourcePassages } from './source-passages.mjs';
 import { resolveParkingLayout } from '../../game/src/parking-layout.js';
 import { validRoadWidthReview, reviewedSingleLane, resolveRoadWidth } from '../../game/src/road-widths.js';
+import { resolveParkingLayout } from '../../game/src/parking-layout.js';
 import { distPointSeg, pointInPolygon, polyArea, polyCentroid, footprintMargin, simplifyIdx, simplifyRing, Grid, assembleRings } from './geom.mjs';
 import { buildCorridor } from './corridors.mjs';
 import { CITIES as GAME_CITIES } from '../../game/src/cities.js';

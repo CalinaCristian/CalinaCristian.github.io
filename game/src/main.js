@@ -1035,7 +1035,7 @@ class Game {
         const F = this.foot, P = this.player, on = this.state === 'foot' && F?.active && this.carBody?.parent;
         const d = on ? Math.hypot(P.x - F.x, P.z - F.z) : 0;
         if (!on || d < 4) { if (el) el.classList.remove('show'); return; }
-        if (!el) { el = document.createElement('button'); el.id = 'car-finder'; el.title = 'Back to your car (V) — L: beep, T: call it to the kerb, map: walking route'; el.addEventListener('click', (e) => { e.preventDefault(); el.blur(); this.backToCar(); }); $('#hud')?.appendChild(el); }
+        if (!el) { el = document.createElement('button'); el.id = 'car-finder'; el.title = 'Back to your car (V) — T: call it to the kerb, map: walking route'; el.addEventListener('click', (e) => { e.preventDefault(); el.blur(); this.backToCar(); }); $('#hud')?.appendChild(el); }
         const rel = angleDiff(F.heading, Math.atan2(-(P.x - F.x), -(P.z - F.z)));
         const arrow = ['⬆️', '↗️', '➡️', '↘️', '⬇️', '↙️', '⬅️', '↖️'][((Math.round(-rel / (Math.PI / 4)) % 8) + 8) % 8];
         const t = `🚗 ${fmtDist(d, this.city.units)} ${arrow} · Back to car${this.touch ? '' : ' (V)'}`; if (el.textContent !== t) el.textContent = t;
@@ -1057,13 +1057,6 @@ class Game {
         this.navManual = true; this.nav.setDestination({ x: door.x, z: door.z, label: 'Your car' }, { x: F.x, z: F.z, heading: F.heading });
         this.hud.toast('🚗 Route to your car', `${fmtDist(Math.hypot(door.x - F.x, door.z - F.z), this.city.units)} · the blue line on the map`);
     }
-    /** key fob: beep + flash the lights (and a light pulse at the car) */
-    beepCar() {
-        const b = this.carBody; if (!b) return;
-        this.audio.blip(1250, 0.07, 0.12); setTimeout(() => this.audio.blip(1250, 0.07, 0.12), 180);
-        let n = 0; const flash = () => { b.userData.setLights?.(n % 2 === 0); if (++n < 6) setTimeout(flash, 160); }; flash();
-        this._fobT = performance.now();
-    }
     /** call the car: it drives itself to the nearest lane spot next to the player (on foot, > 25 m away) */
     callCar() {
         const F = this.foot, P = this.player; if (!F?.active || !this.carBody) return false;
@@ -1073,7 +1066,7 @@ class Game {
         this.traffic.clearForPlayer?.(P, { r: 8, ahead: 15, behind: 8 });
         this.carBody.position.set(P.x, P.surfY ?? 0.24, P.z); this.carBody.rotation.set(0, P.heading, 0);
         this.carBox = { ...this.carBox, x: P.x, z: P.z, fx: P.fx, fz: P.fz };
-        this.beepCar(); this.hud.toast('🚗 Your car is here', 'It pulled up at the kerb next to you.');
+        this.hud.toast('🚗 Your car is here', 'It pulled up at the kerb next to you.');
         if (this.navManual && this.nav.dest?.label === 'Your car') { this.navManual = false; this.autoRoute(true); }
         return true;
     }
@@ -1465,11 +1458,13 @@ class Game {
      *  number of visible lights makes three.js recompile every material — a 3–5 s freeze on every "get out" at night */
     setDriveRigShown(on) {
         const rig = this.player?.rig; if (!rig) return;
+        this.player.driveRigShown = !!on;
         rig.visible = true;
         rig.traverse((o) => {
             if (o.isLight) { if (!on) { o.userData._int ??= o.intensity; o.intensity = 0; } else if (o.userData._int != null) { o.intensity = o.userData._int; o.userData._int = null; } return; }
             if (o.isMesh || o.isLine || o.isPoints || o.isSprite) { if (!on) { if (o.userData._vis == null) o.userData._vis = o.visible; o.visible = false; } else if (o.userData._vis != null) { o.visible = o.userData._vis; o.userData._vis = null; } }
         });
+        if (this.player.mirror) this.player.mirror.visible = !!on && this.player.mirrorEnabled && !this.player.lookBack;
     }
     /** how close the car must stop to an office door: 11 m, or more when the door stands back from a wide road (a car in
      *  the inner lane next to a kerb-side door on a 4-lane carriageway is ~13 m away) — kerb offset + 5 m, capped at 16 m */
@@ -1582,9 +1577,8 @@ class Game {
         this.updateActionMarkers(F.x, F.z);
         hud.update(dt, this.camera, city.id);
         this.stats.time += dt;
-        // find the car (note 7): L = key fob (beep + flash), T = call the car, HUD chip / map marker
+        // find the car: T calls it; the HUD chip and map offer a route back.
         this.nav.walking = true;
-        if (input.take('KeyL')) this.beepCar();
         if (input.take('KeyV')) { this.backToCar(); return; }
         // (T is the drone's "Go here" while it flies: a T queued during / right after a drone flight never calls the car)
         const droneOn = !!(this.explore?.drone?.active || document.body.classList.contains('drone-mode'));
@@ -1888,7 +1882,7 @@ class Game {
         if (inGame && st !== 'office') items.push(['map', '🗺️', 'Map & navigation']);
         if (ex) items.push(['worldmap', '🌍', 'World map', ex.active || !this.chapters ? 'every district & tourist spot' : 'go anywhere · the story waits']);
         if (this.clamp && !this.clamp.paid && (st === 'drive' || st === 'foot')) items.push(['pay-clamp', '🔓', 'Pay fine', `wheel clamp${this.clamp.amount ? ' · ' + money(this.clamp.cur, this.clamp.amount) : ''}`]);
-        if (st === 'foot' && this.carBody?.parent) items.push(['car-route', '🚗', 'Walk back to the car'], ['car-call', '📲', 'Call the car (T)'], ['car-beep', '🔑', 'Key fob: beep (L)']);
+        if (st === 'foot' && this.carBody?.parent) items.push(['car-route', '🚗', 'Walk back to the car'], ['car-call', '📲', 'Call the car (T)']);
         if (this.chapters) items.push(['chapters', '📖', 'Chapters']);
         if (this.spotsMod?.SPOTS?.length) items.push(['spots', '🏛️', 'Tourist spots']);
         if (st === 'drive' || st === 'foot') items.push(['conditions', '☀️', 'Time, weather & season']);
@@ -1978,7 +1972,6 @@ ${['drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa="conditi
         else if (k === 'gallery') (this.save || save)?.openGallery?.();
         else if (k === 'car-route') this.routeToCar();
         else if (k === 'car-call') this.callCar();
-        else if (k === 'car-beep') this.beepCar();
         else if (k === 'pay-clamp') this.payClamp();
         else if (k === 'main-menu') { this.toMainMenu(); }
         else if (k === 'leave-spot') this.leaveSpot();

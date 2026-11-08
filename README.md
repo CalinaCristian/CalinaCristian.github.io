@@ -50,7 +50,7 @@ that chapter of the CV.
   turnstile lobbies, the UiPath robot floor…) with a teacher, professor or manager who answers A–D questions about that
   chapter of the CV.
 - **On foot and photo mode.** Get out of the car anywhere, walk/run/jump, enter offices on foot, find your car again
-  (distance chip, walking route, key fob, call it to the kerb); pull out a camera and frame a shot with filters — it is
+  (distance chip, walking route, call it to the kerb); pull out a camera and frame a shot with filters — it is
   kept in the in-game gallery, and you save (or share) only the ones you want, from the print or the gallery. Leave the
   car somewhere illegal and passers-by react — then the ticket, the clamp or the tow truck.
 - **Saves.** Progress, position and photos persist in IndexedDB; **Continue** resumes exactly where you left off.
@@ -104,7 +104,7 @@ that chapter of the CV.
 | Look | click the view and move the mouse (`Esc` frees the cursor) · `C` look back | drag the right half |
 | Car | `L` headlights · `E` enter office / refuel · `R` reset to the road · `F` fast travel · `U` U-turn at a closure | buttons |
 | Map | `M` map & navigation (click to drop a waypoint; in free roam: the world map) · `N` mini-map · 🌍 world map | 🧭 🌍 |
-| On foot | `Enter` get out / back in · `W`/`A`/`S`/`D` walk · `Shift` run · `Space` jump · `L` key fob · `T` call the car | 🚶 + thumbstick |
+| On foot | `Enter` get out / back in · `W`/`A`/`S`/`D` walk · `Shift` run · `Space` jump · `T` call the car | 🚶 + thumbstick |
 | Drone | `G` deploy / land · `WASD` fly · `Space`/`E` up · `Q`/`C` down · `1` `2` `3` speed · `T` go here · `H` home | 🚁 + stick |
 | Spots | `E` read / interact · `G` spot map | buttons |
 | Camera | `P` photo mode | 📷 |

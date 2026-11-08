@@ -855,3 +855,57 @@ body[data-mode=spot] .pad button[data-btn=foot], body[data-mode=spot] .pad butto
 #ft-hold circle { fill: none; stroke-width: 4; }
 #ft-hold .bg { stroke: rgba(15,23,42,.55); }
 #ft-hold .fg { stroke: #fbbf24; stroke-dasharray: 113.1; stroke-dashoffset: 113.1; stroke-linecap: round; }
+
+/* Gameplay launchers yield to the active modal; its own Back / Close controls stay interactive. */
+body.ui-modal :is(#pause-btn, #explore-bar, #touch, .photo-open, #cond-btn, #car-finder, #story-chip, #drone-hud, #hud > .bottom-left) { visibility: hidden !important; pointer-events: none !important; }
+body.ui-modal #touch * { pointer-events: none !important; }
+#minimap-toggle, .map-touch-help { display: none; }
+body.touch #minimap-toggle { display: block; position: absolute; top: 4px; right: 4px; min-width: 44px; height: 44px; padding: 4px 10px; border: 1px solid rgba(255,255,255,.4); border-radius: 10px; background: rgba(15,23,42,.92); color: #fff; font: 600 13px system-ui,sans-serif; cursor: pointer; pointer-events: auto; }
+body.touch #minimap { pointer-events: auto; cursor: pointer; }
+body.touch.minimap-collapsed #minimap { display: none; }
+body.touch.minimap-collapsed #minimap-toggle { position: static; }
+body.touch .pad button[data-btn=act], body.touch .pad button[data-btn=run] { font-size: 12px; }
+body.touch .pad button[aria-pressed=true] { background: #2563eb; border-color: #93c5fd; }
+body.touch .map-desktop-help { display: none; }
+body.touch .map-touch-help { display: block; text-align: center; margin-bottom: 6px; }
+body.touch #bigmap-wrap { padding: 12px; gap: 8px; }
+body.touch #bigmap-wrap .map-row { flex: 1; min-height: 0; width: 100%; }
+body.touch #bigmap-wrap #navpanel { flex: 1; min-height: 0; max-height: none; }
+body.touch #bigmap-wrap .map-hint { flex-shrink: 0; margin: 0; text-align: center; }
+body.touch #bigmap-wrap button, body.touch #world-map button { min-height: 44px; }
+body.touch #bigmap-wrap .map-hint button { min-width: 80px; margin: 0 3px; padding: 8px 12px; }
+body.touch #bigmap-wrap button:disabled { opacity: .45; cursor: default; }
+body.touch #pause-menu .pm-card { flex-shrink: 0; }
+body.touch #world-map .wm-head { flex-shrink: 0; }
+body.touch #world-map .wm-tools button { width: 44px; }
+body.touch #world-map .wm-zoom { top: 8px; right: 8px; }
+body.touch #world-map .wm-zoom button { min-width: 44px; }
+body.touch #world-map .wm-card { bottom: 36px; }
+body.touch #world-map .wm-ctx button { margin-top: 6px; }
+@media (max-width: 600px) {
+    body.touch #hud > .bottom-left { left: 12px; bottom: 210px; }
+    body.touch #world-map .wm-card { align-items: flex-end; }
+    body.touch #world-map .wm-card > .wm-go { padding: 8px; max-width: 108px; }
+    body.touch #world-map .wm-ctx p { -webkit-line-clamp: 3; }
+}
+@media (max-height: 520px) and (orientation: landscape) {
+    body.touch #bigmap-wrap .map-row { flex-direction: row; }
+    body.touch #bigmap-wrap #navpanel { flex: 0 0 280px; width: 280px; }
+    body.touch #bigmap-wrap .map-touch-help { display: inline; margin-right: 8px; }
+    body.touch #hud > .bottom-left { left: 12px; bottom: 120px; }
+    body.touch #world-map .wm-title { min-width: 100px; }
+    body.touch #world-map .wm-head { gap: 6px; }
+    body.touch #world-map .wm-tabs { gap: 4px; }
+    body.touch #world-map .wm-tabs button { padding: 6px 8px; }
+}
+
+.touch-instructions { display: none; }
+body.touch .controls { display: none; }
+body.touch .touch-instructions { display: block; margin: 14px 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+body.touch.drone-mode #hud > .bottom-left { top: 64px; bottom: auto; width: fit-content; height: fit-content; }
+
+body.touch :is(#pause-btn, #cond-btn, #explore-bar button) { min-width: 44px; min-height: 44px; }
+body.touch .pad.right { bottom: max(14px, env(safe-area-inset-bottom)); }
+body.touch .tpedals { bottom: max(12px, env(safe-area-inset-bottom)); }
+
+body.touch #world-map .wm-tabs, body.touch #world-map .wm-rrow { touch-action: pan-x; -webkit-overflow-scrolling: touch; }

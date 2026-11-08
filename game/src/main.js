@@ -142,7 +142,7 @@ class Game {
         this.flags = {};
         this.fuel = TANK_L * 0.6;
         this.stats = { dist: 0, time: 0, fuelL: 0, fuelReal: 0, fuelCost: { RON: 0, USD: 0 }, fines: { RON: 0, USD: 0 }, fineCount: 0, tow: { RON: 0, USD: 0 }, cleanDist: 0, peds: 0, fastTravels: 0, fastDist: 0 };
-        this.opts = { minimap: this.loadOpt('minimap', false), look: this.loadStr('look', 'lock') };
+        this.opts = { minimap: this.loadOpt('minimap', this.touch), look: this.loadStr('look', 'lock') };
         { const q = new URLSearchParams(location.search).get('weather'); this.weatherOverride = WEATHER_OVERRIDES.includes(q) ? q : null; }
         this.wxGrip = 1; this.wxNpc = 1; this.wxKind = 'clear';
         this.frame = 0;
@@ -195,6 +195,11 @@ class Game {
         const lm = $('#lookmode'); if (lm) lm.value = this.opts.look;
     }
 
+    toggleMiniMap(collapsed = !this._minimapCollapsed) {
+        this._minimapCollapsed = !!collapsed; document.body.classList.toggle('minimap-collapsed', this._minimapCollapsed);
+        const b = $('#minimap-toggle'); if (b) { b.textContent = collapsed ? '🗺️ Map' : '−'; b.setAttribute('aria-label', collapsed ? 'Restore mini-map' : 'Collapse mini-map'); b.setAttribute('aria-expanded', String(!collapsed)); }
+    }
+
     resize() {
         const w = window.innerWidth, h = window.innerHeight;
         this.camera.aspect = w / h; this.camera.updateProjectionMatrix();
@@ -230,7 +235,10 @@ class Game {
             this.mapView.cx = d.cx - dx * k; this.mapView.cz = d.cz - dy * k;
             if (!this._mapRaf) this._mapRaf = requestAnimationFrame(() => { this._mapRaf = 0; this.redrawMap(); });
         });
+        $('#minimap-toggle')?.addEventListener('click', () => this.toggleMiniMap());
+        $('#minimap')?.addEventListener('click', () => { if (this.touch) this.toggleMiniMap(true); });
         $('#map-close')?.addEventListener('click', () => this.toggleMap(false));
+        $('#map-fast-travel')?.addEventListener('click', () => { if (!this.fastTravelStatus().disabled) { this.toggleMap(false); this.fastTravelToObjective(); } });
         // (round 6 note 51) hover tooltip: the nearest listed place / station under the pointer
         { const tip = document.createElement('div'); tip.id = 'map-tip'; $('#bigmap-wrap')?.appendChild(tip);
             bm.addEventListener('pointerleave', () => tip.classList.remove('show'));
@@ -297,7 +305,7 @@ class Game {
         this.startTime = performance.now();
         if (this.chapters) {
             await this.enterChapter(chapterIdx ?? 0, { initial: true });
-            this.hud.toast('🚗 Follow the blue route', 'Dashboard screen = navigation. H = horn · M = map, chapters & navigation.', 'intro');
+            this.hud.toast('🚗 Follow the blue route', this.touch ? 'Dashboard screen = navigation. Tap 🧭 for the map, or ⏸ for actions and settings.' : 'Dashboard screen = navigation. H = horn · M = map, chapters & navigation.', 'intro');
             setTimeout(() => this.lookHint(), 4500);
             return;
         }
@@ -603,9 +611,36 @@ class Game {
     }
 
     // ----------------------------------------------------------------------------------
+    /** Keep gameplay controls out of every modal, including the hub's early-return frame. */
+    syncModalControls() {
+        const modal = !!(!['drive', 'foot', 'office', 'spot'].includes(this.state) || this._pauseOpen || this.mapOpen || this.condOpen || this.hud.panelOpen || this.spot?.ui?.panelOpen || this.explore?.map?.isOpen || this.photo?.active || document.querySelector('#achv-panel.show, #save-gallery.show') || document.body.classList.contains('finale-open'));
+        if (modal === this._controlsModal) return;
+        this._controlsModal = modal; document.body.classList.toggle('ui-modal', modal);
+        for (const el of document.querySelectorAll('#touch, #pause-btn, #explore-bar, .photo-open, #cond-btn, #car-finder, #story-chip, #drone-hud, #minimap-toggle')) el.inert = modal;
+        if (modal) { this.input.cancelTouch?.(); if (this.photo?.active) this.input.touch.brake = true; }
+    }
+    fastTravelStatus() {
+        const d = this.explore?.destination || (this.navManual && this.nav?.dest) || (!this.chapterDone && this.objective);
+        const reason = !d ? 'Mark a destination on the map first' : this.refuel ? 'Finish refuelling first' : this.clamp && !this.clamp.paid ? 'Pay the wheel-clamp fine first' : this._transit || this._spotBusy || this.explore?.drone?.active ? 'Finish the current action first' : '';
+        return { disabled: !!reason, note: reason || d.label || this.objectivePlain || 'Travel to the marked destination' };
+    }
+    /** Same position-only recovery as R: no fuel, progress or story changes. */
+    resetPosition() {
+        if (this.explore?.drone?.active || this.refuel) return false;
+        if (this.state === 'drive') {
+            if (Math.abs(this.player.speed) >= 6) { this.hud.toast('🛟 Slow down first', 'Reset to the road works below ~20 km/h.', 'warn'); return false; }
+            return this.resetToRoad();
+        }
+        if (this.state !== 'foot' || !this.foot) return false;
+        const F = this.foot, ne = this.nav.index.nearest(F.x, F.z, 200); if (!ne) return false;
+        const e = ne.edge, sd = (F.x - ne.cx) * e.nx + (F.z - ne.cz) * e.nz >= 0 ? 1 : -1, off = (e.halfW ?? 4) + 1.5;
+        F.teleport(ne.cx + e.nx * sd * off, ne.cz + e.nz * sd * off);
+        this.hud.toast('🛟 Back on the sidewalk', 'Position reset.'); return true;
+    }
     loop() {
         requestAnimationFrame(this.loop);
         if (this._modeAttr !== this.state) { this._modeAttr = this.state; document.body.dataset.mode = this.state; } // (round 6 note 36: context-based touch buttons in CSS)
+        this.syncModalControls();
         if (this.explore?.hooks?.frame?.()) return; // (explore: drone frames; the world-map hub over a frozen scene)
         const dt = Math.min(0.1, this.frameClock.getDelta());
         if (this._pauseOpen) { // paused: nothing moves; the scene keeps being drawn behind the menu
@@ -668,10 +703,7 @@ class Game {
         this.updateUnstick(dt);
         this.debug.lastCollider = player.debug.lastCollider; this.debug.hits = player.debug.hits;
         if (this.debug.overlay && this.frame % 6 === 0) this.updateDebugOverlay();
-        if (input.take('KeyR')) {
-            if (Math.abs(player.speed) < 6) this.resetToRoad();
-            else hud.toast('🛟 Slow down first', 'Reset to the road works below ~20 km/h.', 'warn');
-        }
+        if (input.take('KeyR')) this.resetPosition();
         if (this.holdToTravel(input, dt)) { this.fastTravelToObjective(); if (this.state !== 'drive') return; }
         if (input.take('Enter') || input.take('NumpadEnter')) { if (this.exitCar()) return; }
         hud.update(dt, this.camera, city.id);
@@ -1322,8 +1354,9 @@ class Game {
         if (open) {
             const c = $('#bigmap');
             const narrow = window.innerWidth < 900;
-            const cssW = narrow ? window.innerWidth - 24 : Math.min(window.innerWidth - 320, 1100);
-            const cssH = narrow ? Math.min(window.innerHeight * 0.55, 600) : Math.min(window.innerHeight - 80, 760);
+            const landscapeTouch = this.touch && window.innerWidth > window.innerHeight;
+            const cssW = landscapeTouch ? window.innerWidth - 320 : narrow ? window.innerWidth - 24 : Math.min(window.innerWidth - 320, 1100);
+            const cssH = landscapeTouch ? window.innerHeight - 96 : this.touch ? Math.min(window.innerHeight * 0.42, 600) : narrow ? Math.min(window.innerHeight * 0.55, 600) : Math.min(window.innerHeight - 80, 760);
             c.width = cssW * devicePixelRatio; c.height = cssH * devicePixelRatio;
             c.style.width = cssW + 'px'; c.style.height = cssH + 'px';
             if (!this.mapView || this.mapView.city !== this.city.id) {
@@ -1366,6 +1399,7 @@ class Game {
         this.redrawMap(); this.buildNavList();
     }
     buildNavList() {
+        const ft = $('#map-fast-travel'), status = this.fastTravelStatus(); if (ft) { ft.disabled = status.disabled; ft.title = status.note; }
         const p = this.player; const items = this.navItems = [];
         const dist = (x, z) => fmtDist(Math.hypot(x - p.x, z - p.z), this.city.units);
         const add = (group, icon, label, x, z, cat = null, q = null) => { if (x === undefined || z === undefined) return; items.push({ group, icon, label, x, z, cat, nx: q?.nx ?? null, nz: q?.nz ?? null, walk: q?.walk || 0 }); };
@@ -1457,7 +1491,7 @@ class Game {
         if (!document.getElementById('onfoot-css')) { const st = document.createElement('style'); st.id = 'onfoot-css'; st.textContent = 'body.on-foot .pad button.office-only{display:inline-block}body.on-foot .pad button.drive-only{display:none}'; document.head.appendChild(st); }
         this.audio.stopEngine?.(); this.audio.blip(300, 0.06, 0.08);
         this.hud.setLimit(null, this.city.units === 'mph', false); this.hud.setSpeed(0);
-        if (!this.flags.footToast) { this.flags.footToast = true; this.hud.toast('🚶 On foot', 'WASD walk · Shift run · Space jump · mouse look · Enter at the driver\'s door to get back in · E enters offices.', 'intro'); }
+        if (!this.flags.footToast) { this.flags.footToast = true; this.hud.toast('🚶 On foot', this.touch ? 'Drag the left side to walk and the right side to look. Tap Run to run, ⤒ to jump, Use to interact, and 🚶 at the driver’s door to get in.' : 'WASD walk · Shift run · Space jump · mouse look · Enter at the driver\'s door to get back in · E enters offices.', 'intro'); }
         this.input.flush();
         return true;
     }
@@ -1588,7 +1622,7 @@ class Game {
         // hazard lights on the parked car
         if (this.carBody) this.carBody.userData.setLights?.(((this.clock.date?.getTime?.() ?? performance.now()) / 400 | 0) % 2 === 0);
         // R: back to the nearest sidewalk
-        if (input.take('KeyR')) { const ne = this.nav.index.nearest(F.x, F.z, 200); if (ne) { const e = ne.edge, sd = (F.x - ne.cx) * e.nx + (F.z - ne.cz) * e.nz >= 0 ? 1 : -1, off = (e.halfW ?? 4) + 1.5; F.teleport(ne.cx + e.nx * sd * off, ne.cz + e.nz * sd * off); } }
+        if (input.take('KeyR')) this.resetPosition();
         this.updateActionMarkers(F.x, F.z);
         hud.update(dt, this.camera, city.id);
         this.stats.time += dt;
@@ -1898,9 +1932,12 @@ class Game {
             items.push(['leave-spot', '🚪', 'Leave tourist spot']);
         }
         if (inGame && st !== 'office') items.push(['map', '🗺️', 'Map & navigation']);
+        if (['drive', 'foot', 'spot'].includes(st)) { const ft = this.fastTravelStatus(); items.push(['fast-travel', '⏩', 'Fast travel', ft.note, ft.disabled]); }
+        if (st === 'drive' || st === 'foot') items.push(['reset-position', '🛟', 'Reset position', st === 'drive' ? 'Return to the nearest road · position only' : 'Return to the nearest sidewalk · position only', droneOn || !!this.refuel || (st === 'drive' && Math.abs(this.player?.speed || 0) >= 6)]);
+        if (st === 'drive' && !droneOn) items.push(['headlights', '💡', 'Headlights', this.headlightsOn ? 'On · tap to turn off' : 'Off · tap to turn on']);
         if (ex) items.push(['worldmap', '🌍', 'World map', ex.active || !this.chapters ? 'every district & tourist spot' : 'go anywhere · the story waits']);
         if (this.clamp && !this.clamp.paid && (st === 'drive' || st === 'foot')) items.push(['pay-clamp', '🔓', 'Pay fine', `wheel clamp${this.clamp.amount ? ' · ' + money(this.clamp.cur, this.clamp.amount) : ''}`]);
-        if (st === 'foot' && this.carBody?.parent) items.push(['car-route', '🚗', 'Walk back to the car'], ['car-call', '📲', 'Call the car (T)']);
+        if (st === 'foot' && this.carBody?.parent) items.push(['car-route', '🚗', 'Walk back to the car'], ['car-return', '🚶', 'Return to the car'], ['car-call', '📲', 'Call the car']);
         if (this.chapters) items.push(['chapters', '📖', 'Chapters']);
         if (this.spotsMod?.SPOTS?.length) items.push(['spots', '🏛️', 'Tourist spots']);
         if (st === 'drive' || st === 'foot') items.push(['conditions', '☀️', 'Time, weather & season']);
@@ -1955,7 +1992,7 @@ class Game {
         const where = this.state === 'spot' ? (this.spotEntry?.name || 'Tourist spot') : this.state === 'office' ? (this.office?.stop?.company || 'Office')
             : this.state === 'menu' ? 'Drive My CV' : this.freeRoam ? `🗺️ Free roam · ${this.city?.districts?.[this.district]?.name || ''}` : this.ch ? `Chapter ${this.chapterIdx + 1}/${this.chapters.length} · ${this.ch.title}` : (this.city?.name || '');
         let body = '';
-        if (view === 'main') body = `<div class="pm-grid">${this.pauseItems().map(([id, ic, label, note]) => `<button data-pa="${id}"><span class="ic">${ic}</span><span>${esc(label)}${note ? `<small>${esc(note)}</small>` : ''}</span></button>`).join('')}</div>`;
+        if (view === 'main') body = `<div class="pm-grid">${this.pauseItems().map(([id, ic, label, note, disabled]) => `<button data-pa="${id}"${disabled ? ' disabled' : ''}><span class="ic">${ic}</span><span>${esc(label)}${note ? `<small>${esc(note)}</small>` : ''}</span></button>`).join('')}</div>`;
         else if (view === 'chapters') body = `<div class="pm-list">${this.chapters.map((c, i) => { const ok = this.progress.reached.has(c.id) || i === 0; return `<button data-pa="chapter:${i}"${ok ? '' : ' disabled'}><span class="ic">${this.progress.done.has(c.id) ? '✓' : ok ? '▶' : '🔒'}</span><span>${c.year} · ${esc(c.title)}<small>${esc(this.city?.districts?.[c.district]?.name || CITIES[c.city]?.districts?.[c.district]?.name || c.district)}</small></span></button>`; }).join('')}</div>`;
         else if (view === 'spots') body = `<div class="pm-list">${(this.spotsMod?.SPOTS || []).map(sp => `<button data-pa="spot:${esc(sp.id)}"><span class="ic">${sp.city === 'bucharest' ? '🇷🇴' : '🇺🇸'}</span><span>${esc(sp.name)}</span></button>`).join('')}</div>`;
         else if (view === 'settings') {
@@ -1982,6 +2019,7 @@ ${['menu', 'drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa=
         if (k === 'resume') return this.togglePause(false);
         if (k === 'back') return this.renderPause('main');
         if (['chapters', 'spots', 'settings'].includes(k)) return this.renderPause(k);
+        if (k === 'fast-travel' && this.fastTravelStatus().disabled) return;
         const ex = this.explore;
         if (ex) { // explore.js API: world map, drone, back to the story; a place-changing action lands the drone first
             if (k === 'worldmap') { ex.openWorldMap(); return; }
@@ -1992,11 +2030,15 @@ ${['menu', 'drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa=
         }
         this.togglePause(false);
         if (k === 'map') this.toggleMap(true);
+        else if (k === 'fast-travel') this.fastTravelToObjective();
+        else if (k === 'reset-position') this.resetPosition();
+        else if (k === 'headlights') { this.headlights = !this.headlightsOn; this.hud.toast(this.headlights ? '💡 Headlights on' : '💡 Headlights off', ''); }
         else if (k === 'conditions') { this.buildConditions(); this.toggleConditions(true, { any: true }); }
         else if (k === 'achievements') this.achievements?.open?.();
         else if (k === 'photo') { if (this.state === 'drive') this.hud.toast('📷 Get out first', 'Photos are taken on foot: Enter (or 🚶) to get out.', 'warn'); else this.photo?.open?.(); }
         else if (k === 'gallery') (this.save || save)?.openGallery?.();
         else if (k === 'car-route') this.routeToCar();
+        else if (k === 'car-return') this.backToCar();
         else if (k === 'car-call') this.callCar();
         else if (k === 'pay-clamp') this.payClamp();
         else if (k === 'main-menu') { this.toMainMenu(); }
@@ -2090,7 +2132,7 @@ ${['menu', 'drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa=
         this.updateObjective();
         this.buildConditions(); document.body.classList.add('free-roam');
         const tl = { now: 'real time', rush: 'morning rush, 08:30', noon: 'noon', golden: 'golden hour', night: 'night' }[this.freeRoam.tod] || '';
-        this.hud.toast(`🗺️ Free roam · ${d.name}`, `${d.label ? d.label + ' · ' : ''}${tl}${this.freeRoam.weather !== 'live' ? ' · ' + this.freeRoam.weather : ''}. ${this.chapters?.length ? '📖 Resume story when you like · ' : ''}M → world map · G on foot → drone · K time & weather.`, 'intro');
+        this.hud.toast(`🗺️ Free roam · ${d.name}`, `${d.label ? d.label + ' · ' : ''}${tl}${this.freeRoam.weather !== 'live' ? ' · ' + this.freeRoam.weather : ''}. ${this.chapters?.length ? '📖 Resume story when you like · ' : ''}${this.touch ? 'Tap 🌍 for the world map · ⏸ for actions & settings.' : 'M → world map · G on foot → drone · K time & weather.'}`, 'intro');
     }
     /** progress line: "Chapters n/10" (+ the achievements completion % when progression is loaded) */
     setChapterProgress() {

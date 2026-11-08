@@ -7,7 +7,7 @@
 //
 //  new WorldMap(opts) · open({ tab, startMode }) · close() · isOpen · refresh()
 //  opts: items() → [item], here() → here | null, current() → { key, region }, mode() → 'roam' | 'story' (roam = off the story),
-//        thumb(key) → dataURL | null, recent() → [key], onGo(item), onSelect(item), onHere(x, z), destination(), onClear(), onTravel(), onClose(), onConditions?(), canConditions?()
+//        thumb(key) → dataURL | null, recent() → [key], onGo(item), onSelect(item), onHere(x, z), destination(), onClear(), onTravel(), canTravel?(), onClose(), onConditions?(), canConditions?()
 //  item: { key, kind: 'district'|'spot', id, city, region: 'bucharest'|'seattle'|'bellevue', name, sub, blurb, lat, lon, bbox?, poly?, icon, done? }
 // ============================================================================
 import { MiniMap, filterOn } from './minimap.js';
@@ -124,7 +124,8 @@ export class WorldMap {
     renderTabs() {
         const here = this.hereInfo, list = [['here', here ? `📍 Here <small>${esc(here.name || '')}</small>` : '📍 Here', !here], ...REGIONS.map((r) => [r.id, `${r.flag} ${r.name}`, false]), ['world', '🌍 World', false]];
         this.tabsEl.innerHTML = list.map(([id, lab, dis]) => `<button role="tab" data-tab="${id}"${id === this.tab ? ' class="on" aria-selected="true"' : ''}${dis ? ' disabled' : ''}>${lab}</button>`).join('');
-        const h = { here: 'Click a place or street to mark it · hold F to fast travel · drag to pan · wheel / pinch to zoom', world: 'Pick a city' }[this.tab] || 'Click a pin to mark it · hold F to fast travel · drag to pan · wheel / pinch to zoom';
+        const touch = document.body.classList.contains('touch');
+        const h = touch ? (this.tab === 'world' ? 'Tap a city' : 'Tap to mark · choose Fast travel to move · drag / pinch to explore') : { here: 'Click a place or street to mark it · hold F to fast travel · drag to pan · wheel / pinch to zoom', world: 'Pick a city' }[this.tab] || 'Click a pin to mark it · hold F to fast travel · drag to pan · wheel / pinch to zoom';
         this.hint.textContent = h;
     }
     _byKey(k) { return this.items.find((i) => i.key === k); }
@@ -166,8 +167,9 @@ export class WorldMap {
         if (!d && !it) { this.card.hidden = true; return; }
         const local = d?.kind === 'point', name = local ? d.label : it?.name || d?.label;
         const item = local ? null : it || d?.item, here = item?.key === this.curKey;
-        const note = local ? (this.hereInfo?.kind === 'spot' ? 'Marked on the map. Walk there, or hold F to fast travel.' : (this.hereInfo?.route ? 'Follow the route, or hold F to fast travel.' : 'Destination marked. No route is available from here.')) : here ? 'You are here. Pick a place on the Here tab.' : this.startMode ? 'Choose this place to start free roam.' : 'Destination marked in another area. Hold F to travel; there is no local road route. The story waits when you travel.';
-        this.card.innerHTML = `<div class="wm-ctx"><div class="wm-ck">📍 ${here ? 'Current area' : 'Destination marked'}</div><b>${esc(name)}</b><p>${esc(note)}</p><button class="wm-go" data-clear>Clear mark</button></div>${here ? '' : this.startMode && item ? `<button class="wm-go" data-go="${esc(item.key)}">Start here</button>` : '<button class="wm-go big" data-travel>Fast travel<br>F</button>'}`;
+        const touch = document.body.classList.contains('touch'), travel = touch ? 'choose Fast travel' : 'hold F to fast travel';
+        const note = local ? (this.hereInfo?.kind === 'spot' ? `Marked on the map. Walk there, or ${travel}.` : (this.hereInfo?.route ? `Follow the route, or ${travel}.` : 'Destination marked. No route is available from here.')) : here ? 'You are here. Pick a place on the Here tab.' : this.startMode ? 'Choose this place to start free roam.' : `Destination marked in another area. ${touch ? 'Choose Fast travel' : 'Hold F to travel'}; there is no local road route. The story waits when you travel.`;
+        this.card.innerHTML = `<div class="wm-ctx"><div class="wm-ck">📍 ${here ? 'Current area' : 'Destination marked'}</div><b>${esc(name)}</b><p>${esc(note)}</p><button class="wm-go" data-clear>Clear mark</button></div>${here ? '' : this.startMode && item ? `<button class="wm-go" data-go="${esc(item.key)}">Start here</button>` : `<button class="wm-go big" data-travel${this.o.canTravel?.() === false ? ' disabled' : ''}>Fast travel${touch ? '' : '<br>F'}</button>`}`;
         this.card.hidden = false;
     }
     go(it) { if (it.key === this.curKey) return; this.close(); this.o.onGo?.(it); }

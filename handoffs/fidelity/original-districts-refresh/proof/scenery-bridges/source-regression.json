@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "checks": 16997,
+  "controls": "Exact scenery node preservation, row identity alignment, corrupt cache/legacy fallback, literal unit-aware narrow widths, accepted review precedence and unchanged unknown-width estimates",
+  "districts": [
+    {
+      "district": "bucharest-floreasca",
+      "precisePieces": 878,
+      "literalWidthPieces": 69,
+      "nullPackedWidths": 509
+    },
+    {
+      "district": "bucharest-grozavesti",
+      "precisePieces": 944,
+      "literalWidthPieces": 1,
+      "nullPackedWidths": 591
+    },
+    {
+      "district": "bucharest-otopeni",
+      "precisePieces": 539,
+      "literalWidthPieces": 4,
+      "nullPackedWidths": 421
+    },
+    {
+      "district": "bucharest-pipera",
+      "precisePieces": 1048,
+      "literalWidthPieces": 13,
+      "nullPackedWidths": 717
+    },
+    {
+      "district": "bucharest-romana",
+      "precisePieces": 1261,
+      "literalWidthPieces": 24,
+      "nullPackedWidths": 604
+    },
+    {
+      "district": "bucharest-unirii",
+      "precisePieces": 1251,
+      "literalWidthPieces": 6,
+      "nullPackedWidths": 687
+    },
+    {
+      "district": "seattle-bellevue",
+      "precisePieces": 1704,
+      "literalWidthPieces": 0,
+      "nullPackedWidths": 1154
+    },
+    {
+      "district": "seattle-seatac",
+      "precisePieces": 850,
+      "literalWidthPieces": 0,
+      "nullPackedWidths": 614
+    }
+  ]
+}

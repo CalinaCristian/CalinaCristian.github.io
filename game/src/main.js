@@ -171,6 +171,7 @@ class Game {
             if ((e.code === 'Escape' || e.code === 'KeyM') && this.state === 'spot' && (this.photo?.active || this.spot?.ui?.panelOpen || this.hud.panelOpen)) this._spotSwallow = e.code;
         }, true);
         this.applyOpts();
+        document.addEventListener('click', (e) => { if (e.target.closest('#spot-ui [data-spot-use]') && this.state === 'spot' && !this._controlsModal && !this.spot?.spot?.ctx?.extras?.venueActivities?.active) this.input.actions.add('KeyE'); });
         $('#prompt')?.addEventListener('click', (e) => { if (e.target.closest('[data-act=uturn]')) this.uTurn(); });
         // photo mode (spec 16): listens to P itself while drive / office / on foot
         try {
@@ -616,7 +617,7 @@ class Game {
         const modal = !!(!['drive', 'foot', 'office', 'spot'].includes(this.state) || this._pauseOpen || this.mapOpen || this.condOpen || this.hud.panelOpen || this.spot?.ui?.panelOpen || this.explore?.map?.isOpen || this.photo?.active || document.querySelector('#achv-panel.show, #save-gallery.show') || document.body.classList.contains('finale-open'));
         if (modal === this._controlsModal) return;
         this._controlsModal = modal; document.body.classList.toggle('ui-modal', modal);
-        for (const el of document.querySelectorAll('#touch, #pause-btn, #explore-bar, .photo-open, #cond-btn, #car-finder, #story-chip, #drone-hud, #minimap-toggle')) el.inert = modal;
+        for (const el of document.querySelectorAll('#touch, #pause-btn, #explore-bar, .photo-open, #cond-btn, #car-finder, #story-chip, #drone-hud, #minimap-toggle, #spot-ui .sp-prompt, #spot-ui .sp-mini, #spot-ui .sp-tour-controls')) el.inert = modal;
         if (modal) { this.input.cancelTouch?.(); if (this.photo?.active) this.input.touch.brake = true; }
     }
     fastTravelStatus() {

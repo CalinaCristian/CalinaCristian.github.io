@@ -87,7 +87,7 @@ export class Input {
     /** wire the on-screen touch buttons */
     bindTouch(root) {
         { // (round 6 note 38) iOS ignores user-scalable=no: block pinch / double-tap zoom outside the scrolling panels
-            const scrolls = (t) => t && t.closest && t.closest('#navpanel, .panel-inner, .pv-gallery, #cond-panel, #menu, #pause-menu, #achv-panel, #save-gallery, .dlg, #finale, .wm-list, .wm-tabs, .wm-rrow, .sp-panel');
+            const scrolls = (t) => t && t.closest && t.closest('#navpanel, .panel-inner, .pv-gallery, #cond-panel, #menu, #pause-menu, #achv-panel, #save-gallery, .dlg, #finale, .wm-list, .wm-tabs, .wm-rrow, .sp-card, .sp-panel');
             for (const ev of ['gesturestart', 'gesturechange']) document.addEventListener(ev, (e) => e.preventDefault(), { passive: false });
             document.addEventListener('touchmove', (e) => { if (e.touches.length > 1 || !scrolls(e.target)) e.preventDefault(); }, { passive: false });
             let lastEnd = 0; document.addEventListener('touchend', (e) => { const n = performance.now(); if (n - lastEnd < 320 && !scrolls(e.target) && !(e.target.closest && e.target.closest('button, a, input, select, label'))) e.preventDefault(); lastEnd = n; }, { passive: false });
@@ -136,7 +136,7 @@ export class Input {
     _initTouch() {
         this.touch.stick = { x: 0, y: 0, mag: 0, active: false };
         this._tL = null; // left control {id, ox, oy, mode}
-        const skip = (t) => t && t.closest && t.closest('button, a, select, input, label, #minimap, #bigmap-wrap, #panel, #menu, .pad, .tpedal, .photo-open, #finale, #chapter-transition, .overlay.show');
+        const skip = (t) => t && t.closest && t.closest('button, a, select, input, label, .sp-card, #minimap, #bigmap-wrap, #panel, #menu, .pad, .tpedal, .photo-open, #finale, #chapter-transition, .overlay.show');
         const R = () => Math.max(46, Math.min(70, Math.min(innerWidth, innerHeight) * 0.11)); // stick radius (px)
         window.addEventListener('touchstart', (e) => {
             if (!this.enabled || document.body.classList.contains('ui-modal')) return;

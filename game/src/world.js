@@ -2707,7 +2707,23 @@ export async function buildWorld(city, renderer, opts = {}) {
                     if (sAl > retract(e, e.a) + 0.3 && sAl < e.len - retract(e, e.b) - 0.3 && (rb.node.allEdges || rb.node.edges).filter(f => !f.virtual).length <= 2) return; // (a real junction's pad is used by the other approaches)
                 }
                 if (x < rb.x0 - 0.6 || x > rb.x1 + 0.6 || z < rb.z0 - 0.6 || z > rb.z1 + 0.6) return;
-                if (!pointInPolygon(x, z, rb.poly) || polyDist(x, z, rb.poly) < 0.3) return; // only where it would stand ≥ 0.3 m inside a lane
+                // An exact source junction opens across the full incoming pavement. A wall's round collision
+                // end can otherwise close its last few centimetres; a rising approach can also meet a barrier
+                // with its body while its wheels are still below that barrier's narrow height band.
+                const meets = (a, b, n) => (b.a === n || b.b === n) && Math.abs((a.a === n ? a.ya : a.yb) - (b.a === n ? b.ya : b.yb)) < 0.3;
+                const n = [w.edge.a, w.edge.b].find(n => n.sourceId > 0 && n.pad && (rb.node === n
+                    ? (n.allEdges || n.edges).some(e => e !== w.edge && !e.virtual && meets(w.edge, e, n))
+                    : rb.e && (meets(w.edge, rb.e, n) || (n.allEdges || n.edges).some(e => {
+                        const q = e.a === n ? e.b : e.a;
+                        return e !== w.edge && !e.virtual && e.len <= retract(w.edge, n) && q.sourceId > 0 && meets(w.edge, e, n) && meets(e, rb.e, q);
+                    })))); // a short exact-source approach can end inside the same junction mouth
+                const along = n ? ((x - n.x) * w.edge.dirx + (z - n.z) * w.edge.dirz) * (w.edge.a === n ? 1 : -1) : Infinity;
+                const mouth = n && along >= -0.3 && along <= retract(w.edge, n) + 0.3;
+                if (!pointInPolygon(x, z, rb.poly) || (!mouth && polyDist(x, z, rb.poly) < 0.3)) return;
+                if (mouth) {
+                    const h = Y.road + (rb.e ? yAlong(rb.e, x, z) : padHeightAt(n, x, z));
+                    if (h < y1 && h + 2 > y0) { hit = true; return; } // same 2 m driving body as collideBuildings
+                }
                 if (w.kind !== 'barrier') { hit = true; return; } // wide-band walls (embankment / trench / rail / guard) never stand in a lane
                 // at a split / merge the sibling ramp (sharing a node with the wall's edge) is driven through the gore: a barrier
                 // standing in its lanes is always cut (the wall across 'Exit → Westfield Southcenter', QA round 2)

@@ -12,7 +12,7 @@
   "sources": [
     {
       "url": "https://www.openstreetmap.org/way/219622660",
-      "label": "OpenStreetMap w219622660; retrieved2026-11-08",
+      "label": "OpenStreetMap w219622660; retrieved 2026-11-08",
       "type": "osm",
       "facts": {
         "addr:city": "Bucure\u0219ti",
@@ -48,8 +48,8 @@
   "sourceLedger": "../../../../research/landmark-source-bucharest-pipera.json",
   "reviewedAt": "2026-11-08",
   "improvements": [
-    "Preserved the complete mapped elliptical source outline,137m total height and37-level rhythm.",
-    "Removed the invented8m pitched crown and expanded base; the source roof is flat.",
+    "Preserved the complete mapped elliptical source outline, 137m total height and 37-level rhythm.",
+    "Removed the invented 8m pitched crown and expanded base; the source roof is flat.",
     "OSM glass material and #3960DA colour take precedence over photographic impressions."
   ],
   "remainingGaps": [
@@ -61,7 +61,7 @@
     {
       "label": "Exact source rings and courtyard collision",
       "passed": true,
-      "details": "tools/landmarks/pipera-check.mjs:102 controls pass across the three models; all61 landmark geometry fixtures finite."
+      "details": "tools/landmarks/pipera-check.mjs: 102 controls pass across the three models; all 61 landmark geometry fixtures finite."
     },
     {
       "label": "Owner references and all three game studies inspected",

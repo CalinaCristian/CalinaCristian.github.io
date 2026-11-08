@@ -1030,12 +1030,12 @@ function buildCity(cityId, did = null) {
         const inners = r.members.filter(m => m.type === 'way' && m.role === 'inner' && W.has(m.ref)).map(m => { bRelWays.add(m.ref); return W.get(m.ref).nodes; });
         const inRings = inners.length ? assembleRings(inners).rings : [];
         for (const ring of assembleRings(outers).rings) {
-            // Stadiums keep their existing stand sectors. Other mapped inner rings remain courtyards, associated with
+            // Legacy corridor stadiums keep their existing stand sectors. Source districts retain the exact relation and holes, associated with
             // the containing outer only (a multipolygon can have several separate buildings).
             const lls = ring.map(n => N.get(n)); if (lls.some(x => !x)) continue;
             const contained = inRings.filter(ir => ir.length > 3 && ir.every(n => { const p = N.get(n); return p && pointInPolygon(p[1], p[0], lls.map(([la, lo]) => [lo, la])); }));
             const inner = contained.map(ir => ir.map(n => N.get(n)))[0];
-            if (inner && /stadium|grandstand|sports_centre|arena/.test(t.building + ' ' + (t.leisure || ''))) { addAnnulus(lls, inner, t); continue; }
+            if (!ds && inner && /stadium|grandstand|sports_centre|arena/.test(t.building + ' ' + (t.leisure || ''))) { addAnnulus(lls, inner, t); continue; }
             addRaw(ring, t, true, rid, contained);
         }
     }

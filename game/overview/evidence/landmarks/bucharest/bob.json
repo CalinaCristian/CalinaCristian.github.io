@@ -12,7 +12,7 @@
   "sources": [
     {
       "url": "https://www.openstreetmap.org/way/55450549",
-      "label": "OpenStreetMap w55450549; retrieved2026-11-08",
+      "label": "OpenStreetMap w55450549; retrieved 2026-11-08",
       "type": "osm",
       "facts": {
         "addr:city": "Bucure\u0219ti",
@@ -40,7 +40,7 @@
     "Replaced protruding cylindrical corner guesses with cladding inside the mapped outline and kept roof services within the estimated total envelope."
   ],
   "remainingGaps": [
-    "No authoritative metre-height tag or owner total height was found;28m total and rooftop service dimensions remain explicit estimates.",
+    "No authoritative metre-height tag or owner total height was found; 28m total and rooftop service dimensions remain explicit estimates.",
     "Facade bay widths and thin white cladding details are simplified.",
     "Published images are isolated model studies; complete district placement, traffic and mirror checks are recorded separately."
   ],
@@ -48,7 +48,7 @@
     {
       "label": "Exact source rings and courtyard collision",
       "passed": true,
-      "details": "tools/landmarks/pipera-check.mjs:102 controls pass across the three models; all61 landmark geometry fixtures finite."
+      "details": "tools/landmarks/pipera-check.mjs: 102 controls pass across the three models; all 61 landmark geometry fixtures finite."
     },
     {
       "label": "Owner references and all three game studies inspected",

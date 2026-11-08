@@ -12,7 +12,7 @@
   "sources": [
     {
       "url": "https://www.openstreetmap.org/way/533147567",
-      "label": "OpenStreetMap w533147567; retrieved2026-11-08",
+      "label": "OpenStreetMap w533147567; retrieved 2026-11-08",
       "type": "osm",
       "facts": {
         "addr:city": "Bucure\u0219ti",
@@ -26,7 +26,7 @@
     },
     {
       "url": "https://www.openstreetmap.org/way/231123137",
-      "label": "OpenStreetMap w231123137; retrieved2026-11-08",
+      "label": "OpenStreetMap w231123137; retrieved 2026-11-08",
       "type": "osm",
       "facts": {
         "addr:city": "Bucure\u0219ti",
@@ -36,13 +36,13 @@
     },
     {
       "url": "https://www.openstreetmap.org/way/458259608",
-      "label": "OpenStreetMap w458259608; retrieved2026-11-08",
+      "label": "OpenStreetMap w458259608; retrieved 2026-11-08",
       "type": "osm",
       "facts": {}
     },
     {
       "url": "https://www.openstreetmap.org/way/321641496",
-      "label": "OpenStreetMap w321641496; retrieved2026-11-08",
+      "label": "OpenStreetMap w321641496; retrieved 2026-11-08",
       "type": "osm",
       "facts": {}
     },
@@ -65,7 +65,7 @@
     "Used the current owner exterior photograph for facade comparison; mapped dimensions and parts retain priority."
   ],
   "remainingGaps": [
-    "Untagged total heights and the4.5m ground-storey band remain explicit estimates from independent storey/reference information.",
+    "Untagged total heights and the 4.5m ground-storey band remain explicit estimates from independent storey/reference information.",
     "Curtain-wall bays, service details and courtyard landscape remain simplified.",
     "Published images are isolated model studies; complete district placement, traffic and mirror checks are recorded separately."
   ],
@@ -73,7 +73,7 @@
     {
       "label": "Exact source rings and courtyard collision",
       "passed": true,
-      "details": "tools/landmarks/pipera-check.mjs:102 controls pass across the three models; all61 landmark geometry fixtures finite."
+      "details": "tools/landmarks/pipera-check.mjs: 102 controls pass across the three models; all 61 landmark geometry fixtures finite."
     },
     {
       "label": "Owner references and all three game studies inspected",

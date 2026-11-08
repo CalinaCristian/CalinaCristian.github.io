@@ -94,7 +94,9 @@ const mime={'.html':'text/html','.js':'text/javascript','.json':'application/jso
         lm.mesh.traverse(source=>{
           const pitch=source.userData.footballPitch;
           if(pitch){const center=source.localToWorld(new THREE.Vector3(...pitch.center)),start=source.localToWorld(new THREE.Vector3(pitch.center[0]-pitch.axis[0]*45,1.7,pitch.center[2]-pitch.axis[1]*45));
-            views.push({id:lm.id+'-football',label:'Dinamo pitch and goals at walking height',kind:'sports',x:start.x,z:start.z,y:1.7,target:[center.x,1.7,center.z],fov:85});}
+            views.push({id:lm.id+'-football',label:'Dinamo pitch and goals at walking height',kind:'sports',x:start.x,z:start.z,y:1.7,target:[center.x,1.7,center.z],fov:85});
+            const above=source.localToWorld(new THREE.Vector3(pitch.center[0]-pitch.axis[1]*60,70,pitch.center[2]+pitch.axis[0]*60));
+            views.push({id:lm.id+'-football-drone',label:'Dinamo modeled pitch, goals and markings from a close elevated static camera',kind:'sports',x:above.x,z:above.z,y:above.y,target:[center.x,center.y,center.z],fov:80});}
           const courts=source.userData.basketballCourt?.courts;
           if(courts)for(const [i,court]of courts.entries()){
             const center=source.localToWorld(new THREE.Vector3(...court.center)),rim=court.hoops[0]?.rim;if(!rim)continue;

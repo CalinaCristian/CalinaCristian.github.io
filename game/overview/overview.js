@@ -16,7 +16,7 @@ function compareLink(location,label,{lat,lon,targetLabel,scope='core'}={}) {
   if(targetLabel){params.set('compareLabel',targetLabel);extra+=` data-compare-label="${esc(targetLabel)}"`;}
   return `<a href="?${esc(params.toString())}#comparisons" data-compare-location="${esc(location)}" data-compare-scope="${esc(scope)}"${extra}>${esc(label)}</a>`;
 }
-let viewer, landmarkEvidence;
+let viewer, landmarkEvidence, spotEvidence;
 const comparisonReady=import('./comparison-viewer.js').then(async ({mountComparisonViewer})=>{
   viewer=await mountComparisonViewer($('#comparison-viewer'),{baseURL:new URL('./comparison-data/',import.meta.url)});
   return viewer;
@@ -43,10 +43,11 @@ async function initInventory() {
     document.querySelectorAll('[data-sources]').forEach(el=>{ el.innerHTML=el.dataset.sources.split(',').map(p=>sourceLink(p,p.split('/').pop())).join(' '); });
     $('#district-table').innerHTML=table('Configured district inventory · source-linked, not a fidelity grade',['District / chapters','Included landmark IDs','Comparison evidence'], inventory.districts.map(d=>`<tr><th scope="row">${esc(d.name)}<small>${esc(d.city==='bucharest'?'Bucharest, Romania':'Washington, USA')}<br>${d.chapters.map(c=>`${c.year} · ${esc(c.title)}`).join('<br>')}</small></th><td>${d.landmarks.map(id=>`<a href="#landmark-${id}">${esc(id)}</a>`).join(', ')}<small>${sourceLink(d.data,'District JSON')}</small></td><td>${compareLink(d.id,hasComparison(d.id)?'Inspect district ↓':'Check availability ↓')}<small>${hasComparison(d.id)?'Source and scope shown in viewer':'No public comparison dataset yet'}</small></td></tr>`));
     $('#landmark-table').innerHTML=table('61 catalogue entries · 60 distinct builders',['Landmark / ID','Configured district use','Model / comparison evidence'],inventory.landmarks.map(lm=>{const ds=districtFor(lm);const supported=ds.filter(d=>hasComparison(d.id));return `<tr id="landmark-${esc(lm.id)}"><th scope="row">${esc(lm.name)}<small>${esc(lm.id)}</small></th><td>${ds.length?ds.map(d=>`${esc(d.name)}${d.scenery.includes(lm.id)?' · scenery only':''}`).join('<br>'):'<span class="tag pending">Outside current district lists</span>'}<small>${lm.city==='bucharest'?'Bucharest':'Seattle / Bellevue'}</small></td><td><a href="?landmark=${encodeURIComponent(lm.id)}#landmark-evidence" data-landmark-evidence="${esc(lm.id)}">Dedicated evidence ↓</a><br>${sourceLink('game/src/landmarks.js',lm.builder)} · <a href="../dev/landmarks.html?id=${encodeURIComponent(lm.id)}">Model viewer</a><small>${supported.length?supported.map(d=>compareLink(d.id,`${d.name} survey ↓`,{lat:lm.lat,lon:lm.lon,targetLabel:lm.name})).join('<br>'):'Reality comparison: not published'}${supported.length?'<br>Nearest survey tile; no dedicated landmark pair.':''}</small></td></tr>`;}));
-    $('#spot-table').innerHTML=table('24 destinations · 19 shared scene IDs · 12 historical READY flags',['Destination','Scene / sharing','Historical menu gate'],inventory.spots.map(s=>`<tr><th scope="row">${esc(s.name)}<small>${esc(s.area==='bellevue'?'Bellevue':s.city==='bucharest'?'Bucharest':'Seattle')} · ${esc(s.id)}</small></th><td>${sourceLink('game/src/spots/index.js',s.scene)}<small>${inventory.spots.filter(x=>x.scene===s.scene).length} destination(s) in scene</small></td><td><span class="tag ${s.historicalReady?'sourced':'pending'}">${s.historicalReady?'Listed':'Developer only'}</span><small>Current fidelity: requires review</small></td></tr>`));
+    $('#spot-table').innerHTML=table('24 destinations · 19 shared scene IDs · 12 historical READY flags',['Destination','Scene / sharing','Historical menu gate'],inventory.spots.map(s=>`<tr><th scope="row">${esc(s.name)}<small>${esc(s.area==='bellevue'?'Bellevue':s.city==='bucharest'?'Bucharest':'Seattle')} · ${esc(s.id)}</small></th><td>${sourceLink('game/src/spots/index.js',s.scene)}<small>${inventory.spots.filter(x=>x.scene===s.scene).length} destination(s) in scene</small></td><td><span class="tag ${s.historicalReady?'sourced':'pending'}">${s.historicalReady?'Listed':'Developer only'}</span><small><a href="?spot=${encodeURIComponent(s.id)}#spot-evidence" data-spot-evidence="${esc(s.id)}">Dedicated evidence ↓</a></small></td></tr>`));
     $('#source-index').innerHTML=inventory.sources.map(s=>`<li>${sourceLink(s.path)}</li>`).join('');
-    const {mountLandmarkEvidence}=await import('./landmark-evidence.js');
+    const {mountLandmarkEvidence,mountSpotEvidence}=await import('./landmark-evidence.js');
     landmarkEvidence=mountLandmarkEvidence($('#landmark-evidence-viewer'),inventory);
+    spotEvidence=mountSpotEvidence($('#spot-evidence-viewer'),inventory);
     applySearch();
   } catch (err) {
     $('#load-error').hidden=false;
@@ -74,7 +75,14 @@ function applySearch(){
   $('#search-status').textContent=terms.length?`${matches} of ${sections.length} sections match. Matching detail panels are open.`:'';
   $('#toc').querySelectorAll('a').forEach(a=>{a.hidden=!!terms.length && $(`${a.hash}`)?.classList.contains('search-hidden');});
 }
-document.addEventListener('click',event=>{const link=event.target.closest('a[data-landmark-evidence]');if(!link||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey||!landmarkEvidence)return;event.preventDefault();$('#search').value='';applySearch();landmarkEvidence.show(link.dataset.landmarkEvidence);$('#landmark-evidence').scrollIntoView({block:'start'});$('#landmark-evidence').focus({preventScroll:true});});
+document.addEventListener('click',event=>{
+  const link=event.target.closest('a[data-landmark-evidence],a[data-spot-evidence]');
+  if(!link||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
+  const isSpot=!!link.dataset.spotEvidence,control=isSpot?spotEvidence:landmarkEvidence,section=$(isSpot?'#spot-evidence':'#landmark-evidence');
+  if(!control)return;
+  event.preventDefault();$('#search').value='';applySearch();control.show(isSpot?link.dataset.spotEvidence:link.dataset.landmarkEvidence);
+  section.scrollIntoView({block:'start'});section.focus({preventScroll:true});
+});
 $('#search').addEventListener('input',applySearch);
 $('#clear-search').addEventListener('click',()=>{$('#search').value='';applySearch();$('#search').focus();});
 document.addEventListener('keydown',e=>{if(e.key==='/'&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)&&!e.metaKey&&!e.ctrlKey){e.preventDefault();$('#search').focus();}if(e.key==='Escape'&&document.activeElement===$('#search')){$('#search').value='';applySearch();$('#search').blur();}});

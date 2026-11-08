@@ -22,7 +22,7 @@ with tempfile.TemporaryDirectory() as tmp:
     # Metres use a synthetic uncompressed projection, avoiding geodetic rounding.
     data = {'version': 2, 'strings': [], 'proj': {'lat0': 0, 'lon0': 0, 'mPerLat': 1, 'mPerLon': 1, 'scale': 1},
             'roofs': ['flat'], 'buildings': [[0,18,0,0,-1,0,0,-1,-1,0,0,20,0,0,10,-20,0]],
-            'buildingIds': ['w2'], 'buildingInfo': [-1,0,-1,-1,0], 'district': {
+            'buildingRoofProfiles': {'0': {'eavesM': 1.2, 'totalM': 1.8}}, 'buildingIds': ['w2'], 'buildingInfo': [-1,0,-1,-1,0], 'district': {
                 'mask': {'w': 1, 'h': 1, 'cell': 20, 'x0': -10, 'z0': -10, 'rle': [0,1]},
                 'geometry': {'circles': [{'x': 0, 'z': 0, 'r': 10}]}}}
     (tmp / 'district.json').write_text(json.dumps(data))
@@ -41,6 +41,7 @@ with tempfile.TemporaryDirectory() as tmp:
     assert set(rows) == {'w1', 'w2', 'w3'}, 'small buildings and an untyped part are audited; unclosed geometry is explicit'
     assert not rows['w1']['identityPresent'] and 'game' not in rows['w1'], 'an identical neighbouring building cannot replace a missing ID'
     assert rows['w2']['identityPresent'] and rows['w2']['topologyMatches'] and rows['w2']['literalHeightMatches']
+    assert rows['w2']['hGame'] == 1.8 and rows['w2']['hEavesGame'] == 1.2, 'literal source height remains total while levels estimates compare the effective wall/eaves band'
     assert not rows['w3']['identityPresent'], 'the missing sub-metre part remains a missing source'
     assert json.loads((tmp / 'audit-source-skips.json').read_text()) == [{'osm': 'w4', 'reason': 'unclosed-or-incomplete-source-way'}]
     data['buildingFootprints'] = {'0': [[.3,0],[2.3,0],[2.3,1],[.3,1]]}

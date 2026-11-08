@@ -54,14 +54,14 @@ export const DEV_SPOTS = [
  * `game.emit('activity', { spot, id })` / `dmcv:activity` when one is completed. Scene lanes: ask spots-core to add yours.
  */
 export const ACTIVITIES = [
-    ['cismigiu', 'rowboat', 'Row a boat on the lake'], ['cismigiu', 'chess', 'Watch the chess players'], ['cismigiu', 'rotunda', 'Visit the Writers\' Rotunda'],
+    ['cismigiu', 'rowboat', 'Row a boat on the lake'], ['cismigiu', 'chess', 'Play a chess opening'], ['cismigiu', 'rotunda', 'Visit the Writers\' Rotunda'],
     ['herastrau-park', 'boat', 'Boat on Lake Herăstrău'], ['village-museum', 'farmhouse', 'Step into a farmhouse'],
     ['old-town-lipscani', 'wcp-bar', 'Hidden project'],
     ['old-town-lipscani', 'carusel', 'Climb Cărturești Carusel'], ['old-town-lipscani', 'curtea-veche', 'Old Princely Court'],
     ['old-town-lipscani', 'dristor-shaorma', 'Eat a shaorma at Dristor Kebap'], ['old-town-lipscani', 'shoteria-shot', 'Pour, toast and drink at Shoteria'],
-    ['palace-parliament', 'balcony', 'The balcony view'], ['palace-parliament', 'pace', 'Pace the esplanade'], ['peoples-salvation-cathedral', 'candle', 'Light a candle'], ['stavropoleos-cec', 'stavropoleos', 'Stavropoleos courtyard'],
+    ['palace-parliament', 'balcony', 'Frame the Palace facade'], ['palace-parliament', 'pace', 'Pace the esplanade'], ['peoples-salvation-cathedral', 'candle', 'Light a candle'], ['stavropoleos-cec', 'stavropoleos', 'Stavropoleos courtyard'],
     ['bel-meydenbauer', 'pier-end', 'Walk to the end of the pier'], ['bel-meydenbauer', 'kayak', 'Kayak on Meydenbauer Bay'], ['bel-downtown-park', 'loop', 'Walk the park loop'],
-    ['bel-botanical-garden', 'bridge', 'Cross the suspension bridge'], ['bel-botanical-garden', 'plants', 'Garden plants'], ['bel-lincoln-square', 'badge-in', 'Badge in at UiPath'],
+    ['bel-botanical-garden', 'bridge', 'Cross the suspension bridge'], ['bel-botanical-garden', 'plants', 'Garden plants'], ['bel-lincoln-square', 'badge-in', 'Frame Lincoln Square'],
 ].map(([spot, id, title]) => ({ spot, id, title }));
 /**
  * Review gate (owner note 61): a spot is listed in SPOTS (game menu, world map, explore pins, achievements) only once
@@ -299,7 +299,7 @@ export async function loadSpot(id, renderer = null, opts = {}) {
         lamps: lamps.lamps, lampHeadMesh: lamps.headMesh, vegetation, crowd, interactables: ctx.interactables, challenges: ctx.challenges,
         updaters: ctx.updaters, nightHooks: ctx.nightHooks, sounds: ctx.sounds, ctx, tris,
         timing: { fetch: Math.round(tFetch - t0), build: Math.round(tBuild - tFetch), finish: Math.round(performance.now() - tBuild), total: Math.round(performance.now() - t0) },
-        dispose() { crowd?.dispose(); disposeTree(ctx.scene); ctx.scene.clear(); },
+        dispose() { ctx.extras.participation?.dispose(); for (const clean of ctx.extras.sceneCleanups || []) clean(); crowd?.dispose(); disposeTree(ctx.scene); ctx.scene.clear(); },
     };
     void renderer; // (programs compile on the first frame, after Renderer3D added its lights)
     console.info(`[spots] ${id} (${sceneId}): ${tris.toLocaleString()} tris, ${ctx.colliders.length} colliders, ${crowd?.count || 0} people, ${ctx.plaques.length} plaques — ${res.timing.total} ms (fetch ${res.timing.fetch}, build ${res.timing.build}, finish ${res.timing.finish})`);
@@ -337,8 +337,10 @@ export class SpotSession {
         const { spot, host } = this, r3d = this.r3d, cam = this.camera;
         cam.near = 0.25; // on foot: render's depth-precision test (note 55) cam.far = Math.max(cam.far, 9000); cam.updateProjectionMatrix();
         const T = [performance.now()];
+        if (host.season !== undefined) r3d.setSeason(host.season === 'auto' ? null : host.season);
         r3d.setScene(spot.scene, cam, spot.env, { units: spot.units, vegetation: spot.vegetation,
-            clock: { date: host.date || new Date(), lat: spot.clock.lat, lon: spot.clock.lon, timeZone: spot.clock.timeZone, timeScale: host.timeScale ?? 1, override: host.override ?? null } }); T.push(performance.now());
+            ...(host.weather !== undefined ? { weather: host.weather === 'live' ? null : host.weather } : {}),
+            clock: { date: host.date || new Date(), lat: spot.clock.lat, lon: spot.clock.lon, timeZone: host.timeZone ?? spot.clock.timeZone, timeScale: host.timeScale ?? 1, override: host.override ?? null } }); T.push(performance.now());
         r3d.setLamps(spot.lamps, { headMesh: spot.lampHeadMesh }); T.push(performance.now());
         r3d.setHeadlights?.(false);
         // walker: the game's OnFootController (spec 14) when present, else the local fallback
@@ -367,6 +369,7 @@ export class SpotSession {
         window.cvTelemetry?.track?.('spot_enter', { id: spot.id, scene: spot.sceneId, city: spot.city });
     }
     get position() { return this.ctl.position; }
+    cancelActivities(reason = 'cancel') { this.spot.ctx.extras.venueActivities?.cancel(reason); this.spot.ctx.extras.participation?.cancel(reason); }
     // ------------------------------------------------------------------ spot map + objectives + guided tour (notes 32/33/67)
     /** everything worth finding in this scene: { kind, x, z, label, done, icon? } (landmarks, plaques, postcard, activities, entrances) */
     objectives() {
@@ -426,7 +429,7 @@ export class SpotSession {
     }
     async openMap() {
         if (this.ui.panelOpen || !this.map) return;
-        this.spot.ctx.extras.venueActivities?.cancel('map');
+        this.cancelActivities('map');
         if (this.input) { this.input.lookAllowed = false; this.input.releaseLock?.(); }
         this._refreshMarkers();
         const ICONS = { hero: '⭐', plaque: '📜', postcard: '📷', bike: '🚲', activity: '🎯' }, items = [], groups = new Map();
@@ -581,6 +584,20 @@ export class SpotSession {
         const st = this.tour?.stops[this.tour.i]; if (done && st?.kind === 'postcard' && st.id === done) st.participated = true;
         return { people: n, postcard: done };
     }
+    /** Host conditions setters call this after changing their destination-local
+     * clock. The renderer advances that clock; session.update never resets it. */
+    setConditions(conditions = {}) {
+        this.cancelActivities('conditions');
+        const { host, spot, r3d } = this;
+        for (const key of ['date', 'override', 'timeScale', 'timeZone', 'weather', 'season']) {
+            if (Object.prototype.hasOwnProperty.call(conditions, key)) host[key] = conditions[key];
+        }
+        r3d.setClock({ date: 'date' in conditions ? (host.date || new Date()) : (r3d.simDate || host.date || new Date()), lat: spot.clock.lat, lon: spot.clock.lon,
+            timeZone: host.timeZone ?? spot.clock.timeZone, timeScale: host.timeScale ?? 1, override: host.override ?? null });
+        if ('season' in conditions) r3d.setSeason(conditions.season === 'auto' ? null : conditions.season);
+        if ('weather' in conditions) r3d.setWeather(conditions.weather === 'live' ? null : conditions.weather, { instant: true });
+        this.condT = 0;
+    }
     /** info for PhotoMode.getInfo while in a spot */
     photoInfo() { const sp = this.spot; return { place: sp.name, city: sp.city, timeZone: sp.clock.timeZone, night: !!this.r3d.nightLights, sub: placeLabel(sp) }; }
     /** local time / weather / season for the crowd's tagged lines (spec 15 R15.6) */
@@ -657,7 +674,7 @@ export class SpotSession {
         } catch (e) { if (!this._mapErr) { this._mapErr = true; console.warn('[spots] map/tour', e); } }
         if (!photo && !panel && this.input?.take?.('KeyM')) this.openMap(); // (G is the drone everywhere — round 6 note 14)
         // interactions (nearest within reach)
-        if (!photo && !panel && !this.spot.ctx.extras.venueActivities?.active) {
+        if (!photo && !panel && !this.spot.ctx.extras.venueActivities?.active && !this.spot.ctx.extras.participation?.active) {
             let best = null, bd = 1e9;
             for (const it of this.spot.interactables) { if (it.cond && !it.cond(this)) continue; const d = Math.hypot(p.x - it.x, p.z - it.z); if (d < (it.r || 2) && d < bd && Math.abs((it.y ?? p.y) - p.y) < 3) { bd = d; best = it; } }
             this.ui.prompt(best ? `<kbd>E</kbd>${escapeHtml(typeof best.label === 'function' ? best.label(this) : best.label)}` : null);
@@ -690,14 +707,14 @@ export class SpotSession {
     /** move the walker to another spawn of the same scene (seattle-center: space-needle / chihuly / mopop) */
     teleport(spotId) {
         const s = this.spot.spawns[spotId], entry = spotById(spotId); if (!s || !entry) return;
-        this.spot.ctx.extras.venueActivities?.cancel('teleport');
+        this.cancelActivities('teleport');
         this.endTour(); this.ctl.teleport(s.x, s.z, s.heading);
         Object.assign(this.spot, { id: spotId, name: entry.name, entry, spawn: s });
         this.ui.setTitle(this.spot.name, `${placeLabel(this.spot)} · walk-only bonus`);
         this._updateChallengeText(); this._refreshMarkers();
     }
     dispose() {
-        this.spot?.ctx?.extras?.venueActivities?.cancel('exit');
+        this.cancelActivities('exit');
         this.ctl?.exit(); this.ui?.dispose(); this.sound?.dispose(); this.spot?.dispose();
         this.r3d.setLamps?.([]);
         window.cvTelemetry?.track?.('spot_exit', { id: this.spot.id, seconds: Math.round(this.t) });

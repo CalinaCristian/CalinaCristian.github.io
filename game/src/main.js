@@ -16,7 +16,7 @@ const mapFilter = () => globalThis.game?.mapFilter ?? MINIMAP.MAP_FILTER;
 const fkey = (cat) => (cat === 'business' ? 'shop' : cat);
 import { Office } from './office.js';
 import { playFlight } from './flight.js';
-import { Navigator, CarScreen, canTravel, edgeSpeed, isMotorway, roadName, fmtDist, stepText, stepArrow, lanesDir } from './nav.js';
+import { Navigator, CarScreen, canTravel, edgeSpeed, isMotorway, roadName, fmtDist, stepText, stepArrow, lanesDir, roadSideWidth, roadWidthAt } from './nav.js';
 import { isTouch, clamp, angleDiff, signTexture } from './util.js';
 import { Renderer3D } from './render.js';
 import { disposeDistrictScene } from './sceneResources.js';
@@ -31,6 +31,7 @@ import { save } from './save.js'; // progression, note 73
 import { createDinamoFootball } from './football.js';
 import { createRosettiBasketball } from './basketball.js';
 import { initExplore } from './explore.js'; // world-map hub, free roam ⇄ story (resume chip), drone — hooks listed in spec 10 (one mode since 2026-11-08)
+import { chapterWaypointReached } from './chapter-waypoint.js';
 const { makeVehicle } = VEHICLES;
 
 const $ = (s) => document.querySelector(s);
@@ -479,7 +480,7 @@ class Game {
         const e = ne.edge;
         let dir = canTravel(e, preferDir) ? preferDir : -preferDir;
         if (!canTravel(e, dir)) dir = 1;
-        const lat = laneOffset(e, 0) * dir;
+        const lat = laneOffset(e, 0, dir) * dir;
         return { x: ne.cx + e.nx * lat, z: ne.cz + e.nz * lat, heading: Math.atan2(-e.dirx * dir, -e.dirz * dir), edge: e, dir };
     }
     placeSpawn(city, world) {
@@ -490,7 +491,7 @@ class Game {
         const sp = city.spawn;
         const e = sp && world.graph.edges.find(ed => ed.a.id === sp.edge[0] && ed.b.id === sp.edge[1]);
         if (e) {
-            const lat = laneOffset(e, 0) * sp.dir;
+            const lat = laneOffset(e, 0, sp.dir) * sp.dir;
             this.player.place(e.a.x + e.dirx * e.len * sp.t + e.nx * lat, e.a.z + e.dirz * e.len * sp.t + e.nz * lat, Math.atan2(-e.dirx * sp.dir, -e.dirz * sp.dir), e);
             return;
         }
@@ -663,7 +664,7 @@ class Game {
         }
         if (this.state !== 'foot' || !this.foot) return false;
         const F = this.foot, ne = this.nav.index.nearest(F.x, F.z, 200); if (!ne) return false;
-        const e = ne.edge, sd = (F.x - ne.cx) * e.nx + (F.z - ne.cz) * e.nz >= 0 ? 1 : -1, off = (e.halfW ?? 4) + 1.5;
+        const e = ne.edge, sd = (F.x - ne.cx) * e.nx + (F.z - ne.cz) * e.nz >= 0 ? 1 : -1, off = roadSideWidth(e, sd) + 1.5;
         this.basketball?.cancel('reset');
         F.teleport(ne.cx + e.nx * sd * off, ne.cz + e.nz * sd * off);
         this.hud.toast('🛟 Back on the sidewalk', 'Position reset.'); return true;
@@ -748,7 +749,7 @@ class Game {
         this.updateActionMarkers(player.x, player.z); // stop pins come down to the door as you get close; station markers
         // street / district
         const ne = this.nav.index.nearest(player.x, player.z, 200);
-        const onRoad = ne && ne.d < (ne.edge.halfW ?? 6) + (ne.edge.sidewalk ?? 2) + 6;
+        const onRoad = ne && ne.d < roadWidthAt(ne.edge, player.x, player.z) + (ne.edge.sidewalk ?? 2) + 6;
         let district = '', bd = Infinity;
         for (const d of this.minimap.districts || []) { const dd = Math.hypot(d.x - player.x, d.z - player.z); if (dd < bd) { bd = dd; district = d.name; } }
         const streetName = onRoad ? roadName(ne.edge) : (world.isPark?.(player.x, player.z) ? 'Park' : 'Off road');
@@ -769,7 +770,7 @@ class Game {
         // ---- speed limit / enforcement ----
         const us = city.units === 'mph';
         let limitDisp = null, over = false, overKmh = 0;
-        if (ne && ne.d < (ne.edge.halfW ?? 6) + 2.5) {
+        if (ne && ne.d < roadWidthAt(ne.edge, player.x, player.z) + 2.5) {
             const lim = edgeSpeed(ne.edge);
             limitDisp = us ? Math.max(5, Math.round(lim * 2.237 / 5) * 5) : Math.max(10, Math.round(lim * 3.6 / 10) * 10);
             const limKmh = us ? limitDisp * 1.609 : limitDisp;
@@ -781,7 +782,8 @@ class Game {
         this.over = over;
         this.updateEnforcement(dt, over, overKmh);
         // ---- navigation ----
-        const nv = this.navInfo = this.nav.update(player, dt);
+        const waypointNavigation = { destination: this.nav.dest, manual: this.navManual };
+        const nv = this.navInfo = waypointNavigation.info = this.nav.update(player, dt);
         if (nv && nv.arrived && this.navManual) { hud.toast('🏁 You have arrived', this.nav.dest?.label || ''); this.navManual = false; this.nav.clear(); this.autoRoute(true); }
         if (nv && nv.rerouted) this.audio.blip(520, 0.06, 0.06);
         // objective text
@@ -805,7 +807,7 @@ class Game {
         // ---- "you are passing …" captions (e.g. Plaza Center, UiPath Bellevue 2022–2025, on the way to Lincoln Square) ----
         if (this.frame % 15 === 0) this.checkPassing(player);
         // ---- chapter waypoint (e.g. drive out of SeaTac to the I-5 junction) ----
-        if (this.ch?.waypoint && !this.chapterDone && this.objective?.waypoint && (Math.hypot(this.objective.x - player.x, this.objective.z - player.z) < 30 || (this.navInfo && !this.navManual && this.navInfo.remaining < 25))) this.completeChapter();
+        if (chapterWaypointReached(this, player, waypointNavigation)) this.completeChapter();
         // ---- interactions (office > airport > refuel > tow) ----
         let prompt = null;
         for (const { stop, poi } of this.stopPois) {
@@ -867,9 +869,9 @@ class Game {
         const c = this.clock; c.date = this.nowDate();
         const h = c.override ? OVERRIDE_HOURS[c.override] : localHours(c.date, c.timeZone);
         c.hours = h;
-        if (this.r3d && this.scene) {
+        if (this.r3d && (this.scene || this.state === 'spot')) {
             this.r3d.setClock({ date: c.date, override: c.override || null });
-            this.syncHeadlights();
+            if (this.state !== 'spot') this.syncHeadlights();
         }
         const ph = this.renderer3d?.phase;
         this.phase = typeof ph === 'string' ? (ph === 'sunset' ? 'dusk' : ph) : phaseFromHours(h);
@@ -1236,7 +1238,7 @@ class Game {
 
     checkRoadEvents(ne, dt) {
         const { player, hud, traffic } = this;
-        if (!ne || ne.d > (ne.edge.halfW ?? 6) + 1) { this.prevEdgeInfo = null; return; }
+        if (!ne || ne.d > roadWidthAt(ne.edge, player.x, player.z) + 1) { this.prevEdgeInfo = null; return; }
         const e = ne.edge;
         const towardB = (player.fx * e.dirx + player.fz * e.dirz) > 0;
         const endNode = towardB ? e.b : e.a;
@@ -1339,9 +1341,9 @@ class Game {
         for (const v of this.traffic.near(P.x, P.z, R)) shapes.push({ c: CYAN, pts: obb(v.x, v.z, v.fx, v.fz, v.length / 2, v.width / 2), closed: true, y0: (v.y ?? 0.24), y1: (v.y ?? 0.24) + 1.3, kind: 'vehicle' });
         if (w.edgesInBox) w.edgesInBox(P.x - R, P.z - R, P.x + R, P.z + R, (e) => {
             if (e.ya === undefined) return;
-            const hw = e.halfW ?? 6, ym = 0.24 + (e.ya + e.yb) / 2;
+            const ym = 0.24 + (e.ya + e.yb) / 2;
             if (Math.abs(ym - sy) > 3) return;
-            for (const sd of [1, -1]) shapes.push({ c: GREEN, pts: [[e.a.x + e.nx * hw * sd, e.a.z + e.nz * hw * sd], [e.b.x + e.nx * hw * sd, e.b.z + e.nz * hw * sd]], closed: false, y0: ym + 0.05, y1: ym + 0.05, kind: 'ribbon' });
+            for (const sd of [1, -1]) shapes.push({ c: GREEN, pts: [[e.a.x + e.nx * roadSideWidth(e, sd) * sd, e.a.z + e.nz * roadSideWidth(e, sd) * sd], [e.b.x + e.nx * roadSideWidth(e, sd) * sd, e.b.z + e.nz * roadSideWidth(e, sd) * sd]], closed: false, y0: ym + 0.05, y1: ym + 0.05, kind: 'ribbon' });
         });
         shapes.push({ c: YEL, pts: obb(P.x + P.fx * ((P.front ?? 2.2) - (P.rear ?? 2.2)) / 2, P.z + P.fz * ((P.front ?? 2.2) - (P.rear ?? 2.2)) / 2, P.fx, P.fz, P.length / 2, P.width / 2), closed: true, y0: sy, y1: sy + 1.2, kind: 'player' });
         for (const o of [1.3, 0, -1.3]) shapes.push({ c: YEL, pts: circle(P.x + P.fx * o, P.z + P.fz * o, 1.0, 12), closed: true, y0: sy + 0.1, y1: sy + 0.1, kind: 'player' });
@@ -1604,8 +1606,8 @@ class Game {
         }
         cands.sort((a, b) => a.d - b.d);
         for (const c of cands.slice(0, 60)) {
-            const e = c.e, hw = e.halfW ?? 4, dir = canTravel(e, 1) || !canTravel(e, -1) ? 1 : -1, fx = e.dirx * dir, fz = e.dirz * dir;
-            const side = (-fz * e.nx + fx * e.nz) >= 0 ? 1 : -1, off = Math.max(0, hw - 1.25) * side; // the right-hand kerb of the travel direction
+            const e = c.e, dir = canTravel(e, 1) || !canTravel(e, -1) ? 1 : -1, fx = e.dirx * dir, fz = e.dirz * dir;
+            const side = (-fz * e.nx + fx * e.nz) >= 0 ? 1 : -1, off = Math.max(0, roadSideWidth(e, side) - 1.25) * side; // the right-hand kerb of the travel direction
             const x = c.cx + e.nx * off, z = c.cz + e.nz * off, heading = Math.atan2(-fx, -fz);
             const chk = T.assessParking({ x, z, heading, surfY: 0.24 + (e.ya ?? 0), y: 0.24 + (e.ya ?? 0) });
             if (chk && !chk.illegal && chk.inLane) return { x, z, heading, edge: e, d: c.d };
@@ -1679,7 +1681,7 @@ class Game {
         // street + navigation from the walker's position
         const pos = { x: F.x, z: F.z, heading: F.heading, surfY: F.y + 0.24, speed: F.vel };
         const ne = this.nav.index.nearest(F.x, F.z, 200);
-        const onRoad = ne && ne.d < (ne.edge.halfW ?? 6) + (ne.edge.sidewalk ?? 2) + 6;
+        const onRoad = ne && ne.d < roadWidthAt(ne.edge, F.x, F.z) + (ne.edge.sidewalk ?? 2) + 6;
         let district = '', bd = Infinity;
         for (const d of this.minimap.districts || []) { const dd = Math.hypot(d.x - F.x, d.z - F.z); if (dd < bd) { bd = dd; district = d.name; } }
         hud.setStreet(onRoad ? roadName(ne.edge) : (world.isPark?.(F.x, F.z) ? 'Park' : 'On foot'), district);
@@ -1848,7 +1850,9 @@ class Game {
         const mod = await this.loadSpotsModule();
         const entry = mod?.SPOTS?.find(s => s.id === id) || mod?.SPOTS_ALL?.find(s => s.id === id); // (menus list the reviewed SPOTS; the API / harness can open any)
         if (!entry) { this.hud.toast('🏛️ Not available', 'This tourist spot is not ready yet.', 'warn'); return false; }
+        const conditions = this.travelConditions();
         this._spotBusy = true;
+        this.applyRoamTime(conditions.tod, CITIES[entry.city]?.timeZone || TIME_ZONES[entry.city]);
         this.audio.init(); this.audio.resume();
         this.photo?.close?.(); if (this.mapOpen) this.toggleMap(false);
         if (!this.spotReturn) {
@@ -1868,7 +1872,9 @@ class Game {
         try {
             this.spot = await mod.startSpot(id, { r3d: this.r3d, camera: this.camera, input: this.input, photo: this.photo, audio: this.audio, hud: this.hud,
                 returnFocus: () => this.returnFocus(), onTour: (t) => this.onSpotTour(t),
-                date: this.nowDate(), override: this.clock.override || null, onProgress: (t) => { if (lp && t) lp.textContent = String(t); } });
+                date: this.nowDate(), override: this.clock.override || null, timeZone: this.clock.timeZone,
+                weather: conditions.weather, season: conditions.season,
+                onProgress: (t) => { if (lp && t) lp.textContent = String(t); } });
         } catch (e) {
             console.error('[spots] start', e);
             this.spot = null; this._spotBusy = false; ld?.classList.remove('show'); if (lp) lp.textContent = this._loadingText;
@@ -1884,6 +1890,7 @@ class Game {
     }
     /** back to where the player was: the menu, or the chapter / free drive with the car (or the walker) where it was */
     leaveSpot() {
+        const conditions = this.travelConditions();
         this.explore?.hooks?.abortDrone?.();
         this.photo?.close?.();
         if (this.hud.panelOpen) this.hud.closePanel();
@@ -1895,6 +1902,7 @@ class Game {
         this.input.releaseLock(); this.input.flush(); this.hud.prompt(null);
         const toGame = this.world && this.player && ['drive', 'foot'].includes(R.state);
         if (toGame) {
+            this.applyRoamTime(conditions.tod, this.city.timeZone || TIME_ZONES[this.city.id]);
             this.attachWorldRender();
             this.syncHeadlights(true);
             if (typeof this.r3d.setWeather === 'function') { try { this.r3d.setWeather(this.weatherOverride); } catch { /* ignore */ } }
@@ -1903,6 +1911,7 @@ class Game {
             $('#hud').classList.add('show');
             this.input.lookAllowed = true; this.frameClock.getDelta();
         } else {
+            this._menuTod = conditions.tod;
             this.state = 'menu'; this.input.lookAllowed = false;
             $('#hud').classList.remove('show'); $('#menu').classList.add('show'); document.body.classList.remove('playing');
             this.renderMenuSpots();
@@ -1912,7 +1921,15 @@ class Game {
     updateSpot(dt) {
         const s = this.spot; if (!s) return;
         const inp = this.input, hud = this.hud;
-        if (this.photo?.active || hud.panelOpen || this._pauseOpen || this.explore?.drone?.active) s.spot?.ctx?.extras?.venueActivities?.cancel('mode');
+        if (inp.take('KeyK')) { this.buildConditions(); this.toggleConditions(); }
+        if (this.condOpen) {
+            if (inp.take('Escape')) this.toggleConditions(false);
+            inp.lookAllowed = false; inp.flush(); this.updateClock(0); this.r3d.frame(); return;
+        }
+        if (this.photo?.active || hud.panelOpen || this._pauseOpen || this.explore?.drone?.active) {
+            if (typeof s.cancelActivities === 'function') s.cancelActivities('mode');
+            else s.spot?.ctx?.extras?.venueActivities?.cancel('mode');
+        }
         // Esc / M pause — but not the Esc / M that closed the camera, a plaque or the pause panel itself (marked at keydown)
         const busy = !!(this.photo?.active || s.ui?.panelOpen || hud.panelOpen);
         if (busy) { inp.take('Escape'); inp.take('KeyM'); }
@@ -1929,7 +1946,8 @@ class Game {
     /** pause panel in a spot: resume, other entrances of the same scene, leave */
     spotPause() {
         const s = this.spot, e = this.spotEntry || {}; if (!s) return;
-        s.spot?.ctx?.extras?.venueActivities?.cancel('pause');
+        if (typeof s.cancelActivities === 'function') s.cancelActivities('pause');
+        else s.spot?.ctx?.extras?.venueActivities?.cancel('pause');
         const esc = (t) => String(t ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
         const R = this.spotReturn || { state: 'menu' };
         const back = R.state === 'menu' ? 'Back to the menu' : this.ch ? `Back to ${this.chapterDone ? 'free drive' : `chapter ${this.chapterIdx + 1}`}` : 'Back to the drive';
@@ -1983,7 +2001,7 @@ class Game {
         if (st === 'foot' && this.carBody?.parent) items.push(['car-route', '🚗', 'Walk back to the car'], ['car-return', '🚶', 'Return to the car'], ['car-call', '📲', 'Call the car']);
         if (this.chapters) items.push(['chapters', '📖', 'Chapters']);
         if (this.spotsMod?.SPOTS?.length) items.push(['spots', '🏛️', 'Tourist spots']);
-        if (st === 'drive' || st === 'foot') items.push(['conditions', '☀️', 'Time, weather & season']);
+        if (['drive', 'foot', 'spot'].includes(st)) items.push(['conditions', '☀️', 'Time, weather & season']);
         if (this.achievements?.open) { let pct = null; try { pct = this.achievements.completion?.().pct; } catch { /* ignore */ } items.push(['achievements', '🏆', `Achievements${pct != null ? ` · ${pct} %` : ''}`]); }
         if (ex && !droneOn && (st === 'foot' || st === 'spot')) items.push(['drone', '🚁', 'Deploy drone']);
         if (this.photo && st !== 'office' && st !== 'drive') items.push(['photo', '📷', 'Photo mode']);
@@ -2015,7 +2033,8 @@ class Game {
         const el = document.getElementById('pause-menu');
         if (open && !['drive', 'foot', 'office', 'spot'].includes(this.state) && !(this.state === 'menu' && view === 'settings')) return;
         if (open) {
-            this.spot?.spot?.ctx?.extras?.venueActivities?.cancel('pause');
+            if (typeof this.spot?.cancelActivities === 'function') this.spot.cancelActivities('pause');
+            else this.spot?.spot?.ctx?.extras?.venueActivities?.cancel('pause');
             this.basketball?.cancel('pause');
             if (this.photo?.active) this.photo.close();
             if (this.mapOpen) this.toggleMap(false);
@@ -2043,7 +2062,7 @@ class Game {
         else if (view === 'settings') {
             const q = this.quality, u = this.loadStr('units', 'auto'), sens = this.input.sens ?? 1, vol = this.audio.volume ?? 1;
             body = `<div class="pm-set">
-${['menu', 'drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa="conditions">☀️ Time, weather & season</button>' : ''}
+${['menu', 'drive', 'foot', 'spot'].includes(this.state) ? '<button class="btn" data-pa="conditions">☀️ Time, weather & season</button>' : ''}
 <label>Graphics quality <select data-set="quality">${['auto', 'ultra', 'high', 'medium', 'low'].map(x => `<option value="${x}"${x === q ? ' selected' : ''}>${x[0].toUpperCase() + x.slice(1)}</option>`).join('')}</select></label>
 <label>Mouse / touch look sensitivity <input type="range" data-set="sens" min="0.3" max="2.5" step="0.05" value="${sens}"></label>
 <label class="cb"><input type="checkbox" data-set="invert"${this.input.invertY ? ' checked' : ''}> Invert vertical look</label>
@@ -2127,8 +2146,9 @@ ${['menu', 'drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa=
     /** time-of-day pick → clock: rush / noon shift the real clock to that local hour (real sun), golden hour / night use the render looks */
     applyRoamTime(tod, timeZone) {
         const c = this.clock; c.offsetMs = 0; c.override = null;
+        c.timeZone = timeZone || c.timeZone;
         const H = tod === 'dawn' ? 6.5 : tod === 'rush' ? 8.5 : tod === 'noon' ? 12.5 : /^h\d/.test(tod) ? Number(tod.slice(1)) : null;
-        if (H != null) { const h0 = localHours(new Date(), timeZone); c.offsetMs = (((H - h0) % 24 + 24) % 24) * 3600e3; }
+        if (H != null) { const h0 = localHours(new Date(), c.timeZone); c.offsetMs = (((H - h0) % 24 + 24) % 24) * 3600e3; }
         else if (tod === 'golden') c.override = 'sunset';
         else if (tod === 'night') c.override = 'night';
         else if (tod === 'dusk' || tod === 'day') c.override = tod;
@@ -2233,10 +2253,12 @@ ${['menu', 'drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa=
     }
     toggleConditions(open = !this.condOpen, { any = false } = {}) {
         const el = document.getElementById('cond-panel'); if (!el) { this.condOpen = false; return; }
-        if (open && !['menu', 'drive', 'foot'].includes(this.state)) return;
+        if (open && !['menu', 'drive', 'foot', 'spot'].includes(this.state)) return;
         if (open && this.mapOpen) this.toggleMap(false);
         this.condOpen = !!open; el.classList.toggle('show', this.condOpen); document.body.classList.toggle('cond-open', this.condOpen);
         if (this.condOpen) {
+            if (typeof this.spot?.cancelActivities === 'function') this.spot.cancelActivities('conditions');
+            else this.spot?.spot?.ctx?.extras?.venueActivities?.cancel('conditions');
             this.input.releaseLock(); this.input.lookAllowed = false; this.input.flush();
             if (this.player) this.player.speed *= 0.2;
             if (this.state === 'menu') $('#menu').inert = true;
@@ -2250,7 +2272,10 @@ ${['menu', 'drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa=
         const h0 = localHours(new Date(), c.timeZone); c.offsetMs = (((h - h0) % 24 + 24) % 24) * 3600e3;
         if (this.state === 'menu') this._menuTod = 'h' + h;
         if (this.freeRoam) this.freeRoam.tod = 'h' + h;
-        this.updateClock(0); this.traffic?.setHour(this.trafficHours(), true); this.syncConditions();
+        this.updateClock(0);
+        if (this.state === 'spot') this.spot?.setConditions?.({ date: this.nowDate(), override: c.override, timeZone: c.timeZone });
+        else this.traffic?.setHour(this.trafficHours(), true);
+        this.syncConditions();
     }
     setRoamTime(tod) {
         if (/^h\d/.test(tod)) return this.setRoamHour(Number(tod.slice(1)));
@@ -2259,16 +2284,25 @@ ${['menu', 'drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa=
         const c = this.clock; c.offsetMs = 0; c.override = tod === 'golden' ? 'sunset' : ['dusk', 'night', 'day'].includes(tod) ? tod : null;
         if (this.state === 'menu') this._menuTod = tod;
         if (this.freeRoam) this.freeRoam.tod = tod;
-        this.updateClock(0); this.traffic?.setHour(this.trafficHours(), true); this.syncConditions();
+        this.updateClock(0);
+        if (this.state === 'spot') this.spot?.setConditions?.({ date: this.nowDate(), override: c.override, timeZone: c.timeZone });
+        else this.traffic?.setHour(this.trafficHours(), true);
+        this.syncConditions();
     }
     setRoamWeather(w) {
         if (this.freeRoam) this.freeRoam.weather = w;
         if (this.state === 'menu') this.weatherOverride = WEATHER_OVERRIDES.includes(w) ? w : null; // no live request before a place is loaded
         else this.setWeatherOverride(w === 'live' ? null : w);
+        if (this.state === 'spot') this.spot?.setConditions?.({ weather: w });
         if (this.traffic && w !== 'live') this.traffic.weatherKind = w;
         this.syncConditions();
     }
-    setRoamSeason(s) { if (this.freeRoam) this.freeRoam.season = s; this.r3d.setSeason?.(s === 'auto' ? null : s); this.syncConditions(); }
+    setRoamSeason(s) {
+        if (this.freeRoam) this.freeRoam.season = s;
+        if (this.state === 'spot' && typeof this.spot?.setConditions === 'function') this.spot.setConditions({ season: s });
+        else this.r3d.setSeason?.(s === 'auto' ? null : s);
+        this.syncConditions();
+    }
     syncConditions() {
         const selected = this.travelConditions(), tod = ({ 'h6.5': 'dawn', 'h8.5': 'rush', 'h12.5': 'noon' })[selected.tod] || selected.tod;
         const time = $('#timeofday'), value = ({ now: 'real', golden: 'sunset' })[tod] || tod;
@@ -2291,7 +2325,7 @@ ${['menu', 'drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa=
                 const on = b.dataset[key] === value; b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on));
             }
         }
-        el.querySelector('[data-cond-note]').textContent = this.state === 'menu' ? 'Applies to New story and world-map starts · Continue restores saved conditions' : 'Traffic follows the hour · game paused';
+        el.querySelector('[data-cond-note]').textContent = this.state === 'menu' ? 'Applies to New story and world-map starts · Continue restores saved conditions' : this.state === 'spot' ? 'Local scene conditions · activity paused' : 'Traffic follows the hour · game paused';
     }
     // ---------------------------------------------------------------------------------- chapters (spec 10)
     renderMenuChapters() {
@@ -2464,11 +2498,11 @@ ${['menu', 'drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa=
             // keep out of the junction boxes when the edge is long enough
             const ra = (e.a.radius ?? 6) + 3, rb = (e.b.radius ?? 6) + 3;
             let s = t * e.len + shift; if (e.len > ra + rb) s = clamp(s, ra, e.len - rb); else s = clamp(s, 0, e.len);
-            let lat = this.traffic.laneOffset(e, lane);
+            let lat = this.traffic.laneOffset(e, lane, dir);
             // never outside the carriageway (a narrow service road / lane: centre the car on it)
-            const hw = dir > 0 ? (e.wR ?? e.halfW) : (e.wL ?? e.halfW);
-            if (hw != null) lat = Math.min(lat, Math.max(0, hw - 1.1));
-            if (e.type === 'service' && lanesDir(e, 1) + lanesDir(e, -1) <= 2) lat = Math.min(lat, e.oneway ? 0 : 0.6);
+            const right = roadSideWidth(e, dir), left = roadSideWidth(e, -dir), margin = Math.min(1.1, (right + left) / 2);
+            lat = clamp(lat, -left + margin, right - margin);
+            if (e.type === 'service' && !e.sharedLane && lanesDir(e, 1) + lanesDir(e, -1) <= 2) lat = Math.min(lat, dir * (e.laneCenterShiftM || 0) + (e.oneway ? 0 : 0.6));
             return { x: e.a.x + e.dirx * s + e.nx * dir * lat, z: e.a.z + e.dirz * s + e.nz * dir * lat, heading: Math.atan2(-e.dirx * dir, -e.dirz * dir), edge: e, dir };
         };
         for (const c of scored.slice(0, 8)) for (const sh of [0, 8, -8, 16, -16]) { const p = poseOf(c, sh); if (this.spotFree(p)) return p; }
@@ -2531,7 +2565,7 @@ ${['menu', 'drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa=
         if (segLen > r0 + r1) local = clamp(local, r0, segLen - r1);
         const t = clamp(local / segLen, 0, 1);
         const cx = P[i][0] + (P[i + 1][0] - P[i][0]) * t, cz = P[i][1] + (P[i + 1][1] - P[i][1]) * t;
-        const lat = this.traffic.laneOffset(e, Math.max(0, lanesDir(e, dir) - 1));
+        const lat = this.traffic.laneOffset(e, Math.max(0, lanesDir(e, dir) - 1), dir);
         return { x: cx + e.nx * dir * lat, z: cz + e.nz * dir * lat, heading: Math.atan2(-e.dirx * dir, -e.dirz * dir), edge: e, dir };
     }
     async fastTravel(dest) {

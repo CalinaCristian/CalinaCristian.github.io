@@ -18,6 +18,13 @@
    "businessesListed": 133,
    "osmTreesDowntown": 1132,
    "landmarks": 10
+  },
+  "sourceRoofReview": {
+   "date": "2026-11-08",
+   "records": 35,
+   "source": "Explicit original OSM roof/carport classification; all source footprints inspected in independent Esri aerial context",
+   "dimensionStatus": "Unsourced vertical bands and supports remain estimates. Literal source height/min_height wins; layer is never a metre height. Legal maxheight is only a lower bound on clear underside.",
+   "imagesTracked": false
   }
  },
  "district": {
@@ -3870,11 +3877,11 @@
      "lengthM": 3346,
      "maxspeed": "30 mph",
      "lanesHistogram": {
-      "4": 22,
-      "3": 24,
+      "1": 1,
       "2": 11,
-      "5": 8,
-      "1": 1
+      "3": 24,
+      "4": 22,
+      "5": 8
      },
      "dualCarriagewayShare": 0.97,
      "designNote": "see corridorStreets ne-8th-st",
@@ -3927,7 +3934,7 @@
       },
       {
        "osmWay": 55481042,
-       "len": 96.0,
+       "len": 96,
        "name": "Northeast 8th Street",
        "highway": "primary",
        "lanes": "2",
@@ -3954,7 +3961,7 @@
       },
       {
        "osmWay": 55481044,
-       "len": 41.0,
+       "len": 41,
        "name": "Northeast 8th Street",
        "highway": "primary",
        "lanes": "4",
@@ -4329,7 +4336,7 @@
       },
       {
        "osmWay": 513503503,
-       "len": 16.0,
+       "len": 16,
        "name": "Northeast 8th Street",
        "highway": "primary",
        "lanes": "3",
@@ -4462,7 +4469,7 @@
       },
       {
        "osmWay": 816498798,
-       "len": 12.0,
+       "len": 12,
        "name": "Northeast 8th Street",
        "highway": "primary",
        "lanes": "3",
@@ -4509,7 +4516,7 @@
       },
       {
        "osmWay": 427906901,
-       "len": 18.0,
+       "len": 18,
        "name": "Northeast 8th Street",
        "highway": "primary",
        "lanes": "2",
@@ -4683,7 +4690,7 @@
       },
       {
        "osmWay": 513503501,
-       "len": 19.0,
+       "len": 19,
        "name": "Northeast 8th Street",
        "highway": "primary",
        "lanes": "5",
@@ -4788,7 +4795,7 @@
       },
       {
        "osmWay": 378376409,
-       "len": 114.0,
+       "len": 114,
        "name": "Northeast 12th Street",
        "highway": "primary",
        "lanes": "2",
@@ -4814,7 +4821,7 @@
       },
       {
        "osmWay": 428067756,
-       "len": 22.0,
+       "len": 22,
        "name": "Northeast 12th Street",
        "highway": "primary",
        "lanes": "3",
@@ -4825,7 +4832,7 @@
       },
       {
        "osmWay": 428067757,
-       "len": 50.0,
+       "len": 50,
        "name": "Northeast 12th Street",
        "highway": "primary",
        "lanes": "3",
@@ -4966,7 +4973,7 @@
       },
       {
        "osmWay": 428082297,
-       "len": 29.0,
+       "len": 29,
        "name": "Northeast 12th Street",
        "highway": "primary",
        "lanes": "4",
@@ -5122,7 +5129,7 @@
       },
       {
        "osmWay": 428082337,
-       "len": 28.0,
+       "len": 28,
        "name": "Northeast 12th Street",
        "highway": "primary",
        "lanes": "5",
@@ -5294,7 +5301,7 @@
       },
       {
        "osmWay": 664469440,
-       "len": 9.0,
+       "len": 9,
        "name": "Northeast 12th Street",
        "highway": "primary",
        "lanes": "2",
@@ -5305,7 +5312,7 @@
       },
       {
        "osmWay": 664469782,
-       "len": 20.0,
+       "len": 20,
        "name": "Northeast 12th Street",
        "highway": "primary",
        "lanes": "2",
@@ -5348,7 +5355,7 @@
       },
       {
        "osmWay": 852390035,
-       "len": 41.0,
+       "len": 41,
        "name": "Northeast 12th Street",
        "highway": "residential",
        "surface": "asphalt"
@@ -5383,11 +5390,11 @@
      "lengthM": 2672,
      "maxspeed": "30 mph",
      "lanesHistogram": {
-      "3": 24,
       "2": 13,
+      "3": 24,
       "4": 11,
-      "6": 4,
-      "5": 2
+      "5": 2,
+      "6": 4
      },
      "dualCarriagewayShare": 0.83,
      "designNote": "see corridorStreets bellevue-way-ne",
@@ -5664,7 +5671,7 @@
       },
       {
        "osmWay": 425272687,
-       "len": 249.0,
+       "len": 249,
        "name": "Bellevue Way Northeast",
        "highway": "primary",
        "lanes": "2",
@@ -5775,7 +5782,7 @@
       },
       {
        "osmWay": 428083523,
-       "len": 40.0,
+       "len": 40,
        "name": "Bellevue Way Northeast",
        "highway": "primary",
        "lanes": "5",
@@ -5799,7 +5806,7 @@
       },
       {
        "osmWay": 428083532,
-       "len": 39.0,
+       "len": 39,
        "name": "Bellevue Way Northeast",
        "highway": "primary",
        "lanes": "3",
@@ -5983,7 +5990,7 @@
       },
       {
        "osmWay": 1061294534,
-       "len": 105.0,
+       "len": 105,
        "name": "Bellevue Way Northeast",
        "highway": "primary",
        "lanes": "2",
@@ -6063,11 +6070,11 @@
      "lengthM": 2327,
      "maxspeed": "30 mph",
      "lanesHistogram": {
-      "3": 10,
       "2": 18,
-      "6": 3,
+      "3": 10,
       "4": 10,
-      "5": 7
+      "5": 7,
+      "6": 3
      },
      "dualCarriagewayShare": 0.68,
      "ways": [
@@ -6377,7 +6384,7 @@
       },
       {
        "osmWay": 427906758,
-       "len": 48.0,
+       "len": 48,
        "name": "112th Avenue Northeast",
        "highway": "secondary",
        "lanes": "2",
@@ -6528,7 +6535,7 @@
       },
       {
        "osmWay": 749999288,
-       "len": 15.0,
+       "len": 15,
        "name": "112th Avenue Northeast",
        "highway": "secondary",
        "lanes": "2",
@@ -6716,10 +6723,10 @@
      "lengthM": 2319,
      "maxspeed": "30 mph",
      "lanesHistogram": {
-      "5": 12,
       "2": 14,
       "3": 11,
       "4": 7,
+      "5": 12,
       "6": 7
      },
      "dualCarriagewayShare": 0.57,
@@ -6814,7 +6821,7 @@
       },
       {
        "osmWay": 365781620,
-       "len": 16.0,
+       "len": 16,
        "name": "Northeast 4th Street",
        "highway": "primary",
        "lanes": "4",
@@ -6947,7 +6954,7 @@
       },
       {
        "osmWay": 29140451,
-       "len": 68.0,
+       "len": 68,
        "name": "Northeast 4th Street",
        "highway": "primary",
        "lanes": "4",
@@ -7290,7 +7297,7 @@
       },
       {
        "osmWay": 533310384,
-       "len": 9.0,
+       "len": 9,
        "name": "Northeast 4th Street",
        "highway": "primary",
        "lanes": "5",
@@ -7350,7 +7357,7 @@
       },
       {
        "osmWay": 1063028566,
-       "len": 23.0,
+       "len": 23,
        "name": "Northeast 4th Street",
        "highway": "residential",
        "oneway": "yes",
@@ -7411,13 +7418,13 @@
      "lengthM": 1972,
      "maxspeed": "30 mph",
      "lanesHistogram": {
-      "6": 5,
-      "7": 1,
-      "5": 16,
-      "4": 5,
+      "1": 3,
       "2": 6,
       "3": 5,
-      "1": 3
+      "4": 5,
+      "5": 16,
+      "6": 5,
+      "7": 1
      },
      "dualCarriagewayShare": 0.29,
      "ways": [
@@ -7613,7 +7620,7 @@
       },
       {
        "osmWay": 513238741,
-       "len": 66.0,
+       "len": 66,
        "name": "Northeast 10th Street",
        "highway": "secondary",
        "lanes": "5",
@@ -7653,7 +7660,7 @@
       },
       {
        "osmWay": 513490830,
-       "len": 48.0,
+       "len": 48,
        "name": "Northeast 10th Street",
        "highway": "secondary",
        "lanes": "6",
@@ -7667,7 +7674,7 @@
       },
       {
        "osmWay": 513490831,
-       "len": 77.0,
+       "len": 77,
        "name": "Northeast 10th Street",
        "highway": "secondary",
        "lanes": "5",
@@ -7680,7 +7687,7 @@
       },
       {
        "osmWay": 513490832,
-       "len": 23.0,
+       "len": 23,
        "name": "Northeast 10th Street",
        "highway": "secondary",
        "lanes": "3",
@@ -7747,7 +7754,7 @@
       },
       {
        "osmWay": 737993582,
-       "len": 7.0,
+       "len": 7,
        "name": "Northeast 10th Street",
        "highway": "secondary",
        "lanes": "5",
@@ -7817,7 +7824,7 @@
       },
       {
        "osmWay": 513490817,
-       "len": 126.0,
+       "len": 126,
        "name": "Northeast 10th Street",
        "highway": "secondary",
        "lanes": "1",
@@ -7931,11 +7938,11 @@
      "lengthM": 1780,
      "maxspeed": "30 mph",
      "lanesHistogram": {
-      "4": 13,
-      "5": 13,
-      "3": 11,
+      "1": 6,
       "2": 5,
-      "1": 6
+      "3": 11,
+      "4": 13,
+      "5": 13
      },
      "dualCarriagewayShare": 0.31,
      "designNote": "Old Bellevue: low-rise boutiques west of Bellevue Way; bike lanes (OSM cycleway=lane), pedestrian-scale lamps (lit=yes on 34 ways).",
@@ -7975,7 +7982,7 @@
       },
       {
        "osmWay": 428073515,
-       "len": 8.0,
+       "len": 8,
        "name": "Main Street",
        "highway": "secondary",
        "lanes": "4",
@@ -8149,7 +8156,7 @@
       },
       {
        "osmWay": 427906860,
-       "len": 20.0,
+       "len": 20,
        "name": "Main Street",
        "highway": "secondary",
        "lanes": "4",
@@ -8344,7 +8351,7 @@
       },
       {
        "osmWay": 30832189,
-       "len": 37.0,
+       "len": 37,
        "name": "Main Street",
        "highway": "secondary",
        "lanes": "2",
@@ -8373,7 +8380,7 @@
       },
       {
        "osmWay": 427906837,
-       "len": 51.0,
+       "len": 51,
        "name": "Main Street",
        "highway": "secondary",
        "lanes": "2",
@@ -8424,7 +8431,7 @@
       },
       {
        "osmWay": 427906883,
-       "len": 30.0,
+       "len": 30,
        "name": "Main Street",
        "highway": "secondary",
        "lanes": "3",
@@ -8438,7 +8445,7 @@
       },
       {
        "osmWay": 731799649,
-       "len": 28.0,
+       "len": 28,
        "name": "Main Street",
        "highway": "secondary",
        "lanes": "1",
@@ -8538,7 +8545,7 @@
       },
       {
        "osmWay": 1042577021,
-       "len": 24.0,
+       "len": 24,
        "name": "Main Street",
        "highway": "secondary",
        "lanes": "2",
@@ -8612,8 +8619,8 @@
      "lengthM": 1608,
      "maxspeed": "30 mph",
      "lanesHistogram": {
-      "2": 10,
       "1": 6,
+      "2": 10,
       "3": 11,
       "4": 10,
       "5": 2
@@ -8641,7 +8648,7 @@
       },
       {
        "osmWay": 1116291570,
-       "len": 46.0,
+       "len": 46,
        "name": "110th Avenue Northeast",
        "highway": "tertiary",
        "lanes": "1",
@@ -8685,7 +8692,7 @@
       },
       {
        "osmWay": 1116291576,
-       "len": 83.0,
+       "len": 83,
        "name": "110th Avenue Northeast",
        "highway": "secondary",
        "lanes": "1",
@@ -8707,7 +8714,7 @@
       },
       {
        "osmWay": 1116291578,
-       "len": 18.0,
+       "len": 18,
        "name": "110th Avenue Northeast",
        "highway": "secondary",
        "lanes": "2",
@@ -8761,7 +8768,7 @@
       },
       {
        "osmWay": 1116291585,
-       "len": 31.0,
+       "len": 31,
        "name": "110th Avenue Northeast",
        "highway": "tertiary",
        "lanes": "1",
@@ -8792,7 +8799,7 @@
       },
       {
        "osmWay": 1116291590,
-       "len": 46.0,
+       "len": 46,
        "name": "110th Avenue Northeast",
        "highway": "tertiary",
        "lanes": "3",
@@ -8803,7 +8810,7 @@
       },
       {
        "osmWay": 1206479363,
-       "len": 46.0,
+       "len": 46,
        "name": "110th Avenue Northeast",
        "highway": "tertiary",
        "lanes": "3",
@@ -8826,7 +8833,7 @@
       },
       {
        "osmWay": 6400142,
-       "len": 64.0,
+       "len": 64,
        "name": "110th Avenue Northeast",
        "highway": "secondary",
        "lanes": "4",
@@ -8852,7 +8859,7 @@
       },
       {
        "osmWay": 513238724,
-       "len": 27.0,
+       "len": 27,
        "name": "110th Avenue Northeast",
        "highway": "secondary",
        "lanes": "5",
@@ -9097,12 +9104,12 @@
      "lengthM": 1482,
      "maxspeed": "30 mph",
      "lanesHistogram": {
-      "5": 11,
       "4": 8,
+      "5": 11,
       "6": 11,
       "8": 2
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 428073484,
@@ -9130,7 +9137,7 @@
       },
       {
        "osmWay": 428073489,
-       "len": 22.0,
+       "len": 22,
        "name": "116th Avenue Northeast",
        "highway": "secondary",
        "lanes": "4",
@@ -9361,7 +9368,7 @@
       },
       {
        "osmWay": 428073496,
-       "len": 32.0,
+       "len": 32,
        "name": "116th Avenue Northeast",
        "highway": "secondary",
        "lanes": "5",
@@ -9436,7 +9443,7 @@
       },
       {
        "osmWay": 624380954,
-       "len": 10.0,
+       "len": 10,
        "name": "116th Avenue Northeast",
        "highway": "secondary",
        "lanes": "5",
@@ -9503,12 +9510,12 @@
      "lengthM": 1242,
      "maxspeed": null,
      "lanesHistogram": {
-      "3": 9,
       "2": 4,
+      "3": 9,
       "4": 10,
       "5": 1
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "designNote": "Office spine; bike lanes both sides (OSM cycleway=lane on 23 of 30 ways, some separated/track near NE 4th–NE 8th); mostly 1 lane each way + turn lane; concrete surface on 11 ways.",
      "src": [
       "osm"
@@ -9516,7 +9523,7 @@
      "ways": [
       {
        "osmWay": 402083654,
-       "len": 101.0,
+       "len": 101,
        "name": "108th Avenue Northeast",
        "highway": "secondary",
        "lanes": "3",
@@ -9577,7 +9584,7 @@
       },
       {
        "osmWay": 427906734,
-       "len": 28.0,
+       "len": 28,
        "name": "108th Avenue Northeast",
        "highway": "secondary",
        "lanes": "3",
@@ -9617,7 +9624,7 @@
       },
       {
        "osmWay": 612769226,
-       "len": 25.0,
+       "len": 25,
        "name": "108th Avenue Northeast",
        "highway": "secondary",
        "lanes": "2",
@@ -9810,7 +9817,7 @@
       },
       {
        "osmWay": 675401896,
-       "len": 81.0,
+       "len": 81,
        "name": "108th Avenue Northeast",
        "highway": "secondary",
        "surface": "asphalt",
@@ -9834,7 +9841,7 @@
       },
       {
        "osmWay": 1556489723,
-       "len": 2.0,
+       "len": 2,
        "name": "108th Avenue Northeast",
        "highway": "secondary",
        "lanes": "4",
@@ -9872,7 +9879,7 @@
       "4": 5,
       "5": 1
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6393971,
@@ -10041,7 +10048,7 @@
       },
       {
        "osmWay": 1442570381,
-       "len": 43.0,
+       "len": 43,
        "name": "106th Avenue Northeast",
        "highway": "tertiary",
        "lanes": "4",
@@ -10060,10 +10067,10 @@
      "lengthM": 1148,
      "maxspeed": "30 mph",
      "lanesHistogram": {
-      "2": 1,
-      "4": 4,
       "1": 2,
-      "3": 3
+      "2": 1,
+      "3": 3,
+      "4": 4
      },
      "dualCarriagewayShare": 0.18,
      "ways": [
@@ -10201,11 +10208,11 @@
       "2": 4,
       "3": 8
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6505892,
-       "len": 109.0,
+       "len": 109,
        "name": "Northeast 2nd Street",
        "highway": "tertiary",
        "lanes": "2",
@@ -10322,7 +10329,7 @@
       },
       {
        "osmWay": 533313004,
-       "len": 29.0,
+       "len": 29,
        "name": "Northeast 2nd Street",
        "highway": "tertiary",
        "lanes": "2",
@@ -10392,7 +10399,7 @@
       "3": 1,
       "4": 11
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6509363,
@@ -10504,7 +10511,7 @@
       },
       {
        "osmWay": 577950258,
-       "len": 33.0,
+       "len": 33,
        "name": "102nd Avenue Northeast",
        "highway": "tertiary",
        "lanes": "4",
@@ -10555,7 +10562,7 @@
       },
       {
        "osmWay": 968745390,
-       "len": 20.0,
+       "len": 20,
        "name": "102nd Avenue Northeast",
        "highway": "tertiary",
        "lanes": "4",
@@ -10587,7 +10594,7 @@
      "lengthM": 730,
      "maxspeed": "30 mph",
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6345941,
@@ -10640,7 +10647,7 @@
      "lengthM": 655,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6466588,
@@ -10659,9 +10666,9 @@
      "maxspeed": null,
      "lanesHistogram": {
       "1": 5,
+      "2": 2,
       "3": 1,
-      "4": 2,
-      "2": 2
+      "4": 2
      },
      "dualCarriagewayShare": 0.75,
      "ways": [
@@ -10721,7 +10728,7 @@
       },
       {
        "osmWay": 1548748922,
-       "len": 16.0,
+       "len": 16,
        "highway": "secondary",
        "lanes": "4",
        "turn:lanes:forward": "left;through|through;right",
@@ -10868,7 +10875,7 @@
      "lengthM": 560,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6483801,
@@ -10899,7 +10906,7 @@
      "lengthM": 528,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6353609,
@@ -10979,11 +10986,11 @@
      "lengthM": 480,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6512444,
-       "len": 235.0,
+       "len": 235,
        "name": "Northeast 12th Place",
        "highway": "residential"
       },
@@ -11001,7 +11008,7 @@
      "lengthM": 450,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6344740,
@@ -11032,7 +11039,7 @@
      "lengthM": 446,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6488033,
@@ -11051,7 +11058,7 @@
       },
       {
        "osmWay": 131361873,
-       "len": 126.0,
+       "len": 126,
        "name": "106th Place Northeast",
        "highway": "residential"
       }
@@ -11063,9 +11070,9 @@
      "lengthM": 398,
      "maxspeed": null,
      "lanesHistogram": {
-      "5": 2,
       "1": 1,
-      "4": 1
+      "4": 1,
+      "5": 2
      },
      "dualCarriagewayShare": 0.2,
      "designNote": "Bellevue Transit Center block between 108th and 110th is a bus/pedestrian street (\"transit mall\") with scramble crossings; car through-traffic not allowed — keep the player out (OSM access tags + src wp-downtown).",
@@ -11142,7 +11149,7 @@
      "lanesHistogram": {
       "2": 1
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6422040,
@@ -11177,11 +11184,11 @@
      "lengthM": 365,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6363889,
-       "len": 67.0,
+       "len": 67,
        "name": "Southeast 3rd Street",
        "highway": "residential"
       },
@@ -11207,9 +11214,9 @@
      "lengthM": 364,
      "maxspeed": "30 mph",
      "lanesHistogram": {
+      "2": 2,
       "4": 2,
-      "5": 3,
-      "2": 2
+      "5": 3
      },
      "dualCarriagewayShare": 0.43,
      "ways": [
@@ -11264,7 +11271,7 @@
       },
       {
        "osmWay": 994978760,
-       "len": 71.0,
+       "len": 71,
        "name": "Bellevue Way Southeast",
        "highway": "primary",
        "lanes": "2",
@@ -11307,7 +11314,7 @@
      "lengthM": 345,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6345163,
@@ -11329,7 +11336,7 @@
      "lengthM": 342,
      "maxspeed": "20 mph",
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6346283,
@@ -11346,7 +11353,7 @@
      "lengthM": 329,
      "maxspeed": "20 mph",
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6374507,
@@ -11366,7 +11373,7 @@
       },
       {
        "osmWay": 54115112,
-       "len": 86.0,
+       "len": 86,
        "name": "Southeast 2nd Street",
        "highway": "residential",
        "maxspeed": "20 mph"
@@ -11379,7 +11386,7 @@
      "lengthM": 328,
      "maxspeed": "30 mph",
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 30614939,
@@ -11421,10 +11428,10 @@
      "lengthM": 266,
      "maxspeed": "35 mph",
      "lanesHistogram": {
-      "5": 1,
-      "4": 1
+      "4": 1,
+      "5": 1
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 427906762,
@@ -11457,7 +11464,7 @@
      "lengthM": 263,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 31555909,
@@ -11477,7 +11484,7 @@
      "lanesHistogram": {
       "2": 1
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 800958370,
@@ -11496,7 +11503,7 @@
      "lengthM": 244,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6435011,
@@ -11520,14 +11527,14 @@
      "lengthM": 240,
      "maxspeed": "30 mph",
      "lanesHistogram": {
-      "5": 4,
-      "4": 2
+      "4": 2,
+      "5": 4
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6381295,
-       "len": 57.0,
+       "len": 57,
        "name": "116th Avenue Southeast",
        "highway": "primary",
        "lanes": "5",
@@ -11565,7 +11572,7 @@
       },
       {
        "osmWay": 428073504,
-       "len": 28.0,
+       "len": 28,
        "name": "116th Avenue Southeast",
        "highway": "primary",
        "lanes": "4",
@@ -11607,7 +11614,7 @@
      "lengthM": 210,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6379315,
@@ -11625,11 +11632,11 @@
      "lanesHistogram": {
       "2": 2
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6488565,
-       "len": 18.0,
+       "len": 18,
        "name": "105th Avenue Northeast",
        "highway": "tertiary",
        "lanes": "2",
@@ -11656,11 +11663,11 @@
      "lanesHistogram": {
       "2": 4
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 1222672054,
-       "len": 78.0,
+       "len": 78,
        "name": "Avenue Square Northeast",
        "highway": "residential",
        "lanes": "2",
@@ -11706,11 +11713,11 @@
      "lengthM": 203,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6349012,
-       "len": 203.0,
+       "len": 203,
        "name": "Meydenbauer Way Southeast",
        "highway": "residential",
        "surface": "asphalt",
@@ -11726,7 +11733,7 @@
      "lanesHistogram": {
       "2": 1
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6450240,
@@ -11744,7 +11751,7 @@
      "lengthM": 160,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6450855,
@@ -11762,11 +11769,11 @@
      "lengthM": 145,
      "maxspeed": "20 mph",
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 48995716,
-       "len": 41.0,
+       "len": 41,
        "name": "Southeast 1st Street",
        "highway": "unclassified"
       },
@@ -11799,7 +11806,7 @@
      "lengthM": 140,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6519261,
@@ -11816,7 +11823,7 @@
      "lengthM": 117,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6449608,
@@ -11833,11 +11840,11 @@
      "lengthM": 110,
      "maxspeed": "20 mph",
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6509527,
-       "len": 110.0,
+       "len": 110,
        "name": "110th Place Southeast",
        "highway": "residential",
        "maxspeed": "20 mph"
@@ -11850,7 +11857,7 @@
      "lengthM": 108,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6344292,
@@ -11869,11 +11876,11 @@
      "lengthM": 99,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 1.0,
+     "dualCarriagewayShare": 1,
      "ways": [
       {
        "osmWay": 6404698,
-       "len": 99.0,
+       "len": 99,
        "name": "Northeast 3rd Street",
        "highway": "residential",
        "oneway": "yes",
@@ -11888,7 +11895,7 @@
      "lengthM": 99,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6386641,
@@ -11905,7 +11912,7 @@
      "lengthM": 98,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6359968,
@@ -11921,7 +11928,7 @@
      "lengthM": 98,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 468011401,
@@ -11938,7 +11945,7 @@
      "lengthM": 94,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 172706167,
@@ -11956,7 +11963,7 @@
      "lengthM": 90,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6434934,
@@ -11975,7 +11982,7 @@
      "lengthM": 65,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 99660246,
@@ -11993,7 +12000,7 @@
      "lengthM": 48,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 33103415,
@@ -12009,7 +12016,7 @@
      "lengthM": 45,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6438981,
@@ -12027,7 +12034,7 @@
      "lanesHistogram": {
       "2": 1
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 1315953807,
@@ -12048,7 +12055,7 @@
      "lanesHistogram": {
       "3": 1
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 427906832,
@@ -12071,7 +12078,7 @@
      "lengthM": 17,
      "maxspeed": "20 mph",
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 964200123,
@@ -12143,7 +12150,7 @@
    "lat": 47.61736,
    "lon": -122.19091,
    "control": "signals; I-405 ramps adjacent to the east",
-   "pmVC": 1.0,
+   "pmVC": 1,
    "note": "Busiest downtown intersection on the route (PM v/c 1.0 in 2018; 2044 forecast 1.31).",
    "corners": {
     "SE": "The Bravern (Hermès, Sugar Factory)",
@@ -12225,7 +12232,7 @@
     "name": "Lincoln Square"
    },
    "heightM": null,
-   "levels": 3.0,
+   "levels": 3,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 9.6,
@@ -12534,7 +12541,7 @@
     47.615359,
     -122.201364
    ],
-   "footprintM2": 1521.0,
+   "footprintM2": 1521,
    "distToRouteM": 9,
    "nearestRoute": "B",
    "name": "Bellevue Art Museum",
@@ -12632,7 +12639,7 @@
     "name": "Lincoln Square North"
    },
    "heightM": 126,
-   "levels": 28.0,
+   "levels": 28,
    "minLevel": null,
    "isPart": true,
    "floors": 28,
@@ -12728,7 +12735,7 @@
     "start_date": "2018"
    },
    "heightM": null,
-   "levels": 21.0,
+   "levels": 21,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 81.9,
@@ -12770,7 +12777,7 @@
     47.617864,
     -122.192535
    ],
-   "footprintM2": 2084.0,
+   "footprintM2": 2084,
    "distToRouteM": 10,
    "nearestRoute": "A",
    "name": "Alley 111",
@@ -12781,7 +12788,7 @@
     "name": "Alley 111"
    },
    "heightM": null,
-   "levels": 12.0,
+   "levels": 12,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 38.4,
@@ -12847,7 +12854,7 @@
     "name": "Plaza East"
    },
    "heightM": null,
-   "levels": 9.0,
+   "levels": 9,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 35.1,
@@ -12920,7 +12927,7 @@
     "name": "Lincoln Square South"
    },
    "heightM": null,
-   "levels": 3.0,
+   "levels": 3,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 9.6,
@@ -13119,7 +13126,7 @@
     "name": "Westin Bellevue"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 6.4,
@@ -13253,7 +13260,7 @@
     47.616922,
     -122.19689
    ],
-   "footprintM2": 2451.0,
+   "footprintM2": 2451,
    "distToRouteM": 11,
    "nearestRoute": "B",
    "name": "Symetra Center (777 108th Ave NE)",
@@ -13268,7 +13275,7 @@
     "name": "Symetra Center"
    },
    "heightM": 99,
-   "levels": 25.0,
+   "levels": 25,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 97.5,
@@ -13401,7 +13408,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 21.0,
+   "levels": 21,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 81.9,
@@ -13449,7 +13456,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 4.0,
+   "levels": 4,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 12.8,
@@ -13506,7 +13513,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 3.0,
+   "levels": 3,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 9.6,
@@ -13678,7 +13685,7 @@
     47.617522,
     -122.200666
    ],
-   "footprintM2": 295.0,
+   "footprintM2": 295,
    "distToRouteM": 12,
    "nearestRoute": "B",
    "name": null,
@@ -13752,7 +13759,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 24.0,
+   "levels": 24,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 93.6,
@@ -13878,10 +13885,10 @@
     "name": "The Meyden"
    },
    "heightM": null,
-   "levels": 5.0,
+   "levels": 5,
    "minLevel": null,
    "isPart": false,
-   "heightEstM": 16.0,
+   "heightEstM": 16,
    "footprint": [
     [
      47.610059,
@@ -14198,7 +14205,7 @@
     "roof:shape": "mansard"
    },
    "heightM": null,
-   "levels": 1.0,
+   "levels": 1,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 3.2,
@@ -14404,7 +14411,7 @@
     47.614736,
     -122.187769
    ],
-   "footprintM2": 2886.0,
+   "footprintM2": 2886,
    "distToRouteM": 18,
    "nearestRoute": "A",
    "name": "Lincoln Center",
@@ -14487,7 +14494,7 @@
     "name": "Lincoln Square South Tower"
    },
    "heightM": 137,
-   "levels": 31.0,
+   "levels": 31,
    "minLevel": "4",
    "isPart": true,
    "floors": 31,
@@ -14564,7 +14571,7 @@
     "name": "Plaza Center"
    },
    "heightM": 68,
-   "levels": 16.0,
+   "levels": 16,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 62.4,
@@ -14666,7 +14673,7 @@
     "shop": "bicycle"
    },
    "heightM": null,
-   "levels": 3.0,
+   "levels": 3,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 9.6,
@@ -14748,7 +14755,7 @@
     47.611376,
     -122.201961
    ],
-   "footprintM2": 602.0,
+   "footprintM2": 602,
    "distToRouteM": 19,
    "nearestRoute": "B",
    "name": null,
@@ -14759,7 +14766,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 1.0,
+   "levels": 1,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 3.2,
@@ -15188,7 +15195,7 @@
     47.615747,
     -122.203929
    ],
-   "footprintM2": 55138.0,
+   "footprintM2": 55138,
    "distToRouteM": 21,
    "nearestRoute": "B",
    "name": "Bellevue Square Mall",
@@ -15206,7 +15213,7 @@
     "shop": "mall"
    },
    "heightM": null,
-   "levels": 3.0,
+   "levels": 3,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 9.6,
@@ -15931,7 +15938,7 @@
     "name": "Bank of America Tower"
    },
    "heightM": 82,
-   "levels": 25.0,
+   "levels": 25,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 97.5,
@@ -16037,7 +16044,7 @@
     "name": "Bellevue Place"
    },
    "heightM": null,
-   "levels": 6.0,
+   "levels": 6,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 19.2,
@@ -16234,7 +16241,7 @@
     "name": "Paccar"
    },
    "heightM": null,
-   "levels": 4.0,
+   "levels": 4,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 15.6,
@@ -16377,7 +16384,7 @@
     "building:levels": "4"
    },
    "heightM": null,
-   "levels": 4.0,
+   "levels": 4,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 12.8,
@@ -16566,7 +16573,7 @@
     "name": "Bellevue Place"
    },
    "heightM": null,
-   "levels": 4.0,
+   "levels": 4,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 15.6,
@@ -16956,7 +16963,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 6.4,
@@ -17068,7 +17075,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 6.0,
+   "levels": 6,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 19.2,
@@ -17240,7 +17247,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 22.0,
+   "levels": 22,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 85.8,
@@ -17343,7 +17350,7 @@
     "name": "Bravern 1"
    },
    "heightM": null,
-   "levels": 13.0,
+   "levels": 13,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 50.7,
@@ -17405,7 +17412,7 @@
     47.610666,
     -122.187617
    ],
-   "footprintM2": 1253.0,
+   "footprintM2": 1253,
    "distToRouteM": 28,
    "nearestRoute": "A",
    "name": "Extended Stay America",
@@ -17423,7 +17430,7 @@
     "name": "Extended Stay America"
    },
    "heightM": null,
-   "levels": 4.0,
+   "levels": 4,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 12.8,
@@ -17620,7 +17627,7 @@
     "name": "Chase"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 7.8,
@@ -17689,7 +17696,7 @@
     "name": "The Shops at Bravern"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 6.4,
@@ -18082,7 +18089,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 6.4,
@@ -18195,7 +18202,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 6.4,
@@ -18336,7 +18343,7 @@
     "shop": "collector"
    },
    "heightM": null,
-   "levels": 1.0,
+   "levels": 1,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 3.2,
@@ -18388,7 +18395,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 22.4,
@@ -18453,7 +18460,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 25.0,
+   "levels": 25,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 97.5,
@@ -18552,10 +18559,10 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 10.0,
+   "levels": 10,
    "minLevel": null,
    "isPart": false,
-   "heightEstM": 32.0,
+   "heightEstM": 32,
    "footprint": [
     [
      47.618042,
@@ -18897,7 +18904,7 @@
     47.616115,
     -122.200652
    ],
-   "footprintM2": 1305.0,
+   "footprintM2": 1305,
    "distToRouteM": 36,
    "nearestRoute": "B",
    "name": null,
@@ -18909,7 +18916,7 @@
     "layer": "1"
    },
    "heightM": null,
-   "levels": 3.0,
+   "levels": 3,
    "minLevel": "2",
    "isPart": false,
    "heightEstM": 9.6,
@@ -19091,7 +19098,7 @@
     "name": "One Lincoln Tower"
    },
    "heightM": 137,
-   "levels": 42.0,
+   "levels": 42,
    "minLevel": null,
    "isPart": true,
    "floors": 42,
@@ -19319,7 +19326,7 @@
     "name": "Avalon Meydenbauer"
    },
    "heightM": null,
-   "levels": 6.0,
+   "levels": 6,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 19.2
@@ -19420,7 +19427,7 @@
     47.61788,
     -122.20114
    ],
-   "footprintM2": 87.0,
+   "footprintM2": 87,
    "distToRouteM": 42,
    "nearestRoute": "B",
    "name": null,
@@ -19430,7 +19437,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 3.0,
+   "levels": 3,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 9.6,
@@ -19555,7 +19562,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 6.4,
@@ -19611,7 +19618,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 1.0,
+   "levels": 1,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 3.2,
@@ -19739,10 +19746,10 @@
     "name": "Courtyard"
    },
    "heightM": null,
-   "levels": 5.0,
+   "levels": 5,
    "minLevel": null,
    "isPart": false,
-   "heightEstM": 16.0
+   "heightEstM": 16
   },
   {
    "osm": 439836073,
@@ -19808,7 +19815,7 @@
     "name": "Southeast Parking Garage"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 6.4,
@@ -19949,7 +19956,7 @@
     "building:levels": "1"
    },
    "heightM": null,
-   "levels": 1.0,
+   "levels": 1,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 3.2,
@@ -19987,7 +19994,7 @@
     47.616833,
     -122.196634
    ],
-   "footprintM2": 149.0,
+   "footprintM2": 149,
    "distToRouteM": 46,
    "nearestRoute": "B",
    "name": null,
@@ -20056,7 +20063,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 11.0,
+   "levels": 11,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 35.2,
@@ -20118,10 +20125,10 @@
     "name": "Venn at Main"
    },
    "heightM": null,
-   "levels": 5.0,
+   "levels": 5,
    "minLevel": null,
    "isPart": false,
-   "heightEstM": 16.0
+   "heightEstM": 16
   },
   {
    "osm": 161929522,
@@ -20130,7 +20137,7 @@
     47.616634,
     -122.202744
    ],
-   "footprintM2": 5833.0,
+   "footprintM2": 5833,
    "distToRouteM": 51,
    "nearestRoute": "B",
    "name": "Northeast Parking Garage",
@@ -20143,7 +20150,7 @@
     "name": "Northeast Parking Garage"
    },
    "heightM": null,
-   "levels": 6.0,
+   "levels": 6,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 19.2,
@@ -20253,7 +20260,7 @@
     "name": "Meydenbrooke Condominium"
    },
    "heightM": null,
-   "levels": 3.0,
+   "levels": 3,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 9.6,
@@ -20376,7 +20383,7 @@
     "height": "137"
    },
    "heightM": 137,
-   "levels": 42.0,
+   "levels": 42,
    "minLevel": "4",
    "isPart": true,
    "floors": 42,
@@ -20525,8 +20532,8 @@
     "height": "7",
     "roof:shape": "flat"
    },
-   "heightM": 7.0,
-   "levels": 2.0,
+   "heightM": 7,
+   "levels": 2,
    "minLevel": null,
    "isPart": true,
    "footprint": [
@@ -20754,7 +20761,7 @@
     "name": "Elements Too"
    },
    "heightM": null,
-   "levels": 13.0,
+   "levels": 13,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 50.7,
@@ -20828,7 +20835,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 3.0,
+   "levels": 3,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 11.7,
@@ -21374,7 +21381,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 6.4,
@@ -21425,7 +21432,7 @@
     "shop": "vacant"
    },
    "heightM": null,
-   "levels": 1.0,
+   "levels": 1,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 3.2,
@@ -21704,7 +21711,7 @@
     "name": "Paccar Building"
    },
    "heightM": 52,
-   "levels": 13.0,
+   "levels": 13,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 50.7,
@@ -21785,7 +21792,7 @@
     "building:min_level": "1"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "minLevel": "1",
    "isPart": false,
    "heightEstM": 6.4,
@@ -21858,7 +21865,7 @@
     "building:levels": "26"
    },
    "heightM": null,
-   "levels": 26.0,
+   "levels": 26,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 101.4,
@@ -22107,7 +22114,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 7.8,
@@ -22389,7 +22396,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 1.0,
+   "levels": 1,
    "minLevel": "0",
    "isPart": true,
    "heightEstM": 3.2,
@@ -22627,7 +22634,7 @@
     47.616616,
     -122.193184
    ],
-   "footprintM2": 712.0,
+   "footprintM2": 712,
    "distToRouteM": 70,
    "nearestRoute": "B",
    "name": null,
@@ -22637,7 +22644,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 3.0,
+   "levels": 3,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 9.6,
@@ -22703,7 +22710,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 11.0,
+   "levels": 11,
    "minLevel": "1",
    "isPart": true,
    "heightEstM": 35.2,
@@ -22993,7 +23000,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 24.0,
+   "levels": 24,
    "minLevel": "11",
    "isPart": true,
    "heightEstM": 93.6,
@@ -23153,7 +23160,7 @@
     "building:levels": "19"
    },
    "heightM": null,
-   "levels": 19.0,
+   "levels": 19,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 74.1,
@@ -23215,7 +23222,7 @@
     47.618262,
     -122.196822
    ],
-   "footprintM2": 827.0,
+   "footprintM2": 827,
    "distToRouteM": 84,
    "nearestRoute": "B",
    "name": "929 Office Tower",
@@ -23227,7 +23234,7 @@
     "name": "929 Office Tower"
    },
    "heightM": 76,
-   "levels": 19.0,
+   "levels": 19,
    "minLevel": null,
    "isPart": true,
    "floors": 19,
@@ -23307,7 +23314,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 25.0,
+   "levels": 25,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 97.5,
@@ -23416,7 +23423,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 28.0,
+   "levels": 28,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 109.2,
@@ -23542,7 +23549,7 @@
     "name": "Main Street Flats"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 22.4,
@@ -23792,7 +23799,7 @@
     47.618554,
     -122.195017
    ],
-   "footprintM2": 864.0,
+   "footprintM2": 864,
    "distToRouteM": 106,
    "nearestRoute": "A",
    "name": "Pacific Regent",
@@ -23803,8 +23810,8 @@
     "height": "61",
     "name": "Pacific Regent"
    },
-   "heightM": 61.0,
-   "levels": 17.0,
+   "heightM": 61,
+   "levels": 17,
    "minLevel": null,
    "isPart": false,
    "footprint": [
@@ -23992,7 +23999,7 @@
     "name": "Elements Too"
    },
    "heightM": null,
-   "levels": 23.0,
+   "levels": 23,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 89.7,
@@ -24090,7 +24097,7 @@
     47.611684,
     -122.19971
    ],
-   "footprintM2": 1879.0,
+   "footprintM2": 1879,
    "distToRouteM": 111,
    "nearestRoute": "B",
    "name": null,
@@ -24101,7 +24108,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 18.0,
+   "levels": 18,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 70.2,
@@ -24171,7 +24178,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 17.0,
+   "levels": 17,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 66.3,
@@ -24268,8 +24275,8 @@
     "height": "49",
     "name": "Elements Too"
    },
-   "heightM": 49.0,
-   "levels": 3.0,
+   "heightM": 49,
+   "levels": 3,
    "minLevel": null,
    "isPart": false,
    "footprint": [
@@ -24333,7 +24340,7 @@
     "height": "183"
    },
    "heightM": 183,
-   "levels": 43.0,
+   "levels": 43,
    "minLevel": null,
    "isPart": true,
    "floors": 43,
@@ -24419,7 +24426,7 @@
     "layer": "1"
    },
    "heightM": null,
-   "levels": 25.0,
+   "levels": 25,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 97.5,
@@ -24716,7 +24723,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 19.0,
+   "levels": 19,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 74.1,
@@ -24770,7 +24777,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 17.0,
+   "levels": 17,
    "minLevel": "2",
    "isPart": true,
    "heightEstM": 66.3,
@@ -24838,7 +24845,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 22.0,
+   "levels": 22,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 85.8,
@@ -24919,7 +24926,7 @@
     "name": "Centre 425"
    },
    "heightM": null,
-   "levels": 17.0,
+   "levels": 17,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 66.3,
@@ -24992,7 +24999,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 17.0,
+   "levels": 17,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 66.3,
@@ -25056,7 +25063,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 24.0,
+   "levels": 24,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 93.6,
@@ -25216,7 +25223,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 25.0,
+   "levels": 25,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 97.5,
@@ -25381,8 +25388,8 @@
     "height": "70",
     "name": "Avalon Towers Bellevue East Tower"
    },
-   "heightM": 70.0,
-   "levels": 24.0,
+   "heightM": 70,
+   "levels": 24,
    "minLevel": null,
    "isPart": true,
    "footprint": [
@@ -25423,7 +25430,7 @@
     47.611232,
     -122.199423
    ],
-   "footprintM2": 252.0,
+   "footprintM2": 252,
    "distToRouteM": 149,
    "nearestRoute": "B",
    "name": null,
@@ -25434,7 +25441,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 18.0,
+   "levels": 18,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 70.2,
@@ -25483,8 +25490,8 @@
     "height": "80",
     "min_height": "18.2"
    },
-   "heightM": 80.0,
-   "levels": 25.0,
+   "heightM": 80,
+   "levels": 25,
    "minLevel": "4",
    "isPart": true,
    "footprint": [
@@ -25621,7 +25628,7 @@
     47.618403,
     -122.203411
    ],
-   "footprintM2": 779.0,
+   "footprintM2": 779,
    "distToRouteM": 156,
    "nearestRoute": "B",
    "name": null,
@@ -25634,8 +25641,8 @@
     "height": "82",
     "min_height": "80"
    },
-   "heightM": 82.0,
-   "levels": 26.0,
+   "heightM": 82,
+   "levels": 26,
    "minLevel": "25",
    "isPart": true,
    "footprint": [
@@ -25799,7 +25806,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 28.0,
+   "levels": 28,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 109.2,
@@ -26025,10 +26032,10 @@
     "name": "Park 88 Residences"
    },
    "heightM": null,
-   "levels": 10.0,
+   "levels": 10,
    "minLevel": null,
    "isPart": false,
-   "heightEstM": 32.0,
+   "heightEstM": 32,
    "footprint": [
     [
      47.611146,
@@ -26148,7 +26155,7 @@
     "name": "989 Elements"
    },
    "heightM": null,
-   "levels": 23.0,
+   "levels": 23,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 89.7,
@@ -26301,8 +26308,8 @@
     "height": "47",
     "name": "Avalon Towers Bellevue West Tower"
    },
-   "heightM": 47.0,
-   "levels": 14.0,
+   "heightM": 47,
+   "levels": 14,
    "minLevel": null,
    "isPart": true,
    "footprint": [
@@ -26361,7 +26368,7 @@
     "name": "Main Street Flats"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 22.4,
@@ -26654,7 +26661,7 @@
     "name": "Bellevue Pacific Center"
    },
    "heightM": null,
-   "levels": 21.0,
+   "levels": 21,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 81.9,
@@ -26774,8 +26781,8 @@
     "building:part": "yes",
     "height": "79"
    },
-   "heightM": 79.0,
-   "levels": 23.0,
+   "heightM": 79,
+   "levels": 23,
    "minLevel": null,
    "isPart": true,
    "footprint": [
@@ -26883,8 +26890,8 @@
     "height": "76",
     "name": "SoMa North Tower"
    },
-   "heightM": 76.0,
-   "levels": 22.0,
+   "heightM": 76,
+   "levels": 22,
    "minLevel": null,
    "isPart": true,
    "footprint": [
@@ -27012,8 +27019,8 @@
     "height": "67",
     "name": "SoMa South Tower"
    },
-   "heightM": 67.0,
-   "levels": 18.0,
+   "heightM": 67,
+   "levels": 18,
    "minLevel": null,
    "isPart": true,
    "footprint": [
@@ -27173,7 +27180,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 21.0,
+   "levels": 21,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 81.9,
@@ -27245,7 +27252,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 22.0,
+   "levels": 22,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 85.8,
@@ -27331,7 +27338,7 @@
     "name": "Broadstone Savoie"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 22.4,
@@ -27455,7 +27462,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 22.4,
@@ -27525,7 +27532,7 @@
     "name": "North Tower"
    },
    "heightM": 131,
-   "levels": 43.0,
+   "levels": 43,
    "minLevel": null,
    "isPart": true,
    "floors": 42,
@@ -27602,7 +27609,7 @@
     47.619732,
     -122.200483
    ],
-   "footprintM2": 3085.0,
+   "footprintM2": 3085,
    "distToRouteM": 226,
    "nearestRoute": "B",
    "name": "Amazon - Tahoe",
@@ -27618,7 +27625,7 @@
     "name": "Amazon - Tahoe"
    },
    "heightM": null,
-   "levels": 15.0,
+   "levels": 15,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 58.5,
@@ -27692,7 +27699,7 @@
     "name": "Belcarra Apartment Homes"
    },
    "heightM": null,
-   "levels": 8.0,
+   "levels": 8,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 25.6,
@@ -28070,7 +28077,7 @@
     47.615087,
     -122.19585
    ],
-   "footprintM2": 1679.0,
+   "footprintM2": 1679,
    "distToRouteM": 227,
    "nearestRoute": "B",
    "name": null,
@@ -28081,7 +28088,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 27.0,
+   "levels": 27,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 105.3,
@@ -28194,10 +28201,10 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 20.0,
+   "levels": 20,
    "minLevel": null,
    "isPart": true,
-   "heightEstM": 78.0,
+   "heightEstM": 78,
    "footprint": [
     [
      47.6196,
@@ -28308,7 +28315,7 @@
     "name": "Amazon - Blueshift"
    },
    "heightM": null,
-   "levels": 15.0,
+   "levels": 15,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 58.5,
@@ -28360,7 +28367,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 8.0,
+   "levels": 8,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 25.6,
@@ -28430,7 +28437,7 @@
     47.614323,
     -122.191785
    ],
-   "footprintM2": 1613.0,
+   "footprintM2": 1613,
    "distToRouteM": 232,
    "nearestRoute": "A",
    "name": null,
@@ -28440,7 +28447,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 22.4,
@@ -28508,7 +28515,7 @@
     "building:levels": "7"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 22.4,
@@ -28609,7 +28616,7 @@
     "building:part": "yes"
    },
    "heightM": 183,
-   "levels": 42.0,
+   "levels": 42,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 163.8,
@@ -28680,7 +28687,7 @@
     47.619948,
     -122.19024
    ],
-   "footprintM2": 2827.0,
+   "footprintM2": 2827,
    "distToRouteM": 253,
    "nearestRoute": "A",
    "name": null,
@@ -28690,7 +28697,7 @@
     "building:levels": "7"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 22.4,
@@ -28784,7 +28791,7 @@
     "name": "South Tower"
    },
    "heightM": 137,
-   "levels": 42.0,
+   "levels": 42,
    "minLevel": null,
    "isPart": true,
    "floors": 43,
@@ -28907,7 +28914,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 22.4,
@@ -29004,10 +29011,10 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 20.0,
+   "levels": 20,
    "minLevel": null,
    "isPart": true,
-   "heightEstM": 78.0,
+   "heightEstM": 78,
    "footprint": [
     [
      47.619661,
@@ -29109,7 +29116,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 21.0,
+   "levels": 21,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 81.9,
@@ -29210,7 +29217,7 @@
     "name": "KeyBank Building"
    },
    "heightM": null,
-   "levels": 9.0,
+   "levels": 9,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 35.1,
@@ -29280,7 +29287,7 @@
     "name": "Sylva on Main"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 22.4,
@@ -29341,10 +29348,10 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 10.0,
+   "levels": 10,
    "minLevel": null,
    "isPart": true,
-   "heightEstM": 32.0,
+   "heightEstM": 32,
    "footprint": [
     [
      47.613579,
@@ -29462,8 +29469,8 @@
     "building:part": "yes",
     "height": "110"
    },
-   "heightM": 110.0,
-   "levels": 27.0,
+   "heightM": 110,
+   "levels": 27,
    "minLevel": null,
    "isPart": true
   },
@@ -29485,7 +29492,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 22.0,
+   "levels": 22,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 85.8,
@@ -29549,8 +29556,8 @@
     "height": "102",
     "name": "City Center Plaza"
    },
-   "heightM": 102.0,
-   "levels": 25.0,
+   "heightM": 102,
+   "levels": 25,
    "minLevel": null,
    "isPart": true
   },
@@ -29602,7 +29609,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 22.0,
+   "levels": 22,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 85.8,
@@ -29650,7 +29657,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 32.0,
+   "levels": 32,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 124.8,
@@ -29698,7 +29705,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 9.0,
+   "levels": 9,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 28.8,
@@ -29787,7 +29794,7 @@
     "building:levels": "9"
    },
    "heightM": null,
-   "levels": 9.0,
+   "levels": 9,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 28.8,
@@ -29940,7 +29947,7 @@
     "roof:levels": "0"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 22.4,
@@ -30068,10 +30075,10 @@
     "name": "One Main Street Condominiums"
    },
    "heightM": null,
-   "levels": 10.0,
+   "levels": 10,
    "minLevel": null,
    "isPart": false,
-   "heightEstM": 32.0,
+   "heightEstM": 32,
    "footprint": [
     [
      47.61032,
@@ -30169,7 +30176,7 @@
     "name": "Tower 333"
    },
    "heightM": 83,
-   "levels": 20.0,
+   "levels": 20,
    "minLevel": null,
    "isPart": false,
    "floors": 20,
@@ -30237,7 +30244,7 @@
     "building:levels": "7"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 27.3,
@@ -30337,7 +30344,7 @@
     "name": "Seattle Marriott Bellevue"
    },
    "heightM": null,
-   "levels": 15.0,
+   "levels": 15,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 58.5,
@@ -30442,7 +30449,7 @@
     "name": "One Bellevue Center"
    },
    "heightM": 79,
-   "levels": 22.0,
+   "levels": 22,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 85.8,
@@ -30536,7 +30543,7 @@
     "height": "25.9"
    },
    "heightM": 25.9,
-   "levels": 8.0,
+   "levels": 8,
    "minLevel": null,
    "isPart": false,
    "footprint": [
@@ -30608,7 +30615,7 @@
     "name": "Skyline Tower"
    },
    "heightM": 97,
-   "levels": 24.0,
+   "levels": 24,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 93.6,
@@ -30718,7 +30725,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 24.0,
+   "levels": 24,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 93.6,
@@ -30786,7 +30793,7 @@
     "name": "First Mutual Center"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 27.3
@@ -30809,7 +30816,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 22.4
@@ -30835,7 +30842,7 @@
     "name": "Skyline Tower"
    },
    "heightM": null,
-   "levels": 24.0,
+   "levels": 24,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 93.6
@@ -30858,7 +30865,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 8.0,
+   "levels": 8,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 25.6
@@ -30887,7 +30894,7 @@
     "name": "Summit 3"
    },
    "heightM": null,
-   "levels": 17.0,
+   "levels": 17,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 66.3,
@@ -30973,7 +30980,7 @@
     "name": "Puget Sound Energy East Building"
    },
    "heightM": null,
-   "levels": 11.0,
+   "levels": 11,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 42.9,
@@ -31043,7 +31050,7 @@
     "name": "Summit 2"
    },
    "heightM": null,
-   "levels": 13.0,
+   "levels": 13,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 50.7,
@@ -31085,6 +31092,1110 @@
      -122.195221
     ]
    ]
+  },
+  {
+   "osm": "w328903017",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/328903017",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.18196373333332,47.6114614,-122.17996373333331,47.6134614&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w439836064",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/439836064",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.18764860000002,47.6109326,-122.18564860000001,47.61293259999999&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w884572847",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/884572847",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.19435685714285,47.61075235714286,-122.19235685714284,47.61275235714285&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "partly obscured by shadow/tree/adjacent structure",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w44611426",
+   "osmTags": {
+    "amenity": "fuel",
+    "brand": "Chevron",
+    "brand:wikidata": "Q319642",
+    "building": "roof",
+    "check_date": "2024-07-25",
+    "name": "Chevron"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/44611426",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.1824637857143,47.61589035714285,-122.1804637857143,47.61789035714285&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w325852424",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/325852424",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.19541961111112,47.614007077777785,-122.19341961111111,47.61600707777778&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "partly obscured by shadow/tree/adjacent structure",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w425947102",
+   "osmTags": {
+    "amenity": "fuel",
+    "brand": "Arco",
+    "brand:wikidata": "Q304769",
+    "building": "roof",
+    "check_date": "2025-02-17",
+    "fuel:octane_91": "yes",
+    "name": "Arco"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/425947102",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.18588559999999,47.616063800000006,-122.18388559999998,47.6180638&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w425947107",
+   "osmTags": {
+    "building": "roof"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/425947107",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.18510547500001,47.61559200000001,-122.183105475,47.617592&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w490218709",
+   "osmTags": {
+    "building": "carport"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/490218709",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.17961982,47.61425118,-122.17761981999999,47.61625117999999&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=carport identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "partly obscured by shadow/tree/adjacent structure",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w490218710",
+   "osmTags": {
+    "building": "carport"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/490218710",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.17961796,47.61411278,-122.17761795999999,47.616112779999995&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=carport identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "partly obscured by shadow/tree/adjacent structure",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w490218711",
+   "osmTags": {
+    "building": "carport"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/490218711",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.17961606,47.613857380000006,-122.17761605999999,47.61585738&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=carport identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "partly obscured by shadow/tree/adjacent structure",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w490218712",
+   "osmTags": {
+    "building": "carport"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/490218712",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.17908831999999,47.6143375,-122.17708831999998,47.61633749999999&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=carport identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "partly obscured by shadow/tree/adjacent structure",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w490218713",
+   "osmTags": {
+    "building": "carport"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/490218713",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.17938185999999,47.614703039999995,-122.17738185999998,47.61670303999999&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=carport identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w490218714",
+   "osmTags": {
+    "building": "carport"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/490218714",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.17937926666669,47.61496683333334,-122.17737926666668,47.616966833333336&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=carport identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w640216056",
+   "osmTags": {
+    "amenity": "fuel",
+    "brand": "Shell",
+    "brand:wikidata": "Q154950",
+    "building": "roof",
+    "check_date": "2025-02-17",
+    "maxheight": "16'0\"",
+    "name": "Shell",
+    "operator": "Shell",
+    "pumps": "8"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 5.276800000000001,
+     "clearanceM": 4.8768,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/640216056",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.18089677,47.61602555,-122.17889677,47.61802555&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "rawLegalMaxheight": "16'0\"",
+     "legalClearanceLowerBoundM": 4.8768,
+     "legalClearanceNote": "Literal OSM maxheight is an access clearance lower bound, not a measured roof height or min_height. Additional 0.4 m total roof allowance is an estimate.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w1050978365",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/1050978365",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.18027002,47.61289318000001,-122.17827001999999,47.61489318&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w1059195057",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/1059195057",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.18292044,47.6149206,-122.18092044,47.61692059999999&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w1059195058",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/1059195058",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.18256844000001,47.61492246,-122.18056844,47.61692246&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w1059195059",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/1059195059",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.18210682000002,47.614926020000006,-122.18010682,47.61692602&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w1059195060",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/1059195060",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.18190568,47.615042020000004,-122.17990567999999,47.61704202&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "partly obscured by shadow/tree/adjacent structure",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w1059195061",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/1059195061",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.18190642000002,47.61499786000001,-122.17990642000001,47.616997860000005&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "partly obscured by shadow/tree/adjacent structure",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w1059195062",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/1059195062",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.1818284625,47.61536949375,-122.17982846249998,47.61736949375&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w1059195063",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/1059195063",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.18182882500001,47.614736987499995,-122.179828825,47.61673698749999&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w1060448265",
+   "osmTags": {
+    "building": "roof",
+    "layer": "2"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/1060448265",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.19503752500002,47.61939217500001,-122.19303752500001,47.621392175000004&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w1254202938",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/1254202938",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.18312072000002,47.61475408000001,-122.18112072000001,47.61675408000001&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w1277864134",
+   "osmTags": {
+    "building": "roof"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/1277864134",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.19417625625,47.613738643750004,-122.19217625625,47.61573864375&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w1277864139",
+   "osmTags": {
+    "building:levels": "3",
+    "building:part": "roof"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 12.2,
+     "clearanceM": 11.85,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/1277864139",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.19414352380954,47.61424999999999,-122.19214352380953,47.61624999999999&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building:part=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w1556475451",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/1556475451",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.19238595882351,47.62115123529412,-122.1903859588235,47.62315123529412&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w102742767",
+   "osmTags": {
+    "building": "roof",
+    "name": "US Bank Drive-Thru"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/102742767",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.19702324285713,47.617251342857145,-122.19502324285712,47.61925134285714&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w325852423",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/325852423",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.19634750000002,47.613363014285724,-122.1943475,47.61536301428572&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w344681130",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/344681130",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.20469000000001,47.61789008000001,-122.20269,47.619890080000005&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "partly obscured by shadow/tree/adjacent structure",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w853026486",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/853026486",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.20249331538461,47.61944680769231,-122.2004933153846,47.62144680769231&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w1312371020",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/1312371020",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.20160582352942,47.61709292352941,-122.19960582352941,47.61909292352941&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w1326469154",
+   "osmTags": {
+    "artist_name": "Marc Fornes",
+    "artwork_type": "sculpture",
+    "building": "roof",
+    "image": "https://bellevuewa.gov/sites/default/files/styles/large/public/inline-images/2023-06/IMG_9711%20%282%29_0.jpg?itok=Puap8FEq",
+    "material": "aluminium",
+    "name": "Piloti",
+    "tourism": "artwork",
+    "website": "https://bellevuewa.gov/city-government/departments/community-development/arts-and-culture/piloti"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 3.6,
+     "clearanceM": 3.25,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/1326469154",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.2034733411111,47.612579265555546,-122.2014733411111,47.61457926555554&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w1556489730",
+   "osmTags": {
+    "building": "roof",
+    "building:material": "glass",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/1556489730",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.19765362857143,47.614576128571436,-122.19565362857142,47.61657612857143&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w1556489731",
+   "osmTags": {
+    "building": "roof",
+    "building:material": "glass",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/1556489731",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.19808294285716,47.614580214285716,-122.19608294285715,47.61658021428571&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "partly obscured by shadow/tree/adjacent structure",
+      "mPerPixel": 0.40254113795303664,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
   }
  ],
  "businesses": [
@@ -55346,7 +56457,7 @@
      "osm": 1081930273,
      "kind": "retaining_wall",
      "wall": null,
-     "lenM": 357.0,
+     "lenM": 357,
      "geom": [
       [
        47.578461,
@@ -55514,7 +56625,7 @@
      "osm": 1081930301,
      "kind": "jersey_barrier",
      "wall": null,
-     "lenM": 124.0,
+     "lenM": 124,
      "geom": [
       [
        47.577831,
@@ -55586,7 +56697,7 @@
      "osm": 1208481056,
      "kind": "guard_rail",
      "wall": null,
-     "lenM": 73.0,
+     "lenM": 73,
      "geom": [
       [
        47.581856,
@@ -56286,7 +57397,7 @@
      "osm": 1179441173,
      "kind": "guard_rail",
      "wall": null,
-     "lenM": 41.0,
+     "lenM": 41,
      "geom": [
       [
        47.579726,
@@ -56406,7 +57517,7 @@
      "osm": 1081930286,
      "kind": "retaining_wall",
      "wall": null,
-     "lenM": 142.0,
+     "lenM": 142,
      "geom": [
       [
        47.578424,
@@ -56498,7 +57609,7 @@
      "osm": 1081930293,
      "kind": "jersey_barrier",
      "wall": null,
-     "lenM": 22.0,
+     "lenM": 22,
      "geom": [
       [
        47.578754,
@@ -56738,7 +57849,7 @@
      "osm": 1510780437,
      "kind": "wall",
      "wall": "noise_barrier",
-     "lenM": 190.0,
+     "lenM": 190,
      "geom": [
       [
        47.587708,
@@ -66775,5 +67886,100 @@
   "uipath-2018": "https://ir.uipath.com/news/detail/134/uipath-opens-first-u-s-development-center-in-bellevue-wash (2018-04-03: first US development center, Bellevue)",
   "commons": "Wikimedia Commons photos in game/research/refs/bellevue/ (see LICENSES.md) — colours sampled with a median-of-region script from those photos",
   "osm-uipath-node": "OSM node 10211055617 \"UI Path\" (office=company) inside Plaza Center, 47.61778,-122.19400"
- }
+ },
+ "building_passages": [
+  {
+   "sourceRoadId": "w513188426",
+   "buildingId": "w33115668",
+   "sharedWallNodeIds": [
+    5017220387,
+    5017220388
+   ],
+   "classificationSource": "reviewed source shared-wall-node topology",
+   "clearanceM": 3.1,
+   "clearanceSource": "estimate:3.1m covered passenger-vehicle service passage; vertical dimension untagged",
+   "reviewedAt": "2026-11-08",
+   "evidence": [
+    "https://www.openstreetmap.org/way/513188426",
+    "https://www.openstreetmap.org/way/33115668",
+    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.20069855,47.6166604,-122.19869854999999,47.618660399999996&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+   ],
+   "sourceTags": {
+    "covered": "yes",
+    "highway": "service",
+    "oneway": "yes",
+    "service": "drive-through"
+   },
+   "note": "Original OSM covered=yes service way starts and ends at the exact original building-wall nodes, declaring a through-opening beneath the source roof. Independent Esri overhead context inspected; no vertical clearance is measurable from it. Width and clearance remain explicit class estimates where original OSM tags are absent. Source outlines, full wall-node topology, total heights and legal access stay unchanged."
+  },
+  {
+   "sourceRoadId": "w816498788",
+   "buildingId": "w33115737",
+   "sharedWallNodeIds": [
+    7625804226,
+    7625804225
+   ],
+   "classificationSource": "reviewed source shared-wall-node topology",
+   "clearanceM": 3.1,
+   "clearanceSource": "estimate:3.1m covered passenger-vehicle service passage; vertical dimension untagged",
+   "reviewedAt": "2026-11-08",
+   "evidence": [
+    "https://www.openstreetmap.org/way/816498788",
+    "https://www.openstreetmap.org/way/33115737",
+    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.20104935,47.615919,-122.19904935,47.61791899999999&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+   ],
+   "sourceTags": {
+    "covered": "yes",
+    "highway": "service",
+    "service": "parking_aisle"
+   },
+   "note": "Original OSM covered=yes service way starts and ends at the exact original building-wall nodes, declaring a through-opening beneath the source roof. Independent Esri overhead context inspected; no vertical clearance is measurable from it. Width and clearance remain explicit class estimates where original OSM tags are absent. Source outlines, full wall-node topology, total heights and legal access stay unchanged."
+  },
+  {
+   "sourceRoadId": "w816498790",
+   "buildingId": "w33115737",
+   "sharedWallNodeIds": [
+    7625804224,
+    7625804223
+   ],
+   "classificationSource": "reviewed source shared-wall-node topology",
+   "clearanceM": 3.1,
+   "clearanceSource": "estimate:3.1m covered passenger-vehicle service passage; vertical dimension untagged",
+   "reviewedAt": "2026-11-08",
+   "evidence": [
+    "https://www.openstreetmap.org/way/816498790",
+    "https://www.openstreetmap.org/way/33115737",
+    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.2010029,47.615919600000005,-122.1990029,47.6179196&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+   ],
+   "sourceTags": {
+    "covered": "yes",
+    "highway": "service",
+    "service": "parking_aisle"
+   },
+   "note": "Original OSM covered=yes service way starts and ends at the exact original building-wall nodes, declaring a through-opening beneath the source roof. Independent Esri overhead context inspected; no vertical clearance is measurable from it. Width and clearance remain explicit class estimates where original OSM tags are absent. Source outlines, full wall-node topology, total heights and legal access stay unchanged."
+  },
+  {
+   "sourceRoadId": "w816498786",
+   "buildingId": "w33115737",
+   "sharedWallNodeIds": [
+    7625804228,
+    7625804227
+   ],
+   "classificationSource": "reviewed source shared-wall-node topology",
+   "clearanceM": 3.1,
+   "clearanceSource": "estimate:3.1m covered passenger-vehicle service passage; vertical dimension untagged",
+   "reviewedAt": "2026-11-08",
+   "evidence": [
+    "https://www.openstreetmap.org/way/816498786",
+    "https://www.openstreetmap.org/way/33115737",
+    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.201097,47.61591835,-122.199097,47.61791835&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+   ],
+   "sourceTags": {
+    "covered": "yes",
+    "highway": "service",
+    "service": "parking_aisle"
+   },
+   "note": "Original OSM covered=yes service way starts and ends at the exact original building-wall nodes, declaring a through-opening beneath the source roof. Independent Esri overhead context inspected; no vertical clearance is measurable from it. Width and clearance remain explicit class estimates where original OSM tags are absent. Source outlines, full wall-node topology, total heights and legal access stay unchanged."
+  }
+ ]
 }

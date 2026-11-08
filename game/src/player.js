@@ -2,6 +2,7 @@ import * as THREE from '../vendor/three.module.min.js';
 import { makeCockpit } from './vehicles.js';
 import { collideBuildings } from './world.js';
 import { clamp, damp, lerp } from './util.js';
+import { roadWidthAt } from './nav.js';
 
 const GROUND_Y = 0.24;   // road surface top at street level (world Y.road)
 const MAX_STEP = 0.9;    // bigger height jumps between frames = deck edge / trench wall (not drivable)
@@ -197,7 +198,7 @@ export class Player {
             const ax = e.a.x, az = e.a.z, dx = e.b.x - ax, dz = e.b.z - az, L2 = dx * dx + dz * dz || 1;
             const tr = ((x - ax) * dx + (z - az) * dz) / L2, t = clamp(tr, 0, 1);
             const d = Math.hypot(ax + dx * t - x, az + dz * t - z);
-            const hw = (e.halfW ?? 6) + 0.6;
+            const hw = roadWidthAt(e, x, z) + 0.6;
             // past the ends: the junction pad (node radius) counts as part of the ribbon
             const lim = tr < 0 ? Math.max(hw, (e.a.radius ?? 0) + 0.8) : tr > 1 ? Math.max(hw, (e.b.radius ?? 0) + 0.8) : hw;
             if (d > lim) return;

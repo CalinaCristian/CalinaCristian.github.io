@@ -25,13 +25,15 @@ function sourceBandStatus(h, minH, tags, profile, id) {
     close(minH, rawMin, 'contradictory literal minimum ' + id);
     assert.equal(profile?.raw?.height, tags.height, 'profile preserves raw XML height: ' + id);
     assert.equal(profile?.raw?.min_height, tags.min_height, 'profile preserves raw XML minimum: ' + id);
-    assert.ok(profile?.issues?.includes('minimum height exceeds total height'), 'contradictory source band is explicitly flagged: ' + id);
+    const issue = minH === h ? 'zero vertical source band: minimum height equals total height' : 'minimum height exceeds total height';
+    assert.ok(profile?.issues?.includes(issue), 'contradictory source band is explicitly flagged: ' + id);
     return 'rejected-source-band';
 }
 if (process.argv.includes('--source-band-self-test')) {
     const tags = {height:'4', min_height:'9'}, profile = {raw:{...tags}, issues:['minimum height exceeds total height']};
     assert.equal(sourceBandStatus(4, 1, {height:'4', min_height:'1'}, {}, 'valid'), 'positive');
     assert.equal(sourceBandStatus(4, 9, tags, profile, 'source-contradiction'), 'rejected-source-band');
+    assert.equal(sourceBandStatus(15,15,{height:'15',min_height:'15'},{raw:{height:'15',min_height:'15'},issues:['zero vertical source band: minimum height equals total height']},'literal-zero-band'), 'rejected-source-band');
     for (const [h, m, t, p] of [[4,9,{height:'4',min_height:'1'},profile], [4,8,tags,profile], [4,9,tags,{...profile,raw:{height:'4',min_height:'8'}}], [4,9,tags,{...profile,issues:[]}], [4,9,undefined,profile]]) {
         assert.throws(() => sourceBandStatus(h,m,t,p,'prepared-regression'), assert.AssertionError);
     }
@@ -83,7 +85,8 @@ const report = { file, sourceRecords: data.buildings.length, assemblies: [], roo
 report.rejectedSourceBands = [];
 data.buildings.forEach((b,i) => {
     const [h,minH] = data.buildingDimensions?.[i] || [b[1]/10,b[2]/10], id = data.buildingIds?.[i] || 'legacy-index:' + i;
-    if (sourceBandStatus(h,minH,source(id)?.tags,data.buildingRoofProfiles?.[i],id) === 'rejected-source-band') report.rejectedSourceBands.push({sourceId:id,heightM:h,minimumM:minH,status:'retained literal XML contradiction; invalid physical band'});
+    const profile = data.buildingRoofProfiles?.[i], tags = source(id)?.tags || (!osm ? profile?.originalOSM || profile?.raw : null);
+    if (sourceBandStatus(h,minH,tags,profile,id) === 'rejected-source-band') report.rejectedSourceBands.push({sourceId:id,heightM:h,minimumM:minH,status:'retained literal XML contradiction; invalid physical band'});
 });
 const used = new Set();
 for (const [key, spec] of Object.entries(data.buildingAssemblies || {})) {
@@ -172,6 +175,8 @@ if (osmDir) {
         const t = source(id)?.tags; if (!t) return;
         const h = data.buildingDimensions?.[i]?.[0] ?? data.buildings[i][1] / 10, minH = data.buildingDimensions?.[i]?.[1] ?? data.buildings[i][2] / 10;
         if (t['building:part'] && t['building:part'] !== 'no') sourceParts++;
+        const nativeProfile=data.buildingRoofProfiles?.[i];
+        if (!(numeric(t.height)>0) && numeric(t.min_height)>0 && nativeProfile?.heightSource?.includes('estimate')) assert.ok(h>minH && nativeProfile.eavesM>minH, 'an unsourced positive body estimate stays above the literal source minimum: '+id);
         if (Number.isFinite(numeric(t.height)) && numeric(t.height) > 0) { close(h, numeric(t.height), 'literal height ' + id); explicitHeights++; }
         if (Number.isFinite(numeric(t.min_height)) && numeric(t.min_height) >= 0) { close(minH, numeric(t.min_height), 'literal minimum ' + id); explicitMinima++; }
         if (Number.isFinite(numeric(t.height)) && numeric(t.height) <= 0) assert.ok(data.buildingSourceIssues?.[i]?.some(v => v.startsWith('nonpositive OSM height=')), 'nonpositive height remains a source anomaly: ' + id);

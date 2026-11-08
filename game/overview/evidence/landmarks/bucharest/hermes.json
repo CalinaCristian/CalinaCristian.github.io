@@ -3,7 +3,7 @@
   "id": "hermes",
   "city": "bucharest",
   "name": "Hermes Business Campus",
-  "sourceCommit": "2235dbfce4286c2f6f24add87ab8e5622a5df306",
+  "sourceCommit": "94508c6c36888591a02d584886da6270e1f6b550",
   "status": "reviewed-with-gaps",
   "coordinates": {
     "lat": 44.4810862,
@@ -83,7 +83,7 @@
     {
       "label": "Published capture provenance",
       "passed": true,
-      "details": "Immutable game source 2235dbfce4286c2f6f24add87ab8e5622a5df306; actual published WebP SHA256, source identity and perspective camera metadata retained; no external reference image included."
+      "details": "Each capture retains its immutable game-source SHA and actual camera metadata. Top studies were recaptured at720\u00d7720 with actual orthographic left/right/top/bottom bounds, up vector and square ground span exported from the frozen camera. Published WebP bytes are SHA256 verified; no external imagery included."
     }
   ],
   "captures": [
@@ -144,12 +144,12 @@
     },
     {
       "id": "top",
-      "label": "Perspective top model study",
+      "label": "North-up orthographic model study",
       "kind": "top",
       "image": "assets/landmarks/hermes/top.webp",
-      "sourceCommit": "2235dbfce4286c2f6f24add87ab8e5622a5df306",
-      "sha256": "fddb259d6c49458f07d6c71965038c6f688c644c9e865c3133f576fff19b36a5",
-      "capturedAt": "2026-11-08T17:38:56.413Z",
+      "sourceCommit": "94508c6c36888591a02d584886da6270e1f6b550",
+      "sha256": "ca4c7774b99fbbb2a974e5f429acc9b63ce8f2d2e66e804486ba8e76db46fde8",
+      "capturedAt": "2026-11-08T18:48:50.814Z",
       "pose": {
         "viewerRoute": "/game/dev/landmarks.html?id=hermes&clean=1&fountains=on&view=top&az=0",
         "anchor": {
@@ -174,9 +174,23 @@
           "near": 0.5,
           "far": 4668.94759785583,
           "viewport": [
-            960,
+            720,
             720
-          ]
+          ],
+          "up": [
+            0,
+            0,
+            -1
+          ],
+          "left": -98.72368994639577,
+          "right": 98.72368994639577,
+          "top": 98.72368994639577,
+          "bottom": -98.72368994639577,
+          "zoom": 1,
+          "groundSquareM": 197.44737989279153,
+          "groundWidthM": 197.44737989279153,
+          "groundDepthM": 197.44737989279153,
+          "orientation": "north-up"
         },
         "bounds": {
           "min": [
@@ -190,7 +204,7 @@
             83.79897991904008
           ]
         },
-        "frame": "Isolated landmark; perspective camera, +x east/+z south; metres"
+        "frame": "Isolated landmark model; square north-up orthographic ground coverage, not a matched aerial comparison"
       },
       "render": {
         "triangles": 2124,

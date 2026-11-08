@@ -4,7 +4,7 @@ import * as VEH from './vehicles.js';
 import { TRANSIT, TRANSIT_RE, PHRASES } from './data.js';
 import { makeRng, clamp, angleLerp } from './util.js';
 import { makeCrowd, dressFor } from './crowd.js';
-import { lanesDir, canTravel, edgeSpeed, isMotorway, turnAngle, nodeList, EdgeIndex } from './nav.js';
+import { lanesDir, canTravel, edgeSpeed, isMotorway, turnAngle, nodeList, EdgeIndex, roadSideWidth, roadLateral } from './nav.js';
 import { assignSignalPhases, signalState } from './signals.js';
 import { collideBuildings } from './world.js';
 import { SharedLaneGate } from './shared-lanes.js';
@@ -46,8 +46,9 @@ export function medianOf(e) {
     return e.tram ? 4.4 : (e.type === 'highway' ? 1.2 : 0);
 }
 /** lateral offset (to the right of travel) of lane `lane` (0 = innermost) */
-export function laneOffset(edge, lane, dir = 1) { return edge.sharedLane ? 0 : medianOf(edge) / 2 + (edge.laneW ?? 3.3) * (lane + 0.5); }
-const tramOffset = (e) => Math.max(1.45, medianOf(e) / 4); // two 2.4 m trams side by side never touch
+export function laneOffset(edge, lane, dir = 1) { return (edge.sharedLane ? 0 : medianOf(edge) / 2 + (edge.laneW ?? 3.3) * (lane + 0.5)) + dir * (edge.laneCenterShiftM || 0); }
+const tramBaseOffset = e => Math.max(1.45, medianOf(e) / 4);
+const tramOffset = (e, dir = 1) => tramBaseOffset(e) + dir * (e.laneCenterShiftM || 0); // two 2.4 m trams side by side never touch
 const layerOf = (e) => (e.bridge ? 1 : 0) + (e.tunnel ? -1 : 0) + (e.layer | 0);
 const isJunction = (n) => n.edges.length >= 3 || n.hasLight;
 /** a road cut at the district boundary (closure at its map-end node, spec R10.9): never routed into, never spawned on */
@@ -191,7 +192,7 @@ export class Traffic {
         this.boxes = new Map(); // junction box reservations: node → [{v, path, inE, outE, lane, t}]
         this.stats = { updateMs: 0 };
         this._idSeq = 0;
-        this.sharedLanes = new SharedLaneGate(world.graph.edges);
+        this.sharedLanes = new SharedLaneGate(world.graph.edges, (VEH.VEHICLE_KINDS || []).map(kind => VEH.vehicleSize(kind, city.id)));
         this.setupTransit();
         this.buildBusStops();
         this.spawnAll();
@@ -488,7 +489,7 @@ export class Traffic {
         for (let i = plan.length - 1; i > 0; i--) { const j = Math.floor(this.rng() * (i + 1)); [plan[i], plan[j]] = [plan[j], plan[i]]; }
         const occupied = new Map();
         const free = (e, dir, lane, s, len) => {
-            if (!this.sharedLanes.canPlace(e, dir, this.vehicles)) return false;
+            if (!this.sharedLanes.canPlace(e, dir, this.vehicles, null, { s, length: len })) return false;
             const k = e.id + ':' + dir + ':' + lane; const arr = occupied.get(k) || [];
             for (const o of arr) if (Math.abs(o - s) < len + 3) return false;
             arr.push(s); occupied.set(k, arr); return true;
@@ -641,7 +642,7 @@ export class Traffic {
         const fx = e.dirx * v.dir, fz = e.dirz * v.dir;
         const rx = e.nx * v.dir, rz = e.nz * v.dir;
         const start = v.dir > 0 ? e.a : e.b;
-        let lat = v.tram ? tramOffset(e) : laneOffset(e, v.laneCur) + v.latExtraCur;
+        let lat = v.tram ? tramOffset(e, v.dir) : laneOffset(e, v.laneCur, v.dir) + v.latExtraCur;
         if (v.latBlend) lat += v.latBlend * Math.max(0, 1 - v.s / 12);
         out.x = start.x + fx * v.s + rx * lat; out.z = start.z + fz * v.s + rz * lat;
         out.fx = fx; out.fz = fz; out.rx = rx; out.rz = rz;
@@ -650,9 +651,9 @@ export class Traffic {
 
     /** lateral offset of v's lane on edge e (dir): the current edge as laneTarget, others at the same lane index */
     latOn(v, e, dir) {
-        if (v.tram) return tramOffset(e);
-        if (e === v.edge) return laneOffset(e, v.laneCur) + v.latExtraCur + (v.latBlend || 0) * Math.max(0, 1 - v.s / 12);
-        return laneOffset(e, clamp(v.laneCur, 0, (lanesDir(e, dir) || 1) - 1)) + v.latExtraCur;
+        if (v.tram) return tramOffset(e, dir);
+        if (e === v.edge) return laneOffset(e, v.laneCur, dir) + v.latExtraCur + (v.latBlend || 0) * Math.max(0, 1 - v.s / 12);
+        return laneOffset(e, clamp(v.laneCur, 0, (lanesDir(e, dir) || 1) - 1), dir) + v.latExtraCur;
     }
     /** the edge v drove before (e, dir): its history, else the only other edge at a 2-way node (null: unknown) */
     prevLink(v, e, dir, hi) {
@@ -921,7 +922,7 @@ export class Traffic {
         }
         (v._sh || (v._sh = [])).push(nx);
         if (v.hist) { v.hist.push({ e, dir: odir }); if (v.hist.length > 6) v.hist.shift(); }
-        const oldLat = v.tram ? tramOffset(e) : laneOffset(e, v.laneCur) + v.latExtraCur + (v.latBlend || 0) * Math.max(0, 1 - v.s / 12);
+        const oldLat = v.tram ? tramOffset(e, v.dir) : laneOffset(e, v.laneCur, v.dir) + v.latExtraCur + (v.latBlend || 0) * Math.max(0, 1 - v.s / 12);
         this.sharedLanes.advance(v, e, odir, nx.e, nx.dir, odir > 0 ? e.b : e.a);
         v.s -= e.len;
         if (v.s < 0) v.s = 0;
@@ -937,7 +938,7 @@ export class Traffic {
             // lane centres of consecutive edges rarely line up (median / lane width / lane count changes): carry the
             // lateral offset over and blend it into the new lane over the first 12 m instead of jumping sideways
             const dot = (e.nx * odir) * (nx.e.nx * nx.dir) + (e.nz * odir) * (nx.e.nz * nx.dir);
-            const newLat = v.tram ? tramOffset(nx.e) : laneOffset(nx.e, v.laneCur) + v.latExtraCur;
+            const newLat = v.tram ? tramOffset(nx.e, nx.dir) : laneOffset(nx.e, v.laneCur, nx.dir) + v.latExtraCur;
             v.latBlend = dot > 0.7 && !v.long && !e.sharedLane && !nx.e.sharedLane ? clamp(oldLat * dot - newLat, -4, 4) : 0; // shared mouths use the continuous junction chord
         }
     }
@@ -1137,9 +1138,9 @@ export class Traffic {
             const nxt = v.route[k + 1];
             const rad = node.radius ?? 6;
             if (nxt?.e.sharedLane && this.sharedLanes.entry(curE, curDir)?.group !== this.sharedLanes.entry(nxt.e, nxt.dir)?.group) {
-                const entryDistance = D - rad - 1.6;
-                if (entryDistance < Math.max(12, v.speed * v.speed / 9 + 3) && entryDistance > -.5 && !this.sharedLanes.canEnter(v, nxt.e, nxt.dir)) {
-                    if (entryDistance < stopD) { stopD = entryDistance; stopWhy = 'shared-lane'; }
+                const entryDistance = D - rad - this.sharedLanes.mouthClearance(curE, curDir, nxt.e);
+                if (entryDistance < Math.max(12, v.speed * v.speed / 9 + 3) && D - rad - 1.6 > -.5 && !this.sharedLanes.canEnter(v, nxt.e, nxt.dir)) {
+                    if (entryDistance < stopD) { stopD = Math.max(0, entryDistance); stopWhy = 'shared-lane'; }
                     break;
                 }
             }
@@ -1339,7 +1340,7 @@ export class Traffic {
     /** path across the junction pad for v going (curE,curDir) → nxt: entry lane point → exit lane point */
     boxPath(v, curE, curDir, nxt, rad) {
         const nl = Math.max(1, lanesDir(nxt.e, nxt.dir)), lane = Math.min(v.lane, nl - 1);
-        const latIn = v.tram ? tramOffset(curE) : laneOffset(curE, v.lane), latOut = v.tram ? tramOffset(nxt.e) : laneOffset(nxt.e, lane);
+        const latIn = v.tram ? tramOffset(curE, curDir) : laneOffset(curE, v.lane, curDir), latOut = v.tram ? tramOffset(nxt.e, nxt.dir) : laneOffset(nxt.e, lane, nxt.dir);
         const sIn = Math.max(0, curE.len - rad), sOut = Math.min(nxt.e.len, rad);
         const st = curDir > 0 ? curE.a : curE.b, fx = curE.dirx * curDir, fz = curE.dirz * curDir;
         const st2 = nxt.dir > 0 ? nxt.e.a : nxt.e.b, gx = nxt.e.dirx * nxt.dir, gz = nxt.e.dirz * nxt.dir;
@@ -1534,8 +1535,8 @@ export class Traffic {
         const e = v.edge, P = this.player;
         if (e.sharedLane) return false;
         const rx = v.rx, rz = v.rz;
-        const curOff = laneOffset(e, v.laneCur) + v.latExtraCur;
-        const halfW = e.halfW ?? (laneOffset(e, lanesDir(e, v.dir) - 1) + (e.laneW ?? 3.3) / 2);
+        const curOff = laneOffset(e, v.laneCur, v.dir) + v.latExtraCur;
+        const right = roadSideWidth(e, v.dir), left = roadSideWidth(e, -v.dir);
         const margin = 0.6;
         let shifts;
         if (isP) {
@@ -1545,9 +1546,9 @@ export class Traffic {
         let best = null;
         for (const sh of shifts) {
             const off = curOff + sh; // lateral offset from the centreline (right of travel = +)
-            if (Math.abs(off) > halfW - v.width / 2 + 0.3) continue; // stay on the carriageway
+            if (off + v.width / 2 > right + 0.3 || off - v.width / 2 < -left - 0.3) continue; // stay on the carriageway
             if (Math.abs(sh) > (e.laneW ?? 3.3) * 1.5) continue;
-            const contra = !e.oneway && off - v.width / 2 < medianOf(e) / 2 - 0.2;
+            const contra = !e.oneway && off - v.width / 2 < v.dir * (e.laneCenterShiftM || 0) + medianOf(e) / 2 - 0.2;
             if (contra && !this.oncomingClear(v, off, 45)) continue;
             if (!best || Math.abs(sh) < Math.abs(best)) best = sh;
         }
@@ -1558,7 +1559,7 @@ export class Traffic {
     }
     /** no oncoming vehicle within `dist` ahead around lateral offset `off` */
     oncomingClear(v, off, dist) {
-        const e = v.edge; const curOff = laneOffset(e, v.laneCur) + v.latExtraCur;
+        const e = v.edge; const curOff = laneOffset(e, v.laneCur, v.dir) + v.latExtraCur;
         const cx = v.x + v.fx * dist * 0.5 + v.rx * (off - curOff), cz = v.z + v.fz * dist * 0.5 + v.rz * (off - curOff);
         let ok = true;
         this.grid.query(cx, cz, dist * 0.5 + 4, (o) => {
@@ -1692,8 +1693,8 @@ export class Traffic {
     }
 
     laneFree(v, lane) {
-        const lat = laneOffset(v.edge, lane) + v.latExtraCur;
-        const curLat = laneOffset(v.edge, v.laneCur) + v.latExtraCur;
+        const lat = laneOffset(v.edge, lane, v.dir) + v.latExtraCur;
+        const curLat = laneOffset(v.edge, v.laneCur, v.dir) + v.latExtraCur;
         const tx = v.x + v.rx * (lat - curLat), tz = v.z + v.rz * (lat - curLat);
         const front = this.buc ? 4 : 10, back = this.buc ? 2.5 : 8;
         let free = true;
@@ -1905,7 +1906,7 @@ export class Traffic {
             const ey = (e.a.y ?? 0) + ((e.b.y ?? 0) - (e.a.y ?? 0)) * t;
             if (Math.abs(ey + 0.24 - y) > 2) continue;
             nodes.add(e.a); nodes.add(e.b);
-            const cx = e.a.x + dx * t, cz = e.a.z + dz * t, d = Math.hypot(x - cx, z - cz), lat = (x - cx) * e.nx + (z - cz) * e.nz, hw = e.halfW ?? 6;
+            const cx = e.a.x + dx * t, cz = e.a.z + dz * t, d = Math.hypot(x - cx, z - cz), lat = (x - cx) * e.nx + (z - cz) * e.nz, hw = roadSideWidth(e, lat);
             if ((t0 < 0 || t0 > 1) && Math.abs(t0 - t) * e.len > 0.8) continue; // past the edge end: the junction pad decides
             if (d < hw + 0.3) { if (hw - d > depth) { depth = hw - d; car = { e, t, d, lat, hw }; } }
             else if ((e.sidewalk ?? 0) > 0.6 && d < hw + (e.sidewalk ?? 0) + 1.2 && !walk) walk = { e, t, d, lat, hw };
@@ -1915,7 +1916,7 @@ export class Traffic {
             if (isJunction(n) && n.edges.length >= 3 && d < rad + 0.3) R.add('junction');
             if ((n.zebra || n.crossing) && n.edges.length <= 2 && d < 14) for (const g of n.edges) { // (marked crossing: 0–3 m past the node, carriageway-wide)
                 const sg = g.a === n ? 1 : -1, al = ((x - n.x) * g.dirx + (z - n.z) * g.dirz) * sg, la = Math.abs((x - n.x) * g.nx + (z - n.z) * g.nz);
-                if (al > -2.5 && al < 5 && la < (g.halfW ?? 6) + 0.3) R.add('zebra');
+                if (al > -2.5 && al < 5 && la < roadSideWidth(g, roadLateral(g, x, z)) + 0.3) R.add('zebra');
             }
             if ((n.hasLight || n.zebra) && n.edges.length >= 3 && car && (car.e.a === n || car.e.b === n)) {
                 const ds = (car.e.a === n ? car.t : 1 - car.t) * car.e.len; if (ds > rad - 1 && ds < rad + 6) R.add('zebra'); // the crossing in front of the stop line
@@ -1925,11 +1926,11 @@ export class Traffic {
         }
         for (const e of near) if (e.tramOnly && Math.hypot(x - (e.a.x + e.b.x) / 2, z - (e.a.z + e.b.z) / 2) < e.len / 2 + 2) {
             const dx = e.b.x - e.a.x, dz = e.b.z - e.a.z, L2 = dx * dx + dz * dz || 1, t = clamp(((x - e.a.x) * dx + (z - e.a.z) * dz) / L2, 0, 1);
-            if (Math.hypot(x - e.a.x - dx * t, z - e.a.z - dz * t) < tramOffset(e) + 2.2) R.add('tram');
+            if (Math.abs(roadLateral(e, x, z) - (e.laneCenterShiftM || 0)) < tramBaseOffset(e) + 2.2) R.add('tram');
         }
         if (car) {
             const e = car.e, side = car.lat >= 0 ? 1 : -1, laneW = e.laneW ?? 3.3;
-            if (e.tram && Math.abs(car.lat) < tramOffset(e) + 2.1) R.add('tram');
+            if (e.tram && Math.abs(car.lat - (e.laneCenterShiftM || 0)) < tramBaseOffset(e) + 2.1) R.add('tram');
             if (e.busLane && Math.abs(car.lat) > car.hw - laneW - 0.3) R.add('buslane');
             const kerbOk = (/^(residential|unclassified|living_street)$/.test(e.type) || (US && /^(tertiary|secondary)$/.test(e.type))) && Math.abs(car.lat) > car.hw - 2.8;
             if (e.type !== 'service' && !kerbOk && !e.tramOnly) R.add('lane');
@@ -2054,7 +2055,7 @@ export class Traffic {
         let tx = st.x + lx * (w + 0.8), tz = st.z + lz * (w + 0.8);
         // walk in from ~22 m behind the car along its sidewalk (out of the carriageway when possible)
         let sx = st.x - fx * 22 + lx * (w + 3), sz = st.z - fz * 22 + lz * (w + 3);
-        if (e) { const side = ((st.x - e.a.x) * e.nx + (st.z - e.a.z) * e.nz) >= 0 ? 1 : -1, o = (e.halfW ?? 6) + 1.6, t = clamp(((st.x - e.a.x) * e.dirx + (st.z - e.a.z) * e.dirz) - 22 * Math.sign(fx * e.dirx + fz * e.dirz || 1), 0, e.len); sx = e.a.x + e.dirx * t + e.nx * o * side; sz = e.a.z + e.dirz * t + e.nz * o * side; }
+        if (e) { const side = ((st.x - e.a.x) * e.nx + (st.z - e.a.z) * e.nz) >= 0 ? 1 : -1, o = roadSideWidth(e, side) + 1.6, t = clamp(((st.x - e.a.x) * e.dirx + (st.z - e.a.z) * e.dirz) - 22 * Math.sign(fx * e.dirx + fz * e.dirz || 1), 0, e.len); sx = e.a.x + e.dirx * t + e.nx * o * side; sz = e.a.z + e.dirz * t + e.nz * o * side; }
         if (W && Math.hypot(sx - W.x, sz - W.z) < 6) { sx = st.x + fx * 24; sz = st.z + fz * 24; }
         best.x = sx; best.z = sz; peds.kerbClamp(best); peds.obsClamp(best);
         best.outfit0 = true; const o = dressFor(this.city.id, undefined, null, this.rng);
@@ -2067,14 +2068,14 @@ export class Traffic {
     callTowTruck(st) {
         const P = this.player, c = st.check, e = c.edge; if (!e) return;
         const dir = canTravel(e, c.dir) ? c.dir : -c.dir, lanes = lanesDir(e, dir) || 1;
-        let lane = 0, bd = Infinity; for (let l = 0; l < lanes; l++) { const d = Math.abs(laneOffset(e, l) - c.lat * (dir === c.dir ? 1 : -1)); if (d < bd) { bd = d; lane = l; } }
+        let lane = 0, bd = Infinity; for (let l = 0; l < lanes; l++) { const d = Math.abs(laneOffset(e, l, dir) - c.lat * (dir === c.dir ? 1 : -1)); if (d < bd) { bd = d; lane = l; } }
         const kind = VEH.VEHICLE_KINDS?.includes?.('truck') ? 'truck' : 'van', Lt = this.kindLength(kind), Lc = P.length || 4.4;
         const along = dir === c.dir ? c.along : e.len - c.along;
         let s = along + Lc / 2 + Lt / 2 + 1.2; if (s + Lt / 2 > e.len - 1) s = along - Lc / 2 - Lt / 2 - 1.2;
         if (s - Lt / 2 < 0.5) return;
         const v = this.spawn({ edge: e, dir, lane, s, kind });
         v.service = 'tow'; v.parked = true; v.mesh.userData.parked = true; v.speed = 0; v.hazard = true;
-        v.lateralExtra = v.latExtraCur = clamp(c.lat * (dir === c.dir ? 1 : -1) - laneOffset(e, lane), -4, 4);
+        v.lateralExtra = v.latExtraCur = clamp(c.lat * (dir === c.dir ? 1 : -1) - laneOffset(e, lane, dir), -4, 4);
         this.placeOnLane(v, true, 0);
         const h = VEH.vehicleSize?.(kind, this.city.id)?.height || 3;
         const b = st.beacon = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.16, 0.3), new THREE.MeshBasicMaterial({ color: '#ffae00' }));

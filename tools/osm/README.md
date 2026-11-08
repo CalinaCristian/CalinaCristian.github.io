@@ -115,3 +115,8 @@ for the independent footprint/height auditor, and keep buildings throughout that
 drivable-road buffer. The legacy corridor network-distance filter does not apply inside an explicitly selected district.
 Check the result street by street against Street View:
 `node game/dev/harness/viewpoints.js --district=<id> --walk --streetview` (`game/dev/harness/README.md`).
+
+
+Explicit open roofs may be declared in a district building's `research.open_canopy` with nonempty `evidence`, numeric `topM > clearanceM > 0`, and a `dimensionNote`. This is a reviewed structural classification, not a rule for every fuel station. OSM dimensions still win. The builder emits `buildingCanopies`, retains the full roof outline/source ID, and exempts only its ground service lane from the late overlap deletion where the declared roof clearance is at least3m. Estimated dimensions/supports remain labelled estimates. Invalid nonpositive OSM heights are retained as `buildingSourceIssues`; valid positive heights are never raised to the default2.5m minimum.
+
+`building-geometry-check.mjs --data=<district.json> --osm=<tile-directory>` also assembles multipolygon relation outer rings, associates each repeated relation identity with its corresponding prepared outer, and verifies literal positive heights/minima, canopy collision bands and explicit source anomalies. A relation may have several independent outer buildings; it is not a way-node list.

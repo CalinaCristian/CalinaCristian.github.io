@@ -907,6 +907,9 @@ function buildCity(cityId, did = null) {
                 let ch = false;
                 // `research: {height_m, storeys, facade_hex, roof}` = the hand-researched key buildings (CV stops, landmarks): they beat the estimates
                 const rs = (b.research && typeof b.research === 'object') ? b.research : {};
+                // Open canopy semantics require an explicit independently reviewed record, never amenity=fuel alone.
+                const oc = rs.open_canopy;
+                if (oc && Array.isArray(oc.evidence) && oc.evidence.length && Number.isFinite(oc.topM) && Number.isFinite(oc.clearanceM) && oc.clearanceM > 0 && oc.topM > oc.clearanceM) t.__canopy = { ...oc, classificationSource: 'research:' + path.basename(rf) + '#' + b.osm };
                 const hex = (v) => (typeof v === 'string' && /^#[0-9a-f]{6}$/i.test(v)) ? v : null;
                 const roofShape = (v) => (typeof v === 'string' && /^(flat|gabled|hipped|pyramidal|dome|skillion|mansard|round|gambrel)$/.test(v)) ? v : null;
                 let hr = 0; // 1 = researched height / storeys, 2 = only the research estimate
@@ -1101,7 +1104,14 @@ function buildCity(cityId, did = null) {
         const levels = num(t['building:levels']);
         const roofLevels = num(t['roof:levels']) || 0;
         let h = num(t.height); if (!isFinite(h)) h = NaN;
-        const minH = num(t.min_height) || (num(t['building:min_level']) ? num(t['building:min_level']) * 3.2 : 0);
+        let minH = num(t.min_height) || (num(t['building:min_level']) ? num(t['building:min_level']) * 3.2 : 0);
+        const sourceIssues = [];
+        if (Number.isFinite(h) && h <= 0) { sourceIssues.push('nonpositive OSM height=' + t.height); h = NaN; }
+        const canopy = t.__canopy ? { ...t.__canopy, topSource: num(t.height) > 0 ? 'OSM height' : 'estimate', clearanceSource: num(t.min_height) > 0 || num(t['building:min_level']) > 0 ? 'OSM minimum' : 'estimate', supportSource: 'estimate' } : null;
+        if (canopy) {
+            if (!Number.isFinite(h) && !(levels > 0)) h = canopy.topM;
+            if (!(num(t.min_height) > 0) && !(num(t['building:min_level']) > 0)) minH = canopy.clearanceM;
+        }
         const dCentre = realDist(la, lo, centreLL[0], centreLL[1]);
         const nearBig = !!nearestRoad(cOut[0], cOut[1], Math.sqrt(realArea) * 0.7 * sx + 16, (r) => RE_BIGROAD.test(r.cls));
         const lu = landuseAt(cOut[0], cOut[1]);
@@ -1209,7 +1219,9 @@ function buildCity(cityId, did = null) {
             // storey only under a flat roof — villas tagged 2 + 1 attic were walls of 3 storeys with the roof on top
             h = lv * (style === 'bloc' ? 2.9 : style === 'glass' ? 3.6 : 3.2) + ((flags & 1) ? 1 : 0) + (roof === 0 ? roofLevels * 2.6 : 0);
         }
-        h = Math.max(sourcePart ? 0.01 : 2.5, Math.min(h, 320));
+        // A literal positive OSM height can describe a low utility structure; the 2.5m fallback is not source truth.
+        h = num(t.height) > 0 ? num(t.height) : Math.max(sourcePart ? 0.01 : 2.5, Math.min(h, 320));
+        if (canopy) { style = 'plain'; roof = 0; flags &= ~1; minH = Math.min(minH, h - 0.01); }
         h = C.heightMap(h);
         // ---- shrink to keep clear of the road ribbons
         // (2026-11-08) a large named building (a market hall, a mall) is not shrunk away by its own service lanes running
@@ -1307,8 +1319,8 @@ function buildCity(cityId, did = null) {
         }
         if (measuredRoof) flags |= 16; // an OSM/aerial roof shape was actually applied; unsupported mixed/round tags are not a measurement of the fallback
         if (outside) flags |= 32; // outside the playable area (scenery ring)
-        const rec = { style, h, minH: Math.min(minH, h - (sourcePart ? 0.01 : 1)), roof, name, brand, flags, ring, holes, sourceRing: lls.slice(0, -1).map(([a, c]) => P(a, c)), sourceFootprint: footprintKey(lls, rb.holesLL || []), c: c2, area: Math.abs(polyArea(ring)), t, levels: isFinite(levels) ? Math.round(levels) : 0, colour, roofColour, la, lo,
-            hSrc: t.__hRes === 1 ? 1 : t.__hRes === 2 ? 2 : (isFinite(num(t.height)) || isFinite(levels)) ? 0 : 2 };
+        const rec = { style, h, canopy, sourceIssues, minH: Math.min(minH, h - (sourcePart || canopy ? 0.01 : 1)), roof, name, brand, flags, ring, holes, sourceRing: lls.slice(0, -1).map(([a, c]) => P(a, c)), sourceFootprint: footprintKey(lls, rb.holesLL || []), c: c2, area: Math.abs(polyArea(ring)), t, levels: isFinite(levels) ? Math.round(levels) : 0, colour, roofColour, la, lo,
+            hSrc: t.__hRes === 1 ? 1 : t.__hRes === 2 ? 2 : (num(t.height) > 0 || levels > 0) ? 0 : 2 };
         let x0 = Infinity, z0 = Infinity, x1 = -Infinity, z1 = -Infinity; for (const [x, z] of ring) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); }
         bGrid.insertBox(x0, z0, x1, z1, rec);
         buildings.push(rec);
@@ -1326,7 +1338,7 @@ function buildCity(cityId, did = null) {
                 for (let s2 = 0; s2 <= L; s2 += 2) {
                     for (const o of [0, wr * 0.8, -wl * 0.8]) {
                         const x = a[0] + (b[0] - a[0]) * s2 / L + nx * o, z = a[1] + (b[1] - a[1]) * s2 / L + nz * o;
-                        bGrid.query(x, z, 0, (bb) => { if (r.cls === 'service' && (bb.flags & 64)) return; if (!drop.has(bb) && solidAt(x, z, bb.ring, bb.holes)) { drop.add(bb); hits++; } });
+                        bGrid.query(x, z, 0, (bb) => { if (r.cls === 'service' && ((bb.flags & 64) || (bb.canopy && r.layer === 0 && bb.minH >= 3))) return; if (!drop.has(bb) && solidAt(x, z, bb.ring, bb.holes)) { drop.add(bb); hits++; } });
                     }
                 }
             }
@@ -1602,6 +1614,8 @@ function buildCity(cityId, did = null) {
         const t = b.t || {};
         outBInfo.push(S(t.building && t.building !== 'yes' ? t.building : ''), yearOf(t.start_date || t['building:start_date'] || t.construction_date), S(t.architect || ''), S((t['building:material'] || t['building:facade:material'] || '').split(';')[0]), b.hSrc ?? 0);
     }
+    const outBuildingCanopies = Object.fromEntries(buildings.flatMap((b, i) => b.canopy ? [[i, { ...b.canopy, topM: b.h, clearanceM: b.minH }]] : []));
+    const outBuildingSourceIssues = Object.fromEntries(buildings.flatMap((b, i) => b.sourceIssues?.length ? [[i, b.sourceIssues]] : []));
     const outB = buildings.map(b => {
         let flags = b.flags;
         let name = b.name;
@@ -1778,7 +1792,7 @@ function buildCity(cityId, did = null) {
         bounds: [minX, minZ, maxX, maxZ],
         classes: ROAD_CLASSES, styles: STYLES, roofs: ROOFS, poiKinds: POI_KINDS, areaKinds: AREA_KINDS, lineKinds: LINE_KINDS, furnKinds: FURN_KINDS,
         strings,
-        nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, roadInfo, rampLimits, vacant, buildings: outB, ...(Object.keys(outBuildingDimensions).length ? { buildingDimensions: outBuildingDimensions } : {}), ...(Object.keys(outBuildingFootprints).length ? { buildingFootprints: outBuildingFootprints } : {}), buildingInfo: outBInfo, ...(ds ? { buildingIds: buildings.map(b => b.t?.__id || '') } : {}), ...(Object.keys(outBuildingHoles).length ? { buildingHoles: outBuildingHoles } : {}), ...(Object.keys(outBuildingCoveredBy).length ? { buildingCoveredBy: outBuildingCoveredBy } : {}), ...(Object.keys(outBuildingAssemblies).length ? { buildingAssemblies: outBuildingAssemblies } : {}), ...(unionBodies.length ? { buildingUnions: outBuildingUnions } : {}), ...(geometryPoints.length ? { buildingGeometryPoints: geometryPoints } : {}), pois: outP, areas: outA, lines: outLines, places, lamps,
+        nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, roadInfo, rampLimits, vacant, buildings: outB, ...(Object.keys(outBuildingDimensions).length ? { buildingDimensions: outBuildingDimensions } : {}), ...(Object.keys(outBuildingFootprints).length ? { buildingFootprints: outBuildingFootprints } : {}), buildingInfo: outBInfo, ...(Object.keys(outBuildingCanopies).length ? { buildingCanopies: outBuildingCanopies } : {}), ...(Object.keys(outBuildingSourceIssues).length ? { buildingSourceIssues: outBuildingSourceIssues } : {}), ...(ds ? { buildingIds: buildings.map(b => b.t?.__id || '') } : {}), ...(Object.keys(outBuildingHoles).length ? { buildingHoles: outBuildingHoles } : {}), ...(Object.keys(outBuildingCoveredBy).length ? { buildingCoveredBy: outBuildingCoveredBy } : {}), ...(Object.keys(outBuildingAssemblies).length ? { buildingAssemblies: outBuildingAssemblies } : {}), ...(unionBodies.length ? { buildingUnions: outBuildingUnions } : {}), ...(geometryPoints.length ? { buildingGeometryPoints: geometryPoints } : {}), pois: outP, areas: outA, lines: outLines, places, lamps,
         trees: outTrees, treeInfo: outTreeInfo, furniture: outFurn, backdrop, ...(ds ? { scenery: outScenery } : {}), ...(outGreen ? { green: outGreen } : {}),
         ...(parking.length ? { parking } : {}), ...(treeCoverage ? { treeCoverage } : {}),
         corridor: { areaKm2: +cor.areaKm2.toFixed(2), legs: cor.legs.map(l => [l.label, l.km]) },

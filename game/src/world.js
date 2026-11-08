@@ -2709,7 +2709,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         for (const [x, z] of ring) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); }
         const c = centroid(ring);
         return { i, style: data.styles[b[0]], h: data.buildingDimensions?.[i]?.[0] ?? b[1] / 10, minH: data.buildingDimensions?.[i]?.[1] ?? b[2] / 10, roof: data.roofs[b[3]], name: str(b[4]), flags: b[5], ring, holes, c, x0, z0, x1, z1, area: Math.abs(signedArea(ring)), skip: false,
-            levels: B_OFF === 9 ? b[6] : 0, colour: B_OFF === 9 ? str(b[7]) : '', roofColour: B_OFF === 9 ? str(b[8]) : '' };
+            canopy: data.buildingCanopies?.[i] || null, levels: B_OFF === 9 ? b[6] : 0, colour: B_OFF === 9 ? str(b[7]) : '', roofColour: B_OFF === 9 ? str(b[8]) : '' };
     });
     // ---- (round 6 notes 10 / 46) Bucharest 'house' buildings: the village-house look (shutters, steep gable) read wrong —
     //      in Floreasca / Romană they are interwar villas (plaster, low hipped roof), and a lone house among office towers
@@ -3323,6 +3323,37 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (b.skip) continue;
         const c = cellOf(b.c[0], b.c[1]);
         const mb = c.solid;
+        if (b.canopy) {
+            // Explicitly reviewed open roof: preserve its full mapped plan and its vertical collision band.
+            // Dimension/support provenance stays in data.buildingCanopies; estimates are not OSM clearance tags.
+            const ring = b.ring, ccw = signedArea(ring) > 0, roofCol = rgb(b.roofColour || '#a7a8a2');
+            const { pts, tris } = triangulate(ring, b.holes);
+            if (tris.length) c.roof.flatPoly(pts, tris, b.h, roofCol, 0.1, -1);
+            for (const tri of tris) mb.face3(...tri.map(i => [pts[i][0], b.minH, pts[i][1]]), rgb('#d6d5ce'), [0, -1, 0]);
+            for (let k = 0; k < ring.length; k++) {
+                const a = ring[k], p = ring[(k + 1) % ring.length], L = Math.hypot(p[0] - a[0], p[1] - a[1]); if (L < 0.05) continue;
+                const sign = ccw ? 1 : -1;
+                mb.wall(a[0], a[1], p[0], p[1], b.minH, b.h, sign * (p[1] - a[1]) / L, -sign * (p[0] - a[0]) / L, rgb('#d6d5ce'));
+            }
+            // Structural supports are an explicit authoring estimate, placed only where their complete square is clear.
+            const width = b.canopy.supportWidthM || 0.35, supports = [];
+            if (b.canopy.estimateSupports) for (const p of ring) {
+                const dx = b.c[0] - p[0], dz = b.c[1] - p[1], L = Math.hypot(dx, dz); if (L < 1.2) continue;
+                const x = p[0] + dx / L, z = p[1] + dz / L;
+                if (supports.some(q => Math.hypot(q[0] - x, q[1] - z) < 3)) continue;
+                const fp = obbPoly({ x, z, hw: width / 2, hd: width / 2, angle: 0 });
+                if (!fp.every(q => pointInPolygon(q[0], q[1], ring) && !b.holes.some(h => pointInPolygon(q[0], q[1], h))) || polyOnRibbon(fp)) continue;
+                let blocked = false;
+                bGrid.each(x - width, z - width, x + width, z + width, o => { if (o !== b && !o.skip && (fp.some(q => pointInPolygon(q[0], q[1], o.ring)) || o.ring.some(q => pointInPolygon(q[0], q[1], fp)) || polysCross(fp, o.ring))) blocked = true; });
+                if (blocked) continue;
+                mb.box(x, Y.side, z, width, Math.max(0.01, b.minH - Y.side), width, 0, rgb('#b8b9b4'));
+                propColl.push({ x, z, r: width * Math.SQRT1_2, hw: width / 2, hd: width / 2, angle: 0, poly: fp, h: b.minH, prop: true, kind: 'canopy-support', sourceId: data.buildingIds?.[b.i], estimated: true });
+                supports.push([x, z]);
+            }
+            b.canopySupports = supports.length;
+            collision.push({ x: b.c[0], z: b.c[1], r: Math.max(...ring.map(p => Math.hypot(p[0] - b.c[0], p[1] - b.c[1]))), poly: ring, holes: b.holes, sourceId: data.buildingIds?.[b.i], minH: b.minH, h: b.h, angle: 0, hw: (b.x1 - b.x0) / 2, hd: (b.z1 - b.z0) / 2, canopy: true });
+            continue;
+        }
         const brng = makeRng(b.i * 7919 + 13);
         const AR = !b.assembly && !b.holes.length && b.arch && ARCH ? ARCH.emit(b, c, makeRng(b.i * 7919 + 17)) : null; // archetype roofs do not yet support courtyards
         // (2026-11-08) Bucharest villas keep the interwar facade tiles but the villa quarter's warmer plasters (cream, ochre,
@@ -3963,6 +3994,13 @@ export async function buildWorld(city, renderer, opts = {}) {
         const side = ((x - ne.cx) * e.nx + (z - ne.cz) * e.nz) >= 0 ? 1 : -1;
         const roadAng = Math.atan2(e.dirx, e.dirz); // rotation about Y that maps local +z onto the edge direction
         if (kind === 'fuel') { // sourced stations keep their anchor; only clear footprints get forecourt decoration
+            const sourceCanopy = bIdx >= 0 ? bRecs[bIdx] : null;
+            if (sourceCanopy?.canopy && !sourceCanopy.skip) {
+                // The source roof was already emitted at its real footprint. Do not add a guessed 10x16m canopy/pumps.
+                poi.h = sourceCanopy.h; poi.w = sourceCanopy.x1 - sourceCanopy.x0; poi.d = sourceCanopy.z1 - sourceCanopy.z0;
+                fuelLog.push({ name: brand || name, x: Math.round(x), z: Math.round(z), canopy: true, source: data.buildingIds?.[sourceCanopy.i], sourceFootprint: true, topM: sourceCanopy.h, clearanceM: sourceCanopy.minH, topSource: sourceCanopy.canopy.topSource, clearanceSource: sourceCanopy.canopy.clearanceSource, supports: sourceCanopy.canopySupports || 0, supportSource: sourceCanopy.canopy.supportSource });
+                continue;
+            }
             // canopy on pillars + pumps + pylon sign
             const fx = x, fz = z, pyl = { e, ne, side }; // the mapped station anchor never moves to fit decoration
             { // the forecourt (canopy 10 × 16 m + apron 14 × 22 m) must stay off every carriageway AND every building footprint

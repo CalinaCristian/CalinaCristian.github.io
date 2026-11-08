@@ -126,6 +126,9 @@ that chapter of the CV.
 - **Performance.** Adaptive quality tiers, instanced traffic/crowds/parked cars and view-range culling target at most
   1.5 million triangles / 400 draw calls per district frame including traffic and the mirror. The overview records
   measured checks and remaining limits; software-rendered test timing is not phone performance.
+  Merged solid/roof meshes retain their original cell spans and select conservative geometry bounds independently
+  for main, mirror and shadow cameras. Physical roof raycasts still use the complete canonical mesh. This preserves
+  source geometry, measured crowns, population, detail and draw distances while avoiding invisible work.
 
 ## Controls
 | | Keyboard / mouse | Touch |
@@ -173,8 +176,11 @@ Developer pages: `game/dev/spots.html?id=<spot>`, `game/dev/landmarks.html`, `ga
   reviewed across 1,144 official Street View pairs and 195 aerial tiles; local evidence and remaining fidelity limits
   are recorded in `specs/12-buildings-streetscape.md` and `specs/19-qa-harness.md`.
   The [game overview](https://cristiancalina.com/game/overview/) documents the spec-driven AI workflow, architecture,
-  generation, simulation, controls and fidelity coverage. Its embedded viewer includes 199 Romană, 90 Floreasca and 99 Grozăvești
-  game captures beside live Esri World Imagery, grouped by playable district, nearby scenery and distant context.
+  generation, simulation, controls and fidelity coverage. Its embedded viewer includes delivered district surveys
+  beside live Esri World Imagery, grouped by playable district, nearby scenery and distant context. Refreshed collections
+  preserve each frame's original source revision; full historical surveys remain selectable with distinct labels.
+  Separate street-level collections show successive groups of game captures inline and link to original reference
+  panoramas. Camera/conditions metadata distinguishes static survey poses from actual controller tests.
   Capture commits and imagery limits are labelled; live aerials are cached in the browser for 15 minutes across reloads.
   The former separate comparison page is removed without a redirect.
   Street-walk comparisons use official Google panoramas by default (`--pano-provider=any` permits public uploads);

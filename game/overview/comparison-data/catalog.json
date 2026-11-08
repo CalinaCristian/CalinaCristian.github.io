@@ -15,6 +15,16 @@
       "id": "grozavesti",
       "label": "Grozăvești & Politehnica",
       "manifest": "grozavesti/manifest.json"
+    },
+    {
+      "id": "unirii",
+      "label": "Unirii & Parliament",
+      "manifest": "unirii/manifest.json"
+    },
+    {
+      "id": "otopeni",
+      "label": "Otopeni Airport",
+      "manifest": "otopeni/manifest.json"
     }
   ]
 }

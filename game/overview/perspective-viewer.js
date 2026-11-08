@@ -34,6 +34,7 @@ export async function mountPerspectiveViewer(element, { baseURL = new URL('./com
       if (disposed || request !== sequence) return;
       content.replaceChildren();
       const collections = (manifest.perspectiveCollections || []).filter(c => c.captureType === 'game-perspective-context' && c.comparisonCompatible === false && /^context\/[a-zA-Z0-9_/-]+\/manifest\.json$/.test(c.manifest || ''));
+      if (manifest.streetWalk?.manifest === 'street-walk/manifest.json') collections.unshift({ manifest: manifest.streetWalk.manifest, label: 'Street-level comparison poses', streetWalk: true });
       if (!collections.length) content.append(node('p', 'Street-level, night and drone context has not been published for this district yet.', 'notice'));
       for (const collection of collections) {
         const details = document.createElement('details'), summary = node('summary', collection.label || 'Game context'), body = node('div', undefined, 'perspective-grid');
@@ -45,20 +46,38 @@ export async function mountPerspectiveViewer(element, { baseURL = new URL('./com
           try {
             const url = new URL(collection.manifest, manifestURL), data = await get(url);
             if (disposed || request !== sequence) return;
-            if (data.captureType !== 'game-perspective-context' || data.comparisonCompatible !== false) throw new Error('Incorrect context type');
+            if (collection.streetWalk ? !Array.isArray(data.items) || data.referenceImageryTracked !== false : data.captureType !== 'game-perspective-context' || data.comparisonCompatible !== false) throw new Error('Incorrect context type');
             body.replaceChildren();
-            for (const item of data.items || []) {
+            const items = data.items || [];
+            const count = node('p', `${items.length} game captures. Original dates and source revisions are retained.`, 'notice');
+            body.append(count);
+            if (data.scope) body.append(node('p', data.scope, 'notice'));
+            let next = 0;
+            const more = node('button', 'Show next 24 captures'); more.type = 'button';
+            const appendPage = () => {
+              more.remove();
+              const end = Math.min(next + 24, items.length);
+              for (; next < end; next++) {
+              const item = items[next];
               const src = localAsset(item.image, url); if (!src) continue;
               const figure = document.createElement('figure'), image = document.createElement('img'), caption = document.createElement('figcaption');
               image.src = src; image.alt = item.label || item.id || 'Game context capture'; image.loading = 'lazy'; image.decoding = 'async';
               caption.append(node('b', item.label || item.id || 'Game context'));
-              caption.append(node('p', 'GAME capture · perspective context · no matched aerial image'));
+              caption.append(node('p', collection.streetWalk ? 'GAME capture · street comparison pose · panorama altitude may differ' : 'GAME capture · perspective context · no matched aerial image'));
+              if (collection.streetWalk && /^https:\/\/www\.google\.com\/maps\//.test(item.reference?.url || '')) {
+                const reference = node('a', `Open reference panorama${item.reference.date ? ' · '+item.reference.date : ''}`);
+                reference.href = item.reference.url; reference.target = '_blank'; reference.rel = 'noopener'; caption.append(reference);
+              }
               const commit = item.gameSourceCommit || item.sourceCommit || data.gameSourceCommit || data.sourceCommit;
               if (/^[a-f0-9]{40}$/.test(commit || '')) { const link = node('a', commit.slice(0, 10)); link.href = `https://github.com/CalinaCristian/CalinaCristian.github.io/commit/${commit}`; caption.append(link); }
-              const metadata = document.createElement('details'); metadata.append(node('summary', 'Camera, conditions and exercise coverage'), node('pre', JSON.stringify({ capturedAt: item.capturedAt || data.generatedAt, camera: item.camera || item.pose, conditions: item.condition || item.conditions || data.conditions, staticCamera: item.staticCamera, controllerExercised: item.controllerExercised }, null, 2)));
+              const metadata = document.createElement('details'); metadata.append(node('summary', 'Camera, conditions and exercise coverage'), node('pre', JSON.stringify({ capturedAt: item.capturedAt || data.generatedAt, camera: item.camera || item.pose || { x:item.x, z:item.z, y:item.cameraY, heading:item.heading, pitch:item.pitch, fov:item.fov, sourceEdge:item.cameraSourceEdge, levelAmbiguity:item.cameraLevelAmbiguity }, conditions: item.condition || item.conditions || data.conditions || item.captureSettings, staticCamera: item.staticCamera ?? Boolean(collection.streetWalk), controllerExercised: item.controllerExercised ?? (collection.streetWalk ? false : undefined) }, null, 2)));
               caption.append(metadata); figure.append(image, caption); body.append(figure);
-            }
-            if (!body.children.length) body.append(node('p', 'No valid capture assets are present in this collection.'));
+              }
+              count.textContent = `${next} of ${items.length} game captures shown. Original dates and source revisions are retained.`;
+              if (next < items.length) body.append(more);
+            };
+            more.addEventListener('click', appendPage); appendPage();
+            if (!items.length) body.append(node('p', 'No valid capture assets are present in this collection.'));
             loaded = true;
           } catch { body.replaceChildren(node('p', 'This collection could not load. Close and reopen it to retry.', 'notice')); }
           finally { loading = false; }

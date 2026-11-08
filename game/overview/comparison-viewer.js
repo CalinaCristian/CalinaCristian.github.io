@@ -295,7 +295,9 @@ export async function mountComparisonViewer(element, {baseURL = new URL('./compa
       const choices = [['survey',`District survey · ${latest.items.length-baselineCount} views`],...(hasBaseline?[['baseline',`${baselineCount} published baseline views`]]:[])];
       for(const history of latest.historicalCollections || []) {
         const saved = archives.get(archiveKey(state.location,history.manifest));
-        if(saved) choices.push([`archive:${history.manifest}`,`Historical collection · ${history.frames ?? saved.data?.items.length ?? '?'} views${history.generatedAt?' · '+history.generatedAt.slice(0,10):''}`,saved.unavailable]);
+        const revision = history.gameSourceCommit || saved?.data?.gameSourceCommit || history.publishedBaseline;
+        const label = history.label || `Historical collection${revision ? ' · '+revision.slice(0,7) : ''}`;
+        if(saved) choices.push([`archive:${history.manifest}`,`${label} · ${history.frames ?? saved.data?.items.length ?? '?'} views${history.generatedAt?' · '+history.generatedAt.slice(0,10):''}`,saved.unavailable]);
       }
       for(const [value,text,disabled] of choices) {const option = document.createElement('option');option.value=value;option.textContent=text+(disabled?' · unavailable':'');option.disabled=!!disabled;collection.append(option);}
       collection.value = state.archive ? `archive:${state.archive}` : state.baseline?'baseline':'survey';

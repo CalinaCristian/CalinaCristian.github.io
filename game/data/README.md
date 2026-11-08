@@ -34,6 +34,7 @@ String fields are indices into `strings` (`-1` = none).
 | `pois` | `[kind, x, z, name, brand, sub, buildingIndex]` (`sub` = OSM value, e.g. `fast_food:burger`) |
 | `areas` | `[kind, name, outer delta, hole delta, …]` |
 | `lines` | `[kind, width_dm, name, delta]` (runways, taxiways, rivers) |
+| `lineSources` | Optional parallel original OSM way IDs/tags, node IDs/WGS84, precise projected points, width and width provenance. Runtime prefers these points and positive widths; absent metadata retains legacy coordinates. Mapped water polygons control known banks. Estimated ribbons are omitted where a mapped surface already exists; an unmeasured partial boundary conflict stays in `world.stats.waterLines.unresolvedBoundaryM`. Source lines and polygons remain available unchanged. |
 | `lamps` | `[x, z, height_dm, …]` — OSM `highway=street_lamp` nodes (height 0 = unknown) |
 | `places` | `[name, x, z, rank]` (0 city, 1 suburb, 2 quarter, 3 neighbourhood) |
 | `trees` | `[x, z, t, …]` — OSM `natural=tree` nodes and `tree_row` ways (sampled every 7 m); `t = height_dm·2 + conifer` (height 0 = unknown, conifer from `leaf_type` / `genus`) |

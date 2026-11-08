@@ -240,3 +240,7 @@ Floreasca facts measured / observed (for whoever continues here)
 ### Dinamo high-angle paint depth
 
 The original 2mm paint/grass gap loses centre-circle and halfway-line fragments at a native70m drone view. Keep the exact source pitch,12cm line widths, flat caps, triangle count, football surface and physical collision; raise only paint caps to0.18m over0.16m grass (2cm rendering separation). Targeted current day/winter proof is required; the failed0775 winter image remains retained.
+
+### Mapped banks and duplicated water centreline ribbons
+
+Bellevue's six OSM `waterway=river` centreline ways have no width/tunnel tags. The legacy30m class estimate was painted over the separately mapped3–4m Downtown Park canal, creating blue segment pads. Preserve every mapped polygon and source way/node; `lineSources` retains original precision and distinguishes width tags from estimates. Exact polygon/line intersections suppress redundant covered ribbon portions. Where an explicitly unmeasured segment partly conflicts with a mapped bank, keep the original line and report the unverified outside length instead of painting an invented wide surface onto land. Unmapped portions without a mapped boundary and positively tagged widths retain their explicit provenance. No building, physical water polygon, road or actor changes. Native before/after images and all-district impact/recapture masks remain required.

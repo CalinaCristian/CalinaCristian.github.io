@@ -131,6 +131,8 @@ that chapter of the CV.
   Merged solid/roof meshes retain their original cell spans and select conservative geometry bounds independently
   for main, mirror and shadow cameras. Physical roof raycasts still use the complete canonical mesh. This preserves
   source geometry, measured crowns, population, detail and draw distances while avoiding invisible work.
+  Mapped water polygons define known banks. Source centreline ribbons fill unmapped portions, with width estimates
+  and boundary conflicts recorded; they no longer widen Bellevue's narrow canal into overlapping 30 m strips.
 
 ## Controls
 | | Keyboard / mouse | Touch |

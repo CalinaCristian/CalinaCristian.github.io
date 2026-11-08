@@ -19,6 +19,7 @@ import { sceneryBridgeProfiles, sceneryDeckBand } from './scenery-bridges.js';
 import { batchWaterChunks } from './water-batch.js';
 import { cullMergedCells } from './cell-frustum.js';
 import { waterChannelDecision } from './water-channel.js';
+import { uncoveredWaterLine } from './water-lines.js';
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -1847,9 +1848,13 @@ export async function buildWorld(city, renderer, opts = {}) {
         for (const v of G.rle) { if (v < 0) { endRow(); continue; } if (cur && v > 0) rowRuns.push([c, v]); c += v; cur ^= 1; }
         for (const o of open.values()) flush(o, r);
     }
-    // runways / rivers as ribbons
-    for (const l of data.lines) {
-        const kind = data.lineKinds[l[0]], w = l[1] / 10, pts = undelta(l[3], 0);
+    // Exact mapped water banks take precedence over fallback centreline widths.
+    const waterLineAudit = [];
+    for (const [lineIndex, l] of data.lines.entries()) {
+        const source = data.lineSources?.[lineIndex], kind = data.lineKinds[l[0]], w = source?.widthM > 0 ? source.widthM : l[1] / 10, pts = source?.points?.length >= 2 ? source.points : undelta(l[3], 0);
+        const airfield = kind === 'runway' || kind === 'taxiway';
+        const audit = airfield ? null : { lineIndex, sourceId: source?.sourceId || `prepared-line:${lineIndex}`, kind, preparedWidthM: w, widthSource: source?.widthSource || 'legacy prepared width; raw provenance unavailable', sourceLengthM: 0, coveredByMappedWaterM: 0, renderedFallbackM: 0, unresolvedBoundaryM: 0, mappedSources: [] };
+        if (audit) waterLineAudit.push(audit);
         const col = rgb(kind === 'runway' ? '#4f5156' : kind === 'taxiway' ? '#5d5f63' : env.water);
         const y = kind === 'runway' || kind === 'taxiway' ? Y.parking + 0.012 : Y.water - 0.005;
         for (let i = 0; i < pts.length - 1; i++) {
@@ -1857,7 +1862,19 @@ export async function buildWorld(city, renderer, opts = {}) {
             const nx = -(bz - az) / L * w / 2, nz = (bx - ax) / L * w / 2;
             const tgt = kind === 'runway' || kind === 'taxiway' ? cellOf(ax, az).pave : cellOf(ax, az).water;
             const inChan = channelAreas.length && kind !== 'runway' && kind !== 'taxiway' && channelAreas.some(c2 => inArea(c2, (ax + bx) / 2, (az + bz) / 2)); // (the river line inside the sunken channel)
-            tgt.flatQuad(ax + nx, az + nz, bx + nx, bz + nz, bx - nx, bz - nz, ax - nx, az - nz, inChan ? CHAN.water - 0.01 : y, col, 0.05);
+            let spans = [{ a: [ax, az], b: [bx, bz], length: L }];
+            if (audit) {
+                const candidates = new Set(); waterGrid.each(Math.min(ax, bx), Math.min(az, bz), Math.max(ax, bx), Math.max(az, bz), area => candidates.add(area));
+                const selection = uncoveredWaterLine([ax, az], [bx, bz], [...candidates]); spans = selection.outside;
+                // A known bank plus an explicitly unmeasured width cannot justify
+                // painting land at a conflicting source endpoint. Keep the source
+                // line and report that unresolved span, using the mapped surface.
+                if (selection.covered.length && source?.widthSource?.startsWith('estimate:')) { audit.unresolvedBoundaryM += spans.reduce((sum, span) => sum + span.length, 0); spans = []; }
+                audit.sourceLengthM += L; audit.coveredByMappedWaterM += selection.coveredLength;
+                audit.renderedFallbackM += spans.reduce((sum, span) => sum + span.length, 0);
+                for (const source of selection.covered.flatMap(span => span.sourceIds)) if (!audit.mappedSources.includes(source)) audit.mappedSources.push(source);
+            }
+            for (const span of spans) { const [x0, z0] = span.a, [x1, z1] = span.b; tgt.flatQuad(x0 + nx, z0 + nz, x1 + nx, z1 + nz, x1 - nx, z1 - nz, x0 - nx, z0 - nz, inChan ? CHAN.water - 0.01 : y, col, 0.05); }
             if (kind === 'runway') for (let s = 10; s < L - 10; s += 50) { const ux = (bx - ax) / L, uz = (bz - az) / L; const cx = ax + ux * s, cz = az + uz * s; const hw = 0.5, hl = 15; cellOf(cx, cz).marks.flatQuad(cx - uz * hw, cz + ux * hw, cx - uz * hw + ux * hl * 2, cz + ux * hw + uz * hl * 2, cx + uz * hw + ux * hl * 2, cz - ux * hw + uz * hl * 2, cx + uz * hw, cz - ux * hw, y + 0.02, rgb('#e8e8e8')); }
         }
     }
@@ -5708,6 +5725,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.scenerySource = scenerySourceAudit;
     stats.waterShore = waterShoreAudit;
     stats.waterChannels = waterChannelAudit;
+    stats.waterLines = waterLineAudit;
     console.info('[world]', city.id, stats);
 
     /** calls cb(height) for every drivable surface (carriageway + shoulder + sidewalk, junction pads) covering (x, z) */

@@ -913,18 +913,20 @@ function buildCity(cityId, did = null) {
     const landuseAt = (x, z) => { let k = null; landuseGrid.query(x, z, 0, (a) => { if (!k && pointInPolygon(x, z, a.rings[0])) k = a.kind; }); return k; };
 
     // lines: runways, rivers
-    const outLines = [];
-    for (const w of W.values()) {
+    const outLines = [], lineSources = [];
+    for (const [sourceWayId, w] of W.entries()) {
         const t = w.tags;
         let kind = null, width = 0;
-        if ((t.aeroway === 'runway' || t.aeroway === 'taxiway') && t.area !== 'yes') { kind = t.aeroway; width = num(t.width) || (t.aeroway === 'runway' ? 45 : 20); }
-        else if (t.waterway === 'river' || t.waterway === 'canal' || t.waterway === 'stream') { kind = t.waterway; width = num(t.width) || (t.waterway === 'river' ? 30 : t.waterway === 'canal' ? 15 : 3); if (kind === 'stream') continue; }
+        const literalWidth = parseMeasure(t.width);
+        if ((t.aeroway === 'runway' || t.aeroway === 'taxiway') && t.area !== 'yes') { kind = t.aeroway; width = literalWidth > 0 ? literalWidth : (t.aeroway === 'runway' ? 45 : 20); }
+        else if (t.waterway === 'river' || t.waterway === 'canal' || t.waterway === 'stream') { kind = t.waterway; width = literalWidth > 0 ? literalWidth : (t.waterway === 'river' ? 30 : t.waterway === 'canal' ? 15 : 3); if (kind === 'stream') continue; }
         if (!kind) continue;
         const pts = w.nodes.map(pt); if (pts.some(p => !p)) continue;
         const idx = simplifyIdx(pts, 1.0);
         const sp = idx.map(i => pts[i]);
         if (!sp.some(p => M(p[0], p[1]) <= 600)) continue;
         outLines.push([LINE_KINDS.indexOf(kind), Math.round(width * C.scale * 10), S(t.name), delta(sp)]);
+        lineSources.push({ sourceId: 'w' + sourceWayId, tags: { ...t }, nodeIds: w.nodes.map(String), wgs84: w.nodes.map(id => N.get(id)), points: pts, widthM: width * C.scale, widthSource: literalWidth > 0 ? 'OSM width' : 'estimate:' + kind + ' class; literal source width absent' });
     }
 
     // =======================================================================
@@ -1958,7 +1960,7 @@ function buildCity(cityId, did = null) {
         bounds: [minX, minZ, maxX, maxZ],
         classes: ROAD_CLASSES, styles: STYLES, roofs: ROOFS, poiKinds: POI_KINDS, areaKinds: AREA_KINDS, lineKinds: LINE_KINDS, furnKinds: FURN_KINDS,
         strings, ...(Object.keys(outBuildingRoofSurfaces).length ? { buildingRoofSurfaces: outBuildingRoofSurfaces, buildingRoofGeometryPoints: roofGeometryPoints } : {}),
-        nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, roadInfo, rampLimits, vacant, buildings: outB, ...(ds ? { buildingRoofProfiles: outBuildingRoofProfiles } : {}), ...(Object.keys(outBuildingDimensions).length ? { buildingDimensions: outBuildingDimensions } : {}), ...(Object.keys(outBuildingFootprints).length ? { buildingFootprints: outBuildingFootprints } : {}), buildingInfo: outBInfo, ...(Object.keys(outBuildingSourceTags).length ? { buildingSourceTags: outBuildingSourceTags } : {}), ...(Object.keys(outBuildingCanopies).length ? { buildingCanopies: outBuildingCanopies } : {}), ...(Object.keys(outBuildingSourceIssues).length ? { buildingSourceIssues: outBuildingSourceIssues } : {}), ...(ds ? { buildingIds: buildings.map(b => b.t?.__id || '') } : {}), ...(Object.keys(outBuildingHoles).length ? { buildingHoles: outBuildingHoles } : {}), ...(Object.keys(outBuildingCoveredBy).length ? { buildingCoveredBy: outBuildingCoveredBy } : {}), ...(Object.keys(outBuildingAssemblies).length ? { buildingAssemblies: outBuildingAssemblies } : {}), ...(unionBodies.length ? { buildingUnions: outBuildingUnions } : {}), ...(geometryPoints.length ? { buildingGeometryPoints: geometryPoints } : {}), pois: outP, areas: outA, ...(ds ? { areaSourceIds: areaRings.map(a => a.sourceId || '') } : {}), ...(Object.keys(parkingFootprints).length ? { parkingFootprints } : {}), ...(Object.keys(parkingLayouts).length ? { parkingLayouts } : {}), ...(parkingLayoutAudit.length ? { parkingLayoutAudit } : {}), lines: outLines, places, lamps,
+        nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, roadInfo, rampLimits, vacant, buildings: outB, ...(ds ? { buildingRoofProfiles: outBuildingRoofProfiles } : {}), ...(Object.keys(outBuildingDimensions).length ? { buildingDimensions: outBuildingDimensions } : {}), ...(Object.keys(outBuildingFootprints).length ? { buildingFootprints: outBuildingFootprints } : {}), buildingInfo: outBInfo, ...(Object.keys(outBuildingSourceTags).length ? { buildingSourceTags: outBuildingSourceTags } : {}), ...(Object.keys(outBuildingCanopies).length ? { buildingCanopies: outBuildingCanopies } : {}), ...(Object.keys(outBuildingSourceIssues).length ? { buildingSourceIssues: outBuildingSourceIssues } : {}), ...(ds ? { buildingIds: buildings.map(b => b.t?.__id || '') } : {}), ...(Object.keys(outBuildingHoles).length ? { buildingHoles: outBuildingHoles } : {}), ...(Object.keys(outBuildingCoveredBy).length ? { buildingCoveredBy: outBuildingCoveredBy } : {}), ...(Object.keys(outBuildingAssemblies).length ? { buildingAssemblies: outBuildingAssemblies } : {}), ...(unionBodies.length ? { buildingUnions: outBuildingUnions } : {}), ...(geometryPoints.length ? { buildingGeometryPoints: geometryPoints } : {}), pois: outP, areas: outA, ...(ds ? { areaSourceIds: areaRings.map(a => a.sourceId || '') } : {}), ...(Object.keys(parkingFootprints).length ? { parkingFootprints } : {}), ...(Object.keys(parkingLayouts).length ? { parkingLayouts } : {}), ...(parkingLayoutAudit.length ? { parkingLayoutAudit } : {}), lines: outLines, ...(lineSources.length ? { lineSources } : {}), places, lamps,
         ...(rawRailways.length ? { railways: rawRailways.map(r => ({ id: r.id, nodeIds: r.nodeIds, tags: r.tags, points: delta(r.pts) })) } : {}),
         ...(ds && Object.keys(areaSourceTags).length ? { areaSourceTags } : {}),
         ...(outTreeCrownRadii.some(r => r > 0) ? { treeCrownRadii: outTreeCrownRadii } : {}), ...(treeRetention ? { treeRetention } : {}),

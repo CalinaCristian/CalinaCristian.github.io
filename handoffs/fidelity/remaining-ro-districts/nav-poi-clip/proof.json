@@ -24,6 +24,7 @@
       ],
       "changedPixels": 276,
       "changedOutsideMap": 0,
+      "mapGlyphDraws": 1,
       "inputUnchanged": true
     },
     {
@@ -34,6 +35,7 @@
       ],
       "changedPixels": 174,
       "changedOutsideMap": 0,
+      "mapGlyphDraws": 1,
       "inputUnchanged": true
     },
     {
@@ -44,6 +46,7 @@
       ],
       "changedPixels": 0,
       "changedOutsideMap": 0,
+      "mapGlyphDraws": 0,
       "inputUnchanged": true
     },
     {
@@ -54,6 +57,7 @@
       ],
       "changedPixels": 0,
       "changedOutsideMap": 0,
+      "mapGlyphDraws": 0,
       "inputUnchanged": true
     },
     {
@@ -64,12 +68,13 @@
       ],
       "changedPixels": 0,
       "changedOutsideMap": 0,
+      "mapGlyphDraws": 0,
       "inputUnchanged": true
     }
   ],
   "sourceBase": "3501b63dbcf4f76a145246c1bb09655aaef5b4bd",
-  "navFileSha256": "656175b6bed41780e80d322068d37129fa5c259724161612d937b6eb6216375b",
-  "testFileSha256": "a97c7661c48881f54ee34aa56c42c020af7c35412a07ac70161b775034e2e2c3",
+  "navFileSha256": "b6607c1b5e5ac2f688d320438ea06d105abf8569c1016943ca99c583c8fb41ca",
+  "testFileSha256": "0ed6a0cd56fcb2d9d17c5bd94e89088df72943417749eab085b4bcda1716d972",
   "baselineFailure": {
     "source": "3501b63dbcf4f76a145246c1bb09655aaef5b4bd",
     "partialTopPixelsOutsideMap": 98,
@@ -101,5 +106,6 @@
       "sha256": "538d9c36b30f3bee1f7333be22bbfb2e76c6b98cc3e9af1552ec935b511fdb30",
       "scope": "game-only production 2D component with synthetic fixture pose; no reference imagery"
     }
-  ]
+  ],
+  "followup": "Cull wholly invisible nine-pixel markers against the actual visible map rectangle before text drawing, while still clipping boundary markers."
 }

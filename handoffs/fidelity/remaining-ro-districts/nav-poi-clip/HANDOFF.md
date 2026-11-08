@@ -4,4 +4,6 @@ Run `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium node game/dev/harness
 
 The pre-fix production component failed because the partial-top marker changed 98 pixels under the header. After the fix, the inside marker changes 276 map pixels, the partial-top marker changes 174 map pixels, and all outside controls change zero pixels. All five controls change zero pixels outside the map. Syntax checks pass. The pictures were inspected. `proof.json` records source/file hashes, counts and the game-only fixture scope; it does not claim a final district visual pass.
 
+The follow-up also skips nine-pixel markers wholly outside the visible map before any glyph draw. The fixture verifies that these controls issue zero map-text draws, while the inside and boundary controls each issue one. This removes unnecessary hidden draws as well as their pixels; partial markers still use the clip rectangle. No detector is changed.
+
 Parent documentation note: fuel markers near the navigation map edge now clip within the map rather than showing through the top/bottom banners. Final integrated native visual and foot/a checks remain the responsibility of the combined freeze.

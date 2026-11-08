@@ -329,7 +329,7 @@ function buildCurteaVeche(ctx) {
         b.add(wallGeometry([[tx - tw / 2, tz - tw / 2], [tx + tw / 2, tz - tw / 2], [tx + tw / 2, tz + tw / 2], [tx - tw / 2, tz + tw / 2]], y + 8.8, y + 15, fac.S, y, '#ffffff'), fac.key, null, '#ffffff');
         b.add(new THREE.ConeGeometry(tw * 0.78, 6.5, 8), 'metal', M(tx, y + 18.2, tz), '#5c5f60'); b.box(tx, y + 21.4, tz, 0.15, 1.8, 0.15, '#c9a24e', 'bronze'); b.box(tx, y + 22.6, tz, 0.9, 0.12, 0.12, '#c9a24e', 'bronze');
         ctx.poly(p, { y0: y - 1, y1: y + 22 });
-        church = { x: o.cx, z: o.cz, fac };
+        church = { x: o.cx, z: o.cz, fac, tower:{x:tx,z:tz,y:y+18.2} };
     }
     ctx.add(b.build('curtea-veche', { matOverrides: { ...(church ? { [church.fac.key]: church.fac.mat } : {}), ...(ctx.extras.ruinMats || {}) } }));
     return { bust: vb, church };
@@ -481,10 +481,10 @@ export default {
         ctx.plaque(PS[4], -212, -32, -Math.PI / 2, { style: 'city', credit: 'Post Palace (1894–1900), architect Alexandru Săvulescu.' });
         // Public outdoor details require actual look/capture inputs. An exterior
         // source footprint does not establish present-day access to the ruins.
-        if(CV.church){const ru=d.buildings.find(b=>b.id==='w658220894'),center=ru?centroid(ru.poly):null;
+        if(CV.church){const ru=d.buildings.find(b=>b.id==='w658220894'),edge=ru?distPolyline(CV.bust.x-3,CV.bust.z-3,[...ru.poly,ru.poly[0]]):null;
             const targets=[{label:'Vlad III bust',x:CV.bust.x,y:gy(CV.bust.x,CV.bust.z)+2.65,z:CV.bust.z,radius:.4},
-                {label:'Old Court church',x:CV.church.x,y:gy(CV.church.x,CV.church.z)+7,z:CV.church.z,radius:1.6,surfaceTolerance:8}];
-            if(center)targets.push({label:'Mapped Old Court ruins',x:center[0],y:gy(...center)+.7,z:center[1],radius:1.2});
+                {label:'Old Court church tower',...CV.church.tower,radius:1.6,surfaceTolerance:4}];
+            if(edge)targets.push({label:'Mapped Old Court brick wall',x:edge.cx,y:Math.min(...ru.poly.map(([x,z])=>gy(x,z)))+.9,z:edge.cz,radius:1.2});
             ctx.extras.curteaVecheVisit=photoHunt(ctx,{x:CV.bust.x-3,z:CV.bust.z-3,title:'Frame the Old Court details',targets,
                 unavailable:'Explore these source-backed features from the public street. Current access inside the excavations has not been verified.',
                 onDone:s=>bucActivity(s,'old-town-lipscani','curtea-veche','🏛 Old Court details framed','You framed the bust, church and mapped court remains from outside. This does not claim admission inside the excavations.')});}

@@ -202,7 +202,7 @@ class Game {
     }
 
     bindMenu() {
-        $('#start').addEventListener('click', () => this.start());
+        $('#start').addEventListener('click', () => this.newStory());
         this.renderMenuChapters();
         this.loadSpotsModule().then(() => this.renderMenuSpots());
         // Explore (note 75/76, explore.js): opens the world-map hub to pick a start (free roam is folded into Explore)
@@ -273,6 +273,20 @@ class Game {
         });
     }
 
+    /** (round 6 note 57) "New story" is a fresh run: chapter progress, the saved Continue session, this run's stats /
+     *  fines / clamp and the visited stops are cleared (achievements and photos are lifetime collections and stay;
+     *  the achievements panel has the full reset). Asks first when there is progress to lose. */
+    async newStory() {
+        const P = this.progress, has = P && (P.done.size || P.reached.size > 1);
+        if (has && !confirm('Start a new story from 2009?\n\nChapter progress and this run\'s stats are reset. Achievements and photos are kept.')) return;
+        this.progress = { reached: new Set(), done: new Set() }; saveProgress(this.progress);
+        this.visited = new Set(); this.clamp = null; this.fuel = TANK_L * 0.6;
+        this.stats = { dist: 0, time: 0, fuelL: 0, fuelReal: 0, fuelCost: { RON: 0, USD: 0 }, fines: { RON: 0, USD: 0 }, fineCount: 0, tow: { RON: 0, USD: 0 }, cleanDist: 0, peds: 0, fastTravels: 0, fastDist: 0 };
+        try { await save.clearSession?.(); } catch (e) { console.warn('[save] clear', e); }
+        try { const b = $('#continue'); if (b) b.hidden = true; } catch { /* ignore */ }
+        this.renderMenuChapters?.();
+        return this.start(0);
+    }
     async start(chapterIdx = null) {
         if (this.started) return; this.started = true;
         $('#start').blur();

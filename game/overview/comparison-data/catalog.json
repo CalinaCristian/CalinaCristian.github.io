@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "locations": [
+    {
+      "id": "romana",
+      "label": "Romană & Victoriei",
+      "manifest": "romana/manifest.json"
+    },
+    {
+      "id": "floreasca",
+      "label": "Floreasca",
+      "manifest": "floreasca/manifest.json"
+    }
+  ]
+}

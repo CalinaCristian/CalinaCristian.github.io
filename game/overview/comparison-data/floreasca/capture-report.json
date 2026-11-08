@@ -1,0 +1,30 @@
+{
+  "startedAt": "2026-11-08T12:56:00.681Z",
+  "endedAt": "2026-11-08T13:00:19.099Z",
+  "elapsedSeconds": 258.418,
+  "source": "f766e8c52ece3518f7e95ab03a24a04d2cb1bb69a4a12fea744a812dbc0ceb91",
+  "loaded": {
+    "key": "bucharest-floreasca",
+    "city": "bucharest",
+    "district": "floreasca",
+    "ms": 13002,
+    "edges": 310,
+    "ribbons": 391
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failedRequests": [],
+  "traffic": false,
+  "quality": "high",
+  "weather": "clear",
+  "season": "summer",
+  "time": "day",
+  "mirror": false,
+  "frameCounts": 90,
+  "coverageClaim": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+  "scopeCounts": {
+    "ring-touches": 64,
+    "core-touches": 20,
+    "outside-ring": 6
+  }
+}

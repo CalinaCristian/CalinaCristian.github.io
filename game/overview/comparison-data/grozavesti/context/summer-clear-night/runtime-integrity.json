@@ -1,0 +1,191 @@
+{
+  "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+  "district": "grozavesti",
+  "expectedLandmarks": [
+    "politehnica",
+    "cathedral"
+  ],
+  "actualLandmarks": [
+    {
+      "id": "cathedral",
+      "label": "Catedrala Mântuirii Neamului",
+      "x": 1835.8155491891057,
+      "z": 1697.0189796005013
+    },
+    {
+      "id": "politehnica",
+      "label": "Rectoratul Politehnicii",
+      "x": -611.1543228877347,
+      "z": 307.9467720003049
+    }
+  ],
+  "missingLandmarks": [],
+  "roofProfiles": {
+    "supplied": 2416,
+    "applied": 2416,
+    "rejected": [],
+    "uncertain": [
+      {
+        "source": "w225611016",
+        "issues": [
+          "unsupported roof:shape=saltbox"
+        ]
+      },
+      {
+        "source": "w225611017",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w225611028",
+        "issues": [
+          "unsupported roof:shape=half-hipped"
+        ]
+      },
+      {
+        "source": "w225611030",
+        "issues": [
+          "unsupported roof:shape=saltbox"
+        ]
+      },
+      {
+        "source": "w225611031",
+        "issues": [
+          "unsupported roof:shape=saltbox"
+        ]
+      },
+      {
+        "source": "w1559344855",
+        "issues": [
+          "total height absent or estimated below source minimum; positive body above source minimum is estimated"
+        ]
+      },
+      {
+        "source": "w81623835",
+        "issues": [
+          "unsupported roof:shape=many"
+        ]
+      },
+      {
+        "source": "w570330518",
+        "issues": [
+          "flat roof with positive roof:height"
+        ]
+      },
+      {
+        "source": "w620596471",
+        "issues": [
+          "flat roof with positive roof:height"
+        ]
+      },
+      {
+        "source": "w678037221",
+        "issues": [
+          "unsupported roof:shape=cone"
+        ]
+      },
+      {
+        "source": "w1331434735",
+        "issues": [
+          "total height absent or estimated below source minimum; positive body above source minimum is estimated"
+        ]
+      }
+    ],
+    "surfacesApplied": 546,
+    "surfacesRejected": [
+      "w1217713450"
+    ],
+    "canopies": {
+      "native": [
+        {
+          "sourceId": "w239359996",
+          "shape": "flat",
+          "totalM": 5.2,
+          "eavesM": 5.2,
+          "minimumM": 4.8
+        }
+      ],
+      "legacyFlat": []
+    }
+  },
+  "assembliesRejected": [],
+  "unionsRejected": [],
+  "sourceReplacements": [
+    {
+      "landmark": "cathedral",
+      "declared": [
+        "w1282739666",
+        "w1282739667",
+        "w1282747245",
+        "w1282747246",
+        "w1282747247",
+        "w1282747248",
+        "w1282747249",
+        "w1282747250",
+        "w1282747251",
+        "w1282747252",
+        "w1282747253",
+        "w1282747254",
+        "w1283287480",
+        "w1283287481",
+        "w1283287482",
+        "w1283287483",
+        "w1283287484",
+        "w1283287485",
+        "w1283287486",
+        "w1283287487",
+        "w1283287488",
+        "w1283287489",
+        "w232332568"
+      ],
+      "replaced": [],
+      "unmatched": [
+        "w1282739666",
+        "w1282739667",
+        "w1282747245",
+        "w1282747246",
+        "w1282747247",
+        "w1282747248",
+        "w1282747249",
+        "w1282747250",
+        "w1282747251",
+        "w1282747252",
+        "w1282747253",
+        "w1282747254",
+        "w1283287480",
+        "w1283287481",
+        "w1283287482",
+        "w1283287483",
+        "w1283287484",
+        "w1283287485",
+        "w1283287486",
+        "w1283287487",
+        "w1283287488",
+        "w1283287489",
+        "w232332568"
+      ]
+    },
+    {
+      "landmark": "politehnica",
+      "declared": [
+        "w28240552",
+        "w1217715300"
+      ],
+      "replaced": [
+        "w28240552",
+        "w1217715300"
+      ],
+      "unmatched": []
+    }
+  ],
+  "parkingClearance": {
+    "candidates": 750,
+    "retained": 665,
+    "outsideSourceLot": 38,
+    "raisedSidewalk": 46,
+    "buildingBody": 1,
+    "canopySupport": 0,
+    "measuredLots": []
+  }
+}

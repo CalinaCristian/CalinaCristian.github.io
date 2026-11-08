@@ -109,7 +109,7 @@ fs.mkdirSync(out, { recursive: true });
             await page.evaluate(weather => { const g = game; g.setRoamWeather(weather); g.setRoamSeason(weather === 'snow' ? 'winter' : 'summer'); for (let i = 0; i < 100; i++) g.r3d._updateWeather(0.1, g.camera.position, g.camera.position.clone().set(0, 0, 0)); }, weather);
             for (const view of ['close', 'overhead', 'wide']) {
                 const evidence = await page.evaluate(view => dinamoRender(view), view); evidence.weather = weather; report.views.push(evidence);
-                await page.screenshot({ path: path.join(out, `${weather}-${view}.png`) });
+                if (option('screenshots', 'all') !== 'none') await page.screenshot({ path: path.join(out, `${weather}-${view}.png`), timeout: 120000 });
             }
         }
         check('ball unobstructed at close, overhead and wide weather views', report.views.every(v => v.firstHit === 'dinamo-football'), report.views.map(({ weather, view, firstHit, ballColor, pixelsRadius }) => ({ weather, view, firstHit, ballColor, pixelsRadius })));

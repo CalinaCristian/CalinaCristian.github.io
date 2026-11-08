@@ -123,6 +123,20 @@ export class OnFootController {
                 if ((o.speed || 0) > 1.5) this.bumped = this.t; // a moving car shoved you
                 any = true;
             }
+            // people (2026-11-08, owner: "account for the objects in their hands"): their body + what they carry (an open
+            // umbrella's canopy, a guitar, a bag: crowd.reach) keeps you apart; you share the push with them (someone
+            // talking to you / an officer holds their ground)
+            const peds = this.traffic?.peds;
+            if (peds?.near && !this.airborne) for (const p of peds.near(this.x, this.z, 1.6)) {
+                if (p.state === 'down' || p.hidden) continue;
+                const rr = R + (p.reach || (peds.crowd?.reach ? peds.crowd.reach(p.i) : 0.3)) - 0.05;
+                let dx = this.x - p.x, dz = this.z - p.z; const d = Math.hypot(dx, dz); if (d >= rr) continue;
+                if (d < 1e-3) { dx = -this.fx || 1; dz = -this.fz || 0; } else { dx /= d; dz /= d; }
+                const ov = rr - Math.max(d, 0), hold = p.talkT > 0 || p.agent || p.react, kp = hold ? 0 : 0.4;
+                this.x += dx * ov * (1 - kp); this.z += dz * ov * (1 - kp);
+                if (kp) { p.x -= dx * ov * kp; p.z -= dz * ov * kp; }
+                any = true;
+            }
             if (!any) break;
         }
     }

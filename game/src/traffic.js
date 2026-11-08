@@ -89,7 +89,8 @@ function playerExtent(P, ux, uz) {
 export function playerPen(v, P, x = v.x, z = v.z, fx = v.fx, fz = v.fz) {
     const rx = -fz, rz = fx, prx = -P.fz, prz = P.fx;
     const vl = v.length / 2, vw = v.width / 2;
-    const dx = P.x - x, dz = P.z - z;
+    const co = ((P.front ?? 2.2) - (P.rear ?? 2.2)) / 2; // (the player's body centre sits ahead of the eye: player.js)
+    const dx = P.x + P.fx * co - x, dz = P.z + P.fz * co - z;
     let min = Infinity;
     for (const [ux, uz] of [[fx, fz], [rx, rz], [P.fx, P.fz], [prx, prz]]) {
         const ra = Math.abs(fx * ux + fz * uz) * vl + Math.abs(rx * ux + rz * uz) * vw;
@@ -114,7 +115,7 @@ function boxPen(ax, az, afx, afz, al, aw, bx, bz, bfx, bfz, bl, bw) {
 /** penetration between two vehicles as drawn (mesh heading) */
 const vvPen = (a, b, ax = a.x, az = a.z, ah = a.heading) => boxPen(ax, az, -Math.sin(ah), -Math.cos(ah), a.length / 2, a.width / 2, b.x, b.z, -Math.sin(b.heading), -Math.cos(b.heading), b.length / 2, b.width / 2);
 /** penetration between a vehicle (as drawn) and the player */
-const vpPen = (v, P) => boxPen(v.x, v.z, -Math.sin(v.heading), -Math.cos(v.heading), v.length / 2, v.width / 2, P.x, P.z, P.fx, P.fz, (P.length || 4.4) / 2, (P.width || 1.8) / 2);
+const vpPen = (v, P) => { const co = ((P.front ?? 2.2) - (P.rear ?? 2.2)) / 2; return boxPen(v.x, v.z, -Math.sin(v.heading), -Math.cos(v.heading), v.length / 2, v.width / 2, P.x + P.fx * co, P.z + P.fz * co, P.fx, P.fz, (P.length || 4.4) / 2, (P.width || 1.8) / 2); };
 /** minimum distance between segments p0p1 and q0q1 */
 function segDist(p0x, p0z, p1x, p1z, q0x, q0z, q1x, q1z) {
     const d = (ax, az, bx, bz, px, pz) => { const vx = bx - ax, vz = bz - az, L2 = vx * vx + vz * vz || 1e-9; const t = Math.max(0, Math.min(1, ((px - ax) * vx + (pz - az) * vz) / L2)); return Math.hypot(ax + vx * t - px, az + vz * t - pz); };
@@ -2208,8 +2209,17 @@ class Pedestrians {
         const S = this.t.stats; S.pedObstacleOverlaps = n; S.pedObstacleMax = Math.max(S.pedObstacleMax || 0, n); S.pedObstacleWorst = at ? { depth: Math.round(worst * 100) / 100, ...at } : null;
         return n;
     }
+    /** (2026-11-08, owner: "they teleport") back on a sidewalk line, but still where they stand: the gap to the line goes
+     *  into s / walkOff (which drifts back at a walking pace) instead of a jump onto it */
+    adoptLine(p, x, z) {
+        const e = p.e; if (!e || Math.hypot(p.x - x, p.z - z) < 0.05) return;
+        const dx = x - p.x, dz = z - p.z;
+        p.s = clamp(p.s + dx * e.dirx + dz * e.dirz, 0, e.len);
+        p.walkOff = clamp((p.walkOff || 0) + (dx * e.nx + dz * e.nz) * p.side, -0.6, 3);
+        this.placeWalk(p);
+    }
     placeWalk(p) {
-        if ((p.walkOff || 0) > this.maxOut(p.e, p.side)) p.walkOff = this.maxOut(p.e, p.side); // (stay on the sidewalk)
+        { const mo = this.maxOut(p.e, p.side); if ((p.walkOff || 0) > mo) p.walkOff = Math.max(mo, p.walkOff - 0.03); } // (stay on the sidewalk: back onto it at a walking pace, not in one jump)
         const e = p.e, dg = this.dodgeAt(p), o = (this.off(e, p.side) + (p.walkOff || 0) + dg) * p.side;
         p.onDodge = dg < -0.05; // (stepping round a parked car on the road side: not "lost in a carriageway")
         p.x = e.a.x + e.dirx * p.s + e.nx * o; p.z = e.a.z + e.dirz * p.s + e.nz * o;
@@ -2320,7 +2330,10 @@ class Pedestrians {
     knock(p, fx, fz, strength) {
         if (p.state === 'down') return false;
         p.prev = p.state; p.state = 'down'; p.downT = 4 + Math.min(4, strength * 0.3);
-        p.x += fx * 1.2; p.z += fz * 1.2; p.fallDir = Math.atan2(-fx, -fz);
+        // (2026-11-08, owner: "they teleport instead of being hit") thrown along the hit, sliding to a stop over ≈ 0.4 s
+        // (was a 1.2 m jump in one frame); they get up and walk back to their sidewalk line (was a snap back onto it)
+        const v0 = clamp(2.5 + strength * 0.45, 3, 9), fl = Math.hypot(fx, fz) || 1; p.flyX = fx / fl * v0; p.flyZ = fz / fl * v0;
+        p.fallDir = Math.atan2(-fx, -fz);
         return true;
     }
 
@@ -2332,8 +2345,23 @@ class Pedestrians {
             p.phase += dt * p.speed * 5.5;
             if (p.state === 'down') {
                 p.onRoad = true; // lying in the road: cars stop for them
+                if (p.flyX || p.flyZ) { // thrown by the hit: slide, slowing fast; stopped by walls / props
+                    const nx = p.x + p.flyX * dt, nz = p.z + p.flyZ * dt;
+                    if (this.obsDepth(nx, nz) > 0) { p.flyX = p.flyZ = 0; } else { p.x = nx; p.z = nz; }
+                    const k = Math.exp(-7 * dt); p.flyX *= k; p.flyZ *= k; if (Math.hypot(p.flyX, p.flyZ) < 0.1) p.flyX = p.flyZ = 0;
+                }
                 this.avoidVehicles(p, p.x, p.z, false); // (a car rolling onto them pushes them aside)
-                p.downT -= dt; if (p.downT <= 0) { p.state = p.prev === 'stand' ? 'stand' : (p.legs.length ? 'legs' : 'walk'); p.onRoad = false; if (p.state === 'walk' && p.e) this.placeWalk(p); }
+                p.downT -= dt;
+                if (p.downT <= 0) {
+                    p.onRoad = false; p.flyX = p.flyZ = 0;
+                    if (p.prev === 'stand' || (!p.legs.length && !p.e)) p.state = 'stand';
+                    else if (p.legs.length) p.state = 'legs';
+                    else { // walk back to where their sidewalk line is, then carry on
+                        const ox = p.x, oz = p.z; this.placeWalk(p); const tx = p.x, tz = p.z; p.x = ox; p.z = oz;
+                        if (Math.hypot(tx - ox, tz - oz) < 0.3) p.state = 'walk';
+                        else { p.legs = [{ x: tx, z: tz }]; p.next = { e: p.e, dir: p.dir, side: p.side, s: p.s }; p.state = 'legs'; p.legBest = undefined; p.legStall = 0; p.onRoad = true; } // (on their way back: cars wait, no kerb snap)
+                    }
+                }
                 continue;
             }
             if (p.agent || p.react) { this.updateActor(p, dt); continue; } // reacting to the player's parked car / the officer
@@ -2348,7 +2376,8 @@ class Pedestrians {
             else if (p.state === 'walk') {
                 if (!p.e) { p.state = 'stand'; continue; }
                 p.s += p.speed * dt * p.dir;
-                if (p.walkOff && !(p.passT > 0)) { const k = Math.min(Math.abs(p.walkOff), 0.35 * dt); p.walkOff -= Math.sign(p.walkOff) * k; } // drift back to the sidewalk line
+                if (p.walkGoal !== undefined) { const d = p.walkGoal - (p.walkOff || 0), k = Math.min(Math.abs(d), 1.3 * dt); p.walkOff = (p.walkOff || 0) + Math.sign(d) * k; if (Math.abs(d) < 0.02) p.walkGoal = undefined; }
+                else if (p.walkOff && !(p.passT > 0)) { const k = Math.min(Math.abs(p.walkOff), 0.35 * dt); p.walkOff -= Math.sign(p.walkOff) * k; } // drift back to the sidewalk line
                 const e = p.e;
                 const endNode = p.dir > 0 ? e.b : e.a;
                 const ins = Math.min(this.inset(endNode), e.len * 0.45);
@@ -2393,7 +2422,7 @@ class Pedestrians {
                 const stalled = !leg.cross && p.legStall > 2.5;
                 if (d < sp * dt + 0.05 || stalled) {
                     if (!stalled) { p.x = leg.x; p.z = leg.z; } p.legs.shift(); p.legBest = undefined; p.legStall = 0;
-                    if (!p.legs.length) { p.state = 'walk'; p.onRoad = false; p.e = p.next.e; p.dir = p.next.dir; p.side = p.next.side; p.s = p.next.s; this.placeWalk(p); }
+                    if (!p.legs.length) { const qx = p.x, qz = p.z; p.state = 'walk'; p.onRoad = false; p.e = p.next.e; p.dir = p.next.dir; p.side = p.next.side; p.s = p.next.s; this.placeWalk(p); this.adoptLine(p, qx, qz); }
                 } else {
                     p.x += dx / d * sp * dt; p.z += dz / d * sp * dt; p.heading = Math.atan2(-dx, -dz);
                 }
@@ -2437,7 +2466,13 @@ class Pedestrians {
                 const leg = p.legs[0];
                 p.crossT = (p.crossT || 0) + dt;
                 // pinned between cars on the carriageway (they wait for the pedestrian, the pedestrian for them): step through
-                if (leg && (p.blockT || 0) > 4) { p.x = leg.x; p.z = leg.z; p.blockT = 0; }
+                // (2026-11-08: was a jump onto the leg's end — "they teleport") a crossing turns back now; any other leg is
+                // dropped and they carry on from where they stand
+                if (leg && (p.blockT || 0) > 4) {
+                    p.blockT = 0;
+                    if (leg.cross && leg.sx !== undefined && !leg.back) { leg.back = true; leg.x = leg.sx; leg.z = leg.sz; p.legs.length = 1; p.next = { e: p.e, dir: -p.dir, side: p.side, s: p.s }; }
+                    else if (!leg.cross) { p.legs.shift(); if (!p.legs.length && p.next) { const qx = p.x, qz = p.z; p.state = 'walk'; p.onRoad = false; p.e = p.next.e; p.dir = p.next.dir; p.side = p.next.side; p.s = p.next.s; this.placeWalk(p); this.adoptLine(p, qx, qz); } }
+                }
                 if (leg && leg.cross && leg.sx !== undefined && p.crossT > 5 + (leg.len || 10) / 1.2 && !leg.back) {
                     leg.back = true; leg.x = leg.sx; leg.z = leg.sz; p.blockT = 0;
                     p.legs.length = 1; p.next = { e: p.e, dir: -p.dir, side: p.side, s: p.s };
@@ -2455,18 +2490,21 @@ class Pedestrians {
      * passer-by holds their spot and the other one makes room.
      */
     separate(dt = 1 / 30) {
-        const D = PED_R * 2, grid = this.grid;
+        const grid = this.grid, C = this.crowd;
+        // (each person's own reach: the umbrella canopies of two passers-by no longer cut through each other)
+        if (this._fr % 30 === 0 || !this._reachOk) { for (const p of this.list) p.reach = C.reach ? C.reach(p.i) : PED_R; this._reachOk = true; }
         const fixed = (p) => p.talkT > 0 || !!p.agent || !!p.react;
         for (const p of this.list) { p._ov = 0; if (p.passT > 0) p.passT -= dt; }
         for (const p of this.list) {
             if (p.state === 'down') continue;
-            grid.query(p.x, p.z, D, (q) => {
+            grid.query(p.x, p.z, 1.1, (q) => {
                 if (q.i <= p.i || q.state === 'down') return;
+                const D = (p.reach || PED_R) + (q.reach || PED_R);
                 let dx = q.x - p.x, dz = q.z - p.z; const d = Math.hypot(dx, dz); if (d >= D) return;
                 if (d < 1e-3) { const a = (p.i * 2.399) % 6.283; dx = Math.cos(a); dz = Math.sin(a); } else { dx /= d; dz /= d; }
                 const fp = fixed(p), fq = fixed(q); if (fp && fq) return;
                 const ov = D - d, kp = fq ? 1 : fp ? 0 : 0.5, kq = 1 - kp;
-                if (ov > 0.15) { p._ov = Math.max(p._ov, ov); q._ov = Math.max(q._ov, ov); }
+                if (ov > 0.15 + (D - PED_R * 2) * 0.5) { p._ov = Math.max(p._ov, ov); q._ov = Math.max(q._ov, ov); } // (a canopy brushing past is not a pile)
                 this.sepPush(p, -dx * ov * kp, -dz * ov * kp, q);
                 this.sepPush(q, dx * ov * kq, dz * ov * kq, p);
             });
@@ -2482,7 +2520,7 @@ class Pedestrians {
             p.ovT = (p.ovT || 0) + dt;
             if (p.ovT > 2 && !p.unpiled && !fixed(p)) {
                 p.unpiled = true;
-                if (p.state === 'walk' && p.e) { p.s += p.dir * 0.7; p.walkOff = (p.walkOff || 0) > 0.4 ? 0 : Math.min(0.8, this.maxOut(p.e, p.side)); p.passT = 2; this.placeWalk(p); }
+                if (p.state === 'walk' && p.e) { p.walkGoal = (p.walkOff || 0) > 0.4 ? 0 : Math.min(0.8, this.maxOut(p.e, p.side)); p.passT = 2.5; } // (steps across over ≈ 0.6 s, no jump)
                 else this.unpile(p, 1.2);
             }
             if (p.ovT > 8 && P && !fixed(p)) {

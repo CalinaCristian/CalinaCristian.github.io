@@ -57,8 +57,11 @@ that chapter of the CV.
 - **A living city.** Country-specific traffic (taxis, delivery vans, police; STB trams, trolleybuses and buses; King
   County Metro buses) driven by real lanes, one-ways, signals and speed limits, with traffic density by hour, rush-hour
   standstills at real hotspots (Piața Victoriei, Piața Unirii, Bd. Dimitrie Pompeiu, I-405), honking and angry chat
-  bubbles in Bucharest, pedestrians dressed for the season and weather, fuel and real gas stations, speed cameras,
-  turn-by-turn navigation on the car's screen and fast travel.
+  bubbles in Bucharest, pedestrians dressed for the season and weather (their umbrellas, guitars and bags take up room:
+  people pass each other and you, on foot, round them; a car knocks them over and they get up and walk back), fuel and
+  the gas stations mapped in OpenStreetMap (a district without one burns no fuel; no invented stations), speed
+  cameras, turn-by-turn navigation on the car's screen and fast travel. The car collides with its whole visible body
+  (bonnet to boot).
 - **Real light and weather.** Sun and moon from each place's real position and local time, street lights,
   headlights, lit windows and shops at night, live weather (Open-Meteo, with a 1991–2020 climate fallback) with rain,
   snow and fog, weather-driven visibility (snow settles on streets, roofs, lawns, sports grounds and the landmarks
@@ -78,7 +81,7 @@ that chapter of the CV.
   sidewalks at kerb height with corner pieces at every junction and a gentle slope down to the gardens behind; lane lines
   that run straight where OSM changes a street's lane count; a railing, wall-with-railing or hedge per villa plot and open
   or low-railed lawns in front of the blocks; cars parked on the sidewalk along both kerbs, with
-  pedestrians stepping into the road to pass them; front-garden railings, walls and hedges, kerb bollards, street lamps;
+  pedestrians stepping into the road to pass them (none in front of a car park or a CV stop's door); front-garden railings, walls and hedges, kerb bollards, street lamps;
   every pitch, tennis court, pool and school yard with its markings, goals, nets and fences (football pitches with mowing
   stripes, real goals with sloping nets, corner flags, dugouts with bucket seats on the clear side of the pitch, and
   ball-stop fences; a sports ground mapped as one big pitch round smaller ones stays plain); the Piața Floreasca market

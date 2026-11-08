@@ -1478,6 +1478,7 @@ export function makeCockpit() {
     const hood = new THREE.Mesh(hoodGeo, track(new THREE.MeshStandardMaterial({ color: '#b3262b', roughness: 0.34, metalness: 0.3 })));
     hood.material.userData.envScale = 0.55; hood.receiveShadow = true; hood.name = 'hood'; g.add(hood);
     g.userData.hood = hood;
+    g.userData.extent = { front: 3.42, rear: 2.36, half: 0.9 }; // (body from the eye: hood nose / boot / sides — the player's collision body)
     // trunk lid behind the rear window
     const trunk = new THREE.Mesh(extrude([[1.74, 1.12], [2.25, 1.04], [2.36, 0.92], [2.36, 0.6], [1.74, 0.6]], -0.82, 0.82), hood.material);
     trunk.receiveShadow = true; trunk.name = 'trunk'; g.add(trunk);

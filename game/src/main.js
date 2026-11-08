@@ -548,36 +548,8 @@ class Game {
             const brand = p.brand || p.label || p.name || BRANDS[city.id][0];
             return { x: p.doorX ?? p.x, z: p.doorZ ?? p.z, brand, price: P.brands[brand] ?? P.def, poi: p };
         });
-        if (!this.stations.length) {
-            // no mapped fuel station: a few fallback stations spread over the map — (2026-11-08, owner: "this Petrom is still
-            // inside buildings") only where the whole forecourt (canopy 12 × 8 m, shop behind it, pylon) is free of buildings
-            // and carriageways: several spots along each street and both sides are tried, then the next street
-            const want = city.id === 'bucharest' ? 5 : 3, W = this.world;
-            const edges = this.spreadEdges(e => (!isMotorway(e) || city.id === 'seattle') && e.len > 30, want * 24);
-            const blocked = (x, z) => {
-                if (W.onRibbon?.(x, z, 0.5)) return true;
-                let hit = false; const test = (b) => { if (hit || b.prop || b.soft) return; if (b.poly) { let c = false; const P2 = b.poly; for (let i = 0, j = P2.length - 1; i < P2.length; j = i++) { const [xi, zi] = P2[i], [xj, zj] = P2[j]; if ((zi > z) !== (zj > z) && x < (xj - xi) * (z - zi) / (zj - zi) + xi) c = !c; } if (c) hit = true; }
-                    else if (b.hw > 0 && b.hd > 0) { const a = b.angle || 0, dx = x - b.x, dz = z - b.z, lx = dx * Math.cos(a) - dz * Math.sin(a), lz = dx * Math.sin(a) + dz * Math.cos(a); if (Math.abs(lx) < b.hw && Math.abs(lz) < b.hd) hit = true; } }; // (landmark boxes)
-                if (W.buildings?.query) W.buildings.query(x, z, 1, test); return hit;
-            };
-            const fits = (x, z, ang) => { const ca = Math.cos(ang), sa = Math.sin(ang);
-                for (let lx = -7; lx <= 7.01; lx += 2.33) for (let lz = -11; lz <= 6.01; lz += 2.43) { const px = x + lx * ca + lz * sa, pz = z - lx * sa + lz * ca; if (blocked(px, pz)) return false; }
-                return true; };
-            for (const e of edges) {
-                if (this.stations.length >= want) break;
-                const hw0 = e.halfW ?? 6, sw = e.sidewalk ?? 2; let placed = null;
-                search: for (let k = 0; k <= 20; k += 4) for (const t of [0.5, 0.35, 0.65, 0.25, 0.75, 0.15, 0.85]) for (const sd of [1, -1]) { // (set back up to 20 m further where the lot is free)
-                    const dir = (canTravel(e, 1) ? 1 : -1) * sd, rx = e.nx * dir, rz = e.nz * dir, hw = (dir > 0 ? e.wR : e.wL) ?? hw0;
-                    const cx = e.a.x + (e.b.x - e.a.x) * t, cz = e.a.z + (e.b.z - e.a.z) * t, ang = Math.atan2(rx, rz);
-                    const mx = cx + rx * (hw + sw + 7 + k), mz = cz + rz * (hw + sw + 7 + k);
-                    if (this.stations.some(s => Math.hypot(s.x - mx, s.z - mz) < 250) || !fits(mx, mz, ang)) continue;
-                    placed = { cx, cz, rx, rz, hw, mx, mz, ang }; break search; }
-                if (!placed) continue;
-                const brand = BRANDS[city.id][this.stations.length % BRANDS[city.id].length];
-                this.props.add(buildStationMesh(placed.mx, placed.mz, placed.ang, brand));
-                this.stations.push({ x: placed.cx + placed.rx * (placed.hw + 1.5), z: placed.cz + placed.rz * (placed.hw + 1.5), brand, price: P.brands[brand] ?? P.def, fallback: true });
-            }
-        }
+        // (2026-11-08, owner: "if gas stations do not match real data, remove them") only stations mapped in OSM: the
+        // invented fallback forecourts stood on lots where real buildings are; a district without one burns no fuel
         for (const s of this.stations) { s.icon = '⛽'; s.color = '#0f766e'; }
     }
     setupCameras(city, world) {
@@ -730,12 +702,13 @@ class Game {
         // ---- odometer & fuel ----
         const v = Math.abs(player.speed);
         const acc = (Math.abs(player.speed) - Math.abs(prevSpeed)) / Math.max(dt, 1e-3);
-        const burn = this.refuel ? 0 : (FUEL_IDLE + FUEL_ROLL * v + FUEL_AERO * v * v * v + FUEL_ACC * Math.max(0, acc) * v) * dt;
+        const burn = this.refuel || !this.stations?.length ? 0 : // (no mapped gas station in this district: nowhere to refuel, so no burn)
+            (FUEL_IDLE + FUEL_ROLL * v + FUEL_AERO * v * v * v + FUEL_ACC * Math.max(0, acc) * v) * dt;
         if (!empty) { this.fuel = Math.max(0, this.fuel - burn * FUEL_GAME_MULT); this.stats.fuelReal += burn; }
         this.stats.dist += v * dt; this.stats.cleanDist += v * dt;
         if (this.stats.cleanDist > 5000 && hud.achievement('law-abiding')) this.audio.chime();
         if (this.fuel <= 0 && !this.flags.emptyToast) { this.flags.emptyToast = true; hud.toast('⛽ Out of fuel!', 'Limping at walking pace. Press T to call a tow truck.', 'warn'); this.audio.blip(220, 0.4, 0.15); }
-        if (this.fuel / TANK_L < 0.15 && this.fuel > 0 && !this.flags.lowFuel) { this.flags.lowFuel = true; hud.toast('⛽ Low fuel', 'Under 15% — find a gas station (M → Gas stations).', 'warn'); this.audio.blip(660, 0.2, 0.12); }
+        if (this.fuel / TANK_L < 0.15 && this.fuel > 0 && !this.flags.lowFuel && this.stations?.length) { this.flags.lowFuel = true; hud.toast('⛽ Low fuel', 'Under 15% — find a gas station (M → Gas stations).', 'warn'); this.audio.blip(660, 0.2, 0.12); }
         if (this.fuel / TANK_L > 0.2) this.flags.lowFuel = false;
         // ---- speed limit / enforcement ----
         const us = city.units === 'mph';
@@ -1311,7 +1284,7 @@ class Game {
             if (Math.abs(ym - sy) > 3) return;
             for (const sd of [1, -1]) shapes.push({ c: GREEN, pts: [[e.a.x + e.nx * hw * sd, e.a.z + e.nz * hw * sd], [e.b.x + e.nx * hw * sd, e.b.z + e.nz * hw * sd]], closed: false, y0: ym + 0.05, y1: ym + 0.05, kind: 'ribbon' });
         });
-        shapes.push({ c: YEL, pts: obb(P.x, P.z, P.fx, P.fz, P.length / 2, P.width / 2), closed: true, y0: sy, y1: sy + 1.2, kind: 'player' });
+        shapes.push({ c: YEL, pts: obb(P.x + P.fx * ((P.front ?? 2.2) - (P.rear ?? 2.2)) / 2, P.z + P.fz * ((P.front ?? 2.2) - (P.rear ?? 2.2)) / 2, P.fx, P.fz, P.length / 2, P.width / 2), closed: true, y0: sy, y1: sy + 1.2, kind: 'player' });
         for (const o of [1.3, 0, -1.3]) shapes.push({ c: YEL, pts: circle(P.x + P.fx * o, P.z + P.fz * o, 1.0, 12), closed: true, y0: sy + 0.1, y1: sy + 0.1, kind: 'player' });
         this.debug.shapes = shapes.length;
         // 2) 3D lines (through everything)
@@ -1387,7 +1360,6 @@ class Game {
         ctx.save(); ctx.translate(c.width / 2, c.height / 2); ctx.scale(mv.scale, mv.scale); ctx.translate(-mv.cx, -mv.cz);
         ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
         // (place pins: drawn by MiniMap only — one renderer, filtered by the shared map filter)
-        for (const s of this.stations) if (s.fallback) { ctx.save(); ctx.translate(s.x, s.z); ctx.scale(1 / mv.scale, 1 / mv.scale); ctx.beginPath(); ctx.arc(0, 0, 10, 0, 7); ctx.fillStyle = '#0f766e'; ctx.fill(); ctx.font = '12px sans-serif'; ctx.fillStyle = '#fff'; ctx.fillText('⛽', 0, 1); ctx.restore(); }
         ctx.restore();
     }
     onMapClick(e) {
@@ -2610,24 +2582,7 @@ class Game {
     }
 }
 
-// ---------- fallback props (only used when the world has no fuel / camera POIs) ----------
-function buildStationMesh(x, z, angle, brand) {
-    const g = new THREE.Group();
-    const lam = (c) => new THREE.MeshLambertMaterial({ color: c });
-    const box = (w, h, d, c, px, py, pz) => { const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), lam(c)); m.position.set(px, py, pz); m.castShadow = true; g.add(m); return m; };
-    const col = { Petrom: '#0f5132', OMV: '#1d4ed8', MOL: '#dc2626', Rompetrol: '#f59e0b', Lukoil: '#b91c1c', Socar: '#0ea5e9', Chevron: '#1e40af', Shell: '#facc15', '76': '#f97316', Arco: '#1e3a8a' }[brand] || '#0f766e';
-    box(12, 0.6, 8, '#f1f5f9', 0, 5, 0); box(12.1, 0.35, 8.1, col, 0, 4.6, 0);
-    for (const sx of [-5, 5]) for (const sz of [-3, 3]) box(0.35, 4.6, 0.35, '#e5e7eb', sx, 2.3, sz);
-    for (const sx of [-2.5, 2.5]) { box(0.8, 1.6, 0.6, '#e2e8f0', sx, 0.8, 0); box(0.82, 0.3, 0.62, col, sx, 1.5, 0); }
-    box(10, 3.2, 5, '#f8fafc', 0, 1.6, -8);
-    const tex = signTexture(brand, { bg: col, fg: '#ffffff', accent: '#ffffff', w: 512, h: 128 });
-    const sign = new THREE.Mesh(new THREE.PlaneGeometry(4, 1), new THREE.MeshBasicMaterial({ map: tex }));
-    sign.position.set(0, 4.8, 4.06); g.add(sign);
-    const pylon = box(0.5, 6, 0.5, '#94a3b8', 6.5, 3, 5.5);
-    const ps = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 1.2), new THREE.MeshBasicMaterial({ map: tex, side: THREE.DoubleSide })); ps.position.set(6.5, 6.2, 5.5); g.add(ps); pylon.castShadow = true;
-    g.position.set(x, 0.2, z); g.rotation.y = angle + Math.PI;
-    return g;
-}
+// ---------- fallback props (only used when the world has no camera POIs) ----------
 function buildCameraMesh(x, z, angle) {
     const g = new THREE.Group();
     const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 4, 8), new THREE.MeshLambertMaterial({ color: '#6b7280' })); pole.position.y = 2; g.add(pole);

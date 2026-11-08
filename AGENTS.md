@@ -74,6 +74,13 @@ Pitfalls found the hard way (each one shipped a visible bug)
 - Do not call a `const` helper from code that runs earlier in `buildWorld` (signs run inside the building loop): use a
   function declaration (hoisted) or define it first — `clearPortal` once broke the boot.
 
+- Never invent gameplay places either: gas stations come only from OSM `amenity=fuel` (the invented fallback forecourts were
+  removed); never drop or move a real building to fit anything.
+- The player's collision body is the cockpit model (nose 3.42 m ahead of the eye, boot 2.36 m behind: `player.front/rear`),
+  not a box centred on the eye; anything checking the player's footprint (traffic SAT, pedestrians) offsets by it.
+- No instant position snaps for people in view (knock-downs, un-piling, getting back to the sidewalk line): move them at a
+  walking pace (`adoptLine`, `walkGoal`), a teleport is only acceptable out of the player's sight.
+
 Owner preferences (from play-test feedback)
 - Reality first: real footprints, heights, roof shapes / colours, shops, trees, parked cars; nothing empty or dead, including
   outside the playable area (real buildings and streets in a 600 m ring, boxes only beyond).

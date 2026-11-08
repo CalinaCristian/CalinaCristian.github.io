@@ -1,0 +1,1812 @@
+{
+  "district": "otopeni",
+  "reviewedAt": "2026-11-08T16:58:35.441706+00:00",
+  "mosaicMetadata": {
+    "z": 18,
+    "px0": 38411776,
+    "py0": 24251392,
+    "w": 6144,
+    "h": 8192,
+    "bbox": [
+      44.548,
+      26.058,
+      44.578,
+      26.089
+    ],
+    "mPerPx": 0.42546720768414037,
+    "attribution": "Esri, Maxar, Earthstar Geographics, and the GIS User Community"
+  },
+  "registrationMetres": [
+    0.43,
+    1.7
+  ],
+  "count": 80,
+  "sheetsPrivate": true,
+  "referenceImageryCommitted": false,
+  "measurements": [
+    {
+      "osm": "w545777343",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-01.jpg",
+      "cell": 0,
+      "before": [
+        "hipped",
+        1.0,
+        "#c67e67",
+        103
+      ],
+      "after": [
+        "hipped",
+        1.0,
+        "#c67e67",
+        103
+      ],
+      "decision": "retained",
+      "note": "Red/brown sloped roof facets agree with the prediction.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w708675530",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-01.jpg",
+      "cell": 1,
+      "before": [
+        "hipped",
+        0.4,
+        "#475c55",
+        124
+      ],
+      "after": [
+        "gabled",
+        0.75,
+        "#475c55",
+        124
+      ],
+      "decision": "corrected-or-confirmed",
+      "note": "Two metal planes and longitudinal ridge visible.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w1088358997",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-01.jpg",
+      "cell": 2,
+      "before": [
+        "hipped",
+        1.0,
+        "#9a5444",
+        281
+      ],
+      "after": [
+        "hipped",
+        1.0,
+        "#9a5444",
+        281
+      ],
+      "decision": "retained",
+      "note": "Red/brown sloped roof facets agree with the prediction.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w1443413979",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-01.jpg",
+      "cell": 3,
+      "before": [
+        "hipped",
+        0.4,
+        "#86826a",
+        57
+      ],
+      "after": [
+        "unknown",
+        0,
+        "#86826a",
+        57
+      ],
+      "decision": "uncertain",
+      "note": "Tiny roadside roof is partly obscured; no reliable class.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w1506649866",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-01.jpg",
+      "cell": 4,
+      "before": [
+        "flat",
+        0.7,
+        "#2d403a",
+        152
+      ],
+      "after": [
+        "unknown",
+        0,
+        "#2d403a",
+        152
+      ],
+      "decision": "uncertain",
+      "note": "Dark narrow roof has insufficient visible facets.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w1153496415",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-01.jpg",
+      "cell": 5,
+      "before": [
+        "flat",
+        0.75,
+        "#a7a085",
+        1027
+      ],
+      "after": [
+        "flat",
+        0.75,
+        "#a7a085",
+        1027
+      ],
+      "decision": "retained",
+      "note": "Visible flat surface and/or rooftop plant agrees with the prediction.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w413830200",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-01.jpg",
+      "cell": 6,
+      "before": [
+        "flat",
+        0.66,
+        "#b0bdb3",
+        123
+      ],
+      "after": [
+        "hipped",
+        0.85,
+        "#b0bdb3",
+        123
+      ],
+      "decision": "corrected-or-confirmed",
+      "note": "Pale metal roof has clear end hips.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w413830418",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-01.jpg",
+      "cell": 7,
+      "before": [
+        "flat",
+        0.55,
+        "#b2ac9e",
+        210
+      ],
+      "after": [
+        "unknown",
+        0,
+        "#b2ac9e",
+        210
+      ],
+      "decision": "uncertain",
+      "note": "Mixed red/grey compound roof; single plane sample is not a class.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w1506836373",
+      "zone": "inside",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-01.jpg",
+      "cell": 8,
+      "before": [
+        "flat",
+        0.55,
+        "#f0e8d7",
+        184
+      ],
+      "after": [
+        "unknown",
+        0,
+        "#f0e8d7",
+        184
+      ],
+      "decision": "uncertain",
+      "note": "Pale roof is overexposed; slope not reliable.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w413830385",
+      "zone": "inside",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-01.jpg",
+      "cell": 9,
+      "before": [
+        "hipped",
+        1.0,
+        "#c66053",
+        104
+      ],
+      "after": [
+        "hipped",
+        1.0,
+        "#c66053",
+        104
+      ],
+      "decision": "retained",
+      "note": "Red/brown sloped roof facets agree with the prediction.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w918040933",
+      "zone": "inside",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-01.jpg",
+      "cell": 10,
+      "before": [
+        "hipped",
+        0.4,
+        "#576d65",
+        184
+      ],
+      "after": [
+        "flat",
+        0.85,
+        "#576d65",
+        184
+      ],
+      "decision": "corrected-or-confirmed",
+      "note": "Mapped section lies on dark flat roof of modern block.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w545601443",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-01.jpg",
+      "cell": 11,
+      "before": [
+        "hipped",
+        1.0,
+        "#b25947",
+        169
+      ],
+      "after": [
+        "hipped",
+        1.0,
+        "#b25947",
+        169
+      ],
+      "decision": "retained",
+      "note": "Red/brown sloped roof facets agree with the prediction.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w1097438890",
+      "zone": "inside",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-01.jpg",
+      "cell": 12,
+      "before": [
+        "hipped",
+        0.4,
+        "#7f8270",
+        70
+      ],
+      "after": [
+        "hipped",
+        0.4,
+        "#7f8270",
+        70
+      ],
+      "decision": "retained",
+      "note": "Occlusion or ambiguous facets remain below the acceptance confidence.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w413830369",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-01.jpg",
+      "cell": 13,
+      "before": [
+        "hipped",
+        1.0,
+        "#af5445",
+        218
+      ],
+      "after": [
+        "hipped",
+        1.0,
+        "#af5445",
+        218
+      ],
+      "decision": "retained",
+      "note": "Red/brown sloped roof facets agree with the prediction.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w1097438887",
+      "zone": "inside",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-01.jpg",
+      "cell": 14,
+      "before": [
+        "hipped",
+        0.4,
+        "#8e8a6d",
+        151
+      ],
+      "after": [
+        "hipped",
+        0.4,
+        "#8e8a6d",
+        151
+      ],
+      "decision": "retained",
+      "note": "Occlusion or ambiguous facets remain below the acceptance confidence.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w955952633",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-01.jpg",
+      "cell": 15,
+      "before": [
+        "flat",
+        0.7,
+        "#575c4e",
+        250
+      ],
+      "after": [
+        "unknown",
+        0,
+        "#575c4e",
+        250
+      ],
+      "decision": "uncertain",
+      "note": "Dark metal surface could be low-pitch; insufficient ridge evidence.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w1506649881",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-02.jpg",
+      "cell": 0,
+      "before": [
+        "flat",
+        0.63,
+        "#8c8e75",
+        297
+      ],
+      "after": [
+        "unknown",
+        0,
+        "#8c8e75",
+        297
+      ],
+      "decision": "uncertain",
+      "note": "Grey narrow roof lacks sufficient facet evidence.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w1097438897",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-02.jpg",
+      "cell": 1,
+      "before": [
+        "hipped",
+        0.53,
+        "#78644a",
+        57
+      ],
+      "after": [
+        "unknown",
+        0,
+        "#78644a",
+        57
+      ],
+      "decision": "uncertain",
+      "note": "Small roof mostly hidden by trees.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w413830197",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-02.jpg",
+      "cell": 2,
+      "before": [
+        "flat",
+        0.55,
+        "#b2a387",
+        163
+      ],
+      "after": [
+        "hipped",
+        0.85,
+        "#b2a387",
+        163
+      ],
+      "decision": "corrected-or-confirmed",
+      "note": "Light grey roof has clearly visible hip facets.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w846625412",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-02.jpg",
+      "cell": 3,
+      "before": [
+        "flat",
+        0.7,
+        "#454e46",
+        144
+      ],
+      "after": [
+        "unknown",
+        0,
+        "#454e46",
+        144
+      ],
+      "decision": "uncertain",
+      "note": "Dark surface is insufficient to distinguish low pitch from flat.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w1097438926",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-02.jpg",
+      "cell": 4,
+      "before": [
+        "hipped",
+        0.4,
+        "#98a092",
+        102
+      ],
+      "after": [
+        "unknown",
+        0,
+        "#98a092",
+        102
+      ],
+      "decision": "uncertain",
+      "note": "Mixed tree shadow and grey compound roof.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w413830305",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-02.jpg",
+      "cell": 5,
+      "before": [
+        "unknown",
+        0.0,
+        "#73865c",
+        128
+      ],
+      "after": [
+        "hipped",
+        0.75,
+        "#73865c",
+        128
+      ],
+      "decision": "corrected-or-confirmed",
+      "note": "Grey roof has visible hip/end planes.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w670596894",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-02.jpg",
+      "cell": 6,
+      "before": [
+        "flat",
+        0.55,
+        "#384b3b",
+        175
+      ],
+      "after": [
+        "hipped",
+        0.75,
+        "#384b3b",
+        175
+      ],
+      "decision": "corrected-or-confirmed",
+      "note": "Dark roof shows hip geometry at ends.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w376534189",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-02.jpg",
+      "cell": 7,
+      "before": [
+        "hipped",
+        1.0,
+        "#d3917a",
+        319
+      ],
+      "after": [
+        "hipped",
+        1.0,
+        "#d3917a",
+        319
+      ],
+      "decision": "retained",
+      "note": "Red/brown sloped roof facets agree with the prediction.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w956217452",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-02.jpg",
+      "cell": 8,
+      "before": [
+        "hipped",
+        1.0,
+        "#a67261",
+        129
+      ],
+      "after": [
+        "hipped",
+        1.0,
+        "#a67261",
+        129
+      ],
+      "decision": "retained",
+      "note": "Red/brown sloped roof facets agree with the prediction.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w413830193",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-02.jpg",
+      "cell": 9,
+      "before": [
+        "unknown",
+        0.0,
+        "#7e9488",
+        182
+      ],
+      "after": [
+        "hipped",
+        0.75,
+        "#7e9488",
+        182
+      ],
+      "decision": "corrected-or-confirmed",
+      "note": "Pale grey roof has central ridge and end facets.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w1097441979",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-02.jpg",
+      "cell": 10,
+      "before": [
+        "unknown",
+        0.0,
+        "#435c40",
+        65
+      ],
+      "after": [
+        "unknown",
+        0.0,
+        "#435c40",
+        65
+      ],
+      "decision": "retained",
+      "note": "Occlusion or ambiguous facets remain below the acceptance confidence.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w1506649890",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-02.jpg",
+      "cell": 11,
+      "before": [
+        "unknown",
+        0.0,
+        "#829f96",
+        226
+      ],
+      "after": [
+        "gabled",
+        0.75,
+        "#829f96",
+        226
+      ],
+      "decision": "corrected-or-confirmed",
+      "note": "Blue metal roof has two long planes.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w1469588531",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-02.jpg",
+      "cell": 12,
+      "before": [
+        "flat",
+        0.54,
+        "#ac9f82",
+        172
+      ],
+      "after": [
+        "hipped",
+        0.7,
+        "#ac9f82",
+        172
+      ],
+      "decision": "corrected-or-confirmed",
+      "note": "L-shaped grey roof has visible compound sloping planes.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w545777280",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-02.jpg",
+      "cell": 13,
+      "before": [
+        "hipped",
+        0.4,
+        "#a4ac9c",
+        103
+      ],
+      "after": [
+        "gabled",
+        0.8,
+        "#a4ac9c",
+        103
+      ],
+      "decision": "corrected-or-confirmed",
+      "note": "Bright metal roof has a longitudinal ridge.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w1469588533",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-02.jpg",
+      "cell": 14,
+      "before": [
+        "hipped",
+        1.0,
+        "#92534a",
+        121
+      ],
+      "after": [
+        "hipped",
+        1.0,
+        "#92534a",
+        121
+      ],
+      "decision": "retained",
+      "note": "Red/brown sloped roof facets agree with the prediction.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w545777278",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-02.jpg",
+      "cell": 15,
+      "before": [
+        "hipped",
+        0.4,
+        "#4f4c3c",
+        161
+      ],
+      "after": [
+        "gabled",
+        0.75,
+        "#4f4c3c",
+        161
+      ],
+      "decision": "corrected-or-confirmed",
+      "note": "Dark metal roof has visible central ridge.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w956217475",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-03.jpg",
+      "cell": 0,
+      "before": [
+        "hipped",
+        0.4,
+        "#414a44",
+        238
+      ],
+      "after": [
+        "unknown",
+        0,
+        "#414a44",
+        238
+      ],
+      "decision": "uncertain",
+      "note": "Narrow solar-covered roof has insufficient visible structural pitch.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w956477978",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-03.jpg",
+      "cell": 1,
+      "before": [
+        "flat",
+        0.7,
+        "#484a43",
+        175
+      ],
+      "after": [
+        "unknown",
+        0,
+        "#484a43",
+        175
+      ],
+      "decision": "uncertain",
+      "note": "Dark L roof has unresolved facets/shadow.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w413830300",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-03.jpg",
+      "cell": 2,
+      "before": [
+        "hipped",
+        0.89,
+        "#b08a6f",
+        200
+      ],
+      "after": [
+        "hipped",
+        0.89,
+        "#b08a6f",
+        200
+      ],
+      "decision": "retained",
+      "note": "Red/brown sloped roof facets agree with the prediction.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w1506649855",
+      "zone": "inside",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-03.jpg",
+      "cell": 3,
+      "before": [
+        "hipped",
+        1.0,
+        "#c37865",
+        129
+      ],
+      "after": [
+        "hipped",
+        1.0,
+        "#c37865",
+        129
+      ],
+      "decision": "retained",
+      "note": "Red/brown sloped roof facets agree with the prediction.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w1469588557",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-03.jpg",
+      "cell": 4,
+      "before": [
+        "hipped",
+        1.0,
+        "#b8896a",
+        279
+      ],
+      "after": [
+        "hipped",
+        1.0,
+        "#b8896a",
+        279
+      ],
+      "decision": "retained",
+      "note": "Red/brown sloped roof facets agree with the prediction.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w545777361",
+      "zone": "inside",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-03.jpg",
+      "cell": 5,
+      "before": [
+        "unknown",
+        0.0,
+        "#617c71",
+        100
+      ],
+      "after": [
+        "unknown",
+        0.0,
+        "#617c71",
+        100
+      ],
+      "decision": "retained",
+      "note": "Occlusion or ambiguous facets remain below the acceptance confidence.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w413830126",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-03.jpg",
+      "cell": 6,
+      "before": [
+        "hipped",
+        0.4,
+        "#666b63",
+        163
+      ],
+      "after": [
+        "flat",
+        0.75,
+        "#666b63",
+        163
+      ],
+      "decision": "corrected-or-confirmed",
+      "note": "Dark surface has rooftop plant and no visible ridge.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w956217512",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-03.jpg",
+      "cell": 7,
+      "before": [
+        "gabled",
+        1.0,
+        "#bf624e",
+        160
+      ],
+      "after": [
+        "gabled",
+        1.0,
+        "#bf624e",
+        160
+      ],
+      "decision": "retained",
+      "note": "Red/brown sloped roof facets agree with the prediction.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w1506650034",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-03.jpg",
+      "cell": 8,
+      "before": [
+        "flat",
+        0.55,
+        "#5a5145",
+        36
+      ],
+      "after": [
+        "unknown",
+        0,
+        "#5a5145",
+        36
+      ],
+      "decision": "uncertain",
+      "note": "Small roof under shadow cannot be classified reliably.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w1506836368",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-03.jpg",
+      "cell": 9,
+      "before": [
+        "flat",
+        0.63,
+        "#2b4b4a",
+        201
+      ],
+      "after": [
+        "flat",
+        0.63,
+        "#2b4b4a",
+        201
+      ],
+      "decision": "retained",
+      "note": "Visible flat surface and/or rooftop plant agrees with the prediction.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w545777297",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-03.jpg",
+      "cell": 10,
+      "before": [
+        "hipped",
+        0.97,
+        "#cca281",
+        274
+      ],
+      "after": [
+        "hipped",
+        0.97,
+        "#cca281",
+        274
+      ],
+      "decision": "retained",
+      "note": "Red/brown sloped roof facets agree with the prediction.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w413830364",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-03.jpg",
+      "cell": 11,
+      "before": [
+        "hipped",
+        1.0,
+        "#88564c",
+        202
+      ],
+      "after": [
+        "hipped",
+        1.0,
+        "#88564c",
+        202
+      ],
+      "decision": "retained",
+      "note": "Red/brown sloped roof facets agree with the prediction.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w216635237",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-03.jpg",
+      "cell": 12,
+      "before": [
+        "hipped",
+        1.0,
+        "#c36e58",
+        437
+      ],
+      "after": [
+        "unknown",
+        0,
+        "#c36e58",
+        437
+      ],
+      "decision": "uncertain",
+      "note": "Octagonal religious roof is compound; no simple roof class accepted.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w495066820",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-03.jpg",
+      "cell": 13,
+      "before": [
+        "flat",
+        0.63,
+        "#667363",
+        269
+      ],
+      "after": [
+        "flat",
+        0.63,
+        "#667363",
+        269
+      ],
+      "decision": "retained",
+      "note": "OSM roof tag remains authoritative.",
+      "osmRoofTags": {
+        "roof:levels": "1",
+        "roof:shape": "hipped"
+      }
+    },
+    {
+      "osm": "w1506649861",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-03.jpg",
+      "cell": 14,
+      "before": [
+        "flat",
+        0.7,
+        "#1c363a",
+        228
+      ],
+      "after": [
+        "flat",
+        0.7,
+        "#1c363a",
+        228
+      ],
+      "decision": "retained",
+      "note": "Visible flat surface and/or rooftop plant agrees with the prediction.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w956217440",
+      "zone": "ring",
+      "selection": "seeded random from complete source core/ring",
+      "sheet": "roof-sheet-03.jpg",
+      "cell": 15,
+      "before": [
+        "flat",
+        0.69,
+        "#b4bdb4",
+        126
+      ],
+      "after": [
+        "gabled",
+        0.8,
+        "#b4bdb4",
+        126
+      ],
+      "decision": "corrected-or-confirmed",
+      "note": "Pale metal roof has two visibly sloped planes.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w1506649808",
+      "zone": "ring",
+      "selection": "uncertain/occluded",
+      "sheet": "roof-sheet-04.jpg",
+      "cell": 0,
+      "before": [
+        "unknown",
+        0.0,
+        "#69715b",
+        210
+      ],
+      "after": [
+        "unknown",
+        0.0,
+        "#69715b",
+        210
+      ],
+      "decision": "retained",
+      "note": "Occlusion or ambiguous facets remain below the acceptance confidence.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w1506836354",
+      "zone": "ring",
+      "selection": "uncertain/occluded",
+      "sheet": "roof-sheet-04.jpg",
+      "cell": 1,
+      "before": [
+        "unknown",
+        0.0,
+        "#8ba396",
+        180
+      ],
+      "after": [
+        "hipped",
+        0.8,
+        "#8ba396",
+        180
+      ],
+      "decision": "corrected-or-confirmed",
+      "note": "Compound pale metal roof shows end hips.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w918040938",
+      "zone": "inside",
+      "selection": "uncertain/occluded",
+      "sheet": "roof-sheet-04.jpg",
+      "cell": 2,
+      "before": [
+        "unknown",
+        0.0,
+        "#192c2c",
+        214
+      ],
+      "after": [
+        "flat",
+        0.85,
+        "#192c2c",
+        214
+      ],
+      "decision": "corrected-or-confirmed",
+      "note": "Modern block section is a dark flat roof.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w846625275",
+      "zone": "ring",
+      "selection": "uncertain/occluded",
+      "sheet": "roof-sheet-04.jpg",
+      "cell": 3,
+      "before": [
+        "unknown",
+        0.0,
+        "#506d62",
+        169
+      ],
+      "after": [
+        "unknown",
+        0.0,
+        "#506d62",
+        169
+      ],
+      "decision": "retained",
+      "note": "Occlusion or ambiguous facets remain below the acceptance confidence.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w545777360",
+      "zone": "ring",
+      "selection": "uncertain/occluded",
+      "sheet": "roof-sheet-04.jpg",
+      "cell": 4,
+      "before": [
+        "unknown",
+        0.0,
+        "#416362",
+        67
+      ],
+      "after": [
+        "unknown",
+        0.0,
+        "#416362",
+        67
+      ],
+      "decision": "retained",
+      "note": "Occlusion or ambiguous facets remain below the acceptance confidence.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w312547018",
+      "zone": "inside",
+      "selection": "uncertain/occluded",
+      "sheet": "roof-sheet-04.jpg",
+      "cell": 5,
+      "before": [
+        "unknown",
+        0.0,
+        "#60928b",
+        928
+      ],
+      "after": [
+        "gabled",
+        0.85,
+        "#60928b",
+        928
+      ],
+      "decision": "corrected-or-confirmed",
+      "note": "Large blue metal supermarket roof shows longitudinal ridge.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w545777368",
+      "zone": "ring",
+      "selection": "uncertain/occluded",
+      "sheet": "roof-sheet-04.jpg",
+      "cell": 6,
+      "before": [
+        "unknown",
+        0.0,
+        "#507775",
+        138
+      ],
+      "after": [
+        "gabled",
+        0.8,
+        "#507775",
+        138
+      ],
+      "decision": "corrected-or-confirmed",
+      "note": "Blue grey metal roof shows two planes.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w1097441978",
+      "zone": "ring",
+      "selection": "uncertain/occluded",
+      "sheet": "roof-sheet-04.jpg",
+      "cell": 7,
+      "before": [
+        "unknown",
+        0.0,
+        "#304a2d",
+        107
+      ],
+      "after": [
+        "unknown",
+        0.0,
+        "#304a2d",
+        107
+      ],
+      "decision": "retained",
+      "note": "Occlusion or ambiguous facets remain below the acceptance confidence.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w956217495",
+      "zone": "ring",
+      "selection": "pitched prediction",
+      "sheet": "roof-sheet-04.jpg",
+      "cell": 8,
+      "before": [
+        "hipped",
+        1.0,
+        "#974338",
+        168
+      ],
+      "after": [
+        "hipped",
+        1.0,
+        "#974338",
+        168
+      ],
+      "decision": "retained",
+      "note": "Red/brown sloped roof facets agree with the prediction.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w216635248",
+      "zone": "ring",
+      "selection": "pitched prediction",
+      "sheet": "roof-sheet-04.jpg",
+      "cell": 9,
+      "before": [
+        "hipped",
+        1.0,
+        "#af6357",
+        613
+      ],
+      "after": [
+        "hipped",
+        1.0,
+        "#af6357",
+        613
+      ],
+      "decision": "retained",
+      "note": "Red/brown sloped roof facets agree with the prediction.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w259171720",
+      "zone": "ring",
+      "selection": "pitched prediction",
+      "sheet": "roof-sheet-04.jpg",
+      "cell": 10,
+      "before": [
+        "hipped",
+        0.61,
+        "#876f57",
+        194
+      ],
+      "after": [
+        "hipped",
+        0.61,
+        "#876f57",
+        194
+      ],
+      "decision": "retained",
+      "note": "Red/brown sloped roof facets agree with the prediction.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w545777284",
+      "zone": "ring",
+      "selection": "pitched prediction",
+      "sheet": "roof-sheet-04.jpg",
+      "cell": 11,
+      "before": [
+        "hipped",
+        0.4,
+        "#4e5143",
+        78
+      ],
+      "after": [
+        "hipped",
+        0.4,
+        "#4e5143",
+        78
+      ],
+      "decision": "retained",
+      "note": "Occlusion or ambiguous facets remain below the acceptance confidence.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w546176741",
+      "zone": "ring",
+      "selection": "pitched prediction",
+      "sheet": "roof-sheet-04.jpg",
+      "cell": 12,
+      "before": [
+        "gabled",
+        0.49,
+        "#685648",
+        122
+      ],
+      "after": [
+        "gabled",
+        0.8,
+        "#685648",
+        122
+      ],
+      "decision": "corrected-or-confirmed",
+      "note": "Long red roof has visible longitudinal ridge.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w545777356",
+      "zone": "ring",
+      "selection": "pitched prediction",
+      "sheet": "roof-sheet-04.jpg",
+      "cell": 13,
+      "before": [
+        "hipped",
+        1.0,
+        "#ac745a",
+        71
+      ],
+      "after": [
+        "hipped",
+        1.0,
+        "#ac745a",
+        71
+      ],
+      "decision": "retained",
+      "note": "Red/brown sloped roof facets agree with the prediction.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w545777333",
+      "zone": "ring",
+      "selection": "pitched prediction",
+      "sheet": "roof-sheet-04.jpg",
+      "cell": 14,
+      "before": [
+        "hipped",
+        1.0,
+        "#c9675e",
+        176
+      ],
+      "after": [
+        "hipped",
+        1.0,
+        "#c9675e",
+        176
+      ],
+      "decision": "retained",
+      "note": "Red/brown sloped roof facets agree with the prediction.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w546176733",
+      "zone": "ring",
+      "selection": "pitched prediction",
+      "sheet": "roof-sheet-04.jpg",
+      "cell": 15,
+      "before": [
+        "hipped",
+        0.4,
+        "#756b57",
+        108
+      ],
+      "after": [
+        "unknown",
+        0,
+        "#756b57",
+        108
+      ],
+      "decision": "uncertain",
+      "note": "Small roof heavily obscured by trees.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w545601465",
+      "zone": "ring",
+      "selection": "flat prediction",
+      "sheet": "roof-sheet-05.jpg",
+      "cell": 0,
+      "before": [
+        "flat",
+        0.7,
+        "#3c4438",
+        149
+      ],
+      "after": [
+        "unknown",
+        0,
+        "#3c4438",
+        149
+      ],
+      "decision": "uncertain",
+      "note": "Dark grey roof facet is not resolved.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w956217427",
+      "zone": "ring",
+      "selection": "flat prediction",
+      "sheet": "roof-sheet-05.jpg",
+      "cell": 1,
+      "before": [
+        "flat",
+        0.7,
+        "#454038",
+        41
+      ],
+      "after": [
+        "unknown",
+        0,
+        "#454038",
+        41
+      ],
+      "decision": "uncertain",
+      "note": "Tiny shaded annex roof is unresolved.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w1506649876",
+      "zone": "ring",
+      "selection": "flat prediction",
+      "sheet": "roof-sheet-05.jpg",
+      "cell": 2,
+      "before": [
+        "flat",
+        0.55,
+        "#2f4d4b",
+        168
+      ],
+      "after": [
+        "flat",
+        0.55,
+        "#2f4d4b",
+        168
+      ],
+      "decision": "retained",
+      "note": "Visible flat surface and/or rooftop plant agrees with the prediction.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w533141683",
+      "zone": "ring",
+      "selection": "flat prediction",
+      "sheet": "roof-sheet-05.jpg",
+      "cell": 3,
+      "before": [
+        "flat",
+        0.67,
+        "#3c4031",
+        97
+      ],
+      "after": [
+        "unknown",
+        0,
+        "#3c4031",
+        97
+      ],
+      "decision": "uncertain",
+      "note": "Small brown roof under mixed shadow is unresolved.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w1097438927",
+      "zone": "ring",
+      "selection": "flat prediction",
+      "sheet": "roof-sheet-05.jpg",
+      "cell": 4,
+      "before": [
+        "flat",
+        0.67,
+        "#a9b9b0",
+        169
+      ],
+      "after": [
+        "gabled",
+        0.8,
+        "#a9b9b0",
+        169
+      ],
+      "decision": "corrected-or-confirmed",
+      "note": "Pale blue metal roof has visible two-plane profile.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w956477977",
+      "zone": "ring",
+      "selection": "flat prediction",
+      "sheet": "roof-sheet-05.jpg",
+      "cell": 5,
+      "before": [
+        "flat",
+        0.67,
+        "#516153",
+        179
+      ],
+      "after": [
+        "hipped",
+        0.7,
+        "#516153",
+        179
+      ],
+      "decision": "corrected-or-confirmed",
+      "note": "Dark grey roof shows hip/end facets.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w956217456",
+      "zone": "ring",
+      "selection": "flat prediction",
+      "sheet": "roof-sheet-05.jpg",
+      "cell": 6,
+      "before": [
+        "flat",
+        0.75,
+        "#433c32",
+        342
+      ],
+      "after": [
+        "hipped",
+        0.75,
+        "#433c32",
+        342
+      ],
+      "decision": "corrected-or-confirmed",
+      "note": "Brown compound roof has clear end hips.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w756554173",
+      "zone": "ring",
+      "selection": "flat prediction",
+      "sheet": "roof-sheet-05.jpg",
+      "cell": 7,
+      "before": [
+        "flat",
+        0.75,
+        "#ccc0a6",
+        3801
+      ],
+      "after": [
+        "flat",
+        0.75,
+        "#ccc0a6",
+        3801
+      ],
+      "decision": "retained",
+      "note": "OSM roof tag remains authoritative.",
+      "osmRoofTags": {
+        "roof:shape": "flat"
+      }
+    },
+    {
+      "osm": "w413830137",
+      "zone": "ring",
+      "selection": "tagged roof control",
+      "sheet": "roof-sheet-05.jpg",
+      "cell": 8,
+      "before": [
+        "flat",
+        0.75,
+        "#49423e",
+        310
+      ],
+      "after": [
+        "flat",
+        0.75,
+        "#49423e",
+        310
+      ],
+      "decision": "retained",
+      "note": "OSM roof tag remains authoritative.",
+      "osmRoofTags": {
+        "roof:levels": "1",
+        "roof:shape": "mansard"
+      }
+    },
+    {
+      "osm": "w376534192",
+      "zone": "ring",
+      "selection": "tagged roof control",
+      "sheet": "roof-sheet-05.jpg",
+      "cell": 9,
+      "before": [
+        "hipped",
+        1.0,
+        "#c99278",
+        784
+      ],
+      "after": [
+        "hipped",
+        1.0,
+        "#c99278",
+        784
+      ],
+      "decision": "retained",
+      "note": "OSM roof tag remains authoritative.",
+      "osmRoofTags": {
+        "roof:levels": "2",
+        "roof:shape": "gabled"
+      }
+    },
+    {
+      "osm": "w303678255",
+      "zone": "inside",
+      "selection": "tagged roof control",
+      "sheet": "roof-sheet-05.jpg",
+      "cell": 10,
+      "before": [
+        "hipped",
+        0.4,
+        "#544f42",
+        355
+      ],
+      "after": [
+        "hipped",
+        0.4,
+        "#544f42",
+        355
+      ],
+      "decision": "retained",
+      "note": "OSM roof tag remains authoritative.",
+      "osmRoofTags": {
+        "roof:levels": "1",
+        "roof:shape": "hipped"
+      }
+    },
+    {
+      "osm": "w813193384",
+      "zone": "inside",
+      "selection": "tagged roof control",
+      "sheet": "roof-sheet-05.jpg",
+      "cell": 11,
+      "before": [
+        "flat",
+        0.8,
+        "#779088",
+        3068
+      ],
+      "after": [
+        "flat",
+        0.8,
+        "#779088",
+        3068
+      ],
+      "decision": "retained",
+      "note": "OSM roof tag remains authoritative.",
+      "osmRoofTags": {
+        "roof:levels": "0",
+        "roof:shape": "gabled"
+      }
+    },
+    {
+      "osm": "w545777359",
+      "zone": "ring",
+      "selection": "large footprint control",
+      "sheet": "roof-sheet-05.jpg",
+      "cell": 12,
+      "before": [
+        "flat",
+        0.8,
+        "#374b47",
+        1397
+      ],
+      "after": [
+        "flat",
+        0.8,
+        "#374b47",
+        1397
+      ],
+      "decision": "retained",
+      "note": "Visible flat surface and/or rooftop plant agrees with the prediction.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w1215048760",
+      "zone": "inside",
+      "selection": "large footprint control",
+      "sheet": "roof-sheet-05.jpg",
+      "cell": 13,
+      "before": [
+        "hipped",
+        0.4,
+        "#767d70",
+        2321
+      ],
+      "after": [
+        "flat",
+        0.9,
+        "#767d70",
+        2321
+      ],
+      "decision": "corrected-or-confirmed",
+      "note": "Open parking-deck surface contains mapped parking rows and ramps.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w249950236",
+      "zone": "ring",
+      "selection": "large footprint control",
+      "sheet": "roof-sheet-05.jpg",
+      "cell": 14,
+      "before": [
+        "gabled",
+        0.77,
+        "#79594f",
+        1752
+      ],
+      "after": [
+        "gabled",
+        0.77,
+        "#79594f",
+        1752
+      ],
+      "decision": "retained",
+      "note": "Red/brown sloped roof facets agree with the prediction.",
+      "osmRoofTags": {}
+    },
+    {
+      "osm": "w303678275",
+      "zone": "inside",
+      "selection": "large footprint control",
+      "sheet": "roof-sheet-05.jpg",
+      "cell": 15,
+      "before": [
+        "flat",
+        0.8,
+        "#3e5552",
+        2226
+      ],
+      "after": [
+        "flat",
+        0.8,
+        "#3e5552",
+        2226
+      ],
+      "decision": "retained",
+      "note": "Visible flat surface and/or rooftop plant agrees with the prediction.",
+      "osmRoofTags": {}
+    }
+  ],
+  "manualChanges": 39,
+  "limitations": [
+    "Aerial acquisition date unknown.",
+    "Small grey metal roofs often have ambiguous facet evidence; uncertain records stay below0.5 confidence.",
+    "Roof class is not a literal height measurement.",
+    "Only these80 crops were individually calibrated; the full survey is an automated measurement layer."
+  ]
+}

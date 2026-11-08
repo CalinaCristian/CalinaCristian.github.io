@@ -16,3 +16,14 @@ r=resolveRoadWidth({width:'16'},undefined,{lanes:2,medianM:6.5});assert.equal(r.
 assert.equal(resolveRoadWidth({},undefined,{lanes:2}),null,'legacy/default road widths remain untouched');
 r=resolveRoadWidth({lanes:'1'},undefined,{lanes:2,sharedLane:true,defaultSharedWidth:3});assert.equal(r.widthM,3);assert.equal(r.laneWidthM,1.5);
 console.log(JSON.stringify({passed:true,controls:'literal metres/feet, precedence, median containment, source contradictions, lane identity, reviewed sharing and legacy gates'}));
+const asymmetric={...review,leftM:1,rightM:3.5,measurement:{...review.measurement,scope:'travel carriageway excluding parking and sidewalks'}};
+r=resolveRoadWidth({},asymmetric,{lanes:2,lanesF:1,lanesB:1});assert.equal(r.leftM,1);assert.equal(r.rightM,3.5);assert.equal(r.laneCenterShiftM,1.25);assert.equal(r.pavementCenterOffsetM,1.25);
+const reversed=resolveRoadWidth({},asymmetric,{lanes:2,lanesF:2,lanesB:0,oneway:true,reverse:true});assert.equal(reversed.leftM,3.5);assert.equal(reversed.rightM,1);assert.equal(reversed.laneCenterShiftM,-1.25);
+const symmetric=resolveRoadWidth({}, {...asymmetric,leftM:2.25,rightM:2.25},{lanes:2,lanesF:1,lanesB:1});assert.equal(symmetric.laneCenterShiftM,0);
+r=resolveRoadWidth({}, {...asymmetric,widthM:9,leftM:4.5,rightM:4.5},{lanes:3,lanesF:2,lanesB:1});assert.equal(r.laneCenterShiftM,-1.5);assert.equal(r.pavementCenterOffsetM,0,'pavement centre and lane-divider shift are distinct for unequal directions');
+r=resolveRoadWidth({width:'5'},asymmetric,{lanes:2,lanesF:1,lanesB:1});assert(Math.abs(r.leftM+r.rightM-5)<1e-10);assert.equal(r.source,'OSM width');assert(r.issues.some(s=>s.includes('proportioned')));
+r=resolveRoadWidth({width:'6',placement:'left_of:1'},asymmetric,{lanes:2,lanesF:2,lanesB:0,oneway:true});assert.equal(r.leftM,0);assert.equal(r.rightM,6);assert.equal(r.laneCenterShiftM,3);assert.equal(r.placementSource,'OSM placement');
+r=resolveRoadWidth({width:'6',placement:'left_of:1'},asymmetric,{lanes:2,lanesF:2,lanesB:0,oneway:true,reverse:true});assert.equal(r.leftM,6);assert.equal(r.rightM,0);assert.equal(r.laneCenterShiftM,-3);
+r=resolveRoadWidth({placement:'transition'},asymmetric,{lanes:2,lanesF:1,lanesB:1});assert.equal(r.leftM,undefined);assert(r.issues.some(s=>s.includes('unresolved OSM placement')));
+r=resolveRoadWidth({}, {...asymmetric,measurement:{...asymmetric.measurement,scope:'parking bay'}},{lanes:2,lanesF:1,lanesB:1});assert.equal(r.leftM,undefined,'parking-space spans cannot reposition a travel carriageway');
+console.log(JSON.stringify({passed:true,controls:'asymmetric pavement, unchanged symmetric layout, reverse-way swap, unequal directions, literal width/placement priority and scope exclusions'}));

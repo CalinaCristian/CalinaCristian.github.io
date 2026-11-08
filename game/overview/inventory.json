@@ -1,5 +1,10 @@
 {
-  "sourceSha": "a1d1f22271b6e9e03dbe28ff29aeab78c00799ca",
+  "comparisonLocations": [
+    "romana",
+    "floreasca",
+    "grozavesti"
+  ],
+  "sourceSha": "863b20b74150310dd2880fa79be0fa31f34780b2",
   "reviewedOn": "2026-11-08",
   "repository": "https://github.com/CalinaCristian/CalinaCristian.github.io",
   "counts": {
@@ -7,10 +12,12 @@
     "chapters": 10,
     "landmarks": 61,
     "landmarkBuilders": 60,
+    "landmarkEvidence": 61,
     "spots": 24,
+    "spotEvidence": 0,
     "scenes": 19,
     "historicalReady": 12,
-    "achievements": 112
+    "achievements": 116
   },
   "districts": [
     {
@@ -236,7 +243,8 @@
       "name": "Palatul Parlamentului",
       "builder": "bParliament",
       "lat": 44.4275038,
-      "lon": 26.0874035
+      "lon": 26.0874035,
+      "evidence": "evidence/landmarks/bucharest/parliament.json"
     },
     {
       "id": "cathedral",
@@ -244,7 +252,8 @@
       "name": "Catedrala Mântuirii Neamului",
       "builder": "bCathedral",
       "lat": 44.4259297,
-      "lon": 26.0822981
+      "lon": 26.0822981,
+      "evidence": "evidence/landmarks/bucharest/cathedral.json"
     },
     {
       "id": "arcul",
@@ -252,7 +261,8 @@
       "name": "Arcul de Triumf",
       "builder": "bArcul",
       "lat": 44.4671902,
-      "lon": 26.078127
+      "lon": 26.078127,
+      "evidence": "evidence/landmarks/bucharest/arcul.json"
     },
     {
       "id": "casapresei",
@@ -260,7 +270,8 @@
       "name": "Casa Presei Libere",
       "builder": "bCasaPresei",
       "lat": 44.4815236,
-      "lon": 26.0709515
+      "lon": 26.0709515,
+      "evidence": "evidence/landmarks/bucharest/casapresei.json"
     },
     {
       "id": "grandhotel",
@@ -268,7 +279,8 @@
       "name": "Grand Hotel Bucharest (ex-InterContinental)",
       "builder": "bGrandHotel",
       "lat": 44.4372925,
-      "lon": 26.1022881
+      "lon": 26.1022881,
+      "evidence": "evidence/landmarks/bucharest/grandhotel.json"
     },
     {
       "id": "univ",
@@ -276,7 +288,8 @@
       "name": "Palatul Universității",
       "builder": "bUniv",
       "lat": 44.4355639,
-      "lon": 26.1007589
+      "lon": 26.1007589,
+      "evidence": "evidence/landmarks/bucharest/univ.json"
     },
     {
       "id": "tnb",
@@ -284,7 +297,8 @@
       "name": "Teatrul Național București",
       "builder": "bTNB",
       "lat": 44.4370273,
-      "lon": 26.1036159
+      "lon": 26.1036159,
+      "evidence": "evidence/landmarks/bucharest/tnb.json"
     },
     {
       "id": "ateneu",
@@ -292,7 +306,8 @@
       "name": "Ateneul Român",
       "builder": "bAteneu",
       "lat": 44.441344,
-      "lon": 26.0973695
+      "lon": 26.0973695,
+      "evidence": "evidence/landmarks/bucharest/ateneu.json"
     },
     {
       "id": "regal",
@@ -300,7 +315,8 @@
       "name": "Palatul Regal (MNAR)",
       "builder": "bRegal",
       "lat": 44.4394699,
-      "lon": 26.0960493
+      "lon": 26.0960493,
+      "evidence": "evidence/landmarks/bucharest/regal.json"
     },
     {
       "id": "victoria",
@@ -308,7 +324,8 @@
       "name": "Palatul Victoria",
       "builder": "bVictoria",
       "lat": 44.4528232,
-      "lon": 26.0874287
+      "lon": 26.0874287,
+      "evidence": "evidence/landmarks/bucharest/victoria.json"
     },
     {
       "id": "cec",
@@ -316,7 +333,8 @@
       "name": "Palatul CEC",
       "builder": "bCEC",
       "lat": 44.4320212,
-      "lon": 26.0964749
+      "lon": 26.0964749,
+      "evidence": "evidence/landmarks/bucharest/cec.json"
     },
     {
       "id": "mnir",
@@ -324,7 +342,8 @@
       "name": "Muzeul Național de Istorie a României",
       "builder": "bMNIR",
       "lat": 44.4313746,
-      "lon": 26.097758
+      "lon": 26.097758,
+      "evidence": "evidence/landmarks/bucharest/mnir.json"
     },
     {
       "id": "marriott",
@@ -332,7 +351,8 @@
       "name": "JW Marriott Grand Hotel",
       "builder": "bMarriott",
       "lat": 44.4257465,
-      "lon": 26.0766337
+      "lon": 26.0766337,
+      "evidence": "evidence/landmarks/bucharest/marriott.json"
     },
     {
       "id": "unirea",
@@ -340,7 +360,8 @@
       "name": "Unirea Shopping Center",
       "builder": "bUnirea",
       "lat": 44.4280154,
-      "lon": 26.1048886
+      "lon": 26.1048886,
+      "evidence": "evidence/landmarks/bucharest/unirea.json"
     },
     {
       "id": "fountains",
@@ -348,7 +369,8 @@
       "name": "Fântânile din Piața Unirii",
       "builder": "bFountains",
       "lat": 44.4268,
-      "lon": 26.1025
+      "lon": 26.1025,
+      "evidence": "evidence/landmarks/bucharest/fountains.json"
     },
     {
       "id": "skytower",
@@ -356,7 +378,8 @@
       "name": "Sky Tower",
       "builder": "bSkyTower",
       "lat": 44.4779551,
-      "lon": 26.1047395
+      "lon": 26.1047395,
+      "evidence": "evidence/landmarks/bucharest/skytower.json"
     },
     {
       "id": "promenada",
@@ -364,7 +387,8 @@
       "name": "Promenada Mall",
       "builder": "bPromenada",
       "lat": 44.4781916,
-      "lon": 26.1034126
+      "lon": 26.1034126,
+      "evidence": "evidence/landmarks/bucharest/promenada.json"
     },
     {
       "id": "baneasasc",
@@ -372,7 +396,8 @@
       "name": "Băneasa Shopping City",
       "builder": "bBaneasaSC",
       "lat": 44.507022,
-      "lon": 26.0897843
+      "lon": 26.0897843,
+      "evidence": "evidence/landmarks/bucharest/baneasasc.json"
     },
     {
       "id": "romexpo",
@@ -380,7 +405,8 @@
       "name": "Romexpo",
       "builder": "bRomexpo",
       "lat": 44.4762793,
-      "lon": 26.065137
+      "lon": 26.065137,
+      "evidence": "evidence/landmarks/bucharest/romexpo.json"
     },
     {
       "id": "aviatorilor",
@@ -388,7 +414,8 @@
       "name": "Monumentul Eroilor Aerului",
       "builder": "bAviatorilor",
       "lat": 44.4597696,
-      "lon": 26.0860782
+      "lon": 26.0860782,
+      "evidence": "evidence/landmarks/bucharest/aviatorilor.json"
     },
     {
       "id": "gara",
@@ -396,7 +423,8 @@
       "name": "Gara de Nord",
       "builder": "bGara",
       "lat": 44.4466161,
-      "lon": 26.0748974
+      "lon": 26.0748974,
+      "evidence": "evidence/landmarks/bucharest/gara.json"
     },
     {
       "id": "opera",
@@ -404,7 +432,8 @@
       "name": "Opera Națională București",
       "builder": "bOpera",
       "lat": 44.4360568,
-      "lon": 26.0795203
+      "lon": 26.0795203,
+      "evidence": "evidence/landmarks/bucharest/opera.json"
     },
     {
       "id": "politehnica",
@@ -412,7 +441,8 @@
       "name": "Rectoratul Politehnicii",
       "builder": "bPolitehnica",
       "lat": 44.438429,
-      "lon": 26.0515105
+      "lon": 26.0515105,
+      "evidence": "evidence/landmarks/bucharest/politehnica.json"
     },
     {
       "id": "hermes",
@@ -420,7 +450,8 @@
       "name": "Hermes Business Campus",
       "builder": "bHermes",
       "lat": 44.4810862,
-      "lon": 26.1140757
+      "lon": 26.1140757,
+      "evidence": "evidence/landmarks/bucharest/hermes.json"
     },
     {
       "id": "baneasaterm",
@@ -428,7 +459,8 @@
       "name": "Aeroportul Băneasa (terminal 1952)",
       "builder": "bBaneasaTerm",
       "lat": 44.4962356,
-      "lon": 26.0814666
+      "lon": 26.0814666,
+      "evidence": "evidence/landmarks/bucharest/baneasaterm.json"
     },
     {
       "id": "otp",
@@ -436,7 +468,8 @@
       "name": "Aeroportul Henri Coandă",
       "builder": "bOTP",
       "lat": 44.5708154,
-      "lon": 26.0795884
+      "lon": 26.0795884,
+      "evidence": "evidence/landmarks/bucharest/otp.json"
     },
     {
       "id": "ase",
@@ -444,7 +477,8 @@
       "name": "ASE — Palatul Ion N. Angelescu",
       "builder": "bASE",
       "lat": 44.447807,
-      "lon": 26.0971572
+      "lon": 26.0971572,
+      "evidence": "evidence/landmarks/bucharest/ase.json"
     },
     {
       "id": "ambasador",
@@ -452,7 +486,8 @@
       "name": "Hotel Ambasador",
       "builder": "bAmbasador",
       "lat": 44.441963,
-      "lon": 26.099535
+      "lon": 26.099535,
+      "evidence": "evidence/landmarks/bucharest/ambasador.json"
     },
     {
       "id": "aro",
@@ -460,7 +495,8 @@
       "name": "Blocul ARO / Patria",
       "builder": "bARO",
       "lat": 44.4424337,
-      "lon": 26.0992711
+      "lon": 26.0992711,
+      "evidence": "evidence/landmarks/bucharest/aro.json"
     },
     {
       "id": "thelandmark",
@@ -468,7 +504,8 @@
       "name": "The Landmark (UiPath HQ)",
       "builder": "bTheLandmark",
       "lat": 44.450012,
-      "lon": 26.0946079
+      "lon": 26.0946079,
+      "evidence": "evidence/landmarks/bucharest/thelandmark.json"
     },
     {
       "id": "europehouse",
@@ -476,7 +513,8 @@
       "name": "Europe House",
       "builder": "bEuropeHouse",
       "lat": 44.4511557,
-      "lon": 26.087697
+      "lon": 26.087697,
+      "evidence": "evidence/landmarks/bucharest/europehouse.json"
     },
     {
       "id": "gts",
@@ -484,7 +522,8 @@
       "name": "Calea Călărașilor 101 (GTS Global Intelligence)",
       "builder": "bGTS",
       "lat": 44.433369,
-      "lon": 26.1176015
+      "lon": 26.1176015,
+      "evidence": "evidence/landmarks/bucharest/gts.json"
     },
     {
       "id": "dinamo",
@@ -492,7 +531,8 @@
       "name": "Stadionul Dinamo",
       "builder": "bDinamo",
       "lat": 44.4551306,
-      "lon": 26.1023192
+      "lon": 26.1023192,
+      "evidence": "evidence/landmarks/bucharest/dinamo.json"
     },
     {
       "id": "rosetti",
@@ -500,7 +540,8 @@
       "name": "Liceul Teoretic C.A. Rosetti",
       "builder": "bRosetti",
       "lat": 44.4671565,
-      "lon": 26.106133
+      "lon": 26.106133,
+      "evidence": "evidence/landmarks/bucharest/rosetti.json"
     },
     {
       "id": "bob",
@@ -508,7 +549,8 @@
       "name": "BOB Tower (DB Global Technology)",
       "builder": "bBOB",
       "lat": 44.479608,
-      "lon": 26.1147802
+      "lon": 26.1147802,
+      "evidence": "evidence/landmarks/bucharest/bob.json"
     },
     {
       "id": "halatraian",
@@ -516,7 +558,8 @@
       "name": "Hala Traian",
       "builder": "bHalaTraian",
       "lat": 44.4333566,
-      "lon": 26.120567
+      "lon": 26.120567,
+      "evidence": "evidence/landmarks/bucharest/halatraian.json"
     },
     {
       "id": "globalworth",
@@ -524,7 +567,8 @@
       "name": "Globalworth Tower",
       "builder": "bGlobalworth",
       "lat": 44.4792401,
-      "lon": 26.1024141
+      "lon": 26.1024141,
+      "evidence": "evidence/landmarks/bucharest/globalworth.json"
     },
     {
       "id": "spaceneedle",
@@ -532,7 +576,8 @@
       "name": "Space Needle",
       "builder": "bSpaceNeedle",
       "lat": 47.6205063,
-      "lon": -122.3493043
+      "lon": -122.3493043,
+      "evidence": "evidence/landmarks/seattle/spaceneedle.json"
     },
     {
       "id": "columbia",
@@ -540,7 +585,8 @@
       "name": "Columbia Center",
       "builder": "bColumbia",
       "lat": 47.6045425,
-      "lon": -122.3307183
+      "lon": -122.3307183,
+      "evidence": "evidence/landmarks/seattle/columbia.json"
     },
     {
       "id": "smith",
@@ -548,7 +594,8 @@
       "name": "Smith Tower",
       "builder": "bSmith",
       "lat": 47.6019654,
-      "lon": -122.331729
+      "lon": -122.331729,
+      "evidence": "evidence/landmarks/seattle/smith.json"
     },
     {
       "id": "lumen",
@@ -556,7 +603,8 @@
       "name": "Lumen Field",
       "builder": "bLumen",
       "lat": 47.5952,
-      "lon": -122.3316
+      "lon": -122.3316,
+      "evidence": "evidence/landmarks/seattle/lumen.json"
     },
     {
       "id": "tmobile",
@@ -564,7 +612,8 @@
       "name": "T-Mobile Park",
       "builder": "bTMobile",
       "lat": 47.5913642,
-      "lon": -122.3324281
+      "lon": -122.3324281,
+      "evidence": "evidence/landmarks/seattle/tmobile.json"
     },
     {
       "id": "greatwheel",
@@ -572,7 +621,8 @@
       "name": "Seattle Great Wheel",
       "builder": "bGreatWheel",
       "lat": 47.60615,
-      "lon": -122.34262
+      "lon": -122.34262,
+      "evidence": "evidence/landmarks/seattle/greatwheel.json"
     },
     {
       "id": "spheres",
@@ -580,15 +630,17 @@
       "name": "Amazon Spheres",
       "builder": "bSpheres",
       "lat": 47.6156773,
-      "lon": -122.3394897
+      "lon": -122.3394897,
+      "evidence": "evidence/landmarks/seattle/spheres.json"
     },
     {
       "id": "mtbaker",
       "city": "seattle",
       "name": "Mount Baker Tunnel (east portal)",
       "builder": "bMtBaker",
-      "lat": 47.5903651,
-      "lon": -122.293
+      "lat": 47.5901,
+      "lon": -122.2885856,
+      "evidence": "evidence/landmarks/seattle/mtbaker.json"
     },
     {
       "id": "seatac",
@@ -596,7 +648,8 @@
       "name": "Seattle-Tacoma International Airport",
       "builder": "bSeaTac",
       "lat": 47.4423743,
-      "lon": -122.3012208
+      "lon": -122.3012208,
+      "evidence": "evidence/landmarks/seattle/seatac.json"
     },
     {
       "id": "seatower",
@@ -604,7 +657,8 @@
       "name": "SeaTac Control Tower",
       "builder": "bSeaTower",
       "lat": 47.4557242,
-      "lon": -122.3013712
+      "lon": -122.3013712,
+      "evidence": "evidence/landmarks/seattle/seatower.json"
     },
     {
       "id": "lincoln",
@@ -612,7 +666,8 @@
       "name": "Lincoln Square North (UiPath Bellevue)",
       "builder": "bLincolnN",
       "lat": 47.6168559,
-      "lon": -122.2010316
+      "lon": -122.2010316,
+      "evidence": "evidence/landmarks/seattle/lincoln.json"
     },
     {
       "id": "onelincoln",
@@ -620,7 +675,8 @@
       "name": "One Lincoln Tower / Westin Bellevue",
       "builder": "bOneLincoln",
       "lat": 47.6159634,
-      "lon": -122.2008866
+      "lon": -122.2008866,
+      "evidence": "evidence/landmarks/seattle/onelincoln.json"
     },
     {
       "id": "lincolnsouth",
@@ -628,7 +684,8 @@
       "name": "Lincoln Square South",
       "builder": "bLincolnS",
       "lat": 47.6147631,
-      "lon": -122.2008325
+      "lon": -122.2008325,
+      "evidence": "evidence/landmarks/seattle/lincolnsouth.json"
     },
     {
       "id": "plazacenter",
@@ -636,7 +693,8 @@
       "name": "Plaza Center (UiPath Bellevue 2018–2025)",
       "builder": "bPlazaCenter",
       "lat": 47.6178822,
-      "lon": -122.1940388
+      "lon": -122.1940388,
+      "evidence": "evidence/landmarks/seattle/plazacenter.json"
     },
     {
       "id": "sonic",
@@ -644,7 +702,8 @@
       "name": "Amazon Sonic",
       "builder": "bSonic",
       "lat": 47.6148782,
-      "lon": -122.1968365
+      "lon": -122.1968365,
+      "evidence": "evidence/landmarks/seattle/sonic.json"
     },
     {
       "id": "bellevue600",
@@ -652,23 +711,26 @@
       "name": "Bellevue 600",
       "builder": "bBellevue600",
       "lat": 47.6160667,
-      "lon": -122.1942494
+      "lon": -122.1942494,
+      "evidence": "evidence/landmarks/seattle/bellevue600.json"
     },
     {
       "id": "murroww",
       "city": "seattle",
       "name": "Murrow Bridge — west high-rise arches",
       "builder": "bMurrow",
-      "lat": 47.5899055,
-      "lon": -122.2849997
+      "lat": 47.5898848,
+      "lon": -122.28406,
+      "evidence": "evidence/landmarks/seattle/murroww.json"
     },
     {
       "id": "murrowe",
       "city": "seattle",
       "name": "Murrow Bridge — east high-rise arches",
       "builder": "bMurrow",
-      "lat": 47.5892615,
-      "lon": -122.2560025
+      "lat": 47.5892424,
+      "lon": -122.2554,
+      "evidence": "evidence/landmarks/seattle/murrowe.json"
     },
     {
       "id": "seagarage",
@@ -676,7 +738,8 @@
       "name": "Sea-Tac parking garage + skybridges",
       "builder": "bSeaGarage",
       "lat": 47.4432823,
-      "lon": -122.2992416
+      "lon": -122.2992416,
+      "evidence": "evidence/landmarks/seattle/seagarage.json"
     },
     {
       "id": "sealink",
@@ -684,7 +747,8 @@
       "name": "SeaTac/Airport Link station",
       "builder": "bSeaLink",
       "lat": 47.4452089,
-      "lon": -122.2969786
+      "lon": -122.2969786,
+      "evidence": "evidence/landmarks/seattle/sealink.json"
     },
     {
       "id": "bellevuetowers",
@@ -692,7 +756,8 @@
       "name": "Bellevue Towers",
       "builder": "bBellevueTowers",
       "lat": 47.6143271,
-      "lon": -122.1981129
+      "lon": -122.1981129,
+      "evidence": "evidence/landmarks/seattle/bellevuetowers.json"
     },
     {
       "id": "bellevuesq",
@@ -700,7 +765,8 @@
       "name": "Bellevue Square",
       "builder": "bBellevueSq",
       "lat": 47.615653,
-      "lon": -122.2035769
+      "lon": -122.2035769,
+      "evidence": "evidence/landmarks/seattle/bellevuesq.json"
     },
     {
       "id": "rainier",
@@ -708,7 +774,8 @@
       "name": "Mount Rainier",
       "builder": "bRainier",
       "lat": 46.8529,
-      "lon": -121.7604
+      "lon": -121.7604,
+      "evidence": "evidence/landmarks/seattle/rainier.json"
     },
     {
       "id": "olympics",
@@ -716,7 +783,8 @@
       "name": "Olympic Mountains",
       "builder": "bOlympics",
       "lat": 47.7,
-      "lon": -123.15
+      "lon": -123.15,
+      "evidence": "evidence/landmarks/seattle/olympics.json"
     }
   ],
   "spots": [
@@ -920,7 +988,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "830ecd31ce8ebe5c5e099150b79de142af0e9de3eff2a4d384c241c795754a26"
+      "sha256": "508f93a353624d787b83369a3e74467e247d4de978bfd345c07a569288fd1ea3"
     },
     {
       "path": "specs/README.md",
@@ -932,23 +1000,23 @@
     },
     {
       "path": "specs/01-architecture.md",
-      "sha256": "183e85306cb7a098781bfa747caa0615a8c2bfc8265a67930402374e1408089d"
+      "sha256": "01e55eca832d0fa63313cc9fbe0995056020ed496311076fb054c124eb6bfb1f"
     },
     {
       "path": "specs/STATUS.md",
-      "sha256": "4967b63c5ce6cb06a076f1d6e1a6635a7f6171776e1f7cf3fbbb4e51c55e2c23"
+      "sha256": "d6205d73d429c74711c8886183d0f132376cecb85b791e1ccdcb1c4318c4f894"
     },
     {
       "path": "specs/12-buildings-streetscape.md",
-      "sha256": "b7dd9d80497b1f473ce7f20f9d963ec38d7f02ec5fa5196fa2ca69cf0ca05d37"
+      "sha256": "290379f8fe922d93243b03480fe1c8ce82300a07a3f990649464ad50a424669a"
     },
     {
       "path": "specs/13-traffic.md",
-      "sha256": "f9f828dd55fcdf1005d2637319637de70bd51b2a7c8c7b92f748ecedb95c27dc"
+      "sha256": "67cfa2258e775d979c128aa6db455dd0d11a9e95412c0dc1ef68c7384b8e399b"
     },
     {
       "path": "specs/15-tourist-spots.md",
-      "sha256": "4fa3bc25928a94566947043e5ba6ac6ed0289bd4ffe34dc836090346186c75df"
+      "sha256": "98d5c881c65c3d1d3a0b65e7919c44961cfca0a3282911f7fdc9f7dc9995f557"
     },
     {
       "path": "specs/18-weather-lighting.md",
@@ -956,31 +1024,31 @@
     },
     {
       "path": "specs/19-qa-harness.md",
-      "sha256": "cc4922f574a8751a4dbb0aa15f90f9e9597b0636355ebe3b77cb32b649c1bb6c"
+      "sha256": "0ee97c9af0624bb0dc9b6eff9b815715b8ac76db4c12975aa0942a40016ddcfd"
     },
     {
       "path": "game/index.html",
-      "sha256": "5d4df919e6d8b982c212c1706ef83db96f72b1709f12391a7bb53fea633311a7"
+      "sha256": "49bb71b10d7cd803ae6e2d5031317119e63581660b7b2353d8b4654d2c52014b"
     },
     {
       "path": "game/data/README.md",
-      "sha256": "992873d7162cfcf3970b2fe29e24cd24925d72a4e6e57c8d0f494e346f1710f8"
+      "sha256": "f36d01ac8e136ea3fb5c2341d65c17390618defa7717dd8c611651e7eebd7520"
     },
     {
       "path": "tools/osm/build-data.mjs",
-      "sha256": "e3c76490031c962190bee394db1a4fb174609af29af87bea5f6169706267a9c7"
+      "sha256": "8483a6f6dbb90aa111428a76966dadedda226a36fbbeccb27d97a7c60289a119"
     },
     {
       "path": "tools/aerial/README.md",
-      "sha256": "9a114ae7a0d4158d319294e90a1917bc6414e5d859c069b1743c1bdf43fe75fc"
+      "sha256": "95726d106365ebcb3bf8cfe0bfef3c32a4eeecfcc327631722e51a1eaf59710b"
     },
     {
       "path": "game/src/main.js",
-      "sha256": "ec86fa2677bcd2ca2bbf55416c19bcc53d897474c6fb73fbe3308ca901321eb6"
+      "sha256": "f1d6571786a378be7d008c46a792dba062e597398cd3d16985de1cac7f17c682"
     },
     {
       "path": "game/src/world.js",
-      "sha256": "a40f888e98f16658a9d395ef2665bf586bb5a0fe443e0ba16e8fac098d9e928a"
+      "sha256": "6462a7526d1e89c65bd9d22ed08c97f89f6356f5788318844e13357c4e699c52"
     },
     {
       "path": "game/src/cities.js",
@@ -992,7 +1060,7 @@
     },
     {
       "path": "game/src/buildings.js",
-      "sha256": "81e4d7ab6b391b2f5f490576cd3c924d3afd4d59013c51c6f23395d4f0f790ca"
+      "sha256": "634c8a5149d9de9761c62f445c6318dcb3087b41980b574a5afa6d02dfa7cfe4"
     },
     {
       "path": "game/src/archetypes.js",
@@ -1000,11 +1068,11 @@
     },
     {
       "path": "game/src/landmarks.js",
-      "sha256": "18bcaf7364096f99c2bc70d574f5b99ea3a9f17af23366f4c4cf0e105b7bf660"
+      "sha256": "23a9bb9d5a1dffc087d31409697d800bfff4764abb7402cb3d842e05fc16c032"
     },
     {
       "path": "game/src/render.js",
-      "sha256": "938157dfc2c95221c5a2a7ea3ebbe2705c4413b3456bf60caeb3eabf1739dd43"
+      "sha256": "c886535e571144de5fd007294350b2b803138125d68f61f9a5992ca298fba587"
     },
     {
       "path": "game/src/weather.js",
@@ -1012,7 +1080,7 @@
     },
     {
       "path": "game/src/traffic.js",
-      "sha256": "aed7cf5a41bcfdc5783b38514e1dfe81bed61dc073a9ac325e88ff48d5b84d31"
+      "sha256": "d47525fbea5f012fec1921aa74ea096ddd7a7f81b89274def8b381ad7b12e216"
     },
     {
       "path": "game/src/signals.js",
@@ -1024,7 +1092,7 @@
     },
     {
       "path": "game/src/vehicles.js",
-      "sha256": "cd1cc1577652b9e2600bf0645a18f27d04e5d7e155136a279722d79dabca859f"
+      "sha256": "73700e9368a66f3e0dec08735f1b1c1a5bb2f57290746b31d4be28ad025bc6df"
     },
     {
       "path": "game/src/onfoot.js",
@@ -1032,27 +1100,27 @@
     },
     {
       "path": "game/src/input.js",
-      "sha256": "305f58955e749d1dcf0b87c2047404580805210b718892588e6fd5a82c81ece1"
+      "sha256": "e14ff4e1be7dbbfaf7cb07395340515e01820ab36cba24a40d60001ff5511d00"
     },
     {
       "path": "game/src/nav.js",
-      "sha256": "f938df01c43a69d91db2216b3ab82b5f38f6f0f1177e4b97fc3ecf11e6dd3f62"
+      "sha256": "b2715c21afa04fc5ae0ec73c6cd880acdf5a8ec4e327dd6a283567af4df4bfc8"
     },
     {
       "path": "game/src/minimap.js",
-      "sha256": "e0913a369637d71f391a31ec84550bc808a0e4f069bc94810113de61fe694c5b"
+      "sha256": "cca958895b0b56e9c3819fba0d89752458482a37227e49ed2ba52ad5639c691b"
     },
     {
       "path": "game/src/worldmap.js",
-      "sha256": "3098a9d57bcd6feaa6e2176ba9652104ac00cad2780e725694dfed10f65bc6f9"
+      "sha256": "cda4829131f34395b661cecf73564c08dc980ab10f9464d1c1f1ecd02b7b5f8b"
     },
     {
       "path": "game/src/explore.js",
-      "sha256": "c012ecc57748ca48e2f36ecdcb65552edb9593811df7074a05da9411ed2dfd63"
+      "sha256": "2f8abf2e4b3e14f1002f0088322b9e59e713f1865bba60644d200030cf653993"
     },
     {
       "path": "game/src/drone.js",
-      "sha256": "7a0b74b6b8b7f18f63ce02ec8a5ab49add9d03343bab7d629c22c0486a5c75e0"
+      "sha256": "7ea183e8e4c5977f6b2a0a0f644e47838ae09bb4754c442e75e18d5364288eb1"
     },
     {
       "path": "game/src/photo.js",
@@ -1068,11 +1136,11 @@
     },
     {
       "path": "game/src/data.js",
-      "sha256": "07b1acee851638a4e0b687e0ce63767d74fce1744cc6419f77a08754f33dd92b"
+      "sha256": "5f9f29ab1b4ca2890fab1a6df96749e59235bf1b7aa75d5a4421160e626be738"
     },
     {
       "path": "game/src/spots/index.js",
-      "sha256": "3c697bbbd30a8c40345542dc585571426160665db5697716d7a29690deb86346"
+      "sha256": "388a5cc95b12e930e4ef325ccc1e44b0bfb2e59233f20164373e41c01db646a3"
     },
     {
       "path": "game/src/spots/osm.js",
@@ -1116,23 +1184,47 @@
     },
     {
       "path": "game/src/telemetry-game.js",
-      "sha256": "569a69ea462089a8f398e787db3ba99435309b099e08f651f46785a0151d41aa"
+      "sha256": "bbe9df1036d7fdb06bd666027011d90a0d1c66fa322d32efee19130e933966ef"
     },
     {
       "path": "public/telemetry.js",
-      "sha256": "511f5c38071db591813ae89e4c5df775feaf9bbade98591a50a1a70b5ff68bd4"
+      "sha256": "2fccb2a095d527b1ed3ff80043d150afc6a1f2bd78ca8f781c7533432632238a"
+    },
+    {
+      "path": "game/src/basketball.js",
+      "sha256": "a84a93eb1257da5fb4cb1d931612c48b0ddaf29cfab3d133b99e06178a824795"
+    },
+    {
+      "path": "game/src/building-aircraft.js",
+      "sha256": "44ee8c66eee7d1f5aea8d126610791fdf51ee9d2539a3b3eafa83e695e789e4a"
     },
     {
       "path": "game/src/building-parts.js",
-      "sha256": "2d7b23bbc2b5c7415e0c4dd4edef23dba8d4887e5780fdbe7c6c4e9f81cbbf00"
+      "sha256": "0039e752969e9cfc1a0477641a9a5bb7b31eb6c8886843d88d79848362633b30"
+    },
+    {
+      "path": "game/src/building-passages.js",
+      "sha256": "575cbeb04642e8b056fdc997c441a861b56728218100e6421e36f0557fbdc59f"
+    },
+    {
+      "path": "game/src/building-roofs.js",
+      "sha256": "a82db31d1197b3953c9f4718dbc44b2972a90e25d9c2c07c683e6ab5386fa8ac"
     },
     {
       "path": "game/src/canvasText.js",
       "sha256": "35983021a8548740d623d83aaa092fa9f95a3f58b454575b8ab4732a47db2714"
     },
     {
+      "path": "game/src/chapter-waypoint.js",
+      "sha256": "0cba46e17b79cb869de2c5087b925f837dd02954d026e5aaaa55c509c9dac63a"
+    },
+    {
       "path": "game/src/chapters.js",
       "sha256": "ef88ddf04a38291e8694f2b4af6f027afad351f85e33d365a2c39f2a833297ba"
+    },
+    {
+      "path": "game/src/drone-boundary.js",
+      "sha256": "b29a2f92e3c5158c0029f0ae29a59413ec661dfacadba87481e995bf7c833a84"
     },
     {
       "path": "game/src/finale.js",
@@ -1144,23 +1236,71 @@
     },
     {
       "path": "game/src/hud.js",
-      "sha256": "3edd55de5db73e2d88f3ad546a298f7a53fd0339758faf7094ef7f8519c5b62e"
+      "sha256": "8ee4cbc9e0aea279a72a0f923e7554cb8115d7fffb9c9820ed08d7e0b39beb18"
+    },
+    {
+      "path": "game/src/landmark-otp-roofs.js",
+      "sha256": "f071c4b256efe77dae8eaf64e0d4c2a04af9f01b4447686bd2cd91f77950b8a6"
+    },
+    {
+      "path": "game/src/landmark-source-identities.js",
+      "sha256": "274db9b06c8b0e54bf678bda442a42c2bc9b89a09822c73e72a6c6500db02f7c"
+    },
+    {
+      "path": "game/src/landmark-source-masses.js",
+      "sha256": "b5009b0f96ee984cc674793d7170a5c49763fb91d87e168c2847c1218d68e2b9"
+    },
+    {
+      "path": "game/src/landmark-us-geometry.js",
+      "sha256": "5314a5e92a86b9a9612c3de013927a5d281d0c051944562347d39086930848aa"
+    },
+    {
+      "path": "game/src/landmark-us-source.js",
+      "sha256": "6d4fbf9b8d6a0e2f8ac37bf20602a53844e3f18268a1578d01e7dde647f9b888"
+    },
+    {
+      "path": "game/src/landmark-us-terrain.js",
+      "sha256": "cfca62d53bfeaf34f736b6ce345045dbbe50337544111fb6b676c4d237042879"
+    },
+    {
+      "path": "game/src/parking-layout.js",
+      "sha256": "b5c127c33e1c80e72a6cece698f831949ad637498ed7d7beb1252f30c6b4f0d9"
     },
     {
       "path": "game/src/player.js",
-      "sha256": "8f56d0a5aabf9fdb703b261b931adb031cc868625b515de272375c9235ca7729"
+      "sha256": "3d7cdbeea19190acd8e2abb23894111493daa32a7d12d68d124bfe36165e9aa7"
+    },
+    {
+      "path": "game/src/progressive-pmrem.js",
+      "sha256": "4b306f8bb4449be00c9dd654e7da6ba6607fec581d3a4360e9f772e11a2306a1"
+    },
+    {
+      "path": "game/src/road-access.js",
+      "sha256": "258dde26c230058ef2578fe259e7780aafdee863fcb5dfbcdc8f08f71ce070ee"
+    },
+    {
+      "path": "game/src/road-widths.js",
+      "sha256": "a0e049850ecceb6754d9c5ac5c37e99b4bea25b1f49ae0a8b218691ea72c6201"
+    },
+    {
+      "path": "game/src/sceneResources.js",
+      "sha256": "7f1cf9c55cbfbfa9cf9df4438de27a49ece7b765bb34ba478757024183f5c809"
+    },
+    {
+      "path": "game/src/shared-lanes.js",
+      "sha256": "5f662d6ca1ad44bd2084dae49fb10e8a16c76917e977ff1b7eb31130613d6a30"
     },
     {
       "path": "game/src/spots/backdrop.js",
-      "sha256": "212e3d374b4bf238f92b0fa150430f4da46258d960748a409b0d0cc76137b29a"
+      "sha256": "263637b1ec0dd171dd1c3ffc92846c66a0a859c609daf4f8d652a711e982c2c7"
     },
     {
       "path": "game/src/spots/buc.js",
-      "sha256": "260b28f44dadc4fa16458422fe7965223e3cc8a5eaa9a099d3a1576f0b5ae0a9"
+      "sha256": "857cbfa4f4b5d1e77793f4c67b6e4e66fa33ba6bae6f40306ea7a8f0f5e5e88e"
     },
     {
       "path": "game/src/spots/cars.js",
-      "sha256": "a1ab08bdff5624535f1085a8766aa43e1bd338d89166e93055353fffcd75224d"
+      "sha256": "b9f617e5c0b3909a185085c6bd2444e22e91e237198ba9089d26a48d91fa3ece"
     },
     {
       "path": "game/src/spots/ground.js",
@@ -1169,6 +1309,10 @@
     {
       "path": "game/src/spots/kit.js",
       "sha256": "6b98b1bf9b1121cf1be172f220a4108f2f5c954b90c008c1cdd75425268b98db"
+    },
+    {
+      "path": "game/src/spots/participation.js",
+      "sha256": "15637319e24e52211d5dcd6317252e098b6d9416bd8067ce03056fe108f5b24d"
     },
     {
       "path": "game/src/spots/people.js",
@@ -1184,7 +1328,7 @@
     },
     {
       "path": "game/src/spots/scenes/athenaeum-revolution.js",
-      "sha256": "8885b1d7729cac0d814446fb6e96f3a5dbb740b6d458e83a6af18ed75a89069a"
+      "sha256": "acc23e6de347a0cdc525f39d415053e01c9122dfc01d451003859fcb5bf716c6"
     },
     {
       "path": "game/src/spots/scenes/ballard-locks.js",
@@ -1212,11 +1356,11 @@
     },
     {
       "path": "game/src/spots/scenes/buc-herastrau.js",
-      "sha256": "9ccff9e316eef1e2b003898e5c02d7b53aea0ab615bfccaaffed92d6e38e939a"
+      "sha256": "cff50ce04585f6ed54f2cfc6e144cdb1a44ef82e2d5a6907e25e6af8b7383b92"
     },
     {
       "path": "game/src/spots/scenes/buc-old-town.js",
-      "sha256": "c309604df7085a123afb491b96b3a91bc81491f75731f15d4735da74d2fd2718"
+      "sha256": "ef041668be9663567b3f297da11c4f37f8d46389fa461b2cc6c3abc82abdfaa1"
     },
     {
       "path": "game/src/spots/scenes/buc-parliament.js",
@@ -1224,7 +1368,11 @@
     },
     {
       "path": "game/src/spots/scenes/cismigiu.js",
-      "sha256": "ba54725b47d277306fe7ed41862dcb85203af26fc1b5554eccbcca72b291309d"
+      "sha256": "5bbde3698222a1d2dbc3b6fb0ca1af7ea9c9e421b1006ed0e1b7df8604667b00"
+    },
+    {
+      "path": "game/src/spots/scenes/dinamo-hint-tv.js",
+      "sha256": "c1dbe2057ebb1fedb92a5c72adf409790f08806606b36e6996d0ff1b254ab8d8"
     },
     {
       "path": "game/src/spots/scenes/fremont-troll.js",
@@ -1244,23 +1392,27 @@
     },
     {
       "path": "game/src/spots/scenes/pioneer-square.js",
-      "sha256": "1bcf2495205505cf83ddeb5fcf6852a6c8e0fc27d2e850cbf4cb4cb61f89bf30"
+      "sha256": "f7e9a5065d616b7b39954758b90869529d6a588b169ab255f197ce5392fa86cb"
     },
     {
       "path": "game/src/spots/scenes/sea-common.js",
-      "sha256": "5b6940153a36a41b2eb6c8f10796f3d7501c4373ec4c67929c551329c70213b2"
+      "sha256": "56b414f799c99ba972295db9bff97882e9f713e815487b4f4588aaac2a284ac4"
     },
     {
       "path": "game/src/spots/scenes/seattle-center.js",
-      "sha256": "073f2a4026eeb7bf609cf1e0b3903b34a887917ce7748cb8fc44755afb9aa02d"
+      "sha256": "8e62b38e06c52d34dfdd7dfdf64130d240cd9e18f89a4a12b706c57a3ad0a9a4"
     },
     {
       "path": "game/src/spots/scenes/spring-palace.js",
-      "sha256": "814e5635f5401330ea15a061f7c3f68f40a95db3c973235ffb7c108a07ccfff6"
+      "sha256": "47235e54b6cf5386a5bbe4d34bf92932b362561dc64a0c95c6f6f7c857db042a"
     },
     {
       "path": "game/src/spots/scenes/waterfront.js",
       "sha256": "20bd3cc2b06bb4d90d19632830deef891666c514f1cdfbaeb842db7c58223aae"
+    },
+    {
+      "path": "game/src/spots/scenes/wcp-secret-bar.js",
+      "sha256": "c298b4063de196db9666d55bfbafd3524fb4b40fcf581979ca9d66b5a087f12d"
     },
     {
       "path": "game/src/spots/sdf.js",
@@ -1271,12 +1423,28 @@
       "sha256": "7e24d4c27e80fb9c9e2190d001c4bc59b44a3e3c4402e06aee6b79b236858817"
     },
     {
+      "path": "game/src/spots/source-landmark.js",
+      "sha256": "bad4641e649dc25603ad9df16bc0162c2a34d3f727963cc1171dc6d1a0d724fa"
+    },
+    {
       "path": "game/src/spots/ui.js",
-      "sha256": "5644cd9646e249c21a1ed21e5b0bbbb9aef71c7c44476bfe3bc4266149267be0"
+      "sha256": "042bc226531f21eeb99731d516f2795cc0bf83133dd66f02cc71dc98561ebc92"
+    },
+    {
+      "path": "game/src/spots/venue-activities.js",
+      "sha256": "9618aeaa726bcdce18a488a7960323ac695f7c010fe009ca8e8e74b66466344c"
     },
     {
       "path": "game/src/spots/walker.js",
       "sha256": "a6be6c51c1b63f2ea6fa72ab75513e0353c1f4d036cebdaa0057baf1b229798e"
+    },
+    {
+      "path": "game/src/spots/water-route.js",
+      "sha256": "0c9421c2001c50156c31048e877bd9bcd99e2629d9c84f992bf5dbc18f8a7665"
+    },
+    {
+      "path": "game/src/telemetry-health.js",
+      "sha256": "05805123b81c5aa14649512c551a1a4d3eca76746e95d0c5b63c89362734c0f1"
     },
     {
       "path": "game/src/transition.js",
@@ -1285,6 +1453,330 @@
     {
       "path": "game/src/util.js",
       "sha256": "0a9dfc801adefd4dbf6f8485451404d92494dd9292fe0e310c9eb457f78afeb5"
+    },
+    {
+      "path": "game/overview/comparison-data/catalog.json",
+      "sha256": "fcfcea76c24109ee8fed8bdbac6158855187bf62355c4bdf57fc27f967ea27c1"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/boundary-source.json",
+      "sha256": "0312d241700b05b3c6a53a84ab1aece7b4bbda1241d34c4934b7ae878af35de2"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/capture-manifest.json",
+      "sha256": "2e60028650e0017dc29d693d4aeb4e74c003b5bdd151266dfd4356a2c9b2d45a"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/capture-report.json",
+      "sha256": "b60550b04a1974f3ca0169e49db5e86ce997f38e4ec60fb94028e604470c6a06"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/manifest.json",
+      "sha256": "859cfbde3da4e9493050a22c09e232e9d896103ea94629ba3119e7cf4c4053a2"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/source-provenance.json",
+      "sha256": "d73017ac5673de63648d2dd291081dbb11a920485f28d3a1edff2998bbbf5ecd"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/validation.json",
+      "sha256": "ac336a583bcbfe339b79921473c5afcd26f8260ba5ef59d470de9cefd251e9a7"
+    },
+    {
+      "path": "game/overview/comparison-data/grozavesti/boundary-source.json",
+      "sha256": "9e434091164d582ff75bf60ad52283547ba45911659abd22406acf012a4b08ea"
+    },
+    {
+      "path": "game/overview/comparison-data/grozavesti/capture-manifest.json",
+      "sha256": "952374a5fb3ec5a3828cebcc4e9590b8765a34f9e7f76ce76565fb7523e8a84e"
+    },
+    {
+      "path": "game/overview/comparison-data/grozavesti/manifest.json",
+      "sha256": "dcfd7be3bf98df8fd241064a5517b9cb03aa141872a4a406c5f264bbe9ee5b10"
+    },
+    {
+      "path": "game/overview/comparison-data/grozavesti/source-provenance.json",
+      "sha256": "cff953f5e1927a9fd530e64a574c40bd97bcfebf900ecb568d989994acd22bd8"
+    },
+    {
+      "path": "game/overview/comparison-data/grozavesti/validation.json",
+      "sha256": "f405d9ecfaa19d9a2c253293fccb30f0c29493aa151e230c0b4efaecfb7903ae"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/manifest.json",
+      "sha256": "b234323f3ce72854f75578c84187701e99ee0c3f386be823393d3e9f236fe0df"
+    },
+    {
+      "path": "game/overview/comparison-viewer.css",
+      "sha256": "de7ac8da561f88b142f880ddd8a6c404fd6c5de3c518b421dc74c4263fbbbecc"
+    },
+    {
+      "path": "game/overview/comparison-viewer.js",
+      "sha256": "521780a3e29a7ba04d4a0c271b57b6f4f7df5c35fe4c6be3c592a3187cf1b130"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/ambasador.json",
+      "sha256": "69282da4342c301b2c0f1072809be3406b4f82330e0e5653795e5bb50d8bd51b"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/arcul.json",
+      "sha256": "91406bb865162ec1706eeeff3faec2b4c3ab36941c56b4c033acc2118b4d39cf"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/aro.json",
+      "sha256": "8943663b837359839dc69cc5c5ceed4b94480857b81ed13d96ac3cae297005ba"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/ase.json",
+      "sha256": "b231288d208b6e35b4183539dd4ad0074252ccc612441f14d2a41c35149b5f4d"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/ateneu.json",
+      "sha256": "db3aca0b249b424928192f698232510e01834e735a4b5b8958106bb3c1380142"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/aviatorilor.json",
+      "sha256": "33cbaf2d69be61c9f3b73c885d23b7fa0e7b22e222e770ba21c8ddb961db90c2"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/baneasasc.json",
+      "sha256": "97bacaa624caf58fc79d79e30cc58c5cc74f01527e234f554b451d5f3ff8d790"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/baneasaterm.json",
+      "sha256": "94bd3a7325042a1dc6ccaeddaf9d7f876006f21fceeff62645fe8502e986bb98"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/bob.json",
+      "sha256": "c20ead9f212dfa0d867b184fe35eb354ab94a8d8ba4b2e98c25a2e0c0d8d7277"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/casapresei.json",
+      "sha256": "8c20ffc3d73a03a508b9ff7e8444fffc5a5143a579f57c8ea9eab633ca6e2666"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/cathedral.json",
+      "sha256": "1a1711df217ebeb6b40ede6d5973a32fffd68297c3716dc3ad0da6773806daa7"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/cec.json",
+      "sha256": "bdf894786fc1ae667cdd643f159f988332bb4909561c82fc7feba393f44212b9"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/dinamo.json",
+      "sha256": "ef26af9c3b2634fdff7454501a43c6011cf39173cb165297b61d7d0f935a6d26"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/europehouse.json",
+      "sha256": "d535b9d463bb62913671823fc85b694be2bceddc122e7e6f2ba3b8016c12c33c"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/fountains.json",
+      "sha256": "9912e95c0134794c4e2b532c0aac369ad8ea8f3ab1a73fd6a97d208a0d23ed25"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/gara.json",
+      "sha256": "aa795467d7f60611fa64ecd5db36f79adcb28946cec08a9ebf49c3b75ec7df6d"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/globalworth.json",
+      "sha256": "2abb4e9a5c2c83324e27545206e2127d4482a99817e5dffac09ec931fac9b0f3"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/grandhotel.json",
+      "sha256": "86d91f04b10972f4eddd9810b7cde82434b7c00ccf937f190b2c0ab7af1de6da"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/gts.json",
+      "sha256": "64ac3f8bd2c34c0cfd2e037dff9bc8f005fbb757fd949fd9e730e4c6e17861a6"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/halatraian.json",
+      "sha256": "1133b907d082320d9d349216f7fde117dbab6c1bebfa72386ace788042827239"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/hermes.json",
+      "sha256": "7fe860953746198acdd0d6ab72d905c04806e49f93c68f8f4615e87ea3c89b0f"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/marriott.json",
+      "sha256": "d75f8cdb7517ea063f08688c6f0ccbbe3a13be4c72bbec912d2e62391a3368ba"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/mnir.json",
+      "sha256": "08b61254371c15b0a7736a8735563686440143362ad68f4f36cb928f8fae8f0d"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/opera.json",
+      "sha256": "c825d7b1826f9db5c835cdd7d843ecdb3922eb0508fa1c1c79d6aae886972755"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/otp.json",
+      "sha256": "1a84d46c52bde2144dd552c8d21814693b69e68a557db45b428fe2bce7827806"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/parliament.json",
+      "sha256": "ce86b44aee7a2c69abb1a3976646443921c18d11fb304f2b648810312a5be5e5"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/politehnica.json",
+      "sha256": "4df0ccc5cd93a98dc8199c85503affac7ca2fe3585f4b2b3b3efa5d508e0e5c0"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/promenada.json",
+      "sha256": "8aec178cfdf109ad5628e50da3217c14d2d1d4b1afea6e5a446361bf5a13f339"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/regal.json",
+      "sha256": "3d14973ca5bf3bb8288a8ec21ec493335eecf38917aa13515f274ad8e4251752"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/romexpo.json",
+      "sha256": "32a812daf4fe87069c7c24862cab4888a890d8b98cab62e8b1aeaff6424d0dd1"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/rosetti.json",
+      "sha256": "8c75fe10c72d79e4ed163f9c9d14f56f534172351d45a06799ff37f4516fb4d5"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/skytower.json",
+      "sha256": "086dd8c3d90809f180ba0a8b03c5faacedb1728bda516a9b43c894dd7522d81d"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/thelandmark.json",
+      "sha256": "d4323599f8b896c030f3cf0d64029176e87d32cae8f9a89908cd5d5e86a7134e"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/tnb.json",
+      "sha256": "9f6b324741f4d6ec489d97da0261273562509c657cff3c4334895821273891bf"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/unirea.json",
+      "sha256": "3755166e9d53619edbd34f77317f61f6464236725acac12bf017558a48904e76"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/univ.json",
+      "sha256": "686be0efa79ea79f0b26def59b53e62a3713d321831168e93b1bed8b2a096880"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/victoria.json",
+      "sha256": "a345cf324fd296e3885158689c1a8f0fd07f8e9c952c81e015ccede950c92ccd"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/bellevue600.json",
+      "sha256": "e471a7921ed0fc620bf3f61afac80baff5516ef9b9797fc09445bfed08cb4a79"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/bellevuesq.json",
+      "sha256": "b44516c4d7be0fcf82e366817fa8b7ab5dbef6dbc662eacabee2e6af4f83c72c"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/bellevuetowers.json",
+      "sha256": "2da3ca01f01724341c9cbde0cfc0b558b71d9f3bff4c1d96e1b7ac19e014019b"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/columbia.json",
+      "sha256": "60e91be828e8221ab6eb993fe9f76c59650d67e55181a033a573bb124be937a8"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/greatwheel.json",
+      "sha256": "9a8d72d72a7ed86c19a72fa1b0ff487b33634d9e1c30646bf2d3349cd73b85ac"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/lincoln.json",
+      "sha256": "1a8035802c5ca68367e349e2a1217be03a8ba82e30a1a62bdacc97386c07a2ac"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/lincolnsouth.json",
+      "sha256": "4c6939a8e663c4292c9c9e5be01143714e535f554ef4dc94641bd15371a7c6b9"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/lumen.json",
+      "sha256": "c2c0643343a3d924095ece4302e25d5d2ca7dae646a72f639a9291994836f913"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/mtbaker.json",
+      "sha256": "270e97f86383642614f8902e338263738971141c3893cd98eb0a8d2f4611d139"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/murrowe.json",
+      "sha256": "f8ee760c7bb725d3fb290885ab9c671accc240062bc17789c44e4033d979fb49"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/murroww.json",
+      "sha256": "fcd803aaa2c38f595598a5933467d7e97e3e4249d24e8f27d152dcc88426c209"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/olympics.json",
+      "sha256": "a1e146dd7e8c3cdbe7561082cea131ce08193bd2985e2df9b0a2513719ea5660"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/onelincoln.json",
+      "sha256": "2a4fda0792a9dc94a16987342a15fadff1b4a7dbdee115bf16e6c03ebfbdce4e"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/plazacenter.json",
+      "sha256": "64da32e661a7cb6cbc24b49f6256cf44b360dad959480c48216a1c8725b75fb6"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/rainier.json",
+      "sha256": "4f423c0842b6fa5b1fc1a8013b648df9ab619d3e84b1095b703e77660bcb9e0d"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/seagarage.json",
+      "sha256": "2a4660e4b812965147aa3deb52a2be3e63a547ad7054ebfc4062f56035d46299"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/sealink.json",
+      "sha256": "a16733c46b7fe82d03adb14d1010877bf6878be66eff291cb0af98555d2f27da"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/seatac.json",
+      "sha256": "f6c2d614e22dd7688cbf9608746e2ce49b703fffaa7364d9ca491a047d1757bf"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/seatower.json",
+      "sha256": "dbcbbac68462255294fcbc66286d56e21316f63edf9ee9b93d3ed5553ee9f98f"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/smith.json",
+      "sha256": "80a355146e1d1afcfe1379a3667bceb1176ae8b17cbb30fc981c69837c3ffedb"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/sonic.json",
+      "sha256": "3251542a79db15a58f9612475df8c9f98defb39f7dc7bbb4cf9b51821ed64589"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/spaceneedle.json",
+      "sha256": "44f55ac72e7e3d492e232c47d76137a5576dc9c318c365cb7aab38fe26708c5e"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/spheres.json",
+      "sha256": "9e688328402177e2dc45f014eb6cdc5411f1bdae205e7967ae1791ffcf30de83"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/tmobile.json",
+      "sha256": "70b66c2f9c5603e65cdca40a495b0dcf301f87b55e78f78d763a51c23fc98d11"
+    },
+    {
+      "path": "game/overview/generate.mjs",
+      "sha256": "00d193bfc293cfd68f88d7b84afff02b4ec0ceea376b350632406fd3bd95eeee"
+    },
+    {
+      "path": "game/overview/index.html",
+      "sha256": "409b9567e34d466f07d6f1cd6d8e2808a090988768ec875a8cbd679fbecfc552"
+    },
+    {
+      "path": "game/overview/landmark-evidence.js",
+      "sha256": "eb3139a5f6950883086cbdadc83bf352184c0bbc6e63e3ead446fd0c77604bae"
+    },
+    {
+      "path": "game/overview/overview.js",
+      "sha256": "11dee987441aeb0e6ab2939aeb4ba564343576dd2283587af6fd6888c165bfba"
+    },
+    {
+      "path": "game/overview/style.css",
+      "sha256": "9713c8c79d062120e588491b988c2252c627d83028dde0658cc003144f412ec3"
     }
   ]
 }

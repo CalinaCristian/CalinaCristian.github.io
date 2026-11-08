@@ -115,7 +115,7 @@
       "referenceImageryCommitted": false
     }
   ],
-  "methodLimit": "Whole-footprint medians mix plant, roof ribs and membrane; they are observations only and are not applied as a blanket roof material. Roof zone boundaries are traced in independent Esri pixels with approximately1.7m plan uncertainty; image date and photometric calibration are unknown. All model heights, colliders, source footprints and courtyard topology remain unchanged.",
+  "methodLimit": "Whole-footprint medians mix plant, roof ribs and membrane; they are observations only and are not applied as a blanket roof material. Roof zone boundaries are traced in independent Esri pixels with approximately1.7m plan uncertainty; image date and photometric calibration are unknown. All model total/base heights, colliders, source footprints and courtyard topology remain unchanged; arrivals roof eaves/rise are explicitly estimated.",
   "zones": {
     "departures": [
       {
@@ -1127,5 +1127,126 @@
     "w1321861231": null
   },
   "sourceColourConflicts": [],
-  "appliedMaterialNote": "Separate sampled membrane RGB and white-hall/strip RGB are used as material colour estimates under the game lighting. Source OSM explicit colour/material takes precedence; none is present on these four source parts."
+  "appliedMaterialNote": "Separate sampled membrane RGB and white-hall/strip RGB are used as material colour estimates under the game lighting. Source OSM explicit colour/material takes precedence; none is present on these four source parts.",
+  "arrivalsRoofProfile": {
+    "sourceId": "w771096081",
+    "sourceUrl": "https://www.openstreetmap.org/way/771096081",
+    "sourceRoofShapeTag": null,
+    "bayCountObserved": 10,
+    "axisMethod": "Parallel curved roof ridges tracked on the independent z18 Esri image. Two separated roof strips show ten repeating bright ridges and corresponding dark troughs; roof plant obscures some spans. The image row intercepts at local x40 are17,39,60,81,102,124,145,167,188,210; slope dy/dx=-0.097. Coordinates are measurements of image-visible ridges, not surveyed eave positions.",
+    "ridgeLocalPixelIntercepts": [
+      17,
+      39,
+      60,
+      81,
+      102,
+      124,
+      145,
+      167,
+      188,
+      210
+    ],
+    "localCropMosaicPixelOrigin": [
+      3805,
+      2360
+    ],
+    "ridgeWgs84Centres": [
+      [
+        44.56966925108917,
+        26.07777178287506
+      ],
+      [
+        44.56958517585531,
+        26.07777178287506
+      ],
+      [
+        44.56950492210963,
+        26.07777178287506
+      ],
+      [
+        44.56942466825321,
+        26.07777178287506
+      ],
+      [
+        44.56934441428607,
+        26.07777178287506
+      ],
+      [
+        44.56926033858267,
+        26.07777178287506
+      ],
+      [
+        44.56918008438878,
+        26.07777178287506
+      ],
+      [
+        44.56909600844784,
+        26.07777178287506
+      ],
+      [
+        44.569015754027205,
+        26.07777178287506
+      ],
+      [
+        44.56893167784873,
+        26.07777178287506
+      ]
+    ],
+    "crossAxisModelUnit": [
+      0.999966717854402,
+      0.008158626323997756
+    ],
+    "alongAxisModelUnit": [
+      0.008158626323997756,
+      -0.999966717854402
+    ],
+    "ridgeModelCoordinatesM": [
+      112.89490671888782,
+      122.19485122700766,
+      131.0720835240944,
+      139.94932807042508,
+      148.82658486442776,
+      158.12658131059945,
+      167.00386318627508,
+      176.3038859079985,
+      185.18119286534707,
+      194.4812418618363
+    ],
+    "medianSpacingM": 8.877306957348566,
+    "spacingRangeM": [
+      8.87723229708675,
+      9.300048996489238
+    ],
+    "axisBearingDegrees": 84.46880238515527,
+    "planUncertaintyM": 1.7,
+    "riseM": 1.2,
+    "riseSource": "Explicit visual estimate; nadir pixels cannot measure roof rise. Preserve prior unmapped total14m/base0m; eaves12.8m is derived from that estimate.",
+    "sourceBoundaryConflict": "The northern image ridge lies approximately5–6m outside the exact mapped part outline, consistent with roof/eave mismatch, ortho parallax or acquisition/source date differences. Do not expand/move source geometry to fit imagery; all ten measured bay domains are clipped to the complete OSM ring.",
+    "imageryProvider": "Esri World Imagery",
+    "imageryAcquisitionDate": null,
+    "imageryRetrievedDate": "2026-11-08",
+    "referenceImageryCommitted": false,
+    "crownColourSample": {
+      "rgb": [
+        187,
+        188,
+        171
+      ],
+      "hex": "#bbbcab",
+      "pixelCount": 891,
+      "quartilesRgb": [
+        [
+          178,
+          180,
+          164
+        ],
+        [
+          193,
+          194,
+          178
+        ]
+      ],
+      "method": "Independent image crest strips at measured ridge intercepts39..210; local x50..82, +/-1image pixel about tracked crest; no Google data."
+    }
+  }
 }

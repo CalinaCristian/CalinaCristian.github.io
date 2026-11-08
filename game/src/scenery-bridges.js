@@ -57,8 +57,12 @@ export function sceneryBridgeProfiles(data, profiles, coreEdges = []) {
     // A named, nearly straight pair of same-class approach carriageways can fork at a bridge mouth.
     // Unlike a transverse cross-street, both branches point away from the actual bridge segment.
     const bridgeFork = (n, incoming) => {
-        if (!incoming.piece.bridge || n.links.length !== 3) return null;
-        const branches = n.links.filter(e => e !== incoming), name = branches[0]?.piece.tags.name;
+        if (!incoming.piece.bridge || n.links.length < 3) return null;
+        const branches = n.links.filter(e => e !== incoming && e.piece.type === incoming.piece.type);
+        const extra = n.links.filter(e => e !== incoming && !branches.includes(e));
+        // Source ramp links are admitted by the existing continuation policy, independent of iteration order.
+        if (branches.length !== 2 || extra.some(e => !/_link$/.test(e.piece.type))) return null;
+        const name = branches[0]?.piece.tags.name;
         if (!name || branches.some(e => e.piece.bridge || e.piece.type !== incoming.piece.type || e.piece.tags.name !== name || layerOf(e.piece.tags, false) !== 0 || (e.piece.tags.tunnel && e.piece.tags.tunnel !== 'no'))) return null;
         const outward = e => { const p = (e.a === n ? e.b : e.a).p; return [(p[0] - n.p[0]) / e.len, (p[1] - n.p[1]) / e.len]; };
         const bridge = outward(incoming), directions = branches.map(outward);

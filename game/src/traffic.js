@@ -1711,6 +1711,8 @@ export class Traffic {
         if (!line || !target) return false;
         const ref = this.walker?.active ? this.walker : this.player;
         if (ref && Math.hypot(target.x - ref.x, target.z - ref.z) > 75) return false;
+        // (after round 6) someone on another level (under the bridge / on the deck above) isn't talking to us
+        if (ref && Number.isFinite(ref.y) && Math.abs((Number.isFinite(target.y) ? target.y : 0) - ref.y) > 3.5) return false; // (pedestrians: street level)
         const text = line.t, sub = line.en && line.en !== line.t ? line.en : '';
         const tgt = this.placeBubble(target, pri, !!sub); if (!tgt) return false;
         try { if (this.onSay) this.onSay(tgt, text, sub, cls); else globalThis.game?.hud?.say?.(tgt, text, sub, cls); } catch { /* no HUD */ }

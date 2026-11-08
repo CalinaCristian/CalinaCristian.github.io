@@ -1,0 +1,437 @@
+<?xml version='1.0' encoding='utf-8'?>
+<osm version="0.6"><node id="3324705642" visible="true" version="2" changeset="87376549" timestamp="2020-07-01T05:09:59Z" user="UW Maddie" uid="10350264" lat="47.6138878" lon="-122.1957124" />
+ <node id="3324705643" visible="true" version="2" changeset="87376549" timestamp="2020-07-01T05:09:59Z" user="UW Maddie" uid="10350264" lat="47.6138901" lon="-122.1953864" />
+ <node id="3324709762" visible="true" version="2" changeset="87376549" timestamp="2020-07-01T05:09:59Z" user="UW Maddie" uid="10350264" lat="47.6140301" lon="-122.1955276" />
+ <node id="3324709764" visible="true" version="2" changeset="87376549" timestamp="2020-07-01T05:09:59Z" user="UW Maddie" uid="10350264" lat="47.6140310" lon="-122.1953908" />
+ <node id="3324709765" visible="true" version="2" changeset="87376549" timestamp="2020-07-01T05:09:59Z" user="UW Maddie" uid="10350264" lat="47.6140317" lon="-122.1953109" />
+ <node id="3324709766" visible="true" version="2" changeset="87376549" timestamp="2020-07-01T05:09:59Z" user="UW Maddie" uid="10350264" lat="47.6140318" lon="-122.1952969" />
+ <node id="3324709770" visible="true" version="2" changeset="87376549" timestamp="2020-07-01T05:09:59Z" user="UW Maddie" uid="10350264" lat="47.6140812" lon="-122.1955285" />
+ <node id="3324709773" visible="true" version="2" changeset="87376549" timestamp="2020-07-01T05:09:59Z" user="UW Maddie" uid="10350264" lat="47.6140829" lon="-122.1953911" />
+ <node id="3324709775" visible="true" version="2" changeset="87376549" timestamp="2020-07-01T05:09:59Z" user="UW Maddie" uid="10350264" lat="47.6140834" lon="-122.1952987" />
+ <node id="3324709783" visible="true" version="2" changeset="87376549" timestamp="2020-07-01T05:09:59Z" user="UW Maddie" uid="10350264" lat="47.6141070" lon="-122.1958994" />
+ <node id="3324709784" visible="true" version="2" changeset="87376549" timestamp="2020-07-01T05:09:59Z" user="UW Maddie" uid="10350264" lat="47.6141075" lon="-122.1957156" />
+ <node id="3324709785" visible="true" version="2" changeset="87376549" timestamp="2020-07-01T05:09:59Z" user="UW Maddie" uid="10350264" lat="47.6141130" lon="-122.1953915" />
+ <node id="3324709786" visible="true" version="3" changeset="90305703" timestamp="2020-09-02T12:52:21Z" user="UW Maddie" uid="10350264" lat="47.6141133" lon="-122.1952137" />
+ <node id="3324709814" visible="true" version="2" changeset="87376549" timestamp="2020-07-01T05:09:59Z" user="UW Maddie" uid="10350264" lat="47.6143399" lon="-122.1959004" />
+ <node id="3324709815" visible="true" version="2" changeset="87376549" timestamp="2020-07-01T05:09:59Z" user="UW Maddie" uid="10350264" lat="47.6143424" lon="-122.1957229" />
+ <node id="3324709816" visible="true" version="2" changeset="87376549" timestamp="2020-07-01T05:09:59Z" user="UW Maddie" uid="10350264" lat="47.6143467" lon="-122.1953957" />
+ <node id="3324709817" visible="true" version="2" changeset="87376549" timestamp="2020-07-01T05:09:59Z" user="UW Maddie" uid="10350264" lat="47.6143469" lon="-122.1953812" />
+ <node id="3324709818" visible="true" version="3" changeset="90305703" timestamp="2020-09-02T12:52:21Z" user="UW Maddie" uid="10350264" lat="47.6143473" lon="-122.1953011" />
+ <node id="3324709819" visible="true" version="3" changeset="90305703" timestamp="2020-09-02T12:52:21Z" user="UW Maddie" uid="10350264" lat="47.6143469" lon="-122.1952186" />
+ <node id="3324709822" visible="true" version="2" changeset="87376549" timestamp="2020-07-01T05:09:59Z" user="UW Maddie" uid="10350264" lat="47.6143684" lon="-122.1957241" />
+ <node id="3324709823" visible="true" version="2" changeset="87376549" timestamp="2020-07-01T05:09:59Z" user="UW Maddie" uid="10350264" lat="47.6143729" lon="-122.1953966" />
+ <node id="3324709850" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:37Z" user="Anton Lavrov" uid="623324" lat="47.6144281" lon="-122.1943776" />
+ <node id="3324709969" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:37Z" user="Anton Lavrov" uid="623324" lat="47.6144891" lon="-122.1943512" />
+ <node id="3324709979" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:37Z" user="Anton Lavrov" uid="623324" lat="47.6145139" lon="-122.1944250" />
+ <node id="3324709989" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:37Z" user="Anton Lavrov" uid="623324" lat="47.6145497" lon="-122.1943812" />
+ <node id="3324709995" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:37Z" user="Anton Lavrov" uid="623324" lat="47.6145725" lon="-122.1941602" />
+ <node id="3324709997" visible="true" version="2" changeset="87388956" timestamp="2020-07-01T08:58:05Z" user="UW Maddie" uid="10350264" lat="47.6145736" lon="-122.1954176" />
+ <node id="3324709998" visible="true" version="2" changeset="49801353" timestamp="2017-06-24T20:00:20Z" user="ilovegoats98" uid="6217930" lat="47.6145755" lon="-122.1955695" />
+ <node id="3324709999" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6145803" lon="-122.1960269" />
+ <node id="3324710000" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6145808" lon="-122.1960899" />
+ <node id="3324710008" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6146024" lon="-122.1944597" />
+ <node id="3324710011" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6146092" lon="-122.1938579" />
+ <node id="3324710012" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6146117" lon="-122.1944042" />
+ <node id="3324710013" visible="true" version="2" changeset="87388956" timestamp="2020-07-01T08:58:05Z" user="UW Maddie" uid="10350264" lat="47.6146114" lon="-122.1953561" />
+ <node id="3324710014" visible="true" version="2" changeset="87388956" timestamp="2020-07-01T08:58:05Z" user="UW Maddie" uid="10350264" lat="47.6146120" lon="-122.1954173" />
+ <node id="3324710016" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6146274" lon="-122.1960891" />
+ <node id="3324710019" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6146367" lon="-122.1961099" />
+ <node id="3324710021" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6146493" lon="-122.1960256" />
+ <node id="3324710022" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6146494" lon="-122.1960452" />
+ <node id="3324710023" visible="true" version="3" changeset="105054719" timestamp="2021-05-21T00:19:38Z" user="pnorman" uid="355617" lat="47.6146501" lon="-122.1961251">
+  <tag k="entrance" v="yes" />
+ </node>
+ <node id="3324710024" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6146504" lon="-122.1939818" />
+ <node id="3324710025" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6146570" lon="-122.1942325" />
+ <node id="3324710026" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6146661" lon="-122.1961330" />
+ <node id="3324710027" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6146734" lon="-122.1941567" />
+ <node id="3324710028" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6146747" lon="-122.1944201" />
+ <node id="3324710029" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6146794" lon="-122.1939840" />
+ <node id="3324710032" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6146830" lon="-122.1961327" />
+ <node id="3324710033" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6146844" lon="-122.1938377" />
+ <node id="3324710035" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6146927" lon="-122.1944815" />
+ <node id="3324710037" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6146980" lon="-122.1960247" />
+ <node id="3324710038" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6146982" lon="-122.1960443" />
+ <node id="3324710040" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6146989" lon="-122.1961242" />
+ <node id="3324710041" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6147120" lon="-122.1961085" />
+ <node id="3324710042" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6147210" lon="-122.1960873" />
+ <node id="3324710045" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6147324" lon="-122.1938333" />
+ <node id="3324710046" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6147383" lon="-122.1944289" />
+ <node id="3324710047" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6147470" lon="-122.1942883" />
+ <node id="3324710049" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6147572" lon="-122.1960236" />
+ <node id="3324710050" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:38Z" user="Anton Lavrov" uid="623324" lat="47.6147577" lon="-122.1960866" />
+ <node id="3324710053" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:39Z" user="Anton Lavrov" uid="623324" lat="47.6147803" lon="-122.1938289" />
+ <node id="3324710056" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:39Z" user="Anton Lavrov" uid="623324" lat="47.6147841" lon="-122.1944900" />
+ <node id="3324710057" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:39Z" user="Anton Lavrov" uid="623324" lat="47.6148022" lon="-122.1944305" />
+ <node id="3324710058" visible="true" version="2" changeset="31161381" timestamp="2015-05-15T06:04:41Z" user="Anton Lavrov" uid="623324" lat="47.6148073" lon="-122.1938310">
+  <tag k="amenity" v="parking_entrance" />
+ </node>
+ <node id="3324710264" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:39Z" user="Anton Lavrov" uid="623324" lat="47.6148260" lon="-122.1960853" />
+ <node id="3324710265" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:39Z" user="Anton Lavrov" uid="623324" lat="47.6148262" lon="-122.1961067" />
+ <node id="3324710268" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:39Z" user="Anton Lavrov" uid="623324" lat="47.6148410" lon="-122.1943267" />
+ <node id="3324710269" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:39Z" user="Anton Lavrov" uid="623324" lat="47.6148626" lon="-122.1943312" />
+ <node id="3324710270" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:39Z" user="Anton Lavrov" uid="623324" lat="47.6148660" lon="-122.1944249" />
+ <node id="3324710271" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:39Z" user="Anton Lavrov" uid="623324" lat="47.6148755" lon="-122.1944852" />
+ <node id="3324710272" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:39Z" user="Anton Lavrov" uid="623324" lat="47.6148762" lon="-122.1938365" />
+ <node id="3324710277" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:39Z" user="Anton Lavrov" uid="623324" lat="47.6148955" lon="-122.1961054" />
+ <node id="3324710278" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:39Z" user="Anton Lavrov" uid="623324" lat="47.6148957" lon="-122.1961269" />
+ <node id="3324710280" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:39Z" user="Anton Lavrov" uid="623324" lat="47.6149375" lon="-122.1943470" />
+ <node id="3324710283" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:39Z" user="Anton Lavrov" uid="623324" lat="47.6149650" lon="-122.1961255" />
+ <node id="3324710285" visible="true" version="2" changeset="31130226" timestamp="2015-05-14T08:35:36Z" user="Anton Lavrov" uid="623324" lat="47.6149820" lon="-122.1943480" />
+ <node id="3324710286" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:39Z" user="Anton Lavrov" uid="623324" lat="47.6149709" lon="-122.1938605" />
+ <node id="3324710297" visible="true" version="4" changeset="129016206" timestamp="2022-11-17T00:09:38Z" user="Heptazane" uid="23762" lat="47.6150100" lon="-122.1943480">
+  <tag k="entrance" v="main" />
+ </node>
+ <node id="3324710304" visible="true" version="3" changeset="87388956" timestamp="2020-07-01T08:58:05Z" user="UW Maddie" uid="10350264" lat="47.6150248" lon="-122.1943486" />
+ <node id="3324710308" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:40Z" user="Anton Lavrov" uid="623324" lat="47.6150631" lon="-122.1939007" />
+ <node id="3324710319" visible="true" version="2" changeset="87388956" timestamp="2020-07-01T08:58:05Z" user="UW Maddie" uid="10350264" lat="47.6151336" lon="-122.1943389" />
+ <node id="3324710321" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:40Z" user="Anton Lavrov" uid="623324" lat="47.6151368" lon="-122.1941919" />
+ <node id="3324710326" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:40Z" user="Anton Lavrov" uid="623324" lat="47.6151515" lon="-122.1939564" />
+ <node id="3324710327" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:40Z" user="Anton Lavrov" uid="623324" lat="47.6151621" lon="-122.1941938" />
+ <node id="3324710336" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:40Z" user="Anton Lavrov" uid="623324" lat="47.6151808" lon="-122.1961215" />
+ <node id="3324710345" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:40Z" user="Anton Lavrov" uid="623324" lat="47.6152350" lon="-122.1940269" />
+ <node id="3324710352" visible="true" version="2" changeset="49801353" timestamp="2017-06-24T20:00:20Z" user="ilovegoats98" uid="6217930" lat="47.6152506" lon="-122.1953426" />
+ <node id="3324710360" visible="true" version="2" changeset="49801353" timestamp="2017-06-24T20:00:20Z" user="ilovegoats98" uid="6217930" lat="47.6152573" lon="-122.1961200" />
+ <node id="3324710473" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:41Z" user="Anton Lavrov" uid="623324" lat="47.6153128" lon="-122.1953414" />
+ <node id="3324710474" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:41Z" user="Anton Lavrov" uid="623324" lat="47.6153132" lon="-122.1953976" />
+ <node id="3324710475" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:41Z" user="Anton Lavrov" uid="623324" lat="47.6153147" lon="-122.1955622" />
+ <node id="3324710476" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:41Z" user="Anton Lavrov" uid="623324" lat="47.6153156" lon="-122.1956663" />
+ <node id="3324710477" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:41Z" user="Anton Lavrov" uid="623324" lat="47.6153161" lon="-122.1957304" />
+ <node id="3324710481" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:41Z" user="Anton Lavrov" uid="623324" lat="47.6153188" lon="-122.1960471" />
+ <node id="3324710482" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:41Z" user="Anton Lavrov" uid="623324" lat="47.6153195" lon="-122.1961188" />
+ <node id="3516834380" visible="true" version="3" changeset="50873670" timestamp="2017-08-06T01:47:12Z" user="NickBolten" uid="2773196" lat="47.6149823" lon="-122.1944651" />
+ <node id="4641494159" visible="true" version="2" changeset="87388956" timestamp="2020-07-01T08:58:05Z" user="UW Maddie" uid="10350264" lat="47.6146116" lon="-122.1953750" />
+ <node id="4641494161" visible="true" version="2" changeset="87388956" timestamp="2020-07-01T08:58:05Z" user="UW Maddie" uid="10350264" lat="47.6146838" lon="-122.1953534" />
+ <node id="4641494169" visible="true" version="1" changeset="45612279" timestamp="2017-01-29T06:48:29Z" user="cjc343" uid="5187238" lat="47.6146052" lon="-122.1939719" />
+ <node id="4641494171" visible="true" version="2" changeset="87376549" timestamp="2020-07-01T05:09:59Z" user="UW Maddie" uid="10350264" lat="47.6141134" lon="-122.1953016" />
+ <node id="7673149986" visible="true" version="1" changeset="87388956" timestamp="2020-07-01T08:58:05Z" user="UW Maddie" uid="10350264" lat="47.6148496" lon="-122.1944866" />
+ <node id="7673149987" visible="true" version="1" changeset="87388956" timestamp="2020-07-01T08:58:05Z" user="UW Maddie" uid="10350264" lat="47.6149672" lon="-122.1944679" />
+ <node id="7673149993" visible="true" version="1" changeset="87388956" timestamp="2020-07-01T08:58:05Z" user="UW Maddie" uid="10350264" lat="47.6144892" lon="-122.1944113" />
+ <node id="7673150005" visible="true" version="2" changeset="105054719" timestamp="2021-05-21T00:19:38Z" user="pnorman" uid="355617" lat="47.6151863" lon="-122.1941384">
+  <tag k="entrance" v="yes" />
+ </node>
+ <node id="10195930737" visible="true" version="1" changeset="129016206" timestamp="2022-11-17T00:09:38Z" user="Heptazane" uid="23762" lat="47.6150695" lon="-122.1953455">
+  <tag k="entrance" v="main" />
+ </node>
+ <node id="10195930738" visible="true" version="1" changeset="129016206" timestamp="2022-11-17T00:09:38Z" user="Heptazane" uid="23762" lat="47.6150729" lon="-122.1961230">
+  <tag k="entrance" v="main" />
+ </node>
+ <node id="10195930740" visible="true" version="1" changeset="129016206" timestamp="2022-11-17T00:09:38Z" user="Heptazane" uid="23762" lat="47.6150925" lon="-122.1939186">
+  <tag k="entrance" v="main" />
+ </node>
+ <way id="325852401" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:42Z" user="Anton Lavrov" uid="623324">
+  <nd ref="3324710321" />
+  <nd ref="3324710027" />
+  <nd ref="3324710029" />
+ </way>
+ <way id="325852397" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:42Z" user="Anton Lavrov" uid="623324">
+  <nd ref="3324710033" />
+  <nd ref="3324710029" />
+ </way>
+ <way id="325852388" visible="true" version="4" changeset="149291222" timestamp="2024-03-28T23:49:32Z" user="TheDutchMan13" uid="1330847">
+  <nd ref="3324710321" />
+  <nd ref="3324710327" />
+  <nd ref="7673150005" />
+  <nd ref="3324710345" />
+  <nd ref="3324710326" />
+  <nd ref="10195930740" />
+  <nd ref="3324710308" />
+  <nd ref="3324710286" />
+  <nd ref="3324710272" />
+  <nd ref="3324710058" />
+  <nd ref="3324710053" />
+  <nd ref="3324710045" />
+  <nd ref="3324710033" />
+  <tag k="addr:state" v="WA" />
+ </way>
+ <way id="325852389" visible="true" version="5" changeset="149291222" timestamp="2024-03-28T23:49:32Z" user="TheDutchMan13" uid="1330847">
+  <nd ref="3324710285" />
+  <nd ref="3516834380" />
+  <nd ref="7673149987" />
+  <nd ref="3324710271" />
+  <nd ref="7673149986" />
+  <nd ref="3324710056" />
+  <nd ref="3324710035" />
+  <nd ref="3324710008" />
+  <nd ref="3324709979" />
+  <nd ref="7673149993" />
+  <nd ref="3324709850" />
+  <nd ref="4641494169" />
+  <nd ref="3324710011" />
+  <nd ref="3324710033" />
+  <tag k="addr:state" v="WA" />
+ </way>
+ <way id="325852414" visible="true" version="3" changeset="149291222" timestamp="2024-03-28T23:49:32Z" user="TheDutchMan13" uid="1330847">
+  <nd ref="3324710285" />
+  <nd ref="3324710297" />
+  <nd ref="3324710304" />
+  <nd ref="3324710319" />
+  <nd ref="3324710321" />
+  <tag k="addr:state" v="WA" />
+ </way>
+ <way id="325852422" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:43Z" user="Anton Lavrov" uid="623324">
+  <nd ref="3324710269" />
+  <nd ref="3324710270" />
+  <nd ref="3324710057" />
+  <nd ref="3324710046" />
+  <nd ref="3324710028" />
+  <nd ref="3324710012" />
+  <nd ref="3324709989" />
+  <nd ref="3324709969" />
+  <nd ref="3324709995" />
+ </way>
+ <way id="325852402" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:42Z" user="Anton Lavrov" uid="623324">
+  <nd ref="3324710269" />
+  <nd ref="3324710280" />
+  <nd ref="3324710285" />
+ </way>
+ <way id="325852403" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:42Z" user="Anton Lavrov" uid="623324">
+  <nd ref="3324710029" />
+  <nd ref="3324710024" />
+  <nd ref="3324709995" />
+ </way>
+ <way id="325852412" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:43Z" user="Anton Lavrov" uid="623324">
+  <nd ref="3324709995" />
+  <nd ref="3324710025" />
+  <nd ref="3324710047" />
+  <nd ref="3324710268" />
+  <nd ref="3324710269" />
+ </way>
+ <way id="325852411" visible="true" version="2" changeset="149291222" timestamp="2024-03-28T23:49:32Z" user="TheDutchMan13" uid="1330847">
+  <nd ref="3324709764" />
+  <nd ref="3324709765" />
+  <nd ref="3324709766" />
+  <nd ref="3324709775" />
+  <nd ref="3324709773" />
+  <tag k="addr:state" v="WA" />
+ </way>
+ <way id="325852406" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:42Z" user="Anton Lavrov" uid="623324">
+  <nd ref="3324709764" />
+  <nd ref="3324709762" />
+  <nd ref="3324709770" />
+  <nd ref="3324709773" />
+ </way>
+ <way id="325852417" visible="true" version="4" changeset="149291222" timestamp="2024-03-28T23:49:32Z" user="TheDutchMan13" uid="1330847">
+  <nd ref="3324710475" />
+  <nd ref="3324710474" />
+  <nd ref="3324710473" />
+  <nd ref="3324710352" />
+  <nd ref="10195930737" />
+  <nd ref="4641494161" />
+  <nd ref="3324710013" />
+  <nd ref="4641494159" />
+  <nd ref="3324710014" />
+  <nd ref="3324709997" />
+  <nd ref="3324709998" />
+  <tag k="addr:state" v="WA" />
+ </way>
+ <way id="325852392" visible="true" version="2" changeset="149291222" timestamp="2024-03-28T23:49:32Z" user="TheDutchMan13" uid="1330847">
+  <nd ref="3324709998" />
+  <nd ref="3324709999" />
+  <tag k="addr:state" v="WA" />
+ </way>
+ <way id="325852387" visible="true" version="2" changeset="149291222" timestamp="2024-03-28T23:49:32Z" user="TheDutchMan13" uid="1330847">
+  <nd ref="3324709999" />
+  <nd ref="3324710000" />
+  <nd ref="3324710016" />
+  <nd ref="3324710019" />
+  <nd ref="3324710023" />
+  <nd ref="3324710026" />
+  <nd ref="3324710032" />
+  <nd ref="3324710040" />
+  <nd ref="3324710041" />
+  <nd ref="3324710042" />
+  <nd ref="3324710050" />
+  <tag k="addr:state" v="WA" />
+ </way>
+ <way id="325852390" visible="true" version="3" changeset="149291222" timestamp="2024-03-28T23:49:32Z" user="TheDutchMan13" uid="1330847">
+  <nd ref="3324710050" />
+  <nd ref="3324710264" />
+  <nd ref="3324710265" />
+  <nd ref="3324710277" />
+  <nd ref="3324710278" />
+  <nd ref="3324710283" />
+  <nd ref="10195930738" />
+  <nd ref="3324710336" />
+  <nd ref="3324710360" />
+  <nd ref="3324710482" />
+  <nd ref="3324710481" />
+  <nd ref="3324710477" />
+  <nd ref="3324710476" />
+  <nd ref="3324710475" />
+  <tag k="addr:state" v="WA" />
+ </way>
+ <way id="325852416" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:43Z" user="Anton Lavrov" uid="623324">
+  <nd ref="3324710050" />
+  <nd ref="3324710049" />
+  <nd ref="3324710037" />
+  <nd ref="3324710038" />
+  <nd ref="3324710022" />
+  <nd ref="3324710021" />
+  <nd ref="3324709999" />
+ </way>
+ <way id="325852396" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:42Z" user="Anton Lavrov" uid="623324">
+  <nd ref="3324710475" />
+  <nd ref="3324709998" />
+ </way>
+ <way id="325852393" visible="true" version="2" changeset="149291222" timestamp="2024-03-28T23:49:32Z" user="TheDutchMan13" uid="1330847">
+  <nd ref="3324709773" />
+  <nd ref="3324709785" />
+  <tag k="addr:state" v="WA" />
+ </way>
+ <way id="325852404" visible="true" version="2" changeset="149291222" timestamp="2024-03-28T23:49:32Z" user="TheDutchMan13" uid="1330847">
+  <nd ref="3324709784" />
+  <nd ref="3324705642" />
+  <nd ref="3324705643" />
+  <nd ref="3324709764" />
+  <tag k="addr:state" v="WA" />
+ </way>
+ <way id="325852405" visible="true" version="2" changeset="149291222" timestamp="2024-03-28T23:49:32Z" user="TheDutchMan13" uid="1330847">
+  <nd ref="3324709816" />
+  <nd ref="3324709823" />
+  <nd ref="3324709822" />
+  <nd ref="3324709815" />
+  <tag k="addr:state" v="WA" />
+ </way>
+ <way id="325852408" visible="true" version="2" changeset="149291222" timestamp="2024-03-28T23:49:32Z" user="TheDutchMan13" uid="1330847">
+  <nd ref="3324709815" />
+  <nd ref="3324709814" />
+  <nd ref="3324709783" />
+  <nd ref="3324709784" />
+  <tag k="addr:state" v="WA" />
+ </way>
+ <way id="325852413" visible="true" version="5" changeset="149291222" timestamp="2024-03-28T23:49:32Z" user="TheDutchMan13" uid="1330847">
+  <nd ref="3324709785" />
+  <nd ref="4641494171" />
+  <nd ref="3324709786" />
+  <nd ref="3324709819" />
+  <nd ref="3324709818" />
+  <nd ref="3324709817" />
+  <nd ref="3324709816" />
+  <tag k="addr:state" v="WA" />
+ </way>
+ <way id="325852394" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:42Z" user="Anton Lavrov" uid="623324">
+  <nd ref="3324709815" />
+  <nd ref="3324709784" />
+ </way>
+ <way id="325852398" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:42Z" user="Anton Lavrov" uid="623324">
+  <nd ref="3324709816" />
+  <nd ref="3324709785" />
+ </way>
+ <relation id="4547847" visible="true" version="3" changeset="131940037" timestamp="2023-01-31T22:18:34Z" user="SmugOompa" uid="18269203">
+  <member type="way" ref="325852401" role="outer" />
+  <member type="way" ref="325852397" role="outer" />
+  <member type="way" ref="325852388" role="outer" />
+  <tag k="building:levels" v="27" />
+  <tag k="building:min_levels" v="25" />
+  <tag k="building:part" v="yes" />
+  <tag k="height" v="110" />
+  <tag k="parking" v="underground" />
+  <tag k="type" v="multipolygon" />
+ </relation>
+ <relation id="4547848" visible="true" version="2" changeset="44387080" timestamp="2016-12-14T00:49:41Z" user="Heptazane" uid="23762">
+  <member type="way" ref="325852389" role="outer" />
+  <member type="way" ref="325852414" role="outer" />
+  <member type="way" ref="325852388" role="outer" />
+  <tag k="building:levels" v="1" />
+  <tag k="building:part" v="yes" />
+  <tag k="type" v="multipolygon" />
+ </relation>
+ <relation id="4547852" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:48Z" user="Anton Lavrov" uid="623324">
+  <member type="way" ref="325852422" role="outer" />
+  <member type="way" ref="325852402" role="outer" />
+  <member type="way" ref="325852414" role="outer" />
+  <member type="way" ref="325852388" role="outer" />
+  <member type="way" ref="325852397" role="outer" />
+  <member type="way" ref="325852403" role="outer" />
+  <tag k="building:levels" v="2" />
+  <tag k="building:min_levels" v="1" />
+  <tag k="building:part" v="yes" />
+  <tag k="type" v="multipolygon" />
+ </relation>
+ <relation id="4547854" visible="true" version="4" changeset="132020292" timestamp="2023-02-02T21:56:37Z" user="SmugOompa" uid="18269203">
+  <member type="way" ref="325852402" role="outer" />
+  <member type="way" ref="325852414" role="outer" />
+  <member type="way" ref="325852388" role="outer" />
+  <member type="way" ref="325852412" role="outer" />
+  <member type="way" ref="325852403" role="outer" />
+  <member type="way" ref="325852397" role="outer" />
+  <tag k="addr:city" v="Bellevue" />
+  <tag k="addr:housenumber" v="555" />
+  <tag k="addr:postcode" v="98004" />
+  <tag k="addr:state" v="WA" />
+  <tag k="addr:street" v="110th Avenue Northeast" />
+  <tag k="alt_name" v="Microsoft Bellevue" />
+  <tag k="building:levels" v="25" />
+  <tag k="building:material" v="mirror" />
+  <tag k="building:min_levels" v="2" />
+  <tag k="building:part" v="yes" />
+  <tag k="height" v="102" />
+  <tag k="name" v="City Center Plaza" />
+  <tag k="type" v="multipolygon" />
+ </relation>
+ <relation id="4547846" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:48Z" user="Anton Lavrov" uid="623324">
+  <member type="way" ref="325852411" role="outer" />
+  <member type="way" ref="325852406" role="outer" />
+  <tag k="building:levels" v="8" />
+  <tag k="building:min_levels" v="7" />
+  <tag k="building:part" v="yes" />
+  <tag k="type" v="multipolygon" />
+ </relation>
+ <relation id="4547849" visible="true" version="2" changeset="46638347" timestamp="2017-03-07T00:41:19Z" user="Heptazane" uid="23762">
+  <member type="way" ref="325852417" role="outer" />
+  <member type="way" ref="325852392" role="outer" />
+  <member type="way" ref="325852387" role="outer" />
+  <member type="way" ref="325852390" role="outer" />
+  <tag k="building:levels" v="1" />
+  <tag k="building:part" v="yes" />
+  <tag k="type" v="multipolygon" />
+ </relation>
+ <relation id="4547850" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:48Z" user="Anton Lavrov" uid="623324">
+  <member type="way" ref="325852390" role="outer" />
+  <member type="way" ref="325852416" role="outer" />
+  <member type="way" ref="325852396" role="outer" />
+  <member type="way" ref="325852392" role="outer" />
+  <tag k="building:levels" v="2" />
+  <tag k="building:min_levels" v="1" />
+  <tag k="building:part" v="yes" />
+  <tag k="type" v="multipolygon" />
+ </relation>
+ <relation id="4547851" visible="true" version="1" changeset="28539059" timestamp="2015-02-01T07:58:48Z" user="Anton Lavrov" uid="623324">
+  <member type="way" ref="325852393" role="outer" />
+  <member type="way" ref="325852404" role="outer" />
+  <member type="way" ref="325852411" role="outer" />
+  <member type="way" ref="325852405" role="outer" />
+  <member type="way" ref="325852408" role="outer" />
+  <member type="way" ref="325852413" role="outer" />
+  <tag k="building:levels" v="1" />
+  <tag k="building:part" v="yes" />
+  <tag k="type" v="multipolygon" />
+ </relation>
+ <relation id="4547853" visible="true" version="2" changeset="37746329" timestamp="2016-03-10T21:23:22Z" user="talapus" uid="2812957">
+  <member type="way" ref="325852394" role="outer" />
+  <member type="way" ref="325852393" role="outer" />
+  <member type="way" ref="325852404" role="outer" />
+  <member type="way" ref="325852411" role="outer" />
+  <member type="way" ref="325852398" role="outer" />
+  <member type="way" ref="325852405" role="outer" />
+  <tag k="building:levels" v="7" />
+  <tag k="building:min_levels" v="1" />
+  <tag k="building:part" v="yes" />
+  <tag k="type" v="multipolygon" />
+ </relation>
+ <relation id="4547843" visible="true" version="5" changeset="105054719" timestamp="2021-05-21T00:19:38Z" user="pnorman" uid="355617">
+  <member type="way" ref="325852389" role="outer" />
+  <member type="way" ref="325852414" role="outer" />
+  <member type="way" ref="325852388" role="outer" />
+  <tag k="addr:housename" v="City Center Plaza" />
+  <tag k="addr:housenumber" v="555" />
+  <tag k="addr:postcode" v="98004" />
+  <tag k="addr:street" v="110th Avenue Northeast" />
+  <tag k="alt_name" v="City Center East" />
+  <tag k="building" v="office" />
+  <tag k="name" v="City Center Plaza" />
+  <tag k="office" v="company" />
+  <tag k="type" v="multipolygon" />
+ </relation>
+ </osm>

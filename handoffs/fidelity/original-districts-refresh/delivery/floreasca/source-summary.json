@@ -1,0 +1,119 @@
+{
+  "dataSha256": "4059f07652b3177278e2279c6a5ad348448b7898c13c73c585896c2ef2024f0d",
+  "rawAuditSha256": "2b00cc1b97cb0cbebe06bb5123ab3961bc0fbbcb1b56da804c2568013714ab79",
+  "sourceRecords": 3366,
+  "buildingGeometryPolicy": "source",
+  "buildingSourceIds": 3366,
+  "roadGeometryPolicy": "source",
+  "preciseFootprints": 3366,
+  "courtyardBuildings": 3,
+  "courtyardRings": 3,
+  "trees": 15134,
+  "treeRetention": {
+    "policy": "all-measured",
+    "inputCrowns": 28008,
+    "retained": 15134,
+    "rejectedGeometryOrDuplicate": 2701,
+    "outsideSurveyDistrict": 10173,
+    "thinned": 0
+  },
+  "railways": 6,
+  "groups": {
+    "way-inside": {
+      "sourceRecords": 537,
+      "identitiesPresent": 537,
+      "exactIdentityMatches": 537,
+      "legacySpatialMatches": 0,
+      "legacySpatialTopologyMatches": 0,
+      "topologyMatches": 537,
+      "literalHeightMismatches": [],
+      "storeysMismatches": [],
+      "missingIds": [],
+      "geometryMismatches": [],
+      "courtyardInteriorFailures": []
+    },
+    "way-ring": {
+      "sourceRecords": 2826,
+      "identitiesPresent": 2826,
+      "exactIdentityMatches": 2826,
+      "legacySpatialMatches": 0,
+      "legacySpatialTopologyMatches": 0,
+      "topologyMatches": 2826,
+      "literalHeightMismatches": [],
+      "storeysMismatches": [],
+      "missingIds": [],
+      "geometryMismatches": [],
+      "courtyardInteriorFailures": []
+    },
+    "relation-inside": {
+      "sourceRecords": 1,
+      "identitiesPresent": 1,
+      "exactIdentityMatches": 1,
+      "legacySpatialMatches": 0,
+      "legacySpatialTopologyMatches": 0,
+      "topologyMatches": 1,
+      "literalHeightMismatches": [],
+      "storeysMismatches": [],
+      "missingIds": [],
+      "geometryMismatches": [],
+      "courtyardInteriorFailures": []
+    },
+    "relation-ring": {
+      "sourceRecords": 2,
+      "identitiesPresent": 2,
+      "exactIdentityMatches": 2,
+      "legacySpatialMatches": 0,
+      "legacySpatialTopologyMatches": 0,
+      "topologyMatches": 2,
+      "literalHeightMismatches": [],
+      "storeysMismatches": [],
+      "missingIds": [],
+      "geometryMismatches": [],
+      "courtyardInteriorFailures": []
+    }
+  },
+  "builderBaseCommit": "4fdacd3f14bc8b09c109b51f986889d524271907",
+  "researchInputs": [
+    {
+      "path": "game/research/bucharest-floreasca.json",
+      "sha256": "5fe6d7f201c21b4ec5079cc1825b976d38261933669d9d88ccab3aabac26369a"
+    },
+    {
+      "path": "game/research/roofs-bucharest-floreasca.json",
+      "sha256": "bf5f2424c0a4ae108138c3cb0b994ad56943d4706ba564ebf8d79cf5a3605aaf"
+    },
+    {
+      "path": "game/research/trees-bucharest-floreasca.json",
+      "sha256": "709e8d0a938192b0ac7c165655a1f9296b9a29d2fada2564a0e74c970e145bdb"
+    },
+    {
+      "path": "game/research/green-bucharest-floreasca.json",
+      "sha256": "379599224adb22c74449bbe54b943e8fb38e6eb1c5397ae3365fb79138b2a332"
+    }
+  ],
+  "dataCommit": "The delivery commit containing this file; dataSha256 is authoritative.",
+  "contentSha256ExcludingGenerated": "e4a3171a84127e22da5358561e4a81a7a692bdbed97c66c200630abdd9157aac",
+  "treeCalibration": {
+    "inputPoints": 28008,
+    "inputPointArraySha256": "14c871fa5364539f044d4f78568c3b9eb4127829850fb6501eafadb32bacfde3",
+    "pointsAndRadiiUnchanged": true,
+    "source": "aerial imagery (Esri World Imagery) measured by tools/aerial/trees.py; crown positions only, no imagery stored",
+    "surveyCoverage": [
+      44.4475068,
+      26.0897827,
+      44.474951,
+      26.1186218
+    ],
+    "coverageProvenance": "Exact zoom-18 tile envelope reconstructed from recorded _mosaic.bbox using tools/aerial/mosaic.py tile rounding; confirmed by original measured crown bounds. Acquisition date unknown.",
+    "imageryAcquisitionDate": null,
+    "retention": {
+      "policy": "all-measured",
+      "inputCrowns": 28008,
+      "retained": 15134,
+      "rejectedGeometryOrDuplicate": 2701,
+      "outsideSurveyDistrict": 10173,
+      "thinned": 0
+    },
+    "speciesAndHeights": "Estimates; independent aerial crown positions/radii are not measured tree heights/species."
+  }
+}

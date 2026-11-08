@@ -17,4 +17,6 @@ Passed CPU checks:
 - `node tools/landmarks/us-source-check.mjs` (all 24 US models)
 - `node tools/landmarks/geometry-check.mjs` (all 61 models)
 
-Native corrected-curb/airside images, the three refreshed isolated model studies and final capture provenance are pending the next combined runtime release and completion of the single-browser 437 before walk. No final rendered acceptance is claimed by this source/geometry checkpoint. Atlas/native jobs were held before starting so that they use the next consolidated freeze.
+The three refreshed isolated model studies were captured from immutable `78d7c9efb5cf7157dc2c3e6d02c3def68f0cb2ce` and visually inspected. Their exact cameras, input hashes, timestamps, image hashes and verified lossless RGB equality are retained in `seatac/aircraft/model-studies.json`; the evidence viewer publishes only those game images. The north-up plan shows all four aircraft on the airside of the source terminal. These isolated studies do not establish integrated-world or Street View parity.
+
+Native corrected-curb/airside images and final integrated capture provenance remain pending the next combined runtime release and completion of the single-browser 437 before walk. Atlas/native jobs were held before starting so that they use the next consolidated freeze.

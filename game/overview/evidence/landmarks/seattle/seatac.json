@@ -3,7 +3,7 @@
   "id": "seatac",
   "city": "seattle",
   "name": "Seattle-Tacoma International Airport",
-  "sourceCommit": "02387aba6eaa01bf77161496554f3af31558e9bf",
+  "sourceCommit": "78d7c9efb5cf7157dc2c3e6d02c3def68f0cb2ce",
   "status": "in-progress",
   "coordinates": {
     "lat": 47.4423743,
@@ -46,26 +46,33 @@
       "url": "https://www.portseattle.org/projects/sea-gateway-project",
       "label": "Official Port of Seattle Gateway project and linked curbside photograph; glazing with opaque returns, inspected 2026-11-08; photograph acquisition date unverified. No reference imagery published.",
       "type": "official"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/91725/42013",
+      "label": "Independent retained Esri aircraft plan measurements, retrieved 2026-11-08; acquisition date unknown. Nose/tail/wing samples, mosaic hashes, OSM gate contexts and uncertainties retained in game/research/landmarks-seatac-aircraft.json. No reference imagery published.",
+      "type": "aerial"
     }
   ],
   "improvements": [
     "Refreshed the complete terminal/concourses, International Arrivals Facility, South Satellite and elevated walkway source footprints.",
     "Replaced coarse strip collision with exact source polygons for all three main ground volumes.",
     "Preserved the separately modelled control tower and garage source scope.",
-    "Restored the intended estimated terminal glass bands on curved source frontage edges of at least 2 m; short returns, inter-storey and upper opaque walls remain plain. Source footprint, collision and complete model envelope are unchanged."
+    "Restored the intended estimated terminal glass bands on curved source frontage edges of at least 2 m; short returns, inter-storey and upper opaque walls remain plain. Source footprint, collision and 0\u201336.5 m vertical envelope are unchanged.",
+    "Replaced all four unmeasured terminal-perimeter aircraft anchors with independently observed aerial nose/tail axes and wing spans on airside apron context beside OSM C11, C9, B7 and A4; all four complete aircraft clear every retained source building footprint."
   ],
   "remainingGaps": [
     "Main terminal 19.5 m, IAF 36.5 m and South Satellite 14.6 m massing heights remain estimates where source tags do not provide complete metre heights.",
-    "The current IAF roof profile, vertical facade bays, gate equipment, parked aircraft assignments and detailed concourse roof plant remain simplified.",
+    "The current IAF roof profile, vertical facade bays, gate equipment, detailed concourse roof plant and generic aircraft vertical profiles/details remain simplified.",
     "Aerial walkway heights are retained from the prior published/research source; exact terminal grading and taxiway clearance require integrated review.",
     "These are isolated front/top/oblique model studies, not matched street-eye Street View/aerial comparisons. They do not establish full-world, night, weather or seasonal parity.",
-    "The 2 m detail cutoff, glass bay spacing, glass heights and surface colours remain procedural estimates. The source-side camera level and panorama altitude limitations are retained in the integrated district comparisons."
+    "The 2 m detail cutoff, glass bay spacing, glass heights and surface colours remain procedural estimates. The source-side camera level and panorama altitude limitations are retained in the integrated district comparisons.",
+    "The aerial acquisition date, current aircraft occupancy, operators/subtypes and measured apron/airframe elevations are unknown. Four representative snapshot poses are retained, with 2 m positional/2.5 m plan-dimension uncertainty; one A4 wing sample extends beyond the mapped apron border. No current fleet claim or full apron-polygon containment is asserted."
   ],
   "checks": [
     {
-      "label": "Bucharest foot,a regression",
+      "label": "Historical Bucharest foot,a regression",
       "passed": true,
-      "details": "Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. Subsequent source changes are confined to US models."
+      "details": "Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. This is historical evidence; the combined final runtime regression is recorded separately."
     },
     {
       "label": "Current source identity and topology review",
@@ -95,7 +102,12 @@
     {
       "label": "Actual short curved frontage and intentional opaque controls",
       "passed": true,
-      "details": "Actual source edge 49 (7.66 m) admits the existing glass band; source edge 16 (0.92 m), inter-storey y=8.5 m and upper wall y=16 m remain opaque. Collision SHA256 and complete model envelope match frozen 4198996. Native diagnosed camera and three isolated model studies are recorded separately."
+      "details": "Actual source edge 49 (7.66 m) admits the existing glass band; source edge 16 (0.92 m), inter-storey y=8.5 m and upper wall y=16 m remain opaque. Collision SHA256 and 0\u201336.5 m vertical envelope match frozen 4198996. Independently moved aircraft legitimately change horizontal scene bounds. Native diagnosed camera and three isolated model studies are recorded separately."
+    },
+    {
+      "label": "Four measured airside aircraft and source-body preservation",
+      "passed": true,
+      "details": "Measured nose/tail axes and wing spans agree with emitted complete meshes; all four anchors lie on original OSM aprons. Complete emitted aircraft geometry has zero plan overlap with all 1,858 source building footprints. D2 candidate rejected for source-body contact. Exact terminal collision SHA256 is unchanged. Native corrected-curb/airside controls remain a separate pending gate."
     }
   ],
   "captures": [
@@ -104,14 +116,14 @@
       "label": "Isolated model study \u00b7 front elevation",
       "image": "assets/landmarks/seatac/front.webp",
       "kind": "front",
-      "sourceCommit": "02387aba6eaa01bf77161496554f3af31558e9bf",
-      "sha256": "1898cf0c893f688424c8ea6231a69ff66a1bd2cb420e1b9cd269280471c6453c",
-      "capturedAt": "2026-11-08T20:56:18.129Z",
+      "sourceCommit": "78d7c9efb5cf7157dc2c3e6d02c3def68f0cb2ce",
+      "sha256": "94296e045e68263fc5a64b8fa73cb6f9afd5dad25ff2dac3d0ee1dae5f9c63bc",
+      "capturedAt": "2026-11-08T22:27:44.999Z",
       "pose": {
         "position": [
-          24.253777941492444,
+          6.113379338270818,
           14.600000000000001,
-          1542.0407353062565
+          1553.5856573274796
         ],
         "up": [
           0,
@@ -127,9 +139,9 @@
         "projection": "perspective",
         "fov": 45,
         "target": [
-          24.253777941492444,
+          6.113379338270818,
           14.600000000000001,
-          -3.847335954159348
+          -0.9738686385154551
         ],
         "frame": "isolated landmark model, +x east / +z south, metres"
       }
@@ -139,14 +151,14 @@
       "label": "Isolated model study \u00b7 orthographic north-up plan",
       "image": "assets/landmarks/seatac/top.webp",
       "kind": "top",
-      "sourceCommit": "02387aba6eaa01bf77161496554f3af31558e9bf",
-      "sha256": "2004297d393ac161dda401bfaf795274c2cd48befb414a7705456c68c612903d",
-      "capturedAt": "2026-11-08T20:56:21.074Z",
+      "sourceCommit": "78d7c9efb5cf7157dc2c3e6d02c3def68f0cb2ce",
+      "sha256": "c1b1e770709c2fe6237eb9f7d0f3177e6c0784feac037b3d931c72386e6a48fd",
+      "capturedAt": "2026-11-08T22:27:57.042Z",
       "pose": {
         "position": [
-          24.253777941492444,
-          1226.6284061298334,
-          -3.847335954159348
+          6.113379338270818,
+          1233.294850302127,
+          -0.9738686385154551
         ],
         "up": [
           0,
@@ -154,18 +166,18 @@
           -1
         ],
         "quaternion": [
-          -0.7071067811865475,
+          -0.7071067811865474,
           0,
           0,
           0.7071067811865476
         ],
         "projection": "orthographic",
-        "groundSquareM": 1190.1284061298334,
+        "groundSquareM": 1196.794850302127,
         "orientation": "north-up",
         "target": [
-          24.253777941492444,
+          6.113379338270818,
           0,
-          -3.847335954159348
+          -0.9738686385154551
         ],
         "frame": "isolated landmark model, +x east / +z south, metres"
       }
@@ -175,14 +187,14 @@
       "label": "Isolated model study \u00b7 oblique overview",
       "image": "assets/landmarks/seatac/oblique.webp",
       "kind": "oblique",
-      "sourceCommit": "02387aba6eaa01bf77161496554f3af31558e9bf",
-      "sha256": "185f63b97b8a6740b02f4e5c73081fec77940df1832592326144a278d8f104a8",
-      "capturedAt": "2026-11-08T20:56:23.515Z",
+      "sourceCommit": "78d7c9efb5cf7157dc2c3e6d02c3def68f0cb2ce",
+      "sha256": "af578f14c358d8b1efc7c07ff1a05dca754a83bead08557cf840a0035b3ae339",
+      "capturedAt": "2026-11-08T22:28:05.522Z",
       "pose": {
         "position": [
-          821.2009507393764,
-          692.2727266059835,
-          1134.3111803559023
+          807.5309219126816,
+          696.0740421495977,
+          1143.568997357293
         ],
         "up": [
           0,
@@ -190,24 +202,24 @@
           0
         ],
         "quaternion": [
-          -0.21453963361642958,
-          0.29299872934427446,
-          0.06764408664580107,
+          -0.21453963361642955,
+          0.29299872934427457,
+          0.0676440866458011,
           0.929273247087327
         ],
         "projection": "perspective",
         "fov": 45,
         "target": [
-          24.253777941492444,
+          6.113379338270818,
           14.600000000000001,
-          -3.847335954159348
+          -0.9738686385154551
         ],
         "frame": "isolated landmark model, +x east / +z south, metres"
       }
     }
   ],
   "perf": {
-    "triangles": 14619,
+    "triangles": 14547,
     "drawCalls": 3,
     "note": "Isolated viewer frame includes ground and shadow rendering; this is neither a whole-world budget measurement nor hardware FPS."
   }

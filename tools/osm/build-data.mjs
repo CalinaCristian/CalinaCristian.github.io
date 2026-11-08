@@ -80,6 +80,7 @@ import { fileURLToPath } from 'node:url';
 import { parseFiles, parseInto } from './parse-osm.mjs';
 import { footprintCoverage, simpleFootprint, uncrossFootprint, bakeAssembly, bakeSurface, touchingSolids, assemblySignature } from '../../game/src/building-parts.js';
 import { sourceRing } from './source-footprints.mjs';
+import { parseMeasure } from '../../game/src/building-roofs.js';
 import { distPointSeg, pointInPolygon, polyArea, polyCentroid, footprintMargin, simplifyIdx, simplifyRing, Grid, assembleRings } from './geom.mjs';
 import { buildCorridor } from './corridors.mjs';
 import { CITIES as GAME_CITIES } from '../../game/src/cities.js';
@@ -327,7 +328,7 @@ function buildCity(cityId, did = null) {
         // A tagged single lane may legally carry traffic in both directions. Keep both graph directions,
         // but do not turn its one physical lane into two inferred full-width lanes.
         const sharedLane = !!ds && !oneway && total === 1;
-        const physicalSharedWidth = sharedLane ? (num(t.width) > 0 ? num(t.width) : laneWidthFor(cls)) : 0;
+        const physicalSharedWidth = sharedLane ? (parseMeasure(t.width) > 0 ? parseMeasure(t.width) : laneWidthFor(cls)) : 0;
         const laneW = sharedLane ? physicalSharedWidth / 2 : laneWidthFor(cls);
         let sidewalk = SIDEWALK[cls] ?? 2;
         if (t.sidewalk === 'no' || t.sidewalk === 'none' || t.foot === 'no') sidewalk = Math.min(sidewalk, 0.8);
@@ -690,7 +691,7 @@ function buildCity(cityId, did = null) {
         r.keptIds = ids;
         { const t = r.tags || {}; const fw = t['turn:lanes:forward'] || (r.oneway ? t['turn:lanes'] : '') || '', bw = r.oneway ? '' : (t['turn:lanes:backward'] || '');
           if (/left|right|through/.test(fw + bw)) turnLanes.push(outRoads.length, S(fw), S(bw)); }
-        { const t = r.tags || {}; const lay = parseInt(t.layer); const dm = (v) => { const n = num(v); return isFinite(n) && n > 0 && n < 100 ? Math.round(n * 10) : 0; };
+        { const t = r.tags || {}; const lay = parseInt(t.layer); const dm = (v) => { const n = parseMeasure(v); return isFinite(n) && n > 0 && n < 100 ? Math.round(n * 10) : 0; };
           // kerbside parking (OSM parking:{left,right,both} or the older parking:lane:*; sides in the way's own direction,
           // swapped for oneway=-1 ways, which the build reverses): 64 / 128 parking right / left, 256 / 512 none right / left
           const pk = (sd) => t['parking:' + sd] || t['parking:lane:' + sd] || t['parking:both'] || t['parking:lane:both'] || '';
@@ -710,7 +711,7 @@ function buildCity(cityId, did = null) {
               | (pYes(pR) ? 64 : 0) | (pYes(pL) ? 128 : 0) | (pNo(pR) ? 256 : 0) | (pNo(pL) ? 512 : 0);
           roadInfo.push(isFinite(lay) ? lay : 0, f, dm(t.width), dm(t.maxheight || t['maxheight:physical']), S(t.placement || t['placement:forward'] || ''), S(t['bridge:structure'] || t['bridge:name'] || '')); }
         if (r.regKmh) rampLimits.push(outRoads.length, r.regKmh);
-        if (r.sharedLane) sharedLanes[outRoads.length] = { widthM: r.physicalSharedWidth, sourceId: 'w' + r.id, widthSource: num(r.tags.width) > 0 ? 'OSM width' : 'estimate:class single-lane width', evidence: 'OSM lanes=1; legal two-way' };
+        if (r.sharedLane) sharedLanes[outRoads.length] = { widthM: r.physicalSharedWidth, sourceId: 'w' + r.id, widthSource: parseMeasure(r.tags.width) > 0 ? 'OSM width' : 'estimate:class single-lane width', evidence: 'OSM lanes=1; legal two-way' };
         outRoads.push([S(r.name), ROAD_CLASSES.indexOf(r.cls), r.lf, r.oneway ? 0 : r.lb, Math.round(r.median * 10), Math.round(r.laneW * 10), Math.round(r.sidewalk * 10), r.maxspeed, r.flags, r.layer, ...ids.map(idxOf)]);
     }
     log('graph nodes', outNodes.length / 2, 'segments', segCount);
@@ -1042,7 +1043,7 @@ function buildCity(cityId, did = null) {
     const bdCells = new Map();
     const addBackdrop = (c, realArea, local, t, la) => {
         if (realArea < 40 || /^(garage|garages|shed|hut|kiosk|roof|carport|container|toilets)$/.test(t.building)) return;
-        let h = num(t.height); const lv = num(t['building:levels']);
+        let h = parseMeasure(t.height); const lv = num(t['building:levels']);
         if (!isFinite(h)) h = isFinite(lv) ? lv * 3.1 : realArea > 1500 ? 18 : realArea > 400 ? 12 : 7;
         h = C.heightMap(Math.min(h, 250));
         const [sx, sz] = C.shape(la); const a = realArea * sx * sz;
@@ -1080,7 +1081,7 @@ function buildCity(cityId, did = null) {
         let la = 0, lo = 0; for (const [a, c] of lls) { la += a; lo += c; } la /= lls.length; lo /= lls.length;
         const local = lls.map(([a, c]) => [(c - lo) * P.mPerLon, -(a - la) * P.mPerLat]);
         const realArea = Math.abs(polyArea(local));
-        const sourcePart = ds && t['building:part'] && t['building:part'] !== 'no' && (num(t.height) > 0 || num(t['building:levels']) > 0);
+        const sourcePart = ds && t['building:part'] && t['building:part'] !== 'no' && (parseMeasure(t.height) > 0 || num(t['building:levels']) > 0);
         if (!ds && realArea < (sourcePart ? 0.05 : 12)) continue;
         const cL = polyCentroid(local);
         const cOut = P(la, lo); cOut[0] += cL[0] * C.scale; cOut[1] += cL[1] * C.scale; // approx centroid in output space
@@ -1093,7 +1094,7 @@ function buildCity(cityId, did = null) {
         const outside = mg > 0;
         if (outside) {
             if (ds && mg <= OUTER_RING) { /* retain every valid positive-area source footprint */ }
-            else { if (sourcePart && num(t.height) < 20 && !(num(t['building:levels']) >= 6)) continue; if (mg > (ds ? 0 : 30) && mg < 1700) { addBackdrop(cOut, realArea, local, t, la); if (DEBUG_DROPS && ds && mg < OUTER_RING + 150) bDropList.push({ why: 'backdrop', mg: Math.round(mg), id: t.__id, la: +la.toFixed(6), lo: +lo.toFixed(6), area: Math.round(realArea) }); } else if (mg <= 30) dropWhy('edge-belt'); continue; } // (after round 6: from 30 m past the corridor edge, not 70 — the first 70 m were a bare "dead" belt)
+            else { if (sourcePart && parseMeasure(t.height) < 20 && !(num(t['building:levels']) >= 6)) continue; if (mg > (ds ? 0 : 30) && mg < 1700) { addBackdrop(cOut, realArea, local, t, la); if (DEBUG_DROPS && ds && mg < OUTER_RING + 150) bDropList.push({ why: 'backdrop', mg: Math.round(mg), id: t.__id, la: +la.toFixed(6), lo: +lo.toFixed(6), area: Math.round(realArea) }); } else if (mg <= 30) dropWhy('edge-belt'); continue; } // (after round 6: from 30 m past the corridor edge, not 70 — the first 70 m were a bare "dead" belt)
         }
         // The exact district boundary already admits campus/courtyard buildings beyond the road buffer.
         // Keep the legacy network-distance filter only for corridor builds.

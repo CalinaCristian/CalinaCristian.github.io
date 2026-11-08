@@ -107,6 +107,16 @@ const mime={'.html':'text/html','.js':'text/javascript','.json':'application/jso
         const x=cars.reduce((s,c)=>s+c.x,0)/cars.length,z=cars.reduce((s,c)=>s+c.z,0)/cars.length,r=Math.max(18,...cars.map(c=>Math.hypot(c.x-x,c.z-z)));
         views.push({id:'parking-'+(i+1),label:'Actual source parking area and complete parked car placement',kind:'parking',parkingSourceId:sourceId,parkedCars:cars.length,x:x+r*.8,z:z+r,y:Math.min(80,r*.8+12),target:[x,0,z],fov:80});
       }
+      const bridgeGroups=new Map();
+      for(const deck of g.world.buildings)if(deck.roadDeck){const records=bridgeGroups.get(deck.sourceId)||[];records.push(deck);bridgeGroups.set(deck.sourceId,records);}
+      for(const [sourceId,decks]of bridgeGroups){
+        const deck=decks.reduce((a,b)=>a.y1>b.y1?a:b),c=deck.poly.reduce((p,q)=>[p[0]+q[0]/deck.poly.length,p[1]+q[1]/deck.poly.length],[0,0]),top=deck.roofHeightAt(...c),bottom=deck.minHeightAt(...c);
+        const points=decks.flatMap(d=>d.poly),bounds=[Math.min(...points.map(p=>p[0])),Math.min(...points.map(p=>p[1])),Math.max(...points.map(p=>p[0])),Math.max(...points.map(p=>p[1]))];
+        const side=[deck.poly[1][0]-deck.poly[0][0],deck.poly[1][1]-deck.poly[0][1]],len=Math.hypot(...side)||1,n=[-side[1]/len,side[0]/len],distance=Math.max(18,len*.7);
+        const common={kind:'source-bridge',sourceId,renderedDeckBoundsXZ:bounds,passiveDeckQuads:decks.length,elevationSource:deck.elevationSource,anchor:{x:c[0],z:c[1],bottom,top}};
+        views.push({...common,id:sourceId+'-bridge-above',label:sourceId+' actual passive source deck and approach context',x:c[0]+n[0]*distance,z:c[1]+n[1]*distance,y:Math.min(150,Math.max(35,top+30)),target:[c[0],top,c[1]],fov:80});
+        views.push({...common,id:sourceId+'-bridge-side',label:sourceId+' actual local deck fascia and underside context',x:c[0]+n[0]*distance,z:c[1]+n[1]*distance,y:Math.max(1.7,bottom-1),target:[c[0],(bottom+top)/2,c[1]],fov:80});
+      }
       const segments=g.world.district.flightBoundary.segments;
       for(const [tag,axis,sign] of [['west',0,-1],['east',0,1],['north',1,-1],['south',1,1]]){
         const points=segments.flatMap(s=>[[s.ax,s.az],[s.bx,s.bz]]),extreme=points.reduce((a,b)=>sign*b[axis]>sign*a[axis]?b:a)[axis];

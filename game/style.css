@@ -93,6 +93,7 @@ body.no-minimap .bottom-left { display: none; }
 #prompt small { color: var(--muted); font-size: 13px; }
 #hint { left: 50%; bottom: 14px; transform: translateX(-50%); font-size: 12px; color: #e2e8f0; background: rgba(2,6,23,.72); padding: 5px 9px; border-radius: 8px; white-space: normal; text-align: center; line-height: 1.3; width: max-content; max-width: calc(100% - 600px); } /* stays between the minimap and the bottom-right block (review #26) */
 @media (max-width: 1000px) { #hint { max-width: calc(100% - 520px); } }
+@media (max-width: 760px) { #hint { left: 16px; right: 16px; bottom: 140px; width: auto; max-width: none; transform: none; } }
 #toasts { top: 90px; right: 16px; display: flex; flex-direction: column; gap: 10px; align-items: flex-end; width: min(380px, 80vw); }
 .toast { background: rgba(15, 18, 28, .92); border-left: 4px solid #60a5fa; padding: 12px 16px; border-radius: 12px; font-size: 14px; display: grid; gap: 3px; transform: translateX(30px); opacity: 0; transition: all .4s; box-shadow: 0 10px 30px rgba(0,0,0,.4); max-width: 100%; }
 .toast.show { transform: none; opacity: 1; }

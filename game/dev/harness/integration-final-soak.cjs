@@ -8,7 +8,7 @@ const out = path.resolve(process.argv[3] || '/tmp/integration-final-soak'), minu
 fs.mkdirSync(out, { recursive: true });
 const report = { root, minutes, method: {
     physics: 'Unchanged actual Traffic.update at 30 Hz for 15 simulated physical minutes; stationary native Arnia chapter pose.',
-    rendering: 'Full game high-quality draws, true mirror, native far plane and populations; no internal-frame statistics reset. Cold setup separated.',
+    rendering: 'Full game high-quality draws, true mirror, native far plane and populations; no internal-frame statistics reset. gl.finish completes each measured frame to bound software-GL queue buildup. Cold setup separated.',
     sampling: 'Complete frames at each physical minute; every progressive PMREM slice is a complete high/mirror frame for actual sunset and rain renderer transitions at evolved minute 15; traffic hour stays fixed to retain identities.',
     limits: 'System Chromium/SwiftShader, no physical hardware FPS claim. Simulation and wall duration are recorded separately.',
 }, source: {}, errors: [], consoleErrors: [], failures: [], samples: [], refreshes: [] };
@@ -84,6 +84,7 @@ const persist = () => { fs.writeFileSync(path.join(out, 'profile.next.json'), JS
             const S = __integrationSoak, r = game.r3d; S.draws = [];
             const before = { ...game.renderer.info.render };
             harness.H._renderNow = true; game.drawFrame({ mirror: true }); harness.H._renderNow = false;
+            game.renderer.getContext().finish();
             return { label, framePng: capture ? game.renderer.domElement.toDataURL('image/png') : null, before, stats: { ...r.stats }, draws: S.draws, pending: !!r._envJob, phase: r._envJob?.phase || null, fade: r._envFade,
                 conditions: { override: r.clock?.override, weather: r._wxOverride, cloud: r._wx?.cloud, sunElevation: r.sunElevation, shadow: r.sun.castShadow },
                 population: { people: game.traffic.peds.list.length, vehicles: game.traffic.vehicles.length, originalPeople: game.traffic.peds.list.every(p => S.identities.has(p)), originalVehicles: game.traffic.vehicles.every(p => S.vehicleIdentities.has(p)) } };

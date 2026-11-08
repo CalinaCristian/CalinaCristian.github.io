@@ -34,7 +34,7 @@ export const BUC_SCENES = {
 };
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-function bboxOf(research, members, pad) {
+export function bboxOf(research, members, pad = BACKDROP_PAD) {
     let la0 = 90, la1 = -90, lo0 = 180, lo1 = -180;
     for (const id of members) {
         const s = research.spots.find((x) => x.id === id);
@@ -79,7 +79,9 @@ function rings(members, role) {
 const FURN = { bench: 'bench', waste_basket: 'waste_basket', bicycle_parking: 'bicycle_parking', drinking_water: 'drinking_water', fountain: 'fountain', clock: 'clock', toilets: 'toilets', post_box: 'post_box', fire_hydrant: 'fire_hydrant', street_lamp: 'street_lamp', bollard: 'bollard', flagpole: 'flagpole', information: 'information', bus_stop: 'bus_stop', traffic_signals: 'traffic_signals', picnic_table: 'picnic_table', cross: 'cross', bicycle_rental: 'bicycle_rental', vending_machine: 'vending_machine', planter: 'planter', shelter: 'shelter', telephone: 'telephone', atm: 'atm' };
 const BUILDING_KEYS = ['building', 'building:part', 'building:levels', 'building:min_level', 'min_height', 'height', 'roof:shape', 'roof:height', 'roof:colour', 'building:colour', 'building:material', 'name', 'amenity', 'shop', 'tourism', 'layer', 'addr:street', 'addr:housenumber', 'historic', 'religion'];
 
-function convert(json, box, sceneId) {
+export const positiveBuildingTag = (value) => value != null && !['', 'no', 'false', '0'].includes(String(value).trim().toLowerCase());
+
+export function convert(json, box, sceneId) {
     const inCore = (pts) => { let la = 0, lo = 0; for (const p of pts) { la += p[0]; lo += p[1]; } la /= pts.length; lo /= pts.length; const c = box.core, m = 40 / 111132; return la > c.s - m && la < c.n + m && lo > c.w - m * 1.4 && lo < c.e + m * 1.4; };
     const out = { spot: sceneId, source: 'Overpass API (OpenStreetMap), fetched ' + new Date().toISOString().slice(0, 10) + '; © OpenStreetMap contributors, ODbL 1.0', buildings: [], backdrop_buildings: [], ways: [], areas: [], trees: [], furniture: {}, pois: [] };
     const furn = (k, p) => (out.furniture[k] || (out.furniture[k] = [])).push(p);
@@ -103,17 +105,18 @@ function convert(json, box, sceneId) {
             const closed = g.length > 3 && g[0][0] === g[g.length - 1][0] && g[0][1] === g[g.length - 1][1];
             if (closed) polys = [g]; line = g;
         } else if (el.type === 'relation' && el.members) {
-            if (t.type !== 'multipolygon' && !t.building) continue;
+            if (t.type !== 'multipolygon' && !positiveBuildingTag(t.building) && !positiveBuildingTag(t['building:part'])) continue;
             polys = rings(el.members, 'outer');
             if (!polys.length) continue;
             const inner = rings(el.members, 'inner');
             if (inner.length) t.__inner = inner;
         }
         const id = (el.type === 'way' ? 'w' : 'r') + el.id;
-        if ((t.building || t['building:part']) && polys) {
+        if ((positiveBuildingTag(t.building) || positiveBuildingTag(t['building:part'])) && polys) {
             for (let i = 0; i < polys.length; i++) {
                 const o = { id: polys.length > 1 ? id + '_' + i : id };
                 for (const k of BUILDING_KEYS) if (t[k] !== undefined) o[k] = t[k];
+                for (const [k,v] of Object.entries(t)) if (k.startsWith('roof:') || k.startsWith('building:')) o[k] = v;
                 o.height_m = t.height ? parseFloat(t.height) : null;
                 o.footprint = polys[i];
                 if (t.__inner) o.holes = t.__inner;
@@ -180,7 +183,7 @@ export async function fetchScene(sceneId, { force = false } = {}) {
     if (force || !fs.existsSync(fo)) {
         const bb = `${box.s.toFixed(6)},${box.w.toFixed(6)},${box.n.toFixed(6)},${box.e.toFixed(6)}`;
         const q = `[out:json][timeout:170];(
-  way["building"](${bb}); relation["building"](${bb}); way["building:part"](${bb});
+  way["building"](${bb}); relation["building"](${bb}); way["building:part"](${bb}); relation["building:part"](${bb});
   way["highway"](${bb}); way["railway"](${bb}); way["barrier"](${bb}); way["man_made"](${bb}); way["waterway"](${bb}); way["natural"](${bb});
   way["landuse"](${bb}); way["leisure"](${bb}); way["amenity"](${bb}); way["area:highway"](${bb}); way["place"](${bb}); way["tourism"](${bb}); way["historic"](${bb});
   relation["type"="multipolygon"]["landuse"](${bb}); relation["type"="multipolygon"]["leisure"](${bb}); relation["type"="multipolygon"]["natural"](${bb});
@@ -192,6 +195,10 @@ export async function fetchScene(sceneId, { force = false } = {}) {
         console.log(`${sceneId}: overpass ${bb}`);
         const json = await overpass(q);
         const o = convert(json, box, sceneId);
+        // Keep raw tags/member geometry and the exact source scope outside git.
+        // Prepared-array membership alone cannot establish extract completeness.
+        fs.writeFileSync(path.join(BUC_CACHE, sceneId + '.overpass.json'), JSON.stringify(json));
+        o.extract = { bbox: [box.s, box.w, box.n, box.e], core: box.core, query: q, fetchedAt: new Date().toISOString(), raw: sceneId + '.overpass.json' };
         fs.writeFileSync(fo, JSON.stringify(o));
         console.log(`  → ${fo}`, JSON.stringify(o.summary));
     }

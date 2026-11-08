@@ -2,6 +2,8 @@ import * as THREE from '../vendor/three.module.min.js';
 import { makeWaterMaterial } from './water.js';
 import { LANDMARK_SOURCE_IDS } from './landmark-source-identities.js';
 import { BUCHAREST_SOURCE_MASSES } from './landmark-source-masses.js';
+import { OTP_ROOF_ZONES } from './landmark-otp-roofs.js';
+import { footprintCells } from './building-parts.js';
 import { US_FOOTPRINTS as U, US_SOURCE_TAGS as UT } from './landmark-us-source.js';
 import { emitUSLandmarkTerrain } from './landmark-us-terrain.js';
 import { sourceProfile, sourceSlope, sourceSurfaceText } from './landmark-us-geometry.js';
@@ -1744,11 +1746,20 @@ function bBaneasaTerm(b) {
 // Src: https://ro.wikipedia.org/wiki/Aeroportul_Internațional_Henri_Coandă ; OSM ways 771096081/82/83, 794617342
 function bOTP(b) {
     const [dep, arr, pier] = P.otp.map(pts), GL = '#4f7690', WH = '#eef0f1', CON = '#d9d6cf';
+    // Independent aerial roof zones, partitioned inside the complete source ring.
+    // No overlay faces, missing strips, new source heights or changed colliders.
+    const roofZones = (ring, y, profile) => {
+        for (const cell of footprintCells(ring, profile.zones.map(z => z.ring))) {
+            b.cap(cell.ring, y, cell.covered.length ? profile.zones[cell.covered[0]].colour : profile.base);
+        }
+    };
     // 2012 departures hall: tall glass box under a thin overhanging roof, landside canopy + signage (+z front)
     b.prism(dep, 0, 19, GL, { mat: 'g', topCol: '#c6cbcf' });
     b.pilasters(dep, 0, 19, 6, 0.3, 0.4, '#d0d6da', {});
     for (const y of [6.5, 12.8]) b.cornice(dep, y, 0.4, 0.3, '#d0d6da');
-    b.prism(offset(dep, 4), 19, 21, WH, { topCol: '#dfe2e4', bottom: true });
+    b.prism(offset(dep, 4), 19, 21, WH, { top: false, bottom: true });
+    b.cap(offset(dep, 4), 21, WH, [dep]);
+    roofZones(dep, 21, OTP_ROOF_ZONES.departures);
     b.box(-106, 13.4, 200.5, 190, 0.6, 9, WH);                                              // cantilevered canopy over the upper-level kerb
     b.text('HENRI COANDA', -106, 14.5, 196.6, 0, 2.6, '#ffffff', { mat: 'g' });
     b.text('PLECARI  DEPARTURES', -106, 10.2, 196.6, 0, 1.6, '#ffd84a', { mat: 'g' });
@@ -1770,11 +1781,14 @@ function bOTP(b) {
     b.prism(control,20,25,'#33505f',{mat:'g',topCol:WH});
     b.colPolygon(control,{y0:20,y1:25});
     b.cyl(63,25,162,0.2,0.2,5,'#d33',6); // aerial mast height remains estimated
-    // "Vioara" pier: curved glazed finger with a white roof shell + jet bridges
+    // "Vioara" pier: dark membranes, light roof ribs and a light perimeter fascia.
     b.prism(pier, 0, 13, '#6f91a8', { mat: 'g', topCol: '#e3e6e8' });
     b.pilasters(pier, 0, 13, 8, 0.25, 0.3, '#d6dde2', {});
-    b.prism(offset(pier, 1.2), 13, 14.6, WH, { topCol: '#f2f3f4', bottom: true });
-    b.prism(BUCHAREST_SOURCE_MASSES.otp.spine,14.6,20,'#e6e9ea',{topCol:'#d2d6d8'}); // actual OSM w1321861231 spine
+    b.prism(offset(pier, 1.2), 13, 14.6, WH, { top: false, bottom: true });
+    b.cap(offset(pier, 1.2), 14.6, WH, [pier]);
+    roofZones(pier, 14.6, OTP_ROOF_ZONES.pier);
+    b.prism(BUCHAREST_SOURCE_MASSES.otp.spine,14.6,20,'#e6e9ea',{top:false}); // actual OSM w1321861231 spine
+    roofZones(BUCHAREST_SOURCE_MASSES.otp.spine, 20, OTP_ROOF_ZONES.spine);
     const bb = bbox([pier]), px = bb.x1 + 30;
     for (const z of [-170, -150, -110, -90, -45, -25]) { b.box(bb.x1 + 9, 4, z, 18, 3, 3, '#c9ced2'); b.box(bb.x1 + 18.5, 0, z, 1, 4, 1, '#7a8187'); }
     airliner(b, px, -150, Math.PI, { tail: '#1d3f8f', stripe: '#1d3f8f' });        // TAROM

@@ -1,7 +1,7 @@
 {
   "district": "bucharest-unirii",
   "reviewedAt": "2026-11-08",
-  "dataSha256": "b2a0e154da3c6cb2a79cb934a6701344b6ddcf9ec439a8358ec106c5a2d88f30",
+  "dataSha256": "37302734909c4996b7c63423e839bbdb7380e49b4b268fa6578584050d21da47",
   "sourcePolicy": "OSM source geometry, precise output parkingFootprints; no aesthetic shrink or centre movement.",
   "scope": "Every valid positive-area closed source parking way and source multipolygon outer whose whole footprint intersects the playable analytic core or600m ring. Underground parking is not painted as a ground lot. Multi-storey bodies are checked through exact building IDs.",
   "counts": {

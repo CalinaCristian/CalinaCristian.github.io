@@ -1,0 +1,279 @@
+{
+  "district": "unirii",
+  "sourcePrerequisites": [
+    "9afb80e",
+    "5519dab"
+  ],
+  "dataSha256": "37302734909c4996b7c63423e839bbdb7380e49b4b268fa6578584050d21da47",
+  "counts": {
+    "date": "2026-11-08",
+    "previousBuildings": 6181,
+    "retainedAllPreviousIds": true,
+    "newOuterRecords": 7,
+    "newSourceIdentities": [
+      "r13104090",
+      "r13104091",
+      "r13104092",
+      "r13104229",
+      "r13104230",
+      "r13104231"
+    ],
+    "changedFields": [
+      "strings",
+      "buildingRoofSurfaces",
+      "buildingRoofGeometryPoints",
+      "vacant",
+      "buildings",
+      "buildingRoofProfiles",
+      "buildingDimensions",
+      "buildingFootprints",
+      "buildingInfo",
+      "buildingSourceTags",
+      "buildingCanopies",
+      "buildingSourceIssues",
+      "buildingIds",
+      "buildingHoles",
+      "buildingAssemblies",
+      "buildingUnions",
+      "buildingGeometryPoints",
+      "pois",
+      "areas",
+      "buildingPassages",
+      "buildingHoleFootprints"
+    ],
+    "notes": [
+      "Six part-only multipolygon relations produce seven outer records and five additional holes. r13104229 has two disjoint outers, both retained. Every previous source identity remains.",
+      "r13104092 explicitly maps roof:shape=dome; its absent height/rise remain source-marked estimates."
+    ]
+  },
+  "records": [
+    {
+      "sourceId": "r13104090",
+      "index": 10,
+      "sourceUrl": "https://www.openstreetmap.org/relation/13104090",
+      "sourceTags": {
+        "building:material": "plaster",
+        "building:part": "yes",
+        "height": "25",
+        "roof:colour": "beige",
+        "type": "multipolygon"
+      },
+      "sourceFootprintVertices": 10,
+      "sourceHoles": 1,
+      "roofProfile": {
+        "version": 1,
+        "shape": "flat",
+        "totalM": 25,
+        "eavesM": 25,
+        "riseM": 0,
+        "heightSource": "OSM height",
+        "riseSource": "flat",
+        "axis": [
+          0.20564598634891718,
+          -0.9786264498257652
+        ],
+        "low": 17.50204878379813,
+        "high": 26.477434043232023,
+        "raw": {
+          "height": "25"
+        }
+      }
+    },
+    {
+      "sourceId": "r13104091",
+      "index": 11,
+      "sourceUrl": "https://www.openstreetmap.org/relation/13104091",
+      "sourceTags": {
+        "building:material": "plaster",
+        "building:part": "yes",
+        "height": "23.5",
+        "roof:colour": "beige",
+        "type": "multipolygon"
+      },
+      "sourceFootprintVertices": 24,
+      "sourceHoles": 1,
+      "roofProfile": {
+        "version": 1,
+        "shape": "flat",
+        "totalM": 23.5,
+        "eavesM": 23.5,
+        "riseM": 0,
+        "heightSource": "OSM height",
+        "riseSource": "flat",
+        "axis": [
+          0.1978046097279486,
+          -0.9802414683996865
+        ],
+        "low": 46.18265686252474,
+        "high": 63.31603459964728,
+        "raw": {
+          "height": "23.5"
+        }
+      }
+    },
+    {
+      "sourceId": "r13104092",
+      "index": 12,
+      "sourceUrl": "https://www.openstreetmap.org/relation/13104092",
+      "sourceTags": {
+        "building:part": "yes",
+        "roof:shape": "dome",
+        "type": "multipolygon"
+      },
+      "sourceFootprintVertices": 16,
+      "sourceHoles": 1,
+      "roofProfile": {
+        "version": 1,
+        "shape": "dome",
+        "totalM": 18.77924972257235,
+        "eavesM": 16,
+        "riseM": 2.7792497225723487,
+        "heightSource": "style estimate",
+        "riseSource": "footprint estimate",
+        "axis": [
+          -0.195111587904858,
+          0.9807810501152869
+        ],
+        "low": -65.48718960404145,
+        "high": -49.60576261791374,
+        "raw": {
+          "roof:shape": "dome"
+        }
+      }
+    },
+    {
+      "sourceId": "r13104229",
+      "index": 13,
+      "sourceUrl": "https://www.openstreetmap.org/relation/13104229",
+      "sourceTags": {
+        "building:material": "plaster",
+        "building:part": "yes",
+        "height": "25",
+        "roof:colour": "beige",
+        "type": "multipolygon"
+      },
+      "sourceFootprintVertices": 10,
+      "sourceHoles": 0,
+      "roofProfile": {
+        "version": 1,
+        "shape": "flat",
+        "totalM": 25,
+        "eavesM": 25,
+        "riseM": 0,
+        "heightSource": "OSM height",
+        "riseSource": "flat",
+        "axis": [
+          0.2056459864327141,
+          -0.9786264498081565
+        ],
+        "low": 17.72946867686977,
+        "high": 26.706782386259874,
+        "raw": {
+          "height": "25"
+        }
+      }
+    },
+    {
+      "sourceId": "r13104229",
+      "index": 14,
+      "sourceUrl": "https://www.openstreetmap.org/relation/13104229",
+      "sourceTags": {
+        "building:material": "plaster",
+        "building:part": "yes",
+        "height": "25",
+        "roof:colour": "beige",
+        "type": "multipolygon"
+      },
+      "sourceFootprintVertices": 4,
+      "sourceHoles": 0,
+      "roofProfile": {
+        "version": 1,
+        "shape": "flat",
+        "totalM": 25,
+        "eavesM": 25,
+        "riseM": 0,
+        "heightSource": "OSM height",
+        "riseSource": "flat",
+        "axis": [
+          -0.2053688298267621,
+          0.9786846497905168
+        ],
+        "low": -26.298892512877842,
+        "high": -18.69561421287804,
+        "raw": {
+          "height": "25"
+        }
+      }
+    },
+    {
+      "sourceId": "r13104230",
+      "index": 15,
+      "sourceUrl": "https://www.openstreetmap.org/relation/13104230",
+      "sourceTags": {
+        "building:material": "plaster",
+        "building:part": "yes",
+        "height": "25",
+        "roof:colour": "beige",
+        "type": "multipolygon"
+      },
+      "sourceFootprintVertices": 10,
+      "sourceHoles": 1,
+      "roofProfile": {
+        "version": 1,
+        "shape": "flat",
+        "totalM": 25,
+        "eavesM": 25,
+        "riseM": 0,
+        "heightSource": "OSM height",
+        "riseSource": "flat",
+        "axis": [
+          -0.20310300854917923,
+          0.9791573764815704
+        ],
+        "low": -80.42560132998483,
+        "high": -71.44146424009713,
+        "raw": {
+          "height": "25"
+        }
+      }
+    },
+    {
+      "sourceId": "r13104231",
+      "index": 16,
+      "sourceUrl": "https://www.openstreetmap.org/relation/13104231",
+      "sourceTags": {
+        "building:material": "plaster",
+        "building:part": "yes",
+        "height": "25",
+        "roof:colour": "beige",
+        "type": "multipolygon"
+      },
+      "sourceFootprintVertices": 10,
+      "sourceHoles": 1,
+      "roofProfile": {
+        "version": 1,
+        "shape": "flat",
+        "totalM": 25,
+        "eavesM": 25,
+        "riseM": 0,
+        "heightSource": "OSM height",
+        "riseSource": "flat",
+        "axis": [
+          0.20627296693123637,
+          -0.9784944880342376
+        ],
+        "low": 68.34368774412957,
+        "high": 77.32992358251673,
+        "raw": {
+          "height": "25"
+        }
+      }
+    }
+  ],
+  "previousOuterRetention": {
+    "baseline": "1d6295c",
+    "match": "exact source ID plus complete precise outer ring (multi-outer relations matched separately)",
+    "allPreviousOutersPresent": true,
+    "allPreviousTotalAndMinimumBandsUnchanged": true
+  }
+}

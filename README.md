@@ -146,6 +146,7 @@ Developer pages: `game/dev/spots.html?id=<spot>`, `game/dev/landmarks.html`, `ga
   `--bbox minlat,minlon,maxlat,maxlon` to limit a pass to the district and its scenery ring. Romană & Victoriei has been
   reviewed across 1,144 official Street View pairs and 195 aerial tiles; local evidence and remaining fidelity limits
   are recorded in `specs/12-buildings-streetscape.md` and `specs/19-qa-harness.md`.
+  The [public aerial comparison gallery](https://cristiancalina.com/comparisons/romana/) shows all 195 historical game captures plus four published-baseline captures beside live Esri World Imagery, with coverage filters, a spatial index and full-image zoom; capture commits and imagery limits are labelled in the gallery.
   Street-walk comparisons use official Google panoramas by default (`--pano-provider=any` permits public uploads);
   unambiguous mapped underpass/bridge grades determine the comparison camera's height. Overlapping road levels are
   flagged in `camera-poses.json` for review because panorama metadata does not identify altitude.

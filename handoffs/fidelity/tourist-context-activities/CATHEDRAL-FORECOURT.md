@@ -1,0 +1,7 @@
+# Cathedral forecourt correction
+
+The actual clean context pass exposed the old southwest postcard inside restored source building `w1223607029`. Arrival, game plaques and the postcard now lie on the west strip of mapped pedestrian relation `16698908`, outside its church inner ring. The real western building remains present. Canonical Cathedral source IDs and shared whole-footprint membership replace the scene's former centroid-based part exclusion.
+
+No source establishes the old permanent candle pavilion and racks at the estimated location, which was outside the mapped piazza. That structure and its colliders are removed. The two input-driven lighting/placement phases remain as an explicitly virtual candle in a temporary handheld holder. Its visible help states that a real rack location has not been verified. The holder disappears after completion; it does not add an invented place, operator or permanent object to the forecourt. A completed practice still uses the existing candle achievement ID; incomplete activity never awards it.
+
+Root README/spec/achievement copy should describe this as outdoor virtual candle practice, with real candle-rack/interior access unavailable until verified. Source buildings, population and mapped wall gaps remain intact. The static source cache was rebuilt with identical source arrays. The dedicated native desktop/touch harness checks actual public forecourt movement, source membership, 44px controls, visible two-phase participation, native mode cancellation including drone, and complete-only persistence.

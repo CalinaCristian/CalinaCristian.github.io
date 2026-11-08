@@ -25,6 +25,10 @@ const paths = ['AGENTS.md','README.md','specs/README.md','specs/00-vision.md','s
 const walk = dir => readdirSync(resolve(root,dir),{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(`${dir}/${e.name}`):e.name.endsWith('.js')?[`${dir}/${e.name}`]:[]);
 const allPaths = [...new Set([...paths,...walk('game/src')])];
 const sources = allPaths.map(path=>({path,sha256:createHash('sha256').update(read(path)).digest('hex')}));
+for (const source of sources) {
+    const committed = execFileSync('git',['show',`${sourceSha}:${source.path}`],{cwd:root,maxBuffer:20*1024*1024});
+    if(createHash('sha256').update(committed).digest('hex') !== source.sha256) throw new Error(`Source ${source.path} differs from ${sourceSha}. Commit game/docs changes before pinning provenance.`);
+}
 const data = {sourceSha,reviewedOn:'2026-11-08',repository:'https://github.com/CalinaCristian/CalinaCristian.github.io',counts:{districts:districts.length,chapters:CHAPTERS.length,landmarks:landmarks.length,landmarkBuilders:new Set(landmarks.map(x=>x.builder)).size,spots:spots.length,scenes:new Set(spots.map(s=>s.scene)).size,historicalReady:ready.length,achievements:[...read('game/src/data.js').split('export const ACHIEVEMENTS = [')[1].split('\n];')[0].matchAll(/\{ id: '/g)].length},districts,landmarks,spots,sources};
 writeFileSync(resolve(root,'game/overview/inventory.json'),JSON.stringify(data,null,2)+'\n');
 process.stdout.write(JSON.stringify(data.counts)+'\n');

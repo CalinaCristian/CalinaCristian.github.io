@@ -38,6 +38,7 @@ async function initInventory() {
     if (!response.ok) throw new Error(`Inventory HTTP ${response.status}`);
     inventory = await response.json();
     for (const selector of ['#hero-sha','#source-sha']) { const e=$(selector); e.textContent=selector==='#hero-sha'?inventory.sourceSha.slice(0,7):inventory.sourceSha; e.href=`${repo}/tree/${inventory.sourceSha}`; }
+    document.querySelectorAll('[data-inventory-count]').forEach(el=>{const n=inventory.counts[el.dataset.inventoryCount];if(Number.isFinite(n))el.textContent=String(n);});
     $('#repo-link').href=`${repo}/tree/${inventory.sourceSha}`;
     document.querySelectorAll('[data-sources]').forEach(el=>{ el.innerHTML=el.dataset.sources.split(',').map(p=>sourceLink(p,p.split('/').pop())).join(' '); });
     $('#district-table').innerHTML=table('Configured district inventory · source-linked, not a fidelity grade',['District / chapters','Included landmark IDs','Comparison evidence'], inventory.districts.map(d=>`<tr><th scope="row">${esc(d.name)}<small>${esc(d.city==='bucharest'?'Bucharest, Romania':'Washington, USA')}<br>${d.chapters.map(c=>`${c.year} · ${esc(c.title)}`).join('<br>')}</small></th><td>${d.landmarks.map(id=>`<a href="#landmark-${id}">${esc(id)}</a>`).join(', ')}<small>${sourceLink(d.data,'District JSON')}</small></td><td>${compareLink(d.id,hasComparison(d.id)?'Inspect district ↓':'Check availability ↓')}<small>${hasComparison(d.id)?'Source and scope shown in viewer':'No public comparison dataset yet'}</small></td></tr>`));

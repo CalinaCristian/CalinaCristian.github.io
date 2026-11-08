@@ -3,6 +3,7 @@
 Owner role: **cockpit-ui** (vehicles.js, office.js, flight.js, canvasText.js, style.css); HUD logic in hud.js by **gameplay**.
 
 ## Owner findings
+- Phone office answer taps must never open a hidden title-menu action. Regression: `node game/dev/harness/office-touch-check.cjs` exercises every office at 390×844, 844×390, 440×756 and 956×352 after opening/closing Achievements. On published `58129ab`, five manager dialogues at 956×352 open Achievements through invisible `#achv-menu` descendants; the staged `#menu.overlay:not(.show) { visibility:hidden }` repair passes all 32 office/viewport cases and 104 native taps, with zero page errors. This is DOM/touch coverage, not a rendered-world performance test.
 - The in-car map screen is intersected by the dashboard and cut by the bottom of the view.
 - Office lobby sign subtitle was clipped — quick fix shipped; generalize.
 - Mirror shows odd content in Seattle; steering wheel direction (fixed); look-back cabin (fixed).

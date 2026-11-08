@@ -1,0 +1,3173 @@
+{
+  "parkingClearance": {
+    "candidates": 611,
+    "retained": 565,
+    "outsideSourceLot": 32,
+    "raisedSidewalk": 14,
+    "buildingBody": 0,
+    "canopySupport": 0,
+    "measuredLots": []
+  },
+  "phases": [
+    [
+      "Loading OpenStreetMap data…",
+      620
+    ],
+    [
+      "Building the road network…",
+      350
+    ],
+    [
+      "Parks, rivers and lakes…",
+      680
+    ],
+    [
+      "Paving the streets…",
+      774
+    ],
+    [
+      "Raising the buildings…",
+      4087
+    ],
+    [
+      "Opening the shops…",
+      79
+    ],
+    [
+      "Planting trees…",
+      3967
+    ],
+    [
+      "Finishing…",
+      9484
+    ]
+  ],
+  "railways": {
+    "sourceWays": 6,
+    "renderedWays": 6,
+    "renderedMetres": 792,
+    "ties": 1135,
+    "unresolved": []
+  },
+  "network": {
+    "scc": 38,
+    "mainNodes": 357,
+    "nodesOutside": 37,
+    "edgesOff": 37,
+    "weakComponents": 5,
+    "laneAligned": 6
+  },
+  "edges": 421,
+  "walls": 152,
+  "wallPiecesCut": 0,
+  "piers": 0,
+  "furniture": 0,
+  "roadSigns": 149,
+  "roofAds": 0,
+  "roofAdList": [],
+  "backdrop": 3514,
+  "sceneryStreets": 878,
+  "kerbParked": 488,
+  "marksDropped": [
+    {
+      "name": "Bulevardul Mircea Eliade",
+      "type": "tertiary",
+      "id": 370,
+      "lanes": [
+        3,
+        2
+      ],
+      "oneway": false,
+      "x": -147,
+      "z": -169,
+      "len": 9,
+      "cover": 0.93,
+      "out": 0
+    },
+    {
+      "name": "Calea Floreasca",
+      "type": "tertiary",
+      "id": 367,
+      "lanes": [
+        3,
+        3
+      ],
+      "oneway": false,
+      "x": -143,
+      "z": -164,
+      "len": 9,
+      "cover": 0.73,
+      "out": 0.01
+    },
+    {
+      "name": "Strada Albac",
+      "type": "residential",
+      "id": 2,
+      "lanes": [
+        1,
+        1
+      ],
+      "oneway": false,
+      "x": -313,
+      "z": 994,
+      "len": 28,
+      "cover": 0.32,
+      "out": 0
+    },
+    {
+      "name": "Strada Piotr Ilici Ceaikovski",
+      "type": "tertiary",
+      "id": 345,
+      "lanes": [
+        2,
+        1
+      ],
+      "oneway": false,
+      "x": -135,
+      "z": -168,
+      "len": 14,
+      "cover": 0.28,
+      "out": 0
+    },
+    {
+      "name": "Strada Mihail Ivanovici Glinka",
+      "type": "tertiary",
+      "id": 200,
+      "lanes": [
+        2,
+        0
+      ],
+      "oneway": true,
+      "x": -167,
+      "z": 76,
+      "len": 9,
+      "cover": 0.27,
+      "out": 0
+    },
+    {
+      "name": "Calea Floreasca",
+      "type": "tertiary",
+      "id": 24,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -241,
+      "z": 1147,
+      "len": 9,
+      "cover": 0,
+      "out": 0.27
+    },
+    {
+      "name": "Strada Aviator Muntenescu",
+      "type": "residential",
+      "id": 88,
+      "lanes": [
+        1,
+        1
+      ],
+      "oneway": false,
+      "x": -246,
+      "z": 651,
+      "len": 11,
+      "cover": 0,
+      "out": 0.25
+    },
+    {
+      "name": "Calea Floreasca",
+      "type": "tertiary",
+      "id": 251,
+      "lanes": [
+        2,
+        2
+      ],
+      "oneway": false,
+      "x": -182,
+      "z": 158,
+      "len": 11,
+      "cover": 0,
+      "out": 0.21
+    }
+  ],
+  "raisedSidewalk": {
+    "pieces": 6024,
+    "corners": 47,
+    "joins": 102,
+    "skipped": [
+      {
+        "x": -374,
+        "z": 1054,
+        "why": "covered"
+      },
+      {
+        "x": -374,
+        "z": 1054,
+        "why": "covered"
+      },
+      {
+        "x": -374,
+        "z": 1054,
+        "why": "covered"
+      },
+      {
+        "x": -374,
+        "z": 1054,
+        "why": "covered"
+      },
+      {
+        "x": -374,
+        "z": 1054,
+        "why": "self-crossing"
+      },
+      {
+        "x": -374,
+        "z": 1054,
+        "why": "covered"
+      },
+      {
+        "x": -303,
+        "z": 984,
+        "why": "median"
+      },
+      {
+        "x": -303,
+        "z": 984,
+        "why": "covered"
+      },
+      {
+        "x": -303,
+        "z": 984,
+        "why": "covered"
+      },
+      {
+        "x": -303,
+        "z": 984,
+        "why": "covered"
+      },
+      {
+        "x": -289,
+        "z": 969,
+        "why": "self-crossing"
+      },
+      {
+        "x": -289,
+        "z": 969,
+        "why": "covered"
+      },
+      {
+        "x": -289,
+        "z": 969,
+        "why": "covered"
+      },
+      {
+        "x": -289,
+        "z": 969,
+        "why": "covered"
+      },
+      {
+        "x": -300,
+        "z": 1153,
+        "why": "median"
+      },
+      {
+        "x": -300,
+        "z": 1153,
+        "why": "covered"
+      },
+      {
+        "x": -300,
+        "z": 1153,
+        "why": "self-crossing"
+      },
+      {
+        "x": -300,
+        "z": 1153,
+        "why": "median"
+      },
+      {
+        "x": -300,
+        "z": 1153,
+        "why": "self-crossing"
+      },
+      {
+        "x": -300,
+        "z": 1153,
+        "why": "covered"
+      },
+      {
+        "x": -241,
+        "z": 1151,
+        "why": "covered"
+      },
+      {
+        "x": -241,
+        "z": 1151,
+        "why": "covered"
+      },
+      {
+        "x": -241,
+        "z": 1151,
+        "why": "median"
+      },
+      {
+        "x": -241,
+        "z": 1151,
+        "why": "covered"
+      },
+      {
+        "x": -241,
+        "z": 1151,
+        "why": "covered"
+      },
+      {
+        "x": -241,
+        "z": 1151,
+        "why": "median"
+      },
+      {
+        "x": -242,
+        "z": 1104,
+        "why": "self-crossing"
+      },
+      {
+        "x": -242,
+        "z": 1104,
+        "why": "self-crossing"
+      },
+      {
+        "x": -242,
+        "z": 1104,
+        "why": "median"
+      },
+      {
+        "x": -242,
+        "z": 1104,
+        "why": "self-crossing"
+      },
+      {
+        "x": -242,
+        "z": 1104,
+        "why": "self-crossing"
+      },
+      {
+        "x": -242,
+        "z": 1104,
+        "why": "median"
+      },
+      {
+        "x": -301,
+        "z": 1051,
+        "why": "self-crossing"
+      },
+      {
+        "x": -301,
+        "z": 1051,
+        "why": "median"
+      },
+      {
+        "x": -301,
+        "z": 1051,
+        "why": "self-crossing"
+      },
+      {
+        "x": -301,
+        "z": 1051,
+        "why": "covered"
+      },
+      {
+        "x": -301,
+        "z": 1051,
+        "why": "median"
+      },
+      {
+        "x": -301,
+        "z": 1051,
+        "why": "covered"
+      },
+      {
+        "x": -244,
+        "z": 1050,
+        "why": "self-crossing"
+      },
+      {
+        "x": -244,
+        "z": 1050,
+        "why": "covered"
+      },
+      {
+        "x": -244,
+        "z": 1050,
+        "why": "self-crossing"
+      },
+      {
+        "x": -244,
+        "z": 1050,
+        "why": "median"
+      },
+      {
+        "x": -244,
+        "z": 1050,
+        "why": "self-crossing"
+      },
+      {
+        "x": -244,
+        "z": 1050,
+        "why": "covered"
+      },
+      {
+        "x": -244,
+        "z": 1050,
+        "why": "self-crossing"
+      },
+      {
+        "x": -244,
+        "z": 1050,
+        "why": "median"
+      },
+      {
+        "x": -202,
+        "z": 1044,
+        "why": "self-crossing"
+      },
+      {
+        "x": -202,
+        "z": 1044,
+        "why": "covered"
+      },
+      {
+        "x": -202,
+        "z": 1044,
+        "why": "covered"
+      },
+      {
+        "x": -187,
+        "z": 949,
+        "why": "covered"
+      },
+      {
+        "x": -187,
+        "z": 949,
+        "why": "covered"
+      },
+      {
+        "x": -187,
+        "z": 949,
+        "why": "covered"
+      },
+      {
+        "x": -247,
+        "z": 968,
+        "why": "covered"
+      },
+      {
+        "x": -247,
+        "z": 968,
+        "why": "covered"
+      },
+      {
+        "x": -247,
+        "z": 968,
+        "why": "median"
+      },
+      {
+        "x": -247,
+        "z": 968,
+        "why": "covered"
+      },
+      {
+        "x": -247,
+        "z": 968,
+        "why": "covered"
+      },
+      {
+        "x": -247,
+        "z": 968,
+        "why": "median"
+      },
+      {
+        "x": -257,
+        "z": 703,
+        "why": "self-crossing"
+      },
+      {
+        "x": -257,
+        "z": 703,
+        "why": "self-crossing"
+      }
+    ]
+  },
+  "greenQuads": 30068,
+  "fenceM": 3244,
+  "bollards": 689,
+  "pitchesDressed": 69,
+  "fuel": [],
+  "buildingRoofProfiles": {
+    "supplied": 3366,
+    "applied": 3366,
+    "rejected": [],
+    "uncertain": [
+      {
+        "source": "w179110758",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w39349666",
+        "issues": [
+          "unsupported roof:shape=saltbox"
+        ]
+      }
+    ],
+    "surfacesApplied": 354,
+    "surfacesRejected": []
+  },
+  "profile": {
+    "merge": {
+      "final": {
+        "ramps": 0,
+        "liveDecks": 0,
+        "ground": 393,
+        "lowered": 0,
+        "raised": 0,
+        "overheadCaps": 0,
+        "maxY": 0
+      },
+      "tunnelApproach": {
+        "constraints": 0,
+        "turningPads": 0,
+        "lowered": 0,
+        "maxDrop": 0,
+        "kept": true
+      },
+      "gore": {
+        "lowered": 0,
+        "rounds": 0,
+        "left": 0,
+        "maxDrop": 0
+      }
+    },
+    "crossings": 0,
+    "overlaps": 20,
+    "clearanceViolations": 0,
+    "overlapSteps": 0,
+    "gradeResidual": 0,
+    "hardNodes": 301,
+    "nanAt": null
+  },
+  "buildingPassages": [
+    {
+      "sourceRoadId": "w1205054012",
+      "reason": "absolute-passage-base-unknown",
+      "baseUnknown": true,
+      "status": "unsupported without a physical vertical datum",
+      "classificationSource": "OSM tunnel=building_passage",
+      "buildingIds": [
+        "w96139223"
+      ],
+      "sourceNodeIds": [
+        11168042236,
+        11168042235
+      ],
+      "sourceCentreline": [
+        [
+          -296.7205403395331,
+          1289.2534452000034
+        ],
+        [
+          -296.7523193414793,
+          1300.5889091998113
+        ]
+      ],
+      "tags": {
+        "highway": "footway",
+        "layer": "-1",
+        "surface": "asphalt",
+        "tunnel": "building_passage"
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/1205054012"
+      ],
+      "dimensionNote": "Relative source layer/level/bridge ordering does not establish metres above local ground. No ground void is cut; source identities and complete horizontal geometry are retained for review.",
+      "accepted": false
+    },
+    {
+      "source": "w28401812",
+      "road": "w325467440",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 2.8,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "w28401812",
+      "road": "w325467682",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 2.8,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "w28401812",
+      "road": "w325468036",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 2.8,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "w28803496",
+      "road": "w307092318",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 2.8,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "w28803522",
+      "road": "w307092211",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 2.8,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "w96139224",
+      "road": "w246119130",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 2.8,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "w229829896",
+      "road": "w229829897",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 2.8,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "w358333293",
+      "road": "w916708215",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 2.8,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "w34832556",
+      "road": "w1322035262",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 6,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "w168425932",
+      "road": "w1483979688",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 2.8,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    }
+  ],
+  "treesOSM": 15044,
+  "treesRows": 0,
+  "heightFixes": 0,
+  "heightFixSamples": [],
+  "buildingsShrunk": 0,
+  "buildingClearance": [
+    {
+      "source": "r9146640",
+      "before": 30505.78445761495,
+      "after": 30505.78445761495,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w34832556",
+      "before": 6274.62643177998,
+      "after": 6274.62643177998,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w39348406",
+      "before": 827.2081165399995,
+      "after": 827.2081165399995,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w39348407",
+      "before": 443.9891671400003,
+      "after": 443.9891671400003,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w39349704",
+      "before": 293.78127117500117,
+      "after": 293.78127117500117,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w162494217",
+      "before": 260.71303621500033,
+      "after": 260.71303621500033,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w162494237",
+      "before": 336.3872588349998,
+      "after": 336.3872588349998,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w168423769",
+      "before": 555.2195012499942,
+      "after": 555.2195012499942,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w183889415",
+      "before": 186.60877330004587,
+      "after": 186.60877330004587,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w183889429",
+      "before": 107.3490056500159,
+      "after": 107.3490056500159,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w183889431",
+      "before": 133.25878262499464,
+      "after": 133.25878262499464,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w245345969",
+      "before": 224.576076679994,
+      "after": 224.576076679994,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w245418765",
+      "before": 122.5193268999974,
+      "after": 122.5193268999974,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w245418769",
+      "before": 197.79303620000064,
+      "after": 197.79303620000064,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w373440251",
+      "before": 118.43491605497547,
+      "after": 118.43491605497547,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w373440268",
+      "before": 243.28602806004346,
+      "after": 243.28602806004346,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w373440300",
+      "before": 109.86485645003268,
+      "after": 109.86485645003268,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w1189550035",
+      "before": 69.0285104099894,
+      "after": 69.0285104099894,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w1189550037",
+      "before": 115.9828027899639,
+      "after": 115.9828027899639,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w1375031820",
+      "before": 245.3111133700295,
+      "after": 245.3111133700295,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w39348405",
+      "before": 363.759119360001,
+      "after": 363.759119360001,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    }
+  ],
+  "buildingsDropped": 0,
+  "buildingsCovered": [],
+  "buildingAssemblies": [
+    {
+      "mode": "parts",
+      "outline": "w943792838",
+      "parts": [
+        "w903893105",
+        "w903893106",
+        "w903893107"
+      ],
+      "residualArea": 0,
+      "residualHeight": 20.3,
+      "residualHeightSource": "adjacent-ground-part",
+      "residualHeights": [],
+      "cells": 0
+    }
+  ],
+  "buildingAssembliesRejected": [],
+  "buildingUnions": [
+    {
+      "source": "w903893105",
+      "neighbours": 1
+    },
+    {
+      "source": "w903893106",
+      "neighbours": 1
+    },
+    {
+      "source": "w903893107",
+      "neighbours": 2
+    }
+  ],
+  "buildingUnionsRejected": [],
+  "landmarkSourceReplacements": [
+    {
+      "landmark": "skytower",
+      "declared": [
+        "w219622660"
+      ],
+      "replaced": [],
+      "unmatched": [
+        "w219622660"
+      ]
+    },
+    {
+      "landmark": "dinamo",
+      "declared": [
+        "w28212482",
+        "w427813551",
+        "w860001496"
+      ],
+      "replaced": [],
+      "unmatched": [
+        "w28212482",
+        "w427813551",
+        "w860001496"
+      ]
+    },
+    {
+      "landmark": "rosetti",
+      "declared": [
+        "w28240279",
+        "w544207404",
+        "w545176891"
+      ],
+      "replaced": [
+        "w28240279",
+        "w544207404",
+        "w545176891"
+      ],
+      "unmatched": []
+    },
+    {
+      "landmark": "globalworth",
+      "declared": [
+        "w547396774"
+      ],
+      "replaced": [],
+      "unmatched": [
+        "w547396774"
+      ]
+    }
+  ],
+  "landmarkBoxesTrimmed": 7,
+  "landmarkBoxesDropped": 2,
+  "lampsMovedToKerb": 0,
+  "lampsInWater": 0,
+  "shoreTris": 189331,
+  "vacantUnits": 3,
+  "channelM": 28255,
+  "unitSigns": 32,
+  "unitSignSpots": [
+    [
+      -218,
+      341,
+      3
+    ],
+    [
+      -294,
+      389,
+      3
+    ],
+    [
+      -219,
+      354,
+      3
+    ],
+    [
+      -257,
+      497,
+      3
+    ],
+    [
+      -300,
+      431,
+      3
+    ],
+    [
+      -304,
+      457,
+      3
+    ],
+    [
+      -241,
+      431,
+      3
+    ],
+    [
+      -244,
+      453,
+      3
+    ],
+    [
+      -242,
+      439,
+      3
+    ],
+    [
+      -240,
+      423,
+      3
+    ],
+    [
+      -244,
+      449,
+      3
+    ],
+    [
+      -236,
+      396,
+      3
+    ],
+    [
+      -246,
+      465,
+      3
+    ],
+    [
+      -278,
+      493,
+      3
+    ],
+    [
+      -243,
+      444,
+      3
+    ],
+    [
+      -290,
+      341,
+      3
+    ],
+    [
+      -187,
+      318,
+      3
+    ],
+    [
+      -264,
+      386,
+      3
+    ],
+    [
+      -273,
+      384,
+      3
+    ],
+    [
+      -296,
+      967,
+      3
+    ],
+    [
+      -279,
+      533,
+      3
+    ],
+    [
+      -239,
+      419,
+      3
+    ],
+    [
+      -264,
+      496,
+      3
+    ],
+    [
+      -309,
+      331,
+      3
+    ],
+    [
+      -174,
+      217,
+      3
+    ],
+    [
+      145,
+      -133,
+      3
+    ],
+    [
+      -186,
+      -73,
+      3
+    ],
+    [
+      -65,
+      -115,
+      3
+    ],
+    [
+      150,
+      -132,
+      3
+    ],
+    [
+      -237,
+      689,
+      3
+    ],
+    [
+      -305,
+      982,
+      3
+    ],
+    [
+      -261,
+      896,
+      3
+    ]
+  ],
+  "crossings": 0,
+  "corridorKm2": 0.54,
+  "nodes": 356,
+  "buildings": 3362,
+  "pois": 95,
+  "trees": 15047,
+  "parked": 565,
+  "lights": 3,
+  "lamps": 264,
+  "osmLamps": 0,
+  "cells": 428,
+  "triangles": 3027288,
+  "meshes": 513,
+  "signPages": 1,
+  "buildMs": 20040,
+  "scenerySource": {
+    "precisePieces": 878,
+    "literalWidthPieces": 69,
+    "reviewedWidthPieces": 0,
+    "estimatedWidthPieces": 809,
+    "fallbackPieces": 0,
+    "resolvedWidths": [
+      {
+        "piece": 24,
+        "sourceId": "w23647406",
+        "widthM": 5,
+        "leftM": 2.5,
+        "rightM": 2.5,
+        "widthSource": "OSM width",
+        "rawWidth": "5"
+      },
+      {
+        "piece": 47,
+        "sourceId": "w26991999",
+        "widthM": 7.1,
+        "leftM": 3.55,
+        "rightM": 3.55,
+        "widthSource": "OSM width",
+        "rawWidth": "7.1"
+      },
+      {
+        "piece": 139,
+        "sourceId": "w289331891",
+        "widthM": 5,
+        "leftM": 2.5,
+        "rightM": 2.5,
+        "widthSource": "OSM width",
+        "rawWidth": "5"
+      },
+      {
+        "piece": 140,
+        "sourceId": "w289331891",
+        "widthM": 5,
+        "leftM": 2.5,
+        "rightM": 2.5,
+        "widthSource": "OSM width",
+        "rawWidth": "5"
+      },
+      {
+        "piece": 150,
+        "sourceId": "w343500598",
+        "widthM": 6.3,
+        "leftM": 3.15,
+        "rightM": 3.15,
+        "widthSource": "OSM width",
+        "rawWidth": "6.3"
+      },
+      {
+        "piece": 322,
+        "sourceId": "w23623699",
+        "widthM": 5,
+        "leftM": 2.5,
+        "rightM": 2.5,
+        "widthSource": "OSM width",
+        "rawWidth": "5"
+      },
+      {
+        "piece": 323,
+        "sourceId": "w23624125",
+        "widthM": 6.6,
+        "leftM": 3.3,
+        "rightM": 3.3,
+        "widthSource": "OSM width",
+        "rawWidth": "6.6"
+      },
+      {
+        "piece": 324,
+        "sourceId": "w23624316",
+        "widthM": 5.6,
+        "leftM": 2.8,
+        "rightM": 2.8,
+        "widthSource": "OSM width",
+        "rawWidth": "5.6"
+      },
+      {
+        "piece": 325,
+        "sourceId": "w23624318",
+        "widthM": 7,
+        "leftM": 3.5,
+        "rightM": 3.5,
+        "widthSource": "OSM width",
+        "rawWidth": "7"
+      },
+      {
+        "piece": 326,
+        "sourceId": "w23624319",
+        "widthM": 6.6,
+        "leftM": 3.3,
+        "rightM": 3.3,
+        "widthSource": "OSM width",
+        "rawWidth": "6.6"
+      },
+      {
+        "piece": 330,
+        "sourceId": "w23624454",
+        "widthM": 6.6,
+        "leftM": 3.3,
+        "rightM": 3.3,
+        "widthSource": "OSM width",
+        "rawWidth": "6.6"
+      },
+      {
+        "piece": 331,
+        "sourceId": "w23624455",
+        "widthM": 6.3,
+        "leftM": 3.15,
+        "rightM": 3.15,
+        "widthSource": "OSM width",
+        "rawWidth": "6.3"
+      },
+      {
+        "piece": 333,
+        "sourceId": "w23624518",
+        "widthM": 3.4,
+        "leftM": 1.7,
+        "rightM": 1.7,
+        "widthSource": "OSM width",
+        "rawWidth": "3.4"
+      },
+      {
+        "piece": 338,
+        "sourceId": "w26954387",
+        "widthM": 6.3,
+        "leftM": 3.15,
+        "rightM": 3.15,
+        "widthSource": "OSM width",
+        "rawWidth": "6.3"
+      },
+      {
+        "piece": 350,
+        "sourceId": "w28241043",
+        "widthM": 5.5,
+        "leftM": 2.75,
+        "rightM": 2.75,
+        "widthSource": "OSM width",
+        "rawWidth": "5.5"
+      },
+      {
+        "piece": 379,
+        "sourceId": "w156095010",
+        "widthM": 5.7,
+        "leftM": 2.85,
+        "rightM": 2.85,
+        "widthSource": "OSM width",
+        "rawWidth": "5.7"
+      },
+      {
+        "piece": 382,
+        "sourceId": "w203653235",
+        "widthM": 5,
+        "leftM": 2.5,
+        "rightM": 2.5,
+        "widthSource": "OSM width",
+        "rawWidth": "5"
+      },
+      {
+        "piece": 383,
+        "sourceId": "w203653236",
+        "widthM": 4.9,
+        "leftM": 2.45,
+        "rightM": 2.45,
+        "widthSource": "OSM width",
+        "rawWidth": "4.9"
+      },
+      {
+        "piece": 385,
+        "sourceId": "w203653811",
+        "widthM": 5.4,
+        "leftM": 2.7,
+        "rightM": 2.7,
+        "widthSource": "OSM width",
+        "rawWidth": "5.4"
+      },
+      {
+        "piece": 387,
+        "sourceId": "w203653815",
+        "widthM": 5.8,
+        "leftM": 2.9,
+        "rightM": 2.9,
+        "widthSource": "OSM width",
+        "rawWidth": "5.8"
+      },
+      {
+        "piece": 389,
+        "sourceId": "w204909725",
+        "widthM": 6.3,
+        "leftM": 3.15,
+        "rightM": 3.15,
+        "widthSource": "OSM width",
+        "rawWidth": "6.3"
+      },
+      {
+        "piece": 433,
+        "sourceId": "w329764146",
+        "widthM": 6.4,
+        "leftM": 3.2,
+        "rightM": 3.2,
+        "widthSource": "OSM width",
+        "rawWidth": "6.4"
+      },
+      {
+        "piece": 443,
+        "sourceId": "w547574759",
+        "widthM": 6.6,
+        "leftM": 3.3,
+        "rightM": 3.3,
+        "widthSource": "OSM width",
+        "rawWidth": "6.6"
+      },
+      {
+        "piece": 476,
+        "sourceId": "w669161884",
+        "widthM": 3,
+        "leftM": 1.5,
+        "rightM": 1.5,
+        "widthSource": "OSM width",
+        "rawWidth": "3"
+      },
+      {
+        "piece": 477,
+        "sourceId": "w669161887",
+        "widthM": 3,
+        "leftM": 1.5,
+        "rightM": 1.5,
+        "widthSource": "OSM width",
+        "rawWidth": "3"
+      },
+      {
+        "piece": 486,
+        "sourceId": "w680879436",
+        "widthM": 6.6,
+        "leftM": 3.3,
+        "rightM": 3.3,
+        "widthSource": "OSM width",
+        "rawWidth": "6.6"
+      },
+      {
+        "piece": 512,
+        "sourceId": "w1016656331",
+        "widthM": 6.2,
+        "leftM": 3.1,
+        "rightM": 3.1,
+        "widthSource": "OSM width",
+        "rawWidth": "6.2"
+      },
+      {
+        "piece": 539,
+        "sourceId": "w1230943443",
+        "widthM": 2.9,
+        "leftM": 1.45,
+        "rightM": 1.45,
+        "widthSource": "OSM width",
+        "rawWidth": "2.9"
+      },
+      {
+        "piece": 549,
+        "sourceId": "w1373439838",
+        "widthM": 6.4,
+        "leftM": 3.2,
+        "rightM": 3.2,
+        "widthSource": "OSM width",
+        "rawWidth": "6.4"
+      },
+      {
+        "piece": 550,
+        "sourceId": "w1373439839",
+        "widthM": 6.5,
+        "leftM": 3.25,
+        "rightM": 3.25,
+        "widthSource": "OSM width",
+        "rawWidth": "6.5"
+      },
+      {
+        "piece": 552,
+        "sourceId": "w1373439841",
+        "widthM": 6.6,
+        "leftM": 3.3,
+        "rightM": 3.3,
+        "widthSource": "OSM width",
+        "rawWidth": "6.6"
+      },
+      {
+        "piece": 553,
+        "sourceId": "w1373443130",
+        "widthM": 5,
+        "leftM": 2.5,
+        "rightM": 2.5,
+        "widthSource": "OSM width",
+        "rawWidth": "5"
+      },
+      {
+        "piece": 554,
+        "sourceId": "w1373443131",
+        "widthM": 4.2,
+        "leftM": 2.1,
+        "rightM": 2.1,
+        "widthSource": "OSM width",
+        "rawWidth": "4.2"
+      },
+      {
+        "piece": 555,
+        "sourceId": "w1373443132",
+        "widthM": 5.6,
+        "leftM": 2.8,
+        "rightM": 2.8,
+        "widthSource": "OSM width",
+        "rawWidth": "5.6"
+      },
+      {
+        "piece": 556,
+        "sourceId": "w1373443133",
+        "widthM": 11.2,
+        "leftM": 5.6,
+        "rightM": 5.6,
+        "widthSource": "OSM width",
+        "rawWidth": "11.2"
+      },
+      {
+        "piece": 557,
+        "sourceId": "w1373443134",
+        "widthM": 4.2,
+        "leftM": 2.1,
+        "rightM": 2.1,
+        "widthSource": "OSM width",
+        "rawWidth": "4.2"
+      },
+      {
+        "piece": 558,
+        "sourceId": "w1373443135",
+        "widthM": 5,
+        "leftM": 2.5,
+        "rightM": 2.5,
+        "widthSource": "OSM width",
+        "rawWidth": "5"
+      },
+      {
+        "piece": 559,
+        "sourceId": "w1373446720",
+        "widthM": 5.5,
+        "leftM": 2.75,
+        "rightM": 2.75,
+        "widthSource": "OSM width",
+        "rawWidth": "5.5"
+      },
+      {
+        "piece": 560,
+        "sourceId": "w1374689271",
+        "widthM": 6.6,
+        "leftM": 3.3,
+        "rightM": 3.3,
+        "widthSource": "OSM width",
+        "rawWidth": "6.6"
+      },
+      {
+        "piece": 561,
+        "sourceId": "w1374689272",
+        "widthM": 6.5,
+        "leftM": 3.25,
+        "rightM": 3.25,
+        "widthSource": "OSM width",
+        "rawWidth": "6.5"
+      },
+      {
+        "piece": 570,
+        "sourceId": "w1575960344",
+        "widthM": 6.5,
+        "leftM": 3.25,
+        "rightM": 3.25,
+        "widthSource": "OSM width",
+        "rawWidth": "6.5"
+      },
+      {
+        "piece": 572,
+        "sourceId": "w6193060",
+        "widthM": 8.2,
+        "leftM": 4.1,
+        "rightM": 4.1,
+        "widthSource": "OSM width",
+        "rawWidth": "8.2"
+      },
+      {
+        "piece": 573,
+        "sourceId": "w6193098",
+        "widthM": 8.2,
+        "leftM": 4.1,
+        "rightM": 4.1,
+        "widthSource": "OSM width",
+        "rawWidth": "8.2"
+      },
+      {
+        "piece": 584,
+        "sourceId": "w23625164",
+        "widthM": 4,
+        "leftM": 2,
+        "rightM": 2,
+        "widthSource": "OSM width",
+        "rawWidth": "4"
+      },
+      {
+        "piece": 613,
+        "sourceId": "w661466306",
+        "widthM": 6.1,
+        "leftM": 3.05,
+        "rightM": 3.05,
+        "widthSource": "OSM width",
+        "rawWidth": "6.1"
+      },
+      {
+        "piece": 614,
+        "sourceId": "w661466307",
+        "widthM": 6.2,
+        "leftM": 3.1,
+        "rightM": 3.1,
+        "widthSource": "OSM width",
+        "rawWidth": "6.2"
+      },
+      {
+        "piece": 651,
+        "sourceId": "w23624697",
+        "widthM": 6.6,
+        "leftM": 3.3,
+        "rightM": 3.3,
+        "widthSource": "OSM width",
+        "rawWidth": "6.6"
+      },
+      {
+        "piece": 652,
+        "sourceId": "w23624710",
+        "widthM": 6.7,
+        "leftM": 3.35,
+        "rightM": 3.35,
+        "widthSource": "OSM width",
+        "rawWidth": "6.7"
+      },
+      {
+        "piece": 653,
+        "sourceId": "w23624715",
+        "widthM": 6.8,
+        "leftM": 3.4,
+        "rightM": 3.4,
+        "widthSource": "OSM width",
+        "rawWidth": "6.8"
+      },
+      {
+        "piece": 654,
+        "sourceId": "w23624722",
+        "widthM": 6.7,
+        "leftM": 3.35,
+        "rightM": 3.35,
+        "widthSource": "OSM width",
+        "rawWidth": "6.7"
+      },
+      {
+        "piece": 655,
+        "sourceId": "w23624733",
+        "widthM": 6.6,
+        "leftM": 3.3,
+        "rightM": 3.3,
+        "widthSource": "OSM width",
+        "rawWidth": "6.6"
+      },
+      {
+        "piece": 656,
+        "sourceId": "w23624735",
+        "widthM": 5.7,
+        "leftM": 2.85,
+        "rightM": 2.85,
+        "widthSource": "OSM width",
+        "rawWidth": "5.7"
+      },
+      {
+        "piece": 660,
+        "sourceId": "w23624786",
+        "widthM": 5.5,
+        "leftM": 2.75,
+        "rightM": 2.75,
+        "widthSource": "OSM width",
+        "rawWidth": "5.5"
+      },
+      {
+        "piece": 675,
+        "sourceId": "w303931587",
+        "widthM": 4,
+        "leftM": 2,
+        "rightM": 2,
+        "widthSource": "OSM width",
+        "rawWidth": "4"
+      },
+      {
+        "piece": 676,
+        "sourceId": "w303931589",
+        "widthM": 6.1,
+        "leftM": 3.05,
+        "rightM": 3.05,
+        "widthSource": "OSM width",
+        "rawWidth": "6.1"
+      },
+      {
+        "piece": 677,
+        "sourceId": "w303931590",
+        "widthM": 5,
+        "leftM": 2.5,
+        "rightM": 2.5,
+        "widthSource": "OSM width",
+        "rawWidth": "5"
+      },
+      {
+        "piece": 682,
+        "sourceId": "w371915132",
+        "widthM": 6,
+        "leftM": 3,
+        "rightM": 3,
+        "widthSource": "OSM width",
+        "rawWidth": "6"
+      },
+      {
+        "piece": 696,
+        "sourceId": "w661603800",
+        "widthM": 6,
+        "leftM": 3,
+        "rightM": 3,
+        "widthSource": "OSM width",
+        "rawWidth": "6"
+      },
+      {
+        "piece": 751,
+        "sourceId": "w1231765294",
+        "widthM": 2.7,
+        "leftM": 1.35,
+        "rightM": 1.35,
+        "widthSource": "OSM width",
+        "rawWidth": "2.7"
+      },
+      {
+        "piece": 752,
+        "sourceId": "w1254383937",
+        "widthM": 5.9,
+        "leftM": 2.95,
+        "rightM": 2.95,
+        "widthSource": "OSM width",
+        "rawWidth": "5.9"
+      },
+      {
+        "piece": 756,
+        "sourceId": "w1295846861",
+        "widthM": 5,
+        "leftM": 2.5,
+        "rightM": 2.5,
+        "widthSource": "OSM width",
+        "rawWidth": "5"
+      },
+      {
+        "piece": 757,
+        "sourceId": "w1295846862",
+        "widthM": 3.6,
+        "leftM": 1.8,
+        "rightM": 1.8,
+        "widthSource": "OSM width",
+        "rawWidth": "3.6"
+      },
+      {
+        "piece": 760,
+        "sourceId": "w1373429571",
+        "widthM": 3.6,
+        "leftM": 1.8,
+        "rightM": 1.8,
+        "widthSource": "OSM width",
+        "rawWidth": "3.6"
+      },
+      {
+        "piece": 761,
+        "sourceId": "w1373429572",
+        "widthM": 10,
+        "leftM": 5,
+        "rightM": 5,
+        "widthSource": "OSM width",
+        "rawWidth": "10"
+      },
+      {
+        "piece": 762,
+        "sourceId": "w1373429616",
+        "widthM": 6,
+        "leftM": 3,
+        "rightM": 3,
+        "widthSource": "OSM width",
+        "rawWidth": "6"
+      },
+      {
+        "piece": 763,
+        "sourceId": "w1373429617",
+        "widthM": 4,
+        "leftM": 2,
+        "rightM": 2,
+        "widthSource": "OSM width",
+        "rawWidth": "4"
+      },
+      {
+        "piece": 764,
+        "sourceId": "w1373429668",
+        "widthM": 10.8,
+        "leftM": 5.4,
+        "rightM": 5.4,
+        "widthSource": "OSM width",
+        "rawWidth": "10.8"
+      },
+      {
+        "piece": 765,
+        "sourceId": "w1373429669",
+        "widthM": 12.1,
+        "leftM": 6.05,
+        "rightM": 6.05,
+        "widthSource": "OSM width",
+        "rawWidth": "12.1"
+      },
+      {
+        "piece": 766,
+        "sourceId": "w1373429674",
+        "widthM": 7.7,
+        "leftM": 3.85,
+        "rightM": 3.85,
+        "widthSource": "OSM width",
+        "rawWidth": "7.7"
+      }
+    ],
+    "issues": [],
+    "bridges": {
+      "policy": "MODEL estimate: exact source connectivity; final core ties; 5.2m road clearance, 0.4m slab, 8% approaches / 2.8% decks; river/rail-only bridges at grade",
+      "bridgePieces": 3,
+      "approachPieces": 0,
+      "coreTies": 0,
+      "crossings": 0,
+      "unresolved": [],
+      "pieces": [
+        {
+          "piece": 663,
+          "sourceId": "w28211469",
+          "bridge": true,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 0,
+          "coreTies": 0,
+          "renderedSegments": 6,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 666,
+          "sourceId": "w202883357",
+          "bridge": true,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 0,
+          "coreTies": 0,
+          "renderedSegments": 8,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 668,
+          "sourceId": "w202883360",
+          "bridge": true,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 0,
+          "coreTies": 0,
+          "renderedSegments": 8,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        }
+      ],
+      "continuations": [
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 257018571,
+          "x": 31.508880341447455,
+          "z": -1160.3847779998757,
+          "nodeDegree": 3,
+          "incomingSourceId": "w668774569",
+          "approachSourceId": "w668774569"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 3315513094,
+          "x": 308.0100307493768,
+          "z": -1126.7562348001302,
+          "nodeDegree": 4,
+          "incomingSourceId": "w668550636",
+          "approachSourceId": "w668550636"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 12801048694,
+          "x": 294.7661317253461,
+          "z": -1121.6663891998728,
+          "nodeDegree": 3,
+          "incomingSourceId": "w668549605",
+          "approachSourceId": "w668549605"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 6260760640,
+          "x": 449.23591500198046,
+          "z": -709.91121600013,
+          "nodeDegree": 3,
+          "incomingSourceId": "w668550635",
+          "approachSourceId": "w668550635"
+        }
+      ],
+      "ordering": {
+        "converged": true,
+        "iterations": 1,
+        "policy": "Crossing clearance uses the solved actual lower source profile; source layers provide ordering only, never metres. Nonconvergence retains the first constrained profile and open targets."
+      }
+    }
+  },
+  "waterShore": [
+    {
+      "mesh": "water -1,-1",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "r11546654",
+        "r1619913",
+        "r13216634",
+        "w174991904",
+        "w170930341",
+        "w1170530109",
+        "w117140697",
+        "w983903953",
+        "w91788323"
+      ],
+      "sourceSegments": 1997,
+      "vertices": 26928,
+      "faces": 8976,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water 0,-1",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "r11546654",
+        "r1619913",
+        "r13216634",
+        "w174991904",
+        "w170930341",
+        "w1170530109",
+        "w117140697",
+        "w983903953",
+        "w91788323"
+      ],
+      "sourceSegments": 1997,
+      "vertices": 10416,
+      "faces": 3472,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water 1,-1",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "r11546654",
+        "r1619913",
+        "r13216634",
+        "w174991904",
+        "w170930341",
+        "w1170530109",
+        "w117140697",
+        "w983903953",
+        "w91788323"
+      ],
+      "sourceSegments": 1997,
+      "vertices": 36804,
+      "faces": 12268,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water 0,-2",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "r11546654",
+        "r1619913",
+        "r13216634",
+        "w174991904",
+        "w170930341",
+        "w1170530109",
+        "w117140697",
+        "w983903953",
+        "w91788323"
+      ],
+      "sourceSegments": 1997,
+      "vertices": 8256,
+      "faces": 2752,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water 0,1",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "r11546654",
+        "r1619913",
+        "r13216634",
+        "w174991904",
+        "w170930341",
+        "w1170530109",
+        "w117140697",
+        "w983903953",
+        "w91788323"
+      ],
+      "sourceSegments": 1997,
+      "vertices": 27,
+      "faces": 9,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water -2,-2",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "r11546654",
+        "r1619913",
+        "r13216634",
+        "w174991904",
+        "w170930341",
+        "w1170530109",
+        "w117140697",
+        "w983903953",
+        "w91788323"
+      ],
+      "sourceSegments": 1997,
+      "vertices": 3360,
+      "faces": 1120,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water -1,-2",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "r11546654",
+        "r1619913",
+        "r13216634",
+        "w174991904",
+        "w170930341",
+        "w1170530109",
+        "w117140697",
+        "w983903953",
+        "w91788323"
+      ],
+      "sourceSegments": 1997,
+      "vertices": 11616,
+      "faces": 3872,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water 1,-2",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "r11546654",
+        "r1619913",
+        "r13216634",
+        "w174991904",
+        "w170930341",
+        "w1170530109",
+        "w117140697",
+        "w983903953",
+        "w91788323"
+      ],
+      "sourceSegments": 1997,
+      "vertices": 9540,
+      "faces": 3180,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water 2,-2",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "r11546654",
+        "r1619913",
+        "r13216634",
+        "w174991904",
+        "w170930341",
+        "w1170530109",
+        "w117140697",
+        "w983903953",
+        "w91788323"
+      ],
+      "sourceSegments": 1997,
+      "vertices": 14016,
+      "faces": 4672,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water 2,-1",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "r11546654",
+        "r1619913",
+        "r13216634",
+        "w174991904",
+        "w170930341",
+        "w1170530109",
+        "w117140697",
+        "w983903953",
+        "w91788323"
+      ],
+      "sourceSegments": 1997,
+      "vertices": 18576,
+      "faces": 6192,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water 2,0",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "r11546654",
+        "r1619913",
+        "r13216634",
+        "w174991904",
+        "w170930341",
+        "w1170530109",
+        "w117140697",
+        "w983903953",
+        "w91788323"
+      ],
+      "sourceSegments": 1997,
+      "vertices": 8064,
+      "faces": 2688,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water 3,0",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "r11546654",
+        "r1619913",
+        "r13216634",
+        "w174991904",
+        "w170930341",
+        "w1170530109",
+        "w117140697",
+        "w983903953",
+        "w91788323"
+      ],
+      "sourceSegments": 1997,
+      "vertices": 28464,
+      "faces": 9488,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water 4,0",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "r11546654",
+        "r1619913",
+        "r13216634",
+        "w174991904",
+        "w170930341",
+        "w1170530109",
+        "w117140697",
+        "w983903953",
+        "w91788323"
+      ],
+      "sourceSegments": 1997,
+      "vertices": 3864,
+      "faces": 1288,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water 4,1",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "r11546654",
+        "r1619913",
+        "r13216634",
+        "w174991904",
+        "w170930341",
+        "w1170530109",
+        "w117140697",
+        "w983903953",
+        "w91788323"
+      ],
+      "sourceSegments": 1997,
+      "vertices": 45936,
+      "faces": 15312,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water 4,2",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "r11546654",
+        "r1619913",
+        "r13216634",
+        "w174991904",
+        "w170930341",
+        "w1170530109",
+        "w117140697",
+        "w983903953",
+        "w91788323"
+      ],
+      "sourceSegments": 1997,
+      "vertices": 4896,
+      "faces": 1632,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water 5,1",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "r11546654",
+        "r1619913",
+        "r13216634",
+        "w174991904",
+        "w170930341",
+        "w1170530109",
+        "w117140697",
+        "w983903953",
+        "w91788323"
+      ],
+      "sourceSegments": 1997,
+      "vertices": 32664,
+      "faces": 10888,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water 5,2",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "r11546654",
+        "r1619913",
+        "r13216634",
+        "w174991904",
+        "w170930341",
+        "w1170530109",
+        "w117140697",
+        "w983903953",
+        "w91788323"
+      ],
+      "sourceSegments": 1997,
+      "vertices": 11472,
+      "faces": 3824,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water 6,2",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "r11546654",
+        "r1619913",
+        "r13216634",
+        "w174991904",
+        "w170930341",
+        "w1170530109",
+        "w117140697",
+        "w983903953",
+        "w91788323"
+      ],
+      "sourceSegments": 1997,
+      "vertices": 22368,
+      "faces": 7456,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water 7,1",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "r11546654",
+        "r1619913",
+        "r13216634",
+        "w174991904",
+        "w170930341",
+        "w1170530109",
+        "w117140697",
+        "w983903953",
+        "w91788323"
+      ],
+      "sourceSegments": 1997,
+      "vertices": 3456,
+      "faces": 1152,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water 7,2",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "r11546654",
+        "r1619913",
+        "r13216634",
+        "w174991904",
+        "w170930341",
+        "w1170530109",
+        "w117140697",
+        "w983903953",
+        "w91788323"
+      ],
+      "sourceSegments": 1997,
+      "vertices": 23808,
+      "faces": 7936,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water 8,2",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "r11546654",
+        "r1619913",
+        "r13216634",
+        "w174991904",
+        "w170930341",
+        "w1170530109",
+        "w117140697",
+        "w983903953",
+        "w91788323"
+      ],
+      "sourceSegments": 1997,
+      "vertices": 8832,
+      "faces": 2944,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water 8,3",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "r11546654",
+        "r1619913",
+        "r13216634",
+        "w174991904",
+        "w170930341",
+        "w1170530109",
+        "w117140697",
+        "w983903953",
+        "w91788323"
+      ],
+      "sourceSegments": 1997,
+      "vertices": 26496,
+      "faces": 8832,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water 9,3",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "r11546654",
+        "r1619913",
+        "r13216634",
+        "w174991904",
+        "w170930341",
+        "w1170530109",
+        "w117140697",
+        "w983903953",
+        "w91788323"
+      ],
+      "sourceSegments": 1997,
+      "vertices": 25440,
+      "faces": 8480,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water 10,3",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "r11546654",
+        "r1619913",
+        "r13216634",
+        "w174991904",
+        "w170930341",
+        "w1170530109",
+        "w117140697",
+        "w983903953",
+        "w91788323"
+      ],
+      "sourceSegments": 1997,
+      "vertices": 2688,
+      "faces": 896,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water-big",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "r11546654",
+        "r1619913",
+        "r13216634",
+        "w174991904",
+        "w170930341",
+        "w1170530109",
+        "w117140697",
+        "w983903953",
+        "w91788323"
+      ],
+      "sourceSegments": 1997,
+      "vertices": 180006,
+      "faces": 60002,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 1528,
+      "coarseFoamOmittedFaceRanges": [
+        [
+          58115,
+          65
+        ],
+        [
+          58181,
+          2
+        ],
+        [
+          58184,
+          5
+        ],
+        [
+          58191,
+          2
+        ],
+        [
+          58194,
+          1
+        ],
+        [
+          58197,
+          4
+        ],
+        [
+          58204,
+          1
+        ],
+        [
+          58206,
+          1
+        ],
+        [
+          58208,
+          6
+        ],
+        [
+          58216,
+          2
+        ],
+        [
+          58220,
+          1
+        ],
+        [
+          58224,
+          2
+        ],
+        [
+          58227,
+          1
+        ],
+        [
+          58229,
+          3
+        ],
+        [
+          58233,
+          5
+        ],
+        [
+          58240,
+          1
+        ],
+        [
+          58243,
+          2
+        ],
+        [
+          58246,
+          148
+        ],
+        [
+          58395,
+          20
+        ],
+        [
+          58417,
+          1
+        ],
+        [
+          58419,
+          6
+        ],
+        [
+          58426,
+          3
+        ],
+        [
+          58430,
+          4
+        ],
+        [
+          58441,
+          3
+        ],
+        [
+          58445,
+          2
+        ],
+        [
+          58448,
+          1
+        ],
+        [
+          58454,
+          5
+        ],
+        [
+          58460,
+          2
+        ],
+        [
+          58463,
+          1
+        ],
+        [
+          58465,
+          3
+        ],
+        [
+          58469,
+          1
+        ],
+        [
+          58474,
+          5
+        ],
+        [
+          58480,
+          1
+        ],
+        [
+          58486,
+          2
+        ],
+        [
+          58490,
+          2
+        ],
+        [
+          58496,
+          1
+        ],
+        [
+          58500,
+          1
+        ],
+        [
+          58503,
+          97
+        ],
+        [
+          58601,
+          2
+        ],
+        [
+          58604,
+          3
+        ],
+        [
+          58609,
+          2
+        ],
+        [
+          58613,
+          1
+        ],
+        [
+          58617,
+          2
+        ],
+        [
+          58621,
+          1
+        ],
+        [
+          58629,
+          2
+        ],
+        [
+          58633,
+          4
+        ],
+        [
+          58638,
+          1
+        ],
+        [
+          58640,
+          6
+        ],
+        [
+          58655,
+          28
+        ],
+        [
+          58684,
+          7
+        ],
+        [
+          58693,
+          1
+        ],
+        [
+          58701,
+          2
+        ],
+        [
+          58704,
+          1
+        ],
+        [
+          58707,
+          51
+        ],
+        [
+          58759,
+          2
+        ],
+        [
+          58762,
+          14
+        ],
+        [
+          58778,
+          3
+        ],
+        [
+          58783,
+          1
+        ],
+        [
+          58790,
+          5
+        ],
+        [
+          58800,
+          1
+        ],
+        [
+          58804,
+          3
+        ],
+        [
+          58808,
+          1
+        ],
+        [
+          58810,
+          221
+        ],
+        [
+          59032,
+          13
+        ],
+        [
+          59046,
+          14
+        ],
+        [
+          59061,
+          23
+        ],
+        [
+          59086,
+          2
+        ],
+        [
+          59092,
+          1
+        ],
+        [
+          59095,
+          1
+        ],
+        [
+          59099,
+          1
+        ],
+        [
+          59103,
+          1
+        ],
+        [
+          59105,
+          2
+        ],
+        [
+          59113,
+          1
+        ],
+        [
+          59119,
+          2
+        ],
+        [
+          59123,
+          3
+        ],
+        [
+          59130,
+          1
+        ],
+        [
+          59132,
+          1
+        ],
+        [
+          59134,
+          2
+        ],
+        [
+          59137,
+          4
+        ],
+        [
+          59142,
+          1
+        ],
+        [
+          59145,
+          2
+        ],
+        [
+          59148,
+          1
+        ],
+        [
+          59152,
+          1
+        ],
+        [
+          59154,
+          2
+        ],
+        [
+          59157,
+          1
+        ],
+        [
+          59159,
+          2
+        ],
+        [
+          59164,
+          2
+        ],
+        [
+          59169,
+          1
+        ],
+        [
+          59171,
+          1
+        ],
+        [
+          59175,
+          1
+        ],
+        [
+          59182,
+          1
+        ],
+        [
+          59194,
+          2
+        ],
+        [
+          59198,
+          4
+        ],
+        [
+          59208,
+          4
+        ],
+        [
+          59213,
+          33
+        ],
+        [
+          59247,
+          131
+        ],
+        [
+          59379,
+          2
+        ],
+        [
+          59382,
+          5
+        ],
+        [
+          59389,
+          2
+        ],
+        [
+          59392,
+          1
+        ],
+        [
+          59395,
+          4
+        ],
+        [
+          59402,
+          1
+        ],
+        [
+          59404,
+          1
+        ],
+        [
+          59406,
+          6
+        ],
+        [
+          59414,
+          2
+        ],
+        [
+          59418,
+          1
+        ],
+        [
+          59422,
+          2
+        ],
+        [
+          59425,
+          1
+        ],
+        [
+          59427,
+          3
+        ],
+        [
+          59431,
+          5
+        ],
+        [
+          59438,
+          1
+        ],
+        [
+          59441,
+          2
+        ],
+        [
+          59444,
+          96
+        ],
+        [
+          59541,
+          10
+        ],
+        [
+          59552,
+          21
+        ],
+        [
+          59585,
+          2
+        ],
+        [
+          59593,
+          1
+        ],
+        [
+          59612,
+          2
+        ],
+        [
+          59616,
+          182
+        ],
+        [
+          59799,
+          24
+        ],
+        [
+          59824,
+          15
+        ],
+        [
+          59840,
+          11
+        ],
+        [
+          59852,
+          3
+        ],
+        [
+          59856,
+          19
+        ],
+        [
+          59876,
+          12
+        ],
+        [
+          59890,
+          1
+        ],
+        [
+          59895,
+          4
+        ],
+        [
+          59907,
+          1
+        ],
+        [
+          59915,
+          2
+        ],
+        [
+          59922,
+          5
+        ],
+        [
+          59928,
+          1
+        ],
+        [
+          59931,
+          3
+        ],
+        [
+          59941,
+          2
+        ],
+        [
+          59946,
+          4
+        ],
+        [
+          59952,
+          1
+        ],
+        [
+          59954,
+          1
+        ],
+        [
+          59956,
+          1
+        ],
+        [
+          59962,
+          1
+        ],
+        [
+          59964,
+          1
+        ],
+        [
+          59966,
+          2
+        ],
+        [
+          59970,
+          1
+        ],
+        [
+          59972,
+          1
+        ],
+        [
+          59975,
+          5
+        ],
+        [
+          59981,
+          3
+        ],
+        [
+          59986,
+          1
+        ],
+        [
+          59989,
+          4
+        ],
+        [
+          59995,
+          4
+        ],
+        [
+          60000,
+          2
+        ]
+      ],
+      "fallbackBySource": {
+        "r1619913": 306,
+        "w91788323": 306,
+        "w983903953": 212,
+        "w117140697": 122,
+        "w170930341": 38,
+        "w174991904": 83,
+        "r13216634": 318,
+        "r11546654": 135,
+        "r1130828": 314
+      },
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    }
+  ],
+  "waterChannels": [
+    {
+      "sourceId": "r1130828",
+      "name": "Lacul Herăstrău",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "r11546654",
+      "name": "Lacul Plumbuita",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "r1619913",
+      "name": "Balta Pipera",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "r13216634",
+      "name": "Lacul Fundeni",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w174991904",
+      "name": "",
+      "channel": true,
+      "source": "legacy unnamed shape estimate; no absolute source water height",
+      "surfaceM": -4.4,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w170930341",
+      "name": "Dâmbovița",
+      "channel": true,
+      "source": "explicit mapped Dâmbovița name; vertical profile remains a model estimate",
+      "surfaceM": -4.4,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w1170530109",
+      "name": "",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w117140697",
+      "name": "Lacul Tei",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w983903953",
+      "name": "Lacul Floreasca",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w91788323",
+      "name": "Lacul Băneasa",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    }
+  ]
+}

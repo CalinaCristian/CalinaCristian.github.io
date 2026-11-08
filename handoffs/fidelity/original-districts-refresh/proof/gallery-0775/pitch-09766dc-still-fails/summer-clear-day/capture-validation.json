@@ -1,0 +1,27 @@
+{
+  "gameSourceCommit": "09766dc7a870657b76e3114c15a12f55e5c373cb",
+  "district": "floreasca",
+  "condition": {
+    "season": "summer",
+    "weather": "clear",
+    "time": "day"
+  },
+  "frames": 1,
+  "sheets": 1,
+  "failures": [],
+  "metrics": [
+    {
+      "id": "dinamo-football-drone",
+      "sha256": "166a72d49650899327c97f1babd160f995980317d220fdd8398113675508d47b",
+      "rgbStddev": [
+        45.02551552360646,
+        35.5637989953902,
+        32.27972199272475
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    }
+  ],
+  "rawSourceContactHits": 62,
+  "note": "Capture integrity checks only. Sheets require actual human/model visual review; raw contacts and source/visual gaps are not dismissed by this result. No controller, complete scene-clearance or driving/mirror budget pass claimed."
+}

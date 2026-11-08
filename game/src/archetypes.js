@@ -394,6 +394,9 @@ export function createArchetypes(env) {
         if (vBase > y0 + 0.02 && vBase < y1) { const [px0, pz0] = at(e, s0, off), [px1, pz1] = at(e, s1, off); (mb || mbOf(e.ax, e.az)).wall(px0, pz0, px1, pz1, y0, vBase, e.nx, e.nz, col); y0 = vBase; }
         const [W, H, fl] = TM[tile]; const vH = vh || (fl ? H * fh : H), uw = uW || W;
         const [x0, z0] = at(e, s0, off), [x1, z1] = at(e, s1, off);
+        // (2026-11-08, owner: "weird windows at the roof") storey tiles: the band ends at its last whole storey, the rest (the
+        // parapet, a storey height that did not divide) is plain wall — never a window row sliced by the roof line
+        if (fl && !vh) { const top = vBase + Math.floor((y1 - vBase) / fh + 0.05) * fh; if (y1 - top > 0.05 && top > y0 + 0.05) { (mb || mbOf(e.ax, e.az)).wall(x0, z0, x1, z1, top, y1, e.nx, e.nz, col); y1 = top; } }
         (mb || mbOf(e.ax, e.az)).wall(x0, z0, x1, z1, y0, y1, e.nx, e.nz, col, (e.s0 + s0) / uw, (e.s0 + s1) / uw, (y0 - vBase) / vH, (y1 - vBase) / vH, tile);
         stats.walls++;
     };

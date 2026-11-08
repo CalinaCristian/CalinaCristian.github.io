@@ -26,7 +26,7 @@ export function photoHunt(ctx, { x, z, title, targets, unavailable, onDone }) {
     ctx.interactables.push({ kind:'photo-hunt',x,z,r:3,label:title,use:s=>flow.begin(s,{
         title,action:'Frame the detail',lockWalker:false,
         help:`${unavailable} Move along the public paths for a clear view, look with the mouse or swipe, centre the gold ring, then take each of ${targets.length} pictures.`,
-        started(s,r){r.step=0;r.flash=0;r.sightAt=-Infinity;guide.captures=[];r.busy=true;ring.visible=true;occluders=[];ctx.scene.traverse(o=>{if(!o.isMesh)return;const materials=Array.isArray(o.material)?o.material:[o.material];if(materials.every(m=>m.depthTest===false||(m.transparent&&m.opacity<.15)))return;if(!o.geometry.boundingBox)o.geometry.computeBoundingBox();occluders.push(o);});},
+        started(s,r){r.step=0;r.flash=0;r.sightAt=-Infinity;guide.captures=[];r.busy=true;ring.visible=true;occluders=[];ctx.scene.traverse(o=>{if(!o.isMesh)return;const materials=Array.isArray(o.material)?o.material:[o.material];if(materials.every(m=>m.depthTest===false||(m.transparent&&m.opacity<.95)))return;if(!o.geometry.boundingBox)o.geometry.computeBoundingBox();occluders.push(o);});},
         update(dt,s,r){
             const target=targets[r.step];if(!target)return;
             ring.position.set(target.x,target.y,target.z);ring.quaternion.copy(s.camera.getWorldQuaternion(new THREE.Quaternion()));

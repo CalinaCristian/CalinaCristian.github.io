@@ -240,6 +240,11 @@ export const PHRASES = {
         stuck: [{ t: 'De ce nu merge?!', en: 'Why isn\'t it moving?!' }, { t: 'Haaaai odată!', en: 'Come ooon already!' }, { t: 'Iar s-a blocat Victoriei…', en: 'Victoriei is jammed again…' }, { t: 'Încă 10 minute și ajung la birou… mâine.', en: 'Ten more minutes and I\'m at the office… tomorrow.' }, { t: 'Claxonez eu, poate pornește.', en: 'I\'ll honk, maybe that gets it going.' }],
         green: [{ t: 'E verde, HAI!', en: 'It\'s green, GO!' }, { t: 'Pornește, nene!', en: 'Get going, mister!' }, { t: 'Mai verde de atât nu se face!', en: 'It doesn\'t get any greener than that!' }],
         redLight: [{ t: 'Pe roșu?! Serios?!', en: 'On red?! Seriously?!' }],
+        // pedestrians honked at (round 6 note 49)
+        pedHonked: [{ t: 'Ce claxonezi, mă?!', en: 'What are you honking for?!' }, { t: 'Las-o mai moale, șefu\'!', en: 'Take it easy, boss!' },
+            { t: 'Am verde, frate!', en: 'I\'ve got the green, bro!' }, { t: 'Vezi că trec, nu zbor!', en: 'I\'m crossing, I can\'t fly!' },
+            { t: 'Nebunul de la volan…', en: 'The lunatic behind the wheel…' }, { t: 'Și ce, să mă dau la o parte în copac?', en: 'So what, should I climb a tree?' },
+            { t: 'Doamne, ce grabă pe ei…', en: 'Lord, what a rush they\'re all in…' }, { t: 'Claxonează tu la mă-ta!', en: 'Go honk at your mother!' }],
     },
     seattle: {
         honkedAt: ['Oh, sorry!', 'Go ahead 🙂', 'You okay?', 'No worries!', 'Whoa, out-of-towner?'],
@@ -250,6 +255,8 @@ export const PHRASES = {
         stuck: ['Traffic, huh.', 'Should\'ve taken the Link.', 'Ah, 405.'],
         green: ['After you!'],
         redLight: ['…that was a red light, friend.'],
+        pedHonked: ['Whoa, okay! Sorry!', 'Was that… for me?', 'Rude.', 'I have the walk signal, buddy.', 'Easy there.',
+            'Someone\'s in a hurry.', 'Did I do something?', 'Wow. Just wow.', 'Okay, okay, I\'m going.'],
     },
 };
 

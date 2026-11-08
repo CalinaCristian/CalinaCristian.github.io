@@ -87,8 +87,8 @@ function personGeometry() {
     b.add(taper(0.123, 0.121, 1.655, 1.705, 12, 1.0, true), TM(0, 0, 0.01, 1, 1, 1.03), P.HAT);                                      // …folded brim
     b.add(BOX, TM(0, 1.2, 0.165, 0.28, 0.36, 0.13), P.BAG);                                    // backpack
     // umbrella held in the right hand in front of the chest (pose 'umbrella'): canopy rim ~1.9 m, apex ~2.15 m
-    b.add(new THREE.ConeGeometry(0.5, 0.26, 10, 1, true), TM(0.1, 2.02, -0.2), P.UMBRELLA);
-    b.add(taper(0.011, 0.011, 1.18, 2.12, 4), TM(0.1, 0, -0.2), P.POLE);
+    b.add(new THREE.ConeGeometry(0.5, 0.26, 10, 1, true), TM(0.074, 2.02, -0.25), P.UMBRELLA);
+    b.add(taper(0.011, 0.011, 1.36, 2.12, 4), TM(0.074, 0, -0.25), P.POLE);   // the shaft runs through the fist (umbrella arm pose)
     for (const y of [1.12, 1.3]) b.add(taper(0.215, 0.212, y - 0.025, y + 0.025, 9, 0.66, true), TM(0, 0, 0), P.STRIPE); // hi-vis stripes
     b.add(new THREE.SphereGeometry(0.132, 9, 5, 0, Math.PI * 2, 0, Math.PI * 0.5), TM(0, 1.68, 0.0), P.HELMET);
     // hand-held props (right forearm; in the rest pose the hand hangs at (0.245, 0.83))
@@ -112,7 +112,7 @@ function personGeometry() {
     f.add(BOX, TM(0, 0.75, 0, 0.44, 0.5, 0.27), P.SKIRT);
     f.add(BOX, TM(0, 1.64, 0, 0.19, 0.24, 0.21), P.SKIN);
     f.add(BOX, TM(0, 1.75, 0.01, 0.2, 0.06, 0.22), P.HAIR);
-    f.add(new THREE.ConeGeometry(0.5, 0.26, 6, 1, true), TM(0.1, 2.02, -0.2), P.UMBRELLA);
+    f.add(new THREE.ConeGeometry(0.5, 0.26, 6, 1, true), TM(0.074, 2.02, -0.25), P.UMBRELLA);
     f.add(BOX, TM(0.245, 0.17, 0, 0.02, 1.4, 0.02), P.FLAGPOLE, 6); f.add(BOX, TM(0.245, -0.38, 0.17, 0.01, 0.3, 0.34), P.FLAGCLOTH, 6);
     GEO = { near, far: f.build() };
     return GEO;
@@ -138,10 +138,11 @@ const GLSL_HEAD = `
         float idle = 1.0 - min(1.0, aAnim.y * 4.0);
         pitch = -side * sw * 0.32 + idle * sin(t * 1.3 + side) * 0.035; roll = -0.03 * idle + 0.04; elbow = 0.16 + abs(sw) * 0.25 + idle * 0.06; yaw = 0.0; // relaxed: arms along the body, slight sway
         if (cIs(pose, 10.0) > 0.5) { pitch = 2.75 + sin(t * 6.0 + side) * 0.12; roll = 0.35; elbow = 0.25 + max(0.0, sin(t * 6.0)) * 0.3; }       // cheer: both arms up
-        if (umb > 0.5 && R > 0.5) { pitch = 0.6; roll = 0.0; elbow = 1.35; yaw = 0.35; }                         // umbrella in front of the chest
+        if (umb > 0.5 && R > 0.5) { pitch = 0.4; roll = 0.0; elbow = 2.1; yaw = 0.6; }                          // umbrella: fist at (0.074, 1.43, −0.25), on the shaft (round 6 note 48)
         if (cIs(pose, 1.0) > 0.5) { pitch = 0.55; roll = 0.0; elbow = 0.75; yaw = 0.15; }                       // sit: hands on the thighs
         if (cIs(pose, 2.0) > 0.5) { if (R > 0.5) { pitch = 0.3; roll = 0.0; elbow = 1.85; yaw = 0.55; } else { pitch = 0.2; roll = 0.0; elbow = 1.55; yaw = 0.5; } } // phone
-        if (cIs(pose, 3.0) > 0.5) { pitch = 1.0; roll = 0.0; elbow = 2.0; yaw = 0.62; }                          // photo: both hands at the face
+        if (cIs(pose, 3.0) > 0.5) { if (flagOn(fl, 64.0) > 0.5 && flagOn(fl, 128.0) < 0.5) { if (R > 0.5) { pitch = 1.4; roll = 0.0; elbow = 0.8; yaw = 0.2; } } // phone photo: one arm out at eye level (note 50)
+            else { pitch = 1.0; roll = 0.0; elbow = 2.0; yaw = 0.62; } }                                         // camera photo: both hands at the face
         if (cIs(pose, 4.0) > 0.5 && R > 0.5) { pitch = 0.2; roll = 2.45 + sin(t * 7.0) * 0.28; elbow = 0.5; yaw = 0.0; } // wave
         if (cIs(pose, 5.0) > 0.5 && R > 0.5) { pitch = 1.45; roll = 0.1; elbow = 0.08; yaw = -0.15; }           // point
         if (cIs(pose, 6.0) > 0.5 && R > 0.5) { pitch = 2.75 + sin(t * 0.9) * 0.08; roll = 0.12; elbow = 0.1; yaw = 0.0; } // guide flag held up

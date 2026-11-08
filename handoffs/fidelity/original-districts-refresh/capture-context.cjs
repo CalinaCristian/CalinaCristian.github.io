@@ -84,14 +84,13 @@ const mime={'.html':'text/html','.js':'text/javascript','.json':'application/jso
         const ring=data.buildingFootprints[i],x=ring.reduce((s,q)=>s+q[0],0)/ring.length,z=ring.reduce((s,q)=>s+q[1],0)/ring.length,h=data.buildingDimensions?.[i]?.[0]??data.buildings[i][1]/10;
         views.push({id:id+'-facade',label:id+' source facade and roof',kind:'source-building',sourceId:id,x:x+40,z:z+55,y:Math.max(12,h*.6),target:[x,h*.4,z],fov:70});
       }
-      const geometry=data.district.geometry, extremal=[];
-      for(const p of geometry.pieces||[])for(const [x,z]of p.pts)extremal.push([x-p.r,z],[x+p.r,z],[x,z-p.r],[x,z+p.r]);
-      for(const c of geometry.circles||[])extremal.push([c.x-c.r,c.z],[c.x+c.r,c.z],[c.x,c.z-c.r],[c.x,c.z+c.r]);
-      for(const p of geometry.polys||[])extremal.push(...p);
+      const segments=g.world.district.flightBoundary.segments;
       for(const [tag,axis,sign] of [['west',0,-1],['east',0,1],['north',1,-1],['south',1,1]]){
-        const p=extremal.reduce((a,b)=>sign*b[axis]>sign*a[axis]?b:a),q=[...p];q[axis]+=sign*149;
+        const points=segments.flatMap(s=>[[s.ax,s.az],[s.bx,s.bz]]),extreme=points.reduce((a,b)=>sign*b[axis]>sign*a[axis]?b:a)[axis];
+        const edge=segments.find(s=>Math.abs((axis===0?s.ax:s.az)-extreme)<1e-7&&Math.abs((axis===0?s.bx:s.bz)-extreme)<1e-7);
+        const p=edge?[(edge.ax+edge.bx)/2,(edge.az+edge.bz)/2]:points.find(p=>Math.abs(p[axis]-extreme)<1e-7),q=[...p];q[axis]+=sign*149;
         const target=[q[0],25,q[1]];target[axis===0?0:2]+=sign*220;
-        views.push({id:'drone-edge-'+tag,label:'Outward '+tag+' view at 149 m from analytic core',kind:'drone-edge',x:q[0],z:q[1],y:120,target,fov:75,staticCamera:true,controllerExercised:false});
+        views.push({id:'drone-edge-'+tag,label:'Outward '+tag+' view at 149 m from actual flight-domain boundary',kind:'drone-edge',boundaryPoint:p,boundarySource:'runtime playable source mask and declared landmark flight areas',x:q[0],z:q[1],y:120,target,fov:75,staticCamera:true,controllerExercised:false});
       }
       const starts=(await import('./src/cities.js')).CHAPTERS.filter(c=>c.district===district);
       for(const c of starts){const p=g.city.proj(c.start.lat,c.start.lon),a=(c.start.heading??c.start.bearing??0)*Math.PI/180;views.push({id:c.id+'-street',label:c.id+' actual chapter start street view',kind:'street',x:p.x,z:p.z,y:1.7,target:[p.x+Math.sin(a)*50,1.7,p.z-Math.cos(a)*50],fov:80});}
@@ -108,7 +107,7 @@ const mime={'.html':'text/html','.js':'text/javascript','.json':'application/jso
         vqa.hideHud(true);for(const el of document.body.children)if(el!==g.renderer.domElement&&!el.contains(g.renderer.domElement))el.style.visibility='hidden';
         S.renderNow=true;try{g.drawFrame({mirror:false});g.renderer.info.reset();g.drawFrame({mirror:false});}finally{S.renderNow=false;}
         const p=window.contextProjection;
-        return {cameraY:cam.position.y,groundY:ground,perf:{...g.r3d.stats},inPlayable:g.world.district.inside(v.x,v.z),inFlightEnvelope:window.contextFlightBoundary.allowed({x:v.x,z:v.z}),lat:p.lat0-v.z/p.mPerLat,lon:p.lon0+v.x/p.mPerLon};
+        return {cameraY:cam.position.y,groundY:ground,perf:{...g.r3d.stats},inPlayable:g.world.district.inside(v.x,v.z),inFlightEnvelope:window.contextFlightBoundary.allowed({x:v.x,z:v.z}),distanceFromFlightDomainM:window.contextFlightBoundary.sample(v.x,v.z).distance,lat:p.lat0-v.z/p.mPerLat,lon:p.lon0+v.x/p.mPerLon};
       },view);
       const image='images/'+view.id+'.jpg';await page.screenshot({path:path.join(out,image),type:'jpeg',quality:88,timeout:180000});
       results.push({...view,...observed,image,width:960,height:640,gameSourceCommit:commit,capturedAt:new Date().toISOString(),sha256:hash(fs.readFileSync(path.join(out,image)))});

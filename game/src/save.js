@@ -150,7 +150,7 @@ export class SaveStore {
             // the story state of the chapter
             if (s.chapterDone && g.ch && g.ch.id === s.chapter && !g.chapterDone) { g.chapterDone = true; try { g.updateObjective?.(); } catch { /* ignore */ } }
             for (const id of s.visited || []) g.visited?.add?.(id);
-            if (Number.isFinite(s.fuel) && s.fuel > 0) g.fuel = s.fuel;
+            if (Number.isFinite(s.fuel) && s.fuel >= 0) g.fuel = s.fuel;
             if (s.stats && g.stats) Object.assign(g.stats, s.stats);
             g.honks = s.honks || 0;
             if (s.mode !== 'explore' && g.clock) { g.clock.offsetMs = s.clock?.offsetMs || 0; if (s.clock?.override !== undefined) g.clock.override = s.clock.override; }

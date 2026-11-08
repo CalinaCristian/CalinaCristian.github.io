@@ -2138,10 +2138,10 @@ ${['drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa="conditi
         const c = this.clock, h = c.override ? OVERRIDE_HOURS[c.override] : localHours(this.nowDate(), c.timeZone);
         const sl = el.querySelector('#cond-hour'); if (sl && document.activeElement !== sl) sl.value = String(Math.round(h * 4) / 4 % 24);
         const o = el.querySelector('#cond-time'); if (o) o.textContent = this.clockText();
-        const fr = this.freeRoam || {}, tod = c.override === 'sunset' ? 'golden' : c.override || ({ 6.5: 'dawn', 8.5: 'rush', 12.5: 'noon' }[String(fr.tod || '').slice(1)] || fr.tod);
+        const selected = this.travelConditions(), tod = ({ 'h6.5': 'dawn', 'h8.5': 'rush', 'h12.5': 'noon' })[selected.tod] || selected.tod;
         for (const b of el.querySelectorAll('[data-tod]')) b.classList.toggle('on', b.dataset.tod === tod);
         for (const b of el.querySelectorAll('[data-wx]')) b.classList.toggle('on', b.dataset.wx === (this.weatherOverride || 'live'));
-        for (const b of el.querySelectorAll('[data-season]')) b.classList.toggle('on', b.dataset.season === (fr.season || 'auto'));
+        for (const b of el.querySelectorAll('[data-season]')) b.classList.toggle('on', b.dataset.season === selected.season);
     }
     // ---------------------------------------------------------------------------------- chapters (spec 10)
     renderMenuChapters() {

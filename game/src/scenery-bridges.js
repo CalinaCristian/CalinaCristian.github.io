@@ -54,21 +54,43 @@ export function sceneryBridgeProfiles(data, profiles, coreEdges = []) {
         }
         pieces.push(piece);
     }
-    // Extend a ramp only along actual source-connected plain continuations or links, up to 300m.
+    // A named, nearly straight pair of same-class approach carriageways can fork at a bridge mouth.
+    // Unlike a transverse cross-street, both branches point away from the actual bridge segment.
+    const bridgeFork = (n, incoming) => {
+        if (!incoming.piece.bridge || n.links.length !== 3) return null;
+        const branches = n.links.filter(e => e !== incoming), name = branches[0]?.piece.tags.name;
+        if (!name || branches.some(e => e.piece.bridge || e.piece.type !== incoming.piece.type || e.piece.tags.name !== name || layerOf(e.piece.tags, false) !== 0 || (e.piece.tags.tunnel && e.piece.tags.tunnel !== 'no'))) return null;
+        const outward = e => { const p = (e.a === n ? e.b : e.a).p; return [(p[0] - n.p[0]) / e.len, (p[1] - n.p[1]) / e.len]; };
+        const bridge = outward(incoming), directions = branches.map(outward);
+        if (directions.some(v => v[0] * bridge[0] + v[1] * bridge[1] > -Math.cos(Math.PI / 6)) || directions[0][0] * directions[1][0] + directions[0][1] * directions[1][1] < Math.cos(Math.PI / 6)) return null;
+        return { name, branches, directions, bridge };
+    };
+    const continuationEvidence = new Map();
+    // Extend a ramp only along actual source-connected continuations or links, up to 300m.
     for (const p of pieces.filter(p => p.bridge)) for (const start of [p.nodes[0], p.nodes.at(-1)]) {
-        const queue = [[start, 0]], seen = new Set();
+        const queue = [[start, 0, start === p.nodes[0] ? p.edges[0] : p.edges.at(-1)]], seen = new Set();
         while (queue.length) {
-            const [n, travelled] = queue.shift(); if (seen.has(n) || travelled > 300) continue; seen.add(n);
+            const [n, travelled, incoming] = queue.shift(); if (seen.has(n) || travelled > 300 || !incoming) continue; seen.add(n);
+            const fork = bridgeFork(n, incoming);
             for (const e of n.links) {
                 if (e.piece.bridge || e.eligible) continue;
-                const sameName = p.tags.name && p.tags.name === e.piece.tags.name;
+                const sameName = e.piece.tags.name && (p.tags.name === e.piece.tags.name || incoming.piece.tags.name === e.piece.tags.name);
+                const sameWay = e.piece.source.sourceId === incoming.piece.source.sourceId;
                 const plain = n.links.length <= 2 && (!e.piece.tags.name || sameName) && e.piece.type === p.type;
-                if (!/_link$/.test(e.piece.type) && !(sameName && n.links.length <= 2) && !plain) continue;
+                const forkBranch = fork?.branches.includes(e);
+                if (!/_link$/.test(e.piece.type) && !sameWay && !forkBranch && !(sameName && n.links.length <= 2) && !plain) continue;
+                if ((sameWay && n.links.length > 2) || forkBranch) continuationEvidence.set(n.key + ':' + e.piece.source.sourceId, {
+                    kind: forkBranch ? 'source bridge mouth with named parallel approach fork' : 'same source way through merge',
+                    sourceNodeId: n.sourceNode, x: n.p[0], z: n.p[1], nodeDegree: n.links.length,
+                    incomingSourceId: incoming.piece.source.sourceId, approachSourceId: e.piece.source.sourceId,
+                    ...(forkBranch ? { approachName: fork.name, bridgeOutward: fork.bridge, approachOutward: fork.directions } : {}),
+                });
                 e.eligible = true;
-                queue.push([e.a === n ? e.b : e.a, travelled + e.len]);
+                queue.push([e.a === n ? e.b : e.a, travelled + e.len, e]);
             }
         }
     }
+    stats.continuations = [...continuationEvidence.values()];
     // A bridge over a real lower road needs an estimated clearance. River/rail-only bridges stay at grade.
     for (const e of originalEdges.filter(e => e.piece.bridge)) {
         const upper = layerOf(e.piece.tags, true), candidates = [];

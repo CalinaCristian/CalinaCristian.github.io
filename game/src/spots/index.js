@@ -56,6 +56,7 @@ export const DEV_SPOTS = [
 export const ACTIVITIES = [
     ['cismigiu', 'rowboat', 'Row a boat on the lake'], ['cismigiu', 'chess', 'Watch the chess players'], ['cismigiu', 'rotunda', 'Visit the Writers\' Rotunda'],
     ['herastrau-park', 'boat', 'Boat on Lake Herăstrău'], ['village-museum', 'farmhouse', 'Step into a farmhouse'],
+    ['old-town-lipscani', 'wcp-bar', 'Hidden project'],
     ['old-town-lipscani', 'carusel', 'Climb Cărturești Carusel'], ['old-town-lipscani', 'curtea-veche', 'Old Princely Court'],
     ['palace-parliament', 'balcony', 'The balcony view'], ['palace-parliament', 'pace', 'Pace the esplanade'], ['peoples-salvation-cathedral', 'candle', 'Light a candle'], ['stavropoleos-cec', 'stavropoleos', 'Stavropoleos courtyard'],
     ['bel-meydenbauer', 'pier-end', 'Walk to the end of the pier'], ['bel-meydenbauer', 'kayak', 'Kayak on Meydenbauer Bay'], ['bel-downtown-park', 'loop', 'Walk the park loop'],

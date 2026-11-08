@@ -28,7 +28,8 @@
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, clamp, smooth, lerp, inPoly, canvas, canvasTexture, fitDraw } from '../kit.js';
-import { mountain } from '../props.js';
+import { LANDMARKS, buildLandmark } from '../../landmarks.js';
+import { sourceMountain } from '../source-landmark.js';
 
 export const NEEDLE_LL = [47.6205063, -122.3493043, 40.5];
 export const RAINIER_LL = [46.8529, -121.7604, 4392];
@@ -205,22 +206,12 @@ function addTower(b, t, x, y, z) {
     const put = (geo, k = key, c = col) => { b.add(geo, k, M(x, y, z, 0, yaw, 0), c); geo.dispose(); };
     const base = shapePoly(shape === 'twin' ? 'round' : shape, w, d);
     const sink = 6; // below ground so slopes never show the underside
-    if (shape === 'columbia') {
-        // three stepped, concave-sided lobes around a core: 286 / 245 / 205 m (OSM parts), the tallest to the SE
-        const lobe = (cx, cz, s) => { const out = []; for (let i = 0; i < 18; i++) { const a = i / 18 * Math.PI * 2; const r = s * (0.92 - 0.14 * Math.cos(a * 3)); out.push([cx + Math.cos(a) * r, cz + Math.sin(a) * r]); } return out; };
-        put(prismGeo(lobe(0, 0, 17), -sink, H));
-        put(prismGeo(lobe(-12, 9, 14), -sink, H * 0.86));
-        put(prismGeo(lobe(12, 8, 13), -sink, H * 0.72));
-        put(prismGeo(lobe(0, -14, 12), -sink, H * 0.56));
-        put(prismGeo(scalePoly(lobe(0, 0, 17), 0.82), H, H + 3), 'roof', '#3a3f45');
-        return;
-    }
-    if (shape === 'smith') {
-        put(prismGeo(shapePoly('box', 32, 30), -sink, 75), 'f-stone', '#ece6d6');
-        put(prismGeo(shapePoly('box', 18, 18), 75, 124), 'f-stone', '#ece6d6');
-        put(prismGeo(shapePoly('box', 20, 20), 124, 128.5), 'roof', '#e2dbc9');
-        const p = new THREE.ConeGeometry(13.4, 17.5, 4); p.rotateY(Math.PI / 4); p.translate(0, 128.5 + 8.75, 0); put(p, 'roof', '#e8e1d0');
-        const s = new THREE.SphereGeometry(1.2, 10, 8); s.translate(0, 147.2, 0); put(s, 'roof', '#cfe2ea');
+    if(shape==='columbia'||shape==='smith'){
+        // Skyline and close visitor models share source footprints, tier heights and roofs.
+        const lm=LANDMARKS.find(l=>l.id===shape),model=buildLandmark(lm,{realScale:true});model.mesh.updateMatrixWorld(true);
+        const dx=(lm.lon-t[2])*111320*Math.cos(lm.lat*DEG),dz=-(lm.lat-t[1])*111132;
+        const translation=new THREE.Matrix4().makeTranslation(x+dx,y,z+dz);
+        model.mesh.traverse(m=>{if(!m.isMesh)return;const matrix=translation.clone().multiply(m.matrixWorld);b.add(m.geometry,'roof',matrix,'#ffffff');m.geometry.dispose();});
         return;
     }
     if (shape === 'pedestal') { // Rainier Tower (1977): 11-storey tapered concrete pedestal under a 29-storey box
@@ -794,14 +785,8 @@ export function seaBackdrop(ctx, o = {}) {
         const cs = [[47.5925, -122.3418, 0.5, false], [47.5905, -122.3420, 0.5, true], [47.5795, -122.3540, 1.57, false], [47.5770, -122.3545, 1.57, true], [47.5745, -122.3548, 1.57, false], [47.5718, -122.3550, 1.57, false], [47.5690, -122.3552, 1.57, true]];
         for (const [la, lo, yaw, up] of cs) { const c = crane(up), p = ctx.ll(la, lo); c.position.set(p.x, 3 - E, p.z); c.rotation.y = yaw; grp.add(c); }
     }
-    if (o.rainier !== false) {
-        const R = RAINIER_LL, p = ctx.ll(R[0], R[1]), dist = Math.hypot(p.x, p.z), bear = ((Math.atan2(p.x, -p.z) / DEG) + 360) % 360;
-        const m = mountain(0, 0, bear, dist, R[2] - E - (o.eyeY ?? 0), 16000, { dist: 8000, eyeY: o.eyeY ?? 0, color: '#7486a0', snow: '#f4f6fa', haze: '#a9b9cb', seed: 4 });
-        m.position.y -= m.geometry.parameters?.height ? 0 : 0; m.scale.y = 1; m.position.y -= 0.12 * (new THREE.Box3().setFromObject(m).getSize(new THREE.Vector3()).y); m.userData.weatherMountain = true; m.material.fog = false; grp.add(m); out.rainier = m;
-    }
-    if (o.olympics !== false) {
-        for (const [b2, h, w2] of [[262, 1700, 30000], [276, 2200, 26000], [290, 2400, 32000], [305, 2000, 24000], [318, 1600, 22000]]) { const m = mountain(0, 0, b2, 70000, h - E - (o.eyeY ?? 0), w2, { dist: 7800, eyeY: o.eyeY ?? 0, color: '#66779a', snow: '#e6ebf2', haze: '#aebdd0', seed: b2 }); m.userData.weatherMountain = true; grp.add(m); }
-    }
+    if(o.rainier!==false){const m=sourceMountain(ctx,'rainier',{distance:8000,eyeY:o.eyeY??1.6});grp.add(m);out.rainier=m;}
+    if(o.olympics!==false)grp.add(sourceMountain(ctx,'olympics',{distance:7800,eyeY:o.eyeY??1.6}));
     ctx.add(grp);
     ctx.onNight((k) => grp.traverse((m) => { if (m.userData?.weatherMountain) m.material.color.setScalar(1 - 0.88 * k); }));
     ctx.onUpdate((dt, s) => {

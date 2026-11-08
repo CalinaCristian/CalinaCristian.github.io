@@ -2867,8 +2867,8 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (cf !== 1) { // axis-aligned bounds of the rotated box, squashed N–S
                     const a = cb.angle || 0, ex = Math.abs(cb.hw * Math.cos(a)) + Math.abs(cb.hd * Math.sin(a)), ez = Math.abs(cb.hw * Math.sin(a)) + Math.abs(cb.hd * Math.cos(a));
                     const hw = ex * lk, hd = ez * lk * cf;
-                    collisionBoxes.push({ x: p.x + cb.x * lk, z: p.z + cb.z * lk * cf, hw, hd, angle: 0, r: Math.hypot(hw, hd), h: 20, poly: null });
-                } else collisionBoxes.push({ x: p.x + cb.x * lk, z: p.z + cb.z * lk, hw: cb.hw * lk, hd: cb.hd * lk, angle: cb.angle || 0, r: Math.hypot(cb.hw, cb.hd) * lk, h: 20, poly: null });
+                    collisionBoxes.push({ x: p.x + cb.x * lk, z: p.z + cb.z * lk * cf, hw, hd, angle: 0, r: Math.hypot(hw, hd), h: 20, poly: null, landmark: lm.id });
+                } else collisionBoxes.push({ x: p.x + cb.x * lk, z: p.z + cb.z * lk, hw: cb.hw * lk, hd: cb.hd * lk, angle: cb.angle || 0, r: Math.hypot(cb.hw, cb.hd) * lk, h: 20, poly: null, landmark: lm.id });
             }
             const toW = ([x, z]) => [p.x + x * lk, p.z + z * lk];
             for (const f of res.fences || []) landmarkFences.push({ ...f, ring: f.ring.map(toW), inside: f.inside ? f.inside.map(toW) : (f.closed ? f.ring.map(toW) : null), gates: (f.gates || []).map(g => ({ ...g, x: p.x + g.x * lk, z: p.z + g.z * lk, w: (g.w || 4) * lk })) });
@@ -4031,7 +4031,16 @@ export async function buildWorld(city, renderer, opts = {}) {
     // else typical per kind. `s` (legacy ≈ 1 for a 6–8 m tree) only seeds the height when nothing better is known.
     const TG = treeGeometries();
     const treeGrid = new BoxGrid(20), treeNear = (x, z, r) => { let f = false; treeGrid.each(x - r, z - r, x + r, z + r, (t) => { if (!f && Math.hypot(t.x - x, t.z - z) < r) f = true; }); return f; };
+    const treeCoverage = Array.isArray(data.treeCoverage) && data.treeCoverage.length === 4 ? data.treeCoverage : null;
+    const measuredCanopyAt = (x, z) => {
+        if (!treeCoverage) return false;
+        const ll = city.proj.inverse(x, z);
+        return ll.lat >= treeCoverage[0] && ll.lat <= treeCoverage[2] && ll.lon >= treeCoverage[1] && ll.lon <= treeCoverage[3];
+    };
     const placeTree = (x, z, s, kind, con = null, dec = null, opt = {}) => {
+        // Mapped/measured crowns arrive first as 'osm'. Where a canopy survey
+        // actually covers the ground, do not fill its lawns/gaps with invented trees.
+        if (kind !== 'osm' && measuredCanopyAt(x, z)) return false;
         if (treeList.length >= maxTrees) return false;
         if (kind === 'street' && treeNear(x, z, 4.5)) return false; // (a mapped OSM tree already stands there)
         { let under = false; surfacesAt(x, z, (hh) => { if (hh > Y.road + 2.5) under = true; }); if (under) return false; } // (no trees under a bridge deck / viaduct)
@@ -4622,8 +4631,16 @@ export async function buildWorld(city, renderer, opts = {}) {
                     const x = e.a.x + e.dirx * sAl + e.nx * o * sd, z = e.a.z + e.dirz * sAl + e.nz * o * sd;
                     if (onRibbon(x, z, 0.3) || buildingAt(x, z) || nearWater(x, z, 0.5)) return null;
                     if (fenceSegs.some(([ax, az, bx, bz]) => Math.abs(ax - x) < 12 && Math.abs(az - z) < 12 && distPointSeg(x, z, ax, az, bx, bz).d < 4)) return null; // (a landmark's own fence is there)
-                    // a garden behind: no wall of a building within 1.5 m (a house fronting the sidewalk needs no fence)
+                    // Empty space alone is not evidence of a private garden: museums,
+                    // civic forecourts and parks must not acquire invented perimeter walls.
                     const ix = x + e.nx * sd * 1.5, iz = z + e.nz * sd * 1.5; if (buildingAt(ix, iz)) return null;
+                    if (isPark(ix, iz)) return null;
+                    let home = null;
+                    for (const depth of [3, 6, 10, 16, 24, 32]) {
+                        const b = buildingAt(x + e.nx * sd * depth, z + e.nz * sd * depth);
+                        if (b) { home = b; break; }
+                    }
+                    if (!home || home.name || (home.flags & 1) || home.h > 20 || !/^(house|interwar|eclectic|bloc)$/.test(home.style)) return null;
                     return [x, z];
                 };
                 const flushRun = () => {
@@ -4852,16 +4869,27 @@ export async function buildWorld(city, renderer, opts = {}) {
     let kerbParked = 0;
     if (realPass && !US && useInst) {
         const RI = data.roadInfo || [], kRng = makeRng(90127), cols = CAR_COLORS;
+        const mappedParking = new Map((data.parking || []).map(row => [row[0], row]));
         const stops = pois.filter(p => p.kind === 'busstop'), parkLots = areas.filter(a => a.kind === 'parking');
         const kinds = ['hatch', 'hatch', 'sedan', 'suv', 'hatch', 'sedan'];
         const pcGrid = new BoxGrid(16); for (const pc of propColl) { const r = pc.r || 0.5; pcGrid.insert(pc.x - r, pc.z - r, pc.x + r, pc.z + r, pc); }
         for (const e of edges) {
             if (!e.drivable || e.virtual || e.tunnel || e.bridge || e.len < 22 || Math.abs(e.ya) > 0.3 || Math.abs(e.yb) > 0.3) continue;
             const rf = RI[e.road * 6 + 1] | 0;
+            const parking = mappedParking.get(e.road);
             const resid = /^(residential|unclassified|living_street)$/.test(e.type) || (e.type === 'tertiary' && e.lanesF <= 1 && e.lanesB <= 1);
             for (const sd of [1, -1]) {
                 const tagged = sd > 0 ? (rf & 64) : (rf & 128), none = sd > 0 ? (rf & 256) : (rf & 512);
                 if (none || (!resid && !tagged) || e.sidewalk < 2.2) continue;
+                if (parking) {
+                    const offset = sd > 0 ? 1 : 3, location = str(parking[offset]), orientation = str(parking[offset + 1]);
+                    // This pass draws parallel cars wholly on the kerb. Mapped
+                    // carriageway bays, diagonal/perpendicular parking and half-on-
+                    // kerb arrangements need their own surfaces/placement; don't
+                    // silently turn those source facts into parallel sidewalk cars.
+                    if ((orientation && orientation !== 'parallel') || (location && location !== 'on_kerb')) continue;
+                    if (orientation && !location) continue;
+                }
                 const occ = tagged ? 0.86 : 0.72;
                 const s0 = retract(e, e.a) + 9 + (e.a.crossing ? 8 : 0), s1 = e.len - retract(e, e.b) - 9 - (e.b.crossing ? 8 : 0);
                 const w = (sd > 0 ? e.wR : e.wL) + shoulderOf(e), o = w + 1.2, yaw = Math.atan2(e.dirx, e.dirz) + (kRng() < 0.5 ? 0 : Math.PI);

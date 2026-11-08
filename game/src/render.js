@@ -807,6 +807,8 @@ export class Renderer3D {
         for (const k in cats) for (const m of cats[k]) if (!m.userData.wxPatch) patchSurface(m, this._surfU[k]);
         this._conMats ??= new WeakMap();
         for (const c of crowns) {
+            // Keep the builder's LOD shadow policy across all season changes.
+            c.userData.seasonCastShadow ??= c.castShadow;
             if (c.userData.conifer) {
                 let cm = this._conMats.get(c.material);
                 if (!cm && c.material.userData.wxPatch !== 'wxtree-con') {
@@ -875,7 +877,7 @@ export class Renderer3D {
         const B = this._treeU.broad;
         B.uBare.value = st.bare; B.uAutumn.value = st.autumn; B.uBlossom.value = st.blossom; B.uFresh.value = st.fresh;
         for (const c of this._crowns) if (!c.userData.conifer) {
-            c.castShadow = st.bare < 0.6; // leafless crowns: no blob shadows
+            c.castShadow = c.userData.seasonCastShadow && st.bare < 0.6; // far LOD and leafless crowns: no blob shadows
             const tr = st.bare > 0.02, m = c.material; // bare crowns: blended twig haze (see patchCrowns)
             if (m.transparent !== tr) { m.transparent = tr; m.needsUpdate = true; } // (depth write stays on: tree builders draw crowns far → near)
         }

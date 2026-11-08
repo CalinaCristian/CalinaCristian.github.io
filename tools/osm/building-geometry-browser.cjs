@@ -81,11 +81,11 @@ fs.mkdirSync(out, { recursive: true });
             for (const [o, m] of old) o.material = m; for (const [o, visible] of hidden) o.visible = visible; for (const m of clones.values()) m.dispose();
             // High quality, active traffic, pedestrians and mirror use the real
             // gameplay frame path. Test the ends/middles of each chapter/sweep.
-            const spawn = vqa.S.spawn;
-            for (const [name, turn, pitch] of [['forward', 0, 0], ['up', 0, 0.65], ['right-up', -Math.PI / 3, 0.65]]) {
+            for (const [source, spawn] of [['world', g.world.spawn], ['chapter', vqa.S.spawn]]) for (const [name, turn, pitch] of [['forward', 0, 0], ['up', 0, 0.65], ['right-up', -Math.PI / 3, 0.65]]) {
                 const cam = new THREE.PerspectiveCamera(65, renderer.domElement.width / renderer.domElement.height, 0.1, 1200), heading = spawn.heading + turn;
-                cam.position.set(spawn.x, 1.8, spawn.z); cam.lookAt(spawn.x - Math.sin(heading), 1.8 + Math.tan(pitch), spawn.z - Math.cos(heading)); cam.updateMatrixWorld(true); renderer.render(g.scene, cam); await save('romana-spawn-' + name + '.png');
-                result.roofFrames.push({ name: 'romana-spawn-' + name, position: cam.position.toArray(), heading, pitch });
+                const eye = g.world.roadHeight(spawn.x, spawn.z) + 1.8;
+                cam.position.set(spawn.x, eye, spawn.z); cam.lookAt(spawn.x - Math.sin(heading), eye + Math.tan(pitch), spawn.z - Math.cos(heading)); cam.updateMatrixWorld(true); renderer.render(g.scene, cam); await save('romana-' + source + '-spawn-' + name + '.png');
+                result.roofFrames.push({ name: 'romana-' + source + '-spawn-' + name, position: cam.position.toArray(), heading, pitch });
             }
             const plans = quick ? [] : await vqa.plans();
             for (const plan of plans) {

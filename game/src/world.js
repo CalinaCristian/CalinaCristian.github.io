@@ -2841,7 +2841,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         const invalid = !base || base.skip ? 'missing-or-inactive-outline' : base.holes.length ? 'unsupported-courtyard-outline' : !parts.length ? 'empty-parts' : new Set(indices).size !== indices.length ? 'duplicate-part' : parts.some((p, n) => !p || p.skip || p === base || claimedParts.get(indices[n]) !== 1) ? 'missing-inactive-or-ambiguous-part' : parts.some(p => p.holes.length) ? 'unsupported-part-courtyard' : null;
         if (invalid) { assemblyRejected.push({ outline: data.buildingIds?.[Number(key)] || Number(key), reason: invalid }); continue; }
         const cached = spec.geometry, keepOutline = spec.mode === 'union';
-        if (!cached || cached.signature !== assemblySignature(base, parts) || cached.surfaces?.length !== parts.length + cached.residuals.length + (keepOutline ? 1 : 0)) {
+        if (!cached || !Array.isArray(cached.residuals) || !Array.isArray(cached.surfaces) || cached.signature !== assemblySignature(base, parts) || cached.surfaces.length !== parts.length + cached.residuals.length + (keepOutline ? 1 : 0)) {
             assemblyRejected.push({ outline: data.buildingIds?.[base.i] || base.i, reason: 'prepared-geometry-mismatch' }); continue;
         }
         const residualH = spec.residualHeightM ?? spec.residualHeightDm / 10;
@@ -2869,7 +2869,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const unionSources = new Map((data.buildingUnions?.sources || []).map(s => { const b = bRecs[s.i]; return [s.i, !!b && !b.skip && !b.holes.length && s.signature === assemblySignature(b, [])]; }));
     for (const spec of data.buildingUnions?.surfaces || []) {
         const indices = [spec.i, ...spec.neighbours], b = bRecs[spec.i];
-        if (!indices.every(i => unionSources.get(i)) || spec.surface?.walls.length !== b?.ring.length) {
+        if (!indices.every(i => unionSources.get(i)) || spec.surface?.walls?.length !== b?.ring.length) {
             physicalUnionRejected.push({ source: data.buildingIds?.[b?.derivedFrom ?? spec.i] || spec.i, reason: 'prepared-geometry-mismatch' }); continue;
         }
         b.assembly ||= indices.map(i => bRecs[i]); b.assemblySurface = geometrySurface(spec.surface, data.buildingGeometryPoints);

@@ -1,0 +1,92 @@
+{
+  "district": "bucharest-otopeni",
+  "generated": "2026-11-08",
+  "codePrerequisite": "root aa3a3c1 plus small-roof levels priority cf8c842; final combined-root browser acceptance remains separate",
+  "dataFile": "game/data/bucharest-otopeni.json",
+  "dataSha256": "a27a950b979d140769494499bd717ed1821c9ada461518611a12ac57e25d1ea1",
+  "sourceIdentityPolicy": "source",
+  "buildingRecords": 1208,
+  "positiveAreaSourceCoverage": {
+    "inside": {
+      "waysAndParts": {
+        "source": 151,
+        "identitiesPresent": 151,
+        "topologyMatches": 151
+      },
+      "relationOuters": {
+        "source": 1,
+        "identitiesPresent": 1,
+        "topologyMatches": 1
+      },
+      "courtyards": {
+        "buildings": 1,
+        "sourceInnerRings": 1,
+        "preserved": 1
+      }
+    },
+    "ring": {
+      "waysAndParts": {
+        "source": 1056,
+        "identitiesPresent": 1056,
+        "topologyMatches": 1056
+      },
+      "relationOuters": {
+        "source": 0,
+        "identitiesPresent": 0,
+        "topologyMatches": 0
+      },
+      "courtyards": {
+        "buildings": 0,
+        "sourceInnerRings": 0,
+        "preserved": 0
+      }
+    }
+  },
+  "literalDimensions": {
+    "literalHeights": 81,
+    "literalMinimums": 22,
+    "heightMismatches": [],
+    "minimumMismatches": [],
+    "contradictoryLiteralBands": [],
+    "nonpositiveHeights": [],
+    "unparsedLiteralMeasures": []
+  },
+  "sourceRoofProfiles": 1208,
+  "sourceRoofCaches": 115,
+  "sourceOpenRoofs": 10,
+  "roads": {
+    "data": "bucharest-otopeni.json",
+    "roads": 177,
+    "sourceWays": 172,
+    "preparedNodes": 950,
+    "cutNodes": 52,
+    "expectedWhole": 128,
+    "wholeSourceVertices": 689,
+    "missingWhole": 0,
+    "privatePhysical": 61,
+    "shortSourceStubs": 11,
+    "issues": []
+  },
+  "railAndCrowns": {
+    "file": "game/data/bucharest-otopeni.json",
+    "sourceRailwayWays": 5,
+    "sourceRailwayLengthM": 1675,
+    "retainedTreeRecords": 15059,
+    "measuredCrownRadii": 15046,
+    "treeRetention": {
+      "policy": "all-measured",
+      "inputCrowns": 31433,
+      "retained": 15046,
+      "rejectedGeometryOrDuplicate": 1985,
+      "outsideSurveyDistrict": 14402,
+      "thinned": 0
+    }
+  },
+  "notes": [
+    "This audit establishes raw source identity, topology and literal dimensions, not measured visual parity of missing heights, facade detail or unsupported roof topology.",
+    "All source input crowns are accounted for without budget thinning. Geometry/duplicate exclusions are reported together by the current generic builder.",
+    "Legacy percentage height heuristic in raw building-audit logs ignores pitched roof rise; it is not the literal dimension gate. Literal source values are audited independently here.",
+    "Contradictory literal source height/min_height bands remain retained and explicitly flagged; no invented source correction is applied."
+  ],
+  "acceptanceStatus": "source identity/literal dimension checkpoint; browser comparisons, native profile checker update and final combined-source acceptance pending"
+}

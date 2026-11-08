@@ -1,0 +1,15 @@
+{
+  "file": "game/data/bucharest-otopeni.json",
+  "sourceRailwayWays": 5,
+  "sourceRailwayLengthM": 1675,
+  "retainedTreeRecords": 15059,
+  "measuredCrownRadii": 15046,
+  "treeRetention": {
+    "policy": "all-measured",
+    "inputCrowns": 31433,
+    "retained": 15046,
+    "rejectedGeometryOrDuplicate": 1985,
+    "outsideSurveyDistrict": 14402,
+    "thinned": 0
+  }
+}

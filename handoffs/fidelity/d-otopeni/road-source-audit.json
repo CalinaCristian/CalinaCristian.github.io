@@ -1,0 +1,13 @@
+{
+  "data": "bucharest-otopeni.json",
+  "roads": 177,
+  "sourceWays": 172,
+  "preparedNodes": 950,
+  "cutNodes": 52,
+  "expectedWhole": 128,
+  "wholeSourceVertices": 689,
+  "missingWhole": 0,
+  "privatePhysical": 61,
+  "shortSourceStubs": 11,
+  "issues": []
+}

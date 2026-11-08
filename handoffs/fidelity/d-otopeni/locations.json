@@ -1,0 +1,37 @@
+[
+  {
+    "id": "otopeni-start",
+    "label": "Otopeni chapter start on DN1",
+    "lat": 44.555701,
+    "lon": 26.069266,
+    "source": "game/src/cities.js:CHAPTERS.otopeni.start",
+    "kind": "chapter-start"
+  },
+  {
+    "id": "otopeni",
+    "label": "Henri Coandă Airport terminal",
+    "lat": 44.5708154,
+    "lon": 26.0795884,
+    "source": "game/src/landmarks.js:ANCHOR.otp; OSM r16476195 and five declared building parts",
+    "osm": "relation/16476195",
+    "kind": "cv-stop"
+  },
+  {
+    "id": "airport-train-station",
+    "label": "Aeroport Henri Coandă train station",
+    "lat": 44.5690573,
+    "lon": 26.0754927,
+    "source": "OSM w813193384; source retained independently of terminal replacement; mean of distinct closing-ring vertices",
+    "osm": "way/813193384",
+    "kind": "landmark"
+  },
+  {
+    "id": "source-parking-deck",
+    "label": "Mapped 5–6m parking deck band",
+    "lat": 44.5691737,
+    "lon": 26.077014,
+    "source": "OSM w1215048760 literal height6/min_height5",
+    "osm": "way/1215048760",
+    "kind": "source-check"
+  }
+]

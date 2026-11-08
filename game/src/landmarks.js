@@ -2331,7 +2331,7 @@ function bBellevueSq(b) {
 }
 
 // Mount Rainier — 4,392 m stratovolcano, summit 46.8529 N 121.7604 W (~90 km SE of downtown).
-// Real-size cone (base Ø ~32 km, squashed 0.5 on x/z like the rest of the city); `backdrop: true`
+// Public-domain USGS 3DEP grid, decimated to a bounded terrain mesh; `backdrop: true`
 // means the world may move it closer and pass ctx.backdropScale = distance / realDistance.
 // Src: https://en.wikipedia.org/wiki/Mount_Rainier (4,392 m, 46.8529 N 121.7604 W)
 function bRainier(b) {
@@ -2594,7 +2594,7 @@ function bSonic(b) {
     b.colPolygon(base, { y1: 13 });
 }
 
-// Bellevue 600 (2025) — 183 m / 43 floors residential tower, joint tallest in Bellevue (OSM w1453402305). No facade
+// Bellevue 600 (2025) — 183 m / 43 floors office tower, joint tallest in Bellevue (OSM w1453402305). No facade
 // research: light blue-grey glass with white slab edges (estimated, low confidence).
 // Src: en.wikipedia.org/wiki/List_of_tallest_buildings_in_Bellevue,_Washington ; OSM w1453402305
 function bBellevue600(b) {
@@ -2614,7 +2614,7 @@ function bBellevue600(b) {
 // Src: game/research/seattle-bellevue.json landmarks[murrow-high-rise-arches] ; en.wikipedia.org/wiki/Lacey_V._Murrow_Memorial_Bridge ;
 //      refs/bellevue/I-90_headed_east_from_Seattle_-_west_high-rise.jpg, ..._east_high-rise.jpg, Interstate_90_bridge_over_Lake_Washington_-_east_highrise_from_the_west.jpg
 function bMurrow(b) {
-    const CR = '#d6cdb9', HG = '#3b3f43', L = 64, H = 13.5;                                  // research #c9c0ae (sunlit photo #b8a68b) — lifted for the flat shading
+    const CR = '#d6cdb9', HG = '#3b3f43', L = 68, H = 13.5;                                  // research #c9c0ae (sunlit photo #b8a68b) — lifted for the flat shading
     const zb = 11.4, zt = 9.4;                                                              // rib lateral offset at deck / at crown (lean in)
     for (const s of [-1, 1]) {
         const prof = [[-L / 2, 0, zb], [-L / 2 + 7, 9.5, zb - 1.3], [-L / 2 + 12.5, H, zt], [L / 2 - 12.5, H, zt], [L / 2 - 7, 9.5, zb - 1.3], [L / 2, 0, zb]];
@@ -2623,13 +2623,14 @@ function bMurrow(b) {
         for (let k = 0; k < 8; k++) { const x = -L / 2 + 12.5 + (k + 0.5) * (L - 25) / 8; b.strut([x, 0.6, s * (zt + 0.4)], [x, H - 0.8, s * zt], 0.35, 0.35, HG); }
         for (const x of [-L / 2 + 9.5, L / 2 - 9.5]) b.strut([x, 0.6, s * (zb - 0.6)], [x, 10.6, s * (zb - 1.6)], 0.35, 0.35, HG);
     }
-    // three flattened elliptical crown rings tie the ribs together across the road (oval hole in each)
+    // Six crown openings per span, counted on independent georeferenced aerials.
+    // The approximately 68 m longitudinal extent is an aerial estimate (±3 m); height remains estimated.
     const ringGeo = (() => {
         const sh = new THREE.Shape(), hole = new THREE.Path(), W = zt + 1, D = 3.4, w2 = W - 2.4, d2 = 1.6;
         sh.absellipse(0, 0, W, D, 0, Math.PI * 2, false, 0); hole.absellipse(0, 0, w2, d2, 0, Math.PI * 2, true, 0); sh.holes.push(hole);
         const g = new THREE.ExtrudeGeometry(sh, { depth: 1.3, bevelEnabled: false, curveSegments: 14 }); g.rotateX(Math.PI / 2); return g;
     })();
-    for (const x of [-L / 2 + 13.5, 0, L / 2 - 13.5]) b.geo(ringGeo, CR, M(x, H + 0.9, 0, Math.PI / 2));
+    for (const x of [-20, -12, -4, 4, 12, 20]) b.geo(ringGeo, CR, M(x, H + 0.9, 0, Math.PI / 2));
     for (const s of [-1, 1]) for (const x of [-L / 2, L / 2]) b.col(x, s * zb, 2.2, 1.6);
 }
 
@@ -3333,7 +3334,7 @@ const A = {
     sonic: [47.6148782, -122.1968365, 0], bellevue600: [47.6160667, -122.1942494, 0],
     // Murrow high-rise arches: anchor ON the I-90 EB carriageway centreline (world edge 'I-90 — Lacey V. Murrow Memorial Bridge'),
     // rotation = road heading (model +x along the road): west high-rise dir (0.9995, 0.0326), east (0.9991, 0.0433)
-    murroww: [47.5899055, -122.2849997, -0.0326], murrowe: [47.5892615, -122.2560025, -0.0433],
+    murroww: [47.5898848, -122.28406, -0.0326], murrowe: [47.5892424, -122.25540, -0.0433],
     seagarage: [47.4432823, -122.2992416, 0], sealink: [47.4452089, -122.2969786, 0],
     gts: [44.433369, 26.1176015, 0], rosetti: [44.4671565, 26.106133, 0], dinamo: [44.4551306, 26.1023192, 0], bob: [44.479608, 26.1147802, 0], thelandmark: [44.450012, 26.0946079, 0], europehouse: [44.4511557, 26.087697, 0], halatraian: [44.4333566, 26.120567, 0], globalworth: [44.4792401, 26.1024141, 0],
 };

@@ -18,7 +18,7 @@ Source review: `a1d1f22271b6e9e03dbe28ff29aeab78c00799ca`. Inventory: 8 district
 Evidence directory: `/workspace/reality-pass/game-overview`.
 
 - Actual system Chromium via the required global preload; all browsers `--mute-audio`.
-- Desktop 1440×1000 and mobile 390×844: no horizontal page overflow, no page errors, no local HTTP failures, ten sections and 8/61/24 inventory rows.
+- Desktop 1440×1000 and touch-emulated mobile 390×844: no horizontal page overflow, no page errors, no local HTTP failures, ten sections and 8/61/24 inventory rows.
 - Accent-insensitive search, no-results/clear, auto-open matching detail panels, direct landmark anchors, embedded district/nearest-landmark actions, and unsupported district handling passed.
 - All 60 inline source references match the 93-file hashed source inventory; all 64 unique local destinations return HTTP 200.
 - Actual game DOM inventory confirms 5 title controls, 9 pause Settings controls, six time presets, seven live-panel weather choices and five season choices; zero game page errors. `ui-inventory.json` records labels, ranges and values. The current code uses **M for spot map / G for drone**, despite the older README controls table.
@@ -27,4 +27,8 @@ Evidence directory: `/workspace/reality-pass/game-overview`.
 
 Screenshots were visually inspected. `prototype-*` show the early design; `final-*-top`, `final-*-controls`, `final-*-comparisons`, `final-*-comparison-pair` show the integrated guide. The final overview integration pass includes both Romană and Floreasca: Floreasca opens all 90 captures with 20 playable-core views. Desktop/mobile screenshot pairs were inspected. Mobile selection descendants fit inside the actual 312px comparison column; page width remains 390px.
 
-The latest user instruction adds a 15-minute bounded client-memory cache for official aerial responses, owned by comparison-index. Overview credit/explanation text reflects that behavior and distinguishes it from committed/hosted imagery. A runtime-generated achievement count avoids stale statements about permanent hidden-feature removal. The generator now rejects provenance if any hashed source file differs from the named source commit.
+The latest user instruction adds a 15-minute browser cache that survives reloads (Cache Storage plus memory front cache) for official aerial responses, owned by comparison-index. Overview credit/explanation text reflects that behavior and distinguishes it from committed/hosted imagery. A runtime-generated achievement count avoids stale statements about permanent hidden-feature removal. The generator now rejects provenance if any hashed source file differs from the named source commit.
+
+Final combined verification now includes the persistent cache: both desktop and touch-emulated mobile reuse the official aerial image across a same-context reload with **zero additional imagery requests**. The final report has 16 interaction/source/link/cache gates, zero page/console/local HTTP errors. Width probes at 320, 390, 768, 1024, 1440 and 1920 pixels retain document width equal to viewport. Only the intentionally clipped decorative hero SVG has internal bounds outside its frame.
+
+The new 20m actual-playable-boundary drone guard is still a root-owned staged change, absent from the pinned a1d1f22 source and therefore not described as implemented in this guide. Add its final source-aware note when the helper and release source are available.

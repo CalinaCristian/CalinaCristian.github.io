@@ -1,0 +1,45 @@
+{
+  "sourceCommit": "4198996ab142e3496c9224478eb8cd1aced676fb",
+  "pose": {
+    "id": "Departures-Drive-0-R-right",
+    "lat": 47.4446559,
+    "lon": -122.3004996,
+    "heading": 316,
+    "cameraBaseY": 11.24,
+    "cameraY": 13.74,
+    "sourceRoadId": "w37017723"
+  },
+  "rayHits": [
+    {
+      "distance": 5.396348047510155,
+      "position": [
+        -1170.5115611292827,
+        14.30407196866365,
+        590.0399782231609
+      ],
+      "object": "",
+      "parent": "landmark:seatac",
+      "materialName": "landmark-masonry",
+      "materialColor": "ffffff",
+      "userDataKeys": [],
+      "normal": [
+        0.8093003819848771,
+        0,
+        -0.5873950048469362
+      ]
+    }
+  ],
+  "cameraOutsideSourceFootprintM": 5.348719,
+  "sourceFacadeEdge": 49,
+  "sourceFacadeLengthM": 7.6303226,
+  "windowRule": {
+    "landmark": "seatac",
+    "sourceId": "w23772634",
+    "bayM": 12,
+    "minimumEdgeM": 14,
+    "startM": 2.5,
+    "floorHeightM": 8.5,
+    "heightFraction": 0.55
+  },
+  "classification": "Existing intended facade glass excluded by short source edge admission; camera is outside exact source footprint. No Street View attribute extraction."
+}

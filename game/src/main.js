@@ -424,7 +424,7 @@ class Game {
         this.attachWorldRender();
         this.r3d.onNightLights = (on) => { this.nightLights = on; this.traffic?.setNightLights(on || !!this._fogLights); };
         this.r3d.onNightLights(this.r3d.nightLights);
-        this.r3d.setHeadlights(this.headlights === 'auto' ? null : this.headlights);
+        this.syncHeadlights(true);
         this._wxKey = null; this._seasonShown = false;
         if (typeof this.r3d.setWeather === 'function') { try { this.r3d.setWeather(this.weatherOverride); } catch (err) { console.warn('[weather] setWeather', err); } }
         if ('onWeatherChange' in this.r3d || typeof this.r3d.setWeather === 'function') this.r3d.onWeatherChange = () => this.pollWeather(true);
@@ -849,6 +849,12 @@ class Game {
         this.drawFrame({ mirror: warm || this.frame % mEvery === 1 });
     }
 
+    /** Keep the cached request in step with the renderer after scene replacement as well as clock changes. */
+    syncHeadlights(force = false) {
+        const want = this.headlights === 'auto' ? (this._fogLights ? true : null) : !!this.headlights;
+        if (force || this._hlSent !== want) { this._hlSent = want; this.r3d.setHeadlights(want); }
+    }
+
     /** real local time of the current city (or the menu override) + day phase + NPC lights */
     updateClock(dt) {
         const c = this.clock; c.date = this.nowDate();
@@ -856,8 +862,7 @@ class Game {
         c.hours = h;
         if (this.r3d && this.scene) {
             this.r3d.setClock({ date: c.date, override: c.override || null });
-            const want = this.headlights === 'auto' ? (this._fogLights ? true : null) : !!this.headlights;
-            if (this._hlSent !== want) { this._hlSent = want; this.r3d.setHeadlights(want); }
+            this.syncHeadlights();
         }
         const ph = this.renderer3d?.phase;
         this.phase = typeof ph === 'string' ? (ph === 'sunset' ? 'dusk' : ph) : phaseFromHours(h);
@@ -1881,7 +1886,7 @@ class Game {
         const toGame = this.world && this.player && ['drive', 'foot'].includes(R.state);
         if (toGame) {
             this.attachWorldRender();
-            this.r3d.setHeadlights(this.headlights === 'auto' ? null : this.headlights);
+            this.syncHeadlights(true);
             if (typeof this.r3d.setWeather === 'function') { try { this.r3d.setWeather(this.weatherOverride); } catch { /* ignore */ } }
             if (R.state === 'foot' && R.foot && this.foot) { this.foot.enter(R.foot.x, R.foot.z, R.foot.heading, R.foot.y); this.state = 'foot'; }
             else { this.player.camHolder.add(this.camera); this.camera.position.set(0, 0, 0); this.camera.rotation.set(0, 0, 0); this.state = 'drive'; }

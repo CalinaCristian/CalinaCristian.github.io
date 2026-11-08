@@ -1,6 +1,8 @@
 {
   "schemaVersion": 1,
   "district": "bellevue",
+  "label": "Before source-grade and render integration \u00b7 4198996",
+  "sourceNote": "These426 GAME frames are completed historical4198996 evidence, with22unresolved camera altitude comparisons. They are retained separately from the currentc78a5f4 aerial/native source and never relabelled as that newer runtime.",
   "gameSourceCommit": "4198996ab142e3496c9224478eb8cd1aced676fb",
   "capture": {
     "sourceCommit": "4198996ab142e3496c9224478eb8cd1aced676fb",
@@ -13,7 +15,7 @@
     "sourceDatasetSha256": "24c27cbd160167836c254a1b6eafbeeb569df9744faf936d52892a9747a9fe46",
     "note": "Game-only publication; reference imagery stays scratch. Camera source IDs remapped only within identical original source way/layer/name at the original source sample. Applied season follows reference metadata month. No reference attributes extracted."
   },
-  "scope": "Compiled public drivable nonvirtual, nontunnel source streets excluding service, motorway, motorway_link and trunk_link; length greater than 4 m. Sampling is along both sides, with facade and along-street headings. Private airfield, indoor and full nearby-ring street coverage are not claimed.",
+  "scope": "Compiled public drivable nonvirtual, nontunnel streets excluding service, motorway, motorway_link and trunk_link; not all private roads, indoor passages, airfield or full nearby ring.",
   "viewPoses": 426,
   "uniquePanoramas": 131,
   "streets": 15,

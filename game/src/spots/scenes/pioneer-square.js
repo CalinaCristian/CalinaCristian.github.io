@@ -127,7 +127,7 @@ function buildSmithTower(ctx) {
     for(const id of lm.sourceIds)ctx.skipBuildings.add(id);
     const p=ctx.ll(lm.lat,lm.lon),y0=Math.min(...st.poly.map(([x,z])=>ctx.ground.heightAt(x,z)))-.3,model=buildLandmark(lm,{realScale:true});
     model.mesh.position.set(p.x,y0,p.z);ctx.add(model.mesh);ctx.poly(st.poly);
-    return {cx:p.x,cz:p.z,y0,surface:{source:st.id,poly:st.poly,holes:st.holes||[],bottom:y0,top:y0+120}};
+    return {cx:p.x,cz:p.z,y0,surface:{source:st.id,poly:st.poly,holes:st.holes||[],bottom:y0,top:y0+st.h}};
 }
 
 export default {

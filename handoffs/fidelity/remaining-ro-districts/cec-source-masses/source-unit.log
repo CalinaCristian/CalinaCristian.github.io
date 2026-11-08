@@ -1,0 +1,5 @@
+(node:200215) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/remaining-ro-districts/game/src/landmark-cec-source.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/fidelity-workers/remaining-ro-districts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"sourceVolumes":162,"newRelationOuters":7,"rawHoles":5,"literalHeights":153,"estimatedTotals":9,"modelColliders":162,"modelTriangles":24156,"duplicateRoofTriangles":0,"maximumHeight":37.5,"uncertainProfiles":56}

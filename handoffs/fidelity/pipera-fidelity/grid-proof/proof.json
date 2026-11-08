@@ -1,0 +1,470 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "36bd4a8e1c062946d1f1ebe4f19dc4422d65eebb",
+  "sourceDataSha256": "66d5fd9ffff3124db1007d8143aaef1854abad94b51053531f091f328fc93802",
+  "captureReport": {
+    "startedAt": "2026-11-08T20:07:43.737Z",
+    "endedAt": "2026-11-08T20:13:37.790Z",
+    "elapsedSeconds": 354.053,
+    "source": "fd8fe5d1fa80fb645fc418d711327134faf7705fe0eab6680e104104be4f60ca",
+    "loaded": {
+      "key": "bucharest-pipera",
+      "city": "bucharest",
+      "district": "pipera",
+      "ms": 14643,
+      "edges": 1260,
+      "ribbons": 1665
+    },
+    "pageErrors": [],
+    "consoleErrors": [],
+    "failedRequests": [],
+    "traffic": true,
+    "quality": "high",
+    "weather": "clear",
+    "season": "summer",
+    "time": "day",
+    "mirror": false,
+    "frameCounts": 133,
+    "coverageClaim": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+    "scopeCounts": {
+      "ring-touches": 91,
+      "core-touches": 38,
+      "outside-ring": 4
+    }
+  },
+  "validation": {
+    "frames": 133,
+    "sourceFilesVerified": 2445,
+    "scopeCounts": {
+      "ring-touches": 91,
+      "core-touches": 38,
+      "outside-ring": 4
+    },
+    "failures": [],
+    "movedUnusedFirstAttemptFrames": [],
+    "manifestSha256": "f31db7b59791cbb507cec849183b784e4ebf29575bd3d1033cf45b603e63124c"
+  },
+  "captures": [
+    {
+      "id": "aerial-r05-c07",
+      "label": "Native B part and surrounding source offices",
+      "row": 5,
+      "column": 7,
+      "lat": 44.47887521146024,
+      "lon": 26.105131067072243,
+      "x": -624.9999999999278,
+      "z": 125.00000000007185,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -130,
+      "boundsXZ": [
+        -750,
+        0,
+        -500,
+        250
+      ],
+      "gameSourceCommit": "36bd4a8e1c062946d1f1ebe4f19dc4422d65eebb",
+      "camera": {
+        "type": "PerspectiveCamera",
+        "projection": "perspective",
+        "position": [
+          -624.9999999999278,
+          216.50635094610968,
+          125.00000000007185
+        ],
+        "quaternion": [
+          -0.7071067811865475,
+          0,
+          0,
+          0.7071067811865476
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "screenUpWorld": [
+          0,
+          2.220446049250313e-16,
+          -1
+        ],
+        "fov": 60,
+        "aspect": 1,
+        "near": 0.2,
+        "far": 5000,
+        "projectionMatrix": [
+          1.7320508075688774,
+          0,
+          0,
+          0,
+          0,
+          1.7320508075688774,
+          0,
+          0,
+          0,
+          0,
+          -1.000080003200128,
+          -1,
+          0,
+          0,
+          -0.40001600064002557,
+          0
+        ],
+        "groundPlaneY": 0,
+        "groundSquareM": 250,
+        "groundBoundsXZ": [
+          -749.9999999999278,
+          7.185008144006133e-11,
+          -499.9999999999278,
+          250.00000000007185
+        ],
+        "orientation": "north-up"
+      },
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 127,
+        "triangles": 518349,
+        "renderMs": 4.099999997764826,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": true,
+        "visible": true,
+        "vehicleCount": 306
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "seasonState": {
+        "season": "summer",
+        "blossom": 0,
+        "autumn": 0,
+        "bare": 0,
+        "brown": 0,
+        "fresh": 0,
+        "doy": 195
+      },
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-08T20:10:46.630Z",
+      "gamePath": "images/aerial-r05-c07.jpg",
+      "image": "aerial-r05-c07.webp",
+      "thumbnail": "thumbs/aerial-r05-c07.jpg",
+      "sha256": "c803c07bf3d146fceb064138c173b4c6012413231d56ef2edba48a3f017c0f21",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 4201,
+      "dataset": "atlas",
+      "thumbnailSha256": "92ea80e4424ddd11e7fee95bff6d7cd294cdfc47415c0b366e895a6182c94f48",
+      "captureType": "game-topdown",
+      "boundsWgs84": [
+        44.47775042292049,
+        26.10355728048669,
+        44.48,
+        26.106704853657792
+      ],
+      "originalCaptureSha256": "08ecf996897c41b642e8845452425468b61bb05fe92bf09056ed56fd2eab031a",
+      "kind": "game-only",
+      "limits": "Perspective north-up250m ground square. Roof parallax is not an orthographic source-geometry comparison."
+    },
+    {
+      "id": "aerial-r03-c10",
+      "label": "Mapped source roofs and parking context",
+      "row": 3,
+      "column": 10,
+      "lat": 44.48337436561926,
+      "lon": 26.114573786585552,
+      "x": 125.00000000009844,
+      "z": -375.00000000021555,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": 11.10379999949842,
+      "boundsXZ": [
+        0,
+        -500,
+        250,
+        -250
+      ],
+      "gameSourceCommit": "36bd4a8e1c062946d1f1ebe4f19dc4422d65eebb",
+      "camera": {
+        "type": "PerspectiveCamera",
+        "projection": "perspective",
+        "position": [
+          125.00000000009844,
+          216.50635094610968,
+          -375.00000000021555
+        ],
+        "quaternion": [
+          -0.7071067811865475,
+          0,
+          0,
+          0.7071067811865476
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "screenUpWorld": [
+          0,
+          2.220446049250313e-16,
+          -1
+        ],
+        "fov": 60,
+        "aspect": 1,
+        "near": 0.2,
+        "far": 5000,
+        "projectionMatrix": [
+          1.7320508075688774,
+          0,
+          0,
+          0,
+          0,
+          1.7320508075688774,
+          0,
+          0,
+          0,
+          0,
+          -1.000080003200128,
+          -1,
+          0,
+          0,
+          -0.40001600064002557,
+          0
+        ],
+        "groundPlaneY": 0,
+        "groundSquareM": 250,
+        "groundBoundsXZ": [
+          9.843859061220428e-11,
+          -500.00000000021555,
+          250.00000000009845,
+          -250.00000000021555
+        ],
+        "orientation": "north-up"
+      },
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 96,
+        "triangles": 312910,
+        "renderMs": 2.100000001490116,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": true,
+        "visible": true,
+        "vehicleCount": 306
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "seasonState": {
+        "season": "summer",
+        "blossom": 0,
+        "autumn": 0,
+        "bare": 0,
+        "brown": 0,
+        "fresh": 0,
+        "doy": 195
+      },
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-08T20:09:23.679Z",
+      "gamePath": "images/aerial-r03-c10.jpg",
+      "image": "aerial-r03-c10.webp",
+      "thumbnail": "thumbs/aerial-r03-c10.jpg",
+      "sha256": "abdb2dbdc6e2bc048e7a29b6fba484357e7a5a2c011e0effb1ce1f69b0c7efd4",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 2907,
+      "dataset": "atlas",
+      "thumbnailSha256": "a5c0872b3c362cf41efc17fa1125ef73180b25a6492b22df76440391fa0c3cbe",
+      "captureType": "game-topdown",
+      "boundsWgs84": [
+        44.48224957707951,
+        26.113,
+        44.48449915415902,
+        26.1161475731711
+      ],
+      "originalCaptureSha256": "0359f89dc0683a9c2beaf9f2cb95fb49ab2f3da9a3dc8baefa45ac38faa65257",
+      "kind": "game-only",
+      "limits": "Perspective north-up250m ground square. Roof parallax is not an orthographic source-geometry comparison."
+    },
+    {
+      "id": "aerial-r04-c14",
+      "label": "Measured woodland crown coverage",
+      "row": 4,
+      "column": 14,
+      "lat": 44.48112478853975,
+      "lon": 26.127164079269964,
+      "x": 1125.0000000000393,
+      "z": -125.00000000007185,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": 3.8219550401566096,
+      "boundsXZ": [
+        1000,
+        -250,
+        1250,
+        0
+      ],
+      "gameSourceCommit": "36bd4a8e1c062946d1f1ebe4f19dc4422d65eebb",
+      "camera": {
+        "type": "PerspectiveCamera",
+        "projection": "perspective",
+        "position": [
+          1125.0000000000393,
+          216.50635094610968,
+          -125.00000000007185
+        ],
+        "quaternion": [
+          -0.7071067811865475,
+          0,
+          0,
+          0.7071067811865476
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "screenUpWorld": [
+          0,
+          2.220446049250313e-16,
+          -1
+        ],
+        "fov": 60,
+        "aspect": 1,
+        "near": 0.2,
+        "far": 5000,
+        "projectionMatrix": [
+          1.7320508075688774,
+          0,
+          0,
+          0,
+          0,
+          1.7320508075688774,
+          0,
+          0,
+          0,
+          0,
+          -1.000080003200128,
+          -1,
+          0,
+          0,
+          -0.40001600064002557,
+          0
+        ],
+        "groundPlaneY": 0,
+        "groundSquareM": 250,
+        "groundBoundsXZ": [
+          1000.0000000000393,
+          -250.00000000007185,
+          1250.0000000000393,
+          -7.185008144006133e-11
+        ],
+        "orientation": "north-up"
+      },
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 89,
+        "triangles": 440491,
+        "renderMs": 3.199999999254942,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": true,
+        "visible": true,
+        "vehicleCount": 306
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "seasonState": {
+        "season": "summer",
+        "blossom": 0,
+        "autumn": 0,
+        "bare": 0,
+        "brown": 0,
+        "fresh": 0,
+        "doy": 195
+      },
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-08T20:10:20.349Z",
+      "gamePath": "images/aerial-r04-c14.jpg",
+      "image": "aerial-r04-c14.webp",
+      "thumbnail": "thumbs/aerial-r04-c14.jpg",
+      "sha256": "fae3154f1e42f876fa6c2424d9667b7f7f824eff3c6c4bc6d3e38e03febed230",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 3643,
+      "dataset": "atlas",
+      "thumbnailSha256": "30c9b85f22fe938d93653051bf6536f9f58e55eb46a18f0370528ec5edd08548",
+      "captureType": "game-topdown",
+      "boundsWgs84": [
+        44.48,
+        26.12559029268441,
+        44.48224957707951,
+        26.128737865855516
+      ],
+      "originalCaptureSha256": "6ca089c90749ca2d37bab81fa00804376d7ed126ea02007e34fde01f0fa624bd",
+      "kind": "game-only",
+      "limits": "Perspective north-up250m ground square. Roof parallax is not an orthographic source-geometry comparison."
+    }
+  ],
+  "nativePartControl": {
+    "sourceIds": [
+      "r14680997",
+      "w1102707761"
+    ],
+    "actualAuthoredBOBDistanceM": 747.8902923507903,
+    "BOBSourceIds": [
+      "w55450549"
+    ],
+    "sourceNativeOnly": true,
+    "physicalSurfaces": {
+      "w1102707761": {
+        "exposedWalls": 0,
+        "exposedRoof": 0,
+        "underside": 0
+      },
+      "r14680997": {
+        "exposedWalls": 1,
+        "exposedTopM": 40,
+        "exposedRoof": 0,
+        "underside": 0
+      }
+    },
+    "sourceAttributeConflict": "Coincident source records40m/7levels and28m/6levels both preserved. Parent r17678525 remains53m. No new authored suppression."
+  },
+  "completePrivateAtlas": "/workspace/reality-pass/pipera/final-grid-complete",
+  "originalAtlasManifestSha256": "f31db7b59791cbb507cec849183b784e4ebf29575bd3d1033cf45b603e63124c",
+  "evidencePolicy": "All images here are game-only. Reference imagery is private and absent from this commit."
+}

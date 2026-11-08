@@ -136,5 +136,17 @@ assert.ok(Math.hypot(walker.x - 50.2, walker.z - 9.1) < 1e-6, 'an obstacle push 
 const bridge = edge(walkEdge.b, node(150, 0)); bridge.bridge = true; bridge.sidewalk = 0;
 peds.planNode(walker, walkEdge.b);
 assert.notEqual(walker.next?.e, bridge, 'a corner plan never sends a sidewalk walker onto an excluded bridge/carriageway');
+// A recovery may finish off the old logical sidewalk line after collision
+// corrections; the next walking frame must keep that completed physical pose.
+const restored = { ...person, i: 0, e: walkEdge, side: 1, dir: 1, s: 50, x: 50.8, z: 8, speed: 1.4, state: 'walk', recovery: null, walkOff: 0.5, dodge: 0, dodgeEdge: walkEdge, dodgeFrame: -1, legs: [] };
+peds.list = [restored]; peds.dodgeAt = () => 0; peds.buildGrid();
+peds.recoverPose(restored, 50, 8);
+for (let f = 0; f < 60; f++) { const x = restored.x, z = restored.z; peds.update(1 / 30); assert.ok(Math.hypot(restored.x - x, restored.z - z) < 0.1, 'finishing a recovery cannot snap back onto stale sidewalk coordinates'); }
+const contactCar = { x: 0, z: 0, y: 0.24, length: 4.4, width: 1.8, heading: -Math.PI / 2 };
+empty.grid = { items: [contactCar], query(x, z, r, fn) { fn(contactCar); } };
+const contacting = { i: 0, x: 0, z: 0, live: true, state: 'legs' };
+peds._fr++; peds._stepDt = 1 / 30;
+peds.avoidVehicles(contacting, 0, 0, false); peds.avoidVehicles(contacting, contacting.x, contacting.z, false);
+assert.ok(Math.hypot(contacting.x, contacting.z) <= 1.45 / 30 + 1e-6, 'pre-existing vehicle contact uses one walking correction budget per frame, never a sideways jump');
 empty.dispose();
 console.log('PASS: signal cycles/conflicts/clearance, queue release, cockpit/props, visible recycling, walking recoveries and stable detours');

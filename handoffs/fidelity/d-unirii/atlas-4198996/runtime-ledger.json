@@ -1,0 +1,797 @@
+{
+  "sourceCommit": "4198996ab142e3496c9224478eb8cd1aced676fb",
+  "captureManifestSha256": "db97d61328994952da0a6252a3d4bf6da57e81f37c2cfb6d33f879f3be3da7c1",
+  "frames": 98,
+  "scopes": {
+    "core": 26,
+    "nearby": 66,
+    "distant": 6
+  },
+  "captureIntegrity": {
+    "pageErrors": 0,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "validationFailures": 0
+  },
+  "review": {
+    "gameFramesInspected": 98,
+    "privateEsriPairsInspected": 96,
+    "privateSheetsInspected": 17,
+    "referenceGaps": [
+      "context-parliament",
+      "context-cathedral"
+    ],
+    "status": "needs_review"
+  },
+  "sourceBuildings": {
+    "outerRecords": 6188,
+    "profileSupplied": 6188,
+    "profilesApplied": 6183,
+    "contradictoryLiteralBandProfilesRejected": [
+      "w1473413251",
+      "w1181348214",
+      "w1181348215",
+      "w1473202094",
+      "w1473215997"
+    ],
+    "cachedSurfacesSupplied": 2699,
+    "cachedSurfacesApplied": 2690,
+    "cachedSurfacesFallback": [
+      {
+        "sourceId": "w1473318379",
+        "cachedDependencies": [
+          "w1473318379",
+          "w1473318382",
+          "w1473318381",
+          "w1473318386",
+          "w1473318387",
+          "w1473318389",
+          "w1473318390",
+          "w1473400826",
+          "w1473413250",
+          "w1473413251",
+          "w1473318380",
+          "w1473318384",
+          "w1473318383",
+          "w1473318385",
+          "w1473670166"
+        ],
+        "invalidLiteralSourceDependencies": [
+          "w1473413251"
+        ],
+        "fallback": "complete native source roof; cached overlap clipping not applied"
+      },
+      {
+        "sourceId": "w1181348209",
+        "cachedDependencies": [
+          "w1181348209",
+          "w1181348208",
+          "w1181348210",
+          "w1181348211",
+          "w1181348212",
+          "w1181348213",
+          "w1181348214",
+          "w1181348215",
+          "w1181416550"
+        ],
+        "invalidLiteralSourceDependencies": [
+          "w1181348214",
+          "w1181348215"
+        ],
+        "fallback": "complete native source roof; cached overlap clipping not applied"
+      },
+      {
+        "sourceId": "w1180460513",
+        "cachedDependencies": [
+          "w1180460513",
+          "w1473217250",
+          "w1180460511",
+          "w1180460512",
+          "w1180474853",
+          "w1180474854",
+          "w1180474858",
+          "w1180474870",
+          "w1180474882",
+          "w1473215990",
+          "w1473215991",
+          "w1473215992",
+          "w1473215993",
+          "w1473215997",
+          "w1473215998",
+          "w1474165241",
+          "w1474165242",
+          "w1474169145"
+        ],
+        "invalidLiteralSourceDependencies": [
+          "w1473215997"
+        ],
+        "fallback": "complete native source roof; cached overlap clipping not applied"
+      },
+      {
+        "sourceId": "w1472998859",
+        "cachedDependencies": [
+          "w1472998859",
+          "w1473209186",
+          "w1472950350",
+          "w1472950351",
+          "w1472998862",
+          "w1473200465",
+          "w1473202093",
+          "w1473202094",
+          "w1473209187",
+          "w1472492755",
+          "w1473209188",
+          "w1472950343",
+          "w1472950355",
+          "w1472950356",
+          "w1473200479"
+        ],
+        "invalidLiteralSourceDependencies": [
+          "w1473202094"
+        ],
+        "fallback": "complete native source roof; cached overlap clipping not applied"
+      }
+    ],
+    "invalidBodyCachesInapplicable": [
+      "w1473413251",
+      "w1181348214",
+      "w1181348215",
+      "w1473202094",
+      "w1473215997"
+    ],
+    "rawProfileUncertainty": [
+      {
+        "source": "w1175993299",
+        "issues": [
+          "roof rise exceeds building height band"
+        ]
+      },
+      {
+        "source": "w1175993304",
+        "issues": [
+          "roof rise exceeds building height band"
+        ]
+      },
+      {
+        "source": "w1175993305",
+        "issues": [
+          "roof rise exceeds building height band"
+        ]
+      },
+      {
+        "source": "w23491319",
+        "issues": [
+          "unsupported roof:shape=many"
+        ]
+      },
+      {
+        "source": "w150803280",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w657898100",
+        "issues": [
+          "unsupported roof:orientation=south"
+        ]
+      },
+      {
+        "source": "w657898101",
+        "issues": [
+          "unsupported roof:orientation=north"
+        ]
+      },
+      {
+        "source": "w657898119",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=south_east"
+        ]
+      },
+      {
+        "source": "w657898120",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=east"
+        ]
+      },
+      {
+        "source": "w657898125",
+        "issues": [
+          "unsupported roof:shape=onion"
+        ]
+      },
+      {
+        "source": "w657898127",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=east"
+        ]
+      },
+      {
+        "source": "w657898128",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=north"
+        ]
+      },
+      {
+        "source": "w657898129",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=west"
+        ]
+      },
+      {
+        "source": "w657898130",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=south"
+        ]
+      },
+      {
+        "source": "w657898131",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=south"
+        ]
+      },
+      {
+        "source": "w657898132",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=west"
+        ]
+      },
+      {
+        "source": "w657898133",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=north"
+        ]
+      },
+      {
+        "source": "w657898134",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=east"
+        ]
+      },
+      {
+        "source": "w657898136",
+        "issues": [
+          "unsupported roof:shape=onion"
+        ]
+      },
+      {
+        "source": "w657898138",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=north"
+        ]
+      },
+      {
+        "source": "w657898139",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=west"
+        ]
+      },
+      {
+        "source": "w657898140",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=south"
+        ]
+      },
+      {
+        "source": "w657898141",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=east"
+        ]
+      },
+      {
+        "source": "w657898142",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=east"
+        ]
+      },
+      {
+        "source": "w657898143",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=north"
+        ]
+      },
+      {
+        "source": "w657898144",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=west"
+        ]
+      },
+      {
+        "source": "w657898145",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=south"
+        ]
+      },
+      {
+        "source": "w657898147",
+        "issues": [
+          "unsupported roof:shape=onion"
+        ]
+      },
+      {
+        "source": "w657898149",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=north"
+        ]
+      },
+      {
+        "source": "w657898150",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=west"
+        ]
+      },
+      {
+        "source": "w657898151",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=south"
+        ]
+      },
+      {
+        "source": "w657898152",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=east"
+        ]
+      },
+      {
+        "source": "w657898153",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=east"
+        ]
+      },
+      {
+        "source": "w657898154",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=north"
+        ]
+      },
+      {
+        "source": "w657898155",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=west"
+        ]
+      },
+      {
+        "source": "w657898156",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=south"
+        ]
+      },
+      {
+        "source": "w657898158",
+        "issues": [
+          "unsupported roof:shape=onion"
+        ]
+      },
+      {
+        "source": "w657898160",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=north"
+        ]
+      },
+      {
+        "source": "w657898161",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=west"
+        ]
+      },
+      {
+        "source": "w657898162",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=south"
+        ]
+      },
+      {
+        "source": "w657898163",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=east"
+        ]
+      },
+      {
+        "source": "w657898164",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=east"
+        ]
+      },
+      {
+        "source": "w657898165",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=north"
+        ]
+      },
+      {
+        "source": "w657898166",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=west"
+        ]
+      },
+      {
+        "source": "w657898167",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=south"
+        ]
+      },
+      {
+        "source": "w657898171",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=west"
+        ]
+      },
+      {
+        "source": "w657898172",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=north"
+        ]
+      },
+      {
+        "source": "w657898173",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=south"
+        ]
+      },
+      {
+        "source": "w657898174",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=east"
+        ]
+      },
+      {
+        "source": "w657898178",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=north"
+        ]
+      },
+      {
+        "source": "w657898179",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=south"
+        ]
+      },
+      {
+        "source": "w657898189",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=west"
+        ]
+      },
+      {
+        "source": "w657898190",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=north_west"
+        ]
+      },
+      {
+        "source": "w657898191",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=north"
+        ]
+      },
+      {
+        "source": "w657898192",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=north_east"
+        ]
+      },
+      {
+        "source": "w657898193",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=east"
+        ]
+      },
+      {
+        "source": "w657898197",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=west"
+        ]
+      },
+      {
+        "source": "w657898198",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=south_west"
+        ]
+      },
+      {
+        "source": "w657898199",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=south"
+        ]
+      },
+      {
+        "source": "w657898200",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=south_east"
+        ]
+      },
+      {
+        "source": "w657898201",
+        "issues": [
+          "unsupported roof:shape=sloped",
+          "unsupported roof:orientation=east"
+        ]
+      },
+      {
+        "source": "w49480103",
+        "issues": [
+          "unsupported roof:shape=many"
+        ]
+      },
+      {
+        "source": "w77940084",
+        "issues": [
+          "unsupported roof:shape=many"
+        ]
+      },
+      {
+        "source": "w129316964",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w171255102",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w411424161",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w1176142649",
+        "issues": [
+          "unsupported roof:shape=onion"
+        ]
+      },
+      {
+        "source": "w1472941816",
+        "issues": [
+          "unsupported roof:shape=cone"
+        ]
+      },
+      {
+        "source": "w1472941820",
+        "issues": [
+          "unsupported roof:shape=cone"
+        ]
+      },
+      {
+        "source": "w162570201",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w178702582",
+        "issues": [
+          "unsupported roof:shape=gambrel"
+        ]
+      },
+      {
+        "source": "w229128263",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w230196591",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w252580354",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w87310146",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w129321547",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w178848629",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w239852817",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w269823340",
+        "issues": [
+          "unsupported roof:shape=saltbox"
+        ]
+      },
+      {
+        "source": "w327720966",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w418248761",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w178702575",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w178704681",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w178704682",
+        "issues": [
+          "unsupported roof:shape=saltbox"
+        ]
+      },
+      {
+        "source": "w178706174",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w187078737",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w268562460",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w272468847",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w272468858",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w310022425",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w310022622",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w310024621",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w460494700",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w569534876",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      }
+    ]
+  },
+  "sourceTrees": {
+    "compiled": 15764,
+    "nativeMappedMeasured": 15641,
+    "nativeProceduralRows": 0,
+    "nativeAll": 15641,
+    "additionalNativePlacementRejects": 123,
+    "nativeCap": 32000,
+    "capReached": false,
+    "reasonClassification": "pending; native rejection counts are not a performance-thinning pass"
+  },
+  "nativeScenery": {
+    "compiledPieces": 1251,
+    "nativePieces": 1248,
+    "requiredRingBridgeOmissions": [
+      {
+        "sourceId": "w314608740",
+        "tile": "aerial-r08-c07",
+        "marginM": 405.5
+      },
+      {
+        "sourceId": "w899314655",
+        "tile": "aerial-r09-c07",
+        "marginM": 416.8
+      },
+      {
+        "sourceId": "w250489758",
+        "tile": "aerial-r05-c03",
+        "marginM": 342.75
+      }
+    ],
+    "cause": "world.js source scenery loop unconditionally skips bridge flag; none is duplicated by core roadSourceGeometry"
+  },
+  "limitations": [
+    "All-five raw literal band contradictions remain source-visible and flagged; this ledger does not count their rejected native profiles as a successful source band.",
+    "Manual aerial comparison records source-led review, not photo-identical or gameplay acceptance.",
+    "Panorama altitude is not supplied by official metadata; street-level camera heights remain explicit comparison estimates.",
+    "Final full public-source streetwalk and native high-traffic/mirror/foot/drone gates are separate from this atlas."
+  ]
+}

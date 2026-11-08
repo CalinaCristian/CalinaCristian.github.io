@@ -1,0 +1,86 @@
+{
+  "gameSourceCommit": "4198996ab142e3496c9224478eb8cd1aced676fb",
+  "city": "bucharest",
+  "district": "unirii",
+  "grid": {
+    "x0": -1500,
+    "z0": -1250,
+    "columns": 12,
+    "rows": 10,
+    "sizeMetres": 250
+  },
+  "counts": {
+    "ring-touches": 66,
+    "core-touches": 26,
+    "outside-ring": 6
+  },
+  "locations": [
+    {
+      "id": "unirii-start",
+      "label": "Unirii chapter start",
+      "lat": 44.426927,
+      "lon": 26.100981,
+      "source": "game/src/cities.js:CHAPTERS.gts.start",
+      "kind": "chapter-start",
+      "tileId": "aerial-r07-c04"
+    },
+    {
+      "id": "fountains",
+      "label": "Piața Unirii fountains",
+      "lat": 44.4268,
+      "lon": 26.1025,
+      "source": "game/src/landmarks.js:ANCHOR.fountains; mapped water and fountain records",
+      "kind": "landmark",
+      "tileId": "aerial-r07-c04"
+    },
+    {
+      "id": "unirea",
+      "label": "Unirea Shopping Center",
+      "lat": 44.4280154,
+      "lon": 26.1048886,
+      "source": "game/src/landmarks.js:ANCHOR.unirea; OSM w23492027",
+      "osm": "way/23492027",
+      "kind": "landmark",
+      "tileId": "aerial-r06-c05"
+    },
+    {
+      "id": "gts",
+      "label": "GTS chapter destination",
+      "lat": 44.433369,
+      "lon": 26.1176015,
+      "source": "game/src/landmarks.js:ANCHOR.gts; OSM w245117704",
+      "osm": "way/245117704",
+      "kind": "cv-stop",
+      "tileId": "aerial-r04-c09"
+    },
+    {
+      "id": "halatraian",
+      "label": "Hala Traian",
+      "lat": 44.4333566,
+      "lon": 26.120567,
+      "source": "game/src/landmarks.js:ANCHOR.halatraian; OSM w35147215",
+      "osm": "way/35147215",
+      "kind": "landmark",
+      "tileId": "aerial-r04-c10"
+    },
+    {
+      "id": "parliament",
+      "label": "Palace of Parliament context",
+      "lat": 44.4275038,
+      "lon": 26.0874035,
+      "source": "game/src/landmarks.js:ANCHOR.parliament; OSM r2230391/w232360843/w283976783",
+      "kind": "skyline",
+      "tileId": "context-parliament"
+    },
+    {
+      "id": "cathedral",
+      "label": "National Cathedral distant context",
+      "lat": 44.4259297,
+      "lon": 26.0822981,
+      "source": "game/src/landmarks.js:ANCHOR.cathedral; exact declared source identities in landmark-source-identities.js",
+      "kind": "skyline",
+      "tileId": "context-cathedral"
+    }
+  ],
+  "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score."
+}

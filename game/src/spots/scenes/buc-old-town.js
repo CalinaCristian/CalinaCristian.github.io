@@ -483,7 +483,7 @@ export default {
         // source footprint does not establish present-day access to the ruins.
         if(CV.church){const ru=d.buildings.find(b=>b.id==='w658220894'),center=ru?centroid(ru.poly):null;
             const targets=[{label:'Vlad III bust',x:CV.bust.x,y:gy(CV.bust.x,CV.bust.z)+2.65,z:CV.bust.z,radius:.4},
-                {label:'Old Court church',x:CV.church.x,y:gy(CV.church.x,CV.church.z)+7,z:CV.church.z,radius:1.6}];
+                {label:'Old Court church',x:CV.church.x,y:gy(CV.church.x,CV.church.z)+7,z:CV.church.z,radius:1.6,surfaceTolerance:8}];
             if(center)targets.push({label:'Mapped Old Court ruins',x:center[0],y:gy(...center)+.7,z:center[1],radius:1.2});
             ctx.extras.curteaVecheVisit=photoHunt(ctx,{x:CV.bust.x-3,z:CV.bust.z-3,title:'Frame the Old Court details',targets,
                 unavailable:'Explore these source-backed features from the public street. Current access inside the excavations has not been verified.',

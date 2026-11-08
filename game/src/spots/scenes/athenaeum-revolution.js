@@ -105,7 +105,7 @@ export default {
             photoHunt(ctx, { ...start, title: 'Frame the Athenaeum', unavailable: 'The concert hall interior is not modelled; this visit stays in the public garden.', targets: [
                 { label: 'An Ionic portico column', ...column, y: AT.y + 9, radius: 1.4 },
                 { label: 'ATHENEUL ROMAN above the portico', ...frieze, y: AT.y + 15.3, radius: 1.2 },
-                { label: 'The ribbed dome', ...dome, y: AT.y + 38, radius: 2.2 },
+                { label: 'The ribbed dome', ...dome, y: AT.y + 38, radius: 2.2, surfaceTolerance: 12 },
             ], onDone: s => bucActivity(s, 'athenaeum-revolution', 'concert-hall', '📷 Athenaeum details', 'You framed the Ionic portico, inscription and dome from the garden.') });
         }
         if (balcony) ctx.interactables.push({ x: balcony.x, z: balcony.z, r: 4, label: 'Stand below the balcony (21 December 1989)', use: (s) => { s.ui.toast('21 December 1989', 'Ceaușescu\'s last speech from this balcony was booed by the crowd; he fled by helicopter from the roof the next day.'); s.sound.play('crowd', 0.6); } });

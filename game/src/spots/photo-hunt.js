@@ -9,25 +9,38 @@ export function photoHunt(ctx, { x, z, title, targets, unavailable, onDone }) {
     const ring = new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(points),new THREE.LineBasicMaterial({ color: '#fbbf24', transparent: true, opacity: .85, depthTest:false, depthWrite:false }));
     ring.renderOrder=999;
     ring.name='visitor-photo-guide';ring.userData.noFloor=true;ring.visible=false;ctx.add(ring);
-    const dir=new THREE.Vector3(),toward=new THREE.Vector3();
+    const dir=new THREE.Vector3(),toward=new THREE.Vector3(),origin=new THREE.Vector3(),ray=new THREE.Raycaster();
+    let occluders=[];
+    const visible = object => { for(let p=object;p;p=p.parent)if(!p.visible)return false;return true; };
+    const sight = (s,target) => {
+        s.camera.getWorldPosition(origin);toward.set(target.x-origin.x,target.y-origin.y,target.z-origin.z);
+        const distance=toward.length(),tolerance=target.surfaceTolerance??Math.max(.8,(target.radius||2)*1.5);
+        ray.set(origin,toward.normalize());ray.near=.08;ray.far=Math.max(.08,distance-tolerance);
+        ctx.scene.updateMatrixWorld(true);
+        const hit=ray.intersectObjects(occluders.filter(visible),false)[0];
+        guide.visibility={clear:!hit,targetDistance:distance,surfaceTolerance:tolerance,hitDistance:hit?.distance??null,blocker:hit?.object.name||null};
+        return !hit;
+    };
     const guide = { targets, captures: [], ring };
     ctx.extras.photoHunt=guide;
     ctx.interactables.push({ kind:'photo-hunt',x,z,r:3,label:title,use:s=>flow.begin(s,{
         title,action:'Frame the detail',lockWalker:false,
-        help:`${unavailable} Try this outdoor camera challenge: look with the mouse or swipe, centre the gold ring, then take each of ${targets.length} pictures.`,
-        started(s,r){r.step=0;r.flash=0;guide.captures=[];r.busy=true;ring.visible=true;},
+        help:`${unavailable} Move along the public paths for a clear view, look with the mouse or swipe, centre the gold ring, then take each of ${targets.length} pictures.`,
+        started(s,r){r.step=0;r.flash=0;r.sightAt=-Infinity;guide.captures=[];r.busy=true;ring.visible=true;occluders=[];ctx.scene.traverse(o=>{if(!o.isMesh)return;const materials=Array.isArray(o.material)?o.material:[o.material];if(materials.every(m=>m.depthTest===false||(m.transparent&&m.opacity<.15)))return;if(!o.geometry.boundingBox)o.geometry.computeBoundingBox();occluders.push(o);});},
         update(dt,s,r){
             const target=targets[r.step];if(!target)return;
             ring.position.set(target.x,target.y,target.z);ring.quaternion.copy(s.camera.getWorldQuaternion(new THREE.Quaternion()));
             ring.scale.setScalar((target.radius||2)*(1+.055*Math.sin(s.t*4)));
             s.camera.getWorldPosition(toward);toward.set(target.x-toward.x,target.y-toward.y,target.z-toward.z);const distance=toward.length();toward.normalize();s.camera.getWorldDirection(dir);
-            const dot=dir.dot(toward),ready=dot>Math.cos(7*Math.PI/180)&&distance>3&&distance<(target.maxDistance||260);
-            r.busy=!ready||r.flash>0;r.button.textContent=ready?'Take the picture':'Centre the gold ring';r.status.textContent=`${r.step+1}/${targets.length} · ${target.label}`;r.progress.value=(r.step+Math.max(0,(dot-.8)/.2)*.85)/targets.length;
+            const dot=dir.dot(toward),aligned=dot>Math.cos(7*Math.PI/180)&&distance>3&&distance<(target.maxDistance||260);
+            if(aligned&&(s.t-r.sightAt>.15||r.sightStep!==r.step)){r.clear=sight(s,target);r.sightAt=s.t;r.sightStep=r.step;}
+            const ready=aligned&&r.clear;
+            r.busy=!ready||r.flash>0;r.button.textContent=ready?'Take the picture':aligned?'Move for a clear view':'Centre the gold ring';r.status.textContent=`${r.step+1}/${targets.length} · ${target.label}`;r.progress.value=(r.step+Math.max(0,(dot-.8)/.2)*.85)/targets.length;
             ring.material.color.set(ready?'#9bffbe':'#fbbf24');
             if(r.flash>0){r.flash=Math.max(0,r.flash-dt);ring.material.opacity=.3+.55*(1-r.flash/.35);}
         },
         actioned(s,r){
-            if(r.busy)return;
+            if(r.busy||!sight(s,targets[r.step])){r.busy=true;return;}
             guide.captures.push({label:targets[r.step].label,position:{...s.position}});r.step++;if(s.host.audio?.shutter)s.host.audio.shutter();else s.sound.play('chime',.2);r.ui.animate?.([{filter:'brightness(2.8)'},{filter:'brightness(1)'}],{duration:350});
             if(r.step===targets.length){flow.complete();return;}r.flash=.35;r.busy=true;
         },

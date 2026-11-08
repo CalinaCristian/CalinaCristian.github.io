@@ -138,7 +138,7 @@ const HUD_HTML = `
 </div>
 <div class="dr-stick" aria-hidden="true"><i></i></div>
 <div class="dr-vert"><button data-hold="up" aria-label="Up">▲</button><button data-hold="down" aria-label="Down">▼</button></div>
-<div class="dr-help">WASD fly · mouse: look / gimbal · Space or E up · Q or C down · Shift boost · wheel or 1 2 3: speed mode · T go here · H home (hold: land now) · G or X land · P photo · Esc pause</div>`;
+<div class="dr-help">WASD fly · mouse: look / gimbal · Space or E up · Q or C down · Shift boost · wheel or 1 2 3: speed mode · N minimap · T go here · H home (hold: land now) · G or X land · P photo · Esc pause</div>`;
 
 export class Drone {
     constructor(game, { onEvent = null, onGoHere = null } = {}) {
@@ -280,6 +280,7 @@ export class Drone {
         const steps = Math.max(1, Math.round(dtT / 0.05));
         const inp = g.input;
         if (inp.take('Escape')) { g.togglePause?.(true); return true; }
+        if (inp.take('KeyN') && g.opts) { g.opts.minimap = !g.opts.minimap; g.saveOpt?.('minimap', g.opts.minimap); g.applyOpts?.(); } // N: minimap on / off here too (after round 6)
         { // H: tap = return home (flown back + landing animation); hold ≥ 0.6 s = land right here, no animation (round 6 note 18)
             const held = inp.keys?.has?.('KeyH'); inp.take('KeyH');
             if (held) { this._hHold = (this._hHold || 0) + dtT; if (this._hHold >= 0.6 && !this._hQuick) { this._hQuick = true; this.quickLand(); return true; } }

@@ -119,5 +119,24 @@
     "usage": "visual comparison only; no extraction into data; no imagery publication",
     "coverage": "pending full final source walk"
   },
-  "acceptance": "Source and visual pass in progress; acquisition coverage alone does not establish parity."
+  "acceptance": "Source and visual pass in progress; acquisition coverage alone does not establish parity.",
+  "measurements": {
+    "roofFootprints": 8930,
+    "individualRoofCropsReviewed": 80,
+    "calibrationRecord": "handoffs/fidelity/d-unirii/roof-calibration.json",
+    "treeCandidateCrowns": 40574,
+    "treeSurveyCoverageWgs84": [
+      44.4161262,
+      26.0884094,
+      44.4426047,
+      26.1323547
+    ],
+    "greenGrid": {
+      "width": 1024,
+      "height": 864,
+      "cellM": 3.412,
+      "vegetatedCellShare": 0.388
+    },
+    "limitations": "Candidate crowns retain survey positions/radii. Final source-aware exclusions and native rendering are audited after the shared roof/geometry prerequisite lands. No perf-driven thinning is accepted."
+  }
 }

@@ -1,0 +1,378 @@
+{
+  "id": "ase",
+  "name": "ASE — Palatul Ion N. Angelescu",
+  "researched_utc": "2026-11-08",
+  "source_precedence": "OSM tags > independently documented measurements > explicit modelling estimates. Google Street View used only for local visual comparison; no game attributes extracted.",
+  "anchor": {
+    "lat": 44.447807,
+    "lon": 26.0971572,
+    "rotation": 0,
+    "mPerLon": 79470.08331650188,
+    "mPerLat": 111132,
+    "quantization_m": 0.01
+  },
+  "osm": {
+    "url": "https://www.openstreetmap.org/relation/2274298",
+    "api": "https://api.openstreetmap.org/api/0.6/relation/2274298/full.json",
+    "version": 5,
+    "timestamp": "2021-05-13T17:45:31Z",
+    "tags": {
+      "building": "university",
+      "name": "Clădirea Ion N. Angelescu",
+      "type": "multipolygon"
+    },
+    "outer_way": 23647620,
+    "inner_ways": [
+      171045162,
+      171045163,
+      171045158,
+      171045161
+    ],
+    "rings": {
+      "23647620": [
+        [
+          -18.37,
+          -0.54
+        ],
+        [
+          -20.11,
+          -46.76
+        ],
+        [
+          -44.45,
+          -48.3
+        ],
+        [
+          -40.32,
+          31.74
+        ],
+        [
+          -40.09,
+          34.61
+        ],
+        [
+          -39.62,
+          36.11
+        ],
+        [
+          -38.88,
+          37.63
+        ],
+        [
+          -37.5,
+          38.59
+        ],
+        [
+          -36.19,
+          39.4
+        ],
+        [
+          -34.07,
+          40.02
+        ],
+        [
+          -32.12,
+          39.99
+        ],
+        [
+          -30.61,
+          39.25
+        ],
+        [
+          -25.91,
+          40.74
+        ],
+        [
+          -22.94,
+          41.86
+        ],
+        [
+          -19.36,
+          43.15
+        ],
+        [
+          -15.02,
+          45.02
+        ],
+        [
+          -11.23,
+          46.82
+        ],
+        [
+          -7.85,
+          48.63
+        ],
+        [
+          -4.55,
+          50.89
+        ],
+        [
+          -1.03,
+          47.03
+        ],
+        [
+          3.58,
+          42.33
+        ],
+        [
+          -1.71,
+          38.35
+        ],
+        [
+          4.08,
+          34.24
+        ],
+        [
+          34.44,
+          37.88
+        ],
+        [
+          34.7,
+          36.01
+        ],
+        [
+          34.77,
+          34.12
+        ],
+        [
+          38.67,
+          34.62
+        ],
+        [
+          42.3,
+          6.45
+        ],
+        [
+          7.57,
+          2.44
+        ]
+      ],
+      "171045162": [
+        [
+          0.46,
+          14.35
+        ],
+        [
+          0.04,
+          19.98
+        ],
+        [
+          2.27,
+          23.06
+        ],
+        [
+          15.77,
+          24.24
+        ],
+        [
+          16.66,
+          16.01
+        ]
+      ],
+      "171045163": [
+        [
+          -9.82,
+          8.57
+        ],
+        [
+          -3.5,
+          17.01
+        ],
+        [
+          -3.15,
+          9.35
+        ]
+      ],
+      "171045158": [
+        [
+          -5.36,
+          22.96
+        ],
+        [
+          -19.02,
+          33.91
+        ],
+        [
+          -11.0,
+          36.2
+        ],
+        [
+          -1.1,
+          28.26
+        ]
+      ],
+      "171045161": [
+        [
+          -25.56,
+          4.87
+        ],
+        [
+          -17.76,
+          5.39
+        ],
+        [
+          -30.45,
+          16.21
+        ],
+        [
+          -30.68,
+          8.66
+        ],
+        [
+          -27.19,
+          8.69
+        ],
+        [
+          -25.69,
+          7.43
+        ]
+      ]
+    },
+    "bridges": [
+      {
+        "osm": "w783025570",
+        "tags": {
+          "bridge": "covered",
+          "highway": "footway",
+          "lanes": "2",
+          "layer": "1"
+        },
+        "line": [
+          [
+            34.7,
+            36.01
+          ],
+          [
+            55.95,
+            39.1
+          ],
+          [
+            57.65,
+            39.49
+          ],
+          [
+            58.86,
+            40.16
+          ],
+          [
+            59.7,
+            40.89
+          ],
+          [
+            60.96,
+            42.52
+          ]
+        ]
+      },
+      {
+        "osm": "w942676266",
+        "tags": {
+          "bridge": "covered",
+          "highway": "footway",
+          "lanes": "2",
+          "layer": "1"
+        },
+        "line": [
+          [
+            7.57,
+            2.44
+          ],
+          [
+            8.34,
+            -3.17
+          ]
+        ]
+      }
+    ]
+  },
+  "sources": [
+    {
+      "id": "ase-official-close",
+      "url": "https://ase.ro/app/uploads/2023/02/ase-1.jpg",
+      "publisher": "Academia de Studii Economice din București",
+      "used_for": [
+        "Pale silver ribbed dome with oculi",
+        "Giant engaged columns spanning two upper levels",
+        "Arched lower upper-floor windows and rectangular windows above",
+        "Attic windows above a deep entablature",
+        "Red www.ase.ro roof sign and ACADEMIA DE STUDII ECONOMICE facade inscription"
+      ],
+      "rights": "Official website photograph, reference inspection only; not redistributed or used as texture."
+    },
+    {
+      "id": "ase-official-corner",
+      "url": "https://ase.ro/app/uploads/2023/09/Cladire-ASE-panorama-600x500.jpg",
+      "publisher": "Academia de Studii Economice din București",
+      "used_for": [
+        "Southwest rounded corner pavilion",
+        "Column bases/capitals and balcony/parapet arrangement",
+        "Open lantern and small cap above dome"
+      ],
+      "rights": "Official website photograph, reference inspection only; not redistributed or used as texture."
+    },
+    {
+      "id": "commons-2011",
+      "url": "https://commons.wikimedia.org/wiki/File:Academia_de_Studii_Economice.jpg",
+      "author": "Mihai Petre",
+      "date": "2011-07-14",
+      "license": "CC BY-SA 3.0 ro",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0/ro/deed.en",
+      "used_for": [
+        "Independent historic confirmation of facade composition, dome and roof sign"
+      ],
+      "rights": "Reference only; source image not shipped."
+    },
+    {
+      "id": "esri-aerial",
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "attribution": "Esri, Maxar, Earthstar Geographics, and the GIS User Community",
+      "local_mosaic": "/workspace/reality-pass/romana/m18",
+      "mosaic_metadata": {
+        "z": 18,
+        "px0": 38414592,
+        "py0": 24281088,
+        "mPerPx": 0.4263041049871542
+      },
+      "used_for": [
+        "Red roof on long north-west wing versus silver/grey complex roof",
+        "Independent footprint/courtyard/covered-connection visual comparison"
+      ],
+      "limitations": [
+        "Tall roofs displaced northeast relative to ground footprint by aerial parallax",
+        "No height, precise roof ridge, or bridge width/elevation measurement inferred from this aerial",
+        "Detailed ridges, historic wings and courtyard-roof topology remain unresolved"
+      ]
+    }
+  ],
+  "dome_placement": {
+    "method": "Least-squares circle fit of mapped outer vertices 3 through 10 inclusive, projected into local metres",
+    "centre_m": [
+      -33.29747998,
+      32.97683904
+    ],
+    "mapped_corner_radius_m": 7.08503853,
+    "max_radial_residual_m": 0.18562219,
+    "dome_base_radius_m": 6.85,
+    "dome_radius_status": "Modelling estimate slightly inset from fitted mapped corner; not a surveyed roof diameter"
+  },
+  "modelling_estimates": {
+    "main_wall_top_m": 22,
+    "roof_rise_max_m": 3.1,
+    "dome_base_y_m": 22.05,
+    "dome_top_y_m": 32.5,
+    "lantern_and_finial_top_m": 38.25,
+    "bridge_width_m": 2.8,
+    "bridge_underside_m": 5.2,
+    "bridge_top_m": 8.05,
+    "status": "No source OSM height, building:levels, min_height or roof:shape tags exist for r2274298. Retains prior 22m wall-height convention. Vertical proportions, bay counts, roof slopes/topology, dome rib count and material palette are explicit modelling approximations based on non-Google reference photographs, not measured physical facts."
+  },
+  "open_gaps": [
+    "Measured elevations and individual wing heights",
+    "Exact roof ridges/mansards and courtyard roof topology",
+    "Rear/courtyard facade detailing and exact aperture counts",
+    "Exact dome profile/rib/oculus counts and measured diameter",
+    "Covered bridge dimensions, vertical clearance and modern enclosure details",
+    "Contextual campus podium/adjacent buildings remain their independent source models; no invented podium added"
+  ],
+  "local_evidence": "/workspace/ase-evidence/ (includes local-only Google reference; do not publish or commit imagery)"
+}

@@ -1,0 +1,198 @@
+{
+  "touch": true,
+  "spots": [
+    {
+      "id": "palace-parliament",
+      "nativeLooks": [
+        6,
+        2,
+        2
+      ],
+      "targets": [
+        {
+          "label": "The central balcony over the boulevard",
+          "x": -145,
+          "y": 27.4,
+          "z": -10.5,
+          "radius": 4
+        },
+        {
+          "label": "The north wing",
+          "x": -163,
+          "y": 28.4,
+          "z": -88.5,
+          "radius": 5
+        },
+        {
+          "label": "The south wing",
+          "x": -163,
+          "y": 28.4,
+          "z": 67.5,
+          "radius": 5
+        }
+      ],
+      "perf": {
+        "triangles": 583724,
+        "calls": 69
+      },
+      "captures": [
+        {
+          "label": "The central balcony over the boulevard",
+          "position": {
+            "x": 44.3838,
+            "z": -16,
+            "y": 0.1344648,
+            "heading": 1.6439926535897929
+          }
+        },
+        {
+          "label": "The north wing",
+          "position": {
+            "x": 44.3838,
+            "z": -16,
+            "y": 0.1344648,
+            "heading": 1.2344838645272929
+          }
+        },
+        {
+          "label": "The south wing",
+          "position": {
+            "x": 44.3838,
+            "z": -16,
+            "y": 0.1344648,
+            "heading": 1.9535722629647927
+          }
+        }
+      ]
+    },
+    {
+      "id": "arcul-de-triumf",
+      "nativeLooks": [
+        11,
+        3,
+        3
+      ],
+      "targets": [
+        {
+          "label": "The central arch opening",
+          "x": -29.681620469978885,
+          "y": 10.029791350216632,
+          "z": -96.69779876936327,
+          "radius": 2
+        },
+        {
+          "label": "The western sculpted pier",
+          "x": -19.582651807199422,
+          "z": -95.26572616359273,
+          "y": 15.029791350216632,
+          "radius": 1.8
+        },
+        {
+          "label": "The eastern sculpted pier",
+          "x": -36.49695396510838,
+          "z": -89.10891022424904,
+          "y": 15.029791350216632,
+          "radius": 1.8
+        }
+      ],
+      "perf": {
+        "triangles": 277362,
+        "calls": 43
+      },
+      "captures": [
+        {
+          "label": "The central arch opening",
+          "position": {
+            "x": -23.866849860598737,
+            "z": -80.72318006467148,
+            "y": -0.12020864978336726,
+            "heading": 0.3959926535897927
+          }
+        },
+        {
+          "label": "The western sculpted pier",
+          "position": {
+            "x": -23.866849860598737,
+            "z": -80.72318006467148,
+            "y": -0.12020864978336726,
+            "heading": -0.28649304953520727
+          }
+        },
+        {
+          "label": "The eastern sculpted pier",
+          "position": {
+            "x": -23.866849860598737,
+            "z": -80.72318006467148,
+            "y": -0.12020864978336726,
+            "heading": 0.8655069504647925
+          }
+        }
+      ]
+    },
+    {
+      "id": "bel-lincoln-square",
+      "nativeLooks": [
+        2,
+        3,
+        2
+      ],
+      "targets": [
+        {
+          "label": "Lincoln Square North: the office tower",
+          "x": 56.3,
+          "y": 57.43949589617262,
+          "z": 58.5,
+          "radius": 9
+        },
+        {
+          "label": "The west end of the Bellevue Way skybridge",
+          "x": 3,
+          "y": 6.469595470428467,
+          "z": 96.4,
+          "radius": 2
+        },
+        {
+          "label": "Lincoln Square North: the crown",
+          "x": 56.3,
+          "y": 120.43949589617262,
+          "z": 58.5,
+          "radius": 7
+        }
+      ],
+      "perf": {
+        "triangles": 266696,
+        "calls": 101
+      },
+      "captures": [
+        {
+          "label": "Lincoln Square North: the office tower",
+          "position": {
+            "x": -2,
+            "z": 2,
+            "y": -0.013445560075342715,
+            "heading": 3.909592653589793
+          }
+        },
+        {
+          "label": "The west end of the Bellevue Way skybridge",
+          "position": {
+            "x": -2,
+            "z": 2,
+            "y": -0.013445560075342715,
+            "heading": 3.1945092551522927
+          }
+        },
+        {
+          "label": "Lincoln Square North: the crown",
+          "position": {
+            "x": -2,
+            "z": 2,
+            "y": -0.013445560075342715,
+            "heading": 3.942669001246043
+          }
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

@@ -1,6 +1,6 @@
 # Integrated native conditions and office controls
 
-Runtime base **9afb80e**, immutable local snapshot f7124b0 (the added commits only bound QA navigation). This is UI/control proof; the final rebuilt district datasets still need mandatory, population/render and memory acceptance. The source manifest records tested UI/runtime file hashes and all eight dataset hashes. Reuse after a source-only rebuild requires the relevant UI/runtime hashes to match.
+Runtime base **9afb80e**, immutable local snapshot f7124b0 (the added commits only bound QA navigation). This is UI/control proof; the final rebuilt district datasets still need mandatory, population/render and memory acceptance. The source manifest records tested UI/runtime file hashes and all eight dataset hashes. Reuse after a source-only rebuild requires the relevant UI/runtime hashes to match. `proof/freeze-compatibility.json` verifies scoped reuse on final geometry/data freeze4198996: all11 listed UI runtime files and all8 road/projection fields match; raw POI string/building-index shifts decode to identical coordinates, names, brands, subtypes and source building IDs for all1,474 POIs. This does not extend acceptance to final world geometry, render budgets or resource retention.
 
 `conditions-check.cjs --controls` passes **124/124**, with **zero page errors**. Actual keyboard, pointer and touchscreen controls exercise:
 

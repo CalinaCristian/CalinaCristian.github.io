@@ -47,7 +47,19 @@ const persist = () => { fs.writeFileSync(path.join(out, 'profile.next.json'), JS
         await game.enterChapter(game.chapters.findIndex(c => c.id === 'arnia'), { initial: true });
         game.clock.override = 'day'; game.updateClock(0); game.r3d.setWeather('clear', { instant: true }); game.r3d.setSeason('summer');
         game.r3d.setQuality('high'); game.player.mirrorEnabled = true; game.traffic.setHour(8, true);
-        const S = __integrationSoak, C = game.traffic.peds;
+        const T = game.traffic, S = __integrationSoak, C = T.peds;
+        const snapshot = () => ({ counts: T.counts, base: T.base, target: T.target, profile: T.profile, maxVehicles: T.maxVehicles,
+            jamExtra: T.jamExtra, jamBuilt: T._jamBuilt || 0, large: T.large,
+            kinds: Object.fromEntries([...new Set([...T.vehicles, ...T.pool].map(v => v.kind))].map(kind => [kind, { active: T.vehicles.filter(v => v.kind === kind).length, pooled: T.pool.filter(v => v.kind === kind).length }])),
+            activeIds: T.vehicles.map(v => v.id), pooledIds: T.pool.map(v => v.id) });
+        S.populationPreparation = { initial: snapshot(), seconds: [] };
+        // Only normal simulation may restore actors that native chapter placement temporarily pooled.
+        // Preserve every original actor and record each second; never force a pose or change admission.
+        for (let second = 1; second <= 60 && (T.counts.moving < T.target.moving || T.counts.parked < T.target.parked); second++) {
+            for (let frame = 0; frame < 30; frame++) T.update(1 / 30);
+            S.populationPreparation.seconds.push({ second, ...snapshot() });
+        }
+        S.populationPreparation.final = snapshot();
         S.start = game.traffic.time; S.identities = new Set(C.list); S.vehicleIdentities = new Set(game.traffic.vehicles);
         S.last = new Map(C.list.map(p => [p, { x: p.x, z: p.z, path: 0, minutePath: 0, stationarySeconds: 0, maxStationarySeconds: 0 }]));
         const relocate = C.relocate;
@@ -58,22 +70,31 @@ const persist = () => { fs.writeFileSync(path.join(out, 'profile.next.json'), JS
             return result;
         };
     });
+    report.populationPreparation = await page.evaluate(() => __integrationSoak.populationPreparation);
+    persist();
+    console.log(JSON.stringify({ populationPreparation: { counts: report.populationPreparation.final.counts, base: report.populationPreparation.final.base, target: report.populationPreparation.final.target, kinds: report.populationPreparation.final.kinds } }));
+    if (process.env.SOAK_DIAGNOSTIC === '1') { report.diagnosticOnly = true; return; }
+    const native = report.populationPreparation.final;
+    report.expectedPopulation = { people: 560, vehicles: native.counts.active, basis: 'Unmodified final-source native maxVehicles/high-quality admission and hour-8 target; no population cuts or forced placements.' };
+    if (native.counts.moving !== native.target.moving || native.counts.parked !== native.target.parked) throw new Error('Native population did not reach its configured moving/parked target; see pool/base/target breakdown');
     report.setup = await page.evaluate(() => ({ draws: __integrationSoak.draws, accumulated: { ...game.renderer.info.render } }));
     for (const file of ['game/src/render.js', 'game/src/progressive-pmrem.js', 'game/src/main.js', 'game/src/world.js', 'game/src/traffic.js', 'game/src/vehicles.js', 'game/data/bucharest-romana.json']) report.source[file] = crypto.createHash('sha256').update(fs.readFileSync(path.join(root, file))).digest('hex');
-    async function frame(label) {
-        const row = await page.evaluate(label => {
+    async function frame(label, captureName = null) {
+        const row = await page.evaluate(({ label, capture }) => {
             const S = __integrationSoak, r = game.r3d; S.draws = [];
             const before = { ...game.renderer.info.render };
             harness.H._renderNow = true; game.drawFrame({ mirror: true }); harness.H._renderNow = false;
-            return { label, before, stats: { ...r.stats }, draws: S.draws, pending: !!r._envJob, phase: r._envJob?.phase || null, fade: r._envFade,
+            return { label, framePng: capture ? game.renderer.domElement.toDataURL('image/png') : null, before, stats: { ...r.stats }, draws: S.draws, pending: !!r._envJob, phase: r._envJob?.phase || null, fade: r._envFade,
                 conditions: { override: r.clock?.override, weather: r._wxOverride, cloud: r._wx?.cloud, sunElevation: r.sunElevation, shadow: r.sun.castShadow },
                 population: { people: game.traffic.peds.list.length, vehicles: game.traffic.vehicles.length, originalPeople: game.traffic.peds.list.every(p => S.identities.has(p)), originalVehicles: game.traffic.vehicles.every(p => S.vehicleIdentities.has(p)) } };
-        }, label);
+        }, { label, capture: !!captureName });
+        if (captureName) fs.writeFileSync(path.join(out, captureName), Buffer.from(row.framePng.split(',')[1], 'base64'));
+        delete row.framePng;
         row.logical = row.draws.reduce((sum, d) => ({ calls: sum.calls + d.calls, triangles: sum.triangles + d.triangles }), { calls: 0, triangles: 0 });
         if (row.stats.drawCalls !== row.before.calls + row.logical.calls || row.stats.triangles !== row.before.triangles + row.logical.triangles) report.failures.push({ type: 'counter-accounting', label, before: row.before, stats: row.stats, logical: row.logical });
         if (row.logical.calls > 400 || row.logical.triangles > 1500000) report.failures.push({ type: 'active-budget', label, ...row.logical });
         if (!row.draws.some(d => d.pass === 'mirror')) report.failures.push({ type: 'mirror-absent', label });
-        if (row.population.people !== 560 || row.population.vehicles !== 640 || !row.population.originalPeople || !row.population.originalVehicles) report.failures.push({ type: 'population', label, population: row.population });
+        if (row.population.people !== 560 || row.population.vehicles !== report.expectedPopulation.vehicles || !row.population.originalPeople || !row.population.originalVehicles) report.failures.push({ type: 'population', label, population: row.population });
         return row;
     }
     // The deterministic clear-weather choice can replace the climate map built at scene load.
@@ -114,9 +135,8 @@ const persist = () => { fs.writeFileSync(path.join(out, 'profile.next.json'), JS
                 recoveries: people.filter(p => p.recovery).length, stalledRecoveries: people.filter(p => p.recovery && p.stationarySeconds > 120),
                 pub: Object.fromEntries([10, 20, 40].map(r => [r, C.list.filter(p => Math.hypot(p.x - 579.6, p.z - 884.5) < r).length])), pedStats: { ...C.stats } };
         }, minute);
-        sample.frames = [await frame(`minute-${minute}`)];
+        sample.frames = [await frame(`minute-${minute}`, [0, 5, 10, 15, minutes].includes(minute) ? `minute-${minute}.png` : null)];
         if (minute === 0) sample.frames.push(await frame('minute-0-warm'));
-        if ([0, 5, 10, 15, minutes].includes(minute)) await page.screenshot({ path: path.join(out, `minute-${minute}.png`), timeout: 120000 });
         if (sample.visibleSnaps.length) report.failures.push({ type: 'visible-pedestrian-step-over-0.4m', minute, samples: sample.visibleSnaps });
         if (sample.stalledRecoveries.length) report.failures.push({ type: 'stationary-recovery-over-120s', minute, samples: sample.stalledRecoveries });
         report.samples.push(sample); persist();
@@ -132,8 +152,8 @@ const persist = () => { fs.writeFileSync(path.join(out, 'profile.next.json'), JS
     report.wallEnd = Date.now(); report.wallDurationSeconds = (report.wallEnd - report.wallStart) / 1000;
     report.relocations = await page.evaluate(() => __integrationSoak.relocations);
     for (const row of report.relocations) if (row.distance > .4 && (row.from.visible || row.to.visible)) report.failures.push({ type: 'visible-relocation', ...row });
-    report.summary = { maxCalls: Math.max(...[...report.warmFrames, ...report.samples.flatMap(s => s.frames), ...report.refreshes.flatMap(s => s.frames)].map(f => f.logical.calls)), maxTriangles: Math.max(...[...report.warmFrames, ...report.samples.flatMap(s => s.frames), ...report.refreshes.flatMap(s => s.frames)].map(f => f.logical.triangles)), physicalSimSeconds: report.samples.at(-1).physicalSimSeconds };
-    await page.screenshot({ path: path.join(out, 'evolved-final.png'), timeout: 120000 });
+    report.finalFrame = await frame('evolved-final', 'evolved-final.png');
+    report.summary = { maxCalls: Math.max(...[...report.warmFrames, ...report.samples.flatMap(s => s.frames), ...report.refreshes.flatMap(s => s.frames), report.finalFrame].map(f => f.logical.calls)), maxTriangles: Math.max(...[...report.warmFrames, ...report.samples.flatMap(s => s.frames), ...report.refreshes.flatMap(s => s.frames), report.finalFrame].map(f => f.logical.triangles)), physicalSimSeconds: report.samples.at(-1).physicalSimSeconds };
     report.complete = true;
 })().catch(e => { report.fatal = e.stack; process.exitCode = 1; }).finally(async () => {
     report.complete ??= false; persist(); await browser?.close(); await new Promise(resolve => server.close(resolve));

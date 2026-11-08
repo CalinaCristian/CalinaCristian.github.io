@@ -29,6 +29,15 @@
       }
     },
     {
+      "manifest": "game/overview/comparison-data/floreasca/context/summer-clear-night/manifest.json",
+      "kind": "perspective",
+      "frames": 10,
+      "verifiedImageHashes": 20,
+      "sourceCounts": {
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 10
+      }
+    },
+    {
       "manifest": "game/overview/comparison-data/romana/manifest.json",
       "kind": "current",
       "frames": 116,

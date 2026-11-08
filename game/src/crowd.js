@@ -11,7 +11,7 @@ import { addPreRenderHook, getVehicleEnvMap } from './vehicles.js';
 // ============================================================================
 
 // part ids (aPart): colour + visibility rule in the shader
-const P = { SKIN: 0, TOP: 1, BOTTOM: 2, SHOES: 3, HAIR: 4, COAT: 5, HAT: 6, UMBRELLA: 7, BAG: 8, STRIPE: 9, HELMET: 10, POLE: 11, SLEEVE: 12, SKIRT: 13, PHONE: 14, CAMERA: 15, FLAGPOLE: 16, FLAGCLOTH: 17, GUITAR: 18, GUITARNECK: 19, SCREEN: 20, FACE: 21, MOUTH: 22, SCARF: 23, PAINT: 24 };
+const P = { SKIN: 0, TOP: 1, BOTTOM: 2, SHOES: 3, HAIR: 4, COAT: 5, HAT: 6, UMBRELLA: 7, BAG: 8, STRIPE: 9, HELMET: 10, POLE: 11, SLEEVE: 12, SKIRT: 13, PHONE: 14, CAMERA: 15, FLAGPOLE: 16, FLAGCLOTH: 17, GUITAR: 18, GUITARNECK: 19, SCREEN: 20, FACE: 21, MOUTH: 22, SCARF: 23, PAINT: 24, SELFIE: 25, SELFIESCR: 26 };
 // limbs (aLimb): 0 none, 1/2 left/right thigh, 3/4 left/right upper arm, 5/6 left/right forearm (+ hand, hand-held props),
 // 7/8 left/right shin (+ shoe). Joints (rest pose, arms hanging): hip (±0.095, 0.90), knee (±0.095, 0.50),
 // shoulder (±0.235, 1.43), elbow (±0.245, 1.15).
@@ -97,6 +97,10 @@ function personGeometry() {
     // hand-held props (right forearm; in the rest pose the hand hangs at (0.245, 0.83))
     b.add(BOX, TM(0.235, 0.80, -0.035, 0.012, 0.14, 0.07), P.PHONE, 6);                         // phone (screen faces the head when raised)
     b.add(BOX, TM(0.228, 0.80, -0.035, 0.002, 0.12, 0.058), P.SCREEN, 6);
+    // (after round 6: "they hold the phone weird") phone photo: an upright phone at arm's length in front of the face,
+    // screen toward the person (the arm-mounted phone showed edge-on, like a walkie-talkie)
+    b.add(BOX, TM(0.21, 1.58, -0.66, 0.075, 0.15, 0.012, 0.12, 0, 0), P.SELFIE);
+    b.add(BOX, TM(0.21, 1.58, -0.653, 0.066, 0.135, 0.002, 0.12, 0, 0), P.SELFIESCR);
     b.add(BOX, TM(0.17, 0.79, -0.06, 0.13, 0.085, 0.075), P.CAMERA, 6);                          // camera body
     b.add(taper(0.028, 0.028, -0.025, 0.025, 8), TM(0.17, 0.79, -0.11, 1, 1, 1, Math.PI / 2, 0, 0), P.CAMERA, 6); // lens
     b.add(taper(0.012, 0.012, -0.55, 0.9, 4), TM(0.245, 0, 0), P.FLAGPOLE, 6);                   // guide flag pole (points along the forearm)
@@ -144,7 +148,7 @@ const GLSL_HEAD = `
         if (umb > 0.5 && R > 0.5) { pitch = 0.4; roll = 0.0; elbow = 2.1; yaw = 0.6; }                          // umbrella: fist at (0.074, 1.43, −0.25), on the shaft (round 6 note 48)
         if (cIs(pose, 1.0) > 0.5) { pitch = 0.55; roll = 0.0; elbow = 0.75; yaw = 0.15; }                       // sit: hands on the thighs
         if (cIs(pose, 2.0) > 0.5) { if (R > 0.5) { pitch = 0.3; roll = 0.0; elbow = 1.85; yaw = 0.55; } else { pitch = 0.2; roll = 0.0; elbow = 1.55; yaw = 0.5; } } // phone
-        if (cIs(pose, 3.0) > 0.5) { if (flagOn(fl, 64.0) > 0.5 && flagOn(fl, 128.0) < 0.5) { if (R > 0.5) { pitch = 1.4; roll = 0.0; elbow = 0.8; yaw = 0.2; } } // phone photo: one arm out at eye level (note 50)
+        if (cIs(pose, 3.0) > 0.5) { if (flagOn(fl, 64.0) > 0.5 && flagOn(fl, 128.0) < 0.5) { if (R > 0.5) { pitch = 1.62; roll = 0.0; elbow = 0.3; yaw = 0.12; } } // phone photo: right arm out to the phone held in front of the face (note 50)
             else { pitch = 1.0; roll = 0.0; elbow = 2.0; yaw = 0.62; } }                                         // camera photo: both hands at the face
         if (cIs(pose, 4.0) > 0.5 && R > 0.5) { pitch = 0.2; roll = 2.45 + sin(t * 7.0) * 0.28; elbow = 0.5; yaw = 0.0; } // wave
         if (cIs(pose, 5.0) > 0.5 && R > 0.5) { pitch = 1.45; roll = 0.1; elbow = 0.08; yaw = -0.15; }           // point
@@ -185,6 +189,9 @@ const GLSL_HEAD = `
         if ((aPart > 6.5 && aPart < 7.5) || (aPart > 10.5 && aPart < 11.5)) return umb;
         if (aPart > 7.5 && aPart < 8.5) return bag * (1.0 - sit);
         if (aPart > 8.5 && aPart < 10.5) return wk;
+        float selfie = cIs(pose, 3.0) * flagOn(fl, 64.0) * (1.0 - flagOn(fl, 128.0));
+        if (aPart > 24.5) return selfie;
+        if ((aPart > 13.5 && aPart < 14.5) || (aPart > 19.5 && aPart < 20.5)) return flagOn(fl, 64.0) * (1.0 - flagOn(fl, 128.0)) * (1.0 - selfie); // (the arm phone hides while the selfie phone shows)
         if (aPart > 22.5) return flagOn(fl, 1024.0);
         if ((aPart > 13.5 && aPart < 14.5) || (aPart > 19.5 && aPart < 20.5)) return flagOn(fl, 64.0) * (1.0 - flagOn(fl, 128.0));
         if (aPart > 14.5 && aPart < 15.5) return flagOn(fl, 128.0);
@@ -232,13 +239,15 @@ function crowdMaterial() {
             else if (aPart < 20.5) { cc = vec3(0.25, 0.45, 0.8); vEmis = 0.9; }      // phone screen
             else if (aPart < 21.5) { cc = vec3(0.035, 0.028, 0.024); vRough = 0.4; }  // eyes / brows
             else if (aPart < 22.5) cc = aSkin * vec3(0.72, 0.5, 0.48);                // mouth
+            else if (aPart > 25.5) { cc = vec3(0.3, 0.5, 0.85); vEmis = 0.9; }   // selfie phone screen
+            else if (aPart > 24.5) { cc = vec3(0.02); vRough = 0.3; }             // selfie phone body
             else { float tx = aPart < 23.5 ? position.x / 0.075 : (position.x + 0.05) / 0.022; cc = tx < -0.33 ? vec3(0.0, 0.12, 0.5) : tx < 0.33 ? vec3(0.95, 0.75, 0.0) : vec3(0.7, 0.03, 0.06); } // tricolour (blue / yellow / red)
             vColor.rgb = cc;`);
         sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying float vRough; varying float vEmis;')
             .replace('#include <roughnessmap_fragment>', 'float roughnessFactor = vRough;')
             .replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\ntotalEmissiveRadiance += diffuseColor.rgb * vEmis;');
     };
-    m.customProgramCacheKey = () => 'crowd6';
+    m.customProgramCacheKey = () => 'crowd7';
     const env = getVehicleEnvMap?.(); if (env) { m.envMap = env; m.envMapIntensity = 0.35; }
     return (MAT = m);
 }
@@ -247,7 +256,7 @@ function crowdDepthMaterial() {
     if (DEPTH) return DEPTH;
     const m = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking });
     m.onBeforeCompile = (sh) => { sh.uniforms.uCrowdTime = UTIME; sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\n' + GLSL_HEAD).replace('#include <begin_vertex>', '#include <begin_vertex>\n' + GLSL_POSE); };
-    m.customProgramCacheKey = () => 'crowdDepth6';
+    m.customProgramCacheKey = () => 'crowdDepth7';
     return (DEPTH = m);
 }
 

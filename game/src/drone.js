@@ -445,10 +445,6 @@ export class Drone {
         const C = c.colliders; if (!C) return;
         const y = this.pos.y, one = [null];
         const test = (b) => {
-            // The stadium's coarse car collider fills its open bowl. The drone
-            // can fly over it and descend into the actual pitch, without opening
-            // the surrounding stands or changing car/walker collisions.
-            if (b.landmark === 'dinamo' && this.g.football?.allowsFlightAt(this.pos)) return;
             let top;
             if (b.wall) top = Math.max(b.y1a ?? 0, b.y1b ?? 0);
             else if (b.y1 !== undefined) top = b.y1;
@@ -457,7 +453,7 @@ export class Drone {
             if (b.y0 !== undefined && y < b.y0 - 0.4) return;
             if (b.yMax !== undefined) return; // bridge piers etc.: only for traffic below the deck
             one[0] = b;
-            const r = collideBuildings(one, this.pos.x, this.pos.z, 0.35, b.wall ? y : undefined);
+            const r = collideBuildings(one, this.pos.x, this.pos.z, 0.35, y);
             if (r) { this.pos.x += r.px * 1.01; this.pos.z += r.pz * 1.01; const l = Math.hypot(r.px, r.pz) || 1, nx = r.px / l, nz = r.pz / l, vn = this.vel.x * nx + this.vel.z * nz; if (vn < 0) { this.vel.x -= nx * vn; this.vel.z -= nz * vn; } }
         };
         try { if (C.query) C.query(this.pos.x, this.pos.z, 2, test); else for (const b of C) test(b); } catch { /* ignore */ }

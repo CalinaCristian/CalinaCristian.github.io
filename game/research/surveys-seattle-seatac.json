@@ -39,7 +39,12 @@
       -122.2833252
     ],
     "crownHeight": "radius-derived visual estimate; no species or literal height extracted from imagery",
-    "greenCoverage": null,
+    "greenCoverage": [
+      47.4318033,
+      -122.3149109,
+      47.4633794,
+      -122.2833252
+    ],
     "roofCalibrationChanges": [
       {
         "sourceId": "w150750085",
@@ -13795,17 +13800,91 @@
         "preparedConfidence": 0.49,
         "observation": "Inspected in the stratified80-crop calibration; no additional decisive shape assertion recorded. Conservative calibration rule retained."
       }
-    ]
+    ],
+    "actualPixelCoverage": [
+      47.4318033,
+      -122.3149109,
+      47.4633794,
+      -122.2833252
+    ],
+    "greenSampleGrid": {
+      "_source": "aerial imagery (Esri World Imagery) measured by tools/aerial/trees.py; vegetation raster only, no imagery stored",
+      "_format": "w x h cells over [north, west, south, east]; rle = run lengths per row (off, on, off, \u2026, -1 at each row end)",
+      "north": 47.4633794,
+      "west": -122.3149109,
+      "south": 47.4318033,
+      "east": -122.2833252,
+      "w": 736,
+      "h": 1088,
+      "cellM": 3.231,
+      "share": 0.275
+    }
   },
   "streetView": {
     "use": "comparison only; no attribute extraction",
     "finalSourceWalk": "pending final source rebuild",
-    "referenceImagesTracked": false
+    "referenceImagesTracked": false,
+    "baselineMetadataCoverage": {
+      "source": "old pre-source world; repeated after final rebuilt world",
+      "candidateViews": 846,
+      "usablePanoViews": 784,
+      "unusablePanoViews": 50,
+      "duplicateViewsSkipped": 12,
+      "publicUploadExcluded": 12
+    },
+    "sourceWalk": {
+      "sourceCommit": "a9f77967c37fdf004ebd154609ec3b2f6cd013e9",
+      "candidatePoses": 786,
+      "matchedUniqueGooglePanosAndViews": 762,
+      "unavailableWithin20m": 16,
+      "publicUploadMatchesExcluded": 8,
+      "duplicateViewsOmitted": 8,
+      "streets": 18,
+      "spacingM": 50,
+      "headings": [
+        "left",
+        "right",
+        "fwd"
+      ],
+      "scope": "Compiled public drivable non-virtual, non-tunnel streets excluding service, motorway, motorway_link and trunk_link; not an indoor/airfield/private or complete nearby-ring walk. Metadata availability is separate from image comparison completion.",
+      "comparisonImagesComplete": false,
+      "referenceImagesTracked": false
+    }
   },
   "remainingUncertainty": [
     "OSM omissions cannot be recreated as measured source geometry.",
     "Unknown source heights remain explicit estimates; imagery does not establish absolute building height.",
     "Unresolved compound, tree-occluded and deeply shadowed roofs retain uncertain shape/color rather than asserted source parity.",
     "Mosaic acquisition dates are unknown."
-  ]
+  ],
+  "sourceWorld": {
+    "buildPrerequisiteCommit": "ade211e286fae79d78b0f75607310b9cbdf2d974",
+    "datasetSha256": "37566447c01c4cd1e419136f1d9fc72c604e9a3cf38fec4277a740a5b7f5173f",
+    "buildingCount": 1858,
+    "roadRows": 732,
+    "treeRetention": {
+      "policy": "all-measured",
+      "inputCrowns": 13944,
+      "retained": 10888,
+      "rejectedGeometryOrDuplicate": 532,
+      "outsideSurveyDistrict": 2524,
+      "thinned": 0
+    },
+    "roadAudit": {
+      "data": "seattle-seatac.json",
+      "roads": 732,
+      "sourceWays": 730,
+      "preparedNodes": 4303,
+      "cutNodes": 65,
+      "expectedWhole": 669,
+      "wholeSourceVertices": 3928,
+      "missingWhole": 0,
+      "privatePhysical": 145,
+      "shortSourceStubs": 91,
+      "issues": []
+    },
+    "sourceSkips": [],
+    "buildingRoadConflictCount": 77,
+    "conflictPolicy": "Retain original source geometry; browser checks distinguish mapped building passages/elevated roads from width-estimate conflicts."
+  }
 }

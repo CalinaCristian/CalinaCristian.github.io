@@ -32,7 +32,7 @@ function frame(ring, direction, orientation) {
     const q = ring.map(p => p[0] * axis[0] + p[1] * axis[1]);
     return { axis, low: Math.min(...q), high: Math.max(...q) };
 }
-const supported = new Set(['flat', 'gabled', 'hipped', 'skillion', 'pyramidal', 'mansard', 'dome']);
+const supported = new Set(['flat', 'gabled', 'hipped', 'skillion', 'pyramidal', 'mansard', 'dome', 'round']);
 export function makeRoofProfile({ tags = {}, ring, holes = [], triangulate, shape = 'flat', height, minHeight = 0, heightSource = 'estimate', heightIsTotal = false }) {
     const issues = [], rawShape = tags['roof:shape'];
     const aliases = { pitched: 'hipped', pyramid: 'pyramidal', lean_to: 'skillion' };
@@ -98,7 +98,8 @@ export function roofMesh(ring, holes, profile, triangulate) {
     const edgeTolerance = Math.max(0.001, Math.min(p.high - p.low, u1 - u0) * 0.01);
     const rectangle = !holes.length && area >= (p.high - p.low) * (u1 - u0) * 0.99 && ring.every(v => Math.min(Math.abs(q(v) - p.low), Math.abs(q(v) - p.high), Math.abs(along(v) - u0), Math.abs(along(v) - u1)) <= edgeTolerance);
     const exactHip = rectangle && ['hipped', 'pyramidal', 'mansard'].includes(p.shape);
-    const simple = ['flat', 'gabled', 'skillion'].includes(p.shape) || exactHip, triangles = [];
+    const simple = ['flat', 'gabled', 'skillion', 'round'].includes(p.shape) || exactHip, triangles = [];
+    const curveCuts = p.shape === 'round' ? Array.from({ length: 17 }, (_, i) => p.low + (p.high - p.low) * i / 16) : [];
     const endRun = p.shape === 'pyramidal' ? (u1 - u0) / 2 : Math.min(half, (u1 - u0) / 2);
     const planes = exactHip ? [...[v => (q(v) - p.low) / half, v => (p.high - q(v)) / half, v => (along(v) - u0) / endRun, v => (u1 - along(v)) / endRun].map(f => p.shape === 'mansard' ? v => f(v) * 1.8 : f), () => 1] : [];
     for (const indices of tris) {
@@ -107,6 +108,11 @@ export function roofMesh(ring, holes, profile, triangulate) {
             // Clip each source triangle to the region owned by each roof plane.
             const linear = planes;
             for (let i = 0; i < linear.length; i++) { let poly = t; for (let j = 0; j < linear.length && poly.length; j++) if (i !== j) poly = split(poly, v => linear[j](v) - linear[i](v), 0, true); for (let j = 1; j < poly.length - 1; j++) triangles.push([poly[0], poly[j], poly[j + 1]]); }
+        } else if (p.shape === 'round') {
+            for (let i = 1; i < curveCuts.length; i++) {
+                const poly = split(split(t, q, curveCuts[i - 1], true), q, curveCuts[i], false);
+                for (let j = 1; j < poly.length - 1; j++) triangles.push([poly[0], poly[j], poly[j + 1]]);
+            }
         } else if (p.shape === 'gabled') {
             for (const positive of [false, true]) { const poly = split(t, q, middle, positive); for (let i = 1; i < poly.length - 1; i++) triangles.push([poly[0], poly[i], poly[i + 1]]); }
         } else if (simple) triangles.push(t);
@@ -118,7 +124,7 @@ export function roofMesh(ring, holes, profile, triangulate) {
     const rings = [ring, ...holes], maxD = simple ? 1 : Math.max(EPS, ...triangles.flat().map(v => distance(v, rings)));
     const at = v => {
         const width = Math.max(EPS, p.high - p.low);
-        let f = exactHip ? Math.min(...planes.map(f => f(v))) : p.shape === 'flat' ? 0 : p.shape === 'skillion' ? (p.high - q(v)) / width : p.shape === 'gabled' ? 1 - Math.abs(q(v) - middle) * 2 / width : distance(v, rings) / maxD;
+        let f = exactHip ? Math.min(...planes.map(f => f(v))) : p.shape === 'flat' ? 0 : p.shape === 'skillion' ? (p.high - q(v)) / width : p.shape === 'gabled' ? 1 - Math.abs(q(v) - middle) * 2 / width : p.shape === 'round' ? Math.sqrt(Math.max(0, 1 - ((q(v) - middle) * 2 / width) ** 2)) : distance(v, rings) / maxD;
         if (!exactHip && p.shape === 'mansard') f = Math.min(1, f * 1.8);
         if (p.shape === 'dome') f = Math.sqrt(Math.max(0, 1 - (1 - f) ** 2));
         return [v[0], p.eavesM + p.riseM * clamp(f, 0, 1), v[1]];
@@ -127,6 +133,10 @@ export function roofMesh(ring, holes, profile, triangulate) {
     if (simple && p.riseM > EPS) for (const boundary of rings) for (let i = 0; i < boundary.length; i++) {
         const a = boundary[i], b = boundary[(i + 1) % boundary.length], da = q(a) - middle, db = q(b) - middle, line = [a];
         if (p.shape === 'gabled' && da * db < -EPS * EPS) { const t = da / (da - db); line.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]); }
+        if (p.shape === 'round') {
+            const cuts = curveCuts.slice(1, -1).filter(cut => (q(a) - cut) * (q(b) - cut) < -EPS * EPS).map(cut => (cut - q(a)) / (q(b) - q(a))).sort((a, b) => a - b);
+            for (const t of cuts) line.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]);
+        }
         if (exactHip) {
             const cuts = [];
             for (let j = 0; j < planes.length; j++) for (let k = j + 1; k < planes.length; k++) {

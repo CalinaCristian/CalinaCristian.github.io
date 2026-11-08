@@ -23,6 +23,8 @@ const surveyedHip = makeRoofProfile({ tags: { 'roof:height': '3', 'roof:directio
 for (const [x, z] of [[5, 5], [10, 5], [15, 5], [10, 1], [10, 9]]) close(surveyedMesh.heightAt(x, z), hipMesh.heightAt(x, z));
 const irregularAngle = makeRoofProfile({ tags: { 'roof:angle': '45' }, ring: [[0, 0], [20, 0], [20, 6], [6, 6], [6, 20], [0, 20]], holes: [], triangulate, shape: 'hipped', height: 9, heightIsTotal: true }); assert.ok(irregularAngle.riseM < 4, 'concave angle used bounding width instead of actual eaves distance');
 const unknown = makeRoofProfile({ tags: { 'roof:shape': 'sawtooth' }, ring: rectangle, height: 10 }); assert.ok(unknown.issues.some(s => s.includes('unsupported roof:shape'))); assert.equal(unknown.raw['roof:shape'], 'sawtooth');
+const barrel = makeRoofProfile({ tags: { 'roof:shape': 'round', 'roof:direction': 'N', 'roof:height': '1' }, ring: rectangle, height: 4, heightIsTotal: true }), barrelMesh = roofMesh(rectangle, [], barrel, triangulate);
+close(barrel.totalM, 4); close(barrel.eavesM, 3); close(barrelMesh.heightAt(10, 5), 4); close(barrelMesh.heightAt(1, 5), 4); close(barrelMesh.heightAt(10, 0), 3); assert.equal(barrel.issues, undefined);
 const fixtures = [
     { name: 'rectangle', ring: rectangle, holes: [], area: 200 },
     { name: 'L', ring: [[0, 0], [20, 0], [20, 6], [6, 6], [6, 20], [0, 20]], holes: [], area: 204 },
@@ -30,7 +32,7 @@ const fixtures = [
     { name: 'court', ring: [[0, 0], [20, 0], [20, 20], [0, 20]], holes: [[[6, 6], [6, 14], [14, 14], [14, 6]]], area: 336 },
     { name: 'thin-part', ring: [[0, 0], [20, 0], [20, 0.15], [0, 0.15]], holes: [], area: 3 },
 ];
-for (const fixture of fixtures) for (const shape of ['flat', 'gabled', 'skillion', 'hipped', 'mansard', 'dome']) {
+for (const fixture of fixtures) for (const shape of ['flat', 'gabled', 'skillion', 'hipped', 'mansard', 'dome', 'round']) {
     const p = makeRoofProfile({ tags: { 'roof:height': '3', 'roof:direction': '35' }, ring: fixture.ring, shape, height: 9, heightIsTotal: true });
     const mesh = roofMesh(fixture.ring, fixture.holes, p, triangulate), edges = new Map();
     let area = 0, maxHeight = -Infinity;

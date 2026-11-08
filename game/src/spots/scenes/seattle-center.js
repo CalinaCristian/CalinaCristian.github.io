@@ -398,10 +398,14 @@ export default {
             targets: [.2, .5, .8].map((t, i) => ({ label: ['North hanging forms', 'Central hanging forms', 'South hanging forms'][i], x: chi.cx - 1, y: chi.y0 + chi.H - 4.6, z: lerp(chi.bb.z0 + 3, chi.bb.z1 - 3, t), radius: .65, surfaceTolerance: 1.2, holdSeconds: .35 })),
             onDone: s => seaActivity(s, 'lm-chihuly-glasshouse', 'chihuly', '🌺 Glasshouse details framed', 'You framed three parts of Dale Chihuly’s suspended sculpture using your own camera view.') });
         const lead = monorail.cars[0];
-        ctx.extras.monorailFraming = photoHunt(ctx, { x: 29.6, z: -85.7, spot: 'mopop', title: 'Frame the Monorail passing MoPOP',
+        // Use the south end of the mapped west pedestrian edge. Looking along
+        // the beam from its crossing hid the car behind the concrete guideway.
+        // The visible approach ends at the actual museum-side source edge;
+        // retained building volumes still occlude the train once it enters.
+        ctx.extras.monorailFraming = photoHunt(ctx, { x: 29.6, z: -61.4, spot: 'mopop', title: 'Frame the Monorail passing MoPOP',
             unavailable: 'Watch from mapped public pedestrian way w394955940. The animated train follows a shortened scene loop.',
             targets: [{ label: 'The moving leading car at the museum passage', get x() { return lead.position.x; }, get y() { return lead.position.y + .35; }, get z() { return lead.position.z; }, radius: 1.1, featureName: 'monorail-leading-car', surfaceTolerance: .5, holdSeconds: .6,
-                available: () => lead.position.x > 49 && lead.position.x < 100 && lead.position.z > -93 && lead.position.z < -70, waitHint: 'Wait for the train at the passage' }],
+                available: () => lead.position.x > 30 && lead.position.x < 49 && lead.position.z > -93 && lead.position.z < -70, waitHint: 'Wait for the train approaching the passage' }],
             onDone: s => seaActivity(s, 'lm-mopop-monorail', 'mopop', '🚝 Monorail framed in motion', 'You tracked the moving train at MoPOP and captured it from the public path.') });
         ctx.challenge('mopop', { view: [mop.cx, mop.cz], r: 30, tol: 40, cond: (s) => { const t = s.spot.ctx.extras.trainPos; return t && Math.hypot(t.x - mop.cx, t.z - mop.cz) < 70; }, condHint: 'Wait for the Monorail to pass through the building.' });
         // ---- spawns (research)

@@ -569,7 +569,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     for (let i = 0; i < data.nodeFlags.length; i += 2) {
         const n = nodeArr[data.nodeFlags[i]], f = data.nodeFlags[i + 1];
         n.flags = f; n.signal = !!(f & 1); n.crossing = !!(f & 2); n.zebra = !!(f & 4) || !!(f & 8); n.stop = !!(f & 16); n.giveWay = !!(f & 32);
-        n.busStop = !!(f & 64); n.tramStop = !!(f & 128); n.speedCamera = !!(f & 256);
+        n.busStop = !!(f & 64); n.tramStop = !!(f & 128); n.speedCamera = !!(f & 256); n.redLightCamera = !!(f & 1024);
     }
     const edges = [];
     const seenPair = new Set();
@@ -2971,7 +2971,6 @@ export async function buildWorld(city, renderer, opts = {}) {
     };
     const signs = new SignAtlas();
 
-    const cvBuildings = new Map();
     for (const p of city.pois || []) {
         if (!inDistrictLL(p.lat, p.lon)) continue; // a district only has its own stops
         let q = city.proj(p.lat, p.lon);
@@ -3017,35 +3016,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (!ownSign) { b.name = p.label; b.flags |= 2; b.cvSign = true; }
         } else if (inLandmark) {
             poi.h = 25; poi.landmark = inLandmark.id;
-        } else if (kind !== 'airport') {
-            // no OSM footprint: generate a simple office block between the kerb and the anchor
-            const [w, h, d] = p.size || [26, 20, 22];
-            const e = door.edge, sd = door.side;
-            const off = (sd > 0 ? e.wR : e.wL) + e.sidewalk + 2 + d / 2;
-            let cx = door.cx + e.nx * off * sd, cz = door.cz + e.nz * off * sd;
-            const ux = e.dirx, uz = e.dirz, vx = e.nx * sd, vz = e.nz * sd;
-            const ring = [[cx - ux * w / 2 - vx * d / 2, cz - uz * w / 2 - vz * d / 2], [cx + ux * w / 2 - vx * d / 2, cz + uz * w / 2 - vz * d / 2], [cx + ux * w / 2 + vx * d / 2, cz + uz * w / 2 + vz * d / 2], [cx - ux * w / 2 + vx * d / 2, cz - uz * w / 2 + vz * d / 2]];
-            // push it back from the kerb until no road ribbon crosses it
-            let blocked = true;
-            for (let tries = 0; tries < 8 && blocked; tries++) {
-                blocked = false;
-                for (const [px, pz] of ring.concat([[cx, cz]])) { const q2 = nearestEdge(px, pz, null, 30); if (q2 && q2.d < Math.max(q2.edge.wR, q2.edge.wL) + 1.5) { blocked = true; break; } }
-                if (!blocked && polyOnRibbon(ring)) blocked = true;
-                if (!blocked) break;
-                if (tries === 7) break;
-                for (const p2 of ring) { p2[0] += vx * 5; p2[1] += vz * 5; }
-                cx += vx * 5; cz += vz * 5;
-            }
-            if (blocked) { poi.h = 20; cvBuildings.set(p.id, null); }
-            else {
-            // remove anything in the way
-            bGrid.each(cx - w, cz - w, cx + w, cz + w, (o) => { if (Math.hypot(o.c[0] - cx, o.c[1] - cz) < Math.max(w, d) * 0.7) o.skip = true; });
-            const nb = { i: bRecs.length, style: 'glass', h, minH: 0, roof: 'flat', name: p.label, flags: 2, ring, holes: [], c: [cx, cz], x0: cx - w, z0: cz - w, x1: cx + w, z1: cz + w, area: w * d, skip: false, cv: poi, cvSign: true };
-            bRecs.push(nb); bGrid.insert(nb.x0, nb.z0, nb.x1, nb.z1, nb);
-            poi.x = cx; poi.z = cz; poi.h = h; poi.w = w; poi.d = d;
-            poi.generated = true;
-            }
-        } else { poi.h = 18; }
+        } else { poi.h = kind === 'airport' ? 18 : 20; } // retain the sourced stop and door without fabricating a building
         // floating marker
         const marker = new THREE.Group();
         const pin = new THREE.Mesh(new THREE.ConeGeometry(1.6, 3.2, 12), new THREE.MeshBasicMaterial({ color: p.color || '#f97316' }));
@@ -3060,7 +3031,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                     if (!pointInPolygon(x, z, b.ring) || polyDist(x, z, b.ring) < 2) continue;
                     const d = Math.hypot(x - poi.x, z - poi.z); if (d < bd) { bd = d; mx = x; mz = z; }
                 }
-            } else if (!b && !inLandmark && !poi.generated) { mx = door.x; mz = door.z; } // no footprint: above the door
+            } else if (!b && !inLandmark) { mx = door.x; mz = door.z; } // no footprint: above the door
             marker.position.set(mx, poi.h + 8, mz);
         }
         marker.userData.pin = pin;
@@ -3069,7 +3040,6 @@ export async function buildWorld(city, renderer, opts = {}) {
         // door mat / entrance plaza at the kerb
         if (!p.passing) cellOf(door.x, door.z).marks.flatFan([[door.x - 1.2, door.z - 1.2], [door.x + 1.2, door.z - 1.2], [door.x + 1.2, door.z + 1.2], [door.x - 1.2, door.z + 1.2]], Y.road + Y.mark + 0.01, rgb(p.color || '#f97316'));
         pois.push(poi);
-        cvBuildings.set(p.id, b);
     }
     // keep the marker colour in sync when main.js assigns poi.color later
     for (const p of pois) Object.defineProperty(p, 'color', {
@@ -3893,14 +3863,13 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (!ne) continue;
         const e = ne.edge;
         const side = ((x - ne.cx) * e.nx + (z - ne.cz) * e.nz) >= 0 ? 1 : -1;
-        let roadAng = Math.atan2(e.dirx, e.dirz); // rotation about Y that maps local +z onto the edge direction
-        if (kind === 'fuel') { // (note 5) every station gets its forecourt, also when the POI sits in its own small shop building
+        const roadAng = Math.atan2(e.dirx, e.dirz); // rotation about Y that maps local +z onto the edge direction
+        if (kind === 'fuel') { // sourced stations keep their anchor; only clear footprints get forecourt decoration
             // canopy on pillars + pumps + pylon sign
-            let fx = x, fz = z, pyl = { e, ne, side }; // (pyl: the street the pylon / sign stands on)
-            if (ne.d < (side > 0 ? e.wR : e.wL) + 9) { const off = (side > 0 ? e.wR : e.wL) + 10; fx = ne.cx + e.nx * off * side; fz = ne.cz + e.nz * off * side; }
+            const fx = x, fz = z, pyl = { e, ne, side }; // the mapped station anchor never moves to fit decoration
             { // the forecourt (canopy 10 × 16 m + apron 14 × 22 m) must stay off every carriageway AND every building footprint
               // (2026-11-08: only its centre was tested, so the Pipera Petrom canopy cut through the station's own building):
-              // search free ground beside the road — along the kerb ±24 m, 8–20 m back from it — else no canopy at all
+              // if the complete footprint is unsafe at the mapped anchor, omit it instead of moving the station
                 const notService = (rb) => rb.e ? rb.e.type !== 'service' : (rb.node.allEdges || rb.node.edges).some(q => q.type !== 'service'); // (the forecourt's own service lanes run under the canopy)
                 const fpFreeA = (cx, cz, ang) => {
                     const fp = obbPoly({ x: cx, z: cz, hw: 7, hd: 11, angle: ang });
@@ -3910,20 +3879,8 @@ export async function buildWorld(city, renderer, opts = {}) {
                     bGrid.each(cx - 14, cz - 14, cx + 14, cz + 14, (o) => { if (hit || o.skip) return; if (o.ring.some(([qx, qz]) => pointInPolygon(qx, qz, fp)) || polysCross(o.ring, fp)) hit = true; });
                     return !hit;
                 };
-                // reference street: the at-grade, non-service street the pumps are reached from (else the nearest edge)
-                const okRef = (q) => q.drivable && !q.virtual && !q.tunnel && q.type !== 'service' && !/motorway/.test(q.type) && Math.abs(q.ya) < 0.3 && Math.abs(q.yb) < 0.3;
-                const rn = nearestEdge(x, z, okRef, 70) || ne, re = rn.edge, rside = ((x - rn.cx) * re.nx + (z - rn.cz) * re.nz) >= 0 ? 1 : -1;
-                const base = (rside > 0 ? re.wR : re.wL), rAng = Math.atan2(re.dirx, re.dirz);
-                // candidates: beside the reference street (8–24 m back, ±30 m along) and round the mapped point; the free one
-                // closest to the mapped station wins
-                const cands = [[fx, fz]];
-                for (const back of [9, 12, 15, 18, 21, 24]) for (let al = -30; al <= 30; al += 6) cands.push([rn.cx + re.nx * (base + back) * rside + re.dirx * al, rn.cz + re.nz * (base + back) * rside + re.dirz * al]);
-                for (let ox = -18; ox <= 18; ox += 6) for (let oz = -18; oz <= 18; oz += 6) cands.push([x + ox, z + oz]);
-                let found = null, fd = Infinity;
-                for (const [cx, cz] of cands) { const d = Math.hypot(cx - x, cz - z); if (d >= fd) continue; if (fpFreeA(cx, cz, rAng)) { found = [cx, cz]; fd = d; } }
-                if (found) { roadAng = rAng; pyl = { e: re, ne: rn, side: rside }; }
-                if (!found) { poi.h = 4; fuelLog.push({ name: brand || name, x: Math.round(x), z: Math.round(z), canopy: false }); continue; }
-                [fx, fz] = found; fuelLog.push({ name: brand || name, x: Math.round(x), z: Math.round(z), canopy: true, fx: Math.round(fx), fz: Math.round(fz) });
+                if (!fpFreeA(fx, fz, roadAng)) { poi.h = 4; fuelLog.push({ name: brand || name, x: Math.round(x), z: Math.round(z), canopy: false }); continue; }
+                fuelLog.push({ name: brand || name, x: Math.round(x), z: Math.round(z), canopy: true, fx: Math.round(fx), fz: Math.round(fz) });
             }
             const bs = brandStyle(brand || name) || ['#1f2937', '#ffffff', '#f97316'];
             const ca = Math.cos(roadAng), sa = Math.sin(roadAng);
@@ -3937,21 +3894,11 @@ export async function buildWorld(city, renderer, opts = {}) {
             for (const [lx, lz] of [[-3.5, -6], [3.5, -6], [-3.5, 6], [3.5, 6]]) { const [px, pz] = L2W(lx, lz); c.solid.box(px, 0.2, pz, 0.45, 4.8, 0.45, roadAng, rgb('#d1d5db')); addPropColl(px, pz, 0.35, 'fuel'); }
             for (const [lx, lz] of [[-1.6, -3.5], [1.6, -3.5], [-1.6, 3.5], [1.6, 3.5]]) { const [px, pz] = L2W(lx, lz); c.solid.box(px, 0.2, pz, 0.9, 1.7, 0.6, roadAng, rgb('#e5e7eb')); c.solid.box(px, 1.5, pz, 0.92, 0.35, 0.62, roadAng, rgb(bs[0])); addPropColl(px, pz, 0.55, 'fuel'); }
             c.ground.flatFan([L2W(-7, -11), L2W(7, -11), L2W(7, 11), L2W(-7, 11)], Y.parking + 0.003, rgb('#77787b'), 0.15);
-            { // canopy fascia with the brand name on the long sides, light panels under the canopy, pump island kerbs,
-              // the station shop (glass front, brand band) behind the forecourt when the station has no mapped building
+            { // canopy fascia with the sourced brand, underside light panels and pump island kerbs
               const fs = signs.get((brand || name || 'Benzinărie').slice(0, 18), bs[0], bs[1], bs[2]);
               if (fs) for (const sd of [1, -1]) { const [qx, qz] = L2W(sd * 5.06, 0); addSignQuad(c, qx, qz, roadAng + Math.PI / 2, sd, Math.min(9, 0.75 * fs.aspect), 0.75, 5.0, fs, 0.02); }
               for (const lz of [-4.5, 0, 4.5]) for (const lx of [-2.5, 2.5]) { const [qx, qz] = L2W(lx, lz); c.solid.box(qx, 4.53, qz, 1.4, 0.03, 0.6, roadAng, rgb('#fbfbf2')); }
               for (const lx of [-1.6, 1.6]) { const [qx, qz] = L2W(lx, 0); c.solid.box(qx, 0.05, qz, 1.2, 0.18, 9.5, roadAng, rgb('#c9c6bd')); }
-              if (bIdx < 0 || !bRecs[bIdx] || bRecs[bIdx].area > 400) {
-                  const [kx, kz] = L2W(-side * 0, 0), back = side, pe = pyl.e, ps = pyl.side; const [sx2, sz2] = [fx + pe.nx * ps * 12, fz + pe.nz * ps * 12];
-                  const shopFp = obbPoly({ x: sx2, z: sz2, hw: 3, hd: 7, angle: roadAng });
-                  if (!buildingAt(sx2, sz2) && !shopFp.some(([qx, qz]) => buildingAt(qx, qz)) && !polyOnRibbon(shopFp)) {
-                      c.solid.box(sx2, 0.1, sz2, 6, 3.6, 14, roadAng, rgb('#e6e4df')); c.solid.box(sx2 - pe.nx * ps * 3.02, 0.4, sz2 - pe.nz * ps * 3.02, 0.06, 2.4, 12, roadAng, rgb('#5d7586'));
-                      c.solid.box(sx2, 3.5, sz2, 6.1, 0.6, 14.1, roadAng, rgb(bs[0])); addPropColl(sx2, sz2, 3, 'fuel');
-                  }
-                  void kx; void kz; void back;
-              }
             }
             // pylon at the kerb (of the reference street)
             const off2 = (pyl.side > 0 ? pyl.e.wR : pyl.e.wL) + 2.5;
@@ -4012,7 +3959,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             const px = ne.cx + e.nx * off * side, pz = ne.cz + e.nz * off * side;
             if (onRibbon(px, pz, 1.2) || buildingAt(px, pz)) continue;
             // (round 6 note 45) a business is a shop, not a sign on a stick: the fascia goes on the nearest building's street
-            // front when one stands within ~18 m (the OSM point sits beside its unit), else a small single-storey pavilion
+            // front when one stands within ~18 m (the OSM point sits beside its unit); never invent a pavilion
             if (sub !== 'atm') {
                 // (2026-11-08) reality-pass districts: the fascia goes on the nearest building within 30 m (the OSM point is often
                 // mapped on the sidewalk in front of its unit); never a sign on a pole in the middle of the pavement
@@ -4023,7 +3970,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             }
             const s = signs.get((brand || name).slice(0, 22), st[0], st[1], st[2]);
             if (!s) continue;
-            if (sub === 'atm' || kind === 'bank') { // (after round 6) a free-standing ATM: a slim branded booth, never a shop pavilion
+            if (sub === 'atm') { // only an explicitly mapped ATM gets a booth; a bank POI alone does not establish one
                 const fx = -e.nx * side, fz = -e.nz * side, fAng = Math.atan2(-e.nx * side, -e.nz * side);
                 c.solid.box(px, 0, pz, 1.0, 2.25, 0.7, fAng, rgb('#3a3f46'));
                 c.solid.box(px + fx * 0.36, 0.95, pz + fz * 0.36, 0.55, 0.4, 0.04, fAng, rgb('#5d7f93'));                  // screen
@@ -4031,20 +3978,6 @@ export async function buildWorld(city, renderer, opts = {}) {
                 addPropColl(px, pz, 0.6, 'pylon'); continue;
             }
             if (kind === 'hotel') { c.solid.box(px, 0.18, pz, 0.14, 3.6, 0.14, roadAng, rgb('#4b5563')); addPropColl(px, pz, 0.2, 'pylon'); for (const sd of [1, -1]) addSignQuad(c, px, pz, roadAng, sd, 2.2, 2.2 / s.aspect, 3.4, s, 0.08); continue; }
-            {
-                const pvOff = off + 4.5, vx = ne.cx + e.nx * pvOff * side, vz = ne.cz + e.nz * pvOff * side, W2 = 4, D2 = 3, fAng = Math.atan2(-e.nx * side, -e.nz * side); // (local +z faces the street, x runs along it)
-                const fp = obbPoly({ x: vx, z: vz, hw: W2, hd: D2, angle: fAng });
-                if (!polyOnRibbon(fp) && !buildingAt(vx, vz) && !fp.some(([qx, qz]) => buildingAt(qx, qz))) {
-                    const wallC = rgb(US ? '#d6d0c4' : '#e4e0d6'), fx = -e.nx * side, fz = -e.nz * side; // facing the street
-                    c.solid.box(vx, 0, vz, W2 * 2, 3.4, D2 * 2, fAng, wallC);                                // pavilion body
-                    c.solid.box(vx, 3.4, vz, W2 * 2 + 0.3, 0.25, D2 * 2 + 0.3, fAng, rgb('#5b5f66'));     // flat roof edge
-                    const gx = vx + fx * (D2 + 0.02), gz = vz + fz * (D2 + 0.02);
-                    c.solid.box(gx, 0.4, gz, W2 * 1.6, 2.1, 0.06, fAng, rgb('#5d7f93'));                   // shopfront glazing
-                    { const sh = 0.72, sw = Math.min(W2 * 1.8, sh * s.aspect); addSignQuad(c, vx + fx * D2, vz + fz * D2, Math.atan2(fx, fz), 1, sw, sw / s.aspect, 2.95, s, 0.06); } // fascia band over the glazing, not a billboard
-                    propColl.push({ x: vx, z: vz, r: Math.hypot(W2, D2), hw: W2, hd: D2, angle: fAng, poly: fp, h: 3.6, kind: 'kiosk' });
-                    continue;
-                }
-            }
             c.solid.box(px, 0.18, pz, 0.14, 3.6, 0.14, roadAng, rgb('#4b5563')); addPropColl(px, pz, 0.2, 'pylon');
             for (const sd of [1, -1]) addSignQuad(c, px, pz, roadAng, sd, 2.2, 2.2 / s.aspect, 3.4, s, 0.08);
         }

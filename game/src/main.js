@@ -96,7 +96,6 @@ const PRICES = {
     bucharest: { cur: 'RON', unit: 'L', def: 7.35, brands: { Petrom: 7.39, OMV: 7.52, MOL: 7.36, Rompetrol: 7.41, Lukoil: 7.29, Socar: 7.34, Gazprom: 7.31 } },
     seattle: { cur: 'USD', unit: 'gal', def: 4.49, brands: { Chevron: 4.79, Shell: 4.69, '76': 4.59, Arco: 4.29, ARCO: 4.29, Costco: 4.19, BP: 4.55, Texaco: 4.65, Mobil: 4.62 } },
 };
-const BRANDS = { bucharest: ['Petrom', 'OMV', 'MOL', 'Rompetrol', 'Lukoil', 'Socar'], seattle: ['Chevron', 'Shell', '76', 'Arco'] };
 // fines by km/h over the limit (RO: OUG 195/2002 classes, approx 2025; WA: approx 2025 base + fees)
 function fineFor(cityId, overKmh) {
     if (cityId === 'bucharest') return overKmh <= 20 ? 580 : overKmh <= 30 ? 1015 : overKmh <= 40 ? 1450 : 2030;
@@ -478,21 +477,6 @@ class Game {
     }
 
     // ---------------------------------------------------------------------------------- stations & cameras
-    /** farthest-point sampling of edges for fallback props */
-    spreadEdges(filter, n) {
-        const cands = this.world.graph.edges.filter(filter); if (!cands.length) return [];
-        const mid = (e) => [(e.a.x + e.b.x) / 2, (e.a.z + e.b.z) / 2];
-        const chosen = [cands.reduce((a, b) => (b.len > a.len ? b : a))];
-        const md = cands.map(e => { const [x, z] = mid(e), [cx, cz] = mid(chosen[0]); return Math.hypot(x - cx, z - cz); });
-        while (chosen.length < n) {
-            let bi = -1, bd = -1;
-            for (let i = 0; i < cands.length; i++) if (md[i] * Math.min(1, cands[i].len / 150) > bd) { bd = md[i] * Math.min(1, cands[i].len / 150); bi = i; }
-            if (bi < 0 || bd <= 0) break;
-            const e = cands[bi]; chosen.push(e); const [cx, cz] = mid(e);
-            for (let i = 0; i < cands.length; i++) { const [x, z] = mid(cands[i]); md[i] = Math.min(md[i], Math.hypot(x - cx, z - cz)); }
-        }
-        return chosen;
-    }
     /** (round 6 note 4) where to act: a glowing ring on the ground at every stop's door and every fuel station's
      *  forecourt entry, and a pin above it. A stop's pin floats over the rooftop from afar and comes down to the door
      *  as you get close (it used to stay 8 m above the roof, out of view right when you needed it). */
@@ -548,7 +532,7 @@ class Game {
         const P = PRICES[city.id];
         const real = world.pois.filter(p => p.kind === 'fuel');
         this.stations = real.map(p => {
-            const brand = p.brand || p.label || p.name || BRANDS[city.id][0];
+            const brand = p.brand || p.label || p.name || 'Fuel station';
             return { x: p.doorX ?? p.x, z: p.doorZ ?? p.z, brand, price: P.brands[brand] ?? P.def, poi: p };
         });
         // (2026-11-08, owner: "if gas stations do not match real data, remove them") only stations mapped in OSM: the
@@ -562,15 +546,6 @@ class Game {
         // the amenity POI list. Keep those real enforcement locations.
         for (const n of Object.values(world.graph.nodes || {})) if (n.speedCamera && !this.cameras.some(c => Math.hypot(c.x - n.x, c.z - n.z) < 5)) {
             this.cameras.push({ x: n.x, z: n.z, cd: 0, lastD: 1e9 });
-        }
-        if (!this.cameras.length && !world.district) {
-            const edges = this.spreadEdges(e => edgeSpeed(e) >= 13 && e.len > 25 && !e.tunnel && !e.roundabout, city.id === 'bucharest' ? 6 : 4);
-            for (const e of edges) {
-                const cx = (e.a.x + e.b.x) / 2, cz = (e.a.z + e.b.z) / 2;
-                const hw = (e.halfW ?? 6) + 1.2;
-                this.cameras.push({ x: cx, z: cz, cd: 0, lastD: 1e9, edge: e });
-                this.props.add(buildCameraMesh(cx + e.nx * hw, cz + e.nz * hw, Math.atan2(e.dirx, e.dirz)));
-            }
         }
     }
 
@@ -674,7 +649,7 @@ class Game {
         }
         player.lookBack = input.keys.has('KeyC');
         { const lk = input.takeLook(); player.applyLook(lk.dx, lk.dy, input.lookHeld, dt); }
-        const empty = this.fuel <= 0;
+        const empty = this.stations?.length > 0 && this.fuel <= 0;
         const prevSpeed = player.speed;
         if (this.clamp && !this.clamp.paid) { // wheel clamp (RO, note 8): the car does not move until the fine is paid
             player.update(dt, { throttle: 0, brake: true, steer: 0 }, { maxSpeed: 38 }); player.speed = 0;
@@ -716,7 +691,7 @@ class Game {
         if (!empty) { this.fuel = Math.max(0, this.fuel - burn * FUEL_GAME_MULT); this.stats.fuelReal += burn; }
         this.stats.dist += v * dt; this.stats.cleanDist += v * dt;
         if (this.stats.cleanDist > 5000 && hud.achievement('law-abiding')) this.audio.chime();
-        if (this.fuel <= 0 && !this.flags.emptyToast) { this.flags.emptyToast = true; hud.toast('⛽ Out of fuel!', 'Limping at walking pace. Press T to call a tow truck.', 'warn'); this.audio.blip(220, 0.4, 0.15); }
+        if (empty && !this.flags.emptyToast) { this.flags.emptyToast = true; hud.toast('⛽ Out of fuel!', 'Limping at walking pace. Press T to call a tow truck.', 'warn'); this.audio.blip(220, 0.4, 0.15); }
         if (this.fuel / TANK_L < 0.15 && this.fuel > 0 && !this.flags.lowFuel && this.stations?.length) { this.flags.lowFuel = true; hud.toast('⛽ Low fuel', 'Under 15% — find a gas station (M → Gas stations).', 'warn'); this.audio.blip(660, 0.2, 0.12); }
         if (this.fuel / TANK_L > 0.2) this.flags.lowFuel = false;
         // ---- speed limit / enforcement ----
@@ -1106,6 +1081,7 @@ class Game {
     // ---------------------------------------------------------------------------------- fuel
     nearestStation(x, z) { let best = null, bd = Infinity; for (const s of this.stations) { const d = Math.hypot(s.x - x, s.z - z); if (d < bd) { bd = d; best = s; } } return best ? { st: best, d: bd } : null; }
     updateFuelStops(dt, v) {
+        if (!this.stations?.length) return null;
         const { player, input, hud, city } = this;
         const P = PRICES[city.id];
         if (this.refuel) {
@@ -1139,7 +1115,7 @@ class Game {
         return null;
     }
     towTruck() {
-        const ns = this.nearestStation(this.player.x, this.player.z); if (!ns) { this.fuel = 10; return; }
+        const ns = this.nearestStation(this.player.x, this.player.z); if (!ns) return;
         const p = this.roadPose(ns.st.x, ns.st.z);
         // stop a few metres before the pumps so the refuel prompt is in reach
         this.player.place(p.x - Math.sin(p.heading) * -4, p.z - Math.cos(p.heading) * -4, p.heading, p.edge || null);
@@ -1198,7 +1174,8 @@ class Game {
             const st = traffic.lightState(endNode, e);
             if (st === 'red') {
                 hud.toast('🚦 Red light!', this.city.id === 'bucharest' ? 'Very local of you.' : 'That\'s a ticket in Washington.', 'warn'); hud.achievement('red-light'); hud.addRage(8); traffic.playerHonk(player.x, player.z, player.fx, player.fz);
-                if (traffic.policeNear(player.x, player.z, 70) || this.city.id === 'seattle') this.giveFine(this.city.id === 'bucharest' ? '🚓 Poliția Rutieră' : '📸 Red-light camera', 'Ran a red light.', 0, 'red');
+                const cop = traffic.policeNear(player.x, player.z, 70);
+                if (cop || endNode.redLightCamera) this.giveFine(cop ? (this.city.id === 'bucharest' ? '🚓 Poliția Rutieră' : '🚓 Pulled over (WSP)') : '📸 Red-light camera', 'Ran a red light.', 0, 'red');
             }
         }
         this.prevEdgeInfo = { key, distEnd };
@@ -2421,9 +2398,9 @@ ${['drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa="conditi
         let t = 0; for (const leg of route.legs) t += leg.e.len / Math.max(5, edgeSpeed(leg.e) * 0.8);
         t = Math.max(t * 1.35, route.total / 16);
         const vAvg = route.total / t;
-        const burn = (FUEL_IDLE + FUEL_ROLL * vAvg + FUEL_AERO * vAvg * vAvg * vAvg) * t * 1.15; // +15% stop-and-go
+        const burn = this.stations?.length ? (FUEL_IDLE + FUEL_ROLL * vAvg + FUEL_AERO * vAvg * vAvg * vAvg) * t * 1.15 : 0; // +15% stop-and-go; no mapped station = no fuel burn
         const tank = burn * FUEL_GAME_MULT;
-        if (tank > this.fuel - 0.2 && !dest.station) {
+        if (this.stations?.length && tank > this.fuel - 0.2 && !dest.station) {
             hud.toast('⛽ Not enough fuel for that trip', 'Fast-travel to a gas station first (M → Gas stations).', 'warn');
             return false;
         }
@@ -2442,7 +2419,7 @@ ${['drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa="conditi
         this.audio.blip(520, 0.08, 0.08);
         await this.playMontage({ dest, names, dist: route.total, liters: burn, tank, secs: t });
         // apply
-        this.fuel = Math.max(0.3, this.fuel - tank);
+        if (this.stations?.length) this.fuel = Math.max(0.3, this.fuel - tank);
         this.stats.fuelReal += burn; this.stats.dist += route.total; this.stats.time += t;
         this.stats.fastTravels++; this.stats.fastDist += route.total;
         player.place(pose.x, pose.z, pose.heading, pose.edge); player.contactAge = 9; player.steer = 0;
@@ -2599,16 +2576,6 @@ ${['drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa="conditi
         // fallback: the old panel
         this.hud.panel(`<div class="eyebrow">🏁 Story complete</div><h2>${PROFILE.name}</h2><p class="lead">${PROFILE.title} · ${PROFILE.location}</p><p>${PROFILE.summary}</p><ul class="timeline">${timeline}</ul><div class="chips">${PROFILE.topSkills.map(sk => `<span class="chip">${sk}</span>`).join('')}</div><h3>Say hi</h3><div class="links">${links}<a class="btn ghost" href="mailto:${PROFILE.email}">Email</a></div><h3>Trip computer</h3><p class="meta">${statLine}</p><p class="meta">You can keep driving around, or fly back to Bucharest from SeaTac.</p>`);
     }
-}
-
-// ---------- fallback props (only used when the world has no camera POIs) ----------
-function buildCameraMesh(x, z, angle) {
-    const g = new THREE.Group();
-    const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 4, 8), new THREE.MeshLambertMaterial({ color: '#6b7280' })); pole.position.y = 2; g.add(pole);
-    const box = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.45, 0.8), new THREE.MeshLambertMaterial({ color: '#d4d4d8' })); box.position.y = 4.1; g.add(box);
-    const lens = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 0.1, 10), new THREE.MeshBasicMaterial({ color: '#111827' })); lens.rotation.x = Math.PI / 2; lens.position.set(0, 4.1, 0.42); g.add(lens);
-    g.position.set(x, 0.2, z); g.rotation.y = angle + Math.PI;
-    return g;
 }
 
 window.game = new Game();

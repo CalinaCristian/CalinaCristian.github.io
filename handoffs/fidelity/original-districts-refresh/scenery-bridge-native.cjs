@@ -38,7 +38,7 @@ const mime = { '.js': 'text/javascript', '.json': 'application/json', '.html': '
                 let checks = 0;
                 for (const [index, deck] of decks.entries()) {
                     const p = deck.poly.reduce((p, q) => [p[0] + q[0] / 4, p[1] + q[1] / 4], [0, 0]), bottom = deck.minHeightAt(...p), top = deck.roofHeightAt(...p);
-                    const result = { index, sourceId: deck.sourceId, x: p[0], z: p[1], bottom, top, elevationSource: deck.elevationSource, checks: [] };
+                    const result = { index, sourceId: deck.sourceId, x: p[0], z: p[1], bottom, top, boundsXZ: [Math.min(...deck.poly.map(p => p[0])), Math.min(...deck.poly.map(p => p[1])), Math.max(...deck.poly.map(p => p[0])), Math.max(...deck.poly.map(p => p[1]))], y0: deck.y0, y1: deck.y1, elevationSource: deck.elevationSource, checks: [] };
                     for (const [type, y, expected] of [['under', bottom - 2.1, false], ['through', bottom + .1, true], ['above', top + .2, false], ['standing-on-top', top, false]]) {
                         const actual = !!collideBuildings([deck], ...p, .2, y, 2), qa = Number.isFinite(colliderDist(deck, ...p, y, 2, .2));
                         result.checks.push({ type, y, expected, actual, qa }); checks += 2;

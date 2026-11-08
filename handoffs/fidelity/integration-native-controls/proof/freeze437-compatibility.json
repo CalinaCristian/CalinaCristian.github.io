@@ -1,0 +1,97 @@
+{
+  "testedUiSource": "9afb80e356cc0c9e7a0784f90d6a32a356d96216",
+  "finalDistrictRenderFreeze": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+  "scope": "Existing 124 native settings/state assertions and 32 office-dialogue touch cases only. Not final renderer, world physics, activity fidelity, full mobile HUD layout or memory acceptance.",
+  "runtime": {
+    "game/src/main.js": {
+      "tested": "6183dfb0110fd7139f8b825838798667d225a7cddeb78f8b395bc21701dae84c",
+      "freeze": "6183dfb0110fd7139f8b825838798667d225a7cddeb78f8b395bc21701dae84c",
+      "identical": true
+    },
+    "game/src/render.js": {
+      "tested": "c886535e571144de5fd007294350b2b803138125d68f61f9a5992ca298fba587",
+      "freeze": "c886535e571144de5fd007294350b2b803138125d68f61f9a5992ca298fba587",
+      "identical": true
+    },
+    "game/src/save.js": {
+      "tested": "66ece4bff34ce8a3bafcc29ad74dd7a7792ceb80d0406890f27982ad052640dc",
+      "freeze": "66ece4bff34ce8a3bafcc29ad74dd7a7792ceb80d0406890f27982ad052640dc",
+      "identical": true
+    },
+    "game/src/hud.js": {
+      "tested": "8ee4cbc9e0aea279a72a0f923e7554cb8115d7fffb9c9820ed08d7e0b39beb18",
+      "freeze": "8ee4cbc9e0aea279a72a0f923e7554cb8115d7fffb9c9820ed08d7e0b39beb18",
+      "identical": true
+    },
+    "game/src/office.js": {
+      "tested": "a56fed9898f03633930afa6e724421c888d30dd040d5d4d3b1bed9880d359166",
+      "freeze": "a56fed9898f03633930afa6e724421c888d30dd040d5d4d3b1bed9880d359166",
+      "identical": true
+    },
+    "game/src/achievements.js": {
+      "tested": "fb7650a3db44ce163a28fc760c6093af1f68f0580198ffd13d57c2c6a7680eb8",
+      "freeze": "fb7650a3db44ce163a28fc760c6093af1f68f0580198ffd13d57c2c6a7680eb8",
+      "identical": true
+    },
+    "game/src/explore.js": {
+      "tested": "2f8abf2e4b3e14f1002f0088322b9e59e713f1865bba60644d200030cf653993",
+      "freeze": "2f8abf2e4b3e14f1002f0088322b9e59e713f1865bba60644d200030cf653993",
+      "identical": true
+    },
+    "game/src/input.js": {
+      "tested": "e14ff4e1be7dbbfaf7cb07395340515e01820ab36cba24a40d60001ff5511d00",
+      "freeze": "e14ff4e1be7dbbfaf7cb07395340515e01820ab36cba24a40d60001ff5511d00",
+      "identical": true
+    },
+    "game/src/cities.js": {
+      "tested": "54b5d54d502edc87b3cbe19a2970fb82f392fd3cc41803a2ee84ec1c202966ac",
+      "freeze": "54b5d54d502edc87b3cbe19a2970fb82f392fd3cc41803a2ee84ec1c202966ac",
+      "identical": true
+    }
+  },
+  "stopData": {
+    "identical": true,
+    "count": 8,
+    "sha256": "48740d7a96ab3446cab7aedd6beaf8fe20f8c464289f4fd1aa1ac37e76ae957f"
+  },
+  "changedDataModule": "Only tourist achievement labels/descriptions/icons changed after419; exact STOPS data is unchanged.",
+  "css": {
+    "tested": "8b2fd3641ced223a3c11afc33a3f4a19764d2a7f52b522d3e2f0d08319142d26",
+    "freeze": "46b8f2dd66d363ad322b08152d166b3a44b72dccd4b4506f28f980a9c421d120",
+    "difference": "Single max-width:760px #hint rule positions the desktop keyboard hint. Office/dialogue/achievement/settings selectors unchanged; native37 phone layout run remains a separate gate."
+  },
+  "districtData": {
+    "bucharest-floreasca": {
+      "freeze419": "e7c961ee4acc9bd0c6850e7fcce9ba170d1899134f10376c2a3b3f8af5695358",
+      "freeze437": "e7c961ee4acc9bd0c6850e7fcce9ba170d1899134f10376c2a3b3f8af5695358"
+    },
+    "bucharest-romana": {
+      "freeze419": "c9c3c8878a30cf229ac50d0ec9acef5e4ad358589e368dbe5923f3cd46eddc68",
+      "freeze437": "c9c3c8878a30cf229ac50d0ec9acef5e4ad358589e368dbe5923f3cd46eddc68"
+    },
+    "bucharest-grozavesti": {
+      "freeze419": "1acea9d80dcf07527fae98446d8edc05edb1a75677b72ee0c88e95241f394f03",
+      "freeze437": "1acea9d80dcf07527fae98446d8edc05edb1a75677b72ee0c88e95241f394f03"
+    },
+    "bucharest-pipera": {
+      "freeze419": "66d5fd9ffff3124db1007d8143aaef1854abad94b51053531f091f328fc93802",
+      "freeze437": "66d5fd9ffff3124db1007d8143aaef1854abad94b51053531f091f328fc93802"
+    },
+    "bucharest-unirii": {
+      "freeze419": "37302734909c4996b7c63423e839bbdb7380e49b4b268fa6578584050d21da47",
+      "freeze437": "37302734909c4996b7c63423e839bbdb7380e49b4b268fa6578584050d21da47"
+    },
+    "bucharest-otopeni": {
+      "freeze419": "e6b36d6c87b94f7887cddb240de0dc40ea662913c60290c09be45953ccd4ff91",
+      "freeze437": "e6b36d6c87b94f7887cddb240de0dc40ea662913c60290c09be45953ccd4ff91"
+    },
+    "seattle-seatac": {
+      "freeze419": "3c36cd6dc569eb172936f730464d263943380354c8bc444c254f9de6f62c6171",
+      "freeze437": "3c36cd6dc569eb172936f730464d263943380354c8bc444c254f9de6f62c6171"
+    },
+    "seattle-bellevue": {
+      "freeze419": "24c27cbd160167836c254a1b6eafbeeb569df9744faf936d52892a9747a9fe46",
+      "freeze437": "24c27cbd160167836c254a1b6eafbeeb569df9744faf936d52892a9747a9fe46"
+    }
+  }
+}

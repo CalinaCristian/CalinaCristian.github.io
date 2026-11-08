@@ -2,6 +2,8 @@
 
 Runtime base **9afb80e**, immutable local snapshot f7124b0 (the added commits only bound QA navigation). This is UI/control proof; the final rebuilt district datasets still need mandatory, population/render and memory acceptance. The source manifest records tested UI/runtime file hashes and all eight dataset hashes. Reuse after a source-only rebuild requires the relevant UI/runtime hashes to match. `proof/freeze-compatibility.json` verifies scoped reuse on final geometry/data freeze4198996: all11 listed UI runtime files and all8 road/projection fields match; raw POI string/building-index shifts decode to identical coordinates, names, brands, subtypes and source building IDs for all1,474 POIs. This does not extend acceptance to final world geometry, render budgets or resource retention.
 
+The later `proof/freeze437-compatibility.json` supports the same limited control/state reuse on render freeze4378317: nine runtime files are byte-identical, all eight authored `STOPS` are unchanged, and all eight district datasets are byte-identical from419. The data module changes only tourist achievement labels/icons/descriptions; CSS adds only a narrow-screen keyboard-hint placement rule. These differences are retained explicitly. Continuously running final phone HUD/layout checks and final world/resource/render tests remain separate gates.
+
 `conditions-check.cjs --controls` passes **124/124**, with **zero page errors**. Actual keyboard, pointer and touchscreen controls exercise:
 
 - Title Settings, focus/close behavior, independent time/weather/season highlights and no pre-world weather request.

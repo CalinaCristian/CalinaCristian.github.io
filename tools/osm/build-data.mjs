@@ -1188,8 +1188,8 @@ function buildCity(cityId, did = null) {
                 if (villaZone && !(lvTag && levels >= 5) && !(b === 'apartments' && realArea > 900)) {
                     if (aTile && realArea < 520) { // tiled villa: 1–3 storeys, the roof the aerial survey saw
                         style = 'house'; defLevels = lvTag ? levels : realArea < 90 ? 1 : realArea < 140 ? (hv < 0.55 ? 1 : 2) : hv < 0.55 ? 2 : 3;
-                        roof = aer[0] === 'gabled' && lls.length <= 6 ? 2 : (lls.length <= 6 ? 4 : 1); rb.roofKnown = true;
-                    } else if (aTile) { style = 'bloc'; defLevels = lvTag ? levels : 4; roof = lls.length <= 6 ? 4 : 1; rb.roofKnown = true; } // big tiled interwar block
+                        roof = aer[0] === 'gabled' && (ds || lls.length <= 6) ? 2 : (ds || lls.length <= 6 ? 4 : 1); rb.roofKnown = true;
+                    } else if (aTile) { style = 'bloc'; defLevels = lvTag ? levels : 4; roof = ds || lls.length <= 6 ? 4 : 1; rb.roofKnown = true; } // big tiled interwar block
                     else if (aFlat && realArea >= 140) { // flat-roofed block: dark bitumen = 1950s–60s bloc (P+3), light membrane = newer boutique block
                         const light = lumHex(aer[2]) > 150;
                         style = 'bloc'; roof = 0; rb.roofKnown = true;
@@ -1228,15 +1228,15 @@ function buildCity(cityId, did = null) {
             if (!rb.roofKnown && style !== 'church' && style !== 'glass') {
                 const a0 = rb.aer[0];
                 if (a0 === 'flat') { if (roof !== 0) aerialStats.shape++; roof = 0; measuredRoof = true; }
-                else if ((a0 === 'hipped' || a0 === 'gabled') && (realArea < 1500 || ring.length === 4)) { const r = a0 === 'gabled' && lls.length <= 6 ? 2 : lls.length <= 6 ? 4 : 1; if (roof !== r) aerialStats.shape++; roof = r; measuredRoof = true; }
+                else if ((a0 === 'hipped' || a0 === 'gabled') && (realArea < 1500 || ring.length === 4)) { const r = a0 === 'gabled' && (ds || lls.length <= 6) ? 2 : ds || lls.length <= 6 ? 4 : 1; if (roof !== r) aerialStats.shape++; roof = r; measuredRoof = true; }
             }
         }
         if (t['roof:shape']) {
             const rs = t['roof:shape'];
             const setRoof = (value) => { roof = value; measuredRoof = true; };
             if (/mansard|gambrel/.test(rs)) setRoof(6);
-            else if (/hipped|half-hipped/.test(rs)) setRoof(lls.length <= 6 ? 4 : 1);
-            else if (/gabled|saltbox/.test(rs)) setRoof(lls.length <= 6 ? 2 : 1);
+            else if (/hipped|half-hipped/.test(rs)) setRoof(ds || lls.length <= 6 ? 4 : 1);
+            else if (/gabled|saltbox/.test(rs)) setRoof(ds || lls.length <= 6 ? 2 : 1);
             else if (/skillion|lean_to/.test(rs)) setRoof(5);
             else if (/pyramidal|cone/.test(rs)) setRoof(1);
             else if (/dome|onion/.test(rs)) setRoof(3);

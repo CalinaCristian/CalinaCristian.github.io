@@ -15,6 +15,7 @@ import { resolveParkingLayout, parkingRowPose, parkingPolygonsOverlap, parkingBo
 import { passageSolids, clipPassageWall, passageInterior, passageBaseUnknown } from './building-passages.js';
 import { scenerySourceProfile } from './scenery-source.js';
 import { batchWaterChunks } from './water-batch.js';
+import { waterChannelDecision } from './water-channel.js';
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -1610,6 +1611,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const nearWater = (x, z, m = 1.5) => isWater(x, z) || (m > 0 && (isWater(x + m, z) || isWater(x - m, z) || isWater(x, z + m) || isWater(x, z - m)));
     const isPark = (x, z) => { let w = false; parkGrid.each(x, z, x, z, (a) => { if (!w && inArea(a, x, z)) w = true; }); return w; };
     const bigWater = new MeshBuilder();
+    const waterChannelAudit = [];
     // (play-test note 11) the Dâmbovița runs in a straight concrete channel: water ≈ 4.4 m below the Splai, a lower
     // service bank (≈ 2 m) above the waterline, a sloped / vertical concrete wall up to the quay, a parapet + railing
     const CHAN = { water: -4.4, bank: -3.2, bankW: 2.0, slope: 0.9 }, channelAreas = [];
@@ -1623,9 +1625,9 @@ export async function buildWorld(city, renderer, opts = {}) {
         const col = rgb(areaColors[a.kind] || env.ground);
         if (a.kind === 'water') {
             const target = (a.x1 - a.x0 > CELL * 2 || a.z1 - a.z0 > CELL * 2) ? bigWater : cellOf((a.x0 + a.x1) / 2, (a.z0 + a.z1) / 2).water;
-            let per = 0; for (let k = 0; k < a.outer.length; k++) { const p0 = a.outer[k], p1 = a.outer[(k + 1) % a.outer.length]; per += Math.hypot(p1[0] - p0[0], p1[1] - p0[1]); }
-            // the Dâmbovița: named so, or (often unnamed riverbank polygons) a long narrow water body in Bucharest (mean width < 60 m)
-            const chan = !US && (/d[âa]mbovi[tţț]a/i.test(a.name || '') || (!/lac|lacul|iaz|fântân|fantan|bazin/i.test(a.name || '') && per > 400 && a.size / (per / 2) < 60));
+            // Literal mapped water type precedes the legacy estimated channel classification.
+            const channel = waterChannelDecision(a, { us: US, tags: data.areaSourceTags?.[a.sourceId] || {} }), chan = channel.channel;
+            waterChannelAudit.push({ sourceId: a.sourceId, name: a.name, ...channel, surfaceM: chan ? CHAN.water : y, surfaceSource: 'model estimate' });
             const v0 = target.vc; target.flatPoly(pts, tris, chan ? CHAN.water : y, chan ? rgb('#3c4a42') : col, 0.02); a.waterMesh = { mb: target, v0, v1: target.vc };
             if (chan) { a.channel = true; channelAreas.push(a); }
         } else {
@@ -5653,6 +5655,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         buildingRoofProfiles: roofProfileAudit, profile: profileStats, buildingPassages: buildingPassageAudit, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, landmarkSourceReplacements, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
     stats.scenerySource = scenerySourceAudit;
     stats.waterShore = waterShoreAudit;
+    stats.waterChannels = waterChannelAudit;
     console.info('[world]', city.id, stats);
 
     /** calls cb(height) for every drivable surface (carriageway + shoulder + sidewalk, junction pads) covering (x, z) */

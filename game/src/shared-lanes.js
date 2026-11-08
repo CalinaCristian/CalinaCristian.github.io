@@ -109,7 +109,7 @@ export class SharedLaneGate {
             for (const edge of group.edges) {
                 const co = ((player.front ?? 2.2) - (player.rear ?? 2.2)) / 2;
                 const dx = player.x + player.fx * co - edge.a.x, dz = player.z + player.fz * co - edge.a.z;
-                const along = dx * edge.dirx + dz * edge.dirz, lateral = dx * edge.nx + dz * edge.nz;
+                const along = dx * edge.dirx + dz * edge.dirz, lateral = dx * edge.nx + dz * edge.nz - (edge.laneCenterShiftM || 0);
                 const halfL = (player.length || 4.4) / 2, halfW = (player.width || 1.8) / 2;
                 const dot = player.fx * edge.dirx + player.fz * edge.dirz, cross = player.fx * edge.nx + player.fz * edge.nz;
                 const aRadius = Math.abs(dot) * halfL + Math.abs(cross) * halfW;

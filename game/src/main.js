@@ -16,7 +16,7 @@ const mapFilter = () => globalThis.game?.mapFilter ?? MINIMAP.MAP_FILTER;
 const fkey = (cat) => (cat === 'business' ? 'shop' : cat);
 import { Office } from './office.js';
 import { playFlight } from './flight.js';
-import { Navigator, CarScreen, canTravel, edgeSpeed, isMotorway, roadName, fmtDist, stepText, stepArrow, lanesDir } from './nav.js';
+import { Navigator, CarScreen, canTravel, edgeSpeed, isMotorway, roadName, fmtDist, stepText, stepArrow, lanesDir, roadSideWidth, roadWidthAt } from './nav.js';
 import { isTouch, clamp, angleDiff, signTexture } from './util.js';
 import { Renderer3D } from './render.js';
 import { disposeDistrictScene } from './sceneResources.js';
@@ -480,7 +480,7 @@ class Game {
         const e = ne.edge;
         let dir = canTravel(e, preferDir) ? preferDir : -preferDir;
         if (!canTravel(e, dir)) dir = 1;
-        const lat = laneOffset(e, 0) * dir;
+        const lat = laneOffset(e, 0, dir) * dir;
         return { x: ne.cx + e.nx * lat, z: ne.cz + e.nz * lat, heading: Math.atan2(-e.dirx * dir, -e.dirz * dir), edge: e, dir };
     }
     placeSpawn(city, world) {
@@ -491,7 +491,7 @@ class Game {
         const sp = city.spawn;
         const e = sp && world.graph.edges.find(ed => ed.a.id === sp.edge[0] && ed.b.id === sp.edge[1]);
         if (e) {
-            const lat = laneOffset(e, 0) * sp.dir;
+            const lat = laneOffset(e, 0, sp.dir) * sp.dir;
             this.player.place(e.a.x + e.dirx * e.len * sp.t + e.nx * lat, e.a.z + e.dirz * e.len * sp.t + e.nz * lat, Math.atan2(-e.dirx * sp.dir, -e.dirz * sp.dir), e);
             return;
         }
@@ -664,7 +664,7 @@ class Game {
         }
         if (this.state !== 'foot' || !this.foot) return false;
         const F = this.foot, ne = this.nav.index.nearest(F.x, F.z, 200); if (!ne) return false;
-        const e = ne.edge, sd = (F.x - ne.cx) * e.nx + (F.z - ne.cz) * e.nz >= 0 ? 1 : -1, off = (e.halfW ?? 4) + 1.5;
+        const e = ne.edge, sd = (F.x - ne.cx) * e.nx + (F.z - ne.cz) * e.nz >= 0 ? 1 : -1, off = roadSideWidth(e, sd) + 1.5;
         this.basketball?.cancel('reset');
         F.teleport(ne.cx + e.nx * sd * off, ne.cz + e.nz * sd * off);
         this.hud.toast('🛟 Back on the sidewalk', 'Position reset.'); return true;
@@ -749,7 +749,7 @@ class Game {
         this.updateActionMarkers(player.x, player.z); // stop pins come down to the door as you get close; station markers
         // street / district
         const ne = this.nav.index.nearest(player.x, player.z, 200);
-        const onRoad = ne && ne.d < (ne.edge.halfW ?? 6) + (ne.edge.sidewalk ?? 2) + 6;
+        const onRoad = ne && ne.d < roadWidthAt(ne.edge, player.x, player.z) + (ne.edge.sidewalk ?? 2) + 6;
         let district = '', bd = Infinity;
         for (const d of this.minimap.districts || []) { const dd = Math.hypot(d.x - player.x, d.z - player.z); if (dd < bd) { bd = dd; district = d.name; } }
         const streetName = onRoad ? roadName(ne.edge) : (world.isPark?.(player.x, player.z) ? 'Park' : 'Off road');
@@ -770,7 +770,7 @@ class Game {
         // ---- speed limit / enforcement ----
         const us = city.units === 'mph';
         let limitDisp = null, over = false, overKmh = 0;
-        if (ne && ne.d < (ne.edge.halfW ?? 6) + 2.5) {
+        if (ne && ne.d < roadWidthAt(ne.edge, player.x, player.z) + 2.5) {
             const lim = edgeSpeed(ne.edge);
             limitDisp = us ? Math.max(5, Math.round(lim * 2.237 / 5) * 5) : Math.max(10, Math.round(lim * 3.6 / 10) * 10);
             const limKmh = us ? limitDisp * 1.609 : limitDisp;
@@ -1238,7 +1238,7 @@ class Game {
 
     checkRoadEvents(ne, dt) {
         const { player, hud, traffic } = this;
-        if (!ne || ne.d > (ne.edge.halfW ?? 6) + 1) { this.prevEdgeInfo = null; return; }
+        if (!ne || ne.d > roadWidthAt(ne.edge, player.x, player.z) + 1) { this.prevEdgeInfo = null; return; }
         const e = ne.edge;
         const towardB = (player.fx * e.dirx + player.fz * e.dirz) > 0;
         const endNode = towardB ? e.b : e.a;
@@ -1341,9 +1341,9 @@ class Game {
         for (const v of this.traffic.near(P.x, P.z, R)) shapes.push({ c: CYAN, pts: obb(v.x, v.z, v.fx, v.fz, v.length / 2, v.width / 2), closed: true, y0: (v.y ?? 0.24), y1: (v.y ?? 0.24) + 1.3, kind: 'vehicle' });
         if (w.edgesInBox) w.edgesInBox(P.x - R, P.z - R, P.x + R, P.z + R, (e) => {
             if (e.ya === undefined) return;
-            const hw = e.halfW ?? 6, ym = 0.24 + (e.ya + e.yb) / 2;
+            const ym = 0.24 + (e.ya + e.yb) / 2;
             if (Math.abs(ym - sy) > 3) return;
-            for (const sd of [1, -1]) shapes.push({ c: GREEN, pts: [[e.a.x + e.nx * hw * sd, e.a.z + e.nz * hw * sd], [e.b.x + e.nx * hw * sd, e.b.z + e.nz * hw * sd]], closed: false, y0: ym + 0.05, y1: ym + 0.05, kind: 'ribbon' });
+            for (const sd of [1, -1]) shapes.push({ c: GREEN, pts: [[e.a.x + e.nx * roadSideWidth(e, sd) * sd, e.a.z + e.nz * roadSideWidth(e, sd) * sd], [e.b.x + e.nx * roadSideWidth(e, sd) * sd, e.b.z + e.nz * roadSideWidth(e, sd) * sd]], closed: false, y0: ym + 0.05, y1: ym + 0.05, kind: 'ribbon' });
         });
         shapes.push({ c: YEL, pts: obb(P.x + P.fx * ((P.front ?? 2.2) - (P.rear ?? 2.2)) / 2, P.z + P.fz * ((P.front ?? 2.2) - (P.rear ?? 2.2)) / 2, P.fx, P.fz, P.length / 2, P.width / 2), closed: true, y0: sy, y1: sy + 1.2, kind: 'player' });
         for (const o of [1.3, 0, -1.3]) shapes.push({ c: YEL, pts: circle(P.x + P.fx * o, P.z + P.fz * o, 1.0, 12), closed: true, y0: sy + 0.1, y1: sy + 0.1, kind: 'player' });
@@ -1606,8 +1606,8 @@ class Game {
         }
         cands.sort((a, b) => a.d - b.d);
         for (const c of cands.slice(0, 60)) {
-            const e = c.e, hw = e.halfW ?? 4, dir = canTravel(e, 1) || !canTravel(e, -1) ? 1 : -1, fx = e.dirx * dir, fz = e.dirz * dir;
-            const side = (-fz * e.nx + fx * e.nz) >= 0 ? 1 : -1, off = Math.max(0, hw - 1.25) * side; // the right-hand kerb of the travel direction
+            const e = c.e, dir = canTravel(e, 1) || !canTravel(e, -1) ? 1 : -1, fx = e.dirx * dir, fz = e.dirz * dir;
+            const side = (-fz * e.nx + fx * e.nz) >= 0 ? 1 : -1, off = Math.max(0, roadSideWidth(e, side) - 1.25) * side; // the right-hand kerb of the travel direction
             const x = c.cx + e.nx * off, z = c.cz + e.nz * off, heading = Math.atan2(-fx, -fz);
             const chk = T.assessParking({ x, z, heading, surfY: 0.24 + (e.ya ?? 0), y: 0.24 + (e.ya ?? 0) });
             if (chk && !chk.illegal && chk.inLane) return { x, z, heading, edge: e, d: c.d };
@@ -1681,7 +1681,7 @@ class Game {
         // street + navigation from the walker's position
         const pos = { x: F.x, z: F.z, heading: F.heading, surfY: F.y + 0.24, speed: F.vel };
         const ne = this.nav.index.nearest(F.x, F.z, 200);
-        const onRoad = ne && ne.d < (ne.edge.halfW ?? 6) + (ne.edge.sidewalk ?? 2) + 6;
+        const onRoad = ne && ne.d < roadWidthAt(ne.edge, F.x, F.z) + (ne.edge.sidewalk ?? 2) + 6;
         let district = '', bd = Infinity;
         for (const d of this.minimap.districts || []) { const dd = Math.hypot(d.x - F.x, d.z - F.z); if (dd < bd) { bd = dd; district = d.name; } }
         hud.setStreet(onRoad ? roadName(ne.edge) : (world.isPark?.(F.x, F.z) ? 'Park' : 'On foot'), district);
@@ -2471,11 +2471,11 @@ ${['menu', 'drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa=
             // keep out of the junction boxes when the edge is long enough
             const ra = (e.a.radius ?? 6) + 3, rb = (e.b.radius ?? 6) + 3;
             let s = t * e.len + shift; if (e.len > ra + rb) s = clamp(s, ra, e.len - rb); else s = clamp(s, 0, e.len);
-            let lat = this.traffic.laneOffset(e, lane);
+            let lat = this.traffic.laneOffset(e, lane, dir);
             // never outside the carriageway (a narrow service road / lane: centre the car on it)
-            const hw = dir > 0 ? (e.wR ?? e.halfW) : (e.wL ?? e.halfW);
-            if (hw != null) lat = Math.min(lat, Math.max(0, hw - 1.1));
-            if (e.type === 'service' && lanesDir(e, 1) + lanesDir(e, -1) <= 2) lat = Math.min(lat, e.oneway ? 0 : 0.6);
+            const right = roadSideWidth(e, dir), left = roadSideWidth(e, -dir), margin = Math.min(1.1, (right + left) / 2);
+            lat = clamp(lat, -left + margin, right - margin);
+            if (e.type === 'service' && !e.sharedLane && lanesDir(e, 1) + lanesDir(e, -1) <= 2) lat = Math.min(lat, dir * (e.laneCenterShiftM || 0) + (e.oneway ? 0 : 0.6));
             return { x: e.a.x + e.dirx * s + e.nx * dir * lat, z: e.a.z + e.dirz * s + e.nz * dir * lat, heading: Math.atan2(-e.dirx * dir, -e.dirz * dir), edge: e, dir };
         };
         for (const c of scored.slice(0, 8)) for (const sh of [0, 8, -8, 16, -16]) { const p = poseOf(c, sh); if (this.spotFree(p)) return p; }
@@ -2538,7 +2538,7 @@ ${['menu', 'drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa=
         if (segLen > r0 + r1) local = clamp(local, r0, segLen - r1);
         const t = clamp(local / segLen, 0, 1);
         const cx = P[i][0] + (P[i + 1][0] - P[i][0]) * t, cz = P[i][1] + (P[i + 1][1] - P[i][1]) * t;
-        const lat = this.traffic.laneOffset(e, Math.max(0, lanesDir(e, dir) - 1));
+        const lat = this.traffic.laneOffset(e, Math.max(0, lanesDir(e, dir) - 1), dir);
         return { x: cx + e.nx * dir * lat, z: cz + e.nz * dir * lat, heading: Math.atan2(-e.dirx * dir, -e.dirz * dir), edge: e, dir };
     }
     async fastTravel(dest) {

@@ -14,6 +14,10 @@ export function lanesDir(e, dir) {
 }
 export const canTravel = (e, dir) => !e.virtual && e.publicDrive !== false && lanesDir(e, dir) > 0;
 export const edgeSpeed = (e) => e.maxspeed ?? e.speed ?? 13;
+/** Physical edge of the pavement on the canonical right (+) or left (-) of the source centreline. */
+export const roadSideWidth = (e, side) => (side >= 0 ? e.wR : e.wL) ?? e.halfW ?? 6;
+export const roadLateral = (e, x, z) => (x - e.a.x) * e.nx + (z - e.a.z) * e.nz;
+export const roadWidthAt = (e, x, z) => roadSideWidth(e, roadLateral(e, x, z));
 export const nodeList = (graph) => Array.isArray(graph.nodes) ? graph.nodes : Object.values(graph.nodes);
 const MOTOR = new Set(['highway', 'motorway', 'motorway_link', 'trunk', 'trunk_link', 'ramp']);
 export const isMotorway = (e) => MOTOR.has(e.type);

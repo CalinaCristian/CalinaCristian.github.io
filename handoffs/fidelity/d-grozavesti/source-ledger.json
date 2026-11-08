@@ -119,10 +119,11 @@
   },
   "limits": [
     "Imagery acquisition date unknown",
-    "1662 rebuilt building heights remain default or sanity estimates; 678 records have OSM height/levels",
+    "1664 building heights remain default/sanity estimates; 677 records have positive OSM height/levels",
     "Facade colours outside independently reviewed landmark remain estimated",
-    "Scenery extends 600m; farther boxes are limited distant context",
+    "55 source way footprints cross600m while their centres are outside; exactedgeadmission fix pending",
     "Compound roofs are simplified envelopes; mixed roof classes retained uncertain",
-    "Mapped OMV fuel canopy w239359996 is still silently removed by shared builder road-overlap dev-check; core acceptance incomplete"
+    "OMV roof top5.2m/clearance4.8m/thickness0.4m/support layout are explicitly estimated, not sourced dimensions",
+    "OSM w779735509 height=0 is a source anomaly; fallback is not a measured height"
   ]
 }

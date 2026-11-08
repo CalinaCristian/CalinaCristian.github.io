@@ -14,6 +14,32 @@ import { buildingBlocksRoad as harnessBuildingBlocksRoad } from '../../game/dev/
 import { sourceRing } from './source-footprints.mjs';
 import { parseMeasure } from '../../game/src/building-roofs.js';
 const close = (a, b, label) => assert.ok(Math.abs(a - b) < Math.max(1e-5, Math.abs(b) * 1e-8), `${label}: ${a} != ${b}`);
+// A contradictory literal source band is retained as evidence, but is never
+// accepted as a valid physical solid. Flags alone cannot excuse prepared errors.
+function sourceBandStatus(h, minH, tags, profile, id) {
+    assert.ok(Number.isFinite(h) && Number.isFinite(minH) && h > 0 && minH >= 0, 'finite source dimensions: ' + id);
+    if (h > minH) return 'positive';
+    const rawH = parseMeasure(tags?.height), rawMin = parseMeasure(tags?.min_height);
+    assert.ok(rawH > 0 && rawMin >= rawH, 'nonpositive prepared band must have contradictory literal XML dimensions: ' + id);
+    close(h, rawH, 'contradictory literal height ' + id);
+    close(minH, rawMin, 'contradictory literal minimum ' + id);
+    assert.equal(profile?.raw?.height, tags.height, 'profile preserves raw XML height: ' + id);
+    assert.equal(profile?.raw?.min_height, tags.min_height, 'profile preserves raw XML minimum: ' + id);
+    const issue = minH === h ? 'zero vertical source band: minimum height equals total height' : 'minimum height exceeds total height';
+    assert.ok(profile?.issues?.includes(issue), 'contradictory source band is explicitly flagged: ' + id);
+    return 'rejected-source-band';
+}
+if (process.argv.includes('--source-band-self-test')) {
+    const tags = {height:'4', min_height:'9'}, profile = {raw:{...tags}, issues:['minimum height exceeds total height']};
+    assert.equal(sourceBandStatus(4, 1, {height:'4', min_height:'1'}, {}, 'valid'), 'positive');
+    assert.equal(sourceBandStatus(4, 9, tags, profile, 'source-contradiction'), 'rejected-source-band');
+    assert.equal(sourceBandStatus(15,15,{height:'15',min_height:'15'},{raw:{height:'15',min_height:'15'},issues:['zero vertical source band: minimum height equals total height']},'literal-zero-band'), 'rejected-source-band');
+    for (const [h, m, t, p] of [[4,9,{height:'4',min_height:'1'},profile], [4,8,tags,profile], [4,9,tags,{...profile,raw:{height:'4',min_height:'8'}}], [4,9,tags,{...profile,issues:[]}], [4,9,undefined,profile]]) {
+        assert.throws(() => sourceBandStatus(h,m,t,p,'prepared-regression'), assert.AssertionError);
+    }
+    console.log('Source band controls pass: literal contradictions remain reported; prepared/metadata regressions fail.');
+    process.exit(0);
+}
 const square = [[0, 0], [10, 0], [10, 10], [0, 10]];
 assert.deepEqual(sourceRing([[0,0],[.04,0],[.04,1],[0,1],[0,0]]).ring, [[0,0],[.04,0],[.04,1],[0,1]], 'a four-centimetre structural strip retains its complete positive-area footprint');
 assert.deepEqual(sourceRing([[0,0],[2,0],[2,1],[0,1],[0,0]]).ring, [[0,0],[2,0],[2,1],[0,1]], 'a two-square-metre source building is not a minimum-area casualty');
@@ -50,13 +76,22 @@ assert.equal(collideBuildings([raised], 5, 5, 0.4, 0.24), null, 'a sourced eleva
 assert.ok(collideBuildings([raised], 5, 5, 0.4, 9), 'the upper source volume collides');
 const file = process.argv.find(a => a.startsWith('--data='))?.slice(7) || 'game/data/bucharest-romana.json';
 const data = JSON.parse(fs.readFileSync(file));
+const osmDir = process.argv.find(a => a.startsWith('--osm='))?.slice(6);
+const osm = osmDir ? parseFiles(fs.readdirSync(osmDir).filter(f => f.endsWith('.xml')).sort().map(f => path.join(osmDir, f))) : null;
+const source = id => osm && (id?.[0] === 'w' ? osm.ways : osm.rels).get(+id?.slice(1));
 const rings = data.buildings.map((b, i) => { let x = 0, z = 0; const r = []; for (let j = 9; j < b.length; j += 2) { x += b[j]; z += b[j + 1]; r.push([x / 10, z / 10]); } return data.buildingFootprints?.[i] || r; });
 rings.forEach((r, i) => assert.ok(simpleFootprint(r), `source footprint ${data.buildingIds?.[i] || 'legacy-index:' + i} stays simple after preparation`));
 const report = { file, sourceRecords: data.buildings.length, assemblies: [], roofs: { checked: 0, inset: 0, fallback: [] } };
+report.rejectedSourceBands = [];
+data.buildings.forEach((b,i) => {
+    const [h,minH] = data.buildingDimensions?.[i] || [b[1]/10,b[2]/10], id = data.buildingIds?.[i] || 'legacy-index:' + i;
+    const profile = data.buildingRoofProfiles?.[i], tags = source(id)?.tags || (!osm ? profile?.originalOSM || profile?.raw : null);
+    if (sourceBandStatus(h,minH,tags,profile,id) === 'rejected-source-band') report.rejectedSourceBands.push({sourceId:id,heightM:h,minimumM:minH,status:'retained literal XML contradiction; invalid physical band'});
+});
 const used = new Set();
 for (const [key, spec] of Object.entries(data.buildingAssemblies || {})) {
     const i = +key, partRings = spec.parts.map(p => rings[p]);
-    for (const p of spec.parts) { assert.ok(!used.has(p), 'part has a unique enclosing outline'); used.add(p); const dimensions = data.buildingDimensions?.[p] || [data.buildings[p][1] / 10, data.buildings[p][2] / 10]; assert.ok(dimensions[0] >= dimensions[1], 'precise source part band never inverts'); if (dimensions[0] === dimensions[1]) { assert.ok(data.buildingSourceIssues?.[p]?.some(v => v.startsWith('zero vertical source band')), 'literal zero-band source has an explicit anomaly'); const raw = data.buildingRoofProfiles?.[p]?.originalOSM || data.buildingRoofProfiles?.[p]?.raw; assert.ok(raw && parseMeasure(raw.height) === dimensions[0] && parseMeasure(raw.min_height) === dimensions[1], 'zero band is the unchanged literal source, never an invented thickness'); } }
+    for (const p of spec.parts) { assert.ok(!used.has(p), 'part has a unique enclosing outline'); used.add(p); }
     const cells = footprintCells(rings[i], partRings), residuals = cells.filter(c => !c.covered.length).map(c => c.ring);
     const volume = i => ({ i, ring: rings[i], holes: [], h: data.buildingRoofProfiles?.[i]?.eavesM ?? data.buildingDimensions?.[i]?.[0] ?? data.buildings[i][1] / 10, roofProfile: data.buildingRoofProfiles?.[i], minH: data.buildingDimensions?.[i]?.[1] ?? data.buildings[i][2] / 10 });
     assert.equal(spec.geometry.signature, assemblySignature(volume(i), spec.parts.map(volume)), 'offline geometry cache matches every source vertex and height');
@@ -121,10 +156,7 @@ if (process.argv.includes('--baseline')) {
     report.sourceFieldsUnchanged = unchanged;
 
 }
-const osmDir = process.argv.find(a => a.startsWith('--osm='))?.slice(6);
 if (osmDir) {
-    const osm = parseFiles(fs.readdirSync(osmDir).filter(f => f.endsWith('.xml')).sort().map(f => path.join(osmDir, f)));
-    const source = id => (id?.[0] === 'w' ? osm.ways : osm.rels).get(+id?.slice(1));
     const numeric = parseMeasure;
     const rawRing = (id, index) => {
         const object = source(id); if (!object) return null;
@@ -146,7 +178,7 @@ if (osmDir) {
         const nativeProfile=data.buildingRoofProfiles?.[i];
         if (!(numeric(t.height)>0) && numeric(t.min_height)>0 && nativeProfile?.heightSource?.includes('estimate')) assert.ok(h>minH && nativeProfile.eavesM>minH, 'an unsourced positive body estimate stays above the literal source minimum: '+id);
         if (Number.isFinite(numeric(t.height)) && numeric(t.height) > 0) { close(h, numeric(t.height), 'literal height ' + id); explicitHeights++; }
-        if (Number.isFinite(numeric(t.min_height)) && numeric(t.min_height) < h) { close(minH, numeric(t.min_height), 'literal minimum ' + id); explicitMinima++; }
+        if (Number.isFinite(numeric(t.min_height)) && numeric(t.min_height) >= 0) { close(minH, numeric(t.min_height), 'literal minimum ' + id); explicitMinima++; }
         if (Number.isFinite(numeric(t.height)) && numeric(t.height) <= 0) assert.ok(data.buildingSourceIssues?.[i]?.some(v => v.startsWith('nonpositive OSM height=')), 'nonpositive height remains a source anomaly: ' + id);
         const canopy = data.buildingCanopies?.[i];
         if (canopy) {

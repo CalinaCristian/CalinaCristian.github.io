@@ -3,7 +3,7 @@
   "id": "bob",
   "city": "bucharest",
   "name": "BOB Tower",
-  "sourceCommit": "2235dbfce4286c2f6f24add87ab8e5622a5df306",
+  "sourceCommit": "94508c6c36888591a02d584886da6270e1f6b550",
   "status": "reviewed-with-gaps",
   "coordinates": {
     "lat": 44.479608,
@@ -58,7 +58,7 @@
     {
       "label": "Published capture provenance",
       "passed": true,
-      "details": "Immutable game source 2235dbfce4286c2f6f24add87ab8e5622a5df306; actual published WebP SHA256, source identity and perspective camera metadata retained; no external reference image included."
+      "details": "Each capture retains its immutable game-source SHA and actual camera metadata. Top studies were recaptured at720\u00d7720 with actual orthographic left/right/top/bottom bounds, up vector and square ground span exported from the frozen camera. Published WebP bytes are SHA256 verified; no external imagery included."
     }
   ],
   "captures": [
@@ -119,12 +119,12 @@
     },
     {
       "id": "top",
-      "label": "Perspective top model study",
+      "label": "North-up orthographic model study",
       "kind": "top",
       "image": "assets/landmarks/bob/top.webp",
-      "sourceCommit": "2235dbfce4286c2f6f24add87ab8e5622a5df306",
-      "sha256": "d97402ec0f162b9b89a074037f558db87eeb925b7e49fe83ef4037bf68a9b1cc",
-      "capturedAt": "2026-11-08T17:38:56.413Z",
+      "sourceCommit": "94508c6c36888591a02d584886da6270e1f6b550",
+      "sha256": "caec8d1cda9a273b29d425f8cf2ad26c3b35118642a8372d30138d60b6ae4fcb",
+      "capturedAt": "2026-11-08T18:48:50.814Z",
       "pose": {
         "viewerRoute": "/game/dev/landmarks.html?id=bob&clean=1&fountains=on&view=top&az=0",
         "anchor": {
@@ -149,9 +149,23 @@
           "near": 0.5,
           "far": 4142.036212158203,
           "viewport": [
-            960,
+            720,
             720
-          ]
+          ],
+          "up": [
+            0,
+            0,
+            -1
+          ],
+          "left": -89.55090530395508,
+          "right": 89.55090530395508,
+          "top": 89.55090530395508,
+          "bottom": -89.55090530395508,
+          "zoom": 1,
+          "groundSquareM": 179.10181060791015,
+          "groundWidthM": 179.10181060791015,
+          "groundDepthM": 179.10181060791015,
+          "orientation": "north-up"
         },
         "bounds": {
           "min": [
@@ -165,7 +179,7 @@
             58.93178176879883
           ]
         },
-        "frame": "Isolated landmark; perspective camera, +x east/+z south; metres"
+        "frame": "Isolated landmark model; square north-up orthographic ground coverage, not a matched aerial comparison"
       },
       "render": {
         "triangles": 2220,

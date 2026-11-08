@@ -64,6 +64,9 @@ const CSS = `
 #spot-ui .sp-tour .sp-dots{letter-spacing:3px;color:#fde68a;font-size:11px}
 #spot-ui .sp-tour .sp-stop{font-weight:700;color:#fde68a;margin-top:2px}
 #spot-ui .sp-tour .sp-narr{opacity:.92;margin-top:2px;max-height:7.5em;overflow:hidden}
+#spot-ui .sp-tour .sp-tour-controls{display:flex;gap:6px;margin-top:6px;pointer-events:auto}
+#spot-ui .sp-tour button{font:600 12px system-ui;border:0;border-radius:6px;padding:6px 9px;background:#fbbf24;color:#1d160a;cursor:pointer}
+#spot-ui .sp-tour button[data-tour-end]{background:#3a4148;color:#fff}
 body.photo-mode #spot-ui .sp-mini,
 body.photo-mode #spot-ui .sp-card,body.photo-mode #spot-ui .sp-prompt,body.photo-mode #spot-ui .sp-help,body.photo-mode #spot-ui .sp-cross{display:none}
 @media (max-width:600px){#spot-ui .sp-help{display:none}#spot-ui .bubble{font-size:12px}#spot-ui .sp-mini{width:112px;height:112px}}
@@ -118,7 +121,12 @@ export class SpotUI {
     setTour(t) {
         const el = this.$('.sp-tour'); if (!t) { el.innerHTML = ''; el.style.display = 'none'; return; }
         el.style.display = '';
-        el.innerHTML = `<b>🚩 ${esc(t.title)}${t.done ? '' : ` · ${Math.min(t.i + 1, t.n)}/${t.n}`}</b><div class="sp-dots">${(t.dots || []).map((d) => (d === 1 ? '●' : d === 2 ? '◉' : '○')).join('')}</div>${t.stop ? `<div class="sp-stop">▶ ${esc(t.stop)}</div>` : ''}${t.text ? `<div class="sp-narr">${esc(t.text)}</div>` : ''}`;
+        el.innerHTML = `<b>🚩 ${esc(t.title)}${t.done ? '' : ` · ${Math.min(t.i + 1, t.n)}/${t.n}`}</b><div class="sp-dots">${(t.dots || []).map((d) => (d === 1 ? '●' : d === 2 ? '◉' : d === 3 ? '×' : '○')).join('')}</div>${t.stop ? `<div class="sp-stop">▶ ${esc(t.stop)}</div>` : ''}${t.text ? `<div class="sp-narr">${esc(t.text)}</div>` : ''}${t.skip || t.end ? `<div class="sp-tour-controls">${t.skip ? '<button data-tour-skip>Skip stop</button>' : ''}${t.end ? `<button data-tour-end>${t.done ? 'Close' : 'End tour'}</button>` : ''}</div>` : ''}`;
+        for (const [selector, run] of [['[data-tour-skip]', t.skip], ['[data-tour-end]', t.end]]) {
+            const b = el.querySelector(selector); if (!b) continue;
+            b.onpointerdown = (e) => e.stopPropagation();
+            b.onclick = (e) => { e.stopPropagation(); run(); };
+        }
     }
     /**
      * full spot map (notes 32/33/67): the map with every objective + legend + checklist + tour button. Same panel

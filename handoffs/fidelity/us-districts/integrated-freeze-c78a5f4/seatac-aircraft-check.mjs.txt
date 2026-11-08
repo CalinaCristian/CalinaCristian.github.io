@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "aircraft": [
+    {
+      "id": "apron-c11",
+      "sourceGate": "n673353306",
+      "sourceAprons": [
+        "w1166127691"
+      ],
+      "planSpanM": 33.199252317904396,
+      "sourceBuildingContacts": [],
+      "districtBodyContacts": []
+    },
+    {
+      "id": "apron-c9",
+      "sourceGate": "n673353303",
+      "sourceAprons": [
+        "w1166127691"
+      ],
+      "planSpanM": 37.112401495392504,
+      "sourceBuildingContacts": [],
+      "districtBodyContacts": []
+    },
+    {
+      "id": "apron-b7",
+      "sourceGate": "n673355956",
+      "sourceAprons": [
+        "w1165970115"
+      ],
+      "planSpanM": 36.34095557281037,
+      "sourceBuildingContacts": [],
+      "districtBodyContacts": []
+    },
+    {
+      "id": "apron-a4",
+      "sourceGate": "n405122819",
+      "sourceAprons": [
+        "w1165957120"
+      ],
+      "planSpanM": 33.5734419809975,
+      "sourceBuildingContacts": [],
+      "districtBodyContacts": []
+    }
+  ],
+  "collisionSha256": "00aa1e2fff8a64cc4007252d014b835d66ffb9a6e46d7f134b45f2f6621a4720",
+  "triangles": 14547,
+  "note": "Original terminal/road/collider geometry retained. Aircraft pose/plan measured independently; vertical shape and subtype remain estimates."
+}
+(node:256772) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/reality-pass/us-districts/snapshots/source-c78a5f4/game/src/landmarks.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/reality-pass/us-districts/snapshots/source-c78a5f4/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)

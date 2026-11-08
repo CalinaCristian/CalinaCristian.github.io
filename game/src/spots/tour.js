@@ -1,5 +1,15 @@
 // Short guided walks use the same clearance for planning, smoothing and movement.
-import { collide } from './walker.js';
+import { collide, colliderIndex } from './walker.js';
+
+/** Read-only overlay of the actual pedestrian/vehicle body dimensions. Static
+ * collider objects keep their original index; rebuilding an index over shared
+ * objects would make its query stamps interfere with the native walker. */
+export function withMovingBodies(staticColliders, bodies, ignorePed = null) {
+    const dynamic=bodies.filter(o=>o.ped!==ignorePed&&Number.isFinite(o.x)&&Number.isFinite(o.z)&&o.width>0&&o.length>0).map(o=>({x:o.x,z:o.z,angle:Math.atan2(o.fx,o.fz),hw:o.width/2,hd:o.length/2,r:Math.hypot(o.width,o.length)/2,...(Number.isFinite(o.y)?{y0:o.y,y1:o.y+1.8}:{})}));
+    if(!dynamic.length)return staticColliders;
+    const index=colliderIndex(dynamic);
+    return {query(x,z,r,cb){if(staticColliders.query)staticColliders.query(x,z,r,cb);else for(const c of staticColliders)cb(c);index.query(x,z,r,cb);}};
+}
 
 export function walkHeight(ground, colliders, x, z) {
     const base = ground.heightAt(x, z), y = ground.groundAt(x, z, base + 1.2);

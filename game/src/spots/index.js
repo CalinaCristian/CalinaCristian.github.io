@@ -15,7 +15,7 @@ import { Crowd } from './people.js';
 import { SpotUI, SpotMap, plaqueMesh } from './ui.js';
 import { SpotSound } from './sound.js';
 import { colliderIndex, LocalWalker, collide } from './walker.js';
-import { findWalkPath, pathLength, walkHeight, walkSegment } from './tour.js';
+import { findWalkPath, pathLength, walkHeight, walkSegment, withMovingBodies } from './tour.js';
 import { countTris, disposeTree, headingFromBearing, inPoly, polyBox, DEG, rng, distPolyline } from './kit.js';
 
 // ---------------------------------------------------------------------------- registry (Seattle 10 + Bellevue 4; Bucharest added by its builder)
@@ -451,7 +451,11 @@ export class SpotSession {
         try { window.dispatchEvent(new CustomEvent('dmcv:activity', { detail: { spot: this.spot.id, id: 'talk', n: this._talks } })); } catch { /* no host */ }
     }
     /** Strict walkable route; optional radius stays within the actual interaction's reach. */
-    _navPath(ax, az, bx, bz, opts = {}) { return findWalkPath(this.spot.ground, this.spot.colliders, ax, az, bx, bz, opts); }
+    _navColliders(ax,az,bx,bz,range=200) {
+        const bodies=[...(this.spot.crowd?.obstacles((ax+bx)/2,(az+bz)/2,range)||[]),...(this.spot.ctx.extras.obstacles?.()||[])];
+        return withMovingBodies(this.spot.colliders,bodies,this.guide);
+    }
+    _navPath(ax, az, bx, bz, opts = {}) { return findWalkPath(this.spot.ground, this._navColliders(ax,az,bx,bz), ax, az, bx, bz, opts); }
     /** Optional quick visit: one activity first, a nearby fact, then this spot's postcard; all content remains on the map. */
     startTour() {
         if (!this.guide || this.tour) return;
@@ -482,7 +486,7 @@ export class SpotSession {
         addNearest(objs.filter((m) => m.kind === 'plaque'));
         addNearest(objs.filter((m) => m.kind === 'postcard'));
         if (!stops.length) { this.ui.toast('No short walking route', 'Explore freely with M. The guide could not find a safe route from here.'); return false; }
-        this.tour = { stops, i: 0, state: 'walk', wait: 0, said: false, t: 0, walked, skipped: 0 };
+        this.tour = { stops, i: 0, state: 'walk', wait: 0, said: false, t: 0, walked, travelled:0, skipped: 0 };
         this.guide.act = 'guide'; this.guide.sayCd = 1e9;
         this.tour.narr = `Follow my flag — ${stops.length} stop${stops.length === 1 ? '' : 's'}, about ${Math.ceil(walked)} m. Skip or end the tour at any time.`;
         try { window.dispatchEvent(new CustomEvent('dmcv:activity', { detail: { spot: S.id, id: 'tour-start' } })); } catch { /* no host */ }
@@ -505,7 +509,7 @@ export class SpotSession {
         const T = this.tour; if (!T) return;
         T.stops[T.i].done = !T.stops[T.i].skipped; T.i++; T.said = false; T.t = 0; T.wait = 0;
         if (T.i >= T.stops.length) return this._finishTour();
-        const st = T.stops[T.i], path = this._navPath(this.guide.x, this.guide.z, st.x, st.z, { radius: st.radius });
+        const st = T.stops[T.i], path = this._navPath(this.guide.x, this.guide.z, st.x, st.z, { radius: st.radius, maxLength: Math.max(0, 180 - (T.travelled || 0)) });
         if (!path) { T.narr = 'The next stop is blocked. You can skip it or end the tour.'; T.state = 'blocked'; this.guide.speed = 0; }
         else { st.path = path; st.wi = 1; [st.tx, st.tz] = path.at(-1); T.state = 'walk'; T.narr = 'Follow the flag to the next stop.'; }
         this._tourUI(); this._routeLine(); this._refreshMarkers();
@@ -542,12 +546,23 @@ export class SpotSession {
                 if (wp) while (st.wi < wp.length - 1 && Math.hypot(wp[st.wi][0] - G.x, wp[st.wi][1] - G.z) < 0.35) st.wi++;
                 const tgx = wp ? wp[st.wi][0] : st.tx, tgz = wp ? wp[st.wi][1] : st.tz, dT = Math.hypot(tgx - G.x, tgz - G.z) || 1;
                 let dx = (tgx - G.x) / dT, dz = (tgz - G.z) / dT; const step = Math.min(v * dt, dT);
-                const cols = this.spot.colliders, ground = this.spot.ground; let nx = G.x, nz = G.z, moved = false;
+                const cols = this._navColliders(G.x,G.z,G.x,G.z,12), ground = this.spot.ground; let nx = G.x, nz = G.z, moved = false;
                 for (const turn of [0, 0.7, -0.7, 1.4, -1.4]) {
                     const c = Math.cos(turn), s2 = Math.sin(turn), ex = dx * c - dz * s2, ez = dx * s2 + dz * c, tx = G.x + ex * step, tz = G.z + ez * step;
                     if (walkSegment(ground, cols, [G.x, G.z], [tx, tz])) { nx = tx; nz = tz; dx = ex; dz = ez; moved = true; break; }
                 }
+                T.travelled = (T.travelled || 0) + Math.hypot(nx - G.x, nz - G.z);
                 G.x = nx; G.z = nz; if (moved) G.y = walkHeight(ground, cols, nx, nz);
+                const remaining = Math.hypot(tgx - nx, tgz - nz);
+                if (st.progressWaypoint !== st.wi || remaining < (st.bestRemaining ?? Infinity) - 0.05) {
+                    st.progressWaypoint = st.wi; st.bestRemaining = remaining; st.blockedFor = 0;
+                } else st.blockedFor = (st.blockedFor || 0) + dt;
+                if(T.travelled>180){T.state='blocked';T.narr='This short walk has reached its distance budget. You can end the tour and keep exploring freely.';G.speed=0;this._tourUI();this._routeLine();return;}
+                if(st.blockedFor>1){
+                    const replanned=this._navPath(G.x,G.z,st.x,st.z,{radius:st.radius,maxLength:180-T.travelled});st.blockedFor=0;
+                    if(replanned){st.path=replanned;st.wi=1;st.progressWaypoint=null;st.bestRemaining=Infinity;[st.tx,st.tz]=replanned.at(-1);this._routeLine();}
+                    else{T.state='blocked';T.narr='The public route is currently blocked. You can skip this stop or end the tour.';G.speed=0;this._tourUI();this._routeLine();return;}
+                }
                 G.speed = moved ? v : 0; G.phase += moved ? dt * v * 4.6 : 0; G.yaw = Math.atan2(dx, dz); G.tyaw = G.yaw;
                 if ((T.t % 1) < dt) this._routeLine();
             } else { G.speed = 0; G.yaw = Math.atan2(p.x - G.x, p.z - G.z); }

@@ -3,8 +3,8 @@
   "id": "fremont-troll",
   "city": "seattle",
   "name": "Fremont Troll",
-  "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-  "updatedAt": "2026-11-08T19:35:04.502Z",
+  "sourceCommit": "c7d405f058e4b1a299841202c75c774f91c3e904",
+  "updatedAt": "2026-11-08T20:00:27.872914+00:00",
   "status": "needs_review",
   "sources": [
     {
@@ -101,15 +101,15 @@
   "improvements": [
     "Hand and Beetle challenges require actual walking/jumping, a grounded landing and a held pose; they no longer teleport the player to a target.",
     "Two posed visitors moved to adjacent sculpture surfaces to clear the playable hand and Beetle targets, preserving visitor counts.",
-    "Source buildings and bridge-context geometry retain exact polygons and shared roof profiles."
+    "Source buildings and bridge-context geometry retain exact polygons and shared roof profiles.",
+    "Independent native pedestrian-aware travel reaches the exact public reading goal while preserving every source record, collider and visitor; the original failed static-planner attempt is retained as a separate diagnostic."
   ],
   "remainingGaps": [
-    "The native short plaque walk becomes blocked by the crowd near The bridge above; its endpoint view is too close to a visitor.",
+    "The shared static route ignores moving pedestrians and can stop against a visitor. A separate pedestrian-aware native walk reaches the exact reading point; no scene geometry or crowd placement was changed. The visitor beside the plaque remains visible.",
     "A complete matched under-bridge comparison is still missing. The available Street View sample was on the bridge deck and was rejected as unsuitable.",
     "Touch buttons were exercised, but the climb movement in that harness still used keyboard input; a complete touch-joystick climb remains unverified.",
     "The sculpture, Beetle and bridge materials still need an independent whole-scene comparison, including retaining walls and hillside paths.",
-    "Raw audit findings remain for physical review: zfight 72.",
-    "5.3 m walked toward The bridge above; Native walker blocked on planned public path."
+    "Raw audit findings remain for physical review: zfight 72."
   ],
   "checks": [
     {
@@ -129,13 +129,13 @@
     },
     {
       "label": "Native public-path walk",
-      "passed": false,
-      "details": "5.3 m walked toward The bridge above; Native walker blocked on planned public path."
+      "passed": true,
+      "details": "21.1 m actually walked to The bridge above with native collisions and all 28 visitors / 489 colliders retained. Temporary pedestrian buffers affect planning only. The shared static attempt remains blocked and is retained separately."
     },
     {
       "label": "High scene budgets",
       "passed": true,
-      "details": "253228 unique geometry triangles; max 626276 rendered triangles / 211 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+      "details": "253228 unique geometry triangles; max 626276 rendered triangles / 211 calls across captured views and the native endpoint. Software GL is not a hardware frame-rate benchmark."
     },
     {
       "label": "Raw physical audit",
@@ -156,11 +156,11 @@
   "captures": [
     {
       "kind": "arrival",
-      "label": "Fremont Troll — arrival",
+      "label": "Fremont Troll \u2014 arrival",
       "image": "assets/spots/fremont-troll/arrival.webp",
-      "sha256": "ea9668ede734ddb979f38ea084f1a0014de328396981b81a94f91ee2d6dc1bdd",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:21:35.572Z",
+      "sha256": "aaff8f7e6500978624d20b5777e9171c334dd8aafcb10511dd4178c5530bb52d",
+      "sourceCommit": "c7d405f058e4b1a299841202c75c774f91c3e904",
+      "capturedAt": "2026-11-08T19:53:10.976927+00:00",
       "pose": {
         "position": [
           -1.2,
@@ -183,22 +183,23 @@
           "width": 1280,
           "height": 720
         }
-      }
+      },
+      "travel": "Actual arrival"
     },
     {
       "kind": "public-walk",
-      "label": "Fremont Troll — public walk",
+      "label": "Fremont Troll \u2014 public walk",
       "image": "assets/spots/fremont-troll/public-walk.webp",
-      "sha256": "88fd976a51af5701b949594fa7ffb8b1b34d17efabe0da691c46bed045949e63",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:21:37.796Z",
+      "sha256": "b4d3a5108c3827cc5e572f8b8d5d75e4b64cd628893767ab6def353aff55f612",
+      "sourceCommit": "c7d405f058e4b1a299841202c75c774f91c3e904",
+      "capturedAt": "2026-11-08T19:58:55.229570+00:00",
       "pose": {
         "position": [
-          -4.4560260133680565,
-          1.972400065477881,
-          -4.055834873724496
+          -15.356064950664662,
+          2.8170332070899224,
+          -15.516600043400814
         ],
-        "bearing": 319.2097622665532,
+        "bearing": 292.8238293256914,
         "pitch": 0,
         "coordinateSystem": "scene-local metres, x east / y up / z south",
         "origin": {
@@ -214,15 +215,16 @@
           "width": 1280,
           "height": 720
         }
-      }
+      },
+      "travel": "Actual native pedestrian-aware walk; no teleport or walkTo during travel."
     },
     {
       "kind": "postcard",
-      "label": "Fremont Troll — postcard",
+      "label": "Fremont Troll \u2014 postcard",
       "image": "assets/spots/fremont-troll/postcard.webp",
-      "sha256": "61ae5c78aa238da573dcd3d999d7300fc4123ed9910acc0964e77254f3136330",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:21:40.408Z",
+      "sha256": "3d12c2376175a104daa83cb3b8dcaaf42415831d3d1a508cfd0e693ab6df444a",
+      "sourceCommit": "c7d405f058e4b1a299841202c75c774f91c3e904",
+      "capturedAt": "2026-11-08T19:53:22.764802+00:00",
       "pose": {
         "position": [
           -2.3,
@@ -245,15 +247,16 @@
           "width": 1280,
           "height": 720
         }
-      }
+      },
+      "travel": "Posed camera"
     },
     {
       "kind": "activity-approach",
-      "label": "Fremont Troll — activity approach",
+      "label": "Fremont Troll \u2014 activity approach",
       "image": "assets/spots/fremont-troll/activity-approach.webp",
       "sha256": "fe70a9a58d2122ab71d133df67fab3986745bd3769590518ad74aa272d44629a",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:21:43.508Z",
+      "sourceCommit": "c7d405f058e4b1a299841202c75c774f91c3e904",
+      "capturedAt": "2026-11-08T19:53:29.736729+00:00",
       "pose": {
         "position": [
           -6.4,
@@ -276,7 +279,8 @@
           "width": 1280,
           "height": 720
         }
-      }
+      },
+      "travel": "Posed camera"
     }
   ],
   "perf": {
@@ -324,7 +328,7 @@
       "length": 22.25085529601037,
       "target": "The bridge above"
     },
-    "nativeWalk": {
+    "staticPlannerAttempt": {
       "walker": "OnFootController",
       "passed": false,
       "steps": 98,
@@ -338,10 +342,37 @@
         "heading": 0.7119239511198758
       },
       "error": "Native walker blocked on planned public path"
+    },
+    "nativeWalk": {
+      "walker": "OnFootController",
+      "passed": true,
+      "steps": 252,
+      "walked": 21.111895918272015,
+      "target": "The bridge above",
+      "position": {
+        "x": -15.35519463069291,
+        "z": -15.516233744094436,
+        "y": 1.1670350506050258,
+        "heading": 1.1724453571483444
+      },
+      "error": null,
+      "goal": [
+        -16.303006016075134,
+        -15.915115357998756
+      ],
+      "detours": 0,
+      "populationBefore": 28,
+      "populationAfter": 28,
+      "colliderCountBefore": 489,
+      "colliderCountAfter": 489,
+      "sourceBuildingRecordsUnchanged": true,
+      "method": "Actual OnFootController automatic walking and legal sidesteps. Dynamic pedestrian circles are temporary planner buffers only; scene colliders/population/source records remain intact. No dev walkTo/teleport during travel.",
+      "proof": "handoffs/fidelity/original-districts-refresh/proof/tourist-public-context/fremont-troll/native-public-walk.json",
+      "scope": "Independent pedestrian-aware native travel; the shared static path attempt remains a separate blocked timing diagnostic."
     }
   },
   "rawAudit": {
     "zfight": 72
   },
-  "review": "Inspected all four GAME context captures, including the now clear hand-side activity approach. Native movement failures and raw physical warnings remain open."
+  "review": "Inspected all four current GAME context views and the native endpoint. Physical public access is proved without source/collider/crowd edits. Static pedestrian timing, independent scene comparison, touch-climb coverage and raw physical warnings remain open."
 }

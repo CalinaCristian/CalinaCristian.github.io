@@ -16,12 +16,12 @@
   literal positive OSM storey counts exact: 327/327 (100.0 %)
   levels-only metre ESTIMATES: eaves within ±25%/2.5m of generic3m/storey (diagnostic, not source-tag fidelity): 306/306 (100.0 %)
   roof flat/pitched agrees with the aerial survey: 1272/1272 (100.0 %)
-== inside multipolygon relations: 5/5 (100.0 %) source identity matched; courtyards 3/3 (100.0 %) count and source interior points preserved (legacy annular sectors excluded only without source identities)
-  relation literal positive OSM total heights exact within0.011m: 2/2 (100.0 %)
-  relation literal positive OSM storey counts exact: 4/4 (100.0 %)
+== inside multipolygon relations: 6/6 (100.0 %) source identity matched; courtyards 3/3 (100.0 %) count and source interior points preserved (legacy annular sectors excluded only without source identities)
+  relation literal positive OSM total heights exact within0.011m: 3/3 (100.0 %)
+  relation literal positive OSM storey counts exact: 5/5 (100.0 %)
   relation levels-only metre ESTIMATES: eaves within ±25%/2.5m of generic3m/storey (diagnostic, not source-tag fidelity): 2/2 (100.0 %)
 == ring multipolygon relations: 2/2 (100.0 %) source identity matched; courtyards 2/2 (100.0 %) count and source interior points preserved (legacy annular sectors excluded only without source identities)
   relation literal positive OSM total heights exact within0.011m: 0/0 (0.0 %)
   relation literal positive OSM storey counts exact: 2/2 (100.0 %)
   relation levels-only metre ESTIMATES: eaves within ±25%/2.5m of generic3m/storey (diagnostic, not source-tag fidelity): 2/2 (100.0 %)
-wrote /workspace/reality-pass/pipera/audits/delivery-source.json
+wrote /workspace/reality-pass/pipera/audits/relation-parts-source.json

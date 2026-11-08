@@ -2287,7 +2287,11 @@ function bSeaTac(b) {
     const p=U.w23772634,iaf=U.w734002404,ss=U.w23772637, GL = '#5b7d92', WH = '#e9ebec';
     // main terminal + concourses: glass bands under a white roof edge
     b.prism(p, 0, 17, '#d7dadb', { topCol: '#c4c8ca' });
-    b.windows(p, 0, 17, 8.5, GL, { bay: 12, wf: 0.92, hf: 0.55, start: 2.5, mat: 'g', minL: 14 });
+    // The mapped curved frontage is split into short edges (including 7.66 m).
+    // Keep the existing estimated glass bands on those edges; sub-2 m returns,
+    // the inter-storey wall and roof edge remain plain. Official curbside context:
+    // https://www.portseattle.org/projects/sea-gateway-project (Arrivals Drive accessible door portals).
+    b.windows(p, 0, 17, 8.5, GL, { bay: 12, wf: 0.92, hf: 0.55, start: 2.5, mat: 'g', minL: 2 });
     b.cornice(p, 16.4, 1.2, 1.2, WH);
     b.prism(offset(p, -6), 17, 19.5, WH);
     b.text('SEATTLE-TACOMA INTERNATIONAL AIRPORT', -120, 11, zAt([p], -120)[0] - 1.25, Math.PI, 3.2, '#1f3550');

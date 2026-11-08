@@ -1,0 +1,6 @@
+{
+  "complete": false,
+  "reason": "QA snapshot imports building-canopies.js but that module is absent; this is an overlay setup failure, not a runtime pass",
+  "root": "/workspace/integration-qa-evidence/otp-current/source",
+  "worldSha256": "3b080ca5311a1dce5a09786dede1ca48cf5a6ac6108299e0577587d7add41bad"
+}

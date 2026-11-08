@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "district": "seatac",
   "date": "2026-11-08",
-  "sourceCommit": "4881e6ca5fae3f5d118f5ed55165287f282852bd",
+  "sourceCommit": "c1c995989cb76c45be045b9f2d6c57cb78895af8",
   "dataset": "game/data/seattle-seatac.json",
-  "datasetSha256": "b1991067b87c2a85c222d40a10fb535e8c3a1e81d1d17bf2236c49e3df5a2169",
+  "datasetSha256": "3c36cd6dc569eb172936f730464d263943380354c8bc444c254f9de6f62c6171",
   "coverage": "Every whole positive-area building or building:part intersecting the exact configured core or 600 m source ring. Multipolygon inner rings retained; named model exclusions are exact source IDs.",
   "buildingAudit": {
     "core": {
@@ -12,8 +12,10 @@
       "sourceIdentitiesPresent": 169,
       "exactTopology": 169,
       "literalHeightMatches": 169,
+      "literalMinimumMatches": 169,
       "mappedStoreysMatches": 169,
       "relationBodies": 2,
+      "partOnlyRelationBodies": 0,
       "maximumBoundaryErrorM": 7e-05
     },
     "ring": {
@@ -21,8 +23,10 @@
       "sourceIdentitiesPresent": 1689,
       "exactTopology": 1689,
       "literalHeightMatches": 1689,
+      "literalMinimumMatches": 1689,
       "mappedStoreysMatches": 1689,
       "relationBodies": 8,
+      "partOnlyRelationBodies": 0,
       "maximumBoundaryErrorM": 7e-05
     }
   },
@@ -168,7 +172,7 @@
   },
   "placesScope": "Every compiled POI matched independently to an original OSM node/polygon centroid or explicit official locator within 0.08 m output quantization tolerance. This does not claim every nearby-ring trading unit is rendered.",
   "parkingAdditiveAudit": "parking-runtime.json",
-  "buildPrerequisiteCommit": "352dc65",
+  "buildPrerequisiteCommit": "5519dab",
   "strictDimensionAudit": {
     "literalPositiveHeightFailures": 0,
     "literalMinimumFailures": 0,
@@ -195,5 +199,7 @@
     "sourcePriorityDifferences": [],
     "unexplainedConfidentShapeDifferences": 0,
     "note": "Explicit OSM roof shape wins. Unsupported quadruple_saltbox remains a reported profile issue; it is not asserted to be an exact native shape. Uncertain aerial shapes and estimated rise/pitch remain estimates."
-  }
+  },
+  "nonstandardMinimumUncertainties": [],
+  "sourceRelationTagRecords": 10
 }

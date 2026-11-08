@@ -19,7 +19,7 @@ fs.mkdirSync(out, { recursive: true });
             await context.route(/api\.open-meteo\.com/, r => r.fulfill({ json: { error: true } }));
             const page = await context.newPage(); page.on('pageerror', e => report.errors.push(e.message));
             await page.addInitScript(() => { window.requestAnimationFrame = () => 0; });
-            await page.goto(`http://127.0.0.1:${server.address().port}/game/`);
+            await page.goto(`http://127.0.0.1:${server.address().port}/game/`, { waitUntil: 'domcontentloaded', timeout: 60000 });
             await page.waitForFunction(() => window.game?.achievements, null, { timeout: 90000 });
             // A genuine menu touch is the positive control; leave its rendered panel in the DOM after closing.
             await page.locator('#achv-menu').tap();
@@ -34,6 +34,7 @@ fs.mkdirSync(out, { recursive: true });
                     document.querySelector('#menu').classList.remove('show'); document.body.classList.add('playing'); document.body.dataset.mode = 'office';
                     g.state = 'office'; g.office = new Office(g.renderer, g.camera, STOPS.find(s => s.id === id), g.hud, g.input, g.audio); g.office.talk();
                 }, id);
+                await page.waitForFunction(() => game.hud.panelOpen && +getComputedStyle(document.querySelector('#panel')).opacity > .99, null, { polling: 50, timeout: 10000 });
                 const office = { id, taps: 0, blocked: [], completed: false, closed: false };
                 for (let step = 0; step < 16; step++) {
                     const next = await page.evaluate(() => {
@@ -52,11 +53,11 @@ fs.mkdirSync(out, { recursive: true });
                     if (await page.evaluate(() => game.achievements.isOpen)) { office.openedAchievements = true; break; }
                 }
                 office.completed = await page.evaluate(() => game.office.read.size === game.office.stations.length);
+                if (result.offices.length === 0 || office.openedAchievements) await page.screenshot({ path: path.join(out, `${width}x${height}-${id}.png`) });
                 if (!office.openedAchievements) {
                     await page.locator('#panel .dlg-opts .bye').tap();
                     office.closed = await page.evaluate(() => !game.hud.panelOpen && !game.office.talking && !game.achievements.isOpen);
                 }
-                if (result.offices.length === 0 || office.openedAchievements) await page.screenshot({ path: path.join(out, `${width}x${height}-${id}.png`) });
                 result.offices.push(office);
             }
             report.viewports.push(result); await context.close();

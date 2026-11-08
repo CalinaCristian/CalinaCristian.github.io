@@ -1,0 +1,42 @@
+{
+  "compilerSourceCommit": "3dfd93e9446f595fcd55796f2e2c8cef2a208d32",
+  "beforeSha256": "d602fc3f90141799e095350595c43f43c0af7b9c3e2825fd98b5eda92ea9e974",
+  "afterSha256": "e7c961ee4acc9bd0c6850e7fcce9ba170d1899134f10376c2a3b3f8af5695358",
+  "changedKeys": [
+    "backdrop",
+    "buildingRoofProfiles",
+    "buildingSourceTags",
+    "buildings",
+    "strings"
+  ],
+  "sourceRecordsBefore": 3366,
+  "sourceRecordsAfter": 3366,
+  "sourceOrderIdentical": true,
+  "unchangedFields": {
+    "buildingIds": true,
+    "buildingFootprints": true,
+    "buildingHoles": true,
+    "buildingDimensions": true,
+    "buildingPassages": true,
+    "nodes": true,
+    "roads": true,
+    "roadSourceGeometry": true,
+    "roadWidths": true,
+    "scenery": true,
+    "scenerySourceGeometry": true,
+    "trees": true,
+    "treeCrownRadii": true,
+    "treeRetention": true,
+    "railways": true
+  },
+  "changedProfiles": [
+    {
+      "sourceId": "r9146640",
+      "index": 0,
+      "changedFields": [
+        "originalOSM"
+      ]
+    }
+  ],
+  "note": "The corrected all-positive part-only multipolygon expected set finds no added source identities in these districts. Typed relation selectors now apply their existing reviewed research to the correct entity; profile changes preserve originalOSM tags. Literal total/eave/shape values remain unchanged; packed style/colour/name and derived roof-colour/POI records may change. Full independent raw identity/topology/dimension/road audits accompany this file."
+}

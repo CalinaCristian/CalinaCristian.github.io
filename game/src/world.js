@@ -1397,7 +1397,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const cellOf = (x, z) => {
         const i = Math.floor(x / CELL), j = Math.floor(z / CELL), k = i * 10007 + j;
         let c = cells.get(k);
-        if (!c) cells.set(k, c = { i, j, solid: new MeshBuilder(true), roof: new MeshBuilder(), ground: new MeshBuilder(), area: new MeshBuilder(), grass: new MeshBuilder(), pave: new MeshBuilder(), marks: new MeshBuilder(), road: new MeshBuilder(), pad: new MeshBuilder(), water: new MeshBuilder(), backdrop: new MeshBuilder(), detail: new MeshBuilder(true), signs: [] });
+        if (!c) cells.set(k, c = { i, j, solid: new MeshBuilder(true), roof: new MeshBuilder(), ground: new MeshBuilder(), area: new MeshBuilder(), grass: new MeshBuilder(), pave: new MeshBuilder(), sport: new MeshBuilder(), marks: new MeshBuilder(), road: new MeshBuilder(), pad: new MeshBuilder(), water: new MeshBuilder(), backdrop: new MeshBuilder(), detail: new MeshBuilder(true), signs: [] });
         return c;
     };
     const signMB = (c, page) => c.signs[page] || (c.signs[page] = new MeshBuilder());
@@ -1487,14 +1487,19 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (hw > hl) { [hl, hw] = [hw, hl]; [ux, uz] = [-uz, ux]; } // u = long axis
             return { cx: pm * best.ux - qm * best.uz, cz: pm * best.uz + qm * best.ux, ux, uz, hl, hw, A: best.A };
         };
+        // (2026-11-08, owner: "this one seems broken") OSM maps a sports ground as one big pitch polygon with the real pitches /
+        // courts inside it: the container stays plain (no stripes, lines, goals laid across the pitches inside it)
+        const SPORT = /^(pitch|turf|clay|hard)$/, sportAreas = areas.filter(o => SPORT.test(o.kind) && o.size >= 60);
+        const holdsOthers = (a) => sportAreas.some(o => o !== a && o.size < a.size * 0.85 && pointInPolygon((o.x0 + o.x1) / 2, (o.z0 + o.z1) / 2, a.outer));
         for (const a of areas) {
             if (!/^(pitch|turf|clay|hard|pool)$/.test(a.kind) || a.size < 60 || a.size > 20000) continue;
             if (landmarks.some(l => l.radius > 0 && Math.hypot(l.x - (a.x0 + a.x1) / 2, l.z - (a.z0 + a.z1) / 2) < l.radius)) continue;
+            if (a.kind !== 'pool' && holdsOthers(a)) continue;
             const R = minRect(a.outer); if (!R || a.size / R.A < 0.8) continue;
             const { cx, cz, ux, uz, hl, hw } = R, vx = -uz, vz = ux;
             const P = (u, v) => [cx + ux * u + vx * v, cz + uz * u + vz * v];
             const c = cellOf((a.x0 + a.x1) / 2, (a.z0 + a.z1) / 2), base = AREA_Y[a.kind] ?? Y.pitch, yL = base + 0.016; // (lines 1.2 cm over the mowing stripes: 3 mm z-fought them away at a distance) // (same cell = same mesh as the area polygon: the lines draw after it)
-            const layer = GRASSY.has(a.kind) ? c.grass : c.pave;
+            const layer = c.sport; // (its own ground layer, drawn after all grass / paving: see 'sport' below)
             const line = (u0, v0, u1, v1, w = 0.1) => { const L = Math.hypot(u1 - u0, v1 - v0); if (L < 0.05) return; const nu = -(v1 - v0) / L * w / 2, nv = (u1 - u0) / L * w / 2; const [ax, az] = P(u0 + nu, v0 + nv), [bx, bz] = P(u1 + nu, v1 + nv), [qx, qz] = P(u1 - nu, v1 - nv), [rx, rz] = P(u0 - nu, v0 - nv); layer.flatQuad(ax, az, bx, bz, qx, qz, rx, rz, yL, W, 0.1); };
             const rect = (hu, hv) => { line(-hu, -hv, hu, -hv); line(-hu, hv, hu, hv); line(-hu, -hv, -hu, hv); line(hu, -hv, hu, hv); };
             const ang = Math.atan2(ux, uz);
@@ -1558,11 +1563,46 @@ export async function buildWorld(city, renderer, opts = {}) {
                     c.detail.face4(q[0], q[1], q[2], q[3], FL, [-dz, 0, dx]); c.detail.face4(q[0], q[3], q[2], q[1], FL, [dz, 0, -dx]);
                     for (let k = 0; k < 8; k++) { const a0 = k / 8 * Math.PI / 2, a1 = (k + 1) / 8 * Math.PI / 2; line(su * (HL - Math.cos(a0)), sv * (HW - Math.sin(a0)), su * (HL - Math.cos(a1)), sv * (HW - Math.sin(a1))); }
                 }
-                if (hw > 15) for (const sd of [-1, 1]) { const [dx, dz] = P(sd * 6, -(hw + 0.4 > HW + 2.5 ? HW + 2.2 : hw + 1.2)); // dugouts: a bench under a curved perspex-ish roof
-                    c.solid.box(dx, base, dz, 4.0, 0.08, 1.2, ang, rgb('#cfd2d4')); c.solid.box(dx, base + 1.95, dz, 4.1, 0.08, 1.4, ang, rgb('#2f6fb0'));
-                    for (const t of [-1.95, 1.95]) { const [ex, ez] = P(sd * 6 + t, -(hw + 0.4 > HW + 2.5 ? HW + 2.2 : hw + 1.2)); c.solid.box(ex, base, ez, 0.06, 1.95, 1.3, ang, rgb('#2f6fb0')); }
-                    c.solid.box(dx, base + 0.45, dz, 3.6, 0.06, 0.45, ang, rgb('#c23b3b'));
-                    sportsColl.push({ x: dx, z: dz, hw: 2.05, hd: 0.7, angle: ang + Math.PI / 2, r: 2.2, poly: null, h: 2, prop: true, kind: 'furniture' }); }
+                // dugouts (2026-11-08, owner: "more love on the benches"): a concrete pad, a smoked back wall, tinted side panels
+                // under a curved roof, a row of bucket seats in the team colour on a rail. Long side along the touchline, on the
+                // side of the pitch that is clear (no other pitch / court, building or road under it); none when neither is
+                if (hw > 15) {
+                    const LEN = 4.4, DEP = 1.7, gap = 1.2, us = [-6.5, 6.5];
+                    const free = (s) => us.every(u0 => { for (let du = -2.5; du <= 2.5; du += 1.25) for (let dv = 0; dv <= DEP + 0.3; dv += 0.5) {
+                        const [x, z] = P(u0 + du, s * (hw + gap + dv));
+                        if (buildingAt(x, z) || onRibbon(x, z, 0.4) || sportAreas.some(o => o !== a && x >= o.x0 && x <= o.x1 && z >= o.z0 && z <= o.z1 && pointInPolygon(x, z, o.outer))) return false; }
+                        return true; });
+                    const side = [-1, 1].find(free);
+                    if (side) for (const u0 of us) {
+                        const s = side, vF = s * (hw + gap), vB = s * (hw + gap + DEP), vC = (vF + vB) / 2;
+                        const B = (lay, u, v, y, lu, h, lv, col) => { const [x, z] = P(u, v); lay.box(x, base + y, z, lv, h, lu, ang, col); };
+                        const V = (u, v, y) => { const [x, z] = P(u, v); return [x, base + y, z]; };
+                        const quad2 = (lay, q, col) => { // both faces of a quad
+                            const e1 = [q[1][0] - q[0][0], q[1][1] - q[0][1], q[1][2] - q[0][2]], e2 = [q[3][0] - q[0][0], q[3][1] - q[0][1], q[3][2] - q[0][2]];
+                            const n = [e1[1] * e2[2] - e1[2] * e2[1], e1[2] * e2[0] - e1[0] * e2[2], e1[0] * e2[1] - e1[1] * e2[0]];
+                            lay.face4(q[0], q[1], q[2], q[3], col, n); lay.face4(q[0], q[3], q[2], q[1], col, [-n[0], -n[1], -n[2]]); };
+                        const FR = rgb('#3a3f45'), PAN = rgb('#8fa8b6'), ROOF = rgb('#5c86a8'), SEAT = rgb(u0 < 0 ? '#b8322f' : '#2a62a8');
+                        B(c.solid, u0, vC + s * 0.15, 0, LEN + 0.4, 0.08, DEP + 0.6, rgb('#c3c5c6'));            // pad
+                        B(c.solid, u0, vB - s * 0.03, 0.08, LEN, 2.12, 0.06, rgb('#3d4a54'));                     // back wall
+                        const hF = 1.95, hB = 2.2, roofY = (t) => hB + (hF - hB) * t + Math.sin(t * Math.PI) * 0.12; // curved roof profile back → front
+                        for (const eu of [-LEN / 2, LEN / 2]) { // side panels (tapered) + frame posts
+                            quad2(c.solid, [V(u0 + eu, vB, 0.08), V(u0 + eu, vF + s * 0.25, 0.08), V(u0 + eu, vF + s * 0.25, roofY(0.85)), V(u0 + eu, vB, hB)], PAN);
+                            B(c.detail, u0 + eu, vF + s * 0.1, 0.08, 0.06, hF, 0.06, FR); B(c.detail, u0 + eu, vB - s * 0.05, 0.08, 0.06, hB, 0.06, FR); }
+                        const NS = 5; for (let k = 0; k < NS; k++) { // roof, back → front with a small overhang
+                            const t0 = k / NS, t1 = (k + 1) / NS, v0 = vB + (vF - s * 0.3 - vB) * t0, v1 = vB + (vF - s * 0.3 - vB) * t1;
+                            quad2(c.solid, [V(u0 - LEN / 2 - 0.05, v0, roofY(t0)), V(u0 + LEN / 2 + 0.05, v0, roofY(t0)), V(u0 + LEN / 2 + 0.05, v1, roofY(t1)), V(u0 - LEN / 2 - 0.05, v1, roofY(t1))], ROOF); }
+                        B(c.detail, u0, vF - s * 0.3, roofY(1) - 0.06, LEN + 0.1, 0.08, 0.05, FR);               // roof front edge
+                        B(c.detail, u0, vB - s * 0.45, 0.32, LEN - 0.3, 0.06, 0.08, FR);                         // seat rail
+                        for (const eu of [-1.6, 0, 1.6]) B(c.detail, u0 + eu, vB - s * 0.45, 0.08, 0.06, 0.26, 0.06, FR);
+                        const nS = 7, sw = (LEN - 0.5) / nS;
+                        for (let k = 0; k < nS; k++) { const su = u0 - (LEN - 0.5) / 2 + sw * (k + 0.5);   // bucket seats: pan + back
+                            B(c.detail, su, vB - s * 0.5, 0.38, sw - 0.08, 0.05, 0.42, SEAT);
+                            B(c.detail, su, vB - s * 0.24, 0.43, sw - 0.08, 0.42, 0.05, SEAT); }
+                        const [cx2, cz2] = P(u0, vC); sportsColl.push({ x: cx2, z: cz2, hw: DEP / 2 + 0.1, hd: LEN / 2 + 0.1, angle: ang, r: Math.hypot(DEP / 2, LEN / 2) + 0.1, poly: null, h: 2.2, prop: true, kind: 'furniture' });
+                        const qd = [P(u0 - LEN / 2 - 1, vF), P(u0 + LEN / 2 + 1, vF), P(u0 + LEN / 2 + 1, vB + s), P(u0 - LEN / 2 - 1, vB + s)];
+                        lmGrounds.push({ p: qd, x0: Math.min(...qd.map(v => v[0])), x1: Math.max(...qd.map(v => v[0])), z0: Math.min(...qd.map(v => v[1])), z1: Math.max(...qd.map(v => v[1])) }); // (no trees in it)
+                    }
+                }
                 if (hl > 22) for (const sg of [-1, 1]) { const fu = sg * (hl + 0.3), fw = Math.min(hw, 24); // ball-stop fence behind the goal: posts + a few wires
                     for (let v = -fw; v <= fw + 0.01; v += 4) { const [px, pz] = P(fu, v); c.detail.box(px, base, pz, 0.08, 6, 0.08, 0, FENCE); }
                     for (const y of [1, 2.5, 4, 5.9]) { const [mx, mz] = P(fu, 0); c.detail.box(mx, base + y, mz, 0.03, 0.03, fw * 2, ang + Math.PI / 2, FENCE); }
@@ -3308,6 +3348,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const hw = Math.min(L / 2 - 0.3, Math.max(e.wR, e.wL) + 0.9), hp = Math.min(4.3, h - y0 - 0.8); if (hw < 1.2 || hp < 2.4) continue;
                 const p0x = px - ux * hw + nx * 0.06, p0z = pz - uz * hw + nz * 0.06, p1x = px + ux * hw + nx * 0.06, p1z = pz + uz * hw + nz * 0.06;
                 mb.wall(p0x, p0z, p1x, p1z, y0, y0 + hp, nx, nz, rgb('#1d1f22'));                                            // the opening
+                (b.portals ||= []).push({ px, pz, hw: hw + 0.35, top: y0 + hp + 0.45 }); // (signs over it go above the lintel)
                 c.solid.box(px + nx * 0.18, y0 + hp, pz + nz * 0.18, 0.35, 0.45, hw * 2 + 0.7, Math.atan2(ux, uz), shadeRgb(wallCol, 0.75)); // lintel
                 for (const sg of [-1, 1]) c.solid.box(px + ux * sg * (hw + 0.17) + nx * 0.18, y0, pz + uz * sg * (hw + 0.17) + nz * 0.18, 0.35, hp, 0.35, Math.atan2(ux, uz), shadeRgb(wallCol, 0.75));
             }
@@ -3605,7 +3646,9 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const col = AWNING[(b.i + k) % AWNING.length];
                 for (let s2 = 0.8; s2 + 3.6 < E.L - 0.5; s2 += 5.4) {
                     const x0 = E.ax + E.ux * s2, z0 = E.az + E.uz * s2, x1 = x0 + E.ux * 3.6, z1 = z0 + E.uz * 3.6;
-                    const yt = yShop - 0.5, yb = yt - 0.7, ox = E.nx * 1.3, oz = E.nz * 1.3;
+                    // (2026-11-08, owner: an awning across the "Implant Dent" fascia) the awning hangs under the fascia band
+                    // (signs take the top ≈ 0.9 m of the shop storey), never in front of it
+                    const yt = yShop - 1.0, yb = yt - 0.6, ox = E.nx * 1.2, oz = E.nz * 1.2; if (yb - y0 < 2.3) return;
                     mb.face4([x0, yt, z0], [x1, yt, z1], [x1 + ox, yb, z1 + oz], [x0 + ox, yb, z0 + oz], col, [E.nx, 1, E.nz]);
                     mb.face4([x0, yt - 0.02, z0], [x1, yt - 0.02, z1], [x1 + ox, yb - 0.02, z1 + oz], [x0 + ox, yb - 0.02, z0 + oz], shadeRgb(col, 0.6), [0, -1, 0]);
                 }
@@ -3636,7 +3679,8 @@ export async function buildWorld(city, renderer, opts = {}) {
         const { ax, az, bx, bz, L, nx, nz } = best, tx = (bx - ax) / L, tz = (bz - az) / L;
         let w = Math.min(6.5, L - 0.8), hh = Math.min(0.7, w / s.aspect); w = Math.min(w, hh * s.aspect);
         const tc = clamp(best.t * L, w / 2 + 0.4, L - w / 2 - 0.4), mx = ax + tx * tc + nx * 0.14, mz = az + tz * tc + nz * 0.14;
-        const shop = (b.flags & 1) && b.h > 6, y = b.signY != null ? b.signY - hh / 2 : shop ? (b.gfh || 4.2) - hh - 0.1 : Math.min(3.0, b.h - hh - 0.3); // (archetypes: their fascia height)
+        const shop = (b.flags & 1) && b.h > 6; let y = b.signY != null ? b.signY - hh / 2 : shop ? (b.gfh || 4.2) - hh - 0.1 : Math.min(3.0, b.h - hh - 0.3); // (archetypes: their fascia height)
+        y = clearPortal(b, mx, mz, w, y);
         if (signedHits(mx, mz, y)) return; // (one sign per unit: another business already signed this spot)
         const cc = cellOf(mx, mz), white = [255, 255, 255], mbS = signMB(cc, s.page);
         const lx = mx - tx * w / 2, lz = mz - tz * w / 2, rx = mx + tx * w / 2, rz = mz + tz * w / 2;
@@ -3657,6 +3701,12 @@ export async function buildWorld(city, renderer, opts = {}) {
     }
     const signedSpots = [];
     const signedHits = (x, z, y) => signedSpots.some(([a, b2, c]) => Math.hypot(a - x, b2 - z) < 3.5 && Math.abs(c - y) < 1);
+    /** (2026-11-08, owner: "still broken sign there") a sign whose span [mx ± w/2] crosses a service portal of its building
+     *  sits above the portal's lintel instead of behind it */
+    function clearPortal(b, mx, mz, w, y) {
+        for (const pt of b.portals || []) if (Math.hypot(pt.px - mx, pt.pz - mz) < w / 2 + pt.hw + 0.3 && y < pt.top + 0.1) y = pt.top + 0.15;
+        return y;
+    }
     function addFacadeSign(b, h, shop, wallCol) {
         const ne = nearestEdge(b.c[0], b.c[1]);
         if (!ne || ne.d > 90) return;
@@ -3690,6 +3740,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         let y = cvp ? Math.max(4, Math.min(h - hh - 1.5, 14)) : b.signY != null ? b.signY - hh / 2 : shop ? y0b + (b.gfh || 4.2) - hh - 0.08 : y0b + Math.min(3.0, Math.max(2.4, h - hh - 0.4));
         if (y < 1) y = 1;
         const mx = (ax + bx) / 2 + nx * 0.12, mz = (az + bz) / 2 + nz * 0.12;
+        if (!cvp) y = clearPortal(b, mx, mz, w, y);
         // viewer outside looks along -n; their right-hand vector is (nz, -nx)
         const lx = mx - nz * w / 2, lz = mz + nx * w / 2, rx = mx + nz * w / 2, rz = mz - nx * w / 2;
         const mbS = signMB(cellOf(b.c[0], b.c[1]), s.page);
@@ -4188,10 +4239,64 @@ export async function buildWorld(city, renderer, opts = {}) {
                   const d1 = Math.min(dEnd, d + 20);
                   strip(d, d1, -half, half, asp, y - 0.02 + (k % 8) * 0.002); // (two strips crossing outside the map: no z-fight)
                   strip(d, d1, -half - wS, -half, kerbC, y + 0.1); strip(d, d1, half, half + wS, kerbC, y + 0.1);
-                  if (d < 25) strip(d, Math.min(d1, 22), -half * 0.6, half * 0.2, dug, y - 0.005); // the dug-up roadworks strip
+                  if (d < 25) { /* the work site behind the barrier: workSite() below */ }
                   else if (kind !== 'small') for (let q = d; q < d1 - 3; q += 9) strip(q, q + 3, -0.08, 0.08, dash, y - 0.01);
               }
-              if (dEnd > 30) for (let j = 0; j < 4; j++) { const [x, z] = at(-(4 + j * 5), -half * 0.6 + (j % 2) * 0.4); c.solid.geo(coneG, x, y, z, 0, 1, 1, 1, [255, 255, 255]); }
+              // (2026-11-08, owner: "work zones look bad" — a flat brown strip and four cones) the work site: a trench cut in the
+              // asphalt (dark edges, soil at the bottom), the spoil heaped along it, a pallet of kerbstones, all inside an orange
+              // safety mesh on steel rods with a cone at each corner
+              if (dEnd > 30) {
+                  const exc = !US && kind !== 'highway' && (e.id * 7 + k) % 3 === 0; // (the excavator closures: it digs the trench)
+                  const L0 = -half * 0.85, L1 = half * 0.45, D0 = 2.6, D1 = Math.min(20, dEnd - 1), tw = clamp((L1 - L0) * 0.3, 0.6, 1.3), T0 = L0 + Math.min(0.5, half * 0.25), T1 = T0 + tw;
+                  const V = (d, l, yy) => { const [x, z] = at(-d, l); return [x, yy, z]; }, cs = cellOf(m.x - ix * 10, m.z - iz * 10);
+                  const nUp = (a, b2, c2) => { const e1 = [b2[0] - a[0], b2[1] - a[1], b2[2] - a[2]], e2 = [c2[0] - a[0], c2[1] - a[1], c2[2] - a[2]], n = [e1[1] * e2[2] - e1[2] * e2[1], e1[2] * e2[0] - e1[0] * e2[2], e1[0] * e2[1] - e1[1] * e2[0]]; return n[1] < 0 ? [-n[0], -n[1], -n[2]] : n; };
+                  const q4 = (lay, a, b2, c2, d2, col) => { const n = nUp(a, b2, c2); lay.face4(a, b2, c2, d2, col, n); lay.face4(a, d2, c2, b2, col, [-n[0], -n[1], -n[2]]); };
+                  strip(D0 + 0.4, D1 - 0.4, T0 - 0.12, T1 + 0.12, rgb('#3a3936'), y - 0.004);                          // saw-cut asphalt edge
+                  strip(D0 + 0.5, D1 - 0.5, T0, T1, rgb('#4b3d31'), y - 0.002);                                        // soil in the trench
+                  // spoil heap: a ridge with a ragged crest along the trench, on the side away from the kerb
+                  const S0 = T1 + 0.15, S1 = Math.min(L1 - 0.15, S0 + 1.5), sk = Math.min(1, (S1 - S0) / 1.3), soil = rgb('#6e5a45'), soilD = rgb('#5d4a38');
+                  const SA = D0 + 2.6, SB = exc ? D1 - 5.5 : D1 - 1;
+                  if (S1 - S0 > 0.45 && SB - SA > 3) { const nR = Math.max(3, Math.round((SB - SA) / 2.5)); for (let r = 0; r < nR; r++) {
+                      const da = SA + (SB - SA) * r / nR, db = SA + (SB - SA) * (r + 1) / nR, ha = sk * (0.35 + 0.25 * Math.abs(Math.sin(r * 2.1 + k))), hb = sk * (0.35 + 0.25 * Math.abs(Math.sin((r + 1) * 2.1 + k))), mid = (S0 + S1) / 2;
+                      const ea = r === 0 ? 0.05 : ha, eb = r === nR - 1 ? 0.05 : hb;
+                      q4(cs.solid, V(da, S0, y), V(db, S0, y), V(db, mid, y + eb), V(da, mid, y + ea), soil);
+                      q4(cs.solid, V(da, mid, y + ea), V(db, mid, y + eb), V(db, S1, y), V(da, S1, y), soilD); } }
+                  // a pallet of kerbstones and a stack of concrete pipes near the barrier end
+                  { const [x, z] = at(-(D0 + 1.2), (S0 + S1) / 2); cs.solid.box(x, y, z, 1.0, 0.14, 1.2, ang, rgb('#9a7b55'));
+                    for (let r = 0; r < 3; r++) for (let j = -1; j <= 1; j++) { const sx = x + px * j * 0.3, sz = z + pz * j * 0.3; // kerbstones, 3 × 3, with gaps
+                        cs.solid.box(sx, y + 0.14 + r * 0.27, sz, 1.0, 0.25, 0.26, ang, rgb((r + j) % 2 ? '#a9a69e' : '#bdbab2')); }
+                    addPropColl(x, z, 0.75, 'closure'); }
+                  // orange safety mesh on rods round the site: a top and a bottom band, a diamond weave between
+                  const ORG = rgb('#ff6d1a'), ROD = rgb('#34363a'), H = 1.0;
+                  const ring = [[D0, L0], [D1, L0], [D1, L1], [D0, L1]];
+                  for (let q = 0; q < 4; q++) { const [da, la] = ring[q], [db, lb] = ring[(q + 1) % 4], len = Math.hypot(db - da, lb - la), n = Math.max(1, Math.round(len / 2));
+                      for (let j = 0; j < n; j++) { const f0 = j / n, f1 = (j + 1) / n, dA = da + (db - da) * f0, lA = la + (lb - la) * f0, dB = da + (db - da) * f1, lB = la + (lb - la) * f1;
+                          for (const yb of [0.12, H - 0.06]) q4(cs.detail, V(dA, lA, y + yb), V(dB, lB, y + yb), V(dB, lB, y + yb + 0.07), V(dA, lA, y + yb + 0.07), ORG);
+                          const nw = 5; for (let w = 0; w < nw; w++) { const g0 = w / nw, g1 = (w + 1) / nw, pd = (g) => dA + (dB - dA) * g, pl = (g) => lA + (lB - lA) * g, yl = y + 0.15, yh = y + H - 0.02;
+                              const st = (g, yy, h2, y2) => { const a2 = V(pd(g), pl(g), yy), b3 = V(pd(h2), pl(h2), y2), sx = 0.02; q4(cs.detail, a2, b3, [b3[0], b3[1] + sx * 1.5, b3[2]], [a2[0], a2[1] + sx * 1.5, a2[2]], ORG); };
+                              st(g0, yl, g1, yh); st(g0, yh, g1, yl); }
+                          const [rx, , rz] = V(dA, lA, 0); cs.detail.box(rx, y, rz, 0.035, H + 0.1, 0.035, 0, ROD); }
+                      const [mx2, , mz2] = V((da + db) / 2, (la + lb) / 2, 0); addPropColl(mx2, mz2, 0.3, 'closure'); }
+                  if (exc) { // a mini excavator at the far end of the trench, facing the barrier, its bucket down in the trench
+                      const ex0 = D1 - 2.6, el = (L0 + L1) / 2 + 0.15, YEL = rgb('#f2b705'), DK = rgb('#26282b'), GL = rgb('#2c3a44');
+                      const E3 = (f, l, yy) => V(ex0 - f, el + l, y + yy); // f: forward (toward the barrier), l: lateral
+                      const B = (f, l, yy, wl, h, df, col) => { const [x, , z] = E3(f, l, 0); cs.solid.box(x, y + yy, z, df, h, wl, ang + Math.PI / 2, col); };
+                      const beam = (A, Bp, w, col) => { const dx = Bp[0] - A[0], dy = Bp[1] - A[1], dz = Bp[2] - A[2], L = Math.hypot(dx, dy, dz);
+                          let sx = -dz, sz = dx; const sl = Math.hypot(sx, sz) || 1; sx = sx / sl * w / 2; sz = sz / sl * w / 2; // side (horizontal) and up vectors
+                          const ux2 = -(dy * dx) / L, uy2 = (dx * dx + dz * dz) / L, uz2 = -(dy * dz) / L, ul = Math.hypot(ux2, uy2, uz2) || 1, U = [ux2 / ul * w / 2, uy2 / ul * w / 2, uz2 / ul * w / 2];
+                          const c4 = (p, a, b2) => [p[0] + a * sx + b2 * U[0], p[1] + b2 * U[1], p[2] + a * sz + b2 * U[2]];
+                          for (const [a1, b1, a2, b2] of [[1, 1, -1, 1], [-1, -1, 1, -1], [1, -1, 1, 1], [-1, 1, -1, -1]]) q4(cs.solid, c4(A, a1, b1), c4(Bp, a1, b1), c4(Bp, a2, b2), c4(A, a2, b2), col); };
+                      for (const sl of [-0.7, 0.7]) B(0, sl, 0, 0.42, 0.45, 2.4, DK);                       // tracks
+                      B(0, 0, 0.3, 1.0, 0.3, 1.6, rgb('#3a3c40'));                                           // undercarriage
+                      B(-0.15, 0, 0.6, 1.8, 0.75, 1.9, YEL);                                                 // upper house
+                      B(-1.05, 0, 0.6, 1.7, 0.55, 0.3, DK);                                                  // counterweight
+                      B(0.1, 0.45, 1.35, 0.85, 1.05, 0.95, GL); B(0.1, 0.45, 2.4, 0.95, 0.07, 1.05, YEL);    // cab (glass) + roof
+                      const lt = (T0 + T1) / 2 - el, A0 = E3(0.85, lt, 1.1), A1 = E3(2.2, lt, 2.3), A2 = E3(3.2, lt, 0.55);
+                      beam(A0, A1, 0.3, YEL); beam(A1, A2, 0.22, YEL); beam(A2, E3(3.05, lt, 0.05), 0.5, DK); // boom, arm, bucket
+                      const [cx3, , cz3] = E3(0, 0, 0); addPropColl(cx3, cz3, 1.3, 'closure');
+                  }
+                  for (const [dd, ll] of ring) { const [x, , z] = V(dd + (dd === D0 ? -0.5 : 0.5), ll + (ll === L0 ? -0.45 : 0.45), 0); c.solid.geo(coneG, x, y, z, 0, 1, 1, 1, [255, 255, 255]); addPropColl(x, z, 0.22, 'closure'); }
+              }
             }
             // the closing barrier line (RO red-white boards / US type III barricade: orange-white rails)
             const segs = Math.max(2, Math.round(half * 2 / 1.2)), cA = US ? orange : red;
@@ -4199,7 +4304,9 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const f = (j + 0.5) / segs - 0.5, [x, z] = at(0, f * half * 2);
                 for (let r = 0; r < (US ? 3 : 2); r++) c.solid.box(x, y + 0.45 + r * 0.38, z, half * 2 / segs, 0.22, 0.08, ang + Math.PI / 2, (j + r) % 2 ? whiteB : cA);
             }
-            for (let j = 0; j <= segs; j += Math.max(1, Math.floor(segs / 3))) { const [x, z] = at(0, (j / segs - 0.5) * half * 2); post(c, x, z, y, US ? 1.35 : 1.2); }
+            for (let j = 0; j <= segs; j += Math.max(1, Math.floor(segs / 3))) { const [x, z] = at(0, (j / segs - 0.5) * half * 2); post(c, x, z, y, US ? 1.35 : 1.2);
+                c.solid.box(x, y, z, 0.7, 0.07, 0.16, ang, dark); c.solid.box(x, y, z, 0.16, 0.12, 0.3, ang, dark); } // (a foot under every post)
+            for (const sg of [-0.5, 0.5]) { const [x, z] = at(0, sg * half * 2); c.solid.box(x, y + (US ? 1.35 : 1.2), z, 0.16, 0.16, 0.12, ang, yellowM); } // warning lamps at the ends
             // cones / drums tapering across the lanes in front of it
             const nT = kind === 'small' ? 4 : 7;
             for (let j = 0; j < nT; j++) { const f = j / (nT - 1), [x, z] = at(3 + f * (kind === 'small' ? 5 : 14), (f - 0.5) * half * 1.6); c.solid.geo(US && kind !== 'small' ? drumG : coneG, x, y, z, 0, 1, 1, 1, [255, 255, 255]); addPropColl(x, z, US ? 0.35 : 0.22, 'closure'); }
@@ -4220,10 +4327,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             }
             // one character prop per closure (deterministic): excavator / police car (RO), flagger (US)
             const pick = (e.id * 7 + k) % 3;
-            if (!US && kind !== 'highway' && pick === 0) { // excavator behind the barrier (in the closed part)
-                const [ex, ez] = at(-6, 0), col = rgb('#f2b705');
-                c.solid.box(ex, y, ez, 2.6, 1.0, 3.6, ang, dark); c.solid.box(ex, y + 1.0, ez, 2.4, 1.5, 2.6, ang, col); c.solid.box(ex + ix * -2.6, y + 2.2, ez + iz * -2.6, 0.4, 0.4, 3.4, ang, col);
-                c.solid.box(ex, y, ez + 0.01, 0.6, 0.15, 6, ang + Math.PI / 2, rgb('#5a4a3a')); // dug-up strip
+            if (!US && kind !== 'highway' && pick === 0) { /* the excavator digs in the work site (above) */
             } else if (!US && kind !== 'small' && pick === 1) { // Poliția Rutieră car parked across the lane before the barrier
                 const [qx, qz] = at(6, half * 0.45); c.solid.geo(carProps('sedan', '#e8e8e8'), qx, y - 0.12, qz, ang, 1, 1, 1, [255, 255, 255]);
                 c.solid.box(qx, y + 1.5, qz, 0.9, 0.12, 0.25, ang, rgb('#1e5bff')); addPropColl(qx, qz, 1.9, 'closure');
@@ -4239,7 +4343,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             for (const o of others) { const dx = o.x - m.x, dz = o.z - m.z, L = Math.hypot(dx, dz) || 1, cs = (-ix * dx - iz * dz) / L; if (cs > best) { best = cs; leadsTo = o.id; } }
             // roadworks crew spot (gameplay places the instanced worker there): behind the barrier on the closed asphalt, off the
             // driver's sight line to the kerb signs (the sign plate no longer sits in front of the worker's head — note 6)
-            const [wx, wz] = at(-2.5, half * 0.35);
+            const [wx, wz] = at(-1.4, half * 0.7); // (between the barrier and the work-site mesh)
             closures.push({ x: m.x, z: m.z, heading: m.heading, edge: e, node: m.node, kind, leadsTo, l0: m.l0, l1: m.l1, worker: { x: wx, z: wz, y, yaw: Math.atan2(ix, iz) } });
         });
     }
@@ -4689,7 +4793,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     let cx = 0, cz = 0;
     // (2026-11-07, world-visual) draw calls: the flat / cheap layers of neighbouring cells are merged into super-cells
     // (2×2 cells = 500 m; the far backdrop 4×4) — fewer meshes for the same pixels; solid buildings stay per cell (culling)
-    const SUPER = { area: 4, grass: 4, pave: 4, roof: 4, backdrop: 4, ground: 2, road: 2, pad: 2, marks: 2, water: 4, signs: 4, spill: 4, solid: 2, detail: 1 };
+    const SUPER = { area: 4, grass: 4, pave: 4, sport: 4, roof: 4, backdrop: 4, ground: 2, road: 2, pad: 2, marks: 2, water: 4, signs: 4, spill: 4, solid: 2, detail: 1 };
     const supers = new Map();
     const superOf = (c, layer, page = 0) => {
         const K = SUPER[layer], I = Math.floor(c.i / K), J = Math.floor(c.j / K), key = layer + page + ':' + I + ',' + J;
@@ -4697,7 +4801,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         return o;
     };
     for (const c of cells.values()) {
-        for (const layer of ['area', 'grass', 'pave', 'roof', 'backdrop', 'ground', 'road', 'pad', 'marks', 'water', 'solid', 'detail']) {
+        for (const layer of ['area', 'grass', 'pave', 'sport', 'roof', 'backdrop', 'ground', 'road', 'pad', 'marks', 'water', 'solid', 'detail']) {
             if (c[layer].empty) continue;
             const o = superOf(c, layer); if (!o.mb) o.mb = c[layer]; else o.mb.append(c[layer]);
         }
@@ -4715,6 +4819,9 @@ export async function buildWorld(city, renderer, opts = {}) {
             case 'area': { const m = addSuper(o, areaMat, false, 'area'); if (m) m.renderOrder = -19.5; break; }
             case 'grass': { const m = addSuper(o, grassMat, false, 'grass'); if (m) m.renderOrder = -19.2; break; }
             case 'pave': { const m = addSuper(o, paveMat, false, 'pave'); if (m) m.renderOrder = -19; break; }
+            // (2026-11-08, owner: a band across a pitch) pitch stripes / court lines draw after every grass / paved mesh: these
+            // layers do not write depth, so a neighbouring cell's lawn drawn later painted over the part of a pitch in its cell
+            case 'sport': { const m = addSuper(o, grassMat, false, 'sport'); if (m) m.renderOrder = -18.9; break; }
             case 'roof': addSuper(o, roofMat, true, 'roofs'); break;
             case 'backdrop': { const m = addSuper(o, backdropMat, true, 'backdrop'); if (m) m.userData.cull = cullR + 600 + CELL * (o.K - 1) * 0.71; break; }
             case 'ground': { const m = addSuper(o, groundMat, false, 'ground'); if (m) m.renderOrder = 1; break; }

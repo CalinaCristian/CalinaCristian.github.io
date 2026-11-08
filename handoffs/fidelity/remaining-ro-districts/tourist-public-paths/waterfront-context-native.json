@@ -1,0 +1,1129 @@
+{
+  "schemaVersion": 1,
+  "id": "waterfront",
+  "sceneId": "waterfront",
+  "name": "Waterfront: Great Wheel & Pier 57",
+  "city": "seattle",
+  "status": "needs_review",
+  "origin": {
+    "lat": 47.6069,
+    "lon": -122.3416,
+    "elev": 0
+  },
+  "projection": {
+    "mLat": 111182.67,
+    "mLon": 75190.53
+  },
+  "sourceGeometry": {
+    "consumer": {
+      "sourceRecords": 92,
+      "sourceIds": [
+        "w35345179",
+        "w166910697",
+        "w166910699",
+        "w184870422",
+        "w231359025",
+        "w231362094",
+        "w231362501",
+        "w396606855",
+        "w396606860",
+        "w396606868",
+        "w396606878",
+        "w396606879",
+        "w396606880",
+        "w396606881",
+        "w429553382",
+        "w429553383",
+        "w429553385",
+        "w549038655",
+        "w1154870289",
+        "w1256939000",
+        "w1256939021",
+        "r5402577",
+        "w140628794",
+        "w140628857",
+        "w166910704",
+        "w184870423",
+        "w184870424",
+        "w189460316",
+        "w206858876",
+        "w206858888",
+        "w231357659",
+        "w231357660",
+        "w231359017",
+        "w231359019",
+        "w231359020",
+        "w231359028",
+        "w231361928",
+        "w231361929",
+        "w231361931",
+        "w231361940",
+        "w231362093",
+        "w232079814",
+        "w232079816",
+        "w232079818",
+        "w232088564",
+        "w234810726",
+        "w244468438",
+        "w296789534",
+        "w357283830",
+        "w363197066",
+        "w363197067",
+        "w363197068",
+        "w363197069",
+        "w363197070",
+        "w363197071",
+        "w363197072",
+        "w363197073",
+        "w363197080",
+        "w363197081",
+        "w363400648",
+        "w368008771",
+        "w396815282",
+        "w396815283",
+        "w397007183",
+        "w397007185",
+        "w397007191",
+        "w421508941",
+        "w429553384",
+        "w492488650",
+        "w492488651",
+        "w492488652",
+        "w492488653",
+        "w495805540",
+        "w495805548",
+        "w549073886",
+        "w549073889",
+        "w549073892",
+        "w675327157",
+        "w675327159",
+        "w1190291980",
+        "w1256939013",
+        "w1271653800",
+        "w1271653801",
+        "w1275882966",
+        "w1275882967",
+        "w1275882970",
+        "w1275882971",
+        "w1275882973",
+        "w1275882981",
+        "w1298161051",
+        "w1371595751",
+        "w1572029219"
+      ],
+      "literalHeights": 50,
+      "levelHeightEstimates": 0,
+      "typeHeightEstimates": 42,
+      "assemblies": [
+        {
+          "source": "w166910699",
+          "parts": [
+            "w396606855",
+            "w396606860",
+            "w429553382",
+            "w429553383"
+          ],
+          "mode": "union",
+          "coverage": 0.8956547193230222,
+          "residuals": 0,
+          "residualHeight": 4.3
+        },
+        {
+          "source": "w184870422",
+          "parts": [
+            "w231359019"
+          ],
+          "mode": "union",
+          "coverage": 0.44783809005365927,
+          "residuals": 0,
+          "residualHeight": 10.9
+        },
+        {
+          "source": "w184870423",
+          "parts": [
+            "w397007183",
+            "w1298161051"
+          ],
+          "mode": "parts",
+          "coverage": 1,
+          "residuals": 0,
+          "residualHeight": 10.9
+        },
+        {
+          "source": "w184870424",
+          "parts": [
+            "w495805540",
+            "w495805548"
+          ],
+          "mode": "union",
+          "coverage": 0.249929748691611,
+          "residuals": 0,
+          "residualHeight": 4.3
+        },
+        {
+          "source": "w189460316",
+          "parts": [
+            "w492488650",
+            "w492488651",
+            "w492488652",
+            "w492488653"
+          ],
+          "mode": "parts",
+          "coverage": 1,
+          "residuals": 0,
+          "residualHeight": 10.9
+        },
+        {
+          "source": "w231361929",
+          "parts": [
+            "w1572029219"
+          ],
+          "mode": "union",
+          "coverage": 0.05536332179930792,
+          "residuals": 0,
+          "residualHeight": 20.8
+        },
+        {
+          "source": "w357283830",
+          "parts": [
+            "w675327157",
+            "w675327159"
+          ],
+          "mode": "union",
+          "coverage": 0.8303727475362872,
+          "residuals": 0,
+          "residualHeight": 61
+        },
+        {
+          "source": "w363197072",
+          "parts": [
+            "w363197073"
+          ],
+          "mode": "union",
+          "coverage": 0.6574677017985666,
+          "residuals": 0,
+          "residualHeight": 45
+        },
+        {
+          "source": "w549073892",
+          "parts": [
+            "w231361928",
+            "w549073889"
+          ],
+          "mode": "union",
+          "coverage": 0.16536413245962078,
+          "residuals": 0,
+          "residualHeight": 14.2
+        },
+        {
+          "source": "w1190291980",
+          "parts": [
+            "w421508941"
+          ],
+          "mode": "union",
+          "coverage": 0.38578093447531125,
+          "residuals": 0,
+          "residualHeight": 7.6
+        }
+      ],
+      "dropped": 0,
+      "inset": 0,
+      "issues": [],
+      "cacheHit": true,
+      "buildMs": 74,
+      "renderedVolumes": 90,
+      "heroReplacements": []
+    },
+    "physicalMembership": [
+      {
+        "source": "w35345179",
+        "residual": false,
+        "volume": 0
+      },
+      {
+        "source": "w166910697",
+        "residual": false,
+        "volume": 1
+      },
+      {
+        "source": "w166910699",
+        "residual": false,
+        "volume": 2
+      },
+      {
+        "source": "w184870422",
+        "residual": false,
+        "volume": 3
+      },
+      {
+        "source": "w231359025",
+        "residual": false,
+        "volume": 4
+      },
+      {
+        "source": "w231362094",
+        "residual": false,
+        "volume": 5
+      },
+      {
+        "source": "w231362501",
+        "residual": false,
+        "volume": 6
+      },
+      {
+        "source": "w396606855",
+        "residual": false,
+        "volume": 7
+      },
+      {
+        "source": "w396606860",
+        "residual": false,
+        "volume": 8
+      },
+      {
+        "source": "w396606868",
+        "residual": false,
+        "volume": 9
+      },
+      {
+        "source": "w396606878",
+        "residual": false,
+        "volume": 10
+      },
+      {
+        "source": "w396606879",
+        "residual": false,
+        "volume": 11
+      },
+      {
+        "source": "w396606880",
+        "residual": false,
+        "volume": 12
+      },
+      {
+        "source": "w396606881",
+        "residual": false,
+        "volume": 13
+      },
+      {
+        "source": "w429553382",
+        "residual": false,
+        "volume": 14
+      },
+      {
+        "source": "w429553383",
+        "residual": false,
+        "volume": 15
+      },
+      {
+        "source": "w429553385",
+        "residual": false,
+        "volume": 16
+      },
+      {
+        "source": "w549038655",
+        "residual": false,
+        "volume": 17
+      },
+      {
+        "source": "w1154870289",
+        "residual": false,
+        "volume": 18
+      },
+      {
+        "source": "w1256939000",
+        "residual": false,
+        "volume": 19
+      },
+      {
+        "source": "w1256939021",
+        "residual": false,
+        "volume": 20
+      },
+      {
+        "source": "r5402577",
+        "residual": false,
+        "volume": 21
+      },
+      {
+        "source": "w140628794",
+        "residual": false,
+        "volume": 22
+      },
+      {
+        "source": "w140628857",
+        "residual": false,
+        "volume": 23
+      },
+      {
+        "source": "w166910704",
+        "residual": false,
+        "volume": 24
+      },
+      {
+        "source": "w184870424",
+        "residual": false,
+        "volume": 26
+      },
+      {
+        "source": "w206858876",
+        "residual": false,
+        "volume": 28
+      },
+      {
+        "source": "w206858888",
+        "residual": false,
+        "volume": 29
+      },
+      {
+        "source": "w231357659",
+        "residual": false,
+        "volume": 30
+      },
+      {
+        "source": "w231357660",
+        "residual": false,
+        "volume": 31
+      },
+      {
+        "source": "w231359017",
+        "residual": false,
+        "volume": 32
+      },
+      {
+        "source": "w231359019",
+        "residual": false,
+        "volume": 33
+      },
+      {
+        "source": "w231359020",
+        "residual": false,
+        "volume": 34
+      },
+      {
+        "source": "w231359028",
+        "residual": false,
+        "volume": 35
+      },
+      {
+        "source": "w231361928",
+        "residual": false,
+        "volume": 36
+      },
+      {
+        "source": "w231361929",
+        "residual": false,
+        "volume": 37
+      },
+      {
+        "source": "w231361931",
+        "residual": false,
+        "volume": 38
+      },
+      {
+        "source": "w231361940",
+        "residual": false,
+        "volume": 39
+      },
+      {
+        "source": "w231362093",
+        "residual": false,
+        "volume": 40
+      },
+      {
+        "source": "w232079814",
+        "residual": false,
+        "volume": 41
+      },
+      {
+        "source": "w232079816",
+        "residual": false,
+        "volume": 42
+      },
+      {
+        "source": "w232079818",
+        "residual": false,
+        "volume": 43
+      },
+      {
+        "source": "w232088564",
+        "residual": false,
+        "volume": 44
+      },
+      {
+        "source": "w234810726",
+        "residual": false,
+        "volume": 45
+      },
+      {
+        "source": "w244468438",
+        "residual": false,
+        "volume": 46
+      },
+      {
+        "source": "w296789534",
+        "residual": false,
+        "volume": 47
+      },
+      {
+        "source": "w357283830",
+        "residual": false,
+        "volume": 48
+      },
+      {
+        "source": "w363197066",
+        "residual": false,
+        "volume": 49
+      },
+      {
+        "source": "w363197067",
+        "residual": false,
+        "volume": 50
+      },
+      {
+        "source": "w363197068",
+        "residual": false,
+        "volume": 51
+      },
+      {
+        "source": "w363197069",
+        "residual": false,
+        "volume": 52
+      },
+      {
+        "source": "w363197070",
+        "residual": false,
+        "volume": 53
+      },
+      {
+        "source": "w363197071",
+        "residual": false,
+        "volume": 54
+      },
+      {
+        "source": "w363197072",
+        "residual": false,
+        "volume": 55
+      },
+      {
+        "source": "w363197073",
+        "residual": false,
+        "volume": 56
+      },
+      {
+        "source": "w363197080",
+        "residual": false,
+        "volume": 57
+      },
+      {
+        "source": "w363197081",
+        "residual": false,
+        "volume": 58
+      },
+      {
+        "source": "w363400648",
+        "residual": false,
+        "volume": 59
+      },
+      {
+        "source": "w368008771",
+        "residual": false,
+        "volume": 60
+      },
+      {
+        "source": "w396815282",
+        "residual": false,
+        "volume": 61
+      },
+      {
+        "source": "w396815283",
+        "residual": false,
+        "volume": 62
+      },
+      {
+        "source": "w397007183",
+        "residual": false,
+        "volume": 63
+      },
+      {
+        "source": "w397007185",
+        "residual": false,
+        "volume": 64
+      },
+      {
+        "source": "w397007191",
+        "residual": false,
+        "volume": 65
+      },
+      {
+        "source": "w421508941",
+        "residual": false,
+        "volume": 66
+      },
+      {
+        "source": "w429553384",
+        "residual": false,
+        "volume": 67
+      },
+      {
+        "source": "w492488650",
+        "residual": false,
+        "volume": 68
+      },
+      {
+        "source": "w492488651",
+        "residual": false,
+        "volume": 69
+      },
+      {
+        "source": "w492488652",
+        "residual": false,
+        "volume": 70
+      },
+      {
+        "source": "w492488653",
+        "residual": false,
+        "volume": 71
+      },
+      {
+        "source": "w495805540",
+        "residual": false,
+        "volume": 72
+      },
+      {
+        "source": "w495805548",
+        "residual": false,
+        "volume": 73
+      },
+      {
+        "source": "w549073886",
+        "residual": false,
+        "volume": 74
+      },
+      {
+        "source": "w549073889",
+        "residual": false,
+        "volume": 75
+      },
+      {
+        "source": "w549073892",
+        "residual": false,
+        "volume": 76
+      },
+      {
+        "source": "w675327157",
+        "residual": false,
+        "volume": 77
+      },
+      {
+        "source": "w675327159",
+        "residual": false,
+        "volume": 78
+      },
+      {
+        "source": "w1190291980",
+        "residual": false,
+        "volume": 79
+      },
+      {
+        "source": "w1256939013",
+        "residual": false,
+        "volume": 80
+      },
+      {
+        "source": "w1271653800",
+        "residual": false,
+        "volume": 81
+      },
+      {
+        "source": "w1271653801",
+        "residual": false,
+        "volume": 82
+      },
+      {
+        "source": "w1275882966",
+        "residual": false,
+        "volume": 83
+      },
+      {
+        "source": "w1275882967",
+        "residual": false,
+        "volume": 84
+      },
+      {
+        "source": "w1275882970",
+        "residual": false,
+        "volume": 85
+      },
+      {
+        "source": "w1275882971",
+        "residual": false,
+        "volume": 86
+      },
+      {
+        "source": "w1275882973",
+        "residual": false,
+        "volume": 87
+      },
+      {
+        "source": "w1275882981",
+        "residual": false,
+        "volume": 88
+      },
+      {
+        "source": "w1298161051",
+        "residual": false,
+        "volume": 89
+      },
+      {
+        "source": "w1371595751",
+        "residual": false,
+        "volume": 90
+      },
+      {
+        "source": "w1572029219",
+        "residual": false,
+        "volume": 91
+      }
+    ],
+    "buildings": 92,
+    "parts": 24,
+    "ways": 146,
+    "areas": 120,
+    "heroReplacements": [],
+    "membershipSHA256": "dd26114dfa78a9f347824cbfd4bdcee88d317621ca081f2a9cccb7396b5206e1"
+  },
+  "sourceReferences": [
+    {
+      "label": "Seattle Great Wheel (2012)",
+      "url": "https://www.openstreetmap.org/node/1809238334"
+    },
+    {
+      "label": "Pier 57 / Miners Landing (1902)",
+      "url": "https://www.openstreetmap.org/way/166910699"
+    },
+    {
+      "label": "Seattle Aquarium (1977, Piers 59/60) + Ocean Pavilion (Aug 2024)",
+      "url": "https://www.openstreetmap.org/relation/16051213"
+    },
+    {
+      "label": "Seattle Aquarium (1977, Piers 59/60) + Ocean Pavilion (Aug 2024)",
+      "url": "https://www.openstreetmap.org/way/1256939021"
+    },
+    {
+      "label": "Overlook Walk (2024)",
+      "url": "https://www.openstreetmap.org/way/1256939020"
+    },
+    {
+      "label": "Waterfront Fountain (James FitzGerald & Margaret Tomkins)",
+      "url": "https://www.openstreetmap.org/node/13025976571"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Seattle_Great_Wheel",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Pier_57_(Seattle",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://www.openstreetmap.org/",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Seattle_Aquarium",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Overlook_Walk",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_Great_Wheel_Ferris_Wheel.jpg",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_Great_Wheel_Washington1.jpg",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_Great_Wheel_ticket_booth.jpg",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_-_Overlook_Walk_01.jpg",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_-_Overlook_Walk_and_skyline_01.jpg",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Downtown_Seattle_Waterfront_from_Overlook_Walk_July_2025_-_01.jpg",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_Aquarium_booth_on_Overlook_Walk_01.jpg",
+      "label": "Existing spot dossier reference"
+    }
+  ],
+  "performance": {
+    "sceneTriangles": 361236,
+    "uniqueGeometryTriangles": 278846,
+    "geometryObjects": 128,
+    "maxRenderedTriangles": 517706,
+    "maxDrawCalls": 173
+  },
+  "access": {
+    "walker": "OnFootController",
+    "arrival": {
+      "x": 6,
+      "z": -6,
+      "y": 3.4,
+      "heading": -3.7524578917878086
+    },
+    "arrivalDry": true,
+    "nearestPlaquePath": {
+      "points": [
+        [
+          6,
+          -6
+        ],
+        [
+          -42.75,
+          65.25
+        ],
+        [
+          -47.25,
+          68.25
+        ],
+        [
+          -47.25,
+          69.75
+        ],
+        [
+          9.75,
+          69.75
+        ],
+        [
+          18.705342302750967,
+          65.02917960675006
+        ]
+      ],
+      "length": 160.36326317725,
+      "target": "Pier 57"
+    },
+    "nativeWalk": {
+      "walker": "OnFootController",
+      "passed": false,
+      "steps": 962,
+      "stepLimit": 2491,
+      "waypointTolerance": 0.45,
+      "walked": 78.3731246948697,
+      "target": "Pier 57",
+      "plannedLength": 160.36326317725,
+      "position": {
+        "x": -38.10427769360571,
+        "z": 58.68435784464927,
+        "y": 3.4,
+        "heading": 2.525812550009504
+      },
+      "error": "Native walker blocked on planned public path"
+    }
+  },
+  "plaques": [
+    {
+      "title": "Over the water",
+      "x": -41.400000000000006,
+      "z": 58.224999999999994,
+      "y": 3.4,
+      "yaw": 2.5132741228718345
+    },
+    {
+      "title": "Pier 57",
+      "x": 18,
+      "z": 66,
+      "y": 4.724810085743664,
+      "yaw": 2.5132741228718345
+    },
+    {
+      "title": "Ocean Pavilion",
+      "x": -84,
+      "z": -52,
+      "y": 4.551467938423157,
+      "yaw": 2.5132741228718345
+    },
+    {
+      "title": "Overlook Walk",
+      "x": -60,
+      "z": -140,
+      "y": 5.483198089599608,
+      "yaw": 2.5132741228718345
+    }
+  ],
+  "activities": [
+    {
+      "kind": "ride",
+      "label": "Ride the Seattle Great Wheel (3 turns, ≈ 4½ min)",
+      "x": -44.400000000000006,
+      "z": 62.224999999999994,
+      "y": null,
+      "source": null
+    },
+    {
+      "kind": "guide",
+      "label": "Join the short guided tour",
+      "x": 6.982302431751783,
+      "z": -0.42908607743984817,
+      "y": null,
+      "source": null
+    },
+    {
+      "kind": "talk",
+      "label": "",
+      "x": 1000000000,
+      "z": 1000000000,
+      "y": null,
+      "source": null
+    }
+  ],
+  "postcard": {
+    "view": null,
+    "id": "waterfront",
+    "x": 0,
+    "z": 0,
+    "bearing": 215,
+    "pitch": 15,
+    "fov": 55,
+    "text": "Great Wheel with gondolas lit against Elliott Bay at dusk",
+    "r": 14,
+    "tol": 30,
+    "targets": [],
+    "cond": null,
+    "condHint": null
+  },
+  "audit": {
+    "spot": "waterfront",
+    "ms": 1697,
+    "tris": 64007,
+    "colliders": 259,
+    "counts": {
+      "zfight": 45,
+      "pedBelow": 6,
+      "pedSunk": 6
+    },
+    "findings": {
+      "zfight": {
+        "n": 45,
+        "samples": [
+          {
+            "x": 120.4,
+            "y": 2.8,
+            "z": 184.9,
+            "a": "piers:wood",
+            "b": "piers:wood"
+          },
+          {
+            "x": 87.4,
+            "y": 2.8,
+            "z": 184.2,
+            "a": "piers:wood",
+            "b": "piers:wood"
+          },
+          {
+            "x": -33.5,
+            "y": 3.5,
+            "z": 65.8,
+            "a": "piers:wood",
+            "b": "piers:wood"
+          },
+          {
+            "x": -99.5,
+            "y": 3.5,
+            "z": -71.4,
+            "a": "piers:wood",
+            "b": "piers:wood"
+          },
+          {
+            "x": 10.4,
+            "y": 3.5,
+            "z": 183.7,
+            "a": "piers:wood",
+            "b": "piers:concrete"
+          },
+          {
+            "x": 45.9,
+            "y": 2.8,
+            "z": 66.8,
+            "a": "piers:wood",
+            "b": "piers:wood"
+          }
+        ],
+        "pairs": 356
+      },
+      "pedBelow": {
+        "n": 6,
+        "samples": [
+          {
+            "x": -52.5,
+            "z": 76.6,
+            "y": 3.4,
+            "floor": 4.09
+          },
+          {
+            "x": -52.5,
+            "z": 76.6,
+            "y": 3.4,
+            "floor": 4.09
+          },
+          {
+            "x": -58.4,
+            "z": 76.8,
+            "y": 3.4,
+            "floor": 4.06
+          },
+          {
+            "x": -57.6,
+            "z": 74.5,
+            "y": 3.4,
+            "floor": 4.01
+          },
+          {
+            "x": -57.1,
+            "z": 74.4,
+            "y": 3.4,
+            "floor": 4.01
+          },
+          {
+            "x": -57.6,
+            "z": 75.6,
+            "y": 3.4,
+            "floor": 4.04
+          }
+        ]
+      },
+      "pedSunk": {
+        "n": 6,
+        "samples": [
+          {
+            "x": -58.4,
+            "z": 76.8,
+            "y": 3.4,
+            "floor": 3.8,
+            "act": "photo"
+          },
+          {
+            "x": -57.6,
+            "z": 74.5,
+            "y": 3.4,
+            "floor": 3.8,
+            "act": "photo"
+          },
+          {
+            "x": -57.1,
+            "z": 74.4,
+            "y": 3.4,
+            "floor": 3.8,
+            "act": "photo"
+          },
+          {
+            "x": -57.6,
+            "z": 75.6,
+            "y": 3.4,
+            "floor": 3.8,
+            "act": "photo"
+          },
+          {
+            "x": -57.6,
+            "z": -171.9,
+            "y": 7.57,
+            "floor": 8.21,
+            "act": "walk"
+          },
+          {
+            "x": -57.6,
+            "z": -171.9,
+            "y": 7.56,
+            "floor": 8.21,
+            "act": "walk"
+          }
+        ]
+      }
+    }
+  },
+  "views": [
+    {
+      "kind": "arrival",
+      "file": "waterfront/arrival.webp",
+      "pose": {
+        "x": 6,
+        "y": 5.05,
+        "z": -6,
+        "bearing": 214.99999999999997,
+        "pitch": 0
+      },
+      "triangles": 475386,
+      "drawCalls": 146
+    },
+    {
+      "kind": "public-walk",
+      "file": "waterfront/public-walk.webp",
+      "pose": {
+        "x": -38.104275412117666,
+        "y": 5.050003368983641,
+        "z": 58.684356869387855,
+        "bearing": 215.28160104327924,
+        "pitch": 0
+      },
+      "triangles": 517706,
+      "drawCalls": 128
+    },
+    {
+      "kind": "postcard",
+      "file": "waterfront/postcard.webp",
+      "pose": {
+        "x": 0,
+        "y": 5.05,
+        "z": 0,
+        "bearing": 214.99999999999997,
+        "pitch": 15.000000000000002
+      },
+      "triangles": 464468,
+      "drawCalls": 145
+    },
+    {
+      "kind": "activity-approach",
+      "file": "waterfront/activity-approach.webp",
+      "pose": {
+        "x": -44.400000000000006,
+        "y": 5.13,
+        "z": 66.225,
+        "bearing": 0,
+        "pitch": -7.000000000000003
+      },
+      "triangles": 507117,
+      "drawCalls": 173
+    }
+  ],
+  "gaps": [
+    "Source references and actual game views require human comparison. Registry READY is not acceptance."
+  ],
+  "capture": {
+    "revision": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+    "worktreeDirty": true,
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "quality": "high",
+    "date": "2026-07-15T12:00:00Z",
+    "season": "summer",
+    "weather": "clear",
+    "lighting": "day"
+  },
+  "errors": []
+}

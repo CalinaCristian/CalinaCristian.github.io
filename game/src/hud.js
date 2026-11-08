@@ -130,6 +130,7 @@ export class HUD {
         return true;
     }
     prompt(text) {
+        if (text && document.body.classList.contains('touch')) text = text.replace(/<kbd>E<\/kbd>/g, '<b>Use</b>').replace(/<kbd>Enter<\/kbd>/g, '🚶');
         if (!text) { this.el.prompt.classList.remove('show'); return; }
         if (this.el.prompt.innerHTML !== text) this.el.prompt.innerHTML = text;
         this.el.prompt.classList.add('show');

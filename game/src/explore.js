@@ -53,6 +53,7 @@ export function initExplore(game) {
         onHere: (x, z, pin) => selectHere(x, z, pin),
         onClear: () => clearDestination(),
         onTravel: () => fastTravelSelected(),
+        canTravel: () => !game.fastTravelStatus?.().disabled,
         onClose: () => {
             if (map.startMode && game.state === 'menu' && !busy) setActive(false);
             if (['drive', 'foot', 'spot'].includes(game.state)) game.returnFocus?.();

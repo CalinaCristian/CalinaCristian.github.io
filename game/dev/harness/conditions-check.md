@@ -13,7 +13,7 @@ NODE_OPTIONS=--require=/workspace/.environment/drive-my-cv/use-system-chromium.c
   node game/dev/harness/conditions-check.cjs --controls --out=/workspace/reality-pass/conditions-qa/verified
 ```
 
-The tool starts its own static server, mutes audio and isolates its two fixtures in fresh browser contexts. A reload keeps that fixture's IndexedDB and localStorage so the visible Continue button restores a real saved session. It exits nonzero for any failed assertion or fixture and writes `report.json` plus screenshots. `--controls` also checks the cockpit mirror and driving/on-foot L behavior.
+The tool starts its own static server, mutes audio and isolates each fixture in a fresh browser context. A reload keeps that fixture's IndexedDB and localStorage so the visible Continue button restores a real saved session. It exits nonzero for any failed assertion or fixture and writes `report.json` plus screenshots. `--controls` also checks the cockpit mirror and driving/on-foot L behavior.
 
 The checks cover:
 
@@ -29,6 +29,8 @@ The checks cover:
 The wall clock is fixed at 2026-11-08 10:00 UTC to make local-hour assertions deterministic. Open-Meteo requests fail deterministically to exercise the climate fallback. Only the main game RAF is suppressed: real keyboard events are consumed by manually calling the actual `game.loop`, while native RAF and timers run montage/flight transitions. Rendering runs for captures and the mirror-render check. This is a functional/UI regression, not a frame-rate or full weather-transition visual test.
 
 `--only-access` runs the three title/Live/footer/touch fixtures. The default run includes them alongside the original travel/Continue fixtures; `--controls` adds the mirror/light regression. Run from a committed worktree snapshot if other edits continue while it runs.
+
+The 2026-11-08 title-access addition passed **124/124** with `--controls` from snapshot `c5c2831`. The final footer readability style passed **65/65** with `--only-access` from snapshot `232ae03`; both runs had **0 page errors**. Reports and reviewed title, footer, Continue and touch captures are outside git in `/workspace/reality-pass/conditions-access/final/` and `footer-final/`.
 
 ## Repair handoff, 2026-11-08
 

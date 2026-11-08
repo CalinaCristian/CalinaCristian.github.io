@@ -56,8 +56,8 @@ export async function staticAudit(H, { maxPerType = 4000 } = {}) {
             if (c.wall || c.ax !== undefined || c.kind === 'pier' || c.yMax !== undefined) return;
             if (Math.abs((c.y ?? c.base ?? 0) - ny) > 1.5) return;
             const k = colliderKind(c, lamps);
-            if (isBuilding(k)) { if (pointInCollider(c, n.x, n.z)) add('building-in-junction', 'high', `${k} covers the centre of a ${n.edges.length}-way junction (${n.edges.map(roadName).filter((v, j, a) => a.indexOf(v) === j).join(' / ')})`, { x: n.x, z: n.z, node: n.id }, `bj:${n.id}`); return; }
-            if (colliderDist(c, n.x, n.z) < R) add('prop-in-junction', 'high', `${k} inside the junction box of ${n.edges.map(roadName).filter((v, j, a) => a.indexOf(v) === j).join(' / ')}`, { x: c.x, z: c.z, node: n.id, kind: k }, `pj:${Math.round(c.x * 2)},${Math.round(c.z * 2)}`);
+            if (isBuilding(k)) { if (pointInCollider(c, n.x, n.z, 0, ny + 0.24, 2)) add('building-in-junction', 'high', `${k} covers the centre of a ${n.edges.length}-way junction (${n.edges.map(roadName).filter((v, j, a) => a.indexOf(v) === j).join(' / ')})`, { x: n.x, z: n.z, node: n.id }, `bj:${n.id}`); return; }
+            if (colliderDist(c, n.x, n.z, ny + 0.24, 2) < R) add('prop-in-junction', 'high', `${k} inside the junction box of ${n.edges.map(roadName).filter((v, j, a) => a.indexOf(v) === j).join(' / ')}`, { x: c.x, z: c.z, node: n.id, kind: k }, `pj:${Math.round(c.x * 2)},${Math.round(c.z * 2)}`);
         });
     }
     await sleep(0);
@@ -120,8 +120,9 @@ export async function staticAudit(H, { maxPerType = 4000 } = {}) {
         }
         if (best > reach) add('poi-door-unreachable', sev, `${label}: door is ${r1(best)} m from the nearest routable lane (interaction radius ${reach} m)`, { x, z, best: r1(best), edge: be?.id, street: be ? roadName(be) : null }, `door:${label}`);
         // inside a building? (the door must be outside a footprint or on its outline)
-        let inside = null; W.buildings?.query?.(x, z, 1, (c) => { if (!inside && c.poly && pip(x, z, c.poly) && colliderDist(c, x, z) < -2) inside = c; });
-        if (inside) add('poi-door-in-building', 'medium', `${label}: door point is ${r1(-colliderDist(inside, x, z))} m inside a building footprint`, { x, z }, `doorin:${label}`);
+        const doorY = W.roadHeight?.(x, z) ?? 0.24;
+        let inside = null; W.buildings?.query?.(x, z, 1, (c) => { if (!inside && c.poly && pointInCollider(c, x, z, 2, doorY, 1.75)) inside = c; });
+        if (inside) add('poi-door-in-building', 'medium', `${label}: door point is ${r1(-colliderDist(inside, x, z, doorY, 1.75))} m inside a building footprint`, { x, z }, `doorin:${label}`);
         // route from the spawn
         const sp = W.spawn || { x: g.player.x, z: g.player.z };
         let r = null; try { r = g.nav.compute(sp.x, sp.z, x, z, sp.heading ?? null); } catch { /* ignore */ }
@@ -146,20 +147,20 @@ export async function staticAudit(H, { maxPerType = 4000 } = {}) {
         let hit = null;
         for (const f of [v.length * 0.35, 0, -v.length * 0.35]) {
             const x = v.x + v.fx * f, z = v.z + v.fz * f;
-            W.buildings.query(x, z, 2, (c) => { if (hit || c.wall || c.ax !== undefined) return; if (c.yMax !== undefined ? (v.y ?? 0.24) > c.yMax : Math.abs((c.y ?? c.base ?? 0) - ((v.y ?? 0.24) - 0.24)) > 1.5) return; if (colliderDist(c, x, z) < (c.poly ? -0.2 : 0.5)) hit = c; });
+            W.buildings.query(x, z, 2, (c) => { if (hit || c.wall || c.ax !== undefined) return; if (!c.poly && (c.yMax !== undefined ? (v.y ?? 0.24) > c.yMax : Math.abs((c.y ?? c.base ?? 0) - ((v.y ?? 0.24) - 0.24)) > 1.5)) return; if (colliderDist(c, x, z, v.y ?? 0.24, v.bodyHeight ?? 2) < (c.poly ? -0.2 : 0.5)) hit = c; });
         }
         if (hit) add('spawn-vehicle-in-object', v.parked ? 'low' : 'medium', `${v.kind} ${v.id}${v.parked ? ' (parked)' : ''} spawned inside/through a ${colliderKind(hit, lamps)} on ${v.edge ? roadName(v.edge) : '?'}`, { x: v.x, z: v.z, kind: colliderKind(hit, lamps) }, `svb:${v.id}`);
     }
     for (const p of T?.peds?.list || []) {
         for (const v of vs) if (Math.abs(v.x - p.x) < 4 && Math.abs(v.z - p.z) < 4 && pointInObb(vObb(v), p.x, p.z, 0.1)) { add('spawn-ped-in-vehicle', 'medium', `pedestrian ${p.i} spawned inside ${v.kind} ${v.id}`, { x: p.x, z: p.z }, `spv:${p.i}`); break; }
-        let inB = false; W.buildings?.query?.(p.x, p.z, 0.5, (c) => { if (!inB && c.poly && pip(p.x, p.z, c.poly) && colliderDist(c, p.x, p.z) < -0.5) inB = true; });
+        let inB = false; W.buildings?.query?.(p.x, p.z, 0.5, (c) => { if (!inB && c.poly && pointInCollider(c, p.x, p.z, 0.5, p.y ?? 0.24, 1.75)) inB = true; });
         if (inB) add('spawn-ped-in-building', 'low', `pedestrian ${p.i} (${p.state}) spawned inside a building footprint`, { x: p.x, z: p.z }, `spb:${p.i}`);
     }
     // player spawn
     const P = g.player;
     const ne = g.nav.index.nearest(P.x, P.z, 100);
     if (!ne || ne.d > (ne.edge.halfW ?? 6)) add('spawn-player', 'high', `player spawn is ${ne ? r1(ne.d) : '?'} m from the nearest road centreline`, { x: P.x, z: P.z }, 'spawn-off');
-    let inC = null; W.buildings?.query?.(P.x, P.z, 3, (c) => { if (!inC && colliderDist(c, P.x, P.z) < 0.9) inC = c; });
+    let inC = null; W.buildings?.query?.(P.x, P.z, 3, (c) => { if (!inC && colliderDist(c, P.x, P.z, P.surfY ?? P.y ?? 0.24, P.bodyHeight ?? 2) < 0.9) inC = c; });
     if (inC) add('spawn-player', 'high', `player spawn touches a ${colliderKind(inC, lamps)}`, { x: P.x, z: P.z }, 'spawn-coll');
     // ---------------------------------------------------------------- the world's own self-checks (shape-agnostic)
     const selfCheck = {};

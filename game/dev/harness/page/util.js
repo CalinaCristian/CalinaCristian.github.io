@@ -42,23 +42,40 @@ export function yAlong(e, x, z) {
     const t = clamp(((x - e.a.x) * e.dirx + (z - e.a.z) * e.dirz) / e.len, 0, 1);
     return e.ya + (e.yb - e.ya) * t;
 }
-/** penetration test of a point against one collider (same shapes as world.js collideOne). true = inside */
-export function pointInCollider(c, x, z, margin = 0) {
+/** Active native height band, including measured roof surfaces and source undersides. */
+function colliderHeight(c, x, z, y, bodyHeight, radius = 0) {
+    if (c.yMax !== undefined && y > c.yMax) return false;
+    if (c.y0 !== undefined && (c.roofHeightAt ? y + bodyHeight : y) < c.y0) return false;
+    if (c.y1 !== undefined && y > c.y1) return false;
+    if ((c.minH ?? 0) > y + bodyHeight) return false;
+    if (c.roofHeightAt) { const top = c.roofHeightAt(x, z, radius); if (top === null || y > top) return false; }
+    return true;
+}
+/** Point penetration against active solids, retaining courtyard and passage voids. */
+export function pointInCollider(c, x, z, margin = 0, y = 0.24, bodyHeight = 2) {
     if (c.wall || c.ax !== undefined) return false;
-    if (c.poly) return pip(x, z, c.poly);
+    if (!colliderHeight(c, x, z, y, bodyHeight)) return false;
+    if (c.poly || c.passageSolids) return colliderDist(c, x, z, y, bodyHeight) < -margin;
     if (c.prop && c.hw === c.r) return Math.hypot(x - c.x, z - c.z) < c.r - margin;
     const dx = x - c.x, dz = z - c.z, co = Math.cos(c.angle || 0), si = Math.sin(c.angle || 0);
     const lx = dx * co - dz * si, lz = dx * si + dz * co;
     return Math.abs(lx) < c.hw - margin && Math.abs(lz) < c.hd - margin;
 }
 /** distance from point to the collider's outline (negative inside), approximate for polygons */
-export function colliderDist(c, x, z) {
+export function colliderDist(c, x, z, y = 0.24, bodyHeight = 2, radius = 0) {
     if (c.wall || c.ax !== undefined) return distPointSeg(x, z, c.ax, c.az, c.bx, c.bz).d - 0.2;
+    if (!colliderHeight(c, x, z, y, bodyHeight, radius)) return Infinity;
     if (c.prop && c.hw === c.r) return Math.hypot(x - c.x, z - c.z) - c.r;
-    if (c.poly) {
-        let bd = Infinity; const P = c.poly;
-        for (let i = 0, j = P.length - 1; i < P.length; j = i++) { const r = distPointSeg(x, z, P[j][0], P[j][1], P[i][0], P[i][1]); if (r.d < bd) bd = r.d; }
-        return pip(x, z, P) ? -bd : bd;
+    if (c.poly || c.passageSolids) {
+        const bodies = c.passageSolids ? c.passageSolids.filter(b => b.y0 <= y + bodyHeight && b.y1 >= y).flatMap(b => b.polys.map(poly => ({ poly, holes: [] }))) : [c];
+        let distance = Infinity;
+        for (const b of bodies) {
+            let bd = Infinity;
+            for (const ring of [b.poly, ...(b.holes || [])]) for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) bd = Math.min(bd, distPointSeg(x, z, ring[j][0], ring[j][1], ring[i][0], ring[i][1]).d);
+            const inside = pip(x, z, b.poly) && !(b.holes || []).some(h => pip(x, z, h));
+            distance = Math.min(distance, inside ? -bd : bd);
+        }
+        return distance;
     }
     const dx = x - c.x, dz = z - c.z, co = Math.cos(c.angle || 0), si = Math.sin(c.angle || 0);
     const lx = dx * co - dz * si, lz = dx * si + dz * co;
@@ -121,14 +138,16 @@ export function vObb(v) {
     return { x: v.x, z: v.z, fx: -Math.sin(v.heading), fz: -Math.cos(v.heading), length: v.length, width: v.width };
 }
 /** would the game's collision treat collider c as solid for the player at (x,z)? (wall height bands, pier yMax, levels) */
-export function solidFor(P, c, x, z) {
-    const y = P?.surfY ?? 0.24;
+export function solidFor(P, c, x, z, radius = 0, bodyHeight = P?.bodyHeight ?? 2) {
+    const y = P?.surfY ?? P?.y ?? 0.24;
     if (c.wall || c.ax !== undefined) {
         if (c.y0a === undefined) return true;
         const r = distPointSeg(x, z, c.ax, c.az, c.bx, c.bz);
         const y0 = c.y0a + (c.y0b - c.y0a) * r.t, y1 = c.y1a + (c.y1b - c.y1a) * r.t;
         return !(y < y0 - 0.3 || y > y1);
     }
-    if (c.yMax !== undefined && y > c.yMax) return false;
+    if (!colliderHeight(c, x, z, y, bodyHeight, radius)) return false;
+    if (c.passageSolids) return colliderDist(c, x, z, y, bodyHeight, radius) <= radius;
+    if (c.poly && (c.roofHeightAt || c.y0 !== undefined || c.y1 !== undefined || c.minH !== undefined)) return true;
     return atLevel(P, c);
 }

@@ -1,0 +1,52 @@
+{
+  "data": "bucharest-pipera.json",
+  "roads": 387,
+  "sourceWays": 382,
+  "preparedNodes": 1674,
+  "cutNodes": 108,
+  "expectedWhole": 278,
+  "wholeSourceVertices": 1181,
+  "missingWhole": 0,
+  "privatePhysical": 25,
+  "shortSourceStubs": 64,
+  "scenery": {
+    "pieces": 1048,
+    "sourceWays": 1043,
+    "preparedVertices": 5253,
+    "privatePhysical": 153
+  },
+  "visibleRing": {
+    "expectedWays": 1232,
+    "missingWays": 0,
+    "requiredVertices": 6089,
+    "missingVertices": 0,
+    "excludedCoveredWays": [
+      "w669742137",
+      "w669742138",
+      "w48272349",
+      "w467560480",
+      "w467560481",
+      "w467560865",
+      "w467560867",
+      "w668515452",
+      "w668523278",
+      "w764616770",
+      "w764616771",
+      "w1284446130",
+      "w1339943929",
+      "w1553027402",
+      "w661582576",
+      "w668951012",
+      "w845495214",
+      "w1077935488",
+      "w1566299306",
+      "w1566299309",
+      "w1566299312",
+      "w1566299315",
+      "w1566299319"
+    ],
+    "exclusionReason": "Covered/tunnel source ways outside the physical core are not represented as ground scenery; no elevation or open road is invented."
+  },
+  "sourceDirectionNormalizations": [],
+  "issues": []
+}

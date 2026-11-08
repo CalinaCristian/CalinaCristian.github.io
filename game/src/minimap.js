@@ -45,6 +45,16 @@ const MARK = {
 const stationKey = (n) => String(n || '').toLowerCase().replace(/\b(metro|station|statia|stația|stop|halt|light rail)\b/g, '').replace(/\s+\d+$/, '').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
 const rank = (t) => ({ motorway: 6, trunk: 5, primary: 4, secondary: 3, tertiary: 2, motorway_link: 4, trunk_link: 4, primary_link: 3, secondary_link: 2, tertiary_link: 1 }[t] || 0);
 
+// A permanent canvas listener must not capture a constructor scope that also holds the first district's world.
+function legendClick(ev) {
+    const canvas = ev.currentTarget, mm = canvas.__mm; if (!mm?._legendL) return;
+    const r = canvas.getBoundingClientRect(); if (!r.width) return;
+    if (mm.legendHit((ev.clientX - r.left) * (canvas.width / r.width), (ev.clientY - r.top) * (canvas.height / r.height))) {
+        ev.stopImmediatePropagation(); ev.preventDefault();
+        if (mm.onChange) mm.onChange(); else globalThis.game?.redrawMap?.();
+    }
+}
+
 export class MiniMap {
     constructor(canvas, world, city) {
         this.canvas = canvas; this.ctx = canvas.getContext('2d');
@@ -61,14 +71,7 @@ export class MiniMap {
         this.drawsOutside = true; this.onChange = null; // onChange(): the host redraws after a legend click (filters / collapse)
         if (!canvas.__mmLegend) { // legend clicks never reach the host's map-click handler (waypoint)
             canvas.__mmLegend = true;
-            canvas.addEventListener('click', (ev) => {
-                const mm = canvas.__mm; if (!mm?._legendL) return;
-                const r = canvas.getBoundingClientRect(); if (!r.width) return;
-                if (mm.legendHit((ev.clientX - r.left) * (canvas.width / r.width), (ev.clientY - r.top) * (canvas.height / r.height))) {
-                    ev.stopImmediatePropagation(); ev.preventDefault();
-                    if (mm.onChange) mm.onChange(); else globalThis.game?.redrawMap?.();
-                }
-            }, { capture: true });
+            canvas.addEventListener('click', legendClick, { capture: true });
         }
         canvas.__mm = this;
         if (world.district?.id) placesData().then((pd) => {

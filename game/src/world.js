@@ -2315,6 +2315,18 @@ export async function buildWorld(city, renderer, opts = {}) {
         return { i, style: data.styles[b[0]], h: b[1] / 10, minH: b[2] / 10, roof: data.roofs[b[3]], name: str(b[4]), flags: b[5], ring, c, x0, z0, x1, z1, area: Math.abs(signedArea(ring)), skip: false,
             levels: B_OFF === 9 ? b[6] : 0, colour: B_OFF === 9 ? str(b[7]) : '', roofColour: B_OFF === 9 ? str(b[8]) : '' };
     });
+    // ---- (round 6 notes 10 / 46) Bucharest 'house' buildings: the village-house look (shutters, steep gable) read wrong —
+    //      in Floreasca / Romană they are interwar villas (plaster, low hipped roof), and a lone house among office towers
+    //      (Pipera, Bd. Dimitrie Pompeiu) reads as a low commercial block. Seattle keeps its wooden houses.
+    if (!US) {
+        const tall = bRecs.filter(b => b.h > 20);
+        for (const b of bRecs) {
+            if (b.style !== 'house') continue;
+            let n = 0; for (const t of tall) if (Math.hypot(t.c[0] - b.c[0], t.c[1] - b.c[1]) < 70 && ++n >= 3) break;
+            if (n >= 3) { b.style = 'plain'; b.roof = 'flat'; }
+            else { b.style = 'interwar'; if (b.roof === 'gabled' || b.roof === 'pitched') b.roof = 'hipped'; }
+        }
+    }
     // ---- facade style from data.buildingInfo (world-data: OSM type, start_date year, architect, material, height source)
     {
         const BI = data.buildingInfo || [];

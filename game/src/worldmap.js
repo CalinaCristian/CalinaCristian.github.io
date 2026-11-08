@@ -1,12 +1,12 @@
 // ============================================================================
-//  WORLD MAP HUB (note 75, explore lane) — one full-screen map for both modes:
+//  WORLD MAP HUB (note 75, explore lane) — one full-screen map, go anywhere (one mode since 2026-11-08):
 //  tabs Here · București · Seattle · Bellevue · World; every district (footprint from cities.js) and tourist
 //  spot (spots/index.js SPOTS) as a pin; a searchable list with thumbnails + "recent"; click a pin → card → Go.
 //  "Here": the current district (the game's MiniMap of the loaded world) or tourist spot (its OSM data) —
-//  click a point to fast-travel there (Explore). Pan: drag · zoom: wheel / pinch / + −. Mobile: map over list.
+//  click a point to fast-travel there (everyone). Pan: drag · zoom: wheel / pinch / + −. Mobile: map over list.
 //
 //  new WorldMap(opts) · open({ tab, startMode }) · close() · isOpen · refresh()
-//  opts: items() → [item], here() → here | null, current() → { key, region }, mode() → 'explore' | 'story',
+//  opts: items() → [item], here() → here | null, current() → { key, region }, mode() → 'roam' | 'story' (roam = off the story),
 //        thumb(key) → dataURL | null, recent() → [key], onGo(item), onHere(x, z), onClose(), onConditions?(), canConditions?()
 //  item: { key, kind: 'district'|'spot', id, city, region: 'bucharest'|'seattle'|'bellevue', name, sub, blurb, lat, lon, bbox?, poly?, icon, done? }
 // ============================================================================
@@ -109,7 +109,7 @@ export class WorldMap {
         if (this.tab === 'here' && !this.hereInfo) this.tab = cur.region || 'bucharest';
         this.sel = null; this.card.hidden = true;
         this.el.classList.add('show'); document.body.classList.add('wm-open');
-        this.modeEl.textContent = startMode ? '🧭 Explore · pick a start' : this.o.mode?.() === 'explore' ? '🧭 Explore' : '📖 Story';
+        this.modeEl.textContent = startMode ? '🌍 Pick a start · the story waits' : this.o.mode?.() === 'roam' ? '🗺️ Free roam' : '📖 Story';
         this.condBtn.hidden = !this.o.canConditions?.();
         this.renderTabs(); this.renderRecent(); this.renderList();
         this._size(); this.draw(); this._scrollList();
@@ -123,7 +123,7 @@ export class WorldMap {
         const here = this.hereInfo, list = [['here', here ? `📍 Here <small>${esc(here.name || '')}</small>` : '📍 Here', !here], ...REGIONS.map((r) => [r.id, `${r.flag} ${r.name}`, false]), ['world', '🌍 World', false]];
         this.tabsEl.innerHTML = list.map(([id, lab, dis]) => `<button role="tab" data-tab="${id}"${id === this.tab ? ' class="on" aria-selected="true"' : ''}${dis ? ' disabled' : ''}>${lab}</button>`).join('');
         const h = { here: here?.kind === 'spot' ? 'Click a path or square to walk straight there · drag to pan · wheel / pinch to zoom' : 'Click a street to fast-travel there · drag to pan · wheel / pinch to zoom', world: 'Pick a city' }[this.tab] || 'Click a pin, then Go · drag to pan · wheel / pinch to zoom';
-        this.hint.textContent = this.tab === 'here' && this.o.mode?.() !== 'explore' ? 'Story mode: fast travel on the map is an Explore feature (pause → Switch to Explore)' : h;
+        this.hint.textContent = h;
     }
     _byKey(k) { return this.items.find((i) => i.key === k); }
     _filtered() {
@@ -156,8 +156,8 @@ export class WorldMap {
     select(it, center = false) {
         this.sel = it;
         if (center) { if (this.tab !== it.region) { this.tab = it.region; this.renderTabs(); this._size(); } const v = this._view(); if (v) { const p = this._ll(it.lat, it.lon); v.cx = p.x; v.cy = p.y; } }
-        const here = it.key === this.curKey, story = this.o.mode?.() !== 'explore' && !this.startMode && it.kind === 'district';
-        this.card.innerHTML = `${this._thumb(it, 'wm-cth')}<div class="wm-ctx"><div class="wm-ck">${it.kind === 'district' ? '🚗 District' : '🚶 Tourist spot'} · ${esc(REGIONS.find((r) => r.id === it.region)?.name)}</div><b>${esc(it.name)}</b><p>${esc(it.blurb || it.sub || '')}</p>${story ? '<p class="wm-note">Jumping to a district switches to Explore (no objectives); the story waits where you left it.</p>' : ''}</div><button class="wm-go big" data-go="${esc(it.key)}"${here ? ' disabled' : ''}>${here ? 'You are here' : 'Go ▸'}</button>`;
+        const here = it.key === this.curKey, story = this.o.mode?.() !== 'roam' && !this.startMode && it.kind === 'district';
+        this.card.innerHTML = `${this._thumb(it, 'wm-cth')}<div class="wm-ctx"><div class="wm-ck">${it.kind === 'district' ? '🚗 District' : '🚶 Tourist spot'} · ${esc(REGIONS.find((r) => r.id === it.region)?.name)}</div><b>${esc(it.name)}</b><p>${esc(it.blurb || it.sub || '')}</p>${story ? '<p class="wm-note">Jumping to another district leaves the story for free roam (no objective); 📖 Resume story brings it back where you left it.</p>' : ''}</div><button class="wm-go big" data-go="${esc(it.key)}"${here ? ' disabled' : ''}>${here ? 'You are here' : 'Go ▸'}</button>`;
         this.card.hidden = false;
         this.renderList();
         this.draw();
@@ -375,7 +375,6 @@ export class WorldMap {
         const h = this._hit(x, y);
         if (this.tab === 'world') { if (h?.tab) { if (h.go) h.go(); else this.setTab(h.tab); } return; } // globe: fly to the city, then its tab
         if (this.tab === 'here') {
-            if (this.o.mode?.() !== 'explore') { this.hint.classList.remove('flash'); void this.hint.offsetWidth; this.hint.classList.add('flash'); return; }
             const v = this.views.here; let wx, wz;
             if (h?.pin) { wx = h.pin.x; wz = h.pin.z; } else { wx = v.cx + (x - this.W / 2) / v.s; wz = v.cy + (y - this.H / 2) / v.s; }
             this._target = { x: wx, z: wz }; this.draw();

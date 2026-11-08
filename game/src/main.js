@@ -28,7 +28,7 @@ import { showFinale } from './finale.js'; // cockpit-ui, note 71
 import { playChapterTransition } from './transition.js'; // cockpit-ui, note 16
 import { save } from './save.js'; // progression, note 73
 import { createDinamoFootball } from './football.js';
-import { initExplore } from './explore.js'; // explore lane (notes 74–76): Explore mode, world-map hub, drone — hooks listed in spec 10
+import { initExplore } from './explore.js'; // world-map hub, free roam/story resume and drone (one mode)
 const { makeVehicle } = VEHICLES;
 
 const $ = (s) => document.querySelector(s);
@@ -206,8 +206,8 @@ class Game {
         $('#start').addEventListener('click', () => this.newStory());
         this.renderMenuChapters();
         this.loadSpotsModule().then(() => this.renderMenuSpots());
-        // Explore (note 75/76, explore.js): opens the world-map hub to pick a start (free roam is folded into Explore)
-        $('#explore-start')?.addEventListener('click', () => { this.audio.init(); this.audio.resume(); this.explore?.enterExplore?.(); });
+        // World map (explore.js): the hub to pick a start anywhere — free roam, the story waits (one mode since 2026-11-08)
+        $('#worldmap-start')?.addEventListener('click', () => { this.audio.init(); this.audio.resume(); this.explore?.roam?.(); });
         // Continue (progression / save.js, note 73): restores the last session (position, mode, conditions)
         try { save.ready?.then?.(() => { const b = $('#continue'); if (b) { b.hidden = !save.hasSession?.(); b.onclick = () => save.restore(this); } }); } catch (e) { console.warn('[save]', e); }
         { const cw = $('#menu .controls-wrap'); if (cw && matchMedia('(min-height: 900px) and (min-width: 900px)').matches) cw.open = true; } // tall screens: controls open; else collapsed so the menu fits
@@ -251,7 +251,7 @@ class Game {
         addEventListener('dmcv:mapfilter', () => { if (this.mapOpen) { this.buildNavList(); this.redrawMap(); } });
         $('#navlist')?.addEventListener('toggle', (e) => { const d = e.target; if (d?.dataset?.group) { (this._navOpen || (this._navOpen = {}))[d.dataset.group] = d.open; const sm = d.querySelector('summary small'); if (sm) sm.textContent = sm.textContent.replace(/ ›$/, '') + (d.open ? '' : ' ›'); } }, true);
         $('#navlist')?.addEventListener('click', (e) => {
-            if (e.target.closest('[data-cond]')) { this.toggleMap(false); this.toggleConditions(true); return; }
+            if (e.target.closest('[data-cond]')) { this.toggleMap(false); this.buildConditions(); this.toggleConditions(true, { any: true }); return; }
             const fl = e.target.closest('[data-filter]');
             if (fl) { e.stopPropagation(); MINIMAP.setMapFilter(fl.dataset.filter, fl.checked); this.redrawMap(); return; } // (same toggle as the map legend)
             const cb = e.target.closest('[data-car]');
@@ -618,7 +618,7 @@ class Game {
         const n = this.nextStop;
         if (n) { this.objective = n.poiRef; this.objectiveLabel = `${n.icon} ${n.short} <small>(${n.year})</small>`; this.objectivePlain = n.short; this.hud.setYear(n.year); this.year = n.year; }
         else if (this.city.id === 'bucharest') { this.objective = this.airport; this.objectiveLabel = '✈️ Otopeni Airport — fly to Seattle <small>(2022)</small>'; this.objectivePlain = 'Otopeni Airport'; this.hud.setYear(2022); this.year = 2022; if (this.hud.achievement('all-buc')) this.audio.chime(); }
-        else { this.objective = null; this.objectiveLabel = '🏁 Story complete — 🧭 Explore (pause menu)'; this.objectivePlain = ''; this.hud.setYear('2026'); this.year = 2026; }
+        else { this.objective = null; this.objectiveLabel = '🏁 Story complete — 🌍 World map (pause menu)'; this.objectivePlain = ''; this.hud.setYear('2026'); this.year = 2026; }
         this.autoRoute(true);
     }
     autoRoute(force = false) {
@@ -667,7 +667,7 @@ class Game {
 
     updateDrive(dt) {
         const { player, traffic, world, hud, input, city } = this;
-        if ((this.explore?.active || this.freeRoam) && input.take('KeyK')) this.toggleConditions();
+        if (input.take('KeyK')) { this.buildConditions(); this.toggleConditions(undefined, { any: true }); } // (K: time, weather & season — everyone)
         if (this.condOpen) { if (input.take('Escape')) this.toggleConditions(false); input.lookAllowed = false; input.flush(); this.updateClock(0); this.drawFrame(); return; }
         if (input.take('KeyM')) this.toggleMap(!this.mapOpen);
         if (this.mapOpen && input.take('Escape')) this.toggleMap(false);
@@ -1345,7 +1345,7 @@ class Game {
     // ---------------------------------------------------------------------------------- big map + nav panel
     toggleMap(open) {
         if (open) { const h = document.getElementById('map-route-hint'); if (h) h.textContent = ''; }
-        if (open && this.explore?.active) { this.explore.openWorldMap(); return; } // M in Explore: the hub (its "Here" tab is the local map)
+        if (open && this.explore?.active) { this.explore.openWorldMap(); return; } // M while roaming: the hub (its "Here" tab is the local map); in the story M is this district map
         const was = this.mapOpen; this.mapOpen = open;
         $('#bigmap-wrap').classList.toggle('show', open);
         if (was && !open) this.returnFocus();
@@ -1436,7 +1436,7 @@ class Game {
             for (const i of gr.rows) { const it = items[i]; html += `<div class="nav-item"><span>${it.icon} ${it.label} <small>${dist(it.x, it.z)}${it.walk ? ` · walk the last ${fmtDist(it.walk, this.city.units)}` : ''}</small></span><button data-nav="${i}" title="Route there">Go</button><button class="ft" data-ft="${i}" title="Fast travel (skip the drive)">⏩</button></div>`; }
             html += '</details>';
         }
-        if (this.explore?.active || this.freeRoam) html += '<div class="nav-item active"><span>☀️ Time, weather &amp; season</span><button data-cond="1">Open</button></div>'; // (districts: the world-map hub, explore.js)
+        html += '<div class="nav-item active"><span>☀️ Time, weather &amp; season</span><button data-cond="1">Open</button></div>'; // (everyone; districts: the world-map hub, explore.js)
         if (spotsHere.length) html += this.spotGroupsHtml(spotsHere, { heading: 'h4', button: 'Visit' });
         $('#navlist').innerHTML = html;
     }
@@ -1595,7 +1595,7 @@ class Game {
     }
     updateFoot(dt) {
         const { traffic, hud, input, city, world } = this, F = this.foot, P = this.player;
-        if ((this.explore?.active || this.freeRoam) && input.take('KeyK')) this.toggleConditions();
+        if (input.take('KeyK')) { this.buildConditions(); this.toggleConditions(undefined, { any: true }); } // (K: time, weather & season — everyone)
         if (this.condOpen) { if (input.take('Escape')) this.toggleConditions(false); input.lookAllowed = false; input.flush(); this.updateClock(0); this.drawFrame(); return; }
         if (input.take('KeyM')) this.toggleMap(!this.mapOpen);
         if (this.mapOpen && input.take('Escape')) this.toggleMap(false);
@@ -1906,12 +1906,14 @@ class Game {
     }
 
     // ---------------------------------------------------------------------------------- pause menu (note 72)
-    /** Esc (once the mouse is free) / ⏸: Resume · Map · Chapters · Tourist spots · Time, weather & season · Achievements ·
-     *  Photo mode · Settings · Switch to Explore / Story · Main menu (+ World map / drone, explore.js); in spots also the entrances + Leave; the game is paused */
+    /** Esc (once the mouse is free) / ⏸: Resume · (Resume story while roaming) · Map · World map · Chapters · Tourist spots ·
+     *  Time, weather & season · Achievements · Drone · Photo mode · Settings · Main menu; in spots also the entrances + Leave;
+     *  the game is paused. (The Explore ⇄ Story switch is gone: one mode since 2026-11-08.) */
     pauseItems() {
         const st = this.state, inGame = ['drive', 'foot', 'office'].includes(st) && !!this.world;
         const ex = this.explore, droneOn = !!ex?.drone?.active;
         const items = [['resume', '▶️', 'Resume']];
+        if (ex?.active && this.chapters?.length) { const i = this.chapters.findIndex((c) => !this.progress?.done?.has(c.id)); if (i >= 0) items.push(['resume-story', '📖', 'Resume story', 'objective, nav & chapter cards back']); }
         if (droneOn) items.push(['drone-land', '🛬', 'Land drone', 'flies back to your hand']);
         if (st === 'spot') {
             const e = this.spotEntry || {}, same = (this.spotsMod?.SPOTS || []).filter(x => x.scene && x.scene === e.scene && x.id !== this.spotId && this.spot?.spot?.spawns?.[x.id]);
@@ -1919,7 +1921,7 @@ class Game {
             items.push(['leave-spot', '🚪', 'Leave tourist spot']);
         }
         if (inGame && st !== 'office') items.push(['map', '🗺️', 'Map & navigation']);
-        if (ex) items.push(['worldmap', '🌍', 'World map', ex.active ? 'every district & spot' : 'jump anywhere (Explore)']);
+        if (ex) items.push(['worldmap', '🌍', 'World map', ex.active || !this.chapters ? 'every district & tourist spot' : 'go anywhere · the story waits']);
         if (this.clamp && !this.clamp.paid && (st === 'drive' || st === 'foot')) items.push(['pay-clamp', '🔓', 'Pay fine', `wheel clamp${this.clamp.amount ? ' · ' + money(this.clamp.cur, this.clamp.amount) : ''}`]);
         if (st === 'foot' && this.carBody?.parent) items.push(['car-route', '🚗', 'Walk back to the car'], ['car-call', '📲', 'Call the car (T)'], ['car-beep', '🔑', 'Key fob: beep (L)']);
         if (this.chapters) items.push(['chapters', '📖', 'Chapters']);
@@ -1930,7 +1932,6 @@ class Game {
         if (this.photo && st !== 'office' && st !== 'drive') items.push(['photo', '📷', 'Photo mode']);
         if (this.save?.openGallery || save?.openGallery) items.push(['gallery', '🖼️', 'Photo gallery']);
         items.push(['settings', '⚙️', 'Settings']);
-        if (ex && this.chapters) items.push(ex.active ? ['explore-mode', '📖', 'Switch to Story', 'chapters & objectives'] : ['explore-mode', '🧭', 'Switch to Explore', 'everything unlocked']);
         items.push(['main-menu', '🏠', 'Main menu']);
         return items;
     }
@@ -1967,7 +1968,7 @@ class Game {
         const el = document.getElementById('pause-menu'); if (!el) return;
         const esc = (t) => String(t ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
         const where = this.state === 'spot' ? (this.spotEntry?.name || 'Tourist spot') : this.state === 'office' ? (this.office?.stop?.company || 'Office')
-            : this.freeRoam ? `🧭 Explore · ${this.city?.districts?.[this.district]?.name || ''}` : this.ch ? `Chapter ${this.chapterIdx + 1}/${this.chapters.length} · ${this.ch.title}` : (this.city?.name || '');
+            : this.freeRoam ? `🗺️ Free roam · ${this.city?.districts?.[this.district]?.name || ''}` : this.ch ? `Chapter ${this.chapterIdx + 1}/${this.chapters.length} · ${this.ch.title}` : (this.city?.name || '');
         let body = '';
         if (view === 'main') body = `<div class="pm-grid">${this.pauseItems().map(([id, ic, label, note]) => `<button data-pa="${id}"><span class="ic">${ic}</span><span>${esc(label)}${note ? `<small>${esc(note)}</small>` : ''}</span></button>`).join('')}</div>`;
         else if (view === 'chapters') body = `<div class="pm-list">${this.chapters.map((c, i) => { const ok = this.progress.reached.has(c.id) || i === 0; return `<button data-pa="chapter:${i}"${ok ? '' : ' disabled'}><span class="ic">${this.progress.done.has(c.id) ? '✓' : ok ? '▶' : '🔒'}</span><span>${c.year} · ${esc(c.title)}<small>${esc(this.city?.districts?.[c.district]?.name || CITIES[c.city]?.districts?.[c.district]?.name || c.district)}</small></span></button>`; }).join('')}</div>`;
@@ -1996,11 +1997,11 @@ class Game {
         if (k === 'back') return this.renderPause('main');
         if (['chapters', 'spots', 'settings'].includes(k)) return this.renderPause(k);
         const ex = this.explore;
-        if (ex) { // Explore (explore.js API): world map, drone, mode switch; a place-changing action lands the drone first
+        if (ex) { // explore.js API: world map, drone, back to the story; a place-changing action lands the drone first
             if (k === 'worldmap') { ex.openWorldMap(); return; }
             if (k === 'drone') { this.togglePause(false); setTimeout(() => ex.deployDrone(), 60); return; }
             if (k === 'drone-land') { this.togglePause(false); ex.landDrone(); return; }
-            if (k === 'explore-mode') { this.togglePause(false); if (ex.active) ex.exitExplore(); else ex.enterExplore(); return; }
+            if (k === 'resume-story') { this.togglePause(false); ex.resumeStory(); return; }
             if (ex.drone?.active && !['photo', 'achievements'].includes(k)) ex.hooks?.abortDrone?.();
         }
         this.togglePause(false);
@@ -2081,7 +2082,7 @@ class Game {
             this.freeRoam = { district: d.id, tod, weather }; // (loadCity resets the chapter state)
             this.enterRoam(d);
         } finally { this._transit = false; }
-        this.explore?.hooks?.afterFreeRoam?.(d.id); // (a free-roam start is Explore, note 76)
+        this.explore?.hooks?.afterFreeRoam?.(d.id); // (a free-roam start is roaming: the resume-story chip shows)
         return true;
     }
     enterRoam(d) {
@@ -2095,7 +2096,7 @@ class Game {
         this.updateObjective();
         this.buildConditions(); document.body.classList.add('free-roam');
         const tl = { now: 'real time', rush: 'morning rush, 08:30', noon: 'noon', golden: 'golden hour', night: 'night' }[this.freeRoam.tod] || '';
-        this.hud.toast(`🧭 Explore · ${d.name}`, `${d.label ? d.label + ' · ' : ''}${tl}${this.freeRoam.weather !== 'live' ? ' · ' + this.freeRoam.weather : ''}. M → world map · G on foot → drone · ☀️ time & weather.`, 'intro');
+        this.hud.toast(`🗺️ Free roam · ${d.name}`, `${d.label ? d.label + ' · ' : ''}${tl}${this.freeRoam.weather !== 'live' ? ' · ' + this.freeRoam.weather : ''}. ${this.chapters?.length ? '📖 Resume story when you like · ' : ''}M → world map · G on foot → drone · K time & weather.`, 'intro');
     }
     /** progress line: "Chapters n/10" (+ the achievements completion % when progression is loaded) */
     setChapterProgress() {
@@ -2105,10 +2106,10 @@ class Game {
     }
     updateRoamObjective() {
         const d = this.city.districts?.[this.district], hud = this.hud;
-        hud.setChapter(`🧭 Explore · ${d?.name || this.district}`);
+        hud.setChapter(`🗺️ Free roam · ${d?.name || this.district}`);
         this.setChapterProgress();
         hud.setYear('2026'); this.year = 2026;
-        this.objective = null; this.objectivePlain = ''; this.objectiveLabel = `🧭 Explore · ${this.touch ? '🌍 world map · 🚁 drone' : 'M world map · G drone (on foot)'}`;
+        this.objective = null; this.objectivePlain = ''; this.objectiveLabel = `🗺️ Free roam · ${this.touch ? '🌍 world map · 🚁 drone' : 'M world map · G drone (on foot)'}`;
         hud.setObjective?.(this.objectiveLabel);
         this.autoRoute(true);
     }
@@ -2533,7 +2534,7 @@ class Game {
         }
         if (this.freeRoam) { // free roam (R10.10): the CV content, no story progress
             if (o.read.size === 0) this.hud.toast('💬 Nobody asked', 'Walk up to your host and press E to talk.');
-            else this.hud.toast(`${stop.icon} ${stop.short}`, 'Explore: keep going (M → world map: districts and tourist spots).');
+            else this.hud.toast(`${stop.icon} ${stop.short}`, 'Free roam: keep going (M → world map: districts and tourist spots).');
         } else if (this.ch) { // chapters: reading a screen of this chapter's office completes it
             if (o.read.size > 0 && !this.visited.has(stop.id)) { this.visited.add(stop.id); if (stop.poiRef) stop.poiRef.visited = true; this.audio.chime(); }
             if (o.read.size > 0 && this.ch.stop === stop.id && !this.chapterDone) { const id = this.chapter; queueMicrotask(() => this.completeChapter(id)); }
@@ -2595,7 +2596,7 @@ class Game {
         const fin = { profile: PROFILE, stops: STOPS, stats: { minutes: mins, distanceKm: s.dist / 1000, chapters: [this.progress?.done?.size ?? this.visited.size, this.chapters?.length ?? STOPS.length],
             achievements: comp ? [comp.unlocked, comp.total] : [this.hud.unlocked.size, null], completion: comp?.pct ?? null, photos: this.photoCount ?? null,
             fines: s.fineCount ? `${s.fineCount} (${both(s.fines)})` : '' },
-            actions: { explore: () => { if (this.explore?.enterExplore) this.explore.enterExplore(); else this.startFreeRoam?.(this.district || 'romana', { tod: 'now', weather: 'live' }); }, spots: () => this.togglePause(true, 'spots'), replay: () => this.goToChapter(0) } };
+            actions: { worldmap: () => { if (this.explore?.openWorldMap) this.explore.openWorldMap(); else this.startFreeRoam?.(this.district || 'romana', { tod: 'now', weather: 'live' }); }, spots: () => this.togglePause(true, 'spots'), replay: () => this.goToChapter(0) } };
         try { showFinale(fin); return; } catch (e) { console.warn('[finale]', e); }
         // fallback: the old panel
         this.hud.panel(`<div class="eyebrow">🏁 Story complete</div><h2>${PROFILE.name}</h2><p class="lead">${PROFILE.title} · ${PROFILE.location}</p><p>${PROFILE.summary}</p><ul class="timeline">${timeline}</ul><div class="chips">${PROFILE.topSkills.map(sk => `<span class="chip">${sk}</span>`).join('')}</div><h3>Say hi</h3><div class="links">${links}<a class="btn ghost" href="mailto:${PROFILE.email}">Email</a></div><h3>Trip computer</h3><p class="meta">${statLine}</p><p class="meta">You can keep driving around, or fly back to Bucharest from SeaTac.</p>`);

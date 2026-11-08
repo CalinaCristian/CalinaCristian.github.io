@@ -281,8 +281,8 @@ export const ACHIEVEMENTS = [
     { id: 'all', cat: 'story', icon: '🏁', title: 'CV complete', desc: 'You know the whole story now. Say hi!' },
     { id: 'reader-all', cat: 'story', icon: '📚', title: 'Heard it all', desc: 'Hear every answer in every CV office.', target: 27 },
     // ---- Explorer
-    { id: 'roam-first', cat: 'explorer', icon: '🗺️', title: 'Off the script', desc: 'Started Explore mode.' },
-    { id: 'roam-all', cat: 'explorer', icon: '🧭', title: 'All eight districts', desc: 'Visited every district in Explore.', target: 8 },
+    { id: 'roam-first', cat: 'explorer', icon: '🗺️', title: 'Off the script', desc: 'Went off the story: free roam from the world map.' },
+    { id: 'roam-all', cat: 'explorer', icon: '🧭', title: 'All eight districts', desc: 'Visited every district in free roam (world map).', target: 8 },
     { id: 'spot-first', cat: 'explorer', icon: '🏛️', title: 'Sightseer', desc: 'Walked into a tourist spot.' },
     { id: 'spots-buc', cat: 'explorer', icon: '🏰', title: 'Turist în București', desc: 'Visited all 10 Bucharest tourist spots.', target: 10 },
     { id: 'spots-sea', cat: 'explorer', icon: '🗻', title: 'Emerald City & the Eastside', desc: 'Visited all 14 Seattle and Bellevue tourist spots.', target: 14 },

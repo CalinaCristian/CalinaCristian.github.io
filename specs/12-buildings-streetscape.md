@@ -107,13 +107,17 @@ What the builder / world now do (so the next district gets it for free)
   ≥ 3 m and 60 % beyond), green ground (`data.green`), OSM `parking:*` in roadInfo flags, address-like / residential names never
   become signs, large named buildings keep their own service lanes (flag 64), road clearance by pushing corners back.
 - world.js (`realPass` districts): kerbside parking on the sidewalk along both kerbs of residential streets (OSM parking tags
-  where mapped; the cars stand just past the kerb strip at the kerb's top, so the wheels sit on the kerb line seen from the
-  road — they used to stand across the kerb with the near wheels cut by it. Open: the sidewalk paving lies 0.22 m below
-  the kerb top (0.09 m below the road), so from the sidewalk the parked cars' wheels stand above it; the real fix is a
-  sidewalk at kerb height (paving, junction pads, props at `Y.side`, walkers' surface height)), railings / walls / hedges on the property line where a front garden lies behind the sidewalk, kerb bollards
+  where mapped; the cars stand on the raised sidewalk, only where it is raised),
+  **raised sidewalks** (2026-11-08): the sidewalk top at the kerb's height (road + 0.13 m) from the kerb to 0.3 m past the
+  property line with a back face, junction corner pieces between neighbouring sidewalk ends (`cornerPolys`; stats
+  `raisedSidewalk` incl. why a corner was left low), densely sampled so no side street / driveway / median / pad is paved
+  over; physics (`surfacesAt` → walkers, a car mounting the kerb), the crowd (`world.walkTop`) and every prop on a sidewalk
+  (`raisedTop` / `liftOnSide`: lamps, fences, hedges, bollards, signs, furniture, shelters, traffic lights, shop light
+  spill) follow it. Walkers pass parked cars on the carriageway side, then step back on the sidewalk (traffic.js), railings / walls / hedges on the property line where a front garden lies behind the sidewalk, kerb bollards
   on main streets where parking is not allowed, lamps on residential streets, plain bus lanes (no red paint), businesses'
   fascias on the nearest building (no pole signs), shopfronts on street faces only, sports-ground markings / goals / nets /
-  fences / hoops / pool copings, villa plaster palette, plain balconies on low blocks, lighter ring parking lots.
+  fences / hoops / pool copings, football pitches with mowing stripes, no trees on them, corner flags, dugouts,
+  ball-stop fences and deeper goals, villa plaster palette, plain balconies on low blocks, lighter ring parking lots.
 - Landmarks: model big sports venues from their OSM outline + aerial layout (Stadionul Dinamo `bDinamo`: track, terraced bowl
   following the outline, sector profiles, covered main stand, masts, scoreboard).
 - Landmark grounds (2026-11-08, Rosetti): a landmark can hand the world `fences` (`line`/`ring`, `inside` = the grounds

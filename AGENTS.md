@@ -63,10 +63,11 @@ Pitfalls found the hard way (each one shipped a visible bug)
 - OSM grounds / landuse polygons are often drawn to the street centre line: anything built along their edge (fences, hedges)
   must be snapped to the property line on the grounds' side (`inside`), never to the nearest side (the Rosetti fence jumped
   Garibaldi). The largest building inside a named amenity gets its name as a sign: drop it when a landmark carries the sign.
-- The world's sidewalk paving (`Y.side` 0.15) lies 0.22 m below the kerb strip's top (road 0.24 + 0.13): anything standing
-  across the kerb (parked cars) gets its wheels cut. Slabs under the cars read as boxes (owner: "pads suck"); the real fix
-  is sidewalks at kerb height. Cells are merged into meshes before the kerb parking pass: geometry added there must be
-  its own mesh, not `cellOf(...)`.
+- Sidewalks in `realPass` districts are raised to the kerb's height (road + 0.13): anything standing on a sidewalk must use
+  `raisedTop(x, z)` / `liftOnSide(...)` (props are authored at `Y.side`); physics and the crowd follow `surfacesAt` /
+  `world.walkTop`. Cells are merged into meshes before the kerb parking pass: geometry added there must be its own mesh.
+- Roofs / facades: a centroid-fan roof only for convex outlines (L / T / U shapes get the inset hip roof); window tiles
+  must end on a whole storey (the storeys above a shopfront too, archetype parapets plain), or a sliced row shows at the roof.
 - Fine wires / pickets / nets: thin two-sided strips in `c.detail` (no shadow pass), never boxes: the frame budget.
 
 Owner preferences (from play-test feedback)

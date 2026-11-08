@@ -88,7 +88,7 @@ function start(game) {
             return r;
         };
     };
-    // world loads: time loadCity itself (the city / district build), not the menu, the Explore map, a chapter card or the
+    // world loads: time loadCity itself (the city / district build), not the menu, the world map, a chapter card or the
     // flight cutscene around it; world_loaded is sent on the next tick in drive / foot, so it still follows game_start
     let loadT = 0, loadMs = null, loads = 0;
     wrap('loadCity', () => { loadT = performance.now(); });

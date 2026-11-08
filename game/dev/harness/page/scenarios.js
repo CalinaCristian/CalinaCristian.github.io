@@ -762,7 +762,7 @@ for (const id of ['rosetti', 'upb', 'gts', 'luxoft', 'db', 'arnia', 'uipath-buc'
 
 // ---------------------------------------------------------------- free roam (spec 10, R10.10)
 SCENARIOS.push({
-    id: 'roam', title: 'Free roam: every district (start pose, drive 200 m), one office, district switch via the Explore world map (montage / flight), conditions panel (time / weather / season → r3d)', city: 'bucharest',
+    id: 'roam', title: 'Free roam: every district (start pose, drive 200 m), one office, district switch via the world map (montage / flight), conditions panel (time / weather / season → r3d)', city: 'bucharest',
     async run(H) {
         const g = H.g; if (typeof g.startFreeRoam !== 'function') { H.note('no free roam: skipped'); return { skipped: true }; }
         const out = { districts: [] };

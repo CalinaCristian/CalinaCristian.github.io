@@ -2,7 +2,7 @@
 //  SAVE (FEEDBACK note 73, progression role) — IndexedDB persistence
 //  - versioned schema: DB `dmcv` v1, stores `kv` (key → value) and `photos`
 //    (auto id → { t, meta, blob }); record `meta:schema` = SCHEMA
-//  - the live session (Story / Explore, chapter / district, car + walker pose,
+//  - the live session (story chapter / free-roam district, car + walker pose,
 //    on foot / driving, fuel, fines, trip stats, conditions) autosaved every 30 s,
 //    after chapter events and on visibilitychange / pagehide; `hasSession()` +
 //    `restore(game)` = the main menu's "Continue"
@@ -89,6 +89,7 @@ export class SaveStore {
         else if (st === 'office' && g.officeFromFoot && F) { onFoot = true; foot = { x: F.x, z: F.z, heading: F.heading, y: F.y }; }
         else if (st === 'spot' && g.spotReturn) { onFoot = g.spotReturn.state === 'foot'; foot = g.spotReturn.foot || null; }
         const num = (v) => (Number.isFinite(v) ? Math.round(v * 1000) / 1000 : 0);
+        // ('explore' = free roam off the story: the stored key of the old Explore mode, kept so older saves and this one agree)
         const mode = g.mode === 'explore' || g.explore?.active || g.freeRoam ? 'explore' : 'story';
         let stats = null; try { stats = JSON.parse(JSON.stringify(g.stats || {})); } catch { stats = null; }
         return {
@@ -105,7 +106,7 @@ export class SaveStore {
     }
     _label(g) {
         const d = g.city?.districts?.[g.district]?.name || g.district || '';
-        if (g.freeRoam || g.mode === 'explore') return `Explore · ${d}`;
+        if (g.freeRoam || g.mode === 'explore') return `Free roam · ${d}`;
         return g.ch ? `Chapter ${g.chapterIdx + 1} · ${g.ch.title}${d ? ' · ' + d : ''}` : d;
     }
     async saveSession(reason = 'auto') {
@@ -128,7 +129,7 @@ export class SaveStore {
     /** "Continue" available? (call after `await save.ready`) */
     hasSession() { return !!this.session; }
     async clearSession() { this.session = null; lsDel(LS_SESSION); await this.set('session', null); }
-    /** put the game back where the session was: Story chapter / Explore district, car + walker pose, fuel, stats, conditions */
+    /** put the game back where the session was: story chapter / free-roam district, car + walker pose, fuel, stats, conditions */
     async restore(g = this.game) {
         await this.ready;
         const s = this.session; if (!g || !s) return false;
@@ -137,7 +138,7 @@ export class SaveStore {
             try { g.photo?.close?.(); } catch { /* ignore */ }
             let ok = false;
             const roam = s.freeRoam?.district || (s.mode === 'explore' ? s.district : null);
-            const enterX = typeof g.explore?.enterExplore === 'function' ? g.explore.enterExplore : typeof g.enterExplore === 'function' ? g.enterExplore.bind(g) : typeof g.startFreeRoam === 'function' ? g.startFreeRoam.bind(g) : null; // note 75 Explore, else the free roam
+            const enterX = typeof g.explore?.roam === 'function' ? g.explore.roam : typeof g.explore?.enterExplore === 'function' ? g.explore.enterExplore : typeof g.enterExplore === 'function' ? g.enterExplore.bind(g) : typeof g.startFreeRoam === 'function' ? g.startFreeRoam.bind(g) : null; // note 75 Explore, else the free roam
             if (s.mode === 'explore' && roam && enterX) ok = await enterX(roam, { tod: s.freeRoam?.tod || 'now', weather: s.freeRoam?.weather || 'live', season: s.freeRoam?.season ?? null });
             else if (g.chapters && s.chapterIdx >= 0) {
                 if (!g.started) { await g.start(s.chapterIdx); ok = true; }
@@ -162,7 +163,7 @@ export class SaveStore {
             // on foot: out of the car, then the walker where it stood
             if (s.onFoot && s.foot && typeof g.exitCar === 'function' && g.exitCar()) g.foot?.teleport?.(s.foot.x, s.foot.z, s.foot.heading);
             g.input?.flush?.();
-            try { g.hud?.toast?.('💾 Welcome back', s.label || 'Your game was restored where you left it.', 'intro'); } catch { /* ignore */ }
+            try { g.hud?.toast?.('💾 Welcome back', String(s.label || 'Your game was restored where you left it.').replace(/^Explore · /, 'Free roam · '), 'intro'); } catch { /* ignore */ }
             return true;
         } catch (e) { console.warn('[save] restore', e); return false; } finally { this._restoring = false; }
     }

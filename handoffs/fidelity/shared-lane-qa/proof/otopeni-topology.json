@@ -1,0 +1,29 @@
+{
+  "input": "/workspace/fidelity-workers/remaining-ro-districts/game/data/bucharest-otopeni.json",
+  "inputSha256": "a27a950b979d140769494499bd717ed1821c9ada461518611a12ac57e25d1ea1",
+  "geometryPolicy": "source",
+  "scope": "source road segments before renderer height subdivision and SCC classification",
+  "sharedRoads": [
+    {
+      "road": 42,
+      "name": "",
+      "widthM": 3,
+      "sourceId": "w303683586",
+      "widthSource": "estimate:class single-lane width",
+      "evidence": "OSM lanes=1; legal two-way"
+    }
+  ],
+  "previousGroupCount": 1,
+  "connectedGroupCount": 1,
+  "groups": [
+    {
+      "exclusive": true,
+      "lengthM": 2.4332686642459143,
+      "segmentCount": 1,
+      "sources": [
+        "w303683586"
+      ],
+      "sideEntries": []
+    }
+  ]
+}

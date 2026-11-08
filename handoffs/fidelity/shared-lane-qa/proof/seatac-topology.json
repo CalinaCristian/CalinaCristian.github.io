@@ -1,0 +1,29 @@
+{
+  "input": "/workspace/fidelity-workers/remaining-us-districts/game/data/seattle-seatac.json",
+  "inputSha256": "37566447c01c4cd1e419136f1d9fc72c604e9a3cf38fec4277a740a5b7f5173f",
+  "geometryPolicy": "source",
+  "scope": "source road segments before renderer height subdivision and SCC classification",
+  "sharedRoads": [
+    {
+      "road": 99,
+      "name": "",
+      "widthM": 3,
+      "sourceId": "w369418224",
+      "widthSource": "estimate:class single-lane width",
+      "evidence": "OSM lanes=1; legal two-way"
+    }
+  ],
+  "previousGroupCount": 1,
+  "connectedGroupCount": 1,
+  "groups": [
+    {
+      "exclusive": true,
+      "lengthM": 137.1784070081431,
+      "segmentCount": 12,
+      "sources": [
+        "w369418224"
+      ],
+      "sideEntries": []
+    }
+  ]
+}

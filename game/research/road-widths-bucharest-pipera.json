@@ -1,0 +1,1355 @@
+{
+  "schemaVersion": 1,
+  "district": "bucharest-pipera",
+  "reviewedAt": "2026-11-08",
+  "sourceOrder": [
+    "positive literal OSM width/lane/placement/access tags",
+    "independent measurable aerial carriageway",
+    "explicitly labeled geometry-constrained estimate"
+  ],
+  "acceptedCalipers": [],
+  "acceptedModelEstimates": [
+    {
+      "sourceRoadId": "w23731353",
+      "widthM": 5.0,
+      "source": "geometry-constrained estimate",
+      "uncertaintyM": 0.5,
+      "evidence": [
+        "https://www.openstreetmap.org/way/23731353",
+        "https://www.openstreetmap.org/way/176792051"
+      ],
+      "sourceGeometryConstraint": {
+        "buildingId": "w176792051",
+        "minimumReferenceToSolidM": 2.5661225803552905,
+        "maxSymmetricWidthM": 5.132245160710581,
+        "sourceRoadPoint": [
+          -1027.4939988732099,
+          -58.79596830598845
+        ],
+        "sourceSegment": 0,
+        "method": "Exact two-segment minimum distances to unchanged source outer/courtyard/ground-band boundaries; original source-way points remain fixed"
+      },
+      "note": "Explicit MODEL width estimate constrained by the unchanged mapped frontage; not a measured aerial pavement width. No positive OSM width exists at review. Raw lane counts and access stay literal. The0.5m uncertainty describes an unmeasured default estimate, not survey confidence; actual pavement width remains unknown. No lateral displacement or inferred single-lane classification is applied."
+    },
+    {
+      "sourceRoadId": "w23731469",
+      "widthM": 2.5,
+      "source": "geometry-constrained estimate",
+      "uncertaintyM": 0.5,
+      "evidence": [
+        "https://www.openstreetmap.org/way/23731469",
+        "https://www.openstreetmap.org/way/547396700"
+      ],
+      "sourceGeometryConstraint": {
+        "buildingId": "w547396700",
+        "minimumReferenceToSolidM": 1.29254953015751,
+        "maxSymmetricWidthM": 2.58509906031502,
+        "sourceRoadPoint": [
+          -1417.4531402370858,
+          125.40492867167546
+        ],
+        "sourceSegment": 0,
+        "method": "Exact two-segment minimum distances to unchanged source outer/courtyard/ground-band boundaries; original source-way points remain fixed"
+      },
+      "note": "Explicit MODEL width estimate constrained by the unchanged mapped frontage; not a measured aerial pavement width. No positive OSM width exists at review. Raw lane counts and access stay literal. The0.5m uncertainty describes an unmeasured default estimate, not survey confidence; actual pavement width remains unknown. No lateral displacement or inferred single-lane classification is applied."
+    },
+    {
+      "sourceRoadId": "w208745538",
+      "widthM": 4.8,
+      "source": "geometry-constrained estimate",
+      "uncertaintyM": 0.5,
+      "evidence": [
+        "https://www.openstreetmap.org/way/208745538",
+        "https://www.openstreetmap.org/way/543786194"
+      ],
+      "sourceGeometryConstraint": {
+        "buildingId": "w543786194",
+        "minimumReferenceToSolidM": 2.465013070210051,
+        "maxSymmetricWidthM": 4.930026140420102,
+        "sourceRoadPoint": [
+          -1377.554701765098,
+          104.77732965982234
+        ],
+        "sourceSegment": 2,
+        "method": "Exact two-segment minimum distances to unchanged source outer/courtyard/ground-band boundaries; original source-way points remain fixed"
+      },
+      "note": "Explicit MODEL width estimate constrained by the unchanged mapped frontage; not a measured aerial pavement width. No positive OSM width exists at review. Raw lane counts and access stay literal. The0.5m uncertainty describes an unmeasured default estimate, not survey confidence; actual pavement width remains unknown. No lateral displacement or inferred single-lane classification is applied."
+    },
+    {
+      "sourceRoadId": "w220443733",
+      "widthM": 5.3,
+      "source": "geometry-constrained estimate",
+      "uncertaintyM": 0.5,
+      "evidence": [
+        "https://www.openstreetmap.org/way/220443733",
+        "https://www.openstreetmap.org/way/39887767"
+      ],
+      "sourceGeometryConstraint": {
+        "buildingId": "w39887767",
+        "minimumReferenceToSolidM": 2.6989285435600596,
+        "maxSymmetricWidthM": 5.397857087120119,
+        "sourceRoadPoint": [
+          -903.1881687711009,
+          -1.7026060712852829
+        ],
+        "sourceSegment": 5,
+        "method": "Exact two-segment minimum distances to unchanged source outer/courtyard/ground-band boundaries; original source-way points remain fixed"
+      },
+      "note": "Explicit MODEL width estimate constrained by the unchanged mapped frontage; not a measured aerial pavement width. No positive OSM width exists at review. Raw lane counts and access stay literal. The0.5m uncertainty describes an unmeasured default estimate, not survey confidence; actual pavement width remains unknown. No lateral displacement or inferred single-lane classification is applied."
+    },
+    {
+      "sourceRoadId": "w255501681",
+      "widthM": 4.9,
+      "source": "geometry-constrained estimate",
+      "uncertaintyM": 0.5,
+      "evidence": [
+        "https://www.openstreetmap.org/way/255501681",
+        "https://www.openstreetmap.org/way/176790267"
+      ],
+      "sourceGeometryConstraint": {
+        "buildingId": "w176790267",
+        "minimumReferenceToSolidM": 2.5084805105242727,
+        "maxSymmetricWidthM": 5.016961021048545,
+        "sourceRoadPoint": [
+          -1195.0234183894486,
+          29.960442029298914
+        ],
+        "sourceSegment": 1,
+        "method": "Exact two-segment minimum distances to unchanged source outer/courtyard/ground-band boundaries; original source-way points remain fixed"
+      },
+      "note": "Explicit MODEL width estimate constrained by the unchanged mapped frontage; not a measured aerial pavement width. No positive OSM width exists at review. Raw lane counts and access stay literal. The0.5m uncertainty describes an unmeasured default estimate, not survey confidence; actual pavement width remains unknown. No lateral displacement or inferred single-lane classification is applied."
+    },
+    {
+      "sourceRoadId": "w1339943927",
+      "widthM": 5.1,
+      "source": "geometry-constrained estimate",
+      "uncertaintyM": 0.5,
+      "evidence": [
+        "https://www.openstreetmap.org/way/1339943927",
+        "https://www.openstreetmap.org/way/324877677"
+      ],
+      "sourceGeometryConstraint": {
+        "buildingId": "w324877677",
+        "minimumReferenceToSolidM": 2.6398346221233946,
+        "maxSymmetricWidthM": 5.279669244246789,
+        "sourceRoadPoint": [
+          -369.93986734005216,
+          275.46960692044036
+        ],
+        "sourceSegment": 0,
+        "method": "Exact two-segment minimum distances to unchanged source outer/courtyard/ground-band boundaries; original source-way points remain fixed"
+      },
+      "note": "Explicit MODEL width estimate constrained by the unchanged mapped frontage; not a measured aerial pavement width. No positive OSM width exists at review. Raw lane counts and access stay literal. The0.5m uncertainty describes an unmeasured default estimate, not survey confidence; actual pavement width remains unknown. No lateral displacement or inferred single-lane classification is applied."
+    },
+    {
+      "sourceRoadId": "w318990254",
+      "widthM": 4.5,
+      "source": "geometry-constrained estimate",
+      "uncertaintyM": 0.5,
+      "evidence": [
+        "https://www.openstreetmap.org/way/318990254",
+        "https://www.openstreetmap.org/relation/6774709"
+      ],
+      "sourceGeometryConstraint": {
+        "buildingId": "r6774709",
+        "minimumReferenceToSolidM": 2.2941935914829052,
+        "maxSymmetricWidthM": 4.5883871829658105,
+        "sourceRoadPoint": [
+          129.5692171668412,
+          -143.04018571684304
+        ],
+        "sourceSegment": 1,
+        "method": "Exact two-segment minimum distances to unchanged source outer/courtyard/ground-band boundaries; original source-way points remain fixed"
+      },
+      "note": "Explicit MODEL width estimate constrained by the unchanged mapped frontage; not a measured aerial pavement width. No positive OSM width exists at review. Raw lane counts and access stay literal. The0.5m uncertainty describes an unmeasured default estimate, not survey confidence; actual pavement width remains unknown. No lateral displacement or inferred single-lane classification is applied."
+    }
+  ],
+  "reviews": [
+    {
+      "sourceRoadId": "w23731353",
+      "status": "accepted-geometry-model-estimate",
+      "caliperStatus": "not-measured",
+      "reason": "No defensible single whole-way dimensional caliper was established; pavement/parking separation, local variation, vegetation or roof/facade projection remains uncertain. Source geometry and raw tags retained.",
+      "rawSourceTags": {
+        "highway": "service",
+        "is_in:city": "București",
+        "maxspeed": "30",
+        "surface": "asphalt"
+      },
+      "geometryDiagnostic": {
+        "road": 14,
+        "sourceRoadId": "w23731353",
+        "tags": {
+          "highway": "service",
+          "is_in:city": "București",
+          "maxspeed": "30",
+          "surface": "asphalt"
+        },
+        "distanceM": 2.5668158316170033,
+        "buildingId": "w176792051",
+        "x": -1027.4344150883148,
+        "z": -58.79882988037864,
+        "segment": 0,
+        "t": 0.3,
+        "maxSymmetricWidthM": 5.083631663234007
+      }
+    },
+    {
+      "sourceRoadId": "w23731469",
+      "status": "accepted-geometry-model-estimate",
+      "caliperStatus": "not-measured",
+      "reason": "No defensible single whole-way dimensional caliper was established; pavement/parking separation, local variation, vegetation or roof/facade projection remains uncertain. Source geometry and raw tags retained.",
+      "rawSourceTags": {
+        "highway": "residential",
+        "is_in:city": "București",
+        "lanes": "1",
+        "maxspeed": "RO:urban",
+        "name": "Strada Lăculeț",
+        "oneway": "no",
+        "surface": "asphalt"
+      },
+      "geometryDiagnostic": {
+        "road": 18,
+        "sourceRoadId": "w23731469",
+        "tags": {
+          "highway": "residential",
+          "is_in:city": "București",
+          "lanes": "1",
+          "maxspeed": "RO:urban",
+          "name": "Strada Lăculeț",
+          "oneway": "no",
+          "surface": "asphalt"
+        },
+        "distanceM": 1.2962229073165181,
+        "buildingId": "w547396700",
+        "x": -1417.4478418100434,
+        "z": 125.50230148211199,
+        "segment": 0,
+        "t": 0.7899159663865546,
+        "maxSymmetricWidthM": 2.5424458146330364
+      }
+    },
+    {
+      "sourceRoadId": "w27750597",
+      "status": "rejected-dimensional-caliper",
+      "caliperStatus": "not-measured",
+      "reason": "THROUGH-WAY source segment1of10 at t0.4333333333, not a door/end. Current and archived2019/2022/2025 imagery leaves the critical ground pavement partly occluded/projected. No trustworthy constant left/right extents; no fit from collider distance. Default width remains an explicit unresolved source/model conflict.",
+      "rawSourceTags": {
+        "highway": "service",
+        "is_in:city": "București",
+        "maxspeed": "30",
+        "service": "alley",
+        "surface": "asphalt"
+      },
+      "geometryDiagnostic": {
+        "road": 24,
+        "sourceRoadId": "w27750597",
+        "tags": {
+          "highway": "service",
+          "is_in:city": "București",
+          "maxspeed": "30",
+          "service": "alley",
+          "surface": "asphalt"
+        },
+        "distanceM": 0.7852662961435585,
+        "buildingId": "w176792203",
+        "x": -1036.8654905188596,
+        "z": -3.8351653204666487,
+        "segment": 1,
+        "t": 0.43333333333333335,
+        "maxSymmetricWidthM": 1.520532592287117
+      }
+    },
+    {
+      "sourceRoadId": "w48272347",
+      "status": "rejected-dimensional-caliper",
+      "caliperStatus": "not-measured",
+      "reason": "No defensible single whole-way dimensional caliper was established; pavement/parking separation, local variation, vegetation or roof/facade projection remains uncertain. Source geometry and raw tags retained.",
+      "rawSourceTags": {
+        "highway": "service",
+        "is_in:city": "București",
+        "maxspeed": "RO:urban",
+        "oneway": "yes",
+        "service": "driveway"
+      },
+      "geometryDiagnostic": {
+        "road": 32,
+        "sourceRoadId": "w48272347",
+        "tags": {
+          "highway": "service",
+          "is_in:city": "București",
+          "maxspeed": "RO:urban",
+          "oneway": "yes",
+          "service": "driveway"
+        },
+        "distanceM": 0.00045639659924737934,
+        "buildingId": "w45260812",
+        "x": -893.2596153165782,
+        "z": -52.343172000505774,
+        "segment": 0,
+        "t": 0,
+        "maxSymmetricWidthM": 0
+      }
+    },
+    {
+      "sourceRoadId": "w48272348",
+      "status": "rejected-dimensional-caliper",
+      "caliperStatus": "not-measured",
+      "reason": "No defensible single whole-way dimensional caliper was established; pavement/parking separation, local variation, vegetation or roof/facade projection remains uncertain. Source geometry and raw tags retained.",
+      "rawSourceTags": {
+        "highway": "service",
+        "is_in:city": "București",
+        "maxspeed": "RO:urban",
+        "oneway": "yes",
+        "service": "driveway",
+        "surface": "paving_stones"
+      },
+      "geometryDiagnostic": {
+        "road": 33,
+        "sourceRoadId": "w48272348",
+        "tags": {
+          "highway": "service",
+          "is_in:city": "București",
+          "maxspeed": "RO:urban",
+          "oneway": "yes",
+          "service": "driveway",
+          "surface": "paving_stones"
+        },
+        "distanceM": 0.0004367163455363739,
+        "buildingId": "w45260812",
+        "x": -919.3273174919843,
+        "z": -18.192308400183833,
+        "segment": 6,
+        "t": 1,
+        "maxSymmetricWidthM": 0
+      }
+    },
+    {
+      "sourceRoadId": "w91736929",
+      "status": "rejected-dimensional-caliper",
+      "caliperStatus": "not-measured",
+      "reason": "No defensible single whole-way dimensional caliper was established; pavement/parking separation, local variation, vegetation or roof/facade projection remains uncertain. Source geometry and raw tags retained.",
+      "rawSourceTags": {
+        "highway": "service",
+        "is_in:city": "București",
+        "maxspeed": "30",
+        "service": "parking_aisle",
+        "surface": "asphalt"
+      },
+      "geometryDiagnostic": {
+        "road": 44,
+        "sourceRoadId": "w91736929",
+        "tags": {
+          "highway": "service",
+          "is_in:city": "București",
+          "maxspeed": "30",
+          "service": "parking_aisle",
+          "surface": "asphalt"
+        },
+        "distanceM": 1.178634238123189,
+        "buildingId": "w176790267",
+        "x": -1189.9784459837513,
+        "z": 18.9223601538754,
+        "segment": 0,
+        "t": 0.8461538461538461,
+        "maxSymmetricWidthM": 2.307268476246378
+      }
+    },
+    {
+      "sourceRoadId": "w208745538",
+      "status": "accepted-geometry-model-estimate",
+      "caliperStatus": "not-measured",
+      "reason": "No defensible single whole-way dimensional caliper was established; pavement/parking separation, local variation, vegetation or roof/facade projection remains uncertain. Source geometry and raw tags retained.",
+      "rawSourceTags": {
+        "highway": "service",
+        "maxspeed": "RO:urban",
+        "oneway": "no",
+        "surface": "asphalt"
+      },
+      "geometryDiagnostic": {
+        "road": 63,
+        "sourceRoadId": "w208745538",
+        "tags": {
+          "highway": "service",
+          "maxspeed": "RO:urban",
+          "oneway": "no",
+          "surface": "asphalt"
+        },
+        "distanceM": 2.4716519546822036,
+        "buildingId": "w543786194",
+        "x": -1377.5195251395724,
+        "z": 105.38536427965731,
+        "segment": 2,
+        "t": 0.14,
+        "maxSymmetricWidthM": 4.893303909364407
+      }
+    },
+    {
+      "sourceRoadId": "w220443733",
+      "status": "accepted-geometry-model-estimate",
+      "caliperStatus": "not-measured",
+      "reason": "No defensible single whole-way dimensional caliper was established; pavement/parking separation, local variation, vegetation or roof/facade projection remains uncertain. Source geometry and raw tags retained.",
+      "rawSourceTags": {
+        "highway": "secondary",
+        "lanes": "2",
+        "maxspeed": "50",
+        "name": "Șoseaua Pipera",
+        "oneway": "yes",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      },
+      "geometryDiagnostic": {
+        "road": 65,
+        "sourceRoadId": "w220443733",
+        "tags": {
+          "highway": "secondary",
+          "lanes": "2",
+          "maxspeed": "50",
+          "name": "Șoseaua Pipera",
+          "oneway": "yes",
+          "smoothness": "excellent",
+          "surface": "asphalt"
+        },
+        "distanceM": 2.7132370763762323,
+        "buildingId": "w39887767",
+        "x": -902.5853185607205,
+        "z": -1.9566640803346953,
+        "segment": 5,
+        "t": 0.4666666666666667,
+        "maxSymmetricWidthM": 5.376474152752465
+      }
+    },
+    {
+      "sourceRoadId": "w255501681",
+      "status": "accepted-geometry-model-estimate",
+      "caliperStatus": "not-measured",
+      "reason": "No defensible single whole-way dimensional caliper was established; pavement/parking separation, local variation, vegetation or roof/facade projection remains uncertain. Source geometry and raw tags retained.",
+      "rawSourceTags": {
+        "highway": "service",
+        "maxspeed": "30",
+        "service": "parking_aisle",
+        "surface": "asphalt"
+      },
+      "geometryDiagnostic": {
+        "road": 82,
+        "sourceRoadId": "w255501681",
+        "tags": {
+          "highway": "service",
+          "maxspeed": "30",
+          "service": "parking_aisle",
+          "surface": "asphalt"
+        },
+        "distanceM": 2.50973197266338,
+        "buildingId": "w176790267",
+        "x": -1195.102437317763,
+        "z": 29.966451346792734,
+        "segment": 1,
+        "t": 0.10526315789473684,
+        "maxSymmetricWidthM": 4.96946394532676
+      }
+    },
+    {
+      "sourceRoadId": "w255501683",
+      "status": "rejected-dimensional-caliper",
+      "caliperStatus": "not-measured",
+      "reason": "No defensible single whole-way dimensional caliper was established; pavement/parking separation, local variation, vegetation or roof/facade projection remains uncertain. Source geometry and raw tags retained.",
+      "rawSourceTags": {
+        "highway": "service",
+        "maxspeed": "30",
+        "surface": "asphalt"
+      },
+      "geometryDiagnostic": {
+        "road": 84,
+        "sourceRoadId": "w255501683",
+        "tags": {
+          "highway": "service",
+          "maxspeed": "30",
+          "surface": "asphalt"
+        },
+        "distanceM": 2.012866604885247,
+        "buildingId": "w176792495",
+        "x": -1113.4269074527267,
+        "z": -43.35199737646386,
+        "segment": 2,
+        "t": 0.5217391304347826,
+        "maxSymmetricWidthM": 3.9757332097704943
+      }
+    },
+    {
+      "sourceRoadId": "w276695458",
+      "status": "rejected-dimensional-caliper",
+      "caliperStatus": "not-measured",
+      "reason": "The tight source point is the tiny terminal curve approaching mapped private garage w1284446119 (building=garage,access=private,height=3). Do not narrow the whole83m street from this terminal apron; private-door/stop semantics require separate review. No through-opening inferred.",
+      "rawSourceTags": {
+        "highway": "residential",
+        "lanes": "1",
+        "lit": "yes",
+        "maxspeed": "30",
+        "maxweight": "5",
+        "name": "Strada Caierului",
+        "parking:both": "no",
+        "source": "survey",
+        "surface": "asphalt"
+      },
+      "geometryDiagnostic": {
+        "road": 86,
+        "sourceRoadId": "w276695458",
+        "tags": {
+          "highway": "residential",
+          "lanes": "1",
+          "lit": "yes",
+          "maxspeed": "30",
+          "maxweight": "5",
+          "name": "Strada Caierului",
+          "parking:both": "no",
+          "source": "survey",
+          "surface": "asphalt"
+        },
+        "distanceM": 1.0418388063004043,
+        "buildingId": "w1284446119",
+        "x": -1061.5003427637423,
+        "z": 171.22107239995748,
+        "segment": 2,
+        "t": 1,
+        "maxSymmetricWidthM": 2.0336776126008087
+      }
+    },
+    {
+      "sourceRoadId": "w1339943927",
+      "status": "accepted-geometry-model-estimate",
+      "caliperStatus": "not-measured",
+      "reason": "No defensible single whole-way dimensional caliper was established; pavement/parking separation, local variation, vegetation or roof/facade projection remains uncertain. Source geometry and raw tags retained.",
+      "rawSourceTags": {
+        "highway": "service",
+        "surface": "asphalt"
+      },
+      "geometryDiagnostic": {
+        "road": 173,
+        "sourceRoadId": "w1339943927",
+        "tags": {
+          "highway": "service",
+          "surface": "asphalt"
+        },
+        "distanceM": 2.6398346221233946,
+        "buildingId": "w324877677",
+        "x": -369.93986734005216,
+        "z": 275.46960692044036,
+        "segment": 0,
+        "t": 0,
+        "maxSymmetricWidthM": 5.229669244246789
+      }
+    },
+    {
+      "sourceRoadId": "w51571501",
+      "status": "rejected-dimensional-caliper",
+      "caliperStatus": "not-measured",
+      "reason": "No defensible single whole-way dimensional caliper was established; pavement/parking separation, local variation, vegetation or roof/facade projection remains uncertain. Source geometry and raw tags retained.",
+      "rawSourceTags": {
+        "highway": "service",
+        "maxspeed": "10",
+        "oneway": "no",
+        "source": "Yahoo"
+      },
+      "geometryDiagnostic": {
+        "road": 208,
+        "sourceRoadId": "w51571501",
+        "tags": {
+          "highway": "service",
+          "maxspeed": "10",
+          "oneway": "no",
+          "source": "Yahoo"
+        },
+        "distanceM": 1.9608799281024203,
+        "buildingId": "w41019897",
+        "x": -257.4872932564632,
+        "z": 13.178118046022895,
+        "segment": 8,
+        "t": 0.09615384615384616,
+        "maxSymmetricWidthM": 3.8717598562048408
+      }
+    },
+    {
+      "sourceRoadId": "w318990254",
+      "status": "accepted-geometry-model-estimate",
+      "caliperStatus": "not-measured",
+      "reason": "No defensible single whole-way dimensional caliper was established; pavement/parking separation, local variation, vegetation or roof/facade projection remains uncertain. Source geometry and raw tags retained.",
+      "rawSourceTags": {
+        "highway": "service",
+        "lanes": "2",
+        "oneway": "no",
+        "service": "driveway",
+        "surface": "asphalt"
+      },
+      "geometryDiagnostic": {
+        "road": 215,
+        "sourceRoadId": "w318990254",
+        "tags": {
+          "highway": "service",
+          "lanes": "2",
+          "oneway": "no",
+          "service": "driveway",
+          "surface": "asphalt"
+        },
+        "distanceM": 2.2941978095163806,
+        "buildingId": "r6774709",
+        "x": 129.57204736153776,
+        "z": -143.0435538003471,
+        "segment": 1,
+        "t": 0.5,
+        "maxSymmetricWidthM": 4.5383956190327615
+      }
+    },
+    {
+      "sourceRoadId": "w810863455",
+      "status": "rejected-dimensional-caliper",
+      "caliperStatus": "not-measured",
+      "reason": "No defensible single whole-way dimensional caliper was established; pavement/parking separation, local variation, vegetation or roof/facade projection remains uncertain. Source geometry and raw tags retained.",
+      "rawSourceTags": {
+        "highway": "service",
+        "service": "driveway"
+      },
+      "geometryDiagnostic": {
+        "road": 261,
+        "sourceRoadId": "w810863455",
+        "tags": {
+          "highway": "service",
+          "service": "driveway"
+        },
+        "distanceM": 1.6559858986331386,
+        "buildingId": "w1446245333",
+        "x": 508.5725914621456,
+        "z": 128.0129507995156,
+        "segment": 5,
+        "t": 0.2222222222222222,
+        "maxSymmetricWidthM": 3.2619717972662774
+      }
+    },
+    {
+      "sourceRoadId": "w1566299304",
+      "status": "rejected-dimensional-caliper",
+      "caliperStatus": "not-measured",
+      "reason": "No defensible single whole-way dimensional caliper was established; pavement/parking separation, local variation, vegetation or roof/facade projection remains uncertain. Source geometry and raw tags retained.",
+      "rawSourceTags": {
+        "highway": "service",
+        "surface": "paving_stones"
+      },
+      "geometryDiagnostic": {
+        "road": 348,
+        "sourceRoadId": "w1566299304",
+        "tags": {
+          "highway": "service",
+          "surface": "paving_stones"
+        },
+        "distanceM": 0.0027127585553492015,
+        "buildingId": "w938553610",
+        "x": 673.8524840255131,
+        "z": 223.06415039935695,
+        "segment": 0,
+        "t": 0,
+        "maxSymmetricWidthM": 0
+      }
+    },
+    {
+      "sourceRoadId": "w1566299305",
+      "status": "rejected-dimensional-caliper",
+      "caliperStatus": "not-measured",
+      "reason": "No defensible single whole-way dimensional caliper was established; pavement/parking separation, local variation, vegetation or roof/facade projection remains uncertain. Source geometry and raw tags retained.",
+      "rawSourceTags": {
+        "highway": "service",
+        "surface": "asphalt"
+      },
+      "geometryDiagnostic": {
+        "road": 349,
+        "sourceRoadId": "w1566299305",
+        "tags": {
+          "highway": "service",
+          "surface": "asphalt"
+        },
+        "distanceM": 0.0058154098371856955,
+        "buildingId": "w938553610",
+        "x": 672.1527618241115,
+        "z": 211.25081879949227,
+        "segment": 0,
+        "t": 1,
+        "maxSymmetricWidthM": 0
+      }
+    },
+    {
+      "sourceRoadId": "w1566299310",
+      "status": "rejected-dimensional-caliper",
+      "caliperStatus": "not-measured",
+      "reason": "No defensible single whole-way dimensional caliper was established; pavement/parking separation, local variation, vegetation or roof/facade projection remains uncertain. Source geometry and raw tags retained.",
+      "rawSourceTags": {
+        "highway": "service",
+        "surface": "paving_stones"
+      },
+      "geometryDiagnostic": {
+        "road": 354,
+        "sourceRoadId": "w1566299310",
+        "tags": {
+          "highway": "service",
+          "surface": "paving_stones"
+        },
+        "distanceM": 0.05596555609077117,
+        "buildingId": "w938553606",
+        "x": 457.6224035786721,
+        "z": 250.88048999987922,
+        "segment": 0,
+        "t": 0,
+        "maxSymmetricWidthM": 0.06193111218154233
+      }
+    },
+    {
+      "sourceRoadId": "w1566299313",
+      "status": "rejected-dimensional-caliper",
+      "caliperStatus": "not-measured",
+      "reason": "No defensible single whole-way dimensional caliper was established; pavement/parking separation, local variation, vegetation or roof/facade projection remains uncertain. Source geometry and raw tags retained.",
+      "rawSourceTags": {
+        "highway": "service",
+        "surface": "paving_stones"
+      },
+      "geometryDiagnostic": {
+        "road": 357,
+        "sourceRoadId": "w1566299313",
+        "tags": {
+          "highway": "service",
+          "surface": "paving_stones"
+        },
+        "distanceM": 0.00784886836129215,
+        "buildingId": "w938553615",
+        "x": 376.92531213950224,
+        "z": 264.0385187996653,
+        "segment": 0,
+        "t": 0,
+        "maxSymmetricWidthM": 0
+      }
+    },
+    {
+      "sourceRoadId": "w1566299314",
+      "status": "rejected-dimensional-caliper",
+      "caliperStatus": "not-measured",
+      "reason": "No defensible single whole-way dimensional caliper was established; pavement/parking separation, local variation, vegetation or roof/facade projection remains uncertain. Source geometry and raw tags retained.",
+      "rawSourceTags": {
+        "highway": "service",
+        "surface": "asphalt"
+      },
+      "geometryDiagnostic": {
+        "road": 358,
+        "sourceRoadId": "w1566299314",
+        "tags": {
+          "highway": "service",
+          "surface": "asphalt"
+        },
+        "distanceM": 0.006307157318377746,
+        "buildingId": "w938553615",
+        "x": 374.70931917583306,
+        "z": 251.64730079936456,
+        "segment": 0,
+        "t": 1,
+        "maxSymmetricWidthM": 0
+      }
+    },
+    {
+      "sourceRoadId": "w23732746",
+      "status": "rejected-dimensional-caliper",
+      "caliperStatus": "not-measured",
+      "reason": "Raw lanes=2 preserved. The source frontage constrains a symmetric footprint below a normal two-car width; without reliable independent lateral extents, a narrow single-lane reclassification would contradict tags.",
+      "rawSourceTags": {
+        "highway": "residential",
+        "is_in:city": "București",
+        "lanes": "2",
+        "maxspeed": "RO:urban",
+        "maxweight": "5",
+        "name": "Strada Caporal Petre Ispir",
+        "surface": "asphalt"
+      },
+      "geometryDiagnostic": {
+        "road": 374,
+        "sourceRoadId": "w23732746",
+        "tags": {
+          "highway": "residential",
+          "is_in:city": "București",
+          "lanes": "2",
+          "maxspeed": "RO:urban",
+          "maxweight": "5",
+          "name": "Strada Caporal Petre Ispir",
+          "surface": "asphalt"
+        },
+        "distanceM": 1.727335262291123,
+        "buildingId": "w1481582132",
+        "x": 995.2987930119616,
+        "z": 824.0531116995103,
+        "segment": 0,
+        "t": 0.6956521739130435,
+        "maxSymmetricWidthM": 3.4046705245822464
+      }
+    }
+  ],
+  "rawSceneSourceCommit": "7ac908e",
+  "rawSceneContacts": [
+    {
+      "key": "w176792051:14:side",
+      "sourceId": "w176792051",
+      "roadSource": "w23731353",
+      "road": 14,
+      "name": "",
+      "x": -1028.477065319741,
+      "z": -56.045643513680616,
+      "y": 0.24,
+      "lateral": -2.7,
+      "private": false
+    },
+    {
+      "key": "w547396700:18:side",
+      "sourceId": "w547396700",
+      "roadSource": "w23731469",
+      "road": 18,
+      "name": "Strada Lăculeț",
+      "x": -1416.1252335495876,
+      "z": 124.9622026028141,
+      "y": 0.24,
+      "lateral": 1.35,
+      "private": false
+    },
+    {
+      "key": "w176792203:24:side",
+      "sourceId": "w176792203",
+      "roadSource": "w27750597",
+      "road": 24,
+      "name": "",
+      "x": -1025.9249250473474,
+      "z": -2.5327003442112503,
+      "y": 0.24,
+      "lateral": -2.7,
+      "private": false
+    },
+    {
+      "key": "w176791388:24:side",
+      "sourceId": "w176791388",
+      "roadSource": "w27750597",
+      "road": 24,
+      "name": "",
+      "x": -1149.5308622880352,
+      "z": -16.286319876457117,
+      "y": 0.24,
+      "lateral": -2.7,
+      "private": false
+    },
+    {
+      "key": "w45260812:32:side",
+      "sourceId": "w45260812",
+      "roadSource": "w48272347",
+      "road": 32,
+      "name": "",
+      "x": -892.0391966428601,
+      "z": -51.766042672850084,
+      "y": 0.24,
+      "lateral": 1.35,
+      "private": false
+    },
+    {
+      "key": "w45260812:33:side",
+      "sourceId": "w45260812",
+      "roadSource": "w48272348",
+      "road": 33,
+      "name": "",
+      "x": -918.7030650368658,
+      "z": -16.995308453534513,
+      "y": 0.24,
+      "lateral": 1.35,
+      "private": false
+    },
+    {
+      "key": "w176790267:44:side",
+      "sourceId": "w176790267",
+      "roadSource": "w91736929",
+      "road": 44,
+      "name": "",
+      "x": -1178.3089267836824,
+      "z": 20.82087086220709,
+      "y": 0.24,
+      "lateral": -2.7,
+      "private": false
+    },
+    {
+      "key": "w543786194:63:side",
+      "sourceId": "w543786194",
+      "roadSource": "w208745538",
+      "road": 63,
+      "name": "",
+      "x": -1380.1521630877728,
+      "z": 106.62776638028556,
+      "y": 0.24,
+      "lateral": 2.7,
+      "private": false
+    },
+    {
+      "key": "w39887767:65:side",
+      "sourceId": "w39887767",
+      "roadSource": "w220443733",
+      "road": 65,
+      "name": "Șoseaua Pipera",
+      "x": -890.1154766847617,
+      "z": -10.630102325985632,
+      "y": 0.24,
+      "lateral": 3.15,
+      "private": false
+    },
+    {
+      "key": "w176790267:82:side",
+      "sourceId": "w176790267",
+      "roadSource": "w255501681",
+      "road": 82,
+      "name": "",
+      "x": -1192.9287605242848,
+      "z": 32.508941627311884,
+      "y": 0.24,
+      "lateral": -2.7,
+      "private": false
+    },
+    {
+      "key": "w176792051:84:side",
+      "sourceId": "w176792051",
+      "roadSource": "w255501683",
+      "road": 84,
+      "name": "",
+      "x": -1083.610500976611,
+      "z": -30.72741728190407,
+      "y": 0.24,
+      "lateral": -2.7,
+      "private": false
+    },
+    {
+      "key": "w176792495:84:side",
+      "sourceId": "w176792495",
+      "roadSource": "w255501683",
+      "road": 84,
+      "name": "",
+      "x": -1110.7302793152712,
+      "z": -43.488463865680245,
+      "y": 0.24,
+      "lateral": 2.7,
+      "private": false
+    },
+    {
+      "key": "w1284446119:86:side",
+      "sourceId": "w1284446119",
+      "roadSource": "w276695458",
+      "road": 86,
+      "name": "Strada Caierului",
+      "x": -1062.8228889946931,
+      "z": 171.047786503347,
+      "y": 0.24,
+      "lateral": -1.35,
+      "private": false
+    },
+    {
+      "key": "w324877677:173:side",
+      "sourceId": "w324877677",
+      "roadSource": "w1339943927",
+      "road": 173,
+      "name": "",
+      "x": -367.5371787427971,
+      "z": 274.2379058590539,
+      "y": 0.24,
+      "lateral": 2.7,
+      "private": false
+    },
+    {
+      "key": "w41019897:208:side",
+      "sourceId": "w41019897",
+      "roadSource": "w51571501",
+      "road": 208,
+      "name": "",
+      "x": -259.9989398113893,
+      "z": 11.720500633251834,
+      "y": 0.24,
+      "lateral": 2.7,
+      "private": false
+    },
+    {
+      "key": "authored:215:side",
+      "roadSource": "w318990254",
+      "road": 215,
+      "name": "",
+      "x": 127.05857225078229,
+      "z": -144.249322918753,
+      "y": 0.24,
+      "lateral": -2.7,
+      "private": false
+    },
+    {
+      "key": "w1446245333:261:side",
+      "sourceId": "w1446245333",
+      "roadSource": "w810863455",
+      "road": 261,
+      "name": "",
+      "x": 506.1753026363828,
+      "z": 126.75927968162529,
+      "y": 0.24,
+      "lateral": -2.7,
+      "private": false
+    },
+    {
+      "key": "w938553610:348:side",
+      "sourceId": "w938553610",
+      "roadSource": "w1566299304",
+      "road": 348,
+      "name": "",
+      "x": 676.525675737083,
+      "z": 222.68461637822813,
+      "y": 0.24,
+      "lateral": -2.7,
+      "private": false
+    },
+    {
+      "key": "w938553610:349:side",
+      "sourceId": "w938553610",
+      "roadSource": "w1566299305",
+      "road": 349,
+      "name": "",
+      "x": 669.479831426882,
+      "z": 211.6321888187208,
+      "y": 0.24,
+      "lateral": 2.7,
+      "private": false
+    },
+    {
+      "key": "w938553612:354:side",
+      "sourceId": "w938553612",
+      "roadSource": "w1566299310",
+      "road": 354,
+      "name": "",
+      "x": 442.5204587694575,
+      "z": 304.0866662379523,
+      "y": 0.24,
+      "lateral": -2.7,
+      "private": false
+    },
+    {
+      "key": "w938553615:357:side",
+      "sourceId": "w938553615",
+      "roadSource": "w1566299313",
+      "road": 357,
+      "name": "",
+      "x": 379.58398870836464,
+      "z": 263.56794584869806,
+      "y": 0.24,
+      "lateral": -2.7,
+      "private": false
+    },
+    {
+      "key": "w938553614:357:side",
+      "sourceId": "w938553614",
+      "roadSource": "w1566299313",
+      "road": 357,
+      "name": "",
+      "x": 362.3614664462541,
+      "z": 318.32386560861505,
+      "y": 0.24,
+      "lateral": -2.7,
+      "private": false
+    },
+    {
+      "key": "w938553615:358:side",
+      "sourceId": "w938553615",
+      "roadSource": "w1566299314",
+      "road": 358,
+      "name": "",
+      "x": 372.05141261282694,
+      "z": 252.12220363398336,
+      "y": 0.24,
+      "lateral": 2.7,
+      "private": false
+    },
+    {
+      "key": "w1481582133:374:side",
+      "sourceId": "w1481582133",
+      "roadSource": "w23732746",
+      "road": 374,
+      "name": "Strada Caporal Petre Ispir",
+      "x": 1012.8698278231013,
+      "z": 820.9278513893389,
+      "y": 0.24,
+      "lateral": -2.7,
+      "private": false
+    },
+    {
+      "key": "w1481582132:374:side",
+      "sourceId": "w1481582132",
+      "roadSource": "w23732746",
+      "road": 374,
+      "name": "Strada Caporal Petre Ispir",
+      "x": 997.7222661170878,
+      "z": 826.08065396294,
+      "y": 0.24,
+      "lateral": -2.7,
+      "private": false
+    }
+  ],
+  "aerialReview": {
+    "currentProvider": "Esri World Imagery",
+    "currentMosaicMetresPerPixel": 0.42609202809324687,
+    "currentMosaicFileSha256": "fe16afc036f230efe87e004955fc8b7b1c80af053a104de6fd69d9cac6512751",
+    "currentAcquisitionDate": "unknown",
+    "waybackAlternatives": [
+      {
+        "release": "World Imagery (Wayback 2026-05-28)",
+        "layerId": "10842",
+        "sourceUrl": "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/10842/{level}/{row}/{col}",
+        "metadataUrl": "https://metadata.maptiles.arcgis.com/arcgis/rest/services/World_Imagery_Metadata_2026_r05/MapServer",
+        "sha256": "ec6b77e5722a04a363cdc3c241452729ec00046c8ea9ce6fcdc9f94319bcbc9d",
+        "tileSha256": [
+          "fe0d4ecd6b9ad295a944e83aa080e79e2e31f3f0f809883ba0b1e38b1dcb0657",
+          "44f45d2876384903d783719675179698d0dcbc3d1cb4b0e49a86b662f8dea607",
+          "810c4ffa50c6a734c765d6fd77f8f4d30d25d6fe1961f756dfdb859f0db0d179",
+          "58263c300ea5a21168e73dd132c5475dad61176ab941de385142d0152c252f07",
+          "5b6c4cab2aebedc017043e189784a41b2cae29eb76b6e409faea1879bab2e203",
+          "1e468385a106e96f7c0e362e84baba9df94dda665f3ac7bd2e38492d9e438eb9",
+          "6bf106c44f466afa45565363fa4905ebe9287009926e52ad019f26a43ca00ebe",
+          "1d7c588e726920758b5e7c9bb70ac48cadf10d5dcdf2fb2b4867a90fe3a62d0d",
+          "d4ea8353da704af9b524d377f52730fa250df56d3694efc1bb5fbaf60c21f15f"
+        ],
+        "fetchError": null,
+        "acquisitionDate": "unknown (release date is not acquisition date)"
+      },
+      {
+        "release": "World Imagery (Wayback 2025-06-26)",
+        "layerId": "48925",
+        "sourceUrl": "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/48925/{level}/{row}/{col}",
+        "metadataUrl": "https://metadata.maptiles.arcgis.com/arcgis/rest/services/World_Imagery_Metadata_2025_r06/MapServer",
+        "sha256": "3db8698b86e4fc42b897aa3b1ee88b047022195f5390651306f0bbdb496be8c3",
+        "tileSha256": [
+          "f83f2ca814da75539e8ffe44315d73ccce44a87740a542750b88efd0827ebc7f",
+          "8cfe1afd8d03ad5424b90f990af4d7556fe30f53044f7482cd5411d97974b922",
+          "9ee7a8a06c83a81ffdcd802e335baea86d6b9d5785d2b11cb48b6d8bc6db3540",
+          "5ca72f7082bf6fd88b7f443e8396cf8ddb2b48bce9ba9d4dac9f2826c6cc8d4a",
+          "1887c0dd07ed035b3ebc902d3e6cb2c37761cb1fc88c1d9664160ea7a6b46ba5",
+          "aaced03a6bf270b38dbda92000f4eab887b348dfd7e0dbe52345c41e296938ef",
+          "2d9b694dc8dce85fda0f9a2bb60627651a6f15c8db41b55b9b3c0852a3041390",
+          "50ed02e291eb3477b738b6eb8d2798c7e7dc59e16d6348ff8fb28e1a61586277",
+          "b4b98f557d86432cc4516ce5bad984655f43535c1ce38762d854ada302a4b6af"
+        ],
+        "fetchError": null,
+        "acquisitionDate": "unknown (release date is not acquisition date)"
+      },
+      {
+        "release": "World Imagery (Wayback 2024-06-06)",
+        "layerId": "12428",
+        "sourceUrl": "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/12428/{level}/{row}/{col}",
+        "metadataUrl": "https://metadata.maptiles.arcgis.com/arcgis/rest/services/World_Imagery_Metadata_2024_r06/MapServer",
+        "sha256": "40c3342d94701bb63baf89cd1c1952bab0cb4ff964e9455412795f5fb1470d6a",
+        "tileSha256": [
+          "2b30301d31847e1a1f394cd0b917da0942239a795e16daa84ac071ee8c890029",
+          "febd5a08681da2879546ee111a16a7bf5b58a73212b0e54f3d6d083b20a26fcc",
+          "290aef8953f5958f07d5a65700d4de4cdc7986336fb7a866ea7a08bc72acff49",
+          "a0bfca8e646f46b129512335996f320c5e78c39534f31c6c220fa9555ba1edb9",
+          "afe83bf99f6a05c6ca517ed4fe9c2f52bd99601939f0e8f9e35604d6621b48ba",
+          "58c332961cd8578baa42de18e50291bfcb5a89f20699f3e544a9b30698a09bdb",
+          "bafd3d80905fb1527b94a0b84c57e1b9df3fbfcf9f88ffaa38f66a39692c3fb6",
+          "12684cf0d623e30d79a6385f6b1d32b6a0b241cedd6e6e0237394d638cfe7299",
+          "4f221c38cc7631afc7d414556f60851cdcb7950a22f5ca9aed2c5189c8ffaa30"
+        ],
+        "fetchError": null,
+        "acquisitionDate": "unknown (release date is not acquisition date)"
+      },
+      {
+        "release": "World Imagery (Wayback 2023-06-13)",
+        "layerId": "25982",
+        "sourceUrl": "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/25982/{level}/{row}/{col}",
+        "metadataUrl": "https://metadata.maptiles.arcgis.com/arcgis/rest/services/World_Imagery_Metadata_2023_r05/MapServer",
+        "sha256": "216ffcdb9d75fe482fddaf3f3bec27aa2a224525df4a8f6b9ea85ca2b717fcbe",
+        "tileSha256": [
+          "6087321e7e99938c7b945b965d2533d86a05746a3114b912c8e580548ff7e459",
+          "a25dd55080f951750dde22705429fd596261b64c1eebdf75dde3358473a45838",
+          "45829db407c08c7b7f115efd0a39531ec1182e18581136fe33945af3d8f77ae1",
+          "45d93c155bd21f5b9ed93247874231294b78016402e9d026cde93792e76db2ec",
+          "6345c6fc77394ab305fac1d634a329b640c92e8d7f08ff71ed750e52e846a15a",
+          "d236ff1aa44a27326779bdcab3ab764f546a3e9599196f3d718025513426ff6f",
+          "72be13d2b150cf29956618d0dc78159ddd509f9a7aa101d18b0838e7a953f87f",
+          "3904a1af7d32c6e92e407f5750b7cf818b25be9a042e318ed97395bd13357d7c",
+          "d08aac3b2bb06f11327fe0964a0db41bb82462ce910bce7b37f695663c495d12"
+        ],
+        "fetchError": null,
+        "acquisitionDate": "unknown (release date is not acquisition date)"
+      },
+      {
+        "release": "World Imagery (Wayback 2022-06-08)",
+        "layerId": "44710",
+        "sourceUrl": "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/44710/{level}/{row}/{col}",
+        "metadataUrl": "https://metadata.maptiles.arcgis.com/arcgis/rest/services/World_Imagery_Metadata_2022_r07/MapServer",
+        "sha256": "cb83cca4d7115886b1cd10ebad0d7d8e3c5346986cfb990bc602c179ce640ef9",
+        "tileSha256": [
+          "32e6f74b96415dec2db7a000afe7eea0ef657e055c1bdd2f11b345b3c4b2ecdd",
+          "6b0410317157ae2e25dc8ce153325d3757c4f3ac7114fbeac28adbb3df7b8d80",
+          "a9b233ae6ee123f3a1752bea5230cf0e53b5299e37ccb71b268e2117a82e3b4a",
+          "b80911f9d5144b274d4ca2c83755e8b37cb4bddd3d49708f60c40977bfcfac76",
+          "a684dd8c88f07b6c37c937f331a2fff2fe4a37044e374dee97d6dfe7cb1cb6c1",
+          "8038317117fde317b344819459606fbd17280c63d4bc2803dfae6078f18715e6",
+          "391cdfdf4fd26d0dc711fc8f22e50e3578bf788229aae0c386e4d0f9414fe909",
+          "b51501a8bbf924d7befb121d443db623a52611f04cab57ae35cc2dbf7805a5b9",
+          "dfa2f8970cecd2dba4a10d35e87ffeb20d5aa99e2e7e7b97210b641e7aeea7a1"
+        ],
+        "fetchError": null,
+        "acquisitionDate": "unknown (release date is not acquisition date)"
+      },
+      {
+        "release": "World Imagery (Wayback 2021-06-30)",
+        "layerId": "13534",
+        "sourceUrl": "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/13534/{level}/{row}/{col}",
+        "metadataUrl": "https://metadata.maptiles.arcgis.com/arcgis/rest/services/World_Imagery_Metadata_2021_r09/MapServer",
+        "sha256": "f6fbd69f91a136756b5ec1dc9931a0b42c6522c0ba9eb02c08cab182528e5baa",
+        "tileSha256": [
+          "a4a1a4c5dedde0871a1f735396307d6922061429f12b3d72329913a3c3cc1c5a",
+          "261cefd862cfa51c03c75403354a543ecea7f45d13507dc912a13255bf931b95",
+          "468a0e194101dfc6eb857f628d201b76fea77a19ae4e2c5441970a98c33d6245",
+          "0ac33b619d343875b6b5db1d77f7d48a3fd9e92b2a0ea9e2b24944b09cb4f7de",
+          "44404be2b9b5599db1c00b906087ed640bf68637750cc058e892ad3558a7a0fe",
+          "5e1f946a24c0e2aac4999eff7ca504f886c0dcdcbcb271ebc50fcd50286708ee",
+          "6256d6d40c56a7c7580c0b21aa5c0bb74fa0ca602a21f4051b820b7dff289c82",
+          "d8565eae1ed61db125ba81cf94d8e4aa2a9fbbd3504e00f5b63f7ffff6667be7",
+          "fd7c2b9456a48047ee687c76d3baae468f74c195f506dbdddf69a651da58987b"
+        ],
+        "fetchError": null,
+        "acquisitionDate": "unknown (release date is not acquisition date)"
+      },
+      {
+        "release": "World Imagery (Wayback 2020-06-10)",
+        "layerId": "11135",
+        "sourceUrl": "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/11135/{level}/{row}/{col}",
+        "metadataUrl": "https://metadata.maptiles.arcgis.com/arcgis/rest/services/World_Imagery_Metadata_2020_r08/MapServer",
+        "sha256": "b45b01e175747276604a0ffa83ad40d30a7563b7532f9861d7571ead89e1f0c9",
+        "tileSha256": [
+          "646d0479383752e007ee6be66148ad2d964909815aba914ec97ed3b1cf981732",
+          "e564ca227555dd719b7081d325be4f09d74b87c86fb6d8550eebcc770ab1fa37",
+          "bf8417b358b7c29b5faf7bb1124378d60bdbc06b50813e94f99e064fe6443cd1",
+          "55032c0fd834391135ef81e6c899d379b23fe33987fce8b51ea33ce397881361",
+          "1d10b9ff0c5783a1bda8c6968a83f08da9ec1b1f05dfed80614eaa2933b758ca",
+          "0a7634962bb284e7f5b029592f2d3751ad7b593e80c992169d2822a28b3140a3",
+          "b34d047ebfccffe8e5e8f71c73a4d9b14ff8f313dddedbf2b3cb6935dbd1c55a",
+          "d7a3bef5670d40f8c037c9d7074d776359ccd318aea72ca82ee0695329630980",
+          "61906e8c13488a33b0a2edad17d5a2339a54256c53fb2181d29e191035f7e9b9"
+        ],
+        "fetchError": null,
+        "acquisitionDate": "unknown (release date is not acquisition date)"
+      },
+      {
+        "release": "World Imagery (Wayback 2019-06-05)",
+        "layerId": "12576",
+        "sourceUrl": "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/12576/{level}/{row}/{col}",
+        "metadataUrl": "https://metadata.maptiles.arcgis.com/arcgis/rest/services/World_Imagery_Metadata_2019_r07/MapServer",
+        "sha256": "e544164fcbe26b612c6e6d0778bc4dce8060b0e85faf81ed23b0052a64262cb6",
+        "tileSha256": [
+          "f47c928803516b422bb3332b881d35f00fdd9f1c51c4cfa55e0668b30b86d197",
+          "1f921a42874c7746fa7a7e8cbf95c6e83c5819b842c1f714f1267cfc9b00d8ba",
+          "883789e869dd6a73e8c261cc8ecbe7dcdb25cb713f0c19fc4db8763bdceb3f35",
+          "b47924965a8f5912b6c8583ec9d267d8898679850921bf8b4bc3474e48bc9bef",
+          "4cb68384e67fa32a65e726cd9820c61195a21b77695b14ba1d99a3354f0d212f",
+          "c122f2ecdc1ade8ca3a793f1563d5c8f7e07dc320c4078b00eee91677a4e1d84",
+          "317e3d3addf7bda46e27be0ed7c0e3d62bebb0484731aacf771e133373676cca",
+          "bd9f97889d52aeb00affbb05efe3309f36fdef1d38d33ae8e5ddbe6c639879e3",
+          "382262e230d52a7c9e5568e6b2e665fd5716bdda019c5d2c7ae80d5c67f2b649"
+        ],
+        "fetchError": null,
+        "acquisitionDate": "unknown (release date is not acquisition date)"
+      },
+      {
+        "release": "World Imagery (Wayback 2018-06-27)",
+        "layerId": "11334",
+        "sourceUrl": "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/11334/{level}/{row}/{col}",
+        "metadataUrl": "https://metadata.maptiles.arcgis.com/arcgis/rest/services/World_Imagery_Metadata_2018_r09/MapServer",
+        "sha256": "e544164fcbe26b612c6e6d0778bc4dce8060b0e85faf81ed23b0052a64262cb6",
+        "tileSha256": [
+          "f47c928803516b422bb3332b881d35f00fdd9f1c51c4cfa55e0668b30b86d197",
+          "1f921a42874c7746fa7a7e8cbf95c6e83c5819b842c1f714f1267cfc9b00d8ba",
+          "883789e869dd6a73e8c261cc8ecbe7dcdb25cb713f0c19fc4db8763bdceb3f35",
+          "b47924965a8f5912b6c8583ec9d267d8898679850921bf8b4bc3474e48bc9bef",
+          "4cb68384e67fa32a65e726cd9820c61195a21b77695b14ba1d99a3354f0d212f",
+          "c122f2ecdc1ade8ca3a793f1563d5c8f7e07dc320c4078b00eee91677a4e1d84",
+          "317e3d3addf7bda46e27be0ed7c0e3d62bebb0484731aacf771e133373676cca",
+          "bd9f97889d52aeb00affbb05efe3309f36fdef1d38d33ae8e5ddbe6c639879e3",
+          "382262e230d52a7c9e5568e6b2e665fd5716bdda019c5d2c7ae80d5c67f2b649"
+        ],
+        "fetchError": null,
+        "acquisitionDate": "unknown (release date is not acquisition date)"
+      },
+      {
+        "release": "World Imagery (Wayback 2017-06-14)",
+        "layerId": "14765",
+        "sourceUrl": "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/14765/{level}/{row}/{col}",
+        "metadataUrl": "https://metadata.maptiles.arcgis.com/arcgis/rest/services/World_Imagery_Metadata_2017_r11/MapServer",
+        "sha256": "8c40f0705f6c0c31f422f10473317b2723935ea3780355832108378902630c29",
+        "tileSha256": [
+          "2f241d736a78f78ede035b5600a592ae439be017b07cbc2113af12d33a52041a",
+          "5180fbc65e3658d6c36da4ae7abaf1b0186753ffa67997a43ca87dbd96407497",
+          "f1a9e5c0bda8951f5d908a3a64c9f307e63ee072df35e514bea13f7f6b52844f",
+          "4eafce1b27a5fff296790c7d3756e3e115d22d5d6ba12c85eee3db772743181a",
+          "c0fe3e2590261d9709261a768d90c3eb0adb86e8f88b30fac8d5b984aa54401c",
+          "202c225b393e37852eebda0589ad93c496f7e52e67c02b9845a0d073d87b8e93",
+          "e156916a661da46ac56ae0c1c0980fe586c76b529dbc32dc310db463ef20d786",
+          "33c3b011915ffd3178d9649fc6fe9216a338a4b55c117216bf5fc98a9bba6c62",
+          "64464b8309f99101188d0b954d58b6a9266685fc6692a69bfd5ef60ab4cee154"
+        ],
+        "fetchError": null,
+        "acquisitionDate": "unknown (release date is not acquisition date)"
+      },
+      {
+        "release": "World Imagery (Wayback 2016-08-31)",
+        "layerId": "9175",
+        "sourceUrl": "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/9175/{level}/{row}/{col}",
+        "metadataUrl": "https://metadata.maptiles.arcgis.com/arcgis/rest/services/World_Imagery_Metadata_2016_r15/MapServer",
+        "sha256": "ef5885baa4f3fa05811cf3ea4eb089a1aa95f04912c2ae037383d4f2474fea8f",
+        "tileSha256": [
+          "89c5ce9f8d919cf2cad832f96fd4d580c6c7c27f53b67c5adb722718c57dccf0",
+          "28d62617b6305f45996099753b3f1dd2e92cd106ba94e7167fdf824a4a2aa903",
+          "7a0508c58e68d1943e20522c5d409cf3b5cc0c7b9fa601854a50a84d5a2f3b07",
+          "e1778d36cfb8dd571a97f11454836e23b2c16e58a8b64c00740bc99c3ae1a0a3",
+          "9f7e5a58efd51a5f7c84e7bf7d6c5f9c8b54760a1a7f679083d3deb8b7afa4c5",
+          "410bcf7319f242f2fa1bcd8c70c8146b3a604d24238a56e036b212e7b04ee9e8",
+          "f7af8f486b30f43d137892eb7c2cc16170deccf4fb0148f030060f9188b56b5e",
+          "0c262d00b9bc0754dd0d1b314ec725bb580df5df1a02ac78468548e60ba7e256",
+          "07e676950555d0e5afc74d54ae59c0ee10d5d0939e638a8818173b4b9385451a"
+        ],
+        "fetchError": null,
+        "acquisitionDate": "unknown (release date is not acquisition date)"
+      },
+      {
+        "release": "World Imagery (Wayback 2015-06-24)",
+        "layerId": "11952",
+        "sourceUrl": "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/11952/{level}/{row}/{col}",
+        "metadataUrl": "https://metadata.maptiles.arcgis.com/arcgis/rest/services/World_Imagery_Metadata_2015_r10/MapServer",
+        "sha256": "ef5885baa4f3fa05811cf3ea4eb089a1aa95f04912c2ae037383d4f2474fea8f",
+        "tileSha256": [
+          "89c5ce9f8d919cf2cad832f96fd4d580c6c7c27f53b67c5adb722718c57dccf0",
+          "28d62617b6305f45996099753b3f1dd2e92cd106ba94e7167fdf824a4a2aa903",
+          "7a0508c58e68d1943e20522c5d409cf3b5cc0c7b9fa601854a50a84d5a2f3b07",
+          "e1778d36cfb8dd571a97f11454836e23b2c16e58a8b64c00740bc99c3ae1a0a3",
+          "9f7e5a58efd51a5f7c84e7bf7d6c5f9c8b54760a1a7f679083d3deb8b7afa4c5",
+          "410bcf7319f242f2fa1bcd8c70c8146b3a604d24238a56e036b212e7b04ee9e8",
+          "f7af8f486b30f43d137892eb7c2cc16170deccf4fb0148f030060f9188b56b5e",
+          "0c262d00b9bc0754dd0d1b314ec725bb580df5df1a02ac78468548e60ba7e256",
+          "07e676950555d0e5afc74d54ae59c0ee10d5d0939e638a8818173b4b9385451a"
+        ],
+        "fetchError": null,
+        "acquisitionDate": "unknown (release date is not acquisition date)"
+      },
+      {
+        "release": "World Imagery (Wayback 2014-12-18)",
+        "layerId": "14720",
+        "sourceUrl": null,
+        "metadataUrl": null,
+        "sha256": null,
+        "tileSha256": null,
+        "fetchError": "HTTP Error 404: Not Found",
+        "acquisitionDate": "unknown (release date is not acquisition date)"
+      }
+    ],
+    "imageryPublished": false,
+    "streetViewExtraction": false
+  },
+  "limits": [
+    "Accepted model constraints are explicit estimates, not aerial measurements.",
+    "No inferred lateral extent, no source node move and no changed lane/access tags.",
+    "The retained through-way and terminal-apron findings are open; this ledger does not establish zero road/building contacts."
+  ]
+}

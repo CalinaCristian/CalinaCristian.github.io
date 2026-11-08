@@ -3,6 +3,7 @@ import { makeRng, distPointSeg, pointInPolygon, clamp, makeCanvasTexture, landma
 import { makeTextures, emitFacadeSlab } from './buildings.js';
 import { footprintCells, insetFootprint, assemblySignature, geometryRing, geometrySurface } from './building-parts.js';
 import { validRoofProfile, roofMesh, roofSignature } from './building-roofs.js';
+import { canopyGeometry } from './building-canopies.js';
 import { makeVehicle, CAR_COLORS, makeParkedCars, vehicleSize } from './vehicles.js';
 import { projector, CHAPTERS } from './cities.js';
 import { STOPS } from './data.js';
@@ -3501,15 +3502,20 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (b.canopy) {
             // Explicitly reviewed open roof: preserve its full mapped plan and its vertical collision band.
             // Dimension/support provenance stays in data.buildingCanopies; estimates are not OSM clearance tags.
-            const ring = b.ring, ccw = signedArea(ring) > 0, roofCol = rgb(b.roofColour || '#a7a8a2');
-            const { pts, tris } = triangulate(ring, b.holes);
-            if (tris.length) c.roof.flatPoly(pts, tris, b.h, roofCol, 0.1, -1);
-            for (const tri of tris) mb.face3(...tri.map(i => [pts[i][0], b.minH, pts[i][1]]), rgb('#d6d5ce'), [0, -1, 0]);
-            for (let k = 0; k < ring.length; k++) {
-                const a = ring[k], p = ring[(k + 1) % ring.length], L = Math.hypot(p[0] - a[0], p[1] - a[1]); if (L < 0.05) continue;
-                const sign = ccw ? 1 : -1;
-                mb.wall(a[0], a[1], p[0], p[1], b.minH, b.h, sign * (p[1] - a[1]) / L, -sign * (p[0] - a[0]) / L, rgb('#d6d5ce'));
-            }
+            const ring = b.ring, roofCol = rgb(b.roofColour || '#a7a8a2'), sideCol = rgb('#d6d5ce');
+            const canopy = canopyGeometry(b, triangulate), sourceRoof = canopy.native;
+            const canopyAudit = roofProfileAudit.canopies ||= { native: [], legacyFlat: [] };
+            canopyAudit[sourceRoof ? 'native' : 'legacyFlat'].push({ sourceId: data.buildingIds?.[b.i] || b.i, shape: sourceRoof ? b.roofProfile.shape : 'flat', totalM: b.h, eavesM: canopy.eavesM, minimumM: b.minH });
+            const cached = sourceRoof && data.buildingRoofSurfaces?.[b.i];
+            const valid = cached?.sources?.every(s => { const source = bRecs[s.i]; return source && !source.skip && s.signature === roofSignature(source); });
+            if (cached) { if (valid) roofProfileAudit.surfacesApplied++; else roofProfileAudit.surfacesRejected.push(data.buildingIds?.[b.i] || b.i); }
+            const unpack = face => data.buildingRoofGeometryPoints ? face.map(i => data.buildingRoofGeometryPoints[i]) : face;
+            if (sourceRoof) for (const face of valid ? cached.faces.map(unpack) : canopy.roofFaces) c.roof.face3(...face, roofCol, [0, 1, 0]);
+            else c.roof.flatPoly(canopy.triangulation.pts, canopy.triangulation.tris, b.h, roofCol, .1, -1);
+            for (const face of canopy.underside) mb.face3(...face, sideCol, [0, -1, 0]);
+            for (const wall of canopy.walls) mb.face4(...wall.vertices, sideCol, wall.normal);
+            if (valid) for (const wall of cached.walls) mb.face3(...unpack(wall.vertices), sideCol, wall.normal);
+            else if (sourceRoof) for (const [i, wall] of sourceRoof.walls.entries()) mb.face4(...wall, sideCol, sourceRoof.wallNormals[i]);
             // Structural supports are an explicit authoring estimate, placed only where their complete square is clear.
             const width = b.canopy.supportWidthM || 0.35, supports = [];
             if (b.canopy.estimateSupports) for (const p of ring) {
@@ -3526,7 +3532,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 supports.push([x, z]);
             }
             b.canopySupports = supports.length;
-            collision.push({ x: b.c[0], z: b.c[1], r: Math.max(...ring.map(p => Math.hypot(p[0] - b.c[0], p[1] - b.c[1]))), poly: ring, holes: b.holes, sourceId: data.buildingIds?.[b.i], minH: b.minH, h: b.h, angle: 0, hw: (b.x1 - b.x0) / 2, hd: (b.z1 - b.z0) / 2, canopy: true });
+            collision.push({ x: b.c[0], z: b.c[1], r: Math.max(...ring.map(p => Math.hypot(p[0] - b.c[0], p[1] - b.c[1]))), poly: ring, holes: b.holes, sourceId: data.buildingIds?.[b.i], minH: b.minH, h: b.h, ...(sourceRoof ? { y0: b.minH, y1: b.h, roofHeightAt: sourceRoof.heightAt } : {}), angle: 0, hw: (b.x1 - b.x0) / 2, hd: (b.z1 - b.z0) / 2, canopy: true });
             continue;
         }
         const brng = makeRng(b.i * 7919 + 13);

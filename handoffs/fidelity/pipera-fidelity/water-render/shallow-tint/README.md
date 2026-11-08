@@ -1,0 +1,9 @@
+# Unsupported shallow-tint control
+
+The same existing per-face shoreline reliability mask now also gates inferred shallow tint. Source rings, holes, vertices, indices, distances, mask values, materials, draw calls and triangles are unchanged. Ordinary geometry without the optional mask still defaults to1. The actual Lacul Tei stripe view at world625/−875 and a second shore view no longer show the broad angular band; building/tree shadows remain. No water geometry is hidden or moved.
+
+`corrected-source-mask.json` is the acceptance sample ledger:11,573 clear-dry samples are unchanged across three native views, and the separate road view has947 unchanged road samples. The first numeric classification used the opposite worldZ sign for north-up image rows; its failed raw counts remain in `proof.json`, and the correction reclassifies the retained actual PNGs against exact source rings. The raw third case filename `floreasca-source-water` is a DRY/source-road positive control, not a water-positive point. There are no mapped-island samples in these three views.
+
+`gpu-controls.json` supplies the separate source-hole/island and ordinary-material positive controls: dry island RGB unchanged, source positions unchanged, reliable hole distances[0,4,0] and mask[1,1,1] retained. Missing mask versus explicit1 produces zero changed bytes; ordinary shallow tint remains active, while true deep-water mask0/1 produces zero changed bytes. No additional GL submissions or triangles are introduced. These are software WebGL correctness controls, not hardware FPS claims.
+
+The probe serves the immutable d9a4e19 scene and overrides only water.js with the narrow tint change; its before phase restores exactly the frozen437 tint expression in the same loaded material, after restores the approved expression. Reference imagery is not published. Published WebP hashes and raw PNG hashes are in `images.json`.

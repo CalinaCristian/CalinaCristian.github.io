@@ -9,5 +9,51 @@
   "missingWhole": 0,
   "privatePhysical": 14,
   "shortSourceStubs": 22,
+  "scenery": {
+    "pieces": 1251,
+    "sourceWays": 1246,
+    "preparedVertices": 6738,
+    "privatePhysical": 140
+  },
+  "visibleRing": {
+    "expectedWays": 1253,
+    "missingWays": 0,
+    "requiredVertices": 6766,
+    "missingVertices": 0,
+    "excludedCoveredWays": [
+      "w1458826486",
+      "w241368617",
+      "w241368618",
+      "w241369341",
+      "w241369588",
+      "w23049948",
+      "w238048649",
+      "w79870041",
+      "w263482849",
+      "w321562219",
+      "w694339678",
+      "w826403112",
+      "w845738312",
+      "w1383050305",
+      "w1478497247",
+      "w204158630",
+      "w413969323",
+      "w229236465",
+      "w311991716",
+      "w1482378009",
+      "w179086958",
+      "w668502807"
+    ],
+    "exclusionReason": "Covered/tunnel source ways outside the physical core are not represented as ground scenery; no elevation or open road is invented."
+  },
+  "sourceDirectionNormalizations": [
+    {
+      "sourceId": "w175189333",
+      "scope": "scenery",
+      "index": 559,
+      "source": "OSM oneway=-1",
+      "operation": "Prepared schema follows legal travel direction; original source IDs/coordinates remain unchanged."
+    }
+  ],
   "issues": []
 }

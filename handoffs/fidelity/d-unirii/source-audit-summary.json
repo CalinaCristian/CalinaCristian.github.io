@@ -1,9 +1,9 @@
 {
   "district": "bucharest-unirii",
   "generated": "2026-11-08",
-  "codePrerequisite": "root aa3a3c1 plus small-roof levels priority cf8c842; final combined-root browser acceptance remains separate",
+  "codePrerequisite": "root source freeze 09f5c3b; final combined-root browser acceptance remains separate",
   "dataFile": "game/data/bucharest-unirii.json",
-  "dataSha256": "0a1bd941ef6e611a10bc361d4253f646b4b9da07a7a53f6a28c1f4ead5d70f8b",
+  "dataSha256": "d0baaf824195e86e1a85f6bcbb622340324f3030d19a676ad6e1f9aff5820cab",
   "sourceIdentityPolicy": "source",
   "buildingRecords": 6181,
   "positiveAreaSourceCoverage": {
@@ -182,6 +182,52 @@
     "missingWhole": 0,
     "privatePhysical": 14,
     "shortSourceStubs": 22,
+    "scenery": {
+      "pieces": 1251,
+      "sourceWays": 1246,
+      "preparedVertices": 6738,
+      "privatePhysical": 140
+    },
+    "visibleRing": {
+      "expectedWays": 1253,
+      "missingWays": 0,
+      "requiredVertices": 6766,
+      "missingVertices": 0,
+      "excludedCoveredWays": [
+        "w1458826486",
+        "w241368617",
+        "w241368618",
+        "w241369341",
+        "w241369588",
+        "w23049948",
+        "w238048649",
+        "w79870041",
+        "w263482849",
+        "w321562219",
+        "w694339678",
+        "w826403112",
+        "w845738312",
+        "w1383050305",
+        "w1478497247",
+        "w204158630",
+        "w413969323",
+        "w229236465",
+        "w311991716",
+        "w1482378009",
+        "w179086958",
+        "w668502807"
+      ],
+      "exclusionReason": "Covered/tunnel source ways outside the physical core are not represented as ground scenery; no elevation or open road is invented."
+    },
+    "sourceDirectionNormalizations": [
+      {
+        "sourceId": "w175189333",
+        "scope": "scenery",
+        "index": 559,
+        "source": "OSM oneway=-1",
+        "operation": "Prepared schema follows legal travel direction; original source IDs/coordinates remain unchanged."
+      }
+    ],
     "issues": []
   },
   "railAndCrowns": {
@@ -205,5 +251,5 @@
     "Legacy percentage height heuristic in raw building-audit logs ignores pitched roof rise; it is not the literal dimension gate. Literal source values are audited independently here.",
     "Contradictory literal source height/min_height bands remain retained and explicitly flagged; no invented source correction is applied."
   ],
-  "acceptanceStatus": "source identity/literal dimension checkpoint; browser comparisons, native profile checker update and final combined-source acceptance pending"
+  "acceptanceStatus": "Source identity, topology, literal dimensions and road vertices verified against root09f5c3b; final browser coverage and visual parity remain pending."
 }

@@ -1,6 +1,7 @@
 {
  "schemaVersion": 1,
- "sourceCommit": "a9f77967c37fdf004ebd154609ec3b2f6cd013e9",
+ "sourceCommit": "4198996ab142e3496c9224478eb8cd1aced676fb",
+ "datasetSha256": "3c36cd6dc569eb172936f730464d263943380354c8bc444c254f9de6f62c6171",
  "district": "seatac",
  "source": "OSM nodes and polygon centroids or explicit official locator records; independent from compiled POI serializer.",
  "toleranceM": 0.08,

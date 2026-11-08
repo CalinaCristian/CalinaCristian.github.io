@@ -579,7 +579,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const nodes = {};
     const nodeArr = [];
     for (let i = 0; i < data.nodes.length; i += 2) {
-        const n = { id: i / 2, x: data.nodes[i] * 0.1, z: data.nodes[i + 1] * 0.1, edges: [], radius: 0, hasLight: false, crossing: false, zebra: false, stop: false, flags: 0 };
+        const n = { id: i / 2, sourceId: data.roadNodeIds?.[i / 2], x: data.roadNodePositions?.[i] ?? data.nodes[i] * 0.1, z: data.roadNodePositions?.[i + 1] ?? data.nodes[i + 1] * 0.1, edges: [], radius: 0, hasLight: false, crossing: false, zebra: false, stop: false, flags: 0 };
         nodeArr.push(n);
     }
     for (let i = 0; i < data.nodeFlags.length; i += 2) {
@@ -691,7 +691,7 @@ export async function buildWorld(city, renderer, opts = {}) {
 
     // ---- dual carriageways cut by the map border (or by a mapping gap) end in a one-way "sink" next to a
     //      one-way "source" going the other way: join them with an invisible U-turn so they stay routable
-    {
+    if (data.roadGeometryPolicy !== 'source') {
         const sinks = [], sources = [];
         for (const n of nodeArr) {
             if (n.edges.length !== 1 || !n.edges[0].oneway) continue;
@@ -752,7 +752,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     computeSCC();
     // one-way streets around the CV stops that are traps (not in the main network) become two-way,
     // so every stop's own street is reachable (e.g. Str. Vasile Alecsandri at UiPath HQ)
-    {
+    if (data.roadGeometryPolicy !== 'source') {
         let flipped = 0;
         for (const p of city.pois || []) {
             if (!inDistrictLL(p.lat, p.lon)) continue;

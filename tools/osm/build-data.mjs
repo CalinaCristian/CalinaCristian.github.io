@@ -526,7 +526,7 @@ function buildCity(cityId, did = null) {
     //      dual carriageways, a street running beside an underpass / overpass ramp, parallel ramps…
     //      Long segments are densified first so the push acts along their whole length; near a node the two roads
     //      share (a merge / diverge) the push tapers to zero.
-    {
+    if (!ds) {
         const MAIN = /^(motorway|trunk|primary|secondary|tertiary)(_link)?$/;
         const big = roads.filter(r => MAIN.test(r.cls));
         let densId = -1e9, added = 0;
@@ -596,7 +596,7 @@ function buildCity(cityId, did = null) {
 
     // ---- connect dead ends that stop just short of another road (mapping gaps, excluded service links…)
     //      and drop tiny dead-end stubs
-    {
+    if (!ds) {
         const cnt = new Map();
         for (const r of roads) for (const n of r.nodes) cnt.set(n, (cnt.get(n) || 0) + 1);
         const g = new Grid(30);
@@ -663,17 +663,22 @@ function buildCity(cityId, did = null) {
         if (h === 'mini_roundabout') f |= 512;
         return f;
     };
-    const keptIndex = new Map(); const outNodes = []; const nodeFlags = [];
+    const keptIndex = new Map(); const outNodes = [], roadNodePositions = [], roadNodeIds = []; const nodeFlags = [];
     const idxOf = (id) => {
         let i = keptIndex.get(id);
         if (i === undefined) {
             i = outNodes.length / 2; keptIndex.set(id, i);
             const p = pos.get(id); outNodes.push(Math.round(p[0] * 10), Math.round(p[1] * 10));
+            if (ds) { roadNodePositions.push(...p); roadNodeIds.push(id); }
             const f = nodeFlagOf(id); if (f) nodeFlags.push(i, f);
         }
         return i;
     };
-    const outRoads = [], sharedLanes = {}, roadAccess = {};
+    const outRoads = [], sharedLanes = {}, roadAccess = {}, roadSourceGeometry = {};
+    const sourceRoadGeometry = (r) => {
+        const source = W.get(r.id);
+        return { sourceId: 'w' + r.id, nodeIds: source.nodes, wgs84: source.nodes.map(id => N.get(id)), projected: source.nodes.map(pt), tags: source.tags };
+    };
     const rampLimits = []; // [roadIndex, legalKmh, …]: US ramps without a posted limit (roads[i].maxspeed = advisory; no R2-1 sign)
     const roadInfo = []; // per output road: [osmLayer, flags, widthDm, maxheightDm, placement, bridgeStructure] (vertical / placement hints, see header)
     const parking = []; // optional rows: road index, right location/orientation, left location/orientation (string indices)
@@ -682,10 +687,10 @@ function buildCity(cityId, did = null) {
     for (const r of roads) {
         const pts = r.nodes.map(n => pos.get(n));
         const keep = r.nodes.map((n, i) => (useCount.get(n) > 1 || nodeFlagOf(n) || (i > 0 && r.nodes[i] === r.nodes[0])) ? 1 : 0);
-        const idx = simplifyIdx(pts, 0.35, keep);
+        const idx = ds ? pts.map((_, i) => i) : simplifyIdx(pts, 0.35, keep);
         // drop consecutive near-duplicates (<0.3 m) unless junction
         const ids = [];
-        for (const i of idx) { const n = r.nodes[i]; if (ids.length && Math.hypot(pos.get(n)[0] - pos.get(ids[ids.length - 1])[0], pos.get(n)[1] - pos.get(ids[ids.length - 1])[1]) < 0.3 && !(useCount.get(n) > 1)) continue; ids.push(n); }
+        for (const i of idx) { const n = r.nodes[i]; if (!ds && ids.length && Math.hypot(pos.get(n)[0] - pos.get(ids[ids.length - 1])[0], pos.get(n)[1] - pos.get(ids[ids.length - 1])[1]) < 0.3 && !(useCount.get(n) > 1)) continue; ids.push(n); }
         if (ids.length < 2) continue;
         r.median = r.oneway ? -(r.lf * r.laneW) : r.median;
         segCount += ids.length - 1;
@@ -713,7 +718,11 @@ function buildCity(cityId, did = null) {
           roadInfo.push(isFinite(lay) ? lay : 0, f, dm(t.width), dm(t.maxheight || t['maxheight:physical']), S(t.placement || t['placement:forward'] || ''), S(t['bridge:structure'] || t['bridge:name'] || '')); }
         if (r.regKmh) rampLimits.push(outRoads.length, r.regKmh);
         if (r.sharedLane) sharedLanes[outRoads.length] = { widthM: r.physicalSharedWidth, sourceId: 'w' + r.id, widthSource: num(r.tags.width) > 0 ? 'OSM width' : 'estimate:class single-lane width', evidence: 'OSM lanes=1; legal two-way' };
-        if (ds) roadAccess[outRoads.length] = { sourceId: 'w' + r.id, ...r.access };
+        if (ds) {
+            roadAccess[outRoads.length] = { sourceId: 'w' + r.id, ...r.access };
+            roadSourceGeometry[outRoads.length] = { ...sourceRoadGeometry(r), preparedNodeIds: ids };
+        }
+        r.outIndex = outRoads.length;
         outRoads.push([S(r.name), ROAD_CLASSES.indexOf(r.cls), r.lf, r.oneway ? 0 : r.lb, Math.round(r.median * 10), Math.round(r.laneW * 10), Math.round(r.sidewalk * 10), r.maxspeed, r.flags, r.layer, ...ids.map(idxOf)]);
     }
     log('graph nodes', outNodes.length / 2, 'segments', segCount);
@@ -1770,11 +1779,12 @@ function buildCity(cityId, did = null) {
     outBuildingUnions.surfaces.forEach(s => packSurface(s.surface));
 
     // scenery streets: [carriagewayWidthDm, sidewalkDm, classIdx, flags (1 bridge, 2 inside-the-area fragment), delta…]
-    const outScenery = [], sceneryAccess = {};
+    const outScenery = [], sceneryAccess = {}, scenerySourceGeometry = {};
     for (const { r, pts, inside } of scenery) {
-        const sp = pts.length > 2 ? simplifyIdx(pts, 0.5).map(i => pts[i]) : pts;
+        const sp = ds ? pts : pts.length > 2 ? simplifyIdx(pts, 0.5).map(i => pts[i]) : pts;
         const wC = r.oneway ? r.lf * r.laneW : r.median + (r.lf + r.lb) * r.laneW;
         sceneryAccess[outScenery.length] = { sourceId: 'w' + r.id, ...r.access };
+        if (ds) scenerySourceGeometry[outScenery.length] = { ...sourceRoadGeometry(r), prepared: sp };
         outScenery.push([Math.round(wC * 10), Math.round(Math.min(r.sidewalk, 4) * 10), ROAD_CLASSES.indexOf(r.cls), ((r.flags & 2) ? 1 : 0) | (inside ? 2 : 0), ...delta(sp)]);
     }
     log('scenery streets', outScenery.length);
@@ -1845,6 +1855,11 @@ function buildCity(cityId, did = null) {
         if (Object.keys(outBuildingHoleFootprints).length) doc.buildingHoleFootprints = outBuildingHoleFootprints;
         if (Object.keys(sharedLanes).length) doc.sharedLanes = sharedLanes;
         doc.roadAccess = roadAccess;
+        doc.roadGeometryPolicy = 'source';
+        doc.roadNodePositions = roadNodePositions;
+        doc.roadNodeIds = roadNodeIds;
+        doc.roadSourceGeometry = roadSourceGeometry;
+        doc.scenerySourceGeometry = scenerySourceGeometry;
         doc.sceneryAccess = sceneryAccess;
     }
     if (ds) doc.streetTrees = streetTrees;

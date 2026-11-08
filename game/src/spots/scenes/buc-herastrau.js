@@ -243,7 +243,18 @@ export default {
         if(lake&&landing){const holes=lake.holes||[],bridges=d.ways.filter(w=>w.bridge),path=shortWaterRoute(lake.poly,landing,{reach:24,clearance:1.4,avoid:(x,z)=>holes.some(h=>inPoly(x,z,h)||distPolyline(x,z,[...h,h[0]]).d<1.4)||bridges.some(w=>distPolyline(x,z,w.pts).d<(w.width||4)/2+2)});
             if(path){const bt=new THREE.Group(),hull=new THREE.Mesh(new THREE.SphereGeometry(1,12,6,0,Math.PI*2,Math.PI/2,Math.PI/2),new THREE.MeshStandardMaterial({color:'#f2efe6',roughness:.5}));hull.scale.set(.95,.5,2.3);bt.add(hull);bt.position.set(path[0][0],level+.02,path[0][1]);ctx.add(bt);
                 const approach=dryLanding(lake.poly,landing),ride=boatRide(ctx,bt,path,level+.02,{speed:1.7,initialPitch:-.12,title:'Row from Debarcader Herăstrău',onDone:s=>bucActivity(s,'herastrau-park','boat','🚣 Returned to Debarcader','You rowed the short game course from the mapped marina and returned. Current rental operations and hours are unverified.')});
-                const available=s=>s.r3d?.weather?.season!=='winter';ctx.extras.herastrauBoat={ride,path,landing,approach,source:landing.id,operatorHoursVerified:false};
+                // Extend flight only to the retained marina path, its mapped public
+                // approach and the short game course. These estimated3m half-width
+                // strips stay inside the prepared DEM coverage; never expose the
+                // full unclipped park/lake merely because their OSM rings exist.
+                const terrain=d.terrain,flightBounds={x0:terrain.x0,z0:terrain.z0,x1:terrain.x0+(terrain.nx-1)*terrain.d,z1:terrain.z0+(terrain.nz-1)*terrain.d};
+                const flightAreas=[],strip=(a,b)=>{const L=Math.hypot(b[0]-a[0],b[1]-a[1]);if(!L)return;const nx=-(b[1]-a[1])/L*3,nz=(b[0]-a[0])/L*3;
+                    const poly=[[a[0]+nx,a[1]+nz],[b[0]+nx,b[1]+nz],[b[0]-nx,b[1]-nz],[a[0]-nx,a[1]-nz]];
+                    if(poly.every(([x,z])=>Number.isFinite(x)&&Number.isFinite(z)&&x>=flightBounds.x0&&x<=flightBounds.x1&&z>=flightBounds.z0&&z<=flightBounds.z1))flightAreas.push(poly);};
+                const sourceApproach=d.ways.find(w=>w.id==='w1162864482')?.pts.slice(1,4)||[],sourceLanding=d.ways.find(w=>w.id==='w68336727')?.pts||[];
+                for(const line of[sourceApproach,sourceLanding,[[approach.x,approach.z],path[0]],path.slice(0,Math.ceil(path.length/2))])for(let i=1;i<line.length;i++)strip(line[i-1],line[i]);
+                ctx.extras.droneFlightAreas=flightAreas;
+                const available=s=>s.r3d?.weather?.season!=='winter';ctx.extras.herastrauBoat={ride,path,landing,approach,source:landing.id,operatorHoursVerified:false,flightAreaSources:['w1162864482','w68336727','n141706786','r1130828'],flightAreaHalfWidthEstimate:3,flightBounds};
                 ctx.interactables.push({kind:'rowboat',x:approach.x,z:approach.z,r:3,source:landing.id,label:'Row a short course from Debarcader',tourAvailable:available,cond:()=>!ride.active(),use:s=>{if(!available(s)){s.ui.toast('🚣 Warm-season game course','Choose a warm season for this rowing exercise. Current operator hours are not confirmed.');return;}ride.start(s);}});
             }}
         ctx.interactables.push({ x: 30, z: -26, r: 4, label: 'Feed the ducks', use: (s) => { s.ui.toast('🦆 Quack', 'Ducks gather at the south tip of the lake.'); s.sound.play('splat', 0.4); } });

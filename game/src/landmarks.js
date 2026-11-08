@@ -2182,10 +2182,16 @@ function bLincolnN(b) {
       // retail block (cream cladding, glazed bridge-level lobby, shopfront base) the bridge enters at level 2
       const ax = -45.4, az = -28.1, cx2 = -76.1, cz2 = -20.8, L = Math.hypot(cx2 - ax, cz2 - az), ux = (cx2 - ax) / L, uz = (cz2 - az) / L;
       const ex = cx2 + ux * 9, ez = cz2 + uz * 9, ry = Math.atan2(-uz, ux);
-      b.box(ex, 0, ez, 18, 13.5, 26, '#e3dccf', { ry });                                            // the wing
-      b.box(ex - ux * 9.02, 0.4, ez - uz * 9.02, 0.1, 3.6, 22, '#3f5666', { ry, mat: 'g' });           // shopfronts facing the street
-      b.box(ex - ux * 9.04, 5.8, ez - uz * 9.04, 0.1, 5.2, 9, '#5f7f95', { ry, mat: 'g' });            // glazed bridge lobby
-      b.box(ex, 13.5, ez, 18.4, 0.6, 26.4, '#d2cabb', { ry });                                       // roof cornice
+      // (after round 6: "looks terrible" — a blank cream slab) the wing as a mall block: shopfront glazing all round at street
+      // level, the glazed bridge level, cladding with pilasters between, a cornice and the BELLEVUE SQUARE name
+      const c = Math.cos(ry), sn = Math.sin(ry), W2 = 9, D2 = 13, P = (lx, lz) => [ex + lx * c + lz * sn, ez - lx * sn + lz * c];
+      const q = [P(-W2, -D2), P(W2, -D2), P(W2, D2), P(-W2, D2)];
+      b.prism(q, 0, 13.5, '#e3dccf', { topCol: '#cbc4b7' });
+      b.bands(q, 0, 4.4, 4.4, '#3f5666', { frac: 0.82, mat: 'g', start: 0.35 });                     // shopfronts
+      b.bands(q, 5.6, 10.6, 5.0, '#5f7f95', { frac: 0.86, mat: 'g', start: 0.35 });                    // glazed bridge level
+      b.pilasters(q, 0, 13.5, 6, 0.7, 0.3, '#d3cbbb', {});
+      b.cornice(q, 13.5, 0.7, 0.5, '#d2cabb');
+      { const [tx, tz] = P(-W2 - 0.4, 0); b.text('BELLEVUE SQUARE', tx, 11.4, tz, ry - Math.PI / 2, 1.1, '#2e3b46'); }
       b.col(ex, ez, 9, 13, -ry); }
     b.prism(br8, 6.6, 11, '#8fb0c2', { mat: 'g', bottom: true, topCol: '#d9dcdd' });         // diagonal NE 8th St bridge (w1364249504)
     b.cornice(br8, 6.6, 0.5, 0.25, '#d9dcdd'); b.cornice(br8, 10.8, 0.5, 0.3, '#d9dcdd');

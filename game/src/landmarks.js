@@ -94,6 +94,28 @@ function materials() {
         e: new THREE.MeshBasicMaterial({ vertexColors: true }),                                     // self-lit: lobby glow, lit signage
     };
     MATS.w.name = 'landmark-water'; MATS.f.name = 'landmark-backdrop'; MATS.e.name = 'landmark-glow';
+    // (after round 6) glass at night: lit office floors behind the panes (≈ 30 % of panes, warm / cool, mullions, some blinds),
+    // averaged to an even glow where panes get sub-pixel — glass towers (Hermes, Sky Tower, Bellevue) were dark stripes
+    { const g = MATS.g; g.emissive = new THREE.Color('#ffe2b8'); g.emissiveIntensity = 0; g.userData.nightEmissive = 0.85; g.userData.nightGlow = 0.85; g.userData.dayGlow = 0;
+      g.onBeforeCompile = (sh) => {
+        sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nvarying vec3 vGW; varying vec3 vGN;').replace('#include <begin_vertex>', '#include <begin_vertex>\nvGW = (modelMatrix * vec4(transformed, 1.0)).xyz; vGN = normalize(mat3(modelMatrix) * objectNormal);');
+        sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying vec3 vGW; varying vec3 vGN;').replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+        {   float wall = 1.0 - smoothstep(0.3, 0.6, abs(vGN.y));
+            vec2 tg = normalize(vec2(-vGN.z, vGN.x) + 1e-5);
+            vec2 c = vec2(dot(vGW.xz, tg) / 1.6, (vGW.y - 0.3) / 3.6); vec2 id = floor(c), f = fract(c);
+            float run = floor(id.x / 4.0), hf = fract(sin(dot(vec2(run, id.y), vec2(12.9898, 78.233)) + floor(vGW.x * 0.01) * 3.1) * 43758.5453);
+            float pid = fract(sin(dot(id, vec2(39.3, 11.7))) * 24634.63);
+            float pane = smoothstep(0.03, 0.08, f.x) * (1.0 - smoothstep(0.92, 0.97, f.x)) * smoothstep(0.1, 0.18, f.y) * (1.0 - smoothstep(0.86, 0.94, f.y));
+            float lit = step(hf, 0.3) * pane * (pid < 0.2 ? 0.2 : 1.0) * (0.6 + 0.4 * smoothstep(0.3, 0.85, f.y));
+            float fw = length(fwidth(c)); lit = mix(lit, 0.3 * 0.7, smoothstep(0.3, 0.8, fw));
+            vec3 tint = mix(vec3(0.75, 0.82, 0.95), vec3(1.0, 0.85, 0.65), step(0.5, fract(hf * 7.3)));
+            float glassy = 1.0;
+            #ifdef USE_COLOR
+                glassy = step(vColor.r, vColor.b + 0.12) * step(max(vColor.r, max(vColor.g, vColor.b)), 0.75); // glass tints only — not gold domes / crosses, not white trims
+            #endif
+            totalEmissiveRadiance *= wall * lit * tint * glassy * step(2.5, vGW.y); }`);
+      };
+      g.customProgramCacheKey = () => 'landmark-glass-night2'; }
     // floodlit masonry (LANDMARKS[].floodlit): the 'm' geometry of floodlit monuments uses this material instead. Warm
     // emissive scaled per vertex by the vertex colour (stone glows, dark windows stay dark) and dimmed on up-facing
     // surfaces (floodlights hit the walls, not the roofs), fading with height and varying by facade direction. emissiveIntensity is 0 by day; render.js eases it to

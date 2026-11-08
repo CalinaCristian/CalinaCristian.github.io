@@ -68,3 +68,10 @@ console.log('roof source-solid fixtures: overlap clipping, equal-plane ownership
 
 const zeroSourceBand=makeRoofProfile({tags:{height:'15',min_height:'15','roof:shape':'flat'},ring:[[0,0],[10,0],[10,10],[0,10]],height:15,minHeight:15,heightIsTotal:true});
 assert.equal(zeroSourceBand.totalM,15);assert.equal(zeroSourceBand.eavesM,15);assert.equal(zeroSourceBand.riseM,0);assert(zeroSourceBand.issues.some(s=>s.startsWith('zero vertical source band')));
+
+const literalLow=makeRoofProfile({tags:{height:'3','building:levels':'1'},ring:[[0,0],[20,0],[20,10],[0,10]],height:3,minHeight:0,shape:'hipped',heightIsTotal:true});
+assert.equal(literalLow.totalM,3);assert.equal(literalLow.eavesM,2.25);assert.equal(literalLow.riseM,.75);assert(literalLow.riseSource.includes('25%'));
+const attic=makeRoofProfile({tags:{'building:levels':'1','roof:levels':'1'},ring:[[0,0],[20,0],[20,10],[0,10]],height:3.2,minHeight:0,shape:'hipped',heightIsTotal:false});
+assert.equal(attic.eavesM,3.2);assert.equal(attic.riseM,2.6);assert.equal(attic.totalM,5.800000000000001);assert.equal(attic.riseSource,'roof:levels estimate');
+const literalRoof=makeRoofProfile({tags:{height:'3','roof:height':'2'},ring:[[0,0],[20,0],[20,10],[0,10]],height:3,minHeight:0,shape:'hipped',heightIsTotal:true});
+assert.equal(literalRoof.riseM,2);assert.equal(literalRoof.eavesM,1);assert.equal(literalRoof.riseSource,'OSM roof:height');

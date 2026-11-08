@@ -1485,21 +1485,25 @@ function bFountains(b) {
 // height 137, levels 37, colour #3960DA). Lens/ellipse plan, blue glass with white floor-slab lines, the glass
 // skin runs past the roof as a crown cut on a slant (≈ 125 -> 137 m), 3-level lobby podium.
 // Src: https://en.wikipedia.org/wiki/Sky_Tower_(Bucharest) (137 m, 37 floors) ; OSM way 219622660 ; game/research/bucharest-floreasca.json landmarks[skytower]
-function bSkyTower(b) {
-    const [p] = P.skytower.map(pts), GL = '#4a7fa6', LN = '#c8d4e2';   // blue-green glass (research bucharest-floreasca: skytower)
-    b.prism(offset(p, 3), 0, 9, '#2f3d4a', { mat: 'g', topCol: '#9aa6b0' });
-    b.prism(p, 9, 125, GL, { mat: 'g', topCol: '#9fb3c2' });
-    for (let y = 9 + 6.8; y < 124; y += 6.8) b.cornice(p, y, 0.3, 0.08, LN);          // every 2nd slab (budget)
-    b.pilasters(p, 9, 125, 7, 0.25, 0.15, LN, {});
-    // slanted crown: skin height varies linearly along x from 129 (west) to 137 (east)
-    const bb = bbox([p]), top = (x) => 129 + 8 * (x - bb.x0) / (bb.x1 - bb.x0), s = signedArea(p) > 0 ? 1 : -1;
+function bSkyTower(b, ctx = {}) {
+    const source = ctx.sourceBuildings?.w219622660?.[0];
+    const p = source?.ring || P.skytower.map(pts)[0], top = source?.h ?? 137;
+    const GL = source?.colour || '#3960da', LN = '#b8c8d4';
+    // OSM height137m,37levels and roof:shape=flat are authoritative. The owner's
+    // daylight photograph supports vertical glazing variation, not an invented8m crown slope.
+    b.prism(p, 0, 5, '#344754', { mat: 'g', top: false });
+    b.prism(p, 5, top, GL, { mat: 'g', topCol: source?.roofColour || '#a6a9aa' });
+    const fh = (top - 5) / 36;
+    for (let y = 5 + fh; y < top - .1; y += fh) b.cornice(p, y, .08, .035, LN);
     for (let i = 0; i < p.length; i++) {
-        const [ax, az] = p[i], [bx, bz] = p[(i + 1) % p.length];
-        b.quad([ax, 125, az], [bx, 125, bz], [bx, top(bx), bz], [ax, top(ax), az], '#6c8fc6', 'g', [s * (bz - az), 0, -s * (bx - ax)]);
-        b.quad([bx, 125, bz], [ax, 125, az], [ax, top(ax), az], [bx, top(bx), bz], '#8ea9cf', 'g', [-s * (bz - az), 0, s * (bx - ax)]);   // inner face
+        const a=p[i],q=p[(i+1)%p.length],L=Math.hypot(q[0]-a[0],q[1]-a[1]),n=Math.max(1,Math.round(L/1.5));
+        for(let j=0;j<n;j++) {
+            const f=(j+.08)/n,g=(j+.92)/n,x0=a[0]+(q[0]-a[0])*f,z0=a[1]+(q[1]-a[1])*f,x1=a[0]+(q[0]-a[0])*g,z1=a[1]+(q[1]-a[1])*g;
+            if((i+j)%4===1) b.quad([x0,5,z0],[x1,5,z1],[x1,top-.1,z1],[x0,top-.1,z0],'#a3b5c4','g',[(q[1]-a[1]),0,-(q[0]-a[0])]);
+        }
     }
-    b.cyl(5, 125, 0, 3, 3, 6, '#cfd5da', 8);
-    b.colPoly([p], 15);
+    b.pilasters(p, 5, top, 1.5, .08, .025, LN, {});
+    b.colPolygon(p, { holes: source?.holes || [], y1: top });
 }
 
 // Promenada Mall (2013, Floreasca) — 3 levels / 18 m (OSM way 240694437), glass + white fins, large planted
@@ -1619,25 +1623,26 @@ function bOpera(b) {
 // (458259608) and the smaller building 231123137 (levels unmapped: 7 assumed). Blue-green curtain walls with
 // white spandrel lines and aluminium fins, recessed glazed ground floors, rooftop plant boxes, "HERMES" sign.
 // Src: https://www.openstreetmap.org/way/533147567 (Clădirea A, 9 levels)
-function bHermes(b) {
-    // (round 5) landlord/agency photos (esop.ro listing; viewed only, not kept): 9-10 storeys, alternating horizontal bands of
-    // grey metal panels and green-tinted glass ribbons, some full-height green glass bays, double-height recessed glazed
-    // ground floor on columns, rooftop plant screens.
-    const ps = P.hermes.map(pts), H = [35, 27.5, 31.5];
-    for (let i = 0; i < 3; i++) {
-        const holes = i === 2 ? [ps[3]] : [];
-        b.prism(offset(ps[i], -1), 0, 7, '#3f5d5a', { mat: 'g', top: false });                // recessed double-height glazed GF
-        b.pilasters(ps[i], 0, 7, 8, 0.6, 0.6, '#9a9fa1', {});
-        b.prism(ps[i], 7, H[i], '#8b9094', { holes, topCol: '#9aa4ab' });                       // grey metal panel bands…
-        b.bands(ps[i], 7, H[i], 3.6, '#4d8a85', { frac: 0.55, off: 0.06, mat: 'g', start: 1.2, wall: null, holes });   // …and green glass ribbons
-        b.pilasters(ps[i], 7, H[i], 9, 1.6, 0.08, '#3f7a74', { every: 3 });                     // full-height green glass bays
-        b.cornice(ps[i], H[i], 1.1, 0.25, '#c9cdcf');
-        b.prism(offset(ps[i], -6), H[i], H[i] + 3, '#b5bcc1');
+function bHermes(b, ctx = {}) {
+    const fallback=P.hermes.map(pts), ids=['w533147567','w231123137','r6774709'];
+    const sources=ids.map(id=>ctx.sourceBuildings?.[id]?.[0]);
+    const ps=sources.map((source,i)=>source?.ring||fallback[i]);
+    const heights=[36,28,32.4];
+    // Fresh OSM gives9levels to bothA andB+C. Untagged metre heights and the
+    // smaller block's7-storey rhythm remain explicit estimates. Owner: adventum.eu/asset/hermes-business-campus/.
+    for(let i=0;i<3;i++) {
+        const source=sources[i],holes=source?.holes||(i===2?[fallback[3]]:[]),top=source?.h??heights[i];
+        const levels=source?.levels|| (i===1?7:9),gf=4.5,fh=(top-gf)/Math.max(1,levels-1);
+        b.prism(offset(ps[i],-.6),0,gf,'#3f5664',{mat:'g',top:false,holes});
+        b.pilasters(ps[i],0,gf,8,.4,.3,'#a8adb0',{});
+        b.prism(ps[i],gf,top,'#b3b6b9',{holes,topCol:source?.roofColour||'#979d9f'});
+        b.bands(ps[i],gf,top,fh,'#6d8796',{frac:.58,off:.025,mat:'g',start:.9,wall:null,holes});
+        b.pilasters(ps[i],gf,top,9,.9,.025,'#596f7d',{every:3});
+        b.cornice(ps[i],top-.15,.15,.035,'#c9cdcf');
+        b.colPolygon(ps[i],{holes,y1:top});
     }
-    b.text('HERMES', 35, 31, 57.9, 0, 2.4, '#ffffff');
-    // Luxoft (2017 CV stop): lobby door on the Pompeiu (south) face of building A, campus name on the canopy, tenant plate
-    entrance(b, nearestFacade(ps[0], 2, 89), { w: 3.6, h: 3.4, canopy: 2.6, canopyCol: '#e8ecef', canopyText: 'HERMES BUSINESS CAMPUS', canopyTextH: 0.16, canopyTextCol: '#2b4a63', plate: { w: 0.66, h: 0.36, y: 1.35, bg: '#ffffff', lines: [['LUXOFT', 0.12, '#2a3a8c'], ['A DXC COMPANY', 0.04, '#5b6b7a']] } });
-    b.colPoly(ps.slice(0, 3), 20);
+    // Source-address tenant marker, kept at the existing chapter approach.
+    entrance(b,nearestFacade(ps[0],2,89),{w:3.6,h:3.4,canopy:2.6,canopyCol:'#e8ecef',canopyText:'HERMES BUSINESS CAMPUS',canopyTextH:.16,canopyTextCol:'#2b4a63',plate:{w:.66,h:.36,y:1.35,bg:'#ffffff',lines:[['LUXOFT',.12,'#2a3a8c'],['A DXC COMPANY',.04,'#5b6b7a']]}});
 }
 
 // Aeroportul Băneasa "Aurel Vlaicu" — 1952 terminal (Art-Deco / socialist classicism): three wings
@@ -2883,22 +2888,23 @@ function bRosetti(b) {
 // flat roof; on the south side of Pompeiu opposite Hermes; OSM entrance nodes on the north face (≈ -11.5, -30).
 // Signage: building name on the entrance canopy + a small tenant plate (no rooftop logo found in research).
 // Src: game/research/bucharest-pipera.md (db, w55450549 row; Globalworth BOB particulars) ; OSM w55450549
-function bBOB(b) {
+function bBOB(b, ctx = {}) {
     // (round 5) landlord photos (globalworth.com / bob.globalworth.com; viewed only, not kept): GF + 6 glass block with
     // DARK horizontal spandrel bands, acute "prow" corners clad in white aluminium, a white projecting slab over a dark
     // granite ground floor with tall glazed entrances, thin projecting roof edge; lobby with a "DB Global Technology" desk.
-    const q = P2.bob.map(pts)[0], p = q.slice(0, 4), GL = '#6f9aa3', SP = '#2c3336', WH = '#e8eaea';
+    const source=ctx.sourceBuildings?.w55450549?.[0],p=source?.ring||P2.bob.map(pts)[0],GL='#6f9aa3',SP='#2c3336',WH='#e8eaea';
+    const total=source?.h??28, roof=total-2.5, upper=roof-.5;
     b.prism(p, 0, 4.8, '#5a4d47', { top: false });                                            // dark granite ground floor
     b.windows(p, 0, 4.8, 4.8, '#3d4c52', { bay: 7.2, wf: 0.55, hf: 0.82, start: 0.1, minL: 6, mat: 'g', off: 0.06 });
     b.cornice(p, 4.8, 0.45, 2.4, WH, { solid: true });                                        // white projecting slab
-    curtainTower(b, p, 5.25, 27.6, { glass: GL, spandrel: SP, mullion: '#3c4447', pitch: 1.6, mw: 0.08, md: 0.12, fh: 3.75, frac: 0.7, start: 0.55 });
-    b.cornice(p, 27.6, 0.5, 1.2, WH, { solid: true });                                        // thin projecting roof edge
-    for (const k of [0, 2]) { const [x, z] = p[k]; b.cyl(x, 5.25, z, 1.6, 1.6, 22.4, WH, 6); }   // white-clad acute prows
-    { const t = offset(p, -12); b.prism(t, 28.1, 30.6, '#a3a7a8'); }                        // plant enclosure
+    curtainTower(b, p, 5.25, upper, { glass: GL, spandrel: SP, mullion: '#3c4447', pitch: 1.6, mw: 0.08, md: 0.12, fh: (upper-5.25)/6, frac: 0.7, start: 0.55 });
+    b.cornice(p, upper, 0.5, 0.25, WH, { solid: true });                                        // thin projecting roof edge
+    for (const k of [0, 2]) { const a=p[k],prev=p[(k+p.length-1)%p.length],next=p[(k+1)%p.length],toward=q=>{const L=Math.hypot(q[0]-a[0],q[1]-a[1]);return[a[0]+(q[0]-a[0])*Math.min(3/L,.3),a[1]+(q[1]-a[1])*Math.min(3/L,.3)];}; b.prism([a,toward(next),toward(prev)],5.25,upper,WH); } // white cladding stays inside the mapped acute corners
+    { const t = offset(p, -12); b.prism(t, roof, total, '#a3a7a8'); b.colPolygon(t,{y0:roof,y1:total}); }                        // plant enclosure
     const f = nearestFacade(p, -11.5, -30.2);
     entrance(b, f, { w: 4.8, h: 3.9, canopyText: null, plate: { w: 0.7, h: 0.5, y: 1.3, bg: '#ffffff', lines: [['DB', 0.14, '#0018a8'], ['GLOBAL', 0.05, '#0018a8'], ['TECHNOLOGY', 0.05, '#0018a8']] } });
     { const x = f.x + f.nx * 2.45 - f.nz * 4.2, z = f.z + f.nz * 2.45 + f.nx * 4.2, ry = Math.atan2(f.nx, f.nz); b.text('BOB', x, 4.95, z, ry, 0.5, '#2c3336', { d: 0.02 }); }   // building name on the slab edge
-    b.colPoly([p], 18);
+    b.colPolygon(p, { holes: source?.holes || [], y1: roof });
 }
 
 // Rectoratul Universității Politehnica București (1970s) — OSM w28240552 (5 levels) + dome part. From the Commons refs
@@ -3283,7 +3289,7 @@ export const LANDMARKS = [
     L('marriott', 'bucharest', 'JW Marriott Grand Hotel', ['JW Marriott', 'JW Marriott Bucharest Grand Hotel'], 75, bMarriott),
     L('unirea', 'bucharest', 'Unirea Shopping Center', ['Unirea Shopping Center'], 115, bUnirea),
     L('fountains', 'bucharest', 'Fântânile din Piața Unirii', [], 0, bFountains),
-    L('skytower', 'bucharest', 'Sky Tower', ['Sky Tower'], 28, bSkyTower),
+    L('skytower', 'bucharest', 'Sky Tower', ['Sky Tower'], 28, bSkyTower, { sourceIds: ['w219622660'] }),
     L('promenada', 'bucharest', 'Promenada Mall', ['Promenada Mall'], 95, bPromenada),
     L('baneasasc', 'bucharest', 'Băneasa Shopping City', ['Băneasa Shopping City'], 190, bBaneasaSC),
     L('romexpo', 'bucharest', 'Romexpo', ['Romexpo'], 65, bRomexpo),
@@ -3291,7 +3297,7 @@ export const LANDMARKS = [
     L('gara', 'bucharest', 'Gara de Nord', ['Gara de Nord'], 120, bGara),
     L('opera', 'bucharest', 'Opera Națională București', ['Opera Națională'], 70, bOpera),
     L('politehnica', 'bucharest', 'Rectoratul Politehnicii', ['Rectorat Universitatea Politehnica din București'], 30, bPolitehnica, { cvStop: 'upb', ownSign: true, floodlit: true }),
-    L('hermes', 'bucharest', 'Hermes Business Campus', ['Hermes', 'Clădirea B+C', 'Hermes Business Campus'], 80, bHermes, { cvStop: 'luxoft', ownSign: true }),
+    L('hermes', 'bucharest', 'Hermes Business Campus', ['Hermes', 'Clădirea B+C', 'Hermes Business Campus'], 80, bHermes, { cvStop: 'luxoft', ownSign: true, sourceIds: ['w533147567', 'w231123137', 'r6774709'] }),
     L('baneasaterm', 'bucharest', 'Aeroportul Băneasa (terminal 1952)', ['Aeroportul Internațional Aurel Vlaicu'], 75, bBaneasaTerm),
     L('otp', 'bucharest', 'Aeroportul Henri Coandă', ['Aeroportul Otopeni Henri Coandă - Plecări', 'Aeroportul Otopeni Henri Coandă - Sosiri', 'Terminalul Vioara'], 230, bOTP),
     L('ase', 'bucharest', 'ASE — Palatul Ion N. Angelescu', ['Clădirea Ion N. Angelescu', 'Academia de Studii Economice'], 0, bASE, { ownSign: true }),
@@ -3302,7 +3308,7 @@ export const LANDMARKS = [
     L('gts', 'bucharest', 'Calea Călărașilor 101 (GTS Global Intelligence)', [], 9.5, bGTS, { cvStop: 'gts', ownSign: true, floodlit: true }),
     L('dinamo', 'bucharest', 'Stadionul Dinamo', ['Stadionul Dinamo', 'Peluza Catalin Hildan', 'Peluza Cătălin Hildan'], 95, bDinamo, { floodlit: true }),
     L('rosetti', 'bucharest', 'Liceul Teoretic C.A. Rosetti', ['Liceul Teoretic C.A. Rosetti', 'Liceul Teoretic „C.A. Rosetti”', 'Liceul C.A. Rosetti'], 26, bRosetti, { cvStop: 'rosetti', ownSign: true, floodlit: true }),
-    L('bob', 'bucharest', 'BOB Tower (DB Global Technology)', ['BOB Tower'], 40, bBOB, { cvStop: 'db', ownSign: true }),
+    L('bob', 'bucharest', 'BOB Tower (DB Global Technology)', ['BOB Tower'], 40, bBOB, { cvStop: 'db', ownSign: true, sourceIds: ['w55450549'] }),
     L('halatraian', 'bucharest', 'Hala Traian', ['Hala Traian'], 12, bHalaTraian),
     L('globalworth', 'bucharest', 'Globalworth Tower', ['Globalworth Tower'], 12, bGlobalworth),
     // ---- Seattle / Bellevue (radius given in real metres, halved by L()) ----

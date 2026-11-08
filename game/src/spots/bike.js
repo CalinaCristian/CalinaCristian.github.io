@@ -1,8 +1,8 @@
 // ============================================================================
-//  Rentable bikes in a spot (owner note 31: Herăstrău / King Michael I Park — bike rental next to the spawn,
+//  Rentable bikes at a sourced docking station (Herăstrău / King Michael I Park,
 //  ride the park paths). A docking station with bikes; E rents one: the walker is parked and the camera rides a
 //  city bike (W/S or ↑/↓ pedal / brake, A/D steer, Shift faster, mouse looks around); E again (anywhere walkable)
-//  gets off and the bike is docked back at the station. Collides with the scene, never rides into water.
+//  gets off at the actual last dry pose. Ride 30 m and dismount to complete the activity. Collides with the scene, never rides into water.
 //
 //  Scene use:   import { addBikeRental } from '../bike.js';
 //               addBikeRental(ctx, { x, z, heading, n: 6, name: 'I\'Velo', colour: '#d7262e' });
@@ -12,13 +12,14 @@
 import * as THREE from '../../vendor/three.module.min.js';
 import { GeoBatch } from './kit.js';
 import { collide } from './walker.js';
+import { activityFlow } from './participation.js';
 
 /** a city bike (frame, wheels, saddle, basket) in local coordinates: forward = −z, on the ground at y = 0 */
-function bikeBatch(b, x, y, z, ry, colour) {
+function bikeBatch(b, x, y, z, ry, colour, moving = false) {
     const c = Math.cos(ry), s = Math.sin(ry), P = (lx, ly, lz) => [x + lx * c + lz * s, y + ly, z - lx * s + lz * c];
     for (const wz of [-0.52, 0.52]) { // wheels: a thin torus-like ring of rods + hub
         const n = 14; for (let i = 0; i < n; i++) { const a0 = i / n * Math.PI * 2, a1 = (i + 1) / n * Math.PI * 2; b.rod(P(0, 0.34 + Math.cos(a0) * 0.33, wz + Math.sin(a0) * 0.33), P(0, 0.34 + Math.cos(a1) * 0.33, wz + Math.sin(a1) * 0.33), 0.022, '#1b1b1b', 'rubber', 5); }
-        b.rod(P(0, 0.34, wz - 0.3), P(0, 0.34, wz + 0.3), 0.006, '#9a9a9a', 'steel', 4); b.rod(P(0, 0.04, wz), P(0, 0.64, wz), 0.006, '#9a9a9a', 'steel', 4);
+        if (!moving) { b.rod(P(0, 0.34, wz - 0.3), P(0, 0.34, wz + 0.3), 0.006, '#9a9a9a', 'steel', 4); b.rod(P(0, 0.04, wz), P(0, 0.64, wz), 0.006, '#9a9a9a', 'steel', 4); }
     }
     const seat = P(0, 0.88, 0.2), head = P(0, 0.95, -0.4), bb = P(0, 0.32, 0.02);
     b.rod(P(0, 0.34, 0.52), seat, 0.022, colour, 'paint', 6); b.rod(seat, bb, 0.026, colour, 'paint', 6); b.rod(bb, head, 0.028, colour, 'paint', 6);
@@ -40,29 +41,38 @@ export function addBikeRental(ctx, { x, z, heading = 0, n = 6, name = 'Bike rent
     ctx.box(x, z, (n * 0.8) / 2 + 0.2, 0.9, heading, { prop: true, h: 1.1, y: y0 }); ctx.circle(tx, tz, 0.3, 1.7);
     ctx.lampPoints?.push?.({ x: tx, z: tz, noPost: true, h: 2 });
     // ---- the ridden bike (one mesh, shown while riding)
-    const rb = new GeoBatch(); bikeBatch(rb, 0, 0, 0, 0, colour); const ride = rb.build('bike-ridden'); ride.visible = false; ctx.add(ride);
+    const rb = new GeoBatch(); bikeBatch(rb, 0, 0, 0, 0, colour, true); const ride = rb.build('bike-ridden'); ride.visible = false; ride.userData.noFloor = true; ctx.add(ride);
+    const wheels = [-.52,.52].map(z => { const b = new GeoBatch(); b.rod([0,-.3,0],[0,.3,0],.006,'#aaa','steel',4); b.rod([0,0,-.3],[0,0,.3],.006,'#aaa','steel',4); const m=b.build('bike-wheel-spokes');m.position.set(0,.34,z);ride.add(m);return m; });
+    const pb=new GeoBatch();pb.rod([-.16,0,0],[.16,0,0],.018,'#777','steel',5);for(const side of [-1,1]){pb.rod([side*.13,0,0],[side*.13,side*.14,0],.016,'#777','steel',5);pb.boxC(side*.18,side*.14,0,.12,.025,.08,'#222','rubber');}const pedals=pb.build('bike-pedals');pedals.position.set(0,.32,.02);ride.add(pedals);
+    const flow = activityFlow(ctx);
     let st = null, rides = 0;
-    const stationIt = { kind: 'bike', x: x + fx * 1.4, z: z + fz * 1.4, r: 2.4, label: (s) => (st ? 'Return the bike' : `Rent a bike — ${name}`), use: (s) => (st ? stop(s) : start(s)) };
+    const stationIt = { kind: 'bike', x: x + fx * 1.4, z: z + fz * 1.4, r: 2.4, label: (s) => (st ? 'Dismount' : `Rent a bike — ${name}`), use: (s) => (st ? flow.cancel('station-return') : start(s)) };
     ctx.interactables.push(stationIt);
-    const start = (s) => {
+    const start = (s) => flow.begin(s, {
+        title: 'Ride the park paths', action: 'Dismount', cameraRide: true,
+        help: 'Pedal with W / ↑ or the touch stick; steer with A / D or the stick. Pedal and Brake buttons also work. Ride 30 m, then Dismount / E to finish; Leave or Esc cancels.',
+        started(s,r) {
         const p = s.ctl.position;
-        st = { x: x + fx * 2.2, z: z + fz * 2.2, y: g.groundAt(x + fx * 2.2, z + fz * 2.2, p.y), yaw: heading, v: 0, look: 0, pitch: -0.12, lean: 0, back: { x: p.x, z: p.z, heading: s.ctl.heading } };
-        s.ctl.active = false; s.riding = true; ride.visible = true; rides++;
-        s.ui?.toast?.('🚲 ' + name, 'W / ↑ pedal · Shift sprint · S brake / reverse · A / D steer · E get off');
-        try { window.dispatchEvent(new CustomEvent('dmcv:activity', { detail: { spot: s.spot.id, id: 'bike' } })); } catch { /* no host */ }
-    };
-    const stop = (s, here = false) => {
+        st = { x: p.x, z: p.z, y: p.y, yaw: s.ctl.heading, v: 0, look: 0, pitch: -0.12, lean: 0, distance: 0, pedalSeconds: 0, push: 0, brake: 0 };
+        s.riding = true; ride.visible = true; ride.position.set(p.x,p.y,p.z); ride.rotation.y=st.yaw; rides++;
+        for(const[label,pressed]of[['Pedal',()=>{st.push=1.8;st.brake=0;}],['Brake',()=>{st.brake=1.2;st.push=0;}]]){const button=document.createElement('button');button.type='button';button.textContent=label;button.dataset.bike=label.toLowerCase();button.onclick=pressed;r.ui.querySelector('nav').append(button);}
+        },
+        actioned(){if(st.distance>=30&&st.pedalSeconds>=3)flow.complete();else flow.cancel('dismount');},
+        cancel(s){stop(s);},
+        complete(s){stop(s);s._bucDone=s._bucDone||new Set();s._bucDone.add(s.spot.id+':bike');try{if(typeof window.game?.emit==='function')window.game.emit('activity',{spot:s.spot.id,id:'bike'});else window.dispatchEvent(new CustomEvent('dmcv:activity',{detail:{spot:s.spot.id,id:'bike'}}));}catch{}s.ui.toast('🚲 Park ride completed','You pedalled at least 30 m and dismounted on dry ground.');},
+        update(dt,s,r){update(dt,s,r);},
+    });
+    const stop = (s) => {
         if (!st) return; ride.visible = false; s.riding = false;
-        const ex = here ? st.x + Math.cos(st.yaw) * 0.9 : st.back.x, ez = here ? st.z - Math.sin(st.yaw) * 0.9 : st.back.z;
-        s.ctl.active = true; s.ctl.teleport(ex, ez, here ? st.yaw : st.back.heading); st = null;
+        // The rider has actually travelled here. Dismount/cancel keeps that
+        // last dry pose; returning to a distant dock would be a teleport.
+        const c=s.ctl;c.x=st.x;c.z=st.z;c.y=st.y;c.heading=st.yaw;c.pitch=st.pitch;c.vx=c.vz=0;c.vel=0;c.active=true;c.place?.();st=null;
     };
-    ctx.onUpdate((dt, s) => {
+    const update = (dt, s, r) => {
         if (!st) return;
         const inp = s.input || {}, keys = inp.keys || new Set();
-        if (inp.take?.('KeyE')) { // get off: at the station → docked, elsewhere → park it there (it rolls back to the dock)
-            stop(s, Math.hypot(st.x - x, st.z - z) > 4); return;
-        }
-        const thr = inp.throttle ?? ((keys.has('KeyW') || keys.has('ArrowUp')) ? 1 : 0), brk = (keys.has('KeyS') || keys.has('ArrowDown') || (inp.throttle ?? 0) < 0 || inp.brake) ? 1 : 0, steer = inp.steer ?? ((keys.has('KeyD') || keys.has('ArrowRight') ? 1 : 0) - (keys.has('KeyA') || keys.has('ArrowLeft') ? 1 : 0));
+        st.push=Math.max(0,st.push-dt);st.brake=Math.max(0,st.brake-dt);
+        const thr = st.push>0?1:(inp.throttle ?? ((keys.has('KeyW') || keys.has('ArrowUp')) ? 1 : 0)), brk = st.brake>0||keys.has('KeyS') || keys.has('ArrowDown') || (inp.throttle ?? 0) < 0 || inp.brake ? 1 : 0, steer = inp.steer ?? ((keys.has('KeyD') || keys.has('ArrowRight') ? 1 : 0) - (keys.has('KeyA') || keys.has('ArrowLeft') ? 1 : 0));
         // Shift = sprint (stronger pedalling, higher top speed); S from a stop = push the bike backwards (round 6 note 17)
         const vmax = inp.shift ? fast : speed, REV = 1.8;
         if (thr > 0) st.v += Math.min(inp.shift ? 3.6 : 2.2, Math.max(0, (vmax - st.v) * 1.2)) * dt + (st.v < 0 ? 4 * dt : 0);
@@ -73,10 +83,13 @@ export function addBikeRental(ctx, { x, z, heading = 0, n = 6, name = 'Bike rent
         const turn = sgn * steer * dt * (0.9 + 1.4 / (1 + av)) * Math.min(1, 0.4 + av / 3); st.yaw -= turn; st.lean += ((-steer * Math.min(1, Math.max(0, st.v) / 4)) * 0.22 - st.lean) * Math.min(1, dt * 4);
         const dfx = -Math.sin(st.yaw), dfz = -Math.cos(st.yaw); let nx = st.x + dfx * st.v * dt, nz = st.z + dfz * st.v * dt;
         let ny = g.groundAt(nx, nz, st.y + 0.5);
-        if (!(ny < st.y + 0.6) || (g.waterY != null && ny < g.waterY - 0.3)) { st.v = 0; nx = st.x; nz = st.z; ny = st.y; } // a wall / steps up / water: stop
-        const hit = s.spot.colliders?.length ? collide(s.spot.colliders, nx, nz, 0.45, ny + 0.3) : null;
+        if (!Number.isFinite(ny) || Math.abs(ny-st.y)>.6 || (g.waterY != null && ny < g.waterY - 0.3)) { st.v = 0; nx = st.x; nz = st.z; ny = st.y; } // a wall / steps up / water: stop
+        const people=(s.spot.crowd?.obstacles(nx,nz,4)||[]).filter(o=>Math.abs((o.y??ny)-ny)<1.7).map(o=>({x:o.x,z:o.z,r:Math.hypot(o.width,o.length)/2,hw:o.width/2,hd:o.length/2,angle:Math.atan2(o.fx,o.fz),y0:o.y??ny,y1:(o.y??ny)+1.8}));
+        const hit = collide(s.spot.colliders||[],nx,nz,.45,ny+.3)||collide(people,nx,nz,.45,ny+.3);
         if (hit) { nx += hit.px; nz += hit.pz; st.v *= 0.3; ny = g.groundAt(nx, nz, st.y + 0.5); if (!(ny < st.y + 0.6)) { nx = st.x; nz = st.z; ny = st.y; } }
+        st.distance+=Math.hypot(nx-st.x,nz-st.z);if(thr>0&&!brk)st.pedalSeconds+=dt;
         st.x = nx; st.z = nz; st.y += (ny - st.y) * Math.min(1, dt * 12);
+        wheels.forEach(m=>m.rotation.x-=st.v*dt/.33);if(thr>0&&!brk)pedals.rotation.x-=dt*(2+Math.abs(st.v));r.progress.value=Math.min(1,st.distance/30);r.status.textContent=`${Math.floor(st.distance)} / 30 m pedalled · ${st.distance>=30&&st.pedalSeconds>=3?'Dismount to finish':'keep to dry public paths'}`;
         // the walker follows (crowd reactions, interactions, sound) without moving the camera
         const c = s.ctl; c.x = st.x; c.z = st.z; c.y = st.y; c.heading = st.yaw; if ('vel' in c) c.vel = st.v; else if (!Object.getOwnPropertyDescriptor(Object.getPrototypeOf(c), 'speed')?.get) c.speed = st.v;
         ride.position.set(st.x, st.y, st.z); ride.rotation.set(0, st.yaw, st.lean, 'YXZ');
@@ -84,6 +97,6 @@ export function addBikeRental(ctx, { x, z, heading = 0, n = 6, name = 'Bike rent
         if (Math.abs(lk.dx) < 0.01) st.look *= Math.max(0, 1 - dt * 0.6); // the view drifts back to the road
         const bob = Math.sin(s.t * 7) * 0.012 * Math.min(1, st.v / 3);
         if (c.rig) { c.rig.position.set(st.x - dfx * 0.12, st.y + 1.62 + bob, st.z - dfz * 0.12); c.rig.rotation.set(st.pitch, st.yaw + st.look, st.lean * 0.5, 'YXZ'); }
-    });
-    return { station: dock, rides: () => rides, riding: () => !!st, slots };
+    };
+    return { station: dock, rides: () => rides, riding: () => !!st, slots, debug: () => st && ({x:st.x,y:st.y,z:st.z,distance:st.distance,pedalSeconds:st.pedalSeconds,speed:st.v,wheelAngle:wheels[0].rotation.x,pedalAngle:pedals.rotation.x}) };
 }

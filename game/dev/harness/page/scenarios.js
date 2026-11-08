@@ -7,6 +7,22 @@
 // ============================================================================
 import { canTravel, lanesDir, roadName, sideW, r1, r2, edgeLocal, colliderDist, colliderKind, pip, sleep, isMotorway, solidFor, yAlong } from './util.js';
 
+/** Keep the original driving deadline on unsignalised routes. A safe signal
+ * cycle and one bounded crossing yield must fit when this segment has lights. */
+export function spawnDriveBudget(route, targetIndex, traffic, elapsed = 0) {
+    const controllers = new Map();
+    for (let i = 0; route && i < Math.min(targetIndex, route.legs.length); i++) {
+        const { e, dir } = route.legs[i], n = dir > 0 ? e.b : e.a;
+        if (!n.hasLight) continue;
+        if (!n.lightCluster && !traffic._lightPhase?.has(n)) traffic.lightState(n, e);
+        const controller = n.lightCluster || traffic._lightPhase?.get(n), phases = controller?.phaseCount || 2;
+        const slot = Math.max(4, traffic.cycle - 5.2) + 5.2; // source yellow 2.2 s + all-red 3 s
+        controllers.set(controller || n, { node: n.id, phases, seconds: slot * phases });
+    }
+    const signals = [...controllers.values()], signalCycle = Math.max(0, ...signals.map(s => s.seconds)), crossing = signals.length ? 10 : 0;
+    return { timeout: Math.max(0, Math.min(Math.floor(90 - elapsed), Math.ceil(40 + signalCycle + crossing))), driving: 40, signalCycle, crossing, signals };
+}
+
 /** streets for scenario b: regex on the edge name, reference point (lat/lon) and preferred bearing (deg, 0 = north) */
 export const STREETS = [
     { id: 'magheru', name: 'Bd. Magheru', re: /Magheru/, ll: [44.4440, 26.0978], bearing: 0 },
@@ -216,12 +232,14 @@ export const SCENARIOS = [
             res.shot = await H.shot(`${H.city}-scenario-a-spawn`);
             // drive 150 m along the route to the objective (or straight down the road when there is none)
             const r = g.nav.route;
-            let tgt = null;
-            if (r) { let i = 0; while (i < r.points.length - 1 && r.cum[i] < 150) i++; tgt = r.points[i]; }
+            let tgt = null, targetIndex = 0;
+            if (r) { while (targetIndex < r.points.length - 1 && r.cum[targetIndex] < 150) targetIndex++; tgt = r.points[targetIndex]; }
             else if (g.lanePose) { const lp = g.lanePose(g.player.x + g.player.fx * 150, g.player.z + g.player.fz * 150, g.player.heading); if (lp) tgt = [lp.x, lp.z]; res.noObjective = true; }
             if (tgt) {
                 const [x, z] = tgt;
-                res.drive = await H.driveTo(x, z, { label: 'first 150 m', timeout: 40, stop: false, arriveR: 15 });
+                res.driveBudget = spawnDriveBudget(r, targetIndex, g.traffic, H.scT);
+                H.note(`spawn drive deadline ${res.driveBudget.timeout}s: driving ${res.driveBudget.driving}s + one signal cycle ${r1(res.driveBudget.signalCycle)}s + crossing ${res.driveBudget.crossing}s, capped at 90s`);
+                res.drive = await H.driveTo(x, z, { label: 'first 150 m', timeout: res.driveBudget.timeout, stop: false, arriveR: 15 });
                 if (!res.drive.ok) H.issue('drive-failed', 'medium', `could not drive the first 150 m from the spawn: ${res.drive.reason}`, {}, { shot: true, key: 'spawn-drive' });
             }
             res.objectsInRoad = H.auditAroundPath(60);

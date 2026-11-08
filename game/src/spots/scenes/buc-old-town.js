@@ -155,7 +155,7 @@ function festoons(ctx, ways, { spacing = 5.5, height = 5.6 } = {}) {
 // OSM way 658009149: 27.4 × 13.4 m, the narrow front faces Lipscani (south). Street front: rusticated white stucco, a giant
 // arch over two storeys filled with a three-light arched window, the "cărturești" band over the shop window, an attic
 // aedicule with urn finials and the glass mansard roof. Inside: six white levels round an oval atrium with undulating
-// balustrades, bookshelves on every wall, the bistro on the top floor (levels reached with E at the stair).
+// balustrades, bookshelves on every wall, the bistro on the top floor (levels reached by walking the modeled stair).
 function buildCarusel(ctx) {
     const d = ctx.data, g = ctx.ground, bd = d.buildings.find((x) => x.id === 'w658009149'); if (!bd) return null;
     ctx.skipBuildings.add(bd.id);
@@ -200,7 +200,7 @@ function buildCarusel(ctx) {
     b.add(new THREE.CylinderGeometry(Math.SQRT1_2 * 0.7, Math.SQRT1_2, 1, 4, 1).rotateY(Math.PI / 4), 'darkglass', M(oc.cx, y0 + H + 2.3, oc.cz, 0, -oc.angle, 0, oc.len - 0.6, 4.6, oc.wid - 0.6), '#3b4148');
     void roofP;
     // ---- interior: levels, atrium, balustrades, shelves
-    const LV = [0, 4.6, 8.4, 12.2, 16.0], innerP = grow(p, -0.35), ecx = oc.cx + (fx - oc.cx) * 0.08, ecz = oc.cz + (fzz - oc.cz) * 0.08;
+    const LV = [0, 4.6, 8.4, 12.2, 16.0], stair={x:oc.cx-oc.ux*oc.len*.38,z:oc.cz-oc.uz*oc.len*.38}, stairWell=Array.from({length:32},(_,i)=>[stair.x+Math.cos(i/32*Math.PI*2)*2.45,stair.z+Math.sin(i/32*Math.PI*2)*2.45]), innerP = grow(p, -0.35), ecx = oc.cx + (fx - oc.cx) * 0.08, ecz = oc.cz + (fzz - oc.cz) * 0.08;
     const along = Math.atan2(oc.ux, oc.uz); // long axis direction
     const ell = (k, rxK = 1) => { const pts = []; for (let i = 0; i < 48; i++) { const a = i / 48 * Math.PI * 2, wob = 1 + 0.07 * Math.sin(a * 5 + k * 1.3), rx = (3.1 - k * 0.1) * wob * rxK, rz = (8.2 - k * 0.35) * wob * rxK; const lx = Math.cos(a) * rx, lz = Math.sin(a) * rz; pts.push([ecx + lx * Math.cos(along) + lz * Math.sin(along), ecz - lx * Math.sin(along) + lz * Math.cos(along)]); } return pts; };
     const iw = new GeoBatch(), WHITE = '#f6f5f1';
@@ -209,7 +209,7 @@ function buildCarusel(ctx) {
     for (let k = 0; k < LV.length; k++) {
         const ly = y0 + LV[k];
         if (k > 0) { // slab with the atrium hole (white, slightly self-lit so the interior reads bright)
-            const sh = new THREE.Shape(innerP.map(([a, c]) => new THREE.Vector2(a, -c))); sh.holes.push(new THREE.Path(ell(k).map(([a, c]) => new THREE.Vector2(a, -c))));
+            const sh = new THREE.Shape(innerP.map(([a, c]) => new THREE.Vector2(a, -c))); sh.holes.push(new THREE.Path(ell(k).map(([a, c]) => new THREE.Vector2(a, -c))));sh.holes.push(new THREE.Path(stairWell.map(([a,c])=>new THREE.Vector2(a,-c))));
             const sg = new THREE.ExtrudeGeometry(sh, { depth: 0.38, bevelEnabled: false, curveSegments: 4 }); sg.rotateX(-Math.PI / 2); sg.translate(0, ly - 0.38, 0);
             iw.add(sg, 'paint', null, WHITE, { emissive: '#ffffff', emissiveIntensity: 0.28, roughness: 0.5 }); sg.dispose();
             // undulating balustrade round the hole + walk surface + wall collider at this level
@@ -219,16 +219,29 @@ function buildCarusel(ctx) {
             iw.add(bg, 'paint', null, '#fbfaf7', { emissive: '#ffffff', emissiveIntensity: 0.35, roughness: 0.4, side: THREE.DoubleSide }); bg.dispose();
             for (let i = 0; i < e.length; i++) { const [a, c] = e[i], [a2, c2] = e[(i + 1) % e.length]; wallSeg(ctx, a, c, a2, c2, ly - 0.2, ly + 1.1); }
             const holeE = ell(k);
-            g.surfaces.push({ kind: 'carusel', x: oc.cx, z: oc.cz, r: oc.len / 2 + 2, bottom: ly - 0.6, contains: (px, pz) => inPoly(px, pz, innerP) && !inPoly(px, pz, holeE), top: () => ly });
+            g.surfaces.push({ kind: 'carusel', x: oc.cx, z: oc.cz, r: oc.len / 2 + 2, bottom: ly - 0.6, contains: (px, pz) => inPoly(px, pz, innerP) && !inPoly(px, pz, holeE) && !inPoly(px,pz,stairWell), top: () => ly });
         }
         // shelves along the long walls (not across the front)
         for (let i = 0; i < innerP.length; i++) { const [ax, az] = innerP[i], [bx, bz] = innerP[(i + 1) % innerP.length], L = Math.hypot(bx - ax, bz - az); if (L < 6) continue; const mx = (ax + bx) / 2, mz = (az + bz) / 2; if (Math.hypot(mx - fx, mz - fzz) < 3) continue; const a = Math.atan2(bx - ax, bz - az); shelves.box(mx, ly, mz, 0.4, 3.1, L - 0.8, '#ffffff', 'shelf', a); }
     }
-    // ground floor tables of books + the white stair (E: up / down a level)
+    // ground floor tables of books + the white stair
     const r = rng(8);
     for (let i = 0; i < 6; i++) { const t = (i + 0.5) / 6 - 0.5, px = oc.cx + oc.ux * t * oc.len * 0.6, pz = oc.cz + oc.uz * t * oc.len * 0.6; iw.box(px + (r() - 0.5), y0, pz, 1.3, 0.8, 0.8, '#d8d2c4', 'wood', along); ctx.box(px, pz, 0.7, 0.45, along, { prop: true, h: 0.8 }); }
-    const stair = { x: oc.cx - oc.ux * oc.len * 0.38, z: oc.cz - oc.uz * oc.len * 0.38 };
-    for (let k = 0; k < LV.length - 1; k++) for (let s = 0; s < 10; s++) { const a = s / 10 * Math.PI + k * Math.PI, rr = 1.7; iw.box(stair.x + Math.cos(a) * rr, y0 + LV[k] + (LV[k + 1] - LV[k]) * s / 10, stair.z + Math.sin(a) * rr, 1.2, 0.18, 0.5, WHITE, 'paint', -a); }
+    // Continuous walkable version of the existing estimated stair. The real
+    // bookstore has stairs and galleries; this reconstruction's exact curve,
+    // tread sizes and landings are estimates, not a measured interior plan.
+    const stairPath=[];
+    for(let k=0;k<LV.length-1;k++){
+        const rise=LV[k+1]-LV[k];
+        for(let j=0;j<10;j++){
+            const a=(k+j/10)*Math.PI,x=stair.x+Math.cos(a)*1.7,z=stair.z+Math.sin(a)*1.7,top=y0+LV[k]+rise*(j+1)/10;
+            iw.box(x,top-.18,z,1.2,.18,.62,WHITE,'paint',-a);
+            g.addBox(x,z,.6,.31,-a,top-.18,top,{kind:'carusel-stair'});stairPath.push({x,z,y:top});
+            for(const rr of [1.06,2.34])if(j>0&&j<8){const p0=[stair.x+Math.cos(a)*rr,top+1,stair.z+Math.sin(a)*rr],a1=a+Math.PI/10,p1=[stair.x+Math.cos(a1)*rr,top+rise/10+1,stair.z+Math.sin(a1)*rr];iw.rod(p0,p1,.035,WHITE,'paint',6);wallSeg(ctx,p0[0],p0[2],p1[0],p1[2],top-.1,top+1);}
+        }
+        const a=(k+.9)*Math.PI,x=stair.x+Math.cos(a)*2.3,z=stair.z+Math.sin(a)*2.3,top=y0+LV[k+1];
+        iw.box(x,top-.18,z,1.5,.18,1.05,WHITE,'paint',-a);g.addBox(x,z,.75,.525,-a,top-.18,top,{kind:'carusel-landing'});
+    }
     // walls (enter through the shop door): wall colliders round the outline with a door gap on the front
     ringWalls(ctx, p, y0 - 1, y0 + H + 6, [{ x: fx, z: fzz, w: 3.2 }]);
     ctx.extras.caruselFloor = () => ctx.painter.poly(innerP, '#ebe8e1', 'slab');
@@ -236,10 +249,16 @@ function buildCarusel(ctx) {
     ctx.add(shelves.build('carusel-shelves', { castShadow: false, matOverrides: { shelf } }));
     ctx.add(b.build('carusel', { matOverrides: { [fac.key]: fac.mat } }));
     for (let k = 0; k < LV.length; k++) ctx.lampPoints.push({ x: ecx, z: ecz, h: LV[k] + 3.6 - (ctx.ground.heightAt(ecx, ecz) - y0), noPost: true });
-    // stairs: E to go up / down (the levels are walkable)
-    const lvOf = (yy) => LV.reduce((bi, L, i) => (Math.abs(y0 + L - yy) < Math.abs(y0 + LV[bi] - yy) ? i : bi), 0);
-    ctx.interactables.push({ x: stair.x, z: stair.z, r: 2.6, y: undefined, label: (s) => { const k = lvOf(s.position.y); return k < LV.length - 1 ? `Climb to level ${k + 1}${k + 1 === LV.length - 1 ? ' (bistro)' : ''}` : 'Go down to the ground floor'; },
-        use: (s) => { const k = lvOf(s.position.y), to = k < LV.length - 1 ? k + 1 : 0, px = stair.x + (ecx - stair.x) * 0.15, pz = stair.z + (ecz - stair.z) * 0.15; s.ctl.y = y0 + LV[to]; s.ctl.teleport(px, pz, s.ctl.heading); s.sound.play('step', 0.5); if (to === LV.length - 1) bucActivity(s, 'old-town-lipscani', 'carusel', '📚 Top of the Carusel', 'The bistro on the top floor — look down the white balconies into the atrium.'); } });
+    const climb={previous:null,distance:0,ascent:0,done:false};
+    ctx.onUpdate((dt,s,pl)=>{if(!pl||climb.done)return;const previous=climb.previous;climb.previous={x:pl.x,y:pl.y,z:pl.z};if(!previous)return;
+        const d=Math.hypot(pl.x-previous.x,pl.z-previous.z),dy=pl.y-previous.y;
+        if(!s.ctl.active||d>Math.max(.8,dt*6)||Math.abs(dy)>.75){climb.distance=0;climb.ascent=0;return;}
+        if(!inPoly(pl.x,pl.z,innerP)){climb.distance=0;climb.ascent=0;return;}
+        climb.distance+=d;climb.ascent+=Math.max(0,dy);
+        if(pl.y>=y0+LV.at(-1)-.15&&climb.distance>=18&&climb.ascent>=14){climb.done=true;bucActivity(s,'old-town-lipscani','carusel','📚 Carusel stair climb','You walked the modeled stair to the top gallery. The interior layout and stair dimensions remain an estimated reconstruction.');}
+    });
+    ctx.interactables.push({kind:'stairs',x:stairPath[0].x,z:stairPath[0].z,y:y0,r:2.2,tourAvailable:()=>false,label:'Walk the visible stairs to the top gallery',use:s=>s.ui.toast('📚 Walk up the stairs','Use the movement controls on the visible treads. Reaching the top after a continuous climb completes the activity; E does not move you between floors. Stair dimensions are estimates.')});
+    ctx.extras.caruselStairs={path:stairPath,climb,well:stairWell,estimatedLayout:true};
     return { front: { x: fx, z: fzz, nx, nz, yaw }, y0, LV, ecx, ecz, along, stair };
 }
 
@@ -395,7 +414,7 @@ export default {
         const WB = buildSecretWcpBar(ctx, CA);
         // ground: shared-surface grey granite setts over every pedestrian street (no kerbs), slab bands
         ctx.terrainOpts = { bg: '#8f8b84', bgMask: 'cobble', innerPx: 2048, innerStep: 3, outerStep: 16, outerPad: 700 };
-        bucBackdrop(ctx, { lampStyle: 'lantern', lampColor: '#191b1c', lampH: 4.4, lampPad: 15, treeLod: { cap: 1600, max: 400 }, lampOpts: { spacing: 24, kinds: ['pedestrian', 'living_street'] }, streetTreeOpts: { kinds: ['primary', 'secondary', 'tertiary'], prob: 0.5 }, style: (bd) => (OT.decoratedIds.has(bd.id) || bd.k === 'church' ? 'eclectic' : undefined) });
+        bucBackdrop(ctx, { preserveSources:['r13104090','r13104091','r13104092','r13104229_0','r13104229_1','r13104230','r13104231'], lampStyle: 'lantern', lampColor: '#191b1c', lampH: 4.4, lampPad: 15, treeLod: { cap: 1600, max: 400 }, lampOpts: { spacing: 24, kinds: ['pedestrian', 'living_street'] }, streetTreeOpts: { kinds: ['primary', 'secondary', 'tertiary'], prob: 0.5 }, style: (bd) => (OT.decoratedIds.has(bd.id) || bd.k === 'church' ? 'eclectic' : undefined) });
         for (const w of d.ways) if (['pedestrian', 'living_street'].includes(w.k) && !w.tunnel) ctx.painter.line(w.pts, 11, '#7f7c76', 'cobble');
         // the inn passages (Hanul cu Tei, Pasajul Gabroveni, Intrarea Nicolae Șelari) are paved courtyards between the façades, not lawns
         for (const w of d.ways) if (w.k === 'footway' && /Hanul cu Tei|Pasajul Gabroveni|Nicolae Șelari/.test(w.name || '')) ctx.painter.line(w.pts, 18, '#86827b', 'cobble');

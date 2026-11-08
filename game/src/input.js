@@ -2,7 +2,7 @@
  * Keyboard + mouse + touch input. Exposes axes: throttle (-1..1), steer (-1..1), plus edge-triggered actions
  * and a look accumulator (mouse with pointer lock / right button held, or a touch drag on the right half).
  */
-const ACTIONS = ['Space', 'KeyH', 'KeyE', 'Enter', 'Escape', 'KeyM', 'KeyR', 'KeyC', 'KeyT', 'KeyN', 'KeyL', 'KeyF', 'KeyB', 'KeyU', 'KeyG', 'KeyK', 'NumpadEnter'];
+const ACTIONS = ['Space', 'KeyH', 'KeyE', 'Enter', 'Escape', 'KeyM', 'KeyR', 'KeyC', 'KeyT', 'KeyN', 'KeyL', 'KeyF', 'KeyB', 'KeyU', 'KeyG', 'KeyK', 'KeyV', 'NumpadEnter'];
 const LOOK_MODES = ['lock', 'hold', 'off'];
 
 export class Input {

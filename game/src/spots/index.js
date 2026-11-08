@@ -338,7 +338,7 @@ export class SpotSession {
         // UI + sound
         this.ui = new SpotUI(host.uiRoot || document.body);
         this.ui.setTitle(spot.name, `${placeLabel(spot)} · walk-only bonus`);
-        this.ui.setHelp('WASD walk · Shift run · Space jump · E interact · P camera · click to look (Esc releases)');
+        this.ui.setHelp('WASD walk · Shift run · Space jump · E interact · G drone · P camera · click to look (Esc releases)');
         if (spot.crowd) spot.crowd.o.bubbles = this.ui.bubbles;
         this.sound = new SpotSound({ audio: host.audio });
         for (const so of spot.sounds) this.sound.add(so.kind, so.x, so.z, so.radius, so.gain);
@@ -379,7 +379,7 @@ export class SpotSession {
         const px = 900, [img] = S.ctx.painter.render(b.x0, b.z0, b.x1 - b.x0, b.z1 - b.z0, px, null, tp.bg || '#617242', tp.bgMask || 'grass');
         this._seen = new Set(); this.map = new SpotMap(this.ui, { image: img, bounds: b });
         this.ui.$('.sp-mini').onclick = () => this.openMap();
-        this.ui.setHelp('WASD walk · Shift run · Space jump · E interact · G map · P camera · click to look (Esc releases)');
+        this.ui.setHelp('WASD walk · Shift run · Space jump · E interact · M map · G drone · P camera · click to look (Esc releases)');
         this.ui.setTour(null);
         // the tour guide ped + its interactable
         this.guide = S.crowd?.peds.find((p) => p.group?.tour) || null;
@@ -554,7 +554,7 @@ export class SpotSession {
             if (this.tour) this._updateTour(dt, p);
             if (this.map && !photo) { this.map.update(dt, { x: p.x, z: p.z, heading: this.ctl.heading }); if (this.guide && (this._mkT = (this._mkT ?? 0) - dt) <= 0) { this._mkT = 1; this._refreshMarkers(); } }
         } catch (e) { if (!this._mapErr) { this._mapErr = true; console.warn('[spots] map/tour', e); } }
-        if (!photo && !panel && this.input?.take?.('KeyG')) this.openMap();
+        if (!photo && !panel && this.input?.take?.('KeyM')) this.openMap(); // (G is the drone everywhere — round 6 note 14)
         // interactions (nearest within reach)
         if (!photo && !panel) {
             let best = null, bd = 1e9;

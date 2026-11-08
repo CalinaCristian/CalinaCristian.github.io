@@ -748,6 +748,9 @@ body.photo-mode #drone-hud { display: none; }
 #drone-hud .dr-help { position: absolute; left: 50%; bottom: 46px; transform: translateX(-50%); font: 400 11px system-ui, sans-serif; opacity: .7; white-space: nowrap; }
 #drone-hud .dr-stick, #drone-hud .dr-vert { display: none; }
 body.touch #drone-hud .dr-help { display: none; }
+/* desktop: the mouse is captured for look while flying, so the buttons can't be clicked — keys only (round 6 note 13) */
+body:not(.touch) #drone-hud .dr-bottom { display: none; }
+body:not(.touch) #drone-hud .dr-help { bottom: 16px; }
 body.touch #drone-hud .dr-stick { display: block; position: absolute; left: 26px; bottom: 26px; width: 130px; height: 130px; border-radius: 50%; border: 2px solid rgba(255,255,255,.45); background: rgba(0,0,0,.18); pointer-events: auto; touch-action: none; }
 body.touch #drone-hud .dr-stick i { position: absolute; left: 50%; top: 50%; width: 54px; height: 54px; margin: -27px 0 0 -27px; border-radius: 50%; background: rgba(255,255,255,.55); }
 body.touch #drone-hud .dr-vert { display: flex; flex-direction: column; gap: 12px; position: absolute; right: 26px; bottom: 36px; }

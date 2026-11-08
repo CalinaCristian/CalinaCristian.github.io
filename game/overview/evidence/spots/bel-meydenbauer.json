@@ -4,7 +4,7 @@
   "city": "seattle",
   "name": "Meydenbauer Bay Park",
   "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-  "updatedAt": "2026-11-08T19:35:04.987Z",
+  "updatedAt": "2026-11-08T21:13:31.868629+00:00",
   "status": "needs_review",
   "sources": [
     {
@@ -21,18 +21,36 @@
       "label": "City of Bellevue — Meydenbauer Bay Park",
       "type": "Official reference",
       "url": "https://bellevuewa.gov/city-government/departments/parks/parks-and-trails/parks/meydenbauer-beach-park"
+    },
+    {
+      "label": "Mapped public pier",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/819169611"
+    },
+    {
+      "label": "City park public launch information",
+      "type": "Official source",
+      "url": "https://bellevuewa.gov/city-government/departments/parks/parks-and-trails/parks/meydenbauer-bay-park"
+    },
+    {
+      "label": "Current kayak operator",
+      "type": "Official source",
+      "url": "https://www.bestkayakrentals.com/"
     }
   ],
   "improvements": [
     "Source buildings, lake outline and pier context retain explicit geometry membership; exact roof profiles preserve valid surrounding volumes.",
-    "The native short shore-plaque approach completes within the captured high-quality budgets."
+    "The native short shore-plaque approach completes within the captured high-quality budgets.",
+    "The mapped public launch now runs an input-driven paddling course with visible oars/paddle, progress, no idle award and restoration to the same shore pose after cancellation. Shared sky-only water reflections replace the false reflected lighting boxes.",
+    "The course avoids the swimming enclosure, crescent pier and full visible moored hull OBBs; every existing boat remains rendered and collision-bearing."
   ],
   "remainingGaps": [
     "Kayaking still follows an automatic camera loop and lacks the required input-driven paddling and complete cancellation contract.",
     "The May 15–September 30 rental dates are unverified and must not be presented as confirmed operating dates.",
     "Stone skipping still produces a message without a visible stone trajectory or player challenge.",
     "Pier rail/deck joins, pavilion details, hillside buildings and boathouse placement need matched official/aerial comparisons; remaining pier z-fighting needs physical repair.",
-    "Raw audit findings remain for physical review: zfight 28."
+    "Raw audit findings remain for physical review: zfight 28.",
+    "Official rental operation is seasonal; the operator reports closed for the2026 season. The virtual public-launch challenge does not assert a current staffed rental, exact hardware or opening schedule. Continuous arrival from the main spawn remains unproved."
   ],
   "checks": [
     {
@@ -69,6 +87,16 @@
       "label": "Full matched scene comparison",
       "passed": false,
       "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+    },
+    {
+      "label": "Actual desktop and touch paddling",
+      "passed": true,
+      "details": "Sources864d706/2565355: 21 explicit strokes complete the round trip; idle/early Leave does not award; Esc/map/photo/pause/conditions/travel/visibility cancel without completing. Accepted drone deployment cancellation passes at Meydenbauer; Herastrau deployment is rejected at its bank. Initial test pose beside mapped launch, not a long arrival-route claim."
+    },
+    {
+      "label": "Boat completion reload persistence",
+      "passed": false,
+      "details": "Activity completion was observed in the actual host; this focused boat test has not yet reloaded its completed save."
     }
   ],
   "captures": [
@@ -194,6 +222,40 @@
           "width": 1280,
           "height": 720
         }
+      }
+    },
+    {
+      "kind": "activity",
+      "label": "Actual touch paddling after explicit stroke input",
+      "image": "assets/spots/bel-meydenbauer/paddling-touch.webp",
+      "sha256": "224b9585bb99fa6fe69c42ae45d373c1a33021e25ad94811708b3492d16ad3bd",
+      "sourceCommit": "2565355",
+      "capturedAt": "2026-11-08T21:13:31.868629+00:00",
+      "pose": {
+        "position": [
+          57.706316067504886,
+          0.41766670239339715,
+          48.76553229839436
+        ],
+        "bearing": 0,
+        "pitch": -6.875493541569878
+      }
+    },
+    {
+      "kind": "activity",
+      "label": "Actual desktop paddling after explicit stroke input",
+      "image": "assets/spots/bel-meydenbauer/paddling-desktop.webp",
+      "sha256": "2e39ff70d1e0e2f16af087ac712702b02f3797a5978bad6556614d5be1693540",
+      "sourceCommit": "864d706",
+      "capturedAt": "2026-11-08T21:13:31.868629+00:00",
+      "pose": {
+        "position": [
+          57.706316067504886,
+          0.41766670239339715,
+          48.76553229839436
+        ],
+        "bearing": 0,
+        "pitch": -6.875493541569878
       }
     }
   ],

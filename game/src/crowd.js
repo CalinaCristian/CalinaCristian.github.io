@@ -58,14 +58,14 @@ function personGeometry() {
     const b = new PBatch(), BOX = new THREE.BoxGeometry(1, 1, 1);
     for (const s of [-1, 1]) {
         const R = s > 0, x = s * 0.095;
-        b.add(BOX, TM(x, 0.045, -0.035, 0.1, 0.09, 0.27), P.SHOES, R ? 8 : 7);                    // shoe
+        b.add(BOX, TM(x, 0.04, -0.03, 0.088, 0.08, 0.235), P.SHOES, R ? 8 : 7);                  // shoe (slimmer)
         b.add(taper(0.06, 0.075, 0.08, KNEE_Y + 0.02, 7, 1.05), TM(x, 0, 0), P.BOTTOM, R ? 8 : 7); // shin
         b.add(taper(0.074, 0.088, KNEE_Y - 0.02, HIP_Y + 0.02, 7, 1.05), TM(x, 0, 0), P.BOTTOM, R ? 2 : 1); // thigh
         b.add(taper(0.055, 0.058, ELBOW_Y - 0.02, SHOULDER_Y - 0.02, 6), TM(s * 0.24, 0, 0), P.SLEEVE, R ? 4 : 3); // upper arm
         b.add(taper(0.045, 0.053, 0.88, ELBOW_Y + 0.02, 6), TM(s * 0.245, 0, 0), P.SLEEVE, R ? 6 : 5);   // forearm
         b.add(BOX, TM(s * 0.245, 0.83, 0, 0.065, 0.11, 0.085), P.SKIN, R ? 6 : 5);                 // hand
     }
-    b.add(BOX, TM(0, HIP_Y + 0.02, 0, 0.34, 0.16, 0.21), P.BOTTOM);                            // pelvis
+    b.add(taper(0.155, 0.158, HIP_Y - 0.07, HIP_Y + 0.08, 10, 0.64), TM(0, 0, 0), P.BOTTOM);       // pelvis (elliptical: the old box's corners poked out of coats as dark 'pockets' — after round 6)
     b.add(taper(0.165, 0.2, 0.96, 1.46, 9, 0.62), TM(0, 0, 0), P.TOP);                         // torso
     b.add(BOX, TM(0, 1.425, 0, 0.42, 0.09, 0.185), P.TOP);                                     // shoulders
     b.add(BOX, TM(0, 1.43, 0, 0.455, 0.105, 0.215), P.COAT);                                   // coat shoulders (round 6 note 55: the shirt's shoulder plate poked out over the coat)

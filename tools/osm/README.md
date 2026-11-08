@@ -88,6 +88,9 @@ Washington) are completed with `/api/0.6/relation/<id>/full`, cached in `tools/o
   instead of independent-house roof heuristics. Their explicit height, minimum height and colour remain authoritative;
   sub-metre strips use a smaller simplification tolerance to retain their width. Named, typed and roof-tagged parts keep
   their existing treatment, and no minimum height is inferred for an untagged component.
+  Optional sparse `buildingCoveredBy` identifies a unique full-height ground-based mapped part whose source and prepared
+  footprint (including holes) exactly equals a base building up to ring rotation/reversal. Both source records stay in the
+  data; runtime can suppress the coincident base facade. Partial/elevated parts and ambiguous matches are excluded.
 * **Street lamps** – `highway=street_lamp` nodes (+ `height`); roads carry `lit=yes/no` and bike lanes / tracks as flags.
 * **Trees / furniture** – `natural=tree` (+ `tree_row`), benches, bins, bollards, post boxes, hydrants … (off the carriageway).
 * **POIs** – fuel, food, shops, banks, pharmacies, hospitals, schools, metro, bus/tram stops,

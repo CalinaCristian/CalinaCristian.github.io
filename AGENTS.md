@@ -59,6 +59,12 @@ Pitfalls found the hard way (each one shipped a visible bug)
 - Aerial canopy surveys must record their actual coverage (`treeCoverage`): suppress inferred trees only there. Grey historic
   metal roofs can look flat to the classifier; inspect calibrated crops, retain uncertain results, and keep OSM tags first.
 - Preserve OSM parking location and orientation (`data.parking`); diagonal street-side bays are not parallel sidewalk parking.
+- Preserve multipolygon inner rings as open courtyards through roof triangulation, point queries and collision. Rooftop
+  props need their whole footprint clear of holes; a few centre samples can miss small floating HVAC boxes.
+- A full-footprint ground-based OSM building part can cover its outline: retain both source records for audits, use
+  `buildingCoveredBy` to render the volume once, and preserve parent use/associations. Partial or elevated parts need the base.
+- Panorama metadata has no altitude. Comparison poses retain source edge/layer; overlapping road levels stay flagged for
+  review in `camera-poses.json`, rather than silently moving the camera onto another deck or inside a retaining wall.
 - Do not use a variable before it is defined in `buildWorld` (TDZ error = the game does not boot): `data` is loaded after `distId`.
 - OSM grounds / landuse polygons are often drawn to the street centre line: anything built along their edge (fences, hedges)
   must be snapped to the property line on the grounds' side (`inside`), never to the nearest side (the Rosetti fence jumped

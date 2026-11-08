@@ -1,0 +1,18 @@
+{
+  "gameSourceCommit": "09766dc7a870657b76e3114c15a12f55e5c373cb",
+  "oneBrowser": true,
+  "conditions": [
+    {
+      "condition": "summer-clear-day",
+      "frames": 1,
+      "pageErrors": [],
+      "consoleErrors": []
+    },
+    {
+      "condition": "winter-snow-day",
+      "frames": 1,
+      "pageErrors": [],
+      "consoleErrors": []
+    }
+  ]
+}

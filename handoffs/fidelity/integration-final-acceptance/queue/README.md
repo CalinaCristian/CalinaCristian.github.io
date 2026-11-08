@@ -1,6 +1,6 @@
 # Final native acceptance queue
 
-Prepared from tooling45cea83. This queue is pending; no final result is implied. Root supplies an immutable integrated source snapshot after retaining-mouth, cell-frustum and final source/gameplay integration. Keep the existing437soak PID204694 until its actual completion; never run a second heavy browser in this lane. Inspect `/proc/*/cmdline` and comm `MainThread`, and raw `frame-stage.json`/`profile.json`, before starting.
+Prepared from tooling45cea83. This queue is pending; no final result is implied. Root supplies an immutable integrated source snapshot after retaining-mouth, cell-frustum and final source/gameplay integration. The historical437soak PID204694 exited terminal-incomplete and is retained without restart. Use the current run launch manifest for its exact PID/source/status; never run a second heavy browser in this lane. Inspect `/proc/*/cmdline` and comm `MainThread`, and raw `frame-stage.json`/`profile.json`, before starting.
 
 Set `QA_FREEZE_ROOT` to the immutable tested app snapshot and `QA_EVIDENCE_OUT` to a new directory named for its actual commit. Record the exact snapshot commit, tool commit45cea83, runtime source/data hashes, original release.json and command logs. Never reuse an incomplete output directory or relabel historical source captures. The tools below take ROOT explicitly; launch them from this QA worktree so its known bounded tooling is used. All launches are muted, use system Chromium and keep native source populations.
 

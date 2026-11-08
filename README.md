@@ -55,13 +55,15 @@ that chapter of the CV.
   Glass, MoPOP, the Fremont Troll, Kerry Park, the waterfront, Pioneer Square, the Ballard Locks, Gas Works Park) and
   4 in Bellevue. Each has crowds chatting in culture-researched lines (Romanian with English underneath), info plaques,
   a spot map with objectives, an optional short guided tour, a postcard photo challenge and activities — ride the Space
-  Needle elevator to the revolving Loupe, catch a fish at Pike Place, row in Cișmigiu, climb the Arc de Triumf terrace,
+  Needle elevator to the revolving Loupe, catch a fish at Pike Place, row in Cișmigiu, frame the Arc de Triumf memorial,
   rent a bike in Herăstrău, and more. Short tours select an available activity first and use at most three stops / 180 m
   of walkable route, with **Skip** and **End tour** controls. Activities and postcards require participation; narration
   alone never completes them. Seasonal Cișmigiu rowing starts at the mapped Debarcader: use the visible oars to propel
   the boat along a short return course. Idle time grants no progress. Pause, map, photo mode, drone launch or leaving
   cancels an unfinished activity and restores the walker safely to shore. Explicit local time, weather and season choices also follow travel into tourist scenes; K and Pause → Settings open their conditions panel. A hidden sports room reached through Carusel retains the World Cup Predictions Easter egg;
   a second TV shows an actual Dinamo drone goal as a hint. The real Starbucks street frontage stays in place.
+  Exterior camera challenges at the Athenaeum, Spring Palace, Parliament, Arc and Lincoln Square require aiming and taking three pictures. They preserve public access; museum and office interiors are not implied. The cathedral has a virtual handheld candle practice on its mapped forecourt. Stable activity IDs preserve existing saves.
+  Reused landmark collisions preserve their exact polygons, courtyard holes and raised volume bands in tourist scenes.
   The overview includes separate shareable evidence views for every landmark and tourist destination, with game captures, source links and explicit remaining estimates.
 - **Offices you can talk in.** Each CV stop is a distinct interior (a 2009 classroom, the Politehnica rectorate,
   turnstile lobbies, the UiPath robot floor…) with a teacher, professor or manager who answers A–D questions about that

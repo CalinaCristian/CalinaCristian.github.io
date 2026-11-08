@@ -1,0 +1,9 @@
+# SeaTac curved frontage detail
+
+The existing terminal model intends two glass bands beneath its white roof edge. Its 14 m minimum facade-edge rule omitted the detailed curved frontage, including actual source edge 49 (7.66 m in the 0.1 m landmark source frame). The main-terminal rule now admits edges of at least 2 m. Narrow returns, the inter-storey wall and the upper opaque wall remain plain. The cutoff and window dimensions are procedural detail estimates, not measurements of individual windows.
+
+The independent official context is the Port of Seattle's [SEA Gateway project](https://www.portseattle.org/projects/sea-gateway-project), specifically its published [Arrivals Drive accessible door portals photograph](https://www.portseattle.org/sites/default/files/styles/detailpageimagesize/public/2026-07/20210113_SEA_CustomerServiceAccessibility-129_1920x1080.jpg?itok=7MXszm6E), inspected 2026-11-08. It shows curbside glazing with opaque returns. No reference image is tracked. The source photo's filename suggests 2021; an independently verified acquisition date is unavailable. No facade attributes were extracted from Street View.
+
+The actual comparison camera (47.4446559, -122.3004996, heading 316°, source Departures Drive w37017723 layer 2) is 5.35 m outside the original terminal footprint. A native center ray on frozen source 4198996 hits `landmark:seatac` masonry at 5.396 m. This finding concerns facade detail admission, not camera penetration or a changed building boundary.
+
+`node tools/landmarks/seatac-facade-check.mjs` raycasts the actual short source edge and three intentional non-glazing controls, and verifies the unchanged source scope, collision hash and complete model envelope. The detail adds 1,088 triangles (13,531 → 14,619), without another material or mesh. Native world image and updated front/top/oblique model studies follow in a separate evidence commit.

@@ -92,6 +92,8 @@ C.t.player = { x: 0, z: 0, fx: 0, fz: -1 }; C._fr = 1;
 const camera = new THREE.PerspectiveCamera(70, 1, .1, 500); camera.position.set(0, 1.6, 0); camera.lookAt(0, 1.1, 180);
 globalThis.game = { traffic: C.t, camera };
 assert.equal(C.inView({ x: 0, z: 180 }), true, 'look-back protects a visible source or destination behind the car');
+const rig = new THREE.Group(); rig.add(camera); rig.position.x = 500; C.t.player.x = 500; C._fr++;
+assert.equal(C.inView({ x: 500, z: 180 }), true, 'source visibility updates a newly moved camera parent before rendering');
 delete globalThis.game;
 // A parked car across the nearest kerb needs a real corner detour; a new
 // straight recovery target alone cannot get there with the walking clearance.

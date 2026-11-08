@@ -2164,7 +2164,7 @@ export class Pedestrians {
             const cams = [G.camera];
             if (!this.t.walker?.active && this.t.player?.mirrorEnabled) cams.push(this.t.player.mirrorCam);
             for (const camera of cams) if (camera) {
-                camera.updateMatrixWorld();
+                camera.updateWorldMatrix(true, false);
                 const m = new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
                 this._views.push({ frustum: new THREE.Frustum().setFromProjectionMatrix(m), position: new THREE.Vector3().setFromMatrixPosition(camera.matrixWorld), far: Math.min(300, camera.far) });
             }

@@ -1,0 +1,7 @@
+{
+  "commit": "10d9b98b9e8020ff8791de5466d4565824d876da",
+  "world": "f1063089610cc90fd3dc9a69a42202112291a6cb62e0caa3f848dd27af76f192",
+  "data": "e3ec6e6a39bc22df9d1bcb4a2e810fb0159370a49a0617ad1aef3a41cd8e85ce",
+  "errors": null,
+  "errorNote": "Baseline page-error collection was not retained across the root switch; functional and raw geometry results are retained."
+}

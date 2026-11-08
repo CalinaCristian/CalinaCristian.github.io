@@ -2082,6 +2082,7 @@ const P2 = {
     gts: [[7,-9.5,4,-10,4,-11.5,1.5,-11.5,1.5,-13.5,-2.5,-15,-6.82,12.81,-5.81,14.11,3.5,15]],   // street-west corner canted at 45° (photos)                       // w245117704 Calea Călărașilor 101 (LMI B-II-m-B-18379), bbox centre 44.433441, 26.1176015
     rosetti: [[-16.5,-29,26.5,-18.5,14.5,29,-26.5,19,-23.5,7.5,5,14.5,11,-10,-19,-17.5]],            // w28240279 Liceul C.A. Rosetti, Garibaldi 11 (3 levels), bbox centre 44.4671565, 26.106133
     rosettiHall: [[-22.5,-81.5,23,-71.2,15.9,-40,-29.6,-50.3]],                                      // w545176891 the school's sports hall (OSM building=yes, no tags), same frame
+    rosettiGym: [[-44.8,-31.9,-50.7,-5.5,-37.3,-2.5,-31.4,-28.9]],                                   // w544207404 the school gym (OSM building=yes, no tags), same frame
     bob: [[-72.5,-3.5,-46,56,72.5,3.5,46,-56,-11,-30.5,-12,-30]],                                    // w55450549 BOB Tower, Pompeiu 6A, bbox centre 44.479608, 26.1147802
     rectorat: [[-16.5,-29,28.5,-17.5,22,8.5,17,29,-28.5,17,-23.5,-4,-19,-20.5]],                     // w28240552 Rectorat UPB (5 levels), bbox centre 44.438429, 26.0515105
     halatraian: [[-10,-20,-14,17,10,20,12,1.5,14,-17]], // w35147215 (anchor 44.4333566, 26.120567)
@@ -2569,6 +2570,23 @@ function bRosetti(b) {
             b.box(x + g.nx * 2.42, 0.6, z + g.nz * 2.42, 12.2, 2.0, 0.04, '#4f5a60', { ry, mat: 'g' }); }   // salmon entrance block with its glazing
         entrance(b, { x: g.x + g.nx * 4.85 + tx * 3.5, z: g.z + g.nz * 4.85 + tz * 3.5, nx: g.nx, nz: g.nz }, { w: 1.8, h: 2.4, frame: '#e9e6de', door: '#5f6b72' });
         b.colPoly([h], 12); }
+    // the school gym west of the north wing (OSM w544207404, untagged; the world drew a 4-storey block): one hall measured
+    // on the aerial — a long dark low-pitched roof, short shadow ≈ 6.5 m; plastered walls, a band of high windows, a door
+    // toward the yard (2026-11-08, owner: "isn't the left building the gym?")
+    { const [g] = P2.rosettiGym.map(pts), GW = '#e4dccb', y1 = 6.2;
+        b.prism(g, 0, y1, GW, { top: false }); b.prism(offset(g, 0.05), 0, 0.5, '#a7a49b', { top: false });
+        b.windows(g, 3.9, y1, 2.0, '#f2f2ee', { bay: 3.0, wf: 0.8, hf: 0.62, start: 0, minL: 6, off: 0.06 });          // high window band (frames)
+        b.windows(g, 3.9, y1, 2.0, '#4c5660', { bay: 3.0, wf: 0.74, hf: 0.52, start: 0.1, minL: 6, off: 0.09, mat: 'g' });
+        const lo = offset(g, 0.45), [c0, c1] = [g[0], g[1]], long01 = Math.hypot(c1[0] - c0[0], c1[1] - c0[1]) > Math.hypot(g[2][0] - c1[0], g[2][1] - c1[1]);
+        const [p0, p1, p2, p3] = long01 ? lo : [lo[1], lo[2], lo[3], lo[0]], yr = y1 + 1.4;        // low gable roof along the long side
+        const r0 = [(p0[0] + p3[0]) / 2, (p0[1] + p3[1]) / 2], r1 = [(p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2], RC = '#45423b';
+        b.quad([p0[0], y1, p0[1]], [p1[0], y1, p1[1]], [r1[0], yr, r1[1]], [r0[0], yr, r0[1]], RC, 'm', [p0[0] - r0[0], 2, p0[1] - r0[1]]);
+        b.quad([p2[0], y1, p2[1]], [p3[0], y1, p3[1]], [r0[0], yr, r0[1]], [r1[0], yr, r1[1]], RC, 'm', [p2[0] - r1[0], 2, p2[1] - r1[1]]);
+        const gp = long01 ? [g[1], g[2], g[3], g[0]] : g;                                         // gable ends: plastered triangles
+        for (const [a, c2] of [[gp[0], gp[1]], [gp[2], gp[3]]]) { const m2 = [(a[0] + c2[0]) / 2, (a[1] + c2[1]) / 2]; b.quad([a[0], y1, a[1]], [c2[0], y1, c2[1]], [m2[0], yr - 0.05, m2[1]], [m2[0], yr - 0.05, m2[1]], GW, 'm', [m2[0] - (g[0][0] + g[2][0]) / 2, 0, m2[1] - (g[0][1] + g[2][1]) / 2]); }
+        const d = nearestFacade(g, -20, -15); entrance(b, { x: d.x + d.nx * 0.12, z: d.z + d.nz * 0.12, nx: d.nx, nz: d.nz }, { w: 1.8, h: 2.4, frame: '#e9e6de', door: '#6b7a82' });
+        b.colPoly([g], 6.5); }
+    b.covers.push([-41, -17]);                                                               // the gym's OSM footprint
     b.covers.push([-3.3, -60.7]);                                                            // the hall's OSM footprint
     // school grounds (OSM w253216276): drawn by the world (it knows the streets), always kept on the grounds' side of a street
     // (OSM draws the east edge on the Garibaldi centre line; 2026-11-08, owner: "the fence is on the street"). Compared with

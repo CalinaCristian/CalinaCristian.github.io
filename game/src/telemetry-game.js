@@ -14,6 +14,7 @@
  * Events that other modules send themselves (photo.js photo_taken, spots/* spot_*) pass through `coarse()` below,
  * which drops their free-text props (place names, plaque titles) and renames them to the documented events.
  */
+import { GameHealth } from './telemetry-health.js';
 const T = () => window.cvTelemetry;
 const track = (e, p) => { try { T()?.track(e, p); } catch (_) { /* never break the game */ } };
 const beacon = (e, p) => { try { T()?.trackBeacon(e, p); } catch (_) { /* ignore */ } };
@@ -32,12 +33,6 @@ function gpuInfo(renderer) {
             webgl2: typeof WebGL2RenderingContext !== 'undefined' && gl instanceof WebGL2RenderingContext,
         };
     } catch (_) { return { gpu: 'unknown' }; }
-}
-
-function percentile(arr, p) {
-    if (!arr.length) return null;
-    const s = [...arr].sort((a, b) => a - b);
-    return s[Math.min(s.length - 1, Math.floor(p * s.length))];
 }
 
 /** rewrite events sent directly by other modules into the documented, coarse shape (null = drop) */
@@ -66,8 +61,8 @@ function installCoarseFilter(game, tries = 0) {
 function start(game) {
     installCoarseFilter(game);
     const prev = { state: game.state, city: null, visited: 0, read: 0, mapOpen: false, fast: 0, fines: 0, fuelL: 0, achv: 0, headlights: game.headlights, quality: null };
-    const perf = { fps: [], calls: [], tierChanges: 0, lastTier: null };
     let gpu = null, stuckFor = 0, stuckReports = 0, finaleSent = false, started = false;
+    const health = game.health = new GameHealth(game, { gpu: () => gpu || {} });
 
     track('game_menu_view', { dpr: window.devicePixelRatio, mobile: !!game.touch });
 
@@ -122,24 +117,13 @@ function start(game) {
     wrapAfter('exitCar', (ok) => { if (ok) { footT = performance.now(); track('on_foot', { action: 'enter', district: game.district || null, city: game.city?.id || null }); } });
     wrap('enterCar', () => { track('on_foot', { action: 'exit', seconds: footT ? Math.round((performance.now() - footT) / 1000) : null, district: game.district || null }); footT = 0; });
 
-    const canvas = game.renderer?.domElement;
-    canvas?.addEventListener('webglcontextlost', () => track('context_lost', { city: game.city?.id, minutes: minutes() }));
-
     function sendPerf(final) {
-        if (!perf.fps.length) return;
-        const avg = perf.fps.reduce((a, b) => a + b, 0) / perf.fps.length;
-        const props = {
-            city: game.city?.id, avg_fps: Math.round(avg), p5_fps: percentile(perf.fps, 0.05), min_fps: Math.min(...perf.fps),
-            samples: perf.fps.length, tier: game.r3d?.stats?.quality, tier_changes: perf.tierChanges,
-            avg_draw_calls: perf.calls.length ? Math.round(perf.calls.reduce((a, b) => a + b, 0) / perf.calls.length) : null,
-            dpr: window.devicePixelRatio, viewport: `${innerWidth}x${innerHeight}`, mobile: !!game.touch, ...(gpu || {}),
-        };
-        (final ? beacon : track)('perf_summary', props);
-        perf.fps.length = 0; perf.calls.length = 0; perf.tierChanges = 0;
+        health.flush(final);
     }
 
     setInterval(() => {
         if (document.hidden) return;
+        health.tick();
         const st = game.state, city = game.city?.id;
 
         // start + world loads
@@ -196,15 +180,6 @@ function start(game) {
         if (game.headlights !== prev.headlights) { track('headlights_toggle', { to: String(game.headlights) }); prev.headlights = game.headlights; }
         const ach = game.hud?.unlocked ? [...game.hud.unlocked] : [];
         if (ach.length > prev.achv) { for (const id of ach.slice(prev.achv)) track('achievement', { id }); prev.achv = ach.length; }
-
-        // performance samples while driving
-        const rs = game.r3d?.stats;
-        if (st === 'drive' && rs) {
-            if (rs.fps) perf.fps.push(rs.fps);
-            if (rs.drawCalls) perf.calls.push(rs.drawCalls);
-            if (perf.lastTier && rs.quality !== perf.lastTier) perf.tierChanges++;
-            perf.lastTier = rs.quality;
-        }
 
         // stuck with throttle but (apparently) nothing in front: helps find invisible-collision spots
         const p = game.player, inp = game.input;

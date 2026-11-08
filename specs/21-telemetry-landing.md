@@ -5,9 +5,27 @@ Owner role: **orchestrator**.
 ## Telemetry (shipped)
 
 Read-only dashboard/event review (2026-11-08): [`handoffs/fidelity/TELEMETRY-REVIEW.md`](../handoffs/fidelity/TELEMETRY-REVIEW.md).
-Existing dashboards are useful for visit funnels and successful loads/FPS; interrupted-load recovery, release identity,
-mode-aware performance/resource growth and interaction-outcome diagnostics remain proposed additions. The starter retention
+Existing dashboards are useful for visit funnels and successful loads/FPS; the review proposes interrupted-load recovery, release identity,
+mode-aware performance/resource growth and interaction-outcome diagnostics. The starter retention
 chart is not reliable with memory-only anonymous identities. No PostHog configuration was changed by this review.
+
+## Health observer v2 (implementation under combined verification)
+
+`telemetry-health.js` observes district loads, releases, real render frames, office rendering and fixed UI actions.
+`load_started/completed/failed`, bucketed `load_stages`, `scene_first_frame`, `scene_released`, `continue_result`,
+`render_stall` and UI/office action events provide context missing from the original observer. Performance summaries
+cover rendered modes with a bounded 4,096-value reservoir of frame intervals, actual frame-budget breach counts and
+texture/geometry/program counts. These counters are not total browser RAM/VRAM. Unsupported long-task observation is labelled.
+
+A per-tab sessionStorage breadcrumb expires after 15 minutes and contains fixed place/action IDs, attempt ID and
+load stage only. It can identify an ungracefully interrupted load or first frame on the next boot, not prove an OS crash.
+Normal pagehide is marked; capture/storage respects DNT/GPC and disabled tracking. No persistent visitor identity or replay
+is added. Early exceptions queue for the lazy SDK (bounded at 200 items), avoiding the previous cold-start blind spot.
+
+`tools/telemetry/stamp-release.mjs` fingerprints committed runtime assets and stamps release/source metadata into both HTML
+entry pages. Its self-referential meta lines are excluded from the hash. Run after committing runtime changes and before
+deployment; diagnostics include `telemetry_schema:2`, `release_id` and the source commit. Dashboard definitions and observer
+behavior still require combined browser verification before the rollout is marked complete.
 
 PostHog Cloud EU, cookieless (`persistence: 'memory'`), lazy, production hosts only, DNT/GPC respected, bots filtered. Landing events: `cv_toggle, cv_pdf_open, social_click, play_cta_click`. Game: funnel (`game_start → world_loaded → stop_visited → office_screen_read → flight_taken → seattle_arrived → finale_reached → game_exit`), feature usage, `perf_summary`, health. Chapter / on-foot / photo / spot events: see below. **Todo**: owner to set Authorized URLs + Error tracking in PostHog.
 

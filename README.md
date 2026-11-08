@@ -190,4 +190,9 @@ The work is planned spec-first in [`specs/`](specs/) (requirements, contracts, o
 - Artworks are modelled in 3-D from public descriptions and credited in-game (e.g. the Fremont Troll by Steve Badanes,
   Will Martin, Donna Walter and Ross Whitehead; glass by Dale Chihuly). Romanian buildings are modelled without photo
   textures; research reference photos are not part of the repository.
-- Analytics: cookieless PostHog (EU), production only, respects Do Not Track / Global Privacy Control.
+- Analytics: cookieless PostHog (EU), production only, respects Do Not Track / Global Privacy Control. Bounded health
+  diagnostics identify load attempts, renderer stalls/resources and recoveries. A 15-minute per-tab sessionStorage
+  breadcrumb can survive reload; it carries fixed place/action IDs, not a persistent visitor identity or precise position.
+  Interrupted loads are labelled as possible interruptions, not confirmed operating-system crashes.
+  Before a master deployment, commit runtime changes, run `node tools/telemetry/stamp-release.mjs --write`, commit its
+  release metadata, and verify with the same command without `--write`. Diagnostics then include the runtime fingerprint.

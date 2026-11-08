@@ -538,24 +538,45 @@ const FONT = (() => {
 function parkAt(b, poly, t, lv, gap = 24, len = 38) { const q = b.perim(poly, t); airliner(b, q.x + q.nx * gap, q.z + q.nz * gap, Math.atan2(q.nz, -q.nx), lv, len); }
 /** narrow-body airliner (A320 / 737 size, ~38 m), nose along local +x. livery = {tail, belly, stripe} */
 function airliner(b, x, z, heading, lv = {}, len = 38) {
-    const k = len / 38, W = lv.body || '#f4f5f6', T = lv.tail || '#1d3f8f', GR = '#7d8389', DK = '#2a2f36';
+    // (after round 6, owner: "planes should look more realistic") A320 / 737-class: lathe-turned fuselage (round nose,
+    // upswept tapering tail cone), swept trapezoid wings with dihedral, tailplanes and a raked fin as real planforms,
+    // engines on pylons with dark intakes, cabin window line, doors, gear
+    const k = len / 38, W = lv.body || '#f4f5f6', T = lv.tail || '#1d3f8f', GR = '#b9bec4', DK = '#2a2f36';
     b.push(M(x, 0, z, heading, k, k, k));
-    const y = 3.3;
-    b.cylX(0, y, 0, 1.98, 27, W, 12);                                  // fuselage
-    b.geo(new THREE.SphereGeometry(1.98, 12, 6, 0, Math.PI * 2, 0, Math.PI / 2), W, M(13.5, y, 0, 0, 2.2, 1, 1, 0, -Math.PI / 2)); // nose
-    b.geo(new THREE.ConeGeometry(1.98, 9, 12, 1, true), W, M(-18, y + 0.5, 0, 0, 1, 1, 0.9, 0, Math.PI / 2)); // tail cone
-    b.box(12.4, y + 0.55, 0, 1.4, 0.55, 3.2, DK);                        // cockpit windows
-    if (lv.stripe) b.box(0, y + 0.35, 0, 26, 0.5, 4.02, lv.stripe);       // cheat-line
-    if (lv.belly) b.box(0, y - 1.05, 0, 26, 1.6, 3.7, lv.belly);
-    for (const s of [-1, 1]) {
-        b.box(-1.5, y - 1.2, s * 8.6, 5.2, 0.35, 15, W, { ry: s * 0.42 });          // wing (swept)
-        b.box(-6.8, y - 0.9, s * 15.6, 1.2, 1.6, 0.3, T, { ry: s * 0.4 });           // winglet
-        b.cylX(1.5, y - 2.1, s * 5.6, 0.95, 4, GR, 10);                              // engine
-        b.box(-19.5, y + 0.9, s * 3.6, 3.2, 0.25, 6.4, W, { ry: s * 0.45 });          // stabiliser
-        b.box(-0.8, 0, s * 2.6, 0.5, 1.6, 0.5, DK);                                  // main gear
+    const y = 3.3, R = 1.98;
+    { // fuselage: profile (radius, x) from tail to nose
+        const prof = [[0.02, -19.5], [0.45, -18.8], [1.05, -16.5], [1.6, -13.5], [1.94, -10], [R, -8], [R, 10.5], [1.9, 12.4], [1.6, 14.2], [1.1, 15.6], [0.5, 16.6], [0.02, 17.0]];
+        const g = new THREE.LatheGeometry(prof.map(([r, xx]) => new THREE.Vector2(r, xx)), 18); g.rotateZ(-Math.PI / 2);
+        // upswept tail: lift the tail section so the belly line rises toward the tail
+        const P = g.attributes.position; for (let i = 0; i < P.count; i++) { const xx = P.getX(i); if (xx < -8) P.setY(i, P.getY(i) + (-8 - xx) * 0.09); } g.computeVertexNormals();
+        b.geo(g, W, M(0, y, 0));
     }
-    b.box(10.5, 0, 0, 0.4, 1.6, 0.4, DK);                                            // nose gear
-    b.box(-17.5, y + 1.4, 0, 6.2, 6.4, 0.35, T, { rz: -0.32 });                      // fin
+    const slab = (pts, t, col, mat) => { // planform (x, z) extruded t thick, lying flat (top at local y = 0)
+        const sh = new THREE.Shape(pts.map(([px, pz]) => new THREE.Vector2(px, pz))); const g = new THREE.ExtrudeGeometry(sh, { depth: t, bevelEnabled: false }); g.rotateX(Math.PI / 2); return g; };
+    if (lv.belly) b.geo(new THREE.CylinderGeometry(R + 0.012, R + 0.012, 18.5, 18, 1, true, Math.PI * 0.62, Math.PI * 0.76), lv.belly, M(1, y, 0, 0, 1, 1, 1, 0, -Math.PI / 2));
+    if (lv.stripe) b.box(0, y + 0.05, 0, 18.4, 0.32, 2 * R + 0.03, lv.stripe);                       // cheat-line
+    b.box(0.5, y + 0.62, 0, 21, 0.2, 2 * R * 0.985, DK, { mat: 'g' });                                  // cabin window line
+    b.box(13.6, y + 0.78, 0, 1.6, 0.5, 2 * R * 0.86, DK, { mat: 'g' });                                 // cockpit windows
+    for (const dx of [11.2, -14.6]) b.box(dx, y - 0.2, 0, 0.9, 1.9, 2 * R * 0.99, '#d9dcdf');             // doors
+    for (const s of [-1, 1]) {
+        // wing: root chord 6.2 m at the fuselage, tip 1.6 m at 17 m, 25° sweep, dihedral
+        const wing = slab([[2.8, 0], [-3.4, 0], [-9.6, s * 16.6], [-8.0, s * 16.6]], 0.42, W);
+        wing.rotateX(-s * 0.09); b.geo(wing, W, M(0, y - 1.25, s * 1.6));                                  // (tips up: dihedral)
+        b.box(-9.3, y - 1.25 + 16.6 * 0.09, s * 18.15, 1.4, 1.5, 0.12, T, { rz: -0.35 });               // winglet at the tip
+        // engine under the wing on a pylon
+        b.cylX(1.4, y - 2.15, s * 5.7, 0.98, 3.8, GR, 14, { r2: 0.9 });
+        b.cylX(3.32, y - 2.15, s * 5.7, 0.86, 0.08, DK, 14);                                               // intake
+        b.cylX(-1.0, y - 2.15, s * 5.7, 0.55, 1.2, '#6c7178', 10, { r2: 0.8 });                             // exhaust
+        b.box(0.6, y - 1.6, s * 5.7, 2.6, 0.7, 0.3, GR);                                                    // pylon
+        // tailplane
+        b.geo(slab([[-15.2, 0], [-18.6, 0], [-20.6, s * 6.4], [-19.2, s * 6.4]], 0.25, W), W, M(0, y + 0.95, s * 0.9));
+        b.box(-0.9, 0, s * 2.7, 0.35, 2.2, 0.35, DK); b.cylX(-0.9, 0.55, s * 2.7, 0.55, 0.6, '#1c1f23', 10);    // main gear + wheel
+    }
+    { // fin: raked trapezoid
+        const sh = new THREE.Shape([[-13.4, 0], [-19.8, 0], [-21.4, 6.6], [-18.6, 6.6]].map(([px, py]) => new THREE.Vector2(px, py)));
+        const g = new THREE.ExtrudeGeometry(sh, { depth: 0.3, bevelEnabled: false }); g.translate(0, 0, -0.15); b.geo(g, T, M(0, y + 1.65, 0));
+    }
+    b.box(11.4, 0, 0, 0.3, 2.1, 0.3, DK); b.cylX(11.4, 0.45, 0, 0.42, 0.45, '#1c1f23', 10);                    // nose gear
     b.pop();
 }
 /** simple ATC tower */

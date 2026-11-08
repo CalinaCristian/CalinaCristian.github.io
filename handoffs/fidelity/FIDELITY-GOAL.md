@@ -6,9 +6,11 @@ The native `/goal` control is not exposed to this session. This file is the trac
 
 ## Current integration checkpoint
 
-Six source/gameplay/QA workers remain active on isolated branches. Master is still `df9b2e2`; no final game release has been pushed. The staging branch contains the completed gameplay fixes, new source-preserving geometry and individual landmark studies. Combined syntax (128 modules) and focused pure checks pass after updating a legacy test fixture to construct the actual shared-road reservation gate. New independent source inputs and eight rebuilt datasets are being consolidated before the final browser freeze.
+Six workers remain active on isolated branches. Master is still `df9b2e2`; no final game release has been pushed. Eight rebuilt datasets now retain24,198 source body records with independent identity/topology/dimension audits. Full district rendering freeze `4378317f3fcdccc886d6c7c1ed092ee15d95db8a` includes source bridge decks, measured-tree retention, exact water batching/order and source-ring shoreline attributes. New current atlases are being captured; old419 surveys keep their actual source/date.
 
-Open integration gates: finite-body passage mouths, measured asymmetric road extents and their consumers, bridge/junction ribbon clearance, remaining airport road-width findings, all-district current captures, tourist source context and native activities, final evolved high/mirror render budgets and repeated mobile transitions. Final overview instances and telemetry/release verification are still pending. Historical proof below records earlier snapshots, not final acceptance.
+Completed checkpoints: native conditions124/124;32office/viewport cases104touch taps; all61landmark records/183images and24destination records/100images decode in the overview;15-minute aerial cache survives reload and expires without extending its original timestamp. The419stationary run retained560pedestrians/631native vehicles through900physical seconds and1,633.912wall seconds,0runtime failures, max373calls/1,402,964triangles including true mirror. Its final PMREM blend was incomplete, so a fresh437run covers publication and fade=1. These are scoped checks, not blanket real-world parity.
+
+Open material gates: source-connected bridge continuation repair for real Pipera/Bellevue low clearances;15SeaTac estimated targets need physical classification; Pipera literal lake tags must defeat an unsupported river-channel guess; independently proven OTP/Unirii false-crown input corrections; current all8atlases/context; source-exact OldTown/CEC associations, actual activity visibility/cancellation, final curated tourist access; final native phone/map/headlight/15-load resource gates. Overview instances exist; current district collections are still being delivered. Telemetry dashboards are applied, but final runtime release stamp/deployment/readback and logical master history/branch cleanup remain pending.
 
 ## Current reported failures
 
@@ -54,7 +56,7 @@ Open integration gates: finite-body passage mouths, measured asymmetric road ext
 - Inventory every remaining district, landmark and tourist scene. Give each one an owner/status/source/evidence/check record. Unknown or unavailable reference detail remains explicitly unresolved; 100% review coverage is not the same as 100% real-world parity. Do not mark complete while material parity gaps remain.
 - Integrate into a staging branch, test the combined tree, fetch/rebase onto current master, push master only after checks pass, verify the remote, then delete only this effort's local/remote task branches and worktrees. Never force-push master or delete unrelated work.
 
-## First wave
+## Historical first wave (superseded by the current checkpoint)
 
 | Workstream | File boundary | Status |
 |---|---|---|

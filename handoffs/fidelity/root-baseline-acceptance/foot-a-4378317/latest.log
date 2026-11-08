@@ -1,0 +1,4 @@
+[foot t=0.0] begin
+[a t=0.0] begin
+[a t=1.1] spawn drive deadline 83s: driving 40s + one signal cycle 33s + crossing 10s, capped at 90s
+[a t=7.6] ISSUE low perf-traffic-update: traffic.update averaging 9.7 ms (> 8 ms budget) on this machine @ Splaiul Independenței (-2351.9, -1256.6)

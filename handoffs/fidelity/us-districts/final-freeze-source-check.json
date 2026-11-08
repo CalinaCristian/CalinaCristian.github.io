@@ -32,7 +32,9 @@
       "building-source-auditPath": "handoffs/fidelity/us-districts/seatac/building-source-audit.json",
       "building-source-auditSha256": "1c3aee825f99d1cfc18c900cd665079761e8ff7182cfc51bb7526fa3039bd491",
       "road-source-extended-auditPath": "handoffs/fidelity/us-districts/seatac/road-source-extended-audit.json",
-      "road-source-extended-auditSha256": "15d316a66904d7692c51c9cefcdf6e456f6972ef1e956c6568a0f0eeecad3317"
+      "road-source-extended-auditSha256": "15d316a66904d7692c51c9cefcdf6e456f6972ef1e956c6568a0f0eeecad3317",
+      "retainedBuildingLedgerSemanticallyIdentical": true,
+      "ledgerEncodingNote": "Building replay JSON uses a different whitespace encoding; parsed records are exactly equal to the retained original ledger. Both byte hashes are retained. Road replay bytes are identical."
     },
     {
       "district": "bellevue",
@@ -57,7 +59,9 @@
       "building-source-auditPath": "handoffs/fidelity/us-districts/bellevue/building-source-audit.json",
       "building-source-auditSha256": "e63c68d498bf03feccffe90d3fdf9cd06c085552c9078dd45450dfbf804b5787",
       "road-source-extended-auditPath": "handoffs/fidelity/us-districts/bellevue/road-source-extended-audit.json",
-      "road-source-extended-auditSha256": "5b106820049a176630216d4c65c25b9848378345cf5029801ef1ba2121167546"
+      "road-source-extended-auditSha256": "5b106820049a176630216d4c65c25b9848378345cf5029801ef1ba2121167546",
+      "retainedBuildingLedgerSemanticallyIdentical": true,
+      "ledgerEncodingNote": "Building replay JSON uses a different whitespace encoding; parsed records are exactly equal to the retained original ledger. Both byte hashes are retained. Road replay bytes are identical."
     }
   ],
   "replayCommands": [

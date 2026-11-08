@@ -82,7 +82,9 @@ fs.mkdirSync(out, { recursive: true });
         check('native boosted forward flight stops at the 800m range', { ...rangeFixture, ...rangeFlight, ...rangeEnd }, rangeFixture.legalBeyondRange && rangeEnd.distance <= 800.00001 && rangeEnd.distance > 799.9 && rangeEnd.allowed);
         await page.evaluate(() => droneReset(Math.PI / 2)); const ceiling = await held(['w'], 120);
         check('looking up + W respects the 120m ceiling', ceiling, ceiling.altitude <= 120 && ceiling.altitude > 119.9 && Math.abs(ceiling.verticalSpeed) < 1e-8);
-        await page.evaluate(() => { droneReset(); window.photoBefore = { gallery: game.photo.gallery.length, drone: game.explore.drone.stats.photos }; }); await page.keyboard.press('p'); const photo = await held(['w']);
+        // The app's RAF is frozen for deterministic controller steps. PhotoMode's
+        // supported render hook supplies its same-task render before reading pixels.
+        await page.evaluate(() => { droneReset(); game.photo.o.render = () => game.drawFrame(); window.photoBefore = { gallery: game.photo.gallery.length, drone: game.explore.drone.stats.photos }; }); await page.keyboard.press('p'); const photo = await held(['w']);
         const opened = await page.evaluate(() => game.photo.active);
         await page.keyboard.press('Space'); await page.waitForFunction(() => game.photo.gallery.length > photoBefore.gallery);
         const captured = await page.evaluate(() => ({ gallery: game.photo.gallery.length, dronePhotos: game.explore.drone.stats.photos - photoBefore.drone, tagged: game.lastPhoto.drone }));

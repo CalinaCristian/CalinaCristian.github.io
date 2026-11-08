@@ -4,8 +4,8 @@ import assert from 'node:assert/strict';
 import * as THREE from '../../game/vendor/three.module.min.js';
 import {collideBuildings} from '../../game/src/world.js';
 const url=new URL('../../game/src/landmarks.js',import.meta.url);
-const source=(await fs.readFile(url,'utf8')).replace(/from '([^']+)'/g,(_,p)=>`from '${new URL(p,url).href}'`)+ '\nexport {P,P2};';
-const {P,P2,LANDMARKS,buildLandmark}=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
+const source=(await fs.readFile(url,'utf8')).replace(/from '([^']+)'/g,(_,p)=>`from '${new URL(p,url).href}'`)+ '\nexport {P,P2,FOUNTAIN_RINGS};';
+const {P,P2,FOUNTAIN_RINGS,LANDMARKS,buildLandmark}=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
 const facts=JSON.parse(await fs.readFile(new URL('../../game/research/landmark-source-bucharest.json',import.meta.url)));
 const inside=(p,r)=>{let hit=false;for(let i=0,j=r.length-1;i<r.length;j=i++)if((r[i][1]>p[1])!==(r[j][1]>p[1])&&p[0]<(r[j][0]-r[i][0])*(p[1]-r[i][1])/(r[j][1]-r[i][1])+r[i][0])hit=!hit;return hit;};
 const nearRing=(p,r)=>r.some((a,i)=>{const b=r[(i+1)%r.length],dx=b[0]-a[0],dz=b[1]-a[1],t=Math.max(0,Math.min(1,((p[0]-a[0])*dx+(p[1]-a[1])*dz)/(dx*dx+dz*dz||1)));return Math.hypot(p[0]-a[0]-t*dx,p[1]-a[1]-t*dz)<0.011;});
@@ -17,7 +17,7 @@ for(const record of facts.landmarks){
  const refs=[...record.primarySources,...record.associatedParts,...record.primarySources.flatMap(r=>(r.members||[]).map(m=>m.way).filter(Boolean))];
  for(const mapping of record.footprintUpgrades){
   const key=typeof mapping.authoredRing==='string'?mapping.authoredRing:record.id;
-  const flat=(P[key]||P2[key])[typeof mapping.authoredRing==='number'?mapping.authoredRing:0];const ring=[];for(let i=0;i<flat.length;i+=2)ring.push([flat[i],flat[i+1]]);
+  const flat=mapping.ringCollection==='FOUNTAIN_RINGS'?FOUNTAIN_RINGS[mapping.authoredRing]:(P[key]||P2[key])[typeof mapping.authoredRing==='number'?mapping.authoredRing:0];const ring=[];for(let i=0;i<flat.length;i+=2)ring.push([flat[i],flat[i+1]]);
   const actual=refs.find(r=>r.id===mapping.sourceId)?.ring;assert(actual,`${lm.id}: source ring exists`);
   assert(ring.every(p=>nearRing(p,actual))&&actual.every(p=>nearRing(p,ring)),`${lm.id}: full source boundary retained to 0.011 m`);checks+=2;
  }
@@ -33,12 +33,19 @@ for(const record of facts.landmarks){
     // Test this source solid independently; unrelated elevated details may legitimately cross a court.
     assert.equal(collideBuildings([{...collider,r:Math.hypot(collider.hw,collider.hd)}],wx,wz,0.1,Math.max(1,(collider.y0||0)+0.5)),null,`${lm.id}: source court is open`);tested=true;courts++;checks++;
    }
-   assert(tested,`${lm.id}: courtyard has a usable interior test point`);
+   const area=Math.abs(hole.reduce((sum,a,i)=>{const b=hole[(i+1)%hole.length];return sum+a[0]*b[1]-a[1]*b[0]},0))/2;
+   if(area>4)assert(tested,`${lm.id}: walkable source courtyard has a usable interior test point`);
   }
+ }
+ for(const probe of record.massUpgrades?.heightProbes||[]){
+  const c=Math.cos(lm.rotation||0),sn=Math.sin(lm.rotation||0),x=probe.x*c+probe.z*sn,z=-probe.x*sn+probe.z*c;
+  model.mesh.updateMatrixWorld(true);const ray=new THREE.Raycaster(new THREE.Vector3(x,300,z),new THREE.Vector3(0,-1,0));
+  const hits=ray.intersectObject(model.mesh,true);assert(hits.length,`${lm.id}: source height probe hits geometry`);
+  assert(Math.abs(hits[0].point.y-probe.height)<0.12,`${lm.id}: source ${probe.sourceId} roof ${hits[0].point.y} matches ${probe.height}`);checks++;
  }
  const expected={ateneu:41,romexpo:34,baneasasc:22,marriott:40,promenada:18.05,gara:26,globalworth:120}[lm.id];
  if(expected!==undefined){assert(Math.abs(box.max.y-expected)<0.11,`${lm.id}: documented height envelope`);checks++;}
  results.push({id:lm.id,passed:true,rings:record.footprintUpgrades.length,courts,height:box.max.y,triangles:model.triangles,sourceIdentities:lm.sourceIds.length});
 }
-assert.equal(results.length,32,'All 32 owned source-backed buildings/monument reviewed; fountain field uses water sources separately');
+assert.equal(results.length,33,'All 33 owned Bucharest landmarks have source-led geometry checks');
 console.log(JSON.stringify({passed:true,checks,models:results},null,2));

@@ -1,0 +1,128 @@
+{
+  "pureControls": 7,
+  "ledger": [
+    {
+      "district": "bucharest-floreasca",
+      "mappedDambovitaLines": 0,
+      "beforeChannels": 2,
+      "afterChannels": 2,
+      "changed": [],
+      "retainedChannels": [
+        {
+          "sourceId": "w174991904",
+          "name": "",
+          "source": "legacy unnamed shape estimate; no absolute source water height"
+        },
+        {
+          "sourceId": "w170930341",
+          "name": "Dâmbovița",
+          "source": "explicit mapped Dâmbovița name; vertical profile remains a model estimate"
+        }
+      ]
+    },
+    {
+      "district": "bucharest-romana",
+      "mappedDambovitaLines": 0,
+      "beforeChannels": 2,
+      "afterChannels": 2,
+      "changed": [],
+      "retainedChannels": [
+        {
+          "sourceId": "w174991904",
+          "name": "",
+          "source": "legacy unnamed shape estimate; no absolute source water height"
+        },
+        {
+          "sourceId": "w170930341",
+          "name": "Dâmbovița",
+          "source": "explicit mapped Dâmbovița name; vertical profile remains a model estimate"
+        }
+      ]
+    },
+    {
+      "district": "bucharest-grozavesti",
+      "mappedDambovitaLines": 1,
+      "beforeChannels": 3,
+      "afterChannels": 3,
+      "changed": [],
+      "retainedChannels": [
+        {
+          "sourceId": "w174991904",
+          "name": "",
+          "source": "legacy unnamed shape estimate; no absolute source water height"
+        },
+        {
+          "sourceId": "w170930341",
+          "name": "Dâmbovița",
+          "source": "explicit mapped Dâmbovița name; vertical profile remains a model estimate"
+        },
+        {
+          "sourceId": "w133955992",
+          "name": "",
+          "source": "legacy unnamed shape estimate; no absolute source water height"
+        }
+      ]
+    },
+    {
+      "district": "bucharest-pipera",
+      "mappedDambovitaLines": 0,
+      "beforeChannels": 1,
+      "afterChannels": 0,
+      "changed": [
+        {
+          "sourceId": "r20588210",
+          "name": "",
+          "before": true,
+          "channel": false,
+          "source": "literal OSM water=lake; flat surface remains a model estimate",
+          "suppressedLegacyChannel": true,
+          "sourceWaterType": "lake"
+        }
+      ],
+      "retainedChannels": []
+    },
+    {
+      "district": "bucharest-unirii",
+      "mappedDambovitaLines": 3,
+      "beforeChannels": 2,
+      "afterChannels": 2,
+      "changed": [],
+      "retainedChannels": [
+        {
+          "sourceId": "w174991904",
+          "name": "",
+          "source": "legacy unnamed shape estimate; no absolute source water height"
+        },
+        {
+          "sourceId": "w174990751",
+          "name": "",
+          "source": "legacy unnamed shape estimate; no absolute source water height"
+        }
+      ]
+    },
+    {
+      "district": "bucharest-otopeni",
+      "mappedDambovitaLines": 0,
+      "beforeChannels": 0,
+      "afterChannels": 0,
+      "changed": [],
+      "retainedChannels": []
+    },
+    {
+      "district": "seattle-bellevue",
+      "mappedDambovitaLines": 0,
+      "beforeChannels": 0,
+      "afterChannels": 0,
+      "changed": [],
+      "retainedChannels": []
+    },
+    {
+      "district": "seattle-seatac",
+      "mappedDambovitaLines": 0,
+      "beforeChannels": 0,
+      "afterChannels": 0,
+      "changed": [],
+      "retainedChannels": []
+    }
+  ]
+}

@@ -84,6 +84,10 @@ Washington) are completed with `/api/0.6/relation/<id>/full`, cached in `tools/o
   stores headerless delta rings by final building index (same decimetre coordinates as the outer). Inner rings are associated
   with their containing outer, retained during clearance corrections, and excluded from building/tree/POI point containment.
   The building audit reports multipolygon identity and courtyard preservation separately from its existing way-only metrics.
+  Small unnamed `building:part=yes` components without a building/use type or any roof tags use a plain flat fallback
+  instead of independent-house roof heuristics. Their explicit height, minimum height and colour remain authoritative;
+  sub-metre strips use a smaller simplification tolerance to retain their width. Named, typed and roof-tagged parts keep
+  their existing treatment, and no minimum height is inferred for an untagged component.
 * **Street lamps** – `highway=street_lamp` nodes (+ `height`); roads carry `lit=yes/no` and bike lanes / tracks as flags.
 * **Trees / furniture** – `natural=tree` (+ `tree_row`), benches, bins, bollards, post boxes, hydrants … (off the carriageway).
 * **POIs** – fuel, food, shops, banks, pharmacies, hospitals, schools, metro, bus/tram stops,

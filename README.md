@@ -53,7 +53,7 @@ that chapter of the CV.
   kept in the in-game gallery, and you save (or share) only the ones you want, from the print or the gallery. Leave the
   car somewhere illegal and passers-by react — then the ticket, the clamp or the tow truck.
 - **Saves.** Progress, position and photos persist in IndexedDB; **Continue** resumes exactly where you left off.
-- **Achievements and completion %.** 112 achievements (story, explorer, driver, local colour, landmarks and activities,
+- **Achievements and completion %.** 113 achievements (story, explorer, driver, local colour, landmarks and activities,
   photographer, on foot and a few secrets) and one weighted completion score shown in the menu, map and pause screens.
 - **A living city.** Country-specific traffic (taxis, delivery vans, police; STB trams, trolleybuses and buses; King
   County Metro buses) driven by real lanes, one-ways, signals and speed limits, with traffic density by hour, rush-hour
@@ -86,7 +86,12 @@ that chapter of the CV.
   every pitch, tennis court, pool and school yard with its markings, goals, nets and fences (football pitches with mowing
   stripes, real goals with sloping nets, corner flags, dugouts with bucket seats on the clear side of the pitch, and
   ball-stop fences; a sports ground mapped as one big pitch round smaller ones stays plain); the Piața Floreasca market
-  hall; Liceul Rosetti's gym, sports hall and sports ground with its basketball hoops; only real shops and signs. Other districts get the same pass next.
+  hall; Liceul Rosetti's gym, sports hall and sports ground with its basketball hoops; only real shops and signs.
+- **Romană & Victoriei reality pass.** Sourced buildings and streets continue through a 600 m scenery ring, with aerial
+  roof, tree-crown and green-ground measurements, mapped courtyard openings, and parking-side/orientation metadata.
+  Civic buildings keep their identity, apartment blocks retain their upper floors, and the Louis Blanc office uses its
+  published eight above-ground storeys. The full district has local Street View and aerial comparison reports. Complex
+  roofs, detailed historic facades, canopy shape and covered footbridges still need further modelling.
 - **Performance.** Adaptive quality tiers, instanced traffic/crowds/parked cars, view-range culling and a draw-call
   budget per district, so it stays smooth on laptops and phones.
 
@@ -124,10 +129,12 @@ Developer pages: `game/dev/spots.html?id=<spot>`, `game/dev/landmarks.html`, `ga
 - `node game/dev/harness/courtyard-check.mjs` — mapped courtyard openings and inner/outer wall collision checks.
 - District reality passes combine OSM footprints with aerial roof/canopy/green-ground measurements and local-only
   game-versus-imagery comparisons. See `tools/aerial/README.md` and `tools/osm/README.md`; OSM tile downloads accept
-  `--bbox minlat,minlon,maxlat,maxlon` to limit a pass to the district and its scenery ring. Romană & Victoriei is the
-  next pass after Floreasca; street-level acceptance requires the Street View comparison review.
+  `--bbox minlat,minlon,maxlat,maxlon` to limit a pass to the district and its scenery ring. Romană & Victoriei has been
+  reviewed across 1,144 official Street View pairs and 195 aerial tiles; local evidence and remaining fidelity limits
+  are recorded in `specs/12-buildings-streetscape.md` and `specs/19-qa-harness.md`.
   Street-walk comparisons use official Google panoramas by default (`--pano-provider=any` permits public uploads);
-  mapped underpass/bridge grades determine the comparison camera's height.
+  unambiguous mapped underpass/bridge grades determine the comparison camera's height. Overlapping road levels are
+  flagged in `camera-poses.json` for review because panorama metadata does not identify altitude.
 - `node game/dev/harness/viewpoints.js --district=<id> --walk --streetview` — reality check: walks every drivable street of
   a district (both sidewalks) and puts each game frame next to Google Street View from the same spot; `--topdown=250
   --mosaic=<path>` compares the whole district from above with aerial imagery, `--weather=snow|rain|fog` renders any pose
@@ -143,9 +150,6 @@ The work is planned spec-first in [`specs/`](specs/) (requirements, contracts, o
 - Aerial roof, tree-crown and vegetation measurements: Esri World Imagery (Esri, Maxar, Earthstar Geographics and the GIS
   User Community). Only measurements are stored in the game; reference imagery stays in local research output. Google
   Street View is used only for visual comparison, never as a source for game data or committed imagery.
-- Roof shapes / colours, tree positions and green ground in the rebuilt districts are measurements taken offline from
-  Esri World Imagery (Esri, Maxar, Earthstar Geographics, and the GIS User Community); no imagery is stored or shipped.
-  Google Street View is used only in a dev tool for side-by-side visual comparison; nothing from it is in the game.
 - Weather by [Open-Meteo](https://open-meteo.com/) (CC BY 4.0). Coastlines and borders on the globe from
   [Natural Earth](https://www.naturalearthdata.com/) 1:50m (public domain); night-side city lights from NASA Earth
   Observatory's Black Marble 2016 (public domain).

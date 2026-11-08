@@ -376,8 +376,11 @@ export class Office {
     options() {
         const opts = [], N = this.stations.length;
         if (this.cur != null && this.part[this.cur] === 1) opts.push({ label: (PERSONA[this.npc.persona] || PERSONA.manager).more.replace(/…|:$/, '') + ' — tell me more', act: () => this.answer(this.cur, 1) });
-        for (let i = 0; i < N && opts.length < 3; i++) if (!this.read.has(i)) opts.push({ label: questionFor(this.stations[i].data.title), act: () => this.answer(i, 0) });
-        for (let i = 0; i < N && opts.length < 3; i++) if (this.read.has(i) && i !== this.cur) opts.push({ label: '↺ ' + questionFor(this.stations[i].data.title), act: () => this.answer(i, 0), again: true });
+        // (after round 6) linear: every topic has to be heard anyway, so the talk walks through them in order — one "next"
+        // question; the others come back as "ask again" only once everything has been heard
+        const next = [...Array(N).keys()].find((i) => !this.read.has(i));
+        if (next != null) opts.push({ label: '→ ' + questionFor(this.stations[next].data.title), act: () => this.answer(next, 0) });
+        else for (let i = 0; i < N && opts.length < 3; i++) if (i !== this.cur) opts.push({ label: '↺ ' + questionFor(this.stations[i].data.title), act: () => this.answer(i, 0), again: true });
         opts.push({ label: 'Thanks, bye', act: () => this.endTalk(true), bye: true });
         return opts;
     }

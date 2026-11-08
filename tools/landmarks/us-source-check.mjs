@@ -32,5 +32,14 @@ for(const [lat,lon]of [[47.5904232,-122.2885833],[47.5900628,-122.2885891],[47.5
 }
 assert(collideBuildings(models.get('mtbaker').collision,0,-16,.3,1),'Inter-bore concrete pier retains collision');checks++;
 for (const id of ['murroww','murrowe']) { assert.equal(collideBuildings(models.get(id).collision,0,0,1,1),null,'Bridge arch replacement leaves the driving centreline open');checks++; }
+// Separate DEM exports must form one continuous terrain surface, including
+// the interval between the final pixel centre of one tile and the next tile.
+for(const id of ['rainier','olympics']) {
+    const parent=new Map(),find=k=>{if(!parent.has(k))parent.set(k,k);let r=k;while(parent.get(r)!==r)r=parent.get(r);return r;};
+    models.get(id).mesh.traverse(m=>{if(!m.isMesh)return;const p=m.geometry.attributes.position;
+        for(let i=0;i<p.count;i+=3){const keys=[0,1,2].map(k=>[p.getX(i+k),p.getY(i+k),p.getZ(i+k)].map(v=>Math.round(v*100)).join(','));const r=find(keys[0]);for(const k of keys.slice(1))parent.set(find(k),r);}
+    });
+    assert.equal(new Set([...parent.keys()].map(find)).size,1,`${id}: disconnected export tiles leave an artificial terrain gap`);checks++;
+}
 const known=new Map();for(const lm of sea)for(const id of lm.sourceIds){assert(!known.has(id),`${id} owned twice`);known.set(id,lm.id);checks++;}
 console.log(JSON.stringify({passed:true,checks,landmarks:24,sourceIdentities:known.size,heights:Object.fromEntries([...models.keys()].map(id=>[id,maxY(id)])),notes:['No claim of measured hardware FPS.','Three isolated views are model studies, not matched Street View comparisons.']},null,2));

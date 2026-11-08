@@ -363,7 +363,9 @@ export class SpotSession {
         const S = this.spot, out = [], P = this.progress, read = P.plaques || {};
         for (const mid of S.data.members || []) { const e = spotById(mid), d = S.data.spots[mid]; if (!e || !d) continue;
             const ch = S.challenges.find((c) => c.id === mid), ext = d.extent?.polygon?.length ? polyBox(d.extent.polygon) : null;
-            const hx = ch?.view?.[0] ?? (ext ? (ext.x0 + ext.x1) / 2 : d.spawn?.x ?? 0), hz = ch?.view?.[1] ?? (ext ? (ext.z0 + ext.z1) / 2 : d.spawn?.z ?? 0);
+            // the spot itself (its extent centre, else the postcard stand / spawn) — not ch.view, the point the postcard
+            // looks AT (Kerry Park: downtown, 1.2 km away — the tour walked you into the city; after round 6)
+            const hx = ext ? (ext.x0 + ext.x1) / 2 : ch?.x ?? d.spawn?.x ?? 0, hz = ext ? (ext.z0 + ext.z1) / 2 : ch?.z ?? d.spawn?.z ?? 0;
             out.push({ kind: 'hero', x: hx, z: hz, label: e.name, blurb: e.blurb, done: !!this._seen?.has('hero:' + mid) }); }
         for (const [k, sp] of Object.entries(S.spawns || {})) if (Object.keys(S.spawns).length > 1) out.push({ kind: 'entrance', x: sp.x, z: sp.z, label: 'Entrance: ' + (spotById(k)?.name || k), done: true, noTour: true });
         for (const pl of S.plaques) out.push({ kind: 'plaque', x: pl.x, z: pl.z, label: pl.title, text: pl.text, done: !!read[S.sceneId + ':' + pl.title], plaque: pl });

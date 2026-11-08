@@ -83,10 +83,14 @@ export default {
         // tenant-directory design are not. Keep the activity on the sidewalk.
         const ue = sp.structures.find(s => s.id === 'uipath-entrance');
         const tower = LMS.lincoln, towerSource=d.buildings.find(b=>b.id==='w604028609'), towerBounds=towerSource&&polyBox(towerSource.poly), tx=towerBounds?(towerBounds.x0+towerBounds.x1)/2:tower?.x, tz=towerBounds?(towerBounds.z0+towerBounds.z1)/2:tower?.z;
+        // Aim at the retained north-west facade edge, not the solid tower's
+        // centre30m behind its visible face. The crown uses that same source
+        // edge; its modelled setback is less than the finite2m allowance.
+        const face=towerSource&&(()=>{const p=towerSource.poly,q=distPolyline(-2,2,[...p,p[0]]),a=p[q.i],b=p[(q.i+1)%p.length];return{x:q.cx+((a[0]+b[0])/2-q.cx)*.25,z:q.cz+((a[1]+b[1])/2-q.cz)*.25};})();
         if(tower)photoHunt(ctx,{x:-2,z:2,title:'Lincoln Square camera challenge',unavailable:'Suite 2000 is private; interior access is unavailable.',targets:[
-            {label:'Lincoln Square North: the office tower',x:tx,y:tower.y+60,z:tz,radius:9},
+            {label:'Lincoln Square North: the office tower',x:face?.x??tx,y:tower.y+60,z:face?.z??tz,radius:3,surfaceTolerance:2},
             {label:'The west end of the Bellevue Way skybridge',x:3,y:g.heightAt(3,96.4)+8.25,z:96.4,radius:2},
-            {label:'Lincoln Square North: the crown',x:tx,y:tower.y+123,z:tz,radius:7},
+            {label:'Lincoln Square North: the crown',x:face?.x??tx,y:tower.y+123,z:face?.z??tz,radius:3,surfaceTolerance:2},
         ],onDone:s=>emitActivity(s,'bel-lincoln-square','badge-in','📷 Lincoln Square details','You framed the office tower, public skybridge and crown from the public approach.')});
         // ---------------------------------------------------------------- Bellevue Collection wayfinding pylon, Bellevue Square entrance
         const pyl = signBoard('THE BELLEVUE COLLECTION', 0.9, 3.2, { bg: '#1d2b36', fg: '#e8e3d6', maxLines: 4, font: (s) => `600 ${s}px Georgia, serif`, ppm: 220, night: 0.8 }); pyl.position.set(4, g.heightAt(4, 40) + 1.7, 40); pyl.rotation.y = Math.PI / 2; ctx.add(pyl); ctx.box(4, 40, 0.2, 0.5, 0, { prop: true, h: 3.4 });

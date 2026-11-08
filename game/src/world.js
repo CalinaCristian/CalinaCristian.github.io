@@ -1,6 +1,6 @@
 import * as THREE from '../vendor/three.module.min.js';
 import { makeRng, distPointSeg, pointInPolygon, clamp, makeCanvasTexture, landmarkHelpers } from './util.js';
-import { makeTextures } from './buildings.js';
+import { makeTextures, emitFacadeSlab } from './buildings.js';
 import { footprintCells, insetFootprint, assemblySignature, geometryRing, geometrySurface } from './building-parts.js';
 import { makeVehicle, CAR_COLORS, makeParkedCars, vehicleSize } from './vehicles.js';
 import { projector, CHAPTERS } from './cities.js';
@@ -241,14 +241,14 @@ function makeAtlas() {
 /** night-window data atlas, same layout as the facade atlas: R = window glass mask, G = per-window random, B = shopfront
  *  (always lit). Built from the facade atlas pixels (dark bluish glass), windows = 4-connected components. */
 /** night / window data atlases, same layout as the facade atlas. nightMap: R = window glass, G = per-window random,
- *  B = shopfront (255) / brand band (128). winMap: R, G = position inside the window rectangle (0..1, v up), B = glass.
+ *  B = shopfront (255) / brand band (128). winMap: RG = window rectangle origin in tile texels (v up), BA = rectangle size; zero width = non-glass.
  *  Windows = connected glass pixels of the facade atlas, filled to their bounding rectangle (the per-pixel colour test
  *  left noisy holes that read as "TV static" reflections); specks under 24 px are dropped. */
 function nightAtlas(atlas) {
     const src = atlas.image, W = src.width, H = src.height;
     const sctx = src.getContext('2d', { willReadFrequently: true }), d = sctx.getImageData(0, 0, W, H).data;
     const mk = () => { const c = document.createElement('canvas'); c.width = W; c.height = H; const x = c.getContext('2d'); return { c, x, im: x.createImageData(W, H) }; };
-    const N = mk(), U = mk(), o = N.im.data, u = U.im.data;
+    const N = mk(), o = N.im.data, u = new Uint8Array(W * H * 4);
     const glass = new Uint8Array(W * H), comp = new Int32Array(W * H).fill(-1), S = W / 4;
     const tileAt = (x, y) => (x / S | 0) + (3 - (y / S | 0)) * 4; // canvas row 0 = uv row 3 (flipY)
     for (let k = 0, p = 0; k < W * H; k++, p += 4) {
@@ -257,7 +257,7 @@ function nightAtlas(atlas) {
         const fy = ((k / W | 0) % S) / S; // (0 = top of the cell: the shop texture's coloured sign band is the top ~14 %)
         glass[k] = shop ? (fy < 0.15 && lum > 40 ? 3 : b > r + 25 && lum > 60 ? 2 : 0) : (lum < 150 && b >= r + 4 ? 1 : 0);
     }
-    for (let k = 0; k < W * H; k++) { o[k * 4 + 3] = 255; u[k * 4 + 3] = 255; }
+    for (let k = 0; k < W * H; k++) o[k * 4 + 3] = 255;
     const stack = [];
     for (let k = 0; k < W * H; k++) {
         if (!glass[k] || comp[k] >= 0) continue;
@@ -269,17 +269,22 @@ function nightAtlas(atlas) {
             for (const n of [x > 0 ? q - 1 : -1, x < W - 1 ? q + 1 : -1, y > 0 ? q - W : -1, y < H - 1 ? q + W : -1]) if (n >= 0 && glass[n] === kind && comp[n] < 0) { comp[n] = 1; stack.push(n); }
         }
         if (px.length < 24 && kind === 1) continue;
-        const rv = Math.floor(Math.random() * 255);
+        const rv = ((x0 * 73 + y0 * 151 + x1 * 199 + y1 * 47) >>> 0) % 255;
         if (kind === 1) { // fill the window rectangle
             for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) {
                 const p = (y * W + x) * 4; o[p] = 255; o[p + 1] = rv; o[p + 2] = 0;
-                u[p] = Math.round((x - x0 + 0.5) / (x1 - x0 + 1) * 255); u[p + 1] = Math.round((1 - (y - y0 + 0.5) / (y1 - y0 + 1)) * 255); u[p + 2] = 255;
+                // Constant metadata keeps a room attached to one opening. Interpolating quantised local positions made
+                // floor / furniture edges step as the camera moved, and a 4x4 UV seed split wider windows into rooms.
+                u[p] = x0 % S; u[p + 1] = S - 1 - y1 % S; u[p + 2] = x1 - x0 + 1; u[p + 3] = y1 - y0 + 1;
             }
         } else for (const q of px) { const p = q * 4; o[p] = kind === 3 ? 0 : 255; o[p + 1] = rv; o[p + 2] = kind === 2 ? 255 : 128; }
     }
-    N.x.putImageData(N.im, 0, 0); U.x.putImageData(U.im, 0, 0);
+    N.x.putImageData(N.im, 0, 0);
     const tex = (c, nearest) => { const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.NoColorSpace; t.wrapS = t.wrapT = THREE.ClampToEdgeWrapping; t.minFilter = nearest ? THREE.NearestFilter : THREE.LinearMipmapLinearFilter; t.magFilter = nearest ? THREE.NearestFilter : THREE.LinearFilter; t.generateMipmaps = !nearest; t.anisotropy = 4; return t; };
-    return { night: tex(N.c, false), win: tex(U.c, true) };
+    // Canvas alpha premultiplication corrupts rectangle bytes when A stores height. Upload the bytes directly.
+    const rect = new THREE.DataTexture(u, W, H); rect.flipY = true; rect.needsUpdate = true;
+    rect.minFilter = rect.magFilter = THREE.NearestFilter; rect.generateMipmaps = false;
+    return { night: tex(N.c, false), win: rect };
 }
 
 function solidMaterial(atlas) {
@@ -292,11 +297,14 @@ function solidMaterial(atlas) {
     m.userData.uClosed = { value: 0 }; // share of shops closed (shutters down), set by world from the local hour
     let night = null, win = null; try { ({ night, win } = nightAtlas(atlas)); } catch (e) { console.warn('[world] night atlas', e); }
     m.onBeforeCompile = (sh) => {
-        sh.uniforms.nightMap = { value: night }; sh.uniforms.winMap = { value: win }; sh.uniforms.uClosed = m.userData.uClosed;
+        sh.uniforms.winTexel = { value: 4 / atlas.image.width }; sh.uniforms.nightMap = { value: night }; sh.uniforms.winMap = { value: win }; sh.uniforms.uClosed = m.userData.uClosed;
         sh.vertexShader = 'attribute float tile;\nvarying float vTileRaw;\nvarying float vWY;\n' + sh.vertexShader.replace('#include <uv_vertex>', '#include <uv_vertex>\n\tvTileRaw = tile;').replace('#include <begin_vertex>', '#include <begin_vertex>\n\tvWY = (modelMatrix * vec4(transformed, 1.0)).y;');
-        sh.fragmentShader = 'varying float vTileRaw;\nvarying float vWY;\nuniform sampler2D nightMap;\nuniform sampler2D winMap;\nuniform float uClosed;\nfloat fh1(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }\nfloat fvn(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f); return mix(mix(fh1(i), fh1(i + vec2(1, 0)), f.x), mix(fh1(i + vec2(0, 1)), fh1(i + vec2(1, 1)), f.x), f.y); }\n' + sh.fragmentShader.replace('#include <map_fragment>', `
+        sh.fragmentShader = 'varying float vTileRaw;\nvarying float vWY;\nuniform sampler2D nightMap;\nuniform sampler2D winMap;\nuniform float winTexel;\nuniform float uClosed;\nfloat fh1(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }\nfloat fvn(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f); return mix(mix(fh1(i), fh1(i + vec2(1, 0)), f.x), mix(fh1(i + vec2(0, 1)), fh1(i + vec2(1, 1)), f.x), f.y); }\n' + sh.fragmentShader.replace('#include <map_fragment>', `
     float isGlass = 0.0, winFar = 1.0, glassOpen = 0.0; vec3 roomCol = vec3(0.0);
 #ifdef USE_MAP
+    // Derivatives are evaluated before divergent window branches, in the current draw camera's view frame.
+    vec3 facadeDx = dFdx(-vViewPosition), facadeDy = dFdy(-vViewPosition);
+    vec2 uvDx = dFdx(vMapUv), uvDy = dFdy(vMapUv);
     if (vTile > -0.5) {
         vec2 cellSz = vec2(0.25, 0.25);
         vec2 cellId = vec2(mod(vTile, 4.0), floor(vTile / 4.0 + 0.01));
@@ -307,19 +315,24 @@ function solidMaterial(atlas) {
         bool shopT = abs(vTile - 6.0) < 0.1 || abs(vTile - 14.0) < 0.1, glassT = abs(vTile - 4.0) < 0.1 || abs(vTile - 12.0) < 0.1;
         float px = max(length(dFdx(vMapUv)), length(dFdy(vMapUv)));
         winFar = smoothstep(0.06, 0.22, px); // window cells of ≲ 15 px: the flat atlas look
-        vec4 wi = texture(winMap, auv);
-        isGlass = (shopT || glassT) ? 0.0 : step(0.5, wi.b);
+        vec4 rect = texture(winMap, auv) * (255.0 * winTexel);
+        vec2 windowUV = (fract(vMapUv) * 0.988 + 0.006 - rect.xy) / max(rect.zw, vec2(winTexel));
+        isGlass = (shopT || glassT) ? 0.0 : step(winTexel * 0.5, rect.z);
         if (isGlass > 0.5 && winFar < 0.999) {
-            // interior mapping: ray–box through a fake room behind each window, in the wall's tangent frame (view space)
-            float rid = textureLod(nightMap, auv, 0.0).g;
-            vec2 key = floor(vMapUv * 4.0) + vec2(rid * 31.0, vTile);
+            // One stable room per connected window and repeated atlas tile. A window may span a quarter-tile boundary.
+            vec2 key = floor(vMapUv) + rect.xy * 31.0 + vec2(vTile * 7.0, vTile);
             float r1 = fh1(key), r2 = fh1(key + 7.3), r3 = fh1(key + 13.1), r4 = fh1(key + 21.7);
-            vec3 Nv = normalize(vNormal), V = normalize(vViewPosition);
-            vec3 upV = normalize((viewMatrix * vec4(0.0, 1.0, 0.0, 0.0)).xyz);
-            vec3 Tv = cross(upV, Nv); float tl = length(Tv); Tv = tl > 1e-3 ? Tv / tl : vec3(1.0, 0.0, 0.0); vec3 Bv = cross(Nv, Tv);
-            vec3 dir = -V; vec3 dd = vec3(dot(dir, Tv), dot(dir, Bv), max(1e-3, dot(dir, -Nv)));
-            float RW = 1.4, RH = 1.7, RD = 2.6 + 2.4 * r1;
-            vec3 p0 = vec3(wi.r * RW, wi.g * RH, 0.0);
+            // Recover increasing-U / increasing-V axes and their metre scales from the facade itself. Cross(up,N)
+            // reverses U on the opposite footprint winding; fixed room dimensions also make props slide in world space.
+            float det = uvDx.x * uvDy.y - uvDx.y * uvDy.x;
+            float invDet = 1.0 / (abs(det) > 1e-12 ? det : (det < 0.0 ? -1e-12 : 1e-12));
+            vec3 dPdu = (facadeDx * uvDy.y - facadeDy * uvDx.y) * invDet;
+            vec3 dPdv = (facadeDy * uvDx.x - facadeDx * uvDy.x) * invDet;
+            vec3 Nv = normalize(vNormal), Tv = normalize(dPdu), Bv = normalize(dPdv);
+            vec3 dir = -normalize(vViewPosition);
+            vec3 dd = vec3(dot(dir, Tv), dot(dir, Bv), max(1e-3, dot(dir, -Nv)));
+            float RW = max(0.1, length(dPdu) * rect.z / 0.988), RH = max(0.1, length(dPdv) * rect.w / 0.988), RD = 2.6 + 2.4 * r1;
+            vec3 p0 = vec3(windowUV * vec2(RW, RH), 0.0);
             float tx = dd.x > 0.0 ? (RW - p0.x) / max(dd.x, 1e-4) : -p0.x / min(dd.x, -1e-4);
             float ty = dd.y > 0.0 ? (RH - p0.y) / max(dd.y, 1e-4) : -p0.y / min(dd.y, -1e-4);
             float tz = RD / dd.z, t = min(tx, min(ty, tz));
@@ -334,11 +347,11 @@ function solidMaterial(atlas) {
             // curtains / blinds (fabric on the glass plane, top down to a random height); a few open windows
             float cl = r4 < 0.55 ? 1.0 - (0.15 + 0.6 * r3) : 2.0;
             vec3 fabric = mix(vec3(0.9, 0.88, 0.82), r2 < 0.3 ? vec3(0.62, 0.52, 0.42) : vec3(0.82, 0.8, 0.74), r1);
-            if (wi.g > cl) { c = fabric * (0.85 + 0.15 * sin(wi.r * 40.0)); glassOpen = 0.5; }
+            if (windowUV.y > cl) { c = fabric * (0.85 + 0.15 * sin(windowUV.x * 40.0)); glassOpen = 0.5; }
             if (r1 > 0.96 && r2 > 0.5) glassOpen = 1.0;
             roomCol = c;
             // reveal shadow along the top / one side of the opening
-            float rev = 1.0 - 0.45 * (1.0 - smoothstep(0.0, 0.08, 1.0 - wi.g)) - 0.3 * (1.0 - smoothstep(0.0, 0.06, wi.r));
+            float rev = 1.0 - 0.45 * (1.0 - smoothstep(0.0, 0.08, 1.0 - windowUV.y)) - 0.3 * (1.0 - smoothstep(0.0, 0.06, windowUV.x));
             diffuseColor.rgb = mix(c * 0.34 * rev, diffuseColor.rgb, winFar); // (rooms are darker than the street by day)
         }
         if (!shopT && !glassT && isGlass < 0.5) { // weathering: grime near the ground, rain streaks, plaster patches
@@ -419,7 +432,7 @@ function solidMaterial(atlas) {
         // (the tile id is an interpolated varying: 7.99999 picked the wrong atlas cell on some pixels — the 'TV static' on
         //  windows; round it once per fragment)
         sh.fragmentShader = sh.fragmentShader.replace('void main() {', 'void main() {\n\tfloat vTile = floor(vTileRaw + 0.5);'); }; }
-    m.customProgramCacheKey = () => 'osm-solid-atlas-pbr4';
+    m.customProgramCacheKey = () => 'osm-solid-atlas-pbr5-anchored-rooms';
     return m;
 }
 
@@ -3652,11 +3665,13 @@ export async function buildWorld(city, renderer, opts = {}) {
                         const s2 = cols[i], r = brng();
                         if (i % 2 === 0) {
                             const t = r < 0.12 ? (colType[i] === 'open' ? 'glazed' : 'open') : colType[i]; // (a few owners differ)
-                            slab(s2, yb - 0.1, bayW * 0.9, 0.12, 1.1, neutral);                                   // slab
                             const front = colAcc[i] ? accent : t === 'clad' ? encl[i % encl.length] : neutral;
-                            slab(s2, yb + 0.02, bayW * 0.9, 0.95, 1.1, front, false);                            // parapet front
-                            if (t === 'glazed') slab(s2, yb + 0.97, bayW * 0.88, floorH - 1.15, 1.02, rgb('#71879a'));     // glazed upper part
-                            else if (t === 'clad') slab(s2, yb + 0.97, bayW * 0.88, floorH - 1.15, 1.04, shadeRgb(front, 0.92));
+                            if (h <= 40) { // taller blocks retain the existing far silhouette in addDetail
+                                emitFacadeSlab(db, { ax, az, ux, uz, nx, nz }, s2, yb - 0.1, bayW * 0.9, 0.12, 1.1, neutral); // floor incl. soffit / side edges
+                                emitFacadeSlab(db, { ax, az, ux, uz, nx, nz }, s2, yb + 0.02, bayW * 0.9, 0.95, 1.1, front, { back: 1.02, soffit: false }); // thin parapet plate
+                                if (t === 'glazed') slab(s2, yb + 0.97, bayW * 0.88, floorH - 1.15, 1.02, rgb('#71879a'));     // glazed upper part
+                                else if (t === 'clad') slab(s2, yb + 0.97, bayW * 0.88, floorH - 1.15, 1.04, shadeRgb(front, 0.92));
+                            }
                             if (r > 0.82) { slab(s2 + bayW * 0.25, yb + 0.25, 0.75, 0.5, 1.32, rgb('#ececea')); slab(s2 + bayW * 0.25, yb + 0.33, 0.5, 0.32, 1.34, rgb('#55585c'), false); } // AC on the front
                         } else if (r < 0.1) { slab(s2, yb + 0.15, 0.75, 0.5, 0.3, rgb('#ececea')); slab(s2, yb + 0.23, 0.5, 0.32, 0.32, rgb('#55585c'), false); } // AC under a window
                         else if (r < 0.13) slab(s2, yb + floorH * 0.7, 0.55, 0.55, 0.14, rgb('#d6d6d0'), false); // dish
@@ -3728,7 +3743,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 mb.flatQuad(E.ax, E.az, E.bx, E.bz, E.bx + ox, E.bz + oz, E.ax + ox, E.az + oz, y0 + 6.6, dark, 0, -1);
             }
         }
-        if (st === 'bloc') { // balconies on the street-facing fronts
+        if (st === 'bloc' && (h > 40 || (b.flags & 32))) { // distant silhouettes; lower buildings get one complete set in addNearDetail
             const floors = Math.min(12, Math.floor((h - y0) / floorH));
             const bc = shadeRgb(wallCol, 0.86);
             for (let k = 0; k < n; k++) {
@@ -3737,10 +3752,8 @@ export async function buildWorld(city, renderer, opts = {}) {
                 for (let f = (shop ? 2 : 1); f < floors; f++) {
                     const y = y0 + f * floorH;
                     for (let s2 = 1.2; s2 + 2.8 < E.L - 0.8; s2 += 6.2) {
-                        const x0 = E.ax + E.ux * s2, z0 = E.az + E.uz * s2, x1 = x0 + E.ux * 2.8, z1 = z0 + E.uz * 2.8;
-                        const ox = E.nx * 0.95, oz = E.nz * 0.95;
-                        mb.wall(x0 + ox, z0 + oz, x1 + ox, z1 + oz, y, y + 1.0, E.nx, E.nz, bc);
-                        mb.flatQuad(x0, z0, x1, z1, x1 + ox, z1 + oz, x0 + ox, z0 + oz, y + 1.0, shadeRgb(bc, 1.1), 0, -1);
+                        emitFacadeSlab(mb, E, s2 + 1.4, y - 0.12, 2.8, 0.12, 0.95, bc);
+                        emitFacadeSlab(mb, E, s2 + 1.4, y, 2.8, 1.0, 0.95, bc, { back: 0.87, soffit: false });
                     }
                 }
             }

@@ -18,6 +18,9 @@ import * as THREE from '../../../vendor/three.module.min.js';
 import { polyArea, GeoBatch, M, rng, headingFromBearing, lerp, smooth, clamp, inPoly, polyBox, alongPolyline, polylineLength, distPolyline, canvas, canvasTexture } from '../kit.js';
 import { seattleBackdrop } from '../backdrop.js';
 import { bench } from '../osm.js';
+import { boatRide } from '../buc.js';
+import { dryLanding, shortWaterRoute } from '../water-route.js';
+import { stoneSkipping } from '../stone-skipping.js';
 import { emitActivity, localMD, inWindow, seasonal, shoreField, waterGrid, boulderWall, nightLit, glowText, gableRoof } from './bel-common.js';
 
 const LAKE_Y = -0.55; // Lake Washington ≈ 5.1–5.7 m NAVD88 (regulated); scene datum 5.7 m
@@ -299,26 +302,32 @@ export default {
         let pierDone = false;
         ctx.onUpdate((dt, s, pl) => { if (pierDone || !pl) return; if (Math.hypot(pl.x - TC.x, pl.z - TC.z) < TR - 0.5 && pl.y > DECK - 0.5) { pierDone = true; emitActivity(s, 'bel-meydenbauer', 'pier-end', '🌊 End of the crescent', '420 ft out over Meydenbauer Bay — Seattle is 9 km west across Lake Washington.'); } });
         ctx.interactables.push({ kind: 'activity', x: TC.x, z: TC.z, r: TR - 0.6, y: DECK, label: 'Walk to the end of the crescent pier', use: (s) => { if (!pierDone) { pierDone = true; emitActivity(s, 'bel-meydenbauer', 'pier-end', '🌊 End of the crescent', '420 ft out over Meydenbauer Bay — Seattle is 9 km west across Lake Washington.'); } else s.ui.toast('🌊 Meydenbauer Bay', 'Floating crescent pier, opened March 2019.'); } });
-        // 2) kayak round the bay (summer rental at the boathouse dock)
-        const kay = new GeoBatch(); kay.add(hullGeo(4.3, 0.66, 0.32, 0.12), 'plastic', null, '#f0a21c'); kay.box(0, 0.28, -0.3, 0.42, 0.06, 0.9, '#1f1f1f', 'rubber'); kay.rod([-1.1, 0.55, 0.2], [1.1, 0.75, 0.2], 0.02, '#333', 'metal', 4); kay.box(-1.1, 0.5, 0.2, 0.05, 0.2, 0.32, '#f2c230', 'plastic', 0, 0, 0.35); kay.box(1.1, 0.72, 0.2, 0.05, 0.2, 0.32, '#f2c230', 'plastic', 0, 0, -0.35);
-        const kayak = kay.build('kayak'); kayak.visible = false; ctx.add(kayak);
-        const put = { x: 46, z: 72 }, launch = { x: 66, z: 53 };
-        const loop = [[46, 72], [22, 80], [-25, 81], [-70, 70], [-92, 42], [-84, 80], [-30, 91], [20, 88], [46, 72]];
-        const loopL = polylineLength(loop); let ride = null;
-        ctx.onUpdate((dt, s) => {
-            if (!ride) return;
-            ride.t += dt; const sp2 = Math.min(loopL, ride.t * 2.1), p = alongPolyline(loop, sp2), p2 = alongPolyline(loop, Math.min(loopL, sp2 + 1.5));
-            const yaw = Math.atan2(p2.x - p.x, p2.z - p.z), bob = Math.sin(ride.t * 1.7) * 0.04;
-            kayak.position.set(p.x, LAKE_Y + bob, p.z); kayak.rotation.set(Math.sin(ride.t * 2.4) * 0.03, yaw, Math.sin(ride.t * 1.3) * 0.04);
-            const lk = s.input?.takeLook?.() || { dx: 0, dy: 0 }; ride.look -= lk.dx * 0.0024; ride.pitch = clamp(ride.pitch - lk.dy * 0.0024, -0.9, 0.9);
-            s.ctl.rig.position.set(p.x, LAKE_Y + 0.95 + bob, p.z); s.ctl.rig.rotation.set(ride.pitch, yaw + Math.PI + ride.look, 0, 'YXZ');
-            if (sp2 >= loopL - 0.1) { kayak.visible = false; s.ctl.active = true; s.ctl.teleport(ride.back.x, ride.back.z, ride.back.heading); ride = null; emitActivity(s, 'bel-meydenbauer', 'kayak', '🛶 Round the bay by kayak', 'Past the crescent pier and the marina — Meydenbauer Bay is a non-motorised launch site; rentals run in summer.'); }
-        });
-        ctx.interactables.push({ kind: 'kayak', x: launch.x, z: launch.z, r: 4.5, label: 'Rent a kayak (paddle round the bay)', cond: () => !ride,
-            use: (s) => { if (!inWindow(localMD(s), [5, 15], [9, 30])) { s.ui.toast('🛶 Kayak rentals are seasonal', 'The boathouse rents kayaks and paddleboards from late spring to September — come back in summer.'); return; } const p = s.ctl.position; ride = { t: 0, look: 0, pitch: -0.05, back: { x: p.x, z: p.z, heading: s.ctl.heading } }; kayak.visible = true; s.ctl.active = false; s.sound.play('splat', 0.3); } });
-        // 3) skip stones from the beach (wind-dependent)
+        // The city confirms a public hand-carry launch and seasonal rentals.
+        // Its current page names Best Kayak Rentals; the OSM boathouse name REI
+        // is historical, so this game course never claims an open REI rental.
+        const launch = { x: 58, z: 51.3 }, sourcePier = d.areas.find(a=>a.id==='w819169611');
+        const pierLine0=way('w688415225'), swimming=area('w737163174');
+        const nearPoly=(x,z,p,margin)=>p&&(inPoly(x,z,p)||distPolyline(x,z,[...p,p[0]]).d<margin);
+        const course=shortWaterRoute(lakePoly,launch,{reach:20,clearance:1.2,avoid:(x,z)=>
+            d.buildings.some(b=>nearPoly(x,z,b.poly,1.5))||nearPoly(x,z,sourcePier?.poly,1.2)||nearPoly(x,z,swimming,2)||
+            (pierLine0&&distPolyline(x,z,pierLine0).d<6)||ctx.colliders.some(c=>c.prop&&c.hw===c.r&&Math.hypot(x-c.x,z-c.z)<c.r+1.4)});
+        const put=course?{x:course[0][0],z:course[0][1]}:launch;
+        if(course&&sourcePier&&inPoly(launch.x,launch.z,sourcePier.poly)){
+            const kay=new GeoBatch();kay.add(hullGeo(4.3,.66,.32,.12),'plastic',null,'#f0a21c');kay.box(0,.28,-.3,.42,.06,.9,'#1f1f1f','rubber');
+            const kayak=kay.build('kayak');kayak.visible=false;ctx.add(kayak);
+            const ride=boatRide(ctx,kayak,course,LAKE_Y,{speed:1.8,eye:.65,title:'Paddle Meydenbauer Bay',action:'Paddle a stroke',outfit:false,paddle:'kayak',
+                help:'Paddle each stroke to move along a short game course outside the swimming area and return to the mapped dock. Leave or Esc returns to your starting deck. Real operator dates and hours are not modeled; check the city and current operator before visiting.',
+                onDone:s=>emitActivity(s,'bel-meydenbauer','kayak','🛶 Bay paddle completed','You paddled the short course and returned to the mapped launch dock.')});
+            ctx.extras.meydenbauerKayak={ride,path:course,launch,source:'w819169611',operatorHoursVerified:false,sourceUrl:'https://bellevuewa.gov/city-government/departments/parks/parks-and-trails/parks/meydenbauer-beach-park',launchPositionEstimated:true};
+            const available=s=>s.r3d?.weather?.season!=='winter';
+            ctx.interactables.push({kind:'kayak',x:launch.x,z:launch.z,y:LAKE_Y+.42,r:1.8,source:'w819169611',label:'Paddle a short bay course',tourAvailable:available,cond:()=>!ride.active(),use:s=>{if(!available(s)){s.ui.toast('🛶 Warm-season game course','Choose a warm season for the paddle exercise. The real operator publishes its own current opening dates.');return;}ride.start(s);}});
+        }
+        // Input-driven virtual stone practice, outside the mapped swimming area.
+        // The temporary stone and ripples disappear; no real fixture is added.
         const beachC = beachPoly.length ? { x: (bb.x0 + bb.x1) / 2, z: (bb.z0 + bb.z1) / 2 } : { x: 10, z: -15 };
-        ctx.interactables.push({ kind: 'skip', x: beachC.x - 4, z: beachC.z + 2, r: 14, label: 'Skip a stone', use: (s) => { const w = s.r3d.weather?.windKmh ?? 8, n = Math.max(1, Math.round(3 + Math.random() * 6 - w / 10)); s.sound.play('splat', 0.4); s.ui.toast('🪨 ' + '•'.repeat(n), `${n} skip${n > 1 ? 's' : ''}${n >= 7 ? ' — impressive!' : ''}`); } });
+        const skipFrom=dryLanding(lakePoly,{x:-28,z:-16},2),skipTo={x:-40,z:1};
+        ctx.extras.stoneSkipping=stoneSkipping(ctx,{from:skipFrom,target:new THREE.Vector3(skipTo.x,LAKE_Y+.03,skipTo.z),waterY:LAKE_Y,onDone:s=>emitActivity(s,'bel-meydenbauer','skip','🪨 Three stone throws','You released three visible stones across the water outside the swimming area.')});
+        ctx.interactables.push({kind:'skip',...skipFrom,r:2.4,label:'Practise three stone skips',use:s=>ctx.extras.stoneSkipping.start(s)});
         // ---------------------------------------------------------------- plaques (research), postcard, crowd, sounds, spawn
         const PL = sp.plaques, py0 = (x, z) => g.heightAt(x, z);
         if (PL[0] && wh) { const c = polyBox(wh); ctx.plaque(PL[0], c.x0 - 6, c.z0 - 5, -2.4); }

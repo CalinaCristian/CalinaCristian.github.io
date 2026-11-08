@@ -1,0 +1,50 @@
+{
+  "data": "bucharest-floreasca.json",
+  "roads": 143,
+  "sourceWays": 143,
+  "preparedNodes": 564,
+  "cutNodes": 53,
+  "expectedWhole": 93,
+  "wholeSourceVertices": 360,
+  "missingWhole": 0,
+  "privatePhysical": 5,
+  "shortSourceStubs": 9,
+  "scenery": {
+    "pieces": 878,
+    "sourceWays": 872,
+    "preparedVertices": 4205,
+    "privatePhysical": 80
+  },
+  "visibleRing": {
+    "expectedWays": 844,
+    "missingWays": 0,
+    "requiredVertices": 3925,
+    "missingVertices": 0,
+    "excludedCoveredWays": [
+      "w229828114",
+      "w229828117",
+      "w325467682",
+      "w916708215",
+      "w943948559",
+      "w992915156",
+      "w319077402",
+      "w668558578",
+      "w668755613",
+      "w1322035262",
+      "w668555464",
+      "w669742137",
+      "w669742138"
+    ],
+    "exclusionReason": "Covered/tunnel source ways outside the physical core are not represented as ground scenery; no elevation or open road is invented."
+  },
+  "sourceDirectionNormalizations": [
+    {
+      "sourceId": "w1230943443",
+      "scope": "scenery",
+      "index": 539,
+      "source": "OSM oneway=-1",
+      "operation": "Prepared schema follows legal travel direction; original source IDs/coordinates remain unchanged."
+    }
+  ],
+  "issues": []
+}

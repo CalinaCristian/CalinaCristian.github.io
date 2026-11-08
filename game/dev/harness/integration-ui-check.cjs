@@ -48,7 +48,7 @@ function check(name, pass, details) { report.checks.push({ name, pass: !!pass, d
         }));
         check(label + ': underlying gameplay controls are hidden and inert', data.every(e => e.hidden && e.inert), data);
     };
-    const shot = async label => { await page.screenshot({ path: path.join(out, label + '.png'), timeout: 90000 }); };
+    const shot = async label => { await require('./integration-browser-bounds.cjs').captureViewport(page, path.join(out, label + '.png')); };
     for (const [width, height] of [[390, 844], [844, 390]]) {
         const label = `${width}x${height}`;
         await page.setViewportSize({ width, height });

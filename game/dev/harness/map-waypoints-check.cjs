@@ -30,7 +30,7 @@ let browser;
     const shot = async (name) => {
         if (process.env.NO_SHOTS) return;
         await page.evaluate(() => { game.canvas.style.visibility = 'hidden'; });
-        try { await page.screenshot({ path: path.join(out, name), timeout: 120000 }); }
+        try { await require('./integration-browser-bounds.cjs').captureViewport(page, path.join(out, name)); }
         finally { await page.evaluate(() => { game.canvas.style.visibility = ''; }); }
     };
     const snap = () => page.evaluate(() => ({ x: game.player.x, z: game.player.z, state: game.state, district: game.district, chapter: game.chapter, done: [...game.progress.done], reached: [...game.progress.reached], objective: game.objective?.id, selected: game.explore.destination?.label, nav: game.nav.dest, route: game.nav.route?.total, fuel: game.fuel, stations: game.stations.length, fastTravels: game.stats.fastTravels }));

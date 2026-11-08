@@ -2146,8 +2146,9 @@ ${['menu', 'drive', 'foot', 'spot'].includes(this.state) ? '<button class="btn" 
     /** time-of-day pick → clock: rush / noon shift the real clock to that local hour (real sun), golden hour / night use the render looks */
     applyRoamTime(tod, timeZone) {
         const c = this.clock; c.offsetMs = 0; c.override = null;
+        c.timeZone = timeZone || c.timeZone;
         const H = tod === 'dawn' ? 6.5 : tod === 'rush' ? 8.5 : tod === 'noon' ? 12.5 : /^h\d/.test(tod) ? Number(tod.slice(1)) : null;
-        if (H != null) { const h0 = localHours(new Date(), timeZone); c.offsetMs = (((H - h0) % 24 + 24) % 24) * 3600e3; }
+        if (H != null) { const h0 = localHours(new Date(), c.timeZone); c.offsetMs = (((H - h0) % 24 + 24) % 24) * 3600e3; }
         else if (tod === 'golden') c.override = 'sunset';
         else if (tod === 'night') c.override = 'night';
         else if (tod === 'dusk' || tod === 'day') c.override = tod;

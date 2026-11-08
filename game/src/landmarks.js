@@ -757,7 +757,7 @@ function bCathedral(b) {
     const S = '#f4f0e7', TR = '#e3dccb', NI = '#d6cdb9', WIN = '#3e434a', GOLD = '#d2a645', GOLDR = '#b88d3a', CL = '#fbf8f1';
     b.wall = S;
     const [outer] = P.cathedral.map(pts), domesLater = [];
-    const HW = 41.4;
+    const HW = 48; // OSM primary height52 includes the4m nave roof; do not add a roof above52.
     b.prism(offset(outer, 2.5), 0, 1.4, '#cfc6b4', { topCol: '#d9d1c1' });                      // stylobate
     b.prism(outer, 1.4, HW, S, { topCol: TR });
     b.windows(outer, 1.4, 9, 7.6, '#6d6a62', { bay: 4.4, wf: 0.5, hf: 0.7, start: 1.2, arch: true, minL: 7 });     // ground-floor arcade
@@ -769,7 +769,7 @@ function bCathedral(b) {
         b.cyl(x, 1.4, z, 3.4, 3.6, HW + 4.6, S, 10);
         b.cyl(x, HW + 6, z, 3.9, 3.9, 0.8, TR, 8); domesLater.push([x, HW + 6.8, z, 3.5, 4.2, 10, 0]);
     }
-    b.roof(outer, HW, 4, GOLDR, 3, { topCol: GOLDR });
+    b.sourceRoof(outer, HW, 4, GOLDR, 3);
     const cross = (x, y, z, h) => { b.box(x, y, z, h * 0.09, h, h * 0.09, GOLD, { mat: 'g' }); b.box(x, y + h * 0.62, z, h * 0.09, h * 0.09, h * 0.52, GOLD, { mat: 'g' }); };
     // gilded ribbed hemispherical dome (slightly raised), ribs, collar; lantern when `lan` > 0
     const domeG = (x, y, z, r, h, seg, lan) => {
@@ -781,8 +781,8 @@ function bCathedral(b) {
         return y + h;
     };
     // drum: white stone polygon, tall arched windows (recessed dark) between paired colonnettes, arcaded cornice
-    const drum = (x, z, y0, y1, r, seg, winH) => {
-        const ring = ellipse(x, z, r, r, seg, Math.PI / seg), side = 2 * r * Math.sin(Math.PI / seg);
+    const drum = (x, z, y0, y1, r, seg, winH, sourceRing = null) => {
+        const ring = sourceRing || ellipse(x, z, r, r, seg, Math.PI / seg), side = 2 * r * Math.sin(Math.PI / seg);
         b.prism(ring, y0, y1, S, { top: false });
         b.cornice(ring, y0, 0.9, 0.5, TR);
         b.windows(ring, y0 + 1, y1 - 1.6, y1 - y0 - 2.6, WIN, { bay: side, wf: 0.34, hf: winH, start: (y1 - y0) * 0.12, arch: true, minL: 0.5, off: 0.05 });
@@ -793,31 +793,32 @@ function bCathedral(b) {
         }
         b.cornice(ring, y0 + ch, 0.5, 0.35, TR); b.cornice(ring, y1 - 1.2, 1.2, 0.7, TR);
     };
-    // Pantocrator tower over the crossing: square base, 16-sided lower drum, drum 71.8-97.8 m, dome to 121, lantern 127, cross 133
-    const mx = 13.5, base = rect(mx - 17, -17, mx + 17, 17);
-    b.prism(base, HW, 56, S, { topCol: GOLDR }); b.windows(base, HW, 56, 14.6, NI, { bay: 2.6, wf: 0.6, hf: 0.6, start: 4, arch: true });
-    b.cornice(base, 55, 1, 0.8, TR);
-    const low = ellipse(mx, 0, 15.6, 15.6, 16, Math.PI / 16);
-    b.prism(low, 56, 71.8, S, { topCol: GOLDR }); b.windows(low, 57, 71, 14, WIN, { bay: 6, wf: 0.3, hf: 0.42, start: 4, arch: true, minL: 0.5 }); b.cornice(low, 70.8, 1, 0.8, TR);
-    drum(mx, 0, 71.8, 97.8, 14.2, 16, 0.6);
-    const ly = domeG(mx, 97.8, 0, 14.6, 23.2, 24, 7.2);
-    cross(mx, ly, 0, 6);
+    // Mapped central parts:62.8m mansard base,71.8m lower drum,97.8m drum and127.05m crown.
+    const source=BUCHAREST_SOURCE_MASSES.cathedral, mx=14.61, mz=2.78, base=source.base;
+    b.prism(base,HW,58.8,S,{top:false});b.windows(base,HW,58.8,10.8,NI,{bay:2.6,wf:0.6,hf:0.6,start:2,arch:true});
+    b.sourceRoof(base,58.8,4,GOLDR,3,{mansard:true});
+    const low=source.lowerDrum;
+    b.prism(low,62.8,69.8,S,{top:false});b.windows(low,63,69.5,6.5,WIN,{bay:6,wf:0.3,hf:0.6,start:1,arch:true,minL:0.5});
+    b.sourceRoof(low,69.8,2,GOLDR,2,{mansard:true});
+    drum(mx,mz,71.8,97.8,14.25,16,0.6,source.drum);
+    // Keep the ribbed dome/lantern/cross detail while applying the explicit mapped127.05m envelope.
+    // Project/engineering references use differing interior-floor and ground datums; recorded in the source ledger.
+    const crownScale=(127.05-97.8)/(133.04-97.8);
+    b.push(M(0,97.8*(1-crownScale),0,0,1,crownScale,1));
+    const ly=domeG(mx,97.8,mz,14.6,23.2,24,7.2);cross(mx,ly,mz,6);b.pop();
     // four secondary towers at the corners of the crossing (≈ 62 m)
     for (const [x, z] of [[mx - 21.5, -21], [mx + 21.5, -21], [mx - 21.5, 21], [mx + 21.5, 21]]) {
         const q = rect(x - 5.2, z - 5.2, x + 5.2, z + 5.2);
-        b.prism(q, HW, 46, S, { topCol: GOLDR }); b.windows(q, HW, 46, 4.6, WIN, { bay: 3.4, wf: 0.36, hf: 0.6, start: 1, arch: true }); b.cornice(q, 45.4, 0.6, 0.6, TR);
-        drum(x, z, 46, 56.5, 4.6, 8, 0.6);
-        const y2 = domeG(x, 56.5, z, 4.9, 5.6, 12, 1.6);
+        b.prism(q, HW, 52, S, { topCol: GOLDR }); b.windows(q, HW, 52, 4, WIN, { bay: 3.4, wf: 0.36, hf: 0.6, start: 1, arch: true }); b.cornice(q, 51.4, 0.6, 0.6, TR);
+        drum(x, z, 52, 65, 4.6, 8, 0.6);
+        const y2 = domeG(x, 65, z, 4.9, 7, 12, 1.6);
         cross(x, y2, z, 3.2);
     }
-    // west bell tower (≈ 75.5 m) over the narthex
-    const bx = -48, bq = rect(bx - 10, -10, bx + 10, 10);
-    b.prism(bq, HW, 58, S, { topCol: GOLDR });
-    b.windows(bq, HW, 58, 16.6, WIN, { bay: 5, wf: 0.4, hf: 0.6, start: 4, arch: true });
-    b.cornice(bq, 57, 1, 0.8, TR);
-    drum(bx, 0, 58, 72, 7.6, 12, 0.6);
-    const by = domeG(bx, 72, 0, 8, 8.5, 16, 2.6);
-    cross(bx, by, 0, 4.5);
+    // Western source body w1282739666 height78; the conflicting height4 dome tag is not an absolute tower height.
+    const bx=-46.69,bz=-0.42,bq=source.bell;
+    b.prism(bq,HW,64.5,S,{top:false});b.windows(bq,HW,64.5,8.25,WIN,{bay:5,wf:0.4,hf:0.6,start:1,arch:true});
+    b.cornice(bq,63.5,1,0.8,TR);drum(bx,bz,64.5,78,11.4,12,0.6);
+    const by=domeG(bx,78,bz,11.4,8.5,16,2.6);cross(bx,by,bz,4.5); // dome/cross rise remains a photo-led estimate
     for (const [x, y, z, r, h, sg, lan] of domesLater) { const y2 = domeG(x, y, z, r, h, sg, lan); cross(x, y2 - 0.2, z, 2.4); }
     // west gable: semicircular pediment with a rose window above the porch
     b.geo(new THREE.CylinderGeometry(9, 9, 1.2, 16, 1, false, 0, Math.PI), S, M(-60.6, HW, 0, 0, 1, 1, 1, Math.PI / 2, Math.PI / 2));
@@ -1141,19 +1142,19 @@ function bRegal(b) {
     const S = '#e1d6bc', TR = '#d8ccb0', WIN = '#4f565a', COL = '#ebe2cd';
     b.wall = S;
     const [p] = P.regal.map(pts);
-    const top = storeys(b, p, 0, [[6.2, 0.42, 0.62, true], [5.6, 0.36, 0.62, false], [4.6, 0.34, 0.5, false]],
-        { wall: S, win: WIN, trim: TR, bay: 4.6, courses: [0], pilasters: true, pilasterFrom: 6.2, pilasterEvery: 2, pilasterW: 1, corniceOut: 1.1, corniceH: 1.3, parapet: 1.2, roofCol: '#b9b2a4', minL: 6 });
-    for (let k = 0; k < 5; k++) b.cornice(p, 0.6 + k * 1.15, 0.08, 0.06, '#cfc3a6');           // rusticated joints of the ground floor
-    b.ring(offset(p, 0.25), top - 0.1, top + 1.0, '#ddd2b8');                                  // balustraded attic (solid read)
-    b.piers(offset(p, 0.3), top - 0.1, top + 1.0, 2.2, TR);
-    // cour d'honneur: paired giant columns on pedestals along the central body and the inner faces of the wings
-    const fz = (x) => (zAt([p], x)?.[0] ?? 2);
-    for (const x of [-22, -12, -1, 10, 21, 32, 43]) for (const d of [-1.05, 1.05]) {
-        const z = fz(x + d) - 1.25;
-        b.box(x + d, 6.2, z, 1.7, 1.1, 1.7, TR); b.cyl(x + d, 7.3, z, 0.62, 0.7, 9.4, COL, 12);
-        b.cyl(x + d, 16.7, z, 0.85, 0.66, 1.1, TR, 8); b.box(x + d, 17.6, z, 1.9, 0.25, 1.9, TR);
+    // The 12 m primary outline is not a uniform facade-height instruction: the complete OSM part survey
+    // maps 4 m plinths, 14 m pilasters/columns, 15.7/16 m bodies and 18 m upper returns.
+    // Preserve those 263 explicit part boundaries and min_height bands instead of the prior uniform 19.9 m mass.
+    for (const layer of BUCHAREST_SOURCE_MASSES.regal.layers) {
+        for (const q of layer.polygons) {
+            b.prism(q.ring,layer.y0,layer.height,'#eee8aa',{holes:q.holes,top:false});
+            if(layer.height-layer.y0>3)b.windows(q.ring,layer.y0,layer.height,4.8,WIN,{bay:4.6,wf:0.36,hf:0.62,arch:layer.y0<4,minL:6});
+            b.colPolygon(q.ring,{holes:q.holes,y0:layer.y0,y1:layer.height});
+        }
+        for (const q of layer.caps) b.cap(q.ring,layer.height,layer.height>=15.7?'#c0c0c0':'#d8ccb0',q.holes);
     }
-    for (const [x0, x1] of [[-24, 0], [-2, 23], [19, 45]]) { const z = Math.min(fz(x0), fz(x1)) - 1.4; b.box((x0 + x1) / 2, 17.85, z, x1 - x0 + 2, 1.3, 2.4, TR); }
+    // Entry details from independent facade photographs; positions remain explicit modelling estimates.
+    const fz = (x) => (zAt([p], x)?.[0] ?? 2);
     // main door + iron-and-glass marquee
     const zd = fz(10); b.box(10, 0, zd - 0.15, 3.4, 5, 0.3, '#5b4a35'); b.box(10, 4.6, zd - 3, 9, 0.35, 6, '#2c3134', { mat: 'g' }); b.box(10, 4.95, zd - 3, 8.4, 0.12, 5.6, '#9db0b8', { mat: 'g' });
     for (const s2 of [-1, 1]) b.box(10 + s2 * 4.3, 0, zd - 5.6, 0.2, 4.6, 0.2, '#2c3134');
@@ -1161,7 +1162,7 @@ function bRegal(b) {
     b.prism(rect(-36, -40, 59, fz(10) - 0.5), 0, 0.06, '#c9c4b8');
     b.fence([[-55, -42], [-8, -44], [28, -44], [75, -36]], 2.4, 7, '#22272a', { post: 0.7, postCol: '#d6ccb4', base: 0.6, baseCol: '#d6ccb4', bars: 0.35 });
     b.cyl(-6, 0, -2 + fz(-6), 0.1, 0.14, 12, '#dddddd', 6); flag(b, -6, 11.8, -2 + fz(-6), 2.6);
-    b.colPolygon(p, { y1: 19.9 });
+
 }
 
 // Palatul Victoria (Government, Duiliu Marcu, 1937-52) — OSM way 23554419 + parts 1516914665 (20 m),

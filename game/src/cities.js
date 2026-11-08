@@ -44,13 +44,13 @@ export const ROAD_TYPES = {
 // CV stops (ids are referenced by data.js STOPS). `road` (optional) restricts the kerb snap to a street name.
 const BUC_POIS = [
     { id: 'rosetti', lat: 44.46709, lon: 26.1063, label: 'Liceul C.A. Rosetti', kind: 'school', address: 'Str. Giuseppe Garibaldi 11', road: /Garibaldi/ }, // research: gate on the W side of one-way (northbound) Garibaldi
-    { id: 'upb', lat: 44.4385, lon: 26.0515, label: 'Politehnica (UPB)', kind: 'school', address: 'Splaiul Independenței 313 — Rectorat (car gate on Bd. Doina Cornea)', road: /Doina Cornea/, roadRadius: 450, doorAlong: { m: 90, bearing: 30 }, size: [60, 22, 40] }, // research: the Rectorat (politehnica landmark) has no street frontage; the campus roads are private → door at the Doina Cornea vehicle gate
-    { id: 'gts', lat: 44.4333, lon: 26.11762, label: 'GTS Global Intelligence', kind: 'office', address: 'Calea Călărașilor 101, lângă Hala Traian', road: /Călărașilor/, size: [20, 18, 20] }, // research: N side, ~240 m west of the Traian junction
+    { id: 'upb', lat: 44.4385, lon: 26.0515, label: 'Politehnica (UPB)', kind: 'school', address: 'Splaiul Independenței 313 — Rectorat (car gate on Bd. Doina Cornea)', road: /Doina Cornea/, roadRadius: 450, doorAlong: { m: 90, bearing: 30 } }, // research: the Rectorat (politehnica landmark) has no street frontage; the campus roads are private → door at the Doina Cornea vehicle gate
+    { id: 'gts', lat: 44.4333, lon: 26.11762, label: 'GTS Global Intelligence', kind: 'office', address: 'Calea Călărașilor 101, lângă Hala Traian', road: /Călărașilor/ }, // research: N side, ~240 m west of the Traian junction
     // owner-confirmed (spec 10 Owner decisions): both on Bd. Dimitrie Pompeiu, Pipera. Pins = the researched entrances (game/research/bucharest-pipera.json stops[].door)
-    { id: 'luxoft', lat: 44.4804, lon: 26.1139, label: 'Luxoft — Hermes Business Campus', kind: 'office', address: 'Bd. Dimitrie Pompeiu 5-7 (Hermes Business Campus)', road: /Pompeiu/, roadRadius: 120, size: [36, 42, 26] }, // N side lobby, inside the `hermes` landmark
-    { id: 'db', lat: 44.47969, lon: 26.11461, label: 'Deutsche Bank — BOB Tower', kind: 'office', address: 'Bd. Dimitrie Pompeiu 6A (BOB Tower)', road: /Pompeiu/, roadRadius: 120, doorAlong: { m: 12, bearing: 65 }, size: [40, 28, 30] }, // OSM w55450549, GF+6 glass; entrance on the S side of Pompeiu, opposite Hermes
-    { id: 'arnia', lat: 44.45118, lon: 26.08795, label: 'Arnia Software — Europe House', kind: 'office', address: 'Bd. Lascăr Catargiu 47-53', road: /Lascăr Catargiu/, size: [24, 26, 20] },
-    { id: 'uipath-buc', lat: 44.4499, lon: 26.0944, label: 'UiPath HQ', kind: 'office', address: 'Str. Vasile Alecsandri 4', road: /Vasile Alecsandri/, size: [28, 24, 24] },
+    { id: 'luxoft', lat: 44.4804, lon: 26.1139, label: 'Luxoft — Hermes Business Campus', kind: 'office', address: 'Bd. Dimitrie Pompeiu 5-7 (Hermes Business Campus)', road: /Pompeiu/, roadRadius: 120 }, // N side lobby, inside the `hermes` landmark
+    { id: 'db', lat: 44.47969, lon: 26.11461, label: 'Deutsche Bank — BOB Tower', kind: 'office', address: 'Bd. Dimitrie Pompeiu 6A (BOB Tower)', road: /Pompeiu/, roadRadius: 120, doorAlong: { m: 12, bearing: 65 } }, // OSM w55450549, GF+6 glass; entrance on the S side of Pompeiu, opposite Hermes
+    { id: 'arnia', lat: 44.45118, lon: 26.08795, label: 'Arnia Software — Europe House', kind: 'office', address: 'Bd. Lascăr Catargiu 47-53', road: /Lascăr Catargiu/ },
+    { id: 'uipath-buc', lat: 44.4499, lon: 26.0944, label: 'UiPath HQ', kind: 'office', address: 'Str. Vasile Alecsandri 4', road: /Vasile Alecsandri/ },
     { id: 'otopeni', lat: 44.5696, lon: 26.0770, label: 'Henri Coandă Airport (OTP)', kind: 'airport', doorAlong: { m: 42, bearing: 0 } }, // research: landside Departures (Plecări) drop-off kerb on the elevated ramp (was airside, 600 m east)
 ];
 
@@ -210,9 +210,9 @@ export const BUCHAREST = {
 const SEA_POIS = [
     { id: 'seatac', lat: 47.4435, lon: -122.3016, label: 'SeaTac Airport (SEA)', kind: 'airport' },
     // UiPath Bellevue: Lincoln Square North since Sept 2025; entrance on Bellevue Way NE just south of NE 8th (research: OSM entrance node 7945526075)
-    { id: 'uipath-bel', lat: 47.61723, lon: -122.20148, label: 'UiPath Bellevue — Lincoln Square', kind: 'office', address: '700 Bellevue Way NE (Lincoln Square North, since Sept 2025)', road: /Bellevue Way/, size: [34, 70, 30] },
+    { id: 'uipath-bel', lat: 47.61723, lon: -122.20148, label: 'UiPath Bellevue — Lincoln Square', kind: 'office', address: '700 Bellevue Way NE (Lincoln Square North, since Sept 2025)', road: /Bellevue Way/ },
     // passing landmark on the chapter route (UiPath's Bellevue office 2022–2025): a caption, not a stop
-    { id: 'plaza-center', lat: 47.61762, lon: -122.19405, label: 'Plaza Center — UiPath Bellevue 2022–2025', kind: 'office', address: '10900 NE 8th St', road: /8th Street|NE 8th/, passing: true, caption: 'Plaza Center: UiPath\'s Bellevue office from 2022 until the move to Lincoln Square in September 2025.', size: [34, 60, 30] },
+    { id: 'plaza-center', lat: 47.61762, lon: -122.19405, label: 'Plaza Center — UiPath Bellevue 2022–2025', kind: 'office', address: '10900 NE 8th St', road: /8th Street|NE 8th/, passing: true, caption: 'Plaza Center: UiPath\'s Bellevue office from 2022 until the move to Lincoln Square in September 2025.' },
 ];
 
 

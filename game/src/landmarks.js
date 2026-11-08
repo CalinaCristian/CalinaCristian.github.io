@@ -3148,14 +3148,15 @@ export function buildLandmark(lm, ctx = {}) {
     let k = 1;
     if (lm.backdrop) { k = ctx.backdropScale ?? 1; group.scale.setScalar(k); }
     const c = Math.cos(lm.rotation), s = Math.sin(lm.rotation);
+    const rot = ([x0, z0]) => { const x = x0 * hs, z = z0 * hs; return [x * c + z * s, -x * s + z * c]; };
     const collision = lm.backdrop ? [] : b.cols.map(q => {
         const x = q.x * hs, z = q.z * hs;
-        return { ...q, x: x * c + z * s, z: -x * s + z * c, hw: q.hw * hs, hd: q.hd * hs, angle: lm.rotation + q.angle };
+        return { ...q, x: x * c + z * s, z: -x * s + z * c, hw: q.hw * hs, hd: q.hd * hs, angle: lm.rotation + q.angle,
+            ...(q.poly ? { poly: q.poly.map(rot), holes: (q.holes || []).map(h => h.map(rot)) } : {}) };
     });
     // fences the world draws (it knows the streets): {ring|line in world axes relative to the anchor, closed, gates, style}
     //  `inside`: the grounds polygon (the fence is kept on its side of a street); `covers`: points of OSM buildings the model
     //  replaces (the world hides the footprint under each point, e.g. the school's sports hall)
-    const rot = ([x0, z0]) => { const x = x0 * hs, z = z0 * hs; return [x * c + z * s, -x * s + z * c]; };
     const fences = lm.backdrop ? [] : b.fences.map(f => ({ ...f, ring: (f.ring || f.line).map(rot), inside: f.inside ? f.inside.map(rot) : null,
         gates: (f.gates || []).map(g => ({ ...g, x: g.x * hs * c + g.z * hs * s, z: -g.x * hs * s + g.z * hs * c })) }));
     const covers = lm.backdrop ? [] : b.covers.map(rot), grounds = lm.backdrop ? [] : b.grounds.map(g => g.map(rot)); // grounds: surfaces kept clear of trees

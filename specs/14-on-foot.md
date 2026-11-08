@@ -12,6 +12,7 @@ R14.4 The car stays where parked (hazard lights), is an obstacle for traffic; tr
 R14.5 Walk into CV offices through the door; walking nav route on the dash map/minimap (sidewalk preferred); speed-limit HUD hidden on foot.
 R14.6 Reusable `OnFootController` (contract in 01) used by the office interiors and tourist spots (spec 15).
 R14.7 Photo mode works on foot (spec 16).
+R14.8 Car finding uses the distance chip, map/walking route, V to return and T to call the car. The on-foot L key-fob action and menu entry were removed at the owner's request (2026-11-08); L remains the driving headlight control. Cockpit meshes, including the mirror glass, remain hidden during on-foot placement, car calls and camera changes.
 
 ## Acceptance
 - [ ] Exit/enter works in every district; can't fall through the world; can't get stuck (R reset on foot → nearest sidewalk).

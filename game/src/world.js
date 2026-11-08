@@ -2902,6 +2902,15 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const baseY = res.mesh.position.y || 0.12, bands = { h: cb.h === undefined ? 20 : cb.h + baseY };
                 if (cb.y0 !== undefined) bands.y0 = cb.y0 + baseY;
                 if (cb.y1 !== undefined) bands.y1 = cb.y1 + baseY;
+                if (cb.poly?.length >= 3) {
+                    const toWorld = ([x, z]) => [p.x + x * lk, p.z + z * lk * cf];
+                    const poly = cb.poly.map(toWorld), holes = (cb.holes || []).map(h => h.map(toWorld));
+                    const xs = poly.map(v => v[0]), zs = poly.map(v => v[1]);
+                    const x = (Math.min(...xs) + Math.max(...xs)) / 2, z = (Math.min(...zs) + Math.max(...zs)) / 2;
+                    const hw = (Math.max(...xs) - Math.min(...xs)) / 2, hd = (Math.max(...zs) - Math.min(...zs)) / 2;
+                    collisionBoxes.push({ x, z, hw, hd, angle: 0, r: Math.hypot(hw, hd), ...bands, poly, holes, landmark: lm.id });
+                    continue;
+                }
                 if (cf !== 1) { // axis-aligned bounds of the rotated box, squashed N–S
                     const a = cb.angle || 0, ex = Math.abs(cb.hw * Math.cos(a)) + Math.abs(cb.hd * Math.sin(a)), ez = Math.abs(cb.hw * Math.sin(a)) + Math.abs(cb.hd * Math.cos(a));
                     const hw = ex * lk, hd = ez * lk * cf;
@@ -2943,6 +2952,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     let lmTrim = 0, lmDrop = 0;
     for (let i = collisionBoxes.length - 1; i >= 0; i--) {
         const b = collisionBoxes[i]; b.kind = 'landmark';
+        if (b.poly) continue; // exact source walls/courtyards must not be shrunk as a coarse OBB
         let k = 0;
         while (k < 8 && polyOnRibbon(obbPoly(b))) {
             // shrink the side that overlaps: try each axis alone first, then both

@@ -929,7 +929,7 @@ SCENARIOS.push({
     },
 });
 SCENARIOS.push({
-    id: 'findcar', group: 'r5', title: 'Find the car on foot (note 7): HUD chip with distance + direction, map marker, walk-back route, key-fob beep, call the car, get back in', city: 'bucharest',
+    id: 'findcar', group: 'r5', title: 'Find the car on foot: HUD chip with distance + direction, map marker, walk-back route, call the car, get back in', city: 'bucharest',
     async run(H) {
         const g = H.g; await prep(H); const P = g.player, res = {};
         H.setControls(0, 0, true); await H.run(1); H.press('Enter'); await H.run(0.3);
@@ -945,7 +945,6 @@ SCENARIOS.push({
         g.routeToCar(); res.route = g.nav.route ? Math.round(g.nav.route.total) : null; const d0 = g.carDoor();
         res.routeEndsAtCar = g.nav.route ? r1(Math.hypot(g.nav.route.points.at(-1)[0] - d0.x, g.nav.route.points.at(-1)[1] - d0.z)) : null;
         g.toggleMap(true); await H.run(0.2); res.mapEntry = !!document.querySelector('#navlist [data-car=route]'); res.shotMap = await H.shot('findcar-map'); g.toggleMap(false);
-        H.press('KeyL'); await H.run(0.4); res.beeped = !!g._fobT;
         H.press('KeyT'); await H.run(0.4); res.calledDist = r1(Math.hypot(P.x - F.x, P.z - F.z));
         res.shot = await H.shot('findcar-called');
         const d1 = g.carDoor(); await walkTo(H, d1.x, d1.z, { r: 2.2, timeout: 30 }); H.press('Enter'); await H.run(0.3); res.backIn = g.state === 'drive';

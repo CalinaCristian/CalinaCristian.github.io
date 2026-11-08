@@ -1,4 +1,4 @@
-{"_source":"aerial imagery (Esri World Imagery) measured by tools/aerial/trees.py; crown positions only, no imagery stored","_format":"trees: [[lat, lon, crown radius m], ...]","_mosaic":{"bbox":[47.4327,-122.3144,47.4633,-122.2841],"z":18},"_coverage":[47.4318033,-122.3149109,47.4633794,-122.2833252],"canopyShare":0.077,"trees":[
+{"_retention":"all-measured","_source":"aerial imagery (Esri World Imagery) measured by tools/aerial/trees.py; crown positions only, no imagery stored","_format":"trees: [[lat, lon, crown radius m], ...]","_mosaic":{"bbox":[47.4327,-122.3144,47.4633,-122.2841],"z":18},"_coverage":[47.4318033,-122.3149109,47.4633794,-122.2833252],"canopyShare":0.077,"trees":[
 [47.431829,-122.313897,2.1],
 [47.431829,-122.310635,2.1],
 [47.431829,-122.310314,2.8],

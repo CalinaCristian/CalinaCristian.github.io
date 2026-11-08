@@ -5195,12 +5195,22 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         walls.splice(0, walls.length, ...retained);
     }
+    // Flight includes the complete stadium model; the walking/driving opening remains the pitch play area.
+    const landmarkFlightAreas = [];
+    for (const lm of landmarks) if (lm.id === 'dinamo' && lm.mesh) {
+        lm.mesh.updateWorldMatrix(true, true);
+        const extent = new THREE.Box3().setFromObject(lm.mesh);
+        if (!extent.isEmpty() && [extent.min.x, extent.min.z, extent.max.x, extent.max.z].every(Number.isFinite)) {
+            landmarkFlightAreas.push({ id: lm.id, poly: [[extent.min.x, extent.min.z], [extent.max.x, extent.min.z], [extent.max.x, extent.max.z], [extent.min.x, extent.max.z]] });
+        }
+    }
     // ---- collision list with spatial query
     const insideDistrict = (x, z) => dmask ? !!(dmask.at(x, z) || landmarkPlayAreas.some(p => pointInPolygon(x, z, p))) : true;
     const flightBoundary = dmask ? {
-        inside: insideDistrict,
+        inside: (x, z) => insideDistrict(x, z) || landmarkFlightAreas.some(a => pointInPolygon(x, z, a.poly)),
+        landmarkAreas: landmarkFlightAreas,
         segments: walls.filter(w => w.kind === 'boundary').map(({ ax, az, bx, bz }) => ({ ax, az, bx, bz }))
-            .concat(landmarkPlayAreas.flatMap(poly => poly.map((a, i) => {
+            .concat([...landmarkPlayAreas, ...landmarkFlightAreas.map(a => a.poly)].flatMap(poly => poly.map((a, i) => {
                 const b = poly[(i + 1) % poly.length]; return { ax: a[0], az: a[1], bx: b[0], bz: b[1] };
             }))),
     } : null;

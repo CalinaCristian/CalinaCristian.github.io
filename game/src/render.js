@@ -514,6 +514,23 @@ export class Renderer3D {
 
     get renderer() { return this._renderer; }
 
+    /** District replacement: drop scene references without resizing the persistent light pool or cockpit targets. */
+    releaseScene() {
+        const retained = [this.sun, this.sun.target, this.probe, this.sky, this._lampGroup, this._discs].filter(Boolean);
+        for (const o of retained) o.removeFromParent();
+        for (const k of ['rain', 'snow']) if (this[k]) { this[k].mesh.removeFromParent(); this[k].dispose(); this[k] = null; }
+        this._wxGen++; this._wxBusy = false; this._wxLoc = ''; // discard the old response; setClock refreshes the new place
+        this._crowns = []; this._nightMats = []; this._lampHead = null;
+        this.lamps = this._lampDens = this._lampTint = this._lampReal = null; this._lampNear = [];
+        for (const sl of this._lampSlots) { sl.lamp = -1; sl.w = sl.target = 0; sl.light.intensity = 0; }
+        this.scene = null; this.player = null; this.renderPass.scene = null;
+        if (this.gtaoPass) this.gtaoPass.scene = null;
+        this._envA?.dispose(); this._envB?.dispose(); this._waterEnv?.dispose();
+        this._envA = this._envB = this._waterEnv = null; this._envFade = 1;
+        setWaterEnv(null, 1);
+        return retained;
+    }
+
     // ------------------------------------------------------------------ scene
     /**
      * @param {THREE.Scene} scene
@@ -1240,7 +1257,11 @@ export class Renderer3D {
             const texel = span / t.shadow;
             this.sun.shadow.bias = -0.0004; this.sun.shadow.normalBias = texel * 0.9;
             this.sun.shadow.radius = 3;
-        } else this.sun.castShadow = false;
+        } else {
+            this.sun.castShadow = false;
+            this.sun.shadow.map?.dispose(); this.sun.shadow.map = null;
+            this.sun.shadow.mapPass?.dispose(); this.sun.shadow.mapPass = null;
+        }
         this._buildPasses();
         if (this._lampGroup) this._syncLampPool();
         this._settle = 2; this._slowT = 0; this._fastT = 0;
@@ -1249,15 +1270,20 @@ export class Renderer3D {
     _buildPasses() {
         const t = this.tier, c = this.composer, w = this.width, h = this.height;
         for (const p of [...c.passes]) c.removePass(p);
+        // Removed passes still own render targets. Auto/high → low must release those allocations.
+        for (const [name, needed] of [['bloomPass', t.post === 'full'], ['smaaPass', t.post !== 'off' && t.aa === 'smaa'], ['gtaoPass', t.post !== 'off' && t.ao]]) {
+            if (!needed && this[name]) { this[name].dispose(); this[name] = null; }
+        }
         if (t.post === 'off') return;
         c.addPass(this.renderPass);
         if (t.ao && this.scene && this.camera) { // (GTAO needs a camera: an 'ultra' set before the first scene is built at setScene)
             if (!this.gtaoPass) this._gtaoLoading ??= import('../vendor/addons/GTAOPass.js').then(({ GTAOPass }) => {
+                if (!this.tier.ao || !this.scene || !this.camera) return;
                 this.gtaoPass = new GTAOPass(this.scene, this.camera, w, h);
                 this.gtaoPass.updateGtaoMaterial({ radius: 0.6, distanceExponent: 1.5, thickness: 1, scale: 1 });
                 this.gtaoPass.blendIntensity = 0.85;
                 if (this.tier.ao) this._buildPasses();
-            });
+            }).finally(() => { this._gtaoLoading = null; });
             if (this.gtaoPass) { this.gtaoPass.scene = this.scene; this.gtaoPass.camera = this.camera; c.addPass(this.gtaoPass); }
         }
         if (t.post === 'full') {

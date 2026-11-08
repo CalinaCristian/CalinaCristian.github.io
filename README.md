@@ -73,10 +73,12 @@ that chapter of the CV.
 - **Floreasca, rebuilt street by street against reality.** Every real building footprint in the playable area and in a
   600 m ring around it (real streets too — no empty belt or lonely boxes past the closures); roof shapes and colours,
   tree crowns and gardens measured on aerial imagery; villas vs 1950s–60s blocks decided from those measurements; raised
-  sidewalks at kerb height with corner pieces at every junction; cars parked on the sidewalk along both kerbs, with
+  sidewalks at kerb height with corner pieces at every junction and a gentle slope down to the gardens behind; lane lines
+  that run straight where OSM changes a street's lane count; a railing, wall-with-railing or hedge per villa plot and open
+  or low-railed lawns in front of the blocks; cars parked on the sidewalk along both kerbs, with
   pedestrians stepping into the road to pass them; front-garden railings, walls and hedges, kerb bollards, street lamps;
   every pitch, tennis court, pool and school yard with its markings, goals, nets and fences (football pitches with mowing
-  stripes, dugouts and ball-stop fences); the Piața Floreasca market hall; Liceul Rosetti's gym, sports hall and sports
+  stripes, real goals with sloping nets, corner flags, dugouts and ball-stop fences); the Piața Floreasca market hall; Liceul Rosetti's gym, sports hall and sports
   ground; only real shops and signs. Other districts get the same pass next.
 - **Performance.** Adaptive quality tiers, instanced traffic/crowds/parked cars, view-range culling and a draw-call
   budget per district, so it stays smooth on laptops and phones.

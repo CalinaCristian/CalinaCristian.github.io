@@ -86,3 +86,15 @@ Washington) are completed with `/api/0.6/relation/<id>/full`, cached in `tools/o
   landuse, parking lots, aprons, runways, rivers; `place=*` names for map labels.
 
 Data © OpenStreetMap contributors, ODbL.
+
+## District reality data (2026-11-08)
+
+District builds also read the aerial measurements in `game/research/` (see `tools/aerial/README.md`):
+`roofs-<city>-<district>.json` (roof shape / colour per OSM way, and the villa vs block defaults in the villa quarter),
+`trees-…` (tree crowns → `data.trees`) and `green-…` (gardens / lawns → `data.green`). Every real footprint up to
+`district.outerRing` m (default 350) outside the playable area is a full building (flag 32, no shops / signs), with its
+streets as `data.scenery`; the boxes of `backdrop` only start beyond. `DEBUG_DROPS=<file.json>` lists every footprint inside
+the area the build did not keep and why (`far`, `simplify`, `road-clearance`, `tiny`, `overlap`). Address-like names
+("Georges Bizet 10"), block numbers and residential names no longer become shop signs. OSM `parking:*` tags reach
+world.js through `roadInfo` (kerbside parked cars). Check the result street by street against Street View:
+`node game/dev/harness/viewpoints.js --district=<id> --walk --streetview` (`game/dev/harness/README.md`).

@@ -17,6 +17,9 @@ import { wallGeometry } from '../osm.js';
 import { buildSecretWcpBar } from './wcp-secret-bar.js';
 import { createVenueActivities } from '../venue-activities.js';
 import { collide } from '../walker.js';
+import { candleLight } from '../candle-light.js';
+import { photoHunt } from '../photo-hunt.js';
+import { sourceRecord } from '../source-buildings.js';
 
 function simplify(pts, tol) { if (pts.length < 4) return pts; const dist = (p, a, b) => { const dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz) || 1; return Math.abs((p[0] - a[0]) * dz - (p[1] - a[1]) * dx) / L; }; let md = 0, mi = 0; for (let i = 1; i < pts.length - 1; i++) { const dd = dist(pts[i], pts[0], pts[pts.length - 1]); if (dd > md) { md = dd; mi = i; } } if (md <= tol) return [pts[0], pts[pts.length - 1]]; return [...simplify(pts.slice(0, mi + 1), tol).slice(0, -1), ...simplify(pts.slice(mi), tol)]; }
 const simplifyRing = (p, tol) => { const s2 = simplify([...p, p[0]], tol); s2.pop(); return s2.length >= 3 ? s2 : p; };
@@ -59,39 +62,25 @@ function ironRailMaterial() { // wrought-iron balcony railing: bars, a scroll ba
     return IRON;
 }
 function oldTownFronts(ctx, { exclude = [] } = {}) {
-    const d = ctx.data, g = ctx.ground, b = new GeoBatch(), mats = {}, r = rng(41);
+    const d = ctx.data, g = ctx.ground, b = new GeoBatch();
     const ways = d.ways.filter((w) => ['pedestrian', 'living_street', 'footway', 'residential'].includes(w.k) && OT_NAMES.test(w.name || ''));
     const exts = Object.values(d.spots).map((s) => s.extent.polygon);
     const nearWay = (x, z) => { let best = 1e9; for (const w of ways) { const q = distPolyline(x, z, w.pts); if (q.d < best) best = q.d; } return best; };
-    const shop = shopfrontFacade('ot-shop', { bay: 3.4, floor: 4.4 }); mats[shop.key] = shop.mat;
-    const facs = OT_VARIANTS.map(([key, rows, o], i) => { const f = classicFacade(key, rows, { bay: 3.4, floor: 3.7, res: 2, lit: 0.4, seed: i * 7, ...o }); mats[f.key] = f.mat; return f; });
     const rails = new GeoBatch(), built = [];
     for (let bd of d.buildings) {
         if (bd.part || ctx.skipBuildings.has(bd.id) || /church|roof|kiosk|chapel/.test(bd.k || '') || (bd.h || 0) > 26) continue;
-        let parts = null;
-        if (bd.hasParts) { // outline with building:parts (e.g. Lipscani 53, Gilda): one front on the outline, the parts' max height
-            parts = d.buildings.filter((x) => x.part && inPoly(...centroid(x.poly), bd.poly)); const hp = Math.max(0, ...parts.map((x) => x.h || 0));
-            if (hp > 26) continue; bd = { ...bd, h: bd.h || hp || undefined };
-        }
-        const p0 = polyArea(bd.poly) > 0 ? bd.poly : [...bd.poly].reverse(), p = simplifyRing(p0.filter((q, i) => { const n = p0[(i + 1) % p0.length]; return Math.hypot(n[0] - q[0], n[1] - q[1]) > 0.25; }), 0.12), [cx, cz] = centroid(p);
+        const p = polyArea(bd.poly) > 0 ? bd.poly : [...bd.poly].reverse(), [cx, cz] = centroid(p);
+        // Native source solids/parts/holes/roofs stay in the shared renderer.
+        // These optional historic trim details never replace a building.
+        if(bd.holes?.length || bd.hasParts) continue;
         if (!exts.some((e) => inPoly(cx, cz, e)) || exclude.some((e) => inPoly(cx, cz, e)) || Math.abs(polyArea(p)) < 25) continue;
         if (!p.some(([x, z]) => nearWay(x, z) < 8)) continue;
-        ctx.skipBuildings.add(bd.id); if (parts) for (const x of parts) ctx.skipBuildings.add(x.id);
-        const hs = hash2(cx * 0.37, cz * 0.53), lv = Math.max(2, Math.min(6, bd.lv || (bd.h ? Math.round((bd.h - 4.4) / 3.7) + 1 : 2 + Math.floor(hs * 3.2))));
-        let gmin = 1e9, gmax = -1e9; for (const [x, z] of p) { const h = g.heightAt(x, z); gmin = Math.min(gmin, h); gmax = Math.max(gmax, h); }
-        const base = gmin - 0.4, GF = 4.4, top = gmax + GF + (lv - 1) * 3.7;
-        const v = Math.floor(hash2(cz * 0.11, cx * 0.17) * facs.length), fac = facs[v], col = OT_COLS[Math.floor(hash2(cx, cz) * OT_COLS.length)];
-        const row = /^(yes|retail|commercial)$/.test(bd.k || 'yes') ? [0, 0, 1, 2, 2, 0, 1][Math.floor(hs * 7)] : 3;
-        b.add(wallGeometry(p, base, gmax + GF, shop.S, gmax - row * GF, col), shop.key, null, col);
-        b.add(wallGeometry(p, gmax + GF, top, fac.S, gmax + GF, col), fac.key, null, col);
-        const light = '#f2ede2';
-        b.prism(grow(p, 0.16), gmax + GF - 0.22, gmax + GF + 0.12, light, 'stone');                       // string course
-        b.prism(grow(p, 0.42), top - 0.5, top - 0.15, light, 'stone', { noTop: true, bottom: true });      // cornice (two steps)
-        b.prism(grow(p, 0.22), top - 0.15, top + 0.1, light, 'stone', { noTop: true, bottom: true });
-        b.flat(grow(p, 0.22), top + 0.1, '#77736c', 'roofs');                                               // roof (= cornice top)
-        b.prism(p, top + 0.1, top + 0.75, col, 'stone', { noTop: true });                                     // attic parapet
-        const o = obb(p), fill = o ? Math.abs(polyArea(p)) / (o.len * o.wid) : 0;
-        if (o && fill > 0.82 && o.wid < 17 && hs > 0.3) { const rh = Math.min(3.2, o.wid * 0.28), rc = hs > 0.62 ? '#8a4a33' : '#6c7074'; b.add(new THREE.CylinderGeometry(Math.SQRT1_2 * 0.45, Math.SQRT1_2, 1, 4, 1).rotateY(Math.PI / 4), 'roofs', M(o.cx, top + 0.1 + rh / 2, o.cz, 0, -o.angle, 0, o.len - 0.2, rh, o.wid - 0.2), rc); }
+        const hs=hash2(cx*.37,cz*.53),record=sourceRecord(bd,0,g),gmax=record.datum,GF=Math.min(4.4,record.height*.5),top=gmax+record.height;
+        const lv=Math.max(1,Math.floor((record.height-GF)/3.7)+1),light='#f2ede2';
+        // Ornament sizes and balcony repetition are explicit visual estimates;
+        // literal source mass/roof heights and every geometry member win.
+        if(record.height>7)b.prism(grow(p,.12),gmax+GF-.12,gmax+GF+.08,light,'stone',{noTop:true});
+        b.prism(grow(p,.18),top-.22,top,light,'stone',{noTop:true,bottom:true});
         // 3-D balconies with wrought-iron railings on the street side (first floor, where the façade row has a balconette)
         for (let i = 0; i < p.length; i++) {
             const [ax, az] = p[i], [bx, bz] = p[(i + 1) % p.length], L = Math.hypot(bx - ax, bz - az); if (L < 6.5) continue;
@@ -109,14 +98,11 @@ function oldTownFronts(ctx, { exclude = [] } = {}) {
                 for (const [uu, s] of [[u0, 1], [u1, -1]]) rails.quad(P(uu, 0.02, yb), P(uu, D, yb), P(uu, D, yb + 1.0), P(uu, 0.02, yb + 1.0), '#ffffff', 'iron', [0, 0, D / 1.6, 0, D / 1.6, 1, 0, 1]);
             }
         }
-        ctx.poly(p, { y0: base - 1, y1: top + 1 });
         built.push({ bd, p, inner: grow(p, -0.4), top, gmax, GF, lv });
     }
-    // OSM footprints that overlap a rebuilt front (duplicate / overlapping ways) would z-fight with it: drop them
-    for (const x of d.buildings) { if (x.part || ctx.skipBuildings.has(x.id)) continue; const [qx, qz] = centroid(x.poly); if (built.some((B) => inPoly(qx, qz, B.p) || x.poly.filter(([vx, vz]) => inPoly(vx, vz, B.inner)).length >= 2)) ctx.skipBuildings.add(x.id); }
-    ctx.add(b.build('old-town-fronts', { matOverrides: mats }));
+    ctx.add(b.build('old-town-facade-trim'));
     ctx.add(rails.build('old-town-balconies', { castShadow: true, matOverrides: { iron: ironRailMaterial() } }));
-    return { built, ways };
+    return { built, ways, decoratedIds:new Set(built.map(x=>x.bd.id)) };
 }
 
 // ---------------------------------------------------------------------------- festoon string lights (note 25)
@@ -314,7 +300,7 @@ function buildCurteaVeche(ctx) {
     // the church (Buna Vestire / Sf. Anton, 1559): bands of red brick and white plaster, blind arcades, grey tower roof
     const ch = d.buildings.find((x) => x.id === 'w150803286');
     let church = null;
-    if (ch) { for (const x of d.buildings) { const [cx, cz] = centroid(x.poly); if (x.part && inPoly(cx, cz, ch.poly)) ctx.skipBuildings.add(x.id); } ctx.skipBuildings.add(ch.id);
+    if (ch) { ctx.skipBuildings.add(ch.id);
         const p = ch.poly, y = Math.min(...p.map(([x, z]) => g.heightAt(x, z))) - 0.2, o = obb(p);
         const fac = classicFacade('curtea-veche-church', [{ t: 'arch', w: 0.2, top: 0.36, cornice: false }, { t: 'niches', n: 3, top: 0.2, bottom: 0.3 }, { t: 'blank', cornice: false }, { t: 'blank' }], { bay: 2.6, floor: 3.4, stripes: { brick: '#9e4b33', band: '#ede6d6' }, lit: 0.2 });
         classicWalls(b, fac, p, y, y + 8.6, '#ffffff', y);
@@ -354,7 +340,7 @@ function porchTexture() { // the carved stone porch: five lobed (trefoil) arches
 }
 function buildStavropoleos(ctx) {
     const d = ctx.data, g = ctx.ground, ch = d.buildings.find((x) => x.id === 'w78444014'); if (!ch) return null;
-    for (const x of d.buildings) { const [cx, cz] = centroid(x.poly); if (x.part && inPoly(cx, cz, grow(ch.poly, 3))) ctx.skipBuildings.add(x.id); } ctx.skipBuildings.add(ch.id);
+    ctx.skipBuildings.add(ch.id);
     const p = ch.poly, o = obb(p), y = Math.min(...p.map(([x, z]) => g.heightAt(x, z))) - 0.1, b = new GeoBatch();
     const fac = classicFacade('stavropoleos', [{ t: 'arch', w: 0.24, top: 0.3, bottom: 0.18, cornice: false }, { t: 'niches', n: 2, cornice: false }, { t: 'blank' }, { t: 'blank' }], { bay: 2.8, floor: 2.9, lit: 0.25 });
     const WALL = '#e7d8b8';
@@ -401,7 +387,7 @@ export default {
         for (const bd of d.buildings) if (!bd.part && !bd.h && !bd.lv && bd.k !== 'church' && bd.k !== 'roof') { const hsh = Math.abs(Math.sin(bd.poly[0][0] * 12.9898 + bd.poly[0][1] * 78.233) * 43758.5453) % 1; bd.estimatedLevels = 2 + Math.floor(hsh * 4); }
         const CA = buildCarusel(ctx), MA = buildManuc(ctx), CV = buildCurteaVeche(ctx), ST = buildStavropoleos(ctx);
         // CEC Palace + Post Palace (History Museum) from landmarks.js
-        for (const [lmId, osmId] of [['cec', 'w973712798'], ['mnir', 'r19919941']]) { const bd = d.buildings.find((x) => x.id === osmId); if (!bd) continue; ctx.skipBuildings.add(osmId); for (const x of d.buildings) { const [cx, cz] = centroid(x.poly); if (x.part && inPoly(cx, cz, bd.poly)) ctx.skipBuildings.add(x.id); } const L2 = placeLandmark(ctx, lmId, { colliderH: 50 }); ctx.poly(bd.poly, { y0: -50, y1: 80 }); }
+        for (const [lmId, osmId] of [['cec', 'w973712798'], ['mnir', 'r19919941']]) { const bd = d.buildings.find((x) => x.id === osmId); if (!bd) continue; ctx.skipBuildings.add(osmId); const L2 = placeLandmark(ctx, lmId, { colliderH: 50 }); for(const sourceId of L2?.lm.sourceIds||[])ctx.skipBuildings.add(sourceId); ctx.poly(bd.poly, { y0: -50, y1: 80 }); }
         // Caru' cu Bere (Str. Stavropoleos 5): neo-Gothic front, sign, queue
         const caruB = d.buildings.find((x) => x.id === 'w1456401783');
         if (caruB) { ctx.skipBuildings.add(caruB.id); const b = new GeoBatch(), y = Math.min(...caruB.poly.map(([x, z]) => g.heightAt(x, z))) - 0.2; const fac = classicFacade('caru', [{ t: 'arch', w: 0.36, top: 0.1, bottom: 0.06, rustic: true }, { t: 'arch2', w: 0.34, pil: true }, { t: 'arch', w: 0.26, pil: true, top: 0.3 }, { t: 'small', w: 0.24 }], { bay: 3.2, floor: 4.2, lit: 0.85 }); classicWalls(b, fac, caruB.poly, y, y + 15.5, '#c9b79a', y); b.flat(caruB.poly, y + 15.5, '#6b5f55', 'roofs'); const o = obb(caruB.poly); b.add(new THREE.ConeGeometry(4.5, 5, 4), 'roofs', M(-111, y + 18, -73.5, 0, Math.PI / 4, 0, 1, 1, 0.35), '#5a4f46'); ctx.poly(caruB.poly, { y0: y - 1, y1: y + 22 }); ctx.add(b.build('caru-cu-bere', { matOverrides: { [fac.key]: fac.mat } })); void o; }
@@ -409,7 +395,7 @@ export default {
         const WB = buildSecretWcpBar(ctx, CA);
         // ground: shared-surface grey granite setts over every pedestrian street (no kerbs), slab bands
         ctx.terrainOpts = { bg: '#8f8b84', bgMask: 'cobble', innerPx: 2048, innerStep: 3, outerStep: 16, outerPad: 700 };
-        bucBackdrop(ctx, { lampStyle: 'lantern', lampColor: '#191b1c', lampH: 4.4, lampPad: 15, treeLod: { cap: 1600, max: 400 }, lampOpts: { spacing: 24, kinds: ['pedestrian', 'living_street'] }, streetTreeOpts: { kinds: ['primary', 'secondary', 'tertiary'], prob: 0.5 }, style: (bd) => (bd.k === 'church' ? 'eclectic' : undefined) });
+        bucBackdrop(ctx, { lampStyle: 'lantern', lampColor: '#191b1c', lampH: 4.4, lampPad: 15, treeLod: { cap: 1600, max: 400 }, lampOpts: { spacing: 24, kinds: ['pedestrian', 'living_street'] }, streetTreeOpts: { kinds: ['primary', 'secondary', 'tertiary'], prob: 0.5 }, style: (bd) => (OT.decoratedIds.has(bd.id) || bd.k === 'church' ? 'eclectic' : undefined) });
         for (const w of d.ways) if (['pedestrian', 'living_street'].includes(w.k) && !w.tunnel) ctx.painter.line(w.pts, 11, '#7f7c76', 'cobble');
         // the inn passages (Hanul cu Tei, Pasajul Gabroveni, Intrarea Nicolae Șelari) are paved courtyards between the façades, not lawns
         for (const w of d.ways) if (w.k === 'footway' && /Hanul cu Tei|Pasajul Gabroveni|Nicolae Șelari/.test(w.name || '')) ctx.painter.line(w.pts, 18, '#86827b', 'cobble');
@@ -474,9 +460,19 @@ export default {
         if (caruB) ctx.plaque(PS[2], -104, -67.5, Math.PI, { style: 'city' });
         ctx.plaque(PS[3], -212, -82, -Math.PI / 2, { style: 'city', credit: 'Architect Paul Gottereau (1897–1900).' });
         ctx.plaque(PS[4], -212, -32, -Math.PI / 2, { style: 'city', credit: 'Post Palace (1894–1900), architect Alexandru Săvulescu.' });
-        // fun: Dracula magnets ("Nu, mersi"), light a candle at Stavropoleos, the Carusel postcard needs level 2
-        ctx.interactables.push({ x: CV.bust.x - 3, z: CV.bust.z - 3, r: 2.4, label: 'Read about Vlad III at Curtea Veche', use: (s) => bucActivity(s, 'old-town-lipscani', 'curtea-veche', '🏛 Curtea Veche, 1459', 'Vlad III ruled from this court in 1459.') });
-        if (ST) ctx.interactables.push({ x: ST.west.x - 3.5, z: -64.5 + 1.2, r: 2.4, label: 'Light a candle (Stavropoleos)', use: (s) => { bucActivity(s, 'stavropoleos-cec', 'stavropoleos', '🕯 Candle lit', 'Quiet please — the choir sings Byzantine chant.'); s.sound.play('chime', 0.3); } });
+        // Public outdoor details require actual look/capture inputs. An exterior
+        // source footprint does not establish present-day access to the ruins.
+        if(CV.church){const ru=d.buildings.find(b=>b.id==='w658220894'),center=ru?centroid(ru.poly):null;
+            const targets=[{label:'Vlad III bust',x:CV.bust.x,y:gy(CV.bust.x,CV.bust.z)+2.65,z:CV.bust.z,radius:.4},
+                {label:'Old Court church',x:CV.church.x,y:gy(CV.church.x,CV.church.z)+7,z:CV.church.z,radius:1.6}];
+            if(center)targets.push({label:'Mapped Old Court ruins',x:center[0],y:gy(...center)+.7,z:center[1],radius:1.2});
+            ctx.extras.curteaVecheVisit=photoHunt(ctx,{x:CV.bust.x-3,z:CV.bust.z-3,title:'Frame the Old Court details',targets,
+                unavailable:'Explore these source-backed features from the public street. Current access inside the excavations has not been verified.',
+                onDone:s=>bucActivity(s,'old-town-lipscani','curtea-veche','🏛 Old Court details framed','You framed the bust, church and mapped court remains from outside. This does not claim admission inside the excavations.')});}
+        if (ST) {const candle=candleLight(ctx,new THREE.Vector3(),{title:'A virtual candle at Stavropoleos',portable:true,focus:new THREE.Vector3(ST.x,gy(ST.x,ST.z)+6,ST.z),
+            onDone:s=>bucActivity(s,'stavropoleos-cec','stavropoleos','🕯 Candle practice completed','You lit and placed a temporary virtual candle in a handheld holder. This does not locate a real rack or imply current interior access.')});
+            ctx.extras.stavropoleosCandle=candle;
+            ctx.interactables.push({kind:'candle',x:ST.west.x-3.5,z:-64.5+1.2,r:2.4,label:'Light and place a virtual candle',use:s=>candle.start(s)});}
         if (CA) ctx.challenge('old-town-lipscani', { x: CA.ecx + (CA.front.x - CA.ecx) * 0.75, z: CA.ecz + (CA.front.z - CA.ecz) * 0.75, heading: (Math.atan2(CA.ecx - CA.front.x, -(CA.ecz - CA.front.z)) * 180 / Math.PI + 360) % 360, r: 6, tol: 40, text: 'Cărturești Carusel: the white atrium and its stacked balconies (best from the level-2 balcony)' });
         if (MA) ctx.challenge('old-town-lipscani', { x: MA.gate.x + MA.gn.x * 14, z: MA.gate.z + MA.gn.z * 14, heading: (Math.atan2(-MA.gn.x, MA.gn.z) * 180 / Math.PI + 360) % 360, r: 7, tol: 30, text: "Hanul lui Manuc's gate on Str. Franceză" });
         ctx.challenge('stavropoleos-cec', { view: ST ? [ST.x, ST.z] : null, r: 7, tol: 30 });

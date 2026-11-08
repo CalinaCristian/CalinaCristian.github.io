@@ -22,7 +22,7 @@ export function photoHunt(ctx, { x, z, title, targets, unavailable, onDone }) {
             ring.scale.setScalar((target.radius||2)*(1+.055*Math.sin(s.t*4)));
             s.camera.getWorldPosition(toward);toward.set(target.x-toward.x,target.y-toward.y,target.z-toward.z);const distance=toward.length();toward.normalize();s.camera.getWorldDirection(dir);
             const dot=dir.dot(toward),ready=dot>Math.cos(7*Math.PI/180)&&distance>3&&distance<(target.maxDistance||260);
-            r.busy=!ready||r.flash>0;r.button.textContent=ready?'Take the picture':'Centre the gold ring';r.status.textContent=`${r.step+1}/3 · ${target.label}`;r.progress.value=(r.step+Math.max(0,(dot-.8)/.2)*.85)/targets.length;
+            r.busy=!ready||r.flash>0;r.button.textContent=ready?'Take the picture':'Centre the gold ring';r.status.textContent=`${r.step+1}/${targets.length} · ${target.label}`;r.progress.value=(r.step+Math.max(0,(dot-.8)/.2)*.85)/targets.length;
             ring.material.color.set(ready?'#9bffbe':'#fbbf24');
             if(r.flash>0){r.flash=Math.max(0,r.flash-dt);ring.material.opacity=.3+.55*(1-r.flash/.35);}
         },

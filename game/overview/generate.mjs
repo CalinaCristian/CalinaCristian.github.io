@@ -1,5 +1,5 @@
 // Build the overview's source inventory. Development tool only; the site serves static JSON.
-import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
@@ -14,6 +14,21 @@ const anchors = Object.fromEntries([...landmarkSource.split('const A = {')[1].sp
 const landmarks = [...landmarkSource.matchAll(/^\s+L\('([^']+)', '([^']+)', '((?:\\.|[^'])+)', .*?, (b\w+)(?:, \{|\))/gm)].map(m => ({id:m[1],city:m[2],name:m[3].replace(/\\'/g,"'"),builder:m[4],...anchors[m[1]]}));
 // Each L() call remains on one line. Avoid requiring a WebGL/browser module during generation.
 if (landmarks.length !== 61) throw new Error(`Review catalogue extraction: expected 61 landmarks, found ${landmarks.length}`);
+const strictEvidence = process.argv.includes('--require-complete-evidence');
+for (const lm of landmarks) {
+    const path = `evidence/landmarks/${lm.city}/${lm.id}.json`, full = resolve(root, 'game/overview', path);
+    if (!existsSync(full)) { if (strictEvidence) throw new Error(`Missing dedicated landmark evidence: ${lm.id}`); continue; }
+    const record = JSON.parse(readFileSync(full, 'utf8'));
+    if (record.schemaVersion !== 1 || record.id !== lm.id || record.city !== lm.city) throw new Error(`Landmark evidence identity: ${path}`);
+    if (strictEvidence && (!record.sources?.length || !record.captures?.length || !record.checks?.length)) throw new Error(`Incomplete evidence: ${path}`);
+    for (const capture of record.captures || []) {
+        if (!/^assets\/landmarks\/[a-zA-Z0-9_/-]+\.(?:png|jpe?g|webp)$/.test(capture.image || '')) throw new Error(`Unsafe/missing game capture path in ${path}`);
+        const bytes = readFileSync(resolve(root, 'game/overview', capture.image));
+        if (createHash('sha256').update(bytes).digest('hex') !== capture.sha256) throw new Error(`Capture hash mismatch: ${capture.image}`);
+        if (!/^[a-f0-9]{40}$/.test(capture.sourceCommit || record.sourceCommit || '')) throw new Error(`Missing capture source: ${capture.image}`);
+    }
+    lm.evidence = path;
+}
 const spotsSource = read('game/src/spots/index.js');
 const spotBlock = spotsSource.split('export const SPOTS_ALL = [')[1].split('\n];')[0];
 const spots = [...spotBlock.matchAll(/\{ id: '([^']+)', city: '([^']+)', (?:area: '([^']+)', )?name: '((?:\\.|[^'])+)', .*?scene: '([^']+)'/g)].map(m=>({id:m[1],city:m[2],area:m[3]||null,name:m[4].replace(/\\'/g,"'"),scene:m[5]}));
@@ -29,6 +44,7 @@ for (const source of sources) {
     const committed = execFileSync('git',['show',`${sourceSha}:${source.path}`],{cwd:root,maxBuffer:20*1024*1024});
     if(createHash('sha256').update(committed).digest('hex') !== source.sha256) throw new Error(`Source ${source.path} differs from ${sourceSha}. Commit game/docs changes before pinning provenance.`);
 }
-const data = {sourceSha,reviewedOn:'2026-11-08',repository:'https://github.com/CalinaCristian/CalinaCristian.github.io',counts:{districts:districts.length,chapters:CHAPTERS.length,landmarks:landmarks.length,landmarkBuilders:new Set(landmarks.map(x=>x.builder)).size,spots:spots.length,scenes:new Set(spots.map(s=>s.scene)).size,historicalReady:ready.length,achievements:[...read('game/src/data.js').split('export const ACHIEVEMENTS = [')[1].split('\n];')[0].matchAll(/\{ id: '/g)].length},districts,landmarks,spots,sources};
+const comparisonLocations = JSON.parse(read('game/overview/comparison-data/catalog.json')).locations.map(place=>place.id);
+const data = {comparisonLocations,sourceSha,reviewedOn:'2026-11-08',repository:'https://github.com/CalinaCristian/CalinaCristian.github.io',counts:{districts:districts.length,chapters:CHAPTERS.length,landmarks:landmarks.length,landmarkBuilders:new Set(landmarks.map(x=>x.builder)).size,landmarkEvidence:landmarks.filter(lm=>lm.evidence).length,spots:spots.length,scenes:new Set(spots.map(s=>s.scene)).size,historicalReady:ready.length,achievements:[...read('game/src/data.js').split('export const ACHIEVEMENTS = [')[1].split('\n];')[0].matchAll(/\{ id: '/g)].length},districts,landmarks,spots,sources};
 writeFileSync(resolve(root,'game/overview/inventory.json'),JSON.stringify(data,null,2)+'\n');
 process.stdout.write(JSON.stringify(data.counts)+'\n');

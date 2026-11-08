@@ -6,7 +6,8 @@
 // ============================================================================
 import * as THREE from '../../vendor/three.module.min.js';
 import { rng, inPoly } from './kit.js';
-import { spaceNeedle, skyline, mountain, SEATTLE_TOWERS } from './props.js';
+import { sourceMountain } from './source-landmark.js';
+import { spaceNeedle, skyline, SEATTLE_TOWERS } from './props.js';
 
 export const NEEDLE_LL = [47.6205063, -122.3493043, 40.5]; // lat, lon, base elevation (m NAVD88)
 export const RAINIER_LL = [46.8529, -121.7604, 4392];
@@ -81,15 +82,8 @@ export function seattleBackdrop(ctx, o = {}) {
         const w = new THREE.Mesh(new THREE.PlaneGeometry(30000, 30000), new THREE.MeshStandardMaterial({ color: '#33515e', roughness: 0.08, metalness: 0.3 }));
         w.rotation.x = -Math.PI / 2; w.position.y = (o.seaLevel ?? 0) - E; w.name = 'elliott-bay'; w.renderOrder = -10; grp.add(w); out.bay = w;
     }
-    if (o.rainier) {
-        const R = RAINIER_LL, dist = distM(ctx, R[0], R[1]), b = bearingTo(ctx, R[0], R[1]);
-        const m = mountain(0, 0, b, dist, R[2] - E, 26000, { dist: 7000, eyeY: (o.eyeY ?? 0), color: '#7d8ea6', snow: '#f4f6fa', haze: '#b9c7d6', seed: 4 });
-        m.userData.weatherMountain = true; grp.add(m); out.rainier = m;
-    }
-    if (o.olympics) {
-        const ranges = [[275, 2100, 26000], [290, 2300, 30000], [305, 2000, 24000], [258, 1800, 20000]];
-        for (const [b, h, w] of ranges) { const m = mountain(0, 0, b, 75000, h - E, w, { dist: 7400, eyeY: o.eyeY ?? 0, color: '#6f7f99', snow: '#e8edf3', haze: '#b4c2d2', seed: b }); m.userData.weatherMountain = true; grp.add(m); }
-    }
+    if(o.rainier){const m=sourceMountain(ctx,'rainier',{distance:7000,eyeY:o.eyeY??1.6});grp.add(m);out.rainier=m;}
+    if(o.olympics)grp.add(sourceMountain(ctx,'olympics',{distance:7400,eyeY:o.eyeY??1.6}));
     ctx.add(grp);
     // mountains fade with cloud cover / visibility ("the Mountain is out")
     ctx.onUpdate((dt, s) => {

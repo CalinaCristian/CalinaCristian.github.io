@@ -29,6 +29,7 @@ import { showFinale } from './finale.js'; // cockpit-ui, note 71
 import { playChapterTransition } from './transition.js'; // cockpit-ui, note 16
 import { save } from './save.js'; // progression, note 73
 import { createDinamoFootball } from './football.js';
+import { createRosettiBasketball } from './basketball.js';
 import { initExplore } from './explore.js'; // world-map hub, free roam ⇄ story (resume chip), drone — hooks listed in spec 10 (one mode since 2026-11-08)
 const { makeVehicle } = VEHICLES;
 
@@ -348,6 +349,7 @@ class Game {
     disposeCity() {
         this.endFoot();
         this.football?.dispose(); this.football = null;
+        this.basketball?.dispose(); this.basketball = null;
         const retained = [this.player?.rig, this.carBody, this.foot?.rig, ...this.r3d.releaseScene()];
         // Free crowd instance attributes before its module teardown detaches them from the wrapper geometry.
         disposeDistrictScene(this.scene, { retained, landmarks: this.world?.landmarks || [] });
@@ -388,6 +390,7 @@ class Game {
         const world = this.world = await buildWorld(city, this.renderer, district ? { district, start } : {});
         scene.add(world.group);
         this.football = createDinamoFootball(this);
+        this.basketball = createRosettiBasketball(this);
         // layer 2 = main view only (the rear-view mirror camera renders layer 0): far backdrop / horizon masses
         this.camera.layers.enable(2);
         world.group.traverse(o => { if (o.isMesh && /^(backdrop|horizon)$/.test(o.material?.name || '')) o.layers.set(2); });
@@ -425,7 +428,7 @@ class Game {
         this.attachWorldRender();
         this.r3d.onNightLights = (on) => { this.nightLights = on; this.traffic?.setNightLights(on || !!this._fogLights); };
         this.r3d.onNightLights(this.r3d.nightLights);
-        this.r3d.setHeadlights(this.headlights === 'auto' ? null : this.headlights);
+        this.syncHeadlights(true);
         this._wxKey = null; this._seasonShown = false;
         if (typeof this.r3d.setWeather === 'function') { try { this.r3d.setWeather(this.weatherOverride); } catch (err) { console.warn('[weather] setWeather', err); } }
         if ('onWeatherChange' in this.r3d || typeof this.r3d.setWeather === 'function') this.r3d.onWeatherChange = () => this.pollWeather(true);
@@ -661,6 +664,7 @@ class Game {
         if (this.state !== 'foot' || !this.foot) return false;
         const F = this.foot, ne = this.nav.index.nearest(F.x, F.z, 200); if (!ne) return false;
         const e = ne.edge, sd = (F.x - ne.cx) * e.nx + (F.z - ne.cz) * e.nz >= 0 ? 1 : -1, off = (e.halfW ?? 4) + 1.5;
+        this.basketball?.cancel('reset');
         F.teleport(ne.cx + e.nx * sd * off, ne.cz + e.nz * sd * off);
         this.hud.toast('🛟 Back on the sidewalk', 'Position reset.'); return true;
     }
@@ -668,6 +672,7 @@ class Game {
         requestAnimationFrame(this.loop);
         if (this._modeAttr !== this.state) { this._modeAttr = this.state; document.body.dataset.mode = this.state; } // (round 6 note 36: context-based touch buttons in CSS)
         this.syncModalControls();
+        this.basketball?.syncActivity();
         if (this.explore?.hooks?.frame?.()) return; // (explore: drone frames; the world-map hub over a frozen scene)
         const dt = Math.min(0.1, this.frameClock.getDelta());
         if (this._pauseOpen) { // paused: nothing moves; the scene keeps being drawn behind the menu
@@ -677,6 +682,7 @@ class Game {
             return;
         }
         if ((this.state === 'drive' || this.state === 'foot') && !this.photo?.active && !this.mapOpen && !this.hud?.panelOpen) this.football?.update(dt);
+        if (this.basketball?.available()) this.basketball.update(dt);
         if (this.state === 'drive') this.updateDrive(dt);
         else if (this.state === 'office') this.updateOffice(dt);
         else if (this.state === 'foot') this.updateFoot(dt);
@@ -850,6 +856,12 @@ class Game {
         this.drawFrame({ mirror: warm || this.frame % mEvery === 1 });
     }
 
+    /** Keep the cached request in step with the renderer after scene replacement as well as clock changes. */
+    syncHeadlights(force = false) {
+        const want = this.headlights === 'auto' ? (this._fogLights ? true : null) : !!this.headlights;
+        if (force || this._hlSent !== want) { this._hlSent = want; this.r3d.setHeadlights(want); }
+    }
+
     /** real local time of the current city (or the menu override) + day phase + NPC lights */
     updateClock(dt) {
         const c = this.clock; c.date = this.nowDate();
@@ -857,8 +869,7 @@ class Game {
         c.hours = h;
         if (this.r3d && this.scene) {
             this.r3d.setClock({ date: c.date, override: c.override || null });
-            const want = this.headlights === 'auto' ? (this._fogLights ? true : null) : !!this.headlights;
-            if (this._hlSent !== want) { this._hlSent = want; this.r3d.setHeadlights(want); }
+            this.syncHeadlights();
         }
         const ph = this.renderer3d?.phase;
         this.phase = typeof ph === 'string' ? (ph === 'sunset' ? 'dusk' : ph) : phaseFromHours(h);
@@ -1372,6 +1383,7 @@ class Game {
 
     // ---------------------------------------------------------------------------------- big map + nav panel
     toggleMap(open) {
+        if (open) this.basketball?.cancel('map');
         if (open) { this._ftT = 0; this._ftRing?.classList.remove('on'); }
         if (open) { const h = document.getElementById('map-route-hint'); if (h) h.textContent = ''; }
         if (open && this.explore?.active) { this.explore.openWorldMap(); return; } // M while roaming: the hub (its "Here" tab is the local map); in the story M is this district map
@@ -1619,6 +1631,7 @@ class Game {
     }
     /** leave on-foot mode (silently): the car becomes the camera again */
     endFoot() {
+        this.basketball?.cancel('leave-foot');
         if (this.foot?.active) this.foot.exit();
         if (this.carBody?.parent) this.carBody.parent.remove(this.carBody);
         this.carBox = null; if (this.player) this.setDriveRigShown(true);
@@ -1645,6 +1658,7 @@ class Game {
         traffic.setHour(this.trafficHours());
         traffic.update(dt);
         F.update(dt);
+        this.basketball?.updateFoot(dt);
         if (F.bumped && F.t - F.bumped < 0.1 && !this._bumpToast) { this._bumpToast = true; hud.toast('😬 Watch out', 'Cars don\'t stop for jaywalkers here.', 'warn'); setTimeout(() => { this._bumpToast = false; }, 6000); }
         // hazard lights on the parked car
         if (this.carBody) this.carBody.userData.setLights?.(((this.clock.date?.getTime?.() ?? performance.now()) / 400 | 0) % 2 === 0);
@@ -1882,7 +1896,7 @@ class Game {
         const toGame = this.world && this.player && ['drive', 'foot'].includes(R.state);
         if (toGame) {
             this.attachWorldRender();
-            this.r3d.setHeadlights(this.headlights === 'auto' ? null : this.headlights);
+            this.syncHeadlights(true);
             if (typeof this.r3d.setWeather === 'function') { try { this.r3d.setWeather(this.weatherOverride); } catch { /* ignore */ } }
             if (R.state === 'foot' && R.foot && this.foot) { this.foot.enter(R.foot.x, R.foot.z, R.foot.heading, R.foot.y); this.state = 'foot'; }
             else { this.player.camHolder.add(this.camera); this.camera.position.set(0, 0, 0); this.camera.rotation.set(0, 0, 0); this.state = 'drive'; }
@@ -2002,6 +2016,7 @@ class Game {
         if (open && !['drive', 'foot', 'office', 'spot'].includes(this.state) && !(this.state === 'menu' && view === 'settings')) return;
         if (open) {
             this.spot?.spot?.ctx?.extras?.venueActivities?.cancel('pause');
+            this.basketball?.cancel('pause');
             if (this.photo?.active) this.photo.close();
             if (this.mapOpen) this.toggleMap(false);
             if (this.condOpen) this.toggleConditions(false);
@@ -2606,6 +2621,7 @@ ${['menu', 'drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa=
 
     // ----------------------------------------------------------------------------------
     enterOffice(stop) {
+        this.basketball?.cancel('office');
         this.explore?.hooks?.abortDrone?.();
         this.photo?.close?.();
         if (this.state === 'foot') { this.officeFromFoot = true; this.foot.exit(); }

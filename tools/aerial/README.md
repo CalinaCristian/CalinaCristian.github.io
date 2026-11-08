@@ -43,7 +43,7 @@ street rows and park/garden fills only inside measured coverage. Older survey fi
 ## Published-source game capture grid
 
 `plan-game-grid.cjs`, `capture-game-grid.cjs` and `validate-game-grid.py` produce **game images only**. They never fetch
-reference imagery. The planner supports uncompressed 1:1 districts defined by bands and circles. It intersects square
+reference imagery. The planner supports uncompressed 1:1 districts defined by bands, circles, polygons or a bbox. It uses the builder's exact solid-footprint distance, preferring generated `district.geometry`; a routed district without that geometry is rejected. It intersects square
 tiles with the exact runtime drive-mask cells, then measures rectangle-to-source-capsule/circle distances for the 600 m
 ring. It retains every touched tile, including partial boundary tiles, and adds four optional far corners plus any
 explicitly sourced skyline locations. Capture coverage is not a claim that the world matches reality perfectly.

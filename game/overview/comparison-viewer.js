@@ -17,7 +17,7 @@ export function aerialURL(item, aerial = {}) {
 
 // Official imagery stays on the visitor's device: persistent 15-minute records,
 // plus a bounded memory front. Reloads keep the original timestamp, not a new TTL.
-function createAerialCache({ttl = 15 * 60 * 1000, limit = 96} = {}) {
+export function createAerialCache({ttl = 15 * 60 * 1000, limit = 96} = {}) {
   const entries = new Map(), cacheName='dmcv-comparison-aerial-v1', timestampHeader='x-cv-fetched-at';
   let closed=false, storagePromise;
   const validTimestamp=response=>{

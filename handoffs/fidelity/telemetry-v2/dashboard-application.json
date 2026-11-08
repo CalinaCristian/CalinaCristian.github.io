@@ -1,0 +1,151 @@
+{
+  "project": 338182,
+  "applied": true,
+  "queries": [
+    {
+      "key": "load-outcomes",
+      "columns": [
+        "release",
+        "district",
+        "mobile",
+        "requested",
+        "built",
+        "rendered",
+        "failed",
+        "interrupted"
+      ],
+      "rows": 0
+    },
+    {
+      "key": "load-latency",
+      "columns": [
+        "release",
+        "district",
+        "mobile",
+        "first_load",
+        "successful_frames",
+        "build_p50_ms",
+        "build_p90_ms",
+        "playable_p50_ms",
+        "playable_p90_ms"
+      ],
+      "rows": 0
+    },
+    {
+      "key": "frames-budget",
+      "columns": [
+        "release",
+        "district",
+        "spot",
+        "mobile",
+        "quality",
+        "mode",
+        "summaries",
+        "observed_frames",
+        "over_budget_frames",
+        "over_budget_pct",
+        "median_summary_p95_ms",
+        "median_summary_p99_ms",
+        "worst_interval_ms",
+        "max_calls",
+        "max_triangles"
+      ],
+      "rows": 0
+    },
+    {
+      "key": "actions",
+      "columns": [
+        "release",
+        "district",
+        "mobile",
+        "input",
+        "first_action",
+        "responses",
+        "response_p50_ms",
+        "response_p90_ms",
+        "response_max_ms",
+        "max_new_programs"
+      ],
+      "rows": 0
+    },
+    {
+      "key": "releases-resources",
+      "columns": [
+        "release",
+        "district",
+        "mobile",
+        "scene_releases",
+        "max_before_textures",
+        "max_after_textures",
+        "max_before_geometries",
+        "max_after_geometries",
+        "max_programs"
+      ],
+      "rows": 0
+    },
+    {
+      "key": "recovery-errors",
+      "columns": [
+        "release",
+        "district",
+        "mobile",
+        "event",
+        "recovery_success",
+        "after_failure",
+        "during_dialogue",
+        "events"
+      ],
+      "rows": 0
+    },
+    {
+      "key": "activities",
+      "columns": [
+        "release",
+        "spot",
+        "activity",
+        "started_attempts",
+        "progressed_attempts",
+        "cancelled_attempts",
+        "scene_completions"
+      ],
+      "rows": 0
+    }
+  ],
+  "insights": [
+    {
+      "key": "load-outcomes",
+      "id": 7197433,
+      "short_id": "pAX3LMBC"
+    },
+    {
+      "key": "load-latency",
+      "id": 7197434,
+      "short_id": "HoVedFog"
+    },
+    {
+      "key": "frames-budget",
+      "id": 7197435,
+      "short_id": "LnF4id8n"
+    },
+    {
+      "key": "actions",
+      "id": 7197436,
+      "short_id": "XXJ0RT8t"
+    },
+    {
+      "key": "releases-resources",
+      "id": 7197437,
+      "short_id": "7gdPkG4G"
+    },
+    {
+      "key": "recovery-errors",
+      "id": 7197438,
+      "short_id": "FgJXhKYa"
+    },
+    {
+      "key": "activities",
+      "id": 7197440,
+      "short_id": "cqWkx665"
+    }
+  ]
+}

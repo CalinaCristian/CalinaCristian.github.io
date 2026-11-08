@@ -1,0 +1,389 @@
+{
+  "schemaVersion": 1,
+  "id": "cec",
+  "city": "bucharest",
+  "name": "Palatul CEC",
+  "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.4320212,
+    "lon": 26.0964749
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/973712798",
+      "label": "OpenStreetMap w973712798 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {}
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/CEC_Palace",
+      "label": "Independent historical and architectural reference",
+      "type": "independent"
+    },
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "label": "Esri World Imagery — private outline/roof comparison; no imagery published",
+      "type": "aerial"
+    }
+  ],
+  "sourceIds": [
+    "w657898053",
+    "w657898056",
+    "w657898065",
+    "w657898068",
+    "w657898070",
+    "w657898072",
+    "w657898074",
+    "w657898077",
+    "w657898079",
+    "w657898081",
+    "w657898083",
+    "w657898085",
+    "w657898086",
+    "w657898087",
+    "w657898088",
+    "w657898089",
+    "w657898090",
+    "w657898091",
+    "w657898092",
+    "w657898093",
+    "w657898094",
+    "w657898095",
+    "w657898096",
+    "w657898097",
+    "w657898098",
+    "w657898099",
+    "w657898100",
+    "w657898101",
+    "w657898114",
+    "w657898115",
+    "w657898116",
+    "w657898117",
+    "w657898118",
+    "w657898119",
+    "w657898120",
+    "w657898121",
+    "w657898122",
+    "w657898123",
+    "w657898124",
+    "w657898125",
+    "w657898126",
+    "w657898127",
+    "w657898128",
+    "w657898129",
+    "w657898130",
+    "w657898131",
+    "w657898132",
+    "w657898133",
+    "w657898134",
+    "w657898136",
+    "w657898137",
+    "w657898138",
+    "w657898139",
+    "w657898140",
+    "w657898141",
+    "w657898142",
+    "w657898143",
+    "w657898144",
+    "w657898145",
+    "w657898147",
+    "w657898148",
+    "w657898149",
+    "w657898150",
+    "w657898151",
+    "w657898152",
+    "w657898153",
+    "w657898154",
+    "w657898155",
+    "w657898156",
+    "w657898158",
+    "w657898159",
+    "w657898160",
+    "w657898161",
+    "w657898162",
+    "w657898163",
+    "w657898164",
+    "w657898165",
+    "w657898166",
+    "w657898167",
+    "w657898169",
+    "w657898170",
+    "w657898171",
+    "w657898172",
+    "w657898173",
+    "w657898174",
+    "w657898175",
+    "w657898176",
+    "w657898177",
+    "w657898178",
+    "w657898179",
+    "w657898180",
+    "w657898181",
+    "w657898182",
+    "w657898183",
+    "w657898184",
+    "w657898185",
+    "w657898186",
+    "w657898187",
+    "w657898188",
+    "w657898189",
+    "w657898190",
+    "w657898191",
+    "w657898192",
+    "w657898193",
+    "w657898194",
+    "w657898197",
+    "w657898198",
+    "w657898199",
+    "w657898200",
+    "w657898201",
+    "w657898202",
+    "w657898205",
+    "w657898206",
+    "w657898207",
+    "w657898208",
+    "w657898209",
+    "w657898210",
+    "w657898211",
+    "w657898212",
+    "w657898213",
+    "w657898214",
+    "w657898215",
+    "w657898216",
+    "w657898217",
+    "w657898218",
+    "w657898219",
+    "w657898220",
+    "w657898221",
+    "w657898222",
+    "w657898223",
+    "w657898224",
+    "w657898225",
+    "w657898226",
+    "w657898227",
+    "w657898228",
+    "w657898229",
+    "w657898230",
+    "w657898231",
+    "w657898232",
+    "w657898233",
+    "w657898234",
+    "w657898235",
+    "w657898236",
+    "w657898237",
+    "w657898238",
+    "w657898239",
+    "w657898240",
+    "w657898241",
+    "w657898242",
+    "w657898243",
+    "w657898244",
+    "w657898245",
+    "w657898246",
+    "w657898247",
+    "w973712798"
+  ],
+  "sourceLedger": "../../../../research/landmark-source-bucharest.json",
+  "reviewedAt": "2026-11-08",
+  "improvements": [
+    "Refreshed the complete source outline and exact source replacement identities.",
+    "Ground collision follows the source boundary rather than a filled bounding strip."
+  ],
+  "remainingGaps": [
+    "The source has no primary total height and many mapped decorative parts; domes, lanterns and facade subdivision remain simplified estimates.",
+    "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity."
+  ],
+  "checks": [
+    {
+      "label": "Full source boundary and replacement-identity checks",
+      "passed": true,
+      "details": "tools/landmarks/bucharest-source-check.mjs: 1 authored source rings; explicit replacement IDs match the source ledger. Entire 33-model check passes 306 checks."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs: all 61 models pass finite geometry, normals and triangle accounting; dedicated concave courtyard, roof and height-band checks pass."
+    },
+    {
+      "label": "Mandatory foot / driving regression",
+      "passed": true,
+      "details": "Immutable production ef21d14: npm run harness -- --scenario=foot,a --city=bucharest completed 0 high / 0 medium / 1 low (software-GL FPS only). Both scenario screenshots inspected."
+    },
+    {
+      "label": "Published game studies inspected",
+      "passed": true,
+      "details": "Front, top and oblique game-only studies inspected against source outlines and available independent reference photographs. Remaining shape discrepancies are listed explicitly."
+    },
+    {
+      "label": "Matched exterior Street View comparison",
+      "passed": false,
+      "details": "Requested outdoor panorama did not reliably provide a matched visible exterior (wrong nearby view, indoor imagery, occlusion or unavailable coverage); this is not treated as an exterior pass."
+    },
+    {
+      "label": "Complete district / traffic / mirror budget",
+      "passed": false,
+      "details": "These are isolated model studies. Paired Romana samples had unchanged findings and world-only peak1.13M triangles/296 calls, with an Arnia capture timeout; traffic and mirror budget and all tourist-scene placements require the district lanes."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study",
+      "kind": "front",
+      "image": "assets/landmarks/cec/front.webp",
+      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "sha256": "3f373f4de7a5933f6576e679275e20e54bc533d826d5ff48ec496a903c53f8ba",
+      "capturedAt": "2026-11-08T16:48:09.537066Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=cec&clean=1&fountains=on&view=street&az=78.00226376996056",
+        "anchor": {
+          "lat": 44.4320212,
+          "lon": 26.0964749,
+          "rotation": -0.2094
+        },
+        "camera": {
+          "position": [
+            81.68526308536796,
+            1.3,
+            17.332302202812777
+          ],
+          "quaternion": [
+            0.07889137953895695,
+            0.626084545222176,
+            -0.06388756004962355,
+            0.7731187956189443
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 1641.3433396292396,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -29.484235490055603,
+            0,
+            -35.394228957875825
+          ],
+          "max": [
+            32.305808517655045,
+            40.5,
+            35.939729768951636
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "top",
+      "label": "Top model study (perspective)",
+      "kind": "top",
+      "image": "assets/landmarks/cec/top.webp",
+      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "sha256": "26aaefa7d9cf7b59118ec396d4663542f4941665a3f45c8a850ea677cad9fa88",
+      "capturedAt": "2026-11-08T16:48:11.201047Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=cec&clean=1&fountains=on&view=top&az=0",
+        "anchor": {
+          "lat": 44.4320212,
+          "lon": 26.0964749,
+          "rotation": -0.2094
+        },
+        "camera": {
+          "position": [
+            1.4107865137997209,
+            139.64447931258803,
+            0.41239493139866534
+          ],
+          "quaternion": [
+            -0.7067531394223399,
+            0,
+            0,
+            0.7074602461740636
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 2792.8909826971358,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -29.484235490055603,
+            0,
+            -35.394228957875825
+          ],
+          "max": [
+            32.305808517655045,
+            40.5,
+            35.939729768951636
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/cec/oblique.webp",
+      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "sha256": "50eac5580c620b9021b89cec4e5916087c2302aae7126365f3ae28eb80c7a15d",
+      "capturedAt": "2026-11-08T16:48:13.137026Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=cec&clean=1&fountains=on&view=oblique&az=113.00226376996056&el=28",
+        "anchor": {
+          "lat": 44.4320212,
+          "lon": 26.0964749,
+          "rotation": -0.2094
+        },
+        "camera": {
+          "position": [
+            91.34284993579651,
+            68.14815449112025,
+            -37.905339212834065
+          ],
+          "quaternion": [
+            -0.13352165640842228,
+            0.8091264288942631,
+            0.20173787656384148,
+            0.5355261137370243
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 2213.0479717601957,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -29.484235490055603,
+            0,
+            -35.394228957875825
+          ],
+          "max": [
+            32.305808517655045,
+            40.5,
+            35.939729768951636
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 5822,
+    "drawCalls": 3,
+    "note": "Isolated development viewer render, including its ground/shadow work; excludes district world, traffic and mirrors."
+  }
+}

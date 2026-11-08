@@ -1,0 +1,293 @@
+{
+  "schemaVersion": 1,
+  "id": "marriott",
+  "city": "bucharest",
+  "name": "JW Marriott Grand Hotel",
+  "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.4257465,
+    "lon": 26.0766337
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/26314111",
+      "label": "OpenStreetMap w26314111 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {
+        "building:levels": "9",
+        "height": "40"
+      }
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/1190458135",
+      "label": "OpenStreetMap w1190458135 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {
+        "building:part": "yes",
+        "height": "13",
+        "roof:material": "grass"
+      }
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/1190458136",
+      "label": "OpenStreetMap w1190458136 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {
+        "building:part": "yes",
+        "height": "13",
+        "roof:material": "grass"
+      }
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/1190458137",
+      "label": "OpenStreetMap w1190458137 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {
+        "building:part": "yes",
+        "height": "15",
+        "roof:material": "grass"
+      }
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/1190458138",
+      "label": "OpenStreetMap w1190458138 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {
+        "building:part": "yes",
+        "height": "16",
+        "roof:material": "grass"
+      }
+    },
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "label": "Esri World Imagery — private outline/roof comparison; no imagery published",
+      "type": "aerial"
+    },
+    {
+      "url": "https://www.marriott.com/en-us/hotels/buhro-jw-marriott-bucharest-grand-hotel/overview/",
+      "label": "Official hotel exterior reference",
+      "type": "official"
+    }
+  ],
+  "sourceIds": [
+    "w1190458135",
+    "w1190458136",
+    "w1190458137",
+    "w1190458138",
+    "w1190458139",
+    "w1190458140",
+    "w1190458141",
+    "w1190458142",
+    "w1190641868",
+    "w1190641869",
+    "w1190641870",
+    "w1190641873",
+    "w201077736",
+    "w26314111"
+  ],
+  "sourceLedger": "../../../../research/landmark-source-bucharest.json",
+  "reviewedAt": "2026-11-08",
+  "improvements": [
+    "Cut the actual 13/15/16 m inner wings out of the 40 m perimeter instead of filling the complex to one height.",
+    "Retained mapped grass and glass roof parts and their full source outlines.",
+    "Nine-level perimeter and explicit roof-height ray probes follow the source envelope."
+  ],
+  "remainingGaps": [
+    "Thin glass roof thickness is an explicit 0.2 m rendering estimate where min_height is unmapped.",
+    "Perimeter facade bays, central recess and entrance canopy details remain simplified.",
+    "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity."
+  ],
+  "checks": [
+    {
+      "label": "Full source boundary and replacement-identity checks",
+      "passed": true,
+      "details": "tools/landmarks/bucharest-source-check.mjs: 1 authored source rings; explicit replacement IDs match the source ledger. Entire 33-model check passes 306 checks."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs: all 61 models pass finite geometry, normals and triangle accounting; dedicated concave courtyard, roof and height-band checks pass."
+    },
+    {
+      "label": "Mandatory foot / driving regression",
+      "passed": true,
+      "details": "Immutable production ef21d14: npm run harness -- --scenario=foot,a --city=bucharest completed 0 high / 0 medium / 1 low (software-GL FPS only). Both scenario screenshots inspected."
+    },
+    {
+      "label": "Published game studies inspected",
+      "passed": true,
+      "details": "Front, top and oblique game-only studies inspected against source outlines and available independent reference photographs. Remaining shape discrepancies are listed explicitly."
+    },
+    {
+      "label": "Matched exterior Street View comparison",
+      "passed": true,
+      "details": "Private exterior visual comparison inspected. No Street View attributes were extracted and no Google imagery is published. Actual pano pose was not independently metadata-verified."
+    },
+    {
+      "label": "Complete district / traffic / mirror budget",
+      "passed": false,
+      "details": "These are isolated model studies. Paired Romana samples had unchanged findings and world-only peak1.13M triangles/296 calls, with an Arnia capture timeout; traffic and mirror budget and all tourist-scene placements require the district lanes."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study",
+      "kind": "front",
+      "image": "assets/landmarks/marriott/front.webp",
+      "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+      "sha256": "7c74506b583c6684863baeabcc81281288480b00d1f02df9ac917d990baf27bd",
+      "capturedAt": "2026-11-08T17:06:16.576708Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=marriott&clean=1&fountains=on&view=street&az=50.001816321917225",
+        "anchor": {
+          "lat": 44.4257465,
+          "lon": 26.0766337,
+          "rotation": -0.6981
+        },
+        "camera": {
+          "position": [
+            130.21108040243644,
+            1.3,
+            109.26303464019057
+          ],
+          "quaternion": [
+            0.04464199395268431,
+            0.42211960163412504,
+            -0.020817765116338493,
+            0.9052009472750991
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 3378.0052024139814,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -76.46031239321172,
+            0,
+            -79.64091505937265
+          ],
+          "max": [
+            78.10537859382262,
+            40,
+            81.04119871414903
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "top",
+      "label": "Top model study (perspective)",
+      "kind": "top",
+      "image": "assets/landmarks/marriott/top.webp",
+      "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+      "sha256": "1fcea37373872da48aea7ad9e7844405b3509edd8243676727579842798e2f94",
+      "capturedAt": "2026-11-08T17:06:24.300622Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=marriott&clean=1&fountains=on&view=top&az=0",
+        "anchor": {
+          "lat": 44.4257465,
+          "lon": 26.0766337,
+          "rotation": -0.6981
+        },
+        "camera": {
+          "position": [
+            0.8225331003054492,
+            259.93951466962153,
+            0.9600814287043422
+          ],
+          "quaternion": [
+            -0.7067531394223399,
+            0,
+            0,
+            0.7074602461740636
+          ],
+          "fov": 45,
+          "near": 0.5198792892788661,
+          "far": 5198.7928927886605,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -76.46031239321172,
+            0,
+            -79.64091505937265
+          ],
+          "max": [
+            78.10537859382262,
+            40,
+            81.04119871414903
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/marriott/oblique.webp",
+      "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+      "sha256": "58d466045a469c6b7e86de3a4c5fc97c177ebd869be9e7d7e98fc07649f17946",
+      "capturedAt": "2026-11-08T17:06:29.172573Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=marriott&clean=1&fountains=on&view=oblique&az=85.00181632191723&el=28",
+        "anchor": {
+          "lat": 44.4257465,
+          "lon": 26.0766337,
+          "rotation": -0.6981
+        },
+        "camera": {
+          "position": [
+            216.7340788215867,
+            131.24041148152688,
+            19.583057463099106
+          ],
+          "quaternion": [
+            -0.1783609402911745,
+            0.6555336300926087,
+            0.16344289078753052,
+            0.7153666586073678
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 4909.367067844487,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -76.46031239321172,
+            0,
+            -79.64091505937265
+          ],
+          "max": [
+            78.10537859382262,
+            40,
+            81.04119871414903
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 4220,
+    "drawCalls": 3,
+    "note": "Isolated development viewer render, including its ground/shadow work; excludes district world, traffic and mirrors."
+  }
+}

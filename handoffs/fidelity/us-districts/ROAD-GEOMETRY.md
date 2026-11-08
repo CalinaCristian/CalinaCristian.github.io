@@ -1,0 +1,9 @@
+# Source road geometry and topology
+
+Source district compilation previously densified and moved parallel main-road nodes up to five metres per pass, joined dead ends to unrelated nearby segments, deleted mapped stubs under fifteen metres, and simplified the remaining source polylines. Those repairs conflict with the source geometry policy and can push real roads into retained real buildings.
+
+The source-only path now preserves every original way vertex and floating-point projected position. Existing exact boundary cuts and true shared OSM junction identities remain. Raw way identity, full original WGS84/projected geometry, node IDs and tags are serialized independently of the prepared node IDs. Ring polylines keep precise source geometry as well. Legacy city corridors retain their existing preparation.
+
+Runtime uses precise source coordinates. Source worlds do not invent invisible U-turn roads or change unreachable source one-way roads into two-way streets. Virtual outside nodes still classify SCC membership; they are never physical route legs. Both car and foot GPS reject virtual edges, and source foot routing cannot substitute a straight line across a closure for the real road route.
+
+Validation: `node tools/osm/road-source-check.mjs` builds fixtures inside all eight real district masks and independently audits each against raw OSM. Each preserves five whole ways, all twelve source vertices, a mapped five-metre private stub, a nearby unjoined dead end, four-metre parallel spacing and an elevated crossing with distinct identities. Its ghost-route counterexample requires the three real public roads for both car and foot. `road-source-audit.mjs` is the independent raw-source check for final district rebuilds; final actual chapter reachability and collision checks remain the owning district's browser gates.

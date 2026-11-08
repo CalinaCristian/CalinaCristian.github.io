@@ -10,7 +10,7 @@
 // ============================================================================
 import * as THREE from '../vendor/three.module.min.js';
 import { collideBuildings } from './world.js';
-import { createFlightBoundary, polygonFlightSource } from './drone-boundary.js';
+import { createFlightBoundary, polygonFlightSource, FLIGHT_GRACE } from './drone-boundary.js';
 import { makeCrowd, dressFor, seasonOf, CROWD_FLAGS } from './crowd.js';
 
 const flightBoundaries = new WeakMap();
@@ -21,11 +21,12 @@ function flightBoundary(scene, source) {
 
 const DEG = Math.PI / 180;
 const MODES = [
-    { id: 'C', name: 'Cine', h: 4, v: 2.5 },
-    { id: 'N', name: 'Normal', h: 12, v: 5 },
-    { id: 'S', name: 'Sport', h: 26, v: 7 },
+    { id: 'C', name: 'Cine', h: 4 },
+    { id: 'N', name: 'Normal', h: 12 },
+    { id: 'S', name: 'Sport', h: 26 },
 ];
 const BOOST = 1.8;                // Shift: Sport + boost ≈ 47 m/s — fast enough to cross a district in half a minute
+const COLLISION_STEP = 0.35;      // no movement step skips a thin roof band, wall or the drone's collision radius
 const RANGE = { district: 800, spot: 450 };
 const CEIL_M = 120;               // EU open category: 120 m above ground; FAA recreational: 400 ft (121.9 m)
 const BATTERY_S = 10 * 60;        // ~10 min of hover; faster flight drains faster
@@ -154,16 +155,15 @@ const HUD_HTML = `
   <div class="dr-acts"><button data-dr="gohere" title="Go here: walk-teleport to the ground under the drone, then land (T)">⇩ Go here</button><button data-dr="rth" title="Return home (H)">⌂ Home</button><button data-dr="photo" title="Photo (P)">📷</button><button data-dr="land" class="dr-exit" title="Fly back and land in your hand (G / X)">✕ Land</button></div>
 </div>
 <div class="dr-stick" aria-hidden="true"><i></i></div>
-<div class="dr-vert"><button data-hold="up" aria-label="Up">▲</button><button data-hold="down" aria-label="Down">▼</button></div>
-<div class="dr-help">WASD fly · mouse: look / gimbal · Space or E up · Q or C down · Shift boost · wheel or 1 2 3: speed mode · N minimap · T go here · H home (hold: land now) · G or X land · P photo · Esc pause</div>`;
+<div class="dr-help">Mouse look · W/S follow view · A/D strafe · look up/down + W to climb/descend · Shift boost · 1/2/3 or wheel speed · N minimap · T go here · H home (hold land) · G/X land · P photo · Esc pause</div>`;
 
 export class Drone {
     constructor(game, { onEvent = null, onGoHere = null } = {}) {
         this.g = game; this.onEvent = onEvent; this.onGoHere = onGoHere;
         this.active = false; this.phase = null; this.mode = 1;
-        this.pos = new THREE.Vector3(); this.vel = new THREE.Vector3(); this.yaw = 0; this.gimbal = -0.2;
+        this.pos = new THREE.Vector3(); this.vel = new THREE.Vector3(); this.yaw = 0; this.gimbal = 0;
         this.tiltP = 0; this.tiltR = 0; this.t = 0; this.battery = 1;
-        this.stick = { x: 0, y: 0 }; this.hold = { up: false, down: false };
+        this.stick = { x: 0, y: 0 };
         this._q = new THREE.Quaternion(); this._q2 = new THREE.Quaternion(); this._e = new THREE.Euler(0, 0, 0, 'YXZ'); this._v = new THREE.Vector3();
         this.sound = new RotorSound(game.audio);
         this.stats = { ...{ flights: 0, maxDist: 0, maxAlt: 0, km: 0, photos: 0 }, ...(store.get().drone || {}) };
@@ -193,7 +193,7 @@ export class Drone {
         if (g.state === 'drive') return { ok: false, reason: 'Get out of the car first (Enter).' };
         const c = this.ctx(); if (!c) return { ok: false, reason: 'Only on foot, in a district or a tourist spot.' };
         if (g.photo?.active || g.hud?.panelOpen || g._pauseOpen || c.session?.ui?.panelOpen) return { ok: false, reason: 'Close the panel first.' };
-        if (c.boundary && !c.boundary.allowed(c.walker)) return { ok: false, reason: 'Outside the flight area: walk back within 20 m of the playable area.' };
+        if (c.boundary && !c.boundary.allowed(c.walker)) return { ok: false, reason: `Outside the flight area: walk back within ${FLIGHT_GRACE} m of the playable area.` };
         if (this.covered(c)) return { ok: false, reason: 'Something is overhead (a roof, a bridge or tree crowns): step out under open sky.' };
         return { ok: true };
     }
@@ -215,7 +215,7 @@ export class Drone {
         const c = this.c = this.ctx(), w = c.walker, cam = g.camera;
         this.active = true; this.phase = 'lift'; this.t = 0; this.pt = 0; this.battery = 1; this.recT = 0; this.rth = false; this.rthPath = null; this.autoRth = false; this.maxD = 0; this.maxAlt = 0; this.dist = 0;
         this.home = { x: w.x, z: w.z, y: w.y || 0, heading: w.heading, pitch: w.pitch || 0 };
-        this.yaw = w.heading; this.gimbal = -0.18; this.vel.set(0, 0, 0); this.tiltP = this.tiltR = 0;
+        this.yaw = w.heading; this.gimbal = 0; this.vel.set(0, 0, 0); this.tiltP = this.tiltR = 0;
         this.range = RANGE[c.kind]; this.imperial = c.units === 'imperial';
         // camera leaves the walker's head (world space); the walker freezes (its input is swapped for a dead one)
         this.saved = { fov: cam.fov, parent: cam.parent, r3dPlayer: g.r3d?.player ?? null, lookAllowed: g.input.lookAllowed };
@@ -388,7 +388,7 @@ export class Drone {
         // camera: look up at it, then follow it up into the drone view
         const lookAt = new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().lookAt(eye, m, new THREE.Vector3(0, 1, 0)));
         const q0 = this._walkerQuat();
-        this.yaw = h.heading; this.gimbal = -0.18;
+        this.yaw = h.heading; this.gimbal = 0;
         if (this.t < 1.4) { cam.position.copy(eye); const qh = new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().lookAt(eye, this.handPos.clone().add(new THREE.Vector3(0, 0.12, 0)), new THREE.Vector3(0, 1, 0))); cam.quaternion.copy(q0).slerp(qh, 0.55 * ease(this.t / 0.4)).slerp(lookAt, ease((this.t - 0.5) / 0.9)); }
         else {
             const k = ease((this.t - 1.4) / 1.5);
@@ -402,32 +402,38 @@ export class Drone {
         if (u >= 1) { this.phase = 'fly'; this.pos.copy(fly0); this.c.boundary?.constrain(this.pos, this.vel); this.model.visible = false; this.t = 0; this.warn(`${MODES[this.mode].name} mode · ${this._fmtDist(this.range)} range · ${this.imperial ? '400 ft' : `${CEIL_M} m`} ceiling`, 3.5); }
     }
     _fly(dt) {
+        // Looking upward/downward uses the full mode speed too. Sweep physical
+        // collision at short intervals, including a boosted climb through a roof.
+        const maxSpeed = Math.max(this.vel.length(), this.rth ? Math.hypot(16, 6) : MODES[this.mode].h * (this.g.input.shift ? BOOST : 1));
+        const steps = Math.max(1, Math.ceil(dt * maxSpeed / COLLISION_STEP));
+        if (steps > 1) { for (let i = 0; i < steps && this.phase === 'fly'; i++) this._fly(dt / steps); return; }
         const g = this.g, c = this.c, inp = g.input, cam = g.camera, h = this.home;
         const previous = { x: this.pos.x, z: this.pos.z };
         const photo = !!g.photo?.active;
         // look: yaw + gimbal tilt
         const lk = inp.takeLook();
-        this.yaw -= lk.dx * 0.0022; this.gimbal = clamp(this.gimbal - lk.dy * 0.0022, -Math.PI / 2, 0.35);
-        let fwd = 0, side = 0, turn = 0, vert = 0, boost = false;
+        this.yaw -= lk.dx * 0.0022; this.gimbal = clamp(this.gimbal - lk.dy * 0.0022, -Math.PI / 2, Math.PI / 2);
+        let fwd = 0, side = 0, boost = false;
         if (!photo && !this.rth) {
-            const k = inp.keys, mouse = inp.lookHeld || inp.locked;
-            if (k.has('KeyW') || k.has('ArrowUp')) fwd += 1;
-            if (k.has('KeyS') || k.has('ArrowDown')) fwd -= 1;
-            const a = k.has('KeyA'), d = k.has('KeyD');
-            if (mouse) side = (d ? 1 : 0) - (a ? 1 : 0); else turn += (d ? 1 : 0) - (a ? 1 : 0);
-            turn += (k.has('ArrowRight') ? 1 : 0) - (k.has('ArrowLeft') ? 1 : 0);
-            if (k.has('Space') || k.has('KeyE') || k.has('PageUp') || this.hold.up) vert += 1;
-            if (k.has('KeyQ') || k.has('KeyC') || k.has('PageDown') || this.hold.down) vert -= 1;
+            const k = inp.keys;
+            fwd = (k.has('KeyW') ? 1 : 0) - (k.has('KeyS') ? 1 : 0);
+            side = (k.has('KeyD') ? 1 : 0) - (k.has('KeyA') ? 1 : 0);
             boost = inp.shift;
             if (this.stick.x || this.stick.y) { fwd = -this.stick.y; side = this.stick.x; }
-            else if (!k.size && inp.touch) { if (inp.touch.throttle) fwd = inp.touch.throttle; if (inp.touch.steer) turn = inp.touch.steer; }
+            else if (inp.touch?.stick?.active) {
+                const stick = inp.touch.stick, mag = Math.hypot(stick.x, stick.y), response = mag > 0.12 ? (Math.min(1, mag) - 0.12) / (0.88 * mag) : 0;
+                fwd = -stick.y * response; side = stick.x * response;
+            }
             inp.take('Space'); inp.take('KeyE');
         }
-        this.yaw -= turn * 1.5 * dt;
-        const M = MODES[this.mode], hs = M.h * (boost ? BOOST : 1), vs = M.v * (boost ? 1.5 : 1);
+        const M = MODES[this.mode], hs = M.h * (boost ? BOOST : 1);
         const fx = -Math.sin(this.yaw), fz = -Math.cos(this.yaw), rx = -fz, rz = fx;
-        let tx = fx * fwd + rx * side, tz = fz * fwd + rz * side; const tl = Math.hypot(tx, tz); if (tl > 1) { tx /= tl; tz /= tl; }
-        tx *= hs; tz *= hs; let ty = vert * vs;
+        // Follow the viewing heading in all three dimensions. The sideways axis stays
+        // level, even when looking straight up/down; diagonal input keeps one speed.
+        const pitchCos = Math.cos(this.gimbal);
+        let tx = fx * pitchCos * fwd + rx * side, tz = fz * pitchCos * fwd + rz * side, ty = Math.sin(this.gimbal) * fwd;
+        const tl = Math.hypot(tx, ty, tz); if (tl > 1) { tx /= tl; ty /= tl; tz /= tl; }
+        tx *= hs; ty *= hs; tz *= hs;
         // return home: climb to a safe height, fly over you, descend in front of you
         const dHome = Math.hypot(this.pos.x - h.x, this.pos.z - h.z), gy0 = c.groundAt(this.pos.x, this.pos.z, this.pos.y);
         if (this.rth) {
@@ -449,7 +455,7 @@ export class Drone {
         }
         // inertia
         const k = 1 - Math.exp(-(this.rth ? 3 : 2.2) * dt);
-        this.vel.x += (tx - this.vel.x) * k; this.vel.z += (tz - this.vel.z) * k; this.vel.y += (ty - this.vel.y) * (1 - Math.exp(-3.5 * dt));
+        this.vel.x += (tx - this.vel.x) * k; this.vel.z += (tz - this.vel.z) * k; this.vel.y += (ty - this.vel.y) * (this.rth ? 1 - Math.exp(-3.5 * dt) : k);
         const nx = this.pos.x + this.vel.x * dt, nz = this.pos.z + this.vel.z * dt; let ny = this.pos.y + this.vel.y * dt;
         this.pos.x = nx; this.pos.z = nz;
         // limits: range around you, altitude ceiling, ground, then the playable flight area
@@ -464,7 +470,7 @@ export class Drone {
         this._collide(c, !!c.boundary);
         // The geofence runs after physical pushes, and at every height (including above
         // the driving-mask walls). Projection removes outward speed, preserving slides.
-        if (c.boundary?.constrain(this.pos, this.vel, previous)) this.warn('Flight area edge · 20 m beyond the playable area', 0.6);
+        if (c.boundary?.constrain(this.pos, this.vel, previous)) this.warn(`Flight area edge · ${FLIGHT_GRACE} m beyond the playable area`, 0.6);
         const finalRange = Math.hypot(this.pos.x - h.x, this.pos.z - h.z);
         if (finalRange > this.range) {
             // Keep the corrected step inside both the range disk and the flight domain.
@@ -494,7 +500,7 @@ export class Drone {
         const C = c.colliders; if (!C) return;
         const y = this.pos.y, one = [null];
         const test = (b) => {
-            if (flightBoundary && b.kind === 'boundary') return; // replaced by the height-independent 20m flight domain
+            if (flightBoundary && b.kind === 'boundary') return; // replaced by the height-independent flight domain
             let top;
             if (b.wall) top = Math.max(b.y1a ?? 0, b.y1b ?? 0);
             else if (b.y1 !== undefined) top = b.y1;
@@ -503,7 +509,7 @@ export class Drone {
             if (b.y0 !== undefined && y < b.y0 - 0.4) return;
             if (b.yMax !== undefined) return; // bridge piers etc.: only for traffic below the deck
             one[0] = b;
-            const r = collideBuildings(one, this.pos.x, this.pos.z, 0.35, y);
+            const r = collideBuildings(one, this.pos.x, this.pos.z, 0.35, y - 0.35, 0.7);
             if (r) { this.pos.x += r.px * 1.01; this.pos.z += r.pz * 1.01; const l = Math.hypot(r.px, r.pz) || 1, nx = r.px / l, nz = r.pz / l, vn = this.vel.x * nx + this.vel.z * nz; if (vn < 0) { this.vel.x -= nx * vn; this.vel.z -= nz * vn; } }
         };
         try { if (C.query) C.query(this.pos.x, this.pos.z, 2, test); else for (const b of C) test(b); } catch { /* ignore */ }
@@ -565,10 +571,6 @@ export class Drone {
             else if (k === 'photo') this.g.photo?.open?.();
             b.blur();
         });
-        for (const b of el.querySelectorAll('[data-hold]')) {
-            const k = b.dataset.hold, on = (e) => { e.preventDefault(); this.hold[k] = true; b.classList.add('on'); }, off = (e) => { e.preventDefault?.(); this.hold[k] = false; b.classList.remove('on'); };
-            b.addEventListener('pointerdown', on); b.addEventListener('pointerup', off); b.addEventListener('pointerleave', off); b.addEventListener('pointercancel', off);
-        }
         // virtual stick (touch / mouse drag): forward/back + strafe
         const st = this.q.stick; let pid = null, cx = 0, cy = 0;
         st.addEventListener('pointerdown', (e) => { pid = e.pointerId; const r = st.getBoundingClientRect(); cx = r.left + r.width / 2; cy = r.top + r.height / 2; st.setPointerCapture?.(pid); move(e); e.preventDefault(); });
@@ -611,7 +613,7 @@ export class Drone {
         // horizon: the aircraft attitude (roll + pitch) against the camera's gimbal tilt
         const s = this._sway(), roll = this.tiltR + s.r * 3, pitchPx = (this.gimbal + this.tiltP * 0.3) * 260;
         q.hline.style.transform = `translateY(${clamp(pitchPx, -220, 220)}px) rotate(${(-roll / DEG).toFixed(2)}deg)`;
-        const gd = Math.round(this.gimbal / DEG); q.gim.textContent = `${gd}°`; q.gimI.style.top = `${clamp((-gd + 20) / 110 * 100, 0, 100)}%`;
+        const gd = Math.round(this.gimbal / DEG); q.gim.textContent = `${gd}°`; q.gimI.style.top = `${clamp((90 - gd) / 180 * 100, 0, 100)}%`;
         this._drawCompass();
     }
     _drawCompass() {

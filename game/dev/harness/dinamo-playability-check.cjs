@@ -30,8 +30,8 @@ fs.mkdirSync(out, { recursive: true });
         page.on('pageerror', e => report.errors.push(e.message));
         page.on('console', m => { if (m.type() === 'error') report.consoleErrors.push(m.text()); });
         await page.addInitScript(() => { window.requestAnimationFrame = () => 0; });
-        await page.goto(`http://127.0.0.1:${server.address().port}/game/`);
-        await page.waitForFunction(() => window.game, null, { timeout: 90000 });
+        await page.goto(`http://127.0.0.1:${server.address().port}/game/`, { waitUntil: 'commit', timeout: 90000 });
+        await page.waitForFunction(() => window.game, null, { polling: 50, timeout: 120000 });
         report.play = await page.evaluate(async () => {
             const g = game; await g.startFreeRoam('floreasca', { tod: 'noon', weather: 'clear', season: 'summer' }); g.audio.setMuted(true); g.exitCar();
             const f = g.football; if (!f) throw new Error('Dinamo football missing');
@@ -50,7 +50,7 @@ fs.mkdirSync(out, { recursive: true });
             }
             const fly = (from, to, h = 0.32) => {
                 const p0 = point(...from, h), p1 = point(...to, h), direction = p1.clone().sub(p0).normalize(), distance = p1.distanceTo(p0);
-                d.pos.copy(p0); d.vel.set(0, 0, 0); d.mode = 1; d.phase = 'fly'; d.battery = 1; d.rth = false; d.yaw = Math.atan2(-direction.x, -direction.z); g.input.keys.clear(); g.input.keys.add('KeyW');
+                d.pos.copy(p0); d.vel.set(0, 0, 0); d.mode = 1; d.phase = 'fly'; d.battery = 1; d.rth = false; d.yaw = Math.atan2(-direction.x, -direction.z); d.gimbal = 0; g.input.keys.clear(); g.input.keys.add('KeyW');
                 let frames = 0, crossTrack = 0;
                 for (; frames < 600; frames++) {
                     d._fly(0.05); const delta = d.pos.clone().sub(p0), along = delta.x * direction.x + delta.z * direction.z;
@@ -64,7 +64,7 @@ fs.mkdirSync(out, { recursive: true });
             for (const sign of [-1, 1]) result.paths.push(fly([-52, -31 * sign], [52, 31 * sign], 1));
             for (const sign of [-1, 1]) {
                 const path = fly([-125 * sign, 0], [-4 * sign, 0], 30); result.paths.push(path);
-                d.pos.copy(point(-4 * sign, 0, 30)); d.vel.set(0, 0, 0); g.input.keys.add('KeyQ'); for (let i = 0; i < 190; i++) d._fly(0.05); g.input.keys.clear();
+                d.pos.copy(point(-4 * sign, 0, 30)); d.vel.set(0, 0, 0); d.gimbal = -Math.PI / 2; g.input.keys.add('KeyW'); for (let i = 0; i < 70; i++) d._fly(0.05); g.input.keys.clear(); d.gimbal = 0;
                 result.paths.push({ name: `descent ${sign}`, end: f.local(d.pos), pass: Math.abs(f.local(d.pos).u + 4 * sign) < 0.15 && f.local(d.pos).h < 0.5 });
             }
             const stands = g.world.buildings.filter(b => b.landmark === 'dinamo' && b.y0 === undefined && b.h > 3 && b.h < 22);
@@ -80,7 +80,7 @@ fs.mkdirSync(out, { recursive: true });
             if (boundary) { const p = new THREE.Vector3(boundary.x, 1, boundary.z); d.pos.copy(p); d.vel.set(0, 0, 0); d._collide(d.c); result.boundary = { push: d.pos.distanceTo(p), kind: boundary.kind }; }
             result.goals = [];
             for (const sign of [-1, 1]) {
-                f.reset(); const goals = f.physics.goals; d.pos.copy(point(-4 * sign, 0)); d.vel.set(0, 0, 0); d.yaw = Math.atan2(-a[0] * sign, -a[1] * sign); d.mode = 1; f.update(0.05, d); g.input.keys.add('KeyW');
+                f.reset(); const goals = f.physics.goals; d.pos.copy(point(-4 * sign, 0)); d.vel.set(0, 0, 0); d.yaw = Math.atan2(-a[0] * sign, -a[1] * sign); d.mode = 1; d.gimbal = 0; f.update(0.05, d); g.input.keys.add('KeyW');
                 let frames = 0; for (; frames < 400 && f.physics.goals === goals; frames++) { d._fly(0.05); f.update(0.05, d); } g.input.keys.clear();
                 result.goals.push({ sign, frames, scored: f.physics.goals === goals + 1, ball: { pos: { ...f.physics.pos }, vel: { ...f.physics.vel }, touched: f.physics.touched }, drone: { active: d.active, flying: d.flying, local: f.local(d.pos) }, photo: !!g.photo?.active });
             }
@@ -109,13 +109,13 @@ fs.mkdirSync(out, { recursive: true });
             await page.evaluate(weather => { const g = game; g.setRoamWeather(weather); g.setRoamSeason(weather === 'snow' ? 'winter' : 'summer'); for (let i = 0; i < 100; i++) g.r3d._updateWeather(0.1, g.camera.position, g.camera.position.clone().set(0, 0, 0)); }, weather);
             for (const view of ['close', 'overhead', 'wide']) {
                 const evidence = await page.evaluate(view => dinamoRender(view), view); evidence.weather = weather; report.views.push(evidence);
-                await page.screenshot({ path: path.join(out, `${weather}-${view}.png`) });
+                if (option('screenshots', 'all') !== 'none') await page.screenshot({ path: path.join(out, `${weather}-${view}.png`), timeout: 120000 });
             }
         }
         check('ball unobstructed at close, overhead and wide weather views', report.views.every(v => v.firstHit === 'dinamo-football'), report.views.map(({ weather, view, firstHit, ballColor, pixelsRadius }) => ({ weather, view, firstHit, ballColor, pixelsRadius })));
         check('snow uses high-visibility winter panels', report.views.filter(v => v.weather === 'snow').every(v => v.winter && v.ballColor === 'ff982b'), report.views.filter(v => v.weather === 'snow').map(v => v.ballColor));
         check('drone weather views within frame budget', report.views.every(v => v.stats.triangles <= 1500000 && v.stats.drawCalls <= 400), report.views.map(v => ({ weather: v.weather, view: v.view, stats: v.stats })));
-        await page.reload(); await page.waitForFunction(() => window.game?.achievements);
+        await page.reload({ waitUntil: 'commit', timeout: 90000 }); await page.waitForFunction(() => window.game?.achievements, null, { polling: 50, timeout: 120000 });
         report.persisted = await page.evaluate(() => game.achievements.isUnlocked('dinamo-drone-goal')); check('goal achievement survives reload', report.persisted);
         report.lifecycle = await page.evaluate(async () => { const g = game; await g.startFreeRoam('floreasca', { tod: 'noon', weather: 'clear' }); const old = g.football; await g.loadCity('bucharest', { district: 'romana' }); return { disposed: old.disposed, detached: !old.mesh.parent && !old.contact.parent, noBall: g.football === null }; });
         check('district replacement disposes ball and contact resources', Object.values(report.lifecycle).every(Boolean), report.lifecycle);

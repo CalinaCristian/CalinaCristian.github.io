@@ -23,6 +23,14 @@
 // ============================================================================
 
 const ROAD_Y = 0.24;
+// Independent from game code: retain the harness's own geometry check and cover both implementations in fixtures.
+export function buildingBlocksRoad(c, x, z, roadY, bodyHeight = 2) {
+    if (!c.poly || !pip(x, z, c.poly) || (c.holes || []).some(h => pip(x, z, h))) return false;
+    if ((c.minH ?? 0) > roadY + bodyHeight || (c.h !== undefined && roadY > c.h + 0.5)) return false;
+    if ((c.y0 !== undefined && roadY < c.y0) || (c.y1 !== undefined && roadY > c.y1)) return false;
+    return true;
+}
+
 const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
 const r1 = (v) => Math.round(v * 10) / 10;
 const r2 = (v) => Math.round(v * 100) / 100;
@@ -356,7 +364,7 @@ export function geometryDetectors(G, opts) {
     // objective markers (main.js: poi.marker bobbing at h + 8 m over a stop / the airport) float by design
     const markers = new Set(); try { for (const p of [...(W.pois || []), ...(G?.stopPois || []).map(s => s.poi), G?.airport].filter(Boolean)) if (p.marker) markers.add(p.marker); } catch { /* ignore */ }
     for (const [o, gname] of groups) {
-        if (markers.has(o)) continue;
+        if (markers.has(o) || o.userData?.noAudit === true) continue; // intentional action UI pins/rings are not physical props
         try {
             B.setFromObject(o); if (B.isEmpty()) continue;
             const x = (B.min.x + B.max.x) / 2, z = (B.min.z + B.max.z) / 2;
@@ -378,8 +386,7 @@ export function geometryDetectors(G, opts) {
             const sx0 = Math.max(x0, it.x0), sx1 = Math.min(x1, it.x1), sz0 = Math.max(z0, it.z0), sz1 = Math.min(z1, it.z1);
             const st = 0.6; let n = 0, px = 0, pz = 0;
             for (let x = sx0 + st / 2; x < sx1; x += st) for (let z = sz0 + st / 2; z < sz1; z += st) {
-                if (!pip(x, z, it.P) || !pip(x, z, c.poly)) continue;
-                const h = it.h(x, z); if (c.h !== undefined && h > c.h + 0.5) continue; // road deck above the roof
+                if (!pip(x, z, it.P) || !buildingBlocksRoad(c, x, z, it.h(x, z))) continue;
                 n++; px += x; pz += z;
             }
             if (n * st * st >= 0.7) hits.set(it, { a: n * st * st, x: px / n, z: pz / n });

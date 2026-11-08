@@ -64,7 +64,11 @@ export function createVenueActivities(ctx) {
         if (ui.contains(document.activeElement)) document.activeElement.blur?.();
         run = null;
     }
-    function cancel(reason = 'cancel') { if (!run) return; lastCancel = reason; restore(); }
+    function note(type, extra = {}) {
+        if (!run) return;
+        window.dispatchEvent(new CustomEvent('dmcv:activity-flow', { detail: { type, spot: run.spot, id: run.kind === 'shaorma' ? 'dristor-shaorma' : 'shoteria-shot', attempt: run.token, step: run.step, elapsed_ms: Math.round(performance.now() - run.began), ...extra } }));
+    }
+    function cancel(reason = 'cancel') { if (!run) return; lastCancel = reason; note('cancel', { reason }); restore(); }
     function blocked(s) {
         const g = window.game;
         return document.hidden || s.ui.panelOpen || s.host.photo?.active || s.host.explore?.drone?.active ||
@@ -122,6 +126,7 @@ export function createVenueActivities(ctx) {
             run.t += Math.max(0, Math.min(.1, dt));
             if (run.t >= duration()) {
                 run.step++; run.animating = false;
+                note('step');
                 if (run.step === 3) {
                     const { kind } = run; restore();
                     bucActivity(s, 'old-town-lipscani', kind === 'shaorma' ? 'dristor-shaorma' : 'shoteria-shot', kind === 'shaorma' ? '🥙 Poftă bună!' : '🥂 Noroc!', kind === 'shaorma' ? 'Shaorma finished at Dristor Kebap, Strada Franceză 17.' : 'Poured, raised and finished a shot at Shoteria, Strada Șelari 17.');
@@ -157,7 +162,8 @@ export function createVenueActivities(ctx) {
             ui.querySelector('h2').textContent = kind === 'shaorma' ? '🥙 Dristor Kebap' : '🥂 Shoteria';
             ui.querySelector('small').textContent = venue.address;
             const button = ui.querySelector('[data-act]'), status = ui.querySelector('p'), progress = ui.querySelector('progress');
-            run = { s, kind, spot: s.spot.id, x: s.position.x, z: s.position.z, step: 0, t: 0, intro: .4, animating: false, ctlActive: s.ctl.active, ui, button, status, progress };
+            run = { s, kind, spot: s.spot.id, x: s.position.x, z: s.position.z, step: 0, t: 0, intro: .4, animating: false, ctlActive: s.ctl.active, ui, button, status, progress, began: performance.now(), token: globalThis.crypto?.randomUUID?.() || String(performance.now()) };
+            note('start');
             s.endTour?.(); s.ctl.active = false; s.input.releaseLock?.(); s.input.take?.('KeyE'); s.ui.prompt(null);
             s.ui.el.append(ui); button.textContent = steps()[0] + ' (E)'; status.textContent = kind === 'shaorma' ? 'Three bites. Take your time.' : 'Pour, raise, then drink. Three small actions.';
             button.onclick = act; ui.querySelector('[data-cancel]').onclick = () => cancel('leave');

@@ -1,0 +1,217 @@
+[
+  {
+    "n": 1,
+    "file": "sheets/bucharest-grozavesti-geometry-001.jpg",
+    "sha256": "f9525ab6c310a97461a6d10a59034e916e6cc255baffab9a9b8a5a281e89b3dd"
+  },
+  {
+    "n": 2,
+    "file": "sheets/bucharest-grozavesti-geometry-002.jpg",
+    "sha256": "3463d273331a5f7a31b136382a81318638523bad5c22d437904e99add7f3b5e2"
+  },
+  {
+    "n": 3,
+    "file": "sheets/bucharest-grozavesti-geometry-003.jpg",
+    "sha256": "1711e95914a9cf280e87d8500d1692d65d55678f83b1caa960da5a5cccb4caed"
+  },
+  {
+    "n": 4,
+    "file": "sheets/bucharest-grozavesti-sweep-pasajul-basarab-aerial-001.jpg",
+    "sha256": "657f539ff3d335bf00845cec34d1cb9cac56b345af586cc55b1b933e0b191465"
+  },
+  {
+    "n": 5,
+    "file": "sheets/bucharest-grozavesti-sweep-pasajul-basarab-aerial-002.jpg",
+    "sha256": "38ca764d1b0a03cef6c002210710909d5a7fefb1ddc44fcf47ca4e844645634d"
+  },
+  {
+    "n": 6,
+    "file": "sheets/bucharest-grozavesti-sweep-pasajul-basarab-forward-001.jpg",
+    "sha256": "bdf49f79bc2c231bca14d85d672916100e8a44ce21dc9f640fe16fddc0ff97a4"
+  },
+  {
+    "n": 7,
+    "file": "sheets/bucharest-grozavesti-sweep-pasajul-basarab-forward-002.jpg",
+    "sha256": "85599a538924691ce3f46013cdf57ce8096c969f4517b39c733e4b244a5d3219"
+  },
+  {
+    "n": 8,
+    "file": "sheets/bucharest-grozavesti-sweep-pasajul-basarab-forward-003.jpg",
+    "sha256": "10d1b720cbf57eded28e69f55741b1973aeed4120fb6ead5fa072c5efc04e13e"
+  },
+  {
+    "n": 9,
+    "file": "sheets/bucharest-grozavesti-sweep-pasajul-basarab-forward-004.jpg",
+    "sha256": "620c04a3525fbe9321859fa154c6ead899a6a9b423191a94154191f24d318952"
+  },
+  {
+    "n": 10,
+    "file": "sheets/bucharest-grozavesti-sweep-pasajul-basarab-forward-005.jpg",
+    "sha256": "7980a5a771226f320c13089136caa86c5e74297c36e5321a4e4a1ce31e55363c"
+  },
+  {
+    "n": 11,
+    "file": "sheets/bucharest-grozavesti-sweep-pasajul-basarab-forward-006.jpg",
+    "sha256": "e8d2bcbea6f6ad5cd33d5b6eff687fbb5fd56ecc332f0f224ad5a9ef85ab3c52"
+  },
+  {
+    "n": 12,
+    "file": "sheets/bucharest-grozavesti-sweep-pasajul-basarab-forward-007.jpg",
+    "sha256": "d0a5cb3bede49f72b0b6df82d789782ac276230e640857b6f10a1a40af1c92f8"
+  },
+  {
+    "n": 13,
+    "file": "sheets/bucharest-grozavesti-sweep-pasajul-basarab-forward-008.jpg",
+    "sha256": "dd053b23835b958c4282f6a0483526c2b59d495331968ca849c28b9962538628"
+  },
+  {
+    "n": 14,
+    "file": "sheets/bucharest-grozavesti-sweep-pasajul-basarab-looks-001.jpg",
+    "sha256": "8084ea33650028b9e23a7562386128996c7e8b24ff814828865fbaa1773216f5"
+  },
+  {
+    "n": 15,
+    "file": "sheets/bucharest-grozavesti-sweep-pasajul-basarab-looks-002.jpg",
+    "sha256": "32ea0dd668712aeefef2ecba1c9ba9db6c1b99e662dea0d0c92982a33cf82e98"
+  },
+  {
+    "n": 16,
+    "file": "sheets/bucharest-grozavesti-sweep-pasajul-basarab-looks-003.jpg",
+    "sha256": "05c25a254f3c763ef1b15d4dba00a7dc0408d55b1b33e670c9045d792a62a247"
+  },
+  {
+    "n": 17,
+    "file": "sheets/bucharest-grozavesti-sweep-pasajul-basarab-looks-004.jpg",
+    "sha256": "d46448946060fec0059ffadf57c27d1a7722fe48019813cdc101c2de8a6c511b"
+  },
+  {
+    "n": 18,
+    "file": "sheets/bucharest-grozavesti-sweep-pasajul-basarab-looks-005.jpg",
+    "sha256": "bae7388f75ddc056d81500b785e7de1605bdff204ee736ab3e3db7eba628a9fc"
+  },
+  {
+    "n": 19,
+    "file": "sheets/bucharest-grozavesti-sweep-pasajul-basarab-traffic-001.jpg",
+    "sha256": "5b365e470585d3d18019d4a1ed8fb1d270f5675ba2d2ad9662fd60652e1eeaca"
+  },
+  {
+    "n": 20,
+    "file": "sheets/bucharest-grozavesti-sweep-pasajul-basarab-traffic-002.jpg",
+    "sha256": "1df35f1af10e19b1c73dfb0a959dc5f7e0dd3c1dd140505478897c7bb73ced56"
+  },
+  {
+    "n": 21,
+    "file": "sheets/bucharest-grozavesti-sweep-splaiul-independen-ei-aerial-001.jpg",
+    "sha256": "f10f12071e18cf3d5fc07bcdc1c298b5c5e0d1f5e80a3bcd64a2f3feac20f56f"
+  },
+  {
+    "n": 22,
+    "file": "sheets/bucharest-grozavesti-sweep-splaiul-independen-ei-forward-001.jpg",
+    "sha256": "02fa617d7442e48f0c81497401e25af0a21710cdc6b725df8d20489acc29bd07"
+  },
+  {
+    "n": 23,
+    "file": "sheets/bucharest-grozavesti-sweep-splaiul-independen-ei-forward-002.jpg",
+    "sha256": "e016f0aa763d6b79df7e35654d9184f5f14087dbf9db2987e24735feba5802d4"
+  },
+  {
+    "n": 24,
+    "file": "sheets/bucharest-grozavesti-sweep-splaiul-independen-ei-looks-001.jpg",
+    "sha256": "79fe00126bc6bed3c0466690ff4947eeae1818fd7fa5f6d8fc63a380ac147318"
+  },
+  {
+    "n": 25,
+    "file": "sheets/bucharest-grozavesti-sweep-splaiul-independen-ei-traffic-001.jpg",
+    "sha256": "70ce128c850586301765819abe5a478411ca788c5741688d0a597fc5c6790dd2"
+  },
+  {
+    "n": 26,
+    "file": "sheets/bucharest-grozavesti-upb-aerial-001.jpg",
+    "sha256": "ad4ffb3b3508116ed267e02dac03731c8744aaf002181bae3ac6f27ecd91aa9b"
+  },
+  {
+    "n": 27,
+    "file": "sheets/bucharest-grozavesti-upb-aerial-002.jpg",
+    "sha256": "075729c58e872d3b656199e77ed8dec908ac4c0be81d4c7e9d883ac5daea9faa"
+  },
+  {
+    "n": 28,
+    "file": "sheets/bucharest-grozavesti-upb-forward-001.jpg",
+    "sha256": "02e3fae6549abaa9fa7bb80b58a1d2ff1f94f077470c57b555251b0c798c10e8"
+  },
+  {
+    "n": 29,
+    "file": "sheets/bucharest-grozavesti-upb-forward-002.jpg",
+    "sha256": "fc9f9e99d097c235e928d1680e4a0d57a3c313ed17634f587f68d8d4e90857c1"
+  },
+  {
+    "n": 30,
+    "file": "sheets/bucharest-grozavesti-upb-forward-003.jpg",
+    "sha256": "bb2fac41d7d210165fe820430b53779d78549c33cdf9b69acd7e2e79184a4120"
+  },
+  {
+    "n": 31,
+    "file": "sheets/bucharest-grozavesti-upb-forward-004.jpg",
+    "sha256": "b80d586918617464c8a96bf11a0a53921cb5bac586bdefb10fd19dcfb32a57eb"
+  },
+  {
+    "n": 32,
+    "file": "sheets/bucharest-grozavesti-upb-forward-005.jpg",
+    "sha256": "fc3941fb95a83d99dd7ed24b05b7fc91e4b3e0d7fe4d43c882e3fa6a81806a45"
+  },
+  {
+    "n": 33,
+    "file": "sheets/bucharest-grozavesti-upb-forward-006.jpg",
+    "sha256": "a9b8b2e1351c635d77ebfd662b183325320db6460af7f1e8083d66834a57a3ca"
+  },
+  {
+    "n": 34,
+    "file": "sheets/bucharest-grozavesti-upb-forward-007.jpg",
+    "sha256": "285a9e991696a599329f5265b4313108ae72105a4d4ce62d4b619b23c26a09e5"
+  },
+  {
+    "n": 35,
+    "file": "sheets/bucharest-grozavesti-upb-looks-001.jpg",
+    "sha256": "ae827bc60abfa6959c1215e15cfc500f23564ee9613bbd5bd3084c3793601757"
+  },
+  {
+    "n": 36,
+    "file": "sheets/bucharest-grozavesti-upb-looks-002.jpg",
+    "sha256": "e8edb3a1e6f248086a4aedccea0a0453570a6397888e17961a2f93f9e5901ada"
+  },
+  {
+    "n": 37,
+    "file": "sheets/bucharest-grozavesti-upb-looks-003.jpg",
+    "sha256": "1036440d6d2d5df25aeff711b09ab356e0a1c76e251caefe262d6b194236321d"
+  },
+  {
+    "n": 38,
+    "file": "sheets/bucharest-grozavesti-upb-looks-004.jpg",
+    "sha256": "3b94aa481f59e38320f092af921834735817be425a42c294194ca67e53999851"
+  },
+  {
+    "n": 39,
+    "file": "sheets/bucharest-grozavesti-upb-traffic-001.jpg",
+    "sha256": "825e7e2765c8f3109f62711da6418d393e96409d879f778e6405af7fa7415ae3"
+  },
+  {
+    "n": 40,
+    "file": "sheets/bucharest-grozavesti-upb-traffic-002.jpg",
+    "sha256": "a6d12acdef4914a84200f2d50033fc3941507bf2910c10ce3ff3c07997c22863"
+  },
+  {
+    "n": 41,
+    "file": "sheets/offices-bucharest-001.jpg",
+    "sha256": "3b82e23792e233574952556130408439fa167f78fcc915657827b6d0a7ead120"
+  },
+  {
+    "n": 42,
+    "file": "sheets/offices-bucharest-002.jpg",
+    "sha256": "3befc15b97387ff7ff00d0ab16ee796eb5279d60b278824f95d5dcd354be3788"
+  },
+  {
+    "n": 43,
+    "file": "sheets/offices-bucharest-003.jpg",
+    "sha256": "50aa9272d1b9b4493982c534bc79abae6b7e4d2a3c16a64b11c097c665d115e9"
+  }
+]

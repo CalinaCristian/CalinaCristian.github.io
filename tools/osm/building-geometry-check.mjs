@@ -9,7 +9,8 @@ import { parseFiles } from './parse-osm.mjs';
 import { assembleRings, footprintMargin, polyCentroid } from './geom.mjs';
 import * as THREE from '../../game/vendor/three.module.min.js';
 import { footprintCells, footprintCoverage, exposedWall, insetFootprint, ringArea, simpleFootprint, assemblySignature, touchingSolids, geometryRing } from '../../game/src/building-parts.js';
-import { collideBuildings } from '../../game/src/world.js';
+import { collideBuildings, buildingBlocksRoad as worldBuildingBlocksRoad } from '../../game/src/world.js';
+import { buildingBlocksRoad as harnessBuildingBlocksRoad } from '../../game/dev/harness/visual/page/geometry.js';
 import { sourceRing } from './source-footprints.mjs';
 import { parseMeasure } from '../../game/src/building-roofs.js';
 const close = (a, b, label) => assert.ok(Math.abs(a - b) < Math.max(1e-5, Math.abs(b) * 1e-8), `${label}: ${a} != ${b}`);
@@ -30,6 +31,16 @@ const wall = exposedWall([0, 0], [10, 0], 0, 20, 0, 1, [{ ring: square, minH: 5,
 assert.deepEqual(wall.map(f => [f.y0, f.y1]), [[0, 5], [12, 20]], 'part underside/top split the visible parent wall');
 assert.equal(exposedWall([0, 0], [10, 0], 0, 20, 0, -1, [{ ring: square, minH: 0, h: 20, i: 1 }], 2).length, 0, 'coincident exterior faces have one stable owner');
 assert.equal(exposedWall([0, 0], [10, 0], 0, 20, 0, -1, [{ ring: square, minH: 0, h: 20, i: 2 }], 1).length, 1, 'the earlier exterior face remains visible');
+for (const check of [worldBuildingBlocksRoad, harnessBuildingBlocksRoad]) {
+    assert.equal(check({ poly: square, h: 10 }, 5, 5, 0.24), true, 'a real ground building over a road remains a finding');
+    assert.equal(check({ poly: square, minH: 4.8, h: 5.2 }, 5, 5, 0.24), false, 'a vehicle fits under the reviewed open canopy');
+    assert.equal(check({ poly: square, minH: 4.8, h: 5.2 }, 5, 5, 4.8), true, 'the roof band still blocks a road at its level');
+    assert.equal(check({ poly: square, minH: 1.8, h: 2.2 }, 5, 5, 0.24), true, 'a low underside does not clear the vehicle body');
+    assert.equal(check({ poly: square, h: 5 }, 5, 5, 10), false, 'a deck above the roof does not touch the building');
+    const court = { poly: square, holes: [[[2,2],[8,2],[8,8],[2,8]]], h: 10 };
+    assert.equal(check(court, 5, 5, 0.24), false, 'a mapped courtyard passage stays open');
+    assert.equal(check(court, 1, 5, 0.24), true, 'a solid courtyard wing over a road remains a finding');
+}
 const raised = { x: 5, z: 5, r: 8, poly: square, minH: 9, h: 20 };
 assert.equal(collideBuildings([raised], 5, 5, 0.4, 0.24), null, 'a sourced elevated passage is traversable');
 assert.ok(collideBuildings([raised], 5, 5, 0.4, 9), 'the upper source volume collides');

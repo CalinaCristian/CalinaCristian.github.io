@@ -1,0 +1,136 @@
+{
+  "schema": 1,
+  "reviewedUTC": "2026-11-08",
+  "source": {
+    "source": "Esri m18",
+    "mosaicSHA256": "f587d960f925d4e5d5b9e6149797aecf4bad6482617bc4c8b43a172149f8b795",
+    "cropOriginalPixels": [
+      4299.522670443612,
+      2741.144294197035,
+      4994.064671781403,
+      3711.779813149649
+    ],
+    "resizeScale": 1.4397977344406108,
+    "metresPerOutputPixel": 0.2961137316814834,
+    "OSMWays": [
+      "128304850",
+      "84477811"
+    ]
+  },
+  "ways": [
+    {
+      "id": "128304850",
+      "tags": {
+        "bridge": "yes",
+        "foot": "no",
+        "highway": "primary",
+        "is_in:city": "București",
+        "layer": "2",
+        "oneway": "yes"
+      },
+      "coordinates": [
+        [
+          44.4451973,
+          26.0615438
+        ],
+        [
+          44.4453582,
+          26.0616178
+        ],
+        [
+          44.4455084,
+          26.0616942
+        ],
+        [
+          44.4456752,
+          26.0617916
+        ],
+        [
+          44.4458096,
+          26.0618822
+        ],
+        [
+          44.4459319,
+          26.0619777
+        ],
+        [
+          44.4460901,
+          26.0621066
+        ],
+        [
+          44.4462393,
+          26.062239
+        ],
+        [
+          44.4463832,
+          26.0623787
+        ],
+        [
+          44.4465261,
+          26.0625304
+        ],
+        [
+          44.446663,
+          26.0626838
+        ],
+        [
+          44.4468018,
+          26.0628535
+        ],
+        [
+          44.44693,
+          26.0630212
+        ],
+        [
+          44.4470719,
+          26.0632241
+        ],
+        [
+          44.4471817,
+          26.0633956
+        ],
+        [
+          44.4473199,
+          26.0636061
+        ],
+        [
+          44.447524,
+          26.0638217
+        ]
+      ]
+    },
+    {
+      "id": "84477811",
+      "tags": {
+        "foot": "no",
+        "highway": "primary",
+        "is_in:city": "București",
+        "oneway": "yes"
+      },
+      "coordinates": [
+        [
+          44.4443457,
+          26.0612283
+        ],
+        [
+          44.4450147,
+          26.0614674
+        ],
+        [
+          44.445115,
+          26.0615079
+        ],
+        [
+          44.4451973,
+          26.0615438
+        ]
+      ]
+    }
+  ],
+  "widthM": null,
+  "laneCount": null,
+  "observation": "Separate raised carriageway beside tram reservation and ground road. A dashed lane divider/parallel vehicle lanes are visible along portions of128304850. Approach84477811 includes a variable merge/gore.",
+  "confidence": "Insufficient for a precise width or lane-count override. A narrower one-lane ramp is not established by this imagery.",
+  "limits": "Off-nadir elevated-deck displacement shifts source centrelines relative to roof/deck edges. Acquisition date unknown. No StreetView extraction.",
+  "use": "Review evidence only; no gameplay width, lane or clearance values are changed."
+}

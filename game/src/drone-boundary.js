@@ -1,5 +1,5 @@
 // Pure horizontal flight domain. The source is the playable area, never terrain/camera bounds.
-export const FLIGHT_GRACE = 20;
+export const FLIGHT_GRACE = 150;
 const CAP = FLIGHT_GRACE - 0.001;
 const point = p => ({ x: p.x, z: p.z });
 export function polygonFlightSource(polygons) {

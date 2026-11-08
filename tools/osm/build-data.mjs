@@ -84,6 +84,8 @@ import { resolveRoadAccess } from '../../game/src/road-access.js';
 import { parseMeasure, makeRoofProfile, roofMesh, visibleRoofMesh, roofSignature } from '../../game/src/building-roofs.js';
 import { ShapeUtils, Vector2 } from '../../game/vendor/three.module.min.js';
 
+import { sourcePassages } from './source-passages.mjs';
+
 import { distPointSeg, pointInPolygon, polyArea, polyCentroid, footprintMargin, simplifyIdx, simplifyRing, Grid, assembleRings } from './geom.mjs';
 import { buildCorridor } from './corridors.mjs';
 import { CITIES as GAME_CITIES } from '../../game/src/cities.js';
@@ -727,6 +729,7 @@ function buildCity(cityId, did = null) {
             roadSourceGeometry[outRoads.length] = { ...sourceRoadGeometry(r), preparedNodeIds: ids };
         }
         r.outIndex = outRoads.length;
+
 
         outRoads.push([S(r.name), ROAD_CLASSES.indexOf(r.cls), r.lf, r.oneway ? 0 : r.lb, Math.round(r.median * 10), Math.round(r.laneW * 10), Math.round(r.sidewalk * 10), r.maxspeed, r.flags, r.layer, ...ids.map(idxOf)]);
     }
@@ -1685,6 +1688,7 @@ function buildCity(cityId, did = null) {
         outBInfo.push(S(t.building && t.building !== 'yes' ? t.building : ''), yearOf(t.start_date || t['building:start_date'] || t.construction_date), S(t.architect || ''), S((t['building:material'] || t['building:facade:material'] || '').split(';')[0]), b.hSrc ?? 0);
     }
     const outBuildingCanopies = Object.fromEntries(buildings.flatMap((b, i) => b.canopy ? [[i, { ...b.canopy, topM: b.h, clearanceM: b.minH }]] : []));
+    const mappedPassages = ds ? sourcePassages(buildings, W, N, P, roads) : { records: {}, issues: [] };
     const outBuildingSourceIssues = Object.fromEntries(buildings.flatMap((b, i) => b.sourceIssues?.length ? [[i, b.sourceIssues]] : []));
     const outB = buildings.map(b => {
         let flags = b.flags;
@@ -1906,6 +1910,9 @@ function buildCity(cityId, did = null) {
         doc.buildingGeometryPolicy = 'source';
         doc.buildingSourceSkips = buildingSourceSkips;
         doc.buildingRoadConflicts = buildingRoadConflicts;
+        if (Object.keys(mappedPassages.records).length) doc.buildingPassages = mappedPassages.records;
+        if (mappedPassages.issues.length) doc.buildingPassageIssues = mappedPassages.issues;
+
         if (Object.keys(outBuildingHoleFootprints).length) doc.buildingHoleFootprints = outBuildingHoleFootprints;
         if (Object.keys(sharedLanes).length) doc.sharedLanes = sharedLanes;
         doc.roadAccess = roadAccess;

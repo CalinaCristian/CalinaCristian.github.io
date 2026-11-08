@@ -11,7 +11,7 @@
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, obb, polyArea, offsetPolyline, distPolyline, prismGeometry } from '../kit.js';
-import { bucBackdrop, osmPoly, palisade, signAtlas, bucActivity, boatRide } from '../buc.js';
+import { bucBackdrop, osmPoly, placeLandmark, palisade, signAtlas, bucActivity, boatRide } from '../buc.js';
 import { railing } from '../props.js';
 import { addBikeRental } from '../bike.js';
 import { dryLanding, shortWaterRoute } from '../water-route.js';
@@ -129,6 +129,12 @@ export default {
     env: { fogFar: 3400, ambientCity: 0.15, groundAlbedo: 0.1 },
     async build(ctx) {
         const g = ctx.ground, d = ctx.data, spH = ctx.spot('herastrau-park'), spV = ctx.spot('village-museum');
+        // The real Arc is in this source extract beside the mapped bike dock.
+        // Reuse its canonical model instead of giving the monument apartment
+        // windows. Only its exact source ID is replaced; shared membership
+        // preserves independent and crossing parts.
+        const arc=d.buildings.find(b=>b.id==='w217851530');
+        if(arc){ctx.skipBuildings.add(arc.id);ctx.extras.herastrauArc=placeLandmark(ctx,'arcul',{y:Math.min(...arc.poly.map(([x,z])=>g.heightAt(x,z))),colliderH:30});}
         // ---- the lake (OSM multipolygon with its islands): water plane, shore carved, not walkable
         const lake = d.areas.find((a) => a.id === 'r1130828');
         let level = g.heightAt(24, -45) - 1.4;

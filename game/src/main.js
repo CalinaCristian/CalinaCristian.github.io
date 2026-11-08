@@ -702,7 +702,7 @@ class Game {
         const st = this.r3d.stats;
         const perf = st ? ` · ${st.quality}${st.fps ? ` · ${st.fps} fps` : ''}` : '';
         const lookTxt = input.lookMode === 'lock' ? (input.locked ? 'mouse look (Esc frees)' : 'click to look') : input.lookMode === 'hold' ? 'right-drag look' : '';
-        hud.setHint(this.touch ? perf.trim() : `W/S drive · A/D steer · Space brake · H horn · C look back${lookTxt ? ' · ' + lookTxt : ''} · M map & nav · F fast travel · R reset · N mini-map · L lights · E enter/refuel${DEV ? ' · B colliders' : ''}` + perf);
+        hud.setHint(this.touch ? perf.trim() : `W/S drive · A/D steer · Space brake · H horn · C look back${lookTxt ? ' · ' + lookTxt : ''} · M map & nav · F fast travel · R reset · N mini-map · L lights · E enter/refuel · Enter get out${DEV ? ' · B colliders' : ''}` + perf);
         // ---- HUD fuel / trip ----
         const frac = this.fuel / TANK_L;
         const fuelText = us ? `${Math.round(frac * 100)}% · ${(this.fuel / GAL).toFixed(1)} gal` : `${Math.round(frac * 100)}% · ${this.fuel.toFixed(1)} L`;
@@ -899,12 +899,21 @@ class Game {
         let el = document.getElementById('car-finder');
         const F = this.foot, P = this.player, on = this.state === 'foot' && F?.active && this.carBody?.parent;
         const d = on ? Math.hypot(P.x - F.x, P.z - F.z) : 0;
-        if (!on || d < 12) { if (el) el.classList.remove('show'); return; }
-        if (!el) { el = document.createElement('button'); el.id = 'car-finder'; el.title = 'Your car — click: walk back (route), L: beep, T: call the car'; el.addEventListener('click', (e) => { e.preventDefault(); this.routeToCar(); }); $('#hud')?.appendChild(el); }
+        if (!on || d < 4) { if (el) el.classList.remove('show'); return; }
+        if (!el) { el = document.createElement('button'); el.id = 'car-finder'; el.title = 'Back to your car (V) — L: beep, T: call it to the kerb, map: walking route'; el.addEventListener('click', (e) => { e.preventDefault(); el.blur(); this.backToCar(); }); $('#hud')?.appendChild(el); }
         const rel = angleDiff(F.heading, Math.atan2(-(P.x - F.x), -(P.z - F.z)));
         const arrow = ['⬆️', '↗️', '➡️', '↘️', '⬇️', '↙️', '⬅️', '↖️'][((Math.round(-rel / (Math.PI / 4)) % 8) + 8) % 8];
-        const t = `🚗 ${fmtDist(d, this.city.units)} ${arrow}`; if (el.textContent !== t) el.textContent = t;
+        const t = `🚗 ${fmtDist(d, this.city.units)} ${arrow} · Back to car${this.touch ? '' : ' (V)'}`; if (el.textContent !== t) el.textContent = t;
         el.classList.add('show');
+    }
+    /** on foot → straight back behind the wheel (round 6 note 9): the car pulls up at the kerb next to you when there is a
+     *  street close by, otherwise you are back in it where you left it */
+    backToCar() {
+        if (this.state !== 'foot' || !this.foot?.active) return false;
+        const F = this.foot, pose = this.lanePose(F.x, F.z, F.heading, (F.y ?? 0) + 0.24);
+        if (pose && Math.hypot(pose.x - F.x, pose.z - F.z) <= 60) this.callCar();
+        this.enterCar(); this.hud.toast('🚗 Back in your car', '');
+        return true;
     }
     /** walking route back to the car's driver door */
     routeToCar() {
@@ -1420,6 +1429,7 @@ class Game {
         // find the car (note 7): L = key fob (beep + flash), T = call the car, HUD chip / map marker
         this.nav.walking = true;
         if (input.take('KeyL')) this.beepCar();
+        if (input.take('KeyV')) { this.backToCar(); return; }
         // (T is the drone's "Go here" while it flies: a T queued during / right after a drone flight never calls the car)
         const droneOn = !!(this.explore?.drone?.active || document.body.classList.contains('drone-mode'));
         if (droneOn || this._droneT > performance.now()) input.take('KeyT'); else if (input.take('KeyT')) this.callCar();
@@ -1454,7 +1464,7 @@ class Game {
         input.take('Enter'); input.take('KeyE');
         hud.prompt(prompt);
         const lookTxt = input.lookMode === 'lock' ? (input.locked ? 'mouse look (Esc frees)' : 'click to look') : input.lookMode === 'hold' ? 'right-drag look' : 'A/D turn';
-        hud.setHint(this.touch ? '' : `On foot · WASD walk · Shift run · Space jump · ${lookTxt} · Enter at the car: get in · E office · R sidewalk · M map`);
+        hud.setHint(this.touch ? '' : `On foot · WASD walk · Shift run · Space jump · ${lookTxt} · Enter at the car: get in · V back to car · T call car · E office · R sidewalk · M map · G drone`);
         if (this.opts.minimap && this.frame % 2 === 0) {
             this.minimap.draw({ cx: F.x, cz: F.z, scale: 0.3, heading: F.heading, player: { x: F.x, z: F.z, heading: F.heading, fx: F.fx, fz: F.fz }, pois: world.pois, objective: this.objective });
             this.drawRouteOverlay(this.minimap.ctx, $('#minimap'), { cx: F.x, cz: F.z, scale: 0.3, heading: F.heading });
@@ -2195,6 +2205,7 @@ class Game {
     async fastTravel(dest) {
         this.explore?.hooks?.abortDrone?.();
         if (this.clamp && !this.clamp.paid && this.state === 'drive') { this.hud.toast('🔒 Wheel clamp', 'Pay the fine first: Esc → “Pay fine”.', 'warn'); return false; }
+        if (this.state === 'foot') this.backToCar(); // (on foot: back behind the wheel first, then go — round 6 note 8)
         if (this.state !== 'drive' || this.refuel) return false;
         const { player, hud, city } = this;
         const route = this.nav.compute(player.x, player.z, dest.x, dest.z, player.heading, player.surfY ?? null);

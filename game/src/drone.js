@@ -138,7 +138,7 @@ const HUD_HTML = `
 </div>
 <div class="dr-stick" aria-hidden="true"><i></i></div>
 <div class="dr-vert"><button data-hold="up" aria-label="Up">▲</button><button data-hold="down" aria-label="Down">▼</button></div>
-<div class="dr-help">WASD fly · mouse: look / gimbal · Space or E up · Q or C down · Shift boost · 1 2 3 speed · T go here · H home · G or X land · P photo · Esc pause</div>`;
+<div class="dr-help">WASD fly · mouse: look / gimbal · Space or E up · Q or C down · Shift boost · 1 2 3 speed · T go here · H home (hold: land now) · G or X land · P photo · Esc pause</div>`;
 
 export class Drone {
     constructor(game, { onEvent = null, onGoHere = null } = {}) {
@@ -242,6 +242,13 @@ export class Drone {
         this._startDock();
         return true;
     }
+    /** hold H: land at once (back to the walker's eyes, no flight home / landing animation) */
+    quickLand() {
+        if (!this.active) return;
+        this.stats.maxDist = Math.max(this.stats.maxDist, Math.round(this.maxD || 0)); this.stats.maxAlt = Math.max(this.stats.maxAlt, Math.round(this.maxAlt || 0)); this.stats.km = +(this.stats.km + (this.dist || 0) / 1000).toFixed(2);
+        this.toast('🚁 Drone landed', 'Quick landing (hold H)');
+        this.abort(); this._hHold = 0; this._hQuick = false;
+    }
     /** instant: back to the walker's eyes (a jump / a menu action while the drone is up) */
     abort() {
         if (!this.active) return;
@@ -273,7 +280,11 @@ export class Drone {
         const steps = Math.max(1, Math.round(dtT / 0.05));
         const inp = g.input;
         if (inp.take('Escape')) { g.togglePause?.(true); return true; }
-        if (inp.take('KeyH')) this.returnHome(false);
+        { // H: tap = return home (flown back + landing animation); hold ≥ 0.6 s = land right here, no animation (round 6 note 18)
+            const held = inp.keys?.has?.('KeyH'); inp.take('KeyH');
+            if (held) { this._hHold = (this._hHold || 0) + dtT; if (this._hHold >= 0.6 && !this._hQuick) { this._hQuick = true; this.quickLand(); return true; } }
+            else if (this._hHold) { const tap = !this._hQuick; this._hHold = 0; this._hQuick = false; if (tap) this.returnHome(false); }
+        }
         const w = c.walker;
         // keep the world alive around the frozen walker
         if (c.kind === 'district') {

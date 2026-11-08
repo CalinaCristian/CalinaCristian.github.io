@@ -73,7 +73,7 @@ export class SpotUI {
     constructor(root = document.body) {
         if (!document.getElementById('spot-ui-css')) { const st = document.createElement('style'); st.id = 'spot-ui-css'; st.textContent = CSS; document.head.appendChild(st); }
         const el = this.el = document.createElement('div'); el.id = 'spot-ui';
-        el.innerHTML = `<div class="sp-bubbles"></div><div class="sp-card"><b></b><span></span><div class="sp-chal"></div><div class="sp-tour"></div></div><div class="sp-mini" title="Map (G)"><canvas width="168" height="168"></canvas><b>N ↑</b></div>
+        el.innerHTML = `<div class="sp-bubbles"></div><div class="sp-card"><b></b><span></span><div class="sp-chal"></div><div class="sp-tour"></div></div><div class="sp-mini" title="Map (M)"><canvas width="168" height="168"></canvas><b>N ↑</b></div>
             <div class="sp-cross"></div><div class="sp-prompt"></div><div class="sp-toasts"></div><div class="sp-help"></div><div class="sp-panel"></div>`;
         root.appendChild(el);
         this.$ = (s) => el.querySelector(s);
@@ -129,7 +129,7 @@ export class SpotUI {
         p.innerHTML = `<div class="sp-map"><canvas></canvas><div class="sp-tip"></div><div class="sp-side"><h3>${esc(title)}</h3>
             <div class="sp-legend">${kinds.filter(([k]) => k !== 'you').map(([k, ic, nm]) => `<button data-kind="${k}" aria-pressed="${!map.hidden.has(k)}" title="Show / hide">${ic} ${nm}</button>`).join('')}</div>
             <ul>${items.map((it, i) => `<li data-i="${i}" class="${it.done ? 'done' : ''}">${it.done ? '✓' : it.icon} ${esc(it.label)}</li>`).join('')}</ul>
-            <div class="sp-btns">${tour ? `<button data-tour>${esc(tour.label)}</button>` : ''}<button data-close>Close (G)</button></div></div></div>`;
+            <div class="sp-btns">${tour ? `<button data-tour>${esc(tour.label)}</button>` : ''}<button data-close>Close (M)</button></div></div></div>`;
         const box = p.querySelector('.sp-map'), cv = p.querySelector('canvas'), tip = p.querySelector('.sp-tip');
         p.classList.add('show');
         const fit = () => { const r = box.getBoundingClientRect(), sr = p.querySelector('.sp-side').getBoundingClientRect(), dpr = Math.min(2, devicePixelRatio || 1); cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr);
@@ -145,7 +145,7 @@ export class SpotUI {
         return new Promise((res) => {
             const swallowUp = (e) => { e.preventDefault(); e.stopPropagation(); window.removeEventListener('keyup', swallowUp, true); };
             const close = (e) => { if (!p.classList.contains('show')) return; p.classList.remove('show'); window.removeEventListener('keydown', key, true); window.removeEventListener('resize', onResize); if (e?.type === 'keydown') window.addEventListener('keyup', swallowUp, true); document.activeElement?.blur?.(); p.innerHTML = ''; map.sel = null; map.focus = null; map.pad = null; this._closePanel = null; res(); };
-            const key = (e) => { if (['Escape', 'KeyG', 'KeyE', 'Enter'].includes(e.code)) { e.preventDefault(); e.stopPropagation(); close(e); } };
+            const key = (e) => { if (['Escape', 'KeyM', 'KeyE', 'Enter'].includes(e.code)) { e.preventDefault(); e.stopPropagation(); close(e); } };
             p.querySelector('[data-close]').onclick = () => close();
             const tb = p.querySelector('[data-tour]'); if (tb) tb.onclick = () => { close(); tour.run(); };
             p.onclick = (e) => { if (e.target === p) close(); };

@@ -353,11 +353,11 @@ export function initExplore(game) {
             else if (e.code === 'KeyX') { stop(); drone.land(); }
             else if (e.code === 'KeyT') { stop(); drone.goHere(); }
             else if (/^Digit[1-3]$/.test(e.code)) { stop(); drone.setMode(+e.code.slice(5) - 1); }
-            else if (e.code === 'KeyM') { stop(); openWorldMap(); }
+            else if (e.code === 'KeyM' && st !== 'spot') { stop(); openWorldMap(); }
             return;
         }
         if (e.code === 'KeyG' && (st === 'foot' || st === 'spot')) { stop(); api.deployDrone(); }
-        else if (e.code === 'KeyM' && api.active) { stop(); openWorldMap(); }
+        else if (e.code === 'KeyM' && api.active && st !== 'spot') { stop(); openWorldMap(); } // (in a spot M is the spot map; the world map is the 🌍 button)
     }, true);
     { let wt = 0; window.addEventListener('wheel', (e) => { if (!drone.flying || game.photo?.active || game._pauseOpen || map.isOpen) return; const n = performance.now(); if (n - wt < 220) return; wt = n; drone.cycleMode(e.deltaY < 0 ? 1 : -1); }, { passive: true }); }
 

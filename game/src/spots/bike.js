@@ -28,7 +28,7 @@ function bikeBatch(b, x, y, z, ry, colour) {
     b.boxC(...P(0, 0.62, 0.62), 0.12, 0.03, 0.34, colour, 'paint', ry); // rear mudguard plate (the rental colour)
 }
 
-export function addBikeRental(ctx, { x, z, heading = 0, n = 6, name = 'Bike rental', colour = '#d7262e', speed = 5.5, fast = 8 } = {}) {
+export function addBikeRental(ctx, { x, z, heading = 0, n = 6, name = 'Bike rental', colour = '#d7262e', speed = 5.5, fast = 11 } = {}) {
     const g = ctx.ground, y0 = g.heightAt(x, z), fx = -Math.sin(heading), fz = -Math.cos(heading), rx = Math.cos(heading), rz = -Math.sin(heading);
     // ---- docking station: a row of stands + a pay terminal with the operator's colour
     const b = new GeoBatch();
@@ -48,7 +48,7 @@ export function addBikeRental(ctx, { x, z, heading = 0, n = 6, name = 'Bike rent
         const p = s.ctl.position;
         st = { x: x + fx * 2.2, z: z + fz * 2.2, y: g.groundAt(x + fx * 2.2, z + fz * 2.2, p.y), yaw: heading, v: 0, look: 0, pitch: -0.12, lean: 0, back: { x: p.x, z: p.z, heading: s.ctl.heading } };
         s.ctl.active = false; s.riding = true; ride.visible = true; rides++;
-        s.ui?.toast?.('🚲 ' + name, 'W / ↑ pedal · S brake · A / D steer · Shift faster · E get off');
+        s.ui?.toast?.('🚲 ' + name, 'W / ↑ pedal · Shift sprint · S brake / reverse · A / D steer · E get off');
         try { window.dispatchEvent(new CustomEvent('dmcv:activity', { detail: { spot: s.spot.id, id: 'bike' } })); } catch { /* no host */ }
     };
     const stop = (s, here = false) => {
@@ -63,9 +63,14 @@ export function addBikeRental(ctx, { x, z, heading = 0, n = 6, name = 'Bike rent
             stop(s, Math.hypot(st.x - x, st.z - z) > 4); return;
         }
         const thr = inp.throttle ?? ((keys.has('KeyW') || keys.has('ArrowUp')) ? 1 : 0), brk = (keys.has('KeyS') || keys.has('ArrowDown') || (inp.throttle ?? 0) < 0 || inp.brake) ? 1 : 0, steer = inp.steer ?? ((keys.has('KeyD') || keys.has('ArrowRight') ? 1 : 0) - (keys.has('KeyA') || keys.has('ArrowLeft') ? 1 : 0));
-        const vmax = inp.shift ? fast : speed;
-        st.v += (thr > 0 ? Math.min(2.2, (vmax - st.v) * 1.2) : 0) * dt; if (brk) st.v -= 5 * dt; st.v -= st.v * 0.18 * dt; st.v = Math.max(0, Math.min(vmax, st.v));
-        const turn = steer * dt * (0.9 + 1.4 / (1 + st.v)) * Math.min(1, 0.4 + st.v / 3); st.yaw -= turn; st.lean += ((-steer * Math.min(1, st.v / 4)) * 0.22 - st.lean) * Math.min(1, dt * 4);
+        // Shift = sprint (stronger pedalling, higher top speed); S from a stop = push the bike backwards (round 6 note 17)
+        const vmax = inp.shift ? fast : speed, REV = 1.8;
+        if (thr > 0) st.v += Math.min(inp.shift ? 3.6 : 2.2, Math.max(0, (vmax - st.v) * 1.2)) * dt + (st.v < 0 ? 4 * dt : 0);
+        else if (brk) st.v -= (st.v > 0.15 ? 5 : 1.6) * dt;
+        st.v -= st.v * 0.18 * dt; if (!thr && !brk && Math.abs(st.v) < 0.05) st.v = 0;
+        st.v = Math.max(-REV, Math.min(Math.max(vmax, st.v - 2.5 * dt), st.v)); // (over the cruise cap after a sprint: coast down)
+        const sgn = st.v < 0 ? -1 : 1, av = Math.abs(st.v);
+        const turn = sgn * steer * dt * (0.9 + 1.4 / (1 + av)) * Math.min(1, 0.4 + av / 3); st.yaw -= turn; st.lean += ((-steer * Math.min(1, Math.max(0, st.v) / 4)) * 0.22 - st.lean) * Math.min(1, dt * 4);
         const dfx = -Math.sin(st.yaw), dfz = -Math.cos(st.yaw); let nx = st.x + dfx * st.v * dt, nz = st.z + dfz * st.v * dt;
         let ny = g.groundAt(nx, nz, st.y + 0.5);
         if (!(ny < st.y + 0.6) || (g.waterY != null && ny < g.waterY - 0.3)) { st.v = 0; nx = st.x; nz = st.z; ny = st.y; } // a wall / steps up / water: stop

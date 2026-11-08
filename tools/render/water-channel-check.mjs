@@ -1,0 +1,27 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import { fileURLToPath } from 'node:url';
+import { isDambovita, waterChannelDecision } from '../../game/src/water-channel.js';
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
+const undelta = a => { let x = 0, z = 0; const p = []; for (let i = 0; i < a.length; i += 2) { x += a[i]; z += a[i + 1]; p.push([x / 10, z / 10]); } return p; };
+const names = ['bucharest-floreasca', 'bucharest-romana', 'bucharest-grozavesti', 'bucharest-pipera', 'bucharest-unirii', 'bucharest-otopeni', 'seattle-bellevue', 'seattle-seatac'];
+const ledger = names.map(district => {
+    const data = JSON.parse(fs.readFileSync(path.join(root, 'game/data/' + district + '.json'))), str = i => i >= 0 ? data.strings[i] : '';
+    const lines = data.lines.flatMap((l, i) => /^(river|stream|canal)$/.test(data.lineKinds[l[0]]) && isDambovita(str(l[2])) ? [{ index: i, name: str(l[2]), points: undelta(l[3]) }] : []);
+    const areas = data.areas.flatMap((a, i) => {
+        if (data.areaKinds[a[0]] !== 'water') return [];
+        const outer = undelta(a[2]), holes = a.slice(3).map(undelta), name = str(a[1]);
+        const size = Math.abs(outer.reduce((s, p, j) => s + p[0] * outer[(j + 1) % outer.length][1] - outer[(j + 1) % outer.length][0] * p[1], 0) / 2), per = outer.reduce((s, p, j) => s + Math.hypot(p[0] - outer[(j + 1) % outer.length][0], p[1] - outer[(j + 1) % outer.length][1]), 0);
+        const old = !district.startsWith('seattle') && (isDambovita(name) || !/lac|lacul|iaz|fântân|fantan|bazin/i.test(name) && per > 400 && size / (per / 2) < 60);
+        return [{ sourceId: data.areaSourceIds?.[i], name, before: old, ...waterChannelDecision({ outer, holes, name, size }, { us: district.startsWith('seattle'), tags: data.areaSourceTags?.[data.areaSourceIds?.[i]] || {} }) }];
+    });
+    return { district, mappedDambovitaLines: lines.length, beforeChannels: areas.filter(a => a.before).length, afterChannels: areas.filter(a => a.channel).length, changed: areas.filter(a => a.before !== a.channel), retainedChannels: areas.filter(a => a.channel).map(a => ({ sourceId: a.sourceId, name: a.name, source: a.source, mappedLineIndices: a.mappedLineIndices })) };
+});
+const box = { outer: [[0, 0], [300, 0], [300, 10], [0, 10]], holes: [], size: 3000, name: '' };
+assert.equal(waterChannelDecision(box).channel, true);
+for (const type of ['lake', 'pond', 'reservoir']) assert.equal(waterChannelDecision(box, { tags: { natural: 'water', water: type } }).channel, false);
+assert.equal(waterChannelDecision({ ...box, name: 'Dâmbovița' }).channel, true);
+assert.equal(waterChannelDecision(box, { us: true }).channel, false);
+assert.equal(waterChannelDecision(box, { tags: { waterway: 'riverbank' } }).channel, true);
+console.log(JSON.stringify({ pureControls: 7, ledger }, null, 2));

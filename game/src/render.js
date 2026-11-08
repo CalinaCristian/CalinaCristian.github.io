@@ -10,6 +10,7 @@ import { FullScreenQuad } from '../vendor/addons/Pass.js';
 import { Rain, Snow, solarPosition, dirFromElAz, skyState, classifyWMO, fetchLiveWeather, climateWeather, nearestClimate, weatherTargets, seasonState, WEATHER_PRESETS, WEATHER_TTL_MS } from './weather.js';
 import { setVehicleEnvMap, setVehicleSnow } from './vehicles.js';
 import { setWaterEnv, tickWater } from './water.js';
+import { progressivePMREM, supportsProgressivePMREM } from './progressive-pmrem.js';
 
 // ============================================================================
 //  Renderer3D — WebGL renderer + sky + sun/shadows + post-processing + weather
@@ -516,6 +517,7 @@ export class Renderer3D {
 
     /** District replacement: drop scene references without resizing the persistent light pool or cockpit targets. */
     releaseScene() {
+        this._cancelEnvJob();
         const retained = [this.sun, this.sun.target, this.probe, this.sky, this._lampGroup, this._discs].filter(Boolean);
         for (const o of retained) o.removeFromParent();
         for (const k of ['rain', 'snow']) if (this[k]) { this[k].mesh.removeFromParent(); this[k].dispose(); this[k] = null; }
@@ -1170,10 +1172,11 @@ export class Renderer3D {
      * and never changes material programs. immediate = jump (new scene).
      */
     _buildEnvMap(immediate = false) {
+        this._cancelEnvJob();
         const envScene = new THREE.Scene();
-        const dome = new THREE.Mesh(this.sky.geometry, this.sky.material);
+        // Freeze all sky uniforms while the six faces are captured on different frames.
+        const dome = new THREE.Mesh(this.sky.geometry, this.sky.material.clone());
         envScene.add(dome);
-        // a hint of ground + city mass below the horizon so reflections are not pure sky
         const ground = new THREE.Mesh(new THREE.CircleGeometry(90, 24), new THREE.MeshBasicMaterial({ color: new THREE.Color(this.env.asphalt || '#444').lerp(new THREE.Color(this.env.fog), 0.25) }));
         ground.rotation.x = -Math.PI / 2; ground.position.y = -2; envScene.add(ground);
         const blocks = new THREE.MeshBasicMaterial({ color: new THREE.Color(this.env.hemiGround).multiplyScalar(0.7) });
@@ -1181,19 +1184,45 @@ export class Renderer3D {
             const a = i / 14 * Math.PI * 2, b = new THREE.Mesh(new THREE.BoxGeometry(14, 6 + (i * 7) % 11, 14), blocks);
             b.position.set(Math.cos(a) * 60, 0, Math.sin(a) * 60); envScene.add(b);
         }
-        const rt = this._pmrem.fromScene(envScene, 0, 0.5, 300);
+        const job = { scene: envScene, dome, ground, blocks, waterColor: (this.scene?.fog?.color || new THREE.Color(this.env.fog)).clone().multiplyScalar(0.45) };
         this._envCloud = this._wx ? this._wx.cloud : null;
-        // water gets a sky-only environment: the stand-in city boxes of the shared env read as hard slabs lying on a
-        // mirror-like surface; real shore buildings come back as a soft dark band (ground ring) below the horizon
-        {
-            for (const o of [...envScene.children]) if (o !== dome && o !== ground) { envScene.remove(o); o.geometry?.dispose(); }
-            ground.material.color.copy(this.scene?.fog?.color || new THREE.Color(this.env.fog)).multiplyScalar(0.45);
-            ground.position.y = -6;
-            const wrt = this._pmrem.fromScene(envScene, 0.004, 0.5, 300);
-            this._waterEnv?.dispose(); this._waterEnv = wrt; setWaterEnv(wrt.texture, 1);
+        if (!immediate && supportsProgressivePMREM(this._pmrem)) {
+            job.task = progressivePMREM(this._renderer, this._pmrem, envScene);
+            this._envJob = job;
+            return;
         }
-        envScene.traverse(o => { if (o !== dome && o.geometry) o.geometry.dispose(); });
-        blocks.dispose(); ground.material.dispose();
+        // New scenes are baked before their first draw. An incompatible future Three revision keeps the native path.
+        const rt = this._pmrem.fromScene(envScene, 0, 0.5, 300);
+        this._prepareWaterEnv(job);
+        const water = this._pmrem.fromScene(envScene, 0.004, 0.5, 300);
+        this._disposeEnvScene(job);
+        this._finishEnvMap(rt, water, immediate);
+    }
+    _prepareWaterEnv(job) {
+        for (const o of [...job.scene.children]) if (o !== job.dome && o !== job.ground) { job.scene.remove(o); o.geometry.dispose(); }
+        job.ground.material.color.copy(job.waterColor); job.ground.position.y = -6;
+    }
+    _disposeEnvScene(job) {
+        job.scene.traverse(o => { if (o !== job.dome) o.geometry?.dispose(); });
+        job.dome.material.dispose(); job.blocks.dispose(); job.ground.material.dispose();
+    }
+    _cancelEnvJob() {
+        const job = this._envJob; if (!job) return;
+        this._envJob = null; job.task.dispose(); job.rt?.dispose(); this._disposeEnvScene(job);
+    }
+    _stepEnvJob() {
+        const job = this._envJob; if (!job || !job.task.step()) return;
+        if (!job.rt) {
+            job.rt = job.task.target;
+            this._prepareWaterEnv(job);
+            job.task = progressivePMREM(this._renderer, this._pmrem, job.scene, 0.004);
+        } else {
+            this._envJob = null; this._disposeEnvScene(job);
+            this._finishEnvMap(job.rt, job.task.target, false);
+        }
+    }
+    _finishEnvMap(rt, water, immediate) {
+        this._waterEnv?.dispose(); this._waterEnv = water; setWaterEnv(water.texture, 1);
         let out = this._envOut;
         if (!out || out.width !== rt.width || out.height !== rt.height) {
             out?.dispose();
@@ -1343,10 +1372,11 @@ export class Renderer3D {
             this._envT -= dt;
             const e0 = this._envEl, e1 = this.sunElevation;
             const dc = this._wx ? Math.abs(this._wx.cloud - (this._envCloud ?? this._wx.cloud)) : 0;
-            if (this._envT <= 0 && ((Math.abs(e1 - e0) > ENV_REBUILD_DEG && !(e0 < -14 && e1 < -14)) || dc > 0.2)) {
+            if (!this._envJob && this._envT <= 0 && ((Math.abs(e1 - e0) > ENV_REBUILD_DEG && !(e0 < -14 && e1 < -14)) || dc > 0.2)) {
                 this._envT = 2; this._buildEnvMap(); this._envEl = e1;
             }
         }
+        this._stepEnvJob();
         this._stepEnvFade(dt);
         this._updateNight(dt);
         this._updateSun(T.cam);
@@ -1496,6 +1526,7 @@ export class Renderer3D {
         }
     }
     dispose() {
+        this._cancelEnvJob();
         this._wxGen++; this.snow?.dispose();
         this.composer.dispose?.(); this._envOut?.dispose(); this._envA?.dispose(); this._envB?.dispose(); this._envQuad?.dispose(); this._pmrem.dispose(); this.rain?.dispose();
     }

@@ -145,4 +145,5 @@ test('turning exits leave a full fleet body envelope beyond the opposing queue m
     assert.ok(gate.mouthClearance(edges[3], -1, edges[2]) >= (18.3 + 2.59) / 2 + .6);
     assert.equal(gate.canPlace(edges[3], -1, [], null, { s: 15, length: 4.4 }), false, 'fresh queues cannot start inside the outgoing turn envelope');
     assert.equal(gate.canPlace(edges[3], -1, [], null, { s: 2, length: 4.4 }), true);
+    assert.equal(gate.canPlace(edges[3], 1, [], null, { s: 4, length: 4.4 }), false, 'an exiting-lane spawn must also clear a body still at the shared mouth');
 });

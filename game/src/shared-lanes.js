@@ -57,10 +57,12 @@ export class SharedLaneGate {
             // Do not seed/relocate a queue head inside the reserved turning
             // envelope. It could not make room without backing up in view.
             if (pose) {
-                const node = dir > 0 ? edge.b : edge.a;
-                for (const next of node.edges) if (this.byEdge.has(next)) {
-                    const clearance = this.mouthClearance(edge, dir, next);
-                    if (clearance > 1.6 && edge.len - pose.s - pose.length / 2 < (node.radius || 3) + clearance + .5) return false;
+                const start = dir > 0 ? edge.a : edge.b, end = dir > 0 ? edge.b : edge.a;
+                for (const [node, distance, toward] of [[end, edge.len - pose.s, dir], [start, pose.s, -dir]]) {
+                    for (const next of node.edges) if (this.byEdge.has(next)) {
+                        const clearance = this.mouthClearance(edge, toward, next);
+                        if (distance - pose.length / 2 < (node.radius || 3) + clearance + .5) return false;
+                    }
                 }
             }
             return true;

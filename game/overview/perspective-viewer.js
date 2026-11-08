@@ -34,7 +34,11 @@ export async function mountPerspectiveViewer(element, { baseURL = new URL('./com
       if (disposed || request !== sequence) return;
       content.replaceChildren();
       const collections = (manifest.perspectiveCollections || []).filter(c => c.captureType === 'game-perspective-context' && c.comparisonCompatible === false && /^context\/[a-zA-Z0-9_/-]+\/manifest\.json$/.test(c.manifest || ''));
-      if (manifest.streetWalk?.manifest === 'street-walk/manifest.json') collections.unshift({ manifest: manifest.streetWalk.manifest, label: 'Street-level comparison poses', streetWalk: true });
+      if (manifest.streetWalk?.manifest === 'street-walk/manifest.json') {
+        const revision = manifest.streetWalk.gameSourceCommit;
+        const historical = revision && manifest.gameSourceCommit && revision !== manifest.gameSourceCommit;
+        collections.unshift({ manifest: manifest.streetWalk.manifest, label: `${historical ? 'Historical street-level comparison poses' : 'Street-level comparison poses'}${revision ? ' · '+revision.slice(0,7) : ''}`, note: manifest.collectionNotes?.streetWalk, streetWalk: true });
+      }
       if (!collections.length) content.append(node('p', 'Street-level, night and drone context has not been published for this district yet.', 'notice'));
       for (const collection of collections) {
         const details = document.createElement('details'), summary = node('summary', collection.label || 'Game context'), body = node('div', undefined, 'perspective-grid');
@@ -51,6 +55,7 @@ export async function mountPerspectiveViewer(element, { baseURL = new URL('./com
             const items = data.items || [];
             const count = node('p', `${items.length} game captures. Original dates and source revisions are retained.`, 'notice');
             body.append(count);
+            if (collection.note) body.append(node('p', collection.note, 'notice'));
             if (data.scope) body.append(node('p', data.scope, 'notice'));
             let next = 0;
             const more = node('button', 'Show next 24 captures'); more.type = 'button';

@@ -1,0 +1,3 @@
+Error: Native aiming did not obtain a clear, steady feature view
+    at aim (/workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-seattle-participation-check.cjs:83:19)
+    at async /workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-seattle-participation-check.cjs:109:38

@@ -1,0 +1,81 @@
+{
+  "sourceCommit": "c0b1b2c1487149d77f0b1a394e678d5a760abc15",
+  "touch": false,
+  "setup": "Initial feature-adjacent poses isolate controls; public arrival routes require separate verification.",
+  "cases": [
+    {
+      "id": "mopop",
+      "key": "monorailFraming",
+      "title": "Frame the Monorail passing MoPOP",
+      "controls": {
+        "panel": {
+          "x": 16,
+          "y": 465.640625,
+          "width": 390,
+          "height": 230.359375,
+          "top": 465.640625,
+          "right": 406,
+          "bottom": 696,
+          "left": 16
+        },
+        "buttons": [
+          {
+            "x": 31,
+            "y": 639,
+            "width": 143.28125,
+            "height": 44,
+            "top": 639,
+            "right": 174.28125,
+            "bottom": 683,
+            "left": 31
+          },
+          {
+            "x": 182.28125,
+            "y": 639,
+            "width": 68.890625,
+            "height": 44,
+            "top": 639,
+            "right": 251.171875,
+            "bottom": 683,
+            "left": 182.28125
+          }
+        ]
+      },
+      "frames": [],
+      "nativeLooks": [],
+      "idleAward": false,
+      "cancelAward": false,
+      "waitFrames": 0
+    }
+  ],
+  "errors": [],
+  "failure": {
+    "message": "Native aiming did not obtain a clear, steady feature view",
+    "stack": "Error: Native aiming did not obtain a clear, steady feature view\n    at aim (/workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-seattle-participation-check.cjs:96:19)\n    at async /workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-seattle-participation-check.cjs:122:38",
+    "state": {
+      "position": {
+        "x": 29.6,
+        "z": -85.7,
+        "y": -2.4741476565599427,
+        "heading": 4.871992653589794
+      },
+      "visibility": {
+        "label": "The moving leading car at the museum passage",
+        "clear": false,
+        "targetDistance": 24.70618400118168,
+        "surfaceTolerance": 0.5,
+        "hitDistance": 13.931253437271316,
+        "hitPoint": [
+          42.77515452514697,
+          3.177896312326778,
+          -87.81631038439089
+        ],
+        "sourceSurface": null,
+        "blocker": "monorail-guideway:concrete",
+        "raycastMs": 126.30000000074506,
+        "meshCount": 155
+      },
+      "active": true
+    }
+  }
+}

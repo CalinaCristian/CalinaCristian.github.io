@@ -1,0 +1,194 @@
+{
+  "sourceCommit": "d5a766b7a961e3d4e7166f9b1387779a81012fc4",
+  "touch": true,
+  "setup": "Initial feature-adjacent poses isolate controls; public arrival routes require separate verification.",
+  "cases": [
+    {
+      "id": "space-needle",
+      "key": "loupeLook",
+      "title": "Look down through the glass floor",
+      "controls": {
+        "panel": {
+          "x": 16,
+          "y": 108,
+          "width": 358,
+          "height": 210.765625,
+          "top": 108,
+          "right": 374,
+          "bottom": 318.765625,
+          "left": 16
+        },
+        "buttons": [
+          {
+            "x": 31,
+            "y": 261.765625,
+            "width": 143.28125,
+            "height": 44,
+            "top": 261.765625,
+            "right": 174.28125,
+            "bottom": 305.765625,
+            "left": 31
+          },
+          {
+            "x": 182.28125,
+            "y": 261.765625,
+            "width": 68.890625,
+            "height": 44,
+            "top": 261.765625,
+            "right": 251.171875,
+            "bottom": 305.765625,
+            "left": 182.28125
+          }
+        ]
+      },
+      "frames": [
+        {
+          "file": "space-needle-1.webp",
+          "visibility": {
+            "label": "The view beneath the revolving glass",
+            "clear": true,
+            "targetDistance": 1.9190812737362535,
+            "surfaceTolerance": 0.15,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 347.29999999701977,
+            "meshCount": 155
+          },
+          "position": {
+            "x": 0.5477820256732285,
+            "z": 18.298255710943444,
+            "y": 154.1,
+            "heading": 4.140408317652293
+          },
+          "camera": {
+            "position": [
+              0.5457343739687863,
+              155.75,
+              18.298284422563764
+            ],
+            "bearing": 122.77207793766212,
+            "pitch": -61.27329728920825
+          },
+          "triangles": 737517,
+          "calls": 110
+        }
+      ],
+      "nativeLooks": [
+        {
+          "looks": 6,
+          "waits": []
+        }
+      ],
+      "idleAward": false,
+      "cancelAward": false
+    }
+  ],
+  "errors": [],
+  "failure": {
+    "message": "locator.tap: Timeout 120000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.sp-participation [data-action]')\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" data-action=\"\">Take the picture</button>\u001b[22m\n\u001b[2m  - attempting tap action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - performing tap action\u001b[22m\n\u001b[2m      - <canvas id=\"gl\" width=\"390\" height=\"844\" tabindex=\"-1\" data-engine=\"three.js r170\"></canvas> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying tap action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - performing tap action\u001b[22m\n\u001b[2m      - <canvas id=\"gl\" width=\"390\" height=\"844\" tabindex=\"-1\" data-engine=\"three.js r170\"></canvas> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying tap action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    187 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m        - element is visible, enabled and stable\u001b[22m\n\u001b[2m        - scrolling into view if needed\u001b[22m\n\u001b[2m        - done scrolling\u001b[22m\n\u001b[2m        - performing tap action\u001b[22m\n\u001b[2m        - <canvas id=\"gl\" width=\"390\" height=\"844\" tabindex=\"-1\" data-engine=\"three.js r170\"></canvas> intercepts pointer events\u001b[22m\n\u001b[2m      - retrying tap action\u001b[22m\n\u001b[2m        - waiting 500ms\u001b[22m\n",
+    "stack": "locator.tap: Timeout 120000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.sp-participation [data-action]')\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" data-action=\"\">Take the picture</button>\u001b[22m\n\u001b[2m  - attempting tap action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - performing tap action\u001b[22m\n\u001b[2m      - <canvas id=\"gl\" width=\"390\" height=\"844\" tabindex=\"-1\" data-engine=\"three.js r170\"></canvas> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying tap action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - performing tap action\u001b[22m\n\u001b[2m      - <canvas id=\"gl\" width=\"390\" height=\"844\" tabindex=\"-1\" data-engine=\"three.js r170\"></canvas> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying tap action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    187 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m        - element is visible, enabled and stable\u001b[22m\n\u001b[2m        - scrolling into view if needed\u001b[22m\n\u001b[2m        - done scrolling\u001b[22m\n\u001b[2m        - performing tap action\u001b[22m\n\u001b[2m        - <canvas id=\"gl\" width=\"390\" height=\"844\" tabindex=\"-1\" data-engine=\"three.js r170\"></canvas> intercepts pointer events\u001b[22m\n\u001b[2m      - retrying tap action\u001b[22m\n\u001b[2m        - waiting 500ms\u001b[22m\n\n    at tap (/workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-seattle-participation-check.cjs:32:64)\n    at /workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-seattle-participation-check.cjs:155:23",
+    "state": {
+      "position": {
+        "x": 0.5477820256732285,
+        "z": 18.298255710943444,
+        "y": 154.1,
+        "heading": 4.140408317652293
+      },
+      "visibility": {
+        "label": "The view beneath the revolving glass",
+        "clear": true,
+        "targetDistance": 1.9190812737362535,
+        "surfaceTolerance": 0.15,
+        "hitDistance": null,
+        "hitPoint": null,
+        "sourceSurface": null,
+        "blocker": null,
+        "raycastMs": 347.29999999701977,
+        "meshCount": 155
+      },
+      "active": true,
+      "bodyClass": "touch has-explore in-spot playing",
+      "button": {
+        "x": 31,
+        "y": 286.359375,
+        "width": 141.1875,
+        "height": 44,
+        "top": 286.359375,
+        "right": 172.1875,
+        "bottom": 330.359375,
+        "left": 31
+      },
+      "hit": "<button type=\"button\" data-action=\"\">Take the picture</button>",
+      "parents": [
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "className": "",
+          "pointer": "auto",
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1",
+          "transform": "none",
+          "zIndex": "auto"
+        },
+        {
+          "tag": "NAV",
+          "id": "",
+          "className": "",
+          "pointer": "auto",
+          "display": "flex",
+          "visibility": "visible",
+          "opacity": "1",
+          "transform": "none",
+          "zIndex": "auto"
+        },
+        {
+          "tag": "SECTION",
+          "id": "",
+          "className": "sp-participation",
+          "pointer": "auto",
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1",
+          "transform": "none",
+          "zIndex": "auto"
+        },
+        {
+          "tag": "DIV",
+          "id": "spot-ui",
+          "className": "",
+          "pointer": "none",
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1",
+          "transform": "none",
+          "zIndex": "20"
+        },
+        {
+          "tag": "BODY",
+          "id": "",
+          "className": "touch has-explore in-spot playing",
+          "pointer": "auto",
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1",
+          "transform": "none",
+          "zIndex": "auto"
+        },
+        {
+          "tag": "HTML",
+          "id": "",
+          "className": "",
+          "pointer": "auto",
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1",
+          "transform": "none",
+          "zIndex": "auto"
+        }
+      ]
+    }
+  }
+}

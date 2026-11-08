@@ -17,14 +17,14 @@ const server = createServer(async (req, res) => {
 await new Promise((r) => server.listen(0, '127.0.0.1', r));
 const base = args.base || `http://127.0.0.1:${server.address().port}`;
 const browser = await chromium.launch({ headless: true, args: ['--mute-audio', '--no-sandbox'] });
-const results = { checks: [], routes: [], errors: [] };
+const results = { sourceCommit: process.env.SOURCE_COMMIT || null, setup: 'Actual source scene; controller auto input retains physics and crowd. Synthetic state fixtures are labelled separately.', checks: [], routes: [], errors: [] };
 let page;
 const check = (name, ok, detail) => { results.checks.push({ name, ok: !!ok, detail }); console.log(`${ok ? 'PASS' : 'FAIL'} ${name}${detail === undefined ? '' : ' ' + JSON.stringify(detail)}`); };
 const load = async (id) => {
     await page?.close(); page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
     page.on('pageerror', (e) => results.errors.push({ id, message: String(e) }));
     page.on('console', (m) => { if (m.type() === 'warning' && m.text().includes('[spots] map')) results.errors.push({ id, message: m.text() }); });
-    await page.goto(`${base}/game/dev/spots.html?id=${id}&manual=1&hour=12&weather=clear&season=summer&dev=0&audit=0`);
+    await page.goto(`${base}/game/dev/spots.html?id=${id}&manual=1&hour=12&weather=clear&season=summer&dev=0&audit=0`,{waitUntil:'domcontentloaded'});
     await page.waitForFunction(() => window.spotDev?.ready, { timeout: 60000 });
 };
 const route = async (id) => {
@@ -41,6 +41,7 @@ const route = async (id) => {
     return r;
 };
 try {
+    if (process.env.ONLY_QUEUE !== '1') {
     await load('pike-place');
     const fixtures = await page.evaluate(async () => {
         const { findWalkPath, walkSegment, pathLength } = await import('/game/src/spots/tour.js');
@@ -81,6 +82,8 @@ try {
     });
     check('Guide arrives by walking, without in-view snaps', dynamics.frames < 1500 && dynamics.firstStep <= 0.451 && dynamics.maxStep <= 0.451, dynamics);
     for (const name of ['noAutoActivity', 'panel', 'photo', 'drone', 'participation', 'noFakeCatch', 'advanced']) check(`tour state: ${name}`, dynamics[name]);
+    // Synthetic destination poses isolate tour state and postcard dispatch.
+    // Physical player movement is independently exercised by the queue case.
     const fullVisit = await page.evaluate(() => {
         const s = spotDev.session, events = []; let callbacks = 0, postcardWaited = false, photoResult = null, reached = true;
         s.host.onTour = () => callbacks++; window.addEventListener('dmcv:activity', (e) => events.push(e.detail));
@@ -98,7 +101,7 @@ try {
         s._updateTour(0.1, s.ctl.position); spotDev.step(1, 0);
         return { reached, postcardWaited, photoResult, state: s.tour.state, callbacks, tourEvents: events.filter((e) => e.id === 'tour').length, persisted: !!s.progress.tours?.[s.spot.sceneId] };
     });
-    check('Full real walk and postcard complete tour exactly once', fullVisit.reached && fullVisit.postcardWaited && fullVisit.photoResult?.postcard === 'pike-place' && fullVisit.state === 'done' && fullVisit.callbacks === 1 && fullVisit.tourEvents === 1 && fullVisit.persisted, fullVisit);
+    check('Tour state and postcard fixture complete exactly once', fullVisit.reached && fullVisit.postcardWaited && fullVisit.photoResult?.postcard === 'pike-place' && fullVisit.state === 'done' && fullVisit.callbacks === 1 && fullVisit.tourEvents === 1 && fullVisit.persisted, fullVisit);
     await page.evaluate(() => { const c = spotDev.session.spot.challenges[0]; spotDev.walkTo(c.x + 2, c.z, c.bearing); spotDev.step(2, 1 / 30); });
     await page.screenshot({ path: path.join(out, 'pike-tour-desktop.png') });
     await page.evaluate(() => { const s = spotDev.session; s.endTour(); s.startTour(); });
@@ -128,6 +131,33 @@ try {
         }
         if (id === 'herastrau-park') { await page.setViewportSize({ width: 390, height: 844 }); await page.evaluate(async () => { await new Promise(requestAnimationFrame); spotDev.step(2, 1 / 30); }); const fits = await page.evaluate(() => { const card = document.querySelector('.sp-card').getBoundingClientRect(), controls = document.querySelector('.sp-tour-controls').getBoundingClientRect(); return card.right <= innerWidth && controls.bottom < innerHeight; }); check('Phone tour card and controls fit viewport', fits); await page.screenshot({ path: path.join(out, 'village-tour-phone.png') }); }
     }
+    }
+    await load('waterfront');
+    const queue = await page.evaluate(async () => {
+        const { pathLength, findWalkPath, withMovingBodies, walkSegment } = await import('/game/src/spots/tour.js');
+        const s=spotDev.session,S=s.spot,G=s.guide,source=JSON.stringify(S.data.buildings),population=S.crowd.peds.length,colliders=S.colliders.length;
+        const plaque=S.plaques.find(p=>/Pier 57/i.test(p.title));
+        if(!plaque)return{passed:false,error:'Missing real Pier57 plaque'};
+        const target={kind:'plaque',x:plaque.x+Math.sin(plaque.mesh.rotation.y)*1.2,z:plaque.z+Math.cos(plaque.mesh.rotation.y)*1.2,radius:1,label:plaque.title,text:plaque.text};
+        const staticPath=findWalkPath(S.ground,S.colliders,G.x,G.z,target.x,target.z,{radius:1}),path=s._navPath(G.x,G.z,target.x,target.z,{radius:1});
+        const initialBodies=S.crowd.obstacles(G.x,G.z,200),overlay=withMovingBodies(S.colliders,initialBodies,G);
+        const staticCrowdCrossing=!!staticPath&&staticPath.slice(1).some((p,i)=>!walkSegment(S.ground,overlay,staticPath[i],p));
+        if(!path)return{passed:false,error:'No short crowd-aware source route',staticCrowdCrossing};
+        target.path=path;target.wi=1;[target.tx,target.tz]=path.at(-1);s.tour={stops:[target],i:0,state:'walk',wait:0,said:false,t:0,walked:pathLength(path),travelled:0,skipped:0};G.act='guide';G.sayCd=1e9;
+        const breadcrumbs=[[G.x,G.z]],trace=[];let frames=0,maxGuideStep=0,maxPlayerStep=0,playerStuck=0,playerReplans=0;
+        while(s.tour.state==='walk'&&frames++<5000){
+            const gp=[G.x,G.z],pp={...s.position};if(Math.hypot(G.x-breadcrumbs.at(-1)[0],G.z-breadcrumbs.at(-1)[1])>.45)breadcrumbs.push([G.x,G.z]);
+            while(breadcrumbs.length>1&&Math.hypot(s.position.x-breadcrumbs[0][0],s.position.z-breadcrumbs[0][1])<.35)breadcrumbs.shift();
+            const d=Math.hypot(G.x-s.position.x,G.z-s.position.z),p=breadcrumbs[0];s.ctl.auto=d>2?{heading:Math.atan2(-(p[0]-s.position.x),-(p[1]-s.position.z)),fwd:1,run:true}:null;s.input.keys?.clear?.();
+            s.update(.05);playerStuck=d>3&&Math.hypot(s.position.x-pp.x,s.position.z-pp.z)<.01?playerStuck+.05:0;if(playerStuck>1){const detour=s._navPath(s.position.x,s.position.z,G.x,G.z,{radius:2,maxLength:60});if(detour){breadcrumbs.splice(0,breadcrumbs.length,...detour.slice(1));playerReplans++;}playerStuck=0;}maxGuideStep=Math.max(maxGuideStep,Math.hypot(G.x-gp[0],G.z-gp[1]));maxPlayerStep=Math.max(maxPlayerStep,Math.hypot(s.position.x-pp.x,s.position.z-pp.z));
+            if(frames%40===0)trace.push({frame:frames,guide:[G.x,G.z],player:[s.position.x,s.position.z],state:s.tour.state});
+        }
+        s.ctl.auto=null;s.input.keys?.clear?.();spotDev.step(.1,0);
+        return{passed:s.tour.state==='arrive',walker:s.walkerKind,state:s.tour.state,narrative:s.tour.narr,frames,routeMetres:pathLength(path),guideTravelled:s.tour.travelled,staticCrowdCrossing,initialBodies:initialBodies.length,playerReplans,maxGuideStep,maxPlayerStep,populationBefore:population,populationAfter:S.crowd.peds.length,colliderCountBefore:colliders,colliderCountAfter:S.colliders.length,sourceUnchanged:source===JSON.stringify(S.data.buildings),player:{...s.position},guide:[G.x,G.z],trace};
+    });
+    results.queue=queue;
+    check('Waterfront actual guide and native player traverse the retained queue',queue.passed&&queue.walker==='OnFootController'&&queue.maxGuideStep<=.226&&queue.maxPlayerStep<.8&&queue.guideTravelled<=180&&queue.sourceUnchanged&&queue.populationBefore===queue.populationAfter&&queue.colliderCountBefore===queue.colliderCountAfter,queue);
+    await page.screenshot({path:path.join(out,'waterfront-native-queue.png')});
     check('No runtime map/tour errors', results.errors.length === 0, results.errors);
 } catch (error) { results.errors.push({ fatal: String(error), stack: error.stack }); check('Runtime completed', false, String(error)); }
 finally { await writeFile(path.join(out, 'results.json'), JSON.stringify(results, null, 2)); await browser.close(); await new Promise((r) => server.close(r)); }

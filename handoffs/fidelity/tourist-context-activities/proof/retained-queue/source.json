@@ -1,0 +1,7 @@
+{
+  "servedSourceCommit": "f0de4e44c77aa6ebeeb1f2fd10aeddd2f1237478",
+  "servedRoot": "/workspace/reality-pass/tourist-context-activities/source-sidewalk-8434",
+  "url": "http://127.0.0.1:8434",
+  "runner": "ONLY_QUEUE=1 node tools/tourist-tour-check.mjs --base=http://127.0.0.1:8434",
+  "scope": "Only the retained-queue physical case and final error assertion ran. The older synthetic state fixtures were not executed in this run."
+}

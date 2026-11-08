@@ -4,6 +4,7 @@ import { LANDMARK_SOURCE_IDS } from './landmark-source-identities.js';
 import { BUCHAREST_SOURCE_MASSES } from './landmark-source-masses.js';
 import { OTP_ROOF_ZONES, OTP_ARRIVALS_PROFILE } from './landmark-otp-roofs.js';
 import { CEC_SOURCE_MASSES } from './landmark-cec-source.js';
+import { SEATAC_AIRCRAFT } from './landmark-seatac-aircraft.js';
 import { footprintCells } from './building-parts.js';
 import { US_FOOTPRINTS as U, US_SOURCE_TAGS as UT } from './landmark-us-source.js';
 import { emitUSLandmarkTerrain } from './landmark-us-terrain.js';
@@ -2312,17 +2313,17 @@ function bSeaTac(b) {
     b.box(wx, 22, zc, 15.4, 0.5, L, '#e6e8ea');
     for (const z of [-150, 22]) for (const e of [-1, 1]) for (const sx of [-5, 5]) b.box(wx + sx, 0, z + e * 5.5, 2, 23.5, 2, '#eef0f1', { rx: e * 0.45 });   // V-struts (Commons "IAF Pedestrian Walkway.jpg")
     b.text('WELCOME TO SEATTLE', wx - 7.65, 28.6, zc, -Math.PI / 2, 2.2, '#ffffff');
-    for (const [t, lv] of SEATAC_PLANES) parkAt(b, p, t, lv, 28, 40);
-    airliner(b, 300, 160, -Math.PI / 2, { tail: '#01426a', stripe: '#00a3ad' }, 40);
+    // Actual airside apron poses measured independently; never distribute aircraft around a terminal perimeter.
+    // Keep the existing generic mesh while matching measured fuselage axes and wing spans. Vertical shape remains estimated.
+    for (const a of SEATAC_AIRCRAFT) {
+        const nominalSpan = 36.4 * a.lengthM / 38;
+        b.push(M(a.x, 0, a.z, a.heading, 1, 1, a.spanM / nominalSpan));
+        airliner(b, 0, 0, 0, a.livery, a.lengthM);
+        b.pop();
+    }
     b.colPolygon(p, { y1: 19.5 }); b.colPolygon(iaf, { y1: 36.5 }); b.colPolygon(ss, { y1: 14.6 });
     for (const z of [-150, 22]) b.col(wx, z, 7, 1.6);
 }
-
-const SEATAC_PLANES = [
-    [0.12, { tail: '#01426a', stripe: '#00a3ad' }],   // Alaska
-    [0.40, { tail: '#c01933', stripe: '#003366' }],   // Delta
-    [0.68, { tail: '#0033a0', belly: '#9aa3ad' }],    // United
-];
 
 // SeaTac Air Traffic Control Tower (2004) — 71 m (233 ft) overall, OSM way 1199936807.
 // Src: https://en.wikipedia.org/wiki/Seattle–Tacoma_International_Airport (tower 233 ft) ; game/research/seattle-seatac.json landmarks[sea-control-tower] ; OSM way 1199936807

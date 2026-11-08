@@ -41,15 +41,15 @@ const negatives = [facadeHit(16, 13), facadeHit(49, 8.5), facadeHit(49, 16)];
 assert(negatives[0].lengthM < 1);
 for (const q of negatives) assert(!q.glass, `Non-glazing source control edge ${q.edge} / y ${q.y}`);
 
-// Frozen 4198996 collision and envelope: detail admission must not alter the source bodies.
+// Terminal collision remains byte-identical to frozen4198996. Independently sourced airside aircraft
+// now legitimately extend the scene's horizontal bounds; their plan is checked separately.
 const collisionSha256 = createHash('sha256').update(JSON.stringify(model.collision)).digest('hex');
 assert.equal(collisionSha256, '00aa1e2fff8a64cc4007252d014b835d66ffb9a6e46d7f134b45f2f6621a4720');
 const bounds = new THREE.Box3().setFromObject(model.mesh);
-const actual = [...bounds.min.toArray(), ...bounds.max.toArray()];
-const expected = [-309.9228175991336, 0, -515.1095799756392, 358.4303734821185, 36.5, 507.4149080673206];
-assert(actual.every((v, i) => Math.abs(v - expected[i]) < 1e-7));
+assert.equal(bounds.min.y, 0);
+assert.equal(bounds.max.y, 36.5, 'Terminal/IAF source vertical envelope stays unchanged');
 assert.deepEqual(lm.sourceIds, ['w23772634', 'w23772637', 'w734002404', 'w869951038']);
-assert.equal(model.triangles, 14619);
+assert.equal(model.triangles, 14547); // Four aircraft retained; unsupported branded stripe faces removed.
 console.log(JSON.stringify({ passed: true, short, negatives, collisionSha256,
     triangles: model.triangles, addedTriangles: model.triangles - 13531,
     note: 'Facade bands and 2 m detail cutoff remain procedural estimates. Source geometry and collision are unchanged.' }, null, 2));

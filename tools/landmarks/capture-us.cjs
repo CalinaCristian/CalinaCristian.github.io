@@ -5,7 +5,7 @@ const {execFileSync}=require('child_process');const {createHash}=require('crypto
 const get=(key,fallback)=>process.argv.find(a=>a.startsWith('--'+key+'='))?.split('=').slice(1).join('=')||fallback;
 (async()=>{const out=path.resolve(get('out','/tmp/us-landmark-captures')),base=get('base','http://127.0.0.1:8160'),sourceCommit=get('source-commit','');fs.mkdirSync(out,{recursive:true});
 if(!/^[0-9a-f]{40}$/.test(sourceCommit))throw new Error('--source-commit requires a complete git SHA');
-const inputHashes={};for(const file of ['game/src/landmarks.js','game/src/landmark-us-source.js','game/src/landmark-us-geometry.js','game/src/landmark-us-terrain.js','game/dev/landmarks.html']){
+const inputHashes={};for(const file of ['game/src/landmarks.js','game/src/landmark-seatac-aircraft.js','game/src/landmark-us-source.js','game/src/landmark-us-geometry.js','game/src/landmark-us-terrain.js','game/dev/landmarks.html']){
  const expected=execFileSync('git',['show',sourceCommit+':'+file]);const response=await fetch(base+'/'+file);if(!response.ok)throw new Error('Missing capture input '+file);const served=Buffer.from(await response.arrayBuffer());
  if(!served.equals(expected))throw new Error('Capture server differs from source commit: '+file);inputHashes[file]=createHash('sha256').update(served).digest('hex');}
 fs.writeFileSync(path.join(out,'input-manifest.json'),JSON.stringify({sourceCommit,verifiedAt:new Date().toISOString(),inputHashes},null,2));

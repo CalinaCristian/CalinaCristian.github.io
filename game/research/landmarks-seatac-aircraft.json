@@ -1,0 +1,476 @@
+{
+  "schemaVersion": 1,
+  "landmark": "seatac",
+  "reviewedAt": "2026-11-08T22:10:51.118542+00:00",
+  "sourcePolicy": "Independent Esri aerial measurements plus original OSM gate context. Street View comparison triggered review only; no Street View attributes extracted. Four representative aircraft retained; no population or performance thinning.",
+  "sourceAcquisitionDate": "unknown",
+  "sourceRetrievalDate": "2026-11-08",
+  "sourceMosaic": {
+    "z": 18,
+    "px0": 10753280,
+    "py0": 23476736,
+    "w": 5888,
+    "h": 8704,
+    "bbox": [
+      47.4327,
+      -122.3144,
+      47.4633,
+      -122.2841
+    ],
+    "mPerPx": 0.4038377577766397,
+    "attribution": "Esri, Maxar, Earthstar Geographics, and the GIS User Community",
+    "sha256": "a5ba9650dda83db328a408fcf5a91c57269559aa06d0d92431d254f3ac0ac0ba",
+    "metadataSha256": "d13abd6cb5266a0cfb34087a74af790d6b517229250ffa1b03932f08c4f2dd6f"
+  },
+  "modelFrame": {
+    "lat": 47.4423743,
+    "lon": -122.3012208,
+    "rotation": -1.4137,
+    "mPerLat": 111132,
+    "mPerLon": 75289.21017009643
+  },
+  "rejectedGenericPlacements": [
+    {
+      "t": 0.12,
+      "x": -289.41518989341233,
+      "z": -101.46197026573162,
+      "heading": -2.4927634285904277,
+      "lat": 47.44508931525027,
+      "lon": -122.30049117011691,
+      "bearing": 313.82386728043673
+    },
+    {
+      "t": 0.4,
+      "x": 392.7063919435594,
+      "z": -154.47327874096436,
+      "heading": 1.4036945268637906,
+      "lat": 47.439101588204885,
+      "lon": -122.29837828987226,
+      "bearing": 90.57327138273632
+    },
+    {
+      "t": 0.68,
+      "x": -81.06712207313939,
+      "z": 164.65930107028254,
+      "heading": 0.6270137571090825,
+      "lat": 47.44286297774254,
+      "lon": -122.30354934973454,
+      "bearing": 135.0738015186531
+    },
+    {
+      "hardcoded": true,
+      "x": 300,
+      "z": 160,
+      "heading": -1.5707963267948966,
+      "lat": 47.4394828027602,
+      "lon": -122.3026963690795,
+      "bearing": 260.9990434976445
+    }
+  ],
+  "oldPlacementFinding": "The t=0.12 perimeter anchor falls on the landside terminal/forecourt rather than an aircraft apron. The other unmeasured perimeter/hardcoded anchors are replaced by independently observed complete aircraft poses. No source terminal, building, road or collider geometry is changed.",
+  "records": [
+    {
+      "id": "apron-c11",
+      "gateContext": {
+        "sourceId": "n673353306",
+        "lat": 47.4460323,
+        "lon": -122.3036123,
+        "tags": {
+          "aeroway": "gate",
+          "name": "C11",
+          "ref": "C11",
+          "source": "yahoo_wms"
+        },
+        "sourceUrl": "https://www.openstreetmap.org/node/673353306"
+      },
+      "observedOccupancy": "One independently visible airside aircraft in this retained aerial snapshot; not a present-day fleet or operator claim.",
+      "geographicModelOrigin": {
+        "lat": 47.44603477062828,
+        "lon": -122.30306816427675
+      },
+      "measuredBearingDeg": 274.65868892042715,
+      "measuredFuselageLengthM": 39.71171335209335,
+      "measuredWingSpanM": 33.18055979052065,
+      "samplePixelsInMosaic": {
+        "nose": [
+          2162,
+          4778
+        ],
+        "tailCone": [
+          2260,
+          4786
+        ],
+        "leftWingTip": [
+          2230,
+          4742
+        ],
+        "rightWingTip": [
+          2223,
+          4824
+        ]
+      },
+      "samplePixelWgs84": {
+        "nose": [
+          47.44604828817841,
+          -122.30331301689148
+        ],
+        "tailCone": [
+          47.44601926520313,
+          -122.30278730392456
+        ],
+        "leftWingTip": [
+          47.44617889136902,
+          -122.30294823646545
+        ],
+        "rightWingTip": [
+          47.44588140585184,
+          -122.30298578739166
+        ]
+      },
+      "independentEvidenceUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/91724/42013",
+      "positionUncertaintyM": 2,
+      "planDimensionUncertaintyM": 2.5,
+      "orientationUncertaintyDeg": 3,
+      "confidence": 0.9,
+      "model": {
+        "id": "apron-c11",
+        "x": -423.546,
+        "z": 73.73,
+        "heading": -1.80920211,
+        "lengthM": 41.344,
+        "spanM": 33.181,
+        "livery": {
+          "body": "#e7e8e5",
+          "tail": "#6f7b83"
+        }
+      },
+      "appearanceNote": "Existing generic narrow-body mesh scaled to independently measured plan dimensions. Height, airframe subtype, windows/engines/gear and unbranded tail paint remain estimates. White fuselages and the yellow A4 body are visible in the aerial; no airline identity is asserted.",
+      "sourcePriority": "OSM gate position/tags are source facts. Aircraft occupancy, position, bearing and plan dimensions are independent aerial observations, not OSM aircraft objects.",
+      "sourceBuildingContacts": {
+        "nose": [],
+        "tailCone": [],
+        "leftWingTip": [],
+        "rightWingTip": []
+      },
+      "originalOsmApronSupport": {
+        "nose": [
+          "w1166127691"
+        ],
+        "tailCone": [
+          "w1166127691"
+        ],
+        "leftWingTip": [
+          "w1166127691"
+        ],
+        "rightWingTip": [
+          "w1166127691"
+        ]
+      },
+      "verticalGeometry": "Estimated generic airframe profile scaled with measured fuselage length; no measured height or absolute apron elevation is asserted."
+    },
+    {
+      "id": "apron-c9",
+      "gateContext": {
+        "sourceId": "n673353303",
+        "lat": 47.4457574,
+        "lon": -122.3036344,
+        "tags": {
+          "aeroway": "gate",
+          "name": "C9",
+          "ref": "C9",
+          "source": "yahoo_wms"
+        },
+        "sourceUrl": "https://www.openstreetmap.org/node/673353303"
+      },
+      "observedOccupancy": "One independently visible airside aircraft in this retained aerial snapshot; not a present-day fleet or operator claim.",
+      "geographicModelOrigin": {
+        "lat": 47.44564196506719,
+        "lon": -122.30313569715578
+      },
+      "measuredBearingDeg": 270.0,
+      "measuredFuselageLengthM": 34.73392049768843,
+      "measuredWingSpanM": 37.092166230013845,
+      "samplePixelsInMosaic": {
+        "nose": [
+          2155,
+          4890
+        ],
+        "tailCone": [
+          2241,
+          4890
+        ],
+        "leftWingTip": [
+          2196,
+          4846
+        ],
+        "rightWingTip": [
+          2204,
+          4938
+        ]
+      },
+      "samplePixelWgs84": {
+        "nose": [
+          47.44564196506719,
+          -122.30335056781769
+        ],
+        "tailCone": [
+          47.44564196506719,
+          -122.30288922786713
+        ],
+        "leftWingTip": [
+          47.445801592378054,
+          -122.30313062667847
+        ],
+        "rightWingTip": [
+          47.44546782563013,
+          -122.30308771133423
+        ]
+      },
+      "independentEvidenceUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/91725/42013",
+      "positionUncertaintyM": 2,
+      "planDimensionUncertaintyM": 2.5,
+      "orientationUncertaintyDeg": 3,
+      "confidence": 0.9,
+      "model": {
+        "id": "apron-c9",
+        "x": -381.226,
+        "z": 85.582,
+        "heading": -1.72789265,
+        "lengthM": 36.161,
+        "spanM": 37.092,
+        "livery": {
+          "body": "#e7e8e5",
+          "tail": "#6f7b83"
+        }
+      },
+      "appearanceNote": "Existing generic narrow-body mesh scaled to independently measured plan dimensions. Height, airframe subtype, windows/engines/gear and unbranded tail paint remain estimates. White fuselages and the yellow A4 body are visible in the aerial; no airline identity is asserted.",
+      "sourcePriority": "OSM gate position/tags are source facts. Aircraft occupancy, position, bearing and plan dimensions are independent aerial observations, not OSM aircraft objects.",
+      "sourceBuildingContacts": {
+        "nose": [],
+        "tailCone": [],
+        "leftWingTip": [],
+        "rightWingTip": []
+      },
+      "originalOsmApronSupport": {
+        "nose": [
+          "w1166127691"
+        ],
+        "tailCone": [
+          "w1166127691"
+        ],
+        "leftWingTip": [
+          "w1166127691"
+        ],
+        "rightWingTip": [
+          "w1166127691"
+        ]
+      },
+      "verticalGeometry": "Estimated generic airframe profile scaled with measured fuselage length; no measured height or absolute apron elevation is asserted."
+    },
+    {
+      "id": "apron-b7",
+      "gateContext": {
+        "sourceId": "n673355956",
+        "lat": 47.4419471,
+        "lon": -122.3039216,
+        "tags": {
+          "aeroway": "gate",
+          "level": "1",
+          "name": "B7",
+          "ref": "B7",
+          "source": "yahoo_wms"
+        },
+        "sourceUrl": "https://www.openstreetmap.org/node/673355956"
+      },
+      "observedOccupancy": "One independently visible airside aircraft in this retained aerial snapshot; not a present-day fleet or operator claim.",
+      "geographicModelOrigin": {
+        "lat": 47.441994110454836,
+        "lon": -122.30457791726883
+      },
+      "measuredBearingDeg": 89.27599511401054,
+      "measuredFuselageLengthM": 31.9092884509326,
+      "measuredWingSpanM": 36.32115682134455,
+      "samplePixelsInMosaic": {
+        "nose": [
+          1963,
+          5895
+        ],
+        "tailCone": [
+          1884,
+          5896
+        ],
+        "leftWingTip": [
+          1909,
+          5852
+        ],
+        "rightWingTip": [
+          1916,
+          5942
+        ]
+      },
+      "samplePixelWgs84": {
+        "nose": [
+          47.44199580027837,
+          -122.3043805360794
+        ],
+        "tailCone": [
+          47.44199217212785,
+          -122.30480432510376
+        ],
+        "leftWingTip": [
+          47.442151810514154,
+          -122.30467021465302
+        ],
+        "rightWingTip": [
+          47.44182527693331,
+          -122.3046326637268
+        ]
+      },
+      "independentEvidenceUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/91729/42012",
+      "positionUncertaintyM": 2,
+      "planDimensionUncertaintyM": 2.5,
+      "orientationUncertaintyDeg": 3,
+      "confidence": 0.9,
+      "model": {
+        "id": "apron-b7",
+        "x": 2.187,
+        "z": 256.252,
+        "heading": 1.42633627,
+        "lengthM": 33.221,
+        "spanM": 36.321,
+        "livery": {
+          "body": "#e7e8e5",
+          "tail": "#6f7b83"
+        }
+      },
+      "appearanceNote": "Existing generic narrow-body mesh scaled to independently measured plan dimensions. Height, airframe subtype, windows/engines/gear and unbranded tail paint remain estimates. White fuselages and the yellow A4 body are visible in the aerial; no airline identity is asserted.",
+      "sourcePriority": "OSM gate position/tags are source facts. Aircraft occupancy, position, bearing and plan dimensions are independent aerial observations, not OSM aircraft objects.",
+      "sourceBuildingContacts": {
+        "nose": [],
+        "tailCone": [],
+        "leftWingTip": [],
+        "rightWingTip": []
+      },
+      "originalOsmApronSupport": {
+        "nose": [
+          "w1165970115"
+        ],
+        "tailCone": [
+          "w1165970115"
+        ],
+        "leftWingTip": [
+          "w1165970115"
+        ],
+        "rightWingTip": [
+          "w1165970115"
+        ]
+      },
+      "verticalGeometry": "Estimated generic airframe profile scaled with measured fuselage length; no measured height or absolute apron elevation is asserted."
+    },
+    {
+      "id": "apron-a4",
+      "gateContext": {
+        "sourceId": "n405122819",
+        "lat": 47.4415574,
+        "lon": -122.3006523,
+        "tags": {
+          "aeroway": "gate",
+          "name": "A4",
+          "ref": "A4"
+        },
+        "sourceUrl": "https://www.openstreetmap.org/node/405122819"
+      },
+      "observedOccupancy": "One independently visible airside aircraft in this retained aerial snapshot; not a present-day fleet or operator claim.",
+      "geographicModelOrigin": {
+        "lat": 47.44136251016873,
+        "lon": -122.30157288786484
+      },
+      "measuredBearingDeg": 44.02480804930085,
+      "measuredFuselageLengthM": 31.96333836888403,
+      "measuredWingSpanM": 33.55480166566288,
+      "samplePixelsInMosaic": {
+        "nose": [
+          2512,
+          6043
+        ],
+        "tailCone": [
+          2457,
+          6100
+        ],
+        "leftWingTip": [
+          2407,
+          6074
+        ],
+        "rightWingTip": [
+          2510,
+          6087
+        ]
+      },
+      "samplePixelWgs84": {
+        "nose": [
+          47.44145883127913,
+          -122.30143547058105
+        ],
+        "tailCone": [
+          47.441252024189154,
+          -122.30173051357269
+        ],
+        "leftWingTip": [
+          47.44134635734857,
+          -122.30199873447418
+        ],
+        "rightWingTip": [
+          47.441299190790005,
+          -122.30144619941711
+        ]
+      },
+      "independentEvidenceUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/18/91729/42014",
+      "positionUncertaintyM": 2,
+      "planDimensionUncertaintyM": 2.5,
+      "orientationUncertaintyDeg": 3,
+      "confidence": 0.9,
+      "model": {
+        "id": "apron-a4",
+        "x": 106.91,
+        "z": 43.774,
+        "heading": 2.21611847,
+        "lengthM": 33.277,
+        "spanM": 33.555,
+        "livery": {
+          "body": "#dedb86",
+          "tail": "#dedb86"
+        }
+      },
+      "appearanceNote": "Existing generic narrow-body mesh scaled to independently measured plan dimensions. Height, airframe subtype, windows/engines/gear and unbranded tail paint remain estimates. White fuselages and the yellow A4 body are visible in the aerial; no airline identity is asserted.",
+      "sourcePriority": "OSM gate position/tags are source facts. Aircraft occupancy, position, bearing and plan dimensions are independent aerial observations, not OSM aircraft objects.",
+      "sourceBuildingContacts": {
+        "nose": [],
+        "tailCone": [],
+        "leftWingTip": [],
+        "rightWingTip": []
+      },
+      "originalOsmApronSupport": {
+        "nose": [
+          "w1165957120"
+        ],
+        "tailCone": [
+          "w1165957120"
+        ],
+        "leftWingTip": [],
+        "rightWingTip": [
+          "w1165957120"
+        ]
+      },
+      "verticalGeometry": "Estimated generic airframe profile scaled with measured fuselage length; no measured height or absolute apron elevation is asserted.",
+      "apronBoundaryUncertainty": "The measured outer wingtip lies just outside the mapped apron polygon while the anchor and other sampled points are inside. Original apron/road geometry stays exact; no claim of full apron-polygon containment. The whole emitted airframe has zero source-building contacts."
+    }
+  ],
+  "rejectedMeasuredCandidate": {
+    "contextGate": "D2 n673349255",
+    "reason": "The independently visible candidate nose falls inside current original source terminal w23772634; candidate rejected rather than moving source geometry.",
+    "sampleNosePixelInGateD2Crop": [
+      203,
+      234
+    ]
+  }
+}

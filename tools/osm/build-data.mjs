@@ -914,6 +914,7 @@ function buildCity(cityId, did = null) {
     const RE_BIGROAD = /^(trunk|primary|secondary)$/;
 
     const researchBrands = {};
+    const reviewedBuildingPassages = [];
     const streetTrees = {}; // street name → species keys (trees.js speciesFromOSM) from the research notes; [] = researched as treeless
     // ---- field research (game/research/<city>-<district>.json, spec 20): fill missing height / levels / facade and roof
     //      colours / roof shape on the OSM tags of the researched buildings (OSM tags win where present)
@@ -922,6 +923,7 @@ function buildCity(cityId, did = null) {
         let applied = 0;
         if (fs.existsSync(rf)) {
             let rj = null; try { rj = JSON.parse(fs.readFileSync(rf, 'utf8')); } catch (e) { log('research: cannot parse', rf, e.message); }
+            reviewedBuildingPassages.push(...(rj?.building_passages || []));
             for (const b of rj?.buildings || []) {
                 const id = parseInt(String(b.osm).replace(/^[wr]/, ''), 10); const w = W.get(id); if (!w) continue;
                 const t = w.tags = { ...w.tags }, ot = b.osmTags || {};
@@ -1681,7 +1683,7 @@ function buildCity(cityId, did = null) {
         outBInfo.push(S(t.building && t.building !== 'yes' ? t.building : ''), yearOf(t.start_date || t['building:start_date'] || t.construction_date), S(t.architect || ''), S((t['building:material'] || t['building:facade:material'] || '').split(';')[0]), b.hSrc ?? 0);
     }
     const outBuildingCanopies = Object.fromEntries(buildings.flatMap((b, i) => b.canopy ? [[i, { ...b.canopy, topM: b.h, clearanceM: b.minH }]] : []));
-    const mappedPassages = ds ? sourcePassages(buildings, W, N, P, roads) : { records: {}, issues: [] };
+    const mappedPassages = ds ? sourcePassages(buildings, W, N, P, roads, reviewedBuildingPassages) : { records: {}, issues: [] };
     const outBuildingSourceIssues = Object.fromEntries(buildings.flatMap((b, i) => b.sourceIssues?.length ? [[i, b.sourceIssues]] : []));
     const outB = buildings.map(b => {
         let flags = b.flags;

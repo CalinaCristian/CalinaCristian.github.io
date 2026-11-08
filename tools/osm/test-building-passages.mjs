@@ -34,4 +34,20 @@ const src=sourcePassages([{ring,holes,minH:0,h:10,t:{__id:'w99'}}],ways,nodes,(l
 assert.equal(src.records[0].length,1,'an untagged service line never creates a guessed passage');checks++;
 assert.equal(src.records[0][0].widthM,4);assert.equal(src.records[0][0].clearanceM,3);checks+=2;
 assert.equal(src.records[0][0].sourceRoadId,'w7');assert.equal(src.issues.length,0);checks+=2;
+const qRing=[[1.2346,-6],[21.2346,-6],[21.2346,6],[1.2346,6]],qNodes=new Map([[11,[0,1.234567]],[12,[0,21.234567]]]);
+const qWays=new Map([[8,{nodes:[11,12],tags:{highway:'service',width:'4 m'}}],[99,{nodes:[21,11,22,23,12,24,21],tags:{building:'apartments'}}]]);
+const review={buildingId:'w99',sourceRoadId:'w8',sharedWallNodeIds:[11,12],classificationSource:'reviewed source shared-wall-node topology',clearanceM:3.1,clearanceSource:'estimate:3.1m',evidence:['https://www.openstreetmap.org/way/8']};
+const qBuildings=[{ring:qRing,holes:[],minH:0,h:10,t:{__id:'w99'}},{ring:qRing,holes:[],minH:0,h:10,t:{__id:'w100'}}];
+const q=sourcePassages(qBuildings,qWays,qNodes,(lat,lon)=>[lon,lat],[],[review]);
+assert.equal(q.issues.length,0);assert.equal(q.records[0].length,1);assert.equal(q.records[1],undefined,'a reviewed opening cannot cut an unrelated neighbour');checks+=3;
+assert.equal(q.records[0][0].tags.tunnel,undefined,'review never invents an OSM tunnel tag');checks++;
+assert.equal(q.records[0][0].classificationSource,review.classificationSource);checks++;
+const voids=q.records[0].map(p=>({...p,ceilingM:p.clearanceM+.24}));
+const qb={x:11.2346,z:0,r:30,poly:qRing,h:10,passageSolids:passageSolids(qRing,[],0,10,voids)};
+for(let x=.734567;x<=21.734567;x+=.1){assert.equal(collideBuildings([qb],x,0,.8,.24),null,'a finite vehicle passes both quantized source mouths');checks++;}
+assert(collideBuildings([qb],2,1.9,.3,.24),'review preserves side posts');checks++;
+assert(collideBuildings([qb],2,0,.3,4),'review preserves source body above its estimated ceiling');checks++;
+assert.equal(collideBuildings([qb],2,0,.3,11),null,'space above source total height remains clear');checks++;
+const bad=sourcePassages(qBuildings,qWays,qNodes,(lat,lon)=>[lon,lat],[],[{...review,sharedWallNodeIds:[11,777]}]);
+assert.equal(Object.keys(bad.records).length,0);assert.equal(bad.issues[0].reason,'invalid-reviewed-source-opening');checks+=2;
 console.log(JSON.stringify({passed:true,checks,ceilingAreaM2:80,interiorWallMetres:40},null,2));

@@ -9791,6 +9791,14 @@
       "comparisonCompatible": false,
       "frames": 9,
       "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99"
+    },
+    {
+      "manifest": "context/summer-clear-day/manifest.json",
+      "label": "Summer Clear Day \u00b7 district context",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "frames": 37,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99"
     }
   ]
 }

@@ -1,0 +1,423 @@
+{
+  "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+  "district": "romana",
+  "condition": {
+    "season": "summer",
+    "weather": "clear",
+    "time": "day"
+  },
+  "frames": 37,
+  "sheets": 7,
+  "failures": [],
+  "metrics": [
+    {
+      "id": "tnb-context",
+      "sha256": "951eee535547eb2b729892d4b5d6619c76eba20184e968665c59a2154c1da91d",
+      "rgbStddev": [
+        29.79764980100198,
+        34.56897225831651,
+        52.68734356815134
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "tnb-opposite",
+      "sha256": "4986a85dd97808c5f0bb0f0aec682cfb92560094d8e6e273f4242f46e0aa0586",
+      "rgbStddev": [
+        43.28204912847788,
+        46.41891880196107,
+        55.834834465892065
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "ateneu-context",
+      "sha256": "5607740885df3041c0e0924143951c0ab0a6c1a3861f38db2fba323a9aafd884",
+      "rgbStddev": [
+        40.16756165585954,
+        36.256390478366775,
+        53.810216268702554
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "ateneu-opposite",
+      "sha256": "c7505e04bc3c9e83513073e0bba49d8ceba481c50c9da847c0dea9173f450281",
+      "rgbStddev": [
+        39.628995382218555,
+        41.64620121904285,
+        54.537680858142835
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "regal-context",
+      "sha256": "e685b80cbd3eb0071ab6711c705b6f6e3dc516193eee51f59f76d6e546dd0b14",
+      "rgbStddev": [
+        39.559951674891266,
+        44.087422215284136,
+        58.51081621729397
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "regal-opposite",
+      "sha256": "8acc1a2a179a2cbaab292e6e93e8599fe288c0ddacec40c2cfacfe3a93ca8f91",
+      "rgbStddev": [
+        46.31950511047487,
+        51.72576613991203,
+        60.663074772955
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "victoria-context",
+      "sha256": "9d014d4aeb69f1715974203be6225aeaecd2df6a7b03ca614541551e78d4cc78",
+      "rgbStddev": [
+        38.62094057530757,
+        38.704717121227525,
+        48.13824831736416
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "victoria-opposite",
+      "sha256": "85b4d2f61030081c9483a392e1f77ecd27d1223cdf8f7a71d3aadaa44ac76b07",
+      "rgbStddev": [
+        36.95965479759746,
+        39.200529312096684,
+        50.398286022192366
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "skytower-context",
+      "sha256": "ee6390cb4fec2c760f403521405f3778d2a176ae18ab296f394e43b364fb958d",
+      "rgbStddev": [
+        25.350974846891486,
+        28.484304582908788,
+        38.648992389448956
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "skytower-opposite",
+      "sha256": "4820d1776e947c2979181b22b9bc6dbdc4ebd89e194ab3174dfeafd11aef12af",
+      "rgbStddev": [
+        27.171574847992385,
+        30.034554427610146,
+        38.70032583004738
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "ase-context",
+      "sha256": "16dc09a6ef13d2e5bb179bf9a7fd1d81dacf6d921da9b3262d437ce42894a4ff",
+      "rgbStddev": [
+        35.89103084403427,
+        36.711644457847044,
+        51.66730897588184
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "ase-opposite",
+      "sha256": "2d97d75c4cfd361507fe3dd9a817c4a7001286de1938b49d163ead3f10b3c33d",
+      "rgbStddev": [
+        38.9400444323424,
+        40.34285931268841,
+        54.12375427201496
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "ase-street",
+      "sha256": "1202452d65e28cd02d7d27520cb12c00c56c13171471bb0f882d252c57cb86c5",
+      "rgbStddev": [
+        27.727951251461153,
+        27.358050229643833,
+        29.764015016705876
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": true
+    },
+    {
+      "id": "ambasador-context",
+      "sha256": "6e18537df5b5ef3145acee2c86d772efb210f168bff95cc6c3e334a016245f9f",
+      "rgbStddev": [
+        44.33768057430685,
+        43.33309429545835,
+        49.803994437464766
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "ambasador-opposite",
+      "sha256": "19adb30e1dd45bd06131ced6afb087c91163aeab9b2dec6f02aa9207834f4110",
+      "rgbStddev": [
+        45.48632193862494,
+        42.687097098779,
+        51.615675563450836
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "ambasador-street",
+      "sha256": "66bf27fea47fb30e33a35c152130ecccb28b8b803d3896e7a4c3a25288924dad",
+      "rgbStddev": [
+        48.799247454010995,
+        42.4972664144383,
+        35.50030986661339
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": true
+    },
+    {
+      "id": "thelandmark-context",
+      "sha256": "2a6550ef93b0d3764e1fa8ac105054d034dbb569748533428c7004eab04ae060",
+      "rgbStddev": [
+        37.305953908203044,
+        35.76991037063526,
+        44.29423909414955
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "thelandmark-opposite",
+      "sha256": "4172c11c54a875efadacead0768a162d7aa228d8b634a664e2090d413d53db5f",
+      "rgbStddev": [
+        44.27451471776829,
+        44.797998659144945,
+        50.29766750604062
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "europehouse-context",
+      "sha256": "5209336cd445a3753fa8dfb7ead30a03469723c4b0313874e01220f693f21a53",
+      "rgbStddev": [
+        39.44775951033527,
+        40.60642691542925,
+        47.50767574696731
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "europehouse-opposite",
+      "sha256": "b647857cb1033759b5bcb11a03f764683e71dd04a76bbd2a8d9d10889301837b",
+      "rgbStddev": [
+        44.33716207434033,
+        45.99259467956041,
+        52.30174026858162
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "europehouse-street",
+      "sha256": "f0dd71dd13f002822b59a7a2994e34edabdfe5e869a1ce029b415522d22811cd",
+      "rgbStddev": [
+        23.264734128805433,
+        19.286171492148835,
+        22.535149058015005
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": true
+    },
+    {
+      "id": "w236091148-facade",
+      "sha256": "c0873ea3c7fe1616a8fc1e57e644e5383b5fb605e1bc302874814f816c553c44",
+      "rgbStddev": [
+        45.462650558483425,
+        44.761577956435616,
+        58.262231026054295
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "w236091150-facade",
+      "sha256": "5cccbc708100ed9f573b9204eb1505b96e5b2b258cbeefc4159a35d359ccb9ad",
+      "rgbStddev": [
+        43.12391215916037,
+        40.20410222014541,
+        59.93866248519349
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "w1527213313-facade",
+      "sha256": "cf89dd543082ee40139e328fc7ace2f9741cd30e30238b4c83b6c3a8e960ad2e",
+      "rgbStddev": [
+        44.52921678954876,
+        40.078226410360315,
+        47.77730710079359
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "w182932596-facade",
+      "sha256": "309357024af936c9cff82110f388fdd8a53bfd2e0dd82b0e34aa47c1a1f9b18d",
+      "rgbStddev": [
+        43.620661963337625,
+        44.46143043767731,
+        55.82787593065994
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "signal-1",
+      "sha256": "fc33ff37f84f662d6f5f07402b33ea6de02f39579bf1e041bc6f0ee3d930b4c1",
+      "rgbStddev": [
+        42.92570370589087,
+        41.77095686802706,
+        62.21494721545387
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "signal-2",
+      "sha256": "7010418a7a06a2aa80f2645b42b1c312e101f7c09f1d999e7f76333e6ec1727a",
+      "rgbStddev": [
+        37.5294055494519,
+        40.05846848441656,
+        57.2327594306788
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "signal-3",
+      "sha256": "df4c4adf20f83cc56a104a8e57287a11ee31f0629373171702e4eb724cee1df1",
+      "rgbStddev": [
+        41.15939885136758,
+        42.146769206079576,
+        61.54921920675715
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "parking-1",
+      "sha256": "a6edbb3423c3a01fd0bdfa81f98f3fafb7e18a115b50770b9fd8907372d86eae",
+      "rgbStddev": [
+        46.77253098972386,
+        38.143158663873805,
+        43.10782543662064
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "parking-2",
+      "sha256": "486cfe40d337b58b44f65c20f76d9b3a826e47a5fa7aa2ba094373a0b09e7b29",
+      "rgbStddev": [
+        37.32182682553794,
+        32.06730757015197,
+        33.56626735015955
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "parking-3",
+      "sha256": "3f9662cfb0c5f3767f83e8dc0c2fca41fa6467a14c3bdd408ccd27995bf061e3",
+      "rgbStddev": [
+        34.33935191165925,
+        29.677535684557316,
+        30.735314502696273
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "drone-edge-west",
+      "sha256": "65921d0f5f4bbcf0f580a5d80c1f29b496c1501c28396423a075189dbb50bb38",
+      "rgbStddev": [
+        35.19520722811381,
+        34.45722467113161,
+        45.448364724373334
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "drone-edge-east",
+      "sha256": "53006122f641701f17f33323f4bd9ac17fc1a55cf2feeb6966e684e0088d24f0",
+      "rgbStddev": [
+        35.33636025869451,
+        35.64301203009726,
+        44.125429221352
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "drone-edge-north",
+      "sha256": "d8a501616e41d86bd591e38b529d677070f46e8b6d1ea42ff36bb6f3b79e959f",
+      "rgbStddev": [
+        34.16705810958076,
+        31.149972943590296,
+        45.64437783485126
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "drone-edge-south",
+      "sha256": "12a050821f567c32e2ce3f67d84346da8fcf8b65988dd04c61d7d6e92335133c",
+      "rgbStddev": [
+        35.5646506376218,
+        37.416063278771865,
+        43.81705119708499
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "chapter-arnia-street",
+      "sha256": "55a517a99cd1397fdda0c20d030489ce968499d66263ec504b5d6146b1e5e534",
+      "rgbStddev": [
+        38.570461882528264,
+        38.387251974728265,
+        50.444021505732486
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "chapter-uipath-buc-street",
+      "sha256": "dce0ed15edf83eb593f0ba6d8086190c4730f44e378bc2bfbc609a2119655c53",
+      "rgbStddev": [
+        41.67465172683555,
+        41.50644405905223,
+        49.58767449926099
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    }
+  ],
+  "rawSourceContactHits": 168,
+  "note": "Capture integrity checks only. Sheets require actual human/model visual review; raw contacts and source/visual gaps are not dismissed by this result. No controller, complete scene-clearance or driving/mirror budget pass claimed."
+}

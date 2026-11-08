@@ -67,9 +67,12 @@ function personGeometry() {
     }
     b.add(BOX, TM(0, HIP_Y + 0.02, 0, 0.34, 0.16, 0.21), P.BOTTOM);                            // pelvis
     b.add(taper(0.165, 0.2, 0.96, 1.46, 9, 0.62), TM(0, 0, 0), P.TOP);                         // torso
-    b.add(BOX, TM(0, 1.43, 0, 0.44, 0.09, 0.2), P.TOP);                                        // shoulders
-    b.add(taper(0.05, 0.05, 1.46, 1.56, 6), TM(0, 0, 0), P.SKIN);                               // neck
-    const head = new THREE.SphereGeometry(0.105, 9, 7); b.add(head, TM(0, 1.645, -0.005, 0.92, 1.12, 1.0), P.SKIN);
+    b.add(BOX, TM(0, 1.425, 0, 0.42, 0.09, 0.185), P.TOP);                                     // shoulders
+    b.add(BOX, TM(0, 1.43, 0, 0.455, 0.105, 0.215), P.COAT);                                   // coat shoulders (round 6 note 55: the shirt's shoulder plate poked out over the coat)
+    b.add(taper(0.062, 0.054, 1.46, 1.57, 8), TM(0, 0, 0), P.SKIN);                             // neck (fuller: the old 5 cm stick read as a pin)
+    const head = new THREE.SphereGeometry(0.105, 16, 12); b.add(head, TM(0, 1.645, -0.005, 0.9, 1.1, 1.0), P.SKIN);   // head (smoother)
+    b.add(new THREE.SphereGeometry(0.06, 10, 6), TM(0, 1.585, -0.035, 1.25, 0.75, 1.0), P.SKIN);                       // jaw / chin
+    for (const sx of [-1, 1]) b.add(new THREE.SphereGeometry(0.022, 6, 5), TM(sx * 0.094, 1.645, 0.0, 0.5, 1.1, 0.8), P.SKIN); // ears
     b.add(BOX, TM(0, 1.62, -0.1, 0.035, 0.05, 0.03), P.SKIN);                                  // nose
     for (const sx of [-1, 1]) {                                                                // face: eyes + brows (dark), mouth
         b.add(BOX, TM(sx * 0.036, 1.655, -0.1, 0.02, 0.014, 0.012), P.FACE);
@@ -79,7 +82,7 @@ function personGeometry() {
     b.add(taper(0.075, 0.072, 1.47, 1.53, 10, 1.1, false), TM(0, 0, 0), P.SCARF);                                       // fan scarf around the neck…
     for (const sx of [-1, 1]) b.add(BOX, TM(sx * 0.05, 1.33, -0.135, 0.07, 0.3, 0.012, 0.12, 0, 0), P.SCARF);           // …ends hanging down the front
     b.add(BOX, TM(-0.05, 1.63, -0.088, 0.045, 0.014, 0.01, 0, 0.5, 0), P.PAINT);                                          // face-paint stripe (tricolour)
-    const cap = new THREE.SphereGeometry(0.112, 9, 5, 0, Math.PI * 2, 0, Math.PI * 0.55); b.add(cap, TM(0, 1.665, 0.012, 0.95, 1.05, 1.02), P.HAIR);
+    const cap = new THREE.SphereGeometry(0.112, 16, 7, 0, Math.PI * 2, 0, Math.PI * 0.55); b.add(cap, TM(0, 1.665, 0.012, 0.95, 1.05, 1.02), P.HAIR);
     // outfit pieces (hidden unless their flag is set)
     b.add(taper(0.215, 0.185, 0.5, 1.0, 9, 0.68, true), TM(0, 0, 0), P.SKIRT);                   // coat skirt to the knees (not when sitting)
     b.add(taper(0.21, 0.205, 0.98, 1.47, 9, 0.66), TM(0, 0, 0), P.COAT);                        // coat body (over the top)

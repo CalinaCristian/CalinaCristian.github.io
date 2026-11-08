@@ -9482,8 +9482,8 @@
     "Mosaic acquisition dates are unknown."
   ],
   "sourceWorld": {
-    "buildPrerequisiteCommit": "ade211e286fae79d78b0f75607310b9cbdf2d974",
-    "datasetSha256": "1dd2162a64556125dee283eb46b286c079482c44546189b2713fa15e8b74a612",
+    "buildPrerequisiteCommit": "4fdacd3",
+    "datasetSha256": "c90b1982a8395b2f04049276ed1978ab9df01cacfbe6b672b90180c94beebfaf",
     "buildingCount": 1188,
     "roadRows": 305,
     "treeRetention": {

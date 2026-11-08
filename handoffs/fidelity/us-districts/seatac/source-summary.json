@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "district": "seatac",
   "date": "2026-11-08",
-  "sourceCommit": "9276d0dc4305465725c31f74846d828bf7e33445",
+  "sourceCommit": "469759fa7dcf5f3eefae6598abeb697790298425",
   "dataset": "game/data/seattle-seatac.json",
-  "datasetSha256": "9075f20fc10cf6803c02f3b93d3885455eb2696bd1d82f594dbdcc8b9de7352e",
+  "datasetSha256": "da58fc931f0dd36a1934af9d32fe3f1441530a80cb0f3e53e0a53fa4cb9e08a0",
   "coverage": "Every whole positive-area building or building:part intersecting the exact configured core or 600 m source ring. Multipolygon inner rings retained; named model exclusions are exact source IDs.",
   "buildingAudit": {
     "core": {
@@ -167,5 +167,13 @@
     "transit": 20
   },
   "placesScope": "Every compiled POI matched independently to an original OSM node/polygon centroid or explicit official locator within 0.08 m output quantization tolerance. This does not claim every nearby-ring trading unit is rendered.",
-  "parkingAdditiveAudit": "parking-runtime.json"
+  "parkingAdditiveAudit": "parking-runtime.json",
+  "buildPrerequisiteCommit": "4fdacd3",
+  "strictDimensionAudit": {
+    "literalPositiveHeightFailures": 0,
+    "literalMinimumFailures": 0,
+    "mappedStoreyFailures": 0,
+    "sourceDimensionIssues": 0,
+    "provenanceNote": "Literal heights/minima and storey counts are source facts; storey-derived metre estimates are not literal OSM heights."
+  }
 }

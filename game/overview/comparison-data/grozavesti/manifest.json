@@ -6458,7 +6458,10 @@
       "Current0775 canal retakes: restrained shoreline and dark model-blue water versus green reference. Broad source masses remain, with simplified sawtooth roofs, parking occupancy and sparse outer commercial context.",
       "Current0775 canal/industrial corridor: source roads and water remain visible. Cooling towers are simple cylinders, industrial roof detail and canopy are approximate; bridge structural fidelity is not established by this top-down review.",
       "Current0775 campus/pond squares: restrained shore band, blue model ponds versus green/brown reference. Lawn/canopy coverage, roof forms and actual parking differ; detailed real-world parity remains incomplete.",
-      "Current0775 southern pond/boundary square retains source water but sparse outer detail and canopy differences remain visible."
+      "Current0775 southern pond/boundary square retains source water but sparse outer detail and canopy differences remain visible.",
+      "Cathedral surroundings and outside/distant context remain sparse or generic; contextual source detail is incomplete.",
+      "Industrial sawtooth roofs, cooling-tower structure, campus roofs and railway detail remain simplified where dimensions/detail lack source support.",
+      "Canopy appearance and actual parking occupancy differ from the unknown-date reference; source bodies and measured crowns remain retained."
     ],
     "entries": [
       {
@@ -8396,6 +8399,14 @@
       "captureType": "game-perspective-context",
       "comparisonCompatible": false,
       "frames": 16,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99"
+    },
+    {
+      "manifest": "context/summer-clear-night/manifest.json",
+      "label": "Summer Clear Night \u00b7 district context",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "frames": 6,
       "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99"
     }
   ]

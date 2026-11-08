@@ -112,6 +112,15 @@
       "sourceCounts": {
         "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 16
       }
+    },
+    {
+      "manifest": "game/overview/comparison-data/grozavesti/context/summer-clear-night/manifest.json",
+      "kind": "perspective",
+      "frames": 6,
+      "verifiedImageHashes": 12,
+      "sourceCounts": {
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 6
+      }
     }
   ],
   "currentAtlasFrames": 306,

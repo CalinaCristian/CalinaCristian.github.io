@@ -4461,6 +4461,10 @@ export async function buildWorld(city, renderer, opts = {}) {
     //      (data.roadInfo flags 64 / 128 yes, 256 / 512 no) decide where mapped; otherwise both sides of residential /
     //      unclassified streets (and tertiary streets with one lane each way) with a ≥ 2.2 m sidewalk. Clear of
     //      junctions (9 m past the pad), crossings (8 m), bus stops (14 m), fuel forecourts, trees, lamps, buildings.
+    //      (owner: "parked on the sidewalk, the wheels look sunk in the ground") the world's kerb strip stands 0.13 m above
+    //      the road and the sidewalk paving 0.22 m below the kerb: the cars stood across the kerb, wheels cut by it. They now
+    //      stand just past the kerb strip at the kerb's top (wheels on the kerb line as seen from the road). Slabs under the
+    //      cars were tried and dropped (owner: "pads suck"); the full fix is a sidewalk at kerb height (spec 12, open).
     let kerbParked = 0;
     if (realPass && !US && useInst) {
         const RI = data.roadInfo || [], kRng = makeRng(90127), cols = CAR_COLORS;
@@ -4476,7 +4480,8 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (none || (!resid && !tagged) || e.sidewalk < 2.2) continue;
                 const occ = tagged ? 0.86 : 0.72;
                 const s0 = retract(e, e.a) + 9 + (e.a.crossing ? 8 : 0), s1 = e.len - retract(e, e.b) - 9 - (e.b.crossing ? 8 : 0);
-                const w = (sd > 0 ? e.wR : e.wL) + shoulderOf(e), o = w + 1.05, yaw = Math.atan2(e.dirx, e.dirz) + (kRng() < 0.5 ? 0 : Math.PI);
+                const w = (sd > 0 ? e.wR : e.wL) + shoulderOf(e), o = w + 1.2, yaw = Math.atan2(e.dirx, e.dirz) + (kRng() < 0.5 ? 0 : Math.PI);
+                const yTop = Y.road + Y.kerb;
                 for (let sAl = s0 + kRng() * 2; sAl < s1; sAl += 5.4 + kRng() * 0.8) {
                     if (kRng() > occ) { if (kRng() < 0.25) sAl += 6; continue; } // (gaps, sometimes a driveway)
                     const x = e.a.x + e.dirx * sAl + e.nx * o * sd, z = e.a.z + e.dirz * sAl + e.nz * o * sd;
@@ -4489,7 +4494,8 @@ export async function buildWorld(city, renderer, opts = {}) {
                     if (blocked) continue;
                     pcGrid.insert(x - 2.4, z - 2.4, x + 2.4, z + 2.4, box);
                     const k2 = Math.floor(x / (CELL * 2)) + ',' + Math.floor(z / (CELL * 2)); let L = parkedLots.get(k2); if (!L) parkedLots.set(k2, L = []);
-                    L.push({ kind: kinds[Math.floor(kRng() * kinds.length)], color: cols[Math.floor(kRng() * cols.length)], x, y: Y.side + 0.02, z, yaw: yaw + (kRng() - 0.5) * 0.05 });
+                    const kind = kinds[Math.floor(kRng() * kinds.length)], color = cols[Math.floor(kRng() * cols.length)], cyaw = yaw + (kRng() - 0.5) * 0.05;
+                    L.push({ kind, color, x, y: yTop + 0.005, z, yaw: cyaw });
                     propColl.push(box); kerbParked++;
                 }
             }

@@ -107,7 +107,10 @@ What the builder / world now do (so the next district gets it for free)
   ≥ 3 m and 60 % beyond), green ground (`data.green`), OSM `parking:*` in roadInfo flags, address-like / residential names never
   become signs, large named buildings keep their own service lanes (flag 64), road clearance by pushing corners back.
 - world.js (`realPass` districts): kerbside parking on the sidewalk along both kerbs of residential streets (OSM parking tags
-  where mapped), railings / walls / hedges on the property line where a front garden lies behind the sidewalk, kerb bollards
+  where mapped; the cars stand just past the kerb strip at the kerb's top, so the wheels sit on the kerb line seen from the
+  road — they used to stand across the kerb with the near wheels cut by it. Open: the sidewalk paving lies 0.22 m below
+  the kerb top (0.09 m below the road), so from the sidewalk the parked cars' wheels stand above it; the real fix is a
+  sidewalk at kerb height (paving, junction pads, props at `Y.side`, walkers' surface height)), railings / walls / hedges on the property line where a front garden lies behind the sidewalk, kerb bollards
   on main streets where parking is not allowed, lamps on residential streets, plain bus lanes (no red paint), businesses'
   fascias on the nearest building (no pole signs), shopfronts on street faces only, sports-ground markings / goals / nets /
   fences / hoops / pool copings, villa plaster palette, plain balconies on low blocks, lighter ring parking lots.

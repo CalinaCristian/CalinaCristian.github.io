@@ -11,7 +11,10 @@ after finishing work, push it to `master`, watch the Pages run (`mcp__github__ac
 and check `curl -s -o /dev/null -w "%{http_code}" https://cristiancalina.com/game/index.html` returns 200.
 `_config.yml` keeps `game/dev`, `game/research`, `specs` and `tools` out of the Pages build — with them the
 deploy timed out in "syncing_files" (340 files); keep new dev-only folders in that list.
-Commits: author Cristian Calina <cristycalina@gmail.com>, no Claude / Co-Authored-By lines in messages.
+Commits: author and committer Cristian Calina <cristycalina@gmail.com>, no Claude / Co-Authored-By / session lines
+in messages. Keep history clean: one scoped commit per area of change (squash fixups locally before pushing), and
+push to `master` once per finished batch of work, not after every small step. Work on `master` directly (no
+side branches left on the remote).
 
 ## What does NOT work
 - Starting `python3 -m http.server` / `report_preview_port`: the owner cannot open ports of the cloud container.

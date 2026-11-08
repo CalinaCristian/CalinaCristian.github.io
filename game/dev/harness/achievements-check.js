@@ -156,16 +156,16 @@ async function runSave() {
             fire({ type: 'photo', kind: 'district', alt: 90, dist: 300, stats: { photos: 1 } }, 'dmcv:drone'); fire({ type: 'gohere', dist: 200 }, 'dmcv:drone');
             g.onParkingEvent?.({ type: 'ticket', fine: { amount: 0, currency: 'RON' } });
             fire({ spot: 'herastrau-park', id: 'bike' });                                 // spots/bike.js (not live before: +1 total)
-            fire({ spot: 'old-town-lipscani', id: 'wcp-bar' });                           // retired venue events must not unlock anything
+            fire({ spot: 'old-town-lipscani', id: 'wcp-bar' });                           // restored hidden project room (owner-requested Easter egg)
             fire({ spot: 'cismigiu', id: 'tour' });                                       // spots-core guided tour
             await new Promise(r => setTimeout(r, 100));
-            const ids = ['lm-cismigiu-boat', 'lm-gasworks-kite', 'lm-bike', 'tour-first', 'drone-first', 'drone-ceiling', 'drone-range', 'drone-photo', 'drone-gohere', ...(g.onParkingEvent ? ['park-ticket'] : [])];
-            const r = { n: ids.length, got: ids.filter(id => A.isUnlocked(id)), retiredUnlocked: A.isUnlocked('wcp-bar'), toursBuc: A.count('tours-buc'), all: A.isUnlocked('landmarks-all'), before, after: A.completion().total, spotsTotal: A.completion().parts.find(p => p.key === 'spots').total };
+            const ids = ['wcp-bar', 'lm-cismigiu-boat', 'lm-gasworks-kite', 'lm-bike', 'tour-first', 'drone-first', 'drone-ceiling', 'drone-range', 'drone-photo', 'drone-gohere', ...(g.onParkingEvent ? ['park-ticket'] : [])];
+            const r = { n: ids.length, got: ids.filter(id => A.isUnlocked(id)), hiddenProjectUnlocked: A.isUnlocked('wcp-bar'), toursBuc: A.count('tours-buc'), all: A.isUnlocked('landmarks-all'), before, after: A.completion().total, spotsTotal: A.completion().parts.find(p => p.key === 'spots').total };
             for (const id of [...ids, 'landmarks-all']) delete A.state.unlocked[id]; A.state.sets.activities = []; A.save(true);
             return r;
         });
         check('activities (note 57, tours, bike), drone and parking events unlock on the event; bike becomes live (+1); spots total = SPOTS_ALL', act.got.length === act.n && act.toursBuc === 1 && !act.all && act.after === act.before + 1 && act.spotsTotal === 24, JSON.stringify(act));
-        check('retired venue event cannot unlock its removed achievement', !act.retiredUnlocked);
+        check('hidden project event unlocks the restored secret', act.hiddenProjectUnlocked);
         const cv = await page.evaluate(async () => {
             const A = window.game.achievements, fire = (t, d) => window.dispatchEvent(new CustomEvent(t, { detail: d }));
             fire('cv-answer', { stop: 'gts', index: 1, title: 'x', part: 0, first: true }); fire('cv-answer', { stop: 'gts', index: 1, part: 1 });
@@ -182,20 +182,21 @@ async function runSave() {
         await load(page); // (the live-activity set is per page: start clean)
         // ---- 3. persistence across reload
         const legacy = await page.evaluate(() => {
-            const A = window.game.achievements, completion = A.completion(), timestamp = 1793500000000;
+            const A = window.game.achievements, timestamp = 1793500000000;
             A.state.unlocked['wcp-bar'] = timestamp;
             A.state.sets.activities.push('old-town-lipscani:wcp-bar'); A.save(true);
+            const completion = A.completion();
             return { timestamp, unlocked: completion.unlocked, total: completion.total, exact: completion.exact };
         });
         const before = await page.evaluate(() => ({ ...window.game.achievements.state.unlocked }));
         await load(page);
         const after = await page.evaluate(() => window.game.achievements.state.unlocked);
         check('persistence across reload (ids + timestamps)', Object.keys(before).length > 0 && Object.keys(before).every(k => after[k] === before[k]), Object.keys(after).join(','));
-        const retired = await page.evaluate(async () => {
+        const restored = await page.evaluate(async () => {
             const { ACHIEVEMENTS } = await import('./src/data.js'), g = window.game, A = g.achievements;
             return { ...A.completion(), listed: ACHIEVEMENTS.some(a => a.id === 'wcp-bar'), activityListed: g.spotsMod.ACTIVITIES.some(a => a.id === 'wcp-bar'), legacyActivity: A.state.sets.activities.includes('old-town-lipscani:wcp-bar') };
         });
-        check('legacy venue progress survives reload without a catalogue slot or completion credit', after['wcp-bar'] === legacy.timestamp && retired.legacyActivity && !retired.listed && !retired.activityListed && retired.unlocked === legacy.unlocked && retired.total === legacy.total && retired.exact === legacy.exact, JSON.stringify({ legacy, unlocked: retired.unlocked, total: retired.total }));
+        check('legacy hidden project progress survives reload with its restored catalogue slot and completion credit', after['wcp-bar'] === legacy.timestamp && restored.legacyActivity && restored.listed && restored.activityListed && restored.unlocked === legacy.unlocked && restored.total === legacy.total && restored.exact === legacy.exact, JSON.stringify({ legacy, unlocked: restored.unlocked, total: restored.total }));
         check('no telemetry achievement spam on reload', await page.evaluate(() => window.game.hud.unlocked.size === 0));
 
         // ---- 4. panel screenshots

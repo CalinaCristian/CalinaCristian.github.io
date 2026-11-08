@@ -1107,7 +1107,9 @@ function buildCity(cityId, did = null) {
         let minH = num(t.min_height) || (num(t['building:min_level']) ? num(t['building:min_level']) * 3.2 : 0);
         const sourceIssues = [];
         if (Number.isFinite(h) && h <= 0) { sourceIssues.push('nonpositive OSM height=' + t.height); h = NaN; }
-        const canopy = t.__canopy ? { ...t.__canopy, topSource: num(t.height) > 0 ? 'OSM height' : 'estimate', clearanceSource: num(t.min_height) > 0 || num(t['building:min_level']) > 0 ? 'OSM minimum' : 'estimate', supportSource: 'estimate' } : null;
+        const canopyConflict = t.__canopy && ((t['roof:shape'] && t['roof:shape'] !== 'flat') || (t.min_height != null && num(t.min_height) === 0) || (t['building:min_level'] != null && num(t['building:min_level']) === 0));
+        if (canopyConflict) sourceIssues.push('open-canopy review incompatible with authoritative roof/minimum tags; review not applied');
+        const canopy = t.__canopy && !canopyConflict ? { ...t.__canopy, topSource: num(t.height) > 0 ? 'OSM height' : 'estimate', clearanceSource: num(t.min_height) > 0 || num(t['building:min_level']) > 0 ? 'OSM minimum' : 'estimate', supportSource: 'estimate' } : null;
         if (canopy) {
             if (!Number.isFinite(h) && !(levels > 0)) h = canopy.topM;
             if (!(num(t.min_height) > 0) && !(num(t['building:min_level']) > 0)) minH = canopy.clearanceM;

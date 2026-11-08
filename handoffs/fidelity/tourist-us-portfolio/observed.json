@@ -1,0 +1,1279 @@
+{
+  "date": "2026-11-08",
+  "sourceCommit": "a786ba6bb18c031432f0464c06e6a2fa93ad5dfe",
+  "browser": "156.0.8078.79",
+  "renderer": "system Chromium / SwiftShader",
+  "quality": "low",
+  "manual": true,
+  "note": "Load observations are local software-renderer observations, not target-GPU FPS or universal load guarantees. Activity distances are straight-line lower bounds, not traversed paths.",
+  "results": [
+    {
+      "id": "pike-place",
+      "scene": "pike-place",
+      "loadMs": 3926,
+      "timing": {
+        "fetch": 62,
+        "build": 1119,
+        "finish": 290,
+        "total": 1470
+      },
+      "sceneTriangles": 484037,
+      "drawn": 506635,
+      "drawCalls": 344,
+      "members": [
+        {
+          "id": "pike-place",
+          "spawn": {
+            "x": -9.5,
+            "z": 13.5,
+            "heading": -4.1887902047863905,
+            "y": -1.1196706226673887
+          },
+          "activities": [
+            {
+              "kind": "gum",
+              "x": -42.75,
+              "z": 58.1,
+              "r": 11,
+              "label": "Stick your gum on the wall",
+              "enabled": true,
+              "straightLineM": 56
+            },
+            {
+              "kind": "fish",
+              "x": -56.871645523098664,
+              "z": 26.222058734034498,
+              "r": 4.5,
+              "label": "Ask the fishmongers to throw you a salmon",
+              "enabled": true,
+              "straightLineM": 49
+            },
+            {
+              "kind": "coin",
+              "x": -54.14768236141362,
+              "z": 35.97335325679389,
+              "r": 1.8,
+              "label": "Drop a coin in Rachel",
+              "enabled": true,
+              "straightLineM": 50
+            },
+            {
+              "kind": "talk",
+              "x": 1000000000,
+              "z": 1000000000,
+              "r": 2.6,
+              "label": "",
+              "enabled": false,
+              "straightLineM": 1414213560
+            }
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "view": null,
+          "id": "pike-place",
+          "x": -19.622449085792063,
+          "z": 17.0575347537532,
+          "bearing": 229,
+          "pitch": 12,
+          "fov": 55,
+          "text": "Looking down Pike St: the PUBLIC MARKET CENTER sign and clock above the arcade corner, fish stall and crowds below; best at blue hour when the neon glows.",
+          "r": 12,
+          "tol": 30,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        }
+      ],
+      "audit": {
+        "zfight": 30,
+        "signTilted": 1
+      },
+      "errors": []
+    },
+    {
+      "id": "space-needle",
+      "scene": "seattle-center",
+      "loadMs": 3968,
+      "timing": {
+        "fetch": 46,
+        "build": 1609,
+        "finish": 243,
+        "total": 1898
+      },
+      "sceneTriangles": 1113342,
+      "drawn": 1347217,
+      "drawCalls": 359,
+      "members": [
+        {
+          "id": "space-needle",
+          "spawn": {
+            "x": -3.4,
+            "z": 61.9,
+            "heading": 0,
+            "y": 1.2798127612099057
+          },
+          "activities": [
+            {
+              "kind": "ride",
+              "x": 0.3,
+              "z": 15.899999999999999,
+              "r": 3,
+              "label": "Ride the elevator to The Loupe (41 s)",
+              "enabled": true,
+              "straightLineM": 46
+            },
+            {
+              "kind": "ride",
+              "x": 0.3,
+              "y": 154.1,
+              "z": 0.7,
+              "r": 40,
+              "label": "Hurry the elevator (×4)",
+              "enabled": false,
+              "straightLineM": 61
+            },
+            {
+              "kind": "activity",
+              "x": 0.3,
+              "y": 154.1,
+              "z": 18.3,
+              "r": 3.2,
+              "label": "Look down through the glass floor",
+              "enabled": false,
+              "straightLineM": 44
+            },
+            {
+              "kind": "stairs",
+              "x": -15.299999999999999,
+              "y": 154.1,
+              "z": 0.7,
+              "r": 2.6,
+              "label": "Take the stairs up to the open-air deck",
+              "enabled": false,
+              "straightLineM": 62
+            },
+            {
+              "kind": "stairs",
+              "x": -18.099999999999998,
+              "y": 160,
+              "z": 0.7,
+              "r": 2.4,
+              "label": "Back down to The Loupe",
+              "enabled": false,
+              "straightLineM": 63
+            },
+            {
+              "kind": "ride",
+              "x": 14.502816622064794,
+              "y": 154.1,
+              "z": 8.899999999999997,
+              "r": 3,
+              "label": "Ride the elevator back down",
+              "enabled": false,
+              "straightLineM": 56
+            },
+            {
+              "kind": "activity",
+              "x": -53.75,
+              "z": -13.2,
+              "r": 5,
+              "label": "Look up at the suspended sculpture",
+              "enabled": true,
+              "straightLineM": 90
+            },
+            {
+              "kind": "activity",
+              "x": 35.9,
+              "z": -104.14999999999999,
+              "r": 6,
+              "label": "Watch the Monorail pass through MoPOP",
+              "enabled": true,
+              "straightLineM": 171
+            },
+            {
+              "kind": "talk",
+              "x": 1000000000,
+              "z": 1000000000,
+              "r": 2.6,
+              "label": "",
+              "enabled": false,
+              "straightLineM": 1414213521
+            }
+          ]
+        },
+        {
+          "id": "chihuly",
+          "spawn": {
+            "x": -73.4,
+            "z": 11.8,
+            "heading": -1.3962634015954636,
+            "y": 2.368821026776569
+          },
+          "activities": [
+            {
+              "kind": "ride",
+              "x": 0.3,
+              "z": 15.899999999999999,
+              "r": 3,
+              "label": "Ride the elevator to The Loupe (41 s)",
+              "enabled": true,
+              "straightLineM": 74
+            },
+            {
+              "kind": "ride",
+              "x": 0.3,
+              "y": 154.1,
+              "z": 0.7,
+              "r": 40,
+              "label": "Hurry the elevator (×4)",
+              "enabled": false,
+              "straightLineM": 75
+            },
+            {
+              "kind": "activity",
+              "x": 0.3,
+              "y": 154.1,
+              "z": 18.3,
+              "r": 3.2,
+              "label": "Look down through the glass floor",
+              "enabled": false,
+              "straightLineM": 74
+            },
+            {
+              "kind": "stairs",
+              "x": -15.299999999999999,
+              "y": 154.1,
+              "z": 0.7,
+              "r": 2.6,
+              "label": "Take the stairs up to the open-air deck",
+              "enabled": false,
+              "straightLineM": 59
+            },
+            {
+              "kind": "stairs",
+              "x": -18.099999999999998,
+              "y": 160,
+              "z": 0.7,
+              "r": 2.4,
+              "label": "Back down to The Loupe",
+              "enabled": false,
+              "straightLineM": 56
+            },
+            {
+              "kind": "ride",
+              "x": 14.502816622064794,
+              "y": 154.1,
+              "z": 8.899999999999997,
+              "r": 3,
+              "label": "Ride the elevator back down",
+              "enabled": false,
+              "straightLineM": 88
+            },
+            {
+              "kind": "activity",
+              "x": -53.75,
+              "z": -13.2,
+              "r": 5,
+              "label": "Look up at the suspended sculpture",
+              "enabled": true,
+              "straightLineM": 32
+            },
+            {
+              "kind": "activity",
+              "x": 35.9,
+              "z": -104.14999999999999,
+              "r": 6,
+              "label": "Watch the Monorail pass through MoPOP",
+              "enabled": true,
+              "straightLineM": 159
+            },
+            {
+              "kind": "talk",
+              "x": 1000000000,
+              "z": 1000000000,
+              "r": 2.6,
+              "label": "",
+              "enabled": false,
+              "straightLineM": 1414213606
+            }
+          ]
+        },
+        {
+          "id": "mopop",
+          "spawn": {
+            "x": 143.1,
+            "z": -121.6,
+            "heading": -4.363323129985824,
+            "y": -7.725864601135253
+          },
+          "activities": [
+            {
+              "kind": "ride",
+              "x": 0.3,
+              "z": 15.899999999999999,
+              "r": 3,
+              "label": "Ride the elevator to The Loupe (41 s)",
+              "enabled": true,
+              "straightLineM": 198
+            },
+            {
+              "kind": "ride",
+              "x": 0.3,
+              "y": 154.1,
+              "z": 0.7,
+              "r": 40,
+              "label": "Hurry the elevator (×4)",
+              "enabled": false,
+              "straightLineM": 188
+            },
+            {
+              "kind": "activity",
+              "x": 0.3,
+              "y": 154.1,
+              "z": 18.3,
+              "r": 3.2,
+              "label": "Look down through the glass floor",
+              "enabled": false,
+              "straightLineM": 200
+            },
+            {
+              "kind": "stairs",
+              "x": -15.299999999999999,
+              "y": 154.1,
+              "z": 0.7,
+              "r": 2.6,
+              "label": "Take the stairs up to the open-air deck",
+              "enabled": false,
+              "straightLineM": 200
+            },
+            {
+              "kind": "stairs",
+              "x": -18.099999999999998,
+              "y": 160,
+              "z": 0.7,
+              "r": 2.4,
+              "label": "Back down to The Loupe",
+              "enabled": false,
+              "straightLineM": 202
+            },
+            {
+              "kind": "ride",
+              "x": 14.502816622064794,
+              "y": 154.1,
+              "z": 8.899999999999997,
+              "r": 3,
+              "label": "Ride the elevator back down",
+              "enabled": false,
+              "straightLineM": 183
+            },
+            {
+              "kind": "activity",
+              "x": -53.75,
+              "z": -13.2,
+              "r": 5,
+              "label": "Look up at the suspended sculpture",
+              "enabled": true,
+              "straightLineM": 225
+            },
+            {
+              "kind": "activity",
+              "x": 35.9,
+              "z": -104.14999999999999,
+              "r": 6,
+              "label": "Watch the Monorail pass through MoPOP",
+              "enabled": true,
+              "straightLineM": 109
+            },
+            {
+              "kind": "talk",
+              "x": 1000000000,
+              "z": 1000000000,
+              "r": 2.6,
+              "label": "",
+              "enabled": false,
+              "straightLineM": 1414213547
+            }
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "view": null,
+          "id": "space-needle",
+          "x": 0.3,
+          "z": 56.3,
+          "bearing": 0,
+          "pitch": 60,
+          "fov": 70,
+          "text": "Straight up the legs from the south base",
+          "r": 16,
+          "tol": 45,
+          "targets": [],
+          "condHint": "Look straight up the legs."
+        },
+        {
+          "view": null,
+          "id": "chihuly",
+          "x": -56.25,
+          "z": -6.199999999999999,
+          "bearing": 60,
+          "pitch": 38,
+          "fov": 75,
+          "text": "Inside the Glasshouse looking up through the red-orange sculpture and glass roof to the Space Needle",
+          "r": 12,
+          "tol": 80,
+          "targets": [],
+          "condHint": "Stand inside the Glasshouse and look up through the sculpture."
+        },
+        {
+          "view": [
+            80.15,
+            -110.14999999999999
+          ],
+          "id": "mopop",
+          "x": 158.2,
+          "z": -138.3,
+          "bearing": 235,
+          "pitch": 12,
+          "fov": 60,
+          "text": "Gehry shingle masses with the monorail emerging and the Space Needle behind",
+          "r": 30,
+          "tol": 40,
+          "targets": [],
+          "condHint": "Wait for the Monorail to pass through the building."
+        }
+      ],
+      "audit": {
+        "badGeometry": 2,
+        "zfight": 42,
+        "phantom": 1,
+        "pedBelow": 3
+      },
+      "errors": []
+    },
+    {
+      "id": "fremont-troll",
+      "scene": "fremont-troll",
+      "loadMs": 4810,
+      "timing": {
+        "fetch": 83,
+        "build": 2731,
+        "finish": 218,
+        "total": 3032
+      },
+      "sceneTriangles": 340521,
+      "drawn": 385507,
+      "drawCalls": 317,
+      "members": [
+        {
+          "id": "fremont-troll",
+          "spawn": {
+            "x": -1.2,
+            "z": 0,
+            "heading": -0.03490658503988659,
+            "y": -0.12456653673201748
+          },
+          "activities": [
+            {
+              "kind": "climb",
+              "x": -6.4,
+              "z": -44.8,
+              "r": 1.8,
+              "label": "Climb onto the hand",
+              "enabled": true,
+              "straightLineM": 45
+            },
+            {
+              "kind": "climb",
+              "x": 1.7999999999999998,
+              "z": -45.4,
+              "r": 1.8,
+              "label": "Sit on the Beetle",
+              "enabled": true,
+              "straightLineM": 45
+            },
+            {
+              "kind": "touch",
+              "x": -2.85,
+              "z": -46.8,
+              "r": 1.3,
+              "label": "Touch his nose",
+              "enabled": false,
+              "straightLineM": 47
+            },
+            {
+              "kind": "talk",
+              "x": 1000000000,
+              "z": 1000000000,
+              "r": 2.6,
+              "label": "",
+              "enabled": false,
+              "straightLineM": 1414213563
+            }
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "view": null,
+          "id": "fremont-troll",
+          "x": -2.3,
+          "z": -27.8,
+          "bearing": 4,
+          "pitch": 8,
+          "fov": 70,
+          "text": "Troll head-on framed by the concrete arch, splayed hand left, Beetle under the left hand on the right, stairs at right edge",
+          "r": 9,
+          "tol": 30,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        }
+      ],
+      "audit": {
+        "badGeometry": 1,
+        "zfight": 72
+      },
+      "errors": []
+    },
+    {
+      "id": "kerry-park",
+      "scene": "kerry-park",
+      "loadMs": 2109,
+      "timing": {
+        "fetch": 39,
+        "build": 640,
+        "finish": 132,
+        "total": 812
+      },
+      "sceneTriangles": 674065,
+      "drawn": 707188,
+      "drawCalls": 280,
+      "members": [
+        {
+          "id": "kerry-park",
+          "spawn": {
+            "x": 2,
+            "z": 4.5,
+            "heading": -2.4609142453120048,
+            "y": 0.15
+          },
+          "activities": [
+            {
+              "kind": "frame",
+              "x": 9.4,
+              "z": 0,
+              "r": 2,
+              "label": "Frame the skyline through Changing Form",
+              "enabled": true,
+              "straightLineM": 9
+            },
+            {
+              "kind": "activity",
+              "x": 12.8,
+              "z": 6.2,
+              "r": 2.2,
+              "label": "Wait for the city lights (blue hour)",
+              "enabled": true,
+              "straightLineM": 11
+            },
+            {
+              "kind": "talk",
+              "x": 1000000000,
+              "z": 1000000000,
+              "r": 2.6,
+              "label": "",
+              "enabled": false,
+              "straightLineM": 1414213558
+            }
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "view": [
+            800,
+            1000
+          ],
+          "id": "kerry-park",
+          "x": 12.8,
+          "z": 4.4,
+          "bearing": 143,
+          "pitch": 1,
+          "fov": 35,
+          "text": "Space Needle centred-left, Columbia Center stack behind, Rainier to the right, at blue hour — with the Mountain out!",
+          "r": 12,
+          "tol": 28,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        }
+      ],
+      "audit": {
+        "badGeometry": 2,
+        "zfight": 9
+      },
+      "errors": []
+    },
+    {
+      "id": "waterfront",
+      "scene": "waterfront",
+      "loadMs": 3949,
+      "timing": {
+        "fetch": 80,
+        "build": 962,
+        "finish": 294,
+        "total": 1335
+      },
+      "sceneTriangles": 344335,
+      "drawn": 340932,
+      "drawCalls": 276,
+      "members": [
+        {
+          "id": "waterfront",
+          "spawn": {
+            "x": 6,
+            "z": -6,
+            "heading": -3.7524578917878086,
+            "y": 3.4
+          },
+          "activities": [
+            {
+              "kind": "ride",
+              "x": -44.400000000000006,
+              "z": 62.224999999999994,
+              "r": 3.5,
+              "label": "Ride the Seattle Great Wheel (3 turns, ≈ 4 min)",
+              "enabled": true,
+              "straightLineM": 85
+            },
+            {
+              "kind": "ride",
+              "x": -67.7,
+              "z": 81.2,
+              "r": 120,
+              "label": "Get off the wheel",
+              "enabled": false,
+              "straightLineM": 114
+            },
+            {
+              "kind": "talk",
+              "x": 1000000000,
+              "z": 1000000000,
+              "r": 2.6,
+              "label": "",
+              "enabled": false,
+              "straightLineM": 1414213562
+            }
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "view": null,
+          "id": "waterfront",
+          "x": 0,
+          "z": 0,
+          "bearing": 215,
+          "pitch": 15,
+          "fov": 55,
+          "text": "Great Wheel with gondolas lit against Elliott Bay at dusk",
+          "r": 14,
+          "tol": 30,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        }
+      ],
+      "audit": {
+        "badGeometry": 1,
+        "zfight": 24,
+        "pedBelow": 6,
+        "pedSunk": 6
+      },
+      "errors": []
+    },
+    {
+      "id": "pioneer-square",
+      "scene": "pioneer-square",
+      "loadMs": 4624,
+      "timing": {
+        "fetch": 47,
+        "build": 2739,
+        "finish": 138,
+        "total": 2924
+      },
+      "sceneTriangles": 391859,
+      "drawn": 441306,
+      "drawCalls": 281,
+      "members": [
+        {
+          "id": "pioneer-square",
+          "spawn": {
+            "x": 1,
+            "z": 4,
+            "heading": -0.3490658503988659,
+            "y": 0.007195211062207779
+          },
+          "activities": [
+            {
+              "kind": "activity",
+              "x": 9.4,
+              "z": -34.599999999999994,
+              "r": 2.6,
+              "label": "Read the totem pole (top to bottom)",
+              "enabled": true,
+              "straightLineM": 40
+            },
+            {
+              "kind": "activity",
+              "x": -11.5,
+              "z": -2,
+              "r": 3,
+              "label": "Take the Underground Tour (descend under the sidewalk)",
+              "enabled": true,
+              "straightLineM": 14
+            },
+            {
+              "kind": "talk",
+              "x": 1000000000,
+              "z": 1000000000,
+              "r": 2.6,
+              "label": "",
+              "enabled": false,
+              "straightLineM": 1414213559
+            }
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "view": null,
+          "id": "pioneer-square",
+          "x": 0,
+          "z": 0,
+          "bearing": 20,
+          "pitch": 8,
+          "fov": 60,
+          "text": "Pergola in front of the Pioneer Building with the totem pole on the left",
+          "r": 10,
+          "tol": 30,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        }
+      ],
+      "audit": {
+        "zfight": 12
+      },
+      "errors": []
+    },
+    {
+      "id": "ballard-locks",
+      "scene": "ballard-locks",
+      "loadMs": 2071,
+      "timing": {
+        "fetch": 38,
+        "build": 508,
+        "finish": 140,
+        "total": 686
+      },
+      "sceneTriangles": 457099,
+      "drawn": 492538,
+      "drawCalls": 262,
+      "members": [
+        {
+          "id": "ballard-locks",
+          "spawn": {
+            "x": 0,
+            "z": 0,
+            "heading": -3.141592653589793,
+            "y": 0.2098590035364024
+          },
+          "activities": [
+            {
+              "kind": "lockage",
+              "x": 1.78398130480016,
+              "z": 64.74162124159336,
+              "r": 4,
+              "label": "Operate a lockage: close the gates, open the fill valves",
+              "enabled": true,
+              "straightLineM": 65
+            },
+            {
+              "kind": "talk",
+              "x": 1000000000,
+              "z": 1000000000,
+              "r": 2.6,
+              "label": "",
+              "enabled": false,
+              "straightLineM": 1414213562
+            }
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "view": null,
+          "id": "ballard-locks",
+          "x": 91.97229627058839,
+          "z": 100.50567922767456,
+          "bearing": 290,
+          "pitch": -10,
+          "fov": 60,
+          "text": "Large lock full of boats from the north wall with the gates and control tower",
+          "r": 16,
+          "tol": 35,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        }
+      ],
+      "audit": {
+        "badGeometry": 5
+      },
+      "errors": []
+    },
+    {
+      "id": "gas-works",
+      "scene": "gas-works",
+      "loadMs": 1666,
+      "timing": {
+        "fetch": 39,
+        "build": 537,
+        "finish": 113,
+        "total": 690
+      },
+      "sceneTriangles": 661882,
+      "drawn": 691372,
+      "drawCalls": 266,
+      "members": [
+        {
+          "id": "gas-works",
+          "spawn": {
+            "x": 0,
+            "z": 0,
+            "heading": -2.792526803190927,
+            "y": 0.3717435399070379
+          },
+          "activities": [
+            {
+              "kind": "kite",
+              "x": -58,
+              "z": 31,
+              "r": 9,
+              "label": "Fly a kite",
+              "enabled": true,
+              "straightLineM": 66
+            },
+            {
+              "kind": "talk",
+              "x": 1000000000,
+              "z": 1000000000,
+              "r": 2.6,
+              "label": "",
+              "enabled": false,
+              "straightLineM": 1414213562
+            }
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "view": null,
+          "id": "gas-works",
+          "x": 82.6,
+          "z": 100.1,
+          "bearing": 330,
+          "pitch": 12,
+          "fov": 55,
+          "text": "Rusty towers against the sky",
+          "r": 14,
+          "tol": 35,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        }
+      ],
+      "audit": {
+        "zfight": 8
+      },
+      "errors": []
+    },
+    {
+      "id": "bel-lincoln-square",
+      "scene": "bel-lincoln-square",
+      "loadMs": 708,
+      "timing": {
+        "fetch": 69,
+        "build": 335,
+        "finish": 145,
+        "total": 549
+      },
+      "sceneTriangles": 283852,
+      "drawn": 313629,
+      "drawCalls": 330,
+      "members": [
+        {
+          "id": "bel-lincoln-square",
+          "spawn": {
+            "x": -3,
+            "z": -3,
+            "heading": -2.356194490192345,
+            "y": 0.06244638077914703
+          },
+          "activities": [
+            {
+              "kind": "badge",
+              "x": 32.699999999999996,
+              "z": 35.6,
+              "r": 3,
+              "label": "Badge in at UiPath — elevator to Suite 2000",
+              "enabled": true,
+              "straightLineM": 53
+            },
+            {
+              "kind": "elevator",
+              "x": 58.3,
+              "y": 77.53949589617262,
+              "z": 55.5,
+              "r": 2.5,
+              "label": "Elevator down to the lobby",
+              "enabled": true,
+              "straightLineM": 85
+            },
+            {
+              "kind": "talk",
+              "x": 1000000000,
+              "z": 1000000000,
+              "r": 2.6,
+              "label": "",
+              "enabled": false,
+              "straightLineM": 1414213567
+            }
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "view": null,
+          "id": "bel-lincoln-square",
+          "x": -2,
+          "z": 2,
+          "bearing": 145,
+          "pitch": 18,
+          "fov": 60,
+          "text": "Lincoln Square North (UiPath) and One Lincoln Tower over Bellevue Way",
+          "r": 12,
+          "tol": 35,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        }
+      ],
+      "audit": {
+        "zfight": 33
+      },
+      "errors": []
+    },
+    {
+      "id": "bel-downtown-park",
+      "scene": "bel-downtown-park",
+      "loadMs": 2121,
+      "timing": {
+        "fetch": 96,
+        "build": 503,
+        "finish": 161,
+        "total": 761
+      },
+      "sceneTriangles": 624537,
+      "drawn": 585411,
+      "drawCalls": 276,
+      "members": [
+        {
+          "id": "bel-downtown-park",
+          "spawn": {
+            "x": 6,
+            "z": -6,
+            "heading": -3.490658503988659,
+            "y": 0.687159805578802
+          },
+          "activities": [
+            {
+              "kind": "activity",
+              "x": -26.288554310416323,
+              "z": -12.068559635877776,
+              "r": 3,
+              "label": "Walk the half-mile loop (promenade ring)",
+              "enabled": true,
+              "straightLineM": 33
+            },
+            {
+              "kind": "coin",
+              "x": -119.40201619073076,
+              "z": 178.03680664326055,
+              "r": 8,
+              "label": "Toss a coin into the reflecting pool",
+              "enabled": true,
+              "straightLineM": 223
+            },
+            {
+              "kind": "talk",
+              "x": 1000000000,
+              "z": 1000000000,
+              "r": 2.6,
+              "label": "",
+              "enabled": false,
+              "straightLineM": 1414213562
+            }
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "view": [
+            -150,
+            121.5
+          ],
+          "id": "bel-downtown-park",
+          "x": -93,
+          "z": 131,
+          "bearing": 279.4623222080256,
+          "pitch": 1,
+          "fov": 65,
+          "text": "Along the 240-ft waterfall spilling into the reflecting pool",
+          "r": 14,
+          "tol": 35,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        }
+      ],
+      "audit": {
+        "zfight": 31,
+        "phantom": 1
+      },
+      "errors": []
+    },
+    {
+      "id": "bel-botanical-garden",
+      "scene": "bel-botanical-garden",
+      "loadMs": 2843,
+      "timing": {
+        "fetch": 72,
+        "build": 430,
+        "finish": 246,
+        "total": 749
+      },
+      "sceneTriangles": 637986,
+      "drawn": 671294,
+      "drawCalls": 284,
+      "members": [
+        {
+          "id": "bel-botanical-garden",
+          "spawn": {
+            "x": 0,
+            "z": 3,
+            "heading": -3.141592653589793,
+            "y": -0.18721023569814868
+          },
+          "activities": [
+            {
+              "kind": "activity",
+              "x": 196,
+              "z": 232.3,
+              "r": 3,
+              "label": "Cross the ravine suspension bridge",
+              "enabled": true,
+              "straightLineM": 302
+            },
+            {
+              "kind": "plant",
+              "x": -70.3,
+              "z": -19.6,
+              "r": 2,
+              "label": "Read the plant label: Perennial Border",
+              "enabled": true,
+              "straightLineM": 74
+            },
+            {
+              "kind": "plant",
+              "x": 114.7,
+              "z": 23.1,
+              "r": 2,
+              "label": "Read the plant label: Yao Garden",
+              "enabled": true,
+              "straightLineM": 116
+            },
+            {
+              "kind": "plant",
+              "x": -22.6,
+              "z": -7.6,
+              "r": 2,
+              "label": "Read the plant label: Fuchsia Garden",
+              "enabled": true,
+              "straightLineM": 25
+            },
+            {
+              "kind": "plant",
+              "x": 44.1,
+              "z": 7.7,
+              "r": 2,
+              "label": "Read the plant label: Rhododendron Glen",
+              "enabled": true,
+              "straightLineM": 44
+            },
+            {
+              "kind": "plant",
+              "x": 49.400000000000006,
+              "z": 94,
+              "r": 2,
+              "label": "Read the plant label: Native Discovery Garden",
+              "enabled": true,
+              "straightLineM": 104
+            },
+            {
+              "kind": "plant",
+              "x": -33.3,
+              "z": -60.1,
+              "r": 2,
+              "label": "Read the plant label: Waterwise Garden",
+              "enabled": true,
+              "straightLineM": 71
+            },
+            {
+              "kind": "plant",
+              "x": 11.5,
+              "z": -70.7,
+              "r": 2,
+              "label": "Read the plant label: Rock Garden",
+              "enabled": true,
+              "straightLineM": 75
+            },
+            {
+              "kind": "talk",
+              "x": 1000000000,
+              "z": 1000000000,
+              "r": 2.6,
+              "label": "",
+              "enabled": false,
+              "straightLineM": 1414213560
+            }
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "view": [
+            157.3,
+            259.7
+          ],
+          "id": "bel-botanical-garden",
+          "x": 200.080744013379,
+          "z": 229.410791060295,
+          "bearing": 234.70111176729984,
+          "pitch": -6,
+          "fov": 60,
+          "text": "The Ravine Experience suspension bridge disappearing into ferns and firs",
+          "r": 10,
+          "tol": 35,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        }
+      ],
+      "audit": {},
+      "errors": []
+    },
+    {
+      "id": "bel-meydenbauer",
+      "scene": "bel-meydenbauer",
+      "loadMs": 2364,
+      "timing": {
+        "fetch": 61,
+        "build": 1177,
+        "finish": 169,
+        "total": 1406
+      },
+      "sceneTriangles": 593736,
+      "drawn": 624939,
+      "drawCalls": 268,
+      "members": [
+        {
+          "id": "bel-meydenbauer",
+          "spawn": {
+            "x": 22,
+            "z": -21,
+            "heading": 2.9909261469919177,
+            "y": 3.000899735713793
+          },
+          "activities": [
+            {
+              "kind": "activity",
+              "x": -60.66936977772769,
+              "y": 0.06999999999999995,
+              "z": 42.29294254819657,
+              "r": 3.9999999999999996,
+              "label": "Walk to the end of the crescent pier",
+              "enabled": true,
+              "straightLineM": 104
+            },
+            {
+              "kind": "kayak",
+              "x": 66,
+              "z": 53,
+              "r": 4.5,
+              "label": "Rent a kayak (paddle round the bay)",
+              "enabled": true,
+              "straightLineM": 86
+            },
+            {
+              "kind": "skip",
+              "x": 13.899999999999999,
+              "z": 4.900000000000002,
+              "r": 14,
+              "label": "Skip a stone",
+              "enabled": true,
+              "straightLineM": 27
+            },
+            {
+              "kind": "talk",
+              "x": 1000000000,
+              "z": 1000000000,
+              "r": 2.6,
+              "label": "",
+              "enabled": false,
+              "straightLineM": 1414213562
+            }
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "view": [
+            -33.8299437497493,
+            59.6994944079871
+          ],
+          "id": "bel-meydenbauer",
+          "x": 44.09012130325257,
+          "z": 28.351514994392115,
+          "bearing": 248.08461040089054,
+          "pitch": 1,
+          "fov": 45,
+          "text": "The crescent pier curving out over Meydenbauer Bay, Seattle on the horizon",
+          "r": 14,
+          "tol": 35,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        }
+      ],
+      "audit": {
+        "zfight": 28
+      },
+      "errors": []
+    }
+  ]
+}

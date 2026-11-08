@@ -2858,8 +2858,8 @@ function bBOB(b) {
 
 // Rectoratul Universității Politehnica București (1970s) — OSM w28240552 (5 levels) + dome part. From the Commons refs
 // (game/research/refs/grozavesti: "RO B Politehnica university rectorate", "Politehnica University of Bucharest 0x"):
-// glazed recessed ground floor, three storeys behind dense vertical concrete fins, a projecting slab, a recessed
-// red-brick top storey with ribbon windows, a wide projecting roof slab and the big dark saucer dome (aula) on a
+// brick recessed lower floor, three red-panel storeys behind pale concrete fins and sills, a projecting slab, a recessed
+// glazed top storey, a wide projecting roof slab and the big dark saucer dome (aula) on a
 // glazed drum with the flag; blue-lit dome rim at night (research). Entrance on the north forecourt: canopy, flags,
 // "RECTORAT" plate. Src: game/research/bucharest-grozavesti.md (upb, w28240552 row) ; OSM w28240552
 function bPolitehnica(b) {

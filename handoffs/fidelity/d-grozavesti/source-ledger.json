@@ -1,7 +1,7 @@
 {
   "downloadedUTC": "2026-11-08T13:31:02.379528+00:00",
   "source": "https://api.openstreetmap.org/api/0.6/map",
-  "attribution": "\u00a9 OpenStreetMap contributors, ODbL",
+  "attribution": "© OpenStreetMap contributors, ODbL",
   "tiles": [
     {
       "file": "buc_44.4250_26.0290_44.4350_26.0450.xml",
@@ -113,13 +113,16 @@
     "roofFullMeasurementsScratch": "/workspace/reality-pass/grozavesti/roofs-full.json",
     "treeOverlayScratch": "/workspace/reality-pass/grozavesti/trees-debug.jpg",
     "streetView": "Official Google panoramas for visual side-by-side comparison only; no extraction into game data. GOOGLE_MAPS_KEY supplied only through environment.",
-    "sourceGeometry": "Playable analytic band/circles and full 600m Euclidean ring; standard western tile gap supplemented to longitude26.029."
+    "sourceGeometry": "Playable analytic band/circles and full 600m Euclidean ring; standard western tile gap supplemented to longitude26.029.",
+    "roofAuditCrops": 7,
+    "roofManualTotal": 87
   },
   "limits": [
     "Imagery acquisition date unknown",
-    "1613+48 rebuilt building heights remain default or sanity-rule estimates before final rebuild",
+    "1662 rebuilt building heights remain default or sanity estimates; 678 records have OSM height/levels",
     "Facade colours outside independently reviewed landmark remain estimated",
-    "Scenery extends600m; farther boxes are limited distant context",
-    "Complex multi-ridge industrial roofs remain unresolved"
+    "Scenery extends 600m; farther boxes are limited distant context",
+    "Compound roofs are simplified envelopes; mixed roof classes retained uncertain",
+    "Mapped OMV fuel canopy w239359996 is still silently removed by shared builder road-overlap dev-check; core acceptance incomplete"
   ]
 }

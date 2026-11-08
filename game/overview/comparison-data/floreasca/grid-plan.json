@@ -1,0 +1,68 @@
+{
+  "gameSourceCommit": null,
+  "city": "bucharest",
+  "district": "floreasca",
+  "grid": {
+    "x0": -1000,
+    "z0": -1250,
+    "columns": 8,
+    "rows": 13,
+    "sizeMetres": 250
+  },
+  "counts": {
+    "ring-touches": 62,
+    "core-touches": 22,
+    "outside-ring": 6
+  },
+  "locations": [
+    {
+      "id": "rosetti-start",
+      "label": "rosetti chapter start",
+      "kind": "chapter-start",
+      "lat": 44.4556,
+      "lon": 26.10071,
+      "tileId": "aerial-r09-c04"
+    },
+    {
+      "id": "rosetti",
+      "label": "Liceul Teoretic C.A. Rosetti",
+      "kind": "landmark",
+      "lat": 44.4671565,
+      "lon": 26.106133,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "aerial-r04-c05"
+    },
+    {
+      "id": "dinamo",
+      "label": "Stadionul Dinamo",
+      "kind": "landmark",
+      "lat": 44.4551306,
+      "lon": 26.1023192,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "aerial-r10-c04"
+    },
+    {
+      "id": "skytower",
+      "label": "Sky Tower",
+      "kind": "skyline",
+      "lat": 44.4779551,
+      "lon": 26.1047395,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "context-skytower"
+    },
+    {
+      "id": "globalworth",
+      "label": "Globalworth Tower",
+      "kind": "skyline",
+      "lat": 44.4792401,
+      "lon": 26.1024141,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "context-globalworth"
+    }
+  ],
+  "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+  "sourceCounts": {
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 25,
+    "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 65
+  }
+}

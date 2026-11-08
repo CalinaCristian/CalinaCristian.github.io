@@ -1,0 +1,46 @@
+{
+  "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+  "city": "bucharest",
+  "district": "grozavesti",
+  "grid": {
+    "x0": -1500,
+    "z0": -1750,
+    "columns": 11,
+    "rows": 12,
+    "sizeMetres": 250
+  },
+  "counts": {
+    "ring-touches": 72,
+    "core-touches": 23,
+    "outside-ring": 5
+  },
+  "locations": [
+    {
+      "id": "upb-start",
+      "label": "upb chapter start",
+      "kind": "chapter-start",
+      "lat": 44.44849,
+      "lon": 26.0654,
+      "tileId": "aerial-r04-c08"
+    },
+    {
+      "id": "politehnica",
+      "label": "Rectoratul Politehnicii",
+      "kind": "landmark",
+      "lat": 44.438429,
+      "lon": 26.0515105,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "aerial-r09-c04"
+    },
+    {
+      "id": "cathedral",
+      "label": "Catedrala Mântuirii Neamului",
+      "kind": "skyline",
+      "lat": 44.4259297,
+      "lon": 26.0822981,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "context-cathedral"
+    }
+  ],
+  "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score."
+}

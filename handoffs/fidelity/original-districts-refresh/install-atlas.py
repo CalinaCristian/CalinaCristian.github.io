@@ -38,9 +38,15 @@ if old:
             shutil.move(str(f), archive / f.name)
 for name in ('images', 'thumbs'):
     shutil.copytree(atlas / name, target / name)
+if (atlas / 'provenance').is_dir():
+    shutil.copytree(atlas / 'provenance', target / 'provenance')
+if (atlas / 'water-mask.json').is_file():
+    shutil.copy2(atlas / 'water-mask.json', target / 'water-mask.json')
 for name in ('boundary-source.json', 'capture-report.json', 'source-provenance.json', 'validation.json', 'poses.json', 'grid-plan.json'):
     shutil.copy2(atlas / name, target / name)
 shutil.copy2(atlas / 'manifest.json', target / 'capture-manifest.json')
+source_counts = manifest.get('atlasSourceCounts') or {manifest['gameSourceCommit']: len(manifest['items'])}
+source_label = ', '.join(str(n) + ' frames on ' + str(commit)[:7] for commit, n in source_counts.items())
 manifest.update({
     'locationId': a.district,
     'captureType': 'branch-source-snapshot',
@@ -52,12 +58,12 @@ manifest.update({
         'acquisitionDate': None,
         'delivery': 'Live image request; no reference imagery is stored in this repository.',
     }),
-    'description': 'Complete current source capture of the playable area and exact 600 m scenery ring, with separately labelled distant context.',
+    'description': 'Complete atlas of the playable area and exact 600 m scenery ring, preserving the actual source revision of every frame, with separately labelled distant context.',
     'coverageNote': manifest['coverage'] + ' Boundary cells also contain land outside the ring.',
     'reviewNote': review['status'],
     'review': review,
-    'collectionNotes': {'atlas': 'Source ' + manifest['gameSourceCommit'][:7] + ' · ' + str(len(manifest['items'])) + ' game captures. High quality, summer, clear daylight; moving traffic and mirrors disabled. Historical captures preserve their original source and date in historical/.'},
-    'atlasSourceCounts': {manifest['gameSourceCommit']: len(manifest['items'])},
+    'collectionNotes': {'atlas': source_label + '. High quality, summer, clear daylight; moving traffic and mirrors disabled. Every frame retains its actual immutable source SHA. Historical captures preserve their original source and date in historical/.'},
+    'atlasSourceCounts': source_counts,
 })
 manifest['historicalCollections'] = []
 for f in sorted(historical.glob('*/manifest.json')):

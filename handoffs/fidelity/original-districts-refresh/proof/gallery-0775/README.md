@@ -1,0 +1,13 @@
+# Original district atlas delivery
+
+The current public north-up atlas has306 GAME frames: Floreasca90, Romană116, Grozăvești100. A conservative source-water mask replaces25/13/19 frames with actual0775fdaf15442a46c3fe98f4e6875c9c09046a99 captures; the other65/103/81 retain exact4378317f3fcdccc886d6c7c1ed092ee15d95db8a image bytes and per-frame source identity. The district data hashes and every ground pose match. Every source manifest, validation, source-file hash inventory and mask is public alongside its collection. This scoped render reuse does not relabel old images as newly captured.
+
+All306 original437 pairs and57 current0775 retake pairs have actual private GAME/Esri contact-sheet reviews. Their public review entries retain game/pair/sheet hashes, observations and dates; no reference imagery is published. Reference acquisition dates are unknown. Complete coverage does not establish real-world parity: every current review explicitly has `realWorldParityAccepted:false`.
+
+Historical collections retain the entire former published Floreasca90/Romană199/Grozăvești99 collections, plus all306 original437 captures, including the57 superseded water frames. They keep original source revisions, image bytes and dates. There are694 historical frames in six collections. Git deduplicates unchanged reused image blobs.
+
+`installed-atlas-validation.json` records zero missing assets/hash failures across306 current and694 historical frames. Reproduce with `python3 handoffs/fidelity/original-districts-refresh/validate-installed-collections.py`. The installer, archive and mixed-source merge helpers retain their input manifests and prevent accidental replacement of existing evidence. Python tools parse and capture helper syntax passes. Final integrated browser/viewer checks belong to the root QA freeze.
+
+Open visual/source gaps include the Circus lobed roof, plain contextual tower roofs and podiums, simplified TNB and industrial/campus roof/structure detail, estimated facades, sparse outer/distant scenery, approximate canopy appearance and actual parking occupancy. Model-blue water is not a date-matched optical measurement. Exact source buildings/courtyards, measured crowns and mapped road geometry remain retained. No invented architectural dimensions or catalogue entries were added to claim parity.
+
+Perspective daylight/night/winter/outward views are captured separately. Only completed, actually reviewed collections may be installed through `perspectiveCollections`; their static camera poses do not claim drone controller exercise or driving/mirror budget acceptance. They must never be mixed into these north-up atlas items.

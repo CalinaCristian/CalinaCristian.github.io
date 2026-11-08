@@ -1,0 +1,28 @@
+{
+  "startedAt": "2026-11-08T22:33:07.791Z",
+  "endedAt": "2026-11-08T22:36:29.586Z",
+  "elapsedSeconds": 201.803,
+  "source": "66f9f028f585068faa58be093124c55da842e4a17da3e2142c0cc629b708b3f3",
+  "loaded": {
+    "key": "bucharest-romana",
+    "city": "bucharest",
+    "district": "romana",
+    "ms": 35140,
+    "edges": 1006,
+    "ribbons": 1320
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failedRequests": [],
+  "traffic": false,
+  "quality": "high",
+  "weather": "clear",
+  "season": "summer",
+  "time": "day",
+  "mirror": false,
+  "frameCounts": 13,
+  "coverageClaim": "Conservative source-water render recapture subset; merge with original frozen dry frames to retain the complete district atlas.",
+  "scopeCounts": {
+    "water-recapture": 13
+  }
+}

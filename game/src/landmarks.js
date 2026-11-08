@@ -2746,6 +2746,141 @@ function bGlobalworth(b) {
 // ===========================================================================
 // [lat, lon, rotation]: anchor = centre of the OSM footprint's minimum-area rectangle,
 // rotation = orientation of that rectangle (model +x axis), from the ways cited above.
+// Stadionul Dinamo (1951, Șos. Ștefan cel Mare) — the Dinamo București bowl: athletics track round the pitch, terraced
+// concrete stands on an embankment, the covered main stand (Tribuna I) on the west side, the long open east stand with
+// red-and-white seats, the north curve (Peluza „Cătălin Hildan”), a low open south-west end, four floodlight masts.
+// Geometry: OSM way 28212482 (outer outline of the stands), pitch way 427813551 (≈ 103 × 63 m, long axis 8.7° east of
+// south), the rest from aerial imagery measurements (track: 400 m, 8 lanes, red tartan; stand depth 25–37 m; seat
+// colours by sector; shadows of the NW / SE masts). Heights estimated (≈ 15,000 seats; main stand ≈ 14 m + roof).
+// Src: https://en.wikipedia.org/wiki/Stadionul_Dinamo ; OSM ways 28212482, 427813551, 860001496 (Peluza Cătălin Hildan)
+const DIN_OUT = [-81.2,14.2,-82.3,1.4,-82.6,-15.3,-81.7,-30.5,-79.5,-47.1,-75.8,-60.2,-68.4,-74.8,-64.2,-80.7,-59.6,-86.1,-53.1,-92.3,-46.7,-97.1,-39.2,-101.7,-32.8,-104.7,-23.9,-107.8,-14.2,-109.9,-6.7,-110.6,2,-110.6,13,-109.2,10.5,-99.7,17.1,-98,23.4,-95.7,31.4,-91.7,32.7,-91.1,41.5,-84.9,49.5,-77.4,56.1,-69,61.2,-60.2,64.7,-51.8,72.7,-31.1,77.7,-13.5,81.3,10.7,81.6,26.5,81,36.3,79.8,46.7,78,56.5,76.2,66.1,72.8,76.1,68.7,84.3,62.7,93,55.7,100.6,36,114.9,37.2,123.3,23.1,126.3,12.8,127.3,3.2,126.9,-5.6,125.5,-12.3,123.6,-20.9,120.2,-27.6,116.7,-39.3,108.5,-51.9,96.2,-60.2,84.4,-66.6,70.7,-72,56.1,-76.6,39.8,-78.8,29.5];
+const DIN_PITCH = [28.5,-48,-33.3,-38.7,-17.7,63.6,44,54.3];
+function bDinamo(b) {
+    const out = pts(DIN_OUT), pitchC = pts(DIN_PITCH);
+    const cx = pitchC.reduce((s, p) => s + p[0], 0) / 4, cz = pitchC.reduce((s, p) => s + p[1], 0) / 4;
+    // stadium frame: u along the pitch's long axis (toward the south end), v across (toward the east)
+    const [p0, p1] = [pitchC[1], pitchC[2]], al = Math.hypot(p1[0] - p0[0], p1[1] - p0[1]);
+    const ux = (p1[0] - p0[0]) / al, uz = (p1[1] - p0[1]) / al, vx = uz, vz = -ux; // u ≈ south, v ≈ east (x east, z south)
+    const W = (u, v) => [cx + ux * u + vx * v, cz + uz * u + vz * v];
+    const RED = '#c8102e', WHITE = '#eeeeea', GREY = '#bdbbb5', CON = '#a9a69f', CON2 = '#8f8c85', TRACK = '#b5543f', APRON = '#3f7a68', GRASS = '#3f8a3a', GRASS2 = '#4a9a43';
+    // capsule (400 m track) sampled by arc length: half-straight A, radius r; returns [{u, v, nu, nv}]
+    const A = 42.195;
+    const capsule = (r, step = 3) => {
+        const o = [], L = 2 * A * 2 + 2 * Math.PI * r, n = Math.max(24, Math.round(L / step));
+        for (let i = 0; i < n; i++) {
+            let s = i / n * L; // start: east straight, north end → south end
+            if (s < 2 * A) { o.push({ u: -A + s, v: r, nu: 0, nv: 1 }); continue; } s -= 2 * A;
+            if (s < Math.PI * r) { const t = s / r; o.push({ u: A + Math.sin(t) * r, v: Math.cos(t) * r, nu: Math.sin(t), nv: Math.cos(t) }); continue; } s -= Math.PI * r;
+            if (s < 2 * A) { o.push({ u: A - s, v: -r, nu: 0, nv: -1 }); continue; } s -= 2 * A;
+            const t = s / r; o.push({ u: -A - Math.sin(t) * r, v: -Math.cos(t) * r, nu: -Math.sin(t), nv: -Math.cos(t) });
+        }
+        return o;
+    };
+    const poly = (cap) => cap.map(q => W(q.u, q.v));
+    const RI = 36.5, RO = 36.5 + 8 * 1.22, RA = RO + 3.2; // track inner / outer edge, outer apron
+    // ---- ground: apron (green-teal), red track with white lane lines, infield, pitch with mowing stripes and markings
+    // (each layer is a ring round the next one — no stacked coplanar faces, which flicker from the air)
+    const PL = 52, PW = 32.5, PM = 2;                                                     // half pitch (≈ 104 × 65 m) + grass margin
+    const pitchRect = [W(-PL - PM, -PW - PM), W(PL + PM, -PW - PM), W(PL + PM, PW + PM), W(-PL - PM, PW + PM)];
+    b.prism(poly(capsule(RA + 2.5)), 0, 0.08, '#7d8a7f', { holes: [poly(capsule(RA))] });  // service ring / concourse floor
+    b.prism(poly(capsule(RA)), 0, 0.12, APRON, { holes: [poly(capsule(RO))] });
+    b.prism(poly(capsule(RO)), 0, 0.16, TRACK, { holes: [poly(capsule(RI))] });
+    for (let k = 0; k <= 8; k++) { const r = RI + k * 1.22; b.prism(poly(capsule(r + 0.05, 4)), 0.16, 0.2, '#f4f1ec', { holes: [poly(capsule(r - 0.05, 4))], top: true }); }
+    b.prism(poly(capsule(RI)), 0, 0.15, TRACK, { holes: [pitchRect] });                     // the D zones (jumps, throws)
+    for (let i = 0; i < 18; i++) { const u0 = -PL - PM + i * (2 * PL + 2 * PM) / 18, u1 = u0 + (2 * PL + 2 * PM) / 18; b.prism([W(u0, -PW - PM), W(u1, -PW - PM), W(u1, PW + PM), W(u0, PW + PM)], 0, 0.16, i % 2 ? GRASS : GRASS2); }
+    const line = (u0, v0, u1, v1, w = 0.12) => { const L = Math.hypot(u1 - u0, v1 - v0), nu = -(v1 - v0) / L * w / 2, nv = (u1 - u0) / L * w / 2; b.prism([W(u0 + nu, v0 + nv), W(u1 + nu, v1 + nv), W(u1 - nu, v1 - nv), W(u0 - nu, v0 - nv)], 0.16, 0.21, '#f7f7f2'); };
+    line(-PL, -PW, PL, -PW); line(-PL, PW, PL, PW); line(-PL, -PW, -PL, PW); line(PL, -PW, PL, PW); line(0, -PW, 0, PW);
+    for (const s of [-1, 1]) { const g = s * PL; line(g, -20.16, g - s * 16.5, -20.16); line(g - s * 16.5, -20.16, g - s * 16.5, 20.16); line(g - s * 16.5, 20.16, g, 20.16);
+        line(g, -9.16, g - s * 5.5, -9.16); line(g - s * 5.5, -9.16, g - s * 5.5, 9.16); line(g - s * 5.5, 9.16, g, 9.16);
+        // goals: posts + crossbar (white), net frame
+        for (const v of [-3.66, 3.66]) { const [x, z] = W(g + s * 0.06, v); b.cyl(x, 0.16, z, 0.06, 0.06, 2.44, '#ffffff', 6); }
+        const [gx, gz] = W(g + s * 0.06, 0); b.box(gx, 2.5, gz, 0.12, 0.12, 7.4, '#ffffff', { ry: Math.atan2(ux, uz) });
+        const [nx2, nz2] = W(g + s * 1.6, 0); b.box(nx2, 0.16, nz2, 0.05, 2.2, 7.3, '#d8d8d8', { ry: Math.atan2(ux, uz) }); }
+    { const n = 40; for (let i = 0; i < n; i++) { const a0 = i / n * Math.PI * 2, a1 = (i + 1) / n * Math.PI * 2; line(Math.cos(a0) * 9.15, Math.sin(a0) * 9.15, Math.cos(a1) * 9.15, Math.sin(a1) * 9.15); } }
+    // ---- the bowl: terraces from the apron's outer edge up to the OSM outline, profile by sector
+    const inner = capsule(RA + 2.5, 3.2);
+    const rayHit = (px, pz, dx, dz) => { let best = Infinity; for (let i = 0; i < out.length; i++) { const [ax, az] = out[i], [bx, bz] = out[(i + 1) % out.length], ex = bx - ax, ez = bz - az, den = dx * ez - dz * ex; if (Math.abs(den) < 1e-9) continue; const t = ((ax - px) * ez - (az - pz) * ex) / den, s2 = ((ax - px) * dz - (az - pz) * dx) / den; if (t > 0 && s2 >= 0 && s2 <= 1 && t < best) best = t; } return best; };
+    const sector = (q) => {
+        if (q.u < -A - 4) return 'N';                                    // north curve: Peluza Cătălin Hildan
+        if (q.u > A + 4) return q.v > 8 ? 'SE' : q.v < -8 ? 'SW' : 'S';
+        return q.v > 0 ? 'E' : 'W';
+    };
+    const H = { N: 10.5, E: 12, W: 14, SE: 8.5, S: 4.5, SW: 2.6 };
+    const seatCol = (sec, k, t, T) => {
+        if (sec === 'SW' || sec === 'S') return null;                    // grassed embankment
+        const blk = Math.floor(k / 5);
+        if (sec === 'E') return t === T - 1 ? GREY : blk % 3 === 1 ? WHITE : RED;
+        if (sec === 'SE') return blk % 2 ? WHITE : RED;
+        if (sec === 'N') return blk % 4 === 0 ? GREY : WHITE;
+        return blk % 2 ? RED : '#a01a2b';                                // main stand: red
+    };
+    const T = 9, prof = [];
+    for (let k = 0; k < inner.length; k++) {
+        const q = inner[k], [ix, iz] = W(q.u, q.v); const dx = ux * q.nu + vx * q.nv, dz = uz * q.nu + vz * q.nv;
+        let d = rayHit(ix, iz, dx, dz); if (!isFinite(d) || d > 45) d = 20; d = Math.max(4, d - 0.4);
+        const sec = sector(q); prof.push({ ix, iz, dx, dz, d, sec, h: H[sec] });
+    }
+    const n = prof.length, P = (pr, t, y) => [pr.ix + pr.dx * pr.d * t, y, pr.iz + pr.dz * pr.d * t];
+    for (let k = 0; k < n; k++) {
+        const a = prof[k], c = prof[(k + 1) % n], h0 = 1.1, ha = a.h, hc = c.h;
+        const grass = !seatCol(a.sec, k, 0, T);
+        if (grass) { // grass embankment with a low wall at the track
+            b.quad(P(a, 0, h0 * 0.6), P(c, 0, h0 * 0.6), P(c, 1, hc), P(a, 1, ha), '#5f8a4a', 'm', [0, 1, 0]);
+            b.quad(P(a, 0, 0), P(c, 0, 0), P(c, 0, h0 * 0.6), P(a, 0, h0 * 0.6), CON, 'm', [-a.dx, 0, -a.dz]);
+        } else for (let t = 0; t < T; t++) {
+            const y0a = h0 + (ha - h0) * t / T, y1a = h0 + (ha - h0) * (t + 1) / T, y0c = h0 + (hc - h0) * t / T, y1c = h0 + (hc - h0) * (t + 1) / T;
+            b.quad(P(a, t / T, y0a), P(c, t / T, y0c), P(c, t / T, y1c), P(a, t / T, y1a), CON2, 'm', [-a.dx, 0, -a.dz]);           // riser
+            b.quad(P(a, t / T, y1a), P(c, t / T, y1c), P(c, (t + 1) / T, y1c), P(a, (t + 1) / T, y1a), seatCol(a.sec, k, t, T), 'm', [0, 1, 0]); // seat row
+        }
+        if (!grass) b.quad(P(a, 0, 0), P(c, 0, 0), P(c, 0, h0), P(a, 0, h0), '#e8e6e0', 'm', [-a.dx, 0, -a.dz]); // perimeter wall at the track
+        // back wall down to the street (concrete with a darker plinth), parapet on top
+        b.quad(P(a, 1, 0), P(c, 1, 0), P(c, 1, hc + 1.1), P(a, 1, ha + 1.1), CON, 'm', [a.dx, 0, a.dz]);
+        b.quad(P(a, 1, ha), P(c, 1, hc), P(c, 1, hc + 1.1), P(a, 1, ha + 1.1), CON2, 'm', [-a.dx, 0, -a.dz]);
+        b.quad(P(a, 1, ha + 1.1), P(c, 1, hc + 1.1), [P(c, 1, 0)[0] + c.dx * 0.3, hc + 1.1, P(c, 1, 0)[2] + c.dz * 0.3], [P(a, 1, 0)[0] + a.dx * 0.3, ha + 1.1, P(a, 1, 0)[2] + a.dz * 0.3], '#cfccc4', 'm', [0, 1, 0]);
+        if (k % 4 === 0 && !grass) { const [ox, , oz] = P(a, 1, 0); b.box(ox + a.dx * 0.4, 0, oz + a.dz * 0.4, 1.2, ha + 0.4, 1.2, '#9d9a92', { ry: Math.atan2(a.dx, a.dz) }); } // buttresses
+        // vomitories (dark openings) every ~25 m on the main sectors
+        if (!grass && k % 8 === 3) { const t0 = 0.45; const pa = P(a, t0, h0 + (ha - h0) * t0), pc = P(c, t0, h0 + (hc - h0) * t0); b.quad([pa[0], pa[1] + 0.02, pa[2]], [pc[0], pc[1] + 0.02, pc[2]], [pc[0] + c.dx * 2.5, pc[1] + 0.02, pc[2] + c.dz * 2.5], [pa[0] + a.dx * 2.5, pa[1] + 0.02, pa[2] + a.dz * 2.5], '#2a2a2a', 'm', [0, 1, 0]); }
+    }
+    // ---- main stand roof (west, Tribuna I): a cantilevered slab over the central ~110 m, on columns at the back
+    const west = prof.filter(p => p.sec === 'W');
+    if (west.length > 4) {
+        const mid = west.slice(Math.floor(west.length * 0.12), Math.ceil(west.length * 0.88));
+        for (let i = 0; i < mid.length - 1; i++) {
+            const a = mid[i], c = mid[i + 1], yb = a.h + 6.2, yf = a.h + 4.6;
+            const back = (p) => [p.ix + p.dx * (p.d + 0.6), 0, p.iz + p.dz * (p.d + 0.6)], front = (p) => [p.ix + p.dx * p.d * 0.22, 0, p.iz + p.dz * p.d * 0.22];
+            const ba = back(a), bc = back(c), fa = front(a), fc = front(c);
+            b.quad([ba[0], yb, ba[2]], [bc[0], yb, bc[2]], [fc[0], yf, fc[2]], [fa[0], yf, fa[2]], '#d9dcdf', 'm', [0, 1, 0]);
+            b.quad([ba[0], yb - 0.5, ba[2]], [fa[0], yf - 0.5, fa[2]], [fc[0], yf - 0.5, fc[2]], [bc[0], yb - 0.5, bc[2]], '#8c9196', 'm', [0, -1, 0]);
+            b.quad([fa[0], yf - 0.5, fa[2]], [fa[0], yf, fa[2]], [fc[0], yf, fc[2]], [fc[0], yf - 0.5, fc[2]], RED, 'm', [-a.dx, 0, -a.dz]); // red fascia
+            if (i % 3 === 0) { b.box(ba[0], a.h, ba[2], 0.6, yb - a.h, 0.6, '#7d8288'); b.strut([ba[0], yb - 0.4, ba[2]], [fa[0] * 0.5 + ba[0] * 0.5, yb - 0.4 - 0.8, fa[2] * 0.5 + ba[2] * 0.5], 0.25, 0.25, '#7d8288'); }
+        }
+        // VIP box / press row under the roof (glass band)
+        const vb = mid.map(p => [p.ix + p.dx * p.d * 0.92, p.iz + p.dz * p.d * 0.92]);
+        for (let i = 0; i < vb.length - 1; i++) b.quad([vb[i][0], mid[i].h - 0.2, vb[i][1]], [vb[i + 1][0], mid[i + 1].h - 0.2, vb[i + 1][1]], [vb[i + 1][0], mid[i + 1].h + 2.4, vb[i + 1][1]], [vb[i][0], mid[i].h + 2.4, vb[i][1]], '#3c4b57', 'g', [-mid[i].dx, 0, -mid[i].dz]);
+    }
+    // ---- scoreboard on the north curve, facing the pitch
+    { const q = prof.reduce((m, p) => (p.sec === 'N' && Math.abs(-(p.ix - cx) * vx - (p.iz - cz) * vz) < Math.abs(-(m.ix - cx) * vx - (m.iz - cz) * vz) ? p : m), prof.find(p => p.sec === 'N') || prof[0]);
+      const [sx, sz] = [q.ix + q.dx * q.d * 0.9, q.iz + q.dz * q.d * 0.9], ry = Math.atan2(q.dx, q.dz);
+      b.box(sx, q.h, sz, 16, 7, 1.2, '#1e2227', { ry }); b.box(sx - q.dx * 0.62, q.h + 0.8, sz - q.dz * 0.62, 14.4, 5.4, 0.05, '#20303a', { ry, mat: 'e' });
+      b.text('DINAMO', sx - q.dx * 0.7, q.h + 3.0, sz - q.dz * 0.7, ry + Math.PI, 1.6, '#e0302e', { mat: 'e' });
+      for (const s of [-1, 1]) b.box(sx + Math.cos(ry) * s * 6, 0, sz - Math.sin(ry) * s * 6, 0.8, q.h + 0.2, 0.8, '#6f747a'); }
+    // ---- four floodlight masts outside the corners (lattice-tapered shafts, a tilted lamp frame facing the centre)
+    for (const [su, sv] of [[-1, -1], [-1, 1], [1, -1], [1, 1]]) {
+        const ang = Math.atan2(sv * 0.62, su), qd = { nu: Math.cos(ang), nv: Math.sin(ang) };
+        const dx = ux * qd.nu + vx * qd.nv, dz = uz * qd.nu + vz * qd.nv;
+        const bx0 = cx + ux * su * (A + 4) + vx * sv * (RA + 2), bz0 = cz + uz * su * (A + 4) + vz * sv * (RA + 2);
+        const d = rayHit(bx0, bz0, dx, dz); const mx = bx0 + dx * ((isFinite(d) ? d : 25) + 3), mz = bz0 + dz * ((isFinite(d) ? d : 25) + 3);
+        const Hm = 44, ry = Math.atan2(dx, dz);
+        b.geo(new THREE.CylinderGeometry(0.55, 1.4, Hm, 4, 1), '#9aa1a8', M(mx, Hm / 2, mz, ry + Math.PI / 4));
+        for (let y = 4; y < Hm - 2; y += 4) b.box(mx, y, mz, 2.2 - y / Hm * 1.2, 0.12, 0.12, '#7e858c', { ry });
+        const hx = mx - dx * 1.2, hz = mz - dz * 1.2;
+        b.box(hx, Hm, hz, 9, 5.5, 0.5, '#5d636a', { ry, rx: 0 });
+        for (let i = 0; i < 4; i++) for (let j = 0; j < 3; j++) b.box(hx - dx * 0.3 + Math.cos(ry) * (i - 1.5) * 2.1, Hm + 0.5 + j * 1.7, hz - dz * 0.3 - Math.sin(ry) * (i - 1.5) * 2.1, 1.6, 1.2, 0.2, '#fff6dd', { ry, mat: 'e' });
+        b.col(mx, mz, 1.4, 1.4);
+    }
+    b.colPoly([out], 24);
+}
+
 const A = {
     parliament: [44.4275038, 26.0874035, -0.0698], cathedral: [44.4259297, 26.0822981, -0.0873], arcul: [44.4671902, 26.078127, -2.7925],
     casapresei: [44.4815236, 26.0709515, -1.2217], grandhotel: [44.4372925, 26.1022881, -2.7751], univ: [44.4355639, 26.1007589, -2.7925],
@@ -2771,7 +2906,7 @@ const A = {
     // rotation = road heading (model +x along the road): west high-rise dir (0.9995, 0.0326), east (0.9991, 0.0433)
     murroww: [47.5899055, -122.2849997, -0.0326], murrowe: [47.5892615, -122.2560025, -0.0433],
     seagarage: [47.4432823, -122.2992416, 0], sealink: [47.4452089, -122.2969786, 0],
-    gts: [44.433369, 26.1176015, 0], rosetti: [44.4671565, 26.106133, 0], bob: [44.479608, 26.1147802, 0], thelandmark: [44.450012, 26.0946079, 0], europehouse: [44.4511557, 26.087697, 0], halatraian: [44.4333566, 26.120567, 0], globalworth: [44.4792401, 26.1024141, 0],
+    gts: [44.433369, 26.1176015, 0], rosetti: [44.4671565, 26.106133, 0], dinamo: [44.4551306, 26.1023192, 0], bob: [44.479608, 26.1147802, 0], thelandmark: [44.450012, 26.0946079, 0], europehouse: [44.4511557, 26.087697, 0], halatraian: [44.4333566, 26.120567, 0], globalworth: [44.4792401, 26.1024141, 0],
 };
 
 function L(id, city, name, osmNames, radius, fn, extra = {}) {
@@ -2822,6 +2957,7 @@ export const LANDMARKS = [
     L('thelandmark', 'bucharest', 'The Landmark (UiPath HQ)', ['The Landmark Corp B'], 25, bTheLandmark, { cvStop: 'uipath-buc', ownSign: true }),
     L('europehouse', 'bucharest', 'Europe House', ['Europe House'], 24, bEuropeHouse, { cvStop: 'arnia', ownSign: true }),
     L('gts', 'bucharest', 'Calea Călărașilor 101 (GTS Global Intelligence)', [], 9.5, bGTS, { cvStop: 'gts', ownSign: true, floodlit: true }),
+    L('dinamo', 'bucharest', 'Stadionul Dinamo', ['Stadionul Dinamo', 'Peluza Catalin Hildan', 'Peluza Cătălin Hildan'], 95, bDinamo, { floodlit: true }),
     L('rosetti', 'bucharest', 'Liceul Teoretic C.A. Rosetti', ['Liceul Teoretic C.A. Rosetti', 'Liceul Teoretic „C.A. Rosetti”', 'Liceul C.A. Rosetti'], 26, bRosetti, { cvStop: 'rosetti', ownSign: true, floodlit: true }),
     L('bob', 'bucharest', 'BOB Tower (DB Global Technology)', ['BOB Tower'], 40, bBOB, { cvStop: 'db', ownSign: true }),
     L('halatraian', 'bucharest', 'Hala Traian', ['Hala Traian'], 12, bHalaTraian),

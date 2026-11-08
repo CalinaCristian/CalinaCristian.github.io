@@ -149,7 +149,7 @@ export function skyState(el, cover = 0.4) {
 
 // ============================================================================
 //  Snow: GPU flakes (THREE.Points) in a box that wraps around the camera. Slow fall, per-flake swirl, drifts with
-//  the wind relative to the car. Like Rain, all motion is in the vertex shader.
+//  the wind (world-anchored: driving through them does not drag them along). Like Rain, all motion is in the vertex shader.
 // ============================================================================
 export class Snow {
     constructor({ count = 6000, box = 46, height = 22, size = 0.06, opacity = 0.9 } = {}) {
@@ -177,7 +177,7 @@ export class Snow {
                     p.y = mod(p.y - uTime * fall, uH);
                     float age = uTime * (0.6 + aSeed);
                     vec3 swirl = vec3(sin(age * 1.7 + aSeed * 40.0), 0.0, cos(age * 1.3 + aSeed * 23.0)) * 0.35;
-                    vec3 drift = vec3(uVel.x, 0.0, uVel.z) * (p.y / max(fall, 0.1));
+                    vec3 drift = vec3(uVel.x, 0.0, uVel.z) * uTime * (0.8 + aSeed * 0.4); // wind only, carried over time: the flakes stay put in the world while the car moves (round 6 note 40)
                     vec3 w = vec3(mod(p.x - uCam.x - drift.x + swirl.x, uBox), p.y + uCam.y - uH * 0.35, mod(p.z - uCam.z - drift.z + swirl.z, uBox));
                     w.xz += uCam.xz - uBox * 0.5;
                     vec4 mv = modelViewMatrix * vec4(w, 1.0);
@@ -206,7 +206,7 @@ export class Snow {
         const u = this.uniforms;
         u.uTime.value += dt;
         u.uCam.value.copy(camPos);
-        u.uVel.value.set((wind ? wind.x : 0) - (carVel ? carVel.x : 0), -1.1, (wind ? wind.z : 0) - (carVel ? carVel.z : 0));
+        u.uVel.value.set(wind ? wind.x : 0, -1.1, wind ? wind.z : 0); void carVel; // (the car's own motion needs no term: the flakes are world-anchored)
     }
     dispose() { this.mesh.geometry.dispose(); this.mesh.material.dispose(); }
 }

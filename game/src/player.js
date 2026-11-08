@@ -279,19 +279,23 @@ export class Player {
             const one = this._one || (this._one = [null]);
             for (let pass = 0; pass < 2; pass++) {
                 let any = false;
-                for (const o of [1.3, 0, -1.3]) {
-                    const px = this.x + this.fx * o, pz = this.z + this.fz * o;
+                // three 1 m circles along the axis + (2026-11-08, owner: "collision happens after part of my car went inside")
+                // four 0.4 m circles at the body's corners: the corners stuck 0.2–0.3 m out of the axis circles
+                const hl = this.length / 2 - 0.4, hw = this.width / 2 - 0.35, lx = -this.fz, lz = this.fx;
+                const SAMPLES = this._colS || (this._colS = [[1.3, 0, 1.0], [0, 0, 1.0], [-1.3, 0, 1.0], [hl, hw, 0.4], [hl, -hw, 0.4], [-hl, hw, 0.4], [-hl, -hw, 0.4]]);
+                for (const [o, l, rad] of SAMPLES) {
+                    const px = this.x + this.fx * o + lx * l, pz = this.z + this.fz * o + lz * l;
                     let sx = 0, sz = 0, hit = null;
                     const test = (b) => {
                         if (!this.atLevel(b)) return;
-                        const dx = px - b.x, dz = pz - b.z, rr = (b.r ?? 0) + 1.0;
+                        const dx = px - b.x, dz = pz - b.z, rr = (b.r ?? 0) + rad;
                         if (dx * dx + dz * dz > rr * rr) return;
-                        one[0] = b; const r = collideBuildings(one, px, pz, 1.0, this.surfY ?? GROUND_Y);
+                        one[0] = b; const r = collideBuildings(one, px, pz, rad, this.surfY ?? GROUND_Y);
                         if (r) { sx += r.px; sz += r.pz; hit = b; }
                     };
                     if (w.buildings.query) w.buildings.query(px, pz, 3, test); else for (const b of w.buildings) test(b);
                     // wall segments (bridge parapets, retaining walls) if the world provides them
-                    const wr = this.wallsInBuildings() ? null : this.collideWalls(px, pz, 1.0);
+                    const wr = this.wallsInBuildings() ? null : this.collideWalls(px, pz, rad);
                     if (wr) { sx += wr.px; sz += wr.pz; hit = wr.wall; }
                     if (!hit) continue;
                     const pl = Math.hypot(sx, sz); if (pl < 1e-5) continue;

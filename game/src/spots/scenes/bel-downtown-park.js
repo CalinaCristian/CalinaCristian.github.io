@@ -227,6 +227,6 @@ export default {
         };
         ctx.sound('waterfall', -121, 125, 110, 1.3); ctx.sound('water', C.x, C.z - R, 60, 0.6); ctx.sound('birds', C.x, C.z, 200, 1); ctx.sound('traffic', 135, 40, 90, 0.6);
         ctx.spawns['bel-downtown-park'] = { x: sp.spawn.x + 6, z: sp.spawn.z - 6, heading: headingFromBearing(sp.spawn.heading_deg) };
-        void pc; void clamp; void globes;
+        void clamp; void globes;
     },
 };

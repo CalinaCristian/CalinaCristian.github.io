@@ -86,6 +86,15 @@
       }
     },
     {
+      "manifest": "game/overview/comparison-data/romana/context/summer-clear-day/manifest.json",
+      "kind": "perspective",
+      "frames": 37,
+      "verifiedImageHashes": 74,
+      "sourceCounts": {
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 37
+      }
+    },
+    {
       "manifest": "game/overview/comparison-data/grozavesti/manifest.json",
       "kind": "current",
       "frames": 100,

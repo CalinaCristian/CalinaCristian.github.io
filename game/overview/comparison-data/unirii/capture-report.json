@@ -1,13 +1,13 @@
 {
-  "startedAt": "2026-11-08T20:16:56.673Z",
-  "endedAt": "2026-11-08T20:27:38.007Z",
-  "elapsedSeconds": 641.334,
-  "source": "5eb8aab2daa82fd4febc7d3ec0f954c146d8c37fd6425eae16cc3696a598e055",
+  "startedAt": "2026-11-08T22:07:23.832Z",
+  "endedAt": "2026-11-08T22:24:28.197Z",
+  "elapsedSeconds": 1024.364,
+  "source": "b7e132441e0dab1e6158541c3dde25d7b620ca2ff7f263531048647dcfbc4e9c",
   "loaded": {
     "key": "bucharest-unirii",
     "city": "bucharest",
     "district": "unirii",
-    "ms": 37212,
+    "ms": 27468,
     "edges": 1054,
     "ribbons": 1263
   },

@@ -1,0 +1,1877 @@
+{
+  "parkingClearance": {
+    "candidates": 750,
+    "retained": 664,
+    "outsideSourceLot": 42,
+    "raisedSidewalk": 44,
+    "buildingBody": 0,
+    "canopySupport": 0,
+    "measuredLots": []
+  },
+  "phases": [
+    [
+      "Loading OpenStreetMap data…",
+      444
+    ],
+    [
+      "Building the road network…",
+      1294
+    ],
+    [
+      "Parks, rivers and lakes…",
+      532
+    ],
+    [
+      "Paving the streets…",
+      1200
+    ],
+    [
+      "Raising the buildings…",
+      2129
+    ],
+    [
+      "Opening the shops…",
+      44
+    ],
+    [
+      "Planting trees…",
+      913
+    ],
+    [
+      "Finishing…",
+      4736
+    ]
+  ],
+  "railways": {
+    "sourceWays": 5,
+    "renderedWays": 0,
+    "renderedMetres": 0,
+    "ties": 0,
+    "unresolved": [
+      {
+        "source": "w681892716",
+        "reason": "unknown-gauge-or-vertical-placement"
+      },
+      {
+        "source": "w681892717",
+        "reason": "unknown-gauge-or-vertical-placement"
+      },
+      {
+        "source": "w681892718",
+        "reason": "unknown-gauge-or-vertical-placement"
+      },
+      {
+        "source": "w1474519622",
+        "reason": "unknown-gauge-or-vertical-placement"
+      },
+      {
+        "source": "w1474519623",
+        "reason": "unknown-gauge-or-vertical-placement"
+      }
+    ]
+  },
+  "network": {
+    "scc": 383,
+    "mainNodes": 355,
+    "nodesOutside": 405,
+    "edgesOff": 417,
+    "weakComponents": 12
+  },
+  "edges": 782,
+  "walls": 345,
+  "wallPiecesCut": 51,
+  "piers": 1,
+  "furniture": 8,
+  "roadSigns": 69,
+  "roofAds": 0,
+  "roofAdList": [],
+  "backdrop": 945,
+  "sceneryStreets": 539,
+  "kerbParked": 56,
+  "marksDropped": [
+    {
+      "name": "DN1 — Calea Bucureștilor",
+      "type": "trunk",
+      "id": 105,
+      "lanes": [
+        2,
+        0
+      ],
+      "oneway": true,
+      "x": -572,
+      "z": -481,
+      "len": 12,
+      "cover": 0.93,
+      "out": 0
+    },
+    {
+      "name": "",
+      "type": "tertiary",
+      "id": 527,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -142,
+      "z": -500,
+      "len": 11,
+      "cover": 0.87,
+      "out": 0
+    },
+    {
+      "name": "DN1 — Calea Bucureștilor",
+      "type": "trunk",
+      "id": 15,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -603,
+      "z": 389,
+      "len": 11,
+      "cover": 0.81,
+      "out": 0
+    },
+    {
+      "name": "",
+      "type": "tertiary",
+      "id": 266,
+      "lanes": [
+        2,
+        0
+      ],
+      "oneway": true,
+      "x": -145,
+      "z": -500,
+      "len": 12,
+      "cover": 0.78,
+      "out": 0.01
+    },
+    {
+      "name": "",
+      "type": "tertiary",
+      "id": 264,
+      "lanes": [
+        2,
+        0
+      ],
+      "oneway": true,
+      "x": -157,
+      "z": -488,
+      "len": 14,
+      "cover": 0.09,
+      "out": 0.61
+    },
+    {
+      "name": "DN1 — Calea Bucureștilor",
+      "type": "trunk",
+      "id": 50,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -603,
+      "z": 689,
+      "len": 81,
+      "cover": 0.17,
+      "out": 0.51
+    },
+    {
+      "name": "",
+      "type": "tertiary",
+      "id": 772,
+      "lanes": [
+        2,
+        0
+      ],
+      "oneway": true,
+      "x": -174,
+      "z": -428,
+      "len": 8,
+      "cover": 0.13,
+      "out": 0.55
+    },
+    {
+      "name": "DN1 — Calea Bucureștilor",
+      "type": "trunk",
+      "id": 47,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -607,
+      "z": 818,
+      "len": 117,
+      "cover": 0.19,
+      "out": 0.31
+    },
+    {
+      "name": "DN1 — Calea Bucureștilor",
+      "type": "trunk",
+      "id": 57,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -591,
+      "z": 319,
+      "len": 102,
+      "cover": 0.18,
+      "out": 0.28
+    },
+    {
+      "name": "DN1 — Calea Bucureștilor",
+      "type": "trunk",
+      "id": 54,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -596,
+      "z": 476,
+      "len": 59,
+      "cover": 0.41,
+      "out": 0
+    },
+    {
+      "name": "DN1 — Calea Bucureștilor",
+      "type": "trunk",
+      "id": 52,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -598,
+      "z": 552,
+      "len": 17,
+      "cover": 0.38,
+      "out": 0
+    },
+    {
+      "name": "DN1 — Calea Bucureștilor",
+      "type": "trunk",
+      "id": 51,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -600,
+      "z": 605,
+      "len": 88,
+      "cover": 0.37,
+      "out": 0
+    },
+    {
+      "name": "DN1 — Calea Bucureștilor",
+      "type": "trunk",
+      "id": 56,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -594,
+      "z": 383,
+      "len": 27,
+      "cover": 0.37,
+      "out": 0
+    },
+    {
+      "name": "DN1 — Calea Bucureștilor",
+      "type": "trunk",
+      "id": 14,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -602,
+      "z": 358,
+      "len": 51,
+      "cover": 0.36,
+      "out": 0
+    },
+    {
+      "name": "",
+      "type": "tertiary",
+      "id": 310,
+      "lanes": [
+        2,
+        0
+      ],
+      "oneway": true,
+      "x": -452,
+      "z": -435,
+      "len": 26,
+      "cover": 0.04,
+      "out": 0.32
+    },
+    {
+      "name": "DN1 — Calea Bucureștilor",
+      "type": "trunk",
+      "id": 70,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -609,
+      "z": 902,
+      "len": 51,
+      "cover": 0.35,
+      "out": 0
+    },
+    {
+      "name": "DN1 — Calea Bucureștilor",
+      "type": "trunk",
+      "id": 129,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -568,
+      "z": -319,
+      "len": 40,
+      "cover": 0.34,
+      "out": 0
+    },
+    {
+      "name": "DN1 — Calea Bucureștilor",
+      "type": "trunk",
+      "id": 103,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -582,
+      "z": 63,
+      "len": 136,
+      "cover": 0.32,
+      "out": 0
+    },
+    {
+      "name": "DN1 — Calea Bucureștilor",
+      "type": "trunk",
+      "id": 102,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -587,
+      "z": 199,
+      "len": 137,
+      "cover": 0.29,
+      "out": 0
+    },
+    {
+      "name": "DN1 — Calea Bucureștilor",
+      "type": "trunk",
+      "id": 166,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -570,
+      "z": -279,
+      "len": 40,
+      "cover": 0.26,
+      "out": 0
+    },
+    {
+      "name": "DN1 — Calea Bucureștilor",
+      "type": "trunk",
+      "id": 131,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -562,
+      "z": -454,
+      "len": 32,
+      "cover": 0.26,
+      "out": 0
+    },
+    {
+      "name": "DN1 — Calea Bucureștilor",
+      "type": "trunk",
+      "id": 130,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -565,
+      "z": -388,
+      "len": 99,
+      "cover": 0.26,
+      "out": 0
+    },
+    {
+      "name": "DN1 — Calea Bucureștilor",
+      "type": "trunk",
+      "id": 49,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -604,
+      "z": 743,
+      "len": 26,
+      "cover": 0.25,
+      "out": 0
+    },
+    {
+      "name": "DN1 — Calea Bucureștilor",
+      "type": "trunk",
+      "id": 67,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -614,
+      "z": 1054,
+      "len": 41,
+      "cover": 0.24,
+      "out": 0
+    },
+    {
+      "name": "DN1 — Calea Bucureștilor",
+      "type": "trunk",
+      "id": 55,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -595,
+      "z": 421,
+      "len": 50,
+      "cover": 0.23,
+      "out": 0
+    },
+    {
+      "name": "DN1 — Calea Bucureștilor",
+      "type": "trunk",
+      "id": 53,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -598,
+      "z": 524,
+      "len": 39,
+      "cover": 0.22,
+      "out": 0
+    },
+    {
+      "name": "DN1 — Calea Bucureștilor",
+      "type": "trunk",
+      "id": 104,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -578,
+      "z": -58,
+      "len": 107,
+      "cover": 0.22,
+      "out": 0
+    },
+    {
+      "name": "DN1 — Calea Bucureștilor",
+      "type": "trunk",
+      "id": 65,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -617,
+      "z": 1124,
+      "len": 79,
+      "cover": 0.22,
+      "out": 0
+    },
+    {
+      "name": "DN1 — Calea Bucureștilor",
+      "type": "trunk",
+      "id": 165,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -573,
+      "z": -185,
+      "len": 148,
+      "cover": 0.21,
+      "out": 0
+    },
+    {
+      "name": "DN1 — Calea Bucureștilor",
+      "type": "trunk",
+      "id": 68,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -612,
+      "z": 984,
+      "len": 100,
+      "cover": 0.2,
+      "out": 0
+    }
+  ],
+  "raisedSidewalk": {
+    "pieces": 5713,
+    "corners": 141,
+    "joins": 140,
+    "skipped": [
+      {
+        "x": -598,
+        "z": 1034,
+        "why": "median"
+      },
+      {
+        "x": -598,
+        "z": 1034,
+        "why": "covered"
+      },
+      {
+        "x": -598,
+        "z": 1034,
+        "why": "self-crossing"
+      },
+      {
+        "x": -598,
+        "z": 1034,
+        "why": "median"
+      },
+      {
+        "x": -598,
+        "z": 1034,
+        "why": "covered"
+      },
+      {
+        "x": -598,
+        "z": 1034,
+        "why": "covered"
+      },
+      {
+        "x": -493,
+        "z": 652,
+        "why": "self-crossing"
+      },
+      {
+        "x": -493,
+        "z": 652,
+        "why": "median"
+      },
+      {
+        "x": -493,
+        "z": 652,
+        "why": "self-crossing"
+      },
+      {
+        "x": -493,
+        "z": 652,
+        "why": "covered"
+      },
+      {
+        "x": -493,
+        "z": 652,
+        "why": "median"
+      },
+      {
+        "x": -493,
+        "z": 652,
+        "why": "covered"
+      },
+      {
+        "x": -552,
+        "z": 650,
+        "why": "median"
+      },
+      {
+        "x": -707,
+        "z": 561,
+        "why": "self-crossing"
+      },
+      {
+        "x": -707,
+        "z": 561,
+        "why": "covered"
+      },
+      {
+        "x": -707,
+        "z": 561,
+        "why": "self-crossing"
+      },
+      {
+        "x": -707,
+        "z": 561,
+        "why": "covered"
+      },
+      {
+        "x": -707,
+        "z": 561,
+        "why": "self-crossing"
+      },
+      {
+        "x": -707,
+        "z": 561,
+        "why": "covered"
+      },
+      {
+        "x": -707,
+        "z": 561,
+        "why": "self-crossing"
+      },
+      {
+        "x": -707,
+        "z": 561,
+        "why": "covered"
+      },
+      {
+        "x": -706,
+        "z": 510,
+        "why": "covered"
+      },
+      {
+        "x": -706,
+        "z": 510,
+        "why": "self-crossing"
+      },
+      {
+        "x": -706,
+        "z": 510,
+        "why": "covered"
+      },
+      {
+        "x": -706,
+        "z": 510,
+        "why": "self-crossing"
+      },
+      {
+        "x": -706,
+        "z": 510,
+        "why": "covered"
+      },
+      {
+        "x": -510,
+        "z": -373,
+        "why": "median"
+      },
+      {
+        "x": -510,
+        "z": -373,
+        "why": "covered"
+      },
+      {
+        "x": -510,
+        "z": -373,
+        "why": "covered"
+      },
+      {
+        "x": -510,
+        "z": -373,
+        "why": "covered"
+      },
+      {
+        "x": -446,
+        "z": -406,
+        "why": "covered"
+      },
+      {
+        "x": -446,
+        "z": -406,
+        "why": "covered"
+      },
+      {
+        "x": -446,
+        "z": -406,
+        "why": "self-crossing"
+      },
+      {
+        "x": -446,
+        "z": -406,
+        "why": "covered"
+      },
+      {
+        "x": -446,
+        "z": -406,
+        "why": "median"
+      },
+      {
+        "x": -404,
+        "z": -412,
+        "why": "covered"
+      },
+      {
+        "x": -404,
+        "z": -412,
+        "why": "covered"
+      },
+      {
+        "x": -404,
+        "z": -412,
+        "why": "median"
+      },
+      {
+        "x": -404,
+        "z": -412,
+        "why": "self-crossing"
+      },
+      {
+        "x": -404,
+        "z": -412,
+        "why": "self-crossing"
+      },
+      {
+        "x": -271,
+        "z": -425,
+        "why": "self-crossing"
+      },
+      {
+        "x": -271,
+        "z": -425,
+        "why": "covered"
+      },
+      {
+        "x": -271,
+        "z": -425,
+        "why": "self-crossing"
+      },
+      {
+        "x": -271,
+        "z": -425,
+        "why": "covered"
+      },
+      {
+        "x": -271,
+        "z": -425,
+        "why": "covered"
+      },
+      {
+        "x": -673,
+        "z": -268,
+        "why": "self-crossing"
+      },
+      {
+        "x": -673,
+        "z": -268,
+        "why": "median"
+      },
+      {
+        "x": -673,
+        "z": -268,
+        "why": "self-crossing"
+      },
+      {
+        "x": -673,
+        "z": -268,
+        "why": "covered"
+      },
+      {
+        "x": -673,
+        "z": -268,
+        "why": "median"
+      },
+      {
+        "x": -673,
+        "z": -268,
+        "why": "covered"
+      },
+      {
+        "x": -558,
+        "z": -253,
+        "why": "covered"
+      },
+      {
+        "x": -558,
+        "z": -253,
+        "why": "covered"
+      },
+      {
+        "x": -558,
+        "z": -253,
+        "why": "self-crossing"
+      },
+      {
+        "x": -558,
+        "z": -253,
+        "why": "covered"
+      },
+      {
+        "x": -558,
+        "z": -253,
+        "why": "covered"
+      },
+      {
+        "x": -558,
+        "z": -253,
+        "why": "covered"
+      },
+      {
+        "x": -558,
+        "z": -253,
+        "why": "covered"
+      },
+      {
+        "x": -545,
+        "z": -249,
+        "why": "covered"
+      },
+      {
+        "x": -545,
+        "z": -249,
+        "why": "self-crossing"
+      }
+    ]
+  },
+  "greenQuads": 21446,
+  "fenceM": 226,
+  "bollards": 433,
+  "pitchesDressed": 5,
+  "fuel": [
+    {
+      "name": "Gazprom",
+      "x": -581,
+      "z": 750,
+      "canopy": true,
+      "source": "w918040928",
+      "sourceFootprint": true,
+      "topM": 4,
+      "clearanceM": 3,
+      "topSource": "estimate",
+      "clearanceSource": "OSM minimum",
+      "supports": 3,
+      "supportSource": "estimate"
+    },
+    {
+      "name": "Rompetrol",
+      "x": -567,
+      "z": 469,
+      "canopy": true,
+      "source": "w312547071",
+      "sourceFootprint": true,
+      "topM": 4,
+      "clearanceM": 3,
+      "topSource": "estimate",
+      "clearanceSource": "OSM minimum",
+      "supports": 4,
+      "supportSource": "estimate"
+    },
+    {
+      "name": "Rompetrol",
+      "x": -640,
+      "z": 406,
+      "canopy": true,
+      "source": "w918040922",
+      "sourceFootprint": true,
+      "topM": 4,
+      "clearanceM": 3,
+      "topSource": "estimate",
+      "clearanceSource": "OSM minimum",
+      "supports": 5,
+      "supportSource": "estimate"
+    },
+    {
+      "name": "OMV",
+      "x": -539,
+      "z": -230,
+      "canopy": true,
+      "source": "w244429098",
+      "sourceFootprint": true,
+      "topM": 5.2,
+      "clearanceM": 4.8,
+      "topSource": "estimate",
+      "clearanceSource": "estimate",
+      "supports": 2,
+      "supportSource": "estimate"
+    }
+  ],
+  "buildingRoofProfiles": {
+    "supplied": 1208,
+    "applied": 1208,
+    "rejected": [],
+    "uncertain": [],
+    "surfacesApplied": 75,
+    "surfacesRejected": [
+      "w406473919",
+      "w406473986",
+      "w1215062623",
+      "w1215078739",
+      "w1215078740",
+      "w1215078741",
+      "w1282750652",
+      "w1321861230",
+      "w1321861232",
+      "w1321861233",
+      "w1325276784",
+      "w1325276785",
+      "w1325276786",
+      "w1325276787",
+      "w1325276788",
+      "w1325276789",
+      "w1325276790",
+      "w1325276791",
+      "w1325276792",
+      "w1325276793",
+      "w1325276794",
+      "w1325276795",
+      "w1325276796",
+      "w1325276797",
+      "w1325276798",
+      "w1325276799",
+      "w1325276800",
+      "w1325276801",
+      "w1325276802",
+      "w1325276803",
+      "w1325276804",
+      "w1325276805",
+      "w1325276806",
+      "w1325276807",
+      "w1325276808",
+      "w1325276809",
+      "w1325276811"
+    ],
+    "canopies": {
+      "native": [
+        {
+          "sourceId": "w918040928",
+          "shape": "flat",
+          "totalM": 4,
+          "eavesM": 4,
+          "minimumM": 3
+        },
+        {
+          "sourceId": "w312547071",
+          "shape": "flat",
+          "totalM": 4,
+          "eavesM": 4,
+          "minimumM": 3
+        },
+        {
+          "sourceId": "w917838072",
+          "shape": "flat",
+          "totalM": 4,
+          "eavesM": 4,
+          "minimumM": 3.6
+        },
+        {
+          "sourceId": "w918040922",
+          "shape": "flat",
+          "totalM": 4,
+          "eavesM": 4,
+          "minimumM": 3
+        },
+        {
+          "sourceId": "w1244020417",
+          "shape": "flat",
+          "totalM": 4,
+          "eavesM": 4,
+          "minimumM": 3.6
+        },
+        {
+          "sourceId": "w244429098",
+          "shape": "flat",
+          "totalM": 5.2,
+          "eavesM": 5.2,
+          "minimumM": 4.8
+        },
+        {
+          "sourceId": "w406473919",
+          "shape": "flat",
+          "totalM": 7,
+          "eavesM": 7,
+          "minimumM": 6.4
+        },
+        {
+          "sourceId": "w406473986",
+          "shape": "flat",
+          "totalM": 6.4,
+          "eavesM": 6.4,
+          "minimumM": 5.8
+        },
+        {
+          "sourceId": "w1215048760",
+          "shape": "flat",
+          "totalM": 6,
+          "eavesM": 6,
+          "minimumM": 5
+        },
+        {
+          "sourceId": "w1215062623",
+          "shape": "flat",
+          "totalM": 9.6,
+          "eavesM": 9.6,
+          "minimumM": 9
+        }
+      ],
+      "legacyFlat": []
+    }
+  },
+  "profile": {
+    "merge": {
+      "deck": {
+        "chains": 1,
+        "targets": 26,
+        "ground": 695,
+        "raised": 7,
+        "maxY": 5.5
+      },
+      "final": {
+        "ramps": 33,
+        "liveDecks": 1,
+        "ground": 698,
+        "lowered": 16,
+        "raised": 13,
+        "overheadCaps": 0,
+        "maxY": 5.5
+      },
+      "tunnelApproach": {
+        "constraints": 2,
+        "turningPads": 2,
+        "lowered": 7,
+        "maxDrop": 2.754937968868883,
+        "kept": true
+      },
+      "gore": {
+        "lowered": 24,
+        "rounds": 4,
+        "left": 1,
+        "maxDrop": 1.17
+      }
+    },
+    "crossings": 3,
+    "overlaps": 491,
+    "clearanceViolations": 0,
+    "overlapSteps": 0,
+    "gradeResidual": 0,
+    "hardNodes": 475,
+    "nanAt": null
+  },
+  "buildingPassages": [],
+  "treesOSM": 15044,
+  "treesRows": 0,
+  "heightFixes": 0,
+  "heightFixSamples": [],
+  "buildingsShrunk": 0,
+  "buildingClearance": [
+    {
+      "source": "w918040928",
+      "before": 138.86672247000388,
+      "after": 138.86672247000388,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w312547035",
+      "before": 361.1957424050197,
+      "after": 361.1957424050197,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w312547071",
+      "before": 200.64777281496208,
+      "after": 200.64777281496208,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w918040929",
+      "before": 210.0438232099841,
+      "after": 210.0438232099841,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w918040931",
+      "before": 190.0580128300062,
+      "after": 190.0580128300062,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w918040932",
+      "before": 194.91161609001574,
+      "after": 194.91161609001574,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w918040933",
+      "before": 183.49707170002512,
+      "after": 183.49707170002512,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w918040934",
+      "before": 191.5320850499993,
+      "after": 191.5320850499993,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w217927380",
+      "before": 5638.405821754998,
+      "after": 5638.405821754998,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w244429094",
+      "before": 323.3920156050008,
+      "after": 323.3920156050008,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w1215048759",
+      "before": 5638.4058217549955,
+      "after": 5638.4058217549955,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w1215048760",
+      "before": 2316.571629825001,
+      "after": 2316.571629825001,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w1215078739",
+      "before": 672.6241376100079,
+      "after": 672.6241376100079,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    }
+  ],
+  "buildingsDropped": 0,
+  "buildingsCovered": [],
+  "buildingAssemblies": [
+    {
+      "mode": "union",
+      "outline": "w303678264",
+      "parts": [
+        "w303678273"
+      ],
+      "residualArea": 0,
+      "residualHeight": 16,
+      "residualHeightSource": "parent-height",
+      "residualHeights": [],
+      "cells": 0
+    },
+    {
+      "mode": "union",
+      "outline": "w303678275",
+      "parts": [
+        "w1322657298"
+      ],
+      "residualArea": 0,
+      "residualHeight": 12,
+      "residualHeightSource": "parent-height",
+      "residualHeights": [],
+      "cells": 0
+    },
+    {
+      "mode": "union",
+      "outline": "w42346888",
+      "parts": [
+        "w1322657318",
+        "w1322657320",
+        "w1322657321"
+      ],
+      "residualArea": 0,
+      "residualHeight": 10,
+      "residualHeightSource": "parent-height",
+      "residualHeights": [],
+      "cells": 0
+    },
+    {
+      "mode": "union",
+      "outline": "w276419887",
+      "parts": [
+        "w1322657319"
+      ],
+      "residualArea": 0,
+      "residualHeight": 12,
+      "residualHeightSource": "parent-height",
+      "residualHeights": [],
+      "cells": 0
+    },
+    {
+      "mode": "parts",
+      "outline": "w1215048759",
+      "parts": [
+        "w217927380"
+      ],
+      "residualArea": 0,
+      "residualHeight": 6,
+      "residualHeightSource": "adjacent-ground-part",
+      "residualHeights": [],
+      "cells": 0
+    }
+  ],
+  "buildingAssembliesRejected": [],
+  "buildingUnions": [
+    {
+      "source": "w303678264",
+      "neighbours": 1
+    },
+    {
+      "source": "w303678273",
+      "neighbours": 1
+    },
+    {
+      "source": "w303678275",
+      "neighbours": 1
+    },
+    {
+      "source": "w1194683448",
+      "neighbours": 3
+    },
+    {
+      "source": "w1321963962",
+      "neighbours": 1
+    },
+    {
+      "source": "w1321963963",
+      "neighbours": 1
+    },
+    {
+      "source": "w1321963964",
+      "neighbours": 1
+    },
+    {
+      "source": "w1322657298",
+      "neighbours": 1
+    },
+    {
+      "source": "w42346888",
+      "neighbours": 5
+    },
+    {
+      "source": "w217927380",
+      "neighbours": 2
+    },
+    {
+      "source": "w276419887",
+      "neighbours": 4
+    },
+    {
+      "source": "w406473986",
+      "neighbours": 1
+    },
+    {
+      "source": "w771096081",
+      "neighbours": 3
+    },
+    {
+      "source": "w771096082",
+      "neighbours": 4
+    },
+    {
+      "source": "w771096083",
+      "neighbours": 32
+    },
+    {
+      "source": "w771096084",
+      "neighbours": 1
+    },
+    {
+      "source": "w794617342",
+      "neighbours": 1
+    },
+    {
+      "source": "w813193384",
+      "neighbours": 1
+    },
+    {
+      "source": "w1215048760",
+      "neighbours": 1
+    },
+    {
+      "source": "w1215062623",
+      "neighbours": 1
+    },
+    {
+      "source": "w1215078739",
+      "neighbours": 4
+    },
+    {
+      "source": "w1215078740",
+      "neighbours": 3
+    },
+    {
+      "source": "w1215078741",
+      "neighbours": 2
+    },
+    {
+      "source": "w1282750652",
+      "neighbours": 2
+    },
+    {
+      "source": "w1321861230",
+      "neighbours": 5
+    },
+    {
+      "source": "w1321861231",
+      "neighbours": 13
+    },
+    {
+      "source": "w1321861232",
+      "neighbours": 3
+    },
+    {
+      "source": "w1321861233",
+      "neighbours": 3
+    },
+    {
+      "source": "w1322657318",
+      "neighbours": 1
+    },
+    {
+      "source": "w1322657319",
+      "neighbours": 4
+    },
+    {
+      "source": "w1322657320",
+      "neighbours": 3
+    },
+    {
+      "source": "w1322657321",
+      "neighbours": 3
+    },
+    {
+      "source": "w1325276784",
+      "neighbours": 3
+    },
+    {
+      "source": "w1325276785",
+      "neighbours": 3
+    },
+    {
+      "source": "w1325276786",
+      "neighbours": 3
+    },
+    {
+      "source": "w1325276787",
+      "neighbours": 2
+    },
+    {
+      "source": "w1325276788",
+      "neighbours": 2
+    },
+    {
+      "source": "w1325276789",
+      "neighbours": 3
+    },
+    {
+      "source": "w1325276790",
+      "neighbours": 3
+    },
+    {
+      "source": "w1325276791",
+      "neighbours": 2
+    },
+    {
+      "source": "w1325276792",
+      "neighbours": 3
+    },
+    {
+      "source": "w1325276793",
+      "neighbours": 3
+    },
+    {
+      "source": "w1325276794",
+      "neighbours": 3
+    },
+    {
+      "source": "w1325276795",
+      "neighbours": 3
+    },
+    {
+      "source": "w1325276796",
+      "neighbours": 3
+    },
+    {
+      "source": "w1325276797",
+      "neighbours": 3
+    },
+    {
+      "source": "w1325276798",
+      "neighbours": 3
+    },
+    {
+      "source": "w1325276799",
+      "neighbours": 3
+    },
+    {
+      "source": "w1325276800",
+      "neighbours": 2
+    },
+    {
+      "source": "w1325276801",
+      "neighbours": 2
+    },
+    {
+      "source": "w1325276802",
+      "neighbours": 2
+    },
+    {
+      "source": "w1325276803",
+      "neighbours": 2
+    },
+    {
+      "source": "w1325276804",
+      "neighbours": 2
+    },
+    {
+      "source": "w1325276805",
+      "neighbours": 2
+    },
+    {
+      "source": "w1325276806",
+      "neighbours": 2
+    },
+    {
+      "source": "w1325276807",
+      "neighbours": 2
+    },
+    {
+      "source": "w1325276808",
+      "neighbours": 2
+    },
+    {
+      "source": "w1325276809",
+      "neighbours": 2
+    },
+    {
+      "source": "w1325276811",
+      "neighbours": 2
+    }
+  ],
+  "buildingUnionsRejected": [],
+  "landmarkSourceReplacements": [
+    {
+      "landmark": "otp",
+      "declared": [
+        "r16476195",
+        "w1321861231",
+        "w771096081",
+        "w771096082",
+        "w771096083",
+        "w794617342"
+      ],
+      "replaced": [
+        "r16476195",
+        "w771096081",
+        "w771096082",
+        "w771096083",
+        "w794617342",
+        "w1321861231"
+      ],
+      "unmatched": []
+    }
+  ],
+  "landmarkBoxesTrimmed": 0,
+  "landmarkBoxesDropped": 0,
+  "lampsMovedToKerb": 0,
+  "lampsInWater": 0,
+  "shoreTris": 13808,
+  "vacantUnits": 0,
+  "channelM": 0,
+  "unitSigns": 2,
+  "unitSignSpots": [
+    [
+      -692,
+      -253,
+      3
+    ],
+    [
+      -670,
+      -259,
+      3
+    ]
+  ],
+  "crossings": 3,
+  "corridorKm2": 0.64,
+  "nodes": 354,
+  "buildings": 1201,
+  "pois": 73,
+  "trees": 15677,
+  "parked": 664,
+  "lights": 0,
+  "lamps": 145,
+  "osmLamps": 0,
+  "cells": 205,
+  "triangles": 2042086,
+  "meshes": 677,
+  "signPages": 1,
+  "buildMs": 11292,
+  "scenerySource": {
+    "precisePieces": 539,
+    "literalWidthPieces": 4,
+    "reviewedWidthPieces": 2,
+    "estimatedWidthPieces": 533,
+    "fallbackPieces": 0,
+    "resolvedWidths": [
+      {
+        "piece": 0,
+        "sourceId": "w27245927",
+        "widthM": 5.96,
+        "leftM": 2.98,
+        "rightM": 2.98,
+        "widthSource": "independent aerial measurement",
+        "review": {
+          "sourceRoadId": "w27245927",
+          "widthM": 5.96,
+          "source": "independent aerial measurement",
+          "uncertaintyM": 1.1,
+          "evidence": [
+            "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+          ],
+          "measurement": {
+            "metresPerPixel": 0.21276029596824333,
+            "calipers": [
+              {
+                "a": [
+                  300.297,
+                  271
+                ],
+                "b": [
+                  299.579,
+                  299
+                ]
+              },
+              {
+                "a": [
+                  600.366,
+                  276
+                ],
+                "b": [
+                  599.648,
+                  304
+                ]
+              },
+              {
+                "a": [
+                  1340.336,
+                  296
+                ],
+                "b": [
+                  1339.599,
+                  325
+                ]
+              },
+              {
+                "a": [
+                  2320.409,
+                  318
+                ],
+                "b": [
+                  2319.723,
+                  345
+                ]
+              }
+            ],
+            "mosaicSha256": "55de1e59190f8a2fb6bfe40044708c95dcac4ad309d04ffe3d22b8785b7e3e8a",
+            "mosaic": {
+              "z": 19,
+              "px0": 76828160,
+              "py0": 48514560,
+              "w": 2816,
+              "h": 768
+            },
+            "scope": "travel carriageway excluding parking and sidewalks",
+            "acquisitionDate": "unknown",
+            "accessedAt": "2026-11-08"
+          },
+          "note": "Strada Mărășești retains its explicit two lanes. Measures the two live travel lanes between visible kerb parking bands; excludes parked-car bands, sidewalks and property forecourts. The full approximately 530 m source way was inspected; local centre-line offset and roadside parking vary, so constant asymmetric extents are not asserted."
+        }
+      },
+      {
+        "piece": 317,
+        "sourceId": "w1155619056",
+        "widthM": 3,
+        "leftM": 1.5,
+        "rightM": 1.5,
+        "widthSource": "OSM width",
+        "rawWidth": "3"
+      },
+      {
+        "piece": 318,
+        "sourceId": "w1155619057",
+        "widthM": 3,
+        "leftM": 1.5,
+        "rightM": 1.5,
+        "widthSource": "OSM width",
+        "rawWidth": "3"
+      },
+      {
+        "piece": 319,
+        "sourceId": "w1155619058",
+        "widthM": 3,
+        "leftM": 1.5,
+        "rightM": 1.5,
+        "widthSource": "OSM width",
+        "rawWidth": "3"
+      },
+      {
+        "piece": 320,
+        "sourceId": "w1155619059",
+        "widthM": 3,
+        "leftM": 1.5,
+        "rightM": 1.5,
+        "widthSource": "OSM width",
+        "rawWidth": "3"
+      },
+      {
+        "piece": 322,
+        "sourceId": "w1244012654",
+        "widthM": 5.75,
+        "leftM": 3.08,
+        "rightM": 2.67,
+        "widthSource": "independent aerial measurement",
+        "review": {
+          "sourceRoadId": "w1244012654",
+          "widthM": 5.75,
+          "source": "independent aerial measurement",
+          "uncertaintyM": 0.8,
+          "evidence": [
+            "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+          ],
+          "measurement": {
+            "metresPerPixel": 0.21273799182602654,
+            "calipers": [
+              {
+                "a": [
+                  200.333,
+                  399
+                ],
+                "b": [
+                  199.503,
+                  426
+                ]
+              },
+              {
+                "a": [
+                  350.45,
+                  400
+                ],
+                "b": [
+                  349.611,
+                  427
+                ]
+              },
+              {
+                "a": [
+                  480.451,
+                  404
+                ],
+                "b": [
+                  479.674,
+                  429
+                ]
+              }
+            ],
+            "mosaicSha256": "4f5a3d1a5981fcdbb17d9a84dd9a3977ec528ba192f8ba534f6208ee9514101a",
+            "mosaic": {
+              "z": 19,
+              "px0": 76827392,
+              "py0": 48511232,
+              "w": 1024,
+              "h": 768
+            },
+            "scope": "travel carriageway excluding parking and sidewalks",
+            "acquisitionDate": "unknown",
+            "accessedAt": "2026-11-08"
+          },
+          "note": "Asphalt housing access drive. Excludes the perpendicular white-lined parking bays and private entrance aprons on both sides. The original source way runs eastward: its measured left side is north and right side south. Side extents are medians of independent local normal calipers, with the stated uncertainty; no source node is moved.",
+          "leftM": 3.08,
+          "rightM": 2.67
+        }
+      }
+    ],
+    "issues": [],
+    "bridges": {
+      "policy": "MODEL estimate: exact source connectivity; final core ties; 5.2m road clearance, 0.4m slab, 8% approaches / 2.8% decks; river/rail-only bridges at grade",
+      "bridgePieces": 7,
+      "approachPieces": 2,
+      "coreTies": 6,
+      "crossings": 8,
+      "unresolved": [],
+      "pieces": [
+        {
+          "piece": 70,
+          "sourceId": "w433374754",
+          "bridge": true,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 0,
+          "coreTies": 0,
+          "renderedSegments": 1,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 96,
+          "sourceId": "w1076321403",
+          "bridge": true,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 0,
+          "coreTies": 0,
+          "renderedSegments": 2,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 229,
+          "sourceId": "w39728276",
+          "bridge": true,
+          "minDisplacementM": 1.2542962523430865,
+          "maxDisplacementM": 5.330301548840095,
+          "coreTies": 0,
+          "renderedSegments": 15,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 230,
+          "sourceId": "w45404679",
+          "bridge": false,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 2.105377062326806,
+          "coreTies": 1,
+          "renderedSegments": 11,
+          "alreadyRenderedCoreSegments": 2,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 232,
+          "sourceId": "w123203365",
+          "bridge": true,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 5.6000000000000005,
+          "coreTies": 0,
+          "renderedSegments": 54,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 251,
+          "sourceId": "w262941486",
+          "bridge": false,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 1.2542962523430865,
+          "coreTies": 1,
+          "renderedSegments": 11,
+          "alreadyRenderedCoreSegments": 2,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 257,
+          "sourceId": "w313002848",
+          "bridge": true,
+          "minDisplacementM": 2.105377062326806,
+          "maxDisplacementM": 5.6000000000000005,
+          "coreTies": 0,
+          "renderedSegments": 18,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 274,
+          "sourceId": "w843293725",
+          "bridge": true,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 0,
+          "coreTies": 0,
+          "renderedSegments": 2,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 402,
+          "sourceId": "w313002849",
+          "bridge": true,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 5.6000000000000005,
+          "coreTies": 0,
+          "renderedSegments": 51,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        }
+      ]
+    }
+  },
+  "waterShore": [
+    {
+      "mesh": "water -2,1",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [],
+      "sourceSegments": 0,
+      "vertices": 18360,
+      "faces": 6120,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water -2,0",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [],
+      "sourceSegments": 0,
+      "vertices": 22968,
+      "faces": 7656,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water -2,-1",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [],
+      "sourceSegments": 0,
+      "vertices": 96,
+      "faces": 32,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    }
+  ]
+}

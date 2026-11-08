@@ -1,0 +1,204 @@
+{
+  "reviewedAt": "2026-11-08",
+  "sourceCommit": "b9e8f57",
+  "dataSha256": "d0baaf824195e86e1a85f6bcbb622340324f3030d19a676ad6e1f9aff5820cab",
+  "scope": "raw source relation between the Patriarchal Cathedral portico podium and independent round roof; not a metro entrance",
+  "rows": [
+    {
+      "sourceId": "w1053336774",
+      "index": 411,
+      "areaM2": 311.35968933501863,
+      "ring": [
+        [
+          -846.571,
+          580.8203
+        ],
+        [
+          -842.5406,
+          589.133
+        ],
+        [
+          -836.7534,
+          586.3435
+        ],
+        [
+          -835.6484,
+          588.6329
+        ],
+        [
+          -829.0027,
+          585.4545
+        ],
+        [
+          -826.2204,
+          584.1209
+        ],
+        [
+          -821.0532,
+          581.6538
+        ],
+        [
+          -822.2138,
+          579.2089
+        ],
+        [
+          -816.3233,
+          576.3083
+        ],
+        [
+          -820.3775,
+          568.0179
+        ],
+        [
+          -826.284,
+          570.9629
+        ],
+        [
+          -833.6611,
+          574.5747
+        ],
+        [
+          -840.7758,
+          578.0198
+        ]
+      ],
+      "heightM": 12.8,
+      "minimumM": 0,
+      "sourceUrl": "https://www.openstreetmap.org/way/1053336774"
+    },
+    {
+      "sourceId": "w1177642893",
+      "index": 506,
+      "areaM2": 311.5007024600345,
+      "ring": [
+        [
+          -846.571,
+          580.8203
+        ],
+        [
+          -842.5406,
+          589.133
+        ],
+        [
+          -836.7534,
+          586.3435
+        ],
+        [
+          -835.6484,
+          588.6329
+        ],
+        [
+          -829.0027,
+          585.4545
+        ],
+        [
+          -826.2204,
+          584.1209
+        ],
+        [
+          -821.0532,
+          581.6538
+        ],
+        [
+          -822.2138,
+          579.2089
+        ],
+        [
+          -816.3233,
+          576.3083
+        ],
+        [
+          -820.3775,
+          568.0179
+        ],
+        [
+          -826.284,
+          570.9629
+        ],
+        [
+          -840.7758,
+          578.0198
+        ]
+      ],
+      "heightM": 1,
+      "minimumM": 0,
+      "sourceUrl": "https://www.openstreetmap.org/way/1177642893"
+    },
+    {
+      "sourceId": "w1177641591",
+      "index": 505,
+      "areaM2": 191.43157876000623,
+      "ring": [
+        [
+          -840.7758,
+          578.0198
+        ],
+        [
+          -836.7534,
+          586.3435
+        ],
+        [
+          -835.6484,
+          588.6329
+        ],
+        [
+          -829.0027,
+          585.4545
+        ],
+        [
+          -826.2204,
+          584.1209
+        ],
+        [
+          -821.0532,
+          581.6538
+        ],
+        [
+          -822.2138,
+          579.2089
+        ],
+        [
+          -826.284,
+          570.9629
+        ]
+      ],
+      "heightM": 4,
+      "minimumM": 2.4,
+      "sourceUrl": "https://www.openstreetmap.org/way/1177641591"
+    }
+  ],
+  "coverage": {
+    "area": 311.35968933501863,
+    "uncovered": 0,
+    "outside": 0.14101312498678453
+  },
+  "sourceTags": {
+    "w1053336774": {
+      "building": "yes"
+    },
+    "w1177642893": {
+      "area": "yes",
+      "building:part": "yes",
+      "height": "1"
+    },
+    "w1177641591": {
+      "building": "roof",
+      "height": "4",
+      "layer": "1",
+      "roof:colour": "#00BFFF",
+      "roof:direction": "180",
+      "roof:shape": "round"
+    }
+  },
+  "finding": "The untagged parent height12.8 estimate masks a literal1m part covering100% of its source footprint and an independent4m round roof. No literal source dimension requires that estimated tall block.",
+  "status": "approved narrowly by parent; guarded research input ready for compilation and native proof; old12.8m baseline retained above",
+  "imagery": "Independent Esri crop confirms a low portico roof; source roof colour is explicitly cyan and wins over the grey aerial appearance. Reference imagery remains private; no Google imagery extraction.",
+  "resolution": {
+    "parentTotalM": 1,
+    "classification": "derived source-part estimate, not a literal parent height or aerial field measurement",
+    "independentRoofTotalM": 4,
+    "partTotalM": 1,
+    "sourceRingsAndIdentities": "all3 retained unchanged",
+    "guard": "Opt-in reviewed source part: original parent dimensions absent, source part literal height1 and ground minimum, complete source coverage and only.1% tolerated outside, no unreviewed holes; fail closed on source changes"
+  }
+}

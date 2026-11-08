@@ -158,3 +158,5 @@ hardware or reading-count award; its suspension-bridge award requires continuous
 Walking courses register `onActivityCancel(ctx, cancel)` for host takeovers. `SpotSession.cancelActivities()` clears their
 partial progress immediately when the host opens a mode that freezes scene updates; visibility listeners are disposed with
 the scene. This covers Palace pacing, the ravine crossing, the promenade loop and an unfinished Carusel climb.
+Drone altitude queries use `ground.flightHeightAt()`: actual terrain, reachable deck surfaces and the declared water level.
+The walker's deep-water/steep-sculpture `y + 50` movement barrier remains confined to `groundAt()`.

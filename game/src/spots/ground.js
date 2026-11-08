@@ -244,6 +244,17 @@ export class Ground {
      * at most ~head height above the feet (so a bridge deck overhead is ignored); steep sculpture cells above the
      * feet act as walls (a huge value → the controller refuses the move).
      */
+    /** Physical support for aircraft. Walker water/steep barriers use y + 50;
+     * that movement sentinel must never become an aircraft's ground altitude. */
+    flightHeightAt(x, z, y = 0) {
+        let g = this.heightAt(x, z);
+        for (const s of this.surfaces) {
+            if (Math.abs(x - s.x) > s.r || Math.abs(z - s.z) > s.r || s.bottom > y + 1.6 || !s.contains(x, z)) continue;
+            const t = s.top(x, z); if (Number.isFinite(t) && t > g) g = t;
+        }
+        if (Number.isFinite(this.waterY)) g = Math.max(g, this.waterY);
+        return g;
+    }
     groundAt(x, z, y = 0) {
         let g = this.heightAt(x, z);
         for (const s of this.surfaces) {

@@ -17,8 +17,9 @@ function compareLink(location,label,{lat,lon,targetLabel,scope='core'}={}) {
   return `<a href="?${esc(params.toString())}#comparisons" data-compare-location="${esc(location)}" data-compare-scope="${esc(scope)}"${extra}>${esc(label)}</a>`;
 }
 let viewer, landmarkEvidence, spotEvidence;
+const contextReady = import('./perspective-viewer.js').then(({mountPerspectiveViewer}) => mountPerspectiveViewer($('#perspective-viewer'))).catch(() => null);
 const comparisonReady=import('./comparison-viewer.js').then(async ({mountComparisonViewer})=>{
-  viewer=await mountComparisonViewer($('#comparison-viewer'),{baseURL:new URL('./comparison-data/',import.meta.url)});
+  viewer=await mountComparisonViewer($('#comparison-viewer'),{baseURL:new URL('./comparison-data/',import.meta.url),onLocation:id=>contextReady.then(control=>control?.show(id))});
   return viewer;
 }).catch(error=>{ $('#comparison-viewer').innerHTML='<p class="notice">Comparison viewer is unavailable in this copy. The source inventories and technical guide remain available.</p>'; console.error('Comparison viewer could not load:',error.message); return null; });
 document.addEventListener('click',async event=>{

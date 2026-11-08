@@ -82,7 +82,7 @@ export function createAerialCache({ttl = 15 * 60 * 1000, limit = 96} = {}) {
 }
 
 /** Mount within an overview section. Resolves to {dispose(), setLocation(id, options), setState(options)}. */
-export async function mountComparisonViewer(element, {baseURL = new URL('./comparison-data/', import.meta.url)} = {}) {
+export async function mountComparisonViewer(element, {baseURL = new URL('./comparison-data/', import.meta.url), onLocation = () => {}} = {}) {
   const root = document.createElement('div');
   root.className = 'cv-viewer'; root.tabIndex = -1;
   root.innerHTML = '<p class="cv-message" role="status">Loading comparison locations…</p>';
@@ -290,6 +290,7 @@ export async function mountComparisonViewer(element, {baseURL = new URL('./compa
       const baselineCount = latest.items.filter(x=>x.dataset==='published').length, hasBaseline = baselineCount > 0; if(!hasBaseline || state.archive) state.baseline = false;
       collectionItems = state.archive ? manifest.items : manifest.items.filter(x=>state.baseline?x.dataset==='published':x.dataset!=='published');
       $('location').value = state.location;
+      onLocation(state.location);
       const collection = $('collection'); collection.replaceChildren();
       const choices = [['survey',`District survey · ${latest.items.length-baselineCount} views`],...(hasBaseline?[['baseline',`${baselineCount} published baseline views`]]:[])];
       for(const history of latest.historicalCollections || []) {

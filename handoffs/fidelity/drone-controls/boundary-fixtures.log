@@ -1,0 +1,10 @@
+PASS Euclidean150m buffer on edges and rounded corners
+PASS outward speed stops; tangential and inward speed remain
+PASS approach braking is gradual and preserves tangent velocity
+PASS concavity blocks a shortcut and A* routes around it
+PASS holes remain excluded and return routes go around them
+PASS rotated diagonal boundaries project to nearest edge
+PASS separate islands cannot be crossed by a fast step
+PASS union of declared landmark/member extents stays traversable
+PASS safe return remains within manual range
+9/9 drone boundary fixtures passed

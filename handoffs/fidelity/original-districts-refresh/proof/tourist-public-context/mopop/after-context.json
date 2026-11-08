@@ -1,0 +1,1160 @@
+{
+  "schemaVersion": 1,
+  "id": "mopop",
+  "sceneId": "seattle-center",
+  "name": "Museum of Pop Culture (MoPOP)",
+  "city": "seattle",
+  "status": "needs_review",
+  "origin": {
+    "lat": 47.6205063,
+    "lon": -122.3493043,
+    "elev": 40.5
+  },
+  "projection": {
+    "mLat": 111182.94,
+    "mLon": 75171.03
+  },
+  "sourceGeometry": {
+    "consumer": {
+      "sourceRecords": 93,
+      "sourceIds": [
+        "r16176520",
+        "r20085315",
+        "w161609433",
+        "w231714829",
+        "w231764919",
+        "w231764922",
+        "w231764936",
+        "w241876407",
+        "w329416198",
+        "w359861671",
+        "w373712573",
+        "w394260006",
+        "w394260008",
+        "w394260012",
+        "w394955876",
+        "w394955877",
+        "w394955878",
+        "w394955903",
+        "w417682780",
+        "w1534908988",
+        "w1534908989",
+        "w1534908990",
+        "w1534908991",
+        "w1534908992",
+        "w1534908993",
+        "w1534908994",
+        "r5910223",
+        "w43114979",
+        "w56817917",
+        "w68666650",
+        "w122317424",
+        "w137152920",
+        "w231714824",
+        "w231714825",
+        "w231714826",
+        "w231714827",
+        "w231714828",
+        "w231714830",
+        "w231714831",
+        "w231761524",
+        "w231764925",
+        "w231764926",
+        "w231764930",
+        "w231764934",
+        "w231764935",
+        "w231764943",
+        "w231764945",
+        "w231764946",
+        "w394283524",
+        "w394955882",
+        "w394955883",
+        "w394955887",
+        "w394955890",
+        "w394955894",
+        "w394955898",
+        "w394955899",
+        "w394955902",
+        "w394955907",
+        "w394955909",
+        "w394955910",
+        "w394955911",
+        "w417682781",
+        "w436966882",
+        "w1125094827",
+        "w1125131333",
+        "w1125131334",
+        "w1144537186",
+        "w1144537187",
+        "w1144537188",
+        "w1220369176",
+        "w1220369177",
+        "w1220369181",
+        "w1220369196",
+        "r18160791",
+        "w25123756",
+        "w108121486",
+        "w231761491",
+        "w231764921",
+        "w394511983",
+        "w411521517",
+        "w1270549342",
+        "w1323736966",
+        "w1352647807",
+        "w1352647810",
+        "w1352647812",
+        "w1352666990",
+        "w1354412677",
+        "w56629742",
+        "w56629825",
+        "w98069764",
+        "w137152921",
+        "w161070746",
+        "w372649952"
+      ],
+      "literalHeights": 55,
+      "levelHeightEstimates": 0,
+      "typeHeightEstimates": 38,
+      "assemblies": [
+        {
+          "source": "w394955903",
+          "parts": [
+            "w394955877",
+            "w394955878",
+            "w394955890",
+            "w394955894",
+            "w394955898",
+            "w394955899"
+          ],
+          "mode": "union",
+          "coverage": 0.4351385223969957,
+          "residuals": 0,
+          "residualHeight": 2
+        },
+        {
+          "source": "w1144537186",
+          "parts": [
+            "w1144537187",
+            "w1144537188"
+          ],
+          "mode": "parts",
+          "coverage": 1,
+          "residuals": 0,
+          "residualHeight": 6.86
+        },
+        {
+          "source": "w25123756",
+          "parts": [
+            "w411521517",
+            "w1352647807",
+            "w1352647810",
+            "w1352647812"
+          ],
+          "mode": "union",
+          "coverage": 0.9099025628464946,
+          "residuals": 0,
+          "residualHeight": 35
+        },
+        {
+          "source": "w231764921",
+          "parts": [
+            "w1354412677"
+          ],
+          "mode": "union",
+          "coverage": 0.22045505575933577,
+          "residuals": 0,
+          "residualHeight": 11
+        }
+      ],
+      "dropped": 0,
+      "inset": 0,
+      "issues": [],
+      "cacheHit": true,
+      "buildMs": 280,
+      "renderedVolumes": 92,
+      "heroReplacements": [
+        "w12903132",
+        "w329416207",
+        "w161587742",
+        "w1092469435",
+        "r19745997",
+        "w394254329",
+        "w394254331",
+        "w394254332",
+        "w394254333",
+        "w394254334",
+        "w394254335",
+        "w394254336",
+        "w394254337",
+        "w394254484",
+        "w394254485",
+        "w394254486",
+        "w394254487",
+        "w394254488",
+        "w394956342",
+        "w394956343",
+        "w394956344"
+      ]
+    },
+    "physicalMembership": [
+      {
+        "source": "r16176520",
+        "residual": false,
+        "volume": 0
+      },
+      {
+        "source": "r20085315",
+        "residual": false,
+        "volume": 2
+      },
+      {
+        "source": "w161609433",
+        "residual": false,
+        "volume": 5
+      },
+      {
+        "source": "w231714829",
+        "residual": false,
+        "volume": 6
+      },
+      {
+        "source": "w231764919",
+        "residual": false,
+        "volume": 7
+      },
+      {
+        "source": "w231764922",
+        "residual": false,
+        "volume": 8
+      },
+      {
+        "source": "w231764936",
+        "residual": false,
+        "volume": 9
+      },
+      {
+        "source": "w241876407",
+        "residual": false,
+        "volume": 10
+      },
+      {
+        "source": "w329416198",
+        "residual": false,
+        "volume": 11
+      },
+      {
+        "source": "w359861671",
+        "residual": false,
+        "volume": 13
+      },
+      {
+        "source": "w373712573",
+        "residual": false,
+        "volume": 14
+      },
+      {
+        "source": "w394260006",
+        "residual": false,
+        "volume": 28
+      },
+      {
+        "source": "w394260008",
+        "residual": false,
+        "volume": 29
+      },
+      {
+        "source": "w394260012",
+        "residual": false,
+        "volume": 30
+      },
+      {
+        "source": "w394955876",
+        "residual": false,
+        "volume": 31
+      },
+      {
+        "source": "w394955877",
+        "residual": false,
+        "volume": 32
+      },
+      {
+        "source": "w394955878",
+        "residual": false,
+        "volume": 33
+      },
+      {
+        "source": "w394955903",
+        "residual": false,
+        "volume": 34
+      },
+      {
+        "source": "w417682780",
+        "residual": false,
+        "volume": 38
+      },
+      {
+        "source": "w1534908988",
+        "residual": false,
+        "volume": 40
+      },
+      {
+        "source": "w1534908989",
+        "residual": false,
+        "volume": 41
+      },
+      {
+        "source": "w1534908990",
+        "residual": false,
+        "volume": 42
+      },
+      {
+        "source": "w1534908991",
+        "residual": false,
+        "volume": 43
+      },
+      {
+        "source": "w1534908992",
+        "residual": false,
+        "volume": 44
+      },
+      {
+        "source": "w1534908993",
+        "residual": false,
+        "volume": 45
+      },
+      {
+        "source": "w1534908994",
+        "residual": false,
+        "volume": 46
+      },
+      {
+        "source": "r5910223",
+        "residual": false,
+        "volume": 47
+      },
+      {
+        "source": "w43114979",
+        "residual": false,
+        "volume": 48
+      },
+      {
+        "source": "w56817917",
+        "residual": false,
+        "volume": 49
+      },
+      {
+        "source": "w68666650",
+        "residual": false,
+        "volume": 50
+      },
+      {
+        "source": "w122317424",
+        "residual": false,
+        "volume": 51
+      },
+      {
+        "source": "w137152920",
+        "residual": false,
+        "volume": 52
+      },
+      {
+        "source": "w231714824",
+        "residual": false,
+        "volume": 53
+      },
+      {
+        "source": "w231714825",
+        "residual": false,
+        "volume": 54
+      },
+      {
+        "source": "w231714826",
+        "residual": false,
+        "volume": 55
+      },
+      {
+        "source": "w231714827",
+        "residual": false,
+        "volume": 56
+      },
+      {
+        "source": "w231714828",
+        "residual": false,
+        "volume": 57
+      },
+      {
+        "source": "w231714830",
+        "residual": false,
+        "volume": 58
+      },
+      {
+        "source": "w231714831",
+        "residual": false,
+        "volume": 59
+      },
+      {
+        "source": "w231761524",
+        "residual": false,
+        "volume": 60
+      },
+      {
+        "source": "w231764925",
+        "residual": false,
+        "volume": 61
+      },
+      {
+        "source": "w231764926",
+        "residual": false,
+        "volume": 62
+      },
+      {
+        "source": "w231764930",
+        "residual": false,
+        "volume": 63
+      },
+      {
+        "source": "w231764934",
+        "residual": false,
+        "volume": 64
+      },
+      {
+        "source": "w231764935",
+        "residual": false,
+        "volume": 65
+      },
+      {
+        "source": "w231764943",
+        "residual": false,
+        "volume": 66
+      },
+      {
+        "source": "w231764945",
+        "residual": false,
+        "volume": 67
+      },
+      {
+        "source": "w231764946",
+        "residual": false,
+        "volume": 68
+      },
+      {
+        "source": "w394283524",
+        "residual": false,
+        "volume": 69
+      },
+      {
+        "source": "w394955882",
+        "residual": false,
+        "volume": 70
+      },
+      {
+        "source": "w394955883",
+        "residual": false,
+        "volume": 71
+      },
+      {
+        "source": "w394955887",
+        "residual": false,
+        "volume": 72
+      },
+      {
+        "source": "w394955890",
+        "residual": false,
+        "volume": 73
+      },
+      {
+        "source": "w394955894",
+        "residual": false,
+        "volume": 74
+      },
+      {
+        "source": "w394955898",
+        "residual": false,
+        "volume": 75
+      },
+      {
+        "source": "w394955899",
+        "residual": false,
+        "volume": 76
+      },
+      {
+        "source": "w394955902",
+        "residual": false,
+        "volume": 77
+      },
+      {
+        "source": "w394955907",
+        "residual": false,
+        "volume": 78
+      },
+      {
+        "source": "w394955909",
+        "residual": false,
+        "volume": 79
+      },
+      {
+        "source": "w394955910",
+        "residual": false,
+        "volume": 80
+      },
+      {
+        "source": "w394955911",
+        "residual": false,
+        "volume": 81
+      },
+      {
+        "source": "w417682781",
+        "residual": false,
+        "volume": 82
+      },
+      {
+        "source": "w436966882",
+        "residual": false,
+        "volume": 83
+      },
+      {
+        "source": "w1125094827",
+        "residual": false,
+        "volume": 84
+      },
+      {
+        "source": "w1125131333",
+        "residual": false,
+        "volume": 85
+      },
+      {
+        "source": "w1125131334",
+        "residual": false,
+        "volume": 86
+      },
+      {
+        "source": "w1144537187",
+        "residual": false,
+        "volume": 88
+      },
+      {
+        "source": "w1144537188",
+        "residual": false,
+        "volume": 89
+      },
+      {
+        "source": "w1220369176",
+        "residual": false,
+        "volume": 90
+      },
+      {
+        "source": "w1220369177",
+        "residual": false,
+        "volume": 91
+      },
+      {
+        "source": "w1220369181",
+        "residual": false,
+        "volume": 92
+      },
+      {
+        "source": "w1220369196",
+        "residual": false,
+        "volume": 93
+      },
+      {
+        "source": "r18160791",
+        "residual": false,
+        "volume": 94
+      },
+      {
+        "source": "w25123756",
+        "residual": false,
+        "volume": 95
+      },
+      {
+        "source": "w108121486",
+        "residual": false,
+        "volume": 96
+      },
+      {
+        "source": "w231761491",
+        "residual": false,
+        "volume": 97
+      },
+      {
+        "source": "w231764921",
+        "residual": false,
+        "volume": 98
+      },
+      {
+        "source": "w394511983",
+        "residual": false,
+        "volume": 99
+      },
+      {
+        "source": "w411521517",
+        "residual": false,
+        "volume": 100
+      },
+      {
+        "source": "w1270549342",
+        "residual": false,
+        "volume": 101
+      },
+      {
+        "source": "w1323736966",
+        "residual": false,
+        "volume": 102
+      },
+      {
+        "source": "w1352647807",
+        "residual": false,
+        "volume": 103
+      },
+      {
+        "source": "w1352647810",
+        "residual": false,
+        "volume": 104
+      },
+      {
+        "source": "w1352647812",
+        "residual": false,
+        "volume": 105
+      },
+      {
+        "source": "w1352666990",
+        "residual": false,
+        "volume": 106
+      },
+      {
+        "source": "w1354412677",
+        "residual": false,
+        "volume": 107
+      },
+      {
+        "source": "w56629742",
+        "residual": false,
+        "volume": 108
+      },
+      {
+        "source": "w56629825",
+        "residual": false,
+        "volume": 109
+      },
+      {
+        "source": "w98069764",
+        "residual": false,
+        "volume": 110
+      },
+      {
+        "source": "w137152921",
+        "residual": false,
+        "volume": 111
+      },
+      {
+        "source": "w161070746",
+        "residual": false,
+        "volume": 112
+      },
+      {
+        "source": "w372649952",
+        "residual": false,
+        "volume": 113
+      }
+    ],
+    "buildings": 114,
+    "parts": 47,
+    "ways": 194,
+    "areas": 97,
+    "heroReplacements": [
+      "w12903132",
+      "w329416207",
+      "w161587742",
+      "w1092469435"
+    ],
+    "membershipSHA256": "aecc84822279658c32334c058655e1f050b07d2b9337079de529e845312d1d4b"
+  },
+  "sourceReferences": [
+    {
+      "label": "MoPOP (2000, Frank O. Gehry)",
+      "url": "https://www.openstreetmap.org/way/161587742"
+    },
+    {
+      "label": "MoPOP (2000, Frank O. Gehry)",
+      "url": "https://www.openstreetmap.org/way/1092469435"
+    },
+    {
+      "label": "Monorail passage through MoPOP",
+      "url": "https://www.openstreetmap.org/way/161609433"
+    },
+    {
+      "label": "Grass Blades (John Fleming, 2002)",
+      "url": "https://www.openstreetmap.org/way/1362384591"
+    },
+    {
+      "label": "Typewriter Eraser, Scale X (Oldenburg & van Bruggen)",
+      "url": "https://www.openstreetmap.org/node/8533332630"
+    },
+    {
+      "label": "Chris Cornell in Performance (Nick Marra, 2018)",
+      "url": "https://www.openstreetmap.org/node/6140930665"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Museum_of_Pop_Culture",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://www.mopop.org/building",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://www.openstreetmap.org/",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Seattle_Center_Monorail",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Museum_of_Pop_Culture_Seattle_Washington1.jpg",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:View_of_Museum_of_Pop_Culture_of_Seattle_Center_monorail_0127.jpg",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_Museum_of_Pop_Culture_buiobuione_03.jpg",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_(WA,_USA",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Close-up_of_Exterieur_wall_of_the_Museum_of_Pop-Culture_(formerly_knows_as_EMP",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://creativecommons.org/licenses/by/2.0",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Museum_of_Pop_Culture_in_Seattle_(6248401525",
+      "label": "Existing spot dossier reference"
+    }
+  ],
+  "performance": {
+    "sceneTriangles": 1015025,
+    "uniqueGeometryTriangles": 371210,
+    "geometryObjects": 155,
+    "maxRenderedTriangles": 1333870,
+    "maxDrawCalls": 276
+  },
+  "access": {
+    "walker": "OnFootController",
+    "arrival": {
+      "x": 143.1,
+      "z": -121.6,
+      "y": -7.725864601135253,
+      "heading": -4.363323129985824
+    },
+    "arrivalDry": true,
+    "nearestPlaquePath": {
+      "points": [
+        [
+          143.1,
+          -121.6
+        ],
+        [
+          107.94999999999999,
+          -163.95
+        ],
+        [
+          95.94999999999999,
+          -165.45
+        ],
+        [
+          50.949999999999996,
+          -150.45
+        ],
+        [
+          47.949999999999996,
+          -147.45
+        ],
+        [
+          36.699999999999996,
+          -122.69999999999999
+        ]
+      ],
+      "length": 145.99380609513395,
+      "target": "Paul Allen"
+    },
+    "nativeWalk": {
+      "walker": "OnFootController",
+      "passed": false,
+      "steps": 521,
+      "walked": 41.056603503921224,
+      "target": "Paul Allen",
+      "plannedLength": 145.99380609513395,
+      "position": {
+        "x": 117.141512070918,
+        "z": -153.1003579597109,
+        "y": -8.664504007297603,
+        "heading": 0.7023099471057115
+      },
+      "error": "Native walker blocked on planned public path"
+    }
+  },
+  "plaques": [
+    {
+      "title": "605 feet",
+      "x": 15.827081475422196,
+      "z": 21.554489704991607,
+      "y": 1.5,
+      "yaw": 2.501592653589793
+    },
+    {
+      "title": "Built fast",
+      "x": 8.478730576019066,
+      "z": 25.38012087014346,
+      "y": 1.5,
+      "yaw": 2.821592653589793
+    },
+    {
+      "title": "Original colours",
+      "x": 0.3000000000000016,
+      "z": 26.7,
+      "y": 1.5,
+      "yaw": 3.141592653589793
+    },
+    {
+      "title": "Glass floor",
+      "x": -7.878730576019062,
+      "z": 25.38012087014346,
+      "y": 1.5,
+      "yaw": 3.4615926535897934
+    },
+    {
+      "title": "Built to last",
+      "x": -15.227081475422194,
+      "z": 21.554489704991607,
+      "y": 1.5,
+      "yaw": 3.7815926535897932
+    },
+    {
+      "title": "The Glasshouse",
+      "x": -71.5,
+      "z": 10,
+      "y": 2.2929469407582657,
+      "yaw": 3.141592653589793
+    },
+    {
+      "title": "From fun fair to garden",
+      "x": -75.5,
+      "z": 10,
+      "y": 2.4317108836604167,
+      "yaw": 3.141592653589793
+    },
+    {
+      "title": "Green building",
+      "x": -79.5,
+      "z": 10,
+      "y": 2.5859931135177616,
+      "yaw": 3.141592653589793
+    },
+    {
+      "title": "Smashed guitar",
+      "x": 37.9,
+      "z": -134.7,
+      "y": -5.189234828948973,
+      "yaw": -1.5707963267948966
+    },
+    {
+      "title": "21,000 shingles",
+      "x": 37.9,
+      "z": -130.7,
+      "y": -4.966821932792662,
+      "yaw": -1.5707963267948966
+    },
+    {
+      "title": "First with CATIA",
+      "x": 37.9,
+      "z": -126.69999999999999,
+      "y": -4.738731837272643,
+      "yaw": -1.5707963267948966
+    },
+    {
+      "title": "Paul Allen",
+      "x": 37.9,
+      "z": -122.69999999999999,
+      "y": -4.496230626106261,
+      "yaw": -1.5707963267948966
+    }
+  ],
+  "activities": [
+    {
+      "kind": "activity",
+      "label": "Ride the elevator to The Loupe (41 s)",
+      "x": -0.7,
+      "z": 18.9,
+      "y": 1.5,
+      "source": null
+    },
+    {
+      "kind": "ride",
+      "label": "Hurry the elevator (×4)",
+      "x": -0.7,
+      "z": 18.9,
+      "y": null,
+      "source": null
+    },
+    {
+      "kind": "activity",
+      "label": "Look down through the glass floor",
+      "x": 0.3,
+      "z": 18.3,
+      "y": 154.1,
+      "source": null
+    },
+    {
+      "kind": "stairs",
+      "label": "Take the stairs up to the open-air deck",
+      "x": -15.299999999999999,
+      "z": 0.7,
+      "y": 154.1,
+      "source": null
+    },
+    {
+      "kind": "stairs",
+      "label": "Back down to The Loupe",
+      "x": -18.099999999999998,
+      "z": 0.7,
+      "y": 160,
+      "source": null
+    },
+    {
+      "kind": "ride",
+      "label": "Ride the elevator back down",
+      "x": 14.502816622064794,
+      "z": 8.899999999999997,
+      "y": 154.1,
+      "source": null
+    },
+    {
+      "kind": "activity",
+      "label": "Look up at the suspended sculpture",
+      "x": -53.75,
+      "z": -13.2,
+      "y": null,
+      "source": null
+    },
+    {
+      "kind": "activity",
+      "label": "Watch the Monorail pass through MoPOP",
+      "x": 35.9,
+      "z": -104.14999999999999,
+      "y": null,
+      "source": null
+    },
+    {
+      "kind": "guide",
+      "label": "Join the short guided tour",
+      "x": 140.70931009015905,
+      "z": -116.47314894355368,
+      "y": null,
+      "source": null
+    },
+    {
+      "kind": "talk",
+      "label": "",
+      "x": 1000000000,
+      "z": 1000000000,
+      "y": null,
+      "source": null
+    }
+  ],
+  "postcard": {
+    "view": [
+      80.15,
+      -110.14999999999999
+    ],
+    "id": "mopop",
+    "x": 158.2,
+    "z": -138.3,
+    "bearing": 235,
+    "pitch": 12,
+    "fov": 60,
+    "text": "Gehry shingle masses with the monorail emerging and the Space Needle behind",
+    "r": 30,
+    "tol": 40,
+    "targets": [],
+    "condHint": "Wait for the Monorail to pass through the building."
+  },
+  "audit": {
+    "spot": "mopop",
+    "ms": 5321,
+    "tris": 51391,
+    "colliders": 836,
+    "counts": {
+      "zfight": 53,
+      "phantom": 1,
+      "pedBelow": 3
+    },
+    "findings": {
+      "zfight": {
+        "n": 53,
+        "samples": [
+          {
+            "x": 43.2,
+            "y": 3.3,
+            "z": -87.8,
+            "a": "monorail-guideway:concrete",
+            "b": "monorail-guideway:concrete"
+          },
+          {
+            "x": 127.3,
+            "y": 3.3,
+            "z": 95.8,
+            "a": "monorail-guideway:concrete",
+            "b": "monorail-guideway:concrete"
+          },
+          {
+            "x": 22.3,
+            "y": 3.7,
+            "z": -87.8,
+            "a": "monorail-guideway:concrete",
+            "b": "monorail-guideway:concrete"
+          },
+          {
+            "x": 127.9,
+            "y": 3.1,
+            "z": 74.8,
+            "a": "monorail-guideway:concrete",
+            "b": "monorail-guideway:concrete"
+          },
+          {
+            "x": 126.6,
+            "y": 3.6,
+            "z": 116.8,
+            "a": "monorail-guideway:concrete",
+            "b": "monorail-guideway:concrete"
+          },
+          {
+            "x": 126.6,
+            "y": 3.6,
+            "z": 118.1,
+            "a": "monorail-guideway:concrete",
+            "b": "monorail-guideway:concrete"
+          }
+        ],
+        "pairs": 326
+      },
+      "phantom": {
+        "n": 1,
+        "samples": [
+          {
+            "x": -356.3,
+            "z": -170.8,
+            "kind": "poly",
+            "r": 94.7
+          }
+        ]
+      },
+      "pedBelow": {
+        "n": 3,
+        "samples": [
+          {
+            "x": -57.6,
+            "z": -12.4,
+            "y": 1.58,
+            "floor": 1.77
+          },
+          {
+            "x": -57.5,
+            "z": -11.9,
+            "y": 1.58,
+            "floor": 1.77
+          },
+          {
+            "x": -58.1,
+            "z": -10.3,
+            "y": 1.58,
+            "floor": 1.8
+          }
+        ]
+      }
+    }
+  },
+  "views": [
+    {
+      "kind": "arrival",
+      "file": "mopop/arrival.webp",
+      "pose": {
+        "x": 143.1,
+        "y": -6.075864601135253,
+        "z": -121.6,
+        "bearing": 250,
+        "pitch": 0
+      },
+      "triangles": 1321114,
+      "drawCalls": 273
+    },
+    {
+      "kind": "public-walk",
+      "file": "mopop/public-walk.webp",
+      "pose": {
+        "x": 117.14153549586382,
+        "y": -7.014505506273661,
+        "z": -153.10037193125157,
+        "bearing": 319.76060412078664,
+        "pitch": 0
+      },
+      "triangles": 1070100,
+      "drawCalls": 125
+    },
+    {
+      "kind": "postcard",
+      "file": "mopop/postcard.webp",
+      "pose": {
+        "x": 158.2,
+        "y": -6.532275688648223,
+        "z": -138.3,
+        "bearing": 234.99999999999997,
+        "pitch": 12.000000000000002
+      },
+      "triangles": 1333870,
+      "drawCalls": 276
+    },
+    {
+      "kind": "activity-approach",
+      "file": "mopop/activity-approach.webp",
+      "pose": {
+        "x": -0.7,
+        "y": 3.15,
+        "z": 22.9,
+        "bearing": 0,
+        "pitch": -7.000000000000003
+      },
+      "triangles": 1330256,
+      "drawCalls": 242
+    }
+  ],
+  "gaps": [
+    "Source references and actual game views require human comparison. Registry READY is not acceptance."
+  ],
+  "capture": {
+    "revision": "c7d405f058e4b1a299841202c75c774f91c3e904",
+    "worktreeDirty": false,
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "quality": "high",
+    "date": "2026-07-15T12:00:00Z",
+    "season": "summer",
+    "weather": "clear",
+    "lighting": "day"
+  },
+  "errors": []
+}

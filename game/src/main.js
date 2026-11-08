@@ -462,10 +462,11 @@ class Game {
         // the district's own centre (sun + weather cell: Bellevue is not downtown Seattle), else the city's (R18.5)
         const dc = world.district?.center || city.districts?.[this.district]?.center;
         const center = (dc && Number.isFinite(dc.lat) ? dc : null) || city.center || (id === 'seattle' ? { lat: 47.61, lon: -122.33 } : { lat: 44.4268, lon: 26.1025 });
-        this.r3d.setScene(this.scene, this.camera, city.env, { sky: world.sky, units: city.units, vegetation: world.vegetation || null });
+        this.r3d.setScene(this.scene, this.camera, city.env, { sky: world.sky, units: city.units, vegetation: world.vegetation || null,
+            clock: { date: this.nowDate(), lat: center.lat, lon: center.lon, timeZone: this.clock.timeZone, override: this.clock.override || null, timeScale: 1 },
+            weather: this.weatherOverride });
         if (world.vegetation) this.r3d.setVegetation?.(world.vegetation);
         this.r3d.setPlayer(this.player);
-        this.r3d.setClock({ date: this.nowDate(), lat: center.lat, lon: center.lon, timeZone: this.clock.timeZone, override: this.clock.override || null, timeScale: 1 });
         this.r3d.setLamps(world.lamps || [], { headMesh: world.lampHeadMesh });
     }
     /** put a point on the nearest drivable lane, returns {x,z,heading,edge,dir} */

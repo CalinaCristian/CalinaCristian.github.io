@@ -329,8 +329,8 @@ export class SpotSession {
         const { spot, host } = this, r3d = this.r3d, cam = this.camera;
         cam.near = 0.25; // on foot: render's depth-precision test (note 55) cam.far = Math.max(cam.far, 9000); cam.updateProjectionMatrix();
         const T = [performance.now()];
-        r3d.setScene(spot.scene, cam, spot.env, { units: spot.units, vegetation: spot.vegetation }); T.push(performance.now());
-        r3d.setClock({ date: host.date || new Date(), lat: spot.clock.lat, lon: spot.clock.lon, timeZone: spot.clock.timeZone, timeScale: host.timeScale ?? 1, override: host.override ?? null }); T.push(performance.now());
+        r3d.setScene(spot.scene, cam, spot.env, { units: spot.units, vegetation: spot.vegetation,
+            clock: { date: host.date || new Date(), lat: spot.clock.lat, lon: spot.clock.lon, timeZone: spot.clock.timeZone, timeScale: host.timeScale ?? 1, override: host.override ?? null } }); T.push(performance.now());
         r3d.setLamps(spot.lamps, { headMesh: spot.lampHeadMesh }); T.push(performance.now());
         r3d.setHeadlights?.(false);
         // walker: the game's OnFootController (spec 14) when present, else the local fallback

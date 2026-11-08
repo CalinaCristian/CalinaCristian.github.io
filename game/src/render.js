@@ -554,10 +554,14 @@ export class Renderer3D {
         this._fogBase = edge ? 3.0 / edge : 0;
         scene.fog = new THREE.FogExp2(env.fog, Math.max(this._fogBase, 3.912 / 15000));
         this.setVegetation(o.vegetation || scene.userData?.vegetation || null);
-        // climate state right away; live data replaces it when it arrives. Before the first setClock the place is not
-        // known yet (hosts call setClock right after setScene): no live request for a default place (shared API quota)
-        if (!this._wx) this._refreshWeather({ live: !!this.clock });
+        // Establish the new place's clock and weather before baking its reflections. Building an environment with
+        // the previous place's lighting makes the first frame bake it again after the host sets the actual clock.
         scene.background = new THREE.Color(env.fog);
+        this._wxInstant = true;
+        if ('weather' in o) this._wxOverride = typeof o.weather === 'string' && WEATHER_PRESETS[o.weather] ? o.weather : null;
+        if (o.clock) this.setClock(o.clock);
+        // setClock refreshes a changed location; a same-location scene still needs its instantaneous weather state.
+        if (!this._wx || this._wxInstant) this._refreshWeather({ live: !!this.clock });
         this._applyLighting(true);
         // environment map for reflections (vehicle paint, glass, wet roads)
         this._buildEnvMap(true);

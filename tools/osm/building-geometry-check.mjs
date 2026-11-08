@@ -143,6 +143,8 @@ if (osmDir) {
         const t = source(id)?.tags; if (!t) return;
         const h = data.buildingDimensions?.[i]?.[0] ?? data.buildings[i][1] / 10, minH = data.buildingDimensions?.[i]?.[1] ?? data.buildings[i][2] / 10;
         if (t['building:part'] && t['building:part'] !== 'no') sourceParts++;
+        const nativeProfile=data.buildingRoofProfiles?.[i];
+        if (!(numeric(t.height)>0) && numeric(t.min_height)>0 && nativeProfile?.heightSource?.includes('estimate')) assert.ok(h>minH && nativeProfile.eavesM>minH, 'an unsourced positive body estimate stays above the literal source minimum: '+id);
         if (Number.isFinite(numeric(t.height)) && numeric(t.height) > 0) { close(h, numeric(t.height), 'literal height ' + id); explicitHeights++; }
         if (Number.isFinite(numeric(t.min_height)) && numeric(t.min_height) < h) { close(minH, numeric(t.min_height), 'literal minimum ' + id); explicitMinima++; }
         if (Number.isFinite(numeric(t.height)) && numeric(t.height) <= 0) assert.ok(data.buildingSourceIssues?.[i]?.some(v => v.startsWith('nonpositive OSM height=')), 'nonpositive height remains a source anomaly: ' + id);

@@ -55,6 +55,12 @@ export function makeRoofProfile({ tags = {}, ring, holes = [], triangulate, shap
         const mesh = roofMesh(ring, holes, { shape, axis, low, high, eavesM: 0, riseM: 1 }, triangulate);
         rise = mesh.runM * Math.tan(angle * Math.PI / 180);
     }
+    if ((!heightIsTotal || heightSource === 'research estimate') && height <= minHeight) {
+        height = minHeight + Math.max(.01, height);
+        heightIsTotal = false;
+        heightSource += ' above source minimum';
+        issues.push('total height absent or estimated below source minimum; positive body above source minimum is estimated');
+    }
     if (heightIsTotal && riseSource === 'footprint estimate' && rise > Math.max(0, height - minHeight) * .25) {
         rise = Math.max(0, height - minHeight) * .25;
         riseSource = 'footprint estimate bounded to25% of source total band';

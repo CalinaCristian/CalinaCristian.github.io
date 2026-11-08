@@ -369,7 +369,7 @@ export class SpotSession {
         for (const pl of S.plaques) out.push({ kind: 'plaque', x: pl.x, z: pl.z, label: pl.title, text: pl.text, done: !!read[S.sceneId + ':' + pl.title], plaque: pl });
         for (const c of S.challenges) out.push({ kind: 'postcard', x: c.x, z: c.z, label: 'Postcard photo: ' + (spotById(c.id)?.name || 'the iconic view'), text: c.text, done: !!P.postcards?.[c.id] });
         const acts = [];
-        for (const it of S.interactables) { if (it.kind === 'plaque' || it.kind === 'guide' || it.hidden) continue; const lb = typeof it.label === 'function' ? it.label(this) : it.label; if (!lb) continue;
+        for (const it of S.interactables) { if (it.kind === 'plaque' || it.kind === 'guide' || it.kind === 'talk' || it.hidden) continue; const lb = typeof it.label === 'function' ? it.label(this) : it.label; if (!lb) continue;
             acts.push({ kind: it.kind === 'bike' ? 'bike' : 'activity', x: it.x, z: it.z, full: lb, done: !!this._seen?.has('act:' + lb) }); }
         // short labels; activities sharing a "Verb: name" prefix (≥ 3, e.g. the Village Museum houses) become one group objective
         const pre = (l) => (/^([^:—]{3,40}):\s*(.+)$/.exec(l) || null), count = {};
@@ -401,7 +401,7 @@ export class SpotSession {
                 cond: (s) => { const c = s.ctl, fx = -Math.sin(c.heading), fz = -Math.cos(c.heading); let best = null, bd = 2.4;
                     for (const q of S.crowd.peds) { if (q.hidden || q.driven || q === s.guide) continue; const dx = q.x - c.x, dz = q.z - c.z, d = Math.hypot(dx, dz); if (d < bd && d > 0.2 && (dx * fx + dz * fz) / d > 0.35 && Math.abs((q.y ?? c.y) - c.y) < 1.6) { bd = d; best = q; } }
                     talk.ped = best; return !!best; },
-                label: () => `Talk to ${Crowd.whoLabel(talk.ped)}`, use: (s) => s.talkTo(talk.ped) };
+                label: () => (talk.ped ? `Talk to ${Crowd.whoLabel(talk.ped)}` : ''), use: (s) => s.talkTo(talk.ped) };
             S.interactables.push(talk);
         }
         this._refreshMarkers();

@@ -11,6 +11,6 @@ const ground = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.MeshSta
 const cam = new THREE.PerspectiveCamera(35, innerWidth / innerHeight, 0.1, 100); cam.position.set(0, 1.4, 4.2); cam.lookAt(0, 1.0, 0);
 let seed = 7; const rng = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
 const crowd = makeCrowd({ max: N, city: q.get('city') || 'bucharest', season: q.get('season') || 'winter', rng, castShadow: false }); scene.add(crowd.object);
-for (let i = 0; i < N; i++) { const o = dressFor(q.get('city') || 'bucharest', q.get('season') || 'winter', null, rng); if (q.get('coat') === '1') o.flags |= CROWD_FLAGS.coat; crowd.dress(i, o); crowd.set(i, { x: (i - (N - 1) / 2) * 0.9, z: 0, yaw: Math.PI + (+(q.get('yaw') || 0)), pose: q.get('pose') || 0 }); }
+for (let i = 0; i < N; i++) { const o = dressFor(q.get('city') || 'bucharest', q.get('season') || 'winter', null, rng); if (q.get('coat') === '1') o.flags |= CROWD_FLAGS.coat; crowd.dress(i, o); crowd.set(i, { x: (i - (N - 1) / 2) * 0.9, z: 0, yaw: Math.PI + (+(q.get('yaw') || 0)), pose: q.get('pose') || 0, prop: q.get('prop') || undefined }); }
 const tick = () => { crowd.update?.(1 / 60, cam); r.render(scene, cam); }; for (let k = 0; k < 3; k++) tick(); window.ready = true;
 </script></body></html>

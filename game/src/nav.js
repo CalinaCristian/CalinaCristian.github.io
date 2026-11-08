@@ -474,7 +474,7 @@ export class CarScreen {
         for (const q of info.pois || []) {
             if (Math.abs(q.x - p.x) > R || Math.abs(q.z - p.z) > R) continue;
             ctx.save(); ctx.translate(q.x, q.z);
-            { const t = ctx.getTransform(); if (t.e < -12 || t.e > W + 12 || t.f < -12 || t.f > H + 12) { ctx.restore(); continue; } } // off the screen canvas (review #26b)
+            { const t = ctx.getTransform(); if (t.e + 9 <= 0 || t.e - 9 >= W || t.f + 9 <= 74 || t.f - 9 >= H - 54) { ctx.restore(); continue; } } // marker wholly outside the visible map
             ctx.rotate(-p.heading); ctx.scale(1 / scale, 1 / scale);
             ctx.beginPath(); ctx.arc(0, 0, 9, 0, 7); ctx.fillStyle = q.color || '#334155'; ctx.fill();
             ctx.font = '11px sans-serif'; ctx.fillStyle = '#fff'; ctx.fillText(q.icon || '•', 0, 1);

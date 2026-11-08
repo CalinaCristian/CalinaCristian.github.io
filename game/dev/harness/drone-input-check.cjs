@@ -68,6 +68,18 @@ fs.mkdirSync(out, { recursive: true });
         check('native Shift boost keeps Sport speed', boost, Math.abs(boost.speed - 46.8) < 0.1);
         await page.mouse.wheel(0, -100); const wheelMode = await page.evaluate(() => game.explore.drone.mode);
         check('native mouse wheel cycles speed', { mode: wheelMode }, wheelMode === 0);
+        const rangeFixture = await page.evaluate(() => {
+            droneReset(); const d = game.explore.drone, b = d.c.boundary;
+            for (let i = 0; i < 360; i++) {
+                const a = i * Math.PI / 180, x = Math.sin(a), z = Math.cos(a), far = { x: d.home.x + x * 820, z: d.home.z + z * 820 };
+                if (!b.segmentAllowed(d.home, far)) continue;
+                d.pos.x = d.home.x + x * 795; d.pos.z = d.home.z + z * 795; d.yaw = Math.atan2(-x, -z); return { angle: a, legalBeyondRange: true };
+            }
+            return { legalBeyondRange: false };
+        });
+        const rangeFlight = await held(['w', 'ShiftLeft']);
+        const rangeEnd = await page.evaluate(() => { const d = game.explore.drone; return { distance: Math.hypot(d.pos.x - d.home.x, d.pos.z - d.home.z), allowed: d.c.boundary.allowed(d.pos) }; });
+        check('native boosted forward flight stops at the 800m range', { ...rangeFixture, ...rangeFlight, ...rangeEnd }, rangeFixture.legalBeyondRange && rangeEnd.distance <= 800.00001 && rangeEnd.distance > 799.9 && rangeEnd.allowed);
         await page.evaluate(() => droneReset(Math.PI / 2)); const ceiling = await held(['w'], 120);
         check('looking up + W respects the 120m ceiling', ceiling, ceiling.altitude <= 120 && ceiling.altitude > 119.9 && Math.abs(ceiling.verticalSpeed) < 1e-8);
         await page.evaluate(() => { droneReset(); window.photoBefore = { gallery: game.photo.gallery.length, drone: game.explore.drone.stats.photos }; }); await page.keyboard.press('p'); const photo = await held(['w']);

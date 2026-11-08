@@ -7,3 +7,6 @@ The transition runner deliberately loads malformed destination JSON to test fail
 Validation for this tooling slice: Node syntax checks and `git diff --check`. Final runtime executions remain separate acceptance evidence; this change makes no new runtime-pass claim.
 
 Root owns the final source selection, README/spec consolidation and release.
+
+
+Telemetry health now retains console text, fixture identity, location and index for every browser context. Only the explicitly active Grozăvești HTTP503/non-JSON fixture can account for its exact resource error and JSON parse failure. Expected entries stay in the raw report with their reason; every other console error fails the gate, including errors from privacy/storage/early-SDK contexts. The injected pre-SDK exception remains separately recorded as a page exception. This tooling change has syntax/diff validation only; final release-stamped runtime validation is still pending.

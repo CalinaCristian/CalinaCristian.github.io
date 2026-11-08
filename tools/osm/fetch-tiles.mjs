@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Downloads raw OSM XML tiles from the OSM API (0.6 `map` call) for the regions used by the game.
-// Usage: node tools/osm/fetch-tiles.mjs --out <dir> [--only sea_x5,sea_x405]
+// Usage: node tools/osm/fetch-tiles.mjs --out <dir> [--only sea_x5,sea_x405] [--bbox minlat,minlon,maxlat,maxlon]
 // Existing files are skipped, so the script can be re-run to resume. Be gentle with the API.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -25,6 +25,11 @@ export const REGIONS = [
 const args = Object.fromEntries(process.argv.slice(2).reduce((a, v, i, arr) => { if (v.startsWith('--')) a.push([v.slice(2), arr[i + 1]]); return a; }, []));
 const OUT = args.out || 'tiles';
 const ONLY = args.only ? args.only.split(',') : null;
+const BBOX = args.bbox ? args.bbox.split(',').map(Number) : null;
+if (BBOX && (BBOX.length !== 4 || BBOX.some(n => !Number.isFinite(n)) || BBOX[0] >= BBOX[2] || BBOX[1] >= BBOX[3])) {
+    console.error('--bbox must be minlat,minlon,maxlat,maxlon with increasing bounds');
+    process.exit(2);
+}
 fs.mkdirSync(OUT, { recursive: true });
 
 function fetch(name, a, b, c, d, depth = 0) {
@@ -47,6 +52,10 @@ function fetch(name, a, b, c, d, depth = 0) {
 
 for (const [name, la0, la1, lo0, lo1, dla, dlo] of REGIONS) {
     if (ONLY && !ONLY.includes(name)) continue;
-    for (let la = la0; la < la1 - 1e-9; la += dla) for (let lo = lo0; lo < lo1 - 1e-9; lo += dlo) fetch(name, la, Math.min(la + dla, la1), lo, Math.min(lo + dlo, lo1));
+    for (let la = la0; la < la1 - 1e-9; la += dla) for (let lo = lo0; lo < lo1 - 1e-9; lo += dlo) {
+        const lb = Math.min(la + dla, la1), lob = Math.min(lo + dlo, lo1);
+        if (BBOX && (lb <= BBOX[0] || la >= BBOX[2] || lob <= BBOX[1] || lo >= BBOX[3])) continue;
+        fetch(name, la, lb, lo, lob);
+    }
 }
 console.log('ALL_TILES_DONE');

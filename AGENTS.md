@@ -56,6 +56,9 @@ Pitfalls found the hard way (each one shipped a visible bug)
   top-down tiles from below the tree / car draw distance (the 466 m camera made parks look treeless); square top-down frames.
 - Frame budget: measured trees dominate (≈ 85 triangles each, near LOD far more), parked cars ≈ 260 each; keep both inside
   the culling radii set for districts in world.js and thin the scenery ring, not the playable streets.
+- Aerial canopy surveys must record their actual coverage (`treeCoverage`): suppress inferred trees only there. Grey historic
+  metal roofs can look flat to the classifier; inspect calibrated crops, retain uncertain results, and keep OSM tags first.
+- Preserve OSM parking location and orientation (`data.parking`); diagonal street-side bays are not parallel sidewalk parking.
 - Do not use a variable before it is defined in `buildWorld` (TDZ error = the game does not boot): `data` is loaded after `distId`.
 - OSM grounds / landuse polygons are often drawn to the street centre line: anything built along their edge (fences, hedges)
   must be snapped to the property line on the grounds' side (`inside`), never to the nearest side (the Rosetti fence jumped

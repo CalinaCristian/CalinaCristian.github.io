@@ -213,9 +213,20 @@ export function buildCorridor(roads, pos, P, cfg, log = () => { }) {
         const tx = fi - i, tz = fj - j, k = j * W + i;
         return (F[k] * (1 - tx) + F[k + 1] * tx) * (1 - tz) + (F[k + W] * (1 - tx) + F[k + W + 1] * tx) * tz;
     };
-    const margin = polys.length ? (x, z) => Math.min(fieldMargin(x, z), polyMargin(x, z)) : fieldMargin;
+    // A chamfer field is fast for legacy corridors but overestimates Euclidean distance near diagonals. District
+    // source fidelity needs a real 600 m scenery ring, so use the authored union of buffered lines/circles/polygons.
+    const exactMargin = (x, z) => {
+        let m = polyMargin(x, z);
+        for (const p of pieces) for (let i = 1; i < p.pts.length; i++) {
+            const a = p.pts[i - 1], b = p.pts[i];
+            m = Math.min(m, distPointSeg(x, z, a[0], a[1], b[0], b[1]).d - p.r);
+        }
+        for (const c of circles) m = Math.min(m, Math.hypot(x - c.x, z - c.z) - c.r);
+        return m;
+    };
+    const margin = cfg.exact ? exactMargin : polys.length ? (x, z) => Math.min(fieldMargin(x, z), polyMargin(x, z)) : fieldMargin;
     let inside = 0;
-    if (polys.length) { for (let j = 0; j < H; j++) for (let i = 0; i < W; i++) if (Math.min(F[j * W + i], polyMargin(x0 + i * CELL, z0 + j * CELL)) <= 0) inside++; }
+    if (cfg.exact || polys.length) { for (let j = 0; j < H; j++) for (let i = 0; i < W; i++) if (margin(x0 + i * CELL, z0 + j * CELL) <= 0) inside++; }
     else for (let k = 0; k < F.length; k++) if (F[k] <= 0) inside++;
     const areaKm2 = inside * CELL * CELL / 1e6;
     log(`corridor: ${legs.length} legs, ${pieces.length} pieces, ${circles.length} circles, area ${areaKm2.toFixed(1)} km² (game)`);

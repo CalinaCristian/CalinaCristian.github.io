@@ -185,14 +185,21 @@ def main():
             conf = min(1.0, 0.45 + (red - 16) / 50) * (1 - gfrac * 0.6)
         elif gfrac > 0.45 or dark:
             shape, conf = 'unknown', 0.0
-        elif ratio > 2.4 and area_m2 > 250:   # long slab blocks
-            shape, conf = 'flat', 0.8
-        elif area_m2 < 260 and facet > 0.3 and spread > 0.35 and ratio < 2.4 and float(np.median(lum)) > 70:
+        elif facet > 0.3 and spread > 0.35 and float(np.median(lum)) > 70:
+            # Romană's grey sheet-metal historic roofs can be much larger than Floreasca's villas. Strong lit/shaded
+            # halves alone cannot distinguish them from plant/shadows on a flat roof: keep the observation uncertain
+            # instead of confidently flattening a pitched roof. OSM roof tags still win in the builder.
             shape = 'hipped'                    # (grey metal / concrete tiles; weak evidence: consumers want conf >= 0.5)
             conf = 0.4
+        elif ratio > 2.4 and area_m2 > 250:   # evenly lit long slab blocks
+            shape, conf = 'flat', 0.8
         else:
             shape = 'flat'
             conf = min(1.0, 0.55 + (0.2 if area_m2 > 300 else 0) + (0.15 if red < 6 else 0) - gfrac * 0.5)
+        if shape == 'flat' and (t.get('amenity') == 'place_of_worship' or t.get('building') in ('church', 'cathedral', 'chapel', 'religious', 'mosque', 'synagogue', 'temple')):
+            # A median-colour sample cannot resolve a church's domes, towers and compound metal roof. Do not flatten
+            # that roof as a supposedly confident measurement; preserve OSM/landmark handling.
+            shape, conf = 'unknown', 0.0
         out[wid] = {'shape': shape, 'conf': round(conf, 2), 'colour': '#%02x%02x%02x' % tuple(int(v) for v in med),
                     'red': round(red, 1), 'facet': round(facet, 3), 'spread': round(spread, 3), 'ratio': round(ratio, 2),
                     'areaM2': round(area_m2), 'building': t.get('building'), 'levels': t.get('building:levels'),

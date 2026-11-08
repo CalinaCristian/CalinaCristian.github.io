@@ -302,6 +302,7 @@ export class Drone {
         else if (this.phase === 'fly') { for (let i = 0; i < steps && this.phase === 'fly'; i++) this._fly(dtT / steps); }
         else if (this.phase === 'dock') this._dock(dt);
         if (!this.active) return false;
+        if (c.kind === 'district' && !g.photo?.active) g.football?.update(dtT, this);
         // rotors
         if (this.model?.visible) { for (const r of this.model.userData.rotors) r.blades.rotation.y += r.dir * this.spin * 95 * dt; this.model.userData.disc.opacity = 0.32 * clamp(this.spin * 1.4 - 0.3, 0, 1); for (const r of this.model.userData.rotors) r.blades.visible = this.spin < 0.65; }
         if (this.homeMk) { const r = this.homeMk.userData.ring; r.material.opacity = 0.55 + 0.35 * Math.sin(this.t * 4); }
@@ -444,6 +445,10 @@ export class Drone {
         const C = c.colliders; if (!C) return;
         const y = this.pos.y, one = [null];
         const test = (b) => {
+            // The stadium's coarse car collider fills its open bowl. The drone
+            // can fly over it and descend into the actual pitch, without opening
+            // the surrounding stands or changing car/walker collisions.
+            if (b.landmark === 'dinamo' && this.g.football?.allowsFlightAt(this.pos)) return;
             let top;
             if (b.wall) top = Math.max(b.y1a ?? 0, b.y1b ?? 0);
             else if (b.y1 !== undefined) top = b.y1;

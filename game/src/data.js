@@ -384,6 +384,7 @@ export const ACHIEVEMENTS = [
     // ---- Secrets (hidden)
     { id: 'wcp-bar', cat: 'secret', hidden: true, activity: 'old-town-lipscani:wcp-bar', live: true, icon: '⚽', title: 'Hidden project', desc: 'Found the hidden football room and browsed World Cup Predictions, a project by Cristian.' },
     { id: 'dinamo-drone-goal', cat: 'secret', hidden: true, icon: '⚽', title: 'Air striker', desc: 'Scored at Stadionul Dinamo by nudging the football into a goal with the drone.' },
+    { id: 'rosetti-basket', cat: 'secret', hidden: true, icon: '🏀', title: 'After-school hoops', desc: 'Picked up the basketball and made a basket at C.A. Rosetti in Floreasca.' },
     { id: 'troll-night', cat: 'secret', hidden: true, icon: '🧌', title: 'Under the bridge', desc: 'Visited the Fremont Troll at night, under the north end of the Aurora Bridge.' },
     { id: 'mountain-out', cat: 'secret', hidden: true, icon: '🏔️', title: 'The Mountain is out', desc: 'Got the Kerry Park postcard with Mount Rainier showing.' },
     { id: 'peacock', cat: 'secret', hidden: true, icon: '🦚', title: 'Peacock', desc: 'Photographed a peacock fanning its tail in the Spring Palace garden.' },

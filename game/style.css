@@ -935,3 +935,13 @@ body.ui-modal #spot-ui :is(.sp-prompt, .sp-mini, .sp-tour-controls) { visibility
 }
 
 body.touch #spot-ui button.sp-mini { padding: 0; color: inherit; font: inherit; }
+/* Rosetti basketball: the same pickup/throw/drop actions work with native taps. */
+#basketball-controls{position:fixed;z-index:23;left:50%;top:23%;transform:translateX(-50%);max-width:calc(100vw - 28px);padding:9px 12px;border:1px solid #98c4d966;border-radius:12px;background:#101e2fe8;color:#eef9ff;text-align:center;pointer-events:auto;touch-action:manipulation;font:13px/1.4 system-ui,sans-serif}
+#basketball-controls[hidden],body.ui-modal #basketball-controls,body.drone-mode #basketball-controls{display:none!important}
+#basketball-controls .basketball-help{display:block;margin-bottom:6px}
+#basketball-controls>div{display:flex;justify-content:center;gap:8px}
+#basketball-controls button{min-width:88px;min-height:44px;padding:9px 13px;border:1px solid #8cb8cc;border-radius:8px;background:#234b63;color:white;font:600 15px system-ui,sans-serif;touch-action:manipulation}
+#basketball-controls button:disabled{opacity:.45}
+#basketball-controls button[hidden]{display:none}
+@media(max-height:500px){#basketball-controls{top:12%;padding:5px 9px;font-size:12px}#basketball-controls .basketball-help{margin-bottom:3px}}
+/* end Rosetti basketball */

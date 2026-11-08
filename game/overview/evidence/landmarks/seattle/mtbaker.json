@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 1,
+  "id": "mtbaker",
+  "city": "seattle",
+  "name": "Mount Baker Tunnel (east portal)",
+  "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+  "status": "in-progress",
+  "coordinates": {
+    "lat": 47.5901,
+    "lon": -122.2885856
+  },
+  "sourceIds": [],
+  "replacementScope": "Only the explicit source IDs represent authored replacement. Empty scope means context geometry only; never remove neighbours by radius, name or centroid.",
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/481496634",
+      "label": "OSM w481496634 · version 3 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/4712861",
+      "label": "OSM w4712861 · version 25 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/123889282",
+      "label": "OSM w123889282 · version 11 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/481403971",
+      "label": "OSM w481403971 · version 8 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/4732917",
+      "label": "OSM w4732917 · version 14 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13613757.589106826%2C6038811.643631542%2C-13613431.386056783%2C6039137.846681584&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+      "label": "Independent georeferenced Esri aerial · privately viewed · acquisition date unknown · image not published",
+      "type": "aerial"
+    }
+  ],
+  "improvements": [
+    "Moved the facade approximately 330 m east from an underground tunnel-lid polygon end to the actual mapped tunnel highway mouths.",
+    "Aligned all three openings and solid collision piers around independent highway endpoints; the modern bore uses the documented 19.2 m diameter.",
+    "The facade claims no building replacements, preserving the historic tunnel lid and nearby houses."
+  ],
+  "remainingGaps": [
+    "Facade wall height, narrow bore sizes, retaining-wall depths, artwork relief and the short wooded embankment are explicit visual estimates.",
+    "Only the east facade is modelled, with no surveyed tunnel interior or per-bore vertical road-level fit.",
+    "The carved inscription uses a coarse block font; this capture does not establish street-eye fidelity.",
+    "These are isolated front/top/oblique model studies, not matched street-eye Street View/aerial comparisons. They do not establish full-world, night, weather or seasonal parity.",
+    "Integrated source-only replacement and rebuilt district performance are separate acceptance checks; the capture branch predates that shared world policy."
+  ],
+  "checks": [
+    {
+      "label": "Bucharest foot,a regression",
+      "passed": true,
+      "details": "Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. Subsequent source changes are confined to US models."
+    },
+    {
+      "label": "Current source identity and topology review",
+      "passed": true,
+      "details": "All 24 US registry entries checked; 0 explicit replacement identities for this model. Raw source versions/tags/coordinates retained. OSM geometry takes precedence over estimates."
+    },
+    {
+      "label": "Independent visual and actual model review",
+      "passed": true,
+      "details": "Actual front, top and oblique game renders inspected against source plans and independently viewed aerial context; only game renders are published. Height/facade limits and source conflicts are listed."
+    },
+    {
+      "label": "Geometry and meaningful collision checks",
+      "passed": true,
+      "details": "All61 shared geometry invariants and the US source-scope/total-height/court/pitch/portal/bridge-clearance regression checks pass. No FPS claim is inferred from geometry counts."
+    },
+    {
+      "label": "Immutable game-only capture provenance",
+      "passed": true,
+      "details": "Each lossless WebP is RGB pixel-verified against its actual game screenshot and carries its own source commit, camera pose and SHA256."
+    },
+    {
+      "label": "Complete measured visual parity",
+      "passed": false,
+      "details": "Unmeasured sections, simplified details and world integration remain open as listed; no 100% parity claim."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Isolated model study · front elevation",
+      "image": "assets/landmarks/mtbaker/front.webp",
+      "kind": "front",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "ad5fd145316329583bccff4d61aa076414fead29c1cb9b2d4dd3c7630ae56baf",
+      "capturedAt": "2026-11-08T17:06:13.840Z",
+      "pose": {
+        "position": [
+          139.27363217289675,
+          16.8,
+          1.0659721023219727e-14
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "quaternion": [
+          0,
+          0.7071067811865475,
+          0,
+          0.7071067811865476
+        ],
+        "projection": "perspective",
+        "fov": 45,
+        "target": [
+          -34.81282329559326,
+          16.8,
+          0
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    },
+    {
+      "id": "top",
+      "label": "Isolated model study · orthographic north-up plan",
+      "image": "assets/landmarks/mtbaker/top.webp",
+      "kind": "top",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "d7a81de0a10e8ed2a58cbd5f1ec8c0377dae149173c790b8b76c6e6eab6df90e",
+      "capturedAt": "2026-11-08T17:06:21.018Z",
+      "pose": {
+        "position": [
+          -34.81282329559326,
+          177.51424995422363,
+          0
+        ],
+        "up": [
+          0,
+          0,
+          -1
+        ],
+        "quaternion": [
+          -0.7071067811865475,
+          0,
+          0,
+          0.7071067811865476
+        ],
+        "projection": "orthographic",
+        "groundSquareM": 135.51424995422363,
+        "orientation": "north-up",
+        "target": [
+          -34.81282329559326,
+          0,
+          0
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Isolated model study · oblique overview",
+      "image": "assets/landmarks/mtbaker/oblique.webp",
+      "kind": "oblique",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "3b645133414d1e1c6230242f8abba5ec902ab80991b73c319c503b6489f8020f",
+      "capturedAt": "2026-11-08T17:06:25.894Z",
+      "pose": {
+        "position": [
+          112.2188792670024,
+          93.11447912416762,
+          -53.51516322626652
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "quaternion": [
+          -0.1290266241039646,
+          0.7981572304628229,
+          0.18426911603074106,
+          0.5588757094466531
+        ],
+        "projection": "perspective",
+        "fov": 45,
+        "target": [
+          -34.81282329559326,
+          16.8,
+          0
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 882,
+    "drawCalls": 2,
+    "note": "Isolated viewer frame includes ground and shadow rendering; this is neither a whole-world budget measurement nor hardware FPS."
+  }
+}

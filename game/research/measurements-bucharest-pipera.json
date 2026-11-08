@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "district": "bucharest-pipera",
+  "reviewedAt": "2026-11-08",
+  "sourceOrder": [
+    "OSM tags",
+    "independent aerial measurements",
+    "explicit estimates"
+  ],
+  "sourceCommitAtSurveyStart": "734a4854b0eb799185ecbc420485782150c003db",
+  "osm": {
+    "provider": "OpenStreetMap API0.6 map",
+    "attribution": "© OpenStreetMap contributors, ODbL",
+    "accessDate": "2026-11-08",
+    "tiles": [
+      {
+        "file": "buc_44.4650_26.0770_44.4750_26.0930.xml",
+        "bytes": 2887998,
+        "sha256": "d81de5647330489b4b20d8240ea8e13d868193b80935b11f24b7a440a67cf45a"
+      },
+      {
+        "file": "buc_44.4650_26.0930_44.4750_26.1090.xml",
+        "bytes": 1961983,
+        "sha256": "efc92c6fbbc7be71d701f0c67a0bb262d107e2f42491887b1e9e47c3f45fd814"
+      },
+      {
+        "file": "buc_44.4650_26.1090_44.4750_26.1250.xml",
+        "bytes": 2095106,
+        "sha256": "cb31deadad1beb18b66e59790221198dfa7a7740a7b728f7acfc86f6963599ca"
+      },
+      {
+        "file": "buc_44.4750_26.0770_44.4850_26.0930.xml",
+        "bytes": 1741574,
+        "sha256": "46d21f3da9ac9c05a2428188fda3d7355396c7fbe968b9fd09bad374a33dd35d"
+      },
+      {
+        "file": "buc_44.4750_26.0930_44.4850_26.1090.xml",
+        "bytes": 3204049,
+        "sha256": "53d352aaf79afa5c674f39a2c79c5a7f08956f1c1152e71349426706cb589b61"
+      },
+      {
+        "file": "buc_44.4750_26.1090_44.4850_26.1250.xml",
+        "bytes": 1836594,
+        "sha256": "0d93722f7ece93d8971d60cba7ef1a40ed39af5b01ee3183a772ea08a82cd96c"
+      },
+      {
+        "file": "buc_44.4850_26.0770_44.4950_26.0930.xml",
+        "bytes": 2982675,
+        "sha256": "5423c00e0b65d93e670941be3a9ceec29bc6bd1e852b349fc6575a4bd5158b35"
+      },
+      {
+        "file": "buc_44.4850_26.0930_44.4950_26.1090.xml",
+        "bytes": 1410136,
+        "sha256": "163ad6631147201defb5e51218e6d879217d25a7ba03247e87ac71b3f6390e9d"
+      },
+      {
+        "file": "buc_44.4850_26.1090_44.4950_26.1250.xml",
+        "bytes": 1251941,
+        "sha256": "d2f3bb2abb25c9056563855b3398480ca715b0e2fb710864d058a6dd7826c51a"
+      },
+      {
+        "file": "bucx_44.4650_26.1250_44.4750_26.1410.xml",
+        "bytes": 4366194,
+        "sha256": "20707ba2b6966213c81c33df31c5d43a644e0293911c330a4b2e37807f3e61df"
+      },
+      {
+        "file": "bucx_44.4750_26.1250_44.4850_26.1410.xml",
+        "bytes": 2555489,
+        "sha256": "affb91eaa732c6655f09276bb222d00ff697753947e52f008dcca660c453e8e9"
+      },
+      {
+        "file": "bucx_44.4850_26.1250_44.4950_26.1410.xml",
+        "bytes": 1333665,
+        "sha256": "318673c7a8f3af353222ff6c6e04ce3d3fb1a10c1c6e066942b04ad095f8c49b"
+      }
+    ]
+  },
+  "aerial": {
+    "z": 18,
+    "px0": 38416640,
+    "py0": 24274432,
+    "w": 11008,
+    "h": 6912,
+    "bbox": [
+      44.465,
+      26.084,
+      44.49,
+      26.141
+    ],
+    "mPerPx": 0.42609202809324687,
+    "attribution": "Esri, Maxar, Earthstar Geographics, and the GIS User Community",
+    "provider": "Esri World Imagery",
+    "accessDate": "2026-11-08",
+    "acquisitionDate": null,
+    "tileCount": 1161,
+    "imageryPolicy": "Reference imagery remains private and is never committed/published. Only measurements are inputs."
+  },
+  "tools": {
+    "tools/aerial/mosaic.py": "d12bc5d3c50614eaeef596da1e8eae3df02d13731a382cb5cdb6d42da5d60b04",
+    "tools/aerial/roofs.py": "e54eef5eeda500f5c5df45969f018e09628c090faf2c39141645b96956f11a96",
+    "tools/aerial/trees.py": "9866ff8fc161110fa047fc3bf6bfb12d169a7e923348d3b8d88d475d28f7752f"
+  },
+  "measurements": {
+    "roofInputs": 2266,
+    "confidentRoofs": 1511,
+    "treeCrowns": 47585,
+    "treeCoverage": [
+      44.465,
+      26.084,
+      44.49,
+      26.141
+    ],
+    "canopyShare": 0.307,
+    "greenDimensions": [
+      1376,
+      864
+    ],
+    "roofCalibration": {
+      "randomSamples": 80,
+      "keyStructureSamples": 12,
+      "seed": 20261108,
+      "privateSamples": "/workspace/reality-pass/pipera/aerial/calibration/samples.json",
+      "review": "All5sheets inspected. Flat/solar/metal and lowconfidence mixed roofs retain uncertainty. Explicit aircraft are not roof samples."
+    }
+  },
+  "sourceSemantics": {
+    "roofRecordsReviewed": 9,
+    "aircraftRecordsReviewed": 23,
+    "taggedHeightPriority": "Every positive OSM metre height and source storey count remains authoritative; untagged dimensions explicitly estimated.",
+    "reviewedCanopies": "game/research/bucharest-pipera.json buildings[].research.open_canopy"
+  },
+  "limits": [
+    "Roof classifier measures class/median colour, not roof rise/direction or exact native roof height.",
+    "Aerial acquisition date is not supplied by the stitched XYZ service.",
+    "Aircraft body/fin/clearance and untagged canopy supports/vertical dimensions are explicit estimates.",
+    "Historical dossier coverage counts describe2026-11-06 and are not current full-ring acceptance."
+  ],
+  "privateRawEvidence": [
+    "/workspace/reality-pass/pipera/aerial/roofs-full.json",
+    "/workspace/reality-pass/pipera/aerial/canopy-review.jpg",
+    "/workspace/reality-pass/pipera/aerial/trees-debug.jpg",
+    "/workspace/reality-pass/pipera/audits/"
+  ]
+}

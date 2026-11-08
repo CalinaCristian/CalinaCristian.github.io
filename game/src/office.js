@@ -110,7 +110,8 @@ const carpet = (base) => tex(128, 128, (ctx) => { ctx.fillStyle = base; ctx.fill
 const THEMES = {
     rosetti: { W: 10, D: 10, H: 3.4, floor: () => parquet('#8a5a34'), wallLow: '#5f7f5a', wall: '#ede3cc', ceil: '#f2efe6', view: 'bucharest', props: 'classroom',
         npc: { title: 'Form teacher', persona: 'teacher', look: { top: '#5a4636', bottom: '#2f3237', skin: '#e8bc9a', hair: '#5a4030' }, at: [-2.6, -3.6], yaw: 0.35 },
-        mates: [[-1.3, -0.6, 'sit'], [1.3, 0.8, 'sit'], [3.2, 2.2, 'sit'], [-3.2, 2.2, 'phone']], tone: 'room' },
+        // students on the desk chairs (desks at x = −3.2 / 0 / 3.2, z = −1.4 + r·1.6, seats at x ± 0.3, z + 0.45), facing the board (note 2)
+        mates: [[-3.5, 0.65, 'sit', 0], [0.3, 0.65, 'sit', 0], [2.9, 2.25, 'sit', 0], [4.4, 4.0, 'phone', -0.4]], tone: 'room' },
     upb: { W: 18, D: 22, H: 7, floor: () => stone('#d8d4cc', 'rgba(120,110,100,0.25)', 128), wallLow: '#b9b2a6', wall: '#e6e0d4', ceil: '#efe9df', view: 'bucharest', props: 'rectorat',
         npc: { title: 'Professor', persona: 'professor', look: { top: '#3a3d44', bottom: '#2f3237', skin: '#e8bc9a', hair: '#9a9a96' }, at: [2.5, -6], yaw: -0.4 },
         mates: [[-4, -2, 'talk'], [-3.2, -1.2, 'talk'], [5, 3, 'phone'], [-6, 5, 'walk']], tone: 'hall' },
@@ -238,8 +239,13 @@ export class Office {
             box(1.2, 0.04, 0.3, x, H - 0.03, z, new THREE.MeshBasicMaterial({ color: '#fffaf0' }));
         }
         // company sign (fitted text) on the back wall + accent stripe
-        const sign = new THREE.Mesh(new THREE.PlaneGeometry(Math.min(8, W * 0.55), Math.min(8, W * 0.55) / 4), new THREE.MeshBasicMaterial({ map: makeCanvasTexture(1024, 256, (ctx) => drawLobbySign(ctx, s, accent)) }));
-        sign.position.set(0, Math.min(H - 1, 2.4 + (H - 3) * 0.4), -D / 2 + 0.12); this.scene.add(sign); this.signMesh = sign;
+        // (round 6 note 12) the sign fits: below the ceiling, above the wainscot stripe, and narrower than the gap to the
+        // meeting rooms / feature walls at the sides (it ran into the ceiling and under the glass of UiPath Bucharest)
+        let sw = Math.min(5.6, W * 0.5), sh = sw / 4;
+        const sTop = H - 0.35, sBot = low + 0.3; if (sh > sTop - sBot) { sh = sTop - sBot; sw = sh * 4; }
+        const sy = clamp(2.4 + (H - 3) * 0.4, sBot + sh / 2, sTop - sh / 2);
+        const sign = new THREE.Mesh(new THREE.PlaneGeometry(sw, sh), new THREE.MeshBasicMaterial({ map: makeCanvasTexture(1024, 256, (ctx) => drawLobbySign(ctx, s, accent)) }));
+        sign.position.set(0, sy, -D / 2 + 0.12); this.scene.add(sign); this.signMesh = sign;
         if (T.props !== 'classroom') box(W, 0.06, 0.04, 0, low + 0.04, -D / 2 + 0.12, new THREE.MeshBasicMaterial({ color: accent }));
         // themed props
         (PROPS[T.props] || PROPS.startup)(this, { W, D, H, accent, s });
@@ -249,7 +255,7 @@ export class Office {
         this.scene.add(this.crowd.object);
         const n = T.npc; this.npc = { x: n.at[0], z: n.at[1], yaw: n.yaw, title: n.title, persona: n.persona };
         this.crowd.dress(0, { ...n.look, acc: '#111214', flags: 0 });
-        T.mates.forEach(([x, z, pose], i) => { const ps = pose === 'walk' ? 'stand' : pose; this.crowd.set(i + 1, { x, y: pose === 'sit' ? 0 : 0, z, yaw: Math.atan2(x - n.at[0], z - n.at[1]) * 0 + (i % 2 ? 0.6 : -0.6), pose: ps, prop: ps === 'phone' ? 'phone' : null, scale: 0.94 + (i % 3) * 0.04 }); this.addBox(x, z, 0.7, 0.7); });
+        T.mates.forEach(([x, z, pose, yaw0], i) => { const ps = pose === 'walk' ? 'stand' : pose; this.crowd.set(i + 1, { x, y: pose === 'sit' ? 0 : 0, z, yaw: yaw0 ?? (i % 2 ? 0.6 : -0.6), pose: ps, prop: ps === 'phone' ? 'phone' : null, scale: 0.94 + (i % 3) * 0.04 }); this.addBox(x, z, 0.7, 0.7); });
         this.crowd.count = 1 + T.mates.length;
         this.addBox(n.at[0], n.at[1], 0.6, 0.6);
         // stations (compat): every CV station is a topic of the conversation, located at the NPC
@@ -460,7 +466,7 @@ const PROPS = {
             drawFitText(ctx, 'Matematică-Informatică · 2009', 512, 90, 900, { maxSize: 64, minSize: 24, font: (sz) => `italic ${sz}px "Comic Sans MS", "Segoe Print", cursive`, label: 'chalkboard title' });
             drawFitText(ctx, 'f(x) = x² − 4x + 3   ·   program p; begin writeln(\'Hello\'); end.', 512, 210, 960, { maxSize: 40, minSize: 16, font: (sz) => `${sz}px "Courier New", monospace`, label: 'chalkboard code' });
         }) }));
-        board.position.set(0, 1.75, -D / 2 + 0.12); o.scene.add(board);
+        board.position.set(0, 1.75, -D / 2 + 0.145); o.scene.add(board); // (25 mm proud of its wooden backing: it z-fought at +0.12 — round 6 note 1)
         box(4.4, 0.08, 0.08, 0, 1.08, -D / 2 + 0.16, wood); box(4.5, 1.5, 0.04, 0, 1.75, -D / 2 + 0.1, wood);
         o.signMesh.position.set(-W / 2 + 0.13, 2.6, -1); o.signMesh.rotation.y = Math.PI / 2; o.signMesh.scale.setScalar(0.45); // school name on the side wall
         box(1.4, 0.06, 0.7, -2.6, 0.76, -3.1, wood, true); box(1.3, 0.7, 0.04, -2.6, 0.4, -2.78, wood);
@@ -470,7 +476,7 @@ const PROPS = {
             for (const dx of [-0.3, 0.3]) { box(0.38, 0.04, 0.38, x + dx, 0.44, z + 0.45, wood); box(0.38, 0.4, 0.03, x + dx, 0.68, z + 0.65, wood); }
         }
         const notice = makeCanvasTexture(512, 256, (ctx) => { ctx.fillStyle = '#b08a5a'; ctx.fillRect(0, 0, 512, 256); const cols = ['#fff7c2', '#ffffff', '#cde8ff', '#ffd9d9']; for (let i = 0; i < 9; i++) { ctx.fillStyle = cols[i % 4]; ctx.save(); ctx.translate(30 + (i % 5) * 96, 30 + Math.floor(i / 5) * 110); ctx.rotate((i % 3 - 1) * 0.05); ctx.fillRect(0, 0, 80, 96); ctx.fillStyle = '#c0392b'; ctx.beginPath(); ctx.arc(40, 6, 5, 0, 7); ctx.fill(); ctx.fillStyle = 'rgba(0,0,0,0.25)'; for (let y = 22; y < 90; y += 10) ctx.fillRect(8, y, 64, 2); ctx.restore(); } });
-        const nb = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 1.2), new THREE.MeshStandardMaterial({ map: notice, roughness: 0.9 })); nb.position.set(0, 1.7, D / 2 - 0.12); nb.rotation.y = Math.PI; o.scene.add(nb);
+        const nb = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 1.2), new THREE.MeshStandardMaterial({ map: notice, roughness: 0.9 })); nb.position.set(-2.9, 1.7, D / 2 - 0.03); nb.rotation.y = Math.PI; o.scene.add(nb); // (beside the door: it was centred on it, at the door's own depth — note 3)
         box(0.5, 0.42, 0.45, -W / 2 + 0.6, 1.0, 2.6, mat('#d9d2bd')); box(0.5, 0.05, 0.6, -W / 2 + 0.6, 0.76, 2.6, wood, true); // beige CRT on a side table
         box(0.44, 0.32, 0.02, -W / 2 + 0.86, 1.02, 2.6, new THREE.MeshBasicMaterial({ color: '#2a4d6b' }), false, Math.PI / 2);
         box(0.12, 0.6, 3.6, W / 2 - 0.3, 0.55, 0, mat('#e6e6e0')); // radiator under the windows
@@ -525,7 +531,7 @@ const PROPS = {
         for (let i = 0; i < 4; i++) robot(o, -W / 2 + 1.2, -4 + i * 2.2, 0.9 + (i % 2) * 0.25);
         meetingRoom(o, 5.5, -D / 2 + 2.6, 5, 3.2, H, accent);
         for (const [x, z] of [[-1.5, 5.5], [0, 6], [1.5, 5.5]]) { const b = new THREE.Mesh(new THREE.SphereGeometry(0.48, 12, 8), or); b.scale.set(1, 0.6, 1); b.position.set(x, 0.29, z); o.scene.add(b); o.addBox(x, z, 0.8, 0.8); }
-        box(W - 0.4, 0.05, 0.05, 0, H - 0.4, -D / 2 + 0.2, new THREE.MeshBasicMaterial({ color: '#ff7a45' }));
+        box(W - 0.4, 0.05, 0.05, 0, H - 0.1, -D / 2 + 0.2, new THREE.MeshBasicMaterial({ color: '#ff7a45' })); // (at the ceiling line: it crossed the sign — note 12)
     },
     /** Lincoln Square North lobby: wood-panelled atrium, elevator bank, reception, tall windows onto downtown Bellevue */
     tower(o, { W, D, H, accent }) {

@@ -3,6 +3,7 @@
 //  aware), turn-by-turn instructions and the in-car display renderer.
 // ============================================================================
 import { distPointSeg, clamp } from './util.js';
+import { endpointAccessEdges } from './road-access.js';
 
 // ---------- edge contract helpers (work with both the hand-made and the OSM graph) ----------
 /** lanes available when travelling the edge in `dir` (+1 = a→b, -1 = b→a). 0 = not allowed. */
@@ -11,7 +12,7 @@ export function lanesDir(e, dir) {
     if (e.oneway) return 0;
     return e.lanesB ?? e.lanes ?? 1;
 }
-export const canTravel = (e, dir) => lanesDir(e, dir) > 0;
+export const canTravel = (e, dir) => e.publicDrive !== false && lanesDir(e, dir) > 0;
 export const edgeSpeed = (e) => e.maxspeed ?? e.speed ?? 13;
 export const nodeList = (graph) => Array.isArray(graph.nodes) ? graph.nodes : Object.values(graph.nodes);
 const MOTOR = new Set(['highway', 'motorway', 'motorway_link', 'trunk', 'trunk_link', 'ramp']);
@@ -109,7 +110,7 @@ export class Navigator {
         this.world = world;
         this.graph = world.graph;
         this.nodes = nodeList(world.graph);
-        this.index = new EdgeIndex(world.graph.edges);
+        this.index = new EdgeIndex(world.graph.edges.filter(e => e.publicDrive !== false));
         this.nid = new Map(); this.nodes.forEach((n, i) => this.nid.set(n, i));
         this.markMainComponent();
         this.route = null; this.dest = null; this.offTimer = 0; this.progress = 0; this.segIdx = 0;
@@ -197,6 +198,7 @@ export class Navigator {
         }
         // direct along the same edge
         const ge = g.edge;
+        const endpointAccess = endpointAccessEdges(se, ge);
         let direct = null;
         if (ge === se) {
             for (const o of startOpts) {
@@ -223,6 +225,7 @@ export class Navigator {
             for (const e of node.edges) {
                 const dir = e.a === node ? 1 : -1;
                 if (!canTravelW(e, dir)) continue;
+                if (!W && e.throughAccess === false && !endpointAccess.has(e)) continue;
                 const other = dir > 0 ? e.b : e.a;
                 const vi = this.nid.get(other); if (vi === undefined) continue;
                 const pe = prevE[u];

@@ -596,6 +596,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         return {
             index: ri, name: str(r[0]), type: cls, lanesF: r[2], lanesB: r[3], median: shared ? 0 : r[4] / 10, laneW: shared ? shared.widthM / 2 : r[5] / 10, sidewalk: r[6] / 10,
             sharedLane: !!shared, sharedLaneWidthM: shared?.widthM, sharedLaneSource: shared,
+            access: data.roadAccess?.[ri] || null,
             maxspeed: r[7] / 3.6, flags, layer: r[9], ids: r.slice(10),
             oneway: !!(flags & 1), bridge: !!(flags & 2), tunnel: !!(flags & 4), roundabout: !!(flags & 8), busLane: !!(flags & 16),
             tram: !!(flags & 32), toll: !!(flags & 64), unpaved: !!(flags & 128), tramMedian: !!(flags & 256),
@@ -621,6 +622,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 lanesF: rd.lanesF, lanesB: rd.oneway ? 0 : rd.lanesB, lanes: Math.max(rd.lanesF, rd.oneway ? 0 : rd.lanesB), oneway: rd.oneway,
                 laneW: rd.laneW, median, wR, wL, halfW: Math.max(wR, wL), sidewalk: rd.sidewalk,
                 sharedLane: rd.sharedLane, sharedLaneWidthM: rd.sharedLaneWidthM, sharedLaneSource: rd.sharedLaneSource,
+                access: rd.access, publicDrive: rd.access?.publicDrive !== false, throughAccess: rd.access?.throughAccess !== false,
                 maxspeed: rd.maxspeed, speed: rd.maxspeed, tram: rd.tram, tramMedian: rd.tramMedian, bridge: rd.bridge, tunnel: rd.tunnel, toll: rd.toll,
                 busLane: rd.busLane, roundabout: rd.roundabout, unpaved: rd.unpaved, layer: rd.layer, trafficMul: TRAFFIC_MUL[rd.type] ?? 0.5,
                 bikeLane: rd.bikeLane, cycleTrack: rd.cycleTrack, lit: rd.lit, unlit: rd.unlit,
@@ -717,8 +719,8 @@ export async function buildWorld(city, renderer, opts = {}) {
     const computeSCC = () => {
         const N = nodeArr.length + 1, OUT = nodeArr.length;
         const out = Array.from({ length: N }, () => []), inn = Array.from({ length: N }, () => []);
-        for (const e of edges) { out[e.a.id].push(e.b.id); inn[e.b.id].push(e.a.id); if (!e.oneway) { out[e.b.id].push(e.a.id); inn[e.a.id].push(e.b.id); } }
-        for (const n of nodeArr) if (n.mapEnd) { out[n.id].push(OUT); inn[OUT].push(n.id); out[OUT].push(n.id); inn[n.id].push(OUT); }
+        for (const e of edges) { if (e.publicDrive === false) continue; out[e.a.id].push(e.b.id); inn[e.b.id].push(e.a.id); if (!e.oneway) { out[e.b.id].push(e.a.id); inn[e.a.id].push(e.b.id); } }
+        for (const n of nodeArr) if (n.mapEnd && n.edges.some(e => e.publicDrive !== false)) { out[n.id].push(OUT); inn[OUT].push(n.id); out[OUT].push(n.id); inn[n.id].push(OUT); }
         // Kosaraju (iterative)
         const order = [], seen = new Uint8Array(N);
         for (let s0 = 0; s0 < N; s0++) {
@@ -740,7 +742,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         let main = 0; for (let c = 1; c < nc; c++) if (sizes[c] > sizes[main]) main = c;
         let off = 0;
         for (const n of nodeArr) { n.comp = comp[n.id]; n.drivable = comp[n.id] === main; }
-        for (const e of edges) { e.drivable = e.a.drivable && e.b.drivable; if (!e.drivable) off++; }
+        for (const e of edges) { e.drivable = e.publicDrive !== false && e.a.drivable && e.b.drivable; if (!e.drivable) off++; }
         // weakly connected components (for the report)
         const par = new Int32Array(N).map((_, i) => i); const f = (x) => { while (par[x] !== x) { par[x] = par[par[x]]; x = par[x]; } return x; };
         for (const e of edges) par[f(e.a.id)] = f(e.b.id);
@@ -756,7 +758,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (!inDistrictLL(p.lat, p.lon)) continue;
             const q = city.proj(p.lat, p.lon);
             edgesInBox(q.x - 180, q.z - 180, q.x + 180, q.z + 180, (e) => {
-                if (e.drivable || !e.oneway || /motorway|trunk|primary/.test(e.type)) return;
+                if (e.publicDrive === false || e.drivable || !e.oneway || /motorway|trunk|primary/.test(e.type)) return;
                 e.oneway = false; e.lanesB = 1; e.median = 0; e.lanes = Math.max(e.lanesF, 1);
                 e.wR = e.lanesF * e.laneW; e.wL = e.laneW; e.halfW = Math.max(e.wR, e.wL); e.madeTwoWay = true;
                 flipped++;
@@ -2687,10 +2689,10 @@ export async function buildWorld(city, renderer, opts = {}) {
         // (after round 6) the boundary cuts + every other dead end of a through road (a road whose continuation was dropped:
         // "the road stops without indication") — service lanes / living streets / short stubs are left as they are
         const endIdx = new Set(data.district.ends || []);
-        nodeArr.forEach((n, i) => { if (!n || endIdx.has(i)) return; const real = n.edges.filter(f => !f.virtual); if (real.length !== 1) return; const e = real[0];
+        nodeArr.forEach((n, i) => { if (!n || endIdx.has(i)) return; const real = n.edges.filter(f => !f.virtual && f.publicDrive !== false); if (real.length !== 1) return; const e = real[0];
             if (/service|living_street|track|path|footway|pedestrian|parking/.test(e.type || '') || (e.len || 0) < 25) return; endIdx.add(i); });
         for (const i of endIdx) {
-            const n = nodeArr[i]; const real = n ? n.edges.filter(f => !f.virtual) : []; if (real.length !== 1) continue; // (a U-turn connector may join a cut dual carriageway)
+            const n = nodeArr[i]; const real = n ? n.edges.filter(f => !f.virtual && f.publicDrive !== false) : []; if (real.length !== 1) continue; // (a U-turn connector may join a cut dual carriageway)
             const e = real[0];
             const out = e.a === n ? 1 : -1; // into the edge (= into the map)
             // road direction over the last ~20 m (a short, skewed last OSM segment made the barrier run diagonally)

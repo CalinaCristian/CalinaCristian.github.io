@@ -100,6 +100,8 @@ Washington) are completed with `/api/0.6/relation/<id>/full`, cached in `tools/o
 
 Data © OpenStreetMap contributors, ODbL.
 
+District source roads retain physical restricted roads and service aisles. `roadAccess` resolves the OSM motorcar hierarchy independently of physical geometry; restricted rows never enter the public runtime graph, and destination/customer streets are available only for selected endpoints. Raw conditional/HOV/reversible restrictions remain explicit and unresolved. `node tools/osm/road-access-check.mjs` verifies precedence, endpoint routing and an isolated builder fixture, including a private elevated trunk, a specifically public service road, parking/customer access, a footway and a runway.
+
 ## District reality data (2026-11-08)
 
 District builds also read the aerial measurements in `game/research/` (see `tools/aerial/README.md`):

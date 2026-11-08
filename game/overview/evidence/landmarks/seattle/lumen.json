@@ -1,0 +1,231 @@
+{
+  "schemaVersion": 1,
+  "id": "lumen",
+  "city": "seattle",
+  "name": "Lumen Field",
+  "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+  "status": "in-progress",
+  "coordinates": {
+    "lat": 47.5952,
+    "lon": -122.3316
+  },
+  "sourceIds": [
+    "w458208102",
+    "w458208103",
+    "w458208104",
+    "w458208105",
+    "w458208106",
+    "w458208107",
+    "w458208112"
+  ],
+  "replacementScope": "Only the explicit source IDs represent authored replacement. Empty scope means context geometry only; never remove neighbours by radius, name or centroid.",
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/458208102",
+      "label": "OSM w458208102 · version 1 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/458208103",
+      "label": "OSM w458208103 · version 2 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/458208104",
+      "label": "OSM w458208104 · version 1 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/458208105",
+      "label": "OSM w458208105 · version 1 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/458208106",
+      "label": "OSM w458208106 · version 9 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/458208107",
+      "label": "OSM w458208107 · version 7 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/458208112",
+      "label": "OSM w458208112 · version 3 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/163840038",
+      "label": "OSM w163840038 · version 5 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13618158.3379904%2C6039505.902825678%2C-13617624.501862448%2C6040039.7389536295&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+      "label": "Independent georeferenced Esri aerial · privately viewed · acquisition date unknown · image not published",
+      "type": "aerial"
+    },
+    {
+      "url": "https://www.mka.com/projects/lumen-field/",
+      "label": "Structural engineer MKA · 720 ft tied-arch span",
+      "type": "official"
+    }
+  ],
+  "improvements": [
+    "Refreshed both complete source canopy contours, source pitch and north video-board footprint; roof tops follow the tagged 36 m round profile.",
+    "Lowered inherited 38 m deck blocks so they no longer bury the 26–36 m source canopy; lettering follows the curved roof at approximately the published 93 m / 40 m lengths.",
+    "The pitch remains free of invisible solid collision, while solid bowl decks retain height-banded colliders."
+  ],
+  "remainingGaps": [
+    "Source conflict: current OSM roof:colour=white is rendered; the independently viewed Esri aerial shows navy canopies. The imagery acquisition date is unconfirmed.",
+    "The rounded seating bowl, exposed seating rows, 66 m arch rise, detailed cable suspension and some deck elevations remain estimates.",
+    "The official MKA source establishes the 720 ft / 219.5 m tied-arch span, not a surveyed complete roof/arch section.",
+    "These are isolated front/top/oblique model studies, not matched street-eye Street View/aerial comparisons. They do not establish full-world, night, weather or seasonal parity.",
+    "Integrated source-only replacement and rebuilt district performance are separate acceptance checks; the capture branch predates that shared world policy."
+  ],
+  "checks": [
+    {
+      "label": "Bucharest foot,a regression",
+      "passed": true,
+      "details": "Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. Subsequent source changes are confined to US models."
+    },
+    {
+      "label": "Current source identity and topology review",
+      "passed": true,
+      "details": "All 24 US registry entries checked; 7 explicit replacement identities for this model. Raw source versions/tags/coordinates retained. OSM geometry takes precedence over estimates."
+    },
+    {
+      "label": "Independent visual and actual model review",
+      "passed": true,
+      "details": "Actual front, top and oblique game renders inspected against source plans and independently viewed aerial context; only game renders are published. Height/facade limits and source conflicts are listed."
+    },
+    {
+      "label": "Geometry and meaningful collision checks",
+      "passed": true,
+      "details": "All61 shared geometry invariants and the US source-scope/total-height/court/pitch/portal/bridge-clearance regression checks pass. No FPS claim is inferred from geometry counts."
+    },
+    {
+      "label": "Immutable game-only capture provenance",
+      "passed": true,
+      "details": "Each lossless WebP is RGB pixel-verified against its actual game screenshot and carries its own source commit, camera pose and SHA256."
+    },
+    {
+      "label": "Complete measured visual parity",
+      "passed": false,
+      "details": "Unmeasured sections, simplified details and world integration remain open as listed; no 100% parity claim."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Isolated model study · front elevation",
+      "image": "assets/landmarks/lumen/front.webp",
+      "kind": "front",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "9e744aec1e86e54f64b562c6246c9eb97dbd8abfb83bf73bd064eefce531f3c7",
+      "capturedAt": "2026-11-08T17:04:57.224Z",
+      "pose": {
+        "position": [
+          -2.8499984741210938,
+          26.91961669921875,
+          364.6009421882731
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "quaternion": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "projection": "perspective",
+        "fov": 45,
+        "target": [
+          -2.8499984741210938,
+          26.91961669921875,
+          7.75
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    },
+    {
+      "id": "top",
+      "label": "Isolated model study · orthographic north-up plan",
+      "image": "assets/landmarks/lumen/top.webp",
+      "kind": "top",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "53914e4a87b836a4f48f4093033b736176ab3f8b2a12d246f1f30bd4368fba50",
+      "capturedAt": "2026-11-08T17:05:01.494Z",
+      "pose": {
+        "position": [
+          -2.8499984741210938,
+          343.31904174804686,
+          7.75
+        ],
+        "up": [
+          0,
+          0,
+          -1
+        ],
+        "quaternion": [
+          -0.7071067811865475,
+          0,
+          0,
+          0.7071067811865476
+        ],
+        "projection": "orthographic",
+        "groundSquareM": 276.02,
+        "orientation": "north-up",
+        "target": [
+          -2.8499984741210938,
+          0,
+          7.75
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Isolated model study · oblique overview",
+      "image": "assets/landmarks/lumen/oblique.webp",
+      "kind": "oblique",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "e014a560a407920439b3258bdcdc2ec849b517cc8b8fd1b3ec6cb0078cc65205",
+      "capturedAt": "2026-11-08T17:05:05.301Z",
+      "pose": {
+        "position": [
+          181.1163279206038,
+          183.3527734590548,
+          270.4811423482956
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "quaternion": [
+          -0.21453963361642958,
+          0.2929987293442745,
+          0.0676440866458011,
+          0.929273247087327
+        ],
+        "projection": "perspective",
+        "fov": 45,
+        "target": [
+          -2.8499984741210938,
+          26.91961669921875,
+          7.75
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 8964,
+    "drawCalls": 2,
+    "note": "Isolated viewer frame includes ground and shadow rendering; this is neither a whole-world budget measurement nor hardware FPS."
+  }
+}

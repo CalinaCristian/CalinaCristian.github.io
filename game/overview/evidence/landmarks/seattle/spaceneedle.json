@@ -1,0 +1,285 @@
+{
+  "schemaVersion": 1,
+  "id": "spaceneedle",
+  "city": "seattle",
+  "name": "Space Needle",
+  "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+  "status": "in-progress",
+  "coordinates": {
+    "lat": 47.6205063,
+    "lon": -122.3493043
+  },
+  "sourceIds": [
+    "w12903132",
+    "w394254329",
+    "w394254330",
+    "w394254331",
+    "w394254332",
+    "w394254333",
+    "w394254334",
+    "w394254335",
+    "w394254336",
+    "w394254337",
+    "w394254484",
+    "w394254485",
+    "w394254486",
+    "w394254487",
+    "w394254488",
+    "w394956342",
+    "w394956343",
+    "w394956344"
+  ],
+  "replacementScope": "Only the explicit source IDs represent authored replacement. Empty scope means context geometry only; never remove neighbours by radius, name or centroid.",
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/12903132",
+      "label": "OSM w12903132 · version 44 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/394254329",
+      "label": "OSM w394254329 · version 2 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/394254330",
+      "label": "OSM w394254330 · version 5 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/394254331",
+      "label": "OSM w394254331 · version 2 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/394254332",
+      "label": "OSM w394254332 · version 2 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/394254333",
+      "label": "OSM w394254333 · version 2 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/394254334",
+      "label": "OSM w394254334 · version 2 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/394254335",
+      "label": "OSM w394254335 · version 2 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/394254336",
+      "label": "OSM w394254336 · version 2 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/394254337",
+      "label": "OSM w394254337 · version 2 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/394254484",
+      "label": "OSM w394254484 · version 2 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/394254485",
+      "label": "OSM w394254485 · version 2 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/394254486",
+      "label": "OSM w394254486 · version 2 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/394254487",
+      "label": "OSM w394254487 · version 2 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/394254488",
+      "label": "OSM w394254488 · version 2 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/394956342",
+      "label": "OSM w394956342 · version 1 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/394956343",
+      "label": "OSM w394956343 · version 1 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/394956344",
+      "label": "OSM w394956344 · version 1 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.spaceneedle.com/facts-1",
+      "label": "Official Space Needle facts · 605 ft beacon height",
+      "type": "official"
+    }
+  ],
+  "improvements": [
+    "Replaced the shallow dish with a continuous deep top-house profile, observation glazing, lower glass base, three paired legs and the 200 ft tie.",
+    "Reprojected every declared base/top-house part from the complete current OSM source rings; complete beacon height is 184 m."
+  ],
+  "remainingGaps": [
+    "Fine mullions, restaurant interior, current roof equipment and individual structural joints remain simplified.",
+    "Leg curvature, several profile break heights and facade colours remain authored estimates despite the verified overall height.",
+    "These are isolated front/top/oblique model studies, not matched street-eye Street View/aerial comparisons. They do not establish full-world, night, weather or seasonal parity.",
+    "Integrated source-only replacement and rebuilt district performance are separate acceptance checks; the capture branch predates that shared world policy."
+  ],
+  "checks": [
+    {
+      "label": "Bucharest foot,a regression",
+      "passed": true,
+      "details": "Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. Subsequent source changes are confined to US models."
+    },
+    {
+      "label": "Current source identity and topology review",
+      "passed": true,
+      "details": "All 24 US registry entries checked; 18 explicit replacement identities for this model. Raw source versions/tags/coordinates retained. OSM geometry takes precedence over estimates."
+    },
+    {
+      "label": "Independent visual and actual model review",
+      "passed": true,
+      "details": "Actual front, top and oblique game renders inspected against source plans and independently viewed aerial context; only game renders are published. Height/facade limits and source conflicts are listed."
+    },
+    {
+      "label": "Geometry and meaningful collision checks",
+      "passed": true,
+      "details": "All61 shared geometry invariants and the US source-scope/total-height/court/pitch/portal/bridge-clearance regression checks pass. No FPS claim is inferred from geometry counts."
+    },
+    {
+      "label": "Immutable game-only capture provenance",
+      "passed": true,
+      "details": "Each lossless WebP is RGB pixel-verified against its actual game screenshot and carries its own source commit, camera pose and SHA256."
+    },
+    {
+      "label": "Complete measured visual parity",
+      "passed": false,
+      "details": "Unmeasured sections, simplified details and world integration remain open as listed; no 100% parity claim."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Isolated model study · front elevation",
+      "image": "assets/landmarks/spaceneedle/front.webp",
+      "kind": "front",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "fa73727f26edb83094f410e1a81ef694115587086d38bd3443b7c09fdf69d691",
+      "capturedAt": "2026-11-08T17:04:11.386Z",
+      "pose": {
+        "position": [
+          0,
+          73.65226243138314,
+          322.5242270943784
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "quaternion": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "projection": "perspective",
+        "fov": 45,
+        "target": [
+          0,
+          73.65226243138314,
+          0
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    },
+    {
+      "id": "top",
+      "label": "Isolated model study · orthographic north-up plan",
+      "image": "assets/landmarks/spaceneedle/top.webp",
+      "kind": "top",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "8056ead28e91610b5afabe3afb8e12e1fdd49b27a46490a80fd2d87ec0d0a2ec",
+      "capturedAt": "2026-11-08T17:04:15.213Z",
+      "pose": {
+        "position": [
+          0,
+          247.72203210364853,
+          0
+        ],
+        "up": [
+          0,
+          0,
+          -1
+        ],
+        "quaternion": [
+          -0.7071067811865475,
+          0,
+          0,
+          0.7071067811865476
+        ],
+        "projection": "orthographic",
+        "groundSquareM": 63.591376025190705,
+        "orientation": "north-up",
+        "target": [
+          0,
+          0,
+          0
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Isolated model study · oblique overview",
+      "image": "assets/landmarks/spaceneedle/oblique.webp",
+      "kind": "oblique",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "ae3aaa6e38125b5027c6128940ac5f99725f4a8cc5fafa5ca0ee3fa60cb8071a",
+      "capturedAt": "2026-11-08T17:04:18.396Z",
+      "pose": {
+        "position": [
+          166.2699749873341,
+          215.0375777300066,
+          237.45813335922244
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "quaternion": [
+          -0.21453963361642958,
+          0.2929987293442745,
+          0.0676440866458011,
+          0.929273247087327
+        ],
+        "projection": "perspective",
+        "fov": 45,
+        "target": [
+          0,
+          73.65226243138314,
+          0
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 4191,
+    "drawCalls": 3,
+    "note": "Isolated viewer frame includes ground and shadow rendering; this is neither a whole-world budget measurement nor hardware FPS."
+  }
+}

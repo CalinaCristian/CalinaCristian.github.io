@@ -91,17 +91,17 @@ export default {
         // Regrade only that source footway and its mapped western access. This
         // uses the authored coping elevation; neither height nor width is a
         // field measurement. No deck is extended across a chamber or courtyard.
-        const northWalk = d.ways.find(w => w.id === 'w60973303');
+        const northWalks = ['w60973303', 'w472179831'].map(id => d.ways.find(w => w.id === id)).filter(Boolean);
         const westSteps = d.ways.find(w => w.id === 'w60973302');
         const westLink = d.ways.find(w => w.id === 'w1305390459');
-        if (northWalk) g.corridor(northWalk.pts, 3.2, 2.5, () => WALL_TOP);
+        for (const walk of northWalks) g.corridor(walk.pts, 3.2, 2.5, () => WALL_TOP);
         if (westLink) g.corridor(westLink.pts, 3.2, 1.5, () => WALL_TOP);
         if (westSteps) {
             const [a, c] = westSteps.pts, dx = c[0] - a[0], dz = c[1] - a[1], ll = dx * dx + dz * dz;
             const top = g.heightAt(...c);
             g.corridor(westSteps.pts, 2.6, 1.5, (x, z) => lerp(WALL_TOP, top, clamp(((x - a[0]) * dx + (z - a[1]) * dz) / ll, 0, 1)));
         }
-        ctx.extras.publicNorthWalk = { sourceIds: [northWalk, westLink, westSteps].filter(Boolean).map(w => w.id), topM: WALL_TOP, widthM: 3.2, stepsWidthM: 2.6, provenance: 'Unmeasured grade/width estimates aligned to existing authored coping; exact mapped source centre lines retained.' };
+        ctx.extras.publicNorthWalk = { sourceIds: [...northWalks, westLink, westSteps].filter(Boolean).map(w => w.id), topM: WALL_TOP, widthM: 3.2, stepsWidthM: 2.6, provenance: 'Unmeasured grade/width estimates aligned to existing authored coping; exact mapped source centre lines retained.' };
         // spillway dam with 6 tainter gates (south of the small lock) + the fish ladder on the south bank
         {
             const b = new GeoBatch(), s0 = 30, s1 = 102, t = 62;

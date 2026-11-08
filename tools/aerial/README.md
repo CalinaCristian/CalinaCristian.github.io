@@ -38,7 +38,7 @@ calibrating; the compact game research file stores only the measured attributes.
 
 Tree surveys record `_coverage: [south, west, north, east]` for the image pixels actually measured, intersected with an
 optional `trees.py --bbox` crop. The builder copies it to `data.treeCoverage`, allowing the world to suppress inferred
-street rows only inside measured coverage. Older survey files without `_coverage` leave that coverage unknown.
+street rows and park/garden fills only inside measured coverage. Older survey files without `_coverage` leave that coverage unknown.
 
 How the builder uses them (district mode, OSM tags always win): `roofs` → `roof:shape` / `roof:colour` and the villa vs
 block decision in the villa quarter (tiled & small → villa 1–3 storeys; dark flat → 1950s–60s bloc P+3; light flat &

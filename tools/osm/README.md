@@ -76,11 +76,14 @@ Washington) are completed with `/api/0.6/relation/<id>/full`, cached in `tools/o
   Dev checks (printed as `dev-check:`): dead ends that stop < 12 m short of another road on the same
   layer are connected, dead-end stubs < 15 m are dropped, and any building whose footprint covers a
   road ribbon is removed.
-* **Buildings** – footprints (ways + multipolygon outers), simplified (≥1 m, ≤40 vertices), within
+* **Buildings** – footprints (ways + multipolygon outers and their mapped courtyard holes), simplified (outer ≥1 m, ≤40 vertices), within
   250 m of the road network, shrunk away from the road ribbons, with height (tags or defaults),
   facade style (by tags, district and street: civic / interwar / eclectic / bloc / glass / house /
   shop / plain / church) and roof shape. Seattle footprints are drawn at 0.7 of real size around
-  their (half-scale) position, the Bucharest DN1 strip at 0.75 × 0.45, then de-overlapped.
+  their (half-scale) position, the Bucharest DN1 strip at 0.75 × 0.45, then de-overlapped. Optional sparse `buildingHoles`
+  stores headerless delta rings by final building index (same decimetre coordinates as the outer). Inner rings are associated
+  with their containing outer, retained during clearance corrections, and excluded from building/tree/POI point containment.
+  The building audit reports multipolygon identity and courtyard preservation separately from its existing way-only metrics.
 * **Street lamps** – `highway=street_lamp` nodes (+ `height`); roads carry `lit=yes/no` and bike lanes / tracks as flags.
 * **Trees / furniture** – `natural=tree` (+ `tree_row`), benches, bins, bollards, post boxes, hydrants … (off the carriageway).
 * **POIs** – fuel, food, shops, banks, pharmacies, hospitals, schools, metro, bus/tram stops,
@@ -95,9 +98,11 @@ Data © OpenStreetMap contributors, ODbL.
 District builds also read the aerial measurements in `game/research/` (see `tools/aerial/README.md`):
 `roofs-<city>-<district>.json` (roof shape / colour per OSM way, and the villa vs block defaults in the villa quarter),
 `trees-…` (tree crowns → `data.trees`) and `green-…` (gardens / lawns → `data.green`). Every real footprint up to
-`district.outerRing` m (default 350) outside the playable area is a full building (flag 32, no shops / signs), with its
+`district.outerRing` m (default 600) outside the playable area is a full building (flag 32, no shops / signs), with its
 streets as `data.scenery`; the boxes of `backdrop` only start beyond. `DEBUG_DROPS=<file.json>` lists every footprint inside
 the area the build did not keep and why (`far`, `simplify`, `road-clearance`, `tiny`, `overlap`). Address-like names
 ("Georges Bizet 10"), block numbers and residential names no longer become shop signs. OSM `parking:*` tags reach
-world.js through `roadInfo` (kerbside parked cars). Check the result street by street against Street View:
+world.js through `roadInfo` permission bits and optional `parking` location/orientation rows; mapped diagonal street-side bays
+are not interchangeable with parallel sidewalk parking. New builds retain source `buildingIds` and exact district geometry
+for the independent footprint/height auditor. Check the result street by street against Street View:
 `node game/dev/harness/viewpoints.js --district=<id> --walk --streetview` (`game/dev/harness/README.md`).

@@ -276,6 +276,10 @@ export function createArchetypes(env) {
         if (b.style === 'church' || RE.worship.test(nm) || (s && s.a === 'ch')) return null;
         const st = s ? s.style : '', old = st === 'v' || st === 'e' || (b.year && b.year < 1919);
         const storeys = (s && s.st) || b.levels || Math.round(b.h / 3.3);
+        // A ground-floor tenant's name is not the building's type. In particular,
+        // a supermarket inside a mapped apartment block must not replace every
+        // residential floor with the supermarket's blank panel facade.
+        if (/^(apartments|residential|dormitory)$/.test(t) && (!s || !['sr', 'mx'].includes(s.a))) return null;
         if (RE.park.test(nm) && !/garajul|ciclop/i.test(nm) || t === 'parking' || (s && s.a === 'pk')) return b.h > 5 ? 'parking' : null;
         if (/punct termic|central[ăa] termic|substa[tț]i|transformator/i.test(nm)) return 'shed'; // utility buildings
         if (s) {
@@ -302,9 +306,9 @@ export function createArchetypes(env) {
                 }
                 case 'sr': case 'mx': {
                     if (RE.market.test(nm) && b.area > 500 && storeys <= 2) return 'market';
-                    if (RE.box.test(nm) && b.area > 1200) return 'box';
+                    if (RE.box.test(nm) && b.area > 1200 && storeys <= 2) return 'box';
                     if (US) return storeys > 4 || s.a === 'mx' ? 'resi' : 'store';
-                    if (b.h < 6.5 && b.area < 1500) return 'shop1'; // single-storey shop / pavilion
+                    if (b.h < 6.5 && b.area < 1500 && storeys <= 1) return 'shop1'; // single-storey shop / pavilion, never a two-storey heritage house
                     return null;
                 }
             }

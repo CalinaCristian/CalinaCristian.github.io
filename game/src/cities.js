@@ -108,8 +108,8 @@ const BUC_DISTRICTS = {
             { r: 130, chapter: 'uipath-buc', line: [[44.456072, 26.083680], [44.453471, 26.085201], [44.452535, 26.085595], [44.451904, 26.086143], [44.451921, 26.087215], [44.452318, 26.090390], [44.451142, 26.090449], [44.451624, 26.094327], [44.449900, 26.094400]] },
         ],
         circles: [{ lat: 44.451180, lon: 26.087950, r: 200, name: 'arnia door' }, { lat: 44.441800, lon: 26.098800, r: 110, name: 'arnia start' }, { lat: 44.451180, lon: 26.087950, r: 120, name: 'arnia building' }, { lat: 44.449900, lon: 26.094400, r: 200, name: 'uipath-buc door' }, { lat: 44.456000, lon: 26.084200, r: 110, name: 'uipath-buc start' }, { lat: 44.449900, lon: 26.094400, r: 120, name: 'uipath-buc building' }],
-        landmarks: ['victoria', 'ase', 'ambasador', 'thelandmark', 'europehouse', 'skytower', 'ateneu', 'regal'],
-        scenery: ['skytower', 'ateneu', 'regal'], // real skyline/600 m ring landmarks; no unreachable marker, label or route
+        landmarks: ['victoria', 'ase', 'ambasador', 'thelandmark', 'europehouse', 'skytower', 'ateneu', 'regal', 'tnb'],
+        scenery: ['skytower', 'ateneu', 'regal', 'tnb'], // real skyline/600 m ring landmarks; no unreachable marker, label or route
         congestion: [ // from game/research/bucharest-romana.json traffic.hotspots
             { lat: 44.45260, lon: 26.08580, radius: 220, hours: [[7.5,  10],  [16,  19.5]], level: 0.90, note: 'Piața Victoriei' },
             { lat: 44.44680, lon: 26.09700, radius: 160, hours: [[7.5,  10],  [16,  19.5]], level: 0.85, note: 'Piața Romană' },

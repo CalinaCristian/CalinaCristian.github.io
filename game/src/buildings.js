@@ -258,7 +258,7 @@ export function finalizeBatches(batches, T) {
 //  archetype: sr shopfront row · mx shops under housing · ob office block · cw curtain-wall office · cv civic · ho hotel ·
 //        un university · sc school · ch church · in industrial shed · su supermarket · ml mall · pk parking · bk bank ·
 //        dt drive-thru · fu fuel station · cvs CV-stop building
-//  flags: 1 on a chapter route · 2 storeys from OSM / research (not an estimate) · 4 colour photo-researched / OSM ·
+//  flags: 1 on a chapter route · 2 storeys from OSM / research (not an estimate) · 4 facade photo-researched / OSM ·
 //        8 rooftop plant · 16 entrance canopy · 32 landmark / CV stop (hand-modelled elsewhere)
 //  material: pl plaster · cw curtain wall · st stone · sp sandwich panels · mc metal cladding · us US brick/panel storefront ·
 //        cf concrete frame · cc exposed concrete · pn panels · rb brick · fu canopy
@@ -679,7 +679,7 @@ export const BUILDING_SPECS = {"bucharest-floreasca":[
 [44.447009,26.095787,227,"ho",2,5,"#C9B79C",9,"pl","","f",1,"","Bulevardul Dacia",0,""],
 [44.44774,26.094347,822,"mx",7,3.8,"#D9D2C3",3,"pl","i","p",0,"","Strada Visarion",1939,""],
 [44.448189,26.095483,220,"sr",2,4.2,"#E9E0CF",1,"pl","","p",1,"","Strada Visarion",0,""],
-[44.452538,26.088667,318,"ob",5,4.2,"#E2D3B5",9,"pl","","f",0,"Louis Blanc Offices","Strada Louis Blanc",0,"Louis Blanc Offices|e"],
+[44.452538,26.088667,318,"cw",8,4.2,"",15,"cw","m","f",0,"Louis Blanc Offices","Strada Louis Blanc",0,"Louis Blanc Offices|e"],
 [44.449926,26.089982,474,"cv",3,4.5,"#D8C3A5",1,"pl","","p",0,"Ambasada Republicii Islamice Iran","Strada Gina Patrichi",0,""],
 [44.451078,26.09349,92,"sr",3,4.2,"#E9E0CF",1,"pl","","p",1,"","Intrarea Blaj",0,""],
 [44.44942,26.090958,532,"sr",3,4.2,"#E6D3B3",3,"pl","","p",1,"","Bulevardul Lascăr Catargiu",0,""],

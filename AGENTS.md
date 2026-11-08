@@ -46,16 +46,18 @@ Pitfalls found the hard way (each one shipped a visible bug)
 - Blanket defaults by zone (`villaZone`: every footprint < 420 m² = 2-storey pitched house) made a "sea of roofs"; decide from
   measurements (aerial roof class + footprint shape), deterministic variety per OSM id.
 - `roof:levels` is an attic inside a pitched roof, a set-back storey only under a flat roof.
-- Never scale a footprint toward its centroid to clear a road (houses kept at 35 % of their size): push back only the corners
-  that touch the clearance, check neighbours, fall back to shrinking last.
+- Preserve every valid source footprint and courtyard exactly, including small strips and elevated parts. Never move,
+  shrink or delete a real building to clear a road. Resolve source conflicts through documented widths, grade, open
+  canopies or actual building passages; retain unresolved source contradictions explicitly.
 - Invented ground-floor shops round CV stops and address-like names (`Georges Bizet 10`, `Bl. 8A`) as shop signs were wrong;
   shops / signs come from OSM / POIs / research, on street faces only.
 - Footprint tests must test the whole footprint, not its centre (fuel canopies cut through buildings).
 - Landmark frames: with x east / z south, "v = east" of a long axis u is `(uz, −ux)`; check E/W on a top-down vs the aerial.
 - Comparisons: render the game in the Street View season (`--season=summer`), at the pano position and camera height; take
   top-down tiles from below the tree / car draw distance (the 466 m camera made parks look treeless); square top-down frames.
-- Frame budget: measured trees dominate (≈ 85 triangles each, near LOD far more), parked cars ≈ 260 each; keep both inside
-  the culling radii set for districts in world.js and thin the scenery ring, not the playable streets.
+- Frame budget: measured trees dominate (≈ 85 triangles each, near LOD far more), parked cars ≈ 260 each. Use culling,
+  LOD, instancing and bounded rendering work. Preserve measured crowns and source records; never thin them to obtain a
+  passing budget. Record physical exclusions separately from render optimizations.
 - Aerial canopy surveys must record their actual coverage (`treeCoverage`): suppress inferred trees only there. Grey historic
   metal roofs can look flat to the classifier; inspect calibrated crops, retain uncertain results, and keep OSM tags first.
 - Preserve OSM parking location and orientation (`data.parking`); diagonal street-side bays are not parallel sidewalk parking.
@@ -75,8 +77,9 @@ Pitfalls found the hard way (each one shipped a visible bug)
 - Edges can be asymmetric (wL ≠ wR: two-way roads with different lane counts, lane-aligned one-way chains): use the side's
   own width, never `halfW`, for anything placed on one side (walkers' lines put people metres off the sidewalk).
 - Anything a car or walker can hit needs a collider (`propColl` / `addPropColl`): fences, hedges and bollards once had none.
-- Roofs / facades: a centroid-fan roof only for convex outlines (L / T / U shapes get the inset hip roof); window tiles
-  must end on a whole storey (the storeys above a shopfront too, archetype parapets plain), or a sliced row shows at the roof.
+- Roofs / facades: use the shared native roof profiles, exact outer/inner rings and clipped roof surfaces. Literal height
+  is the total top, not a wall height to which another roof is added. Keep unsupported roof shapes and estimated rises
+  explicit. Window tiles must end on a whole storey, including above shopfronts; parapets remain plain.
 - Fine wires / pickets / nets: thin two-sided strips in `c.detail` (no shadow pass), never boxes: the frame budget.
 - Flat ground layers (`area` / `grass` / `pave` / `sport`) write no depth and draw in mesh order, so a later cell's lawn paints
   over anything crossing a cell border: markings over a ground go in a layer drawn after it (`c.sport` for pitches).
@@ -89,6 +92,11 @@ Pitfalls found the hard way (each one shipped a visible bug)
   not a box centred on the eye; anything checking the player's footprint (traffic SAT, pedestrians) offsets by it.
 - No instant position snaps for people in view (knock-downs, un-piling, getting back to the sidewalk line): move them at a
   walking pace (`adoptLine`, `walkGoal`), a teleport is only acceptable out of the player's sight.
+- Source roads keep every mapped vertex and legal direction, including private scenery. Do not offset parallel source
+  ways or invent graph joins/U-turns. Physical width and measured left/right extents do not change lane legality; OSM
+  width/placement wins. Use shared-road reservations when two legal directions share one physical lane.
+- Capture coverage is an acceptance gate: missing, duplicate or timed-out views cannot be called a visual pass. A required
+  foot/a run covers legacy chapter scenarios; test rebuilt districts and evolving traffic/mirror budgets separately.
 
 Owner preferences (from play-test feedback)
 - Reality first: real footprints, heights, roof shapes / colours, shops, trees, parked cars; nothing empty or dead, including

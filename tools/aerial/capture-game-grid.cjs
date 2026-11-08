@@ -14,7 +14,7 @@ const mime={'.html':'text/html','.js':'text/javascript','.json':'application/jso
 function sourceFiles(dir,rel=''){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?sourceFiles(path.join(dir,e.name),path.join(rel,e.name)):[{path:path.join(rel,e.name),sha256:hash(fs.readFileSync(path.join(dir,e.name)))}]);}
 (async()=>{
   fs.mkdirSync(path.join(out,'images'),{recursive:true});fs.mkdirSync(path.join(out,'thumbs'),{recursive:true});
-  const sourceIdentity={gameSourceCommit:plan.gameSourceCommit,sourceRoot:root,delivery:'git archive of published source commit; capture tool is outside the served archive',files:sourceFiles(root)};
+  const sourceIdentity={gameSourceCommit:plan.gameSourceCommit,sourceRoot:root,delivery:'git archive of recorded immutable source commit; capture tool is outside the served archive',files:sourceFiles(root)};
   sourceIdentity.treeSha256=hash(Buffer.from(JSON.stringify(sourceIdentity.files)));write('source-provenance.json',sourceIdentity);
   const server=http.createServer((req,res)=>{
     let rel;try{rel=decodeURIComponent(req.url.split('?')[0]);}catch{res.writeHead(400).end();return;}

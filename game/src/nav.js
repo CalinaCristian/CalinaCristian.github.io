@@ -14,6 +14,10 @@ export function lanesDir(e, dir) {
 }
 export const canTravel = (e, dir) => !e.virtual && e.publicDrive !== false && lanesDir(e, dir) > 0;
 export const edgeSpeed = (e) => e.maxspeed ?? e.speed ?? 13;
+/** Physical edge of the pavement on the canonical right (+) or left (-) of the source centreline. */
+export const roadSideWidth = (e, side) => (side >= 0 ? e.wR : e.wL) ?? e.halfW ?? 6;
+export const roadLateral = (e, x, z) => (x - e.a.x) * e.nx + (z - e.a.z) * e.nz;
+export const roadWidthAt = (e, x, z) => roadSideWidth(e, roadLateral(e, x, z));
 export const nodeList = (graph) => Array.isArray(graph.nodes) ? graph.nodes : Object.values(graph.nodes);
 const MOTOR = new Set(['highway', 'motorway', 'motorway_link', 'trunk', 'trunk_link', 'ramp']);
 export const isMotorway = (e) => MOTOR.has(e.type);
@@ -463,16 +467,24 @@ export class CarScreen {
             ctx.strokeStyle = '#3b9bff'; ctx.lineWidth = 7 / scale; ctx.stroke();
         }
         // POIs (fuel etc.)
+        ctx.save();
+        // The map sits between the translucent header and footer. Clip markers
+        // here so an off-map glyph cannot show through either banner.
+        const poiTransform = ctx.getTransform();
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.beginPath(); ctx.rect(0, 74, W, Math.max(0, H - 74 - 54)); ctx.clip();
+        ctx.setTransform(poiTransform);
         ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
         for (const q of info.pois || []) {
             if (Math.abs(q.x - p.x) > R || Math.abs(q.z - p.z) > R) continue;
             ctx.save(); ctx.translate(q.x, q.z);
-            { const t = ctx.getTransform(); if (t.e < -12 || t.e > W + 12 || t.f < -12 || t.f > H + 12) { ctx.restore(); continue; } } // off the screen canvas (review #26b)
+            { const t = ctx.getTransform(); if (t.e + 9 <= 0 || t.e - 9 >= W || t.f + 9 <= 74 || t.f - 9 >= H - 54) { ctx.restore(); continue; } } // marker wholly outside the visible map
             ctx.rotate(-p.heading); ctx.scale(1 / scale, 1 / scale);
             ctx.beginPath(); ctx.arc(0, 0, 9, 0, 7); ctx.fillStyle = q.color || '#334155'; ctx.fill();
             ctx.font = '11px sans-serif'; ctx.fillStyle = '#fff'; ctx.fillText(q.icon || '•', 0, 1);
             ctx.restore();
         }
+        ctx.restore();
         // destination pin
         if (info.dest) {
             ctx.save(); ctx.translate(info.dest.x, info.dest.z); ctx.rotate(-p.heading); ctx.scale(1 / scale, 1 / scale);

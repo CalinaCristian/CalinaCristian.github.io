@@ -1,0 +1,79 @@
+{
+  "root": "/workspace/integration-qa-evidence/asymmetric/source",
+  "method": "Actual Game prototype methods, controlled edge contracts; RAF disabled, no world/geometry fidelity claim.",
+  "rows": [
+    {
+      "name": "roadPose forward",
+      "actual": 8.5,
+      "expected": 8.5,
+      "pass": true
+    },
+    {
+      "name": "roadPose reverse on canonical right",
+      "actual": 5.5,
+      "expected": 5.5,
+      "pass": true
+    },
+    {
+      "name": "lanePose forward",
+      "actual": 8.5,
+      "expected": 8.5,
+      "pass": true
+    },
+    {
+      "name": "lanePose reverse outer lane",
+      "actual": -0.5,
+      "expected": -0.5,
+      "pass": true
+    },
+    {
+      "name": "route reverse outer lane",
+      "actual": -0.5,
+      "expected": -0.5,
+      "pass": true
+    },
+    {
+      "name": "city spawn reverse",
+      "actual": 5.5,
+      "expected": 5.5,
+      "pass": true
+    },
+    {
+      "name": "foot reset source side -1",
+      "actual": -3.5,
+      "expected": -3.5,
+      "pass": true
+    },
+    {
+      "name": "foot reset source side 1",
+      "actual": 11.5,
+      "expected": 11.5,
+      "pass": true
+    },
+    {
+      "name": "shared roadPose 1",
+      "actual": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "name": "shared fallback lanePose 1",
+      "actual": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "name": "shared roadPose -1",
+      "actual": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "name": "shared fallback lanePose -1",
+      "actual": 1,
+      "expected": 1,
+      "pass": true
+    }
+  ],
+  "errors": []
+}

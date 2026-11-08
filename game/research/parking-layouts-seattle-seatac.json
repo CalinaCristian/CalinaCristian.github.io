@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "district": "seatac",
+  "sourcePriority": "Explicit OSM parking orientation/layout wins; independently measured compatible angles apply only at confidence >=0.75. Google imagery provides no attributes.",
+  "scope": "Targeted correction of reviewed clear diagonal surface lots; every other lot retains an explicitly estimated layout, not a claim of measured stall orientation.",
+  "lots": {
+    "w276643612": {
+      "rowBearingDeg": 175.67,
+      "stallBearingDeg": 122.39,
+      "confidence": 0.84,
+      "coverage": "Principal alternating diagonal stall families visible throughout the rectangular lot. The small edge/end stalls and roofed service patch are not individually measured; source buildings clear the fill. Occupancy, exact stall positions, spacing and front/rear headings remain runtime estimates.",
+      "evidence": {
+        "provider": "Esri World Imagery",
+        "sourceUrl": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+        "osmUrl": "https://www.openstreetmap.org/way/276643612",
+        "reviewedDate": "2026-11-08",
+        "imageryDate": "unknown",
+        "mosaicZoom": 18,
+        "mosaicOriginPx": [
+          10753280,
+          23476736
+        ],
+        "mosaicSizePx": [
+          5888,
+          8704
+        ],
+        "metresPerPixel": 0.4038377577766397,
+        "cropBoxPx": [
+          3465,
+          4587,
+          3730,
+          4852
+        ],
+        "pixelCoordinateFrame": "Native local mosaic pixels; x east/right, y south/down. Samples follow visible row alignments and repeated long axes of vehicles/bay stripes; orientation is axial and does not establish vehicle front/rear direction.",
+        "rowSamplesPx": [
+          [
+            [
+              3594.188,
+              4656.562
+            ],
+            [
+              3607.438,
+              4802.312
+            ]
+          ],
+          [
+            [
+              3640.562,
+              4654.906
+            ],
+            [
+              3649.506,
+              4802.312
+            ]
+          ]
+        ],
+        "stallSamplesPx": [
+          [
+            [
+              3590.544,
+              4655.569
+            ],
+            [
+              3602.137,
+              4662.525
+            ]
+          ],
+          [
+            [
+              3589.881,
+              4672.794
+            ],
+            [
+              3602.137,
+              4681.075
+            ]
+          ],
+          [
+            [
+              3598.825,
+              4739.375
+            ],
+            [
+              3610.419,
+              4746.663
+            ]
+          ]
+        ],
+        "sampleMaximumDeviationDeg": {
+          "row": 0.86,
+          "stall": 1.66,
+          "alternateStall": 2.01
+        },
+        "referenceImagesTracked": false,
+        "alternateStallSamplesPx": [
+          [
+            [
+              3633.938,
+              4665.506
+            ],
+            [
+              3644.869,
+              4657.887
+            ]
+          ],
+          [
+            [
+              3639.238,
+              4680.413
+            ],
+            [
+              3649.838,
+              4672.462
+            ]
+          ],
+          [
+            [
+              3642.219,
+              4716.519
+            ],
+            [
+              3652.488,
+              4708.238
+            ]
+          ]
+        ]
+      },
+      "alternateStallBearingDeg": 53.12
+    },
+    "w647520469": {
+      "mixed": true,
+      "confidence": 0.4,
+      "reason": "Several incompatible parking orientations or unclear rows within one source lot; one uniform angle would overstate the evidence.",
+      "evidence": {
+        "sourceUrl": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+        "osmUrl": "https://www.openstreetmap.org/way/647520469",
+        "reviewedDate": "2026-11-08",
+        "imageryDate": "unknown",
+        "referenceImagesTracked": false
+      }
+    }
+  }
+}

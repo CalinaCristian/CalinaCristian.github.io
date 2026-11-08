@@ -1,11 +1,13 @@
 import assert from 'node:assert/strict';
 import { Traffic } from '../src/traffic.js';
+import { SharedLaneGate } from '../src/shared-lanes.js';
 import * as THREE from '../vendor/three.module.min.js';
 
 const a = { x: 0, z: 0, y: 0, edges: [] }, b = { x: 500, z: 0, y: 0, edges: [] };
 const e = { a, b, len: 500, dirx: 1, dirz: 0, nx: 0, nz: 1, laneW: 3.5, lanesF: 3, lanesB: 0, oneway: true };
 a.edges = b.edges = [e];
 const t = Object.create(Traffic.prototype);
+t.sharedLanes = new SharedLaneGate([e]);
 function car(long = false) {
     const v = { edge: e, dir: 1, s: 100, lane: 0, laneCur: 0, lateralExtra: 0, latExtraCur: 0, speed: 0, long, length: long ? 18 : 4.4, hist: [], route: [], mesh: new THREE.Object3D(), transition: 0 };
     t.placeOnLane(v, true, 0); return v;
@@ -77,6 +79,7 @@ const yielding = car(); yielding.width = 1.8; yielding._f = 7; yielding._x0 = yi
 const cornerWalker = { x: yielding.x + 3.3, z: yielding.z, onRoad: false };
 yielding.x += 1;
 const safety = Object.create(Traffic.prototype); safety._frame = 7; safety.vehicles = [yielding]; safety.stats = {};
+safety.sharedLanes = new SharedLaneGate([e]);
 safety.peds = { grid: { query(x, z, r, fn) { fn(cornerWalker); } } };
 safety.revert = v => { v.x = v._x0; v.z = v._z0; v.heading = v._h0; return true; };
 safety.pedestrianGuard();

@@ -1,0 +1,1177 @@
+{
+  "schemaVersion": 1,
+  "attribution": "© OpenStreetMap contributors, ODbL",
+  "sourceDate": "2026-11-08",
+  "sourceDataCommit": "7ac908e",
+  "frame": "projected source coordinates; fixture nodes [z,x], project identity to[x,z]; source outers retain exact runtime4-decimal representation",
+  "nodes": [
+    [
+      6262257940,
+      [
+        -18.192308400183833,
+        -919.3273174919843
+      ]
+    ],
+    [
+      613355395,
+      [
+        -25.493680800227224,
+        -907.3339505557371
+      ]
+    ],
+    [
+      613355404,
+      [
+        -52.343172000505774,
+        -893.2596153165782
+      ]
+    ],
+    [
+      12394774949,
+      [
+        295.80004439970264,
+        -363.2004524930415
+      ]
+    ],
+    [
+      12394774950,
+      [
+        307.1021687999105,
+        -386.11493170583253
+      ]
+    ],
+    [
+      14261939661,
+      [
+        238.45593239997845,
+        455.5732057842901
+      ]
+    ],
+    [
+      14261939662,
+      [
+        250.88048999987922,
+        457.6224035786721
+      ]
+    ],
+    [
+      14261939654,
+      [
+        221.53052879959662,
+        591.6701213168824
+      ]
+    ],
+    [
+      14261939655,
+      [
+        233.17716239988218,
+        593.3539582641603
+      ]
+    ],
+    [
+      14261939647,
+      [
+        211.25081879949227,
+        672.1527618241115
+      ]
+    ],
+    [
+      14261939648,
+      [
+        223.06415039935695,
+        673.8524840255131
+      ]
+    ],
+    [
+      14261939668,
+      [
+        251.64730079936456,
+        374.70931917583306
+      ]
+    ],
+    [
+      14261939669,
+      [
+        264.0385187996653,
+        376.92531213950224
+      ]
+    ],
+    [
+      14261939682,
+      [
+        278.19673559929515,
+        212.11579960395335
+      ]
+    ],
+    [
+      14261939683,
+      [
+        290.56572719933627,
+        214.25236629643933
+      ]
+    ],
+    [
+      14261939675,
+      [
+        265.0609331997688,
+        293.1067682459649
+      ]
+    ],
+    [
+      14261939676,
+      [
+        277.4521511992799,
+        295.1718512947528
+      ]
+    ]
+  ],
+  "ways": [
+    [
+      48272349,
+      {
+        "nodes": [
+          6262257940,
+          613355395,
+          613355404
+        ],
+        "tags": {
+          "highway": "service",
+          "is_in:city": "București",
+          "maxspeed": "10",
+          "oneway": "yes",
+          "tunnel": "building_passage"
+        }
+      }
+    ],
+    [
+      1339943929,
+      {
+        "nodes": [
+          12394774949,
+          12394774950
+        ],
+        "tags": {
+          "highway": "service",
+          "maxheight": "4",
+          "surface": "asphalt",
+          "tunnel": "building_passage"
+        }
+      }
+    ],
+    [
+      1566299312,
+      {
+        "nodes": [
+          14261939661,
+          14261939662
+        ],
+        "tags": {
+          "highway": "service",
+          "surface": "concrete",
+          "tunnel": "building_passage"
+        }
+      }
+    ],
+    [
+      1566299309,
+      {
+        "nodes": [
+          14261939654,
+          14261939655
+        ],
+        "tags": {
+          "highway": "service",
+          "surface": "concrete",
+          "tunnel": "building_passage"
+        }
+      }
+    ],
+    [
+      1566299306,
+      {
+        "nodes": [
+          14261939647,
+          14261939648
+        ],
+        "tags": {
+          "highway": "service",
+          "surface": "concrete",
+          "tunnel": "building_passage"
+        }
+      }
+    ],
+    [
+      1566299315,
+      {
+        "nodes": [
+          14261939668,
+          14261939669
+        ],
+        "tags": {
+          "highway": "service",
+          "surface": "concrete",
+          "tunnel": "building_passage"
+        }
+      }
+    ],
+    [
+      1566299319,
+      {
+        "nodes": [
+          14261939682,
+          14261939683
+        ],
+        "tags": {
+          "highway": "service",
+          "surface": "concrete",
+          "tunnel": "building_passage"
+        }
+      }
+    ],
+    [
+      1566299321,
+      {
+        "nodes": [
+          14261939675,
+          14261939676
+        ],
+        "tags": {
+          "highway": "service",
+          "surface": "concrete"
+        }
+      }
+    ],
+    [
+      45260812,
+      {
+        "nodes": [
+          574799820,
+          613355398,
+          613355399,
+          574799821,
+          613355404,
+          574799822,
+          574799819,
+          574799812,
+          574799813,
+          574799814,
+          6262257940,
+          574799816,
+          574799817,
+          574799823,
+          574799824,
+          574799826,
+          574799827,
+          613355396,
+          574799820
+        ],
+        "tags": {
+          "addr:city": "București",
+          "addr:housenumber": "3-5",
+          "addr:street": "Strada Căpitan Aviator Alexandru Șerbănescu",
+          "amenity": "car_wash",
+          "building": "yes",
+          "name": "Tunel Carwash",
+          "opening_hours": "Mo-Fr 08:00-22:00",
+          "source:addr:housenumber": "survey"
+        }
+      }
+    ],
+    [
+      1289605665,
+      {
+        "nodes": [
+          11958088021,
+          11958088016,
+          11958088017,
+          11958088018,
+          11958088019,
+          12394774949,
+          11958088022,
+          11958088021
+        ],
+        "tags": {
+          "addr:city": "București",
+          "addr:country": "RO",
+          "addr:housename": "Scara D",
+          "addr:housenumber": "2E",
+          "addr:postcode": "020331",
+          "addr:street": "Bulevardul Dimitrie Pompeiu",
+          "building": "apartments",
+          "building:flats": "68",
+          "building:levels": "13",
+          "building:levels:underground": "2",
+          "check_date": "2024-06-05",
+          "height": "40",
+          "opening_date": "2025"
+        }
+      }
+    ],
+    [
+      1289605670,
+      {
+        "nodes": [
+          11958088021,
+          11958088016,
+          11958088019,
+          12394774949,
+          11958088022,
+          11958088021
+        ],
+        "tags": {
+          "building:levels": "9",
+          "building:part": "yes",
+          "height": "27"
+        }
+      }
+    ],
+    [
+      1289605671,
+      {
+        "nodes": [
+          11958088036,
+          12394774950,
+          11958088038,
+          11958088017,
+          11958088016,
+          11958088021,
+          11958088020,
+          11958088023,
+          11958088037,
+          11958088036
+        ],
+        "tags": {
+          "building": "apartments",
+          "building:levels": "2",
+          "check_date": "2024-06-05",
+          "height": "6",
+          "opening_date": "2025"
+        }
+      }
+    ],
+    [
+      938553606,
+      {
+        "nodes": [
+          8694760281,
+          14261939662,
+          8694760315,
+          8694760314,
+          14261939661,
+          8694760276,
+          8694760281
+        ],
+        "tags": {
+          "addr:street": "Șoseaua Fabrica de Glucoză",
+          "building": "apartments",
+          "building:levels": "3",
+          "start_date": "2021"
+        }
+      }
+    ],
+    [
+      938553608,
+      {
+        "nodes": [
+          8694760287,
+          14261939655,
+          8694760288,
+          8694760283,
+          12339228968,
+          14261939654,
+          8694760285,
+          8694760287
+        ],
+        "tags": {
+          "addr:city": "București",
+          "addr:housenumber": "6-8",
+          "addr:postcode": "020332",
+          "addr:street": "Șoseaua Fabrica de Glucoză",
+          "building": "apartments",
+          "building:levels": "3",
+          "name": "G10",
+          "start_date": "2019"
+        }
+      }
+    ],
+    [
+      938553610,
+      {
+        "nodes": [
+          8694760289,
+          14261939648,
+          7142379811,
+          7142379804,
+          14261939647,
+          8694760282,
+          8694760289
+        ],
+        "tags": {
+          "addr:street": "Șoseaua Fabrica de Glucoză",
+          "building": "apartments",
+          "building:levels": "3",
+          "start_date": "2018"
+        }
+      }
+    ],
+    [
+      938553615,
+      {
+        "nodes": [
+          8694760279,
+          14261939669,
+          8694760280,
+          8694760277,
+          14261939668,
+          8694760278,
+          8694760279
+        ],
+        "tags": {
+          "addr:street": "Șoseaua Fabrica de Glucoză",
+          "building": "apartments",
+          "building:levels": "3",
+          "start_date": "2021"
+        }
+      }
+    ],
+    [
+      1132411164,
+      {
+        "nodes": [
+          10559078556,
+          14261939683,
+          10559078561,
+          10559078562,
+          14261939682,
+          10559078549,
+          10559078556
+        ],
+        "tags": {
+          "addr:street": "Șoseaua Fabrica de Glucoză",
+          "building": "apartments",
+          "building:levels": "3",
+          "start_date": "2021"
+        }
+      }
+    ],
+    [
+      1132411166,
+      {
+        "nodes": [
+          10559078567,
+          14261939676,
+          8694760317,
+          8694760313,
+          14261939675,
+          10559078568,
+          10559078567
+        ],
+        "tags": {
+          "addr:street": "Șoseaua Fabrica de Glucoză",
+          "building": "apartments",
+          "building:levels": "3",
+          "start_date": "2021"
+        }
+      }
+    ]
+  ],
+  "bodies": [
+    {
+      "ring": [
+        [
+          -907.1672,
+          -50.5206
+        ],
+        [
+          -900.686,
+          -62.6007
+        ],
+        [
+          -894.3795,
+          -55.2882
+        ],
+        [
+          -895.2373,
+          -53.4545
+        ],
+        [
+          -893.2596,
+          -52.3432
+        ],
+        [
+          -890.6068,
+          -51.4319
+        ],
+        [
+          -901.234,
+          -29.939
+        ],
+        [
+          -896.9132,
+          -27.9497
+        ],
+        [
+          -905.6581,
+          -22.7043
+        ],
+        [
+          -918.4298,
+          -15.1028
+        ],
+        [
+          -919.3273,
+          -18.1923
+        ],
+        [
+          -920.2089,
+          -21.3929
+        ],
+        [
+          -910.6857,
+          -27.0829
+        ],
+        [
+          -907.9455,
+          -32.9506
+        ],
+        [
+          -914.7365,
+          -36.6513
+        ],
+        [
+          -911.5674,
+          -42.7747
+        ],
+        [
+          -912.6714,
+          -43.2859
+        ],
+        [
+          -908.3983,
+          -51.1541
+        ]
+      ],
+      "holes": [],
+      "h": 4.5,
+      "minH": 0,
+      "roofProfile": {
+        "version": 1,
+        "shape": "flat",
+        "totalM": 4.5,
+        "eavesM": 4.5,
+        "riseM": 0,
+        "heightSource": "research estimate",
+        "riseSource": "flat",
+        "axis": [
+          0.9060698568959036,
+          0.42312813003230704
+        ],
+        "low": -845.2595289907015,
+        "high": -824.4923397747003,
+        "raw": {
+          "height": "4.5"
+        },
+        "originalOSM": {}
+      },
+      "t": {
+        "__id": "w45260812"
+      }
+    },
+    {
+      "ring": [
+        [
+          -382.1277,
+          301.2011
+        ],
+        [
+          -375.1541,
+          315.1481
+        ],
+        [
+          -362.2791,
+          340.8974
+        ],
+        [
+          -344.9562,
+          332.3069
+        ],
+        [
+          -357.8471,
+          306.5132
+        ],
+        [
+          -363.2005,
+          295.8
+        ],
+        [
+          -364.8128,
+          292.5772
+        ]
+      ],
+      "holes": [],
+      "h": 40,
+      "minH": 0,
+      "roofProfile": {
+        "version": 1,
+        "shape": "flat",
+        "totalM": 40,
+        "eavesM": 40,
+        "riseM": 0,
+        "heightSource": "OSM height",
+        "riseSource": "flat",
+        "axis": [
+          -0.894424789889922,
+          0.447218397687717
+        ],
+        "low": 457.1427103014038,
+        "high": 476.48717246331324,
+        "raw": {
+          "height": "40",
+          "building:levels": "13"
+        },
+        "originalOSM": {
+          "building:levels": "13",
+          "building:levels:underground": "2",
+          "height": "40"
+        }
+      },
+      "t": {
+        "__id": "w1289605665"
+      }
+    },
+    {
+      "ring": [
+        [
+          -382.1277,
+          301.2011
+        ],
+        [
+          -375.1541,
+          315.1481
+        ],
+        [
+          -357.8471,
+          306.5132
+        ],
+        [
+          -363.2005,
+          295.8
+        ],
+        [
+          -364.8128,
+          292.5772
+        ]
+      ],
+      "holes": [],
+      "h": 27,
+      "minH": 0,
+      "roofProfile": {
+        "version": 1,
+        "shape": "flat",
+        "totalM": 27,
+        "eavesM": 27,
+        "riseM": 0,
+        "heightSource": "OSM height",
+        "riseSource": "flat",
+        "axis": [
+          -0.4458226112459278,
+          -0.895121332167803
+        ],
+        "low": -114.8436267296791,
+        "high": -99.25031000966143,
+        "raw": {
+          "height": "27",
+          "building:levels": "9"
+        },
+        "originalOSM": {
+          "building:levels": "9",
+          "height": "27"
+        }
+      },
+      "t": {
+        "__id": "w1289605670"
+      }
+    },
+    {
+      "ring": [
+        [
+          -410.6894,
+          257.9596
+        ],
+        [
+          -386.1149,
+          307.1022
+        ],
+        [
+          -367.831,
+          343.6646
+        ],
+        [
+          -362.2791,
+          340.8974
+        ],
+        [
+          -375.1541,
+          315.1481
+        ],
+        [
+          -382.1277,
+          301.2011
+        ],
+        [
+          -396.6945,
+          272.0845
+        ],
+        [
+          -379.4272,
+          263.4829
+        ],
+        [
+          -387.8782,
+          246.5908
+        ]
+      ],
+      "holes": [],
+      "h": 6,
+      "minH": 0,
+      "roofProfile": {
+        "version": 1,
+        "shape": "flat",
+        "totalM": 6,
+        "eavesM": 6,
+        "riseM": 0,
+        "heightSource": "OSM height",
+        "riseSource": "flat",
+        "axis": [
+          -0.8944038711325349,
+          0.44726023219501215
+        ],
+        "low": 457.20659658817743,
+        "high": 482.69727694481077,
+        "raw": {
+          "height": "6",
+          "building:levels": "2"
+        },
+        "originalOSM": {
+          "building:levels": "2",
+          "height": "6"
+        }
+      },
+      "t": {
+        "__id": "w1289605671"
+      }
+    },
+    {
+      "ring": [
+        [
+          446.8363,
+          252.6364
+        ],
+        [
+          457.6224,
+          250.8805
+        ],
+        [
+          478.996,
+          247.3909
+        ],
+        [
+          476.9627,
+          234.9553
+        ],
+        [
+          455.5732,
+          238.4559
+        ],
+        [
+          444.803,
+          240.2118
+        ]
+      ],
+      "holes": [],
+      "h": 8.7,
+      "minH": 0,
+      "roofProfile": {
+        "version": 1,
+        "shape": "flat",
+        "totalM": 8.7,
+        "eavesM": 8.7,
+        "riseM": 0,
+        "heightSource": "OSM building:levels estimate",
+        "riseSource": "flat",
+        "axis": [
+          0.1611308146918434,
+          0.9869330577889985
+        ],
+        "low": 308.7385159305875,
+        "high": 321.3393198450541,
+        "raw": {
+          "building:levels": "3"
+        },
+        "originalOSM": {
+          "building:levels": "3"
+        }
+      },
+      "t": {
+        "__id": "w938553606"
+      }
+    },
+    {
+      "ring": [
+        [
+          587.5002,
+          233.9106
+        ],
+        [
+          593.354,
+          233.1772
+        ],
+        [
+          627.4675,
+          228.8875
+        ],
+        [
+          625.9505,
+          217.163
+        ],
+        [
+          617.3725,
+          218.2521
+        ],
+        [
+          591.6701,
+          221.5305
+        ],
+        [
+          586.007,
+          222.264
+        ]
+      ],
+      "holes": [],
+      "h": 8.7,
+      "minH": 0,
+      "roofProfile": {
+        "version": 1,
+        "shape": "flat",
+        "totalM": 8.7,
+        "eavesM": 8.7,
+        "riseM": 0,
+        "heightSource": "OSM building:levels estimate",
+        "riseSource": "flat",
+        "axis": [
+          0.12476487474940853,
+          0.9921863363445218
+        ],
+        "low": 293.56283795992294,
+        "high": 305.3849267656444,
+        "raw": {
+          "building:levels": "3"
+        },
+        "originalOSM": {
+          "building:levels": "3"
+        }
+      },
+      "t": {
+        "__id": "w938553608"
+      }
+    },
+    {
+      "ring": [
+        [
+          669.1743,
+          223.6531
+        ],
+        [
+          673.8525,
+          223.0642
+        ],
+        [
+          706.5126,
+          218.9634
+        ],
+        [
+          704.9876,
+          207.0611
+        ],
+        [
+          672.1528,
+          211.2508
+        ],
+        [
+          667.6652,
+          211.8287
+        ]
+      ],
+      "holes": [],
+      "h": 8.7,
+      "minH": 0,
+      "roofProfile": {
+        "version": 1,
+        "shape": "flat",
+        "totalM": 8.7,
+        "eavesM": 8.7,
+        "riseM": 0,
+        "heightSource": "OSM building:levels estimate",
+        "riseSource": "flat",
+        "axis": [
+          0.12491667423946227,
+          0.9921672361537405
+        ],
+        "low": 293.50398553005266,
+        "high": 305.5034912970998,
+        "raw": {
+          "building:levels": "3"
+        },
+        "originalOSM": {
+          "building:levels": "3"
+        }
+      },
+      "t": {
+        "__id": "w938553610"
+      }
+    },
+    {
+      "ring": [
+        [
+          366.4569,
+          265.7388
+        ],
+        [
+          376.9253,
+          264.0385
+        ],
+        [
+          405.9636,
+          259.3043
+        ],
+        [
+          403.9302,
+          246.8909
+        ],
+        [
+          374.7093,
+          251.6473
+        ],
+        [
+          364.4236,
+          253.3254
+        ]
+      ],
+      "holes": [],
+      "h": 8.7,
+      "minH": 0,
+      "roofProfile": {
+        "version": 1,
+        "shape": "flat",
+        "totalM": 8.7,
+        "eavesM": 8.7,
+        "riseM": 0,
+        "heightSource": "OSM building:levels estimate",
+        "riseSource": "flat",
+        "axis": [
+          -0.160660952861981,
+          -0.9870096545756177
+        ],
+        "low": -321.16574704124747,
+        "high": -308.5794717019209,
+        "raw": {
+          "building:levels": "3"
+        },
+        "originalOSM": {
+          "building:levels": "3"
+        }
+      },
+      "t": {
+        "__id": "w938553615"
+      }
+    },
+    {
+      "ring": [
+        [
+          207.3502,
+          291.6993
+        ],
+        [
+          214.2524,
+          290.5657
+        ],
+        [
+          247.5081,
+          285.0425
+        ],
+        [
+          245.5543,
+          272.6401
+        ],
+        [
+          212.1158,
+          278.1967
+        ],
+        [
+          205.2693,
+          279.3303
+        ]
+      ],
+      "holes": [],
+      "h": 8.7,
+      "minH": 0,
+      "roofProfile": {
+        "version": 1,
+        "shape": "flat",
+        "totalM": 8.7,
+        "eavesM": 8.7,
+        "riseM": 0,
+        "heightSource": "OSM building:levels estimate",
+        "riseSource": "flat",
+        "axis": [
+          0.16383991874910922,
+          0.9864869391047635
+        ],
+        "low": 309.1869729559588,
+        "high": 321.742385119436,
+        "raw": {
+          "building:levels": "3"
+        },
+        "originalOSM": {
+          "building:levels": "3"
+        }
+      },
+      "t": {
+        "__id": "w1132411164"
+      }
+    },
+    {
+      "ring": [
+        [
+          290.7319,
+          278.1856
+        ],
+        [
+          295.1719,
+          277.4522
+        ],
+        [
+          329.3013,
+          271.7622
+        ],
+        [
+          327.2839,
+          259.3599
+        ],
+        [
+          293.1068,
+          265.0609
+        ],
+        [
+          288.651,
+          265.7944
+        ]
+      ],
+      "holes": [],
+      "h": 8.7,
+      "minH": 0,
+      "roofProfile": {
+        "version": 1,
+        "shape": "flat",
+        "totalM": 8.7,
+        "eavesM": 8.7,
+        "riseM": 0,
+        "heightSource": "OSM building:levels estimate",
+        "riseSource": "flat",
+        "axis": [
+          0.16444717433656444,
+          0.9863858914505619
+        ],
+        "low": 309.64368435309035,
+        "high": 322.2150643846925,
+        "raw": {
+          "building:levels": "3"
+        },
+        "originalOSM": {
+          "building:levels": "3"
+        }
+      },
+      "t": {
+        "__id": "w1132411166"
+      }
+    }
+  ],
+  "roads": [
+    {
+      "id": 48272349,
+      "outIndex": 34,
+      "lf": 1,
+      "lb": 0,
+      "laneW": 3,
+      "sharedLane": false
+    },
+    {
+      "id": 1566299306,
+      "outIndex": 350,
+      "lf": 1,
+      "lb": 1,
+      "laneW": 3,
+      "sharedLane": false
+    },
+    {
+      "id": 1566299309,
+      "outIndex": 353,
+      "lf": 1,
+      "lb": 1,
+      "laneW": 3,
+      "sharedLane": false
+    },
+    {
+      "id": 1566299312,
+      "outIndex": 356,
+      "lf": 1,
+      "lb": 1,
+      "laneW": 3,
+      "sharedLane": false
+    },
+    {
+      "id": 1566299315,
+      "outIndex": 359,
+      "lf": 1,
+      "lb": 1,
+      "laneW": 3,
+      "sharedLane": false
+    },
+    {
+      "id": 1566299319,
+      "outIndex": 364,
+      "lf": 1,
+      "lb": 1,
+      "laneW": 3,
+      "sharedLane": false
+    },
+    {
+      "id": 1566299321,
+      "outIndex": 366,
+      "lf": 1,
+      "lb": 1,
+      "laneW": 3,
+      "sharedLane": false
+    }
+  ],
+  "reviews": [
+    {
+      "buildingId": "w1132411166",
+      "sourceRoadId": "w1566299321",
+      "sharedWallNodeIds": [
+        14261939675,
+        14261939676
+      ],
+      "classificationSource": "reviewed source shared-wall-node topology",
+      "reviewedAt": "2026-11-08",
+      "clearanceM": 3.1,
+      "clearanceSource": "estimate:3.1m motor-vehicle through-access clearance",
+      "evidence": [
+        "https://www.openstreetmap.org/way/1132411166",
+        "https://www.openstreetmap.org/way/1566299321",
+        "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+      ],
+      "note": "Individually reviewed: the mapped service way crosses the building between two exact shared wall nodes, with connecting approaches on both sides. Independent north-up Esri aerial crop confirms the roof footprint and adjacent access context. OSM does not contain a tunnel tag here; raw highway=service,surface=concrete stay unchanged. Only the low opening is represented; width follows source lanes/class estimate and3.1m clearance is explicitly estimated, not measured from Street View. Source roof height, complete outer ring and side posts remain intact."
+    }
+  ]
+}

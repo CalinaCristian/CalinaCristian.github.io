@@ -158,6 +158,11 @@ const STYLES = {
     concrete: { bay: 3.0, floor: 3.6, wall: '#ffffff', glass: '#2a333c', win: [0.1, 0.35, 0.9, 0.8] },
     industrial: { bay: 4.0, floor: 4.5, wall: '#ffffff', glass: '#384048', corrugated: true, win: [0.2, 0.55, 0.8, 0.8], sparse: true },
     shop: { bay: 4.2, floor: 4.3, wall: '#ffffff', glass: '#1f2a33', shop: true, win: [0.06, 0.05, 0.94, 0.72] },
+    // shopping mall upper walls (round 6 note 29: full-height shopfront glazing read as striped boxes): blank cladding,
+    // a narrow clerestory strip every other bay
+    // multi-storey car park: concrete spandrels over dark open decks, a column every bay
+    parking: { bay: 8.0, floor: 3.1, wall: '#ffffff', glass: '#1d2124', win: [0.04, 0.06, 0.96, 0.6] },
+    mall: { bay: 7.5, floor: 5.5, wall: '#ffffff', glass: '#2b3843', win: [0.15, 0.62, 0.85, 0.74], sparse: true },
     // Bucharest ground floors: plaster piers, timber / bronze frames, lit displays behind the glass (albedo ≈ 0.05–0.15)
     bucshop: { bay: 4.0, floor: 4.3, wall: '#ffffff', glass: '#6f5d4a', shop: true, buc: true, win: [0.1, 0.06, 0.9, 0.74] },
     // Bucharest: 19th / early-20th c. eclectic stucco (tall windows in moulded surrounds, pediments, floor cornices)
@@ -268,7 +273,7 @@ const BRICK_COLS = ['#c8826a', '#b8725c', '#d39478', '#c08470', '#ddb196'];
 // Bucharest stucco / plaster and block colours (judged albedos from the research colour samples)
 const ECLECTIC_COLS = ['#e4dccb', '#dccfb4', '#e8d9b8', '#d9c3a5', '#e6d3c3', '#cfc7b8', '#e2cfa2', '#d8cdc0', '#c9b9a0', '#e9e1d2', '#d6b9a3', '#bfb6a6'];
 const BLOC_COLS = ['#d9d3c5', '#cfc8b8', '#e2dccd', '#bdb7aa', '#d8cdb5', '#c7cdc9', '#e0d2bd', '#cfc0a8', '#b9bdb6', '#e6e0d2'];
-const PALETTES = { eclectic: ECLECTIC_COLS, bloc: BLOC_COLS, interwar: ['#e7e3d8', '#d9d4c7', '#cec9bb', '#e3dccb', '#c9c3b6'] };
+const PALETTES = { parking: ['#b9b7b1', '#a9a7a1', '#c2bfb8'], mall: ['#d8d0c0', '#cfc6b4', '#e0d9cb', '#c8bfae'], eclectic: ECLECTIC_COLS, bloc: BLOC_COLS, interwar: ['#e7e3d8', '#d9d4c7', '#cec9bb', '#e3dccb', '#c9c3b6'] };
 
 export function buildingStyle(b, urban) {
     const k = b.k, m = b.mat || '';
@@ -276,6 +281,7 @@ export function buildingStyle(b, urban) {
     if (/brick/.test(m)) return 'brick';
     if (k === 'house' || k === 'detached' || k === 'semidetached_house' || k === 'bungalow' || k === 'garage' || k === 'shed') return 'house';
     if (k === 'industrial' || k === 'warehouse' || k === 'hangar' || k === 'manufacture') return 'industrial';
+    if (k === 'parking' || b.amenity === 'parking') return 'parking';
     if (k === 'office' || k === 'commercial' && (b.h || 0) > 30) return 'office';
     if (k === 'apartments' || k === 'residential' || k === 'dormitory' || k === 'hotel') return (b.h || (b.lv || 3) * 3) > 40 ? 'office' : 'apartment';
     if (k === 'retail' || k === 'commercial') return urban ? 'brick' : 'concrete';
@@ -330,8 +336,11 @@ export function buildBuildings(data, ground, o = {}) {
         const gs = (x, z) => { const h = ground.heightAt(x, z); if (h < gmin) gmin = h; if (h > gmax) gmax = h; };
         for (let i = 0, j = b.poly.length - 1; i < b.poly.length; j = i++) { const [ax, az] = b.poly[j], [bx, bz] = b.poly[i], n = Math.min(24, Math.ceil(Math.hypot(bx - ax, bz - az) / 2.5)); for (let q = 0; q < n; q++) gs(ax + (bx - ax) * q / n, az + (bz - az) * q / n); }
         gs(cx, cz);
+        // over water (boathouses, pier sheds; round 6 note 28): the floor sits just above the water, not on the lakebed —
+        // the walls still reach down into the water like the piles they stand on
+        if (ground.waterY != null && gmax < ground.waterY + 0.6) gmax = ground.waterY + 0.6;
         const base = b.minH ? gmax + b.minH : (b.minLv ? gmax + b.minLv * 3.2 : gmin - 0.6);
-        const top = (b.minH || b.minLv ? gmax : gmax) + H + (b._lift || 0);
+        const top = gmax + H + (b._lift || 0);
         if (top - base < 1) continue;
         { const bb = polyBox(b0.poly), a = { poly: b0.poly, bb, H: buildingHeight(b0) + (b0.minH || 0) }; acc.push(a);
             for (let i = Math.floor(bb.x0 / cellA); i <= Math.floor(bb.x1 / cellA); i++) for (let j = Math.floor(bb.z0 / cellA); j <= Math.floor(bb.z1 / cellA); j++) { const k = keyA(i, j); let l = gridA.get(k); if (!l) gridA.set(k, l = []); l.push(a); } }
@@ -342,7 +351,7 @@ export function buildBuildings(data, ground, o = {}) {
         const pitched = (style === 'house' && (b.roof !== 'flat')) || /gabled|hipped|pitched/.test(b.roof || '');
         const wallTop = pitched ? top - Math.min(3.5, H * 0.3) : top;
         // ground floor shop band for urban commercial/mixed buildings
-        const shopBand = urban && !b.minH && H > 7 && (b.shop || b.amenity || /commercial|retail|mixed|yes/.test(b.k)) && style !== 'house' && style !== 'industrial';
+        const shopBand = urban && !b.minH && H > 7 && (b.shop || b.amenity || style === 'mall' || /commercial|retail|mixed|yes/.test(b.k)) && style !== 'house' && style !== 'industrial';
         const yGF = shopBand ? Math.min(wallTop, gmax + 4.3) : base;
         if (shopBand) add(o.shopStyle || 'shop', wallGeometry(b.poly, base, yGF, facadeStyle(o.shopStyle || 'shop'), gmax, hcol));
         add(style, wallGeometry(b.poly, yGF, wallTop, S, shopBand ? yGF : gmax, hcol));

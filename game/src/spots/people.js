@@ -152,22 +152,26 @@ export class Crowd {
     _ped(persona, x, z, yaw, act, extra = {}) {
         const look = this._look(persona);
         const p = { persona, look, x, z, y: 0, yaw, tyaw: yaw, act, phase: this.r() * 6.28, speed: 0, base: act, cd: 0, pose: null, poseT: 0, id: this.peds.length, sayCd: 0, ...extra };
-        if (extra.y === undefined && act !== 'sit' && !globalThis.__spotsLegacy) this._settle(p); // note 27: on the walkable surface, outside every collider
+        const wet = this.ground.waterY != null && this._floor(x, z, null) < this.ground.waterY + 0.03; // (a beach group reaching into the lake: round 6 note 34)
+        if (extra.y === undefined && (act !== 'sit' || wet) && !globalThis.__spotsLegacy) this._settle(p); // note 27: on the walkable surface, outside every collider
         p.y = extra.y ?? this._floor(p.x, p.z, null);
         if (extra.y === undefined && act !== 'walk' && act !== 'sit' && this.o.lift) p.y = this.o.lift(p.x, p.z, p.y); // standing on rendered steps / plinths
         this.peds.push(p); return p;
     }
     /** walkable height at (x, z): terrain or a walkable solid (steps, plinth, terrace, deck) within reach of `y` (null: from the terrain up to +4 m) */
     _floor(x, z, y) {
-        const h = this.ground.heightAt(x, z), probe = y ?? h + 4, g = this.ground.groundAt?.(x, z, probe);
+        const h = this.ground.heightAt(x, z), probe = y ?? Math.max(h + 4, (this.ground.waterY ?? -1e9) + 3), g = this.ground.groundAt?.(x, z, probe); // (over a lake: reach the pier deck, not the lakebed)
         return Number.isFinite(g) && g < probe + 0.6 && g >= h - 0.01 ? g : h;
     }
     /** a free spot (no collider at body height) at or near the ped's position, searched in rings up to 6 m */
-    _blocked(x, z, y, r = 0.28) { return !!(this.colliders && collide(this.colliders, x, z, r, y + 0.25)); }
+    _blocked(x, z, y, r = 0.28) {
+        const wy = this.ground.waterY; if (wy != null && y < wy + 0.03) return true; // standing in the lake (round 6 note 34)
+        return !!(this.colliders && collide(this.colliders, x, z, r, y + 0.25));
+    }
     _settle(p) {
-        if (!this.colliders) return true;
+        if (!this.colliders && this.ground.waterY == null) return true;
         if (!this._blocked(p.x, p.z, this._floor(p.x, p.z, null))) return true;
-        for (let rr = 0.5; rr <= 6; rr += 0.5) for (let i = 0; i < 12; i++) {
+        for (let rr = 0.5; rr <= 14; rr += 0.5) for (let i = 0; i < 12; i++) {
             const a = i / 12 * Math.PI * 2 + rr, x = p.x + Math.cos(a) * rr, z = p.z + Math.sin(a) * rr;
             if (!this._blocked(x, z, this._floor(x, z, null))) { p.x = x; p.z = z; if (p.home) { p.home.x = x; p.home.z = z; } return true; }
         }
@@ -184,8 +188,12 @@ export class Crowd {
                 const a = g.line[k - 1], b = g.line[k], L = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1, t = clamp(s / L, 0, 1);
                 x = a[0] + (b[0] - a[0]) * t + r.range(-0.12, 0.12); z = a[1] + (b[1] - a[1]) * t + r.range(-0.12, 0.12); yaw = Math.atan2(a[0] - b[0], a[1] - b[1]);
             } else {
-                const ang = r() * 6.28, rad = (g.r ?? 2) * Math.sqrt(r());
-                x = g.x + Math.cos(ang) * rad; z = g.z + Math.sin(ang) * rad;
+                const wy = this.ground.waterY;
+                for (let t = 0; t < 24; t++) { // (a dry spot when the group's circle reaches into a lake)
+                    const ang = r() * 6.28, rad = (g.r ?? 2) * Math.sqrt(r());
+                    x = g.x + Math.cos(ang) * rad; z = g.z + Math.sin(ang) * rad;
+                    if (wy == null || g.y !== undefined || this._floor(x, z, null) >= wy + 0.05) break;
+                }
                 yaw = g.yaw ?? (g.look ? Math.atan2(g.look[0] - x, g.look[1] - z) : r() * 6.28);
                 if (g.act === 'talk' && n > 1) { yaw = Math.atan2(g.x - x, g.z - z); }
             }

@@ -169,7 +169,7 @@ export function waterPoly(ctx, poly, y, o = {}) {
     const bb = polyBox(poly), segs = poly.map((p, i) => [p, poly[(i + 1) % poly.length]]);
     const sdf = (x, z) => { let d = 1e9; for (const [a, b] of segs) d = Math.min(d, distSeg(x, z, a[0], a[1], b[0], b[1]).d); return inPoly(x, z, poly) ? d : -d; };
     const cell = o.cell ?? 1.5;
-    const mat = o.material || makeWaterMaterial({ deep: o.deep ?? '#23413f', shallow: o.shallow ?? '#3f5d55', ripple: o.ripple ?? 0.6, wave: o.wave ?? 0.4, flow: o.flow ?? [0, 0], envIntensity: o.envIntensity ?? 1.1 });
+    const mat = o.material || makeWaterMaterial({ deep: o.deep ?? '#23413f', shallow: o.shallow ?? '#3f5d55', ripple: o.ripple ?? 0.6, wave: o.wave ?? 0.4, flow: o.flow ?? [0, 0], envIntensity: o.envIntensity ?? 1.1, foam: o.foam ?? 1 });
     const shape = new THREE.Shape(poly.map(([x, z]) => new THREE.Vector2(x, -z)));
     let g = new THREE.ShapeGeometry(shape); g.rotateX(-Math.PI / 2);
     g = subdivideTris(g, cell * 1.6);

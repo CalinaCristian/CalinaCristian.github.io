@@ -287,7 +287,7 @@ function nearScene(ctx, x, z, pad = 420) { const T = ctx.data.terrain; return x 
 export function seaMidrise(ctx, { box = [47.596, -122.372, 47.640, -122.312], n = 1400, clear = 300, exclude = [], seed = 77, groundY = null, near = null } = {}) {
     const E = ctx.data.origin.elev, r = rng(seed), grp = new THREE.Group(); grp.name = 'sea-midrise';
     const geo = new THREE.BoxGeometry(1, 1, 1); geo.translate(0, 0.5, 0);
-    const kinds = { resi: [], stone: [], glass: [], brick: [] };
+    const kinds = { resi: [], stone: [], glass: [], brick: [] }, occ = new Map();
     const palR = ['#c9c1b2', '#b8b2a6', '#a7a196', '#d3cfc6', '#9aa3ab', '#b39b84', '#c4b39a', '#8f8a82', '#d8d0bf', '#a68f78'];
     const palO = ['#9aa7b2', '#7f8a92', '#bdb6a8', '#8c98a3', '#c9c0b0', '#6f7f8b'];
     for (let i = 0; i < n * 4 && Object.values(kinds).reduce((s, a) => s + a.length, 0) < n; i++) {
@@ -306,6 +306,11 @@ export function seaMidrise(ctx, { box = [47.596, -122.372, 47.640, -122.312], n 
         const w = office ? 26 + r() * 22 : 16 + r() * 24, d = office ? 24 + r() * 20 : 14 + r() * 22;
         const yaw = (la < 47.6215 && lo > -122.352 ? 32 : 0) * DEG + (r() < 0.08 ? (r() - 0.5) * 0.4 : 0);
         const y = groundY ? groundY(p.x, p.z) : (nearScene(ctx, p.x, p.z) ? Math.min(seaHeight(la, lo) - E, ctx.ground.heightAt(p.x, p.z) + 0.5) : seaHeight(la, lo) - E);
+        // no two blocks in one another (round 6 note 26: overlapping random boxes read as a jumble of half-buried slabs)
+        const R0 = Math.max(w, d) * 0.62, ci = Math.floor(p.x / 40), cj = Math.floor(p.z / 40);
+        let hit = false; for (let a = -2; a <= 2 && !hit; a++) for (let b = -2; b <= 2 && !hit; b++) for (const o of occ.get((ci + a) + ',' + (cj + b)) || []) if (Math.hypot(o.x - p.x, o.z - p.z) < o.r + R0 + 4) { hit = true; break; }
+        if (hit) continue;
+        { const k = ci + ',' + cj; (occ.get(k) || occ.set(k, []).get(k)).push({ x: p.x, z: p.z, r: R0 }); }
         const style = office ? (r() < 0.55 ? 'glass' : 'stone') : (r() < 0.12 ? 'brick' : 'resi');
         kinds[style].push({ x: p.x, z: p.z, y, w, d, h, yaw, c: office ? palO[i % palO.length] : palR[i % palR.length] });
     }
@@ -368,7 +373,7 @@ export function cityGround(ctx, { box, hole = null, step = 24, holeDrop = 1.5, s
 /** instanced street-tree crowns over land (season colour via vertex colour) */
 export function cityTrees(ctx, { box, n = 3000, clear = 250, seed = 11, exclude = [], season = null } = {}) {
     const E = ctx.data.origin.elev, pr = ctx.data.projection, o = ctx.data.origin, r = rng(seed);
-    const geo = new THREE.IcosahedronGeometry(1, 0); geo.translate(0, 0.6, 0);
+    const geo = new THREE.IcosahedronGeometry(1, 1); geo.translate(0, 0.6, 0); // (detail 1: round crowns, not hexagons from across the lake)
     const mat = new THREE.MeshStandardMaterial({ roughness: 0.95 }); mat.name = 'sea-city-trees';
     const im = new THREE.InstancedMesh(geo, mat, n); const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), c = new THREE.Color();
     const mo = (season ?? new Date().getMonth()); const autumn = mo >= 9 && mo <= 10, winter = mo === 11 || mo <= 1;

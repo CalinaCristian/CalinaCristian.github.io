@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "district": "bellevue",
+  "sourceCommit": "4881e6ca5fae3f5d118f5ed55165287f282852bd",
+  "datasetSha256": "40387e74a2121abd3d6ad10752f15a2d5d2fbd26f7569fe73c055609d2f54d95",
+  "reviewDate": "2026-11-08",
+  "records": [
+    {
+      "sourceRoadId": "w470482640",
+      "reason": "absolute-passage-base-unknown",
+      "baseUnknown": true,
+      "status": "unsupported without a physical vertical datum",
+      "classificationSource": "OSM tunnel=building_passage",
+      "buildingIds": [
+        "w90868523",
+        "w418863779",
+        "w471714683",
+        "w1277864134"
+      ],
+      "sourceNodeIds": [
+        7668588314,
+        5017220962,
+        5017220963,
+        7668588287
+      ],
+      "sourceCentreline": [
+        [
+          151.57091335618114,
+          -8.746088400344036
+        ],
+        [
+          154.79023813215133,
+          -11.768878800134843
+        ],
+        [
+          162.14440661815246,
+          -18.670176000240758
+        ],
+        [
+          164.64332305270645,
+          -19.014685200318524
+        ]
+      ],
+      "tags": {
+        "highway": "footway",
+        "level": "1",
+        "surface": "concrete",
+        "tunnel": "building_passage"
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/470482640"
+      ],
+      "dimensionNote": "Relative source layer/level/bridge ordering does not establish metres above local ground. No ground void is cut; source identities and complete horizontal geometry are retained for review."
+    },
+    {
+      "sourceRoadId": "w820174317",
+      "reason": "absolute-passage-base-unknown",
+      "baseUnknown": true,
+      "status": "unsupported without a physical vertical datum",
+      "classificationSource": "OSM tunnel=building_passage",
+      "buildingIds": [
+        "w99884990"
+      ],
+      "sourceNodeIds": [
+        7658557639,
+        7658557647,
+        7658557648,
+        7658557649,
+        526096800
+      ],
+      "sourceCentreline": [
+        [
+          149.19206497781892,
+          -204.04946519982806
+        ],
+        [
+          149.4021840777541,
+          -219.65239799975853
+        ],
+        [
+          158.06959693621738,
+          -219.59683199989882
+        ],
+        [
+          158.28722028926464,
+          -234.49963320033353
+        ],
+        [
+          171.77236393254825,
+          -248.82454800033213
+        ]
+      ],
+      "tags": {
+        "highway": "footway",
+        "layer": "1",
+        "lit": "yes",
+        "surface": "paved",
+        "tunnel": "building_passage"
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/820174317"
+      ],
+      "dimensionNote": "Relative source layer/level/bridge ordering does not establish metres above local ground. No ground void is cut; source identities and complete horizontal geometry are retained for review."
+    }
+  ],
+  "note": "These are unresolved relative-elevation source facts, not deleted source roads or evidence that literal source height validation failed. Original source nodes/tags/precise horizontal geometry and source bodies remain retained."
+}

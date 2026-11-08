@@ -3,8 +3,8 @@
   "id": "mopop",
   "city": "seattle",
   "name": "Museum of Pop Culture (MoPOP)",
-  "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-  "updatedAt": "2026-11-08T19:35:04.724Z",
+  "sourceCommit": "c7d405f058e4b1a299841202c75c774f91c3e904",
+  "updatedAt": "2026-11-08T20:00:28.004690+00:00",
   "status": "needs_review",
   "sources": [
     {
@@ -95,15 +95,16 @@
   ],
   "improvements": [
     "Seven source parts previously removed by a generic scenery mask are preserved; source geometry now has explicit membership and cache validation.",
-    "The monorail, sculpted shell and valid viewpoints remain in the scene."
+    "The monorail, sculpted shell and valid viewpoints remain in the scene.",
+    "All seven exact native museum parts now retain their OSM metal colours and use scene-specific metal cladding without fabricated apartment windows; no source volume or collider is removed.",
+    "Independent native pedestrian-aware travel reaches the exact public reading goal while preserving every source record, collider and visitor; the original failed static-planner attempt is retained as a separate diagnostic."
   ],
   "remainingGaps": [
-    "Actual arrival and postcard views show large rectangular source parts obscuring the existing sculpted shell. The museum needs a unified source-part model that represents every real volume; deleting those parts is not an acceptable fix.",
-    "The native plaque walk is blocked and ends beside a building and visitor.",
+    "The exact source parts remain visible around the older approximate sculpted shell. Their metal skin is corrected, but their straight mapped walls and unsupported sawtooth/butterfly roof families still need a unified source-faithful folded model; full silhouette agreement is not established.",
+    "The shared static route can stop against a visitor. A separate pedestrian-aware native walk traverses 145.4 m to the exact Paul Allen reading point with all source buildings, colliders and visitors retained.",
     "The shared scene's first activity approach is the Space Needle entrance, not the MoPOP monorail viewpoint.",
     "The existing monorail handler can award on a single click while the train happens to pass; it needs real participation and cancellation coverage.",
-    "Raw audit findings remain for physical review: zfight 53, phantom 1, pedBelow 3.",
-    "41.1 m walked toward Paul Allen; Native walker blocked on planned public path."
+    "Raw audit findings remain for physical review: zfight 53, phantom 1, pedBelow 3."
   ],
   "checks": [
     {
@@ -123,13 +124,13 @@
     },
     {
       "label": "Native public-path walk",
-      "passed": false,
-      "details": "41.1 m walked toward Paul Allen; Native walker blocked on planned public path."
+      "passed": true,
+      "details": "145.4 m actually walked to Paul Allen with native collisions and all 103 visitors / 836 colliders retained. Temporary pedestrian buffers affect planning only. The shared static attempt remains blocked and is retained separately."
     },
     {
       "label": "High scene budgets",
       "passed": true,
-      "details": "371210 unique geometry triangles; max 1333870 rendered triangles / 274 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+      "details": "371210 unique geometry triangles; max 1342900 rendered triangles / 316 calls across captured views and the native endpoint. Software GL is not a hardware frame-rate benchmark."
     },
     {
       "label": "Raw physical audit",
@@ -145,11 +146,11 @@
   "captures": [
     {
       "kind": "arrival",
-      "label": "Museum of Pop Culture (MoPOP) — arrival",
+      "label": "Museum of Pop Culture (MoPOP) \u2014 arrival",
       "image": "assets/spots/mopop/arrival.webp",
-      "sha256": "75ede8b1eee4ab6255cbd177b16a0e1be05be4268c9d4ed6c33067565b1ce996",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:25:06.318Z",
+      "sha256": "da810006b2cb48d1dbeeab2e8c2fdbaba1362b60a2e4597a2256db9740fc8273",
+      "sourceCommit": "c7d405f058e4b1a299841202c75c774f91c3e904",
+      "capturedAt": "2026-11-08T19:54:02.196395+00:00",
       "pose": {
         "position": [
           143.1,
@@ -172,22 +173,23 @@
           "width": 1280,
           "height": 720
         }
-      }
+      },
+      "travel": "Actual arrival"
     },
     {
       "kind": "public-walk",
-      "label": "Museum of Pop Culture (MoPOP) — public walk",
+      "label": "Museum of Pop Culture (MoPOP) \u2014 public walk",
       "image": "assets/spots/mopop/public-walk.webp",
-      "sha256": "a25b1d21124668ed9a62acecb20c6390d43d04f51481e08ead12820d0908984a",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:25:08.734Z",
+      "sha256": "8d981ac44dea805ab969a15fded8ee31bb003826483ea990ea11b694f0487828",
+      "sourceCommit": "c7d405f058e4b1a299841202c75c774f91c3e904",
+      "capturedAt": "2026-11-08T19:59:26.013268+00:00",
       "pose": {
         "position": [
-          117.14153549586382,
-          -7.014505506273661,
-          -153.10037193125157
+          37.13597273895504,
+          -2.883493728669383,
+          -123.64177681811239
         ],
-        "bearing": 319.76060412078664,
+        "bearing": 204.84063322146818,
         "pitch": 0,
         "coordinateSystem": "scene-local metres, x east / y up / z south",
         "origin": {
@@ -203,15 +205,16 @@
           "width": 1280,
           "height": 720
         }
-      }
+      },
+      "travel": "Actual native pedestrian-aware walk; no teleport or walkTo during travel."
     },
     {
       "kind": "postcard",
-      "label": "Museum of Pop Culture (MoPOP) — postcard",
+      "label": "Museum of Pop Culture (MoPOP) \u2014 postcard",
       "image": "assets/spots/mopop/postcard.webp",
-      "sha256": "3b61aa65460d9e845fb8d0882022e36b57dcbe08253cb336cc423de8f413510c",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:25:10.934Z",
+      "sha256": "0bb6d511ad87c889843e00ad47ee06d96daed79f88ae9f52e124aea075d0f6e4",
+      "sourceCommit": "c7d405f058e4b1a299841202c75c774f91c3e904",
+      "capturedAt": "2026-11-08T19:54:08.940325+00:00",
       "pose": {
         "position": [
           158.2,
@@ -234,15 +237,16 @@
           "width": 1280,
           "height": 720
         }
-      }
+      },
+      "travel": "Posed camera"
     },
     {
       "kind": "activity-approach",
-      "label": "Museum of Pop Culture (MoPOP) — activity approach",
+      "label": "Museum of Pop Culture (MoPOP) \u2014 activity approach",
       "image": "assets/spots/mopop/activity-approach.webp",
-      "sha256": "8677141a96ee2c46a48049ffc8e81b8a02f4434f3a7f2ac493ac43006e302ee4",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:25:13.838Z",
+      "sha256": "381f32978e3e7ca6de423dc06c955dfc68d6d67b8f68d2ddd86887086695f51f",
+      "sourceCommit": "c7d405f058e4b1a299841202c75c774f91c3e904",
+      "capturedAt": "2026-11-08T19:54:13.080282+00:00",
       "pose": {
         "position": [
           -0.7,
@@ -265,15 +269,16 @@
           "width": 1280,
           "height": 720
         }
-      }
+      },
+      "travel": "Posed camera"
     }
   ],
   "perf": {
     "sceneTriangles": 1015025,
     "uniqueGeometryTriangles": 371210,
-    "geometryObjects": 154,
-    "maxRenderedTriangles": 1333870,
-    "maxDrawCalls": 274
+    "geometryObjects": 155,
+    "maxRenderedTriangles": 1342900,
+    "maxDrawCalls": 316
   },
   "sceneId": "seattle-center",
   "sourceGeometry": {
@@ -347,7 +352,7 @@
       "length": 145.99380609513395,
       "target": "Paul Allen"
     },
-    "nativeWalk": {
+    "staticPlannerAttempt": {
       "walker": "OnFootController",
       "passed": false,
       "steps": 521,
@@ -361,6 +366,33 @@
         "heading": 0.7023099471057115
       },
       "error": "Native walker blocked on planned public path"
+    },
+    "nativeWalk": {
+      "walker": "OnFootController",
+      "passed": true,
+      "steps": 1770,
+      "walked": 145.36674801158767,
+      "target": "Paul Allen",
+      "position": {
+        "x": 37.13636942055209,
+        "z": -123.64263371924152,
+        "y": -4.533552462664068,
+        "heading": 2.7080418155948873
+      },
+      "error": null,
+      "goal": [
+        36.699999999999996,
+        -122.69999999999999
+      ],
+      "detours": 0,
+      "populationBefore": 103,
+      "populationAfter": 103,
+      "colliderCountBefore": 836,
+      "colliderCountAfter": 836,
+      "sourceBuildingRecordsUnchanged": true,
+      "method": "Actual OnFootController automatic walking and legal sidesteps. Dynamic pedestrian circles are temporary planner buffers only; scene colliders/population/source records remain intact. No dev walkTo/teleport during travel.",
+      "proof": "handoffs/fidelity/original-districts-refresh/proof/tourist-public-context/mopop/native-public-walk.json",
+      "scope": "Independent pedestrian-aware native travel; the shared static path attempt remains a separate blocked timing diagnostic."
     }
   },
   "rawAudit": {
@@ -368,5 +400,5 @@
     "phantom": 1,
     "pedBelow": 3
   },
-  "review": "Inspected all four GAME context images. This is a material scene-fidelity gap despite passing geometry budgets and an existing sculpted model."
+  "review": "Inspected all four current GAME context views, the native endpoint, and before/after postcard images. False apartment windows are corrected and physical public access is proved. Exact source membership is retained. Folded silhouette, matched comparison, activity context and raw physical warnings remain open."
 }

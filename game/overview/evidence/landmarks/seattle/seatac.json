@@ -3,7 +3,7 @@
   "id": "seatac",
   "city": "seattle",
   "name": "Seattle-Tacoma International Airport",
-  "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+  "sourceCommit": "02387aba6eaa01bf77161496554f3af31558e9bf",
   "status": "in-progress",
   "coordinates": {
     "lat": 47.4423743,
@@ -19,41 +19,47 @@
   "sources": [
     {
       "url": "https://www.openstreetmap.org/way/23772634",
-      "label": "OSM w23772634 · version 33 · full source tags retained in research ledger",
+      "label": "OSM w23772634 \u00b7 version 33 \u00b7 full source tags retained in research ledger",
       "type": "osm"
     },
     {
       "url": "https://www.openstreetmap.org/way/23772637",
-      "label": "OSM w23772637 · version 25 · full source tags retained in research ledger",
+      "label": "OSM w23772637 \u00b7 version 25 \u00b7 full source tags retained in research ledger",
       "type": "osm"
     },
     {
       "url": "https://www.openstreetmap.org/way/734002404",
-      "label": "OSM w734002404 · version 9 · full source tags retained in research ledger",
+      "label": "OSM w734002404 \u00b7 version 9 \u00b7 full source tags retained in research ledger",
       "type": "osm"
     },
     {
       "url": "https://www.openstreetmap.org/way/869951038",
-      "label": "OSM w869951038 · version 7 · full source tags retained in research ledger",
+      "label": "OSM w869951038 \u00b7 version 7 \u00b7 full source tags retained in research ledger",
       "type": "osm"
     },
     {
       "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13615581.582563046%2C6013510.166010605%2C-13613437.66314039%2C6015654.08543326&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
-      "label": "Independent georeferenced Esri aerial · privately viewed · acquisition date unknown · image not published",
+      "label": "Independent georeferenced Esri aerial \u00b7 privately viewed \u00b7 acquisition date unknown \u00b7 image not published",
       "type": "aerial"
+    },
+    {
+      "url": "https://www.portseattle.org/projects/sea-gateway-project",
+      "label": "Official Port of Seattle Gateway project and linked curbside photograph; glazing with opaque returns, inspected 2026-11-08; photograph acquisition date unverified. No reference imagery published.",
+      "type": "official"
     }
   ],
   "improvements": [
     "Refreshed the complete terminal/concourses, International Arrivals Facility, South Satellite and elevated walkway source footprints.",
     "Replaced coarse strip collision with exact source polygons for all three main ground volumes.",
-    "Preserved the separately modelled control tower and garage source scope."
+    "Preserved the separately modelled control tower and garage source scope.",
+    "Restored the intended estimated terminal glass bands on curved source frontage edges of at least 2 m; short returns, inter-storey and upper opaque walls remain plain. Source footprint, collision and complete model envelope are unchanged."
   ],
   "remainingGaps": [
     "Main terminal 19.5 m, IAF 36.5 m and South Satellite 14.6 m massing heights remain estimates where source tags do not provide complete metre heights.",
     "The current IAF roof profile, vertical facade bays, gate equipment, parked aircraft assignments and detailed concourse roof plant remain simplified.",
     "Aerial walkway heights are retained from the prior published/research source; exact terminal grading and taxiway clearance require integrated review.",
     "These are isolated front/top/oblique model studies, not matched street-eye Street View/aerial comparisons. They do not establish full-world, night, weather or seasonal parity.",
-    "Integrated source-only replacement and rebuilt district performance are separate acceptance checks; the capture branch predates that shared world policy."
+    "The 2 m detail cutoff, glass bay spacing, glass heights and surface colours remain procedural estimates. The source-side camera level and panorama altitude limitations are retained in the integrated district comparisons."
   ],
   "checks": [
     {
@@ -85,17 +91,22 @@
       "label": "Complete measured visual parity",
       "passed": false,
       "details": "Unmeasured sections, simplified details and world integration remain open as listed; no 100% parity claim."
+    },
+    {
+      "label": "Actual short curved frontage and intentional opaque controls",
+      "passed": true,
+      "details": "Actual source edge 49 (7.66 m) admits the existing glass band; source edge 16 (0.92 m), inter-storey y=8.5 m and upper wall y=16 m remain opaque. Collision SHA256 and complete model envelope match frozen 4198996. Native diagnosed camera and three isolated model studies are recorded separately."
     }
   ],
   "captures": [
     {
       "id": "front",
-      "label": "Isolated model study · front elevation",
+      "label": "Isolated model study \u00b7 front elevation",
       "image": "assets/landmarks/seatac/front.webp",
       "kind": "front",
-      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
-      "sha256": "43c3567d42ec390cca6e5c6805906e74e2da832139ea0ca5ba5ea8190c6cf7f7",
-      "capturedAt": "2026-11-08T17:06:32.328Z",
+      "sourceCommit": "02387aba6eaa01bf77161496554f3af31558e9bf",
+      "sha256": "1898cf0c893f688424c8ea6231a69ff66a1bd2cb420e1b9cd269280471c6453c",
+      "capturedAt": "2026-11-08T20:56:18.129Z",
       "pose": {
         "position": [
           24.253777941492444,
@@ -125,12 +136,12 @@
     },
     {
       "id": "top",
-      "label": "Isolated model study · orthographic north-up plan",
+      "label": "Isolated model study \u00b7 orthographic north-up plan",
       "image": "assets/landmarks/seatac/top.webp",
       "kind": "top",
-      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sourceCommit": "02387aba6eaa01bf77161496554f3af31558e9bf",
       "sha256": "2004297d393ac161dda401bfaf795274c2cd48befb414a7705456c68c612903d",
-      "capturedAt": "2026-11-08T17:06:40.318Z",
+      "capturedAt": "2026-11-08T20:56:21.074Z",
       "pose": {
         "position": [
           24.253777941492444,
@@ -161,12 +172,12 @@
     },
     {
       "id": "oblique",
-      "label": "Isolated model study · oblique overview",
+      "label": "Isolated model study \u00b7 oblique overview",
       "image": "assets/landmarks/seatac/oblique.webp",
       "kind": "oblique",
-      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
-      "sha256": "cf8fb213bd1d10351ba3499544f61c4e56006a388056c532dc9d36d681f97346",
-      "capturedAt": "2026-11-08T17:06:46.282Z",
+      "sourceCommit": "02387aba6eaa01bf77161496554f3af31558e9bf",
+      "sha256": "185f63b97b8a6740b02f4e5c73081fec77940df1832592326144a278d8f104a8",
+      "capturedAt": "2026-11-08T20:56:23.515Z",
       "pose": {
         "position": [
           821.2009507393764,
@@ -196,7 +207,7 @@
     }
   ],
   "perf": {
-    "triangles": 13531,
+    "triangles": 14619,
     "drawCalls": 3,
     "note": "Isolated viewer frame includes ground and shadow rendering; this is neither a whole-world budget measurement nor hardware FPS."
   }

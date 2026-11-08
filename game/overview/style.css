@@ -1463,3 +1463,11 @@ section.search-match {
 .lm-captures figcaption,.lm-caption{font-size:12px;line-height:1.55;color:var(--muted);margin:10px 0}
 .lm-aerial{margin-top:18px}
 @media(max-width:640px){.lm-heading{display:block}.lm-heading .tag{display:inline-block;margin:8px 0}.lm-evidence h4{font-size:24px}}
+.perspective-viewer{min-width:0}
+.perspective-viewer label{display:flex;flex-direction:column;gap:8px;max-width:420px}
+.perspective-viewer select{font:inherit;min-height:48px;max-width:100%;padding:8px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink)}
+.perspective-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:20px}
+.perspective-grid figure{margin:0;min-width:0}
+.perspective-grid img{display:block;width:100%;height:auto;border-radius:8px;background:var(--dark)}
+.perspective-grid figcaption{font-size:13px;line-height:1.5;padding:12px 0;overflow-wrap:anywhere}
+.perspective-grid pre{white-space:pre-wrap;overflow-wrap:anywhere;max-width:100%;font-size:11px}

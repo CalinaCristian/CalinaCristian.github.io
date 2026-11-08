@@ -3,7 +3,7 @@ const sourceRoot = 'https://github.com/calinacristian/calinacristian.github.io/c
 const scopes = {core: 'Playable area', nearby: 'Nearby scenery · 600 m', distant: 'Distant background', all: 'All survey tiles'};
 const itemScope = item => ({'core-touches':'core','ring-touches':'nearby','outside-ring':'distant','published-capture':'baseline'}[item.scope] || item.scope);
 const normalize = value => String(value).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-const paramNames = ['compareLocation','compareTile','compareScope','compareRow','compareQuery','compareBaseline','compareLat','compareLon','compareLabel'];
+const paramNames = ['compareLocation','compareTile','compareScope','compareRow','compareQuery','compareBaseline','compareLat','compareLon','compareLabel','compareArchive'];
 
 /** Official live imagery, matched to a north-up ground square. Browser-only caching is handled by the viewer. */
 export function aerialURL(item, aerial = {}) {
@@ -82,7 +82,7 @@ export function createAerialCache({ttl = 15 * 60 * 1000, limit = 96} = {}) {
 }
 
 /** Mount within an overview section. Resolves to {dispose(), setLocation(id, options), setState(options)}. */
-export async function mountComparisonViewer(element, {baseURL = new URL('./comparison-data/', import.meta.url)} = {}) {
+export async function mountComparisonViewer(element, {baseURL = new URL('./comparison-data/', import.meta.url), onLocation = () => {}} = {}) {
   const root = document.createElement('div');
   root.className = 'cv-viewer'; root.tabIndex = -1;
   root.innerHTML = '<p class="cv-message" role="status">Loading comparison locations…</p>';
@@ -91,7 +91,8 @@ export async function mountComparisonViewer(element, {baseURL = new URL('./compa
   const aerialCache=createAerialCache();
   let aerialRequest=0;
   let disposed = false, current, visible = [], state, manifest, collectionItems = [], zoomScale = 1, zoomWidth = 640;
-  const manifests = new Map();
+  const manifests = new Map(), archives = new Map();
+  const archiveKey = (id, ref) => `${id}::${ref}`;
   const $ = selector => root.querySelector(`[data-cv="${selector}"]`);
   const listen = (target, event, handler) => target.addEventListener(event,handler,listenerOptions);
   const base = new URL(baseURL, document.baseURI);
@@ -102,9 +103,15 @@ export async function mountComparisonViewer(element, {baseURL = new URL('./compa
     catalog = await getJSON(new URL('catalog.json',base));
     // Only small source ledgers are loaded here. Original imagery is loaded on selection.
     await Promise.all(catalog.locations.map(async place => {
-      const url = new URL(place.manifest,base), data = await getJSON(url);
-      for(const item of data.items) {item.image = new URL(item.image,url).href; item.thumbnail = new URL(item.thumbnail,url).href;}
+      const prepare = (data, url) => {for(const item of data.items) {item.image = new URL(item.image,url).href; item.thumbnail = new URL(item.thumbnail,url).href;}return data;};
+      const url = new URL(place.manifest,base), data = prepare(await getJSON(url),url);
       manifests.set(place.id,data);
+      await Promise.all((data.historicalCollections || []).map(async history => {
+        if(!/^historical\/[a-zA-Z0-9_/-]+\/manifest\.json$/.test(history.manifest || '')) return;
+        const archiveURL = new URL(history.manifest,url), key = archiveKey(place.id,history.manifest);
+        try {archives.set(key,{...history,data:prepare(await getJSON(archiveURL),archiveURL)});}
+        catch {archives.set(key,{...history,unavailable:true});}
+      }));
     }));
     if (disposed) return controller;
     if (!catalog.locations.length) throw new Error('No comparison locations are available');
@@ -165,14 +172,14 @@ export async function mountComparisonViewer(element, {baseURL = new URL('./compa
     const unavailableOption=document.createElement('option');unavailableOption.value='';unavailableOption.textContent='No published captures';unavailableOption.disabled=true;unavailableOption.hidden=true;$('location').append(unavailableOption);
     $('index-details').open = window.matchMedia('(min-width: 801px)').matches;
     for(const place of catalog.locations) {const option = document.createElement('option'); option.value = place.id; option.textContent = place.label; $('location').append(option);}
-    function defaultState() { return {location:catalog.locations[0].id,tile:'',scope:'core',row:'all',query:'',baseline:false,lat:null,lon:null,label:''}; }
+    function defaultState() { return {location:catalog.locations[0].id,tile:'',scope:'core',row:'all',query:'',baseline:false,archive:'',lat:null,lon:null,label:''}; }
     function readState() {
       const params = new URL(location.href).searchParams, result = defaultState();
       const id = params.get('compareLocation'); if(id && /^[a-z0-9-]+$/.test(id)) result.location = id;
       const scope = params.get('compareScope'); if(Object.hasOwn(scopes,scope)) result.scope = scope;
       result.tile = params.get('compareTile') || ''; result.query = (params.get('compareQuery') || '').slice(0,160);
       result.row = /^-?\d{1,3}$/.test(params.get('compareRow')) ? params.get('compareRow') : 'all';
-      result.baseline = params.get('compareBaseline') === '1';result.label=(params.get('compareLabel') || '').slice(0,120);
+      result.archive = params.get('compareArchive') || '';result.baseline = params.get('compareBaseline') === '1';result.label=(params.get('compareLabel') || '').slice(0,120);
       for(const [key,limit] of [['lat',90],['lon',180]]) {const raw=params.get('compare'+key[0].toUpperCase()+key.slice(1));const n=Number(raw);if(raw && Number.isFinite(n) && Math.abs(n)<=limit)result[key]=n;}
       return resolveTarget(result);
     }
@@ -181,6 +188,7 @@ export async function mountComparisonViewer(element, {baseURL = new URL('./compa
       url.searchParams.set('compareLocation',state.location); if(state.tile) url.searchParams.set('compareTile',state.tile);
       if(state.scope !== 'core' && !state.baseline) url.searchParams.set('compareScope',state.scope);
       if(state.row !== 'all') url.searchParams.set('compareRow',state.row);
+      if(state.archive) url.searchParams.set('compareArchive',state.archive);
       if(state.query) url.searchParams.set('compareQuery',state.query); if(state.baseline) url.searchParams.set('compareBaseline','1');
       if(Number.isFinite(state.lat)&&Number.isFinite(state.lon)) {url.searchParams.set('compareLat',state.lat);url.searchParams.set('compareLon',state.lon);}
       if(state.label)url.searchParams.set('compareLabel',state.label);
@@ -189,6 +197,7 @@ export async function mountComparisonViewer(element, {baseURL = new URL('./compa
     }
     function clearTarget() {state.lat=null;state.lon=null;state.label='';$('target-note').hidden=true;}
     function resolveTarget(next) {
+      if(next.archive)return next;
       const data=manifests.get(next.location);
       if(data && Number.isFinite(next.lat) && Number.isFinite(next.lon)) {
         const c=Math.cos(next.lat*Math.PI/180),d=item=>((item.lon-next.lon)*c)**2+(item.lat-next.lat)**2;
@@ -272,16 +281,25 @@ export async function mountComparisonViewer(element, {baseURL = new URL('./compa
       root.querySelectorAll('[data-id]').forEach(button=>button.setAttribute('aria-current',String(button.dataset.id===current?.id)));
     }
     function render(updateURL = false) {
-      manifest = manifests.get(state.location);
+      const latest = manifests.get(state.location), archive = state.archive && archives.get(archiveKey(state.location,state.archive));
+      const unavailableArchive = Boolean(state.archive && !archive?.data);
+      if(unavailableArchive) state.archive = '';
+      manifest = archive?.data || latest;
       root.classList.toggle('cv-unavailable',!manifest);$('unavailable').hidden=Boolean(manifest);
       if(!manifest) {$('location').value='';$('unavailable').textContent='No comparison captures are published for this location yet. Choose an available location above.';if(updateURL)writeState();return;}
-      const hasBaseline = manifest.items.some(x=>x.dataset==='published'); if(!hasBaseline) state.baseline = false;
-      collectionItems = manifest.items.filter(x=>state.baseline?x.dataset==='published':x.dataset!=='published');
+      const baselineCount = latest.items.filter(x=>x.dataset==='published').length, hasBaseline = baselineCount > 0; if(!hasBaseline || state.archive) state.baseline = false;
+      collectionItems = state.archive ? manifest.items : manifest.items.filter(x=>state.baseline?x.dataset==='published':x.dataset!=='published');
       $('location').value = state.location;
+      onLocation(state.location);
       const collection = $('collection'); collection.replaceChildren();
-      for(const [value,text] of [['survey','District survey'],...(hasBaseline?[['baseline','Four published baseline views']]:[])]) {const option = document.createElement('option');option.value=value;option.textContent=text;collection.append(option);}
-      collection.value = state.baseline?'baseline':'survey';
-      $('collection-note').textContent = manifest.collectionNotes?.[state.baseline?'published':'atlas'] || manifest.description || '';
+      const choices = [['survey',`District survey · ${latest.items.length-baselineCount} views`],...(hasBaseline?[['baseline',`${baselineCount} published baseline views`]]:[])];
+      for(const history of latest.historicalCollections || []) {
+        const saved = archives.get(archiveKey(state.location,history.manifest));
+        if(saved) choices.push([`archive:${history.manifest}`,`Historical collection · ${history.frames ?? saved.data?.items.length ?? '?'} views${history.generatedAt?' · '+history.generatedAt.slice(0,10):''}`,saved.unavailable]);
+      }
+      for(const [value,text,disabled] of choices) {const option = document.createElement('option');option.value=value;option.textContent=text+(disabled?' · unavailable':'');option.disabled=!!disabled;collection.append(option);}
+      collection.value = state.archive ? `archive:${state.archive}` : state.baseline?'baseline':'survey';
+      $('collection-note').textContent = (unavailableArchive?'The requested historical collection is unavailable; showing the current survey. ':'')+(state.archive?'Historical evidence; it predates the current rebuild. Per-frame source revisions and capture dates are retained. ':'')+(manifest.collectionNotes?.[state.baseline?'published':'atlas'] || manifest.description || '');
       const scopeRoot = $('scopes'); scopeRoot.replaceChildren(); scopeRoot.hidden = state.baseline;
       if(!state.baseline) for(const [value,label] of Object.entries(scopes)) {
         const count = value==='all'?collectionItems.length:collectionItems.filter(x=>itemScope(x)===value).length;
@@ -315,7 +333,7 @@ export async function mountComparisonViewer(element, {baseURL = new URL('./compa
     listen($('row'),'change',event=>{clearTarget();state.row=event.target.value;render(true);});
     listen($('reset'),'click',()=>{clearTarget();state.scope='core';state.row='all';state.query='';render(true);});
     listen($('location'),'change',event=>controller.setLocation(event.target.value));
-    listen($('collection'),'change',event=>{clearTarget();state.baseline=event.target.value==='baseline';state.scope='core';state.row='all';state.query='';state.tile='';render(true);});
+    listen($('collection'),'change',event=>{clearTarget();const value=event.target.value;state.archive=value.startsWith('archive:')?value.slice(8):'';state.baseline=value==='baseline';state.scope=state.archive?'all':'core';state.row='all';state.query='';state.tile='';render(true);});
     listen($('previous'),'click',()=>move(-1));listen($('next'),'click',()=>move(1));
     const restore=()=>{state=readState();render();};listen(window,'popstate',restore);
     listen(root,'keydown',event=>{if($('dialog').open || event.ctrlKey || event.metaKey || event.altKey || /^(INPUT|SELECT|TEXTAREA)$/.test(event.target.tagName)) return;if(event.key==='ArrowLeft' || event.key==='ArrowRight') {event.preventDefault();move(event.key==='ArrowLeft'?-1:1);}});

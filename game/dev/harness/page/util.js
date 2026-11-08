@@ -48,7 +48,8 @@ function colliderHeight(c, x, z, y, bodyHeight, radius = 0) {
     if (c.y0 !== undefined && (c.roofHeightAt ? y + bodyHeight : y) < c.y0) return false;
     if (c.y1 !== undefined && y > c.y1) return false;
     if ((c.minH ?? 0) > y + bodyHeight) return false;
-    if (c.roofHeightAt) { const top = c.roofHeightAt(x, z, radius); if (top === null || y > top) return false; }
+    if (c.roofHeightAt) { const top = c.roofHeightAt(x, z, radius); if (top === null || y > top || (c.roadDeck && y >= c.roofHeightAt(x, z, 0) - 1e-4)) return false; }
+    if (c.minHeightAt) { const bottom = c.minHeightAt(x, z, radius); if (bottom === null || y + bodyHeight < bottom) return false; }
     return true;
 }
 /** Point penetration against active solids, retaining courtyard and passage voids. */

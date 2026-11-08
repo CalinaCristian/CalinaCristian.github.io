@@ -1,0 +1,29 @@
+{
+  "runtimeBase": "9afb80e",
+  "snapshotHead": "f7124b0",
+  "files": {
+    "game/src/main.js": "6183dfb0110fd7139f8b825838798667d225a7cddeb78f8b395bc21701dae84c",
+    "game/src/render.js": "c886535e571144de5fd007294350b2b803138125d68f61f9a5992ca298fba587",
+    "game/src/save.js": "66ece4bff34ce8a3bafcc29ad74dd7a7792ceb80d0406890f27982ad052640dc",
+    "game/src/hud.js": "8ee4cbc9e0aea279a72a0f923e7554cb8115d7fffb9c9820ed08d7e0b39beb18",
+    "game/src/office.js": "a56fed9898f03633930afa6e724421c888d30dd040d5d4d3b1bed9880d359166",
+    "game/src/achievements.js": "fb7650a3db44ce163a28fc760c6093af1f68f0580198ffd13d57c2c6a7680eb8",
+    "game/src/explore.js": "2f8abf2e4b3e14f1002f0088322b9e59e713f1865bba60644d200030cf653993",
+    "game/src/input.js": "e14ff4e1be7dbbfaf7cb07395340515e01820ab36cba24a40d60001ff5511d00",
+    "game/src/data.js": "5f9f29ab1b4ca2890fab1a6df96749e59235bf1b7aa75d5a4421160e626be738",
+    "game/src/cities.js": "54b5d54d502edc87b3cbe19a2970fb82f392fd3cc41803a2ee84ec1c202966ac",
+    "game/style.css": "8b2fd3641ced223a3c11afc33a3f4a19764d2a7f52b522d3e2f0d08319142d26",
+    "game/data/seattle-seatac.json": "b1991067b87c2a85c222d40a10fb535e8c3a1e81d1d17bf2236c49e3df5a2169",
+    "game/data/bucharest-pipera.json": "0ce11f59ecc0e6a2376de785a211a9b239ec8bb0a54a4606014b43d9845eb2a6",
+    "game/data/seattle-bellevue.json": "40387e74a2121abd3d6ad10752f15a2d5d2fbd26f7569fe73c055609d2f54d95",
+    "game/data/bucharest-floreasca.json": "d602fc3f90141799e095350595c43f43c0af7b9c3e2825fd98b5eda92ea9e974",
+    "game/data/bucharest-otopeni.json": "94ce69292e2fc559d43daebefa06199c0f838ef3b5c47c074d2ef4db20fb10bc",
+    "game/data/bucharest-grozavesti.json": "dc7b87e081ef938b02971920d3fe6de5a9bd3115825299887e5994a573655d60",
+    "game/data/bucharest-unirii.json": "b2a0e154da3c6cb2a79cb934a6701344b6ddcf9ec439a8358ec106c5a2d88f30",
+    "game/data/bucharest-romana.json": "3a324d238bbe2418252fb854cb77b469679e04abb635bd67932dd3da2eac0609"
+  },
+  "runners": {
+    "game/dev/harness/conditions-check.cjs": "206428b238498a2445834c19f75a4c5574bab5a1e439e16dfc1bb761b40e9f18",
+    "game/dev/harness/office-touch-check.cjs": "5a9355fcc82c2a949f610b51ef3fd3dbffd2272065b7f0f3f47e6d8c35803eeb"
+  }
+}

@@ -14,11 +14,32 @@ import { meshSDF, sdEllipsoid, sdCapsule, sdBox, sdSphere, smin, smax, noise3, f
 import { signBoard, railing } from '../props.js';
 import { seaNeedle, seaBackdrop, seaActivity } from './sea-common.js';
 import { addTraffic } from '../cars.js';
-import { polyCollider } from '../osm.js';
+import { polyCollider, facadeMaterial } from '../osm.js';
 
 const NEEDLE = { x: 0.3, z: 0.7, y: 1.5 };
 const MONO = [[-46, -86], [-23, -87], [-8, -87], [10, -88], [37, -89], [49, -88], [56, -87], [64, -86], [71, -83], [78, -80], [96, -62], [102, -54], [105, -50], [109, -43], [115, -39], [124, -30], [129, -10], [129, 60], [126, 160], [126, 300]];
 const MONO_Y = 7.6; // guideway top above the plaza (≈ 2nd-floor level at MoPOP)
+// These separately mapped museum parts retain their exact native source solids.
+// Their metal skins are not apartment façades or additional hero replacements.
+const MOPOP_PARTS = new Set(['w1534908988', 'w1534908989', 'w1534908990', 'w1534908991', 'w1534908992', 'w1534908993', 'w1534908994']);
+const MOPOP_METAL = 'mopop-source-metal';
+
+function mopopMetalMaterial() {
+    const mat = facadeMaterial(MOPOP_METAL);
+    if (mat.userData.mopopMetal) return mat;
+    const c = canvas(256, 256), g = c.getContext('2d'), r = rng(2000);
+    g.fillStyle = '#f4f4f4'; g.fillRect(0, 0, 256, 256);
+    for (let y = 0; y < 256; y += 16) for (let x = -16; x < 256; x += 32) {
+        const xx = x + (y / 16 % 2) * 16, shade = 232 + Math.floor(r() * 20);
+        g.fillStyle = `rgb(${shade},${shade},${shade})`; g.fillRect(xx, y, 31, 15);
+    }
+    mat.map.dispose(); mat.emissiveMap.dispose();
+    mat.map = canvasTexture(c, { repeat: true }); mat.emissiveMap = null;
+    mat.emissive.set('#000000'); mat.emissiveIntensity = 0;
+    mat.metalness = 0.65; mat.roughness = 0.4;
+    mat.userData.nightWindows = false; mat.userData.mopopMetal = true; mat.needsUpdate = true;
+    return mat;
+}
 
 // ---------------------------------------------------------------------------- Space Needle + base pavilion + elevator ride to the deck
 function buildNeedle(ctx) {
@@ -202,7 +223,8 @@ function buildChihuly(ctx) {
 // ---------------------------------------------------------------------------- MoPOP (Frank O. Gehry, 2000): shingled coloured masses, monorail slot, steel ribbon
 function buildMoPOP(ctx) {
     const d = ctx.data, g = ctx.ground;
-    const fp = d.buildings.find((b) => b.id === 'w161587742'); ctx.skipBuildings.add('w161587742'); ctx.skipBuildings.add('w1092469435'); ctx.exclude.push(fp.poly); // every OSM part inside the footprint
+    const fp = d.buildings.find((b) => b.id === 'w161587742'); ctx.skipBuildings.add('w161587742'); ctx.skipBuildings.add('w1092469435'); ctx.exclude.push(fp.poly);
+    mopopMetalMaterial();
     const bb = polyBox(fp.poly), y0 = g.heightAt((bb.x0 + bb.x1) / 2, (bb.z0 + bb.z1) / 2) - 0.5;
     // masses (local metres from the footprint SW corner): colour id, centre, radii
     const ox = bb.x0, oz = bb.z0, W = bb.x1 - bb.x0, D = bb.z1 - bb.z0;
@@ -332,7 +354,8 @@ export default {
         const chi = buildChihuly(ctx);
         const mop = buildMoPOP(ctx);
         buildMonorail(ctx);
-        ctx.osmBackdrop({ paint: {}, streetTreeOpts: { spacing: 12, prob: 0.7 }, areaTreeOpts: { conifer: 0.4 } });
+        ctx.osmBackdrop({ paint: {}, style: (b) => MOPOP_PARTS.has(b.id) ? MOPOP_METAL : undefined,
+            streetTreeOpts: { spacing: 12, prob: 0.7 }, areaTreeOpts: { conifer: 0.4 } });
         const P = ctx.painter;
         P.circle(NEEDLE.x, NEEDLE.z, 30, '#b4afa6', 'slab'); P.circle(NEEDLE.x, NEEDLE.z, 13.6, '#8d8a84', 'slab');
         // Howard S. Wright Memorial Fountain: shallow pool south of the base

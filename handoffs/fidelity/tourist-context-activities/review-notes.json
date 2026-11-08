@@ -85,12 +85,33 @@
     "review": "Inspected all four GAME context views and actual desktop/touch facade exercise captures. Source-based model QA does not establish square/entry parity."
   },
   "peoples-salvation-cathedral": {
-    "improvements": ["The piazza now follows OSM pedestrian multipolygon relation 16698908, including the church inner ring, instead of an invented 23,760 m² rectangle.", "Six mapped retaining-wall ways keep their actual source gaps, and the valid western building w1223607029 is restored.", "Candle participation requires a visible lighting phase and an explicit animated placement; idle/cancel does not award it."],
-    "remainingGaps": ["Restoring the western building exposes the old postcard pose inside that real building. The viewpoint must move to the actual public piazza; the source building must remain.", "Arrival and the native plaque route remain outside the mapped piazza; the native route does not complete. Spawn, public approach and game plaques need source-led relocation.", "The candle pavilion/rack is still an explicitly estimated unverified physical structure; its location and existence need verification or replacement by an honest temporary game visualization.", "Street boundary fences/gates and plaza ground finish are incomplete. The shared scene's first activity approach is at the Palace, not the cathedral.", "The available May 2025 comparison shows the real southern fence and trees, but it is not a complete post-consecration matched scene comparison."],
-    "activityProof": "Native desktop and touch tests cover the two visible candle phases, 44px controls, cancellation and completion-only award; the pavilion's physical-source gap remains separate.",
-    "sources": [{"label":"Mapped cathedral piazza relation 16698908","type":"OSM source","url":"https://www.openstreetmap.org/relation/16698908"},{"label":"Romanian Patriarchate cathedral","type":"Official reference","url":"https://catedralaneamului.ro/"}],
-    "review": "Inspected all four GAME context views, including the obstructed postcard. The source preservation fix is correct, but access and the viewpoint need the next production correction."
-  },
+  "improvements": [
+    "The piazza follows OSM pedestrian multipolygon relation 16698908 with the church inner ring; six mapped walls retain their real gaps and western building w1223607029 remains present.",
+    "Arrival, all five game plaques, the candle exercise and the close portal postcard now lie on the mapped public forecourt, outside the church footprint and source buildings.",
+    "The unverified fixed candle pavilion, racks and colliders are removed. A temporary handheld holder explicitly presents virtual outdoor practice and fades away.",
+    "Early-closing a spot map or plaque now clears its delayed keyboard handler, preventing later E/Enter/Escape interactions from being swallowed."
+  ],
+  "remainingGaps": [
+    "The postcard is a close public-forecourt view of the portal and part of the bell tower; a wide, fully matched cathedral silhouette and current independent entry/access comparison remain open.",
+    "Real candle-rack placement and interior access are unverified and unavailable; the two-phase exercise is explicitly virtual outdoor practice.",
+    "Street boundary fences/gates, source plaza ground finish and nearby-building facades still require current source/reference comparison.",
+    "The available May 2025 comparison predates completion; it is not a complete post-consecration matched scene comparison."
+  ],
+  "activityProof": "Frozen392ac28 native desktop and actual touch-stick/look walks reach the plaque and virtual candle. Both pass 44px controls, no idle award, Leave and8 mode cancellations including actual drone, incomplete reload locked, and completed lighting/placement persisted after reload using the correct existing lm-cathedral-dome ID.",
+  "sources": [
+    {
+      "label": "Mapped cathedral piazza relation 16698908",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/relation/16698908"
+    },
+    {
+      "label": "Romanian Patriarchate cathedral",
+      "type": "Official reference",
+      "url": "https://catedralaneamului.ro/"
+    }
+  ],
+  "review": "Inspected all four refreshed GAME context views plus desktop/touch candle animation captures. Source forecourt access and the invented pavilion are corrected; full matched scene fidelity, real interior access and raw physical warnings remain open."
+},
   "old-town-lipscani": {
     "improvements": ["Shoteria and Dristor use source-backed frontage signs. Shoteria's invented terrace was removed because its OSM outdoor_seating=no tag does not permit it; the real building stayed in place.", "Terraces now require a positive outdoor-seating source; source buildings, partial strips and courtyards remain represented.", "The existing three-step animated Noroc and shaorma participation, 44px controls and cancellation safeguards are preserved."],
     "remainingGaps": ["The native Lipscani plaque endpoint faces a timber facade at close range; the public plaque sight line and local collision need physical inspection.", "Carusel levels and the Curtea Veche history handler still require participation and legitimate-access review; source-backed interiors must not be inferred from an exterior footprint.", "Large numbers of unmeasured neighbouring heights, facade details and roof colours remain estimates; the source consumer pass does not prove their visual accuracy.", "One degenerate mesh, six phantom findings and substantial physical z-fighting remain."],

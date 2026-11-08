@@ -1,0 +1,1678 @@
+{
+  "schemaVersion": 1,
+  "id": "fremont-troll",
+  "sceneId": "fremont-troll",
+  "name": "Fremont Troll",
+  "city": "seattle",
+  "status": "needs_review",
+  "origin": {
+    "lat": 47.6506,
+    "lon": -122.34722,
+    "elev": 33.1
+  },
+  "projection": {
+    "mLat": 111183.52,
+    "mLon": 75127.88
+  },
+  "sourceGeometry": {
+    "consumer": {
+      "sourceRecords": 211,
+      "sourceIds": [
+        "w117861646",
+        "w234934536",
+        "w234934538",
+        "w234934547",
+        "w234934553",
+        "w234934566",
+        "w234934569",
+        "w234934580",
+        "w234934584",
+        "w234934586",
+        "w234934608",
+        "w234934620",
+        "w234934623",
+        "w234934624",
+        "w234934633",
+        "w234934635",
+        "w234934641",
+        "w234934647",
+        "w234934652",
+        "w234934656",
+        "w234934660",
+        "w234934662",
+        "w234934673",
+        "w234934675",
+        "w234934683",
+        "w234934686",
+        "w234934687",
+        "w234934693",
+        "w234934698",
+        "w234934713",
+        "w234934714",
+        "w969320413",
+        "w1267615563",
+        "w1267615564",
+        "w1267615565",
+        "w1267615567",
+        "w1343376898",
+        "w1343376899",
+        "w1343376900",
+        "r7296784",
+        "w37058377",
+        "w114913786",
+        "w114913787",
+        "w114913789",
+        "w114913790",
+        "w114913791",
+        "w114913793",
+        "w114913794",
+        "w114913795",
+        "w114913796",
+        "w114913797",
+        "w115577520",
+        "w115577521",
+        "w117861643",
+        "w117861644",
+        "w117861645",
+        "w117861647",
+        "w234929925",
+        "w234930001",
+        "w234930019",
+        "w234930074",
+        "w234930116",
+        "w234930142",
+        "w234930210",
+        "w234930315",
+        "w234930317",
+        "w234930478",
+        "w234930512",
+        "w234930578",
+        "w234930594",
+        "w234930641",
+        "w234930650",
+        "w234930736",
+        "w234930740",
+        "w234930764",
+        "w234930776",
+        "w234930790",
+        "w234930825",
+        "w234930830",
+        "w234934519",
+        "w234934521",
+        "w234934522",
+        "w234934527",
+        "w234934531",
+        "w234934532",
+        "w234934537",
+        "w234934539",
+        "w234934543",
+        "w234934544",
+        "w234934550",
+        "w234934551",
+        "w234934554",
+        "w234934556",
+        "w234934557",
+        "w234934560",
+        "w234934567",
+        "w234934568",
+        "w234934570",
+        "w234934571",
+        "w234934574",
+        "w234934579",
+        "w234934581",
+        "w234934582",
+        "w234934583",
+        "w234934589",
+        "w234934592",
+        "w234934593",
+        "w234934594",
+        "w234934599",
+        "w234934600",
+        "w234934601",
+        "w234934607",
+        "w234934609",
+        "w234934610",
+        "w234934611",
+        "w234934612",
+        "w234934613",
+        "w234934614",
+        "w234934616",
+        "w234934618",
+        "w234934621",
+        "w234934625",
+        "w234934629",
+        "w234934631",
+        "w234934639",
+        "w234934640",
+        "w234934645",
+        "w234934646",
+        "w234934649",
+        "w234934654",
+        "w234934655",
+        "w234934658",
+        "w234934664",
+        "w234934665",
+        "w234934666",
+        "w234934667",
+        "w234934668",
+        "w234934669",
+        "w234934670",
+        "w234934671",
+        "w234934674",
+        "w234934678",
+        "w234934680",
+        "w234934685",
+        "w234934688",
+        "w234934689",
+        "w234934690",
+        "w234934692",
+        "w234934695",
+        "w234934696",
+        "w234934697",
+        "w234934702",
+        "w234934703",
+        "w234934704",
+        "w234934705",
+        "w234934707",
+        "w234934708",
+        "w234934709",
+        "w234934712",
+        "w234934716",
+        "w234934719",
+        "w234934722",
+        "w234934726",
+        "w390099393",
+        "w486870832",
+        "w497065170",
+        "w520073908",
+        "w520073909",
+        "w520073910",
+        "w547299202",
+        "w694937497",
+        "w694937498",
+        "w694937499",
+        "w779571062",
+        "w779571063",
+        "w1267615533",
+        "w1267615534",
+        "w1267615540",
+        "w1267615541",
+        "w1267615542",
+        "w1267615543",
+        "w1267615561",
+        "w1267615562",
+        "w1267615566",
+        "w1267615568",
+        "w1267615569",
+        "w1267615570",
+        "w1267615571",
+        "w1267615572",
+        "w1267615573",
+        "w1267615574",
+        "w1267615575",
+        "w1267615576",
+        "w1267615577",
+        "w1267615578",
+        "w1267615579",
+        "w1267615580",
+        "w1267615581",
+        "w1267615582",
+        "w1267615583",
+        "w1267615584",
+        "w1267615585",
+        "w1267615587",
+        "w1267615588",
+        "w1343376895",
+        "w1343376896",
+        "w1343376897",
+        "w1343376901",
+        "w1359776604",
+        "w1524796174",
+        "w1524796175"
+      ],
+      "assemblies": [
+        {
+          "source": "w117861643",
+          "parts": [
+            "w694937497",
+            "w694937498",
+            "w694937499"
+          ],
+          "mode": "parts",
+          "coverage": 1,
+          "residuals": 0,
+          "residualHeight": 24.1
+        },
+        {
+          "source": "w390099393",
+          "parts": [
+            "r7296784",
+            "w497065170",
+            "w520073908",
+            "w520073909",
+            "w520073910"
+          ],
+          "mode": "parts",
+          "coverage": 1,
+          "residuals": 0,
+          "residualHeight": 5.2
+        }
+      ],
+      "dropped": 0,
+      "inset": 0,
+      "issues": [],
+      "literalHeights": 27,
+      "levelHeightEstimates": 0,
+      "typeHeightEstimates": 184,
+      "cacheHit": true,
+      "buildMs": 106,
+      "renderedVolumes": 209,
+      "heroReplacements": []
+    },
+    "physicalMembership": [
+      {
+        "source": "w117861646",
+        "residual": false,
+        "volume": 0
+      },
+      {
+        "source": "w234934536",
+        "residual": false,
+        "volume": 1
+      },
+      {
+        "source": "w234934538",
+        "residual": false,
+        "volume": 2
+      },
+      {
+        "source": "w234934547",
+        "residual": false,
+        "volume": 3
+      },
+      {
+        "source": "w234934553",
+        "residual": false,
+        "volume": 4
+      },
+      {
+        "source": "w234934566",
+        "residual": false,
+        "volume": 5
+      },
+      {
+        "source": "w234934569",
+        "residual": false,
+        "volume": 6
+      },
+      {
+        "source": "w234934580",
+        "residual": false,
+        "volume": 7
+      },
+      {
+        "source": "w234934584",
+        "residual": false,
+        "volume": 8
+      },
+      {
+        "source": "w234934586",
+        "residual": false,
+        "volume": 9
+      },
+      {
+        "source": "w234934608",
+        "residual": false,
+        "volume": 10
+      },
+      {
+        "source": "w234934620",
+        "residual": false,
+        "volume": 11
+      },
+      {
+        "source": "w234934623",
+        "residual": false,
+        "volume": 12
+      },
+      {
+        "source": "w234934624",
+        "residual": false,
+        "volume": 13
+      },
+      {
+        "source": "w234934633",
+        "residual": false,
+        "volume": 14
+      },
+      {
+        "source": "w234934635",
+        "residual": false,
+        "volume": 15
+      },
+      {
+        "source": "w234934641",
+        "residual": false,
+        "volume": 16
+      },
+      {
+        "source": "w234934647",
+        "residual": false,
+        "volume": 17
+      },
+      {
+        "source": "w234934652",
+        "residual": false,
+        "volume": 18
+      },
+      {
+        "source": "w234934656",
+        "residual": false,
+        "volume": 19
+      },
+      {
+        "source": "w234934660",
+        "residual": false,
+        "volume": 20
+      },
+      {
+        "source": "w234934662",
+        "residual": false,
+        "volume": 21
+      },
+      {
+        "source": "w234934673",
+        "residual": false,
+        "volume": 22
+      },
+      {
+        "source": "w234934675",
+        "residual": false,
+        "volume": 23
+      },
+      {
+        "source": "w234934683",
+        "residual": false,
+        "volume": 24
+      },
+      {
+        "source": "w234934686",
+        "residual": false,
+        "volume": 25
+      },
+      {
+        "source": "w234934687",
+        "residual": false,
+        "volume": 26
+      },
+      {
+        "source": "w234934693",
+        "residual": false,
+        "volume": 27
+      },
+      {
+        "source": "w234934698",
+        "residual": false,
+        "volume": 28
+      },
+      {
+        "source": "w234934713",
+        "residual": false,
+        "volume": 29
+      },
+      {
+        "source": "w234934714",
+        "residual": false,
+        "volume": 30
+      },
+      {
+        "source": "w969320413",
+        "residual": false,
+        "volume": 31
+      },
+      {
+        "source": "w1267615563",
+        "residual": false,
+        "volume": 32
+      },
+      {
+        "source": "w1267615564",
+        "residual": false,
+        "volume": 33
+      },
+      {
+        "source": "w1267615565",
+        "residual": false,
+        "volume": 34
+      },
+      {
+        "source": "w1267615567",
+        "residual": false,
+        "volume": 35
+      },
+      {
+        "source": "w1343376898",
+        "residual": false,
+        "volume": 36
+      },
+      {
+        "source": "w1343376899",
+        "residual": false,
+        "volume": 37
+      },
+      {
+        "source": "w1343376900",
+        "residual": false,
+        "volume": 38
+      },
+      {
+        "source": "r7296784",
+        "residual": false,
+        "volume": 39
+      },
+      {
+        "source": "w37058377",
+        "residual": false,
+        "volume": 40
+      },
+      {
+        "source": "w114913786",
+        "residual": false,
+        "volume": 41
+      },
+      {
+        "source": "w114913787",
+        "residual": false,
+        "volume": 42
+      },
+      {
+        "source": "w114913789",
+        "residual": false,
+        "volume": 43
+      },
+      {
+        "source": "w114913790",
+        "residual": false,
+        "volume": 44
+      },
+      {
+        "source": "w114913791",
+        "residual": false,
+        "volume": 45
+      },
+      {
+        "source": "w114913793",
+        "residual": false,
+        "volume": 46
+      },
+      {
+        "source": "w114913794",
+        "residual": false,
+        "volume": 47
+      },
+      {
+        "source": "w114913795",
+        "residual": false,
+        "volume": 48
+      },
+      {
+        "source": "w114913796",
+        "residual": false,
+        "volume": 49
+      },
+      {
+        "source": "w114913797",
+        "residual": false,
+        "volume": 50
+      },
+      {
+        "source": "w115577520",
+        "residual": false,
+        "volume": 51
+      },
+      {
+        "source": "w115577521",
+        "residual": false,
+        "volume": 52
+      },
+      {
+        "source": "w117861644",
+        "residual": false,
+        "volume": 54
+      },
+      {
+        "source": "w117861645",
+        "residual": false,
+        "volume": 55
+      },
+      {
+        "source": "w117861647",
+        "residual": false,
+        "volume": 56
+      },
+      {
+        "source": "w234929925",
+        "residual": false,
+        "volume": 57
+      },
+      {
+        "source": "w234930001",
+        "residual": false,
+        "volume": 58
+      },
+      {
+        "source": "w234930019",
+        "residual": false,
+        "volume": 59
+      },
+      {
+        "source": "w234930074",
+        "residual": false,
+        "volume": 60
+      },
+      {
+        "source": "w234930116",
+        "residual": false,
+        "volume": 61
+      },
+      {
+        "source": "w234930142",
+        "residual": false,
+        "volume": 62
+      },
+      {
+        "source": "w234930210",
+        "residual": false,
+        "volume": 63
+      },
+      {
+        "source": "w234930315",
+        "residual": false,
+        "volume": 64
+      },
+      {
+        "source": "w234930317",
+        "residual": false,
+        "volume": 65
+      },
+      {
+        "source": "w234930478",
+        "residual": false,
+        "volume": 66
+      },
+      {
+        "source": "w234930512",
+        "residual": false,
+        "volume": 67
+      },
+      {
+        "source": "w234930578",
+        "residual": false,
+        "volume": 68
+      },
+      {
+        "source": "w234930594",
+        "residual": false,
+        "volume": 69
+      },
+      {
+        "source": "w234930641",
+        "residual": false,
+        "volume": 70
+      },
+      {
+        "source": "w234930650",
+        "residual": false,
+        "volume": 71
+      },
+      {
+        "source": "w234930736",
+        "residual": false,
+        "volume": 72
+      },
+      {
+        "source": "w234930740",
+        "residual": false,
+        "volume": 73
+      },
+      {
+        "source": "w234930764",
+        "residual": false,
+        "volume": 74
+      },
+      {
+        "source": "w234930776",
+        "residual": false,
+        "volume": 75
+      },
+      {
+        "source": "w234930790",
+        "residual": false,
+        "volume": 76
+      },
+      {
+        "source": "w234930825",
+        "residual": false,
+        "volume": 77
+      },
+      {
+        "source": "w234930830",
+        "residual": false,
+        "volume": 78
+      },
+      {
+        "source": "w234934519",
+        "residual": false,
+        "volume": 79
+      },
+      {
+        "source": "w234934521",
+        "residual": false,
+        "volume": 80
+      },
+      {
+        "source": "w234934522",
+        "residual": false,
+        "volume": 81
+      },
+      {
+        "source": "w234934527",
+        "residual": false,
+        "volume": 82
+      },
+      {
+        "source": "w234934531",
+        "residual": false,
+        "volume": 83
+      },
+      {
+        "source": "w234934532",
+        "residual": false,
+        "volume": 84
+      },
+      {
+        "source": "w234934537",
+        "residual": false,
+        "volume": 85
+      },
+      {
+        "source": "w234934539",
+        "residual": false,
+        "volume": 86
+      },
+      {
+        "source": "w234934543",
+        "residual": false,
+        "volume": 87
+      },
+      {
+        "source": "w234934544",
+        "residual": false,
+        "volume": 88
+      },
+      {
+        "source": "w234934550",
+        "residual": false,
+        "volume": 89
+      },
+      {
+        "source": "w234934551",
+        "residual": false,
+        "volume": 90
+      },
+      {
+        "source": "w234934554",
+        "residual": false,
+        "volume": 91
+      },
+      {
+        "source": "w234934556",
+        "residual": false,
+        "volume": 92
+      },
+      {
+        "source": "w234934557",
+        "residual": false,
+        "volume": 93
+      },
+      {
+        "source": "w234934560",
+        "residual": false,
+        "volume": 94
+      },
+      {
+        "source": "w234934567",
+        "residual": false,
+        "volume": 95
+      },
+      {
+        "source": "w234934568",
+        "residual": false,
+        "volume": 96
+      },
+      {
+        "source": "w234934570",
+        "residual": false,
+        "volume": 97
+      },
+      {
+        "source": "w234934571",
+        "residual": false,
+        "volume": 98
+      },
+      {
+        "source": "w234934574",
+        "residual": false,
+        "volume": 99
+      },
+      {
+        "source": "w234934579",
+        "residual": false,
+        "volume": 100
+      },
+      {
+        "source": "w234934581",
+        "residual": false,
+        "volume": 101
+      },
+      {
+        "source": "w234934582",
+        "residual": false,
+        "volume": 102
+      },
+      {
+        "source": "w234934583",
+        "residual": false,
+        "volume": 103
+      },
+      {
+        "source": "w234934589",
+        "residual": false,
+        "volume": 104
+      },
+      {
+        "source": "w234934592",
+        "residual": false,
+        "volume": 105
+      },
+      {
+        "source": "w234934593",
+        "residual": false,
+        "volume": 106
+      },
+      {
+        "source": "w234934594",
+        "residual": false,
+        "volume": 107
+      },
+      {
+        "source": "w234934599",
+        "residual": false,
+        "volume": 108
+      },
+      {
+        "source": "w234934600",
+        "residual": false,
+        "volume": 109
+      },
+      {
+        "source": "w234934601",
+        "residual": false,
+        "volume": 110
+      },
+      {
+        "source": "w234934607",
+        "residual": false,
+        "volume": 111
+      },
+      {
+        "source": "w234934609",
+        "residual": false,
+        "volume": 112
+      },
+      {
+        "source": "w234934610",
+        "residual": false,
+        "volume": 113
+      },
+      {
+        "source": "w234934611",
+        "residual": false,
+        "volume": 114
+      },
+      {
+        "source": "w234934612",
+        "residual": false,
+        "volume": 115
+      },
+      {
+        "source": "w234934613",
+        "residual": false,
+        "volume": 116
+      },
+      {
+        "source": "w234934614",
+        "residual": false,
+        "volume": 117
+      },
+      {
+        "source": "w234934616",
+        "residual": false,
+        "volume": 118
+      },
+      {
+        "source": "w234934618",
+        "residual": false,
+        "volume": 119
+      },
+      {
+        "source": "w234934621",
+        "residual": false,
+        "volume": 120
+      },
+      {
+        "source": "w234934625",
+        "residual": false,
+        "volume": 121
+      },
+      {
+        "source": "w234934629",
+        "residual": false,
+        "volume": 122
+      },
+      {
+        "source": "w234934631",
+        "residual": false,
+        "volume": 123
+      },
+      {
+        "source": "w234934639",
+        "residual": false,
+        "volume": 124
+      },
+      {
+        "source": "w234934640",
+        "residual": false,
+        "volume": 125
+      },
+      {
+        "source": "w234934645",
+        "residual": false,
+        "volume": 126
+      },
+      {
+        "source": "w234934646",
+        "residual": false,
+        "volume": 127
+      },
+      {
+        "source": "w234934649",
+        "residual": false,
+        "volume": 128
+      },
+      {
+        "source": "w234934654",
+        "residual": false,
+        "volume": 129
+      },
+      {
+        "source": "w234934655",
+        "residual": false,
+        "volume": 130
+      },
+      {
+        "source": "w234934658",
+        "residual": false,
+        "volume": 131
+      },
+      {
+        "source": "w234934664",
+        "residual": false,
+        "volume": 132
+      },
+      {
+        "source": "w234934665",
+        "residual": false,
+        "volume": 133
+      },
+      {
+        "source": "w234934666",
+        "residual": false,
+        "volume": 134
+      },
+      {
+        "source": "w234934667",
+        "residual": false,
+        "volume": 135
+      },
+      {
+        "source": "w234934668",
+        "residual": false,
+        "volume": 136
+      },
+      {
+        "source": "w234934669",
+        "residual": false,
+        "volume": 137
+      },
+      {
+        "source": "w234934670",
+        "residual": false,
+        "volume": 138
+      },
+      {
+        "source": "w234934671",
+        "residual": false,
+        "volume": 139
+      },
+      {
+        "source": "w234934674",
+        "residual": false,
+        "volume": 140
+      },
+      {
+        "source": "w234934678",
+        "residual": false,
+        "volume": 141
+      },
+      {
+        "source": "w234934680",
+        "residual": false,
+        "volume": 142
+      },
+      {
+        "source": "w234934685",
+        "residual": false,
+        "volume": 143
+      },
+      {
+        "source": "w234934688",
+        "residual": false,
+        "volume": 144
+      },
+      {
+        "source": "w234934689",
+        "residual": false,
+        "volume": 145
+      },
+      {
+        "source": "w234934690",
+        "residual": false,
+        "volume": 146
+      },
+      {
+        "source": "w234934692",
+        "residual": false,
+        "volume": 147
+      },
+      {
+        "source": "w234934695",
+        "residual": false,
+        "volume": 148
+      },
+      {
+        "source": "w234934696",
+        "residual": false,
+        "volume": 149
+      },
+      {
+        "source": "w234934697",
+        "residual": false,
+        "volume": 150
+      },
+      {
+        "source": "w234934702",
+        "residual": false,
+        "volume": 151
+      },
+      {
+        "source": "w234934703",
+        "residual": false,
+        "volume": 152
+      },
+      {
+        "source": "w234934704",
+        "residual": false,
+        "volume": 153
+      },
+      {
+        "source": "w234934705",
+        "residual": false,
+        "volume": 154
+      },
+      {
+        "source": "w234934707",
+        "residual": false,
+        "volume": 155
+      },
+      {
+        "source": "w234934708",
+        "residual": false,
+        "volume": 156
+      },
+      {
+        "source": "w234934709",
+        "residual": false,
+        "volume": 157
+      },
+      {
+        "source": "w234934712",
+        "residual": false,
+        "volume": 158
+      },
+      {
+        "source": "w234934716",
+        "residual": false,
+        "volume": 159
+      },
+      {
+        "source": "w234934719",
+        "residual": false,
+        "volume": 160
+      },
+      {
+        "source": "w234934722",
+        "residual": false,
+        "volume": 161
+      },
+      {
+        "source": "w234934726",
+        "residual": false,
+        "volume": 162
+      },
+      {
+        "source": "w486870832",
+        "residual": false,
+        "volume": 164
+      },
+      {
+        "source": "w497065170",
+        "residual": false,
+        "volume": 165
+      },
+      {
+        "source": "w520073908",
+        "residual": false,
+        "volume": 166
+      },
+      {
+        "source": "w520073909",
+        "residual": false,
+        "volume": 167
+      },
+      {
+        "source": "w520073910",
+        "residual": false,
+        "volume": 168
+      },
+      {
+        "source": "w547299202",
+        "residual": false,
+        "volume": 169
+      },
+      {
+        "source": "w694937497",
+        "residual": false,
+        "volume": 170
+      },
+      {
+        "source": "w694937498",
+        "residual": false,
+        "volume": 171
+      },
+      {
+        "source": "w694937499",
+        "residual": false,
+        "volume": 172
+      },
+      {
+        "source": "w779571062",
+        "residual": false,
+        "volume": 173
+      },
+      {
+        "source": "w779571063",
+        "residual": false,
+        "volume": 174
+      },
+      {
+        "source": "w1267615533",
+        "residual": false,
+        "volume": 175
+      },
+      {
+        "source": "w1267615534",
+        "residual": false,
+        "volume": 176
+      },
+      {
+        "source": "w1267615540",
+        "residual": false,
+        "volume": 177
+      },
+      {
+        "source": "w1267615541",
+        "residual": false,
+        "volume": 178
+      },
+      {
+        "source": "w1267615542",
+        "residual": false,
+        "volume": 179
+      },
+      {
+        "source": "w1267615543",
+        "residual": false,
+        "volume": 180
+      },
+      {
+        "source": "w1267615561",
+        "residual": false,
+        "volume": 181
+      },
+      {
+        "source": "w1267615562",
+        "residual": false,
+        "volume": 182
+      },
+      {
+        "source": "w1267615566",
+        "residual": false,
+        "volume": 183
+      },
+      {
+        "source": "w1267615568",
+        "residual": false,
+        "volume": 184
+      },
+      {
+        "source": "w1267615569",
+        "residual": false,
+        "volume": 185
+      },
+      {
+        "source": "w1267615570",
+        "residual": false,
+        "volume": 186
+      },
+      {
+        "source": "w1267615571",
+        "residual": false,
+        "volume": 187
+      },
+      {
+        "source": "w1267615572",
+        "residual": false,
+        "volume": 188
+      },
+      {
+        "source": "w1267615573",
+        "residual": false,
+        "volume": 189
+      },
+      {
+        "source": "w1267615574",
+        "residual": false,
+        "volume": 190
+      },
+      {
+        "source": "w1267615575",
+        "residual": false,
+        "volume": 191
+      },
+      {
+        "source": "w1267615576",
+        "residual": false,
+        "volume": 192
+      },
+      {
+        "source": "w1267615577",
+        "residual": false,
+        "volume": 193
+      },
+      {
+        "source": "w1267615578",
+        "residual": false,
+        "volume": 194
+      },
+      {
+        "source": "w1267615579",
+        "residual": false,
+        "volume": 195
+      },
+      {
+        "source": "w1267615580",
+        "residual": false,
+        "volume": 196
+      },
+      {
+        "source": "w1267615581",
+        "residual": false,
+        "volume": 197
+      },
+      {
+        "source": "w1267615582",
+        "residual": false,
+        "volume": 198
+      },
+      {
+        "source": "w1267615583",
+        "residual": false,
+        "volume": 199
+      },
+      {
+        "source": "w1267615584",
+        "residual": false,
+        "volume": 200
+      },
+      {
+        "source": "w1267615585",
+        "residual": false,
+        "volume": 201
+      },
+      {
+        "source": "w1267615587",
+        "residual": false,
+        "volume": 202
+      },
+      {
+        "source": "w1267615588",
+        "residual": false,
+        "volume": 203
+      },
+      {
+        "source": "w1343376895",
+        "residual": false,
+        "volume": 204
+      },
+      {
+        "source": "w1343376896",
+        "residual": false,
+        "volume": 205
+      },
+      {
+        "source": "w1343376897",
+        "residual": false,
+        "volume": 206
+      },
+      {
+        "source": "w1343376901",
+        "residual": false,
+        "volume": 207
+      },
+      {
+        "source": "w1359776604",
+        "residual": false,
+        "volume": 208
+      },
+      {
+        "source": "w1524796174",
+        "residual": false,
+        "volume": 209
+      },
+      {
+        "source": "w1524796175",
+        "residual": false,
+        "volume": 210
+      }
+    ],
+    "buildings": 211,
+    "parts": 8,
+    "ways": 83,
+    "areas": 24,
+    "heroReplacements": [],
+    "membershipSHA256": "234d43f2e27ab25d4b05b730492a1b00e5ff58c9c7bb9bb330f1b8a07a1eeb6a"
+  },
+  "sourceReferences": [
+    {
+      "label": "The Troll (1990; Steve Badanes, Will Martin, Donna Walter, Ross Whitehead)",
+      "url": "https://www.openstreetmap.org/node/2485251324"
+    },
+    {
+      "label": "Aurora Bridge / George Washington Memorial Bridge (1932, SR 99)",
+      "url": "https://www.openstreetmap.org/way/370645739"
+    },
+    {
+      "label": "Aurora Bridge / George Washington Memorial Bridge (1932, SR 99)",
+      "url": "https://www.openstreetmap.org/way/378090317"
+    },
+    {
+      "label": "Troll's Knoll Park + P-Patch",
+      "url": "https://www.openstreetmap.org/way/295288784"
+    },
+    {
+      "label": "Troll's Knoll Park + P-Patch",
+      "url": "https://www.openstreetmap.org/way/554528163"
+    },
+    {
+      "label": "Moss Turtle (Michiko Tanaka, 2020)",
+      "url": "https://www.openstreetmap.org/node/11849109533"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Fremont_Troll",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://www.openstreetmap.org/",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://en.wikivoyage.org/wiki/Seattle/Fremont",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Aurora_Bridge",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Fremont_troll.jpg",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://creativecommons.org/licenses/by-sa/2.0",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Fremont_randoms_-_Flickr_-_eliduke_(1",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Troll_Ave_Fremont_Seattle_USA.jpg",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Troll_Avenue_and_36th_Street_signs.jpg",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Troll_Eye_Apartments.jpg",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Fremont_Troll_plaque.jpg",
+      "label": "Existing spot dossier reference"
+    }
+  ],
+  "performance": {
+    "sceneTriangles": 341547,
+    "uniqueGeometryTriangles": 253228,
+    "geometryObjects": 99,
+    "maxRenderedTriangles": 626276,
+    "maxDrawCalls": 211
+  },
+  "access": {
+    "walker": "OnFootController",
+    "arrival": {
+      "x": -1.2,
+      "z": 0,
+      "y": -0.12456653673201748,
+      "heading": -0.03490658503988659
+    },
+    "arrivalDry": true,
+    "nearestPlaquePath": {
+      "points": [
+        [
+          -1.2,
+          0
+        ],
+        [
+          -14.05300601607513,
+          -15.165115357998758
+        ],
+        [
+          -16.303006016075134,
+          -15.915115357998756
+        ]
+      ],
+      "length": 22.25085529601037,
+      "target": "The bridge above"
+    },
+    "nativeWalk": {
+      "walker": "OnFootController",
+      "passed": false,
+      "steps": 98,
+      "walked": 5.324842751367419,
+      "target": "The bridge above",
+      "plannedLength": 22.25085529601037,
+      "position": {
+        "x": -4.456047176203369,
+        "z": -4.055815139061301,
+        "y": 0.3224487664210697,
+        "heading": 0.7119239511198758
+      },
+      "error": "Native walker blocked on planned public path"
+    }
+  },
+  "plaques": [
+    {
+      "title": "The Troll",
+      "x": -9.3,
+      "z": -42.8,
+      "y": 4,
+      "yaw": 0.25
+    },
+    {
+      "title": "A real Beetle",
+      "x": 3,
+      "z": -43.8,
+      "y": 4,
+      "yaw": -0.35
+    },
+    {
+      "title": "Why a troll?",
+      "x": 6.199999999999999,
+      "z": -48.2,
+      "y": 4.002584118903831,
+      "yaw": -1
+    },
+    {
+      "title": "Troll Avenue",
+      "x": 4.5,
+      "z": -25,
+      "y": 2.147226253995657,
+      "yaw": -1.3
+    },
+    {
+      "title": "The bridge above",
+      "x": -17.5,
+      "z": -16,
+      "y": 1.1689268385805196,
+      "yaw": 1.5
+    }
+  ],
+  "activities": [
+    {
+      "kind": "climb",
+      "label": "Climb onto the hand",
+      "x": -6.4,
+      "z": -44.8,
+      "y": null,
+      "source": null
+    },
+    {
+      "kind": "climb",
+      "label": "Climb onto the Beetle",
+      "x": 1.7999999999999998,
+      "z": -45.4,
+      "y": null,
+      "source": null
+    },
+    {
+      "kind": "touch",
+      "label": "Touch his nose",
+      "x": -2.85,
+      "z": -46.8,
+      "y": null,
+      "source": null
+    },
+    {
+      "kind": "guide",
+      "label": "Join the short guided tour",
+      "x": -5.057965321266379,
+      "z": -4.137161294886387,
+      "y": null,
+      "source": null
+    },
+    {
+      "kind": "talk",
+      "label": "",
+      "x": 1000000000,
+      "z": 1000000000,
+      "y": null,
+      "source": null
+    }
+  ],
+  "postcard": {
+    "view": null,
+    "id": "fremont-troll",
+    "x": -2.3,
+    "z": -27.8,
+    "bearing": 4,
+    "pitch": 8,
+    "fov": 70,
+    "text": "Troll head-on framed by the concrete arch, splayed hand left, Beetle under the left hand on the right, stairs at right edge",
+    "r": 9,
+    "tol": 30,
+    "targets": [],
+    "cond": null,
+    "condHint": null
+  },
+  "audit": {
+    "spot": "fremont-troll",
+    "ms": 396,
+    "tris": 24863,
+    "colliders": 489,
+    "counts": {
+      "zfight": 72
+    },
+    "findings": {
+      "zfight": {
+        "n": 72,
+        "samples": [
+          {
+            "x": -20.3,
+            "y": 8,
+            "z": -87.3,
+            "a": "aurora-bridge:concrete",
+            "b": "aurora-bridge:concrete"
+          },
+          {
+            "x": -9.5,
+            "y": 8.2,
+            "z": -87.3,
+            "a": "aurora-bridge:concrete",
+            "b": "aurora-bridge:concrete"
+          },
+          {
+            "x": 2,
+            "y": 8.3,
+            "z": -87.3,
+            "a": "aurora-bridge:concrete",
+            "b": "aurora-bridge:concrete"
+          },
+          {
+            "x": -20.3,
+            "y": 6.4,
+            "z": -72.3,
+            "a": "aurora-bridge:concrete",
+            "b": "aurora-bridge:concrete"
+          },
+          {
+            "x": -9.5,
+            "y": 6.7,
+            "z": -72.3,
+            "a": "aurora-bridge:concrete",
+            "b": "aurora-bridge:concrete"
+          },
+          {
+            "x": 2,
+            "y": 6.7,
+            "z": -72.3,
+            "a": "aurora-bridge:concrete",
+            "b": "aurora-bridge:concrete"
+          }
+        ],
+        "pairs": 120
+      }
+    }
+  },
+  "views": [
+    {
+      "kind": "arrival",
+      "file": "fremont-troll/arrival.webp",
+      "pose": {
+        "x": -1.2,
+        "y": 1.5254334632679825,
+        "z": 0,
+        "bearing": 2,
+        "pitch": 0
+      },
+      "triangles": 626276,
+      "drawCalls": 211
+    },
+    {
+      "kind": "public-walk",
+      "file": "fremont-troll/public-walk.webp",
+      "pose": {
+        "x": -4.4560260133680565,
+        "y": 1.972400065477881,
+        "z": -4.055834873724496,
+        "bearing": 319.2097622665532,
+        "pitch": 0
+      },
+      "triangles": 607338,
+      "drawCalls": 192
+    },
+    {
+      "kind": "postcard",
+      "file": "fremont-troll/postcard.webp",
+      "pose": {
+        "x": -2.3,
+        "y": 3.9139801597100585,
+        "z": -27.8,
+        "bearing": 4,
+        "pitch": 8
+      },
+      "triangles": 617714,
+      "drawCalls": 189
+    },
+    {
+      "kind": "activity-approach",
+      "file": "fremont-troll/activity-approach.webp",
+      "pose": {
+        "x": -6.4,
+        "y": 5.026409563264192,
+        "z": -40.8,
+        "bearing": 0,
+        "pitch": -7.000000000000003
+      },
+      "triangles": 587388,
+      "drawCalls": 164
+    }
+  ],
+  "gaps": [
+    "Source references and actual game views require human comparison. Registry READY is not acceptance."
+  ],
+  "capture": {
+    "revision": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+    "worktreeDirty": false,
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "quality": "high",
+    "date": "2026-07-15T12:00:00Z",
+    "season": "summer",
+    "weather": "clear",
+    "lighting": "day"
+  },
+  "errors": []
+}

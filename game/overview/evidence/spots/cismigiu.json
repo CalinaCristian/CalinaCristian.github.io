@@ -3,8 +3,8 @@
   "id": "cismigiu",
   "city": "bucharest",
   "name": "Cișmigiu Gardens",
-  "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-  "updatedAt": "2026-11-08T19:35:06.987Z",
+  "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+  "updatedAt": "2026-11-08T20:12:56.715Z",
   "status": "needs_review",
   "sources": [
     {
@@ -47,15 +47,14 @@
     "Rowing moved to the actual mapped Debarcader n473428602; the former trigger was about 250 m away. A dry bank approach and short source-validated course avoid the bridge.",
     "Rowing requires player strokes with visible oar animation and progress; it has completion-only awards and exact shore restoration on cancellation.",
     "Chess now shows all 32 pieces and three legal animated opening moves rather than awarding a random result on one click.",
-    "Source footprints, holes and valid parts remain represented through exact shared geometry."
+    "Source footprints, holes and valid parts remain represented through exact shared geometry.",
+    "The unchanged source bridge route is now proven using actual native movement with tighter corner tracking and a route-length-derived capture bound."
   ],
   "remainingGaps": [
-    "The nearest-plaque native route stops at the bridge railing; path planning and actual bridge grade/collision need reconciliation.",
     "The La Șahiști table layout is explicitly estimated around a source-backed chess location; exact table placement and the Writers' Rotunda context need matched references.",
     "One degenerate mesh and one phantom finding remain; the park is not a clean physical-audit pass.",
     "The generic activity-approach image shows an empty chessboard before play; the separate action proof captures actual animated pieces.",
-    "Raw audit findings remain for physical review: badGeometry 1, zfight 1, phantom 1.",
-    "26.1 m walked toward Swans and pelicans; Native walker blocked on planned public path."
+    "Raw audit findings remain for physical review: badGeometry 1, zfight 1, phantom 1."
   ],
   "checks": [
     {
@@ -75,18 +74,18 @@
     },
     {
       "label": "Native public-path walk",
-      "passed": false,
-      "details": "26.1 m walked toward Swans and pelicans; Native walker blocked on planned public path."
+      "passed": true,
+      "details": "144.4m actual native walking to Swans and pelicans. The unchanged bridge route completes with 0.45m corner tolerance and a route-length-derived step bound; previous failure cut a corner."
     },
     {
       "label": "High scene budgets",
       "passed": true,
-      "details": "254860 unique geometry triangles; max 1100538 rendered triangles / 165 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+      "details": "254860 unique geometry triangles; max 1100790 rendered triangles/141 calls across context and actual public walks. Software GL is not a hardware frame-rate benchmark."
     },
     {
       "label": "Raw physical audit",
       "passed": false,
-      "details": "badGeometry: 1; zfight: 1; phantom: 1"
+      "details": "badGeometry 1, zfight 1, phantom 1. Raw counts retain both initial context and post-walk observations; see explicit proof scopes."
     },
     {
       "label": "Full matched scene comparison",
@@ -104,9 +103,10 @@
       "kind": "arrival",
       "label": "Cișmigiu Gardens — arrival",
       "image": "assets/spots/cismigiu/arrival.webp",
-      "sha256": "340e452694b71a45d7463f19887fd7c2f7adf8280ced951cc1cfc81ee0d95d8c",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:29:36.663Z",
+      "sha256": "8fa7345761c2310b17e64527f22d93c7f3b77ae4b0fe9922dabd234c4b0298f7",
+      "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+      "capturedAt": "2026-11-08T20:08:29.908Z",
+      "placement": "Posed native ground camera; separate actual walking proof recorded",
       "pose": {
         "position": [
           -0.8630312298909688,
@@ -135,16 +135,17 @@
       "kind": "public-walk",
       "label": "Cișmigiu Gardens — public walk",
       "image": "assets/spots/cismigiu/public-walk.webp",
-      "sha256": "7bdebd24f04dfc4186041fe4231be7c168128d2d24babd1f61b108721da9b2e4",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:29:41.303Z",
+      "sha256": "90337c9fb5afb10b2f42d1c1c85a0c4df546d21d4e4b0d7348e11f56a1add8d9",
+      "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+      "capturedAt": "2026-11-08T20:08:38.072Z",
+      "placement": "Actual native walk endpoint",
       "pose": {
         "position": [
-          -24.596770604485346,
-          1.9389222523091483,
-          -72.80711481243864
+          -38.65981188390628,
+          1.3769939673590441,
+          39.736054606708876
         ],
-        "bearing": 222.32586667945816,
+        "bearing": 207.9739086864084,
         "pitch": 0,
         "coordinateSystem": "scene-local metres, x east / y up / z south",
         "origin": {
@@ -166,9 +167,10 @@
       "kind": "postcard",
       "label": "Cișmigiu Gardens — postcard",
       "image": "assets/spots/cismigiu/postcard.webp",
-      "sha256": "5cda60dc99e86db2c2c9c297c5626c86427e0c85157546285fc78785a570facf",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:29:43.951Z",
+      "sha256": "78a93f140180c88587e1a2f181470b157f3e393d6f4259329f70269fc1fcc91b",
+      "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+      "capturedAt": "2026-11-08T20:08:41.727Z",
+      "placement": "Posed native ground camera; separate actual walking proof recorded",
       "pose": {
         "position": [
           -10.640205413017927,
@@ -197,9 +199,10 @@
       "kind": "activity-approach",
       "label": "Cișmigiu Gardens — activity approach",
       "image": "assets/spots/cismigiu/activity-approach.webp",
-      "sha256": "275d81d79d9ed5e6732c7feae02ea763470622e5e7abe9987ea5f04ffc1e52ae",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:29:46.243Z",
+      "sha256": "c1962e728ea4e9e378be29566430394200f8a8f66d2364d851db74d76588d0c5",
+      "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+      "capturedAt": "2026-11-08T20:08:46.259Z",
+      "placement": "Posed native ground camera; separate actual walking proof recorded",
       "pose": {
         "position": [
           -131.1,
@@ -229,8 +232,8 @@
     "sceneTriangles": 562657,
     "uniqueGeometryTriangles": 254860,
     "geometryObjects": 92,
-    "maxRenderedTriangles": 1100538,
-    "maxDrawCalls": 165
+    "maxRenderedTriangles": 1100790,
+    "maxDrawCalls": 141
   },
   "sceneId": "cismigiu",
   "sourceGeometry": {
@@ -300,18 +303,26 @@
     },
     "nativeWalk": {
       "walker": "OnFootController",
-      "passed": false,
-      "steps": 352,
-      "walked": 26.127647793143552,
+      "passed": true,
+      "steps": 1711,
+      "stepLimit": 2278,
+      "waypointTolerance": 0.45,
+      "walked": 144.37765939488298,
       "target": "Swans and pelicans",
       "plannedLength": 145.45128771492145,
       "position": {
-        "x": -24.596770604485346,
-        "z": -72.80711481243864,
-        "y": 0.28892225230914836,
-        "heading": 2.402866921273089
+        "x": -38.65946304730267,
+        "z": 39.73539781912161,
+        "y": -0.2732673053740018,
+        "heading": 2.6533558423597245
       },
-      "error": "Native walker blocked on planned public path"
+      "error": null
+    },
+    "captureProvenance": {
+      "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+      "servedFrom": "Immutable git archive of the stated source commit",
+      "captureWorktreeDirty": true,
+      "dirtyReason": "Only untracked generated tools/aerial/__pycache__ existed in the capture metadata worktree; served archive contains tracked source only."
     }
   },
   "rawAudit": {
@@ -319,5 +330,13 @@
     "zfight": 1,
     "phantom": 1
   },
-  "review": "Inspected all four GAME context views and the earlier native rowing/chess action captures. The bridge access failure remains explicit."
+  "review": "All four refreshed GAME views inspected. The reported bridge block was a capture corner-tracking failure;144.4m native movement passes. Raw geometry and phantom findings remain, and full matched scene comparison remains open.",
+  "publicPathProof": {
+    "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+    "priorSourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+    "membershipUnchanged": true,
+    "proofDirectory": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths",
+    "runtimeSourceChanged": false,
+    "allSceneBodiesRetained": true
+  }
 }

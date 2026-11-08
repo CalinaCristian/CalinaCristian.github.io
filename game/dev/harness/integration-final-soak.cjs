@@ -76,6 +76,15 @@ const persist = () => { fs.writeFileSync(path.join(out, 'profile.next.json'), JS
         if (row.population.people !== 560 || row.population.vehicles !== 640 || !row.population.originalPeople || !row.population.originalVehicles) report.failures.push({ type: 'population', label, population: row.population });
         return row;
     }
+    // The deterministic clear-weather choice can replace the climate map built at scene load.
+    // Settle that first in complete high/mirror frames so later sunset/rain controls cannot
+    // accidentally measure an inherited job. Keep every raw cold/setup and warm counter.
+    report.warmFrames = [];
+    for (let i = 0; i < 96; i++) {
+        const row = await frame(`initial-condition-${i}`); report.warmFrames.push(row); persist();
+        if (!row.pending && row.fade === 1) break;
+    }
+    if (report.warmFrames.at(-1).pending || report.warmFrames.at(-1).fade !== 1) throw new Error('Initial condition reflection did not settle');
     report.wallStart = Date.now(); persist();
     for (let minute = 0; minute <= minutes; minute++) {
         if (process.env.SOAK_WALLCLOCK === '1') while (Date.now() < report.wallStart + minute * 60000) await new Promise(resolve => setTimeout(resolve, Math.min(10000, report.wallStart + minute * 60000 - Date.now())));
@@ -123,7 +132,7 @@ const persist = () => { fs.writeFileSync(path.join(out, 'profile.next.json'), JS
     report.wallEnd = Date.now(); report.wallDurationSeconds = (report.wallEnd - report.wallStart) / 1000;
     report.relocations = await page.evaluate(() => __integrationSoak.relocations);
     for (const row of report.relocations) if (row.distance > .4 && (row.from.visible || row.to.visible)) report.failures.push({ type: 'visible-relocation', ...row });
-    report.summary = { maxCalls: Math.max(...[...report.samples.flatMap(s => s.frames), ...report.refreshes.flatMap(s => s.frames)].map(f => f.logical.calls)), maxTriangles: Math.max(...[...report.samples.flatMap(s => s.frames), ...report.refreshes.flatMap(s => s.frames)].map(f => f.logical.triangles)), physicalSimSeconds: report.samples.at(-1).physicalSimSeconds };
+    report.summary = { maxCalls: Math.max(...[...report.warmFrames, ...report.samples.flatMap(s => s.frames), ...report.refreshes.flatMap(s => s.frames)].map(f => f.logical.calls)), maxTriangles: Math.max(...[...report.warmFrames, ...report.samples.flatMap(s => s.frames), ...report.refreshes.flatMap(s => s.frames)].map(f => f.logical.triangles)), physicalSimSeconds: report.samples.at(-1).physicalSimSeconds };
     await page.screenshot({ path: path.join(out, 'evolved-final.png'), timeout: 120000 });
     report.complete = true;
 })().catch(e => { report.fatal = e.stack; process.exitCode = 1; }).finally(async () => {

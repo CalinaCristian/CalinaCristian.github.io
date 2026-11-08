@@ -2566,6 +2566,8 @@ export async function buildWorld(city, renderer, opts = {}) {
     //  avenue, e.g. the Parliament / People's Salvation Cathedral at the west end of Bd. Unirii seen from Piața Unirii)
     if (distCfg) LANDMARKS = LANDMARKS.filter(l => (distCfg.landmarks ? distCfg.landmarks.includes(l.id) : true) && (l.backdrop || inDistrictLL(l.lat, l.lon, distCfg.landmarks ? 0.022 : 0.004)));
     const landmarks = [];
+    const landmarkFences = []; // (2026-11-08) fences of landmark grounds, drawn off the streets (below)
+    const lmGrounds = []; // (2026-11-08) a landmark's own surfaces (sports grounds): no measured / generated trees on them
     const collisionBoxes = [];
     const lmGroup = new THREE.Group(); lmGroup.name = 'landmarks'; group.add(lmGroup);
     for (const lm of LANDMARKS) {
@@ -2601,7 +2603,11 @@ export async function buildWorld(city, renderer, opts = {}) {
             bGrid.each(p.x - R - 60, p.z - R - 60, p.x + R + 60, p.z + R + 60, (b) => {
                 if (b.skip) return;
                 const nm = b.name.toLowerCase();
-                if ((nm && names.some(n => nm.includes(n))) || Math.hypot(b.c[0] - p.x, b.c[1] - p.z) < R) b.skip = true;
+                const dB = Math.hypot(b.c[0] - p.x, b.c[1] - p.z);
+                // (2026-11-08) a name match only counts near the model: the school's name reached its sports hall (a POI sign)
+                // 65 m away and hid it
+                if ((nm && names.some(n => nm.includes(n)) && dB < R + 25) || dB < R) b.skip = true;
+                else if (nm && names.some(n => nm.includes(n)) && (lm.ownSign || lm.cvStop)) { b.flags &= ~2; b.name = ''; } // (its name only: the model carries the sign)
             });
             for (const cb of res.collision || []) {
                 if (cf !== 1) { // axis-aligned bounds of the rotated box, squashed N–S
@@ -2609,6 +2615,13 @@ export async function buildWorld(city, renderer, opts = {}) {
                     const hw = ex * lk, hd = ez * lk * cf;
                     collisionBoxes.push({ x: p.x + cb.x * lk, z: p.z + cb.z * lk * cf, hw, hd, angle: 0, r: Math.hypot(hw, hd), h: 20, poly: null });
                 } else collisionBoxes.push({ x: p.x + cb.x * lk, z: p.z + cb.z * lk, hw: cb.hw * lk, hd: cb.hd * lk, angle: cb.angle || 0, r: Math.hypot(cb.hw, cb.hd) * lk, h: 20, poly: null });
+            }
+            const toW = ([x, z]) => [p.x + x * lk, p.z + z * lk];
+            for (const f of res.fences || []) landmarkFences.push({ ...f, ring: f.ring.map(toW), inside: f.inside ? f.inside.map(toW) : (f.closed ? f.ring.map(toW) : null), gates: (f.gates || []).map(g => ({ ...g, x: p.x + g.x * lk, z: p.z + g.z * lk, w: (g.w || 4) * lk })) });
+            for (const g of res.grounds || []) { const q = g.map(toW); lmGrounds.push({ p: q, x0: Math.min(...q.map(v => v[0])), x1: Math.max(...q.map(v => v[0])), z0: Math.min(...q.map(v => v[1])), z1: Math.max(...q.map(v => v[1])) }); }
+            for (const pt of res.covers || []) { // OSM buildings the model replaces (e.g. a school's sports hall)
+                const [cx, cz] = toW(pt);
+                bGrid.each(cx, cz, cx, cz, (b) => { if (!b.skip && cx >= b.x0 && cx <= b.x1 && cz >= b.z0 && cz <= b.z1 && pointInPolygon(cx, cz, b.ring)) b.skip = true; });
             }
             landmarks.push({ id: lm.id, label: lm.name, x: p.x, z: p.z, clear: res.clear || R, radius: R, mesh: res.mesh });
         } catch (err) { console.warn('landmark failed', lm.id, err); }
@@ -2902,6 +2915,77 @@ export async function buildWorld(city, renderer, opts = {}) {
     const propColl = []; // small circles for street furniture (trees, posts, shelters…)
     const treeClear = []; // (after round 6) {x, z, r}: no trees here (fuel forecourts)
     const addPropColl = (x, z, r, kind = 'prop') => propColl.push({ x, z, r, hw: r, hd: r, angle: 0, poly: null, h: 3, prop: true, kind });
+    // ---- landmark ground fences (2026-11-08, owner: "the Rosetti fence is on the street"): the model's fence line follows the
+    //      OSM grounds, which the game's wider road + sidewalk ribbons overlap (Rosetti: OSM draws the grounds' east edge on
+    //      the Garibaldi centre line). Every point that falls on a carriageway or sidewalk is moved out to the property line
+    //      (sidewalk's back edge + 0.15 m) on the side of the grounds (`inside`), gates included; styles: 'bars' (iron bars
+    //      on a concrete plinth, `plinth: 'arches'` = painted arches) and 'mesh' (welded-mesh panels on posts); collision.
+    const fenceSegs = []; // for the property-line fences: no second fence along a landmark's
+    {
+        const plinth = rgb('#a9a59c'), bars = rgb('#2e3438'), pill = rgb('#cfc8b8'), meshC = rgb('#87928a'), plWhite = rgb('#e3dfd5');
+        const ARCH = ['#d8473f', '#f0b62e', '#3f7fc4', '#5aa35a', '#e07a2e'].map(rgb);
+        const offStreet = (x, z, inside) => { // → [x, z] on the property line when (x, z) is on a street's carriageway / sidewalk
+            for (let it = 0; it < 3; it++) {
+                const ne = nearestEdge(x, z, (e) => !e.virtual && !e.tunnel, 25); if (!ne) break;
+                const e = ne.edge; let sd = ((x - ne.cx) * e.nx + (z - ne.cz) * e.nz) >= 0 ? 1 : -1;
+                const need = (sd > 0 ? e.wR : e.wL) + shoulderOf(e) + Math.max(0.6, e.sidewalk || 0) + 0.15;
+                if (ne.d >= need - 0.01 && !onRibbon(x, z, 0.2)) break;
+                if (inside) { // the grounds' side of the street, whichever side of the centre line OSM put the point on
+                    const inP = pointInPolygon(ne.cx + e.nx * need, ne.cz + e.nz * need, inside), inM = pointInPolygon(ne.cx - e.nx * need, ne.cz - e.nz * need, inside);
+                    if (inP !== inM) sd = inP ? 1 : -1;
+                }
+                const nd = (sd > 0 ? e.wR : e.wL) + shoulderOf(e) + Math.max(0.6, e.sidewalk || 0) + 0.15;
+                x = ne.cx + e.nx * sd * nd; z = ne.cz + e.nz * sd * nd;
+            }
+            return [x, z];
+        };
+        for (const f of landmarkFences) {
+            const R0 = f.ring, n = R0.length, segs = f.closed ? n : n - 1, mesh = f.style === 'mesh';
+            const pts = [];
+            for (let i = 0; i < segs; i++) { const [ax, az] = R0[i], [bx, bz] = R0[(i + 1) % n], L = Math.hypot(bx - ax, bz - az), k = Math.max(1, Math.ceil(L / 1.0)); for (let j = 0; j < k; j++) pts.push(offStreet(ax + (bx - ax) * j / k, az + (bz - az) * j / k, f.inside)); }
+            if (!f.closed) pts.push(offStreet(...R0[n - 1], f.inside)); else pts.push(pts[0]);
+            const gates = (f.gates || []).map(g => { const [x, z] = offStreet(g.x, g.z, f.inside); return { ...g, x, z }; });
+            const inGate = (x, z) => gates.some(g => Math.hypot(x - g.x, z - g.z) < g.w / 2);
+            let run = 0; // metres along the fence (posts / arches at a steady pitch)
+            for (let i = 0; i < pts.length - 1; i++) {
+                const [ax, az] = pts[i], [bx, bz] = pts[i + 1], L = Math.hypot(bx - ax, bz - az); if (L < 0.05 || L > 6) continue;
+                const mx = (ax + bx) / 2, mz = (az + bz) / 2, r0 = run; run += L;
+                if (inGate(mx, mz) || buildingAt(mx, mz) || onRibbon(mx, mz, 0.1)) continue;
+                const ang = Math.atan2(bx - ax, bz - az), c = cellOf(mx, mz), ux = (bx - ax) / L, uz = (bz - az) / L;
+                const wire = (px, pz, y0, y1, w, col) => { c.detail.wall(px - ux * w, pz - uz * w, px + ux * w, pz + uz * w, y0, y1, -uz, ux, col); c.detail.wall(px + ux * w, pz + uz * w, px - ux * w, pz - uz * w, y0, y1, uz, -ux, col); };
+                if (mesh) { // welded-mesh panels (f.h tall, 2 m default): vertical wires every 0.33 m, flat horizontal wires every ≈ 0.45 m + a
+                    //         V-bend, posts every 2.5 m (thin two-sided strips, not boxes: ≈ 30 triangles a metre — the frame budget)
+                    const fh = f.h || 2.0, hz = (y, t) => { c.detail.wall(ax, az, bx, bz, Y.side + y, Y.side + y + t, -uz, ux, meshC); c.detail.wall(bx, bz, ax, az, Y.side + y, Y.side + y + t, uz, -ux, meshC); };
+                    c.solid.box(mx, Y.side, mz, 0.12, 0.12, L + 0.02, ang, plinth);
+                    const nV = Math.max(1, Math.round(L / 0.33));
+                    for (let j = 0; j < nV; j++) { const t = (j + 0.5) / nV; wire(ax + (bx - ax) * t, az + (bz - az) * t, Y.side + 0.12, Y.side + fh, 0.011, meshC); }
+                    const nH = Math.max(3, Math.round((fh - 0.3) / 0.45)); for (let k = 0; k <= nH; k++) hz(0.3 + (fh - 0.33) * k / nH, 0.025);
+                    hz(fh * 0.66, 0.06);
+                    if (Math.floor(r0 / 2.5) !== Math.floor(run / 2.5)) c.solid.box(ax, Y.side, az, 0.07, fh + 0.08, 0.07, ang, meshC);
+                } else {
+                    c.solid.box(mx, Y.side, mz, 0.28, 0.45, L + 0.02, ang, f.plinth === 'arches' ? plWhite : plinth);
+                    c.solid.box(mx, Y.side + 1.95, mz, 0.06, 0.06, L, ang, bars); c.detail.box(mx, Y.side + 0.75, mz, 0.05, 0.05, L, ang, bars);
+                    const nP = Math.max(1, Math.round(L / 0.14));
+                    for (let j = 0; j < nP; j++) { const t = (j + 0.5) / nP; wire(ax + (bx - ax) * t, az + (bz - az) * t, Y.side + 0.45, Y.side + 2.0, 0.017, bars); }
+                    if (i % 3 === 0) c.solid.box(ax, Y.side, az, 0.12, 2.1, 0.12, ang, bars);
+                    if (f.plinth === 'arches') { // painted rainbow arches on both faces of the plinth, one per metre
+                        const col = ARCH[Math.floor(r0) % ARCH.length];
+                        for (const sg of [1, -1]) { const ox = -uz * sg * 0.145, oz = ux * sg * 0.145, nx = -uz * sg, nz = ux * sg;
+                            const seg = (t0, t1, y0, y1) => { const x0 = mx + ux * t0 + ox, z0 = mz + uz * t0 + oz, x1 = mx + ux * t1 + ox, z1 = mz + uz * t1 + oz; if (sg > 0) c.detail.wall(x0, z0, x1, z1, Y.side + y0, Y.side + y1, nx, nz, col); else c.detail.wall(x1, z1, x0, z0, Y.side + y0, Y.side + y1, nx, nz, col); };
+                            const h = Math.min(0.42, L / 2 - 0.02); seg(-h, -h + 0.09, 0.06, 0.3); seg(h - 0.09, h, 0.06, 0.3); seg(-h + 0.05, h - 0.05, 0.3, 0.4); }
+                    }
+                }
+                propColl.push({ x: mx, z: mz, hw: 0.15, hd: L / 2, angle: ang, r: Math.hypot(0.15, L / 2), poly: null, h: 2, prop: true, kind: 'fence' });
+                fenceSegs.push([ax, az, bx, bz]);
+            }
+            for (const g of gates) { // gate pillars on the fence line either side of the opening
+                let best = null, bd = 6; for (let i = 0; i < pts.length; i++) { const d = Math.hypot(pts[i][0] - g.x, pts[i][1] - g.z); if (d < bd) { bd = d; best = i; } }
+                if (best == null) continue;
+                const a = pts[Math.max(0, best - 3)], b2 = pts[Math.min(pts.length - 1, best + 3)], L = Math.hypot(b2[0] - a[0], b2[1] - a[1]) || 1, ux = (b2[0] - a[0]) / L, uz = (b2[1] - a[1]) / L, [gx, gz] = pts[best];
+                for (const sg of [-1, 1]) { const px = gx + ux * sg * (g.w / 2 + 0.2), pz = gz + uz * sg * (g.w / 2 + 0.2); if (!onRibbon(px, pz, 0.25)) { cellOf(px, pz).solid.box(px, Y.side, pz, 0.45, 2.4, 0.45, Math.atan2(ux, uz), pill); addPropColl(px, pz, 0.3, 'fence'); } }
+            }
+        }
+    }
     for (const [x, z] of lmSignColl) addPropColl(x, z, 1.4, 'sign');
     let wallTris = 0;
     for (const b of bRecs) {
@@ -3666,6 +3750,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (kind === 'street' && onRibbon(x, z, 1.3)) return false; // (no row trees on medians / verges narrower than ≈ 2.6 m)
         const k = Math.round(x / 1.6) + ',' + Math.round(z / 1.6); if (treeSeen.has(k)) return false;
         if (onRibbon(x, z, 0.35 * s + 0.5) || buildingAt(x, z) || nearWater(x, z, 2.0)) return false;
+        if (lmGrounds.some(g => x > g.x0 - 1.5 && x < g.x1 + 1.5 && z > g.z0 - 1.5 && z < g.z1 + 1.5 && (pointInPolygon(x, z, g.p) || polyDist(x, z, g.p) < 1.5))) return false;
         treeSeen.add(k);
         const isCon = con ?? (kind === 'street' || kind === 'osm' ? false : rng.chance(coniferChance(x, z, kind)));
         let species = opt.species || (isCon ? 'conifer' : defaultSpecies(city.id, kind, opt.road ?? Math.round(x * 0.01 + z * 0.013), rng()));
@@ -4179,6 +4264,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const ok = (sAl) => {
                     const x = e.a.x + e.dirx * sAl + e.nx * o * sd, z = e.a.z + e.dirz * sAl + e.nz * o * sd;
                     if (onRibbon(x, z, 0.3) || buildingAt(x, z) || nearWater(x, z, 0.5)) return null;
+                    if (fenceSegs.some(([ax, az, bx, bz]) => Math.abs(ax - x) < 12 && Math.abs(az - z) < 12 && distPointSeg(x, z, ax, az, bx, bz).d < 4)) return null; // (a landmark's own fence is there)
                     // a garden behind: no wall of a building within 1.5 m (a house fronting the sidewalk needs no fence)
                     const ix = x + e.nx * sd * 1.5, iz = z + e.nz * sd * 1.5; if (buildingAt(ix, iz)) return null;
                     return [x, z];
@@ -4364,7 +4450,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             case 'marks': { const m = addSuper(o, marksMat, false, 'marks'); if (m) m.renderOrder = 4; break; }
             case 'water': { const m = addSuper(o, waterMat, false, 'water'); if (m) { m.renderOrder = -18; shoreFoam(m); } break; }
             case 'solid': addSuper(o, solidMat, true, 'solid'); break;
-            case 'detail': { const m = addSuper(o, solidMat, true, 'detail'); if (m) { m.userData.cull = 110 + CELL * 0.71; m.layers.set(2); } break; } // (main view only) // near LOD only
+            case 'detail': { const m = addSuper(o, solidMat, false, 'detail'); if (m) { m.userData.cull = 110 + CELL * 0.71; m.layers.set(2); } break; } // (main view only) // near LOD only // (2026-11-08: no shadow pass — pickets, wires, nets: the frame budget)
             case 'signs': addSuper(o, signMats[o.page], false, 'signs'); break;
             case 'spill': { const m = addSuper(o, spillMat, false, 'shop-spill'); if (m) { m.renderOrder = 5; m.castShadow = m.receiveShadow = false; } break; }
         }

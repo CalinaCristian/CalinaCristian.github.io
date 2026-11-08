@@ -117,7 +117,7 @@ async function runCity(browser, base, city, ctxOut) {
     });
     const T = (k, t) => { res.timing[k] = (res.timing[k] || 0) + Math.round((Date.now() - t) / 1000); };
     let t = Date.now();
-    await page.goto(base + 'game/index.html?weather=clear', { waitUntil: 'load' });
+    await page.goto(base + 'game/index.html?weather=clear', { waitUntil: 'domcontentloaded', timeout: 60000 });
     await page.waitForFunction(() => window.game, null, { timeout: 60000 });
     await page.addScriptTag({ url: base + 'game/dev/harness/visual/page/visual.js?v=' + Date.now(), type: 'module' });
     await page.waitForFunction(() => window.vqa, null, { timeout: 30000 });
@@ -246,7 +246,7 @@ async function runSpots(browser, base) {
         page.on('pageerror', (e) => errs.push(String(e.message || e).slice(0, 300)));
         await page.addInitScript(INIT);
         try {
-            await page.goto(`${base}game/dev/spots.html?id=${encodeURIComponent(sp.id)}&manual=1&ui=0&q=${A.spotQ}&ov=${A.time}&weather=${A.weather}`, { waitUntil: 'load' });
+            await page.goto(`${base}game/dev/spots.html?id=${encodeURIComponent(sp.id)}&manual=1&ui=0&q=${A.spotQ}&ov=${A.time}&weather=${A.weather}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
             await page.waitForFunction(() => window.spotDev?.ready || /Failed/.test(document.querySelector('#loading')?.textContent || ''), null, { timeout: 180000 });
             const fail = await page.evaluate(() => window.spotDev ? null : document.querySelector('#loading')?.textContent);
             if (fail) throw new Error(fail);

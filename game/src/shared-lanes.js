@@ -5,28 +5,30 @@ export class SharedLaneGate {
         this.byEdge = new Map(); this.groups = []; this.tails = new Map(); this.serial = 0; this.time = 0;
         const narrow = edges.filter(e => e.sharedLane && !e.oneway && !e.virtual);
         const candidates = new Set(narrow);
-        const otherAt = (node, edge) => {
-            const roads = node.edges.filter(e => !e.virtual && e.drivable !== false);
-            if (roads.length !== 2) return null;
-            const other = roads.find(e => e !== edge);
-            return candidates.has(other) ? other : null;
-        };
+        const adjacent = node => node.edges.filter(e => candidates.has(e));
         for (const first of narrow) {
             if (this.byEdge.has(first)) continue;
-            const group = { edges: [], occupants: new Map(), claims: new Map(), waiting: new Map() };
+            const group = { edges: [], occupants: new Map(), claims: new Map(), waiting: new Map(), exclusive: false };
             this.groups.push(group);
-            // Walk to an end first. A closed cycle uses the original edge as its seam.
-            let edge = first, start = first.a; const seen = new Set([first]);
-            for (;;) {
-                const previous = otherAt(start, edge);
-                if (!previous || seen.has(previous)) break;
-                seen.add(previous); edge = previous; start = edge.a === start ? edge.b : edge.a;
+            const pending = [first], found = new Set(), nodes = new Set();
+            while (pending.length) {
+                const edge = pending.pop(); if (found.has(edge)) continue;
+                found.add(edge); group.edges.push(edge);
+                for (const node of [edge.a, edge.b]) { nodes.add(node); for (const next of adjacent(node)) if (!found.has(next)) pending.push(next); }
             }
+            const ends = [...nodes].filter(n => adjacent(n).length === 1);
+            // A wider side road (including a private driveway) is an entry to the
+            // same bottleneck, not a place where opposing bodies can pass.
+            // Forks/cycles and blind ends have no single consistent flow: admit
+            // one vehicle until its rear clears, including any necessary U-turn.
+            const exit = node => node.edges.some(e => !candidates.has(e) && !e.virtual && e.drivable !== false && e.publicDrive !== false && e.throughAccess !== false && (!e.oneway || e.a === node) && !(e.a === node ? e.b : e.a).mapEnd);
+            group.exclusive = ends.length !== 2 || [...nodes].some(n => adjacent(n).length > 2) || ends.some(n => !exit(n));
+            if (group.exclusive) { for (const edge of found) this.byEdge.set(edge, { group, sign: 1 }); continue; }
+            let start = ends[0], edge = adjacent(start)[0];
             for (;;) {
-                if (this.byEdge.has(edge)) break;
                 const sign = edge.a === start ? 1 : -1;
-                this.byEdge.set(edge, { group, sign }); group.edges.push(edge);
-                const end = sign > 0 ? edge.b : edge.a, next = otherAt(end, edge);
+                this.byEdge.set(edge, { group, sign });
+                const end = sign > 0 ? edge.b : edge.a, next = adjacent(end).find(e => e !== edge);
                 if (!next) break;
                 edge = next; start = end;
             }
@@ -35,14 +37,17 @@ export class SharedLaneGate {
     entry(edge, dir) { const info = this.byEdge.get(edge); return info && { group: info.group, sign: info.sign * dir }; }
     canPlace(edge, dir, vehicles, self = null) {
         const target = this.entry(edge, dir); if (!target) return true;
-        const playerDirection = this.player ? target.group.occupants.get(this.player) : undefined;
-        if (playerDirection !== undefined && playerDirection !== target.sign) return false;
+        const { group, sign } = target;
+        const conflicts = direction => group.exclusive || direction !== sign;
+        const playerDirection = this.player ? group.occupants.get(this.player) : undefined;
+        if (playerDirection !== undefined && conflicts(playerDirection)) return false;
+        for (const [other, claim] of group.claims) if (other !== self && !other.inactive && claim.generation === (other._moveGeneration || 0) && conflicts(claim.sign)) return false;
         for (const other of vehicles) {
             if (other === self || other.inactive) continue;
             const current = this.entry(other.edge, other.dir);
-            if (current?.group === target.group && current.sign !== target.sign) return false;
+            if (current?.group === group && conflicts(current.sign)) return false;
             const tail = this.tails.get(other);
-            if (tail?.group === target.group && tail.sign !== target.sign && other.odo < tail.until) return false;
+            if (tail?.group === group && tail.generation === (other._moveGeneration || 0) && conflicts(tail.sign) && other.odo < tail.until) return false;
         }
         return true;
     }
@@ -53,12 +58,12 @@ export class SharedLaneGate {
         for (const group of this.groups) {
             group.occupants.clear();
             for (const [v, claim] of group.claims) {
-                if (!live.has(v) || v.inactive || v._resp || time - claim.seen > 2 || (time - claim.granted > 4 && v.speed < .1)) group.claims.delete(v);
+                if (!live.has(v) || v.inactive || claim.generation !== (v._moveGeneration || 0) || time - claim.seen > 2 || (time - claim.granted > 4 && v.speed < .1)) group.claims.delete(v);
             }
             for (const [v, wait] of group.waiting) if (!live.has(v) || v.inactive || time - wait.seen > 2) group.waiting.delete(v);
         }
         for (const [v, tail] of this.tails) {
-            if (!live.has(v) || v.inactive || v._resp || v.odo >= tail.until) this.tails.delete(v);
+            if (!live.has(v) || v.inactive || tail.generation !== (v._moveGeneration || 0) || v.odo >= tail.until) this.tails.delete(v);
             else tail.group.occupants.set(v, tail.sign);
         }
         for (const v of vehicles) {
@@ -90,24 +95,24 @@ export class SharedLaneGate {
         const target = this.entry(edge, dir); if (!target) return true;
         const { group, sign } = target;
         if (group.occupants.has(v)) return true;
-        const opposing = [...group.occupants].some(([other, direction]) => other !== v && direction !== sign);
+        const opposing = [...group.occupants].some(([other, direction]) => other !== v && (group.exclusive || direction !== sign));
         const old = group.claims.get(v);
         if (old?.sign === sign && !opposing) { old.seen = this.time; return true; }
         let wait = group.waiting.get(v);
         if (!wait || wait.sign !== sign) { wait = { sign, order: this.serial++, seen: this.time }; group.waiting.set(v, wait); }
         wait.seen = this.time;
         if (opposing) return false;
-        for (const claim of group.claims.values()) if (claim.sign !== sign) return false;
+        for (const [other, claim] of group.claims) if (other !== v && (group.exclusive || claim.sign !== sign)) return false;
         // Once an opposite request exists, let the admitted batch clear before
         // admitting more of the same direction. A busy approach cannot starve it.
-        if (group.occupants.size && [...group.waiting.values()].some(value => value.sign !== sign)) return false;
+        if ((group.occupants.size || group.claims.size) && (group.exclusive || [...group.waiting.values()].some(value => value.sign !== sign))) return false;
         const first = [...group.waiting.values()].reduce((a, b) => !a || b.order < a.order ? b : a, null);
-        if (!group.occupants.size && !group.claims.size && first?.sign !== sign) return false;
-        group.claims.set(v, { sign, granted: this.time, seen: this.time }); group.waiting.delete(v);
+        if (!group.occupants.size && !group.claims.size && (group.exclusive ? first !== wait : first?.sign !== sign)) return false;
+        group.claims.set(v, { sign, granted: this.time, seen: this.time, generation: v._moveGeneration || 0 }); group.waiting.delete(v);
         return true;
     }
     advance(v, from, fromDir, to, toDir, node) {
         const old = this.entry(from, fromDir), next = this.entry(to, toDir);
-        if (old && old.group !== next?.group) this.tails.set(v, { ...old, until: v.odo + v.length / 2 + (node.radius || 3) + 1 });
+        if (old && old.group !== next?.group) this.tails.set(v, { ...old, generation: v._moveGeneration || 0, until: v.odo + v.length / 2 + (node.radius || 3) + 1 });
     }
 }

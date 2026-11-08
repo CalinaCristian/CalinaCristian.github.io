@@ -12,6 +12,7 @@ export function photoHunt(ctx, { x, z, title, targets, unavailable, onDone }) {
     ring.name='visitor-photo-guide';ring.userData.noFloor=true;ring.visible=false;ctx.add(ring);
     const dir=new THREE.Vector3(),toward=new THREE.Vector3(),origin=new THREE.Vector3(),ray=new THREE.Raycaster();
     let occluders=[];
+    const opaque = m => m && m.depthTest!==false && !(m.transparent&&m.opacity<.95);
     const visible = object => { for(let p=object;p;p=p.parent)if(!p.visible)return false;return true; };
     const sight = (s,target) => {
         s.camera.getWorldPosition(origin);toward.set(target.x-origin.x,target.y-origin.y,target.z-origin.z);
@@ -19,6 +20,7 @@ export function photoHunt(ctx, { x, z, title, targets, unavailable, onDone }) {
         ray.set(origin,toward.normalize());ray.near=.08;ray.far=Math.max(.08,distance-tolerance);
         ctx.scene.updateMatrixWorld(true);
         const hit=ray.intersectObjects(occluders.filter(visible),false).find(h=>{
+            const material=Array.isArray(h.object.material)?h.object.material[h.face?.materialIndex||0]:h.object.material;if(!opaque(material))return false;
             const g=s.guide;if(!g)return true;let crowd=false;for(let p=h.object;p;p=p.parent)if(p.name==='crowd')crowd=true;
             return !(crowd&&Math.hypot(h.point.x-g.x,h.point.z-g.z)<.9&&h.point.y>=g.y-.1&&h.point.y<=g.y+3.4);
         });
@@ -32,7 +34,7 @@ export function photoHunt(ctx, { x, z, title, targets, unavailable, onDone }) {
     ctx.interactables.push({ kind:'photo-hunt',x,z,r:3,label:title,use:s=>flow.begin(s,{
         title,action:'Frame the detail',lockWalker:false,
         help:`${unavailable} Move along the public paths for a clear view, look with the mouse or swipe, centre the gold ring, then take each of ${targets.length} pictures.`,
-        started(s,r){r.step=0;r.flash=0;r.sightAt=-Infinity;guide.captures=[];r.busy=true;ring.visible=true;occluders=[];ctx.scene.traverse(o=>{if(!o.isMesh)return;for(let p=o;p;p=p.parent)if(['visitor-photo-guide','visitor-candle','virtual-handheld-candle-holder','activity-coin'].includes(p.name))return;const materials=Array.isArray(o.material)?o.material:[o.material];if(materials.every(m=>m.depthTest===false||(m.transparent&&m.opacity<.95)))return;if(!o.geometry.boundingBox)o.geometry.computeBoundingBox();occluders.push(o);});},
+        started(s,r){r.step=0;r.flash=0;r.sightAt=-Infinity;guide.captures=[];r.busy=true;ring.visible=true;occluders=[];ctx.scene.traverse(o=>{if(!o.isMesh)return;for(let p=o;p;p=p.parent)if(['visitor-photo-guide','visitor-candle','virtual-handheld-candle-holder','activity-coin'].includes(p.name))return;const materials=Array.isArray(o.material)?o.material:[o.material];if(!materials.some(opaque))return;if(!o.geometry.boundingBox)o.geometry.computeBoundingBox();occluders.push(o);});},
         update(dt,s,r){
             const target=targets[r.step];if(!target)return;
             ring.position.set(target.x,target.y,target.z);ring.quaternion.copy(s.camera.getWorldQuaternion(new THREE.Quaternion()));

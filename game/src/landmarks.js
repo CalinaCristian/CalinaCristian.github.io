@@ -2419,8 +2419,16 @@ function entrance(b, f, o = {}) {
     if (o.plate) {
         const pw = o.plate.w ?? 0.8, ph = o.plate.h ?? 0.55, side = o.plate.side ?? 1, u = side * (w / 2 + (o.plate.gap ?? 0.55) + pw / 2), yb = y + (o.plate.y ?? 1.35);
         const [cx, cz] = at(u, 0.04); b.box(cx, yb, cz, pw, ph, 0.05, o.plate.bg || '#1f3350', { ry });
-        let yy = yb + ph - 0.07;
-        for (const [t, th, tc] of o.plate.lines) { yy -= th; const [tx, tz] = at(u, 0.07); b.text(t, tx, yy, tz, ry, th, tc || '#f4f4f4', { d: 0.005 }); yy -= th * 0.45; }
+        // (2026-11-08, owner: "still overlaps and is ugly") every line fits the plate (5×7 glyphs: width = n·6·h/7 − h/7), the
+        // block is centred vertically, an optional thin border inset
+        const pad = 0.06, fit = o.plate.lines.map(([t, th, tc]) => { const n = [...t].length; return [t, Math.min(th, (pw - 2 * pad) * 7 / Math.max(1, 6 * n - 1)), tc]; });
+        let tot = fit.reduce((a2, [, th]) => a2 + th * 1.45, 0) - fit[fit.length - 1][1] * 0.45; const k = Math.min(1, (ph - 2 * pad) / tot);
+        if (k < 1) { for (const f2 of fit) f2[1] *= k; tot *= k; }
+        let yy = yb + ph / 2 + tot / 2;
+        for (const [t, th, tc] of fit) { yy -= th; const [tx, tz] = at(u, 0.07); b.text(t, tx, yy, tz, ry, th, tc || '#f4f4f4', { d: 0.005 }); yy -= th * 0.45; }
+        if (o.plate.border) { const bc = o.plate.border, [bx, bz] = at(u, 0.068), t2 = 0.012, i2 = 0.03;
+            for (const [du, dy, ww, hh] of [[0, i2, pw - 2 * i2, t2], [0, ph - i2 - t2, pw - 2 * i2, t2], [-(pw / 2 - i2), i2, t2, ph - 2 * i2], [pw / 2 - i2, i2, t2, ph - 2 * i2]])
+                b.box(bx + ux * side * 0 + ux * du, yb + dy, bz + uz * du, ww, hh, 0.006, bc, { ry }); }
     }
     return { x, z, nx, nz, ry };
 }
@@ -2546,10 +2554,11 @@ function bRosetti(b) {
     b.cap(hi, y1, '#a52d33'); b.lip(p, lo, y0, '#d9d4c8', -1);
     const f = nearestFacade(p, 40, 7.4);                                                    // on the Garibaldi (east) face, level with the address node
     { const x = f.x + f.nx * 1.6, z = f.z + f.nz * 1.6, ry = Math.atan2(f.nx, f.nz); b.box(x, 0, z, 4.2, 3.4, 3.2, W, { ry }); b.box(x + f.nx * 0.2, 3.4, z + f.nz * 0.2, 4.8, 0.25, 3.8, '#e9e6de', { ry }); }   // entrance porch
-    entrance(b, { x: f.x + f.nx * 3.2, z: f.z + f.nz * 3.2, nx: f.nx, nz: f.nz }, { w: 1.8, h: 2.5, frame: '#ece9e2', door: '#7a8a92', plate: { w: 0.85, h: 0.55, y: 1.2, gap: 0.25, bg: '#1d4f91', lines: [['LICEUL TEORETIC', 0.07, '#ffffff'], ['C.A. ROSETTI', 0.1, '#ffffff']] } }); // (owner: "sign goes outside": inside the porch face)
-    { // the national flag on a pole slanting out from the porch front (owner: "flag is also broken": it lay on the canopy)
-        const tx = -f.nz, tz = f.nx, B = [f.x + f.nx * 3.25 + tx * 1.55, 3.0, f.z + f.nz * 3.25 + tz * 1.55], T = [B[0] + f.nx * 1.3, 4.6, B[2] + f.nz * 1.3];
-        b.box(B[0] - f.nx * 0.05, 2.85, B[2] - f.nz * 0.05, 0.12, 0.3, 0.12, '#b9bcbe'); b.strut(B, T, 0.025, 0.02, '#d9dcde');
+    entrance(b, { x: f.x + f.nx * 3.2, z: f.z + f.nz * 3.2, nx: f.nx, nz: f.nz }, { w: 1.8, h: 2.5, frame: '#ece9e2', door: '#7a8a92', plate: { w: 0.9, h: 0.5, y: 1.25, gap: 0.25, bg: '#1d4f91', border: '#e8eef6', lines: [['LICEUL TEORETIC', 0.06, '#ffffff'], ['C.A. ROSETTI', 0.09, '#ffffff']] } }); // (owner: "sign goes outside": inside the porch face)
+    { // the national flag on a pole slanting out from the facade above the porch canopy (owner: "flag goes in building": from
+      // the porch front the pole ran up through the canopy's edge); bracket on the wall at 5.2 m, top 1.2 m out at 6.6 m
+        const tx = -f.nz, tz = f.nx, B = [f.x + f.nx * 0.1 + tx * 1.55, 5.2, f.z + f.nz * 0.1 + tz * 1.55], T = [B[0] + f.nx * 1.2, 6.6, B[2] + f.nz * 1.2];
+        b.box(B[0] - f.nx * 0.04, 5.0, B[2] - f.nz * 0.04, 0.14, 0.32, 0.12, '#b9bcbe'); b.strut(B, T, 0.025, 0.02, '#d9dcde');
         // (owner's sketch) the flag hangs from the top of the pole and runs away from it at right angles: its hoist along the
         // pole's top 0.62 m, blue at the pole, then yellow, then red
         const dl = Math.hypot(T[0] - B[0], T[1] - B[1], T[2] - B[2]), D = [(T[0] - B[0]) / dl, (T[1] - B[1]) / dl, (T[2] - B[2]) / dl];

@@ -1,0 +1,9 @@
+[
+  {"id":"unirii-start","label":"Unirii chapter start","lat":44.426927,"lon":26.100981,"source":"game/src/cities.js:CHAPTERS.gts.start","kind":"chapter-start"},
+  {"id":"fountains","label":"Piața Unirii fountains","lat":44.4268,"lon":26.1025,"source":"game/src/landmarks.js:ANCHOR.fountains; mapped water and fountain records","kind":"landmark"},
+  {"id":"unirea","label":"Unirea Shopping Center","lat":44.4280154,"lon":26.1048886,"source":"game/src/landmarks.js:ANCHOR.unirea; OSM w23492027","osm":"way/23492027","kind":"landmark"},
+  {"id":"gts","label":"GTS chapter destination","lat":44.433369,"lon":26.1176015,"source":"game/src/landmarks.js:ANCHOR.gts; OSM w245117704","osm":"way/245117704","kind":"cv-stop"},
+  {"id":"halatraian","label":"Hala Traian","lat":44.4333566,"lon":26.120567,"source":"game/src/landmarks.js:ANCHOR.halatraian; OSM w35147215","osm":"way/35147215","kind":"landmark"},
+  {"id":"parliament","label":"Palace of Parliament context","lat":44.4275038,"lon":26.0874035,"source":"game/src/landmarks.js:ANCHOR.parliament; OSM r2230391/w232360843/w283976783","kind":"skyline"},
+  {"id":"cathedral","label":"National Cathedral distant context","lat":44.4259297,"lon":26.0822981,"source":"game/src/landmarks.js:ANCHOR.cathedral; exact declared source identities in landmark-source-identities.js","kind":"skyline"}
+]

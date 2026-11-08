@@ -1,0 +1,13 @@
+{
+  "data": "bucharest-unirii.json",
+  "roads": 251,
+  "sourceWays": 248,
+  "preparedNodes": 1261,
+  "cutNodes": 79,
+  "expectedWhole": 175,
+  "wholeSourceVertices": 894,
+  "missingWhole": 0,
+  "privatePhysical": 14,
+  "shortSourceStubs": 22,
+  "issues": []
+}

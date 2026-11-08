@@ -1,0 +1,209 @@
+{
+  "district": "bucharest-unirii",
+  "generated": "2026-11-08",
+  "codePrerequisite": "root aa3a3c1 plus small-roof levels priority cf8c842; final combined-root browser acceptance remains separate",
+  "dataFile": "game/data/bucharest-unirii.json",
+  "dataSha256": "0a1bd941ef6e611a10bc361d4253f646b4b9da07a7a53f6a28c1f4ead5d70f8b",
+  "sourceIdentityPolicy": "source",
+  "buildingRecords": 6181,
+  "positiveAreaSourceCoverage": {
+    "inside": {
+      "waysAndParts": {
+        "source": 710,
+        "identitiesPresent": 710,
+        "topologyMatches": 710
+      },
+      "relationOuters": {
+        "source": 4,
+        "identitiesPresent": 4,
+        "topologyMatches": 4
+      },
+      "courtyards": {
+        "buildings": 4,
+        "sourceInnerRings": 4,
+        "preserved": 4
+      }
+    },
+    "ring": {
+      "waysAndParts": {
+        "source": 5408,
+        "identitiesPresent": 5408,
+        "topologyMatches": 5408
+      },
+      "relationOuters": {
+        "source": 59,
+        "identitiesPresent": 59,
+        "topologyMatches": 59
+      },
+      "courtyards": {
+        "buildings": 52,
+        "sourceInnerRings": 77,
+        "preserved": 52
+      }
+    }
+  },
+  "literalDimensions": {
+    "literalHeights": 1030,
+    "literalMinimums": 430,
+    "heightMismatches": [],
+    "minimumMismatches": [],
+    "contradictoryLiteralBands": [
+      {
+        "sourceId": "w1473413251",
+        "heightM": 4,
+        "minimumM": 9,
+        "sourceUrl": "https://www.openstreetmap.org/way/1473413251",
+        "profileIssues": [
+          "roof rise exceeds building height band",
+          "minimum height exceeds total height"
+        ]
+      },
+      {
+        "sourceId": "w1181348214",
+        "heightM": 6,
+        "minimumM": 7,
+        "sourceUrl": "https://www.openstreetmap.org/way/1181348214",
+        "profileIssues": [
+          "roof rise exceeds building height band",
+          "minimum height exceeds total height"
+        ]
+      },
+      {
+        "sourceId": "w1181348215",
+        "heightM": 6,
+        "minimumM": 7,
+        "sourceUrl": "https://www.openstreetmap.org/way/1181348215",
+        "profileIssues": [
+          "roof rise exceeds building height band",
+          "minimum height exceeds total height"
+        ]
+      },
+      {
+        "sourceId": "w1473202094",
+        "heightM": 3,
+        "minimumM": 7,
+        "sourceUrl": "https://www.openstreetmap.org/way/1473202094",
+        "profileIssues": [
+          "roof rise exceeds building height band",
+          "minimum height exceeds total height"
+        ]
+      },
+      {
+        "sourceId": "w1473215997",
+        "heightM": 3,
+        "minimumM": 7,
+        "sourceUrl": "https://www.openstreetmap.org/way/1473215997",
+        "profileIssues": [
+          "roof rise exceeds building height band",
+          "minimum height exceeds total height"
+        ]
+      }
+    ],
+    "nonpositiveHeights": [],
+    "unparsedLiteralMeasures": [
+      {
+        "id": "w1180202173",
+        "key": "min_height",
+        "value": "3..3"
+      },
+      {
+        "id": "w1180202174",
+        "key": "min_height",
+        "value": "3..3"
+      },
+      {
+        "id": "w263312826",
+        "key": "height",
+        "value": "S+P+Ma"
+      },
+      {
+        "id": "w414104928",
+        "key": "height",
+        "value": "S+P+2ET"
+      },
+      {
+        "id": "w1173132993",
+        "key": "height",
+        "value": "S+P+3E+Ma"
+      },
+      {
+        "id": "w1173132996",
+        "key": "height",
+        "value": "S+P+3E+Ma"
+      },
+      {
+        "id": "w1173133014",
+        "key": "height",
+        "value": "S+P+7E"
+      },
+      {
+        "id": "w1173133015",
+        "key": "height",
+        "value": "S+P+5E"
+      },
+      {
+        "id": "w1173133020",
+        "key": "height",
+        "value": "S+P+3E"
+      },
+      {
+        "id": "w1173133028",
+        "key": "height",
+        "value": "S+P+1E+Ma"
+      },
+      {
+        "id": "w1173133029",
+        "key": "height",
+        "value": "S+P+3E+Ma"
+      },
+      {
+        "id": "w1173132991",
+        "key": "height",
+        "value": "S+P+2E+Ma"
+      },
+      {
+        "id": "w1416796284",
+        "key": "height",
+        "value": "S+P+2E"
+      }
+    ]
+  },
+  "sourceRoofProfiles": 6181,
+  "sourceRoofCaches": 2643,
+  "sourceOpenRoofs": 10,
+  "roads": {
+    "data": "bucharest-unirii.json",
+    "roads": 251,
+    "sourceWays": 248,
+    "preparedNodes": 1261,
+    "cutNodes": 79,
+    "expectedWhole": 175,
+    "wholeSourceVertices": 894,
+    "missingWhole": 0,
+    "privatePhysical": 14,
+    "shortSourceStubs": 22,
+    "issues": []
+  },
+  "railAndCrowns": {
+    "file": "game/data/bucharest-unirii.json",
+    "sourceRailwayWays": 22,
+    "sourceRailwayLengthM": 1460,
+    "retainedTreeRecords": 15764,
+    "measuredCrownRadii": 14844,
+    "treeRetention": {
+      "policy": "all-measured",
+      "inputCrowns": 40574,
+      "retained": 14844,
+      "rejectedGeometryOrDuplicate": 3171,
+      "outsideSurveyDistrict": 22559,
+      "thinned": 0
+    }
+  },
+  "notes": [
+    "This audit establishes raw source identity, topology and literal dimensions, not measured visual parity of missing heights, facade detail or unsupported roof topology.",
+    "All source input crowns are accounted for without budget thinning. Geometry/duplicate exclusions are reported together by the current generic builder.",
+    "Legacy percentage height heuristic in raw building-audit logs ignores pitched roof rise; it is not the literal dimension gate. Literal source values are audited independently here.",
+    "Contradictory literal source height/min_height bands remain retained and explicitly flagged; no invented source correction is applied."
+  ],
+  "acceptanceStatus": "source identity/literal dimension checkpoint; browser comparisons, native profile checker update and final combined-source acceptance pending"
+}

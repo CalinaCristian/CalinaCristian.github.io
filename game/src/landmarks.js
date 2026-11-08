@@ -65,7 +65,7 @@ const P = {
     hermes: [[5.5,57,6.5,-10.5,64.5,-10,64,57.5],[5,-20.5,5,-57.5,43.5,-57.5,43.5,-21],[-4,57.5,-64.5,57.5,-64,-47,-4.5,-48.5],[-28.5,-23,-46.5,-23.5,-47.5,33.5,-29,34]],
     baneasaterm: [[-23,-20,-24.5,-17.5,-62.5,-42.5,-55.5,-55,-51.5,-53,-50,-55.5,-14,-35,-15,-32.5,-8,-29,1.5,-31.5,10,-29.5,14,-27,21,-30,16.5,-37,52,-54.5,53.5,-53,57,-54.5,62.5,-44,59.5,-43,62,-38,26.5,-17,25,-19,23,-18,26.5,-12.5,32.5,-16,33.5,-13.5,29.5,-10,22.5,-1,16.5,15.5,13.5,15.5,14,9,7.5,8.5,7.5,10.5,12,10.5,9.5,50,7,50.5,6.5,55.5,-6.5,55,-7.5,3,-15,-5,-17,-11.5,-16.5,-16.5]],
     otp: [[-181.5,196,-203,196,-203,120.5,-196.5,111,-29.5,110.5,-29.5,118,-32.5,118.5,-32.5,122,-27.5,122,-27.5,128,-8.5,128,-9.5,188.5,-11.5,190,-9.5,192.5,-11.5,195],[114.5,194.5,114.5,129,203,129,203,194],[-2,117.5,36,117.5,36,108,32.5,108,32.5,61,45,61,46.5,65.5,48,57.5,32.5,58.5,32.5,21.5,44.5,21.5,46,26,47.5,18,32.5,19,32.5,-13,35,-17,45,-17,45.5,-12.5,48,-13.5,48,-20,35.5,-19,38.5,-34,38,-57.5,48.5,-57.5,49,-52.5,51.5,-51.5,53,-61,38,-60.5,35.5,-95.5,49,-95.5,49.5,-90,53,-90.5,53,-99,35.5,-98.5,46.5,-118.5,49,-143.5,59,-143.5,60,-137.5,63.5,-139,63.5,-147,49,-146,47,-163,41.5,-172,53.5,-182.5,47.5,-188.5,45,-188.5,47.5,-182,39.5,-174,31,-179,18,-180.5,18,-196.5,10,-196,8.5,-194,14.5,-192,15,-180.5,-2,-176,-10.5,-183.5,-7.5,-188.5,-11,-190,-16.5,-184,-4,-174,-9,-166.5,-12,-147,-22.5,-147,-23,-152.5,-27,-151.5,-27,-143.5,-12,-144,-9,-115.5,-0.5,-98,-17.5,-99,-17,-90,-13.5,-90,-13,-95.5,0,-95,-2,-60,-17.5,-61,-17.5,-53,-15.5,-51,-13,-57.5,-2,-57.5,-1,-19.5,-9.5,-19.5,-9.5,-21.5,-12.5,-21.5,-12.5,-14.5,-10,-13.5,-9.5,-17,-0.5,-17.5,2,-13,1.5,108,-2,108]],
-    ase: [[-1.5,18.5,-47.5,17.5,-50.5,42,32.5,42,35.5,41,37,38,37.5,32.5,39,28,46,13.5,50.5,7,42,-1.5,38,3.5,34,-2.5,39.5,-32.5,35.5,-33,36.5,-37,8.5,-42],[14.5,0.5,20,1,23,-1,25,-14.5,17,-16],[8,10.5,16.5,4.5,9,3.5],[22.5,6.5,32.5,21,35.5,13,28,2.5],[3.5,26,4.5,18,14.5,31.5,7,31,7,27.5,6,26]],
+    ase: [[-18.37,-0.54,-20.11,-46.76,-44.45,-48.3,-40.32,31.74,-40.09,34.61,-39.62,36.11,-38.88,37.63,-37.5,38.59,-36.19,39.4,-34.07,40.02,-32.12,39.99,-30.61,39.25,-25.91,40.74,-22.94,41.86,-19.36,43.15,-15.02,45.02,-11.23,46.82,-7.85,48.63,-4.55,50.89,-1.03,47.03,3.58,42.33,-1.71,38.35,4.08,34.24,34.44,37.88,34.7,36.01,34.77,34.12,38.67,34.62,42.3,6.45,7.57,2.44],[0.46,14.35,0.04,19.98,2.27,23.06,15.77,24.24,16.66,16.01],[-9.82,8.57,-3.5,17.01,-3.15,9.35],[-5.36,22.96,-19.02,33.91,-11.0,36.2,-1.1,28.26],[-25.56,4.87,-17.76,5.39,-30.45,16.21,-30.68,8.66,-27.19,8.69,-25.69,7.43]],
     ambasador: [[23,-8,24.5,3,-24,17.5,-24.5,1.5,-20,0.5,-22,-10,-24,-9.5,-24,-17.5,-17.5,-16.5,-17,-13,-8.5,-14.5,-8,-16,5,-14.5,6,-10.5,8.5,-9.5,15.5,-11.5,15.5,-13.5,22,-13]],
     aro: [[6,22,4.5,29,-13.5,25.5,-12,17,-3,19,-6.5,6.5,-5,6,-6.5,-1,-9,0,-9.5,-3,-7.5,-3.5,-9,-10.5,-11,-10,-11.5,-12.5,-9.5,-13.5,-13,-29,0.5,-29,13.5,23,7,24]],
     spaceneedle: [[2,18.5,9,16.5,15,12,18,5.5,19,-2,17,-9,12,-14.5,6,-18,-1.5,-18.5,-9.5,-16.5,-15,-11,-17,-7.5,-19,0,-17,7.5,-12.5,14,-5.5,18]],
@@ -1651,19 +1651,176 @@ function bOTP(b) {
     b.colPoly([dep], 25); b.colPoly([arr], 25); b.colPoly([pier], 12);
 }
 
-// ASE — Clădirea Ion N. Angelescu (Palatul ASE, 1916-26), Piața Romană: neoclassical with domed
-// corner (OSM relation 2274298).
-// Src: https://en.wikipedia.org/wiki/Bucharest_Academy_of_Economic_Studies ; OSM rel 2274298
+// ASE — Ion N. Angelescu: source rings r2274298 (2026-11-08), including its mapped rounded corner and four courts.
+// Official facade/roof photographs: ase.ro/app/uploads/2023/02/ase-1.jpg and 2023/09/Cladire-ASE-panorama-600x500.jpg.
+// Sources, estimates and remaining gaps: game/research/ase-landmark.json. No OSM height/level/roof tags exist here.
 function bASE(b) {
-    b.wall = '#e5dbc4';
-    const ps = P.ase.map(pts), [outer, ...holes] = ps, S = '#e5dbc4';
-    b.prism(outer, 0, 22, S, { holes, topCol: C.stone }); b.bands(outer, 0, 22, 5, C.winWarm, { holes, frac: 0.45 });
-    b.roof(outer, 22, 3, '#7e7a74', 1.5, { holes });
-    const v = outer.reduce((m, q) => q[0] + q[1] > m[0] + m[1] ? q : m, outer[0]), cx = v[0] - 9, cz = v[1] - 9;
-    b.cyl(cx, 22, cz, 7.5, 8, 6, S, 16);
-    b.colonnade(cx - 8.5, cz + 2, cx + 2, cz + 8.5, 22, 5.5, 5, 0.4, C.white);
-    b.dome(cx, 28, cz, 7.6, 8, '#5e6a6d', 16); b.cyl(cx, 35.8, cz, 1.2, 1.4, 2.4, '#5e6a6d', 8);
-    b.colPoly([outer], 20);
+    const [outer, ...holes] = P.ase.map(pts), S = '#d2cec2', TR = '#e5e1d5', GL = '#2b343b', MET = '#aab7bf';
+    const bb = bbox([outer]), all = [outer, ...holes], s = signedArea(outer) > 0 ? 1 : -1;
+    b.wall = S;
+    b.prism(outer, 0, 22, S, { holes, top: false });
+    // Keep the entire mapped complex and its courts. A zero suppression radius avoids erasing neighbouring campus buildings.
+    // Absolute model-space rings (not collider-centred); buildLandmark/world transform these together with their bounds.
+    b.cols.push({ x: (bb.x0 + bb.x1) / 2, z: (bb.z0 + bb.z1) / 2, hw: (bb.x1 - bb.x0) / 2, hd: (bb.z1 - bb.z0) / 2, angle: 0, h: 22, poly: outer, holes });
+    const distance = (x, z) => {
+        let d = Infinity;
+        for (const p of all) for (let i = 0; i < p.length; i++) {
+            const a = p[i], c = p[(i + 1) % p.length], dx = c[0] - a[0], dz = c[1] - a[1];
+            const t = Math.max(0, Math.min(1, ((x - a[0]) * dx + (z - a[1]) * dz) / (dx * dx + dz * dz)));
+            d = Math.min(d, Math.hypot(x - a[0] - t * dx, z - a[1] - t * dz));
+        }
+        return d;
+    };
+    // Grey sheet-metal roof around the courts, red pitched roof on the long north-west wing (Esri aerial inspection).
+    // Refined source triangulation gives slopes without an unsafe inset across the narrow court-side wings.
+    const contour = outer.map(p => new THREE.Vector2(...p)), hs = holes.map(h => h.map(p => new THREE.Vector2(...p))), points = contour.concat(...hs);
+    const roofPoint = p => [p[0], 22.03 + Math.min(3.1, distance(...p) * 0.62), p[1]];
+    let roofPoints = points.map(p => [p.x, p.y]), roofFaces = THREE.ShapeUtils.triangulateShape(contour, hs);
+    // Split shared edges together so neighbouring roof facets cannot acquire cracks or mismatched heights.
+    for (let pass = 0; pass < 9; pass++) {
+        const mids = new Map(), next = [];
+        for (const f of roofFaces) for (let i = 0; i < 3; i++) {
+            const a = f[i], c = f[(i + 1) % 3], key = a < c ? `${a},${c}` : `${c},${a}`;
+            if (mids.has(key) || Math.hypot(roofPoints[a][0] - roofPoints[c][0], roofPoints[a][1] - roofPoints[c][1]) <= 4) continue;
+            mids.set(key, roofPoints.length); roofPoints.push([(roofPoints[a][0] + roofPoints[c][0]) / 2, (roofPoints[a][1] + roofPoints[c][1]) / 2]);
+        }
+        if (!mids.size) break;
+        for (const f of roofFaces) {
+            const mid = f.map((a, i) => { const c = f[(i + 1) % 3]; return mids.get(a < c ? `${a},${c}` : `${c},${a}`); });
+            const n = mid.filter(i => i !== undefined).length;
+            if (!n) { next.push(f); continue; }
+            if (n === 3) { next.push([f[0], mid[0], mid[2]], [mid[0], f[1], mid[1]], [mid[2], mid[1], f[2]], mid); continue; }
+            const k = n === 1 ? mid.findIndex(i => i !== undefined) : mid.findIndex(i => i === undefined), a = f[k], c = f[(k + 1) % 3], d = f[(k + 2) % 3];
+            if (n === 1) next.push([a, mid[k], d], [mid[k], c, d]);
+            else { const u = mid[(k + 1) % 3], v = mid[(k + 2) % 3]; next.push([d, v, u], [a, c, v], [c, u, v]); }
+        }
+        roofFaces = next;
+    }
+    roofFaces = roofFaces.map(f => {
+        const [a, c, d] = f.map(i => roofPoints[i]);
+        return (c[1] - a[1]) * (d[0] - a[0]) - (c[0] - a[0]) * (d[1] - a[1]) < 0 ? [f[0], f[2], f[1]] : f;
+    });
+    const redFaces = [], silverFaces = [], seam = new Map();
+    const clipRoof = (f, north) => {
+        const q = [];
+        for (let i = 0; i < f.length; i++) {
+            const a = f[i], c = f[(i + 1) % f.length], u = roofPoints[a], v = roofPoints[c], inside = north ? u[1] <= -0.54 : u[1] >= -0.54, other = north ? v[1] <= -0.54 : v[1] >= -0.54;
+            if (inside) q.push(a);
+            if (inside !== other) {
+                const key = a < c ? `${a},${c}` : `${c},${a}`;
+                if (!seam.has(key)) { const t = (-0.54 - u[1]) / (v[1] - u[1]); seam.set(key, roofPoints.length); roofPoints.push([u[0] + (v[0] - u[0]) * t, -0.54]); }
+                q.push(seam.get(key));
+            }
+        }
+        const faces = north ? redFaces : silverFaces;
+        for (let i = 1; i + 1 < q.length; i++) faces.push(q[0], q[i], q[i + 1]);
+    };
+    for (const f of roofFaces) { clipRoof(f, true); clipRoof(f, false); }
+    const roofGeometry = new THREE.BufferGeometry();
+    roofGeometry.setAttribute('position', new THREE.Float32BufferAttribute(roofPoints.flatMap(roofPoint), 3));
+    roofGeometry.setIndex([...redFaces, ...silverFaces]); roofGeometry.computeVertexNormals();
+    // Shared vertex normals avoid a false corrugated appearance on the conservative continuous roof approximation.
+    for (const [faces, col] of [[silverFaces, MET], [redFaces, '#a85649']]) { const g = roofGeometry.clone(); g.setIndex(faces); b.geo(g, col); g.dispose(); }
+    roofGeometry.dispose();
+    for (const [y, h, out] of [[0.1, 0.5, 0.13], [4.4, 0.35, 0.26], [16.5, 0.35, 0.4], [18.1, 0.65, 0.68], [21.8, 0.25, 0.3]]) b.cornice(outer, y, h, out, TR, { holes });
+    // Plain rear/courtyard elevations remain a simplified treatment: no invented shops or interior programme.
+    b.windows(outer, 0.6, 17, 5.4, GL, { bay: 3.9, wf: 0.39, hf: 0.6, start: 0.3, mat: 'g', edges: [0, 1, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28] });
+    b.windows([outer[2], [-42.04, -1], outer[0], outer[1]], 0.7, 21.5, 5.3, GL, { bay: 3.8, wf: 0.42, hf: 0.62, start: 0.2, mat: 'g', edges: [0] });
+    for (const h of holes) {
+        b.windows(h, 0.6, 21.5, 5.3, GL, { bay: 3.7, wf: 0.42, hf: 0.58, start: 0.4, mat: 'g', inward: true });
+        b.cornice(h, 16.8, 0.25, -0.2, TR);
+    }
+    // Street elevations: rusticated base, giant engaged columns across the two upper levels, entablature, attic windows.
+    const window = (x, z, dx, dz, nx, nz, y, w, h, arch = false) => {
+        const T = (u, v, off) => [x + dx * u + nx * off, y + v, z + dz * u + nz * off];
+        const pane = (ww, hh, off, col, mat) => {
+            const r = ww / 2, spring = arch ? hh - r : hh;
+            b.quad(T(-r, 0, off), T(r, 0, off), T(r, spring, off), T(-r, spring, off), col, mat, [nx, 0, nz]);
+            if (arch) for (let i = 0; i < 8; i++) {
+                const a = i * Math.PI / 8, c = (i + 1) * Math.PI / 8;
+                b.tri(T(0, spring, off), T(Math.cos(a) * r, spring + Math.sin(a) * r, off), T(Math.cos(c) * r, spring + Math.sin(c) * r, off), col, mat, [nx, 0, nz]);
+            }
+        };
+        pane(w + 0.3, h + 0.15, 0.09, '#68564a', 'm'); pane(w, h, 0.12, GL, 'g');
+        b.quad(T(-0.035, 0, 0.14), T(0.035, 0, 0.14), T(0.035, h, 0.14), T(-0.035, h, 0.14), '#655344', 'm', [nx, 0, nz]);
+        for (const yy of [h * 0.3, h * 0.76]) b.quad(T(-w / 2, yy, 0.14), T(w / 2, yy, 0.14), T(w / 2, yy + 0.06, 0.14), T(-w / 2, yy + 0.06, 0.14), '#655344', 'm', [nx, 0, nz]);
+        b.strut(T(-w / 2 - 0.25, -0.16, 0.12), T(w / 2 + 0.25, -0.16, 0.12), 0.26, 0.18, TR);
+    };
+    const facade = (line, bays, columns = true) => {
+        const ls = line.slice(1).map((p, i) => Math.hypot(p[0] - line[i][0], p[1] - line[i][1])), length = ls.reduce((a, c) => a + c, 0);
+        const at = t => {
+            let d = Math.min(length - 0.001, Math.max(0.001, t * length)), i = 0;
+            while (i + 1 < ls.length && d > ls[i]) d -= ls[i++];
+            const a = line[i], c = line[i + 1], dx = (c[0] - a[0]) / ls[i], dz = (c[1] - a[1]) / ls[i];
+            return { x: a[0] + dx * d, z: a[1] + dz * d, dx, dz, nx: s * dz, nz: -s * dx };
+        };
+        for (let j = 0; j < bays; j++) {
+            const q = at((j + 0.5) / bays), w = Math.min(1.85, length / bays * 0.48);
+            window(q.x, q.z, q.dx, q.dz, q.nx, q.nz, 0.85, w, 3.1);
+            window(q.x, q.z, q.dx, q.dz, q.nx, q.nz, 5.35, w, 4.8, true);
+            window(q.x, q.z, q.dx, q.dz, q.nx, q.nz, 11.6, w, 3.6);
+            window(q.x, q.z, q.dx, q.dz, q.nx, q.nz, 19.1, w * 0.82, 2.25);
+            const ry = -Math.atan2(q.dz, q.dx);
+            b.box(q.x + q.nx * 0.16, 15.3, q.z + q.nz * 0.16, w + 0.65, 0.23, 0.35, TR, { ry });
+            b.box(q.x + q.nx * 0.16, 21.4, q.z + q.nz * 0.16, w + 0.55, 0.2, 0.34, TR, { ry });
+            for (let k = 0; k < 4; k++) {
+                const t = (k / 3 - 0.5) * w, x = q.x + q.dx * t + q.nx * 0.28, z = q.z + q.dz * t + q.nz * 0.28;
+                b.box(x, 4.72, z, 0.09, 0.54, 0.09, TR);
+            }
+        }
+        if (columns) for (let j = 0; j <= bays; j++) {
+            const q = at(j / bays), x = q.x + q.nx * 0.24, z = q.z + q.nz * 0.24;
+            b.cyl(x, 4.9, z, 0.54, 0.64, 11.2, TR, 10);
+            b.cyl(x, 4.62, z, 0.77, 0.77, 0.28, TR, 10); b.cyl(x, 16.1, z, 0.77, 0.62, 0.4, TR, 10);
+        }
+    };
+    facade([[-42.04, -1], outer[3]], 8);
+    facade(outer.slice(3, 12), 4);
+    facade(outer.slice(11, 19), 7);
+    // The mapped corner arc, not the footprint's extreme vertex, fixes the pavilion/dome position and diameter.
+    // Least-squares fit of outer vertices 3..10: centre (-33.2975,32.9768), radius 7.085 m, max radial residual 0.186 m.
+    const cx = -33.3, cz = 32.98, profile = [[6.85, 22.05], [6.96, 22.7], [6.8, 25], [6.35, 27.7], [5.3, 30.1], [3.6, 31.8], [1.35, 32.5]];
+    b.cyl(cx, 21.8, cz, 7.12, 7.12, 0.4, TR, 32);
+    for (let k = 0; k + 1 < profile.length; k++) for (let i = 0; i < 32; i++) {
+        const [r0, y0] = profile[k], [r1, y1] = profile[k + 1], a = i / 32 * Math.PI * 2, c = (i + 1) / 32 * Math.PI * 2;
+        b.quad([cx + Math.sin(a) * r0, y0, cz + Math.cos(a) * r0], [cx + Math.sin(c) * r0, y0, cz + Math.cos(c) * r0], [cx + Math.sin(c) * r1, y1, cz + Math.cos(c) * r1], [cx + Math.sin(a) * r1, y1, cz + Math.cos(a) * r1], MET, 'm', [Math.sin((a + c) / 2), 0.4, Math.cos((a + c) / 2)]);
+    }
+    for (let i = 0; i < 12; i++) {
+        const a = i / 12 * Math.PI * 2, ridge = profile.map(([r, y]) => [cx + Math.sin(a) * (r + 0.06), y, cz + Math.cos(a) * (r + 0.06)]);
+        for (let k = 0; k + 1 < ridge.length; k++) b.strut(ridge[k], ridge[k + 1], 0.12, 0.12, '#d6dfe3');
+        if (i % 2 === 0) {
+            const x = cx + Math.sin(a) * 6.62, z = cz + Math.cos(a) * 6.62;
+            b.geo(new THREE.CylinderGeometry(0.58, 0.58, 0.16, 12), '#d3dce0', M(x, 26.8, z, a, 1, 1, 1, Math.PI / 2));
+            b.geo(new THREE.CylinderGeometry(0.39, 0.39, 0.19, 12), GL, M(x + Math.sin(a) * 0.03, 26.8, z + Math.cos(a) * 0.03, a, 1, 1, 1, Math.PI / 2), 'g');
+        }
+    }
+    // Open lantern, small cap and finial; profile/vertical dimensions are estimates from the official photographs.
+    b.cyl(cx, 32.5, cz, 1.22, 1.4, 0.45, TR, 12);
+    for (let i = 0; i < 8; i++) { const a = i / 8 * Math.PI * 2; b.cyl(cx + Math.sin(a), 32.95, cz + Math.cos(a), 0.11, 0.14, 2.5, TR, 6); }
+    b.cyl(cx, 35.45, cz, 1.38, 1.2, 0.3, TR, 12); b.dome(cx, 35.75, cz, 1.18, 0.9, MET, 16); b.cyl(cx, 36.65, cz, 0.12, 0.15, 1.6, '#929d9f', 6);
+    // Legible, photo-verified signs on the south face; street facade text is not repeated on the courtyard walls.
+    const a = outer[11], c = outer[18], dx = c[0] - a[0], dz = c[1] - a[1], L = Math.hypot(dx, dz), nx = s * dz / L, nz = -s * dx / L, ry = Math.atan2(nx, nz);
+    b.text('ACADEMIA DE STUDII ECONOMICE', (a[0] + c[0]) / 2 + nx * 0.5, 17.05, (a[1] + c[1]) / 2 + nz * 0.5, ry, 0.76, '#59564d');
+    b.text('WWW.ASE.RO', (a[0] + c[0]) / 2 - nx * 2, 24.15, (a[1] + c[1]) / 2 - nz * 2, ry, 1.75, '#c32230');
+    // OSM covered footways, preserving every mapped bend. OSM supplies layer 1, not a measured deck elevation/width.
+    // Width 2.8 m, underside 5.2 m and 2.7 m enclosure are explicit provisional dimensions, not aerial measurements.
+    const bridges = [
+        [[34.7, 36.01], [55.95, 39.1], [57.65, 39.49], [58.86, 40.16], [59.7, 40.89], [60.96, 42.52]],
+        [[7.57, 2.44], [8.34, -3.17]],
+    ];
+    for (const line of bridges) for (let i = 0; i + 1 < line.length; i++) {
+        const a = line[i], c = line[i + 1], dx = c[0] - a[0], dz = c[1] - a[1], len = Math.hypot(dx, dz), ry = -Math.atan2(dz, dx), x = (a[0] + c[0]) / 2, z = (a[1] + c[1]) / 2;
+        b.box(x, 5.2, z, len + 0.08, 0.3, 2.8, '#737b7e', { ry });
+        b.box(x, 7.85, z, len + 0.08, 0.2, 2.95, '#aeb7b7', { ry });
+        const nx = -dz / len, nz = dx / len;
+        for (const side of [-1, 1]) {
+            const off = side * 1.36;
+            b.box(x + nx * off, 5.5, z + nz * off, len, 2.35, 0.08, '#4a6167', { ry, mat: 'g' });
+            const n = Math.max(1, Math.ceil(len / 2.2));
+            for (let j = 0; j <= n; j++) b.box(a[0] + dx * j / n + nx * off, 5.5, a[1] + dz * j / n + nz * off, 0.08, 2.35, 0.08, '#ccd2cf');
+        }
+        b.col(x, z, len / 2, 1.4, ry, { y0: 5.2, y1: 8.05, h: 8.05 });
+    }
 }
 
 // Hotel Ambasador (1937-39, Arghir Culina) — interwar modernist stepped hotel on Bd. Magheru (~13 floors).
@@ -3024,7 +3181,7 @@ const A = {
     promenada: [44.4781916, 26.1034126, -1.1868], baneasasc: [44.507022, 26.0897843, -0.1745], romexpo: [44.4762793, 26.065137, -0.5411],
     gara: [44.4466161, 26.0748974, -2.3213], opera: [44.4360568, 26.0795203, -0.0873], politehnica: [44.438429, 26.0515105, 0],
     hermes: [44.4810862, 26.1140757, -1.1519], baneasaterm: [44.4962356, 26.0814666, -2.7751], otp: [44.5708154, 26.0795884, -1.4661],
-    ase: [44.447807, 26.0971572, -1.5184], ambasador: [44.441963, 26.099535, -1.501], aro: [44.4424337, 26.0992711, -3.0543],
+    ase: [44.447807, 26.0971572, 0], ambasador: [44.441963, 26.099535, -1.501], aro: [44.4424337, 26.0992711, -3.0543],
     fountains: [44.4268, 26.1025, 0], aviatorilor: [44.4597696, 26.0860782, 0],
     spaceneedle: [47.6205063, -122.3493043, -0.1571], columbia: [47.6045425, -122.3307183, -1.0123], smith: [47.6019654, -122.331729, -2.6005],
     tmobile: [47.5913642, -122.3324281, 0], spheres: [47.6156773, -122.3394897, -0.7505], seatac: [47.4423743, -122.3012208, -1.4137],
@@ -3085,7 +3242,7 @@ export const LANDMARKS = [
     L('hermes', 'bucharest', 'Hermes Business Campus', ['Hermes', 'Clădirea B+C', 'Hermes Business Campus'], 80, bHermes, { cvStop: 'luxoft', ownSign: true }),
     L('baneasaterm', 'bucharest', 'Aeroportul Băneasa (terminal 1952)', ['Aeroportul Internațional Aurel Vlaicu'], 75, bBaneasaTerm),
     L('otp', 'bucharest', 'Aeroportul Henri Coandă', ['Aeroportul Otopeni Henri Coandă - Plecări', 'Aeroportul Otopeni Henri Coandă - Sosiri', 'Terminalul Vioara'], 230, bOTP),
-    L('ase', 'bucharest', 'ASE — Palatul Ion N. Angelescu', ['Clădirea Ion N. Angelescu', 'Academia de Studii Economice'], 60, bASE),
+    L('ase', 'bucharest', 'ASE — Palatul Ion N. Angelescu', ['Clădirea Ion N. Angelescu', 'Academia de Studii Economice'], 0, bASE, { ownSign: true }),
     L('ambasador', 'bucharest', 'Hotel Ambasador', ['Hotel Ambasador'], 30, bAmbasador, { floodlit: true }),
     L('aro', 'bucharest', 'Blocul ARO / Patria', ['Bl. ARO/Patria', 'Hanul Elias - Patria'], 32, bARO),
     L('thelandmark', 'bucharest', 'The Landmark (UiPath HQ)', ['The Landmark Corp B'], 25, bTheLandmark, { cvStop: 'uipath-buc', ownSign: true }),

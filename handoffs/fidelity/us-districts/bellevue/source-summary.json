@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "district": "bellevue",
   "date": "2026-11-08",
-  "sourceCommit": "a9f77967c37fdf004ebd154609ec3b2f6cd013e9",
+  "sourceCommit": "9276d0dc4305465725c31f74846d828bf7e33445",
   "dataset": "game/data/seattle-bellevue.json",
-  "datasetSha256": "1dd2162a64556125dee283eb46b286c079482c44546189b2713fa15e8b74a612",
+  "datasetSha256": "7aac161e1305527f0b65d56bb151f498f5e9a2520d248bc70f4d650687013194",
   "coverage": "Every whole positive-area building or building:part intersecting the exact configured core or 600 m source ring. Multipolygon inner rings retained; named model exclusions are exact source IDs.",
   "buildingAudit": {
     "core": {
@@ -146,5 +146,6 @@
     "fuel": 0,
     "transit": 3
   },
-  "placesScope": "Every compiled POI matched independently to an original OSM node/polygon centroid or explicit official locator within 0.08 m output quantization tolerance. This does not claim every nearby-ring trading unit is rendered."
+  "placesScope": "Every compiled POI matched independently to an original OSM node/polygon centroid or explicit official locator within 0.08 m output quantization tolerance. This does not claim every nearby-ring trading unit is rendered.",
+  "parkingAdditiveAudit": "parking-runtime.json"
 }

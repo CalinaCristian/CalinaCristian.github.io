@@ -7,6 +7,7 @@
 // ============================================================================
 import * as THREE from '../../vendor/three.module.min.js';
 import { GeoBatch, mat, rng, hash2, fbm2, polyArea, inPoly, centroid, polyBox, obb, distPolyline, alongPolyline, polylineLength, offsetPolyline, canvas, canvasTexture, clamp, M } from './kit.js';
+import { branchSkeleton } from '../trees.js';
 
 // ---------------------------------------------------------------------------- palettes (Seattle defaults; scenes override)
 export const COL = {
@@ -438,7 +439,7 @@ function treeGeos() {
     const broad = jitter(merge([[ico, mk(0, 5.0, 0, 2.8, 2.5, 2.8)], [ico, mk(1.1, 6.2, 0.4, 1.9, 1.7, 1.9)], [ico, mk(-1.0, 5.9, -0.6, 1.8, 1.6, 1.8)], [ico, mk(0.2, 7.0, -0.2, 1.5, 1.3, 1.5)]]), 0.22);
     const con = jitter(merge([[cone, mk(0, 4.2, 0, 2.6, 5.5, 2.6)], [cone, mk(0, 7.0, 0, 2.0, 4.5, 2.0)], [cone, mk(0, 9.6, 0, 1.3, 3.6, 1.3)]]), 0.12);
     const shrub = jitter(merge([[ico, mk(0, 0.55, 0, 0.9, 0.65, 0.9)], [ico, mk(0.5, 0.5, 0.2, 0.6, 0.5, 0.6)]]), 0.3);
-    const trunk = new THREE.CylinderGeometry(0.13, 0.22, 4.4, 6); trunk.translate(0, 2.2, 0);
+    const trunk = trunkWithLimbs(4.4, 0.22, [], [5.6, 2.6, 7.8]);
     const trunkC = new THREE.CylinderGeometry(0.12, 0.25, 4, 6); trunkC.translate(0, 2, 0);
     // low-detail variants for distant trees (scenes opt in with ctx.treeLod)
     const ico0 = new THREE.IcosahedronGeometry(1, 0), cone5 = new THREE.ConeGeometry(1, 1, 5);
@@ -472,25 +473,26 @@ function lobeCrown(lobes, { seg = [9, 6], amp = 0.22, freq = 1.7, bend = 0.55, s
     const o = new THREE.BufferGeometry(); o.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); o.setAttribute('normal', new THREE.Float32BufferAttribute(nor, 3)); o.setIndex(idx); return o;
 }
 /** trunk with a clear stem and a few scaffold branches into the crown */
-function trunkWithLimbs(h, r0, limbs) {
+function trunkWithLimbs(h, r0, limbs, crown) {
     const parts = [], t = new THREE.CylinderGeometry(r0 * 0.6, r0, h, 7); t.translate(0, h / 2, 0); parts.push(t);
     for (const [ax, az, len, tilt] of limbs) { const b = new THREE.CylinderGeometry(r0 * 0.25, r0 * 0.45, len, 5); b.translate(0, len / 2, 0); b.rotateZ(-tilt * Math.cos(Math.atan2(az, ax))); b.rotateX(tilt * Math.sin(Math.atan2(az, ax))); b.translate(0, h * 0.92, 0); parts.push(b); }
+    if (crown) parts.push(...branchSkeleton(h * 0.95, crown[0], crown[1], crown[2], r0)); // (bare winter crowns: branches)
     return mergeGeos(parts);
 }
 function speciesGeos() {
     return {
         // London plane: tall clear stem (≈ 6 m), broad irregular crown 7–15 m
         plane: lobeCrown([[0, 10.5, 0, 3.8, 3.0, 3.8], [2.4, 9.2, 1.0, 2.6, 2.3, 2.6], [-2.2, 9.6, -1.2, 2.7, 2.4, 2.6], [0.6, 12.6, -0.6, 2.4, 2.0, 2.4], [-1.0, 8.4, 2.0, 2.2, 1.8, 2.2]], { seed: 1 }),
-        trunk_plane: trunkWithLimbs(7.2, 0.28, [[1, 0.3, 3.2, 0.5], [-0.8, -0.6, 3.0, 0.45], [0.1, 1, 2.8, 0.4]]),
+        trunk_plane: trunkWithLimbs(7.2, 0.28, [[1, 0.3, 3.2, 0.5], [-0.8, -0.6, 3.0, 0.45], [0.1, 1, 2.8, 0.4]], [10.3, 4.0, 14.0]),
         // linden: dense ovoid crown from ≈ 4 m, 4.5–13 m
         linden: lobeCrown([[0, 8.6, 0, 3.0, 4.2, 3.0], [1.3, 7.2, 0.6, 2.2, 2.6, 2.2], [-1.2, 7.5, -0.7, 2.2, 2.6, 2.2], [0, 11.4, 0.2, 2.0, 2.0, 2.0]], { seed: 2, amp: 0.16 }),
-        trunk_linden: trunkWithLimbs(5.4, 0.24, [[1, 0, 2.4, 0.35], [-1, 0.4, 2.2, 0.35]]),
+        trunk_linden: trunkWithLimbs(5.4, 0.24, [[1, 0, 2.4, 0.35], [-1, 0.4, 2.2, 0.35]], [8.4, 2.8, 12.4]),
         // horse chestnut: rounded broad dome from ≈ 3.5 m, 4–11 m
         chestnut: lobeCrown([[0, 7.4, 0, 3.6, 3.0, 3.6], [2.0, 6.4, 0.8, 2.4, 2.0, 2.4], [-1.9, 6.6, -0.9, 2.4, 2.0, 2.4], [0.3, 9.4, 0, 2.6, 1.8, 2.6]], { seed: 3, amp: 0.2 }),
-        trunk_chestnut: trunkWithLimbs(4.6, 0.26, [[1, 0.2, 2.4, 0.55], [-0.9, -0.3, 2.3, 0.5], [0, 1, 2.0, 0.45]]),
+        trunk_chestnut: trunkWithLimbs(4.6, 0.26, [[1, 0.2, 2.4, 0.55], [-0.9, -0.3, 2.3, 0.5], [0, 1, 2.0, 0.45]], [7.3, 3.4, 10.4]),
         // smooth low crown for distant species trees (one lobe, few triangles)
         speciesLow: lobeCrown([[0, 8.8, 0, 3.4, 3.4, 3.4]], { seg: [6, 4], seed: 4, amp: 0.15, bend: 0.4 }),
-        trunk_speciesLow: (() => { const t = new THREE.CylinderGeometry(0.16, 0.25, 6.4, 4); t.translate(0, 3.2, 0); return t; })(),
+        trunk_speciesLow: (() => { const t = new THREE.CylinderGeometry(0.16, 0.25, 6.4, 4); t.translate(0, 3.2, 0); return mergeGeos([t, ...branchSkeleton(6.1, 8.8, 3.2, 12.0, 0.25, true)]); })(),
     };
 }
 const BROAD_C = ['#4f8a3c', '#5d9440', '#679c48', '#4a7f39', '#5a8f3e', '#6f9e4a', '#55893f'];
@@ -529,24 +531,16 @@ export function buildTrees(list, ground, { seed = 5, collide = true, lod = null 
             else { crown.setMatrixAt(i, m4); trunk?.setMatrixAt(i, m4); crown.setColorAt(i, col); }
             if (collide && kind !== 'shrub') colliders.push({ x: t.x, z: t.z, r: (sp ? 0.32 : 0.28) * s, hw: (sp ? 0.32 : 0.28) * s, prop: true, h: 6 });
         });
-        // close-range canopies (round 5): the crown shader's bare-twig lattice / leaf dither reads as scribble noise up
-        // close; a low-poly opaque inner shell (twig-mass colour, ~60 % of the crown) shares the near crowns' instance
-        // matrices so near trees read as a dense crown instead of noise against the sky
-        let shell = null;
-        if (kind !== 'con' && kind !== 'shrub') {
-            const cg = crown.geometry; if (!cg.boundingBox) cg.computeBoundingBox(); const bb = cg.boundingBox, c = bb.getCenter(new THREE.Vector3()), sz = bb.getSize(new THREE.Vector3());
-            const sg = new THREE.IcosahedronGeometry(0.5, 1); sg.scale(sz.x * 0.62, sz.y * 0.58, sz.z * 0.62); sg.translate(c.x, c.y + sz.y * 0.02, c.z);
-            const sm = new THREE.MeshLambertMaterial({ color: '#4d4034' }); sm.name = 'treeShell';
-            shell = new THREE.InstancedMesh(sg, sm, Math.max(1, hiN)); shell.name = 'treeShell'; shell.instanceMatrix = crown.instanceMatrix; shell.count = crown.count; shell.castShadow = false; shell.receiveShadow = true;
-            shell.userData.noAudit = true; grp.add(shell);
-        }
-        for (const m of [crown, lowC]) if (m) { m.castShadow = true; m.receiveShadow = true; grp.add(m); crowns.push(m); }
+        // (round 5 put an opaque dark inner shell in near crowns to hide the bare-twig scribbles; round 6 note 21
+        //  replaced those with real branches (trees.js branchSkeleton) + a blended twig haze, so the shell is gone)
+        const shell = null;
+        for (const m of [crown, lowC]) if (m) { m.castShadow = true; m.receiveShadow = true; m.renderOrder = m === crown ? 1 : 0; grp.add(m); crowns.push(m); }
         for (const m of [trunk, lowT]) if (m) { m.castShadow = true; grp.add(m); }
         if (useLod) {
             const near2 = (lod.near ?? 90) ** 2;
             const D = { L, mats, cols, crown, trunk, lowC, lowT, hiN, last: null, shell };
             D.apply = (px, pz) => {
-                const idx = L.map((t, i) => [i, (t.x - px) ** 2 + (t.z - pz) ** 2]).filter((e) => e[1] < near2).sort((a, b2) => a[1] - b2[1]).slice(0, hiN).map((e) => e[0]);
+                const idx = L.map((t, i) => [i, (t.x - px) ** 2 + (t.z - pz) ** 2]).filter((e) => e[1] < near2).sort((a, b2) => a[1] - b2[1]).slice(0, hiN).map((e) => e[0]).reverse(); // (far → near: bare crowns blend in order)
                 const hi = new Uint8Array(L.length); let k = 0;
                 for (const i of idx) { hi[i] = 1; crown.setMatrixAt(k, mats[i]); trunk?.setMatrixAt(k, mats[i]); crown.setColorAt(k, cols[i]); k++; }
                 crown.count = k; if (trunk) trunk.count = k; if (D.shell) D.shell.count = k;

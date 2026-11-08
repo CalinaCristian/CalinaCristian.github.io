@@ -47,10 +47,36 @@ function mergeGeos(list) {
     for (let g of list) { if (!g.index) g = g.toNonIndexed ? g : g; const P = g.attributes.position, N = g.attributes.normal; for (let i = 0; i < P.count; i++) { pos.push(P.getX(i), P.getY(i), P.getZ(i)); nor.push(N.getX(i), N.getY(i), N.getZ(i)); } if (g.index) for (const i of g.index.array) idx.push(base + i); else for (let i = 0; i < P.count; i++) idx.push(base + i); base += P.count; }
     const o = new THREE.BufferGeometry(); o.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); o.setAttribute('normal', new THREE.Float32BufferAttribute(nor, 3)); o.setIndex(idx); o.computeBoundingSphere(); return o;
 }
-/** stem (height h, base radius r0) with scaffold limbs into the crown */
+/** a tapered rod from p0 to p1 (radius r0 → r1), open ends */
+function rod(p0, p1, r0, r1, sides = 5) {
+    const d = new THREE.Vector3().subVectors(p1, p0), L = d.length(), g = new THREE.CylinderGeometry(r1, r0, L, sides, 1, true);
+    g.translate(0, L / 2, 0); g.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.normalize())); g.translate(p0.x, p0.y, p0.z);
+    return g;
+}
+/** branch skeleton for a broadleaf crown (round 6 note 21: bare winter crowns read as branches + twig haze, not as
+ *  see-through scribbles): a leader from the stem top `y0` to the crown `top`, five limbs out to ≈ 0.4 R around the
+ *  crown centre height `yc`, each forking into three branches reaching ≈ 0.6–0.95 R and up toward the top.
+ *  Radii from the stem radius r0. Returns geometries to merge with the stem. */
+export function branchSkeleton(y0, yc, R, top, r0, lite = false) {
+    const V = (x, y, z) => new THREE.Vector3(x, y, z), parts = [], N = lite ? 3 : 5;
+    parts.push(rod(V(0, y0 - 0.3, 0), V(0.1 * R / 3, top - (top - yc) * 0.4, -0.05 * R / 3), r0 * 0.5, r0 * 0.12, lite ? 3 : 5));
+    for (let i = 0; i < N; i++) {
+        const a = i / N * Math.PI * 2 + 0.4 * Math.sin(i * 2.3), ys = y0 - 0.25 * (i % 3) - 0.2, r1 = R * (0.38 + 0.08 * (i % 2)), y1 = yc - (yc - y0) * 0.25 + (top - yc) * 0.12 * (i % 3);
+        const p1 = V(Math.cos(a) * r1, y1, Math.sin(a) * r1);
+        parts.push(rod(V(0, ys, 0), p1, r0 * 0.36, r0 * 0.16, lite ? 3 : 5));
+        if (lite) { parts.push(rod(p1, V(Math.cos(a) * R * 0.7, y1 + (top - y1) * 0.45, Math.sin(a) * R * 0.7), r0 * 0.16, r0 * 0.06, 3)); continue; }
+        for (const [da, rr, yy] of [[-0.5, 0.72, 0.3], [0.45, 0.66, 0.5], [0.05, 0.45, 0.7]]) {
+            const b = a + da; parts.push(rod(p1, V(Math.cos(b) * R * rr, y1 + (top - y1) * yy * (0.85 + 0.07 * (i % 3)), Math.sin(b) * R * rr), r0 * 0.15, r0 * 0.05, 4));
+        }
+    }
+    return parts;
+}
+/** stem (height h, base radius r0) with scaffold limbs and the branch skeleton (authored for the 5 m stem: near crowns
+ *  sit at local y ≈ 6.3 with ≈ 3.3–4.8 m horizontal radius once instanced) */
 function trunkWithLimbs(h, r0, limbs, sides = 7) {
     const parts = [], t = new THREE.CylinderGeometry(r0 * 0.6, r0, h, sides); t.translate(0, h / 2, 0); parts.push(t);
     for (const [ax, az, len, tilt] of limbs) { const a = Math.atan2(az, ax), b = new THREE.CylinderGeometry(r0 * 0.25, r0 * 0.45, len, 5); b.translate(0, len / 2, 0); b.rotateZ(-tilt * Math.cos(a)); b.rotateX(tilt * Math.sin(a)); b.translate(0, h * 0.92, 0); parts.push(b); }
+    parts.push(...branchSkeleton(h * 0.95, 6.3, 3.0, 8.0, r0));
     return mergeGeos(parts);
 }
 
@@ -77,7 +103,7 @@ export function treeGeometries() {
     const conLow = (() => { const c = new THREE.ConeGeometry(1, 2.4, 6); c.translate(0, 5, 0); c.computeBoundingSphere(); return { geo: c, cy: 5 }; })();
     // one shared stem with limbs (authored 5 m tall; instances scale it to the species' clear stem)
     const trunk = trunkWithLimbs(5, 0.25, [[1, 0.3, 2.6, 0.5], [-0.8, -0.6, 2.4, 0.45], [0.1, 1, 2.2, 0.4]]);
-    const trunkLow = (() => { const t = new THREE.CylinderGeometry(0.15, 0.25, 5, 3, 1, true); t.translate(0, 2.5, 0); return t; })(); // open, 6 tris
+    const trunkLow = (() => { const t = new THREE.CylinderGeometry(0.15, 0.25, 5, 3, 1, true); t.translate(0, 2.5, 0); return mergeGeos([t, ...branchSkeleton(4.75, 6.3, 3.0, 8.0, 0.25, true)]); })(); // open, ≈ 50 tris (stem + 3 limbs)
     GEO = {
         shapes: {
             plane: { ...plane, stem: 7.0, top: 15, rx: 4.3, ry: 3.6, cols: ['#6a9a45', '#5f9140', '#74a14c'] },
@@ -166,7 +192,7 @@ export function buildSpeciesTrees(trees, opts = {}) {
         for (const [list, con] of [[c.dec, false], [c.con, true]]) {
             if (!list.length) continue;
             const m = new THREE.InstancedMesh(con ? G.conLow.geo : G.low.geo, con ? conMat : crownMat, list.length);
-            m.name = `treeCrowns ${k} ${con ? 'conifer' : 'broadleaf'} far`; m.userData.conifer = con;
+            m.name = `treeCrowns ${k} ${con ? 'conifer' : 'broadleaf'} far`; m.userData.conifer = con; m.renderOrder = 0;
             list.forEach((r, i) => { m.setMatrixAt(i, r.fc); m.setColorAt(i, r.c); r.far = { m, i }; });
             m.userData.deciduousMask = new Float32Array(list.length).fill(con ? 0 : 1);
             crownMeshes.push(m); mine.push(m);
@@ -185,7 +211,7 @@ export function buildSpeciesTrees(trees, opts = {}) {
     for (const [name, sh] of Object.entries(G.shapes)) {
         const n = Math.min(maxNear, T.filter(r => r.shape === name).length); if (!n) continue;
         const m = new THREE.InstancedMesh(sh.geo, sh.conifer ? conMat : crownMat, n); m.count = 0;
-        m.name = `treeCrowns near ${name}${sh.conifer ? ' conifer' : ''}`; m.userData.conifer = !!sh.conifer; m.userData.always = true;
+        m.name = `treeCrowns near ${name}${sh.conifer ? ' conifer' : ''}`; m.userData.conifer = !!sh.conifer; m.userData.always = true; m.renderOrder = 1; // (after the far LOD)
         m.frustumCulled = false; m.castShadow = opts.castShadow !== false; m.receiveShadow = true; m.matrixAutoUpdate = false;
         m.instanceColor = new THREE.InstancedBufferAttribute(new Float32Array(n * 3), 3);
         group.add(m); crownMeshes.push(m); nearM[name] = m;
@@ -212,7 +238,8 @@ export function buildSpeciesTrees(trees, opts = {}) {
         for (const r of sel) if (!cur.includes(r)) { r.far.m.setMatrixAt(r.far.i, ZERO); r.farT.m.setMatrixAt(r.farT.i, ZERO); touched.add(r.far.m); touched.add(r.farT.m); }
         for (const m of touched) m.instanceMatrix.needsUpdate = true;
         const k = {}; for (const name in nearM) k[name] = 0; let kt = 0;
-        for (const r of sel) { const m = nearM[r.shape], i = k[r.shape]++; m.setMatrixAt(i, r.nc); m.setColorAt(i, r.c); nearT.setMatrixAt(kt++, r.nt); }
+        // far → near: bare crowns blend in order
+        for (let q = sel.length - 1; q >= 0; q--) { const r = sel[q], m = nearM[r.shape], i = k[r.shape]++; m.setMatrixAt(i, r.nc); m.setColorAt(i, r.c); nearT.setMatrixAt(kt++, r.nt); }
         for (const name in nearM) { const m = nearM[name]; m.count = k[name]; m.instanceMatrix.needsUpdate = true; m.instanceColor.needsUpdate = true; }
         nearT.count = kt; nearT.instanceMatrix.needsUpdate = true;
         cur = sel;

@@ -35,6 +35,7 @@ const mime = { '.js': 'text/javascript', '.json': 'application/json', '.html': '
                 const { Drone } = await import('./src/drone.js'), THREE = await import('./vendor/three.module.min.js');
                 const { colliderDist } = await import('./dev/harness/page/util.js');
                 const decks = w.buildings.filter(c => c.roadDeck), cases = [], errors = [];
+                const lighting = { sunDirection: game.r3d._sunLightDir?.toArray() ?? null, sunElevation: game.r3d.sunElevation, sunAzimuth: game.r3d.sunAzimuth, shadowsEnabled: game.r3d._sunShadows, scope: 'Actual native high summer clear day lighting; shadow review uses these directions only for the matching condition' };
                 let checks = 0;
                 for (const [index, deck] of decks.entries()) {
                     const p = deck.poly.reduce((p, q) => [p[0] + q[0] / 4, p[1] + q[1] / 4], [0, 0]), bottom = deck.minHeightAt(...p), top = deck.roofHeightAt(...p);
@@ -65,7 +66,7 @@ const mime = { '.js': 'text/javascript', '.json': 'application/json', '.html': '
                 if (buildingControls.length < 1) errors.push({ type: 'missing actual source-building positive control' });
                 const expectedBridgePieces = data.scenery?.filter(row => row[3] & 1).length || 0, stats = w.stats.scenerySource?.bridges;
                 if (!stats || stats.bridgePieces !== expectedBridgePieces) errors.push({ type: 'source bridge piece coverage', expectedBridgePieces, actualBridgePieces: stats?.bridgePieces });
-                return { expectedBridgePieces, stats, passiveDecks: decks.length, checks, errors, cases, buildingControls, core: w.allEdges.filter(e => !e.virtual).map(e => ({ road: e.road, sourceId: data.roadSourceGeometry?.[e.road]?.sourceId, a: [e.a.x, e.a.z, e.ya], b: [e.b.x, e.b.z, e.yb], wL: e.wL, wR: e.wR, access: e.access })), frameScope: 'Native current world; production collideBuildings/shared QA/actual Drone._collide method on isolated passive slabs, not claimed flight or navigation travel' };
+                return { expectedBridgePieces, stats, lighting, passiveDecks: decks.length, checks, errors, cases, buildingControls, core: w.allEdges.filter(e => !e.virtual).map(e => ({ road: e.road, sourceId: data.roadSourceGeometry?.[e.road]?.sourceId, a: [e.a.x, e.a.z, e.ya], b: [e.b.x, e.b.z, e.yb], wL: e.wL, wR: e.wR, access: e.access })), frameScope: 'Native current world; production collideBuildings/shared QA/actual Drone._collide method on isolated passive slabs, not claimed flight or navigation travel' };
             });
             const coreSha256 = hash(Buffer.from(JSON.stringify(proof.core))); delete proof.core;
             const record = { gameSourceCommit: commit, district, capturedAt: new Date().toISOString(), coreSha256, dataSha256: hash(fs.readFileSync(path.join(root, 'game/data/' + district + '.json'))), loaded, ...proof, pageErrors: errors, consoleErrors };

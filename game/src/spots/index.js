@@ -15,7 +15,7 @@ import { Crowd } from './people.js';
 import { SpotUI, SpotMap, plaqueMesh } from './ui.js';
 import { SpotSound } from './sound.js';
 import { colliderIndex, LocalWalker, collide } from './walker.js';
-import { countTris, disposeTree, headingFromBearing, inPoly, polyBox, DEG, rng } from './kit.js';
+import { countTris, disposeTree, headingFromBearing, inPoly, polyBox, DEG, rng, distPolyline } from './kit.js';
 
 // ---------------------------------------------------------------------------- registry (Seattle 10 + Bellevue 4; Bucharest added by its builder)
 export const SPOTS_ALL = [
@@ -270,7 +270,7 @@ export async function loadSpot(id, renderer = null, opts = {}) {
         const sp = ctx.spot();
         const fp = globalThis.__spotsLegacy ? null : floorProbe(ctx.scene); ctx.extras.floorProbe = fp;
         // the tour guide (note 67): waits with a flag a few metres from the first spawn until the player joins the tour
-        if (ctx.crowdCfg.tour !== false) { const s0 = Object.values(spawns)[0] || spawn, fx = -Math.sin(s0.heading), fz = -Math.cos(s0.heading);
+        if (ctx.crowdCfg.tour !== false) { const s0 = spawn || Object.values(spawns)[0], fx = -Math.sin(s0.heading), fz = -Math.cos(s0.heading);
             let gx = s0.x + fx * 4 + fz * 2.5, gz = s0.z + fz * 4 - fx * 2.5; if (collide(colliders, gx, gz, 0.4, ctx.ground.heightAt(gx, gz) + 0.2)) { gx = s0.x - fz * 2; gz = s0.z + fx * 2; }
             ctx.crowdCfg = { ...ctx.crowdCfg, groups: [...(ctx.crowdCfg.groups || []), { x: gx, z: gz, r: 0, n: 1, act: 'guide', personas: ['tour_guide'], tour: true, fixedYaw: true, yaw: Math.atan2(s0.x - gx, s0.z - gz) }] }; }
         crowd = new Crowd({ lift: fp?.lift, city: data.city, ground: ctx.ground, dialogue: mergeDialogue(data, ctx.crowdCfg.spots || data.members), general: data.dialogueGeneral, seed: data.id.length * 7, colliders, ...ctx.crowdCfg });
@@ -391,7 +391,7 @@ export class SpotSession {
         this.guide = S.crowd?.peds.find((p) => p.group?.tour) || null;
         if (this.guide) {
             this.guide.driven = true; this.guide.speed = 0;
-            this._guideIt = { kind: 'guide', x: this.guide.x, z: this.guide.z, r: 2.6, label: (s) => (s.tour?.state === 'done' ? 'Thanks for the tour!' : s.tour ? 'Tour guide — follow the flag' : 'Join the free guided tour'), use: (s) => { if (!s.tour) s.startTour(); } };
+            this._guideIt = { kind: 'guide', x: this.guide.x, z: this.guide.z, r: 2.6, label: (s) => (s.tour?.state === 'done' ? 'Thanks for the tour!' : s.tour?.said ? 'Next stop, please' : s.tour ? 'Tour guide — follow the flag' : 'Join the free guided tour'), use: (s) => { if (!s.tour) s.startTour(); else if (s.tour.said && s.tour.state === 'arrive') s.tour.wait = 99; } }; // (E at the guide after the narration: on to the next stop)
             S.interactables.push(this._guideIt);
         }
         // E — talk to people (after round 6): the nearest person in front of the player within reach stops, turns and
@@ -437,10 +437,17 @@ export class SpotSession {
     /** optional guided tour: the guide walks ahead with a flag to each stop (landmark → plaques → activities → postcard), narrates, ticks the checklist */
     startTour() {
         if (!this.guide || this.tour) return;
-        const objs = this.objectives().filter((m) => !m.noTour && m.kind !== 'entrance');
+        // (after round 6) only what belongs to the spot you are in: inside its mapped extent (+40 m) or within 230 m of its
+        // entrance — a scene shared by two spots (Herăstrău + Village Museum) or a far 'hero' view point (Kerry Park, 1.2 km)
+        // sent the guide on a 10-minute walk
+        const sd = this.spot.data.spots?.[this.spot.id], ext = sd?.extent?.polygon?.length ? sd.extent.polygon : null, sp0 = this.spot.spawn || { x: this.guide.x, z: this.guide.z };
+        const near = (m) => (ext ? (inPoly(m.x, m.z, ext) || distPolyline(m.x, m.z, [...ext, ext[0]]).d < 40) : true) && Math.hypot(m.x - sp0.x, m.z - sp0.z) < (ext ? 600 : 230);
+        const objs = this.objectives().filter((m) => !m.noTour && m.kind !== 'entrance' && near(m));
         const stops = []; let cx = this.guide.x, cz = this.guide.z; const pool = objs.filter((m) => m.kind !== 'postcard'), post = objs.filter((m) => m.kind === 'postcard');
-        while (pool.length && stops.length < 7) { let bi = 0, bd = 1e9; pool.forEach((m, i) => { const d = Math.hypot(m.x - cx, m.z - cz) + (m.kind === 'hero' ? -60 : 0); if (d < bd) { bd = d; bi = i; } }); const m = pool.splice(bi, 1)[0]; stops.push(m); cx = m.x; cz = m.z; }
-        if (post[0]) stops.push(post[0]); // finish at the postcard viewpoint
+        let walked = 0; // (after round 6) a tour of a few minutes: ≤ 5 stops and ≈ 350 m of walking, nearest first
+        while (pool.length && stops.length < 5) { let bi = 0, bd = 1e9; pool.forEach((m, i) => { const r = Math.hypot(m.x - cx, m.z - cz), d = r + (m.kind === 'hero' && r < 150 ? -60 : 0); if (d < bd) { bd = d; bi = i; } });
+            const m = pool[bi], leg = Math.hypot(m.x - cx, m.z - cz); if (stops.length && walked + leg > 350) break; pool.splice(bi, 1); walked += leg; stops.push(m); cx = m.x; cz = m.z; }
+        if (post[0] && (Math.hypot(post[0].x - cx, post[0].z - cz) < 160 || !stops.length)) stops.push(post[0]); // finish at the postcard viewpoint (when it's on the way)
         for (const m of stops) { m.done = false; const dry = this.spot.ground.nearestDry(m.x, m.z); m.tx = dry.x; m.tz = dry.z; } // the guide stops next to it
         this.tour = { stops, i: 0, state: 'walk', wait: 0, said: false, t: 0 };
         this.guide.act = 'guide';
@@ -485,7 +492,7 @@ export class SpotSession {
             else if (!wait) {
                 // keeps the player's pace: a stroll when the player is close behind, a jog when the player is ahead
                 const pv = Math.abs(p.vel ?? p.speed ?? 0), ahead = pS < dS;
-                const v = ahead ? Math.min(4.2, Math.max(2.2, pv + 0.6)) : Math.min(2.6, Math.max(1.2, Math.min(pv + 0.3, 0.9 + Math.max(0, 9 - dP) * 0.2)));
+                const v = ahead ? Math.min(4.5, Math.max(2.6, pv + 0.6)) : Math.min(3.0, Math.max(1.7, Math.min(pv + 0.5, 1.4 + Math.max(0, 9 - dP) * 0.2))); // (brisker: a tour is a few minutes, not ten)
                 let dx = (st.tx - G.x) / dS, dz = (st.tz - G.z) / dS;
                 const cols = this.spot.colliders; let nx = G.x + dx * v * dt, nz = G.z + dz * v * dt;
                 for (const turn of [0, 0.7, -0.7, 1.4, -1.4]) { const c = Math.cos(turn), s2 = Math.sin(turn), ex = dx * c - dz * s2, ez = dx * s2 + dz * c; nx = G.x + ex * v * dt; nz = G.z + ez * v * dt; if (!collide(cols, nx, nz, 0.3, G.y + 0.3)) { dx = ex; dz = ez; break; } }
@@ -495,7 +502,7 @@ export class SpotSession {
         }
         if (T.state === 'arrive') {
             G.speed = 0; G.yaw = Math.atan2(st.x - G.x, st.z - G.z); T.wait += dt;
-            if (dP < 10 && !T.said) { // narration: the guide's bubble + the full line in a toast
+            if ((dP < 10 || T.wait > 8) && !T.said) { // narration: the guide's bubble + the full line in a toast (also when you hang back)
                 T.said = true; const text = st.kind === 'hero' ? (st.blurb || st.label) : st.kind === 'plaque' ? (st.text || st.label) : st.kind === 'postcard' ? 'Best photo of the day from right here — ' + (st.text || 'the classic view') : st.label;
                 this._guideBubble?.remove(); // at most one guide bubble at a time
                 this._guideBubble = this.ui.bubbles?.say(this.spot.crowd?._headRef?.(G) || G, st.kind === 'hero' ? 'Here it is!' : st.kind === 'postcard' ? 'Photo time!' : 'Look here…', '', 'friendly');

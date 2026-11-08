@@ -12,7 +12,7 @@ export function lanesDir(e, dir) {
     if (e.oneway) return 0;
     return e.lanesB ?? e.lanes ?? 1;
 }
-export const canTravel = (e, dir) => e.publicDrive !== false && lanesDir(e, dir) > 0;
+export const canTravel = (e, dir) => !e.virtual && e.publicDrive !== false && lanesDir(e, dir) > 0;
 export const edgeSpeed = (e) => e.maxspeed ?? e.speed ?? 13;
 export const nodeList = (graph) => Array.isArray(graph.nodes) ? graph.nodes : Object.values(graph.nodes);
 const MOTOR = new Set(['highway', 'motorway', 'motorway_link', 'trunk', 'trunk_link', 'ramp']);
@@ -110,7 +110,7 @@ export class Navigator {
         this.world = world;
         this.graph = world.graph;
         this.nodes = nodeList(world.graph);
-        this.index = new EdgeIndex(world.graph.edges.filter(e => e.publicDrive !== false));
+        this.index = new EdgeIndex(world.graph.edges.filter(e => !e.virtual && e.publicDrive !== false));
         this.nid = new Map(); this.nodes.forEach((n, i) => this.nid.set(n, i));
         this.markMainComponent();
         this.route = null; this.dest = null; this.offTimer = 0; this.progress = 0; this.segIdx = 0;
@@ -166,7 +166,7 @@ export class Navigator {
     /** A* on travel time. heading (optional) penalises starting against the player's heading. */
     compute(fx, fz, tx, tz, heading = null, fy = null) {
         // on foot (nav.walking): every street both ways (no one-way rules), walking pace, no heading penalty; motorways excluded
-        const W = !!this.walking, canTravelW = (e, dir) => W ? !isMotorway(e) : canTravel(e, dir), speedW = (e) => W ? 1.5 : edgeSpeed(e);
+        const W = !!this.walking, canTravelW = (e, dir) => W ? !e.virtual && e.publicDrive !== false && !isMotorway(e) : canTravel(e, dir), speedW = (e) => W ? 1.5 : edgeSpeed(e);
         if (W) heading = null;
         const main = (e) => e.main !== false;
         // start on the road at the car's level (a bridge deck above / a street below is not where we are)
@@ -257,7 +257,7 @@ export class Navigator {
             // a block (the street network has no crossing links) is walked straight across
             for (const st of route.steps) if (st.type === 'uturn') st.type = 'sharp';
             const dd = Math.hypot(tx - fx, tz - fz);
-            if (dd < 120 && route.total > dd * 1.6) return { points: [[fx, fz], [tx, tz]], cum: [0, dd], total: dd, steps: [{ at: dd, type: 'arrive', name: '', x: tx, z: tz }], legs: [legs[0]] };
+            if (this.world.data?.roadGeometryPolicy !== 'source' && dd < 120 && route.total > dd * 1.6) return { points: [[fx, fz], [tx, tz]], cum: [0, dd], total: dd, steps: [{ at: dd, type: 'arrive', name: '', x: tx, z: tz }], legs: [legs[0]] };
         }
         return route;
     }

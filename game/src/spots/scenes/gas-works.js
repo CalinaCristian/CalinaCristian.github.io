@@ -98,7 +98,12 @@ function buildPlayBarn(ctx) {
 }
 function buildKiteHill(ctx) {
     const g = ctx.ground;
-    g.mod((x, z, h) => { const d = Math.hypot(x - KITE.x, z - KITE.z); return d > KITE.r ? h : h + KITE.h * Math.pow(Math.cos(d / KITE.r * Math.PI / 2), 1.6) * smooth(KITE.r, KITE.r * 0.2, d) + 0.0; });
+    // Kite Hill (after round 6: the mound rode on the 20 m DEM's bumps and creased like crumpled paper): the base under the
+    // hill is levelled to the mean DEM height round the rim, then one smooth mound rises from it
+    { let B = 0, n = 0; for (let i = 0; i < 16; i++) { const a = i / 16 * Math.PI * 2; B += g.heightAt(KITE.x + Math.cos(a) * KITE.r, KITE.z + Math.sin(a) * KITE.r); n++; } B /= n;
+      g.mod((x, z, h) => { const d = Math.hypot(x - KITE.x, z - KITE.z); if (d > KITE.r * 1.15) return h;
+          const flat = smooth(KITE.r * 1.15, KITE.r * 0.7, d), base = h + (B - h) * flat;
+          return base + (d < KITE.r ? KITE.h * Math.pow(Math.cos(d / KITE.r * Math.PI / 2), 1.6) * smooth(KITE.r, KITE.r * 0.2, d) : 0); }); }
     // the mosaic sundial on top (stylised pattern, not a copy of the artwork): concentric rings + radial hour marks
     ctx.painter.custom((x, T, k, isMask) => {
         if (isMask) return;

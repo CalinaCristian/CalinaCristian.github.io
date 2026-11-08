@@ -1,0 +1,115 @@
+{
+  "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+  "district": "romana",
+  "condition": {
+    "season": "winter",
+    "weather": "snow",
+    "time": "day"
+  },
+  "frames": 9,
+  "sheets": 2,
+  "failures": [],
+  "metrics": [
+    {
+      "id": "ase-street",
+      "sha256": "b4d66fff82b56c4b397872351ee0002aea56238b6425bbd48aa2789cdc501647",
+      "rgbStddev": [
+        30.955260610271534,
+        30.506257635889032,
+        30.764571084358565
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": true
+    },
+    {
+      "id": "ambasador-street",
+      "sha256": "8ef7d0af6326be6243cb4306f123c4dafea8e2da08021ed3c84b21e6cf8b949b",
+      "rgbStddev": [
+        28.351299212863097,
+        25.03636678969119,
+        21.093790732231263
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": true
+    },
+    {
+      "id": "europehouse-street",
+      "sha256": "9abb09ab7ff700cdaeb54d0b5de157a1e391761c25507e343c541b6f297fcb22",
+      "rgbStddev": [
+        23.240423627680318,
+        22.49231415181375,
+        21.98931618534682
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": true
+    },
+    {
+      "id": "drone-edge-west",
+      "sha256": "5df700a56d72fb71a7e23d8f1a81919a9271ae32e2ca8b346501434da04a9584",
+      "rgbStddev": [
+        16.525499056235237,
+        16.83732919614822,
+        17.653935079932918
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "drone-edge-east",
+      "sha256": "af5c9007bde5969e0a32aa8017e2dcd020f3698afbe92961bfb8d3e3a4c44ff6",
+      "rgbStddev": [
+        16.72725942834719,
+        17.265442199489286,
+        18.19706050355523
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "drone-edge-north",
+      "sha256": "65fd321ede451f1020eb60af7000dbde38e3fc8387183bb7b7403fababf488cc",
+      "rgbStddev": [
+        15.6130964135528,
+        15.737621257793613,
+        16.127323139787677
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "drone-edge-south",
+      "sha256": "6113ea0045eedfedc9e00433522da251aaff8adc3ad6b6a25df0041a9798971a",
+      "rgbStddev": [
+        17.739441585790242,
+        18.22596854684459,
+        18.722843609006127
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "chapter-arnia-street",
+      "sha256": "867189ed2e6ec802f2b8fbb690572ce4032a249e2d2504647c21a707f22f5d79",
+      "rgbStddev": [
+        35.13204590920574,
+        35.213898942182745,
+        35.7217484751224
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "chapter-uipath-buc-street",
+      "sha256": "019fff86799f2eb029708b27834f5a605177ca4031ea5e8f2c4512272cccdd95",
+      "rgbStddev": [
+        35.587881682815635,
+        36.72700493197516,
+        37.83383120763825
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    }
+  ],
+  "rawSourceContactHits": 168,
+  "note": "Capture integrity checks only. Sheets require actual human/model visual review; raw contacts and source/visual gaps are not dismissed by this result. No controller, complete scene-clearance or driving/mirror budget pass claimed."
+}

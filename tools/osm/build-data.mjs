@@ -38,6 +38,7 @@
 //    trams: [delta, ...]                             railway=tram centre lines
 //    buildings: [[style, heightDm, minHeightDm, roof, name, flags, levels, colour, roofColour, ...delta ring], ...]
 //    buildingHoles: { buildingIndex: [deltaRing, ...] } optional mapped courtyards; same dm coordinates, no header
+//    buildingCoveredBy: { baseIndex: coveringPartIndex } exact full-footprint, full-height ground part; both records kept
 //        (version 2) levels = building:levels (0 unknown), colour / roofColour = string index of '#rrggbb' (-1 none)
 //        style index into `styles`, roof index into `roofs` (flat|pyramid|gabled|dome|hipped|skillion|mansard),
 //        flags: 1 ground-floor shop band, 2 has a sign (name = sign text), 4 tall landmark-ish,
@@ -949,6 +950,13 @@ function buildCity(cityId, did = null) {
         return distPointSeg(p[0], p[1], a[0], a[1], b[0], b[1]).d > 0.05;
     });
     const solidAt = (x, z, ring, holes = []) => pointInPolygon(x, z, ring) && !holes.some(h => pointInPolygon(x, z, h));
+    const ringKey = (ring) => { // exact cyclic/reversed equality, not a proximity or bounding-box match
+        const r = ring.slice(); if (r.length > 1 && r[0][0] === r.at(-1)[0] && r[0][1] === r.at(-1)[1]) r.pop();
+        const tokens = r.map(p => p.join(',')), variants = [];
+        for (const seq of [tokens, tokens.slice().reverse()]) for (let i = 0; i < seq.length; i++) variants.push(seq.slice(i).concat(seq.slice(0, i)).join(';'));
+        return variants.sort()[0] || '';
+    };
+    const footprintKey = (outer, holes = []) => ringKey(outer) + '|' + holes.map(ringKey).sort().join('|');
     const ringsCross = (a, b) => {
         const side = (p, q, r) => ((q[0] - p[0]) * (r[1] - p[1]) - (q[1] - p[1]) * (r[0] - p[0])) / Math.max(1e-9, Math.hypot(q[0] - p[0], q[1] - p[1]));
         for (let i = 0; i < a.length; i++) for (let j = 0; j < b.length; j++) {
@@ -1282,7 +1290,7 @@ function buildCity(cityId, did = null) {
         }
         if (measuredRoof) flags |= 16; // an OSM/aerial roof shape was actually applied; unsupported mixed/round tags are not a measurement of the fallback
         if (outside) flags |= 32; // outside the playable area (scenery ring)
-        const rec = { style, h, minH: Math.min(minH, h - 1), roof, name, brand, flags, ring, holes, c: c2, area: Math.abs(polyArea(ring)), t, levels: isFinite(levels) ? Math.round(levels) : 0, colour, roofColour, la, lo,
+        const rec = { style, h, minH: Math.min(minH, h - 1), roof, name, brand, flags, ring, holes, sourceFootprint: footprintKey(lls, rb.holesLL || []), c: c2, area: Math.abs(polyArea(ring)), t, levels: isFinite(levels) ? Math.round(levels) : 0, colour, roofColour, la, lo,
             hSrc: t.__hRes === 1 ? 1 : t.__hRes === 2 ? 2 : (isFinite(num(t.height)) || isFinite(levels)) ? 0 : 2 };
         let x0 = Infinity, z0 = Infinity, x1 = -Infinity, z1 = -Infinity; for (const [x, z] of ring) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); }
         bGrid.insertBox(x0, z0, x1, z1, rec);
@@ -1598,6 +1606,22 @@ function buildCity(cityId, did = null) {
     });
     const outBuildingHoles = Object.fromEntries(buildings.flatMap((b, i) => b.holes?.length ? [[i, b.holes.map(delta)]] : []));
     if (Object.keys(outBuildingHoles).length) log('building courtyards', Object.keys(outBuildingHoles).length, 'buildings,', Object.values(outBuildingHoles).reduce((n, hs) => n + hs.length, 0), 'inner rings');
+    // A building outline plus a complete mapped part can describe the same body. Keep both source records for audits,
+    // and identify only an unambiguous exact ground/full-height cover for runtime suppression of the duplicate facade.
+    const outBuildingCoveredBy = {}, sourceGroups = new Map();
+    const isPart = b => b.t?.['building:part'] && b.t['building:part'] !== 'no';
+    const ground = b => b.minH === 0 && ['min_height', 'building:min_level', 'layer', 'level'].every(k => b.t?.[k] == null || /^[+-]?0(?:\.0+)?(?:\s*m)?$/.test(String(b.t[k]).trim()));
+    const taggedPartHeight = b => b.hSrc === 0 && ((/^\+?\d+(?:\.\d+)?(?:\s*m)?$/.test(String(b.t.height).trim()) && num(b.t.height) > 0) || (/^\d+$/.test(String(b.t['building:levels']).trim()) && num(b.t['building:levels']) > 0));
+    const quantizedFootprint = b => footprintKey(b.ring.map(([x, z]) => [Math.round(x * 10), Math.round(z * 10)]), (b.holes || []).map(h => h.map(([x, z]) => [Math.round(x * 10), Math.round(z * 10)])));
+    buildings.forEach((b, i) => { if (!b.sourceFootprint) return; let g = sourceGroups.get(b.sourceFootprint); if (!g) sourceGroups.set(b.sourceFootprint, g = []); g.push({ b, i }); });
+    for (const group of sourceGroups.values()) {
+        const bases = group.filter(({ b }) => !isPart(b)); if (bases.length !== 1) continue;
+        const base = bases[0]; if (!ground(base.b)) continue;
+        const q = quantizedFootprint(base.b);
+        const parts = group.filter(({ b }) => isPart(b) && ground(b) && taggedPartHeight(b) && b.h >= base.b.h && quantizedFootprint(b) === q);
+        if (parts.length === 1) outBuildingCoveredBy[base.i] = parts[0].i;
+    }
+    if (Object.keys(outBuildingCoveredBy).length) log('building outlines covered by exact ground parts', Object.keys(outBuildingCoveredBy).length);
     // scenery streets: [carriagewayWidthDm, sidewalkDm, classIdx, flags (1 bridge, 2 inside-the-area fragment), delta…]
     const outScenery = [];
     for (const { r, pts, inside } of scenery) {
@@ -1658,7 +1682,7 @@ function buildCity(cityId, did = null) {
         bounds: [minX, minZ, maxX, maxZ],
         classes: ROAD_CLASSES, styles: STYLES, roofs: ROOFS, poiKinds: POI_KINDS, areaKinds: AREA_KINDS, lineKinds: LINE_KINDS, furnKinds: FURN_KINDS,
         strings,
-        nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, roadInfo, rampLimits, vacant, buildings: outB, buildingInfo: outBInfo, ...(ds ? { buildingIds: buildings.map(b => b.t?.__id || '') } : {}), ...(Object.keys(outBuildingHoles).length ? { buildingHoles: outBuildingHoles } : {}), pois: outP, areas: outA, lines: outLines, places, lamps,
+        nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, roadInfo, rampLimits, vacant, buildings: outB, buildingInfo: outBInfo, ...(ds ? { buildingIds: buildings.map(b => b.t?.__id || '') } : {}), ...(Object.keys(outBuildingHoles).length ? { buildingHoles: outBuildingHoles } : {}), ...(Object.keys(outBuildingCoveredBy).length ? { buildingCoveredBy: outBuildingCoveredBy } : {}), pois: outP, areas: outA, lines: outLines, places, lamps,
         trees: outTrees, treeInfo: outTreeInfo, furniture: outFurn, backdrop, ...(ds ? { scenery: outScenery } : {}), ...(outGreen ? { green: outGreen } : {}),
         ...(parking.length ? { parking } : {}), ...(treeCoverage ? { treeCoverage } : {}),
         corridor: { areaKm2: +cor.areaKm2.toFixed(2), legs: cor.legs.map(l => [l.label, l.km]) },

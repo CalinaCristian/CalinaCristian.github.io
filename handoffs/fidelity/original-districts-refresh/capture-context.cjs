@@ -7,6 +7,7 @@ const root = path.resolve(arg('root')), out = path.resolve(arg('out')), district
 const season = arg('season') || 'summer', weather = arg('weather') || 'clear', time = arg('time') || 'day';
 if (!/^[a-f0-9]{40}$/.test(commit)) throw Error('Provide the complete immutable source commit');
 const hash = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
+const captureToolSha256=hash(fs.readFileSync(__filename));
 const write = (name, value) => fs.writeFileSync(path.join(out, name), JSON.stringify(value, null, 2) + '\n');
 fs.mkdirSync(out, {recursive:true}); fs.mkdirSync(path.join(out,'images'), {recursive:true});
 const mime={'.html':'text/html','.js':'text/javascript','.json':'application/json','.css':'text/css','.jpg':'image/jpeg','.png':'image/png','.svg':'image/svg+xml','.webp':'image/webp','.bin':'application/octet-stream'};
@@ -63,7 +64,7 @@ const mime={'.html':'text/html','.js':'text/javascript','.json':'application/jso
     write('source-contact-probe.json',{gameSourceCommit:commit,district,...contacts});
     console.log('source contact probe',contacts.edges,'edges',contacts.points,'points',contacts.hits.length,'raw source hits');
     let views=await page.evaluate(async district=>{
-      const THREE=await import('./vendor/three.module.min.js'), g=game, data=await(await fetch('./data/bucharest-'+district+'.json')).json();
+      const THREE=await import('./vendor/three.module.min.js'), {collideBuildings}=await import('./src/world.js'), g=game, data=await(await fetch('./data/bucharest-'+district+'.json')).json();
       const {createFlightBoundary}=await import('./src/drone-boundary.js');
       window.contextFlightBoundary=createFlightBoundary(g.world.district.flightBoundary);window.contextProjection=data.proj;
       const views=[];
@@ -72,9 +73,23 @@ const mime={'.html':'text/html','.js':'text/javascript','.json':'application/jso
         const r=Math.max(box.max.x-box.min.x,box.max.z-box.min.z,box.max.y-box.min.y,30);
         for(const [tag,dx,dz] of [['context',.85,1.25],['opposite',-.85,-1.25]])views.push({id:lm.id+'-'+tag,label:lm.label+' in district context',kind:'landmark-context',landmark:lm.id,x:c.x+dx*r,z:c.z+dz*r,y:Math.max(25,Math.min(150,(box.max.y-box.min.y)*.65+20)),target:[c.x,Math.min(box.max.y*.45,80),c.z],fov:70});
         if(['ambasador','europehouse','ase','rosetti','dinamo','politehnica'].includes(lm.id)){
-          const near=g.world.nearestEdge(lm.x,lm.z,e=>!e.virtual&&!e.bridge&&!e.tunnel&&e.publicDrive!==false&&e.type!=='service',350);
-          if(near){const e=near.edge,t=near.t,x=e.a.x+(e.b.x-e.a.x)*t,z=e.a.z+(e.b.z-e.a.z)*t,dx=lm.x-x,dz=lm.z-z,len=Math.hypot(dx,dz)||1,off=Math.max(e.wL,e.wR)+1.1;
-            views.push({id:lm.id+'-street',label:lm.label+' from its actual public street',kind:'street',landmark:lm.id,sourceEdge:e.id,x:x+dx/len*off,z:z+dz/len*off,y:1.7,target:[lm.x,Math.min(box.max.y*.22,9),lm.z],fov:85});}
+          const candidates=[];
+          for(const e of g.world.allEdges){
+            if(e.virtual||e.bridge||e.tunnel||e.publicDrive===false||e.type==='service')continue;
+            const dx=e.b.x-e.a.x,dz=e.b.z-e.a.z,ll=dx*dx+dz*dz;if(!ll)continue;
+            const projected=Math.max(0,Math.min(1,((c.x-e.a.x)*dx+(c.z-e.a.z)*dz)/ll));
+            for(const along of [0,-12,12,-25,25]){
+              const t=Math.max(0,Math.min(1,projected+along/e.len)),x=e.a.x+dx*t,z=e.a.z+dz*t,range=Math.hypot(x-c.x,z-c.z);
+              if(range>350)continue;
+              const ground=g.world.roadHeight(x,z,e);
+              if(collideBuildings(g.world.buildings,x,z,.25,ground+.05,1.7))continue;
+              candidates.push({e,t,x,z,ground,range});
+            }
+          }
+          candidates.sort((a,b)=>a.range-b.range||a.e.id-b.e.id);
+          const near=candidates[0];if(!near)throw Error('No clear actual public-road camera body for '+lm.id);
+          const {e,x,z,ground}=near;
+          views.push({id:lm.id+'-street',label:lm.label+' from its actual public street',kind:'street',landmark:lm.id,sourceEdge:e.id,sourceRoadId:data.roadSourceGeometry?.[e.road]?.sourceId,x,z,y:1.7,absoluteY:ground+1.7,target:[c.x,Math.max(1.7,Math.min(box.max.y*.22,9)),c.z],fov:85,cameraBodyValidation:{method:'Production collideBuildings at actual public source-road centre and its exact native roadHeight, before capture; no offset toward or through the source facade',radiusM:.25,footY:ground+.05,heightM:1.7,clear:true}});
         }
         lm.mesh.traverse(source=>{
           const pitch=source.userData.footballPitch;
@@ -137,21 +152,21 @@ const mime={'.html':'text/html','.js':'text/javascript','.json':'application/jso
         const THREE=await import('./vendor/three.module.min.js'),g=game,S=vqa.S,cam=g.camera;
         g.player.place(v.x,v.z,0);g.traffic.setPlayer(g.player);for(let i=0;i<30;i++)g.traffic.update(1/30);g.traffic.peds?.writeMatrices?.();
         g.scene.add(cam);g.world.camera=cam;if(g.player.rig)g.player.rig.visible=false;
-        const ground=g.world.groundAt?.(v.x,v.z)||0;cam.position.set(v.x,ground+v.y,v.z);cam.lookAt(...v.target);cam.fov=v.fov;cam.aspect=1.5;cam.updateProjectionMatrix();cam.updateMatrixWorld(true);
+        const ground=v.kind==='street'?g.world.roadHeight(v.x,v.z):0;cam.position.set(v.x,Number.isFinite(v.absoluteY)?v.absoluteY:ground+v.y,v.z);cam.lookAt(...v.target);cam.fov=v.fov;cam.aspect=1.5;cam.updateProjectionMatrix();cam.updateMatrixWorld(true);
         vqa.hideHud(true);for(const el of document.body.children)if(el!==g.renderer.domElement&&!el.contains(g.renderer.domElement))el.style.visibility='hidden';
         S.renderNow=true;try{g.drawFrame({mirror:false});g.renderer.info.reset();g.drawFrame({mirror:false});}finally{S.renderNow=false;}
         const p=window.contextProjection;
         const direction=cam.getWorldDirection(new THREE.Vector3());
         const heading=(Math.atan2(direction.x,-direction.z)*180/Math.PI+360)%360,pitch=Math.asin(Math.max(-1,Math.min(1,direction.y)))*180/Math.PI;
         const nearPeds=(g.traffic.peds?.list||[]).filter(p=>Math.hypot(p.x-v.x,p.z-v.z)<60).map(p=>({x:p.x,z:p.z,state:p.state,onRoad:p.onRoad,sourceRoadId:g.world.data.roadSourceGeometry?.[p.e?.road]?.sourceId??null}));
-        return {cameraY:cam.position.y,groundY:ground,heading,pitch,aspect:cam.aspect,pose:{x:cam.position.x,y:cam.position.y,z:cam.position.z,heading,pitch,fov:cam.fov,aspect:cam.aspect,quaternion:cam.quaternion.toArray()},perf:{...g.r3d.stats},inPlayable:g.world.district.inside(v.x,v.z),inFlightEnvelope:window.contextFlightBoundary.allowed({x:v.x,z:v.z}),distanceFromFlightDomainM:window.contextFlightBoundary.sample(v.x,v.z).distance,pedestriansWithin60m:nearPeds,vehiclesWithin60m:g.traffic.vehicles.filter(c=>Math.hypot(c.x-v.x,c.z-v.z)<60).length,lat:p.lat0-v.z/p.mPerLat,lon:p.lon0+v.x/p.mPerLon};
+        return {cameraY:cam.position.y,groundY:ground,heading,pitch,aspect:cam.aspect,pose:{x:cam.position.x,y:cam.position.y,z:cam.position.z,heading,pitch,fov:cam.fov,aspect:cam.aspect,quaternion:cam.quaternion.toArray()},observedConditions:{gameClockOverride:g.clock.override,rendererClockOverride:g.r3d.clock?.override,seasonOverride:g.r3d._seasonOverride,weatherOverride:g.r3d._wxOverride,weather:g.r3d.weather,season:g.r3d._season,sunElevation:g.r3d.sunElevation},perf:{...g.r3d.stats},inPlayable:g.world.district.inside(v.x,v.z),inFlightEnvelope:window.contextFlightBoundary.allowed({x:v.x,z:v.z}),distanceFromFlightDomainM:window.contextFlightBoundary.sample(v.x,v.z).distance,pedestriansWithin60m:nearPeds,vehiclesWithin60m:g.traffic.vehicles.filter(c=>Math.hypot(c.x-v.x,c.z-v.z)<60).length,lat:p.lat0-v.z/p.mPerLat,lon:p.lon0+v.x/p.mPerLon};
       },view);
       const image='images/'+view.id+'.jpg';await page.screenshot({path:path.join(out,image),type:'jpeg',quality:88,timeout:180000});
       results.push({...view,...observed,image,width:960,height:640,gameSourceCommit:commit,capturedAt:new Date().toISOString(),sha256:hash(fs.readFileSync(path.join(out,image))),captureType:'game-perspective-context',comparisonCompatible:false,staticCamera:true,controllerExercised:false,condition:{season,weather,time,quality:'high',traffic:true,mirror:false}});
       write('progress.json',{captured:results.length,total:views.length,last:view.id});console.log('capture',results.length+'/'+views.length,view.id);
     }
     write('world-stats.json',await page.evaluate(()=>game.world.stats));
-    write('manifest.json',{schemaVersion:1,captureType:'game-perspective-context',comparisonCompatible:false,gameSourceCommit:commit,district,season,weather,time,quality:'high',traffic:true,mirror:false,scope:'Game-only static cameras in the complete running district. Outward envelope poses do not exercise the drone controller. Counts are per camera and are separate from full driving/mirror budget acceptance.',loaded,pageErrors:errors,consoleErrors,items:results});
+    write('manifest.json',{schemaVersion:1,captureType:'game-perspective-context',comparisonCompatible:false,gameSourceCommit:commit,captureTool:{name:'capture-context.cjs',sha256:captureToolSha256},district,season,weather,time,quality:'high',traffic:true,mirror:false,scope:'Game-only static cameras in the complete running district. Outward envelope poses do not exercise the drone controller. Counts are per camera and are separate from full driving/mirror budget acceptance.',loaded,pageErrors:errors,consoleErrors,items:results});
     if(errors.length||consoleErrors.length)process.exitCode=1;
   } finally {await browser.close();await new Promise(resolve=>server.close(resolve));}
 })().catch(error=>{console.error(error);process.exitCode=1;});

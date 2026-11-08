@@ -67,6 +67,12 @@ const forkRows = [
 ];
 out = resolve(fixture(forkRows));
 assert.equal(out.stats.unresolved.length, 0); assert.equal(out.stats.continuations.filter(c => c.kind.includes('parallel approach fork')).length, 2); checks += 2;
+// The actual SR99 four-arm topology also contains an already eligible motorway-link merge.
+out = resolve(fixture([...forkRows, { id: 'w5', points: [[0, 0], [40, 50]], ids: [1, 8], tags: {}, cls: 1 }]));
+assert.equal(out.stats.unresolved.length, 0); assert.equal(out.stats.continuations.filter(c => c.kind.includes('parallel approach fork')).length, 2); checks += 2;
+// A different ordinary road at the same four-arm mouth remains a real ground cap.
+out = resolve(fixture([...forkRows, { id: 'w5', points: [[0, 0], [40, 50]], ids: [1, 8], tags: { name: 'Cross street' }, cls: 0 }]));
+assert.ok(out.stats.unresolved.length > 0); assert.equal(out.stats.continuations.some(c => c.kind.includes('parallel approach fork')), false); checks += 2;
 // Neither different names, a transverse arm, another class nor an elevated approach proves a fork.
 for (const replacement of [
     { tags: { name: 'Side Street' } },

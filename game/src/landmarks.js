@@ -1675,7 +1675,18 @@ function bAmbasador(b) {
     // bounding-box tiers hung over the notch in the plan).
     b.wall = '#e9e3d4';
     const [p] = P.ambasador.map(pts), S = '#e9e3d4', T = '#d8d1c0', GL = '#38424c', bb = bbox([p]), cx = (bb.x0 + bb.x1) / 2, cz = (bb.z0 + bb.z1) / 2;
-    const tiers = [[p, 0, 25], [rect(-18, -11, 20, 15), 25, 34], [rect(cx - 13, cz - 9, cx + 13, cz + 7), 34, 40.5], [rect(cx - 8, cz - 6, cx + 8, cz + 4), 40.5, 46]];
+    // Clip every tier to the supported footprint below it, including the concave notch.
+    const clipped = (poly, x0, z0, x1, z1) => {
+        for (const [axis, edge, sign] of [[0, x0, 1], [0, x1, -1], [1, z0, 1], [1, z1, -1]]) {
+            const out = []; for (let i = 0; i < poly.length; i++) {
+                const a = poly[i], c = poly[(i + 1) % poly.length], ia = (a[axis] - edge) * sign >= 0, ic = (c[axis] - edge) * sign >= 0;
+                if (ia) out.push(a);
+                if (ia !== ic) { const t = (edge - a[axis]) / (c[axis] - a[axis]); out.push([a[0] + (c[0] - a[0]) * t, a[1] + (c[1] - a[1]) * t]); }
+            } poly = out;
+        } return poly;
+    };
+    const t1 = clipped(p, -18, -11, 20, 15), t2 = clipped(t1, cx - 13, cz - 9, cx + 13, cz + 7), t3 = clipped(t2, cx - 8, cz - 6, cx + 8, cz + 4);
+    const tiers = [[p, 0, 25], [t1, 25, 34], [t2, 34, 40.5], [t3, 40.5, 46]];
     for (const [q, y0, y1] of tiers) {
         b.prism(q, y0, y1, S, { topCol: '#bdb6a8' });
         b.windows(q, y0 + (y0 ? 0.4 : 4.2), y1 - 0.3, 3.1, GL, { bay: 2.9, wf: 0.46, hf: 0.52, start: 0.6, minL: 3, mat: 'g', off: 0.06 });
@@ -1685,7 +1696,7 @@ function bAmbasador(b) {
     b.windows(p, 0.4, 3.8, 3.8, '#2c3238', { bay: 4.2, wf: 0.78, hf: 0.82, start: 0.1, minL: 4, mat: 'g', off: 0.08 });
     b.box(cx, 46, cz - 1, 6, 3, 6, S); b.cyl(cx, 49, cz - 1, 0.2, 0.2, 5, '#bbb', 6);
     b.box(cx + 12, 8, bb.z0 - 0.9, 2.2, 22, 0.8, '#b52b2b');                                          // vertical "AMBASADOR" sign
-    b.text('AMBASADOR', cx, 46.6, cz + 4.05, Math.PI, 1.3, '#d22b2b');                                  // name on the roof crown
+    b.text('AMBASADOR', cx, 46.6, cz + 4.05, 0, 1.3, '#d22b2b');                                        // faces Magheru (local +z)
     b.colPoly([p], 15);
 }
 

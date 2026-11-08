@@ -31,7 +31,8 @@ that chapter of the CV.
   with the real Otopeni → Sea-Tac great-circle route, and a "Here" tab to fast-travel by clicking a street. Jumping to
   another district or a tourist spot leaves the story for free roam (no objective); a **📖 Resume story · Chapter N**
   chip brings the objective, navigation and chapter cards back where you left them. Change the **time of day, weather
-  and season live** with `K` or the ☀️ conditions panel (also on phones).
+  and season live** with `K`, the ☀️ conditions panel, or **Pause → Settings → Time, weather & season**. Selected conditions
+  follow world-map district travel (also on phones).
 - **Drone.** On foot (districts and spots), G deploys a drone with its own camera HUD, rotor sound, Cine / Normal / Sport
   speeds, real EU / FAA limits (120 m / 400 ft ceiling, ~800 m range, 10-minute battery with return-home) and photo mode;
   T flies you to the spot under it, G lands it back in your hand. There are hidden interactions to discover with it,

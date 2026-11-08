@@ -1964,6 +1964,7 @@ class Game {
         else if (view === 'settings') {
             const q = this.quality, u = this.loadStr('units', 'auto'), sens = this.input.sens ?? 1, vol = this.audio.volume ?? 1;
             body = `<div class="pm-set">
+${['drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa="conditions">☀️ Time, weather & season</button>' : ''}
 <label>Graphics quality <select data-set="quality">${['auto', 'ultra', 'high', 'medium', 'low'].map(x => `<option value="${x}"${x === q ? ' selected' : ''}>${x[0].toUpperCase() + x.slice(1)}</option>`).join('')}</select></label>
 <label>Mouse / touch look sensitivity <input type="range" data-set="sens" min="0.3" max="2.5" step="0.05" value="${sens}"></label>
 <label class="cb"><input type="checkbox" data-set="invert"${this.input.invertY ? ' checked' : ''}> Invert vertical look</label>
@@ -2043,13 +2044,21 @@ class Game {
     /** time-of-day pick → clock: rush / noon shift the real clock to that local hour (real sun), golden hour / night use the render looks */
     applyRoamTime(tod, timeZone) {
         const c = this.clock; c.offsetMs = 0; c.override = null;
-        const H = tod === 'rush' ? 8.5 : tod === 'noon' ? 12.5 : null;
+        const H = tod === 'dawn' ? 6.5 : tod === 'rush' ? 8.5 : tod === 'noon' ? 12.5 : /^h\d/.test(tod) ? Number(tod.slice(1)) : null;
         if (H != null) { const h0 = localHours(new Date(), timeZone); c.offsetMs = (((H - h0) % 24 + 24) % 24) * 3600e3; }
         else if (tod === 'golden') c.override = 'sunset';
         else if (tod === 'night') c.override = 'night';
+        else if (tod === 'dusk' || tod === 'day') c.override = tod;
+    }
+    /** Explicit conditions travel with the player; live time/weather remain local to the destination. */
+    travelConditions() {
+        const c = this.clock, pick = c.override === 'sunset' ? 'golden' : c.override;
+        return { tod: this.freeRoam?.tod ?? pick ?? (c.offsetMs ? 'h' + localHours(this.nowDate(), c.timeZone) : 'now'),
+            weather: this.weatherOverride || 'live', season: this.r3d?._seasonOverride || 'auto' };
     }
     /** free roam in a district: the car at the district's chapter start, no objective, no chapter cards / story progress */
-    async startFreeRoam(districtId, { tod = 'now', weather = 'live' } = {}) {
+    async startFreeRoam(districtId, options = {}) {
+        const { tod, weather, season } = { ...this.travelConditions(), ...options };
         this.explore?.hooks?.abortDrone?.();
         const d = this.roamDistricts().find(x => x.id === districtId); if (!d || this._transit) return false;
         if (this.state === 'menu' && !this.started) {
@@ -2060,14 +2069,15 @@ class Game {
         }
         this._transit = true;
         try {
-            this.freeRoam = { district: d.id, tod, weather };
+            this.freeRoam = { district: d.id, tod, weather, season };
             this.applyRoamTime(tod, CITIES[d.city].timeZone || TIME_ZONES[d.city]);
             this.weatherOverride = weather === 'live' ? null : (WEATHER_OVERRIDES.includes(weather) ? weather : null);
+            this.r3d.setSeason?.(season === 'auto' ? null : season);
             this.photo?.close?.(); this.state = 'loading';
             $('#loading').classList.add('show'); await new Promise(r => setTimeout(r, 30));
             await this.loadCity(d.city, { district: d.id, start: d.start });
             $('#loading').classList.remove('show');
-            this.freeRoam = { district: d.id, tod, weather }; // (loadCity resets the chapter state)
+            this.freeRoam = { district: d.id, tod, weather, season }; // (loadCity resets the chapter state)
             this.enterRoam(d);
         } finally { this._transit = false; }
         this.explore?.hooks?.afterFreeRoam?.(d.id); // (a free-roam start is roaming: the resume-story chip shows)
@@ -2131,7 +2141,7 @@ class Game {
     }
     toggleConditions(open = !this.condOpen, { any = false } = {}) {
         const el = document.getElementById('cond-panel'); if (!el) { this.condOpen = false; return; }
-        if (open && !this.freeRoam && !any) return; // (HUD button / K: free roam; the pause menu: any mode)
+        if (open && !['drive', 'foot'].includes(this.state)) return;
         if (open && this.mapOpen) this.toggleMap(false);
         this.condOpen = !!open; el.classList.toggle('show', this.condOpen); document.body.classList.toggle('cond-open', this.condOpen);
         if (this.condOpen) { this.input.releaseLock(); this.input.lookAllowed = false; if (this.player) this.player.speed *= 0.2; this.syncConditions(); }

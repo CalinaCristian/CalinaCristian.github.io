@@ -111,7 +111,7 @@ export function initExplore(game) {
         const g = game; if (!g.world || !g.district) return false;
         if (!g.freeRoam) {
             story = { chapterIdx: g.chapterIdx, chapterDone: g.chapterDone, weather: g.weatherOverride ?? null };
-            g.freeRoam = { district: g.district, tod: 'now', weather: g.weatherOverride || 'live', viaMap: true };
+            g.freeRoam = { district: g.district, ...g.travelConditions(), viaMap: true };
             g.ch = null; g.chapter = null; g.chapterIdx = -1; g.chapterDone = false; g.navManual = false;
             try { g.nav?.clear?.(); } catch { /* ignore */ }
             g.buildConditions?.(); document.body.classList.add('free-roam');
@@ -205,7 +205,7 @@ export function initExplore(game) {
             if (game.state === 'office') game.leaveOffice?.();
             const cur = currentPlace(), curItem = cur.key ? items().find((i) => i.key === cur.key) : null;
             pushRecent(it.key);
-            const fr = game.freeRoam || {}, opts = { tod: fr.tod || 'now', weather: fr.weather || 'live' };
+            const opts = game.travelConditions();
             if (it.kind === 'spot') {
                 if (game.state === 'spot' && game.spot?.spot?.spawns?.[it.id]) { // same scene: walk over (Space Needle ⇄ Chihuly ⇄ MoPOP)
                     await warp(() => { game.spot.teleport(it.id); game.spotId = it.id; game.spotEntry = game.spotsMod?.SPOTS?.find((s) => s.id === it.id) || game.spotEntry; });
@@ -225,7 +225,7 @@ export function initExplore(game) {
             } else {
                 makeRoam();
                 await transition({ fromCity: cur.city, toCity: it.city, from: cur.mapKey, to: it.id, toItem: it, title: it.name, caption: it.sub });
-                await game.startFreeRoam(it.id, { tod: (game.freeRoam || fr).tod || 'now', weather: (game.freeRoam || fr).weather || 'live' });
+                await game.startFreeRoam(it.id, opts);
             }
             setActive(true);
             scheduleThumb(it.key);

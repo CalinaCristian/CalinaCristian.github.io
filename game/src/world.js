@@ -1835,6 +1835,11 @@ export async function buildWorld(city, renderer, opts = {}) {
             const A1 = signedArea(p); if (Math.sign(A1) !== s0 || Math.abs(A1) < Math.abs(A0) * 0.12) continue;
             let bad = false; for (let i = 0; i < n && !bad; i++) for (let j = i + 2; j < n && !bad; j++) { if (i === 0 && j === n - 1) continue; if (segX(p[i], p[(i + 1) % n], p[j], p[(j + 1) % n])) bad = true; }
             if (!bad && p.some(q => !pointInPolygon(q[0], q[1], r))) bad = true;
+            for (let i = 0; i < n && !bad; i++) {
+                const j = (i + 1) % n, a = r[i], b2 = r[j], u = p[i], v = p[j];
+                if ((b2[0] - a[0]) * (v[0] - u[0]) + (b2[1] - a[1]) * (v[1] - u[1]) <= 0) { bad = true; break; }
+                for (const t of [0.25, 0.5, 0.75]) if (!pointInPolygon(u[0] + (v[0] - u[0]) * t, u[1] + (v[1] - u[1]) * t, r) || !pointInPolygon(a[0] + (u[0] - a[0]) * t, a[1] + (u[1] - a[1]) * t, r)) { bad = true; break; }
+            }
             if (!bad) res = { p, d };
         }
         insetCache.set(r, res); return res;
@@ -3461,14 +3466,14 @@ export async function buildWorld(city, renderer, opts = {}) {
             const { pts, tris } = triangulate(inner.p);
             if (tris.length) rmb.flatPoly(pts, tris, h + rise, shadeRgb(pitchCol, 0.9), 0.1, -1);
         } else {
-            const mansard = (b.roof === 'mansard' && b.area < 6000) || (b.roof === 'flat' && b.style === 'eclectic' && b.area > 120 && b.area < 2500 && h > 10);
+            const mansard = ((b.roof === 'mansard' && b.area < 6000) || (b.roof === 'flat' && !(b.flags & 16) && b.style === 'eclectic' && b.area > 120 && b.area < 2500 && h > 10)) && insetRing(ring, b.area);
             if (mansard) { // slate mansard roof: sloped ring up to an inset flat top
-                const k = clamp(1 - 1.3 / (Math.sqrt(b.area) / 2), 0.45, 0.9), rise = 2.6;
-                const inner = ring.map(([x, z]) => [b.c[0] + (x - b.c[0]) * k, b.c[1] + (z - b.c[1]) * k]);
+                const inner = mansard.p, rise = Math.min(2.6, mansard.d * 1.2), sg = signedArea(ring) > 0 ? 1 : -1;
                 const slate = b.roofColour ? rgb(b.roofColour) : rgb(brng() < 0.5 ? '#4b4f57' : '#5a4a41');
                 for (let q = 0; q < ring.length; q++) {
                     const a0 = ring[q], a1 = ring[(q + 1) % ring.length], i0 = inner[q], i1 = inner[(q + 1) % ring.length];
-                    rmb.face4([a0[0], h, a0[1]], [a1[0], h, a1[1]], [i1[0], h + rise, i1[1]], [i0[0], h + rise, i0[1]], slate, [(a0[0] + a1[0]) / 2 - b.c[0], 1, (a0[1] + a1[1]) / 2 - b.c[1]]);
+                    const ex = a1[0] - a0[0], ez = a1[1] - a0[1], len = Math.hypot(ex, ez) || 1;
+                    rmb.face4([a0[0], h, a0[1]], [a1[0], h, a1[1]], [i1[0], h + rise, i1[1]], [i0[0], h + rise, i0[1]], slate, [sg * ez / len, 1.2, -sg * ex / len]);
                 }
                 const { pts, tris } = triangulate(inner);
                 if (tris.length) rmb.flatPoly(pts, tris, h + rise, shadeRgb(slate, 0.85), 0.1, -1);

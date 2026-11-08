@@ -1,0 +1,93 @@
+{
+  "touch": false,
+  "sourceCommit": "5508fc3d00ecdd7b228b850872582d27b06dbaef",
+  "setup": "Initial poses beside source-backed interactions; not proof of full arrival routes.",
+  "captures": [
+    {
+      "label": "coin-in-flight",
+      "position": {
+        "x": -119.40201619073076,
+        "z": 178.03680664326055,
+        "y": -3.955169552339314,
+        "heading": -0.6693989247393834
+      },
+      "pose": {
+        "position": [
+          -119.40201619073076,
+          -2.305169552339314,
+          178.03680664326055
+        ],
+        "bearing": 38.353733198162104,
+        "pitch": -16.242771850745246
+      },
+      "triangles": 985606,
+      "calls": 162
+    },
+    {
+      "label": "coin-ripple",
+      "position": {
+        "x": -119.40201619073076,
+        "z": 178.03680664326055,
+        "y": -3.955169552339314,
+        "heading": -0.6693989247393834
+      },
+      "pose": {
+        "position": [
+          -119.40201619073076,
+          -2.305169552339314,
+          178.03680664326055
+        ],
+        "bearing": 38.353733198162104,
+        "pitch": -16.242771850745246
+      },
+      "triangles": 985638,
+      "calls": 163
+    }
+  ],
+  "coinControls": [
+    {
+      "width": 168.109375,
+      "height": 44
+    },
+    {
+      "width": 68.890625,
+      "height": 44
+    }
+  ],
+  "arc": {
+    "prop": {
+      "visible": true,
+      "position": [
+        -116.99979839143911,
+        -2.5212000604302216,
+        175.16208577863696
+      ],
+      "rippleVisible": false,
+      "target": [
+        -115.1,
+        -4.324999999999999,
+        172.6
+      ]
+    },
+    "progress": 0.5
+  },
+  "landing": {
+    "visible": false,
+    "position": [
+      -115.1,
+      -4.324999999999999,
+      172.6
+    ],
+    "rippleVisible": true,
+    "target": [
+      -115.1,
+      -4.324999999999999,
+      172.6
+    ]
+  },
+  "pool": {
+    "source": "w1326469177",
+    "inside": true
+  },
+  "errors": []
+}

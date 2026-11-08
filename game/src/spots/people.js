@@ -265,7 +265,8 @@ export class Crowd {
             const dP = player ? Math.hypot(p.x - player.x, p.z - player.z) : 1e9;
             if (p.hidden) { p.sayCd = 1e9; continue; }
             if (p.driven) continue; // moved by its owner (the tour guide): position, yaw, speed, phase set from outside
-            if (p.act === 'walk') this._walk(p, dt, player, dP);
+            if (p.talkT > 0) { p.talkT -= dt; p.speed = 0; if (player && dP < 6) p.tyaw = Math.atan2(player.x - p.x, player.z - p.z); } // in a conversation with the player
+            else if (p.act === 'walk') this._walk(p, dt, player, dP);
             else {
                 p.speed = 0;
                 // fidget: dwellers shift weight, look around, sometimes turn toward the player
@@ -395,6 +396,46 @@ export class Crowd {
         this.onSay?.(p, line, ctx);
         if (p.act !== 'walk' && !p.pose) { p.pose = 'talk'; p.poseT = 2.5; }
         return true;
+    }
+    /** who this is, for the "E — talk to …" prompt */
+    static whoLabel(p) {
+        const k = p.persona || '', T = { kid: 'the kid', photographer: 'the photographer', staff: 'the attendant', tech: 'the office worker', vendor: 'the vendor', musician: 'the musician', student: 'the student', jogger: 'the jogger', tour_guide: 'the guide' };
+        if (T[k]) return T[k];
+        if (/^local_elder/.test(k)) return 'the older local';
+        if (/^local/.test(k)) return 'the local';
+        if (/^tourist/.test(k)) return 'the visitor';
+        return 'them';
+    }
+    /**
+     * E to talk (after round 6): the ped stops, turns to the player and answers — a greeting first, then something
+     * about this place, then a local custom from the spot's culture notes (as a tip), then small talk; lines are
+     * persona-, place-, time- and weather-aware like the ambient ones (pickLine), original language + translation.
+     * Returns the tip shown with the answer, if any.
+     */
+    talkTo(p, player, culture = []) {
+        p.talkN = (p.talkN || 0) + 1; p.cd = Math.max(p.cd, 6); p.speed = 0; p.talkT = 5;
+        p.tyaw = p.yaw = Math.atan2(player.x - p.x, player.z - p.z);
+        const order = p.talkN === 1 ? ['greeting', 'spot', 'idle'] : p.talkN === 2 ? ['spot', 'idle', 'greeting'] : ['idle', 'spot', 'greeting'];
+        // only this persona's voice (then its family: tourist_* / local_*, then lines for anyone) — never a vendor's call from a tourist
+        const fam = (k) => (k || '').replace(/_.*$/, ''), me = p.persona || '', fresh = (l) => !this.recent.includes(l);
+        const mine = this.lines.concat(this.general).filter((l) => l.p === me && l.lang), myLang = mine.length ? mine[0].lang : null;
+        const sameTongue = (l) => !l.orig || !l.lang || l.lang === myLang; // (a family line in another language: an Italian visitor doesn't speak French)
+        let line = null;
+        for (const c of order) {
+            const all = this.lines.concat(this.general).filter((l) => l.ctx === c && this.fits(l));
+            for (const pool of [all.filter((l) => l.p === me), all.filter((l) => l.p && fam(l.p) === fam(me) && sameTongue(l)), all.filter((l) => !l.p)]) { const f = pool.filter(fresh); if (f.length) { line = this.r.pick(f); break; } if (pool.length && !line) line = this.r.pick(pool); }
+            if (line) break;
+        }
+        const tip = p.talkN >= 2 && culture.length && /^(local|staff|vendor|tour_guide|tech)/.test(p.persona || '') && this.r() < 0.7 ? culture[(p.id * 7 + p.talkN * 3) % culture.length] : null;
+        if (line) {
+            this.recent.push(line); if (this.recent.length > 8) this.recent.shift();
+            const main = line.orig || line.text, sub = line.orig ? line.text : '';
+            this.o.bubbles?.say(this._headRef(p), main, sub, 'friendly', line.lang);
+            this.onSay?.(p, line, 'talk');
+        }
+        p.sayCd = 4; this.globalCd = Math.max(this.globalCd, 1.2);
+        if (p.act !== 'sit') { p.pose = p.talkN === 1 ? 'wave' : 'talk'; p.poseT = 2.6; }
+        return { line, tip };
     }
     _headRef(p) { return { get x() { return p.x; }, get z() { return p.z; }, get y() { return p.y + 1.95 * p.look.scale + (p.act === 'sit' ? -0.45 : 0); } }; }
     /** obstacles for the walker (nearby peds as small boxes) */

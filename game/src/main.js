@@ -880,6 +880,81 @@ class Game {
         if (this.clock.trafficHour == null) { const q = new URLSearchParams(location.search).get('hour'); this.clock.trafficHour = q != null && q !== '' && Number.isFinite(+q) ? +q : false; }
         return this.clock.trafficHour !== false ? this.clock.trafficHour : (this.clock.hours ?? this.cityHours());
     }
+    // ---------------------------------------------------------------- talking to people on foot (after round 6)
+    /** data/dialogue.json: city lines {p, ctx, text, orig?, lang?, when?, wx?, season?} + culture tips, loaded once */
+    talkData() {
+        if (!this._talkP) this._talkP = fetch(new URL('../data/dialogue.json', import.meta.url).href).then((r) => (r.ok ? r.json() : {})).catch(() => ({})).then((d) => (this._talkD = d));
+        const key = this.city?.id === 'bucharest' ? 'bucharest' : 'seattle';
+        return this._talkD?.[key] || null;
+    }
+    /** a stable persona for a city pedestrian (no personas in the traffic crowd) */
+    pedPersona(p) {
+        if (p.persona) return p.persona;
+        const h = ((p.i ?? 0) * 2654435761 >>> 0) % 100, buc = this.city?.id === 'bucharest';
+        p.persona = buc ? (h < 38 ? 'local' : h < 62 ? 'local_young' : h < 80 ? 'local_elder' : 'tech') : (h < 50 ? 'local' : h < 78 ? 'tech' : h < 92 ? 'tourist_us' : 'kid');
+        p.talkWho = { local: 'the local', local_young: 'the local', local_elder: 'the older local', tech: 'the office worker', tourist_us: 'the visitor', kid: 'the kid' }[p.persona] || 'them';
+        return p.persona;
+    }
+    talkFits(l) {
+        const h = this.trafficHours(), m = this.nowDate().getMonth(), d = this.nowDate().getDate(), k = this.wxKind || '';
+        if (l.when === 'morning' && !(h >= 5 && h < 11)) return false;
+        if (l.when === 'evening' && !(h >= 18 || h < 4)) return false;
+        if (l.when === 'day' && !(h >= 9 && h < 19)) return false;
+        if (l.wx === 'rain' && !/rain|drizzle|storm|shower/.test(k)) return false;
+        if (l.wx === 'snow' && !/snow/.test(k)) return false;
+        if (l.wx === 'hot' && !(m >= 5 && m <= 7)) return false;
+        if (l.wx === 'cold' && !(m === 11 || m <= 1)) return false;
+        if (l.season === 'xmas' && !(m === 11 || (m === 10 && d >= 25))) return false;
+        if (l.season === 'march' && !(m === 2 && d <= 9)) return false;
+        if (l.season === 'winter' && !(m === 11 || m <= 1)) return false;
+        if (l.season === 'spring' && !(m >= 2 && m <= 4)) return false;
+        if (l.season === 'summer' && !(m >= 5 && m <= 8)) return false;
+        return true;
+    }
+    /** a line in this persona's voice (then its family, then anyone's), for the first context with one; no recent repeats */
+    talkLine(persona, ctxs) {
+        const D = this.talkData(); if (!D) return null;
+        const fam = (k) => (k || '').replace(/_.*$/, ''), recent = this._talkRecent || (this._talkRecent = []), fresh = (l) => !recent.includes(l);
+        for (const c of ctxs) {
+            const all = D.lines.filter((l) => l.ctx === c && this.talkFits(l));
+            for (const pool of [all.filter((l) => l.p === persona), all.filter((l) => fam(l.p) === fam(persona)), all.filter((l) => !l.p)]) {
+                const f = pool.filter(fresh), pick = (f.length ? f : pool)[Math.floor(Math.random() * (f.length ? f.length : pool.length))];
+                if (pick) { recent.push(pick); if (recent.length > 10) recent.shift(); return pick; }
+            }
+        }
+        return null;
+    }
+    /** the pedestrian the walker is facing, within 2.4 m */
+    talkTarget(F) {
+        const peds = this.traffic?.peds; if (!peds) return null;
+        let best = null, bd = 2.4;
+        for (const p of peds.near(F.x, F.z, 2.6)) { if (p.state === 'down' || p.hidden || p.agent || p.react) continue; const dx = p.x - F.x, dz = p.z - F.z, d = Math.hypot(dx, dz); if (d < bd && d > 0.2 && (dx * F.fx + dz * F.fz) / d > 0.35) { bd = d; best = p; } }
+        if (best) this.pedPersona(best);
+        return best;
+    }
+    /** E on a passer-by: they stop, face you and answer — greeting, then street talk, a local custom as a tip, small talk */
+    talkToPed(p, F) {
+        const persona = this.pedPersona(p); p.talkN = (p.talkN || 0) + 1; p.talkT = 6; p.talkTo = F; p.talkWave = p.talkN === 1 ? 1.4 : 0;
+        const order = p.talkN === 1 ? ['greeting', 'street', 'idle'] : p.talkN === 2 ? ['street', 'idle'] : ['idle', 'street'];
+        const l = this.talkLine(persona, order);
+        if (l) this.traffic.say(p, { t: l.orig || l.text, en: l.orig ? l.text : '' }, '', 3);
+        const tips = this.talkData()?.culture || [];
+        if (p.talkN >= 2 && tips.length && /^(local|tech)/.test(persona) && Math.random() < 0.6) {
+            const tp = tips[((p.i ?? 0) * 7 + p.talkN * 3) % tips.length]; let n = String(tp.note || ''); const cut = n.lastIndexOf('. ', 230);
+            if (n.length > 230) n = cut > 80 ? n.slice(0, cut + 1) : n.slice(0, 230) + '…';
+            this.hud.toast('💬 Local tip — ' + tp.topic, n);
+        }
+        this.stats.talks = (this.stats.talks || 0) + 1;
+        window.cvTelemetry?.track?.('ped_talk', { city: this.city?.id });
+    }
+    /** passers-by chat now and then while you walk (one bubble every 7–14 s, someone 4–22 m away) */
+    streetChatter(F, dt) {
+        this._chatT = (this._chatT ?? 6) - dt; if (this._chatT > 0) return; this._chatT = 7 + Math.random() * 7;
+        const peds = (this.traffic?.peds?.near(F.x, F.z, 22) || []).filter((p) => p.state !== 'down' && !p.hidden && !p.agent && !p.react && !(p.talkT > 0) && Math.hypot(p.x - F.x, p.z - F.z) > 4);
+        if (!peds.length) return; const p = peds[Math.floor(Math.random() * peds.length)];
+        const l = this.talkLine(this.pedPersona(p), Math.random() < 0.6 ? ['street', 'idle'] : ['idle', 'street']);
+        if (l) this.traffic.say(p, { t: l.orig || l.text, en: l.orig ? l.text : '' }, '', 1);
+    }
     cityHours() { const c = this.clock; return c.override ? OVERRIDE_HOURS[c.override] : localHours(this.nowDate(), c.timeZone); }
     /** the game's "now": real time, shifted by the free-roam time-of-day pick (clock.offsetMs) */
     nowDate() { return new Date(Date.now() + (this.clock.offsetMs || 0)); }
@@ -1376,6 +1451,7 @@ class Game {
     // ---------------------------------------------------------------------------------- on foot (spec 14)
     /** Enter (touch: 🚶): get out on the driver's side; the car stays (hazards on) and is an obstacle for traffic */
     exitCar() {
+        this.talkData(); // (preload the passers-by's lines)
         const P = this.player;
         if (this.state !== 'drive' || this.refuel) return false;
         if (Math.abs(P.speed) > 1.5) { this.hud.toast('🚶 Stop first', 'Get out when the car is (almost) stopped.', 'warn'); return false; }
@@ -1564,6 +1640,9 @@ class Game {
             const d = Math.hypot((poi.doorX ?? poi.x) - F.x, (poi.doorZ ?? poi.z) - F.z);
             if (d < 7) { prompt = `<kbd>E</kbd> Walk into <b>${stop.company}</b> ${this.visited.has(stop.id) ? '✓' : ''}`; if (input.take('KeyE')) { hud.prompt(null); this.enterOffice(stop); return; } }
         }
+        // E — talk to a passer-by (after round 6): the nearest pedestrian in front within reach stops and answers
+        if (!prompt) { const ped = this.talkTarget(F); if (ped) { prompt = `<kbd>E</kbd> Talk to ${ped.talkWho || 'them'}`; if (input.take('KeyE')) this.talkToPed(ped, F); } }
+        this.streetChatter(F, dt);
         if (!prompt && Math.hypot(P.x - F.x, P.z - F.z) > 25) prompt = null;
         input.take('Enter'); input.take('KeyE');
         hud.prompt(prompt);

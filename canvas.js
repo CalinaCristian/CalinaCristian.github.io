@@ -5,7 +5,7 @@ class Utils {
     // (round 6 note 39) small glowing city lights drifting over the road background instead of big grey bubbles
     static MIN_RADIUS = 1.6;
     static MAX_RADIUS = 4.2;
-    static MOUSE_RADIUS = 90;
+    static MOUSE_RADIUS = 24; // (the lights are 1.6–4.2 px: the pointer only nudges what is right around it)
     static MIN_BALLS = 24;
     static MAX_BALLS = 90;
     static COLORS = ['rgba(251, 191, 36, 0.85)', 'rgba(96, 165, 250, 0.8)', 'rgba(250, 70, 22, 0.75)', 'rgba(226, 232, 240, 0.7)', 'rgba(56, 189, 248, 0.75)'];

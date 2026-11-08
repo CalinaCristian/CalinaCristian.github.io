@@ -81,10 +81,10 @@ function litGlassMaterial({ y0, frac, shopH, seed }) {
     const U = { uY0: { value: y0 }, uFrac: { value: frac }, uShop: { value: shopH }, uSeed: { value: seed * 1.37 } };
     m.onBeforeCompile = (sh) => {
         Object.assign(sh.uniforms, U);
-        sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nattribute float aLit;\nvarying float vLit; varying vec3 vLW; varying vec3 vLN;')
+        sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nattribute float aLit;\nvarying float vLit; varying vec3 vLW; flat varying vec3 vLN;')
             .replace('#include <project_vertex>', '#include <project_vertex>\nvLit = aLit; vLW = (modelMatrix * vec4(transformed, 1.0)).xyz; vLN = normalize(mat3(modelMatrix) * objectNormal);');
         sh.fragmentShader = sh.fragmentShader.replace('#include <common>', `#include <common>
-            uniform float uY0, uFrac, uShop, uSeed; varying float vLit; varying vec3 vLW; varying vec3 vLN;
+            uniform float uY0, uFrac, uShop, uSeed; varying float vLit; varying vec3 vLW; flat varying vec3 vLN; // (flat: an interpolated normal wobbled the window grid → speckle, round 6 note 32)
             float lH(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }`)
             .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
             {

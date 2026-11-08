@@ -6,7 +6,7 @@
   "generated": "2026-11-06",
   "scope": "I-90 EB from the Mount Baker Ridge Tunnel over the Lacey V. Murrow floating bridge, Mercer Island and the East Channel Bridge, I-405 NB to downtown Bellevue (NE 8th St, Bellevue Way, 108th Ave NE, Lincoln Square, Bellevue Square, Plaza Center).",
   "units": "metres unless suffixed (_in, _ft); lat/lon WGS84; colours sRGB hex",
-  "howToUse": "chapterRoutes[].segments are OSM ways in driving order with lane/turn/destination tags; streets[] = curated corridor stretches + downtown catalogue; buildings[] = every building within 70 m of a route or \u226525 m tall in the core, with OSM parts + curated heights/facades; landmarks[] has lincoln-square and plaza-center (CV stops); traffic.hotspots feed CITIES.seattle.districts.bellevue.congestion.",
+  "howToUse": "chapterRoutes[].segments are OSM ways in driving order with lane/turn/destination tags; streets[] = curated corridor stretches + downtown catalogue; buildings[] = every building within 70 m of a route or ≥25 m tall in the core, with OSM parts + curated heights/facades; landmarks[] has lincoln-square and plaza-center (CV stops); traffic.hotspots feed CITIES.seattle.districts.bellevue.congestion.",
   "coverage": {
    "routeA_m": 14392,
    "routeB_m": 13217,
@@ -30,7 +30,7 @@
  "district": {
   "id": "bellevue",
   "name": "Lake Washington & Bellevue",
-  "proposal": "Corridor district (not a 1 km square): the I-90 crossing is the chapter's point. Keep (1) a 250 m-wide band either side of I-90 from the Mount Baker Tunnel west lid portal (lon -122.3030) to the I-90/I-405 interchange (lon -122.1820), including the lake surface to the horizon as a non-driveable plane with both shorelines as backdrop; (2) a 200 m band around I-405 from I-90 (lat 47.578) to NE 10th St (lat 47.6195); (3) the downtown core 1 km\u00b2 box Main St \u2192 NE 12th St \u00d7 100th Ave NE \u2192 I-405; (4) for route B, a 120 m band along Bellevue Way SE/NE.",
+  "proposal": "Corridor district (not a 1 km square): the I-90 crossing is the chapter's point. Keep (1) a 250 m-wide band either side of I-90 from the Mount Baker Tunnel west lid portal (lon -122.3030) to the I-90/I-405 interchange (lon -122.1820), including the lake surface to the horizon as a non-driveable plane with both shorelines as backdrop; (2) a 200 m band around I-405 from I-90 (lat 47.578) to NE 10th St (lat 47.6195); (3) the downtown core 1 km² box Main St → NE 12th St × 100th Ave NE → I-405; (4) for route B, a 120 m band along Bellevue Way SE/NE.",
   "bboxAll": [
    47.574,
    -122.306,
@@ -176,7 +176,7 @@
    },
    {
     "where": "I-405 south of I-90 / north of NE 10th",
-    "how": "construction-zone closure (plausible: Renton\u2013Bellevue ETL work zone is real through 2027, src wsdot-r2b)"
+    "how": "construction-zone closure (plausible: Renton–Bellevue ETL work zone is real through 2027, src wsdot-r2b)"
    },
    {
     "where": "Mercer Island local exits (6, 7A, 7B, 8)",
@@ -192,7 +192,7 @@
   {
    "id": "A",
    "recommended": true,
-   "title": "Spec route: Mount Baker Tunnel \u2192 Murrow floating bridge \u2192 Mercer Island lids \u2192 East Channel Bridge \u2192 I-405 N \u2192 exit 13B NE 8th St W \u2192 Plaza Center",
+   "title": "Spec route: Mount Baker Tunnel → Murrow floating bridge → Mercer Island lids → East Channel Bridge → I-405 N → exit 13B NE 8th St W → Plaza Center",
    "start": {
     "lat": 47.58993,
     "lon": -122.2905,
@@ -212,8 +212,8 @@
     "I-405 NB exit 13B \"NE 8th St\"",
     "ramp \"NE 8th St West\""
    ],
-   "timing": "\u2248 9.5 min at the 60 mph limit off-peak; I-405 NB through downtown is a weekday AM/PM hotspot (see traffic).",
-   "warning": "Longer than spec 10 acceptance (bellevue \u2264 12 km): 14.4 km. To fit 12 km, start on the Murrow bridge just past the west high-rise (s\u22482.0 km) \u2014 loses the tunnel portal moment \u2014 or accept 14.4 km for the finale.",
+   "timing": "≈ 9.5 min at the 60 mph limit off-peak; I-405 NB through downtown is a weekday AM/PM hotspot (see traffic).",
+   "warning": "Longer than spec 10 acceptance (bellevue ≤ 12 km): 14.4 km. To fit 12 km, start on the Murrow bridge just past the west high-rise (s≈2.0 km) — loses the tunnel portal moment — or accept 14.4 km for the finale.",
    "lengthM": 14392,
    "polyline": [
     [
@@ -1730,7 +1730,7 @@
   {
    "id": "B",
    "recommended": false,
-   "title": "Scenic alternative: same lake crossing \u2192 I-90 exit 9 Bellevue Way \u2192 Bellevue Way SE (Enatai, Mercer Slough, Surrey Downs) \u2192 Old Bellevue / Main St \u2192 Bellevue Way NE past Downtown Park, Bellevue Square, Lincoln Square \u2192 right on NE 8th St \u2192 Plaza Center",
+   "title": "Scenic alternative: same lake crossing → I-90 exit 9 Bellevue Way → Bellevue Way SE (Enatai, Mercer Slough, Surrey Downs) → Old Bellevue / Main St → Bellevue Way NE past Downtown Park, Bellevue Square, Lincoln Square → right on NE 8th St → Plaza Center",
    "start": {
     "lat": 47.58993,
     "lon": -122.2905,
@@ -1748,7 +1748,7 @@
     "Bellevue Way SE / NE",
     "NE 8th St EB"
    ],
-   "timing": "\u2248 13 min off-peak (30 mph arterials, ~13 signals on Bellevue Way)",
+   "timing": "≈ 13 min off-peak (30 mph arterials, ~13 signals on Bellevue Way)",
    "note": "13.2 km. Passes every downtown hero landmark (Lincoln Square, Bellevue Square, skybridges, Bellevue Collection) at street level; does not use I-405. Could also end at Lincoln Square (2025 office) instead of Plaza Center (2022 office).",
    "lengthM": 13217,
    "polyline": [
@@ -3618,7 +3618,7 @@
  "streets": [
   {
    "id": "i90-mtbaker-tunnel-eb",
-   "name": "I-90 EB \u2014 Mount Baker Ridge Tunnel (1940 twin bores + 1990s lid)",
+   "name": "I-90 EB — Mount Baker Ridge Tunnel (1940 twin bores + 1990s lid)",
    "osmWays": [
     428005319,
     623957751,
@@ -3630,7 +3630,7 @@
     98733142,
     4744325
    ],
-   "lengthM": "lid+tunnel \u2248 1,000 m perceived (official tunnel 1,440 ft/440 m + 2,000 ft lid)",
+   "lengthM": "lid+tunnel ≈ 1,000 m perceived (official tunnel 1,440 ft/440 m + 2,000 ft lid)",
    "src": [
     "wp-mtbaker",
     "osm"
@@ -3638,15 +3638,15 @@
    "lanes": "West of tunnel 4 EB lanes (left = HOV 2+, 3 GP). Inside, at lon -122.2986, splits into the two 1940 bores: NORTH bore = HOV lane + GP lane (way 123889282, hov:lanes designated|), SOUTH bore = 2 GP lanes (98733141/481403971). Each bore 2 lanes; bores rejoin into 4 lanes on the Murrow bridge approach (way 123889285).",
    "speed": "60 mph",
    "surface": "concrete (OSM surface=concrete)",
-   "geometry": "Original bores 29 ft (8.8 m) diameter; after 1989\u201393 rehab the interiors were made square/rectangular (except the arched portal openings). Westbound + the former reversible lanes use the separate 63 ft (19 m) 1989 bore to the north, double-decked with the I-90 Trail on top.",
-   "portals": "East portals (EB exits here): 1940 art-deco concrete arches with relief panels and the inscription \"SEATTLE \u00b7 PORTAL TO THE PACIFIC\" \u2014 the \"Portal of the North Pacific\" murals by James FitzGerald; City of Seattle landmark (src wp-mtbaker, commons Seattle_-_Portal_to_the_Pacific_01.jpg). Concrete #b9b6ad weathered, vegetation on the slope above, the round mouth of the 1989 bore to the north.",
+   "geometry": "Original bores 29 ft (8.8 m) diameter; after 1989–93 rehab the interiors were made square/rectangular (except the arched portal openings). Westbound + the former reversible lanes use the separate 63 ft (19 m) 1989 bore to the north, double-decked with the I-90 Trail on top.",
+   "portals": "East portals (EB exits here): 1940 art-deco concrete arches with relief panels and the inscription \"SEATTLE · PORTAL TO THE PACIFIC\" — the \"Portal of the North Pacific\" murals by James FitzGerald; City of Seattle landmark (src wp-mtbaker, commons Seattle_-_Portal_to_the_Pacific_01.jpg). Concrete #b9b6ad weathered, vegetation on the slope above, the round mouth of the 1989 bore to the north.",
    "interior": "Rectangular box, light-grey concrete walls; continuous linear luminaires on the ceiling edges; WSDOT lane-control signals absent on EB (only on the former reversible bore). Lighting: warm/orange-ish tint visible in photos at the portal (src commons).",
    "markings": "White 4 in dashed lane line 10/30 ft between the 2 lanes of each bore; solid white right edge, solid yellow left edge (one-way roadway rule, src wsdot-m2010 note 2); HOV diamond in the north-bore left lane.",
    "barriers": "Tunnel walls form the edges; no shoulders inside the 1940 bores (narrow ~0.6 m curbs/walkways)."
   },
   {
    "id": "i90-murrow-eb",
-   "name": "I-90 EB \u2014 Lacey V. Murrow Memorial Bridge (floating, 1940/1993)",
+   "name": "I-90 EB — Lacey V. Murrow Memorial Bridge (floating, 1940/1993)",
    "osmWays": [
     98733144,
     14380236,
@@ -3663,19 +3663,19 @@
    ],
    "facts": [
     "Carries 4 EB lanes; second-longest floating bridge in the world, 6,620 ft (2,020 m); original opened 1940, sank 1990 during rehab, current bridge opened 1993.",
-    "Boats pass only under elevated fixed spans at each end (29 ft clearance) \u2014 the \"west high-rise\" and \"east high-rise\"."
+    "Boats pass only under elevated fixed spans at each end (29 ft clearance) — the \"west high-rise\" and \"east high-rise\"."
    ],
    "lanes": "4 EB: lane 1 (left) HOV 2+ (bus designated) + 3 GP. At the east end the right lane becomes exit 6 West Mercer Way (destination:lanes none|none|none|none;West Mercer Way).",
    "speed": "60 mph",
    "surface": "portland-cement concrete deck, light grey #8e8f8a dry / #5f615e wet (photo median #787974 in low winter sun)",
-   "structure": "Both ends: the iconic cream concrete \"high-rise\" through-arches \u2014 a pair of parabolic arch ribs per end whose tops join in a flattened oval ring with round lightening holes, vertical dark steel hangers (~8 per side per arch) holding the deck; the deck rises ~9 m over the navigation channel then drops to the floating section. Arch concrete #c9c0ae (photo #b8a68b in warm sun). Floating section: deck sits ~2\u20133 m above the water on concrete pontoons (grey), joined by expansion joints with steel finger plates every pontoon (~110 m).",
+   "structure": "Both ends: the iconic cream concrete \"high-rise\" through-arches — a pair of parabolic arch ribs per end whose tops join in a flattened oval ring with round lightening holes, vertical dark steel hangers (~8 per side per arch) holding the deck; the deck rises ~9 m over the navigation channel then drops to the floating section. Arch concrete #c9c0ae (photo #b8a68b in warm sun). Floating section: deck sits ~2–3 m above the water on concrete pontoons (grey), joined by expansion joints with steel finger plates every pontoon (~110 m).",
    "barriers": "Low concrete safety-shape (F-shape/jersey) parapets ~0.8 m both sides, dark-stained grey #3a3a38 on the outside face; no sidewalk on the Murrow (pedestrians/bikes use the Hadley trail). Light poles on the parapet line, single davit arms.",
    "markings": "Dashed white lane lines (4 in, 10 ft dash/30 ft gap) supplemented by raised pavement markers between dashes; solid yellow left edge line next to the narrow left shoulder; solid white right edge line; wide (8 in) lane line between HOV and GP lanes; white diamond in lane 1 at intervals.",
-   "view": "Mercer Island ahead with houses on the wooded bluff, the Hadley bridge 20\u201340 m to the left (north) with WB traffic and 2 Line trains under catenary in its centre roadway, downtown Bellevue towers half-left, Mt Rainier right on clear days."
+   "view": "Mercer Island ahead with houses on the wooded bluff, the Hadley bridge 20–40 m to the left (north) with WB traffic and 2 Line trains under catenary in its centre roadway, downtown Bellevue towers half-left, Mt Rainier right on clear days."
   },
   {
    "id": "i90-hadley-wb",
-   "name": "I-90 WB \u2014 Homer M. Hadley Memorial Bridge (floating, 1989) \u2014 the opposite carriageway, visible to the north",
+   "name": "I-90 WB — Homer M. Hadley Memorial Bridge (floating, 1989) — the opposite carriageway, visible to the north",
    "osmWays": [
     120057489,
     465797046,
@@ -3689,13 +3689,13 @@
     "osm",
     "commons"
    ],
-   "cross-section (north\u2192south)": [
+   "cross-section (north→south)": [
     "I-90 Trail (multi-use path, concrete, ~3.5 m) with black steel picket railing on a concrete parapet",
     "WB roadway: 4 lanes (HOV left + 3 GP), shoulders",
-    "centre roadway: 2 Line light-rail double track on the former reversible express roadway, overhead catenary on portal frames (dark grey steel), opened for passenger service across the lake on 2026-03-28 \u2014 world's first light rail on a floating bridge"
+    "centre roadway: 2 Line light-rail double track on the former reversible express roadway, overhead catenary on portal frames (dark grey steel), opened for passenger service across the lake on 2026-03-28 — world's first light rail on a floating bridge"
    ],
    "pontoons": "18 pontoons, 105 ft (32 m) wide incl. cantilevers.",
-   "note": "Model it: the player sees it constantly for 2 km. WB traffic is heavy 15:30\u201318:30 (85% of weekdays severely congested at 16:35, src wsdot-dash-90)."
+   "note": "Model it: the player sees it constantly for 2 km. WB traffic is heavy 15:30–18:30 (85% of weekdays severely congested at 16:35, src wsdot-dash-90)."
   },
   {
    "id": "i90-mercer-island-eb",
@@ -3736,15 +3736,15 @@
     "commons"
    ],
    "lanes": "4 EB (HOV + 3 GP) throughout; exits 7A 77th Ave SE, 7B Island Crest Way (right), 8 East Mercer Way (right, destination:lanes ...;East Mercer Way). HOV direct-access ramp to Island Crest Way/80th from the left lane (motor_vehicle=no, bus+HOV only).",
-   "tunnels": "EB passes through short covered sections: the \"I-90 First Hill Lid\" (way 4744334, 788 m, lit) under the Aubrey Davis Park lid, plus several 40\u201350 m lid/overpass undercrossings (layer -1) near 76th\u201380th Ave SE, and a \"covered\" section at Luther Burbank (lon -122.213).",
+   "tunnels": "EB passes through short covered sections: the \"I-90 First Hill Lid\" (way 4744334, 788 m, lit) under the Aubrey Davis Park lid, plus several 40–50 m lid/overpass undercrossings (layer -1) near 76th–80th Ave SE, and a \"covered\" section at Luther Burbank (lon -122.213).",
    "median": "Mercer Island light-rail station (2 Line) sits in the I-90 median between 77th and 80th Ave SE (opened 2026-03-28 with the cross-lake segment); tracks run in the centre roadway between EB and WB with concrete barriers both sides.",
-   "walls": "Tall concrete retaining walls and noise walls (OSM wall=noise_barrier near 76th\u201380th) line the cut; vegetated slopes; lid park above.",
+   "walls": "Tall concrete retaining walls and noise walls (OSM wall=noise_barrier near 76th–80th) line the cut; vegetated slopes; lid park above.",
    "speed": "60 mph",
    "surface": "concrete"
   },
   {
    "id": "i90-east-channel-eb",
-   "name": "I-90 EB \u2014 East Channel Bridge (fixed, to Bellevue)",
+   "name": "I-90 EB — East Channel Bridge (fixed, to Bellevue)",
    "osmWays": [
     160750886,
     123889242,
@@ -3756,14 +3756,14 @@
     "osm",
     "commons"
    ],
-   "lanes": "4 \u2192 5 EB: an added right lane drops to exit 9 Bellevue Way; on the bridge destination:lanes \"Everett;Renton;none | none | none | none | none;Bellevue Way\" \u2014 the LEFT HOV lane carries the direct HOV ramp to I-405 (and to Bellevue Way via the HOV-only slip at way 1013755121).",
+   "lanes": "4 → 5 EB: an added right lane drops to exit 9 Bellevue Way; on the bridge destination:lanes \"Everett;Renton;none | none | none | none | none;Bellevue Way\" — the LEFT HOV lane carries the direct HOV ramp to I-405 (and to Bellevue Way via the HOV-only slip at way 1013755121).",
    "structure": "Concrete box-girder fixed bridge high over the East Channel of Lake Washington, concrete parapets, Enatai/Beaux Arts shoreline houses below to the north-east.",
    "speed": "60 mph",
    "surface": "concrete"
   },
   {
    "id": "i90-to-i405-exit10",
-   "name": "I-90 EB exit 10A \"I-405 N Everett\" (flyover) \u2192 I-405 NB",
+   "name": "I-90 EB exit 10A \"I-405 N Everett\" (flyover) → I-405 NB",
    "osmWays": [
     1013755120,
     1013755121,
@@ -3781,12 +3781,12 @@
    "src": [
     "osm"
    ],
-   "lanes": "I-90 5 lanes at the split: lanes 4\u20135 exit (lane 4 \"Factoria Blvd; Everett\", lane 5 \"Renton\"); ramp 2 lanes \u2192 3 lanes \u2192 splits (left \"Everett\"/I-405 N, right \"Renton\"/I-405 S) \u2192 single-lane flyover (layer 2) curving north over I-90 and the Mercer Slough \u2192 merges into I-405 NB from the right.",
-   "structure": "Elevated concrete flyovers of the I-90/I-405 stack (layer 1\u20132), concrete jersey parapets, tall single-arm light poles."
+   "lanes": "I-90 5 lanes at the split: lanes 4–5 exit (lane 4 \"Factoria Blvd; Everett\", lane 5 \"Renton\"); ramp 2 lanes → 3 lanes → splits (left \"Everett\"/I-405 N, right \"Renton\"/I-405 S) → single-lane flyover (layer 2) curving north over I-90 and the Mercer Slough → merges into I-405 NB from the right.",
+   "structure": "Elevated concrete flyovers of the I-90/I-405 stack (layer 1–2), concrete jersey parapets, tall single-arm light poles."
   },
   {
    "id": "i405-nb-to-ne8th",
-   "name": "I-405 NB \u2014 I-90 to exit 13 (NE 4th / NE 8th)",
+   "name": "I-405 NB — I-90 to exit 13 (NE 4th / NE 8th)",
    "osmWays": [
     160183997,
     310012620,
@@ -3802,15 +3802,15 @@
     "osm",
     "wsdot-r2b"
    ],
-   "lanes": "5 NB south of SE 8th (HOV 2+ left + 4 GP) \u2192 4 after exit 12 (SE 8th St) \u2192 5 at the exit-13 auxiliary lane: destination:lanes \"none|none|Seattle|Redmond;NE 4th St|NE 8th St\" (lanes 3\u20134 continue to SR 520 Seattle/Redmond, lane 5 exits).",
+   "lanes": "5 NB south of SE 8th (HOV 2+ left + 4 GP) → 4 after exit 12 (SE 8th St) → 5 at the exit-13 auxiliary lane: destination:lanes \"none|none|Seattle|Redmond;NE 4th St|NE 8th St\" (lanes 3–4 continue to SR 520 Seattle/Redmond, lane 5 exits).",
    "speed": "60 mph",
    "surface": "concrete south of NE 4th, asphalt overlays near downtown (OSM surface tags)",
-   "context": "Ten lanes total through Bellevue; passes the Mercer Slough and the historic Wilburton Trestle; the 2 Line guideway crosses overhead near NE 6th (src wp-i405). Renton\u2013Bellevue widening (dual express toll lanes) is UNDER CONSTRUCTION, forecast opening summer 2027 (src wsdot-r2b): in Nov 2026 expect work-zone barrels, temporary concrete barriers and orange signs on the stretch near I-90/SE 8th.",
+   "context": "Ten lanes total through Bellevue; passes the Mercer Slough and the historic Wilburton Trestle; the 2 Line guideway crosses overhead near NE 6th (src wp-i405). Renton–Bellevue widening (dual express toll lanes) is UNDER CONSTRUCTION, forecast opening summer 2027 (src wsdot-r2b): in Nov 2026 expect work-zone barrels, temporary concrete barriers and orange signs on the stretch near I-90/SE 8th.",
    "median": "Concrete median barrier between NB and SB (profile/glare screen not verified); HOV lane on the left separated by a wide broken white line with diamonds; narrow left shoulder with yellow edge line."
   },
   {
    "id": "i405-exit13b",
-   "name": "Exit 13B ramp \u2192 \"NE 8th St West\" loop \u2192 NE 8th St WB",
+   "name": "Exit 13B ramp → \"NE 8th St West\" loop → NE 8th St WB",
    "osmWays": [
     26370075,
     531669522,
@@ -3823,53 +3823,53 @@
     "osm",
     "wp-i405"
    ],
-   "lanes": "2-lane exit (13A left to NE 4th \"Meydenbauer Center / Bellevue Square / Bellevue Arts Museum\", 13B right to NE 8th) \u2192 13B splits \"NE 8th St East\" / \"NE 8th St West\"; the West ramp is a 1-lane braided/loop ramp entering NE 8th WB from the right at 112th Ave NE.",
-   "note": "The NE 6th St \"Texas T\" HOV/transit direct-access ramp leaves I-405 from the LEFT lane just north of exit 13 \u2014 HOV/buses only; do not route the player there."
+   "lanes": "2-lane exit (13A left to NE 4th \"Meydenbauer Center / Bellevue Square / Bellevue Arts Museum\", 13B right to NE 8th) → 13B splits \"NE 8th St East\" / \"NE 8th St West\"; the West ramp is a 1-lane braided/loop ramp entering NE 8th WB from the right at 112th Ave NE.",
+   "note": "The NE 6th St \"Texas T\" HOV/transit direct-access ramp leaves I-405 from the LEFT lane just north of exit 13 — HOV/buses only; do not route the player there."
   },
   {
    "id": "bellevue-way-se",
-   "name": "Bellevue Way SE (route B) \u2014 I-90 exit 9 to Main St",
+   "name": "Bellevue Way SE (route B) — I-90 exit 9 to Main St",
    "osmWays": "see chapterRoutes[B].segments",
    "lengthM": 3200,
    "src": [
     "osm",
     "bel-mip2"
    ],
-   "lanes": "2\u20133 lanes, partly one-way pairs at the I-90 ramps, HOV lane NB south of 112th Ave SE (OSM hov:lanes), then 4\u20135 lanes with centre turn lane through Enatai / Surrey Downs to Main St.",
+   "lanes": "2–3 lanes, partly one-way pairs at the I-90 ramps, HOV lane NB south of 112th Ave SE (OSM hov:lanes), then 4–5 lanes with centre turn lane through Enatai / Surrey Downs to Main St.",
    "context": "Passes South Bellevue station/park-and-ride (2 Line), Mercer Slough Nature Park (wetland, blueberry farms), Winters House; 30 mph; WSDOT/Bellevue signals at SE 30th, 112th Ave SE, SE 16th.",
-   "congestion": "PM peak southbound toward I-90 is the slow direction: 2019 PM travel time 112th Ave SE \u2192 I-90 2.38 min SB vs 1.82 NB (src bel-mip2)."
+   "congestion": "PM peak southbound toward I-90 is the slow direction: 2019 PM travel time 112th Ave SE → I-90 2.38 min SB vs 1.82 NB (src bel-mip2)."
   },
   {
    "id": "ne-8th-st",
-   "name": "NE 8th Street (downtown, 112th Ave NE \u2192 Bellevue Way NE)",
+   "name": "NE 8th Street (downtown, 112th Ave NE → Bellevue Way NE)",
    "osmWays": "see streets[].catalogue Northeast 8th Street",
    "src": [
     "osm",
     "bel-tdm",
     "bel-mip2"
    ],
-   "lanes": "Principal arterial, 30 mph. Mapped as two one-way carriageways ~11\u201314 m apart centre-to-centre \u2192 3\u20134 lanes per direction incl. left-turn pockets (turn:lanes \"left|||right\" WB at 106th/108th) with a narrow raised median between. 7 lanes total typical mid-block.",
+   "lanes": "Principal arterial, 30 mph. Mapped as two one-way carriageways ~11–14 m apart centre-to-centre → 3–4 lanes per direction incl. left-turn pockets (turn:lanes \"left|||right\" WB at 106th/108th) with a narrow raised median between. 7 lanes total typical mid-block.",
    "surface": "asphalt #3d3f42 (patched, darker fresh overlays); concrete crosswalk aprons at some corners",
-   "sidewalk": "Downtown standard DT-120-1: concrete, 2 ft \u00d7 2 ft scored squares, light broom finish; \u22655 ft planter/tree strip at the kerb (src bel-tdm). Kerb: 6 in vertical concrete with gutter.",
-   "signals": "Signalised at 112th, 110th, 108th, 106th Ave NE and Bellevue Way; mast-arm poles with 12-in 3-section heads with retroreflective backplates, one per lane, street-name sign on each arm (src bel-tdm 4.1.2\u20134.1.6).",
-   "congestion": "PM peak v/c 1.00 at 112th Ave NE (2018 count) \u2014 the worst downtown intersection on this street; 0.66 at 108th, 0.66 at Bellevue Way (src bel-mip2)."
+   "sidewalk": "Downtown standard DT-120-1: concrete, 2 ft × 2 ft scored squares, light broom finish; ≥5 ft planter/tree strip at the kerb (src bel-tdm). Kerb: 6 in vertical concrete with gutter.",
+   "signals": "Signalised at 112th, 110th, 108th, 106th Ave NE and Bellevue Way; mast-arm poles with 12-in 3-section heads with retroreflective backplates, one per lane, street-name sign on each arm (src bel-tdm 4.1.2–4.1.6).",
+   "congestion": "PM peak v/c 1.00 at 112th Ave NE (2018 count) — the worst downtown intersection on this street; 0.66 at 108th, 0.66 at Bellevue Way (src bel-mip2)."
   },
   {
    "id": "bellevue-way-ne",
-   "name": "Bellevue Way NE (Main St \u2192 NE 8th St, route B)",
+   "name": "Bellevue Way NE (Main St → NE 8th St, route B)",
    "osmWays": "see streets[].catalogue Bellevue Way Northeast",
    "src": [
     "osm",
     "bel-tdm",
     "bel-mip2"
    ],
-   "lanes": "30 mph; mapped as split carriageways (centre spacing 9.7\u201312.3 m) with 2\u20133 lanes each way + left-turn pockets at NE 2nd, NE 4th, NE 6th (Lincoln Square South/Bellevue Square entrance), NE 8th.",
-   "frontage": "West side: Bellevue Square mall (Nordstrom, Macy's, Cheesecake Factory, Shake Shack\u2026), Bellevue Downtown Park further south. East side: Lincoln Square South podium (Fogo de Ch\u00e3o, Duke's, Wild Ginger), Lincoln Square North (Earls, Din Tai Fung, Paddy Coyne's). Covered skybridge over Bellevue Way at ~NE 7th (2007, src wp-bsq).",
+   "lanes": "30 mph; mapped as split carriageways (centre spacing 9.7–12.3 m) with 2–3 lanes each way + left-turn pockets at NE 2nd, NE 4th, NE 6th (Lincoln Square South/Bellevue Square entrance), NE 8th.",
+   "frontage": "West side: Bellevue Square mall (Nordstrom, Macy's, Cheesecake Factory, Shake Shack…), Bellevue Downtown Park further south. East side: Lincoln Square South podium (Fogo de Chão, Duke's, Wild Ginger), Lincoln Square North (Earls, Din Tai Fung, Paddy Coyne's). Covered skybridge over Bellevue Way at ~NE 7th (2007, src wp-bsq).",
    "congestion": "PM v/c: Main St 0.93, NE 4th 0.59, NE 8th 0.66, NE 12th 0.71 (src bel-mip2)."
   },
   {
    "catalogue": "downtown-core",
-   "note": "Every named street in the downtown core box Main St\u2013NE 12th St \u00d7 100th Ave NE\u2013I-405, straight from OSM (lanes, turn:lanes, speed, surface, sidewalk/cycleway tagging), plus curated design notes where researched.",
+   "note": "Every named street in the downtown core box Main St–NE 12th St × 100th Ave NE–I-405, straight from OSM (lanes, turn:lanes, speed, surface, sidewalk/cycleway tagging), plus curated design notes where researched.",
    "streets": [
     {
      "name": "Northeast 8th Street",
@@ -3877,15 +3877,15 @@
      "lengthM": 3346,
      "maxspeed": "30 mph",
      "lanesHistogram": {
-      "4": 22,
-      "3": 24,
+      "1": 1,
       "2": 11,
-      "5": 8,
-      "1": 1
+      "3": 24,
+      "4": 22,
+      "5": 8
      },
      "dualCarriagewayShare": 0.97,
      "designNote": "see corridorStreets ne-8th-st",
-     "sidewalkStd": "DT-120-1 2x2 ft scored concrete + \u22655 ft planters",
+     "sidewalkStd": "DT-120-1 2x2 ft scored concrete + ≥5 ft planters",
      "src": [
       "bel-tdm",
       "osm"
@@ -3934,7 +3934,7 @@
       },
       {
        "osmWay": 55481042,
-       "len": 96.0,
+       "len": 96,
        "name": "Northeast 8th Street",
        "highway": "primary",
        "lanes": "2",
@@ -3961,7 +3961,7 @@
       },
       {
        "osmWay": 55481044,
-       "len": 41.0,
+       "len": 41,
        "name": "Northeast 8th Street",
        "highway": "primary",
        "lanes": "4",
@@ -4336,7 +4336,7 @@
       },
       {
        "osmWay": 513503503,
-       "len": 16.0,
+       "len": 16,
        "name": "Northeast 8th Street",
        "highway": "primary",
        "lanes": "3",
@@ -4469,7 +4469,7 @@
       },
       {
        "osmWay": 816498798,
-       "len": 12.0,
+       "len": 12,
        "name": "Northeast 8th Street",
        "highway": "primary",
        "lanes": "3",
@@ -4516,7 +4516,7 @@
       },
       {
        "osmWay": 427906901,
-       "len": 18.0,
+       "len": 18,
        "name": "Northeast 8th Street",
        "highway": "primary",
        "lanes": "2",
@@ -4690,7 +4690,7 @@
       },
       {
        "osmWay": 513503501,
-       "len": 19.0,
+       "len": 19,
        "name": "Northeast 8th Street",
        "highway": "primary",
        "lanes": "5",
@@ -4795,7 +4795,7 @@
       },
       {
        "osmWay": 378376409,
-       "len": 114.0,
+       "len": 114,
        "name": "Northeast 12th Street",
        "highway": "primary",
        "lanes": "2",
@@ -4821,7 +4821,7 @@
       },
       {
        "osmWay": 428067756,
-       "len": 22.0,
+       "len": 22,
        "name": "Northeast 12th Street",
        "highway": "primary",
        "lanes": "3",
@@ -4832,7 +4832,7 @@
       },
       {
        "osmWay": 428067757,
-       "len": 50.0,
+       "len": 50,
        "name": "Northeast 12th Street",
        "highway": "primary",
        "lanes": "3",
@@ -4973,7 +4973,7 @@
       },
       {
        "osmWay": 428082297,
-       "len": 29.0,
+       "len": 29,
        "name": "Northeast 12th Street",
        "highway": "primary",
        "lanes": "4",
@@ -5129,7 +5129,7 @@
       },
       {
        "osmWay": 428082337,
-       "len": 28.0,
+       "len": 28,
        "name": "Northeast 12th Street",
        "highway": "primary",
        "lanes": "5",
@@ -5301,7 +5301,7 @@
       },
       {
        "osmWay": 664469440,
-       "len": 9.0,
+       "len": 9,
        "name": "Northeast 12th Street",
        "highway": "primary",
        "lanes": "2",
@@ -5312,7 +5312,7 @@
       },
       {
        "osmWay": 664469782,
-       "len": 20.0,
+       "len": 20,
        "name": "Northeast 12th Street",
        "highway": "primary",
        "lanes": "2",
@@ -5355,7 +5355,7 @@
       },
       {
        "osmWay": 852390035,
-       "len": 41.0,
+       "len": 41,
        "name": "Northeast 12th Street",
        "highway": "residential",
        "surface": "asphalt"
@@ -5390,11 +5390,11 @@
      "lengthM": 2672,
      "maxspeed": "30 mph",
      "lanesHistogram": {
-      "3": 24,
       "2": 13,
+      "3": 24,
       "4": 11,
-      "6": 4,
-      "5": 2
+      "5": 2,
+      "6": 4
      },
      "dualCarriagewayShare": 0.83,
      "designNote": "see corridorStreets bellevue-way-ne",
@@ -5671,7 +5671,7 @@
       },
       {
        "osmWay": 425272687,
-       "len": 249.0,
+       "len": 249,
        "name": "Bellevue Way Northeast",
        "highway": "primary",
        "lanes": "2",
@@ -5782,7 +5782,7 @@
       },
       {
        "osmWay": 428083523,
-       "len": 40.0,
+       "len": 40,
        "name": "Bellevue Way Northeast",
        "highway": "primary",
        "lanes": "5",
@@ -5806,7 +5806,7 @@
       },
       {
        "osmWay": 428083532,
-       "len": 39.0,
+       "len": 39,
        "name": "Bellevue Way Northeast",
        "highway": "primary",
        "lanes": "3",
@@ -5990,7 +5990,7 @@
       },
       {
        "osmWay": 1061294534,
-       "len": 105.0,
+       "len": 105,
        "name": "Bellevue Way Northeast",
        "highway": "primary",
        "lanes": "2",
@@ -6070,11 +6070,11 @@
      "lengthM": 2327,
      "maxspeed": "30 mph",
      "lanesHistogram": {
-      "3": 10,
       "2": 18,
-      "6": 3,
+      "3": 10,
       "4": 10,
-      "5": 7
+      "5": 7,
+      "6": 3
      },
      "dualCarriagewayShare": 0.68,
      "ways": [
@@ -6384,7 +6384,7 @@
       },
       {
        "osmWay": 427906758,
-       "len": 48.0,
+       "len": 48,
        "name": "112th Avenue Northeast",
        "highway": "secondary",
        "lanes": "2",
@@ -6535,7 +6535,7 @@
       },
       {
        "osmWay": 749999288,
-       "len": 15.0,
+       "len": 15,
        "name": "112th Avenue Northeast",
        "highway": "secondary",
        "lanes": "2",
@@ -6723,10 +6723,10 @@
      "lengthM": 2319,
      "maxspeed": "30 mph",
      "lanesHistogram": {
-      "5": 12,
       "2": 14,
       "3": 11,
       "4": 7,
+      "5": 12,
       "6": 7
      },
      "dualCarriagewayShare": 0.57,
@@ -6821,7 +6821,7 @@
       },
       {
        "osmWay": 365781620,
-       "len": 16.0,
+       "len": 16,
        "name": "Northeast 4th Street",
        "highway": "primary",
        "lanes": "4",
@@ -6954,7 +6954,7 @@
       },
       {
        "osmWay": 29140451,
-       "len": 68.0,
+       "len": 68,
        "name": "Northeast 4th Street",
        "highway": "primary",
        "lanes": "4",
@@ -7297,7 +7297,7 @@
       },
       {
        "osmWay": 533310384,
-       "len": 9.0,
+       "len": 9,
        "name": "Northeast 4th Street",
        "highway": "primary",
        "lanes": "5",
@@ -7357,7 +7357,7 @@
       },
       {
        "osmWay": 1063028566,
-       "len": 23.0,
+       "len": 23,
        "name": "Northeast 4th Street",
        "highway": "residential",
        "oneway": "yes",
@@ -7418,13 +7418,13 @@
      "lengthM": 1972,
      "maxspeed": "30 mph",
      "lanesHistogram": {
-      "6": 5,
-      "7": 1,
-      "5": 16,
-      "4": 5,
+      "1": 3,
       "2": 6,
       "3": 5,
-      "1": 3
+      "4": 5,
+      "5": 16,
+      "6": 5,
+      "7": 1
      },
      "dualCarriagewayShare": 0.29,
      "ways": [
@@ -7620,7 +7620,7 @@
       },
       {
        "osmWay": 513238741,
-       "len": 66.0,
+       "len": 66,
        "name": "Northeast 10th Street",
        "highway": "secondary",
        "lanes": "5",
@@ -7660,7 +7660,7 @@
       },
       {
        "osmWay": 513490830,
-       "len": 48.0,
+       "len": 48,
        "name": "Northeast 10th Street",
        "highway": "secondary",
        "lanes": "6",
@@ -7674,7 +7674,7 @@
       },
       {
        "osmWay": 513490831,
-       "len": 77.0,
+       "len": 77,
        "name": "Northeast 10th Street",
        "highway": "secondary",
        "lanes": "5",
@@ -7687,7 +7687,7 @@
       },
       {
        "osmWay": 513490832,
-       "len": 23.0,
+       "len": 23,
        "name": "Northeast 10th Street",
        "highway": "secondary",
        "lanes": "3",
@@ -7754,7 +7754,7 @@
       },
       {
        "osmWay": 737993582,
-       "len": 7.0,
+       "len": 7,
        "name": "Northeast 10th Street",
        "highway": "secondary",
        "lanes": "5",
@@ -7824,7 +7824,7 @@
       },
       {
        "osmWay": 513490817,
-       "len": 126.0,
+       "len": 126,
        "name": "Northeast 10th Street",
        "highway": "secondary",
        "lanes": "1",
@@ -7938,11 +7938,11 @@
      "lengthM": 1780,
      "maxspeed": "30 mph",
      "lanesHistogram": {
-      "4": 13,
-      "5": 13,
-      "3": 11,
+      "1": 6,
       "2": 5,
-      "1": 6
+      "3": 11,
+      "4": 13,
+      "5": 13
      },
      "dualCarriagewayShare": 0.31,
      "designNote": "Old Bellevue: low-rise boutiques west of Bellevue Way; bike lanes (OSM cycleway=lane), pedestrian-scale lamps (lit=yes on 34 ways).",
@@ -7982,7 +7982,7 @@
       },
       {
        "osmWay": 428073515,
-       "len": 8.0,
+       "len": 8,
        "name": "Main Street",
        "highway": "secondary",
        "lanes": "4",
@@ -8156,7 +8156,7 @@
       },
       {
        "osmWay": 427906860,
-       "len": 20.0,
+       "len": 20,
        "name": "Main Street",
        "highway": "secondary",
        "lanes": "4",
@@ -8351,7 +8351,7 @@
       },
       {
        "osmWay": 30832189,
-       "len": 37.0,
+       "len": 37,
        "name": "Main Street",
        "highway": "secondary",
        "lanes": "2",
@@ -8380,7 +8380,7 @@
       },
       {
        "osmWay": 427906837,
-       "len": 51.0,
+       "len": 51,
        "name": "Main Street",
        "highway": "secondary",
        "lanes": "2",
@@ -8431,7 +8431,7 @@
       },
       {
        "osmWay": 427906883,
-       "len": 30.0,
+       "len": 30,
        "name": "Main Street",
        "highway": "secondary",
        "lanes": "3",
@@ -8445,7 +8445,7 @@
       },
       {
        "osmWay": 731799649,
-       "len": 28.0,
+       "len": 28,
        "name": "Main Street",
        "highway": "secondary",
        "lanes": "1",
@@ -8545,7 +8545,7 @@
       },
       {
        "osmWay": 1042577021,
-       "len": 24.0,
+       "len": 24,
        "name": "Main Street",
        "highway": "secondary",
        "lanes": "2",
@@ -8619,8 +8619,8 @@
      "lengthM": 1608,
      "maxspeed": "30 mph",
      "lanesHistogram": {
-      "2": 10,
       "1": 6,
+      "2": 10,
       "3": 11,
       "4": 10,
       "5": 2
@@ -8648,7 +8648,7 @@
       },
       {
        "osmWay": 1116291570,
-       "len": 46.0,
+       "len": 46,
        "name": "110th Avenue Northeast",
        "highway": "tertiary",
        "lanes": "1",
@@ -8692,7 +8692,7 @@
       },
       {
        "osmWay": 1116291576,
-       "len": 83.0,
+       "len": 83,
        "name": "110th Avenue Northeast",
        "highway": "secondary",
        "lanes": "1",
@@ -8714,7 +8714,7 @@
       },
       {
        "osmWay": 1116291578,
-       "len": 18.0,
+       "len": 18,
        "name": "110th Avenue Northeast",
        "highway": "secondary",
        "lanes": "2",
@@ -8768,7 +8768,7 @@
       },
       {
        "osmWay": 1116291585,
-       "len": 31.0,
+       "len": 31,
        "name": "110th Avenue Northeast",
        "highway": "tertiary",
        "lanes": "1",
@@ -8799,7 +8799,7 @@
       },
       {
        "osmWay": 1116291590,
-       "len": 46.0,
+       "len": 46,
        "name": "110th Avenue Northeast",
        "highway": "tertiary",
        "lanes": "3",
@@ -8810,7 +8810,7 @@
       },
       {
        "osmWay": 1206479363,
-       "len": 46.0,
+       "len": 46,
        "name": "110th Avenue Northeast",
        "highway": "tertiary",
        "lanes": "3",
@@ -8833,7 +8833,7 @@
       },
       {
        "osmWay": 6400142,
-       "len": 64.0,
+       "len": 64,
        "name": "110th Avenue Northeast",
        "highway": "secondary",
        "lanes": "4",
@@ -8859,7 +8859,7 @@
       },
       {
        "osmWay": 513238724,
-       "len": 27.0,
+       "len": 27,
        "name": "110th Avenue Northeast",
        "highway": "secondary",
        "lanes": "5",
@@ -9104,12 +9104,12 @@
      "lengthM": 1482,
      "maxspeed": "30 mph",
      "lanesHistogram": {
-      "5": 11,
       "4": 8,
+      "5": 11,
       "6": 11,
       "8": 2
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 428073484,
@@ -9137,7 +9137,7 @@
       },
       {
        "osmWay": 428073489,
-       "len": 22.0,
+       "len": 22,
        "name": "116th Avenue Northeast",
        "highway": "secondary",
        "lanes": "4",
@@ -9368,7 +9368,7 @@
       },
       {
        "osmWay": 428073496,
-       "len": 32.0,
+       "len": 32,
        "name": "116th Avenue Northeast",
        "highway": "secondary",
        "lanes": "5",
@@ -9443,7 +9443,7 @@
       },
       {
        "osmWay": 624380954,
-       "len": 10.0,
+       "len": 10,
        "name": "116th Avenue Northeast",
        "highway": "secondary",
        "lanes": "5",
@@ -9510,20 +9510,20 @@
      "lengthM": 1242,
      "maxspeed": null,
      "lanesHistogram": {
-      "3": 9,
       "2": 4,
+      "3": 9,
       "4": 10,
       "5": 1
      },
-     "dualCarriagewayShare": 0.0,
-     "designNote": "Office spine; bike lanes both sides (OSM cycleway=lane on 23 of 30 ways, some separated/track near NE 4th\u2013NE 8th); mostly 1 lane each way + turn lane; concrete surface on 11 ways.",
+     "dualCarriagewayShare": 0,
+     "designNote": "Office spine; bike lanes both sides (OSM cycleway=lane on 23 of 30 ways, some separated/track near NE 4th–NE 8th); mostly 1 lane each way + turn lane; concrete surface on 11 ways.",
      "src": [
       "osm"
      ],
      "ways": [
       {
        "osmWay": 402083654,
-       "len": 101.0,
+       "len": 101,
        "name": "108th Avenue Northeast",
        "highway": "secondary",
        "lanes": "3",
@@ -9584,7 +9584,7 @@
       },
       {
        "osmWay": 427906734,
-       "len": 28.0,
+       "len": 28,
        "name": "108th Avenue Northeast",
        "highway": "secondary",
        "lanes": "3",
@@ -9624,7 +9624,7 @@
       },
       {
        "osmWay": 612769226,
-       "len": 25.0,
+       "len": 25,
        "name": "108th Avenue Northeast",
        "highway": "secondary",
        "lanes": "2",
@@ -9817,7 +9817,7 @@
       },
       {
        "osmWay": 675401896,
-       "len": 81.0,
+       "len": 81,
        "name": "108th Avenue Northeast",
        "highway": "secondary",
        "surface": "asphalt",
@@ -9841,7 +9841,7 @@
       },
       {
        "osmWay": 1556489723,
-       "len": 2.0,
+       "len": 2,
        "name": "108th Avenue Northeast",
        "highway": "secondary",
        "lanes": "4",
@@ -9879,7 +9879,7 @@
       "4": 5,
       "5": 1
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6393971,
@@ -10048,7 +10048,7 @@
       },
       {
        "osmWay": 1442570381,
-       "len": 43.0,
+       "len": 43,
        "name": "106th Avenue Northeast",
        "highway": "tertiary",
        "lanes": "4",
@@ -10067,10 +10067,10 @@
      "lengthM": 1148,
      "maxspeed": "30 mph",
      "lanesHistogram": {
-      "2": 1,
-      "4": 4,
       "1": 2,
-      "3": 3
+      "2": 1,
+      "3": 3,
+      "4": 4
      },
      "dualCarriagewayShare": 0.18,
      "ways": [
@@ -10208,11 +10208,11 @@
       "2": 4,
       "3": 8
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6505892,
-       "len": 109.0,
+       "len": 109,
        "name": "Northeast 2nd Street",
        "highway": "tertiary",
        "lanes": "2",
@@ -10329,7 +10329,7 @@
       },
       {
        "osmWay": 533313004,
-       "len": 29.0,
+       "len": 29,
        "name": "Northeast 2nd Street",
        "highway": "tertiary",
        "lanes": "2",
@@ -10399,7 +10399,7 @@
       "3": 1,
       "4": 11
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6509363,
@@ -10511,7 +10511,7 @@
       },
       {
        "osmWay": 577950258,
-       "len": 33.0,
+       "len": 33,
        "name": "102nd Avenue Northeast",
        "highway": "tertiary",
        "lanes": "4",
@@ -10562,7 +10562,7 @@
       },
       {
        "osmWay": 968745390,
-       "len": 20.0,
+       "len": 20,
        "name": "102nd Avenue Northeast",
        "highway": "tertiary",
        "lanes": "4",
@@ -10594,7 +10594,7 @@
      "lengthM": 730,
      "maxspeed": "30 mph",
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6345941,
@@ -10647,7 +10647,7 @@
      "lengthM": 655,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6466588,
@@ -10666,9 +10666,9 @@
      "maxspeed": null,
      "lanesHistogram": {
       "1": 5,
+      "2": 2,
       "3": 1,
-      "4": 2,
-      "2": 2
+      "4": 2
      },
      "dualCarriagewayShare": 0.75,
      "ways": [
@@ -10728,7 +10728,7 @@
       },
       {
        "osmWay": 1548748922,
-       "len": 16.0,
+       "len": 16,
        "highway": "secondary",
        "lanes": "4",
        "turn:lanes:forward": "left;through|through;right",
@@ -10875,7 +10875,7 @@
      "lengthM": 560,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6483801,
@@ -10906,7 +10906,7 @@
      "lengthM": 528,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6353609,
@@ -10986,11 +10986,11 @@
      "lengthM": 480,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6512444,
-       "len": 235.0,
+       "len": 235,
        "name": "Northeast 12th Place",
        "highway": "residential"
       },
@@ -11008,7 +11008,7 @@
      "lengthM": 450,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6344740,
@@ -11039,7 +11039,7 @@
      "lengthM": 446,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6488033,
@@ -11058,7 +11058,7 @@
       },
       {
        "osmWay": 131361873,
-       "len": 126.0,
+       "len": 126,
        "name": "106th Place Northeast",
        "highway": "residential"
       }
@@ -11070,12 +11070,12 @@
      "lengthM": 398,
      "maxspeed": null,
      "lanesHistogram": {
-      "5": 2,
       "1": 1,
-      "4": 1
+      "4": 1,
+      "5": 2
      },
      "dualCarriagewayShare": 0.2,
-     "designNote": "Bellevue Transit Center block between 108th and 110th is a bus/pedestrian street (\"transit mall\") with scramble crossings; car through-traffic not allowed \u2014 keep the player out (OSM access tags + src wp-downtown).",
+     "designNote": "Bellevue Transit Center block between 108th and 110th is a bus/pedestrian street (\"transit mall\") with scramble crossings; car through-traffic not allowed — keep the player out (OSM access tags + src wp-downtown).",
      "src": [
       "osm",
       "wp-downtown"
@@ -11149,7 +11149,7 @@
      "lanesHistogram": {
       "2": 1
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6422040,
@@ -11184,11 +11184,11 @@
      "lengthM": 365,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6363889,
-       "len": 67.0,
+       "len": 67,
        "name": "Southeast 3rd Street",
        "highway": "residential"
       },
@@ -11214,9 +11214,9 @@
      "lengthM": 364,
      "maxspeed": "30 mph",
      "lanesHistogram": {
+      "2": 2,
       "4": 2,
-      "5": 3,
-      "2": 2
+      "5": 3
      },
      "dualCarriagewayShare": 0.43,
      "ways": [
@@ -11271,7 +11271,7 @@
       },
       {
        "osmWay": 994978760,
-       "len": 71.0,
+       "len": 71,
        "name": "Bellevue Way Southeast",
        "highway": "primary",
        "lanes": "2",
@@ -11314,7 +11314,7 @@
      "lengthM": 345,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6345163,
@@ -11336,7 +11336,7 @@
      "lengthM": 342,
      "maxspeed": "20 mph",
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6346283,
@@ -11353,7 +11353,7 @@
      "lengthM": 329,
      "maxspeed": "20 mph",
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6374507,
@@ -11373,7 +11373,7 @@
       },
       {
        "osmWay": 54115112,
-       "len": 86.0,
+       "len": 86,
        "name": "Southeast 2nd Street",
        "highway": "residential",
        "maxspeed": "20 mph"
@@ -11386,7 +11386,7 @@
      "lengthM": 328,
      "maxspeed": "30 mph",
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 30614939,
@@ -11428,10 +11428,10 @@
      "lengthM": 266,
      "maxspeed": "35 mph",
      "lanesHistogram": {
-      "5": 1,
-      "4": 1
+      "4": 1,
+      "5": 1
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 427906762,
@@ -11464,7 +11464,7 @@
      "lengthM": 263,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 31555909,
@@ -11484,7 +11484,7 @@
      "lanesHistogram": {
       "2": 1
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 800958370,
@@ -11503,7 +11503,7 @@
      "lengthM": 244,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6435011,
@@ -11527,14 +11527,14 @@
      "lengthM": 240,
      "maxspeed": "30 mph",
      "lanesHistogram": {
-      "5": 4,
-      "4": 2
+      "4": 2,
+      "5": 4
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6381295,
-       "len": 57.0,
+       "len": 57,
        "name": "116th Avenue Southeast",
        "highway": "primary",
        "lanes": "5",
@@ -11572,7 +11572,7 @@
       },
       {
        "osmWay": 428073504,
-       "len": 28.0,
+       "len": 28,
        "name": "116th Avenue Southeast",
        "highway": "primary",
        "lanes": "4",
@@ -11614,7 +11614,7 @@
      "lengthM": 210,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6379315,
@@ -11632,11 +11632,11 @@
      "lanesHistogram": {
       "2": 2
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6488565,
-       "len": 18.0,
+       "len": 18,
        "name": "105th Avenue Northeast",
        "highway": "tertiary",
        "lanes": "2",
@@ -11663,11 +11663,11 @@
      "lanesHistogram": {
       "2": 4
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 1222672054,
-       "len": 78.0,
+       "len": 78,
        "name": "Avenue Square Northeast",
        "highway": "residential",
        "lanes": "2",
@@ -11713,11 +11713,11 @@
      "lengthM": 203,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6349012,
-       "len": 203.0,
+       "len": 203,
        "name": "Meydenbauer Way Southeast",
        "highway": "residential",
        "surface": "asphalt",
@@ -11733,7 +11733,7 @@
      "lanesHistogram": {
       "2": 1
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6450240,
@@ -11751,7 +11751,7 @@
      "lengthM": 160,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6450855,
@@ -11769,11 +11769,11 @@
      "lengthM": 145,
      "maxspeed": "20 mph",
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 48995716,
-       "len": 41.0,
+       "len": 41,
        "name": "Southeast 1st Street",
        "highway": "unclassified"
       },
@@ -11806,7 +11806,7 @@
      "lengthM": 140,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6519261,
@@ -11823,7 +11823,7 @@
      "lengthM": 117,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6449608,
@@ -11840,11 +11840,11 @@
      "lengthM": 110,
      "maxspeed": "20 mph",
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6509527,
-       "len": 110.0,
+       "len": 110,
        "name": "110th Place Southeast",
        "highway": "residential",
        "maxspeed": "20 mph"
@@ -11857,7 +11857,7 @@
      "lengthM": 108,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6344292,
@@ -11876,11 +11876,11 @@
      "lengthM": 99,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 1.0,
+     "dualCarriagewayShare": 1,
      "ways": [
       {
        "osmWay": 6404698,
-       "len": 99.0,
+       "len": 99,
        "name": "Northeast 3rd Street",
        "highway": "residential",
        "oneway": "yes",
@@ -11895,7 +11895,7 @@
      "lengthM": 99,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6386641,
@@ -11912,7 +11912,7 @@
      "lengthM": 98,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6359968,
@@ -11928,7 +11928,7 @@
      "lengthM": 98,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 468011401,
@@ -11945,7 +11945,7 @@
      "lengthM": 94,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 172706167,
@@ -11963,7 +11963,7 @@
      "lengthM": 90,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6434934,
@@ -11982,7 +11982,7 @@
      "lengthM": 65,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 99660246,
@@ -12000,7 +12000,7 @@
      "lengthM": 48,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 33103415,
@@ -12016,7 +12016,7 @@
      "lengthM": 45,
      "maxspeed": null,
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 6438981,
@@ -12034,7 +12034,7 @@
      "lanesHistogram": {
       "2": 1
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 1315953807,
@@ -12055,7 +12055,7 @@
      "lanesHistogram": {
       "3": 1
      },
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 427906832,
@@ -12078,7 +12078,7 @@
      "lengthM": 17,
      "maxspeed": "20 mph",
      "lanesHistogram": {},
-     "dualCarriagewayShare": 0.0,
+     "dualCarriagewayShare": 0,
      "ways": [
       {
        "osmWay": 964200123,
@@ -12095,7 +12095,7 @@
  "junctions": [
   {
    "id": "ne8th-bellevueway",
-   "name": "NE 8th St \u00d7 Bellevue Way NE",
+   "name": "NE 8th St × Bellevue Way NE",
    "lat": 47.61743,
    "lon": -122.20168,
    "control": "traffic signals (OSM nodes 47.61739,-122.20163 etc.)",
@@ -12113,7 +12113,7 @@
   },
   {
    "id": "ne8th-108th",
-   "name": "NE 8th St \u00d7 108th Ave NE",
+   "name": "NE 8th St × 108th Ave NE",
    "lat": 47.61741,
    "lon": -122.19634,
    "control": "signals",
@@ -12131,12 +12131,12 @@
   },
   {
    "id": "ne8th-110th",
-   "name": "NE 8th St \u00d7 110th Ave NE",
+   "name": "NE 8th St × 110th Ave NE",
    "lat": 47.6174,
    "lon": -122.19365,
    "control": "signals",
    "corners": {
-    "NW": "Plaza Center (UiPath 2018\u20132025), 10900 NE 8th",
+    "NW": "Plaza Center (UiPath 2018–2025), 10900 NE 8th",
     "NE": "Starbucks 11010 NE 8th, Hummus Republic, CoCo (Plaza East podium)",
     "S": "City Center Plaza / Bellevue 600 / Amazon towers"
    },
@@ -12146,14 +12146,14 @@
   },
   {
    "id": "ne8th-112th",
-   "name": "NE 8th St \u00d7 112th Ave NE",
+   "name": "NE 8th St × 112th Ave NE",
    "lat": 47.61736,
    "lon": -122.19091,
    "control": "signals; I-405 ramps adjacent to the east",
-   "pmVC": 1.0,
+   "pmVC": 1,
    "note": "Busiest downtown intersection on the route (PM v/c 1.0 in 2018; 2044 forecast 1.31).",
    "corners": {
-    "SE": "The Bravern (Herm\u00e8s, Sugar Factory)",
+    "SE": "The Bravern (Hermès, Sugar Factory)",
     "NE": "Plaza East 11100 NE 8th (Charles Schwab, Umpqua)"
    },
    "src": [
@@ -12163,7 +12163,7 @@
   },
   {
    "id": "bellevueway-ne4th",
-   "name": "Bellevue Way NE \u00d7 NE 4th St",
+   "name": "Bellevue Way NE × NE 4th St",
    "lat": 47.61387,
    "lon": -122.2016,
    "control": "signals",
@@ -12171,7 +12171,7 @@
    "corners": {
     "NE": "Lincoln Square South (400 Lincoln Square office, Two Lincoln Tower/W Bellevue)",
     "NW": "Bellevue Square SE corner (Cheesecake Factory nearby)",
-    "SE": "Salt & Straw / Macu Tea / em Salon retail (10415\u201310435 NE 4th St)",
+    "SE": "Salt & Straw / Macu Tea / em Salon retail (10415–10435 NE 4th St)",
     "SW": "Bellevue Downtown Park (NE corner of the park)"
    },
    "src": [
@@ -12181,7 +12181,7 @@
   },
   {
    "id": "bellevueway-main",
-   "name": "Bellevue Way \u00d7 Main St",
+   "name": "Bellevue Way × Main St",
    "lat": 47.6102,
    "lon": -122.2015,
    "control": "signals",
@@ -12198,11 +12198,11 @@
   },
   {
    "id": "i90-i405",
-   "name": "I-90 \u00d7 I-405 stack interchange (exits I-90 10A/10B, I-405 11)",
+   "name": "I-90 × I-405 stack interchange (exits I-90 10A/10B, I-405 11)",
    "lat": 47.5795,
    "lon": -122.183,
    "control": "freeway",
-   "note": "Four-level stack, flyovers at layer 1\u20132; I-90 widens to 16 lanes with C-D roads just west (src wp-i90). Sign gantries mapped in OSM (man_made=gantry \u00d719 around the stack).",
+   "note": "Four-level stack, flyovers at layer 1–2; I-90 widens to 16 lanes with C-D roads just west (src wp-i90). Sign gantries mapped in OSM (man_made=gantry ×19 around the stack).",
    "src": [
     "wp-i90",
     "osm"
@@ -12232,7 +12232,7 @@
     "name": "Lincoln Square"
    },
    "heightM": null,
-   "levels": 3.0,
+   "levels": 3,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 9.6,
@@ -12409,7 +12409,7 @@
    "isPart": false,
    "levelsEst": 1,
    "heightEstM": 4.5,
-   "estimateBasis": "rule: building=retail, footprint 548 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=retail, footprint 548 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.610661,
@@ -12454,7 +12454,7 @@
    "isPart": false,
    "levelsEst": 3,
    "heightEstM": 10.8,
-   "estimateBasis": "rule: building=yes, footprint 1536 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 1536 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.617233,
@@ -12541,7 +12541,7 @@
     47.615359,
     -122.201364
    ],
-   "footprintM2": 1521.0,
+   "footprintM2": 1521,
    "distToRouteM": 9,
    "nearestRoute": "B",
    "name": "Bellevue Art Museum",
@@ -12556,7 +12556,7 @@
    "isPart": false,
    "levelsEst": 3,
    "heightEstM": 10.8,
-   "estimateBasis": "rule: building=yes, footprint 1521 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 1521 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.615216,
@@ -12630,7 +12630,7 @@
    "footprintM2": 2229.6,
    "distToRouteM": 10,
    "nearestRoute": "B",
-   "name": "Lincoln Square North (700 Bellevue Way NE) \u2014 UiPath 2025+",
+   "name": "Lincoln Square North (700 Bellevue Way NE) — UiPath 2025+",
    "address": null,
    "osmTags": {
     "building:levels": "28",
@@ -12639,7 +12639,7 @@
     "name": "Lincoln Square North"
    },
    "heightM": 126,
-   "levels": 28.0,
+   "levels": 28,
    "minLevel": null,
    "isPart": true,
    "floors": 28,
@@ -12735,7 +12735,7 @@
     "start_date": "2018"
    },
    "heightM": null,
-   "levels": 21.0,
+   "levels": 21,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 81.9,
@@ -12777,7 +12777,7 @@
     47.617864,
     -122.192535
    ],
-   "footprintM2": 2084.0,
+   "footprintM2": 2084,
    "distToRouteM": 10,
    "nearestRoute": "A",
    "name": "Alley 111",
@@ -12788,7 +12788,7 @@
     "name": "Alley 111"
    },
    "heightM": null,
-   "levels": 12.0,
+   "levels": 12,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 38.4,
@@ -12854,7 +12854,7 @@
     "name": "Plaza East"
    },
    "heightM": null,
-   "levels": 9.0,
+   "levels": 9,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 35.1,
@@ -12927,7 +12927,7 @@
     "name": "Lincoln Square South"
    },
    "heightM": null,
-   "levels": 3.0,
+   "levels": 3,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 9.6,
@@ -13126,7 +13126,7 @@
     "name": "Westin Bellevue"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 6.4,
@@ -13260,7 +13260,7 @@
     47.616922,
     -122.19689
    ],
-   "footprintM2": 2451.0,
+   "footprintM2": 2451,
    "distToRouteM": 11,
    "nearestRoute": "B",
    "name": "Symetra Center (777 108th Ave NE)",
@@ -13275,7 +13275,7 @@
     "name": "Symetra Center"
    },
    "heightM": 99,
-   "levels": 25.0,
+   "levels": 25,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 97.5,
@@ -13408,7 +13408,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 21.0,
+   "levels": 21,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 81.9,
@@ -13456,7 +13456,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 4.0,
+   "levels": 4,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 12.8,
@@ -13513,7 +13513,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 3.0,
+   "levels": 3,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 9.6,
@@ -13685,7 +13685,7 @@
     47.617522,
     -122.200666
    ],
-   "footprintM2": 295.0,
+   "footprintM2": 295,
    "distToRouteM": 12,
    "nearestRoute": "B",
    "name": null,
@@ -13759,7 +13759,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 24.0,
+   "levels": 24,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 93.6,
@@ -13820,7 +13820,7 @@
    "isPart": false,
    "levelsEst": 3,
    "heightEstM": 10.8,
-   "estimateBasis": "rule: building=yes, footprint 3466 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 3466 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.616922,
@@ -13885,10 +13885,10 @@
     "name": "The Meyden"
    },
    "heightM": null,
-   "levels": 5.0,
+   "levels": 5,
    "minLevel": null,
    "isPart": false,
-   "heightEstM": 16.0,
+   "heightEstM": 16,
    "footprint": [
     [
      47.610059,
@@ -14158,7 +14158,7 @@
    "isPart": false,
    "levelsEst": 3,
    "heightEstM": 10.8,
-   "estimateBasis": "rule: building=office, footprint 677 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=office, footprint 677 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.60697,
@@ -14205,7 +14205,7 @@
     "roof:shape": "mansard"
    },
    "heightM": null,
-   "levels": 1.0,
+   "levels": 1,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 3.2,
@@ -14258,7 +14258,7 @@
    "isPart": false,
    "levelsEst": 3,
    "heightEstM": 10.8,
-   "estimateBasis": "rule: building=office, footprint 747 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=office, footprint 747 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.608831,
@@ -14335,7 +14335,7 @@
    "isPart": false,
    "levelsEst": 2,
    "heightEstM": 7.2,
-   "estimateBasis": "rule: building=yes, footprint 140 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 140 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.607881,
@@ -14380,7 +14380,7 @@
    "isPart": false,
    "levelsEst": 2,
    "heightEstM": 7.2,
-   "estimateBasis": "rule: building=yes, footprint 350 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 350 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.60771,
@@ -14411,7 +14411,7 @@
     47.614736,
     -122.187769
    ],
-   "footprintM2": 2886.0,
+   "footprintM2": 2886,
    "distToRouteM": 18,
    "nearestRoute": "A",
    "name": "Lincoln Center",
@@ -14426,7 +14426,7 @@
    "isPart": false,
    "levelsEst": 3,
    "heightEstM": 10.8,
-   "estimateBasis": "rule: building=yes, footprint 2886 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 2886 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.61496,
@@ -14494,7 +14494,7 @@
     "name": "Lincoln Square South Tower"
    },
    "heightM": 137,
-   "levels": 31.0,
+   "levels": 31,
    "minLevel": "4",
    "isPart": true,
    "floors": 31,
@@ -14556,7 +14556,7 @@
    "footprintM2": 2071.8,
    "distToRouteM": 19,
    "nearestRoute": "A",
-   "name": "Plaza Center (UiPath 2018\u20132025)",
+   "name": "Plaza Center (UiPath 2018–2025)",
    "address": "10900 Northeast 8th Street",
    "osmTags": {
     "addr:city": "Bellevue",
@@ -14571,7 +14571,7 @@
     "name": "Plaza Center"
    },
    "heightM": 68,
-   "levels": 16.0,
+   "levels": 16,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 62.4,
@@ -14673,7 +14673,7 @@
     "shop": "bicycle"
    },
    "heightM": null,
-   "levels": 3.0,
+   "levels": 3,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 9.6,
@@ -14755,7 +14755,7 @@
     47.611376,
     -122.201961
    ],
-   "footprintM2": 602.0,
+   "footprintM2": 602,
    "distToRouteM": 19,
    "nearestRoute": "B",
    "name": null,
@@ -14766,7 +14766,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 1.0,
+   "levels": 1,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 3.2,
@@ -14839,7 +14839,7 @@
    "isPart": false,
    "levelsEst": 3,
    "heightEstM": 10.8,
-   "estimateBasis": "rule: building=yes, footprint 4844 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 4844 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.6163,
@@ -15045,7 +15045,7 @@
    "isPart": false,
    "levelsEst": 1,
    "heightEstM": 4.5,
-   "estimateBasis": "rule: building=retail, footprint 1185 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=retail, footprint 1185 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.618051,
@@ -15114,7 +15114,7 @@
    "isPart": false,
    "levelsEst": 1,
    "heightEstM": 3.6,
-   "estimateBasis": "rule: building=carport, footprint 113 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=carport, footprint 113 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.607021,
@@ -15164,7 +15164,7 @@
    "isPart": false,
    "levelsEst": 4,
    "heightEstM": 14.4,
-   "estimateBasis": "rule: building=apartments, footprint 418 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=apartments, footprint 418 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.606418,
@@ -15195,7 +15195,7 @@
     47.615747,
     -122.203929
    ],
-   "footprintM2": 55138.0,
+   "footprintM2": 55138,
    "distToRouteM": 21,
    "nearestRoute": "B",
    "name": "Bellevue Square Mall",
@@ -15213,7 +15213,7 @@
     "shop": "mall"
    },
    "heightM": null,
-   "levels": 3.0,
+   "levels": 3,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 9.6,
@@ -15585,7 +15585,7 @@
    "isPart": false,
    "levelsEst": 2,
    "heightEstM": 7.2,
-   "estimateBasis": "rule: building=yes, footprint 47 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 47 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.61426,
@@ -15638,7 +15638,7 @@
    "isPart": false,
    "levelsEst": 2,
    "heightEstM": 7.2,
-   "estimateBasis": "rule: building=yes, footprint 389 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 389 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.611904,
@@ -15938,7 +15938,7 @@
     "name": "Bank of America Tower"
    },
    "heightM": 82,
-   "levels": 25.0,
+   "levels": 25,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 97.5,
@@ -16044,7 +16044,7 @@
     "name": "Bellevue Place"
    },
    "heightM": null,
-   "levels": 6.0,
+   "levels": 6,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 19.2,
@@ -16241,7 +16241,7 @@
     "name": "Paccar"
    },
    "heightM": null,
-   "levels": 4.0,
+   "levels": 4,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 15.6,
@@ -16334,7 +16334,7 @@
    "isPart": false,
    "levelsEst": 4,
    "heightEstM": 14.4,
-   "estimateBasis": "rule: building=apartments, footprint 1917 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=apartments, footprint 1917 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.608642,
@@ -16384,7 +16384,7 @@
     "building:levels": "4"
    },
    "heightM": null,
-   "levels": 4.0,
+   "levels": 4,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 12.8,
@@ -16472,7 +16472,7 @@
    "isPart": false,
    "levelsEst": 2,
    "heightEstM": 7.2,
-   "estimateBasis": "rule: building=yes, footprint 253 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 253 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.613395,
@@ -16522,7 +16522,7 @@
    "isPart": false,
    "levelsEst": 1,
    "heightEstM": 4.5,
-   "estimateBasis": "rule: building=retail, footprint 220 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=retail, footprint 220 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.613123,
@@ -16573,7 +16573,7 @@
     "name": "Bellevue Place"
    },
    "heightM": null,
-   "levels": 4.0,
+   "levels": 4,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 15.6,
@@ -16701,7 +16701,7 @@
    "isPart": false,
    "levelsEst": 3,
    "heightEstM": 10.8,
-   "estimateBasis": "rule: building=yes, footprint 6956 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 6956 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.609051,
@@ -16762,7 +16762,7 @@
    "isPart": false,
    "levelsEst": 3,
    "heightEstM": 10.8,
-   "estimateBasis": "rule: building=yes, footprint 3079 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 3079 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.617579,
@@ -16873,7 +16873,7 @@
    "isPart": false,
    "levelsEst": 2,
    "heightEstM": 7.2,
-   "estimateBasis": "rule: building=yes, footprint 777 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 777 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.608768,
@@ -16963,7 +16963,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 6.4,
@@ -17075,7 +17075,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 6.0,
+   "levels": 6,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 19.2,
@@ -17205,7 +17205,7 @@
    "isPart": false,
    "levelsEst": 2,
    "heightEstM": 7.2,
-   "estimateBasis": "rule: building=yes, footprint 892 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 892 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.609011,
@@ -17247,7 +17247,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 22.0,
+   "levels": 22,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 85.8,
@@ -17350,7 +17350,7 @@
     "name": "Bravern 1"
    },
    "heightM": null,
-   "levels": 13.0,
+   "levels": 13,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 50.7,
@@ -17412,7 +17412,7 @@
     47.610666,
     -122.187617
    ],
-   "footprintM2": 1253.0,
+   "footprintM2": 1253,
    "distToRouteM": 28,
    "nearestRoute": "A",
    "name": "Extended Stay America",
@@ -17430,7 +17430,7 @@
     "name": "Extended Stay America"
    },
    "heightM": null,
-   "levels": 4.0,
+   "levels": 4,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 12.8,
@@ -17509,7 +17509,7 @@
    "isPart": false,
    "levelsEst": 3,
    "heightEstM": 10.8,
-   "estimateBasis": "rule: building=office, footprint 2944 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=office, footprint 2944 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.617188,
@@ -17627,7 +17627,7 @@
     "name": "Chase"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 7.8,
@@ -17696,7 +17696,7 @@
     "name": "The Shops at Bravern"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 6.4,
@@ -18089,7 +18089,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 6.4,
@@ -18202,7 +18202,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 6.4,
@@ -18254,7 +18254,7 @@
    "isPart": false,
    "levelsEst": 1,
    "heightEstM": 4.5,
-   "estimateBasis": "rule: building=retail, footprint 435 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=retail, footprint 435 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.617173,
@@ -18343,7 +18343,7 @@
     "shop": "collector"
    },
    "heightM": null,
-   "levels": 1.0,
+   "levels": 1,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 3.2,
@@ -18395,7 +18395,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 22.4,
@@ -18460,7 +18460,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 25.0,
+   "levels": 25,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 97.5,
@@ -18559,10 +18559,10 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 10.0,
+   "levels": 10,
    "minLevel": null,
    "isPart": false,
-   "heightEstM": 32.0,
+   "heightEstM": 32,
    "footprint": [
     [
      47.618042,
@@ -18625,7 +18625,7 @@
    "isPart": false,
    "levelsEst": 2,
    "heightEstM": 7.2,
-   "estimateBasis": "rule: building=yes, footprint 1085 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 1085 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.606823,
@@ -18686,7 +18686,7 @@
    "isPart": false,
    "levelsEst": 2,
    "heightEstM": 7.2,
-   "estimateBasis": "rule: building=yes, footprint 44 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 44 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.614428,
@@ -18738,7 +18738,7 @@
    "isPart": false,
    "levelsEst": 3,
    "heightEstM": 10.8,
-   "estimateBasis": "rule: building=office, footprint 318 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=office, footprint 318 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.617021,
@@ -18795,7 +18795,7 @@
    "isPart": false,
    "levelsEst": 2,
    "heightEstM": 7.2,
-   "estimateBasis": "rule: building=yes, footprint 140 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 140 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.607781,
@@ -18904,7 +18904,7 @@
     47.616115,
     -122.200652
    ],
-   "footprintM2": 1305.0,
+   "footprintM2": 1305,
    "distToRouteM": 36,
    "nearestRoute": "B",
    "name": null,
@@ -18916,7 +18916,7 @@
     "layer": "1"
    },
    "heightM": null,
-   "levels": 3.0,
+   "levels": 3,
    "minLevel": "2",
    "isPart": false,
    "heightEstM": 9.6,
@@ -19005,7 +19005,7 @@
    "isPart": false,
    "levelsEst": 4,
    "heightEstM": 14.4,
-   "estimateBasis": "rule: building=apartments, footprint 305 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=apartments, footprint 305 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.607185,
@@ -19054,7 +19054,7 @@
    "isPart": false,
    "levelsEst": 2,
    "heightEstM": 7.2,
-   "estimateBasis": "rule: building=yes, footprint 542 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 542 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.606421,
@@ -19098,7 +19098,7 @@
     "name": "One Lincoln Tower"
    },
    "heightM": 137,
-   "levels": 42.0,
+   "levels": 42,
    "minLevel": null,
    "isPart": true,
    "floors": 42,
@@ -19206,7 +19206,7 @@
    "isPart": false,
    "levelsEst": 4,
    "heightEstM": 14.4,
-   "estimateBasis": "rule: building=apartments, footprint 0 m2 (no OSM height/levels) \u2014 verify on imagery"
+   "estimateBasis": "rule: building=apartments, footprint 0 m2 (no OSM height/levels) — verify on imagery"
   },
   {
    "osm": 1080332580,
@@ -19229,7 +19229,7 @@
    "isPart": false,
    "levelsEst": 2,
    "heightEstM": 7.2,
-   "estimateBasis": "rule: building=yes, footprint 97 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 97 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.614112,
@@ -19326,7 +19326,7 @@
     "name": "Avalon Meydenbauer"
    },
    "heightM": null,
-   "levels": 6.0,
+   "levels": 6,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 19.2
@@ -19357,7 +19357,7 @@
    "isPart": false,
    "levelsEst": 4,
    "heightEstM": 14.4,
-   "estimateBasis": "rule: building=apartments, footprint 0 m2 (no OSM height/levels) \u2014 verify on imagery"
+   "estimateBasis": "rule: building=apartments, footprint 0 m2 (no OSM height/levels) — verify on imagery"
   },
   {
    "osm": 1422330653,
@@ -19380,7 +19380,7 @@
    "isPart": false,
    "levelsEst": 3,
    "heightEstM": 10.8,
-   "estimateBasis": "rule: building=yes, footprint 1520 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 1520 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.610929,
@@ -19427,7 +19427,7 @@
     47.61788,
     -122.20114
    ],
-   "footprintM2": 87.0,
+   "footprintM2": 87,
    "distToRouteM": 42,
    "nearestRoute": "B",
    "name": null,
@@ -19437,7 +19437,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 3.0,
+   "levels": 3,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 9.6,
@@ -19497,7 +19497,7 @@
    "isPart": false,
    "levelsEst": 2,
    "heightEstM": 7.2,
-   "estimateBasis": "rule: building=yes, footprint 456 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 456 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.608336,
@@ -19562,7 +19562,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 6.4,
@@ -19618,7 +19618,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 1.0,
+   "levels": 1,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 3.2,
@@ -19746,10 +19746,10 @@
     "name": "Courtyard"
    },
    "heightM": null,
-   "levels": 5.0,
+   "levels": 5,
    "minLevel": null,
    "isPart": false,
-   "heightEstM": 16.0
+   "heightEstM": 16
   },
   {
    "osm": 439836073,
@@ -19772,7 +19772,7 @@
    "isPart": false,
    "levelsEst": 2,
    "heightEstM": 7.2,
-   "estimateBasis": "rule: building=yes, footprint 262 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 262 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.612377,
@@ -19815,7 +19815,7 @@
     "name": "Southeast Parking Garage"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 6.4,
@@ -19956,7 +19956,7 @@
     "building:levels": "1"
    },
    "heightM": null,
-   "levels": 1.0,
+   "levels": 1,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 3.2,
@@ -19994,7 +19994,7 @@
     47.616833,
     -122.196634
    ],
-   "footprintM2": 149.0,
+   "footprintM2": 149,
    "distToRouteM": 46,
    "nearestRoute": "B",
    "name": null,
@@ -20063,7 +20063,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 11.0,
+   "levels": 11,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 35.2,
@@ -20125,10 +20125,10 @@
     "name": "Venn at Main"
    },
    "heightM": null,
-   "levels": 5.0,
+   "levels": 5,
    "minLevel": null,
    "isPart": false,
-   "heightEstM": 16.0
+   "heightEstM": 16
   },
   {
    "osm": 161929522,
@@ -20137,7 +20137,7 @@
     47.616634,
     -122.202744
    ],
-   "footprintM2": 5833.0,
+   "footprintM2": 5833,
    "distToRouteM": 51,
    "nearestRoute": "B",
    "name": "Northeast Parking Garage",
@@ -20150,7 +20150,7 @@
     "name": "Northeast Parking Garage"
    },
    "heightM": null,
-   "levels": 6.0,
+   "levels": 6,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 19.2,
@@ -20260,7 +20260,7 @@
     "name": "Meydenbrooke Condominium"
    },
    "heightM": null,
-   "levels": 3.0,
+   "levels": 3,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 9.6,
@@ -20316,7 +20316,7 @@
    "isPart": false,
    "levelsEst": 1,
    "heightEstM": 4.5,
-   "estimateBasis": "rule: building=retail, footprint 4133 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=retail, footprint 4133 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.611293,
@@ -20383,7 +20383,7 @@
     "height": "137"
    },
    "heightM": 137,
-   "levels": 42.0,
+   "levels": 42,
    "minLevel": "4",
    "isPart": true,
    "floors": 42,
@@ -20532,8 +20532,8 @@
     "height": "7",
     "roof:shape": "flat"
    },
-   "heightM": 7.0,
-   "levels": 2.0,
+   "heightM": 7,
+   "levels": 2,
    "minLevel": null,
    "isPart": true,
    "footprint": [
@@ -20621,7 +20621,7 @@
    "isPart": false,
    "levelsEst": 4,
    "heightEstM": 14.4,
-   "estimateBasis": "rule: building=apartments, footprint 773 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=apartments, footprint 773 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.608401,
@@ -20681,7 +20681,7 @@
    "isPart": false,
    "levelsEst": 3,
    "heightEstM": 10.8,
-   "estimateBasis": "rule: building=yes, footprint 4777 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 4777 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.61568,
@@ -20761,7 +20761,7 @@
     "name": "Elements Too"
    },
    "heightM": null,
-   "levels": 13.0,
+   "levels": 13,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 50.7,
@@ -20835,7 +20835,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 3.0,
+   "levels": 3,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 11.7,
@@ -20900,7 +20900,7 @@
    "isPart": false,
    "levelsEst": 2,
    "heightEstM": 7.2,
-   "estimateBasis": "rule: building=yes, footprint 23 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 23 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.613025,
@@ -20946,7 +20946,7 @@
    "isPart": false,
    "levelsEst": 1,
    "heightEstM": 3.6,
-   "estimateBasis": "rule: building=roof, footprint 230 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=roof, footprint 230 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.613636,
@@ -21336,7 +21336,7 @@
    "isPart": false,
    "levelsEst": 2,
    "heightEstM": 7.2,
-   "estimateBasis": "rule: building=yes, footprint 16 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 16 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.613286,
@@ -21381,7 +21381,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 6.4,
@@ -21432,7 +21432,7 @@
     "shop": "vacant"
    },
    "heightM": null,
-   "levels": 1.0,
+   "levels": 1,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 3.2,
@@ -21484,7 +21484,7 @@
    "isPart": false,
    "levelsEst": 2,
    "heightEstM": 7.2,
-   "estimateBasis": "rule: building=house, footprint 238 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=house, footprint 238 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.607355,
@@ -21613,7 +21613,7 @@
    "isPart": false,
    "levelsEst": 2,
    "heightEstM": 7.2,
-   "estimateBasis": "rule: building=yes, footprint 196 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 196 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.608019,
@@ -21711,7 +21711,7 @@
     "name": "Paccar Building"
    },
    "heightM": 52,
-   "levels": 13.0,
+   "levels": 13,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 50.7,
@@ -21792,7 +21792,7 @@
     "building:min_level": "1"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "minLevel": "1",
    "isPart": false,
    "heightEstM": 6.4,
@@ -21865,7 +21865,7 @@
     "building:levels": "26"
    },
    "heightM": null,
-   "levels": 26.0,
+   "levels": 26,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 101.4,
@@ -22114,7 +22114,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 7.8,
@@ -22182,7 +22182,7 @@
    "isPart": false,
    "levelsEst": 2,
    "heightEstM": 7.2,
-   "estimateBasis": "rule: building=house, footprint 199 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=house, footprint 199 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.607154,
@@ -22289,7 +22289,7 @@
    "isPart": false,
    "levelsEst": 2,
    "heightEstM": 7.2,
-   "estimateBasis": "rule: building=yes, footprint 1357 m2 (no OSM height/levels) \u2014 verify on imagery",
+   "estimateBasis": "rule: building=yes, footprint 1357 m2 (no OSM height/levels) — verify on imagery",
    "footprint": [
     [
      47.60736,
@@ -22396,7 +22396,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 1.0,
+   "levels": 1,
    "minLevel": "0",
    "isPart": true,
    "heightEstM": 3.2,
@@ -22634,7 +22634,7 @@
     47.616616,
     -122.193184
    ],
-   "footprintM2": 712.0,
+   "footprintM2": 712,
    "distToRouteM": 70,
    "nearestRoute": "B",
    "name": null,
@@ -22644,7 +22644,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 3.0,
+   "levels": 3,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 9.6,
@@ -22710,7 +22710,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 11.0,
+   "levels": 11,
    "minLevel": "1",
    "isPart": true,
    "heightEstM": 35.2,
@@ -23000,7 +23000,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 24.0,
+   "levels": 24,
    "minLevel": "11",
    "isPart": true,
    "heightEstM": 93.6,
@@ -23160,7 +23160,7 @@
     "building:levels": "19"
    },
    "heightM": null,
-   "levels": 19.0,
+   "levels": 19,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 74.1,
@@ -23222,7 +23222,7 @@
     47.618262,
     -122.196822
    ],
-   "footprintM2": 827.0,
+   "footprintM2": 827,
    "distToRouteM": 84,
    "nearestRoute": "B",
    "name": "929 Office Tower",
@@ -23234,7 +23234,7 @@
     "name": "929 Office Tower"
    },
    "heightM": 76,
-   "levels": 19.0,
+   "levels": 19,
    "minLevel": null,
    "isPart": true,
    "floors": 19,
@@ -23314,7 +23314,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 25.0,
+   "levels": 25,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 97.5,
@@ -23423,7 +23423,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 28.0,
+   "levels": 28,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 109.2,
@@ -23549,7 +23549,7 @@
     "name": "Main Street Flats"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 22.4,
@@ -23799,7 +23799,7 @@
     47.618554,
     -122.195017
    ],
-   "footprintM2": 864.0,
+   "footprintM2": 864,
    "distToRouteM": 106,
    "nearestRoute": "A",
    "name": "Pacific Regent",
@@ -23810,8 +23810,8 @@
     "height": "61",
     "name": "Pacific Regent"
    },
-   "heightM": 61.0,
-   "levels": 17.0,
+   "heightM": 61,
+   "levels": 17,
    "minLevel": null,
    "isPart": false,
    "footprint": [
@@ -23999,7 +23999,7 @@
     "name": "Elements Too"
    },
    "heightM": null,
-   "levels": 23.0,
+   "levels": 23,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 89.7,
@@ -24097,7 +24097,7 @@
     47.611684,
     -122.19971
    ],
-   "footprintM2": 1879.0,
+   "footprintM2": 1879,
    "distToRouteM": 111,
    "nearestRoute": "B",
    "name": null,
@@ -24108,7 +24108,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 18.0,
+   "levels": 18,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 70.2,
@@ -24178,7 +24178,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 17.0,
+   "levels": 17,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 66.3,
@@ -24275,8 +24275,8 @@
     "height": "49",
     "name": "Elements Too"
    },
-   "heightM": 49.0,
-   "levels": 3.0,
+   "heightM": 49,
+   "levels": 3,
    "minLevel": null,
    "isPart": false,
    "footprint": [
@@ -24340,7 +24340,7 @@
     "height": "183"
    },
    "heightM": 183,
-   "levels": 43.0,
+   "levels": 43,
    "minLevel": null,
    "isPart": true,
    "floors": 43,
@@ -24426,7 +24426,7 @@
     "layer": "1"
    },
    "heightM": null,
-   "levels": 25.0,
+   "levels": 25,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 97.5,
@@ -24723,7 +24723,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 19.0,
+   "levels": 19,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 74.1,
@@ -24777,7 +24777,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 17.0,
+   "levels": 17,
    "minLevel": "2",
    "isPart": true,
    "heightEstM": 66.3,
@@ -24845,7 +24845,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 22.0,
+   "levels": 22,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 85.8,
@@ -24926,7 +24926,7 @@
     "name": "Centre 425"
    },
    "heightM": null,
-   "levels": 17.0,
+   "levels": 17,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 66.3,
@@ -24999,7 +24999,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 17.0,
+   "levels": 17,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 66.3,
@@ -25063,7 +25063,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 24.0,
+   "levels": 24,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 93.6,
@@ -25223,7 +25223,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 25.0,
+   "levels": 25,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 97.5,
@@ -25388,8 +25388,8 @@
     "height": "70",
     "name": "Avalon Towers Bellevue East Tower"
    },
-   "heightM": 70.0,
-   "levels": 24.0,
+   "heightM": 70,
+   "levels": 24,
    "minLevel": null,
    "isPart": true,
    "footprint": [
@@ -25430,7 +25430,7 @@
     47.611232,
     -122.199423
    ],
-   "footprintM2": 252.0,
+   "footprintM2": 252,
    "distToRouteM": 149,
    "nearestRoute": "B",
    "name": null,
@@ -25441,7 +25441,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 18.0,
+   "levels": 18,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 70.2,
@@ -25490,8 +25490,8 @@
     "height": "80",
     "min_height": "18.2"
    },
-   "heightM": 80.0,
-   "levels": 25.0,
+   "heightM": 80,
+   "levels": 25,
    "minLevel": "4",
    "isPart": true,
    "footprint": [
@@ -25628,7 +25628,7 @@
     47.618403,
     -122.203411
    ],
-   "footprintM2": 779.0,
+   "footprintM2": 779,
    "distToRouteM": 156,
    "nearestRoute": "B",
    "name": null,
@@ -25641,8 +25641,8 @@
     "height": "82",
     "min_height": "80"
    },
-   "heightM": 82.0,
-   "levels": 26.0,
+   "heightM": 82,
+   "levels": 26,
    "minLevel": "25",
    "isPart": true,
    "footprint": [
@@ -25806,7 +25806,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 28.0,
+   "levels": 28,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 109.2,
@@ -26032,10 +26032,10 @@
     "name": "Park 88 Residences"
    },
    "heightM": null,
-   "levels": 10.0,
+   "levels": 10,
    "minLevel": null,
    "isPart": false,
-   "heightEstM": 32.0,
+   "heightEstM": 32,
    "footprint": [
     [
      47.611146,
@@ -26155,7 +26155,7 @@
     "name": "989 Elements"
    },
    "heightM": null,
-   "levels": 23.0,
+   "levels": 23,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 89.7,
@@ -26308,8 +26308,8 @@
     "height": "47",
     "name": "Avalon Towers Bellevue West Tower"
    },
-   "heightM": 47.0,
-   "levels": 14.0,
+   "heightM": 47,
+   "levels": 14,
    "minLevel": null,
    "isPart": true,
    "footprint": [
@@ -26368,7 +26368,7 @@
     "name": "Main Street Flats"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 22.4,
@@ -26661,7 +26661,7 @@
     "name": "Bellevue Pacific Center"
    },
    "heightM": null,
-   "levels": 21.0,
+   "levels": 21,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 81.9,
@@ -26781,8 +26781,8 @@
     "building:part": "yes",
     "height": "79"
    },
-   "heightM": 79.0,
-   "levels": 23.0,
+   "heightM": 79,
+   "levels": 23,
    "minLevel": null,
    "isPart": true,
    "footprint": [
@@ -26890,8 +26890,8 @@
     "height": "76",
     "name": "SoMa North Tower"
    },
-   "heightM": 76.0,
-   "levels": 22.0,
+   "heightM": 76,
+   "levels": 22,
    "minLevel": null,
    "isPart": true,
    "footprint": [
@@ -27019,8 +27019,8 @@
     "height": "67",
     "name": "SoMa South Tower"
    },
-   "heightM": 67.0,
-   "levels": 18.0,
+   "heightM": 67,
+   "levels": 18,
    "minLevel": null,
    "isPart": true,
    "footprint": [
@@ -27180,7 +27180,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 21.0,
+   "levels": 21,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 81.9,
@@ -27252,7 +27252,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 22.0,
+   "levels": 22,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 85.8,
@@ -27338,7 +27338,7 @@
     "name": "Broadstone Savoie"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 22.4,
@@ -27462,7 +27462,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 22.4,
@@ -27532,7 +27532,7 @@
     "name": "North Tower"
    },
    "heightM": 131,
-   "levels": 43.0,
+   "levels": 43,
    "minLevel": null,
    "isPart": true,
    "floors": 42,
@@ -27542,7 +27542,7 @@
    "facade": {
     "glass": "#7a96a8"
    },
-   "conflict": "OSM tags North=137 m/43 lv, South=131 m/42 lv \u2014 swapped vs Wikipedia (North 430 ft/42, South 450 ft/43); Wikipedia used",
+   "conflict": "OSM tags North=137 m/43 lv, South=131 m/42 lv — swapped vs Wikipedia (North 430 ft/42, South 450 ft/43); Wikipedia used",
    "footprint": [
     [
      47.614574,
@@ -27609,7 +27609,7 @@
     47.619732,
     -122.200483
    ],
-   "footprintM2": 3085.0,
+   "footprintM2": 3085,
    "distToRouteM": 226,
    "nearestRoute": "B",
    "name": "Amazon - Tahoe",
@@ -27625,7 +27625,7 @@
     "name": "Amazon - Tahoe"
    },
    "heightM": null,
-   "levels": 15.0,
+   "levels": 15,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 58.5,
@@ -27699,7 +27699,7 @@
     "name": "Belcarra Apartment Homes"
    },
    "heightM": null,
-   "levels": 8.0,
+   "levels": 8,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 25.6,
@@ -28077,7 +28077,7 @@
     47.615087,
     -122.19585
    ],
-   "footprintM2": 1679.0,
+   "footprintM2": 1679,
    "distToRouteM": 227,
    "nearestRoute": "B",
    "name": null,
@@ -28088,7 +28088,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 27.0,
+   "levels": 27,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 105.3,
@@ -28201,10 +28201,10 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 20.0,
+   "levels": 20,
    "minLevel": null,
    "isPart": true,
-   "heightEstM": 78.0,
+   "heightEstM": 78,
    "footprint": [
     [
      47.6196,
@@ -28315,7 +28315,7 @@
     "name": "Amazon - Blueshift"
    },
    "heightM": null,
-   "levels": 15.0,
+   "levels": 15,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 58.5,
@@ -28367,7 +28367,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 8.0,
+   "levels": 8,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 25.6,
@@ -28437,7 +28437,7 @@
     47.614323,
     -122.191785
    ],
-   "footprintM2": 1613.0,
+   "footprintM2": 1613,
    "distToRouteM": 232,
    "nearestRoute": "A",
    "name": null,
@@ -28447,7 +28447,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 22.4,
@@ -28515,7 +28515,7 @@
     "building:levels": "7"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 22.4,
@@ -28608,7 +28608,7 @@
    "footprintM2": 2161.8,
    "distToRouteM": 252,
    "nearestRoute": "B",
-   "name": "Amazon Sonic (555 108th Ave NE) \u2014 main 42-level part of OSM 1214423752",
+   "name": "Amazon Sonic (555 108th Ave NE) — main 42-level part of OSM 1214423752",
    "address": null,
    "osmTags": {
     "building:levels": "42",
@@ -28616,7 +28616,7 @@
     "building:part": "yes"
    },
    "heightM": 183,
-   "levels": 42.0,
+   "levels": 42,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 163.8,
@@ -28624,7 +28624,7 @@
    "heightSrc": [
     "wp-tallest"
    ],
-   "note": "OSM part 42 levels glass at 47.6149,-122.1968 matches Amazon Sonic coordinates (47\u00b036'55\"N 122\u00b011'48.5\"W)",
+   "note": "OSM part 42 levels glass at 47.6149,-122.1968 matches Amazon Sonic coordinates (47°36'55\"N 122°11'48.5\"W)",
    "footprint": [
     [
      47.6151,
@@ -28687,7 +28687,7 @@
     47.619948,
     -122.19024
    ],
-   "footprintM2": 2827.0,
+   "footprintM2": 2827,
    "distToRouteM": 253,
    "nearestRoute": "A",
    "name": null,
@@ -28697,7 +28697,7 @@
     "building:levels": "7"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 22.4,
@@ -28791,7 +28791,7 @@
     "name": "South Tower"
    },
    "heightM": 137,
-   "levels": 42.0,
+   "levels": 42,
    "minLevel": null,
    "isPart": true,
    "floors": 43,
@@ -28914,7 +28914,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 22.4,
@@ -29011,10 +29011,10 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 20.0,
+   "levels": 20,
    "minLevel": null,
    "isPart": true,
-   "heightEstM": 78.0,
+   "heightEstM": 78,
    "footprint": [
     [
      47.619661,
@@ -29116,7 +29116,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 21.0,
+   "levels": 21,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 81.9,
@@ -29217,7 +29217,7 @@
     "name": "KeyBank Building"
    },
    "heightM": null,
-   "levels": 9.0,
+   "levels": 9,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 35.1,
@@ -29287,7 +29287,7 @@
     "name": "Sylva on Main"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 22.4,
@@ -29348,10 +29348,10 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 10.0,
+   "levels": 10,
    "minLevel": null,
    "isPart": true,
-   "heightEstM": 32.0,
+   "heightEstM": 32,
    "footprint": [
     [
      47.613579,
@@ -29469,8 +29469,8 @@
     "building:part": "yes",
     "height": "110"
    },
-   "heightM": 110.0,
-   "levels": 27.0,
+   "heightM": 110,
+   "levels": 27,
    "minLevel": null,
    "isPart": true
   },
@@ -29492,7 +29492,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 22.0,
+   "levels": 22,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 85.8,
@@ -29556,8 +29556,8 @@
     "height": "102",
     "name": "City Center Plaza"
    },
-   "heightM": 102.0,
-   "levels": 25.0,
+   "heightM": 102,
+   "levels": 25,
    "minLevel": null,
    "isPart": true
   },
@@ -29609,7 +29609,7 @@
     "roof:shape": "flat"
    },
    "heightM": null,
-   "levels": 22.0,
+   "levels": 22,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 85.8,
@@ -29657,7 +29657,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 32.0,
+   "levels": 32,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 124.8,
@@ -29705,7 +29705,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 9.0,
+   "levels": 9,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 28.8,
@@ -29794,7 +29794,7 @@
     "building:levels": "9"
    },
    "heightM": null,
-   "levels": 9.0,
+   "levels": 9,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 28.8,
@@ -29947,7 +29947,7 @@
     "roof:levels": "0"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 22.4,
@@ -30075,10 +30075,10 @@
     "name": "One Main Street Condominiums"
    },
    "heightM": null,
-   "levels": 10.0,
+   "levels": 10,
    "minLevel": null,
    "isPart": false,
-   "heightEstM": 32.0,
+   "heightEstM": 32,
    "footprint": [
     [
      47.61032,
@@ -30176,7 +30176,7 @@
     "name": "Tower 333"
    },
    "heightM": 83,
-   "levels": 20.0,
+   "levels": 20,
    "minLevel": null,
    "isPart": false,
    "floors": 20,
@@ -30244,7 +30244,7 @@
     "building:levels": "7"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 27.3,
@@ -30344,7 +30344,7 @@
     "name": "Seattle Marriott Bellevue"
    },
    "heightM": null,
-   "levels": 15.0,
+   "levels": 15,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 58.5,
@@ -30449,7 +30449,7 @@
     "name": "One Bellevue Center"
    },
    "heightM": 79,
-   "levels": 22.0,
+   "levels": 22,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 85.8,
@@ -30543,7 +30543,7 @@
     "height": "25.9"
    },
    "heightM": 25.9,
-   "levels": 8.0,
+   "levels": 8,
    "minLevel": null,
    "isPart": false,
    "footprint": [
@@ -30615,7 +30615,7 @@
     "name": "Skyline Tower"
    },
    "heightM": 97,
-   "levels": 24.0,
+   "levels": 24,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 93.6,
@@ -30725,7 +30725,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 24.0,
+   "levels": 24,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 93.6,
@@ -30793,7 +30793,7 @@
     "name": "First Mutual Center"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 27.3
@@ -30816,7 +30816,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 7.0,
+   "levels": 7,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 22.4
@@ -30842,7 +30842,7 @@
     "name": "Skyline Tower"
    },
    "heightM": null,
-   "levels": 24.0,
+   "levels": 24,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 93.6
@@ -30865,7 +30865,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 8.0,
+   "levels": 8,
    "minLevel": null,
    "isPart": true,
    "heightEstM": 25.6
@@ -30894,7 +30894,7 @@
     "name": "Summit 3"
    },
    "heightM": null,
-   "levels": 17.0,
+   "levels": 17,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 66.3,
@@ -30980,7 +30980,7 @@
     "name": "Puget Sound Energy East Building"
    },
    "heightM": null,
-   "levels": 11.0,
+   "levels": 11,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 42.9,
@@ -31050,7 +31050,7 @@
     "name": "Summit 2"
    },
    "heightM": null,
-   "levels": 13.0,
+   "levels": 13,
    "minLevel": null,
    "isPart": false,
    "heightEstM": 50.7,
@@ -32300,8 +32300,8 @@
   {
    "osm": 1202398697,
    "osmType": "node",
-   "name": "Herm\u00e8s",
-   "brand": "Herm\u00e8s",
+   "name": "Hermès",
+   "brand": "Hermès",
    "brandWikidata": "Q843887",
    "kind": "clothes",
    "lat": 47.617095,
@@ -32310,7 +32310,7 @@
    "level": null,
    "distToRouteM": 36,
    "nearestRoute": "A",
-   "signText": "HERM\u00c8S PARIS",
+   "signText": "HERMÈS PARIS",
    "colours": [
     "#f37021",
     "#ffffff"
@@ -33176,7 +33176,7 @@
   {
    "osm": 12269969118,
    "osmType": "node",
-   "name": "Capital One Caf\u00e9",
+   "name": "Capital One Café",
    "brand": null,
    "brandWikidata": null,
    "kind": "cafe",
@@ -33307,8 +33307,8 @@
   {
    "osm": 5045488116,
    "osmType": "node",
-   "name": "Fogo de Ch\u00e3o",
-   "brand": "Fogo de Ch\u00e3o",
+   "name": "Fogo de Chão",
+   "brand": "Fogo de Chão",
    "brandWikidata": "Q5464133",
    "kind": "restaurant",
    "lat": 47.614435,
@@ -33317,7 +33317,7 @@
    "level": "0",
    "distToRouteM": 15,
    "nearestRoute": "B",
-   "signText": "FOGO DE CH\u00c3O",
+   "signText": "FOGO DE CHÃO",
    "colours": [
     "#b3202a",
     "#ffffff"
@@ -33368,8 +33368,8 @@
   {
    "osm": 5096603754,
    "osmType": "node",
-   "name": "Fogo de Ch\u00e3o",
-   "brand": "Fogo de Ch\u00e3o",
+   "name": "Fogo de Chão",
+   "brand": "Fogo de Chão",
    "brandWikidata": "Q5464133",
    "kind": "restaurant",
    "lat": 47.614615,
@@ -33378,7 +33378,7 @@
    "level": "0",
    "distToRouteM": 16,
    "nearestRoute": "B",
-   "signText": "FOGO DE CH\u00c3O",
+   "signText": "FOGO DE CHÃO",
    "colours": [
     "#b3202a",
     "#ffffff"
@@ -33728,7 +33728,7 @@
   {
    "osm": 2971057903,
    "osmType": "node",
-   "name": "Farzi Caf\u00e9",
+   "name": "Farzi Café",
    "brand": null,
    "brandWikidata": null,
    "kind": "restaurant",
@@ -33986,7 +33986,7 @@
    "level": "0",
    "distToRouteM": 27,
    "nearestRoute": "B",
-   "signText": "\u9f0e\u6cf0\u8c50 Din Tai Fung",
+   "signText": "鼎泰豐 Din Tai Fung",
    "colours": [
     "#b4975a",
     "#1a1a1a"
@@ -34183,7 +34183,7 @@
  "landmarks": [
   {
    "id": "lincoln-square",
-   "name": "Lincoln Square (The Bellevue Collection) \u2014 UiPath Bellevue since 2025",
+   "name": "Lincoln Square (The Bellevue Collection) — UiPath Bellevue since 2025",
    "src": [
     "uipath-offices",
     "geekwire-2025",
@@ -34195,7 +34195,7 @@
    "uipath": {
     "building": "Lincoln Square North office tower",
     "address": "700 Bellevue Way NE, Suite 2000, Bellevue, WA 98004",
-    "floors": "two floors (suite 2000 \u2192 20th floor + one adjacent floor; exact second floor not published)",
+    "floors": "two floors (suite 2000 → 20th floor + one adjacent floor; exact second floor not published)",
     "area": "44,735 sq ft",
     "role": "product & engineering hub",
     "moved": "September 2025 (announced alongside CMO Michael Atalla hire, GeekWire 2025)",
@@ -34204,7 +34204,7 @@
      "lon": -122.20148,
      "faces": "west, onto Bellevue Way NE, just south of the NE 8th St corner",
      "osmNode": 7945526075,
-     "confidence": "medium \u2014 OSM entrance node on the tower's Bellevue Way frontage; the address (700 Bellevue Way NE) confirms the street; an alternative level-1 entrance from the podium/skybridge exists at 47.61726,-122.20089 (NE 8th side, node 557240506)"
+     "confidence": "medium — OSM entrance node on the tower's Bellevue Way frontage; the address (700 Bellevue Way NE) confirms the street; an alternative level-1 entrance from the podium/skybridge exists at 47.61726,-122.20089 (NE 8th side, node 557240506)"
     },
     "lobby": "Not documented in open sources. Plausible model: double-height glass lobby, stone floor, security desk + turnstiles, tenant directory screen. No evidence of exterior UiPath signage on the tower (the crown carries no tenant logo in 2022 photos).",
     "signage": "none found (gap)"
@@ -34217,7 +34217,7 @@
      "heightFt": 412,
      "floors": 28,
      "year": 2005,
-     "footprint": "approx. 53 m (N-S) \u00d7 43 m (E-W) (OSM ring), set at the SE corner of NE 8th St \u00d7 Bellevue Way NE, rising from the 3-level retail podium",
+     "footprint": "approx. 53 m (N-S) × 43 m (E-W) (OSM ring), set at the SE corner of NE 8th St × Bellevue Way NE, rising from the 3-level retail podium",
      "facade": {
       "glass": "#7f97ad",
       "spandrel": "#c8ced3",
@@ -34228,7 +34228,7 @@
      }
     },
     {
-     "part": "One Lincoln Tower (Westin Bellevue hotel floors 4\u2013~10, condominiums above; \"604 Bellevue Way NE\")",
+     "part": "One Lincoln Tower (Westin Bellevue hotel floors 4–~10, condominiums above; \"604 Bellevue Way NE\")",
      "osm": 604028611,
      "heightM": 137,
      "heightFt": 450,
@@ -34285,7 +34285,7 @@
      }
     },
     {
-     "part": "Lincoln Square South podium (500 Bellevue Way NE): TruFusion, Duke's Seafood, Baron's, OAKBERRY, Great State & King Leroy, Dote, Fogo de Ch\u00e3o (L0), Japonessa, Drip Tea",
+     "part": "Lincoln Square South podium (500 Bellevue Way NE): TruFusion, Duke's Seafood, Baron's, OAKBERRY, Great State & King Leroy, Dote, Fogo de Chão (L0), Japonessa, Drip Tea",
      "osm": 1326151868,
      "levels": 3
     }
@@ -34293,7 +34293,7 @@
    "skybridges": [
     {
      "id": "skybridge-bellevue-way",
-     "between": "Lincoln Square (east) \u2194 Bellevue Square (west), over Bellevue Way NE at ~NE 7th St",
+     "between": "Lincoln Square (east) ↔ Bellevue Square (west), over Bellevue Way NE at ~NE 7th St",
      "osm": 43872832,
      "from": [
       47.616749,
@@ -34306,7 +34306,7 @@
      "lengthM": 32,
      "year": 2007,
      "covered": true,
-     "clearance": "\u2265 5.0 m assumed (state min. 16.5 ft over arterials not verified)",
+     "clearance": "≥ 5.0 m assumed (state min. 16.5 ft over arterials not verified)",
      "look": "enclosed glass box bridge on steel trusses, light-grey frame",
      "src": [
       "wp-bsq",
@@ -34315,7 +34315,7 @@
     },
     {
      "id": "skybridge-ne8th",
-     "between": "Lincoln Square North podium (south) \u2194 Bellevue Place / Hyatt Regency (north), diagonally over NE 8th St just east of Bellevue Way",
+     "between": "Lincoln Square North podium (south) ↔ Bellevue Place / Hyatt Regency (north), diagonally over NE 8th St just east of Bellevue Way",
      "osm": 43872826,
      "buildingOsm": 1364249504,
      "from": [
@@ -34334,7 +34334,7 @@
     },
     {
      "id": "skybridge-north-south",
-     "between": "Lincoln Square North (Westin) \u2194 Lincoln Square South podium, over NE 6th St (private drive)",
+     "between": "Lincoln Square North (Westin) ↔ Lincoln Square South podium, over NE 6th St (private drive)",
      "osm": 516915099,
      "from": [
       47.615723,
@@ -34351,11 +34351,11 @@
      ]
     }
    ],
-   "corner": "NE 8th \u00d7 Bellevue Way: SE corner is Lincoln Square North; the tower meets the corner with the podium (Paddy Coyne's, Din Tai Fung entrance on NE 8th). Bellevue Square's NE corner (Starbucks, Pressed Juicery) across Bellevue Way to the west."
+   "corner": "NE 8th × Bellevue Way: SE corner is Lincoln Square North; the tower meets the corner with the podium (Paddy Coyne's, Din Tai Fung entrance on NE 8th). Bellevue Square's NE corner (Starbucks, Pressed Juicery) across Bellevue Way to the west."
   },
   {
    "id": "plaza-center",
-   "name": "Plaza Center \u2014 UiPath Bellevue 2018\u20132025 (10900 NE 8th St, Suite 400)",
+   "name": "Plaza Center — UiPath Bellevue 2018–2025 (10900 NE 8th St, Suite 400)",
    "src": [
     "wp-tallest",
     "osm",
@@ -34370,16 +34370,16 @@
    "heightFt": 223,
    "floors": 16,
    "year": 1982,
-   "note": "Briefly Bellevue's tallest building (1982\u201383). Part of \"The Plaza Buildings\" with Plaza East (11100 NE 8th, 9 fl, OSM 33725872) \u2014 Kilroy/KORE-managed office pair.",
-   "footprint": "rectangle \u2248 60 m (N-S) \u00d7 35 m (E-W) with chamfered/notched corners (OSM ring), long axis perpendicular to NE 8th; north side of NE 8th between 108th and 110th Ave NE, set back ~20 m behind a plaza.",
+   "note": "Briefly Bellevue's tallest building (1982–83). Part of \"The Plaza Buildings\" with Plaza East (11100 NE 8th, 9 fl, OSM 33725872) — Kilroy/KORE-managed office pair.",
+   "footprint": "rectangle ≈ 60 m (N-S) × 35 m (E-W) with chamfered/notched corners (OSM ring), long axis perpendicular to NE 8th; north side of NE 8th between 108th and 110th Ave NE, set back ~20 m behind a plaza.",
    "uipath": {
     "suite": "Suite 400 (4th floor)",
-    "period": "April 2018 \u2013 September 2025",
+    "period": "April 2018 – September 2025",
     "entrance": {
      "lat": 47.61762,
      "lon": -122.19405,
      "faces": "south, onto NE 8th St (glazed lobby under the \"10900\" letters)",
-     "confidence": "medium \u2014 photo shows the main doors on the NE 8th frontage; no OSM entrance node"
+     "confidence": "medium — photo shows the main doors on the NE 8th frontage; no OSM entrance node"
     }
    },
    "facade": {
@@ -34396,7 +34396,7 @@
   },
   {
    "id": "mt-baker-tunnel-east-portal",
-   "name": "Mount Baker Ridge Tunnel east portals (\"Seattle \u00b7 Portal to the Pacific\")",
+   "name": "Mount Baker Ridge Tunnel east portals (\"Seattle · Portal to the Pacific\")",
    "lat": 47.59,
    "lon": -122.2886,
    "src": [
@@ -34429,7 +34429,7 @@
    "name": "Lacey V. Murrow Memorial Bridge dedication plaque (1967)",
    "lat": 47.5903,
    "lon": -122.2878,
-   "text": "LACEY V. MURROW MEMORIAL BRIDGE \u2014 UNIQUE, FUNCTIONAL AND BEAUTIFUL, THIS FLOATING BRIDGE IS HEREBY DEDICATED TO THE MEMORY OF MR. LACEY V. MURROW, DYNAMIC DIRECTOR OF HIGHWAYS, A BRIGADIER GENERAL IN THE U.S. AIR FORCE, AND INTERNATIONALLY KNOWN CONSULTING ENGINEER. JUNE 30, 1967 \u2014 WASHINGTON STATE HIGHWAY COMMISSION",
+   "text": "LACEY V. MURROW MEMORIAL BRIDGE — UNIQUE, FUNCTIONAL AND BEAUTIFUL, THIS FLOATING BRIDGE IS HEREBY DEDICATED TO THE MEMORY OF MR. LACEY V. MURROW, DYNAMIC DIRECTOR OF HIGHWAYS, A BRIGADIER GENERAL IN THE U.S. AIR FORCE, AND INTERNATIONALLY KNOWN CONSULTING ENGINEER. JUNE 30, 1967 — WASHINGTON STATE HIGHWAY COMMISSION",
    "src": [
     "commons"
    ],
@@ -34524,7 +34524,7 @@
   {
    "where": "I-90 EB west portal approach / in tunnel",
    "type": "overhead guide (WSDOT green, white Clearview/Highway Gothic E(M), retroreflective)",
-   "legend": "I-90 EAST \u2014 Mercer Island / Bellevue (lane destination \"Spokane\" per OSM destination:lanes on the tunnel ways)",
+   "legend": "I-90 EAST — Mercer Island / Bellevue (lane destination \"Spokane\" per OSM destination:lanes on the tunnel ways)",
    "osmWays": [
     123889275,
     98733141
@@ -34543,7 +34543,7 @@
   },
   {
    "where": "Murrow bridge east end, right lane",
-   "legend": "EXIT 6 \u2014 West Mercer Way (exit-only arrow for lane 4)",
+   "legend": "EXIT 6 — West Mercer Way (exit-only arrow for lane 4)",
    "osmWays": [
     123889285
    ],
@@ -34553,7 +34553,7 @@
   },
   {
    "where": "Mercer Island lid, left lane",
-   "legend": "HOV ONLY \u2014 Island Crest Way (direct access, diamond symbol)",
+   "legend": "HOV ONLY — Island Crest Way (direct access, diamond symbol)",
    "osmWays": [
     4744334,
     621898607
@@ -34564,7 +34564,7 @@
   },
   {
    "where": "Mercer Island right lane (lid exit)",
-   "legend": "EXIT 7A \u2014 77th Ave SE ; then EXIT 7B \u2014 Island Crest Way",
+   "legend": "EXIT 7A — 77th Ave SE ; then EXIT 7B — Island Crest Way",
    "osmWays": [
     4744334,
     364420475
@@ -34575,7 +34575,7 @@
   },
   {
    "where": "Mercer Island east, right lane",
-   "legend": "EXIT 8 \u2014 East Mercer Way",
+   "legend": "EXIT 8 — East Mercer Way",
    "osmWays": [
     120052011
    ],
@@ -34584,8 +34584,8 @@
    ]
   },
   {
-   "where": "East Channel Bridge, gantry (OSM gantry ways 1185586148\u20131185586151)",
-   "legend": "left panel: \"HOV \u2014 405 NORTH Everett / 405 SOUTH Renton\" over lane 1 (HOV) ; right panel: \"EXIT 9 \u2014 Bellevue Way\" over lane 5 (EXIT ONLY)",
+   "where": "East Channel Bridge, gantry (OSM gantry ways 1185586148–1185586151)",
+   "legend": "left panel: \"HOV — 405 NORTH Everett / 405 SOUTH Renton\" over lane 1 (HOV) ; right panel: \"EXIT 9 — Bellevue Way\" over lane 5 (EXIT ONLY)",
    "osmWays": [
     123889242
    ],
@@ -34596,7 +34596,7 @@
   },
   {
    "where": "I-90 EB before the I-405 split (gantry 1179506593)",
-   "legend": "\"EXIT 10 \u2014 405 NORTH Everett\" + \"405 SOUTH Renton\" with lane arrows (lanes 4 and 5), and \"Factoria Blvd\" (10B) on the right",
+   "legend": "\"EXIT 10 — 405 NORTH Everett\" + \"405 SOUTH Renton\" with lane arrows (lanes 4 and 5), and \"Factoria Blvd\" (10B) on the right",
    "osmWays": [
     621378267,
     33731358
@@ -34607,7 +34607,7 @@
   },
   {
    "where": "I-405 NB south of SE 8th",
-   "legend": "EXIT 12 \u2014 SE 8th St / 116th Ave SE",
+   "legend": "EXIT 12 — SE 8th St / 116th Ave SE",
    "osmWays": [
     622550993
    ],
@@ -34617,7 +34617,7 @@
   },
   {
    "where": "I-405 NB approaching downtown (gantries 1188381494, 1188381210)",
-   "legend": "lanes 3\u20134 \"405 NORTH \u2014 SR 520 Seattle / Redmond\"; lane 5 \"EXIT 13 \u2014 NE 4th St / NE 8th St\" EXIT ONLY; left lane \"HOV \u2014 NE 6th St\" (direct access)",
+   "legend": "lanes 3–4 \"405 NORTH — SR 520 Seattle / Redmond\"; lane 5 \"EXIT 13 — NE 4th St / NE 8th St\" EXIT ONLY; left lane \"HOV — NE 6th St\" (direct access)",
    "osmWays": [
     736892510,
     310012621
@@ -34628,7 +34628,7 @@
   },
   {
    "where": "Exit 13 ramp split",
-   "legend": "13A \"NE 4th St \u2014 Meydenbauer Center / Bellevue Square / Bellevue Arts Museum\" (left) ; 13B \"NE 8th St\" (right) \u2192 \"NE 8th St East\" / \"NE 8th St West\"",
+   "legend": "13A \"NE 4th St — Meydenbauer Center / Bellevue Square / Bellevue Arts Museum\" (left) ; 13B \"NE 8th St\" (right) → \"NE 8th St East\" / \"NE 8th St West\"",
    "osmWays": [
     531674824,
     531669522,
@@ -34641,7 +34641,7 @@
   },
   {
    "where": "Downtown signal mast arms",
-   "legend": "street-name blade per arm: \"NE 8th St\", \"108th Ave NE\", \"Bellevue Way NE\" \u2014 white on green, Bellevue standard SG-170-1",
+   "legend": "street-name blade per arm: \"NE 8th St\", \"108th Ave NE\", \"Bellevue Way NE\" — white on green, Bellevue standard SG-170-1",
    "src": [
     "bel-tdm"
    ]
@@ -34694,7 +34694,7 @@
   "doubleCenterline": {
    "colour": "yellow",
    "lineWidth_in": 4,
-   "spacing_in": "12 in on state routes; 4 in at left-turn channelisation, narrow (\u226410 ft lane) roads and optionally on local streets (Bellevue)",
+   "spacing_in": "12 in on state routes; 4 in at left-turn channelisation, narrow (≤10 ft lane) roads and optionally on local streets (Bellevue)",
    "src": [
     "wsdot-m2010"
    ]
@@ -34704,32 +34704,32 @@
    "width_in": 18,
    "colour": "yellow"
   },
-  "material": "Profiled plastic (raised bumps every 2 ft on 4 in lines) and embossed plastic lines on WSDOT freeways \u2014 gives the textured, rain-visible look (src wsdot-m2020); MMA profiled bumps in western WA (src columbian-2024).",
+  "material": "Profiled plastic (raised bumps every 2 ft on 4 in lines) and embossed plastic lines on WSDOT freeways — gives the textured, rain-visible look (src wsdot-m2020); MMA profiled bumps in western WA (src columbian-2024).",
   "raisedPavementMarkers": {
-   "standard": "Type 2W (white, one-way reflective face) centred in each 30 ft gap of lane lines at 80 ft intervals on tangents/curves \u22651500 ft radius, 40 ft on tighter curves; Type 2Y (yellow, one side) outside the left edge line every 80 ft; Type 2YY on two-way centrelines (src wsdot-m2030).",
+   "standard": "Type 2W (white, one-way reflective face) centred in each 30 ft gap of lane lines at 80 ft intervals on tangents/curves ≥1500 ft radius, 40 ft on tighter curves; Type 2Y (yellow, one side) outside the left edge line every 80 ft; Type 2YY on two-way centrelines (src wsdot-m2030).",
    "boTTsDots": "Western Washington historically used Type 1 non-reflective ceramic buttons (Botts' dots) to SIMULATE lane lines on many highways and arterials (src wsdot-m5102); on I-90/I-405 today expect painted/profiled lines + Type 2 reflective RPMs; Bellevue arterials: painted lines, some legacy button lines on older streets.",
-   "size": "Type 2 RPM \u2248 4 in \u00d7 4 in \u00d7 0.7 in prismatic; Type 1 Botts dot 4 in diameter, 0.75 in domed, white ceramic"
+   "size": "Type 2 RPM ≈ 4 in × 4 in × 0.7 in prismatic; Type 1 Botts dot 4 in diameter, 0.75 in domed, white ceramic"
   },
   "hovDiamond": {
    "shape": "white elongated diamond outline",
-   "min": "2.5 ft wide \u00d7 12 ft long, lines \u2265 6 in (MUTCD); WSDOT freeway diamonds are ~12\u201316 ft long",
+   "min": "2.5 ft wide × 12 ft long, lines ≥ 6 in (MUTCD); WSDOT freeway diamonds are ~12–16 ft long",
    "spacing": "freeway: up to ~1,000 ft and at decision points; city streets as close as 80 ft",
    "src": [
     "mutcd-3d"
    ]
   },
   "arrows": {
-   "freeway": "Type 1/2/5 high-speed arrows ~16\u201323 ft long (M-24.20)",
-   "arterial": "8 ft arrows (Type 1S/2S/3S/4S) on \u226440 mph roads (M-24.40)",
+   "freeway": "Type 1/2/5 high-speed arrows ~16–23 ft long (M-24.20)",
+   "arterial": "8 ft arrows (Type 1S/2S/3S/4S) on ≤40 mph roads (M-24.40)",
    "src": [
     "wsdot-m2420",
     "wsdot-m2440"
    ]
   },
-  "gores": "Gore areas: 8 in wide solid white channelising lines with white chevrons (crosshatch) 12 in wide at \u226545 mph, 8 in at \u226440 mph (M-24.60 crosshatch); ramp exits begin with wide dotted lines, then solid wide line at the gore (src wsdot-m2460, wsdot-m2010).",
-  "stopLines": "12\u201324 in white solid (\"1'-6\" unless noted\") (src wsdot-m2460)",
-  "crosswalks": "Downtown Bellevue: white continental (ladder) crosswalks at signals; some textured/coloured; diagonal \"scramble\" at Bellevue Transit Center (NE 6th \u00d7 108th/110th) (src commons file \"Bellevue Transit Center Scramble\").",
-  "bikeLanes": "6 in solid white line + bike symbol; green paint at conflict zones on 108th Ave NE (OSM cycleway tags) \u2014 verify",
+  "gores": "Gore areas: 8 in wide solid white channelising lines with white chevrons (crosshatch) 12 in wide at ≥45 mph, 8 in at ≤40 mph (M-24.60 crosshatch); ramp exits begin with wide dotted lines, then solid wide line at the gore (src wsdot-m2460, wsdot-m2010).",
+  "stopLines": "12–24 in white solid (\"1'-6\" unless noted\") (src wsdot-m2460)",
+  "crosswalks": "Downtown Bellevue: white continental (ladder) crosswalks at signals; some textured/coloured; diagonal \"scramble\" at Bellevue Transit Center (NE 6th × 108th/110th) (src commons file \"Bellevue Transit Center Scramble\").",
+  "bikeLanes": "6 in solid white line + bike symbol; green paint at conflict zones on 108th Ave NE (OSM cycleway tags) — verify",
   "onBridges": "Murrow/Hadley: same freeway pattern; expansion-joint steel plates cross the markings every pontoon joint."
  },
  "furniture": {
@@ -34739,7 +34739,7 @@
    "pedestrian": "countdown pedestrian heads + accessible push buttons (MUTCD)"
   },
   "streetLights": {
-   "freeway": "single davit/bent-arm aluminium poles ~40 ft with LED cobra heads on the median/parapet line (OSM lamp_mount=bent_mast \u00d774 in district)",
+   "freeway": "single davit/bent-arm aluminium poles ~40 ft with LED cobra heads on the median/parapet line (OSM lamp_mount=bent_mast ×74 in district)",
    "downtown": "roadway pole with LED fixture per Bellevue Street Lighting Design Guide 2024; pedestrian-scale decorative poles in Old Bellevue (Main St)",
    "osmCounts": {
     "street_lamp nodes in district": "see furniture.osm.streetLamps",
@@ -34751,11 +34751,11 @@
     "bel-tdm"
    ]
   },
-  "freewayBarriers": "Concrete safety-shape median barriers (single-slope ~42\u201350 in on I-405), F-shape parapets on the floating bridges and flyovers; W-beam guardrail on some ramp edges; OSM barrier=jersey_barrier \u00d719 in the I-90 corridor; noise walls (wall=noise_barrier) on Mercer Island and near the Mount Baker lid.",
+  "freewayBarriers": "Concrete safety-shape median barriers (single-slope ~42–50 in on I-405), F-shape parapets on the floating bridges and flyovers; W-beam guardrail on some ramp edges; OSM barrier=jersey_barrier ×19 in the I-90 corridor; noise walls (wall=noise_barrier) on Mercer Island and near the Mount Baker lid.",
   "gantries": "Sign bridges are galvanised steel box trusses spanning the carriageway (OSM man_made=gantry; 30+ in district), signs green with white legend, exit tabs on top-left/right, yellow \"EXIT ONLY\" panels at the bottom of lane-drop signs.",
-  "sidewalks": "Downtown: concrete DT-120-1, 2\u00d72 ft scoring, light broom finish, \u22655 ft planter strip with street trees/lights between kerb and walk; 12-in step-off where parking (src bel-tdm). Kerb 6 in vertical concrete, gutter pan 2 ft.",
+  "sidewalks": "Downtown: concrete DT-120-1, 2×2 ft scoring, light broom finish, ≥5 ft planter strip with street trees/lights between kerb and walk; 12-in step-off where parking (src bel-tdm). Kerb 6 in vertical concrete, gutter pan 2 ft.",
   "busStops": "King County Metro: blue/white \"Metro\" flag on a pole, shelters glass with dark frames; RapidRide B Line stations with red/yellow pylon (src commons RapidRide photos, osm).",
-  "other": "Fire hydrants (OSM emergency=fire_hydrant \u00d749 downtown; body colour not verified), Big Belly-style bins, benches in planters, public art (OSM tourism=artwork \u00d745 downtown), parking-garage entrances (OSM amenity=parking_entrance \u00d7113).",
+  "other": "Fire hydrants (OSM emergency=fire_hydrant ×49 downtown; body colour not verified), Big Belly-style bins, benches in planters, public art (OSM tourism=artwork ×45 downtown), parking-garage entrances (OSM amenity=parking_entrance ×113).",
   "osm": {
    "streetLamps": [
     [
@@ -56457,7 +56457,7 @@
      "osm": 1081930273,
      "kind": "retaining_wall",
      "wall": null,
-     "lenM": 357.0,
+     "lenM": 357,
      "geom": [
       [
        47.578461,
@@ -56625,7 +56625,7 @@
      "osm": 1081930301,
      "kind": "jersey_barrier",
      "wall": null,
-     "lenM": 124.0,
+     "lenM": 124,
      "geom": [
       [
        47.577831,
@@ -56697,7 +56697,7 @@
      "osm": 1208481056,
      "kind": "guard_rail",
      "wall": null,
-     "lenM": 73.0,
+     "lenM": 73,
      "geom": [
       [
        47.581856,
@@ -57397,7 +57397,7 @@
      "osm": 1179441173,
      "kind": "guard_rail",
      "wall": null,
-     "lenM": 41.0,
+     "lenM": 41,
      "geom": [
       [
        47.579726,
@@ -57517,7 +57517,7 @@
      "osm": 1081930286,
      "kind": "retaining_wall",
      "wall": null,
-     "lenM": 142.0,
+     "lenM": 142,
      "geom": [
       [
        47.578424,
@@ -57609,7 +57609,7 @@
      "osm": 1081930293,
      "kind": "jersey_barrier",
      "wall": null,
-     "lenM": 22.0,
+     "lenM": 22,
      "geom": [
       [
        47.578754,
@@ -57849,7 +57849,7 @@
      "osm": 1510780437,
      "kind": "wall",
      "wall": "noise_barrier",
-     "lenM": 190.0,
+     "lenM": 190,
      "geom": [
       [
        47.587708,
@@ -58625,14 +58625,14 @@
   }
  },
  "trees": {
-  "summary": "OSM has 1,085 mapped trees in the downtown box (natural=tree), 488 broadleaved / 30 needleleaved; 367 tagged denotation=avenue. Mapping is dense on Main St, NE 12th, NE 2nd, 108th Ave NE, NE 4th but SPARSE on NE 8th St and Bellevue Way NE (photos show continuous street trees there \u2014 gap).",
+  "summary": "OSM has 1,085 mapped trees in the downtown box (natural=tree), 488 broadleaved / 30 needleleaved; 367 tagged denotation=avenue. Mapping is dense on Main St, NE 12th, NE 2nd, 108th Ave NE, NE 4th but SPARSE on NE 8th St and Bellevue Way NE (photos show continuous street trees there — gap).",
   "species": {
    "osmGenus": {
     "Acer": 6,
     "Trachycarpus": 2,
     "Fagus sylvatica": 1
    },
-   "typical": "deciduous street trees: red maple/Freeman maple (Acer rubrum/\u00d7freemanii), London plane, sweetgum, honey locust; evergreen conifers (Douglas-fir, western red cedar) on freeway slopes, Mercer Island lid and Mercer Slough",
+   "typical": "deciduous street trees: red maple/Freeman maple (Acer rubrum/×freemanii), London plane, sweetgum, honey locust; evergreen conifers (Douglas-fir, western red cedar) on freeway slopes, Mercer Island lid and Mercer Slough",
    "confidence": "medium for street list (only 6 Acer tagged); high for freeway-slope conifers (photos)"
   },
   "perStreet": {
@@ -67505,9 +67505,9 @@
  },
  "transit": {
   "lightRail": {
-   "line": "2 Line (Sound Transit Link), Lynnwood\u2013Seattle\u2013Mercer Island\u2013Bellevue\u2013Redmond, full line opened 2026-03-28",
+   "line": "2 Line (Sound Transit Link), Lynnwood–Seattle–Mercer Island–Bellevue–Redmond, full line opened 2026-03-28",
    "onRoute": "centre roadway of the Hadley bridge/I-90 (beside the player for ~6 km), Mercer Island station in the I-90 median, South Bellevue station at Bellevue Way SE (route B), elevated guideway over I-405 near NE 6th, Bellevue Downtown station at 110th Ave NE/NE 6th",
-   "vehicles": "Siemens S70/S700 LRVs, white body, Sound Transit blue lower band with teal/green wave graphics, \"Link\" logo; 2\u20134 car trains; overhead catenary on steel portal frames (src commons 2026 photos, wp-2line)"
+   "vehicles": "Siemens S70/S700 LRVs, white body, Sound Transit blue lower band with teal/green wave graphics, \"Link\" logo; 2–4 car trains; overhead catenary on steel portal frames (src commons 2026 photos, wp-2line)"
   },
   "bus": {
    "kcm": [
@@ -67564,7 +67564,7 @@
   "conifer": "#2f4a32",
   "lawnWinter": "#4f6b35",
   "skyOvercast": "#aeb8c2",
-  "note": "Photo-derived values are medians of hand-picked regions in refs/bellevue photos (scripts in md); adjust for lighting \u2014 sunny photos skew warm."
+  "note": "Photo-derived values are medians of hand-picked regions in refs/bellevue photos (scripts in md); adjust for lighting — sunny photos skew warm."
  },
  "traffic": {
   "hotspots": [
@@ -67573,7 +67573,7 @@
     "lat": 47.6,
     "lon": -122.181,
     "radius": 900,
-    "direction": "I-405 NB (Tukwila/Renton \u2192 Bellevue) through SE 8th \u2192 NE 8th",
+    "direction": "I-405 NB (Tukwila/Renton → Bellevue) through SE 8th → NE 8th",
     "hours": [
      [
       6.5,
@@ -67586,7 +67586,7 @@
     ],
     "weekday": true,
     "level": 0.85,
-    "evidence": "Corridor congested up to 15 h/day; 192,000 ADT at NE 8th/NE 4th (src wsdot-css504). Bellevue\u2192Everett NB severe congestion at 16:25 on 70% of 2024 weekdays (src wsdot-dash-405). Renton\u2013Bellevue construction zone through 2027 adds backups (src wsdot-r2b, wsdot-r2b-news-2026).",
+    "evidence": "Corridor congested up to 15 h/day; 192,000 ADT at NE 8th/NE 4th (src wsdot-css504). Bellevue→Everett NB severe congestion at 16:25 on 70% of 2024 weekdays (src wsdot-dash-405). Renton–Bellevue construction zone through 2027 adds backups (src wsdot-r2b, wsdot-r2b-news-2026).",
     "src": [
      "wsdot-css504",
      "wsdot-dash-405",
@@ -67598,7 +67598,7 @@
     "lat": 47.605,
     "lon": -122.184,
     "radius": 800,
-    "direction": "I-405 SB Bellevue \u2192 Tukwila (opposite carriageway)",
+    "direction": "I-405 SB Bellevue → Tukwila (opposite carriageway)",
     "hours": [
      [
       15,
@@ -67606,7 +67606,7 @@
      ]
     ],
     "level": 0.9,
-    "evidence": "Bellevue\u2192Tukwila at ~17:00 below 36 mph on up to 97% of days (2014); Everett\u2192Bellevue SB 07:30 severe on 73% of 2024 weekdays.",
+    "evidence": "Bellevue→Tukwila at ~17:00 below 36 mph on up to 97% of days (2014); Everett→Bellevue SB 07:30 severe on 73% of 2024 weekdays.",
     "src": [
      "wsdot-dash-405"
     ]
@@ -67616,7 +67616,7 @@
     "lat": 47.59,
     "lon": -122.26,
     "radius": 2500,
-    "direction": "I-90 WB (Bellevue \u2192 Seattle) on the Hadley bridge \u2014 OPPOSITE carriageway, visible beside the player",
+    "direction": "I-90 WB (Bellevue → Seattle) on the Hadley bridge — OPPOSITE carriageway, visible beside the player",
     "hours": [
      [
       7.5,
@@ -67628,7 +67628,7 @@
      ]
     ],
     "level": 0.8,
-    "evidence": "Bellevue\u2192Seattle severe congestion at 08:25 on 54.8% and at 16:35 on 84.6% of 2024 weekdays (src wsdot-dash-90).",
+    "evidence": "Bellevue→Seattle severe congestion at 08:25 on 54.8% and at 16:35 on 84.6% of 2024 weekdays (src wsdot-dash-90).",
     "src": [
      "wsdot-dash-90"
     ]
@@ -67646,7 +67646,7 @@
      ]
     ],
     "level": 0.35,
-    "evidence": "Seattle\u2192Bellevue severe at 17:10 on only 20.9% of 2024 weekdays \u2014 mostly flowing (src wsdot-dash-90).",
+    "evidence": "Seattle→Bellevue severe at 17:10 on only 20.9% of 2024 weekdays — mostly flowing (src wsdot-dash-90).",
     "src": [
      "wsdot-dash-90"
     ]
@@ -67664,7 +67664,7 @@
      ]
     ],
     "level": 0.75,
-    "evidence": "PM peak v/c 1.00 (2018), forecast 1.31 (2044) \u2014 the most saturated downtown intersection on the route (src bel-mip2).",
+    "evidence": "PM peak v/c 1.00 (2018), forecast 1.31 (2044) — the most saturated downtown intersection on the route (src bel-mip2).",
     "src": [
      "bel-mip2"
     ]
@@ -67674,7 +67674,7 @@
     "lat": 47.6102,
     "lon": -122.2015,
     "radius": 160,
-    "direction": "Bellevue Way \u00d7 Main St",
+    "direction": "Bellevue Way × Main St",
     "hours": [
      [
       16,
@@ -67700,7 +67700,7 @@
      ]
     ],
     "level": 0.55,
-    "evidence": "2019 PM SB travel time 2.38 min vs 1.82 NB for 112th Ave SE\u2192I-90 (src bel-mip2).",
+    "evidence": "2019 PM SB travel time 2.38 min vs 1.82 NB for 112th Ave SE→I-90 (src bel-mip2).",
     "src": [
      "bel-mip2"
     ]
@@ -67719,20 +67719,20 @@
     ],
     "weekend": true,
     "level": 0.5,
-    "evidence": "Retail peak (23 M annual visitors, src wp-bsq); holiday season Nov\u2013Dec heavier. Estimated, no counts found.",
+    "evidence": "Retail peak (23 M annual visitors, src wp-bsq); holiday season Nov–Dec heavier. Estimated, no counts found.",
     "src": [
      "wp-bsq"
     ],
     "confidence": "low"
    }
   ],
-  "regional": "Seattle 7th most congested US city in TomTom 2025, ~66\u201369 h lost/yr, peak ~17:00, summer worst (src tomtom-sea).",
+  "regional": "Seattle 7th most congested US city in TomTom 2025, ~66–69 h lost/yr, peak ~17:00, summer worst (src tomtom-sea).",
   "speedLimits": {
    "I-90": "60 mph (tunnel, bridges, Mercer Island)",
    "I-405": "60 mph",
-   "ramps": "advisory 30\u201340 mph yellow plaques on loops",
-   "downtown arterials": "30 mph (OSM maxspeed on NE 8th, Bellevue Way, 108th\u2026)",
-   "Old Bellevue residential": "20\u201325 mph"
+   "ramps": "advisory 30–40 mph yellow plaques on loops",
+   "downtown arterials": "30 mph (OSM maxspeed on NE 8th, Bellevue Way, 108th…)",
+   "Old Bellevue residential": "20–25 mph"
   },
   "congestionForCities": [
    {
@@ -67750,7 +67750,7 @@
      ]
     ],
     "level": 0.85,
-    "note": "i405-nb-downtown \u2014 I-405 NB (Tukwila/Renton \u2192 Bellevue) through SE 8th \u2192 NE 8th"
+    "note": "i405-nb-downtown — I-405 NB (Tukwila/Renton → Bellevue) through SE 8th → NE 8th"
    },
    {
     "lat": 47.605,
@@ -67763,7 +67763,7 @@
      ]
     ],
     "level": 0.9,
-    "note": "i405-sb-downtown \u2014 I-405 SB Bellevue \u2192 Tukwila (opposite carriageway)"
+    "note": "i405-sb-downtown — I-405 SB Bellevue → Tukwila (opposite carriageway)"
    },
    {
     "lat": 47.59,
@@ -67780,7 +67780,7 @@
      ]
     ],
     "level": 0.8,
-    "note": "i90-wb-bridge \u2014 I-90 WB (Bellevue \u2192 Seattle) on the Hadley bridge \u2014 OPPOSITE carriageway, visible beside the player"
+    "note": "i90-wb-bridge — I-90 WB (Bellevue → Seattle) on the Hadley bridge — OPPOSITE carriageway, visible beside the player"
    },
    {
     "lat": 47.5895,
@@ -67793,7 +67793,7 @@
      ]
     ],
     "level": 0.35,
-    "note": "i90-eb-bridge \u2014 I-90 EB (the player's direction)"
+    "note": "i90-eb-bridge — I-90 EB (the player's direction)"
    },
    {
     "lat": 47.61738,
@@ -67806,7 +67806,7 @@
      ]
     ],
     "level": 0.75,
-    "note": "ne8th-112th \u2014 NE 8th St at 112th Ave NE / I-405 ramps"
+    "note": "ne8th-112th — NE 8th St at 112th Ave NE / I-405 ramps"
    },
    {
     "lat": 47.6102,
@@ -67819,7 +67819,7 @@
      ]
     ],
     "level": 0.6,
-    "note": "bellevueway-main \u2014 Bellevue Way \u00d7 Main St"
+    "note": "bellevueway-main — Bellevue Way × Main St"
    },
    {
     "lat": 47.588,
@@ -67832,7 +67832,7 @@
      ]
     ],
     "level": 0.55,
-    "note": "bellevueway-se-to-i90 \u2014 Bellevue Way SE southbound to I-90 (route B opposite direction)"
+    "note": "bellevueway-se-to-i90 — Bellevue Way SE southbound to I-90 (route B opposite direction)"
    },
    {
     "lat": 47.616,
@@ -67845,12 +67845,12 @@
      ]
     ],
     "level": 0.5,
-    "note": "bellevue-square-weekend \u2014 Bellevue Way NE at Bellevue Square/Lincoln Square garages (weekend)"
+    "note": "bellevue-square-weekend — Bellevue Way NE at Bellevue Square/Lincoln Square garages (weekend)"
    }
   ]
  },
  "sources": {
-  "osm": "OpenStreetMap contributors (ODbL), API 0.6 /map extracts fetched 2026-11-06, bbox 47.568,-122.308 \u2013 47.630,-122.172 \u2014 https://www.openstreetmap.org",
+  "osm": "OpenStreetMap contributors (ODbL), API 0.6 /map extracts fetched 2026-11-06, bbox 47.568,-122.308 – 47.630,-122.172 — https://www.openstreetmap.org",
   "wp-murrow": "https://en.wikipedia.org/wiki/Lacey_V._Murrow_Memorial_Bridge",
   "wp-hadley": "https://en.wikipedia.org/wiki/Homer_M._Hadley_Memorial_Bridge",
   "wp-mtbaker": "https://en.wikipedia.org/wiki/Mount_Baker_Tunnel",
@@ -67876,15 +67876,110 @@
   "wsdot-dash-405": "https://wsdot.wa.gov/about/data/Multimodal-mobility-dashboard/dashboard/central-puget-sound/interstate405-cps/severe-congestion.htm",
   "wsdot-dash-90": "https://wsdot.wa.gov/about/data/Multimodal-mobility-dashboard/dashboard/central-puget-sound/interstate90-cps/severe-congestion.htm",
   "wsdot-css504": "https://appstest.wsdot.wa.gov/sites/default/files/2021-10/CSS504-i405-i5JctTukwila-BellevueCityCenter.pdf (I-405 corridor sketch: congestion up to 15 h/day; 192,000 ADT at NE 8th/NE 4th)",
-  "wsdot-r2b": "https://wsdot.wa.gov/construction-planning/search-projects/i-405renton-bellevue-widening-and-express-toll-lanes-project (Renton\u2013Bellevue ETL: forecast opening summer 2027)",
+  "wsdot-r2b": "https://wsdot.wa.gov/construction-planning/search-projects/i-405renton-bellevue-widening-and-express-toll-lanes-project (Renton–Bellevue ETL: forecast opening summer 2027)",
   "wsdot-r2b-news-2026": "https://content.govdelivery.com/accounts/WADOT/bulletins/42f0f84 (I-405/SR 167 newsletter 2026-10-13: NB I-405 Bellevue weekend closure Oct 16-19 2026)",
   "bel-mip2": "https://bellevuewa.gov/sites/default/files/media/pdf_document/2022/Bellevue-MIP-report-vol2.pdf (Mobility Implementation Plan vol.2: 2019 PM-peak corridor travel times and intersection v/c)",
   "bel-tdm": "https://bellevuewa.gov/sites/default/files/media/pdf_document/2024/trans-design-standards-v1pt1-2024.pdf (Transportation Design Manual May 2024: downtown sidewalks DT-120-1, signals 4.1.x)",
   "tomtom-sea": "https://www.tomtom.com/traffic-index/seattle-traffic/ (TomTom Traffic Index 2025, Seattle: 7th in US, peak ~17:00)",
-  "uipath-offices": "https://www.uipath.com/about-us/offices (fetched 2026-11-06: \"Seattle \u2014 Lincoln Square North, 700 Bellevue Way NE, Suite 2000\")",
-  "geekwire-2025": "https://www.geekwire.com/2025/uipath-hires-former-f5-executive-as-cmo-relocates-bellevue-offices-to-lincoln-square/ (UiPath moving Bellevue office to Lincoln Square; product & engineering hub, two floors, 44,735 sq ft; first opened at Plaza Center in 2018) \u2014 host blocked from this sandbox; content via search-engine summary",
+  "uipath-offices": "https://www.uipath.com/about-us/offices (fetched 2026-11-06: \"Seattle — Lincoln Square North, 700 Bellevue Way NE, Suite 2000\")",
+  "geekwire-2025": "https://www.geekwire.com/2025/uipath-hires-former-f5-executive-as-cmo-relocates-bellevue-offices-to-lincoln-square/ (UiPath moving Bellevue office to Lincoln Square; product & engineering hub, two floors, 44,735 sq ft; first opened at Plaza Center in 2018) — host blocked from this sandbox; content via search-engine summary",
   "uipath-2018": "https://ir.uipath.com/news/detail/134/uipath-opens-first-u-s-development-center-in-bellevue-wash (2018-04-03: first US development center, Bellevue)",
-  "commons": "Wikimedia Commons photos in game/research/refs/bellevue/ (see LICENSES.md) \u2014 colours sampled with a median-of-region script from those photos",
+  "commons": "Wikimedia Commons photos in game/research/refs/bellevue/ (see LICENSES.md) — colours sampled with a median-of-region script from those photos",
   "osm-uipath-node": "OSM node 10211055617 \"UI Path\" (office=company) inside Plaza Center, 47.61778,-122.19400"
- }
+ },
+ "building_passages": [
+  {
+   "sourceRoadId": "w513188426",
+   "buildingId": "w33115668",
+   "sharedWallNodeIds": [
+    5017220387,
+    5017220388
+   ],
+   "classificationSource": "reviewed source shared-wall-node topology",
+   "clearanceM": 3.1,
+   "clearanceSource": "estimate:3.1m covered passenger-vehicle service passage; vertical dimension untagged",
+   "reviewedAt": "2026-11-08",
+   "evidence": [
+    "https://www.openstreetmap.org/way/513188426",
+    "https://www.openstreetmap.org/way/33115668",
+    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.20069855,47.6166604,-122.19869854999999,47.618660399999996&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+   ],
+   "sourceTags": {
+    "covered": "yes",
+    "highway": "service",
+    "oneway": "yes",
+    "service": "drive-through"
+   },
+   "note": "Original OSM covered=yes service way starts and ends at the exact original building-wall nodes, declaring a through-opening beneath the source roof. Independent Esri overhead context inspected; no vertical clearance is measurable from it. Width and clearance remain explicit class estimates where original OSM tags are absent. Source outlines, full wall-node topology, total heights and legal access stay unchanged."
+  },
+  {
+   "sourceRoadId": "w816498788",
+   "buildingId": "w33115737",
+   "sharedWallNodeIds": [
+    7625804226,
+    7625804225
+   ],
+   "classificationSource": "reviewed source shared-wall-node topology",
+   "clearanceM": 3.1,
+   "clearanceSource": "estimate:3.1m covered passenger-vehicle service passage; vertical dimension untagged",
+   "reviewedAt": "2026-11-08",
+   "evidence": [
+    "https://www.openstreetmap.org/way/816498788",
+    "https://www.openstreetmap.org/way/33115737",
+    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.20104935,47.615919,-122.19904935,47.61791899999999&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+   ],
+   "sourceTags": {
+    "covered": "yes",
+    "highway": "service",
+    "service": "parking_aisle"
+   },
+   "note": "Original OSM covered=yes service way starts and ends at the exact original building-wall nodes, declaring a through-opening beneath the source roof. Independent Esri overhead context inspected; no vertical clearance is measurable from it. Width and clearance remain explicit class estimates where original OSM tags are absent. Source outlines, full wall-node topology, total heights and legal access stay unchanged."
+  },
+  {
+   "sourceRoadId": "w816498790",
+   "buildingId": "w33115737",
+   "sharedWallNodeIds": [
+    7625804224,
+    7625804223
+   ],
+   "classificationSource": "reviewed source shared-wall-node topology",
+   "clearanceM": 3.1,
+   "clearanceSource": "estimate:3.1m covered passenger-vehicle service passage; vertical dimension untagged",
+   "reviewedAt": "2026-11-08",
+   "evidence": [
+    "https://www.openstreetmap.org/way/816498790",
+    "https://www.openstreetmap.org/way/33115737",
+    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.2010029,47.615919600000005,-122.1990029,47.6179196&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+   ],
+   "sourceTags": {
+    "covered": "yes",
+    "highway": "service",
+    "service": "parking_aisle"
+   },
+   "note": "Original OSM covered=yes service way starts and ends at the exact original building-wall nodes, declaring a through-opening beneath the source roof. Independent Esri overhead context inspected; no vertical clearance is measurable from it. Width and clearance remain explicit class estimates where original OSM tags are absent. Source outlines, full wall-node topology, total heights and legal access stay unchanged."
+  },
+  {
+   "sourceRoadId": "w816498786",
+   "buildingId": "w33115737",
+   "sharedWallNodeIds": [
+    7625804228,
+    7625804227
+   ],
+   "classificationSource": "reviewed source shared-wall-node topology",
+   "clearanceM": 3.1,
+   "clearanceSource": "estimate:3.1m covered passenger-vehicle service passage; vertical dimension untagged",
+   "reviewedAt": "2026-11-08",
+   "evidence": [
+    "https://www.openstreetmap.org/way/816498786",
+    "https://www.openstreetmap.org/way/33115737",
+    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.201097,47.61591835,-122.199097,47.61791835&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+   ],
+   "sourceTags": {
+    "covered": "yes",
+    "highway": "service",
+    "service": "parking_aisle"
+   },
+   "note": "Original OSM covered=yes service way starts and ends at the exact original building-wall nodes, declaring a through-opening beneath the source roof. Independent Esri overhead context inspected; no vertical clearance is measurable from it. Width and clearance remain explicit class estimates where original OSM tags are absent. Source outlines, full wall-node topology, total heights and legal access stay unchanged."
+  }
+ ]
 }

@@ -159,3 +159,15 @@ money, so `--max` caps the poses (default 400) and `--dry` lists them first. `--
 where the Street View camera stood (2.5 m); `--eye=sidewalk` stands on the sidewalk at 1.7 m. `--season` defaults to
 summer with Street View (most panos are summer shots). Output: `<out>/index.html` grouped by street, `poses.json`,
 `world-stats.json` (buildings, trees, kerbside cars, fences, fuel forecourts …).
+
+Walks accept official Google panoramas by default; public uploads are excluded because their lighting and camera
+height can differ. `--pano-provider=any` allows those uploads explicitly. Metadata and image requests have a 30 s
+absolute timeout; network errors contain codes rather than key-bearing URLs or response bodies. Reuse `--cache=<dir>`
+for retakes to avoid paying for the same reference image again.
+
+Generated walk poses preserve `sourceEdge` and `sourceLayer` alongside their original road-centre coordinates.
+The comparison camera follows that source road's grade only when the panorama remains in its road corridor and
+overlapping runtime surfaces agree within 0.25 m. Legacy manifests resolve the source edge from their original
+road centre and street name. A missing explicit source edge or conflicting surface levels keeps the default
+ground height and records the ambiguity; the harness does not infer panorama altitude. `<out>/camera-poses.json`
+records each rendered pose's `cameraBaseY`, `cameraY`, `cameraSourceEdge` and `cameraLevelAmbiguity` for review.

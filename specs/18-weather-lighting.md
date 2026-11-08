@@ -89,3 +89,6 @@ Instrumented with a float render target and a non-finite pixel count every 0.5 s
 - Water: water materials now get a sky-only PMREM (shared env's stand-in city boxes + a dark soft shore band removed) → no hard pale/dark slabs on the water (Meydenbauer far waterline day/night gone): `scratchpad/round5/render/note60-water-reflections-meydenbauer-ab.png`, `note68-water-reflections-downtown-park-ab.png`. One extra PMREM build per env rebuild (only when the sun moves > 3°).
 - `setVehicleSnow(snowCover)` (cockpit-ui) is driven from the weather update: `note70-snow-cars-unirii.png`.
 
+### 2026-11-08 — preserve seasonal shadow budgets
+- Seasonal broadleaf updates now remember each mesh's builder-assigned shadow policy in `userData.seasonCastShadow`. Winter can hide its canopy shadow, and summer restores that policy rather than enabling shadows on every far-LOD crown. Repeated winter/summer probes preserve far crowns off, near broadleaf off in winter/on in summer, and the conifer policy. This prevents the measured Romană tree population from adding unintended shadow geometry; no tree positions, species, scales or LOD geometry were removed.
+

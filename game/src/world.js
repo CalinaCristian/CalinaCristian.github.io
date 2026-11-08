@@ -3458,7 +3458,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             }
             if (b.roof === 'dome') { const r = clamp(Math.sqrt(b.area) * 0.28, 3, 14); rmb.geo(props().sphere, b.c[0], h, b.c[1], 0, r, r * 0.9, r, rgb(b.style === 'church' ? '#7a8a8f' : '#8c9aa3')); }
         }
-        if (b.style === 'church' && b.area > 120) { // a bell tower / cupola
+        if (b.style === 'church' && b.area > 120 && !b.holes.length) { // a generic centroid cupola cannot span a courtyard
             const r = clamp(Math.sqrt(b.area) * 0.12, 1.5, 4);
             mb.box(b.c[0], h, b.c[1], r * 2, r * 2.4, r * 2, 0, wallCol, tile);
             mb.geo(props().sphere, b.c[0], h + r * 2.4, b.c[1], 0, r * 1.05, r * 1.4, r * 1.05, rgb('#6f8f86'));
@@ -3584,6 +3584,9 @@ export async function buildWorld(city, renderer, opts = {}) {
             for (let u = 0; u < nUnits; u++) {
                 const x = b.c[0] + (brng() - 0.5) * Math.sqrt(b.area) * 0.45, z = b.c[1] + (brng() - 0.5) * Math.sqrt(b.area) * 0.45;
                 if (!pointInPolygon(x, z, ring)) continue;
+                // Keep the entire largest plant box on a courtyard building's roof wings.
+                // A centre-only test leaves HVAC floating over an inner opening.
+                if (b.holes.length && (polyDist(x, z, ring) < 2.1 || b.holes.some(hole => pointInPolygon(x, z, hole) || polyDist(x, z, hole) < 2.1))) continue;
                 const r = brng();
                 if (r < 0.45) db.box(x, yTop, z, 1.8, 1.2, 1.2, brng() * 3, rgb('#a9adb1'));                      // HVAC
                 else if (r < 0.6 && !US && st === 'bloc') db.box(x, yTop, z, 2.2, 2.6, 2.2, 0, rgb('#8d8f8c'));   // water tank / machine room
@@ -4134,7 +4137,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
     }
     const treeCount = treeList.length;
-    // instanced trees in 500 m chunks (frustum + distance culled); crowns keep a per-instance colour (instanceColor)
+    // instanced trees in district 250 m / legacy 500 m chunks; crowns keep a per-instance colour (instanceColor)
     // so the season / weather code can tint each tree (world.vegetation)
     const vegetation = { treeCrownMeshes: [], treeTrunkMeshes: [], deciduousMask: null, grassMaterials: [], groundMaterials: [], roofMaterials: [], trees: treeList };
     {

@@ -131,3 +131,40 @@ Known gaps: Politehnica's door is at the Bd. Doina Cornea gate (~230 m from the 
 82. Drone: keep the landing animation as the way to exit (a menu/touch entry may trigger it); add a way to travel to where the drone is, so it can be used to scout and move around the map.
 83. Bucharest ↔ Seattle should still have a map (World tab and the flight), but at much higher fidelity and with a nicer display than the plain arc on a dark background.
 84. The World Cup Predictions TV in the football bar is interactive: it explains that it is a side project built for fun and gives a few details on how the game works, with screenshots and a link to the site.
+
+## Round 6 play-test (owner, 2026-11-08, live build at cristiancalina.com/game/)
+1. Rosetti classroom: the blackboard flickers (streaks across the green) while walking.
+2. Rosetti classroom: students sit beside / in front of their desks instead of at them.
+3. Rosetti classroom: the exit door flickers and a grey panel overlaps it (door drawn over the notice board).
+4. No visible place to act at fuel stations (Lukoil on the Politehnica route) or landmarks: add a big marker you can drive / walk into; the landmark beacon should come down as you get close so it stays in view.
+5. Piața Unirii fountains are flat blue water: improve them.
+6. The bottom hint line never mentions that Enter gets you out of the car.
+7. Bulevardul Corneliu Coposu: broken, overlapping roads (a slab across the carriageway).
+8. On foot, "go to" a landmark does nothing; it only works from the car.
+9. On foot: add a way (button / key) to go back to the car.
+10. A lone two-storey village house on Bd. Dimitrie Pompeiu among the office towers makes no sense.
+11. Hitting pedestrians no longer registers: the car passes through most of them.
+12. UiPath Bucharest office: the orange trim bars run through the "UiPath — Bucharest HQ" sign; a glass panel overlaps it.
+13. Drone: the on-screen buttons (Cine/Normal/Sport, Go here, Home, Land) can't be clicked while flying (mouse is captured); on desktop show only the key hints, buttons only on touch.
+14. The on-foot hint says "G map" but G deploys the drone.
+15. Spot tour guide is too slow: when you reach a goal first, the guide (or at least the route line) should move on to the next goal with you and keep pace.
+16. Village Museum (Muzeul Satului): still badly built and hard to walk around (walls / fences block the paths).
+17. Bike: Shift for speed, and reverse.
+18. Drone: hold H to land instantly (skip the animation) to get unstuck.
+19. SeaTac drive: broken roads (floating deck, a wall in the lanes near the Burien exit).
+20. SeaTac → Bellevue route leads onto a closed ramp ("RAMP CLOSED"): the road can't be followed and looks terrible.
+21. Deciduous tree crowns render as see-through scribbles with holes.
+22. Crash reactions in Seattle are always "Oh no, are you okay?": more lines, culture-based, Bucharest too.
+23. SeaTac: the skybridge from the building ends in mid-air.
+24. UiPath Bellevue: the "UiPath Bellevue" sign is cut off by the frame in front of it.
+25. UiPath Bellevue: the manager should not say "I relax".
+26. Gas Works: the distant city across Lake Union is a flat band of blocks half-buried in the ground.
+27. Lamp light pools on grass look like glowing white blobs.
+28. Meydenbauer Bay: buildings sunk in the water.
+29. Bellevue Square looks odd (striped boxes, floating cut-off lettering).
+30. Kerry Park: the street is raised like a wall above the sidewalk.
+31. Kerry Park: the slope below the railing is disconnected strips; visitors stand on it outside the railing.
+32. Lincoln Square tower: windows flicker (grainy speckle).
+33. Rain: loading a location sometimes shows the ground fully wet, then it dries; Bellevue Downtown Park canal water is broken (jagged strip).
+34. Meydenbauer Bay: people standing in the water.
+35. Better-looking maps of Bucharest, Seattle and Bellevue (Explore world map).

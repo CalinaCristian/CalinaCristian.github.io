@@ -1624,14 +1624,14 @@ export function makeCockpit() {
     /** night cabin glow 0..1 (instrument + screen backlight, dim cabin fill, ambient strips) */
     g.userData.setNightGlow = (k) => { interiorMat.userData.uGlow.value = wheelMat.userData.uGlow.value = k; screenMat.userData.uScreen.value.set(1 - 0.3 * k, 0.035 * (1 - k)); }; // screen: dimmed at night, faint daylight veil by day
 
-    // ---- headlights: two warm spot lights + emissive lamp boxes. Hidden (zero cost) until switched on. ----
+    // ---- headlights: two warm spot lights + emissive lamp boxes. Keep the light layout stable when off. ----
     const lampMat = new THREE.MeshStandardMaterial({ color: '#cfd5db', emissive: '#fff0d2', emissiveIntensity: 0, roughness: 0.15, metalness: 0.2 });
     const spots = [];
     for (const s of [-1, 1]) {
         const lamp = new THREE.Mesh(BOX, lampMat); lamp.scale.set(0.34, 0.11, 0.06); lamp.position.set(s * 0.6, 0.73, -3.4); g.add(lamp);
         const sp = new THREE.SpotLight('#ffe6bf', 0, 60, 0.42, 0.55, 1.5);
         sp.position.set(s * 0.6, 0.75, -3.45); sp.target.position.set(s * 0.9, 0, -26);
-        sp.visible = false; sp.castShadow = false; sp.userData.shared = true; // no spot shadow (cost + shimmer)
+        sp.castShadow = false; sp.userData.shared = true; // no spot shadow (cost + shimmer)
         g.add(sp, sp.target); spots.push(sp);
     }
     g.userData.headlights = {
@@ -1639,7 +1639,8 @@ export function makeCockpit() {
         /** on/off; intensity in candela (physically based lights) */
         setOn(on, intensity = 140) {
             this.on = !!on;
-            for (const sp of spots) { sp.visible = this.on; sp.intensity = this.on ? intensity : 0; }
+            // Changing visible light counts recompiles every lit material on the first toggle.
+            for (const sp of spots) { sp.visible = true; sp.intensity = this.on ? intensity : 0; }
             lampMat.emissiveIntensity = this.on ? 5 : 0;
         },
     };

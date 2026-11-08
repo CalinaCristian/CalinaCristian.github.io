@@ -324,7 +324,11 @@ function buildCity(cityId, did = null) {
             else { lf = Math.ceil(total / 2); lb = Math.max(1, total - lf); }
         } else { lf = lb = isLink ? 1 : (DEFAULT_LANES[base] || 1); }
         lf = Math.min(lf, 6); lb = Math.min(lb, 6);
-        const laneW = laneWidthFor(cls);
+        // A tagged single lane may legally carry traffic in both directions. Keep both graph directions,
+        // but do not turn its one physical lane into two inferred full-width lanes.
+        const sharedLane = !!ds && !oneway && total === 1;
+        const physicalSharedWidth = sharedLane ? (num(t.width) > 0 ? num(t.width) : laneWidthFor(cls)) : 0;
+        const laneW = sharedLane ? physicalSharedWidth / 2 : laneWidthFor(cls);
         let sidewalk = SIDEWALK[cls] ?? 2;
         if (t.sidewalk === 'no' || t.sidewalk === 'none' || t.foot === 'no') sidewalk = Math.min(sidewalk, 0.8);
         const ll0 = N.get(nodes[0]);
@@ -366,7 +370,7 @@ function buildCity(cityId, did = null) {
         }
         if (!name && ref) name = ref;
         if (!name && isLink) name = t.destination ? `Exit → ${t.destination.split(';')[0]}` : (country === 'US' ? 'Ramp' : 'Bretea');
-        roads.push({ id, cls, nodes, oneway, lf, lb, laneW, sidewalk, maxspeed, flags, layer, name, lat: ll0[0], tags: t, regKmh });
+        roads.push({ id, cls, nodes, oneway, lf, lb, laneW, sharedLane, physicalSharedWidth, sidewalk, maxspeed, flags, layer, name, lat: ll0[0], tags: t, regKmh });
     }
     // prune service ways that do not connect anything (dangling chains)
     {
@@ -511,8 +515,8 @@ function buildCity(cityId, did = null) {
         }
         r.tram = n > 0 && near / n > 0.5;
         r.median = 0;
-        if (!r.oneway && r.tram && centre / n > 0.4 && r.lf + r.lb >= 2) { r.median = 6.5; r.flags |= 256; }
-        else if (!r.oneway && /motorway|trunk/.test(r.cls) && !r.cls.endsWith('_link')) r.median = 3;
+        if (!r.sharedLane && !r.oneway && r.tram && centre / n > 0.4 && r.lf + r.lb >= 2) { r.median = 6.5; r.flags |= 256; }
+        else if (!r.sharedLane && !r.oneway && /motorway|trunk/.test(r.cls) && !r.cls.endsWith('_link')) r.median = 3;
         if (r.tram) r.flags |= 32;
     }
 
@@ -667,7 +671,7 @@ function buildCity(cityId, did = null) {
         }
         return i;
     };
-    const outRoads = [];
+    const outRoads = [], sharedLanes = {};
     const rampLimits = []; // [roadIndex, legalKmh, …]: US ramps without a posted limit (roads[i].maxspeed = advisory; no R2-1 sign)
     const roadInfo = []; // per output road: [osmLayer, flags, widthDm, maxheightDm, placement, bridgeStructure] (vertical / placement hints, see header)
     const parking = []; // optional rows: road index, right location/orientation, left location/orientation (string indices)
@@ -706,6 +710,7 @@ function buildCity(cityId, did = null) {
               | (pYes(pR) ? 64 : 0) | (pYes(pL) ? 128 : 0) | (pNo(pR) ? 256 : 0) | (pNo(pL) ? 512 : 0);
           roadInfo.push(isFinite(lay) ? lay : 0, f, dm(t.width), dm(t.maxheight || t['maxheight:physical']), S(t.placement || t['placement:forward'] || ''), S(t['bridge:structure'] || t['bridge:name'] || '')); }
         if (r.regKmh) rampLimits.push(outRoads.length, r.regKmh);
+        if (r.sharedLane) sharedLanes[outRoads.length] = { widthM: r.physicalSharedWidth, sourceId: 'w' + r.id, widthSource: num(r.tags.width) > 0 ? 'OSM width' : 'estimate:class single-lane width', evidence: 'OSM lanes=1; legal two-way' };
         outRoads.push([S(r.name), ROAD_CLASSES.indexOf(r.cls), r.lf, r.oneway ? 0 : r.lb, Math.round(r.median * 10), Math.round(r.laneW * 10), Math.round(r.sidewalk * 10), r.maxspeed, r.flags, r.layer, ...ids.map(idxOf)]);
     }
     log('graph nodes', outNodes.length / 2, 'segments', segCount);
@@ -1815,6 +1820,7 @@ function buildCity(cityId, did = null) {
         doc.buildingSourceSkips = buildingSourceSkips;
         doc.buildingRoadConflicts = buildingRoadConflicts;
         if (Object.keys(outBuildingHoleFootprints).length) doc.buildingHoleFootprints = outBuildingHoleFootprints;
+        if (Object.keys(sharedLanes).length) doc.sharedLanes = sharedLanes;
     }
     if (ds) doc.streetTrees = streetTrees;
     if (turnLanes.length) doc.turnLanes = turnLanes;

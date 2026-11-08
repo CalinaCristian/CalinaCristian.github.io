@@ -122,7 +122,7 @@ const HUD_HTML = `
 <div class="dr-frame"><i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i></div>
 <div class="dr-top">
   <span class="dr-rec"><i></i>REC <b class="dr-time">00:00</b></span>
-  <span class="dr-chip dr-mode" title="Speed mode (1 / 2 / 3, wheel)">N</span>
+  <span class="dr-chip dr-mode" title="Speed mode — mouse wheel or 1 / 2 / 3">N</span>
   <span class="dr-chip dr-gps">GPS <b>▮▮▮▮</b></span>
   <span class="dr-chip dr-wind">Wind —</span>
   <span class="dr-bat"><span class="dr-batbar"><i></i></span><b class="dr-batpct">100%</b><small class="dr-battime">10:00</small></span>
@@ -138,7 +138,7 @@ const HUD_HTML = `
 </div>
 <div class="dr-stick" aria-hidden="true"><i></i></div>
 <div class="dr-vert"><button data-hold="up" aria-label="Up">▲</button><button data-hold="down" aria-label="Down">▼</button></div>
-<div class="dr-help">WASD fly · mouse: look / gimbal · Space or E up · Q or C down · Shift boost · 1 2 3 speed · T go here · H home (hold: land now) · G or X land · P photo · Esc pause</div>`;
+<div class="dr-help">WASD fly · mouse: look / gimbal · Space or E up · Q or C down · Shift boost · wheel or 1 2 3: speed mode · T go here · H home (hold: land now) · G or X land · P photo · Esc pause</div>`;
 
 export class Drone {
     constructor(game, { onEvent = null, onGoHere = null } = {}) {
@@ -526,7 +526,7 @@ export class Drone {
     cycleMode(d) { this.setMode((this.mode + d + MODES.length) % MODES.length); }
     _hudSync() {
         if (!this.q) return;
-        this.q.mode.textContent = MODES[this.mode].id; this.q.mode.title = MODES[this.mode].name + ' mode';
+        this.q.mode.textContent = `⚡ ${MODES[this.mode].name} · ${this._fmtSpeed(MODES[this.mode].h)} (wheel / 1 2 3)`; this.q.mode.title = MODES[this.mode].name + ' mode'; // (after round 6: the bare 'N' chip didn't say it was the speed)
         for (const b of this.hudEl.querySelectorAll('[data-dr^=mode]')) b.classList.toggle('on', +b.dataset.dr.split(':')[1] === this.mode);
     }
     _fmtDist(m) { return this.imperial ? (m >= 1609 ? `${(m / 1609.34).toFixed(1)} mi` : `${Math.round(m * 3.281)} ft`) : (m >= 1000 ? `${(m / 1000).toFixed(1)} km` : `${Math.round(m)} m`); }

@@ -611,6 +611,7 @@ body.photo-mode #explore-bar, body.paused #explore-bar, body.wm-open #explore-ba
 body.drone-mode #explore-bar { right: auto; left: 50%; transform: translateX(-50%); top: auto; bottom: 18px; } /* ⤓ next to the drone controls */
 body.drone-mode #explore-bar button[data-x=drone] { display: none; }
 body.drone-mode #explore-bar button[data-x=map] { display: block; }
+body:not(.touch).drone-mode #explore-bar { bottom: 40px; } /* (after round 6) above the drone help line, not on top of it */
 @media (max-width: 600px) { #explore-bar { right: 166px; top: 400px; } }
 @media (max-height: 520px) and (orientation: landscape) { #explore-bar { right: 160px; top: 56px; } #explore-bar button { width: 40px; height: 40px; } }
 #explore-warp { position: fixed; inset: 0; z-index: 64; pointer-events: none; opacity: 0; background: radial-gradient(circle at 50% 50%, rgba(255,255,255,.95), rgba(186,230,253,.85) 40%, rgba(15,23,42,.9)); }

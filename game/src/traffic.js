@@ -1736,18 +1736,18 @@ export class Traffic {
         const act = (this._bub = (this._bub || []).filter(b => b.until > now && (!hud?.bubbles || hud.bubbles.some(h => h.v === b.anchor))));
         const W = globalThis.innerWidth || 1280, Hh = globalThis.innerHeight || 720;
         const V = this._bv || (this._bv = new THREE.Vector3());
-        const scr = (x, z) => { if (!cam) return null; V.set(x, 2.6, z).project(cam); if (V.z > 1 || Math.abs(V.x) > 1.2 || Math.abs(V.y) > 1.2) return null; return [(V.x + 1) / 2 * W, (1 - V.y) / 2 * Hh]; };
+        const scr = (x, z, y = 2.6) => { if (!cam) return null; V.set(x, y, z).project(cam); if (V.z > 1 || Math.abs(V.x) > 1.2 || Math.abs(V.y) > 1.2) return null; return [(V.x + 1) / 2 * W, (1 - V.y) / 2 * Hh]; };
         const drop = (b) => { b.until = 0; const h = hud?.bubbles?.find(q => q.v === b.anchor); if (h) h.until = 0; };
         // at most three: make room by dropping the lowest priority (never one that outranks the new bubble)
         if (act.length >= 3) { const lo = act.reduce((a, b) => (b.pri < a.pri ? b : a)); if (lo.pri > pri || (lo.pri === pri && pri < 3)) return null; drop(lo); }
         const live = act.filter(b => b.until > now);
-        const p0 = scr(target.x, target.z);
+        const p0 = scr(target.x, target.z, target.bubbleY ?? 2.6);
         let ox = 0, oz = 0;
         if (p0 && live.length) {
             // camera right axis on the ground, and how many pixels a metre along it is at the speaker
             const e = cam.matrixWorld.elements, rx = e[0], rz = e[2], rl = Math.hypot(rx, rz) || 1;
-            const p1 = scr(target.x + rx / rl, target.z + rz / rl), ppm = p1 ? Math.max(4, Math.abs(p1[0] - p0[0])) : 40;
-            const hit = (px, py) => live.find(b => { const q = scr(b.anchor.x, b.anchor.z); return q && Math.abs(q[0] - px) < 190 && Math.abs(q[1] - py) < (two ? 58 : 44); });
+            const p1 = scr(target.x + rx / rl, target.z + rz / rl, target.bubbleY ?? 2.6), ppm = p1 ? Math.max(4, Math.abs(p1[0] - p0[0])) : 40;
+            const hit = (px, py) => live.find(b => { const q = scr(b.anchor.x, b.anchor.z, b.anchor.bubbleY ?? 2.6); return q && Math.abs(q[0] - px) < 190 && Math.abs(q[1] - py) < (two ? 58 : 44); });
             let ok = !hit(p0[0], p0[1]);
             for (const k of [1, -1, 2, -2]) {
                 if (ok) break;
@@ -1757,7 +1757,7 @@ export class Traffic {
             }
             if (!ok) { const h = hit(p0[0], p0[1]); if (h && h.pri < pri) drop(h); else return null; }
         }
-        const anchor = ox || oz ? { get x() { return target.x + ox; }, get z() { return target.z + oz; } } : target;
+        const anchor = ox || oz ? { get x() { return target.x + ox; }, get z() { return target.z + oz; }, get bubbleY() { return target.bubbleY; } } : target;
         this._bub.push({ anchor, pri, until: now + 4300 });
         return anchor;
     }
@@ -2011,7 +2011,7 @@ class Pedestrians {
         this.group = this.crowd.object; // (visual harness hides peds via .group)
         const clothes = traffic.buc ? CLOTHES_B : CLOTHES_S;
         for (let i = 0; i < count; i++) {
-            const p = { i, x: 0, z: 0, heading: 0, speed: this.rng.range(1.05, 1.6), state: 'walk', legs: [], waitT: 0, phase: this.rng() * 6, downT: 0, onRoad: false, scale: this.rng.range(0.92, 1.1) };
+            const p = { i, x: 0, z: 0, heading: 0, speed: this.rng.range(1.05, 1.6), state: 'walk', legs: [], waitT: 0, phase: this.rng() * 6, downT: 0, onRoad: false, scale: this.rng.range(0.92, 1.1), get bubbleY() { return 0.2 + 1.95 * this.scale; } }; // (bubbleY: chat bubbles sit just above the head, not at the 2.6 m driver height)
             if (stops.length && i < count * 0.1) {
                 const st = stops[i % stops.length]; const sx = st.x ?? st.doorX, sz = st.z ?? st.doorZ;
                 const a = this.rng() * 6.28, r = this.rng.range(0.4, 2.2);
@@ -2412,8 +2412,45 @@ class Pedestrians {
                 }
             }
         }
+        this.separate();
         if (this._fr % 15 === 0) this.countObstacleOverlaps();
         this.writeMatrices(dt);
+    }
+    /**
+     * People never stand inside each other (two bodies in one spot z-fight into flickering patches): overlapping pairs
+     * are pushed apart. Walkers sidestep through their sidewalk offset (walkOff, so placeWalk keeps it; head-on they
+     * pass on their right), anyone else is moved directly; someone talking to the walker / an officer / a reacting
+     * passer-by holds their spot and the other one makes room.
+     */
+    separate() {
+        const D = PED_R * 2, grid = this.grid;
+        const fixed = (p) => p.talkT > 0 || !!p.agent || !!p.react;
+        for (const p of this.list) {
+            if (p.state === 'down') continue;
+            grid.query(p.x, p.z, D, (q) => {
+                if (q.i <= p.i || q.state === 'down') return;
+                let dx = q.x - p.x, dz = q.z - p.z; const d = Math.hypot(dx, dz); if (d >= D) return;
+                if (d < 1e-3) { const a = (p.i * 2.399) % 6.283; dx = Math.cos(a); dz = Math.sin(a); } else { dx /= d; dz /= d; }
+                const fp = fixed(p), fq = fixed(q); if (fp && fq) return;
+                const ov = D - d, kp = fq ? 1 : fp ? 0 : 0.5, kq = 1 - kp;
+                this.sepPush(p, -dx * ov * kp, -dz * ov * kp, q);
+                this.sepPush(q, dx * ov * kq, dz * ov * kq, p);
+            });
+        }
+    }
+    sepPush(p, px, pz, other) {
+        if (!px && !pz) return;
+        if (p.state === 'walk' && p.e) {
+            const e = p.e, k = Math.hypot(px, pz);
+            let o = (px * e.nx + pz * e.nz) * p.side; // lateral share, in walkOff units (+ = away from the road)
+            if (Math.abs(o) < k * 0.5) { // (mostly along the line: one behind / in front of the other) → step aside
+                const head = other.state === 'walk' && other.e === e && other.dir !== p.dir;
+                const right = p.side * p.dir > 0 ? 1 : -1; // walking on the road's right: their right is away from the road
+                o = k * (head ? right : (p.i & 1 ? 1 : -1));
+            }
+            p.walkOff = clamp((p.walkOff || 0) + o, -0.6, 3);
+            this.placeWalk(p);
+        } else { p.x += px; p.z += pz; }
     }
 
     /** a pedestrian busy with the player's parked car: an officer walking up / standing by it, a passer-by reacting */

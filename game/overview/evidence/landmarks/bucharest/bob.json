@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "bob",
   "city": "bucharest",
-  "name": "BOB Tower",
+  "name": "BOB Tower (DB Global Technology)",
   "sourceCommit": "94508c6c36888591a02d584886da6270e1f6b550",
   "status": "reviewed-with-gaps",
   "coordinates": {
@@ -15,7 +15,7 @@
       "label": "OpenStreetMap w55450549; retrieved2026-11-08",
       "type": "osm",
       "facts": {
-        "addr:city": "Bucure\u0219ti",
+        "addr:city": "București",
         "addr:country": "RO",
         "building": "office",
         "name": "BOB Tower",
@@ -58,7 +58,7 @@
     {
       "label": "Published capture provenance",
       "passed": true,
-      "details": "Each capture retains its immutable game-source SHA and actual camera metadata. Top studies were recaptured at720\u00d7720 with actual orthographic left/right/top/bottom bounds, up vector and square ground span exported from the frozen camera. Published WebP bytes are SHA256 verified; no external imagery included."
+      "details": "Each capture retains its immutable game-source SHA and actual camera metadata. Top studies were recaptured at720×720 with actual orthographic left/right/top/bottom bounds, up vector and square ground span exported from the frozen camera. Published WebP bytes are SHA256 verified; no external imagery included."
     }
   ],
   "captures": [

@@ -309,7 +309,124 @@
       }
     ]
   },
-  "new150mDroneEnvelope": "Pending current drone dependency integration; old102-source screenshot from another worker is not evidence of this2401-source rebuild.",
+  "new150mDroneEnvelope": {
+    "gameSourceCommit": "10d9b98b9e8020ff8791de5466d4565824d876da",
+    "purpose": "Static camera envelope only: exact root9329108 boundary predicate on source runtime drive mask,150m grace,120m ceiling,800m home range; controller was not exercised. Two closest-source AFI views plus matched old-source west-edge view. Runtime traffic bubble stays at home.",
+    "boundaryPredicateCommit": "932910808532ac93abed97b192cd6feda94d5ed0",
+    "errors": [],
+    "rows": [
+      {
+        "id": "drone150-60",
+        "source": "w244033697",
+        "altitudeM": 60,
+        "flightDistanceM": 149.99900000000005,
+        "flightGraceM": 150,
+        "ceilingM": 120,
+        "worldBounds": {
+          "minX": -580,
+          "maxX": 1260,
+          "minZ": -1420,
+          "maxZ": 740
+        },
+        "clampedBounds": null,
+        "camera": {
+          "x": -373.0546396951464,
+          "z": 726.3116222165008,
+          "y": 60
+        },
+        "home": {
+          "x": -298.04651938730177,
+          "z": 350.065800000566
+        },
+        "rangeM": 800,
+        "distanceFromHomeM": 383.64975804379304,
+        "closestPlanDistanceM": 318.3133743827403,
+        "traffic": true,
+        "mirror": false,
+        "perf": {
+          "triangles": 191782,
+          "drawCalls": 99,
+          "quality": "high",
+          "renderMs": 6.899999999906868
+        },
+        "sha256": "36697af6344c9d0ca09aca47815ff22a88fb0b2d0b1f8eedcddf1487b032583b",
+        "capturedUTC": "2026-11-08T14:59:31.578Z"
+      },
+      {
+        "id": "drone150-120",
+        "source": "w244033697",
+        "altitudeM": 120,
+        "flightDistanceM": 149.99900000000005,
+        "flightGraceM": 150,
+        "ceilingM": 120,
+        "worldBounds": {
+          "minX": -580,
+          "maxX": 1260,
+          "minZ": -1420,
+          "maxZ": 740
+        },
+        "clampedBounds": null,
+        "camera": {
+          "x": -373.0546396951464,
+          "z": 726.3116222165008,
+          "y": 120
+        },
+        "home": {
+          "x": -298.04651938730177,
+          "z": 350.065800000566
+        },
+        "rangeM": 800,
+        "distanceFromHomeM": 383.64975804379304,
+        "closestPlanDistanceM": 318.3133743827403,
+        "traffic": true,
+        "mirror": false,
+        "perf": {
+          "triangles": 191843,
+          "drawCalls": 100,
+          "quality": "high",
+          "renderMs": 4.2999999998137355
+        },
+        "sha256": "79f40be132400832d9e6ce3571434e001dd8697da49964c8458080619b2032da",
+        "capturedUTC": "2026-11-08T14:59:35.992Z"
+      },
+      {
+        "id": "drone150-west150",
+        "source": "whole-source-west-edge",
+        "altitudeM": 110,
+        "flightDistanceM": 147.64735013199524,
+        "flightGraceM": 150,
+        "ceilingM": 120,
+        "worldBounds": {
+          "minX": -580,
+          "maxX": 1260,
+          "minZ": -1420,
+          "maxZ": 740
+        },
+        "clampedBounds": null,
+        "camera": {
+          "x": -189.999,
+          "z": -350,
+          "y": 110
+        },
+        "home": {
+          "x": 20,
+          "z": -350
+        },
+        "rangeM": 800,
+        "distanceFromHomeM": 209.999,
+        "traffic": true,
+        "mirror": false,
+        "perf": {
+          "triangles": 533908,
+          "drawCalls": 159,
+          "quality": "high",
+          "renderMs": 4.600000000093132
+        },
+        "sha256": "de7f80e248e696d7629905e25940ec0bab0e526a61fd799db3fa918c8d82c038",
+        "capturedUTC": "2026-11-08T14:59:42.332Z"
+      }
+    ]
+  },
   "logic": {
     "command": "npm run harness -- --scenario=foot,a --city=bucharest",
     "high": 0,

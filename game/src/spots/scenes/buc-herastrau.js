@@ -11,7 +11,7 @@
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, obb, polyArea, offsetPolyline, distPolyline, prismGeometry } from '../kit.js';
-import { bucBackdrop, osmPoly, cityFiller, palisade, signAtlas, bucActivity, boatRide } from '../buc.js';
+import { bucBackdrop, osmPoly, palisade, signAtlas, bucActivity, boatRide } from '../buc.js';
 import { railing } from '../props.js';
 import { addBikeRental } from '../bike.js';
 import { dryLanding, shortWaterRoute } from '../water-route.js';
@@ -222,7 +222,10 @@ export default {
             for (const w of d.ways) { if (!['footway', 'path', 'cycleway', 'pedestrian'].includes(w.k)) continue; for (let i = 1; i < w.pts.length; i++) { const [ax, az] = w.pts[i - 1], [bx, bz] = w.pts[i], L = Math.hypot(bx - ax, bz - az); if (L < 1) continue; const nx = -(bz - az) / L, nz = (bx - ax) / L; for (let t = r() * 9; t < L; t += 8 + r() * 4) for (const sd of [-1, 1]) { if (r() < 0.25) continue; const x = ax + (bx - ax) * t / L + nx * sd * (4 + r() * 2), z = az + (bz - az) * t / L + nz * sd * (4 + r() * 2); if (!inside(x, z) || (jg && inPoly(x, z, jg)) || Math.hypot(x - nymph.x, z - nymph.z) < 16) continue; ctx.trees.push({ x, z, kind: r() < 0.08 ? 'con' : 'broad', s: 1.25 + r() * 0.6 }); } } } }
         ctx.trees = ctx.trees.filter((t) => g.heightAt(t.x, t.z) > level + 0.4);
         { const ic = spV.photo.iconic; if (church && ic) { const dx = church.x - ic.x, dz = church.z - ic.z, L = Math.hypot(dx, dz); ctx.trees = ctx.trees.filter((t) => { const u = ((t.x - ic.x) * dx + (t.z - ic.z) * dz) / L; if (u < -2 || u > L + 4) return true; const v = Math.abs((t.x - ic.x) * dz - (t.z - ic.z) * dx) / L; return v > 4 + u * 0.35; }); } }
-        cityFiller(ctx, { ring: 650, avoid: lake ? [lake.poly] : [] });
+        // Unlocated random towers beyond the extract produced a false skyline
+        // across the lake. Preserve every mapped building; source coverage
+        // beyond this extract remains an explicit gap instead of invented blocks.
+        ctx.extras.herastrauContext={removedUnverifiedCityFiller:true};
         // plaques
         const PH = spH.plaques, PV = spV.plaques;
         PH.forEach((pl, i) => ctx.plaque(pl, nymph.x - 14 + i * 7, nymph.z + 10, Math.PI, { style: 'park' }));
@@ -233,7 +236,7 @@ export default {
         const landing=d.pois.find(p=>p.id==='n141706786');
         if(lake&&landing){const holes=lake.holes||[],bridges=d.ways.filter(w=>w.bridge),path=shortWaterRoute(lake.poly,landing,{reach:24,clearance:1.4,avoid:(x,z)=>holes.some(h=>inPoly(x,z,h)||distPolyline(x,z,[...h,h[0]]).d<1.4)||bridges.some(w=>distPolyline(x,z,w.pts).d<(w.width||4)/2+2)});
             if(path){const bt=new THREE.Group(),hull=new THREE.Mesh(new THREE.SphereGeometry(1,12,6,0,Math.PI*2,Math.PI/2,Math.PI/2),new THREE.MeshStandardMaterial({color:'#f2efe6',roughness:.5}));hull.scale.set(.95,.5,2.3);bt.add(hull);bt.position.set(path[0][0],level+.02,path[0][1]);ctx.add(bt);
-                const approach=dryLanding(lake.poly,landing),ride=boatRide(ctx,bt,path,level+.02,{speed:1.7,title:'Row from Debarcader Herăstrău',onDone:s=>bucActivity(s,'herastrau-park','boat','🚣 Returned to Debarcader','You rowed the short game course from the mapped marina and returned. Current rental operations and hours are unverified.')});
+                const approach=dryLanding(lake.poly,landing),ride=boatRide(ctx,bt,path,level+.02,{speed:1.7,initialPitch:-.12,title:'Row from Debarcader Herăstrău',onDone:s=>bucActivity(s,'herastrau-park','boat','🚣 Returned to Debarcader','You rowed the short game course from the mapped marina and returned. Current rental operations and hours are unverified.')});
                 const available=s=>s.r3d?.weather?.season!=='winter';ctx.extras.herastrauBoat={ride,path,landing,approach,source:landing.id,operatorHoursVerified:false};
                 ctx.interactables.push({kind:'rowboat',x:approach.x,z:approach.z,r:3,source:landing.id,label:'Row a short course from Debarcader',tourAvailable:available,cond:()=>!ride.active(),use:s=>{if(!available(s)){s.ui.toast('🚣 Warm-season game course','Choose a warm season for this rowing exercise. Current operator hours are not confirmed.');return;}ride.start(s);}});
             }}

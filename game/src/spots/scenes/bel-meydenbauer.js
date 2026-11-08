@@ -315,7 +315,7 @@ export default {
         if(course&&sourcePier&&inPoly(launch.x,launch.z,sourcePier.poly)){
             const kay=new GeoBatch();kay.add(hullGeo(4.3,.66,.32,.12),'plastic',null,'#f0a21c');kay.box(0,.28,-.3,.42,.06,.9,'#1f1f1f','rubber');
             const kayak=kay.build('kayak');kayak.visible=false;ctx.add(kayak);
-            const ride=boatRide(ctx,kayak,course,LAKE_Y,{speed:1.8,eye:.65,title:'Paddle Meydenbauer Bay',action:'Paddle a stroke',outfit:false,paddle:'kayak',
+            const ride=boatRide(ctx,kayak,course,LAKE_Y,{speed:1.8,eye:.95,floatHeight:0,initialPitch:-.12,title:'Paddle Meydenbauer Bay',action:'Paddle a stroke',outfit:false,paddle:'kayak',
                 help:'Paddle each stroke to move along a short game course outside the swimming area and return to the mapped dock. Leave or Esc returns to your starting deck. Real operator dates and hours are not modeled; check the city and current operator before visiting.',
                 onDone:s=>emitActivity(s,'bel-meydenbauer','kayak','🛶 Bay paddle completed','You paddled the short course and returned to the mapped launch dock.')});
             ctx.extras.meydenbauerKayak={ride,path:course,launch,source:'w819169611',operatorHoursVerified:false,sourceUrl:'https://bellevuewa.gov/city-government/departments/parks/parks-and-trails/parks/meydenbauer-beach-park',launchPositionEstimated:true};

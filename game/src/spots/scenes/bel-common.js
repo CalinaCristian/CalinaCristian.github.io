@@ -28,8 +28,8 @@ export function emitActivity(s, spot, id, title, body) {
 /** the simulated date of the session (dev page `date=`, game clock), as month (1–12) + day in Pacific time */
 export function localMD(s) {
     const d = s?.r3d?.simDate || s?.host?.date || new Date();
-    const t = new Date(d.getTime() - 8 * 3600e3);
-    return { m: t.getUTCMonth() + 1, d: t.getUTCDate(), h: t.getUTCHours() + t.getUTCMinutes() / 60 };
+    const p = Object.fromEntries(new Intl.DateTimeFormat('en-US', { timeZone:'America/Los_Angeles', month:'numeric',day:'numeric',hour:'numeric',minute:'numeric',hourCycle:'h23' }).formatToParts(d).map(p=>[p.type,p.value]));
+    return { m:+p.month,d:+p.day,h:+p.hour + +p.minute / 60 };
 }
 /** inclusive month/day window, may wrap the new year: inWindow({m,d}, [11, 20], [1, 6]) */
 export function inWindow({ m, d }, [m0, d0], [m1, d1]) {
@@ -283,7 +283,8 @@ export function gableRoof(b, cx, y, cz, yaw, L, W, H, color, { key = 'roofs', ov
 /** skip the OSM buildings whose centroid lies within `r` m of a landmark anchor (the landmark model replaces them) */
 export function skipNearLandmark(ctx, id, r = null) {
     const lm = LANDMARKS.find((l) => l.id === id); if (!lm) return [];
-    const p = ctx.ll(lm.lat, lm.lon), R = r ?? lm.radiusM * 0.85, out = [];
-    for (const b of ctx.data.buildings) { let x = 0, z = 0; for (const q of b.poly) { x += q[0]; z += q[1]; } x /= b.poly.length; z /= b.poly.length; if (Math.hypot(x - p.x, z - p.z) < R) { ctx.skipBuildings.add(b.id); out.push(b.id); } }
+    const sourceIds=new Set(lm.sourceIds||[]),out=[];
+    for (const b of ctx.data.buildings) if(sourceIds.has(b.id)){ctx.skipBuildings.add(b.id);out.push(b.id);}
+    void r; // legacy callers may pass a radius; source membership is authoritative.
     return out;
 }

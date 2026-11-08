@@ -9,6 +9,7 @@
 // ============================================================================
 import * as THREE from '../../vendor/three.module.min.js';
 import { activityFlow } from './participation.js';
+import { translatedLandmarkCollider } from './landmark-colliders.js';
 import { GeoBatch, M, rng, hash2, canvas, canvasTexture, fitDraw, polyArea, centroid, inPoly, polyBox, offsetPolyline, polylineLength, alongPolyline } from './kit.js';
 import { wallGeometry, polyCollider } from './osm.js';
 import { LANDMARKS, buildLandmark } from '../landmarks.js';
@@ -299,7 +300,7 @@ export function placeLandmark(ctx, id, { y = null, collide = true, colliderH = 6
     const p = ctx.ll(lm.lat, lm.lon), yy = y ?? ctx.ground.heightAt(p.x, p.z);
     r.mesh.position.set(p.x, yy, p.z); ctx.add(r.mesh);
     r.mesh.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
-    if (collide) for (const c of r.collision) ctx.box(p.x + c.x, p.z + c.z, c.hw, c.hd, c.angle, { y0: yy - 1, y1: yy + colliderH });
+    if (collide) for (const c of r.collision) ctx.collider(translatedLandmarkCollider(c, p, yy, colliderH, id));
     return { mesh: r.mesh, x: p.x, z: p.z, y: yy, lm, tris: r.triangles };
 }
 
@@ -527,20 +528,23 @@ export function bucActivity(s, spot, id, title, body) {
  * the full course; cancelling restores the exact shore pose without an award.
  * path: [[x, z]…] (metres), y: water level, speed m/s. Returns { start(s), active() }.
  */
-export function boatRide(ctx, boat, path, y, { speed = 1.6, eye = 0.72, title = 'Rowing boat', action = 'Row the oars', onDone = null } = {}) {
+export function boatRide(ctx, boat, path, y, { speed = 1.6, eye = 0.72, title = 'Rowing boat', action = 'Row the oars', onDone = null, outfit = true, paddle = 'oars', help = null, floatHeight = .25, initialPitch = -.4 } = {}) {
     const L = polylineLength(path), flow = activityFlow(ctx); let ride = null;
-    boat.userData.noFloor = true; boat.position.y = y + .25;
+    boat.userData.noFloor = true; boat.position.y = y + floatHeight;
     // The original hemisphere hull was one-sided: from the seated camera its
     // entire inner surface vanished. A narrow rim and inner floor remain in
     // view while looking across the water and make the strokes readable.
     boat.traverse(o => { if (o.isMesh && o.material && !Array.isArray(o.material)) o.material.side = THREE.DoubleSide; });
-    const inside = new THREE.MeshStandardMaterial({ color: '#b39366', roughness: .8 });
-    const floor = new THREE.Mesh(new THREE.BoxGeometry(1.05, .045, 2.5), inside); floor.position.y = -.19; boat.add(floor);
-    const rimCurve = new THREE.Curve(); rimCurve.getPoint = (t, v = new THREE.Vector3()) => v.set(Math.sin(t * Math.PI * 2) * .75, .025, Math.cos(t * Math.PI * 2) * 1.9);
-    boat.add(new THREE.Mesh(new THREE.TubeGeometry(rimCurve, 40, .035, 5, true), inside));
+    if (outfit) { const inside = new THREE.MeshStandardMaterial({ color: '#b39366', roughness: .8 });
+        const floor = new THREE.Mesh(new THREE.BoxGeometry(1.05, .045, 2.5), inside); floor.position.y = -.19; boat.add(floor);
+        const rimCurve = new THREE.Curve(); rimCurve.getPoint = (t, v = new THREE.Vector3()) => v.set(Math.sin(t * Math.PI * 2) * .75, .025, Math.cos(t * Math.PI * 2) * 1.9);
+        boat.add(new THREE.Mesh(new THREE.TubeGeometry(rimCurve, 40, .035, 5, true), inside)); }
     const paddles = [];
     const wood = new THREE.MeshStandardMaterial({ color: '#8c643f', roughness: .85 });
-    for (const side of [-1, 1]) {
+    if (paddle === 'kayak') { const pivot = new THREE.Group(); pivot.name = 'kayak-paddle'; pivot.position.set(0,.45,.95);
+        const shaft=new THREE.Mesh(new THREE.CylinderGeometry(.02,.02,2.1,6),wood);shaft.rotation.z=Math.PI/2;pivot.add(shaft);
+        const bladeMaterial=new THREE.MeshStandardMaterial({color:'#f2c230',roughness:.7});for(const side of [-1,1]){const blade=new THREE.Mesh(new THREE.BoxGeometry(.42,.035,.18),bladeMaterial);blade.position.x=side*1.08;pivot.add(blade);}boat.add(pivot);paddles.push({pivot,side:1,kayak:true});
+    } else for (const side of [-1, 1]) {
         const pivot = new THREE.Group(); pivot.name = 'rowing-oar'; pivot.position.set(side * .7, .15, 1.0);
         const shaft = new THREE.Mesh(new THREE.CylinderGeometry(.025, .025, 1.65, 6), wood); shaft.rotation.z = Math.PI / 2; shaft.position.x = side * .7;
         const blade = new THREE.Mesh(new THREE.BoxGeometry(.5, .055, .18), wood); blade.position.x = side * 1.35;
@@ -553,18 +557,18 @@ export function boatRide(ctx, boat, path, y, { speed = 1.6, eye = 0.72, title = 
         s.ctl.y = ride.back.y; s.ctl.teleport(ride.back.x, ride.back.z, ride.back.heading); s.ctl.place?.(); ride = null;
     }
     return {
-        active: () => !!ride, debug: () => ride && { distance: ride.distance, length: L, velocity: ride.velocity, strokes: ride.strokes },
+        active: () => !!ride, debug: () => ride && { distance: ride.distance, length: L, velocity: ride.velocity, strokes: ride.strokes, paddleAngles: paddles.map(p=>[p.pivot.rotation.x,p.pivot.rotation.y,p.pivot.rotation.z]) },
         start(s) {
             if (!(L > 2) || ride) return false;
-            return flow.begin(s, { title, action, cameraRide: true, help: 'Each stroke moves the boat. Follow the short water course back to the landing. Look around freely; Leave or Esc returns ashore.',
-                started(s, r) { const p = s.position; ride = { distance: 0, velocity: 0, strokes: 0, t: 0, look: 0, pitch: -.4, back: { x: p.x, z: p.z, y: p.y, heading: s.ctl.heading }, home: { p: boat.position.clone(), r: boat.rotation.clone(), visible: boat.visible } }; boat.visible = true; r.status.textContent = '0 m · take a stroke to set off'; },
+            return flow.begin(s, { title, action, cameraRide: true, help: help || 'Each stroke moves the boat. Follow the short water course back to the landing. Look around freely; Leave or Esc returns ashore.',
+                started(s, r) { const p = s.position; ride = { distance: 0, velocity: 0, strokes: 0, t: 0, look: 0, pitch: initialPitch, back: { x: p.x, z: p.z, y: p.y, heading: s.ctl.heading }, home: { p: boat.position.clone(), r: boat.rotation.clone(), visible: boat.visible } }; boat.visible = true; r.status.textContent = '0 m · take a stroke to set off'; },
                 actioned(s, r) { r.busy = true; r.t = 0; ride.strokes++; },
                 update(dt, s, r) {
                     if (!ride) return;
                     ride.t += dt;
                     if (r.busy) { const before = r.t; r.t += dt; if (before < .3 && r.t >= .3) { ride.velocity = Math.min(speed * 1.5, ride.velocity + speed * 1.2); s.sound?.play?.('splat', .2); } if (r.t >= .9) r.busy = false; }
                     const phase = r.busy ? Math.sin(Math.min(1, r.t / .9) * Math.PI * 2) : 0;
-                    paddles.forEach(({ pivot, side }) => { pivot.rotation.y = side * phase * .55; pivot.rotation.z = -side * Math.sin(Math.min(1, r.t / .9) * Math.PI) * .22; });
+                    paddles.forEach(({ pivot, side, kayak }) => { pivot.rotation.y = side * phase * .55; pivot.rotation.z = kayak ? phase * .65 : -side * Math.sin(Math.min(1, r.t / .9) * Math.PI) * .22; });
                     ride.velocity *= Math.exp(-.65 * dt); if (ride.velocity < .025) ride.velocity = 0;
                     ride.distance = Math.min(L, ride.distance + ride.velocity * dt);
                     const p = alongPolyline(path, ride.distance), ahead = alongPolyline(path, Math.min(L, ride.distance + .7));
@@ -573,7 +577,7 @@ export function boatRide(ctx, boat, path, y, { speed = 1.6, eye = 0.72, title = 
                     const turn = Math.atan2(Math.sin(targetYaw - ride.yaw), Math.cos(targetYaw - ride.yaw));
                     ride.yaw += Math.max(-2.8 * dt, Math.min(2.8 * dt, turn));
                     const yaw = ride.yaw, bob = Math.sin(ride.t * 1.6) * .025;
-                    boat.position.set(p.x, y + .25 + bob, p.z); boat.rotation.set(phase * .015, yaw, phase * .025);
+                    boat.position.set(p.x, y + floatHeight + bob, p.z); boat.rotation.set(phase * .015, yaw, phase * .025);
                     const lk = s.input?.takeLook?.() || { dx: 0, dy: 0 }; ride.look -= lk.dx * .0024; ride.pitch = Math.max(-.9, Math.min(.9, ride.pitch - lk.dy * .0024));
                     s.ctl.rig.position.set(p.x, y + eye + bob, p.z); s.ctl.rig.rotation.set(ride.pitch, yaw + Math.PI + ride.look, 0, 'YXZ');
                     r.progress.value = ride.distance / L; r.status.textContent = `${Math.round(ride.distance)} / ${Math.round(L)} m · ${ride.strokes} strokes`;
@@ -582,22 +586,4 @@ export function boatRide(ctx, boat, path, y, { speed = 1.6, eye = 0.72, title = 
             });
         },
     };
-}
-/**
- * Read sourced history from a public entrance. Each fact needs an explicit
- * Next/Finish action; waiting alone cannot complete the visit. No interior is
- * claimed or entered. Returns the interactable.
- */
-export function narratedVisit(ctx, { x, z, r = 7, label, steps, spot, id, title, body }) {
-    const flow = activityFlow(ctx);
-    const show = run => { const [heading, text] = steps[run.step]; run.status.textContent = `${heading} · ${text}`; run.progress.value = run.step / steps.length; run.button.textContent = run.step === steps.length - 1 ? 'Finish reading' : 'Next fact'; };
-    const it = { x, z, r: 2.6, label, cond: () => !flow.active, use: s => flow.begin(s, {
-        title: 'Entrance history', help: 'Read from the public entrance. The interior is described here; this visit stays outdoors.', action: 'Next fact',
-        started(s, run) { run.step = 0; show(run); },
-        actioned(s, run) { if (++run.step === steps.length) { flow.complete(); return; } show(run); },
-        update(dt, s) { if (Math.hypot(s.position.x - x, s.position.z - z) > r) flow.cancel('distance'); },
-        complete: s => bucActivity(s, spot, id, title, body),
-    }) };
-    ctx.interactables.push(it);
-    return it;
 }

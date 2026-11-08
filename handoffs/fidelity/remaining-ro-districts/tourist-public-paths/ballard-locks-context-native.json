@@ -1,0 +1,890 @@
+{
+  "schemaVersion": 1,
+  "id": "ballard-locks",
+  "sceneId": "ballard-locks",
+  "name": "Ballard Locks & fish ladder",
+  "city": "seattle",
+  "status": "needs_review",
+  "origin": {
+    "lat": 47.6664,
+    "lon": -122.397,
+    "elev": 8.5
+  },
+  "projection": {
+    "mLat": 111183.83,
+    "mLon": 75105.22
+  },
+  "sourceGeometry": {
+    "consumer": {
+      "sourceRecords": 107,
+      "sourceIds": [
+        "w51475867",
+        "w74763389",
+        "w217215974",
+        "w217215978",
+        "w217332046",
+        "w217332073",
+        "w217332191",
+        "w217338271",
+        "w217338276",
+        "w217338281",
+        "w217338288",
+        "w217338291",
+        "w217338298",
+        "w223562285",
+        "w285289602",
+        "w285289604",
+        "w285289605",
+        "w285289606",
+        "w285289608",
+        "w285289612",
+        "w303694417",
+        "w1019093301",
+        "w1280486706",
+        "w1280486707",
+        "w1280486708",
+        "w1299451329",
+        "w1299451334",
+        "w1304049323",
+        "w1304253233",
+        "w1304253234",
+        "w1304253235",
+        "w1304253236",
+        "w1304253237",
+        "w1304253238",
+        "w1304253239",
+        "w1304253240",
+        "w1304253241",
+        "w1304253242",
+        "w1304253243",
+        "w217216103",
+        "w217216104",
+        "w217270660",
+        "w217270683",
+        "w217270700",
+        "w217270709",
+        "w217332047",
+        "w217332061",
+        "w217332108",
+        "w217332180",
+        "w217332192",
+        "w217338265",
+        "w217338266",
+        "w217338268",
+        "w217338275",
+        "w217338279",
+        "w217338285",
+        "w217338295",
+        "w217338300",
+        "w221907114",
+        "w221907115",
+        "w221907118",
+        "w221907119",
+        "w221907120",
+        "w221907121",
+        "w221907122",
+        "w221907123",
+        "w221907124",
+        "w221907125",
+        "w221907126",
+        "w221907127",
+        "w221907295",
+        "w221907304",
+        "w221907305",
+        "w221907306",
+        "w221907308",
+        "w221921983",
+        "w221922098",
+        "w285289609",
+        "w285289610",
+        "w319489870",
+        "w324830553",
+        "w324830555",
+        "w487845757",
+        "w503432813",
+        "w1019093302",
+        "w1019093303",
+        "w1019093304",
+        "w1019093308",
+        "w1019093309",
+        "w1019093310",
+        "w1019093311",
+        "w1060836524",
+        "w1280486711",
+        "w1299451335",
+        "w1299451336",
+        "w1304045988",
+        "w1304045992",
+        "w1304045996",
+        "w1304049317",
+        "w1304049318",
+        "w1304049319",
+        "w1304253231",
+        "w1304253232",
+        "w1305382746",
+        "w1305382747",
+        "w1305382748",
+        "w1305382749"
+      ],
+      "literalHeights": 12,
+      "levelHeightEstimates": 0,
+      "typeHeightEstimates": 95,
+      "assemblies": [],
+      "dropped": 0,
+      "inset": 0,
+      "issues": [],
+      "cacheHit": false,
+      "buildMs": 398,
+      "renderedVolumes": 107,
+      "heroReplacements": []
+    },
+    "physicalMembership": [
+      {
+        "source": "w51475867",
+        "residual": false,
+        "volume": 0
+      },
+      {
+        "source": "w74763389",
+        "residual": false,
+        "volume": 1
+      },
+      {
+        "source": "w217215974",
+        "residual": false,
+        "volume": 2
+      },
+      {
+        "source": "w217215978",
+        "residual": false,
+        "volume": 3
+      },
+      {
+        "source": "w217332046",
+        "residual": false,
+        "volume": 4
+      },
+      {
+        "source": "w217332073",
+        "residual": false,
+        "volume": 5
+      },
+      {
+        "source": "w217332191",
+        "residual": false,
+        "volume": 6
+      },
+      {
+        "source": "w217338271",
+        "residual": false,
+        "volume": 7
+      },
+      {
+        "source": "w217338276",
+        "residual": false,
+        "volume": 8
+      },
+      {
+        "source": "w217338281",
+        "residual": false,
+        "volume": 9
+      },
+      {
+        "source": "w217338288",
+        "residual": false,
+        "volume": 10
+      },
+      {
+        "source": "w217338291",
+        "residual": false,
+        "volume": 11
+      },
+      {
+        "source": "w217338298",
+        "residual": false,
+        "volume": 12
+      },
+      {
+        "source": "w223562285",
+        "residual": false,
+        "volume": 13
+      },
+      {
+        "source": "w285289602",
+        "residual": false,
+        "volume": 14
+      },
+      {
+        "source": "w285289604",
+        "residual": false,
+        "volume": 15
+      },
+      {
+        "source": "w285289605",
+        "residual": false,
+        "volume": 16
+      },
+      {
+        "source": "w285289606",
+        "residual": false,
+        "volume": 17
+      },
+      {
+        "source": "w285289608",
+        "residual": false,
+        "volume": 18
+      },
+      {
+        "source": "w285289612",
+        "residual": false,
+        "volume": 19
+      },
+      {
+        "source": "w303694417",
+        "residual": false,
+        "volume": 20
+      },
+      {
+        "source": "w1019093301",
+        "residual": false,
+        "volume": 21
+      },
+      {
+        "source": "w1280486706",
+        "residual": false,
+        "volume": 22
+      },
+      {
+        "source": "w1280486707",
+        "residual": false,
+        "volume": 23
+      },
+      {
+        "source": "w1280486708",
+        "residual": false,
+        "volume": 24
+      },
+      {
+        "source": "w1299451329",
+        "residual": false,
+        "volume": 25
+      },
+      {
+        "source": "w1299451334",
+        "residual": false,
+        "volume": 26
+      },
+      {
+        "source": "w1304049323",
+        "residual": false,
+        "volume": 27
+      },
+      {
+        "source": "w1304253233",
+        "residual": false,
+        "volume": 28
+      },
+      {
+        "source": "w1304253234",
+        "residual": false,
+        "volume": 29
+      },
+      {
+        "source": "w1304253235",
+        "residual": false,
+        "volume": 30
+      },
+      {
+        "source": "w1304253236",
+        "residual": false,
+        "volume": 31
+      },
+      {
+        "source": "w1304253237",
+        "residual": false,
+        "volume": 32
+      },
+      {
+        "source": "w1304253238",
+        "residual": false,
+        "volume": 33
+      },
+      {
+        "source": "w1304253239",
+        "residual": false,
+        "volume": 34
+      },
+      {
+        "source": "w1304253240",
+        "residual": false,
+        "volume": 35
+      },
+      {
+        "source": "w1304253241",
+        "residual": false,
+        "volume": 36
+      },
+      {
+        "source": "w1304253242",
+        "residual": false,
+        "volume": 37
+      },
+      {
+        "source": "w1304253243",
+        "residual": false,
+        "volume": 38
+      },
+      {
+        "source": "w217216103",
+        "residual": false,
+        "volume": 39
+      },
+      {
+        "source": "w217216104",
+        "residual": false,
+        "volume": 40
+      },
+      {
+        "source": "w217270660",
+        "residual": false,
+        "volume": 41
+      },
+      {
+        "source": "w217270683",
+        "residual": false,
+        "volume": 42
+      },
+      {
+        "source": "w217270700",
+        "residual": false,
+        "volume": 43
+      },
+      {
+        "source": "w217270709",
+        "residual": false,
+        "volume": 44
+      },
+      {
+        "source": "w217332047",
+        "residual": false,
+        "volume": 45
+      },
+      {
+        "source": "w217332061",
+        "residual": false,
+        "volume": 46
+      },
+      {
+        "source": "w217332108",
+        "residual": false,
+        "volume": 47
+      },
+      {
+        "source": "w217332180",
+        "residual": false,
+        "volume": 48
+      },
+      {
+        "source": "w217332192",
+        "residual": false,
+        "volume": 49
+      },
+      {
+        "source": "w217338265",
+        "residual": false,
+        "volume": 50
+      },
+      {
+        "source": "w217338266",
+        "residual": false,
+        "volume": 51
+      },
+      {
+        "source": "w217338268",
+        "residual": false,
+        "volume": 52
+      },
+      {
+        "source": "w217338275",
+        "residual": false,
+        "volume": 53
+      },
+      {
+        "source": "w217338279",
+        "residual": false,
+        "volume": 54
+      },
+      {
+        "source": "w217338285",
+        "residual": false,
+        "volume": 55
+      },
+      {
+        "source": "w217338295",
+        "residual": false,
+        "volume": 56
+      },
+      {
+        "source": "w217338300",
+        "residual": false,
+        "volume": 57
+      },
+      {
+        "source": "w221907114",
+        "residual": false,
+        "volume": 58
+      },
+      {
+        "source": "w221907115",
+        "residual": false,
+        "volume": 59
+      },
+      {
+        "source": "w221907118",
+        "residual": false,
+        "volume": 60
+      },
+      {
+        "source": "w221907119",
+        "residual": false,
+        "volume": 61
+      },
+      {
+        "source": "w221907120",
+        "residual": false,
+        "volume": 62
+      },
+      {
+        "source": "w221907121",
+        "residual": false,
+        "volume": 63
+      },
+      {
+        "source": "w221907122",
+        "residual": false,
+        "volume": 64
+      },
+      {
+        "source": "w221907123",
+        "residual": false,
+        "volume": 65
+      },
+      {
+        "source": "w221907124",
+        "residual": false,
+        "volume": 66
+      },
+      {
+        "source": "w221907125",
+        "residual": false,
+        "volume": 67
+      },
+      {
+        "source": "w221907126",
+        "residual": false,
+        "volume": 68
+      },
+      {
+        "source": "w221907127",
+        "residual": false,
+        "volume": 69
+      },
+      {
+        "source": "w221907295",
+        "residual": false,
+        "volume": 70
+      },
+      {
+        "source": "w221907304",
+        "residual": false,
+        "volume": 71
+      },
+      {
+        "source": "w221907305",
+        "residual": false,
+        "volume": 72
+      },
+      {
+        "source": "w221907306",
+        "residual": false,
+        "volume": 73
+      },
+      {
+        "source": "w221907308",
+        "residual": false,
+        "volume": 74
+      },
+      {
+        "source": "w221921983",
+        "residual": false,
+        "volume": 75
+      },
+      {
+        "source": "w221922098",
+        "residual": false,
+        "volume": 76
+      },
+      {
+        "source": "w285289609",
+        "residual": false,
+        "volume": 77
+      },
+      {
+        "source": "w285289610",
+        "residual": false,
+        "volume": 78
+      },
+      {
+        "source": "w319489870",
+        "residual": false,
+        "volume": 79
+      },
+      {
+        "source": "w324830553",
+        "residual": false,
+        "volume": 80
+      },
+      {
+        "source": "w324830555",
+        "residual": false,
+        "volume": 81
+      },
+      {
+        "source": "w487845757",
+        "residual": false,
+        "volume": 82
+      },
+      {
+        "source": "w503432813",
+        "residual": false,
+        "volume": 83
+      },
+      {
+        "source": "w1019093302",
+        "residual": false,
+        "volume": 84
+      },
+      {
+        "source": "w1019093303",
+        "residual": false,
+        "volume": 85
+      },
+      {
+        "source": "w1019093304",
+        "residual": false,
+        "volume": 86
+      },
+      {
+        "source": "w1019093308",
+        "residual": false,
+        "volume": 87
+      },
+      {
+        "source": "w1019093309",
+        "residual": false,
+        "volume": 88
+      },
+      {
+        "source": "w1019093310",
+        "residual": false,
+        "volume": 89
+      },
+      {
+        "source": "w1019093311",
+        "residual": false,
+        "volume": 90
+      },
+      {
+        "source": "w1060836524",
+        "residual": false,
+        "volume": 91
+      },
+      {
+        "source": "w1280486711",
+        "residual": false,
+        "volume": 92
+      },
+      {
+        "source": "w1299451335",
+        "residual": false,
+        "volume": 93
+      },
+      {
+        "source": "w1299451336",
+        "residual": false,
+        "volume": 94
+      },
+      {
+        "source": "w1304045988",
+        "residual": false,
+        "volume": 95
+      },
+      {
+        "source": "w1304045992",
+        "residual": false,
+        "volume": 96
+      },
+      {
+        "source": "w1304045996",
+        "residual": false,
+        "volume": 97
+      },
+      {
+        "source": "w1304049317",
+        "residual": false,
+        "volume": 98
+      },
+      {
+        "source": "w1304049318",
+        "residual": false,
+        "volume": 99
+      },
+      {
+        "source": "w1304049319",
+        "residual": false,
+        "volume": 100
+      },
+      {
+        "source": "w1304253231",
+        "residual": false,
+        "volume": 101
+      },
+      {
+        "source": "w1304253232",
+        "residual": false,
+        "volume": 102
+      },
+      {
+        "source": "w1305382746",
+        "residual": false,
+        "volume": 103
+      },
+      {
+        "source": "w1305382747",
+        "residual": false,
+        "volume": 104
+      },
+      {
+        "source": "w1305382748",
+        "residual": false,
+        "volume": 105
+      },
+      {
+        "source": "w1305382749",
+        "residual": false,
+        "volume": 106
+      }
+    ],
+    "buildings": 107,
+    "parts": 0,
+    "ways": 180,
+    "areas": 158,
+    "heroReplacements": [],
+    "membershipSHA256": "0f40f8a30d285596a57159ca20781a1fcbb5af4fefc28f3701adadf0848fe52d"
+  },
+  "sourceReferences": [
+    {
+      "label": "Large lock (1917)",
+      "url": "https://www.openstreetmap.org/way/164115502"
+    },
+    {
+      "label": "Large lock (1917)",
+      "url": "https://www.openstreetmap.org/way/472179860"
+    },
+    {
+      "label": "Small lock",
+      "url": "https://www.openstreetmap.org/way/164115503"
+    },
+    {
+      "label": "Fish ladder (rebuilt 1976) + viewing room",
+      "url": "https://www.openstreetmap.org/node/3413278212"
+    },
+    {
+      "label": "Fish ladder (rebuilt 1976) + viewing room",
+      "url": "https://www.openstreetmap.org/node/3211770269"
+    },
+    {
+      "label": "Administration Building (1915), Operating Houses (1914), Control Tower (1969)",
+      "url": "https://www.openstreetmap.org/way/51475867"
+    },
+    {
+      "label": "Administration Building (1915), Operating Houses (1914), Control Tower (1969)",
+      "url": "https://www.openstreetmap.org/way/285289605"
+    },
+    {
+      "label": "Administration Building (1915), Operating Houses (1914), Control Tower (1969)",
+      "url": "https://www.openstreetmap.org/way/285289606"
+    },
+    {
+      "label": "Administration Building (1915), Operating Houses (1914), Control Tower (1969)",
+      "url": "https://www.openstreetmap.org/way/223562285"
+    },
+    {
+      "label": "Carl S. English Jr. Botanical Garden (1917)",
+      "url": "https://www.openstreetmap.org/way/51475864"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Ballard_Locks",
+      "label": "Existing spot dossier reference"
+    },
+    {
+      "url": "https://www.openstreetmap.org/",
+      "label": "Existing spot dossier reference"
+    }
+  ],
+  "performance": {
+    "sceneTriangles": 460380,
+    "uniqueGeometryTriangles": 252187,
+    "geometryObjects": 65,
+    "maxRenderedTriangles": 696182,
+    "maxDrawCalls": 149
+  },
+  "access": {
+    "walker": "OnFootController",
+    "arrival": {
+      "x": 0,
+      "z": 0,
+      "y": 0.2098590035364024,
+      "heading": -3.141592653589793
+    },
+    "arrivalDry": true,
+    "nearestPlaquePath": null
+  },
+  "plaques": [
+    {
+      "title": "Busiest lock in the US",
+      "x": -61.686104906199894,
+      "z": 40.327728549762725,
+      "y": 0.6,
+      "yaw": 2.784680717238123
+    },
+    {
+      "title": "Lakes lowered",
+      "x": -33.57669876261031,
+      "z": 50.80920202703341,
+      "y": 0.6,
+      "yaw": 2.784680717238123
+    },
+    {
+      "title": "Two locks",
+      "x": -5.467292619020748,
+      "z": 61.29067550430409,
+      "y": 0.6,
+      "yaw": 2.784680717238123
+    },
+    {
+      "title": "Fish ladder",
+      "x": 23.608591419795204,
+      "z": 68.38947634828244,
+      "y": 0.6,
+      "yaw": 2.784680717238123
+    }
+  ],
+  "activities": [
+    {
+      "kind": "lockage",
+      "label": "Watch a lock cycle from the public walkway",
+      "x": 2.6248532322724225,
+      "z": 62.883880936712785,
+      "y": null,
+      "source": null
+    },
+    {
+      "kind": "guide",
+      "label": "Join the short guided tour",
+      "x": 4.000000000000001,
+      "z": 3.9999999999999996,
+      "y": null,
+      "source": null
+    },
+    {
+      "kind": "talk",
+      "label": "",
+      "x": 1000000000,
+      "z": 1000000000,
+      "y": null,
+      "source": null
+    }
+  ],
+  "postcard": {
+    "view": null,
+    "id": "ballard-locks",
+    "x": 91.97229627058839,
+    "z": 100.50567922767456,
+    "bearing": 290,
+    "pitch": -10,
+    "fov": 60,
+    "text": "Large lock full of boats from the north wall with the gates and control tower",
+    "r": 16,
+    "tol": 35,
+    "targets": [],
+    "cond": null,
+    "condHint": null
+  },
+  "audit": {
+    "spot": "ballard-locks",
+    "ms": 891,
+    "tris": 6624,
+    "colliders": 713,
+    "counts": {},
+    "findings": {}
+  },
+  "views": [
+    {
+      "kind": "arrival",
+      "file": "ballard-locks/arrival.webp",
+      "pose": {
+        "x": 0,
+        "y": 1.8598590035364024,
+        "z": 0,
+        "bearing": 180,
+        "pitch": 0
+      },
+      "triangles": 696182,
+      "drawCalls": 149
+    },
+    {
+      "kind": "postcard",
+      "file": "ballard-locks/postcard.webp",
+      "pose": {
+        "x": 91.97229627058839,
+        "y": 2.25,
+        "z": 100.50567922767456,
+        "bearing": 289.99999999999994,
+        "pitch": -10
+      },
+      "triangles": 682330,
+      "drawCalls": 147
+    },
+    {
+      "kind": "activity-approach",
+      "file": "ballard-locks/activity-approach.webp",
+      "pose": {
+        "x": 2.6248532322724225,
+        "y": 2.25,
+        "z": 66.88388093671279,
+        "bearing": 0,
+        "pitch": -7.000000000000003
+      },
+      "triangles": 681024,
+      "drawCalls": 121
+    }
+  ],
+  "gaps": [
+    "Source references and actual game views require human comparison. Registry READY is not acceptance."
+  ],
+  "capture": {
+    "revision": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+    "worktreeDirty": true,
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "quality": "high",
+    "date": "2026-07-15T12:00:00Z",
+    "season": "summer",
+    "weather": "clear",
+    "lighting": "day"
+  },
+  "errors": []
+}

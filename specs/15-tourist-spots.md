@@ -17,6 +17,8 @@ R15.4 Access: "Bonus: Tourist spots" menu + unlocked by finishing a chapter in t
 R15.5 Each spot loads in < 3 s; ≤ 1 M triangles; 60 fps at auto.
 
 ## Acceptance
+- `placeLandmark` translates the native rotated colliders, including polygon/holes and individual y0/y1 bands. It must not reconstruct every source volume as a full-height box. Keep native courtyard openings and omit redundant whole-outline blockers.
+- Current exterior activities at the Athenaeum and Spring Palace require three explicitly aimed shutters from the public approach. The old Next/Finish history award helper and unverified contemporary Athenaeum donation action are removed. Palace, Arc and Lincoln Square achievement copy describes the outdoor camera exercises; the cathedral achievement describes the virtual handheld forecourt candle. Activity IDs stay stable for saves. Source facts remain on plaques and never imply a modelled indoor visit.
 - [ ] 20 spots playable on foot, each passes visual QA review with no medium+ defects and is recognisable from reference photos side by side (screenshots in the log).
 - [ ] Plaques have sources; photo challenge works on desktop + mobile.
 

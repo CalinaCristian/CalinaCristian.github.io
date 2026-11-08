@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+  "updatedAt": "2026-11-08T20:14:39.170Z",
+  "scope": "Bounded actual public-path proof; full matched scene acceptance remains open",
+  "files": [
+    {
+      "file": "HANDOFF.md",
+      "sha256": "0644d69ab86aec0da32094dd1436bde824831ed6ecafc5323fa29e1c4234e0b2"
+    },
+    {
+      "file": "ballard-before-native.json",
+      "sha256": "7e45a3027d2a2d9d0b4e4f2146a33bd1625d18d79638a569f203acf88aa75a39"
+    },
+    {
+      "file": "ballard-before-native.png",
+      "sha256": "c758ba50c5cf9f92ed043ad256d6f84f31e369f13980f26fadafa18b69d86ca8"
+    },
+    {
+      "file": "ballard-locks-0-plaque.webp",
+      "sha256": "331570d311f620df23b6318aa5bcdbcff86125bf4904a11855d0be5cf5b5b008"
+    },
+    {
+      "file": "ballard-locks-1-plaque.webp",
+      "sha256": "f88d3eb0453f901c58077db76fe5894c1c3c3bee5947bad6fbdb540645900091"
+    },
+    {
+      "file": "ballard-locks-2-plaque.webp",
+      "sha256": "8ef372cbe3ec5719cf4f3250932a0ea82d38718fd95ddf80873364616a847404"
+    },
+    {
+      "file": "ballard-locks-3-plaque.webp",
+      "sha256": "acdc22696f16e48f0050a73045f8db801921e42b3a60e63d7fc5c8460db93595"
+    },
+    {
+      "file": "ballard-locks-4-lockage.webp",
+      "sha256": "4d41f768580c69d6fd37c8c6097556d17adcf7b62ef3b947091e891b8a6c5c92"
+    },
+    {
+      "file": "ballard-locks-5-postcard.webp",
+      "sha256": "607bed3c9819c335dd5950f01decafe4edcf6cf53f28328acc2630f9a0fb79ba"
+    },
+    {
+      "file": "ballard-locks-context-native.json",
+      "sha256": "a685fedcc04587e21cf570e41e8f17fae06878b10d8fa76c26b300d293d43a01"
+    },
+    {
+      "file": "ballard-locks-prior-record.json",
+      "sha256": "5d8cd8235742af11a5f7ec5bff786272fd30bf3d4580c1954b007311debabc01"
+    },
+    {
+      "file": "ballard-native-targets.json",
+      "sha256": "512697fe382429660760443d2486bce31b04899fe7ecfc39f48bc853aac61cab"
+    },
+    {
+      "file": "ballard-wall-rays.json",
+      "sha256": "890a5f1a121918d021f70fd30ee2d23e55b61306b8632dba25aa0053e1548d60"
+    },
+    {
+      "file": "cismigiu-before-native.json",
+      "sha256": "58dc7dbcb9a5077a742dc497854165b22316173090fe694bbcbe0808f23f11a5"
+    },
+    {
+      "file": "cismigiu-context-native.json",
+      "sha256": "e9453c747872ff19cf04aa8b22f4b63921feb66f0f15d8b56e3ed37bf8ca201a"
+    },
+    {
+      "file": "cismigiu-prior-record.json",
+      "sha256": "f56bb58f79e74527391cf34e07df6fac6d84cebc992e83a1f9e5276e4d8a925c"
+    },
+    {
+      "file": "native-targets-probe.cjs",
+      "sha256": "a363de6a4433261d27b809c7b580e484f693ca9058ddcaef7a46f12ae33a32df"
+    },
+    {
+      "file": "native-wall-probe.cjs",
+      "sha256": "100a66460e2e9554968c8a9791fe3dfd0c04b898ab1e0183e0f194bab9ad7c5b"
+    },
+    {
+      "file": "waterfront-0-plaque.webp",
+      "sha256": "5593786385c6abe3d982e8425133031839d8453e340a459c714c9ee0e1f3a2c6"
+    },
+    {
+      "file": "waterfront-1-plaque.webp",
+      "sha256": "7124e8392a1b2d25da5f34ba78ecc7eccda25214ea260f5bc0d5eb532bb73223"
+    },
+    {
+      "file": "waterfront-2-plaque.webp",
+      "sha256": "7a8e5269beb810c0c388d66e44054e1849cef7b59f9b1ba48f6a39c637c9c728"
+    },
+    {
+      "file": "waterfront-context-native.json",
+      "sha256": "62734652a7e1edb1bbb9e4aa27c5a8715ec037caf78ee32b40373e7bb176e3d9"
+    },
+    {
+      "file": "waterfront-native-targets.json",
+      "sha256": "9d5d20bd9167b278f4f010bcc08000572dc979e93914e3883dd53af0f71424bb"
+    },
+    {
+      "file": "waterfront-prior-record.json",
+      "sha256": "c59c18c4650b92b7489fc51c6f4507e4d2bbd614bb0bc4998358acf4cbe1d862"
+    },
+    {
+      "file": "waterfront-static-queue-block.png",
+      "sha256": "250d8b43d5cabf87f29929aa29f903e11abcd7df383f8eeafae26558219d19d0"
+    }
+  ]
+}

@@ -3,6 +3,7 @@ import { makeRng, distPointSeg, pointInPolygon, clamp, makeCanvasTexture, landma
 import { makeTextures, emitFacadeSlab } from './buildings.js';
 import { footprintCells, insetFootprint, assemblySignature, geometryRing, geometrySurface } from './building-parts.js';
 import { validRoofProfile, roofMesh, roofSignature } from './building-roofs.js';
+import { sourceTreeCentrePolicy, treeCentreDuplicate, treeCentreWater } from './source-tree-centres.js';
 import { canopyGeometry } from './building-canopies.js';
 import { makeVehicle, CAR_COLORS, makeParkedCars, vehicleSize } from './vehicles.js';
 import { projector, CHAPTERS } from './cities.js';
@@ -14,6 +15,8 @@ import { aircraftBody } from './building-aircraft.js';
 import { resolveParkingLayout, parkingRowPose, parkingPolygonsOverlap, parkingBodyOverlap } from './parking-layout.js';
 import { passageSolids, clipPassageWall, passageInterior, passageBaseUnknown } from './building-passages.js';
 import { scenerySourceProfile } from './scenery-source.js';
+import { sceneryBridgeProfiles, sceneryDeckBand } from './scenery-bridges.js';
+import { batchWaterChunks } from './water-batch.js';
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -576,6 +579,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const env = city.env;
     const group = new THREE.Group();
     group.name = 'world';
+    const sceneryDeckGrid = new BoxGrid(32); // surfacesAt is also called before scenery geometry is emitted
     const S = data.strings;
     const str = (i) => (i >= 0 ? S[i] : '');
 
@@ -4432,6 +4436,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const maxTrees = city.id === 'bucharest' ? 32000 : 28000;
     const treeList = [];
     const treeSeen = new Set();
+    const exactTreeCentres = new Set();
     const dtSea = US ? city.proj(47.6062, -122.3321) : null, dtBel = US ? city.proj(47.6150, -122.2000) : null;
     const coniferChance = (x, z, kind) => {
         if (!US) return kind === 'forest' ? 0.1 : 0; // (Bucharest: conifers only where OSM says needleleaved, or in woods — note 17)
@@ -4457,8 +4462,10 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (kind === 'street' && treeNear(x, z, 4.5)) return false; // (a mapped OSM tree already stands there)
         { let under = false; surfacesAt(x, z, (hh) => { if (hh > Y.road + 2.5) under = true; }); if (under) return false; } // (no trees under a bridge deck / viaduct)
         if (kind === 'street' && onRibbon(x, z, 1.3)) return false; // (no row trees on medians / verges narrower than ≈ 2.6 m)
-        const k = Math.round(x / 1.6) + ',' + Math.round(z / 1.6); if (treeSeen.has(k)) return false;
-        if (onRibbon(x, z, 0.35 * s + 0.5) || buildingAt(x, z) || nearWater(x, z, 2.0)) return false;
+        const sourceCentre = sourceTreeCentrePolicy(kind, data.treeRetention);
+        const k = Math.round(x / 1.6) + ',' + Math.round(z / 1.6);
+        if (treeCentreDuplicate(x, z, sourceCentre, treeSeen, exactTreeCentres)) return false;
+        if (onRibbon(x, z, 0.35 * s + 0.5) || buildingAt(x, z) || treeCentreWater(x, z, sourceCentre, isWater, nearWater)) return false;
         if (lmGrounds.some(g => x > g.x0 - 1.5 && x < g.x1 + 1.5 && z > g.z0 - 1.5 && z < g.z1 + 1.5 && (pointInPolygon(x, z, g.p) || polyDist(x, z, g.p) < 1.5))) return false;
         treeSeen.add(k);
         const isCon = con ?? (kind === 'street' || kind === 'osm' ? false : rng.chance(coniferChance(x, z, kind)));
@@ -4485,6 +4492,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (treeClear.some((q) => (x - q.x) ** 2 + (z - q.z) ** 2 < q.r * q.r)) return false;
         if (!measuredCrown && (shape.cy - shape.ry * 0.8) * sz < 4.4 && onRibbon(x, z, R * sh * 0.9)) { if (kind === 'street' || kind === 'garden') return false; sh = Math.max(0.3, sh * 0.6); }
         treeList.push({ x, z, s: sz, species, con: !!isCon, dec: dec ?? (isCon ? 0 : 1), kind, sh }); treeGrid.insert(x, z, x, z, treeList[treeList.length - 1]);
+        exactTreeCentres.add(`${x},${z}`);
         addPropColl(x, z, collR, 'tree');
         return true;
     };
@@ -5016,6 +5024,8 @@ export async function buildWorld(city, renderer, opts = {}) {
     // shoreline foam / shallow tint / wet edges (water.js): every water mesh is re-tessellated (≤ 6 m edges) and gets
     // its per-vertex distance to the shore; all-or-nothing, since the shared material then expects `aShore` everywhere
     let shoreTris = 0;
+    const sourceShoreSampler = WATER_API?.makeSourceShoreSampler?.(areas.filter(a => a.kind === 'water'), { maxD: 30 });
+    const waterShoreAudit = [];
     // rivers running underground (OSM tunnel=yes): the Dambovita is covered under Piata Unirii, but its riverbank polygon
     // is mapped straight across the square — water triangles over the covered stretch are dropped (after round 6)
     const COVERED = US ? [] : [{ r: 34, pts: [[44.4288061, 26.1010674], [44.4285939, 26.1013182], [44.4262866, 26.1035491], [44.4261682, 26.1037764], [44.4261085, 26.1040376], [44.4260752, 26.1043771]] }]
@@ -5031,10 +5041,11 @@ export async function buildWorld(city, renderer, opts = {}) {
     };
     const shoreFoam = (m) => {
         if (!WATER_API || !m.geometry) return;
-        try { const g2 = dropCovered(WATER_API.subdivideWater(m.geometry, 6, 60000)); const sd = WATER_API.computeShoreDistance(g2, { maxD: 30, material: waterMat });
+        try { const g2 = dropCovered(WATER_API.subdivideWater(m.geometry, 6, 60000)); const sd = WATER_API.computeShoreDistance(g2, { maxD: 30, material: waterMat, sourceSampler: sourceShoreSampler });
             // (after round 6) a big lake that hit the triangle cap keeps only shore vertices: distance 0 everywhere read as
             // salt-and-pepper foam over the whole of Lake Floreasca — such a mesh gets calm open water instead
-            { let near = 0; for (let i = 0; i < sd.length; i++) if (sd[i] < 1.5) near++; if (near > sd.length * 0.6 && sd.length > 200) sd.fill(30); }
+            if (!sourceShoreSampler) { let near = 0; for (let i = 0; i < sd.length; i++) if (sd[i] < 1.5) near++; if (near > sd.length * 0.6 && sd.length > 200) sd.fill(30); }
+            if (g2.userData.sourceShoreAudit) waterShoreAudit.push({ mesh: m.name, ...g2.userData.sourceShoreAudit });
             m.geometry.dispose(); m.geometry = g2; shoreTris += g2.attributes.position.count / 3; }
         catch (err) { console.warn('shore foam failed', err); }
     };
@@ -5205,30 +5216,52 @@ export async function buildWorld(city, renderer, opts = {}) {
     const scenerySourceAudit = { precisePieces: 0, literalWidthPieces: 0, reviewedWidthPieces: 0, estimatedWidthPieces: 0, fallbackPieces: 0, resolvedWidths: [], issues: [] };
     {
         const SC = data.scenery || [], asp = rgb(ASPHALT), side = rgb(US ? '#a4a29d' : '#9d9a92'), dash = rgb('#cfcfca');
+        const sourceProfiles = SC.map((r, i) => scenerySourceProfile(data, i, undelta(r, 4)));
+        const bridgeProfiles = sceneryBridgeProfiles(data, sourceProfiles, edges);
+        scenerySourceAudit.bridges = bridgeProfiles.stats;
         const yA = Y.side + 0.05, yS = Y.side + 0.03;
-        const strip = (pts, l0, l1, y, col) => {
+        const strip = (pts, l0, l1, y, col, heights = null, covered = null) => {
             for (let i = 0; i < pts.length - 1; i++) {
-                const [ax, az] = pts[i], [bx, bz] = pts[i + 1], L = Math.hypot(bx - ax, bz - az); if (L < 0.2) continue;
+                if (covered?.[i]) continue;
+                const [ax, az] = pts[i], [bx, bz] = pts[i + 1], L = Math.hypot(bx - ax, bz - az); if (L < (heights ? 1e-6 : 0.2)) continue;
                 // mitred offsets at the joints
                 const nrm = (k) => { const [px, pz] = pts[Math.max(0, k - 1)], [qx, qz] = pts[Math.min(pts.length - 1, k + 1)]; const l = Math.hypot(qx - px, qz - pz) || 1; return [-(qz - pz) / l, (qx - px) / l]; };
                 const [n0x, n0z] = nrm(i), [n1x, n1z] = nrm(i + 1);
                 const c = cellOf((ax + bx) / 2, (az + bz) / 2);
-                c.ground.flatQuad(ax + n0x * l0, az + n0z * l0, bx + n1x * l0, bz + n1z * l0, bx + n1x * l1, bz + n1z * l1, ax + n0x * l1, az + n0z * l1, y, col);
+                if (heights) c.ground.face4([ax + n0x * l0, y + heights[i], az + n0z * l0], [bx + n1x * l0, y + heights[i + 1], bz + n1z * l0], [bx + n1x * l1, y + heights[i + 1], bz + n1z * l1], [ax + n0x * l1, y + heights[i], az + n0z * l1], col, [0, 1, 0]);
+                else c.ground.flatQuad(ax + n0x * l0, az + n0z * l0, bx + n1x * l0, bz + n1z * l0, bx + n1x * l1, bz + n1z * l1, ax + n0x * l1, az + n0z * l1, y, col);
             }
         };
         for (const [ri, r] of SC.entries()) {
             const sw = r[1] / 10, cls = data.classes[r[2]] || 'residential', fl = r[3];
-            if (fl & 1) continue; // (bridges in the ring: skipped, no decks out there)
-            const profile = scenerySourceProfile(data, ri, undelta(r, 4)), pts = profile.points, wC = profile.widthM;
+            if ((fl & 1) && data.roadGeometryPolicy !== 'source') continue; // legacy ring behaviour
+            const profile = sourceProfiles[ri], bridge = bridgeProfiles.profiles.get(ri), pts = bridge?.points || profile.points, wC = profile.widthM, heights = bridge?.heights;
             if (pts.length < 2) continue;
             scenerySourceAudit[profile.precise ? 'precisePieces' : 'fallbackPieces']++;
             scenerySourceAudit[profile.widthSource === 'OSM width' ? 'literalWidthPieces' : profile.review ? 'reviewedWidthPieces' : 'estimatedWidthPieces']++;
             if (profile.rawWidth || profile.review) scenerySourceAudit.resolvedWidths.push({ piece: ri, sourceId: profile.sourceId, widthM: profile.widthM, leftM: profile.leftM, rightM: profile.rightM, widthSource: profile.widthSource, rawWidth: profile.rawWidth, review: profile.review });
             if (profile.issue) scenerySourceAudit.issues.push({ piece: ri, sourceId: profile.sourceId, reason: profile.issue });
-            strip(pts, -profile.leftM, profile.rightM, yA, asp);
-            if (sw > 0.5 && !/service|motorway/.test(cls)) { strip(pts, profile.rightM, profile.rightM + Math.max(1.2, sw), yS, side); strip(pts, -profile.leftM - Math.max(1.2, sw), -profile.leftM, yS, side); }
+            strip(pts, -profile.leftM, profile.rightM, bridge ? Y.road : yA, asp, heights, bridge?.coveredSegments);
+            const sideM = sw > 0.5 && !/service|motorway/.test(cls) ? Math.max(1.2, sw) : 0;
+            if (sideM) { strip(pts, profile.rightM, profile.rightM + sideM, bridge ? Y.road : yS, side, heights, bridge?.coveredSegments); strip(pts, -profile.leftM - sideM, -profile.leftM, bridge ? Y.road : yS, side, heights, bridge?.coveredSegments); }
             if (/primary|secondary|tertiary/.test(cls) && wC > 6) { // dashed centre line
-                for (let i = 0; i < pts.length - 1; i++) { const [ax, az] = pts[i], [bx, bz] = pts[i + 1], L = Math.hypot(bx - ax, bz - az); for (let d = 1; d + 3 < L; d += 9) { const f0 = d / L, f1 = (d + 3) / L; strip([[ax + (bx - ax) * f0, az + (bz - az) * f0], [ax + (bx - ax) * f1, az + (bz - az) * f1]], profile.lineOffsetM - 0.07, profile.lineOffsetM + 0.07, yA + 0.005, dash); } }
+                for (let i = 0; i < pts.length - 1; i++) { if (bridge?.coveredSegments[i]) continue; const [ax, az] = pts[i], [bx, bz] = pts[i + 1], L = Math.hypot(bx - ax, bz - az); for (let d = 1; d + 3 < L; d += 9) { const f0 = d / L, f1 = (d + 3) / L; strip([[ax + (bx - ax) * f0, az + (bz - az) * f0], [ax + (bx - ax) * f1, az + (bz - az) * f1]], profile.lineOffsetM - 0.07, profile.lineOffsetM + 0.07, (bridge ? Y.road : yA) + 0.005, dash, heights ? [heights[i] + (heights[i + 1] - heights[i]) * f0, heights[i] + (heights[i + 1] - heights[i]) * f1] : null); } }
+            }
+            if (bridge) for (let i = 1; i < pts.length; i++) {
+                if (bridge.coveredSegments[i - 1]) continue;
+                const a = pts[i - 1], b = pts[i], len = Math.hypot(b[0] - a[0], b[1] - a[1]); if (len < 1e-6) continue;
+                const nrm = k => { const p = pts[Math.max(0, k - 1)], q = pts[Math.min(pts.length - 1, k + 1)], L = Math.hypot(q[0] - p[0], q[1] - p[1]) || 1; return [-(q[1] - p[1]) / L, (q[0] - p[0]) / L]; };
+                const n0 = nrm(i - 1), n1 = nrm(i), left = profile.leftM + sideM, right = profile.rightM + sideM;
+                const poly = [[a[0] - n0[0] * left, a[1] - n0[1] * left], [b[0] - n1[0] * left, b[1] - n1[1] * left], [b[0] + n1[0] * right, b[1] + n1[1] * right], [a[0] + n0[0] * right, a[1] + n0[1] * right]];
+                const band = sceneryDeckBand(a, b, heights[i - 1], heights[i], bridge.thicknessM), x = (a[0] + b[0]) / 2, z = (a[1] + b[1]) / 2;
+                const top = [band(...a).top, band(...b).top], bottom = top.map(h => h - bridge.thicknessM), c = cellOf(x, z);
+                const vertices = poly.map((p, j) => [p[0], top[j === 0 || j === 3 ? 0 : 1], p[1]]);
+                if (bridge.bridge || Math.max(...heights.slice(i - 1, i + 1)) > .05) {
+                    for (let j = 0; j < 4; j++) { const k = (j + 1) % 4, lo = v => [v[0], v[1] - bridge.thicknessM, v[2]], outward = [poly[k][1] - poly[j][1], 0, poly[j][0] - poly[k][0]]; c.solid.face4(lo(vertices[j]), lo(vertices[k]), vertices[k], vertices[j], rgb('#99968e'), outward); }
+                    c.solid.face4(...vertices.map(v => [v[0], v[1] - bridge.thicknessM, v[2]]), rgb('#55524d'), [0, -1, 0]);
+                }
+                const deck = { x, z, r: Math.max(...poly.map(p => Math.hypot(p[0] - x, p[1] - z))), poly, holes: [], roadDeck: true, kind: 'scenery-road-deck', sourceId: bridge.sourceId, sourceTags: bridge.tags, access: bridge.access, estimated: true, elevationSource: bridge.elevationSource, y0: Math.min(...bottom), y1: Math.max(...top), h: Math.max(...top), roofHeightAt: (px, pz, radius) => band(px, pz, radius).top, minHeightAt: (px, pz, radius) => band(px, pz, radius).bottom };
+                sceneryDeckGrid.insert(x - deck.r, z - deck.r, x + deck.r, z + deck.r, deck); propColl.push(deck);
             }
             sceneryStreets++;
         }
@@ -5493,6 +5526,13 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
     }
     if (waterMesh) { waterMesh.userData.always = true; waterMesh.renderOrder = -18; }
+    if (waterMesh?.isGroup) {
+        // Group order precedes mesh order in Three's opaque sort. Keep this group
+        // neutral so land draws first; small water/shore meshes still overlay it.
+        waterMesh.renderOrder = 0;
+        for (const mesh of waterMesh.children) mesh.renderOrder = -18.1;
+    }
+    if (waterMesh?.isGroup) batchWaterChunks(waterMesh);
     // distance culling: cells beyond the fog are hidden (three.js only frustum-culls, and the camera far plane is 5 km).
     // The viewer is world.camera if set, else the widest perspective camera found in the scene.
     const _v = new THREE.Vector3();
@@ -5641,11 +5681,13 @@ export async function buildWorld(city, renderer, opts = {}) {
     const stats = { parkingClearance, phases, railways: railStats, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, fuel: fuelLog,
         buildingRoofProfiles: roofProfileAudit, profile: profileStats, buildingPassages: buildingPassageAudit, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, landmarkSourceReplacements, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
     stats.scenerySource = scenerySourceAudit;
+    stats.waterShore = waterShoreAudit;
     console.info('[world]', city.id, stats);
 
     /** calls cb(height) for every drivable surface (carriageway + shoulder + sidewalk, junction pads) covering (x, z) */
     function surfacesAt(x, z, cb, prefer = null, carriagewayOnly = false, exclude = null) {
         const seen = new Set();
+        sceneryDeckGrid.each(x, z, x, z, deck => { if (pointInPolygon(x, z, deck.poly)) cb(deck.roofHeightAt(x, z)); });
         if (realPass && !carriagewayOnly && cornerPolys.length) { // a raised junction corner: the only surface there (cb(h, raised))
             let hc = null; cornerGrid.each(x, z, x, z, (cp) => { if (hc === null && x >= cp.x0 && x <= cp.x1 && z >= cp.z0 && z <= cp.z1 && pointInPolygon(x, z, cp.p)) hc = Y.road + Y.kerb + padHeightAt(cp.n, x, z); });
             if (hc !== null && !onRibbon(x, z, 0, RIB_ONLY)) { cb(hc, true); return; }
@@ -5755,6 +5797,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             const out = { props: [], buildings: [], walls: [], lamps: [], cliffs: [], doors: [] };
             const R = (v) => Math.round(v * 10) / 10;
             for (const b of allColl) {
+                if (b.roadDeck) continue; // passive source road surface, not a building or road obstruction
                 if (b.wall) {
                     if (b.kind === 'closure' || b.kind === 'boundary') continue; // map edge: across the road on purpose
                     for (const t of [0.1, 0.3, 0.5, 0.7, 0.9]) {
@@ -5883,6 +5926,7 @@ function buildSky(env) {
 // ---------------------------------------------------------------------------
 /** Point check for developer road-overlap audits, including a two-metre vehicle body above its road. */
 export function buildingBlocksRoad(c, x, z, roadY, bodyHeight = 2) {
+    if (c.roadDeck) return false;
     if (c.roofHeightAt && roadY > (c.roofHeightAt(x, z) ?? c.h)) return false;
     if (c.passageSolids) return c.passageSolids.some(band => band.y0 <= roadY + bodyHeight && band.y1 >= roadY && band.polys.some(p => pointInPolygon(x, z, p)));
     if (!c.poly || !pointInPolygon(x, z, c.poly) || (c.holes || []).some(h => pointInPolygon(x, z, h))) return false;
@@ -5899,8 +5943,9 @@ function collideOne(b, x, z, radius, y, bodyHeight = 2) {
     if (b.roofHeightAt) {
         const top = b.roofHeightAt(x, z, radius);
         // The same triangulated roof drives collision; the full total-height box is only broad phase.
-        if (top === null || (y ?? 0.24) > top) return null;
+        if (top === null || (y ?? 0.24) > top || (b.roadDeck && (y ?? .24) >= b.roofHeightAt(x, z, 0) - 1e-4)) return null;
     }
+    if (b.minHeightAt) { const bottom = b.minHeightAt(x, z, radius); if (bottom === null || (y ?? .24) + bodyHeight < bottom) return null; }
     if (b.wall) { // wall segment, active only for bodies within its height band
         const r = distPointSeg(x, z, b.ax, b.az, b.bx, b.bz);
         if (r.d >= radius) return null;

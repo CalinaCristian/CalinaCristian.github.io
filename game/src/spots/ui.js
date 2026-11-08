@@ -103,6 +103,7 @@ export class SpotUI {
     get panelOpen() { return this.$('.sp-panel').classList.contains('show'); }
     /** plaque reader; resolves when closed */
     showPlaque(pl, place = '') {
+        this.closePanel();
         const p = this.$('.sp-panel');
         const src = pl.source_url ? `<div class="sp-src">Source: <a href="${encodeURI(pl.source_url)}" target="_blank" rel="noopener">${esc(pl.source_url)}</a></div>` : '';
         p.innerHTML = `<div class="sp-plaque"><div class="sp-place">${esc(place)}</div><h3>${esc(pl.title)}</h3><p>${esc(pl.text)}</p>${pl.credit ? `<div class="sp-credit">${esc(pl.credit)}</div>` : ''}${src}<button data-close>Close${document.body.classList.contains('touch') ? '' : ' (E)'}</button></div>`;
@@ -110,12 +111,13 @@ export class SpotUI {
         return new Promise((res) => {
             // note 21: the closing key is consumed (its keyup too, so it neither re-opens the plaque nor opens the pause
             // menu), focus leaves the panel; the session hands focus back to the game (pointer lock on the next click)
+            let keyTimer = null;
             const swallowUp = (e) => { e.preventDefault(); e.stopPropagation(); window.removeEventListener('keyup', swallowUp, true); };
-            const close = (e) => { if (!p.classList.contains('show')) return; p.classList.remove('show'); window.removeEventListener('keydown', key, true); if (e?.type === 'keydown') window.addEventListener('keyup', swallowUp, true); document.activeElement?.blur?.(); p.innerHTML = ''; this._closePanel = null; res(); };
-            const key = (e) => { if (['Escape', 'KeyE', 'Enter', 'Space'].includes(e.code)) { e.preventDefault(); e.stopPropagation(); close(e); } };
+            const close = (e) => { clearTimeout(keyTimer); window.removeEventListener('keydown', key, true); if (this._closePanel !== close) return; p.classList.remove('show'); if (e?.type === 'keydown') window.addEventListener('keyup', swallowUp, true); document.activeElement?.blur?.(); p.innerHTML = ''; this._closePanel = null; res(); };
+            const key = (e) => { if (this._closePanel === close && p.classList.contains('show') && ['Escape', 'KeyE', 'Enter', 'Space'].includes(e.code)) { e.preventDefault(); e.stopPropagation(); close(e); } };
             p.querySelector('[data-close]').onclick = () => close();
             p.onclick = (e) => { if (e.target === p) close(); };
-            setTimeout(() => window.addEventListener('keydown', key, true), 120);
+            keyTimer = setTimeout(() => { if (this._closePanel === close) window.addEventListener('keydown', key, true); }, 120);
             this._closePanel = close;
         });
     }
@@ -136,6 +138,7 @@ export class SpotUI {
      * discipline as the plaque (closing key consumed, focus back to the game). `map` is the SpotMap; resolves on close.
      */
     showMap(map, { title = '', items = [], tour = null } = {}) {
+        this.closePanel();
         const p = this.$('.sp-panel'), kinds = MAP_KINDS.filter(([k]) => k === 'you' || k === 'guide' && map.markers.some((m) => m.kind === 'guide') || map.markers.some((m) => m.kind === k));
         p.innerHTML = `<div class="sp-map"><canvas></canvas><div class="sp-tip"></div><div class="sp-side"><h3>${esc(title)}</h3>
             <div class="sp-legend">${kinds.filter(([k]) => k !== 'you').map(([k, ic, nm]) => `<button data-kind="${k}" aria-pressed="${!map.hidden.has(k)}" title="Show / hide">${ic} ${nm}</button>`).join('')}</div>
@@ -154,19 +157,20 @@ export class SpotUI {
         p.querySelectorAll('li[data-i]').forEach((li) => { li.onclick = () => { const it = items[+li.dataset.i]; map.sel = it.marker || it.members?.[0] || null; map.focus = it.members || null; p.querySelectorAll('li').forEach((x) => x.classList.toggle('sel', x === li)); map.draw(cv, { full: true }); }; });
         const onResize = () => fit(); window.addEventListener('resize', onResize);
         return new Promise((res) => {
+            let keyTimer = null;
             const swallowUp = (e) => { e.preventDefault(); e.stopPropagation(); window.removeEventListener('keyup', swallowUp, true); };
-            const close = (e) => { if (!p.classList.contains('show')) return; p.classList.remove('show'); window.removeEventListener('keydown', key, true); window.removeEventListener('resize', onResize); if (e?.type === 'keydown') window.addEventListener('keyup', swallowUp, true); document.activeElement?.blur?.(); p.innerHTML = ''; map.sel = null; map.focus = null; map.pad = null; this._closePanel = null; res(); };
-            const key = (e) => { if (['Escape', 'KeyM', 'KeyE', 'Enter'].includes(e.code)) { e.preventDefault(); e.stopPropagation(); close(e); } };
+            const close = (e) => { clearTimeout(keyTimer); window.removeEventListener('keydown', key, true); window.removeEventListener('resize', onResize); if (this._closePanel !== close) return; p.classList.remove('show'); if (e?.type === 'keydown') window.addEventListener('keyup', swallowUp, true); document.activeElement?.blur?.(); p.innerHTML = ''; map.sel = null; map.focus = null; map.pad = null; this._closePanel = null; res(); };
+            const key = (e) => { if (this._closePanel === close && p.classList.contains('show') && ['Escape', 'KeyM', 'KeyE', 'Enter'].includes(e.code)) { e.preventDefault(); e.stopPropagation(); close(e); } };
             p.querySelector('[data-close]').onclick = () => close();
             const tb = p.querySelector('[data-tour]'); if (tb) tb.onclick = () => { close(); tour.run(); };
             p.onclick = (e) => { if (e.target === p) close(); };
-            setTimeout(() => window.addEventListener('keydown', key, true), 120);
+            keyTimer = setTimeout(() => { if (this._closePanel === close) window.addEventListener('keydown', key, true); }, 120);
             this._closePanel = close;
         });
     }
 
     update(camera) { this.bubbles.update(camera); }
-    dispose() { this.el.remove(); }
+    dispose() { this.closePanel(); this.el.remove(); }
 }
 /** map marker kinds: [kind, icon, legend name] */
 export const MAP_KINDS = [['hero', '⭐', 'Landmark'], ['plaque', '📜', 'Plaque'], ['postcard', '📷', 'Postcard photo'], ['activity', '🎯', 'Activity'], ['bike', '🚲', 'Bikes'], ['entrance', '🚪', 'Entrance'], ['view', '👁', 'Viewpoint'], ['guide', '🚩', 'Tour guide'], ['you', '➤', 'You']];

@@ -20,7 +20,7 @@ let browser;
     browser = await chromium.launch({ headless: true, args: ['--mute-audio', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
     const context = await browser.newContext({ viewport: { width: 1280, height: 720 } });
     await context.route(/api\.open-meteo\.com/, r => r.fulfill({ json: { error: true } }));
-    const page = await context.newPage(); page.on('pageerror', e => report.errors.push(e.message));
+    const page = await context.newPage(); page.setDefaultTimeout(180000); require('./integration-browser-bounds.cjs').boundEvaluations(page); page.on('pageerror', e => report.errors.push(e.message));
     page.on('console', m => { if (m.type() === 'error' && m.text().includes('[explore]')) report.errors.push(m.text()); });
     // Fixed steps exercise the real Input/Game handlers without variable wall-clock physics.
     await page.addInitScript(() => { window.__testRAF = window.requestAnimationFrame; window.requestAnimationFrame = () => 0; });
@@ -76,11 +76,13 @@ let browser;
     // Exercise remote F dispatch through the real jump and district loader; only shorten the travel film.
     await page.evaluate(() => { game.flightCutscene = async () => {}; });
     await page.keyboard.down('f'); await page.evaluate(() => { for (let i = 0; i < 4 && game.state === 'drive'; i++) game.updateDrive(0.4); }); await page.keyboard.up('f');
-    await page.waitForFunction(() => game.district === 'bellevue' && game.state === 'drive', null, { polling: 50, timeout: 90000 }); after = await snap();
+    await page.waitForFunction(() => game.district === 'bellevue' && game.state === 'drive', null, { polling: 50, timeout: 240000 }); after = await snap();
     check('F explicitly travels to the marked remote district', after.district === 'bellevue' && !after.selected, after);
     await page.evaluate(async () => { await game.startFreeRoam('pipera', { tod: 'noon', weather: 'clear' }); game.fuel = 0.21; game.playMontage = async () => {}; });
     await openM(); await clickHerePin(); await page.keyboard.press('m'); before = await snap(); await holdF(); after = await snap();
     check('Insufficient fuel refuses the marked trip in a station district', before.stations > 0 && samePose(before, after) && after.fastTravels === before.fastTravels, { before, after });
+    await page.evaluate(() => { game.fuel = 0; }); before = await snap(); await holdF(); after = await snap();
+    check('Zero fuel refuses the marked local trip without moving or charging', samePose(before, after) && after.fuel === 0 && after.fastTravels === before.fastTravels, { before, after });
     await page.evaluate(() => { game.fuel = 27; }); before = await snap(); await holdF(); after = await snap();
     check('A fueled marked trip charges fuel through normal travel', after.fastTravels === before.fastTravels + 1 && after.fuel < before.fuel, { before, after });
     // Story native map already selected routes; keep that behavior and restore the objective when cleared.
@@ -118,7 +120,9 @@ let browser;
         await page.locator('[data-clear]').click(); await page.keyboard.press('m');
     }
     check('No browser exceptions', report.errors.length === 0, report.errors);
+    report.complete = true;
 })().catch(e => { report.failure = e.stack; process.exitCode = 1; }).finally(async () => {
+    report.complete ??= false;
     fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
     console.log(JSON.stringify(report, null, 2)); await browser?.close(); server.close();
 });

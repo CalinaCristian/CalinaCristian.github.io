@@ -3,8 +3,8 @@
   "id": "waterfront",
   "city": "seattle",
   "name": "Waterfront: Great Wheel & Pier 57",
-  "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-  "updatedAt": "2026-11-08T19:35:04.585Z",
+  "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+  "updatedAt": "2026-11-08T20:12:56.732Z",
   "status": "needs_review",
   "sources": [
     {
@@ -100,14 +100,16 @@
   ],
   "improvements": [
     "The Great Wheel ride now requires three full visible turns before completion; early departure does not award it and cancellation restores the saved shore pose.",
-    "All source buildings remain represented through exact geometry, including pier context previously affected by blanket exclusions."
+    "All source buildings remain represented through exact geometry, including pier context previously affected by blanket exclusions.",
+    "Actual native walking reaches Pier 57 around the complete retained ticket queue; source geometry and all people remain unchanged."
   ],
   "remainingGaps": [
-    "The native Pier 57 plaque approach is blocked after about 78 m; the posed activity approach faces a brick wall at very close range.",
+    "The static guided planner ignores crowd bodies and still hits the ticket queue after 78.4m. A read-only crowd-aware test plan proves the public scene route is accessible, without changing runtime navigation.",
+    "The posed activity-approach image still faces the brick ticket frontage at close range; it is not proof of the walking approach.",
+    "The broader Ocean Pavilion/Overlook route was not established by this bounded walk; the sidecar planner returned no route from the crowded board endpoint, not an actual failed native walk.",
     "Six visitors remain below or sunk into the local deck surface; pier deck seams also require physical z-fighting repair.",
     "Promenade, Miners Landing frontages, pier outlines and Overlook Walk need complete matched current references; the captured scene remains simplified.",
-    "Raw audit findings remain for physical review: zfight 45, pedBelow 6, pedSunk 6.",
-    "78.4 m walked toward Pier 57; Native walker blocked on planned public path."
+    "Raw audit findings remain for physical review: zfight 45, pedBelow 6, pedSunk 6."
   ],
   "checks": [
     {
@@ -127,18 +129,18 @@
     },
     {
       "label": "Native public-path walk",
-      "passed": false,
-      "details": "78.4 m walked toward Pier 57; Native walker blocked on planned public path."
+      "passed": true,
+      "details": "160.0m actual native walking to Pier 57 around the retained ticket queue, then 86.5m back to Over the water. The static plan still hits people after 78.4m; this is preserved as a guided-planner limitation."
     },
     {
       "label": "High scene budgets",
       "passed": true,
-      "details": "278846 unique geometry triangles; max 517706 rendered triangles / 173 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+      "details": "278846 unique geometry triangles; max 517706 rendered triangles/203 calls across context and actual public walks. Software GL is not a hardware frame-rate benchmark."
     },
     {
       "label": "Raw physical audit",
       "passed": false,
-      "details": "zfight: 45; pedBelow: 6; pedSunk: 6"
+      "details": "zfight 45, pedBelow 6, pedSunk 6. Raw counts retain both initial context and post-walk observations; see explicit proof scopes."
     },
     {
       "label": "Full matched scene comparison",
@@ -156,9 +158,10 @@
       "kind": "arrival",
       "label": "Waterfront: Great Wheel & Pier 57 — arrival",
       "image": "assets/spots/waterfront/arrival.webp",
-      "sha256": "c8f5340f05f3056d75b3f9545c1463e65d4209e6831065ca2ba445d0328e07a6",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:22:40.759Z",
+      "sha256": "e86e8cdbc8681689b2e72d1a418322178025335be38761567b71c7948537fdbd",
+      "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+      "capturedAt": "2026-11-08T20:09:05.587Z",
+      "placement": "Posed native ground camera; separate actual walking proof recorded",
       "pose": {
         "position": [
           6,
@@ -187,16 +190,17 @@
       "kind": "public-walk",
       "label": "Waterfront: Great Wheel & Pier 57 — public walk",
       "image": "assets/spots/waterfront/public-walk.webp",
-      "sha256": "123b0c6d2bf2e41f896a705e2558a718d1a847c908003ac2fcb04912f13f55ed",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:22:45.639Z",
+      "sha256": "5593786385c6abe3d982e8425133031839d8453e340a459c714c9ee0e1f3a2c6",
+      "sourceCommit": "b84de823e769c2bb02c3b4c6a4c422b14980748f",
+      "capturedAt": "2026-11-08T20:06:21.089Z",
+      "placement": "Actual native walk endpoint; no XYZ writes during the walk",
       "pose": {
         "position": [
-          -38.104275412117666,
-          5.050003368983641,
-          58.684356869387855
+          18.533918678953032,
+          6.4153364508643635,
+          65.11752410740594
         ],
-        "bearing": 215.28160104327924,
+        "bearing": 62.73533219862344,
         "pitch": 0,
         "coordinateSystem": "scene-local metres, x east / y up / z south",
         "origin": {
@@ -219,8 +223,9 @@
       "label": "Waterfront: Great Wheel & Pier 57 — postcard",
       "image": "assets/spots/waterfront/postcard.webp",
       "sha256": "6910d3f990af87098150bfdeaa731e4c98e8ae3524f17afc8dc480fc28efeb74",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:22:48.815Z",
+      "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+      "capturedAt": "2026-11-08T20:09:12.675Z",
+      "placement": "Posed native ground camera; separate actual walking proof recorded",
       "pose": {
         "position": [
           0,
@@ -249,9 +254,10 @@
       "kind": "activity-approach",
       "label": "Waterfront: Great Wheel & Pier 57 — activity approach",
       "image": "assets/spots/waterfront/activity-approach.webp",
-      "sha256": "72715d78433b9ebbe3af8ebebe4df4c07f82a28239c1c103c879840c7b8774ef",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:22:54.075Z",
+      "sha256": "68e18dec4bcf0d6b66e7881ec4dbf6a9eb88e534d934ac3cec77986d93f0643b",
+      "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+      "capturedAt": "2026-11-08T20:09:18.231Z",
+      "placement": "Posed native ground camera; separate actual walking proof recorded",
       "pose": {
         "position": [
           -44.400000000000006,
@@ -282,7 +288,7 @@
     "uniqueGeometryTriangles": 278846,
     "geometryObjects": 128,
     "maxRenderedTriangles": 517706,
-    "maxDrawCalls": 173
+    "maxDrawCalls": 203
   },
   "sceneId": "waterfront",
   "sourceGeometry": {
@@ -311,8 +317,8 @@
           -6
         ],
         [
-          -42.75,
-          65.25
+          -36.75,
+          60.75
         ],
         [
           -47.25,
@@ -331,23 +337,91 @@
           65.02917960675006
         ]
       ],
-      "length": 160.36326317725,
+      "length": 160.79310645915,
       "target": "Pier 57"
     },
     "nativeWalk": {
       "walker": "OnFootController",
-      "passed": false,
-      "steps": 962,
-      "walked": 78.3731246948697,
+      "passed": true,
+      "steps": 1886,
+      "walked": 160.03919774285012,
       "target": "Pier 57",
-      "plannedLength": 160.36326317725,
+      "plannedLength": 160.79310645915,
       "position": {
-        "x": -38.10427769360571,
-        "z": 58.68435784464927,
-        "y": 3.4,
-        "heading": 2.525812550009504
+        "x": 18.533918678953032,
+        "z": 65.11752410740594,
+        "y": 4.765198317646825,
+        "heading": -1.0949381041983923
       },
-      "error": "Native walker blocked on planned public path"
+      "error": null,
+      "waypointTolerance": 0.35,
+      "stepLimit": 2598,
+      "plannerMaxLength": 450,
+      "readOnlyCrowdObstacles": true,
+      "proof": "../../../../handoffs/fidelity/remaining-ro-districts/tourist-public-paths/waterfront-native-targets.json"
+    },
+    "captureProvenance": {
+      "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+      "servedFrom": "Immutable git archive of the stated source commit",
+      "captureWorktreeDirty": true,
+      "dirtyReason": "Only untracked generated tools/aerial/__pycache__ existed in the capture metadata worktree; served archive contains tracked source only."
+    },
+    "staticPlannerAttempt": {
+      "walker": "OnFootController",
+      "arrival": {
+        "x": 6,
+        "z": -6,
+        "y": 3.4,
+        "heading": -3.7524578917878086
+      },
+      "arrivalDry": true,
+      "nearestPlaquePath": {
+        "points": [
+          [
+            6,
+            -6
+          ],
+          [
+            -42.75,
+            65.25
+          ],
+          [
+            -47.25,
+            68.25
+          ],
+          [
+            -47.25,
+            69.75
+          ],
+          [
+            9.75,
+            69.75
+          ],
+          [
+            18.705342302750967,
+            65.02917960675006
+          ]
+        ],
+        "length": 160.36326317725,
+        "target": "Pier 57"
+      },
+      "nativeWalk": {
+        "walker": "OnFootController",
+        "passed": false,
+        "steps": 962,
+        "stepLimit": 2491,
+        "waypointTolerance": 0.45,
+        "walked": 78.3731246948697,
+        "target": "Pier 57",
+        "plannedLength": 160.36326317725,
+        "position": {
+          "x": -38.10427769360571,
+          "z": 58.68435784464927,
+          "y": 3.4,
+          "heading": 2.525812550009504
+        },
+        "error": "Native walker blocked on planned public path"
+      }
     }
   },
   "rawAudit": {
@@ -355,5 +429,13 @@
     "pedBelow": 6,
     "pedSunk": 6
   },
-  "review": "Inspected all four GAME context views. The bay and Wheel are visible; the public approach and crowd/deck alignment remain open."
+  "review": "All four refreshed GAME context views and actual Pier 57 walk inspected. Physical public access passes around the queue; the guided-planner limitation and raw crowd/deck findings remain explicit.",
+  "publicPathProof": {
+    "sourceCommit": "b84de823e769c2bb02c3b4c6a4c422b14980748f",
+    "priorSourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+    "membershipUnchanged": true,
+    "proofDirectory": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths",
+    "runtimeSourceChanged": false,
+    "allSceneBodiesRetained": true
+  }
 }

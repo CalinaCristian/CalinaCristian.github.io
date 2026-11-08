@@ -959,7 +959,7 @@ function buildCity(cityId, did = null) {
         const cL = polyCentroid(local);
         const cOut = P(la, lo); cOut[0] += cL[0] * C.scale; cOut[1] += cL[1] * C.scale; // approx centroid in output space
         const mg = M(cOut[0], cOut[1]);
-        if (mg > 0) { if (mg > 70 && mg < 1700) addBackdrop(cOut, realArea, local, t, la); continue; }
+        if (mg > 0) { if (mg > 30 && mg < 1700) addBackdrop(cOut, realArea, local, t, la); continue; } // (after round 6: from 30 m past the corridor edge, not 70 — the first 70 m were a bare "dead" belt)
         if (!nearNetwork(cOut[0], cOut[1])) continue;
         const [sx, sz] = C.shape(la);
         let ring = local.map(([x, z]) => [cOut[0] + (x - cL[0]) * sx, cOut[1] + (z - cL[1]) * sz]);

@@ -218,14 +218,10 @@ const SEA_POIS = [
 
 const SEA_DISTRICTS = {
     seatac: {
-        name: 'SeaTac', label: 'SeaTac — terminal drives and SR-518 to the I-5 junction',
-        // round 5 (note 43, owner-approved 2026-11-07): playable area = 130 m either side of the chapter route(s), 200 m round each door,
-        // 110 m round each start, 120 m round the CV-stop building (routes from the CHAPTERS starts; closures sit at this edge)
-        bbox: [47.4522, -122.3037, 47.4680, -122.2731], center: { lat: 47.4500, lon: -122.2850 },
-        bands: [
-            { r: 130, chapter: 'seatac', line: [[47.454570, -122.300347], [47.456584, -122.300266], [47.457252, -122.300027], [47.457982, -122.299573], [47.458428, -122.299133], [47.459279, -122.298095], [47.460109, -122.296910], [47.460290, -122.296515], [47.462347, -122.293556], [47.462898, -122.292602], [47.463237, -122.291537], [47.463318, -122.290340], [47.463132, -122.287892], [47.462916, -122.286574], [47.462826, -122.285538], [47.462851, -122.284644], [47.462967, -122.283767], [47.463163, -122.282914], [47.463407, -122.282326], [47.463676, -122.281809], [47.464860, -122.279969], [47.465339, -122.278924], [47.465631, -122.277824], [47.465700, -122.276430]] },
-        ],
-        circles: [{ lat: 47.465700, lon: -122.276430, r: 200, name: 'seatac door' }, { lat: 47.455500, lon: -122.299560, r: 110, name: 'seatac start' }],
+        name: 'SeaTac', label: 'SeaTac — arrivals kerb, terminal loop and the Airport Expressway',
+        // round 6 (owner note 53): the chapter starts at the arrivals kerb (it used to start on the expressway, outside the
+        // airport); playable area = the whole box round the terminal drives and the Airport Expressway (every road kept)
+        bbox: [47.4385, -122.3060, 47.4575, -122.2925], center: { lat: 47.4500, lon: -122.2850 },
         landmarks: ['seatac', 'seatower', 'seagarage', 'sealink', 'rainier', 'olympics'],
         scenery: ['seatac', 'seatower', 'seagarage', 'sealink', 'rainier', 'olympics'], // background only (round 5, notes 9/18): built and visible, but no marker / label / route — not reachable in this district
         congestion: [ // from game/research/seattle-seatac.json traffic.hotspots
@@ -310,8 +306,8 @@ export const CHAPTERS = [
         start: { lat: 44.4560, lon: 26.0842, heading: 160, road: /Kiseleff/ } },
     { id: 'otopeni', stop: 'otopeni', city: 'bucharest', district: 'otopeni', year: 2022, title: 'Departure', intro: 'DN1 into Otopeni and up to Henri Coandă departures: a flight to Seattle is waiting.',
         start: { lat: 44.5560, lon: 26.0700, heading: 5, road: /DN1|București-Ploiești|Bucureşti-Ploieşti|Calea Bucureștilor/ } },
-    { id: 'seatac', stop: null, city: 'seattle', district: 'seatac', year: 2022, title: 'Welcome to Seattle', intro: 'Out of SeaTac: north on the Airport Expressway, then SR-518 east toward the I-5 / I-405 split.',
-        start: { lat: 47.4555, lon: -122.29956, heading: 20, road: /Airport Expressway/ }, waypoint: { lat: 47.46570, lon: -122.27643, label: 'SR-518 east toward I-5 / I-405' } }, // QA round 2: ~2.3 km, no terminal loop; waypoint ON the SR-518 EB carriageway (nearest edge 0 m, WB 18 m away), 1 km before the I-5/I-405 split
+    { id: 'seatac', stop: null, city: 'seattle', district: 'seatac', year: 2022, title: 'Welcome to Seattle', intro: 'Landed at SEA: out of the arrivals kerb, round the terminal loop and north on the Airport Expressway toward SR-518.',
+        start: { lat: 47.44350, lon: -122.30030, heading: 170, road: /Arrivals Drive/ }, waypoint: { lat: 47.45400, lon: -122.30023, label: 'Airport Expressway north (SR-518 / I-405)' } }, // round 6 (owner note 53): from the arrivals kerb, ~2.0 km via the terminal loop + Airport Expressway, then the montage to Bellevue
     { id: 'uipath-bel', stop: 'uipath-bel', city: 'seattle', district: 'bellevue', year: 2022, title: 'UiPath Bellevue', intro: 'Bellevue: off I-405 on the NE 8th St West loop, west on NE 8th past Plaza Center, then Bellevue Way to Lincoln Square.',
         montageCaption: 'Over Lake Washington on the I-90 floating bridge, across Mercer Island, then north on I-405 to Bellevue.',
         start: { lat: 47.61746, lon: -122.18725, heading: 255, road: /Northeast 8th Street West/ } }, // owner decision (≤ 3 min): bottom of the I-405 NB exit 13B loop, merging onto NE 8th WB (I-405 beside/behind) → past Plaza Center → Bellevue Way → Lincoln Square (1.38 km, ≈ 1:55 at the limits, ≈ 2:30 with expected signal waits)

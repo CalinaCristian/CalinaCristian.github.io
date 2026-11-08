@@ -5,6 +5,7 @@ import { TRANSIT, TRANSIT_RE, PHRASES } from './data.js';
 import { makeRng, clamp, angleLerp } from './util.js';
 import { makeCrowd, dressFor } from './crowd.js';
 import { lanesDir, canTravel, edgeSpeed, isMotorway, turnAngle, nodeList, EdgeIndex } from './nav.js';
+import { assignSignalPhases, signalState } from './signals.js';
 
 // ============================================================================
 //  TRAFFIC — vehicles + pedestrians on the road graph.
@@ -359,19 +360,14 @@ export class Traffic {
     lightState(node, edge) {
         if (!node.hasLight) return 'green';
         if (this.world.lightState) return this.world.lightState(node.id, edge, this.time, this.cycle);
-        // fallback: two phases by approach orientation
+        // The small legacy worlds use the same conservative phase rules.
         let ph = this._lightPhase.get(node);
         if (!ph) {
-            ph = new Map(); const ref = node.edges[0]; const ra = Math.atan2(ref.dirz, ref.dirx);
-            for (const e of node.edges) { let d = Math.abs(((Math.atan2(e.dirz, e.dirx) - ra) % Math.PI + Math.PI) % Math.PI); if (d > Math.PI / 2) d = Math.PI - d; ph.set(e, d < Math.PI / 4 ? 0 : 1); }
+            ph = new Map(); const aps = node.edges.filter(e => !e.oneway || e.b === node).map(edge => ({ edge, node }));
+            ph.phaseCount = assignSignalPhases(aps); for (const ap of aps) ph.set(ap.edge, ap.phase);
             ph.offset = (node.x * 7.31 + node.z * 3.17) % 20; this._lightPhase.set(node, ph);
         }
-        const phase = ph.get(edge); if (phase === undefined) return 'green';
-        const t = ((this.time + ph.offset) % (this.cycle * 2) + this.cycle * 2) % (this.cycle * 2);
-        const inPhase = phase === 0 ? t < this.cycle : t >= this.cycle;
-        if (!inPhase) return 'red';
-        const local = phase === 0 ? t : t - this.cycle;
-        return local > this.cycle - 2.2 ? 'yellow' : 'green';
+        return signalState(ph, ph.get(edge), this.time, this.cycle);
     }
 
     // ------------------------------------------------------------------ transit (R13.3)
@@ -622,7 +618,7 @@ export class Traffic {
         if (ok && this._recent) for (const o of this._recent) check(o);
         return ok;
     }
-    noteRelocated(v) { if (this._bulk) { this._bulk.push(v); return; } const r = this._recent || (this._recent = []); r.push(v); if (r.length > 32) r.shift(); }
+    noteRelocated(v) { v._moveGeneration = (v._moveGeneration || 0) + 1; if (this._bulk) { this._bulk.push(v); return; } const r = this._recent || (this._recent = []); r.push(v); if (r.length > 32) r.shift(); }
 
     /** world position for a vehicle's lane state */
     laneTarget(v, out) {
@@ -943,6 +939,7 @@ export class Traffic {
         if (dt <= 0) return;
         this._dt = dt;
         const all = this.vehicles;
+        this.syncSignalOccupancy();
         this.grid.build(all);
         this.peds.buildGrid();
         this._frame = (this._frame || 0) + 1;
@@ -978,6 +975,7 @@ export class Traffic {
         this.peds.update(dt);           // last, so nobody is left inside a vehicle that moved this frame
         try { this.updateParking(dt); } catch (e) { if (!this._parkErr) { this._parkErr = true; console.warn('[traffic] parking', e); } }
         if (this._recent) this._recent.length = 0;
+        this.syncSignalOccupancy();
         if (this.world.updateLights) this.world.updateLights(this.time, this.cycle);
         // police lights
         const on = (this.time * 4 | 0) % 2 === 0;
@@ -1084,24 +1082,26 @@ export class Traffic {
         // ---------------- path constraints: lights, stops, zebras, turns ----------------
         let stopD = Infinity, vCap = Infinity, waitingRed = false, stopWhy = null;
         let curE = e, curDir = v.dir, D = L - v.s - half, prevNode = null, prevD = 0;
+        const seenSignals = new Set();
         const maxLook = Math.max(70, v.speed * v.speed / 4 + 30);
         for (let k = -1; k < v.route.length && D < maxLook; k++) {
             const node = curDir > 0 ? curE.b : curE.a;
             const nxt = v.route[k + 1];
             const rad = node.radius ?? 6;
             if (node.hasLight && !v.isPolice) {
-                const st = this.lightState(node, curE);
+                const controller = node.lightCluster || node;
+                const committed = this.boxes.get(controller)?.some(r => r.v === v && this.inBox(r, controller) && r.entered);
+                // A turn/short link within one controller is one movement. Its entry
+                // signal governs; once admitted the car clears all of the split box.
+                const st = committed || seenSignals.has(controller) ? 'green' : this.lightState(node, curE);
+                seenSignals.add(controller);
                 let d = D - rad - 1.6;
                 if (d > -0.5 && (st === 'red' || (st === 'yellow' && d > v.speed * 1.1))) {
-                    // a red just past the junction ahead (dual carriageways / split nodes: two signal nodes a few metres
-                    // apart, not always in phase): the link can't hold a car, so the first node's light governs the
-                    // crossing — never stop inside / right behind the first box for the second one (it gridlocked the
-                    // crossing street, e.g. NE 8th × Bellevue Way); the box claims keep crossing paths apart
+                    // A separate downstream controller must be clear before entering
+                    // a link too short to hold the car. Waiting never grants red entry.
                     if (k >= 0 && prevNode && isJunction(prevNode) && curE.len - (prevNode.radius ?? 6) - rad < v.length + 4) {
-                        // not yet over the first line: wait there for the second light (cross traffic has green at it);
-                        // waited > 8 s (the two signals are out of phase) or already committed: go through both
                         const dPrev = prevD - (prevNode.radius ?? 6) - 1.6;
-                        if (dPrev > -0.5 && (v.splitWait || 0) < 8) { d = dPrev; if (dPrev < 3 && v.speed < 0.5) v.splitWait = (v.splitWait || 0) + dt; }
+                        if (dPrev > -0.5) d = dPrev;
                         else d = Infinity;
                     }
                     if (d !== Infinity) { if (d < stopD) { stopD = d; stopWhy = 'light'; } if (d < 10) waitingRed = true; break; }
@@ -1183,7 +1183,6 @@ export class Traffic {
         else v.speed = Math.max(target, v.speed - (leader === P && gap < 3 ? 14 : 8.5) * dt);
         if (v.speed < 0.05) v.speed = 0;
         v.gap = gap; v.leader = leader; v.leaderCross = leaderCross; v.stopD = stopD; v.stopWhy = stopWhy;
-        if (v.speed > 3) v.splitWait = 0;
 
         // ---------------- stuck / honking ----------------
         // waiting in a red-light queue is not "stuck"
@@ -1285,30 +1284,67 @@ export class Traffic {
     }
     /** 'wait' when the path conflicts with a reservation of another car still in / entering the box, else the path */
     boxCheck(v, curE, curDir, nxt, node, rad) {
-        const path = this.boxPath(v, curE, curDir, nxt, rad);
-        const list = this.boxes.get(node); if (!list) return path;
+        const path = this.reservationPath(v, curE, curDir, nxt, node, rad);
+        const key = node.lightCluster || node;
+        const list = this.boxes.get(key); if (!list) return path;
         // first come, first served: only claims older than ours count (no two cars ever wait for each other)
         let mine = Infinity; for (const r of list) if (r.v === v) mine = r.t0;
         for (const r of list) {
-            const o = r.v; if (o === v || o.inactive || r.t0 >= mine || !this.inBox(r, node)) continue;
+            const o = r.v; if (o === v || o.inactive || r.t0 >= mine || !this.inBox(r, key)) continue;
             if (r.inE === curE && r.laneIn === v.lane) continue; // ahead of us in our lane: plain car-following
-            const gap = segDist(path.p0x, path.p0z, path.p1x, path.p1z, r.p0x, r.p0z, r.p1x, r.p1z);
-            if (gap < (v.width + o.width) * 0.5 + 0.5) return 'wait';
+            for (const a of path.segments) for (const b of r.segments) {
+                const gap = segDist(a.p0x, a.p0z, a.p1x, a.p1z, b.p0x, b.p0z, b.p1x, b.p1z);
+                if (gap < (v.width + o.width) * 0.5 + 0.5) return 'wait';
+            }
         }
         return path;
     }
     boxClaim(v, node, path) {
-        let list = this.boxes.get(node); if (!list) this.boxes.set(node, list = []);
-        for (const r of list) if (r.v === v) { const t0 = r.t0; Object.assign(r, path); r.t = this.time; r.t0 = t0; return; }
+        const key = node.lightCluster || node;
+        let list = this.boxes.get(key); if (!list) this.boxes.set(key, list = []);
+        if (!path.segments) path = this.reservationPath(v, v.edge, v.dir, v.route[0], node, node.radius ?? 6);
+        for (const r of list) if (r.v === v) { if (!r.entered) { const t0 = r.t0; Object.assign(r, path); r.t0 = t0; } r.t = this.time; return; }
         path.v = v; path.t = this.time; path.t0 = this.time; list.push(path);
+    }
+    /** Reserve every pad and connecting lane through this controller, including turns. */
+    reservationPath(v, curE, curDir, nxt, node, rad) {
+        const path = this.boxPath(v, curE, curDir, nxt, rad);
+        path.segments = [{ ...path }]; path.internalEdges = new Set(); path.entryRad = rad; path.exitRad = rad;
+        path.phase = this.world.nodeLight?.[node.id]?.approaches.find(a => a.edge === curE)?.phase;
+        const cl = node.lightCluster;
+        let step = nxt, i = 0, exitIndex = 0;
+        while (cl && step && i < v.route.length) {
+            const end = step.dir > 0 ? step.e.b : step.e.a, after = v.route[++i];
+            if (end.lightCluster !== cl || !after || after.uturn) break;
+            path.internalEdges.add(step.e);
+            const segment = this.boxPath(v, step.e, step.dir, after, end.radius ?? 6), last = path.segments[path.segments.length - 1];
+            path.segments.push({ p0x: last.p1x, p0z: last.p1z, p1x: segment.p0x, p1z: segment.p0z }, segment);
+            path.outE = after.e; path.outDir = after.dir; path.exitRad = end.radius ?? 6; step = after; exitIndex = i;
+        }
+        path.generation = v._moveGeneration || 0;
+        path.clearEdges = new Set(v.route.slice(exitIndex).map(r => r.e));
+        path.clearOdo = (v.odo || 0) + curE.len - v.s + v.route.slice(0, exitIndex).reduce((d, r) => d + r.e.len, 0) + path.exitRad + v.length * 0.5 + 1;
+        return path;
     }
     /** a reservation holds until the car's rear has left the pad (or it went elsewhere / timed out) */
     inBox(r, node) {
         const o = r.v;
-        if (o.inactive || this.time - r.t > 10) return false;
-        if (o.edge === r.inE) return this.time - r.t0 < 6 || o.speed > 0.5; // claimed but not moving in: it lapses
-        if (o.edge === r.outE) return o.s - o.length * 0.5 < (node.radius ?? 6) + 1;
+        if (o.inactive || (o._moveGeneration || 0) !== r.generation || o.odo >= r.clearOdo) return false;
+        if (o.edge === r.inE) {
+            if (o.s + o.length * 0.5 > o.edge.len - r.entryRad - 0.8) r.entered = true;
+            return r.entered || this.time - r.t0 < 6 || o.speed > 0.5;
+        }
+        if (r.internalEdges.has(o.edge)) { r.entered = true; return true; }
+        if (o.edge === r.outE) { r.entered = true; return o.s - o.length * 0.5 < r.exitRad + 1; }
+        // A short shape segment can end while a bus's rear still occupies the pad.
+        if (r.entered && r.clearEdges.has(o.edge) && o.odo < r.clearOdo) return true;
         return false;
+    }
+    syncSignalOccupancy() {
+        for (const l of this.world.lights || []) l.node.lightCluster.occupiedPhases = [];
+        for (const [key, list] of this.boxes) for (const r of list) {
+            if (this.inBox(r, key) && r.entered && Number.isInteger(r.phase) && key.occupiedPhases && !key.occupiedPhases.includes(r.phase)) key.occupiedPhases.push(r.phase);
+        }
     }
     pruneBoxes() {
         for (const [node, list] of this.boxes) {
@@ -2036,10 +2072,28 @@ class Pedestrians {
         this._m = new THREE.Matrix4(); this._q = new THREE.Quaternion(); this._p = new THREE.Vector3(); this._s = new THREE.Vector3(); this._e = new THREE.Euler(0, 0, 0, 'YXZ');
         this.buildGrid();
         this.writeMatrices(0);
+        for (const p of this.list) p.live = true;
+    }
+    /** Source and destination must both be hidden before a population recycle. */
+    inView(p) {
+        const P = this.t.walker?.active ? this.t.walker : this.t.player; if (!P) return false;
+        const dx = p.x - P.x, dz = p.z - P.z, d = Math.hypot(dx, dz);
+        return d < 70 || (d < 230 && dx * P.fx + dz * P.fz > -2);
+    }
+    /** Keep the physical pose and walk to a recovery target instead of snapping. */
+    recoverPose(p, x, z) {
+        if (!p.live || p.relocating || Math.hypot(p.x - x, p.z - z) < 0.08) return;
+        const cross = !!(p.onRoad || this.roadAt(x, z) || this.roadAt(p.x, p.z) || this.roadAt((p.x + x) / 2, (p.z + z) / 2));
+        p.recovery = { x: p.x, z: p.z, state: p.recovery?.state || p.state, onRoad: p.recovery?.onRoad ?? p.onRoad, legs: p.recovery?.legs || p.legs };
+        p.legs = [{ x: p.x, z: p.z, cross, started: true, recovery: true }];
+        p.x = x; p.z = z; p.state = 'legs'; p.onRoad = cross;
     }
     /** big worlds: put a pedestrian on a sidewalk / bus stop rMin..rMax from the player */
     relocate(p, rMin, rMax, hidden) {
         const T = this.t, P = T.player; if (!P) return;
+        if (hidden && this.inView(p)) return;
+        const saved = { x: p.x, z: p.z, e: p.e, dir: p.dir, side: p.side, s: p.s, state: p.state, legs: p.legs, waitT: p.waitT, onRoad: p.onRoad, recovery: p.recovery, relocating: false };
+        p.recovery = null; p.relocating = true;
         if (p.state === 'stand' && this.stops.length) {
             for (let tries = 0; tries < 40; tries++) {
                 const st = this.stops[Math.floor(this.rng() * this.stops.length)]; const sx = st.x ?? st.doorX, sz = st.z ?? st.doorZ;
@@ -2049,7 +2103,8 @@ class Pedestrians {
                 if (this.list.filter(o => o !== p && o.state === 'stand' && Math.hypot(o.x - sx, o.z - sz) < 4).length >= 4) continue;
                 const a = this.rng() * 6.28, r = this.rng.range(0.4, 2.2); p.x = sx + Math.cos(a) * r; p.z = sz + Math.sin(a) * r; this.kerbClamp(p);
                 if (this.inWater(p.x, p.z)) continue; // (never on water: the Dâmbovița channel, fountain basins)
-                return;
+                if (hidden && this.inView(p)) continue;
+                p.relocating = false; return;
             }
             p.state = 'walk';
         }
@@ -2063,8 +2118,10 @@ class Pedestrians {
             p.e = e; p.dir = this.rng() < 0.5 ? 1 : -1; p.side = this.rng() < 0.5 ? 1 : -1; p.s = this.rng.range(0, e.len);
             p.state = 'walk'; p.legs = []; p.onRoad = false; p.waitT = 0; this.placeWalk(p);
             if (this.inWater(p.x, p.z)) { p.side = -p.side; this.placeWalk(p); if (this.inWater(p.x, p.z)) continue; }
-            return;
+            if (hidden && this.inView(p)) continue;
+            p.relocating = false; return;
         }
+        Object.assign(p, saved);
         if (!p.e) p.state = 'stand'; // nowhere to walk: just stand where we are
     }
     relocateAll() { for (const p of this.list) this.relocate(p, 0, 420, false); this.buildGrid(); this.writeMatrices(); }
@@ -2142,7 +2199,7 @@ class Pedestrians {
                 if (!this.roadAt(x, z, 0.5) && this.obsDepth(x, z) < 0.01) { p.x = x; p.z = z; break; }
             }
         }
-        if (p.state === 'walk' && p.e) { const e = p.e, o = (push[0] * e.nx + push[1] * e.nz) * p.side; p.walkOff = clamp((p.walkOff || 0) + o, -1.2, 3); }
+        if (p.state === 'walk' && p.e) this.syncWalkPose(p);
         this.stats.obsPush = (this.stats.obsPush || 0) + 1;
         return true;
     }
@@ -2186,7 +2243,7 @@ class Pedestrians {
     dodgeAt(p) {
         if (!this.obsGrid || !p.e) return 0;
         const list = this.sideObs(p.e, p.side); if (!list.length) return 0;
-        const R = PED_R, base = this.off(p.e, p.side) + (p.walkOff || 0), s = p.s;
+        const R = PED_R, line = this.off(p.e, p.side), base = line + (p.walkOff || 0), s = p.s;
         let lo = 0, hi = list.length; while (lo < hi) { const mid = (lo + hi) >> 1; if (list[mid].s < s - 7) lo = mid + 1; else hi = mid; }
         let best = 0;
         for (let i = lo; i < list.length && list[i].s < s + 7; i++) {
@@ -2194,7 +2251,9 @@ class Pedestrians {
             const w = ds <= 0.1 ? 1 : ds >= 1.8 ? 0 : 1 - (ds - 0.1) / 1.7; if (w <= 0) continue;
             const need = o.hu + R + 0.08; if (Math.abs(base - o.u) >= need) continue;
             const cin = o.u - need, cout = o.u + need;
-            const tgt = o.parked && o.okIn ? cin : o.okIn && o.okOut ? (Math.abs(cin - base) <= Math.abs(cout - base) ? cin : cout) : o.okIn ? cin : cout; // (round a parked car: on the road side)
+            // Choose against the fixed sidewalk line. Choosing against walkOff made
+            // a passing/collision offset flip the detour to the opposite side in one frame.
+            const tgt = o.parked && o.okIn ? cin : o.okIn && o.okOut ? (Math.abs(cin - line) <= Math.abs(cout - line) ? cin : cout) : o.okIn ? cin : cout;
             const sh = (tgt - base) * w; if (Math.abs(sh) > Math.abs(best)) best = sh;
         }
         return best;
@@ -2217,10 +2276,22 @@ class Pedestrians {
         p.s = clamp(p.s + dx * e.dirx + dz * e.dirz, 0, e.len);
         p.walkOff = clamp((p.walkOff || 0) + (dx * e.nx + dz * e.nz) * p.side, -0.6, 3);
         this.placeWalk(p);
+        this.recoverPose(p, x, z);
+    }
+    /** A collision correction changes both along-lane and lateral coordinates.
+     * Keep that actual pose, including the active detour, on the next walking step. */
+    syncWalkPose(p) {
+        const e = p.e, dx = p.x - e.a.x, dz = p.z - e.a.z;
+        p.s = clamp(dx * e.dirx + dz * e.dirz, 0, e.len);
+        p.walkOff = (dx * e.nx + dz * e.nz) * p.side - this.off(e, p.side) - (p.dodge || 0);
     }
     placeWalk(p) {
         { const mo = this.maxOut(p.e, p.side); if ((p.walkOff || 0) > mo) p.walkOff = Math.max(mo, p.walkOff - 0.03); } // (stay on the sidewalk: back onto it at a walking pace, not in one jump)
-        const e = p.e, dg = this.dodgeAt(p), o = (this.off(e, p.side) + (p.walkOff || 0) + dg) * p.side;
+        const e = p.e, target = this.dodgeAt(p);
+        if (p.dodge === undefined || p.dodgeEdge !== e) p.dodge = target;
+        else if (p.dodgeFrame !== this._fr) p.dodge += clamp(target - p.dodge, -2 * (this._stepDt || 1 / 30), 2 * (this._stepDt || 1 / 30));
+        p.dodgeFrame = this._fr; p.dodgeEdge = e;
+        const dg = p.dodge, o = (this.off(e, p.side) + (p.walkOff || 0) + dg) * p.side;
         p.onDodge = dg < -0.05; // (stepping round a parked car on the road side: not "lost in a carriageway")
         p.x = e.a.x + e.dirx * p.s + e.nx * o; p.z = e.a.z + e.dirz * p.s + e.nz * o;
         p.heading = Math.atan2(-e.dirx * p.dir, -e.dirz * p.dir);
@@ -2262,6 +2333,7 @@ class Pedestrians {
     inWater(x, z) { const w = this.t.world.isWater; if (!w) return false; return w(x, z) || w(x + 1, z) || w(x - 1, z) || w(x, z + 1) || w(x, z - 1); }
     /** keep a pedestrian that is not crossing out of every carriageway: move it to the nearest kerb */
     kerbClamp(p) {
+        const ox = p.x, oz = p.z;
         let moved = false;
         for (let k = 0; k < 3; k++) {
             const r = this.roadAt(p.x, p.z, 0.7); if (!r) break;
@@ -2269,6 +2341,7 @@ class Pedestrians {
             if (d > 1e-3) { nx /= d; nz /= d; } else { nx = r.e.nx; nz = r.e.nz; }
             p.x = r.cx + nx * (r.hw + 0.3); p.z = r.cz + nz * (r.hw + 0.3); moved = true;
         }
+        if (moved) this.recoverPose(p, ox, oz);
         return moved;
     }
     /**
@@ -2301,11 +2374,8 @@ class Pedestrians {
                 // out sideways (away from the vehicle's centreline, i.e. toward the kerb on the side the pedestrian is on)
                 const nl = (l >= 0 ? 1 : -1) * (hw + 0.05);
                 const nx = v.x + a[0] * f + a[2] * nl, nz = v.z + a[1] * f + a[3] * nl;
-                if (p.state === 'walk' && p.e) { // walkers follow the sidewalk line: shift that line instead
-                    const e = p.e, o = ((nx - p.x) * e.nx + (nz - p.z) * e.nz) * p.side;
-                    p.walkOff = clamp((p.walkOff || 0) + o, -0.6, 3); // (never pushed further into the road than 0.6 m)
-                }
                 p.x = nx; p.z = nz; pushed = any = true;
+                if (p.state === 'walk' && p.e) this.syncWalkPose(p);
             });
             if (!any) break;
         }
@@ -2340,9 +2410,17 @@ class Pedestrians {
     update(dt) {
         this.crossCount.clear();
         const T = this.t;
+        this._stepDt = dt;
         this._fr = (this._fr || 0) + 1;
         for (const p of this.list) {
             p.phase += dt * p.speed * 5.5;
+            if (p.recovery && p.state !== 'down') {
+                const q = p.recovery, ox = p.x, oz = p.z, dx = q.x - ox, dz = q.z - oz, d = Math.hypot(dx, dz), step = Math.min(d, 1.45 * dt);
+                if (d > 0.001) { p.x += dx / d * step; p.z += dz / d * step; p.heading = Math.atan2(-dx, -dz); }
+                this.clearObstacles(p); this.avoidVehicles(p, ox, oz, true);
+                if (p.recovery === q && Math.hypot(q.x - p.x, q.z - p.z) < 0.08) { p.state = q.state; p.onRoad = q.onRoad; p.legs = q.legs; p.recovery = null; }
+                continue;
+            }
             if (p.state === 'down') {
                 p.onRoad = true; // lying in the road: cars stop for them
                 if (p.flyX || p.flyZ) { // thrown by the hit: slide, slowing fast; stopped by walls / props
@@ -2435,13 +2513,13 @@ class Pedestrians {
                     // the sidewalk line runs through another road here: turn back, then switch sides / move away
                     p.roadHits = (p.roadHits || 0) + 1;
                     if (p.roadHits === 1) { p.dir = -p.dir; p.s = os; }
-                    else if (p.roadHits === 2) { p.side = -p.side; this.placeWalk(p); }
+                    else if (p.roadHits === 2) { const x = p.x, z = p.z; p.side = -p.side; this.placeWalk(p); this.recoverPose(p, x, z); }
                     else { p.roadHits = 0; if (T.large) this.relocate(p, 120, 420, true); else this.relocate(p, 30, 200, true); } // (standing them at the kerb piled them up on one spot)
                 } else p.roadHits = 0;
                 // never in water / a fountain basin (+ 1 m rim; world-visual request, note 17): walkers cross to the other
                 // sidewalk, anyone else is moved back onto a sidewalk around the player
                 if (this.inWater(p.x, p.z)) {
-                    if (p.state === 'walk' && !p.wetFlip) { p.wetFlip = true; p.side = -p.side; this.placeWalk(p); }
+                    if (p.state === 'walk' && !p.wetFlip) { const x = p.x, z = p.z; p.wetFlip = true; p.side = -p.side; this.placeWalk(p); this.recoverPose(p, x, z); }
                     else { p.wetFlip = false; this.relocate(p, 30, 200, true); }
                     this.stats.wet = (this.stats.wet || 0) + 1;
                 } else if (p.wetFlip && (p.i + this._fr) % 300 === 0) p.wetFlip = false;
@@ -2480,6 +2558,9 @@ class Pedestrians {
             }
         }
         this.separate(dt);
+        // Crowd separation also changes the physical pose. A sidestep must not
+        // finish inside a pole/car that was cleared earlier in this update.
+        for (const p of this.list) if (p.state !== 'down') { this.avoidVehicles(p, p.x, p.z, false); this.clearObstacles(p); }
         if (this._fr % 15 === 0) this.countObstacleOverlaps();
         this.writeMatrices(dt);
     }
@@ -2494,7 +2575,7 @@ class Pedestrians {
         // (each person's own reach: the umbrella canopies of two passers-by no longer cut through each other)
         if (this._fr % 30 === 0 || !this._reachOk) { for (const p of this.list) p.reach = C.reach ? C.reach(p.i) : PED_R; this._reachOk = true; }
         const fixed = (p) => p.talkT > 0 || !!p.agent || !!p.react;
-        for (const p of this.list) { p._ov = 0; if (p.passT > 0) p.passT -= dt; }
+        for (const p of this.list) { p._ov = 0; p.sepLeft = 1.3 * dt; if (p.passT > 0) p.passT -= dt; }
         for (const p of this.list) {
             if (p.state === 'down') continue;
             grid.query(p.x, p.z, 1.1, (q) => {
@@ -2568,11 +2649,14 @@ class Pedestrians {
                 best = { x, z }; break;
             }
         }
-        if (best) { p.x = best.x; p.z = best.z; }
+        if (best) { const x = p.x, z = p.z; p.x = best.x; p.z = best.z; this.recoverPose(p, x, z); }
         return !!best;
     }
     sepPush(p, px, pz, other) {
         if (!px && !pz) return;
+        const push = Math.hypot(px, pz), step = Math.min(push, p.sepLeft ?? 1.3 / 30);
+        if (step <= 0) return;
+        px *= step / push; pz *= step / push; p.sepLeft = Math.max(0, (p.sepLeft ?? 1.3 / 30) - step);
         if (p.state === 'walk' && p.e) {
             const e = p.e, k = Math.hypot(px, pz);
             let o = (px * e.nx + pz * e.nz) * p.side; // lateral share, in walkOff units (+ = away from the road)
@@ -2619,7 +2703,7 @@ class Pedestrians {
         const ts = p.side * p.dir; // +1 = walking on the right of the road relative to travel
         const opts = [];
         for (const g of node.edges) {
-            if (g === e || isMotorway(g) || g.tunnel) continue;
+            if (g === e || !this.ok(g)) continue;
             const og = g.a === node ? 1 : -1;
             const gx = g.dirx * og, gz = g.dirz * og;
             opts.push({ g, og, ang: turnAngle(fx, fz, gx, gz), dot: fx * gx + fz * gz });
@@ -2650,7 +2734,7 @@ class Pedestrians {
             return near[1];
         };
         if (!opts.length) { // dead end: turn around (maybe crossing)
-            p.dir = -p.dir; if (this.rng() < 0.3) { p.side = -p.side; } this.placeWalk(p); return;
+            p.dir = -p.dir; this.placeWalk(p); return;
         }
         const r = this.rng();
         if (opts.length === 1) {

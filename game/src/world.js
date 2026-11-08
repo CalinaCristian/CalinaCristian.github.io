@@ -6,6 +6,7 @@ import { projector, CHAPTERS } from './cities.js';
 import { STOPS } from './data.js';
 import { MeshBuilder, rgb, shadeRgb, prep, mergeProps, bakeProp, UNIT_BOX } from './geobuild.js';
 import { treeGeometries, SPECIES, defaultSpecies, buildSpeciesTrees, speciesFromOSM } from './trees.js';
+import { assignSignalPhases, signalState } from './signals.js';
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -1370,17 +1371,25 @@ export async function buildWorld(city, renderer, opts = {}) {
     const parent = new Map(lightNodes.map(n => [n, n]));
     const find = (n) => { while (parent.get(n) !== n) { parent.set(n, parent.get(parent.get(n))); n = parent.get(n); } return n; };
     {
-        const g = new BoxGrid(40);
+        const g = new BoxGrid(70);
         for (const n of lightNodes) g.insert(n.x, n.z, n.x, n.z, n);
-        for (const n of lightNodes) g.each(n.x - 38, n.z - 38, n.x + 38, n.z + 38, (m) => { if (m !== n && Math.hypot(m.x - n.x, m.z - n.z) < 38) parent.set(find(m), find(n)); });
+        // Wide divided junctions can put their stop-line nodes >38 m apart. Coordinate
+        // them on the same level; a bridge above a signal is a different controller.
+        for (const n of lightNodes) g.each(n.x - 65, n.z - 65, n.x + 65, n.z + 65, (m) => { if (m !== n && Math.abs(m.y - n.y) < 1.5 && Math.hypot(m.x - n.x, m.z - n.z) < 65) parent.set(find(m), find(n)); });
     }
     const clusters = new Map();
     for (const n of lightNodes) { const r = find(n); let c = clusters.get(r); if (!c) clusters.set(r, c = { nodes: [], offset: rng.range(0, 20) }); c.nodes.push(n); }
     for (const c of clusters.values()) {
-        let ref = null, best = -1;
-        for (const n of c.nodes) for (const e of n.edges) { const s = (CLASS_RANK[e.type] || 1) * 10 + e.lanesF + e.lanesB + e.len / 1000; if (s > best) { best = s; ref = e; } }
-        c.refAng = Math.atan2(ref.dirz, ref.dirx);
         for (const n of c.nodes) n.lightCluster = c;
+        // Profile/OSM shape nodes between the stop lines are inside the same box.
+        // Retain source signal locations; these intermediate nodes gain no lamp.
+        for (const n of c.nodes) for (const first of n.edges) {
+            let e = first, m = e.a === n ? e.b : e.a, path = [], dist = e.len;
+            while (dist < 100 && !m.hasLight && m.edges.length === 2 && path.length < 24) {
+                path.push(m); e = m.edges.find(x => x !== e); dist += e.len; m = e.a === m ? e.b : e.a;
+            }
+            if (m.lightCluster === c) for (const p of path) p.lightCluster = c;
+        }
     }
     // the node at Piața Victoriei keeps its historic id (main.js achievement)
     if (city.id === 'bucharest') {
@@ -4483,9 +4492,6 @@ export async function buildWorld(city, renderer, opts = {}) {
         for (const e of n.edges) {
             const atA = e.a === n;
             if (atA && e.oneway) continue; // traffic only leaves the node on this edge
-            const ang = Math.atan2(e.dirz, e.dirx);
-            let d = Math.abs(((ang - cl.refAng) % Math.PI + Math.PI) % Math.PI); if (d > Math.PI / 2) d = Math.PI - d;
-            const phase = d < Math.PI / 4 ? 0 : 1;
             const out = atA ? 1 : -1;
             const dx = e.dirx * out, dz = e.dirz * out; // pointing away from the node along the edge
             const rx = dz, rz = -dx; // right-hand side of the incoming travel direction (-d)
@@ -4498,12 +4504,13 @@ export async function buildWorld(city, renderer, opts = {}) {
             const rot = Math.atan2(-dz, dx); // housing local +x faces along +d (toward incoming cars)
             const tly = 0.15 + n.y + (raisedTop(px, pz, 0.3) !== null ? DY_SIDE : 0); // (on a raised corner)
             if (!noPole) { c.solid.geo(P.tlight, px, tly, pz, rot, 1, 1, 1, [255, 255, 255]); addPropColl(px, pz, 0.2, 'tlight'); }
-            const ap = { edge: e, phase, node: n, x: px + dx * 0.36, z: pz + dz * 0.36, y: noPole ? -200 : tly, state: null, lamp: lampList.length, lamps: null, noPole };
+            const ap = { edge: e, node: n, x: px + dx * 0.36, z: pz + dz * 0.36, y: noPole ? -200 : tly, state: null, lamp: lampList.length, lamps: null, noPole };
             lampList.push(ap);
             approaches.push(ap);
         }
         if (approaches.length) lights.push({ node: n, approaches, offset: cl.offset });
     }
+    for (const cl of clusters.values()) cl.phaseCount = assignSignalPhases(lights.filter(l => l.node.lightCluster === cl).flatMap(l => l.approaches));
     const nodeLight = {};
     for (const l of lights) nodeLight[l.node.id] = l;
     const lampMesh = new THREE.InstancedMesh(new THREE.SphereGeometry(0.17, 6, 4), new THREE.MeshBasicMaterial({ color: '#ffffff', toneMapped: false }), Math.max(1, lampList.length));
@@ -5300,12 +5307,8 @@ export async function buildWorld(city, renderer, opts = {}) {
         /** phase state helper: returns 'green' | 'yellow' | 'red' for an approach edge entering node */
         lightState(nodeId, edge, time, cycle) {
             const l = nodeLight[nodeId]; if (!l) return 'green';
-            const ap = l.approaches.find(a => a.edge === edge); if (!ap) return 'green';
-            const t = (time + l.offset) % (cycle * 2);
-            const inPhase = ap.phase === 0 ? t < cycle : t >= cycle;
-            if (!inPhase) return 'red';
-            const local = ap.phase === 0 ? t : t - cycle;
-            return local > cycle - 2.2 ? 'yellow' : 'green';
+            const ap = l.approaches.find(a => a.edge === edge); if (!ap) return 'red';
+            return signalState(l.node.lightCluster, ap.phase, time, cycle);
         },
         updateLights(time, cycle) {
             let dirty = false;

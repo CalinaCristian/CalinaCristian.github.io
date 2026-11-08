@@ -8408,6 +8408,14 @@
       "comparisonCompatible": false,
       "frames": 6,
       "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99"
+    },
+    {
+      "manifest": "context/winter-snow-day/manifest.json",
+      "label": "Winter Snow Day \u00b7 district context",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "frames": 6,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99"
     }
   ]
 }

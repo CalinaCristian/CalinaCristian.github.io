@@ -1,0 +1,57 @@
+{
+  "fields": [
+    "buildingPassages",
+    "buildingPassageIssues"
+  ],
+  "oldOpenings": 25,
+  "newOpenings": 24,
+  "changes": [
+    {
+      "sourceBuildingId": "w246137420",
+      "before": [
+        "w1106897137"
+      ],
+      "after": []
+    }
+  ],
+  "issues": [
+    {
+      "sourceRoadId": "w1106897137",
+      "reason": "absolute-passage-base-unknown",
+      "baseUnknown": true,
+      "status": "unsupported without a physical vertical datum",
+      "classificationSource": "OSM tunnel=building_passage",
+      "buildingIds": [
+        "w246137420"
+      ],
+      "sourceNodeIds": [
+        10128594726,
+        10128594725
+      ],
+      "sourceCentreline": [
+        [
+          -757.1712570293578,
+          248.25777480002589
+        ],
+        [
+          -757.9582547034411,
+          257.45950439937747
+        ]
+      ],
+      "tags": {
+        "highway": "footway",
+        "layer": "-1",
+        "surface": "paving_stones",
+        "tunnel": "building_passage"
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/1106897137"
+      ],
+      "dimensionNote": "Relative source layer/level/bridge ordering does not establish metres above local ground. No ground void is cut; source identities and complete horizontal geometry are retained for review."
+    }
+  ],
+  "rootSourcePrerequisite": "c7ff57c",
+  "dataBeforeSha256": "12e7c34b2640ca918f1bc068772a9a17429fbef94e00c91f32c16dbd40f98236",
+  "dataAfterSha256": "b2a0e154da3c6cb2a79cb934a6701344b6ddcf9ec439a8358ec106c5a2d88f30",
+  "scope": "Only source passage validity metadata changes. Exact building/source IDs, footprints, dimensions, roof profiles/caches, roads, trees, areas and every other field are unchanged."
+}

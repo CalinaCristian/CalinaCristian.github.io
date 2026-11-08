@@ -98,7 +98,8 @@ function show(id) {
     camera.lookAt(ctr.x, ly, ctr.z);
   } else {
     const el = top ? Math.PI / 2 - 0.001 : THREE.MathUtils.degToRad(+(qs.get('el') ?? 24));
-    dist = +(qs.get('d') ?? R / Math.tan(THREE.MathUtils.degToRad(22.5)) * (top ? 1.05 : 1.25));
+    // A top camera must clear the tallest roof before fitting its horizontal extent.
+    dist = +(qs.get('d') ?? (R / Math.tan(THREE.MathUtils.degToRad(22.5)) * (top ? 1.12 : 1.25) + (top ? size.y : 0)));
     ly = top ? 0 : size.y * 0.4;
     camera.position.set(ctr.x + Math.cos(el) * Math.sin(az) * dist, ly + Math.sin(el) * dist, ctr.z + Math.cos(el) * Math.cos(az) * dist);
     camera.lookAt(ctr.x, ly, ctr.z);
@@ -114,6 +115,12 @@ function show(id) {
   const info = `${lm.name} — ${current.triangles} tris${extraTris ? ' (+' + extraTris + ' with)' : ''} (scale ${current.authoredScale ?? 1}), ${current.mesh.children.length} meshes, ${current.collision.length} col boxes, h=${size.y.toFixed(1)} m, ${size.x.toFixed(0)}×${size.z.toFixed(0)} m (world), ${ms.toFixed(1)} ms`;
   document.getElementById('info').textContent = info;
   window.__stats = { id: lm.id, triangles: current.triangles, height: size.y, w: size.x, d: size.z, ms };
+  // Game-only overview evidence: exact camera, model bounds and current render counters.
+  window.__landmarkCapture = { ...window.__stats, name: lm.name, anchor: { lat: lm.lat, lon: lm.lon, rotation: lm.rotation },
+    view: top ? 'top' : street ? 'front' : 'oblique', camera: { position: camera.position.toArray(), quaternion: camera.quaternion.toArray(),
+      fov: camera.fov, near: camera.near, far: camera.far, viewport: [innerWidth, innerHeight] },
+    bounds: { min: box.min.toArray(), max: box.max.toArray() }, collision: current.collision,
+    render: { triangles: renderer.info.render.triangles, calls: renderer.info.render.calls } };
   if (!top && !qs.get('view')) history.replaceState(null, '', '?id=' + lm.id);
 }
 sel.onchange = () => show(sel.value);

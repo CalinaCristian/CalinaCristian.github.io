@@ -694,8 +694,11 @@ body.drone-mode #explore-bar button[data-x=map] { display: block; }
 }
 
 /* drone HUD (drone.js): camera-style overlay; the game HUD steps aside */
-body.drone-mode #hud > :not(#toasts) { display: none !important; }
+body.drone-mode #hud > :not(#toasts):not(.bottom-left) { display: none !important; }
+/* the minimap stays in drone mode (round 6 note 43), top-left under the REC / GPS chips (the touch stick is bottom-left) */
+body.drone-mode #hud > .bottom-left { top: 64px; bottom: auto; transform: scale(.82); transform-origin: top left; }
 body.drone-mode #spot-ui > :not(.sp-toasts):not(.sp-toast) { visibility: hidden; }
+body.drone-mode #spot-ui .sp-mini { visibility: visible; top: 64px; bottom: auto; left: 12px; right: auto; }
 body.drone-mode #touch, body.drone-mode #cond-btn { display: none !important; }
 #drone-hud { display: none; position: fixed; inset: 0; z-index: 12; pointer-events: none; color: #fff; font: 600 13px/1.2 ui-monospace, "SF Mono", Menlo, Consolas, monospace; text-shadow: 0 1px 2px rgba(0,0,0,.7); opacity: 0; transition: opacity .5s; }
 #drone-hud.show { display: block; }
@@ -808,3 +811,13 @@ body.touch.on-foot .tpedals, body.touch.in-spot .tpedals, body.touch.tmode-foot 
     /* portrait: the button row sits above the pedals, right-aligned */
     body.touch:not(.on-foot):not(.in-spot):not(.tmode-foot) #hud:not(.in-office) .pad.right { right: 10px; bottom: 142px; }
 }
+
+/* (round 6 note 38) touch: the game owns every gesture — no pinch / double-tap page zoom or pan while looking around;
+   panels that scroll keep vertical panning */
+body.touch, body.touch canvas { touch-action: none; overscroll-behavior: none; }
+body.touch #navpanel, body.touch .panel-inner, body.touch .pv-gallery, body.touch #cond-panel, body.touch #menu.overlay,
+body.touch #pause-menu, body.touch #pause-menu .pm-list, body.touch #achv-panel .achv-inner, body.touch #save-gallery .gal-inner,
+body.touch .dlg, body.touch #finale .fn-wrap, body.touch #world-map .wm-list, body.touch .sp-panel { touch-action: pan-y; }
+/* (note 43) with the minimap top-left, the drone's ALT box moves down (above the touch stick on phones) */
+body.drone-mode:not(.no-minimap) #drone-hud .dr-left { top: auto; bottom: 70px; transform: none; }
+body.touch.drone-mode:not(.no-minimap) #drone-hud .dr-left { bottom: 172px; }

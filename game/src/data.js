@@ -131,7 +131,7 @@ export const STOPS = [
             { title: 'Senior Software Engineer (2022–25)', lines: ['Design System library for the UiPath platform: StencilJS web components consumed by React, Angular & Angular Elements apps.', 'Worked closely with design in Figma; shipped across the platform.', 'Autopilot and Maestro product work.'] },
             { title: 'Principal Software Engineer (Oct 2025 →)', lines: ['Technical leadership across front-end platform efforts.', 'Design System, Autopilot, Maestro.'] },
             { title: 'Stack', chips: ['StencilJS', 'Web Components', 'React', 'Angular', 'Angular Elements', 'TypeScript', 'Figma', 'GitHub'] },
-            { title: 'Off the clock', lines: ['Writes articles (Medium, dev.to), answers questions on Stack Overflow.', 'Keeps up with React & Angular, learns new tech, and — last but not least — relaxes.'] },
+            { title: 'Off the clock', lines: ['Writes articles (Medium, dev.to), answers questions on Stack Overflow.', 'Keeps up with React & Angular and keeps learning new tech.'] },
         ],
     },
 ];
@@ -232,14 +232,21 @@ export const PHRASES = {
     // Romanian lines carry the English gloss shown under them in the bubble ({t, en}); Seattle lines are plain strings
     bucharest: {
         honkedAt: [{ t: 'Hai, mișcă!', en: 'Come on, move!' }, { t: 'Ce faci, dormi?!', en: 'What are you doing, sleeping?!' }, { t: 'Claxonezi la mine?!', en: 'You\'re honking at me?!' }, { t: 'Băi, nene!', en: 'Hey, mister!' }, { t: 'Mută căruța!', en: 'Move that cart!' }, { t: 'Dă-te, că întârzii!', en: 'Out of the way, I\'m late!' }, { t: 'Ia-ți permisul de la Dedeman!', en: 'Get your licence at the hardware store!' }, { t: 'Ai luat carnetul la tombolă?', en: 'Did you win your licence in a raffle?' }, { t: 'Hai, că nu e Formula 1!', en: 'Easy, this isn\'t Formula 1!' }],
-        bumped: [{ t: 'Ești nebun?!', en: 'Are you crazy?!' }, { t: 'Ce-ai făcut, mă?!', en: 'What have you done, man?!' }, { t: 'Scoate asigurarea!', en: 'Get your insurance papers out!' }, { t: 'Dă-te jos să vezi ce-ai făcut!', en: 'Get out and look at what you did!' }, { t: 'Mă, tu vezi pe unde mergi?!', en: 'Do you even look where you\'re going?!' }],
+        bumped: [{ t: 'Ești nebun?!', en: 'Are you crazy?!' }, { t: 'Unde ți-ai luat carnetul, la Obor?!', en: 'Where did you get your licence, at the flea market?!' },
+            { t: 'Ce, ai cumpărat carnetul?!', en: 'What, did you buy your licence?!' }, { t: 'Chem poliția, să știi!', en: 'I\'m calling the police, just so you know!' },
+            { t: 'Mașina e nouă, băi!', en: 'The car is new, man!' }, { t: 'Facem amiabila sau ce facem?', en: 'Do we fill in the accident form or what?' },
+            { t: 'Doamne ferește, ce șofer!', en: 'God help us, what a driver!' }, { t: 'Vezi că plătești tu, eu nu dau un leu!', en: 'You\'re paying, I\'m not giving a single leu!' },
+            { t: 'Te-a lovit soarele în cap?!', en: 'Did the sun get to your head?!' }, { t: 'Ăsta-i stilul de Ilfov!', en: 'That\'s Ilfov-style driving!' }, { t: 'Ce-ai făcut, mă?!', en: 'What have you done, man?!' }, { t: 'Scoate asigurarea!', en: 'Get your insurance papers out!' }, { t: 'Dă-te jos să vezi ce-ai făcut!', en: 'Get out and look at what you did!' }, { t: 'Mă, tu vezi pe unde mergi?!', en: 'Do you even look where you\'re going?!' }],
         stuck: [{ t: 'De ce nu merge?!', en: 'Why isn\'t it moving?!' }, { t: 'Haaaai odată!', en: 'Come ooon already!' }, { t: 'Iar s-a blocat Victoriei…', en: 'Victoriei is jammed again…' }, { t: 'Încă 10 minute și ajung la birou… mâine.', en: 'Ten more minutes and I\'m at the office… tomorrow.' }, { t: 'Claxonez eu, poate pornește.', en: 'I\'ll honk, maybe that gets it going.' }],
         green: [{ t: 'E verde, HAI!', en: 'It\'s green, GO!' }, { t: 'Pornește, nene!', en: 'Get going, mister!' }, { t: 'Mai verde de atât nu se face!', en: 'It doesn\'t get any greener than that!' }],
         redLight: [{ t: 'Pe roșu?! Serios?!', en: 'On red?! Seriously?!' }],
     },
     seattle: {
         honkedAt: ['Oh, sorry!', 'Go ahead 🙂', 'You okay?', 'No worries!', 'Whoa, out-of-towner?'],
-        bumped: ['Oh no… are you okay?', 'Let\'s exchange insurance, no rush.', 'Hope your day gets better!'],
+        bumped: ['Oh no… are you okay?', 'Let\'s exchange insurance, no rush.', 'Hope your day gets better!', 'I\'m not mad. Just… disappointed.',
+            'Wow. Okay. Cool cool cool.', 'Is this a Tesla thing?', 'Sir, this is a Subaru.', 'I\'ll just leave a strongly worded note.',
+            'That\'s going on Nextdoor.', 'No worries! (there are worries)', 'Rain, right? Happens.', 'California plates, I bet.',
+            'I literally just washed it.', 'Okay, deep breath. Namaste.', 'My insurance guy is going to love this.', 'Did you even see me?! …sorry, hi.'],
         stuck: ['Traffic, huh.', 'Should\'ve taken the Link.', 'Ah, 405.'],
         green: ['After you!'],
         redLight: ['…that was a red light, friend.'],

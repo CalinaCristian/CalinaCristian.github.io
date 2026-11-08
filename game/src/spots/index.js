@@ -420,7 +420,7 @@ export class SpotSession {
         this.tour = { stops, i: 0, state: 'walk', wait: 0, said: false, t: 0 };
         this.guide.act = 'guide';
         this.guide.sayCd = 1e9; // the guide speaks only through the tour (one bubble at a time)
-        this.tour.narr = `Follow my flag — ${stops.length} stops. G shows the map.`;
+        this.tour.narr = `Follow my flag — ${stops.length} stops. M shows the map.`;
         try { window.dispatchEvent(new CustomEvent('dmcv:activity', { detail: { spot: this.spot.id, id: 'tour-start' } })); } catch { /* no host */ }
         this._tourUI(); this._routeLine();
     }
@@ -442,12 +442,26 @@ export class SpotSession {
     _updateTour(dt, p) {
         const T = this.tour, G = this.guide; if (!T || !G || T.state === 'done') return;
         const st = T.stops[T.i]; T.t += dt;
-        const dP = Math.hypot(p.x - G.x, p.z - G.z), dS = Math.hypot(st.tx - G.x, st.tz - G.z);
+        let dP = Math.hypot(p.x - G.x, p.z - G.z), dS = Math.hypot(st.tx - G.x, st.tz - G.z);
+        const pS = Math.hypot(st.tx - p.x, st.tz - p.z); // player → stop
         if (T.state === 'walk') {
-            const wait = dP > 14; // the guide waits for the player, waving the flag
+            // (round 6 note 15) the player got there first: the guide catches up at once (next to the stop, behind the
+            // player when possible) and narrates — no waiting for a slow walker
+            if (pS < 5 && dS > 4) {
+                const ax = (p.x - st.tx) / (pS || 1), az = (p.z - st.tz) / (pS || 1), gx = st.tx + ax * 2.4 - az * 1.2, gz = st.tz + az * 2.4 + ax * 1.2;
+                if (!collide(this.spot.colliders, gx, gz, 0.3, (G.y ?? 0) + 0.3)) { G.x = gx; G.z = gz; } else { G.x = st.tx; G.z = st.tz; }
+                G.y = this.spot.ground.groundAt(G.x, G.z, (G.y ?? 0) + 0.45); dS = Math.hypot(st.tx - G.x, st.tz - G.z); dP = Math.hypot(p.x - G.x, p.z - G.z);
+                T.state = 'arrive'; T.wait = 0; G.speed = 0;
+            }
+        }
+        if (T.state === 'walk') {
+            const wait = dP > 14 && pS > dS; // the guide waits for a player who is behind, waving the flag
             if (dS < 2.2) { T.state = 'arrive'; T.wait = 0; G.speed = 0; }
             else if (!wait) {
-                const v = Math.min(1.35, 0.6 + Math.max(0, 9 - dP) * 0.12); let dx = (st.tx - G.x) / dS, dz = (st.tz - G.z) / dS;
+                // keeps the player's pace: a stroll when the player is close behind, a jog when the player is ahead
+                const pv = Math.abs(p.vel ?? p.speed ?? 0), ahead = pS < dS;
+                const v = ahead ? Math.min(4.2, Math.max(2.2, pv + 0.6)) : Math.min(2.6, Math.max(1.2, Math.min(pv + 0.3, 0.9 + Math.max(0, 9 - dP) * 0.2)));
+                let dx = (st.tx - G.x) / dS, dz = (st.tz - G.z) / dS;
                 const cols = this.spot.colliders; let nx = G.x + dx * v * dt, nz = G.z + dz * v * dt;
                 for (const turn of [0, 0.7, -0.7, 1.4, -1.4]) { const c = Math.cos(turn), s2 = Math.sin(turn), ex = dx * c - dz * s2, ez = dx * s2 + dz * c; nx = G.x + ex * v * dt; nz = G.z + ez * v * dt; if (!collide(cols, nx, nz, 0.3, G.y + 0.3)) { dx = ex; dz = ez; break; } }
                 G.x = nx; G.z = nz; G.y = this.spot.ground.groundAt(nx, nz, G.y + 0.45); G.speed = v; G.phase += dt * v * 4.6; G.yaw = Math.atan2(dx, dz); G.tyaw = G.yaw;
@@ -463,7 +477,8 @@ export class SpotSession {
                 if (this._guideBubble) this._guideBubble.dataset.prio = '1';
                 T.narr = text.slice(0, 320); this._tourUI(); this._seen.add((st.kind === 'hero' ? 'hero:' : 'act:') + st.label); T.wait = 0;
             }
-            if (T.said && T.wait > 6) { st.done = true; T.i++; T.said = false; T.t = 0; if (T.i >= T.stops.length) return this._finishTour(); T.state = 'walk'; this._tourUI(); this._routeLine(); this._refreshMarkers(); }
+            const left = T.said && T.wait > 1.5 && pS > 12; // the player already walked on: so does the tour
+            if (T.said && (T.wait > 6 || left)) { st.done = true; T.i++; T.said = false; T.t = 0; if (T.i >= T.stops.length) return this._finishTour(); T.state = 'walk'; this._tourUI(); this._routeLine(); this._refreshMarkers(); }
         }
         if (this._guideIt) { this._guideIt.x = G.x; this._guideIt.z = G.z; }
     }
@@ -552,7 +567,7 @@ export class SpotSession {
         for (const f of this.spot.updaters) f(dt, this, pl);
         try { // map + tour never break the frame loop
             if (this.tour) this._updateTour(dt, p);
-            if (this.map && !photo) { this.map.update(dt, { x: p.x, z: p.z, heading: this.ctl.heading }); if (this.guide && (this._mkT = (this._mkT ?? 0) - dt) <= 0) { this._mkT = 1; this._refreshMarkers(); } }
+            if (this.map && !photo) { /* (the drone's position while it flies — note 43) */ const dr = this.host.explore?.drone, flying = dr?.active && dr.phase === 'fly'; this.map.update(dt, flying ? { x: dr.pos.x, z: dr.pos.z, heading: dr.yaw } : { x: p.x, z: p.z, heading: this.ctl.heading }); if (this.guide && (this._mkT = (this._mkT ?? 0) - dt) <= 0) { this._mkT = 1; this._refreshMarkers(); } }
         } catch (e) { if (!this._mapErr) { this._mapErr = true; console.warn('[spots] map/tour', e); } }
         if (!photo && !panel && this.input?.take?.('KeyM')) this.openMap(); // (G is the drone everywhere — round 6 note 14)
         // interactions (nearest within reach)

@@ -1690,7 +1690,10 @@ export class Traffic {
         const L = (PHRASES[this.city.id] || PHRASES.bucharest)?.[kind] || PHRASES.bucharest?.[kind];
         const canSay = !!(this.onSay || globalThis.game?.hud?.say);
         if (!L?.length || !canSay) { this.onBubble(v, kind); return; }
-        const it = L[Math.floor(Math.random() * L.length)], line = typeof it === 'string' ? { t: it } : it;
+        const last = (this._lastLine || (this._lastLine = {}))[kind]; let k = Math.floor(Math.random() * L.length);
+        if (L.length > 1 && k === last) k = (k + 1 + Math.floor(Math.random() * (L.length - 1))) % L.length; // (never the same line twice in a row)
+        this._lastLine[kind] = k;
+        const it = L[k], line = typeof it === 'string' ? { t: it } : it;
         this.say(v, line, kind === 'bumped' ? 'angry' : kind === 'honkedAt' ? 'mad' : '', kind === 'bumped' ? 2 : 1);
     }
     /** a chat bubble over anything with {x, z}: opts.onSay(target, text, sub, cls) when gameplay wires it, else hud.say */

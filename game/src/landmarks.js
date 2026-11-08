@@ -2794,8 +2794,13 @@ function bDinamo(b) {
         line(g, -9.16, g - s * 5.5, -9.16); line(g - s * 5.5, -9.16, g - s * 5.5, 9.16); line(g - s * 5.5, 9.16, g, 9.16);
         // goals: posts + crossbar (white), net frame
         for (const v of [-3.66, 3.66]) { const [x, z] = W(g + s * 0.06, v); b.cyl(x, 0.16, z, 0.06, 0.06, 2.44, '#ffffff', 6); }
-        const [gx, gz] = W(g + s * 0.06, 0); b.box(gx, 2.5, gz, 0.12, 0.12, 7.4, '#ffffff', { ry: Math.atan2(ux, uz) });
-        const [nx2, nz2] = W(g + s * 1.6, 0); b.box(nx2, 0.16, nz2, 0.05, 2.2, 7.3, '#d8d8d8', { ry: Math.atan2(ux, uz) }); }
+        // crossbar and net run across the pitch (along v; owner screenshot: they ran along it), the net as a see-through mesh
+        const ryV = Math.atan2(vx, vz);
+        const [gx, gz] = W(g + s * 0.06, 0); b.box(gx, 2.5, gz, 0.12, 0.12, 7.4, '#ffffff', { ry: ryV });
+        for (let v = -3.6; v <= 3.61; v += 0.3) { const [mx, mz] = W(g + s * 1.6, v); b.box(mx, 0.16, mz, 0.025, 2.2, 0.025, '#e4e4e4'); } // back net
+        for (let y = 0.4; y < 2.4; y += 0.3) { const [mx, mz] = W(g + s * 1.6, 0); b.box(mx, y, mz, 0.025, 0.025, 7.3, '#e4e4e4', { ry: ryV }); }
+        for (const v of [-3.66, 3.66]) for (let t = 0.3; t < 1.6; t += 0.3) { const [mx, mz] = W(g + s * (0.06 + t), v); b.box(mx, 0.16, mz, 0.025, 2.2 + (2.44 - 2.2) * (1 - t / 1.6), 0.025, '#e4e4e4'); } // side nets
+        for (const v of [-3.66, 3.66]) { const [ax0, az0] = W(g + s * 0.06, v), [ax1, az1] = W(g + s * 1.6, v); b.strut([ax0, 2.44, az0], [ax1, 2.36, az1], 0.04, 0.04, '#e4e4e4'); } }
     { const n = 40; for (let i = 0; i < n; i++) { const a0 = i / n * Math.PI * 2, a1 = (i + 1) / n * Math.PI * 2; line(Math.cos(a0) * 9.15, Math.sin(a0) * 9.15, Math.cos(a1) * 9.15, Math.sin(a1) * 9.15); } }
     // ---- the bowl: terraces from the apron's outer edge up to the OSM outline, profile by sector
     const inner = capsule(RA + 2.5, 3.2);
@@ -2861,9 +2866,11 @@ function bDinamo(b) {
     // ---- scoreboard on the north curve, facing the pitch
     { const q = prof.reduce((m, p) => (p.sec === 'N' && Math.abs(-(p.ix - cx) * vx - (p.iz - cz) * vz) < Math.abs(-(m.ix - cx) * vx - (m.iz - cz) * vz) ? p : m), prof.find(p => p.sec === 'N') || prof[0]);
       const [sx, sz] = [q.ix + q.dx * q.d * 0.9, q.iz + q.dz * q.d * 0.9], ry = Math.atan2(q.dx, q.dz);
-      b.box(sx, q.h, sz, 16, 7, 1.2, '#1e2227', { ry }); b.box(sx - q.dx * 0.62, q.h + 0.8, sz - q.dz * 0.62, 14.4, 5.4, 0.05, '#20303a', { ry, mat: 'e' });
-      b.text('DINAMO', sx - q.dx * 0.7, q.h + 3.0, sz - q.dz * 0.7, ry + Math.PI, 1.6, '#e0302e', { mat: 'e' });
-      for (const s of [-1, 1]) b.box(sx + Math.cos(ry) * s * 6, 0, sz - Math.sin(ry) * s * 6, 0.8, q.h + 0.2, 0.8, '#6f747a'); }
+      // (2026-11-08, owner screenshot) on legs above the stand: the real building behind the north curve hid the lower half
+      const yb = q.h + 5.5;
+      b.box(sx, yb, sz, 16, 7, 1.2, '#1e2227', { ry }); b.box(sx - q.dx * 0.62, yb + 0.8, sz - q.dz * 0.62, 14.4, 5.4, 0.05, '#20303a', { ry, mat: 'e' });
+      b.text('DINAMO', sx - q.dx * 0.7, yb + 2.4, sz - q.dz * 0.7, ry + Math.PI, 2.2, '#e0302e', { mat: 'e' });
+      for (const s of [-1, 1]) { b.box(sx + Math.cos(ry) * s * 6, 0, sz - Math.sin(ry) * s * 6, 0.8, yb + 0.2, 0.8, '#6f747a'); b.box(sx + Math.cos(ry) * s * 6, yb - 2.5, sz - Math.sin(ry) * s * 6, 0.4, 0.3, 3.0, '#6f747a', { ry }); } }
     // ---- four floodlight masts outside the corners (lattice-tapered shafts, a tilted lamp frame facing the centre)
     for (const [su, sv] of [[-1, -1], [-1, 1], [1, -1], [1, 1]]) {
         const ang = Math.atan2(sv * 0.62, su), qd = { nu: Math.cos(ang), nv: Math.sin(ang) };

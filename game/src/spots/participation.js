@@ -8,6 +8,15 @@ export function activityBlocked(s) {
         g?.pauseOpen || g?.condOpen || g?.hud?.panelOpen || (g?.spot === s && g.state !== 'spot');
 }
 
+// Walking courses have no modal panel, but host takeovers must still cancel
+// their partial progress before that host stops calling the scene update.
+export function onActivityCancel(ctx, cancel) {
+    (ctx.extras.activityCancellers ||= []).push(cancel);
+    const hidden = () => { if (document.hidden) cancel('hidden'); };
+    document.addEventListener('visibilitychange', hidden);
+    (ctx.extras.sceneCleanups ||= []).push(() => document.removeEventListener('visibilitychange', hidden));
+}
+
 export function activityFlow(ctx) {
     if (ctx.extras.participation) return ctx.extras.participation;
     let run = null;

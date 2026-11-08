@@ -369,7 +369,11 @@ export class SpotSession {
         window.cvTelemetry?.track?.('spot_enter', { id: spot.id, scene: spot.sceneId, city: spot.city });
     }
     get position() { return this.ctl.position; }
-    cancelActivities(reason = 'cancel') { this.spot.ctx.extras.venueActivities?.cancel(reason); this.spot.ctx.extras.participation?.cancel(reason); }
+    cancelActivities(reason = 'cancel') {
+        const extras = this.spot.ctx.extras;
+        extras.venueActivities?.cancel(reason); extras.participation?.cancel(reason);
+        for (const cancel of extras.activityCancellers || []) cancel(reason);
+    }
     // ------------------------------------------------------------------ spot map + objectives + guided tour (notes 32/33/67)
     /** everything worth finding in this scene: { kind, x, z, label, done, icon? } (landmarks, plaques, postcard, activities, entrances) */
     objectives() {

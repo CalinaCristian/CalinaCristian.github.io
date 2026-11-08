@@ -155,3 +155,6 @@ instant open-air-deck visit award are retired. Kerry Park's city-lights activity
 Palace pacing counts continuous walking along its public-frontage game course; its endpoints are UI waypoints without
 invented marker posts. Botanical Garden trail notes are explicitly virtual at mapped rooms and add no physical plant-label
 hardware or reading-count award; its suspension-bridge award requires continuous walking on the existing bridge deck.
+Walking courses register `onActivityCancel(ctx, cancel)` for host takeovers. `SpotSession.cancelActivities()` clears their
+partial progress immediately when the host opens a mode that freezes scene updates; visibility listeners are disposed with
+the scene. This covers Palace pacing, the ravine crossing, the promenade loop and an unfinished Carusel climb.

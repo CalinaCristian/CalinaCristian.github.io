@@ -20,7 +20,7 @@
 import * as THREE from '../../../vendor/three.module.min.js';
 import { candleLight } from '../candle-light.js';
 import { photoHunt } from '../photo-hunt.js';
-import { activityBlocked } from '../participation.js';
+import { activityBlocked, onActivityCancel } from '../participation.js';
 import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, offsetPolyline, distPolyline, canvas, canvasTexture, fitDraw, obb } from '../kit.js';
 import { clockFace } from '../props.js';
 import { bucBackdrop, classicFacade, classicWalls, balustrade, balustradeMaterial, flagpole, palisade, hedge, osmPoly, cityFiller, placeLandmark, bucActivity } from '../buc.js';
@@ -419,6 +419,7 @@ export default {
         // Pace a game course along the public east frontage. The endpoints
         // are UI waypoints; no unsourced permanent marker posts are added.
         const mA = { x: 30, z: -150 }, mB = { x: 22, z: 140 }, paceMetres = Math.hypot(mB.x - mA.x, mB.z - mA.z); let pace = null;
+        onActivityCancel(ctx, () => { pace = null; });
         ctx.extras.palacePace = { start: mA, end: mB, debug: () => pace && { ...pace, previous: { ...pace.previous } } };
         ctx.onUpdate((dt, s, p) => {
             if (!pace) return;

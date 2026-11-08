@@ -14,6 +14,7 @@
 //  Activities (note 57): walk the half-mile loop (timer + steps); toss a coin.
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
+import { activityBlocked, onActivityCancel } from '../participation.js';
 import { GeoBatch, rng, headingFromBearing, smooth, lerp, clamp, inPoly, polyBox, canvas, canvasTexture, distPolyline } from '../kit.js';
 import { coinDrop } from '../coin-drop.js';
 import { meshSDF, sdCapsule, sdEllipsoid, smin, smax, noise3 } from '../sdf.js';
@@ -184,11 +185,12 @@ export default {
         // ---------------------------------------------------------------- activities (note 57)
         // 1) the half-mile loop: walk the full promenade ring (timer + steps), any direction
         const loop = { acc: 0, last: null, previous:null, armed:false, t0: 0, marks: 0, done: false };
+        onActivityCancel(ctx, () => { Object.assign(loop, { acc: 0, marks: 0, last: null, previous: null, armed: false, t0: 0 }); });
         ctx.extras.downtownLoop={state:loop,center:{...C},radius:R+8,startAngle:A_N+.35};
         ctx.onUpdate((dt, s, pl2) => {
             if (!pl2 || loop.done || !loop.armed) return;
             const previous=loop.previous;loop.previous={x:pl2.x,z:pl2.z};
-            if(!s.ctl.active || previous && Math.hypot(pl2.x-previous.x,pl2.z-previous.z)>Math.max(1,dt*6)){loop.acc=0;loop.marks=0;loop.last=null;return;}
+            if(!s.ctl.active || activityBlocked(s) || previous && Math.hypot(pl2.x-previous.x,pl2.z-previous.z)>Math.max(1,dt*6)){loop.acc=0;loop.marks=0;loop.last=null;return;}
             const rr = Math.hypot(pl2.x - C.x, pl2.z - C.z);
             if (rr < R - 12 || rr > R + 26) { loop.acc=0;loop.marks=0;loop.last=null;loop.t0=s.t;return; }
             const a = ang(pl2.x, pl2.z);

@@ -64,7 +64,7 @@ export class HUD {
         const w = window.innerWidth, h = window.innerHeight;
         this.bubbles = this.bubbles.filter(b => {
             if (now > b.until) { b.el.remove(); return false; }
-            this._tmp.set(b.v.x, 2.6, b.v.z).project(camera);
+            this._tmp.set(b.v.x, b.v.bubbleY ?? 2.6, b.v.z).project(camera); // (pedestrians: just above the head; vehicles/crews: 2.6 m)
             const visible = this._tmp.z < 1 && Math.abs(this._tmp.x) < 1.2 && Math.abs(this._tmp.y) < 1.2;
             b.el.style.display = visible ? 'block' : 'none';
             if (visible) {

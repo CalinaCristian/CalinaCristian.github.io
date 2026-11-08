@@ -10,10 +10,12 @@ p.add_argument('--audit-dir', required=True)
 p.add_argument('--source-root', required=True)
 p.add_argument('--commit', required=True)
 p.add_argument('--out', required=True)
+p.add_argument('--districts', default='floreasca,romana,grozavesti')
 a = p.parse_args()
 audit, root = Path(a.audit_dir), Path(a.source_root)
 reports = {}
-for district in ('floreasca', 'romana', 'grozavesti'):
+for district in a.districts.split(','):
+    assert district in ('floreasca', 'romana', 'grozavesti')
     raw = audit / (district + '.json')
     rows = json.loads(raw.read_text())
     data_file = root / ('game/data/bucharest-' + district + '.json')

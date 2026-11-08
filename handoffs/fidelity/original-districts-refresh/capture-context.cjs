@@ -58,7 +58,7 @@ const mime={'.html':'text/html','.js':'text/javascript','.json':'application/jso
           }
         }
       }
-      return {method:'Every source physical edge, including private and mapped passages, sampled at <=2.5 m and both 90% carriageway widths; actual runtime buildingBlocksRoad includes source holes, roof height and mapped passage solids. Sidewalks and broad clearance envelopes are not road samples.',edges,publicEdges,privateEdges,points,hits};
+      return {scope:'Runtime core source roads in world.allEdges. The separate whole-source road audit and north-up atlas cover scenery roads.',method:'Every runtime core source physical edge, including private and mapped passages, sampled at <=2.5 m and both 90% carriageway widths; actual runtime buildingBlocksRoad includes source holes, roof height and mapped passage solids. Sidewalks and broad clearance envelopes are not road samples.',edges,publicEdges,privateEdges,points,hits};
     });
     write('source-contact-probe.json',{gameSourceCommit:commit,district,...contacts});
     console.log('source contact probe',contacts.edges,'edges',contacts.points,'points',contacts.hits.length,'raw source hits');

@@ -15,6 +15,8 @@ p.add_argument('--compiler-commit', required=True)
 p.add_argument('--summary', required=True)
 p.add_argument('--estimates', required=True)
 p.add_argument('--out', required=True)
+p.add_argument('--districts', default='floreasca,grozavesti,romana')
+p.add_argument('--reason', default='finite source passage openings and reviewed roof-shape adoption')
 a = p.parse_args()
 if not re.fullmatch(r'[0-9a-f]{40}', a.compiler_commit):
     p.error('--compiler-commit requires an immutable 40-character source SHA')
@@ -22,7 +24,8 @@ root, audit, out = map(Path, (a.root, a.audit, a.out))
 summaries = json.loads(Path(a.summary).read_text())['districts']
 estimates = json.loads(Path(a.estimates).read_text())['districts']
 sha = lambda path: hashlib.sha256(path.read_bytes()).hexdigest()
-for district in ('floreasca', 'grozavesti', 'romana'):
+for district in a.districts.split(','):
+    assert district in ('floreasca', 'grozavesti', 'romana')
     dst = out / district
     dst.mkdir(parents=True, exist_ok=True)
     checks = json.loads((audit / (district + '-checks.json')).read_text())
@@ -52,7 +55,7 @@ for district in ('floreasca', 'grozavesti', 'romana'):
         (dst / filename).write_text(json.dumps(value, indent=2) + '\n')
     note = f'''# {district} final source rebuild
 
-Rebuilt with compiler source `{a.compiler_commit}` after finite source passage openings and reviewed roof-shape adoption. The exact dataset SHA256 is `{summary['dataSha256']}`. All original raw source inputs and earlier audit findings remain in the initial delivery archive and Git history; this directory adds the new complete raw audit rows, stdout/stderr, build log and unchanged-input check hashes.
+Rebuilt with compiler source `{a.compiler_commit}` after {a.reason}. The exact dataset SHA256 is `{summary['dataSha256']}`. All original raw source inputs and earlier audit findings remain in the initial delivery archive and Git history; this directory adds the new complete raw audit rows, stdout/stderr, build log and unchanged-input check hashes.
 
 Reproduction uses the unchanged raw OSM archive and commands in `handoffs/fidelity/original-districts-refresh/delivery/{district}/REPRODUCE.md`, with this compiler checkout. Current research hashes, deterministic content hash, complete source identities/topology, unthinned crown retention and unknown imagery acquisition date remain explicit in `source-summary.json`. `estimates.json` retains every profile issue and dimension/rise source.
 

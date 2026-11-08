@@ -20,6 +20,10 @@ assert not validation['failures'], validation['failures']
 assert validation['frames'] == len(manifest['items']) == review['framesReviewed']
 assert manifest['gameSourceCommit'] == review['gameSourceCommit']
 assert read(atlas / 'boundary-source.json')['district'] == a.district
+assert manifest['orientation'] == 'north-up'
+assert all(item.get('square') is True and item.get('heading') == 0 and item.get('pitch') == -90
+           and item.get('size', 0) > 0 and len(item.get('boundsXZ', [])) == 4
+           for item in manifest['items']), 'Perspective evidence must stay separate from the matched north-up atlas'
 old = read(target / 'manifest.json') if (target / 'manifest.json').exists() else {}
 historical = target / 'historical'
 historical.mkdir(parents=True, exist_ok=True)

@@ -176,7 +176,7 @@ export class Drone {
         if (g.state === 'spot' && g.spot?.ctl && g.spot.spot) {
             const s = g.spot, sp = s.spot;
             return { kind: 'spot', scene: sp.scene, walker: s.ctl, session: s, colliders: sp.colliders, boundary: flightBoundary(sp, spotFlightSource(sp)), units: sp.units === 'mph' ? 'imperial' : 'metric',
-                groundAt: (x, z, y) => { try { const h = sp.groundAt(x, z, y); return Number.isFinite(h) ? h : sp.ground?.heightAt?.(x, z) ?? 0; } catch { return 0; } } };
+                groundAt: (x, z, y) => { try { const h = sp.ground?.flightHeightAt ? sp.ground.flightHeightAt(x, z, y) : sp.groundAt(x, z, y); return Number.isFinite(h) ? h : sp.ground?.heightAt?.(x, z) ?? 0; } catch { return 0; } } };
         }
         if (g.state === 'foot' && g.foot?.active && g.world) {
             const w = g.world;

@@ -540,7 +540,7 @@ export function boatRide(ctx, boat, path, y, { speed = 1.6, eye = 0.72, title = 
         boat.add(new THREE.Mesh(new THREE.TubeGeometry(rimCurve, 40, .035, 5, true), inside)); }
     const paddles = [];
     const wood = new THREE.MeshStandardMaterial({ color: '#8c643f', roughness: .85 });
-    if (paddle === 'kayak') { const pivot = new THREE.Group(); pivot.name = 'kayak-paddle'; pivot.position.set(0,.35,.4);
+    if (paddle === 'kayak') { const pivot = new THREE.Group(); pivot.name = 'kayak-paddle'; pivot.position.set(0,.45,.95);
         const shaft=new THREE.Mesh(new THREE.CylinderGeometry(.02,.02,2.1,6),wood);shaft.rotation.z=Math.PI/2;pivot.add(shaft);
         const bladeMaterial=new THREE.MeshStandardMaterial({color:'#f2c230',roughness:.7});for(const side of [-1,1]){const blade=new THREE.Mesh(new THREE.BoxGeometry(.42,.035,.18),bladeMaterial);blade.position.x=side*1.08;pivot.add(blade);}boat.add(pivot);paddles.push({pivot,side:1,kayak:true});
     } else for (const side of [-1, 1]) {

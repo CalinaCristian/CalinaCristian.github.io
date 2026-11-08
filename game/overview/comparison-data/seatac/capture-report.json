@@ -1,0 +1,33 @@
+{
+  "startedAt": "2026-11-08T23:00:13.995Z",
+  "endedAt": "2026-11-08T23:15:39.242Z",
+  "elapsedSeconds": 925.248,
+  "source": "cdfc8fb1e4646b8a9f1ff117bfec7899881391b357a62d4bd1a3118093c5dcda",
+  "captureToolSha256": "16a1e573ce8cd5a87661b6891c328d27bfe189e9e2c8356c014a0740fab2bfc2",
+  "sourceDatasetSha256": "3c36cd6dc569eb172936f730464d263943380354c8bc444c254f9de6f62c6171",
+  "loaded": {
+    "key": "seattle-seatac",
+    "city": "seattle",
+    "district": "seatac",
+    "ms": 22753,
+    "edges": 2428,
+    "ribbons": 4412
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failedRequests": [],
+  "traffic": false,
+  "quality": "high",
+  "weather": "clear",
+  "season": "summer",
+  "time": "day",
+  "mirror": false,
+  "captureMethod": "Native WebGL canvas copied after two settled frames; actual source RGB pixel equivalence controls retained.",
+  "frameCounts": 139,
+  "coverageClaim": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+  "scopeCounts": {
+    "ring-touches": 86,
+    "core-touches": 50,
+    "outside-ring": 3
+  }
+}

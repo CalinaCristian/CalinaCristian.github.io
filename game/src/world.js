@@ -9,10 +9,8 @@ import { STOPS } from './data.js';
 import { MeshBuilder, rgb, shadeRgb, prep, mergeProps, bakeProp, UNIT_BOX } from './geobuild.js';
 import { treeGeometries, SPECIES, defaultSpecies, buildSpeciesTrees, speciesFromOSM } from './trees.js';
 import { assignSignalPhases, signalState } from './signals.js';
-import { passageSolids, clipPassageWall, passageInterior } from './building-passages.js';
-
 import { aircraftBody } from './building-aircraft.js';
-
+import { passageSolids, clipPassageWall, passageInterior } from './building-passages.js';
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -2766,9 +2764,8 @@ export async function buildWorld(city, renderer, opts = {}) {
         return { i, style: data.styles[b[0]], h: data.buildingDimensions?.[i]?.[0] ?? b[1] / 10, minH: data.buildingDimensions?.[i]?.[1] ?? b[2] / 10, roof: data.roofs[b[3]], name: str(b[4]), flags: b[5], ring, holes, c, x0, z0, x1, z1, area: Math.abs(signedArea(ring)), skip: false,
             roofProfile, canopy: data.buildingCanopies?.[i] || null, levels: B_OFF === 9 ? b[6] : 0, colour: B_OFF === 9 ? str(b[7]) : '', roofColour: B_OFF === 9 ? str(b[8]) : '' };
     });
-    const roofProfileAudit = { supplied: Object.keys(data.buildingRoofProfiles || {}).length, applied: bRecs.filter(b => b.roofProfile).length, rejected: bRecs.filter(b => data.buildingRoofProfiles?.[b.i] && !b.roofProfile).map(b => data.buildingIds?.[b.i] || b.i), uncertain: bRecs.filter(b => b.roofProfile?.issues?.length).map(b => ({ source: data.buildingIds?.[b.i] || b.i, issues: b.roofProfile.issues })), surfacesApplied: 0, surfacesRejected: [] };
     for (const b of bRecs) b.aircraft = data.buildingAircraft?.[b.i] || null;
-
+    const roofProfileAudit = { supplied: Object.keys(data.buildingRoofProfiles || {}).length, applied: bRecs.filter(b => b.roofProfile).length, rejected: bRecs.filter(b => data.buildingRoofProfiles?.[b.i] && !b.roofProfile).map(b => data.buildingIds?.[b.i] || b.i), uncertain: bRecs.filter(b => b.roofProfile?.issues?.length).map(b => ({ source: data.buildingIds?.[b.i] || b.i, issues: b.roofProfile.issues })), surfacesApplied: 0, surfacesRejected: [] };
     // ---- (round 6 notes 10 / 46) Bucharest 'house' buildings: the village-house look (shutters, steep gable) read wrong —
     //      in Floreasca / Romană they are interwar villas (plaster, low hipped roof), and a lone house among office towers
     //      (Pipera, Bd. Dimitrie Pompeiu) reads as a low commercial block. Seattle keeps its wooden houses.
@@ -3479,7 +3476,6 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         const brng = makeRng(b.i * 7919 + 13);
         const AR = !b.roofProfile && !b.assembly && !b.holes.length && !b.passages?.length && b.arch && ARCH ? ARCH.emit(b, c, makeRng(b.i * 7919 + 17)) : null; // archetype roofs do not yet support courtyards
-
         // (2026-11-08) Bucharest villas keep the interwar facade tiles but the villa quarter's warmer plasters (cream, ochre,
         // pale yellow, salmon, off-white, sage — Floreasca / Dorobanți), not the interwar blocks' greys
         const pal = (b.villa && VILLA_PAL) || palette[b.style] || palette.plain;
@@ -3737,8 +3733,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         if (!b.assembly && !b.passages?.length && h >= 5 && b.style !== 'church' && !AR && !(b.flags & 32)) addNearDetail(b, c.detail, brng, wallCol, h, y0, shop, yShop, floorH, bayW, ccw, flatRoofCol); // (flags 32: the scenery ring outside the playable area — no street-level clutter)
         // collision
-        collision.push({ x: b.c[0], z: b.c[1], r: Math.max(...ring.map(([x, z]) => Math.hypot(x - b.c[0], z - b.c[1]))), poly: ring, holes: b.holes, passageSolids:b.passageSolids, sourceId: data.buildingIds?.[b.derivedFrom ?? b.i], derived: b.derivedFrom !== undefined, minH: b.minH, angle: 0, hw: (b.x1 - b.x0) / 2, hd: (b.z1 - b.z0) / 2, h: sourceRoof ? b.h : h, ...(sourceRoof ? { y0: b.minH, y1: b.h, roofHeightAt: sourceRoof.heightAt } : {}), poi: b.cv || undefined });
-
+        collision.push({ x: b.c[0], z: b.c[1], r: Math.max(...ring.map(([x, z]) => Math.hypot(x - b.c[0], z - b.c[1]))), poly: ring, holes: b.holes, passageSolids: b.passageSolids, sourceId: data.buildingIds?.[b.derivedFrom ?? b.i], derived: b.derivedFrom !== undefined, minH: b.minH, angle: 0, hw: (b.x1 - b.x0) / 2, hd: (b.z1 - b.z0) / 2, h: sourceRoof ? b.h : h, ...(sourceRoof ? { y0: b.minH, y1: b.h, roofHeightAt: sourceRoof.heightAt } : {}), poi: b.cv || undefined });
         // facade sign
         if ((b.flags & 2) && b.name && (b.cvSign || b.area < 20000) && !AR?.signed) addFacadeSign(b, h, shop, wallCol);
     }
@@ -4150,6 +4145,11 @@ export async function buildWorld(city, renderer, opts = {}) {
                 // The source roof was already emitted at its real footprint. Do not add a guessed 10x16m canopy/pumps.
                 poi.h = sourceCanopy.h; poi.w = sourceCanopy.x1 - sourceCanopy.x0; poi.d = sourceCanopy.z1 - sourceCanopy.z0;
                 fuelLog.push({ name: brand || name, x: Math.round(x), z: Math.round(z), canopy: true, source: data.buildingIds?.[sourceCanopy.i], sourceFootprint: true, topM: sourceCanopy.h, clearanceM: sourceCanopy.minH, topSource: sourceCanopy.canopy.topSource, clearanceSource: sourceCanopy.canopy.clearanceSource, supports: sourceCanopy.canopySupports || 0, supportSource: sourceCanopy.canopy.supportSource });
+                continue;
+            }
+            if (data.buildingGeometryPolicy === 'source') {
+                poi.h = sourceCanopy?.h || 4;
+                fuelLog.push({ name: brand || name, x: Math.round(x), z: Math.round(z), canopy: false, sourceFootprint: false, reason: 'No reviewed mapped canopy at this source POI; canopy/pumps/pylon dimensions and fuel grades are unknown' });
                 continue;
             }
             // canopy on pillars + pumps + pylon sign
@@ -5460,8 +5460,6 @@ export async function buildWorld(city, renderer, opts = {}) {
     setProgress(''); const phases = PHASES.splice(0);
     const stats = { phases, railways: railStats, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, fuel: fuelLog,
         buildingRoofProfiles: roofProfileAudit, profile: profileStats, buildingPassages: buildingPassageAudit, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, landmarkSourceReplacements, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
-
-
     console.info('[world]', city.id, stats);
 
     /** calls cb(height) for every drivable surface (carriageway + shoulder + sidewalk, junction pads) covering (x, z) */
@@ -5704,12 +5702,13 @@ function buildSky(env) {
 // ---------------------------------------------------------------------------
 /** Point check for developer road-overlap audits, including a two-metre vehicle body above its road. */
 export function buildingBlocksRoad(c, x, z, roadY, bodyHeight = 2) {
+    if (c.roofHeightAt && roadY > (c.roofHeightAt(x, z) ?? c.h)) return false;
+    if (c.passageSolids) return c.passageSolids.some(band => band.y0 <= roadY + bodyHeight && band.y1 >= roadY && band.polys.some(p => pointInPolygon(x, z, p)));
     if (!c.poly || !pointInPolygon(x, z, c.poly) || (c.holes || []).some(h => pointInPolygon(x, z, h))) return false;
     if ((c.minH ?? 0) > roadY + bodyHeight || (c.h !== undefined && roadY > c.h + 0.5)) return false;
-    if ((c.y0 !== undefined && roadY < c.y0) || (c.y1 !== undefined && roadY > c.y1)) return false;
+    if ((c.y0 !== undefined && roadY + bodyHeight < c.y0) || (c.y1 !== undefined && roadY > c.y1)) return false;
     return true;
 }
-
 
 function collideOne(b, x, z, radius, y, bodyHeight = 2) {
     if (!b.wall) {
@@ -5739,7 +5738,6 @@ function collideOne(b, x, z, radius, y, bodyHeight = 2) {
         }
         return best;
     }
-
     if (b.minH > (y ?? 0.24) + bodyHeight) return null; // mapped passage: body fits below the source underside
     if (b.yMax !== undefined && (y ?? 0.24) > b.yMax) return null; // e.g. bridge piers: only for traffic below the deck
     if (b.prop && b.hw === b.r) { // small circle (tree trunk, post…)

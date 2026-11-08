@@ -80,12 +80,10 @@ import { fileURLToPath } from 'node:url';
 import { parseFiles, parseInto } from './parse-osm.mjs';
 import { footprintCoverage, simpleFootprint, uncrossFootprint, bakeAssembly, bakeSurface, touchingSolids, assemblySignature } from '../../game/src/building-parts.js';
 import { sourceRing } from './source-footprints.mjs';
-import { resolveRoadAccess } from '../../game/src/road-access.js';
 import { parseMeasure, makeRoofProfile, roofMesh, visibleRoofMesh, roofSignature } from '../../game/src/building-roofs.js';
 import { ShapeUtils, Vector2 } from '../../game/vendor/three.module.min.js';
-
+import { resolveRoadAccess } from '../../game/src/road-access.js';
 import { sourcePassages } from './source-passages.mjs';
-
 import { distPointSeg, pointInPolygon, polyArea, polyCentroid, footprintMargin, simplifyIdx, simplifyRing, Grid, assembleRings } from './geom.mjs';
 import { buildCorridor } from './corridors.mjs';
 import { CITIES as GAME_CITIES } from '../../game/src/cities.js';
@@ -729,8 +727,6 @@ function buildCity(cityId, did = null) {
             roadSourceGeometry[outRoads.length] = { ...sourceRoadGeometry(r), preparedNodeIds: ids };
         }
         r.outIndex = outRoads.length;
-
-
         outRoads.push([S(r.name), ROAD_CLASSES.indexOf(r.cls), r.lf, r.oneway ? 0 : r.lb, Math.round(r.median * 10), Math.round(r.laneW * 10), Math.round(r.sidewalk * 10), r.maxspeed, r.flags, r.layer, ...ids.map(idxOf)]);
     }
     log('graph nodes', outNodes.length / 2, 'segments', segCount);
@@ -1034,12 +1030,12 @@ function buildCity(cityId, did = null) {
         const inners = r.members.filter(m => m.type === 'way' && m.role === 'inner' && W.has(m.ref)).map(m => { bRelWays.add(m.ref); return W.get(m.ref).nodes; });
         const inRings = inners.length ? assembleRings(inners).rings : [];
         for (const ring of assembleRings(outers).rings) {
-            // Stadiums keep their existing stand sectors. Other mapped inner rings remain courtyards, associated with
+            // Legacy corridor stadiums keep their existing stand sectors. Source districts retain the exact relation and holes, associated with
             // the containing outer only (a multipolygon can have several separate buildings).
             const lls = ring.map(n => N.get(n)); if (lls.some(x => !x)) continue;
             const contained = inRings.filter(ir => ir.length > 3 && ir.every(n => { const p = N.get(n); return p && pointInPolygon(p[1], p[0], lls.map(([la, lo]) => [lo, la])); }));
             const inner = contained.map(ir => ir.map(n => N.get(n)))[0];
-            if (inner && /stadium|grandstand|sports_centre|arena/.test(t.building + ' ' + (t.leisure || ''))) { addAnnulus(lls, inner, t); continue; }
+            if (!ds && inner && /stadium|grandstand|sports_centre|arena/.test(t.building + ' ' + (t.leisure || ''))) { addAnnulus(lls, inner, t); continue; }
             addRaw(ring, t, true, rid, contained);
         }
     }
@@ -1363,10 +1359,9 @@ function buildCity(cityId, did = null) {
         }
         if (measuredRoof) flags |= 16; // an OSM/aerial roof shape was actually applied; unsupported mixed/round tags are not a measurement of the fallback
         if (outside) flags |= 32; // outside the playable area (scenery ring)
-        const aircraft = t.historic === 'aircraft' || t.aeroway === 'aircraft' ? { classificationSource: 'OSM historic=aircraft / aeroway=aircraft', sourceId: t.__id, name: t.name || '', dimensionsSource: num(t.height) > 0 && t.__hRes == null ? 'OSM height' : 'estimate', dimensionNote: 'The mapped outline is the aircraft planform. Fuselage, fin and clearance within its source outline are authored estimates; this object is not a building roof.' } : null;
+        const aircraft = t.historic === 'aircraft' || t.aeroway === 'aircraft' ? { classificationSource: 'OSM historic=aircraft / aeroway=aircraft', sourceId: t.__id, name: t.name || '', dimensionsSource: parseMeasure((t.__originalDimensions || t).height) > 0 ? 'OSM height' : 'estimate', dimensionNote: 'The mapped outline is the aircraft planform. Fuselage, fin and clearance within its source outline are authored estimates; this object is not a building roof.' } : null;
         const rec = { style, h, canopy, aircraft, sourceIssues, minH: literalMinimum > 0 ? minH : Math.max(0, Math.min(minH, h - (sourcePart || canopy ? 0.01 : 1))), roof, name, brand, flags, ring, holes, sourceRing: lls.slice(0, -1).map(([a, c]) => P(a, c)), sourceFootprint: footprintKey(lls, rb.holesLL || []), c: c2, area: Math.abs(polyArea(ring)), t, levels: isFinite(levels) ? Math.round(levels) : 0, colour, roofColour, la, lo,
             hSrc: parseMeasure((t.__originalDimensions || t).height) > 0 ? 0 : t.__hRes === 1 ? 1 : t.__hRes === 2 ? 2 : (levels > 0) ? 0 : 2 };
-
         let x0 = Infinity, z0 = Infinity, x1 = -Infinity, z1 = -Infinity; for (const [x, z] of ring) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); }
         bGrid.insertBox(x0, z0, x1, z1, rec);
         buildings.push(rec);
@@ -1902,7 +1897,6 @@ function buildCity(cityId, did = null) {
         nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, roadInfo, rampLimits, vacant, buildings: outB, ...(ds ? { buildingRoofProfiles: outBuildingRoofProfiles } : {}), ...(Object.keys(outBuildingDimensions).length ? { buildingDimensions: outBuildingDimensions } : {}), ...(Object.keys(outBuildingFootprints).length ? { buildingFootprints: outBuildingFootprints } : {}), buildingInfo: outBInfo, ...(Object.keys(outBuildingCanopies).length ? { buildingCanopies: outBuildingCanopies } : {}), ...(Object.keys(outBuildingSourceIssues).length ? { buildingSourceIssues: outBuildingSourceIssues } : {}), ...(ds ? { buildingIds: buildings.map(b => b.t?.__id || '') } : {}), ...(Object.keys(outBuildingHoles).length ? { buildingHoles: outBuildingHoles } : {}), ...(Object.keys(outBuildingCoveredBy).length ? { buildingCoveredBy: outBuildingCoveredBy } : {}), ...(Object.keys(outBuildingAssemblies).length ? { buildingAssemblies: outBuildingAssemblies } : {}), ...(unionBodies.length ? { buildingUnions: outBuildingUnions } : {}), ...(geometryPoints.length ? { buildingGeometryPoints: geometryPoints } : {}), pois: outP, areas: outA, lines: outLines, places, lamps,
         ...(rawRailways.length ? { railways: rawRailways.map(r => ({ id: r.id, nodeIds: r.nodeIds, tags: r.tags, points: delta(r.pts) })) } : {}),
         ...(outTreeCrownRadii.some(r => r > 0) ? { treeCrownRadii: outTreeCrownRadii } : {}), ...(treeRetention ? { treeRetention } : {}),
-
         trees: outTrees, treeInfo: outTreeInfo, furniture: outFurn, backdrop, ...(ds ? { scenery: outScenery } : {}), ...(outGreen ? { green: outGreen } : {}),
         ...(parking.length ? { parking } : {}), ...(treeCoverage ? { treeCoverage } : {}),
         corridor: { areaKm2: +cor.areaKm2.toFixed(2), legs: cor.legs.map(l => [l.label, l.km]) },
@@ -1912,12 +1906,10 @@ function buildCity(cityId, did = null) {
         doc.buildingGeometryPolicy = 'source';
         doc.buildingSourceSkips = buildingSourceSkips;
         doc.buildingRoadConflicts = buildingRoadConflicts;
-        if (Object.keys(mappedPassages.records).length) doc.buildingPassages = mappedPassages.records;
-        if (mappedPassages.issues.length) doc.buildingPassageIssues = mappedPassages.issues;
-
         const aircraft = Object.fromEntries(buildings.flatMap((b,i) => b.aircraft ? [[i,b.aircraft]] : []));
         if (Object.keys(aircraft).length) doc.buildingAircraft = aircraft;
-
+        if (Object.keys(mappedPassages.records).length) doc.buildingPassages = mappedPassages.records;
+        if (mappedPassages.issues.length) doc.buildingPassageIssues = mappedPassages.issues;
         if (Object.keys(outBuildingHoleFootprints).length) doc.buildingHoleFootprints = outBuildingHoleFootprints;
         if (Object.keys(sharedLanes).length) doc.sharedLanes = sharedLanes;
         doc.roadAccess = roadAccess;

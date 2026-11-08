@@ -274,7 +274,14 @@ export async function loadSpot(id, renderer = null, opts = {}) {
         const fp = globalThis.__spotsLegacy ? null : floorProbe(ctx.scene); ctx.extras.floorProbe = fp;
         // the tour guide (note 67): waits with a flag a few metres from the first spawn until the player joins the tour
         if (ctx.crowdCfg.tour !== false) { const s0 = spawn || Object.values(spawns)[0], fx = -Math.sin(s0.heading), fz = -Math.cos(s0.heading);
-            let gx = s0.x + fx * 4 + fz * 2.5, gz = s0.z + fz * 4 - fx * 2.5; if (collide(colliders, gx, gz, 0.4, ctx.ground.heightAt(gx, gz) + 0.2)) { gx = s0.x - fz * 2; gz = s0.z + fx * 2; }
+            let gx = s0.x - fz * 2, gz = s0.z + fx * 2;
+            // Initial placement only: keep the guide beside the approach and out
+            // of each actual postcard camera, without moving anyone after arrival.
+            searchGuide: for (const f of [4, 6, 2, 8]) for (const side of [4, -4, 6, -6, 2.5, -2.5]) {
+                const x = s0.x + fx * f + fz * side, z = s0.z + fz * f - fx * side;
+                if (ctx.challenges.some(c => Math.hypot(c.x - x, c.z - z) < 3) || collide(colliders, x, z, .4, ctx.ground.heightAt(x, z) + .2) || ctx.ground.nearestDry(x, z).x !== x) continue;
+                gx = x; gz = z; break searchGuide;
+            }
             ctx.crowdCfg = { ...ctx.crowdCfg, groups: [...(ctx.crowdCfg.groups || []), { x: gx, z: gz, r: 0, n: 1, act: 'guide', personas: ['tour_guide'], tour: true, fixedYaw: true, yaw: Math.atan2(s0.x - gx, s0.z - gz) }] }; }
         crowd = new Crowd({ lift: fp?.lift, city: data.city, ground: ctx.ground, dialogue: mergeDialogue(data, ctx.crowdCfg.spots || data.members), general: data.dialogueGeneral, seed: data.id.length * 7, colliders, ...ctx.crowdCfg });
         ctx.add(crowd.group);
@@ -722,7 +729,11 @@ export function floorProbe(scene, { minArea = 0.25, cell = 4 } = {}) {
     const grid = new Map(), key = (i, j) => i * 100003 + j, v = [new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()], list = [];
     const skip = /^(terrain|ground|sky|water|people|crowd|tree|lamp|bench|table|chair|terrace|stall|car|parked|furniture|sign|plaque|roof|canopy|awning|umbrella|bubble)/i;
     scene.traverse((o) => {
-        if (!o.isMesh || o.isInstancedMesh || o.isSkinnedMesh || !o.visible || skip.test(o.name || '') || /roof|canopy|awning|bench|table|chair|shelf|car/i.test(o.name || '')) return;
+        if (!o.isMesh || o.isInstancedMesh || o.isSkinnedMesh) return;
+        // A vehicle's children are often unnamed. Test the ancestry as well:
+        // a car created at the origin once lifted the Pioneer guide onto its
+        // roof, leaving a floating person when traffic took its first frame.
+        for (let a = o; a && a !== scene; a = a.parent) if (!a.visible || a.userData.noFloor || skip.test(a.name || '') || /roof|canopy|awning|bench|table|chair|shelf|car/i.test(a.name || '')) return;
         const pos = o.geometry?.attributes?.position, idx = o.geometry?.index; if (!pos) return;
         const n = idx ? idx.count / 3 : pos.count / 3, mw = o.matrixWorld;
         for (let t = 0; t < n; t++) {

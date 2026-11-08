@@ -1,0 +1,269 @@
+{
+  "schemaVersion": 1,
+  "id": "cathedral",
+  "city": "bucharest",
+  "name": "Catedrala Mântuirii Neamului",
+  "sourceCommit": "f75e7c4bd8f598a4476db05a7db155dd6590b50e",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.4259297,
+    "lon": 26.0822981
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/232332568",
+      "label": "OpenStreetMap w232332568 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {
+        "amenity": "place_of_worship",
+        "height": "52"
+      }
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/People%27s_Salvation_Cathedral",
+      "label": "Independent historical and architectural reference",
+      "type": "independent"
+    },
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "label": "Esri World Imagery — private outline/roof comparison; no imagery published",
+      "type": "aerial"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/People%27s_Salvation_Cathedral#Dome",
+      "label": "Independent height-datum discussion: interior floor versus exterior ground; OSM envelope retained in the model",
+      "type": "independent"
+    }
+  ],
+  "sourceIds": [
+    "w1282739666",
+    "w1282739667",
+    "w1282747245",
+    "w1282747246",
+    "w1282747247",
+    "w1282747248",
+    "w1282747249",
+    "w1282747250",
+    "w1282747251",
+    "w1282747252",
+    "w1282747253",
+    "w1282747254",
+    "w1283287480",
+    "w1283287481",
+    "w1283287482",
+    "w1283287483",
+    "w1283287484",
+    "w1283287485",
+    "w1283287486",
+    "w1283287487",
+    "w1283287488",
+    "w1283287489",
+    "w232332568"
+  ],
+  "sourceLedger": "../../../../research/landmark-source-bucharest.json",
+  "reviewedAt": "2026-11-08",
+  "improvements": [
+    "Refreshed the full irregular cathedral outline from OSM without reducing its apses and arm returns.",
+    "Ground collision follows the source polygon rather than strips through its recesses.",
+    "Applied the complete source-part profile pass: OSM52m nave envelope (48m eave plus4m pitched roof), exact mapped62.8m mansard base and71.8m lower drum source outlines; main drum97.8m retained and decorative crown remapped to127.05m source envelope. Exact western bell-body source polygon reaches78m."
+  ],
+  "remainingGaps": [
+    "Independent engineering/project references distinguish127m interior-floor-to-cross from133m ground-to-cross; OSM has no elevation datum, so the renderer follows OSM127.05m pending source reconciliation.",
+    "Bell dome w1283287480 has height4 despite its elevated location: conflicting absolute-height scope is recorded, not silently interpreted as an absolute4m structure.",
+    "Several secondary white-body71m and dome72m/roof:height7m tags overlap incompatibly; their full detailed vertical profiles still require reconciliation.",
+    "Dome curvature, ribs, crosses and facade subdivisions remain estimates.",
+    "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity."
+  ],
+  "checks": [
+    {
+      "label": "Full source boundary and replacement-identity checks",
+      "passed": true,
+      "details": "tools/landmarks/bucharest-source-check.mjs: source ring and replacement identities retained; full33-model check passes451 checks, including direct source-height probes and narrow source-void collision tests."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs: all 61 models pass finite geometry, normals and triangle accounting; dedicated concave courtyard, roof and height-band checks pass."
+    },
+    {
+      "label": "Mandatory foot / driving regression",
+      "passed": true,
+      "details": "Immutable production f75e7c4: npm run harness -- --scenario=foot,a --city=bucharest completed0 high /0 medium /2 low (shared-machine traffic-update21.5ms and software-GL FPS). Both scenario screenshots inspected."
+    },
+    {
+      "label": "Published game studies inspected",
+      "passed": true,
+      "details": "Front, top and oblique game-only studies inspected against source outlines and available independent reference photographs. Remaining shape discrepancies are listed explicitly."
+    },
+    {
+      "label": "Matched exterior Street View comparison",
+      "passed": false,
+      "details": "Requested outdoor panorama did not reliably provide a matched visible exterior (wrong nearby view, indoor imagery, occlusion or unavailable coverage); this is not treated as an exterior pass."
+    },
+    {
+      "label": "Complete district / traffic / mirror budget",
+      "passed": false,
+      "details": "These are isolated model studies. Paired Romana samples had unchanged findings and world-only peak1.13M triangles/296 calls, with an Arnia capture timeout; traffic and mirror budget and all tourist-scene placements require the district lanes."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study",
+      "kind": "front",
+      "image": "assets/landmarks/cathedral/front.webp",
+      "sourceCommit": "f75e7c4bd8f598a4476db05a7db155dd6590b50e",
+      "sha256": "4abaaa5d4042f8cce707d3b49f526693a04ca5dae1f3d6561f79bf857361c409",
+      "capturedAt": "2026-11-08T17:22:41.881948Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=cathedral&clean=1&fountains=on&view=street&az=-95.00192155149209",
+        "anchor": {
+          "lat": 44.4259297,
+          "lon": 26.0822981,
+          "rotation": -0.0873
+        },
+        "camera": {
+          "position": [
+            -207.0086052034265,
+            1.3,
+            -18.134917304374916
+          ],
+          "quaternion": [
+            0.09060228648030773,
+            -0.7306282525037486,
+            0.09887837419179343,
+            0.6694749057620057
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 4052.895097351074,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -76.27944350892497,
+            0,
+            -44.220915913543784
+          ],
+          "max": [
+            66.00830901340215,
+            127.05000305175781,
+            43.2879301672224
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "top",
+      "label": "Top model study (perspective)",
+      "kind": "top",
+      "image": "assets/landmarks/cathedral/top.webp",
+      "sourceCommit": "f75e7c4bd8f598a4476db05a7db155dd6590b50e",
+      "sha256": "7d747dae896a92e0a4455c63cab63cf8af3c991fc4d32a2a7025fb2861f8a124",
+      "capturedAt": "2026-11-08T17:22:44.049923Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=cathedral&clean=1&fountains=on&view=top&az=0",
+        "anchor": {
+          "lat": 44.4259297,
+          "lon": 26.0822981,
+          "rotation": -0.0873
+        },
+        "camera": {
+          "position": [
+            -5.135567247761408,
+            327.28519985975794,
+            -0.13920756420584063
+          ],
+          "quaternion": [
+            -0.70675313942234,
+            0,
+            0,
+            0.7074602461740636
+          ],
+          "fov": 45,
+          "near": 0.6545707270048521,
+          "far": 6545.7072700485205,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -76.27944350892497,
+            0,
+            -44.220915913543784
+          ],
+          "max": [
+            66.00830901340215,
+            127.05000305175781,
+            43.2879301672224
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/cathedral/oblique.webp",
+      "sourceCommit": "f75e7c4bd8f598a4476db05a7db155dd6590b50e",
+      "sha256": "889d7e27fbd0a017902a9dd64fa477309a524f505c42d679ba8306abe45818b7",
+      "capturedAt": "2026-11-08T17:22:45.525907Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=cathedral&clean=1&fountains=on&view=oblique&az=-60.00192155149209&el=28",
+        "anchor": {
+          "lat": 44.4259297,
+          "lon": 26.0822981,
+          "rotation": -0.0873
+        },
+        "camera": {
+          "position": [
+            -176.02166463243995,
+            155.73608112669794,
+            98.18700016666763
+          ],
+          "quaternion": [
+            -0.20950847893368055,
+            -0.48516195382106275,
+            -0.12096446100170101,
+            0.8402926127213022
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 4469.539295773844,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -76.27944350892497,
+            0,
+            -44.220915913543784
+          ],
+          "max": [
+            66.00830901340215,
+            127.05000305175781,
+            43.2879301672224
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 22717,
+    "drawCalls": 3,
+    "note": "Isolated development viewer render, including its ground/shadow work; excludes district world, traffic and mirrors."
+  }
+}

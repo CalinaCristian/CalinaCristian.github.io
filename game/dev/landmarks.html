@@ -99,14 +99,29 @@ function show(id) {
   camera.fov = +(qs.get('fov') ?? (street ? 62 : 45));
   let dist = top ? camera.position.y : undefined, ly = top ? 0 : undefined;
   if (street) {
-    dist = +(qs.get('d') ?? Math.max(size.x, size.z) * 0.8 + 25);
+    dist = +(qs.get('d') ?? Math.max(Math.max(size.x, size.z) * 0.8 + 25, size.y * 1.45));
     ly = +(qs.get('ty') ?? Math.min(size.y * 0.45, Math.tan(THREE.MathUtils.degToRad(camera.fov * 0.32)) * dist));
     camera.position.set(ctr.x + Math.sin(az) * dist, +(qs.get('ey') ?? 1.3), ctr.z + Math.cos(az) * dist);
     if (qs.get('ex') !== null) camera.position.set(+qs.get('ex'), +(qs.get('ey') ?? 1.3), +qs.get('ez'));
     camera.lookAt(ctr.x, ly, ctr.z);
+    // Fit every source bound in a default street study, including tall towers and long terminal wings.
+    // Explicit poses stay exact for comparisons and close-up studies.
+    if (qs.get('d') === null && qs.get('ex') === null) {
+      for (let attempt=0;attempt<20;attempt++) {
+        camera.updateMatrixWorld(); camera.updateProjectionMatrix();
+        let fits=true;
+        for (const x of [box.min.x,box.max.x]) for (const y of [box.min.y,box.max.y]) for (const z of [box.min.z,box.max.z]) {
+          const v=new THREE.Vector3(x,y,z).project(camera); if(Math.abs(v.x)>0.94||Math.abs(v.y)>0.94||v.z>1) fits=false;
+        }
+        if(fits) break;
+        dist*=1.1; ly=+(qs.get('ty') ?? size.y*0.45);
+        camera.position.set(ctr.x+Math.sin(az)*dist,+(qs.get('ey')??1.3),ctr.z+Math.cos(az)*dist);camera.lookAt(ctr.x,ly,ctr.z);
+      }
+    }
   } else if (!top) {
     const el = top ? Math.PI / 2 - 0.001 : THREE.MathUtils.degToRad(+(qs.get('el') ?? 24));
-    dist = +(qs.get('d') ?? R / Math.tan(THREE.MathUtils.degToRad(22.5)) * (top ? 1.05 : 1.25));
+    // A top camera must clear the tallest roof before fitting its horizontal extent.
+    dist = +(qs.get('d') ?? (R / Math.tan(THREE.MathUtils.degToRad(22.5)) * (top ? 1.12 : 1.25) + (top ? size.y : 0)));
     ly = top ? 0 : size.y * 0.4;
     camera.position.set(ctr.x + Math.cos(el) * Math.sin(az) * dist, ly + Math.sin(el) * dist, ctr.z + Math.cos(el) * Math.cos(az) * dist);
     camera.lookAt(ctr.x, ly, ctr.z);
@@ -127,6 +142,12 @@ function show(id) {
       projection: camera.isOrthographicCamera ? 'orthographic' : 'perspective',
       ...(top ? { groundSquareM: camera.right - camera.left, orientation: 'north-up' } : { fov: camera.fov }),
       target: [ctr.x, top ? 0 : ly, ctr.z], frame: 'isolated landmark model, +x east / +z south, metres' } };
+  // Game-only overview evidence: exact camera, model bounds and current render counters.
+  window.__landmarkCapture = { ...window.__stats, name: lm.name, anchor: { lat: lm.lat, lon: lm.lon, rotation: lm.rotation },
+    view: top ? 'top' : street ? 'front' : 'oblique', camera: { projection: camera.isOrthographicCamera ? 'orthographic' : 'perspective', position: camera.position.toArray(), quaternion: camera.quaternion.toArray(),
+      fov: camera.fov, near: camera.near, far: camera.far, viewport: [innerWidth, innerHeight] },
+    bounds: { min: box.min.toArray(), max: box.max.toArray() }, collision: current.collision,
+    render: { triangles: renderer.info.render.triangles, calls: renderer.info.render.calls } };
   if (!top && !qs.get('view')) history.replaceState(null, '', '?id=' + lm.id);
 }
 sel.onchange = () => show(sel.value);

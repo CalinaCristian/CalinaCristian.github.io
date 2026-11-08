@@ -1,0 +1,233 @@
+{
+  "schemaVersion": 1,
+  "id": "europehouse",
+  "city": "bucharest",
+  "name": "Europe House",
+  "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.4511557,
+    "lon": 26.087697
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/246115249",
+      "label": "OpenStreetMap w246115249 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {
+        "building:levels": "14"
+      }
+    },
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "label": "Esri World Imagery — private outline/roof comparison; no imagery published",
+      "type": "aerial"
+    }
+  ],
+  "sourceIds": [
+    "w246115249"
+  ],
+  "sourceLedger": "../../../../research/landmark-source-bucharest.json",
+  "reviewedAt": "2026-11-08",
+  "improvements": [
+    "Refreshed the full slab outline at centimetre precision.",
+    "Source polygon collision now preserves its angled end geometry."
+  ],
+  "remainingGaps": [
+    "The source maps 14 levels but no height; the 56 m wedge and 44/46 m body/plant levels remain prior estimates.",
+    "End assignment, tenant sign placement and detailed glazing grid need further independent confirmation.",
+    "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity."
+  ],
+  "checks": [
+    {
+      "label": "Full source boundary and replacement-identity checks",
+      "passed": true,
+      "details": "tools/landmarks/bucharest-source-check.mjs: 1 authored source rings; explicit replacement IDs match the source ledger. Entire 33-model check passes 306 checks."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs: all 61 models pass finite geometry, normals and triangle accounting; dedicated concave courtyard, roof and height-band checks pass."
+    },
+    {
+      "label": "Mandatory foot / driving regression",
+      "passed": true,
+      "details": "Immutable production ef21d14: npm run harness -- --scenario=foot,a --city=bucharest completed 0 high / 0 medium / 1 low (software-GL FPS only). Both scenario screenshots inspected."
+    },
+    {
+      "label": "Published game studies inspected",
+      "passed": true,
+      "details": "Front, top and oblique game-only studies inspected against source outlines and available independent reference photographs. Remaining shape discrepancies are listed explicitly."
+    },
+    {
+      "label": "Matched exterior Street View comparison",
+      "passed": true,
+      "details": "Private exterior visual comparison inspected. No Street View attributes were extracted and no Google imagery is published. Actual pano pose was not independently metadata-verified."
+    },
+    {
+      "label": "Complete district / traffic / mirror budget",
+      "passed": false,
+      "details": "These are isolated model studies. Paired Romana samples had unchanged findings and world-only peak1.13M triangles/296 calls, with an Arnia capture timeout; traffic and mirror budget and all tourist-scene placements require the district lanes."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study",
+      "kind": "front",
+      "image": "assets/landmarks/europehouse/front.webp",
+      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "sha256": "d3a60dfe14707b73d20ad9eb6186256c20e4319b483e5aa9a106bfe094a91f29",
+      "capturedAt": "2026-11-08T16:50:33.687176Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=europehouse&clean=1&fountains=on&view=street&az=90",
+        "anchor": {
+          "lat": 44.4511557,
+          "lon": 26.087697,
+          "rotation": 0
+        },
+        "camera": {
+          "position": [
+            84.1279483795166,
+            1.3,
+            0.6342859268188528
+          ],
+          "quaternion": [
+            0.09768947789776862,
+            0.7003261853651207,
+            -0.09768947789776862,
+            0.7003261853651207
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 1680.0288696289062,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -36.74939727783203,
+            0,
+            -31.63661003112793
+          ],
+          "max": [
+            37.00240707397461,
+            56,
+            32.905181884765625
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "top",
+      "label": "Top model study (perspective)",
+      "kind": "top",
+      "image": "assets/landmarks/europehouse/top.webp",
+      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "sha256": "cb7f96f91e66b9768ea43a0ebaee89238e649f11cf11a6603d10b6f559a0d499",
+      "capturedAt": "2026-11-08T16:50:38.771115Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=europehouse&clean=1&fountains=on&view=top&az=0",
+        "anchor": {
+          "lat": 44.4511557,
+          "lon": 26.087697,
+          "rotation": 0
+        },
+        "camera": {
+          "position": [
+            0.12650489807128906,
+            158.41329951992157,
+            0.7926992791432157
+          ],
+          "quaternion": [
+            -0.7067531394223399,
+            0,
+            0,
+            0.7074602461740636
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 3168.2675745320867,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -36.74939727783203,
+            0,
+            -31.63661003112793
+          ],
+          "max": [
+            37.00240707397461,
+            56,
+            32.905181884765625
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/europehouse/oblique.webp",
+      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "sha256": "dc13ba44a2a03d2cf29b928f0b4c3569ecf2fadc37a658304f5464d28f8ec843",
+      "capturedAt": "2026-11-08T16:50:48.874997Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=europehouse&clean=1&fountains=on&view=oblique&az=125&el=28",
+        "anchor": {
+          "lat": 44.4511557,
+          "lon": 26.087697,
+          "rotation": 0
+        },
+        "camera": {
+          "position": [
+            82.79654168366442,
+            76.06090285821678,
+            -57.25189701452748
+          ],
+          "quaternion": [
+            -0.11170709980433721,
+            0.8606628205933394,
+            0.214587342179916,
+            0.4480327060358214
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 2286.0129180045606,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -36.74939727783203,
+            0,
+            -31.63661003112793
+          ],
+          "max": [
+            37.00240707397461,
+            56,
+            32.905181884765625
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 2347,
+    "drawCalls": 4,
+    "note": "Isolated development viewer render, including its ground/shadow work; excludes district world, traffic and mirrors."
+  }
+}

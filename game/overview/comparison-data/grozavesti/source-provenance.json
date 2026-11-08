@@ -1,0 +1,3692 @@
+{
+  "gameSourceCommit": "ff70806113efe0253cf5c623c87e181bbde595b5",
+  "sourceRoot": "/workspace/reality-pass/grozavesti/snapshot-ff70806",
+  "delivery": "git archive of published source commit; capture tool is outside the served archive",
+  "files": [
+    {
+      "path": "game/FEEDBACK.md",
+      "sha256": "949ccba43b103052fc2c43bd342dc4ba192b016b726b7c77d3878da259c40046"
+    },
+    {
+      "path": "game/data/README.md",
+      "sha256": "c87c80eb7ddba3a5783b1541b2d731c5806bf0a1a67282d4ce259723f654d948"
+    },
+    {
+      "path": "game/data/bucharest-floreasca.json",
+      "sha256": "b6dfd47b1a73109c3edb279826650bc3eef2dcde33b40e4c94167d830bab3dca"
+    },
+    {
+      "path": "game/data/bucharest-grozavesti.json",
+      "sha256": "d56cbe1cef35b3370a76a37942ad129fe6e8078c432d7dcda0a852eaa05ec97c"
+    },
+    {
+      "path": "game/data/bucharest-otopeni.json",
+      "sha256": "7c4c07bf6a2973121869e241b81bcd68ab67dfa2021276045296112b38348a07"
+    },
+    {
+      "path": "game/data/bucharest-pipera.json",
+      "sha256": "ce7d048109023cf9d7779819880257283206d72511d84d2c58a3db62b3476468"
+    },
+    {
+      "path": "game/data/bucharest-romana.json",
+      "sha256": "22f1ca34ea7f7c65761347573390063be58fdf3fb03d4492bd7ed7a5fdc4f5f3"
+    },
+    {
+      "path": "game/data/bucharest-unirii.json",
+      "sha256": "14dff05bc06f504b67f6607183f8cf49cd63e4b5a38ba44f2c0121b74a360660"
+    },
+    {
+      "path": "game/data/bucharest.json",
+      "sha256": "b0e2870767528727b4d57ad4e05a666d440c8fe19620422ebde63c27d0a7b0f5"
+    },
+    {
+      "path": "game/data/dialogue.json",
+      "sha256": "02d45fbe12d81e97e38e6cd0f8d4ea8061e6d1c7475c774b3d6c5a335b70ba66"
+    },
+    {
+      "path": "game/data/geo/README.md",
+      "sha256": "34a88080c9f67b9321dfed5d5c4629b626b1eeb55996f3cfca74f5488aa71503"
+    },
+    {
+      "path": "game/data/geo/lights.jpg",
+      "sha256": "b77448f6a73cbc45ca6a04d861d8c20c96b4ee1d42758e1ba8eabc75a6cebc53"
+    },
+    {
+      "path": "game/data/geo/ne50m.bin",
+      "sha256": "03e42acf1ec84500ab3a42fbf03d065650509c8301353b6c1e645013443da372"
+    },
+    {
+      "path": "game/data/places.json",
+      "sha256": "38b7297d798f7d197a64b3123a3542e6b5b516ad1916ee8d0813492852b14127"
+    },
+    {
+      "path": "game/data/seattle-bellevue.json",
+      "sha256": "0297e6bf0ecdadb6b2670ebf1869b66f742a11ed6a900f0612b4e710b67b25a1"
+    },
+    {
+      "path": "game/data/seattle-seatac.json",
+      "sha256": "9f1a865c452ed103a2274d2058fa310a96695abcd19405056a5cc28029796007"
+    },
+    {
+      "path": "game/data/seattle.json",
+      "sha256": "d0676592a69d57c9a60501119a71a4b7f414dca5a45e7417bdd967565b93f88d"
+    },
+    {
+      "path": "game/data/spots/arcul-de-triumf.json",
+      "sha256": "2f5b5d97d83eff6f4028d651bf5960b58b9a391468aad21bd0fba01d7d6272e8"
+    },
+    {
+      "path": "game/data/spots/athenaeum-revolution.json",
+      "sha256": "02d06c4c8e8da0a1823991b4c4f14a1604199aa5e9eb533c93886f24e45f8b91"
+    },
+    {
+      "path": "game/data/spots/ballard-locks.json",
+      "sha256": "d253e09aee400be78b3ceb169d3dfde2e6dd27ca9cc748c07de5941494b9dd7e"
+    },
+    {
+      "path": "game/data/spots/bel-botanical-garden.json",
+      "sha256": "756ffb82beb1bfe52b3f5f8ecd62a6646b3eb4dce3577715790529904c2a9c2d"
+    },
+    {
+      "path": "game/data/spots/bel-downtown-park.json",
+      "sha256": "fedd649ae265d16b1eabdf3645ba2d1e78240fde7877c9bec4499ed1204381bb"
+    },
+    {
+      "path": "game/data/spots/bel-lincoln-square.json",
+      "sha256": "80cf44a87771aa1f1e4abd6768f7752e8a2ee0b44d63b34edc690e2a23414315"
+    },
+    {
+      "path": "game/data/spots/bel-meydenbauer.json",
+      "sha256": "9fa22144c37808597052316c6b3584025c8a5495818f3e93fa57c6760ecd2668"
+    },
+    {
+      "path": "game/data/spots/buc-herastrau.json",
+      "sha256": "fef3047b2418a88983804105f64e828d9e0d8dceb84932b593f5cff6992dc52b"
+    },
+    {
+      "path": "game/data/spots/buc-old-town.json",
+      "sha256": "f701782153f91d3370bb071f3064a4582af9e2b1191dd7a7c2e50b72a722063b"
+    },
+    {
+      "path": "game/data/spots/buc-parliament.json",
+      "sha256": "1eb3b9c29f716c4c1b5e0540495a94d4eb8668c7db5a87203171a6988a363f50"
+    },
+    {
+      "path": "game/data/spots/cismigiu.json",
+      "sha256": "90dcdb1f675659d4ca19f7a1b465de0376fc6baa33ca754587f70387d3c104d1"
+    },
+    {
+      "path": "game/data/spots/fremont-troll.json",
+      "sha256": "23b533fcc9a5472b1adcbfcf5eb1516ef491860d83064f02394bd09d43ed04b7"
+    },
+    {
+      "path": "game/data/spots/gas-works.json",
+      "sha256": "94609cb2f71fc51760f93fe1475026a28111d1bbe6b08b46e17e18e224142911"
+    },
+    {
+      "path": "game/data/spots/kerry-park.json",
+      "sha256": "a49e194a414a7141c21e34784467b1d975c2c03cb5c267c73a36f138cc0f6095"
+    },
+    {
+      "path": "game/data/spots/pike-place.json",
+      "sha256": "258b7415068608c386c3f5ae99dc65c2044ce63da331201972abe57f3709840f"
+    },
+    {
+      "path": "game/data/spots/pioneer-square.json",
+      "sha256": "3be8f1cf6dd45ddd213f4c6ef0b7a3a087d76a7d55875460f6dba5259393883a"
+    },
+    {
+      "path": "game/data/spots/seattle-center.json",
+      "sha256": "035e02722f88d9a2ded649c6bf835cf5b4e7fe82478893d63fb138b01e00da46"
+    },
+    {
+      "path": "game/data/spots/spring-palace.json",
+      "sha256": "9c6a2393ce540bb07338a85e07590c69a704e6bc134128dfbf793e0236707425"
+    },
+    {
+      "path": "game/data/spots/waterfront.json",
+      "sha256": "e45b04abfaca37add1142ba1592e09f620e06025b4ad31c33acb06a0515c9a5f"
+    },
+    {
+      "path": "game/dev/crowd.html",
+      "sha256": "82a66206d1da935aeda79807e751da51ffa1cdf686cd3d13deae0bebceb88591"
+    },
+    {
+      "path": "game/dev/harness/README.md",
+      "sha256": "08153a9e073375608b6820fdf35d45eab7442b98fee0d3500bbaf85af092b69f"
+    },
+    {
+      "path": "game/dev/harness/achievements-check.js",
+      "sha256": "d62a3387c4b5714efd2a2dfe45d56908e72899bdfe07cd6d22a25272a054d263"
+    },
+    {
+      "path": "game/dev/harness/conditions-check.cjs",
+      "sha256": "699b8f3dc63dd48bf7a56802d4754856cb17b88aa0bc50b2f225bbfde2ce674d"
+    },
+    {
+      "path": "game/dev/harness/conditions-check.md",
+      "sha256": "37d01118c412b3649821c0f2c8c43942c507a02fd73eea165363f8b0aa49c986"
+    },
+    {
+      "path": "game/dev/harness/courtyard-check.mjs",
+      "sha256": "ccc6fd1a5e986b566a82eb84e0581a26360b73dac8be59d30847801cf75e2610"
+    },
+    {
+      "path": "game/dev/harness/dinamo-playability-check.cjs",
+      "sha256": "8975361095a3c3adf29e9069b37ce295000fbb04ebe4f3118c1cf7f4deddd5b7"
+    },
+    {
+      "path": "game/dev/harness/football-check.mjs",
+      "sha256": "1bb009dbda4798bc11c8ce52b65f7804a896280b1e062b1fd9b978909d795153"
+    },
+    {
+      "path": "game/dev/harness/map-waypoints-check.cjs",
+      "sha256": "56f5fcc7ac70dbe5f675552c6acd1ce7aecd5a5e636d4e9c15f32cd214a9df22"
+    },
+    {
+      "path": "game/dev/harness/page/audit.js",
+      "sha256": "807bea6a757fd64cfe66ae1b4bcb75c0abba0c14b1e130855827f5204cb180d9"
+    },
+    {
+      "path": "game/dev/harness/page/core.js",
+      "sha256": "d321e40cd2e3616a8d574a7db158637e6c203fa91c7c9f460214d19b78017c43"
+    },
+    {
+      "path": "game/dev/harness/page/index.js",
+      "sha256": "0fe1ff25b943df58a0ef9c22222d73cc6728d941082f95b4133bc9b20bbe302f"
+    },
+    {
+      "path": "game/dev/harness/page/office-talk.js",
+      "sha256": "deefe3d39991c9b98dea65a66ad4c52874ea1996947b26b3be591c4f8a33050b"
+    },
+    {
+      "path": "game/dev/harness/page/scenarios.js",
+      "sha256": "3874476cf8256b6e5fa59a9434dc835d0d60ac269d8df90a83d81c955f232d3b"
+    },
+    {
+      "path": "game/dev/harness/page/util.js",
+      "sha256": "42693475c28ec5a8bc499a9ffdf0b84f096854bc8440de95a67e31212ffad096"
+    },
+    {
+      "path": "game/dev/harness/report.js",
+      "sha256": "4ae270773253e1c1087fc15fc34171e6a627ccdb6a5d0f5a4471aded8eaa1c12"
+    },
+    {
+      "path": "game/dev/harness/run.js",
+      "sha256": "8d98b228f2804a48db9f5c72809484585083fbe6fc82c8495c7f10929f910e3f"
+    },
+    {
+      "path": "game/dev/harness/viewpoints.js",
+      "sha256": "9caa55834a4482a1a2f407d1955795e6135950ba06b365378ea7a08f85598b3b"
+    },
+    {
+      "path": "game/dev/harness/views/floreasca.json",
+      "sha256": "e878cf0ab23baee030dc32f1f20cbd57e7d2478bf619506502aeea7768b66688"
+    },
+    {
+      "path": "game/dev/harness/visual/.gitignore",
+      "sha256": "da2540205d0fa9ef38105857c0628ae06b20efaf8fea7f21b862c16d7100426b"
+    },
+    {
+      "path": "game/dev/harness/visual/README.md",
+      "sha256": "6b45a569ff39e1e48d37b976ddd4bda1d10a2a5a35ac64fa9d5ac507451e1b2f"
+    },
+    {
+      "path": "game/dev/harness/visual/page/geometry.js",
+      "sha256": "ccaa5ec9051a420d9667e77253651093d268823dae344868cae4bb8ddf35e6d0"
+    },
+    {
+      "path": "game/dev/harness/visual/page/pixels.js",
+      "sha256": "d590a45bc90a0c05ce72b71b1169b092c270f0326241ca152bbd05afca72cf26"
+    },
+    {
+      "path": "game/dev/harness/visual/page/textprobe.js",
+      "sha256": "e301831d04609221fa9689643df1415a35b4af26ab61393b049269d50ca90353"
+    },
+    {
+      "path": "game/dev/harness/visual/page/ui.js",
+      "sha256": "313df8cfb1e6d08562c962ad86ccfa808fdfe5d73841cedd19a2abe97ced673a"
+    },
+    {
+      "path": "game/dev/harness/visual/page/visual.js",
+      "sha256": "6439cecbc861a11dd1d3f50e290dd295ff11e737b0b69021db0496af44aa93d5"
+    },
+    {
+      "path": "game/dev/harness/visual/run.js",
+      "sha256": "88f078c277043faead909a58db78e2ce3e3b9141340f4fc74ada8508e5676308"
+    },
+    {
+      "path": "game/dev/landmarks.html",
+      "sha256": "d9ef8dec6e9d5ecfdfb9ec16ac48382980af5b4b6f8e37d021a05cac6f911154"
+    },
+    {
+      "path": "game/dev/render.html",
+      "sha256": "434a20bd6db85d8273ed18732d4f244517b58cc70e77a3374d6335d928c731a1"
+    },
+    {
+      "path": "game/dev/signals.test.mjs",
+      "sha256": "47afa3a171e510fdcb0d315a8d98321ffc57f0b78232949f4bb0830df46c4ef0"
+    },
+    {
+      "path": "game/dev/spots.html",
+      "sha256": "397e795b7a918221be205a424a43e392af2d5e9dfe852391a9e6d0563aabf16c"
+    },
+    {
+      "path": "game/dev/vehicle-lanes.test.mjs",
+      "sha256": "7bfe61220727643e9571da9e22e50751ba12f39cb6c2ca9ecbaaa5547b2eb42e"
+    },
+    {
+      "path": "game/index.html",
+      "sha256": "5d4df919e6d8b982c212c1706ef83db96f72b1709f12391a7bb53fea633311a7"
+    },
+    {
+      "path": "game/overview/comparison-data/README.md",
+      "sha256": "99156fe4c805c0c6ad9c02b477ba7b763d7fb906e4771877ca27e8fb99de25af"
+    },
+    {
+      "path": "game/overview/comparison-data/catalog.json",
+      "sha256": "b5e75b66f82abb0c294b5cc8a780393fe08577c691f585449f6d6f092c010b57"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/boundary-source.json",
+      "sha256": "0312d241700b05b3c6a53a84ab1aece7b4bbda1241d34c4934b7ae878af35de2"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/capture-manifest.json",
+      "sha256": "2e60028650e0017dc29d693d4aeb4e74c003b5bdd151266dfd4356a2c9b2d45a"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/capture-report.json",
+      "sha256": "b60550b04a1974f3ca0169e49db5e86ce997f38e4ec60fb94028e604470c6a06"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r01-c04.jpg",
+      "sha256": "d4414b6112afd91180bcd31c29165a122e4fb9f1d41f03242198f81d5c65b5e4"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r01-c05.jpg",
+      "sha256": "d6761ba34bbf9ff85728c777c8ea4086143bbf4e3c000d46b530ae26bfea8c86"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r01-c06.jpg",
+      "sha256": "45e7572fa4bc9ebd66589dfebd4c8f296f394a2c3e0da04b2a45523010a205ab"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r01-c07.jpg",
+      "sha256": "895ce4ee26b492b769e5ec1cb49a6bded6c3d46f05a802f1423db7e8662af163"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r02-c02.jpg",
+      "sha256": "265edd7a5bc31e683be5cc988a1ce9c89e8db7329f5f77851371273a3e1f4a17"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r02-c03.jpg",
+      "sha256": "ffb6bb0a18dc149e1d04ddcb583862c10c6a83453c92edb21f517f3bf9cb2b1e"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r02-c04.jpg",
+      "sha256": "60b6f43a7fe166707b8b69ab6fb8fbfa7247b90148742c7469a6e4db5e9b8f9f"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r02-c05.jpg",
+      "sha256": "9dcda5f11d04df6baf590c3c042a69c0e02465a93326acd1e53fac72f0ac20d7"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r02-c06.jpg",
+      "sha256": "fe314442d8b691de8cf945678e8c0309760ca8db2f5180651b32aea43e9415c2"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r02-c07.jpg",
+      "sha256": "243642253e8d5def1180cc93eb91adaa0983c3a4dc4397f1f6bbf95ba15396cf"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r02-c08.jpg",
+      "sha256": "256942739c8219241f923855cd43ee205887df9d23afbf88e294cadcfe2915ee"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r03-c01.jpg",
+      "sha256": "f0a726c933dfdbdd8ad9e8feeac04645a26bf0a4ef1159f352c919f5cb75159e"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r03-c02.jpg",
+      "sha256": "15943af8c3b39d0dcb1aeb8916a4ccb4272e9bbbc965617372bd11dd30832aec"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r03-c03.jpg",
+      "sha256": "e3cdbe8afe9efa7bdb1aa480e05f27aab45ec62bc4f44834f3f6e0bc31d5130e"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r03-c04.jpg",
+      "sha256": "b178b89dfb4a2c03cbba00096fd583624358eb9f454307e65d65bbbf2d13bbad"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r03-c05.jpg",
+      "sha256": "d27ce40c5cd14131b036ccc4a81717acea8f167a2b902ab42f0c70260eb73f04"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r03-c06.jpg",
+      "sha256": "5e2f83864f86cea9b118afe684d1c15e2b40f0436c2ae570c0c55f4cf24f2cd2"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r03-c07.jpg",
+      "sha256": "cc8109d32e0d4c0ceaae732a726213d439c5c3f4bd34011ab74318ab484dbcee"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r03-c08.jpg",
+      "sha256": "34f58b34afbd3bedae42596c2e12b1467876102e7b51bba1008f4fa7631a0801"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r04-c01.jpg",
+      "sha256": "2c4c8cca77980e76f26f32c235bf58101be18ab58120b839b9326896b7323004"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r04-c02.jpg",
+      "sha256": "d277d74492e807faa3b32b70127a00b5da0e9622921ec102abe92a1c7c36aa42"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r04-c03.jpg",
+      "sha256": "9ec709de227c0d1d25d15766a1dfda83a9ccc0749294e6b737ba18540d22a2fb"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r04-c04.jpg",
+      "sha256": "a23885902a9dae078a370bd42613d2f049d49d9d3012670aa27be54ad6d12d34"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r04-c05.jpg",
+      "sha256": "e509fb7296f0e7a81e316a6346a08da05ebede9b34df901630b0452d3c5eca1f"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r04-c06.jpg",
+      "sha256": "d0ea5ab770ec5bb5edb6f8f64177983136b4a6fbbea2c13e30394b9a7993ac9c"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r04-c07.jpg",
+      "sha256": "057892976e1631f257f314cd25d81552b67abfd77aaa2aa4c2cd14b77ff488d5"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r04-c08.jpg",
+      "sha256": "25bb89416604849b715c6213b27f69df79842485f613e4792eb657a2e2d179b9"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r05-c01.jpg",
+      "sha256": "f163255f4b1b1d4bc2d18fcb1282313cd12d8f596c7c7f2700af2a5164ac8047"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r05-c02.jpg",
+      "sha256": "05cdd37cffd5358c6c8d0dd5e0699b6ed6350cacd31eea4869b4d3939ee58b6d"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r05-c03.jpg",
+      "sha256": "dc7ba62b05b25cb5ef387ace20526d1c268ec026bfa97b74b35699039e593aea"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r05-c04.jpg",
+      "sha256": "33c5040c9806b6692feff1aca6840abc466c3441d167dea932a2587d76371920"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r05-c05.jpg",
+      "sha256": "4f0b6f4992208dc6bcc7f81008b92674e82a5d46a0149c1dbc26c1368e3a9127"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r05-c06.jpg",
+      "sha256": "8b8865542a6ed54fa4ce132c8dde261cf63fde5fc0022d81b104ea2c1bfeb156"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r05-c07.jpg",
+      "sha256": "2f9db567e8d94ce40e44da7548f138e6847cb66b015ec11ac82319943105cc26"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r05-c08.jpg",
+      "sha256": "bf9fe7c2c14c1c6abb1cd23cda9eabcfb2c3f8dbe1fca17b3e135fe6f3213336"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r06-c01.jpg",
+      "sha256": "dad6708295a9216ba30ee1f21d9ffc3c0b57164fc157aaca7a8592b04a1df92a"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r06-c02.jpg",
+      "sha256": "7f7f5192babc4e17c6d1c0408856d4b13c576cf3bbb7ad682ea96db3beab0740"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r06-c03.jpg",
+      "sha256": "52821c27ee02c7ebab9c02515e485bfe1c9a6e0cc28991d054603c1cb061fd87"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r06-c04.jpg",
+      "sha256": "c256c87741951885f9b55a0a169c0314b178f624caa10b9ea9a5626fd097e9be"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r06-c05.jpg",
+      "sha256": "ba0f2ab6bbf13e62cff7b4b817424753b78df62eb920dad2b15188b9df579b29"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r06-c06.jpg",
+      "sha256": "41fe05802d8ae06bea56fb9aa5e85a4694dd88115439c749a2e9d06822e19ba1"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r06-c07.jpg",
+      "sha256": "e31e3c0e8ffd20c844c858dc5f1ddc57b891ce5152d1f54a4d12f454c2c4fb73"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r06-c08.jpg",
+      "sha256": "b2985f226b5dcab358d73be9204f7bb28e6db10afd93863a45fda8a22fdbd10a"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r07-c01.jpg",
+      "sha256": "b0e8c65c0341bf4307ff58a6edc0a92881fdcacc8042aa693161fe01fbceff13"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r07-c02.jpg",
+      "sha256": "05f657606e3f0c9f5a613ec372d191009dbbf9bfa0a0d3c90e60d9c164e9d165"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r07-c03.jpg",
+      "sha256": "b06e34df41e114c660351073d3d03641f9c5221283932651d59fcb4b43126ee8"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r07-c04.jpg",
+      "sha256": "eb6b2877062c850d0fdd8e405983780584570b227a69da06b602a7efbb8ffa1e"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r07-c05.jpg",
+      "sha256": "3ec274da9c094eadcb0499e12a4ad7e68ffdfb9c566a7941c08139f11881067a"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r07-c06.jpg",
+      "sha256": "9c92ff2bf2f09a2cfcd50fa03529f332de932a622854fcd317a78c00b7edebb0"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r07-c07.jpg",
+      "sha256": "a563a195e772d469e4ab55c974c8097988007bcd64bfb98256b6b3048b81b399"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r07-c08.jpg",
+      "sha256": "98445563bfe2065a2f26e9672a09462e404b6595b4c85dfc466b978565626634"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r08-c01.jpg",
+      "sha256": "5bd2a2b8923a180383fa38a2fa388cda2031be6eb7f0759a0ff6fae9b38fe902"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r08-c02.jpg",
+      "sha256": "5a3008e9f35e334b9a5b7494ae70b7ef59c44a52ca1e8eb69b9db38ccfd5a8aa"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r08-c03.jpg",
+      "sha256": "116dea3e6263cd878cea9cd0bd3fe3c842caeaddb4e9e1181359563226746bae"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r08-c04.jpg",
+      "sha256": "aa1cc2739e4059ed490346dd8e3bfae1f5dfa41a4894a978f9d4f48d903d145c"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r08-c05.jpg",
+      "sha256": "52f5ccc09e0a27d99078b70bec7a855fd08bc82f1c740e4aee82b87ceeeba66f"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r08-c06.jpg",
+      "sha256": "6650ae69f64013f16e309fa23cbc9267d52a609231f417383ff0954c5c86f9fa"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r08-c07.jpg",
+      "sha256": "bb4d4be7fd8eeaca1f35922ab2b5fcebd7fcd775a0bc680a72d2018c1d04c0bb"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r09-c01.jpg",
+      "sha256": "caa613298bb6e008c7f1292de701e619a4bb07333baae78109ecc3ef927bbf52"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r09-c02.jpg",
+      "sha256": "89e2e476cca13696981a3620213b7d24fdd29dbd7e8bf001e89a335012ae9798"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r09-c03.jpg",
+      "sha256": "a7f9349e5d84e024380b8ac7422e2e3104a95f1428db8de32e22e3452f6d6b7d"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r09-c04.jpg",
+      "sha256": "4369c868d7a5691aa0afafae94d9f2b025b509f80e2368a1398fd75cc15ba920"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r09-c05.jpg",
+      "sha256": "09100fa5ca0ea5cd86a8b041e87b8e2c45c7e3014f50fad7284ec0af4c0d3c2f"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r09-c06.jpg",
+      "sha256": "ac3ea83ef8ebc1024a4688fb5c10985125225f94ec438d5e1cd44772e7e42d4c"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r10-c01.jpg",
+      "sha256": "08ba66733989475c9aa4a7747faa2665265dec4b15d71cf66474a625e21efed8"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r10-c02.jpg",
+      "sha256": "5a521c6f23dcad598a695d8c43a82052adc7a76acb6f5475d539f6b07005d8b6"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r10-c03.jpg",
+      "sha256": "23ff532b076d8eb909f84e85eb499bb7fd0c306aa480235dea2b72dab6a94251"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r10-c04.jpg",
+      "sha256": "868af15bc0061a3de3685c7768b3e6955f82753960d08ba380b81b83fad6c6b3"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r10-c05.jpg",
+      "sha256": "973a83fd948cdaf340330c689e055e75c7a34e89e93c3870dbc52622b4cbc24f"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r10-c06.jpg",
+      "sha256": "3f8d84c4ca2e598cb24ec8445cb1fc3c61af1174a6930aa0a5377f94c1fad97e"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r11-c01.jpg",
+      "sha256": "40c751f51d4e732976e1c53fa5b5a324cf12b9248bec0950c498620d32313d25"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r11-c02.jpg",
+      "sha256": "1c2a06e5740decba458aa2626663257ecb620d70188585107cfe59acbfc8a31b"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r11-c03.jpg",
+      "sha256": "e9a2ca385cb318f487b6c97ab26b0372aa8cc27791596c907d40b50502def7af"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r11-c04.jpg",
+      "sha256": "cf6b104419d6a1dc6332a6c873230b13adac82ed765a1207eb9d1e85f3766e49"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r11-c05.jpg",
+      "sha256": "6bb6ac9ed0524a7e719e00838d9ea18a6822dd0ed20e5f019bade3ecd53b1175"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r11-c06.jpg",
+      "sha256": "f5bdd8de5ba5e9242c20357805f66604226d7b95d8fb558e4ce353e62f495c2a"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r12-c01.jpg",
+      "sha256": "bdf67b5261b15d7f7189fbde744a137e7a3879d915be20bb3d144ef52a8eca94"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r12-c02.jpg",
+      "sha256": "2e21b1effdb49767dff00f578d62c2b03a35512ce8747b08c8e007680c1ca918"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r12-c03.jpg",
+      "sha256": "db5e635699119abb8a5e372f345333b0b202edab243674814123daae0497467c"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r12-c04.jpg",
+      "sha256": "1afc9e84c997999a36e4a14b0ef9ee30c9cbfac6672c8fd379d0b0ba9170a43c"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r12-c05.jpg",
+      "sha256": "30312dfb46f3636da19fc101521c939f5d165126e3160623f969f7d7a242f2d6"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r12-c06.jpg",
+      "sha256": "c2e3cb9c44bd7be55d91adbc8682eb5dac6956e624fc148b5465131886117fd3"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r13-c03.jpg",
+      "sha256": "05d08651338ffa9aae0fa1870a56f1846f191d85410bc60ed9a1bfe4e7d0dd71"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r13-c04.jpg",
+      "sha256": "b2a0cf77821be1e217c98e48569c4ba6a7e799d90197b025c099d248fa22c3c6"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/context-globalworth.jpg",
+      "sha256": "f4d27d7f333561a24f6fe0a6d3bfbcdda17beb47e41beba7ef7bd0d25a4b668d"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/context-northeast.jpg",
+      "sha256": "dc8fc974f4a22400438c0ef6180a99655d17a15dbd25d263deaa41621c6b051b"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/context-northwest.jpg",
+      "sha256": "7413f9b70258ea6b953b74f590024aa5265d5e5caa23061725eccd087e050af6"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/context-skytower.jpg",
+      "sha256": "040cef4550d9c2cf175af03b3efdd9469e99d10f956e58eb2946f6adc12df50f"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/context-southeast.jpg",
+      "sha256": "3dbe9a1e673418cabf920eae91e4f81f172879f5b1eecfc1dcb17f5e5657d0c4"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/context-southwest.jpg",
+      "sha256": "c4dd3eb227e2f79a6737abcc8c2fa6205675a7874d8e1b8ecde227cc90aa3168"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/manifest.json",
+      "sha256": "859cfbde3da4e9493050a22c09e232e9d896103ea94629ba3119e7cf4c4053a2"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/source-provenance.json",
+      "sha256": "d73017ac5673de63648d2dd291081dbb11a920485f28d3a1edff2998bbbf5ecd"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r01-c04.jpg",
+      "sha256": "a881fb6679f09e16b085040e5133f53a980b6853dd0d92ea22c42b1a2b4620ab"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r01-c05.jpg",
+      "sha256": "033560edd0db735ce6b7d534c931c88c567ba6c3325d39c04c11c3a7300e81b0"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r01-c06.jpg",
+      "sha256": "9a056e4cd55b89d38ad986da7a72d52e1b91105bbb555718cb62aea384f7570b"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r01-c07.jpg",
+      "sha256": "5f5fbd08a541f59998f84614eea2d3405740f755a1828070696b9fc813ba6830"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r02-c02.jpg",
+      "sha256": "1379eb24244a04be98d03c20ff8da61435942e0aab13d0b4faf282e2920b3a8b"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r02-c03.jpg",
+      "sha256": "b6fbceed21f2c215d1d2726a9c31fd72194c61be702adb907e70e90b52e89bfd"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r02-c04.jpg",
+      "sha256": "64f04071346a51d78bda10f485a118ff0fefd73768114855e2b2d820e9b264bd"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r02-c05.jpg",
+      "sha256": "ba69a29604791fb328a11278c15a3a9aa3556be170879947ddd1226a9a41c8cc"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r02-c06.jpg",
+      "sha256": "bb5f99c624d5d5e7645ba42001b2400465c2e6dec006b58f9a4d6297dcfe5b24"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r02-c07.jpg",
+      "sha256": "ab9f0558c7e1e822948d3106448e46729051e4f28f7d2580b415ae64c6a914fa"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r02-c08.jpg",
+      "sha256": "0f16e6764c990a04e7b656ea84d52826abd90e96476250b484e6d6f0a7c6723d"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r03-c01.jpg",
+      "sha256": "6f91ed241eab5c562b31ef5a03c7cb0e62d8c7bd96b04516e5991899859dbee8"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r03-c02.jpg",
+      "sha256": "6f79c3f1aae2a9523dd9b2199cd6e23a099390c5826a905ef9f4cb80dbe0a516"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r03-c03.jpg",
+      "sha256": "d91fad0add4d8fbff2ba66dfb54f81c12d188f293b91bdc8861544bb0565dc6e"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r03-c04.jpg",
+      "sha256": "56de065b957745375cfde651adee35b9dbfd5d7e008aa2fc5cc6316f3e6d65a4"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r03-c05.jpg",
+      "sha256": "1e9abec86eee2a333794e118a5059d76b6b9c9786949026bd328d71acb7aac68"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r03-c06.jpg",
+      "sha256": "4ac96c9da550b9bd86df3ae869ba74b3c3e8e4fe9c6ab5b3095551670d8aacb9"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r03-c07.jpg",
+      "sha256": "b5e499923743c2089c78136e3ccbd4d793e7b972c09cd55a6c02278040a003aa"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r03-c08.jpg",
+      "sha256": "d5d51b1d5852ad510f9b9a7bac4f31b238c0ad3b819ffe80a148ba055261537e"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r04-c01.jpg",
+      "sha256": "4659231760fb5a24609689a6c87ebe1293ab1a121cffc5d47c088e45d1361b7c"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r04-c02.jpg",
+      "sha256": "1911881743a1cd22d4c3660952e78eaa91cbac64552d2a8c7305957dd9183f5d"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r04-c03.jpg",
+      "sha256": "0088fb6260ad10121ce1189d88e67fec648e78a2e113951959f626cb71cf7133"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r04-c04.jpg",
+      "sha256": "7c28a17f355241240946e5b7225ffe50e1358e9195cfbcce1f5a3ab7af66b123"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r04-c05.jpg",
+      "sha256": "fa18eef5a5b93c2cdc1ed5bc23d757f38d8df4c42257371aafc76b33715c0d90"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r04-c06.jpg",
+      "sha256": "efac5d3b7381dbccb947335a596a2877fb670c3fa7e47535eba1887cd1d07f9a"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r04-c07.jpg",
+      "sha256": "a2f2c1834bbe5897dfc4ad3f4fd8c86b1fcdec5872d794301833b1633ac853a4"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r04-c08.jpg",
+      "sha256": "d5bde5911fffb72136194bfe072517d63d2c95833d399f248b280e4a0d9a5bbb"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r05-c01.jpg",
+      "sha256": "c336576e03bbbed50b46a00f0308f37f5ae16a27efd671ef3c5620ffa5c73a1a"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r05-c02.jpg",
+      "sha256": "54a23e9be8e53af71372129eb66e9f72fbedce8075f89ffc1a7339b8d1c2ddbd"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r05-c03.jpg",
+      "sha256": "3d1af2ddeb34550a2d2a1c62b007e965c773fac7072df203e2bf4f34b2eafa8f"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r05-c04.jpg",
+      "sha256": "1ef2003ceb3d18515cbdb566a7388d1b551b7fb59174f406bcf2a0f2e3fa5b6e"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r05-c05.jpg",
+      "sha256": "244f7195a99a448c3bba844d18a328a5a0d6a4e1f01daed77a1497aa02841fb7"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r05-c06.jpg",
+      "sha256": "a2686f9bf4b0b012c60748c030776735b5f1e6e32322e87718ba039009518cd8"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r05-c07.jpg",
+      "sha256": "72093ee6c1ada72005332a7b5e172773e9c227e35908999a06fdedf2877aa4cf"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r05-c08.jpg",
+      "sha256": "b8b4ba888d87863c3430cbe77df8da4b460fb8f2a099c3cd25f33c9678fbecb0"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r06-c01.jpg",
+      "sha256": "95c1122bb5578919109fdf8a56771d7f92539db43f583a15230612317d248c14"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r06-c02.jpg",
+      "sha256": "e421caf64d39e8f26a98d46655781050773b61d63a936862a5ebde571a8bf422"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r06-c03.jpg",
+      "sha256": "4df2ce3070435ccd7908b1690f18e47ec9a8852d21374e654a346678b5761adb"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r06-c04.jpg",
+      "sha256": "62b7e439ab8e7d2e7761854f5b59471b328ed37db795529e69041d68e154eb76"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r06-c05.jpg",
+      "sha256": "d0571a7b8bfb21cd1f3b1b4aba372d098f79fb688e844c9fc1a17c35682fa535"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r06-c06.jpg",
+      "sha256": "9e3e7a6b3909cd78e8515d09a8846ce9a8c5fe0a36ae99d97a61845d841300fe"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r06-c07.jpg",
+      "sha256": "de4ec39cffcd910348d268e01bfcdad21656475731c21a94b61c71a9ab19535f"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r06-c08.jpg",
+      "sha256": "25df18202fb19116c9d8286dbc4cedc3d6452531f5e3b631fa4d2b786b0e37f8"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r07-c01.jpg",
+      "sha256": "1f06ded14cc81ce9a66000bf42bc910bd83784beeca51799aab1ae1468267ca9"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r07-c02.jpg",
+      "sha256": "c0de022463cccf72390a3943a549d67e41f7c1caa5ea197f0557d0827e283047"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r07-c03.jpg",
+      "sha256": "8a81e08191f2bfa70800ed1290e50025ad2574a94f58af058568a79828e5cc75"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r07-c04.jpg",
+      "sha256": "b05a46ba2631c450a0a36d7cb48b4074be66af5253c6e0a540bf7f9dfec03e1e"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r07-c05.jpg",
+      "sha256": "1c8a1e7c365c57f48e64610353aee8f02b931a7de839bb909ff6a1e05c2c258a"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r07-c06.jpg",
+      "sha256": "bbda6d4af3202b6b0fdbca137bca9dcef94909e6bf498007272b9353b42ba54d"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r07-c07.jpg",
+      "sha256": "4ae241abcef2e41c0fbfbf67ad57ced732f3e1eecf6ac3573874c59af71c0dfe"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r07-c08.jpg",
+      "sha256": "927f4ead9fe9456a944cdd2be1f58fdbe576f3db6d5f7f864a41b2e2eebf2158"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r08-c01.jpg",
+      "sha256": "cfb8c529c1d149aa7fd6bb26c64cc27a36def9f3041bfafeb83603afa89ca27b"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r08-c02.jpg",
+      "sha256": "296beb204b4bf9015f376aa556b5c8e393821c5ba33451e0ebf8730e5458cbca"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r08-c03.jpg",
+      "sha256": "9618a36b7d4fbf400a017c2c476e449731d986d320dac8d1d0ec7f91ad99bce1"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r08-c04.jpg",
+      "sha256": "6ff49bd8f392a4232d555724a81d94934f9ef039bcd5c486f400fc53c02fb367"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r08-c05.jpg",
+      "sha256": "719924f2b5c2f35ee2253e6057d80462b4b545721a5e45d36c30af7ede46e3f4"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r08-c06.jpg",
+      "sha256": "eddd819e3a1f9c4d331b139f208a25b885ab4a8a734ff7927f2c8e00f60fa8ee"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r08-c07.jpg",
+      "sha256": "e357f9780c19ca735afcc03020952fda5de2bd3cf7528d6abf8927d84e4ecbae"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r09-c01.jpg",
+      "sha256": "257141f6c5a9b17d16f91c3b4c6a84aba1671e3973de147dd75046b8ac46a769"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r09-c02.jpg",
+      "sha256": "72c4947dc40ee165090188f0dd4c127f26a94d25d9de1d136820cb3186a51fef"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r09-c03.jpg",
+      "sha256": "ed2738b1344a28b66dc04d67d94748f74c5421b4df3e881927ccbce2e2cb6110"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r09-c04.jpg",
+      "sha256": "5cfcde0649e3bec6f9d0f62afeaf24751196403e6cc599e8ab826b8a2fd8395d"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r09-c05.jpg",
+      "sha256": "b2695f7e9b240f8389ca1f77af607ac981969066609e72924759cdbf7548bba4"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r09-c06.jpg",
+      "sha256": "3d84142484cc08011c608e556b13e06fbd22abf5e4391983698f96ec66cd6184"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r10-c01.jpg",
+      "sha256": "824029dd148b0a953e63e58fe69d258260bfdb90a0acacc4fd702944288410ca"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r10-c02.jpg",
+      "sha256": "d4b46eb95858fd7f79587dd7fe3b569c71009df571b4f16f35be9642af11439d"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r10-c03.jpg",
+      "sha256": "a6ed49c644f101687a046820c80c49228bb0a9c601bbcddf979c9d6e1af84fa6"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r10-c04.jpg",
+      "sha256": "52d17141bce57ade0439734b65d1863d599d0ff345fae22f2f2f94f50592fabc"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r10-c05.jpg",
+      "sha256": "228238107d6cbb1e3b1c1d3e5505eee988e2c0a62368595dfc84ea86f3fd4f5d"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r10-c06.jpg",
+      "sha256": "44177cf551f4767e0ee8dd280e1da007fbf227bb6a19f3fc57662e1aa329145b"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r11-c01.jpg",
+      "sha256": "7ef8f99a74260c4bc72079ce9a9f4f03ef407fd99207473458382c915944278d"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r11-c02.jpg",
+      "sha256": "185fd352ca5dcfe726f584985a23a57e62b46171eb759c1d24ee25d081df1403"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r11-c03.jpg",
+      "sha256": "8cad4e2b2956e11abe78516de485d37ef7579afe9e931d48731ba9caddf07e52"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r11-c04.jpg",
+      "sha256": "0bbf2d76a26dead8ae74b5ff6383cbb2d510a9b2bf2d7382ed891730a49118b8"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r11-c05.jpg",
+      "sha256": "ce8951c0f555ad49560f1f4c64195342f1368b237586b90e3b520525724773c0"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r11-c06.jpg",
+      "sha256": "ad8f52f8d387d238c9dbef17551520e569986db9b8364705ae53dfc8c467dee9"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r12-c01.jpg",
+      "sha256": "c368fad6b620787c757fea6f104e4141889a3f09e9b063c9cfb8f4ea438b7246"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r12-c02.jpg",
+      "sha256": "f3f5d816d39a269ef4db1d45155ad35981ca7ad7e7856c648b89c54a584ca02f"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r12-c03.jpg",
+      "sha256": "e5819343312e1768c8b294518b8570ebd908d70fc1374fb5856043e0d48f9af3"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r12-c04.jpg",
+      "sha256": "b9b527775cb19305de78a4253787a847a29722631c41947053a87cef113780e4"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r12-c05.jpg",
+      "sha256": "aa7bd91279d54eec393558aa241d5f4e4a2730269c798e2c3496a401835e778a"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r12-c06.jpg",
+      "sha256": "cfdde0d138a55dfc0dda3b85727b0232585c6f58da24985a3ebe08b3b60e3ca1"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r13-c03.jpg",
+      "sha256": "5ac0e1c31aff4e42cb177f883267b90f3c487e833d0f51a57da211474ba2ed38"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/aerial-r13-c04.jpg",
+      "sha256": "d24630835e2b868ff0fc463dac66e88aeea357021c42d8e29c7118f815a259fb"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/context-globalworth.jpg",
+      "sha256": "1b47f385c0e65b021f66f6ab3f5bbe0d9cfab08bafbd47a03d31462ebd43fd4a"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/context-northeast.jpg",
+      "sha256": "b3f2132b90d1658d21ad5bfa6286282eb7afb09d43bc640b3b0a75cc77368c39"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/context-northwest.jpg",
+      "sha256": "9d5f3254e93cafd64758f5d9ac87cabff3a0b944e43ae1add7fa5d8b5be704f6"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/context-skytower.jpg",
+      "sha256": "3c2f4634d3661dd48d744e10440b221e2e2d3424501afcb4efd8c98e67105d0d"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/context-southeast.jpg",
+      "sha256": "27352e26fe7b43e4b317a6180fa2390ce48534304cd181265243968978eb337d"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/thumbs/context-southwest.jpg",
+      "sha256": "97287be4f238c065929d62e3b403e35a004eac9b3a5ab53d5ebbf6a192345702"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/validation.json",
+      "sha256": "ac336a583bcbfe339b79921473c5afcd26f8260ba5ef59d470de9cefd251e9a7"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r01-c01.jpg",
+      "sha256": "28ba32065427b7a31bcdf2a7c58faa236e44f4e90b166c247b078ed903bd10a1"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r01-c02.jpg",
+      "sha256": "ec9781604cd1ebee5afd29933778b2ae6647cc727271acc50653efd7afe5004b"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r01-c03.jpg",
+      "sha256": "25f7374104dab84b6f84bd178cef9862302e9bdde40c2ec2a5cb815d6f88ab36"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r01-c04.jpg",
+      "sha256": "af3757a74b49abebfcb66a4ba16969c90705ea21e71e24291bd53a81c6f8babc"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r01-c05.jpg",
+      "sha256": "23d9c8dbf8feb6c1cd9c60950227781837ae3061bdce032d4bf36fcc98a31ef1"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r01-c06.jpg",
+      "sha256": "1cc64d10b02b4ee98d6dd8e1e6cf711c87c147a5cc5c843e7a26cdf39fc56a79"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r01-c07.jpg",
+      "sha256": "7efefcd9a9f8ce930b2db716531c01a509fe3d397ff73e5e3e4788db27ef707c"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r01-c08.jpg",
+      "sha256": "1eeabf91a4a7dd2c703c96c7f34bf27f81987eb439976504a03f333c776234d3"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r01-c09.jpg",
+      "sha256": "dad1a09a78da8ad197edd97c03ab528e426b37a4cb2719dcc47042cb3f9f279a"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r01-c10.jpg",
+      "sha256": "5db83893347ef3d075fb5c4843b4a1cb81d3fe831a531972e2499f5b56b8bae2"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r01-c11.jpg",
+      "sha256": "3922b8029b9539cf55104b660ac488725cd5085316e8fa02b56690e23e40cbd6"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r01-c12.jpg",
+      "sha256": "eba7a3b4b3b1c324e8ada1a6e9933105b50a66f95c9a1c2821bcf7065831ec75"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r01-c13.jpg",
+      "sha256": "8fd05f2b09aea06c51cd3785f809a894ab55d8ca5027c88eccb13adfb932845e"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r02-c01.jpg",
+      "sha256": "ca1031bf0ff984f3d1611771c706766e46491b955c3acb06a5bf26423475f3a3"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r02-c02.jpg",
+      "sha256": "bea87de069a565ed4ef92c71110c9ba630fd141dec04d775e15c7d2f104fe12b"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r02-c03.jpg",
+      "sha256": "4e1af3aa69a9eb2019f703166269de53e3ed21deca942b5faef66235d8db8810"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r02-c04.jpg",
+      "sha256": "df87c9570f895ea254c17ed8c30fa9185eb8ea23b2463cf38377d9623cecc205"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r02-c05.jpg",
+      "sha256": "6405bbef83f5cdbd1e51a3a9e2084277e64d4043fc90ca3ecec392bb475889b1"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r02-c06.jpg",
+      "sha256": "8b6ddbef6bf5d7568a1d3206e75ab3b594d2a13627cf178a4f18391273a854c6"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r02-c07.jpg",
+      "sha256": "51853afbf76e6b65f12ff8a8333e96040585a51501892fab896d46f1c8341f98"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r02-c08.jpg",
+      "sha256": "1e24aa4c05057ec4374d7eb5c717772afd08a6abd5e6697aa757e5f4bc56b8e4"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r02-c09.jpg",
+      "sha256": "4e5f875f73dde8522abf396fcf39d0064d64b3243d0ffe1375d20ba4c85acdba"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r02-c10.jpg",
+      "sha256": "953c411fc7d2f21e59d5188313bf2c73fb30903fd7799c1ddeb918dc3f525c0f"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r02-c11.jpg",
+      "sha256": "0b98e6ded884d82625c54133edf9974a3b28c41afd28e791a71b811aed4c3130"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r02-c12.jpg",
+      "sha256": "9c9401abe48caf2c3fd7f9cfdd610b6c7278820b6de2113c0a3066be4306a71d"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r02-c13.jpg",
+      "sha256": "50b3469ef38a6befb1f98644fa70a7d59164c26a137120e420e148e23cf37680"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r03-c01.jpg",
+      "sha256": "79508529181645aece8f1a7f3977ba4cc3e742f031a0f73eacd159978444108e"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r03-c02.jpg",
+      "sha256": "ca5af27cb5d2eaa7ca13e3a5991dca87b9c853ad0770267289606f92d3b2aaa2"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r03-c03.jpg",
+      "sha256": "98bbd58e5086b5124ff46406d8b4f3e75f499200da721f9cc2617b44f4cb4850"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r03-c04.jpg",
+      "sha256": "502f2058df4f7d33d974a7d283195ca5265d571ba2197914c3c90127f42ccbf5"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r03-c05.jpg",
+      "sha256": "6efcf788f9071cb946b5cdfe91bd1789c6c5553323173b4c3f2f48181408a0a9"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r03-c06.jpg",
+      "sha256": "62b85797982b339b65268fe225b9c120c22a591b0464e91a9c31f93d2646bfac"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r03-c07.jpg",
+      "sha256": "239c210bebc263a19dc345fe6b43e8b7cffe320b0aa7fc5d03e467cff90df0c4"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r03-c08.jpg",
+      "sha256": "7cf89d9d705694d21abc6a82598f5c2462a91e3e9a9385a562027ea03b0d8eb1"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r03-c09.jpg",
+      "sha256": "43c71614325b0bf255a764c338ff9836e4de1430a810c00e20b11a502f072f6c"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r03-c10.jpg",
+      "sha256": "7aca580f29498512aa39c6398f01df1fe93044c2ee536b5861ae0d20b1d96979"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r03-c11.jpg",
+      "sha256": "f927fa4e6c6a53b1ba37974781e1684ae97cc7df58f9f61113ec591dc9d4bd76"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r03-c12.jpg",
+      "sha256": "df34a08dc18d7e6bf9a1863718e47341755f2f696b0077d7a923b78acb3088d8"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r03-c13.jpg",
+      "sha256": "6d11f5d09ac5e6be2bf5b908c587b3a612f5daecaec66b2a4e45b0f9ad93c8fe"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r04-c01.jpg",
+      "sha256": "1dbcb4a79083a5fdeecc51ff32350f2500a8a10a5e927228f6f3276a43d95959"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r04-c02.jpg",
+      "sha256": "552b2799e0efdb1bd5f55d3cb02425fb93a3684146d64b383d38c412b23f95c2"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r04-c03.jpg",
+      "sha256": "6802818e14c94ceaec6def763a78f7aacc155e297134ac7d8c9bc560f25c90e4"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r04-c04.jpg",
+      "sha256": "01c33c2538df4b68c44c5cc7cb9a5efcb19883cb48225c01386b2fb3e760f4bf"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r04-c05.jpg",
+      "sha256": "0076f52b74e5aa4de90958946b14924d2645f9bf61176dfb17b32b7a96fd9a05"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r04-c06.jpg",
+      "sha256": "989f00667a4a1004b057fe39db2cebe3c9ee8f2d9db506075885b5b53d0f57c1"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r04-c07.jpg",
+      "sha256": "6dd6036fa9010bf41a3188a83b26e228effd5ba5e32809a58edf6eb046ed75d7"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r04-c08.jpg",
+      "sha256": "b0b18fc2f2be3b2a9f0ea19e8faf869651f9b36dfb281ca6e6895e5c9d924869"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r04-c09.jpg",
+      "sha256": "ff2ed7fb6f02777ac2da7e27be7ddaefa111e982b3cad470b424fde65fefc40c"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r04-c10.jpg",
+      "sha256": "2f3cd44b3bec34aeaad590f9a7a628882025319ea4e60a64afa04a2d5318ec46"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r04-c11.jpg",
+      "sha256": "173df888a11ab05773737e1dc84f220a6a2b0d7237863db23a5f24ec7105b9d4"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r04-c12.jpg",
+      "sha256": "f4bf2a340691376e70d4619eb26d29e7c390dfcf515b2fe3ead915dea4937ac3"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r04-c13.jpg",
+      "sha256": "4e99af3dca44365d9d30d74b40a5c128fad71bfd54cae2877444fe425bfdbd81"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r05-c01.jpg",
+      "sha256": "243083b7821dfe35cd265af8b3acddfceae795f71c53cb0cbbf29024291c6b05"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r05-c02.jpg",
+      "sha256": "860ad3b6a9b4ff71f6c1d7bbaafd1ed4c48bf8d2918f1b973e313a2b409e9c8c"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r05-c03.jpg",
+      "sha256": "0297b6c0aa3b27ccbd6d21b478ae59930b45773dd4cdc219acbb3c1b5141d698"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r05-c04.jpg",
+      "sha256": "a3042921bb54f9ab76e52c7a1707ef5b1676cbf67f94a2cc79ce6e837af3e501"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r05-c05.jpg",
+      "sha256": "7ddc9785f465a256e5ec0876240345114520953f43fac4d9af33863248bd8417"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r05-c06.jpg",
+      "sha256": "9f136560cd0dde7084c091117aa69170f2cd2a109179c81dc8da1cf6fd28d517"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r05-c07.jpg",
+      "sha256": "efc17a53aa95b27a500dea0caf7a67b66c9f5c2001f2abb6e6f0b7ea1ef7d44c"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r05-c08.jpg",
+      "sha256": "ce15eb8390f1fa4607764d3a38dd4bcba143d50a150e5ee53a71d5bf912c9fce"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r05-c09.jpg",
+      "sha256": "69fc72853cc9aaa89027c80fc9c49d69e2b52e38663804747bff4bb9c3d7cba8"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r05-c10.jpg",
+      "sha256": "75c50f707e0654c3d3073df338dd49c013c342970278a94c52533c50abc51201"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r05-c11.jpg",
+      "sha256": "be570ea7c8aa30028036303383f8e6268633548252e47bcd01eddf16cba070bc"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r05-c12.jpg",
+      "sha256": "d05edaf267aa4b35311faf101d8092aca00e84e0120a52f4502747aeb78f7c18"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r05-c13.jpg",
+      "sha256": "bfc8a5c892fc307a48c54ef46fe802d301d2fa41479f2d4bfb1537a98a395517"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r06-c01.jpg",
+      "sha256": "ccf6f184a6652389a60d4664150aa09131c2e92d8bd0af2061c32989397e7265"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r06-c02.jpg",
+      "sha256": "3e4acbf4bdcdad0c896be96cfb6a3fab08dd89acefac389c6dd864a1ab738cf4"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r06-c03.jpg",
+      "sha256": "e0cdaefd62b9ec4622ceb374d65d1377d4c548b45b8176ad417dab9f31ed0450"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r06-c04.jpg",
+      "sha256": "8ce1c1beb60aa5c65e324fcc7a0e7d751c77ea7b68b07428a77dd206310bbbc3"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r06-c05.jpg",
+      "sha256": "7ea9c8ea5a0b21f23be8b6d07efc1002a3c4051039710b212e3c1e09b6a56776"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r06-c06.jpg",
+      "sha256": "e4b8983b01e15c2323e49669391eb35381fb612fc85aa40f9790cf667731f544"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r06-c07.jpg",
+      "sha256": "ce4846fcbadba2ee1bf09ab757392ad58ef2c2d204501385f5430c0858b9054f"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r06-c08.jpg",
+      "sha256": "438224ffff160ea7de4a1840ebc3872293245ecd561980befd746d8503d49fd0"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r06-c09.jpg",
+      "sha256": "491eacbc2fcc9aacad409293fe7292f8d094dc0b9143b2a8659c2b37217d995c"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r06-c10.jpg",
+      "sha256": "667f61c1e82129145ecae8b15ba7c934b2d4043fa0bbffae6db9a47ef9a1f9ba"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r06-c11.jpg",
+      "sha256": "fbcedd6b65b5849174b6406801fd7ca30ead8d10a6bd65861d18ed33841f27a7"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r06-c12.jpg",
+      "sha256": "9bca407c8949c521ded6bcc250d8269584700fd7ea2def9f9df77be4c1e67f27"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r06-c13.jpg",
+      "sha256": "d58150976c44d29b87899ec3160305ca0fb108b929f6771a16cdbc56b47972f1"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r07-c01.jpg",
+      "sha256": "369ddc49e1a79f4260ea85733c3676cdc134ba4017fba4da6e702bc7476a0f7f"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r07-c02.jpg",
+      "sha256": "aea2bf793cb6a7008d81b6159713b130b1f9ef89ff5165e7f2bb1d3e6f695189"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r07-c03.jpg",
+      "sha256": "a72f5a7aadb990bb8aa996d71c0fde7df2539634e3c85208e36e4d91ee9109f8"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r07-c04.jpg",
+      "sha256": "4ab36f36f71f15069fd8ca9dd5f08a56268c65322a01aaeb74607470bdbc09d4"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r07-c05.jpg",
+      "sha256": "48fff386c7335d7bc3f42ca68630a1c3871dca8b3ad5cd16f234fefa1f1eedf6"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r07-c06.jpg",
+      "sha256": "fafe78c977e32c304b772a91a5737dcac49ddbe7c59ff2c6b39612e0caba950f"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r07-c07.jpg",
+      "sha256": "e8147e02a6b8c81233476f9eb9a254e2e63ed26165f9249a797bc4c1d7bb5441"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r07-c08.jpg",
+      "sha256": "0fff831d1c24e8ca3322b1bec88042df6b3bc32c61fd6f08f47495f4ba81b83f"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r07-c09.jpg",
+      "sha256": "084cbaa15a5e8ce506314dd6d692f7687b5a0ec28c52c0ea5e53ccce8d0f568c"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r07-c10.jpg",
+      "sha256": "36a347c504b2f68a586141eb088ce83c1700f10eda394ae9c98db288cff3cf40"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r07-c11.jpg",
+      "sha256": "d2cc2b341bb6f77b76e5ebedd0b35156ebdb6685874b5f6f2d56d28e9e5720d6"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r07-c12.jpg",
+      "sha256": "015131289030711ebdfbc9464e245fa33b67098ed35b153f53cdf92fb6f8b15c"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r07-c13.jpg",
+      "sha256": "58524b0dd60fc42787f4a3ad34893b9181885e1acd07bb8b5923e2975b3f7307"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r08-c01.jpg",
+      "sha256": "0bf0f0b43aeff78c6036de8d923290e60b7303938af3cd23db1a8e5f3965755f"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r08-c02.jpg",
+      "sha256": "a040e5a2c889dbdb86d2d757d4add77a26fb83de0ed3daf0e02aae813cfeffc3"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r08-c03.jpg",
+      "sha256": "696cbbc89cc50d89c70954d2946fedae1154ed50727dbca433382abaffad3fff"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r08-c04.jpg",
+      "sha256": "31681fbe528989529b3a4eee00e5b1b3aefb7c45e99a4b9a1856eac15ef1ed04"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r08-c05.jpg",
+      "sha256": "638ef49544cf01887f0fb3fdec8d8fc48d8a6ff69a6e829fed58c523b6479ec1"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r08-c06.jpg",
+      "sha256": "751be9dde4a86d98cc1284a09569258e98be646ce712b6808919213de3233b5a"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r08-c07.jpg",
+      "sha256": "d4fe8712812f164ed6d14a4fa8895caee67ebfd13418fefee307ac198f04e3b6"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r08-c08.jpg",
+      "sha256": "492e65726c15665a787561cc862380cd7912191e96f5e5aeadf3d02491b17130"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r08-c09.jpg",
+      "sha256": "62538cee303334399aeb3ddd6410bdc91db121866eace8d745feba54e6d1cfd6"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r08-c10.jpg",
+      "sha256": "8650557433209689fb14e05d2f430672a56a3a75cf2d831afa3eddd61486e2af"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r08-c11.jpg",
+      "sha256": "bd5319d1e9e207f6daa31961ea75e5d5dcf9a3b962936b2a0f548d27870af11c"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r08-c12.jpg",
+      "sha256": "5a024fd62b2720419072d45a32b386dd09ba4d1e97f4c2713658359b703e2750"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r08-c13.jpg",
+      "sha256": "a467f43e466e24857a37606860a3ebb31c429fc6719ed5412792278eb866d478"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r09-c01.jpg",
+      "sha256": "28a0d5a7f68e925be3c859a4d28ef1e19647d55d30ec97321dad67054da81ebc"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r09-c02.jpg",
+      "sha256": "facc51d6335960a3aa5638b875f9192fbfdcbd722fac3748ad95691e7cfb0074"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r09-c03.jpg",
+      "sha256": "b23a645bd736171646f94c4000584271e4aeeb1066b30bc868295810bf018532"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r09-c04.jpg",
+      "sha256": "7664f240367adc22946df3b5515c27fc0170510afe3b78a763a736f0dde58cf3"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r09-c05.jpg",
+      "sha256": "500ec93db168ae549e5199af5d69f110e51146cce6910236ef904c476ff6ab3d"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r09-c06.jpg",
+      "sha256": "87bbdcf01ca25d654b417003aebc6b9ecd987920ba2e8955103de59a9b38ffc6"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r09-c07.jpg",
+      "sha256": "7a467ec731062f13af72483b22e6f2110ade0d1560d7497d4c2cf0578d7eefab"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r09-c08.jpg",
+      "sha256": "2b36f2d62cd616fa49bd01ae2528d80a36473471d5adec529f60172e003138ad"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r09-c09.jpg",
+      "sha256": "4528b01dce89e733f4b80d1c3ad063c8a1719016964e4dc291bbbaf7ab068afb"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r09-c10.jpg",
+      "sha256": "847b54173909b0af193e424beeb512b335744d1a907f36732e188827ed5dd8f6"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r09-c11.jpg",
+      "sha256": "4fbf9de831f3d59182f9b3a4c5de1399f8cb8c99f896e306a166f4de11680208"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r09-c12.jpg",
+      "sha256": "895a1cb5404c34a1d0cd00160bbbf34406a5c7eb53e794da57ae33938334b8f4"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r09-c13.jpg",
+      "sha256": "76b3956ed8255566bb1d67dd055978500ddf527874692a41617caac8935ee8f3"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r10-c01.jpg",
+      "sha256": "2698f187a9ddf1d021b78aaeab8fb8e7a2809e6cfcadb1da13aaab79c9787bd7"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r10-c02.jpg",
+      "sha256": "ca10308faea9ded489c2ac23684eeafcdcf3a7c0ee2a731cc5e7eb6e8bf97ef6"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r10-c03.jpg",
+      "sha256": "0832c39db747a00ff79df7da28f437d5b0fda6d49e1abe37ca8d352010ee236a"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r10-c04.jpg",
+      "sha256": "f18396753fd70a4a08e34e14c58f10232a31565b7347b118e1a71cc3c787f652"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r10-c05.jpg",
+      "sha256": "7cf26ed8c68a8c085f34fbb0cf8db8b92223e037ca5264f15fe0b017fa7374f0"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r10-c06.jpg",
+      "sha256": "a6d28d2716feb88989146c196b0368e8da6e349f4206b7254b253506dea6975c"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r10-c07.jpg",
+      "sha256": "826c11364e9eab21e27195b741edbf3e2f0f6fa56ed2161a3726702a7f1be768"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r10-c08.jpg",
+      "sha256": "72fab9fc946618df868128ce11d8242581a82d11e68b5c7a12328305e2679399"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r10-c09.jpg",
+      "sha256": "87d2d3180082909e6a3b378b2bd47efe0caed58fe0432e20555b3986794cf472"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r10-c10.jpg",
+      "sha256": "dc4e81180f10c80c1ca68a7ab572725ab1761dee735cd564f837a72fdffadc7e"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r10-c11.jpg",
+      "sha256": "444c37978a4e568a57114ece0e493c8b37fc42ca21e9ade4b17de6e3c12a1e12"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r10-c12.jpg",
+      "sha256": "6ddc5d9f86a4dceb79fb1df8fcb4c32512c4039083a3f61266905c8eaf0ec0cd"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r10-c13.jpg",
+      "sha256": "4b0d866f3436191baea69e428037f7474cad947f87111d14cfd17627c853ff73"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r11-c01.jpg",
+      "sha256": "58928b631db57766cbfa4b671c136feddad5f353692c7276c620895518fea128"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r11-c02.jpg",
+      "sha256": "b386daac64e336c10fc3152cd60afa7e570e9f31030f70ac493b8d7a4f95aca3"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r11-c03.jpg",
+      "sha256": "cf67be4613468db3c20e9aca5eb1ff4d3beef38bd6d255afc395ef3728e7b29a"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r11-c04.jpg",
+      "sha256": "71bbcdc4feaae9210d6cff8b4a0ade334a016f7af549d4c6aa18885038da89f3"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r11-c05.jpg",
+      "sha256": "702ac3400eae4dee85ed50bf6d42346693d69858c53bdc51d3abb0b434005502"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r11-c06.jpg",
+      "sha256": "8755386c464cc703e1754260c09c3207e4329009dc68fdf3857de2da4a563dad"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r11-c07.jpg",
+      "sha256": "3a29e91617627d3107ef7a4a60a05ef5d3ebf09ee30aed32ff4c407cceda1362"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r11-c08.jpg",
+      "sha256": "2758f6c6f078074f827737848e6c7c654fc1052b7285203f1e51ab149d413d6f"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r11-c09.jpg",
+      "sha256": "05dd63ed4e1d5adb48740a4301f31077f3854ed267abc97b47b9521ced400cdf"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r11-c10.jpg",
+      "sha256": "c4801722b140fbf4ec3fced22b1a4365da710fa22ad2215929b8bae5179871b7"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r11-c11.jpg",
+      "sha256": "0e586c9827f008d2d2d6b8dddd3f136417516900d10105c190ad809b93c46f82"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r11-c12.jpg",
+      "sha256": "636e99da9ef2f63290ed692ece5112baea26ad52e71a16535bc6d896279e440e"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r11-c13.jpg",
+      "sha256": "dfbe97bb3bbb9020280c73b39103eb266adeeaa3fe4e8e8e40b3af4ae91f64d3"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r12-c01.jpg",
+      "sha256": "97dedd9d2b34a951e919990bbf867e66d799d62fad4009d324ce7f939ac827e8"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r12-c02.jpg",
+      "sha256": "3291d71e1f8441b66afead053a6c5735f843389f28ac8440c8efbfa6fefdf16b"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r12-c03.jpg",
+      "sha256": "753868f05beb2198cd6b54164dcc145765a08e48bf8a6ae7f7c23033f27dbc0a"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r12-c04.jpg",
+      "sha256": "c288273c67a70c11ca6dcfaddcdaa0226468a4557a0a77bf556e467dc7aedd77"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r12-c05.jpg",
+      "sha256": "081fdf76a6975c96c8d1aceed0bc8542b4b88c4aea2d75ec0fa71bf5c06fa8e6"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r12-c06.jpg",
+      "sha256": "a11da6a0c55f56cdec1055fefa1761e2cb72f06f6f12363f2e34906e9799d34f"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r12-c07.jpg",
+      "sha256": "5f63913d2639cb791227b1594c16a1ece49a499d8e96051d212d3aa52ee6725d"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r12-c08.jpg",
+      "sha256": "1c97ab4a169960863d88f245bcdfb9610e02ceceeb8db8428604cfffa88baf7c"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r12-c09.jpg",
+      "sha256": "ee380f57842daba1ba1f097e1b2a1835c52e873ef2b8ccba5c156c8b13bb653e"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r12-c10.jpg",
+      "sha256": "d837691350824bebdbba3adf643e6e756947b4fb3f454eb06f1ba43f1bee81e3"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r12-c11.jpg",
+      "sha256": "05b1d9fa79b64b8199e0b809d0a55c8c5c899ccc8ed46ffa4fa707333403cdd7"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r12-c12.jpg",
+      "sha256": "e398bbe0bc4d12a0306a5debac31025ac110214e1b29a9d970eec6319256c648"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r12-c13.jpg",
+      "sha256": "8992b9dd7f2ec3f6c3944ddb4cb664572f8d50e82aee663fb277b785d01bfc79"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r13-c01.jpg",
+      "sha256": "99eeb93b6d98da24476dff874d381a74784fe6c70dd3497cbfbf5249f017c6e9"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r13-c02.jpg",
+      "sha256": "e1f048ee8bcfaac2e13b9d3b71b39ed334310979800bbdd305a5db1eacd0e3c1"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r13-c03.jpg",
+      "sha256": "ec385ec61e204e3bd87c3728f5a029ed9e7f67ec336cf2edb3d4dee207d7c552"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r13-c04.jpg",
+      "sha256": "47489411a91745fd00a79553499db1bd298af3d0da731125d97af30139fac4e3"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r13-c05.jpg",
+      "sha256": "c1ee7c5b47774c26cabf91c41a9b20d178fca2cb2b0119725c10224a43079bff"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r13-c06.jpg",
+      "sha256": "2f9c43fe8b43dd1bc647d9f417effbc354905181f01546170727f5c9a61b97d4"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r13-c07.jpg",
+      "sha256": "5932c587bfbfad574d95a785cbc4824d4349c4d8c29a4d40d74c9d02851940b9"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r13-c08.jpg",
+      "sha256": "321835c07862505002a4927bbeeab9b9b1ccc46e86dd7bf74f5e6426f5bf6560"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r13-c09.jpg",
+      "sha256": "f6ea60e8752247fa5f644e60dd8f6c3fb3081c8d60acb0ff10c65ddfe6f40689"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r13-c10.jpg",
+      "sha256": "a02e7012aa7c44e7ffbd3d5f8b54c79074a1cfe23cc33f360277c646fa0ec92b"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r13-c11.jpg",
+      "sha256": "364c49cb62b046c5d0feb31059a208812848910e67118a770a8125f3e825dc58"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r13-c12.jpg",
+      "sha256": "daa986d5f44d922e5c09889793fe22ff46d3e65500de8aa0fc83c4e55154a2d8"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r13-c13.jpg",
+      "sha256": "a57d4154a17ca5c9a266d026d79feec5d5ca54849f86e029b900681c132e009a"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r14-c01.jpg",
+      "sha256": "79c62c0f429d8dcba348bc021a15480225a25b2456514bcb647e5ad2a1357187"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r14-c02.jpg",
+      "sha256": "3a47ae366cb79a06c2629936588832122dfc70fd4d45532603c0f4ecb194bd85"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r14-c03.jpg",
+      "sha256": "ef82570f14ff38ee4cb7f5ccb502b49249fb2baa1ea80ac9e956bec4a415a345"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r14-c04.jpg",
+      "sha256": "41a67b4d98fcdd3d2942502599cea5fcfa2b4de6d1451027aa691a4aae1a9d6f"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r14-c05.jpg",
+      "sha256": "3b15fec65c33ea8f6f70d153b0f4c6580616689da05f09a980dd265a5f6886a5"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r14-c06.jpg",
+      "sha256": "5c8e937db4c796d59afced420810d21788fcb9257edea79431578234bd40bc8c"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r14-c07.jpg",
+      "sha256": "971d17e94b2f9ce36b7a0c414590306c9606feb6131ced6e1e2a64584ce87541"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r14-c08.jpg",
+      "sha256": "6197609f7f041c8387e3abd982fdd135d0590cd156b55f71767d172c2c68d8e4"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r14-c09.jpg",
+      "sha256": "4147a4e819e743f9900c0cd4b287cd5ce85b8bf05a14e23778af2fa5c6e3dac7"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r14-c10.jpg",
+      "sha256": "87ebfe70f7c55bf572d12cd3b3523ca618e21982b0a06dc69d65df3df6c256c4"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r14-c11.jpg",
+      "sha256": "e6315715e9bb064ebb5cc1dcd360b196bf4ee44dc50d260b8a984f1419df1ca3"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r14-c12.jpg",
+      "sha256": "a54bbc7e3a24944fd64c40772a42d657fa18e392393bfca5d3eecebc0b15ad69"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r14-c13.jpg",
+      "sha256": "f4cb5c292d508432a9dac27cfbc62422e3fdcded3beb010624cf39a6d48538bc"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r15-c01.jpg",
+      "sha256": "2ad0ded2fff6c21ba69071c086a4080480109533883e8c6ca9e716eb7c43d823"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r15-c02.jpg",
+      "sha256": "f74209adbc87f0d0a216326d52e4676aad682eb65f667df112f6af53ffd27fc4"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r15-c03.jpg",
+      "sha256": "48a7946cf6bf38ace2a072031f24a6a11eb938303ba399487af18c6b61afcb7e"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r15-c04.jpg",
+      "sha256": "de160e4932a4c11202e54f56f1776efa86b613f90993d7945f7ea5a732377e5f"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r15-c05.jpg",
+      "sha256": "47700f7ac51fdb130f07787d49c76c99bdb101287fc5065e0f1d148484e3ef9f"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r15-c06.jpg",
+      "sha256": "45f231e9d7e2ccd69583bf1b74a92fcf221701bf56b0f3b9077716c4be59cf8f"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r15-c07.jpg",
+      "sha256": "37d3d9cb75b84e3f4fa47581e05a801f4a8276f42a655e15da1c74e73815b290"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r15-c08.jpg",
+      "sha256": "cf9f624933647af2f7080dfa358afd512568fe0fa7b94d69204f7b2bf6ee0b2b"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r15-c09.jpg",
+      "sha256": "26ec41a23f6bd737e0b1d5bf2458d6c628fc14e22c3ad35f0d81514f9148be50"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r15-c10.jpg",
+      "sha256": "e5ec8223b48b5d4cbc92ddc4faefb642d6163b729421fddd50e048e165621883"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r15-c11.jpg",
+      "sha256": "22fc1de9930c97dd5cd902ca41a27b13216b12e16d4377072790d87ddcd2ad90"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r15-c12.jpg",
+      "sha256": "ab5177e4ea415a046db241e78c7a59c17207823d555abaf736a3b1e4bef17472"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/atlas/aerial-r15-c13.jpg",
+      "sha256": "ce80972264f1cd94ed33a3419d2c2cc90735325dd8150d5091b7d57151377d59"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/published/arnia-europe-house.jpg",
+      "sha256": "65f1d15653f5d7af21dd1b61ec88b86077a63b01f243c80166255e2821cae882"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/published/dinamo.jpg",
+      "sha256": "4120e770dfef6098ad3e6d5aec5c77e373858406d5c7b7c08261188be0dfbfe2"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/published/romana-spawn.jpg",
+      "sha256": "e396d605cb9e4244279af071ac01215bc8f4f57c48e95f3896f065edbed99d83"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/published/victoriei.jpg",
+      "sha256": "7c17e507905ec93c9dc96e475abe9eeee2fb9dd98e473f9db3daab0cc6413e6f"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/manifest.json",
+      "sha256": "b234323f3ce72854f75578c84187701e99ee0c3f386be823393d3e9f236fe0df"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r01-c01.jpg",
+      "sha256": "03d7c600d49e1f01821f1941a005554e23a2f25e76198b22575b3f29ff3924bd"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r01-c02.jpg",
+      "sha256": "000989826f9109365ec204257f16ba7b344fc44e81a48c71c6e54b275e6aa79e"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r01-c03.jpg",
+      "sha256": "9c80bef98277e4a9c95170fe04237acf8d3305ca94f6a4c567b91b1cd606efc5"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r01-c04.jpg",
+      "sha256": "c2fe9371e385a92647592cbe0de7ffed0457a340e868c88c22c263247fa5b628"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r01-c05.jpg",
+      "sha256": "a0cc3a430341f276e5a21e6dc832dc957c91396ad5b7066ba599d08c79e29bd6"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r01-c06.jpg",
+      "sha256": "d2fed052448832eb21b1bffc715fe4c64ba6fcfc9e16d6a9894f680b8ba4cf3e"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r01-c07.jpg",
+      "sha256": "0785cf30d81a0b20635d828e6f27811081ee008df9de834f761ccb064061f5c8"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r01-c08.jpg",
+      "sha256": "14d3481fd844208f697c5fe8d01ad0b3b073d8e9ba3081d67ff753cca65d254d"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r01-c09.jpg",
+      "sha256": "511fd93558fc05b19ade245ba909665f4ef892bcdf3418316ee75970dafba4b7"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r01-c10.jpg",
+      "sha256": "be7306d45ada0095bdccfef2696b7bcdd2c41947f4f27d285f79936ae0964a17"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r01-c11.jpg",
+      "sha256": "70d48449251d0e0c934fe1e0c9f25b2123771402c7c05359c6bf6f3fdf009183"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r01-c12.jpg",
+      "sha256": "e09fba91591216e10cc657ca79b6f2e5f3d852fab6beb2b5d4ec0e0bb810f09d"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r01-c13.jpg",
+      "sha256": "4998dc4a1e6fd3ff0acca2677e98ac4b962b984a688ae0a32bfc8a25ba425fc4"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r02-c01.jpg",
+      "sha256": "ef1aecda2d89e56ec3720269bf6940094e0166c4b39e673064b95d5f37d2728f"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r02-c02.jpg",
+      "sha256": "ce05edcd51309b752c4196e014a0c249112fd76dd5886ecfdd9fc6f5605dcd99"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r02-c03.jpg",
+      "sha256": "1a205bf6c12016bf95aee233bccdbc2f2be93c911cf76a21abe4ebb6873929fb"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r02-c04.jpg",
+      "sha256": "90b574d9a6a5742d6b6b40e8d9587c8ded5c3f8bee618d9a3491272e771a2f24"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r02-c05.jpg",
+      "sha256": "779100054ff4247be13d7c4f8d1ea405732b77f22f82b8ea821c9c24df55d7a5"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r02-c06.jpg",
+      "sha256": "a1eb44ba8b1e77f759931ddf578bbe56ce49a0682ce915e6db772672367ff25c"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r02-c07.jpg",
+      "sha256": "293db61cc772b5b8a1e3e6a942b664187af84a9379f83b6865b4adea2ea53fc9"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r02-c08.jpg",
+      "sha256": "c560d09026c7561a63a7782b7463f579a925a007fa7943d0c996178168daa518"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r02-c09.jpg",
+      "sha256": "185530e6ce7927cb2ace48d728c6fb447424d405bfc8dcf6d06f067a8c4b07cc"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r02-c10.jpg",
+      "sha256": "0b4a67be77720aec22270e603611191a1933de77a2fedd38222d46390079e8fc"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r02-c11.jpg",
+      "sha256": "fb5d3e78ffba0fa4f30ad47a4864599c8ca8f0cd5172c20892033c93edda1700"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r02-c12.jpg",
+      "sha256": "d20014b2a3914c1662ce147fdd950e1984849eb8845e2495773271e3609b5454"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r02-c13.jpg",
+      "sha256": "f5145e59578497a1da87b4273dd0659a473b8557448a5594a3a6f246eefd71a2"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r03-c01.jpg",
+      "sha256": "f02082c4ac8fd8137afc20f5cb688bdc5e9488e7fd787fe6e207cbd567a4bddd"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r03-c02.jpg",
+      "sha256": "40f9972251dc9d1402403cfd11458e80b758ad6897e0c313084e848ee1d77cca"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r03-c03.jpg",
+      "sha256": "f964eb21360cf1dc98667a3bf1fa21e6df8adb05e61e0f79dc07727d9c89905f"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r03-c04.jpg",
+      "sha256": "86f489a13b0999e6e53c03475438906e226eae1d3abb39a05752de765b89af03"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r03-c05.jpg",
+      "sha256": "642ce7135bf1833fda2c6a92752a6ad3818338b5fbb4a6d70929a8db0d55f10c"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r03-c06.jpg",
+      "sha256": "42049186ed216f68af06efc2fb98b1bb6b5c2ee9f8ce633162f4cf0bb31b03cc"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r03-c07.jpg",
+      "sha256": "8e582c84da089533db1567b2e6a51ff0433213630833eaf5b78e9ec70769e234"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r03-c08.jpg",
+      "sha256": "1f6aa515479acd01acfe4ccc2760daa41caa9414cb123fac1ba999f452f28f6b"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r03-c09.jpg",
+      "sha256": "610a62add1796c5a5f7eea5748f6b0cd4cae8f8189e11a8264556d000d86385a"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r03-c10.jpg",
+      "sha256": "15b78d8dcec03329beeec7009a60fb177686f372f24bce7285a9beee9e608cff"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r03-c11.jpg",
+      "sha256": "f4e59525f9f590b9445afa5c6163960a0f605964403999144b213fba12483fa5"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r03-c12.jpg",
+      "sha256": "13c0d29571b5bcd98f7613a944382819bace542c0cdecfe7963a9e7b4810465d"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r03-c13.jpg",
+      "sha256": "ddbe467fb0faf5ce194e4950110df3b140f9ed99045217ffab337969e42797de"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r04-c01.jpg",
+      "sha256": "c0f366137966aa078eaa3fae2a23a8bb66442c7ff9bbadabe98a2a551e9dfc57"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r04-c02.jpg",
+      "sha256": "70cea7792e5f5fd11a3ef437bff50f3de818bc67489077d51d97c4fb392bacb1"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r04-c03.jpg",
+      "sha256": "174ad62e5a63c231ab1ee817fff93c9d0ecbea4a9c2761bb5418aaf84d4d1bae"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r04-c04.jpg",
+      "sha256": "a0acc96305aca410233f76f34dcf9f2b6f7cbd95cdd6cf4dff21c62c94dd1921"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r04-c05.jpg",
+      "sha256": "129f6684e04afe210410894afab47b74860b3e0487a6c71dce103535bdd7f2ae"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r04-c06.jpg",
+      "sha256": "ccfeb5f7f58e9dceeb0b1aa313bd9c9acef9a5d8b014e6be785fed61e9ff3bcc"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r04-c07.jpg",
+      "sha256": "26f98f9ae96c040ee123f542832ae11f439b99d17ffc3530db9dc35ae2433c74"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r04-c08.jpg",
+      "sha256": "74b59aa3d205880ca7f393ccd2caf4723c5977800983b635a2b3a619eaef3a64"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r04-c09.jpg",
+      "sha256": "41b3cfc9c8e19864438114755f898bf5814dd59b5c73068c1f5e94ec2d782450"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r04-c10.jpg",
+      "sha256": "a2e50460cd8dd5ed1c060f20753f14f1e2d9ff13a704c959983172b91721a28f"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r04-c11.jpg",
+      "sha256": "bbf11ca0425efe8bf1146a5c7cf1cf4b847b16e84c5f9b5e79135ed418df3694"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r04-c12.jpg",
+      "sha256": "133bc2240c4f57e1dcbecd2b8caca2fca4d125fb045c0e9905f12897b3d46930"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r04-c13.jpg",
+      "sha256": "3521601944476f022f4c302b644adf4f631bccfb9e86dd8d55607e8f573af2af"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r05-c01.jpg",
+      "sha256": "10c23d4a51a4dbcae516de603ed38415457bebf495c97622d5c14ede84a94d51"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r05-c02.jpg",
+      "sha256": "2e40c5651cf6f74f380af84559b7a908dfd0cb02a00d3026671d70163ad80cf9"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r05-c03.jpg",
+      "sha256": "2ca8f3c8cb936ddbf9fe267c22ab49952d891fc080985abd8581f968e614b8e6"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r05-c04.jpg",
+      "sha256": "63a895ea76c715fee024a936f1ce75b2c4249df6b2c6f6317fb46b29fb60764c"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r05-c05.jpg",
+      "sha256": "4ebc27972097c36dbe257ffc08c5ade1fc921440c24a9002141ad7a4fc39bd2e"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r05-c06.jpg",
+      "sha256": "243dca8d0ea58f3814311fe48f665e43cdbb12e0dda0458af2f41da3abcf6cd3"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r05-c07.jpg",
+      "sha256": "a90a1078d385d2949c80f0d21fd0ed003b244827fa2d624ee22570f2f396acbc"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r05-c08.jpg",
+      "sha256": "8fca26ffede8bcc95732808c6c48eb8dfd2c009c6868b38ac7d6869e33a3d2e4"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r05-c09.jpg",
+      "sha256": "cc7d3e9929c35752e0668253b685042772266454130371c23768db7844ae3b3c"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r05-c10.jpg",
+      "sha256": "d0056105d9e52ca29775e88ecbfe8c321557aba7b62af560383b69b7b037f06b"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r05-c11.jpg",
+      "sha256": "375e56f15509eafd08b080c2b805c8f7f18ad8a289d3778af54fce6ca588cfeb"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r05-c12.jpg",
+      "sha256": "f6c7ac86f291fa2870fd8d009328a06aacd6b1d8ebe9deb6e44fca93c35a7075"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r05-c13.jpg",
+      "sha256": "934b813414e7dd7cfe2634fca7cfae57bd23f5760ebe506f6b061e0fdbf44310"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r06-c01.jpg",
+      "sha256": "25aec13931cca3c88949daa5e8e07b59773f0ed370231a729332a6e53663d770"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r06-c02.jpg",
+      "sha256": "406a3f7e23a388324378c76e169fe429f2c7a8e5cab3dfcc400c6e46a628c281"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r06-c03.jpg",
+      "sha256": "5605fd75f7945bd70d2add4411b14b706e2b3e9843dead25d68fb996eec6f25f"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r06-c04.jpg",
+      "sha256": "5d2b2e8974a29b2cae90d4f3a45de398d600649ab5080a8734c371d6ae9b018d"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r06-c05.jpg",
+      "sha256": "376ba032860c1fe8258783272b4b9f876c005227a95a19b2834854d726c496ba"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r06-c06.jpg",
+      "sha256": "3f5421faf5474f770d08e5eb3670160fb904da094011c52902caeff1f9253e88"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r06-c07.jpg",
+      "sha256": "10b013715ef688e2b6e2b05a9ebe1f2ac614bf75859f5f53ccf36e5d40f8be04"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r06-c08.jpg",
+      "sha256": "9894a9a8139d58a58e5837f3a2ad91c5ed2be2c909f515f15e2162dd73fa7b99"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r06-c09.jpg",
+      "sha256": "9f8986dce43de0b58ebbf3133264e881eecfdb7d6bd27687b5dccf44fbe86532"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r06-c10.jpg",
+      "sha256": "ccda25098ad5015b935cb20720af26c47babfa8586d8d92f42d3ab745f61cd65"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r06-c11.jpg",
+      "sha256": "246538fa09cf847a8b933f1aaf840876934a68d8e9f653f4bdda87584c39e03d"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r06-c12.jpg",
+      "sha256": "b4b1ac877a8f9e97566a582ce0a900b26b00b23b20ae6db1003c5ecfa51c1777"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r06-c13.jpg",
+      "sha256": "15bd859c401845ae7da8865624726b7e1aa997ae081259f31acc5e3703be19bc"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r07-c01.jpg",
+      "sha256": "e49289b418bf9d117db02d0d8a45476e97d28f462d68c39c553f014bcfe7d89e"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r07-c02.jpg",
+      "sha256": "7a5be2768abc4d412b037435076b5eee268abd348a19787f34e631e4d1378a1a"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r07-c03.jpg",
+      "sha256": "265c74d9edc3a9b2e19b879c070c73376731df49ab9e9f6781b5e10be051145d"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r07-c04.jpg",
+      "sha256": "ff345f05785ceb899dbb3395ead07df9ce689e8d10daa32339c47c890c4008c9"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r07-c05.jpg",
+      "sha256": "306ff972dfb0b9adcc42664f873aeb85a515a4c701968a65176f15374ff449ef"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r07-c06.jpg",
+      "sha256": "75badd8da652b8071d257f0c4bb760849b108890c5ebff3524ebde820c439926"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r07-c07.jpg",
+      "sha256": "82a0354ec791580261bc96887963968c8bd91be66f485aded4463e814c708e63"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r07-c08.jpg",
+      "sha256": "678f7cca069e354c6a07600798a51c76acbad81ffd036cd4996f805838d872e1"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r07-c09.jpg",
+      "sha256": "c7ce6b5e16102aede8172074d526155dabb7b91539cd0ddc02ea40145756672a"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r07-c10.jpg",
+      "sha256": "513ea5013d0a488e117ecb9aab2067b7c9daf941345a687131b3d765ade95c71"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r07-c11.jpg",
+      "sha256": "1894e8481643450ab078a650ad89ffa7f8c0c67c1e58b5675baef0b9cb7637d3"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r07-c12.jpg",
+      "sha256": "368bf221e7cc22ee4684e6bac9350240ae35a0e00ea553fef62dcfbbf75ab7e8"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r07-c13.jpg",
+      "sha256": "ec1ae9b962211a2cadf49828a74c5a6a72a81a3147d6772a0d690af753a26e15"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r08-c01.jpg",
+      "sha256": "19c061f148c83b15c76abc397074556b3ef2ddce67330e137cd958b0d7798b3a"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r08-c02.jpg",
+      "sha256": "b74d06806c871416ccf9e667d6d6d9c7737f5a0b4b701dc755aeecc76187c4cf"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r08-c03.jpg",
+      "sha256": "331e32237cdb28559493643fbd059b5ed1675c353cabffb3c5dc40a0fdfe1e1a"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r08-c04.jpg",
+      "sha256": "84a15d78c9406a5f8bfb8471ecf87b5db2fcb8ed9d2c54a3a5c4ca41116dcc81"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r08-c05.jpg",
+      "sha256": "529f5a7c5e24dc452ae889f1cf6d6db8bea40975d8902fe3292bb0ac608a7024"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r08-c06.jpg",
+      "sha256": "e6f8745e6c81615a299e304d2bd9d55fdae3f941ac3dd0e0687a0f4aa9f30b15"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r08-c07.jpg",
+      "sha256": "fc84e5577ec18d1d9f33488db05de7d8585047f805f42f2842e79ed116ffb887"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r08-c08.jpg",
+      "sha256": "e10d58103ac0ad580cdbaf50859a391e6e2fb341e7d59e1973f582765b7fe12f"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r08-c09.jpg",
+      "sha256": "3cbfa6ddb3203e5604093131e38e3d51ce8887648970662072592e801687fe3a"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r08-c10.jpg",
+      "sha256": "7e25ec12ad6deccadc2fabab7ea1e4428b1dcf7832cf942f9f81e1e50003de59"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r08-c11.jpg",
+      "sha256": "5a02c99434b1326bfdf82d266343aa07250a6b4ef8e1dc924b1d5f9314b3b914"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r08-c12.jpg",
+      "sha256": "85b3d6948373c78e8cf5abeee3684164bb59d9a0ceb4ed36bfd5c9b19348ebcf"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r08-c13.jpg",
+      "sha256": "f95949fc58e9b2b4a4405675b64b8551b77509aba4bd995a68255e475fb73ca5"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r09-c01.jpg",
+      "sha256": "aafe4f1ab5be45033fd836fdcf4736d06f7c35bcd28703e56212cb2c69d064b9"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r09-c02.jpg",
+      "sha256": "241c82a44d1b6c6907a1c424ab7b3291c417d59b8537316edfb2e63c1403de16"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r09-c03.jpg",
+      "sha256": "c3c07c3dd80da73f05cf9dfcec0e3b86c25df82f08d3ebd3bcd89cc586c13f62"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r09-c04.jpg",
+      "sha256": "daff49d76ae2164bc92b8a196b974aeaa950f775a643a2887126fda2309d9737"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r09-c05.jpg",
+      "sha256": "1dee3db317a592c57d01a787a933bc6187c36201a7a84ecfc6e39044df581ab3"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r09-c06.jpg",
+      "sha256": "f8b88022f2ccaf50c280ddbe9ec00e3cfc1dbf96701fc16c6e9d19df1c5ab5c3"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r09-c07.jpg",
+      "sha256": "4a4cf7176a7e7b5bc93083ebd90de6e1fcf8191b0d6cdd7bd0c9d1431584b668"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r09-c08.jpg",
+      "sha256": "1a217b67bcb6f44620b36c552d397f3a5a4f6cd84ef10b1cde63a58b9949439d"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r09-c09.jpg",
+      "sha256": "b3a3b3c3004d5055dc98cf6b5fdb7c005aacc97a91a04ab4279b8832f874a07a"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r09-c10.jpg",
+      "sha256": "3d1019d3e0320d714b344f385d28b6848ae0f00e7130b2597c632f49e114aa63"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r09-c11.jpg",
+      "sha256": "1c5d720456c22038e959dbfae71332bf88eece3b7a800953a629b87c3d195370"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r09-c12.jpg",
+      "sha256": "ba337f0bdc743c5a843c483e25f0067046fdcb6f24058821185e498d1901d607"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r09-c13.jpg",
+      "sha256": "60aaf11256812587a2089f226ee119aafcea556df28f1f2f1e882d498f8d2107"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r10-c01.jpg",
+      "sha256": "f6eeaacab2358f776921af67acde3f6c84e6dc3de8572a44b4708e21bf76d42d"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r10-c02.jpg",
+      "sha256": "99926b28176d97cae5e2c7bbe836fd60be8b275f9abbc10d2d1da70eabde9945"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r10-c03.jpg",
+      "sha256": "650839d3a67bf44e1a99a2ae214a665e4a795e2ea3d2a182735f3912ace31c2f"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r10-c04.jpg",
+      "sha256": "20ba5fad104bf476c702b902f419ee3b235c0187ba1a961972ed44434bbde266"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r10-c05.jpg",
+      "sha256": "05678adf7aecbf6055382d231fbe98c801cdf7f30d4f18a084afc3a1dfff09bd"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r10-c06.jpg",
+      "sha256": "663939c72389d300ecba314494ba2a95e1b9e4cc5f0467f0ce7ed21f545900fc"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r10-c07.jpg",
+      "sha256": "48ef11fee1da99ce8387a7470d9861de0df30973f9ea4ff7a4a20e7b6079b85b"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r10-c08.jpg",
+      "sha256": "6cc89aa9bf1394aede56fd9dbd96e466fb4d567223f202ba9e6a47633aa4c796"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r10-c09.jpg",
+      "sha256": "0030fb107fcede254e5bf340590e3a2be353767461c566db6ec8ed484605c5b4"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r10-c10.jpg",
+      "sha256": "e353c19964e96970a390af8780b21ad97e21e20cd4a2d8c620ccfe034946be6c"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r10-c11.jpg",
+      "sha256": "83996e3ae0e79d16e56a2ecf1a993017dbf6764cbb987046ed3d8e6889bae410"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r10-c12.jpg",
+      "sha256": "6a394a960a9aeea94a5826853c77e0ca67ebaab6d9fd33e8c71eebac895628ed"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r10-c13.jpg",
+      "sha256": "c92ae665675695e32b1cef4886ac4f579a0d52026668346741b39e4889711ceb"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r11-c01.jpg",
+      "sha256": "910352884806eb9e23f4095cf95bdf8a8a91b0426c000c839f6616dc515043e6"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r11-c02.jpg",
+      "sha256": "770fd19c82dccd52c78857b4398b308ec87ea88e11fa417b0ebf315855332f01"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r11-c03.jpg",
+      "sha256": "6fcd7123cf4622b97ceeca0162aa2b372dafd62b744a73b3e46a2c63bcb7c74e"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r11-c04.jpg",
+      "sha256": "c69944f3b6f53d1627f8a80fd881e7d0df0a10b4845825badf412aaf19c1319a"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r11-c05.jpg",
+      "sha256": "50f21134ecdcf86e63df5641584a0155a571a1105bffdc4966261b4899fdb1c0"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r11-c06.jpg",
+      "sha256": "3929241f8d391c5325df3f1102158bd3aae12edc97a6c94d9b379023a03928ea"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r11-c07.jpg",
+      "sha256": "f03d6f770dbb2da256f4876ec32b9ade29a4c10d4c4febf0ba2bffcd7c262454"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r11-c08.jpg",
+      "sha256": "9a8813e84f32b4562f99799d2c552675895347be2d7ec5bda5cc53fba29ed917"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r11-c09.jpg",
+      "sha256": "7aa17ef1998a68b60b0e8e893271c0380b2b3df9144864d7be31ce243753c293"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r11-c10.jpg",
+      "sha256": "115ec440fe4f2ef7e8e977cbd0773faea40ff53c2f717263881027159c4e5ded"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r11-c11.jpg",
+      "sha256": "529cbe811870c94ddc26de2662e66072cb78f1e38f338da59740bcc95b573d86"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r11-c12.jpg",
+      "sha256": "8a67c3c6bea7838099adf6befa23702d8ae9e698f4f6cabdf96115902ebb1e0e"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r11-c13.jpg",
+      "sha256": "ed350f02c175ba2c6fc23e0642a92c9db5b3f093bfcfba4ae86eece4037ce09c"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r12-c01.jpg",
+      "sha256": "5b60968d24f4b0b3e60a7b5c5e3f90e24a1576b86271c7e3e12cb0e7adcc4fc4"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r12-c02.jpg",
+      "sha256": "69faf2979e39d88e988a60ca4ce16cac2b23e1e4bb7642f2a5c743bc6e9722ea"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r12-c03.jpg",
+      "sha256": "6b8cd4424f33ee21a1e5edc07a5d0708ba37cd11f407c05c4440ac86b927c732"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r12-c04.jpg",
+      "sha256": "3adcf521aa4650369aa213a880a775596af78cfae2e8e9bec14518317fba5912"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r12-c05.jpg",
+      "sha256": "c548f86b94945cbb448f799074e7108838e863a286f8a37923624f562f936aa2"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r12-c06.jpg",
+      "sha256": "8a31cc681f28018036d7f28730365bb37cd89ef7da9ebaf4543cd0c967e76ea1"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r12-c07.jpg",
+      "sha256": "44394811d9446c03fc5e067df7f88765b8a7a1c3efa975b3cc9832f075db4cea"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r12-c08.jpg",
+      "sha256": "f1d3e72f6451ae60286f2db170cea55282816019e4fff801d8e6b8ca2b53f56c"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r12-c09.jpg",
+      "sha256": "cd787a4296c3fa38a5500f27e561af72349b69df991d3f83365358d1318cce20"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r12-c10.jpg",
+      "sha256": "631e4562ec6f5fa71fa70cf2c7083eb3b261c8157026645d0e92dc1312e103cb"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r12-c11.jpg",
+      "sha256": "0172407a73b79fcdb2360c945ebb8dffd5ee6dba43dc4d8900e920434b5caf85"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r12-c12.jpg",
+      "sha256": "0a01f42ea78c080e7827e99da2224d690266b72db2cd3f93ccfe8c902a68cb17"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r12-c13.jpg",
+      "sha256": "e6eeb2dbc6d53c128f06c05e91c8769d7aa5df6785d4c8d2d7eddc64678398fc"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r13-c01.jpg",
+      "sha256": "2425c990f385cb401676f0bbe2c440167281017899502cf0aacf59bf068a41e9"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r13-c02.jpg",
+      "sha256": "556aa58e97b39085edac4badec2b717ab4386c97aa70c22ebd53b83adcdc1d48"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r13-c03.jpg",
+      "sha256": "cde14ac36f73b6985e3645e2cde2adb2e23d5815d86cd7963702fcc06be4cc4f"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r13-c04.jpg",
+      "sha256": "4ec0dcf24b14084250c4af86a104388704b507d619c93cc58944d11bd30d0f4d"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r13-c05.jpg",
+      "sha256": "43a75948bc7469ba22479175d2d0f892265eb68a7053dee188277e146c576e6a"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r13-c06.jpg",
+      "sha256": "0497cca8989219f80cb2729fbfebba624aa3b03aa67149cfae0efa5893f79d3d"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r13-c07.jpg",
+      "sha256": "ce15f8a6c899638c46ed2feb3a5c1c0377a8549c170079f42a1028cb700e71ea"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r13-c08.jpg",
+      "sha256": "3221542e93dfeca44bd1956f863c81bb373e9ba9a14854b7fa0d4723a1df89a8"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r13-c09.jpg",
+      "sha256": "fe92bc98d026965e183634e8ba205d8576b36ab253cce794967035b643124435"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r13-c10.jpg",
+      "sha256": "6bc5f12a7476c40c2747f9245c7d3787fb0dec688a09909abcedbd8190494ca3"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r13-c11.jpg",
+      "sha256": "357bd24bb8c79eee65347bb4d8234ae4376e489bb908c2ef7f08f8c5ddff62c1"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r13-c12.jpg",
+      "sha256": "935e0a2ca1e24ce64ad69179f0c9f3a4ba4ccab1a9ffd6fdf864f94fcea82588"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r13-c13.jpg",
+      "sha256": "7379c78269d43e424ec3bc2d2c01ee39f000c4aa5dfa8812e09a27bac46f1185"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r14-c01.jpg",
+      "sha256": "735c957d2e669bd6bae8b26792fe19fa2235f07023ecbd2672704749f657677d"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r14-c02.jpg",
+      "sha256": "83318e197c5afd8416dfbf4ea31cf97ee07eeaa0f6ffdfcffa8e642ede00987f"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r14-c03.jpg",
+      "sha256": "df67db7f75b3ca32cd88f530c3d346e439b52b76e731eb2f2d2b346910940021"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r14-c04.jpg",
+      "sha256": "4628ebbf1ada715c1a1e3b96f276e636ce3014e174856295536a3368cbb6ec01"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r14-c05.jpg",
+      "sha256": "3a4bb0cfe0748ca7d6bb1ca4eee2ae33f8c535b6125deea8ed827ebc134cdeb3"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r14-c06.jpg",
+      "sha256": "1a6c0f85619e67ff367d4bf0ec10a0de4107dce2ea9518e3e31188dac5e20ffd"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r14-c07.jpg",
+      "sha256": "4d99437987612246155530289bdbdd8b2ccea73ac5112254b7d8a8c8cac2789f"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r14-c08.jpg",
+      "sha256": "f0bea97862ddb738f114a2e7188fba56eaa25b909f9bebf339bbab41d631fe74"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r14-c09.jpg",
+      "sha256": "e1cc9cf2e372d7f1d1b02f0a87efdcb5c62bd5fff2db80e0fcf2b1d18e9f96db"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r14-c10.jpg",
+      "sha256": "55ae1c5b972d80c028f627005cb5406ae61525d5cf31713ad9a91f724e4c05a0"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r14-c11.jpg",
+      "sha256": "39e8eaf70cd77fdf8fc14577b758925ccbbfb05e78b057f11910a8ea8278520e"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r14-c12.jpg",
+      "sha256": "ba99299e85de9f493d51e639a9a21ed6027d5360775994e12a0dc05dcbed270c"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r14-c13.jpg",
+      "sha256": "b9da642e825eb7b44badfba92b8340b37ad8497b16aee689ad4ca241be79df42"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r15-c01.jpg",
+      "sha256": "2ce7c9c3ef59f483deac2eb3cc9400c5f60420ce3b822d131bc4010eea14f0bc"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r15-c02.jpg",
+      "sha256": "0ce0a52bccbed2a624a4a7a673be18733ffd7edf8d73233f8abdb48ed72730b4"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r15-c03.jpg",
+      "sha256": "a487f3c7b51b15c1dbeeb1c3826f32695c0dd7eb9901eaed77201baa5dc02652"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r15-c04.jpg",
+      "sha256": "d396e3cee49c000ad7629625ada33b9bd9fae51b2175d70fd1e249d048bde3b9"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r15-c05.jpg",
+      "sha256": "6965294ed506c9ae37fb870f869d03baae00f975cec387cdda9490da209ab583"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r15-c06.jpg",
+      "sha256": "e50046e49a6ff38dbf875fde76de6d2c875887e26a3d00d118cba7567322c76c"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r15-c07.jpg",
+      "sha256": "e47c4ba067067913ef2512c8874831a36d78e0dd15eee32e15c593e7ab0b7d02"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r15-c08.jpg",
+      "sha256": "cf71ac03897d908109cf91589faf19825e7bc9b7af6923c6187c060a93d57ed1"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r15-c09.jpg",
+      "sha256": "a56558da7813e3ef42d8df6c8bae798d5407b69c5ecb54e48b0d21d2b1c9d746"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r15-c10.jpg",
+      "sha256": "fc6ae95f5724f795b51f1ab526022668c138263cb7d1ba947bd995dc4f5612b9"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r15-c11.jpg",
+      "sha256": "f2091b99fb5dd19abf5905555e9a817c8c9e595a0ff3ea7fd8f0b8e64bfd58bb"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r15-c12.jpg",
+      "sha256": "10e5913aa77fd1dbc5539ce7bfcb1788dccd68994b78e34f10e86af5a88dab13"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/atlas/aerial-r15-c13.jpg",
+      "sha256": "cc5599b791aca90016f0b3eab519c5028c5bf13759a63fb263c0e5689f948a01"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/published/arnia-europe-house.jpg",
+      "sha256": "f0a6437b9a1a09974acc114ccd0783a90c3f94df912e09850ce2f7a29c1c5714"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/published/dinamo.jpg",
+      "sha256": "7a2e3a3897be89459b3b0798899f686da9b6388214ee11335ff4f22fea5ae884"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/published/romana-spawn.jpg",
+      "sha256": "9b09a499c1ca653aad04e90f31af3585e4efa06172e9854c3f752815c13a1e3a"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/published/victoriei.jpg",
+      "sha256": "3cde3ac6ad5b18598558fee0191a91802c5d3012bbbcf8de1e114236a6e6e988"
+    },
+    {
+      "path": "game/overview/comparison-viewer.css",
+      "sha256": "de7ac8da561f88b142f880ddd8a6c404fd6c5de3c518b421dc74c4263fbbbecc"
+    },
+    {
+      "path": "game/overview/comparison-viewer.js",
+      "sha256": "7387a1b3b404c850da91149164b4640e85077f362083c453f26272d71fed82bf"
+    },
+    {
+      "path": "game/overview/generate.mjs",
+      "sha256": "9ea3ff69c0cd0076f65a0ff1ff159db87aff9542b071bdf6d55933c472f4d10d"
+    },
+    {
+      "path": "game/overview/index.html",
+      "sha256": "42dbe549b6b23d376adcf69a62cfc5940c46393e906d88a7abf080d06c53ac31"
+    },
+    {
+      "path": "game/overview/inventory.json",
+      "sha256": "9eae87ce7a8997a818daaa1f39555b8fe349d41dcf2fcb755c0c134351e77577"
+    },
+    {
+      "path": "game/overview/overview.js",
+      "sha256": "90a30637d3adfa83acabbe1c55e60325bb73a0deb547beec9919cd459c7eb64b"
+    },
+    {
+      "path": "game/overview/style.css",
+      "sha256": "48e2d0d60035a9026f2f20f6153633e1c1f8f3d5a6362bd60eb187113384964e"
+    },
+    {
+      "path": "game/research/activities.json",
+      "sha256": "dd19256d20938cb34d92ba6db3c0a81a3b9699789327f188f5045e39848465d6"
+    },
+    {
+      "path": "game/research/activities.md",
+      "sha256": "5695c129295760490599dc0775bbead09630c1e907cdf245761b1cc93995030b"
+    },
+    {
+      "path": "game/research/ase-landmark.json",
+      "sha256": "9a2c37f24d4c1841f53e7d656a3adc3f86b4431d98997cca61f95f9933b055c7"
+    },
+    {
+      "path": "game/research/bucharest-floreasca.json",
+      "sha256": "5fe6d7f201c21b4ec5079cc1825b976d38261933669d9d88ccab3aabac26369a"
+    },
+    {
+      "path": "game/research/bucharest-floreasca.md",
+      "sha256": "fd5f2fd4dbd077ee10d5b0586b8228f1e5ee8f410585f328b61e78037db33c46"
+    },
+    {
+      "path": "game/research/bucharest-grozavesti.json",
+      "sha256": "fd9bd374672a7ff174b708e0ec69a082162fd2447fda53241583d466edf07359"
+    },
+    {
+      "path": "game/research/bucharest-grozavesti.md",
+      "sha256": "da75196a6de710bd271c474cfae00919f05ddb5843296bd811c100048aa27f98"
+    },
+    {
+      "path": "game/research/bucharest-otopeni.json",
+      "sha256": "7ff6dd3c47f21f48c9d9f2312905669e77c64de50cec9638ccc708f9e70c5c3a"
+    },
+    {
+      "path": "game/research/bucharest-otopeni.md",
+      "sha256": "2edd138ff84eb0025d92d75800fb7ae64aed1780f2cd63243c1070eb1adbcc94"
+    },
+    {
+      "path": "game/research/bucharest-pipera.json",
+      "sha256": "c41baa804c2b1745eae4b07975a3108049aeccb960c29cabbc2b8c737a012243"
+    },
+    {
+      "path": "game/research/bucharest-pipera.md",
+      "sha256": "80fef047f277af04048afca481e1e495ce6552b2b866b498c792098f9aa180a8"
+    },
+    {
+      "path": "game/research/bucharest-romana.json",
+      "sha256": "0f3f7834513de22b209d30bf5d8b40c78936d9c35b8600893eb1b415949204ee"
+    },
+    {
+      "path": "game/research/bucharest-romana.md",
+      "sha256": "099c6cc1990c0cba08f45616b1ac33b09104e1eed34dea7887a820f08cc3db85"
+    },
+    {
+      "path": "game/research/bucharest-spots.json",
+      "sha256": "b4f02c6f228877c3e8aba916454e1921b2545b21dda2ca67d157be5f77be89c5"
+    },
+    {
+      "path": "game/research/bucharest-spots.md",
+      "sha256": "f0bcdd92090733afde30fa507e1a6f47db45c4b78ef39e5cf02fb060524377f2"
+    },
+    {
+      "path": "game/research/bucharest-unirii.json",
+      "sha256": "fb78cd06ce1d6a1b0ad7721567aa0fed61f4b7d25d0e6122678dd6ba8451dced"
+    },
+    {
+      "path": "game/research/bucharest-unirii.md",
+      "sha256": "bfdb79598cd0ce1c5208f7ed3307e64cdadf489f37195589097f18c09c813fea"
+    },
+    {
+      "path": "game/research/buildings-bucharest-floreasca.json",
+      "sha256": "fa881598949ed7e98902b8bd50c796a1dcaa0bf4ed9f07aaf3d94ea9921f23a3"
+    },
+    {
+      "path": "game/research/buildings-bucharest-grozavesti.json",
+      "sha256": "1f01d7a44e247f5c4e55e5f3f52f1128560ae2fe5e4d4c5e876815face60d1cd"
+    },
+    {
+      "path": "game/research/buildings-bucharest-otopeni.json",
+      "sha256": "6d13855cf69fb495b9dc534193d16ca16f2af21a498bb472dd3949ebb2ac5b6d"
+    },
+    {
+      "path": "game/research/buildings-bucharest-pipera.json",
+      "sha256": "b4e653e238ed98dad098b1a7ad6676aa2bae83b4c9c4b58ea7ba21328a128d7a"
+    },
+    {
+      "path": "game/research/buildings-bucharest-romana.json",
+      "sha256": "209f6611fe576dbc1db4f03221aa13764f3939a5e96fc2d24c57fc095cb24b44"
+    },
+    {
+      "path": "game/research/buildings-bucharest-unirii.json",
+      "sha256": "db43e6acb1a8bc871e1216d9f10ec4cb5611a82a57c442044f855425a92bd7a7"
+    },
+    {
+      "path": "game/research/buildings-seattle-bellevue.json",
+      "sha256": "35e92759985ac72cb70cd0a7ed4f204187bad14c3f299ebe447a28a3960559b8"
+    },
+    {
+      "path": "game/research/buildings-seattle-seatac.json",
+      "sha256": "c2cf92ef64e37c7a4825e564d93a79884598565f4ed7a4c38b1eacbc870925ae"
+    },
+    {
+      "path": "game/research/businesses-bucharest-floreasca.json",
+      "sha256": "0caaceb347269da1ccb99be22105e284563ae314b772dec406fa86d42e394942"
+    },
+    {
+      "path": "game/research/businesses-bucharest-floreasca.md",
+      "sha256": "1eb7b937aec388b8221ceb1987d69609a35aaad539ae9296c57fa09fe4fe5500"
+    },
+    {
+      "path": "game/research/businesses-bucharest-grozavesti.json",
+      "sha256": "a43a1e3eb2d907ebbd3158b9de7a8ec7d99e8a6a3e0a61f74bcb5616ef3b9ee9"
+    },
+    {
+      "path": "game/research/businesses-bucharest-grozavesti.md",
+      "sha256": "b254cc7e40b6780db45417af1998dd7284478fa1e4d22833a7f755503eeeee2f"
+    },
+    {
+      "path": "game/research/businesses-bucharest-otopeni.json",
+      "sha256": "e4675c4554858874e6a66fd03f733cfd5dd473fe3cf51584873d80c56186ff5d"
+    },
+    {
+      "path": "game/research/businesses-bucharest-otopeni.md",
+      "sha256": "e0089cea469db7df28beea0f4dbdaa831ce2d238eacb35eb8e4cecf983f9f7cc"
+    },
+    {
+      "path": "game/research/businesses-bucharest-pipera.json",
+      "sha256": "33f728ec577da77e5f67d310167a50bcc8eabe5ff6f4c3a18da3eb7ab64b8502"
+    },
+    {
+      "path": "game/research/businesses-bucharest-pipera.md",
+      "sha256": "efb054b8b5539d5217bccfc249fdabe1346b32d57df9bc98c8b96da4985a4541"
+    },
+    {
+      "path": "game/research/businesses-bucharest-romana.json",
+      "sha256": "231a242d8684242837ec5bb2909cc6ad152e28f2254d8d46c27a042e1d15e577"
+    },
+    {
+      "path": "game/research/businesses-bucharest-romana.md",
+      "sha256": "27169ab6f021cfb058f1fcbf53c161e1fc22c3b3fded0ee47a8ee9185fcb5054"
+    },
+    {
+      "path": "game/research/businesses-bucharest-unirii.json",
+      "sha256": "bc3840b0c0b1603db80bb16559d6edc92fb6b7361cf1b60aa44f5040966d11fb"
+    },
+    {
+      "path": "game/research/businesses-bucharest-unirii.md",
+      "sha256": "cceec332595fad534aa6d7542e6db980a180ae512143c8c7ebf925102b4083e5"
+    },
+    {
+      "path": "game/research/businesses-gamediff.json",
+      "sha256": "0f25ecbf296e862430d927c9e14fff4fc5fc35bc27105591414baba17e15f7d2"
+    },
+    {
+      "path": "game/research/businesses-seattle-bellevue.json",
+      "sha256": "6140dbe3f47b93055389054e7fbde49a7030276429da588293bcfa7e41028ac8"
+    },
+    {
+      "path": "game/research/businesses-seattle-bellevue.md",
+      "sha256": "ddbc375dc76d87846ad5f42baade4fbf55970adeece15e19e54d6d1a78000c68"
+    },
+    {
+      "path": "game/research/businesses-seattle-seatac.json",
+      "sha256": "e1c477478fcb86e31daf7a308658ebbeb10c007dec8e6951d645bb7c4444c198"
+    },
+    {
+      "path": "game/research/businesses-seattle-seatac.md",
+      "sha256": "997b4978df6c6f4ae668fdfba951694becd1f7126022df2f278655ff87518a9e"
+    },
+    {
+      "path": "game/research/cv-buildings.json",
+      "sha256": "a4a0ca7808e7dcf7cac31f9cab968b054ecc8e92095c16ff0bd823f6b1b49f14"
+    },
+    {
+      "path": "game/research/cv-buildings.md",
+      "sha256": "ae2aef80c959975e6de89dfb100b83cb4124d7ffa2c733ffa13ec58ab84f600e"
+    },
+    {
+      "path": "game/research/drone-rules.md",
+      "sha256": "d5439b8d27970505a202bb7c29f182b5812f01111371c44b8836dd69ef5d4c44"
+    },
+    {
+      "path": "game/research/green-bucharest-floreasca.json",
+      "sha256": "379599224adb22c74449bbe54b943e8fb38e6eb1c5397ae3365fb79138b2a332"
+    },
+    {
+      "path": "game/research/green-bucharest-grozavesti.json",
+      "sha256": "fc9eafac376bd693a2e68258d8994ca1d7bdfa43c1e10c56330bfc7e91f89266"
+    },
+    {
+      "path": "game/research/green-bucharest-romana.json",
+      "sha256": "227ff04a855d3f9c0baa9b07d05684b54709641874c10c1bdae22d0745b6e0e6"
+    },
+    {
+      "path": "game/research/landmark-politehnica-measurements.json",
+      "sha256": "0683a55054c06ca28f00197c18c5a47511cae66df025f0d9c51dbd62b073cb5b"
+    },
+    {
+      "path": "game/research/landmark-politehnica-measurements.md",
+      "sha256": "5b1834fc4e7e5e3f9ef931d70572215a9225b943c33e5d14f76b0ed1edacc0d8"
+    },
+    {
+      "path": "game/research/old-town-streets.json",
+      "sha256": "24b4c97a1e366e3689336d7f0ad01313559c3195ccef67ca55c0a133ce36ad59"
+    },
+    {
+      "path": "game/research/old-town-streets.md",
+      "sha256": "53fdba34be5e66d20dc48353c2b6754af6813696d8225e84fffea969e881779a"
+    },
+    {
+      "path": "game/research/osm/sea-spots/ballard-locks.json",
+      "sha256": "ae66abf3d25f532a749bafa7c863595580ce067702304b0cf8902339758c8340"
+    },
+    {
+      "path": "game/research/osm/sea-spots/ballard-locks.terrain.json",
+      "sha256": "40a6bf1b69ce1aea0c6eceb8c004dc67f056881d0c4f61c6795bbe54ea7cd41f"
+    },
+    {
+      "path": "game/research/osm/sea-spots/bel-botanical-garden.json",
+      "sha256": "03587300ba574e75e920cbb9b4fb22cc727202f11c2145acf00dfe3ff0a5e306"
+    },
+    {
+      "path": "game/research/osm/sea-spots/bel-botanical-garden.terrain.json",
+      "sha256": "d964667010f5d2075081d3eae9e6ddec55ac014cbd324e2bb977883c82891565"
+    },
+    {
+      "path": "game/research/osm/sea-spots/bel-downtown-park.json",
+      "sha256": "a64b87c3e656a021de17667a8b6d821bc39e4fb3c1221ca1a40a2730b4a6eb33"
+    },
+    {
+      "path": "game/research/osm/sea-spots/bel-downtown-park.terrain.json",
+      "sha256": "e5deb5f9bd30c605c4886ebcf013e86b4db49466eb3341e3af52345ad0f2843d"
+    },
+    {
+      "path": "game/research/osm/sea-spots/bel-lincoln-square.json",
+      "sha256": "9fe1ffe2a93743acf38debf559f35d2816e471371c5b56c25575f3b30099a19d"
+    },
+    {
+      "path": "game/research/osm/sea-spots/bel-lincoln-square.terrain.json",
+      "sha256": "124ace022a2b0f6294ad311d4663c006ae9815f22e07a0e1e31113372a47fa7d"
+    },
+    {
+      "path": "game/research/osm/sea-spots/bel-meydenbauer.json",
+      "sha256": "245c6e89882595a63eff3340b5552780633b72e5c87febc937a810477ee1503b"
+    },
+    {
+      "path": "game/research/osm/sea-spots/bel-meydenbauer.terrain.json",
+      "sha256": "77e6293ad2320462f06bb590c1355270038d9a5a0ca67fff240e09fb5e511718"
+    },
+    {
+      "path": "game/research/osm/sea-spots/chihuly.json",
+      "sha256": "1826ebcb5fe2cb353ede620d3e92f5b06b4645fbc9fb248837e01071619a6ac3"
+    },
+    {
+      "path": "game/research/osm/sea-spots/chihuly.terrain.json",
+      "sha256": "3b489ee203231870509056d4b3b0f987078d45dd638f32c6e9809c562cce7917"
+    },
+    {
+      "path": "game/research/osm/sea-spots/fremont-troll.json",
+      "sha256": "643a64c0816a12efe4720591e299ae51d73eac620f5b61df8ec6ae9fb47ef225"
+    },
+    {
+      "path": "game/research/osm/sea-spots/fremont-troll.terrain.json",
+      "sha256": "c1fec2d4e4a78dbf350e2641aa7b132977133e4aef165eee3c55459dc56fbf0d"
+    },
+    {
+      "path": "game/research/osm/sea-spots/gas-works.json",
+      "sha256": "f65ffcc86c4fc9fdb3490d5132b7e6cf6b6ffb4cc425217ec11211dae9c76f98"
+    },
+    {
+      "path": "game/research/osm/sea-spots/gas-works.terrain.json",
+      "sha256": "6ae6cbbdbee6b34b406e52f857d567dd638aa555f54f322d105464a840f3080e"
+    },
+    {
+      "path": "game/research/osm/sea-spots/kerry-park.json",
+      "sha256": "dcfdf1928bbb19398ef3e9f530253565330da7ca13a598c9fa262079051eab81"
+    },
+    {
+      "path": "game/research/osm/sea-spots/kerry-park.terrain.json",
+      "sha256": "b2424e22ff4375cc84af90a02facb3013b57b37d3972ed46dbc41223114ed739"
+    },
+    {
+      "path": "game/research/osm/sea-spots/mopop.json",
+      "sha256": "fa0620ec83902e9a2cfc015993984a68a5a9691167aa9018c21c53ea038f801b"
+    },
+    {
+      "path": "game/research/osm/sea-spots/mopop.terrain.json",
+      "sha256": "8aef3a496213eb0ffe1dd62c72f0b6337a45e2a3a7e5794d5f3d7b203227283f"
+    },
+    {
+      "path": "game/research/osm/sea-spots/pike-place.json",
+      "sha256": "56a77728e54b7cd48dd1d97fbe66c6eea7a773cf4dc60c6a222b501c7f9a45b4"
+    },
+    {
+      "path": "game/research/osm/sea-spots/pike-place.terrain.json",
+      "sha256": "afabb476519ab6520c0309064b4661f22dea55582d3d213f524e8af6ef3b595e"
+    },
+    {
+      "path": "game/research/osm/sea-spots/pioneer-square.json",
+      "sha256": "9337a177da75a04eb83ea85445969bffdb76fb7d765e97f00a550697e81a2772"
+    },
+    {
+      "path": "game/research/osm/sea-spots/pioneer-square.terrain.json",
+      "sha256": "5a8c1091a7155d32f569f4059b91a203b95431bd0ef65d555b53a362c8280165"
+    },
+    {
+      "path": "game/research/osm/sea-spots/space-needle.json",
+      "sha256": "aa058d176168567974f48ee29da0e209b5cf4932ec433715505352cfa410c8f5"
+    },
+    {
+      "path": "game/research/osm/sea-spots/space-needle.terrain.json",
+      "sha256": "ea41631b5eca98d495567a3a961e81b5b80828f17e6821c7f79eb4a60ded9373"
+    },
+    {
+      "path": "game/research/osm/sea-spots/waterfront.json",
+      "sha256": "e90f80ccfc421e95fd4500b09cf4a59eaee4a731d8434e65c6181f5300582282"
+    },
+    {
+      "path": "game/research/osm/sea-spots/waterfront.terrain.json",
+      "sha256": "61067e25a85dff6194a5f83b61cdf103a982486bfac4e3ad1ec3c2e673128238"
+    },
+    {
+      "path": "game/research/pioneer-totem.md",
+      "sha256": "20879a3cd7198598e70b708c36d1578851205d1f7fc14b0069e42099bd63f428"
+    },
+    {
+      "path": "game/research/refs/bellevue/LICENSES.md",
+      "sha256": "ec9aec0e29c5ae5143d1a06d36525974ca37d3e2ca1a215b7c70699fc95d639b"
+    },
+    {
+      "path": "game/research/refs/buc-spots/LICENSES.md",
+      "sha256": "45eaf819f7d8e07783c3301d93ecb70642ba83b3561fb6f97e419bfa9b4e95fe"
+    },
+    {
+      "path": "game/research/refs/buc-spots/arcul-de-triumf/LICENSES.md",
+      "sha256": "3f16aba148875a1187d922846556171fdfc502c7a7700e7a05fef164ccb848ec"
+    },
+    {
+      "path": "game/research/refs/buc-spots/athenaeum-revolution/LICENSES.md",
+      "sha256": "b7530512222d6414221653a5a94d874318e8fcf5b0962a4f232d520326d396d8"
+    },
+    {
+      "path": "game/research/refs/buc-spots/cismigiu/LICENSES.md",
+      "sha256": "39a8187347daa5e6f604857900bfe0d05b7ea4acadb61edaa58bc81dfbf71da0"
+    },
+    {
+      "path": "game/research/refs/buc-spots/herastrau-park/LICENSES.md",
+      "sha256": "842a1764ded5b374d27d8ff03236ee2c8758298dcf4c4f46d29a627d888fad9f"
+    },
+    {
+      "path": "game/research/refs/buc-spots/old-town-lipscani/LICENSES.md",
+      "sha256": "022b093844c5c5a340b6b93425c3fcb4a0fb619e54aeb7e4ed88125ae3ad1c7b"
+    },
+    {
+      "path": "game/research/refs/buc-spots/palace-parliament/LICENSES.md",
+      "sha256": "11d4c26889eee90ad0658510ce24825aa43668301e3c826464620bd3f8db73cb"
+    },
+    {
+      "path": "game/research/refs/buc-spots/peoples-salvation-cathedral/LICENSES.md",
+      "sha256": "b9f7f9646316784b141403911f92f44ee152698722e816700a1ce93616c7c54e"
+    },
+    {
+      "path": "game/research/refs/buc-spots/spring-palace/LICENSES.md",
+      "sha256": "94ccbef4b194dcdb791c81321043d87715a0cc867dd6a5de767e1c073f1f80b1"
+    },
+    {
+      "path": "game/research/refs/buc-spots/stavropoleos-cec/LICENSES.md",
+      "sha256": "2636de01c0d68afc8eab8d76c66d0251769e416b59292ca9dfd36f3bbfed9eb1"
+    },
+    {
+      "path": "game/research/refs/buc-spots/village-museum/LICENSES.md",
+      "sha256": "29e9c3bca2a30527c0f602b795f1f3b4c50129c97faee979d39da0d053c45a55"
+    },
+    {
+      "path": "game/research/refs/floreasca/LICENSES.md",
+      "sha256": "a58300abe45a8e73f1874142a2ff743725e9f6fb7eefd77a3b731a9f7c76c489"
+    },
+    {
+      "path": "game/research/refs/floreasca/index.json",
+      "sha256": "d48a248ff89fb3ab7ca33bee7b4e6e10fc857bff5423e42c6fb640043acdb08d"
+    },
+    {
+      "path": "game/research/refs/grozavesti/LICENSES.md",
+      "sha256": "53fc871bde022c3a7ba4db8271f215ef3589b0946b6b2507662ac850740fb758"
+    },
+    {
+      "path": "game/research/refs/grozavesti/index.json",
+      "sha256": "8f348d3f218ca698105bb99faf358b1fd00e189ec391f323989724d26de6fd2a"
+    },
+    {
+      "path": "game/research/refs/otopeni/LICENSES.md",
+      "sha256": "dde7d64f44314ccc7f8e3f6de60077588cfc74c5671a1b9110ed6b79886f32c8"
+    },
+    {
+      "path": "game/research/refs/otopeni/index.json",
+      "sha256": "b4aa07603b534049183ff2fcd9f2a8b110673622643495da0e762a3a79fa5d95"
+    },
+    {
+      "path": "game/research/refs/pipera/LICENSES.md",
+      "sha256": "32e7103d4d65f99248e7493c781d79265382603188bd237c248e1696cdbb550e"
+    },
+    {
+      "path": "game/research/refs/pipera/index.json",
+      "sha256": "41ca96ab172fabb6c06180a8c36d1a0273c7e578c6a46e7773c54c85375b16f8"
+    },
+    {
+      "path": "game/research/refs/romana/LICENSES.md",
+      "sha256": "8f3a3abc5271325fd0b039aa69d733da443f0b844a39b76cffe6c1e10387a89d"
+    },
+    {
+      "path": "game/research/refs/romana/index.json",
+      "sha256": "5ee0d2f37015a4c284607b98db06e05748485e8b449a984bb574c72bf28b3ccc"
+    },
+    {
+      "path": "game/research/refs/sea-spots/LICENSES.md",
+      "sha256": "5aadf05f46ee47669f4460b5869d138da5ced60a38717b56814cb30dd3f10415"
+    },
+    {
+      "path": "game/research/refs/sea-spots/ballard-locks/LICENSES.md",
+      "sha256": "e38038a41a2b1d027f0f403dab79fb24220ad007c84bebca84ff4c4a8130fbb4"
+    },
+    {
+      "path": "game/research/refs/sea-spots/bel-botanical-garden/LICENSES.md",
+      "sha256": "b5fc13fe03e7834e0007205f2438e9e9fde509fa5334e19045dadee5a79e9c6c"
+    },
+    {
+      "path": "game/research/refs/sea-spots/bel-downtown-park/LICENSES.md",
+      "sha256": "5833bbcc31682265b9bfc138e68d9ff5923c060848dc308c9139c4d5d690f3ab"
+    },
+    {
+      "path": "game/research/refs/sea-spots/bel-lincoln-square/LICENSES.md",
+      "sha256": "a8a2f82903aae1ba2d9b64651941762717094c1f166d6cd48ef0a21e13fea374"
+    },
+    {
+      "path": "game/research/refs/sea-spots/bel-meydenbauer/LICENSES.md",
+      "sha256": "2b2d3010c37c62be32162b27a80403f0698a545c05b785ed2dd0a2e3347cfeab"
+    },
+    {
+      "path": "game/research/refs/sea-spots/chihuly/LICENSES.md",
+      "sha256": "8e6c77d99ab3bf42e30a8d7045926b72905b3a3e4f1fc28ccff749286d21c259"
+    },
+    {
+      "path": "game/research/refs/sea-spots/fremont-troll/LICENSES.md",
+      "sha256": "af6ce6a3494d69b13d7d4f94d98e35cad21d08c2180de26d4edc9ab92e5ab88c"
+    },
+    {
+      "path": "game/research/refs/sea-spots/gas-works/LICENSES.md",
+      "sha256": "06c5062beb173895cdfc5823b501b46ea83d9065a2f284e9858b029225fe1bfe"
+    },
+    {
+      "path": "game/research/refs/sea-spots/kerry-park/LICENSES.md",
+      "sha256": "d04f430971e25e4b9eadd4147f79bc63f45176c94758bd7dcf6bfa664d41a807"
+    },
+    {
+      "path": "game/research/refs/sea-spots/mopop/LICENSES.md",
+      "sha256": "e9c86e7eeca10feae26459c3f5db72f0aaea29849c7c34fb4d3585e5d86d9a37"
+    },
+    {
+      "path": "game/research/refs/sea-spots/pike-place/LICENSES.md",
+      "sha256": "4f24a15d500ce0456dc47cb094a9877bde0f8a8c873081227f596347e22c9cea"
+    },
+    {
+      "path": "game/research/refs/sea-spots/pioneer-square/LICENSES.md",
+      "sha256": "817b699b5e088e76c8f611bc5e391875d3ea1a796a426078488179d512ce517a"
+    },
+    {
+      "path": "game/research/refs/sea-spots/seattle-center/SOURCE-REVIEW.md",
+      "sha256": "21eb46dcac4cd4cf3907cc063aee3ae0aca721115f05c56a13006b627c859a88"
+    },
+    {
+      "path": "game/research/refs/sea-spots/space-needle/LICENSES.md",
+      "sha256": "d622a3ab988b833807e7e1479e4cf4cb6786ed3fdaa72c55298e70177ffb2887"
+    },
+    {
+      "path": "game/research/refs/sea-spots/waterfront/LICENSES.md",
+      "sha256": "41e158e66f93f5f006d93758489c14a5347c4196b5c04fed65facc730b15d9d0"
+    },
+    {
+      "path": "game/research/refs/seatac/LICENSES.md",
+      "sha256": "b76132a241dc5f698d544b8a1d5903b948fd80a375cd0dfbbd84189a69b30543"
+    },
+    {
+      "path": "game/research/refs/unirii/LICENSES.md",
+      "sha256": "fc632d2f165fe5ee4e9ca09969ed7dc97115986b854fa0b28eb179ac5cc2e28e"
+    },
+    {
+      "path": "game/research/refs/unirii/Strada_Matei_Basarab_nr._46_B-II-m-B-18080_.JPG",
+      "sha256": "0ea92d3cc7ef81f87950a7d4de67b99f963da0ddc9da57343511f0f26bd0dd10"
+    },
+    {
+      "path": "game/research/refs/unirii/Strada_Matei_Basarab_nr._48_B-II-m-B-18081_.JPG",
+      "sha256": "1929875ce82781ec26b67a96b6dd6e095c5487f0505280d53abadf364ea056b0"
+    },
+    {
+      "path": "game/research/refs/unirii/Strada_Matei_Basarab_nr._50_B-II-m-B-18083_.JPG",
+      "sha256": "b3b84cd2c3290a997d7e4967be1f1344bbf1488f0b9d9068eaf09aee298999e4"
+    },
+    {
+      "path": "game/research/refs/unirii/Strada_Matei_Basarab_nr._52_B-II-m-B-18085_.JPG",
+      "sha256": "aa5194c91a50477fb04739f5509c24e62e728309e9464cf97c4c2171f7ff288a"
+    },
+    {
+      "path": "game/research/refs/unirii/Strada_Matei_Basarab_nr._59_B-II-m-B-18088_.JPG",
+      "sha256": "99849cbdc302b602180355871c1feeb8c9fed754d53d8471c7f27423525814a8"
+    },
+    {
+      "path": "game/research/refs/unirii/Strada_Parfumului_nr._11_B-II-m-B-19334_.JPG",
+      "sha256": "111748aca09ee434d54a1fbbec577b22feafd1c273799f898bc16c117961a2d2"
+    },
+    {
+      "path": "game/research/refs/unirii/Strada_Parfumului_nr._13_B-II-m-B-19336_.JPG",
+      "sha256": "2ecdad4da28ff68449db144ac68ec8340859a1e43461fb69b8de4c305715a7c5"
+    },
+    {
+      "path": "game/research/refs/unirii/Strada_Parfumului_nr._6_B-II-m-B-19333_.JPG",
+      "sha256": "df5f57ad4d2e1237c4dadd6cdd02b65059603113f71c605e5b4e914d07765c49"
+    },
+    {
+      "path": "game/research/refs/unirii/index.json",
+      "sha256": "f3cb39bd4010fda355b35fb764a452ecb7d7890f1e5a754ada755243beec0abe"
+    },
+    {
+      "path": "game/research/roofs-bucharest-floreasca.json",
+      "sha256": "bf5f2424c0a4ae108138c3cb0b994ad56943d4706ba564ebf8d79cf5a3605aaf"
+    },
+    {
+      "path": "game/research/roofs-bucharest-grozavesti.json",
+      "sha256": "1fea61dacac7ee6d01321ee910d86856ddf3743b679c68924e52227d75926148"
+    },
+    {
+      "path": "game/research/roofs-bucharest-romana.json",
+      "sha256": "dc3093c88f62cba0138e7931b21e2f7841f71c6d4ac8b0ba295f30bbf9772f02"
+    },
+    {
+      "path": "game/research/seattle-bellevue.json",
+      "sha256": "dc11d149a3b31bd89ecbaa76d859e7d682f9643c82813adf155c7b321c82d7ac"
+    },
+    {
+      "path": "game/research/seattle-bellevue.md",
+      "sha256": "6d5d4fc3ef446c0940b31737a43cd9dabe78e34796975f925fe6a519a79b179b"
+    },
+    {
+      "path": "game/research/seattle-seatac.json",
+      "sha256": "fcd8e6922e4b0d589f885d2a8aab2b39ac79aa99aabcecb77ae928fc474bd046"
+    },
+    {
+      "path": "game/research/seattle-seatac.md",
+      "sha256": "de9a616091d7a14d8ccf9c50896da55574571666bc5931ebeaf4b80683dec685"
+    },
+    {
+      "path": "game/research/seattle-spots.json",
+      "sha256": "dd4a9f5c77047bbe7ac3c3682a758249e253487d9b707412be7bf5d567e8b4bf"
+    },
+    {
+      "path": "game/research/seattle-spots.md",
+      "sha256": "067d008ee26af5b631fded4d2aa514e5f3aba2f3c9eb1c2f8e7e9998e49eb4fc"
+    },
+    {
+      "path": "game/research/speedlimits.json",
+      "sha256": "f4029416117f37fccedbc75e40cd514e9b18fb0e811aff0ca168b467c8144713"
+    },
+    {
+      "path": "game/research/trees-bucharest-floreasca.json",
+      "sha256": "28bce03a39949cdd345b042cc5f51c6bbf3b3aea112c88a1e17f485442744471"
+    },
+    {
+      "path": "game/research/trees-bucharest-grozavesti.json",
+      "sha256": "5221f4b82bf2008a46d0ee9e08d3ceca8ad5aa6185b64f8405d4acd31dddc6f0"
+    },
+    {
+      "path": "game/research/trees-bucharest-romana.json",
+      "sha256": "07999fb492cda058eb6c5873c14f758d6676daf9811e89a5396ac8e966a07ff6"
+    },
+    {
+      "path": "game/src/achievements.js",
+      "sha256": "fb7650a3db44ce163a28fc760c6093af1f68f0580198ffd13d57c2c6a7680eb8"
+    },
+    {
+      "path": "game/src/archetypes.js",
+      "sha256": "3ac87643083fa98989d05279d8d174bde5932332920fc87796dcf7d976c2ecf3"
+    },
+    {
+      "path": "game/src/audio.js",
+      "sha256": "11863937c63883facc59e7549bde428e3e660e6e39ab50b3d55f4a6cf1afe611"
+    },
+    {
+      "path": "game/src/building-parts.js",
+      "sha256": "1e711ce17edf6d731444f6e6f051968a963831c76312998ac8e147e3414d3c7f"
+    },
+    {
+      "path": "game/src/buildings.js",
+      "sha256": "81e4d7ab6b391b2f5f490576cd3c924d3afd4d59013c51c6f23395d4f0f790ca"
+    },
+    {
+      "path": "game/src/canvasText.js",
+      "sha256": "35983021a8548740d623d83aaa092fa9f95a3f58b454575b8ab4732a47db2714"
+    },
+    {
+      "path": "game/src/chapters.js",
+      "sha256": "ef88ddf04a38291e8694f2b4af6f027afad351f85e33d365a2c39f2a833297ba"
+    },
+    {
+      "path": "game/src/cities.js",
+      "sha256": "54b5d54d502edc87b3cbe19a2970fb82f392fd3cc41803a2ee84ec1c202966ac"
+    },
+    {
+      "path": "game/src/crowd.js",
+      "sha256": "e674c3ac0b207ae4e8ee0bc083851d02abc93f8df3333694e2cad9bd40a93257"
+    },
+    {
+      "path": "game/src/data.js",
+      "sha256": "07b1acee851638a4e0b687e0ce63767d74fce1744cc6419f77a08754f33dd92b"
+    },
+    {
+      "path": "game/src/drone.js",
+      "sha256": "7a0b74b6b8b7f18f63ce02ec8a5ab49add9d03343bab7d629c22c0486a5c75e0"
+    },
+    {
+      "path": "game/src/explore.js",
+      "sha256": "c012ecc57748ca48e2f36ecdcb65552edb9593811df7074a05da9411ed2dfd63"
+    },
+    {
+      "path": "game/src/finale.js",
+      "sha256": "6dd47d7336285e2ca9d92e553f6f5e64080844aaf9f2883012abfcc7a327e60d"
+    },
+    {
+      "path": "game/src/flight.js",
+      "sha256": "e5b5a05691a3abbd684ccbd20e11e5c1370ff71bb0a540d8483045bf42f3b544"
+    },
+    {
+      "path": "game/src/football.js",
+      "sha256": "0fea24f051593185b93c8457c27ec13af2344ba34b442115f3472a662317df7f"
+    },
+    {
+      "path": "game/src/geo-ne110.js",
+      "sha256": "6d9c86444680f5007b90d41e7a5d93a2d1f081dcc556b665fcbcb9cd0ecf8f36"
+    },
+    {
+      "path": "game/src/geobuild.js",
+      "sha256": "28e535a8934df3d3d249f13180ce04db1b86d47318530e74344a532a2a0fb2d3"
+    },
+    {
+      "path": "game/src/globe.js",
+      "sha256": "6b5eae150fdf803a81f9b3696def2dd8e26d2c846c73b2aeb16c22e6b40d76d6"
+    },
+    {
+      "path": "game/src/hud.js",
+      "sha256": "3edd55de5db73e2d88f3ad546a298f7a53fd0339758faf7094ef7f8519c5b62e"
+    },
+    {
+      "path": "game/src/input.js",
+      "sha256": "305f58955e749d1dcf0b87c2047404580805210b718892588e6fd5a82c81ece1"
+    },
+    {
+      "path": "game/src/landmarks.js",
+      "sha256": "1ef53690c1cf13c13cb0793dc785f5ba4b0ed287aa718d0ab46b7f053af611ad"
+    },
+    {
+      "path": "game/src/main.js",
+      "sha256": "b35a389868cfe373da0c47d31a9a14002620678b9c9a0d38089ba93d7de740ed"
+    },
+    {
+      "path": "game/src/minimap.js",
+      "sha256": "e0913a369637d71f391a31ec84550bc808a0e4f069bc94810113de61fe694c5b"
+    },
+    {
+      "path": "game/src/nav.js",
+      "sha256": "f938df01c43a69d91db2216b3ab82b5f38f6f0f1177e4b97fc3ecf11e6dd3f62"
+    },
+    {
+      "path": "game/src/office.js",
+      "sha256": "a56fed9898f03633930afa6e724421c888d30dd040d5d4d3b1bed9880d359166"
+    },
+    {
+      "path": "game/src/onfoot.js",
+      "sha256": "870d0294232fb2b1e11af42906da780bd6d8a34604179ca9de657da1d08848f7"
+    },
+    {
+      "path": "game/src/photo.js",
+      "sha256": "c8f18e59bab5e264d779dea69bef2668aff5d626e677edefe62869d9b744b13f"
+    },
+    {
+      "path": "game/src/player.js",
+      "sha256": "8f56d0a5aabf9fdb703b261b931adb031cc868625b515de272375c9235ca7729"
+    },
+    {
+      "path": "game/src/render.js",
+      "sha256": "938157dfc2c95221c5a2a7ea3ebbe2705c4413b3456bf60caeb3eabf1739dd43"
+    },
+    {
+      "path": "game/src/save.js",
+      "sha256": "66ece4bff34ce8a3bafcc29ad74dd7a7792ceb80d0406890f27982ad052640dc"
+    },
+    {
+      "path": "game/src/signals.js",
+      "sha256": "47b7dd7a016a3e48faf9f2348121bd8c1e280d7b07fc7acd27103ab39a29b1ac"
+    },
+    {
+      "path": "game/src/spots/README.md",
+      "sha256": "517c5a2cce282ff27e0847abe06696cdcc4121734fa182b162b3cac708183823"
+    },
+    {
+      "path": "game/src/spots/backdrop.js",
+      "sha256": "212e3d374b4bf238f92b0fa150430f4da46258d960748a409b0d0cc76137b29a"
+    },
+    {
+      "path": "game/src/spots/bike.js",
+      "sha256": "a10987d8afd5c4bed965170971efff80bd91bc79323e73307d67715e2a52a541"
+    },
+    {
+      "path": "game/src/spots/buc.js",
+      "sha256": "260b28f44dadc4fa16458422fe7965223e3cc8a5eaa9a099d3a1576f0b5ae0a9"
+    },
+    {
+      "path": "game/src/spots/cars.js",
+      "sha256": "a1ab08bdff5624535f1085a8766aa43e1bd338d89166e93055353fffcd75224d"
+    },
+    {
+      "path": "game/src/spots/ground.js",
+      "sha256": "06e0a2e4bb27282dbf7232972861c1b061f52625e174642875ff41f981e733fd"
+    },
+    {
+      "path": "game/src/spots/index.js",
+      "sha256": "3c697bbbd30a8c40345542dc585571426160665db5697716d7a29690deb86346"
+    },
+    {
+      "path": "game/src/spots/kit.js",
+      "sha256": "6b98b1bf9b1121cf1be172f220a4108f2f5c954b90c008c1cdd75425268b98db"
+    },
+    {
+      "path": "game/src/spots/osm.js",
+      "sha256": "ae95578b21c351adaabd8f27a445e4c061ea87cd18aafc6c618a0809a9cc6ced"
+    },
+    {
+      "path": "game/src/spots/people.js",
+      "sha256": "ab60f1a4f6d44c537b1727b332eaa9f0c68b1c436cd55cecd7171fbebb323338"
+    },
+    {
+      "path": "game/src/spots/props.js",
+      "sha256": "3511b4e65b284df7a939189893c78f9f2126fde7556a8b8a6f1de027aca902e5"
+    },
+    {
+      "path": "game/src/spots/scenes/arcul-de-triumf.js",
+      "sha256": "e0bcc02c5a6a691c6524a2eec77bc90a7d97284e353df1dfa3ddaa405e74b3ec"
+    },
+    {
+      "path": "game/src/spots/scenes/athenaeum-revolution.js",
+      "sha256": "8885b1d7729cac0d814446fb6e96f3a5dbb740b6d458e83a6af18ed75a89069a"
+    },
+    {
+      "path": "game/src/spots/scenes/ballard-locks.js",
+      "sha256": "861e655916f000795a75f678b0e2b0b4271656ebacc2b983fa14d5f2f962ae13"
+    },
+    {
+      "path": "game/src/spots/scenes/bel-botanical-garden.js",
+      "sha256": "340b2fab64c5bd5f94e9c0507ad9142ce033e59c775d53dedbb11addc135ebb4"
+    },
+    {
+      "path": "game/src/spots/scenes/bel-common.js",
+      "sha256": "aac24c6ea7b7a2922eb89d6015fbfaee8790abfd3b8a44900d60b69134188956"
+    },
+    {
+      "path": "game/src/spots/scenes/bel-downtown-park.js",
+      "sha256": "8b2237f3dc045a934986421b06b826524a7aab2685354571fcdd225dd03a40d2"
+    },
+    {
+      "path": "game/src/spots/scenes/bel-lincoln-square.js",
+      "sha256": "0d7b554abc115c2a7002a3969c584374dd3b799fcec640da8c19d043315da837"
+    },
+    {
+      "path": "game/src/spots/scenes/bel-meydenbauer.js",
+      "sha256": "81174ac9bb8e56def5ef703f97e337e36daa5c81e4b19cd634a8b0104c9a7b5c"
+    },
+    {
+      "path": "game/src/spots/scenes/buc-herastrau.js",
+      "sha256": "9ccff9e316eef1e2b003898e5c02d7b53aea0ab615bfccaaffed92d6e38e939a"
+    },
+    {
+      "path": "game/src/spots/scenes/buc-old-town.js",
+      "sha256": "c309604df7085a123afb491b96b3a91bc81491f75731f15d4735da74d2fd2718"
+    },
+    {
+      "path": "game/src/spots/scenes/buc-parliament.js",
+      "sha256": "3598935516ab8a9005e7b019bf77764e65eef20d86e3bf2767270199481fda10"
+    },
+    {
+      "path": "game/src/spots/scenes/cismigiu.js",
+      "sha256": "ba54725b47d277306fe7ed41862dcb85203af26fc1b5554eccbcca72b291309d"
+    },
+    {
+      "path": "game/src/spots/scenes/fremont-troll.js",
+      "sha256": "c83d68321010252c0f8b333dec5a732ef94fac219725c9a03cc9ea218985b09a"
+    },
+    {
+      "path": "game/src/spots/scenes/gas-works.js",
+      "sha256": "3236d37253b88bd1f8335c9ca58666952d2101415ee1e86ea9aa705ce0e66942"
+    },
+    {
+      "path": "game/src/spots/scenes/kerry-park.js",
+      "sha256": "00420e94aa5bc621601e973ae1a974076cb663a433fb6a61534a1c29dc613329"
+    },
+    {
+      "path": "game/src/spots/scenes/pike-place.js",
+      "sha256": "6c8d4da05da4301844d3417c106a8bee549197aec4ac8366594f8e2b9d6bfc36"
+    },
+    {
+      "path": "game/src/spots/scenes/pioneer-square.js",
+      "sha256": "1bcf2495205505cf83ddeb5fcf6852a6c8e0fc27d2e850cbf4cb4cb61f89bf30"
+    },
+    {
+      "path": "game/src/spots/scenes/sea-common.js",
+      "sha256": "44ea47598f8f0bf1c9aa8d2a4ab7135f2479953573685ff684350c4f0c921c71"
+    },
+    {
+      "path": "game/src/spots/scenes/seattle-center.js",
+      "sha256": "8e62b38e06c52d34dfdd7dfdf64130d240cd9e18f89a4a12b706c57a3ad0a9a4"
+    },
+    {
+      "path": "game/src/spots/scenes/spring-palace.js",
+      "sha256": "814e5635f5401330ea15a061f7c3f68f40a95db3c973235ffb7c108a07ccfff6"
+    },
+    {
+      "path": "game/src/spots/scenes/waterfront.js",
+      "sha256": "20bd3cc2b06bb4d90d19632830deef891666c514f1cdfbaeb842db7c58223aae"
+    },
+    {
+      "path": "game/src/spots/sdf.js",
+      "sha256": "742037ac8d81781aa775dd43f74a6f1e0abc0d6493981538df355cdc6f64cb49"
+    },
+    {
+      "path": "game/src/spots/sound.js",
+      "sha256": "7e24d4c27e80fb9c9e2190d001c4bc59b44a3e3c4402e06aee6b79b236858817"
+    },
+    {
+      "path": "game/src/spots/tools/build-data.mjs",
+      "sha256": "3c2d6e53ca5c7fb5beaa2a80ae34b02d49cdb866f8a15604f962805796f5f75a"
+    },
+    {
+      "path": "game/src/spots/tools/fetch-buc.mjs",
+      "sha256": "6134f07ef770f7308d4d07eb704325e46c15abe8667ec7bb640a5dffb5826d40"
+    },
+    {
+      "path": "game/src/spots/tour.js",
+      "sha256": "be52ee726cf0c8608ce4957cf0682813ac199147aedb459ace4ab651a7192960"
+    },
+    {
+      "path": "game/src/spots/ui.js",
+      "sha256": "5644cd9646e249c21a1ed21e5b0bbbb9aef71c7c44476bfe3bc4266149267be0"
+    },
+    {
+      "path": "game/src/spots/walker.js",
+      "sha256": "a6be6c51c1b63f2ea6fa72ab75513e0353c1f4d036cebdaa0057baf1b229798e"
+    },
+    {
+      "path": "game/src/telemetry-game.js",
+      "sha256": "569a69ea462089a8f398e787db3ba99435309b099e08f651f46785a0151d41aa"
+    },
+    {
+      "path": "game/src/traffic.js",
+      "sha256": "9de00e21deae16262955806f720f3cf4f4c1c7bdd9bca5dad862772744244a2a"
+    },
+    {
+      "path": "game/src/transition.js",
+      "sha256": "35e0f270adb35d2462cf3a153ba4deec243d8537529520684b57198a56cda593"
+    },
+    {
+      "path": "game/src/trees.js",
+      "sha256": "2ed3d20166bd5603098c84d82d4268fe771cea8d73c75608ce45f619172dd55c"
+    },
+    {
+      "path": "game/src/util.js",
+      "sha256": "0a9dfc801adefd4dbf6f8485451404d92494dd9292fe0e310c9eb457f78afeb5"
+    },
+    {
+      "path": "game/src/vehicles.js",
+      "sha256": "cd1cc1577652b9e2600bf0645a18f27d04e5d7e155136a279722d79dabca859f"
+    },
+    {
+      "path": "game/src/water.js",
+      "sha256": "491a6b4d96d81c6761559d2effe878d4e76a279811c914f45592fa364ec6d4eb"
+    },
+    {
+      "path": "game/src/weather.js",
+      "sha256": "a2bb0854d3fe3792f94ca9f3b2f2ecbdd9e61b497aca1d3ac5d51d02ec5875b8"
+    },
+    {
+      "path": "game/src/world.js",
+      "sha256": "a555c7aaab8d5844d27bd42b92177c154357ff497a1ad21be236bd28e6250045"
+    },
+    {
+      "path": "game/src/worldmap.js",
+      "sha256": "3098a9d57bcd6feaa6e2176ba9652104ac00cad2780e725694dfed10f65bc6f9"
+    },
+    {
+      "path": "game/style.css",
+      "sha256": "9456595dc784945a11703839849c2a4c358a15180705baa3085adddd2e35c1cd"
+    },
+    {
+      "path": "game/vendor/addons/CopyShader.js",
+      "sha256": "4e3346db194db56a596cd074e9bdb39fb5eb52040c333e0d29dc4eb1324d3b1d"
+    },
+    {
+      "path": "game/vendor/addons/EffectComposer.js",
+      "sha256": "73a2a9557141dff1c29bb5f2d53cb62905855a216b0181cd8dd42d6bc6cec87b"
+    },
+    {
+      "path": "game/vendor/addons/FXAAShader.js",
+      "sha256": "fd04bb4db3b4895540dd6e6ccef1a9984f0097bef396d27d6fea7b15c66a06ec"
+    },
+    {
+      "path": "game/vendor/addons/GTAOPass.js",
+      "sha256": "c0d33b166deb459b3adcbb3b543b7d61763d4ab4fcc778641afbf1305d807ad8"
+    },
+    {
+      "path": "game/vendor/addons/GTAOShader.js",
+      "sha256": "82b24ca4a9cc99109b93994cb9ad8c23d1109ba94257a3af3335dc9e5111b187"
+    },
+    {
+      "path": "game/vendor/addons/LuminosityHighPassShader.js",
+      "sha256": "e40b9e5355f66b6e7720c8b54472259481ab17e36ac24ba36eb871f723d21ee6"
+    },
+    {
+      "path": "game/vendor/addons/MaskPass.js",
+      "sha256": "328cf7db0da5d9be83ffe39d54b01d5ac1fddf108cc98182ddbb056f5c8b537f"
+    },
+    {
+      "path": "game/vendor/addons/OutputPass.js",
+      "sha256": "88b4010627926dce53480c3a8a230ed71a162e7cae1ce2ac419dfb7900160460"
+    },
+    {
+      "path": "game/vendor/addons/OutputShader.js",
+      "sha256": "4944cecd49c0d4d1520a4d927bde8a590fd43f041ee913252b9451855a01d0f0"
+    },
+    {
+      "path": "game/vendor/addons/Pass.js",
+      "sha256": "7f988181feafe0831a9895c0e507e07b8128c87f115342e75efb452dd870873a"
+    },
+    {
+      "path": "game/vendor/addons/PoissonDenoiseShader.js",
+      "sha256": "9825bdd96780fab7a7a58111377032b666ca38974ad7fee223ab7cbb43cc7235"
+    },
+    {
+      "path": "game/vendor/addons/RenderPass.js",
+      "sha256": "359f12b05357a8c666baa65bba3ade4265845617ddd7dfd812bde0d4f3dcb2bc"
+    },
+    {
+      "path": "game/vendor/addons/SMAAPass.js",
+      "sha256": "2f4da7e1f78c8d39582e25dee185ab6df18c42d3f55ed5d43de5a89f9c8b0a28"
+    },
+    {
+      "path": "game/vendor/addons/SMAAShader.js",
+      "sha256": "ff4de77e79b0c2d214e822da11c72311f6e4c7fd2a4befd7f0f05a7832284081"
+    },
+    {
+      "path": "game/vendor/addons/ShaderPass.js",
+      "sha256": "9cda38094c2cd1cf29ed0fe3cfc1b3229e3ca3758659617eba6fdae4107bc233"
+    },
+    {
+      "path": "game/vendor/addons/SimplexNoise.js",
+      "sha256": "9b8d541b77b0ddc79afaa6a1de8941452c191b8b9006f04e7b8fc422e2b263f7"
+    },
+    {
+      "path": "game/vendor/addons/UnrealBloomPass.js",
+      "sha256": "5d46047298729f4bdc7ccf1d673d091f7d60dd799918908049d1f6c3d4cda02d"
+    },
+    {
+      "path": "game/vendor/three.module.min.js",
+      "sha256": "08fd7545d13d2c7fb65ab691530a802dafefd638596501854f267d0fb13c39e7"
+    },
+    {
+      "path": "package.json",
+      "sha256": "41abc48889f79072f50629296b5df72f2d4968922e1870a25d6da86c81e12a84"
+    },
+    {
+      "path": "public/background.svg",
+      "sha256": "b62be6bf4a9c616e5a82d461cd1a79a00e47f90b1fcc1476da83488789b0be0b"
+    },
+    {
+      "path": "public/background.webp",
+      "sha256": "ec59893c6fd6c3cf6129822457817d2cf66cd0ca71e17f1e381ef09b15ab97f1"
+    },
+    {
+      "path": "public/cv.pdf",
+      "sha256": "94670855894b5dea153786a80b4629a2736a6a6172e7cfd5a0c055c588069f95"
+    },
+    {
+      "path": "public/favicon.ico",
+      "sha256": "ab7c1d13955157b1860ed96f186d212a02a74a0ebbd59b1bd6bcf06f53589316"
+    },
+    {
+      "path": "public/fonts/Raleway-ExtraLight.ttf",
+      "sha256": "2620b63bff6f16fb1fa5e28209777cfdfc51a0c8aa1d54ea24a590541e2fd54f"
+    },
+    {
+      "path": "public/icons/dev-to.png",
+      "sha256": "b6245edf37d450f5e8d56ea57cb61fa003e4c9105edf3644baacf433308224dc"
+    },
+    {
+      "path": "public/icons/email.png",
+      "sha256": "6cbee7b4f04e5a6b33b09c3af7e00f7abda84cd46a8b46be89e14b6087a1bfef"
+    },
+    {
+      "path": "public/icons/github.png",
+      "sha256": "d83ddf4ea98e9d2e77848869cbe5f0ecabb3058ede22c681bbe07b45a9091909"
+    },
+    {
+      "path": "public/icons/linkedin.png",
+      "sha256": "9eb6ffcfa297dc25aebd90fd7930e9d4ad724d8cd496d4621df28ddc29631d77"
+    },
+    {
+      "path": "public/icons/medium.png",
+      "sha256": "565ae0b0bc03c231de05ddc4868d8049dc21f52d75694506647b4e93f1c77419"
+    },
+    {
+      "path": "public/icons/pdf.png",
+      "sha256": "22623b4d6ddfb0ac3fa7f9f52798c982d2daa9cf6a0f03c6b7edaac00876c51b"
+    },
+    {
+      "path": "public/icons/stackoverflow.png",
+      "sha256": "78407eca2ec4f181093a01cd2bc58d9b3b2a66a89f46ef2ce2ba20806d287bb3"
+    },
+    {
+      "path": "public/icons/twitter.png",
+      "sha256": "33214cc76418a41c0ac283661edac16b9eb2be0dc2aa2c8bfa091ac665f25095"
+    },
+    {
+      "path": "public/me.jfif",
+      "sha256": "2c2a06b81a70e371b600cc8d0ef403130ba343100f4230111ada6470868924bf"
+    },
+    {
+      "path": "public/telemetry.js",
+      "sha256": "511f5c38071db591813ae89e4c5df775feaf9bbade98591a50a1a70b5ff68bd4"
+    }
+  ],
+  "treeSha256": "ac20b050c7f6384faabbe19116df2c95f7bb90369d74fbfb58708cdfb318a22a"
+}

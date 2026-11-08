@@ -263,8 +263,8 @@ class Game {
             if (ft) { const it = this.navItems[+ft.dataset.ft]; if (it) { this.toggleMap(false); this.fastTravel({ x: it.nx ?? it.x, z: it.nz ?? it.z, label: it.label.replace(/ ✓$/, ''), station: it.group === 'Gas stations' }); } return; }
             const b = e.target.closest('[data-nav]'); if (!b) return;
             const idx = +b.dataset.nav;
-            if (idx < 0) { this.navManual = false; this.autoRoute(true); }
-            else { const it = this.navItems[idx]; if (it) { this.setNavDest({ x: it.nx ?? it.x, z: it.nz ?? it.z, label: it.label }, true); if (it.walk && this.state === 'drive') this.hud.toast(`${it.icon} ${it.label}`, `The route ends on the nearest street: park there and walk the last ${fmtDist(it.walk, this.city.units)} (Enter).`); } }
+            if (idx < 0) { this.explore?.clearDestination?.({ restore: false }); this.navManual = false; this.autoRoute(true); }
+            else { const it = this.navItems[idx]; if (it) { this.setNavDest({ x: it.nx ?? it.x, z: it.nz ?? it.z, label: it.label, station: it.group === 'Gas stations' }, true); if (it.walk && this.state === 'drive') this.hud.toast(`${it.icon} ${it.label}`, `The route ends on the nearest street: park there and walk the last ${fmtDist(it.walk, this.city.units)} (Enter).`); } }
             // (round 6 note 51) stay on the map: the route and the destination show; frame them, then M / Close to drive
             { const mv = this.mapView, P = this.player, d = this.nav.dest; if (mv && d) { mv.cx = (P.x + d.x) / 2; mv.cz = (P.z + d.z) / 2; } }
             this.redrawMap(); this.buildNavList();
@@ -585,17 +585,20 @@ class Game {
         this.autoRoute(true);
     }
     autoRoute(force = false) {
-        if (this.navManual) return;
+        if (this.navManual || this.explore?.destination?.remote) return;
         const o = this.objective;
-        if (!o) { this.nav.clear(); return; }
+        if (!o) { this.explore?.onNavDestination?.(null, false); this.nav.clear(); return; }
         const x = o.doorX ?? o.x, z = o.doorZ ?? o.z;
         if (!force && this.nav.dest && this.nav.dest.x === x && this.nav.dest.z === z) return;
         this.setNavDest({ x, z, label: this.objectivePlain }, false);
     }
     setNavDest(dest, manual) {
+        this.explore?.onNavDestination?.(dest, manual);
         this.navManual = manual;
-        this.nav.setDestination(dest, this.player);
-        if (manual && !this.nav.route) this.hud.toast('🧭 No route', 'Could not find a drivable route there.', 'warn');
+        const P = this.state === 'foot' && this.foot?.active ? this.foot : this.player;
+        this.nav.walking = this.state === 'foot';
+        this.nav.setDestination(dest, P);
+        if (manual && !this.nav.route) this.hud.toast('📍 Destination marked', 'No route is available from here.', 'warn');
     }
 
     // ----------------------------------------------------------------------------------
@@ -713,7 +716,9 @@ class Game {
         if (nv && nv.arrived && this.navManual) { hud.toast('🏁 You have arrived', this.nav.dest?.label || ''); this.navManual = false; this.nav.clear(); this.autoRoute(true); }
         if (nv && nv.rerouted) this.audio.blip(520, 0.06, 0.06);
         // objective text
-        if (this.objective || this.nav.dest) {
+        if (this.explore?.destination?.remote) {
+            hud.setObjective(`📍 ${this.explore.destination.label}`); hud.setNavLine('Hold F to travel · destination in another area');
+        } else if (this.objective || this.nav.dest) {
             const label = this.navManual ? `🧭 ${this.nav.dest.label}` : this.objectiveLabel;
             if (nv) {
                 hud.setObjective(`${label} · ${fmtDist(nv.remaining, city.units)}`);
@@ -979,19 +984,20 @@ class Game {
     drawRouteOverlay(ctx, canvas, { cx, cz, scale, heading = null }) {
         this.drawOutside(ctx, canvas, { cx, cz, scale, heading });
         this.drawCarMarker(ctx, canvas, { cx, cz, scale, heading });
-        const r = this.nav?.route; if (!r) return;
+        const r = this.nav?.route, d = this.nav?.dest; if (!r && !d) return;
         ctx.save();
         ctx.translate(canvas.width / 2, canvas.height / 2);
         if (heading !== null) ctx.rotate(heading);
         ctx.scale(scale, scale); ctx.translate(-cx, -cz);
         ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-        ctx.beginPath();
-        const s0 = this.nav.segIdx || 0;
-        { const me = this.foot?.active ? this.foot : this.player; ctx.moveTo(me.x, me.z); }
-        for (let i = s0 + 1; i < r.points.length; i++) ctx.lineTo(r.points[i][0], r.points[i][1]);
-        ctx.strokeStyle = 'rgba(29,78,216,0.85)'; ctx.lineWidth = Math.max(4 / scale, 5); ctx.stroke();
-        ctx.strokeStyle = '#60a5fa'; ctx.lineWidth = Math.max(2 / scale, 2.5); ctx.stroke();
-        const d = this.nav.dest;
+        if (r) {
+            ctx.beginPath();
+            const s0 = this.nav.segIdx || 0;
+            { const me = this.foot?.active ? this.foot : this.player; ctx.moveTo(me.x, me.z); }
+            for (let i = s0 + 1; i < r.points.length; i++) ctx.lineTo(r.points[i][0], r.points[i][1]);
+            ctx.strokeStyle = 'rgba(29,78,216,0.85)'; ctx.lineWidth = Math.max(4 / scale, 5); ctx.stroke();
+            ctx.strokeStyle = '#60a5fa'; ctx.lineWidth = Math.max(2 / scale, 2.5); ctx.stroke();
+        }
         if (d) {
             ctx.translate(d.x, d.z); if (heading !== null) ctx.rotate(-heading); ctx.scale(1 / scale, 1 / scale);
             ctx.fillStyle = '#ef4444'; ctx.beginPath(); ctx.arc(0, -16, 9, Math.PI, 0); ctx.lineTo(0, 0); ctx.closePath(); ctx.fill();
@@ -1310,6 +1316,7 @@ class Game {
 
     // ---------------------------------------------------------------------------------- big map + nav panel
     toggleMap(open) {
+        if (open) { this._ftT = 0; this._ftRing?.classList.remove('on'); }
         if (open) { const h = document.getElementById('map-route-hint'); if (h) h.textContent = ''; }
         if (open && this.explore?.active) { this.explore.openWorldMap(); return; } // M while roaming: the hub (its "Here" tab is the local map); in the story M is this district map
         const was = this.mapOpen; this.mapOpen = open;
@@ -1354,7 +1361,9 @@ class Game {
         const x = (px - c.width / 2) / mv.scale + mv.cx, z = (py - c.height / 2) / mv.scale + mv.cz;
         if (e.shiftKey) { mv.cx = x; mv.cz = z; this.redrawMap(); return; }
         const ne = this.nav.index.nearest(x, z, 400);
-        this.setNavDest({ x, z, label: ne ? `Waypoint · ${roadName(ne.edge)}` : 'Waypoint' }, true);
+        const hitR = 18 * (c.width / r.width) / mv.scale;
+        const place = (this.navItems || []).filter(p => (!p.cat || MINIMAP.filterOn?.(p.cat) !== false) && Math.hypot(p.x - x, p.z - z) < hitR).sort((a, b) => Math.hypot(a.x - x, a.z - z) - Math.hypot(b.x - x, b.z - z))[0];
+        this.setNavDest(place ? { x: place.nx ?? place.x, z: place.nz ?? place.z, label: place.label, station: place.group === 'Gas stations' } : { x, z, label: ne ? `Waypoint · ${roadName(ne.edge)}` : 'Waypoint' }, true);
         if (this.nav.route && this.hud.achievement('navigator')) this.audio.chime();
         this.audio.blip(880, 0.06, 0.08);
         this.redrawMap(); this.buildNavList();
@@ -1388,6 +1397,7 @@ class Game {
             if (this.chapterDone && next) html += `<div class="nav-item active"><span>▶️ Next chapter: ${next.year} · ${next.title}</span><button data-chapter="${this.chapterIdx + 1}">Go</button></div>`;
             html += chapterSelectHtml(this.chapters, this.progress, this.chapterIdx).replace('<h4>Chapters</h4>', '<h4>Chapters <small>(replay)</small></h4>');
         }
+        if (this.explore?.destination?.remote) html += `<div class="nav-item active"><span>📍 ${this.explore.destination.label} <small>Another area · hold F to travel</small></span><button data-nav="-1">Clear</button></div>`;
         if (this.navManual) html += `<div class="nav-item active"><span>🧭 ${this.nav.dest?.label || 'Custom'}</span><button data-nav="-1">Clear</button></div>`;
         const spotsHere = (this.spotsMod?.SPOTS || []).filter(sp => sp.city === this.city.id);
         // collapsible groups (owner note 81: the full list was overwhelming): the essentials open, the long lists closed with a
@@ -1398,7 +1408,7 @@ class Game {
         for (const gr of groups) {
             const isOpen = open[gr.name] ?? (OPEN.has(gr.name) && (!gr.cat || MINIMAP.filterOn?.(gr.cat) !== false)), cb = gr.cat && fkey(gr.cat) in F ? `<input type="checkbox" data-filter="${gr.cat}" title="Show on the map"${F[fkey(gr.cat)] ? ' checked' : ''}>` : '';
             html += `<details class="nav-group" data-group="${gr.name}"${isOpen ? ' open' : ''}><summary><span>${gr.name}</span><small>${gr.rows.length}${isOpen ? '' : ' ›'}</small>${cb}</summary>`;
-            for (const i of gr.rows) { const it = items[i]; html += `<div class="nav-item"><span>${it.icon} ${it.label} <small>${dist(it.x, it.z)}${it.walk ? ` · walk the last ${fmtDist(it.walk, this.city.units)}` : ''}</small></span><button data-nav="${i}" title="Route there">Go</button><button class="ft" data-ft="${i}" title="Fast travel (skip the drive)">⏩</button></div>`; }
+            for (const i of gr.rows) { const it = items[i]; html += `<div class="nav-item"><span>${it.icon} ${it.label} <small>${dist(it.x, it.z)}${it.walk ? ` · walk the last ${fmtDist(it.walk, this.city.units)}` : ''}</small></span><button data-nav="${i}" title="Set a route and mark this destination">Mark</button><button class="ft" data-ft="${i}" title="Fast travel (skip the drive)">Fast travel</button></div>`; }
             html += '</details>';
         }
         html += '<div class="nav-item active"><span>☀️ Time, weather &amp; season</span><button data-cond="1">Open</button></div>'; // (everyone; districts: the world-map hub, explore.js)
@@ -1568,6 +1578,7 @@ class Game {
         if (input.take('Escape')) { this.togglePause(true); this.drawFrame(); return; }
         input.lookAllowed = true;
         if (input.take('KeyN')) { this.opts.minimap = !this.opts.minimap; this.saveOpt('minimap', this.opts.minimap); this.applyOpts(); }
+        if (this.holdToTravel(input, dt)) { this.fastTravelToObjective(); return; }
         this.frame++;
         this.updateClock(dt);
         if (this.frame % 30 === 0) this.pollWeather();
@@ -1601,7 +1612,9 @@ class Game {
         hud.setStreet(onRoad ? roadName(ne.edge) : (world.isPark?.(F.x, F.z) ? 'Park' : 'On foot'), district);
         hud.setSpeed(F.vel); hud.setLimit(null, city.units === 'mph', false);
         const nv = this.navInfo = this.nav.update(pos, dt);
-        if (this.objective || this.nav.dest) {
+        if (this.explore?.destination?.remote) {
+            hud.setObjective(`📍 ${this.explore.destination.label}`); hud.setNavLine('Hold F to travel · destination in another area');
+        } else if (this.objective || this.nav.dest) {
             const label = this.navManual ? `🧭 ${this.nav.dest.label}` : this.objectiveLabel;
             if (nv) { hud.setObjective(`${label} · ${fmtDist(nv.remaining, city.units)} 🚶`); hud.setNavLine(`<b>${stepArrow(nv.next)}</b>${stepText(nv.next, nv.distToNext, city.units)}`); }
             else hud.setObjective(label);
@@ -1833,6 +1846,7 @@ class Game {
         if (hud.panelOpen) { inp.lookAllowed = false; inp.releaseLock(); inp.flush(); this.r3d.frame(); return; }
         if (!busy && inp.take('KeyM') && typeof s.openMap === 'function') { s.openMap(); this.r3d.frame(); return; } // M = the spot map (spots-core)
         if (!busy && (inp.take('Escape') || inp.take('KeyM'))) { this.togglePause(true); this.r3d.frame(); return; }
+        if (!busy && this.explore?.destination && this.holdToTravel(inp, dt)) { this.fastTravelToObjective(); return; }
         inp.take('Enter'); inp.take('NumpadEnter'); inp.take('KeyR'); inp.take('KeyF'); inp.take('KeyH');
         if (!s.ui?.panelOpen) inp.lookAllowed = true;
         s.update(dt);
@@ -2357,7 +2371,8 @@ ${['drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa="conditi
      *  when it completes; letting go earlier cancels (no accidental fast travel). Returns true on the frame it completes. */
     holdToTravel(input, dt) {
         input.take('KeyF');
-        const held = !!input.keys?.has?.('KeyF') && !!this.objective && !this.chapterDone, HOLD = 1.2;
+        const destination = this.explore?.destination || (this.navManual && this.nav?.dest) || (this.chapterDone ? null : this.objective);
+        const held = !!input.keys?.has?.('KeyF') && !!destination, HOLD = 1.2;
         let el = this._ftRing || document.getElementById('ft-hold');
         if (el) this._ftRing = el;
         if (!el) { el = this._ftRing = document.createElement('div'); el.id = 'ft-hold'; el.innerHTML = '<svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" class="bg"/><circle cx="22" cy="22" r="18" class="fg"/></svg><span></span>'; document.body.appendChild(el); }
@@ -2368,6 +2383,7 @@ ${['drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa="conditi
         this._ftT = 0; el.classList.remove('on'); input.keys.delete?.('KeyF'); return true;
     }
     fastTravelToObjective() {
+        if (this.explore?.destination) return this.explore.fastTravelSelected();
         if (this.navManual && this.nav.dest) return this.fastTravel({ ...this.nav.dest });
         const o = this.objective;
         if (!o) { this.hud.toast('⏩ Nowhere to fast-travel', 'Pick a destination on the map (M).'); return; }
@@ -2390,7 +2406,7 @@ ${['drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa="conditi
     async fastTravel(dest) {
         this.explore?.hooks?.abortDrone?.();
         if (this.clamp && !this.clamp.paid && this.state === 'drive') { this.hud.toast('🔒 Wheel clamp', 'Pay the fine first: Esc → “Pay fine”.', 'warn'); return false; }
-        if (this.state === 'foot') this.backToCar(); // (on foot: back behind the wheel first, then go — round 6 note 8)
+        if (this.state === 'foot') this.enterCar(); // fast travel starts from the parked car; do not call it to a new pickup pose first
         if (this.state !== 'drive' || this.refuel) return false;
         const { player, hud, city } = this;
         const route = this.nav.compute(player.x, player.z, dest.x, dest.z, player.heading, player.surfY ?? null);

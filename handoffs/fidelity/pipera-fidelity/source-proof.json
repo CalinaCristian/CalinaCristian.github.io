@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
   "district": "bucharest-pipera",
-  "builtFromCommit": "3e8550102adf3bc4bf29d0feb3d83debe4be0222",
+  "builtFromCommit": "64f8bb9",
   "sourceAccessDate": "2026-11-08",
   "data": "game/data/bucharest-pipera.json",
-  "dataSha256": "d762b8d5654d53abf733cae4fdb7d3aa8a494d7a3aa72f368e7912d18d6bbea3",
+  "dataSha256": "0ce11f59ecc0e6a2376de785a211a9b239ec8bb0a54a4606014b43d9845eb2a6",
   "sourceAudit": {
     "sourceSolidRecords": 2282,
     "exactIdentitiesPresent": 2282,
@@ -329,5 +329,13 @@
     "Full final official street comparison and250m north-up game capture grid remain pending; successful1562 baseline official comparison pairs and all raw detector failures stay private.",
     "Untyped vertical dimensions, roof rise/direction, measured roof class unknowns and aerial acquisition date retain their recorded uncertainty."
   ],
-  "evidencePolicy": "No reference imagery or Street View-derived geometry/height/colour is published. Raw reference imagery, failed runs and full audit files remain in private workspace."
+  "evidencePolicy": "No reference imagery or Street View-derived geometry/height/colour is published. Raw reference imagery, failed runs and full audit files remain in private workspace.",
+  "independentRoofColour": {
+    "inputs": 2266,
+    "admissible": 1735,
+    "rejectedOrUncertain": 531,
+    "minimumConfidence": 0.65,
+    "roofColourRecordsChanged": 1916,
+    "sourceGeometryAndDimensionsUnchangedFrom": "d000838"
+  }
 }

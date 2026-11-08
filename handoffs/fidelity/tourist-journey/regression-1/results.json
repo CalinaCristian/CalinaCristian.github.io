@@ -1,0 +1,16 @@
+{
+  "checks": [
+    {
+      "name": "Runtime completed",
+      "ok": false,
+      "detail": "Error: page.goto: net::ERR_HTTP_RESPONSE_CODE_FAILURE at http://127.0.0.1:42637/game/dev/spots.html?id=pike-place&manual=1&hour=12&weather=clear&season=summer&dev=0&audit=0\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:42637/game/dev/spots.html?id=pike-place&manual=1&hour=12&weather=clear&season=summer&dev=0&audit=0\", waiting until \"load\"\u001b[22m\n"
+    }
+  ],
+  "routes": [],
+  "errors": [
+    {
+      "fatal": "Error: page.goto: net::ERR_HTTP_RESPONSE_CODE_FAILURE at http://127.0.0.1:42637/game/dev/spots.html?id=pike-place&manual=1&hour=12&weather=clear&season=summer&dev=0&audit=0\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:42637/game/dev/spots.html?id=pike-place&manual=1&hour=12&weather=clear&season=summer&dev=0&audit=0\", waiting until \"load\"\u001b[22m\n",
+      "stack": "page.goto: net::ERR_HTTP_RESPONSE_CODE_FAILURE at http://127.0.0.1:42637/game/dev/spots.html?id=pike-place&manual=1&hour=12&weather=clear&season=summer&dev=0&audit=0\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:42637/game/dev/spots.html?id=pike-place&manual=1&hour=12&weather=clear&season=summer&dev=0&audit=0\", waiting until \"load\"\u001b[22m\n\n    at load (/workspace/fidelity-workers/tourist-journey/tools/tourist-tour-check.mjs:27:16)\n    at async file:///workspace/fidelity-workers/tourist-journey/tools/tourist-tour-check.mjs:44:5"
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+// Real-scene guided-tour regression. Run with muted system Chromium:
+// NODE_OPTIONS=--require=/workspace/.environment/drive-my-cv/use-system-chromium.cjs node tools/tourist-tour-check.mjs --out=/tmp/tour-check
+import { createRequire } from 'node:module';
+import { createServer } from 'node:http';
+import { readFile, mkdir, writeFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+const { chromium } = createRequire(import.meta.url)('playwright');
+const root = path.resolve(fileURLToPath(new URL('../', import.meta.url)));
+const args = Object.fromEntries(process.argv.slice(2).map((v) => v.replace(/^--/, '').split('=')));
+const out = path.resolve(args.out || '/tmp/tourist-tour-check'); await mkdir(out, { recursive: true });
+const mime = { '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json', '.css': 'text/css', '.png': 'image/png', '.jpg': 'image/jpeg' };
+const server = createServer(async (req, res) => {
+    try { const p = path.resolve(root, '.' + decodeURIComponent(new URL(req.url, 'http://localhost').pathname)); if (!p.startsWith(root + '/')) throw Error('path'); const data = await readFile(p); res.writeHead(200, { 'content-type': mime[path.extname(p)] || 'application/octet-stream' }); res.end(data); }
+    catch { res.writeHead(404); res.end(); }
+});
+await new Promise((r) => server.listen(0, '127.0.0.1', r));
+const base = args.base || `http://127.0.0.1:${server.address().port}`;
+const browser = await chromium.launch({ headless: true, args: ['--mute-audio', '--no-sandbox'] });
+const results = { checks: [], routes: [], errors: [] };
+let page;
+const check = (name, ok, detail) => { results.checks.push({ name, ok: !!ok, detail }); console.log(`${ok ? 'PASS' : 'FAIL'} ${name}${detail === undefined ? '' : ' ' + JSON.stringify(detail)}`); };
+const load = async (id) => {
+    await page?.close(); page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
+    page.on('pageerror', (e) => results.errors.push({ id, message: String(e) }));
+    page.on('console', (m) => { if (m.type() === 'warning' && m.text().includes('[spots] map')) results.errors.push({ id, message: m.text() }); });
+    await page.goto(`${base}/game/dev/spots.html?id=${id}&manual=1&hour=12&weather=clear&season=summer&dev=0&audit=0`);
+    await page.waitForFunction(() => window.spotDev?.ready, { timeout: 60000 });
+};
+const route = async (id) => {
+    const r = await page.evaluate(async () => {
+        const { pathLength, walkSegment } = await import('/game/src/spots/tour.js'); const s = spotDev.session;
+        s.endTour(); const ms = performance.now(); s.startTour();
+        return { id: s.spot.id, name: s.spot.name, sceneTris: s.spot.tris, ms: performance.now() - ms, meters: s.tour?.walked,
+            stops: s.tour?.stops.map((m) => ({ kind: m.kind, id: m.id, label: m.label, target: [m.x, m.z], endpoint: [m.tx, m.tz], radius: m.radius, length: pathLength(m.path), clear: m.path.slice(1).every((p, i) => walkSegment(s.spot.ground, s.spot.colliders, m.path[i], p)), available: !m.interaction || ((!m.interaction.cond || m.interaction.cond(s)) && Math.abs((m.interaction.y ?? s.ctl.y) - s.ctl.y) < 3) })) };
+    });
+    results.routes.push(r);
+    check(`${id}: <=3 stops and <=180 actual route metres`, r.stops?.length > 0 && r.stops.length <= 3 && r.meters <= 180, { metres: r.meters, stops: r.stops?.map((m) => m.label) });
+    check(`${id}: clear routes within interaction reach`, r.stops?.every((m) => m.clear && m.available && Math.hypot(m.endpoint[0] - m.target[0], m.endpoint[1] - m.target[1]) <= m.radius + 1e-6));
+    check(`${id}: hero/photo belong to active entry`, r.id === id && r.stops?.every((m) => !m.id || m.id === id));
+    return r;
+};
+try {
+    await load('pike-place');
+    const fixtures = await page.evaluate(async () => {
+        const { findWalkPath, walkSegment, pathLength } = await import('/game/src/spots/tour.js');
+        const { colliderIndex } = await import('/game/src/spots/walker.js');
+        const flat = { heightAt: () => 0, groundAt: () => 0 }, wall = colliderIndex([{ x: 5, z: 0, hw: 1, hd: 8, r: 9 }]);
+        const detour = findWalkPath(flat, wall, 0, 0, 10, 0);
+        const boxed = colliderIndex([{ x: 10, z: 0, hw: 4, hd: 4, r: 6 }]);
+        const small = colliderIndex([{ x: 10, z: 0, prop: true, r: 0.5, hw: 0.5 }]);
+        const close = findWalkPath(flat, small, 0, 0, 10, 0, { radius: 1.5 });
+        const cliff = { heightAt: (x) => x < 5 ? 0 : 2, groundAt: (x) => x < 5 ? 0 : 2 };
+        const water = { heightAt: () => 0, groundAt: (x) => x > 4 && x < 7 ? 50 : 0 };
+        return { detour: !!detour && pathLength(detour) > 20 && detour.slice(1).every((p, i) => walkSegment(flat, wall, detour[i], p)),
+            budget: findWalkPath(flat, wall, 0, 0, 10, 0, { maxLength: 12 }) === null,
+            unreachable: findWalkPath(flat, boxed, 0, 0, 10, 0, { radius: 1.5 }) === null,
+            blockedEndpoint: !!close && close.at(-1)[0] !== 10 && close.slice(1).every((p, i) => walkSegment(flat, small, close[i], p)),
+            cliff: findWalkPath(cliff, [], 0, 0, 10, 0, { maxLength: 25 }) === null,
+            water: findWalkPath(water, [], 0, 0, 10, 0, { maxLength: 25 }) === null,
+            oversize: findWalkPath(flat, [], 0, 0, 10000, 0) === null };
+    });
+    for (const [name, ok] of Object.entries(fixtures)) check(`path fixture: ${name}`, ok);
+    const pike = await route('pike-place'); check('Pike starts with an activity', pike.stops?.[0].kind === 'activity');
+    const dynamics = await page.evaluate(() => {
+        const s = spotDev.session, st = s.tour.stops[0], G = s.guide, events = []; window.addEventListener('dmcv:activity', (e) => events.push(e.detail));
+        const p = { x: st.tx, z: st.tz, y: s.ctl.y, speed: 4.6 }, before = [G.x, G.z];
+        s._updateTour(0.1, p); const firstStep = Math.hypot(G.x - before[0], G.z - before[1]);
+        let n = 0, maxStep = firstStep; while (s.tour.state === 'walk' && n++ < 1500) { const a = [G.x, G.z]; s._updateTour(0.1, p); maxStep = Math.max(maxStep, Math.hypot(G.x - a[0], G.z - a[1])); }
+        for (let i = 0; i < 100; i++) s._updateTour(0.1, p);
+        const noAutoActivity = s.tour.i === 0 && !st.participated && !s._seen.has('act:' + st.label) && !events.some((e) => e.id === 'tour');
+        const state = () => JSON.stringify({ i: s.tour.i, t: s.tour.t, x: G.x, z: G.z });
+        s.ui.$('.sp-panel').classList.add('show'); const a = state(); s.update(0.1); const panel = state() === a; s.ui.$('.sp-panel').classList.remove('show');
+        s.host.photo = { active: true }; const b = state(); s.update(0.1); const photo = state() === b; s.host.photo = null;
+        s.host.explore = { drone: { active: true } }; const c = state(); s.update(0.1); const drone = state() === c; s.host.explore = null;
+        // Real interaction dispatch; requesting a fish starts its activity but does not counterfeit a catch achievement.
+        s.ctl.teleport(st.x, st.z); s.input.actions.add('KeyE'); s.update(0.1); const participation = !!st.participated;
+        const noFakeCatch = !s.progress.fish && !events.some((e) => e.id === 'fish' || e.id === 'lm-pike-fish');
+        s.update(0.1); const advanced = s.tour.i === 1;
+        return { firstStep, maxStep, frames: n, arrival: s.tour.state, noAutoActivity, panel, photo, drone, participation, noFakeCatch, advanced };
+    });
+    check('Guide arrives by walking, without in-view snaps', dynamics.frames < 1500 && dynamics.firstStep <= 0.451 && dynamics.maxStep <= 0.451, dynamics);
+    for (const name of ['noAutoActivity', 'panel', 'photo', 'drone', 'participation', 'noFakeCatch', 'advanced']) check(`tour state: ${name}`, dynamics[name]);
+    const fullVisit = await page.evaluate(() => {
+        const s = spotDev.session, events = []; let callbacks = 0, postcardWaited = false, photoResult = null, reached = true;
+        s.host.onTour = () => callbacks++; window.addEventListener('dmcv:activity', (e) => events.push(e.detail));
+        while (s.tour.state !== 'done') {
+            const st = s.tour.stops[s.tour.i]; s.ctl.teleport(st.tx, st.tz);
+            let n = 0; while (s.tour.state === 'walk' && n++ < 1500) s._updateTour(0.1, { ...s.ctl.position, speed: 4.6 });
+            if (s.tour.state !== 'arrive') { reached = false; break; }
+            if (st.kind === 'postcard') {
+                const i = s.tour.i; for (let j = 0; j < 100; j++) s._updateTour(0.1, s.ctl.position); postcardWaited = s.tour.i === i;
+                const c = st.challenge; s.ctl.heading = -c.bearing * Math.PI / 180; s.ctl.pitch = 0; s.ctl.place(); s.spot.scene.updateMatrixWorld(true);
+                photoResult = s.onPhoto(); s._updateTour(0.1, s.ctl.position); break;
+            }
+            for (let j = 0; j < 65 && s.tour.stops[s.tour.i] === st; j++) s._updateTour(0.1, s.ctl.position);
+        }
+        s._updateTour(0.1, s.ctl.position); spotDev.step(1, 0);
+        return { reached, postcardWaited, photoResult, state: s.tour.state, callbacks, tourEvents: events.filter((e) => e.id === 'tour').length, persisted: !!s.progress.tours?.[s.spot.sceneId] };
+    });
+    check('Full real walk and postcard complete tour exactly once', fullVisit.reached && fullVisit.postcardWaited && fullVisit.photoResult?.postcard === 'pike-place' && fullVisit.state === 'done' && fullVisit.callbacks === 1 && fullVisit.tourEvents === 1 && fullVisit.persisted, fullVisit);
+    await page.evaluate(() => { const c = spotDev.session.spot.challenges[0]; spotDev.walkTo(c.x + 2, c.z, c.bearing); spotDev.step(2, 1 / 30); });
+    await page.screenshot({ path: path.join(out, 'pike-tour-desktop.png') });
+    await page.evaluate(() => { const s = spotDev.session; s.endTour(); s.startTour(); });
+    await page.locator('[data-tour-skip]').click();
+    check('Skip stop control advances itinerary', await page.evaluate(() => spotDev.session.tour.i === 1));
+    const skips = await page.evaluate(() => { const s = spotDev.session, before = s.progress.tours?.[s.spot.sceneId]; while (s.tour.state !== 'done') s.skipTourStop(); return { awarded: s.progress.tours?.[s.spot.sceneId] !== before, text: s.ui.$('.sp-tour').textContent }; });
+    check('Skipping does not award tour completion', !skips.awarded && skips.text.includes('Tour ended'), skips);
+    await page.locator('[data-tour-end]').click(); check('End/Close control clears tour', await page.evaluate(() => !spotDev.session.tour && !spotDev.session._route));
+    const empty = await page.evaluate(() => { const s = spotDev.session, nav = s._navPath; s._navPath = () => null; const result = s.startTour(); s._navPath = nav; return result === false && !s.tour; }); check('Unreachable empty itinerary never crashes/awards', empty);
+    const eligible = await page.evaluate(() => { const s = spotDev.session, orig = s.objectives, g = s.guide; s.objectives = () => [
+        { kind: 'activity', x: g.x, z: g.z, label: 'Unavailable season', interaction: { cond: () => false } },
+        { kind: 'activity', x: g.x, z: g.z, label: 'Upper floor', interaction: { y: 200 } },
+        { kind: 'activity', x: g.x, z: g.z, label: 'Season hook', interaction: { tourAvailable: () => false } }];
+        const result = s.startTour(); s.objectives = orig; return result === false && !s.tour; }); check('Unavailable/y-conditioned activities excluded', eligible);
+    await page.evaluate(() => { const s = spotDev.session; s.startTour(); void s.openMap(); });
+    await page.locator('[data-tour]').click();
+    check('Map End tour control returns to free exploration', await page.evaluate(() => !spotDev.session.tour && !spotDev.session.ui.panelOpen && spotDev.session.input.lookAllowed));
+    for (const id of ['fremont-troll', 'gas-works', 'space-needle', 'herastrau-park', 'old-town-lipscani']) {
+        await load(id); await route(id);
+        if (id === 'space-needle' || id === 'herastrau-park') for (const target of id === 'space-needle' ? ['chihuly', 'mopop'] : ['village-museum']) {
+            const sync = await page.evaluate((target) => { const s = spotDev.session; s.teleport(target); return { id: s.spot.id, name: s.spot.name, photo: s.photoInfo().place, title: s.ui.$('.sp-card b').textContent, entry: s.spot.entry.id, sameSpawn: s.spot.spawn === s.spot.spawns[target], tour: !!s.tour, route: !!s._route }; }, target);
+            check(`${target}: shared-scene entry metadata and cancelled tour`, sync.id === target && sync.entry === target && sync.name === sync.photo && sync.name === sync.title && sync.sameSpawn && !sync.tour && !sync.route, sync);
+            // Teleporting the player does not teleport the guide across the scene. A fresh entry creates its local guide.
+            const remote = await page.evaluate(() => { const s = spotDev.session; s.startTour(); return { safe: !s.tour || s.tour.walked <= 180, guideDistance: Math.hypot(s.guide.x - s.ctl.x, s.guide.z - s.ctl.z), hasTour: !!s.tour }; });
+            check(`${target}: remote guide remains safe after teleport`, remote.safe, remote);
+            await load(target); await route(target);
+        }
+        if (id === 'herastrau-park') { await page.setViewportSize({ width: 390, height: 844 }); await page.evaluate(async () => { await new Promise(requestAnimationFrame); spotDev.step(2, 1 / 30); }); const fits = await page.evaluate(() => { const card = document.querySelector('.sp-card').getBoundingClientRect(), controls = document.querySelector('.sp-tour-controls').getBoundingClientRect(); return card.right <= innerWidth && controls.bottom < innerHeight; }); check('Phone tour card and controls fit viewport', fits); await page.screenshot({ path: path.join(out, 'village-tour-phone.png') }); }
+    }
+    check('No runtime map/tour errors', results.errors.length === 0, results.errors);
+} catch (error) { results.errors.push({ fatal: String(error), stack: error.stack }); check('Runtime completed', false, String(error)); }
+finally { await writeFile(path.join(out, 'results.json'), JSON.stringify(results, null, 2)); await browser.close(); await new Promise((r) => server.close(r)); }
+const failures = results.checks.filter((c) => !c.ok); console.log(`${results.checks.length - failures.length}/${results.checks.length} passed; raw findings: ${out}/results.json`); if (failures.length || results.errors.length) process.exitCode = 1;

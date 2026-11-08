@@ -10,7 +10,7 @@
   "sourceCommitAtSurveyStart": "734a4854b0eb799185ecbc420485782150c003db",
   "osm": {
     "provider": "OpenStreetMap API0.6 map",
-    "attribution": "\u00a9 OpenStreetMap contributors, ODbL",
+    "attribution": "© OpenStreetMap contributors, ODbL",
     "accessDate": "2026-11-08",
     "tiles": [
       {
@@ -98,7 +98,8 @@
   "tools": {
     "tools/aerial/mosaic.py": "d12bc5d3c50614eaeef596da1e8eae3df02d13731a382cb5cdb6d42da5d60b04",
     "tools/aerial/roofs.py": "e54eef5eeda500f5c5df45969f018e09628c090faf2c39141645b96956f11a96",
-    "tools/aerial/trees.py": "9866ff8fc161110fa047fc3bf6bfb12d169a7e923348d3b8d88d475d28f7752f"
+    "tools/aerial/trees.py": "9866ff8fc161110fa047fc3bf6bfb12d169a7e923348d3b8d88d475d28f7752f",
+    "handoffs/fidelity/pipera-fidelity/roof-colour-measurements.py": "3dbbc4d29d485a51f422a6cb99332b29e397431eae17d45991d2c3fe30d59d7a"
   },
   "measurements": {
     "roofInputs": 2266,
@@ -121,6 +122,15 @@
       "seed": 20261108,
       "privateSamples": "/workspace/reality-pass/pipera/aerial/calibration/samples.json",
       "review": "All5sheets inspected. Flat/solar/metal and lowconfidence mixed roofs retain uncertainty. Explicit aircraft are not roof samples."
+    },
+    "independentRoofColour": {
+      "inputs": 2266,
+      "measured": 2266,
+      "admissible": 1735,
+      "rejectedOrUncertain": 531,
+      "registrationRoundingUncertaintyM": 0.05,
+      "threshold": 0.65,
+      "shapeConfidenceUsed": false
     }
   },
   "sourceSemantics": {
@@ -139,7 +149,8 @@
     "/workspace/reality-pass/pipera/aerial/roofs-full.json",
     "/workspace/reality-pass/pipera/aerial/canopy-review.jpg",
     "/workspace/reality-pass/pipera/aerial/trees-debug.jpg",
-    "/workspace/reality-pass/pipera/audits/"
+    "/workspace/reality-pass/pipera/audits/",
+    "/workspace/reality-pass/pipera/aerial/colour-measurements.json"
   ],
   "reviewedSourceOpenings": [
     {

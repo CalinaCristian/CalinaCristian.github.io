@@ -3,6 +3,12 @@
 Owner role: **orchestrator**.
 
 ## Telemetry (shipped)
+
+Read-only dashboard/event review (2026-11-08): [`handoffs/fidelity/TELEMETRY-REVIEW.md`](../handoffs/fidelity/TELEMETRY-REVIEW.md).
+Existing dashboards are useful for visit funnels and successful loads/FPS; interrupted-load recovery, release identity,
+mode-aware performance/resource growth and interaction-outcome diagnostics remain proposed additions. The starter retention
+chart is not reliable with memory-only anonymous identities. No PostHog configuration was changed by this review.
+
 PostHog Cloud EU, cookieless (`persistence: 'memory'`), lazy, production hosts only, DNT/GPC respected, bots filtered. Landing events: `cv_toggle, cv_pdf_open, social_click, play_cta_click`. Game: funnel (`game_start → world_loaded → stop_visited → office_screen_read → flight_taken → seattle_arrived → finale_reached → game_exit`), feature usage, `perf_summary`, health. Chapter / on-foot / photo / spot events: see below. **Todo**: owner to set Authorized URLs + Error tracking in PostHog.
 
 ## Game events: chapters, on foot, photo, tourist spots (gameplay, 2026-11-07)

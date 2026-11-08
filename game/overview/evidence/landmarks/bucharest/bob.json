@@ -1,0 +1,231 @@
+{
+  "schemaVersion": 1,
+  "id": "bob",
+  "city": "bucharest",
+  "name": "BOB Tower",
+  "sourceCommit": "2235dbfce4286c2f6f24add87ab8e5622a5df306",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.479608,
+    "lon": 26.1147802
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/55450549",
+      "label": "OpenStreetMap w55450549; retrieved2026-11-08",
+      "type": "osm",
+      "facts": {
+        "addr:city": "Bucure\u0219ti",
+        "addr:country": "RO",
+        "building": "office",
+        "name": "BOB Tower",
+        "office": "company",
+        "wheelchair": "yes"
+      }
+    },
+    {
+      "url": "https://www.globalworth.com/wp-content/uploads/2021/01/BOB-particulars.pdf",
+      "label": "Official owner exterior/reference; privately inspected, no reference imagery published",
+      "type": "official"
+    }
+  ],
+  "sourceIds": [
+    "w55450549"
+  ],
+  "sourceLedger": "../../../../research/landmark-source-bucharest-pipera.json",
+  "reviewedAt": "2026-11-08",
+  "improvements": [
+    "Restored every source corner of the six-vertex mapped outline instead of truncating it to a rectangle.",
+    "Retained GF+6 storeys documented in the owner particulars.",
+    "Replaced protruding cylindrical corner guesses with cladding inside the mapped outline and kept roof services within the estimated total envelope."
+  ],
+  "remainingGaps": [
+    "No authoritative metre-height tag or owner total height was found;28m total and rooftop service dimensions remain explicit estimates.",
+    "Facade bay widths and thin white cladding details are simplified.",
+    "Published images are isolated model studies; complete district placement, traffic and mirror checks are recorded separately."
+  ],
+  "checks": [
+    {
+      "label": "Exact source rings and courtyard collision",
+      "passed": true,
+      "details": "tools/landmarks/pipera-check.mjs:102 controls pass across the three models; all61 landmark geometry fixtures finite."
+    },
+    {
+      "label": "Owner references and all three game studies inspected",
+      "passed": true,
+      "details": "Front, perspective top and oblique side images inspected against exact mapped outlines and independently sourced owner references; no imagery-derived measurements from Street View."
+    },
+    {
+      "label": "Published capture provenance",
+      "passed": true,
+      "details": "Immutable game source 2235dbfce4286c2f6f24add87ab8e5622a5df306; actual published WebP SHA256, source identity and perspective camera metadata retained; no external reference image included."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study",
+      "kind": "front",
+      "image": "assets/landmarks/bob/front.webp",
+      "sourceCommit": "2235dbfce4286c2f6f24add87ab8e5622a5df306",
+      "sha256": "85424b3f643cdd72f8a5df5dbfd13be71247b79b33bce5435e87b9019e891e22",
+      "capturedAt": "2026-11-08T17:38:56.413Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=bob&clean=1&fountains=on&view=street&az=0",
+        "anchor": {
+          "lat": 44.479608,
+          "lon": 26.1147802,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            -0.004001617431640625,
+            1.3,
+            160.33618438720706
+          ],
+          "quaternion": [
+            0.035173104113906874,
+            0,
+            0,
+            0.9993812349383953
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 3206.717126464844,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -75.47891998291016,
+            0,
+            -58.93112564086914
+          ],
+          "max": [
+            75.47091674804688,
+            28,
+            58.93178176879883
+          ]
+        },
+        "frame": "Isolated landmark; perspective camera, +x east/+z south; metres"
+      },
+      "render": {
+        "triangles": 2220,
+        "calls": 3
+      }
+    },
+    {
+      "id": "top",
+      "label": "Perspective top model study",
+      "kind": "top",
+      "image": "assets/landmarks/bob/top.webp",
+      "sourceCommit": "2235dbfce4286c2f6f24add87ab8e5622a5df306",
+      "sha256": "d97402ec0f162b9b89a074037f558db87eeb925b7e49fe83ef4037bf68a9b1cc",
+      "capturedAt": "2026-11-08T17:38:56.413Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=bob&clean=1&fountains=on&view=top&az=0",
+        "anchor": {
+          "lat": 44.479608,
+          "lon": 26.1147802,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "orthographic",
+          "position": [
+            -0.004001617431640625,
+            207.10181060791015,
+            0.00032806396484375
+          ],
+          "quaternion": [
+            -0.7071067811865475,
+            0,
+            0,
+            0.7071067811865476
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 4142.036212158203,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -75.47891998291016,
+            0,
+            -58.93112564086914
+          ],
+          "max": [
+            75.47091674804688,
+            28,
+            58.93178176879883
+          ]
+        },
+        "frame": "Isolated landmark; perspective camera, +x east/+z south; metres"
+      },
+      "render": {
+        "triangles": 2220,
+        "calls": 3
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique side model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/bob/oblique.webp",
+      "sourceCommit": "2235dbfce4286c2f6f24add87ab8e5622a5df306",
+      "sha256": "f7268b530b569628f2c10ab98fd254f9fa456882d97524d2744e6bdd56d96df9",
+      "capturedAt": "2026-11-08T17:38:56.413Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=bob&clean=1&fountains=on&view=oblique&az=35&el=28",
+        "anchor": {
+          "lat": 44.479608,
+          "lon": 26.1147802,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            116.87350784411129,
+            119.54628166588694,
+            166.91871023445003
+          ],
+          "quaternion": [
+            -0.2307250125905461,
+            0.2917735521254029,
+            0.07274731703388738,
+            0.9253874813879795
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 4615.669627482838,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -75.47891998291016,
+            0,
+            -58.93112564086914
+          ],
+          "max": [
+            75.47091674804688,
+            28,
+            58.93178176879883
+          ]
+        },
+        "frame": "Isolated landmark; perspective camera, +x east/+z south; metres"
+      },
+      "render": {
+        "triangles": 2220,
+        "calls": 3
+      }
+    }
+  ]
+}

@@ -1,0 +1,244 @@
+{
+  "schemaVersion": 1,
+  "id": "skytower",
+  "city": "bucharest",
+  "name": "Sky Tower",
+  "sourceCommit": "2235dbfce4286c2f6f24add87ab8e5622a5df306",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.4779551,
+    "lon": 26.1047395
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/219622660",
+      "label": "OpenStreetMap w219622660; retrieved2026-11-08",
+      "type": "osm",
+      "facts": {
+        "addr:city": "Bucure\u0219ti",
+        "addr:housenumber": "246C",
+        "addr:postcode": "014476",
+        "addr:street": "Strada Barbu V\u0103c\u0103rescu",
+        "building": "office",
+        "building:colour": "#3960DA",
+        "building:levels": "37",
+        "building:levels:underground": "5",
+        "building:material": "glass",
+        "height": "137",
+        "name": "Sky Tower",
+        "operator": "Raiffeisen Property InternationaI GmbH",
+        "roof:material": "gravel",
+        "roof:shape": "flat",
+        "start_date": "2012",
+        "website": "https://www.skytower.ro/",
+        "wikidata": "Q5460511",
+        "wikimedia_commons": "Category:Sky Tower in Bucharest",
+        "wikipedia": "ro:Sky Tower"
+      }
+    },
+    {
+      "url": "https://www.skytower.ro/",
+      "label": "Official owner exterior/reference; privately inspected, no reference imagery published",
+      "type": "official"
+    }
+  ],
+  "sourceIds": [
+    "w219622660"
+  ],
+  "sourceLedger": "../../../../research/landmark-source-bucharest-pipera.json",
+  "reviewedAt": "2026-11-08",
+  "improvements": [
+    "Preserved the complete mapped elliptical source outline,137m total height and37-level rhythm.",
+    "Removed the invented8m pitched crown and expanded base; the source roof is flat.",
+    "OSM glass material and #3960DA colour take precedence over photographic impressions."
+  ],
+  "remainingGaps": [
+    "Facade mullions and crown service details are simplified; source roof-service dimensions are unknown.",
+    "Underground levels are source metadata and are not excavated in the flat district terrain.",
+    "Published images are isolated model studies; complete district placement, traffic and mirror checks are recorded separately."
+  ],
+  "checks": [
+    {
+      "label": "Exact source rings and courtyard collision",
+      "passed": true,
+      "details": "tools/landmarks/pipera-check.mjs:102 controls pass across the three models; all61 landmark geometry fixtures finite."
+    },
+    {
+      "label": "Owner references and all three game studies inspected",
+      "passed": true,
+      "details": "Front, perspective top and oblique side images inspected against exact mapped outlines and independently sourced owner references; no imagery-derived measurements from Street View."
+    },
+    {
+      "label": "Published capture provenance",
+      "passed": true,
+      "details": "Immutable game source 2235dbfce4286c2f6f24add87ab8e5622a5df306; actual published WebP SHA256, source identity and perspective camera metadata retained; no external reference image included."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study",
+      "kind": "front",
+      "image": "assets/landmarks/skytower/front.webp",
+      "sourceCommit": "2235dbfce4286c2f6f24add87ab8e5622a5df306",
+      "sha256": "41478362d31bb8ad1eb10bf0522f9b13b2b7058e3bf456c9195a530aef27fc4a",
+      "capturedAt": "2026-11-08T17:38:56.413Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=skytower&clean=1&fountains=on&view=street&az=-76.0028515241037",
+        "anchor": {
+          "lat": 44.4779551,
+          "lon": 26.1047395,
+          "rotation": -1.3265
+        },
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            -192.7511758734798,
+            1.3,
+            48.048190590752085
+          ],
+          "quaternion": [
+            0.11578493953236198,
+            -0.6089984775616458,
+            0.09046574905107661,
+            0.7794425253690695
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 3973,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -23.186843550117807,
+            0,
+            -26.515098393189717
+          ],
+          "max": [
+            23.18776690138242,
+            137,
+            26.515096247625326
+          ]
+        },
+        "frame": "Isolated landmark; perspective camera, +x east/+z south; metres"
+      },
+      "render": {
+        "triangles": 6320,
+        "calls": 3
+      }
+    },
+    {
+      "id": "top",
+      "label": "Perspective top model study",
+      "kind": "top",
+      "image": "assets/landmarks/skytower/top.webp",
+      "sourceCommit": "2235dbfce4286c2f6f24add87ab8e5622a5df306",
+      "sha256": "2f6e4dcdb0d75fbda7dbdfbb68707aa35e92b6142e14d27bdbaec1581487face",
+      "capturedAt": "2026-11-08T17:38:56.413Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=skytower&clean=1&fountains=on&view=top&az=0",
+        "anchor": {
+          "lat": 44.4779551,
+          "lon": 26.1047395,
+          "rotation": -1.3265
+        },
+        "camera": {
+          "projection": "orthographic",
+          "position": [
+            0.0004616756323070348,
+            202.51502578334544,
+            -1.0727821955214267e-06
+          ],
+          "quaternion": [
+            -0.7071067811865475,
+            0,
+            0,
+            0.7071067811865476
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 4050.3005156669087,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -23.186843550117807,
+            0,
+            -26.515098393189717
+          ],
+          "max": [
+            23.18776690138242,
+            137,
+            26.515096247625326
+          ]
+        },
+        "frame": "Isolated landmark; perspective camera, +x east/+z south; metres"
+      },
+      "render": {
+        "triangles": 6320,
+        "calls": 3
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique side model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/skytower/oblique.webp",
+      "sourceCommit": "2235dbfce4286c2f6f24add87ab8e5622a5df306",
+      "sha256": "be542ecabf1adcdb24bd8d2b77798a61f0cbafd1a5941b84f10dbf3df4cf7849",
+      "capturedAt": "2026-11-08T17:38:56.413Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=skytower&clean=1&fountains=on&view=oblique&az=-41.002851524103704&el=28",
+        "anchor": {
+          "lat": 44.4779551,
+          "lon": 26.1047395,
+          "rotation": -1.3265
+        },
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            -139.46132282072404,
+            167.82169135492407,
+            160.41630485573478
+          ],
+          "quaternion": [
+            -0.226599403244799,
+            -0.3398273412603089,
+            -0.08472847230794082,
+            0.9088405660848404
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 4814.847173457841,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -23.186843550117807,
+            0,
+            -26.515098393189717
+          ],
+          "max": [
+            23.18776690138242,
+            137,
+            26.515096247625326
+          ]
+        },
+        "frame": "Isolated landmark; perspective camera, +x east/+z south; metres"
+      },
+      "render": {
+        "triangles": 6320,
+        "calls": 3
+      }
+    }
+  ]
+}

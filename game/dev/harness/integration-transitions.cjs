@@ -9,6 +9,7 @@ const out = path.resolve(process.argv[3] || '/tmp/district-transitions.json');
 const quality = process.argv[4] || 'auto';
 fs.mkdirSync(path.dirname(out), { recursive: true });
 const browserKind = process.argv[5] || 'chromium';
+const bridgeDump = process.env.BRIDGE_DUMP_PAYLOAD ? require(path.resolve(process.env.BRIDGE_DUMP_PAYLOAD)) : null;
 const mime = {'.html':'text/html','.js':'text/javascript','.json':'application/json','.css':'text/css','.png':'image/png'};
 const server = http.createServer((q,r)=> {let p=decodeURIComponent(q.url.split('?')[0]); if(p.endsWith('/'))p+='index.html'; const f=path.join(root,p); fs.readFile(f,(e,b)=> {r.writeHead(e?404:200,{'content-type':mime[path.extname(f)]||'application/octet-stream'});r.end(e?'missing':b);});});
 async function run(){
@@ -61,6 +62,11 @@ async function run(){
    return {district,ms:performance.now()-started,generation:window.__generation,state:g.state,dpr:devicePixelRatio,pixelRatio:g.renderer.getPixelRatio(),quality:g.r3d.stats.quality,stats:{...g.r3d.stats},rendererMemory:{...g.renderer.info.memory},programs:g.renderer.info.programs.length,gl:{...window.__glLive},heap:performance.memory?.usedJSHeapSize,scene:{materials:materials.size,textures:textures.size,geometry:geometry.size,arrayBytes,instances},contextLost:gl.isContextLost(),contextEvents:window.__contextEvents.slice(),savedDistrict:g.save?.session?.district};
   },{district,quality});
   if(cdp){await cdp.send('Runtime.discardConsoleEntries');await cdp.send('HeapProfiler.collectGarbage');stage.collectedHeap=await cdp.send('Runtime.getHeapUsage');stage.retiredWorlds=await page.evaluate(()=>window.__retiredWorlds.map(w=>({district:w.district,alive:!!w.ref.deref()})));}
+  if(bridgeDump&&['pipera','bellevue'].includes(district)&&!result.bridgeDumps?.[district]){
+   const dump=await page.evaluate(bridgeDump),file=out.replace(/\.json$/,'.bridge-'+district+'.json');
+   fs.writeFileSync(file,JSON.stringify(dump,null,2));result.bridgeDumps||={};result.bridgeDumps[district]={file,recomputedStatsMatchNative:dump.recomputedStatsMatchNative,unresolvedPairs:dump.unresolvedPairs.length};
+   if(!dump.recomputedStatsMatchNative)throw Error('Read-only bridge profile dump differs from the actual native world');
+  }
   result.stages.push(stage);console.log(district,Date.now()-t,JSON.stringify({memory:stage.rendererMemory,gl:stage.gl,heap:stage.heap,calls:stage.stats.drawCalls,tris:stage.stats.triangles}));
   fs.writeFileSync(out,JSON.stringify(result,null,2));
  }
@@ -110,10 +116,8 @@ async function run(){
  if(process.env.PROBE_CHECKS&&result.fetchStages.some(s=>s.oldWorld||s.navWorld||s.trafficWorld||s.playerWorld))throw Error('An outgoing world was retained at replacement fetch');
  if(cdp){await cdp.send('Runtime.discardConsoleEntries');await cdp.send('HeapProfiler.collectGarbage');result.retiredWorlds=await page.evaluate(()=>window.__retiredWorlds.map(w=>({district:w.district,alive:!!w.ref.deref()})));}
  if(process.env.PROBE_CHECKS&&result.retiredWorlds?.some(w=>w.alive))throw Error('A retired district remained reachable after garbage collection');
- // Capture the actual canvas in the same JS task as its draw: no external-font wait,
- // no blank preserveDrawingBuffer=false read on a later task, and no added world mutation.
- const capture=await page.evaluate(()=>{game.r3d.frame(1/60);return game.renderer.domElement.toDataURL('image/png')});
- fs.writeFileSync(out.replace(/\.json$/,'.png'),Buffer.from(capture.split(',')[1],'base64'));
+ await page.evaluate(()=>game.r3d.frame(1/60));
+ await require('./integration-browser-bounds.cjs').captureViewport(page,out.replace(/\.json$/,'.png'));
  if(result.errors.length||result.lost.length)throw Error('Browser error or WebGL context loss');
  result.complete=true;
  }catch(e){result.fatal=String(e.stack||e);console.error(result.fatal);process.exitCode=1}finally{result.complete??=false;fs.writeFileSync(out,JSON.stringify(result,null,2));await browser?.close();server.close()}

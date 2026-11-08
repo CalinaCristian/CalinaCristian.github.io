@@ -8,10 +8,10 @@ const out = path.resolve(process.argv[3] || '/tmp/integration-final-soak'), minu
 fs.mkdirSync(out, { recursive: true });
 const report = { root, minutes, method: {
     physics: 'Unchanged actual Traffic.update at 30 Hz for 15 simulated physical minutes; stationary native Arnia chapter pose.',
-    rendering: 'Full game high-quality draws, true mirror, native far plane and populations; no internal-frame statistics reset. gl.finish completes each measured frame to bound software-GL queue buildup. Cold setup separated.',
+    rendering: 'Full game high-quality draws, true mirror, native far plane and populations; no internal-frame statistics reset. A native one-pixel readPixels completes each measured frame to bound software-GL queue buildup; no full-canvas readback or font wait. Cold setup separated.',
     sampling: 'Complete frames at each physical minute; every progressive PMREM slice is a complete high/mirror frame for actual sunset and rain renderer transitions at evolved minute 15; traffic hour stays fixed to retain identities.',
     limits: 'System Chromium/SwiftShader, no physical hardware FPS claim. Simulation and wall duration are recorded separately.',
-}, source: {}, errors: [], consoleErrors: [], failures: [], samples: [], refreshes: [] };
+}, source: {}, frameStages: [], errors: [], consoleErrors: [], failures: [], samples: [], refreshes: [] };
 let browser;
 const server = http.createServer((req, res) => {
     let uri = decodeURIComponent(req.url.split('?')[0]); if (uri.endsWith('/')) uri += 'index.html';
@@ -24,7 +24,13 @@ const persist = () => { fs.writeFileSync(path.join(out, 'profile.next.json'), JS
     browser = await chromium.launch({ headless: true, args: ['--mute-audio', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
     const page = await browser.newPage({ viewport: { width: 1280, height: 720 } }); page.setDefaultTimeout(180000); require('./integration-browser-bounds.cjs').boundEvaluations(page);
     page.on('pageerror', e => report.errors.push(e.message)); page.on('crash', () => report.errors.push('PAGE_CRASH'));
-    page.on('console', m => { if (m.type() === 'error') report.consoleErrors.push(m.text()); });
+    page.on('console', m => {
+        const message = m.text();
+        if (message.startsWith('__integration_frame_stage__')) {
+            const stage = JSON.parse(message.slice('__integration_frame_stage__'.length));
+            report.frameStages.push(stage); fs.writeFileSync(path.join(out, 'frame-stage.json'), JSON.stringify(stage, null, 2));
+        } else if (m.type() === 'error') report.consoleErrors.push(message);
+    });
     await page.route(/api\.open-meteo\.com/, r => r.fulfill({ json: { error: true } }));
     await page.goto(`http://127.0.0.1:${server.address().port}/game/`, { waitUntil: 'domcontentloaded', timeout: 60000 });
     await page.waitForFunction(() => window.game?.r3d, null, { timeout: 90000 });
@@ -80,22 +86,31 @@ const persist = () => { fs.writeFileSync(path.join(out, 'profile.next.json'), JS
     report.setup = await page.evaluate(() => ({ draws: __integrationSoak.draws, accumulated: { ...game.renderer.info.render } }));
     for (const file of ['game/src/render.js', 'game/src/progressive-pmrem.js', 'game/src/main.js', 'game/src/world.js', 'game/src/traffic.js', 'game/src/vehicles.js', 'game/data/bucharest-romana.json']) report.source[file] = crypto.createHash('sha256').update(fs.readFileSync(path.join(root, file))).digest('hex');
     async function frame(label, captureName = null) {
-        const row = await page.evaluate(({ label, capture }) => {
+        const row = await page.evaluate(label => {
             const S = __integrationSoak, r = game.r3d; S.draws = [];
             const before = { ...game.renderer.info.render };
+            const stage = phase => console.info('__integration_frame_stage__' + JSON.stringify({ label, phase, at: performance.now(), programs: game.renderer.info.programs.length, memory: { ...game.renderer.info.memory } }));
+            stage('before-draw');
             harness.H._renderNow = true; game.drawFrame({ mirror: true }); harness.H._renderNow = false;
-            game.renderer.getContext().finish();
-            return { label, framePng: capture ? game.renderer.domElement.toDataURL('image/png') : null, before, stats: { ...r.stats }, draws: S.draws, pending: !!r._envJob, phase: r._envJob?.phase || null, fade: r._envFade,
+            stage('after-draw-before-readback');
+            const gl = game.renderer.getContext(), pixel = S.pixel ||= new Uint8Array(4);
+            gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixel);
+            stage('after-one-pixel-readback');
+            return { label, readbackPixel: Array.from(pixel), before, stats: { ...r.stats }, draws: S.draws, pending: !!r._envJob, phase: r._envJob?.phase || null, fade: r._envFade,
                 conditions: { override: r.clock?.override, weather: r._wxOverride, cloud: r._wx?.cloud, sunElevation: r.sunElevation, shadow: r.sun.castShadow },
                 population: { people: game.traffic.peds.list.length, vehicles: game.traffic.vehicles.length, originalPeople: game.traffic.peds.list.every(p => S.identities.has(p)), originalVehicles: game.traffic.vehicles.every(p => S.vehicleIdentities.has(p)) } };
-        }, { label, capture: !!captureName });
-        if (captureName) fs.writeFileSync(path.join(out, captureName), Buffer.from(row.framePng.split(',')[1], 'base64'));
-        delete row.framePng;
+        }, label);
         row.logical = row.draws.reduce((sum, d) => ({ calls: sum.calls + d.calls, triangles: sum.triangles + d.triangles }), { calls: 0, triangles: 0 });
         if (row.stats.drawCalls !== row.before.calls + row.logical.calls || row.stats.triangles !== row.before.triangles + row.logical.triangles) report.failures.push({ type: 'counter-accounting', label, before: row.before, stats: row.stats, logical: row.logical });
         if (row.logical.calls > 400 || row.logical.triangles > 1500000) report.failures.push({ type: 'active-budget', label, ...row.logical });
         if (!row.draws.some(d => d.pass === 'mirror')) report.failures.push({ type: 'mirror-absent', label });
         if (row.population.people !== 560 || row.population.vehicles !== report.expectedPopulation.vehicles || !row.population.originalPeople || !row.population.originalVehicles) report.failures.push({ type: 'population', label, population: row.population });
+        if (captureName) {
+            report.pendingCapture = { frame: row, file: captureName }; persist();
+            await require('./integration-browser-bounds.cjs').captureViewport(page, path.join(out, captureName));
+            report.captures ||= []; report.captures.push({ label, file: captureName, method: 'Bounded Chromium compositor viewport capture, no font wait or canvas readback; same stationary measured physical state.' });
+            delete report.pendingCapture;
+        }
         return row;
     }
     // The deterministic clear-weather choice can replace the climate map built at scene load.
@@ -146,8 +161,8 @@ const persist = () => { fs.writeFileSync(path.join(out, 'profile.next.json'), JS
     for (const trigger of ['sun', 'cloud']) {
         await page.evaluate(trigger => { const r = game.r3d; if (trigger === 'sun') r.setClock({ override: 'sunset' }); else r.setWeather('rain', { instant: true }); r._envT = 0; }, trigger);
         const refresh = { trigger, frames: [] }; report.refreshes.push(refresh);
-        for (let i = 0; i < 60; i++) { const row = await frame(`evolved-${trigger}-${i}`); refresh.frames.push(row); persist(); if (!row.pending) break; }
-        if (!refresh.frames[0].pending || refresh.frames.at(-1).pending || refresh.frames.length < 30) report.failures.push({ type: 'incomplete-progressive-refresh', trigger, frames: refresh.frames.length });
+        for (let i = 0; i < 60; i++) { const row = await frame(`evolved-${trigger}-${i}`); refresh.frames.push(row); persist(); if (!row.pending && row.fade === 1) break; }
+        if (!refresh.frames[0].pending || refresh.frames.at(-1).pending || refresh.frames.at(-1).fade !== 1 || refresh.frames.length < 30) report.failures.push({ type: 'incomplete-progressive-refresh', trigger, frames: refresh.frames.length });
         console.log(JSON.stringify({ trigger, frames: refresh.frames.length, maxCalls: Math.max(...refresh.frames.map(f => f.logical.calls)), maxTriangles: Math.max(...refresh.frames.map(f => f.logical.triangles)) }));
     }
     report.wallEnd = Date.now(); report.wallDurationSeconds = (report.wallEnd - report.wallStart) / 1000;

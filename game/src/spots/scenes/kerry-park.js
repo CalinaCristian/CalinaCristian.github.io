@@ -49,7 +49,7 @@ export default {
             const out = Math.max(gx0 - x, x - gx1, gz0 - z, z - gz1); if (out < -30) return h;
             const [la, lo] = llOf(x, z); return lerp(h, seaHeight(la, lo) - E, smooth(-30, 25, out));
         });
-        g.flatten([[-30, -3], [61, -3], [61, 10.4], [-30, 10.4]], 0.15, 2);
+        g.flatten([[-30, -3], [61, -3], [61, 7], [59, 10], [54, 11.2], [4, 11.4], [-23, 10.4], [-25, 10.4], [-27.4, 8.6], [-30, 8.6]], 0.15, 1.2); // (the terrace runs level right up to the parapet)
         // W Highland Dr is level with the terrace (round 6 note 30: on the raw DEM the street stood ~2 m above the
         // sidewalk like a wall): the street corridor (sidewalks included) is graded to the terrace in front of the park
         // and eases back to the DEM over ~45 m along the street and ~10 m into the gardens north of it
@@ -63,16 +63,15 @@ export default {
         ctx.osmBackdrop({ paint: {}, style: (b) => (b.k === 'apartments' ? 'apartment' : 'house'), streetTreeOpts: { spacing: 10, prob: 0.8 }, urban: false });
         // ---- terrace: railing on the edge (OSM w240890465/66), the low wall (w240890467), benches
         const b = new GeoBatch(), y0 = (x, z) => g.heightAt(x, z);
-        railing(b, [[-27, 8.4], [-25, 10], [-23, 10], [4, 11]], y0, { h: 1.2, color: '#2a2e31' });
-        railing(b, [[22, 11], [54, 11], [58, 10], [59, 7]], y0, { h: 1.2, color: '#2a2e31' });
-        b.box(13, -0.2, 11.6, 18, 0.7, 0.4, '#9c968a', 'stone');
-        // retaining wall under the railing (note 31: the slope met the terrace as torn terrain strips): concrete from the
-        // terrace edge down below the hillside
-        for (const L of [[[-27, 8.4], [-25, 10], [-23, 10], [4, 11]], [[22, 11], [54, 11], [58, 10], [59, 7]]]) for (let i = 1; i < L.length; i++) {
-            const [ax, az] = L[i - 1], [bx, bz] = L[i], len = Math.hypot(bx - ax, bz - az), nx = (bz - az) / len, nz = -(bx - ax) / len, mx = (ax + bx) / 2 - nx * 0.3, mz = (az + bz) / 2 - nz * 0.3;
-            b.box(mx, -7, mz, len + 0.4, 7.1, 0.35, '#8f8b82', 'stone', Math.atan2(-(bz - az), bx - ax));
+        // the edge (after round 6: "still broken"): a concrete parapet right under the railing line, 0.45 m above the
+        // terrace and running down the hillside below it, with the iron railing on top (the old wall stood beside the
+        // railing and the terrain sloped away between them)
+        const EDGE = [[[-27, 8.4], [-25, 10], [-23, 10], [4, 11], [22, 11], [54, 11], [58, 10], [59, 7]]];
+        for (const L of EDGE) {
+            for (let i = 1; i < L.length; i++) { const [ax, az] = L[i - 1], [bx, bz] = L[i], len = Math.hypot(bx - ax, bz - az);
+                b.box((ax + bx) / 2, -9, (az + bz) / 2, len + 0.36, 9.6, 0.36, '#bdb8ad', 'stone', Math.atan2(-(bz - az), bx - ax)); }
+            railing(b, L, () => 0.6, { h: 0.95, color: '#2a2e31' });
         }
-        b.box(13, -7, 11.75, 18, 7, 0.35, '#8f8b82', 'stone');
         for (const [x0, z0, x1, z1] of [[-27, 8.4, 4, 11], [4, 11, 22, 11], [22, 11, 59, 7]]) ctx.collider({ wall: true, ax: x0, az: z0, bx: x1, bz: z1, y0a: -5, y1a: 1.4, y0b: -5, y1b: 1.4, nx: 0, nz: -1 });
         for (const [x, z] of d.furniture.bench || []) { bench(b, x, y0(x, z), z, Math.PI); ctx.box(x, z, 0.9, 0.3, Math.PI, { prop: true, h: 0.45 }); }
         ctx.add(b.build('terrace'));

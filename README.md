@@ -64,7 +64,9 @@ that chapter of the CV.
   a second TV shows an actual Dinamo drone goal as a hint. The real Starbucks street frontage stays in place.
   Exterior camera challenges at the Athenaeum, Spring Palace, Parliament, Arc and Lincoln Square require aiming and taking three pictures. They preserve public access; museum and office interiors are not implied. The cathedral has a virtual handheld candle practice on its mapped forecourt. Stable activity IDs preserve existing saves.
   Reused landmark collisions preserve their exact polygons, courtyard holes and raised volume bands in tourist scenes.
+  Narrow desktop windows keep the keyboard-help footer above the lower HUD; touch screens use their dedicated action buttons.
   The overview includes separate shareable evidence views for every landmark and tourist destination, with game captures, source links and explicit remaining estimates.
+  District galleries retain dated historical collections separately from current surveys. Game-only street, weather and drone context has its own gallery and exact camera metadata; only square north-up surveys are paired with aerial imagery. Available collections load inline, and official aerial images keep their original 15-minute browser cache expiry across reloads.
 - **Offices you can talk in.** Each CV stop is a distinct interior (a 2009 classroom, the Politehnica rectorate,
   turnstile lobbies, the UiPath robot floor…) with a teacher, professor or manager who answers A–D questions about that
   chapter of the CV.

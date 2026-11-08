@@ -83,6 +83,18 @@ function check(name, pass, details) { report.checks.push({ name, pass: !!pass, d
         await shot('marked-map-' + label); await page.locator('#world-map [data-clear]').tap(); await page.locator('#world-map .wm-x').tap();
         await page.waitForFunction(() => !game.explore.map.isOpen && !document.body.classList.contains('ui-modal'));
     }
+    await page.locator('#pause-btn').tap();
+    const movingGuard = await page.evaluate(() => {
+        // Freeze normal physics in the real pause menu, then inspect the same speed guard
+        // exposed by the UI and by the production recovery entry point.
+        game.player.speed = 7; game.renderPause('main');
+        const before = { x: game.player.x, z: game.player.z, fuel: game.fuel, done: [...game.progress.done] };
+        const disabled = document.querySelector('[data-pa="reset-position"]').disabled, result = game.resetPosition();
+        return { disabled, result, before, after: { x: game.player.x, z: game.player.z, fuel: game.fuel, done: [...game.progress.done] } };
+    });
+    check('moving-car recovery is disabled and its position guard refuses without fuel or progress changes', movingGuard.disabled && movingGuard.result === false && JSON.stringify(movingGuard.before) === JSON.stringify(movingGuard.after), movingGuard);
+    await page.evaluate(() => { game.player.speed = 0; });
+    await page.locator('#pause-menu .pm-x').tap(); await page.waitForFunction(() => !document.body.classList.contains('ui-modal'));
     await page.evaluate(() => { game.player.speed = 0; game.__qaRecovery = { fuel: game.fuel, done: [...game.progress.done], stats: { ...game.stats } }; });
     await page.locator('#pause-btn').tap(); await page.locator('[data-pa="reset-position"]').scrollIntoViewIfNeeded(); await page.locator('[data-pa="reset-position"]').tap();
     let recovery = await page.evaluate(() => ({ before: game.__qaRecovery, after: { fuel: game.fuel, done: [...game.progress.done], stats: { ...game.stats } }, state: game.state }));

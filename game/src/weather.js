@@ -101,8 +101,9 @@ export function dirFromElAz(el, az, out = new THREE.Vector3()) {
 
 // keyframes by sun elevation (degrees) for a clear sky
 const KF = [
-    { el: -14, zenith: '#02040b', horizon: '#080e1c', sun: '#000000', sunI: 0, hemiSky: '#2a3a5c', hemiGround: '#0a0c10', hemiI: 0.14, expo: 1.3, night: 1, cLit: '#141b29', cDark: '#070a10' },
-    { el: -6, zenith: '#081127', horizon: '#252a45', sun: '#000000', sunI: 0, hemiSky: '#43517a', hemiGround: '#14141a', hemiI: 0.22, expo: 1.3, night: 0.75, cLit: '#2b2a3c', cDark: '#12131c' },
+    // (round 6 note 44) night ambient lifted: streets / sidewalks went near-black between the lamp pools
+    { el: -14, zenith: '#02040b', horizon: '#080e1c', sun: '#000000', sunI: 0, hemiSky: '#3a4a70', hemiGround: '#1c1a1c', hemiI: 0.3, expo: 1.3, night: 1, cLit: '#141b29', cDark: '#070a10' },
+    { el: -6, zenith: '#081127', horizon: '#252a45', sun: '#000000', sunI: 0, hemiSky: '#4a5884', hemiGround: '#201e22', hemiI: 0.34, expo: 1.3, night: 0.75, cLit: '#2b2a3c', cDark: '#12131c' },
     { el: -1.5, zenith: '#16295a', horizon: '#c86a45', sun: '#ff6a2a', sunI: 0, hemiSky: '#6c76a0', hemiGround: '#3a2a26', hemiI: 0.36, expo: 1.3, night: 0.15, cLit: '#e08a64', cDark: '#3c3346' },
     { el: 2, zenith: '#22427f', horizon: '#f08a4b', sun: '#ff7f3a', sunI: 0.9, hemiSky: '#8a9cc8', hemiGround: '#6a4a36', hemiI: 0.58, expo: 1.18, night: 0, cLit: '#ffb07a', cDark: '#5a4a5e' },
     { el: 8, zenith: '#2c5aa2', horizon: '#f2c18e', sun: '#ffc27e', sunI: 1.9, hemiSky: '#9ec0f0', hemiGround: '#8a7050', hemiI: 0.8, expo: 1.08, night: 0, cLit: '#ffe4c4', cDark: '#8a8ea0' },

@@ -714,6 +714,9 @@ export class Renderer3D {
                 if (!(e > 0)) r = g = b = 0;
                 r += T.glow.r * glow; g += T.glow.g * glow; b += T.glow.b * glow;
             }
+            // (round 6 note 44) urban night fill: street lighting scattered by façades, pavement and haze lights the whole
+            // street a little — the roads between the lamp pools were near-black. From above (haze, façades) more than below.
+            if (night > 0) { const fill = night * (0.075 + 0.025 * oc) * (d.y >= 0 ? 1.0 : 0.6); r += T.glow.r * fill; g += T.glow.g * fill; b += T.glow.b * fill; }
             const B = d.b;
             for (let i = 0; i < 9; i++) { const f = B[i] * w4; out[i].x += r * f; out[i].y += g * f; out[i].z += b * f; }
         }

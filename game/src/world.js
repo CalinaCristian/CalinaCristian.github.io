@@ -8,6 +8,7 @@ import { STOPS } from './data.js';
 import { MeshBuilder, rgb, shadeRgb, prep, mergeProps, bakeProp, UNIT_BOX } from './geobuild.js';
 import { treeGeometries, SPECIES, defaultSpecies, buildSpeciesTrees, speciesFromOSM } from './trees.js';
 import { assignSignalPhases, signalState } from './signals.js';
+import { aircraftBody } from './building-aircraft.js';
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -2728,6 +2729,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         return { i, style: data.styles[b[0]], h: data.buildingDimensions?.[i]?.[0] ?? b[1] / 10, minH: data.buildingDimensions?.[i]?.[1] ?? b[2] / 10, roof: data.roofs[b[3]], name: str(b[4]), flags: b[5], ring, holes, c, x0, z0, x1, z1, area: Math.abs(signedArea(ring)), skip: false,
             canopy: data.buildingCanopies?.[i] || null, levels: B_OFF === 9 ? b[6] : 0, colour: B_OFF === 9 ? str(b[7]) : '', roofColour: B_OFF === 9 ? str(b[8]) : '' };
     });
+    for (const b of bRecs) b.aircraft = data.buildingAircraft?.[b.i] || null;
     // ---- (round 6 notes 10 / 46) Bucharest 'house' buildings: the village-house look (shutters, steep gable) read wrong —
     //      in Floreasca / Romană they are interwar villas (plaster, low hipped roof), and a lone house among office towers
     //      (Pipera, Bd. Dimitrie Pompeiu) reads as a low commercial block. Seattle keeps its wooden houses.
@@ -3370,6 +3372,23 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (b.skip) continue;
         const c = cellOf(b.c[0], b.c[1]);
         const mb = c.solid;
+        if (b.aircraft) {
+            const body = aircraftBody(b.ring, b.h);
+            if (!body) continue;
+            const col = rgb(b.colour || '#8b9390'), dark = shadeRgb(col, .7), ring = b.ring;
+            const {pts,tris} = triangulate(ring,b.holes);
+            if (tris.length) c.roof.flatPoly(pts,tris,body.wingTopM,col,.1,-1);
+            for (const tri of tris) mb.face3(...tri.map(i=>[pts[i][0],body.wingBaseM,pts[i][1]]),dark,[0,-1,0]);
+            for(let i=0;i<ring.length;i++){const a=ring[i],p=ring[(i+1)%ring.length],L=Math.hypot(p[0]-a[0],p[1]-a[1]);if(L>.01)mb.wall(a[0],a[1],p[0],p[1],body.wingBaseM,body.wingTopM,(p[1]-a[1])/L,-(p[0]-a[0])/L,col);}
+            for(const f of body.faces)mb.face3(...f,col);
+            c.detail.face3(...body.tail,col);c.detail.face3(...body.tail.slice().reverse(),dark);
+            const box={x:b.c[0],z:b.c[1],r:Math.max(...ring.map(p=>Math.hypot(p[0]-b.c[0],p[1]-b.c[1]))),sourceId:data.buildingIds?.[b.i],aircraft:true,estimated:true,angle:0};
+            collision.push({...box,poly:ring,holes:b.holes,minH:body.wingBaseM,h:body.wingTopM,y1:body.wingTopM});
+            collision.push({...box,poly:body.footprint,holes:[],minH:body.bodyBaseM,h:body.bodyTopM,y1:body.bodyTopM});
+            collision.push({...box,poly:body.tailFootprint,holes:[],minH:b.h*.48,h:b.h,y1:b.h});
+            for(const [x,z] of body.gear){mb.box(x,.13,z,.22,Math.max(.05,body.bodyBaseM-.13),.18,0,dark);propColl.push({x,z,r:.16,hw:.11,hd:.09,angle:0,poly:null,h:body.bodyBaseM,prop:true,kind:'aircraft-gear',sourceId:box.sourceId,estimated:true});}
+            continue;
+        }
         if (b.canopy) {
             // Explicitly reviewed open roof: preserve its full mapped plan and its vertical collision band.
             // Dimension/support provenance stays in data.buildingCanopies; estimates are not OSM clearance tags.

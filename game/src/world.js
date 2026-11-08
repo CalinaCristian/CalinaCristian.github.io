@@ -1225,12 +1225,16 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const q = []; const dist = new Map();
                 for (const n of nodeArr) if (n.edges.some(isDeck)) { dist.set(n, 0); q.push(n); }
                 while (q.length) {
-                    const n = q.shift(), d0 = dist.get(n), deckNames = new Set(n.edges.filter(isDeck).map(e => e.name).concat([...elig].filter(e => e.a === n || e.b === n).map(e => e.name)));
+                    const n = q.shift(), d0 = dist.get(n), approaches = n.edges.filter(e => isDeck(e) || elig.has(e)), deckNames = new Set(approaches.map(e => e.name));
                     const plain = n.edges.filter(f => !f.virtual).length <= 2;
                     for (const e of n.edges) {
                         if (e.virtual || isDeck(e) || e.tunnel || elig.has(e)) continue;
                         const link = /_link$/.test(e.type), same = e.name && deckNames.has(e.name) && plain;
-                        if (!link && !same) continue;
+                        // OSM often leaves a bridge's approach unnamed (Basarab's entry from Orhideelor). The bridge
+                        // tag marks the structure, not the start of its climb: follow the unchanged carriageway back
+                        // through plain nodes, stopping when it reaches a named street or a different carriageway.
+                        const continuation = !e.name && plain && approaches.some(f => f !== e && f.type === e.type && f.oneway === e.oneway && f.lanesF === e.lanesF && f.lanesB === e.lanesB && Math.abs(f.dirx * e.dirx + f.dirz * e.dirz) > 0.94);
+                        if (!link && !same && !continuation) continue;
                         const o = e.a === n ? e.b : e.a, d = d0 + e.len; if (d > 300) continue;
                         elig.add(e); if (!dist.has(o) || dist.get(o) > d) { dist.set(o, d); q.push(o); }
                     }
@@ -1268,7 +1272,29 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (y < n.y - 0.05) lowered++; else if (y > n.y + 0.05) raised++;
                 n.y = y; maxY = Math.max(maxY, y);
             }
-            finalStats = { ramps: elig.size, liveDecks: live.size, ground: groundN.size, lowered, raised, maxY: +maxY.toFixed(1) };
+            // An approach can run below another deck before its own bridge starts. Extending its climb must preserve
+            // that overhead clearance too (the unnamed Basarab entry runs beside / below the through viaduct).
+            // Carry the cap back and forward at the same grade as the ground cone, rather than adding a local step.
+            const overhead = new Map();
+            for (const e of elig) {
+                const steps = Math.max(1, Math.ceil(e.len / 2));
+                for (let i = 0; i <= steps; i++) for (const off of [0, e.wR + shoulderOf(e), -e.wL - shoulderOf(e)]) {
+                    const t = i / steps, x = e.a.x + e.dirx * e.len * t + e.nx * off, z = e.a.z + e.dirz * e.len * t + e.nz * off;
+                    edgesInBox(x - 16, z - 16, x + 16, z + 16, f => {
+                        if (f.virtual || !f.bridge || shares(e, f) || rawLayer(f) <= rawLayer(e)) return;
+                        const q = distPointSeg(x, z, f.a.x, f.a.z, f.b.x, f.b.z), side = (x - q.cx) * f.nx + (z - q.cz) * f.nz;
+                        if (q.t <= 0.01 || q.t >= 0.99 || q.d > (side > 0 ? f.wR : f.wL) + shoulderOf(f) + 0.25) return;
+                        const he = e.a.y + (e.b.y - e.a.y) * t, hf = f.a.y + (f.b.y - f.a.y) * q.t;
+                        if (hf < CLEAR_MIN || he >= hf || he <= hf - CLEAR_MIN) return;
+                        for (const n of [e.a, e.b]) overhead.set(n, Math.min(overhead.get(n) ?? Infinity, hf - CLEAR_MIN));
+                    });
+                }
+            }
+            if (overhead.size) {
+                const caps = cone([...overhead], -1);
+                for (const [n, v] of caps) if (n.y > -v && n.y > 0) n.y = Math.max(0, -v);
+            }
+            finalStats = { ramps: elig.size, liveDecks: live.size, ground: groundN.size, lowered, raised, overheadCaps: overhead.size, maxY: +maxY.toFixed(1) };
             profileStats0 = { ...(profileStats0 || {}), final: finalStats };
         }
         // ---- (round 6) gores: where a deck / ramp merges into (or splits from) a near-parallel road it is connected to,
@@ -1873,12 +1899,12 @@ export async function buildWorld(city, renderer, opts = {}) {
     // directions of a road mapped too close), only the higher-class one (then the lower id) keeps its markings, so the
     // overlap reads as one road with one set of lines instead of a slab with none (review #3 / #4); pads always win
     const markWins = (e, f) => { if (Math.abs(e.dirx * f.dirx + e.dirz * f.dirz) < 0.94) return false; const re = CLASS_RANK[e.type] || 0, rf = CLASS_RANK[f.type] || 0; return re !== rf ? re > rf : e.id < f.id; }; // (near-parallel overlaps only: a road crossing at grade keeps its mouth clear)
-    const coveredByOther = (x, z, e, y, inset = 0.25, prio = false) => {
+    const coveredByOther = (x, z, e, y, inset = 0.25, prio = false, maxDY = 1) => {
         let hit = false;
         surfGrid.each(x, z, x, z, (o) => {
             if (hit || o.e === e || x < o.x0 || x > o.x1 || z < o.z0 || z > o.z1) return;
             if (prio && o.e && markWins(e, o.e)) return;
-            if (Math.abs(o.h(x, z) - y) > 1.0 || !pointInPolygon(x, z, o.poly) || polyDist(x, z, o.poly) < inset) return;
+            if (Math.abs(o.h(x, z) - y) > maxDY || !pointInPolygon(x, z, o.poly) || polyDist(x, z, o.poly) < inset) return;
             hit = true;
         });
         return hit;
@@ -1997,7 +2023,10 @@ export async function buildWorld(city, renderer, opts = {}) {
                             // (a vertical face where the slope would land on another surface)
                             // (owner, again: "still feels like it's floating") 2.4 m long (≈ 8°), the sidewalk's own paving colour
                             const SL = 2.4, f0 = [w0[0] + e.nx * s * SL, w0[1] + e.nz * s * SL], f1 = [w1[0] + e.nx * s * SL, w1[1] + e.nz * s * SL];
-                            if (!cov(f0) && !cov(f1) && !cov(lp(f0, f1, 0.5)) && !cov(lp(w0, f0, 0.5)) && !cov(lp(w1, f1, 0.5))) c.ground.face4([w0[0], top, w0[1]], [w1[0], top, w1[1]], [f1[0], Y.landuse + 0.01, f1[1]], [f0[0], Y.landuse + 0.01, f0[1]], sideCol, [e.nx * s * 0.34, SL, e.nz * s * 0.34]);
+                            // A ramp's back slope cannot project over the street below it: use its retaining face.
+                            // The usual 1 m level filter is for kerbs / markings, not for this apron footprint.
+                            const backCov = p => coveredByOther(p[0], p[1], e, yAlong(e, p[0], p[1]), 0.02, false, elevated ? Infinity : 1);
+                            if (!backCov(f0) && !backCov(f1) && !backCov(lp(f0, f1, 0.5)) && !backCov(lp(w0, f0, 0.5)) && !backCov(lp(w1, f1, 0.5))) c.ground.face4([w0[0], top, w0[1]], [w1[0], top, w1[1]], [f1[0], Y.landuse + 0.01, f1[1]], [f0[0], Y.landuse + 0.01, f0[1]], sideCol, [e.nx * s * 0.34, SL, e.nz * s * 0.34]);
                             else c.ground.wall(w0[0], w0[1], w1[0], w1[1], Y.landuse - 0.02, top, e.nx * s, e.nz * s, shadeRgb(sideCol, 0.8));
                             raisedPieces++;
                         };

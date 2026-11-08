@@ -9486,7 +9486,7 @@
   ],
   "sourceWorld": {
     "buildPrerequisiteCommit": "4fdacd3",
-    "datasetSha256": "40387e74a2121abd3d6ad10752f15a2d5d2fbd26f7569fe73c055609d2f54d95",
+    "datasetSha256": "24c27cbd160167836c254a1b6eafbeeb569df9744faf936d52892a9747a9fe46",
     "buildingCount": 1188,
     "roadRows": 305,
     "treeRetention": {
@@ -9583,8 +9583,11 @@
     "sourceSkips": [],
     "buildingRoadConflictCount": 40,
     "conflictPolicy": "Retain original source geometry; browser checks distinguish mapped building passages/elevated roads from width-estimate conflicts.",
-    "sourceCommit": "4881e6ca5fae3f5d118f5ed55165287f282852bd",
+    "sourceCommit": "c1c995989cb76c45be045b9f2d6c57cb78895af8",
     "unresolvedPassageVerticalDatums": 2,
-    "roadConflictCandidateReview": "handoffs/fidelity/us-districts/bellevue/road-conflict-review.json"
+    "roadConflictCandidateReview": "handoffs/fidelity/us-districts/bellevue/road-conflict-review.json",
+    "eligibleBuildingBodies": 1197,
+    "sourceRelationTagRecords": 21,
+    "nonstandardMinimumUncertainties": 8
   }
 }

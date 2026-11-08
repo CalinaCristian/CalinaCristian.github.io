@@ -36,7 +36,9 @@
         "https://www.openstreetmap.org/way/30108150",
         "https://services1.arcgis.com/EYzEZbDhXZjURPbP/arcgis/rest/services/Bellevue_Permit/FeatureServer/0/query?f=pjson&objectIds=271118&outFields=ObjectId%2CPERMITNUMBER%2CPERMITTYPE%2CPERMITSTATUS%2CSITEADDRESS%2CPROJECTNAME%2CPROJECTDESCRIPTION%2CFINALEDDATE&outSR=4326"
       ],
-      "heightStatus": "Storey count is a documented permit fact. Metre height remains a storey-spacing estimate, not a literal OSM or surveyed physical height."
+      "heightStatus": "Storey count is a documented permit fact. Metre height remains a storey-spacing estimate, not a literal OSM or surveyed physical height.",
+      "issuedDateUTC": "2013-07-09",
+      "finaledDateUTC": "2015-05-08"
     },
     {
       "sourceId": "w103922257",
@@ -68,7 +70,9 @@
         "https://www.openstreetmap.org/way/103922257",
         "https://services1.arcgis.com/EYzEZbDhXZjURPbP/arcgis/rest/services/Bellevue_Permit/FeatureServer/0/query?f=pjson&objectIds=366966&outFields=ObjectId%2CPERMITNUMBER%2CPERMITTYPE%2CPERMITSTATUS%2CSITEADDRESS%2CPROJECTNAME%2CPROJECTDESCRIPTION%2CFINALEDDATE&outSR=4326"
       ],
-      "heightStatus": "Storey count is a documented permit fact. Metre height remains a storey-spacing estimate, not a literal OSM or surveyed physical height."
+      "heightStatus": "Storey count is a documented permit fact. Metre height remains a storey-spacing estimate, not a literal OSM or surveyed physical height.",
+      "issuedDateUTC": "2007-06-25",
+      "finaledDateUTC": "2009-10-12"
     },
     {
       "sourceId": "w106468030",
@@ -100,7 +104,9 @@
         "https://www.openstreetmap.org/way/106468030",
         "https://services1.arcgis.com/EYzEZbDhXZjURPbP/arcgis/rest/services/Bellevue_Permit/FeatureServer/0/query?f=pjson&objectIds=374539&outFields=ObjectId%2CPERMITNUMBER%2CPERMITTYPE%2CPERMITSTATUS%2CSITEADDRESS%2CPROJECTNAME%2CPROJECTDESCRIPTION%2CFINALEDDATE&outSR=4326"
       ],
-      "heightStatus": "Storey count is a documented permit fact. Metre height remains a storey-spacing estimate, not a literal OSM or surveyed physical height."
+      "heightStatus": "Storey count is a documented permit fact. Metre height remains a storey-spacing estimate, not a literal OSM or surveyed physical height.",
+      "issuedDateUTC": "2007-02-09",
+      "finaledDateUTC": "2009-05-13"
     },
     {
       "sourceId": "w1474755841",
@@ -132,7 +138,9 @@
         "https://www.openstreetmap.org/way/1474755841",
         "https://services1.arcgis.com/EYzEZbDhXZjURPbP/arcgis/rest/services/Bellevue_Permit/FeatureServer/0/query?f=pjson&objectIds=86009&outFields=ObjectId%2CPERMITNUMBER%2CPERMITTYPE%2CPERMITSTATUS%2CSITEADDRESS%2CPROJECTNAME%2CPROJECTDESCRIPTION%2CFINALEDDATE&outSR=4326"
       ],
-      "heightStatus": "Storey count is a documented permit fact. Metre height remains a storey-spacing estimate, not a literal OSM or surveyed physical height."
+      "heightStatus": "Storey count is a documented permit fact. Metre height remains a storey-spacing estimate, not a literal OSM or surveyed physical height.",
+      "issuedDateUTC": "2023-07-17",
+      "finaledDateUTC": "2025-10-10"
     },
     {
       "sourceId": "w674014478",
@@ -164,7 +172,9 @@
         "https://www.openstreetmap.org/way/674014478",
         "https://services1.arcgis.com/EYzEZbDhXZjURPbP/arcgis/rest/services/Bellevue_Permit/FeatureServer/0/query?f=pjson&objectIds=210106&outFields=ObjectId%2CPERMITNUMBER%2CPERMITTYPE%2CPERMITSTATUS%2CSITEADDRESS%2CPROJECTNAME%2CPROJECTDESCRIPTION%2CFINALEDDATE&outSR=4326"
       ],
-      "heightStatus": "Storey count is a documented permit fact. Metre height remains a storey-spacing estimate, not a literal OSM or surveyed physical height."
+      "heightStatus": "Storey count is a documented permit fact. Metre height remains a storey-spacing estimate, not a literal OSM or surveyed physical height.",
+      "issuedDateUTC": "2016-06-30",
+      "finaledDateUTC": "2019-01-11"
     },
     {
       "sourceId": "r4547843",
@@ -196,7 +206,9 @@
         "https://www.openstreetmap.org/relation/4547843",
         "https://services1.arcgis.com/EYzEZbDhXZjURPbP/arcgis/rest/services/Bellevue_Permit/FeatureServer/0/query?f=pjson&objectIds=369025&outFields=ObjectId%2CPERMITNUMBER%2CPERMITTYPE%2CPERMITSTATUS%2CSITEADDRESS%2CPROJECTNAME%2CPROJECTDESCRIPTION%2CFINALEDDATE&outSR=4326"
       ],
-      "heightStatus": "Storey count is a documented permit fact. Metre height remains a storey-spacing estimate, not a literal OSM or surveyed physical height."
+      "heightStatus": "Storey count is a documented permit fact. Metre height remains a storey-spacing estimate, not a literal OSM or surveyed physical height.",
+      "issuedDateUTC": "2007-03-30",
+      "finaledDateUTC": "2010-02-10"
     }
   ],
   "controlsAndExclusions": [
@@ -241,5 +253,6 @@
       "decision": "Four-storey east garage extension does not establish all CityHall building volumes. No blanket count applied."
     }
   ],
-  "limitation": "This targets six demonstrably unsupported height defaults with exact official source matches. Other missing vertical dimensions remain explicit estimates; this is not full surveyed height coverage."
+  "limitation": "This targets six demonstrably unsupported height defaults with exact official source matches. Other missing vertical dimensions remain explicit estimates; this is not full surveyed height coverage.",
+  "compiledSourceCommit": "c1c995989cb76c45be045b9f2d6c57cb78895af8"
 }

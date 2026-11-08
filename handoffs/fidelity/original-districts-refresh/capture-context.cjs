@@ -126,10 +126,11 @@ const mime={'.html':'text/html','.js':'text/javascript','.json':'application/jso
         views.push({id:'drone-edge-'+tag,label:'Outward '+tag+' view at 149 m from actual flight-domain boundary',kind:'drone-edge',boundaryPoint:p,boundarySource:'runtime playable source mask and declared landmark flight areas',x:q[0],z:q[1],y:120,target,fov:75,staticCamera:true,controllerExercised:false});
       }
       const starts=(await import('./src/cities.js')).CHAPTERS.filter(c=>c.district===district);
-      for(const c of starts){const p=g.city.proj(c.start.lat,c.start.lon),a=(c.start.heading??c.start.bearing??0)*Math.PI/180;views.push({id:c.id+'-street',label:c.id+' actual chapter start street view',kind:'street',x:p.x,z:p.z,y:1.7,target:[p.x+Math.sin(a)*50,1.7,p.z-Math.cos(a)*50],fov:80});}
+      for(const c of starts){const p=g.city.proj(c.start.lat,c.start.lon),a=(c.start.heading??c.start.bearing??0)*Math.PI/180;views.push({id:'chapter-'+c.id+'-street',chapterId:c.id,label:c.id+' actual chapter start street view',kind:'street',x:p.x,z:p.z,y:1.7,target:[p.x+Math.sin(a)*50,1.7,p.z-Math.cos(a)*50],fov:80});}
       return views;
     },district);
     if(arg('only'))views=views.filter(v=>arg('only').split(',').some(token=>v.id.includes(token)));
+    if(new Set(views.map(v=>v.id)).size!==views.length)throw Error('Duplicate context view IDs; retain raw attempt and correct the view plan before recapture');
     const results=[];
     for(const view of views){
       const observed=await page.evaluate(async v=>{

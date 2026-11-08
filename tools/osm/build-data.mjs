@@ -967,10 +967,10 @@ function buildCity(cityId, did = null) {
     }
     // aerial roof measurements (tools/aerial/roofs.py → game/research/roofs-<city>-<district>.json): roof shape + median
     // roof colour per OSM way, used where OSM has no roof:shape / roof:colour (OSM tags always win)
-    const aerial = new Map();
+    const aerial = new Map(), aerialColours = new Map();
     if (ds) {
         const af = path.join(REPO, 'game', 'research', `roofs-${cityId}-${did}.json`);
-        if (fs.existsSync(af)) { try { const aj = JSON.parse(fs.readFileSync(af, 'utf8')); for (const [k, v] of Object.entries(aj.roofs || {})) aerial.set(k, v); } catch (e) { log('aerial roofs: cannot parse', af, e.message); } }
+        if (fs.existsSync(af)) { try { const aj = JSON.parse(fs.readFileSync(af, 'utf8')); for (const [k, v] of Object.entries(aj.roofs || {})) aerial.set(k, v); for (const [k, v] of Object.entries(aj.colourMeasurements || {})) aerialColours.set(k, v); } catch (e) { log('aerial roofs: cannot parse', af, e.message); } }
         if (aerial.size) log(`aerial roofs: ${aerial.size} footprints measured (${af})`);
     }
     const buildings = [];
@@ -1006,7 +1006,7 @@ function buildCity(cityId, did = null) {
         const lls = []; for (const n of ids) { const ll = N.get(n); if (!ll) { buildingSourceSkips.push({ sourceId, reason: 'incomplete-source-nodes', node: n }); return; } lls.push(ll); }
         const holesLL = innerIds.map(r => r.map(n => N.get(n))).filter(r => r.length > 3 && r.every(Boolean));
         if (holesLL.length !== innerIds.length) { buildingSourceSkips.push({ sourceId, reason: 'incomplete-source-courtyard' }); return; }
-        rawBuildings.push({ lls, holesLL, t: { ...t, __id: (isRel ? 'r' : 'w') + oid }, isRel, aer: !isRel ? aerial.get(String(oid)) || null : null });
+        rawBuildings.push({ lls, holesLL, t: { ...t, __id: (isRel ? 'r' : 'w') + oid }, isRel, aer: !isRel ? aerial.get(String(oid)) || null : null, aerColour: !isRel ? aerialColours.get(String(oid)) : undefined });
     };
     const bRelWays = new Set();
     const addAnnulus = (outLL, inLL, t) => {
@@ -1347,7 +1347,11 @@ function buildCity(cityId, did = null) {
         if (t.tourism || t.historic || (h > 60)) flags |= 4;
         const colour = normColour(t['building:colour'] || t['building:color']) || MATERIAL_COLOUR[(t['building:material'] || '').split(';')[0]] || '';
         let roofColour = normColour(t['roof:colour'] || t['roof:color']) || (/tile|clay/.test(t['roof:material'] || '') ? '#9c5a3c' : /metal|tin|copper/.test(t['roof:material'] || '') ? (t['roof:material'] === 'copper' ? '#6f9a86' : '#7d848a') : '');
-        if (!roofColour && rb.aer && rb.aer[0] !== 'unknown' && rb.aer[1] >= 0.5) {
+        if (!roofColour && rb.aerColour !== undefined) {
+            const measurement = rb.aerColour;
+            if (Number.isFinite(measurement.confidence) && measurement.confidence >= 0.65 && /^#[0-9a-f]{6}$/i.test(measurement.hex || '')) { roofColour = measurement.hex.toLowerCase(); aerialStats.colour++; }
+        }
+        if (!roofColour && rb.aerColour === undefined && rb.aer && rb.aer[0] !== 'unknown' && rb.aer[1] >= 0.5) {
             const v = parseInt(rb.aer[2].slice(1), 16); let rgbA = [v >> 16, (v >> 8) & 255, v & 255];
             const l = (rgbA[0] + rgbA[1] + rgbA[2]) / 3, k = roof === 0 ? 0.35 : 0.9; // (flat: mostly grey; tiles keep their hue)
             rgbA = rgbA.map(c => Math.max(0, Math.min(255, Math.round(l + (c - l) * k))));

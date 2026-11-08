@@ -30,6 +30,16 @@ const mime={'.html':'text/html','.js':'text/javascript','.json':'application/jso
     await page.waitForFunction(()=>window.vqa,null,{timeout:180000});
     const loaded=await page.evaluate(o=>vqa.loadGroup('bucharest-'+o.district,{quality:'high',pr:1,traffic:true,time:o.time,weather:o.weather}),{district,time,weather});
     console.log('loaded',district,JSON.stringify(loaded));
+    const integrity=await page.evaluate(()=>{
+      const w=game.world,expected=w.district.landmarks||[],actual=w.landmarks.map(l=>({id:l.id,label:l.label,x:l.x,z:l.z})),ids=new Set(actual.map(l=>l.id)),s=w.stats;
+      return {district:w.district.id,expectedLandmarks:expected,actualLandmarks:actual,missingLandmarks:expected.filter(id=>!ids.has(id)),roofProfiles:s.buildingRoofProfiles,assembliesRejected:s.buildingAssembliesRejected,unionsRejected:s.buildingUnionsRejected,sourceReplacements:s.landmarkSourceReplacements,parkingClearance:s.parkingClearance??null};
+    });
+    write('runtime-integrity.json',{gameSourceCommit:commit,...integrity});
+    if(integrity.district!==district)errors.push('Loaded district does not match requested source district');
+    if(integrity.missingLandmarks.length)errors.push('Missing actual district landmarks: '+integrity.missingLandmarks.join(','));
+    if(integrity.roofProfiles.rejected.length)errors.push('Rejected native source roof profiles: '+integrity.roofProfiles.rejected.join(','));
+    if(integrity.assembliesRejected.length||integrity.unionsRejected.length)errors.push('Rejected native source assembly/union geometry; see runtime-integrity.json');
+    write('world-stats.json',await page.evaluate(()=>game.world.stats));
     const contacts=await page.evaluate(async()=>{
       const {buildingBlocksRoad}=await import('./src/world.js'),w=game.world,data=w.data,hits=[];
       let edges=0,points=0,publicEdges=0,privateEdges=0;

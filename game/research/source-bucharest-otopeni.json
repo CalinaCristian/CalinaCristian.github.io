@@ -1,0 +1,96 @@
+{
+  "district": "otopeni",
+  "city": "bucharest",
+  "recordedAt": "2026-11-08T16:53:44.899045+00:00",
+  "hierarchy": [
+    "explicit valid OSM tags",
+    "independently measured Esri aerial attributes",
+    "explicitly labelled estimates"
+  ],
+  "osm": {
+    "provider": "OpenStreetMap contributors",
+    "license": "ODbL",
+    "files": [
+      {
+        "file": "dn1_44.5450_26.0500_44.5600_26.0700.xml",
+        "url": "https://api.openstreetmap.org/api/0.6/map?bbox=26.05000,44.54500,26.07000,44.56000",
+        "sha256": "8f865a65a334e9cdcd12339e9b82df43e07857ce38dbf2758727453ccd68a96f",
+        "bytes": 2399963,
+        "retrievedAt": "2026-11-08T16:49:40.924638+00:00",
+        "provider": "OpenStreetMap API 0.6",
+        "license": "ODbL"
+      },
+      {
+        "file": "dn1_44.5450_26.0700_44.5600_26.0900.xml",
+        "url": "https://api.openstreetmap.org/api/0.6/map?bbox=26.07000,44.54500,26.09000,44.56000",
+        "sha256": "f2dd9355642a5f8e05f7595313af73e8068dde933246d23aed4a50710ce9a378",
+        "bytes": 3110815,
+        "retrievedAt": "2026-11-08T16:49:42.034134+00:00",
+        "provider": "OpenStreetMap API 0.6",
+        "license": "ODbL"
+      },
+      {
+        "file": "dn1_44.5600_26.0500_44.5750_26.0700.xml",
+        "url": "https://api.openstreetmap.org/api/0.6/map?bbox=26.05000,44.56000,26.07000,44.57500",
+        "sha256": "493be2b0253a73b693bb8333dad5b7ca4c094ba5dac9552b7c88b2f07d536f2e",
+        "bytes": 1528671,
+        "retrievedAt": "2026-11-08T16:49:43.888133+00:00",
+        "provider": "OpenStreetMap API 0.6",
+        "license": "ODbL"
+      },
+      {
+        "file": "dn1_44.5600_26.0700_44.5750_26.0900.xml",
+        "url": "https://api.openstreetmap.org/api/0.6/map?bbox=26.07000,44.56000,26.09000,44.57500",
+        "sha256": "2e68069ed5264da1dc0641132546bf508e5285ad76d1d3b26634d945fbf0319f",
+        "bytes": 2310192,
+        "retrievedAt": "2026-11-08T16:49:46.108447+00:00",
+        "provider": "OpenStreetMap API 0.6",
+        "license": "ODbL"
+      },
+      {
+        "file": "dn1_44.5750_26.0500_44.5900_26.0700.xml",
+        "url": "https://api.openstreetmap.org/api/0.6/map?bbox=26.05000,44.57500,26.07000,44.59000",
+        "sha256": "9101b76fd28f2d8b951ba581ae241f45f798b55111f1de209270de5bf3e19abc",
+        "bytes": 932286,
+        "retrievedAt": "2026-11-08T16:49:47.147307+00:00",
+        "provider": "OpenStreetMap API 0.6",
+        "license": "ODbL"
+      },
+      {
+        "file": "dn1_44.5750_26.0700_44.5900_26.0900.xml",
+        "url": "https://api.openstreetmap.org/api/0.6/map?bbox=26.07000,44.57500,26.09000,44.59000",
+        "sha256": "d3d9de03ca13f2aba6410d9dcd113dc78f7c5493e0950efe863ed3d3607f68a7",
+        "bytes": 1701170,
+        "retrievedAt": "2026-11-08T16:49:48.113926+00:00",
+        "provider": "OpenStreetMap API 0.6",
+        "license": "ODbL"
+      }
+    ]
+  },
+  "aerial": {
+    "provider": "Esri World Imagery",
+    "officialUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+    "attribution": "Esri, Maxar, Earthstar Geographics, and the GIS User Community",
+    "acquisitionDate": null,
+    "acquisitionDateNote": "Provider imagery date is unknown; retrieval date is not acquisition date.",
+    "retrievedDate": "2026-11-08",
+    "surveyBbox": [
+      44.548,
+      26.058,
+      44.578,
+      26.089
+    ],
+    "zoom": 18,
+    "metresPerPixel": 0.42546720768414037,
+    "dimensions": [
+      6144,
+      8192
+    ],
+    "referenceImageryCommitted": false
+  },
+  "streetView": {
+    "usage": "visual comparison only; no extraction into data; no imagery publication",
+    "coverage": "pending full final source walk"
+  },
+  "acceptance": "Source and visual pass in progress; acquisition coverage alone does not establish parity."
+}

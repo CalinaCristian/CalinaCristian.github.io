@@ -11,6 +11,7 @@
 import * as THREE from '../vendor/three.module.min.js';
 import { collideBuildings } from './world.js';
 import { createFlightBoundary, polygonFlightSource } from './drone-boundary.js';
+import { makeCrowd, dressFor, seasonOf, CROWD_FLAGS } from './crowd.js';
 
 const flightBoundaries = new WeakMap();
 function flightBoundary(scene, source) {
@@ -67,17 +68,26 @@ function buildDroneModel() {
     return g;
 }
 /** where you stand while the drone is up: a small figure + a pulsing "H" pad ring */
-function buildHomeMarker() {
+function buildHomeMarker(city, season) {
     const g = new THREE.Group(); g.name = 'drone-home';
-    const mat = new THREE.MeshLambertMaterial({ color: '#1e3a8a' }), skin = new THREE.MeshLambertMaterial({ color: '#d6a77a' });
-    const legs = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.11, 0.85, 8), new THREE.MeshLambertMaterial({ color: '#334155' })); legs.position.y = 0.43; g.add(legs);
-    const torso = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.16, 0.6, 8), mat); torso.position.y = 1.15; g.add(torso);
-    const head = new THREE.Mesh(new THREE.SphereGeometry(0.12, 10, 8), skin); head.position.y = 1.6; g.add(head);
+    // The pilot shares the NPC body, face, clothes and phone pose, without crowd AI.
+    // Stable identity and palette across flights; only city/season clothing changes.
+    const pilot = makeCrowd({ max: 1, city, season, rng: () => 0.42 });
+    const outfit = dressFor(city, season, null, () => 0.42);
+    outfit.skin = '#e8bc9a'; outfit.hair = '#3b2a1e';
+    outfit.flags &= CROWD_FLAGS.coat | CROWD_FLAGS.hat | CROWD_FLAGS.shortSleeves;
+    pilot.dress(0, outfit); pilot.count = 1;
+    pilot.set(0, { pose: 'phone', prop: 'phone', amp: 0 });
+    pilot.object.name = 'drone-pilot'; g.add(pilot.object);
     const ringMat = new THREE.MeshBasicMaterial({ color: '#fbbf24', transparent: true, opacity: 0.85, depthWrite: false });
     const ring = new THREE.Mesh(new THREE.RingGeometry(1.4, 1.75, 40), ringMat); ring.rotation.x = -Math.PI / 2; ring.position.y = 0.06; g.add(ring);
     const hTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d'); x.fillStyle = '#fbbf24'; x.font = 'bold 52px system-ui,sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('H', 32, 35); return new THREE.CanvasTexture(c); })();
     const h = new THREE.Mesh(new THREE.PlaneGeometry(1.2, 1.2), new THREE.MeshBasicMaterial({ map: hTex, transparent: true, depthWrite: false })); h.rotation.x = -Math.PI / 2; h.position.set(0, 0.07, 1.2); g.add(h);
-    g.userData.ring = ring; g.userData.figure = [legs, torso, head];
+    g.userData.ring = ring; g.userData.figure = [pilot.object]; g.userData.pilot = pilot;
+    g.userData.dispose = () => {
+        pilot.dispose(); ring.geometry.dispose(); ringMat.dispose();
+        h.geometry.dispose(); h.material.dispose(); hTex.dispose();
+    };
     return g;
 }
 
@@ -213,7 +223,7 @@ export class Drone {
         this._freezeWalker(true);
         // models
         if (!this.model) this.model = buildDroneModel();
-        if (!this.homeMk) this.homeMk = buildHomeMarker();
+        if (!this.homeMk) this.homeMk = buildHomeMarker(c.kind === 'spot' ? c.session.spot.city : g.city?.id || 'bucharest', g.r3d?._seasonOverride || g.r3d?.weather?.season || seasonOf(g.nowDate?.()));
         c.scene.add(this.model); c.scene.add(this.homeMk);
         this.homeMk.position.set(w.x, this.home.y, w.z); this.homeMk.rotation.y = w.heading; this.homeMk.visible = false;
         this.handPos = this._hand();
@@ -274,6 +284,7 @@ export class Drone {
         const g = this.g, c = this.c, cam = g.camera;
         if (g.photo?.active) { try { g.photo.close(); } catch { /* ignore */ } }
         this.model?.parent?.remove(this.model); this.homeMk?.parent?.remove(this.homeMk);
+        this.homeMk?.userData.dispose?.(); this.homeMk = null;
         cam.parent?.remove(cam);
         const w = c?.walker;
         if (w?.rig && w.active !== false) { w.rig.add(cam); cam.position.set(0, 0, 0); cam.rotation.set(0, 0, 0); }

@@ -30,7 +30,16 @@ NODE_OPTIONS=--require=/workspace/.environment/drive-my-cv/use-system-chromium.c
   --out=/workspace/reality-pass/conditions-access/final
 ```
 
-The full run passed **124/124 with 0 browser page errors**. It retains all original conditions/travel/Continue and mirror/light checks, plus the new access fixtures. Reviewed screenshots include title Night/Snow/Winter, driving/walking K footer hints, story Winter, Live Continue and touch portrait/landscape. The final footer readability style receives a separate access rerun.
+The full run passed **124/124 with 0 browser page errors**. It retains all original conditions/travel/Continue and mirror/light checks, plus the new access fixtures. Reviewed screenshots include title Night/Snow/Winter, driving/walking K footer hints, story Winter, Live Continue and touch portrait/landscape.
+
+The final footer readability style (`232ae03`, snapshot `/tmp/conditions-access-footer`) passed the separate `--only-access` rerun: **65/65, 0 browser page errors**. Results: `/workspace/reality-pass/conditions-access/footer-final/report.json`. Reviewed final captures:
+
+- `footer-final/drive-footer-k.jpg`, `footer-final/foot-footer-k.jpg`: readable K shortcut in each context, no walking L.
+- `footer-final/title-settings-night-snow-winter.jpg`: one active time, weather and season choice in real main-menu Settings.
+- `footer-final/title-touch-390.jpg`, `footer-final/title-touch-844.jpg`: touch portrait/landscape panel bounds, all group choices receive pointer input, scrolling and close paths work.
+- `footer-final/story-live-continue-winter.jpg`: saved Live/Snow/Winter restores despite different new title picks.
+
+Syntax checks for `main.js` and the harness and `git diff --check` pass. The root's combined scene/performance QA remains separate; this worker changed no geometry or simulation.
 
 Browser audio is muted; weather calls are deterministically mocked; only the main game RAF is manually stepped after real key events. This verifies functional UI and saved-state behavior, not performance or the full weather transition animation.
 

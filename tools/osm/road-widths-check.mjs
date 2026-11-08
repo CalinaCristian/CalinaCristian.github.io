@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import { validRoadWidthReview, reviewedSingleLane, resolveRoadWidth } from '../../game/src/road-widths.js';
+const review={sourceRoadId:'w1',widthM:4.5,source:'independent aerial measurement',uncertaintyM:.5,evidence:['https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer'],measurement:{metresPerPixel:.426,calipers:[{a:[0,0],b:[10.56,0]}]},physicalSingleLane:true};
+assert(validRoadWidthReview(review));
+assert(reviewedSingleLane({},review));
+for(const t of[{lanes:'2'},{'lanes:forward':'1'},{width:'5'},{width:'unknown'}])assert(!reviewedSingleLane(t,review),'raw width/lane fields prohibit inferred physical single lane');
+assert(!reviewedSingleLane({}, {...review,measurement:undefined}),'a claim without independent calipers cannot infer sharing');
+assert(!validRoadWidthReview({...review,widthM:Infinity}));
+assert(!validRoadWidthReview({...review,evidence:[]}));
+let r=resolveRoadWidth({width:'5',lanes:'2'},review,{lanes:2});
+assert.equal(r.widthM,5);assert.equal(r.laneWidthM,2.5);assert.equal(r.source,'OSM width');assert.equal(r.rawWidth,'5');
+r=resolveRoadWidth({width:'5 ft'},review,{lanes:2});assert.equal(r.widthM,1.524);assert(r.issues.some(s=>s.includes('legal lane')),'inconsistent source width/lane combination remains explicit');
+r=resolveRoadWidth({},review,{lanes:2,sharedLane:true});assert.equal(r.widthM,4.5);assert.equal(r.laneWidthM,2.25);assert.equal(r.source,'independent aerial measurement');
+r=resolveRoadWidth({width:'5'},undefined,{lanes:2,medianM:3});assert.equal(r.widthM,5);assert.equal(r.medianM,0);assert.equal(r.laneWidthM,2.5);assert(r.issues.length,'inferred median cannot exceed a source carriageway dimension');
+r=resolveRoadWidth({width:'16'},undefined,{lanes:2,medianM:6.5});assert.equal(r.widthM,r.medianM+r.laneWidthM*2);
+assert.equal(resolveRoadWidth({},undefined,{lanes:2}),null,'legacy/default road widths remain untouched');
+r=resolveRoadWidth({lanes:'1'},undefined,{lanes:2,sharedLane:true,defaultSharedWidth:3});assert.equal(r.widthM,3);assert.equal(r.laneWidthM,1.5);
+console.log(JSON.stringify({passed:true,controls:'literal metres/feet, precedence, median containment, source contradictions, lane identity, reviewed sharing and legacy gates'}));

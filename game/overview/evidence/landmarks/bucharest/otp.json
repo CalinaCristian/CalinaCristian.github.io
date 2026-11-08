@@ -3,7 +3,7 @@
   "id": "otp",
   "city": "bucharest",
   "name": "Aeroportul Henri Coandă",
-  "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+  "sourceCommit": "59f953ff63eff92cd00da3f36dc093d8bff317d9",
   "status": "reviewed-with-gaps",
   "coordinates": {
     "lat": 44.5708154,
@@ -87,13 +87,17 @@
   "improvements": [
     "Added the full r16476195 aggregate connectors around the five mapped terminal parts.",
     "Preserved the verified inner courtyard w1215078738.",
-    "Replaced guessed control-cabin and 20 m pier-spine outlines with the exact source polygons; cabin spans 20–25 m."
+    "Replaced guessed control-cabin and 20 m pier-spine outlines with the exact source polygons; cabin spans 20–25 m.",
+    "Separated independently measured departures white hall roofs, dark membrane zones, Vioara membranes and seven roof strips, clipped to complete mapped source rings. All seven colliders, source IDs, heights and courtyard geometry remain unchanged.",
+    "Replaced the flat arrivals cap with ten independently measured repeated curved bays, clipped to the exact source ring; total14m and existing collision bands stay unchanged."
   ],
   "remainingGaps": [
     "Connector roof height 12 m is explicitly estimated; the aggregate has max_level=2 but no height.",
     "Departures, arrivals and pier roof heights remain estimates without mapped height tags.",
     "Static aircraft and some jet-bridge details are legacy illustrations, not surveyed current aircraft positions.",
-    "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity."
+    "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity.",
+    "Roof plant/HVAC equipment and membrane/weathering detail are incomplete. Pixel RGB observations have unknown imagery acquisition lighting and are material-colour estimates.",
+    "Arrivals bay count10, axis84.47degrees and median spacing8.88m are independently measured; rise1.2m is estimated within the prior total14m. A northern imagery/source outline mismatch of approximately5–6m is retained as uncertainty; the source boundary is preserved."
   ],
   "checks": [
     {
@@ -125,6 +129,16 @@
       "label": "Complete district / traffic / mirror budget",
       "passed": false,
       "details": "These are isolated model studies. Paired Romana samples had unchanged findings and world-only peak1.13M triangles/296 calls, with an Arnia capture timeout; traffic and mirror budget and all tourist-scene placements require the district lanes."
+    },
+    {
+      "label": "Independent roof-zone area and collision checks",
+      "passed": true,
+      "details": "roof-zones-check.mjs verifies complete nonoverlapping source roof areas and byte-identical seven colliders against d35d3d5. Colour zones derive only from independent Esri pixels; no source imagery is published."
+    },
+    {
+      "label": "Arrivals roof/source model regression",
+      "passed": true,
+      "details": "All61-model finite geometry/normal/triangle-accounting checks and all33 Bucharest source checks pass after the roof profile change. Seven source/courtyard colliders remain byte-identical to d35d3d5. Three fresh59f953f game-only studies were inspected; oblique camera distance1000m retains the complete terminal."
     }
   ],
   "captures": [
@@ -133,9 +147,9 @@
       "label": "Departures facade detail — street-height model study",
       "kind": "front",
       "image": "assets/landmarks/otp/front.webp",
-      "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
-      "sha256": "f6a56b8d329386ed501f3cf6a7ecd874f9fc515bc0f7f21c45a5cbeb78c02fcc",
-      "capturedAt": "2026-11-08T17:14:11.251514Z",
+      "sourceCommit": "59f953ff63eff92cd00da3f36dc093d8bff317d9",
+      "sha256": "9afa2b5936327ca309532febf5b0d8a10578432d3157850c04d1a244b98cdd10",
+      "capturedAt": "2026-11-08T18:26:54.067Z",
       "pose": {
         "viewerRoute": "/game/dev/landmarks.html?id=otp&clean=1&fountains=on&view=street&az=-84.00134234412998&d=220&tx=-170.20144234878296&tz=-88.69875434522132&ty=9&ey=1.6",
         "anchor": {
@@ -144,6 +158,7 @@
           "rotation": -1.4661
         },
         "camera": {
+          "projection": "perspective",
           "position": [
             -388.9967980336489,
             1.6,
@@ -161,6 +176,16 @@
           "viewport": [
             960,
             720
+          ],
+          "target": [
+            -170.20144234878296,
+            9,
+            -88.69875434522132
+          ],
+          "up": [
+            0,
+            1,
+            0
           ]
         },
         "bounds": {
@@ -176,17 +201,17 @@
           ]
         },
         "isolatedModel": true,
-        "note": "Explicit cropped facade study of the departures hall. Top and oblique captures show the complete airport source assembly."
+        "note": "Isolated game-only source model study. Roof plan/colours and ten arrivals bay positions use independent Esri measurements; arrivals rise1.2m is explicitly estimated. All base/total heights, source footprints/courtyard and seven colliders remain unchanged."
       }
     },
     {
       "id": "top",
-      "label": "Top model study (perspective)",
+      "label": "Top model study (north-up orthographic)",
       "kind": "top",
       "image": "assets/landmarks/otp/top.webp",
-      "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
-      "sha256": "9aa78d5b48c3a5f9960b1779b6b5d4a9aff491ab0c5b317349c608e3b7f4a3da",
-      "capturedAt": "2026-11-08T17:07:10.120114Z",
+      "sourceCommit": "59f953ff63eff92cd00da3f36dc093d8bff317d9",
+      "sha256": "6e82024e3ed3eb78461d2b87d4f8af3dbace67422307f48dabaf49d3e397d404",
+      "capturedAt": "2026-11-08T18:26:55.794Z",
       "pose": {
         "viewerRoute": "/game/dev/landmarks.html?id=otp&clean=1&fountains=on&view=top&az=0",
         "anchor": {
@@ -195,24 +220,37 @@
           "rotation": -1.4661
         },
         "camera": {
+          "projection": "orthographic",
           "position": [
             0.28723744998092116,
-            751.0497223095766,
-            38.692427463946885
+            650.3509400380387,
+            37.94137749128734
           ],
           "quaternion": [
-            -0.7067531394223399,
+            -0.7071067811865475,
             0,
             0,
-            0.7074602461740636
+            0.7071067811865476
           ],
           "fov": 45,
-          "near": 1.5021001956691884,
-          "far": 15021.001956691885,
+          "near": 1.3007018800760775,
+          "far": 13007.018800760776,
           "viewport": [
             960,
             720
-          ]
+          ],
+          "target": [
+            0.28723744998092116,
+            0,
+            37.94137749128734
+          ],
+          "up": [
+            0,
+            0,
+            -1
+          ],
+          "groundSquareM": 827.134586717385,
+          "orientation": "north-up"
         },
         "bounds": {
           "min": [
@@ -227,7 +265,7 @@
           ]
         },
         "isolatedModel": true,
-        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+        "note": "Isolated game-only source model study. Roof plan/colours and ten arrivals bay positions use independent Esri measurements; arrivals rise1.2m is explicitly estimated. All base/total heights, source footprints/courtyard and seven colliders remain unchanged."
       }
     },
     {
@@ -235,34 +273,45 @@
       "label": "Oblique model study",
       "kind": "oblique",
       "image": "assets/landmarks/otp/oblique.webp",
-      "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
-      "sha256": "b9cac2435b1cc6e2333a81e814d414d5a87ffb6a2d6eb84e3a4bbbee01995cc9",
-      "capturedAt": "2026-11-08T17:07:14.188069Z",
+      "sourceCommit": "59f953ff63eff92cd00da3f36dc093d8bff317d9",
+      "sha256": "8ddf74349925ea25425955ad890c632d4dba5fc2f483a461ca1af0f87d1d8a9e",
+      "capturedAt": "2026-11-08T18:26:58.373Z",
       "pose": {
-        "viewerRoute": "/game/dev/landmarks.html?id=otp&clean=1&fountains=on&view=oblique&az=-49.00134234412998&el=28",
+        "viewerRoute": "/game/dev/landmarks.html?id=otp&clean=1&fountains=on&view=oblique&az=-49.00134234412998&el=28&d=1000&el=38",
         "anchor": {
           "lat": 44.5708154,
           "lon": 26.0795884,
           "rotation": -1.4661
         },
         "camera": {
+          "projection": "perspective",
           "position": [
-            -535.9797527423707,
-            389.8041476309446,
-            504.08910262403856
+            -666.0953407582958,
+            481.4715627858908,
+            617.1915058433348
           ],
           "quaternion": [
-            -0.2201383803533225,
+            -0.22013838035332248,
             -0.40238542384061593,
             -0.10032595409938755,
             0.882926818660568
           ],
           "fov": 45,
-          "near": 1.6094868255236476,
-          "far": 16094.868255236477,
+          "near": 2,
+          "far": 20000,
           "viewport": [
             960,
             720
+          ],
+          "target": [
+            0.28723744998092116,
+            12,
+            37.94137749128734
+          ],
+          "up": [
+            0,
+            1,
+            0
           ]
         },
         "bounds": {
@@ -278,13 +327,14 @@
           ]
         },
         "isolatedModel": true,
-        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+        "note": "Isolated game-only source model study. Roof plan/colours and ten arrivals bay positions use independent Esri measurements; arrivals rise1.2m is explicitly estimated. All base/total heights, source footprints/courtyard and seven colliders remain unchanged."
       }
     }
   ],
   "perf": {
-    "triangles": 9547,
+    "triangles": 15665,
     "drawCalls": 3,
     "note": "Isolated development viewer render, including its ground/shadow work; excludes district world, traffic and mirrors."
-  }
+  },
+  "roofMeasurementLedger": "../../../../../../handoffs/fidelity/d-otopeni/terminal-roof-measurements.json"
 }

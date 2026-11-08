@@ -1,0 +1,585 @@
+{
+  "source": "OpenStreetMap API 0.6 source snapshots independently acquired 2026-11-08",
+  "license": "\u00a9 OpenStreetMap contributors, ODbL 1.0",
+  "districts": {
+    "seatac": {
+      "ways": [
+        {
+          "id": 276643612,
+          "nodeIds": [
+            2812330579,
+            2812330580,
+            4640518740,
+            2812330581,
+            4640518733,
+            2812330582,
+            2812330583,
+            2812330584,
+            2812330579
+          ],
+          "coordinates": [
+            [
+              47.4466991,
+              -122.2962062
+            ],
+            [
+              47.44669,
+              -122.295018
+            ],
+            [
+              47.445874,
+              -122.2950258
+            ],
+            [
+              47.4458375,
+              -122.2950261
+            ],
+            [
+              47.4458288,
+              -122.2957439
+            ],
+            [
+              47.4458248,
+              -122.2960721
+            ],
+            [
+              47.4459735,
+              -122.2961338
+            ],
+            [
+              47.4462928,
+              -122.2961821
+            ],
+            [
+              47.4466991,
+              -122.2962062
+            ]
+          ],
+          "tags": {
+            "access": "yes",
+            "addr:city": "Seatac",
+            "addr:housenumber": "17400",
+            "addr:postcode": "98188",
+            "addr:state": "WA",
+            "addr:street": "International Boulevard",
+            "amenity": "parking",
+            "charge": "16.95 USD/day",
+            "covered": "no",
+            "fee": "yes",
+            "name": "Park N' Fly",
+            "parking": "surface",
+            "park_ride": "yes",
+            "payment:credit_cards": "yes",
+            "payment:debit_cards": "yes",
+            "phone": "+1-206-433-6767",
+            "supervised": "yes",
+            "surface": "asphalt",
+            "website": "https://www.airportparknfly.com/seattle-valet/"
+          },
+          "sourceUrl": "https://www.openstreetmap.org/way/276643612"
+        },
+        {
+          "id": 647520469,
+          "nodeIds": [
+            6080882109,
+            6080882110,
+            6080882111,
+            6080882112,
+            6080882109
+          ],
+          "coordinates": [
+            [
+              47.4595558,
+              -122.2952166
+            ],
+            [
+              47.4591118,
+              -122.2952215
+            ],
+            [
+              47.4591085,
+              -122.2937815
+            ],
+            [
+              47.4595636,
+              -122.2936482
+            ],
+            [
+              47.4595558,
+              -122.2952166
+            ]
+          ],
+          "tags": {
+            "addr:city": "Seatac",
+            "addr:postcode": "98188",
+            "addr:state": "WA",
+            "amenity": "parking",
+            "covered": "no",
+            "name": "TNC Staging Lot",
+            "parking": "surface",
+            "surface": "asphalt"
+          },
+          "sourceUrl": "https://www.openstreetmap.org/way/647520469"
+        }
+      ],
+      "measurements": {
+        "schemaVersion": 1,
+        "district": "seatac",
+        "sourcePriority": "Explicit OSM parking orientation/layout wins; independently measured compatible angles apply only at confidence >=0.75. Google imagery provides no attributes.",
+        "scope": "Targeted correction of reviewed clear diagonal surface lots; every other lot retains an explicitly estimated layout, not a claim of measured stall orientation.",
+        "lots": {
+          "w276643612": {
+            "rowBearingDeg": 175.67,
+            "stallBearingDeg": 122.39,
+            "confidence": 0.84,
+            "coverage": "Principal alternating diagonal stall families visible throughout the rectangular lot. The small edge/end stalls and roofed service patch are not individually measured; source buildings clear the fill. Occupancy, exact stall positions, spacing and front/rear headings remain runtime estimates.",
+            "evidence": {
+              "provider": "Esri World Imagery",
+              "sourceUrl": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+              "osmUrl": "https://www.openstreetmap.org/way/276643612",
+              "reviewedDate": "2026-11-08",
+              "imageryDate": "unknown",
+              "mosaicZoom": 18,
+              "mosaicOriginPx": [
+                10753280,
+                23476736
+              ],
+              "mosaicSizePx": [
+                5888,
+                8704
+              ],
+              "metresPerPixel": 0.4038377577766397,
+              "cropBoxPx": [
+                3465,
+                4587,
+                3730,
+                4852
+              ],
+              "pixelCoordinateFrame": "Native local mosaic pixels; x east/right, y south/down. Samples follow visible row alignments and repeated long axes of vehicles/bay stripes; orientation is axial and does not establish vehicle front/rear direction.",
+              "rowSamplesPx": [
+                [
+                  [
+                    3594.188,
+                    4656.562
+                  ],
+                  [
+                    3607.438,
+                    4802.312
+                  ]
+                ],
+                [
+                  [
+                    3640.562,
+                    4654.906
+                  ],
+                  [
+                    3649.506,
+                    4802.312
+                  ]
+                ]
+              ],
+              "stallSamplesPx": [
+                [
+                  [
+                    3590.544,
+                    4655.569
+                  ],
+                  [
+                    3602.137,
+                    4662.525
+                  ]
+                ],
+                [
+                  [
+                    3589.881,
+                    4672.794
+                  ],
+                  [
+                    3602.137,
+                    4681.075
+                  ]
+                ],
+                [
+                  [
+                    3598.825,
+                    4739.375
+                  ],
+                  [
+                    3610.419,
+                    4746.663
+                  ]
+                ]
+              ],
+              "sampleMaximumDeviationDeg": {
+                "row": 0.86,
+                "stall": 1.66,
+                "alternateStall": 2.01
+              },
+              "referenceImagesTracked": false,
+              "alternateStallSamplesPx": [
+                [
+                  [
+                    3633.938,
+                    4665.506
+                  ],
+                  [
+                    3644.869,
+                    4657.887
+                  ]
+                ],
+                [
+                  [
+                    3639.238,
+                    4680.413
+                  ],
+                  [
+                    3649.838,
+                    4672.462
+                  ]
+                ],
+                [
+                  [
+                    3642.219,
+                    4716.519
+                  ],
+                  [
+                    3652.488,
+                    4708.238
+                  ]
+                ]
+              ]
+            },
+            "alternateStallBearingDeg": 53.12
+          },
+          "w647520469": {
+            "mixed": true,
+            "confidence": 0.4,
+            "reason": "Several incompatible parking orientations or unclear rows within one source lot; one uniform angle would overstate the evidence.",
+            "evidence": {
+              "sourceUrl": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+              "osmUrl": "https://www.openstreetmap.org/way/647520469",
+              "reviewedDate": "2026-11-08",
+              "imageryDate": "unknown",
+              "referenceImagesTracked": false
+            }
+          }
+        }
+      }
+    },
+    "bellevue": {
+      "ways": [
+        {
+          "id": 345607324,
+          "nodeIds": [
+            3522508667,
+            3522508668,
+            8164943785,
+            8164943784,
+            3522508669,
+            3522508670,
+            3522509017,
+            3522509018,
+            3522509020,
+            3522509014,
+            3522509015,
+            4856298947,
+            3522508659,
+            3522508660,
+            3522508654,
+            3522508653,
+            3522508652,
+            3522508623,
+            3522508622,
+            3522508630,
+            3522508631,
+            2033713151,
+            2033713152,
+            3982600164,
+            3522508667
+          ],
+          "coordinates": [
+            [
+              47.6108896,
+              -122.1953456
+            ],
+            [
+              47.6108897,
+              -122.1952401
+            ],
+            [
+              47.610888,
+              -122.19509
+            ],
+            [
+              47.610887,
+              -122.194994
+            ],
+            [
+              47.6108844,
+              -122.1947609
+            ],
+            [
+              47.6108835,
+              -122.1946277
+            ],
+            [
+              47.6111351,
+              -122.1946216
+            ],
+            [
+              47.6111349,
+              -122.1944998
+            ],
+            [
+              47.6111351,
+              -122.1940799
+            ],
+            [
+              47.6111143,
+              -122.1938699
+            ],
+            [
+              47.6111144,
+              -122.1937424
+            ],
+            [
+              47.6108447,
+              -122.1937421
+            ],
+            [
+              47.610575,
+              -122.1937417
+            ],
+            [
+              47.610575,
+              -122.1938169
+            ],
+            [
+              47.6105008,
+              -122.1938168
+            ],
+            [
+              47.6105003,
+              -122.1946337
+            ],
+            [
+              47.6105,
+              -122.1951366
+            ],
+            [
+              47.6102863,
+              -122.1951364
+            ],
+            [
+              47.6102859,
+              -122.1956813
+            ],
+            [
+              47.6103336,
+              -122.1956814
+            ],
+            [
+              47.6103351,
+              -122.1957973
+            ],
+            [
+              47.6103791,
+              -122.1957985
+            ],
+            [
+              47.6103792,
+              -122.1960113
+            ],
+            [
+              47.6108936,
+              -122.1960064
+            ],
+            [
+              47.6108896,
+              -122.1953456
+            ]
+          ],
+          "tags": {
+            "amenity": "parking",
+            "parking": "surface",
+            "surface": "asphalt"
+          },
+          "sourceUrl": "https://www.openstreetmap.org/way/345607324"
+        },
+        {
+          "id": 956124492,
+          "nodeIds": [
+            8848948908,
+            8848948909,
+            8848948910,
+            8848976421,
+            8848948911,
+            8848948912,
+            8848948913,
+            8848948914,
+            8848948915,
+            8848948908
+          ],
+          "coordinates": [
+            [
+              47.6124187,
+              -122.2074968
+            ],
+            [
+              47.612429,
+              -122.2075241
+            ],
+            [
+              47.6124759,
+              -122.2074852
+            ],
+            [
+              47.6124758,
+              -122.2076049
+            ],
+            [
+              47.6124754,
+              -122.2079968
+            ],
+            [
+              47.6124212,
+              -122.2080381
+            ],
+            [
+              47.6124321,
+              -122.2080695
+            ],
+            [
+              47.61238,
+              -122.2081092
+            ],
+            [
+              47.6123814,
+              -122.2075278
+            ],
+            [
+              47.6124187,
+              -122.2074968
+            ]
+          ],
+          "tags": {
+            "access": "customers",
+            "amenity": "parking",
+            "parking": "surface",
+            "surface": "asphalt"
+          },
+          "sourceUrl": "https://www.openstreetmap.org/way/956124492"
+        }
+      ],
+      "measurements": {
+        "schemaVersion": 1,
+        "district": "bellevue",
+        "sourcePriority": "Explicit OSM parking orientation/layout wins; independently measured compatible angles apply only at confidence >=0.75. Google imagery provides no attributes.",
+        "scope": "Targeted correction of reviewed clear diagonal surface lots; every other lot retains an explicitly estimated layout, not a claim of measured stall orientation.",
+        "lots": {
+          "w956124492": {
+            "rowBearingDeg": 90.32,
+            "stallBearingDeg": 34.76,
+            "confidence": 0.82,
+            "coverage": "Uniform principal rows visible within the original source lot; source polygon and buildings remain unchanged. Occupancy, individual stall positions, spacing and vehicle front/rear headings remain explicit runtime estimates.",
+            "evidence": {
+              "provider": "Esri World Imagery",
+              "sourceUrl": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+              "osmUrl": "https://www.openstreetmap.org/way/956124492",
+              "reviewedDate": "2026-11-08",
+              "imageryDate": "unknown",
+              "mosaicZoom": 18,
+              "mosaicOriginPx": [
+                10772224,
+                23431936
+              ],
+              "mosaicSizePx": [
+                6912,
+                4864
+              ],
+              "metresPerPixel": 0.40254113795303664,
+              "cropBoxPx": [
+                953,
+                3574,
+                1094,
+                3714
+              ],
+              "pixelCoordinateFrame": "Native local mosaic pixels; x east/right, y south/down. Samples follow visible row alignments and repeated long axes of vehicles/bay stripes; orientation is axial and does not establish vehicle front/rear direction.",
+              "rowSamplesPx": [
+                [
+                  [
+                    994.947,
+                    3635.6
+                  ],
+                  [
+                    1047.294,
+                    3635.425
+                  ]
+                ],
+                [
+                  [
+                    1010.81,
+                    3633.85
+                  ],
+                  [
+                    1047.294,
+                    3634.375
+                  ]
+                ]
+              ],
+              "stallSamplesPx": [
+                [
+                  [
+                    993.009,
+                    3639.625
+                  ],
+                  [
+                    998.649,
+                    3631.925
+                  ]
+                ],
+                [
+                  [
+                    1009.4,
+                    3639.275
+                  ],
+                  [
+                    1014.688,
+                    3630.875
+                  ]
+                ],
+                [
+                  [
+                    1043.592,
+                    3638.925
+                  ],
+                  [
+                    1049.409,
+                    3631.05
+                  ]
+                ]
+              ],
+              "sampleMaximumDeviationDeg": {
+                "row": 0.51,
+                "stall": 2.76
+              },
+              "referenceImagesTracked": false
+            }
+          },
+          "w345607324": {
+            "mixed": true,
+            "confidence": 0.4,
+            "reason": "Several incompatible parking orientations or unclear rows within one source lot; one uniform angle would overstate the evidence.",
+            "evidence": {
+              "sourceUrl": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+              "osmUrl": "https://www.openstreetmap.org/way/345607324",
+              "reviewedDate": "2026-11-08",
+              "imageryDate": "unknown",
+              "referenceImagesTracked": false
+            }
+          }
+        }
+      }
+    }
+  }
+}

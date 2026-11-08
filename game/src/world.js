@@ -10,6 +10,7 @@ import { MeshBuilder, rgb, shadeRgb, prep, mergeProps, bakeProp, UNIT_BOX } from
 import { treeGeometries, SPECIES, defaultSpecies, buildSpeciesTrees, speciesFromOSM } from './trees.js';
 import { assignSignalPhases, signalState } from './signals.js';
 import { aircraftBody } from './building-aircraft.js';
+import { resolveParkingLayout, parkingRowPose, parkingPolygonsOverlap, parkingBodyOverlap } from './parking-layout.js';
 import { passageSolids, clipPassageWall, passageInterior } from './building-passages.js';
 
 // ============================================================================
@@ -595,11 +596,11 @@ export async function buildWorld(city, renderer, opts = {}) {
     const roads = data.roads.map((r, ri) => {
         const cls = data.classes[r[1]];
         const flags = r[8];
-        const shared = data.sharedLanes?.[ri];
+        const shared = data.sharedLanes?.[ri], width = data.roadWidths?.[ri];
         return {
-            index: ri, name: str(r[0]), type: cls, lanesF: r[2], lanesB: r[3], median: shared ? 0 : r[4] / 10, laneW: shared ? shared.widthM / 2 : r[5] / 10, sidewalk: r[6] / 10,
+            index: ri, name: str(r[0]), type: cls, lanesF: r[2], lanesB: r[3], median: shared ? 0 : width ? ((flags & 1) ? -width.widthM : width.medianM) : r[4] / 10, laneW: shared ? shared.widthM / 2 : width?.laneWidthM ?? r[5] / 10, sidewalk: r[6] / 10,
             sharedLane: !!shared, sharedLaneWidthM: shared?.widthM, sharedLaneSource: shared,
-            access: data.roadAccess?.[ri] || null,
+            roadWidthSource: width || null, access: data.roadAccess?.[ri] || null,
             maxspeed: r[7] / 3.6, flags, layer: r[9], ids: r.slice(10),
             oneway: !!(flags & 1), bridge: !!(flags & 2), tunnel: !!(flags & 4), roundabout: !!(flags & 8), busLane: !!(flags & 16),
             tram: !!(flags & 32), toll: !!(flags & 64), unpaved: !!(flags & 128), tramMedian: !!(flags & 256),
@@ -625,7 +626,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 lanesF: rd.lanesF, lanesB: rd.oneway ? 0 : rd.lanesB, lanes: Math.max(rd.lanesF, rd.oneway ? 0 : rd.lanesB), oneway: rd.oneway,
                 laneW: rd.laneW, median, wR, wL, halfW: Math.max(wR, wL), sidewalk: rd.sidewalk,
                 sharedLane: rd.sharedLane, sharedLaneWidthM: rd.sharedLaneWidthM, sharedLaneSource: rd.sharedLaneSource,
-                access: rd.access, publicDrive: rd.access?.publicDrive !== false, throughAccess: rd.access?.throughAccess !== false,
+                roadWidthSource: rd.roadWidthSource, access: rd.access, publicDrive: rd.access?.publicDrive !== false, throughAccess: rd.access?.throughAccess !== false,
                 maxspeed: rd.maxspeed, speed: rd.maxspeed, tram: rd.tram, tramMedian: rd.tramMedian, bridge: rd.bridge, tunnel: rd.tunnel, toll: rd.toll,
                 busLane: rd.busLane, roundabout: rd.roundabout, unpaved: rd.unpaved, layer: rd.layer, trafficMul: TRAFFIC_MUL[rd.type] ?? 0.5,
                 bikeLane: rd.bikeLane, cycleTrack: rd.cycleTrack, lit: rd.lit, unlit: rd.unlit,
@@ -1485,13 +1486,13 @@ export async function buildWorld(city, renderer, opts = {}) {
     };
     const areas = [];
     const waterGrid = new BoxGrid(200), parkGrid = new BoxGrid(200);
-    for (const a of data.areas) {
-        const kind = data.areaKinds[a[0]];
-        const rings = a.slice(2).map(r => undelta(r, 0));
+    for (let areaIndex = 0; areaIndex < data.areas.length; areaIndex++) {
+        const a = data.areas[areaIndex], kind = data.areaKinds[a[0]];
+        const rings = kind === 'parking' && data.parkingFootprints?.[areaIndex] || a.slice(2).map(r => undelta(r, 0));
         const outer = rings[0]; if (!outer || outer.length < 3) continue;
         let x0 = Infinity, z0 = Infinity, x1 = -Infinity, z1 = -Infinity;
         for (const [x, z] of outer) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); }
-        const area = { kind, name: str(a[1]), rings, outer, holes: rings.slice(1), x0, z0, x1, z1, size: Math.abs(signedArea(outer)) };
+        const area = { kind, areaIndex, sourceId: data.areaSourceIds?.[areaIndex] || '', parkingLayout: data.parkingLayouts?.[areaIndex] || null, name: str(a[1]), rings, outer, holes: rings.slice(1), x0, z0, x1, z1, size: Math.abs(signedArea(outer)) };
         areas.push(area);
         if (kind === 'water') waterGrid.insert(x0, z0, x1, z1, area);
         if (kind === 'park' || kind === 'forest' || kind === 'grass' || kind === 'cemetery') parkGrid.insert(x0, z0, x1, z1, area);
@@ -4711,7 +4712,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // colour), one group per 500 m super-cell (culling + few draw calls); full lots again (the 700 k cap is gone).
     // Fallback without it: merged low-LOD props, triangle-capped.
     const parkedLots = new Map(); // super-cell key → [{kind, color, x, y, z, yaw}]
-    const parkingOverlap = (a, b) => a.some(([x, z]) => pointInPolygon(x, z, b)) || b.some(([x, z]) => pointInPolygon(x, z, a)) || polysCross(a, b);
+    const parkingOverlap = parkingPolygonsOverlap;
     // Mapped lots can extend under the modeled pavement (the lot at the Rosetti
     // start does). Test the complete car, including intersections through its
     // edges, against sidewalk bands and junction corners; a clear centre is not
@@ -4731,28 +4732,41 @@ export async function buildWorld(city, renderer, opts = {}) {
         parkingWalks.each(Math.min(...fp.map(q => q[0])), Math.min(...fp.map(q => q[1])), Math.max(...fp.map(q => q[0])), Math.max(...fp.map(q => q[1])), p => { if (!hit && parkingOverlap(fp, p)) hit = true; });
         return hit;
     };
+    const parkingOnBuilding = fp => {
+        let hit = false;
+        bGrid.each(Math.min(...fp.map(q => q[0])), Math.min(...fp.map(q => q[1])), Math.max(...fp.map(q => q[0])), Math.max(...fp.map(q => q[1])), b => {
+            if (hit || b.skip && data.buildingGeometryPolicy !== 'source') return;
+            hit = parkingBodyOverlap(fp, { outer: b.ring, holes: b.holes, minHeightM: b.minH, maxHeightM: b.h });
+        });
+        return hit;
+    };
     // (2026-11-08, owner: cars parked across a CV stop's glowing door ring) no parked car within 7 m of a stop's door
     const stopDoors = pois.filter(p => p.interactive && p.doorX !== undefined), nearDoor = (x, z) => stopDoors.some(p => Math.hypot(p.doorX - x, p.doorZ - z) < 7);
     const useInst = typeof makeParkedCars === 'function';
     const carTris = useInst ? 260 : carKinds.reduce((s2, k) => { const pr = carProps(k, CAR_COLORS[0]); return s2 + (pr.index ? pr.index.length / 3 : 772); }, 0) / carKinds.length;
+    const parkingClearance = { candidates: 0, retained: 0, outsideSourceLot: 0, raisedSidewalk: 0, buildingBody: 0, measuredLots: [] };
     let parked = 0, lotSeeds = 0; const maxParked = Math.round(Math.min(city.id === 'bucharest' ? 2600 : 2000, 195000 / Math.max(1, carTris)));
     for (const a of areas) {
         if (a.kind !== 'parking' || lotSeeds >= maxParked || a.size < 120) continue;
         // orientation: longest edge
         let best = 0, ang = 0;
         for (let k = 0; k < a.outer.length; k++) { const [ax, az] = a.outer[k], [bx, bz] = a.outer[(k + 1) % a.outer.length]; const L = Math.hypot(bx - ax, bz - az); if (L > best) { best = L; ang = Math.atan2(bx - ax, bz - az); } }
+        const measured = a.parkingLayout?.sourceId === a.sourceId ? resolveParkingLayout(a.parkingLayout, a.parkingLayout.sourceTags).layout : null;
+        if (measured) parkingClearance.measuredLots.push(a.sourceId);
+        if (measured) ang = parkingRowPose(measured, 0).rowYaw;
         const ux = Math.sin(ang), uz = Math.cos(ang), vx = uz, vz = -ux; // u along rows, v across
         const cx = (a.x0 + a.x1) / 2, cz = (a.z0 + a.z1) / 2, R = Math.hypot(a.x1 - a.x0, a.z1 - a.z0) / 2;
         let lotCount = 0;
         // (2026-11-08) lots in the scenery ring outside the playable area (reality-pass districts): a light fill, frame budget
         const lotFill = realPass && dmask && !dmask.at(cx, cz) ? 0.22 : 0.72, lotMax = realPass ? 45 : 80;
         for (let v = -R, row = 0; v < R; row++) {
-            for (let u = -R; u < R; u += 2.6) {
+            const measuredRow = measured ? parkingRowPose(measured, row) : null;
+            for (let u = -R; u < R; u += measuredRow?.stallPitchM || 2.6) {
                 const x = cx + ux * u + vx * v, z = cz + uz * u + vz * v;
                 if (!inArea(a, x, z) || !inArea(a, x + vx * 2.6, z + vz * 2.6) || !inArea(a, x - vx * 2.6, z - vz * 2.6)) continue;
                 if (!rng.chance(lotFill) || buildingAt(x, z) || nearWater(x, z, 3.5) || nearDoor(x, z)) continue; // (never on a channel quay slope / in water)
-                const rot = ang + (row % 2 ? 0 : Math.PI) + Math.PI / 2;
-                const box = { x, z, hw: 0.95, hd: 2.3, angle: rot, r: 2.5, poly: null, h: 1.5, prop: true, kind: 'parked' };
+                const rot = measuredRow?.stallYaw ?? (ang + (row % 2 ? 0 : Math.PI) + Math.PI / 2);
+                const box = { x, z, hw: 0.95, hd: 2.3, angle: rot, r: 2.5, poly: null, h: 1.5, prop: true, kind: 'parked', parkingSourceId: a.sourceId, parkingAreaIndex: a.areaIndex };
                 if (polyOnRibbon(obbPoly({ ...box, hw: 1.3, hd: 2.7 })) || [-1.6, 0, 1.6].some(o => onRibbon(x + Math.sin(rot) * o, z + Math.cos(rot) * o, 1.2))) continue; // keep off any carriageway / lane strip
                 const kind = rng.pick(carKinds), col = rng.pick(CAR_COLORS);
                 // Consume the original seed and paint choices even when rejected:
@@ -4761,10 +4775,16 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const size = vehicleSize(kind, city.id);
                 box.hw = Math.max(box.hw, size.width / 2); box.hd = Math.max(box.hd, size.length / 2); box.r = Math.hypot(box.hw, box.hd);
                 const fp = obbPoly({ ...box, hw: box.hw + 0.1, hd: box.hd + 0.1 });
-                if (parkingFits(a, fp) && !parkingOnWalk(fp)) {
+                parkingClearance.candidates++;
+                const fits = parkingFits(a, fp), walk = fits && parkingOnWalk(fp), body = fits && !walk && parkingOnBuilding(fp);
+                if (!fits) parkingClearance.outsideSourceLot++;
+                else if (walk) parkingClearance.raisedSidewalk++;
+                else if (body) parkingClearance.buildingBody++;
+                else {
                     if (useInst) { const k2 = Math.floor(x / (CELL * 2)) + ',' + Math.floor(z / (CELL * 2)); let L = parkedLots.get(k2); if (!L) parkedLots.set(k2, L = []); L.push({ kind, color: col, x, y: 0.12, z, yaw: rot }); }
                     else cellOf(x, z).solid.geo(carProps(kind, col), x, 0.12, z, rot, 1, 1, 1, [255, 255, 255]);
                     propColl.push(box); parked++;
+                    parkingClearance.retained++;
                 }
                 if (lotSeeds >= maxParked || lotCount > lotMax) break;
             }
@@ -5458,7 +5478,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     graph.edges = driv;
 
     setProgress(''); const phases = PHASES.splice(0);
-    const stats = { phases, railways: railStats, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, fuel: fuelLog,
+    const stats = { parkingClearance, phases, railways: railStats, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, fuel: fuelLog,
         buildingRoofProfiles: roofProfileAudit, profile: profileStats, buildingPassages: buildingPassageAudit, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, landmarkSourceReplacements, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
     console.info('[world]', city.id, stats);
 

@@ -1639,6 +1639,24 @@ export async function buildWorld(city, renderer, opts = {}) {
         ribbons.push({ e, poly: [aR, bR, bL, aL] });
         // sidewalks
         const hasSide = e.sidewalk > 0.3;
+        if (!hasSide && (e.bridge || elevated) && !e.tunnel) {
+            // (round 6 note 52) decks / ramps without a walkway: a concrete edge strip from the asphalt to under the barrier
+            // (it stands 0.3 m out) — the gap showed the ground / the void below the deck as a black band
+            // per side, and only where the strip would not lie over another road (a gore with a ramp at another height)
+            const wE = (ed, sd) => widthAsphalt(ed, sd) + 0.45, wI = (ed, sd) => Math.max(0.1, widthAsphalt(ed, sd) - 0.05);
+            for (const sd of [1, -1]) {
+                let clear = true;
+                for (const t of [0.1, 0.3, 0.5, 0.7, 0.9]) {
+                    const px = e.a.x + (e.b.x - e.a.x) * t + e.nx * wE(e, sd) * sd, pz = e.a.z + (e.b.z - e.a.z) * t + e.nz * wE(e, sd) * sd, py = e.ya + (e.yb - e.ya) * t;
+                    edgesInBox(px - 1, pz - 1, px + 1, pz + 1, (f) => { if (!clear || f === e || f.virtual) return; const q = distPointSeg(px, pz, f.a.x, f.a.z, f.b.x, f.b.z);
+                        if (q.d < Math.max(f.wL, f.wR) + shoulderOf(f) && Math.abs(f.ya + (f.yb - f.ya) * q.t - py) > 0.05) clear = false; });
+                    if (!clear) break;
+                }
+                if (!clear) continue;
+                const oa = corner(e, e.a, sd, wE(e, sd), wE), ob = corner(e, e.b, sd, wE(e, sd), wE), ia = corner(e, e.a, sd, wI(e, sd), wI), ib = corner(e, e.b, sd, wI(e, sd), wI);
+                c.ground.flatQuad(ia[0], ia[1], ib[0], ib[1], ob[0], ob[1], oa[0], oa[1], yR - 0.02, shadeRgb(sideCol, 0.82), 0.25);
+            }
+        }
         if (hasSide) {
             const sa = corner(e, e.a, 1, widthSide(e, 1), widthSide), sb = corner(e, e.b, 1, widthSide(e, 1), widthSide);
             const ta = corner(e, e.a, -1, widthSide(e, -1), widthSide), tb = corner(e, e.b, -1, widthSide(e, -1), widthSide);

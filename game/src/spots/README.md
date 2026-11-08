@@ -147,3 +147,11 @@ course; drag stops an idle boat. The full return course is required for completi
 boat appearance are gameplay estimates, not surveyed rental equipment. Rental hours remain unconfirmed; the seasonal
 calendar is a gameplay approximation. July visit dates and the renderer's winter season drive the relevant availability.
 Entrance history is read one fact at a time outdoors; it does not claim an accessible interior.
+
+Seattle Center's Glasshouse, Loupe and passing Monorail exercises require manual looking and an explicit shutter;
+short steady-frame gates prevent a button press or idle timer from awarding the view. Each belongs to its active shared
+entry. The animated Needle elevator uses the shared Leave/mode cancellation flow. The unmodelled stair transfer and
+instant open-air-deck visit award are retired. Kerry Park's city-lights activity requires an actual dusk/night capture.
+Palace pacing counts continuous walking along its public-frontage game course; its endpoints are UI waypoints without
+invented marker posts. Botanical Garden trail notes are explicitly virtual at mapped rooms and add no physical plant-label
+hardware; its suspension-bridge award requires continuous walking on the existing bridge deck.

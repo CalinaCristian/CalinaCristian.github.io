@@ -799,7 +799,7 @@ export function seaBackdrop(ctx, o = {}) {
 const ACT_IDS = { 'lm-needle-up': 'elevator', 'lm-needle-loupe': 'loupe', 'lm-needle-360': 'deck', 'lm-great-wheel': 'great-wheel', 'lm-pike-fish': 'fish', 'lm-gum-wall': 'gum-wall', 'lm-pike-rachel': 'rachel', 'lm-troll-climb': 'climb', 'lm-gasworks-kite': 'kite', 'lm-locks-lockage': 'lockage', 'lm-kerry-blue-hour': 'blue-hour' };
 /** the activities the spots-sea scenes ship (for spots/index.js ACTIVITIES, contract 01 *Activities*) */
 export const SEA_ACTIVITIES = [
-    { spot: 'space-needle', id: 'elevator', title: 'Ride the elevator up (41 s)' }, { spot: 'space-needle', id: 'loupe', title: 'Look down through The Loupe' }, { spot: 'space-needle', id: 'deck', title: 'The open-air deck' },
+    { spot: 'space-needle', id: 'elevator', title: 'Ride the elevator up (41 s)' }, { spot: 'space-needle', id: 'loupe', title: 'Look down through The Loupe' },
     { spot: 'waterfront', id: 'great-wheel', title: 'Ride the Great Wheel' }, { spot: 'pike-place', id: 'fish', title: 'Catch a flying fish' }, { spot: 'pike-place', id: 'gum-wall', title: 'Add gum to the Gum Wall' },
     { spot: 'pike-place', id: 'rachel', title: 'Feed Rachel a coin' }, { spot: 'fremont-troll', id: 'climb', title: 'Climb the Troll' }, { spot: 'gas-works', id: 'kite', title: 'Fly a kite on Kite Hill' },
     { spot: 'ballard-locks', id: 'lockage', title: 'Run a lockage' }, { spot: 'kerry-park', id: 'blue-hour', title: 'Blue hour over Seattle' },

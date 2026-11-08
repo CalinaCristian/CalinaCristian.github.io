@@ -20,6 +20,7 @@
 import * as THREE from '../../../vendor/three.module.min.js';
 import { candleLight } from '../candle-light.js';
 import { photoHunt } from '../photo-hunt.js';
+import { activityBlocked } from '../participation.js';
 import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, offsetPolyline, distPolyline, canvas, canvasTexture, fitDraw, obb } from '../kit.js';
 import { clockFace } from '../props.js';
 import { bucBackdrop, classicFacade, classicWalls, balustrade, balustradeMaterial, flagpole, palisade, hedge, osmPoly, cityFiller, placeLandmark, bucActivity } from '../buc.js';
@@ -415,12 +416,26 @@ export default {
         PL.forEach((pl, i) => ctx.plaque(pl, 44 + (i % 2) * 0.1, -60 + i * 22, -Math.PI / 2, { style: 'park', credit: i === 1 ? 'Chief architect Anca Petrescu (1950–2013) with a team of about 700 architects.' : null }));
         const CPL = spC.plaques;
         if (C) CPL.forEach((pl, i) => ctx.plaque(pl, -730, 130 + i * 11, -Math.PI / 2, { style: 'park', y: C.PY }));
-        // "Pace the Palace": walk the east front between two markers (≈ 270 m along the sidewalk of Bd. Libertății)
-        const mA = { x: 30, z: -150 }, mB = { x: 22, z: 140 }; let pace = null;
-        const mk = new GeoBatch(); for (const m of [mA, mB]) { const y = g.heightAt(m.x, m.z); mk.cyl(m.x, y, m.z, 0.22, 1.1, '#3b4b5a', 'metal', 10); mk.cyl(m.x, y + 1.1, m.z, 0.3, 0.12, '#c8a34a', 'bronze', 12); ctx.circle(m.x, m.z, 0.25, 1.2); }
-        ctx.add(mk.build('pace-markers'));
-        ctx.interactables.push({ x: mA.x, z: mA.z, r: 2, label: 'Pace the Palace: start (walk to the far marker)', use: (s) => { pace = { t: s.t, x: s.position.x, z: s.position.z }; s.ui.toast('⏱ Pace the Palace', 'Walk along the façade to the marker at the other end.'); } });
-        ctx.interactables.push({ x: mB.x, z: mB.z, r: 2, label: () => (pace ? 'Pace the Palace: finish' : 'Pace the Palace (start at the other marker)'), use: (s) => { if (!pace) return; const sec = s.t - pace.t; bucActivity(s, 'palace-parliament', 'pace', `⏱ ${sec.toFixed(0)} s for 270 m`, `About ${Math.round(sec / 60 * 10) / 10} min — and this is only one side. The Pentagon's side is 281 m.`); pace = null; } });
+        // Pace a game course along the public east frontage. The endpoints
+        // are UI waypoints; no unsourced permanent marker posts are added.
+        const mA = { x: 30, z: -150 }, mB = { x: 22, z: 140 }, paceMetres = Math.hypot(mB.x - mA.x, mB.z - mA.z); let pace = null;
+        ctx.extras.palacePace = { start: mA, end: mB, debug: () => pace && { ...pace, previous: { ...pace.previous } } };
+        ctx.onUpdate((dt, s, p) => {
+            if (!pace) return;
+            if (!p || s.spot.entry.id !== 'palace-parliament' || !s.ctl.active || activityBlocked(s)) { pace = null; return; }
+            const delta = Math.hypot(p.x - pace.previous.x, p.z - pace.previous.z);
+            if (delta > Math.max(1, dt * 6) || distPolyline(p.x, p.z, [[mA.x, mA.z], [mB.x, mB.z]]).d > 18) { pace = null; return; }
+            pace.walked += delta; pace.previous = { x: p.x, z: p.z };
+        });
+        ctx.interactables.push({ x: mA.x, z: mA.z, r: 2, cond: s => s.spot.entry.id === 'palace-parliament', label: 'Pace the Palace: start the public frontage course', use: s => {
+            pace = { t: s.t, walked: 0, previous: { x: s.position.x, z: s.position.z } };
+            s.ui.toast('⏱ Pace the Palace', `Walk the public frontage to the other waypoint, about ${Math.round(paceMetres)} game metres. Travel, leaving the route or opening another mode cancels the course.`);
+        } });
+        ctx.interactables.push({ x: mB.x, z: mB.z, r: 2, cond: s => s.spot.entry.id === 'palace-parliament', label: () => pace ? 'Pace the Palace: finish the walk' : 'Pace the Palace: begin at the north waypoint', use: s => {
+            if (!pace || pace.walked < paceMetres - 5) return;
+            const sec = s.t - pace.t, metres = Math.round(pace.walked); pace = null;
+            bucActivity(s, 'palace-parliament', 'pace', `⏱ ${sec.toFixed(0)} s for ${metres} game metres`, 'You walked continuously along the public east frontage. This course is a game exercise, not a surveyed building dimension.');
+        } });
         // Balcony geometry remains; a visitor does not teleport through the
         // unmodelled halls. The public square supplies three real facade views.
         {const pt=P.portico;photoHunt(ctx,{x:44,z:-16,title:'Frame the Palace facade',unavailable:'Interior and balcony access require an organised visit; they are unavailable in this scene.',targets:[

@@ -156,6 +156,8 @@ Developer pages: `game/dev/spots.html?id=<spot>`, `game/dev/landmarks.html`, `ga
   in that weather (dev only; nothing from Street View goes into the game).
 - `tools/aerial/` (roof survey, tree crowns, green ground from an aerial mosaic) and `tools/osm/building-audit.py`
   (every OSM footprint matched, heights and roofs checked) — the district reality-pass pipeline (`tools/aerial/README.md`).
+  Its game-only grid planner/capture/validator can archive a published commit, cover the exact playable mask plus 600 m
+  source scenery ring, and record each square frame's source SHA, pose, capture time, image hash and render counts.
 
 The work is planned spec-first in [`specs/`](specs/) (requirements, contracts, ownership and a status board).
 

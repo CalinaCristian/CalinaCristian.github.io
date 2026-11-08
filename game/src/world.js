@@ -577,6 +577,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const env = city.env;
     const group = new THREE.Group();
     group.name = 'world';
+    const sceneryDeckGrid = new BoxGrid(32); // surfacesAt is also called before scenery geometry is emitted
     const S = data.strings;
     const str = (i) => (i >= 0 ? S[i] : '');
 
@@ -5204,7 +5205,6 @@ export async function buildWorld(city, renderer, opts = {}) {
     // below the drivable ribbons (no traffic, no markings beyond a centre dash on two-way main streets)
     let sceneryStreets = 0;
     const scenerySourceAudit = { precisePieces: 0, literalWidthPieces: 0, reviewedWidthPieces: 0, estimatedWidthPieces: 0, fallbackPieces: 0, resolvedWidths: [], issues: [] };
-    const sceneryDecks = [], sceneryDeckGrid = new BoxGrid(32);
     {
         const SC = data.scenery || [], asp = rgb(ASPHALT), side = rgb(US ? '#a4a29d' : '#9d9a92'), dash = rgb('#cfcfca');
         const sourceProfiles = SC.map((r, i) => scenerySourceProfile(data, i, undelta(r, 4)));
@@ -5252,7 +5252,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                     c.solid.face4(...vertices.map(v => [v[0], v[1] - bridge.thicknessM, v[2]]), rgb('#55524d'), [0, -1, 0]);
                 }
                 const deck = { x, z, r: Math.max(...poly.map(p => Math.hypot(p[0] - x, p[1] - z))), poly, holes: [], roadDeck: true, kind: 'scenery-road-deck', sourceId: bridge.sourceId, sourceTags: bridge.tags, access: bridge.access, estimated: true, elevationSource: bridge.elevationSource, y0: Math.min(...bottom), y1: Math.max(...top), h: Math.max(...top), roofHeightAt: (px, pz, radius) => band(px, pz, radius).top, minHeightAt: (px, pz, radius) => band(px, pz, radius).bottom };
-                sceneryDecks.push(deck); sceneryDeckGrid.insert(x - deck.r, z - deck.r, x + deck.r, z + deck.r, deck); propColl.push(deck);
+                sceneryDeckGrid.insert(x - deck.r, z - deck.r, x + deck.r, z + deck.r, deck); propColl.push(deck);
             }
             sceneryStreets++;
         }

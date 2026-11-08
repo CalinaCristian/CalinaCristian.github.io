@@ -29,7 +29,7 @@ const mime={'.html':'text/html','.js':'text/javascript','.json':'application/jso
     for(const phase of phases){
     ({season,weather,time}=phase);out=phase.name?path.join(baseOut,phase.name):baseOut;
     fs.mkdirSync(path.join(out,'images'),{recursive:true});
-    const page=await browser.newPage({viewport:{width:960,height:640}}), errors=[], consoleErrors=[];
+    const page=await browser.newPage({viewport:{width:960,height:640}}), errors=[], consoleErrors=[], validationFailures=[];
     page.setDefaultTimeout(300000); page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')consoleErrors.push(m.text());});
     await page.route(/api\.open-meteo\.com/,r=>r.fulfill({json:{error:true}}));
     const base='http://127.0.0.1:'+server.address().port+'/';
@@ -172,14 +172,15 @@ const mime={'.html':'text/html','.js':'text/javascript','.json':'application/jso
         const nearPeds=(g.traffic.peds?.list||[]).filter(p=>Math.hypot(p.x-v.x,p.z-v.z)<60).map(p=>({x:p.x,z:p.z,state:p.state,onRoad:p.onRoad,sourceRoadId:g.world.data.roadSourceGeometry?.[p.e?.road]?.sourceId??null}));
         return {cameraY:cam.position.y,groundY:ground,heading,pitch,aspect:cam.aspect,pose:{x:cam.position.x,y:cam.position.y,z:cam.position.z,heading,pitch,fov:cam.fov,aspect:cam.aspect,near:cam.near,far:cam.far,quaternion:cam.quaternion.toArray()},observedConditions:{gameClockOverride:g.clock.override,rendererClockOverride:g.r3d.clock?.override,seasonOverride:g.r3d._seasonOverride,weatherOverride:g.r3d._wxOverride,weather:g.r3d.weather,season:g.r3d._season,sunElevation:g.r3d.sunElevation},perf:{...g.r3d.stats},inPlayable:g.world.district.inside(v.x,v.z),inFlightEnvelope:window.contextFlightBoundary.allowed({x:v.x,z:v.z}),distanceFromFlightDomainM:window.contextFlightBoundary.sample(v.x,v.z).distance,pedestriansWithin60m:nearPeds,vehiclesWithin60m:g.traffic.vehicles.filter(c=>Math.hypot(c.x-v.x,c.z-v.z)<60).length,lat:p.lat0-v.z/p.mPerLat,lon:p.lon0+v.x/p.mPerLon};
       },{...view,assertNativeClip:arg('native-clip')==='true'});
+      if(arg('native-clip')==='true'&&(observed.pose.near!==.2||observed.pose.far!==5000))validationFailures.push({id:view.id,type:'Native camera clip changed during drawFrame',expected:{near:.2,far:5000},actual:{near:observed.pose.near,far:observed.pose.far}});
       const image='images/'+view.id+'.jpg';await page.screenshot({path:path.join(out,image),type:'jpeg',quality:88,timeout:180000});
       results.push({...view,...observed,image,width:960,height:640,gameSourceCommit:commit,capturedAt:new Date().toISOString(),sha256:hash(fs.readFileSync(path.join(out,image))),captureType:'game-perspective-context',comparisonCompatible:false,staticCamera:true,controllerExercised:false,condition:{season,weather,time,quality:'high',traffic:true,mirror:false}});
       write('progress.json',{captured:results.length,total:views.length,last:view.id});console.log('capture',results.length+'/'+views.length,view.id);
     }
     write('world-stats.json',await page.evaluate(()=>game.world.stats));
-    write('manifest.json',{schemaVersion:1,captureType:'game-perspective-context',comparisonCompatible:false,gameSourceCommit:commit,captureTool:{name:'capture-context.cjs',sha256:captureToolSha256},district,season,weather,time,quality:'high',traffic:true,mirror:false,scope:'Game-only static cameras in the complete running district. Outward envelope poses do not exercise the drone controller. Counts are per camera and are separate from full driving/mirror budget acceptance.',loaded,pageErrors:errors,consoleErrors,items:results});
-    if(errors.length||consoleErrors.length)process.exitCode=1;
-    batch.push({condition:phase.name,frames:results.length,pageErrors:errors,consoleErrors});
+    write('manifest.json',{schemaVersion:1,captureType:'game-perspective-context',comparisonCompatible:false,gameSourceCommit:commit,captureTool:{name:'capture-context.cjs',sha256:captureToolSha256},district,season,weather,time,quality:'high',traffic:true,mirror:false,scope:'Game-only static cameras in the complete running district. Outward envelope poses do not exercise the drone controller. Counts are per camera and are separate from full driving/mirror budget acceptance.',loaded,pageErrors:errors,consoleErrors,validationFailures,items:results});
+    if(errors.length||consoleErrors.length||validationFailures.length)process.exitCode=1;
+    batch.push({condition:phase.name,frames:results.length,pageErrors:errors,consoleErrors,validationFailures});
     await page.close();
     }
     if(phases.length>1)fs.writeFileSync(path.join(baseOut,'batch-summary.json'),JSON.stringify({gameSourceCommit:commit,oneBrowser:true,conditions:batch},null,2)+'\n');

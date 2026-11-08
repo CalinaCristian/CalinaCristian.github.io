@@ -14,6 +14,7 @@ root = a.capture
 manifest = json.loads((root / 'manifest.json').read_text())
 assert not (root / 'coverage-failure.json').exists(), 'Preserve failed attempt; do not promote it'
 assert not manifest['pageErrors'] and not manifest['consoleErrors']
+assert not manifest.get('validationFailures'), 'Requested capture constraint failed; preserve raw attempt'
 assert manifest['captureType'] == 'game-perspective-context' and manifest['comparisonCompatible'] is False
 items = manifest['items']
 assert len({i['id'] for i in items}) == len(items) == len({i['image'] for i in items})

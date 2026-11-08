@@ -42,6 +42,21 @@ def centroid(p):
     return cx / (6 * a), cz / (6 * a)
 
 
+def interior_point(p):
+    """A source point actually inside the ring; a concave courtyard's centroid can lie outside it."""
+    c = centroid(p)
+    if pip(*c, p):
+        return c
+    levels = sorted(set(z for _, z in p)); best = None
+    for z0, z1 in zip(levels[:-1], levels[1:]):
+        z = (z0 + z1) / 2
+        xs = sorted(x0 + (x1 - x0) * (z - a) / (b - a) for (x0, a), (x1, b) in zip(p, p[1:] + p[:1]) if (a > z) != (b > z))
+        for x0, x1 in zip(xs[::2], xs[1::2]):
+            if best is None or x1 - x0 > best[0]:
+                best = (x1 - x0, ((x0 + x1) / 2, z))
+    return best[1] if best else c
+
+
 def pip(x, z, p):
     c = False
     for i in range(len(p)):
@@ -74,6 +89,33 @@ def geometry_margin(x, z, geometry):
     return min(values, default=float('inf'))
 
 
+def assemble_rings(chains):
+    """Join OSM member ways by endpoint, keeping closed rings only."""
+    pending = [list(p) for p in chains if len(p) >= 2]
+    rings = []
+    while pending:
+        ring = pending.pop(0)
+        while ring[0] != ring[-1]:
+            found = False
+            for i, p in enumerate(pending):
+                if ring[-1] == p[0]:
+                    ring += p[1:]
+                elif ring[-1] == p[-1]:
+                    ring += p[-2::-1]
+                elif ring[0] == p[-1]:
+                    ring = p[:-1] + ring
+                elif ring[0] == p[0]:
+                    ring = p[:0:-1] + ring
+                else:
+                    continue
+                pending.pop(i); found = True; break
+            if not found:
+                break
+        if len(ring) >= 4 and ring[0] == ring[-1]:
+            rings.append(ring)
+    return rings
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--data', required=True)
@@ -94,7 +136,8 @@ def main():
         if len(ring) < 3:
             continue
         x0 = min(x for x, _ in ring); x1 = max(x for x, _ in ring); z0 = min(z for _, z in ring); z1 = max(z for _, z in ring)
-        B.append({'i': i, 'source': source_ids[i] if i < len(source_ids) else None, 'ring': ring, 'bb': (x0, z0, x1, z1), 'h': b[1] / 10, 'roof': roofs[b[3]], 'flags': b[5], 'levels': b[6], 'c': centroid(ring), 'area': abs(area(ring))})
+        holes = [undelta(h, 0) for h in d.get('buildingHoles', {}).get(str(i), [])]
+        B.append({'i': i, 'source': source_ids[i] if i < len(source_ids) else None, 'ring': ring, 'holes': holes, 'bb': (x0, z0, x1, z1), 'h': b[1] / 10, 'roof': roofs[b[3]], 'flags': b[5], 'levels': b[6], 'c': centroid(ring), 'area': abs(area(ring))})
     by_source = {b['source']: b for b in B if b['source']}
     geometry = d.get('district', {}).get('geometry')
     grid = {}
@@ -125,21 +168,25 @@ def main():
     files = []
     for p in a.osm:
         files += sorted(glob.glob(os.path.join(p, '*.xml'))) if os.path.isdir(p) else [p]
-    nodes, ways = {}, {}
+    nodes, ways, relations = {}, {}, {}
     for f in files:
         for ev, el in ET.iterparse(f, events=('end',)):
             if el.tag == 'node':
                 nodes[el.get('id')] = (float(el.get('lat')), float(el.get('lon'))); el.clear()
             elif el.tag == 'way':
                 t = {x.get('k'): x.get('v') for x in el.iter('tag')}
-                if t.get('building') and t.get('building') != 'no':
-                    ways[el.get('id')] = ([n.get('ref') for n in el.iter('nd')], t)
+                ways[el.get('id')] = ([n.get('ref') for n in el.iter('nd')], t)
                 el.clear()
             elif el.tag == 'relation':
+                t = {x.get('k'): x.get('v') for x in el.iter('tag')}
+                if t.get('type') == 'multipolygon' and t.get('building') and t.get('building') != 'no':
+                    relations[el.get('id')] = ([(m.get('ref'), m.get('role')) for m in el.iter('member') if m.get('type') == 'way'], t)
                 el.clear()
     aer = json.load(open(a.roofs))['roofs'] if a.roofs and os.path.exists(a.roofs) else {}
     rows = []
     for wid, (refs, t) in ways.items():
+        if not t.get('building') or t.get('building') == 'no':
+            continue
         ll = [nodes[r] for r in refs if r in nodes]
         if len(ll) < 4:
             continue
@@ -181,6 +228,35 @@ def main():
         if r:
             row['roofAerial'] = r[0]; row['roofConf'] = r[1]
         rows.append(row)
+    # Relations are reported separately so the existing way-only coverage/roof metrics stay comparable. OSM inner
+    # rings are independent source evidence; matching an outer footprint alone does not prove that its courtyard exists.
+    relation_rows = []
+    for rid, (members, t) in relations.items():
+        if any(s in (t.get('building', '') + ' ' + t.get('leisure', '')) for s in ('stadium', 'grandstand', 'sports_centre', 'arena')):
+            continue  # the builder's existing annular stand sectors do not have one outer building record
+        outers = assemble_rings([ways[w][0] for w, role in members if role != 'inner' and w in ways])
+        inners = assemble_rings([ways[w][0] for w, role in members if role == 'inner' and w in ways])
+        inner_polys = [[proj(*nodes[n]) for n in r[:-1]] for r in inners if all(n in nodes for n in r)]
+        for refs in outers:
+            if not all(n in nodes for n in refs):
+                continue
+            ring = [proj(*nodes[n]) for n in refs[:-1]]; ar = abs(area(ring))
+            if ar < 25:
+                continue
+            cx, cz = centroid(ring); c = cellOf(cx, cz)
+            margin = geometry_margin(cx, cz, geometry) if geometry else None
+            zone = ('inside' if margin <= 0 else 'ring' if margin <= a.ring else None) if geometry else ('inside' if c in inside else 'ring' if c in near else None)
+            if not zone:
+                continue
+            holes = [h for h in inner_polys if h and all(pip(x, z, ring) for x, z in h)]
+            candidates = [b for b in B if b['source'] == 'r' + rid]
+            hit = min(candidates, key=lambda b: math.hypot(b['c'][0] - cx, b['c'][1] - cz)) if candidates else None
+            ll = [nodes[n] for n in refs[:-1]]
+            row = {'osm': 'r' + rid, 'kind': 'relation', 'zone': zone, 'type': t.get('building'), 'name': t.get('name'), 'areaOSM': round(ar), 'lat': round(sum(p[0] for p in ll) / len(ll), 6), 'lon': round(sum(p[1] for p in ll) / len(ll), 6), 'heightOSM': num(t.get('height')), 'levelsOSM': num(t.get('building:levels')), 'roofLevelsOSM': num(t.get('roof:levels')) or 0, 'roofOSM': t.get('roof:shape'), 'holeCountOSM': len(holes), 'holeAreaOSM': round(sum(abs(area(h)) for h in holes), 1)}
+            if hit:
+                gh = hit['holes']; source_area = sum(abs(area(h)) for h in holes)
+                row.update({'game': hit['i'], 'dist': round(math.hypot(hit['c'][0] - cx, hit['c'][1] - cz), 1), 'areaKept': round(hit['area'] / ar, 2), 'hGame': hit['h'], 'roofGame': hit['roof'], 'holeCountGame': len(gh), 'holeAreaGame': round(sum(abs(area(h)) for h in gh), 1), 'holeAreaKept': round(sum(abs(area(h)) for h in gh) / source_area, 2) if source_area else None, 'courtyardInteriorsClear': all(any(pip(*interior_point(h), g) for g in gh) for h in holes)})
+            relation_rows.append(row)
     # ---- summary
     def pct(n, tot):
         return f"{n}/{tot} ({100 * n / max(1, tot):.1f} %)"
@@ -209,8 +285,21 @@ def main():
             print('  roof flat/pitched agrees with the aerial survey:', pct(len(ok), len(conf)))
         for r in sorted(miss, key=lambda r: -r['areaOSM'])[:8]:
             print(f"    MISSING {r['osm']} {r['type']} {r['name'] or ''} {r['areaOSM']} m² @ {r['lat']},{r['lon']}")
+    for zone in ('inside', 'ring'):
+        rr = [r for r in relation_rows if r['zone'] == zone]
+        matched = [r for r in rr if 'game' in r]
+        courtyard = [r for r in rr if r['holeCountOSM']]
+        kept = [r for r in courtyard if r.get('holeCountGame') == r['holeCountOSM'] and r.get('courtyardInteriorsClear')]
+        print(f"== {zone} multipolygon relations: {pct(len(matched), len(rr))} source identity matched; courtyards {pct(len(kept), len(courtyard))} count and source interior points preserved (stadium stand sectors excluded)")
+        tagged = [r for r in matched if r['heightOSM'] or r['levelsOSM']]
+        expected = lambda r: r['heightOSM'] if r['heightOSM'] else r['levelsOSM'] * 3.0 + (r['roofLevelsOSM'] * 2.6 if r['roofGame'] == 'flat' else 0)
+        height_ok = [r for r in tagged if abs(r['hGame'] - expected(r)) <= max(2.5, 0.25 * expected(r))]
+        print('  relation height (OSM-tagged) within ±25 % / 2.5 m:', pct(len(height_ok), len(tagged)))
+        for r in courtyard:
+            if r not in kept:
+                print(f"    COURTYARD {r['osm']} source={r['holeCountOSM']} game={r.get('holeCountGame', 0)} @ {r['lat']},{r['lon']}")
     if a.out:
-        json.dump(rows, open(a.out + '.json', 'w'), indent=0)
+        json.dump(rows + relation_rows, open(a.out + '.json', 'w'), indent=0)
         print('wrote', a.out + '.json')
 
 

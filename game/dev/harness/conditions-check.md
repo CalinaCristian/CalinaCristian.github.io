@@ -17,6 +17,9 @@ The tool starts its own static server, mutes audio and isolates its two fixtures
 
 The checks cover:
 
+- A real title-screen Settings click opens the same time/weather/season panel before a world loads. New story retains Night/Snow/Winter; custom 21:15 remains local to a Seattle start; title quick selectors and panel choices stay synchronized. No weather request is sent while choosing title conditions. Esc and focus return through Settings to the main menu.
+- The time section has an explicit **Live** button (`now`). Noon/custom-hour → Live and Night → Live clear both the offset and fixed lighting look. Live stays selected through city changes, Resume story and Continue, and uses the destination's current local hour for sun and traffic. Saved Continue conditions take precedence over new title choices.
+- Winter highlights stay accurate in title, story and free-roam contexts; Day and Drizzle have matching choices. Driving and walking footers show `K time, weather & season`; walking omits L. Real touch contexts cover 390×844 portrait and 844×390 landscape, pointer hit tests, scrolling, close buttons and panel bounds.
 - Real Esc → Settings → Time, weather & season clicks while driving and on foot; K and Esc open/close behavior; active time, weather and season buttons in story and free roam. A hit test ensures the Golden hour button receives the pointer.
 - Title Night/rain into `startFreeRoam`, and title Sunset/snow into the world-map jump. District changes preserve named Golden hour/Night choices and numeric local 21:15 through Bucharest/Seattle time zones; live time/weather and automatic season remain distinct.
 - Same- and different-district chapter entry; same-district and cross-city Resume story; story and free-roam Continue after reload, including persistent Settings options and Winter.
@@ -24,6 +27,8 @@ The checks cover:
 - With `--controls`, the mirror stays attached to the rig in the driver's view, remains hidden through on-foot `place`/`updateRig` calls and a requested mirror draw, and produces no mirror-camera render on foot. Medium graphics supplies the visible-mirror positive control. Driving L toggles headlights and produces its feedback blip; on-foot L leaves headlights and honks unchanged and adds no key-fob sound/light flash beyond an idle frame's normal parked hazards. Audio/light observers forward every call to the original method.
 
 The wall clock is fixed at 2026-11-08 10:00 UTC to make local-hour assertions deterministic. Open-Meteo requests fail deterministically to exercise the climate fallback. Only the main game RAF is suppressed: real keyboard events are consumed by manually calling the actual `game.loop`, while native RAF and timers run montage/flight transitions. Rendering runs for captures and the mirror-render check. This is a functional/UI regression, not a frame-rate or full weather-transition visual test.
+
+`--only-access` runs the three title/Live/footer/touch fixtures. The default run includes them alongside the original travel/Continue fixtures; `--controls` adds the mirror/light regression. Run from a committed worktree snapshot if other edits continue while it runs.
 
 ## Repair handoff, 2026-11-08
 

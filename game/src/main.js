@@ -203,6 +203,7 @@ class Game {
 
     bindMenu() {
         $('#start').addEventListener('click', () => this.newStory());
+        $('#menu-settings')?.addEventListener('click', () => this.togglePause(true, 'settings'));
         this.renderMenuChapters();
         this.loadSpotsModule().then(() => this.renderMenuSpots());
         // World map (explore.js): the hub to pick a start anywhere — free roam, the story waits (one mode since 2026-11-08)
@@ -212,8 +213,8 @@ class Game {
         { const cw = $('#menu .controls-wrap'); if (cw && matchMedia('(min-height: 900px) and (min-width: 900px)').matches) cw.open = true; } // tall screens: controls open; else collapsed so the menu fits
         $('#quality').addEventListener('change', (e) => { this.quality = e.target.value; this.r3d.setQuality(e.target.value); });
         $('#mute').addEventListener('click', (e) => { this.audio.setMuted(!this.audio.muted); e.target.textContent = this.audio.muted ? '🔇' : '🔊'; });
-        { const ws = $('#weather'); if (ws) { if (this.weatherOverride) ws.value = this.weatherOverride; ws.addEventListener('change', (e) => this.setWeatherOverride(e.target.value === 'real' ? null : e.target.value)); } }
-        $('#timeofday')?.addEventListener('change', (e) => { this.clock.override = this.menuOverride = e.target.value === 'real' ? null : e.target.value; });
+        { const ws = $('#weather'); if (ws) { if (this.weatherOverride) ws.value = this.weatherOverride; ws.addEventListener('change', (e) => this.setRoamWeather(e.target.value === 'real' ? 'live' : e.target.value)); } }
+        $('#timeofday')?.addEventListener('change', (e) => this.setRoamTime(({ real: 'now', sunset: 'golden' })[e.target.value] || e.target.value));
         $('#lookmode')?.addEventListener('change', (e) => { this.opts.look = e.target.value; this.saveStr('look', this.opts.look); this.input.setLookMode(this.opts.look); });
         $('#opt-minimap')?.addEventListener('change', (e) => { this.opts.minimap = e.target.checked; this.saveOpt('minimap', this.opts.minimap); this.applyOpts(); });
         const bm = $('#bigmap');
@@ -619,7 +620,10 @@ class Game {
         else if (this.state === 'foot') this.updateFoot(dt);
         else if (this.state === 'spot') this.updateSpot(dt);
         else if (this.state === 'card' && this.scene) this.drawFrame();
-        else if (this.state === 'menu') { /* idle */ }
+        else if (this.state === 'menu' && this.condOpen) {
+            if (this.input.take('Escape') || this.input.take('KeyK')) this.toggleConditions(false);
+            this.input.flush();
+        }
         this.explore?.hooks?.afterFrame?.();
     }
 
@@ -767,7 +771,7 @@ class Game {
         const st = this.r3d.stats;
         const perf = st ? ` · ${st.quality}${st.fps ? ` · ${st.fps} fps` : ''}` : '';
         const lookTxt = input.lookMode === 'lock' ? (input.locked ? 'mouse look (Esc frees)' : 'click to look') : input.lookMode === 'hold' ? 'right-drag look' : '';
-        hud.setHint(this.touch ? perf.trim() : `W/S drive · A/D steer · Space brake · H horn · C look back${lookTxt ? ' · ' + lookTxt : ''} · M map & nav · hold F fast travel · R reset · N mini-map · L lights · E enter/refuel · Enter get out${DEV ? ' · B colliders' : ''}` + perf);
+        hud.setHint(this.touch ? perf.trim() : `W/S drive · A/D steer · Space brake · H horn · C look back${lookTxt ? ' · ' + lookTxt : ''} · M map & nav · K time, weather & season · hold F fast travel · R reset · N mini-map · L lights · E enter/refuel · Enter get out${DEV ? ' · B colliders' : ''}` + perf);
         // ---- HUD fuel / trip ----
         const frac = this.fuel / TANK_L;
         const fuelText = us ? `${Math.round(frac * 100)}% · ${(this.fuel / GAL).toFixed(1)} gal` : `${Math.round(frac * 100)}% · ${this.fuel.toFixed(1)} L`;
@@ -1630,7 +1634,7 @@ class Game {
         input.take('Enter'); input.take('KeyE');
         hud.prompt(prompt);
         const lookTxt = input.lookMode === 'lock' ? (input.locked ? 'mouse look (Esc frees)' : 'click to look') : input.lookMode === 'hold' ? 'right-drag look' : 'A/D turn';
-        hud.setHint(this.touch ? '' : `On foot · WASD walk · Shift run · Space jump · ${lookTxt} · Enter at the car: get in · V back to car · T call car · E office · R sidewalk · M map · G drone`);
+        hud.setHint(this.touch ? '' : `On foot · WASD walk · Shift run · Space jump · ${lookTxt} · Enter at the car: get in · V back to car · T call car · E office · R sidewalk · M map · K time, weather & season · G drone`);
         if (this.opts.minimap && this.frame % 2 === 0) this.drawMiniAt(F.x, F.z, F.heading, 0.3);
         this.drawFrame();
     }
@@ -1918,30 +1922,38 @@ class Game {
         el.addEventListener('click', (e) => { const b = e.target.closest('[data-pa]'); if (b && !b.disabled) this.pauseAction(b.dataset.pa, b); else if (e.target === el) this.togglePause(false); });
         el.addEventListener('input', (e) => this.pauseSetting(e.target));
         el.addEventListener('change', (e) => this.pauseSetting(e.target));
+        el.addEventListener('keydown', (e) => {
+            if (this.state !== 'menu' || e.key !== 'Tab') return;
+            const controls = [...el.querySelectorAll('button, input, select')], first = controls[0], last = controls.at(-1);
+            if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+            else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        });
     }
     get pauseOpen() { return !!this._pauseOpen; }
     togglePause(open = !this._pauseOpen, view = 'main') {
         this.buildPause();
         const el = document.getElementById('pause-menu');
-        if (open && !['drive', 'foot', 'office', 'spot'].includes(this.state)) return;
+        if (open && !['drive', 'foot', 'office', 'spot'].includes(this.state) && !(this.state === 'menu' && view === 'settings')) return;
         if (open) {
             if (this.photo?.active) this.photo.close();
             if (this.mapOpen) this.toggleMap(false);
             if (this.condOpen) this.toggleConditions(false);
             this.input.releaseLock(); this.input.lookAllowed = false; this.input.flush();
             this._pauseOpen = true; this.renderPause(view); el.classList.add('show'); document.body.classList.add('paused');
+            if (this.state === 'menu') $('#menu').inert = true;
             this.audio.stopEngine?.();
             el.querySelector('[data-pa]')?.focus({ preventScroll: true });
         } else if (this._pauseOpen) {
             this._pauseOpen = false; el.classList.remove('show'); document.body.classList.remove('paused');
-            this.returnFocus();
+            if (this.state === 'menu') { $('#menu').inert = false; $('#menu-settings')?.focus({ preventScroll: true }); this.input.flush(); }
+            else this.returnFocus();
         }
     }
     renderPause(view = 'main') {
         const el = document.getElementById('pause-menu'); if (!el) return;
         const esc = (t) => String(t ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
         const where = this.state === 'spot' ? (this.spotEntry?.name || 'Tourist spot') : this.state === 'office' ? (this.office?.stop?.company || 'Office')
-            : this.freeRoam ? `🗺️ Free roam · ${this.city?.districts?.[this.district]?.name || ''}` : this.ch ? `Chapter ${this.chapterIdx + 1}/${this.chapters.length} · ${this.ch.title}` : (this.city?.name || '');
+            : this.state === 'menu' ? 'Drive My CV' : this.freeRoam ? `🗺️ Free roam · ${this.city?.districts?.[this.district]?.name || ''}` : this.ch ? `Chapter ${this.chapterIdx + 1}/${this.chapters.length} · ${this.ch.title}` : (this.city?.name || '');
         let body = '';
         if (view === 'main') body = `<div class="pm-grid">${this.pauseItems().map(([id, ic, label, note]) => `<button data-pa="${id}"><span class="ic">${ic}</span><span>${esc(label)}${note ? `<small>${esc(note)}</small>` : ''}</span></button>`).join('')}</div>`;
         else if (view === 'chapters') body = `<div class="pm-list">${this.chapters.map((c, i) => { const ok = this.progress.reached.has(c.id) || i === 0; return `<button data-pa="chapter:${i}"${ok ? '' : ' disabled'}><span class="ic">${this.progress.done.has(c.id) ? '✓' : ok ? '▶' : '🔒'}</span><span>${c.year} · ${esc(c.title)}<small>${esc(this.city?.districts?.[c.district]?.name || CITIES[c.city]?.districts?.[c.district]?.name || c.district)}</small></span></button>`; }).join('')}</div>`;
@@ -1949,7 +1961,7 @@ class Game {
         else if (view === 'settings') {
             const q = this.quality, u = this.loadStr('units', 'auto'), sens = this.input.sens ?? 1, vol = this.audio.volume ?? 1;
             body = `<div class="pm-set">
-${['drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa="conditions">☀️ Time, weather & season</button>' : ''}
+${['menu', 'drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa="conditions">☀️ Time, weather & season</button>' : ''}
 <label>Graphics quality <select data-set="quality">${['auto', 'ultra', 'high', 'medium', 'low'].map(x => `<option value="${x}"${x === q ? ' selected' : ''}>${x[0].toUpperCase() + x.slice(1)}</option>`).join('')}</select></label>
 <label>Mouse / touch look sensitivity <input type="range" data-set="sens" min="0.3" max="2.5" step="0.05" value="${sens}"></label>
 <label class="cb"><input type="checkbox" data-set="invert"${this.input.invertY ? ' checked' : ''}> Invert vertical look</label>
@@ -1960,9 +1972,9 @@ ${['drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa="conditi
 <label class="cb"><input type="checkbox" data-set="hud"${this.opts.hudOff ? '' : ' checked'}> HUD</label>
 <label>Units <select data-set="units">${[['auto', 'Local (km/h in Bucharest, mph in Seattle)'], ['kmh', 'km/h'], ['mph', 'mph']].map(([v, l]) => `<option value="${v}"${v === u ? ' selected' : ''}>${l}</option>`).join('')}</select></label></div>`;
         }
-        const back = view === 'main' ? '' : '<button class="pm-back" data-pa="back">← Back</button>';
+        const back = view === 'main' || this.state === 'menu' ? '' : '<button class="pm-back" data-pa="back">← Back</button>';
         const title = { main: 'Paused', chapters: 'Chapters', spots: 'Tourist spots', settings: 'Settings' }[view] || 'Paused';
-        el.innerHTML = `<div class="pm-card"><div class="pm-head">${back}<div><div class="pm-eyebrow">${esc(where)}</div><h2>${title}</h2></div><button class="pm-x" data-pa="resume" aria-label="Resume">✕</button></div>${body}<div class="pm-foot">Esc · Resume</div></div>`;
+        el.innerHTML = `<div class="pm-card"><div class="pm-head">${back}<div><div class="pm-eyebrow">${esc(where)}</div><h2>${title}</h2></div><button class="pm-x" data-pa="resume" aria-label="${this.state === 'menu' ? 'Close Settings' : 'Resume'}">✕</button></div>${body}<div class="pm-foot">Esc · ${this.state === 'menu' ? 'Back to main menu' : 'Resume'}</div></div>`;
         this._pauseView = view;
     }
     pauseAction(a, b) {
@@ -2037,7 +2049,7 @@ ${['drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa="conditi
     /** Explicit conditions travel with the player; live time/weather remain local to the destination. */
     travelConditions() {
         const c = this.clock, pick = c.override === 'sunset' ? 'golden' : c.override;
-        return { tod: this.freeRoam?.tod ?? pick ?? (c.offsetMs ? 'h' + localHours(this.nowDate(), c.timeZone) : 'now'),
+        return { tod: (this.state === 'menu' ? this._menuTod : null) ?? this.freeRoam?.tod ?? pick ?? (c.offsetMs ? 'h' + localHours(this.nowDate(), c.timeZone) : 'now'),
             weather: this.weatherOverride || 'live', season: this.r3d?._seasonOverride || 'auto' };
     }
     /** free roam in a district: the car at the district's chapter start, no objective, no chapter cards / story progress */
@@ -2103,15 +2115,15 @@ ${['drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa="conditi
         btn.addEventListener('click', (e) => { e.preventDefault(); this.toggleConditions(); });
         $('#hud')?.appendChild(btn);
         const el = document.createElement('div'); el.id = 'cond-panel'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', 'Conditions');
-        const pre = [['dawn', '🌅 Dawn'], ['rush', '🚦 Rush 08:30'], ['noon', '☀️ Noon'], ['golden', '🌇 Golden hour'], ['dusk', '🌆 Dusk'], ['night', '🌙 Night']];
-        const wx = [['live', 'Live'], ['clear', '☀️ Clear'], ['cloudy', '☁️ Cloudy'], ['rain', '🌧️ Rain'], ['storm', '⛈️ Storm'], ['fog', '🌫️ Fog'], ['snow', '🌨️ Snow']];
+        const pre = [['now', 'Live'], ['dawn', '🌅 Dawn'], ['rush', '🚦 Rush 08:30'], ['noon', '☀️ Noon'], ['day', '☀️ Day'], ['golden', '🌇 Golden hour'], ['dusk', '🌆 Dusk'], ['night', '🌙 Night']];
+        const wx = [['live', 'Live'], ['clear', '☀️ Clear'], ['cloudy', '☁️ Cloudy'], ['drizzle', '🌦️ Drizzle'], ['rain', '🌧️ Rain'], ['storm', '⛈️ Storm'], ['fog', '🌫️ Fog'], ['snow', '🌨️ Snow']];
         const se = [['auto', 'Auto'], ['spring', '🌸 Spring'], ['summer', '☀️ Summer'], ['autumn', '🍂 Autumn'], ['winter', '❄️ Winter']];
         const chips = (name, list) => `<div class="cond-chips" data-group="${name}">${list.map(([v, l]) => `<button data-${name}="${v}">${l}</button>`).join('')}</div>`;
         el.innerHTML = `<div class="cond-head"><b>Conditions</b><button class="cond-x" data-close aria-label="Close">✕</button></div>
 <div class="cond-sec"><div class="cond-lbl">Time of day <output id="cond-time">--:--</output></div><input id="cond-hour" type="range" min="0" max="23.75" step="0.25" aria-label="Hour of day">${chips('tod', pre)}</div>
 <div class="cond-sec"><div class="cond-lbl">Weather</div>${chips('wx', wx)}</div>
 <div class="cond-sec"><div class="cond-lbl">Season</div>${chips('season', se)}</div>
-<div class="cond-foot">Traffic follows the hour · game paused<span class="cond-keys"> · <kbd>K</kbd> / <kbd>Esc</kbd> closes</span></div>`;
+<div class="cond-foot"><span data-cond-note>Traffic follows the hour · game paused</span><span class="cond-keys"> · <kbd>K</kbd> / <kbd>Esc</kbd> closes</span></div>`;
         document.body.appendChild(el);
         el.addEventListener('click', (e) => {
             const b = e.target.closest('button'); if (!b) return;
@@ -2121,41 +2133,76 @@ ${['drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa="conditi
             else if (b.dataset.season) this.setRoamSeason(b.dataset.season);
         });
         el.querySelector('#cond-hour').addEventListener('input', (e) => this.setRoamHour(+e.target.value));
+        el.addEventListener('keydown', (e) => {
+            // Keep keyboard navigation inside the open dialog; native range arrows still work.
+            if (e.key !== 'Tab') return;
+            const controls = [...el.querySelectorAll('button, input')], first = controls[0], last = controls.at(-1);
+            if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+            else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        });
         this.syncConditions();
     }
     toggleConditions(open = !this.condOpen, { any = false } = {}) {
         const el = document.getElementById('cond-panel'); if (!el) { this.condOpen = false; return; }
-        if (open && !['drive', 'foot'].includes(this.state)) return;
+        if (open && !['menu', 'drive', 'foot'].includes(this.state)) return;
         if (open && this.mapOpen) this.toggleMap(false);
         this.condOpen = !!open; el.classList.toggle('show', this.condOpen); document.body.classList.toggle('cond-open', this.condOpen);
-        if (this.condOpen) { this.input.releaseLock(); this.input.lookAllowed = false; if (this.player) this.player.speed *= 0.2; this.syncConditions(); }
+        if (this.condOpen) {
+            this.input.releaseLock(); this.input.lookAllowed = false; this.input.flush();
+            if (this.player) this.player.speed *= 0.2;
+            if (this.state === 'menu') $('#menu').inert = true;
+            this.syncConditions(); el.querySelector('[data-close]')?.focus({ preventScroll: true });
+        } else if (this.state === 'menu') { $('#menu').inert = false; this.togglePause(true, 'settings'); }
         else this.returnFocus();
     }
     /** a local hour (0..24) in the district's city: the real sun at that hour, traffic for that hour */
     setRoamHour(h) {
         const c = this.clock; c.override = null;
         const h0 = localHours(new Date(), c.timeZone); c.offsetMs = (((h - h0) % 24 + 24) % 24) * 3600e3;
+        if (this.state === 'menu') this._menuTod = 'h' + h;
         if (this.freeRoam) this.freeRoam.tod = 'h' + h;
         this.updateClock(0); this.traffic?.setHour(this.trafficHours(), true); this.syncConditions();
     }
     setRoamTime(tod) {
+        if (/^h\d/.test(tod)) return this.setRoamHour(Number(tod.slice(1)));
         const H = { dawn: 6.5, rush: 8.5, noon: 12.5 }[tod];
         if (H != null) return this.setRoamHour(H);
-        const c = this.clock; c.offsetMs = 0; c.override = tod === 'golden' ? 'sunset' : tod === 'dusk' ? 'dusk' : tod === 'night' ? 'night' : null;
+        const c = this.clock; c.offsetMs = 0; c.override = tod === 'golden' ? 'sunset' : ['dusk', 'night', 'day'].includes(tod) ? tod : null;
+        if (this.state === 'menu') this._menuTod = tod;
         if (this.freeRoam) this.freeRoam.tod = tod;
         this.updateClock(0); this.traffic?.setHour(this.trafficHours(), true); this.syncConditions();
     }
-    setRoamWeather(w) { if (this.freeRoam) this.freeRoam.weather = w; this.setWeatherOverride(w === 'live' ? null : w); if (this.traffic && w !== 'live') this.traffic.weatherKind = w; this.syncConditions(); }
+    setRoamWeather(w) {
+        if (this.freeRoam) this.freeRoam.weather = w;
+        if (this.state === 'menu') this.weatherOverride = WEATHER_OVERRIDES.includes(w) ? w : null; // no live request before a place is loaded
+        else this.setWeatherOverride(w === 'live' ? null : w);
+        if (this.traffic && w !== 'live') this.traffic.weatherKind = w;
+        this.syncConditions();
+    }
     setRoamSeason(s) { if (this.freeRoam) this.freeRoam.season = s; this.r3d.setSeason?.(s === 'auto' ? null : s); this.syncConditions(); }
     syncConditions() {
+        const selected = this.travelConditions(), tod = ({ 'h6.5': 'dawn', 'h8.5': 'rush', 'h12.5': 'noon' })[selected.tod] || selected.tod;
+        const time = $('#timeofday'), value = ({ now: 'real', golden: 'sunset' })[tod] || tod;
+        if (time) {
+            time.querySelector('[data-custom-hour]')?.remove();
+            if (/^h\d/.test(value)) {
+                const h = Number(value.slice(1)), option = new Option(`${String(Math.floor(h)).padStart(2, '0')}:${String(Math.round(h % 1 * 60)).padStart(2, '0')} local time`, value);
+                option.dataset.customHour = ''; time.add(option);
+            }
+            time.value = value;
+        }
+        const weather = $('#weather'); if (weather) weather.value = selected.weather === 'live' ? 'real' : selected.weather;
         const el = document.getElementById('cond-panel'); if (!el) return;
+        if (this.state === 'menu') this.clock.date = this.nowDate();
         const c = this.clock, h = c.override ? OVERRIDE_HOURS[c.override] : localHours(this.nowDate(), c.timeZone);
         const sl = el.querySelector('#cond-hour'); if (sl && document.activeElement !== sl) sl.value = String(Math.round(h * 4) / 4 % 24);
         const o = el.querySelector('#cond-time'); if (o) o.textContent = this.clockText();
-        const selected = this.travelConditions(), tod = ({ 'h6.5': 'dawn', 'h8.5': 'rush', 'h12.5': 'noon' })[selected.tod] || selected.tod;
-        for (const b of el.querySelectorAll('[data-tod]')) b.classList.toggle('on', b.dataset.tod === tod);
-        for (const b of el.querySelectorAll('[data-wx]')) b.classList.toggle('on', b.dataset.wx === (this.weatherOverride || 'live'));
-        for (const b of el.querySelectorAll('[data-season]')) b.classList.toggle('on', b.dataset.season === selected.season);
+        for (const [key, value] of [['tod', tod], ['wx', selected.weather], ['season', selected.season]]) {
+            for (const b of el.querySelectorAll(`[data-${key}]`)) {
+                const on = b.dataset[key] === value; b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on));
+            }
+        }
+        el.querySelector('[data-cond-note]').textContent = this.state === 'menu' ? 'Applies to New story and world-map starts · Continue restores saved conditions' : 'Traffic follows the hour · game paused';
     }
     // ---------------------------------------------------------------------------------- chapters (spec 10)
     renderMenuChapters() {

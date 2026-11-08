@@ -1083,7 +1083,9 @@ function buildCity(cityId, did = null) {
             if (ds && mg <= OUTER_RING) { if (realArea < 25 && SMALL_OUT.test(b)) continue; }
             else { if (sourcePart && num(t.height) < 20 && !(num(t['building:levels']) >= 6)) continue; if (mg > (ds ? 0 : 30) && mg < 1700) { addBackdrop(cOut, realArea, local, t, la); if (DEBUG_DROPS && ds && mg < OUTER_RING + 150) bDropList.push({ why: 'backdrop', mg: Math.round(mg), id: t.__id, la: +la.toFixed(6), lo: +lo.toFixed(6), area: Math.round(realArea) }); } else if (mg <= 30) dropWhy('edge-belt'); continue; } // (after round 6: from 30 m past the corridor edge, not 70 — the first 70 m were a bare "dead" belt)
         }
-        if (!outside && !nearNetwork(cOut[0], cOut[1])) { dropWhy('far'); continue; }
+        // The exact district boundary already admits campus/courtyard buildings beyond the road buffer.
+        // Keep the legacy network-distance filter only for corridor builds.
+        if (!ds && !outside && !nearNetwork(cOut[0], cOut[1])) { dropWhy('far'); continue; }
         const [sx, sz] = C.shape(la);
         let ring = local.map(([x, z]) => [cOut[0] + (x - cL[0]) * sx, cOut[1] + (z - cL[1]) * sz]);
         // Thin mapped structural parts are real strips, not independent houses. The ordinary 1 m duplicate tolerance

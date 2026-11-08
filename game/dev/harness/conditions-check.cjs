@@ -8,6 +8,7 @@ const path = require('path');
 const repo = path.resolve(__dirname, '../../..');
 const out = path.resolve(process.argv.find(a => a.startsWith('--out='))?.slice(6) || '/tmp/dmcv-conditions-check');
 const onlyControls = process.argv.includes('--only-controls');
+const onlyAccess = process.argv.includes('--only-access');
 const controls = onlyControls || process.argv.includes('--controls');
 const report = { checks: [], errors: [], captures: [], notes: [
     'Fresh browser context per fixture; reload uses its existing browser storage.',
@@ -229,6 +230,90 @@ async function titleAndRoamSave(page) {
     check('Night preset survives explore district travel', [s.conditions, s.override], [{ tod: 'night', weather: 'live', season: 'auto' }, 'night']);
     await key(page, 'k'); await capture(page, 'roam-night-live-auto');
 }
+async function titleConditions(page) {
+    await page.click('#menu-settings');
+    check('title Settings button opens the real Settings dialog', await page.evaluate(() => [game.state, game.pauseOpen, game._pauseView, document.querySelector('#menu').inert]), ['menu', true, 'settings', true]);
+    await page.click('#pause-menu [data-pa="conditions"]');
+    check('title Settings opens shared conditions before any world exists', await page.evaluate(() => [game.condOpen, game.pauseOpen, !!game.world]), [true, false, false]);
+    check('title conditions receive pointer events above the title menu', await page.locator('[data-tod="now"]').evaluate(b => { const r = b.getBoundingClientRect(); return b.contains(document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2)); }), true);
+}
+async function liveTime(page, label, expectedHour) {
+    await page.click('[data-tod="now"]');
+    const s = await read(page);
+    check(`${label}: Live clears the offset and fixed look and selects only Live`, await page.evaluate(() => [game.clock.offsetMs, game.clock.override, game.travelConditions().tod, [...document.querySelectorAll('[data-tod].on')].map(b => b.dataset.tod)]), [0, null, 'now', ['now']]);
+    check(`${label}: Live uses the current local hour for sun and traffic`, [s.hour, await page.evaluate(() => game.trafficHours())], [expectedHour, expectedHour]);
+}
+async function accessFixture(page) {
+    let weatherRequests = 0;
+    page.on('request', request => { if (/api\.open-meteo\.com/.test(request.url())) weatherRequests++; });
+    await titleConditions(page);
+    check('title defaults highlight Live weather and Auto season accurately', (await read(page)).selected, { tod: ['now'], wx: ['live'], season: ['auto'] });
+    await page.click('[data-tod="noon"]'); await liveTime(page, 'title Noon → Live', 12);
+    await page.click('[data-tod="night"]'); await liveTime(page, 'title Night → Live', 12);
+    await page.click('[data-tod="night"]'); await page.click('[data-wx="snow"]'); await page.click('[data-season="winter"]');
+    check('title Settings selects Night/Snow/Winter independently', (await read(page)).selected, { tod: ['night'], wx: ['snow'], season: ['winter'] });
+    check('choosing title conditions does not request weather before a place loads', weatherRequests, 0);
+    await page.screenshot({ path: path.join(out, 'title-settings-night-snow-winter.jpg') });
+    await page.locator('#cond-panel [data-close]').focus(); await page.keyboard.press('Shift+Tab');
+    check('title conditions keep keyboard focus inside the dialog', await page.evaluate(() => document.activeElement.dataset.season), 'winter');
+    await key(page, 'Escape');
+    check('Esc from title conditions returns to Settings', await page.evaluate(() => [game.condOpen, game.pauseOpen, game._pauseView]), [false, true, 'settings']);
+    await key(page, 'Escape');
+    check('Esc from title Settings restores its main-menu button focus', await page.evaluate(() => [game.pauseOpen, document.querySelector('#menu').inert, document.activeElement.id]), [false, false, 'menu-settings']);
+    check('title quick selectors reflect the shared choices', await page.evaluate(() => [document.querySelector('#timeofday').value, document.querySelector('#weather').value]), ['night', 'snow']);
+    await page.click('#start'); await page.waitForFunction(() => game.state === 'drive');
+    check('real New story click keeps title Night/Snow/Winter', (await read(page)).conditions, { tod: 'night', weather: 'snow', season: 'winter' });
+    await page.evaluate(() => game.loop());
+    check('driving footer visibly advertises K conditions', await page.locator('#hint').evaluate(el => el.textContent.includes('K time, weather & season') && getComputedStyle(el).display !== 'none' && el.getBoundingClientRect().bottom <= innerHeight), true);
+    await capture(page, 'drive-footer-k');
+    await settings(page);
+    check('story panel keeps Winter selected rather than Auto', (await read(page)).selected.season, ['winter']);
+    await hour(page, 21.25); await liveTime(page, 'story custom hour → Live', 12);
+    await page.click('[data-tod="night"]'); await liveTime(page, 'story Night → Live', 12);
+    await key(page, 'Escape'); await key(page, 'Enter'); await page.evaluate(() => game.loop());
+    check('walking footer advertises K and omits L', await page.locator('#hint').evaluate(el => el.textContent.includes('K time, weather & season') && !/\bL\b/.test(el.textContent)), true);
+    await capture(page, 'foot-footer-k');
+    await key(page, 'k'); check('walking K opens shared conditions with Live and Winter active', (await read(page)).selected, { tod: ['now'], wx: ['snow'], season: ['winter'] }); await key(page, 'Escape');
+    await page.evaluate(() => game.startFreeRoam('bellevue'));
+    await key(page, 'k'); await liveTime(page, 'Live after crossing to Seattle', 2);
+    check('free-roam panel keeps Winter selected', (await read(page)).selected.season, ['winter']);
+    await key(page, 'Escape'); await jump(page, 'resume');
+    await key(page, 'k'); await liveTime(page, 'Live after cross-city Resume story', 12); await key(page, 'Escape');
+    await page.evaluate(() => game.save.saveSession('conditions-live-title-access'));
+    await page.reload({ waitUntil: 'load' }); await ready(page);
+    await titleConditions(page); await page.click('[data-tod="night"]'); await page.click('[data-season="summer"]');
+    await key(page, 'Escape'); await key(page, 'Escape'); await page.click('#continue'); await page.waitForFunction(() => game.state === 'drive' && !game.save._restoring);
+    await key(page, 'k');
+    check('Continue restores saved Live/Snow/Winter despite new title choices', [(await read(page)).conditions, (await read(page)).selected], [{ tod: 'now', weather: 'snow', season: 'winter' }, { tod: ['now'], wx: ['snow'], season: ['winter'] }]);
+    await capture(page, 'story-live-continue-winter');
+}
+async function titleHourFixture(page) {
+    await titleConditions(page); await hour(page, 21.25); await page.click('[data-wx="drizzle"]'); await page.click('[data-season="winter"]');
+    check('custom title hour is represented accurately in quick selector', await page.locator('#timeofday').inputValue(), 'h21.25');
+    await key(page, 'Escape'); await key(page, 'Escape');
+    await page.selectOption('#timeofday', 'day');
+    await titleConditions(page);
+    check('title quick Day selection has matching active chip', (await read(page)).selected.tod, ['day']);
+    await hour(page, 21.25); await key(page, 'Escape'); await key(page, 'Escape');
+    await page.evaluate(() => game.startFreeRoam('bellevue'));
+    check('title custom hour remains 21:15 in the destination time zone', [(await read(page)).zone, (await read(page)).hour, (await read(page)).conditions], ['America/Los_Angeles', 21.25, { tod: 'h21.25', weather: 'drizzle', season: 'winter' }]);
+    await key(page, 'k');
+    check('free-roam Drizzle/Winter selections match active conditions', (await read(page)).selected, { tod: [], wx: ['drizzle'], season: ['winter'] });
+}
+async function titleTouchFixture(page) {
+    check('touch fixture uses real touch-capable input', await page.evaluate(() => game.touch), true);
+    for (const viewport of [{ width: 390, height: 844 }, { width: 844, height: 390 }]) {
+        await page.setViewportSize(viewport); await titleConditions(page);
+        for (const [group, value] of [['tod', 'night'], ['wx', 'snow'], ['season', 'winter']]) {
+            const button = page.locator(`[data-${group}="${value}"]`); await button.scrollIntoViewIfNeeded(); await button.tap();
+            check(`touch ${viewport.width}×${viewport.height}: ${value} receives pointer events`, await button.evaluate(b => { const r = b.getBoundingClientRect(); return b.contains(document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2)); }), true);
+        }
+        check(`touch ${viewport.width}×${viewport.height}: panel fits the viewport`, await page.locator('#cond-panel').evaluate(el => { const r = el.getBoundingClientRect(); return r.left >= 0 && r.right <= innerWidth && r.top >= 0 && r.bottom <= innerHeight; }), true);
+        await page.screenshot({ path: path.join(out, `title-touch-${viewport.width}.jpg`) });
+        await page.locator('#cond-panel [data-close]').scrollIntoViewIfNeeded(); await page.tap('#cond-panel [data-close]'); await page.tap('#pause-menu [data-pa="resume"]');
+        check(`touch ${viewport.width}×${viewport.height}: close buttons return to main menu`, await page.evaluate(() => [game.condOpen, game.pauseOpen, document.querySelector('#menu').inert]), [false, false, false]);
+    }
+}
 (async () => {
     const server = http.createServer((request, response) => {
         let file = path.resolve(repo, '.' + decodeURIComponent(request.url.split('?')[0]));
@@ -242,9 +327,10 @@ async function titleAndRoamSave(page) {
     await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
     const browser = await chromium.launch({ headless: true, args: ['--mute-audio', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
     try {
-        const fixtures = onlyControls ? [['controls', async page => { await page.evaluate(() => game.startFreeRoam('grozavesti')); await controlsCheck(page); }]] : [['main', mainFixture], ['title-roam-save', titleAndRoamSave]];
+        const access = [['title-access', accessFixture], ['title-hour', titleHourFixture], ['title-touch', titleTouchFixture]];
+        const fixtures = onlyControls ? [['controls', async page => { await page.evaluate(() => game.startFreeRoam('grozavesti')); await controlsCheck(page); }]] : onlyAccess ? access : [['main', mainFixture], ['title-roam-save', titleAndRoamSave], ...access];
         for (const [name, run] of fixtures) {
-            const context = await browser.newContext({ viewport: { width: 1280, height: 720 } });
+            const context = await browser.newContext({ viewport: { width: 1280, height: 720 }, ...(name === 'title-touch' ? { hasTouch: true, isMobile: true } : {}) });
             await context.route(/api\.open-meteo\.com/, route => route.fulfill({ json: { error: true } }));
             const page = await context.newPage();
             try { await setup(page, `http://127.0.0.1:${server.address().port}`); await run(page); }

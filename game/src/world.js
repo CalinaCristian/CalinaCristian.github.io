@@ -1,7 +1,7 @@
 import * as THREE from '../vendor/three.module.min.js';
 import { makeRng, distPointSeg, pointInPolygon, clamp, makeCanvasTexture, landmarkHelpers } from './util.js';
 import { makeTextures } from './buildings.js';
-import { makeVehicle, CAR_COLORS, makeParkedCars } from './vehicles.js';
+import { makeVehicle, CAR_COLORS, makeParkedCars, vehicleSize } from './vehicles.js';
 import { projector, CHAPTERS } from './cities.js';
 import { STOPS } from './data.js';
 import { MeshBuilder, rgb, shadeRgb, prep, mergeProps, bakeProp, UNIT_BOX } from './geobuild.js';
@@ -4436,13 +4436,33 @@ export async function buildWorld(city, renderer, opts = {}) {
     // colour), one group per 500 m super-cell (culling + few draw calls); full lots again (the 700 k cap is gone).
     // Fallback without it: merged low-LOD props, triangle-capped.
     const parkedLots = new Map(); // super-cell key → [{kind, color, x, y, z, yaw}]
+    const parkingOverlap = (a, b) => a.some(([x, z]) => pointInPolygon(x, z, b)) || b.some(([x, z]) => pointInPolygon(x, z, a)) || polysCross(a, b);
+    // Mapped lots can extend under the modeled pavement (the lot at the Rosetti
+    // start does). Test the complete car, including intersections through its
+    // edges, against sidewalk bands and junction corners; a clear centre is not
+    // enough. Keep the source lot polygon and the remaining stalls in place.
+    const parkingWalks = new BoxGrid(24);
+    const addParkingWalk = (p) => parkingWalks.insert(Math.min(...p.map(q => q[0])), Math.min(...p.map(q => q[1])), Math.max(...p.map(q => q[0])), Math.max(...p.map(q => q[1])), p);
+    if (realPass) {
+        for (const e of edges) if (raisedEdge(e)) for (const sd of [1, -1]) {
+            const wi = widthAsphalt(e, sd) + 0.02, wo = widthAsphalt(e, sd) + e.sidewalk + SIDE_BACK;
+            addParkingWalk([[e.a.x + e.nx * wi * sd, e.a.z + e.nz * wi * sd], [e.b.x + e.nx * wi * sd, e.b.z + e.nz * wi * sd], [e.b.x + e.nx * wo * sd, e.b.z + e.nz * wo * sd], [e.a.x + e.nx * wo * sd, e.a.z + e.nz * wo * sd]]);
+        }
+        for (const cp of cornerPolys) addParkingWalk(cp.p);
+    }
+    const parkingFits = (a, fp) => fp.every(([x, z]) => inArea(a, x, z)) && !polysCross(fp, a.outer) && !a.holes.some(h => parkingOverlap(fp, h));
+    const parkingOnWalk = (fp) => {
+        let hit = false;
+        parkingWalks.each(Math.min(...fp.map(q => q[0])), Math.min(...fp.map(q => q[1])), Math.max(...fp.map(q => q[0])), Math.max(...fp.map(q => q[1])), p => { if (!hit && parkingOverlap(fp, p)) hit = true; });
+        return hit;
+    };
     // (2026-11-08, owner: cars parked across a CV stop's glowing door ring) no parked car within 7 m of a stop's door
     const stopDoors = pois.filter(p => p.interactive && p.doorX !== undefined), nearDoor = (x, z) => stopDoors.some(p => Math.hypot(p.doorX - x, p.doorZ - z) < 7);
     const useInst = typeof makeParkedCars === 'function';
     const carTris = useInst ? 260 : carKinds.reduce((s2, k) => { const pr = carProps(k, CAR_COLORS[0]); return s2 + (pr.index ? pr.index.length / 3 : 772); }, 0) / carKinds.length;
-    let parked = 0; const maxParked = Math.round(Math.min(city.id === 'bucharest' ? 2600 : 2000, 195000 / Math.max(1, carTris)));
+    let parked = 0, lotSeeds = 0; const maxParked = Math.round(Math.min(city.id === 'bucharest' ? 2600 : 2000, 195000 / Math.max(1, carTris)));
     for (const a of areas) {
-        if (a.kind !== 'parking' || parked >= maxParked || a.size < 120) continue;
+        if (a.kind !== 'parking' || lotSeeds >= maxParked || a.size < 120) continue;
         // orientation: longest edge
         let best = 0, ang = 0;
         for (let k = 0; k < a.outer.length; k++) { const [ax, az] = a.outer[k], [bx, bz] = a.outer[(k + 1) % a.outer.length]; const L = Math.hypot(bx - ax, bz - az); if (L > best) { best = L; ang = Math.atan2(bx - ax, bz - az); } }
@@ -4460,13 +4480,20 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const box = { x, z, hw: 0.95, hd: 2.3, angle: rot, r: 2.5, poly: null, h: 1.5, prop: true, kind: 'parked' };
                 if (polyOnRibbon(obbPoly({ ...box, hw: 1.3, hd: 2.7 })) || [-1.6, 0, 1.6].some(o => onRibbon(x + Math.sin(rot) * o, z + Math.cos(rot) * o, 1.2))) continue; // keep off any carriageway / lane strip
                 const kind = rng.pick(carKinds), col = rng.pick(CAR_COLORS);
-                if (useInst) { const k2 = Math.floor(x / (CELL * 2)) + ',' + Math.floor(z / (CELL * 2)); let L = parkedLots.get(k2); if (!L) parkedLots.set(k2, L = []); L.push({ kind, color: col, x, y: 0.12, z, yaw: rot }); }
-                else cellOf(x, z).solid.geo(carProps(kind, col), x, 0.12, z, rot, 1, 1, 1, [255, 255, 255]);
-                propColl.push(box);
-                parked++; lotCount++;
-                if (parked >= maxParked || lotCount > lotMax) break;
+                // Consume the original seed and paint choices even when rejected:
+                // removing an obstructing car must not shuffle the valid stalls.
+                lotSeeds++; lotCount++;
+                const size = vehicleSize(kind, city.id);
+                box.hw = Math.max(box.hw, size.width / 2); box.hd = Math.max(box.hd, size.length / 2); box.r = Math.hypot(box.hw, box.hd);
+                const fp = obbPoly({ ...box, hw: box.hw + 0.1, hd: box.hd + 0.1 });
+                if (parkingFits(a, fp) && !parkingOnWalk(fp)) {
+                    if (useInst) { const k2 = Math.floor(x / (CELL * 2)) + ',' + Math.floor(z / (CELL * 2)); let L = parkedLots.get(k2); if (!L) parkedLots.set(k2, L = []); L.push({ kind, color: col, x, y: 0.12, z, yaw: rot }); }
+                    else cellOf(x, z).solid.geo(carProps(kind, col), x, 0.12, z, rot, 1, 1, 1, [255, 255, 255]);
+                    propColl.push(box); parked++;
+                }
+                if (lotSeeds >= maxParked || lotCount > lotMax) break;
             }
-            if (parked >= maxParked || lotCount > lotMax) break;
+            if (lotSeeds >= maxParked || lotCount > lotMax) break;
             v += row % 2 ? 7.5 : 5.2; // two rows back to back, then an aisle
         }
     }
@@ -4878,16 +4905,11 @@ export async function buildWorld(city, renderer, opts = {}) {
             case 'spill': { const m = addSuper(o, spillMat, false, 'shop-spill'); if (m) { m.renderOrder = 5; m.castShadow = m.receiveShadow = false; } break; }
         }
     }
-    // ---- kerbside parking (district worlds, Bucharest, 2026-11-08): cars line both kerbs of the residential streets,
-    //      parked on the sidewalk next to the kerb as they are in Floreasca / Dorobanți (the carriageway stays clear for
-    //      traffic; pedestrians walk round them: they are sidewalk obstacles). OSM parking:{left,right,both} tags
-    //      (data.roadInfo flags 64 / 128 yes, 256 / 512 no) decide where mapped; otherwise both sides of residential /
-    //      unclassified streets (and tertiary streets with one lane each way) with a ≥ 2.2 m sidewalk. Clear of
-    //      junctions (9 m past the pad), crossings (8 m), bus stops (14 m), fuel forecourts, trees, lamps, buildings.
-    //      (owner: "parked on the sidewalk, the wheels look sunk in the ground") the world's kerb strip stands 0.13 m above
-    //      the road and the sidewalk paving 0.22 m below the kerb: the cars stood across the kerb, wheels cut by it. They now
-    //      stand just past the kerb strip at the kerb's top (wheels on the kerb line as seen from the road). Slabs under the
-    //      cars were tried and dropped (owner: "pads suck"); the full fix is a sidewalk at kerb height (spec 12, open).
+    // ---- kerbside parking (district worlds, Bucharest): mapped parking keeps its location / orientation; legacy yes
+    //      flags alone cannot authorize sidewalk cars. Untagged residential / unclassified streets (and tertiary streets
+    //      with one lane each way) retain the parallel-kerb fallback where the sidewalk is ≥ 2.2 m. Clear of junctions,
+    //      crossings, bus stops, fuel forecourts, trees, lamps and buildings. Kerb cars stand on the raised sidewalk;
+    //      surface-lot cars above must clear that pavement with their whole footprint.
     let kerbParked = 0;
     if (realPass && !US && useInst) {
         const RI = data.roadInfo || [], kRng = makeRng(90127), cols = CAR_COLORS;
@@ -4903,6 +4925,9 @@ export async function buildWorld(city, renderer, opts = {}) {
             for (const sd of [1, -1]) {
                 const tagged = sd > 0 ? (rf & 64) : (rf & 128), none = sd > 0 ? (rf & 256) : (rf & 512);
                 if (none || (!resid && !tagged) || e.sidewalk < 2.2) continue;
+                // Legacy yes flags omit the mapped location/orientation. A parking
+                // lane (e.g. Calea Floreasca) does not authorize sidewalk cars.
+                if (tagged && !parking) continue;
                 if (parking) {
                     const offset = sd > 0 ? 1 : 3, location = str(parking[offset]), orientation = str(parking[offset + 1]);
                     // This pass draws parallel cars wholly on the kerb. Mapped

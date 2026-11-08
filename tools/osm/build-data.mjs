@@ -1053,6 +1053,8 @@ function buildCity(cityId, did = null) {
         else if (SMALL.test(b)) { style = 'plain'; if (!isFinite(h)) h = b === 'roof' || b === 'carport' ? 4 : 3; }
         else if (INDUSTRIAL.test(b)) { style = 'plain'; if (!isFinite(h)) h = b === 'greenhouse' ? 4 : realArea > 2000 ? 10 : 7; }
         else if (b === 'retail' || b === 'supermarket' || shop === 'supermarket' || shop === 'mall' || b === 'kiosk') { style = 'shop'; defLevels = realArea > 3000 ? 2 : 1; flags |= 1; }
+        // (2026-11-08, owner: Piața Floreasca was a 15.5 m "bloc" wall) a market hall is a low shop building
+        else if (amen === 'marketplace' || b === 'marketplace') { style = 'shop'; defLevels = 2; flags |= 1; }
         else if (HOUSE.test(b)) { style = 'house'; defLevels = country === 'US' ? 2 : 2; roof = ROOF_FOR_HOUSE(realArea, lls.length); }
         else if (b === 'stadium' || b === 'grandstand') { style = 'plain'; if (!isFinite(h)) h = isFinite(levels) ? Math.min(levels * 3.2, 30) : 14; }
         else if (PUBLIC.test(b)) {
@@ -1526,6 +1528,7 @@ function buildCity(cityId, did = null) {
         const residential = /^(residential|apartments|house|detached|semidetached_house|terrace|villa|dormitory|yes)$/.test(tt.building || '') && !(tt.amenity || tt.shop || tt.office || tt.tourism || tt.healthcare || tt.leisure);
         const blockNo = /^(bl(oc)?\.?|block|scara|sc\.)\s*\S{1,5}$/i.test(String(name).trim());
         if (flags & 32) { /* scenery ring: no signs */ }
+        else if (b.name && (/^(marketplace)$/.test(tt.amenity || '') || /^(mall|department_store)$/.test(tt.shop || '') || tt.building === 'marketplace')) flags |= 2; // (the market hall / mall keeps its own name as its sign; its shops get unit signs)
         else if (b.signName) { name = b.signName; flags |= 2; if (b.signBrand) flags |= 8; }
         else if (b.brand) { name = b.brand; flags |= 2 | 8; }
         else if (name && !addrLike(name) && !blockNo && !residential) flags |= 2;

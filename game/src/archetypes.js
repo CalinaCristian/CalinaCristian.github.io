@@ -214,7 +214,7 @@ const RE = {
     park: /parcare|parking|garage\b/i,
     mall: /mall|shopping cent|shopping center|bellevue square|lincoln square|plaza\b|unirea shopping/i,
     box: /brico|dedeman|hornbach|leroy|mobexpert|altex|emag|ikea|jysk|home depot|lowe'?s|best buy|target\b|costco|decathlon|bauhaus/i,
-    market: /kaufland|lidl|carrefour|mega image|profi|auchan|penny|cora\b|safeway|qfc|whole foods|trader joe|fred meyer|supermarket|idm\b/i,
+    market: /kaufland|lidl|carrefour|mega image|profi|auchan|penny|cora\b|safeway|qfc|whole foods|trader joe|fred meyer|supermarket|idm\b|^pia[țţt]a\b|market hall|\bhala\b/i,
     worship: /sinagog|synagog|moschee|mosque|templ/i,
     oldCivic: /muzeu|museum|bibliotec|library|teatr|theatre|theater|atene|ministerul|tribunal|ambasad|embassy|primări|palat/i,
 };
@@ -389,6 +389,9 @@ export function createArchetypes(env) {
     /** wall band on one edge in the archetype atlas (u continues around the corner; v from the band's base) */
     const band = (e, y0, y1, tile, col, { vBase = y0, fh = 3.5, s0 = 0, s1 = e.L, off = 0, mb = null, uW = null, vH: vh = null } = {}) => {
         if (y1 - y0 < 0.05 || s1 - s0 < 0.05) return;
+        // (2026-11-08, owner: "windows in ground") a texture base above the band's bottom would wrap the tile's top row in
+        // below it — windows cut by the ground: the part under vBase is plain wall
+        if (vBase > y0 + 0.02 && vBase < y1) { const [px0, pz0] = at(e, s0, off), [px1, pz1] = at(e, s1, off); (mb || mbOf(e.ax, e.az)).wall(px0, pz0, px1, pz1, y0, vBase, e.nx, e.nz, col); y0 = vBase; }
         const [W, H, fl] = TM[tile]; const vH = vh || (fl ? H * fh : H), uw = uW || W;
         const [x0, z0] = at(e, s0, off), [x1, z1] = at(e, s1, off);
         (mb || mbOf(e.ax, e.az)).wall(x0, z0, x1, z1, y0, y1, e.nx, e.nz, col, (e.s0 + s0) / uw, (e.s0 + s1) / uw, (y0 - vBase) / vH, (y1 - vBase) / vH, tile);
@@ -582,7 +585,7 @@ export function createArchetypes(env) {
             if (e.L < 0.2) continue;
             band(e, yG, h, tile, col, { vBase: yG, fh });
             if ((e.street && shops) || e === M) band(e, y0, yG, US ? AT.store : AT.front, [255, 255, 255], { fh: gfh, vBase: y0 });
-            else band(e, y0, yG, tile, shadeRgb(col, 0.92), { vBase: y0 - (fh - gfh), fh });
+            else band(e, y0, yG, tile, shadeRgb(col, 0.92), { vBase: y0, fh: gfh }); // (one storey fitted to the ground floor: windows with a sill, never cut by the ground)
         }
         const trim = shadeRgb(col, 0.8);
         for (const e of E) if (e.L > 4 && e.street) slab(c.solid, e, e.L / 2, yG - 0.35, e.L, 0.35, 0.3, trim, false); // ground-floor cornice
@@ -807,7 +810,7 @@ export function createArchetypes(env) {
         for (const e of E) {
             if (e.L < 0.2) continue;
             band(e, yG, h, tile, col, { vBase: yG, fh });
-            band(e, y0, yG, tile, shadeRgb(col, 0.94), { vBase: yG - fh, fh });
+            band(e, y0, yG, tile, shadeRgb(col, 0.94), { vBase: y0, fh: yG - y0 }); // (one storey fitted to the ground floor: windows with a sill, never cut by the ground)
         }
         const trim = mixRgb(col, [240, 238, 232], 0.4);
         for (const e of E) if (e.L > 4) { slab(c.solid, e, e.L / 2, y0, e.L, 0.7, 0.12, shadeRgb(col, 0.7), false); if (e.street) slab(c.detail, e, e.L / 2, yG - 0.3, e.L, 0.3, 0.2, trim, false); }

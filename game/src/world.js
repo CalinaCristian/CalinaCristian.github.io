@@ -1449,7 +1449,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     // the pitch / turf / clay / hard / pool areas — they were flat coloured patches. The court is fitted with the
     // smallest-area rectangle of its outline (skipped when the outline is not rectangular enough); everything is visual.
     let pitchesDressed = 0;
-    {
+    const dressSports = () => { // (run after the landmarks are built: a ground inside a landmark — the Dinamo pitch — is the model's own)
         const W = rgb('#f4f4ef'), POST = rgb('#ededea'), FENCE = rgb('#2f4a3a'), NET = rgb('#2a2d30');
         const minRect = (pts) => {
             let best = null;
@@ -1467,6 +1467,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         };
         for (const a of areas) {
             if (!/^(pitch|turf|clay|hard|pool)$/.test(a.kind) || a.size < 60 || a.size > 20000) continue;
+            if (landmarks.some(l => l.radius > 0 && Math.hypot(l.x - (a.x0 + a.x1) / 2, l.z - (a.z0 + a.z1) / 2) < l.radius)) continue;
             const R = minRect(a.outer); if (!R || a.size / R.A < 0.8) continue;
             const { cx, cz, ux, uz, hl, hw } = R, vx = -uz, vz = ux;
             const P = (u, v) => [cx + ux * u + vx * v, cz + uz * u + vz * v];
@@ -1503,7 +1504,17 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (a.kind === 'hard') { // basketball / multi-sport: outline, centre line and circle, hoops at both ends
                 rect(hl - 1, hw - 1); line(0, -hw + 1, 0, hw - 1);
                 const n = 24, r = Math.min(1.8, hw * 0.25); for (let k = 0; k < n; k++) { const a0 = k / n * 6.283, a1 = (k + 1) / n * 6.283; line(Math.cos(a0) * r, Math.sin(a0) * r, Math.cos(a1) * r, Math.sin(a1) * r, 0.06); }
-                for (const sg of [-1, 1]) { const [px, pz] = P(sg * (hl - 0.4), 0), [bx, bz] = P(sg * (hl - 1.6), 0); c.detail.box(px, base, pz, 0.12, 3.3, 0.12, ang, rgb('#3a3d42')); c.detail.box(bx, base + 2.9, bz, 0.06, 1.05, 1.8, ang + Math.PI / 2, rgb('#f2f2f0')); }
+                for (const sg of [-1, 1]) { // pole behind the end line, arm, backboard (with its target square), orange rim and a net
+                    const [px, pz] = P(sg * (hl + 0.2), 0), [bx, bz] = P(sg * (hl - 1.2), 0), [ax2, az2] = P(sg * (hl - 0.5), 0);
+                    c.solid.box(px, base, pz, 0.14, 3.5, 0.14, ang, rgb('#3a3d42'));
+                    c.solid.box(ax2, base + 3.3, az2, 0.1, 0.1, 1.4, ang, rgb('#3a3d42'));
+                    c.solid.box(bx, base + 2.9, bz, 0.06, 1.05, 1.8, ang + Math.PI / 2, rgb('#f2f2f0'));
+                    const [qx, qz] = P(sg * (hl - 1.24), 0); c.detail.box(qx, base + 3.05, qz, 0.02, 0.45, 0.59, ang + Math.PI / 2, rgb('#c2410c'));
+                    const [rx, rz] = P(sg * (hl - 1.48), 0), R = 0.23;
+                    for (let k = 0; k < 10; k++) { const a0 = k / 10 * Math.PI * 2, a1 = (k + 1) / 10 * Math.PI * 2, cx2 = rx + (Math.cos(a0) + Math.cos(a1)) / 2 * R, cz2 = rz + (Math.sin(a0) + Math.sin(a1)) / 2 * R;
+                        c.detail.box(cx2, base + 3.05, cz2, 0.03, 0.03, 2 * R * Math.sin(Math.PI / 10) + 0.02, Math.atan2(Math.cos(a1) - Math.cos(a0), Math.sin(a1) - Math.sin(a0)), rgb('#e8590c'));
+                        if (k % 2 === 0) c.detail.box(rx + Math.cos(a0) * R * 0.8, base + 2.65, rz + Math.sin(a0) * R * 0.8, 0.012, 0.4, 0.012, 0, rgb('#f2f2f0')); } // net strands
+                }
                 pitchesDressed++; continue;
             }
             // football (grass / artificial turf): touch + goal lines, halfway line, centre circle, boxes, goals
@@ -1516,11 +1527,14 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const g = sg * HL; line(g, -bw, g - sg * bd, -bw); line(g - sg * bd, -bw, g - sg * bd, bw); line(g - sg * bd, bw, g, bw);
                 for (const v of [-gw, gw]) { const [px, pz] = P(g + sg * 0.05, v); c.detail.box(px, base, pz, 0.1, gh, 0.1, 0, POST); }
                 const [tx, tz] = P(g + sg * 0.05, 0); c.detail.box(tx, base + gh - 0.1, tz, 0.1, 0.1, gw * 2 + 0.1, ang + Math.PI / 2, POST);
-                const [bx2, bz2] = P(g + sg * 1.4, 0); c.detail.box(bx2, base, bz2, 0.03, gh * 0.9, gw * 2, ang + Math.PI / 2, rgb('#d9dcdc'));
+                // the net: a see-through mesh of thin strands at the back (a solid panel read as a white wall)
+                const NETC = rgb('#e2e4e4'), nd = g + sg * Math.min(1.4, gh * 0.6);
+                for (let v = -gw; v <= gw + 0.01; v += 0.3) { const [mx, mz] = P(nd, v); c.detail.box(mx, base, mz, 0.025, gh * 0.9, 0.025, 0, NETC); }
+                for (let y = 0.3; y < gh * 0.9; y += 0.3) { const [mx, mz] = P(nd, 0); c.detail.box(mx, base + y, mz, 0.025, 0.025, gw * 2, ang + Math.PI / 2, NETC); }
             }
             pitchesDressed++;
         }
-    }
+    };
     // green ground (district worlds, 2026-11-08): gardens, lawns, courtyards and the ground under the crowns, measured on
     // aerial imagery (data.green raster, build-data / tools/aerial/trees.py), as grass quads under everything paved —
     // the quarter's private gardens were bare grey ground. Runs merged across rows into rectangles.
@@ -2632,6 +2646,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (polyOnRibbon(obbPoly(b)) || b.hw < 0.5 || b.hd < 0.5) { collisionBoxes.splice(i, 1); lmDrop++; } else if (k) lmTrim++;
     }
 
+    dressSports(); // (sports-ground markings / goals / nets — after the landmarks, so their own grounds are skipped)
     // CV POIs (offices, schools, airports)
     const pois = [];
     const poiGroup = new THREE.Group(); poiGroup.name = 'pois'; group.add(poiGroup);
@@ -2973,6 +2988,24 @@ export async function buildWorld(city, renderer, opts = {}) {
             perim += L;
         }
         if (!AR) addDetail(b, h > 40 ? mb : c.detail, brng, wallCol, h, y0, shop, yShop, floorH, ccw); // (cornices / balconies / mullions: near LOD only, except towers' silhouettes)
+        // (2026-11-08, owner: the Piața Floreasca service lane ran into a blank wall) where a large named building's own
+        // service lane meets its wall: a dark portal (loading bay / building passage) with a concrete frame
+        if (b.flags & 64) edgesInBox(b.x0 - 2, b.z0 - 2, b.x1 + 2, b.z1 + 2, (e) => {
+            if (e.type !== 'service' || e.virtual) return;
+            for (let k = 0; k < ring.length; k++) {
+                const [ax, az] = ring[k], [bx, bz] = ring[(k + 1) % ring.length], L = Math.hypot(bx - ax, bz - az); if (L < 3) continue;
+                const d1x = e.b.x - e.a.x, d1z = e.b.z - e.a.z, d2x = bx - ax, d2z = bz - az, den = d1x * d2z - d1z * d2x; if (Math.abs(den) < 1e-6) continue;
+                const t = ((ax - e.a.x) * d2z - (az - e.a.z) * d2x) / den, u = ((ax - e.a.x) * d1z - (az - e.a.z) * d1x) / den;
+                if (t < 0 || t > 1 || u < 0 || u > 1) continue;
+                const px = e.a.x + d1x * t, pz = e.a.z + d1z * t, ux = d2x / L, uz = d2z / L;
+                let nx = uz, nz = -ux; if (!ccw) { nx = -nx; nz = -nz; }
+                const hw = Math.min(L / 2 - 0.3, Math.max(e.wR, e.wL) + 0.9), hp = Math.min(4.3, h - y0 - 0.8); if (hw < 1.2 || hp < 2.4) continue;
+                const p0x = px - ux * hw + nx * 0.06, p0z = pz - uz * hw + nz * 0.06, p1x = px + ux * hw + nx * 0.06, p1z = pz + uz * hw + nz * 0.06;
+                mb.wall(p0x, p0z, p1x, p1z, y0, y0 + hp, nx, nz, rgb('#1d1f22'));                                            // the opening
+                c.solid.box(px + nx * 0.18, y0 + hp, pz + nz * 0.18, 0.35, 0.45, hw * 2 + 0.7, Math.atan2(ux, uz), shadeRgb(wallCol, 0.75)); // lintel
+                for (const sg of [-1, 1]) c.solid.box(px + ux * sg * (hw + 0.17) + nx * 0.18, y0, pz + uz * sg * (hw + 0.17) + nz * 0.18, 0.35, hp, 0.35, Math.atan2(ux, uz), shadeRgb(wallCol, 0.75));
+            }
+        });
         // roof (own mesh / material: world.vegetation.roofMaterials, so weather can tint it, e.g. snow)
         const rmb = c.roof;
         const flatRoofCol = b.roofColour ? rgb(b.roofColour) : rgb(roofCols.flat[Math.floor(brng() * roofCols.flat.length)]);
@@ -2998,9 +3031,9 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const rise = clamp(depth * 0.18, 0.8, 3);
                 rmb.face4(P(p0), P(p1), P(p2, h + rise), P(p3, h + rise), pitchCol, [0, 1, 0]);
                 const nb = [p3[0] - p0[0], 0, p3[1] - p0[1]];
-                mb.face4(P(p2), P(p3), P(p3, h + rise), P(p2, h + rise), wallCol, nb, tile);
-                mb.face3(P(p1), P(p2), P(p2, h + rise), wallCol, outOf([P(p1), P(p2)]), tile);
-                mb.face3(P(p3), P(p0), P(p3, h + rise), wallCol, outOf([P(p3), P(p0)]), tile);
+                mb.face4(P(p2), P(p3), P(p3, h + rise), P(p2, h + rise), wallCol, nb); // (skillion upstand: plain)
+                mb.face3(P(p1), P(p2), P(p2, h + rise), wallCol, outOf([P(p1), P(p2)]));
+                mb.face3(P(p3), P(p0), P(p3, h + rise), wallCol, outOf([P(p3), P(p0)]));
             }
         } else if (b.roof === 'gabled' && ring.length === 4) {
             let [p0, p1, p2, p3] = ring;
@@ -3012,8 +3045,8 @@ export async function buildWorld(city, renderer, opts = {}) {
             const outOf = (pts) => { const cx = pts.reduce((s, p) => s + p[0], 0) / pts.length, cy = pts.reduce((s, p) => s + p[1], 0) / pts.length, cz = pts.reduce((s, p) => s + p[2], 0) / pts.length; return [cx - mid[0], cy - mid[1] + 0.01, cz - mid[2]]; };
             rmb.face4(P(p0), P(p1), r1, r0, pitchCol, outOf([P(p0), P(p1), r1, r0]));
             rmb.face4(P(p2), P(p3), r0, r1, pitchCol, outOf([P(p2), P(p3), r0, r1]));
-            mb.face3(P(p1), P(p2), r1, wallCol, outOf([P(p1), P(p2), r1]), tile);
-            mb.face3(P(p3), P(p0), r0, wallCol, outOf([P(p3), P(p0), r0]), tile);
+            mb.face3(P(p1), P(p2), r1, wallCol, outOf([P(p1), P(p2), r1])); // (gable end: plain plaster — the window tile put windows in the roof triangle)
+            mb.face3(P(p3), P(p0), r0, wallCol, outOf([P(p3), P(p0), r0]));
         } else if ((pitched || b.roof === 'hipped') && ring.length <= 10) {
             const rise = clamp(Math.sqrt(b.area) * 0.32, 1.2, 6);
             const apex = [b.c[0], h + rise, b.c[1]];

@@ -1,0 +1,30 @@
+== inside: ALL valid positive-area way/part source identities 574/574 (100.0 %); topology 515/574 (89.7 %)
+== inside: 574 OSM footprints ≥ 25 m² (573 ≥ 40 m², not sheds/garages; legacy comparison subset)
+  matched      573/573 (100.0 %)
+  area kept    median 1.00, < 0.6 for 2
+  centroid off median 0.0 m, > 3 m for 0
+  height (OSM-tagged) within ±25 % / 2.5 m: 92/92 (100.0 %)
+  roof flat/pitched agrees with the aerial survey: 419/419 (100.0 %)
+== ring: ALL valid positive-area way/part source identities 2557/2802 (91.3 %); topology 2439/2557 (95.4 %)
+== ring: 2799 OSM footprints ≥ 25 m² (2784 ≥ 40 m², not sheds/garages; legacy comparison subset)
+  matched      2539/2784 (91.2 %)
+  area kept    median 1.00, < 0.6 for 0
+  centroid off median 0.0 m, > 3 m for 2
+  height (OSM-tagged) within ±25 % / 2.5 m: 405/406 (99.8 %)
+    w163726740 Piața Dorobanți OSM  m / 1.0 lv → game 7.0 m @ 44.461035,26.09418
+  roof flat/pitched agrees with the aerial survey: 1847/1854 (99.6 %)
+    MISSING w439938874 yes  2502 m² @ 44.474079,26.107036
+    MISSING w167292870 school Liceul Teoretic Traian 2053 m² @ 44.461046,26.113029
+    MISSING w28401802 apartments Bl. 2 1708 m² @ 44.453813,26.110027
+    MISSING w72051072 apartments Bl. 3 1191 m² @ 44.452872,26.092277
+    MISSING w546500235 office The Landmark Corp B 1190 m² @ 44.450013,26.094657
+    MISSING w472067728 hospital  1114 m² @ 44.452176,26.092632
+    MISSING w244847974 yes  950 m² @ 44.467889,26.093473
+    MISSING w407979309 yes  933 m² @ 44.472396,26.113259
+== inside multipolygon relations: 0/0 (0.0 %) source identity matched; courtyards 0/0 (0.0 %) count and source interior points preserved (stadium stand sectors excluded)
+  relation height (OSM-tagged) within ±25 % / 2.5 m: 0/0 (0.0 %)
+== ring multipolygon relations: 0/2 (0.0 %) source identity matched; courtyards 0/2 (0.0 %) count and source interior points preserved (stadium stand sectors excluded)
+  relation height (OSM-tagged) within ±25 % / 2.5 m: 0/0 (0.0 %)
+    COURTYARD r2185247 source=1 game=0 @ 44.459501,26.092944
+    COURTYARD r2185248 source=1 game=0 @ 44.459328,26.093567
+wrote /workspace/reality-pass/original-districts-refresh/before/floreasca.json

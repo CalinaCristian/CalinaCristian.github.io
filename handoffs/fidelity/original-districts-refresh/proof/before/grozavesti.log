@@ -1,0 +1,22 @@
+== inside: ALL valid positive-area way/part source identities 130/133 (97.7 %); topology 114/130 (87.7 %)
+== inside: 132 OSM footprints ≥ 25 m² (128 ≥ 40 m², not sheds/garages; legacy comparison subset)
+  matched      127/128 (99.2 %)
+  area kept    median 1.00, < 0.6 for 0
+  centroid off median 0.0 m, > 3 m for 0
+  height (OSM-tagged) within ±25 % / 2.5 m: 87/87 (100.0 %)
+  roof flat/pitched agrees with the aerial survey: 79/79 (100.0 %)
+    MISSING w1331395965 None  62 m² @ 44.448292,26.065932
+== ring: ALL valid positive-area way/part source identities 2250/2262 (99.5 %); topology 2143/2250 (95.2 %)
+== ring: 2214 OSM footprints ≥ 25 m² (2180 ≥ 40 m², not sheds/garages; legacy comparison subset)
+  matched      2178/2180 (99.9 %)
+  area kept    median 1.00, < 0.6 for 0
+  centroid off median 0.0 m, > 3 m for 0
+  height (OSM-tagged) within ±25 % / 2.5 m: 550/550 (100.0 %)
+  roof flat/pitched agrees with the aerial survey: 1529/1529 (100.0 %)
+    MISSING w570330518 None  3426 m² @ 44.446843,26.074069
+    MISSING w620596471 None  3222 m² @ 44.446387,26.074268
+== inside multipolygon relations: 4/4 (100.0 %) source identity matched; courtyards 1/1 (100.0 %) count and source interior points preserved (stadium stand sectors excluded)
+  relation height (OSM-tagged) within ±25 % / 2.5 m: 1/1 (100.0 %)
+== ring multipolygon relations: 17/17 (100.0 %) source identity matched; courtyards 2/2 (100.0 %) count and source interior points preserved (stadium stand sectors excluded)
+  relation height (OSM-tagged) within ±25 % / 2.5 m: 8/8 (100.0 %)
+wrote /workspace/reality-pass/original-districts-refresh/before/grozavesti.json

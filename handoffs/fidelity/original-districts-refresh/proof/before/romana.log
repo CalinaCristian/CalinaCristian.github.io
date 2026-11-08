@@ -1,0 +1,31 @@
+== inside: ALL valid positive-area way/part source identities 806/810 (99.5 %); topology 612/806 (75.9 %)
+== inside: 757 OSM footprints ≥ 25 m² (748 ≥ 40 m², not sheds/garages; legacy comparison subset)
+  matched      747/748 (99.9 %)
+  area kept    median 1.00, < 0.6 for 2
+  centroid off median 0.0 m, > 3 m for 0
+  height (OSM-tagged) within ±25 % / 2.5 m: 289/289 (100.0 %)
+  roof flat/pitched agrees with the aerial survey: 392/395 (99.2 %)
+    MISSING w358385230 None  173 m² @ 44.45082,26.086713
+== ring: ALL valid positive-area way/part source identities 4700/4832 (97.3 %); topology 4328/4700 (92.1 %)
+== ring: 4210 OSM footprints ≥ 25 m² (4163 ≥ 40 m², not sheds/garages; legacy comparison subset)
+  matched      4048/4163 (97.2 %)
+  area kept    median 1.00, < 0.6 for 0
+  centroid off median 0.0 m, > 3 m for 0
+  height (OSM-tagged) within ±25 % / 2.5 m: 1038/1038 (100.0 %)
+  roof flat/pitched agrees with the aerial survey: 2351/2360 (99.6 %)
+    MISSING w23611605 school Colegiul Național „Ion Luca Caragiale” 2918 m² @ 44.458277,26.095138
+    MISSING w1180694964 None  2630 m² @ 44.435403,26.104164
+    MISSING w610231503 office  1996 m² @ 44.446656,26.080119
+    MISSING w251129762 university Corp F 1797 m² @ 44.447513,26.078746
+    MISSING w156817483 apartments  1715 m² @ 44.449034,26.077852
+    MISSING w369813276 yes  1613 m² @ 44.446688,26.106845
+    MISSING w1474376196 None  1546 m² @ 44.434394,26.103861
+    MISSING w229687779 yes Hotel Triumf 1541 m² @ 44.462552,26.0819
+== inside multipolygon relations: 5/5 (100.0 %) source identity matched; courtyards 5/5 (100.0 %) count and source interior points preserved (stadium stand sectors excluded)
+  relation height (OSM-tagged) within ±25 % / 2.5 m: 3/3 (100.0 %)
+== ring multipolygon relations: 30/34 (88.2 %) source identity matched; courtyards 27/30 (90.0 %) count and source interior points preserved (stadium stand sectors excluded)
+  relation height (OSM-tagged) within ±25 % / 2.5 m: 23/23 (100.0 %)
+    COURTYARD r2184619 source=4 game=0 @ 44.43451,26.103796
+    COURTYARD r14317768 source=2 game=0 @ 44.434339,26.100898
+    COURTYARD r14862831 source=2 game=0 @ 44.434307,26.098664
+wrote /workspace/reality-pass/original-districts-refresh/before/romana.json

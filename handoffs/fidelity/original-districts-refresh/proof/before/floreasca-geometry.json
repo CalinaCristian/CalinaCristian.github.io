@@ -1,0 +1,11 @@
+{
+  "file": "game/data/bucharest-floreasca.json",
+  "sourceRecords": 3160,
+  "assemblies": [],
+  "roofs": {
+    "checked": 1624,
+    "inset": 1624,
+    "fallback": []
+  },
+  "physicalUnionSurfaces": 0
+}

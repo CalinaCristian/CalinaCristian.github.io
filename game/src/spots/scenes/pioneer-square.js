@@ -165,7 +165,7 @@ export default {
         // No verified real staircase or private Underground room is modeled.
         // Keep the public streets and valid buildings intact and offer a real
         // outdoor exercise rather than an automatic trip to an invented room.
-        ctx.extras.pioneerPublicHistory=photoHunt(ctx,{x:cs.x-4.5,z:cs.z,title:'Frame Pioneer Square history outdoors',unavailable:'A real Underground tour uses an operator and ticketed access. No interior entrance is verified in this game; explore these public features instead.',targets:[
+        ctx.extras.pioneerPublicHistory=photoHunt(ctx,{x:cs.x-6.5,z:cs.z+3,title:'Frame Pioneer Square history outdoors',unavailable:'A real Underground tour uses an operator and ticketed access. No interior entrance is verified in this game; explore these public features instead.',targets:[
             {label:'The cast-iron pergola',x:per.cx,y:per.y0+4.6,z:per.cz,radius:1.4},
             {label:'The Chief Seattle bust',x:cs.x,y:g.heightAt(cs.x,cs.z)+2.25,z:cs.z,radius:.5},
             ...(smith?[{label:'The white terracotta Smith Tower',x:smith.cx,y:smith.y0+40,z:smith.cz,radius:5,maxDistance:300,surfaceTolerance:2,surface:smith.surface}]:[])],

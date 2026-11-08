@@ -2242,6 +2242,8 @@ class Game {
         this.updateObjective();
         if (this.state === 'foot' && this.foot?.active) this.nav.setDestination(this.nav.dest || { x: this.objective?.doorX ?? this.objective?.x, z: this.objective?.doorZ ?? this.objective?.z, label: this.objectivePlain }, { x: this.foot.x, z: this.foot.z, heading: this.foot.heading });
         const km = this.nav.route ? ` · ${fmtDist(this.nav.route.total, this.city.units)}` : '';
+        // (after round 6) its office already visited this session (e.g. DB before Luxoft): the chapter completes right away
+        if (ch.stop && this.visited.has(ch.stop)) { this.hud.toast(`📖 ${ch.year} · ${ch.title}`, 'You already visited this office — chapter complete.', 'intro'); const id = ch.id; setTimeout(() => this.completeChapter(id), 1200); return true; }
         this.hud.toast(`📖 ${ch.year} · ${ch.title}`, `A few months later: walk or drive there${km}. ${ch.intro || ''}`, 'intro');
         return true;
     }

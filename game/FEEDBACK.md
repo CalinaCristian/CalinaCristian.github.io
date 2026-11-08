@@ -185,3 +185,5 @@ Known gaps: Politehnica's door is at the Bd. Doina Cornea gate (~230 m from the 
 50. Pedestrians taking a photo with a phone raise both hands; a phone photo should be one-handed.
 51. Full map: hovering an icon should show a tooltip with what it is; 'Go' should mark the destination and show the route without closing the map.
 52. Road surface sometimes missing (black void next to the barrier) on highways, bridges and roads.
+53. SeaTac chapter: start at the arrivals kerb, drive 1–2 km, then continue to Bellevue as now — spawning straight onto the highway makes SeaTac pointless as a location (and that's where most SeaTac road bugs are).
+54. Pedestrians walking along deck barriers in tight clumps, overlapping each other.

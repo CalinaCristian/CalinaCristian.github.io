@@ -528,9 +528,9 @@ export function bucActivity(s, spot, id, title, body) {
  * the full course; cancelling restores the exact shore pose without an award.
  * path: [[x, z]…] (metres), y: water level, speed m/s. Returns { start(s), active() }.
  */
-export function boatRide(ctx, boat, path, y, { speed = 1.6, eye = 0.72, title = 'Rowing boat', action = 'Row the oars', onDone = null, outfit = true, paddle = 'oars', help = null } = {}) {
+export function boatRide(ctx, boat, path, y, { speed = 1.6, eye = 0.72, title = 'Rowing boat', action = 'Row the oars', onDone = null, outfit = true, paddle = 'oars', help = null, floatHeight = .25, initialPitch = -.4 } = {}) {
     const L = polylineLength(path), flow = activityFlow(ctx); let ride = null;
-    boat.userData.noFloor = true; boat.position.y = y + .25;
+    boat.userData.noFloor = true; boat.position.y = y + floatHeight;
     // The original hemisphere hull was one-sided: from the seated camera its
     // entire inner surface vanished. A narrow rim and inner floor remain in
     // view while looking across the water and make the strokes readable.
@@ -561,7 +561,7 @@ export function boatRide(ctx, boat, path, y, { speed = 1.6, eye = 0.72, title = 
         start(s) {
             if (!(L > 2) || ride) return false;
             return flow.begin(s, { title, action, cameraRide: true, help: help || 'Each stroke moves the boat. Follow the short water course back to the landing. Look around freely; Leave or Esc returns ashore.',
-                started(s, r) { const p = s.position; ride = { distance: 0, velocity: 0, strokes: 0, t: 0, look: 0, pitch: -.4, back: { x: p.x, z: p.z, y: p.y, heading: s.ctl.heading }, home: { p: boat.position.clone(), r: boat.rotation.clone(), visible: boat.visible } }; boat.visible = true; r.status.textContent = '0 m · take a stroke to set off'; },
+                started(s, r) { const p = s.position; ride = { distance: 0, velocity: 0, strokes: 0, t: 0, look: 0, pitch: initialPitch, back: { x: p.x, z: p.z, y: p.y, heading: s.ctl.heading }, home: { p: boat.position.clone(), r: boat.rotation.clone(), visible: boat.visible } }; boat.visible = true; r.status.textContent = '0 m · take a stroke to set off'; },
                 actioned(s, r) { r.busy = true; r.t = 0; ride.strokes++; },
                 update(dt, s, r) {
                     if (!ride) return;
@@ -577,7 +577,7 @@ export function boatRide(ctx, boat, path, y, { speed = 1.6, eye = 0.72, title = 
                     const turn = Math.atan2(Math.sin(targetYaw - ride.yaw), Math.cos(targetYaw - ride.yaw));
                     ride.yaw += Math.max(-2.8 * dt, Math.min(2.8 * dt, turn));
                     const yaw = ride.yaw, bob = Math.sin(ride.t * 1.6) * .025;
-                    boat.position.set(p.x, y + .25 + bob, p.z); boat.rotation.set(phase * .015, yaw, phase * .025);
+                    boat.position.set(p.x, y + floatHeight + bob, p.z); boat.rotation.set(phase * .015, yaw, phase * .025);
                     const lk = s.input?.takeLook?.() || { dx: 0, dy: 0 }; ride.look -= lk.dx * .0024; ride.pitch = Math.max(-.9, Math.min(.9, ride.pitch - lk.dy * .0024));
                     s.ctl.rig.position.set(p.x, y + eye + bob, p.z); s.ctl.rig.rotation.set(ride.pitch, yaw + Math.PI + ride.look, 0, 'YXZ');
                     r.progress.value = ride.distance / L; r.status.textContent = `${Math.round(ride.distance)} / ${Math.round(L)} m · ${ride.strokes} strokes`;

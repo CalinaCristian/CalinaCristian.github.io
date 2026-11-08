@@ -180,7 +180,7 @@ export default {
         { const named = houses.filter((h) => h.porch && h.bd.name), pick = [], regions = new Set();
           for (const h of named) { const reg = (h.bd.name.match(/din ([^,(]+)/) || [, h.bd.name])[1].trim(); if (regions.has(reg)) continue; regions.add(reg); pick.push(h); if (pick.length >= 8) break; }
           const stamps = new Set();
-          for (const h of pick) { const [x, z] = h.P(h.o.len > 6 ? 0 : -h.o.len * 0.175, -h.o.wid / 2 + 0.6); ctx.interactables.push({ x, z, r: 2.2, source: h.bd.id, label: () => (stamps.has(h.bd.id) ? `${h.bd.name} (stamped)` : `Collect a porch stamp: ${h.bd.name}`), use: (s) => { if (stamps.has(h.bd.id)) return; stamps.add(h.bd.id); if (stamps.size >= 5) bucActivity(s, 'village-museum', 'farmhouse', '🏡 Village passport complete', `You visited five mapped households. The Village Museum has preserved rural buildings from across Romania since 1936.`); else s.ui.toast(`🏡 Stamp ${stamps.size} / 5`, `${h.bd.name}. Walk to another mapped household to continue your passport.`); } }); } }
+          for (const h of pick) { const [x, z] = h.P(h.o.len > 6 ? 0 : -h.o.len * 0.175, -h.o.wid / 2 + 0.6); ctx.interactables.push({ x, z, r: 2.2, source: h.bd.id, label: () => (stamps.has(h.bd.id) ? `${h.bd.name} (recorded)` : `Record a virtual passport visit: ${h.bd.name}`), use: (s) => { if (stamps.has(h.bd.id)) return; stamps.add(h.bd.id); if (stamps.size >= 5) bucActivity(s, 'village-museum', 'farmhouse', '🏡 Virtual village passport complete', `You visited five mapped households. The Village Museum has preserved rural buildings from across Romania since 1936.`); else s.ui.toast(`🏡 Visit ${stamps.size} / 5`, `${h.bd.name}. Walk to another mapped household to continue your passport.`); } }); } }
         for (const [x, z] of d.furniture.cross || []) { if (mus && !inPoly(x, z, mus)) continue; const y = g.heightAt(x, z); b.box(x, y, z, 0.18, 2.2, 0.18, '#5a4632', 'wood'); b.box(x, y + 1.6, z, 1.1, 0.16, 0.16, '#5a4632', 'wood'); b.box(x, y + 2.15, z, 0.7, 0.2, 0.5, '#4a3a2a', 'wood'); ctx.circle(x, z, 0.15, 2.2); }
         // museum fence (ticketed site) with the entrance by Kiseleff and a gate toward the park
         if (mus) {
@@ -236,7 +236,7 @@ export default {
         const PH = spH.plaques, PV = spV.plaques;
         PH.forEach((pl, i) => ctx.plaque(pl, nymph.x - 14 + i * 7, nymph.z + 10, Math.PI, { style: 'park' }));
         if (church) PV.forEach((pl, i) => { const a = Math.PI * 0.75 + i * 0.28, x = church.x + Math.cos(a) * 18, z = church.z + Math.sin(a) * 18; ctx.plaque(pl, x, z, Math.atan2(church.x - x, church.z - z) + Math.PI, { style: 'park', credit: i === 0 ? 'Founded by sociologist Dimitrie Gusti (1936).' : null }); });
-        // fun: feed the ducks, ring the toaca, draw water
+        // Participatory outdoor exercise at the retained mapped marina.
         // A short optional rowing exercise at the mapped marina, not an
         // invented rental point beside the spawn. Operator hours are unverified.
         const landing=d.pois.find(p=>p.id==='n141706786');
@@ -257,8 +257,6 @@ export default {
                 const available=s=>s.r3d?.weather?.season!=='winter';ctx.extras.herastrauBoat={ride,path,landing,approach,source:landing.id,operatorHoursVerified:false,flightAreaSources:['w1162864482','w68336727','n141706786','r1130828'],flightAreaHalfWidthEstimate:3,flightBounds};
                 ctx.interactables.push({kind:'rowboat',x:approach.x,z:approach.z,r:3,source:landing.id,label:'Row a short course from Debarcader',tourAvailable:available,cond:()=>!ride.active(),use:s=>{if(!available(s)){s.ui.toast('🚣 Warm-season game course','Choose a warm season for this rowing exercise. Current operator hours are not confirmed.');return;}ride.start(s);}});
             }}
-        ctx.interactables.push({ x: 30, z: -26, r: 4, label: 'Feed the ducks', use: (s) => { s.ui.toast('🦆 Quack', 'Ducks gather at the south tip of the lake.'); s.sound.play('splat', 0.4); } });
-        if (church) ctx.interactables.push({ x: church.x + 6, z: church.z + 6, r: 3, label: 'Strike the toaca (wooden semantron)', use: (s) => { s.sound.play('thump', 0.8); setTimeout(() => s.sound.play('thump', 0.6), 260); setTimeout(() => s.sound.play('thump', 0.9), 520); s.ui.toast('Toaca', 'The wooden board calls to service on feast days.'); } });
         // postcards: the church spire from the lawn (research pose); the nymph with the lake behind
         if (church) { const ic = spV.photo.iconic, dx = ic.x - church.x, dz = ic.z - church.z, L = Math.hypot(dx, dz) || 1, px = church.x + dx / L * 16, pz = church.z + dz / L * 16; ctx.challenge('village-museum', { view: [church.x, church.z], x: px, z: pz, heading: (Math.atan2(church.x - px, -(church.z - pz)) * 180 / Math.PI + 360) % 360, pitch: 32, r: 10, tol: 28 }); }
         else ctx.challenge('village-museum', { r: 10, tol: 28 });

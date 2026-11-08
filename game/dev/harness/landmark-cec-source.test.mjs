@@ -42,4 +42,52 @@ for(const f of source.roofs){const k=key(f.vertices);if(seen.has(k))duplicate++;
 assert.equal(duplicate,0,'canonical source roof has no duplicate coplanar triangle');
 const ledger=JSON.parse(fs.readFileSync(new URL('../../research/landmark-cec-source-assemblies.json',import.meta.url)));
 assert.ok(ledger.derivedGeometry.maximumSourceBodyDeficitM2<1e-8);assert.equal(ledger.derivedGeometry.maximumDerivedOutsideSourceM2,0);
+// The shared landmark book must describe the same real source associations,
+// independently of the model's generated registry or its cached geometry.
+const book=JSON.parse(fs.readFileSync(new URL('../../research/landmark-source-bucharest.json',import.meta.url)));
+const cec=book.landmarks.find(l=>l.id==='cec');
+const rawParts=JSON.parse(fs.readFileSync(new URL('../../research/osm/spot-part-relations.json',import.meta.url)));
+const referenced=[...cec.primarySources,...cec.associatedParts];
+assert.equal(new Set(referenced.map(r=>r.id)).size,161);
+assert.deepEqual(cec.sourceIds,[...new Set(referenced.map(r=>r.id))].sort());
+assert.deepEqual(landmark.sourceIds,cec.sourceIds);
+assert.equal(referenced.filter(r=>r.id.startsWith('w')).length,155);
+const sameRing=(a,b,tolerance=1e-8)=>a.length===b.length&&b.some((_,start)=>[1,-1].some(direction=>a.every((p,i)=>{
+ const q=b[(start+direction*i+b.length*2)%b.length];return Math.hypot(p[0]-q[0],p[1]-q[1])<tolerance;
+})));
+const fromRaw=ring=>{
+ const open=ring.length>1&&ring[0][0]===ring.at(-1)[0]&&ring[0][1]===ring.at(-1)[1]?ring.slice(0,-1):ring;
+ return open.map(([lat,lon])=>{
+  const dx=(lon-data.proj.lon0)*data.proj.mPerLon-ox,dz=-(lat-data.proj.lat0)*data.proj.mPerLat-oz;
+  return [dx*c-dz*s,dx*s+dz*c];
+ });
+};
+let associatedOuters=0,associatedHoles=0;
+for(const id of relations){
+ const association=cec.associatedParts.find(r=>r.id===id),raw=rawParts.rawRelations.find(r=>`r${r.id}`===id);
+ assert(association&&raw,`${id}: raw relation association retained`);
+ assert.deepEqual(association.tags,Object.fromEntries(Object.entries(raw.tags).filter(([k])=>!k.startsWith('__'))));
+ assert.deepEqual(association.members,raw.members.map(({type,ref,role})=>({type,ref,role})));
+ const prepared=rawParts.records.map(r=>r.building).filter(r=>r.id.split('_')[0]===id);
+ assert.equal(association.outers.length,prepared.length);
+ for(const outer of association.outers){
+  const preparedOuter=prepared.find(r=>r.id===outer.preparedSourceId);
+  assert(preparedOuter,`${id}: prepared outer identity is sourced`);
+  assert(sameRing(outer.ring,fromRaw(preparedOuter.footprint),0.0001),`${id}: independent raw outer topology`);
+  const actual=restored.find(v=>v.sourceId===id&&sameRing(v.ring,outer.ring));
+  assert(actual,`${id}: complete source outer represented in native model`);
+  assert.equal(outer.holes.length,preparedOuter.holes?.length||0);
+  assert.equal(actual.holes.length,outer.holes.length);
+  for(const hole of outer.holes){
+   assert(preparedOuter.holes.some(h=>sameRing(hole,fromRaw(h),0.0001)),`${id}: raw inner topology`);
+   assert(actual.holes.some(h=>sameRing(h,hole)),`${id}: native inner topology`);
+  }
+  const rawTotal=parseMeasure(raw.tags.height);
+  if(Number.isFinite(rawTotal))close(actual.totalM,rawTotal,`${id}: independent raw literal total`);
+  associatedOuters++;associatedHoles+=outer.holes.length;
+ }
+}
+assert.equal(associatedOuters,7);assert.equal(associatedHoles,5);
+assert.equal(cec.canonicalSourceMasses.totalSourceVolumes,162);
+assert.equal(cec.canonicalSourceMasses.literalHeightVolumes,literals);
 console.log(JSON.stringify({sourceVolumes:volumes.length,newRelationOuters:restored.length,rawHoles:5,literalHeights:literals,estimatedTotals:volumes.length-literals,modelColliders:built.collision.length,modelTriangles:built.triangles,duplicateRoofTriangles:duplicate,maximumHeight:bounds.max.y,uncertainProfiles:built.mesh.userData.sourceMassAudit.roofIssues.length}));

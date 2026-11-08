@@ -1,0 +1,9 @@
+[
+ {"id":"air-stadium","lat":44.4528,"lon":26.1023,"heading":0,"pitch":-32,"h":90,"fov":80,"note":"Stadionul Dinamo from the south, aerial"},
+ {"id":"air-north","lat":44.4585,"lon":26.1000,"heading":20,"pitch":-25,"h":120,"fov":80,"note":"Floreasca villa quarter, aerial looking N"},
+ {"id":"air-east","lat":44.4620,"lon":26.0985,"heading":95,"pitch":-25,"h":110,"fov":80,"note":"looking E toward Barbu Văcărescu"},
+ {"id":"petrom","lat":44.45955,"lon":26.10665,"heading":60,"pitch":-5,"h":2.0,"fov":80,"note":"Petrom station"},
+ {"id":"petrom-air","lat":44.4590,"lon":26.1060,"heading":45,"pitch":-30,"h":40,"fov":75,"note":"Petrom station aerial"},
+ {"id":"stadium-gate","lat":44.4540,"lon":26.0990,"heading":90,"pitch":0,"h":1.7,"fov":80,"note":"Șos. Ștefan cel Mare at the stadium"},
+ {"id":"floreasca-st","lat":44.4615,"lon":26.1010,"heading":0,"pitch":0,"h":1.7,"fov":80,"note":"Calea Floreasca, looking N"}
+]

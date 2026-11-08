@@ -343,7 +343,6 @@ export const ACHIEVEMENTS = [
     // game/research/activities.json (achievement ids / titles) and the scene toasts.
     { id: 'lm-needle-up', cat: 'landmarks', activity: 'space-needle:elevator', live: true, icon: '🛗', title: '520 feet in 41 seconds', desc: 'Rode the Space Needle elevator up to the observation level.' },
     { id: 'lm-needle-loupe', cat: 'landmarks', activity: 'space-needle:loupe', live: true, icon: '🗼', title: 'Stand on the Loupe', desc: 'Stood on the Loupe, the revolving glass floor of the Space Needle (2018).' },
-    { id: 'lm-needle-360', cat: 'landmarks', activity: 'space-needle:deck', live: true, icon: '🌆', title: 'Seen from the Needle', desc: 'Stepped out on the open-air deck for the 360° view.' },
     { id: 'lm-pike-fish', cat: 'landmarks', activity: 'pike-place:fish', live: true, icon: '🐟', title: 'Catch!', desc: 'Caught a fish thrown at Pike Place Fish Market.' },
     { id: 'lm-gum-wall', cat: 'landmarks', activity: 'pike-place:gum-wall', live: true, icon: '🍬', title: 'Part of the wall', desc: 'Added your gum to the Gum Wall in Post Alley.' },
     { id: 'lm-pike-rachel', cat: 'landmarks', activity: 'pike-place:rachel', live: true, icon: '🐷', title: 'Fed Rachel', desc: 'Dropped a coin in Rachel, the bronze piggy bank whose donations fund the Market\'s social services.' },
@@ -354,7 +353,6 @@ export const ACHIEVEMENTS = [
     { id: 'lm-kerry-blue-hour', cat: 'landmarks', activity: 'kerry-park:blue-hour', live: true, icon: '🌃', title: 'Blue hour over Seattle', desc: 'Watched the skyline light up from Kerry Park at dusk.' },
     { id: 'lm-bdp-loop', cat: 'landmarks', activity: 'bel-downtown-park:loop', live: true, icon: '⛲', title: 'Half a mile round', desc: 'Walked the promenade loop of Bellevue Downtown Park.' },
     { id: 'lm-bbg-bridge', cat: 'landmarks', activity: 'bel-botanical-garden:bridge', live: true, icon: '🌉', title: 'Ravine bridge', desc: 'Crossed the suspension bridge over the ravine in the Bellevue Botanical Garden.' },
-    { id: 'lm-bbg-plants', cat: 'landmarks', activity: 'bel-botanical-garden:plants', live: true, icon: '🌿', title: 'Five plants named', desc: 'Read five plant labels in the Bellevue Botanical Garden.' },
     { id: 'lm-meyd-pier', cat: 'landmarks', activity: 'bel-meydenbauer:pier-end', live: true, icon: '🌊', title: 'End of the crescent', desc: 'Walked to the end of the 420 ft crescent pier at Meydenbauer Bay.' },
     { id: 'lm-meyd-kayak', cat: 'landmarks', activity: 'bel-meydenbauer:kayak', live: true, icon: '🛶', title: 'Meydenbauer paddle', desc: 'Paddled a kayak around Meydenbauer Bay.' },
     { id: 'lm-bel-badge', cat: 'landmarks', activity: 'bel-lincoln-square:badge-in', live: true, icon: '📷', title: 'Lincoln Square details', desc: 'Framed three Lincoln Square details from the public approach.' },

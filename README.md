@@ -67,6 +67,7 @@ that chapter of the CV.
   Narrow desktop windows keep the keyboard-help footer above the lower HUD; touch screens use their dedicated action buttons.
   Source-backed tourist activities can declare a narrow drone launch/approach area outside their original scene focus. The same 150 m flight margin applies; this does not open an entire park or lake.
   Disposing a tourist water material removes it from shared environment updates, so later travel does not retain retired water materials.
+  The unsupported Needle deck-stair and botanical label-reading awards are retired; older saves retain earned history without counting these in completion.
   The overview includes separate shareable evidence views for every landmark and tourist destination, with game captures, source links and explicit remaining estimates.
   District galleries retain dated historical collections separately from current surveys. Game-only street, weather and drone context has its own gallery and exact camera metadata; only square north-up surveys are paired with aerial imagery. Available collections load inline, and official aerial images keep their original 15-minute browser cache expiry across reloads.
 - **Offices you can talk in.** Each CV stop is a distinct interior (a 2009 classroom, the Politehnica rectorate,
@@ -78,7 +79,7 @@ that chapter of the CV.
   kept in the in-game gallery, and you save (or share) only the ones you want, from the print or the gallery. Leave the
   car somewhere illegal and passers-by react — then the ticket, the clamp or the tow truck.
 - **Saves.** Progress, position and photos persist in IndexedDB; **Continue** resumes exactly where you left off.
-- **Achievements and completion %.** 116 catalogue entries (115 initially active; the cycling activity becomes active after bike use), covering story, explorer, driver, local colour, landmarks and activities,
+- **Achievements and completion %.** 114 catalogue entries (113 initially active; the cycling activity becomes active after bike use), covering story, explorer, driver, local colour, landmarks and activities,
   photographer, on foot and a few secrets) and one weighted completion score shown in the menu, map and pause screens.
 - **A living city.** Country-specific traffic (taxis, delivery vans, police; STB trams, trolleybuses and buses; King
   County Metro buses) driven by real lanes, one-ways, signals and speed limits, with traffic density by hour, rush-hour

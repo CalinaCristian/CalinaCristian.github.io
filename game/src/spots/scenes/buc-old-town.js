@@ -307,8 +307,8 @@ function buildManuc(ctx) {
 // ---------------------------------------------------------------------------- Curtea Veche: ruins, bust, 1559 church
 function buildCurteaVeche(ctx) {
     const d = ctx.data, g = ctx.ground, b = new GeoBatch();
-    const ru = osmPoly(d, 'w658220894');
-    if (ru) { ctx.skipBuildings.add('w658220894'); const y = Math.min(...ru.map(([x, z]) => g.heightAt(x, z)));
+    const ru = osmPoly(d, 'w658220894');let ruinsGround=null;
+    if (ru) { ctx.skipBuildings.add('w658220894'); const y = Math.min(...ru.map(([x, z]) => g.heightAt(x, z)));ruinsGround=y;
         // excavated brick walls (low, ragged) on the outline + cross walls, a grassy pit, iron railing round it
         for (let i = 0; i < ru.length; i++) { const [ax, az] = ru[i], [bx, bz] = ru[(i + 1) % ru.length], L = Math.hypot(bx - ax, bz - az); if (L < 0.5) continue; const n = Math.ceil(L / 2); for (let k = 0; k < n; k++) { const t0 = k / n, t1 = (k + 1) / n, h = 1.1 + Math.abs(Math.sin(i * 3.1 + k * 1.7)) * 1.6; const cx = ax + (bx - ax) * (t0 + t1) / 2, cz = az + (bz - az) * (t0 + t1) / 2; b.box(cx, y - 1.4 - ((i + k) % 3) * 0.03, cz, 1.0 - (k % 2) * 0.06, h + 1.4, L / n + 0.05, '#a65a3a', 'brick', Math.atan2(bx - ax, bz - az)); } }
         const o = obb(ru); for (let k = -2; k <= 2; k++) { const cx = o.cx + o.ux * k * o.len * 0.18, cz = o.cz + o.uz * k * o.len * 0.18; b.box(cx, y - 1.5, cz, 0.9, 1.9 + (k % 2 ? 0.8 : 0), o.wid * 0.8, '#9e5536', 'brick', Math.atan2(o.ux, o.uz) + Math.PI / 2); }
@@ -335,7 +335,7 @@ function buildCurteaVeche(ctx) {
         church = { x: o.cx, z: o.cz, fac, tower:{x:tx,z:tz,y:y+18.2} };
     }
     ctx.add(b.build('curtea-veche', { matOverrides: { ...(church ? { [church.fac.key]: church.fac.mat } : {}), ...(ctx.extras.ruinMats || {}) } }));
-    return { bust: vb, church };
+    return { bust: vb, church, ruinsGround };
 }
 
 // ---------------------------------------------------------------------------- Stavropoleos (1724)
@@ -490,11 +490,11 @@ export default {
         ctx.plaque(PS[4], -212, -32, -Math.PI / 2, { style: 'city', credit: 'Post Palace (1894–1900), architect Alexandru Săvulescu.' });
         // Public outdoor details require actual look/capture inputs. An exterior
         // source footprint does not establish present-day access to the ruins.
-        if(CV.church){const ru=d.buildings.find(b=>b.id==='w658220894'),edge=ru?distPolyline(CV.bust.x-3,CV.bust.z-3,[...ru.poly,ru.poly[0]]):null;
+        if(CV.church){const ru=d.buildings.find(b=>b.id==='w658220894'),edge=ru?distPolyline(CV.bust.x+4,CV.bust.z+4,[...ru.poly,ru.poly[0]]):null;
             const targets=[{label:'Vlad III bust',x:CV.bust.x,y:gy(CV.bust.x,CV.bust.z)+2.65,z:CV.bust.z,radius:.4},
                 {label:'Old Court church tower',...CV.church.tower,radius:1.6,surfaceTolerance:4}];
-            if(edge)targets.push({label:'Old Court brick remains',x:edge.cx,y:Math.min(...ru.poly.map(([x,z])=>gy(x,z)))+.9,z:edge.cz,radius:1.2});
-            ctx.extras.curteaVecheVisit=photoHunt(ctx,{x:CV.bust.x-3,z:CV.bust.z-3,title:'Frame the Old Court details',targets,
+            if(edge)targets.push({label:'Old Court brick remains',x:edge.cx,y:CV.ruinsGround+1.2,z:edge.cz,radius:1.2});
+            ctx.extras.curteaVecheVisit=photoHunt(ctx,{x:CV.bust.x+4,z:CV.bust.z+4,title:'Frame the Old Court details',targets,
                 unavailable:'Explore these historic details from the public street. Current access inside the excavations has not been verified.',
                 onDone:s=>bucActivity(s,'old-town-lipscani','curtea-veche','🏛 Old Court details framed','You framed the bust, church and mapped court remains from outside. This does not claim admission inside the excavations.')});}
         if (ST) {const candle=candleLight(ctx,new THREE.Vector3(),{title:'A virtual candle at Stavropoleos',portable:true,focus:new THREE.Vector3(ST.x,gy(ST.x,ST.z)+6,ST.z),

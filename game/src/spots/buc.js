@@ -482,7 +482,8 @@ export function oldTownTerraces(ctx, o = {}) {
         for (const s of [-1, 1]) { const [x, z] = P(s * (W / 2 + 0.35), depth * 0.5); b.box(x, y, z, 0.5, 0.55, 0.5, '#3b3a36', 'concrete', yaw); for (let q = 0; q < 5; q++) { const ox = (r() - 0.5) * 0.3, oz = (r() - 0.5) * 0.3; b.cyl(x + ox, y + 0.55, z + oz, 0.015, 1.2 + r() * 0.6, '#7d8a4a', 'plant', 4); b.sphere(x + ox, y + 1.5 + r() * 0.4, z + oz, 0.18, 0.32, 0.18, '#4f7a3a', 'plant', 6, 4); } }
         if (r() < 0.6) { const [x, z] = P(W / 2 - 0.5, depth - 0.45); b.cyl(x, y, z, 0.22, 0.06, '#2b2d30', 'metal', 10); b.cyl(x, y, z, 0.05, 2.1, '#5c5f63', 'steel', 8); b.cyl(x, y + 2.05, z, 0.34, 0.1, '#5c5f63', 'steel', 12, 0.4); }
         { const [x, z] = P(-W / 2 - 0.2, depth + 0.35), a = yaw + Math.PI / 2; b.box(x, y, z, 0.55, 1.05, 0.06, '#1b1c1d', 'wood', a, 0.12); b.box(x, y, z, 0.55, 1.05, 0.06, '#1b1c1d', 'wood', a, -0.12); b.box(x + f.nx * 0.07, y + 0.25, z + f.nz * 0.07, 0.45, 0.6, 0.02, '#e9e4d6', 'paint', a + Math.PI / 2 * 0, 0.12); }
-        ctx.box(cx, cz, W / 2 + 0.6, depth / 2, yaw + Math.PI / 2, { prop: true, h: 0.8 });
+        // Local x follows the facade tangent; local z follows its outward normal.
+        ctx.box(cx, cz, W / 2 + 0.6, depth / 2, yaw, { prop: true, h: 0.8 });
         out.lamps.push({ x: cx, z: cz, h: 2.6, noPost: true });
         out.terraces.push({ x: cx, z: cz, yaw, W, depth, name: p.name, f });
     }

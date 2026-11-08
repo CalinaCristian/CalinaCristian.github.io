@@ -2192,7 +2192,9 @@ ${['drive', 'foot'].includes(this.state) ? '<button class="btn" data-pa="conditi
     async enterChapter(idx, { initial = false } = {}) {
         this.explore?.hooks?.beforeChapter?.(); // (any chapter entry is Story)
         const ch = this.chapters[idx]; if (!ch) return false;
-        if (this.freeRoam) { this.freeRoam = null; this.clock.offsetMs = 0; this.clock.override = this.menuOverride ?? null; this.toggleConditions(false); document.body.classList.remove('free-roam'); this.r3d.setSeason?.(null); }
+        const conditions = this.travelConditions();
+        if (this.freeRoam) { this.freeRoam = null; this.toggleConditions(false); document.body.classList.remove('free-roam'); }
+        this.applyRoamTime(conditions.tod, CITIES[ch.city].timeZone || TIME_ZONES[ch.city]);
         const same = this.world && this.city?.id === ch.city && this.district === ch.district && !initial;
         if (!same) {
             $('#loading').classList.add('show');

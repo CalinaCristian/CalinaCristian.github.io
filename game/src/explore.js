@@ -121,8 +121,8 @@ export function initExplore(game) {
     }
     /** go somewhere off the story: a place (key / id / item) → jump there; from the title menu → the hub to pick a start;
      *  in game → the hub (the old in-place "Switch to Explore" is gone) */
-    async function roam(where = null) {
-        if (where) { const it = typeof where === 'string' ? items().find((i) => i.key === where || i.id === where) : where; if (it) return jump(it); }
+    async function roam(where = null, conditions = null) {
+        if (where) { const it = typeof where === 'string' ? items().find((i) => i.key === where || i.id === where) : where; if (it) return jump(it, conditions); }
         if (game.state === 'menu') { await game.loadSpotsModule?.(); setActive(true); openWorldMap(null, { startMode: true }); return true; }
         await openWorldMap();
         return true;
@@ -148,7 +148,7 @@ export function initExplore(game) {
             const g = game;
             if (g.world && g.city?.id === ch.city && g.district === ch.district && ['drive', 'foot'].includes(g.state)) {
                 const st = story; story = null;
-                if (g.freeRoam) { g.freeRoam = null; g.clock.offsetMs = 0; g.clock.override = g.menuOverride ?? null; g.toggleConditions?.(false); document.body.classList.remove('free-roam'); g.r3d.setSeason?.(null); if (st && (g.weatherOverride ?? null) !== st.weather) g.setWeatherOverride?.(st.weather); g.updateClock?.(0); g.traffic?.setHour?.(g.trafficHours(), true); }
+                if (g.freeRoam) { g.freeRoam = null; g.toggleConditions?.(false); document.body.classList.remove('free-roam'); g.updateClock?.(0); g.traffic?.setHour?.(g.trafficHours(), true); }
                 g.chapterIdx = idx; g.ch = ch; g.chapter = ch.id; g.chapterDone = !!(st && st.chapterIdx === idx && st.chapterDone);
                 g.progress.reached.add(ch.id); saveProgress(g.progress); g.renderMenuChapters?.();
                 g.navManual = false; g.updateObjective();
@@ -156,7 +156,6 @@ export function initExplore(game) {
                 toast(`📖 Story · ${ch.year} · ${ch.title}`, g.chapterDone ? 'Chapter done: free drive here, M → next chapter.' : `${ch.intro || ''}`);
             } else {
                 const st = story; story = null;
-                if (st && (g.weatherOverride ?? null) !== st.weather) g.setWeatherOverride?.(st.weather);
                 await transition({ fromCity: g.city?.id, toCity: ch.city, from: g.district, to: ch.district, title: ch.title, caption: ch.intro, kicker: `Story · ${ch.year}` });
                 await g.enterChapter(idx);
             }
@@ -191,7 +190,7 @@ export function initExplore(game) {
     function pushRecent(key) { const r = (load().recent || []).filter((k) => k !== key); r.unshift(key); save({ recent: r.slice(0, 8) }); }
     function scheduleThumb(key) { thumbDue = { key, at: performance.now() + 1600 }; }
     /** one click on a hub pin / list row */
-    async function jump(it) {
+    async function jump(it, conditions = null) {
         if (typeof it === 'string') it = items().find((i) => i.key === it || i.id === it);
         if (!it || busy || game._transit || game._spotBusy) return false;
         busy = true;
@@ -205,7 +204,7 @@ export function initExplore(game) {
             if (game.state === 'office') game.leaveOffice?.();
             const cur = currentPlace(), curItem = cur.key ? items().find((i) => i.key === cur.key) : null;
             pushRecent(it.key);
-            const opts = game.travelConditions();
+            const opts = { ...game.travelConditions(), ...conditions };
             if (it.kind === 'spot') {
                 if (game.state === 'spot' && game.spot?.spot?.spawns?.[it.id]) { // same scene: walk over (Space Needle ⇄ Chihuly ⇄ MoPOP)
                     await warp(() => { game.spot.teleport(it.id); game.spotId = it.id; game.spotEntry = game.spotsMod?.SPOTS?.find((s) => s.id === it.id) || game.spotEntry; });

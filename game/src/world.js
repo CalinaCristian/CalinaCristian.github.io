@@ -4241,9 +4241,10 @@ export async function buildWorld(city, renderer, opts = {}) {
         const sz = clamp(H / shape.top, 0.35, 1.5);
         // a crown that would reach over a carriageway is narrowed toward it (clear stems keep foliage above the lanes;
         // review #20); conifers are slimmed, never lifted
-        let sh = 1;
+        const measuredCrown = opt.crownRadiusM > 0;
+        let sh = measuredCrown ? opt.crownRadiusM / (shape.rx * sz) : 1;
         const R = shape.rx * sz;
-        if (onRibbon(x, z, R)) {
+        if (!measuredCrown && onRibbon(x, z, R)) {
             let lo = 0.35 * s + 0.5, hi = R;
             for (let it = 0; it < 4; it++) { const m = (lo + hi) / 2; if (onRibbon(x, z, m)) hi = m; else lo = m; }
             const lowCrown = (shape.cy - shape.ry * 0.8) * sz < 4.4; // crown bottom below truck height
@@ -4254,7 +4255,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         const collR = 0.3 * Math.max(0.6, sz * 1.4);
         if (onRibbon(x, z, collR + 0.3)) return false;
         if (treeClear.some((q) => (x - q.x) ** 2 + (z - q.z) ** 2 < q.r * q.r)) return false;
-        if ((shape.cy - shape.ry * 0.8) * sz < 4.4 && onRibbon(x, z, R * sh * 0.9)) { if (kind === 'street' || kind === 'garden') return false; sh = Math.max(0.3, sh * 0.6); }
+        if (!measuredCrown && (shape.cy - shape.ry * 0.8) * sz < 4.4 && onRibbon(x, z, R * sh * 0.9)) { if (kind === 'street' || kind === 'garden') return false; sh = Math.max(0.3, sh * 0.6); }
         treeList.push({ x, z, s: sz, species, con: !!isCon, dec: dec ?? (isCon ? 0 : 1), kind, sh }); treeGrid.insert(x, z, x, z, treeList[treeList.length - 1]);
         addPropColl(x, z, collR, 'tree');
         return true;
@@ -4272,7 +4273,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (con) species = 'conifer'; else if (species === 'conifer') species = null;
         const dbh = circ > 0 ? circ / Math.PI : 0; // trunk diameter, cm
         const h = hh > 0 ? hh : dbh > 0 ? clamp(4 + dbh * 0.2, 4, 26) : 0;
-        if (placeTree(x, z, h > 0 ? clamp(h / 6.5, 0.6, 2.0) : rng.range(0.85, 1.25), 'osm', con, null, { h, species: species || undefined })) treesOSM++;
+        if (placeTree(x, z, h > 0 ? clamp(h / 6.5, 0.6, 2.0) : rng.range(0.85, 1.25), 'osm', con, null, { h, species: species || undefined, crownRadiusM: (data.treeCrownRadii?.[k] || 0) / 10 })) treesOSM++;
     }
     for (const [x, z, s, kind, road, sp] of treeSpots) if (placeTree(x, z, s, kind, null, null, { road, species: sp || undefined })) treesRows++;
     // parks & forests
@@ -4989,6 +4990,35 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         return margin;
     };
+    // Optional source railway scenery. Ground assumptions are explicit; no layer-to-metre conversion or trains.
+    const railStats = { sourceWays: data.railways?.length || 0, renderedWays: 0, renderedMetres: 0, ties: 0, unresolved: [] };
+    for (const r of data.railways || []) {
+        const t = r.tags || {}, gaugeMM = Number(t.gauge), layer = t.layer == null ? 0 : Number(t.layer);
+        if (t.railway === 'abandoned') continue; // OSM abandoned tracks have had their rails removed.
+        if (!(gaugeMM > 0) || !Number.isFinite(layer) || layer !== 0 || (t.bridge && t.bridge !== 'no') || (t.tunnel && t.tunnel !== 'no')) { railStats.unresolved.push({ source: r.id, reason: 'unknown-gauge-or-vertical-placement' }); continue; }
+        const pts = undelta(r.points, 0), gauge = gaugeMM / 1000, bedHalf = gauge / 2 + 0.8; let travelled = 0, emitted = false;
+        for (let i = 1; i < pts.length; i++) {
+            const a = pts[i - 1], b = pts[i], L = Math.hypot(b[0] - a[0], b[1] - a[1]); if (L < 0.01) continue;
+            const ux = (b[0] - a[0]) / L, uz = (b[1] - a[1]) / L, nx = uz, nz = -ux, angle = Math.atan2(ux, uz), steps = Math.ceil(L / 12);
+            for (let j = 0; j < steps; j++) {
+                const lo = j * L / steps, hi = (j + 1) * L / steps, mid = (lo + hi) / 2, x = a[0] + ux * mid, z = a[1] + uz * mid, length = hi - lo;
+                // A 1-Lipschitz margin certifies that no portion inside600m is omitted. Small overhang is far context.
+                if (ringGeometry && sceneryMargin(x, z) > (distCfg?.outerRing ?? 600) + length / 2) continue;
+                const c = cellOf(x, z), ax = a[0] + ux * lo, az = a[1] + uz * lo, bx = a[0] + ux * hi, bz = a[1] + uz * hi;
+                c.ground.flatQuad(ax + nx * bedHalf, az + nz * bedHalf, bx + nx * bedHalf, bz + nz * bedHalf, bx - nx * bedHalf, bz - nz * bedHalf, ax - nx * bedHalf, az - nz * bedHalf, 0.135, rgb('#787269'), 0.2, -1);
+                for (const sign of [-1, 1]) c.solid.box(x + nx * gauge / 2 * sign, 0.24, z + nz * gauge / 2 * sign, 0.07, 0.06, length + 0.02, angle, rgb('#777b7d'));
+                // Ties are flat strips in the existing detail material, without an extra shadow pass.
+                for (let s = Math.ceil((travelled + lo) / 0.7) * 0.7 - travelled; s < hi; s += 0.7) {
+                    const tx = a[0] + ux * s, tz = a[1] + uz * s, half = gauge / 2 + 0.45, thick = 0.13;
+                    c.detail.flatQuad(tx + nx * half - ux * thick, tz + nz * half - uz * thick, tx - nx * half - ux * thick, tz - nz * half - uz * thick, tx - nx * half + ux * thick, tz - nz * half + uz * thick, tx + nx * half + ux * thick, tz + nz * half + uz * thick, 0.21, rgb('#54483b'), 0.1, -1); railStats.ties++;
+                }
+                railStats.renderedMetres += length; emitted = true;
+            }
+            travelled += L;
+        }
+        if (emitted) railStats.renderedWays++;
+    }
+    railStats.renderedMetres = Math.round(railStats.renderedMetres);
     const touchesDetailedRing = (x, z, w, d) => realPass && ringGeometry && sceneryMargin(x, z) <= (distCfg?.outerRing ?? 600) + Math.hypot(w, d) / 2;
     {
         const bd = data.backdrop || [], pal = PALETTES[country];
@@ -5338,7 +5368,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     graph.edges = driv;
 
     setProgress(''); const phases = PHASES.splice(0);
-    const stats = { phases, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, fuel: fuelLog,
+    const stats = { phases, railways: railStats, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, fuel: fuelLog,
         profile: profileStats, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, landmarkSourceReplacements, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
     console.info('[world]', city.id, stats);
 

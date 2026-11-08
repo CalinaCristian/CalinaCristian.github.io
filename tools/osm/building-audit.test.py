@@ -4,8 +4,16 @@ import json
 from pathlib import Path
 import subprocess
 import tempfile
+import importlib.util
+import math
 
 ROOT = Path(__file__).resolve().parents[2]
+spec = importlib.util.spec_from_file_location('audit', ROOT / 'tools/osm/building-audit.py')
+audit_module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(audit_module)
+for value, expected in [('5 ft',1.524),("5' 10\"",1.778),('90cm',.9),('18mm',.018),('12 inches',.3048),('12-15m',None),('3;4',None),('unknown',None),(0,0)]:
+    actual = audit_module.measure(value)
+    assert actual is None if expected is None else math.isclose(actual, expected, abs_tol=1e-10), f'strict source units: {value}'
 with tempfile.TemporaryDirectory() as tmp:
     tmp = Path(tmp)
     # Metres use a synthetic uncompressed projection, avoiding geodetic rounding.

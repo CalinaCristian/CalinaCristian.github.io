@@ -418,7 +418,8 @@ export default {
         ctx.painter.custom((x, T, k, isMask) => { if (isMask) return; for (const w of d.ways) { if (w.k !== 'pedestrian') continue; x.strokeStyle = 'rgba(205,200,190,0.55)'; x.lineWidth = Math.max(1, 0.9 * k); x.beginPath(); w.pts.forEach(([a, c], i) => { const [px, py] = T(a, c); if (i) x.lineTo(px, py); else x.moveTo(px, py); }); x.stroke(); } });
         // terraces + shop signs from OSM (bars, restaurants, cafés, shops along the pedestrian lanes)
         const inside = (x, z) => Object.values(d.spots).some((s) => inPoly(x, z, s.extent.polygon));
-        const TR = oldTownTerraces(ctx, { inside, seed: 3 });
+        const TR = oldTownTerraces(ctx, { inside, seed: 3, prioritySources: ['n1731040881', 'n10775253367'] });
+        ctx.extras.sourceFrontages = { signs: TR.signs, terraces: TR.terraces };
         ctx.add(TR.group); ctx.lampPoints.push(...TR.lamps.filter((_, i) => i % 2 === 0));
         // Real OSM POIs, on their existing street-facing footprint. Camera-held props only:
         // no invented kiosk/interior, source footprint, terrace or collision changes.

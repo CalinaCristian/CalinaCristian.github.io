@@ -1,0 +1,214 @@
+{
+  "schemaVersion": 1,
+  "id": "bellevue600",
+  "city": "seattle",
+  "name": "Bellevue 600",
+  "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+  "status": "in-progress",
+  "coordinates": {
+    "lat": 47.6160667,
+    "lon": -122.1942494
+  },
+  "sourceIds": [
+    "w1453402304",
+    "w1453402305",
+    "w1474780170",
+    "w1474780171",
+    "w1474780172",
+    "w1474780173"
+  ],
+  "replacementScope": "Only the explicit source IDs represent authored replacement. Empty scope means context geometry only; never remove neighbours by radius, name or centroid.",
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/1453402304",
+      "label": "OSM w1453402304 · version 2 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/1453402305",
+      "label": "OSM w1453402305 · version 1 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/1474780170",
+      "label": "OSM w1474780170 · version 1 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/1474780171",
+      "label": "OSM w1474780171 · version 1 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/1474780172",
+      "label": "OSM w1474780172 · version 1 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/1474780173",
+      "label": "OSM w1474780173 · version 1 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13602749.968054455%2C6043069.694714678%2C-13602453.274094094%2C6043366.3886750415&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+      "label": "Independent georeferenced Esri aerial · privately viewed · acquisition date unknown · image not published",
+      "type": "aerial"
+    }
+  ],
+  "improvements": [
+    "Refreshed the complete 183 m / 43-level office tower outline and all four mapped low podium parts.",
+    "Changed the inherited residential floor rhythm to office spacing; levels-only podium parts use explicitly estimated 4.2 m storeys.",
+    "Excluded detached neighbouring way1474780194 from replacement ownership."
+  ],
+  "remainingGaps": [
+    "Facade palette, crown detail, lobby height, mechanical levels and retail frontages remain estimates.",
+    "Only the mapped source parts are claimed; current construction condition requires dated independent review.",
+    "These are isolated front/top/oblique model studies, not matched street-eye Street View/aerial comparisons. They do not establish full-world, night, weather or seasonal parity.",
+    "Integrated source-only replacement and rebuilt district performance are separate acceptance checks; the capture branch predates that shared world policy."
+  ],
+  "checks": [
+    {
+      "label": "Bucharest foot,a regression",
+      "passed": true,
+      "details": "Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. Subsequent source changes are confined to US models."
+    },
+    {
+      "label": "Current source identity and topology review",
+      "passed": true,
+      "details": "All 24 US registry entries checked; 6 explicit replacement identities for this model. Raw source versions/tags/coordinates retained. OSM geometry takes precedence over estimates."
+    },
+    {
+      "label": "Independent visual and actual model review",
+      "passed": true,
+      "details": "Actual front, top and oblique game renders inspected against source plans and independently viewed aerial context; only game renders are published. Height/facade limits and source conflicts are listed."
+    },
+    {
+      "label": "Geometry and meaningful collision checks",
+      "passed": true,
+      "details": "All61 shared geometry invariants and the US source-scope/total-height/court/pitch/portal/bridge-clearance regression checks pass. No FPS claim is inferred from geometry counts."
+    },
+    {
+      "label": "Immutable game-only capture provenance",
+      "passed": true,
+      "details": "Each lossless WebP is RGB pixel-verified against its actual game screenshot and carries its own source commit, camera pose and SHA256."
+    },
+    {
+      "label": "Complete measured visual parity",
+      "passed": false,
+      "details": "Unmeasured sections, simplified details and world integration remain open as listed; no 100% parity claim."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Isolated model study · front elevation",
+      "image": "assets/landmarks/bellevue600/front.webp",
+      "kind": "front",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "d660889f7db30716e155a97780006fd86ffa492c1de93cf2dbe386d86bcad87d",
+      "capturedAt": "2026-11-08T17:08:16.178Z",
+      "pose": {
+        "position": [
+          303.502565956416,
+          73.2,
+          9.900076866149922
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "quaternion": [
+          0,
+          0.7071067811865475,
+          0,
+          0.7071067811865476
+        ],
+        "projection": "perspective",
+        "fov": 45,
+        "target": [
+          -17.059728622436523,
+          73.2,
+          9.900076866149902
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    },
+    {
+      "id": "top",
+      "label": "Isolated model study · orthographic north-up plan",
+      "image": "assets/landmarks/bellevue600/top.webp",
+      "kind": "top",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "9a1d3f884eabc1300268f1105b2caf9790f87ddc0c4f9cc2b9a4f6764e54929a",
+      "capturedAt": "2026-11-08T17:08:19.830Z",
+      "pose": {
+        "position": [
+          -17.059728622436523,
+          297.0614295959473,
+          9.900076866149902
+        ],
+        "up": [
+          0,
+          0,
+          -1
+        ],
+        "quaternion": [
+          -0.7071067811865475,
+          0,
+          0,
+          0.7071067811865476
+        ],
+        "projection": "orthographic",
+        "groundSquareM": 114.06142959594726,
+        "orientation": "north-up",
+        "target": [
+          -17.059728622436523,
+          0,
+          9.900076866149902
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Isolated model study · oblique overview",
+      "image": "assets/landmarks/bellevue600/oblique.webp",
+      "kind": "oblique",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "35d52434c305dc09e0bc40e472d2cabcfab44f9b4717e2436ef3289f6b4d02ac",
+      "capturedAt": "2026-11-08T17:08:22.894Z",
+      "pose": {
+        "position": [
+          148.19881701206367,
+          213.7252606918696,
+          245.91373941116214
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "quaternion": [
+          -0.21453963361642958,
+          0.29299872934427446,
+          0.06764408664580109,
+          0.929273247087327
+        ],
+        "projection": "perspective",
+        "fov": 45,
+        "target": [
+          -17.059728622436523,
+          73.2,
+          9.900076866149902
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 1729,
+    "drawCalls": 3,
+    "note": "Isolated viewer frame includes ground and shadow rendering; this is neither a whole-world budget measurement nor hardware FPS."
+  }
+}

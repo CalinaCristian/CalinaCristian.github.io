@@ -14,6 +14,7 @@ Writes <out>.json (every building) and prints a summary + the worst cases with l
 """
 import argparse, glob, json, math, os, sys
 import xml.etree.ElementTree as ET
+import re
 
 
 def undelta(arr, start, q=0.1):
@@ -71,6 +72,21 @@ def num(v):
         return float(str(v).replace('m', '').replace(',', '.').split(';')[0].strip())
     except Exception:  # noqa: BLE001
         return None
+
+
+def measure(v):
+    """Same strict physical-unit contract as building-roofs.js; no first-number/range guesses."""
+    if isinstance(v, (int, float)):
+        return float(v) if math.isfinite(v) else None
+    s = str(v or '').strip().lower().replace('′', "'").replace('’', "'").replace('″', '"').replace('”', '"')
+    f = re.fullmatch(r"([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*(?:ft|feet|foot|')\s*(?:(\d+(?:\.\d*)?|\.\d+)\s*(?:in|inches|inch|\"))?", s)
+    if f:
+        return float(f[1]) * .3048 + (-1 if float(f[1]) < 0 else 1) * float(f[2] or 0) * .0254
+    m = re.fullmatch(r'([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*(m|metres?|meters?|cm|mm|in|inches|inch|")?', s)
+    if not m:
+        return None
+    factor = .0254 if m[2] in ('in', 'inches', 'inch', '"') else .01 if m[2] == 'cm' else .001 if m[2] == 'mm' else 1
+    return float(m[1]) * factor
 
 
 def segment_distance(x, z, a, b):
@@ -164,7 +180,8 @@ def main():
             continue
         x0 = min(x for x, _ in ring); x1 = max(x for x, _ in ring); z0 = min(z for _, z in ring); z1 = max(z for _, z in ring)
         holes = d.get('buildingHoleFootprints', {}).get(str(i)) or [undelta(h, 0) for h in d.get('buildingHoles', {}).get(str(i), [])]
-        B.append({'i': i, 'source': source_ids[i] if i < len(source_ids) else None, 'ring': ring, 'holes': holes, 'bb': (x0, z0, x1, z1), 'h': d.get('buildingDimensions', {}).get(str(i), [b[1] / 10])[0], 'roof': roofs[b[3]], 'flags': b[5], 'levels': b[6], 'c': centroid(ring), 'area': abs(area(ring))})
+        dimensions = d.get('buildingDimensions', {}).get(str(i), [b[1] / 10, b[2] / 10])
+        B.append({'i': i, 'source': source_ids[i] if i < len(source_ids) else None, 'ring': ring, 'holes': holes, 'bb': (x0, z0, x1, z1), 'h': dimensions[0], 'minH': dimensions[1], 'roof': roofs[b[3]], 'flags': b[5], 'levels': b[6], 'c': centroid(ring), 'area': abs(area(ring))})
     by_source = {}
     for b in B:
         if b['source']:
@@ -185,11 +202,15 @@ def main():
             return {'identityPresent': False, 'matchMethod': 'source-id' if strict_identity else 'legacy-spatial'}
         e = max(boundary_error(ring, hit['ring']), boundary_error(hit['ring'], ring))
         same_holes = len(holes) == len(hit['holes']) and all(any(max(boundary_error(h, g), boundary_error(g, h)) <= .15 for g in hit['holes']) for h in holes)
-        height = num(tags.get('height'))
+        height = measure(tags.get('height'))
+        minimum = measure(tags.get('min_height'))
         levels = num(tags.get('building:levels'))
-        return {'identityPresent': True, 'matchedSource': hit['source'], 'matchMethod': 'source-id' if strict_identity else 'legacy-spatial',
+        issues = [f'unparsed OSM {k}={tags[k]}' for k in ('height', 'min_height') if tags.get(k) is not None and measure(tags[k]) is None]
+        issues += [f'nonpositive OSM height={tags["height"]}'] if height is not None and height <= 0 else []
+        return {'identityPresent': True, 'matchedSource': hit['source'], 'matchMethod': 'source-id' if strict_identity else 'legacy-spatial', 'sourceDimensionIssues': issues,
                 'boundaryErrorM': round(e, 5), 'topologyMatches': e <= .15 and same_holes,
                 'literalHeightMatches': height is None or height <= 0 or abs(hit['h'] - height) <= .011,
+                'literalMinimumMatches': minimum is None or minimum <= 0 or abs(hit['minH'] - minimum) <= .011,
                 'storeysMatch': levels is None or levels <= 0 or abs(hit['levels'] - levels) < .001}
     geometry = d.get('district', {}).get('geometry')
     grid = {}
@@ -273,7 +294,7 @@ def main():
                         dd = math.hypot(o['c'][0] - cx, o['c'][1] - cz)
                         if dd < best:
                             best, hit = dd, o
-        h_osm = num(t.get('height'))
+        h_osm = measure(t.get('height'))
         lv = num(t.get('building:levels'))
         row = {'osm': 'w' + wid, 'zone': zone, 'type': t.get('building'), 'name': t.get('name'), 'areaOSM': round(ar), 'lat': round(sum(p[0] for p in ll) / len(ll), 6), 'lon': round(sum(p[1] for p in ll) / len(ll), 6),
                'heightOSM': h_osm, 'levelsOSM': lv, 'roofLevelsOSM': num(t.get('roof:levels')) or 0, 'roofOSM': t.get('roof:shape')}
@@ -313,7 +334,7 @@ def main():
             candidates = [b for b in B if b['source'] == 'r' + rid]
             hit = min(candidates, key=lambda b: math.hypot(b['c'][0] - cx, b['c'][1] - cz)) if candidates else None
             ll = [nodes[n] for n in refs[:-1]]
-            row = {'osm': 'r' + rid, 'kind': 'relation', 'zone': zone, 'type': t.get('building'), 'name': t.get('name'), 'areaOSM': round(ar), 'lat': round(sum(p[0] for p in ll) / len(ll), 6), 'lon': round(sum(p[1] for p in ll) / len(ll), 6), 'heightOSM': num(t.get('height')), 'levelsOSM': num(t.get('building:levels')), 'roofLevelsOSM': num(t.get('roof:levels')) or 0, 'roofOSM': t.get('roof:shape'), 'holeCountOSM': len(holes), 'holeAreaOSM': round(sum(abs(area(h)) for h in holes), 1)}
+            row = {'osm': 'r' + rid, 'kind': 'relation', 'zone': zone, 'type': t.get('building'), 'name': t.get('name'), 'areaOSM': round(ar), 'lat': round(sum(p[0] for p in ll) / len(ll), 6), 'lon': round(sum(p[1] for p in ll) / len(ll), 6), 'heightOSM': measure(t.get('height')), 'levelsOSM': num(t.get('building:levels')), 'roofLevelsOSM': num(t.get('roof:levels')) or 0, 'roofOSM': t.get('roof:shape'), 'holeCountOSM': len(holes), 'holeAreaOSM': round(sum(abs(area(h)) for h in holes), 1)}
             if margin is not None:
                 row['margin'] = round(margin, 1); row['centroidMargin'] = round(centroid_margin, 1)
             row.update(match_fields(hit, ring, holes, t))

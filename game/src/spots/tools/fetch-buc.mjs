@@ -116,6 +116,7 @@ export function convert(json, box, sceneId) {
             for (let i = 0; i < polys.length; i++) {
                 const o = { id: polys.length > 1 ? id + '_' + i : id };
                 for (const k of BUILDING_KEYS) if (t[k] !== undefined) o[k] = t[k];
+                for (const [k,v] of Object.entries(t)) if (k.startsWith('roof:') || k.startsWith('building:')) o[k] = v;
                 o.height_m = t.height ? parseFloat(t.height) : null;
                 o.footprint = polys[i];
                 if (t.__inner) o.holes = t.__inner;

@@ -2,7 +2,7 @@ import * as THREE from '../vendor/three.module.min.js';
 import { makeWaterMaterial } from './water.js';
 import { US_FOOTPRINTS as U, US_SOURCE_TAGS as UT } from './landmark-us-source.js';
 import { emitUSLandmarkTerrain } from './landmark-us-terrain.js';
-import { sourceProfile, sourceSlope } from './landmark-us-geometry.js';
+import { sourceProfile, sourceSlope, sourceSurfaceText } from './landmark-us-geometry.js';
 
 // ============================================================================
 //  Drive My CV — procedural models of the real landmarks of Bucharest and
@@ -2012,11 +2012,11 @@ function bLumen(b) {
     b.pilasters(t2o, 0, 22, 9, 1.2, 0.5, '#cfcdc7', {});
     for (const s of [-1, 1]) {                                              // upper sideline decks
         const o = rect(FX + s * 68, FZ - 100, FX + s * 104, FZ + 100);
-        b.prism(o, 22, 38, CON, { topCol: SEAT });
-        b.bands(o, 22, 38, 5.3, '#3a3f45', { frac: 0.3, wall: false });
+        b.prism(o, 22, 26, CON, { topCol: SEAT });
+        b.bands(o, 22, 26, 4, '#3a3f45', { frac: 0.3, wall: false });
         // roof canopy, tied arch (span 219.5 m) on two towers, hangers
         const roof=U[s<0?'w458208106':'w458208107'],roofY=sourceSlope(roof,0,26,10,true);
-        sourceProfile(b,roof,roofY,'#203352');
+        sourceProfile(b,roof,roofY,'#e7e6e1');
         // OSM's complete round canopy contours and 36 m tagged roof top.
         for(let i=0;i<roof.length;i++){const a=roof[i],c=roof[(i+1)%roof.length];b.quad([a[0],roofY(...a)-.7,a[1]],[c[0],roofY(...c)-.7,c[1]],[c[0],roofY(...c),c[1]],[a[0],roofY(...a),a[1]],'#d1d3d3','m');}                    // navy roof membrane
         const arch = []; for (let i = 0; i <= 12; i++) { const t = i / 12, zz = FZ - SPAN / 2 + t * SPAN; arch.push([FX + s * 106, 44 + 22 * Math.sin(Math.PI * t), zz]); }
@@ -2025,18 +2025,20 @@ function bLumen(b) {
         for (let i = 1; i < 12; i++) { const t = i / 12, zz = FZ - SPAN / 2 + t * SPAN; b.tube([[FX + s * 106, 44 + 22 * Math.sin(Math.PI * t), zz], [FX + s * 72, roofY(FX+s*72,zz), zz]], 0.35, '#e6e6e3', { seg: 2, radial: 4 }); }
         for (const e of [-1, 1]) { b.box(FX + s * 106, 0, FZ + e * SPAN / 2, 5, 44, 5, CON); b.box(FX + s * 106, 44, FZ + e * SPAN / 2, 6.5, 2.4, 6.5, '#9aa0a5'); }
     }
-    // roof lettering (white on the canopies, readable from the air)
-    b.text('LUMEN', FX-82,36.15,FZ,Math.PI/2,12,'#ffffff',{flat:true,d:.1});
-    b.text('FIELD',FX-98,36.15,FZ,Math.PI/2,4.2,'#94bdd6',{flat:true,d:.1});
-    b.text('LUMEN',FX+78,36.15,FZ,-Math.PI/2,12,'#ffffff',{flat:true,d:.1});
-    b.text('FIELD',FX+94,36.15,FZ,-Math.PI/2,4.2,'#94bdd6',{flat:true,d:.1});
+    // Curved canopy lettering follows the actual surface instead of floating above it.
+    for (const side of [-1, 1]) {
+        const roof = U[side < 0 ? 'w458208106' : 'w458208107'];
+        const roofY = sourceSlope(roof, 0, 26, 10, true), angle = -side * Math.PI / 2;
+        sourceSurfaceText(b, 'LUMEN', FX + side * 80, FZ, angle, 12, '#ffffff', roofY);
+        sourceSurfaceText(b, 'FIELD', FX + side * 96, FZ, angle, 4.2, '#94bdd6', roofY);
+    }
     // south end: video board above the end-zone deck; north end open "Hawks Nest" bleachers
     b.prism(rect(FX - 60, FZ + 100, FX + 60, FZ + 118), 22, 32, CON, { topCol: SEAT });
     b.box(FX, 34, FZ + 108, 64, 16, 3, '#1e2227'); b.box(FX, 35, FZ + 106.4, 58, 13, 0.2, '#2d5d88');
     b.prism(rect(FX - 50, FZ - 114, FX + 50, FZ - 98), 0, 14, CON, { topCol: SEAT });
     const northBoard=U.w458208112; b.prism(northBoard,42,60,'#263843');b.colPolygon(northBoard,{y0:42,y1:60});
     b.colPolygon(t1o, { holes: [t1i], y1: 11 }); b.colPolygon(t2o, { holes: [t2i], y1: 22 });
-    for (const side of [-1,1]) b.colPolygon(rect(FX+side*68,FZ-100,FX+side*104,FZ+100), { y0: 22, y1: 46 });
+    for (const side of [-1,1]) b.colPolygon(rect(FX+side*68,FZ-100,FX+side*104,FZ+100), { y0: 22, y1: 26 });
 }
 
 // T-Mobile Park (1999, NBBJ) — retractable three-panel roof that parks over the east side. All massing from
@@ -2114,24 +2116,34 @@ function bSpheres(b) {
     b.hs=hs;b.colPolygon(U.w868099742,{y1:5.3});
 }
 
-// Mount Baker Ridge Tunnel (I-90) — east portals at Lake Washington: two 1940 Art-Deco bores and
-// the 1989 bore (Ø 19.2 m, the world's largest soft-earth tunnel then). Facade only: the road
-// passes through the openings (keep them clear of collision). OSM way 481496634 (tunnel lid).
-// Src: https://en.wikipedia.org/wiki/Mount_Baker_Tunnel (1989 bore Ø 63 ft / 19.2 m) ; OSM way 481496634
+// Mount Baker Ridge Tunnel east portals. Anchor and three road-mouth centres are
+// the mapped tunnel highway endpoints (ways 4712861, 123889282, 481403971), not the
+// eastern vertex of the historic tunnel-lid footprint, which ends 330 m inland.
+// Only the facade is modelled. Concrete/Art Deco details and wall height remain
+// estimates; the historic underground polygon and nearby houses are not replaced.
+// Src: https://en.wikipedia.org/wiki/Mount_Baker_Tunnel (1989 bore Ø 63 ft / 19.2 m)
 function bMtBaker(b) {
     const CON = '#cfcabe';
-    b.archWall(78, 23, 3, [{ x: -24, w: 11, h: 10.5 }, { x: -9, w: 11, h: 10.5 }, { x: 16, w: 19.5, h: 19 }], CON, M(0, 0, 0, Math.PI / 2));
-    for (const z of [-39, -27.5, -1.5, 16.5, 39]) b.box(0.5, 0, z, 4, 25.5, 3, '#dcd7cb');
-    b.box(0, 23, 0, 4.5, 1.2, 80, '#e2ddd2');
-    // wooded ridge rising behind (west) over the bores
-    b.geo((() => { const s = new THREE.Shape([new THREE.Vector2(0, 23), new THREE.Vector2(0, 24.5), new THREE.Vector2(-60, 40), new THREE.Vector2(-90, 42), new THREE.Vector2(-90, 23)]); const g = new THREE.ExtrudeGeometry(s, { depth: 90, bevelEnabled: false }); g.translate(0, 0, -45); return g; })(), '#4d6b3c', M(-1.5, 0, 0));
-    for (const s of [-1, 1]) b.box(10, 0, s * 47, 24, 12, 2, CON, { ry: s * 0.25 });   // wing walls
-    for (const [z0, z1] of [[-40, -25.8], [-6.2, 3.5], [14.5, 18.5], [29.5, 40]]) b.col(0, (z0 + z1) / 2, 2, (z1 - z0) / 2);   // piers between the bores (openings: world z +18.5..29.5, +3.5..14.5, -25.8..-6.2)
-    // 1940 bores: carved band "SEATTLE · PORTAL TO THE PACIFIC" over the openings + low-relief Northwest-native panels
-    // (research landmarks[mt-baker-tunnel-east-portal], concrete #bdb9ae; refs/bellevue/Seattle_-_Portal_to_the_Pacific_01.jpg)
-    b.box(2.8, 11.4, 16.5, 0.4, 1.9, 27, '#c5c1b6');
-    b.text('SEATTLE  PORTAL TO THE PACIFIC', 3.0, 11.85, 16.5, Math.PI / 2, 0.95, '#8f8b80');
-    b.box(1.75, 2, 34.5, 0.5, 9, 5, '#b3afa3'); b.box(2.05, 4, 34.5, 0.3, 2.2, 2.6, '#a7a397'); b.box(2.05, 7.5, 33.8, 0.3, 1.2, 3.4, '#a7a397');
+    const openings = [{ x: -23.1, w: 11, h: 10.5 }, { x: -4.1, w: 11, h: 10.5 }, { x: 35.9, w: 19.2, h: 19.2 }];
+    b.archWall(100, 26.5, 3, openings, CON, M(0, 0, 0, Math.PI / 2));
+    // World z = -archWall local x. Exact pier intervals leave all mapped road mouths open.
+    const gaps = openings.map(q => [-q.x - q.w / 2, -q.x + q.w / 2]).sort((a,c) => a[0] - c[0]);
+    let start = -50;
+    for (const [a,z] of [...gaps,[50,50]]) {
+        if (a > start) { const centre = (start + a) / 2, width = a - start;
+            b.col(0, centre, 2, width / 2, 0, { y0: 0, y1: 26.5 });
+            b.box(0.5, 0, centre, 4, 27.5, Math.min(3,width), '#dcd7cb');
+        }
+        start = z;
+    }
+    b.box(0, 26.5, 0, 4.5, 1.2, 102, '#e2ddd2');
+    // A short procedural retaining embankment suggests the ridge without a solid
+    // ground-level extrusion over the bore approaches.
+    b.geo((() => { const s = new THREE.Shape([new THREE.Vector2(0, 27.7), new THREE.Vector2(-60, 40), new THREE.Vector2(-90, 42), new THREE.Vector2(-90, 27.7)]); const g = new THREE.ExtrudeGeometry(s, { depth: 100, bevelEnabled: false }); g.translate(0, 0, -50); return g; })(), '#4d6b3c', M(-1.5, 0, 0));
+    for (const side of [-1, 1]) b.box(10, 0, side * 52, 24, 12, 2, CON, { ry: side * 0.25 });
+    b.box(2.8, 11.4, 13.6, 0.4, 1.9, 27, '#c5c1b6');
+    b.text('SEATTLE  PORTAL TO THE PACIFIC', 3.0, 11.85, 13.6, Math.PI / 2, 0.95, '#8f8b80');
+    b.box(1.75, 2, 36.5, 0.5, 9, 5, '#b3afa3'); b.box(2.05, 4, 36.5, 0.3, 2.2, 2.6, '#a7a397'); b.box(2.05, 7.5, 35.8, 0.3, 1.2, 3.4, '#a7a397');
 }
 
 // Seattle-Tacoma International Airport — main terminal & concourses A-D (OSM way 23772634, 2 levels), the
@@ -2178,7 +2190,7 @@ const SEATAC_PLANES = [
     [0.68, { tail: '#0033a0', belly: '#9aa3ad' }],    // United
 ];
 
-// SeaTac Air Traffic Control Tower (2004) — cab floor 71 m (233 ft), 82 m (269 ft) overall, OSM way 1199936807.
+// SeaTac Air Traffic Control Tower (2004) — 71 m (233 ft) overall, OSM way 1199936807.
 // Src: https://en.wikipedia.org/wiki/Seattle–Tacoma_International_Airport (tower 233 ft) ; game/research/seattle-seatac.json landmarks[sea-control-tower] ; OSM way 1199936807
 function bSeaTower(b) {
     const p=U.w1199936806; b.prism(p,0,9,'#cfcdc6');b.bands(p,0,9,4.5,'#4c5964',{frac:0.5});
@@ -3220,7 +3232,7 @@ const A = {
     seatower: [47.4557242, -122.3013712, -0.2618], bellevuetowers: [47.6143271, -122.1981129, 0],
     bellevuesq: [47.615653, -122.2035769, -1.5359],
     lumen: [47.5952, -122.3316, 0], greatwheel: [47.60615, -122.34262, -1.01],
-    mtbaker: [47.5903651, -122.2930, 0],               // east portal (east end of OSM way 481496634)
+    mtbaker: [47.5901, -122.2885856, 0],               // actual highway tunnel mouths at the east facade
     rainier: [46.8529, -121.7604, 0], olympics: [47.70, -123.15, 0],
     // district-era landmarks (P2 footprints): anchor = bbox centre of the OSM footprints, rotation 0 (+x east)
     lincoln: [47.6168559, -122.2010316, 0], onelincoln: [47.6159634, -122.2008866, 0], lincolnsouth: [47.6147631, -122.2008325, 0], plazacenter: [47.6178822, -122.1940388, 0],

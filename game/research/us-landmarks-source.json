@@ -996,8 +996,8 @@
     {
       "id": "mtbaker",
       "coordinates": {
-        "lat": 47.5903651,
-        "lon": -122.293
+        "lat": 47.5901,
+        "lon": -122.2885856
       },
       "sourceIds": [],
       "sources": [
@@ -1014,6 +1014,102 @@
             "wikipedia": "en:Mount Baker Tunnel"
           },
           "url": "https://www.openstreetmap.org/way/481496634"
+        },
+        {
+          "id": "w4712861",
+          "version": 25,
+          "timestamp": "2026-03-26T07:16:26Z",
+          "tags": {
+            "access:lanes": "no|yes|yes|yes",
+            "bicycle": "no",
+            "bus:lanes": "designated|||",
+            "hgv": "designated",
+            "hgv:national_network": "yes",
+            "highway": "motorway",
+            "hov:lanes": "designated|||",
+            "hov:minimum": "2",
+            "lanes": "4",
+            "layer": "-2",
+            "maxheight": "default",
+            "maxspeed": "60 mph",
+            "name": "Mount Baker Ridge Tunnel",
+            "oneway": "yes",
+            "ref": "I 90",
+            "source": "tiger",
+            "source:hgv:national_network": "https://www.ecfr.gov/current/title-23/chapter-I/subchapter-G/part-658;https://hepgis-usdot.hub.arcgis.com/apps/usdot::national-network-conventional-combination-trucks-map",
+            "surface": "concrete",
+            "toll": "no",
+            "tunnel": "yes"
+          },
+          "url": "https://www.openstreetmap.org/way/4712861"
+        },
+        {
+          "id": "w123889282",
+          "version": 11,
+          "timestamp": "2026-05-06T05:06:30Z",
+          "tags": {
+            "bicycle": "no",
+            "hgv": "designated",
+            "hgv:national_network": "yes",
+            "highway": "motorway",
+            "hov:lanes": "designated|",
+            "hov:minimum": "2",
+            "lanes": "2",
+            "layer": "-2",
+            "maxheight": "default",
+            "maxspeed": "60 mph",
+            "motor_vehicle:lanes": "no|",
+            "name": "Mount Baker Ridge Tunnel",
+            "oneway": "yes",
+            "ref": "I 90",
+            "source:hgv:national_network": "https://www.ecfr.gov/current/title-23/chapter-I/subchapter-G/part-658;https://hepgis-usdot.hub.arcgis.com/apps/usdot::national-network-conventional-combination-trucks-map",
+            "surface": "concrete",
+            "toll": "no",
+            "tunnel": "yes"
+          },
+          "url": "https://www.openstreetmap.org/way/123889282"
+        },
+        {
+          "id": "w481403971",
+          "version": 8,
+          "timestamp": "2026-03-09T07:39:43Z",
+          "tags": {
+            "bicycle": "no",
+            "hgv": "designated",
+            "hgv:national_network": "yes",
+            "highway": "motorway",
+            "lanes": "2",
+            "layer": "-2",
+            "maxheight": "default",
+            "maxspeed": "60 mph",
+            "oneway": "yes",
+            "ref": "I 90",
+            "source:hgv:national_network": "https://www.ecfr.gov/current/title-23/chapter-I/subchapter-G/part-658;https://hepgis-usdot.hub.arcgis.com/apps/usdot::national-network-conventional-combination-trucks-map",
+            "surface": "concrete",
+            "toll": "no",
+            "tunnel": "yes"
+          },
+          "url": "https://www.openstreetmap.org/way/481403971"
+        },
+        {
+          "id": "w4732917",
+          "version": 14,
+          "timestamp": "2023-08-21T03:59:06Z",
+          "tags": {
+            "bicycle": "yes",
+            "foot": "designated",
+            "highway": "cycleway",
+            "horse": "no",
+            "layer": "-1",
+            "lit": "yes",
+            "name": "Mount Baker Ridge Bicycle/Pedestrian Tunnel",
+            "oneway": "no",
+            "segregated": "no",
+            "smoothness": "excellent",
+            "surface": "asphalt",
+            "tunnel": "yes"
+          },
+          "url": "https://www.openstreetmap.org/way/4732917"
         }
       ]
     },

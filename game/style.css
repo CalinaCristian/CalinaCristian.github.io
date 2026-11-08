@@ -830,3 +830,9 @@ body[data-mode=drive] .pad button.drive-only { display: inline-block; }
 body[data-mode=foot] .pad button.drive-only, body[data-mode=spot] .pad button.drive-only { display: none; }
 body[data-mode=foot] .pad button.office-only, body[data-mode=spot] .pad button.office-only { display: inline-block; }
 body[data-mode=spot] .pad button[data-btn=foot], body[data-mode=spot] .pad button[data-btn=map] { display: none; }
+
+/* (round 6 note 51) full-map hover tooltip + the "route set" line under the map */
+#map-tip { position: absolute; display: none; pointer-events: none; z-index: 5; padding: 4px 9px; border-radius: 8px; background: rgba(15,18,28,.92); color: #f1f5f9; font: 600 13px system-ui, sans-serif; white-space: nowrap; box-shadow: 0 4px 14px rgba(0,0,0,.4); border: 1px solid rgba(255,255,255,.14); }
+#map-tip.show { display: block; }
+#map-route-hint { margin-top: 10px; color: #93c5fd; font: 600 13px system-ui, sans-serif; }
+#map-route-hint:empty { display: none; }

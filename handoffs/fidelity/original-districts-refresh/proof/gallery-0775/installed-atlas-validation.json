@@ -85,6 +85,15 @@
       "sourceCounts": {
         "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 100
       }
+    },
+    {
+      "manifest": "game/overview/comparison-data/grozavesti/context/summer-clear-day/manifest.json",
+      "kind": "perspective",
+      "frames": 16,
+      "verifiedImageHashes": 32,
+      "sourceCounts": {
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 16
+      }
     }
   ],
   "currentAtlasFrames": 306,

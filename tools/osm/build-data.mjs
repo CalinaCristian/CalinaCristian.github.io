@@ -1000,11 +1000,12 @@ function buildCity(cityId, did = null) {
         const t = w.tags;
         // district mode: tall building:parts (towers rising out of a podium, e.g. Lincoln Square North) are kept as buildings
         const tallPart = ds && t['building:part'] && t['building:part'] !== 'no' && (num(t.height) >= 20 || num(t['building:levels']) >= 6);
+        const barePart = tallPart && t['building:part'] === 'yes' && !t.building && !['name', 'shop', 'office', 'amenity', 'tourism', 'leisure'].some(k => t[k]) && !Object.keys(t).some(k => k.startsWith('roof:'));
         if (tallPart && !t.building) t.building = 'yes';
         if (!t.building || t.building === 'no' || (t['building:part'] && !tallPart)) continue;
         if (w.nodes.length < 4 || w.nodes[0] !== w.nodes[w.nodes.length - 1]) continue;
         if (bRelWays.has(id) && !t.name && Object.keys(t).length <= 1) continue;
-        addRaw(w.nodes, t, false, id);
+        addRaw(w.nodes, barePart ? { ...t, __barePart: true } : t, false, id);
     }
     log('raw buildings', rawBuildings.length);
 
@@ -1067,7 +1068,10 @@ function buildCity(cityId, did = null) {
         if (!outside && !nearNetwork(cOut[0], cOut[1])) { dropWhy('far'); continue; }
         const [sx, sz] = C.shape(la);
         let ring = local.map(([x, z]) => [cOut[0] + (x - cL[0]) * sx, cOut[1] + (z - cL[1]) * sz]);
-        ring = simplifyRing(ring, 1.0, 0.25, 40);
+        // Thin mapped structural parts are real strips, not independent houses. The ordinary 1 m duplicate tolerance
+        // folded sub-metre four-corner fins into half-area triangles; preserve their source width and tagged heights.
+        const thinPart = t.__barePart && rectOf(local).w < 1;
+        ring = simplifyRing(ring, thinPart ? 0.1 : 1.0, thinPart ? 0.05 : 0.25, 40);
         if (!ring) { dropWhy('simplify'); continue; }
         let holes = (rb.holesLL || []).map(h => simplifyRing(h.map(([a, c]) => [cOut[0] + ((c - lo) * P.mPerLon - cL[0]) * sx, cOut[1] + (-(a - la) * P.mPerLat - cL[1]) * sz]), 0.2, 0.1, 80)).filter(h => h && Math.abs(polyArea(h)) >= 1);
         // Keep the source courtyard in place when only a street-facing outer wall is pushed. A radial fallback scales
@@ -1148,6 +1152,9 @@ function buildCity(cityId, did = null) {
             else if (realArea < 320) { style = 'house'; defLevels = realArea < 90 ? 1 : 2; roof = ROOF_FOR_HOUSE(realArea, lls.length); }
             else { style = 'bloc'; defLevels = 3; }
         }
+        // An unspecified small building:part has no evidence of a dwelling or a pitched roof. Keep explicit height,
+        // min_height and colour, with a plain flat fallback; later authoritative roof evidence still takes priority.
+        if (t.__barePart && style === 'house') { style = 'plain'; roof = 0; }
         if (b === 'hotel' && country === 'RO' && style !== 'glass') defLevels = Math.max(defLevels, 7);
         let measuredRoof = !!rb.roofKnown && !t['roof:shape'];
         // aerial roof survey: shape where neither OSM nor the style rules above decided it (pitched only for footprints a

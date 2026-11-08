@@ -126,7 +126,7 @@ function walkPoses(o) {
                     const facade = sd > 0 ? 'right' : 'left';
                     for (const h of want) {
                         if ((h === 'left' || h === 'right') && h !== facade) continue;
-                        out.push({ id: `${street.replace(/[^\p{L}\d]+/gu, '-').replace(/^-|-$/g, '').slice(0, 40)}-${k}-${sd > 0 ? 'R' : 'L'}-${h}`, street, side: sd > 0 ? 'R' : 'L', kind: h,
+                        out.push({ id: `${street.replace(/[^\p{L}\d]+/gu, '-').replace(/^-|-$/g, '').slice(0, 40)}-${k}-${sd > 0 ? 'R' : 'L'}-${h}`, street, side: sd > 0 ? 'R' : 'L', kind: h, sourceEdge: e.id, sourceLayer: e.layer ?? 0,
                             lat: +ll.lat.toFixed(7), lon: +ll.lon.toFixed(7), clat: +c.lat.toFixed(7), clon: +c.lon.toFixed(7), heading: Math.round(hd[h]), pitch: h === 'fwd' || h === 'back' ? 0 : 6, fov: h === 'fwd' || h === 'back' ? 80 : 90, h: 1.7 });
                     }
                 }
@@ -225,12 +225,22 @@ function topdownPoses(o) {
             g.scene.add(cam);
             if (g.world) g.world.camera = cam; // (distance culling follows this camera: with a narrow fov the world picked a wider one elsewhere)
             let gy = (g.world.groundAt?.(p.x, p.z)) ?? 0;
-            // A panorama on a named underpass ramp stands above that road, below the flat ground plane.
+            let cameraLevelAmbiguity = null, cameraSourceEdge = null;
+            // Keep the sampled source way. Panorama metadata has no altitude; overlapping surfaces can be ambiguous.
             if ((v.pitch ?? 0) > -80 && v.street) {
-                const ne = g.world.nearestEdge?.(p.x, p.z, e => !e.virtual && e.name === v.street, 50), e = ne?.edge;
+                const sp = Number.isFinite(v.clat) && Number.isFinite(v.clon) ? g.city.proj(v.clat, v.clon) : p;
+                const eligible = e => !e.virtual && e.name === v.street;
+                const explicitSource = Number.isInteger(v.sourceEdge);
+                const src = explicitSource
+                    ? g.world.nearestEdge?.(sp.x, sp.z, e => eligible(e) && e.id === v.sourceEdge && (v.sourceLayer == null || (e.layer ?? 0) === v.sourceLayer), 1)?.edge
+                    : g.world.nearestEdge?.(sp.x, sp.z, eligible, 50)?.edge;
+                if (explicitSource && !src) cameraLevelAmbiguity = { reason: 'unmatched-source-edge', sourceEdge: v.sourceEdge, sourceLayer: v.sourceLayer ?? null };
+                const ne = src ? g.world.nearestEdge?.(p.x, p.z, e => e === src, 50) : null, e = ne?.edge;
                 if (e && ne.d <= Math.max(e.wR, e.wL) + 2 && (e.tunnel || e.bridge || Math.abs(e.ya) > 0.01 || Math.abs(e.yb) > 0.01)) {
-                    const y = e.ya + (e.yb - e.ya) * ne.t, surface = g.world.roadHeight(p.x, p.z, { edge: e, y });
-                    if (Number.isFinite(surface)) gy = surface;
+                    cameraSourceEdge = e.id;
+                    const levels = (g.world.surfacesAt?.(p.x, p.z) || []).filter(Number.isFinite);
+                    if (levels.length && Math.max(...levels) - Math.min(...levels) > 0.25) cameraLevelAmbiguity = { reason: 'overlapping-road-surfaces', sourceEdge: e.id, sourceLayer: e.layer ?? 0, levels };
+                    else { const surface = g.world.roadHeight(p.x, p.z, e); if (Number.isFinite(surface)) gy = surface; }
                 }
             }
             cam.position.set(p.x, (Number.isFinite(gy) ? gy : 0) + (v.h ?? 2.6), p.z);
@@ -242,7 +252,7 @@ function topdownPoses(o) {
             cam.updateProjectionMatrix(); cam.updateMatrixWorld(true);
             const fog = g.scene.fog; if (v.pitch <= -80) g.scene.fog = null;
             S.renderNow = true; try { g.drawFrame({ mirror: false }); } finally { S.renderNow = false; g.scene.fog = fog; cam.far = far0; cam.updateProjectionMatrix(); }
-            return { x: Math.round(p.x), z: Math.round(p.z) };
+            return { x: Math.round(p.x), z: Math.round(p.z), cameraBaseY: gy, cameraY: cam.position.y, cameraSourceEdge, cameraLevelAmbiguity };
         }, v);
         const file = path.join(A.out, v.id + '.jpg');
         await page.screenshot({ path: file, type: 'jpeg', quality: 85 });
@@ -266,6 +276,7 @@ function topdownPoses(o) {
         rows.push({ ...v, game: v.id + '.jpg', sv, sat: satF, ...r });
         if (rows.length % 25 === 0 || views.length < 30) console.log('view', rows.length, '/', views.length, v.id, JSON.stringify(r));
     }
+    fs.writeFileSync(path.join(A.out, 'camera-poses.json'), JSON.stringify(rows, null, 1));
     const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
     const groups = new Map(); for (const r of rows) { const k = r.street || 'views'; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(r); }
     const html = `<!doctype html><meta charset=utf-8><title>Viewpoints · ${esc(A.district)}</title><style>body{font:14px system-ui;background:#111;color:#eee;margin:16px}h2{margin:28px 0 8px;font-size:18px}nav a{color:#9cf;margin-right:10px}figure{margin:0 0 22px}img{width:640px;max-width:48vw;margin-right:8px;vertical-align:top}figcaption{margin:4px 0 6px;color:#aaa}</style>

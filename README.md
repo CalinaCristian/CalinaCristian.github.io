@@ -58,7 +58,9 @@ that chapter of the CV.
   Needle elevator to the revolving Loupe, catch a fish at Pike Place, row in Cișmigiu, climb the Arc de Triumf terrace,
   rent a bike in Herăstrău, and more. Short tours select an available activity first and use at most three stops / 180 m
   of walkable route, with **Skip** and **End tour** controls. Activities and postcards require participation; narration
-  alone never completes them. A hidden sports room reached through Carusel retains the World Cup Predictions Easter egg;
+  alone never completes them. Seasonal Cișmigiu rowing starts at the mapped Debarcader: use the visible oars to propel
+  the boat along a short return course. Idle time grants no progress. Pause, map, photo mode, drone launch or leaving
+  cancels an unfinished activity and restores the walker safely to shore. A hidden sports room reached through Carusel retains the World Cup Predictions Easter egg;
   a second TV shows an actual Dinamo drone goal as a hint. The real Starbucks street frontage stays in place.
 - **Offices you can talk in.** Each CV stop is a distinct interior (a 2009 classroom, the Politehnica rectorate,
   turnstile lobbies, the UiPath robot floor…) with a teacher, professor or manager who answers A–D questions about that

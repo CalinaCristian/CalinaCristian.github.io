@@ -7,7 +7,8 @@ const root=path.resolve(process.argv[2]||''),out=path.resolve(process.argv[3]||'
 if(!/^[0-9a-f]{40}$/.test(sourceCommit||''))throw Error('Immutable root, output directory and full source commit required');
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 const files=['game/data/seattle-seatac.json','game/src/landmarks.js','game/src/landmark-seatac-aircraft.js','game/src/landmark-us-source.js','game/src/landmark-us-geometry.js','game/src/landmark-us-terrain.js'];
-const inputHashes={};for(const file of files){const served=fs.readFileSync(path.join(root,file));if(!served.equals(execFileSync('git',['show',sourceCommit+':'+file])))throw Error('Source archive mismatch: '+file);inputHashes[file]=hash(served);}
+const inputHashes={};for(const file of files){const served=fs.readFileSync(path.join(root,file));if(!served.equals(execFileSync('git',['show',sourceCommit+':'+file],{maxBuffer:32*1024*1024})))throw Error('Source archive mismatch: '+file);inputHashes[file]=hash(served);}
+if(process.argv.includes('--verify-only')){console.log(JSON.stringify({passed:true,sourceCommit,inputHashes,mode:'Source bytes only; no native browser gate claimed'},null,2));process.exit(0);}
 const research=JSON.parse(fs.readFileSync(path.join(root,'game/research/landmarks-seatac-aircraft.json')));
 const before=JSON.parse(fs.readFileSync(path.join(__dirname,'../seatac/aircraft/before-camera.json')));
 const poses=[{id:'corrected-public-curb',lat:before.lat,lon:before.lon,heading:before.heading,pitch:before.pitch,fov:before.fov,h:before.h,cameraBaseY:before.cameraBaseY,note:'Exact original 437 camera; independent aerial correction removes the unsupported forecourt aircraft.'},...research.records.map(r=>({id:r.id+'-plan',lat:r.geographicModelOrigin.lat,lon:r.geographicModelOrigin.lon,heading:0,pitch:-90,fov:50,h:90,aircraft:r.id,note:'Airside camera fixture in the actual district; ordinary fog, depth and world geometry retained.'}))];

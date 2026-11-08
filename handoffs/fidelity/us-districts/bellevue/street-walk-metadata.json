@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "district": "bellevue",
+  "surveyedAt": "2026-11-08",
+  "metadataSourceCommit": "a9f77967c37fdf004ebd154609ec3b2f6cd013e9",
+  "finalDatasetSha256": "24c27cbd160167836c254a1b6eafbeeb569df9744faf936d52892a9747a9fe46",
+  "scope": "Compiled public drivable nonvirtual, nontunnel source streets excluding service, motorway, motorway_link and trunk_link; length greater than 4 m. Sampling is along both sides, with facade and along-street headings. Private airfield, indoor and full nearby-ring street coverage are not claimed.",
+  "candidateViews": 432,
+  "availableComparisonViews": 426,
+  "withoutUsableGooglePanoramaWithin20M": 0,
+  "publicUploadMatchesExcludedWithinMissing": 0,
+  "duplicatePanoSideKindViewsOmitted": 6,
+  "streets": 15,
+  "uniquePanoramas": 131,
+  "altitude": "Panorama metadata does not provide altitude. Source road-layer and estimated grade selection is retained per pose; overlapping elevations and off-ribbon panoramas remain flagged.",
+  "use": "Google Street View is used for comparison only. No reference imagery, copyright strings or extracted scene attributes are published.",
+  "sourceIdentityValidation": {
+    "district": "bellevue",
+    "metadataSourceCommit": "a9f77967c37fdf004ebd154609ec3b2f6cd013e9",
+    "datasetSha256": "24c27cbd160167836c254a1b6eafbeeb569df9744faf936d52892a9747a9fe46",
+    "viewPoses": 426,
+    "uniquePanoramas": 131,
+    "issues": [],
+    "note": "Original source identities are recovered from the exact sampled road-centre coordinate, not a nearest panorama or nearby building. Runtime edge IDs are not stable and will be revalidated on the recorded final runtime. This is not a road-altitude measurement or rendered comparison."
+  },
+  "metadataPlanSha256": "640d15b87080a84037e2d4094b68e5322344d786964e2ded7ca27483b9f665f9"
+}

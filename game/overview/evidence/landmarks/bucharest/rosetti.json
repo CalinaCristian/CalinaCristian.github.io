@@ -1,0 +1,247 @@
+{
+  "schemaVersion": 1,
+  "id": "rosetti",
+  "city": "bucharest",
+  "name": "Liceul Teoretic C.A. Rosetti",
+  "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.4671565,
+    "lon": 26.106133
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/28240279",
+      "label": "OpenStreetMap w28240279 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {
+        "building:levels": "3"
+      }
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/545176891",
+      "label": "OpenStreetMap w545176891 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {}
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/544207404",
+      "label": "OpenStreetMap w544207404 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {}
+    },
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "label": "Esri World Imagery — private outline/roof comparison; no imagery published",
+      "type": "aerial"
+    }
+  ],
+  "sourceIds": [
+    "w28240279",
+    "w544207404",
+    "w545176891"
+  ],
+  "sourceLedger": "../../../../research/landmark-source-bucharest.json",
+  "reviewedAt": "2026-11-08",
+  "improvements": [
+    "Refreshed the main school, hall and gym outlines from their exact mapped sources.",
+    "School and outbuildings use their own polygon collision and height bands; basketball metadata is a separate worker scope."
+  ],
+  "remainingGaps": [
+    "Only the main school has three mapped levels; eaves 11.3/12.5/6.2 m and facade colours remain prior estimates.",
+    "Court layout and basketball details are audited in the separate court lane.",
+    "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity."
+  ],
+  "checks": [
+    {
+      "label": "Full source boundary and replacement-identity checks",
+      "passed": true,
+      "details": "tools/landmarks/bucharest-source-check.mjs: 3 authored source rings; explicit replacement IDs match the source ledger. Entire 33-model check passes 306 checks."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs: all 61 models pass finite geometry, normals and triangle accounting; dedicated concave courtyard, roof and height-band checks pass."
+    },
+    {
+      "label": "Mandatory foot / driving regression",
+      "passed": true,
+      "details": "Immutable production ef21d14: npm run harness -- --scenario=foot,a --city=bucharest completed 0 high / 0 medium / 1 low (software-GL FPS only). Both scenario screenshots inspected."
+    },
+    {
+      "label": "Published game studies inspected",
+      "passed": true,
+      "details": "Front, top and oblique game-only studies inspected against source outlines and available independent reference photographs. Remaining shape discrepancies are listed explicitly."
+    },
+    {
+      "label": "Matched exterior Street View comparison",
+      "passed": false,
+      "details": "Requested outdoor panorama did not reliably provide a matched visible exterior (wrong nearby view, indoor imagery, occlusion or unavailable coverage); this is not treated as an exterior pass."
+    },
+    {
+      "label": "Complete district / traffic / mirror budget",
+      "passed": false,
+      "details": "These are isolated model studies. Paired Romana samples had unchanged findings and world-only peak1.13M triangles/296 calls, with an Arnia capture timeout; traffic and mirror budget and all tourist-scene placements require the district lanes."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study",
+      "kind": "front",
+      "image": "assets/landmarks/rosetti/front.webp",
+      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "sha256": "374574cd5c4b25003611d3b296b31f48a45aa1aa9275c0ec7a7970900364a04d",
+      "capturedAt": "2026-11-08T16:51:32.306501Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=rosetti&clean=1&fountains=on&view=street&az=90",
+        "anchor": {
+          "lat": 44.4671565,
+          "lon": 26.106133,
+          "rotation": 0
+        },
+        "camera": {
+          "position": [
+            170.7731761932373,
+            1.3,
+            -58.917336463928216
+          ],
+          "quaternion": [
+            0.010051117220928558,
+            0.7070353421453635,
+            -0.010051117220928558,
+            0.7070353421453635
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 3336.920623779297,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -51.25790786743164,
+            -0.03262113407254219,
+            -147.57110595703125
+          ],
+          "max": [
+            59.11219787597656,
+            13.399999618530273,
+            29.736433029174805
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "top",
+      "label": "Top model study (perspective)",
+      "kind": "top",
+      "image": "assets/landmarks/rosetti/top.webp",
+      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "sha256": "b638468e12310708f8464f2a8bc413104b1fb9c7c806b818f92ef49424325146",
+      "capturedAt": "2026-11-08T16:51:36.710449Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=rosetti&clean=1&fountains=on&view=top&az=0",
+        "anchor": {
+          "lat": 44.4671565,
+          "lon": 26.106133,
+          "rotation": 0
+        },
+        "camera": {
+          "position": [
+            3.927145004272461,
+            255.8490406035243,
+            -58.66148733804167
+          ],
+          "quaternion": [
+            -0.7067531394223399,
+            0,
+            0,
+            0.7074602461740636
+          ],
+          "fov": 45,
+          "near": 0.5116983370561958,
+          "far": 5116.983370561958,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -51.25790786743164,
+            -0.03262113407254219,
+            -147.57110595703125
+          ],
+          "max": [
+            59.11219787597656,
+            13.399999618530273,
+            29.736433029174805
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/rosetti/oblique.webp",
+      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "sha256": "1d0f02b2aeb9ff247996670bc6dc4ef676b0118f536b0315aaa5ad687409224b",
+      "capturedAt": "2026-11-08T16:51:41.006399Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=rosetti&clean=1&fountains=on&view=oblique&az=125&el=28",
+        "anchor": {
+          "lat": 44.4671565,
+          "lon": 26.106133,
+          "rotation": 0
+        },
+        "camera": {
+          "position": [
+            199.61041579583215,
+            132.39054331144538,
+            -195.93623777371027
+          ],
+          "quaternion": [
+            -0.11170709980433724,
+            0.8606628205933394,
+            0.214587342179916,
+            0.4480327060358214
+          ],
+          "fov": 45,
+          "near": 0.5411083655703014,
+          "far": 5411.083655703014,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -51.25790786743164,
+            -0.03262113407254219,
+            -147.57110595703125
+          ],
+          "max": [
+            59.11219787597656,
+            13.399999618530273,
+            29.736433029174805
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 5816,
+    "drawCalls": 3,
+    "note": "Isolated development viewer render, including its ground/shadow work; excludes district world, traffic and mirrors."
+  }
+}

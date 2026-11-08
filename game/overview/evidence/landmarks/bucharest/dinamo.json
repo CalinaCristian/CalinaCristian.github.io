@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 1,
+  "id": "dinamo",
+  "city": "bucharest",
+  "name": "Stadionul Dinamo",
+  "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.4551306,
+    "lon": 26.1023192
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/28212482",
+      "label": "OpenStreetMap w28212482 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {}
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/427813551",
+      "label": "OpenStreetMap w427813551 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {}
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/860001496",
+      "label": "OpenStreetMap w860001496 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {}
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Stadionul_Dinamo",
+      "label": "Independent historical and architectural reference",
+      "type": "independent"
+    },
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "label": "Esri World Imagery — private outline/roof comparison; no imagery published",
+      "type": "aerial"
+    }
+  ],
+  "sourceIds": [
+    "w28212482",
+    "w427813551",
+    "w860001496"
+  ],
+  "sourceLedger": "../../../../research/landmark-source-bucharest.json",
+  "reviewedAt": "2026-11-08",
+  "improvements": [
+    "Refreshed the full mapped stadium and stand outlines.",
+    "Retained the open bowl and specialized stand collision instead of filling the playing field."
+  ],
+  "remainingGaps": [
+    "Stand heights, roof geometry and 49.5 m floodlights remain estimates; no source building heights are mapped.",
+    "Stadium redevelopment/current operational state needs date-specific confirmation.",
+    "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity."
+  ],
+  "checks": [
+    {
+      "label": "Full source boundary and replacement-identity checks",
+      "passed": true,
+      "details": "tools/landmarks/bucharest-source-check.mjs: 0 authored source rings; explicit replacement IDs match the source ledger. Entire 33-model check passes 306 checks."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs: all 61 models pass finite geometry, normals and triangle accounting; dedicated concave courtyard, roof and height-band checks pass."
+    },
+    {
+      "label": "Mandatory foot / driving regression",
+      "passed": true,
+      "details": "Immutable production ef21d14: npm run harness -- --scenario=foot,a --city=bucharest completed 0 high / 0 medium / 1 low (software-GL FPS only). Both scenario screenshots inspected."
+    },
+    {
+      "label": "Published game studies inspected",
+      "passed": true,
+      "details": "Front, top and oblique game-only studies inspected against source outlines and available independent reference photographs. Remaining shape discrepancies are listed explicitly."
+    },
+    {
+      "label": "Matched exterior Street View comparison",
+      "passed": false,
+      "details": "Requested outdoor panorama did not reliably provide a matched visible exterior (wrong nearby view, indoor imagery, occlusion or unavailable coverage); this is not treated as an exterior pass."
+    },
+    {
+      "label": "Complete district / traffic / mirror budget",
+      "passed": false,
+      "details": "These are isolated model studies. Paired Romana samples had unchanged findings and world-only peak1.13M triangles/296 calls, with an Arnia capture timeout; traffic and mirror budget and all tourist-scene placements require the district lanes."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study",
+      "kind": "front",
+      "image": "assets/landmarks/dinamo/front.webp",
+      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "sha256": "a280d7e86aa16632238bf9baa9b33f47ef7072267862d9fb0c1e18e4b2ca949d",
+      "capturedAt": "2026-11-08T16:51:09.122778Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=dinamo&clean=1&fountains=on&view=street&az=0",
+        "anchor": {
+          "lat": 44.4551306,
+          "lon": 26.1023192,
+          "rotation": 0
+        },
+        "camera": {
+          "position": [
+            -0.5211715698242188,
+            1.3,
+            223.60394973754885
+          ],
+          "quaternion": [
+            0.04846045675333164,
+            0,
+            0,
+            0.9988251018728247
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 4313.0093994140625,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -83.16758728027344,
+            0,
+            -111.20306396484375
+          ],
+          "max": [
+            82.125244140625,
+            49.5,
+            127.11002349853516
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "top",
+      "label": "Top model study (perspective)",
+      "kind": "top",
+      "image": "assets/landmarks/dinamo/top.webp",
+      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "sha256": "97b36040494f9ab04a1999bbb004c5eefb6fde1eee10b5935df145816474d162",
+      "capturedAt": "2026-11-08T16:51:15.334706Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=dinamo&clean=1&fountains=on&view=top&az=0",
+        "anchor": {
+          "lat": 44.4551306,
+          "lon": 26.1023192,
+          "rotation": 0
+        },
+        "camera": {
+          "position": [
+            -0.5211715698242188,
+            374.3933971863344,
+            8.327873288829869
+          ],
+          "quaternion": [
+            -0.7067531394223399,
+            0,
+            0,
+            0.7074602461740636
+          ],
+          "fov": 45,
+          "near": 0.7487871687662221,
+          "far": 7487.87168766222,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -83.16758728027344,
+            0,
+            -111.20306396484375
+          ],
+          "max": [
+            82.125244140625,
+            49.5,
+            127.11002349853516
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/dinamo/oblique.webp",
+      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "sha256": "c6c92a84308e347a2ebea57fbbde649a6f084bf36884ed9be2c25a1bb9ae56f7",
+      "capturedAt": "2026-11-08T16:51:27.010563Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=dinamo&clean=1&fountains=on&view=oblique&az=35&el=28",
+        "anchor": {
+          "lat": 44.4551306,
+          "lon": 26.1023192,
+          "rotation": 0
+        },
+        "camera": {
+          "position": [
+            183.11547528152096,
+            190.0324763386706,
+            270.21379093239995
+          ],
+          "quaternion": [
+            -0.230725012590546,
+            0.2917735521254029,
+            0.07274731703388737,
+            0.9253874813879795
+          ],
+          "fov": 45,
+          "near": 0.7252088937123015,
+          "far": 7252.088937123015,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -83.16758728027344,
+            0,
+            -111.20306396484375
+          ],
+          "max": [
+            82.125244140625,
+            49.5,
+            127.11002349853516
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 17659,
+    "drawCalls": 4,
+    "note": "Isolated development viewer render, including its ground/shadow work; excludes district world, traffic and mirrors."
+  }
+}

@@ -1,0 +1,290 @@
+{
+  "schemaVersion": 1,
+  "id": "otp",
+  "city": "bucharest",
+  "name": "Aeroportul Henri Coandă",
+  "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.5708154,
+    "lon": 26.0795884
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/771096081",
+      "label": "OpenStreetMap w771096081 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {
+        "building:part": "transportation",
+        "max_level": "2"
+      }
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/771096082",
+      "label": "OpenStreetMap w771096082 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {
+        "building:part": "transportation",
+        "max_level": "2"
+      }
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/771096083",
+      "label": "OpenStreetMap w771096083 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {
+        "building:part": "transportation"
+      }
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/794617342",
+      "label": "OpenStreetMap w794617342 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {
+        "building:part": "yes",
+        "height": "25",
+        "min_height": "20"
+      }
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/1321861231",
+      "label": "OpenStreetMap w1321861231 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {
+        "building:part": "yes",
+        "height": "20"
+      }
+    },
+    {
+      "url": "https://www.openstreetmap.org/relation/16476195",
+      "label": "OpenStreetMap r16476195 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {
+        "max_level": "2"
+      }
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Henri_Coand%C4%83_International_Airport",
+      "label": "Independent historical and architectural reference",
+      "type": "independent"
+    },
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "label": "Esri World Imagery — private outline/roof comparison; no imagery published",
+      "type": "aerial"
+    }
+  ],
+  "sourceIds": [
+    "r16476195",
+    "w1321861231",
+    "w771096081",
+    "w771096082",
+    "w771096083",
+    "w794617342"
+  ],
+  "sourceLedger": "../../../../research/landmark-source-bucharest.json",
+  "reviewedAt": "2026-11-08",
+  "improvements": [
+    "Added the full r16476195 aggregate connectors around the five mapped terminal parts.",
+    "Preserved the verified inner courtyard w1215078738.",
+    "Replaced guessed control-cabin and 20 m pier-spine outlines with the exact source polygons; cabin spans 20–25 m."
+  ],
+  "remainingGaps": [
+    "Connector roof height 12 m is explicitly estimated; the aggregate has max_level=2 but no height.",
+    "Departures, arrivals and pier roof heights remain estimates without mapped height tags.",
+    "Static aircraft and some jet-bridge details are legacy illustrations, not surveyed current aircraft positions.",
+    "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity."
+  ],
+  "checks": [
+    {
+      "label": "Full source boundary and replacement-identity checks",
+      "passed": true,
+      "details": "tools/landmarks/bucharest-source-check.mjs: 3 authored source rings; explicit replacement IDs match the source ledger. Entire 33-model check passes 306 checks."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs: all 61 models pass finite geometry, normals and triangle accounting; dedicated concave courtyard, roof and height-band checks pass."
+    },
+    {
+      "label": "Mandatory foot / driving regression",
+      "passed": true,
+      "details": "Immutable production ef21d14: npm run harness -- --scenario=foot,a --city=bucharest completed 0 high / 0 medium / 1 low (software-GL FPS only). Both scenario screenshots inspected."
+    },
+    {
+      "label": "Published game studies inspected",
+      "passed": true,
+      "details": "Front, top and oblique game-only studies inspected against source outlines and available independent reference photographs. Remaining shape discrepancies are listed explicitly."
+    },
+    {
+      "label": "Matched exterior Street View comparison",
+      "passed": false,
+      "details": "Requested outdoor panorama did not reliably provide a matched visible exterior (wrong nearby view, indoor imagery, occlusion or unavailable coverage); this is not treated as an exterior pass."
+    },
+    {
+      "label": "Complete district / traffic / mirror budget",
+      "passed": false,
+      "details": "These are isolated model studies. Paired Romana samples had unchanged findings and world-only peak1.13M triangles/296 calls, with an Arnia capture timeout; traffic and mirror budget and all tourist-scene placements require the district lanes."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Departures facade detail — street-height model study",
+      "kind": "front",
+      "image": "assets/landmarks/otp/front.webp",
+      "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+      "sha256": "f6a56b8d329386ed501f3cf6a7ecd874f9fc515bc0f7f21c45a5cbeb78c02fcc",
+      "capturedAt": "2026-11-08T17:14:11.251514Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=otp&clean=1&fountains=on&view=street&az=-84.00134234412998&d=220&tx=-170.20144234878296&tz=-88.69875434522132&ty=9&ey=1.6",
+        "anchor": {
+          "lat": 44.5708154,
+          "lon": 26.0795884,
+          "rotation": -1.4661
+        },
+        "camera": {
+          "position": [
+            -388.9967980336489,
+            1.6,
+            -65.70761842867692
+          ],
+          "quaternion": [
+            0.012492914134061586,
+            -0.6690447517347269,
+            0.0112489354033115,
+            0.7430319701903471
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 5333.370172741714,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -225.6367935160489,
+            0,
+            -227.7271311457983
+          ],
+          "max": [
+            226.21126841601074,
+            30,
+            303.609886128373
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Explicit cropped facade study of the departures hall. Top and oblique captures show the complete airport source assembly."
+      }
+    },
+    {
+      "id": "top",
+      "label": "Top model study (perspective)",
+      "kind": "top",
+      "image": "assets/landmarks/otp/top.webp",
+      "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+      "sha256": "9aa78d5b48c3a5f9960b1779b6b5d4a9aff491ab0c5b317349c608e3b7f4a3da",
+      "capturedAt": "2026-11-08T17:07:10.120114Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=otp&clean=1&fountains=on&view=top&az=0",
+        "anchor": {
+          "lat": 44.5708154,
+          "lon": 26.0795884,
+          "rotation": -1.4661
+        },
+        "camera": {
+          "position": [
+            0.28723744998092116,
+            751.0497223095766,
+            38.692427463946885
+          ],
+          "quaternion": [
+            -0.7067531394223399,
+            0,
+            0,
+            0.7074602461740636
+          ],
+          "fov": 45,
+          "near": 1.5021001956691884,
+          "far": 15021.001956691885,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -225.6367935160489,
+            0,
+            -227.7271311457983
+          ],
+          "max": [
+            226.21126841601074,
+            30,
+            303.609886128373
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/otp/oblique.webp",
+      "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+      "sha256": "b9cac2435b1cc6e2333a81e814d414d5a87ffb6a2d6eb84e3a4bbbee01995cc9",
+      "capturedAt": "2026-11-08T17:07:14.188069Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=otp&clean=1&fountains=on&view=oblique&az=-49.00134234412998&el=28",
+        "anchor": {
+          "lat": 44.5708154,
+          "lon": 26.0795884,
+          "rotation": -1.4661
+        },
+        "camera": {
+          "position": [
+            -535.9797527423707,
+            389.8041476309446,
+            504.08910262403856
+          ],
+          "quaternion": [
+            -0.2201383803533225,
+            -0.40238542384061593,
+            -0.10032595409938755,
+            0.882926818660568
+          ],
+          "fov": 45,
+          "near": 1.6094868255236476,
+          "far": 16094.868255236477,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -225.6367935160489,
+            0,
+            -227.7271311457983
+          ],
+          "max": [
+            226.21126841601074,
+            30,
+            303.609886128373
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 9547,
+    "drawCalls": 3,
+    "note": "Isolated development viewer render, including its ground/shadow work; excludes district world, traffic and mirrors."
+  }
+}

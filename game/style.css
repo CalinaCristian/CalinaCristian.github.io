@@ -821,3 +821,12 @@ body.touch .dlg, body.touch #finale .fn-wrap, body.touch #world-map .wm-list, bo
 /* (note 43) with the minimap top-left, the drone's ALT box moves down (above the touch stick on phones) */
 body.drone-mode:not(.no-minimap) #drone-hud .dr-left { top: auto; bottom: 70px; transform: none; }
 body.touch.drone-mode:not(.no-minimap) #drone-hud .dr-left { bottom: 172px; }
+
+/* (round 6 note 36) touch controls follow the mode: driving = horn · E · get out · map; on foot = jump · E · get in · map
+   · camera · drone; spots = jump · E · camera; no camera from the driver's seat */
+body.touch[data-mode=drive] .photo-open, body.touch[data-mode=card] .photo-open, body.touch[data-mode=loading] .photo-open { display: none; }
+body[data-mode=drive] .pad button.office-only { display: none; }
+body[data-mode=drive] .pad button.drive-only { display: inline-block; }
+body[data-mode=foot] .pad button.drive-only, body[data-mode=spot] .pad button.drive-only { display: none; }
+body[data-mode=foot] .pad button.office-only, body[data-mode=spot] .pad button.office-only { display: inline-block; }
+body[data-mode=spot] .pad button[data-btn=foot], body[data-mode=spot] .pad button[data-btn=map] { display: none; }

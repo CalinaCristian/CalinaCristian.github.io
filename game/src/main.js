@@ -177,7 +177,8 @@ class Game {
             this.photo = new PhotoMode({
                 renderer: this.renderer, getScene: () => (this.state === 'spot' ? this.spot?.spot?.scene : this.state === 'office' ? this.office?.scene : this.scene), getCamera: () => this.camera,
                 hud: this.hud, audio: this.audio, input: this.input,
-                canOpen: () => (this.state === 'drive' || this.state === 'office' || this.state === 'foot' || (this.state === 'spot' && !this.spot?.ui?.panelOpen)) && !this.mapOpen && !this.hud.panelOpen,
+                canOpen: () => (this.state === 'office' || this.state === 'foot' || // (no photos from behind the wheel — round 6 note 36)
+                     (this.state === 'spot' && !this.spot?.ui?.panelOpen)) && !this.mapOpen && !this.hud.panelOpen,
                 getInfo: () => (this.state === 'spot' && this.spot ? this.spot.photoInfo() : { place: this.state === 'office' ? this.office?.stop.company : document.getElementById('street')?.textContent, city: this.city?.id, timeZone: this.clock.timeZone, night: !!this.r3d.nightLights }),
                 onPhoto: (meta, shot) => this.onPhoto(meta, shot),
             });
@@ -590,6 +591,7 @@ class Game {
     // ----------------------------------------------------------------------------------
     loop() {
         requestAnimationFrame(this.loop);
+        if (this._modeAttr !== this.state) { this._modeAttr = this.state; document.body.dataset.mode = this.state; } // (round 6 note 36: context-based touch buttons in CSS)
         if (this.explore?.hooks?.frame?.()) return; // (explore: drone frames; the world-map hub over a frozen scene)
         const dt = Math.min(0.1, this.frameClock.getDelta());
         if (this._pauseOpen) { // paused: nothing moves; the scene keeps being drawn behind the menu
@@ -1797,7 +1799,7 @@ class Game {
         if (st === 'drive' || st === 'foot') items.push(['conditions', '☀️', 'Time, weather & season']);
         if (this.achievements?.open) { let pct = null; try { pct = this.achievements.completion?.().pct; } catch { /* ignore */ } items.push(['achievements', '🏆', `Achievements${pct != null ? ` · ${pct} %` : ''}`]); }
         if (ex && !droneOn && (st === 'foot' || st === 'spot')) items.push(['drone', '🚁', 'Deploy drone']);
-        if (this.photo && st !== 'office') items.push(['photo', '📷', 'Photo mode']);
+        if (this.photo && st !== 'office' && st !== 'drive') items.push(['photo', '📷', 'Photo mode']);
         if (this.save?.openGallery || save?.openGallery) items.push(['gallery', '🖼️', 'Photo gallery']);
         items.push(['settings', '⚙️', 'Settings']);
         if (ex && this.chapters) items.push(ex.active ? ['explore-mode', '📖', 'Switch to Story', 'chapters & objectives'] : ['explore-mode', '🧭', 'Switch to Explore', 'everything unlocked']);
@@ -1877,7 +1879,7 @@ class Game {
         if (k === 'map') this.toggleMap(true);
         else if (k === 'conditions') { this.buildConditions(); this.toggleConditions(true, { any: true }); }
         else if (k === 'achievements') this.achievements?.open?.();
-        else if (k === 'photo') this.photo?.open?.();
+        else if (k === 'photo') { if (this.state === 'drive') this.hud.toast('📷 Get out first', 'Photos are taken on foot: Enter (or 🚶) to get out.', 'warn'); else this.photo?.open?.(); }
         else if (k === 'gallery') (this.save || save)?.openGallery?.();
         else if (k === 'car-route') this.routeToCar();
         else if (k === 'car-call') this.callCar();

@@ -3237,8 +3237,8 @@ function bDinamo(b) {
     for (let k = 0; k <= 8; k++) { const r = RI + k * 1.22; b.prism(poly(capsule(r + 0.05, 4)), 0.16, 0.2, '#f4f1ec', { holes: [poly(capsule(r - 0.05, 4))], top: true }); }
     b.prism(poly(capsule(RI)), 0, 0.15, TRACK, { holes: [pitchRect] });                     // the D zones (jumps, throws)
     for (let i = 0; i < 18; i++) { const u0 = -PL - PM + i * (2 * PL + 2 * PM) / 18, u1 = u0 + (2 * PL + 2 * PM) / 18; b.prism([W(u0, -PW - PM), W(u1, -PW - PM), W(u1, PW + PM), W(u0, PW + PM)], 0, 0.16, i % 2 ? GRASS : GRASS2); }
-    // Paint is a flat cap, not a 5 cm kerb through the football's lower half.
-    const line = (u0, v0, u1, v1, w = 0.12) => { const L = Math.hypot(u1 - u0, v1 - v0), nu = -(v1 - v0) / L * w / 2, nv = (u1 - u0) / L * w / 2; b.cap([W(u0 + nu, v0 + nv), W(u1 + nu, v1 + nv), W(u1 - nu, v1 - nv), W(u0 - nu, v0 - nv)], 0.162, '#f7f7f2'); };
+    // Flat paint stays 2 cm above the grass for stable depth at native drone distances; it adds no kerb or collider.
+    const line = (u0, v0, u1, v1, w = 0.12) => { const L = Math.hypot(u1 - u0, v1 - v0), nu = -(v1 - v0) / L * w / 2, nv = (u1 - u0) / L * w / 2; b.cap([W(u0 + nu, v0 + nv), W(u1 + nu, v1 + nv), W(u1 - nu, v1 - nv), W(u0 - nu, v0 - nv)], 0.18, '#f7f7f2'); };
     line(-PL, -PW, PL, -PW); line(-PL, PW, PL, PW); line(-PL, -PW, -PL, PW); line(PL, -PW, PL, PW); line(0, -PW, 0, PW);
     for (const s of [-1, 1]) { const g = s * PL; line(g, -20.16, g - s * 16.5, -20.16); line(g - s * 16.5, -20.16, g - s * 16.5, 20.16); line(g - s * 16.5, 20.16, g, 20.16);
         line(g, -9.16, g - s * 5.5, -9.16); line(g - s * 5.5, -9.16, g - s * 5.5, 9.16); line(g - s * 5.5, 9.16, g, 9.16);

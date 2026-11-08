@@ -236,3 +236,7 @@ Floreasca facts measured / observed (for whoever continues here)
 
 
 - 2026-11-08 (SeaTac aircraft source correction): The exact `4378317` public-curb comparison exposed an unsupported terminal-perimeter aircraft anchor. All four representative aircraft now use independent retained Esri aerial nose/tail/wing measurements beside original OSM gate contexts C11, C9, B7 and A4. The source acquisition date is unknown; no operator, current fleet or measured vertical shape is claimed. Every complete aircraft clears all 1,858 source building footprints, while terminal source rings, height/collider bands and road geometry stay unchanged. A D2 candidate was rejected for a source-body contact; the A4 outer-wing/apron-border mismatch remains explicit. Aircraft count remains four, with no population thinning. Research/proof and remaining native capture work: `handoffs/fidelity/us-districts/SEATAC-AIRCRAFT.md`.
+
+### Dinamo high-angle paint depth
+
+The original 2mm paint/grass gap loses centre-circle and halfway-line fragments at a native70m drone view. Keep the exact source pitch,12cm line widths, flat caps, triangle count, football surface and physical collision; raise only paint caps to0.18m over0.16m grass (2cm rendering separation). Targeted current day/winter proof is required; the failed0775 winter image remains retained.

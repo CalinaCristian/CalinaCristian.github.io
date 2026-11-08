@@ -1,7 +1,7 @@
 // Physical openings require explicit OSM tags or individually reviewed shared-wall-node source topology.
 import { footprintCells, ringArea } from '../../game/src/building-parts.js';
 import { parseMeasure } from '../../game/src/building-roofs.js';
-import { edgeCuts } from '../../game/src/building-passages.js';
+import { edgeCuts, passageBaseUnknown } from '../../game/src/building-passages.js';
 import { pointInPolygon } from './geom.mjs';
 
 // A mapped passage describes a vehicle corridor, including the finite-width mouths.
@@ -34,6 +34,12 @@ export function sourcePassages(buildings, ways, nodes, project, roads, reviewed 
         const rs=roads.filter(r=>r.id===id),sourceWidth=parseMeasure(tags.width),width=sourceWidth>0?sourceWidth:rs.length?Math.max(...rs.map(r=>r.sharedLane?r.physicalSharedWidth:(r.lf+r.lb)*r.laneW)):2.8;
         const physical=parseMeasure(tags['maxheight:physical']),legal=parseMeasure(tags.maxheight),clearance=physical>0?physical:legal>0?legal+.2:review?.clearanceM??3.1;
         const ps=points.map(p=>project(...p));
+        if(passageBaseUnknown(tags)){
+            const matching=buildings.filter(body=>!body.aircraft&&ps.slice(1).some((b,j)=>{const a=ps[j],cuts=edgeCuts(a,b,[body.ring,...body.holes]);return cuts.slice(1).some((hi,k)=>{const t=(cuts[k]+hi)/2,p=[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t];return pointInPolygon(...p,body.ring)&&!body.holes.some(h=>pointInPolygon(...p,h));});})).map(b=>b.t.__id);
+            if(matching.length)issues.push({sourceRoadId:'w'+id,reason:'absolute-passage-base-unknown',baseUnknown:true,status:'unsupported without a physical vertical datum',classificationSource:review?.classificationSource||'OSM tunnel=building_passage',buildingIds:[...new Set(matching)],sourceNodeIds:[...w.nodes],sourceCentreline:ps,tags:{...tags},evidence:review?.evidence||['https://www.openstreetmap.org/way/'+id],dimensionNote:'Relative source layer/level/bridge ordering does not establish metres above local ground. No ground void is cut; source identities and complete horizontal geometry are retained for review.'});
+            continue;
+        }
+
         for(let segment=1;segment<ps.length;segment++){
             const a=ps[segment-1],b=ps[segment],dx=b[0]-a[0],dz=b[1]-a[1],len=Math.hypot(dx,dz);if(len<.01)continue;
             // A 0.1mm longitudinal overlap absorbs the source-building 4-decimal representation error at shared wall nodes.

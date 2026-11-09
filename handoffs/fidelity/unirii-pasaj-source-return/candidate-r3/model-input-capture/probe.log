@@ -1,0 +1,14 @@
+[osm] bucharest 9 tiles
+[osm] parsed nodes=169226 ways=21503 rels=723
+[osm] roads 3331
+[osm] corridor: 0 legs, 1 pieces, 3 circles, area 0.6 km² (game)
+[osm] corridor roads: 3331 ways → 251 clipped pieces → 251 connected
+[osm] graph nodes 968 segments 1010
+[osm] areas 444
+[osm] research: /workspace/fidelity-workers/unirii-pasaj-source-return/game/research/bucharest-unirii.json → 3456 buildings enriched
+[osm] aerial roofs: 8930 footprints measured (/workspace/fidelity-workers/unirii-pasaj-source-return/game/research/roofs-bucharest-unirii.json)
+[osm] raw buildings 13579
+(node:630126) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/unirii-pasaj-source-return/game/src/building-parts.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/fidelity-workers/unirii-pasaj-source-return/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)

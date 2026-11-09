@@ -1,0 +1,3779 @@
+{
+  "scope": "Exact unchanged World graph/profile prefix CPU replay, NOT fresh native AFTER, mesh, body, terrain or driving acceptance. All raw nonzero differences retained.",
+  "oldStations": 5515,
+  "newCorridorStations": 630,
+  "historicalBeforeNonzero": [
+    {
+      "sourceId": "w241368617",
+      "station": 217,
+      "differenceM": 8.881784197001252e-16,
+      "historicalHeightBasis": "derived linear segment between captured native endpoints; not a new native query"
+    },
+    {
+      "sourceId": "w241368618",
+      "station": 261,
+      "differenceM": -8.881784197001252e-16,
+      "historicalHeightBasis": "derived linear segment between captured native endpoints; not a new native query"
+    },
+    {
+      "sourceId": "w241368618",
+      "station": 262,
+      "differenceM": -1.7763568394002505e-15,
+      "historicalHeightBasis": "derived linear segment between captured native endpoints; not a new native query"
+    },
+    {
+      "sourceId": "w241368618",
+      "station": 263,
+      "differenceM": -2.6645352591003757e-15,
+      "historicalHeightBasis": "derived linear segment between captured native endpoints; not a new native query"
+    },
+    {
+      "sourceId": "w23782207",
+      "station": 1762,
+      "differenceM": -4.440892098500626e-16,
+      "historicalHeightBasis": "derived linear segment between captured native endpoints; not a new native query"
+    },
+    {
+      "sourceId": "w241368617",
+      "station": 5271,
+      "differenceM": -2.6645352591003757e-15,
+      "historicalHeightBasis": "derived linear segment between captured native endpoints; not a new native query"
+    },
+    {
+      "sourceId": "w241368617",
+      "station": 5272,
+      "differenceM": 3.552713678800501e-15,
+      "historicalHeightBasis": "derived linear segment between captured native endpoints; not a new native query"
+    },
+    {
+      "sourceId": "w241368617",
+      "station": 5274,
+      "differenceM": -2.6645352591003757e-15,
+      "historicalHeightBasis": "actual captured native endpoint"
+    }
+  ],
+  "historicalBeforeMaxAbsDifferenceM": 3.552713678800501e-15,
+  "oldUnresolved": [],
+  "changedOldStations": [
+    {
+      "station": 95,
+      "sourceId": "w4045772",
+      "roadClass": "pasaj-ramp",
+      "sourceSegmentIndex": 1,
+      "sourceFraction": 0.823963165283203,
+      "beforeEdgeFraction": 0,
+      "x": -384.88693643181637,
+      "z": 564.9277186334243,
+      "beforeSurfaceM": -4.96,
+      "afterSurfaceM": -4.075883103131077,
+      "deltaM": 0.8841168968689228,
+      "rawSourceTags": {
+        "foot": "no",
+        "highway": "primary",
+        "incline": "down",
+        "int_ref": "E 85",
+        "lanes": "2",
+        "lit": "yes",
+        "maxspeed": "40",
+        "name": "Pasajul Unirii",
+        "nat_ref": "DN4",
+        "oneway": "yes",
+        "ref": "DN4",
+        "shoulder": "no",
+        "sidewalk": "no",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      }
+    },
+    {
+      "station": 96,
+      "sourceId": "w4045772",
+      "roadClass": "pasaj-ramp",
+      "sourceSegmentIndex": 1,
+      "sourceFraction": 0.8679723739624022,
+      "beforeEdgeFraction": 0.25,
+      "x": -384.90547847907095,
+      "z": 559.4852014749368,
+      "beforeSurfaceM": -4.969489090342914,
+      "afterSurfaceM": -4.306401417691221,
+      "deltaM": 0.6630876726516926,
+      "rawSourceTags": {
+        "foot": "no",
+        "highway": "primary",
+        "incline": "down",
+        "int_ref": "E 85",
+        "lanes": "2",
+        "lit": "yes",
+        "maxspeed": "40",
+        "name": "Pasajul Unirii",
+        "nat_ref": "DN4",
+        "oneway": "yes",
+        "ref": "DN4",
+        "shoulder": "no",
+        "sidewalk": "no",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      }
+    },
+    {
+      "station": 97,
+      "sourceId": "w4045772",
+      "roadClass": "pasaj-ramp",
+      "sourceSegmentIndex": 1,
+      "sourceFraction": 0.9119815826416016,
+      "beforeEdgeFraction": 0.5,
+      "x": -384.92402052632553,
+      "z": 554.0426843164494,
+      "beforeSurfaceM": -4.978978180685827,
+      "afterSurfaceM": -4.5369197322513655,
+      "deltaM": 0.4420584484344614,
+      "rawSourceTags": {
+        "foot": "no",
+        "highway": "primary",
+        "incline": "down",
+        "int_ref": "E 85",
+        "lanes": "2",
+        "lit": "yes",
+        "maxspeed": "40",
+        "name": "Pasajul Unirii",
+        "nat_ref": "DN4",
+        "oneway": "yes",
+        "ref": "DN4",
+        "shoulder": "no",
+        "sidewalk": "no",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      }
+    },
+    {
+      "station": 98,
+      "sourceId": "w4045772",
+      "roadClass": "pasaj-ramp",
+      "sourceSegmentIndex": 1,
+      "sourceFraction": 0.9559907913208008,
+      "beforeEdgeFraction": 0.75,
+      "x": -384.9425625735802,
+      "z": 548.6001671579619,
+      "beforeSurfaceM": -4.988467271028741,
+      "afterSurfaceM": -4.76743804681151,
+      "deltaM": 0.22102922421723115,
+      "rawSourceTags": {
+        "foot": "no",
+        "highway": "primary",
+        "incline": "down",
+        "int_ref": "E 85",
+        "lanes": "2",
+        "lit": "yes",
+        "maxspeed": "40",
+        "name": "Pasajul Unirii",
+        "nat_ref": "DN4",
+        "oneway": "yes",
+        "ref": "DN4",
+        "shoulder": "no",
+        "sidewalk": "no",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      }
+    },
+    {
+      "station": 99,
+      "sourceId": "w4045772",
+      "roadClass": "pasaj-ramp",
+      "sourceSegmentIndex": 1,
+      "sourceFraction": 1,
+      "beforeEdgeFraction": 1,
+      "x": -384.96110462083476,
+      "z": 543.1576499994744,
+      "beforeSurfaceM": -4.997956361371655,
+      "afterSurfaceM": -4.997956361371654,
+      "deltaM": 8.881784197001252e-16,
+      "rawSourceTags": {
+        "foot": "no",
+        "highway": "primary",
+        "incline": "down",
+        "int_ref": "E 85",
+        "lanes": "2",
+        "lit": "yes",
+        "maxspeed": "40",
+        "name": "Pasajul Unirii",
+        "nat_ref": "DN4",
+        "oneway": "yes",
+        "ref": "DN4",
+        "shoulder": "no",
+        "sidewalk": "no",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      }
+    },
+    {
+      "station": 286,
+      "sourceId": "w241368619",
+      "roadClass": "pasaj-ramp",
+      "sourceSegmentIndex": 0,
+      "sourceFraction": 0.04441738128662093,
+      "beforeEdgeFraction": 0.25,
+      "x": -393.1994004164728,
+      "z": 548.6913888102764,
+      "beforeSurfaceM": -4.984076312205381,
+      "afterSurfaceM": -4.7597054912644765,
+      "deltaM": 0.2243708209409041,
+      "rawSourceTags": {
+        "foot": "no",
+        "highway": "primary",
+        "incline": "up",
+        "int_ref": "E 85",
+        "lanes": "2",
+        "lit": "yes",
+        "maxspeed": "40",
+        "name": "Pasajul Unirii",
+        "nat_ref": "DN4",
+        "oneway": "yes",
+        "ref": "DN4",
+        "shoulder": "no",
+        "sidewalk": "no",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      }
+    },
+    {
+      "station": 287,
+      "sourceId": "w241368619",
+      "roadClass": "pasaj-ramp",
+      "sourceSegmentIndex": 0,
+      "sourceFraction": 0.08883476257324185,
+      "beforeEdgeFraction": 0.5,
+      "x": -393.20999325760886,
+      "z": 554.1917880206888,
+      "beforeSurfaceM": -4.976050874803587,
+      "afterSurfaceM": -4.527309232921778,
+      "deltaM": 0.4487416418818091,
+      "rawSourceTags": {
+        "foot": "no",
+        "highway": "primary",
+        "incline": "up",
+        "int_ref": "E 85",
+        "lanes": "2",
+        "lit": "yes",
+        "maxspeed": "40",
+        "name": "Pasajul Unirii",
+        "nat_ref": "DN4",
+        "oneway": "yes",
+        "ref": "DN4",
+        "shoulder": "no",
+        "sidewalk": "no",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      }
+    },
+    {
+      "station": 288,
+      "sourceId": "w241368619",
+      "roadClass": "pasaj-ramp",
+      "sourceSegmentIndex": 0,
+      "sourceFraction": 0.1332521438598628,
+      "beforeEdgeFraction": 0.75,
+      "x": -393.2205860987449,
+      "z": 559.6921872311012,
+      "beforeSurfaceM": -4.968025437401794,
+      "afterSurfaceM": -4.294912974579079,
+      "deltaM": 0.673112462822715,
+      "rawSourceTags": {
+        "foot": "no",
+        "highway": "primary",
+        "incline": "up",
+        "int_ref": "E 85",
+        "lanes": "2",
+        "lit": "yes",
+        "maxspeed": "40",
+        "name": "Pasajul Unirii",
+        "nat_ref": "DN4",
+        "oneway": "yes",
+        "ref": "DN4",
+        "shoulder": "no",
+        "sidewalk": "no",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      }
+    },
+    {
+      "station": 289,
+      "sourceId": "w241368619",
+      "roadClass": "pasaj-ramp",
+      "sourceSegmentIndex": 0,
+      "sourceFraction": 0.1776695251464837,
+      "beforeEdgeFraction": 1,
+      "x": -393.2311789398809,
+      "z": 565.1925864415136,
+      "beforeSurfaceM": -4.96,
+      "afterSurfaceM": -4.062516716236381,
+      "deltaM": 0.8974832837636191,
+      "rawSourceTags": {
+        "foot": "no",
+        "highway": "primary",
+        "incline": "up",
+        "int_ref": "E 85",
+        "lanes": "2",
+        "lit": "yes",
+        "maxspeed": "40",
+        "name": "Pasajul Unirii",
+        "nat_ref": "DN4",
+        "oneway": "yes",
+        "ref": "DN4",
+        "shoulder": "no",
+        "sidewalk": "no",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      }
+    },
+    {
+      "station": 1760,
+      "sourceId": "w23782207",
+      "roadClass": "pasaj-ramp",
+      "sourceSegmentIndex": 2,
+      "sourceFraction": 0.6410942077636719,
+      "beforeEdgeFraction": 0,
+      "x": -433.35742794046365,
+      "z": -25.516619580780173,
+      "beforeSurfaceM": -2.377144139829694,
+      "afterSurfaceM": -3.2369366596950684,
+      "deltaM": -0.8597925198653744,
+      "rawSourceTags": {
+        "foot": "no",
+        "highway": "primary",
+        "incline": "down",
+        "int_ref": "E 85",
+        "lanes": "2",
+        "lit": "yes",
+        "maxspeed": "40",
+        "name": "Pasajul Unirii",
+        "nat_ref": "DN4",
+        "oneway": "yes",
+        "ref": "DN4",
+        "sidewalk": "no",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      }
+    },
+    {
+      "station": 1761,
+      "sourceId": "w23782207",
+      "roadClass": "pasaj-ramp",
+      "sourceSegmentIndex": 2,
+      "sourceFraction": 0.7308206558227539,
+      "beforeEdgeFraction": 0.25,
+      "x": -433.01362802280283,
+      "z": -16.75368328576026,
+      "beforeSurfaceM": -3.0787183737646,
+      "afterSurfaceM": -3.7235627636636313,
+      "deltaM": -0.6448443898990313,
+      "rawSourceTags": {
+        "foot": "no",
+        "highway": "primary",
+        "incline": "down",
+        "int_ref": "E 85",
+        "lanes": "2",
+        "lit": "yes",
+        "maxspeed": "40",
+        "name": "Pasajul Unirii",
+        "nat_ref": "DN4",
+        "oneway": "yes",
+        "ref": "DN4",
+        "sidewalk": "no",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      }
+    },
+    {
+      "station": 1762,
+      "sourceId": "w23782207",
+      "roadClass": "pasaj-ramp",
+      "sourceSegmentIndex": 2,
+      "sourceFraction": 0.8205471038818359,
+      "beforeEdgeFraction": 0.5,
+      "x": -432.66982810514196,
+      "z": -7.990746990740348,
+      "beforeSurfaceM": -3.780292607699506,
+      "afterSurfaceM": -4.210188867632194,
+      "deltaM": -0.4298962599326881,
+      "rawSourceTags": {
+        "foot": "no",
+        "highway": "primary",
+        "incline": "down",
+        "int_ref": "E 85",
+        "lanes": "2",
+        "lit": "yes",
+        "maxspeed": "40",
+        "name": "Pasajul Unirii",
+        "nat_ref": "DN4",
+        "oneway": "yes",
+        "ref": "DN4",
+        "sidewalk": "no",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      }
+    },
+    {
+      "station": 1763,
+      "sourceId": "w23782207",
+      "roadClass": "pasaj-ramp",
+      "sourceSegmentIndex": 2,
+      "sourceFraction": 0.910273551940918,
+      "beforeEdgeFraction": 0.75,
+      "x": -432.32602818748114,
+      "z": 0.7721893042795642,
+      "beforeSurfaceM": -4.481866841634411,
+      "afterSurfaceM": -4.696814971600755,
+      "deltaM": -0.21494812996634405,
+      "rawSourceTags": {
+        "foot": "no",
+        "highway": "primary",
+        "incline": "down",
+        "int_ref": "E 85",
+        "lanes": "2",
+        "lit": "yes",
+        "maxspeed": "40",
+        "name": "Pasajul Unirii",
+        "nat_ref": "DN4",
+        "oneway": "yes",
+        "ref": "DN4",
+        "sidewalk": "no",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      }
+    },
+    {
+      "station": 2955,
+      "sourceId": "w241368616",
+      "roadClass": "pasaj-ramp",
+      "sourceSegmentIndex": 0,
+      "sourceFraction": 0,
+      "beforeEdgeFraction": 0,
+      "x": -409.6442134846233,
+      "z": 8.446031999996109,
+      "beforeSurfaceM": -4.96,
+      "afterSurfaceM": -4.839209929239367,
+      "deltaM": 0.1207900707606333,
+      "rawSourceTags": {
+        "highway": "primary",
+        "incline": "up",
+        "int_ref": "E 85",
+        "lanes": "2",
+        "lit": "yes",
+        "maxspeed": "40",
+        "name": "Pasajul Unirii",
+        "nat_ref": "DN4",
+        "oneway": "yes",
+        "ref": "DN4",
+        "sidewalk": "right",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      }
+    },
+    {
+      "station": 2956,
+      "sourceId": "w241368616",
+      "roadClass": "pasaj-ramp",
+      "sourceSegmentIndex": 0,
+      "sourceFraction": 0.11304092407226561,
+      "beforeEdgeFraction": 0.25,
+      "x": -409.9003189303362,
+      "z": -2.499642860549482,
+      "beforeSurfaceM": -4.96,
+      "afterSurfaceM": -4.265051345281122,
+      "deltaM": 0.6949486547188783,
+      "rawSourceTags": {
+        "highway": "primary",
+        "incline": "up",
+        "int_ref": "E 85",
+        "lanes": "2",
+        "lit": "yes",
+        "maxspeed": "40",
+        "name": "Pasajul Unirii",
+        "nat_ref": "DN4",
+        "oneway": "yes",
+        "ref": "DN4",
+        "sidewalk": "right",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      }
+    },
+    {
+      "station": 2957,
+      "sourceId": "w241368616",
+      "roadClass": "pasaj-ramp",
+      "sourceSegmentIndex": 0,
+      "sourceFraction": 0.22608184814453122,
+      "beforeEdgeFraction": 0.5,
+      "x": -410.15642437604913,
+      "z": -13.445317721095073,
+      "beforeSurfaceM": -4.96,
+      "afterSurfaceM": -3.6908927613228775,
+      "deltaM": 1.2691072386771225,
+      "rawSourceTags": {
+        "highway": "primary",
+        "incline": "up",
+        "int_ref": "E 85",
+        "lanes": "2",
+        "lit": "yes",
+        "maxspeed": "40",
+        "name": "Pasajul Unirii",
+        "nat_ref": "DN4",
+        "oneway": "yes",
+        "ref": "DN4",
+        "sidewalk": "right",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      }
+    },
+    {
+      "station": 2958,
+      "sourceId": "w241368616",
+      "roadClass": "pasaj-ramp",
+      "sourceSegmentIndex": 0,
+      "sourceFraction": 0.3391227722167968,
+      "beforeEdgeFraction": 0.75,
+      "x": -410.412529821762,
+      "z": -24.39099258164066,
+      "beforeSurfaceM": -4.96,
+      "afterSurfaceM": -3.1167341773646324,
+      "deltaM": 1.8432658226353675,
+      "rawSourceTags": {
+        "highway": "primary",
+        "incline": "up",
+        "int_ref": "E 85",
+        "lanes": "2",
+        "lit": "yes",
+        "maxspeed": "40",
+        "name": "Pasajul Unirii",
+        "nat_ref": "DN4",
+        "oneway": "yes",
+        "ref": "DN4",
+        "sidewalk": "right",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      }
+    },
+    {
+      "station": 2959,
+      "sourceId": "w241368616",
+      "roadClass": "pasaj-ramp",
+      "sourceSegmentIndex": 0,
+      "sourceFraction": 0.45216369628906244,
+      "beforeEdgeFraction": 1,
+      "x": -410.6686352674749,
+      "z": -35.336667442186254,
+      "beforeSurfaceM": -4.96,
+      "afterSurfaceM": -2.5425755934063874,
+      "deltaM": 2.4174244065936126,
+      "rawSourceTags": {
+        "highway": "primary",
+        "incline": "up",
+        "int_ref": "E 85",
+        "lanes": "2",
+        "lit": "yes",
+        "maxspeed": "40",
+        "name": "Pasajul Unirii",
+        "nat_ref": "DN4",
+        "oneway": "yes",
+        "ref": "DN4",
+        "sidewalk": "right",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      }
+    },
+    {
+      "station": 4406,
+      "sourceId": "w1383050305",
+      "roadClass": "pasaj-main",
+      "sourceSegmentIndex": 3,
+      "sourceFraction": 0.2499999999999999,
+      "beforeEdgeFraction": 0.25,
+      "x": -409.3282219944557,
+      "z": 17.072653499536273,
+      "beforeSurfaceM": -5.56,
+      "afterSurfaceM": -5.529802482309842,
+      "deltaM": 0.03019751769015766,
+      "rawSourceTags": {
+        "foot": "no",
+        "highway": "primary",
+        "int_ref": "E 85",
+        "lanes": "2",
+        "layer": "-1",
+        "lit": "yes",
+        "maxheight": "3.5",
+        "maxspeed": "40",
+        "name": "Pasajul Unirii",
+        "nat_ref": "DN4",
+        "oneway": "yes",
+        "ref": "DN4",
+        "shoulder": "no",
+        "sidewalk": "right",
+        "smoothness": "excellent",
+        "surface": "asphalt",
+        "tunnel": "yes"
+      }
+    },
+    {
+      "station": 4407,
+      "sourceId": "w1383050305",
+      "roadClass": "pasaj-main",
+      "sourceSegmentIndex": 3,
+      "sourceFraction": 0.5,
+      "beforeEdgeFraction": 0.5,
+      "x": -409.43355249117826,
+      "z": 14.197112999689551,
+      "beforeSurfaceM": -5.359999999999999,
+      "afterSurfaceM": -5.299604964619683,
+      "deltaM": 0.06039503538031621,
+      "rawSourceTags": {
+        "foot": "no",
+        "highway": "primary",
+        "int_ref": "E 85",
+        "lanes": "2",
+        "layer": "-1",
+        "lit": "yes",
+        "maxheight": "3.5",
+        "maxspeed": "40",
+        "name": "Pasajul Unirii",
+        "nat_ref": "DN4",
+        "oneway": "yes",
+        "ref": "DN4",
+        "shoulder": "no",
+        "sidewalk": "right",
+        "smoothness": "excellent",
+        "surface": "asphalt",
+        "tunnel": "yes"
+      }
+    },
+    {
+      "station": 4408,
+      "sourceId": "w1383050305",
+      "roadClass": "pasaj-main",
+      "sourceSegmentIndex": 3,
+      "sourceFraction": 0.75,
+      "beforeEdgeFraction": 0.75,
+      "x": -409.5388829879008,
+      "z": 11.32157249984283,
+      "beforeSurfaceM": -5.16,
+      "afterSurfaceM": -5.0694074469295245,
+      "deltaM": 0.09059255307047565,
+      "rawSourceTags": {
+        "foot": "no",
+        "highway": "primary",
+        "int_ref": "E 85",
+        "lanes": "2",
+        "layer": "-1",
+        "lit": "yes",
+        "maxheight": "3.5",
+        "maxspeed": "40",
+        "name": "Pasajul Unirii",
+        "nat_ref": "DN4",
+        "oneway": "yes",
+        "ref": "DN4",
+        "shoulder": "no",
+        "sidewalk": "right",
+        "smoothness": "excellent",
+        "surface": "asphalt",
+        "tunnel": "yes"
+      }
+    },
+    {
+      "station": 4409,
+      "sourceId": "w1383050305",
+      "roadClass": "pasaj-main",
+      "sourceSegmentIndex": 3,
+      "sourceFraction": 1,
+      "beforeEdgeFraction": 1,
+      "x": -409.6442134846233,
+      "z": 8.446031999996109,
+      "beforeSurfaceM": -4.96,
+      "afterSurfaceM": -4.839209929239367,
+      "deltaM": 0.1207900707606333,
+      "rawSourceTags": {
+        "foot": "no",
+        "highway": "primary",
+        "int_ref": "E 85",
+        "lanes": "2",
+        "layer": "-1",
+        "lit": "yes",
+        "maxheight": "3.5",
+        "maxspeed": "40",
+        "name": "Pasajul Unirii",
+        "nat_ref": "DN4",
+        "oneway": "yes",
+        "ref": "DN4",
+        "shoulder": "no",
+        "sidewalk": "right",
+        "smoothness": "excellent",
+        "surface": "asphalt",
+        "tunnel": "yes"
+      }
+    }
+  ],
+  "changesByClass": {
+    "pasaj-ramp": 18,
+    "pasaj-main": 4
+  },
+  "oldOrdinaryStationsBitIdentical": 4920,
+  "newStationFlags": [
+    {
+      "sourceId": "w241368616",
+      "sourceSegmentIndex": 0,
+      "sourceFraction": 1,
+      "sourceNodeId": 21448879,
+      "x": -411.90981284887783,
+      "z": -88.38327960000603,
+      "roadClass": "reviewed-source-corridor",
+      "corridor": "unirii-pasaj-north-exit",
+      "basis": "literal compiled source leg; no old profile height supplied",
+      "matches": [
+        {
+          "edgeId": 776,
+          "roadSurfaceM": 0.2399999999999991,
+          "modelDepthM": -8.881784197001252e-16,
+          "sourceNodeIds": [
+            2351340230,
+            21448879
+          ],
+          "sourceTags": {
+            "highway": "primary",
+            "incline": "up",
+            "int_ref": "E 85",
+            "lanes": "2",
+            "lit": "yes",
+            "maxspeed": "40",
+            "name": "Pasajul Unirii",
+            "nat_ref": "DN4",
+            "oneway": "yes",
+            "ref": "DN4",
+            "sidewalk": "right",
+            "smoothness": "excellent",
+            "surface": "asphalt"
+          },
+          "sourceBridgeGrade": null,
+          "coveredRoadModel": null
+        },
+        {
+          "edgeId": 777,
+          "roadSurfaceM": 0.24,
+          "modelDepthM": 0,
+          "sourceNodeIds": [
+            21448879,
+            2351309047
+          ],
+          "sourceTags": {
+            "highway": "primary",
+            "incline": "up",
+            "int_ref": "E 85",
+            "lanes": "2",
+            "lit": "yes",
+            "maxspeed": "40",
+            "name": "Pasajul Unirii",
+            "nat_ref": "DN4",
+            "oneway": "yes",
+            "ref": "DN4",
+            "sidewalk": "right",
+            "smoothness": "excellent",
+            "surface": "asphalt"
+          },
+          "sourceBridgeGrade": null,
+          "coveredRoadModel": null
+        }
+      ],
+      "unresolved": "ambiguous-native-source-level"
+    },
+    {
+      "sourceId": "w241368616",
+      "sourceSegmentIndex": 1,
+      "sourceFraction": 0,
+      "sourceNodeId": 21448879,
+      "x": -411.90981284887783,
+      "z": -88.38327960000603,
+      "roadClass": "reviewed-source-corridor",
+      "corridor": "unirii-pasaj-north-exit",
+      "basis": "literal compiled source leg; no old profile height supplied",
+      "matches": [
+        {
+          "edgeId": 776,
+          "roadSurfaceM": 0.2399999999999991,
+          "modelDepthM": -8.881784197001252e-16,
+          "sourceNodeIds": [
+            2351340230,
+            21448879
+          ],
+          "sourceTags": {
+            "highway": "primary",
+            "incline": "up",
+            "int_ref": "E 85",
+            "lanes": "2",
+            "lit": "yes",
+            "maxspeed": "40",
+            "name": "Pasajul Unirii",
+            "nat_ref": "DN4",
+            "oneway": "yes",
+            "ref": "DN4",
+            "sidewalk": "right",
+            "smoothness": "excellent",
+            "surface": "asphalt"
+          },
+          "sourceBridgeGrade": null,
+          "coveredRoadModel": null
+        },
+        {
+          "edgeId": 777,
+          "roadSurfaceM": 0.24,
+          "modelDepthM": 0,
+          "sourceNodeIds": [
+            21448879,
+            2351309047
+          ],
+          "sourceTags": {
+            "highway": "primary",
+            "incline": "up",
+            "int_ref": "E 85",
+            "lanes": "2",
+            "lit": "yes",
+            "maxspeed": "40",
+            "name": "Pasajul Unirii",
+            "nat_ref": "DN4",
+            "oneway": "yes",
+            "ref": "DN4",
+            "sidewalk": "right",
+            "smoothness": "excellent",
+            "surface": "asphalt"
+          },
+          "sourceBridgeGrade": null,
+          "coveredRoadModel": null
+        }
+      ],
+      "unresolved": "ambiguous-native-source-level"
+    }
+  ],
+  "newStationFlagClassification": "Both flags are literal shared source node21448879, stored nodeY0 on both incident edges. Edge interpolation evaluates0.2399999999999991 versus0.24 (8.881784197001252e-16m); raw strict ambiguity flags retained. No missing source leg and no tolerance/height change applied.",
+  "newStationMissingSourceCount": 0,
+  "routing": {
+    "scope": "CPU actual Navigator on World-prefix drivable graph. Literal source-node destinations and historical normal GTS origin; not a native transition or driven passage.",
+    "fixtureSHA256": "16a78950a5cb7768ac09870f29be60b7c19d277f0969daf491788a5a1f4011fc",
+    "routes": [
+      {
+        "id": "normal-GTS-origin-to-north-entry",
+        "from": {
+          "sourceId": null,
+          "x": -634.8578864519126,
+          "z": 323.5955446303808
+        },
+        "to": {
+          "sourceId": 257684039,
+          "x": -436.9267995139553,
+          "z": -117.55542960057963
+        },
+        "found": true,
+        "total": 1564.939814405026,
+        "legs": [
+          {
+            "sourceId": "w153967348",
+            "dir": 1,
+            "from": 254337787,
+            "to": 31404735,
+            "virtual": false
+          },
+          {
+            "sourceId": "w153967352",
+            "dir": 1,
+            "from": 31404735,
+            "to": 6225397217,
+            "virtual": false
+          },
+          {
+            "sourceId": "w153967352",
+            "dir": 1,
+            "from": 6225397217,
+            "to": 31404739,
+            "virtual": false
+          },
+          {
+            "sourceId": "w244601702",
+            "dir": 1,
+            "from": 31404739,
+            "to": 2687992834,
+            "virtual": false
+          },
+          {
+            "sourceId": "w244601702",
+            "dir": 1,
+            "from": 2687992834,
+            "to": 2687992827,
+            "virtual": false
+          },
+          {
+            "sourceId": "w244601702",
+            "dir": 1,
+            "from": 2687992827,
+            "to": 2687992831,
+            "virtual": false
+          },
+          {
+            "sourceId": "w244601702",
+            "dir": 1,
+            "from": 2687992831,
+            "to": 2687992838,
+            "virtual": false
+          },
+          {
+            "sourceId": "w244601702",
+            "dir": 1,
+            "from": 2687992838,
+            "to": 14230268196,
+            "virtual": false
+          },
+          {
+            "sourceId": "w244601702",
+            "dir": 1,
+            "from": 14230268196,
+            "to": 2687968293,
+            "virtual": false
+          },
+          {
+            "sourceId": "w665110039",
+            "dir": 1,
+            "from": 2687968293,
+            "to": 31404740,
+            "virtual": false
+          },
+          {
+            "sourceId": "w665110039",
+            "dir": 1,
+            "from": 31404740,
+            "to": 8869163532,
+            "virtual": false
+          },
+          {
+            "sourceId": "w665110039",
+            "dir": 1,
+            "from": 8869163532,
+            "to": 2270487574,
+            "virtual": false
+          },
+          {
+            "sourceId": "w665110039",
+            "dir": 1,
+            "from": 2270487574,
+            "to": 2389982918,
+            "virtual": false
+          },
+          {
+            "sourceId": "w665110038",
+            "dir": 1,
+            "from": 2389982918,
+            "to": 10299316646,
+            "virtual": false
+          },
+          {
+            "sourceId": "w665110038",
+            "dir": 1,
+            "from": 10299316646,
+            "to": 6908633245,
+            "virtual": false
+          },
+          {
+            "sourceId": "w665110038",
+            "dir": 1,
+            "from": 6908633245,
+            "to": 6908656395,
+            "virtual": false
+          },
+          {
+            "sourceId": "w665110038",
+            "dir": 1,
+            "from": 6908656395,
+            "to": 2351294896,
+            "virtual": false
+          },
+          {
+            "sourceId": "w665110038",
+            "dir": 1,
+            "from": 2351294896,
+            "to": 14303758401,
+            "virtual": false
+          },
+          {
+            "sourceId": "w665110038",
+            "dir": 1,
+            "from": 14303758401,
+            "to": 7238518480,
+            "virtual": false
+          },
+          {
+            "sourceId": "w665110038",
+            "dir": 1,
+            "from": 7238518480,
+            "to": 31404741,
+            "virtual": false
+          },
+          {
+            "sourceId": "w204909977",
+            "dir": 1,
+            "from": 31404741,
+            "to": 14303758406,
+            "virtual": false
+          },
+          {
+            "sourceId": "w204909977",
+            "dir": 1,
+            "from": 14303758406,
+            "to": 6518886878,
+            "virtual": false
+          },
+          {
+            "sourceId": "w204909977",
+            "dir": 1,
+            "from": 6518886878,
+            "to": 31404736,
+            "virtual": false
+          },
+          {
+            "sourceId": "w153967349",
+            "dir": 1,
+            "from": 31404736,
+            "to": 2400144428,
+            "virtual": false
+          },
+          {
+            "sourceId": "w4045771",
+            "dir": 1,
+            "from": 2400144428,
+            "to": 7311797096,
+            "virtual": false
+          },
+          {
+            "sourceId": "w4045771",
+            "dir": 1,
+            "from": 7311797096,
+            "to": 1471286953,
+            "virtual": false
+          },
+          {
+            "sourceId": "w4045771",
+            "dir": 1,
+            "from": 1471286953,
+            "to": 10299316644,
+            "virtual": false
+          },
+          {
+            "sourceId": "w4045771",
+            "dir": 1,
+            "from": 10299316644,
+            "to": 3402859093,
+            "virtual": false
+          },
+          {
+            "sourceId": "w4045771",
+            "dir": 1,
+            "from": 3402859093,
+            "to": 1471286958,
+            "virtual": false
+          },
+          {
+            "sourceId": "w228997079",
+            "dir": 1,
+            "from": 1471286958,
+            "to": 10961760106,
+            "virtual": false
+          },
+          {
+            "sourceId": "w228997079",
+            "dir": 1,
+            "from": 10961760106,
+            "to": 2160093480,
+            "virtual": false
+          },
+          {
+            "sourceId": "w228997079",
+            "dir": 1,
+            "from": 2160093480,
+            "to": 2383774917,
+            "virtual": false
+          },
+          {
+            "sourceId": "w228997079",
+            "dir": 1,
+            "from": 2383774917,
+            "to": 2488109209,
+            "virtual": false
+          },
+          {
+            "sourceId": "w228997079",
+            "dir": 1,
+            "from": 2488109209,
+            "to": 4152925918,
+            "virtual": false
+          },
+          {
+            "sourceId": "w228997079",
+            "dir": 1,
+            "from": 4152925918,
+            "to": 296105803,
+            "virtual": false
+          },
+          {
+            "sourceId": "w228997079",
+            "dir": 1,
+            "from": 296105803,
+            "to": 10961755191,
+            "virtual": false
+          },
+          {
+            "sourceId": "w228997079",
+            "dir": 1,
+            "from": 10961755191,
+            "to": 10961755188,
+            "virtual": false
+          },
+          {
+            "sourceId": "w723819567",
+            "dir": 1,
+            "from": 10961755188,
+            "to": 14123844702,
+            "virtual": false
+          },
+          {
+            "sourceId": "w723819567",
+            "dir": 1,
+            "from": 14123844702,
+            "to": 4197270359,
+            "virtual": false
+          },
+          {
+            "sourceId": "w723819567",
+            "dir": 1,
+            "from": 4197270359,
+            "to": 2488109236,
+            "virtual": false
+          },
+          {
+            "sourceId": "w723819567",
+            "dir": 1,
+            "from": 2488109236,
+            "to": 13824677620,
+            "virtual": false
+          },
+          {
+            "sourceId": "w723819567",
+            "dir": 1,
+            "from": 13824677620,
+            "to": 2404241703,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241211914",
+            "dir": 1,
+            "from": 2404241703,
+            "to": 4152925933,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241211914",
+            "dir": 1,
+            "from": 4152925933,
+            "to": 2351325363,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241211914",
+            "dir": 1,
+            "from": 2351325363,
+            "to": 4152925922,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241211914",
+            "dir": 1,
+            "from": 4152925922,
+            "to": 13357133829,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241211914",
+            "dir": 1,
+            "from": 13357133829,
+            "to": 4152925921,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241211914",
+            "dir": 1,
+            "from": 4152925921,
+            "to": 2351320119,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241211914",
+            "dir": 1,
+            "from": 2351320119,
+            "to": 257684377,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241211914",
+            "dir": 1,
+            "from": 257684377,
+            "to": 2351320130,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241211914",
+            "dir": 1,
+            "from": 2351320130,
+            "to": 13357133874,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241211914",
+            "dir": 1,
+            "from": 13357133874,
+            "to": 2351320134,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241211914",
+            "dir": 1,
+            "from": 2351320134,
+            "to": 6933125479,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241211914",
+            "dir": 1,
+            "from": 6933125479,
+            "to": 2351320121,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241211914",
+            "dir": 1,
+            "from": 2351320121,
+            "to": 2351320128,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241211914",
+            "dir": 1,
+            "from": 2351320128,
+            "to": 2351320126,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241211914",
+            "dir": 1,
+            "from": 2351320126,
+            "to": 2160093508,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241211914",
+            "dir": 1,
+            "from": 2160093508,
+            "to": 2351320120,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241211914",
+            "dir": 1,
+            "from": 2351320120,
+            "to": 2160093484,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241211914",
+            "dir": 1,
+            "from": 2160093484,
+            "to": 2160093516,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241211914",
+            "dir": 1,
+            "from": 2160093516,
+            "to": 2160093502,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241211914",
+            "dir": 1,
+            "from": 2160093502,
+            "to": 2160093514,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241211914",
+            "dir": 1,
+            "from": 2160093514,
+            "to": 2160093540,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241211914",
+            "dir": 1,
+            "from": 2160093540,
+            "to": 2160093488,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241211914",
+            "dir": 1,
+            "from": 2160093488,
+            "to": 2160093479,
+            "virtual": false
+          },
+          {
+            "sourceId": "w1459912402",
+            "dir": 1,
+            "from": 2160093479,
+            "to": 2160093491,
+            "virtual": false
+          },
+          {
+            "sourceId": "w339705212",
+            "dir": 1,
+            "from": 2160093491,
+            "to": 257682933,
+            "virtual": false
+          },
+          {
+            "sourceId": "w1459912403",
+            "dir": 1,
+            "from": 257682933,
+            "to": 2351321583,
+            "virtual": false
+          },
+          {
+            "sourceId": "w1459912403",
+            "dir": 1,
+            "from": 2351321583,
+            "to": 2160093493,
+            "virtual": false
+          },
+          {
+            "sourceId": "w1459912403",
+            "dir": 1,
+            "from": 2160093493,
+            "to": 257683021,
+            "virtual": false
+          },
+          {
+            "sourceId": "w1459912403",
+            "dir": 1,
+            "from": 257683021,
+            "to": 3672093625,
+            "virtual": false
+          },
+          {
+            "sourceId": "w1459912403",
+            "dir": 1,
+            "from": 3672093625,
+            "to": 257682900,
+            "virtual": false
+          },
+          {
+            "sourceId": "w1459912403",
+            "dir": 1,
+            "from": 257682900,
+            "to": 4152946971,
+            "virtual": false
+          },
+          {
+            "sourceId": "w1459912403",
+            "dir": 1,
+            "from": 4152946971,
+            "to": 2160093537,
+            "virtual": false
+          },
+          {
+            "sourceId": "w1459912403",
+            "dir": 1,
+            "from": 2160093537,
+            "to": 4152946999,
+            "virtual": false
+          },
+          {
+            "sourceId": "w1459912403",
+            "dir": 1,
+            "from": 4152946999,
+            "to": 257683078,
+            "virtual": false
+          },
+          {
+            "sourceId": "w1459912403",
+            "dir": 1,
+            "from": 257683078,
+            "to": 257684039,
+            "virtual": false
+          }
+        ],
+        "points": [
+          [
+            -638.3524945775741,
+            323.401343579765
+          ],
+          [
+            -638.501547167295,
+            326.0835143998394
+          ],
+          [
+            -641.3554074192253,
+            379.4268743993992
+          ],
+          [
+            -642.341141879716,
+            398.81940839939546
+          ],
+          [
+            -625.7108475983796,
+            406.6764407996152
+          ],
+          [
+            -618.6437674758533,
+            409.72145759966577
+          ],
+          [
+            -606.9898423245562,
+            414.0111527992586
+          ],
+          [
+            -592.2356233064884,
+            418.8565079998174
+          ],
+          [
+            -586.2258228875256,
+            420.29011079998816
+          ],
+          [
+            -580.2160224682805,
+            421.5014495999305
+          ],
+          [
+            -571.5034017550797,
+            422.56831679976375
+          ],
+          [
+            -562.9974672995507,
+            423.17954279979983
+          ],
+          [
+            -551.558177877472,
+            423.80188199996576
+          ],
+          [
+            -511.33385232124994,
+            425.702239199274
+          ],
+          [
+            -488.2167893337987,
+            426.8802383996163
+          ],
+          [
+            -444.93191726797465,
+            429.5140667995995
+          ],
+          [
+            -437.72174665930277,
+            430.03638719938624
+          ],
+          [
+            -429.98691093476367,
+            430.7920847995314
+          ],
+          [
+            -420.3759999472383,
+            431.9811972000036
+          ],
+          [
+            -417.73677542452646,
+            432.31459319995145
+          ],
+          [
+            -393.23650440405197,
+            435.215138399893
+          ],
+          [
+            -396.8932612728765,
+            355.6890791999504
+          ],
+          [
+            -396.9648065159493,
+            354.15545759940045
+          ],
+          [
+            -397.6087137036045,
+            340.9529759998845
+          ],
+          [
+            -398.7454881215051,
+            322.6495355999812
+          ],
+          [
+            -399.5483847383993,
+            312.39205199934696
+          ],
+          [
+            -400.8282496424455,
+            296.7780059992866
+          ],
+          [
+            -408.4358938236499,
+            190.73585159980303
+          ],
+          [
+            -409.7952534423156,
+            171.71005319935463
+          ],
+          [
+            -410.0893838861535,
+            167.1536411998035
+          ],
+          [
+            -408.77772109620304,
+            154.06229160000694
+          ],
+          [
+            -407.32296782010695,
+            144.2271095995699
+          ],
+          [
+            -405.07326739866335,
+            130.79125079969558
+          ],
+          [
+            -400.76465387091935,
+            113.25462119927766
+          ],
+          [
+            -400.3433318837468,
+            111.55430159993821
+          ],
+          [
+            -399.1509111655843,
+            106.31998439957178
+          ],
+          [
+            -398.6341955212638,
+            102.97491119996295
+          ],
+          [
+            -398.4354587348563,
+            100.97453519948593
+          ],
+          [
+            -398.3559640202368,
+            97.77393359998612
+          ],
+          [
+            -398.49110503511815,
+            95.04008639962373
+          ],
+          [
+            -398.8488312504822,
+            91.57276799937597
+          ],
+          [
+            -399.5642836812102,
+            88.19435519937753
+          ],
+          [
+            -400.6374623275847,
+            84.80482920003885
+          ],
+          [
+            -401.8298830457472,
+            81.9376235996973
+          ],
+          [
+            -403.8967456235942,
+            76.91445719942948
+          ],
+          [
+            -406.2656881168258,
+            69.86868840000417
+          ],
+          [
+            -407.7124919213752,
+            64.65659759989748
+          ],
+          [
+            -408.8413168677291,
+            59.866808399988
+          ],
+          [
+            -409.6760113705276,
+            56.043867599532604
+          ],
+          [
+            -411.45669297608345,
+            47.564495999936526
+          ],
+          [
+            -413.10223356704034,
+            38.08493639970712
+          ],
+          [
+            -414.1754122134148,
+            31.205865599860942
+          ],
+          [
+            -415.16114667362314,
+            23.660002799329334
+          ],
+          [
+            -415.6222160179642,
+            17.5032900000283
+          ],
+          [
+            -417.1882618943016,
+            -23.24881440005163
+          ],
+          [
+            -418.2614405406761,
+            -51.354097200002315
+          ],
+          [
+            -420.6542314482653,
+            -118.92235319997118
+          ],
+          [
+            -422.0135910666486,
+            -159.652231200581
+          ],
+          [
+            -423.43654645684035,
+            -198.65956320001237
+          ],
+          [
+            -424.8754007901255,
+            -225.8535636003687
+          ],
+          [
+            -426.66403186722806,
+            -246.60190800041627
+          ],
+          [
+            -428.85808598840975,
+            -262.3381992003259
+          ],
+          [
+            -441.966764415803,
+            -340.63069320006645
+          ],
+          [
+            -454.24869781194457,
+            -414.4001148006455
+          ],
+          [
+            -456.68918554824893,
+            -428.5916712006649
+          ],
+          [
+            -457.4523348076922,
+            -432.99249839997714
+          ],
+          [
+            -469.01881577282325,
+            -449.3955816005722
+          ],
+          [
+            -475.9189569948463,
+            -448.3620540003389
+          ],
+          [
+            -474.40855741848833,
+            -439.6937580001143
+          ],
+          [
+            -472.1668064685914,
+            -426.1912200002504
+          ],
+          [
+            -455.8226931595462,
+            -324.98330760040614
+          ],
+          [
+            -452.2931278340564,
+            -302.79024720005793
+          ],
+          [
+            -443.9620817505773,
+            -250.69156560004035
+          ],
+          [
+            -442.25294538809425,
+            -233.8661808000377
+          ],
+          [
+            -441.1797667417198,
+            -220.80817080063076
+          ],
+          [
+            -439.8522050089584,
+            -193.8475476006328
+          ],
+          [
+            -437.0698900001009,
+            -122.33410560035924
+          ],
+          [
+            -436.9267995139553,
+            -117.55542960057963
+          ]
+        ]
+      },
+      {
+        "id": "normal-GTS-origin-to-south-entry",
+        "from": {
+          "sourceId": null,
+          "x": -634.8578864519126,
+          "z": 323.5955446303808
+        },
+        "to": {
+          "sourceId": 257685484,
+          "x": -385.05649827826517,
+          "z": 802.873133999947
+        },
+        "found": true,
+        "total": 1018.051694344954,
+        "legs": [
+          {
+            "sourceId": "w153967348",
+            "dir": 1,
+            "from": 254337787,
+            "to": 31404735,
+            "virtual": false
+          },
+          {
+            "sourceId": "w153967352",
+            "dir": 1,
+            "from": 31404735,
+            "to": 6225397217,
+            "virtual": false
+          },
+          {
+            "sourceId": "w153967352",
+            "dir": 1,
+            "from": 6225397217,
+            "to": 31404739,
+            "virtual": false
+          },
+          {
+            "sourceId": "w244601702",
+            "dir": 1,
+            "from": 31404739,
+            "to": 2687992834,
+            "virtual": false
+          },
+          {
+            "sourceId": "w244601702",
+            "dir": 1,
+            "from": 2687992834,
+            "to": 2687992827,
+            "virtual": false
+          },
+          {
+            "sourceId": "w244601702",
+            "dir": 1,
+            "from": 2687992827,
+            "to": 2687992831,
+            "virtual": false
+          },
+          {
+            "sourceId": "w244601702",
+            "dir": 1,
+            "from": 2687992831,
+            "to": 2687992838,
+            "virtual": false
+          },
+          {
+            "sourceId": "w244601702",
+            "dir": 1,
+            "from": 2687992838,
+            "to": 14230268196,
+            "virtual": false
+          },
+          {
+            "sourceId": "w244601702",
+            "dir": 1,
+            "from": 14230268196,
+            "to": 2687968293,
+            "virtual": false
+          },
+          {
+            "sourceId": "w665110039",
+            "dir": 1,
+            "from": 2687968293,
+            "to": 31404740,
+            "virtual": false
+          },
+          {
+            "sourceId": "w665110039",
+            "dir": 1,
+            "from": 31404740,
+            "to": 8869163532,
+            "virtual": false
+          },
+          {
+            "sourceId": "w665110039",
+            "dir": 1,
+            "from": 8869163532,
+            "to": 2270487574,
+            "virtual": false
+          },
+          {
+            "sourceId": "w665110039",
+            "dir": 1,
+            "from": 2270487574,
+            "to": 2389982918,
+            "virtual": false
+          },
+          {
+            "sourceId": "w665110038",
+            "dir": 1,
+            "from": 2389982918,
+            "to": 10299316646,
+            "virtual": false
+          },
+          {
+            "sourceId": "w665110038",
+            "dir": 1,
+            "from": 10299316646,
+            "to": 6908633245,
+            "virtual": false
+          },
+          {
+            "sourceId": "w665110038",
+            "dir": 1,
+            "from": 6908633245,
+            "to": 6908656395,
+            "virtual": false
+          },
+          {
+            "sourceId": "w665110038",
+            "dir": 1,
+            "from": 6908656395,
+            "to": 2351294896,
+            "virtual": false
+          },
+          {
+            "sourceId": "w665110038",
+            "dir": 1,
+            "from": 2351294896,
+            "to": 14303758401,
+            "virtual": false
+          },
+          {
+            "sourceId": "w665110038",
+            "dir": 1,
+            "from": 14303758401,
+            "to": 7238518480,
+            "virtual": false
+          },
+          {
+            "sourceId": "w665110038",
+            "dir": 1,
+            "from": 7238518480,
+            "to": 31404741,
+            "virtual": false
+          },
+          {
+            "sourceId": "w226274205",
+            "dir": 1,
+            "from": 31404741,
+            "to": 6225649426,
+            "virtual": false
+          },
+          {
+            "sourceId": "w226274205",
+            "dir": 1,
+            "from": 6225649426,
+            "to": 2583013725,
+            "virtual": false
+          },
+          {
+            "sourceId": "w893336334",
+            "dir": 1,
+            "from": 2583013725,
+            "to": 257685750,
+            "virtual": false
+          },
+          {
+            "sourceId": "w665204217",
+            "dir": 1,
+            "from": 257685750,
+            "to": 8302882338,
+            "virtual": false
+          },
+          {
+            "sourceId": "w893336335",
+            "dir": 1,
+            "from": 8302882338,
+            "to": 257685748,
+            "virtual": false
+          },
+          {
+            "sourceId": "w23782326",
+            "dir": 1,
+            "from": 257685748,
+            "to": 257684828,
+            "virtual": false
+          },
+          {
+            "sourceId": "w23782326",
+            "dir": 1,
+            "from": 257684828,
+            "to": 2351320124,
+            "virtual": false
+          },
+          {
+            "sourceId": "w23782326",
+            "dir": 1,
+            "from": 2351320124,
+            "to": 14212953442,
+            "virtual": false
+          },
+          {
+            "sourceId": "w23782326",
+            "dir": 1,
+            "from": 14212953442,
+            "to": 14212953444,
+            "virtual": false
+          },
+          {
+            "sourceId": "w23782326",
+            "dir": 1,
+            "from": 14212953444,
+            "to": 257685697,
+            "virtual": false
+          },
+          {
+            "sourceId": "w204909976",
+            "dir": 1,
+            "from": 257685697,
+            "to": 14212953440,
+            "virtual": false
+          },
+          {
+            "sourceId": "w204909976",
+            "dir": 1,
+            "from": 14212953440,
+            "to": 7735830781,
+            "virtual": false
+          },
+          {
+            "sourceId": "w204909976",
+            "dir": 1,
+            "from": 7735830781,
+            "to": 939722175,
+            "virtual": false
+          },
+          {
+            "sourceId": "w204909976",
+            "dir": 1,
+            "from": 939722175,
+            "to": 257685746,
+            "virtual": false
+          },
+          {
+            "sourceId": "w204909976",
+            "dir": 1,
+            "from": 257685746,
+            "to": 1366791009,
+            "virtual": false
+          },
+          {
+            "sourceId": "w204909976",
+            "dir": 1,
+            "from": 1366791009,
+            "to": 9089632742,
+            "virtual": false
+          },
+          {
+            "sourceId": "w204909976",
+            "dir": 1,
+            "from": 9089632742,
+            "to": 9089632723,
+            "virtual": false
+          },
+          {
+            "sourceId": "w204909976",
+            "dir": 1,
+            "from": 9089632723,
+            "to": 9089632725,
+            "virtual": false
+          },
+          {
+            "sourceId": "w204909976",
+            "dir": 1,
+            "from": 9089632725,
+            "to": 257685728,
+            "virtual": false
+          },
+          {
+            "sourceId": "w723798413",
+            "dir": 1,
+            "from": 257685728,
+            "to": 166221099,
+            "virtual": false
+          },
+          {
+            "sourceId": "w1121975350",
+            "dir": 1,
+            "from": 166221099,
+            "to": 9089632726,
+            "virtual": false
+          },
+          {
+            "sourceId": "w1121975350",
+            "dir": 1,
+            "from": 9089632726,
+            "to": 9089632724,
+            "virtual": false
+          },
+          {
+            "sourceId": "w1121975350",
+            "dir": 1,
+            "from": 9089632724,
+            "to": 9089632729,
+            "virtual": false
+          },
+          {
+            "sourceId": "w259208583",
+            "dir": 1,
+            "from": 9089632729,
+            "to": 1366791011,
+            "virtual": false
+          },
+          {
+            "sourceId": "w259208583",
+            "dir": 1,
+            "from": 1366791011,
+            "to": 2288416572,
+            "virtual": false
+          },
+          {
+            "sourceId": "w259208583",
+            "dir": 1,
+            "from": 2288416572,
+            "to": 701426867,
+            "virtual": false
+          },
+          {
+            "sourceId": "w259208583",
+            "dir": 1,
+            "from": 701426867,
+            "to": 257685484,
+            "virtual": false
+          }
+        ],
+        "points": [
+          [
+            -638.3524945775741,
+            323.401343579765
+          ],
+          [
+            -638.501547167295,
+            326.0835143998394
+          ],
+          [
+            -641.3554074192253,
+            379.4268743993992
+          ],
+          [
+            -642.341141879716,
+            398.81940839939546
+          ],
+          [
+            -625.7108475983796,
+            406.6764407996152
+          ],
+          [
+            -618.6437674758533,
+            409.72145759966577
+          ],
+          [
+            -606.9898423245562,
+            414.0111527992586
+          ],
+          [
+            -592.2356233064884,
+            418.8565079998174
+          ],
+          [
+            -586.2258228875256,
+            420.29011079998816
+          ],
+          [
+            -580.2160224682805,
+            421.5014495999305
+          ],
+          [
+            -571.5034017550797,
+            422.56831679976375
+          ],
+          [
+            -562.9974672995507,
+            423.17954279979983
+          ],
+          [
+            -551.558177877472,
+            423.80188199996576
+          ],
+          [
+            -511.33385232124994,
+            425.702239199274
+          ],
+          [
+            -488.2167893337987,
+            426.8802383996163
+          ],
+          [
+            -444.93191726797465,
+            429.5140667995995
+          ],
+          [
+            -437.72174665930277,
+            430.03638719938624
+          ],
+          [
+            -429.98691093476367,
+            430.7920847995314
+          ],
+          [
+            -420.3759999472383,
+            431.9811972000036
+          ],
+          [
+            -417.73677542452646,
+            432.31459319995145
+          ],
+          [
+            -393.23650440405197,
+            435.215138399893
+          ],
+          [
+            -401.9173272316309,
+            455.05220039955657
+          ],
+          [
+            -402.2432555610906,
+            500.7052259992654
+          ],
+          [
+            -402.0365693034189,
+            531.7443935995473
+          ],
+          [
+            -401.4403589444789,
+            572.3853659999077
+          ],
+          [
+            -401.25752110088234,
+            605.5027019999964
+          ],
+          [
+            -400.9792896001378,
+            657.3124403997958
+          ],
+          [
+            -401.1859758578095,
+            713.4118739999778
+          ],
+          [
+            -401.0031380144954,
+            722.8803203992877
+          ],
+          [
+            -400.65336127039564,
+            741.4060247994195
+          ],
+          [
+            -399.5006879096841,
+            801.9173987998331
+          ],
+          [
+            -399.5801826243036,
+            813.1861835996513
+          ],
+          [
+            -399.7153236389025,
+            833.1010379994343
+          ],
+          [
+            -400.1207466829817,
+            891.4564511999217
+          ],
+          [
+            -401.6470452021506,
+            919.9951487994099
+          ],
+          [
+            -401.8934788172733,
+            928.5967655996449
+          ],
+          [
+            -402.1558113752069,
+            939.2765507996867
+          ],
+          [
+            -402.3227502757101,
+            946.1889611999225
+          ],
+          [
+            -402.4260934046872,
+            950.2341659998167
+          ],
+          [
+            -402.4260934046872,
+            957.8022551998184
+          ],
+          [
+            -387.95805535891066,
+            951.0009767993021
+          ],
+          [
+            -387.8149648724826,
+            943.7107175993885
+          ],
+          [
+            -387.7354701581456,
+            939.5654939999048
+          ],
+          [
+            -387.6003291432642,
+            932.797555199778
+          ],
+          [
+            -387.36979447123485,
+            921.6176759994196
+          ],
+          [
+            -386.76563464074815,
+            892.7122427995939
+          ],
+          [
+            -386.717937812033,
+            887.8668875998247
+          ],
+          [
+            -385.05649827826517,
+            802.873133999947
+          ]
+        ]
+      },
+      {
+        "id": "north-entry-through-south-exit",
+        "from": {
+          "sourceId": 257684039,
+          "x": -436.9267995139553,
+          "z": -117.55542960057963
+        },
+        "to": {
+          "sourceId": 257685697,
+          "x": -399.5006879096841,
+          "z": 801.9173987998331
+        },
+        "found": true,
+        "total": 1808.2284010820636,
+        "legs": [
+          {
+            "sourceId": "w23782207",
+            "dir": 1,
+            "from": 257684039,
+            "to": 6225649428,
+            "virtual": false
+          },
+          {
+            "sourceId": "w23782207",
+            "dir": 1,
+            "from": 6225649428,
+            "to": 2351325366,
+            "virtual": false
+          },
+          {
+            "sourceId": "w23782207",
+            "dir": 1,
+            "from": 2351325366,
+            "to": 2351340244,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "from": 2351340244,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "to": 2351340228,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "from": 2351340228,
+            "to": 6564974882,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "from": 6564974882,
+            "to": 5550936831,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "from": 5550936831,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "to": 2351340239,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "from": 2351340239,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "to": 6564974884,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "from": 6564974884,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "to": 2351340234,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "from": 2351340234,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "to": 2351340216,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "from": 2351340216,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "to": 2687968316,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "from": 2687968316,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368617",
+            "dir": 1,
+            "to": 257684144,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368619",
+            "dir": 1,
+            "from": 257684144,
+            "to": 257684145,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368619",
+            "dir": 1,
+            "from": 257684145,
+            "to": 257685697,
+            "virtual": false
+          },
+          {
+            "sourceId": "w204909976",
+            "dir": 1,
+            "from": 257685697,
+            "to": 14212953440,
+            "virtual": false
+          },
+          {
+            "sourceId": "w204909976",
+            "dir": 1,
+            "from": 14212953440,
+            "to": 7735830781,
+            "virtual": false
+          },
+          {
+            "sourceId": "w204909976",
+            "dir": 1,
+            "from": 7735830781,
+            "to": 939722175,
+            "virtual": false
+          },
+          {
+            "sourceId": "w204909976",
+            "dir": 1,
+            "from": 939722175,
+            "to": 257685746,
+            "virtual": false
+          },
+          {
+            "sourceId": "w204909976",
+            "dir": 1,
+            "from": 257685746,
+            "to": 1366791009,
+            "virtual": false
+          },
+          {
+            "sourceId": "w204909976",
+            "dir": 1,
+            "from": 1366791009,
+            "to": 9089632742,
+            "virtual": false
+          },
+          {
+            "sourceId": "w204909976",
+            "dir": 1,
+            "from": 9089632742,
+            "to": 9089632723,
+            "virtual": false
+          },
+          {
+            "sourceId": "w204909976",
+            "dir": 1,
+            "from": 9089632723,
+            "to": 9089632725,
+            "virtual": false
+          },
+          {
+            "sourceId": "w204909976",
+            "dir": 1,
+            "from": 9089632725,
+            "to": 257685728,
+            "virtual": false
+          },
+          {
+            "sourceId": "w723798413",
+            "dir": 1,
+            "from": 257685728,
+            "to": 166221099,
+            "virtual": false
+          },
+          {
+            "sourceId": "w1121975350",
+            "dir": 1,
+            "from": 166221099,
+            "to": 9089632726,
+            "virtual": false
+          },
+          {
+            "sourceId": "w1121975350",
+            "dir": 1,
+            "from": 9089632726,
+            "to": 9089632724,
+            "virtual": false
+          },
+          {
+            "sourceId": "w1121975350",
+            "dir": 1,
+            "from": 9089632724,
+            "to": 9089632729,
+            "virtual": false
+          },
+          {
+            "sourceId": "w259208583",
+            "dir": 1,
+            "from": 9089632729,
+            "to": 1366791011,
+            "virtual": false
+          },
+          {
+            "sourceId": "w259208583",
+            "dir": 1,
+            "from": 1366791011,
+            "to": 2288416572,
+            "virtual": false
+          },
+          {
+            "sourceId": "w259208583",
+            "dir": 1,
+            "from": 2288416572,
+            "to": 701426867,
+            "virtual": false
+          },
+          {
+            "sourceId": "w259208583",
+            "dir": 1,
+            "from": 701426867,
+            "to": 257685484,
+            "virtual": false
+          },
+          {
+            "sourceId": "w226274207",
+            "dir": 1,
+            "from": 257685484,
+            "to": 257685483,
+            "virtual": false
+          },
+          {
+            "sourceId": "w226274207",
+            "dir": 1,
+            "from": 257685483,
+            "to": 2583013692,
+            "virtual": false
+          },
+          {
+            "sourceId": "w226274207",
+            "dir": 1,
+            "from": 2583013692,
+            "to": 6521562423,
+            "virtual": false
+          },
+          {
+            "sourceId": "w23782839",
+            "dir": -1,
+            "from": 6521562423,
+            "to": 3033656474,
+            "virtual": false
+          },
+          {
+            "sourceId": "w23782839",
+            "dir": -1,
+            "from": 3033656474,
+            "to": 257685750,
+            "virtual": false
+          },
+          {
+            "sourceId": "w665204217",
+            "dir": 1,
+            "from": 257685750,
+            "to": 8302882338,
+            "virtual": false
+          },
+          {
+            "sourceId": "w893336335",
+            "dir": 1,
+            "from": 8302882338,
+            "to": 257685748,
+            "virtual": false
+          },
+          {
+            "sourceId": "w23782326",
+            "dir": 1,
+            "from": 257685748,
+            "to": 257684828,
+            "virtual": false
+          },
+          {
+            "sourceId": "w23782326",
+            "dir": 1,
+            "from": 257684828,
+            "to": 2351320124,
+            "virtual": false
+          },
+          {
+            "sourceId": "w23782326",
+            "dir": 1,
+            "from": 2351320124,
+            "to": 14212953442,
+            "virtual": false
+          },
+          {
+            "sourceId": "w23782326",
+            "dir": 1,
+            "from": 14212953442,
+            "to": 14212953444,
+            "virtual": false
+          },
+          {
+            "sourceId": "w23782326",
+            "dir": 1,
+            "from": 14212953444,
+            "to": 257685697,
+            "virtual": false
+          }
+        ],
+        "points": [
+          [
+            -436.9267995139553,
+            -117.55542960057963
+          ],
+          [
+            -436.3226396834686,
+            -102.11919480022829
+          ],
+          [
+            -435.8138735104123,
+            -88.12767600017759
+          ],
+          [
+            -431.9822282698203,
+            9.535125599299477
+          ],
+          [
+            -431.58077996137325,
+            16.730922599293564
+          ],
+          [
+            -431.1793316529262,
+            23.92671959928765
+          ],
+          [
+            -429.6212352481354,
+            34.83988199968783
+          ],
+          [
+            -427.01380861104536,
+            47.586722399406625
+          ],
+          [
+            -425.3974160821439,
+            56.910697199397134
+          ],
+          [
+            -423.78102355324233,
+            66.23467199938764
+          ],
+          [
+            -422.16463102434085,
+            75.55864679937815
+          ],
+          [
+            -420.83706929157944,
+            84.56033879955064
+          ],
+          [
+            -419.50950755881803,
+            93.56203079972312
+          ],
+          [
+            -418.5913436059092,
+            101.43573299974287
+          ],
+          [
+            -417.6731796530003,
+            109.30943519976262
+          ],
+          [
+            -416.7703468235869,
+            119.24781119971351
+          ],
+          [
+            -415.86751399417346,
+            129.1861871996644
+          ],
+          [
+            -414.96468116476007,
+            139.1245631996153
+          ],
+          [
+            -414.0618483353466,
+            149.0629391995662
+          ],
+          [
+            -413.1590155059332,
+            159.00131519951708
+          ],
+          [
+            -412.25618267651976,
+            168.93969119946797
+          ],
+          [
+            -411.35334984710636,
+            178.87806719941887
+          ],
+          [
+            -410.8260349073484,
+            188.81903039942506
+          ],
+          [
+            -410.29871996759044,
+            198.75999359943125
+          ],
+          [
+            -409.7714050278325,
+            208.70095679943745
+          ],
+          [
+            -409.24409008807453,
+            218.64191999944364
+          ],
+          [
+            -408.7167751483166,
+            228.58288319944984
+          ],
+          [
+            -408.1894602085586,
+            238.52384639945603
+          ],
+          [
+            -407.66214526880066,
+            248.46480959946223
+          ],
+          [
+            -407.1348303290427,
+            258.4057727994684
+          ],
+          [
+            -406.60751538928474,
+            268.3467359994746
+          ],
+          [
+            -406.0802004495268,
+            278.2876991994808
+          ],
+          [
+            -405.5528855097688,
+            288.228662399487
+          ],
+          [
+            -405.02557057001087,
+            298.1696255994932
+          ],
+          [
+            -404.4982556302529,
+            308.1105887994994
+          ],
+          [
+            -403.970940690495,
+            318.0515519995056
+          ],
+          [
+            -403.44362575073706,
+            327.9925151995118
+          ],
+          [
+            -402.9163108109791,
+            337.933478399518
+          ],
+          [
+            -402.38899587122114,
+            347.8744415995242
+          ],
+          [
+            -401.8616809314632,
+            357.81540479953037
+          ],
+          [
+            -401.3343659917052,
+            367.75636799953656
+          ],
+          [
+            -400.80705105194727,
+            377.69733119954276
+          ],
+          [
+            -400.2797361121893,
+            387.63829439954895
+          ],
+          [
+            -399.75242117243135,
+            397.57925759955515
+          ],
+          [
+            -399.2251062326734,
+            407.52022079956134
+          ],
+          [
+            -398.69779129291544,
+            417.4611839995676
+          ],
+          [
+            -398.1704763531575,
+            427.4021471995738
+          ],
+          [
+            -397.6431614133995,
+            437.34311039958
+          ],
+          [
+            -397.11584647364157,
+            447.2840735995861
+          ],
+          [
+            -396.72314258381107,
+            456.87476519961393
+          ],
+          [
+            -396.3304386939806,
+            466.4654567996417
+          ],
+          [
+            -395.9377348041501,
+            476.0561483996695
+          ],
+          [
+            -395.5450309143197,
+            485.64683999969725
+          ],
+          [
+            -395.1523270244892,
+            495.23753159972506
+          ],
+          [
+            -394.7596231346587,
+            504.82822319975287
+          ],
+          [
+            -394.36691924482824,
+            514.4189147997806
+          ],
+          [
+            -393.97421535499774,
+            524.0096063998084
+          ],
+          [
+            -393.5815114651673,
+            533.6002979998362
+          ],
+          [
+            -393.1888075753368,
+            543.190989599864
+          ],
+          [
+            -393.4272917189128,
+            667.025377199594
+          ],
+          [
+            -399.5006879096841,
+            801.9173987998331
+          ],
+          [
+            -399.5801826243036,
+            813.1861835996513
+          ],
+          [
+            -399.7153236389025,
+            833.1010379994343
+          ],
+          [
+            -400.1207466829817,
+            891.4564511999217
+          ],
+          [
+            -401.6470452021506,
+            919.9951487994099
+          ],
+          [
+            -401.8934788172733,
+            928.5967655996449
+          ],
+          [
+            -402.1558113752069,
+            939.2765507996867
+          ],
+          [
+            -402.3227502757101,
+            946.1889611999225
+          ],
+          [
+            -402.4260934046872,
+            950.2341659998167
+          ],
+          [
+            -402.4260934046872,
+            957.8022551998184
+          ],
+          [
+            -387.95805535891066,
+            951.0009767993021
+          ],
+          [
+            -387.8149648724826,
+            943.7107175993885
+          ],
+          [
+            -387.7354701581456,
+            939.5654939999048
+          ],
+          [
+            -387.6003291432642,
+            932.797555199778
+          ],
+          [
+            -387.36979447123485,
+            921.6176759994196
+          ],
+          [
+            -386.76563464074815,
+            892.7122427995939
+          ],
+          [
+            -386.717937812033,
+            887.8668875998247
+          ],
+          [
+            -385.05649827826517,
+            802.873133999947
+          ],
+          [
+            -378.7684663582754,
+            713.1562703993598
+          ],
+          [
+            -378.0371149844541,
+            661.035362399872
+          ],
+          [
+            -376.51876593683187,
+            532.2444875998639
+          ],
+          [
+            -389.5797475352275,
+            531.8888651996563
+          ],
+          [
+            -402.0365693034189,
+            531.7443935995473
+          ],
+          [
+            -401.4403589444789,
+            572.3853659999077
+          ],
+          [
+            -401.25752110088234,
+            605.5027019999964
+          ],
+          [
+            -400.9792896001378,
+            657.3124403997958
+          ],
+          [
+            -401.1859758578095,
+            713.4118739999778
+          ],
+          [
+            -401.0031380144954,
+            722.8803203992877
+          ],
+          [
+            -400.65336127039564,
+            741.4060247994195
+          ],
+          [
+            -399.5006879096841,
+            801.9173987998331
+          ]
+        ]
+      },
+      {
+        "id": "south-entry-through-north-exit",
+        "from": {
+          "sourceId": 257685484,
+          "x": -385.05649827826517,
+          "z": 802.873133999947
+        },
+        "to": {
+          "sourceId": 2351309047,
+          "x": -412.28343800733523,
+          "z": -106.39777680048087
+        },
+        "found": true,
+        "total": 909.9163544843263,
+        "legs": [
+          {
+            "sourceId": "w4045772",
+            "dir": 1,
+            "from": 257685484,
+            "to": 257684208,
+            "virtual": false
+          },
+          {
+            "sourceId": "w4045772",
+            "dir": 1,
+            "from": 257684208,
+            "to": 257684209,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "from": 257684209,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "to": 2687968315,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "from": 2687968315,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "to": 2351340240,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "from": 2351340240,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "to": 2351340218,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "from": 2351340218,
+            "to": 12943575360,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "from": 12943575360,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368618",
+            "dir": 1,
+            "to": 12804813384,
+            "virtual": false
+          },
+          {
+            "sourceId": "w1383050305",
+            "dir": 1,
+            "from": 12804813384,
+            "to": 2351340226,
+            "virtual": false
+          },
+          {
+            "sourceId": "w1383050305",
+            "dir": 1,
+            "from": 2351340226,
+            "virtual": false
+          },
+          {
+            "sourceId": "w1383050305",
+            "dir": 1,
+            "virtual": false
+          },
+          {
+            "sourceId": "w1383050305",
+            "dir": 1,
+            "to": 6564974881,
+            "virtual": false
+          },
+          {
+            "sourceId": "w1383050305",
+            "dir": 1,
+            "from": 6564974881,
+            "virtual": false
+          },
+          {
+            "sourceId": "w1383050305",
+            "dir": 1,
+            "to": 2351340242,
+            "virtual": false
+          },
+          {
+            "sourceId": "w1383050305",
+            "dir": 1,
+            "from": 2351340242,
+            "to": 2351340230,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368616",
+            "dir": 1,
+            "from": 2351340230,
+            "to": 21448879,
+            "virtual": false
+          },
+          {
+            "sourceId": "w241368616",
+            "dir": 1,
+            "from": 21448879,
+            "to": 2351309047,
+            "virtual": false
+          }
+        ],
+        "points": [
+          [
+            -385.05649827826517,
+            802.873133999947
+          ],
+          [
+            -384.5397826336622,
+            666.8253395996253
+          ],
+          [
+            -384.96110462083476,
+            543.1576499994744
+          ],
+          [
+            -385.2655693775139,
+            533.6369715594751
+          ],
+          [
+            -385.57003413419295,
+            524.1162931194759
+          ],
+          [
+            -385.8744988908721,
+            514.5956146794766
+          ],
+          [
+            -386.1789636475512,
+            505.07493623947744
+          ],
+          [
+            -386.48342840423027,
+            495.55425779947814
+          ],
+          [
+            -386.7878931609094,
+            486.0335793594789
+          ],
+          [
+            -387.0923579175885,
+            476.51290091947965
+          ],
+          [
+            -387.39682267426764,
+            466.9922224794804
+          ],
+          [
+            -387.7012874309467,
+            457.47154403948116
+          ],
+          [
+            -388.00575218762583,
+            447.9508655994819
+          ],
+          [
+            -388.44562294139547,
+            437.9901455994788
+          ],
+          [
+            -388.88549369516505,
+            428.0294255994757
+          ],
+          [
+            -389.3253644489347,
+            418.0687055994726
+          ],
+          [
+            -389.76523520270433,
+            408.1079855994695
+          ],
+          [
+            -390.205105956474,
+            398.1472655994664
+          ],
+          [
+            -390.64497671024355,
+            388.1865455994633
+          ],
+          [
+            -391.0848474640132,
+            378.22582559946017
+          ],
+          [
+            -391.52471821778283,
+            368.26510559945706
+          ],
+          [
+            -391.9645889715525,
+            358.30438559945395
+          ],
+          [
+            -392.40445972532206,
+            348.34366559945084
+          ],
+          [
+            -392.8443304790917,
+            338.38294559944774
+          ],
+          [
+            -393.28420123286134,
+            328.42222559944463
+          ],
+          [
+            -393.724071986631,
+            318.4615055994415
+          ],
+          [
+            -394.16394274040056,
+            308.5007855994384
+          ],
+          [
+            -394.6038134941702,
+            298.5400655994353
+          ],
+          [
+            -395.04368424793984,
+            288.5793455994322
+          ],
+          [
+            -395.4835550017095,
+            278.6186255994291
+          ],
+          [
+            -395.92342575547906,
+            268.657905599426
+          ],
+          [
+            -396.3632965092487,
+            258.6971855994229
+          ],
+          [
+            -396.80316726301834,
+            248.73646559941977
+          ],
+          [
+            -397.243038016788,
+            238.77574559941667
+          ],
+          [
+            -397.68290877055756,
+            228.81502559941356
+          ],
+          [
+            -398.1227795243272,
+            218.85430559941045
+          ],
+          [
+            -398.56265027809684,
+            208.89358559940734
+          ],
+          [
+            -399.0025210318665,
+            198.93286559940424
+          ],
+          [
+            -399.44239178563606,
+            188.97214559940113
+          ],
+          [
+            -399.8822625394057,
+            179.01142559939802
+          ],
+          [
+            -400.24992559413243,
+            170.1347570994034
+          ],
+          [
+            -400.6175886488592,
+            161.2580885994088
+          ],
+          [
+            -400.98525170358596,
+            152.38142009941419
+          ],
+          [
+            -401.35291475831275,
+            143.5047515994196
+          ],
+          [
+            -401.7205778130395,
+            134.62808309942497
+          ],
+          [
+            -402.0882408677662,
+            125.75141459943035
+          ],
+          [
+            -402.455903922493,
+            116.87474609943574
+          ],
+          [
+            -402.82356697721974,
+            107.99807759944113
+          ],
+          [
+            -403.65031200847153,
+            98.54074439947146
+          ],
+          [
+            -404.2504971032555,
+            89.66963249944308
+          ],
+          [
+            -404.85068219803946,
+            80.7985205994147
+          ],
+          [
+            -405.45086729282343,
+            71.92740869938632
+          ],
+          [
+            -406.0510523876074,
+            63.05629679935794
+          ],
+          [
+            -406.30543547399435,
+            59.644544399759525
+          ],
+          [
+            -406.94934266174374,
+            51.202216799806706
+          ],
+          [
+            -407.5932498494931,
+            42.75988919985389
+          ],
+          [
+            -408.23715703724247,
+            34.31756159990107
+          ],
+          [
+            -408.7300242674878,
+            27.13287779964203
+          ],
+          [
+            -409.2228914977332,
+            19.948193999382994
+          ],
+          [
+            -409.6442134846233,
+            8.446031999996109
+          ],
+          [
+            -411.90981284887783,
+            -88.38327960000603
+          ],
+          [
+            -412.28343800733523,
+            -106.39777680048087
+          ]
+        ]
+      }
+    ]
+  },
+  "passiveSceneryProfiles": "Historical passive native profiles not recorded; fresh paired World exports required."
+}

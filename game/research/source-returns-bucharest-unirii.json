@@ -1,0 +1,749 @@
+{
+  "schema": 1,
+  "scope": "Reviewed finite exact-source public approach and return corridors for both travel directions of Pasajul Unirii. Existing clipped ends are replaced only by their complete mapped ramps and literal public joins.40m is a finite gameplay/body/raster domain buffer, not a road width or surveyed elevation. Native driving/body/terrain/profile/retention gates remain separate.",
+  "destination": {
+    "sourceId": "w241368617",
+    "requiredTags": {
+      "name": "Pasajul Unirii",
+      "tunnel": "yes",
+      "maxheight": "3.5"
+    }
+  },
+  "envelope": {
+    "playerFrontM": 3.42,
+    "playerRearM": 2.36,
+    "playerHalfWidthM": 0.9,
+    "maxShoulderM": 1.2,
+    "maskCellM": 20
+  },
+  "evidence": [
+    {
+      "kind": "retained literal cached OSM XML",
+      "files": [
+        {
+          "file": "/workspace/reality-pass/remaining-ro/unirii/tiles/buc_44.4150_26.0850_44.4250_26.1010.xml",
+          "bytes": 5341424,
+          "sha256": "daf81dafc0137aa729fa3324c7ae7ccfc0b7ae4957b8b1ce2cc7e445fa934dd2"
+        },
+        {
+          "file": "/workspace/reality-pass/remaining-ro/unirii/tiles/buc_44.4150_26.1010_44.4250_26.1170.xml",
+          "bytes": 5228197,
+          "sha256": "310d04660f9c91e97f19932a0ef284b4ce53564b496fa21b21f46a25dcc6c7b1"
+        },
+        {
+          "file": "/workspace/reality-pass/remaining-ro/unirii/tiles/buc_44.4150_26.1170_44.4250_26.1330.xml",
+          "bytes": 3541990,
+          "sha256": "74e070ccb66c970c73a276ad1a8a28d4b0f5df8da367a9a45ee5071262f6a9c0"
+        },
+        {
+          "file": "/workspace/reality-pass/remaining-ro/unirii/tiles/buc_44.4250_26.0850_44.4350_26.1010.xml",
+          "bytes": 8598218,
+          "sha256": "659269a337ceceee3a81ad5b354f9f3ad2cceff1c082e9e432ae51a939d27a71"
+        },
+        {
+          "file": "/workspace/reality-pass/remaining-ro/unirii/tiles/buc_44.4250_26.1010_44.4350_26.1170.xml",
+          "bytes": 8330219,
+          "sha256": "65a3f8f4137aa75bf521f67e4ffb26bbaf6a686426294c4bc2ff960d7697cd49"
+        },
+        {
+          "file": "/workspace/reality-pass/remaining-ro/unirii/tiles/buc_44.4250_26.1170_44.4350_26.1330.xml",
+          "bytes": 5799006,
+          "sha256": "1453e5f61cc1fbabcd4d2a2d99139e9c1941f74e3844952e21c03eac4a8b241e"
+        },
+        {
+          "file": "/workspace/reality-pass/remaining-ro/unirii/tiles/buc_44.4350_26.0850_44.4450_26.1010.xml",
+          "bytes": 6616105,
+          "sha256": "e0c803c1d5130a815e1387bb5c54372441366558d17d68922d731f0836a66082"
+        },
+        {
+          "file": "/workspace/reality-pass/remaining-ro/unirii/tiles/buc_44.4350_26.1010_44.4450_26.1170.xml",
+          "bytes": 6574477,
+          "sha256": "e2bb639a0bec459fcb28baba37a6fb652cb5e30ddcf692f3a9c445d771887219"
+        },
+        {
+          "file": "/workspace/reality-pass/remaining-ro/unirii/tiles/buc_44.4350_26.1170_44.4450_26.1330.xml",
+          "bytes": 5884264,
+          "sha256": "aa2ab53720bad126f75d274aae60c0d666aa5b9206b1b9a8666776bbb007f8cd"
+        }
+      ]
+    },
+    {
+      "kind": "historical native source-incidence and current source-plan equality",
+      "source": "395071c21079fb14c25af194a9903a5ae5d87b26",
+      "nativeWorldGzipSHA256": "e51bf4253510a671da8deeb05f939c6b354264ae794b0d17c4e950029aec293c",
+      "currentSource": "2696df66fd0331fc645f7c003cbcca7a5410740b",
+      "fields": {
+        "proj": true,
+        "nodes": true,
+        "roadNodeIds": true,
+        "roadNodePositions": true,
+        "roads": true,
+        "roadInfo": true,
+        "roadSourceGeometry": true,
+        "roadAccess": true,
+        "roadWidths": true
+      },
+      "scope": "Candidate path endpoints are positive original nodes in the historical public GTS journey incidence; this is not a new native route or roundtrip pass."
+    }
+  ],
+  "corridors": [
+    {
+      "id": "unirii-pasaj-north-entry",
+      "radiusM": 40,
+      "destinationSourceId": "w241368617",
+      "legs": [
+        {
+          "sourceId": "w723819567",
+          "from": 10961755188,
+          "to": 14123844702
+        },
+        {
+          "sourceId": "w723819567",
+          "from": 14123844702,
+          "to": 4197270359
+        },
+        {
+          "sourceId": "w723819567",
+          "from": 4197270359,
+          "to": 2488109236
+        },
+        {
+          "sourceId": "w723819567",
+          "from": 2488109236,
+          "to": 13824677620
+        },
+        {
+          "sourceId": "w723819567",
+          "from": 13824677620,
+          "to": 2404241703
+        },
+        {
+          "sourceId": "w241211914",
+          "from": 2404241703,
+          "to": 4152925933
+        },
+        {
+          "sourceId": "w241211914",
+          "from": 4152925933,
+          "to": 2351325363
+        },
+        {
+          "sourceId": "w241211914",
+          "from": 2351325363,
+          "to": 4152925922
+        },
+        {
+          "sourceId": "w241211914",
+          "from": 4152925922,
+          "to": 13357133829
+        },
+        {
+          "sourceId": "w241211914",
+          "from": 13357133829,
+          "to": 4152925921
+        },
+        {
+          "sourceId": "w241211914",
+          "from": 4152925921,
+          "to": 2351320119
+        },
+        {
+          "sourceId": "w241211914",
+          "from": 2351320119,
+          "to": 257684377
+        },
+        {
+          "sourceId": "w241211914",
+          "from": 257684377,
+          "to": 2351320130
+        },
+        {
+          "sourceId": "w241211914",
+          "from": 2351320130,
+          "to": 13357133874
+        },
+        {
+          "sourceId": "w241211914",
+          "from": 13357133874,
+          "to": 2351320134
+        },
+        {
+          "sourceId": "w241211914",
+          "from": 2351320134,
+          "to": 6933125479
+        },
+        {
+          "sourceId": "w241211914",
+          "from": 6933125479,
+          "to": 2351320121
+        },
+        {
+          "sourceId": "w241211914",
+          "from": 2351320121,
+          "to": 2351320128
+        },
+        {
+          "sourceId": "w241211914",
+          "from": 2351320128,
+          "to": 2351320126
+        },
+        {
+          "sourceId": "w241211914",
+          "from": 2351320126,
+          "to": 2160093508
+        },
+        {
+          "sourceId": "w241211914",
+          "from": 2160093508,
+          "to": 2351320120
+        },
+        {
+          "sourceId": "w241211914",
+          "from": 2351320120,
+          "to": 2160093484
+        },
+        {
+          "sourceId": "w241211914",
+          "from": 2160093484,
+          "to": 2160093516
+        },
+        {
+          "sourceId": "w241211914",
+          "from": 2160093516,
+          "to": 2160093502
+        },
+        {
+          "sourceId": "w241211914",
+          "from": 2160093502,
+          "to": 2160093514
+        },
+        {
+          "sourceId": "w241211914",
+          "from": 2160093514,
+          "to": 2160093540
+        },
+        {
+          "sourceId": "w241211914",
+          "from": 2160093540,
+          "to": 2160093488
+        },
+        {
+          "sourceId": "w241211914",
+          "from": 2160093488,
+          "to": 2160093479
+        },
+        {
+          "sourceId": "w1459912402",
+          "from": 2160093479,
+          "to": 2160093491
+        },
+        {
+          "sourceId": "w339705212",
+          "from": 2160093491,
+          "to": 257682933
+        },
+        {
+          "sourceId": "w1459912403",
+          "from": 257682933,
+          "to": 2351321583
+        },
+        {
+          "sourceId": "w1459912403",
+          "from": 2351321583,
+          "to": 2160093493
+        },
+        {
+          "sourceId": "w1459912403",
+          "from": 2160093493,
+          "to": 257683021
+        },
+        {
+          "sourceId": "w1459912403",
+          "from": 257683021,
+          "to": 3672093625
+        },
+        {
+          "sourceId": "w1459912403",
+          "from": 3672093625,
+          "to": 257682900
+        },
+        {
+          "sourceId": "w1459912403",
+          "from": 257682900,
+          "to": 4152946971
+        },
+        {
+          "sourceId": "w1459912403",
+          "from": 4152946971,
+          "to": 2160093537
+        },
+        {
+          "sourceId": "w1459912403",
+          "from": 2160093537,
+          "to": 4152946999
+        },
+        {
+          "sourceId": "w1459912403",
+          "from": 4152946999,
+          "to": 257683078
+        },
+        {
+          "sourceId": "w1459912403",
+          "from": 257683078,
+          "to": 257684039
+        },
+        {
+          "sourceId": "w23782207",
+          "from": 257684039,
+          "to": 6225649428
+        },
+        {
+          "sourceId": "w23782207",
+          "from": 6225649428,
+          "to": 2351325366
+        },
+        {
+          "sourceId": "w23782207",
+          "from": 2351325366,
+          "to": 2351340244
+        },
+        {
+          "sourceId": "w241368617",
+          "from": 2351340244,
+          "to": 2351340228
+        }
+      ]
+    },
+    {
+      "id": "unirii-pasaj-south-entry",
+      "radiusM": 40,
+      "destinationSourceId": "w241368617",
+      "legs": [
+        {
+          "sourceId": "w665204217",
+          "from": 257685750,
+          "to": 8302882338
+        },
+        {
+          "sourceId": "w893336335",
+          "from": 8302882338,
+          "to": 257685748
+        },
+        {
+          "sourceId": "w23782326",
+          "from": 257685748,
+          "to": 257684828
+        },
+        {
+          "sourceId": "w23782326",
+          "from": 257684828,
+          "to": 2351320124
+        },
+        {
+          "sourceId": "w23782326",
+          "from": 2351320124,
+          "to": 14212953442
+        },
+        {
+          "sourceId": "w23782326",
+          "from": 14212953442,
+          "to": 14212953444
+        },
+        {
+          "sourceId": "w23782326",
+          "from": 14212953444,
+          "to": 257685697
+        },
+        {
+          "sourceId": "w204909976",
+          "from": 257685697,
+          "to": 14212953440
+        },
+        {
+          "sourceId": "w204909976",
+          "from": 14212953440,
+          "to": 7735830781
+        },
+        {
+          "sourceId": "w204909976",
+          "from": 7735830781,
+          "to": 939722175
+        },
+        {
+          "sourceId": "w204909976",
+          "from": 939722175,
+          "to": 257685746
+        },
+        {
+          "sourceId": "w204909976",
+          "from": 257685746,
+          "to": 1366791009
+        },
+        {
+          "sourceId": "w204909976",
+          "from": 1366791009,
+          "to": 9089632742
+        },
+        {
+          "sourceId": "w204909976",
+          "from": 9089632742,
+          "to": 9089632723
+        },
+        {
+          "sourceId": "w204909976",
+          "from": 9089632723,
+          "to": 9089632725
+        },
+        {
+          "sourceId": "w204909976",
+          "from": 9089632725,
+          "to": 257685728
+        },
+        {
+          "sourceId": "w723798413",
+          "from": 257685728,
+          "to": 166221099
+        },
+        {
+          "sourceId": "w1121975350",
+          "from": 166221099,
+          "to": 9089632726
+        },
+        {
+          "sourceId": "w1121975350",
+          "from": 9089632726,
+          "to": 9089632724
+        },
+        {
+          "sourceId": "w1121975350",
+          "from": 9089632724,
+          "to": 9089632729
+        },
+        {
+          "sourceId": "w259208583",
+          "from": 9089632729,
+          "to": 1366791011
+        },
+        {
+          "sourceId": "w259208583",
+          "from": 1366791011,
+          "to": 2288416572
+        },
+        {
+          "sourceId": "w259208583",
+          "from": 2288416572,
+          "to": 701426867
+        },
+        {
+          "sourceId": "w259208583",
+          "from": 701426867,
+          "to": 257685484
+        },
+        {
+          "sourceId": "w4045772",
+          "from": 257685484,
+          "to": 257684208
+        },
+        {
+          "sourceId": "w4045772",
+          "from": 257684208,
+          "to": 257684209
+        },
+        {
+          "sourceId": "w241368618",
+          "from": 257684209,
+          "to": 2687968315
+        }
+      ]
+    },
+    {
+      "id": "unirii-pasaj-north-exit",
+      "radiusM": 40,
+      "destinationSourceId": "w241368617",
+      "legs": [
+        {
+          "sourceId": "w1383050305",
+          "from": 2351340242,
+          "to": 2351340230
+        },
+        {
+          "sourceId": "w241368616",
+          "from": 2351340230,
+          "to": 21448879
+        },
+        {
+          "sourceId": "w241368616",
+          "from": 21448879,
+          "to": 2351309047
+        },
+        {
+          "sourceId": "w204909979",
+          "from": 2351309047,
+          "to": 254372961
+        },
+        {
+          "sourceId": "w204909979",
+          "from": 254372961,
+          "to": 21448880
+        },
+        {
+          "sourceId": "w1192906803",
+          "from": 21448880,
+          "to": 4152947026
+        },
+        {
+          "sourceId": "w1192906803",
+          "from": 4152947026,
+          "to": 254372799
+        },
+        {
+          "sourceId": "w1192906803",
+          "from": 254372799,
+          "to": 2083165625
+        },
+        {
+          "sourceId": "w229234956",
+          "from": 2083165625,
+          "to": 3096591829
+        },
+        {
+          "sourceId": "w229234956",
+          "from": 3096591829,
+          "to": 257716862
+        },
+        {
+          "sourceId": "w229235604",
+          "from": 257716862,
+          "to": 257717273
+        },
+        {
+          "sourceId": "w23785476",
+          "from": 257717273,
+          "to": 6936490744
+        },
+        {
+          "sourceId": "w23785476",
+          "from": 6936490744,
+          "to": 257717274
+        },
+        {
+          "sourceId": "w23785476",
+          "from": 257717274,
+          "to": 248728922
+        },
+        {
+          "sourceId": "w23785476",
+          "from": 248728922,
+          "to": 257717275
+        },
+        {
+          "sourceId": "w174965593",
+          "from": 257717275,
+          "to": 248728931
+        },
+        {
+          "sourceId": "w23050028",
+          "from": 248728931,
+          "to": 1823167296
+        },
+        {
+          "sourceId": "w23050028",
+          "from": 1823167296,
+          "to": 13375785146
+        },
+        {
+          "sourceId": "w23050028",
+          "from": 13375785146,
+          "to": 248729664
+        },
+        {
+          "sourceId": "w23050028",
+          "from": 248729664,
+          "to": 3924008789
+        },
+        {
+          "sourceId": "w23050028",
+          "from": 3924008789,
+          "to": 3924008788
+        },
+        {
+          "sourceId": "w23050028",
+          "from": 3924008788,
+          "to": 3924008790
+        },
+        {
+          "sourceId": "w23050028",
+          "from": 3924008790,
+          "to": 248729663
+        },
+        {
+          "sourceId": "w23050028",
+          "from": 248729663,
+          "to": 9890593730
+        },
+        {
+          "sourceId": "w23050028",
+          "from": 9890593730,
+          "to": 11363161639
+        },
+        {
+          "sourceId": "w23050028",
+          "from": 11363161639,
+          "to": 248728925
+        },
+        {
+          "sourceId": "w1409238821",
+          "from": 248728925,
+          "to": 4178052022
+        },
+        {
+          "sourceId": "w23049912",
+          "from": 4178052022,
+          "to": 11361730521
+        },
+        {
+          "sourceId": "w23049912",
+          "from": 11361730521,
+          "to": 4178052021
+        },
+        {
+          "sourceId": "w23049912",
+          "from": 4178052021,
+          "to": 4178052017
+        },
+        {
+          "sourceId": "w23049912",
+          "from": 4178052017,
+          "to": 11618262162
+        },
+        {
+          "sourceId": "w23049912",
+          "from": 11618262162,
+          "to": 4178052023
+        },
+        {
+          "sourceId": "w23049912",
+          "from": 4178052023,
+          "to": 4178052024
+        },
+        {
+          "sourceId": "w23049912",
+          "from": 4178052024,
+          "to": 4178052019
+        },
+        {
+          "sourceId": "w23049912",
+          "from": 4178052019,
+          "to": 4178052018
+        },
+        {
+          "sourceId": "w23049912",
+          "from": 4178052018,
+          "to": 4178052020
+        },
+        {
+          "sourceId": "w23049912",
+          "from": 4178052020,
+          "to": 11618262163
+        },
+        {
+          "sourceId": "w23049912",
+          "from": 11618262163,
+          "to": 248728938
+        },
+        {
+          "sourceId": "w23049912",
+          "from": 248728938,
+          "to": 249682955
+        },
+        {
+          "sourceId": "w23049912",
+          "from": 249682955,
+          "to": 248728940
+        },
+        {
+          "sourceId": "w23049912",
+          "from": 248728940,
+          "to": 1856051602
+        },
+        {
+          "sourceId": "w23049912",
+          "from": 1856051602,
+          "to": 257718107
+        }
+      ]
+    },
+    {
+      "id": "unirii-pasaj-south-exit",
+      "radiusM": 40,
+      "destinationSourceId": "w241368617",
+      "legs": [
+        {
+          "sourceId": "w241368617",
+          "from": 2687968316,
+          "to": 257684144
+        },
+        {
+          "sourceId": "w241368619",
+          "from": 257684144,
+          "to": 257684145
+        },
+        {
+          "sourceId": "w241368619",
+          "from": 257684145,
+          "to": 257685697
+        },
+        {
+          "sourceId": "w204909976",
+          "from": 257685697,
+          "to": 14212953440
+        },
+        {
+          "sourceId": "w828697977",
+          "from": 14212953440,
+          "to": 7735853285
+        },
+        {
+          "sourceId": "w828697977",
+          "from": 7735853285,
+          "to": 14212953443
+        },
+        {
+          "sourceId": "w828697977",
+          "from": 14212953443,
+          "to": 14212953441
+        },
+        {
+          "sourceId": "w828697977",
+          "from": 14212953441,
+          "to": 7735853287
+        },
+        {
+          "sourceId": "w828697977",
+          "from": 7735853287,
+          "to": 12089926321
+        },
+        {
+          "sourceId": "w828697977",
+          "from": 12089926321,
+          "to": 254285100
+        },
+        {
+          "sourceId": "w23478594",
+          "from": 254285100,
+          "to": 2078456625
+        },
+        {
+          "sourceId": "w23478594",
+          "from": 2078456625,
+          "to": 254284036
+        },
+        {
+          "sourceId": "w23478594",
+          "from": 254284036,
+          "to": 6242940774
+        }
+      ]
+    }
+  ]
+}

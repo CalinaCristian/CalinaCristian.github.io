@@ -1,0 +1,19 @@
+{
+  "scope": "Actual compiler input-stage checkpoint only; no dataset write, geometry/cache bake, source-change or native acceptance.",
+  "sourceCompilerSHA256": "8c4b6895498e4bc2ed46f5347ea34b2c05bdc927636d9a1ea206552a4f3e3eb6",
+  "executedProbeSHA256": "a62654802e55db78762eda66f31b1c697590b87844a4adabf93ba3cd94d4af27",
+  "modelInputsSHA256": "94bb45a1db0994c69c47d5b43a143ed2c3f18a6092f6483a5c6dc190cbf1d461",
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+    "/workspace/fidelity-workers/unirii-pasaj-source-return/tools/osm/.context-input-probe-630117.mjs",
+    "--tiles",
+    "/workspace/reality-pass/remaining-ro/unirii/tiles",
+    "--cache",
+    "/workspace/reality-pass/unirii-underpass/data-domain-candidate-2696-r3/cache",
+    "--city",
+    "bucharest",
+    "--district",
+    "unirii"
+  ],
+  "exitCode": 0
+}

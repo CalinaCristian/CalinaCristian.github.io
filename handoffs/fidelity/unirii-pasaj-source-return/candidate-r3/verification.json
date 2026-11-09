@@ -1,0 +1,32 @@
+{
+  "scope": "Source/model retention and isolated CPU graph/profile checks only. Native, source-grade/body/static/terrain/roof/water/driving/visual/budget acceptance remains false.",
+  "base": "2696df66fd0331fc645f7c003cbcca7a5410740b",
+  "proposal": "14b012110034a553236a5afd07c0d20e22029437",
+  "compilerHelper": "249a02f098f0ee37ca1ca50a40690560f111c452",
+  "datasetSHA256": "e94dc563fc82efe0f6dac21e7e20ac8e34ea5a7e20eb38bf97e829abebe9657d",
+  "checks": {
+    "missingBuildings": true,
+    "changedFootprints": true,
+    "changedDimensions": true,
+    "changedRoofProfiles": true,
+    "lostPositiveSourceNodes": true,
+    "movedPositiveSourceNodes": true,
+    "lostSourceWays": true,
+    "changedSourceWays": true,
+    "changedRoadModels": true,
+    "missingOldTreeRecords": true,
+    "missingOldAreas": true,
+    "oldStylesRetained": true,
+    "oldRawForegroundExactSubset": true,
+    "oldRailWaysCrossingsRestrictionsRetained": true,
+    "oldRouteTagsMembersRetained": true,
+    "oldPOIFurnitureParkingRetained": true,
+    "allOldProfileQueriesResolved": true,
+    "allNewLiteralStationsHaveSourceMatch": true
+  },
+  "explicitDisplayNameChanges": 35,
+  "explicitFlagsChanges": 204,
+  "newLiteralForegroundRailRuns": 16,
+  "nativeAcceptance": false,
+  "overviewCaptures": "Pending changed-source native retakes; previous published captures are historical for this candidate."
+}

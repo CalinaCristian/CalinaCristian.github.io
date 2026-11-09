@@ -1,0 +1,3612 @@
+{
+  "schema": 1,
+  "sourceDataCommit": "2696df66fd0331fc645f7c003cbcca7a5410740b",
+  "sourceDataSha256": "e5ec3f964640b500f4fcf0aa2bd38313ce625a594ff915ff599c7c792b5bd887",
+  "surveySha256": "f17ffe8c52ae752ce6e72fb6492721485e1c908c0ca9e566269bf94bfc2889cf",
+  "projection": {
+    "lat0": 44.4297,
+    "lon0": 26.109,
+    "scale": 1,
+    "mPerLat": 111132,
+    "mPerLon": 79494.71453776045,
+    "compress": null
+  },
+  "scope": "Exact prior fallback building models and measured source crowns retained through the finite Pasaj source-return expansion. No physical clearance, surveyed height, route or native pass is implied.",
+  "evidence": [
+    "handoffs/fidelity/unirii-pasaj-source-return/retention-prototype-r1.json.gz",
+    "game/research/trees-bucharest-unirii.json"
+  ],
+  "priorModelInputsSha256": "94bb45a1db0994c69c47d5b43a143ed2c3f18a6092f6483a5c6dc190cbf1d461",
+  "rawTiles": [
+    {
+      "name": "buc_44.4150_26.0850_44.4250_26.1010.xml",
+      "sha256": "daf81dafc0137aa729fa3324c7ae7ccfc0b7ae4957b8b1ce2cc7e445fa934dd2",
+      "bytes": 5341424
+    },
+    {
+      "name": "buc_44.4150_26.1010_44.4250_26.1170.xml",
+      "sha256": "310d04660f9c91e97f19932a0ef284b4ce53564b496fa21b21f46a25dcc6c7b1",
+      "bytes": 5228197
+    },
+    {
+      "name": "buc_44.4150_26.1170_44.4250_26.1330.xml",
+      "sha256": "74e070ccb66c970c73a276ad1a8a28d4b0f5df8da367a9a45ee5071262f6a9c0",
+      "bytes": 3541990
+    },
+    {
+      "name": "buc_44.4250_26.0850_44.4350_26.1010.xml",
+      "sha256": "659269a337ceceee3a81ad5b354f9f3ad2cceff1c082e9e432ae51a939d27a71",
+      "bytes": 8598218
+    },
+    {
+      "name": "buc_44.4250_26.1010_44.4350_26.1170.xml",
+      "sha256": "65a3f8f4137aa75bf521f67e4ffb26bbaf6a686426294c4bc2ff960d7697cd49",
+      "bytes": 8330219
+    },
+    {
+      "name": "buc_44.4250_26.1170_44.4350_26.1330.xml",
+      "sha256": "1453e5f61cc1fbabcd4d2a2d99139e9c1941f74e3844952e21c03eac4a8b241e",
+      "bytes": 5799006
+    },
+    {
+      "name": "buc_44.4350_26.0850_44.4450_26.1010.xml",
+      "sha256": "e0c803c1d5130a815e1387bb5c54372441366558d17d68922d731f0836a66082",
+      "bytes": 6616105
+    },
+    {
+      "name": "buc_44.4350_26.1010_44.4450_26.1170.xml",
+      "sha256": "e2bb639a0bec459fcb28baba37a6fb652cb5e30ddcf692f3a9c445d771887219",
+      "bytes": 6574477
+    },
+    {
+      "name": "buc_44.4350_26.1170_44.4450_26.1330.xml",
+      "sha256": "aa2ab53720bad126f75d274aae60c0d666aa5b9206b1b9a8666776bbb007f8cd",
+      "bytes": 5884264
+    }
+  ],
+  "waterAreas": [],
+  "measuredCrowns": [
+    {
+      "surveyIndex": 7361,
+      "rawSurveyCrown": [
+        44.420712,
+        26.103864,
+        2.2
+      ],
+      "packed": [
+        -4083,
+        9989,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 7942,
+      "rawSurveyCrown": [
+        44.421119,
+        26.104197,
+        2.2
+      ],
+      "packed": [
+        -3818,
+        9536,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 8229,
+      "rawSurveyCrown": [
+        44.421295,
+        26.103682,
+        2.2
+      ],
+      "packed": [
+        -4228,
+        9341,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 8362,
+      "rawSurveyCrown": [
+        44.421379,
+        26.103575,
+        4.2
+      ],
+      "packed": [
+        -4313,
+        9247,
+        244
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 42
+    },
+    {
+      "surveyIndex": 8586,
+      "rawSurveyCrown": [
+        44.421525,
+        26.10439,
+        2.2
+      ],
+      "packed": [
+        -3665,
+        9085,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 8820,
+      "rawSurveyCrown": [
+        44.421663,
+        26.103628,
+        2.2
+      ],
+      "packed": [
+        -4270,
+        8932,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 9227,
+      "rawSurveyCrown": [
+        44.4219,
+        26.104047,
+        2.2
+      ],
+      "packed": [
+        -3937,
+        8668,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 9814,
+      "rawSurveyCrown": [
+        44.422253,
+        26.104626,
+        2.2
+      ],
+      "packed": [
+        -3477,
+        8276,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 10039,
+      "rawSurveyCrown": [
+        44.422383,
+        26.103671,
+        5.9
+      ],
+      "packed": [
+        -4236,
+        8132,
+        322
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 59
+    },
+    {
+      "surveyIndex": 10060,
+      "rawSurveyCrown": [
+        44.422398,
+        26.103542,
+        4
+      ],
+      "packed": [
+        -4339,
+        8115,
+        234
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 40
+    },
+    {
+      "surveyIndex": 10190,
+      "rawSurveyCrown": [
+        44.422483,
+        26.103542,
+        2.8
+      ],
+      "packed": [
+        -4339,
+        8020,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 10232,
+      "rawSurveyCrown": [
+        44.422506,
+        26.104047,
+        2.8
+      ],
+      "packed": [
+        -3937,
+        7995,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 10335,
+      "rawSurveyCrown": [
+        44.422575,
+        26.103489,
+        2.8
+      ],
+      "packed": [
+        -4381,
+        7918,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 10446,
+      "rawSurveyCrown": [
+        44.422651,
+        26.103532,
+        3.9
+      ],
+      "packed": [
+        -4347,
+        7834,
+        230
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 39
+    },
+    {
+      "surveyIndex": 10595,
+      "rawSurveyCrown": [
+        44.422743,
+        26.103542,
+        2.2
+      ],
+      "packed": [
+        -4339,
+        7731,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 10625,
+      "rawSurveyCrown": [
+        44.422766,
+        26.1035,
+        2.2
+      ],
+      "packed": [
+        -4372,
+        7706,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 10708,
+      "rawSurveyCrown": [
+        44.42282,
+        26.103521,
+        2.8
+      ],
+      "packed": [
+        -4356,
+        7646,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 10850,
+      "rawSurveyCrown": [
+        44.422896,
+        26.103542,
+        2.2
+      ],
+      "packed": [
+        -4339,
+        7561,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 10851,
+      "rawSurveyCrown": [
+        44.422896,
+        26.104551,
+        2.2
+      ],
+      "packed": [
+        -3537,
+        7561,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 10909,
+      "rawSurveyCrown": [
+        44.422935,
+        26.103542,
+        2.2
+      ],
+      "packed": [
+        -4339,
+        7518,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 11103,
+      "rawSurveyCrown": [
+        44.423042,
+        26.103478,
+        6.9
+      ],
+      "packed": [
+        -4390,
+        7399,
+        368
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 69
+    },
+    {
+      "surveyIndex": 11132,
+      "rawSurveyCrown": [
+        44.423065,
+        26.102813,
+        2.8
+      ],
+      "packed": [
+        -4918,
+        7374,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 11242,
+      "rawSurveyCrown": [
+        44.423126,
+        26.103532,
+        3.9
+      ],
+      "packed": [
+        -4347,
+        7306,
+        230
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 39
+    },
+    {
+      "surveyIndex": 11267,
+      "rawSurveyCrown": [
+        44.423142,
+        26.102813,
+        2.2
+      ],
+      "packed": [
+        -4918,
+        7288,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 11353,
+      "rawSurveyCrown": [
+        44.423195,
+        26.102845,
+        4.2
+      ],
+      "packed": [
+        -4893,
+        7229,
+        244
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 42
+    },
+    {
+      "surveyIndex": 11354,
+      "rawSurveyCrown": [
+        44.423195,
+        26.103457,
+        6.9
+      ],
+      "packed": [
+        -4406,
+        7229,
+        368
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 69
+    },
+    {
+      "surveyIndex": 11482,
+      "rawSurveyCrown": [
+        44.423264,
+        26.103489,
+        4.4
+      ],
+      "packed": [
+        -4381,
+        7152,
+        252
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 44
+    },
+    {
+      "surveyIndex": 11692,
+      "rawSurveyCrown": [
+        44.423379,
+        26.102352,
+        2.9
+      ],
+      "packed": [
+        -5285,
+        7025,
+        184
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 29
+    },
+    {
+      "surveyIndex": 11693,
+      "rawSurveyCrown": [
+        44.423379,
+        26.102427,
+        2.9
+      ],
+      "packed": [
+        -5225,
+        7025,
+        184
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 29
+    },
+    {
+      "surveyIndex": 11726,
+      "rawSurveyCrown": [
+        44.423394,
+        26.10306,
+        4.9
+      ],
+      "packed": [
+        -4722,
+        7008,
+        276
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 49
+    },
+    {
+      "surveyIndex": 11727,
+      "rawSurveyCrown": [
+        44.423394,
+        26.103532,
+        2.9
+      ],
+      "packed": [
+        -4347,
+        7008,
+        184
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 29
+    },
+    {
+      "surveyIndex": 11772,
+      "rawSurveyCrown": [
+        44.423417,
+        26.102641,
+        2.2
+      ],
+      "packed": [
+        -5055,
+        6982,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 11786,
+      "rawSurveyCrown": [
+        44.423425,
+        26.102759,
+        3.5
+      ],
+      "packed": [
+        -4961,
+        6974,
+        210
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 35
+    },
+    {
+      "surveyIndex": 11787,
+      "rawSurveyCrown": [
+        44.423425,
+        26.103135,
+        2.8
+      ],
+      "packed": [
+        -4662,
+        6974,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 11807,
+      "rawSurveyCrown": [
+        44.423433,
+        26.103199,
+        2.2
+      ],
+      "packed": [
+        -4611,
+        6965,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 11880,
+      "rawSurveyCrown": [
+        44.423471,
+        26.103306,
+        6.2
+      ],
+      "packed": [
+        -4526,
+        6922,
+        336
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 62
+    },
+    {
+      "surveyIndex": 11919,
+      "rawSurveyCrown": [
+        44.423494,
+        26.104315,
+        2.2
+      ],
+      "packed": [
+        -3724,
+        6897,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 12672,
+      "rawSurveyCrown": [
+        44.423862,
+        26.104326,
+        2.2
+      ],
+      "packed": [
+        -3716,
+        6488,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 12696,
+      "rawSurveyCrown": [
+        44.423877,
+        26.102888,
+        4.4
+      ],
+      "packed": [
+        -4859,
+        6471,
+        252
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 44
+    },
+    {
+      "surveyIndex": 12937,
+      "rawSurveyCrown": [
+        44.424015,
+        26.102909,
+        2.2
+      ],
+      "packed": [
+        -4842,
+        6318,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 13007,
+      "rawSurveyCrown": [
+        44.424053,
+        26.104326,
+        3.1
+      ],
+      "packed": [
+        -3716,
+        6276,
+        192
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 31
+    },
+    {
+      "surveyIndex": 13102,
+      "rawSurveyCrown": [
+        44.424107,
+        26.102909,
+        2.8
+      ],
+      "packed": [
+        -4842,
+        6216,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 13426,
+      "rawSurveyCrown": [
+        44.424268,
+        26.104615,
+        4.2
+      ],
+      "packed": [
+        -3486,
+        6037,
+        244
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 42
+    },
+    {
+      "surveyIndex": 13490,
+      "rawSurveyCrown": [
+        44.424314,
+        26.103478,
+        2.2
+      ],
+      "packed": [
+        -4390,
+        5986,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 13517,
+      "rawSurveyCrown": [
+        44.424329,
+        26.103382,
+        3.9
+      ],
+      "packed": [
+        -4466,
+        5969,
+        230
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 39
+    },
+    {
+      "surveyIndex": 13628,
+      "rawSurveyCrown": [
+        44.424383,
+        26.102985,
+        3.5
+      ],
+      "packed": [
+        -4782,
+        5909,
+        210
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 35
+    },
+    {
+      "surveyIndex": 13629,
+      "rawSurveyCrown": [
+        44.424383,
+        26.104605,
+        2.2
+      ],
+      "packed": [
+        -3494,
+        5909,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 13715,
+      "rawSurveyCrown": [
+        44.424421,
+        26.103875,
+        2.2
+      ],
+      "packed": [
+        -4074,
+        5867,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 13848,
+      "rawSurveyCrown": [
+        44.424498,
+        26.104637,
+        3.5
+      ],
+      "packed": [
+        -3468,
+        5781,
+        210
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 35
+    },
+    {
+      "surveyIndex": 13903,
+      "rawSurveyCrown": [
+        44.424528,
+        26.103027,
+        2.2
+      ],
+      "packed": [
+        -4748,
+        5748,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 23235,
+      "rawSurveyCrown": [
+        44.430696,
+        26.104369,
+        2.2
+      ],
+      "packed": [
+        -3681,
+        -1107,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 25341,
+      "rawSurveyCrown": [
+        44.43219,
+        26.107973,
+        3.5
+      ],
+      "packed": [
+        -816,
+        -2767,
+        210
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 35
+    },
+    {
+      "surveyIndex": 25432,
+      "rawSurveyCrown": [
+        44.432251,
+        26.102985,
+        4.4
+      ],
+      "packed": [
+        -4782,
+        -2835,
+        252
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 44
+    },
+    {
+      "surveyIndex": 25503,
+      "rawSurveyCrown": [
+        44.432305,
+        26.103006,
+        3.1
+      ],
+      "packed": [
+        -4765,
+        -2895,
+        192
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 31
+    },
+    {
+      "surveyIndex": 25593,
+      "rawSurveyCrown": [
+        44.432366,
+        26.102995,
+        3.5
+      ],
+      "packed": [
+        -4774,
+        -2963,
+        210
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 35
+    },
+    {
+      "surveyIndex": 25660,
+      "rawSurveyCrown": [
+        44.432412,
+        26.102952,
+        3.5
+      ],
+      "packed": [
+        -4808,
+        -3014,
+        210
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 35
+    },
+    {
+      "surveyIndex": 25968,
+      "rawSurveyCrown": [
+        44.432612,
+        26.102931,
+        2.8
+      ],
+      "packed": [
+        -4825,
+        -3236,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 26401,
+      "rawSurveyCrown": [
+        44.432895,
+        26.106632,
+        2.2
+      ],
+      "packed": [
+        -1882,
+        -3551,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 26494,
+      "rawSurveyCrown": [
+        44.432972,
+        26.104411,
+        2.2
+      ],
+      "packed": [
+        -3648,
+        -3636,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 26507,
+      "rawSurveyCrown": [
+        44.432979,
+        26.104143,
+        2.2
+      ],
+      "packed": [
+        -3861,
+        -3644,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 26539,
+      "rawSurveyCrown": [
+        44.433002,
+        26.104175,
+        2.2
+      ],
+      "packed": [
+        -3836,
+        -3670,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 26573,
+      "rawSurveyCrown": [
+        44.433033,
+        26.104293,
+        2.8
+      ],
+      "packed": [
+        -3742,
+        -3704,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 26587,
+      "rawSurveyCrown": [
+        44.433048,
+        26.105141,
+        2.8
+      ],
+      "packed": [
+        -3068,
+        -3721,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 26597,
+      "rawSurveyCrown": [
+        44.433056,
+        26.104551,
+        2.9
+      ],
+      "packed": [
+        -3537,
+        -3730,
+        184
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 29
+    },
+    {
+      "surveyIndex": 26626,
+      "rawSurveyCrown": [
+        44.433071,
+        26.104787,
+        4.2
+      ],
+      "packed": [
+        -3349,
+        -3746,
+        244
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 42
+    },
+    {
+      "surveyIndex": 26645,
+      "rawSurveyCrown": [
+        44.433087,
+        26.105474,
+        6.3
+      ],
+      "packed": [
+        -2803,
+        -3764,
+        340
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 63
+    },
+    {
+      "surveyIndex": 26669,
+      "rawSurveyCrown": [
+        44.43311,
+        26.105012,
+        2.2
+      ],
+      "packed": [
+        -3170,
+        -3790,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 26670,
+      "rawSurveyCrown": [
+        44.43311,
+        26.10512,
+        2.2
+      ],
+      "packed": [
+        -3084,
+        -3790,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 26711,
+      "rawSurveyCrown": [
+        44.43314,
+        26.105281,
+        2.9
+      ],
+      "packed": [
+        -2956,
+        -3823,
+        184
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 29
+    },
+    {
+      "surveyIndex": 26730,
+      "rawSurveyCrown": [
+        44.433155,
+        26.10409,
+        2.2
+      ],
+      "packed": [
+        -3903,
+        -3840,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 26792,
+      "rawSurveyCrown": [
+        44.433201,
+        26.105613,
+        2.8
+      ],
+      "packed": [
+        -2692,
+        -3891,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 26800,
+      "rawSurveyCrown": [
+        44.433209,
+        26.103553,
+        2.2
+      ],
+      "packed": [
+        -4330,
+        -3900,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 26820,
+      "rawSurveyCrown": [
+        44.433224,
+        26.103746,
+        2.2
+      ],
+      "packed": [
+        -4177,
+        -3916,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 26823,
+      "rawSurveyCrown": [
+        44.433224,
+        26.106858,
+        2.8
+      ],
+      "packed": [
+        -1703,
+        -3916,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 26846,
+      "rawSurveyCrown": [
+        44.43324,
+        26.105205,
+        4
+      ],
+      "packed": [
+        -3017,
+        -3934,
+        234
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 40
+    },
+    {
+      "surveyIndex": 26847,
+      "rawSurveyCrown": [
+        44.43324,
+        26.10704,
+        2.2
+      ],
+      "packed": [
+        -1558,
+        -3934,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 26857,
+      "rawSurveyCrown": [
+        44.433247,
+        26.103553,
+        2.2
+      ],
+      "packed": [
+        -4330,
+        -3942,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 26872,
+      "rawSurveyCrown": [
+        44.433263,
+        26.104079,
+        3.9
+      ],
+      "packed": [
+        -3912,
+        -3960,
+        230
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 39
+    },
+    {
+      "surveyIndex": 26911,
+      "rawSurveyCrown": [
+        44.433293,
+        26.104197,
+        2.9
+      ],
+      "packed": [
+        -3818,
+        -3993,
+        184
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 29
+    },
+    {
+      "surveyIndex": 26992,
+      "rawSurveyCrown": [
+        44.43337,
+        26.104766,
+        2.8
+      ],
+      "packed": [
+        -3366,
+        -4079,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 27004,
+      "rawSurveyCrown": [
+        44.433385,
+        26.1041,
+        3.1
+      ],
+      "packed": [
+        -3895,
+        -4095,
+        192
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 31
+    },
+    {
+      "surveyIndex": 27039,
+      "rawSurveyCrown": [
+        44.433408,
+        26.105581,
+        2.2
+      ],
+      "packed": [
+        -2718,
+        -4121,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 27051,
+      "rawSurveyCrown": [
+        44.433416,
+        26.105195,
+        2.2
+      ],
+      "packed": [
+        -3025,
+        -4130,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 27052,
+      "rawSurveyCrown": [
+        44.433416,
+        26.106976,
+        2.8
+      ],
+      "packed": [
+        -1609,
+        -4130,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 27069,
+      "rawSurveyCrown": [
+        44.433431,
+        26.105334,
+        2.2
+      ],
+      "packed": [
+        -2914,
+        -4146,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 27075,
+      "rawSurveyCrown": [
+        44.433439,
+        26.103521,
+        2.2
+      ],
+      "packed": [
+        -4356,
+        -4155,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 27095,
+      "rawSurveyCrown": [
+        44.433454,
+        26.103682,
+        3.9
+      ],
+      "packed": [
+        -4228,
+        -4172,
+        230
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 39
+    },
+    {
+      "surveyIndex": 27118,
+      "rawSurveyCrown": [
+        44.43347,
+        26.10542,
+        3.5
+      ],
+      "packed": [
+        -2846,
+        -4190,
+        210
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 35
+    },
+    {
+      "surveyIndex": 27150,
+      "rawSurveyCrown": [
+        44.433493,
+        26.105506,
+        2.8
+      ],
+      "packed": [
+        -2778,
+        -4215,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 27151,
+      "rawSurveyCrown": [
+        44.433493,
+        26.105613,
+        4.2
+      ],
+      "packed": [
+        -2692,
+        -4215,
+        244
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 42
+    },
+    {
+      "surveyIndex": 27199,
+      "rawSurveyCrown": [
+        44.433531,
+        26.104379,
+        4
+      ],
+      "packed": [
+        -3673,
+        -4257,
+        234
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 40
+    },
+    {
+      "surveyIndex": 27212,
+      "rawSurveyCrown": [
+        44.433546,
+        26.104154,
+        3.1
+      ],
+      "packed": [
+        -3852,
+        -4274,
+        192
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 31
+    },
+    {
+      "surveyIndex": 27228,
+      "rawSurveyCrown": [
+        44.433554,
+        26.104261,
+        5.7
+      ],
+      "packed": [
+        -3767,
+        -4283,
+        312
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 57
+    },
+    {
+      "surveyIndex": 27232,
+      "rawSurveyCrown": [
+        44.433562,
+        26.104465,
+        2.8
+      ],
+      "packed": [
+        -3605,
+        -4292,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 27233,
+      "rawSurveyCrown": [
+        44.433562,
+        26.105613,
+        2.8
+      ],
+      "packed": [
+        -2692,
+        -4292,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 27264,
+      "rawSurveyCrown": [
+        44.433592,
+        26.10557,
+        2.8
+      ],
+      "packed": [
+        -2727,
+        -4325,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 27287,
+      "rawSurveyCrown": [
+        44.433607,
+        26.104873,
+        2.8
+      ],
+      "packed": [
+        -3281,
+        -4342,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 27288,
+      "rawSurveyCrown": [
+        44.433607,
+        26.10512,
+        2.2
+      ],
+      "packed": [
+        -3084,
+        -4342,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 27317,
+      "rawSurveyCrown": [
+        44.43363,
+        26.10557,
+        2.2
+      ],
+      "packed": [
+        -2727,
+        -4367,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 27368,
+      "rawSurveyCrown": [
+        44.433676,
+        26.102834,
+        2.2
+      ],
+      "packed": [
+        -4902,
+        -4419,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 27379,
+      "rawSurveyCrown": [
+        44.433692,
+        26.103467,
+        2.8
+      ],
+      "packed": [
+        -4398,
+        -4436,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 27394,
+      "rawSurveyCrown": [
+        44.433699,
+        26.106117,
+        2.8
+      ],
+      "packed": [
+        -2292,
+        -4444,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 27401,
+      "rawSurveyCrown": [
+        44.433707,
+        26.103575,
+        4
+      ],
+      "packed": [
+        -4313,
+        -4453,
+        234
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 40
+    },
+    {
+      "surveyIndex": 27414,
+      "rawSurveyCrown": [
+        44.433715,
+        26.105044,
+        2.2
+      ],
+      "packed": [
+        -3145,
+        -4462,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 27425,
+      "rawSurveyCrown": [
+        44.433722,
+        26.102824,
+        2.8
+      ],
+      "packed": [
+        -4910,
+        -4470,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 27438,
+      "rawSurveyCrown": [
+        44.433738,
+        26.103414,
+        2.2
+      ],
+      "packed": [
+        -4441,
+        -4488,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 27474,
+      "rawSurveyCrown": [
+        44.433768,
+        26.103628,
+        5.3
+      ],
+      "packed": [
+        -4270,
+        -4521,
+        294
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 53
+    },
+    {
+      "surveyIndex": 27565,
+      "rawSurveyCrown": [
+        44.433837,
+        26.105731,
+        3.9
+      ],
+      "packed": [
+        -2599,
+        -4598,
+        230
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 39
+    },
+    {
+      "surveyIndex": 27646,
+      "rawSurveyCrown": [
+        44.433899,
+        26.105731,
+        3.5
+      ],
+      "packed": [
+        -2599,
+        -4666,
+        210
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 35
+    }
+  ],
+  "inferredBuildingModels": [
+    {
+      "sourceId": "w1069684964",
+      "sourceTags": {
+        "addr:city": "București",
+        "addr:housenumber": "6",
+        "addr:postcode": "030246",
+        "addr:street": "Strada Colței",
+        "building": "yes",
+        "heritage": "2",
+        "heritage:operator": "lmi",
+        "ref:RO:lmi": "B-II-m-B-18450"
+      },
+      "modelInputTags": {
+        "addr:city": "București",
+        "addr:housenumber": "6",
+        "addr:postcode": "030246",
+        "addr:street": "Strada Colței",
+        "building": "yes",
+        "heritage": "2",
+        "heritage:operator": "lmi",
+        "ref:RO:lmi": "B-II-m-B-18450",
+        "building:colour": "#CFC1A8"
+      },
+      "sourceRingLL": [
+        [
+          44.4336466,
+          26.1037972
+        ],
+        [
+          44.4336352,
+          26.1036986
+        ],
+        [
+          44.4335475,
+          26.1037229
+        ],
+        [
+          44.4335474,
+          26.1037409
+        ],
+        [
+          44.4335573,
+          26.1038199
+        ],
+        [
+          44.4336466,
+          26.1037972
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "eclectic",
+      "wallHeightM": 16,
+      "basis": "Retain the identical-source prior fallback MODEL. Newly admitted road proximity supplies no new building height/style evidence. Roof tags/research and literal dimensions still win."
+    },
+    {
+      "sourceId": "w1069684965",
+      "sourceTags": {
+        "addr:city": "București",
+        "addr:housenumber": "4",
+        "addr:postcode": "030246",
+        "addr:street": "Strada Colței",
+        "building": "yes",
+        "heritage": "2",
+        "heritage:operator": "lmi",
+        "ref:RO:lmi": "B-II-m-B-18448"
+      },
+      "modelInputTags": {
+        "addr:city": "București",
+        "addr:housenumber": "4",
+        "addr:postcode": "030246",
+        "addr:street": "Strada Colței",
+        "building": "yes",
+        "heritage": "2",
+        "heritage:operator": "lmi",
+        "ref:RO:lmi": "B-II-m-B-18448",
+        "building:colour": "#E3D3B8"
+      },
+      "sourceRingLL": [
+        [
+          44.4336352,
+          26.1036986
+        ],
+        [
+          44.4336272,
+          26.1036352
+        ],
+        [
+          44.4335697,
+          26.1036643
+        ],
+        [
+          44.4335629,
+          26.1036677
+        ],
+        [
+          44.4335474,
+          26.1036741
+        ],
+        [
+          44.4335475,
+          26.1037229
+        ],
+        [
+          44.4336352,
+          26.1036986
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "eclectic",
+      "wallHeightM": 16,
+      "basis": "Retain the identical-source prior fallback MODEL. Newly admitted road proximity supplies no new building height/style evidence. Roof tags/research and literal dimensions still win."
+    },
+    {
+      "sourceId": "w1069684966",
+      "sourceTags": {
+        "addr:city": "București",
+        "addr:housenumber": "2",
+        "addr:postcode": "030246",
+        "addr:street": "Strada Colței",
+        "building": "yes",
+        "heritage": "2",
+        "heritage:operator": "lmi",
+        "ref:RO:lmi": "B-II-m-B-18446"
+      },
+      "modelInputTags": {
+        "addr:city": "București",
+        "addr:housenumber": "2",
+        "addr:postcode": "030246",
+        "addr:street": "Strada Colței",
+        "building": "yes",
+        "heritage": "2",
+        "heritage:operator": "lmi",
+        "ref:RO:lmi": "B-II-m-B-18446",
+        "building:colour": "#E8D9BE"
+      },
+      "sourceRingLL": [
+        [
+          44.4336272,
+          26.1036352
+        ],
+        [
+          44.4336112,
+          26.1035063
+        ],
+        [
+          44.4335611,
+          26.1035184
+        ],
+        [
+          44.4335529,
+          26.1035204
+        ],
+        [
+          44.4335557,
+          26.1035443
+        ],
+        [
+          44.4335697,
+          26.1036643
+        ],
+        [
+          44.4336272,
+          26.1036352
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "eclectic",
+      "wallHeightM": 16,
+      "basis": "Retain the identical-source prior fallback MODEL. Newly admitted road proximity supplies no new building height/style evidence. Roof tags/research and literal dimensions still win."
+    },
+    {
+      "sourceId": "w1069684967",
+      "sourceTags": {
+        "building": "yes"
+      },
+      "modelInputTags": {
+        "building": "yes",
+        "building:colour": "#D9C3A0"
+      },
+      "sourceRingLL": [
+        [
+          44.4335611,
+          26.1035184
+        ],
+        [
+          44.4335575,
+          26.1034878
+        ],
+        [
+          44.4334658,
+          26.1035099
+        ],
+        [
+          44.4334732,
+          26.103565
+        ],
+        [
+          44.4335557,
+          26.1035443
+        ],
+        [
+          44.4335529,
+          26.1035204
+        ],
+        [
+          44.4335611,
+          26.1035184
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "eclectic",
+      "wallHeightM": 16,
+      "basis": "Retain the identical-source prior fallback MODEL. Newly admitted road proximity supplies no new building height/style evidence. Roof tags/research and literal dimensions still win."
+    },
+    {
+      "sourceId": "w1069684968",
+      "sourceTags": {
+        "building": "yes"
+      },
+      "modelInputTags": {
+        "building": "yes",
+        "building:colour": "#E6CFC0"
+      },
+      "sourceRingLL": [
+        [
+          44.4334732,
+          26.103565
+        ],
+        [
+          44.4334873,
+          26.1036901
+        ],
+        [
+          44.4335474,
+          26.1036741
+        ],
+        [
+          44.4335629,
+          26.1036677
+        ],
+        [
+          44.4335697,
+          26.1036643
+        ],
+        [
+          44.4335557,
+          26.1035443
+        ],
+        [
+          44.4334732,
+          26.103565
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "eclectic",
+      "wallHeightM": 16,
+      "basis": "Retain the identical-source prior fallback MODEL. Newly admitted road proximity supplies no new building height/style evidence. Roof tags/research and literal dimensions still win."
+    },
+    {
+      "sourceId": "w1071303663",
+      "sourceTags": {
+        "addr:city": "București",
+        "addr:housenumber": "59",
+        "addr:street": "Calea Moșilor",
+        "building": "yes",
+        "building:condition": "Seismic Risk Class II",
+        "year_of_construction": "1933"
+      },
+      "modelInputTags": {
+        "addr:city": "București",
+        "addr:housenumber": "59",
+        "addr:street": "Calea Moșilor",
+        "building": "yes",
+        "building:condition": "Seismic Risk Class II",
+        "year_of_construction": "1933",
+        "building:colour": "#D9D2C3"
+      },
+      "sourceRingLL": [
+        [
+          44.4341188,
+          26.1074797
+        ],
+        [
+          44.4340931,
+          26.1075031
+        ],
+        [
+          44.4340758,
+          26.1075122
+        ],
+        [
+          44.4340574,
+          26.1075127
+        ],
+        [
+          44.4340367,
+          26.1075047
+        ],
+        [
+          44.4339061,
+          26.1073953
+        ],
+        [
+          44.4339636,
+          26.1072687
+        ],
+        [
+          44.4340061,
+          26.1073089
+        ],
+        [
+          44.4340402,
+          26.1073116
+        ],
+        [
+          44.4340775,
+          26.1073563
+        ],
+        [
+          44.4341188,
+          26.1074797
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "eclectic",
+      "wallHeightM": 12.8,
+      "basis": "Retain the identical-source prior fallback MODEL. Newly admitted road proximity supplies no new building height/style evidence. Roof tags/research and literal dimensions still win."
+    },
+    {
+      "sourceId": "w1071303664",
+      "sourceTags": {
+        "building": "apartments"
+      },
+      "modelInputTags": {
+        "building": "apartments",
+        "building:colour": "#E2D8C4"
+      },
+      "sourceRingLL": [
+        [
+          44.4339061,
+          26.1073953
+        ],
+        [
+          44.4336236,
+          26.107149
+        ],
+        [
+          44.4336765,
+          26.1070263
+        ],
+        [
+          44.4336475,
+          26.1069983
+        ],
+        [
+          44.4337203,
+          26.1068314
+        ],
+        [
+          44.4340263,
+          26.1070786
+        ],
+        [
+          44.4339527,
+          26.1072572
+        ],
+        [
+          44.4339636,
+          26.1072687
+        ],
+        [
+          44.4339061,
+          26.1073953
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "eclectic",
+      "wallHeightM": 12.8,
+      "basis": "Retain the identical-source prior fallback MODEL. Newly admitted road proximity supplies no new building height/style evidence. Roof tags/research and literal dimensions still win."
+    },
+    {
+      "sourceId": "w1071303665",
+      "sourceTags": {
+        "building": "apartments"
+      },
+      "modelInputTags": {
+        "building": "apartments",
+        "building:colour": "#CFC8B8"
+      },
+      "sourceRingLL": [
+        [
+          44.4336236,
+          26.107149
+        ],
+        [
+          44.4335006,
+          26.1070446
+        ],
+        [
+          44.4334876,
+          26.106992
+        ],
+        [
+          44.4335412,
+          26.1068064
+        ],
+        [
+          44.4336485,
+          26.1067732
+        ],
+        [
+          44.4337203,
+          26.1068314
+        ],
+        [
+          44.4336475,
+          26.1069983
+        ],
+        [
+          44.4336765,
+          26.1070263
+        ],
+        [
+          44.4336236,
+          26.107149
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "eclectic",
+      "wallHeightM": 12.8,
+      "basis": "Retain the identical-source prior fallback MODEL. Newly admitted road proximity supplies no new building height/style evidence. Roof tags/research and literal dimensions still win."
+    },
+    {
+      "sourceId": "w1071303666",
+      "sourceTags": {
+        "building": "apartments"
+      },
+      "modelInputTags": {
+        "building": "apartments",
+        "building:colour": "#D9D2C3"
+      },
+      "sourceRingLL": [
+        [
+          44.4336485,
+          26.1067732
+        ],
+        [
+          44.4335412,
+          26.1068064
+        ],
+        [
+          44.43358,
+          26.1066824
+        ],
+        [
+          44.4336145,
+          26.1066993
+        ],
+        [
+          44.4336377,
+          26.1066941
+        ],
+        [
+          44.4336485,
+          26.1067732
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "house",
+      "wallHeightM": 6.4,
+      "basis": "Retain the identical-source prior fallback MODEL. Newly admitted road proximity supplies no new building height/style evidence. Roof tags/research and literal dimensions still win."
+    },
+    {
+      "sourceId": "w1078908506",
+      "sourceTags": {
+        "building": "yes"
+      },
+      "modelInputTags": {
+        "building": "yes",
+        "building:colour": "#E8D9BE"
+      },
+      "sourceRingLL": [
+        [
+          44.4331854,
+          26.1067744
+        ],
+        [
+          44.4332238,
+          26.1068044
+        ],
+        [
+          44.4332261,
+          26.1068139
+        ],
+        [
+          44.4332854,
+          26.106863
+        ],
+        [
+          44.4332926,
+          26.106863
+        ],
+        [
+          44.4333282,
+          26.1068905
+        ],
+        [
+          44.4333623,
+          26.1068777
+        ],
+        [
+          44.4333696,
+          26.1068815
+        ],
+        [
+          44.4334143,
+          26.1067846
+        ],
+        [
+          44.4334184,
+          26.1067877
+        ],
+        [
+          44.433479,
+          26.1066461
+        ],
+        [
+          44.4334507,
+          26.1066238
+        ],
+        [
+          44.4334954,
+          26.1065268
+        ],
+        [
+          44.4333523,
+          26.1064101
+        ],
+        [
+          44.4333331,
+          26.1064521
+        ],
+        [
+          44.4332718,
+          26.1065867
+        ],
+        [
+          44.4333272,
+          26.1066323
+        ],
+        [
+          44.4333055,
+          26.1066776
+        ],
+        [
+          44.433252,
+          26.1066311
+        ],
+        [
+          44.4331854,
+          26.1067744
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "eclectic",
+      "wallHeightM": 12.8,
+      "basis": "Retain the identical-source prior fallback MODEL. Newly admitted road proximity supplies no new building height/style evidence. Roof tags/research and literal dimensions still win."
+    },
+    {
+      "sourceId": "w1078908511",
+      "sourceTags": {
+        "building": "yes"
+      },
+      "modelInputTags": {
+        "building": "yes",
+        "building:colour": "#E8D9BE"
+      },
+      "sourceRingLL": [
+        [
+          44.4333331,
+          26.1064521
+        ],
+        [
+          44.4332292,
+          26.1063672
+        ],
+        [
+          44.4331005,
+          26.1066225
+        ],
+        [
+          44.4331058,
+          26.1066572
+        ],
+        [
+          44.4331153,
+          26.1066878
+        ],
+        [
+          44.4331294,
+          26.1067172
+        ],
+        [
+          44.433149,
+          26.1067421
+        ],
+        [
+          44.4331854,
+          26.1067744
+        ],
+        [
+          44.433252,
+          26.1066311
+        ],
+        [
+          44.4332718,
+          26.1065867
+        ],
+        [
+          44.4333331,
+          26.1064521
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "eclectic",
+      "wallHeightM": 12.8,
+      "basis": "Retain the identical-source prior fallback MODEL. Newly admitted road proximity supplies no new building height/style evidence. Roof tags/research and literal dimensions still win."
+    },
+    {
+      "sourceId": "w1111615337",
+      "sourceTags": {
+        "building": "apartments"
+      },
+      "modelInputTags": {
+        "building": "apartments",
+        "building:colour": "#CFC8B8"
+      },
+      "sourceRingLL": [
+        [
+          44.4324709,
+          26.1072943
+        ],
+        [
+          44.4325448,
+          26.1071072
+        ],
+        [
+          44.4325812,
+          26.1070153
+        ],
+        [
+          44.4327245,
+          26.1066527
+        ],
+        [
+          44.4325942,
+          26.10654
+        ],
+        [
+          44.4325069,
+          26.1067353
+        ],
+        [
+          44.4325314,
+          26.1067578
+        ],
+        [
+          44.4325015,
+          26.1068276
+        ],
+        [
+          44.4325582,
+          26.1068834
+        ],
+        [
+          44.4325031,
+          26.1070035
+        ],
+        [
+          44.4324946,
+          26.1069982
+        ],
+        [
+          44.4324295,
+          26.1071323
+        ],
+        [
+          44.432451,
+          26.1071516
+        ],
+        [
+          44.4324333,
+          26.1071902
+        ],
+        [
+          44.4324356,
+          26.1072675
+        ],
+        [
+          44.4324709,
+          26.1072943
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "eclectic",
+      "wallHeightM": 12.8,
+      "basis": "Retain the identical-source prior fallback MODEL. Newly admitted road proximity supplies no new building height/style evidence. Roof tags/research and literal dimensions still win."
+    },
+    {
+      "sourceId": "w1111615338",
+      "sourceTags": {
+        "building": "apartments",
+        "name": "Hanul Polonez"
+      },
+      "modelInputTags": {
+        "building": "apartments",
+        "name": "Hanul Polonez",
+        "building:colour": "#D9D2C3"
+      },
+      "sourceRingLL": [
+        [
+          44.4327245,
+          26.1066527
+        ],
+        [
+          44.4330095,
+          26.1069005
+        ],
+        [
+          44.4329078,
+          26.1070468
+        ],
+        [
+          44.4328425,
+          26.1071409
+        ],
+        [
+          44.4327965,
+          26.1070808
+        ],
+        [
+          44.4328524,
+          26.1070014
+        ],
+        [
+          44.4327061,
+          26.1068834
+        ],
+        [
+          44.4326433,
+          26.1070561
+        ],
+        [
+          44.4325812,
+          26.1070153
+        ],
+        [
+          44.4327245,
+          26.1066527
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "eclectic",
+      "wallHeightM": 12.8,
+      "basis": "Retain the identical-source prior fallback MODEL. Newly admitted road proximity supplies no new building height/style evidence. Roof tags/research and literal dimensions still win."
+    },
+    {
+      "sourceId": "w1111615339",
+      "sourceTags": {
+        "building": "apartments"
+      },
+      "modelInputTags": {
+        "building": "apartments",
+        "building:colour": "#E2D8C4"
+      },
+      "sourceRingLL": [
+        [
+          44.4330095,
+          26.1069005
+        ],
+        [
+          44.4330563,
+          26.1069437
+        ],
+        [
+          44.4329664,
+          26.1070992
+        ],
+        [
+          44.4329078,
+          26.1070468
+        ],
+        [
+          44.4330095,
+          26.1069005
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "eclectic",
+      "wallHeightM": 12.8,
+      "basis": "Retain the identical-source prior fallback MODEL. Newly admitted road proximity supplies no new building height/style evidence. Roof tags/research and literal dimensions still win."
+    },
+    {
+      "sourceId": "w1111615340",
+      "sourceTags": {
+        "building": "apartments"
+      },
+      "modelInputTags": {
+        "building": "apartments",
+        "building:colour": "#CFC8B8"
+      },
+      "sourceRingLL": [
+        [
+          44.4330563,
+          26.1069437
+        ],
+        [
+          44.4330693,
+          26.1069657
+        ],
+        [
+          44.4330807,
+          26.1070021
+        ],
+        [
+          44.4330845,
+          26.1070362
+        ],
+        [
+          44.4330807,
+          26.1070741
+        ],
+        [
+          44.4330704,
+          26.1071022
+        ],
+        [
+          44.4330557,
+          26.1071227
+        ],
+        [
+          44.4330297,
+          26.1071417
+        ],
+        [
+          44.4329631,
+          26.1071712
+        ],
+        [
+          44.4329414,
+          26.1071743
+        ],
+        [
+          44.4329247,
+          26.1071712
+        ],
+        [
+          44.4329664,
+          26.1070992
+        ],
+        [
+          44.4330563,
+          26.1069437
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "eclectic",
+      "wallHeightM": 12.8,
+      "basis": "Retain the identical-source prior fallback MODEL. Newly admitted road proximity supplies no new building height/style evidence. Roof tags/research and literal dimensions still win."
+    },
+    {
+      "sourceId": "w1173133012",
+      "sourceTags": {
+        "building": "yes"
+      },
+      "modelInputTags": {
+        "building": "yes",
+        "building:colour": "#D9C3A0"
+      },
+      "sourceRingLL": [
+        [
+          44.4338764,
+          26.1075828
+        ],
+        [
+          44.4337987,
+          26.1075298
+        ],
+        [
+          44.4337392,
+          26.1076766
+        ],
+        [
+          44.4337629,
+          26.1076952
+        ],
+        [
+          44.4337372,
+          26.1077592
+        ],
+        [
+          44.4337133,
+          26.1077404
+        ],
+        [
+          44.433678,
+          26.1078276
+        ],
+        [
+          44.4337013,
+          26.1078462
+        ],
+        [
+          44.4337244,
+          26.1078621
+        ],
+        [
+          44.4337555,
+          26.1078834
+        ],
+        [
+          44.4337888,
+          26.1078031
+        ],
+        [
+          44.4338322,
+          26.1076893
+        ],
+        [
+          44.4338764,
+          26.1075828
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "eclectic",
+      "wallHeightM": 12.8,
+      "basis": "Retain the identical-source prior fallback MODEL. Newly admitted road proximity supplies no new building height/style evidence. Roof tags/research and literal dimensions still win."
+    },
+    {
+      "sourceId": "w1173133013",
+      "sourceTags": {
+        "building": "yes"
+      },
+      "modelInputTags": {
+        "building": "yes",
+        "building:colour": "#E6CFC0"
+      },
+      "sourceRingLL": [
+        [
+          44.4337987,
+          26.1075298
+        ],
+        [
+          44.4337392,
+          26.1076766
+        ],
+        [
+          44.4337133,
+          26.1077404
+        ],
+        [
+          44.433678,
+          26.1078276
+        ],
+        [
+          44.4337013,
+          26.1078462
+        ],
+        [
+          44.4336909,
+          26.1078742
+        ],
+        [
+          44.4336695,
+          26.1079315
+        ],
+        [
+          44.433603,
+          26.1078825
+        ],
+        [
+          44.4336846,
+          26.1076707
+        ],
+        [
+          44.4336704,
+          26.1076594
+        ],
+        [
+          44.433591,
+          26.107875
+        ],
+        [
+          44.4335333,
+          26.1078237
+        ],
+        [
+          44.4335862,
+          26.107669
+        ],
+        [
+          44.4336098,
+          26.1076031
+        ],
+        [
+          44.4336789,
+          26.1074363
+        ],
+        [
+          44.4337987,
+          26.1075298
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "eclectic",
+      "wallHeightM": 12.8,
+      "basis": "Retain the identical-source prior fallback MODEL. Newly admitted road proximity supplies no new building height/style evidence. Roof tags/research and literal dimensions still win."
+    },
+    {
+      "sourceId": "w1180500533",
+      "sourceTags": {
+        "building:part": "yes",
+        "height": "0.4"
+      },
+      "modelInputTags": {
+        "building:part": "yes",
+        "height": "0.4",
+        "building:colour": "#CFC8B8",
+        "building": "yes"
+      },
+      "sourceRingLL": [
+        [
+          44.4344065,
+          26.1032992
+        ],
+        [
+          44.4344013,
+          26.1032685
+        ],
+        [
+          44.4343733,
+          26.1032777
+        ],
+        [
+          44.4343784,
+          26.1033084
+        ],
+        [
+          44.4344065,
+          26.1032992
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "eclectic",
+      "basis": "Retain the identical-source prior fallback MODEL. Newly admitted road proximity supplies no new building height/style evidence. Roof tags/research and literal dimensions still win."
+    },
+    {
+      "sourceId": "w1180500534",
+      "sourceTags": {
+        "building:part": "yes",
+        "height": "0.7"
+      },
+      "modelInputTags": {
+        "building:part": "yes",
+        "height": "0.7",
+        "building:colour": "#D9D2C3",
+        "building": "yes"
+      },
+      "sourceRingLL": [
+        [
+          44.4344024,
+          26.1032964
+        ],
+        [
+          44.4343988,
+          26.1032744
+        ],
+        [
+          44.4343779,
+          26.1032809
+        ],
+        [
+          44.4343815,
+          26.1033031
+        ],
+        [
+          44.4344024,
+          26.1032964
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "eclectic",
+      "basis": "Retain the identical-source prior fallback MODEL. Newly admitted road proximity supplies no new building height/style evidence. Roof tags/research and literal dimensions still win."
+    },
+    {
+      "sourceId": "w1180500535",
+      "sourceTags": {
+        "building:part": "yes",
+        "height": "1"
+      },
+      "modelInputTags": {
+        "building:part": "yes",
+        "height": "1",
+        "building:colour": "#E2D8C4",
+        "building": "yes"
+      },
+      "sourceRingLL": [
+        [
+          44.4343986,
+          26.1032939
+        ],
+        [
+          44.4343961,
+          26.1032789
+        ],
+        [
+          44.4343822,
+          26.1032834
+        ],
+        [
+          44.4343847,
+          26.1032983
+        ],
+        [
+          44.4343986,
+          26.1032939
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "eclectic",
+      "basis": "Retain the identical-source prior fallback MODEL. Newly admitted road proximity supplies no new building height/style evidence. Roof tags/research and literal dimensions still win."
+    },
+    {
+      "sourceId": "w1180500536",
+      "sourceTags": {
+        "building:part": "yes",
+        "height": "2"
+      },
+      "modelInputTags": {
+        "building:part": "yes",
+        "height": "2",
+        "building:colour": "#CFC8B8",
+        "building": "yes"
+      },
+      "sourceRingLL": [
+        [
+          44.4343965,
+          26.1032921
+        ],
+        [
+          44.4343949,
+          26.1032821
+        ],
+        [
+          44.4343844,
+          26.1032855
+        ],
+        [
+          44.4343861,
+          26.1032956
+        ],
+        [
+          44.4343965,
+          26.1032921
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "eclectic",
+      "basis": "Retain the identical-source prior fallback MODEL. Newly admitted road proximity supplies no new building height/style evidence. Roof tags/research and literal dimensions still win."
+    },
+    {
+      "sourceId": "w1465245677",
+      "sourceTags": {
+        "building": "yes"
+      },
+      "modelInputTags": {
+        "building": "yes",
+        "building:colour": "#D9C3A0"
+      },
+      "sourceRingLL": [
+        [
+          44.433427,
+          26.1075824
+        ],
+        [
+          44.4333383,
+          26.1077784
+        ],
+        [
+          44.4333993,
+          26.1078324
+        ],
+        [
+          44.4334879,
+          26.1076365
+        ],
+        [
+          44.433427,
+          26.1075824
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "eclectic",
+      "wallHeightM": 12.8,
+      "basis": "Retain the identical-source prior fallback MODEL. Newly admitted road proximity supplies no new building height/style evidence. Roof tags/research and literal dimensions still win."
+    },
+    {
+      "sourceId": "w1544390386",
+      "sourceTags": {
+        "building": "apartments"
+      },
+      "modelInputTags": {
+        "building": "apartments",
+        "building:colour": "#E2D8C4"
+      },
+      "sourceRingLL": [
+        [
+          44.434358,
+          26.102491
+        ],
+        [
+          44.4344228,
+          26.1027376
+        ],
+        [
+          44.4341296,
+          26.1028344
+        ],
+        [
+          44.434118,
+          26.1027419
+        ],
+        [
+          44.4341876,
+          26.1027225
+        ],
+        [
+          44.4341695,
+          26.1025736
+        ],
+        [
+          44.434358,
+          26.102491
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "eclectic",
+      "wallHeightM": 16,
+      "basis": "Retain the identical-source prior fallback MODEL. Newly admitted road proximity supplies no new building height/style evidence. Roof tags/research and literal dimensions still win."
+    },
+    {
+      "sourceId": "w162456253",
+      "sourceTags": {
+        "building": "apartments"
+      },
+      "modelInputTags": {
+        "building": "apartments",
+        "building:colour": "#E2D8C4"
+      },
+      "sourceRingLL": [
+        [
+          44.4331024,
+          26.1072851
+        ],
+        [
+          44.4331414,
+          26.1074684
+        ],
+        [
+          44.4331792,
+          26.1074473
+        ],
+        [
+          44.4332572,
+          26.1075177
+        ],
+        [
+          44.4333239,
+          26.1073614
+        ],
+        [
+          44.4333503,
+          26.1073803
+        ],
+        [
+          44.4333402,
+          26.1074085
+        ],
+        [
+          44.4334585,
+          26.1075167
+        ],
+        [
+          44.4334698,
+          26.1074931
+        ],
+        [
+          44.4335594,
+          26.1075628
+        ],
+        [
+          44.4336098,
+          26.1076031
+        ],
+        [
+          44.4336789,
+          26.1074363
+        ],
+        [
+          44.4332975,
+          26.1071213
+        ],
+        [
+          44.4332748,
+          26.107123
+        ],
+        [
+          44.4331024,
+          26.1072851
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "eclectic",
+      "wallHeightM": 12.8,
+      "basis": "Retain the identical-source prior fallback MODEL. Newly admitted road proximity supplies no new building height/style evidence. Roof tags/research and literal dimensions still win."
+    },
+    {
+      "sourceId": "w162456257",
+      "sourceTags": {
+        "building": "yes"
+      },
+      "modelInputTags": {
+        "building": "yes",
+        "building:colour": "#D9C3A0"
+      },
+      "sourceRingLL": [
+        [
+          44.4336098,
+          26.1076031
+        ],
+        [
+          44.4335862,
+          26.107669
+        ],
+        [
+          44.4335333,
+          26.1078237
+        ],
+        [
+          44.4334918,
+          26.1079295
+        ],
+        [
+          44.4334094,
+          26.1078709
+        ],
+        [
+          44.4335191,
+          26.1075683
+        ],
+        [
+          44.4335496,
+          26.1075899
+        ],
+        [
+          44.4335594,
+          26.1075628
+        ],
+        [
+          44.4336098,
+          26.1076031
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "eclectic",
+      "wallHeightM": 12.8,
+      "basis": "Retain the identical-source prior fallback MODEL. Newly admitted road proximity supplies no new building height/style evidence. Roof tags/research and literal dimensions still win."
+    },
+    {
+      "sourceId": "w229432024",
+      "sourceTags": {
+        "addr:city": "București",
+        "addr:housenumber": "6",
+        "addr:street": "I. C. BRATIANU",
+        "building": "apartments",
+        "building:condition": "Urgency Category 1",
+        "building:levels": "S+P+8E",
+        "layer": "-1",
+        "name": "Bl. A",
+        "roof:shape": "flat",
+        "source": "survey",
+        "year_of_construction": "1937"
+      },
+      "modelInputTags": {
+        "addr:city": "București",
+        "addr:housenumber": "6",
+        "addr:street": "I. C. BRATIANU",
+        "building": "apartments",
+        "building:condition": "Urgency Category 1",
+        "building:levels": "S+P+8E",
+        "layer": "-1",
+        "name": "Bl. A",
+        "roof:shape": "flat",
+        "source": "survey",
+        "year_of_construction": "1937",
+        "building:colour": "#E2D8C4"
+      },
+      "sourceRingLL": [
+        [
+          44.4338906,
+          26.102754
+        ],
+        [
+          44.4338808,
+          26.1026813
+        ],
+        [
+          44.4339313,
+          26.1026675
+        ],
+        [
+          44.4339258,
+          26.1026277
+        ],
+        [
+          44.4340194,
+          26.1026021
+        ],
+        [
+          44.4340153,
+          26.102573
+        ],
+        [
+          44.4341969,
+          26.1025212
+        ],
+        [
+          44.4342082,
+          26.1026204
+        ],
+        [
+          44.434224,
+          26.1027154
+        ],
+        [
+          44.4341876,
+          26.1027225
+        ],
+        [
+          44.434118,
+          26.1027419
+        ],
+        [
+          44.4340681,
+          26.1027558
+        ],
+        [
+          44.4338948,
+          26.1027969
+        ],
+        [
+          44.4338906,
+          26.102754
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "eclectic",
+      "basis": "Retain the identical-source prior fallback MODEL. Newly admitted road proximity supplies no new building height/style evidence. Roof tags/research and literal dimensions still win."
+    }
+  ]
+}

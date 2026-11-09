@@ -11,6 +11,9 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+RECORD_DIRECTORIES = ('game/overview/evidence', 'game/overview/comparison-data',
+                      'handoffs/fidelity')
+FULL_SHA1 = re.compile('[a-f0-9]{40}', re.I)
 
 
 def git(*args, input=None):
@@ -23,20 +26,39 @@ def git_succeeds(*args):
         ['git', *args], cwd=ROOT, capture_output=True).returncode == 0
 
 
+def reference_key(key, source_map=False):
+    # File/blob/tree/image digests are not commit references, even when a
+    # surrounding field happens to contain "source" or "commit".
+    if '/' in key or '.' in key:
+        return False
+    words = re.sub(r'([a-z0-9])([A-Z])', r'\1_\2', key).lower()
+    tokens = set(re.findall('[a-z0-9]+', words))
+    explicit_commit = bool(tokens & {'commit', 'commits', 'committed', 'revision',
+                                     'revisions', 'baseline', 'baselines'})
+    if tokens & {'blob', 'blobs', 'tree', 'trees', 'image', 'images', 'file',
+                 'files', 'sha256'}:
+        return False
+    if not explicit_commit and tokens & {'hash', 'hashes', 'digest', 'digests'}:
+        return False
+    if source_map:
+        return bool(tokens & {'source', 'sources'})
+    return bool(explicit_commit or tokens & {'source', 'sources'}
+                or ''.join(re.findall('[a-z0-9]+', words)) == 'parentmaster')
+
+
 def inspect(value, path, records, key=''):
     if isinstance(value, dict):
         for name, child in value.items():
-            if 'source' in key.lower() and re.fullmatch('[a-f0-9]{40}', name):
-                records.setdefault(name, set()).add(path)
-            inspect(child, path, records,
-                    name if not re.fullmatch('[a-f0-9]{40}', name) else key)
+            revision_key = FULL_SHA1.fullmatch(name)
+            if revision_key and reference_key(key, source_map=True):
+                records.setdefault(name.lower(), set()).add(path)
+            inspect(child, path, records, key if revision_key else name)
     elif isinstance(value, list):
         for child in value:
             inspect(child, path, records, key)
     elif isinstance(value, str):
-        if (re.fullmatch('[a-f0-9]{40}', value)
-                and re.search('commit|revision|baseline', key, re.I)):
-            records.setdefault(value, set()).add(path)
+        if FULL_SHA1.fullmatch(value) and reference_key(key):
+            records.setdefault(value.lower(), set()).add(path)
         # Keep accepted implementation and prior-record links, restricted to
         # this repository, as well as the original capture-source fields.
         match = re.match(
@@ -44,6 +66,60 @@ def inspect(value, path, records, key=''):
             r'(?:blob|tree|commit)/([a-f0-9]{40})(?:/|$|#)', value, re.I)
         if match:
             records.setdefault(match.group(1).lower(), set()).add(path)
+
+
+def source_records(source):
+    # Read by blob ID: no path quoting ambiguities, one Git process, bounded
+    # memory per JSON blob, and repeated blobs are parsed only once.
+    listing = subprocess.check_output(
+        ['git', 'ls-tree', '-r', '-z', source, '--', *RECORD_DIRECTORIES], cwd=ROOT)
+    blobs = {}
+    for entry in listing.split(b'\0'):
+        if not entry:
+            continue
+        metadata, path = entry.split(b'\t', 1)
+        if path.endswith(b'.json'):
+            blobs.setdefault(metadata.split()[2], []).append(
+                path.decode('utf-8', errors='surrogateescape'))
+    records = {}
+    scan = {'directories': list(RECORD_DIRECTORIES),
+            'jsonFiles': sum(map(len, blobs.values())), 'uniqueJsonBlobs': len(blobs),
+            'emptyJsonRecords': [], 'invalidJsonRecords': []}
+    with subprocess.Popen(['git', 'cat-file', '--batch'], cwd=ROOT,
+                          stdin=subprocess.PIPE, stdout=subprocess.PIPE) as batch:
+        for blob, paths in blobs.items():
+            batch.stdin.write(blob + b'\n')
+            batch.stdin.flush()
+            header = batch.stdout.readline().split()
+            if len(header) != 3 or header[1] != b'blob':
+                raise SystemExit('Cannot read recorded JSON blob: ' + repr(header))
+            payload = batch.stdout.read(int(header[2]))
+            if batch.stdout.read(1) != b'\n':
+                raise SystemExit('Incomplete recorded JSON blob: ' + blob.decode())
+            if not payload.strip():
+                scan['emptyJsonRecords'].extend(paths)
+                continue
+            try:
+                value = json.loads(payload)
+            except (ValueError, UnicodeError) as error:
+                scan['invalidJsonRecords'].extend(
+                    {'path': path, 'error': str(error)} for path in paths)
+                continue
+            blob_records = {}
+            inspect(value, paths[0], blob_records)
+            for revision in blob_records:
+                records.setdefault(revision, set()).update(paths)
+        batch.stdin.close()
+        if batch.wait():
+            raise SystemExit('Git batch read failed')
+    return records, scan
+
+
+def commit_objects(revisions):
+    # All inputs are object IDs from Git or strictly full-length JSON SHA-1s.
+    rows = git('cat-file', '--batch-check=%(objectname) %(objecttype)',
+               input='\n'.join(revisions) + '\n')
+    return dict(row.split() for row in rows.splitlines())
 
 
 def worktree_heads():
@@ -70,12 +146,7 @@ def worktree_heads():
 
 
 def make_plan(source):
-    records = {}
-    paths = git('ls-tree', '-r', '--name-only', source, '--',
-                'game/overview/evidence', 'game/overview/comparison-data')
-    for path in paths.splitlines():
-        if path.endswith('.json'):
-            inspect(json.loads(git('show', source + ':' + path)), path, records)
+    records, scan = source_records(source)
 
     origins = {}
 
@@ -116,26 +187,41 @@ def make_plan(source):
     provenance = {}
     missing = []
     invalid = {}
+    object_types = commit_objects(origins)
+    available = [revision for revision in origins if object_types[revision] == 'commit']
+    graph = {}
+    for row in git('rev-list', '--parents', '--stdin',
+                   input='\n'.join(available) + '\n').splitlines():
+        revision, *ancestors = row.split()
+        graph[revision] = ancestors
+    covered_by = {}
+
+    def cover(revision):
+        pending = [revision]
+        while pending:
+            current = pending.pop()
+            if current not in covered_by:
+                covered_by[current] = revision
+                pending.extend(graph[current])
+
     for revision, entries in origins.items():
-        result = subprocess.run(['git', 'cat-file', '-t', revision], cwd=ROOT,
-                                text=True, capture_output=True)
         status = 'available'
         parent = None
-        if result.returncode:
+        if object_types[revision] == 'missing':
             status = 'missing'
             missing.append(revision)
-        elif result.stdout.strip() != 'commit':
+        elif object_types[revision] != 'commit':
             status = 'not-commit'
-            invalid[revision] = result.stdout.strip()
+            invalid[revision] = object_types[revision]
         else:
             # Every ref and worktree HEAD is a direct archive parent. A capture
             # already retained by a parent records that relationship explicitly.
             if all(entry['kind'] == 'source-record' for entry in entries):
-                parent = next((head for head in parents if git_succeeds(
-                    'merge-base', '--is-ancestor', revision, head)), None)
+                parent = covered_by.get(revision)
             if parent is None:
                 parent = revision
                 parents.append(revision)
+                cover(revision)
         provenance[revision] = {
             'origins': entries, 'objectStatus': status, 'archiveParent': parent,
         }
@@ -144,6 +230,7 @@ def make_plan(source):
         'sourceCommit': source,
         'tree': git('rev-parse', source + '^{tree}'),
         'captureSources': {key: sorted(value) for key, value in sorted(records.items())},
+        'recordScan': scan,
         'archiveParents': parents,
         'commitProvenance': provenance,
         'excludedSymbolicRefs': excluded_refs,
@@ -153,7 +240,7 @@ def make_plan(source):
         'unretainedWorktrees': unretained_worktrees,
         'remoteTrackingRefs': 'Local snapshot only; fetch remote heads separately before final archival.',
         'purpose': 'Retain all local heads, fetched remote-tracking heads, worktree HEADs, '
-                   'historical capture, implementation and prior-record objects outside curated '
+                   'historical capture, implementation, prior-record and internal proof objects outside curated '
                    'master history before deleting task branches. No branch, source record or '
                    'capture date is rewritten.',
     }
@@ -168,7 +255,7 @@ def main():
     source = git('rev-parse', '--verify', args.source + '^{commit}')
     plan = make_plan(source)
     blocked = (plan['missingCommitObjects'] or plan['invalidCommitObjects']
-               or plan['unretainedWorktrees'])
+               or plan['unretainedWorktrees'] or plan['recordScan']['invalidJsonRecords'])
     if args.write_tag and not blocked:
         git('check-ref-format', 'refs/tags/' + args.write_tag)
         if git_succeeds('show-ref', '--verify', '--quiet', 'refs/tags/' + args.write_tag):
@@ -188,10 +275,12 @@ def main():
         'sourceCommit': source, 'captureSources': len(plan['captureSources']),
         'archiveParents': len(plan['archiveParents']),
         'missing': plan['missingCommitObjects'], 'invalid': plan['invalidCommitObjects'],
+        'sourceRecordFiles': plan['recordScan']['jsonFiles'],
+        'invalidJsonRecords': plan['recordScan']['invalidJsonRecords'],
         'unretainedWorktrees': plan['unretainedWorktrees'], 'tag': plan.get('tag'),
     }))
     if blocked:
-        raise SystemExit('Archive blocked: missing/non-commit objects or unretained worktree HEADs; '
+        raise SystemExit('Archive blocked: missing/non-commit objects, invalid JSON or unretained worktree HEADs; '
                          'inspect the JSON summary or --out plan for provenance.')
 
 

@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "classification": "source-only-research-not-native-runtime-acceptance",
+  "branch": "fidelity/rail-bridge-grade",
+  "baseCommit": "f320b747436ad98d6ac6624ce587d5666178e4df",
+  "metadataCommit": "6cbf82b61de8267f662bf50239c37ccc1764635c",
+  "proofFilesSha256": {
+    "README.md": "9ecd12ed251e4c198e02df3e22372e53ff9a998a41516c94e9c03f1d65255acb",
+    "audit.py": "07cd327bc60317cb37071727109d7623f73c0b378660a6cc799392f523eae1ca",
+    "engineering-sources.json": "47ab7b6f0bf074f8b6ab320f90f3a17aaafdcd03445c86687c274e8d1c33e39d",
+    "source-audit.json": "94956349da2cf83b3a275a9209c576b4cf1c25aca73fdff2606dd69eaf681452"
+  },
+  "runtimeCodeReadSha256": {
+    "game/src/world.js": "eff89252875041058d439b8837ca34e3d1838bd07fefdbf7d9486280ede7d94e",
+    "game/src/scenery-bridges.js": "88330b555975decb91ab1ffc79bcbd377d007f83ab20580a043ad0423252a907",
+    "game/src/water-channel.js": "b7a645b3beb86c3e74ea681e1a20c39a6675536243342cf1cdff0d8d86e70504"
+  },
+  "validation": [
+    "audit.py executed successfully against exact raw cache and metadata data file",
+    "all12candidate carriagewaychainjoin pairs share equal original source nodeIDs",
+    "Python syntax compiled successfully"
+  ],
+  "productionEdits": false,
+  "browserStarted": false,
+  "nativeAcceptanceClaimed": false,
+  "referenceImageryCommitted": false
+}

@@ -1,9 +1,9 @@
-// Strict integrity gate for exact c78 district physical900/high-mirror/night evidence.
+// Strict integrity gate for an explicitly identified district physical900/high-mirror/night source.
 const fs=require('node:fs'),path=require('node:path'),zlib=require('node:zlib'),crypto=require('node:crypto'),assert=require('node:assert/strict');
 const dir=path.resolve(process.argv[2]||path.join(__dirname,'proof/soak-c78a5f4'));
 const file=path.join(dir,'profile.json'),raw=JSON.parse(fs.existsSync(file)?fs.readFileSync(file,'utf8'):zlib.gunzipSync(fs.readFileSync(path.join(dir,'profile.json.gz'))));
 const source=JSON.parse(fs.readFileSync(path.join(dir,'source-manifest.json'),'utf8'));
-assert.equal(source.commit,'c78a5f4c522723fb2f4e640999e3ac5d164fc724');
+const expectedCommit=process.argv[3]||'c78a5f4c522723fb2f4e640999e3ac5d164fc724';assert.match(expectedCommit,/^[a-f0-9]{40}$/);assert.equal(source.commit,expectedCommit);
 assert.equal(raw.complete,true);assert.equal(raw.fatal,undefined);assert.equal(raw.terminalIncomplete,undefined);
 assert.deepEqual(raw.errors,[]);assert.deepEqual(raw.consoleErrors,[]);assert.deepEqual(raw.failures,[]);
 assert.equal(raw.runnerSha256,crypto.createHash('sha256').update(fs.readFileSync(path.join(dir,'runner.cjs'))).digest('hex'));

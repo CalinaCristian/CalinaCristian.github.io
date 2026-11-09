@@ -1,0 +1,31 @@
+{
+  "toolSHA256": "dfe0dd3ec0b5267ee7589bc0ae707b75214d7821d014bf60b1c16ad253149a43",
+  "scope": "CPU exact retained source/Git and geometry controls only; no portal integration, measured-room or native visual claim",
+  "passed": true,
+  "checks": [
+    "all14source inputs exactly match retained Git blobs/bytes/SHA256; no source snapshot required",
+    "exactly all8legacy CV room IDs retain geographic bindings",
+    "upb: no invented room floor/bearing/aperture or automatic fallback",
+    "luxoft: no invented room floor/bearing/aperture or automatic fallback",
+    "uipath-buc: no invented room floor/bearing/aperture or automatic fallback",
+    "arnia: no invented room floor/bearing/aperture or automatic fallback",
+    "gts: no invented room floor/bearing/aperture or automatic fallback",
+    "rosetti: no invented room floor/bearing/aperture or automatic fallback",
+    "db: no invented room floor/bearing/aperture or automatic fallback",
+    "uipath-bel: no invented room floor/bearing/aperture or automatic fallback",
+    "all15native source parts preserve exact outer/hole rings and all163nonzero facade edges, including short edges",
+    "all4retained Hermes courtyard facade edges preserve geometry and face the source void, not into solid building",
+    "all8anchor projection/inverse controls preserve source metre scale; no worldY inferred from room dimensions",
+    "all163facade normals are unit/perpendicular/outward with compass bearings in xEast/zSouth coordinates",
+    "UiPathBucharest current BuildingA/retained CorpB conflict blocks an automatic office binding",
+    "UPB dome-level tags remain roof-part evidence, not room-floor proof",
+    "historical JPC fourth-floor Plaza evidence stays separate from current Lincoln Suite2000"
+  ],
+  "sourceCommit": "79e1e4fd602f1434aa5aa4d10fa8a234bce298dc",
+  "ledgerSHA256": "e776796ecf0c24cfd1012dcc8825d2c373f07dc894ea0f50d82a22ea3e15861e",
+  "sourceInputs": 14,
+  "rooms": 8,
+  "sourceParts": 15,
+  "facadeEdges": 163,
+  "courtyardFacadeEdges": 4
+}

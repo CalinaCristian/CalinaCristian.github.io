@@ -932,8 +932,8 @@ export class Traffic {
         if (G?.traffic !== this) return false;
         if (!this._recoveryViews || this._recoveryViewFrame !== this._frame) {
             this._recoveryViewFrame = this._frame; this._recoveryViews = [];
-            const cameras = [G.camera];
-            if (!this.walker?.active && this.player?.mirrorEnabled) cameras.push(this.player.mirrorCam);
+            const cameras = [this.observerCamera || G.camera];
+            if (!this.observerCamera && !this.walker?.active && this.player?.mirrorEnabled) cameras.push(this.player.mirrorCam);
             for (const camera of cameras) if (camera) {
                 camera.updateWorldMatrix(true, false);
                 const matrix = new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
@@ -2489,8 +2489,8 @@ export class Pedestrians {
         if (G?.traffic !== this.t) return false;
         if (!this._views || this._viewFrame !== this._fr) {
             this._viewFrame = this._fr; this._views = [];
-            const cams = [G.camera];
-            if (!this.t.walker?.active && this.t.player?.mirrorEnabled) cams.push(this.t.player.mirrorCam);
+            const cams = [this.t.observerCamera || G.camera];
+            if (!this.t.observerCamera && !this.t.walker?.active && this.t.player?.mirrorEnabled) cams.push(this.t.player.mirrorCam);
             for (const camera of cams) if (camera) {
                 camera.updateWorldMatrix(true, false);
                 const m = new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);

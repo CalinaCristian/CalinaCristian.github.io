@@ -371,7 +371,7 @@ export class Office {
         if (inp.take('Escape') && !panel) this.done = true;
         const touch = document.body.classList.contains('touch');
         const lookHint = touch ? 'drag to look' : inp.lookMode === 'lock' ? (inp.locked ? 'mouse look · Esc frees the cursor' : 'click to look around') : 'A/D turn';
-        this.hud.setHint(`${this.read.size}/${N} answers heard · walk to the ${n.title.toLowerCase()} and press E · W/S walk · ${lookHint} · Esc leave`);
+        this.hud.setHint(`${this.read.size}/${N} answers heard · walk to the ${n.title.toLowerCase()} and press E · W/S walk · ${lookHint} · Esc leave${this.windowViewLabel ? ` · ${this.windowViewLabel()}` : ''}`);
     }
 
     // ---------------------------------------------------------------------------------------------------------------

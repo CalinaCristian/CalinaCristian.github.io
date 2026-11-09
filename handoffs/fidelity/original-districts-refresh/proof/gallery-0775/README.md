@@ -1,3 +1,5 @@
+Latest atlas update (2026-11-09): [scoped bbaffc0d water/Dinamo retakes](../water-overlap-bbaffc/README.md) adds47 fresh exact-pose frames and archives the full prior90+100 mixed collections. Current306 atlas source counts are235 original437,24 earlier0775 water,47bbaffc. Historical count is now884;129 perspective frames remain unchanged. The earlier delivery journal below retains its actual source/counts.
+
 # Original district atlas delivery
 
 The current public north-up atlas has306 GAME frames: Floreasca90, Romană116, Grozăvești100. A conservative source-water mask replaces25/13/19 frames with actual0775fdaf15442a46c3fe98f4e6875c9c09046a99 captures; the other65/103/81 retain exact4378317f3fcdccc886d6c7c1ed092ee15d95db8a image bytes and per-frame source identity. The district data hashes and every ground pose match. Every source manifest, validation, source-file hash inventory and mask is public alongside its collection. This scoped render reuse does not relabel old images as newly captured.

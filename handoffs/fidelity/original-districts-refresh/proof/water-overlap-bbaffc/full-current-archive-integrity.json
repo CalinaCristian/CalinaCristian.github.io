@@ -1,0 +1,2749 @@
+{
+  "records": [
+    {
+      "district": "floreasca",
+      "beforeCommit": "6a0c7967f71fb7f828a100f19822119a01cbb5e3",
+      "archiveManifest": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/manifest.json",
+      "filesVerifiedByteIdentical": 384,
+      "includesContextAndProvenance": true,
+      "existingHistoricalSubtreeRetainedAtOriginalPaths": true,
+      "files": [
+        {
+          "path": "boundary-source.json",
+          "sha256": "bd83acc9c271d3f56889b7e6f1c30072107282c7debe02a5d778707f73ea8b33"
+        },
+        {
+          "path": "capture-manifest.json",
+          "sha256": "645603ca2fcd68aa554800b730addf098e825ab43f5e36e445aa41f7439496c0"
+        },
+        {
+          "path": "capture-report.json",
+          "sha256": "61793fd62d0c409ecf29a6aadf145f2540c3aa36ea20b5f794731cdcad5a6c32"
+        },
+        {
+          "path": "context/summer-clear-day/capture-manifest.json",
+          "sha256": "24c6691cddf1dad799d0fa955808cd198489b2eb667b35d8277b29072bfc0ccf"
+        },
+        {
+          "path": "context/summer-clear-day/capture-validation.json",
+          "sha256": "ba825575e5a8ed219530ccd37a515430edc1c95a47b3985c3dd83744512d2cde"
+        },
+        {
+          "path": "context/summer-clear-day/images/chapter-rosetti-street.jpg",
+          "sha256": "206ea207feb86f61412b88debf7092cf202becbb4f97565021a4929949709bc3"
+        },
+        {
+          "path": "context/summer-clear-day/images/dinamo-context.jpg",
+          "sha256": "69f6289baaf666a10d4bc43dfe62c59ac4ee5e325a365bede30e7f5bacb8b36e"
+        },
+        {
+          "path": "context/summer-clear-day/images/dinamo-football-drone.jpg",
+          "sha256": "a193c424b1c7423f0ffa34cc8f63ab31c43087813ef33a03054a66a80ff81ba5"
+        },
+        {
+          "path": "context/summer-clear-day/images/dinamo-football.jpg",
+          "sha256": "0fa6a7db9b7d547ff5f587d290dc505521755740862046f3322604a4260d7a06"
+        },
+        {
+          "path": "context/summer-clear-day/images/dinamo-opposite.jpg",
+          "sha256": "5a3620a3d6c089635b9df7f429753c1f4afeb0a365069c6fb605b2c7bb784249"
+        },
+        {
+          "path": "context/summer-clear-day/images/dinamo-street.jpg",
+          "sha256": "57292830489414a973681ccd42d93afd8ec18e43edab0fa3206ea237aa047945"
+        },
+        {
+          "path": "context/summer-clear-day/images/drone-edge-east.jpg",
+          "sha256": "0fcc77aa2165af0676611a4a5b04031414f7a370a8aa2d743bf445f35ea86aba"
+        },
+        {
+          "path": "context/summer-clear-day/images/drone-edge-north.jpg",
+          "sha256": "270f84602826e1b6c615eea2322e7b7c9c1c7be45c3e820ec3a27e3b99d47699"
+        },
+        {
+          "path": "context/summer-clear-day/images/drone-edge-south.jpg",
+          "sha256": "dfa3f8db420f673e0d143c01d023713e746d3b3b78a38861b8271e7b0db7d84c"
+        },
+        {
+          "path": "context/summer-clear-day/images/drone-edge-west.jpg",
+          "sha256": "5718586a6d5cb303eba325806474a22b87f1d476440ca2892fcf4e7ca1cd2dfd"
+        },
+        {
+          "path": "context/summer-clear-day/images/globalworth-context.jpg",
+          "sha256": "1d4aac2a9796b3ccf76f0dee0f90c03bebe57178c34639e21a97067fc66b9f06"
+        },
+        {
+          "path": "context/summer-clear-day/images/globalworth-opposite.jpg",
+          "sha256": "f478eaaf2f9e05e79eda7060796dbca6b7f2a183053638ad2f0bdb487aedb6ae"
+        },
+        {
+          "path": "context/summer-clear-day/images/parking-1.jpg",
+          "sha256": "dbeca17bbe6457cd521bde8bcdff8ace8ce4be96eed403180d3633bdca03a185"
+        },
+        {
+          "path": "context/summer-clear-day/images/parking-2.jpg",
+          "sha256": "3a4d427c62c9e2a863a30a18afc3c309893f34dc079c92e8a6a82fcbcb8ac795"
+        },
+        {
+          "path": "context/summer-clear-day/images/parking-3.jpg",
+          "sha256": "271308fbe6ab9beda642ed1343b8303de18f802dbf2414bbe4360cfb6d060b2f"
+        },
+        {
+          "path": "context/summer-clear-day/images/rosetti-basketball-0.jpg",
+          "sha256": "01cfb081734e9094ee97cdd33c696ac145a3ca33317d0b61a974ba044f5308a0"
+        },
+        {
+          "path": "context/summer-clear-day/images/rosetti-basketball-1.jpg",
+          "sha256": "ae521649ff52e0daf71f93c7fa2f7795a3f252bc3b8b826f8fed0786a5c46643"
+        },
+        {
+          "path": "context/summer-clear-day/images/rosetti-context.jpg",
+          "sha256": "fe35e712a8e7cf094038fffe548394945423aa9a5ecb9dd65ee23e35289ca78d"
+        },
+        {
+          "path": "context/summer-clear-day/images/rosetti-opposite.jpg",
+          "sha256": "84b45e8c4d75730249d788a0a317e36e16ddf658ce387a40aed5094b22eb2b1e"
+        },
+        {
+          "path": "context/summer-clear-day/images/rosetti-street.jpg",
+          "sha256": "5563584d926c6ea7b2ea6ddc6ec5491c7a11b900682b31dacf35c8419972b08c"
+        },
+        {
+          "path": "context/summer-clear-day/images/signal-1.jpg",
+          "sha256": "e8e27e73655ec67fc40d623c1c27354d14857dfa6dad3f02ff25fb57bd697f48"
+        },
+        {
+          "path": "context/summer-clear-day/images/signal-2.jpg",
+          "sha256": "cd69e815e30057c04e384bc2cbc46f9064c784de6868ec265edb9cca94d516b6"
+        },
+        {
+          "path": "context/summer-clear-day/images/signal-3.jpg",
+          "sha256": "b4ebdbca3697550056c32c321163f0808ad32746ea37901fd603d36230286177"
+        },
+        {
+          "path": "context/summer-clear-day/images/skytower-context.jpg",
+          "sha256": "11d62678aef973a53e5ba3861fa40db940f08ff189db62a274bde62edda3baf7"
+        },
+        {
+          "path": "context/summer-clear-day/images/skytower-opposite.jpg",
+          "sha256": "f99bb637b9aea8156103c51a959387d6f339b9328564de96d41203ac2605cc7d"
+        },
+        {
+          "path": "context/summer-clear-day/manifest.json",
+          "sha256": "7481b9a6d538f2bc8f202a58bd69a31441dcf37775ce27d33d22fd0df4a04755"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/capture-validation.json",
+          "sha256": "088549e6c1638cc8f4315f41ca6b4f41a2134d68b34789df47243a76f0c79e64"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/chapter-rosetti-street.jpg",
+          "sha256": "206ea207feb86f61412b88debf7092cf202becbb4f97565021a4929949709bc3"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/dinamo-context.jpg",
+          "sha256": "69f6289baaf666a10d4bc43dfe62c59ac4ee5e325a365bede30e7f5bacb8b36e"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/dinamo-football-drone.jpg",
+          "sha256": "144b3d7b5c8798947a2c5dc591b89e345bf65a913ce03277512c2af2f7d640fb"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/dinamo-football.jpg",
+          "sha256": "0fa6a7db9b7d547ff5f587d290dc505521755740862046f3322604a4260d7a06"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/dinamo-opposite.jpg",
+          "sha256": "5a3620a3d6c089635b9df7f429753c1f4afeb0a365069c6fb605b2c7bb784249"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/dinamo-street.jpg",
+          "sha256": "57292830489414a973681ccd42d93afd8ec18e43edab0fa3206ea237aa047945"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/drone-edge-east.jpg",
+          "sha256": "0fcc77aa2165af0676611a4a5b04031414f7a370a8aa2d743bf445f35ea86aba"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/drone-edge-north.jpg",
+          "sha256": "270f84602826e1b6c615eea2322e7b7c9c1c7be45c3e820ec3a27e3b99d47699"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/drone-edge-south.jpg",
+          "sha256": "dfa3f8db420f673e0d143c01d023713e746d3b3b78a38861b8271e7b0db7d84c"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/drone-edge-west.jpg",
+          "sha256": "5718586a6d5cb303eba325806474a22b87f1d476440ca2892fcf4e7ca1cd2dfd"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/globalworth-context.jpg",
+          "sha256": "1d4aac2a9796b3ccf76f0dee0f90c03bebe57178c34639e21a97067fc66b9f06"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/globalworth-opposite.jpg",
+          "sha256": "f478eaaf2f9e05e79eda7060796dbca6b7f2a183053638ad2f0bdb487aedb6ae"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/parking-1.jpg",
+          "sha256": "dbeca17bbe6457cd521bde8bcdff8ace8ce4be96eed403180d3633bdca03a185"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/parking-2.jpg",
+          "sha256": "3a4d427c62c9e2a863a30a18afc3c309893f34dc079c92e8a6a82fcbcb8ac795"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/parking-3.jpg",
+          "sha256": "271308fbe6ab9beda642ed1343b8303de18f802dbf2414bbe4360cfb6d060b2f"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/rosetti-basketball-0.jpg",
+          "sha256": "01cfb081734e9094ee97cdd33c696ac145a3ca33317d0b61a974ba044f5308a0"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/rosetti-basketball-1.jpg",
+          "sha256": "ae521649ff52e0daf71f93c7fa2f7795a3f252bc3b8b826f8fed0786a5c46643"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/rosetti-context.jpg",
+          "sha256": "fe35e712a8e7cf094038fffe548394945423aa9a5ecb9dd65ee23e35289ca78d"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/rosetti-opposite.jpg",
+          "sha256": "84b45e8c4d75730249d788a0a317e36e16ddf658ce387a40aed5094b22eb2b1e"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/rosetti-street.jpg",
+          "sha256": "5563584d926c6ea7b2ea6ddc6ec5491c7a11b900682b31dacf35c8419972b08c"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/signal-1.jpg",
+          "sha256": "e8e27e73655ec67fc40d623c1c27354d14857dfa6dad3f02ff25fb57bd697f48"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/signal-2.jpg",
+          "sha256": "cd69e815e30057c04e384bc2cbc46f9064c784de6868ec265edb9cca94d516b6"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/signal-3.jpg",
+          "sha256": "b4ebdbca3697550056c32c321163f0808ad32746ea37901fd603d36230286177"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/skytower-context.jpg",
+          "sha256": "11d62678aef973a53e5ba3861fa40db940f08ff189db62a274bde62edda3baf7"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/skytower-opposite.jpg",
+          "sha256": "f99bb637b9aea8156103c51a959387d6f339b9328564de96d41203ac2605cc7d"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/manifest.json",
+          "sha256": "0bd4dc277693951fb03f0295d091f1a113bd5799e11c7371cca64827404dee8a"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/review.json",
+          "sha256": "2350ea1f8eac096da4c4c55d2718ce2b917571b2b1d717e07b917d09630d4142"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/runtime-integrity.json",
+          "sha256": "5b95d5f16917b38600bba4108d6eb69dbe146ccb07e45b7df914ec015be7e0c6"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/source-contact-probe.json",
+          "sha256": "e4becfe571e896754344d772f9d59a283f93c5a6be70ed3854dcab6996d698c1"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/source-provenance.json",
+          "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/world-stats.json",
+          "sha256": "d3da36b7c4df3f7aa1f7341696c5ba0686a0afcbe737a2355a3d3f89dda51de9"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/capture-validation.json",
+          "sha256": "766a4f46d2a359a8fa32670c26173d8ba1bc7631ba4b03c6ce58c0ec60368b20"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/images/dinamo-football-drone-lower.jpg",
+          "sha256": "794f43f883fc8c13a2e1187023ea6ef666851152ce4d28e7faf9760962cc408e"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/images/dinamo-football-drone-oblique.jpg",
+          "sha256": "78f3ed543cd07b534312d388a484847f12aaa3f50bd0bbd43a75a0138d8ea3be"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/images/dinamo-football-drone.jpg",
+          "sha256": "a193c424b1c7423f0ffa34cc8f63ab31c43087813ef33a03054a66a80ff81ba5"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/manifest.json",
+          "sha256": "3abba632908eeae77e4cf7ab340b18c5f2249ee915a6b1ea958229e899e09bfc"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/review.json",
+          "sha256": "228388b676c375c042929988a89ae6b1349d637d974ecde51d6b8b0343a19874"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/runtime-integrity.json",
+          "sha256": "833be5e6c8674a8ac8e8e36989ed4726766f55d84a0319d86ede8547ce267a30"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/source-contact-probe.json",
+          "sha256": "d6abfddb5952a0de8850e92f7c499cfa61066eed8d8fa2d5b58f943f8bf22971"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/source-provenance.json",
+          "sha256": "50ebd384f16ca78942d341b0c6413335e8ac32d804d23a5f9170fe4396ea0df4"
+        },
+        {
+          "path": "context/summer-clear-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/world-stats.json",
+          "sha256": "421da9a397872aba6b6159a3153de60cbf110cbe2f888800659b63f32fe6b1e8"
+        },
+        {
+          "path": "context/summer-clear-day/runtime-integrity.json",
+          "sha256": "5b95d5f16917b38600bba4108d6eb69dbe146ccb07e45b7df914ec015be7e0c6"
+        },
+        {
+          "path": "context/summer-clear-day/source-contact-probe.json",
+          "sha256": "e4becfe571e896754344d772f9d59a283f93c5a6be70ed3854dcab6996d698c1"
+        },
+        {
+          "path": "context/summer-clear-day/source-provenance.json",
+          "sha256": "0b718b0db6b7a87f571bd8b8683c36886ff43ee00b0ba9c832363d818388867d"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/chapter-rosetti-street.jpg",
+          "sha256": "5521b0166b80f110bd8dbbdb749ebb36435db71a564335a0a01afb18f4cee7d8"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/dinamo-context.jpg",
+          "sha256": "683bd7c649f7ae19da218557df3c3ba3019055f02d093d77503cc19894d16633"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/dinamo-football-drone.jpg",
+          "sha256": "929faa478a4aa6f7cac201f3395e967586c705d5a7a78b13cc6d09297f4fae1f"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/dinamo-football.jpg",
+          "sha256": "a6a002d76e54d58f015f90fdb9e952b29f57f71b9dbf733e11b1fe068ed94c9a"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/dinamo-opposite.jpg",
+          "sha256": "e0183a4605a1c43586414605b2ba493eecc7d605c64dd27590c5b3c767f4b476"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/dinamo-street.jpg",
+          "sha256": "08c4c47c998227831b3cf99be19de0e228c6ade2cdb7413f1f189adf687fa2bb"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/drone-edge-east.jpg",
+          "sha256": "13772bf5abe24e98eed87fc5b3ba8600ebb271404665efdcbdb70fc291cc3c00"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/drone-edge-north.jpg",
+          "sha256": "ace6a5ec5168ec8af0727f203fd72709d3329383131d0cdb4189972540067506"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/drone-edge-south.jpg",
+          "sha256": "9141ad6d6272d36ae8255e62cb356b5216e65ca4f49b5a0d2adcc5680d27861c"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/drone-edge-west.jpg",
+          "sha256": "b836fce1bd03e5bf7a4b2d489fc0ac749dad315eaf044aed8d864d88f075525b"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/globalworth-context.jpg",
+          "sha256": "1ab06d36f351aacaf56c3ee736d695ecf4cfe57a953bc9f082089f97c4aa2385"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/globalworth-opposite.jpg",
+          "sha256": "3387e8ab56914d4735d2f696512bba8a34be69772ad289f7e3845c74e8f188a5"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/parking-1.jpg",
+          "sha256": "3bb4389d7a31630091a93bb986bf967f38c12cc15baee127da52807f5008754b"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/parking-2.jpg",
+          "sha256": "485cf1838cf1e4dc4ed0b581826f2df861e01f25bee48b21175a4f2dd8736487"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/parking-3.jpg",
+          "sha256": "3665ae4ae7df9c46a9576d732eaed05b26bdc161a6af870fe9dc0fe94e55c95d"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/rosetti-basketball-0.jpg",
+          "sha256": "0a95063010d8b13de35769b7dcb5543bae82bffee4444a4a4c6198daa33cdbd7"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/rosetti-basketball-1.jpg",
+          "sha256": "9f4bde5c51465917b84ec2c9c93eb263800a6c4c554e2cc49aaf696ee4e4d58e"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/rosetti-context.jpg",
+          "sha256": "cae86acc7ad01cd14b35865def8801c984edeb5108c3125ff06ed13801de36b3"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/rosetti-opposite.jpg",
+          "sha256": "0ca0cedfb73f7c8a70b030e0a829c55740388f3a3d2de2a77d6af5725d3ca5eb"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/rosetti-street.jpg",
+          "sha256": "0e7b2e254fefa4efec84fc88f46b17bb43434e40b70b8c131f80553c04f44743"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/signal-1.jpg",
+          "sha256": "90c64fab2fd8a71b7b5eb6c32a3ea15c752138cef7b4ae0eaa32d6026436a194"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/signal-2.jpg",
+          "sha256": "2613bb69865d11745d4e9d6156c98baf67c4bbddd1838fabae956f150b8f77d2"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/signal-3.jpg",
+          "sha256": "5ea48eadf26f7733d800c97339ad5605d50a2dcd9bbc032b8e051f51ecd175ab"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/skytower-context.jpg",
+          "sha256": "765534927575716e83667721ff044de6f8f1694599207136685087d1dcef13e2"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/skytower-opposite.jpg",
+          "sha256": "840e8e1c3921d483738b537b9daf08d67bcd7c0676b5d55760fe417b0d809a37"
+        },
+        {
+          "path": "context/summer-clear-day/world-stats.json",
+          "sha256": "d3da36b7c4df3f7aa1f7341696c5ba0686a0afcbe737a2355a3d3f89dda51de9"
+        },
+        {
+          "path": "context/summer-clear-night/capture-manifest.json",
+          "sha256": "1325750e42092c3299be8e70af779bf0cbab140921e15080d30dc4de1a9af9b0"
+        },
+        {
+          "path": "context/summer-clear-night/capture-validation.json",
+          "sha256": "32779a38a95891451e41fdcef8f8e9a634708cff3c1486915a05043e4fb4345d"
+        },
+        {
+          "path": "context/summer-clear-night/images/chapter-rosetti-street.jpg",
+          "sha256": "515e5ccfc1222b70be72f00443f76dfcace4e65e2f839c68b3cefa54227755c4"
+        },
+        {
+          "path": "context/summer-clear-night/images/dinamo-football.jpg",
+          "sha256": "2412cdbfcdd837280bca58491f37c311c5c12fa2c42d10250e47f2ce9e5a1a75"
+        },
+        {
+          "path": "context/summer-clear-night/images/dinamo-street.jpg",
+          "sha256": "2c14126a13d2265b1e8a294849f72adfd41c242ee7a31b6ce3c56de72b0ffdd5"
+        },
+        {
+          "path": "context/summer-clear-night/images/drone-edge-east.jpg",
+          "sha256": "1d9fa9955ceab77d0a93a3b8b7f45397302781d685c2a2e871db3a14f2088507"
+        },
+        {
+          "path": "context/summer-clear-night/images/drone-edge-north.jpg",
+          "sha256": "80f8fd806b2d2d074910610be0c05b13cc4cc2e8de7daa6d6a08a1bcf9929d58"
+        },
+        {
+          "path": "context/summer-clear-night/images/drone-edge-south.jpg",
+          "sha256": "dd42b2940a0b48916aeb1014cb5ff5d8273d225ce24b91bec298fcb951818704"
+        },
+        {
+          "path": "context/summer-clear-night/images/drone-edge-west.jpg",
+          "sha256": "51fa8ae85284716432f7ebe28e5a6d1921646746404f795a00cf1f1de4b59263"
+        },
+        {
+          "path": "context/summer-clear-night/images/rosetti-basketball-0.jpg",
+          "sha256": "84c59a3314d85661e0ea287675f8e4c6cf5bc7a6169a8a0421d5f206a1be60c1"
+        },
+        {
+          "path": "context/summer-clear-night/images/rosetti-basketball-1.jpg",
+          "sha256": "290e8126ef9d8a5872116e40014694249e7cd648c425a48a58730980afb035eb"
+        },
+        {
+          "path": "context/summer-clear-night/images/rosetti-street.jpg",
+          "sha256": "dec493d13e93c9ceedee522b4144dd25c3a5a93729fe403718310d61eca14faf"
+        },
+        {
+          "path": "context/summer-clear-night/manifest.json",
+          "sha256": "50f968ba6724a8f503f75005848e13d3b2370bfea46e8320c9dc7004989729ce"
+        },
+        {
+          "path": "context/summer-clear-night/runtime-integrity.json",
+          "sha256": "5b95d5f16917b38600bba4108d6eb69dbe146ccb07e45b7df914ec015be7e0c6"
+        },
+        {
+          "path": "context/summer-clear-night/source-contact-probe.json",
+          "sha256": "e4becfe571e896754344d772f9d59a283f93c5a6be70ed3854dcab6996d698c1"
+        },
+        {
+          "path": "context/summer-clear-night/source-provenance.json",
+          "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429"
+        },
+        {
+          "path": "context/summer-clear-night/thumbs/chapter-rosetti-street.jpg",
+          "sha256": "5ea43e714edb25c689782473b43943d73ddf29af9c0a4cab61241dbdfbf2f4c4"
+        },
+        {
+          "path": "context/summer-clear-night/thumbs/dinamo-football.jpg",
+          "sha256": "bac62201daabcaff9817e2a2f27e974653481826d7b24d05099d56afae6b6412"
+        },
+        {
+          "path": "context/summer-clear-night/thumbs/dinamo-street.jpg",
+          "sha256": "715175230e8f4ff07d830d9699eb4e2602784fa314ff2ad1fc8e3ff10003f536"
+        },
+        {
+          "path": "context/summer-clear-night/thumbs/drone-edge-east.jpg",
+          "sha256": "b421bead1a0cadd33216a17affd8f571362c516ee4e9d7f387ff536f8c80e90e"
+        },
+        {
+          "path": "context/summer-clear-night/thumbs/drone-edge-north.jpg",
+          "sha256": "7133e37524cfa21f1e945887ea72413b2417bd2daa74c7953e1b474db1db8f8b"
+        },
+        {
+          "path": "context/summer-clear-night/thumbs/drone-edge-south.jpg",
+          "sha256": "ff9267313957743b0f894f621f04c3631f4960a2b9830f859ba29810d8a02975"
+        },
+        {
+          "path": "context/summer-clear-night/thumbs/drone-edge-west.jpg",
+          "sha256": "4641dec62aecf72354e7b47bc78eda614d9d334578ff16ab8386b0501415cdc6"
+        },
+        {
+          "path": "context/summer-clear-night/thumbs/rosetti-basketball-0.jpg",
+          "sha256": "c1766a763e813c15b6f3814318e2dead048289836dd2f39281e314a977f11d5d"
+        },
+        {
+          "path": "context/summer-clear-night/thumbs/rosetti-basketball-1.jpg",
+          "sha256": "d69cded0a9c0f6e03b84261d229bbe271bb5b745acae70da06e1e403cb19f7cd"
+        },
+        {
+          "path": "context/summer-clear-night/thumbs/rosetti-street.jpg",
+          "sha256": "4f216bada3766f6adc7d1d0812824823842614dfb579e50536e6fa89f5d750e5"
+        },
+        {
+          "path": "context/summer-clear-night/world-stats.json",
+          "sha256": "431ad2561b31060ddce805c91789cc5727f8bc6e401dbf0700c86e2b77d91e1b"
+        },
+        {
+          "path": "context/winter-snow-day/capture-manifest.json",
+          "sha256": "50f6296d128c1b86a73d4db3252c8f2932f1c30e8873822a4530d66b90700892"
+        },
+        {
+          "path": "context/winter-snow-day/capture-validation.json",
+          "sha256": "52ba3717754fc616de253adc52560fce74732c021b11c0250ca7883f21a88441"
+        },
+        {
+          "path": "context/winter-snow-day/images/chapter-rosetti-street.jpg",
+          "sha256": "3cd29c6eae756c065289620631969647fa525e686f777e0a7437a7b7a427256a"
+        },
+        {
+          "path": "context/winter-snow-day/images/dinamo-football-drone.jpg",
+          "sha256": "5701a0f6b16cd302fa0b27af6465808ecea4f326a6f9d3462c6cdd2752cf3ae1"
+        },
+        {
+          "path": "context/winter-snow-day/images/dinamo-football.jpg",
+          "sha256": "fa50d8397af6c7fcf4c0b52ecdd8eb76eb8cca1019cdc76e8ab1b66774e392a4"
+        },
+        {
+          "path": "context/winter-snow-day/images/dinamo-street.jpg",
+          "sha256": "0df9cfc397871a8db1745230cf2500083232cd47812001dc7429d447c3f26323"
+        },
+        {
+          "path": "context/winter-snow-day/images/drone-edge-east.jpg",
+          "sha256": "69aed366b6d7c940ba9e4749fb121b9418eeadf8f113f8259ebb45ddbf1dd036"
+        },
+        {
+          "path": "context/winter-snow-day/images/drone-edge-north.jpg",
+          "sha256": "4e4716be73c8d70db5906c77ed53c23f6f8a4331a4772c2f6a96b268ae6ac999"
+        },
+        {
+          "path": "context/winter-snow-day/images/drone-edge-south.jpg",
+          "sha256": "9e2e810082ad1422da3adb8a8c1a112394af9a78b110555bac136bff0c7a9fb5"
+        },
+        {
+          "path": "context/winter-snow-day/images/drone-edge-west.jpg",
+          "sha256": "d3f519e801e18bc6b8cae786fb56b424cbab577e4a7e187cbbaa3d97b8e65357"
+        },
+        {
+          "path": "context/winter-snow-day/images/rosetti-basketball-0.jpg",
+          "sha256": "fec6345f43d7da90bff6f5403473ff3f0c292ca5c910e523ddf76cf8ef01fb31"
+        },
+        {
+          "path": "context/winter-snow-day/images/rosetti-basketball-1.jpg",
+          "sha256": "58101481ff6afc927f2abe9ecb4c4b4529d126d38e0003e34b59f56632b2b803"
+        },
+        {
+          "path": "context/winter-snow-day/images/rosetti-street.jpg",
+          "sha256": "9a84c25536d4627d60f62d92328dba4c33c80fd3757afb2f1db017fde60b0076"
+        },
+        {
+          "path": "context/winter-snow-day/manifest.json",
+          "sha256": "4c7e18251eb24ef33d109cea2ba895bf5af9ad60e72f08aea15a655946249ea5"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/capture-validation.json",
+          "sha256": "76129c74af62f2dda50255184076c5f7b5d37d2884c11aa90a73fdb651a80330"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/chapter-rosetti-street.jpg",
+          "sha256": "3cd29c6eae756c065289620631969647fa525e686f777e0a7437a7b7a427256a"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/dinamo-football-drone.jpg",
+          "sha256": "e0f6ab2a4db072b97233c6010d3d7eb18ca3b4751fa2c272cec3bedf1a7c5931"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/dinamo-football.jpg",
+          "sha256": "fa50d8397af6c7fcf4c0b52ecdd8eb76eb8cca1019cdc76e8ab1b66774e392a4"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/dinamo-street.jpg",
+          "sha256": "0df9cfc397871a8db1745230cf2500083232cd47812001dc7429d447c3f26323"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/drone-edge-east.jpg",
+          "sha256": "69aed366b6d7c940ba9e4749fb121b9418eeadf8f113f8259ebb45ddbf1dd036"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/drone-edge-north.jpg",
+          "sha256": "4e4716be73c8d70db5906c77ed53c23f6f8a4331a4772c2f6a96b268ae6ac999"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/drone-edge-south.jpg",
+          "sha256": "9e2e810082ad1422da3adb8a8c1a112394af9a78b110555bac136bff0c7a9fb5"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/drone-edge-west.jpg",
+          "sha256": "d3f519e801e18bc6b8cae786fb56b424cbab577e4a7e187cbbaa3d97b8e65357"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/rosetti-basketball-0.jpg",
+          "sha256": "fec6345f43d7da90bff6f5403473ff3f0c292ca5c910e523ddf76cf8ef01fb31"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/rosetti-basketball-1.jpg",
+          "sha256": "58101481ff6afc927f2abe9ecb4c4b4529d126d38e0003e34b59f56632b2b803"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/images/rosetti-street.jpg",
+          "sha256": "9a84c25536d4627d60f62d92328dba4c33c80fd3757afb2f1db017fde60b0076"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/manifest.json",
+          "sha256": "e0a8bd9f44376d9a0a3aa77beb3ebc3ddcb715524b64bd34e15be9ee540dbf73"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/review.json",
+          "sha256": "278e960d24575142a1f4c187b4baed069827c9490177b14bfb941fc8442005ee"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/runtime-integrity.json",
+          "sha256": "5b95d5f16917b38600bba4108d6eb69dbe146ccb07e45b7df914ec015be7e0c6"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/source-contact-probe.json",
+          "sha256": "e4becfe571e896754344d772f9d59a283f93c5a6be70ed3854dcab6996d698c1"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/source-provenance.json",
+          "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/world-stats.json",
+          "sha256": "3b0209cdf9d1697803bf9c2ee4e4c41cd8147bcbc748937d069e833e5369e325"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/capture-validation.json",
+          "sha256": "ff2dffa4e512cca4aed1d591ea43588576c32664ba41c6148c1f3a4854e733ea"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/images/dinamo-football-drone-lower.jpg",
+          "sha256": "2822b2c308c4036443cc5c018dd76f4287b2276758ade059f3624baba2b47e04"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/images/dinamo-football-drone-oblique.jpg",
+          "sha256": "ef74da228772ee097182d3b50506bd80237ac9914b6b3acb554cc0eac3caec67"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/images/dinamo-football-drone.jpg",
+          "sha256": "5701a0f6b16cd302fa0b27af6465808ecea4f326a6f9d3462c6cdd2752cf3ae1"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/manifest.json",
+          "sha256": "99d081a8fc31f850f65a52772ac587088f2c18d072da9d01728f4569235589cf"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/review.json",
+          "sha256": "a69540c72131ebc33383bea9dc6807d7744190f3c98322d3f38fc9c87b7b6ced"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/runtime-integrity.json",
+          "sha256": "833be5e6c8674a8ac8e8e36989ed4726766f55d84a0319d86ede8547ce267a30"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/source-contact-probe.json",
+          "sha256": "d6abfddb5952a0de8850e92f7c499cfa61066eed8d8fa2d5b58f943f8bf22971"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/source-provenance.json",
+          "sha256": "50ebd384f16ca78942d341b0c6413335e8ac32d804d23a5f9170fe4396ea0df4"
+        },
+        {
+          "path": "context/winter-snow-day/provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/world-stats.json",
+          "sha256": "9a4c9791e9f5feeb59bd355f7bfad949ffe47aa919fb521446505e9f896edb9d"
+        },
+        {
+          "path": "context/winter-snow-day/runtime-integrity.json",
+          "sha256": "5b95d5f16917b38600bba4108d6eb69dbe146ccb07e45b7df914ec015be7e0c6"
+        },
+        {
+          "path": "context/winter-snow-day/source-contact-probe.json",
+          "sha256": "e4becfe571e896754344d772f9d59a283f93c5a6be70ed3854dcab6996d698c1"
+        },
+        {
+          "path": "context/winter-snow-day/source-provenance.json",
+          "sha256": "394a5d8f1333a948e9aab80e2caad63a67082a44504a43b65459205f7811d6c7"
+        },
+        {
+          "path": "context/winter-snow-day/thumbs/chapter-rosetti-street.jpg",
+          "sha256": "186a84da7efe36f714e4cc3696d17891331bdfe1ec627d74762a90164b3a5658"
+        },
+        {
+          "path": "context/winter-snow-day/thumbs/dinamo-football-drone.jpg",
+          "sha256": "fad81cfbd31832745653a7f1286d40e871a7bbfe91fbe640f0984095320e84de"
+        },
+        {
+          "path": "context/winter-snow-day/thumbs/dinamo-football.jpg",
+          "sha256": "26791165e6a57aa55415d042903bba5e74644c2cb7dc28c32946df5bc8ff343d"
+        },
+        {
+          "path": "context/winter-snow-day/thumbs/dinamo-street.jpg",
+          "sha256": "df06e46f81aa085b65d5038336c17c41458ec34673d1779f402b135e80d41073"
+        },
+        {
+          "path": "context/winter-snow-day/thumbs/drone-edge-east.jpg",
+          "sha256": "7e569dc383e3e080db12644d808f6c375e6efbd48923ade48e75afa96d398d7f"
+        },
+        {
+          "path": "context/winter-snow-day/thumbs/drone-edge-north.jpg",
+          "sha256": "e0feea5fb872dcda40495b6e778e6504b16a88b4d9dd3abb0a34ac2308aead8e"
+        },
+        {
+          "path": "context/winter-snow-day/thumbs/drone-edge-south.jpg",
+          "sha256": "e44c0fc84860b6fa741430283743d81efaa6493e4f6a6b89194d9928937fe6f9"
+        },
+        {
+          "path": "context/winter-snow-day/thumbs/drone-edge-west.jpg",
+          "sha256": "833d9214d8cc6c8a542ef98652eca88b13ae30d6cd2892941445e60373df5597"
+        },
+        {
+          "path": "context/winter-snow-day/thumbs/rosetti-basketball-0.jpg",
+          "sha256": "cd2116635bbdc5bf8a0bc1831b4037f463459638ff20bae4ad82b11277eb099a"
+        },
+        {
+          "path": "context/winter-snow-day/thumbs/rosetti-basketball-1.jpg",
+          "sha256": "42a1e4a2471bc85753722a43a131c307545fc2b1fc9c1203cfa6609d859520d3"
+        },
+        {
+          "path": "context/winter-snow-day/thumbs/rosetti-street.jpg",
+          "sha256": "4f695e54bb56ee92d4b8a8aa0b84677611ef6526959cbbdbbc0e4686ee3f10ba"
+        },
+        {
+          "path": "context/winter-snow-day/world-stats.json",
+          "sha256": "3b0209cdf9d1697803bf9c2ee4e4c41cd8147bcbc748937d069e833e5369e325"
+        },
+        {
+          "path": "grid-plan.json",
+          "sha256": "5824ef225e69855b25645642d57d0edc4447a6e5d5c36823de8d65b2df6d3fb2"
+        },
+        {
+          "path": "images/aerial-r01-c04.jpg",
+          "sha256": "8f1004dc622185f0aaa40380ef5eed08d792e596b844fb7ff678f1d41a9ba514"
+        },
+        {
+          "path": "images/aerial-r01-c05.jpg",
+          "sha256": "5aeb8318b3e2995ed9ded7f0f70470ae2097687f16dd46a87629bba3f00be335"
+        },
+        {
+          "path": "images/aerial-r01-c06.jpg",
+          "sha256": "d5abdc56a196d7c8102bcc224f1eb8469bf02f8746d550f7c7638b5774286621"
+        },
+        {
+          "path": "images/aerial-r01-c07.jpg",
+          "sha256": "5c5b73b94bde6055c71757a4b06b8c43c31f2a1be916812690391fba99c04ee8"
+        },
+        {
+          "path": "images/aerial-r02-c02.jpg",
+          "sha256": "52eb8c46ec603492bb7b21b5e24277082fd745e9d319ad7bcae8d0d7f1c085ad"
+        },
+        {
+          "path": "images/aerial-r02-c03.jpg",
+          "sha256": "7ffc5b64e76792d8df13aad42fd8aaf46788e0c17d9d1f82ed7e5b77da696eb4"
+        },
+        {
+          "path": "images/aerial-r02-c04.jpg",
+          "sha256": "b61db583d241bfc2662c4d8ffc28219498e7b9c4636bf186aaf9e328c7b542c9"
+        },
+        {
+          "path": "images/aerial-r02-c05.jpg",
+          "sha256": "b37dc2d2ae84d91e9f664b9ef32c13b8fe65f7d4cd5ce439ed52d0c45535b870"
+        },
+        {
+          "path": "images/aerial-r02-c06.jpg",
+          "sha256": "7df807cc2f3777e10bf404f7c1efcf246beff563136ac02a53b20e30bb65b7b6"
+        },
+        {
+          "path": "images/aerial-r02-c07.jpg",
+          "sha256": "fd7b3551137947fe029fad54bb76df81c4d4e5cf0f3eee45a79f0cd665fc6c7d"
+        },
+        {
+          "path": "images/aerial-r02-c08.jpg",
+          "sha256": "15d94976865d13ff63074dee20e6bd4c4f0907ebc32811262a6e72dab959476e"
+        },
+        {
+          "path": "images/aerial-r03-c01.jpg",
+          "sha256": "27a295bfff33f1adc33ee5e1ed3d54e403d260245db2bf7fead4cfff1b3a5882"
+        },
+        {
+          "path": "images/aerial-r03-c02.jpg",
+          "sha256": "a9d1036eae0d9e489479af90e1f61051e226bf233960fbc696147c87ab39b6e1"
+        },
+        {
+          "path": "images/aerial-r03-c03.jpg",
+          "sha256": "c7b7658b9b4f014dfdefcd34a8c9f76599d0d259076faa6ab2452b97fd292f93"
+        },
+        {
+          "path": "images/aerial-r03-c04.jpg",
+          "sha256": "9b2eb37a05bd6e22d9ab951fcc4d7f25ed09ae1fc4f9cf9f25b7a551d67d661f"
+        },
+        {
+          "path": "images/aerial-r03-c05.jpg",
+          "sha256": "33ba3fa7efbf40afb90ebd2353f58f18727fb79fb6cd5d086326553fe4ef5464"
+        },
+        {
+          "path": "images/aerial-r03-c06.jpg",
+          "sha256": "9796a96907576be28ab4a00f780bf44b5ae5a2e5ef02b96cc956b63977813a14"
+        },
+        {
+          "path": "images/aerial-r03-c07.jpg",
+          "sha256": "cd50fb0f3bcf684b85e25695de2063662d5ebb9f3a7e05218955bb1b3cdf0fbd"
+        },
+        {
+          "path": "images/aerial-r03-c08.jpg",
+          "sha256": "447babc84be097a4ec46b2b44e8db673ef4f57bff98feb2c83731ea79e9b45a2"
+        },
+        {
+          "path": "images/aerial-r04-c01.jpg",
+          "sha256": "2a00ca02fd7fe6bbb89d6cab8844a780939550e0034fee2aeeceaff7220b586a"
+        },
+        {
+          "path": "images/aerial-r04-c02.jpg",
+          "sha256": "c1f1f01d070f586f0adf5fabf896e330f00dc5bfd94de4f2a15a1657e63010cc"
+        },
+        {
+          "path": "images/aerial-r04-c03.jpg",
+          "sha256": "34c46efc8cec7814b05973c4ceeca6bd29fd3eab80988767ee8c36d47a851a1b"
+        },
+        {
+          "path": "images/aerial-r04-c04.jpg",
+          "sha256": "5b1257db1e1fbdbfaf10f0fad30b023245d78e8fc7dfcb31dc3a91238fe058d5"
+        },
+        {
+          "path": "images/aerial-r04-c05.jpg",
+          "sha256": "c1146d57d01e78f0c06ff5dd5bba7eedde6072634b7be9d982f54be4a76b7038"
+        },
+        {
+          "path": "images/aerial-r04-c06.jpg",
+          "sha256": "64941d217952b1e546401d8266aa7f734bab5d5bea183f680c31bba5eeebc43e"
+        },
+        {
+          "path": "images/aerial-r04-c07.jpg",
+          "sha256": "64c8d4d9287619e7e38cc9074ab0644468e43c14a23cba59199739034258b67d"
+        },
+        {
+          "path": "images/aerial-r04-c08.jpg",
+          "sha256": "564f570b44d8170b740cd14120fd46ab9d3a64e5be826ef1cf1dbbffa9791224"
+        },
+        {
+          "path": "images/aerial-r05-c01.jpg",
+          "sha256": "1843ed12bc211168615ad88bec22c5eda9d0d0249fcfec62de21640eae1e9dc4"
+        },
+        {
+          "path": "images/aerial-r05-c02.jpg",
+          "sha256": "0248fe821657a9bfb4b052212f81dbec69190b33f2d17e497ab0f7e780ae9f1f"
+        },
+        {
+          "path": "images/aerial-r05-c03.jpg",
+          "sha256": "6747b0c185e334c23d88f429ba6231c41dca908bccafebfde98974ae0dce9a38"
+        },
+        {
+          "path": "images/aerial-r05-c04.jpg",
+          "sha256": "9682c311502747533d4b310fa25d8b0a93207366c045b16688dd643691d3c448"
+        },
+        {
+          "path": "images/aerial-r05-c05.jpg",
+          "sha256": "6b1a279486fdbc7f3c89e723755e7f1706a3c0644523b3c3663913fd318072fd"
+        },
+        {
+          "path": "images/aerial-r05-c06.jpg",
+          "sha256": "d741a0726648895f09e3a4ea81207d3ebb72a85239281fbcebe73852a1ce4e74"
+        },
+        {
+          "path": "images/aerial-r05-c07.jpg",
+          "sha256": "b0cce80677000cfaae7eead731b54aee1ab8849f83b562a2df922c6777fb6bbc"
+        },
+        {
+          "path": "images/aerial-r05-c08.jpg",
+          "sha256": "55df885beea6eef78681bd4eeb7a3e1ac615c5ca74e078d062d401e470542d91"
+        },
+        {
+          "path": "images/aerial-r06-c01.jpg",
+          "sha256": "72e24587b435cfb34ee719299e59ffbb7c858e51cc918cc55ae22daae2a03313"
+        },
+        {
+          "path": "images/aerial-r06-c02.jpg",
+          "sha256": "7bd58454f15d0d1b828aa4c61e1b1ff279f55a00e844325ca228c842232cc103"
+        },
+        {
+          "path": "images/aerial-r06-c03.jpg",
+          "sha256": "5ffc9fc6ce542e9c429f63e1d7ef5f19728a2c085290e0892c5a594463cdba2a"
+        },
+        {
+          "path": "images/aerial-r06-c04.jpg",
+          "sha256": "15f12aba649dc5ddab76d33a59aa2709b774aa25c088646fc7ff98ade63fa9d2"
+        },
+        {
+          "path": "images/aerial-r06-c05.jpg",
+          "sha256": "540aedfee440618de9a8d7f3ebbb9435098491bcd5cdd69e8b79b05e8b95872f"
+        },
+        {
+          "path": "images/aerial-r06-c06.jpg",
+          "sha256": "dc9154487b365ddf7f116b65fbf6a7915ab8b9d22355cfe65c4d8db9a24563a7"
+        },
+        {
+          "path": "images/aerial-r06-c07.jpg",
+          "sha256": "044134917e43abb47e97a89a30d0a4da4faf87d8727a2eeaf887df5c4e927f7f"
+        },
+        {
+          "path": "images/aerial-r06-c08.jpg",
+          "sha256": "d2861773c9dc511e8afcb29de2cf1e57a3a7f8afff9dd97a22984f31829bc84c"
+        },
+        {
+          "path": "images/aerial-r07-c01.jpg",
+          "sha256": "616ae1a5557d03e4baaf81ed5f6a58acf95f0dca2eed570cb36d7fcabafcf51d"
+        },
+        {
+          "path": "images/aerial-r07-c02.jpg",
+          "sha256": "62e8ee80942246a4ccf6aa369e90bdb17e449bcb2294a8d849cffeb0198cb1d6"
+        },
+        {
+          "path": "images/aerial-r07-c03.jpg",
+          "sha256": "6754b7d1ee3dad3a85d1937823c95b536fc88d42a1a657011e61859a64d59232"
+        },
+        {
+          "path": "images/aerial-r07-c04.jpg",
+          "sha256": "9e100eb7f9e88d3d64ba09492ead4def779d248b8fe540badf9815db68badadd"
+        },
+        {
+          "path": "images/aerial-r07-c05.jpg",
+          "sha256": "e607de6102ef7f6edffa4d08242b12c794cb595473b0862448a18548acf5edfe"
+        },
+        {
+          "path": "images/aerial-r07-c06.jpg",
+          "sha256": "22a0f3df1d140f3ebd90e9d25a97c787ad1eb9d0d8684fda57e1530fc4522597"
+        },
+        {
+          "path": "images/aerial-r07-c07.jpg",
+          "sha256": "8500be047499e9ad23c99a489fda2a2f7172af500cfd2e1b6315cb671e5318a2"
+        },
+        {
+          "path": "images/aerial-r07-c08.jpg",
+          "sha256": "6216ffa5f9b88e53a325faeb607ab6cfa6768e4af0e122c1a60cbcd817fb76fc"
+        },
+        {
+          "path": "images/aerial-r08-c01.jpg",
+          "sha256": "152ce27bbfc51acafaa35928b9d64a1cd97fbb2e4904226ea80a4e1624ba8d39"
+        },
+        {
+          "path": "images/aerial-r08-c02.jpg",
+          "sha256": "7bcb34071e1f4f58a1b395a930694b44aea7690802d1de71fce54c97e4122078"
+        },
+        {
+          "path": "images/aerial-r08-c03.jpg",
+          "sha256": "3f6f399aaadb0f6b9db0d9b6b4784c430b3a59a8c19f9c0dfd149d01102720d9"
+        },
+        {
+          "path": "images/aerial-r08-c04.jpg",
+          "sha256": "0a013bae325c3fe8a0aa370513766df86f72170a670e6d7494facaa4904e0b3d"
+        },
+        {
+          "path": "images/aerial-r08-c05.jpg",
+          "sha256": "b113747ea692978e8d2c650d6a570b89f240b4cab800e87441c41ab4cd922d9d"
+        },
+        {
+          "path": "images/aerial-r08-c06.jpg",
+          "sha256": "cfb83b94460654e118196bac8df5e4bc9a4ca644d6b4f4a6fca55b480543bc69"
+        },
+        {
+          "path": "images/aerial-r08-c07.jpg",
+          "sha256": "ce0645198a5395b82290ab7bfc1b46ac24d50cdc211a5aaaf751668190370178"
+        },
+        {
+          "path": "images/aerial-r09-c01.jpg",
+          "sha256": "35efe6afb3a32d71ab63f57efe6fcdd4bec9d7fc53f58a65fb5023124aa93c57"
+        },
+        {
+          "path": "images/aerial-r09-c02.jpg",
+          "sha256": "e34c422c4a42790af1425bb3c798c98b84f5916b92e8c6e1a3cac04a40d1b188"
+        },
+        {
+          "path": "images/aerial-r09-c03.jpg",
+          "sha256": "b8358e9941aa53437739f9736f494294fefb4889a9a29da53cf6176859340291"
+        },
+        {
+          "path": "images/aerial-r09-c04.jpg",
+          "sha256": "2879d14866e6e0a983303180015c77c8655e6d3107e0e4194b63c5f6f81bb35d"
+        },
+        {
+          "path": "images/aerial-r09-c05.jpg",
+          "sha256": "ef1e046e0ea6ac43eab864f862959c25dcaee83e9b17844b4c1806902458bab2"
+        },
+        {
+          "path": "images/aerial-r09-c06.jpg",
+          "sha256": "20551005649154c179fe0098eaa9538f2f98bf2648da2ed426675187cf7326a2"
+        },
+        {
+          "path": "images/aerial-r10-c01.jpg",
+          "sha256": "29d8b68d26e186050128d8c4a76a77faba6bfd15b58753d41cf64e930392a57e"
+        },
+        {
+          "path": "images/aerial-r10-c02.jpg",
+          "sha256": "b4cccfdfa2e50f448273da435e2fe531dcecd30efa1a7cfaa24472b9109284b3"
+        },
+        {
+          "path": "images/aerial-r10-c03.jpg",
+          "sha256": "a035832e7785f67fc3d3af1dd63213e00d7b5f2f87a1ccc95320cca82bdc927c"
+        },
+        {
+          "path": "images/aerial-r10-c04.jpg",
+          "sha256": "c8ad956b91128d7d78995fdca34a9472b1b158545f2e7c95fd83acd740c2c2ea"
+        },
+        {
+          "path": "images/aerial-r10-c05.jpg",
+          "sha256": "9bc674291271d76d06b21539bed0ef680f3e3cf5908a1fae7d8148598e933405"
+        },
+        {
+          "path": "images/aerial-r10-c06.jpg",
+          "sha256": "a701bf5695fedf87dd8ec419866af3a4641236912db4c0c143f998588aa8e44a"
+        },
+        {
+          "path": "images/aerial-r11-c01.jpg",
+          "sha256": "8d93f40361b1492d30d3f20d798b2dde445c7a78d6b64ab6e1e36164085a75e0"
+        },
+        {
+          "path": "images/aerial-r11-c02.jpg",
+          "sha256": "7f56dd2670aa6d5d0c92cd25a3c47d917501a0fdbf0897ad9b429e24129438d1"
+        },
+        {
+          "path": "images/aerial-r11-c03.jpg",
+          "sha256": "d1cdb0c3a6628404fd51d644da243bafb92b197fdb5e6c8b418caf0545ee2327"
+        },
+        {
+          "path": "images/aerial-r11-c04.jpg",
+          "sha256": "5675871a48e077907fa17e42dd0530cd1db9e8036d8396eff212552685860014"
+        },
+        {
+          "path": "images/aerial-r11-c05.jpg",
+          "sha256": "3d2cd8c99196bed1fd0acccdbd30e726a3772018127ce6db7bc717eca8cda08f"
+        },
+        {
+          "path": "images/aerial-r11-c06.jpg",
+          "sha256": "da0e512b396b37a988cee3a22ad5fa666feaa81332d38fcbfcb90ccc49c65676"
+        },
+        {
+          "path": "images/aerial-r12-c01.jpg",
+          "sha256": "e0712522c763c0fe56c54d838441461ee06bd826bdb32f8d9ba32c4ea09dee2d"
+        },
+        {
+          "path": "images/aerial-r12-c02.jpg",
+          "sha256": "0b462e42f563159a8875f8fd3bd70c4a326ae182752e7913bf78f87b188a7d80"
+        },
+        {
+          "path": "images/aerial-r12-c03.jpg",
+          "sha256": "f3cfb50848f1ea8c1390305f73a6a6f81377fd406968d4cf099ff6d45c063676"
+        },
+        {
+          "path": "images/aerial-r12-c04.jpg",
+          "sha256": "6b044c39dda1f9bf7627dee05ce01d33f8bf0d93d0b0aed907717f0ec91f9008"
+        },
+        {
+          "path": "images/aerial-r12-c05.jpg",
+          "sha256": "36c16a96ef835b4d4b97b87777a43ff9ab0266c5cbdf1dc5c82a795c54063b23"
+        },
+        {
+          "path": "images/aerial-r12-c06.jpg",
+          "sha256": "8a5c5a4114d975ab4cb9dfa54a0f593376438911f514ebda3d533b47ae25cc5e"
+        },
+        {
+          "path": "images/aerial-r13-c03.jpg",
+          "sha256": "7917cf5e51aca8621288db0b6aa22d435d263a65e2cbd331592a8a444f9044f5"
+        },
+        {
+          "path": "images/aerial-r13-c04.jpg",
+          "sha256": "dbb4df3e9f89ace21db271d9df2a6334b2f5a50aa0576e41d312cfe14b084b67"
+        },
+        {
+          "path": "images/context-globalworth.jpg",
+          "sha256": "017be4bccf41b6a2060830ca461808bce10f59d07f8adcffb9f31ce6844428ba"
+        },
+        {
+          "path": "images/context-northeast.jpg",
+          "sha256": "5c503487b2aaa0b87de03544e1fb4c8e4b71f2fe6d35b3537fcba9922861e78f"
+        },
+        {
+          "path": "images/context-northwest.jpg",
+          "sha256": "47112c4aea7de987d70a6e35fcef52ad41ad4941a32e5c9ad98895bbf234d459"
+        },
+        {
+          "path": "images/context-skytower.jpg",
+          "sha256": "e9eeb6e882c7790362614497a0b03efd5542e019ea40dc225a9697993a10c7ce"
+        },
+        {
+          "path": "images/context-southeast.jpg",
+          "sha256": "c6c822176caecea3b65e8ed600a668ee419bd7c19a7f4c1191901035b89a8bfe"
+        },
+        {
+          "path": "images/context-southwest.jpg",
+          "sha256": "fb768bd604ea7aa70a30f93fe2d8ea41de368cb675803005ff1241267efc6525"
+        },
+        {
+          "path": "manifest.json",
+          "sha256": "3c104b16729fc75d66a51530c3b63fa4f46234ec49761833db215074fc57df5c"
+        },
+        {
+          "path": "poses.json",
+          "sha256": "2cebfe76dbc0c7ca098b6effd3ee69826f6a5957dfd9693e8543c3da2de60bf3"
+        },
+        {
+          "path": "provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/capture-report.json",
+          "sha256": "967290a248ff3ff803acb3c6b2b7dbb8e863b7be970a030d40e354a64003f73a"
+        },
+        {
+          "path": "provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/grid-plan.json",
+          "sha256": "696c0ed30efba5b99c95cd685950d47a33684bcc8efd69121e3875c4549a703c"
+        },
+        {
+          "path": "provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/manifest.json",
+          "sha256": "24381f85b46d3e632bc29297841a8bca3098778e7d3a071b309f0e41ec036402"
+        },
+        {
+          "path": "provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/poses.json",
+          "sha256": "6f0236833b3a41da4476a8225636392b0b9713517c9e0c16bcebca7fc4792173"
+        },
+        {
+          "path": "provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/source-provenance.json",
+          "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429"
+        },
+        {
+          "path": "provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/validation.json",
+          "sha256": "59c16fcf77eb20152ca4dcd83e8ba04c080b03ef58c203fd2d2423e175551db4"
+        },
+        {
+          "path": "provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/capture-report.json",
+          "sha256": "e3b0122074089342742da129f614c05d6296960b33b9c5b6b90ceac4ac335650"
+        },
+        {
+          "path": "provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/grid-plan.json",
+          "sha256": "d69129ba47911c929ecff491feaee296303b19022a2adcc9ccd64f5c2abf365e"
+        },
+        {
+          "path": "provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/manifest.json",
+          "sha256": "d73932484aeac2f13321a8498300fd407010532b3e6bbe80191c0e4375b0adc8"
+        },
+        {
+          "path": "provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/poses.json",
+          "sha256": "32bf15f2483d0010f608eaccf3a19157743d3c1dbd6a6c8795b104be4b338fcf"
+        },
+        {
+          "path": "provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/source-provenance.json",
+          "sha256": "bf13670d198da808f838b07fe3e6649e793db251ef9b4e49f2d4b79d8add9d59"
+        },
+        {
+          "path": "provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/validation.json",
+          "sha256": "8cb70e71faeed88a0cf03331fe694e737327d8471d5bb5e7b9ad3c006ab1d20d"
+        },
+        {
+          "path": "source-provenance.json",
+          "sha256": "d7df3db3e2c76209500762ef9475b28da9f22b7745c36f95e7545fe6cbc75c56"
+        },
+        {
+          "path": "thumbs/aerial-r01-c04.jpg",
+          "sha256": "22b1acb38b8be07e52524afdb610684d6d776f38b270fda42a493af44671af45"
+        },
+        {
+          "path": "thumbs/aerial-r01-c05.jpg",
+          "sha256": "cfd2ca727399ef9b02988a2cd5edff75a8e4d55ad5f6b0aaf400693b86ae811a"
+        },
+        {
+          "path": "thumbs/aerial-r01-c06.jpg",
+          "sha256": "af5cd6fcb3a9e1d7e4d7ddf20e2d95d94e0ccf589ecaf0d23cfd1af9bc69eeaa"
+        },
+        {
+          "path": "thumbs/aerial-r01-c07.jpg",
+          "sha256": "8fead9bae737cea1c36f78fee6235e8d35b254a5609c304f9d060e3347960b85"
+        },
+        {
+          "path": "thumbs/aerial-r02-c02.jpg",
+          "sha256": "813b676f0149794675936cfaf67241e28e5d9eab63422dfb74105e15f7920983"
+        },
+        {
+          "path": "thumbs/aerial-r02-c03.jpg",
+          "sha256": "79dedc1a9d5bc4de11c77d7b6de6d946e402ecb09a2cb60b2fd355e0306d586f"
+        },
+        {
+          "path": "thumbs/aerial-r02-c04.jpg",
+          "sha256": "1582cf2bfc1caa918d26d77ec5fe573440ea02469c99b7335e74a89a59d6568d"
+        },
+        {
+          "path": "thumbs/aerial-r02-c05.jpg",
+          "sha256": "0978587a21cc2a9aaffcaad0eddac2273714ae0b9ab515916fb6f28157ec5601"
+        },
+        {
+          "path": "thumbs/aerial-r02-c06.jpg",
+          "sha256": "1d6bd1dc614326d36537b4b2d6b1517dd7e444570ad73a8588ea08c0e0c8253f"
+        },
+        {
+          "path": "thumbs/aerial-r02-c07.jpg",
+          "sha256": "4265576243067a649b9c484b9d0f244e1790028818e55d12d3d9b9765c2b595e"
+        },
+        {
+          "path": "thumbs/aerial-r02-c08.jpg",
+          "sha256": "0a8ef6677c666a6d503d19e4c6799c22102c4126c42cb3dc5c7b96d16cb14c26"
+        },
+        {
+          "path": "thumbs/aerial-r03-c01.jpg",
+          "sha256": "bf6bb2f8e29559944f5c57195aa4a87e493d3bbc75b3a8a292775a06b952746a"
+        },
+        {
+          "path": "thumbs/aerial-r03-c02.jpg",
+          "sha256": "d5b9b17be8858e9f9926e8d7d7a09b3390767e25f3766c43718889d3aa803db0"
+        },
+        {
+          "path": "thumbs/aerial-r03-c03.jpg",
+          "sha256": "72c4e07326b7232a08ef507dc98135931db18d775169f55be87fe1735d2995da"
+        },
+        {
+          "path": "thumbs/aerial-r03-c04.jpg",
+          "sha256": "13fe23636c09876bc3e0aa09f4d1edf6b2c6677aec44cb57dfe5ab0df153b86a"
+        },
+        {
+          "path": "thumbs/aerial-r03-c05.jpg",
+          "sha256": "0ef57a241839e99a3002cbba232b7d817e1bbecac9515884db29614ae8d2c2b2"
+        },
+        {
+          "path": "thumbs/aerial-r03-c06.jpg",
+          "sha256": "30e125b9abfb72ea5a7d5107b6bc049d8fa381eaf830f64b0567558ca534798d"
+        },
+        {
+          "path": "thumbs/aerial-r03-c07.jpg",
+          "sha256": "c3b3628466cc8442e8d00b8249baf9b2f237699beb20b86eaf3771c4daa05591"
+        },
+        {
+          "path": "thumbs/aerial-r03-c08.jpg",
+          "sha256": "cbd091b78a8433f46169ebc349bd9f8f8117105f882ec690c46f5546506db0f6"
+        },
+        {
+          "path": "thumbs/aerial-r04-c01.jpg",
+          "sha256": "d7c7db7e46e08b0b61ed1710c2d3af6f637a57d0533d8af4c51f1d139622698e"
+        },
+        {
+          "path": "thumbs/aerial-r04-c02.jpg",
+          "sha256": "40cb938cf0c0694c79a88cc25ba86be86e85fab336e1d58a1570cc5216f7de41"
+        },
+        {
+          "path": "thumbs/aerial-r04-c03.jpg",
+          "sha256": "1654c0811986fac9ebcafdade5908960aad059ec08116f4d432d1c14bf23407e"
+        },
+        {
+          "path": "thumbs/aerial-r04-c04.jpg",
+          "sha256": "ef2c4e9a97aae4be76d041b23e6e441077ddacfcaf26ca0ed638e8ce3a14181c"
+        },
+        {
+          "path": "thumbs/aerial-r04-c05.jpg",
+          "sha256": "0497d842344fe550d8f4917014f680b65c94ca8516dd1d7f32fc482e2761ca02"
+        },
+        {
+          "path": "thumbs/aerial-r04-c06.jpg",
+          "sha256": "09c82757d213353726b42f2beb0298162822c412b8b5d18af9349a3d34e23bbb"
+        },
+        {
+          "path": "thumbs/aerial-r04-c07.jpg",
+          "sha256": "41d9ff27bc79f1f857b924352b6a693da3b2d1650898fb3c2ce6cfc82cfd89a3"
+        },
+        {
+          "path": "thumbs/aerial-r04-c08.jpg",
+          "sha256": "f57c71a18fd6d4204581486782aa523dea3b2597dde47de6665da52bd0502914"
+        },
+        {
+          "path": "thumbs/aerial-r05-c01.jpg",
+          "sha256": "5b076c07e3657558def3d474accc445239e370786bd37b1d312d0025c695f9df"
+        },
+        {
+          "path": "thumbs/aerial-r05-c02.jpg",
+          "sha256": "833ce5f201366eb803fd2228c757f4af4c74a942952f67213a4f40c4c7c3c6c2"
+        },
+        {
+          "path": "thumbs/aerial-r05-c03.jpg",
+          "sha256": "4bf37c828cbff1a15c46bba7c2b8461f0ec07fe24eb0c5ade3051d4db57aa184"
+        },
+        {
+          "path": "thumbs/aerial-r05-c04.jpg",
+          "sha256": "6c71e6cf50fa99ef2394bfb2ab1d3a0b4df2accf9437ac6d1ea47790141ba64c"
+        },
+        {
+          "path": "thumbs/aerial-r05-c05.jpg",
+          "sha256": "b30bb676c6bde1e7d99ccc660b54b8011decd45a395c83a8c3ef999f362d2162"
+        },
+        {
+          "path": "thumbs/aerial-r05-c06.jpg",
+          "sha256": "d97aaf2f1264b889446b83a0cd23b04391b8640709876566e15a1e73af3199f2"
+        },
+        {
+          "path": "thumbs/aerial-r05-c07.jpg",
+          "sha256": "82bd75aefeacf9c73243bf4c18b24d32115eca4ae122414b4fe1281fa917d73c"
+        },
+        {
+          "path": "thumbs/aerial-r05-c08.jpg",
+          "sha256": "bf81a156b66bcdcfa20fca91d1f57590a6321433f28b150491f9e71c3406e787"
+        },
+        {
+          "path": "thumbs/aerial-r06-c01.jpg",
+          "sha256": "d15f736cd7c1f2c25cf2c24f5598a4136b39bfd945a29cf859e95c9268242bcf"
+        },
+        {
+          "path": "thumbs/aerial-r06-c02.jpg",
+          "sha256": "ff119dbf968f3aa701118e934aa6837f425b2a5676ea8de4052d44b4541cd719"
+        },
+        {
+          "path": "thumbs/aerial-r06-c03.jpg",
+          "sha256": "c45d53efdf7253be007893073c13ccf2750a1504cd9ed9cb746b7c8833b5ec66"
+        },
+        {
+          "path": "thumbs/aerial-r06-c04.jpg",
+          "sha256": "bc0aa32468a46892c09f0ae79fe6b2a2f4506fcf7465dd7550ea1a505f0cd58e"
+        },
+        {
+          "path": "thumbs/aerial-r06-c05.jpg",
+          "sha256": "495a73ea5535d3dda7c9f0e16c1e1c117a94332cb54c1604189fe94cc4245dbe"
+        },
+        {
+          "path": "thumbs/aerial-r06-c06.jpg",
+          "sha256": "2da7f524b7a1e26c7fd0e72b1a275cca8e68367dfab2b7d0cea4a666de6de20e"
+        },
+        {
+          "path": "thumbs/aerial-r06-c07.jpg",
+          "sha256": "8cb86c98278976dfe7e625da01d8a963a11f4773114fe70667618830a4b5d99f"
+        },
+        {
+          "path": "thumbs/aerial-r06-c08.jpg",
+          "sha256": "5332602fc31222c4f5101b0fb7fb8bec39f8080c1d59cd6c70415722f7f05247"
+        },
+        {
+          "path": "thumbs/aerial-r07-c01.jpg",
+          "sha256": "1e3438bed9110282febfbc0464195510696385b52c7ccfade6499f9644d2180a"
+        },
+        {
+          "path": "thumbs/aerial-r07-c02.jpg",
+          "sha256": "a990c335b97d2e7b3a3fc36559246cc5cbd66da90ec1bf51af9281c1a2096e59"
+        },
+        {
+          "path": "thumbs/aerial-r07-c03.jpg",
+          "sha256": "12bd5f70b6027536ea8210f268ca3ff517ab22ebb64b742cbac203f31637eb77"
+        },
+        {
+          "path": "thumbs/aerial-r07-c04.jpg",
+          "sha256": "2eb41796e6ca2694e7d66d73e16648cf56a45bafb22ef3f79d8acf630567a9f6"
+        },
+        {
+          "path": "thumbs/aerial-r07-c05.jpg",
+          "sha256": "cad1c62401db7296659c157e664996d4f243f419aba5675cf07b556d7c9dc243"
+        },
+        {
+          "path": "thumbs/aerial-r07-c06.jpg",
+          "sha256": "114868ec033590df19f8a6743b72996495f91cd64385d6188c0a5931adf769c8"
+        },
+        {
+          "path": "thumbs/aerial-r07-c07.jpg",
+          "sha256": "e3c4e1af72a2d443845a100b704e62e227767fdcb3a4526d3c34be02bf282102"
+        },
+        {
+          "path": "thumbs/aerial-r07-c08.jpg",
+          "sha256": "b44fa102be53677e027cbfca5fdfee4dd15a53aab1c9619eaede48630c5d92ef"
+        },
+        {
+          "path": "thumbs/aerial-r08-c01.jpg",
+          "sha256": "406308fe00bb379306de7c07b76b2a59478311f35ecd332078bc3e1694f98cb4"
+        },
+        {
+          "path": "thumbs/aerial-r08-c02.jpg",
+          "sha256": "81fa47ea4b9127b5f269aa3c3065cfae2a28b189cb8251c17083ef208ad898fe"
+        },
+        {
+          "path": "thumbs/aerial-r08-c03.jpg",
+          "sha256": "cf9037d6dc51d5b9241e260dcdcc30b184999c99362c32db3250e0cdf20e42f2"
+        },
+        {
+          "path": "thumbs/aerial-r08-c04.jpg",
+          "sha256": "7cee8e1c7d9a86510c90b40eb5eb0fb702bac469357d370f39f9bbb573dce6cf"
+        },
+        {
+          "path": "thumbs/aerial-r08-c05.jpg",
+          "sha256": "070cd07d6e81164b308cdc41176e759751fe18678b12da21330d70d2e2547159"
+        },
+        {
+          "path": "thumbs/aerial-r08-c06.jpg",
+          "sha256": "caba57295c534d594ee044725478c6f83c47938ba8361eff4b9bcd61d82957aa"
+        },
+        {
+          "path": "thumbs/aerial-r08-c07.jpg",
+          "sha256": "9c8782b817240beda97c0a773b69d2d6b586a92625faf533330f437ead32eab9"
+        },
+        {
+          "path": "thumbs/aerial-r09-c01.jpg",
+          "sha256": "20d4f96525f1b2ff67597fafef85dff0e69bd8d943189eab2142034001265027"
+        },
+        {
+          "path": "thumbs/aerial-r09-c02.jpg",
+          "sha256": "2a973d96202407b137291b9e395efafd49de2079c87496c1447c8e79b1e5b418"
+        },
+        {
+          "path": "thumbs/aerial-r09-c03.jpg",
+          "sha256": "ee2caa3d2f4a82226a674c8d077489ab5cb3acfb207eeb83fb5d452427a01240"
+        },
+        {
+          "path": "thumbs/aerial-r09-c04.jpg",
+          "sha256": "53fa53e87b144ebacf3314060c5a2fb855df1d55c2b729c544b6d602eb617f43"
+        },
+        {
+          "path": "thumbs/aerial-r09-c05.jpg",
+          "sha256": "12f67dbcdc563178e125204359f59a325d9183e4f79dd5885e8fe3b9b7f234c5"
+        },
+        {
+          "path": "thumbs/aerial-r09-c06.jpg",
+          "sha256": "194dab5ae886c1e395c0b6e64986383ebb7ec0162db8068d69552d577bce0094"
+        },
+        {
+          "path": "thumbs/aerial-r10-c01.jpg",
+          "sha256": "dcad5ef5fffa8cfcfb3031ced5ce86a84981873aa7db8b5c6cc155ea8a7366aa"
+        },
+        {
+          "path": "thumbs/aerial-r10-c02.jpg",
+          "sha256": "5fc0a5709a2af47ed5c910b9591383309795b57c37e6593eaf67e16d96aeea3f"
+        },
+        {
+          "path": "thumbs/aerial-r10-c03.jpg",
+          "sha256": "daffddf3294c83216048667030dc25565c9ef42c47b039f27f474ddbf36ab341"
+        },
+        {
+          "path": "thumbs/aerial-r10-c04.jpg",
+          "sha256": "329adfa79b581f3fee68e870d98949ddfbe420493e021a461f88e0647c1f7d1e"
+        },
+        {
+          "path": "thumbs/aerial-r10-c05.jpg",
+          "sha256": "f5491292d6013f611a04aaf4b423d5d73915574843c4b3f0811eb2346a8c50c7"
+        },
+        {
+          "path": "thumbs/aerial-r10-c06.jpg",
+          "sha256": "e0049316605bf2368fb1f8b5c996ac77458bb8c73d0d68598bad8d8bc255fb7f"
+        },
+        {
+          "path": "thumbs/aerial-r11-c01.jpg",
+          "sha256": "3aa64ec02079f50831e14e204704c6c0e063a0e5cab4ad0e01d07f3557c344f6"
+        },
+        {
+          "path": "thumbs/aerial-r11-c02.jpg",
+          "sha256": "b30629699d9d6ef7b43ea618160def0a2e0a7ee1a213bbde817e16f26616c2b1"
+        },
+        {
+          "path": "thumbs/aerial-r11-c03.jpg",
+          "sha256": "d3f4a8eb227ac83541206ea9019e26abce0cf609a19d79bdfbbca64262ffebe8"
+        },
+        {
+          "path": "thumbs/aerial-r11-c04.jpg",
+          "sha256": "1ece6ffe3153421303d06eb2fbbd44aab270d54cf4e784d9b08504cb32ffd84f"
+        },
+        {
+          "path": "thumbs/aerial-r11-c05.jpg",
+          "sha256": "37746720ab4f248b87e297a76b84cf606afa843e5622898429ac33a035999c75"
+        },
+        {
+          "path": "thumbs/aerial-r11-c06.jpg",
+          "sha256": "83ef7a035bd0a80f6f71609d4bc83d4f98b8871ce456057710c439095074a303"
+        },
+        {
+          "path": "thumbs/aerial-r12-c01.jpg",
+          "sha256": "cc4666620cb047a71c0cc5fc503d946582838858243b5a4ffa36a0aeda0d00c3"
+        },
+        {
+          "path": "thumbs/aerial-r12-c02.jpg",
+          "sha256": "b12ef3a4c3ba8e03bfdc10d914e1513d81ee2f0b4ae898b6e2f9a43dbd222719"
+        },
+        {
+          "path": "thumbs/aerial-r12-c03.jpg",
+          "sha256": "86c82bd2595bf9a237f3d53b43e4049a3b498facac51b4f31959e7f0c3ef5c61"
+        },
+        {
+          "path": "thumbs/aerial-r12-c04.jpg",
+          "sha256": "df0600e25a3d8aa95aef131b98f1ce3273a58908636c068015754e7d9bf05d38"
+        },
+        {
+          "path": "thumbs/aerial-r12-c05.jpg",
+          "sha256": "94e23c044b3c38bf7866037dbcdaa4e45088608d1f53328264a4a11ab9aa04f0"
+        },
+        {
+          "path": "thumbs/aerial-r12-c06.jpg",
+          "sha256": "58278dd8bbd4d4234f993f2bb3c7ccd930d049465ee3c9da684bd047f69c965e"
+        },
+        {
+          "path": "thumbs/aerial-r13-c03.jpg",
+          "sha256": "6beafc95afdcf8f647c608749cda2517b9e523349cbd1ba35041abef40822597"
+        },
+        {
+          "path": "thumbs/aerial-r13-c04.jpg",
+          "sha256": "c171d0a1fc27802a6808749950ea390368d06675fb4b41a82f6809c512b95336"
+        },
+        {
+          "path": "thumbs/context-globalworth.jpg",
+          "sha256": "bb22361b1a45dacf9ca9558e1d36daddf406784e87d4f3c916ed715fa6c466d2"
+        },
+        {
+          "path": "thumbs/context-northeast.jpg",
+          "sha256": "d0280ae732f1e171ce7cf854cc25f03f3a94572067a47941bf20108067b924e3"
+        },
+        {
+          "path": "thumbs/context-northwest.jpg",
+          "sha256": "9ae128b41e0d386c836ef9e24e8757788548d41869500ac91e1f8f053342d49b"
+        },
+        {
+          "path": "thumbs/context-skytower.jpg",
+          "sha256": "7a9181723c03c47244af5967803c255efb49c886ed92171207dd8911c32bf228"
+        },
+        {
+          "path": "thumbs/context-southeast.jpg",
+          "sha256": "08e3648ead0f1513dbb6a8e82d21ef7a9039bbfb583ec3095250671043d6a97c"
+        },
+        {
+          "path": "thumbs/context-southwest.jpg",
+          "sha256": "5c52aa04bb4da9a7cae774256ceeb11e770378fdb04348ca18a3381faecf013a"
+        },
+        {
+          "path": "validation.json",
+          "sha256": "eab395f0d59655d4e10a816d5d9fb02019a71a8faa749aeec5fdb225fbe80260"
+        },
+        {
+          "path": "water-mask.json",
+          "sha256": "ef406d3988751acaea3cd10ccc97918955d0ed02e9f8b268d8291fc9c6713c70"
+        }
+      ]
+    },
+    {
+      "district": "grozavesti",
+      "beforeCommit": "6a0c7967f71fb7f828a100f19822119a01cbb5e3",
+      "archiveManifest": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/manifest.json",
+      "filesVerifiedByteIdentical": 297,
+      "includesContextAndProvenance": true,
+      "existingHistoricalSubtreeRetainedAtOriginalPaths": true,
+      "files": [
+        {
+          "path": "boundary-source.json",
+          "sha256": "088acda5d3a4133d1f7614a33dc13d6e9f12cbec98fa52ea0bbdf1647913d8ff"
+        },
+        {
+          "path": "capture-manifest.json",
+          "sha256": "904843f50da676438d57ed130b283eddd5a3b78148a476d528480dcfc69b0546"
+        },
+        {
+          "path": "capture-report.json",
+          "sha256": "464e74cd89a06d0d24cd60d664d93b79f310efe79ded9ce37aa394e1d9a2a52d"
+        },
+        {
+          "path": "context/summer-clear-day/capture-manifest.json",
+          "sha256": "0b9b64b5b28015afcf2577c0eb1df852e97df42521c0c404561dec2b7e7810d7"
+        },
+        {
+          "path": "context/summer-clear-day/images/cathedral-context.jpg",
+          "sha256": "10211470ab29c2f8b6667c6eeca79643f453cd357a91b4cfbcf7252f25a49f18"
+        },
+        {
+          "path": "context/summer-clear-day/images/cathedral-opposite.jpg",
+          "sha256": "82edcc8ad31d2edcb4355b3da4b347487aa50331dd85901b325ba814160cee13"
+        },
+        {
+          "path": "context/summer-clear-day/images/chapter-upb-street.jpg",
+          "sha256": "1ac1a470729bb71916560989f05ba8d69e513ab3ec09c8b0ab2cf3fb8f476921"
+        },
+        {
+          "path": "context/summer-clear-day/images/drone-edge-east.jpg",
+          "sha256": "32786705593488904d4f3880ebd859c6aff9a6426b1f216477ca84c2ac74df5c"
+        },
+        {
+          "path": "context/summer-clear-day/images/drone-edge-north.jpg",
+          "sha256": "31597cb8986fee18c524bf6f9c1687f0ce4d18f8b8d935c06b36a443679a2325"
+        },
+        {
+          "path": "context/summer-clear-day/images/drone-edge-south.jpg",
+          "sha256": "962e282c6fbefe568efc92e4c20783782c04729c314a03557b0d724c635b478d"
+        },
+        {
+          "path": "context/summer-clear-day/images/drone-edge-west.jpg",
+          "sha256": "954b99e2b95f0cf2a9ffb270aa5f08cfb433c17e32a34cbf4faa276767c462ce"
+        },
+        {
+          "path": "context/summer-clear-day/images/parking-1.jpg",
+          "sha256": "e8c6b07e723ad0691fcbce0535d05a2665b19c35b9252300692b7b6087adac8c"
+        },
+        {
+          "path": "context/summer-clear-day/images/parking-2.jpg",
+          "sha256": "1549c9d87488d87fd8da58cb6dea8fe7114fe45303307d7928c02d7812b91b8e"
+        },
+        {
+          "path": "context/summer-clear-day/images/parking-3.jpg",
+          "sha256": "3af47990ea248b19f5d693471193c3168b89bdc53d260778a4c561fc2b3293b4"
+        },
+        {
+          "path": "context/summer-clear-day/images/politehnica-context.jpg",
+          "sha256": "7fcd791abd8d1de2f6deeeed22d6396e4f2b8f1bf051371f4cced9f96a98ea33"
+        },
+        {
+          "path": "context/summer-clear-day/images/politehnica-opposite.jpg",
+          "sha256": "5c88b0a042db548a89aad419254d492f97697861666409c56a6f9afe5e3f90a0"
+        },
+        {
+          "path": "context/summer-clear-day/images/politehnica-street.jpg",
+          "sha256": "9fec7fe90f136ad751bd791826d09c1649467ba1aecd37bfb920b926ee5e7bab"
+        },
+        {
+          "path": "context/summer-clear-day/images/signal-1.jpg",
+          "sha256": "38d4874b45e6e9c088141192ed609246b641e611f759ce2ef82a9a170c976301"
+        },
+        {
+          "path": "context/summer-clear-day/images/signal-2.jpg",
+          "sha256": "24ea26c9d7dbea96d77954a499955151c79a6be11e9cc469a1e6e60f6b42df65"
+        },
+        {
+          "path": "context/summer-clear-day/images/signal-3.jpg",
+          "sha256": "878292f02cf3f3a9aacce49b16923a8bd85ee8f0d6498cc57f6e51eeb0d90a1d"
+        },
+        {
+          "path": "context/summer-clear-day/manifest.json",
+          "sha256": "a3b696170e25a6b98865e8cc3055cedfa36e0dc3c08a8d96c8f0af3baada7053"
+        },
+        {
+          "path": "context/summer-clear-day/runtime-integrity.json",
+          "sha256": "e6a3770b957cea00af113e78c180ff8a695b5d70af65eef9d11105f046e6508d"
+        },
+        {
+          "path": "context/summer-clear-day/source-contact-probe.json",
+          "sha256": "c442f53d8d3da0655e7a67171a8882c73ebf0004a45faadae7018abe01df59ac"
+        },
+        {
+          "path": "context/summer-clear-day/source-provenance.json",
+          "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/cathedral-context.jpg",
+          "sha256": "df38d33c882ef880f9a45e62d580feefbaccd49c78fc777a5efa692f24b871e3"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/cathedral-opposite.jpg",
+          "sha256": "a0ba01e1b6f5feeef8859d2670e5a7a3b263dff524bbacb55eb8372c7decf2f3"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/chapter-upb-street.jpg",
+          "sha256": "34b2949f049909f53c582a004229328338f9d2d9c2260eafbabb9f22cea92a81"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/drone-edge-east.jpg",
+          "sha256": "b88282d650154b6b8ad529e266da97d67b8d36ddd4708921df220b8f0b0ab518"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/drone-edge-north.jpg",
+          "sha256": "f527bb53e6a35b281a905357235a5cd8faf9f89806db60305469bc4903ea4c83"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/drone-edge-south.jpg",
+          "sha256": "7260a1b0c6faff33c88bd249442c8d0ae20e46ae2c6c059a0906e7ad4bbf3b20"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/drone-edge-west.jpg",
+          "sha256": "dc2e4d9ec6b5373299ec851c6f558e6fc9157cdb3b0911c69d1ef9ea2d902d58"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/parking-1.jpg",
+          "sha256": "61b71e81e00e2a8cfbeff4fc717d3c1dd1756b1307fd327d4b4eb9cc804a3655"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/parking-2.jpg",
+          "sha256": "e407fcc708043f754d63f043ac9382acb653f104335ee35557388e86efd0ff32"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/parking-3.jpg",
+          "sha256": "4e614b4ac72d69de97c1e208e1134326bece3357dd2aac189b3a710f446d01a0"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/politehnica-context.jpg",
+          "sha256": "fe076141d05cd1a480f451ba0d502e6dfef3212c38f89d00f743c1cf930ea9a4"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/politehnica-opposite.jpg",
+          "sha256": "d3c8b341499b47449b08cbdcb648c588000c010a3b8411e240e789dbbcaa9306"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/politehnica-street.jpg",
+          "sha256": "56f7aa9bbaf11e9c6b0dba77ab49893c8fca085cbffc65ad4b03b4d1f47c9dcc"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/signal-1.jpg",
+          "sha256": "76ec1aa822022a881e365d8afe4d98b077b7f8d9217495d3df5b52d58c47f47c"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/signal-2.jpg",
+          "sha256": "8415b61d6e41531849ae6542b7f90187c22ff96e90daf70cad713c1c6d2e3d93"
+        },
+        {
+          "path": "context/summer-clear-day/thumbs/signal-3.jpg",
+          "sha256": "752a752cc1d6f1a19a4999d98b3a73de77715e20cea733909b98d9f60c7f9fcf"
+        },
+        {
+          "path": "context/summer-clear-day/world-stats.json",
+          "sha256": "606c986c178ebe91db6806556506e768f6e51d9ef8682c048c25d70574752625"
+        },
+        {
+          "path": "context/summer-clear-night/capture-manifest.json",
+          "sha256": "6266e90cc965887695c9ffd450aadd879cfdf38a006948c033f85e498eedb059"
+        },
+        {
+          "path": "context/summer-clear-night/capture-validation.json",
+          "sha256": "87dd76446135dc445fea3b5688bdd149c36264658b9c56e9ac11eb5bf89cd01a"
+        },
+        {
+          "path": "context/summer-clear-night/images/chapter-upb-street.jpg",
+          "sha256": "bd8d3c7fd7445073e2c9898329fd398dca7078642e2e64fa3b7173203439a74a"
+        },
+        {
+          "path": "context/summer-clear-night/images/drone-edge-east.jpg",
+          "sha256": "9390efba7c057e368b91dfa4e4660926d775ed4d041519f561d4af5d6650b7bb"
+        },
+        {
+          "path": "context/summer-clear-night/images/drone-edge-north.jpg",
+          "sha256": "e0ad2ba3ce782fe810683f7fce796b12d899c6ca9a9115d32790c6395d2ff978"
+        },
+        {
+          "path": "context/summer-clear-night/images/drone-edge-south.jpg",
+          "sha256": "44837f4433c95fb82b84b5d0acf652c93dc58e6b938b3d6af03cce14caa05103"
+        },
+        {
+          "path": "context/summer-clear-night/images/drone-edge-west.jpg",
+          "sha256": "f5a1e7fa945900e003c07f286d4c64704901342d43423df64ebc65afe51b6bac"
+        },
+        {
+          "path": "context/summer-clear-night/images/politehnica-street.jpg",
+          "sha256": "27e318a38439da6dfdc44f394005176f5b3e69a270b2713e2f915584eeaa1c08"
+        },
+        {
+          "path": "context/summer-clear-night/manifest.json",
+          "sha256": "a6d9ef84b2e5009d8aee1537d1871ba3056a7e19c88bd279c3020bbdc8966578"
+        },
+        {
+          "path": "context/summer-clear-night/runtime-integrity.json",
+          "sha256": "e6a3770b957cea00af113e78c180ff8a695b5d70af65eef9d11105f046e6508d"
+        },
+        {
+          "path": "context/summer-clear-night/source-contact-probe.json",
+          "sha256": "c442f53d8d3da0655e7a67171a8882c73ebf0004a45faadae7018abe01df59ac"
+        },
+        {
+          "path": "context/summer-clear-night/source-provenance.json",
+          "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429"
+        },
+        {
+          "path": "context/summer-clear-night/thumbs/chapter-upb-street.jpg",
+          "sha256": "96fcf09139ad6ff36890bec6230e6dd93ea5f832347afca9837824f9b9d751d5"
+        },
+        {
+          "path": "context/summer-clear-night/thumbs/drone-edge-east.jpg",
+          "sha256": "4a426102f1a294d0f1e052adb157f35c93c33b5f4adafa1e5653da5740aec2f8"
+        },
+        {
+          "path": "context/summer-clear-night/thumbs/drone-edge-north.jpg",
+          "sha256": "65b0dc4e420147c86151dbfcb1142686f4ae6e2de5535ee82aee6987388799f2"
+        },
+        {
+          "path": "context/summer-clear-night/thumbs/drone-edge-south.jpg",
+          "sha256": "38aa3eeeb651197badaa4baf3a0c9795bd199b2b3b104ce187b24a9d71068fee"
+        },
+        {
+          "path": "context/summer-clear-night/thumbs/drone-edge-west.jpg",
+          "sha256": "f7c93cab35ac8fdeb99e3393f8afc5b3b5102551a0f5bfd2c615f82e8e37ad80"
+        },
+        {
+          "path": "context/summer-clear-night/thumbs/politehnica-street.jpg",
+          "sha256": "89d6568107971d37fec225deacd09778840af46cf7336a1c7a1c746a1b4ede1a"
+        },
+        {
+          "path": "context/summer-clear-night/world-stats.json",
+          "sha256": "37309f9382ddc6eb8a1b97fa8c53f1d85e7add2ab43897889cc8a4aff5d635d9"
+        },
+        {
+          "path": "context/winter-snow-day/capture-manifest.json",
+          "sha256": "2c252b6d720cd5799faa1aff9c3fffe41c05ca1975db5cdcbb2d9da098e7c101"
+        },
+        {
+          "path": "context/winter-snow-day/capture-validation.json",
+          "sha256": "43225890621c1a510e7ed2b28d3d761cb358a7dd938045fe835e2c03793bf50a"
+        },
+        {
+          "path": "context/winter-snow-day/images/chapter-upb-street.jpg",
+          "sha256": "224aca4ce9f515d24e2aea0b8da13e329e461f28352cfccb64e5b66f222dba84"
+        },
+        {
+          "path": "context/winter-snow-day/images/drone-edge-east.jpg",
+          "sha256": "6c97a7e4e90166a9e3190818634f359275330d2d105e04104f228905b14f95fd"
+        },
+        {
+          "path": "context/winter-snow-day/images/drone-edge-north.jpg",
+          "sha256": "5cb6681eaae5be709c97bcaf7dc6cfeb6ee55a0442659831c76a6689f28df292"
+        },
+        {
+          "path": "context/winter-snow-day/images/drone-edge-south.jpg",
+          "sha256": "451aab000822505c9fd71081e488055a0d203c0ec9571a60710163fd701c2d37"
+        },
+        {
+          "path": "context/winter-snow-day/images/drone-edge-west.jpg",
+          "sha256": "e0f2bb2adf50e3639aee596aa74f0b2256ab6cc43db0b4d791d8e2c1942af77d"
+        },
+        {
+          "path": "context/winter-snow-day/images/politehnica-street.jpg",
+          "sha256": "37369df93c050da99e39b1d765bdefb30e7f2fbb33e4c6b870fde83f68842398"
+        },
+        {
+          "path": "context/winter-snow-day/manifest.json",
+          "sha256": "8767c8702eb23aff97c90db4f209dc4d8e38f6f2399270e5180ffb81e2f222f2"
+        },
+        {
+          "path": "context/winter-snow-day/runtime-integrity.json",
+          "sha256": "e6a3770b957cea00af113e78c180ff8a695b5d70af65eef9d11105f046e6508d"
+        },
+        {
+          "path": "context/winter-snow-day/source-contact-probe.json",
+          "sha256": "c442f53d8d3da0655e7a67171a8882c73ebf0004a45faadae7018abe01df59ac"
+        },
+        {
+          "path": "context/winter-snow-day/source-provenance.json",
+          "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429"
+        },
+        {
+          "path": "context/winter-snow-day/thumbs/chapter-upb-street.jpg",
+          "sha256": "0357a17edd6a3cd70e68bbba7e44b3a41504b0fc26e628a39af93ea1d1a7c5b1"
+        },
+        {
+          "path": "context/winter-snow-day/thumbs/drone-edge-east.jpg",
+          "sha256": "d27f7bec6d1bd9befe35f57a7bc91506c5270e26fdd512a29aa9705960b882aa"
+        },
+        {
+          "path": "context/winter-snow-day/thumbs/drone-edge-north.jpg",
+          "sha256": "487959f1e6cb29cc2d5c0304277ad25b7efc9fc17b7595edeb0098fbff8dd2c1"
+        },
+        {
+          "path": "context/winter-snow-day/thumbs/drone-edge-south.jpg",
+          "sha256": "884e12f743e60b828898e5a3cce3ff724e9a6f117e567b4d7021e85ac7392ad9"
+        },
+        {
+          "path": "context/winter-snow-day/thumbs/drone-edge-west.jpg",
+          "sha256": "7993c876043ac6f252aa59b98f5f0519fd3c3afc582f9e2de919a0f87917eeb0"
+        },
+        {
+          "path": "context/winter-snow-day/thumbs/politehnica-street.jpg",
+          "sha256": "083955f969a269589b8377734abfadeb6fdf6d8e74f65fd8e5626806b3057e4f"
+        },
+        {
+          "path": "context/winter-snow-day/world-stats.json",
+          "sha256": "290cded588d109b0ba6b39fa3bf04ff221d25b652f278e59d2a2e12d63451e0d"
+        },
+        {
+          "path": "grid-plan.json",
+          "sha256": "3f3ce5ffa67562e941ac8bc5cc2b03e558b5c0297e6ac154119a46dc35e98f88"
+        },
+        {
+          "path": "images/aerial-r01-c07.jpg",
+          "sha256": "511bab5db0da15ad62deec6d4d7a838658302d21f11cc0c9991a05cf96dedaff"
+        },
+        {
+          "path": "images/aerial-r01-c08.jpg",
+          "sha256": "4a17b4392fd4c686c839890d74f981a14d0025be45de27f41a3980ff69a0ba1d"
+        },
+        {
+          "path": "images/aerial-r01-c09.jpg",
+          "sha256": "9e11f62e74c6be70f7b00103e52e7f42347b2b9b0c8dfc836eaffac0764ac54a"
+        },
+        {
+          "path": "images/aerial-r01-c10.jpg",
+          "sha256": "d2c105a24d16bd80dbd05b023e1fa8d3038b032bf633bb9f0322cb231599ab6c"
+        },
+        {
+          "path": "images/aerial-r02-c05.jpg",
+          "sha256": "31d238fd093dfacfdc22e1d2611a7afa7c39a7a514700e6dc932c1973663bb9e"
+        },
+        {
+          "path": "images/aerial-r02-c06.jpg",
+          "sha256": "ddcf037e35028e29d6bc8b59984eb65d3b4a677bcd282ca4f7faad2ebfb68ec4"
+        },
+        {
+          "path": "images/aerial-r02-c07.jpg",
+          "sha256": "99470e1ca43d1c56c75532235c2ddd05ce47e9b2c8454184e07b1cdbbfef854b"
+        },
+        {
+          "path": "images/aerial-r02-c08.jpg",
+          "sha256": "4e2bb0241dc53935a90a9362b2e53d2f00f43880e53ccf5d842d899a3a79cedb"
+        },
+        {
+          "path": "images/aerial-r02-c09.jpg",
+          "sha256": "98dc91d64744895a17bb0e219019558c2d3da8d57860e50d49e6ac7c6d94c169"
+        },
+        {
+          "path": "images/aerial-r02-c10.jpg",
+          "sha256": "7b61c2dcf3ef3abf8c114f35a96e96edea753b2ae5674ce24458b3c86f39252d"
+        },
+        {
+          "path": "images/aerial-r02-c11.jpg",
+          "sha256": "f2e1a99d1fdffdc5c92e1ee1b617b43141ebc219e8cf8dc60abef5028b8077d4"
+        },
+        {
+          "path": "images/aerial-r03-c04.jpg",
+          "sha256": "715cbe2b977ffdc5407dd8ecb81d9e0b59ff3e8b2706ac15b1709a28e07bb2fa"
+        },
+        {
+          "path": "images/aerial-r03-c05.jpg",
+          "sha256": "d5767f2efae9b890f1198f63771e0b6b2a8983a7549325a574b2d51c5668a1ed"
+        },
+        {
+          "path": "images/aerial-r03-c06.jpg",
+          "sha256": "63d412710c87753f37fd6f0d4a6579b91d7756a55ea7e55da86a5e9633b0e33e"
+        },
+        {
+          "path": "images/aerial-r03-c07.jpg",
+          "sha256": "ccebd564724a7f68a28d2cb156196934dbc2440cba8c36dee99ad24b565f5ead"
+        },
+        {
+          "path": "images/aerial-r03-c08.jpg",
+          "sha256": "e7ea9f17c6e89a361caca8666ec53fe1dd95d7cd1ccf1b343c5887b4b4ece565"
+        },
+        {
+          "path": "images/aerial-r03-c09.jpg",
+          "sha256": "22f350086fdb1365b93225b51c4f48297776ab08914d5fb3a99e2315d7b2769a"
+        },
+        {
+          "path": "images/aerial-r03-c10.jpg",
+          "sha256": "ab059230e22c4dcd8bf1206e1478f2ffb0ae9a77db5f0af90fe70786bd714d41"
+        },
+        {
+          "path": "images/aerial-r03-c11.jpg",
+          "sha256": "6b59080c1662ade34748434896fa6fd33b8a4b8c7fd2f7e64154d387d43561b2"
+        },
+        {
+          "path": "images/aerial-r04-c04.jpg",
+          "sha256": "4aac591373bc5662183cdbc1bfbf955d772e72548a43a07f0d5f6d25fd333dbf"
+        },
+        {
+          "path": "images/aerial-r04-c05.jpg",
+          "sha256": "10b67e2541377fec8813352fdc3fb6e0f595bdefd175309c4469c242880b189b"
+        },
+        {
+          "path": "images/aerial-r04-c06.jpg",
+          "sha256": "3027bb1f67fb97dea10685972f354bb4e8b01949cda1d13330c1e83e78dfc873"
+        },
+        {
+          "path": "images/aerial-r04-c07.jpg",
+          "sha256": "1a65735b6633c676461b7fc7c91fa3392cc828af15c060039e1f3d0ba1a3d2ea"
+        },
+        {
+          "path": "images/aerial-r04-c08.jpg",
+          "sha256": "3a510379fe42862e0d204eaf97865308166d3e346fdd5c12bbedbbe3b55568b2"
+        },
+        {
+          "path": "images/aerial-r04-c09.jpg",
+          "sha256": "996c42f6b7e68c50090b49974799f2008c6948a0838c9fb0827eabd0d2bcef23"
+        },
+        {
+          "path": "images/aerial-r04-c10.jpg",
+          "sha256": "9904f3b53848165d16db63ca629d76e42b2da7783492ca8877565ac2698444f3"
+        },
+        {
+          "path": "images/aerial-r04-c11.jpg",
+          "sha256": "721880bb80e793a962fb74636d1b1814eb0e97d1c42dc94e955df5049cf945b3"
+        },
+        {
+          "path": "images/aerial-r05-c04.jpg",
+          "sha256": "a1b7f91cd7b3b9b698cc408a1fc1f9f1f6ebfd7e33d7176e616083fcc8235cf3"
+        },
+        {
+          "path": "images/aerial-r05-c05.jpg",
+          "sha256": "58ddfe8ed7a1982f403b0a3356e9c07ba46559718a03aed34d0f9ee8b4b5e9a7"
+        },
+        {
+          "path": "images/aerial-r05-c06.jpg",
+          "sha256": "bda6ec4747d93f5ec6e0f1f50cacbefa0a1912ee28b73c201861fdb25f60f4b4"
+        },
+        {
+          "path": "images/aerial-r05-c07.jpg",
+          "sha256": "e4f3b047003a847f12d0a44d35d30ceed3d53ae3b43001365bad35295193c0d8"
+        },
+        {
+          "path": "images/aerial-r05-c08.jpg",
+          "sha256": "d953bd8c160ad1c7cb7d6d50eeb426c5ea1eb7eb98d941ce28a8bb29530e8644"
+        },
+        {
+          "path": "images/aerial-r05-c09.jpg",
+          "sha256": "2e1f006772d2abfd6443f3a8bf40d04f7c835ff5df18746ad900d68a09ed66a8"
+        },
+        {
+          "path": "images/aerial-r05-c10.jpg",
+          "sha256": "9cbce6a286ce9de7880011ad19b0588accf8792fe8f518060802866ab6469104"
+        },
+        {
+          "path": "images/aerial-r05-c11.jpg",
+          "sha256": "9fe0e13c1f70987fe2b753e9e1ea00e99638c2b14665f5e47735947852fa42a7"
+        },
+        {
+          "path": "images/aerial-r06-c02.jpg",
+          "sha256": "a0e84293b61de023af490c1cebd1a678b7209e93d8144a0043fca196d997f2c1"
+        },
+        {
+          "path": "images/aerial-r06-c03.jpg",
+          "sha256": "0093a607e0dbd297432f68f639950b25abb100c0c353a80cdbc8b34ae1880d99"
+        },
+        {
+          "path": "images/aerial-r06-c04.jpg",
+          "sha256": "4bb7b73003203778a839a7d37f41ecf5f3657460c8ebec9af988dbe6e547a050"
+        },
+        {
+          "path": "images/aerial-r06-c05.jpg",
+          "sha256": "91186e958b0e3e9aca295130bff80f47658c7a12c28f1a117b973303a25487c3"
+        },
+        {
+          "path": "images/aerial-r06-c06.jpg",
+          "sha256": "7d731cb31993ecf35ddf94492bb7c67d6d062da14bb2b357a14a9ba053a9fb27"
+        },
+        {
+          "path": "images/aerial-r06-c07.jpg",
+          "sha256": "64d8146110dc291392eec23bb337eefa8edea61d0451400803f2a5b541caec0b"
+        },
+        {
+          "path": "images/aerial-r06-c08.jpg",
+          "sha256": "2c0ec581fe2211832edd04f8926b41f078775cc08dc5ad9fe0dfbf5c36d90d03"
+        },
+        {
+          "path": "images/aerial-r06-c09.jpg",
+          "sha256": "ea97ccdc696911f1aae2dad42fbb1f728480d10c7f0c3f3d06368cdfe2795853"
+        },
+        {
+          "path": "images/aerial-r06-c10.jpg",
+          "sha256": "c688735af7468dae3fa2ae081e87341f8402e59ddda0ae8f8cd87d89180d2fe1"
+        },
+        {
+          "path": "images/aerial-r06-c11.jpg",
+          "sha256": "252196cfdc3c8b43e5176c93ad479eeb8166325cdcd4dc2cee6b1b5fadf9dcf1"
+        },
+        {
+          "path": "images/aerial-r07-c01.jpg",
+          "sha256": "32efd444c825a086fa56e331d69ba8c73a136c9390be30b47c0b699489835c3a"
+        },
+        {
+          "path": "images/aerial-r07-c02.jpg",
+          "sha256": "83d7c0a7c85748b32bc1358572d56dd399365e412db33d439472f65607fb7cb7"
+        },
+        {
+          "path": "images/aerial-r07-c03.jpg",
+          "sha256": "c0f9e2bf0c5d407d04a07834e2a18ecd7f49776f3016f6cdaec22f6cbe36c41a"
+        },
+        {
+          "path": "images/aerial-r07-c04.jpg",
+          "sha256": "0c2b21aa4ef0463fad1a05c13ec5dd46048c94a22b38f13dc04d49f70e9b34e5"
+        },
+        {
+          "path": "images/aerial-r07-c05.jpg",
+          "sha256": "8f320fa5e18e205ca67c765236b38982780a6b89760ad96c83083d136bf83838"
+        },
+        {
+          "path": "images/aerial-r07-c06.jpg",
+          "sha256": "d8ec19670c74ecd5079020e9fccf4e04d87e6cc9d2865b076fdf676fa60f9f9c"
+        },
+        {
+          "path": "images/aerial-r07-c07.jpg",
+          "sha256": "e6f7b3d9976e3164cc3fd8a365ef8dde90cc92a333358c3339ea0f73b4658113"
+        },
+        {
+          "path": "images/aerial-r07-c08.jpg",
+          "sha256": "eadd6095cc49ea3936366a8f6d917bf47b830fae27e1ad7ecf85f5c8bd3d06cb"
+        },
+        {
+          "path": "images/aerial-r07-c09.jpg",
+          "sha256": "eb43b2c37e0c100b9c31a9d4e7c31f47caf399e88e36db0487aeef9bde635db6"
+        },
+        {
+          "path": "images/aerial-r07-c10.jpg",
+          "sha256": "5880261a1655f5ec00ef17bea532473608ae05251c952c4208ca758982cd13d7"
+        },
+        {
+          "path": "images/aerial-r08-c01.jpg",
+          "sha256": "10559be7477328c6921fd71475a21c965bcab9c7dc188549ad59191079ccefe1"
+        },
+        {
+          "path": "images/aerial-r08-c02.jpg",
+          "sha256": "67a720ae75e392351c23d43a5500485e42d76bab720d2d33cdd5180767e6a10e"
+        },
+        {
+          "path": "images/aerial-r08-c03.jpg",
+          "sha256": "d24c347e8566f4d76fce74c3ba41ebf3005cc1c85dc996cb1ee439b767df3aeb"
+        },
+        {
+          "path": "images/aerial-r08-c04.jpg",
+          "sha256": "612fd765a77d6bbf5897583401103e39dd1f833146fa1c11234f618d52559994"
+        },
+        {
+          "path": "images/aerial-r08-c05.jpg",
+          "sha256": "7ee2aa15ccb3ae7136e3dff3252211495ef125435a280191a254095be7674edf"
+        },
+        {
+          "path": "images/aerial-r08-c06.jpg",
+          "sha256": "642965f22998df8f24c97fd1152d3626b000767731602ce4eddb894961568b35"
+        },
+        {
+          "path": "images/aerial-r08-c07.jpg",
+          "sha256": "1f6a41a783de7ae5a162b0857e64c4dcfe3958bc422a557e96f0a483cc4befd7"
+        },
+        {
+          "path": "images/aerial-r08-c08.jpg",
+          "sha256": "ae5415045d2637d1644e16a326b78b21b8f98e743b19c64f2efd466a1f293bbb"
+        },
+        {
+          "path": "images/aerial-r08-c09.jpg",
+          "sha256": "6156e1c9777625e314e90e6464fda977aaca8e59cf241287577f66dcd4721744"
+        },
+        {
+          "path": "images/aerial-r08-c10.jpg",
+          "sha256": "521cc78bc22795ba5289628232702a75613e6f8d60be94dd5cc3ebc4418f2626"
+        },
+        {
+          "path": "images/aerial-r09-c01.jpg",
+          "sha256": "25ca9ae05379bbb4a4b92b8ca64990b58538d57318af351e67ee8f2fb8ab8cd2"
+        },
+        {
+          "path": "images/aerial-r09-c02.jpg",
+          "sha256": "35fb4fd911a054f7d9e194dba4d175f1bffd1f319b93a0fdcaa029c4db38fc78"
+        },
+        {
+          "path": "images/aerial-r09-c03.jpg",
+          "sha256": "30737730b0b9296c0485856c470033cac20ffbb6effa66296e0f09d9e21fa153"
+        },
+        {
+          "path": "images/aerial-r09-c04.jpg",
+          "sha256": "139ed5337bee6df1ae814e18b88d28254ab8020390785ba66044286de7c279d5"
+        },
+        {
+          "path": "images/aerial-r09-c05.jpg",
+          "sha256": "90a5e3ab56b43217cac46f7af636758dee2fe05b276c3bf76abd4068d7f9a34e"
+        },
+        {
+          "path": "images/aerial-r09-c06.jpg",
+          "sha256": "7ccf936c6debca8a8261f5c664dada33a76aea169600d5c5257f51444e2e9cde"
+        },
+        {
+          "path": "images/aerial-r09-c07.jpg",
+          "sha256": "c3396f7340b8149806c53ffd0aa3f8657d1bac4da0c61328fde79e9ec40f8bfd"
+        },
+        {
+          "path": "images/aerial-r09-c08.jpg",
+          "sha256": "98dcc64b3bf8bc9b5c766bf022ffc3fdea7f351aeefe49f8a9b1bfbda46c78e1"
+        },
+        {
+          "path": "images/aerial-r09-c09.jpg",
+          "sha256": "43e9bb3f93cbc409c1cbc4ddfd1a48b27223b24a9b401085cd0b8ef7ffd3774c"
+        },
+        {
+          "path": "images/aerial-r10-c01.jpg",
+          "sha256": "23ad45bcf89fed2ac879266b5fadf09eaf11fd7ec8ac415ea05db0f7a217bd6a"
+        },
+        {
+          "path": "images/aerial-r10-c02.jpg",
+          "sha256": "0d3152452b9aa62972c93e5a4dfaa4262a2ea908bf8adfa3a53bf9fccff6f976"
+        },
+        {
+          "path": "images/aerial-r10-c03.jpg",
+          "sha256": "71b414d60895df9d9764640e9987382c25de04b31be19486523c626968b8c1b1"
+        },
+        {
+          "path": "images/aerial-r10-c04.jpg",
+          "sha256": "e7fb48736d969c0e88e0a6ef7a234e001be35f79761e9f6c7ba9bb4c1623e44b"
+        },
+        {
+          "path": "images/aerial-r10-c05.jpg",
+          "sha256": "c3fe4a87e2e539c74d23d27b2cf35ff83afc0b9454a127abaf03a954ed3531c5"
+        },
+        {
+          "path": "images/aerial-r10-c06.jpg",
+          "sha256": "659cf010f749febb188bfb99bcb4e6b43c78c7e8e015290c4c396a673ab10bfd"
+        },
+        {
+          "path": "images/aerial-r10-c07.jpg",
+          "sha256": "04c3392e71f4901413f5d25309fe84b14f46ec1d7944b071fad13ce339c537f1"
+        },
+        {
+          "path": "images/aerial-r10-c08.jpg",
+          "sha256": "b7cc297c9ada63388982a17447fb1f5ebe3a3790ec559a310991585c02a8e4ad"
+        },
+        {
+          "path": "images/aerial-r10-c09.jpg",
+          "sha256": "24be14918a3f19d461925c00e6940da8b0e83acde12333ce8f2dcec267289138"
+        },
+        {
+          "path": "images/aerial-r11-c02.jpg",
+          "sha256": "05e288bcbbd630b999eb647acec83adff82319962f1be97e1859d78482140fde"
+        },
+        {
+          "path": "images/aerial-r11-c03.jpg",
+          "sha256": "e7311c7bfc797e8d93cc285cb08b1a11838fb3f85b585c84febc2aa859d0c363"
+        },
+        {
+          "path": "images/aerial-r11-c04.jpg",
+          "sha256": "9d110e539054dd8e3919a40347c707d747e874afb983c6d8da16ca805cc2176c"
+        },
+        {
+          "path": "images/aerial-r11-c05.jpg",
+          "sha256": "a78674a276d95f5c6f397063a49dd140b3e7eae7327a03317cdbd91646cb5159"
+        },
+        {
+          "path": "images/aerial-r11-c06.jpg",
+          "sha256": "9576fad4d2884f167a89eb1ccda1581f6ee3f3268ad10106c610c005cfa2f959"
+        },
+        {
+          "path": "images/aerial-r11-c07.jpg",
+          "sha256": "4d28bced268651408ef7646e0ca97b21f34fbfa4c1744b83c2555429ca61f007"
+        },
+        {
+          "path": "images/aerial-r11-c08.jpg",
+          "sha256": "9970d5d38a8bb85709b02983295dba8ea5483ad810ccd46684ed62f1d66f03a4"
+        },
+        {
+          "path": "images/aerial-r12-c03.jpg",
+          "sha256": "df49b4377bf2327d6b8a44cf3d52f463412239399b53ae7dfb8e9d32a1ffac1a"
+        },
+        {
+          "path": "images/aerial-r12-c04.jpg",
+          "sha256": "5b9b597a2d9d1ef8f90b46cae2b8fc33b87d4251e83e362737e925fd363eb148"
+        },
+        {
+          "path": "images/aerial-r12-c05.jpg",
+          "sha256": "ca571e5d22a7e702491426ec15a8abcebeb62d983082bd197e8dbb5a91095a14"
+        },
+        {
+          "path": "images/aerial-r12-c06.jpg",
+          "sha256": "c9936ce96f79a09cced6f7ddf43d89d0eeddf6fba78cbe03a2b2a16dc9d6a041"
+        },
+        {
+          "path": "images/aerial-r12-c07.jpg",
+          "sha256": "08e4f7a3564636871dd5704d0fc2efd73b2f653ec3771a4b99c390e0d0fbd217"
+        },
+        {
+          "path": "images/context-cathedral.jpg",
+          "sha256": "526ed1eee15570de61d6f7392d8653c3294679182701573feffcda547d0a3812"
+        },
+        {
+          "path": "images/context-northeast.jpg",
+          "sha256": "fae495b45fa2ca2c105f1990b1c56fe79055f9c6172516b1f82505d73b4383dc"
+        },
+        {
+          "path": "images/context-northwest.jpg",
+          "sha256": "1094082c8c199312dbba2383fd73c3d2da29295ba94917a060dbe73a3c9f5259"
+        },
+        {
+          "path": "images/context-southeast.jpg",
+          "sha256": "71318a64908cbb2e1656ee18734e12340b9a6bf76cee4ac0ed8181b831afb506"
+        },
+        {
+          "path": "images/context-southwest.jpg",
+          "sha256": "f757f0f41eb9ec81abdfcb62b363ced9e7581555e5deeb80cac985307333b78a"
+        },
+        {
+          "path": "manifest.json",
+          "sha256": "5978bf1b7cb34de16980571ce85235e784050e450322e7117387c75ef2d5ee1d"
+        },
+        {
+          "path": "poses.json",
+          "sha256": "cc339e8e97dbea969db988a6f0a6218cd7a27d023be66d544a2916a45f0113e0"
+        },
+        {
+          "path": "provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/capture-report.json",
+          "sha256": "06c64e75be49452bbf106cd1ce82ef28ab7ae54a76b1057ceffa5dec2527e8fc"
+        },
+        {
+          "path": "provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/grid-plan.json",
+          "sha256": "38f318f5b859d68dcca7c5f92405c8366971efa573246164c6a840d0d31e8e1d"
+        },
+        {
+          "path": "provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/manifest.json",
+          "sha256": "2ec17090452c2a61241a46b0c585667fe3f8389f3c5b455db091210c31b5a92a"
+        },
+        {
+          "path": "provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/poses.json",
+          "sha256": "9495bc5c4621e04dbdf1caf958f3a85318519f6cf3076ca0b03135d41d448498"
+        },
+        {
+          "path": "provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/source-provenance.json",
+          "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429"
+        },
+        {
+          "path": "provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/validation.json",
+          "sha256": "a191d259f1cf2562d5593e79a942e66de1a49c1758c857cd72434a6b5e4b753b"
+        },
+        {
+          "path": "provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/capture-report.json",
+          "sha256": "77c38c660f22ac0704a91ddc23463fcc60e3fdbd13ad47a43c60161efa6294bc"
+        },
+        {
+          "path": "provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/grid-plan.json",
+          "sha256": "e140b564bd3c29acdaaa9992ce44a3366c64398acc10a905f373cdc969ee4348"
+        },
+        {
+          "path": "provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/manifest.json",
+          "sha256": "fed96a2d9376961fe566b752e869f2cdf9337aa870a87b2f2eba5eef03008dda"
+        },
+        {
+          "path": "provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/poses.json",
+          "sha256": "e3b0eec438f518e55a2d14fde4368d468968079e887d34378025e7105e516208"
+        },
+        {
+          "path": "provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/source-provenance.json",
+          "sha256": "bf13670d198da808f838b07fe3e6649e793db251ef9b4e49f2d4b79d8add9d59"
+        },
+        {
+          "path": "provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/validation.json",
+          "sha256": "b741ecef9639237a4ff2bff884d5478f8d58524b6512f4b24caf01abf5a3096b"
+        },
+        {
+          "path": "source-provenance.json",
+          "sha256": "b922dd4a2cdf7938f1b2f246dec021a7b2b72a6e8dfdf678efc5e750f9450ea9"
+        },
+        {
+          "path": "thumbs/aerial-r01-c07.jpg",
+          "sha256": "abdacf74b38a34b40b393699bfec7a6088d916b3dfab0355bdfb9ce30f90db3c"
+        },
+        {
+          "path": "thumbs/aerial-r01-c08.jpg",
+          "sha256": "6a5ec7180ca22fcafc7e5095abdc3a13b7883caca321deceb767a9850db953aa"
+        },
+        {
+          "path": "thumbs/aerial-r01-c09.jpg",
+          "sha256": "8ed2e1b42a67846725727d5a9742442951923329cf046aaf09db1253e283fb68"
+        },
+        {
+          "path": "thumbs/aerial-r01-c10.jpg",
+          "sha256": "0eccbf285a8639927ccaf063c884eee3006962a88643a689be196fa03046f9ed"
+        },
+        {
+          "path": "thumbs/aerial-r02-c05.jpg",
+          "sha256": "c66b15050dcf2c218008f8cac9a810825c8798dafb50e4dc1516a68d0176ca50"
+        },
+        {
+          "path": "thumbs/aerial-r02-c06.jpg",
+          "sha256": "77b8a09a4882fca3391cafa79a2d498fd5e284992a521400879620c10d00af97"
+        },
+        {
+          "path": "thumbs/aerial-r02-c07.jpg",
+          "sha256": "06e26786af0e6c17b136fa4455e2e2a897a8c3d3b7351a570bdc22fadaef3e9d"
+        },
+        {
+          "path": "thumbs/aerial-r02-c08.jpg",
+          "sha256": "cf2502102b3b98b638f796014c5fa676ba1a9b9870013d1292a0b679273491c8"
+        },
+        {
+          "path": "thumbs/aerial-r02-c09.jpg",
+          "sha256": "ae0fa889637c212258fb95df56c367635419466098fed6e275d02c37b97733cc"
+        },
+        {
+          "path": "thumbs/aerial-r02-c10.jpg",
+          "sha256": "7e84438d8c1de01148d63105bcf095c616042fb29e93356ba0a66c682dd15c01"
+        },
+        {
+          "path": "thumbs/aerial-r02-c11.jpg",
+          "sha256": "c783f61bcc89ae4a36371bab83804f255b35c130bfccf6ed10e39598f1fa04f9"
+        },
+        {
+          "path": "thumbs/aerial-r03-c04.jpg",
+          "sha256": "1ddf6df611b496d5e3b7f9e594a896d18deae657de0273d03680819d93abc310"
+        },
+        {
+          "path": "thumbs/aerial-r03-c05.jpg",
+          "sha256": "e42f6a96fef332c6ecabab5b81cbcb4f12a91e6ba499f32bb877dfda697f2b74"
+        },
+        {
+          "path": "thumbs/aerial-r03-c06.jpg",
+          "sha256": "7d1feb6e11f595ff32dcabbe1c799b66d41460dd97802bcb75bf27fef45c8e46"
+        },
+        {
+          "path": "thumbs/aerial-r03-c07.jpg",
+          "sha256": "a4956672eab59a4c3b27597affbe4317cc6e470f7e678ccb0d911b73bcd74cfd"
+        },
+        {
+          "path": "thumbs/aerial-r03-c08.jpg",
+          "sha256": "794565888e197d95454e15c7b1a42c202568cb68f61e512944247942469aade0"
+        },
+        {
+          "path": "thumbs/aerial-r03-c09.jpg",
+          "sha256": "c251e54b009d8ae5942d6c76dfc92e0fd891f7b5f44ff131b15eb19533a5a5d7"
+        },
+        {
+          "path": "thumbs/aerial-r03-c10.jpg",
+          "sha256": "a5794fbc999db571c10d7056676da8ce8da1f2cab73a9368b11cd5614f8a4d7e"
+        },
+        {
+          "path": "thumbs/aerial-r03-c11.jpg",
+          "sha256": "53fede762297e78e3e13b638b0a79af017e980f3f785e7c3ae39aab71683a10d"
+        },
+        {
+          "path": "thumbs/aerial-r04-c04.jpg",
+          "sha256": "bd19af58ed1717c114522961b42f4f4d39d719bdd755a7cfb143b0ce61153d5b"
+        },
+        {
+          "path": "thumbs/aerial-r04-c05.jpg",
+          "sha256": "08d068524598c696f96df20aaef267f48edc46fa3cc1c0bd0a3b152766ac3170"
+        },
+        {
+          "path": "thumbs/aerial-r04-c06.jpg",
+          "sha256": "2d74b687681128f6b98ee76485f5e679f1a1b750f9a6ec7e0fcbf8281add9d8b"
+        },
+        {
+          "path": "thumbs/aerial-r04-c07.jpg",
+          "sha256": "fe975294a107915647070215b99f4995f3f97dd7ba3a952408890d450c0e499f"
+        },
+        {
+          "path": "thumbs/aerial-r04-c08.jpg",
+          "sha256": "2e8ab80fd3b2868c884d7133f8a4a584d5596976d432105e58c2fdb70a81e326"
+        },
+        {
+          "path": "thumbs/aerial-r04-c09.jpg",
+          "sha256": "cc20964d8256cc76a815f996ee4f1f78ab4e7bf1a9c8174b125366e8099e3cd3"
+        },
+        {
+          "path": "thumbs/aerial-r04-c10.jpg",
+          "sha256": "2c8270bfb47a0ee207e562bc0004009ab2ff07d2c95be363bf93a95914fb83e4"
+        },
+        {
+          "path": "thumbs/aerial-r04-c11.jpg",
+          "sha256": "346b9021a4a184c1d7254013f8b77dd06de73cad9486ed7ea2bd416acc3bdb35"
+        },
+        {
+          "path": "thumbs/aerial-r05-c04.jpg",
+          "sha256": "f9ad102423fa347f1c865bf2ffbe48bad11b0a77c7aaaef227317ee374d8334d"
+        },
+        {
+          "path": "thumbs/aerial-r05-c05.jpg",
+          "sha256": "cf42e0f8eae246e950c07362c638e0c351f16d08e48e59509650a0ea6f9a546c"
+        },
+        {
+          "path": "thumbs/aerial-r05-c06.jpg",
+          "sha256": "e6730ff89475a92f6c3f920b7e8a7e17151b70ebbad0cca525367d94fd037412"
+        },
+        {
+          "path": "thumbs/aerial-r05-c07.jpg",
+          "sha256": "e58bed0519cc44d36848620d53c53554181dd948c8e428fc6e587c575e0a935f"
+        },
+        {
+          "path": "thumbs/aerial-r05-c08.jpg",
+          "sha256": "358bc218c25602d86fbc4b1404c5de97a5becf9d8c1ae92b2dc027162a182284"
+        },
+        {
+          "path": "thumbs/aerial-r05-c09.jpg",
+          "sha256": "2fd753fcebf5fcee1194c1b6932dd19e95a2da979d1034f32b8b3cd24c94fc26"
+        },
+        {
+          "path": "thumbs/aerial-r05-c10.jpg",
+          "sha256": "33a8a1005983de263902b81ef07ff6e5d97aeb596cb280e7ae3ae3154cf893b2"
+        },
+        {
+          "path": "thumbs/aerial-r05-c11.jpg",
+          "sha256": "739974a39ae2a7a7e160d77c9905ed33469e8c8c4ff0d6a4aa3c035c51a68a10"
+        },
+        {
+          "path": "thumbs/aerial-r06-c02.jpg",
+          "sha256": "e920fbcd5c33854b97b31f638898075c907a2a8efb9a40f4d32dd12bcb2fca9d"
+        },
+        {
+          "path": "thumbs/aerial-r06-c03.jpg",
+          "sha256": "4468c8f3c29e15908b9d5ac410f9635a9edd71fe0014ce9b44d57534ead1b7f5"
+        },
+        {
+          "path": "thumbs/aerial-r06-c04.jpg",
+          "sha256": "da7730663705278df2ba9b5a213af2af4b9c20087f5dc911f2a5ec44d762f693"
+        },
+        {
+          "path": "thumbs/aerial-r06-c05.jpg",
+          "sha256": "4963ea645d92c3cc09c6786bcb1afd5f5d373a4726b7690a2e1b88051d3e9e96"
+        },
+        {
+          "path": "thumbs/aerial-r06-c06.jpg",
+          "sha256": "658291b4561f721c09992e853de58e05b104cabaefbbf0c6186666789bdae8f8"
+        },
+        {
+          "path": "thumbs/aerial-r06-c07.jpg",
+          "sha256": "0a190f5da8a734c39afddbfba6c4d8d523c60070927060684e0f41b6b1127279"
+        },
+        {
+          "path": "thumbs/aerial-r06-c08.jpg",
+          "sha256": "02caf1a03f59b82e7ce0dda36a6dc426c0a7ac2e28d8e1d90a253c4163b599e2"
+        },
+        {
+          "path": "thumbs/aerial-r06-c09.jpg",
+          "sha256": "cec840c51a5928a9cd22a830f8af04a42163474de128a76f54fd03f7412718f2"
+        },
+        {
+          "path": "thumbs/aerial-r06-c10.jpg",
+          "sha256": "e562538cdcad7642690b40e4ecc0d6972e4b3e39b793daa4237058d8b7fe6462"
+        },
+        {
+          "path": "thumbs/aerial-r06-c11.jpg",
+          "sha256": "b64541508047a8aa15ce4c806b0021f77f83a7d8b6e6b0b801af4e15ec598077"
+        },
+        {
+          "path": "thumbs/aerial-r07-c01.jpg",
+          "sha256": "08b62c22c9d0aa2dc472fdc8d757c39995f35f04edb0c7c35ba5faa8260e2dc6"
+        },
+        {
+          "path": "thumbs/aerial-r07-c02.jpg",
+          "sha256": "cce63330f54f17f2600a3ab1d3e00814442eabc3851c09743e87a6bd4cb8e405"
+        },
+        {
+          "path": "thumbs/aerial-r07-c03.jpg",
+          "sha256": "f21ca524426111eaedfe10432b4e59f5d9bc3a9f124dad9db0aa4df17d09f5b6"
+        },
+        {
+          "path": "thumbs/aerial-r07-c04.jpg",
+          "sha256": "226da46296e404330fb91f767cdcb78e6ac30063e92485e2f410e8404644b1cf"
+        },
+        {
+          "path": "thumbs/aerial-r07-c05.jpg",
+          "sha256": "34b6ef0e1ddcdf56e0b37095f9bb449ac9dc4d8ee25d678f83848d419514e794"
+        },
+        {
+          "path": "thumbs/aerial-r07-c06.jpg",
+          "sha256": "0955633595904d59c596202d30c9348e024f5b4338217bfaf1059b5ece4fcce3"
+        },
+        {
+          "path": "thumbs/aerial-r07-c07.jpg",
+          "sha256": "36e143e9a60c0a22bc80b0e5324193d6a89ac7ddb531df504f0a507d206587d5"
+        },
+        {
+          "path": "thumbs/aerial-r07-c08.jpg",
+          "sha256": "70230e13e619de187686403cef9fde394af9e7fabc23d9b19c39182090efe1d7"
+        },
+        {
+          "path": "thumbs/aerial-r07-c09.jpg",
+          "sha256": "d782a403931845367daea7dc0b54544b4ffe3a3b9c4444a7b8af4ca8287165f1"
+        },
+        {
+          "path": "thumbs/aerial-r07-c10.jpg",
+          "sha256": "c0faf3c06c9a0b5153e7275355a8194fb7af97ae26d16c5c681c1498f4551e05"
+        },
+        {
+          "path": "thumbs/aerial-r08-c01.jpg",
+          "sha256": "5eafc49956f3b30f68b823e3e5bd017e70b599521c4eae29624679e189689a5b"
+        },
+        {
+          "path": "thumbs/aerial-r08-c02.jpg",
+          "sha256": "caf80239a7bb674970973d5f132e382f573fcc39eb164fab71e9bfa71c0f7eb6"
+        },
+        {
+          "path": "thumbs/aerial-r08-c03.jpg",
+          "sha256": "0f363823670ef5f4b4f428344c7f0c9fc00712c83be5dddf0d2d36e09719ce6f"
+        },
+        {
+          "path": "thumbs/aerial-r08-c04.jpg",
+          "sha256": "5bf0a2f8ce7d39a57fee5f5ac6163d4ef990c839b9a5af5d7ff211cf6bddbae8"
+        },
+        {
+          "path": "thumbs/aerial-r08-c05.jpg",
+          "sha256": "192f64a82c0ff574cd91fa9a1d5b99e67000f0fd1570df82c9a12d15f2ee1b6c"
+        },
+        {
+          "path": "thumbs/aerial-r08-c06.jpg",
+          "sha256": "87b5d73073029b66b509ee08c9f47ac7d4532578a3303b7589ebde692b5bc99f"
+        },
+        {
+          "path": "thumbs/aerial-r08-c07.jpg",
+          "sha256": "3a14faa256f0b4dd0586d818b47da0aa6f3a6a6f64168b614f4f4b5cd1caf6e2"
+        },
+        {
+          "path": "thumbs/aerial-r08-c08.jpg",
+          "sha256": "090dd21a67fdb053fb732db643fc0fa4695012238d504af92f833fb3eb979009"
+        },
+        {
+          "path": "thumbs/aerial-r08-c09.jpg",
+          "sha256": "2faf2ccf0a4c070ab0d7218ca886e9646382524655c5e79e84148068c0f77529"
+        },
+        {
+          "path": "thumbs/aerial-r08-c10.jpg",
+          "sha256": "ee89a0108387f2f49ea8f648f0b2ae5c5515fea50c6c9a0106c25978ebdb0898"
+        },
+        {
+          "path": "thumbs/aerial-r09-c01.jpg",
+          "sha256": "5a3384d134448046be765711d3226021da3c253fa8520834203b1da0278f8335"
+        },
+        {
+          "path": "thumbs/aerial-r09-c02.jpg",
+          "sha256": "dc233634d6b55608218bee5daf949ac1d274fe6f6ae0c3ee78bb1eb802efacc6"
+        },
+        {
+          "path": "thumbs/aerial-r09-c03.jpg",
+          "sha256": "545630a83d6d9ef980d6ac739fbeb04589acd314302c3556ab0be7454b343207"
+        },
+        {
+          "path": "thumbs/aerial-r09-c04.jpg",
+          "sha256": "48d9c0c72a9b67141fae92d2f1c2082f146f049ce156af6ecca246aaf255f4e8"
+        },
+        {
+          "path": "thumbs/aerial-r09-c05.jpg",
+          "sha256": "312730497ec2ead80674a4770d54d9976f1b28e838f4207d25a206f1ce659ab0"
+        },
+        {
+          "path": "thumbs/aerial-r09-c06.jpg",
+          "sha256": "6bbc9f71b7d2475f89ca283cd075f908dc3db5bdc62e67ed09cfc1f50f89a124"
+        },
+        {
+          "path": "thumbs/aerial-r09-c07.jpg",
+          "sha256": "24655cd9a4f1876c0bb1ac4888391a027e57afc00de20cf72ec28655860a029d"
+        },
+        {
+          "path": "thumbs/aerial-r09-c08.jpg",
+          "sha256": "5a3dd8f268e7b7b5865d262afaa260744f986990b527b9b13e561f3587e615a5"
+        },
+        {
+          "path": "thumbs/aerial-r09-c09.jpg",
+          "sha256": "21a14aaa3f4a300a937dd97f3e432c5e3798c17a1d32a96ff7702a145ba93ab8"
+        },
+        {
+          "path": "thumbs/aerial-r10-c01.jpg",
+          "sha256": "d942c6201d6aa7200c6f700fc572a9427d5434ef1151b29f8415f12bbecedffd"
+        },
+        {
+          "path": "thumbs/aerial-r10-c02.jpg",
+          "sha256": "d2fcb6d534f01948e0f0f08989345c05b42c8155f7df1690fae822d16fcd38bc"
+        },
+        {
+          "path": "thumbs/aerial-r10-c03.jpg",
+          "sha256": "8a8123bda99aa685184347f0cd4aca8e850d291bb137150e1c7d25062079e9ea"
+        },
+        {
+          "path": "thumbs/aerial-r10-c04.jpg",
+          "sha256": "f20b1888ddd5df631e9bc3a1dad67059ae17dbb11ca10f0c1566ce6968e93cc3"
+        },
+        {
+          "path": "thumbs/aerial-r10-c05.jpg",
+          "sha256": "d13172d4a230d1c6bed9b0493403aa96442c63c0a19e37cd1bec3567fc81e348"
+        },
+        {
+          "path": "thumbs/aerial-r10-c06.jpg",
+          "sha256": "470d711b508a5a72b9b1728b6c8a7e500086e26f2c14b9c1666a8f37e03df59c"
+        },
+        {
+          "path": "thumbs/aerial-r10-c07.jpg",
+          "sha256": "018e8d64d25d52dece314af174e1ac94f6729d77fe8554fad961c88d1cd7bd90"
+        },
+        {
+          "path": "thumbs/aerial-r10-c08.jpg",
+          "sha256": "1a541f1d601cbc81d613cb7e41e74465a293552d3f4ce17197c8c075f17c4319"
+        },
+        {
+          "path": "thumbs/aerial-r10-c09.jpg",
+          "sha256": "975a83bb6d431546fcd10e6c55a830621b8517aeb247d29d2f283b7515e51c0e"
+        },
+        {
+          "path": "thumbs/aerial-r11-c02.jpg",
+          "sha256": "98814b34927ef80b1aa11804118d5c03da93e7768ef33a4a7919adea59a00183"
+        },
+        {
+          "path": "thumbs/aerial-r11-c03.jpg",
+          "sha256": "dc21ee39d9d1d95b3269dee162acdba2a27cc95aa5947ed49da05b5b3b7c91de"
+        },
+        {
+          "path": "thumbs/aerial-r11-c04.jpg",
+          "sha256": "87a5a06a958bb3023211562452772ff2b43dc1d0980ce2209f9c1293c870078b"
+        },
+        {
+          "path": "thumbs/aerial-r11-c05.jpg",
+          "sha256": "87a1561ef19b7734a2f5a2dc5f552ee8bfc6c4e60f8891d2fd0f7fd7b9f05614"
+        },
+        {
+          "path": "thumbs/aerial-r11-c06.jpg",
+          "sha256": "1a88c0b8e9ebae6328841fe3135815ab051019277939280aa42de0f762b4abf8"
+        },
+        {
+          "path": "thumbs/aerial-r11-c07.jpg",
+          "sha256": "e29dfe8c42815ea3ad9bb59c21b6a04e88f430270b66c74734579130e76498ed"
+        },
+        {
+          "path": "thumbs/aerial-r11-c08.jpg",
+          "sha256": "6819282e275b55d7b504591b0f454d964d66e4c81441afb9e5bc6a1109217676"
+        },
+        {
+          "path": "thumbs/aerial-r12-c03.jpg",
+          "sha256": "dec9db12c6ebd7e921e15a1ae7a3b1cf243eac92c1f11aea6467ca853e5d0f60"
+        },
+        {
+          "path": "thumbs/aerial-r12-c04.jpg",
+          "sha256": "63993ade1fa530e494b281d5ffa49de4affa125585b1440ddd3505822eeb64d1"
+        },
+        {
+          "path": "thumbs/aerial-r12-c05.jpg",
+          "sha256": "9345ecd1c3eba2b2e02e4582ce87261df247671e19eca172a5d93b365a219d16"
+        },
+        {
+          "path": "thumbs/aerial-r12-c06.jpg",
+          "sha256": "1ff3e28a8f4ee06a62d2ce80fb63ffcabdba96dd54c9f110a26cf50ef602f5b0"
+        },
+        {
+          "path": "thumbs/aerial-r12-c07.jpg",
+          "sha256": "af64eeb50377434ea8c35160394d28e6d2c080a4f1bb3cf8ecf3cd4032809b77"
+        },
+        {
+          "path": "thumbs/context-cathedral.jpg",
+          "sha256": "e8a3b42b700f57a927af9f44166edf65e1f3f1174f37cca48e3aae8d24b920cb"
+        },
+        {
+          "path": "thumbs/context-northeast.jpg",
+          "sha256": "6e3a6b8ea110be37352d6e9a1bd1d94ee9fc0938752d0119f3223ae0db0ba9e6"
+        },
+        {
+          "path": "thumbs/context-northwest.jpg",
+          "sha256": "495a712dab00a07ccf2423bae524d4a825ff877c4ab1426713ecc0e6c8b11599"
+        },
+        {
+          "path": "thumbs/context-southeast.jpg",
+          "sha256": "592e77ec779000f3034a21bf24d26892b0fccfaa07e3710828c34bf9567efd31"
+        },
+        {
+          "path": "thumbs/context-southwest.jpg",
+          "sha256": "2e2eac11496b750eb3042e6d417acf0792ba035aff1ae341d07b84cfc04147ec"
+        },
+        {
+          "path": "validation.json",
+          "sha256": "e858c77c887f6778bd8aa35d172ce7ae809d800ad8320fb959a569f00f844ff0"
+        },
+        {
+          "path": "water-mask.json",
+          "sha256": "2bc61f911dd0ea674b1d31d03e684f4a2e626534aa8bb77cce7251abd9300ad8"
+        }
+      ]
+    }
+  ],
+  "failures": []
+}

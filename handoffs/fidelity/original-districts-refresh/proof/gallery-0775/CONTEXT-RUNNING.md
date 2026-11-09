@@ -1,3 +1,5 @@
+Latest scoped atlas update:47 fresh bbaffc0d water/Dinamo frames are complete;306 current atlas,884 historical,129 unchanged perspective frames. Both new atlas browsers are closed. See ../water-overlap-bbaffc/README.md. Earlier completed context recovery notes below retain their actual dates/counts.
+
 # Context queue completed (2026-11-09)
 
 All PIDs and running steps below are historical recovery information. Every lane browser has closed. All9 collections are installed/reviewed:129 GAME perspective frames separate from306 north-up atlas frames and694 archived frames. Final Floreasca25+11 use mixed0775/d5795e20 provenance with only their exact-pose Dinamo elevated view refreshed; all34 untouched frame identities remain unchanged. Failed0775/097 paint, first duplicate Flo and first unreadable Rom attempts are preserved, not promoted. See README.md and installed-atlas-validation.json.

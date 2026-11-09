@@ -1,0 +1,5 @@
+LOADED {"city":"bucharest","district":"unirii","state":"drive","quality":"high","player":{"x":-634.8578864519126,"y":0.24,"z":323.5955446303808,"heading":3.0860781288334342},"vehicles":624,"peds":560,"methods":["spawnAll","setHour","setPlayer","clearForPlayer","clearAround","rebalance","overlapGuard","placeOnLane","respawn","relocate","spawnClear","restorePose","noteRelocated","stepVehicle","placeSpawn","attachWorldRender","enterRoam"]}
+COMPLETE 385 16 [
+  'hatch 229 and estate 423 overlap by 2.93 m for 1 s',
+  'hatch 323 and hatch 461 overlap by 1.01 m for 1 s'
+]

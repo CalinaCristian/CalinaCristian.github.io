@@ -1,0 +1,92 @@
+{
+  "scope": "CPU-only library/filter/governor and actualTraffic.say method fixtures; no Main/Traffic wiring, actual event emission, browser, HUD pixels or native proof",
+  "passed": true,
+  "checks": [
+    "315 original lines have stable unique IDs/text within each locale, immutable rules and complete Romanian glosses",
+    "unconfirmed/ineligible/unknown-city/invalid-identity requests never offer or earn cooldowns",
+    "preventative overlap/proximity without confirmed contact cannot select any crash dialogue",
+    "NPC horn source/recipient/witness identities are distinct and unknown recipients receive no targeted role",
+    "all3locales strictly separate driver/pedestrian/contact contexts and Bobiță requires proven player causality",
+    "actual place tags gate allCarusel/Freddo/Arc/Pike/Center/Bellevue park lines without cross-city fallback",
+    "unknown weather/temperature never implies rain/snow/heat/cold and actual weather facts filter independently",
+    "local-hour boundaries handle midnight without guessing clock or season from missing values",
+    "signal/walk claims require the exact speaker signal; no light phase or right of way is inferred from honks",
+    "calendar lines require exact supplied local dates and never invent a festival/parade or use a season proxy",
+    "seeded event selection is deterministic and interleaving it leaves the actualTraffic makeRng stream unchanged",
+    "rejectedHUD presentation consumes neither event/speaker/pair nor line variety; reoffer is deterministic",
+    "accepted speech enforces distinct speaker/pair/line cooldowns and per-event cap/identity deduplication",
+    "reservations, stale/future timestamps and reversed clocks cannot emit delayed or duplicate event speech",
+    "a5000event storm keeps every cache/pending table within hard bounds and rejects unbounded configuration",
+    "bounded recent-variety export/import preserves valid line ages only, with no actor/event/position data",
+    "actualTraffic.say distance/elevation/layout rejection leaves dialogue cooldowns untouched; accepted gloss is presented",
+    "dispose is idempotent, empties all owned state and makes late offers/settles/imports harmless",
+    "actualNode WeakRefs collect transient actor/context objects while a pending reservation exists; retained-reference control stays alive"
+  ],
+  "testedFiles": {
+    "game/src/situational-dialogue-library.js": "2342a347b8604f56aec72abcb37bfab201fb47158cb9c3d6790d198ee9f9d153",
+    "game/src/situational-dialogue.js": "b2e4ddd6042c8f59d6c6b665a4e6e07b9b309eef3aa5cb209ff05cb5cc53b520",
+    "game/src/traffic.js": "d6be84871ef506efc27dd03414b0a92a7b0111b575e4d7862a06afde7004d125",
+    "game/src/util.js": "0a9dfc801adefd4dbf6f8485451404d92494dd9292fe0e310c9eb457f78afeb5"
+  },
+  "coverage": {
+    "version": 1,
+    "total": 315,
+    "locales": {
+      "bucharest": {
+        "lines": 119,
+        "kinds": {
+          "player-honk": 28,
+          "npc-honk": 16,
+          "collision": 25,
+          "waiting": 10,
+          "ambient": 48,
+          "greeting": 48
+        },
+        "places": 24,
+        "time": 4,
+        "weather": 4,
+        "temperature": 4,
+        "calendar": 4,
+        "signal": 6
+      },
+      "seattle": {
+        "lines": 96,
+        "kinds": {
+          "player-honk": 24,
+          "npc-honk": 14,
+          "collision": 22,
+          "waiting": 10,
+          "ambient": 34,
+          "greeting": 34
+        },
+        "places": 14,
+        "time": 4,
+        "weather": 4,
+        "temperature": 4,
+        "calendar": 2,
+        "signal": 6
+      },
+      "bellevue": {
+        "lines": 100,
+        "kinds": {
+          "player-honk": 24,
+          "npc-honk": 14,
+          "collision": 22,
+          "waiting": 10,
+          "ambient": 38,
+          "greeting": 38
+        },
+        "places": 18,
+        "time": 4,
+        "weather": 4,
+        "temperature": 4,
+        "calendar": 2,
+        "signal": 6
+      }
+    },
+    "wiredEvents": [],
+    "nativeProvedEvents": []
+  },
+  "stormEvents": 5000,
+  "randomOrTimerCalls": 0
+}

@@ -95,11 +95,22 @@ export function auditRailBinding(S, { stage = 'publication', toleranceM = 1e-5, 
             if (v.tram && (!v.rail || v.publicTram !== true || v.throughTram !== true || v.publicDrive !== false || v.throughAccess !== false || !v.railDirections?.includes(v.dir))) fail('invalid-tram-source-mode-assignment', { id: v.id, edgeId: v.edgeId, dir: v.dir });
         }
         for (const e of S.graph?.edges || []) if (e.rail && (e.publicTram !== true || e.throughTram !== true || e.publicDrive !== false || e.throughAccess !== false)) fail('source-rail-exposes-motor-navigation-mode', { edgeId: e.id, sourceId: e.sourceId });
+        if (S.data?.trams?.length && (!Array.isArray(S.data.tramSourceWays) || !Array.isArray(S.data.tramSources) || S.data.tramSources.length !== S.data.trams.length || !Array.isArray(S.data.tramRoutes) || !S.data.tramSourceNodeTags)) fail('missing-source-rail-metadata');
     }
     if (!actors.length && !expectedIds.length && !boundIds.length) return { passed: !issues.length, stage, issues, coverageGaps, checks, noTrams: true, scope: 'No native tram actors; no rail graph or source pose inferred' };
     const D = S.data || {}, graph = S.graph || {}, edges = new Map((graph.edges || []).map(e => [id(e.id), e]));
     if (!Array.isArray(D.tramSourceWays) || !Array.isArray(D.tramSources) || !Array.isArray(D.trams) || D.tramSources.length !== D.trams.length || !Array.isArray(D.tramRoutes) || !D.tramSourceNodeTags) {
         fail('missing-source-rail-metadata'); return { passed: false, stage, issues, coverageGaps, checks };
+    }
+    if (requireFinalModes) {
+        if (!Array.isArray(graph.nodes) || !Array.isArray(S.motorGraph?.nodes) || !Array.isArray(S.tramMotorCrossings)) fail('missing-native-source-crossing-topology');
+        const motorById = new Map((S.motorGraph?.nodes || []).map(n => [id(n.id), n]));
+        const motorBySource = new Map((S.motorGraph?.nodes || []).filter(n => n.sourceId != null).map(n => [id(n.sourceId), n]));
+        for (const n of graph.nodes || []) {
+            const expected = motorBySource.get(id(n.sourceId)), motor = motorById.get(id(n.motorNodeId));
+            if (n.motorSourceNodeId != null && (!motor || id(n.motorSourceNodeId) !== id(n.sourceId) || id(motor.sourceId) !== id(n.sourceId) || Math.hypot(n.x - motor.x, n.z - motor.z) > Math.SQRT2 / (2 * (D.q || 10)) + toleranceM)) fail('wrong-source-rail-motor-crossing-identity', { sourceNodeId: n.sourceId, motorNodeId: n.motorNodeId });
+            if (expected && n.orderedEdgeIds?.length && (!motor || id(motor.id) !== id(expected.id) || !S.tramMotorCrossings.some(x => id(x) === id(expected.id)))) fail('source-rail-crossing-not-registered-with-motor-controller', { sourceNodeId: n.sourceId, motorNodeId: expected.id });
+        }
     }
     const ways = new Map(D.tramSourceWays.map(w => [wayId(w.sourceId ?? w.id), { ...w, sourceId: wayId(w.sourceId ?? w.id) }])), coverage = new Map();
     for (let i = 0; i < D.tramSources.length; i++) {

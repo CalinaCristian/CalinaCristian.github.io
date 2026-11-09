@@ -1,22 +1,22 @@
 {
   "schemaVersion": 1,
   "nativeRuntimeCommit": "d77ab0124604f754e0b03ba06e2af74c45d7fb0f",
-  "pureChecks": 43,
+  "pureChecks": 47,
   "browserOpened": false,
   "productionFilesEdited": false,
   "scope": "Observer preparation and isolated CPU native-producer agreement; no live source rail/static/stop/crossing acceptance",
   "observerFiles": [
     {
       "file": "rail-binding-checks.js",
-      "sha256": "0ba182a857f743bbd4d2cf22acb4fe95f6de75fa35ee9feaceb4b6fb8d2a5733"
+      "sha256": "dd45d9e1750d0afd441cb8b5242b33bd0584434d464853ee2335d2178d8708fd"
     },
     {
       "file": "rail-binding-checks.test.mjs",
-      "sha256": "fe98514ce5b9b50adb88c5bad12aa63dce9e69666402a23eab914aba61a9d539"
+      "sha256": "0b215c9d21d088ff8a1a74cc012a316572742247643dcb32456ea587b8b9189c"
     },
     {
       "file": "rail-binding-observer.js",
-      "sha256": "530e7890c396a992e0ecc879f12e4f3bac9585a72ed401955e617bc3410a1771"
+      "sha256": "8c9c34e725afc0b0b2424f88ea585aa49a95978c7ab9cb2f9bf6963ac678668c"
     },
     {
       "file": "rail-binding-observer.test.mjs",
@@ -44,7 +44,7 @@
     },
     {
       "file": "RAIL-OBSERVER-PREP.md",
-      "sha256": "73ddad8c261ff51ecd3cf7e185c0aeecaf108d578f01465d59b0f3691a2ba42a"
+      "sha256": "993441d192868373339c7940afb81872f6444ab7b5c84529e9ee2c448bdc184b"
     }
   ],
   "nativeInputs": [
@@ -90,7 +90,7 @@
     },
     {
       "file": "pure-source-controls.log",
-      "sha256": "2d86ad3aa834d8a4a2cfe3f7df22d071e75629f8ddd10aae0613a2b73c3868cc",
+      "sha256": "287f77cafd280ec49a96f2bead89e55dd0cde1584d152bd0f622724b2ce86946",
       "bytes": 210
     }
   ]

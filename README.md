@@ -83,6 +83,7 @@ An interim fidelity/gameplay update is available for testing; the complete all-d
   Dinamo pitch paint uses filtered alpha coverage at its real 12 cm width, keeping lines continuous from higher drone views.
   The unsupported Needle deck-stair and botanical label-reading awards are retired; older saves retain earned history without counting these in completion.
   The overview includes separate shareable evidence views for every landmark and tourist destination, with game captures, source links and explicit remaining estimates. Current tourist views link to scoped native access/activity reports and retain earlier captures separately with their original revisions.
+  The overview also includes three unchanged, full-size dated Carusel staging captures: public doorway, first gallery and phone interior, with exact camera/conditions/source hashes and retained limitations. They are distinct from live-game or final visual acceptance.
   Long source revisions in evidence notes wrap within narrow screens while keeping the complete revision readable.
   SeaTac also includes native parking-deck, garage-helix and covered-departures views with their actual route and camera metadata.
   District galleries retain dated historical collections separately from current surveys. Game-only street, weather and drone context has its own gallery and exact camera metadata; only square north-up surveys are paired with aerial imagery. Available collections load inline, and official aerial images keep their original 15-minute browser cache expiry across reloads.

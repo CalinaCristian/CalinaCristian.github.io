@@ -13,6 +13,7 @@ Owner role: **cockpit-ui** (vehicles.js, office.js, flight.js, canvasText.js, st
 R17.1 Centre nav screen in a proper housing on the console: fully visible and unoccluded at FOV 72–86 and aspect 16:9, 16:10, 21:9, phone landscape; tilted to the driver; instrument cluster readable behind the wheel.
 R17.2 Mirror camera excludes all cockpit/cabin layers; correct position and frame.
 On a quality transition that enables the mirror, request its existing three warm refresh frames immediately; a target left dormant on Low must not show a stale/black view while waiting for the normal cadence. This does not enable the mirror on Low or add a second rear-scene render to one frame.
+Prewarm the existing Player-owned mirror target without taking ownership, and compile actual original-color/depth material variants with the current world's FogExp2 in both linear-target and sRGB presentation modes. Three's compile traverses object materials, so temporarily assign the depth reference only to private clones. Initialize the Low multisample target only on the actual Low render path; use the already-needed reference target for linear shader compilation on other tiers.
 R17.3 `fitText()` helper used by every canvas text (office signs, station screens, gauges, taxi/brand signs, flight captions); nothing ever overflows; log any text needing > 2 lines.
 R17.4 No sky gaps through the dash/doors at wide FOV or when looking ±150°; thin pillars.
 R17.5 HUD (DOM): no overlapping elements, nothing off-screen at 16:9/21:9/phone; touch controls don't cover the nav screen.

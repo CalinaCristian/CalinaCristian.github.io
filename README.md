@@ -149,6 +149,7 @@ that chapter of the CV.
   measured checks and remaining limits; software-rendered test timing is not phone performance.
   The instrument cluster and navigation/media screen stay sharp at every graphics tier. Their physical surfaces are redrawn after world antialiasing at bounded display resolution, preserving dashboard occlusion and normal controls. The mirror receives the same protection when enabled; Low retains its existing mirror policy.
   Enabling the mirror after a quality change refreshes its view immediately.
+  Its existing target and the display shader variants are prepared during setup; unused Low-only multisample buffers stay unallocated on higher tiers.
   Merged solid/roof meshes retain their original cell spans and select conservative geometry bounds independently
   for main, mirror and shadow cameras. Physical roof raycasts still use the complete canonical mesh. This preserves
   source geometry, measured crowns, population, detail and draw distances while avoiding invisible work.

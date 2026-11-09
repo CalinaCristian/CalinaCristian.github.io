@@ -1,0 +1,76 @@
+{
+  "capturedUtc": "2026-11-09T07:09:31.731958+00:00",
+  "scope": "Owner-reported holds plus exact inventory; no cleanup authorized.",
+  "activeWorktrees": [
+    "/workspace/fidelity-workers/independent-rail-body-observer",
+    "/workspace/fidelity-workers/unirii-pedestrian-recovery",
+    "/workspace/fidelity-workers/source-controlled-crossing",
+    "/workspace/fidelity-workers/remaining-us-districts",
+    "/workspace/fidelity-workers/rail-bridge-grade",
+    "/workspace/fidelity-workers/rail-bridge-model",
+    "/workspace/fidelity-workers/romana-rail-grade",
+    "/workspace/fidelity-workers/tram-source-metadata",
+    "/workspace/fidelity-workers/pipera-fidelity"
+  ],
+  "heldEvidence": [
+    "/workspace/integration-qa-evidence/groz-support-6cb-native",
+    "/workspace/integration-qa-evidence/romana-constructor-6cb-native",
+    "/workspace/reality-pass/pipera-rail-width-audit",
+    "/workspace/reality-pass/remaining-ro/admission-fixture-c4fd625",
+    "/workspace/reality-pass/remaining-ro/admission-fixture-groz-c2acc8d",
+    "/tmp/actual-body-fitted-old-context-sweep.json"
+  ],
+  "ownerStatements": {
+    "qa_finalize": "No live QA browser. Upcoming combined source not yet created. Four large source copies and two small source copies are CLOSED/reconstructible; raw outputs/manifests retained. PIDs394390/410619/361893/355926 all independently read as Z.",
+    "ro_finalize": "No live browser/PID. Preserve old/new worker worktrees. Historical source-c2acc8d/source-4621127/source-a294fff/source-c4fd6255 closed; root may still need controls.",
+    "us_finalize": "Uses own WT, Bridge/Rom WTs and6cb raw exports. Combined source-d981eee7/source-c4fd6255 retired. Preserve exact constructor fixtures.",
+    "rail_bridge_grade": "Both bridge WTs, all6cb raw/portable exports, private reference audit and /tmp sweep held. CPU session25243 was the only live job reported; no browser.",
+    "romana_rail_grade": "Romana WT+rawconstructor export and Bridge/US sources held; CPU420957 finished, no browser."
+  },
+  "additionalHistoricalSourcesNamedButNotByteVerified": [
+    {
+      "path": "/workspace/reality-pass/remaining-ro/source-c2acc8d",
+      "exists": true,
+      "ownerReported": "closed/retired, but root may need historical controls",
+      "byteManifestVerified": false,
+      "deletionAuthorized": false
+    },
+    {
+      "path": "/workspace/reality-pass/remaining-ro/source-4621127",
+      "exists": true,
+      "ownerReported": "closed/retired, but root may need historical controls",
+      "byteManifestVerified": false,
+      "deletionAuthorized": false
+    },
+    {
+      "path": "/workspace/reality-pass/remaining-ro/source-a294fff",
+      "exists": true,
+      "ownerReported": "closed/retired, but root may need historical controls",
+      "byteManifestVerified": false,
+      "deletionAuthorized": false
+    },
+    {
+      "path": "/workspace/reality-pass/remaining-ro/source-c4fd625",
+      "exists": true,
+      "ownerReported": "closed/retired, but root may need historical controls",
+      "byteManifestVerified": false,
+      "deletionAuthorized": false
+    },
+    {
+      "path": "/workspace/reality-pass/combined-native-budget/source-d981eee7",
+      "exists": true,
+      "ownerReported": "closed/retired, but root may need historical controls",
+      "byteManifestVerified": false,
+      "deletionAuthorized": false
+    },
+    {
+      "path": "/workspace/reality-pass/combined-native-budget/source-c4fd6255",
+      "exists": true,
+      "ownerReported": "closed/retired, but root may need historical controls",
+      "byteManifestVerified": false,
+      "deletionAuthorized": false
+    }
+  ],
+  "draftHold": "47 text files have a lossless safety copy;584 other entries remain held in place. In particular game-overview has588 untracked paths. Branch/tag reachability alone does not preserve uncommitted content.",
+  "latestSteering": "Cleanup HOLD while overview-only master publication proceeds. Full runtime FINAL gates still pending."
+}

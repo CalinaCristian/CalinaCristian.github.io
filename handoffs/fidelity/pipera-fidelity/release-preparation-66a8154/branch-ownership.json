@@ -1,0 +1,1072 @@
+{
+  "snapshotSource": "66a8154a21a1584e6766fd1b9be684e55efc5171",
+  "snapshotUtc": "2026-11-09T06:52:14.608689+00:00",
+  "livePreviewMasterObserved": "e354a500e95a5f741564becf528af1f9445bd265",
+  "localMasterAtInventory": "58129abe74a93be2ef52d3c3bf40682768531bc3",
+  "liveRemoteMasterAtInventory": "df9b2e2ced83b8b30bcc8e34cf809a434b25bc27",
+  "localBranches": [
+    {
+      "ref": "refs/heads/fidelity/ase-landmark",
+      "tip": "0ac7dd6e8aafc4a42b0539a8af2d2c34a8e2f102",
+      "parents": [
+        "b2f1bcea0d22bc842b067fbd75ab048e106fc4ac"
+      ],
+      "worktree": "/workspace/fidelity-workers/ase-landmark",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/bucharest-landmarks",
+      "tip": "62509a3225db5819ded369a4e0b9caa35563ebab",
+      "parents": [
+        "f75e7c4bd8f598a4476db05a7db155dd6590b50e"
+      ],
+      "worktree": "/workspace/fidelity-workers/bucharest-landmarks",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/building-geometry",
+      "tip": "00272e728442fc515ca1ede3da616805de92a0c1",
+      "parents": [
+        "2e6fef77b4635fb0042a9f66c053ccd603e87518"
+      ],
+      "worktree": "/workspace/fidelity-workers/building-geometry",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/cockpit-displays-proof-ready",
+      "tip": "4f422c859cbab27ca0c77efc74e83269a52a75ce",
+      "parents": [
+        "718b996c54819feb632c0b62682923b38f7abe2d"
+      ],
+      "worktree": "",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/combined-native-budget",
+      "tip": "5bd291a595743b13fd4cbd6e92fea91db39a9628",
+      "parents": [
+        "ebe6ccaf139893288d6a3aadc0eaa05fec20fe91"
+      ],
+      "worktree": "",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/combined-render-budget",
+      "tip": "2bbb2bb8fc598e5104b4bf6a2a80a18bc2c67b36",
+      "parents": [
+        "1a1dfc87f8839481126e5e0abe1174484556b5da"
+      ],
+      "worktree": "/workspace/fidelity-workers/combined-render-budget",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/comparison-gallery",
+      "tip": "df9b2e2ced83b8b30bcc8e34cf809a434b25bc27",
+      "parents": [
+        "58129abe74a93be2ef52d3c3bf40682768531bc3"
+      ],
+      "worktree": "/workspace/fidelity-workers/comparison-gallery",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/comparison-index",
+      "tip": "9a81700f869c3a893dd0d5a68d8b29d81f7a62f2",
+      "parents": [
+        "2298c8777619c589d61ab5e927bb0070c19d4661"
+      ],
+      "worktree": "/workspace/fidelity-workers/comparison-index",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/comparisons",
+      "tip": "c88f0f6dab0c0c00bf6576bba4a3d149c424cb0c",
+      "parents": [
+        "921cd45744045c1f76467b12490ed1cddd96a3e9"
+      ],
+      "worktree": "/workspace/fidelity-workers/comparisons",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/conditions-access",
+      "tip": "24fedb15ac568ee05b4de74231b2d5f8910b5ce8",
+      "parents": [
+        "232ae03a75403661bbcfba13491e8967360bea92"
+      ],
+      "worktree": "/workspace/fidelity-workers/conditions-access",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/conditions-qa",
+      "tip": "801685b72a2b933abd0db731a7e134cb5392c618",
+      "parents": [
+        "7e4d76826ebf735f17a7b84c5991ed5893e023df"
+      ],
+      "worktree": "/workspace/fidelity-workers/conditions-qa",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/dinamo-playability",
+      "tip": "846ce6c7a254445c46592805ac76eae6019c49f0",
+      "parents": [
+        "71268cc19e13cdb0ffde9e8251276aa692253dce"
+      ],
+      "worktree": "/workspace/fidelity-workers/dinamo-playability",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/drone-bounds",
+      "tip": "dcdf67db782a96fd2a95aa9ad0d471aced47676e",
+      "parents": [
+        "67a1f9d01b1d47cf261b599cd0a7c8782b5a82fa"
+      ],
+      "worktree": "/workspace/fidelity-workers/drone-bounds",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/drone-controls",
+      "tip": "49e4684e1231a77b1898d53caf7f4216c66eab6e",
+      "parents": [
+        "4118627e71cbb5890f411ebffc78462aa4e46b3c"
+      ],
+      "worktree": "/workspace/fidelity-workers/drone-controls",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/facade-rendering",
+      "tip": "65ba08d639d4367288e1647cacd34bbb44e683c5",
+      "parents": [
+        "b5b864485a9f88c3390ecac2485874c757b7374f"
+      ],
+      "worktree": "/workspace/fidelity-workers/facade-rendering",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/final-physical-soak",
+      "tip": "7f891465cf6203853281b8c62352c205bd7d99a8",
+      "parents": [
+        "853ea6ce22974e400d2e0532437938cd4cd347ce"
+      ],
+      "worktree": "/workspace/fidelity-workers/final-physical-soak",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/floreasca-comparisons",
+      "tip": "d53878b63dc3653a224fc0b728940ce5d7a280a2",
+      "parents": [
+        "df9b2e2ced83b8b30bcc8e34cf809a434b25bc27"
+      ],
+      "worktree": "/workspace/fidelity-workers/floreasca-comparisons",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/floreasca-parking",
+      "tip": "e71e8bc3c9e9e4bbd00580e361aceed29b999d83",
+      "parents": [
+        "0b1b723197331a8d95677845b6d56a08c2824b2e"
+      ],
+      "worktree": "/workspace/fidelity-workers/floreasca-parking",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/game-overview",
+      "tip": "168fa2f76de9c63dee3e8260a44045499378c057",
+      "parents": [
+        "3e70a9ad80438c002faa5c7aac3b6bcfbab5b486"
+      ],
+      "worktree": "/workspace/fidelity-workers/game-overview",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/groz-tram-path",
+      "tip": "920fe6e5817bb8c54ce11297daa1bdd1d5ada0fa",
+      "parents": [
+        "26fc461e6573a4f9bebd819cb381e1b90e41712c"
+      ],
+      "worktree": "/workspace/fidelity-workers/remaining-us-districts",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/groz-tram-source-audit",
+      "tip": "8ee6081d98bea46b45b265e94e67093d48c04b74",
+      "parents": [
+        "5439b1bfbdb3558d00252db9aa5541f68fb2e32c"
+      ],
+      "worktree": "",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/grozavesti-fidelity",
+      "tip": "6197f6e9ef7ca9e8974afdf5ada0704cbeabb787",
+      "parents": [
+        "8f6c1182c40b5026de435085d346cc6106a3840a"
+      ],
+      "worktree": "/workspace/fidelity-workers/grozavesti-fidelity",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/grozavesti-roads",
+      "tip": "044ce26ea0cc7a4c8637a85a0ae7fa4b7077fe68",
+      "parents": [
+        "57986a65bac7a86268b3678d6d0cd40d9fe5c746"
+      ],
+      "worktree": "/workspace/fidelity-workers/grozavesti-roads",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/independent-rail-body-observer",
+      "tip": "66a8154a21a1584e6766fd1b9be684e55efc5171",
+      "parents": [
+        "368edc81988c4cddbc7d35643f7a357efc84d36e"
+      ],
+      "worktree": "/workspace/fidelity-workers/independent-rail-body-observer",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/initial-blocker-packing",
+      "tip": "4ab0feaa4e4363bbdc792910e84a81be61d7127c",
+      "parents": [
+        "56b1b4208c024c7f63c16a7391324970f977676a"
+      ],
+      "worktree": "",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/integration-pipera-retaining",
+      "tip": "bf7bd47d05741da9b51319fb15bfddcf7e599873",
+      "parents": [
+        "da3b0bf8efa9db4cd13a931fc35c842f768eaddd"
+      ],
+      "worktree": "/workspace/fidelity-workers/integration-pipera-retaining",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/integration-qa",
+      "tip": "78416eb244e3c45f3283182562d23fedca87d232",
+      "parents": [
+        "fcff5b7484e94b5d8aeb2ae576e4210bd3090107"
+      ],
+      "worktree": "/workspace/fidelity-workers/integration-qa",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/landmark-evidence-wording",
+      "tip": "94e1c2e08fa10c3d6240ac5a9525e9495065c6b0",
+      "parents": [
+        "29f4533895e1abba65f342ebffed735791c1e301"
+      ],
+      "worktree": "/workspace/fidelity-workers/landmark-evidence-wording",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/lipscani-activities",
+      "tip": "5708ce850c0d694287f1a36b394edba15dbd4882",
+      "parents": [
+        "65ba08d639d4367288e1647cacd34bbb44e683c5"
+      ],
+      "worktree": "/workspace/fidelity-workers/lipscani-activities",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/location-inventory",
+      "tip": "92e49e24d7f1667eb66295eefda20e554f7de4da",
+      "parents": [
+        "7349ab481f87acefb59ff9d260d671e0aacb0907"
+      ],
+      "worktree": "/workspace/fidelity-workers/location-inventory",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/locations-audit",
+      "tip": "c939aa15fe494b6984218bbfa119c8195aa211be",
+      "parents": [
+        "7349ab481f87acefb59ff9d260d671e0aacb0907"
+      ],
+      "worktree": "/workspace/fidelity-workers/locations-audit",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/map-waypoints",
+      "tip": "aa9968cf11b1339010319186b38ae2ca41b29a7d",
+      "parents": [
+        "d43fb9ecb51ad9c11ab098c86cbdf96109f24054"
+      ],
+      "worktree": "/workspace/fidelity-workers/map-waypoints",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/mobile-controls",
+      "tip": "65ba08d639d4367288e1647cacd34bbb44e683c5",
+      "parents": [
+        "b5b864485a9f88c3390ecac2485874c757b7374f"
+      ],
+      "worktree": "/workspace/fidelity-workers/mobile-controls",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/mobile-transition-crash",
+      "tip": "65ba08d639d4367288e1647cacd34bbb44e683c5",
+      "parents": [
+        "b5b864485a9f88c3390ecac2485874c757b7374f"
+      ],
+      "worktree": "/workspace/fidelity-workers/mobile-transition-crash",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/native-roof-profiles",
+      "tip": "87fbb20812c0102fac4427b346807f879a1b5fcc",
+      "parents": [
+        "cf8c842d43ce1da7054cfe9ceb5c35c6a9fe6db9"
+      ],
+      "worktree": "/workspace/fidelity-workers/native-roof-profiles",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/native-turn-lanes",
+      "tip": "e77ca387885bf8527eadc87671eb3461005cf971",
+      "parents": [
+        "1dab4d418df11d101a6d7d723873215e4998c67d"
+      ],
+      "worktree": "/workspace/fidelity-workers/pipera-fidelity",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/old-town-fidelity",
+      "tip": "c2a1d9475544a8ca00f7a1ae7738194a5c4cfe02",
+      "parents": [
+        "b395322f37925ebd61fef83f7b822d2a8ec27602"
+      ],
+      "worktree": "/workspace/fidelity-workers/old-town-fidelity",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/original-districts-delivery",
+      "tip": "1fca355fb9a374775a0791cdf1974d4af8964391",
+      "parents": [
+        "cf174db4b22e583e9bf02594ff2705b724312517"
+      ],
+      "worktree": "/workspace/fidelity-workers/original-districts-delivery",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/original-districts-refresh",
+      "tip": "e81ed652d2ab1f4f0db0c68393162cc022fb1d4f",
+      "parents": [
+        "b8e59bdc3d0247618a64cab9736d4597f2ecc01b"
+      ],
+      "worktree": "/workspace/fidelity-workers/original-districts-refresh",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/original-pitch-paint",
+      "tip": "39cbba2d95feadb7d881939f62d4b46a314c5707",
+      "parents": [
+        "e292a2a8a4d69ed1e5a9efc18129d47dbf34ff09"
+      ],
+      "worktree": "/workspace/fidelity-workers/original-pitch-paint",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/overview-final-80f183",
+      "tip": "be64a79667bd70a3c2cc3c551273de7610bf3fb0",
+      "parents": [
+        "cbf885a7da5337330411b4214f2c86e28d2f9964"
+      ],
+      "worktree": "/workspace/fidelity-workers/overview-final-80f183",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/pipera-fidelity",
+      "tip": "9ebec853c683ea3aa09c3dd9b929d900061c9ad7",
+      "parents": [
+        "5b01d4e1170293a732931da5ee83afed236934aa"
+      ],
+      "worktree": "",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/pipera-water-bc9a3ff3",
+      "tip": "4fb7d7af3a5465c83037181fb50bc5d5db9e6647",
+      "parents": [
+        "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58"
+      ],
+      "worktree": "",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/rail-bridge-grade",
+      "tip": "e559642e83d497d1e1ae494825c0a5fd88e18a32",
+      "parents": [
+        "ac8e96c116c14c72612831f68a673f2aa3b76df8"
+      ],
+      "worktree": "/workspace/fidelity-workers/rail-bridge-grade",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/rail-bridge-model",
+      "tip": "fc23a68da396e336dce82dacc21134d45f5d18dd",
+      "parents": [
+        "f1681a2442ae1155f90ebb566fc98c22d31af145"
+      ],
+      "worktree": "/workspace/fidelity-workers/rail-bridge-model",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/remaining-ro-districts",
+      "tip": "74cd060b21e051698cf645cab66ca93b00666369",
+      "parents": [
+        "f11814c94af39c45e23a090cbd4f4b652d576a39"
+      ],
+      "worktree": "/workspace/fidelity-workers/remaining-ro-districts",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/remaining-us-districts",
+      "tip": "5439b1bfbdb3558d00252db9aa5541f68fb2e32c",
+      "parents": [
+        "4b62681ea1746ed74786bfe31d7984086a8eec2d"
+      ],
+      "worktree": "",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/romana-rail-grade",
+      "tip": "7ad4181bb66afb869172f89c4e9bad3b7775a485",
+      "parents": [
+        "81c78e35167ef871d8e48f49be8e29118a1a2ec2"
+      ],
+      "worktree": "/workspace/fidelity-workers/romana-rail-grade",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/root-acceptance-archive",
+      "tip": "bc71f959a07055b681f8b14dc4ff1004b05e4697",
+      "parents": [
+        "187576382b81cba9101b98b755a475e0f8786f11"
+      ],
+      "worktree": "/workspace/fidelity-workers/root-acceptance-archive",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/rosetti-basketball",
+      "tip": "595a0bd22797b3ed42d7c0e336248ed8763a360d",
+      "parents": [
+        "0472c75de8ee7f976353045d670cf7611247bd04"
+      ],
+      "worktree": "/workspace/fidelity-workers/rosetti-basketball",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/seattle-center-fidelity",
+      "tip": "4b67a26978334f177e618396013151c1376184dd",
+      "parents": [
+        "b395322f37925ebd61fef83f7b822d2a8ec27602"
+      ],
+      "worktree": "/workspace/fidelity-workers/seattle-center-fidelity",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/secret-bar-hint",
+      "tip": "02b1d2eccb9812a24e1f806c31203ee9cfdce22c",
+      "parents": [
+        "14f6b8d55e46221bd990aa2581961758343a9d12"
+      ],
+      "worktree": "/workspace/fidelity-workers/secret-bar-hint",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/shared-lane-qa",
+      "tip": "28468e7c5ca9e734d4de43c328f5fcb99dc64c16",
+      "parents": [
+        "e11646e6331cf3d3f2b8bd430862af3794e34bc4"
+      ],
+      "worktree": "/workspace/fidelity-workers/shared-lane-qa",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/sharp-cockpit-displays",
+      "tip": "55fd0c0446a664aacdac32c6978a3e94549cc118",
+      "parents": [
+        "09a3a9f5431490d525a69e35a3dcfb795ec01684"
+      ],
+      "worktree": "/workspace/fidelity-workers/sharp-cockpit-displays",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/signals-collisions",
+      "tip": "aa285484b2517f1aeccf6f30492e653011daa5d7",
+      "parents": [
+        "4f389000ef6e401773aafce169fdcecfd5ddd3e2"
+      ],
+      "worktree": "/workspace/fidelity-workers/signals-collisions",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/source-controlled-crossing",
+      "tip": "dd535b8bb545c309753199f2495c399b8c084e07",
+      "parents": [
+        "81c78e35167ef871d8e48f49be8e29118a1a2ec2"
+      ],
+      "worktree": "/workspace/fidelity-workers/source-controlled-crossing",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/static-cell-frustum-c78",
+      "tip": "1485d9bf0bbc4981f9377c279eacdb638ffeac94",
+      "parents": [
+        "c78a5f4c522723fb2f4e640999e3ac5d164fc724"
+      ],
+      "worktree": "",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/structure-atlas-final",
+      "tip": "a1898d312c8a7ec2a95e0388c7ed6a99758f43ce",
+      "parents": [
+        "080d08154f833cc1d3619f713cb7ca05ec1006f4"
+      ],
+      "worktree": "/workspace/fidelity-workers/structure-atlas-final",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/tourist-buc-portfolio",
+      "tip": "dc35087ef60050c2b5ad8ebb060cd33fc502b57d",
+      "parents": [
+        "d43fb9ecb51ad9c11ab098c86cbdf96109f24054"
+      ],
+      "worktree": "/workspace/fidelity-workers/tourist-buc-portfolio",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/tourist-context-activities",
+      "tip": "9a9d28db249580c53f5d4a7718e1612a1675094e",
+      "parents": [
+        "6605c890645da710b0e9f6113dc2d80af11838ba"
+      ],
+      "worktree": "/workspace/fidelity-workers/tourist-context-activities",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/tourist-journey",
+      "tip": "dc4374077e999e5d1c8f5808573511457ddf2430",
+      "parents": [
+        "a786ba6bb18c031432f0464c06e6a2fa93ad5dfe"
+      ],
+      "worktree": "/workspace/fidelity-workers/tourist-journey",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/tourist-us-portfolio",
+      "tip": "fcf16b3e5bcb59ba869d4ca07ee3bf93111f6994",
+      "parents": [
+        "a786ba6bb18c031432f0464c06e6a2fa93ad5dfe"
+      ],
+      "worktree": "/workspace/fidelity-workers/tourist-us-portfolio",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/tram-source-metadata",
+      "tip": "5e9d6d2e2ff90d155d561e345b26fb9d57319724",
+      "parents": [
+        "fabe253236781261dde4b706a0b9be809ecf96aa"
+      ],
+      "worktree": "/workspace/fidelity-workers/tram-source-metadata",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/unirii-pedestrian-recovery",
+      "tip": "9bd0c0eb2f6286c4208c291082da765f93c90b1d",
+      "parents": [
+        "28e2fb6b94b78d90ed25ef50e97950ef3e4f4859"
+      ],
+      "worktree": "/workspace/fidelity-workers/unirii-pedestrian-recovery",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/us-landmarks",
+      "tip": "d2c4d4b1a5ffb5cec4bf95f3d1f33f4179330dc9",
+      "parents": [
+        "e29276d19d24a161e66c72cc9088d2f92b3b0c28"
+      ],
+      "worktree": "/workspace/fidelity-workers/us-landmarks",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fidelity/us-source-delivery",
+      "tip": "3311433c41d49458ba7bd0c0cca7baab4e0b9f4d",
+      "parents": [
+        "7027aad417ea6b582f127561f391b010ac10e275"
+      ],
+      "worktree": "/workspace/fidelity-workers/us-source-delivery",
+      "classification": "task-owned fidelity worker",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/fix/dinamo-and-ambasador",
+      "tip": "819cdd51a61b6c025e7e5ab9966ee7dc1af996e6",
+      "parents": [
+        "49f09fc6d97da8d16d2bbd8e065d7ac81a2ae81d"
+      ],
+      "worktree": "/workspace/CalinaCristian.github.io",
+      "classification": "task staging; root owns final release/cleanup",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/master",
+      "tip": "58129abe74a93be2ef52d3c3bf40682768531bc3",
+      "parents": [
+        "a25c75fee6b37e4f68059071040d6c924be82f96"
+      ],
+      "worktree": "",
+      "classification": "master release target; never delete",
+      "deleteNow": false
+    },
+    {
+      "ref": "refs/heads/work",
+      "tip": "cd75d62781863ca330eb65bf793ebd7047ca5dd6",
+      "parents": [
+        "0e7232a512dfdf654dd6b3bed09e57d26859d051"
+      ],
+      "worktree": "",
+      "classification": "preexisting/setup ownership not assumed; preserve pending root classification",
+      "deleteNow": false
+    }
+  ],
+  "workBranch": {
+    "tip": "cd75d62781863ca330eb65bf793ebd7047ca5dd6",
+    "reflog": "Created from FETCH_HEAD",
+    "commitsNotInFreshPreviewMaster": 0,
+    "ownership": "Setup/preexisting, not inferred task-owned from naming. Root decides under user master-only instruction."
+  },
+  "remoteBranches": [
+    {
+      "ref": "refs/heads/fidelity/bucharest-landmarks",
+      "object": "62509a3225db5819ded369a4e0b9caa35563ebab",
+      "commitMetadata": {
+        "present": true,
+        "type": "commit",
+        "commit": "62509a3225db5819ded369a4e0b9caa35563ebab",
+        "parents": [
+          "f75e7c4bd8f598a4476db05a7db155dd6590b50e"
+        ],
+        "tree": "54c3ee6cd8145581e4aa1746c7f1e413f13ccd01",
+        "authorDate": "2026-11-08T17:26:56Z"
+      }
+    },
+    {
+      "ref": "refs/heads/fidelity/combined-render-budget",
+      "object": "2bbb2bb8fc598e5104b4bf6a2a80a18bc2c67b36",
+      "commitMetadata": {
+        "present": true,
+        "type": "commit",
+        "commit": "2bbb2bb8fc598e5104b4bf6a2a80a18bc2c67b36",
+        "parents": [
+          "1a1dfc87f8839481126e5e0abe1174484556b5da"
+        ],
+        "tree": "ba832016398bf95f7ae0c9e3fcfb7c647901b786",
+        "authorDate": "2026-11-08T16:45:38Z"
+      }
+    },
+    {
+      "ref": "refs/heads/fidelity/drone-controls",
+      "object": "49e4684e1231a77b1898d53caf7f4216c66eab6e",
+      "commitMetadata": {
+        "present": true,
+        "type": "commit",
+        "commit": "49e4684e1231a77b1898d53caf7f4216c66eab6e",
+        "parents": [
+          "4118627e71cbb5890f411ebffc78462aa4e46b3c"
+        ],
+        "tree": "74b98bd71970aafff523f5f61574e510846974d4",
+        "authorDate": "2026-11-08T16:09:04Z"
+      }
+    },
+    {
+      "ref": "refs/heads/fidelity/facade-rendering",
+      "object": "27b364c3d778cd5e7b2f858227b450038e34c52a",
+      "commitMetadata": {
+        "present": true,
+        "type": "commit",
+        "commit": "27b364c3d778cd5e7b2f858227b450038e34c52a",
+        "parents": [
+          "65ba08d639d4367288e1647cacd34bbb44e683c5"
+        ],
+        "tree": "ff9b07ffffa9c0974d40d09ff0ea61b2c690d031",
+        "authorDate": "2026-11-08T14:10:43Z"
+      }
+    },
+    {
+      "ref": "refs/heads/fidelity/floreasca-comparisons",
+      "object": "d53878b63dc3653a224fc0b728940ce5d7a280a2",
+      "commitMetadata": {
+        "present": true,
+        "type": "commit",
+        "commit": "d53878b63dc3653a224fc0b728940ce5d7a280a2",
+        "parents": [
+          "df9b2e2ced83b8b30bcc8e34cf809a434b25bc27"
+        ],
+        "tree": "a2a4d37130aedfbbe79c26883162b272c9100bb7",
+        "authorDate": "2026-11-08T13:06:13Z"
+      }
+    },
+    {
+      "ref": "refs/heads/fidelity/grozavesti-fidelity",
+      "object": "ed8fb52099722aa0867a524f49e6c3cded1ab676",
+      "commitMetadata": {
+        "present": true,
+        "type": "commit",
+        "commit": "ed8fb52099722aa0867a524f49e6c3cded1ab676",
+        "parents": [
+          "eaa40092c58da321aae036e508c63f341167d2e9"
+        ],
+        "tree": "d5f8dd81946f5f7c8b39ca23871c3572726b5591",
+        "authorDate": "2026-11-08T16:45:41Z"
+      }
+    },
+    {
+      "ref": "refs/heads/fidelity/grozavesti-roads",
+      "object": "044ce26ea0cc7a4c8637a85a0ae7fa4b7077fe68",
+      "commitMetadata": {
+        "present": true,
+        "type": "commit",
+        "commit": "044ce26ea0cc7a4c8637a85a0ae7fa4b7077fe68",
+        "parents": [
+          "57986a65bac7a86268b3678d6d0cd40d9fe5c746"
+        ],
+        "tree": "7593b75ac87aef62f3fbce56f6b0cc103925341f",
+        "authorDate": "2026-11-08T16:18:37Z"
+      }
+    },
+    {
+      "ref": "refs/heads/fidelity/integration-qa",
+      "object": "9c5719cb5e973af9c215b23063b1baa85bf186cd",
+      "commitMetadata": {
+        "present": true,
+        "type": "commit",
+        "commit": "9c5719cb5e973af9c215b23063b1baa85bf186cd",
+        "parents": [
+          "b94eedfd237b744eec8d2f7dba6773c03a6fdac2"
+        ],
+        "tree": "c527677690a25b7c034d707979df4762583cccb9",
+        "authorDate": "2026-11-08T21:51:16Z"
+      }
+    },
+    {
+      "ref": "refs/heads/fidelity/lipscani-activities",
+      "object": "7b493a6d629bdaa06c4b303b1e6f9d48cda63458",
+      "commitMetadata": {
+        "present": true,
+        "type": "commit",
+        "commit": "7b493a6d629bdaa06c4b303b1e6f9d48cda63458",
+        "parents": [
+          "6f9cb55623f0886aa8a030f01b99b6ecb7a6906b"
+        ],
+        "tree": "560b20e9dc67f18a6a3f2077fdc6f936513c91e7",
+        "authorDate": "2026-11-08T14:44:57Z"
+      }
+    },
+    {
+      "ref": "refs/heads/fidelity/mobile-controls",
+      "object": "9ddbd6351dde187c3d00eecb5aba37f3de47ecca",
+      "commitMetadata": {
+        "present": true,
+        "type": "commit",
+        "commit": "9ddbd6351dde187c3d00eecb5aba37f3de47ecca",
+        "parents": [
+          "0ba575def3bc08a621a2ca20c7704c1ed7d7ca31"
+        ],
+        "tree": "144bdb8d696a4552eda8e1cd6f3c20cd44aa20dc",
+        "authorDate": "2026-11-08T14:27:03Z"
+      }
+    },
+    {
+      "ref": "refs/heads/fidelity/mobile-transition-crash",
+      "object": "30b466c54487c1c538fd81385f69e76b34005185",
+      "commitMetadata": {
+        "present": true,
+        "type": "commit",
+        "commit": "30b466c54487c1c538fd81385f69e76b34005185",
+        "parents": [
+          "65ba08d639d4367288e1647cacd34bbb44e683c5"
+        ],
+        "tree": "b77266f181705fdcc491af7c0fc86d1fac478f88",
+        "authorDate": "2026-11-08T14:31:01Z"
+      }
+    },
+    {
+      "ref": "refs/heads/fidelity/native-roof-profiles",
+      "object": "87fbb20812c0102fac4427b346807f879a1b5fcc",
+      "commitMetadata": {
+        "present": true,
+        "type": "commit",
+        "commit": "87fbb20812c0102fac4427b346807f879a1b5fcc",
+        "parents": [
+          "cf8c842d43ce1da7054cfe9ceb5c35c6a9fe6db9"
+        ],
+        "tree": "baba1db86502aa8a51e7dfd90d21a932da69667c",
+        "authorDate": "2026-11-08T17:23:23Z"
+      }
+    },
+    {
+      "ref": "refs/heads/fidelity/original-districts-delivery",
+      "object": "1fca355fb9a374775a0791cdf1974d4af8964391",
+      "commitMetadata": {
+        "present": true,
+        "type": "commit",
+        "commit": "1fca355fb9a374775a0791cdf1974d4af8964391",
+        "parents": [
+          "cf174db4b22e583e9bf02594ff2705b724312517"
+        ],
+        "tree": "ead2dc82149eb13cebf647a543efe5555db5ccbb",
+        "authorDate": "2026-11-08T18:45:22Z"
+      }
+    },
+    {
+      "ref": "refs/heads/fidelity/original-districts-refresh",
+      "object": "ed6638844e8e97566deb5ce96c9474bd4ce36db3",
+      "commitMetadata": {
+        "present": true,
+        "type": "commit",
+        "commit": "ed6638844e8e97566deb5ce96c9474bd4ce36db3",
+        "parents": [
+          "25cd52e4ffdbbf55c60a980c17d622bba12a05a7"
+        ],
+        "tree": "1134296bc0ffb0555d5135c0b3c54b0eb9139a50",
+        "authorDate": "2026-11-08T22:08:54Z"
+      }
+    },
+    {
+      "ref": "refs/heads/fidelity/pipera-fidelity",
+      "object": "c4030c91651018852b800e51139ae69e1e6e415f",
+      "commitMetadata": {
+        "present": true,
+        "type": "commit",
+        "commit": "c4030c91651018852b800e51139ae69e1e6e415f",
+        "parents": [
+          "080b18547fe16cdee7d0817df024d1a60eec6dbc"
+        ],
+        "tree": "64bded127e3876722d4b14125b0d4f436723e419",
+        "authorDate": "2026-11-08T22:01:36Z"
+      }
+    },
+    {
+      "ref": "refs/heads/fidelity/remaining-ro-districts",
+      "object": "741d9abb3ea1d6f2e54b4355780e50924a0be09f",
+      "commitMetadata": {
+        "present": true,
+        "type": "commit",
+        "commit": "741d9abb3ea1d6f2e54b4355780e50924a0be09f",
+        "parents": [
+          "919fc152d7166fd7c4c62f6e4b2aeab49dea03dc"
+        ],
+        "tree": "b6a122a5dce751a6683382351866511f6f97829d",
+        "authorDate": "2026-11-08T22:28:35Z"
+      }
+    },
+    {
+      "ref": "refs/heads/fidelity/remaining-us-districts",
+      "object": "ac9f05e5a18e7e3ff3636cd77c1afee04bd18690",
+      "commitMetadata": {
+        "present": true,
+        "type": "commit",
+        "commit": "ac9f05e5a18e7e3ff3636cd77c1afee04bd18690",
+        "parents": [
+          "8eb9dcc81a4876b49ea48f64c20f3d7b53a7c7f4"
+        ],
+        "tree": "c6b9d624be82c3f864af98f6a10980417f8e3fd3",
+        "authorDate": "2026-11-08T21:49:18Z"
+      }
+    },
+    {
+      "ref": "refs/heads/fidelity/romana-rail-grade",
+      "object": "7ad4181bb66afb869172f89c4e9bad3b7775a485",
+      "commitMetadata": {
+        "present": true,
+        "type": "commit",
+        "commit": "7ad4181bb66afb869172f89c4e9bad3b7775a485",
+        "parents": [
+          "81c78e35167ef871d8e48f49be8e29118a1a2ec2"
+        ],
+        "tree": "4d013d322ae10dba35dc60aad085116202d75062",
+        "authorDate": "2026-11-09T06:43:54Z"
+      }
+    },
+    {
+      "ref": "refs/heads/fidelity/rosetti-basketball",
+      "object": "595a0bd22797b3ed42d7c0e336248ed8763a360d",
+      "commitMetadata": {
+        "present": true,
+        "type": "commit",
+        "commit": "595a0bd22797b3ed42d7c0e336248ed8763a360d",
+        "parents": [
+          "0472c75de8ee7f976353045d670cf7611247bd04"
+        ],
+        "tree": "af0bdee35f4cd5e3af6cc23914e063c35d8eb7f7",
+        "authorDate": "2026-11-08T16:31:05Z"
+      }
+    },
+    {
+      "ref": "refs/heads/fidelity/shared-lane-qa",
+      "object": "28468e7c5ca9e734d4de43c328f5fcb99dc64c16",
+      "commitMetadata": {
+        "present": true,
+        "type": "commit",
+        "commit": "28468e7c5ca9e734d4de43c328f5fcb99dc64c16",
+        "parents": [
+          "e11646e6331cf3d3f2b8bd430862af3794e34bc4"
+        ],
+        "tree": "1819699da4878772410c5a5eae009e6eac5d0e49",
+        "authorDate": "2026-11-08T17:58:46Z"
+      }
+    },
+    {
+      "ref": "refs/heads/fidelity/signals-collisions",
+      "object": "e0d3a041ca117532558f9182896c199c2930e557",
+      "commitMetadata": {
+        "present": true,
+        "type": "commit",
+        "commit": "e0d3a041ca117532558f9182896c199c2930e557",
+        "parents": [
+          "5a095d39671aed0368c7691c9af1b156a3ec3cd1"
+        ],
+        "tree": "fb48a90bd71805e1a3d50384ae1780b2b0d64b23",
+        "authorDate": "2026-11-08T14:44:40Z"
+      }
+    },
+    {
+      "ref": "refs/heads/fidelity/tourist-context-activities",
+      "object": "dcb2f524335b4886feb8de72f366c874b8de7ac7",
+      "commitMetadata": {
+        "present": true,
+        "type": "commit",
+        "commit": "dcb2f524335b4886feb8de72f366c874b8de7ac7",
+        "parents": [
+          "b533317a289663c8576610d54665f12471ea9744"
+        ],
+        "tree": "2f8c6faa63241bae7c305181465d1884d603e067",
+        "authorDate": "2026-11-08T22:04:21Z"
+      }
+    },
+    {
+      "ref": "refs/heads/fidelity/us-landmarks",
+      "object": "d2c4d4b1a5ffb5cec4bf95f3d1f33f4179330dc9",
+      "commitMetadata": {
+        "present": true,
+        "type": "commit",
+        "commit": "d2c4d4b1a5ffb5cec4bf95f3d1f33f4179330dc9",
+        "parents": [
+          "e29276d19d24a161e66c72cc9088d2f92b3b0c28"
+        ],
+        "tree": "c671702d4a19e7efdae4a6d679cec9ddafd6f740",
+        "authorDate": "2026-11-08T17:15:18Z"
+      }
+    },
+    {
+      "ref": "refs/heads/fidelity/us-source-delivery",
+      "object": "3311433c41d49458ba7bd0c0cca7baab4e0b9f4d",
+      "commitMetadata": {
+        "present": true,
+        "type": "commit",
+        "commit": "3311433c41d49458ba7bd0c0cca7baab4e0b9f4d",
+        "parents": [
+          "7027aad417ea6b582f127561f391b010ac10e275"
+        ],
+        "tree": "9d3d276435806cece24f07889a01729ef374cb2b",
+        "authorDate": "2026-11-08T18:37:41Z"
+      }
+    },
+    {
+      "ref": "refs/heads/fix/dinamo-and-ambasador",
+      "object": "b3a24b45a0097b704dba65f9a0156e43e4a8df3a",
+      "commitMetadata": {
+        "present": true,
+        "type": "commit",
+        "commit": "b3a24b45a0097b704dba65f9a0156e43e4a8df3a",
+        "parents": [
+          "6b398c27ad4b06dcd61637ecad65d449411e6f91"
+        ],
+        "tree": "f3070db4280ba050279151aecd3f133bb1b8f961",
+        "authorDate": "2026-11-09T06:43:32Z"
+      }
+    },
+    {
+      "ref": "refs/heads/master",
+      "object": "df9b2e2ced83b8b30bcc8e34cf809a434b25bc27",
+      "commitMetadata": {
+        "present": true,
+        "type": "commit",
+        "commit": "df9b2e2ced83b8b30bcc8e34cf809a434b25bc27",
+        "parents": [
+          "58129abe74a93be2ef52d3c3bf40682768531bc3"
+        ],
+        "tree": "21d0e3fe2d5599a67082a389ed807c54cd97986a",
+        "authorDate": "2026-11-08T12:36:37Z"
+      }
+    }
+  ],
+  "cleanupHold": true
+}

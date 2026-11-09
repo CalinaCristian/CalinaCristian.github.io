@@ -1,0 +1,41 @@
+{
+  "scope": "Preparation only; source66a is not FINAL acceptance. Rerun with freshly fetched origin/master and the actual final accepted root. All Git trees hashed in memory; no Git mutations.",
+  "baseCommit": "e354a500e95a5f741564becf528af1f9445bd265",
+  "baseTree": "4a529eca72988e6ac8a86fe708403ac3298756a9",
+  "acceptedPreparationCommit": "66a8154a21a1584e6766fd1b9be684e55efc5171",
+  "acceptedTree": "e2fa0ebc1daac28efbbfc17d23e1601352cf9b6f",
+  "changedPaths": 3886,
+  "groups": [
+    {
+      "group": "01-runtime-tests",
+      "paths": 798,
+      "treeAfterGroup": "c5ab8a1f108ce3d923602aa6197e8165db311902",
+      "indexInfo": "01-runtime-tests.index-info",
+      "skipEmptyGroup": false
+    },
+    {
+      "group": "02-overview-docs",
+      "paths": 28,
+      "treeAfterGroup": "f90a0c950194a9b80beab36268f9c9e0dbe1f44e",
+      "indexInfo": "02-overview-docs.index-info",
+      "skipEmptyGroup": false
+    },
+    {
+      "group": "03-proofs",
+      "paths": 3060,
+      "treeAfterGroup": "e2fa0ebc1daac28efbbfc17d23e1601352cf9b6f",
+      "indexInfo": "03-proofs.index-info",
+      "skipEmptyGroup": false
+    },
+    {
+      "group": "04-stamp-placeholder",
+      "paths": 0,
+      "treeAfterGroup": "e2fa0ebc1daac28efbbfc17d23e1601352cf9b6f",
+      "indexInfo": "04-stamp-placeholder.index-info",
+      "skipEmptyGroup": true
+    }
+  ],
+  "finalVirtualTreeEqualsAccepted": true,
+  "finalStampScope": "After curation, the existing stamp tool changes only index.html, game/index.html and game/release.json. Compare canonical runtime fingerprint to accepted code, retain exact pre-stamp tree equality, and do not claim literal post-stamp equality to an unstamped root. If needed, mirror only the three stamp blobs into an accepted-stamp checkpoint before final full-tree equality.",
+  "noRefsCommitsObjectsIndexesOrWorktreesWritten": true
+}

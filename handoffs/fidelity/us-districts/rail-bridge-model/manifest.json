@@ -10,7 +10,7 @@
   },
   "proofFilesSha256": {
     "README.md": "2b1eb1dc78748533676ffe9bfe03d08856a3e2a2a99f90a30d99604f6d8831db",
-    "actual-body-check.mjs": "bfa1c9c5b006c4c13791383ac4f490a6c1e7a41ff9e5486160860f858a94f6df",
+    "actual-body-check.mjs": "38516e7ceee7e534c5498515f2ab84a3efd07300ebb32755573af5e23f43ea96",
     "actual-body-intersections-metric-guard.json": "40b16206d21dc6c73d2576597a197a46ec796fc0828be4b9082d32c6fcfecf4c",
     "actual-body-intersections.json": "cab0735d78cd798426d2898bc40fbab6961a46c2e67296a3999f1b3a4087e52f",
     "controls-metric-guard.json": "569a9deafb8eb9c28f25f41dfaa7bcfc311a293da4909a2c4e7a5d51ba931ed5",
@@ -22,5 +22,6 @@
   "nativeProofCommit": "fabe253236781261dde4b706a0b9be809ecf96aa",
   "browserStarted": false,
   "wholeDistrictAcceptance": false,
-  "currentBlocker": "four actual native emitted-tram/road-solid triangle intersection poses"
+  "currentBlocker": "four actual native emitted-tram/road-solid triangle intersection poses",
+  "privateActualWorldVertexExport": "/workspace/reality-pass/pipera-rail-width-audit/actual-tram-world-vertices.json"
 }

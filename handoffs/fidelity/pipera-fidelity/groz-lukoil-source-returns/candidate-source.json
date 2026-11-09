@@ -1,0 +1,15 @@
+{
+  "scope": "Committed offline data/compiler candidate; no World/driving/native budget acceptance.",
+  "candidateCommit": "c7185127d31c4f1d14cadcf8cbe0ed2f2e44d46d",
+  "dataSha256": "fa12eda6365d369c79222ed8af0a068f5173899d71698a7f94cd70682dac4685",
+  "sourceFiles": {
+    "game/data/bucharest-grozavesti.json": "fa12eda6365d369c79222ed8af0a068f5173899d71698a7f94cd70682dac4685",
+    "game/research/source-returns-bucharest-grozavesti.json": "75ade705afb2eb95649c15db2fcc4ccd96739a975263a2e3ab9dc2969193af95",
+    "game/research/source-context-bucharest-grozavesti.json": "4a4e4500867a4fff5f2f35f1071724a162f2e1b03fc88d51498d24812b5e521e",
+    "tools/osm/build-data.mjs": "fe2df83fc6ce6eaff0db7917ca32be957a79401e00435b22dae644268a672b3d",
+    "tools/osm/corridors.mjs": "35609c3a4146419a576b8029bca18a837487f63deabc47314f1ce4520f7a94b2",
+    "tools/osm/source-return-corridors.mjs": "b399664e2ed77fa617b24a5d939303609d417ba40b3be5d70ef6f76281c023c9",
+    "tools/osm/source-return-context.mjs": "63fc19f1f71fd3e86f381ca4ca59bb5cf82c88feebaf5a4dfd37ad8baffb4277"
+  },
+  "verification": "Every listed working file matches the exact candidate Git blob."
+}

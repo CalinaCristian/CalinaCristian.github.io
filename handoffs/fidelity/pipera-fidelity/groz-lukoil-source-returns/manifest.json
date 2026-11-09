@@ -10,8 +10,8 @@
   "files": [
     {
       "path": "README.md",
-      "bytes": 11122,
-      "sha256": "7eebd90efeb0288b3610b6367ad550de0c6d42231cfb7530709ee4073e13d9ac"
+      "bytes": 11533,
+      "sha256": "080f9ba58b54b99b6fe57bc2635aadafbb67140f3962964329836fd60b1016fb"
     },
     {
       "path": "all8-road-source-controls.json",
@@ -56,6 +56,11 @@
       "sha256": "9f04c45219c9f14c59d222ccf06fe302ae6c450fb0234d088e121c06f1186329"
     },
     {
+      "path": "candidate-source.json",
+      "bytes": 1154,
+      "sha256": "cf538aad52c152f07e31258f726ea9c3623bad625c182f253056a8de14cd17e9"
+    },
+    {
       "path": "certify-gaps.py",
       "bytes": 6997,
       "sha256": "5822bccc8d18b01a3ce8ec9f70094195b5bf8d19bdea5588372109661bd4560f"
@@ -86,6 +91,11 @@
       "path": "context-check.json",
       "bytes": 582,
       "sha256": "bd383c034c52f9676900118e971e1177afabd7705cf715b39dc42aee90d46f32"
+    },
+    {
+      "path": "extended-preservation-audit.json",
+      "bytes": 849,
+      "sha256": "11647a160d6352e069f785458f7e5b09cc22c088b20ac2c297b34bc6fb78c7b1"
     },
     {
       "path": "ff6-connectivity.json.gz",
@@ -232,5 +242,6 @@
     "tools/osm/corridors.mjs": "35609c3a4146419a576b8029bca18a837487f63deabc47314f1ce4520f7a94b2",
     "tools/osm/source-return-corridors.mjs": "b399664e2ed77fa617b24a5d939303609d417ba40b3be5d70ef6f76281c023c9",
     "tools/osm/source-return-context.mjs": "63fc19f1f71fd3e86f381ca4ca59bb5cf82c88feebaf5a4dfd37ad8baffb4277"
-  }
+  },
+  "candidateCommit": "c7185127d31c4f1d14cadcf8cbe0ed2f2e44d46d"
 }

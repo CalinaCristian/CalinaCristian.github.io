@@ -19,15 +19,20 @@ def inspect(value, path, key=''):
             inspect(child, path, name if not re.fullmatch('[a-f0-9]{40}', name) else key)
     elif isinstance(value, list):
         for child in value: inspect(child, path, key)
-    elif isinstance(value, str) and re.fullmatch('[a-f0-9]{40}', value):
-        if re.search('commit|revision|baseline', key, re.I) and re.search('source|capture|runtime|review|baseline', key, re.I): records.setdefault(value, set()).add(path)
+    elif isinstance(value, str):
+        if re.fullmatch('[a-f0-9]{40}', value) and re.search('commit|revision|baseline', key, re.I):
+            records.setdefault(value, set()).add(path)
+        # Accepted implementation and prior-record links must survive branch
+        # cleanup just like image capture sources. Restrict URLs to this repo.
+        match = re.match(r'https://github\.com/CalinaCristian/CalinaCristian\.github\.io/(?:blob|tree|commit)/([a-f0-9]{40})(?:/|$|#)', value, re.I)
+        if match: records.setdefault(match.group(1).lower(), set()).add(path)
 for path in git('ls-tree', '-r', '--name-only', source, '--', 'game/overview/evidence', 'game/overview/comparison-data').splitlines():
     if path.endswith('.json'): inspect(json.loads(git('show', source + ':' + path)), path)
 missing = [rev for rev in records if subprocess.run(['git','cat-file','-e',rev+'^{commit}'], cwd=ROOT, capture_output=True).returncode]
 heads = list(dict.fromkeys([source, *git('for-each-ref', '--format=%(objectname)', 'refs/heads/fidelity/', 'refs/heads/fix/dinamo-and-ambasador').splitlines()]))
 for rev in sorted(records):
     if rev not in missing and not any(subprocess.run(['git','merge-base','--is-ancestor',rev,head], cwd=ROOT).returncode == 0 for head in heads): heads.append(rev)
-plan = {'schemaVersion':1, 'sourceCommit':source, 'tree':git('rev-parse',source+'^{tree}'), 'captureSources':{k:sorted(v) for k,v in sorted(records.items())}, 'archiveParents':heads, 'missingCommitObjects':missing, 'purpose':'Retain historical capture objects outside curated master history before deleting task branches. No branch, source record or capture date is rewritten.'}
+plan = {'schemaVersion':1, 'sourceCommit':source, 'tree':git('rev-parse',source+'^{tree}'), 'captureSources':{k:sorted(v) for k,v in sorted(records.items())}, 'archiveParents':heads, 'missingCommitObjects':missing, 'purpose':'Retain historical capture, implementation and prior-record objects outside curated master history before deleting task branches. No branch, source record or capture date is rewritten.'}
 if missing: raise SystemExit('Missing capture commit objects: '+', '.join(missing))
 if args.write_tag:
     git('check-ref-format','refs/tags/'+args.write_tag)

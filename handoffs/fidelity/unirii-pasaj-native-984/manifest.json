@@ -1,0 +1,54 @@
+{
+  "runtimeSource": "984ded5ad3f07b78e61cee1bb3bbc43a813fa914",
+  "scope": "Observer preparation only; no984 native browser in RO lane yet",
+  "files": {
+    "README.md": {
+      "bytes": 3517,
+      "sha256": "c585d3bc480fa122e5367455cfb79ec7350cae40d06046bf1b0de022b8efe7e5"
+    },
+    "all-profile-queries.json.gz": {
+      "bytes": 194160,
+      "sha256": "452ad47d4bb0dd906a72f3ede3e2a1a91c8654d512d88a2817daf180f7c263f3"
+    },
+    "observer-controls.json": {
+      "bytes": 1205,
+      "sha256": "b16dba91683bb65088a0942a7ba8afae2c8b4f69f588a84b86dc8c7f018d7b63"
+    },
+    "tools/canonical-index.cjs": {
+      "bytes": 3756,
+      "sha256": "060bf3d4ff5917386fd96eb46487ea24db61ebf76901f6fed33f84f7c385acf0"
+    },
+    "tools/full-frame-budget.cjs": {
+      "bytes": 5100,
+      "sha256": "9314efc48f15aff460c83362dd2031b359ecb65493689c19896361de76db9062"
+    },
+    "tools/native-facts-controls.mjs": {
+      "bytes": 4085,
+      "sha256": "968c9e70617978bc9b00942705ec47b5e07bb9979e06917e782349c741fa8e2f"
+    },
+    "tools/native-facts.cjs": {
+      "bytes": 6193,
+      "sha256": "64597979dc9504fdb9dc3c486db4bc0824857916a09f3f4eb3da62efcef9a5ad"
+    },
+    "tools/native-support-controls.mjs": {
+      "bytes": 2452,
+      "sha256": "e579e07942242cddb9c6ca3b169acc3d613c472651593c6d7655506f5d4378ab"
+    },
+    "tools/native-support-trace.cjs": {
+      "bytes": 2804,
+      "sha256": "9ca19b2e43700a453899a6cf335b62bf181f0b33bfc863cf45529bd390ed10bd"
+    },
+    "tools/observe-pasaj-native.cjs": {
+      "bytes": 28099,
+      "sha256": "d5f9a183fd19c8983633958db970097915947f4de88ca4d3b0dadc4b5313215c"
+    },
+    "tools/prepare-shared-reader.py": {
+      "bytes": 2786,
+      "sha256": "d94a2dfe293228ec3c27b99fddb1f3b9126c142434b760b188989193dd2973bc"
+    },
+    "tools/sample-native-profiles.cjs": {
+      "bytes": 2334,
+      "sha256": "5c3e787d3ef43304b40541360fc10caee58f4dd476877b2e5d93dfec69048641"
+    }
+  }
+}

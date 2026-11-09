@@ -1,0 +1,28 @@
+{
+  "scope": "Read-only observer CPU controls only, no new native run",
+  "suites": [
+    {
+      "passed": 8,
+      "cases": [
+        "actual hatch vertex bounds beat incorrect producer height metadata",
+        "native parent translation and body pitch are applied independently",
+        "producer pass cannot waive a real actual-height deep body contact",
+        "grade-separated XY overlap is retained but not a physical contact",
+        "missing actual geometry remains unknown and blocks drive admission",
+        "actual extra model hierarchy contributes to the whole interval",
+        "detached native taxi template and unsupported deformations are explicit",
+        "literal rail direction, mode, centre and grade gates reject independently"
+      ]
+    },
+    {
+      "passed": 5,
+      "cases": [
+        "actual vertices and source-specific support remain distinct",
+        "native parent/pose changes cannot reuse stale cached world Y",
+        "actual position attribute version invalidates the interval cache",
+        "connected-leg support is reported rather than filled by a guessed road",
+        "missing emitted model stays unknown despite declared height"
+      ]
+    }
+  ]
+}

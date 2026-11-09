@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import {createRequire} from 'node:module';
+import * as THREE from '../../../../game/vendor/three.module.min.js';
+const require=createRequire(import.meta.url),trace=require('./native-support-trace.cjs'),cases=[];
+function fixture(){const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute([-1,-.065,-2,1,1.52,2,0,.5,0],3));const mesh=new THREE.Group();mesh.userData._model={geo};mesh.position.y=.24;const e={id:0,road:0,len:20},v={id:1,kind:'hatch',x:0,y:.24,z:0,s:10,length:4,width:2,mesh,edge:e};globalThis.window={U:{THREE}};globalThis.game={traffic:{time:0,vehicles:[v],pool:[],peds:{list:[]}},world:{data:{roadSourceGeometry:{0:{sourceId:'w1'}}},roadHeight:(x,z,edge)=>{assert.equal(edge,e);return .24;}},player:{x:0,y:.24,z:0,surfY:.24,pitch:0,heading:0,speed:0,supportEdge:e}};globalThis.harness={H:{simT:0}};return{geo,mesh,v};}
+const test=(name,fn)=>{fn();cases.push(name);};
+test('actual vertices and source-specific support remain distinct',()=>{const f=fixture(),r=trace();assert.equal(r.actors[0].originVsSourceSurfaceM,0);assert.ok(Math.abs(r.actors[0].model.min-.17500000238418578)<1e-12);assert.equal(r.actors[0].sourceId,'w1');});
+test('native parent/pose changes cannot reuse stale cached world Y',()=>{const f=fixture();trace();const p=new THREE.Group();p.position.y=2;p.rotation.x=.2;p.add(f.mesh);const r=trace().actors[0].model,m=new THREE.Matrix4().compose(p.position,p.quaternion,p.scale).multiply(new THREE.Matrix4().compose(f.mesh.position,f.mesh.quaternion,f.mesh.scale)),ys=Array.from({length:3},(_,i)=>new THREE.Vector3().fromBufferAttribute(f.geo.attributes.position,i).applyMatrix4(m).y);assert.equal(r.min,Math.min(...ys));assert.equal(r.max,Math.max(...ys));});
+test('actual position attribute version invalidates the interval cache',()=>{const f=fixture();trace();f.geo.attributes.position.setY(1,3);f.geo.attributes.position.needsUpdate=true;assert.ok(trace().actors[0].model.max>3.23);});
+test('connected-leg support is reported rather than filled by a guessed road',()=>{const f=fixture();f.v.s=.5;assert.equal(trace().actors[0].connectedLegSupportRequired,true);});
+test('missing emitted model stays unknown despite declared height',()=>{const f=fixture();delete f.mesh.userData._model;f.mesh.userData.height=1.46;assert.equal(trace().actors[0].model.known,false);});
+console.log(JSON.stringify({passed:cases.length,cases},null,2));

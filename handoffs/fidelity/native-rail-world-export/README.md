@@ -65,3 +65,26 @@ Both fresh whole scene inventories and all new floors/marks/roofs/trenches are r
 RO independently decoded the actual Groz scene and found one explicit export coverage gap: the executed tool asked for `e.directions`, while runtime declares `e.railDirections`. The54 raw therefore has no recorded native legal-direction array. Raw source tags/node IDs and actual native graph/actor poses remain available, but source-tag reconstruction is separate evidence. This gap is preserved in `assessment.json`, with no replay or relabel. The current tool corrects that field for future runs; `proof-54c-r2/install-observer.cjs` preserves the exact originally executed version. An after-bind wrapper pose snapshot also precedes caller assignment of `initialTramBinding`; its real assigned summary is present at later publication stages.
 
 The two actual front-view PNGs were inspected. They show native cockpit/street scenes, not close bridge/tunnel parity or successful rail motion. Producer pass/assertion fields remain diagnostic only. The internal proof bundle is about81 MB, with every individual file below100 MiB; it has no public runtime/gallery consumer and belongs in root's internal Pages exclusion pass.
+
+## Zero-simulation selected-district export
+
+`prepare-external.mjs` verifies an existing lane-owned archive read-only against its original file ledger and exact Git tree, including the complete physical file inventory. It writes a normalized source manifest and copied observer tools only to a new output directory. No source file is added, copied into, substituted or modified in that archive. Example for root's authorized Unirii54 constructor investigation:
+
+```sh
+node handoffs/fidelity/native-rail-world-export/prepare-external.mjs \
+  --source 54c044421640cfe3569bfc3f72159d2169f87581 \
+  --archive /workspace/reality-pass/combined-native-budget/source-54c04442 \
+  --provenance /workspace/reality-pass/combined-native-budget/candidate-54c04442-r2/source-provenance.json \
+  --districts unirii --out /workspace/integration-qa-evidence/unirii-zero54-native
+NODE_PATH=/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules \
+NODE_OPTIONS=--require=/workspace/.environment/drive-my-cv/use-system-chromium.cjs \
+node /workspace/integration-qa-evidence/unirii-zero54-native/runner.cjs --go \
+  --source 54c044421640cfe3569bfc3f72159d2169f87581 \
+  --archive /workspace/reality-pass/combined-native-budget/source-54c04442 \
+  --out /workspace/integration-qa-evidence/unirii-zero54-native \
+  --tod rush --native-clock --all-actor-geometry --skip-scene
+```
+
+`--native-clock` leaves the original public clock untouched, and `--tod rush` uses the actual native rush profile; High is selected through the native menu control. This matches the original Pipera54 public load rather than imposing the earlier frozen-noon fixture. `--all-actor-geometry` retains each actor's actual primary/far geometry, full hierarchy/parent transforms and independently calculated primary world Y interval. `--skip-scene` omits whole-world mesh buffers while preserving the complete actor geometry catalog in facts, native graph/source/profiles/ribbons and every collider. One native draw is allowed; the update loop is stopped and traffic time remains zero. No drive route, movement, actor writes, repairs or native acceptance are implied.
+
+The standalone decoder also exports `rehydrateSafeLocal(encodedField)`. Apply it separately to the exact root of each original `K.safe` call: for colliders, each property has its own root (for example `rehydrateSafeLocal(collider.poly)`). A repeated polygon endpoint `{$ref:'$.0'}` therefore resolves to that polygon's first point, not the world document. Unknown/ambiguous references fail; function/native-object markers remain unavailable metadata. No function closure is reconstructed or evaluated. Thirteen CPU controls include these local reference cases. Historical raw outputs and their exact executed decoders remain unchanged.

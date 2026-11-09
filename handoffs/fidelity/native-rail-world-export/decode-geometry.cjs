@@ -42,4 +42,27 @@ function integrity(scene) {
         const bytes = Buffer.from(a.array.base64, 'base64'); decodeTyped(a.array); return { geometryId: g.id, attribute: name, bytes: bytes.length, sha256: crypto.createHash('sha256').update(bytes).digest('hex') };
     }));
 }
-module.exports = { decodeTyped, attribute, transform, multiply, geometryPart, triangles, meshParts, integrity };
+// Apply to ONE original K.safe(...) field, such as collider.poly, never the whole world.
+// Function/native-object markers remain unavailable metadata; no closure is evaluated.
+function rehydrateSafeLocal(encoded) {
+    const nodes = new Map(), ambiguous = new Set(), references = new Map();
+    const put = (o, k, v) => Object.defineProperty(o, k, { value: v, enumerable: true, configurable: true, writable: true });
+    function clone(v, p) {
+        if (!v || typeof v !== 'object') { if (nodes.has(p)) ambiguous.add(p); nodes.set(p, v); return v; }
+        const out = Array.isArray(v) ? [] : {}; if (nodes.has(p)) ambiguous.add(p); nodes.set(p, out);
+        if (!Array.isArray(v) && Object.keys(v).length === 1 && typeof v.$ref === 'string') { references.set(out, v.$ref); return out; }
+        for (const [k, value] of Object.entries(v)) put(out, k, clone(value, p + '.' + k)); return out;
+    }
+    const root = clone(encoded, '$'), done = new WeakMap();
+    function resolve(v, stack = new Set()) {
+        if (!v || typeof v !== 'object') return v;
+        if (references.has(v)) {
+            const p = references.get(v); if (ambiguous.has(p) || !nodes.has(p)) throw Error('Unknown or ambiguous local safe reference ' + p);
+            if (stack.has(v)) throw Error('Cyclic local safe reference needs explicit interpretation'); const next = new Set(stack); next.add(v); return resolve(nodes.get(p), next);
+        }
+        if (done.has(v)) return done.get(v); done.set(v, v);
+        for (const k of Object.keys(v)) put(v, k, resolve(v[k], stack)); return v;
+    }
+    return resolve(root);
+}
+module.exports = { decodeTyped, attribute, transform, multiply, geometryPart, triangles, meshParts, integrity, rehydrateSafeLocal };

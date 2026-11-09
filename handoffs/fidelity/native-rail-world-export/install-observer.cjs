@@ -1,5 +1,5 @@
 // Installed only in a root-authorized fresh browser. Exact native source methods stay authoritative.
-module.exports = async function installRailObserver() {
+module.exports = async function installRailObserver(options = {}) {
     const { Traffic } = await import('./src/traffic.js');
     const producer = await import('./src/tram-body-support.js');
     const admission = await import('./src/initial-traffic-admission.js');
@@ -34,12 +34,14 @@ module.exports = async function installRailObserver() {
         const row = { ...scalar(v), tramDetected: tram, edge: edgeRef(v.edge), route: (v.route || []).map(r => ({ ...scalar(r), edge: edgeRef(r.e || r.edge) })),
             hist: (v.hist || []).map(r => ({ ...scalar(r), edge: edgeRef(r.e || r.edge) })), leaderId: v.leader?.id ?? null, railSupport: K.safe(v.railSupport),
             meshPose: { position: mesh.position.toArray(), rotation: mesh.rotation.toArray(), quaternion: mesh.quaternion.toArray(), scale: mesh.scale.toArray() } };
-        if (!tram) return row;
+        if (!tram && !options.allActorGeometry) return row;
         mesh.updateWorldMatrix(true, false);
         const m = mesh.userData._model;
         row.mesh = K.mesh(mesh); row.meshHierarchy = []; mesh.traverse(o => row.meshHierarchy.push(o.isMesh ? K.mesh(o) : K.frame(o)));
         row.parentChain = K.parents(mesh); row.model = m ? { ...scalar(m), primaryGeometryId: K.geometry(m.geo), farGeometryId: K.geometry(m.far), parkedGeometryId: K.geometry(m.parked),
             primaryWorldBounds: K.bounds(m.geo, mesh.matrixWorld.elements), userDataDimensions: { length: mesh.userData.length, width: mesh.userData.width, height: mesh.userData.height } } : { unknown: 'native model record missing' };
+        const bounds = row.model.primaryWorldBounds;
+        row.actualPrimaryVerticalInterval = bounds?.known ? { known: true, min: bounds.min[1], max: bounds.max[1], source: 'Actual primary emitted position vertices under complete native world matrix/parents' } : { known: false, reason: 'Native primary geometry unavailable/invalid' };
         row.nativeRenderBindings = renderBindings(v);
         if (v.edge?.rail) {
             try { row.producerDiagnostics = { certificate: K.safe(producer.validateTramSupportCertificate(v, g.world?.tramDeckSupportAt)), staticClearance: K.safe(admission.initialTrafficStaticClearance(g.world, v)),

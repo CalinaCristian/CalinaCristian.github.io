@@ -1,0 +1,17 @@
+{
+  "scope": "Read-only native final small-water and raw-positive/reconstructed exact roof footprint witnesses. Source-validated big POSITION-triple analysis is separately labelled; directly captured big canonical topology remains unknown. No new roof/mask, hole, visual or passage acceptance.",
+  "source": "be12cd87cf988a097c7c54011f0b816694119db7",
+  "files": [
+    {
+      "path": "native-complete-small-water.json.gz",
+      "bytes": 1010,
+      "sha256": "f51643a06f798bf18877cc818f89f761725ff9ef7b4c54ac135e5e05c7d6983b"
+    },
+    {
+      "path": "witnesses.json",
+      "bytes": 24344,
+      "sha256": "f4e1c7e36234e318059fca72334e493ad259172c620ffcbc6a216fac5de333c8"
+    }
+  ],
+  "toolSHA256": "c9b87aff03330842751497f3fe25d5759295f6e5c10c2088ff0f3bd0b214667b"
+}

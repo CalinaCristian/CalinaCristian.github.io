@@ -1232,7 +1232,8 @@ export class Traffic {
             if (curE.rail && !nxt) {
                 // The whole body stops before an unresolved grade/source or
                 // activity-boundary leaf. No extension onto unmodeled rails.
-                if (D - .1 < stopD) { stopD = Math.max(0, D - .1); stopWhy = 'rail-source-boundary'; }
+                const clearance = this.isJunction(node) ? rad + 1.5 : .1;
+                if (D - clearance < stopD) { stopD = Math.max(0, D - clearance); stopWhy = 'rail-source-boundary'; }
             }
             if (curE.rail && (node.tags?.railway === 'tram_stop' || node.tags?.public_transport === 'stop_position') &&
                 !(v.servedRailStop === node.sourceId && v.odo - (v.servedRailStopOdo || 0) < v.length + 5)) {

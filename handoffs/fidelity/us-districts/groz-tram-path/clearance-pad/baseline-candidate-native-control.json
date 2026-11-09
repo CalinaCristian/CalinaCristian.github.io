@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "baselineSourceCommit": "d77ab0124604f754e0b03ba06e2af74c45d7fb0f",
+  "baseline": {
+    "span": [
+      13.5,
+      86.5
+    ],
+    "reverse": [
+      13.5,
+      86.5
+    ]
+  },
+  "candidateSpan": [
+    13.5,
+    80
+  ],
+  "candidateReverseSpan": [
+    20,
+    86.5
+  ],
+  "nativePadRadiusM": 5,
+  "existingNativeLongBodyMarginM": 1.5,
+  "wholeBodyFrontLimitM": 93.5,
+  "actualNativeBoundaryMaxFrontM": 93.20234568019148,
+  "actualNativeBoundaryStop": "rail-source-boundary",
+  "idsPreserved": true,
+  "browserOpened": false,
+  "scope": "Source span and actual native Traffic boundary motion on an isolated CPU source crossing. Same native radius+1.5m pad rule; no motor topology/geometry/ordinary-car buffer change."
+}
